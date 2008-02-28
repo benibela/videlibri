@@ -1,0 +1,60 @@
+<html>
+<head>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<h1>2. Template anlegen</h1>
+In einem Template beschreibt man VideLibri, wie die Internetseite einer Bücherei aufgebaut ist.<br><br>
+
+Um ein Template zu erstellen, muss man ein Verzeichnis namens data\libraries\templates\xxxxx anlegen, wobei xxxxx der Name des Templates ist.<br>
+Dort erstellt man dann wiederum eine Datei namens template mit folgendem Aufbau:
+
+
+<pre>
+&lt;library-template>
+&lt;username matches="Regulärer Ausdruck der den Benutzernamen erkennt (optional)"/>
+&lt;password matches="Regulärer Ausdruck der ein gültiges Passwort erkennt (optional)"/>
+&lt;maxExtendCount value="Maximale Anzahl an Verlängerungen (optional)"/>
+&lt;earmarked matches="Regulärer Ausdruck der ein vorgemerktes Buch am Statustext erkennt (optional)"/>
+&lt;maxlimit matches="Regulärer Ausdruck der ein Buch mit abgelaufener Frist am Statustext erkennt (optional)"/>
+&lt;accountExpired matches="Regulärer Ausdruck der am Statustext eine abgelaufene Ausleihkarte erkennt (optional)"/>
+
+&lt;action id="connect, update, update-single, extend-all oder extend-list, extend-single"  
+           update-before="true, wenn vor Ausführen der Aktion die Medien aktualisiert werden müssen (optional)"
+           update-after="true, wenn nach Ausführen der Aktion die Medien aktualisiert werden müssen (optional)"
+           singleBookStr="ein Buchidentifikationstring bei extend-list (siehe unten) "
+           >
+  &lt;page url="URL der Seite" 
+           templateFile="Lokale Datei zur Auswertung (siehe <a href="seiten.html">Schritt 3</a>) (optional)"
+           post-params="Parameter, die per POST-Methode an die Seite übergeben werdem sollen. (<u>keine</u> xml-Codierung) (optional)"
+           />
+  &lt;page ... (optional) />
+  &lt;page ... (optional) />
+  ...
+&lt;/action>
+
+&lt;action ... (optional>
+  &lt;page ... (optional) />
+  ...
+&lt;/action>
+
+  ...
+</pre>
+
+Alle Tags außer &lt;action> und &lt;page> sind optional und dienen nur zur Verschönerung.<br>
+Mit &lt;action> werden die Aktionen gesteuert, die das Programm ausführt, indem die durch &lt;page> angegebenen Seiten aufgerufen und der im <a href="seiten.html">dritten Schritt</a> erstellten Datei verarbeitet werden. <br>
+In ihren Attributwerten wird jedes Auftreten von $variablen-name; durch den Wert der Variable namens variablen-name ersetzt. Definiert werden können Variablen in der <a href="bibliothek.html">Büchereibeschreibung<a> und der <a href="seiten.html">Seitenauswertung</a>. Je nach Aktion gibt es auch noch Standardvariablen.<br>
+Es gibt folgende Aktionen:<br>
+connect wird einmal ausgeführt, um eine Verbindung zur Bücherei herzustellen. <br>
+update wird immer ausgeführt, um die Medienliste zu aktualisieren und ist die einzigste notwenige Aktion.<br> update-single wird immer nach dem Aktualisieren ausgeführt. Es definiert Variablen vom Typ book. mit denen auf Eigenschaften des jeweiligen Buches zugegriffen werden kann. (siehe <a href="seiten.html">Schritt 3</a>)<br>
+extend-all wird ausgeführt, wenn alle Medien verlängert werden sollen oder wenn einige Medien verlängert werden sollen und es weder extend-single noch extend-list gibt.<br>
+extend-list wird zum Verlängern von mehreren Medien ausgeführt. Damit die Seiten wissen können, welche Medien verlängert werden sollen, wird die Variable book-list definiert, die die Konkenation der singleBookStr für jedes Buch ist. In der Definition von singleBookStr kann man die book. Variablen verwenden<br>
+extend-single wird ausgeführt, um ein Buch zu verlängert. Hier gibt es wieder book. Variablen.<br>
+
+Man darf als Zeichensatz nur Windows-1252 und UTF-8 benutzen.
+
+
+
+<br>
+<!--Außerdem gibt es zusätzlich noch <a href="faq.html">Fragen und Antworten--></a>
+</body>

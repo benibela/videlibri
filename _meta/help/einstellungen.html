@@ -1,0 +1,60 @@
+<html>
+<head>
+<link rel="stylesheet" href="style.css">
+<meta name="MS-HKWD" content="Einstellungen">
+<meta name="MS-HKWD" content="Optionen">
+<meta name="MS-HKWD" content="Konten">
+</head>
+<body>
+<h1>Einstellungen</h1>
+Der Einstellungsdialog besteht aus 4 einzelnen Komponenten, die über die Auswahlbox am linken Fensterrand ausgewählt werden können.<br>
+<table>
+<tr><td><a href="#konten">Konten</a></td><td>Hier gibt man die zum Kontozugriff nötigen Informationen ein.</td></tr>
+<tr><td><a href="#aussehen">Aussehen</a></td><td>Hier kann man das Aussehen des Programmes einstellen</td></tr>
+<tr><td><a href="#internet">Internet</a></td><td>Hiermit steuert man die Verbindungsoptionen</td></tr>
+<tr><td><a href="#autostart">Zeiten</a></td><td>Hiermit legt man fest, ob/wann/wie das Programm automatisch starten soll</td></tr>
+</table>
+<h2><a name="konten">Konten</a></h2>
+<img src="einstellungen1.gif">
+
+<p>Im oberen Teil des Fensters werden Informationen über alle registrierten Konten angezeigt.<br>
+Um die Informationen zu ändern, muss man das zu ändernde Konto anklicken, woraufhin die Informationen ausführlicher im unteren Bereich angezeigt werden.<br>
+Änderung sind nur für das Programm, sie werden also nicht an die Bücherein übertragen. Das heißt insbesondere, dass man über diesen Dialog nicht Zugriffspasswort für sein Konto ändern kann. (bzw. wenn man es ändern, muss man es nochmal extra in der Bücherei ändern).  <br>
+Die Änderungen werden erst übernommen, wenn man auf "Konto ändern" klickt, bzw. wenn man auf "Konto löschen" klickt, um eines zu löschen.<br>
+Der Button "Neues Konto erstellen" öffnen ein <a href="neueskonto.html">neues Fenster</a>, in dem die nötigen Informationen abgefragt werden.
+
+
+<h2><a name="aussehen">Aussehen</a></h2>
+<img src="einstellungen2.gif"><p>
+Das wichtigste in diesem Dialog sind die Auswahlfelder für die vier verwendeten Farben. Um eine Farbe zu ändern, muss man das entsprechende Feld anklicken, woraufhin sich der übliche Farbauswahldialog öffnet.<br>
+Die Definition von "bald", die man hier einstellen kann, ist nicht nur für die Farben wichtig, sondern wird auch für einige Hinweismeldungen verwendet.<br>
+
+
+<h2><a name="internet">Internet</a></h2>
+<img src="einstellungen3.gif"><p>
+Im oberen Teil kann man die üblichen Internetverbindungsoptionen einstellen.<br>
+Die Option "Windowsinterneteinstellungen übernehmen" bezieht sich auf die Optionen des Internet Explorers, wobei auch spätere Änderungen noch übernommen werden. (technischer Hinweis: das liegt daran, dass die Internetzugriffe über die wininet-Schnittstelle des IE hergestellt werden).<br>
+Die Auswahlfelder bezüglich der Büchereihomepages beziehen sich nicht auf die normale Arbeitsweise des Programmes, sondern auf das Öffnen der Büchereihomepages zum manuellen Suchen von Medien. <br>
+Der "integrierte Internet Explorer" hat gegenüber dem normalen Browser den Vorteil, dass er automatisch für jeweilige Seite einer Bücherei angepasst wird, womit sie beispielsweise in der richtige Größe angezeigt wird. <br>
+Bei den automatischen Updates werden nach jeder erfolgreichen Aktualisierung der Mediendaten, die aktuellen Versionsinformationen heruntergeladen, es sei denn der letzte Versionscheck liegt weniger als 3 Tage zurück. 
+
+
+
+<h2><a name="autostart">Zeiten</a></h2>
+<img src="einstellungen4.gif"><p>
+
+
+<!--<object type="application/x-oleobject"
+  classid="clsid:1e2a7bd0-dab9-11d0-b93a-00c04fc99f9e">
+    <param name="Keyword" value="Autostart">
+    
+</object>-->
+<!--param name="Keyword" value="Startseite"-->
+Hier kann man einstellen, ob/wie das Programm automatisch starten soll und wie oft die Mediendaten aktualisiert werden sollen.<br>
+Die Aktualisierung der einzelnen Konten ist unabhängig von einander, also nur wenn die Daten eines Konto aktualisiert werden, werden die der anderen nicht automatisch mit aktualisiert.<br>
+Bei einer Aktualisierung wird dann auch automatisch verlängert. (wenns für das Konto aktiviert ist).<br>
+Die Autostartoptionen beziehen sich auf das automatische Starten beim Starten von Windows, also auch bei "immer" startet das Programm nur wenn auch der Computer gestartet wird.<br>
+Bei der Option "nur, wenn..." startet das Programm zwar auch immer automatisch, beendet sich aber sofort wieder, wenn jedes Konto im Zeitinterval aktualisiert worden ist. (es sei denn es sind bald Medien abzugeben). <br>
+Ist die Option "minimiert starten" ausgewählt, so wird das Programm durch ein kleines Icon in der TNA (neben der Uhr) repräsentiert.
+
+</body>

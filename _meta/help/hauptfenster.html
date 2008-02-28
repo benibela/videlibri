@@ -1,0 +1,214 @@
+<html>
+<head>
+<meta name="MS-HKWD" content="Hauptfenster">
+<meta name="MS-HKWD" content="Menü">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<h1>Hauptfenster</h1>
+Dieses Fenster zeigt die ausgeliehenen Medien an und dient als Verbindung zu allen anderen Fenstern.<br>
+Man kann es im Prinzip, von oben nach unten, in folgende fünf Bereiche unterteilen:
+<table>
+<tr><td><a href="#menu">Die Menüleiste</a></td><td>Hiermit erreicht man die einzelnen Menüs</td></tr>
+<tr><td><a href="#icons">Die Symbolleiste</a></td><td>Hier findet Symbole über die man Funktionen schneller erreichen kann</td></tr>
+<tr><td><a href="#list">Die Medienliste</a></td><td>Hier werden die ausgeliehenen Medien angezeigt</td></tr>
+<tr><td><a href="#find">Die Suchleiste</a></td><td>Hiermit kann man die Liste der ausgeliehenen Medien durchsuchen</td></tr>
+<tr><td><a href="#status">Die Statusleiste</a></td><td>Hier erfährt man aktuelle Informationen über die Medienliste.</td></tr>
+</table>
+<h2><a name="menu">Die Menüleiste</a></h2>
+Die Menüleiste besteht aus vier Menüs, die man durch Anklicken einzeln aufklappen kann.<br>
+Wären alle gleichzeitig geöffnet, so sähe sie (bei fünf bestimmten Konten) so aus:
+<br><img style="margin: 1em" src="hauptfensterMenu.gif"><br>
+Im folgenden sind alle vorhandenen Menüeinträge und Untermenüs aufgelistet und erklärt:
+<table>
+<tr>
+<td><b>Medien</b></td>
+<td>Dieses Menü dient zum Aktualisieren und Verlängern der gespeicherten Medien</td>
+</tr>
+<tr>
+<td class="pi1">Aktualisieren</td>
+<td>Über diese Untermenü aktualisiert man die Liste der Medien, das heißt Videlibri verbindet sich übers Internet mit der Bücherei und lädt eine Liste der ausgeliehen Medien herunter.</td>
+</tr>
+<tr>
+<td class="pi2">Alle Konten</td>
+<td>Hiermit werden die Listen aller Konten aktualisiert</td>
+</tr>
+<td class="pi2">"Kontoname"</td>
+<td>Hiermit wird nur eine Liste aktualisiert, die des Kontos "Kontoname". (Im Programm steht dort der angegebene Name)</td>
+</tr>
+<tr>
+<td class="pi1">Verlängern</td>
+<td>Über diese Untermenü verlängert man die gespeicherten, verlängerbaren Medien.<br>Im allgemeinen braucht man dieses Menü nicht, da das Programm dies, je nach Einstellung, automatisch tut.</td>
+</tr>
+<tr>
+<td class="pi2">Alle Medien</td>
+<td>Wählt man dieses Untermenü werden von den noch zu wählenden Konten ohne Einschränkung alle verlängerbaren Medien verlängert.</td>
+</tr>
+<tr>
+<td class="pi3">von allen Konten</td>
+<td>Hiermit werden alle verlängerbaren Medien aller Konten verlängert</td>
+</tr>
+<tr>
+<td class="pi3">"Kontoname"</td>
+<td>Hiermit werden alle verlängerbaren Medien, des Kontos  nur eine Liste aktualisiert, die des Kontos "Kontoname". (Im Programm steht dort der angegebene Name)</td>
+</tr>
+<tr>
+<td class="pi2">abhängig von der Abgbefrist</td>
+<td>Über dieses Menü werden nur die verlängerbaren Medien verlängert, die in einer bestimmten Zeitspanne zurückgegebene werden müssen.</td>
+</tr>
+<tr>
+<td class="pi3">in xxxx Wochen</td>
+<td>Es gibt vier Untermenüs dieser Form, wobei xxxx einen Wert von 1 bis 4 hat.<br>Über diese Menüs werden die Medien verlängert, die in den nächsten xxxx Wochen abgegeben werden müssen.</td>
+</tr>
+<tr>
+<td class="pi4">bei allen Konten</td>
+<td>Hiermit werden verlängerbaren Medien aller Konten verlängert, die in den nächsten xxxx Wochen abzugeben sind.</td>
+</tr>
+<tr>
+<td class="pi4">"Kontoname"</td>
+<td>Hiermit werden verlängerbaren Medien des Kontos "Kontoname", die in den nächsten xxxx Wochen abzugeben sind, verlängert, (Im Programm steht dort statt "Kontoname" der angegebene Name)</td>
+</tr>
+<tr>
+<td class="pi1">Programm beeenden</td>
+<td>Dieser selbsterklärende Eintrag hat mit den Medien nichts zu tun, steht aber aus traditionellen Gründen, im Menü, das am weitesten links ist.</td>
+</tr>
+<tr>
+<td><b>Ansicht</b></td>
+<td>Über diese Menü steuert man, welche Medien in der Liste angezeigt werden sollen.</td>
+</tr>
+<tr>
+<td class="pi1">Momentan ausgeliehene Medien</td>
+<td>Es werden nur die Medien angezeigt, die im Moment ausgeliehen sind</td>
+</tr>
+<tr>
+<td class="pi1">Jemals ausgeliehene Medien</td>
+<td>Es werden alle Medien angezeigt, die Videlibri bekannt sind. Also alle Medien die seit Benutzung des Programms ausgeliehen worden sind, inklusive denjenigen, die inzwischen wieder abgegeben worden sind (sofern die Speicherung dieser Daten nicht unter Extras\Einstellungen abgeschaltet wurde).</td>
+</tr>
+<tr>
+<td class="pi1">Früher ausgeliehene Medien</td>
+<td>Es werden nur die Medien angezeigt, die ausgeliehen waren und inzwischen wieder abgegeben worden sind.</td>
+</tr>
+<tr>
+<td class="pi1">Alle Konten</td>
+<td>Es werden die Medien aller Konten angezeigt.</td>
+</tr>
+<tr>
+<td class="pi1">Kein Konto</td>
+<td>Es werden überhaupt keine Medien angezeigt.</td>
+</tr>
+<tr>
+<td class="pi1">"Kontoname"</td>
+<td>Wird vor diesem Eintrag ein Haken angezeigt, so werden die Medien dieses Kontos angezeigt, wenn nicht, werden sie nicht angezeigt.<br>Klickt man den Eintrag an, so wechselt der Zustand des Häkchens, wird es momentan angezeigt, so wird es ausgeschaltet, ansonsten eingeschaltet.</td>
+</tr>
+<tr>
+<td><b>Extras</b></td>
+<td>In diesem Menü gibt es erweiterte Funktionen, die über das Anzeigen und Verlängern von Medien hinausgehen.</td>
+</tr>
+<tr>
+<td class="pi1">Ausleihensuche</td>
+<td>Aktiviert die <a href="#find">Suchleiste<a>.<br>Alternativ kann man auch Strg+F drücken oder, falls die Leiste angezeigt wird, das Suchfeld anklicken.</td>
+</tr>
+<tr>
+<td class="pi1">Statistik</td>
+<td>Öffnet die <a href="statistik.html">Statistik</a> der ausgeliehenen Medien.</td>
+</tr>
+<tr>
+<td class="pi1">Einstellungen</td>
+<td>Öffnet den <a href="einstellungen.html">Einstellungendialog</a>. (Alternativ kann man Strg+E) drücken</td>
+</tr>
+<tr>
+<td class="pi1">Auf Updates prüfen</td>
+<td>Überprüft ob es ein Update für Videlibri gibt und lädt es automatisch herunter und installiert es, falls man Administratorrechte hat.</td>
+</tr>
+<tr>
+<td><b>Hilfe</b></td>
+<td>Über dieses Menü erreicht man die Hilfe</td>
+</tr>
+<tr>
+<td class="pi1">Handbuch</td>
+<td>Öffnet dieses Handbuch.</td>
+</tr>
+<tr>
+<td class="pi1">Fragen und Antworten</td>
+<td>Öffnet eine Liste von Fragen und Antworten zu Videlibri.</td>
+</tr>
+<tr>
+<td class="pi1">Fehler melden</td>
+<td>Öffnet den <a href="fehlermelden.html">Fehlermeldendialog</a> über den man mir Fehler melden kann.</td>
+</tr>
+<tr>
+<td class="pi1">Über Videlibri</td>
+<td>Zeigt einen Infodialog an, indem man die aktuelle Versionnummer finden kann.</td>
+</tr>
+
+</table>
+<h2><a name="icons">Die Symbolleiste</a></h2>
+Die Symbolleiste besteht aus drei anklickbaren Buttons:<br>
+<img style="margin: 1em" src="hauptfensterSymbol.gif"><br>
+Diese Buttons haben folgende Bedeutungen:
+<table>
+<tr>
+<td>Aktualisieren-Button</td>
+<td>Dieser Button hat zwei Funktione:<br>Klickt man auf das Bild oder den Text, so werden (falls eine Internetverbindung besteht) alle Medien aktualisieren.<br>Klickt man auf den kleinen Pfeil neben dem Bild, so wird ein Menü angezeigt, in dem man ein Konto zum Aktualisieren auswählen kann.</td>
+</tr>
+<tr>
+<td>Homepages-Button</td>
+<td>Klickt man hier, wird ein Menü angezeigt, in dem man eine Bücherei auswählen kann. Klickt man eine an, so wird deren Onlinesuchkatalog geöffnet.<br>Man kann auch "alle" auswählen um den Zentralkatalog der digiBib zu öffnen.</td>
+</tr>
+<tr>
+<td>Einstellungen-Button</td>
+<td>Dieser Button öffnet das <a href="einstellungen.html">Einstellungenfenster</a> von VideLibri</td>
+</tr>
+</table>
+
+<h2><a name="list">Die Medienliste</a></h2>
+
+Diese Liste sieht, abhängig von den ausgeliehenen Medien und der Bildschirmgröße, ungefähr so aus:
+<br><img style="margin: 1em" src="hauptfensterList.gif"><br>
+
+Wie man sieht, steht jedes Buch in einer einzelnen Zeile und in den Spalten findet man die genaueren Informationen.<br>
+Es gibt dabei folgende Spalten:<br>
+<table>
+<tr><td>ID</td><td>Hier steht die von der Bücherei festgelegte Signatur eines Mediums</td></tr>
+<tr><td>Kategorie</td><td>Hier steht die Ablkürzung für das grundsätzliche Thema des Buches</td></tr>
+<tr><td>Verfasser</td><td>Hier steht natürlich der Autor</td></tr>
+<tr><td>Titel</td><td>Hier steht natürlich der Titel</td></tr>
+<tr><td>Ausleihe</td><td>Hier steht das Datum, an dem das Medium ausgeliehen wurde</td></tr>
+<tr><td>Rückgabe</td><td>Hier steht das Datum, an dem das Medium zurückgegeben sein muss <br>(oder "erledigt", falls das Medium bereits abgegeben worden ist)</td></tr>
+<tr><td>Konto</td><td>Hier steht auf welchem Konto das Medium ausgeliehen wurde</td></tr>
+<tr><td>Bemerkung</td><td>Hier steht normalerweise der Grund, warum ein Medium nicht verlängert werden kann</td></tr>
+</table>
+Da das Programm nur die von der Bücherei übermittelten Daten anzeigen kann, fehlen bei manchen Büchereien einige Werte:
+<table>
+<tr><td>Stadtbüchereien Düsseldorf</td><td>Es kann der Autor oder der Titel fehlen oder abgekürzt sein</td></tr>
+<tr><td>Universitätsbibliothek Düsseldorf</td><td>Es fehlen keine Informationen, das Ausleihdatum und die Bemerkung werden aber erst nach einer Weile angezeigt</td></tr>
+<tr><td>Fachhochschulbibliothek Düsseldorf</td><td>Es fehlt die Kategorie und das Ausleihdatum</td></tr>
+</table>
+Die Farbe gibt Informationen über die Abgabefrist. Sind die Farben nicht über Extras\Einstellungen geändert, so haben sie folgende Bedeutung:
+<table>
+<tr><td>rot</td><td>Das Medium muss bald abgegeben werden.<br>"Bald" bedeutet in der Standardeinstellung 3 Tage, kann aber unter Extras\Einstellungen geändert werden.</td></tr>
+<tr><td>gelb</td><td>Das Medium ist nicht verlängerbar, muss aber noch nicht bald abgegeben werden</td></tr>
+<tr><td>grün</td><td>Das Medium ist verlängerbar und muss nicht bald abgegeben werden</td></tr>
+<tr><td>grau</td><td>Das Medium ist bereits abgegeben.</td></tr>
+</table>
+
+Standardmäßig ist die Liste nach dem Rückgabedatum sortiert, dies kann man jedoch ändern, indem man auf die Spaltenüberschrift klickt.
+
+<h2><a name="find">Die Suchleiste</a></h2>
+<img style="margin: 1em" src="hauptfensterFind.gif"><br>
+Die Suchleiste erscheint, wenn man Strg+F drückt oder im Menü Extras\Ausleihensuche auswählt.<br>
+Sie verschwindet wieder, wenn man im Suchfeld (dem weißen Feld zwischen "AUsleihensuche:" und "Verfasser/Titel") ESC drückt oder das X vor diesem anklickt.<br>
+Gibt man im Suchfeld einen Buchstaben/Text ein, so wird sofort nach diesem in der Medienliste gesucht und der entsprechende Eintrag hervorgehoben.<br>
+Welche Spalten dabei durchsucht werden hängt von der Auswahl im Feld daneben ab. Die Standardeinstellung ist Verfasser und Titel, man kann aber auch "Alle Felder" oder eine beliebige andere Spalte auswählen.<br>
+Will man den nächsten Treffer finden, muss man Enter drücken oder auf "Abwärts suchen" klicken.<br>
+Will man rückwärtssuchen, so muss man entweder Shift+Enter drücken oder auf "Aufwärts suchen" klicken.<br>
+Konnte etwas nicht gefunden werden, so färbt sich das Suchfeld rot.
+<h2><a name="status">Die Statusleiste</a></h2>
+<img style="margin: 1em" src="hauptfensterStatus.gif"><br>
+Die Statusleiste zeigt Informationen über die aktuelle Situation an.<br>
+In der ersten Spalte wird angezeigt, wann das zuletzt aktualisierte Konto aktualisiert wurde, oder "Mediendaten werden aktualisiert...", falls das Programm dies gerade tut. <br>
+Will man genauere Informationen haben, so muss man auf diese Spalte doppelklicken, woraufhin sich ein Fenster öffnet, in dem für jedes Konto angezeigt wird, wann es aktualisiert worden ist.<br>
+In der zweiten Spalte werden, falls vorhanden, offene Gebühren angezeigt.<br>
+In der dritten Spalte wird die Anzahl der Medien in der Medienliste gezeigt.<br>
+In der letzten steht das heutige Datum.
+</body>

@@ -1,0 +1,26 @@
+=========TESTING============	
+Konto erstellen
+Konto laden
+Konto löschen
+
+Konto erstellen
+2tes Konto erstellen
+2tes Konto laden
+Konto löschen
+verlängern
+Konto löschen
+Fokus wechsel überprüfen:  normal, autostart, autostart+normal
+Alte Statistik betrachten
+Automatisches Update erkennen
+Update laden
+Uninstall überprüfen (+registry)
+
+=======VERÖFFENTLICHEN=======
+debug info entfernen
+versions info in programm ändern
+videlibri-setup.exe erstellen
+  versions info ändern
+Sicherheitskopie
+videlibri-setup.exe veröffentlichen
+Changelog
+Internetseiten News

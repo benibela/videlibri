@@ -1,0 +1,55 @@
+<html>
+<head>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<h1>Seitenauswertung</h1>
+Hier erfährt man, wie eine Datei zur Auswertung zur Auswertung einer einzelnen Internetseite erstellt.<br>
+<br>
+Dazu kann man einfach eine HTML-Datei mit dem im Template angegeben Namen im Templateordner erstellen, und entsprechende Zusatzbefehle einfügen. <br>
+VideLibri versucht beim Ausführen der Templateaktion, die HTML-Befehle und Inhalte in der Datei in der heruntergeladenen Internetseite wieder zu finden. Befinden sich auf der Internetseite zusätzliche Elemente, werden diese ignoriert. Stellt sich beim Lesen der Seite heraus, dass manche Tags vorher falsch zugeordent wurden, werden sie erneut gesucht. Die Zusatzbefehle werden immer direkt, nachdem Lesen eines gesuchten Elements ausgeführt, auch wenn die Zuordnung falsch war.<br><br>
+
+Das HTML-Template muss im Windows-1252 (ANSI) Zeichensatz sein, die aufgerufene Internetseite darf Windows-1252 oder UTF-8 enthalten, wenn der Zeichensatz dort im Kopfbereich angegeben wird. <br><br>
+<br>
+Es gibt folgende Befehle:<br>
+&lt;htmlparser:meta encoding="windows-1252|utf-8"/> Sollte der erste Befehl sein, gibt an, ob die Datei in utf-8 oder Windows-1252(ist standard) codiert ist.
+
+&lt;htmlparser:loop> ... &lt;htmlparser:/loop> wiederholt den Inhalt zwischen den geschlossenen Tags, solange wie möglich. Um festzustellen, wann dies nicht mehr möglich ist, wird eine <em>Heuristik</em> angewandt, daher könnte es Fälle geben, in denen es nicht funktioniert. <br><br>
+
+&lt;htmlparser:if> ... &lt;htmlparser:/if> hat ein Attribut namens cond. Dessen Text sollte aus drei Teilen bestehen, der erste und letzte bestehen aus einem Quasi-XPath-Ausdruck in dem alle Variablen ersetzt wurde, in dem jedes $var-name; durch den Wert der Variable $var-name; ersetzt wurde. Der mittlere Teil ist entweder == oder !=. Er gibt an, ob die durch if geklammerten Befehle ausgeführt werden, wenn der erste Teil nach der Ersetzung gleich dem letzten ist, oder eben im umgekehrten Fall.<br><br>
+
+&lt;htmlparser:read/> wertet das Attribut source als Quasi-XPath-Ausdruck mit ersetzten Variablen und speichert das Ergebnis in der Variablen, deren Namen im Attribut var angegeben wird. Ist das Attribut regex angegeben, so wird der dort gegebene reguläre Ausdruck nach der Auswertung von source auf das Ergebnis angewandt. Ist auch noch submatch angegeben, wird nur der entsprechende Teilausdruck übernommen.<br>
+Der Variablenname ist beliebig (er darf nur kein ; enthalten), es gibt aber einige Variablen mit fester Bedeutung in VideLibri:
+<table>
+<tr><td>charge</td><td>Zu zahlende Gebühren bei diesem Ausleihkonto</td></tr>
+<tr><td></td><td></td></tr>
+<tr><td>book.category</td><td>Kategorie des aktuellen Buches</td></tr>
+<tr><td>book.id</td><td>Signatur</td></tr>
+<tr><td>book.author</td><td>Autor</td></tr>
+<tr><td>book.title</td><td>Titel</td></tr>
+<tr><td>book.year</td><td>Erscheinungsjahr</td></tr>
+<tr><td>book.status</td><td>Verlängerungsstatus</td></tr>
+<tr><td>book.status:problematic</td><td>Verlängerungsstatus für nicht-verlängerbare Medien</td></tr>
+<tr><td>book.status:curious</td><td>Verlängerungsstatus für verlängerbare Medien</td></tr>
+<tr><td>book.issuedate:format</td><td>Ausleihdatum im angegenen Format (z.B.: yyyy-mm-dd)</td></tr>
+<tr><td>book.limitdate:format</td><td>Aubgabedatum im angegenen Format</td></tr>
+<tr><td>book.?????</td><td>Für ????? kann irgendetwas beliebiges stehen, der Wert wird bis zum Programmende für das Buch gemerkt</td></tr>
+<tr><td></td><td></td></tr>
+<tr><td>delete-current-books()</td><td>keine eigentliche Variable, wird ihr ein Wert zu gewiesen, wird die Liste der aktuell ausgeliehen Bücher gelöscht (muss vor neuen Büchern aufgerufen werden)</td></tr>
+<tr><td>book-start()</td><td>Bereitet VideLibri auf ein neues Buch vor</td></tr>
+<tr><td>book-end()</td><td>Speichert das gerade gelesene Buch</td></tr>
+<tr><td>raise()</td><td>Erzeugt Fehlermeldung mit dem angegebenen Wert</td></tr>
+<tr><td>raise-login()</td><td>Erzeugt eine "ungültiger Benutzername/Passwortfehlermeldung"</td></tr>
+<tr><td>book-select()</td><td>Buchauswahl (noch nicht implementiert)</td></tr>
+</table>
+
+Ein Quasi-XPath-Ausdruck ist ein XPath-Ausdruck, der nur die von VideLibri unterstützen Befehle verwendet, und in dem vor Auswertung alle Variablen durch ihren Wert ersetzt wurden. Die erlaubten Befehle sind:
+<table>
+<tr><td>'<em>abc...</em>'</td><td>Der String abc...</td></tr>
+<tr><td>concat(<em>s1</em>,<em>s2</em>,<em>s3</em>,...)</td><td>Die Konkenation aller angegebenen Strings</td></tr>
+<tr><td>text()</td><td>Der Text des aktuellen Knotens als String</td></tr>
+<tr><td>@<em>attrib</em></td><td>Der Wert des Attributes attrib als String</td></tr>
+</table>
+<br>
+<!--Außerdem gibt es zusätzlich noch <a href="faq.html">Fragen und Antworten--></a>
+</body>

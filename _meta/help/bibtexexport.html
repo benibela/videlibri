@@ -1,0 +1,14 @@
+<html>
+<head>
+<meta name="MS-HKWD" content="Bib-Tex">
+<meta name="MS-HKWD" content="Export">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<h1>BibTex-Export</h1>
+Über das Menü "Medien\BibTexExport..." kann man dieses Fenster öffnen:
+<br><img src="bibtexexport.gif" style="margin:1em"><br>
+Hier stellt man die gewünschten Optionen ein, und klickt dann auf "exportieren".<br>
+Die ersten beiden Auswahlmöglichkeiten sind eigentlich selbsterklärend, deshalb schreibe ich hier nur etwas über die Zeichensatzoptionen. "ASCII mit kodierten Sonderzeichen" wandelt z.B.: "Bücher" in "B{\"u}cher", um was dann normale BibTexformat ist. Will man aber eine leserlichere Variante kann man einen der anderen Zeichensätze auswählen, am besten den, den man auch im Latexdokument benutzt. <br>
+In der Datei werden nur (soweit bekannt) die Felder Jahr, Titel und Autor geschrieben. Als Zitierungsbezeichner wird autorJahr genommen. Klappt dies nicht (wegen unbekanntem Autor oder Jahr) werden folgende Kombinationen in dieser Reihenfolge durchprobiert: autor_titel, titelJahr, autor, titel, id. Es werden aber immer nur die ersten 5 Zeichen genommen. (nur bei nur Titel die ersten 10).
+</body>

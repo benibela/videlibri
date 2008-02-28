@@ -1,0 +1,64 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML//EN">
+<HTML>
+<HEAD>
+<meta name="GENERATOR" content="Microsoft&reg; HTML Help Workshop 4.1">
+<!-- Sitemap 1.0 -->
+</HEAD><BODY>
+<OBJECT type="text/site properties">
+	<param name="Window Styles" value="0x800025">
+</OBJECT>
+<UL>
+	<OBJECT type="text/sitemap">
+		<param name="Merge" value="style.css">
+
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="Fensterbeschreibung">
+		<param name="Local" value="handbuch.html">
+		</OBJECT>
+	<UL>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="Hauptfenster">
+			<param name="Local" value="hauptfenster.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="Einstellungen">
+			<param name="Local" value="einstellungen.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="Neues Konto">
+			<param name="Local" value="neueskonto.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="Statistik">
+			<param name="Local" value="statistik.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="Fehlerr&uuml;ckmeldung">
+			<param name="Local" value="fehlermelden.html">
+			</OBJECT>
+	</UL>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="Neue B&uuml;chereien einf&uuml;gen">
+		<param name="Local" value="neuebibliothek.html">
+		</OBJECT>
+	<UL>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="1. B&uuml;chereibeschreibung">
+			<param name="Local" value="bibliothek.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="2. Template anlegen">
+			<param name="Local" value="templates.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="3. Seitenauslesen">
+			<param name="Local" value="seiten.html">
+			</OBJECT>
+	</UL>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="Fragen und Antworten">
+		<param name="Local" value="faq.html">
+		</OBJECT>
+</UL>
+</BODY></HTML>

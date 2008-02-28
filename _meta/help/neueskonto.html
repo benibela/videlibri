@@ -1,0 +1,46 @@
+<html>
+<head>
+<meta name="MS-HKWD" content="Anfangen">
+<meta name="MS-HKWD" content="Start">
+<meta name="MS-HKWD" content="Neues Konto">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<h1>Neues Konto</h1>
+Der "Neue Konto"-Dialog besteht aus 5 Teildialogen, in denen die nötigen Informationen zum Registrieren eines Büchereikontos in Videlibri eingegeben werden.<br>
+Am unteren Fensterrand befinden sich die Buttons "Zurück" und "Weiter", mit denen man zwischen den Teildialogen wechseln kann.<br>
+Mit dem Button "abbrechen" kann man den Dialog verlassen.<br>
+Der Dialog beginnt mit der Frage nach der Bücherei zu der das Konto gehört:
+<br><img src="neueskonto1.gif" style="margin: 1em"><br>
+Hier kann man, wie im Dialog beschrieben, einfach die Bücherei auswählen und auf weiter klicken.<br>
+Je nach Büchereiauswahl ändern sich einige Einstellungmöglichkeiten in den weiteren Dialogen.
+
+<br><img src="neueskonto2.gif" style="margin: 1em;margin-top:3em"><br>
+Hier muss man wie bei den Onlinekatalogen der Bücherei die Nummer des Ausleihkontos und sein Passwort (bei der Stadtbücherei also sein Geburtsdatum) eingeben.<br>
+Gibt man hier falsche Daten ein, so erscheint später jedesmal die Fehlermeldung "Antwort nicht verstanden".<br>
+Bei der Uni.Bibliothek kann zur "Nummer" auch noch ein Buchstabe gehören.<br>
+(Technischer Hinweis: Die eingegebene Nummer wird zusammen mit der Bücherei-ID als Grundlage für die drei Dateinamen genommen, unter denen die Daten auf der Festplatte gespeichert werden)
+
+<br><img src="neueskonto3.gif" style="margin: 1em;margin-top:3em"><br>
+Hier muss man zuerst den Namen eingeben unter dem das Konto angezeigt werden soll.<br>
+Dieser kann ohne Einschränkungen frei gewählt werden, man sollte aber (muss allerdings nicht) für jedes Konto einen eigenen nehmen, da es sonst verwirrend ist.<br>
+Die zweite Frage sollte man mit "ja" beantworten, es sei denn man möchte aus Geheimhaltungsgründen nicht, dass die Daten der ausgeliehenen Bücher dauerhaft auf der Festplatte gespeichert bleiben.<br>
+Wenn die Daten aber nicht gespeichert werden, können die erweiterten Funktionen des Programmes, also Anzeigen einer Statistik und eben das auflisten aller jemals ausgeliehenen Bücher, nicht funktionieren.
+
+<br><img src="neueskonto4.gif" style="margin: 1em;margin-top:3em"><br>
+In diesem Dialog kann man auswählen, wie das Programm die Medien verlängern soll. Die Optionen bedeuten jeweils:
+<table>
+<tr><td>immer,&nbsp;wenn&nbsp;möglich</td><td>Bei jeder Aktualisierung der Medien verlängert das Programm automatisch alle Bücher.<br>Dies ist nur bei der Stadtbücherei sinnvoll, da die beiden anderen Büchereien, nur eine bestimmte Anzahl von Verlängerungen erlauben.</td></tr>
+<tr><td>alle,&nbsp;wenn&nbsp;nötig</td><td>Das Programm verlängert bei einer Aktualisierung automatisch alle Medien, falls eines "bald" (siehe unten) abgegeben werden muss.<br>Der Vorteil ist, dass alle Medien (abgesehen von vorgemerkten, o.a.) die gleiche Leihfrist haben.</td></tr>
+<tr><td>einzeln,&nbsp;wenn&nbsp;nötig</td><td>Das Programm verlängert bei einer Aktualisierung automatisch alle Medien, die "bald" (s.u.) abgegeben werden müssen.<br>Diese Option existiert nicht, falls die Stadtbücherei ausgewählt wurde, da dort alle Medien simultan verlängert werden müssen.</td></tr>
+<tr><td>niemals</td><td>Videlibri verlängert die Medien niemals.</td></tr>
+</table>
+In der Tabelle oben taucht ein ominöses "bald" auf, dessen Bedeutung für dieses Konto im Dialog neben der Auswahlbox definiert werden kann.<br>
+Man gibt hierfür eine bestimmte Anzahl von Tagen ab, und bald abzugeben bedeuten dann, wenn das Medium innerhalb dieser Anzahl von Tagen abzugeben ist.<br>
+Alle Verlängerungseinstellungen gelten jeweils nur für ein Konto, sie können also für jedes Konto unterschiedlich sein.
+
+<br><img src="neueskonto5.gif" style="margin: 1em;margin-top:3em"><br>
+In diesem letzten Dialog werden alle eingegebenen Daten nochmals zur Kontrolle angezeigt.<br>
+Ist man damit zufrieden, kann man das Konto mit dem Button "Erstellen" eben erstellen.<br>
+Anschließend wird man noch gefragt, ob man noch ein Konto erstellen will, bejaht man dieses, so beginnt der Dialog von vorne.
+</body>

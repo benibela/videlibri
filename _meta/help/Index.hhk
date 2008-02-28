@@ -1,0 +1,43 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML//EN">
+<HTML>
+<HEAD>
+<meta name="GENERATOR" content="Microsoft&reg; HTML Help Workshop 4.1">
+<!-- Sitemap 1.0 -->
+</HEAD><BODY>
+<UL>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="Symbolleiste">
+		<param name="Name" value="Symbolleiste">
+		<param name="Local" value="hauptfenster.html#icons">
+		</OBJECT>
+	<UL>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="Einstellungen">
+			<param name="Local" value="einstellungen.html#aussehen">
+			</OBJECT>
+	</UL>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="Medien">
+		<param name="Name" value="Medienliste">
+		<param name="Local" value="hauptfenster.html#list">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="Farben">
+		<param name="Name" value="Farbbedeutung">
+		<param name="Local" value="faq.html#colors">
+		<param name="Name" value="Einstellungen">
+		<param name="Local" value="einstellungen.html#aussehen">
+		</OBJECT>
+	<UL>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="Bedeutung">
+			<param name="Name" value="Bedeutung der Farben">
+			<param name="Local" value="faq.html#colors">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="Einstellungen">
+			<param name="Local" value="einstellungen.html#aussehen">
+			</OBJECT>
+	</UL>
+</UL>
+</BODY></HTML>

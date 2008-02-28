@@ -1,0 +1,22 @@
+[OPTIONS]
+Auto Index=Yes
+Compatibility=1.1 or later
+Compiled file=..\videlibri.chm
+Contents file=Table of Contents.hhc
+Default topic=handbuch.html
+Display compile progress=Yes
+Full-text search=Yes
+Index file=Index.hhk
+Language=0x407 Deutsch (Deutschland)
+Title=Videlibri
+
+
+[ALIAS]
+IDH_FAQ=faq.html
+IDH_HANDBUCH=handbuch.html
+
+[MAP]
+#include header.h
+
+[INFOTYPES]
+

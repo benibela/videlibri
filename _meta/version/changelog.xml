@@ -1,0 +1,56 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+
+<changelog program="VideLibri">
+  <build version="0988" date="2008-02-28">
+    <installer url="http://www.benibela.de/bin/tools/videlibri-setup.exe"/>
+    <fix level="critical">STB: Berücksichtigung einer erneuten Änderung der Websitenstruktur</fix>
+    <change>Erlaubt Verschachtelungen in den pseudo-XPath-Ausdrücken (verwendet sie aber nicht)</change>
+  </build>
+  <build version="0987" date="2008-02-10">
+    <fix level="major">(FHB: )Es wurde wieder ein Fehler mit dem nicht erkannten Umlaut "in März" beseitigt</fix>
+    <change>Die xml-Dateien lassen sind nun valides xml.</change>
+    <change>HTTP-Cookies werden vom Programm selber und für jedes Konto einzeln verwaltet.</change>
+    <fix level="critical">STB: Es gibt beim Verlängern keine Vermischungen mehr zwischen Konten</fix>
+    <fix level="minor">STB: Eine Bandnummer lässt nicht mehr den Titel verschwinden</fix>
+  </build>
+  <build version="0985" date="2007-11-29">
+    <fix level="critical">Das Programm startet nun auch wieder, wenn Medien der FHB vorgemerkt sind.</fix>
+    <fix level="critical">Das rückgabefrist-abhängige Verlängern funktioniert nun auch wieder bei der STB.</fix>
+    <change>Die Buttons sind wieder flach</change>
+  </build>
+  <build version="0980" date="2007-10-31">
+    <fix>Eine deaktivierte Internetverbindung wird seltener als aktiv betrachtet.</fix>
+    <fix>Beim Autostart wird nicht mehr versucht nicht verlängerbare Medien zu verlängern.</fix>
+    <fix>Die Optionsbilder werden nun endlich angezeigt.</fix>
+    <fix>Das Programm bleibt beim Öffnen eines Dialoges in der Liste der laufenden Anwendungen.</fix>
+    <change>Das Büchereiseiten-Auslesen wurde komplett überarbeitet.</change>
+    <change>Die Bücherdaten werden jetzt als UTF-8 gespeichert.</change>
+    <add>Die Spalten der Bücherliste können verschoben werden und die Zahl der Markierungen wird angezeigt</add>
+    <add>Das Erscheinungsjahr der Medien wird angezeigt (nur ULB)</add>
+    <add>Es gibt eine BibTex-Exportroutine für Literaturverzeichnisse.</add>
+  </build>
+  <build version="0950" date="2007-06-25">
+    <change>Bei Abgabewarnungen wird jetzt auch die Anzahl der betroffenen Medien angezeigt</change>
+    <change>Das Programm kann jetzt registriert werden.</change>
+    <add>Zu lange und daher abgeschnittene Spalteneinträge werden bei Mausberühung erweitert.</add>
+    <fix>Das Medienlistenkontextmenü funktioniert nun immer.</fix>
+  </build>
+  <build version="0906" date="2007-06-04">
+    <fix>Bei den Medien der FHB sind die Monate Juni bis September nicht mehr verschoben.</fix>
+  </build>
+  <build version="0905" date="2007-05-12">
+    <fix>Die Icons der Symbolleiste werden nun auch unter Windows 9x angezeigt.</fix>
+    <fix>Die Löschen der Konten funktioniert nun.</fix>
+    <fix>Der Autostart funktioniet nun auch, wenn er im Installationsprogramm aktiviert wird.</fix>
+    <add>Die Informationen über ein Update werden in Zukunft vor dem Herunterladen angezeigt.</add>
+    <add>Das Programm erkennt die "Passwort ungültig"-Antwort der Büchereiseiten.</add>
+    <fix>Beim Kontoerstellen wird die neue Verlängerungsdauer der UB angezeigt.</fix>
+    <fix>Das Programm sollte nicht mehr beim Start eine lange Zeit damit verbringen nach Updates zu suchen.</fix>
+    <fix>Die Beschriftungen der Dialogbuttons sind nun alle auf deutsch.</fix>
+    <change>Läuft das Programm schon beim Aufruf, wird nur die laufende Version geöffnet.</change>
+  </build>
+  <build version="0902" date="2007-02-27">
+    <fix>Es werden nun auch wieder im März fällige Bücher der FHB erkannt.</fix> <!--Problem war: der Umlaut wurde nicht gelesen.--> 
+    <fix>Das Benutzerverzeichnis wird nun auch gefunden, wenn der Pfad in machine.config nur relativ angegeben ist.</fix>
+  </build>
+</changelog>

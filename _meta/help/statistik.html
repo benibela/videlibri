@@ -1,0 +1,31 @@
+<html>
+<head>
+<meta name="MS-HKWD" content="Statistik">
+<meta name="MS-HKWD" content="Diagramm">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<h1>Statistik</h1>
+Über das Menü "Extras\Statistik" kann man die Statistik öffnen, die anzeigt wieviele Medien in einer bestimmten Zeitspanne ausgeliehen waren. Dies sieht ungefähr so aus:
+<br><img src="statistik.gif" style="margin: 1em"><br>
+In der Leiste über dem Diagramm kann man einstellen, ob es sich bei dieser Zeitspanne um einen Tag, eine Woche oder einen Monat handeln soll. <br> 
+Desweiteren kann man festlegen, ob die Gesamtzahl der Bücher, oder nur die Anzahl pro Konto angezeigt werden soll.<br>
+Welcher Graph zu welchem Konto gehört wird in der Legende am rechten Rand angezeigt.<br>
+Die Bücheranzahl ist auf der Ordinate (y-Achse) aufgetragen, das Datum auf der Abszisse (x-Achse).<br>
+Das Datum wird abhängig vom ausgewählten Zeitinterval in unterschiedlichen Formaten angezeigt:
+<table>
+<tr><td>"Tag"</td><td>"Monat.Tag" (also ohne Jahr)<br>Da es soviele Tage gibt</td></tr>
+<tr><td>"Woche"</td><td>Wochennummer im Jahr (1 bis 52)</td></tr>
+<tr><td>"Monat"</td><td>Monatsnummer im Jahr (1 bis 12)</td></tr>
+</table>
+Es kann vorkommen das aus Gründen der Übersichtlichkeit einzelne Datumswerte nicht angezeigt werden (vor allem bei "Tag" passiert dies praktisch immer), die Ausleihkurve hat aber natürlich trotzdem an diesem Datum einen festen Wert.<br>
+Bei den Einstellungen "Woche" und "Monat" wird zwischen den einzelnen Anzahlen linear interpoliert. Die bei einem Monat angezeigte Anzahl ist die Summe aller Bücher die während dem ersten und letzten Tag dieses Monats ausgeliehen waren.<br>
+<br>
+Das Diagramm beginnt mit dem ältesten bekannten Zeitpunkt an dem mindestens ein Buch ausgeliehen war, also dem Ausleihdatum, des beim ersten Start von Videlibri am längsten ausgeliehenen Mediums.<br>
+Videlibri kann aber nicht herausfinden, welche Medien zwischen diesem Ausleihdatum und dem ersten Ausführungsdatum ausgeliehen worden, aber mittlerweile wieder abgegeben sind.<br>
+Daher ist die im Diagramm angezeigte Anzahl der Medien in diesem Interval zu niedrig.<br>
+Außerdem kann Videlibri keine Medien anzeigen, die in einer Zeitspanne ausgeliehen und zurückgegeben worden sind, in der Videlibri nicht gestartet worden ist.<br>
+Und Videlibri weiß nicht, wann genau ein Medium zurückgegeben worden ist, es weiß kennt nur einen frühest- (nach der letzten Aktualisierung bei der das Buch ausgeliehen war) und einen spätestmöglichen (vor der Aktualisierung bei der das Buch nicht mehr ausgeliehen war) Zeitpunkt.<br>
+Je häufiger das Programm gestartet wird (oder bei aktivem Autostart auf Internet zugegriffen wird) und je geringer die eingestellte Aktualisierungsdauer ist (die Standardeinstellung ist 3 Tage), desto präziser sind die angezeigten Daten. <br>
+Außerdem nehmen die Abweichnung ab, wenn nur weniger Bücher auf einmal abgegeben oder ausgeliehen sind, aber viele ausgeliehen sind. (dann muss man auch weniger Bücher bei einem Büchereibesuch tragen).
+</body>

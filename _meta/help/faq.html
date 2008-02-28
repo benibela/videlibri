@@ -1,0 +1,155 @@
+<html>
+<head>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<h1>Fragen und Antworten</h1>
+<a href="#caching">Warum behauptet das Programm, dass Bücher (über-)fällig sind, die ich bereits abgegeben habe?</a><br>
+<a href="#inet_failed">Warum erscheint die Fehlermeldung "Internetverbindung konnte nicht hergestellt werden"?</a>  <br>
+<a href="#firewall">Welche Firewalleinstellungen benötigt Videlibri?</a>                                            <br>
+<a href="#extend">Wann werden die Medien verlängert?</a>                                                            <br>
+<a href="#time">Wie erfahre ich, wann die angezeigten Medien das letzte mal aktualisiert worden sind? </a>          <br>
+<a href="#autostart">Warum funktioniert der Autostart nicht (mehr)?</a>                                             <br>
+<a href="#colors">Was bedeuten die unterschiedlichen Farben?</a>                                                    <br>
+<a href="#bad-error">Warum erscheint die Fehlermeldung "Ich habe leider die Antwort der Bücherei nicht verstanden"?</a><br>
+<a href="#send-back">Wie funktioniert das Melden eines Fehlers?</a><br>
+<a href="#daten">Wie sind die Mediendatendateien aufgebaut?</a><br>
+<a href="#usb">Wie lässt man das Programm von einem USB-Stick laufen?</a>
+
+   <H3><a name="caching">Warum behauptet das Programm, dass Bücher (über-)fällig sind, die ich bereits abgegeben habe?</a></H3>
+Ein wichtiges Feature von Videlibri ist, dass die Informationen über die ausgeliehenen Medien off-line verfügbar sind, das heißt, man kann seine ausgeliehenen Medien sehen, ohne dafür ins Internet zu müssen.<br>
+Wurden nun Medien abgegeben, so ist die Information, dass sie abgegeben wurden, für das Programm nur über das Internet zu erreichen, weshalb die Anzeige des Programms beim Start meistens veraltet ist.<br>
+Sobald die Daten dann über das Internet aktualisiert worden sind, werden die neuen und tatsächlichen Informationen angezeigt.<br>
+Im Normalfall findet diese Aktualisierung nur alle drei Tage statt, um den Büchereien das ständige Übertragen von unveränderten Daten zu ersparen. Man kann dieses Verhalten aber unter "Extra\Einstellungen" (Ctrl-E) ändern.<br>
+Eine andere Möglichkeit ist über "Medien\Aktualisieren" oder das Bild mit den drei Büchern und dem grünen Pfeil (ganz links) auf den neuesten Medienstatus zu aktualisieren. (Dies dauert einige Sekunden, während denen das Programm unten links zeigt, dass die Aktualisierung läuft)
+
+
+<H3><a name="inet_failed">Warum erscheint die Fehlermeldung "Internetverbindung konnte nicht hergestellt werden"?</a></H3>
+Diese Fehlermeldung kann viele Ursachen haben, 
+Die einfachste Möglichkeit ist, dass tatsächlich keine Internetverbindung besteht, was Sie überprüfen können, indem Sie versuchen mit einem Internetbrowser eine Seite aufzurufen.<br>
+Kann keine Seite geöffnet werden, so sollten Sie die üblichen Fehlermöglichkeiten wie Verbindungseinstellungen, Kabel, usw. überprüfen, und sich, wenn das nichts bringt, an ihren Netzwerkadministrator wenden.<br>
+Funktioniert die normalen Zugriffevarianten, überprüfen Sie bitte als nächstes Ihre <a href="#firewall">Firewalleinstellungen</a>. (Wissen Sie nicht, wie das geht, fragen Sie bitte ihren Netzwerkadmin oder den Computerexperten um die Ecke)<br>
+Sind diese in Ordnung, versuchen Sie am besten die Büchereiseiten im Internetbrowser aufzurufen. Es kann nämlich vorkommen, dass diese auf Grund von Wartungsarbeiten nicht verfügbar sind.<br>
+Funktioniert das sollten alle <strong>externen Fehlerquellen ausgeschlossen sein</strong>, und der Fehler liegt an Videlibri.<br>
+Überprüfen Sie in diesem Fall die Interneteinstellung im Menu Extras\Einstellungen (Ctrl+E). Sollten Sie den Internet Explorer benutzen, müsste die Option "Windoweinstellungen übernehmen" funktionieren, bei einem anderen Programm, setzen Sie die übrigen Einstellungen (Direkt, Proxy, ...) auf diejenigen, in Ihrem Browser.<br>
+Nutzt dies alles nichts, gibt es wahrscheinlich einen Programmierfehler, den Sie über das Menü "Hilfe\Fehler melden" bekannt geben können, und der dann (hoffentlich schnell) von mir gelöst wird.
+
+<H3><a name="firewall">Welche Firewalleinstellungen benötigt Videlibri?</a></H3>
+Das Programm greift auf folgende Server zu, die in der Firewall freigegeben sein müssen:
+<table>
+<tr>
+<td><b>Server</b></td>
+<td><b>Ports</b></td>
+<td><b>Gründe</b></td>
+</tr>
+<tr>
+<td>was.duesseldorf.de</td>
+<td>80, 443</td>
+<td>WebOPAC der Stadtbüchereien Düsseldorf</td>
+</tr>
+<tr>
+<td>tisiphone.hbz-nrw.de</td>
+<td>80</td>
+<td>Homepage der Fachhochschulbibliothek Düsseldorf</td>
+</tr>
+<tr>
+<td>liberoboc.hbz-nrw.de</td>
+<td>80</td>
+<td>Homepage der Fachhochschulbibliothek Bochum</td>
+</tr>
+<tr>
+<td>kant.ub.uni-duesseldorf.de</td>
+<td>80</td>
+<td>WebKatalog der Universitätbibliothek</td>
+</tr>
+<tr>
+<td>www.duesseldorf.de</td>
+<td>80</td>
+<td>Test ob eine Internetverbindung existiert</td>
+</tr>
+<tr>
+<td>www.benibela.de</td>
+<td>80</td>
+<td>Suche nach Updates und (manuell ausgelösten) Fehlerrückmeldungen </td>
+</tr>
+</table>
+Ein zweites Programm "simpleBrowser.exe" dient als integrierter Browser und greift auf die ersten drei Server dieser Liste zu.<br>
+
+
+<H3><a name="extend">Wann werden die Medien verlängert?</a></H3>
+Das lässt für jedes Konto einzeln einstellen. Zur Auswahl stehen dabei folgende Möglichkeiten:
+<table>
+<tr>
+<td>immer, wenn möglich</td>
+<td>Bei jeder Aktualisierung werden alle verlängerbaren Medien verlängert</td>
+</tr>
+<tr>
+<td>alle, wenn nötig</td>
+<td>Alle Medien eines Kontos werden verlängert, wenn Medium innerhalb von einer einstellbaren Anzahl von Tagen abgegeben werden muss.</td>
+</tr>
+<tr>
+<td>einzeln, wenn nötig</td>
+<td>Alle Medien eines Kontos, die innerhalb einer einstellbaren Anzahl von Tagen abgegeben werden müssen, werden verlängert.</td>
+</tr>
+<tr>
+<td>niemals</td>
+<td>Die Medien dieses Kontos werden nie verlängert.</td>
+</tr>
+</table>
+
+
+<H3><a name="time">Wie erfahre ich, wann die angezeigten Medien das letzte mal aktualisiert worden sind? </a></H3>
+Dies ist relativ einfach, solange keine Daten aktualisiert werden, zeigt, dass Programm unten links an, wie alt, die ältesten angezeigten Medieninformationen sind.<br>
+Will man detailliert für jedes Konto wissen, wann es das letzte Mal aktualisiert worden ist, kann man auf diese Information doppelklicken, um ein Fenster mit genaueren Informationen zu öffnen.
+
+<H3><a name="autostart">Warum funktioniert der Autostart nicht (mehr)?</a></H3>
+Es gibt zwei Möglichkeiten. Entweder ist es für Videlibri nicht notwendig zu starten, oder der der Autostart funktioniert tatsächlich nicht mehr.<br>
+Der erste Fall tritt einfach, wenn die Mediendaten vor kurzem aktualisiert worden sind und in nächster Zeit keine Medien zu verlängern sind.<br>
+Es gibt dann einfach keinen Grund, warum Videlibri starten solle, da es weder die Mediendaten aktualisieren noch Medien verlängern würde.<br>
+Will man das es immer startet, kann man unter "Extras\Einstellungen" (Ctrl-E) entweder einstellen, dass es das tun soll, oder das es die Mediendaten immer aktualisieren soll, wodurch es dann immer einen "Grund" gibt.<br>
+Funktioniert der Autostart aus irgendwelchen Gründen tatsächlich nicht, so ist es am besten die Einstellungen im Menü "Extras\Einstellungen" (Ctrl-E)zu überprüfen und das Dialogfenster mit Klick auf OK zu schließen. Dadurch  weiß man einerseits, ob das Programm richtig konfiguriert wurde, anderenseits, schreibt das Programm beim Klick auf OK grundsätzlich den Autostarteintrag neu in die Registry.<br>
+Nützt das nichts, liegt wahrscheinlich ein Programmierfehler vor, den Sie bitte <a href="#send-back">melden.</a>
+
+<H3><a name="colors">Was bedeuten die unterschiedlichen Farben?</a></H3>
+In der Liste der Medien, gibt die die Farbe der Zeile eines Mediums Informationen über die Abgabefrist:
+<table>
+<tr>
+<td>rot</td>
+<td>Das Buch muss innerhalb der nächsten Tagen abgegeben werden. (wieviele Tage "nächste Tage" bedeuten, ist einstellbar)</td>
+</tr>
+<tr>
+<td>gelb</td>
+<td>Das Medium kann nicht mehr verlängert werden, muss aber nicht innerhalb der nächsten Tagen abgegeben werden.</td>
+</tr>
+<tr>
+<td>grün</td>
+<td>Das Buch kann verlängert werden und muss nicht innerhalb der nächsten Tagen abgegeben werden.</td>
+</tr>
+</table>
+
+Im Autostartmodus findet man in der Taskleiste das Icon eines kleinen Buches. Dessen Farbe gibt die Farbe an, die das als nächste abzugebende Medium bekommen würde.
+
+
+<H3><a name="bad-error">Warum erscheint die Fehlermeldung "Ich habe leider die Antwort der Bücherei nicht verstanden"?</a></H3>
+Diese Fehlermeldung erscheint immer auf, wenn der Zugriff auf die Bücherei möglich ist, aber nicht die erwartete Medienliste empfangen wurde.<br>
+Wenn es der erste Versuch von Videlibri ist, auf das Konto zuzugreifen, so ist wahrscheinlich nur das Passwort oder der Benutzername falsch eingegeben worden.<br>
+Ansonsten, Wenn man Glück hat, gab es nur einen Übertragungsfehler der Daten, beispielsweise weil die Internetverbindung unterbrochen worden ist.
+In diesem Fall kann man es einfach nochmal versuchen.<br>
+Wenn man Pech hat, ist Videlibri und der WebOPAC der Bücherei nicht mehr zu einander kompatible, also entweder hat die Bücherei ihre Internetseite verändert, oder in Videlibri gab es einen Programmmierfehler. 
+Dann kann man Videlibri für diese Bücherei nicht mehr benutzen und muss auf ein Update warten.
+
+<H3><a name="send-back">Wie funktioniert das Melden eines Fehlers?</a></H3>
+Das Programm überträgt die eingebenen Fehlerbeschreibung und (sofern vorhanden) Kontaktinformationen zusammen mit dem Namen des Programms und der Versionsnummer an www.benibela.de, wo diese Informationen per Mail an mich weitergeleitet werden.<br>
+Wer dem Verfahren nicht traut, kann mir auch ruhig eine Mail, an <a href="benito@benibela.de">benito@benibela.de</a> schicken.
+
+<H3><a name="daten">Wie sind die Mediendatendateien aufgebaut?</a></H3>
+Für jedes Medium gibt es eine Zeile, in der die einzelnen Eigenschaften durch #0-Zeichen von einander getrennt  sind. <br>
+Die Reihenfolge der Felder ist: ID, Kategorie, Autor, Titel, Status als Text, Sonstiges, Ausleihdatum, Fristdatum, Status als Zahl, Erscheinungsjahr. <br>
+Die Daten sind als Zahl der Tage seit dem 31.12.1899 gespeichert, beim Status gibt die Zahl die Nummer eines der folgenden Stati an (startend mit 0):  Normal, Unbekannt, wird ermittelt, vorgemerkt, Ausleihfrist erreicht, mehr Information im Text (nicht verlängerbar), mehr Information im Text (verlängerbar), Karte abgelaufen.<br>
+Wegen der #0-Zeichen kann die Datei im normalen Notepad nicht verändert werden, es gibt aber ein erweiterte Editoren (z.B.:<a href="http://notepad-plus.sourceforge.net/">NotePad++</a>) mit denen es problemlos geht.
+
+<H3><a name="usb">Wie lässt man das Programm von einem USB-Stick laufen?</a></h3>
+Man muss den Programmordner zusammen mit dem Ordner config im Benutzerverzeichnis   auf den USB-Stick kopieren.<br>
+Anschließend trägt man in data\machine.config statt den neuen Pfad "user=config\" ein.<br>
+Das Programm schreibt nur in diesen config-Order. In die Registry schreibt es nur bei aktiviertem Autostart.
+</body>

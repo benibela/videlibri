@@ -1,0 +1,31 @@
+<html>
+<head>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<h1>1. Büchereibeschreibung</h1>
+In diesem Schritt gibt man allgemeine Informationen über die jeweilige Bücherei ein.<br>
+<br>
+Hierzu legt man eine im Verzeichnis data\libaries (alle Pfade sind hier relativ zum Programmverzeichnis angegeben) eine Datei namens XXX.xml (für XXX eine beliebige 3-stellige Zahl angeben) an. Diesen Dateinamen schreibt man dann in die Datei libraries.list.<br>
+Die XXX.xml sollte man dann gemäß diesem Format mit Inhalt füllen:<br>
+<pre>
+&lt;library>
+  &lt;longName value="Hier ausführlichen Namen eintragen"/>
+  &lt;shortName value="Hier den abgekürzten Namen"/>
+  &lt;homepage value="Hier die Adresse ihrer Internetseite (optional)"/>
+  
+  &lt;template value="hier den Namen des Templates"/>
+  
+  &lt;variable name="server" value="hier die URL ihres Webkatalogs (mit / am Ende) (optional je nach Template)"/>
+&lt;/library>
+</pre>
+
+Entspricht der Katalog dem einer bereits bekannten Seite, so kann für template den dortigen Namen nehmen, ansonsten muss man einen beliebigen Namen wählen und im zweiten Schritte ein entsprechendes neues <a href="templates.html">Template anlegen</a>.<br>
+
+&lt;variable> definiert eine Variable mit dem angegebenen Variablen und Namen. Welche Variablen verwendet werden, hängt vom Template ab. Die Standardtemplates benutzen nur "server".<br>
+
+
+Als Zeichensatz darf man in dieser Datei nur normales Windows-1252 (ANSI) und UTF-8 verwenden.
+
+<!--Außerdem gibt es zusätzlich noch <a href="faq.html">Fragen und Antworten--></a>
+</body>
