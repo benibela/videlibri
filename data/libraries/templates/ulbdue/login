@@ -1,0 +1,4 @@
+<form method=post 
+      name="form1"> 
+<htmlparser:read var="loginForm" source="@action"/>
+</form>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<library>
+  <longName value="Stadtbüchereien Düsseldorf"/>
+  <shortName value="StB Düsseldorf"/>
+  <homepage value="http://was.duesseldorf.de/WebOPAC/start?homegkz=111"/>
+  <homepageWidth value="750"/>
+  <homepageNavigation value="false"/>
+  <template value="wasnrw"/>
+  
+  <variable name="server" value="was.duesseldorf.de/WebOPAC/"/>
+</library>

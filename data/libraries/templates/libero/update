@@ -1,0 +1,64 @@
+﻿<html>
+<body>
+ <FORM>
+  <table>
+   <tr><td>
+    <table><caption ID="MemStatMembCapt"/><htmlparser:read var="delete-current-books()"/></table>
+    <table>
+     <tr><th ID=MemStatLoanHeading></th></tr>
+     <htmlparser:loop>
+        <tr>
+        <htmlparser:read var="book-start()"/>
+        <td ID="MemStatLoanBarc"><htmlparser:read source="text()" var="book.id"/></td>
+        <td ID="MemStatLoanTit"><htmlparser:read source="text()" var="book.title"/></td>
+        <td ID="MemStatLoanAut"><htmlparser:read source="text()" var="book.author"/></td>
+        <td ID="MemStatLoanDue"><htmlparser:read source="text()" var="book.limitdate:d mmm yyyy"/></td>
+        <td ID="MemStatLoanRenewCount"><htmlparser:read source="concat('bisher ',text(), ' mal verlängert')" var="book.status:curious"/></td>
+        <td ID="MemStatLoanRen">
+        <htmlparser:read source="text()" var="temp"/>
+        <htmlparser:if test="'$temp;'==''"> 
+          <input type="checkbox">
+            <htmlparser:read var="book.extendId" source="@name"/>
+          </input>
+          <htmlparser:read var="book-end()"/>
+        </htmlparser:if>
+        </td>
+        
+        </tr>
+        <htmlparser:if test="'$temp;'!=''">
+          <tr><td id='MemStatRenewMsg'>
+            <htmlparser:read source="text()" var="temp" regex="1\. Verlängerung.*nicht erlaubt bis"/>
+            <htmlparser:if test="'$temp;'!=''">
+              <htmlparser:read source="text()" var="temp" regex="\d* \w* \d*$"/>
+              <htmlparser:read source="'1. Verlängerung nicht erlaubt bis: $temp;'" var="book.status:problematic"/>
+            </htmlparser:if>
+            <htmlparser:if test="'$temp;'==''">
+              <htmlparser:read source="text()" var="book.status:problematic"/>
+            </htmlparser:if>
+          </td><htmlparser:read var="book-end()"/></tr>
+        </htmlparser:if>
+     </htmlparser:loop>
+     </table>
+     <input type="hidden" name="mid">
+       <htmlparser:read var="mid" source="@value"/>
+     </input>
+
+
+<!--<table border=0 cellpadding=2 cellspacing=0 width=100%>
+<caption ID=MemStatACCapt>Gebührenstatus</caption>
+<tr><th ID=MemStatACHeading>Datum</th>
+<th ID=MemStatACHeading>Zeit</th>
+<th ID=MemStatACHeading>Code</th>
+<th ID=MemStatACHeading>Referenz</th>
+<th ID=MemStatACHeading>Titel/Beschreibung</th>
+<th ID=MemStatACHeading>Betrag</th>
+<th ID=MemStatACHeading>Bereits bezahlt</th>
+<th ID=MemStatACHeading>Noch zu bezahlen</th>
+</tr>
+<tr><td colspan=8>&nbsp;</td></tr>
+<tr><td ID=MemStatAcTotp colspan=5>Noch zu bezahlender Gesamtbetrag: &nbsp;</td>
+<td ID=MemStatAcTota>   0,00</td>
+<td ID=MemStatAcTota>   0,00</td>
+<td ID=MemStatAcTotg>   0,00</td>
+</tr>
+</table>-->

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<library>
+  <longName value="Universitäts- und Landesbibliothek Düsseldorf"/>
+  <shortName value="ULB Düsseldorf"/>
+  <homepage value="http://kant.ub.uni-duesseldorf.de/F"/>
+  <template value="ulbdue"/>
+  
+  <variable name="server" value="kant.ub.uni-duesseldorf.de/"/>
+</library>

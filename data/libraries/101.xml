@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<library>
+  <longName value="Fachhochschulbibliothek Bochum"/>
+  <shortName value="FHB Bochum"/>
+  <homepage value="http://liberoboc.hbz-nrw.de/libero/WebOpac.cls"/>
+  <template value="libero"/>
+  
+  <variable name="server" value="liberoboc.hbz-nrw.de/libero/"/>
+</library>

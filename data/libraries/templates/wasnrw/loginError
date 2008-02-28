@@ -1,0 +1,12 @@
+<FORM>
+<TABLE>
+
+  <TR><TD><B>Ausweisnummer:</B></TD></TR>
+  <TR><TD><B>Geburtsdatum:</B></TD></TR>
+
+  <TR><TD><B>Bibliothek:</B></TD></TR>
+
+  <TR><TH><htmlparser:read var="raise-login()" source="text()"/></TH></TR>
+
+</TABLE>
+</form>

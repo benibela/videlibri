@@ -1,0 +1,74 @@
+object nagWindow: TnagWindow
+  Left = 708
+  Height = 302
+  Top = 438
+  Width = 307
+  HorzScrollBar.Page = 306
+  VertScrollBar.Page = 301
+  ActiveControl = Button2
+  BorderIcons = [biSystemMenu]
+  BorderStyle = bsDialog
+  Caption = 'Shareware-Hinweis'
+  ClientHeight = 302
+  ClientWidth = 307
+  OnShow = FormShow
+  Position = poScreenCenter
+  object Label1: TLabel
+    Left = 18
+    Height = 80
+    Top = 16
+    Width = 277
+    AutoSize = False
+    Caption = 'Dies ist eine eingeschränkte Sharewareversion, die sich durch Eingabe eines bestimmten Codes zur Vollversion freischalten lässt.'#13#10#13#10'Momentan gibt es 2 Unterschiede zur registrierten Vollversion:'
+    ParentColor = False
+    WordWrap = True
+  end
+  object Label2: TLabel
+    Left = 18
+    Height = 120
+    Top = 92
+    Width = 277
+    AutoSize = False
+    Caption = #13#10'1. Es werden maximal 10 Medien gleichzeitig angezeigt'#13#10'2. Beim Starten wird dieser Dialog geöffnet'#13#10#13#10'Die für den Freischaltcode notwendige Registrierung kostet 19 € (Selbstkostenpreis) und soll per Überweisung vorab bezahlt werden.'
+    ParentColor = False
+    WordWrap = True
+  end
+  object Label3: TLabel
+    Left = 18
+    Height = 75
+    Top = 191
+    Width = 277
+    AutoSize = False
+    Caption = 'Die Kontonummer bekommt man als Antwort auf eine entsprechende E-Mail an benito@benibela.de.'#13#10'Nach Eintreffen des überwiesenene Geldes wird der Freischaltcode an den Absender der E-Mail geschickt.'
+    ParentColor = False
+    WordWrap = True
+  end
+  object Button1: TButton
+    Left = 10
+    Height = 25
+    Hint = 'Fortfahren...'
+    Top = 264
+    Width = 136
+    BorderSpacing.InnerBorder = 4
+    Caption = 'Fortfahren.. (in 3 sek).'
+    Enabled = False
+    OnClick = Button1Click
+    TabOrder = 0
+  end
+  object Button2: TButton
+    Left = 162
+    Height = 25
+    Top = 264
+    Width = 133
+    BorderSpacing.InnerBorder = 4
+    Caption = 'Freischalten...'
+    OnClick = Button2Click
+    TabOrder = 1
+  end
+  object Timer1: TTimer
+    Interval = 3000
+    OnTimer = Timer1Timer
+    left = 14
+    top = 56
+  end
+end

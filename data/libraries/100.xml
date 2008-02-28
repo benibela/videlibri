@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<library>
+  <longName value="Fachhochschulbibliothek Düsseldorf"/>
+  <shortName value="FHB Düsseldorf"/>
+  <homepage value="http://tisiphone.hbz-nrw.de/libero/WebOpac.cls"/>
+  <template value="libero"/>
+  
+  <variable name="server" value="tisiphone.hbz-nrw.de/libero/"/>
+</library>

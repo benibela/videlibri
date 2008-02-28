@@ -1,0 +1,70 @@
+<html>
+<body>
+ <div class="layoutTable">
+  <div class="midCol">
+   <div class="midLeft1">
+
+    <div class="tabl110">Offene Gebühren</div>
+    <div class="tabr110"><htmlparser:read source="text()" var="charge" regex="\d+,\d+"/></div>
+
+    <table summary="Verlängerbare Ausleihen">
+     <htmlparser:read var="delete-current-books()"/>
+     <tr>
+      <th>Exemplar</th>
+      <th>Ausleihe</th>
+      <th>Frist bis</th>
+     </tr>
+     
+     <htmlparser:loop>
+      <tr>
+        <td>
+          <htmlparser:read var="book-start()"/>
+          <htmlparser:read var="book.status"/>
+          
+          <htmlparser:read source="text()" var="book.id" regex="^\d+"/>
+          <htmlparser:read source="text()" var="book.category" regex="^\d* - ([^ *]*( [A-Z1-9])?) ." submatch="1"/>
+          <htmlparser:read source="text()" var="book.author" regex="^\d* - [^ *]* ([A-Z1-9] )?([^ ]*) *\*" submatch="2"/>
+          <htmlparser:read source="text()" var="book.title" regex="- [^ *]* ([A-Z1-9] )?(.*\*)?([^<]*)(<\d*>)?$" submatch="3"/>
+          <htmlparser:read source="text()" var="book.year" regex="<(\d*)>$" submatch="1"/>
+        </td>
+        <td><htmlparser:read source="text()" var="book.issuedate:dd.mm.yyyy"/></td>
+        <td><htmlparser:read source="text()" var="book.limitdate:dd.mm.yyyy"/></td>
+        <htmlparser:read var="book-end()"/>
+      </tr>
+     </htmlparser:loop>
+    </table>
+
+
+   <table summary="Nicht verlängerbare Ausleihen">
+     <caption>Nicht verlängerbare Ausleihen:</caption>
+     <tr>
+      <th>Exemplar</th>
+      <th>Ausleihe</th>
+      <th>Frist bis</th>
+     </tr>
+                     
+     <htmlparser:loop>
+      <tr>
+       <td>
+        <htmlparser:read var="book-start()"/>
+
+        <htmlparser:read source="text()" var="book.id" regex="^\d+"/>
+        <htmlparser:read source="text()" var="book.category" regex="^\d* - ([^ *]*( [A-Z1-9])?) ." submatch="1"/>
+        <htmlparser:read source="text()" var="book.author" regex="^\d* - [^ *]* ([A-Z1-9] )?([^ ]*) *\*" submatch="2"/>
+        <htmlparser:read source="text()" var="book.title" regex="- [^ *]* ([A-Z1-9] )?(.*\*)?([^<]*)(<\d*>)?$" submatch="3"/>
+        <htmlparser:read source="text()" var="book.year" regex="<(\d*)>$" submatch="1"/>
+        <strong><htmlparser:read source="text()" var="book.status:problematic"/></strong>
+        </td>
+        <td><htmlparser:read source="text()" var="book.issuedate:dd.mm.yyyy"/></td>
+        <td><htmlparser:read source="text()" var="book.limitdate:dd.mm.yyyy"/></td>
+        <htmlparser:read var="book-end()"/>
+      </tr>
+     </htmlparser:loop>
+                      
+   </table>
+   </div>
+  </div>
+ </div>
+</body>
+</html>
+  

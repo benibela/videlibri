@@ -1,0 +1,77 @@
+object showErrorForm: TshowErrorForm
+  Left = 324
+  Height = 70
+  Top = 176
+  Width = 400
+  HorzScrollBar.Page = 399
+  VertScrollBar.Page = 69
+  ActiveControl = Button1
+  BorderIcons = [biSystemMenu]
+  BorderStyle = bsDialog
+  Caption = 'showErrorForm'
+  ClientHeight = 70
+  ClientWidth = 400
+  OnCreate = FormCreate
+  Position = poScreenCenter
+  object Label1: TLabel
+    Left = 11
+    Height = 14
+    Top = 10
+    Width = 380
+    Caption = 'jjhhhhhhhhhhh'
+    Color = clNone
+    Constraints.MaxWidth = 380
+    Constraints.MinWidth = 380
+    ParentColor = False
+    WordWrap = True
+  end
+  object Button1: TButton
+    Left = 160
+    Height = 25
+    Top = 40
+    Width = 74
+    BorderSpacing.InnerBorder = 4
+    Cancel = True
+    Caption = 'OK'
+    Default = True
+    OnClick = Button1Click
+    TabOrder = 0
+  end
+  object Button2: TButton
+    Left = 318
+    Height = 25
+    Top = 40
+    Width = 74
+    BorderSpacing.InnerBorder = 4
+    Caption = 'Details \/\/'
+    OnClick = Button2Click
+    TabOrder = 1
+  end
+  object Details: TMemo
+    Left = 11
+    Height = 1
+    Top = 72
+    Width = 381
+    Anchors = [akTop, akLeft, akRight, akBottom]
+    Lines.Strings = (
+      'M'
+      'e'
+      'm'
+      'o'
+      '1'
+    )
+    ReadOnly = True
+    ScrollBars = ssAutoVertical
+    TabOrder = 2
+  end
+  object Button3: TButton
+    Left = 7
+    Height = 25
+    Top = 39
+    Width = 99
+    BorderSpacing.InnerBorder = 4
+    Caption = 'Fehler melden...'
+    OnClick = Button3Click
+    TabOrder = 3
+  end
+end

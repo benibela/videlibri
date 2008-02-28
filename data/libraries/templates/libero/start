@@ -1,0 +1,20 @@
+
+<html>
+<body>
+  
+
+<form name="display">
+<input type="hidden" name="TOKEN">
+<htmlparser:read source="@value" var="token"/>
+</input>
+<input type="hidden" name="TOKENX">
+<htmlparser:read source="@value" var="tokenx"/>
+</input>
+<input type="hidden" name="DATA">
+<htmlparser:read source="@value" var="data"/>
+</input>
+<input type="hidden" name="VERSION">
+<htmlparser:read source="@value" var="version"/>
+</input>
+</form>
+</BODY></HTML>

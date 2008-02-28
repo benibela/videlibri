@@ -1,0 +1,377 @@
+object newAccountWizard: TnewAccountWizard
+  Left = 336
+  Height = 218
+  Top = 128
+  Width = 400
+  HorzScrollBar.Page = 399
+  VertScrollBar.Page = 217
+  ActiveControl = libraryList
+  BorderIcons = [biSystemMenu]
+  BorderStyle = bsDialog
+  Caption = 'Neues Konto'
+  ClientHeight = 218
+  ClientWidth = 400
+  OnActivate = FormActivate
+  OnCreate = FormCreate
+  OnShow = FormShow
+  Position = poScreenCenter
+  object Notebook1: TNotebook
+    Height = 187
+    Width = 400
+    Align = alClient
+    OnPageChanged = Notebook1PageChanged
+    PageIndex = 4
+    ShowTabs = False
+    TabOrder = 0
+    object Page1: TPage
+      Caption = 'Page1'
+      ClientWidth = 392
+      ClientHeight = 179
+      object Label1: TLabel
+        Left = 28
+        Height = 30
+        Top = 12
+        Width = 337
+        Anchors = [akTop, akLeft, akRight]
+        AutoSize = False
+        Caption = 'Um die auf einem Konto ausgeliehenen Medien zu betrachten, müssen Sie hier Ihre Büchereikontodaten eingeben.'
+        ParentColor = False
+        WordWrap = True
+      end
+      object Label3: TLabel
+        Left = 28
+        Height = 29
+        Top = 51
+        Width = 337
+        Anchors = [akTop, akLeft, akRight]
+        AutoSize = False
+        Caption = 'Bitte wählen Sie zuerst aus, bei welcher Bücherei das entsprechende Konto registriert ist und klicken Sie dann auf "Weiter".'
+        ParentColor = False
+        WordWrap = True
+      end
+      object libraryList: TRadioGroup
+        Left = 28
+        Height = 90
+        Top = 81
+        Width = 337
+        Anchors = [akTop, akLeft, akRight]
+        AutoFill = True
+        ChildSizing.LeftRightSpacing = 6
+        ChildSizing.TopBottomSpacing = 6
+        ChildSizing.EnlargeHorizontal = crsHomogenousChildResize
+        ChildSizing.EnlargeVertical = crsHomogenousChildResize
+        ChildSizing.ShrinkHorizontal = crsScaleChilds
+        ChildSizing.ShrinkVertical = crsScaleChilds
+        ChildSizing.Layout = cclTopToBottomThenLeftToRight
+        ChildSizing.ControlsPerLine = 4
+        ClientHeight = 72
+        ClientWidth = 333
+        ColumnLayout = clVerticalThenHorizontal
+        ItemIndex = 0
+        Items.Strings = (
+          'Unbekannter Fehler,'
+          'bitte melden Sie ihn'
+          '(Wahrscheinlich: Bücherei-'
+          'liste nicht gefunden)'
+        )
+        OnClick = RadioGroup1Click
+        TabOrder = 0
+      end
+    end
+    object Page2: TPage
+      Caption = 'Page2'
+      ClientWidth = 392
+      ClientHeight = 179
+      object Label2: TLabel
+        Left = 20
+        Height = 32
+        Top = 22
+        Width = 352
+        AutoSize = False
+        Caption = 'Bitte geben Sie jetzt Ihre Kartennummer und ihr Passwort (Geburtstdatum) ein und klicken Sie dann auf "Weiter".'
+        ParentColor = False
+        WordWrap = True
+      end
+      object Label4: TLabel
+        Left = 36
+        Height = 14
+        Top = 80
+        Width = 71
+        Caption = 'Kontonummer:'
+        ParentColor = False
+      end
+      object passLabel: TLabel
+        Left = 36
+        Height = 14
+        Top = 115
+        Width = 77
+        Caption = 'Geburtstdatum:'
+        ParentColor = False
+      end
+      object identificarionInvalid: TLabel
+        Left = 20
+        Height = 22
+        Top = 142
+        Width = 40
+        Font.Color = clRed
+        Font.Style = [fsBold]
+        ParentColor = False
+      end
+      object accountName: TEdit
+        Left = 116
+        Height = 23
+        Top = 76
+        Width = 256
+        OnChange = accountNameChange
+        TabOrder = 0
+      end
+      object accountPass: TEdit
+        Left = 116
+        Height = 23
+        Top = 111
+        Width = 256
+        OnChange = accountNameChange
+        TabOrder = 1
+      end
+    end
+    object Page3: TPage
+      Caption = 'Page3'
+      ClientWidth = 392
+      ClientHeight = 179
+      object Label6: TLabel
+        Left = 24
+        Height = 32
+        Top = 20
+        Width = 348
+        AutoSize = False
+        Caption = 'Geben Sie nun ein, unter welchem Namen das Konto im Programm angezeigt werden soll:'
+        ParentColor = False
+        WordWrap = True
+      end
+      object Label8: TLabel
+        Left = 24
+        Height = 14
+        Top = 100
+        Width = 260
+        Caption = 'Sollen alle ausgeliehenen Medien gespeichert werden?'
+        ParentColor = False
+      end
+      object accountPrettyName: TEdit
+        Left = 44
+        Height = 23
+        Top = 60
+        Width = 320
+        TabOrder = 0
+      end
+      object saveHistory: TRadioButton
+        Left = 55
+        Height = 19
+        Top = 120
+        Width = 143
+        Caption = 'ja, alle Medien speichern'
+        Checked = True
+        State = cbChecked
+        TabOrder = 1
+      end
+      object RadioButton1: TRadioButton
+        Left = 55
+        Height = 19
+        Top = 139
+        Width = 329
+        Caption = 'nein, Ausleihenhistory und Statistik für dieses Konto deaktivieren'
+        TabOrder = 2
+      end
+    end
+    object Page4: TPage
+      Caption = 'Page4'
+      ClientWidth = 392
+      ClientHeight = 179
+      object Label7: TLabel
+        Left = 20
+        Height = 40
+        Top = 16
+        Width = 352
+        AutoSize = False
+        Caption = 'Wählen Sie nun aus, wann das Programm selbstständig die auf diesem Konto ausgeliehenen Medien verlängern soll:'
+        ParentColor = False
+        WordWrap = True
+      end
+      object extendDaysLbl: TLabel
+        Left = 196
+        Height = 14
+        Top = 79
+        Width = 77
+        Caption = 'Nötig bedeutet:'
+        ParentColor = False
+        Visible = False
+      end
+      object extendDaysLbl2: TLabel
+        Left = 235
+        Height = 27
+        Top = 103
+        Width = 100
+        Caption = 'Tage vor Ablauf der Leihfrist'
+        ParentColor = False
+        Visible = False
+        WordWrap = True
+      end
+      object lblWarning: TLabel
+        Left = 198
+        Height = 105
+        Top = 68
+        Width = 174
+        AutoSize = False
+        Caption = 'Achtung:                          Die Bücherei erlaubt nur  Verlängerungen pro Medium. Bei der Option "immer, wenn möglich" werden daher, nach kurzer Zeit, keinerlei Verlängerungen mehr erlaubt sein.'
+        Font.Style = [fsBold]
+        ParentColor = False
+        Visible = False
+        WordWrap = True
+      end
+      object maxExtendCount: TLabel
+        Left = 340
+        Height = 14
+        Top = 81
+        Width = 8
+        Caption = '9'
+        Font.Style = [fsBold]
+        ParentColor = False
+        Visible = False
+      end
+      object extendTypeRG: TRadioGroup
+        Left = 36
+        Height = 123
+        Top = 48
+        Width = 150
+        AutoFill = True
+        ChildSizing.LeftRightSpacing = 6
+        ChildSizing.TopBottomSpacing = 6
+        ChildSizing.EnlargeHorizontal = crsHomogenousChildResize
+        ChildSizing.EnlargeVertical = crsHomogenousChildResize
+        ChildSizing.ShrinkHorizontal = crsScaleChilds
+        ChildSizing.ShrinkVertical = crsScaleChilds
+        ChildSizing.Layout = cclLeftToRightThenTopToBottom
+        ChildSizing.ControlsPerLine = 1
+        ClientHeight = 105
+        ClientWidth = 146
+        ItemIndex = 0
+        Items.Strings = (
+          'immer, wenn möglich'
+          'immer, wenn nötig'
+          'niemals'
+        )
+        OnClick = RadioGroup2Click
+        TabOrder = 0
+      end
+      object extendDaysEdit: TEdit
+        Left = 204
+        Height = 23
+        Top = 99
+        Width = 27
+        TabOrder = 1
+        Text = '7'
+        Visible = False
+      end
+    end
+    object lastPage: TPage
+      Caption = 'lastPage'
+      ClientWidth = 392
+      ClientHeight = 179
+      object Label5: TLabel
+        Left = 21
+        Height = 33
+        Top = 8
+        Width = 345
+        AutoSize = False
+        Caption = 'Klicken Sie nun auf "Erstellen", um ein Konto mit folgenden Eigenschaften zu registrieren:'
+        ParentColor = False
+        WordWrap = True
+      end
+      object StringGrid1: TStringGrid
+        Left = 21
+        Height = 120
+        Top = 44
+        Width = 343
+        BorderStyle = bsNone
+        Color = clBtnFace
+        ColCount = 2
+        DefaultColWidth = 100
+        Enabled = False
+        FixedColor = clBtnFace
+        FixedCols = 0
+        FixedRows = 0
+        Flat = True
+        GridLineWidth = 0
+        Options = [goSmoothScroll]
+        RowCount = 6
+        ScrollBars = ssAutoBoth
+        TabOrder = 0
+        TabStop = True
+        Cells = (
+          7
+          0
+          0
+          'Bibliothek:'
+          0
+          1
+          'Kartennummer:'
+          0
+          2
+          'Passwort:'
+          0
+          3
+          'angezeigter Name:'
+          0
+          4
+          'Verlängerung:'
+          0
+          5
+          'History'
+          1
+          0
+          '9'
+        )
+      end
+    end
+  end
+  object Panel1: TPanel
+    Height = 31
+    Top = 187
+    Width = 400
+    Align = alBottom
+    ClientHeight = 31
+    ClientWidth = 400
+    TabOrder = 1
+    object cancelBtn: TButton
+      Left = 320
+      Height = 25
+      Top = 3
+      Width = 75
+      BorderSpacing.InnerBorder = 4
+      Cancel = True
+      Caption = '&Abbrechen'
+      OnClick = Button1Click
+      TabOrder = 2
+    end
+    object next: TButton
+      Left = 232
+      Height = 25
+      Top = 3
+      Width = 75
+      BorderSpacing.InnerBorder = 4
+      Caption = '&Weiter >'
+      Default = True
+      OnClick = Button2Click
+      TabOrder = 0
+    end
+    object back: TButton
+      Left = 152
+      Height = 25
+      Top = 3
+      Width = 75
+      BorderSpacing.InnerBorder = 4
+      Caption = '< &Zurück'
+      OnClick = Button3Click
+      TabOrder = 1
+    end
+  end
+end
