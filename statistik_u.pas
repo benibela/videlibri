@@ -36,7 +36,7 @@ type
     procedure PaintBox1Resize(Sender: TObject);
   private
     { private declarations }
-    procedure translateDate(sender: TAxis; value: longint; var translated: string);
+    procedure translateDate(sender: TAxis; value: extended; var translated: string);
   public
     { public declarations }
     diagram: TDiagram;
@@ -57,14 +57,14 @@ uses bookwatchmain,bbutils;
 { TstatistikForm }
 
 
-procedure TstatistikForm.translateDate(sender: TAxis; value: longint; var translated: string);
+procedure TstatistikForm.translateDate(sender: TAxis; value: extended; var translated: string);
 begin
   case combobox1.itemindex of
-    1: translated:= inttostr(weekOfYear(value));
+    1: translated:= inttostr(weekOfYear(round(value)));
     //2: translated:= FormatDateTime('m',value);
     2: //translated:= format('%.2d-%.2d',[firstYear+(firstMonth+value) div 12, 1+(firstMonth+value-1) mod 12]);
-       translated:= format('%.2d',[1+(firstMonth+value-1) mod 12]);
-    else translated:= FormatDateTime('d.m',value);
+       translated:= format('%.2d',[1+(firstMonth+round(value)-1) mod 12]);
+    else translated:= FormatDateTime('d.m',round(value));
   end;
 
 end;
@@ -221,15 +221,15 @@ var day,year,month:longint;
 begin
   case ComboBox1.ItemIndex of
     DIAGRAM_DAYS: begin
-      day:=diagram.posXToDataX(x);
+      day:=round(diagram.posXToDataX(x));
       mausInfo.Caption:=DateToStr(day);
     end;
     DIAGRAM_WEEKS: begin
-      day:=diagram.posXToDataX(x);
+      day:=round(diagram.posXToDataX(x));
       mausInfo.Caption:=DateToStr(day-DayOfWeek(day))+' - '+DateToStr(day+7-DayOfWeek(day));
     end;
     DIAGRAM_MONTHS:  begin
-      month:=diagram.posXToDataX(x);
+      month:=round(diagram.posXToDataX(x));
       year:=firstYear+month div 12;
       month:=(firstMonth+month-1) mod 12+1;
       mausInfo.Caption:=DateToStr(EncodeDate(word(year),word(month),1))+' - '+DateToStr(IncMonth(EncodeDate(word(year),word(month),1))-1);;
