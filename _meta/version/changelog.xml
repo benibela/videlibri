@@ -1,8 +1,11 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 
 <changelog program="VideLibri">
-  <build version="0988" date="2008-02-28">
+  <build version="0989" date="2008-04-24">
     <installer url="http://www.benibela.de/bin/tools/videlibri-setup.exe"/>
+    <fix level="critical">STB: Berücksichtigung einer weiteren Änderung der Websitenstruktur</fix>
+  </build>
+  <build version="0988" date="2008-02-28">
     <fix level="critical">STB: Berücksichtigung einer erneuten Änderung der Websitenstruktur</fix>
     <change>Erlaubt Verschachtelungen in den pseudo-XPath-Ausdrücken (verwendet sie aber nicht)</change>
   </build>

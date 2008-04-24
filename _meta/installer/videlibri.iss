@@ -1,8 +1,9 @@
 [Setup]
-AppVerName=VideLibri 0.988
-AppVersion=0.988
+;Change this in every version
+AppVerName=VideLibri 0.989
+AppVersion=0.989
 
-
+;Don't change
 AppName=VideLibri
 AppMutex=VideLibriStartedMutex
 AppPublisher=Benito van der Zander
