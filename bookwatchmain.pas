@@ -15,7 +15,8 @@ interface
 uses
   Classes, SysUtils, LResources, Forms, Controls, Graphics, Dialogs,
   StdCtrls, Buttons, libraryParser,internetAccess, ComCtrls, Menus,
-  lmessages, ExtCtrls,errorDialog,statistik_u,libraryAccess,sendBackError,Translations,progressDialog;
+  lmessages, ExtCtrls,errorDialog,statistik_u,libraryAccess,sendBackError,Translations,progressDialog,
+  TreeListView;
 
 const //automaticExtend=true;
       colorSelected=clHighlight;
@@ -27,6 +28,7 @@ type
   { TmainForm }
   TmainForm = class(TForm)
     accountListMenuItem: TMenuItem;
+    Button1: TButton;
     Label2: TLabel;
     MenuItem10: TMenuItem;
     extendMenuList1: TMenuItem;
@@ -62,7 +64,6 @@ type
     ImageList1: TImageList;
     Label1: TLabel;
     searchStatus: TLabel;
-    ListView1: TListView;
     MainMenu1: TMainMenu;
     MenuItem1: TMenuItem;
     MenuItem5: TMenuItem;
@@ -90,6 +91,9 @@ type
     StatusBar1: TStatusBar;
     procedure appMinimize(Sender: TObject);
     procedure appRestore(Sender: TObject);
+    procedure BookListCustomItemDraw(sender: TObject;
+      eventTyp_cdet: TCustomDrawEventTyp; item: TTreeListItem; xpos, ypos,
+      xColumn: integer; lastItem: boolean; var defaultDraw: Boolean);
     procedure bookPopupMenuPopup(Sender: TObject);
     procedure Button1Click(Sender: TObject);
     procedure Button2Click(Sender: TObject);
@@ -99,6 +103,7 @@ type
     procedure FormClose(Sender: TObject; var CloseAction: TCloseAction);
     procedure FormCloseQuery(Sender: TObject; var CanClose: boolean);
     procedure FormCreate(Sender: TObject);
+    procedure FormDestroy(Sender: TObject);
     procedure FormResize(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure FormWindowStateChange(Sender: TObject);
@@ -114,8 +119,7 @@ type
       var DefaultDraw: Boolean);
     procedure ListView1MouseUp(Sender: TOBject; Button: TMouseButton;
       Shift: TShiftState; X, Y: Integer);
-    procedure ListView1SelectItem(Sender: TObject; Item: TListItem;
-      Selected: Boolean);
+    procedure BookListSelectItem(Sender: TObject; Item: TTreeListItem);
     procedure MenuItem11Click(Sender: TObject);
     procedure MenuItem14Click(Sender: TObject);
     procedure MenuItem15Click(Sender: TObject);
@@ -166,6 +170,8 @@ type
     searchMarkRow,searchMarkCol,searchMarkStart,searchMarkLen: longint;
     searchMarkVisible:boolean;
 
+    BookList: TTreeListView;
+
     procedure searchInListView(step: integer=1;researchCurrentLine: boolean=false);
     procedure ThreadDone(Sender: TObject);
     procedure RefreshListView; //Zentrale Anzeige Funktion!
@@ -208,21 +214,21 @@ begin
   ShowWindow(GetWindow(mainform.handle,GW_OWNER),SW_SHOW); //windows, win32
 end;
 
-function getListItemColor(item:TListItem):TColor;
+function getListItemColor(item:TTreeListItem):TColor;
 begin
-  if Item.Data = nil then exit(colorTimeNear);
-  if PBook(Item.Data)^.actuality in [bltInOldAdd,bltInOldData] then
+  if Item.tag = 0 then exit(colorTimeNear);
+  if PBook(Item.tag)^.actuality in [bltInOldAdd,bltInOldData] then
     result:=colorOld
-  else if PBook(Item.Data)^.limitDate<=redTime then
+  else if PBook(Item.tag)^.limitDate<=redTime then
     result:=colorTimeNear
-  else if PBook(Item.Data)^.status in BOOK_NOT_EXTENDABLE then
+  else if PBook(Item.tag)^.status in BOOK_NOT_EXTENDABLE then
     result:=colorLimited
   else result:=colorOK;
 end;
 
 procedure TmainForm.ListView1WindowProc(var TheMessage: TLMessage);
 var t:tpoint;
-begin
+begin   (*
   case TheMessage.Msg of
     WM_ERASEBKGND:
       TheMessage.Result:=1;
@@ -231,11 +237,11 @@ begin
       oldListViewWindowProc(TheMessage);
       FormResize(self);
     end;  }
-    WM_MOUSEWHEEL:  begin
+    {WM_MOUSEWHEEL:  begin
       SendMessage(ListView1.Handle,LVM_SCROLL,0,-48*smallint(TheMessage.WParamHi) div 120);
 //      showmessage(IntToStr( TheMessage.WParamHi));
       TheMessage.result:=1;
-    end;
+    end;}
     WM_RBUTTONDOWN:
       TheMessage.result:=1;
     WM_RBUTTONUP: begin
@@ -248,11 +254,11 @@ begin
     end;
     else if assigned(oldListViewWindowProc) then
       oldListViewWindowProc(TheMessage);
-  end;
+  end;*)
 end;
 
 procedure TmainForm.searchInListView(step: integer; researchCurrentLine: boolean);
-  procedure showSearchMark;
+ (* procedure showSearchMark;
   const DT_WORD_ELLIPSIS           =$00040000;
   var rec:trect;
       item:TListitem;
@@ -309,7 +315,7 @@ var st: string;
          ((col<searchMarkCol)or((col=searchMarkCol)and(stp<searchMarkStart))) then
            exit;
       if searchMarkVisible and ((searchMarkRow<>row)or(searchMarkCol<>col)or(searchMarkStart<>stp)) then begin
-        sendMessage(listview1.handle,{LVM_REDRAWITEMS}{LVM_FIRST}$1000 + 21,searchMarkRow,searchMarkRow);
+        sendMessage(listview1.handle,{LVM_REDRAWITEMS{LVM_FIRST$1000 + 21,searchMarkRow,searchMarkRow);
         UpdateWindow(ListView1.Handle);
       end;
       searchMarkRow:=row;
@@ -327,8 +333,8 @@ var st: string;
     end;
   end;
 var sp,ss,i: longint;
-    field: integer;
-begin
+    field: integer;*)
+begin               (*
   searchStatus.caption:='';
   ss:=searchMarkRow;
   if ss<0 then ss:=0;
@@ -363,11 +369,13 @@ begin
     searchMarkVisible:=false;
     searchStatus.caption:='Nicht gefunden';
     searchText.color:=colorSearchTextNotFound;
-  end;
+  end;               *)
 end;
 
 procedure TmainForm.FormCreate(Sender: TObject);
 //const IMAGE_FILES:array[0..2] of string=('refresh','homepages','options');
+
+type TDeactivateWindowTheme= function (hWnd: Long;pszSubAppName: pwchar;pszSubIdList: pwchar): Long;stdcall; //uxtheme.dll
 
 const defaultorder:array[0..9] of longint=(0,1,2,3,LV_BOOK_COLUMNS_YEAR_ID,4,5,6,7,9);
 
@@ -375,9 +383,11 @@ var i:integer;
     tempItem:TMenuItem;
     img,mask: graphics.TBITMAP;
     order: array[0..100] of longint;
+    DeactivateWindowTheme: TDeactivateWindowTheme;
 begin
   if logging then log('FormCreate started');
   
+
   Application.OnMinimize:=@appMinimize;
   Application.OnRestore:=@appRestore;
   
@@ -387,18 +397,11 @@ begin
 
 
   
-  listViewSortColumn:=5;
-  listViewSortInvert:=false;
   searchMarkRow:=0;
   searchMarkVisible:=false;
 
   //ListView1.DoubleBuffered:=true;
 
-  oldListViewWindowProc:=ListView1.WindowProc;
-  ListView1.WindowProc:=@ListView1WindowProc;
-  
-
-  listView1.color:=colorOK;
   setSymbolAppearance(userConfig.ReadInteger('appearance','symbols',0));
 
   
@@ -421,13 +424,55 @@ begin
   for i:=0 to accountIDs.count-1 do
     addGUIItemsForNewAccount(TCustomAccountAccess(accountIDs.Objects[i]));
 
-  for i:=0 to ListView1.Columns.Count-1 do begin
+  BookList:=TTreeListView.create(self);
+  BookList.Parent:=self;
+  BookList.Align:=alClient;
+  BookList.RootLineMode:=lmNone;
+  BookList.BackGroundColor:=colorOK;
+  BookList.HeaderSections.Clear;
+  BookList.Striped:=false;
+  BookList.multiSelect:=true;
+  BookList.PopupMenu:=bookPopupMenu;
+  BookList.OnSelect:=@BookListSelectItem;
+  BookList.OnCustomItemDraw:=@BookListCustomItemDraw;
+  with BookList.HeaderSections.Add do begin
+    Text:='ID';
+    Width:=80;
+  end;
+  with BookList.HeaderSections.Add do begin
+    Text:='Kategorie';
+    Width:=50;
+  end;
+  with BookList.HeaderSections.Add do begin
+    Text:='Verfasser';
+    Width:=120;
+  end;
+  with BookList.HeaderSections.Add do begin
+    Text:='Titel';
+    Width:=150;
+  end;
+  with BookList.HeaderSections.Add do begin
+    Text:='Ausleihe';
+    Width:=70;
+  end;
+  with BookList.HeaderSections.Add do begin
+    Text:='Frist';
+    Width:=70;
+  end;
+  with BookList.HeaderSections.Add do begin
+    Text:='Konto';
+    Width:=80;
+  end;
+  with BookList.HeaderSections.Add do begin
+    Text:='Bemerkung';
+    Width:=250;
+  end;
+           {//TODO: Header
+  for i:=0 to BookList.Columns.Count-1 do begin
     ListView1.Columns[i].Width:=userConfig.ReadInteger('BookList','ColumnWidth'+IntToStr(i),
                                                         ListView1.Columns[i].Width);
     order[i]:=userConfig.ReadInteger('BookList','ColumnPos'+IntToStr(i),defaultorder[i]);
-  end;
-  SendMessageA(ListView1.Handle,LVM_SETCOLUMNORDERARRAY,ListView1.Columns.Count,lparam(@order[0]));
-  ListView1.FullDrag:=true;
+  end;    }
 
   //TODO Iconoptimize
   //TODO Öffnungszeiten
@@ -454,8 +499,14 @@ begin
   caption:=caption+' (DEBUG-MODE!)';
   {$endif}
 
+
     //image1.Picture.LoadFromFile(programPath+'images\'+IMAGE_FILES[0]+'.bmp');
   if logging then log('FormCreate ende');
+end;
+
+procedure TmainForm.FormDestroy(Sender: TObject);
+begin
+  BookList.Free;
 end;
 
 procedure TmainForm.FormResize(Sender: TObject);
@@ -469,12 +520,12 @@ begin
   for i:=0 to StatusBar1.Panels.count-1 do
     w:=w-StatusBar1.Panels[i].Width;
   StatusBar1.Panels[1].width:=w+StatusBar1.Panels[1].width;
-
-  if ListView1.items.count=0 then begin
+          {
+  if BookList.items.count=0 then begin
     if logging then log('FormResize ende (exit)');
     exit;
   end;
-  for i:=0{ListView1.TopItem.Index} to min(ListView1.TopItem.Index+ListView1.VisibleRowCount,
+  for i:=0 to min(ListView1.TopItem.Index+ListView1.VisibleRowCount,
                                         ListView1.items.Count-1) do begin
     item:=ListView1.Items[i];
     ListView1.Canvas.brush.color:=getListItemColor(item);
@@ -498,15 +549,6 @@ end;
 
 procedure TmainForm.ListView1ColumnClick(Sender: TObject; Column: TListColumn);
 begin
-  if listViewSortColumn = Column.Index then
-    listViewSortInvert:=not listViewSortInvert
-   else begin
-    listViewSortColumn := Column.Index;
-    listViewSortInvert := false;
-   end;
-   ListView1.SortType:=stNone;
-   ListView1.SortType:=stBoth;
-   ListView1.Refresh;
 end;
 
 
@@ -522,8 +564,8 @@ procedure TmainForm.bookPopupMenuPopup(Sender: TObject);
 begin
 {  extendThisBooks.Enabled:=(ListView1.SelCount=1) and
                   (PBook(ListView1.Selected.Data))^.lib.getLibrary().canModifySingleBooks;}
-  extendTheseBooks.Enabled:=(ListView1.SelCount>=1);
-  extendAdjacentBooks.Enabled:=ListView1.SelCount=1;
+  extendTheseBooks.Enabled:=(BookList.SelCount>=1);
+  extendAdjacentBooks.Enabled:=BookList.SelCount=1;
 end;
 
 procedure TmainForm.appMinimize(Sender: TObject);
@@ -536,6 +578,15 @@ procedure TmainForm.appRestore(Sender: TObject);
 begin
   if startToTNA then
     showTaskBarIcon();
+end;
+
+procedure TmainForm.BookListCustomItemDraw(sender: TObject;
+  eventTyp_cdet: TCustomDrawEventTyp; item: TTreeListItem; xpos, ypos,
+  xColumn: integer; lastItem: boolean; var defaultDraw: Boolean);
+begin
+  BookList.canvas.Brush.Style:=bsSolid;
+  BookList.Canvas.brush.color:=getListItemColor(item);
+  defaultDraw:=true;
 end;
 
 procedure TmainForm.delayedCallTimer(Sender: TObject);
@@ -631,12 +682,12 @@ begin
     userConfig.writeinteger('window','state',integer(windowstate));
 
 
-  SendMessageA(ListView1.Handle,LVM_GETCOLUMNORDERARRAY,ListView1.Columns.Count,lparam(@order[0]));
+  {SendMessageA(ListView1.Handle,LVM_GETCOLUMNORDERARRAY,ListView1.Columns.Count,lparam(@order[0]));
   for i:=0 to ListView1.Columns.Count-1 do begin
     userConfig.WriteInteger('BookList','ColumnWidth'+IntToStr(i),
                              ListView1.Columns[i].Width);
     userConfig.WriteInteger('BookList','ColumnPos'+IntToStr(i),order[i]);
-  end;
+  end; }
 end;
 
 procedure TmainForm.FormCloseQuery(Sender: TObject; var CanClose: boolean);
@@ -688,63 +739,13 @@ end;
 
 procedure TmainForm.ListView1CustomDraw(Sender: TCustomListView;
   const ARect: TRect; var DefaultDraw: Boolean);
-var temp:TRECT;
 begin
-  ListView1.canvas.brush.Color:=ListView1.Color;
-  if ListView1.Items.Count>0 then begin
-    if ListView1.TopItem<>nil then begin
-      if ListView1.items.count<=ListView1.VisibleRowCount+ListView1.TopItem.Index then begin
-        //die leere Fläche hinter dem angezeigten Bereich entgültig entsprechend füllen
-        temp:=ListView1.items[ListView1.Items.Count-1].DisplayRect(drBounds);
-        temp.Top:=temp.Bottom;
-        temp.Bottom:=ListView1.Height;
-        temp.right:=ListView1.Width;
-        temp.left:=0;
-        ListView1.Canvas.FillRect(temp);
-      end;
-      //Fläche über erstem Eintrag füllen
-      ListView1.canvas.brush.Color:=getListItemColor(ListView1.TopItem);
-      temp:=ListView1.TopItem.DisplayRect(drBounds);
-      temp.Bottom:=temp.Top;
-      temp.Top:=0;
-      temp.left:=0;
-      temp.right:=ListView1.Width;
-      ListView1.Canvas.FillRect(temp);
-    end;
-  end else ListView1.Canvas.FillRect(arect);
 end;
 
 
 procedure TmainForm.ListView1CustomDrawItem(Sender: TCustomListView;
   Item: TListItem; State: TCustomDrawState; var DefaultDraw: Boolean);
-var rec:trect;
 begin
-  //DefaultDraw:=true;
-  ListView1.Canvas.brush.color:=getListItemColor(item);
-
-
-  (*if {PBook(Item.Data)^.changed}PBook(Item.Data)^.issueDate=currentDate then
-    ListView1.Font.Style:={ListView1.Canvas.Font.Style+}[fsBold]
-   else
-    ListView1.Font.Style:=ListView1.Font.Style-[fsBold]
-    ;   *)
-
-//    ListView1.Canvas.TextOut(0,0,'');
-//    SelectObject(ListView1.Canvas.Handle,ListView1.Canvas.font.Handle);
-  {rec:=item.DisplayRect(drBounds);
-  rec.right:=2;
-  rec.left:=0;
-  ListView1.Canvas.FillRect(rec);  }
-
-  rec:=item.DisplayRect(drBounds);
-{  rec.left:=rec.right;
-  rec.right:=listView1.clientWidth;}
-  //Bereich rechts und links vom Eintrag füllen
-  ListView1.Canvas.FillRect(rec.right,rec.top,listview1.width,rec.bottom);
-  ListView1.Canvas.FillRect(0+rec.left,rec.top,3+rec.left,rec.bottom); //+rec.left wegen horz. scrollen
-
-//  if searchMarkVisible and (item.index=searchMarkRow) then ListView1.OnCustomDrawSubItem:=@ListView1CustomDrawSubItem;
-  //else ListView1.OnCustomDrawSubItem:=nil;
 end;
 
 procedure TmainForm.ListView1CustomDrawSubItem(Sender: TCustomListView;
@@ -758,8 +759,7 @@ procedure TmainForm.ListView1MouseUp(Sender: TOBject; Button: TMouseButton;
 begin
 end;
 
-procedure TmainForm.ListView1SelectItem(Sender: TObject; Item: TListItem;
-  Selected: Boolean);
+procedure TmainForm.BookListSelectItem(Sender: TObject; Item: TTreeListItem);
 var s:string;
 begin
   s:=StatusBar1.Panels[SB_PANEL_COUNT].Text;
@@ -768,8 +768,8 @@ begin
     delete(s,1,pos('/',s));
   end else  //Format: Medien: 4/5
     delete(s,1,pos(' ',s));
-  if ListView1.SelCount=0 then StatusBar1.Panels[SB_PANEL_COUNT].Text:='Medien: '+s
-  else StatusBar1.Panels[SB_PANEL_COUNT].Text:='Medien: '+IntToStr(ListView1.SelCount)+'/'+s;
+  if BookList.SelCount=0 then StatusBar1.Panels[SB_PANEL_COUNT].Text:='Medien: '+s
+  else StatusBar1.Panels[SB_PANEL_COUNT].Text:='Medien: '+IntToStr(BookList.SelCount)+'/'+s;
   if StatusBar1.Canvas.TextWidth(StatusBar1.Panels[SB_PANEL_COUNT].Text)+10>StatusBar1.Panels[SB_PANEL_COUNT].Width then
     StatusBar1.Panels[SB_PANEL_COUNT].Width:=StatusBar1.Canvas.TextWidth(StatusBar1.Panels[SB_PANEL_COUNT].Text)+10;
 end;
@@ -778,11 +778,11 @@ procedure TmainForm.MenuItem11Click(Sender: TObject);
 var i,j:integer;
     books:TBookArray;
 begin
-  setlength(books,listview1.SelCount);
+  setlength(books,BookList.SelCount);
   j:=0;
-  for i:=0 to ListView1.Items.Count-1 do begin
-    if ListView1.Items[i].Selected then begin
-      books[j]:=PBook(ListView1.Items[i].data);
+  for i:=0 to BookList.Items.Count-1 do begin
+    if BookList.Items[i].Selected then begin
+      books[j]:=PBook(BookList.Items[i].Tag);
       inc(j);
     end ;
   end;
@@ -1030,8 +1030,8 @@ end;
 procedure TmainForm.ViewAllClick(Sender: TObject);
 begin
   (sender as tmenuitem).Checked:=true;
-  if sender=ViewOld then ListView1.color:=colorOld
-  else ListView1.color:=colorOK;
+  if sender=ViewOld then BookList.BackGroundColor:=colorOld
+  else BookList.BackGroundColor:=colorOK;
   RefreshListView;
 end;
 
@@ -1058,9 +1058,8 @@ begin
     EnterCriticalSection(updateThreadConfig.libraryAccessSection);
     criticalSessionUsed:=true;
   end;
-  ListView1.BeginUpdate;
-  ListView1.clear;
-  ListView1.SortType:=stNone;
+  BookList.BeginUpdate;
+  BookList.items.clear;
   for i:=0 to viewMenu.Count-1 do begin
     if (viewMenu.Items[i].tag = 0) or (viewMenu.Items[i].tag = -1) then continue;
     if not viewMenu.Items[i].Checked then continue;
@@ -1068,39 +1067,39 @@ begin
            TCustomAccountAccess(viewMenu.Items[i].Tag).getBooks();
     for j:=0 to books.getBookCount(typ)-1 do begin
       book:=books.getBook(typ,j);
-      with ListView1.items.Add do begin
+      with BookList.items.Add do begin
         Caption:=book^.id;
-        SubItems.add(Utf8ToAnsi(book^.category));
-        SubItems.add(Utf8ToAnsi(book^.author));
-        SubItems.add(Utf8ToAnsi(book^.title));
-        SubItems.add(DateToPrettyStr(book^.issueDate));
+        RecordItems.AddWithText(Utf8ToAnsi(book^.category));
+        RecordItems.AddWithText(Utf8ToAnsi(book^.author));
+        RecordItems.AddWithText(Utf8ToAnsi(book^.title));
+        RecordItems.AddWithText(DateToPrettyStr(book^.issueDate));
         if book^.actuality in [bltInOldData,bltInOldAdd] then
-         SubItems.add('erledigt')
+         RecordItems.AddWithText('erledigt')
         else
-         SubItems.add(DateToPrettyStr(book^.limitDate));
-        SubItems.add(book^.lib.prettyName);
+         RecordItems.AddWithText(DateToPrettyStr(book^.limitDate));
+        RecordItems.AddWithText(book^.lib.prettyName);
         if book^.actuality in [bltInOldData,bltInOldAdd] then
-          SubItems.add('')
+          RecordItems.AddWithText('')
          else begin
            case book^.Status of
-            bsNormal: SubItems.add('');
-            bsUnknown: SubItems.add('Ausleihstatus unbekannt');
-            bsIsSearched: SubItems.add('Ausleihstatus wird ermittelt... (sollte nicht vorkommen, bitte melden!)');
-            bsEarMarked:SubItems.add('vorgemerkt');
-            bsMaxLimitReached: SubItems.add('maximale Ausleihfrist erreicht');
-            bsAccountExpired: SubItems.add('Büchereikarte ist abgelaufen');
-            bsProblematicInStr,bsCuriousInStr: SubItems.add(Utf8ToAnsi(book^.statusStr));
-            else SubItems.add('Unbekannter Fehler! Bitte melden!');
+            bsNormal: RecordItems.AddWithText('');
+            bsUnknown: RecordItems.AddWithText('Ausleihstatus unbekannt');
+            bsIsSearched: RecordItems.AddWithText('Ausleihstatus wird ermittelt... (sollte nicht vorkommen, bitte melden!)');
+            bsEarMarked:RecordItems.AddWithText('vorgemerkt');
+            bsMaxLimitReached: RecordItems.AddWithText('maximale Ausleihfrist erreicht');
+            bsAccountExpired: RecordItems.AddWithText('Büchereikarte ist abgelaufen');
+            bsProblematicInStr,bsCuriousInStr: RecordItems.AddWithText(Utf8ToAnsi(book^.statusStr));
+            else RecordItems.AddWithText('Unbekannter Fehler! Bitte melden!');
            end;
            lastCheck:=min(lastCheck,book^.lastExistsDate);
         end;
-        SubItems.add(Utf8ToAnsi(book^.year)); ;
+        RecordItems.AddWithText(Utf8ToAnsi(book^.year)); ;
        // SubItems.add(book^.otherInfo);
-        data:=book;
+        Tag:=longint(book);
       end;
     end;
   end;
-  ListView1.SortType:=stBoth;
+  BookList.Sorted:=true;
 
   //SHAREWARE CODE
   {$I obfuscate.inc}
@@ -1113,9 +1112,9 @@ begin
   if not sharewaretest then begin
     showOnly10:
     {$I obfuscate.inc}
-    for i:=ListView1.items.count-1 downto 10 do begin;
+    for i:= BookList.items.count-1 downto 10 do begin;
       {$I obfuscate.inc}
-      ListView1.items.Delete(i);
+      BookList.items.Delete(i);
     end;
   end;
 
@@ -1155,11 +1154,11 @@ begin
     end;
     StatusBar1.Panels[1].text:=StatusBar1.Panels[1].text+')';
   end else StatusBar1.Panels[1].text:='';
-  StatusBar1.Panels[SB_PANEL_COUNT].Text:='Medien: '+IntToStr(ListView1.Items.Count);
+  StatusBar1.Panels[SB_PANEL_COUNT].Text:='Medien: '+IntToStr(BookList.Items.Count);
 
   //SHAREWARE CODE
   {$I obfuscate.inc}
-  if ListView1.Items.count>10 then
+  if BookList.Items.count>10 then
     if nok2 then halt;
   //SHAREWARE CODE END
 
@@ -1173,7 +1172,7 @@ begin
   //SHAREWARE CODE
   //Bücherzahl überprüfen
 
-  ListView1.EndUpdate;
+  BookList.EndUpdate;
 
   count:=0;
   count2:=0;
@@ -1186,19 +1185,19 @@ begin
     if viewMenu.Items[i].Checked then count2+=books.getBookCount(typ);
   end;
   StatusBar1.Panels[SB_PANEL_COUNT].Text:=StatusBar1.Panels[SB_PANEL_COUNT].Text+'/'+inttostr(count);
-  if count2>ListView1.Items.count then begin
-    with ListView1.Items.Add do begin
+  if count2>BookList.Items.count then begin
+    with BookList.Items.Add do begin
       caption:='ACHTUNG';
-      SubItems.add('');
-      SubItems.add('VideLibri');
-      SubItems.add('weitere '+IntToStr(count-ListView1.items.count+1)+' Medien ausgeblendet');
-      SubItems.add('');
-      SubItems.add('');
-      SubItems.add('');
-      SubItems.add('Nur die Vollversion zeigt mehr als 10 Medien an.');
-      SubItems.add('');
+      RecordItems.AddWithText('');
+      RecordItems.AddWithText('VideLibri');
+      RecordItems.AddWithText('weitere '+IntToStr(count-BookList.items.count+1)+' Medien ausgeblendet');
+      RecordItems.AddWithText('');
+      RecordItems.AddWithText('');
+      RecordItems.AddWithText('');
+      RecordItems.AddWithText('Nur die Vollversion zeigt mehr als 10 Medien an.');
+      RecordItems.AddWithText('');
       //SubItems.add('');
-      data:=nil;
+      Tag:=0;
     end;
   end else if count2>10 then
     if  (nok1 or not ok3) then close;

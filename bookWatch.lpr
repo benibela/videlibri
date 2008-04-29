@@ -213,6 +213,8 @@ end;
 
 {$R icons.res}
 
+{$IFDEF WINDOWS}{$R manifest.rc}{$ENDIF}
+
 begin
   Application.Initialize;
   Application.Title:='VideLibri';

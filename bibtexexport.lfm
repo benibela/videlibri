@@ -14,6 +14,7 @@ object BibTexExportFrm: TBibTexExportFrm
   OnCreate = FormCreate
   OnShow = FormShow
   Position = poMainFormCenter
+  LCLVersion = '0.9.25'
   object exportWhich: TRadioGroup
     Left = 16
     Height = 64

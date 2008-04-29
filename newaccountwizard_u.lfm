@@ -1,23 +1,24 @@
 object newAccountWizard: TnewAccountWizard
-  Left = 336
-  Height = 218
-  Top = 128
-  Width = 400
-  HorzScrollBar.Page = 399
-  VertScrollBar.Page = 217
+  Left = 337
+  Height = 216
+  Top = 129
+  Width = 398
+  HorzScrollBar.Page = 397
+  VertScrollBar.Page = 215
   ActiveControl = libraryList
   BorderIcons = [biSystemMenu]
   BorderStyle = bsDialog
   Caption = 'Neues Konto'
-  ClientHeight = 218
-  ClientWidth = 400
+  ClientHeight = 216
+  ClientWidth = 398
   OnActivate = FormActivate
   OnCreate = FormCreate
   OnShow = FormShow
   Position = poScreenCenter
+  LCLVersion = '0.9.25'
   object Notebook1: TNotebook
-    Height = 187
-    Width = 400
+    Height = 185
+    Width = 398
     Align = alClient
     OnPageChanged = Notebook1PageChanged
     PageIndex = 4
@@ -64,8 +65,8 @@ object newAccountWizard: TnewAccountWizard
         ChildSizing.ShrinkVertical = crsScaleChilds
         ChildSizing.Layout = cclTopToBottomThenLeftToRight
         ChildSizing.ControlsPerLine = 4
-        ClientHeight = 72
-        ClientWidth = 333
+        ClientHeight = 90
+        ClientWidth = 337
         ColumnLayout = clVerticalThenHorizontal
         ItemIndex = 0
         Items.Strings = (
@@ -251,8 +252,8 @@ object newAccountWizard: TnewAccountWizard
         ChildSizing.ShrinkVertical = crsScaleChilds
         ChildSizing.Layout = cclLeftToRightThenTopToBottom
         ChildSizing.ControlsPerLine = 1
-        ClientHeight = 105
-        ClientWidth = 146
+        ClientHeight = 123
+        ClientWidth = 150
         ItemIndex = 0
         Items.Strings = (
           'immer, wenn möglich'
@@ -274,8 +275,8 @@ object newAccountWizard: TnewAccountWizard
     end
     object lastPage: TPage
       Caption = 'lastPage'
-      ClientWidth = 392
-      ClientHeight = 179
+      ClientWidth = 390
+      ClientHeight = 177
       object Label5: TLabel
         Left = 21
         Height = 33
@@ -303,9 +304,7 @@ object newAccountWizard: TnewAccountWizard
         GridLineWidth = 0
         Options = [goSmoothScroll]
         RowCount = 6
-        ScrollBars = ssAutoBoth
         TabOrder = 0
-        TabStop = True
         Cells = (
           7
           0
@@ -335,11 +334,11 @@ object newAccountWizard: TnewAccountWizard
   end
   object Panel1: TPanel
     Height = 31
-    Top = 187
-    Width = 400
+    Top = 185
+    Width = 398
     Align = alBottom
     ClientHeight = 31
-    ClientWidth = 400
+    ClientWidth = 398
     TabOrder = 1
     object cancelBtn: TButton
       Left = 320

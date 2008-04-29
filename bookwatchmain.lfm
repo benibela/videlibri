@@ -1,102 +1,64 @@
 object mainForm: TmainForm
-  Left = 58
-  Height = 683
-  Top = 22
-  Width = 925
-  HorzScrollBar.Page = 924
-  VertScrollBar.Page = 663
-  ActiveControl = ListView1
+  Left = 59
+  Height = 681
+  Top = 23
+  Width = 949
+  HorzScrollBar.Page = 948
+  VertScrollBar.Page = 660
   Caption = 'Videlibri'
-  ClientHeight = 664
-  ClientWidth = 925
+  ClientHeight = 661
+  ClientWidth = 949
   Icon.Data = {
-    BD0100002F2A2058504D202A2F0A7374617469632063686172202A6772617068
-    69635B5D203D207B0A22313620313620352031222C0A222E2063202346464646
-    4646222C0A222C20632023433643364336222C0A222D20632023464646463030
-    222C0A222A20632023383438343030222C0A226120632023383438343834222C
-    0A222E2E2E2E2E2E2E2E2E2E2E2E2E2E2E2E222C0A222E2E2E2E2E2C2C2C2C2C
-    2C2C2C2E2E2E222C0A222E2E2E2E2E2C2C2C2C2E2E2E2E2D2D2E222C0A222E2E
-    2E2A2A2E2E2E2E2D2D2D2D2D2D2E222C0A222E2E2E2A2A2A2E2D612D61612D61
-    2D2E222C0A222E2E2E2A2A2A2E2D6161612D61612D2E222C0A222E2E2E2A2A2A
-    2E2D2D61616161612D2E222C0A222E2E2E2A2A2A2E2D2D2D2D2D2D2D2D2E222C
-    0A222E2E2E2A2A2A2E2D2D2D2D2D2D2D2D2E222C0A222E2E2E2A2A2A2E612D2D
-    61612D612D2E222C0A222E2E2E2A2A2A2E612D2D6161612D2D2E222C0A222E2E
-    2E2A2A2A2E612D2D616161612D2E222C0A222E2E2E2A2A2A2E6161612D61612D
-    2D2E222C0A222E2E2E2A2A2A2E2D2D2D2D2D2D2E2E2E222C0A222E2E2E2E2A2A
-    2E2D2D2E2E2E2E2E2E2E222C0A222E2E2E2E2E2E2E2E2E2E2E2E2E2E2E2E227D
-    0A
+    36040000424D3604000000000000360000002800000010000000100000000100
+    2000000000000004000064000000640000000000000000000000FFFFFFFFFFFF
+    FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+    FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+    FFFFFFFFFFFFFFFFFFFF008484FF008484FFFFFFFFFF00FFFFFF00FFFFFFFFFF
+    FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+    FFFFFFFFFFFF008484FF008484FF008484FFFFFFFFFF00FFFFFF00FFFFFF00FF
+    FFFF00FFFFFF00FFFFFF00FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+    FFFFFFFFFFFF008484FF008484FF008484FFFFFFFFFF848484FF848484FF8484
+    84FF00FFFFFF848484FF848484FF00FFFFFF00FFFFFFFFFFFFFFFFFFFFFFFFFF
+    FFFFFFFFFFFF008484FF008484FF008484FFFFFFFFFF848484FF00FFFFFF00FF
+    FFFF848484FF848484FF848484FF848484FF00FFFFFFFFFFFFFFFFFFFFFFFFFF
+    FFFFFFFFFFFF008484FF008484FF008484FFFFFFFFFF848484FF00FFFFFF00FF
+    FFFF848484FF848484FF848484FF00FFFFFF00FFFFFFFFFFFFFFFFFFFFFFFFFF
+    FFFFFFFFFFFF008484FF008484FF008484FFFFFFFFFF848484FF00FFFFFF00FF
+    FFFF848484FF848484FF00FFFFFF848484FF00FFFFFFFFFFFFFFFFFFFFFFFFFF
+    FFFFFFFFFFFF008484FF008484FF008484FFFFFFFFFF00FFFFFF00FFFFFF00FF
+    FFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFFFFFFFFFFFFFFFFFFFFFF
+    FFFFFFFFFFFF008484FF008484FF008484FFFFFFFFFF00FFFFFF00FFFFFF00FF
+    FFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFFFFFFFFFFFFFFFFFFFFFF
+    FFFFFFFFFFFF008484FF008484FF008484FFFFFFFFFF00FFFFFF00FFFFFF8484
+    84FF848484FF848484FF848484FF848484FF00FFFFFFFFFFFFFFFFFFFFFFFFFF
+    FFFFFFFFFFFF008484FF008484FF008484FFFFFFFFFF00FFFFFF848484FF8484
+    84FF848484FF00FFFFFF848484FF848484FF00FFFFFFFFFFFFFFFFFFFFFFFFFF
+    FFFFFFFFFFFF008484FF008484FF008484FFFFFFFFFF00FFFFFF848484FF00FF
+    FFFF848484FF848484FF00FFFFFF848484FF00FFFFFFFFFFFFFFFFFFFFFFFFFF
+    FFFFFFFFFFFF008484FF008484FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF00FF
+    FFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFFFFFFFFFFFFFFFFFFFFFF
+    FFFFFFFFFFFFFFFFFFFFFFFFFFFFC6C6C6FFC6C6C6FFC6C6C6FFC6C6C6FFFFFF
+    FFFFFFFFFFFFFFFFFFFFFFFFFFFF00FFFFFF00FFFFFFFFFFFFFFFFFFFFFFFFFF
+    FFFFFFFFFFFFFFFFFFFFFFFFFFFFC6C6C6FFC6C6C6FFC6C6C6FFC6C6C6FFC6C6
+    C6FFC6C6C6FFC6C6C6FFC6C6C6FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+    FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+    FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
   }
   Menu = MainMenu1
   OnActivate = FormActivate
   OnClose = FormClose
   OnCloseQuery = FormCloseQuery
   OnCreate = FormCreate
+  OnDestroy = FormDestroy
   OnResize = FormResize
   OnShow = FormShow
-  Position = poScreenCenter
   OnWindowStateChange = FormWindowStateChange
-  object ListView1: TListView
-    Tag = 5
-    Height = 560
-    Top = 54
-    Width = 925
-    Align = alClient
-    Columns = <    
-      item
-        Caption = 'ID'
-        Width = 75
-      end    
-      item
-        Caption = 'Kategorie'
-      end    
-      item
-        Caption = 'Verfasser'
-        Width = 130
-      end    
-      item
-        Caption = 'Titel'
-        Width = 150
-      end    
-      item
-        Alignment = taCenter
-        Caption = 'Ausleihe'
-        Width = 70
-      end    
-      item
-        Alignment = taCenter
-        Caption = 'Rückgabe'
-        Width = 70
-      end    
-      item
-        Caption = 'Konto'
-        Width = 80
-      end    
-      item
-        Caption = 'Bemerkung'
-        Width = 250
-      end    
-      item
-        Caption = 'Jahr'
-        Width = 40
-      end>
-    MultiSelect = True
-    PopupMenu = bookPopupMenu
-    ReadOnly = True
-    RowSelect = True
-    TabOrder = 0
-    ViewStyle = vsReport
-    OnColumnClick = ListView1ColumnClick
-    OnCompare = ListView1Compare
-    OnCustomDraw = ListView1CustomDraw
-    OnCustomDrawItem = ListView1CustomDrawItem
-    OnCustomDrawSubItem = ListView1CustomDrawSubItem
-    OnMouseUp = ListView1MouseUp
-    OnSelectItem = ListView1SelectItem
-  end
+  Position = poScreenCenter
+  LCLVersion = '0.9.25'
   object StatusBar1: TStatusBar
-    Height = 20
-    Top = 644
-    Width = 925
+    Height = 23
+    Top = 638
+    Width = 949
     Panels = <    
       item
         Width = 250
@@ -115,7 +77,7 @@ object mainForm: TmainForm
   end
   object ToolBar1: TToolBar
     Height = 54
-    Width = 925
+    Width = 949
     ButtonHeight = 52
     ButtonWidth = 52
     Caption = 'ToolBar1'
@@ -127,12 +89,12 @@ object mainForm: TmainForm
     Images = ImageList1
     Indent = 15
     ParentColor = False
-    TabOrder = 1
+    TabOrder = 0
     OnClick = ToolBar1Click
     OnResize = ToolBar1Resize
     object Label2: TLabel
       Left = 183
-      Height = 23
+      Height = 52
       Width = 188
       Caption = '  Shareware Version'
       Font.CharSet = ANSI_CHARSET
@@ -167,13 +129,13 @@ object mainForm: TmainForm
   end
   object searchPanel: TPanel
     Height = 30
-    Top = 614
-    Width = 925
+    Top = 608
+    Width = 949
     Align = alBottom
     BevelInner = bvRaised
     ClientHeight = 30
-    ClientWidth = 925
-    TabOrder = 2
+    ClientWidth = 949
+    TabOrder = 1
     object Label1: TLabel
       Left = 25
       Height = 14
@@ -195,7 +157,7 @@ object mainForm: TmainForm
     object searchUp: TSpeedButton
       Left = 482
       Height = 22
-      Top = 3
+      Top = 2
       Width = 100
       Caption = 'Aufwärts suchen'
       Color = clBtnFace
@@ -205,9 +167,9 @@ object mainForm: TmainForm
     end
     object searchStatus: TLabel
       Left = 592
-      Height = 101
+      Height = 104
       Top = 6
-      Width = 149
+      Width = 152
       ParentColor = False
     end
     object searchText: TEdit
@@ -219,10 +181,10 @@ object mainForm: TmainForm
       TabOrder = 0
     end
     object searchClose: TButton
-      Left = 8
+      Left = 5
       Height = 20
       Top = 4
-      Width = 14
+      Width = 17
       BorderSpacing.InnerBorder = 4
       Caption = 'X'
       OnClick = searchCloseClick
@@ -253,6 +215,15 @@ object mainForm: TmainForm
       TabOrder = 2
       Text = 'Verfasser/Titel'
     end
+  end
+  object Button1: TButton
+    Left = 776
+    Height = 25
+    Top = 608
+    Width = 75
+    Caption = 'Button1'
+    OnClick = Button1Click
+    TabOrder = 3
   end
   object MainMenu1: TMainMenu
     left = 24

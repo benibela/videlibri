@@ -6,7 +6,8 @@ interface
 
 uses
   Classes, SysUtils, LResources, Forms, Controls, Graphics, Dialogs, ComCtrls,
-  Buttons, StdCtrls, bookWatchMain, libraryParser, ExtCtrls,registry;
+  Buttons, StdCtrls, bookWatchMain, libraryParser, ExtCtrls,registry,
+  ButtonPanel, EditBtn;
 //TODO: Fix resizing bug (LCL)
 //TODO2: Offenen Einstellungsfenster => Verschwinden aus Programmauswahl
 type
@@ -32,10 +33,14 @@ type
     cmbAccountExtend: TComboBox;
     ColorDialog1: TColorDialog;
     edtHistoryBackupInterval: TEdit;
-    ImageList1: TImageList;
     Label20: TLabel;
     Label21: TLabel;
     Label22: TLabel;
+    Panel2: TPanel;
+    SpeedButton1: TSpeedButton;
+    SpeedButton2: TSpeedButton;
+    SpeedButton3: TSpeedButton;
+    SpeedButton4: TSpeedButton;
     symbols: TComboBox;
     Label19: TLabel;
     proxyHTTPName: TEdit;
@@ -70,7 +75,6 @@ type
     lblAccountLibrary: TLabel;
     lblAccountExtend1: TLabel;
     lblAccountExtend2: TLabel;
-    ListView2: TListView;
     Notebook1: TNotebook;
     pageInternet: TPage;
     pageColors: TPage;
@@ -93,6 +97,7 @@ type
     TrackBar1: TTrackBar;
     procedure accountListSelectItem(Sender: TObject; Item: TListItem;
       Selected: Boolean);
+    procedure BitBtn1Click(Sender: TObject);
     procedure btnAccountChangeClick(Sender: TObject);
     procedure btnAccountCreateClick(Sender: TObject);
     procedure accountdeleteClick(Sender: TObject);
@@ -101,6 +106,7 @@ type
     procedure Button8Click(Sender: TObject);
     procedure cancelclick(Sender: TObject);
     procedure ComboBox1Change(Sender: TObject);
+    procedure edtAccountUserChange(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure ImageList1Change(Sender: TObject);
@@ -114,6 +120,7 @@ type
     procedure Notebook1PageChanged(Sender: TObject);
     procedure Shape1MouseUp(Sender: TOBject; Button: TMouseButton;
       Shift: TShiftState; X, Y: Integer);
+    procedure SpeedButton1Click(Sender: TObject);
     procedure TrackBar1Change(Sender: TObject);
   private
     { private declarations }
@@ -130,7 +137,7 @@ var
 
 implementation
 
-uses newAccountWizard_u,applicationconfig;
+uses newAccountWizard_u, windows,applicationconfig;
 
 { ToptionForm }
 
@@ -228,8 +235,6 @@ begin
   CheckBox1.Checked:=userConfig.ReadBool('autostart','minimized',true);
   edtHistoryBackupInterval.text:=IntToStr(HistoryBackupInterval);
 
-  ListView2.LargeImages:=ImageList1;
-//  ListView2.ViewStyle:=vsSmallIcon;}
 
   Notebook1.ShowTabs:=false ;
 
@@ -260,8 +265,8 @@ begin
   userConfig.WriteInteger('appearance','default',colorOK);
   userConfig.WriteInteger('appearance','history',colorOld);
   userConfig.WriteInteger('base','near-time',StrToInt(timeNearMeaning.Text));
-  if mainForm.ViewOld.Checked then mainform.ListView1.Color:=ShapeOld.brush.color
-  else mainform.ListView1.Color:=ShapeOK.brush.color;
+  if mainForm.ViewOld.Checked then mainform.BookList.BackGroundColor:=ShapeOld.brush.color
+  else mainform.BookList.BackGroundColor:=ShapeOK.brush.color;
   userConfig.WriteInteger('appearance','symbols',symbols.ItemIndex);
   mainForm.setSymbolAppearance(symbols.ItemIndex);
 
@@ -324,10 +329,6 @@ end;
 procedure ToptionForm.ListView2SelectItem(Sender: TObject; Item: TListItem;
   Selected: Boolean);
 begin
-  if (listview2.selected<>nil) and (ListView2.Selected.Index>= 0)  then
-    Notebook1.PageIndex:=ListView2.Selected.Index;
-  Notebook1.Height:=Notebook1.Height+1;
-  Notebook1.Height:=Notebook1.Height-1;
 end;
 
 procedure ToptionForm.Notebook1ChangeBounds(Sender: TObject);
@@ -350,6 +351,13 @@ procedure ToptionForm.Shape1MouseUp(Sender: TOBject; Button: TMouseButton;
 begin
   if ColorDialog1.Execute then
     (sender as tshape).Brush.color:=ColorDialog1.Color;
+end;
+
+procedure ToptionForm.SpeedButton1Click(Sender: TObject);
+begin
+  Notebook1.PageIndex:=(sender as tcontrol).Tag;
+  Notebook1.Height:=Notebook1.Height+1;
+  Notebook1.Height:=Notebook1.Height-1;
 end;
 
 procedure ToptionForm.TrackBar1Change(Sender: TObject);
@@ -388,6 +396,10 @@ begin
     ptCustom: lblAccountPass.caption:='Passwort:';
     else lblAccountPass.caption:='Geburtsdatum:';
   end;}
+end;
+
+procedure ToptionForm.BitBtn1Click(Sender: TObject);
+begin
 end;
 
 procedure ToptionForm.btnAccountChangeClick(Sender: TObject);
@@ -542,6 +554,11 @@ begin
     cmbAccountExtend.Width:=lblAccountExtend1.Left-cmbAccountExtend.Left-5;
     exclude(cmbAccountExtend.anchors,akRight);
   end;
+end;
+
+procedure ToptionForm.edtAccountUserChange(Sender: TObject);
+begin
+
 end;
 
 //TODO1: page icons

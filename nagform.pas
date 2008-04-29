@@ -21,6 +21,7 @@ type
     Timer1: TTimer;
     procedure Button1Click(Sender: TObject);
     procedure Button2Click(Sender: TObject);
+    procedure FormClose(Sender: TObject; var CloseAction: TCloseAction);
     procedure FormShow(Sender: TObject);
     procedure Timer1Timer(Sender: TObject);
   private
@@ -58,10 +59,16 @@ begin
   if needApplicationRestart then close;
 end;
 
+procedure TnagWindow.FormClose(Sender: TObject; var CloseAction: TCloseAction);
+begin
+  userConfig.WriteBool('base','alreadyShownNAG',true);
+end;
+
 procedure TnagWindow.FormShow(Sender: TObject);
 begin
   tag:=6785;
   mainForm.Label2.Caption:='  eingeschränkte Shareware Version';
+  if userConfig.ReadBool('base','alreadyShownNAG',false) then close;
 end;
 
 initialization

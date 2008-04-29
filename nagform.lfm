@@ -11,8 +11,10 @@ object nagWindow: TnagWindow
   Caption = 'Shareware-Hinweis'
   ClientHeight = 302
   ClientWidth = 307
+  OnClose = FormClose
   OnShow = FormShow
   Position = poScreenCenter
+  LCLVersion = '0.9.25'
   object Label1: TLabel
     Left = 18
     Height = 80
@@ -29,7 +31,7 @@ object nagWindow: TnagWindow
     Top = 92
     Width = 277
     AutoSize = False
-    Caption = #13#10'1. Es werden maximal 10 Medien gleichzeitig angezeigt'#13#10'2. Beim Starten wird dieser Dialog geöffnet'#13#10#13#10'Die für den Freischaltcode notwendige Registrierung kostet 19 € (Selbstkostenpreis) und soll per Überweisung vorab bezahlt werden.'
+    Caption = #13#10'1. Es werden maximal 10 Medien gleichzeitig angezeigt'#13#10'2. Beim Starten wird dieser Dialog geöffnet'#13#10#13#10'Die für den Freischaltcode notwendige Registrierung kostet 10 € (Selbstkostenpreis) und soll per Überweisung vorab bezahlt werden.'
     ParentColor = False
     WordWrap = True
   end

@@ -119,9 +119,10 @@ begin
 
   all:=exportWhich.ItemIndex=0;
   exportStr:='';
-  for i:=0 to mainForm.ListView1.Items.count-1 do
-    if all or (mainForm.ListView1.Items[i].Selected) then begin
-      book:=PBook(mainForm.ListView1.Items[i].Data);
+  for i:=0 to mainForm.BookList.Items.count-1 do
+    if all or (mainForm.BookList.Items[i].Selected) then begin
+      book:=PBook(mainForm.BookList.Items[i].Tag);
+      if book=nil then continue;
 
       //autor-jahr, autor-titel, titel-jahr, autor, titel, id
       if book^.author<>'' then begin
@@ -165,7 +166,7 @@ end;
 
 procedure TBibTexExportFrm.FormShow(Sender: TObject);
 begin
-  exportWhich.Controls[1].Enabled:=mainForm.ListView1.SelCount<>0;
+  exportWhich.Controls[1].Enabled:=mainForm.BookList.SelCount<>0;
 end;
 
 
