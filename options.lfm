@@ -548,7 +548,7 @@ object optionForm: ToptionForm
     object PageBehaviour: TPage
       Caption = 'PageBehaviour'
       ClientWidth = 407
-      ClientHeight = 279
+      ClientHeight = 261
       object Label3: TLabel
         Left = 12
         Height = 14

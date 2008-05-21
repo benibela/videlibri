@@ -429,41 +429,42 @@ begin
   BookList.Align:=alClient;
   BookList.RootLineMode:=lmNone;
   BookList.BackGroundColor:=colorOK;
-  BookList.HeaderSections.Clear;
+  BookList.Columns.Clear;
   BookList.Striped:=false;
   BookList.multiSelect:=true;
   BookList.PopupMenu:=bookPopupMenu;
   BookList.OnSelect:=@BookListSelectItem;
   BookList.OnCustomItemDraw:=@BookListCustomItemDraw;
-  with BookList.HeaderSections.Add do begin
+  BookList.ColumnsDragable:=true;
+  with BookList.Columns.Add do begin
     Text:='ID';
     Width:=80;
   end;
-  with BookList.HeaderSections.Add do begin
+  with BookList.Columns.Add do begin
     Text:='Kategorie';
     Width:=50;
   end;
-  with BookList.HeaderSections.Add do begin
+  with BookList.Columns.Add do begin
     Text:='Verfasser';
     Width:=120;
   end;
-  with BookList.HeaderSections.Add do begin
+  with BookList.Columns.Add do begin
     Text:='Titel';
     Width:=150;
   end;
-  with BookList.HeaderSections.Add do begin
+  with BookList.Columns.Add do begin
     Text:='Ausleihe';
     Width:=70;
   end;
-  with BookList.HeaderSections.Add do begin
+  with BookList.Columns.Add do begin
     Text:='Frist';
     Width:=70;
   end;
-  with BookList.HeaderSections.Add do begin
+  with BookList.Columns.Add do begin
     Text:='Konto';
     Width:=80;
   end;
-  with BookList.HeaderSections.Add do begin
+  with BookList.Columns.Add do begin
     Text:='Bemerkung';
     Width:=250;
   end;
@@ -584,8 +585,10 @@ procedure TmainForm.BookListCustomItemDraw(sender: TObject;
   eventTyp_cdet: TCustomDrawEventTyp; item: TTreeListItem; xpos, ypos,
   xColumn: integer; lastItem: boolean; var defaultDraw: Boolean);
 begin
-  BookList.canvas.Brush.Style:=bsSolid;
-  BookList.Canvas.brush.color:=getListItemColor(item);
+  if not item.SeemsSelected then begin
+    BookList.canvas.Brush.Style:=bsSolid;
+    BookList.Canvas.brush.color:=getListItemColor(item);
+  end;
   defaultDraw:=true;
 end;
 
@@ -1068,7 +1071,7 @@ begin
     for j:=0 to books.getBookCount(typ)-1 do begin
       book:=books.getBook(typ,j);
       with BookList.items.Add do begin
-        Caption:=book^.id;
+        text:=book^.id;
         RecordItems.AddWithText(Utf8ToAnsi(book^.category));
         RecordItems.AddWithText(Utf8ToAnsi(book^.author));
         RecordItems.AddWithText(Utf8ToAnsi(book^.title));
