@@ -227,6 +227,7 @@ begin
 
   //Autostartpage
   TrackBar1.Position:=RefreshInterval;
+  TrackBar1Change(nil);
   case userConfig.readInteger('autostart','type',1) of
     0:autostartAlways.Checked:=true;
     1:autostartDepends.Checked:=true;

@@ -28,7 +28,6 @@ type
   { TmainForm }
   TmainForm = class(TForm)
     accountListMenuItem: TMenuItem;
-    Button1: TButton;
     Label2: TLabel;
     MenuItem10: TMenuItem;
     extendMenuList1: TMenuItem;
@@ -91,9 +90,13 @@ type
     StatusBar1: TStatusBar;
     procedure appMinimize(Sender: TObject);
     procedure appRestore(Sender: TObject);
+    procedure BookListCompareItems(sender: TObject; i1, i2: TTreeListItem;
+      var compare: longint);
     procedure BookListCustomItemDraw(sender: TObject;
       eventTyp_cdet: TCustomDrawEventTyp; item: TTreeListItem; xpos, ypos,
       xColumn: integer; lastItem: boolean; var defaultDraw: Boolean);
+    procedure BookListUserSortItemsEvent(sender: TObject;
+      var sortColumn: longint; var invertSorting: boolean);
     procedure bookPopupMenuPopup(Sender: TObject);
     procedure Button1Click(Sender: TObject);
     procedure Button2Click(Sender: TObject);
@@ -162,10 +165,6 @@ type
 
   public
     { public declarations }
-    listViewSortColumn: longint;
-    listViewSortInvert: boolean;
-
-
     oldListViewWindowProc: TWndMethod;
     searchMarkRow,searchMarkCol,searchMarkStart,searchMarkLen: longint;
     searchMarkVisible:boolean;
@@ -227,76 +226,49 @@ begin
 end;
 
 procedure TmainForm.ListView1WindowProc(var TheMessage: TLMessage);
-var t:tpoint;
-begin   (*
-  case TheMessage.Msg of
-    WM_ERASEBKGND:
-      TheMessage.Result:=1;
-
-    {wm_paint: begin if assigned(oldListViewWindowProc) then
-      oldListViewWindowProc(TheMessage);
-      FormResize(self);
-    end;  }
-    {WM_MOUSEWHEEL:  begin
-      SendMessage(ListView1.Handle,LVM_SCROLL,0,-48*smallint(TheMessage.WParamHi) div 120);
-//      showmessage(IntToStr( TheMessage.WParamHi));
-      TheMessage.result:=1;
-    end;}
-    WM_RBUTTONDOWN:
-      TheMessage.result:=1;
-    WM_RBUTTONUP: begin
-      t.x:=TheMessage.LParamLo;
-      t.y:=TheMessage.LParamHi;
-      t:=ListView1.ClientToScreen(t);
-//          messageBeep(0);
-      bookPopupMenu.PopUp(t.x,t.y);
-
-    end;
-    else if assigned(oldListViewWindowProc) then
-      oldListViewWindowProc(TheMessage);
-  end;*)
+begin
 end;
 
 procedure TmainForm.searchInListView(step: integer; researchCurrentLine: boolean);
- (* procedure showSearchMark;
+  procedure showSearchMark;
   const DT_WORD_ELLIPSIS           =$00040000;
+        text_padding=3;
   var rec:trect;
-      item:TListitem;
+      item:TTreeListItem;
       itemtext:string;
   begin
-    item:=listview1.items[searchMarkRow];
-    if searchMarkCol=0 then itemtext:=item.caption
-    else itemtext:=item.SubItems[searchMarkCol-1];
-    rec:=item.DisplayRectSubItem(searchMarkCol,drSelectBounds);
-    if rec.right-rec.left>listview1.columns[searchMarkCol].width then
-      rec.right:=rec.left+listview1.columns[searchMarkCol].width;
+    item:=BookList.items[searchMarkRow];
+    itemtext:=item.RecordItemsText[searchMarkCol];
+
+
+    rec:=item.getBounds(searchMarkCol);
 
    // ListView1.Canvas.font:=ListView1.font;
-    ListView1.Canvas.brush.style:=bsSolid;
-    ListView1.Canvas.brush.color:=colorSearchMarkField; //getListItemColor(item);
-  //  ListView1.Canvas.brush.style:=bsClear;
-    ListView1.Canvas.fillrect(rec);
-    rec.left:=rec.left+6;
-//    ListView1.Canvas.TextRect(rec,rec.left+6,rec.top,copy(itemtext,1,searchMarkStart-1));
+    BookList.Canvas.brush.style:=bsSolid;
+    BookList.Canvas.brush.color:=colorSearchMarkField; //getListItemColor(item);
+  //  BookList.Canvas.brush.style:=bsClear;
+    BookList.Canvas.fillrect(rec);
+
+//    BookList.Canvas.TextRect(rec,rec.left+6,rec.top,copy(itemtext,1,searchMarkStart-1));
     if searchMarkStart-1>0 then
-      DrawText(ListView1.Canvas.handle,@copy(itemtext,1,searchMarkStart-1)[1],searchMarkStart-1,rec,DT_LEFT or DT_NOPREFIX or DT_SINGLELINE or DT_WORD_ELLIPSIS);
-    rec.left:=rec.left+ListView1.Canvas.TextWidth(copy(itemtext,1,searchMarkStart-1));
+      DrawText(BookList.Canvas.handle,@copy(itemtext,1,searchMarkStart-1)[1],searchMarkStart-1,rec,DT_LEFT or DT_NOPREFIX or DT_SINGLELINE or DT_WORD_ELLIPSIS);
+    rec.left:=rec.left+BookList.Canvas.TextWidth(copy(itemtext,1,searchMarkStart-1));
     if rec.left>rec.right then exit;
-    ListView1.Canvas.brush.color:=colorSearchMark;
-    ListView1.Canvas.fillrect(rec);
+    BookList.Canvas.brush.color:=colorSearchMark;
+    BookList.Canvas.fillrect(rec);
     if searchMarkLen>0 then
-      DrawText(ListView1.Canvas.handle,@copy(itemtext,searchMarkStart,searchMarkLen)[1],searchMarkLen,rec,DT_LEFT or DT_NOPREFIX or DT_SINGLELINE or DT_WORD_ELLIPSIS);
-    //ListView1.Canvas.TextRect(rec,rec.left,rec.top,copy(itemtext,searchMarkStart,searchMarkLen));
-    rec.left:=rec.left+ListView1.Canvas.TextWidth(copy(itemtext,searchMarkStart,searchMarkLen));
+      DrawText(BookList.Canvas.handle,@copy(itemtext,searchMarkStart,searchMarkLen)[1],searchMarkLen,rec,DT_LEFT or DT_NOPREFIX or DT_SINGLELINE or DT_WORD_ELLIPSIS);
+    //BookList.Canvas.TextRect(rec,rec.left,rec.top,copy(itemtext,searchMarkStart,searchMarkLen));
+    rec.left:=rec.left+BookList.Canvas.TextWidth(copy(itemtext,searchMarkStart,searchMarkLen));
     if rec.left>rec.right then exit;
     delete(itemtext,1,searchMarkStart+searchMarkLen-1);
-    ListView1.Canvas.brush.color:=colorSearchMarkField;//getListItemColor(item);
-    ListView1.Canvas.fillrect(rec);
+    BookList.Canvas.brush.color:=colorSearchMarkField;//getListItemColor(item);
+    BookList.Canvas.fillrect(rec);
     if length(itemtext)>0 then
-      DrawText(ListView1.Canvas. handle,@itemtext[1],length(itemtext),rec,DT_LEFT or DT_NOPREFIX or DT_SINGLELINE or DT_WORD_ELLIPSIS);
-//    ListView1.Canvas.TextRect(rec,rec.left,rec.top,itemtext);
+      DrawText(BookList.Canvas. handle,@itemtext[1],length(itemtext),rec,DT_LEFT or DT_NOPREFIX or DT_SINGLELINE or DT_WORD_ELLIPSIS);
+//    BookList.Canvas.TextRect(rec,rec.left,rec.top,itemtext);
   {  defaultdraw:=false;
-  //    ListView1.OnCustomDrawSubItem:=nil;
+  //    BookList.OnCustomDrawSubItem:=nil;
     end else defaultdraw:=true;}
   end;
 
@@ -307,25 +279,23 @@ var st: string;
       currentText:string;
   begin
     result:=false;
-    if col=0 then currentText:=ListView1.items[row].caption
-    else currentText:=ListView1.items[row].SubItems[col-1];
+    currentText:=BookList.items[row].RecordItemsText[col];
     stp:=pos(st,lowercase(currentText));
     if stp>0 then begin
       if searchMarkVisible and researchCurrentLine and (row=searchMarkRow) and
          ((col<searchMarkCol)or((col=searchMarkCol)and(stp<searchMarkStart))) then
            exit;
-      if searchMarkVisible and ((searchMarkRow<>row)or(searchMarkCol<>col)or(searchMarkStart<>stp)) then begin
-        sendMessage(listview1.handle,{LVM_REDRAWITEMS{LVM_FIRST$1000 + 21,searchMarkRow,searchMarkRow);
-        UpdateWindow(ListView1.Handle);
-      end;
+      if searchMarkVisible and ((searchMarkRow<>row)or(searchMarkCol<>col)or(searchMarkStart<>stp)) then
+        BookList.Paint;
+
       searchMarkRow:=row;
       searchMarkCol:=col;
       searchMarkStart:=stp;
       searchMarkLen:=length(st);
       searchMarkVisible:=true;
-      //ListView1.selected:=ListView1.items[sp];
-      sendMessage(listview1.handle,{LVM_ENSUREVISIBLE}{LVM_FIRST}$1000 + 19,row,0);
-      application.ProcessMessages;
+      BookList.ensureVisibility(BookList.items[row]);
+
+
       showSearchMark;
       searchStatus.caption:='Gefunden: '+currentText;
       searchText.color:=colorSearchTextFound;
@@ -333,43 +303,42 @@ var st: string;
     end;
   end;
 var sp,ss,i: longint;
-    field: integer;*)
-begin               (*
+    field: integer;
+begin
   searchStatus.caption:='';
   ss:=searchMarkRow;
   if ss<0 then ss:=0;
   st:=lowercase(searchText.Text);
   if researchCurrentLine then ss:=ss-step;
-  if ss>=ListView1.items.count then sp:=0;
-  if ss<0 then ss:=ListView1.items.count-1;
+  if ss>=BookList.items.count then sp:=0;
+  if ss<0 then ss:=BookList.items.count-1;
   sp:=ss;
   field:=searchField.itemIndex-2;
 //  searchMarkVisible:=false;
   repeat
     sp:=sp+step;
-    if sp>=ListView1.items.count then begin
+    if sp>=BookList.items.count then begin
       sp:=0;
       searchStatus.caption:='Listenende erreicht, Suche wird am Anfang fortgesetzt';
     end;
     if sp<0 then begin
-      sp:=ListView1.items.count-1;
+      sp:=BookList.items.count-1;
       searchStatus.caption:='Listenanfang erreicht, Suche wird am Ende fortgesetzt';
     end;
     case field of
       -2:  //every
-        for i:=0 to ListView1.items[sp].SubItems.count do
+        for i:=0 to BookList.items[sp].RecordItems.count-1 do
           if checkStr(sp,i) then exit;
       -1: if  checkStr(sp,2) or checkStr(sp,3)then exit; //author/title
       else if checkStr(sp,field) then exit;
     end;
   until sp=ss;
   if searchMarkVisible then begin
-    sendMessage(listview1.handle,{LVM_REDRAWITEMS}{LVM_FIRST}$1000 + 21,searchMarkRow,searchMarkRow);
-    UpdateWindow(ListView1.Handle);
+    BookList.Paint;
     searchMarkVisible:=false;
     searchStatus.caption:='Nicht gefunden';
     searchText.color:=colorSearchTextNotFound;
-  end;               *)
+  end;
 end;
 
 procedure TmainForm.FormCreate(Sender: TObject);
@@ -434,6 +403,8 @@ begin
   BookList.multiSelect:=true;
   BookList.PopupMenu:=bookPopupMenu;
   BookList.OnSelect:=@BookListSelectItem;
+  BookList.OnUserSortItemsEvent:=@BookListUserSortItemsEvent;
+  BookList.OnCompareItems:=@BookListCompareItems;
   BookList.OnCustomItemDraw:=@BookListCustomItemDraw;
   BookList.ColumnsDragable:=true;
   with BookList.Columns.Add do begin
@@ -581,6 +552,45 @@ begin
     showTaskBarIcon();
 end;
 
+procedure TmainForm.BookListCompareItems(sender: TObject; i1,
+  i2: TTreeListItem; var compare: longint);
+var book1,book2: PBook;
+begin
+  book1:=PBook(i1.Tag);
+  book2:=PBook(i2.Tag);
+  if (book1=nil) then begin
+    Compare:=1;
+    exit;
+  end;
+  if (book2=nil) then begin
+    Compare:=-1;
+    exit;
+  end;
+  compare:=0;
+  case BookList.SortColumn of
+    4: if book1^.issueDate<book2^.issueDate then
+         compare:=-1
+       else if book1^.issueDate>book2^.issueDate then
+         compare:=1;
+    5:; //see later
+
+    else compare:=CompareText(i1.RecordItemsText[BookList.SortColumn],i2.RecordItemsText[BookList.SortColumn]);
+  end;
+  if compare=0 then  //Sort LimitDate
+    if book1^.limitDate<book2^.limitDate then
+       compare:=-1
+    else if book1^.limitDate>book2^.limitDate then
+       compare:=1;
+  if compare=0 then       //Sort Status
+    if (book1^.status in BOOK_NOT_EXTENDABLE) and (book2^.status in BOOK_EXTENDABLE) then
+      compare:=-1
+     else if (book1^.status in BOOK_EXTENDABLE) and (book2^.status in BOOK_NOT_EXTENDABLE) then
+      compare:=1;
+//     else compare:=compareText(PBook(item1.data)^.statusStr,PBook(item2.data)^.statusStr);
+  if compare=0 then       //Sort ID
+    compare:=compareText(i1.Text,i2.Text);
+end;
+
 procedure TmainForm.BookListCustomItemDraw(sender: TObject;
   eventTyp_cdet: TCustomDrawEventTyp; item: TTreeListItem; xpos, ypos,
   xColumn: integer; lastItem: boolean; var defaultDraw: Boolean);
@@ -590,6 +600,12 @@ begin
     BookList.Canvas.brush.color:=getListItemColor(item);
   end;
   defaultDraw:=true;
+end;
+
+procedure TmainForm.BookListUserSortItemsEvent(sender: TObject;
+  var sortColumn: longint; var invertSorting: boolean);
+begin
+  if pos('shareware',lowercase(Label2.Caption))>0 then RefreshListView;
 end;
 
 procedure TmainForm.delayedCallTimer(Sender: TObject);
@@ -700,44 +716,7 @@ end;
 
 procedure TmainForm.ListView1Compare(Sender: TObject; Item1, Item2: TListItem;
   Data: Integer; var Compare: Integer);
-var book1,book2: PBook;
 begin
-  book1:=PBook(item1.data);
-  book2:=PBook(item2.data);
-  if (book1=nil) then begin
-    Compare:=1;
-    exit;
-  end;
-  if (book2=nil) then begin
-    Compare:=-1;
-    exit;
-  end;
-  compare:=0;
-  case listViewSortColumn of
-    0: compare:=compareText(item1.caption,item2.caption);
-    4: if book1^.issueDate<PBook(item2.data)^.issueDate then
-         compare:=-1
-       else if PBook(item1.data)^.issueDate>PBook(item2.data)^.issueDate then
-         compare:=1;
-    5:; //see later
-
-    else compare:=CompareText(item1.SubItems[listViewSortColumn-1],item2.SubItems[listViewSortColumn-1]);
-  end;
-  if compare=0 then  //Sort LimitDate
-    if PBook(item1.data)^.limitDate<PBook(item2.data)^.limitDate then
-       compare:=-1
-    else if PBook(item1.data)^.limitDate>PBook(item2.data)^.limitDate then
-       compare:=1;
-  if compare=0 then       //Sort Status
-    if (book1^.status in BOOK_NOT_EXTENDABLE) and (book2^.status in BOOK_EXTENDABLE) then
-      compare:=-1
-     else if (book1^.status in BOOK_EXTENDABLE) and (book2^.status in BOOK_NOT_EXTENDABLE) then
-      compare:=1;
-//     else compare:=compareText(PBook(item1.data)^.statusStr,PBook(item2.data)^.statusStr);
-  if compare=0 then       //Sort ID
-    compare:=compareText(item1.Caption,item2.Caption);
-
- if listViewSortInvert then compare:=-compare;
 end;
 
 procedure TmainForm.ListView1CustomDraw(Sender: TCustomListView;
@@ -1072,31 +1051,31 @@ begin
       book:=books.getBook(typ,j);
       with BookList.items.Add do begin
         text:=book^.id;
-        RecordItems.AddWithText(Utf8ToAnsi(book^.category));
-        RecordItems.AddWithText(Utf8ToAnsi(book^.author));
-        RecordItems.AddWithText(Utf8ToAnsi(book^.title));
-        RecordItems.AddWithText(DateToPrettyStr(book^.issueDate));
+        RecordItems.Add(Utf8ToAnsi(book^.category));
+        RecordItems.Add(Utf8ToAnsi(book^.author));
+        RecordItems.Add(Utf8ToAnsi(book^.title));
+        RecordItems.Add(DateToPrettyStr(book^.issueDate));
         if book^.actuality in [bltInOldData,bltInOldAdd] then
-         RecordItems.AddWithText('erledigt')
+         RecordItems.Add('erledigt')
         else
-         RecordItems.AddWithText(DateToPrettyStr(book^.limitDate));
-        RecordItems.AddWithText(book^.lib.prettyName);
+         RecordItems.Add(DateToPrettyStr(book^.limitDate));
+        RecordItems.Add(book^.lib.prettyName);
         if book^.actuality in [bltInOldData,bltInOldAdd] then
-          RecordItems.AddWithText('')
+          RecordItems.Add('')
          else begin
            case book^.Status of
-            bsNormal: RecordItems.AddWithText('');
-            bsUnknown: RecordItems.AddWithText('Ausleihstatus unbekannt');
-            bsIsSearched: RecordItems.AddWithText('Ausleihstatus wird ermittelt... (sollte nicht vorkommen, bitte melden!)');
-            bsEarMarked:RecordItems.AddWithText('vorgemerkt');
-            bsMaxLimitReached: RecordItems.AddWithText('maximale Ausleihfrist erreicht');
-            bsAccountExpired: RecordItems.AddWithText('Büchereikarte ist abgelaufen');
-            bsProblematicInStr,bsCuriousInStr: RecordItems.AddWithText(Utf8ToAnsi(book^.statusStr));
-            else RecordItems.AddWithText('Unbekannter Fehler! Bitte melden!');
+            bsNormal: RecordItems.Add('');
+            bsUnknown: RecordItems.Add('Ausleihstatus unbekannt');
+            bsIsSearched: RecordItems.Add('Ausleihstatus wird ermittelt... (sollte nicht vorkommen, bitte melden!)');
+            bsEarMarked:RecordItems.Add('vorgemerkt');
+            bsMaxLimitReached: RecordItems.Add('maximale Ausleihfrist erreicht');
+            bsAccountExpired: RecordItems.Add('Büchereikarte ist abgelaufen');
+            bsProblematicInStr,bsCuriousInStr: RecordItems.Add(Utf8ToAnsi(book^.statusStr));
+            else RecordItems.Add('Unbekannter Fehler! Bitte melden!');
            end;
            lastCheck:=min(lastCheck,book^.lastExistsDate);
         end;
-        RecordItems.AddWithText(Utf8ToAnsi(book^.year)); ;
+        RecordItems.Add(Utf8ToAnsi(book^.year)); ;
        // SubItems.add(book^.otherInfo);
         Tag:=longint(book);
       end;
@@ -1114,6 +1093,7 @@ begin
   {$I obfuscate.inc}
   if not sharewaretest then begin
     showOnly10:
+    BookList.sort;
     {$I obfuscate.inc}
     for i:= BookList.items.count-1 downto 10 do begin;
       {$I obfuscate.inc}
@@ -1190,15 +1170,15 @@ begin
   StatusBar1.Panels[SB_PANEL_COUNT].Text:=StatusBar1.Panels[SB_PANEL_COUNT].Text+'/'+inttostr(count);
   if count2>BookList.Items.count then begin
     with BookList.Items.Add do begin
-      caption:='ACHTUNG';
-      RecordItems.AddWithText('');
-      RecordItems.AddWithText('VideLibri');
-      RecordItems.AddWithText('weitere '+IntToStr(count-BookList.items.count+1)+' Medien ausgeblendet');
-      RecordItems.AddWithText('');
-      RecordItems.AddWithText('');
-      RecordItems.AddWithText('');
-      RecordItems.AddWithText('Nur die Vollversion zeigt mehr als 10 Medien an.');
-      RecordItems.AddWithText('');
+      text:='ACHTUNG';
+      RecordItems.Add('');
+      RecordItems.Add('VideLibri');
+      RecordItems.Add('weitere '+IntToStr(count-BookList.items.count+1)+' Medien ausgeblendet');
+      RecordItems.Add('');
+      RecordItems.Add('');
+      RecordItems.Add('');
+      RecordItems.Add('Nur die Vollversion zeigt mehr als 10 Medien an.');
+      RecordItems.Add('');
       //SubItems.add('');
       Tag:=0;
     end;
