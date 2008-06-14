@@ -234,13 +234,13 @@ uses bookwatchmain,windows,internetaccess,w32internetaccess,controls,libraryacce
 
     lastcheck:=currentDate;
     for i:=0 to accountIDs.count-1 do begin
-      for j:=0 to TCustomAccountAccess(accountIDs.objects[i]).getBooks().getBookCount(botCurrent)-1 do
-        with TCustomAccountAccess(accountIDs.objects[i]).getBooks().getBook(botCurrent,j)^ do
+      for j:=0 to TCustomAccountAccess(accountIDs.objects[i]).books.getBookCount(botCurrent)-1 do
+        with TCustomAccountAccess(accountIDs.objects[i]).books.getBook(botCurrent,j) do
           lastcheck:=min(lastcheck,lastExistsDate);
-      if (TCustomAccountAccess(accountIDs.objects[i]).getBooks().nextLimit>0) then
-         nextLimit:=min(nextLimit,TCustomAccountAccess(accountIDs.objects[i]).getBooks().nextLimit);
-      if (TCustomAccountAccess(accountIDs.objects[i]).getBooks().nextNotExtendableLimit>0) then
-        nextNotExtendableLimit:=min(nextNotExtendableLimit,TCustomAccountAccess(accountIDs.objects[i]).getBooks().nextNotExtendableLimit);
+      if (TCustomAccountAccess(accountIDs.objects[i]).books.nextLimit>0) then
+         nextLimit:=min(nextLimit,TCustomAccountAccess(accountIDs.objects[i]).books.nextLimit);
+      if (TCustomAccountAccess(accountIDs.objects[i]).books.nextNotExtendableLimit>0) then
+        nextNotExtendableLimit:=min(nextNotExtendableLimit,TCustomAccountAccess(accountIDs.objects[i]).books.nextNotExtendableLimit);
     end;
     nextLimitStr:=DateToPrettyStr(nextLimit);
     if nextLimit<>nextNotExtendableLimit then
@@ -249,6 +249,8 @@ uses bookwatchmain,windows,internetaccess,w32internetaccess,controls,libraryacce
   //    tna.changeHint(getTNAHint());
       tna.changeIcon(getTNAIconFileName());
     end;
+    if (mainform<>nil) and mainForm.Visible then
+      mainform.StatusBar1.Panels[0].text:='Älteste angezeigte Daten sind von '+dateToPrettyGrammarStr('vom ','von ',lastCheck)
   end;
   procedure updateActiveInternetConfig;
   begin
@@ -501,8 +503,8 @@ uses bookwatchmain,windows,internetaccess,w32internetaccess,controls,libraryacce
         cancelStarting:=true;
         for i:=0 to accountIDs.count-1 do
           if (TCustomAccountAccess(accountIDs.Objects[i]).lastCheckDate<=currentDate-refreshInterval) or
-             (TCustomAccountAccess(accountIDs.Objects[i]).checkMaximalBookTimeLimit) or 
-             ((TCustomAccountAccess(accountIDs.Objects[i]).getBooks().nextLimit<>0)and(TCustomAccountAccess(accountIDs.Objects[i]).getBooks().nextLimit<=redTime))then begin
+             (TCustomAccountAccess(accountIDs.Objects[i]).existsCertainBookToExtend) or
+             ((TCustomAccountAccess(accountIDs.Objects[i]).books.nextLimit<>0)and(TCustomAccountAccess(accountIDs.Objects[i]).books.nextLimit<=redTime))then begin
             cancelStarting:=false;
             break;
           end;
@@ -536,9 +538,9 @@ uses bookwatchmain,windows,internetaccess,w32internetaccess,controls,libraryacce
       updateActiveInternetConfig;
       defaultInternet:=TW32InternetAccess.create;
       
-      updateThreadsRunning:=0;
       fillchar(updateThreadConfig,sizeof(updateThreadConfig),0);
       InitializeCriticalSection(updateThreadConfig.libraryAccessSection);
+      InitializeCriticalSection(updateThreadConfig.threadManagementSection);
     end;
     commandLine.free;
   end;

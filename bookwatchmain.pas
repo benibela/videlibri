@@ -187,18 +187,15 @@ type
 
 var
   mainForm: TmainForm;
-const LV_BOOK_COLUMNS_YEAR_ID=8;
+const BL_BOOK_COLUMNS_YEAR_ID=8;
+      BL_BOOK_COLUMNS_LIMIT_ID=5;
       SB_PANEL_COUNT=2;
-      
-const LVM_FIRST=$1000;
-      LVM_SETCOLUMNORDERARRAY=LVM_FIRST + 58;
-      LVM_GETCOLUMNORDERARRAY=LVM_FIRST + 59;
 
 
 implementation
 
 { TmainForm }
-uses windows,math,options,applicationconfig,newaccountwizard_u,registrierung,nagform,bbdebugtools,bibtexexport;
+uses windows,math,options,applicationconfig,newaccountwizard_u,registrierung,nagform,bbdebugtools,bibtexexport,booklistreader;
 
 procedure openAboutDialog(title,description,creditlist: pchar; modal: boolean; game: longint);stdcall;external 'bbabout.dll';
 
@@ -216,11 +213,11 @@ end;
 function getListItemColor(item:TTreeListItem):TColor;
 begin
   if Item.tag = 0 then exit(colorTimeNear);
-  if PBook(Item.tag)^.actuality in [bltInOldAdd,bltInOldData] then
+  if TBook(Item.tag).status in BOOK_NOT_LEND then
     result:=colorOld
-  else if PBook(Item.tag)^.limitDate<=redTime then
+  else if TBook(Item.tag).limitDate<=redTime then
     result:=colorTimeNear
-  else if PBook(Item.tag)^.status in BOOK_NOT_EXTENDABLE then
+  else if TBook(Item.tag).status in BOOK_NOT_EXTENDABLE then
     result:=colorLimited
   else result:=colorOK;
 end;
@@ -344,15 +341,12 @@ end;
 procedure TmainForm.FormCreate(Sender: TObject);
 //const IMAGE_FILES:array[0..2] of string=('refresh','homepages','options');
 
-type TDeactivateWindowTheme= function (hWnd: Long;pszSubAppName: pwchar;pszSubIdList: pwchar): Long;stdcall; //uxtheme.dll
-
-const defaultorder:array[0..9] of longint=(0,1,2,3,LV_BOOK_COLUMNS_YEAR_ID,4,5,6,7,9);
+//const defaultorder:array[0..9] of longint=(0,1,2,3,BL_BOOK_COLUMNS_YEAR_ID,4,5,6,7,9);
 
 var i:integer;
     tempItem:TMenuItem;
     img,mask: graphics.TBITMAP;
     order: array[0..100] of longint;
-    DeactivateWindowTheme: TDeactivateWindowTheme;
 begin
   if logging then log('FormCreate started');
   
@@ -407,6 +401,7 @@ begin
   BookList.OnCompareItems:=@BookListCompareItems;
   BookList.OnCustomItemDraw:=@BookListCustomItemDraw;
   BookList.ColumnsDragable:=true;
+  BookList.SortColumn:=BL_BOOK_COLUMNS_LIMIT_ID;
   with BookList.Columns.Add do begin
     Text:='ID';
     Width:=80;
@@ -439,6 +434,7 @@ begin
     Text:='Bemerkung';
     Width:=250;
   end;
+  
            {//TODO: Header
   for i:=0 to BookList.Columns.Count-1 do begin
     ListView1.Columns[i].Width:=userConfig.ReadInteger('BookList','ColumnWidth'+IntToStr(i),
@@ -554,10 +550,10 @@ end;
 
 procedure TmainForm.BookListCompareItems(sender: TObject; i1,
   i2: TTreeListItem; var compare: longint);
-var book1,book2: PBook;
+var book1,book2: TBook;
 begin
-  book1:=PBook(i1.Tag);
-  book2:=PBook(i2.Tag);
+  book1:=TBook(i1.Tag);
+  book2:=TBook(i2.Tag);
   if (book1=nil) then begin
     Compare:=1;
     exit;
@@ -568,23 +564,23 @@ begin
   end;
   compare:=0;
   case BookList.SortColumn of
-    4: if book1^.issueDate<book2^.issueDate then
+    4: if book1.issueDate<book2.issueDate then
          compare:=-1
-       else if book1^.issueDate>book2^.issueDate then
+       else if book1.issueDate>book2.issueDate then
          compare:=1;
-    5:; //see later
+    BL_BOOK_COLUMNS_LIMIT_ID:; //see later
 
     else compare:=CompareText(i1.RecordItemsText[BookList.SortColumn],i2.RecordItemsText[BookList.SortColumn]);
   end;
   if compare=0 then  //Sort LimitDate
-    if book1^.limitDate<book2^.limitDate then
+    if book1.limitDate<book2.limitDate then
        compare:=-1
-    else if book1^.limitDate>book2^.limitDate then
+    else if book1.limitDate>book2.limitDate then
        compare:=1;
   if compare=0 then       //Sort Status
-    if (book1^.status in BOOK_NOT_EXTENDABLE) and (book2^.status in BOOK_EXTENDABLE) then
+    if (book1.status in BOOK_NOT_EXTENDABLE) and (book2.status in BOOK_EXTENDABLE) then
       compare:=-1
-     else if (book1^.status in BOOK_EXTENDABLE) and (book2^.status in BOOK_NOT_EXTENDABLE) then
+     else if (book1.status in BOOK_EXTENDABLE) and (book2.status in BOOK_NOT_EXTENDABLE) then
       compare:=1;
 //     else compare:=compareText(PBook(item1.data)^.statusStr,PBook(item2.data)^.statusStr);
   if compare=0 then       //Sort ID
@@ -688,8 +684,7 @@ begin
 end;
 
 procedure TmainForm.FormClose(Sender: TObject; var CloseAction: TCloseAction);
-var i:longint;
-    order:array[0..10] of longint;
+var order:array[0..10] of longint;
 begin
   if windowstate<>wsMaximized then begin
     userConfig.WriteInteger('window','left',left);
@@ -757,18 +752,16 @@ begin
 end;
 
 procedure TmainForm.MenuItem11Click(Sender: TObject);
-var i,j:integer;
-    books:TBookArray;
+var i:integer;
+    books:TBookList;
 begin
-  setlength(books,BookList.SelCount);
-  j:=0;
-  for i:=0 to BookList.Items.Count-1 do begin
-    if BookList.Items[i].Selected then begin
-      books[j]:=PBook(BookList.Items[i].Tag);
-      inc(j);
-    end ;
-  end;
+  books:=TBookList.Create;
+  books.Capacity:=BookList.selCount;
+  for i:=0 to BookList.Items.Count-1 do
+    if BookList.Items[i].Selected then
+      books.add(TBook(BookList.Items[i].Tag));
   extendBooks(books);
+  books.free;
 end;
 
 procedure TmainForm.MenuItem14Click(Sender: TObject);
@@ -787,10 +780,16 @@ begin
 end;
 
 procedure TmainForm.MenuItem17Click(Sender: TObject);
+var s1, s2, s3: string;
 begin
   openAboutDialog(pchar({'Videlibri '+FloatToStr(versionNumber/1000)}caption),'',
-   'Verwendete Fremdkomponenten:'#13#10'LCL'#13#10'FreePascal Runtime'#13#10'TRegExpr von Andrey V. Sorokin'#13#10#13#10+
-   'Verwendete Entwicklungswerkzeuge:'#13#10'Lazarus'#13#10'FreePascal'#13#10'GIMP'#13#10'HTML Help Workshop'#13#10'The Regex Coach',true,1);
+    'Verwendete Fremdkomponenten:'#13#10'  LCL'#13#10'  FreePascal Runtime'#13#10'  TRegExpr von Andrey V. Sorokin'#13#10#13#10+
+    'Verwendete Entwicklungswerkzeuge:'#13#10'  Lazarus'#13#10'  FreePascal'#13#10'  GIMP'#13#10'  HTML Help Workshop'#13#10'  The Regex Coach'#13#10#13#10+
+    'Die angezeigten Daten stammen von/gehören: '#13#10'  den Stadtbüchereien Düsseldorf'#13#10+
+    '  der Universitäts- und Landesbibliothek Düsseldorf'#13#10+
+    '  den Fachhochschulbüchereien Düsseldorfs und Bochums'#13#10+
+    '  der DigiBib/dem Hochschulbibliothekszentrum des Landes Nordrhein-Westfalen'#13#10+
+    '  Amazon.com',true,1);
 end;
 
 procedure TmainForm.MenuItem18Click(Sender: TObject);
@@ -1019,7 +1018,7 @@ end;
 
 procedure TmainForm.RefreshListView;
 var i,j,count,count2:integer;
-    book:PBook;
+    book:TBook;
     sharewaretest:boolean; //für Sharewaretest
     books:TBookLists;
     typ: TBookOutputType;
@@ -1036,7 +1035,7 @@ begin
   else if ViewOld.Checked then typ:=botOld
   else typ:=botCurrent;
   criticalSessionUsed:=false;
-  if UpdateThreadsRunning>0 then begin
+  if updateThreadConfig.updateThreadsRunning>0 then begin
     EnterCriticalSection(updateThreadConfig.libraryAccessSection);
     criticalSessionUsed:=true;
   end;
@@ -1046,37 +1045,37 @@ begin
     if (viewMenu.Items[i].tag = 0) or (viewMenu.Items[i].tag = -1) then continue;
     if not viewMenu.Items[i].Checked then continue;
     books:=///TCustomAccountAccess(accountIDs.objects[viewMenu.Items[i].Tag]).getBooks();
-           TCustomAccountAccess(viewMenu.Items[i].Tag).getBooks();
+           TCustomAccountAccess(viewMenu.Items[i].Tag).books;
     for j:=0 to books.getBookCount(typ)-1 do begin
       book:=books.getBook(typ,j);
       with BookList.items.Add do begin
-        text:=book^.id;
-        RecordItems.Add(Utf8ToAnsi(book^.category));
-        RecordItems.Add(Utf8ToAnsi(book^.author));
-        RecordItems.Add(Utf8ToAnsi(book^.title));
-        RecordItems.Add(DateToPrettyStr(book^.issueDate));
-        if book^.actuality in [bltInOldData,bltInOldAdd] then
+        text:=book.id;
+        RecordItems.Add(Utf8ToAnsi(book.category));
+        RecordItems.Add(Utf8ToAnsi(book.author));
+        RecordItems.Add(Utf8ToAnsi(book.title));
+        RecordItems.Add(DateToPrettyStr(book.issueDate));
+        if book.status in BOOK_NOT_LEND then
          RecordItems.Add('erledigt')
         else
-         RecordItems.Add(DateToPrettyStr(book^.limitDate));
-        RecordItems.Add(book^.lib.prettyName);
-        if book^.actuality in [bltInOldData,bltInOldAdd] then
+         RecordItems.Add(DateToPrettyStr(book.limitDate));
+        RecordItems.Add((book.owner as TCustomAccountAccess).prettyName);
+        if book.status in BOOK_NOT_LEND then
           RecordItems.Add('')
          else begin
-           case book^.Status of
+           case book.Status of
             bsNormal: RecordItems.Add('');
             bsUnknown: RecordItems.Add('Ausleihstatus unbekannt');
-            bsIsSearched: RecordItems.Add('Ausleihstatus wird ermittelt... (sollte nicht vorkommen, bitte melden!)');
+            bsIsSearchedDONTUSETHIS: RecordItems.Add('Ausleihstatus wird ermittelt... (sollte nicht vorkommen, bitte melden!)');
             bsEarMarked:RecordItems.Add('vorgemerkt');
             bsMaxLimitReached: RecordItems.Add('maximale Ausleihfrist erreicht');
             bsAccountExpired: RecordItems.Add('Büchereikarte ist abgelaufen');
-            bsProblematicInStr,bsCuriousInStr: RecordItems.Add(Utf8ToAnsi(book^.statusStr));
+            bsProblematicInStr,bsCuriousInStr: RecordItems.Add(Utf8ToAnsi(book.statusStr));
             else RecordItems.Add('Unbekannter Fehler! Bitte melden!');
            end;
-           lastCheck:=min(lastCheck,book^.lastExistsDate);
+           lastCheck:=min(lastCheck,book.lastExistsDate);
         end;
-        RecordItems.Add(Utf8ToAnsi(book^.year)); ;
-       // SubItems.add(book^.otherInfo);
+        RecordItems.Add(Utf8ToAnsi(book.year)); ;
+       // SubItems.add(book.otherInfo);
         Tag:=longint(book);
       end;
     end;
@@ -1145,11 +1144,8 @@ begin
     if nok2 then halt;
   //SHAREWARE CODE END
 
-  if updateThreadsRunning<=0 then
-      if abs(lastCheck-currentDate)>2 then
-        StatusBar1.Panels[0].text:='Älteste angezeigte Daten sind vom '+DateToStr(lastCheck)
-       else
-        StatusBar1.Panels[0].text:='Älteste angezeigte Daten sind von  '+DateToPrettyStr(lastCheck);
+  if updateThreadConfig.updateThreadsRunning<=0 then
+    StatusBar1.Panels[0].text:='Älteste angezeigte Daten sind '+DateToPrettyGrammarStr('vom ','von ',lastCheck);
   icon.LoadFromFile(getTNAIconFileName());
 
   //SHAREWARE CODE
@@ -1163,7 +1159,7 @@ begin
     if (viewMenu.Items[i].tag = 0) or (viewMenu.Items[i].tag = -1) then continue;
   //  if not viewMenu.Items[i].Checked then continue;
     books:=///TCustomAccountAccess(accountIDs.objects[viewMenu.Items[i].Tag]).getBooks();
-           TCustomAccountAccess(viewMenu.Items[i].Tag).getBooks();
+           TCustomAccountAccess(viewMenu.Items[i].Tag).books;
     count+=books.getBookCount(typ);
     if viewMenu.Items[i].Checked then count2+=books.getBookCount(typ);
   end;

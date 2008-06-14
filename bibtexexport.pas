@@ -35,7 +35,7 @@ var
   BibTexExportFrm: TBibTexExportFrm;
 
 implementation
-uses bbutils, applicationconfig, bookWatchMain,libraryParser,Clipbrd,math;
+uses bbutils, applicationconfig, bookWatchMain,booklistreader,Clipbrd,math;
 { TBibTexExportFrm }
 
 procedure TBibTexExportFrm.RadioGroup2Click(Sender: TObject);
@@ -111,7 +111,7 @@ var outputEncoding:longint;
 const AUTHOR_LEN=5;TITLE_LEN=5;
 var all:boolean;
     exportStr:string;
-    book: PBook;
+    book: TBook;
     id,authorId,titleID:string;
     i:LONGINt;
 begin
@@ -121,35 +121,35 @@ begin
   exportStr:='';
   for i:=0 to mainForm.BookList.Items.count-1 do
     if all or (mainForm.BookList.Items[i].Selected) then begin
-      book:=PBook(mainForm.BookList.Items[i].Tag);
+      book:=TBook(mainForm.BookList.Items[i].Tag);
       if book=nil then continue;
 
       //autor-jahr, autor-titel, titel-jahr, autor, titel, id
-      if book^.author<>'' then begin
-        if pos(',',book^.author)>0 then  //nachname, vorname
-          authorId:=copy(removeBadIDChar(book^.author),1,min(pos(',',book^.author)-1,AUTHOR_LEN))
-         else if pos(' ',book^.author)=0 then  //nachname
-          authorId:=copy(removeBadIDChar(book^.author),1,AUTHOR_LEN)
+      if book.author<>'' then begin
+        if pos(',',book.author)>0 then  //nachname, vorname
+          authorId:=copy(removeBadIDChar(book.author),1,min(pos(',',book.author)-1,AUTHOR_LEN))
+         else if pos(' ',book.author)=0 then  //nachname
+          authorId:=copy(removeBadIDChar(book.author),1,AUTHOR_LEN)
          else
-          authorId:=copy(removeBadIDChar(book^.author),length(book^.author)-AUTHOR_LEN+1,AUTHOR_LEN);
-        if book^.year<>'' then
-          id:=authorId+book^.year
-         else if book^.title<>'' then
-          id:=authorId+'_'+copy(removeBadIDChar(book^.title),1,TITLE_LEN)
+          authorId:=copy(removeBadIDChar(book.author),length(book.author)-AUTHOR_LEN+1,AUTHOR_LEN);
+        if book.year<>'' then
+          id:=authorId+book.year
+         else if book.title<>'' then
+          id:=authorId+'_'+copy(removeBadIDChar(book.title),1,TITLE_LEN)
          else id:=authorId;
-      end else if (book^.title<>'') and (book^.year<>'') then
-        id:=copy(removeBadIDChar(book^.title),1,TITLE_LEN)+book^.year
-       else if book^.title<>'' then
-        id:=copy(removeBadIDChar(book^.title),1,TITLE_LEN+AUTHOR_LEN)
-       else if book^.id[1] in ['0'..'9'] then
-        id:=removeBadIDChar(book^.id)
+      end else if (book.title<>'') and (book.year<>'') then
+        id:=copy(removeBadIDChar(book.title),1,TITLE_LEN)+book.year
+       else if book.title<>'' then
+        id:=copy(removeBadIDChar(book.title),1,TITLE_LEN+AUTHOR_LEN)
+       else if book.id[1] in ['0'..'9'] then
+        id:=removeBadIDChar(book.id)
        else
-        id:='b'+removeBadIDChar(book^.id);
+        id:='b'+removeBadIDChar(book.id);
 
       exportStr+=#13#10'@book{'+convStr(id)+','#13#10;
-      if book^.author<>'' then exportStr+='  author = "'+convStr(book^.author)+'",'#13#10;
-      if book^.title<>'' then exportStr+='  title = "'+convStr(book^.title)+'",'#13#10;
-      if book^.year<>'' then exportStr+='  year = "'+convStr(book^.year)+'",'#13#10;
+      if book.author<>'' then exportStr+='  author = "'+convStr(book.author)+'",'#13#10;
+      if book.title<>'' then exportStr+='  title = "'+convStr(book.title)+'",'#13#10;
+      if book.year<>'' then exportStr+='  year = "'+convStr(book.year)+'",'#13#10;
       exportStr+='}'#13#10;
     end;
     if ExtractFileExt(FileNameEdit1.Text)='' then

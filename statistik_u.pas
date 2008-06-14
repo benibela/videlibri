@@ -5,7 +5,7 @@ unit statistik_u;
 interface
 
 uses
-  Classes, SysUtils, LResources, Forms, Controls, Graphics, Dialogs, ExtCtrls,diagram,applicationconfig,libraryparser,
+  Classes, SysUtils, LResources, Forms, Controls, Graphics, Dialogs, ExtCtrls,diagram,applicationconfig,
   StdCtrls, Buttons;
 
 type
@@ -53,7 +53,7 @@ var
 
 implementation
 
-uses bookwatchmain,bbutils;
+uses bookwatchmain,bbutils,booklistreader,libraryParser;
 { TstatistikForm }
 
 
@@ -73,8 +73,8 @@ procedure TstatistikForm.updateStatistic;
 var i,j,k,c,tc,currentLoop:integer;
     checkDate,nextCheckDate: longint;
     y,m,d: word; //year,..
-    books: tbooklists;
-    book:PBook;
+    books: TBookLists;
+    book:TBook;
     earliestDay,lastDay: integer;
     
     showSum: boolean;
@@ -86,10 +86,10 @@ begin
   earliestDay:=lastCheck;
   lastDay:=lastCheck;
   for i:=0 to accountIDs.Count-1 do begin
-    for j:=0 to TCustomAccountAccess(accountIDs.Objects[i]).getBooks().getBookCount(botAll)-1 do
-      if (TCustomAccountAccess(accountIDs.Objects[i]).getBooks().getBook(botAll,j)^.issueDate<>0)and
-         (TCustomAccountAccess(accountIDs.Objects[i]).getBooks().getBook(botAll,j)^.issueDate<earliestDay) then
-        earliestDay:=TCustomAccountAccess(accountIDs.Objects[i]).getBooks().getBook(botAll,j)^.issueDate;
+    for j:=0 to TCustomAccountAccess(accountIDs.Objects[i]).books.getBookCount(botAll)-1 do
+      if (TCustomAccountAccess(accountIDs.Objects[i]).books.getBook(botAll,j).issueDate<>0)and
+         (TCustomAccountAccess(accountIDs.Objects[i]).books.getBook(botAll,j).issueDate<earliestDay) then
+        earliestDay:=TCustomAccountAccess(accountIDs.Objects[i]).books.getBook(botAll,j).issueDate;
     diagram.addDataList.title:=TCustomAccountAccess(accountIDs.Objects[i]).prettyName;
   end;
   
@@ -104,10 +104,10 @@ begin
             tc:=0;
             for j:=0 to accountIDs.Count-1 do begin
               c:=0;
-              books:=TCustomAccountAccess(accountIDs.Objects[j]).getBooks();
+              books:=TCustomAccountAccess(accountIDs.Objects[j]).books;
               for k:=0 to books.getBookCount(botAll)-1 do begin
                 book:=books.getBook(botAll,k);
-                if (book^.issueDate<=checkDate+6)and(book^.lastExistsDate>=checkDate) then
+                if (book.issueDate<=checkDate+6)and(book.lastExistsDate>=checkDate) then
                   inc(c);
               end;
               TDataList(diagram.dataLists[j]).addPoint(checkDate,c);
@@ -134,10 +134,10 @@ begin
         tc:=0;
         for j:=0 to accountIDs.Count-1 do begin
           c:=0;
-          books:=TCustomAccountAccess(accountIDs.Objects[j]).getBooks();
+          books:=TCustomAccountAccess(accountIDs.Objects[j]).books;
           for k:=0 to books.getBookCount(botAll)-1 do begin
             book:=books.getBook(botAll,k);
-            if (book^.issueDate<nextCheckDate)and(book^.lastExistsDate>=checkDate) then inc(c);
+            if (book.issueDate<nextCheckDate)and(book.lastExistsDate>=checkDate) then inc(c);
           end;
           TDataList(diagram.dataLists[j]).addPoint({checkDate}currentLoop,c);
           inc(tc,c);
@@ -153,10 +153,10 @@ begin
         tc:=0;
         for j:=0 to accountIDs.Count-1 do begin
           c:=0;
-          books:=TCustomAccountAccess(accountIDs.Objects[j]).getBooks();
+          books:=TCustomAccountAccess(accountIDs.Objects[j]).books;
           for k:=0 to books.getBookCount(botAll)-1 do begin
             book:=books.getBook(botAll,k);
-            if (book^.issueDate<=i)and(book^.lastExistsDate>=i) then inc(c);
+            if (book.issueDate<=i)and(book.lastExistsDate>=i) then inc(c);
           end;
           TDataList(diagram.dataLists[j]).addPoint(i,c);
           inc(tc,c);

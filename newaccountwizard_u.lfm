@@ -276,7 +276,7 @@ object newAccountWizard: TnewAccountWizard
     object lastPage: TPage
       Caption = 'lastPage'
       ClientWidth = 390
-      ClientHeight = 177
+      ClientHeight = 159
       object Label5: TLabel
         Left = 21
         Height = 33

@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <library>
+  <username matches="^\w\d{7,8}$"/>
+  <password matches="."/>
+  <maxExtendCount value="3"/>
+
   <longName value="Universitäts- und Landesbibliothek Düsseldorf"/>
   <shortName value="ULB Düsseldorf"/>
   <homepage value="http://kant.ub.uni-duesseldorf.de/F"/>

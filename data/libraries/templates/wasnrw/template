@@ -1,20 +1,26 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <library-template>
-<username matches="^\d{8}$"/>
-<password matches="^\d{1,2}\.\d{1,2}\.\d{2,4}$"/>
 <earmarked matches="vorgemerkt"/>
 <maxlimit matches="max. Ausleihfrist erreicht"/>
 
 <action id="connect">
   <page url="http://$server;start?homegkz=111" templateFile="start"/>
 </action>
-<action id="update">
-  <page url="https://$server;BenutzerkontoServlet;$jsession;" templateFile="KontoServlet"
-    post-params="Kontoart=Ausleihkonto&amp;homegkz=111&amp;Bibliothek=111&amp;Ausweisnummer=$username;&amp;Geburtsdatum=$password;"/>
-    <error templateFile="loginError"/>
+<action id="update-all">
+  <page url="https://$server;BenutzerkontoServlet;$jsession;" templateFile="KontoServlet">
+    <post name="Kontoart">Ausleihkonto</post>
+    <post name="Bibliothek">111</post>
+    <post name="homegkz">111</post>
+    <post name="Ausweisnummer">$username;</post>
+    <post name="Geburtsdatum">$password;</post>
+  </page>
+  <error templateFile="loginError"/>
 </action>
-<action id="extend-all" update-before="true">
-  <page url="https://$server;AusleiheVerlaengerungServlet;$jsession;" templateFile="KontoServlet"
-        post-params="Kontoart=Ausleihkonto&amp;Bibliothek=111&amp;homegkz=111"/>
+<action id="extend-all">
+  <page url="https://$server;AusleiheVerlaengerungServlet;$jsession;" templateFile="KontoServlet">
+    <post name="Kontoart">Ausleihkonto</post>
+    <post name="Bibliothek">111</post>
+    <post name="homegkz">111</post>
+  </page>
 </action>
 </library-template> 

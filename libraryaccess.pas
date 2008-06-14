@@ -11,19 +11,19 @@ unit libraryAccess;
 
 interface
 uses
-  Classes, SysUtils,libraryParser;
+  Classes, SysUtils,libraryParser,booklistreader;
 
 //--Aktualisierungen--
 type
   TThreadConfig=record
-    oneThreadSuccessful: boolean;//write only true
+    //oneThreadSuccessful: boolean;//write only true
     libraryAccessSection: TRTLCriticalSection;
-    groupThreadsRunning:integer;
-    singleBookThreadStarted:integer;
-    singleBookThreadStopped:integer;
+    threadManagementSection: TRTLCriticalSection;
+    updateThreadsRunning:integer; //all threads
+    listUpdateThreadsRunning: integer; //count of threads which are updating the list of books (and have not started updating singely)
+    atLeastOneListUpdateSuccessful: boolean;
   end;
-var updateThreadsRunning: longint = 0;
-    updateThreadConfig: TThreadConfig;
+var updateThreadConfig: TThreadConfig;
 procedure ThreadDone(sender:TObject);
 
 //Aktualisiert eine (oder bei lib=nil alle) Konten in einem extra-thread
@@ -35,7 +35,7 @@ procedure startCheckThread;
 //--Verlängerungen--
 //Verlängert die Bücher des Accounts indem extendAccountBookData aufgerufen wird
 //procedure extendAccountBookData(account: TCustomAccountAccess;books: TBookArray);
-procedure extendBooks(books: TBookArray);
+procedure extendBooks(books: TBookList);
 procedure extendBooks(lastLimit:longint; account: TCustomAccountAccess=nil);
 
 
@@ -62,7 +62,7 @@ type
     messageShown: boolean;
     ignoreConnectionErrors: boolean;   //read only
     checkDate: boolean;                //read only
-    noLongerGroupThread: boolean;
+
     extend: boolean;
     procedure execute;override;
     procedure exceptionRaised(raisedException:Exception);
@@ -76,31 +76,41 @@ var checkingThreadRunning: boolean=false;
 
 procedure TUpdateLibThread.execute;
 var internet: TInternetAccess;
+    listUpdateComplete: boolean;
+
+    booksToExtendCount,booksExtendableCount: longint;
+    realBooksToExtend: TBookList;
+    i:longint;
 begin
 //Die Funktionsweise ist folgende:
-//   connect         verbindet zur Bücherei
-//
-//   parseBooks      liest die Mediendaten und schreibt sie thread-save in
-//                   bltInCurrentDataUpdate
-//   (merge)**       wenn needSingleBookCheck gesetzt ist, werden die Mediendaten übertragen,
-//                   damit die Anzahl und die neuesten Informationen angezeigt werden können
-//   (parse...ByOne) wenn needSingleBookCheck gesetzt ist, werden die Mediendaten einzeln gelesen
-//   merge**         aktualisiert die anzeigbaren Mediendaten
-//   save            speichert die Mediendaten auf der Festplatte
-//   disconnect      beendet die Verbindung
-
-//  **: Aufruf verändert die gelesenen Daten, die Zugriffe müssen also synchronisiert erfolgen.
+{
+--AKTUALISIEREN und langsames verlängern--
+#connect
+#update-all
+(merge and display)
+if exists #update-single then for all: #update-single
+if exists books-to-extend then begin
+  if exists #extend-list then extend-list
+  else if exists #extend-single then for all: #extend-single
+  else extend-all
+end
+(disconnect)
+save
+}
   if logging then begin
     log('TUpdateLibThread.execute(@lib='+inttostr(longint(lib))+') started');
     log('Library is: '+lib.prettyName);
   end;
   try
-    noLongerGroupThread:=false;
+    listUpdateComplete:=false;
     if lib=nil then
       raise ELibraryException.create('Interner Fehler'#13#10'Aufruf von TUpdateLibThread.execute für einen nicht existierenden Account');
     if checkDate then
-      if (lib.lastCheckDate>currentDate-refreshInterval) and (not lib.checkMaximalBookTimeLimit) then begin
-        InterlockedDecrement(pconfig^.groupThreadsRunning);
+      if (lib.lastCheckDate>currentDate-refreshInterval) and (not lib.existsCertainBookToExtend) then begin
+        EnterCriticalSection(pconfig^.threadManagementSection);
+        pconfig^.updateThreadsRunning-=1;
+        pconfig^.listUpdateThreadsRunning-=1;
+        LeaveCriticalSection(pconfig^.threadManagementSection);
         lib.isThreadRunning:=false;
         if logging then log('TUpdateLibThread.execute ended without checking');
         exit;
@@ -111,49 +121,80 @@ begin
       if logging then log('TUpdateLibThread.execute ended marker 1');
       lib.connect(internet);
       if logging then log('TUpdateLibThread.execute ended marker 2');
-      lib.parseBooks(extend);
+      lib.updateAll();
       if logging then log('TUpdateLibThread.execute ended marker 3');
       if lib.needSingleBookCheck() then begin
         //InterlockedIncrement(@pconfig^.totalBookThreadDone);
         //Synchronize(@mainForm.RefreshListView);
-        if logging then log('TUpdateLibThread.execute ended marker 3.1');
+        if logging then log('TUpdateLibThread.execute marker 3.1');
         EnterCriticalSection(pconfig^.libraryAccessSection);
-        if logging then log('TUpdateLibThread.execute ended marker 3.2');
-        lib.getBooks().merge(false);
-        if logging then log('TUpdateLibThread.execute ended marker 3.3');
+        lib.books.merge(false);
         LeaveCriticalSection(pconfig^.libraryAccessSection);
-        if logging then log('TUpdateLibThread.execute ended marker 3.4');
-        pconfig^.oneThreadSuccessful:=true;
+        if logging then log('TUpdateLibThread.execute marker 3.4');
 
-        if logging then log('TUpdateLibThread.execute ended marker 3.5');
-        InterlockedDecrement(pconfig^.groupThreadsRunning);
-        InterlockedIncrement(pconfig^.singleBookThreadStarted);
-        if logging then log('TUpdateLibThread.execute ended marker 3.6');
-        if (pconfig^.groupThreadsRunning<=0) and (mainform<>nil) and (mainForm.visible) then
+
+        if logging then log('TUpdateLibThread.execute marker 3.5');
+        EnterCriticalSection(pconfig^.threadManagementSection);
+        pconfig^.listUpdateThreadsRunning-=1;
+        pconfig^.atLeastOneListUpdateSuccessful:=true;
+        LeaveCriticalSection(pconfig^.threadManagementSection);
+        if logging then log('TUpdateLibThread.execute marker 3.6');
+        if (pconfig^.listUpdateThreadsRunning<=0) and (mainform<>nil) and (mainForm.visible) then
           Synchronize(@mainForm.RefreshListView);
 
-        noLongerGroupThread:=true;
-        if logging then log('TUpdateLibThread.execute ended marker 3.7');
-        lib.parseBooksOneByOne(extend);
+        listUpdateComplete:=true;
+        lib.updateAllSingly();
       end;
-      if logging then log('TUpdateLibThread.execute ended marker 4');
+      if logging then log('TUpdateLibThread.execute marker 4');
+      
+      //Automatisches Verlängern
+      booksExtendableCount:=0;
+      for i:=0 to lib.books.getBookCount(botCurrentUpdate)-1 do
+        if lib.books.getBook(botCurrentUpdate,i).status in BOOK_EXTENDABLE then
+          booksExtendableCount+=1;
+
+      case lib.extendType of
+        etNever: booksToExtendCount:=0;
+        etAlways: //extend always (when there are books which can be extended)
+          booksToExtendCount:=booksExtendableCount;
+        etAllDepends,etSingleDepends: begin
+          for i:=0 to lib.books.getBookCount(botCurrentUpdate)-1 do //check for books to extend
+            if lib.shouldExtendBook(lib.books.getBook(botCurrentUpdate,i)) then
+              booksToExtendCount+=1;
+          if (lib.extendType=etAllDepends) and (booksToExtendCount>0) then
+            booksToExtendCount:=booksExtendableCount;
+        end;
+      end;
+
+      if booksToExtendCount>0 then
+        if booksToExtendCount=booksExtendableCount then
+          lib.extendAll
+         else begin
+          realBooksToExtend:=TBookList.Create;
+          for i:=0 to lib.books.getBookCount(botCurrentUpdate)-1 do
+            if lib.shouldExtendBook(lib.books.getBook(botCurrentUpdate,i)) then
+              realBooksToExtend.add(lib.books.getBook(botCurrentUpdate,i));
+          lib.extendList(realBooksToExtend);
+          realBooksToExtend.free
+         end;
+
     //lib.disconnect();
     finally
       internet.free;
     end;
 
+
+
     if logging then log('TUpdateLibThread.execute ended marker 5');
     EnterCriticalSection(pconfig^.libraryAccessSection);
-    if logging then log('TUpdateLibThread.execute ended marker 6');
-    lib.getBooks().merge(true);
-    if logging then log('TUpdateLibThread.execute ended marker 7');
+    lib.books.merge(true);
     LeaveCriticalSection(pconfig^.libraryAccessSection);
     if logging then log('TUpdateLibThread.execute ended marker 8');
 
     lib.save();
 
     if logging then log('TUpdateLibThread.execute ended marker 9');
-    pconfig^.oneThreadSuccessful:=true;
+    pconfig^.atLeastOneListUpdateSuccessful:=true;
   except
     on e: EInternetException do {$ifndef activeDebug}if not ignoreConnectionErrors then{$endif}
       exceptionRaised(e);
@@ -161,10 +202,11 @@ begin
       exceptionRaised(e);
     else if logging then log('Unverständliche Fehlermeldung');
   end;
-  if not noLongerGroupThread then
-    InterlockedDecrement(pconfig^.groupThreadsRunning)
-   else
-    InterlockedIncrement(pconfig^.singleBookThreadStopped);
+  EnterCriticalSection(pconfig^.threadManagementSection);
+  if not listUpdateComplete then
+    pconfig^.listUpdateThreadsRunning-=1;
+  pconfig^.updateThreadsRunning-=1;
+  LeaveCriticalSection(pconfig^.threadManagementSection);
   lib.isThreadRunning:=false;
   if logging then log('TUpdateLibThread.execute ended');
 end;
@@ -179,7 +221,6 @@ begin
   messageShown:=false;
 end;
 procedure TUpdateLibThread.exceptionRaised(raisedException:Exception);
-var i:integer;
 begin
   if raisedException=nil then exit;
   createErrorMessageStr(raisedException,errorstr,errordetails,lib);
@@ -203,16 +244,15 @@ end;
 procedure ThreadDone(sender:TObject);
 //called in the main thread
 //var i,j:integer;
-var thread: TUpdateLibThread;
 begin
-  if logging then log('ThreadDone started'#13#10'Without this one, '+IntToStr(updateThreadsRunning)+' threads are currently running');
+  if logging then log('ThreadDone started'#13#10'Without this one, '+IntToStr(updateThreadConfig.updateThreadsRunning)+' threads are currently running');
   if not (sender is TUpdateLibThread) then
     raise exception.Create('Interner Fehler:'#13#10'Die Funktion, die für gerade beendete Aktualisierungthread zuständig ist, wurde auf einen anderen Thread angewendet'#13#10'(kann eigentlich nicht auftreten)');
-  dec(updateThreadsRunning);
-  if (updateThreadsRunning<=0) or (((updateThreadConfig.groupThreadsRunning<=0))and not ((sender as TUpdateLibThread).noLongerGroupThread))
-     or ((updateThreadConfig.singleBookThreadStopped>=updateThreadConfig.singleBookThreadStarted)and ((sender as TUpdateLibThread).noLongerGroupThread)) then begin
-    if (updateThreadConfig.oneThreadSuccessful) then begin
-      updateThreadConfig.oneThreadSuccessful:=false;
+
+
+  if (updateThreadConfig.updateThreadsRunning<=0) or (updateThreadConfig.listUpdateThreadsRunning<=0) then begin
+    if (updateThreadConfig.atLeastOneListUpdateSuccessful) then begin
+      updateThreadConfig.atLeastOneListUpdateSuccessful:=updateThreadConfig.updateThreadsRunning>0;
       accountsRefreshed:=true;
       if (mainform<>nil) and (mainform.visible) then
         mainform.RefreshListView;
@@ -223,15 +263,9 @@ begin
      else if not lclstarted then
       showErrorMessages;
   end;
-  if (updateThreadsRunning<=0) then
+  if (updateThreadConfig.updateThreadsRunning<=0) then
     updateGlobalAccountDates();
-  if (updateThreadsRunning<=0) and (mainform<>nil) then
-    {if mainform.StatusBar1.Panels[0].text=TRY_BOOK_UPDATE then }begin
-      if abs(lastCheck-currentDate)>2 then
-        mainform.StatusBar1.Panels[0].text:='Älteste angezeigte Daten sind vom '+DateToStr(lastCheck)
-       else
-        mainform.StatusBar1.Panels[0].text:='Älteste angezeigte Daten sind von '+DateToPrettyStr(lastCheck)
-    end;
+
   if logging then log('ThreadDone ended');
 end;
 
@@ -239,7 +273,7 @@ end;
 procedure updateAccountBookData(account: TCustomAccountAccess;ignoreConnErrors,checkDate,extendAlways: boolean);
 var i: longint;
 begin
-  if (account=nil) and (updateThreadsRunning>0) then exit;
+  if (account=nil) and (updateThreadConfig.updateThreadsRunning>0) then exit;
   if (account<>nil) and (account.isThreadRunning) then exit;
 
   if (account=nil)and(accountIDs.count=1) then
@@ -251,19 +285,26 @@ begin
   end;
       
 //  threadConfig.baseWindow:=handle;
-  updateThreadConfig.oneThreadSuccessful:=false;
-  if mainform<>nil then
+  if account=nil then
+    updateThreadConfig.atLeastOneListUpdateSuccessful:=false;
+  if (mainform<>nil) and (mainForm.Visible) then
     mainform.StatusBar1.Panels[0].text:=TRY_BOOK_UPDATE;
   if account<>nil then begin
-    inc(updateThreadsRunning);
-    InterlockedIncrement(updateThreadConfig.groupThreadsRunning);
+    EnterCriticalSection(updateThreadConfig.threadManagementSection);
+    updateThreadConfig.updateThreadsRunning+=1;
+    updateThreadConfig.listUpdateThreadsRunning+=1;
+    LeaveCriticalSection(updateThreadConfig.threadManagementSection);
+
     account.isThreadRunning:=true;
     TUpdateLibThread.Create(account,updateThreadConfig,ignoreConnErrors,checkDate,extendAlways).
          OnTerminate:=@mainform.ThreadDone;
   end else begin
-    updateThreadsRunning:=accountIDs.count;
+    EnterCriticalSection(updateThreadConfig.threadManagementSection);
+    updateThreadConfig.updateThreadsRunning:=accountIDs.count;
+    updateThreadConfig.listUpdateThreadsRunning:=accountIDs.count;
+    LeaveCriticalSection(updateThreadConfig.threadManagementSection);
     for i:=0 to accountIDs.count-1 do begin
-      InterlockedIncrement(updateThreadConfig.groupThreadsRunning);
+
       TCustomAccountAccess(accountIDs.Objects[i]).isThreadRunning:=true;
       TUpdateLibThread.create(TCustomAccountAccess(accountIDs.Objects[i]),updateThreadConfig,
                               ignoreConnErrors,checkDate,extendAlways).
@@ -338,7 +379,7 @@ end;
 
 
 procedure extendAccountBookData(account: TCustomAccountAccess;
-  books: TBookArray);
+  books: TBookList);
 var internet:TW32InternetAccess;
 begin
   try
@@ -349,13 +390,17 @@ begin
     if GetThreadID <> MainThreadID then
       exit; //Nur vom Haupthread aus aufrufen
 
-    if (account<>nil) and (length(books)>0) then begin
+    if (account<>nil) and (books.Count>0) then begin
         internet:=TW32InternetAccess.create();
       try
-        account.connect(internet);
-        account.parseSingleBooks(books,true);
-        account.disconnect();
-        account.getBooks().merge(true);
+        if not account.connected then begin
+          account.connect(internet);
+          account.updateAll();
+          if account.needSingleBookCheck() then
+            account.updateAllSingly;
+        end;
+        account.extendList(books);
+        account.books.merge(true);
         account.save();
       finally
         internet.free;
@@ -367,22 +412,21 @@ begin
   end;
 end;
 
-procedure extendBooks(books: TBookArray);
-var current:TBookArray;
+procedure extendBooks(books: TBookList);
+var current:TBookList;
     i,j:integer;
 begin
   //TODO: optimize
   //SetLength(accBoo,accountIDs.Count);
+  current:=TBookList.Create;
   for i:=0 to accountIDs.Count-1 do begin
-    setlength(current,0);
-    for j:=0 to high(books) do begin
-      if books[j]^.lib=accountIDs.Objects[i] then begin
-        SetLength(current,length(current)+1);
-        current[high(current)]:=books[j];
-      end;
-    end;
+    current.clear;
+    for j:=0 to books.count-1 do
+      if books[j].owner=accountIDs.Objects[i] then
+        current.add(books[j]);
     extendAccountBookData(TCustomAccountAccess(accountIDs.Objects[i]),current);
   end;
+  current.free;
   showErrorMessages();
   if lclStarted and (mainform<>nil) and (mainform.visible) then
     mainform.RefreshListView;
@@ -390,22 +434,21 @@ end;
 
 procedure extendBooks(lastLimit: longint; account: TCustomAccountAccess);
 var i:integer;
-    books: TBookArray;
+    books: TBookList;
 begin
   if account=nil then begin
      for i:=0 to accountIDs.count-1 do
        extendBooks(lastLimit,TCustomAccountAccess(accountIDs.Objects[i]));
      exit;
   end;
-  setlength(books,0);
+  books:=TBookList.Create;
   //TODO: Optimize
-  for i:=0 to account.getBooks().getBookCount(botCurrent)-1 do
-    if (account.getBooks().getBook(botCurrent,i)^.limitDate<=lastLimit) and
-       (account.getBooks().getBook(botCurrent,i)^.status in BOOK_EXTENDABLE)then begin
-      setlength(books,length(books)+1);
-      books[high(books)]:=account.getBooks().getBook(botCurrent,i);
-    end;
+  for i:=0 to account.books.getBookCount(botCurrent)-1 do
+    if (account.books.getBook(botCurrent,i).limitDate<=lastLimit) and
+       (account.books.getBook(botCurrent,i).status in BOOK_EXTENDABLE) then
+       books.add(account.books.getBook(botCurrent,i));
   extendAccountBookData(account,books);
+  books.free;
 
   showErrorMessages();
   if lclStarted and (mainform<>nil) and (mainform.visible) then
@@ -460,18 +503,18 @@ begin
 
   if nextLimit<currentDate then begin
     for i:=0 to accountIDs.count-1 do
-      with TCustomAccountAccess(accountIDs.Objects[i]).getBooks() do
+      with TCustomAccountAccess(accountIDs.Objects[i]).books do
         for j:=0  to getBookCount(botCurrent)-1 do
-          if getBook(botCurrent,j)^.limitDate<currentDate then
+          if getBook(botCurrent,j).limitDate<currentDate then
             count+=1;
     alert:='Einige Medien ('+inttostr(count)+') sind überfällig und sollten schon bis '+DateToPrettyGrammarStr('zum ','',nextLimit)+' abgegeben worden sein.'#13#10'Wollen Sie eine Liste dieser Medien angezeigt bekommen? (Wenn Sie die Medien schon abgegeben haben, müssen Sie die Medienliste aktualisieren)';
     if MessageBox(0,pchar(alert),'VideLibri',MB_YESNO or MB_ICONWARNING or MB_SYSTEMMODAL)=IDYES then
       result:=true;
   end else if nextNotExtendableLimit<=redTime then begin
     for i:=0 to accountIDs.count-1 do
-      with TCustomAccountAccess(accountIDs.Objects[i]).getBooks() do
+      with TCustomAccountAccess(accountIDs.Objects[i]).books do
         for j:=0  to getBookCount(botCurrent)-1 do
-          with getBook(botCurrent,j)^ do
+          with getBook(botCurrent,j) do
             if (limitDate<=redTime) and (status in BOOK_NOT_EXTENDABLE) then
               count+=1;
     alert:='Bald (bis '+DateToPrettyGrammarStr('zum ','',nextNotExtendableLimit)+') müssen einige nicht verlängerbare Medien ('+IntToStr(count)+') abgegeben werden.'#13#10'Wollen Sie eine Liste dieser Medien angezeigt bekommen?';
@@ -479,9 +522,9 @@ begin
       result:=true;
   end else if nextLimit<=redTime then begin
     for i:=0 to accountIDs.count-1 do
-      with TCustomAccountAccess(accountIDs.Objects[i]).getBooks() do
+      with TCustomAccountAccess(accountIDs.Objects[i]).books do
         for j:=0  to getBookCount(botCurrent)-1 do
-          if getBook(botCurrent,j)^.limitDate<=redTime then
+          if getBook(botCurrent,j).limitDate<=redTime then
             count+=1;
     alert:='Bald (bis '+DateToPrettyGrammarStr('zum ','',nextLimit)+') müssen einige Medien ('+IntToStr(count)+') abgegeben werden.'#13#10'Die Medien können allerdings verlängert werden, soll dies jetzt versucht werden?';
     if MessageBox(0,pchar(alert),'VideLibri',MB_YESNO or MB_ICONWARNING or MB_SYSTEMMODAL)=IDYES then

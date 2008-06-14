@@ -13,7 +13,7 @@ w32InternetAccess, wininet, options, newAccountWizard_u, errorDialog,
 applicationConfig, statistik_u, diagram, tnaAccess, libraryAccess,
 sendBackError, internetAccess, autoupdate, progressDialog, registrierung,
 nagform, bbdebugtools, bbutils, extendedhtmlparser, simplehtmlparser,
-bibtexexport, simplexmlparser;
+bibtexexport, simplexmlparser, booklistreader, librarySearcher;
 
 type
 

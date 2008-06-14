@@ -1,8 +1,5 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <library-template>
-<username matches="^(\d000\d{3}|\w\d{8})$"/>
-<password matches="."/>
-<maxExtendCount value="3"/>
 <accountExpired matches="Benutzerkarte ist abgelaufen"/>
 <maxlimit matches="Maximal erlaubte Anzahl Verlängerungen"/>
 
@@ -10,14 +7,37 @@
   <page url="http://$server;WebOpac.cls" templateFile="start"/>
 </action>
 
-<action id="update">
-  <page url="http://$server;WebOpac.cls" templateFile="update"
-    post-params="MGWCHD=0&amp;TOKEN=$token;&amp;TOKENX=$tokenx;&amp;DATA=$data;&amp;usercode=&amp;VERSION=$version;&amp;RSN=0&amp;TOKENZ=$token;&amp;ACTION=MEMLOGIN&amp;password=$password;&amp;usernum=$username;&amp;login=LOGIN"/>
-    <error templateFile="loginError"/>
+<action id="update-all">
+  <page url="http://$server;WebOpac.cls" templateFile="update"/>
+    <post name="MGWCHD">0</post>
+    <post name="TOKEN">$token;</post>
+    <post name="TOKENX">$tokenx;</post>
+    <post name="DATA">$data;</post>
+    <post name="usercode"></post>
+    <post name="VERSION">$version;</post>
+    <post name="RSN">0</post>
+    <post name="TOKENZ">$token;</post>
+    <post name="ACTION">MEMLOGIN</post>
+    <post name="password">$password;</post>
+    <post name="usernum">$username;</post>
+    <post name="login">LOGIN</post>
+  </page>
+  <error templateFile="loginError"/>
 </action>
 
-<action id="extend-list" singleBookStr="&amp;$book.extendID;=1" update-before="true" update-after="true">
-  <page url="http://$server;WebOpac.cls" 
-    post-params="MGWCHD=0&amp;TOKEN=$token;&amp;TOKENX=$tokenx;&amp;DATA=$data;&amp;usercode=&amp;VERSION=$version;&amp;ACTION=MEMSLFISS&amp;bno=$username;&amp;mid=$mid;$book-list;"/>
+<action id="extend-list" singleBookStr="&amp;$book.extendID;=1" update-before="true">
+  <page url="http://$server;WebOpac.cls">
+    <post name="MGWCHD">0</post>
+    <post name="TOKEN">$token;</post>
+    <post name="TOKENX">$tokenx;</post>
+    <post name="DATA">$data;</post>
+    <post name="usercode"></post>
+    <post name="VERSION">$version;</post>
+    <post name="ACTION">MEMSLFISS</post>
+    <post name="bno">$username;</post>
+    <post name="mid">$mid;</post>
+    <post>$book-list;</post>
+  </page>
+  <call action="update"/>
 </action>
 </library-template>

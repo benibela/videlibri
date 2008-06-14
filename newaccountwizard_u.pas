@@ -202,9 +202,9 @@ begin
   accountPrettyName.text:=accountName.text;
   identificarionInvalid.Caption:='';
   if (selectedLibrary<>nil) and (selectedLibrary.template<>nil) then
-    if (accountPass.Text<>'') and (not selectedLibrary.template.usernameRegEx.Exec(accountName.Text)) then
+    if (accountPass.Text<>'') and (not selectedLibrary.usernameRegEx.Exec(accountName.Text)) then
       identificarionInvalid.Caption:='Die eingegebe Kontonummer ist wahrscheinlich ungültig '
-    else if (accountPass.Text<>'') and (not selectedLibrary.template.passwordRegEx.Exec(accountPass.Text)) then
+    else if (accountPass.Text<>'') and (not selectedLibrary.passwordRegEx.Exec(accountPass.Text)) then
       identificarionInvalid.Caption:='Das eingegeben '+copy(passLabel.Caption,1,length(passLabel.Caption)-1)+' ist wahrscheinlich ungültig';
 end;
 

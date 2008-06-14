@@ -3,8 +3,6 @@ object mainForm: TmainForm
   Height = 681
   Top = 23
   Width = 949
-  HorzScrollBar.Page = 948
-  VertScrollBar.Page = 660
   Caption = 'Videlibri'
   ClientHeight = 661
   ClientWidth = 949

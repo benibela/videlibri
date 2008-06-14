@@ -32,7 +32,7 @@
         <PackageName Value="LCL"/>
       </Item1>
     </RequiredPackages>
-    <Units Count="27">
+    <Units Count="29">
       <Unit0>
         <Filename Value="bookWatch.lpr"/>
         <IsPartOfProject Value="True"/>
@@ -42,6 +42,7 @@
         <Filename Value="bookwatchmain.pas"/>
         <ComponentName Value="mainForm"/>
         <IsPartOfProject Value="True"/>
+        <ResourceBaseClass Value="Form"/>
         <ResourceFilename Value="bookwatchmain.lrs"/>
         <UnitName Value="bookWatchMain"/>
       </Unit1>
@@ -90,6 +91,7 @@
         <Filename Value="statistik_u.pas"/>
         <ComponentName Value="statistikForm"/>
         <IsPartOfProject Value="True"/>
+        <ResourceBaseClass Value="Form"/>
         <ResourceFilename Value="statistik_u.lrs"/>
         <UnitName Value="statistik_u"/>
       </Unit9>
@@ -188,6 +190,16 @@
         <IsPartOfProject Value="True"/>
         <UnitName Value="bbutils"/>
       </Unit26>
+      <Unit27>
+        <Filename Value="booklistreader.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="booklistreader"/>
+      </Unit27>
+      <Unit28>
+        <Filename Value="librarysearcher.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="librarySearcher"/>
+      </Unit28>
     </Units>
   </ProjectOptions>
   <CompilerOptions>
@@ -217,7 +229,7 @@
       </Options>
     </Linking>
     <Other>
-      <CustomOptions Value="
+      <CustomOptions Value="-ddebug
 "/>
       <CompilerPath Value="$(CompPath)"/>
     </Other>

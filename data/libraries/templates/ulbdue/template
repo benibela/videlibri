@@ -1,26 +1,29 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <library-template>
-<username matches="^\w\d{7,8}$"/>
-<password matches="."/>
 <maxlimit matches="Verlängerungslimit erreicht"/>
-<maxExtendCount value="3"/>
 
 <action id="connect">
     <page url="http://$server;F" templateFile="start"/>
     <page url="$loginPage;"  templateFile="login"/>
-    <page url="$loginForm;"  templateFile="loggedIn" post-params="func=login-session&amp;login_source=LOGIN-BOR&amp;bor_id=$username;&amp;bor_verification=$password;&amp;bor_library=DUE50"/>
-     <error templateFile="loginError"/>    
+    <page url="$loginForm;"  templateFile="loggedIn"> 
+      <post name="func">login-session</post>
+      <post name="login_source">LOGIN-BOR</post>
+      <post name="bor_id">$username;</post>
+      <post name="bor_verification">$password;</post>
+      <post name="bor_library">DUE50</post>
+    </page>
+    <error templateFile="loginError"/>    
 </action>
 
-<action id="update">
+<action id="update-all">
   <page url="$bookPage;" templateFile="update"/>
 </action>
 
-<action id="update-single" update-before="true">
+<action id="update-single">
   <page url="$book.detailLink;" templateFile="details"/>
 </action>
 
-<action id="extend-single" update-before="true">
+<action id="extend-single">
   <page url="$book.extendLink;"/>
   <page url="$book.detailLink;" templateFile="details"/>
 </action>

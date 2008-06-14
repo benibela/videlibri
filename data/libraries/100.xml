@@ -5,5 +5,9 @@
   <homepage value="http://tisiphone.hbz-nrw.de/libero/WebOpac.cls"/>
   <template value="libero"/>
   
+  <username matches="^(\d000\d{3}|\w\d{8})$"/>
+  <password matches="."/>
+  <maxExtendCount value="3"/>
+
   <variable name="server" value="tisiphone.hbz-nrw.de/libero/"/>
 </library>
