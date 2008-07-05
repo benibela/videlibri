@@ -10,4 +10,7 @@
   <template value="ulbdue"/>
   
   <variable name="server" value="kant.ub.uni-duesseldorf.de/"/>
+  
+  <variable name="Location" value="Düsseldorf"/>
+  <variable name="searchid-digibib" value="SERVICEGROUP1.SERVICE.SEARCH_ULBD"/>
 </library>

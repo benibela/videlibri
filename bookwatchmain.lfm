@@ -6,23 +6,6 @@ object mainForm: TmainForm
   Caption = 'Videlibri'
   ClientHeight = 661
   ClientWidth = 949
-  Icon.Data = {
-    BD0100002F2A2058504D202A2F0A7374617469632063686172202A6772617068
-    69635B5D203D207B0A22313620313620352031222C0A222E2063202346464646
-    4646222C0A222C20632023433643364336222C0A222D20632023464646463030
-    222C0A222A20632023383438343030222C0A226120632023383438343834222C
-    0A222E2E2E2E2E2E2E2E2E2E2E2E2E2E2E2E222C0A222E2E2E2E2E2C2C2C2C2C
-    2C2C2C2E2E2E222C0A222E2E2E2E2E2C2C2C2C2E2E2E2E2D2D2E222C0A222E2E
-    2E2A2A2E2E2E2E2D2D2D2D2D2D2E222C0A222E2E2E2A2A2A2E2D612D61612D61
-    2D2E222C0A222E2E2E2A2A2A2E2D6161612D61612D2E222C0A222E2E2E2A2A2A
-    2E2D2D61616161612D2E222C0A222E2E2E2A2A2A2E2D2D2D2D2D2D2D2D2E222C
-    0A222E2E2E2A2A2A2E2D2D2D2D2D2D2D2D2E222C0A222E2E2E2A2A2A2E612D2D
-    61612D612D2E222C0A222E2E2E2A2A2A2E612D2D6161612D2D2E222C0A222E2E
-    2E2A2A2A2E612D2D616161612D2E222C0A222E2E2E2A2A2A2E6161612D61612D
-    2D2E222C0A222E2E2E2A2A2A2E2D2D2D2D2D2D2E2E2E222C0A222E2E2E2E2A2A
-    2E2D2D2E2E2E2E2E2E2E222C0A222E2E2E2E2E2E2E2E2E2E2E2E2E2E2E2E227D
-    0A
-  }
   Menu = MainMenu1
   OnActivate = FormActivate
   OnClose = FormClose
@@ -115,6 +98,7 @@ object mainForm: TmainForm
     ClientHeight = 30
     ClientWidth = 949
     TabOrder = 1
+    OnClick = searchPanelClick
     object Label1: TLabel
       Left = 25
       Height = 14
@@ -124,7 +108,7 @@ object mainForm: TmainForm
       ParentColor = False
     end
     object searchDown: TSpeedButton
-      Left = 378
+      Left = 376
       Height = 22
       Top = 2
       Width = 100
@@ -146,9 +130,9 @@ object mainForm: TmainForm
     end
     object searchStatus: TLabel
       Left = 592
-      Height = 104
+      Height = 14
       Top = 6
-      Width = 152
+      Width = 1
       ParentColor = False
     end
     object searchText: TEdit
@@ -309,6 +293,11 @@ object mainForm: TmainForm
         Caption = '&Ausleihensuche'
         ShortCut = 16454
         OnClick = MenuItem8Click
+      end
+      object MenuItem25: TMenuItem
+        Caption = '&Mediensuche...'
+        ShortCut = 49222
+        OnClick = MenuItem25Click
       end
       object MenuItem6: TMenuItem
         Caption = '&Statistik...'
@@ -1234,7 +1223,7 @@ object mainForm: TmainForm
   end
   object libraryList: TPopupMenu
     left = 24
-    top = 216
+    top = 224
     object MenuItem7: TMenuItem
       Caption = 'New Item1'
     end
@@ -1247,14 +1236,22 @@ object mainForm: TmainForm
   object bookPopupMenu: TPopupMenu
     AutoPopup = False
     OnPopup = bookPopupMenuPopup
-    left = 156
-    top = 224
+    left = 248
+    top = 240
+    object MenuItem27: TMenuItem
+      Caption = 'Details für dieses Buch suchen...'
+      OnClick = MenuItem27Click
+    end
     object extendTheseBooks: TMenuItem
       Caption = 'Mindestens alle ausgewählten Medien verlängern'
       OnClick = MenuItem11Click
     end
     object extendAdjacentBooks: TMenuItem
       Caption = 'Alle Medien dieses Kontos verlängern'
+    end
+    object MenuItem26: TMenuItem
+      Caption = 'Markierte Medien aus der History löschen'
+      OnClick = MenuItem26Click
     end
   end
 end

@@ -381,10 +381,10 @@ begin
   edtAccountPass.Text:=item.SubItems[1];
   ckbAccountHistory.Checked:=item.SubItems[2]='ja';
   if currentSelectedAccount.getLibrary().canModifySingleBooks then begin
-    cmbAccountExtend.items.Text:='immer, wenn möglich'#13#10'alle, wenn nötig'#13#10'einzeln, wenn nötig'#13#10'niemals';
+    cmbAccountExtend.items.Text:='immer, wenn mÃ¶glich'#13#10'alle, wenn nÃ¶tig'#13#10'einzeln, wenn nÃ¶tig'#13#10'niemals';
     cmbAccountExtend.ItemIndex:=longint(TCustomAccountAccess(item.data).extendType);
   end else begin
-    cmbAccountExtend.items.Text:='immer, wenn möglich'#13#10'immer, wenn nötig'#13#10'niemals';
+    cmbAccountExtend.items.Text:='immer, wenn mÃ¶glich'#13#10'immer, wenn nÃ¶tig'#13#10'niemals';
     case currentSelectedAccount.extendType of
       etAlways: cmbAccountExtend.ItemIndex:=0;
       etAllDepends,etSingleDepends: cmbAccountExtend.ItemIndex:=1;
@@ -462,8 +462,8 @@ begin
     if (accountList.Selected.Caption=edtAccountPrettyName.Text) or
        (accountList.Selected.SubItems[0]=edtAccountUser.Text) then begin
       ShowMessage('Das Konto existiert bereits auf diesem Computer und kann deshalb nicht erstellt werden.   '#13#10+
-                  'Falls Sie eine Eigenschaft von einem Konto ändern wollen, klicken Sie bitte auf den Button "Konto ändern"'#13#10+
-                  'Falls Sie das Konto neu erstellen wollen, löschen Sie bitte das zuerst das alte, und erstellen es dann neu');
+                  'Falls Sie eine Eigenschaft von einem Konto Ã¤ndern wollen, klicken Sie bitte auf den Button "Konto Ã¤ndern"'#13#10+
+                  'Falls Sie das Konto neu erstellen wollen, lÃ¶schen Sie bitte das zuerst das alte, und erstellen es dann neu');
       exit;
     end;
   //TODO: Select library (in btnAccountCreateClick)
@@ -493,7 +493,7 @@ var selLib: TCustomAccountAccess;
 begin
   selLib:=backSelect(true);
   if selLib=nil then exit;
-  if MessageDlg('Konto löschung','Soll auf diesem Computer das Konto '+edtAccountPrettyName.text+' - '+edtAccountUser.text+' wirklich gelöscht werden?    '#13#10'Dadurch werden auch alle gespeicherten Bücherdaten dieses Kontos gelöscht   ',
+  if MessageDlg('Konto lÃ¶schung','Soll auf diesem Computer das Konto '+edtAccountPrettyName.text+' - '+edtAccountUser.text+' wirklich gelÃ¶scht werden?    '#13#10'Dadurch werden auch alle gespeicherten BÃ¼cherdaten dieses Kontos gelÃ¶scht   ',
                 mtConfirmation ,[mbYes,mbNo],0)=mrYes then begin
     accountIDs.Delete(accountList.Selected.Index);
     saveLibIDs;
@@ -515,7 +515,7 @@ begin
          (currentSelectedExtendType<>TCustomAccountAccess(accountList.Selected.Data).extendType) or (
            (currentSelectedExtendType in [etAllDepends,etSingleDepends]) and
            (StrToInt(edtAccountExtendDays.text)<>TCustomAccountAccess(accountList.Selected.Data).extendDays))) then
-       if MessageDlg('Kontoänderung','Die Kontodaten für das momentan markierte Konto wurden geändert.    '#13#10'Sollen sie gespeichert werden?',
+       if MessageDlg('KontoÃ¤nderung','Die Kontodaten fÃ¼r das momentan markierte Konto wurden geÃ¤ndert.    '#13#10'Sollen sie gespeichert werden?',
           mtConfirmation,mbYesNo,0)=mrYes then
         btnAccountChange.Click;
   end;

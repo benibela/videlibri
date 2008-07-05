@@ -10,4 +10,7 @@
   <maxExtendCount value="3"/>
 
   <variable name="server" value="tisiphone.hbz-nrw.de/libero/"/>
+  
+  <variable name="Location" value="Düsseldorf"/>
+  <variable name="searchid-digibib" value="SERVICEGROUP1.SERVICE.SEARCH_FHBDUE"/>
 </library>

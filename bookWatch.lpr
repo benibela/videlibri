@@ -12,8 +12,9 @@ uses
 w32InternetAccess, wininet, options, newAccountWizard_u, errorDialog,
 applicationConfig, statistik_u, diagram, tnaAccess, libraryAccess,
 sendBackError, internetAccess, autoupdate, progressDialog, registrierung,
-nagform, bbdebugtools, bbutils, extendedhtmlparser, simplehtmlparser,
-bibtexexport, simplexmlparser, booklistreader, librarySearcher;
+nagform, bbdebugtools,
+bibtexexport, simplexmlparser, booklistreader, librarySearcher, bookListView,
+bookSearchForm, librarySearcherAccess, extendedhtmlparser, TreeListView;
 
 type
 
@@ -183,10 +184,10 @@ begin
 //  iconHandle:=LoadImage(0,'ico.ico',IMAGE_ICON,0,0,LR_LOADFROMFILE);//hinstance,MAKEINTRESOURCE(1031));
 //  if iconhandle=0 then iconHandle:=loadicon(0,MAKEINTRESOURCE(32514));
   tna:=ttnaicon.create('VideLibri'{getTNAHint()},getTNAIconFileName());
-  tna.addMenuItem (MENU_ID_START_LCL,'&÷ffnen');
+  tna.addMenuItem (MENU_ID_START_LCL,'&√ñffnen');
   tna.addMenuItem (MENU_ID_UPDATE,'Medien &aktualisieren');
-  tna.addMenuItem (MENU_ID_EXTEND,'Medien &verl‰ngern');
-  tna.addMenuItem (MENU_ID_LIMIT_INFO,'   N‰chste Abgabefrist: '+nextLimitStr);
+  tna.addMenuItem (MENU_ID_EXTEND,'Medien &verl√§ngern');
+  tna.addMenuItem (MENU_ID_LIMIT_INFO,'   N√§chste Abgabefrist: '+nextLimitStr);
   tna.addMenuItem (MENU_ID_CLOSE,'&Beenden');
   events:=ttempclass.Create;
   tna.onMenuClick:=@events.onMenuClick;

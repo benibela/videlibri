@@ -3,8 +3,6 @@ object statistikForm: TstatistikForm
   Height = 362
   Top = 174
   Width = 398
-  HorzScrollBar.Page = 397
-  VertScrollBar.Page = 361
   ActiveControl = ComboBox1
   Caption = 'Statistik'
   ClientHeight = 362

@@ -25,7 +25,7 @@
   <error templateFile="loginError"/>
 </action>
 
-<action id="extend-list" singleBookStr="&amp;$book.extendID;=1" update-before="true">
+<action id="extend-list" singleBookStr="&amp;$book.extendID;=1">
   <page url="http://$server;WebOpac.cls">
     <post name="MGWCHD">0</post>
     <post name="TOKEN">$token;</post>
@@ -38,6 +38,6 @@
     <post name="mid">$mid;</post>
     <post>$book-list;</post>
   </page>
-  <call action="update"/>
+  <call action="update-all"/>
 </action>
 </library-template>

@@ -67,7 +67,7 @@ end;
 procedure TnagWindow.FormShow(Sender: TObject);
 begin
   tag:=6785;
-  mainForm.Label2.Caption:='  eingeschr‰nkte Shareware Version';
+  mainForm.Label2.Caption:='  eingeschr√§nkte Shareware Version';
   if userConfig.ReadBool('base','alreadyShownNAG',false) then close;
 end;
 

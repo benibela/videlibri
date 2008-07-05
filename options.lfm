@@ -3,8 +3,6 @@ object optionForm: ToptionForm
   Height = 296
   Top = 128
   Width = 524
-  HorzScrollBar.Page = 523
-  VertScrollBar.Page = 295
   BorderIcons = [biSystemMenu]
   BorderStyle = bsDialog
   Caption = 'Optionen'
@@ -29,7 +27,7 @@ object optionForm: ToptionForm
     OnChangeBounds = Notebook1ChangeBounds
     OnChanging = Notebook1Changing
     OnPageChanged = Notebook1PageChanged
-    PageIndex = 3
+    PageIndex = 0
     ShowTabs = False
     TabOrder = 0
     object pageAccount: TPage
@@ -102,9 +100,9 @@ object optionForm: ToptionForm
       end
       object lblAccountLibrary: TLabel
         Left = 88
-        Height = 118
-        Top = 6
-        Width = 418
+        Height = 14
+        Top = 110
+        Width = 1
         Anchors = [akLeft, akBottom]
         ParentColor = False
       end
@@ -548,7 +546,7 @@ object optionForm: ToptionForm
     object PageBehaviour: TPage
       Caption = 'PageBehaviour'
       ClientWidth = 407
-      ClientHeight = 261
+      ClientHeight = 279
       object Label3: TLabel
         Left = 12
         Height = 14

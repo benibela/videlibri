@@ -3,8 +3,6 @@ object nagWindow: TnagWindow
   Height = 302
   Top = 438
   Width = 307
-  HorzScrollBar.Page = 306
-  VertScrollBar.Page = 301
   ActiveControl = Button2
   BorderIcons = [biSystemMenu]
   BorderStyle = bsDialog

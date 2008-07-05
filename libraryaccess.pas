@@ -1,7 +1,7 @@
 {
- Unit zum Zugriff auf die B¸chereiseiten
- Diese Unit enth‰lt die einzigsten beide Funktionen (TUpdateLibThread.execute und extendAccountBookData),
- die die Daten der Konten ver‰ndert und speichert
+ Unit zum Zugriff auf die B√ºchereiseiten
+ Diese Unit enth√§lt die einzigsten beide Funktionen (TUpdateLibThread.execute und extendAccountBookData),
+ die die Daten der Konten ver√§ndert und speichert
 }
 
 unit libraryAccess;
@@ -32,18 +32,18 @@ procedure defaultAccountsRefresh;
 
 procedure startCheckThread;
 
-//--Verl‰ngerungen--
-//Verl‰ngert die B¸cher des Accounts indem extendAccountBookData aufgerufen wird
+//--Verl√§ngerungen--
+//Verl√§ngert die B√ºcher des Accounts indem extendAccountBookData aufgerufen wird
 //procedure extendAccountBookData(account: TCustomAccountAccess;books: TBookArray);
 procedure extendBooks(books: TBookList);
 procedure extendBooks(lastLimit:longint; account: TCustomAccountAccess=nil);
 
 
 //--Userkommunikation--
-//‹berpr¸ft jeden *Tag* ob nun Medien f‰llig sind
+//√úberpr√ºft jeden *Tag* ob nun Medien f√§llig sind
 procedure startDailyCheckDate;
-//benachrichtigt den Benutzer ¸ber f‰llige Medien und fragt nach dem ÷ffnen des
-//Hauptformulars deswegen (->true wenn es geˆffnet werden soll)
+//benachrichtigt den Benutzer √ºber f√§llige Medien und fragt nach dem √ñffnen des
+//Hauptformulars deswegen (->true wenn es ge√∂ffnet werden soll)
 function alertAboutBooksThatMustBeReturned:boolean;
 implementation
 uses applicationconfig,internetaccess,w32internetAccess,bookwatchmain,windows,bbdebugtools;
@@ -65,8 +65,8 @@ type
 
     extend: boolean;
     procedure execute;override;
-    procedure exceptionRaised(raisedException:Exception);
-    procedure showError;
+    //procedure exceptionRaised(raisedException:Exception);
+    //procedure showError;
   public
     constructor Create(alib: TCustomAccountAccess;var config:TThreadConfig;
                        aIgnoreConnectionErrors, ACheckDate,AExtend: boolean);
@@ -84,7 +84,7 @@ var internet: TInternetAccess;
 begin
 //Die Funktionsweise ist folgende:
 {
---AKTUALISIEREN und langsames verl‰ngern--
+--AKTUALISIEREN und langsames verl√§ngern--
 #connect
 #update-all
 (merge and display)
@@ -104,7 +104,7 @@ save
   try
     listUpdateComplete:=false;
     if lib=nil then
-      raise ELibraryException.create('Interner Fehler'#13#10'Aufruf von TUpdateLibThread.execute f¸r einen nicht existierenden Account');
+      raise ELibraryException.create('Interner Fehler'#13#10'Aufruf von TUpdateLibThread.execute f√ºr einen nicht existierenden Account');
     if checkDate then
       if (lib.lastCheckDate>currentDate-refreshInterval) and (not lib.existsCertainBookToExtend) then begin
         EnterCriticalSection(pconfig^.threadManagementSection);
@@ -147,10 +147,10 @@ save
       end;
       if logging then log('TUpdateLibThread.execute marker 4');
       
-      //Automatisches Verl‰ngern
+      //Automatisches Verl√§ngern
       booksExtendableCount:=0;
-      for i:=0 to lib.books.getBookCount(botCurrentUpdate)-1 do
-        if lib.books.getBook(botCurrentUpdate,i).status in BOOK_EXTENDABLE then
+      for i:=0 to lib.books.currentUpdate.count-1 do
+        if lib.books.currentUpdate[i].status in BOOK_EXTENDABLE then
           booksExtendableCount+=1;
 
       case lib.extendType of
@@ -158,8 +158,8 @@ save
         etAlways: //extend always (when there are books which can be extended)
           booksToExtendCount:=booksExtendableCount;
         etAllDepends,etSingleDepends: begin
-          for i:=0 to lib.books.getBookCount(botCurrentUpdate)-1 do //check for books to extend
-            if lib.shouldExtendBook(lib.books.getBook(botCurrentUpdate,i)) then
+          for i:=0 to lib.books.currentUpdate.Count-1 do //check for books to extend
+            if lib.shouldExtendBook(lib.books.currentUpdate[i]) then
               booksToExtendCount+=1;
           if (lib.extendType=etAllDepends) and (booksToExtendCount>0) then
             booksToExtendCount:=booksExtendableCount;
@@ -171,9 +171,9 @@ save
           lib.extendAll
          else begin
           realBooksToExtend:=TBookList.Create;
-          for i:=0 to lib.books.getBookCount(botCurrentUpdate)-1 do
-            if lib.shouldExtendBook(lib.books.getBook(botCurrentUpdate,i)) then
-              realBooksToExtend.add(lib.books.getBook(botCurrentUpdate,i));
+          for i:=0 to lib.books.currentUpdate.Count-1 do
+            if lib.shouldExtendBook(lib.books.currentUpdate[i]) then
+              realBooksToExtend.add(lib.books.currentUpdate[i]);
           lib.extendList(realBooksToExtend);
           realBooksToExtend.free
          end;
@@ -197,10 +197,10 @@ save
     pconfig^.atLeastOneListUpdateSuccessful:=true;
   except
     on e: EInternetException do {$ifndef activeDebug}if not ignoreConnectionErrors then{$endif}
-      exceptionRaised(e);
+      storeException(e,lib);
     on e: exception do
-      exceptionRaised(e);
-    else if logging then log('Unverst‰ndliche Fehlermeldung');
+      storeException(e,lib);
+    else if logging then log('Unverst√§ndliche Fehlermeldung');
   end;
   EnterCriticalSection(pconfig^.threadManagementSection);
   if not listUpdateComplete then
@@ -211,7 +211,7 @@ save
   if logging then log('TUpdateLibThread.execute ended');
 end;
 
-
+                                           {
 procedure TUpdateLibThread.showError;
 //var i:integer;
 begin
@@ -227,7 +227,7 @@ begin
  // end;
   messageShown:=false;
   Synchronize(@showError);
-end;
+end;                                      }
 
 constructor TUpdateLibThread.Create(alib: TCustomAccountAccess;var config:TThreadConfig;
                                     aIgnoreConnectionErrors, ACheckDate,AExtend: boolean);
@@ -237,7 +237,9 @@ begin
   checkDate:=ACheckDate;
   pconfig:=@config;
   extend:=AExtend;
+  OnTerminate:=@mainForm.ThreadDone;
   FreeOnTerminate:=true;
+
   inherited create(false);
 end;
 
@@ -247,7 +249,7 @@ procedure ThreadDone(sender:TObject);
 begin
   if logging then log('ThreadDone started'#13#10'Without this one, '+IntToStr(updateThreadConfig.updateThreadsRunning)+' threads are currently running');
   if not (sender is TUpdateLibThread) then
-    raise exception.Create('Interner Fehler:'#13#10'Die Funktion, die f¸r gerade beendete Aktualisierungthread zust‰ndig ist, wurde auf einen anderen Thread angewendet'#13#10'(kann eigentlich nicht auftreten)');
+    raise exception.Create('Interner Fehler:'#13#10'Die Funktion, die f√ºr gerade beendete Aktualisierungthread zust√§ndig ist, wurde auf einen anderen Thread angewendet'#13#10'(kann eigentlich nicht auftreten)');
 
 
   if (updateThreadConfig.updateThreadsRunning<=0) or (updateThreadConfig.listUpdateThreadsRunning<=0) then begin
@@ -296,8 +298,7 @@ begin
     LeaveCriticalSection(updateThreadConfig.threadManagementSection);
 
     account.isThreadRunning:=true;
-    TUpdateLibThread.Create(account,updateThreadConfig,ignoreConnErrors,checkDate,extendAlways).
-         OnTerminate:=@mainform.ThreadDone;
+    TUpdateLibThread.Create(account,updateThreadConfig,ignoreConnErrors,checkDate,extendAlways);
   end else begin
     EnterCriticalSection(updateThreadConfig.threadManagementSection);
     updateThreadConfig.updateThreadsRunning:=accountIDs.count;
@@ -307,12 +308,11 @@ begin
 
       TCustomAccountAccess(accountIDs.Objects[i]).isThreadRunning:=true;
       TUpdateLibThread.create(TCustomAccountAccess(accountIDs.Objects[i]),updateThreadConfig,
-                              ignoreConnErrors,checkDate,extendAlways).
-         OnTerminate:=@mainform.ThreadDone;
+                              ignoreConnErrors,checkDate,extendAlways);
     end;
   end;
 end;
-//B¸cher aktualisieren
+//B√ºcher aktualisieren
 procedure defaultAccountsRefresh;
 begin
   if accountsRefreshed then exit;
@@ -384,9 +384,9 @@ var internet:TW32InternetAccess;
 begin
   try
     if not assigned(account) then
-      raise EXCEPTION.Create('Kein Konto zum Verl‰ngern ausgew‰hlt');
+      raise EXCEPTION.Create('Kein Konto zum Verl√§ngern ausgew√§hlt');
     if account.isThreadRunning then
-      exit; //TODO: mehrere Threads beim verl‰ngern erlauben
+      exit; //TODO: mehrere Threads beim verl√§ngern erlauben
     if GetThreadID <> MainThreadID then
       exit; //Nur vom Haupthread aus aufrufen
 
@@ -443,10 +443,10 @@ begin
   end;
   books:=TBookList.Create;
   //TODO: Optimize
-  for i:=0 to account.books.getBookCount(botCurrent)-1 do
-    if (account.books.getBook(botCurrent,i).limitDate<=lastLimit) and
-       (account.books.getBook(botCurrent,i).status in BOOK_EXTENDABLE) then
-       books.add(account.books.getBook(botCurrent,i));
+  for i:=0 to account.books.current.Count-1 do
+    if (account.books.current[i].limitDate<=lastLimit) and
+       (account.books.current[i].status in BOOK_EXTENDABLE) then
+       books.add(account.books.current[i]);
   extendAccountBookData(account,books);
   books.free;
 
@@ -503,35 +503,35 @@ begin
 
   if nextLimit<currentDate then begin
     for i:=0 to accountIDs.count-1 do
-      with TCustomAccountAccess(accountIDs.Objects[i]).books do
-        for j:=0  to getBookCount(botCurrent)-1 do
-          if getBook(botCurrent,j).limitDate<currentDate then
+      with TCustomAccountAccess(accountIDs.Objects[i]) do
+        for j:=0  to books.current.count-1 do
+          if books.current[j].limitDate<currentDate then
             count+=1;
-    alert:='Einige Medien ('+inttostr(count)+') sind ¸berf‰llig und sollten schon bis '+DateToPrettyGrammarStr('zum ','',nextLimit)+' abgegeben worden sein.'#13#10'Wollen Sie eine Liste dieser Medien angezeigt bekommen? (Wenn Sie die Medien schon abgegeben haben, m¸ssen Sie die Medienliste aktualisieren)';
+    alert:='Einige Medien ('+inttostr(count)+') sind √ºberf√§llig und sollten schon bis '+DateToPrettyGrammarStr('zum ','',nextLimit)+' abgegeben worden sein.'#13#10'Wollen Sie eine Liste dieser Medien angezeigt bekommen? (Wenn Sie die Medien schon abgegeben haben, m√ºssen Sie die Medienliste aktualisieren)';
     if MessageBox(0,pchar(alert),'VideLibri',MB_YESNO or MB_ICONWARNING or MB_SYSTEMMODAL)=IDYES then
       result:=true;
   end else if nextNotExtendableLimit<=redTime then begin
     for i:=0 to accountIDs.count-1 do
-      with TCustomAccountAccess(accountIDs.Objects[i]).books do
-        for j:=0  to getBookCount(botCurrent)-1 do
-          with getBook(botCurrent,j) do
+      with TCustomAccountAccess(accountIDs.Objects[i]) do
+        for j:=0  to books.current.count-1 do
+          with books.current[j] do
             if (limitDate<=redTime) and (status in BOOK_NOT_EXTENDABLE) then
               count+=1;
-    alert:='Bald (bis '+DateToPrettyGrammarStr('zum ','',nextNotExtendableLimit)+') m¸ssen einige nicht verl‰ngerbare Medien ('+IntToStr(count)+') abgegeben werden.'#13#10'Wollen Sie eine Liste dieser Medien angezeigt bekommen?';
+    alert:='Bald (bis '+DateToPrettyGrammarStr('zum ','',nextNotExtendableLimit)+') m√ºssen einige nicht verl√§ngerbare Medien ('+IntToStr(count)+') abgegeben werden.'#13#10'Wollen Sie eine Liste dieser Medien angezeigt bekommen?';
     if MessageBox(0,pchar(alert),'VideLibri',MB_YESNO or MB_ICONWARNING or MB_SYSTEMMODAL)=IDYES then
       result:=true;
   end else if nextLimit<=redTime then begin
     for i:=0 to accountIDs.count-1 do
-      with TCustomAccountAccess(accountIDs.Objects[i]).books do
-        for j:=0  to getBookCount(botCurrent)-1 do
-          if getBook(botCurrent,j).limitDate<=redTime then
+      with TCustomAccountAccess(accountIDs.Objects[i]) do
+        for j:=0  to books.current.count-1 do
+          if books.current[i].limitDate<=redTime then
             count+=1;
-    alert:='Bald (bis '+DateToPrettyGrammarStr('zum ','',nextLimit)+') m¸ssen einige Medien ('+IntToStr(count)+') abgegeben werden.'#13#10'Die Medien kˆnnen allerdings verl‰ngert werden, soll dies jetzt versucht werden?';
+    alert:='Bald (bis '+DateToPrettyGrammarStr('zum ','',nextLimit)+') m√ºssen einige Medien ('+IntToStr(count)+') abgegeben werden.'#13#10'Die Medien k√∂nnen allerdings verl√§ngert werden, soll dies jetzt versucht werden?';
     if MessageBox(0,pchar(alert),'VideLibri',MB_YESNO or MB_ICONWARNING or MB_SYSTEMMODAL)=IDYES then
       result:=true;
     tempInternet:=TW32InternetAccess.create;
     if not tempInternet.needConnection() then begin
-      alert:='Der Aufbau einer Internetverbindung zum Verl‰ngern ist fehlgeschlagen'#13#10'Wollen sie daf¸r eine Liste der abzugebenden Medien angezeigt bekommen?';
+      alert:='Der Aufbau einer Internetverbindung zum Verl√§ngern ist fehlgeschlagen'#13#10'Wollen sie daf√ºr eine Liste der abzugebenden Medien angezeigt bekommen?';
       if MessageBox(0,pchar(alert),'VideLibri',MB_YESNO or MB_ICONWARNING or MB_SYSTEMMODAL)=IDYES then
         result:=true;
     end;

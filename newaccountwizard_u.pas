@@ -97,7 +97,7 @@ begin
     StringGrid1.Cells[1,2]:=accountPass.text;
     StringGrid1.Cells[1,3]:=accountPrettyName.text;
     case TExtendType(extendTypeRG.tag) of
-      etAlways: StringGrid1.Cells[1,4]:='immer, wenn möglich';
+      etAlways: StringGrid1.Cells[1,4]:='immer, wenn mÃ¶glich';
       etAllDepends:
         if libraryList.ItemIndex=0 then StringGrid1.Cells[1,4]:='immer '+extendDaysEdit.text+' Tage vor Ende der Leihfrist'
         else StringGrid1.Cells[1,4]:='immer alle Medien '+extendDaysEdit.text+' Tage vor Ende der Leihfrist';
@@ -121,9 +121,9 @@ begin
   end;                         }
   StringGrid1.Cells[0,2]:=passLabel.Caption;
   if selectedLibrary.canModifySingleBooks then
-    extendTypeRG.Items.text:='immer, wenn möglich'#13#10'alle, wenn nötig     '#13#10'einzeln, wenn nötig    '#13#10'niemals'
+    extendTypeRG.Items.text:='immer, wenn mÃ¶glich'#13#10'alle, wenn nÃ¶tig     '#13#10'einzeln, wenn nÃ¶tig    '#13#10'niemals'
    else
-    extendTypeRG.Items.Text:='immer, wenn möglich'#13#10'immer, wenn nötig    '#13#10'niemals                       ';
+    extendTypeRG.Items.Text:='immer, wenn mÃ¶glich'#13#10'immer, wenn nÃ¶tig    '#13#10'niemals                       ';
   application.ProcessMessages;
   if selectedLibrary.maxExtendCount=-1 then extendTypeRG.ItemIndex:=0
   else if selectedLibrary.canModifySingleBooks then extendTypeRG.ItemIndex:=2
@@ -172,7 +172,7 @@ begin
       except
         on EInternetException do
           if length(errorMessageList)=0 then
-            showmessage('Internetverbindung fehlgeschlagen, bitte versuchen Sie es später noch einmal.')
+            showmessage('Internetverbindung fehlgeschlagen, bitte versuchen Sie es spÃ¤ter noch einmal.')
            else
             showErrorMessages;
       end;
@@ -203,9 +203,9 @@ begin
   identificarionInvalid.Caption:='';
   if (selectedLibrary<>nil) and (selectedLibrary.template<>nil) then
     if (accountPass.Text<>'') and (not selectedLibrary.usernameRegEx.Exec(accountName.Text)) then
-      identificarionInvalid.Caption:='Die eingegebe Kontonummer ist wahrscheinlich ungültig '
+      identificarionInvalid.Caption:='Die eingegebe Kontonummer ist wahrscheinlich ungÃ¼ltig '
     else if (accountPass.Text<>'') and (not selectedLibrary.passwordRegEx.Exec(accountPass.Text)) then
-      identificarionInvalid.Caption:='Das eingegeben '+copy(passLabel.Caption,1,length(passLabel.Caption)-1)+' ist wahrscheinlich ungültig';
+      identificarionInvalid.Caption:='Das eingegeben '+copy(passLabel.Caption,1,length(passLabel.Caption)-1)+' ist wahrscheinlich ungÃ¼ltig';
 end;
 
 procedure TnewAccountWizard.Button3Click(Sender: TObject);

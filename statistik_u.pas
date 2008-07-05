@@ -78,6 +78,8 @@ var i,j,k,c,tc,currentLoop:integer;
     earliestDay,lastDay: integer;
     
     showSum: boolean;
+
+
 begin
   showSum:=CheckBox1.Checked;
 
@@ -86,37 +88,44 @@ begin
   earliestDay:=lastCheck;
   lastDay:=lastCheck;
   for i:=0 to accountIDs.Count-1 do begin
-    for j:=0 to TCustomAccountAccess(accountIDs.Objects[i]).books.getBookCount(botAll)-1 do
-      if (TCustomAccountAccess(accountIDs.Objects[i]).books.getBook(botAll,j).issueDate<>0)and
-         (TCustomAccountAccess(accountIDs.Objects[i]).books.getBook(botAll,j).issueDate<earliestDay) then
-        earliestDay:=TCustomAccountAccess(accountIDs.Objects[i]).books.getBook(botAll,j).issueDate;
-    diagram.addDataList.title:=TCustomAccountAccess(accountIDs.Objects[i]).prettyName;
+    with TCustomAccountAccess(accountIDs.Objects[i]) do begin
+      for j:=0 to books.current.Count-1 do
+        if (books.current[j].issueDate<>0) and (books.current[j].issueDate<earliestDay) then
+          earliestDay:=books.current[j].issueDate;
+      for j:=0 to books.old.Count-1 do
+        if (books.old[j].issueDate<>0) and (books.old[j].issueDate<earliestDay) then
+          earliestDay:=books.old[j].issueDate;
+
+      diagram.addDataList.title:=prettyName;
+    end;
   end;
   
   if showSum then diagram.addDataList.title:='Summe';
-  
+
 
   case ComboBox1.itemIndex of
     DIAGRAM_WEEKS:  begin
-          earliestDay:=earliestDay-DayOfWeek(earliestDay);
-          checkDate:=earliestDay;
-          repeat
-            tc:=0;
-            for j:=0 to accountIDs.Count-1 do begin
-              c:=0;
-              books:=TCustomAccountAccess(accountIDs.Objects[j]).books;
-              for k:=0 to books.getBookCount(botAll)-1 do begin
-                book:=books.getBook(botAll,k);
-                if (book.issueDate<=checkDate+6)and(book.lastExistsDate>=checkDate) then
-                  inc(c);
-              end;
-              TDataList(diagram.dataLists[j]).addPoint(checkDate,c);
-              inc(tc,c);
-            end;
-            if showSum then TDataList(diagram.DataLists[diagram.DataLists.Count-1]).addPoint(checkDate,tc);
-            inc(checkDate,7);
-          until checkDate>=lastDay;
+      earliestDay:=earliestDay-DayOfWeek(earliestDay);
+      checkDate:=earliestDay;
+      repeat
+        tc:=0;
+        for j:=0 to accountIDs.Count-1 do begin
+          c:=0;
+          books:=TCustomAccountAccess(accountIDs.Objects[j]).books;
+          for k:=0 to books.current.count-1 do
+            if (books.current[k].issueDate<=checkDate+6)and(books.current[k].lastExistsDate>=checkDate) then
+              inc(c);
+          for k:=0 to books.old.count-1 do
+            if (books.old[k].issueDate<=checkDate+6)and(books.old[k].lastExistsDate>=checkDate) then
+              inc(c);
+
+          TDataList(diagram.dataLists[j]).addPoint(checkDate,c);
+          inc(tc,c);
         end;
+        if showSum then TDataList(diagram.DataLists[diagram.DataLists.Count-1]).addPoint(checkDate,tc);
+        inc(checkDate,7);
+      until checkDate>=lastDay;
+    end;
     DIAGRAM_MONTHS:  begin
       DecodeDate(earliestDay,y,m,d);
       nextCheckDate:=longint(trunc(EncodeDate(y,m,1)));
@@ -135,10 +144,12 @@ begin
         for j:=0 to accountIDs.Count-1 do begin
           c:=0;
           books:=TCustomAccountAccess(accountIDs.Objects[j]).books;
-          for k:=0 to books.getBookCount(botAll)-1 do begin
-            book:=books.getBook(botAll,k);
-            if (book.issueDate<nextCheckDate)and(book.lastExistsDate>=checkDate) then inc(c);
-          end;
+          for k:=0 to books.current.count-1 do
+            if (books.current[k].issueDate<nextCheckDate)and(books.current[k].lastExistsDate>=checkDate) then
+              inc(c);
+          for k:=0 to books.old.count-1 do
+            if (books.old[k].issueDate<nextCheckDate)and(books.old[k].lastExistsDate>=checkDate) then
+              inc(c);
           TDataList(diagram.dataLists[j]).addPoint({checkDate}currentLoop,c);
           inc(tc,c);
         end;
@@ -154,10 +165,13 @@ begin
         for j:=0 to accountIDs.Count-1 do begin
           c:=0;
           books:=TCustomAccountAccess(accountIDs.Objects[j]).books;
-          for k:=0 to books.getBookCount(botAll)-1 do begin
-            book:=books.getBook(botAll,k);
-            if (book.issueDate<=i)and(book.lastExistsDate>=i) then inc(c);
-          end;
+          for k:=0 to books.current.count-1 do
+            if (books.current[k].issueDate<=i)and(books.current[k].lastExistsDate>=i) then
+              inc(c);
+          for k:=0 to books.old.count-1 do
+            if (books.old[k].issueDate<=i)and(books.old[k].lastExistsDate>=i) then
+              inc(c);
+
           TDataList(diagram.dataLists[j]).addPoint(i,c);
           inc(tc,c);
         end;

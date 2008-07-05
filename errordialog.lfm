@@ -4,8 +4,11 @@ object showErrorForm: TshowErrorForm
   Top = 176
   Width = 400
   HorzScrollBar.Page = 399
+  HorzScrollBar.Range = 392
   VertScrollBar.Page = 69
+  VertScrollBar.Range = 65
   ActiveControl = Button1
+  AutoScroll = False
   BorderIcons = [biSystemMenu]
   BorderStyle = bsDialog
   Caption = 'showErrorForm'
@@ -13,13 +16,13 @@ object showErrorForm: TshowErrorForm
   ClientWidth = 400
   OnCreate = FormCreate
   Position = poScreenCenter
+  LCLVersion = '0.9.25'
   object Label1: TLabel
     Left = 11
     Height = 14
     Top = 10
     Width = 380
     Caption = 'jjhhhhhhhhhhh'
-    Color = clNone
     Constraints.MaxWidth = 380
     Constraints.MinWidth = 380
     ParentColor = False

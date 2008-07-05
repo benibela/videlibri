@@ -3,8 +3,6 @@ object BibTexExportFrm: TBibTexExportFrm
   Height = 300
   Top = 204
   Width = 293
-  HorzScrollBar.Page = 292
-  VertScrollBar.Page = 299
   ActiveControl = exportWhich
   BorderIcons = [biSystemMenu]
   BorderStyle = bsDialog

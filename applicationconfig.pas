@@ -5,7 +5,8 @@ unit applicationconfig;
 interface
 
 uses
-  Classes, SysUtils,Graphics,forms,libraryparser,registry,inifiles,rcmdline,errordialog,tnaaccess,autoupdate,progressDialog;
+  Classes, SysUtils,Graphics,forms,libraryparser,registry,inifiles,rcmdline,errordialog,tnaaccess,autoupdate,progressDialog
+;
 
 const MENU_ID_START_LCL=1;
       MENU_ID_UPDATE=2;
@@ -47,7 +48,8 @@ var programPath,userPath,dataPath:string;
 
     startedMutex:THandle=0;
 
-
+    exceptionStoring: TRTLCriticalSection;
+    
     needApplicationRestart: boolean; //Soll das Programm nach Beenden neugestartet werden
 
     //cached
@@ -63,7 +65,7 @@ var programPath,userPath,dataPath:string;
     RefreshInterval: integer;
     HistoryBackupInterval: longint;
     refreshAllAndIgnoreDate:boolean; //gibt an, dass alle Medien aktualisiert werden
-                                     //sollen unabhängig vom letzten Aktualisierungdatum
+                                     //sollen unabhÃ¤ngig vom letzten Aktualisierungdatum
 
     sharewareUser, sharewareCode: string;
 
@@ -81,9 +83,10 @@ var tna:TTNAIcon;
 
   procedure showErrorMessages();
   procedure addErrorMessage(errorStr,errordetails:string;lib:TCustomAccountAccess=nil);
-  procedure createErrorMessageStr(exception:exception; var errorStr,errordetails:string;account:TCustomAccountAccess=nil);
+  procedure createErrorMessageStr(exception:exception; out errorStr,errordetails:string;account:TCustomAccountAccess=nil);
   procedure createAndAddException(exception:exception; account:TCustomAccountAccess=nil);
 
+  procedure storeException(ex: exception; account:TCustomAccountAccess); //thread safe
 
   //get the values the tna should have not the one it actually has
   //function getTNAHint():string;
@@ -95,6 +98,7 @@ var tna:TTNAIcon;
   function DateToPrettyStr(const date: tdatetime):string;
   function DateToPrettyGrammarStr(preDate,preName:string;const date: tdatetime):string;
 
+  procedure openInternetPage(url: string; myOptions: string='');
 implementation
 uses bookwatchmain,windows,internetaccess,w32internetaccess,controls,libraryaccess,FileUtil,bbdebugtools;
   procedure errorCallback(sender:TObject; var Done: Boolean);
@@ -106,7 +110,8 @@ uses bookwatchmain,windows,internetaccess,w32internetaccess,controls,libraryacce
   end;
   procedure showErrorMessages();
   var i,j:integer;
-      mes,mesDetails: string;
+      title,mes,mesDetails: string;
+      accountException: boolean;
       //met: TMethod;
   begin
     if not lclStarted then begin
@@ -121,36 +126,54 @@ uses bookwatchmain,windows,internetaccess,w32internetaccess,controls,libraryacce
       tna.stopStandalone;}
       exit;
     end;
-    for i:=0 to high(errorMessageList) do begin
-      if oldErrorMessageString='' then
-        oldErrorMessageString:=#13#10#13#10#13#10'====Fehlerinformationen über alle vorhin aufgetretenden Fehler===='#13#10;
-      with errorMessageList[i] do begin
-        mes:=' ist leider folgender Fehler aufgetreten: '#13#10+error;
-        case length(details) of
-          0: mes:=' kein Konto (dieser Fehler macht keinen Sinn) '+mes;
-          1: mes:=' das Konto '+details[0].account.prettyName+mes;
-          else begin
-            mes:=details[high(details)-1].account.prettyName+' und '+details[high(details)].account.prettyName+mes;
-            for j:=0 to high(details)-2 do
-              mes:=details[j].account.prettyName+', '+mes;
-            mes:=' die Konten '+mes;
+    if logging then log('showErrorMessages called: '+IntToStr(length(errorMessageList))) ;
+    EnterCriticalSection(exceptionStoring);
+    try
+      for i:=0 to high(errorMessageList) do begin
+        if oldErrorMessageString='' then
+          oldErrorMessageString:=#13#10#13#10#13#10'====Fehlerinformationen Ã¼ber alle vorhin aufgetretenden Fehler===='#13#10;
+        with errorMessageList[i] do begin
+          accountException:=true;
+          for j:=0 to high(details) do
+            if details[j].account=nil then accountException:=false;
+        
+          if accountException then begin
+            mes:=' ist leider folgender Fehler aufgetreten: '#13#10+error;
+            case length(details) of
+              0: mes:=' kein Konto (dieser Fehler macht keinen Sinn) '+mes;
+              1: mes:=' das Konto '+details[0].account.prettyName+mes;
+              else begin
+                mes:=details[high(details)-1].account.prettyName+' und '+details[high(details)].account.prettyName+mes;
+                for j:=0 to high(details)-2 do
+                  mes:=details[j].account.prettyName+', '+mes;
+                mes:=' die Konten '+mes;
+              end;
+            end;
+            mes:='Beim Zugriff auf'+mes;
+          end else begin
+            mes:='Es ist folgender Fehler aufgetreten: '#13#10+error;
           end;
+
+          mesDetails:='';
+          for j:=0 to high(details) do begin
+            if details[j].account<>nil then
+              mesDetails:=mesDetails+'Details fÃ¼r den Zugriff auf Konto '+details[j].account.prettyname+':'#13#10;
+            mesDetails+=details[j].details+#13#10#13#10;
+          end;
+          oldErrorMessageString:=oldErrorMessageString+'---Fehler---'#13#10+mes+#13#10'Details:'#13#10+mesdetails;
+          if accountException then  title:='Fehler beim Aktualisieren der BÃ¼cherdaten'
+          else title:='Fehler';
+          if lclStarted and mainForm.Visible then
+            TshowErrorForm.showError(title,mes,mesdetails,@mainForm.MenuItem16Click)
+           else
+            TshowErrorForm.showError(title,mes,mesdetails);
+          //Application.MessageBox(pchar(error),pchar('Fehler bei Zugriff auf '+lib.prettyName),MB_APPLMODAL or MB_ICONERROR or MB_OK);
         end;
-        mes:='Beim Zugriff auf'+mes;
-        mesDetails:='';
-        for j:=0 to high(details) do
-          mesDetails:=mesDetails+'Details für den Zugriff auf Konto '+details[j].account.prettyname+':'#13#10+
-                      details[j].details+#13#10#13#10;
-        oldErrorMessageString:=oldErrorMessageString+'---Fehler---'#13#10+mes+#13#10'Details:'#13#10+mesdetails;
-        if lclStarted and mainForm.Visible then
-          TshowErrorForm.showError('Fehler beim Aktualisieren der Bücherdaten',mes,mesdetails,@mainForm.MenuItem16Click)
-         else
-          TshowErrorForm.showError('Fehler beim Aktualisieren der Bücherdaten',mes,mesdetails);
-        //Application.MessageBox(pchar(error),pchar('Fehler bei Zugriff auf '+lib.prettyName),MB_APPLMODAL or MB_ICONERROR or MB_OK);
       end;
+      setlength(errorMessageList,0);
+    finally
+      LeaveCriticalSection(exceptionStoring);
     end;
-    setlength(errorMessageList,0);
-    
   end;
 
   procedure addErrorMessage(errorStr,errordetails:string;lib:TCustomAccountAccess=nil);
@@ -170,12 +193,12 @@ uses bookwatchmain,windows,internetaccess,w32internetaccess,controls,libraryacce
     errorMessageList[high(errorMessageList)].details[0].details:=errordetails;
   end;
 
-  procedure createErrorMessageStr(exception: exception; var errorStr,
+  procedure createErrorMessageStr(exception: exception; out errorStr,
     errordetails: string; account: TCustomAccountAccess);
   var i:integer;
   begin
     if exception is EInternetException then begin
-      errorstr:=exception.message+#13#10#13#10+'Bitte überprüfen Sie Ihre Internetverbindung.';
+      errorstr:=exception.message+#13#10#13#10+'Bitte Ã¼berprÃ¼fen Sie Ihre Internetverbindung.';
       errordetails:=EInternetException(exception).details;
      end else if exception is ELoginException then begin
       errorstr:=#13#10+exception.message;
@@ -188,10 +211,10 @@ uses bookwatchmain,windows,internetaccess,w32internetaccess,controls,libraryacce
            exception.className()+': '+ exception.message+'     ';
       errordetails:='';
      end;
-    errordetails:=errordetails+#13#10'Detaillierte Informationen über die entsprechende Quellcodestelle: (zur Angabe bei Supportanfragen) '#13#10+ BackTraceStrFunc(ExceptAddr);
+    errordetails:=errordetails+#13#10'Detaillierte Informationen Ã¼ber die entsprechende Quellcodestelle: (zur Angabe bei Supportanfragen) '#13#10+ BackTraceStrFunc(ExceptAddr);
     for i:=0 to ExceptFrameCount-1 do
       errordetails:=errordetails+#13#10+BackTraceStrFunc(ExceptFrames[i]);
-    if logging then log('Exception: '+errorstr+#13#10'      Details: '+errordetails);
+    if logging then log('createErrorMessageStr: Exception: '+errorstr+#13#10'      Details: '+errordetails);
   end;
 
   procedure createAndAddException(exception: exception;
@@ -207,12 +230,24 @@ uses bookwatchmain,windows,internetaccess,w32internetaccess,controls,libraryacce
     {if nextLimit>=MaxInt then
       result:='VideLibri'#13#10'Keine bekannte Abgabefrist'
      else if nextNotExtendableLimit=nextLimit then
-      result:='VideLibri'#13#10'Nächste bekannte Abgabefrist:'#13#10+DateToPrettyStr(nextNotExtendableLimit)
+      result:='VideLibri'#13#10'NÃ¤chste bekannte Abgabefrist:'#13#10+DateToPrettyStr(nextNotExtendableLimit)
      else
-      result:='VideLibri'#13#10'Nächste bekannte Abgabefrist:'#13#10+DateToPrettyStr(nextLimit)+'  (verlängerbar)';}
+      result:='VideLibri'#13#10'NÃ¤chste bekannte Abgabefrist:'#13#10+DateToPrettyStr(nextLimit)+'  (verlÃ¤ngerbar)';}
      result:='
   end;        *)
 
+  procedure storeException(ex: exception; account:TCustomAccountAccess);
+  var  errorstr, errordetails: string;
+  begin
+    createErrorMessageStr(ex,errorstr,errordetails,account);
+    EnterCriticalSection(exceptionStoring);
+    try
+      addErrorMessage(errorstr,errordetails,account);
+    finally
+      LeaveCriticalSection(exceptionStoring);
+    end;
+
+  end;
 
   function getTNAIconFileName(): string;
   begin
@@ -234,8 +269,8 @@ uses bookwatchmain,windows,internetaccess,w32internetaccess,controls,libraryacce
 
     lastcheck:=currentDate;
     for i:=0 to accountIDs.count-1 do begin
-      for j:=0 to TCustomAccountAccess(accountIDs.objects[i]).books.getBookCount(botCurrent)-1 do
-        with TCustomAccountAccess(accountIDs.objects[i]).books.getBook(botCurrent,j) do
+      for j:=0 to TCustomAccountAccess(accountIDs.objects[i]).books.current.count-1 do
+        with TCustomAccountAccess(accountIDs.objects[i]).books.current[j] do
           lastcheck:=min(lastcheck,lastExistsDate);
       if (TCustomAccountAccess(accountIDs.objects[i]).books.nextLimit>0) then
          nextLimit:=min(nextLimit,TCustomAccountAccess(accountIDs.objects[i]).books.nextLimit);
@@ -244,13 +279,13 @@ uses bookwatchmain,windows,internetaccess,w32internetaccess,controls,libraryacce
     end;
     nextLimitStr:=DateToPrettyStr(nextLimit);
     if nextLimit<>nextNotExtendableLimit then
-      nextLimitStr:=nextLimitStr+' (verlängerbar)';
+      nextLimitStr:=nextLimitStr+' (verlÃ¤ngerbar)';
     if startToTNA then begin
   //    tna.changeHint(getTNAHint());
       tna.changeIcon(getTNAIconFileName());
     end;
     if (mainform<>nil) and mainForm.Visible then
-      mainform.StatusBar1.Panels[0].text:='Älteste angezeigte Daten sind von '+dateToPrettyGrammarStr('vom ','von ',lastCheck)
+      mainform.StatusBar1.Panels[0].text:='Ã„lteste angezeigte Daten sind '+dateToPrettyGrammarStr('vom ','von ',lastCheck)
   end;
   procedure updateActiveInternetConfig;
   begin
@@ -292,7 +327,7 @@ uses bookwatchmain,windows,internetaccess,w32internetaccess,controls,libraryacce
       if not updater.hasDirectoryWriteAccess then begin
         MessageBox(wnd,pchar('Es gibt ein Update auf die Version '+floattostr(updater.newVersion/1000)+':'#13#10#13#10+
                             updater.listChanges+#13#10+
-                            'Um das Update herunterzuladen und zu installieren, müssen Sie Videlbri unter einem Benutzerkonto mit Administratorrechten starten.'),'Videlibri Update',mb_ok or MB_APPLMODAL);
+                            'Um das Update herunterzuladen und zu installieren, mÃ¼ssen Sie Videlbri unter einem Benutzerkonto mit Administratorrechten starten.'),'Videlibri Update',mb_ok or MB_APPLMODAL);
         updater.free;
         if logging then log('applicationUpdate exited');
         exit;
@@ -364,14 +399,14 @@ uses bookwatchmain,windows,internetaccess,w32internetaccess,controls,libraryacce
     //Kommandozeile lesen
     commandLine:=TCommandLineReader.create;
     commandLine.declareFlag('autostart','Gibt an, ob das Programm automatisch gestartet wurde.');
-    commandLine.declareFlag('start-always','Startet das Program auch, wenn es schon läuft.');
+    commandLine.declareFlag('start-always','Startet das Program auch, wenn es schon lÃ¤uft.');
     commandLine.declareFlag('minimize','Gibt an, ob das Programm minimiert gestartet werden soll.');
     commandLine.declareInt('updated-to','Das Programm wurde auf Version ($1) aktualisiert (ACHTUNG: veraltet)',0);
     commandLine.declareInt('debug-addr-info','Wandelt in der Debugversion eine Adresse in eine Funktionszeile um',0);
     commandLine.declareFlag('log','Zeichnet alle Aktionen auf',false);
     commandLine.declareFlag('refreshAll','Aktualisiert alle Medien',false);
 
-    //Überprüft, ob das Programm schon gestart ist, und wenn ja, öffnet dieses
+    //ÃœberprÃ¼ft, ob das Programm schon gestart ist, und wenn ja, Ã¶ffnet dieses
     SetLastError(0);
     startedMutex:=CreateMutex(nil,true,VIDELIBRI_MUTEX_NAME);
     if (not commandLine.readFlag('start-always')) and (GetLastError=ERROR_ALREADY_EXISTS) then begin
@@ -399,12 +434,12 @@ uses bookwatchmain,windows,internetaccess,w32internetaccess,controls,libraryacce
     if logging then log('Started with logging enabled, command line:'+GetCommandLine);
 
 
-    //Überprüft die Farbeinstellung des Monitors
+    //ÃœberprÃ¼ft die Farbeinstellung des Monitors
     if ScreenInfo.ColorDepth=8 then
-      MessageBox(0,'VideLibri funktioniert im 256-Farbenmodus nur unvollständig.'#13#10+
-                   'Am besten ändern Sie Ihre Monitoreinstellungen.','VideLibri',MB_APPLMODAL or MB_ICONWARNING);
+      MessageBox(0,'VideLibri funktioniert im 256-Farbenmodus nur unvollstÃ¤ndig.'#13#10+
+                   'Am besten Ã¤ndern Sie Ihre Monitoreinstellungen.','VideLibri',MB_APPLMODAL or MB_ICONWARNING);
 
-    //Pfade auslesen und überprüfen
+    //Pfade auslesen und Ã¼berprÃ¼fen
     programPath:=ExtractFilePath(ParamStr(0));
     if not (programPath[length(programPath)] in ['/','\']) then programPath:=programPath+'\';
     dataPath:=programPath+'data\';
@@ -430,7 +465,7 @@ uses bookwatchmain,windows,internetaccess,w32internetaccess,controls,libraryacce
     
     if logging then log('DATA-Version ist nun bekannt: '+inttostr(versionNumber));
 
-    //Userpfad auslesen und überprüfen
+    //Userpfad auslesen und Ã¼berprÃ¼fen
     userPath:=machineConfig.ReadString('paths','user',programPath+'config\');
     if logging then log('plain user path: '+userPath);
     userPath:=StringReplace(userPath,'{$appdata}',GetAppConfigDir(false),[rfReplaceAll,rfIgnoreCase]);
@@ -463,7 +498,7 @@ uses bookwatchmain,windows,internetaccess,w32internetaccess,controls,libraryacce
     libraryManager:=TLibraryManager.create();
     libraryManager.init(userPath);
     if libraryManager.enumeratePrettyLongNames()='' then
-      raise EXCEPTION.Create('Keine Büchereitemplates im Verzeichnis '+dataPath+' vorhanden');
+      raise EXCEPTION.Create('Keine BÃ¼chereitemplates im Verzeichnis '+dataPath+' vorhanden');
 
     accountIDs:=TStringList.create;
     if FileExists(userPath+'account.list') then
@@ -473,7 +508,7 @@ uses bookwatchmain,windows,internetaccess,w32internetaccess,controls,libraryacce
 
     nextLimitStr:=DateToPrettyStr(nextLimit);
     if nextLimit<>nextNotExtendableLimit then
-      nextLimitStr:=nextLimitStr+' (verlängerbar)';
+      nextLimitStr:=nextLimitStr+' (verlÃ¤ngerbar)';
 
 
     if commandLine.readInt('debug-addr-info')<>0 then begin
@@ -484,7 +519,7 @@ uses bookwatchmain,windows,internetaccess,w32internetaccess,controls,libraryacce
 
     if commandLine.readInt('updated-to')<>0 then begin
       if commandLine.readInt('updated-to')=905 then
-        MessageBox(0,'Die wichtigsten Änderungen sind, dass die Änderungen von zukünftigen Updates vor dem Runterladen dieser angezeigt werden und einige Fehler korrigiert wurden.','',0);
+        MessageBox(0,'Die wichtigsten Ã„nderungen sind, dass die Ã„nderungen von zukÃ¼nftigen Updates vor dem Runterladen dieser angezeigt werden und einige Fehler korrigiert wurden.','',0);
 
       userConfig.WriteInteger('version','number',commandLine.readInt('updated-to'));
 
@@ -519,9 +554,9 @@ uses bookwatchmain,windows,internetaccess,w32internetaccess,controls,libraryacce
         reg.OpenKey('\Software\Microsoft\Windows\CurrentVersion\Run',true);
         //MessageBox(0,pchar(ParamStr(0)),'',0);
         if lowercase(reg.ReadString('VideLibriAutostart')) <> lowercase('"'+ParamStr(0)+'" /autostart') then
-          if MessageBox(0,'Der Autostarteintrag ist ungültig'#13#10+
-                          'Wenn er nicht geändert wird, können die Medien wahrscheinlich nicht automatisch verlängert werden.'#13#10+
-                          'Soll er nun geändert werden?','VideLibri',MB_YESNO) = IDYES then
+          if MessageBox(0,'Der Autostarteintrag ist ungÃ¼ltig'#13#10+
+                          'Wenn er nicht geÃ¤ndert wird, kÃ¶nnen die Medien wahrscheinlich nicht automatisch verlÃ¤ngert werden.'#13#10+
+                          'Soll er nun geÃ¤ndert werden?','VideLibri',MB_YESNO) = IDYES then
             reg.WriteString('VideLibriAutostart','"'+ParamStr(0)+'" /autostart');
         reg.free;
       end;
@@ -539,8 +574,9 @@ uses bookwatchmain,windows,internetaccess,w32internetaccess,controls,libraryacce
       defaultInternet:=TW32InternetAccess.create;
       
       fillchar(updateThreadConfig,sizeof(updateThreadConfig),0);
-      InitializeCriticalSection(updateThreadConfig.libraryAccessSection);
-      InitializeCriticalSection(updateThreadConfig.threadManagementSection);
+      InitCriticalSection(updateThreadConfig.libraryAccessSection);
+      InitCriticalSection(updateThreadConfig.threadManagementSection);
+      InitCriticalSection(exceptionStoring);
     end;
     commandLine.free;
   end;
@@ -562,8 +598,11 @@ uses bookwatchmain,windows,internetaccess,w32internetaccess,controls,libraryacce
       machineConfig.free;
     end;
     FreeAndNil(defaultInternet);
-    if not cancelStarting then
+    if not cancelStarting then begin
       DeleteCriticalSection(updateThreadConfig.libraryAccessSection);
+      DeleteCriticalSection(updateThreadConfig.threadManagementSection);
+      DeleteCriticalSection(exceptionStoring);
+    end;
     if startedMutex<>0 then
       ReleaseMutex(startedMutex);
     if needApplicationRestart then begin
@@ -591,7 +630,7 @@ uses bookwatchmain,windows,internetaccess,w32internetaccess,controls,libraryacce
       -1: result:='gestern';
       0: result:='heute';
       1: result:='morgen';
-      2: result:='übermorgen';
+      2: result:='Ã¼bermorgen';
       else result:=DateToStr(date);
     end;
   end;
@@ -605,10 +644,18 @@ uses bookwatchmain,windows,internetaccess,w32internetaccess,controls,libraryacce
       -1: result:=preName+'gestern';
       0: result:=preName+'heute';
       1: result:=preName+'morgen';
-      2: result:=preName+'übermorgen';
+      2: result:=preName+'Ã¼bermorgen';
       else result:=preDate+DateToStr(date);
     end;
   end;
+
+  procedure openInternetPage(url: string; myOptions: string);
+  begin
+    if (userConfig.ReadInteger('access','homepage-type',1)=0) and (FileExists(programPath+'simpleBrowser.exe')) then
+       WinExec(pchar(programPath+'simpleBrowser /site="'+url+'" '+myOptions),SW_SHOWNORMAL)
+     else if Application.MainForm<>nil then
+       shellexecute(Application.MainForm.Handle,'open',pchar('"'+url+'"'),'','',SW_SHOWNORMAL);
+   end;
 
 end.
 

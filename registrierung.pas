@@ -64,14 +64,14 @@ begin
     Application.ProcessMessages;
     
   if length(usercode.text)<14 then begin
-    ShowMessage('Der eingegebene Code ist leider ungültig');
+    ShowMessage('Der eingegebene Code ist leider ungÃ¼ltig');
     exit;
   end;
 
   f:=upcase(username.text[1]);
 
   if (usercode.text[5]<>'-') or (usercode.text[10]<>'-') then begin
-    ShowMessage('Der eingegebene Code ist leider ungültig');
+    ShowMessage('Der eingegebene Code ist leider ungÃ¼ltig');
     exit;
   end;
   
@@ -80,7 +80,7 @@ begin
   for i:=1 to 14 do
     if ((i<>5)and(i<>10) and (((i and 1=0) and (upcase(usercode.text[i])<>f)) or
        ((i and 1=1) and (upcase(usercode.text[i])<>l)))) then begin
-    ShowMessage('Der eingegeben Code ist leider ungültig');
+    ShowMessage('Der eingegeben Code ist leider ungÃ¼ltig');
     ModalResult:=mrAbort;
     close;
   end;
@@ -89,7 +89,7 @@ begin
   userConfig.WriteString('registration','code',realCode);
   
   if realName<>sharewareUser then
-    if Application.MessageBox(pchar('Vielen Dank für Ihre Registrierung, '+realName+#13#10'Das Programm wird jetzt neugestartet, um die Registrierung abzuschließen'),'Registrierung',MB_OKCANCEL)=mrok then
+    if Application.MessageBox(pchar('Vielen Dank fÃ¼r Ihre Registrierung, '+realName+#13#10'Das Programm wird jetzt neugestartet, um die Registrierung abzuschlieÃŸen'),'Registrierung',MB_OKCANCEL)=mrok then
       needApplicationRestart:=true;
 
   ModalResult:=mrOK;
@@ -116,7 +116,7 @@ begin
     realCode:=sharewareCode;
   end else begin
     {$I obfuscate.inc}
-    s:='Pbqr vfg tüygvt';
+    s:='Pbqr vfg tÃ¼ygvt';
     for i:=1 to length(s) do
       if s[i] in ['a'..'z'] then s[i]:=chr((ord(s[i])-ord('a')+12) mod 26+1+ord('a'))
       else if s[i] in ['A'..'Z'] then s[i]:=chr((ord(s[i])-ord('A')+12) mod 26+1+ord('A'));

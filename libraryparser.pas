@@ -36,6 +36,8 @@ type
     function getAccountObject():TCustomAccountAccess;virtual;
     constructor create;
     destructor destroy;override;
+    
+    property variables: TStringList read defaultVariables;
   end;
 
   { TLibraryManager }
@@ -60,6 +62,9 @@ type
     function enumeratePrettyShortNames: string;
     function getLibraryFromEnumeration(const pos:integer):TLibrary;
     function getLibraryCountInEnumeration:integer;
+    
+    procedure enumerateVariableValues(const varName: string; result: TStringList);
+    procedure enumerateLibrariesWithValue(const varName, value: string; result: TList);
   end;
 
   TVariables=array of record
@@ -74,13 +79,16 @@ type
   { TBookLists }
 
   TBookLists=class
-  protected
+  private
     ownerLib:TCustomAccountAccess;
     bookLists:array[TBookListType] of TBookList;
     bookListOldFileName,bookListCurFileName: string;
-    bookListOldLoaded,bookListDataUpdateAvailable: boolean;
+    bookListOldLoaded: boolean;
     keepHistory: boolean;
 
+    function getBooksCurrentFile: TBookList;inline;
+    function getBooksCurrentUpdate: TBookList;inline;
+    function getBooksOld: TBookList;
     procedure remove;
     procedure save;
 
@@ -91,16 +99,15 @@ type
     //Call always from the MainThread
     constructor create(const AOwnerLib:TCustomAccountAccess; const oldFile,curFile: string);
     destructor destroy;override;
-
-    //get book information
-    //the books are sorted according to there lastExistsDate
-    function getBookCount(typ: TBookOutputType): longint;
-    function getBook(typ: TBookOutputType;i:longint): TBook;
     
-    //finalchange = true:  ersetzt currentFile durch currentUpdate und fügt
-    //                     die entfernten Bücher in bltInOldData ein
+    //finalchange = true:  ersetzt currentFile durch currentUpdate und fÃ¼gt
+    //                     die entfernten BÃ¼cher in bltInOldData ein
     //finalchange = false:
     procedure merge(finalChange: boolean);
+    
+    property currentUpdate: TBookList read getBooksCurrentUpdate;
+    property current: TBookList read getBooksCurrentFile;
+    property old: TBookList read getBooksOld;
   end;
 
   ELibraryException=class(Exception)
@@ -221,9 +228,6 @@ type
 
     //function needSingleBookCheck():boolean;virtual;
   end;
-const BOOK_NOT_EXTENDABLE=[bsEarMarked,bsMaxLimitReached,bsProblematicInStr,bsAccountExpired];
-      BOOK_EXTENDABLE=[bsNormal,bsCuriousInStr];
-      BOOK_NOT_LEND=[bsNotLend];
 var defaultInternet: TInternetAccess=nil;
 implementation
 uses applicationconfig,bbdebugtools,bbutils,FileUtil;
@@ -267,7 +271,7 @@ procedure TLibrary.loadFromFile(fileName: string);
 begin
   id:=ChangeFileExt(ExtractFileName(fileName),'');;
   maxExtendCount:=-1;
-  parseXML(loadFileToStr(fileName),@readProperty,nil,nil,eWindows1252);
+  parseXML(loadFileToStr(fileName),@readProperty,nil,nil,eUTF8);
   if template<>nil then begin
     canModifySingleBooks:=(template.findAction('extend-single')<>nil)  or
                           (template.findAction('extend-list')<>nil) ;
@@ -304,7 +308,7 @@ begin
   for i:=0 to libraries.count-1 do
     if TLibrary(libraries[i]).id=libID then
       exit(TLibrary(libraries[i]).getAccountObject());
-  raise Exception('Bücherei '+libID+' ist unbekannt');
+  raise Exception('BÃ¼cherei '+libID+' ist unbekannt');
 end;
 constructor TLibraryManager.create();
 begin
@@ -348,7 +352,7 @@ begin
   i:=templates.IndexOf(templateName);
   if i>=0 then Result:=TBookListTemplate(templates.Objects[i])
   else begin
-    Result:=TBookListTemplate.Create(libraryPath+'templates\'+templateName+'\');
+    Result:=TBookListTemplate.Create(libraryPath+'templates\'+templateName+'\',templateName);
     templates.AddObject(templateName,Result);
   end;
 end;
@@ -389,6 +393,26 @@ end;
 function TLibraryManager.getLibraryCountInEnumeration:integer;
 begin
   result:=libraries.count;
+end;
+
+procedure TLibraryManager.enumerateVariableValues(const varName: string;
+  result: TStringList);
+var i:longint;
+begin
+  result.clear;
+  for i:=0 to libraries.count-1 do
+    if  result.IndexOf(TLibrary(libraries[i]).defaultVariables.Values[varName])<0 then
+      result.add(TLibrary(libraries[i]).defaultVariables.Values[varName]);
+end;
+
+procedure TLibraryManager.enumerateLibrariesWithValue(const varName,
+  value: string; result: TList);
+var i:longint;
+begin
+  result.clear;
+  for i:=0 to libraries.count-1 do
+    if TLibrary(libraries[i]).defaultVariables.Values[varName]=value then
+      result.add(TLibrary(libraries[i]));
 end;
 
 
@@ -443,6 +467,22 @@ begin
   sl.free;
 end;
 
+function TBookLists.getBooksCurrentFile: TBookList;
+begin
+  Result:=bookLists[bltInCurrentFile];
+end;
+
+function TBookLists.getBooksCurrentUpdate: TBookList;
+begin
+  Result:=bookLists[bltInCurrentDataUpdate];
+end;
+
+function TBookLists.getBooksOld: TBookList;
+begin
+  needOldBookList;
+  Result:=bookLists[bltInOldData];
+end;
+
 procedure  TBookLists.save;
 begin
   if logging then
@@ -475,6 +515,8 @@ begin
   bookListOldLoaded:=false;
   for i:=low(bookLists) to high(bookLists) do
     bookLists[i]:=TBookList.create(ownerLib);
+  bookLists[bltInCurrentDataUpdate].lendList:=true;
+  bookLists[bltInCurrentFile].lendList:=true;
   bookLists[bltInCurrentFile].load(curFile);
   updateSharedDates();
   if nextLimit<applicationconfig.nextLimit then
@@ -492,30 +534,6 @@ begin
   inherited;
 end;
 
-function TBookLists.getBookCount(typ: TBookOutputType): longint;
-begin
-  if typ <> botCurrent then needOldBookList;
-  case typ of
-    botAll:  result:=bookLists[bltInCurrentFile].count+bookLists[bltInOldData].count;
-    botCurrent:  result:=bookLists[bltInCurrentFile].count;
-    botOld:  result:=bookLists[bltInOldData].count;
-    botCurrentUpdate: result:=bookLists[bltInCurrentDataUpdate].count;
-    else raise ENeverEverLibraryException.create('Ungültiger Parameter '+IntToStr(ord(typ))+'in getBookCount');
-  end;
-end;
-function TBookLists.getBook(typ: TBookOutputType;i: longint): TBook;
-begin
-  if typ <> botCurrent then needOldBookList;
-  case typ of
-    botAll:  if i>=bookLists[bltInOldData].count then
-                 result:=bookLists[bltInCurrentFile][i-bookLists[bltInOldData].count]
-            else result:=bookLists[bltInOldData][i];
-    botCurrent: result:=bookLists[bltInCurrentFile][i];
-    botOld:     result:=bookLists[bltInOldData][i];
-    botCurrentUpdate: result:=bookLists[bltInCurrentDataUpdate][i];
-    else raise ENeverEverLibraryException.create('Ungültiger Parameter '+IntToStr(ord(typ))+'in getBook');
-  end;
-end;
 
 procedure TBookLists.merge(finalChange: boolean);
 begin
@@ -527,7 +545,8 @@ begin
   if finalChange then begin
     if keepHistory then begin
       bookLists[bltInOldAdd].Assign(bookLists[bltInCurrentFile]);
-      bookLists[bltInOldAdd].removeAllExcept(bookLists[bltInCurrentDataUpdate]);
+      bookLists[bltInOldAdd].removeAllFrom(bookLists[bltInCurrentDataUpdate]);
+      bookLists[bltInOldAdd].lendList:=false;
       bookLists[bltInOldData].AddList(bookLists[bltInOldAdd]);
       bookLists[bltInOldAdd].clear;
     end;
@@ -551,19 +570,19 @@ end;
 
 constructor ELibraryException.create();
 begin
-  message:='Leider habe ich die Antwort der Bücherei auf die Anfrage nicht verstanden. Möglicher Ursachen:'#13#10+
-                                   '1. Ein falsch eingegebenes Passwort/Geburtsdatum (lässt sich unter Extras\Einstellungen überprüfen)'#13#10+
-                                   '2. Programmierfehler in mir oder dem WebOPAC der Bücherei'#13#10+
-                                   '3. Änderung des WebOPACs'#13#10+
+  message:='Leider habe ich die Antwort der BÃ¼cherei auf die Anfrage nicht verstanden. MÃ¶glicher Ursachen:'#13#10+
+                                   '1. Ein falsch eingegebenes Passwort/Geburtsdatum (lÃ¤sst sich unter Extras\Einstellungen Ã¼berprÃ¼fen)'#13#10+
+                                   '2. Programmierfehler in mir oder dem WebOPAC der BÃ¼cherei'#13#10+
+                                   '3. Ã„nderung des WebOPACs'#13#10+
                                    '4. Eine unterbrochene Internetverbindung';
 end;
 constructor ELibraryException.create(s:string;more_details:string='');
 begin
   if s='' then
-    message:='Leider habe ich die Antwort der Bücherei auf die Anfrage nicht verstanden. Möglicher Ursachen:'#13#10+
-                                  '1. Ein falsch eingegebenes Passwort/Geburtsdatum (lässt sich unter Extras\Einstellungen überprüfen)'#13#10+
-                                   '2. Programmierfehler in mir oder dem WebOPAC der Bücherei'#13#10+
-                                   '3. Änderung des WebOPACs'#13#10+
+    message:='Leider habe ich die Antwort der BÃ¼cherei auf die Anfrage nicht verstanden. MÃ¶glicher Ursachen:'#13#10+
+                                  '1. Ein falsch eingegebenes Passwort/Geburtsdatum (lÃ¤sst sich unter Extras\Einstellungen Ã¼berprÃ¼fen)'#13#10+
+                                   '2. Programmierfehler in mir oder dem WebOPAC der BÃ¼cherei'#13#10+
+                                   '3. Ã„nderung des WebOPACs'#13#10+
                                    '4. Eine unterbrochene Internetverbindung'
   else
     message:=s;
@@ -602,8 +621,8 @@ begin
   self.user:=userID;
   
   if FileExists(path+getID()+'.old') then begin
-    //Es handelt sich um eine ältere Version (<=0.95)
-    //damals hießen die Dateien .old/.current und waren im Win1252 Zeichensatz
+    //Es handelt sich um eine Ã¤ltere Version (<=0.95)
+    //damals hieÃŸen die Dateien .old/.current und waren im Win1252 Zeichensatz
     saveFileFromStr(path+getID()+'.history',AnsiToUtf8(loadFileToStr(path+getID()+'.old')));
     saveFileFromStr(path+getID()+'.current',AnsiToUtf8(loadFileToStr(path+getID()+'.current')));
     DeleteFile(path+getID()+'.old');
@@ -668,28 +687,28 @@ procedure TCustomAccountAccess.updateAll();
 begin
   if not connected then
     if not connect then
-      raise ELibraryException.Create('Zugriff auf die Bücherei fehlgeschlagen'#13#10#13#10'Bitte überprüfen Sie Ihre Internetverbindung');
+      raise ELibraryException.Create('Zugriff auf die BÃ¼cherei fehlgeschlagen'#13#10#13#10'Bitte Ã¼berprÃ¼fen Sie Ihre Internetverbindung');
 end;
 
 procedure TCustomAccountAccess.updateSingle(book: TBook);
 begin
   if not connected then
     if not connect then
-      raise ELibraryException.Create('Zugriff auf die Bücherei fehlgeschlagen'#13#10#13#10'Bitte überprüfen Sie Ihre Internetverbindung');
+      raise ELibraryException.Create('Zugriff auf die BÃ¼cherei fehlgeschlagen'#13#10#13#10'Bitte Ã¼berprÃ¼fen Sie Ihre Internetverbindung');
 end;
 
 procedure TCustomAccountAccess.extendAll();
 begin
   if not connected then
     if not connect then
-      raise ELibraryException.Create('Zugriff auf die Bücherei fehlgeschlagen'#13#10#13#10'Bitte überprüfen Sie Ihre Internetverbindung');
+      raise ELibraryException.Create('Zugriff auf die BÃ¼cherei fehlgeschlagen'#13#10#13#10'Bitte Ã¼berprÃ¼fen Sie Ihre Internetverbindung');
 end;
 
 procedure TCustomAccountAccess.extendList(bookList: TBookList);
 begin
   if not connected then
     if not connect then
-      raise ELibraryException.Create('Zugriff auf die Bücherei fehlgeschlagen'#13#10#13#10'Bitte überprüfen Sie Ihre Internetverbindung');
+      raise ELibraryException.Create('Zugriff auf die BÃ¼cherei fehlgeschlagen'#13#10#13#10'Bitte Ã¼berprÃ¼fen Sie Ihre Internetverbindung');
 end;
 
 function TCustomAccountAccess.shouldExtendBook(book: TBook): boolean;
@@ -716,7 +735,7 @@ var i:integer;
 begin
   if not connected then
     if not connect then
-      raise ELibraryException.Create('Zugriff auf die Bücherei fehlgeschlagen'#13#10#13#10'Bitte überprüfen Sie Ihre Internetverbindung');
+      raise ELibraryException.Create('Zugriff auf die BÃ¼cherei fehlgeschlagen'#13#10#13#10'Bitte Ã¼berprÃ¼fen Sie Ihre Internetverbindung');
   for i:=0 to books.bookLists[bltInCurrentDataUpdate].count-1 do
     updateSingle(books.bookLists[bltInCurrentDataUpdate][i]);
   books.updateSharedDates();
@@ -768,8 +787,8 @@ end;
 
 constructor ELoginException.create(mes: string);
 begin
-  if mes='' then mes:='Leider ist entweder der eingegebene Kontoname oder das Passwort ungültig.'#13#10#13#10'Über den Button Einstellungen können Sie Ihre Passworte überprüfen'#13#10+
-                   'Tip: Bei der STB ist das Passwort das Geburtsdatum mit Punkten, bei FHB und UB (anfänglich) dieses Datum ohne Punkte.';
+  if mes='' then mes:='Leider ist entweder der eingegebene Kontoname oder das Passwort ungÃ¼ltig.'#13#10#13#10'Ãœber den Button Einstellungen kÃ¶nnen Sie Ihre Passworte Ã¼berprÃ¼fen'#13#10+
+                   'Tip: Bei der STB ist das Passwort das Geburtsdatum mit Punkten, bei FHB und UB (anfÃ¤nglich) dieses Datum ohne Punkte.';
   Message:=mes;
 end;
 
@@ -784,9 +803,9 @@ begin
     FCharges:=currencyStrToCurrency(value);
   end else if variable='raise-login()' then begin
     raise ELoginException.create(value);
-  end //Büchereigenschaften
-{  else raise ELibraryException.create('Fehler im Büchereistrukturtemplate, entweder wurde VideLibri beschädigt, oder es ist fehlerhaft programmiert.'#13#10'Lösungsmöglichkeiten: Neuinstallation oder Update',
-    'Der Fehler ist bei der Bücherei '+lib.prettyNameShort+' im Template '+lib.template.path+' aufgetreten. '#13#10+
+  end //BÃ¼chereigenschaften
+{  else raise ELibraryException.create('Fehler im BÃ¼chereistrukturtemplate, entweder wurde VideLibri beschÃ¤digt, oder es ist fehlerhaft programmiert.'#13#10'LÃ¶sungsmÃ¶glichkeiten: Neuinstallation oder Update',
+    'Der Fehler ist bei der BÃ¼cherei '+lib.prettyNameShort+' im Template '+lib.template.path+' aufgetreten. '#13#10+
     'Unbekannte Variable '+variable+' mit Wert '+value);}
 end;
 
@@ -875,7 +894,7 @@ begin
       reader.selectBook(booksToExtend[i]);
       bookListStr+= reader.parser.replaceVars(extendAction^.singleBookStr);
     end;
-    if logging then log('bookList is: '+bookListStr);
+    if logging then log('bookList (count: '+inttostr(booksToExtend.count)+') is: '+bookListStr);
     reader.parser.variables.Values['book-list']:=bookListStr;
     reader.performAction(extendAction^);
   end else if reader.findAction('extend-single')<>nil then begin
@@ -1005,13 +1024,13 @@ end;                                             *)
 
 constructor ENeverEverLibraryException.create(mes: string);
 begin
-  inherited create(mes+' (dieser Fehler dürfte niemals auftreten)');
+  inherited create(mes+' (dieser Fehler dÃ¼rfte niemals auftreten)');
 end;
 
 end.
 
 
---schnelles VERLÄNGERN--
+--schnelles VERLÃ„NGERN--
 assume connected
 if exists books-to-extend then begin
   if exists #extend-list then extend-list
