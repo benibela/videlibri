@@ -1,0 +1,73 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<search-template>
+
+<book-property name="title" matches="Titel"/>
+<book-property name="author" matches="Autor"/>
+<book-property name="year" matches="Jahr"/>
+
+<variable name="after-id" value="=on&amp;"/>
+<variable name="location:Düsseldorf" value="DUEBIB"/>
+<variable name="location:Bochum" value="BOBIB"/>
+
+<!--sid = ABDEROS:nummer, $selectedLibraries;
+SERVICEGROUP1.SERVICE.SEARCH_FHBDUE
+SERVICEGROUP1.SERVICE.SEARCH_SBDUE
+SERVICEGROUP1.SERVICE.SEARCH_ULBD=on
+andere server außer abderos: eris, metis, rhea, thetis
+-->
+
+<action id="connect">
+  <page url="http://abderos.hbz-nrw.de/Digibib?SERVICE=SESSION&amp;SUBSERVICE=GUESTLOGIN&amp;LOCATION=$location;&amp;LANGUAGE=de"
+        templateFile="connect"/>
+</action>
+
+<action id="search">
+  <page url="http://abderos.hbz-nrw.de/Digibib" templateFile="searchstart">
+    <post name="SERVICE">METASEARCH</post>
+    <post name="SUBSERVICE">CREATESEARCH</post>
+    <post name="SID">$sid;</post>
+    <post name="URLENCODING">TRUE</post>
+    <post name="LOCATION">$location;</post>
+    <post name="HIGHLIGHTING">on</post>
+    <post name="START">1</post>
+    <post name="HISTORY">SESSION</post>
+     
+    <post name="GWTIMEOUT">120</post>
+    <post name="COUNT">200</post>
+
+    <post name="QUERY_azTI">$book.title;</post>  
+    <post name="QUERY_bzAU">$book.author;</post>
+    <post name="QUERY_fzIB">$book.isbn;</post>
+    <post name="QUERY_gzIS">$book.issn;</post>
+    <post name="QUERY_hzYR">$book.year;</post>
+    <post name="QUERY_ezKY">$book.keywords;</post>
+    <post name="QUERY_OazTI">AND</post>
+    <post name="QUERY_ObzAU">AND</post>
+    <post name="QUERY_OfzIB">AND</post>
+    <post name="QUERY_OgzIS">AND</post>
+    <post name="QUERY_OhzYR">AND</post>
+    <post name="QUERY_OezKY">AND</post>
+    
+    <post>$selectedLibraries;</post>
+    
+  </page>  
+  
+  <page url="http://abderos.hbz-nrw.de/Digibib?SERVICE=METASEARCH&amp;SUBSERVICE=GETLIST&amp;$metaid;&amp;FORMAT=List&amp;URLENCODING=TRUE&amp;START=1&amp;COUNT=200&amp;SID=$sid;&amp;LOCATION=$location;&amp;$sreqid;&amp;$reqid;&amp;$olreqid;&amp;STREAMING=on" templateFile="search"/>
+  
+
+</action>
+
+
+
+<action id="details"> 
+  <page url="http://abderos.hbz-nrw.de/Digibib?SERVICE=METASEARCH&amp;SUBSERVICE=GETRECORD&amp;FORMAT=Full&amp;$book.library;&amp;$metaid;&amp;COUNT=1&amp;NL_START=0&amp;PL_START=0&amp;SID=$sid;&amp;LOCATION=$location;&amp;LISTCOUNT=200&amp;X$reqid;&amp;HIGHLIGHTTERMS=&amp;$book.searchid;" templateFile="details"/>
+</action>
+
+
+</search-template>
+
+ <!--<input type="hidden" name="VIEW"        value="DUEBIB:Lokale_Bibliotheken" />"/><input type="hidden" name="LOCATION"    value="DUEBIB
+      QUERY_czCO = körperschaft, QUERY_0czCO
+      QUERY_dzPB = verlag, QUERY_0dzPB
+      
+     " http://abderos.hbz-nrw.de/Digibib?SERVICE=METASEARCH&amp;SUBSERVICE=GETLIST&amp;METAID=4782&amp;FORMAT=List&amp;URLENCODING=TRUE&amp;START=1&amp;COUNT=10&amp;SID=RHEA:1906707980&amp;LOCATION=362&amp;SREQID=RHEA:38292267&amp;REQID=RHEA:38292267&amp;OLREQID=RHEA:38292267&amp;STREAMING=off"/>-->

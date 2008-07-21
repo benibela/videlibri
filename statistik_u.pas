@@ -23,8 +23,6 @@ type
     Panel2: TPanel;
     procedure Button1Click(Sender: TObject);
     procedure CheckBox1Click(Sender: TObject);
-    procedure ComboBox1Change(Sender: TObject);
-    procedure ComboBox1Click(Sender: TObject);
     procedure ComboBox1Select(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
@@ -40,7 +38,7 @@ type
   public
     { public declarations }
     diagram: TDiagram;
-    firstYear, firstMonth: longint;
+    firstYear: longint;
     procedure updateStatistic;
   end;
 
@@ -60,10 +58,10 @@ uses bookwatchmain,bbutils,booklistreader,libraryParser;
 procedure TstatistikForm.translateDate(sender: TAxis; value: extended; var translated: string);
 begin
   case combobox1.itemindex of
-    1: translated:= inttostr(weekOfYear(round(value)));
+    DIAGRAM_WEEKS: translated:= inttostr(weekOfYear(round(value)));
     //2: translated:= FormatDateTime('m',value);
-    2: //translated:= format('%.2d-%.2d',[firstYear+(firstMonth+value) div 12, 1+(firstMonth+value-1) mod 12]);
-       translated:= format('%.2d',[1+(firstMonth+round(value)-1) mod 12]);
+    DIAGRAM_MONTHS: //translated:= format('%.2d-%.2d',[firstYear+(firstMonth+value) div 12, 1+(firstMonth+value-1) mod 12]);
+       translated:= format('%.2d',[1+round(value) mod 12]);
     else translated:= FormatDateTime('d.m',round(value));
   end;
 
@@ -72,13 +70,16 @@ end;
 procedure TstatistikForm.updateStatistic;
 var i,j,k,c,tc,currentLoop:integer;
     checkDate,nextCheckDate: longint;
-    y,m,d: word; //year,..
+    y,m,d,y2,m2,d2,y3,m3,d3: word; //year,..
     books: TBookLists;
     book:TBook;
     earliestDay,lastDay: integer;
     
     showSum: boolean;
 
+
+    accountValues,totalValues: array of longint;
+    
 
 begin
   showSum:=CheckBox1.Checked;
@@ -89,12 +90,18 @@ begin
   lastDay:=lastCheck;
   for i:=0 to accountIDs.Count-1 do begin
     with TCustomAccountAccess(accountIDs.Objects[i]) do begin
-      for j:=0 to books.current.Count-1 do
+      for j:=0 to books.current.Count-1 do begin
         if (books.current[j].issueDate<>0) and (books.current[j].issueDate<earliestDay) then
           earliestDay:=books.current[j].issueDate;
-      for j:=0 to books.old.Count-1 do
+        if (books.current[j].firstExistsDate<>0) and (books.current[j].firstExistsDate<earliestDay) then
+          earliestDay:=books.current[j].firstExistsDate;
+      end;
+      for j:=0 to books.old.Count-1 do begin
         if (books.old[j].issueDate<>0) and (books.old[j].issueDate<earliestDay) then
           earliestDay:=books.old[j].issueDate;
+        if (books.old[j].firstExistsDate<>0) and (books.old[j].firstExistsDate<earliestDay) then
+          earliestDay:=books.old[j].firstExistsDate;
+      end;
 
       diagram.addDataList.title:=prettyName;
     end;
@@ -105,78 +112,90 @@ begin
 
   case ComboBox1.itemIndex of
     DIAGRAM_WEEKS:  begin
-      earliestDay:=earliestDay-DayOfWeek(earliestDay);
-      checkDate:=earliestDay;
-      repeat
-        tc:=0;
-        for j:=0 to accountIDs.Count-1 do begin
-          c:=0;
-          books:=TCustomAccountAccess(accountIDs.Objects[j]).books;
-          for k:=0 to books.current.count-1 do
-            if (books.current[k].issueDate<=checkDate+6)and(books.current[k].lastExistsDate>=checkDate) then
-              inc(c);
-          for k:=0 to books.old.count-1 do
-            if (books.old[k].issueDate<=checkDate+6)and(books.old[k].lastExistsDate>=checkDate) then
-              inc(c);
-
-          TDataList(diagram.dataLists[j]).addPoint(checkDate,c);
-          inc(tc,c);
+      earliestDay:=earliestDay-earliestDay mod 7;
+      lastDay:=lastDay+7-lastDay mod 7;
+      SetLength(accountValues,(lastDay-earliestDay) div 7+1);
+      SetLength(totalValues,length(accountValues));
+      FillChar(totalValues[0],length(totalValues)*sizeof(totalValues[0]),0);
+      for j:=0 to accountIDs.Count-1 do begin
+        FillChar(accountValues[0],length(accountValues)*sizeof(accountValues[0]),0);
+        books:=TCustomAccountAccess(accountIDs.Objects[j]).books;
+        for k:=-books.old.count to books.current.count-1 do begin //loop about union
+          if k<0 then book:=books.old[-k-1]
+          else book:=books.current[k];
+          checkdate:=book.issueDate div 7;
+          if checkDate = 0 then checkDate:=book.firstExistsDate div 7;
+          if checkDate = 0 then continue;
+          while checkdate<=book.lastExistsDate div 7 do begin
+            accountValues[checkdate-earliestDay div 7]+=1;
+            totalValues[checkdate-earliestDay div 7]+=1;
+            checkdate+=1;
+          end;
         end;
-        if showSum then TDataList(diagram.DataLists[diagram.DataLists.Count-1]).addPoint(checkDate,tc);
-        inc(checkDate,7);
-      until checkDate>=lastDay;
+        for i:=0 to high(accountValues) do
+          TDataList(diagram.dataLists[j]).addPoint(i*7+earliestDay,accountValues[i]);
+      end;
+      if showSum then
+        for i:=0 to high(totalValues) do
+          TDataList(diagram.dataLists[diagram.DataLists.Count-1]).addPoint(i*7+earliestDay,totalValues[i]);
     end;
     DIAGRAM_MONTHS:  begin
       DecodeDate(earliestDay,y,m,d);
-      nextCheckDate:=longint(trunc(EncodeDate(y,m,1)));
-      checkDate:=nextCheckDate;
-      currentLoop:=0;
-      firstYear:=y;
-      firstMonth:=m;
-      repeat
-        inc(m);
-        if m>12 then begin
-          inc(y);
-          m:=1;
+      DecodeDate(lastDay,y2,m2,d2);
+      SetLength(accountValues,y2*12+m2-1  - (y*12+m-1) + 1);
+      SetLength(totalValues,length(accountValues));
+      FillChar(totalValues[0],length(totalValues)*sizeof(totalValues[0]),0);
+      for j:=0 to accountIDs.Count-1 do begin
+        FillChar(accountValues[0],length(accountValues)*sizeof(accountValues[0]),0);
+        books:=TCustomAccountAccess(accountIDs.Objects[j]).books;
+        for k:=-books.old.count to books.current.count-1 do begin //loop about union
+          if k<0 then book:=books.old[-k-1]
+          else book:=books.current[k];
+          checkdate:=book.issueDate;
+          if checkDate = 0 then checkDate:=book.firstExistsDate;
+          if checkDate = 0 then continue;
+          DecodeDate(checkDate,y2,m2,d2);
+          DecodeDate(book.lastExistsDate,y3,m3,d3);
+          for i:=y2*12+m2-1 - (y*12+m-1) to y3*12+m3-1  - (y*12+m-1) do begin
+            accountValues[i]+=1;
+            totalValues[i]+=1;
+            checkdate+=1;
+          end;
         end;
-        nextCheckDate:=longint(trunc(EncodeDate(y,m,1)));
-        tc:=0;
-        for j:=0 to accountIDs.Count-1 do begin
-          c:=0;
-          books:=TCustomAccountAccess(accountIDs.Objects[j]).books;
-          for k:=0 to books.current.count-1 do
-            if (books.current[k].issueDate<nextCheckDate)and(books.current[k].lastExistsDate>=checkDate) then
-              inc(c);
-          for k:=0 to books.old.count-1 do
-            if (books.old[k].issueDate<nextCheckDate)and(books.old[k].lastExistsDate>=checkDate) then
-              inc(c);
-          TDataList(diagram.dataLists[j]).addPoint({checkDate}currentLoop,c);
-          inc(tc,c);
-        end;
-        if showSum then
-          TDataList(diagram.DataLists[diagram.DataLists.Count-1]).addPoint({checkDate}currentLoop,tc);
-        checkDate:=nextCheckDate;
-        inc(currentLoop);
-      until checkDate>=lastDay;
-    end;
-    else //iterate about days
-      for i:=earliestDay to lastCheck do begin
-        tc:=0;
-        for j:=0 to accountIDs.Count-1 do begin
-          c:=0;
-          books:=TCustomAccountAccess(accountIDs.Objects[j]).books;
-          for k:=0 to books.current.count-1 do
-            if (books.current[k].issueDate<=i)and(books.current[k].lastExistsDate>=i) then
-              inc(c);
-          for k:=0 to books.old.count-1 do
-            if (books.old[k].issueDate<=i)and(books.old[k].lastExistsDate>=i) then
-              inc(c);
-
-          TDataList(diagram.dataLists[j]).addPoint(i,c);
-          inc(tc,c);
-        end;
-        if showSum then TDataList(diagram.DataLists[diagram.DataLists.Count-1]).addPoint(i,tc);
+        for i:=0 to high(accountValues) do
+          TDataList(diagram.dataLists[j]).addPoint(i+y*12+m-1,accountValues[i]);
       end;
+      if showSum then
+        for i:=0 to high(totalValues) do
+          TDataList(diagram.dataLists[diagram.DataLists.Count-1]).addPoint(i+y*12+m-1,totalValues[i]);
+
+    end;
+    else begin//iterate about days
+      SetLength(accountValues,lastDay-earliestDay+1);
+      SetLength(totalValues,length(accountValues));
+      FillChar(totalValues[0],length(totalValues)*sizeof(totalValues[0]),0);
+      for j:=0 to accountIDs.Count-1 do begin
+        FillChar(accountValues[0],length(accountValues)*sizeof(accountValues[0]),0);
+        books:=TCustomAccountAccess(accountIDs.Objects[j]).books;
+        for k:=-books.old.count to books.current.count-1 do begin //loop about union
+          if k<0 then book:=books.old[-k-1]
+          else book:=books.current[k];
+          checkdate:=book.issueDate;
+          if checkDate = 0 then checkDate:=book.firstExistsDate;
+          if checkDate = 0 then continue;
+          while checkdate<=book.lastExistsDate do begin
+            accountValues[checkdate-earliestDay]+=1;
+            totalValues[checkdate-earliestDay]+=1;
+            checkdate+=1;
+          end;
+        end;
+        for i:=0 to high(accountValues) do
+          TDataList(diagram.dataLists[j]).addPoint(i+earliestDay,accountValues[i]);
+      end;
+      if showSum then
+        for i:=0 to high(totalValues) do
+          TDataList(diagram.dataLists[diagram.DataLists.Count-1]).addPoint(i+earliestDay,totalValues[i]);
+    end;
   end;
   diagram.update;
   PaintBox1Paint(PaintBox1);
@@ -198,15 +217,6 @@ end;
 procedure TstatistikForm.CheckBox1Click(Sender: TObject);
 begin
   updateStatistic;
-end;
-
-procedure TstatistikForm.ComboBox1Change(Sender: TObject);
-begin
-
-end;
-
-procedure TstatistikForm.ComboBox1Click(Sender: TObject);
-begin
 end;
 
 procedure TstatistikForm.ComboBox1Select(Sender: TObject);
@@ -244,8 +254,8 @@ begin
     end;
     DIAGRAM_MONTHS:  begin
       month:=round(diagram.posXToDataX(x));
-      year:=firstYear+month div 12;
-      month:=(firstMonth+month-1) mod 12+1;
+      year:=month div 12;
+      month:=month mod 12+1;
       mausInfo.Caption:=DateToStr(EncodeDate(word(year),word(month),1))+' - '+DateToStr(IncMonth(EncodeDate(word(year),word(month),1))-1);;
     end;
   end;
@@ -259,8 +269,7 @@ end;
 procedure TstatistikForm.PaintBox1Resize(Sender: TObject);
 begin
   if diagram=nil then exit;
-  diagram.Diagram.Width:=PaintBox1.Width;
-  diagram.Diagram.Height:=PaintBox1.Height;
+  diagram.Diagram.SetSize(PaintBox1.Width,PaintBox1.Height);
   updateStatistic;
 end;
 

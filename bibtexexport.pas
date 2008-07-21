@@ -46,34 +46,34 @@ end;
 
 procedure TBibTexExportFrm.BitBtn1Click(Sender: TObject);
   const charToReplace:array[1..7] of record
-    c:array[1..5] of char;
+    c:array[1..5] of string;
     r:array[1..5] of string;
     r2:array[1..5] of string;
-  end = ((c:(    'á'  ,   'é',     'í',     'ó',     'ú'); //ansi original
+  end = ((c:(    'Ã¡'  ,   'Ã©',     'Ã­',     'Ã³',     'Ãº'); //utf8 original
           r:('{\''a}','{\''e}','{\''i}','{\''o}','{\''u}');//latex ersetzung
           r2:(   'a',     'e',     'i',     'o',     'u')),//alternative
 
-         (c:(   'à',    'è',    'ì',    'ò',    'ù');
+         (c:(   'Ã ',    'Ã¨',    'Ã¬',    'Ã²',    'Ã¹');
           r:('{\`a}','{\`e}','{\`i}','{\`o}','{\`u}');
           r2:(  'a',    'e',    'i',    'o',    'u')),
 
-         (c:(   'â',    'ê',    'î',    'ô',    'û');
+         (c:(   'Ã¢',    'Ãª',    'Ã®',    'Ã´',    'Ã»');
           r:('{\^a}','{\^e}','{\^i}','{\^o}','{\^u}');
           r2:(  'a',    'e',    'i',    'o',    'u')),
 
-         (c:(   'ä',    'ö',    'ü',   'ø',   'Ø');
+         (c:(   'Ã¤',    'Ã¶',    'Ã¼',   'Ã¸',   'Ã˜');
           r:('{\"a}','{\"o}','{\"u}','{\o}','{\O}');
           r2:(  'ae',   'oe',   'ue',  'o',   'O')),
 
-         (c:(   'œ',    'Œ',    'æ',    'Æ',  '¡');
+         (c:(   'Å“',    'Å’',    'Ã¦',    'Ã†',  'Â¡');
           r:('{\ce}','{\CE}','{\ae}','{\AE}','{!`}');
           r2:(  'ce'   ,'CE',   'ae',   'AE', '!')),
 
-         (c:(  'ß',         '™',             '©',               '®',            '•');
+         (c:(  'ÃŸ',         'â„¢',             'Â©',               'Â®',            'â€¢');
           r:('{\ss}', '{\texttrademark}','{\copyright}','{\textregistered}','{\textbullet}');
           r2:( 'ss',        'TM',           '(c)',             '(R)',           '.')),
 
-         (c:(  '§',    '†',    '‡',             '·',              '¿');
+         (c:(  'Â§',    'â€ ',    'â€¡',             'Â·',              'Â¿');
           r:('{\S}','{\dag}','{\ddag}','{\textperiodcentered}','{?`}');
           r2:( 'S',    '.',    '.',             '.',              '.')));
 
@@ -85,23 +85,25 @@ var outputEncoding:longint;
     s:=StringReplace(s,'\','\\',[rfReplaceAll]);
     s:=StringReplace(s,'{','\{',[rfReplaceAll]);
     s:=StringReplace(s,'"','"',[rfReplaceAll]);
+    result:=s;
     case outputEncoding of
       0: begin //UTF-8 to Latex
-        Result:=Utf8ToAnsi(s);
+        //Result:=Utf8ToAnsi(result);
         //TODO: Optimize
         for i:=low(charToReplace) to high(charToReplace) do
           for j:=low(charToReplace[i].c) to high(charToReplace[i].c) do
             result:=StringReplace(result,charToReplace[i].c[j],charToReplace[i].r[j],[rfReplaceAll]);
+
       end;
-      1: Result:=Utf8ToAnsi(s);
-      else result:=s;
+      //1: Result:=Utf8ToAnsi(result);
+      //else result:=s;
     end;
   end;
 
-  function removeBadIDChar(s:string):string;
+  function removeBadIDChar(s:string):string; //=>ascii
   var i,j:longint;
   begin
-    result:=StringReplace(Utf8ToAnsi(s),' ','_',[rfReplaceAll]);
+    result:=StringReplace(s,' ','_',[rfReplaceAll]);
     result:=StringReplace(result,',','_',[rfReplaceAll]);
     for i:=low(charToReplace) to high(charToReplace) do
       for j:=low(charToReplace[i].c) to high(charToReplace[i].c) do
@@ -147,6 +149,7 @@ begin
         id:='b'+removeBadIDChar(book.id);
 
       exportStr+=#13#10'@book{'+convStr(id)+','#13#10;
+      titleID:=convStr(book.title);
       if book.author<>'' then exportStr+='  author = "'+convStr(book.author)+'",'#13#10;
       if book.title<>'' then exportStr+='  title = "'+convStr(book.title)+'",'#13#10;
       if book.year<>'' then exportStr+='  year = "'+convStr(book.year)+'",'#13#10;
@@ -156,7 +159,11 @@ begin
       FileNameEdit1.Text:=FileNameEdit1.Text+'.bib';
 
     if clipboardExport.Checked then Clipboard.AsText:=exportStr
-    else saveFileFromStr(FileNameEdit1.Text,exportStr);
+    else case outputEncoding of
+      0: saveFileFromStr(FileNameEdit1.Text,exportStr); //exportStr is ASCII, no convert
+      1: saveFileFromStr(FileNameEdit1.Text,Utf8ToAnsi(exportStr)); //exportStr is UTF-8, convert to ANSI
+      2: saveFileFromStr(FileNameEdit1.Text,exportStr); //exportStr is UTF-8, no convert
+    end;
 end;
 
 procedure TBibTexExportFrm.FormCreate(Sender: TObject);

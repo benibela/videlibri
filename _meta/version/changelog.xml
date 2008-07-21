@@ -1,8 +1,16 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
-
+<?xml-stylesheet type="text/xsl" href="../changelog.xsl"?>
 <changelog program="VideLibri">
-  <build version="0989" date="2008-04-24">
+  <build version="0990" date="2008-07-19">
     <installer url="http://www.benibela.de/bin/tools/videlibri-setup.exe"/>
+    <add level="major">Es ist nun möglich beliebige Medien zu suchen</add>
+    <add level="minor">In der gleichen Woche abzugebende Medien sind markiert</add>
+    <change level="minor">Die Statistik wird nun schneller berechnet (Faktor "Zeit der Programmbenutzung" durch "Ausleihzeit eines Medium" ersetzt)</change>
+    <change level="minor">Statt der Listenanzeige von Windows wird eine selbstentwickelte benutzt, so dass das Programm paradoxerweise dem übliche Windows XP Design entspricht. </change>
+    <fix level="minor">FHB: Die Statistik funktioniert nun auch hier</fix>
+    <fix level="critical">STB: Berücksichtigung einer weiteren Änderung der Websitenstruktur</fix>
+  </build>
+  <build version="0989" date="2008-04-24">
     <fix level="critical">STB: Berücksichtigung einer weiteren Änderung der Websitenstruktur</fix>
   </build>
   <build version="0988" date="2008-02-28">

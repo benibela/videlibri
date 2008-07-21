@@ -100,6 +100,7 @@ type
     constructor create(const AOwnerLib:TCustomAccountAccess; const oldFile,curFile: string);
     destructor destroy;override;
     
+    //immer: übernimmt alte Daten aus currentFile (vor allem firstExistsDate)
     //finalchange = true:  ersetzt currentFile durch currentUpdate und fügt
     //                     die entfernten Bücher in bltInOldData ein
     //finalchange = false:
@@ -542,6 +543,7 @@ begin
     if finalChange then log('TBookLists.merge(true) started')
     else log('TBookLists.merge(false) started');
 
+  bookLists[bltInCurrentDataUpdate].mergeMissingInformation(bookLists[bltInCurrentFile]);
   if finalChange then begin
     if keepHistory then begin
       bookLists[bltInOldAdd].Assign(bookLists[bltInCurrentFile]);
@@ -556,8 +558,7 @@ begin
     
     updateSharedDates();
     ownerLib.flastCheckDate:=currentDate;
-  end else
-    bookLists[bltInCurrentDataUpdate].mergeMissingInformation(bookLists[bltInCurrentFile]);
+  end;
 
   if logging then
     log('TBookLists.merge ended')
@@ -939,14 +940,13 @@ end;
 function TTemplateAccountAccess.connect(AInternet: TInternetAccess): boolean;
 begin
   if logging then log('TTemplateAccountAccess.connect started');
+  result:=inherited;
+  reader.internet:=internet;
   if connected then begin
     if logging then log('TTemplateAccountAccess.connect ended (already connected)');
-    result:=inherited;
     exit;
   end;
-  result:=inherited;
   lastTodayUpdate:=0;
-  reader.internet:=internet;
   setVariables();
   reader.performAction('connect');
   connected:=true;

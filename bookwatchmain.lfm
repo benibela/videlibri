@@ -4,22 +4,19 @@ object mainForm: TmainForm
   Top = 23
   Width = 949
   Caption = 'Videlibri'
-  ClientHeight = 661
+  ClientHeight = 662
   ClientWidth = 949
   Menu = MainMenu1
   OnActivate = FormActivate
   OnClose = FormClose
-  OnCloseQuery = FormCloseQuery
   OnCreate = FormCreate
   OnDestroy = FormDestroy
   OnResize = FormResize
-  OnShow = FormShow
-  OnWindowStateChange = FormWindowStateChange
   Position = poScreenCenter
   LCLVersion = '0.9.25'
   object StatusBar1: TStatusBar
-    Height = 23
-    Top = 638
+    Height = 20
+    Top = 642
     Width = 949
     Panels = <    
       item
@@ -52,8 +49,6 @@ object mainForm: TmainForm
     Indent = 15
     ParentColor = False
     TabOrder = 0
-    OnClick = ToolBar1Click
-    OnResize = ToolBar1Resize
     object Label2: TLabel
       Left = 183
       Height = 52
@@ -91,14 +86,13 @@ object mainForm: TmainForm
   end
   object searchPanel: TPanel
     Height = 30
-    Top = 608
+    Top = 612
     Width = 949
     Align = alBottom
     BevelInner = bvRaised
     ClientHeight = 30
     ClientWidth = 949
     TabOrder = 1
-    OnClick = searchPanelClick
     object Label1: TLabel
       Left = 25
       Height = 14
@@ -140,6 +134,7 @@ object mainForm: TmainForm
       Height = 23
       Top = 2
       Width = 136
+      OnKeyDown = searchTextKeyDown
       OnKeyUp = searchTextKeyUp
       TabOrder = 0
     end
@@ -152,6 +147,7 @@ object mainForm: TmainForm
       Caption = 'X'
       OnClick = searchCloseClick
       TabOrder = 1
+      TabStop = False
     end
     object searchField: TComboBox
       Left = 248
@@ -168,6 +164,7 @@ object mainForm: TmainForm
         'Kategorie'
         'Verfasser'
         'Titel'
+        'Jahr'
         'Ausleihe'
         'Rückgabe'
         'Konto'
@@ -1236,11 +1233,16 @@ object mainForm: TmainForm
   object bookPopupMenu: TPopupMenu
     AutoPopup = False
     OnPopup = bookPopupMenuPopup
-    left = 248
-    top = 240
-    object MenuItem27: TMenuItem
+    left = 160
+    top = 224
+    object searchDetailsMI: TMenuItem
       Caption = 'Details für dieses Buch suchen...'
-      OnClick = MenuItem27Click
+      OnClick = displayDetailsMIClick
+    end
+    object displayDetailsMI: TMenuItem
+      Tag = 1
+      Caption = 'Details für dieses Buch im Suchfenster anzeigen...'
+      OnClick = displayDetailsMIClick
     end
     object extendTheseBooks: TMenuItem
       Caption = 'Mindestens alle ausgewählten Medien verlängern'
@@ -1249,9 +1251,9 @@ object mainForm: TmainForm
     object extendAdjacentBooks: TMenuItem
       Caption = 'Alle Medien dieses Kontos verlängern'
     end
-    object MenuItem26: TMenuItem
+    object removeSelectedMI: TMenuItem
       Caption = 'Markierte Medien aus der History löschen'
-      OnClick = MenuItem26Click
+      OnClick = removeSelectedMIClick
     end
   end
 end

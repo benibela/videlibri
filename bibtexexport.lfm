@@ -52,7 +52,7 @@ object BibTexExportFrm: TBibTexExportFrm
       Left = 6
       Height = 19
       Top = 8
-      Width = 104
+      Width = 102
       Caption = 'Zwischenablage'
       TabOrder = 0
     end
@@ -60,7 +60,7 @@ object BibTexExportFrm: TBibTexExportFrm
       Left = 6
       Height = 19
       Top = 30
-      Width = 54
+      Width = 55
       Caption = 'Datei:'
       Checked = True
       State = cbChecked
@@ -78,32 +78,6 @@ object BibTexExportFrm: TBibTexExportFrm
       TabOrder = 2
     end
   end
-  object RadioGroup1: TRadioGroup
-    Left = 16
-    Height = 79
-    Top = 166
-    Width = 269
-    Anchors = [akTop, akLeft, akRight]
-    AutoFill = True
-    Caption = 'Ausgabe-Zeichensatz'
-    ChildSizing.LeftRightSpacing = 6
-    ChildSizing.TopBottomSpacing = 6
-    ChildSizing.EnlargeHorizontal = crsHomogenousChildResize
-    ChildSizing.EnlargeVertical = crsHomogenousChildResize
-    ChildSizing.ShrinkHorizontal = crsScaleChilds
-    ChildSizing.ShrinkVertical = crsScaleChilds
-    ChildSizing.Layout = cclLeftToRightThenTopToBottom
-    ChildSizing.ControlsPerLine = 1
-    ClientHeight = 61
-    ClientWidth = 265
-    ItemIndex = 0
-    Items.Strings = (
-      'ASCII mit kodierten Sonderzeichen'
-      'Windows-1252 (ANSI)'
-      'UTF-8'
-    )
-    TabOrder = 2
-  end
   object BitBtn1: TBitBtn
     Left = 40
     Height = 30
@@ -115,7 +89,7 @@ object BibTexExportFrm: TBibTexExportFrm
     ModalResult = 1
     NumGlyphs = 0
     OnClick = BitBtn1Click
-    TabOrder = 3
+    TabOrder = 2
   end
   object BitBtn2: TBitBtn
     Left = 160
@@ -128,6 +102,32 @@ object BibTexExportFrm: TBibTexExportFrm
     Kind = bkCancel
     ModalResult = 2
     NumGlyphs = 0
+    TabOrder = 3
+  end
+  object RadioGroup1: TRadioGroup
+    Left = 16
+    Height = 81
+    Top = 168
+    Width = 269
+    Anchors = [akTop, akLeft, akRight]
+    AutoFill = True
+    Caption = 'Ausgabe-Zeichensatz'
+    ChildSizing.LeftRightSpacing = 6
+    ChildSizing.TopBottomSpacing = 6
+    ChildSizing.EnlargeHorizontal = crsHomogenousChildResize
+    ChildSizing.EnlargeVertical = crsHomogenousChildResize
+    ChildSizing.ShrinkHorizontal = crsScaleChilds
+    ChildSizing.ShrinkVertical = crsScaleChilds
+    ChildSizing.Layout = cclLeftToRightThenTopToBottom
+    ChildSizing.ControlsPerLine = 1
+    ClientHeight = 63
+    ClientWidth = 265
+    ItemIndex = 0
+    Items.Strings = (
+      'ASCII mit kodierten Sonderzeichen'
+      'Windows-1252 (ANSI)'
+      'UTF-8'
+    )
     TabOrder = 4
   end
 end

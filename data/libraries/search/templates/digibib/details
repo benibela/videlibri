@@ -1,0 +1,80 @@
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+ <tr>
+  <th>trefferdaten</th>
+ </tr>
+ 
+ <htmlparser:loop>
+  
+  <!-- titel, autor/in, jahr, ISBN (++)-->
+ <tr>
+  <td class="field"><htmlparser:read source="text()" var="currentfield"/></td>
+  <htmlparser:if test="'$currentField;' != 'Standort'">
+    <td class="fieldcontent"><htmlparser:read source="deepNodeText()" var="book.$currentfield;!"/></td>
+  </htmlparser:if>
+  <htmlparser:if test="'$currentField;' == 'Standort'">
+    <td class="fieldcontent">
+      <htmlparser:read source="text()" var="book.id"/>
+      <br htmlparser-optional="true"/><img htmlparser-optional="true"/> <!-- FHB 1 -->
+      <a htmlparser-optional="true"> <!-- STB -->
+        <htmlparser:read var="book.home-url" source="@href"/>
+      </a>
+      <br htmlparser-optional="true"/><img htmlparser-optional="true"/> <!-- FHB 2 -->
+      <a htmlparser-optional="true"> 
+        <htmlparser:read var="book.home-url" source="@href"/>
+      </a>
+      <form htmlparser-optional="true">
+        <htmlparser:read var="book.home-url" source="concat(@action,'?')"/>
+        <input><htmlparser:read var="book.home-url" source="concat('$book.home-url;',@name,'=',@value)"/></input>
+        <input><htmlparser:read var="book.home-url" source="concat('$book.home-url;&',@name,'=',@value)"/></input>
+        <input><htmlparser:read var="book.home-url" source="concat('$book.home-url;&',@name,'=',@value)"/></input>
+      </form>
+      <br htmlparser-optional="true"/>
+      <htmlparser:read source="text()" var="temp" regex=" .*$"/>     
+      <htmlparser:read source="'$book.id;$temp;'" var="book.id"/>     
+    </td>
+  </htmlparser:if>
+ </tr>
+ <tr>
+  <td class="fieldsep"></td>
+ </tr>
+
+
+
+
+
+
+<!-- <tr>
+
+     <tr>
+      <td width="20%" class="field">Standort</td>
+      <td width="80%" class="fieldcontent">14 TAST 1<br/>
+      <img src="/DUEBIB/img/extern.gif" width="11" height="11" border="0" alt="Linkziel liegt ausserhalb der DigiBib" title="Linkziel liegt ausserhalb der DigiBib" align="middle" />&nbsp; 
+      <a href="http://www.bibl.fh-duesseldorf.de/hilfe_standort.html" onclick="openMsgWin('','DigiBib_SigInf',640,450,'yes');return true;" target="DigiBib_SigInf">Standort</a><br/><img src="/DUEBIB/img/extern.gif" width="11" height="11" border="0" alt="Linkziel liegt ausserhalb der DigiBib" title="Linkziel liegt ausserhalb der DigiBib" align="middle" />&nbsp; <a href="http://193.30.112.94/libero/WebopacOpenURL.cls?LANG=DE&ACTION=DISPLAY&sid=Libero:DUE&RID=HT003292469" onclick="openMsgWin('','DigiBib_SigInf',640,450,'yes');return true;" target="DigiBib_SigInf">Ausleihstatus</a></td>
+      <td width="1" class="fieldcontentrightsep"><img src="/default/img/pixel.gif" width="1" height="1" alt="" /></td>
+     </tr>
+     
+     
+     
+     
+     
+           <td width="80%" class="fieldcontent"><a href="http://was.duesseldorf.de/WebOPAC/QueryPanelServlet?homegkz=111&Suchbegriff=idnr=E930439772&Kriterium=Titel&Medienart=alle&Bibliothek=Stadtb%FCchereien%20D%FCsseldorf&x=43&y=6" target="_blank">WebOPAC</a><br/>  5.1 Funke (36)</td>
+
+
+
+           
+                 <td width="80%" class="fieldcontent"><form action="http://kant.ub.uni-duesseldorf.de:80/F/" target="_blank" method="GET"><input type="hidden" name="func" value="find-b"/><input type="hidden" name="request" value="HT006525503"/><input type="hidden" name="find_code" value="IDN"/><img src="/DUEBIB/img/extern.gif" width="11" height="11" border="0" alt="Linkziel liegt ausserhalb der DigiBib" title="Linkziel liegt ausserhalb der DigiBib" align="middle" />&nbsp; <input type="submit" value="Katalog-Eintrag" class="button"/></form>Standort: 00 Sign.: dat/1765<br/></td> </tr>-->
+ 
+
+ </htmlparser:loop>
+ 
+</table>
+
+<td>
+<br htmlparser-optional="true"/>
+<a target="DigiBib_amazon" htmlparser-optional="true">
+  <htmlparser:read var="book.amazon-url" source="@href"/>
+  <img>
+    <htmlparser:read var="book.image-url" source="@src"/>
+  </img>
+</a>
+</td>

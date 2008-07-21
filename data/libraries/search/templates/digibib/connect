@@ -1,0 +1,5 @@
+
+  <meta http-equiv="refresh">
+    <htmlparser:read var="sid" source="@content" regex="ABDEROS:\d+"/>
+  </meta>
+ 

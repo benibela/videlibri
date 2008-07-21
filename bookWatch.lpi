@@ -250,8 +250,6 @@
       </Options>
     </Linking>
     <Other>
-      <CustomOptions Value="-ddebug
-"/>
       <CompilerPath Value="$(CompPath)"/>
     </Other>
   </CompilerOptions>

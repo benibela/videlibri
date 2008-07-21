@@ -1,0 +1,335 @@
+object bookSearchFrm: TbookSearchFrm
+  Left = 297
+  Height = 486
+  Top = 162
+  Width = 750
+  ActiveControl = optionPanel
+  Caption = 'Suche in der DigiBib.net'
+  ClientHeight = 486
+  ClientWidth = 750
+  OnCreate = FormCreate
+  OnDestroy = FormDestroy
+  LCLVersion = '0.9.25'
+  object optionPanel: TPanel
+    Height = 466
+    Width = 227
+    Align = alLeft
+    ClientHeight = 466
+    ClientWidth = 227
+    TabOrder = 0
+    OnClick = optionPanelClick
+    object Label1: TLabel
+      Left = 14
+      Height = 14
+      Top = 272
+      Width = 45
+      Caption = 'Suche in:'
+      ParentColor = False
+    end
+    object Label7: TLabel
+      Left = 14
+      Height = 14
+      Top = 7
+      Width = 26
+      Caption = 'Titel'
+      Font.Style = [fsBold]
+      ParentColor = False
+    end
+    object Label8: TLabel
+      Left = 14
+      Height = 14
+      Top = 48
+      Width = 33
+      Caption = 'Autor'
+      Font.Style = [fsBold]
+      ParentColor = False
+    end
+    object Label9: TLabel
+      Left = 14
+      Height = 14
+      Top = 131
+      Width = 28
+      Caption = 'ISBN:'
+      ParentColor = False
+    end
+    object Label10: TLabel
+      Left = 14
+      Height = 14
+      Top = 91
+      Width = 68
+      Caption = 'Schlagwörter:'
+      ParentColor = False
+    end
+    object Label11: TLabel
+      Left = 14
+      Height = 14
+      Top = 178
+      Width = 26
+      Caption = 'Jahr:'
+      ParentColor = False
+    end
+    object searchAuthorHint: TLabel
+      Left = 48
+      Height = 14
+      Top = 48
+      Width = 171
+      Caption = '"Nachname" oder "Name, Vorname"'
+      Color = 11400696
+      ParentColor = False
+      Transparent = False
+      Visible = False
+    end
+    object searchTitleHint: TLabel
+      Left = 45
+      Height = 14
+      Top = 5
+      Width = 178
+      Caption = '* am Ende sucht alle Verlängerungen'
+      Color = 11400696
+      ParentColor = False
+      Transparent = False
+      Visible = False
+    end
+    object searchSelectionList: TCheckListBox
+      Left = 8
+      Height = 100
+      Top = 321
+      Width = 212
+      Anchors = [akTop, akLeft, akRight, akBottom]
+      OnClickCheck = searchSelectionListClickCheck
+      TabOrder = 0
+    end
+    object searchTitle: TComboBox
+      Left = 8
+      Height = 21
+      Top = 22
+      Width = 212
+      Anchors = [akTop, akLeft, akRight]
+      AutoCompleteText = [cbactEndOfLineComplete, cbactSearchAscending]
+      ItemHeight = 13
+      OnChange = searchTitleChange
+      OnEnter = searchAuthorEnter
+      OnExit = searchAuthorExit
+      TabOrder = 1
+    end
+    object searchAuthor: TComboBox
+      Left = 8
+      Height = 21
+      Top = 64
+      Width = 212
+      Anchors = [akTop, akLeft, akRight]
+      AutoCompleteText = [cbactEndOfLineComplete, cbactSearchAscending]
+      ItemHeight = 13
+      OnEnter = searchAuthorEnter
+      OnExit = searchAuthorExit
+      TabOrder = 2
+    end
+    object searchISBN: TComboBox
+      Left = 8
+      Height = 21
+      Top = 147
+      Width = 212
+      Anchors = [akTop, akLeft, akRight]
+      AutoCompleteText = [cbactEndOfLineComplete, cbactSearchAscending]
+      ItemHeight = 13
+      TabOrder = 3
+    end
+    object startSearch: TButton
+      Left = 16
+      Height = 25
+      Top = 224
+      Width = 112
+      Caption = 'Suche starten'
+      Default = True
+      OnClick = startSearchClick
+      TabOrder = 4
+    end
+    object searchLocation: TComboBox
+      Left = 8
+      Height = 21
+      Top = 295
+      Width = 212
+      Anchors = [akTop, akLeft, akRight]
+      AutoCompleteText = [cbactEndOfLineComplete, cbactSearchAscending]
+      ItemHeight = 13
+      OnSelect = searchLocationSelect
+      Style = csDropDownList
+      TabOrder = 5
+    end
+    object displayInternalProperties: TCheckBox
+      Left = 8
+      Height = 19
+      Top = 443
+      Width = 157
+      Anchors = [akLeft, akBottom]
+      Caption = 'alle Eigenschaften auflisten'
+      OnChange = displayInternalPropertiesChange
+      TabOrder = 6
+    end
+    object displayImage: TCheckBox
+      Left = 8
+      Height = 19
+      Top = 426
+      Width = 88
+      Anchors = [akLeft, akBottom]
+      Caption = 'Bild anzeigen'
+      Checked = True
+      OnChange = displayImageChange
+      State = cbChecked
+      TabOrder = 7
+    end
+    object searchYear: TComboBox
+      Left = 8
+      Height = 21
+      Top = 192
+      Width = 212
+      Anchors = [akTop, akLeft, akRight]
+      AutoCompleteText = [cbactEndOfLineComplete, cbactSearchAscending]
+      ItemHeight = 13
+      TabOrder = 8
+    end
+    object searchKeywords: TComboBox
+      Left = 8
+      Height = 21
+      Top = 107
+      Width = 211
+      Anchors = [akTop, akLeft, akRight]
+      AutoCompleteText = [cbactEndOfLineComplete, cbactSearchAscending]
+      ItemHeight = 13
+      TabOrder = 9
+    end
+  end
+  object bookListPanel: TPanel
+    Left = 232
+    Height = 466
+    Width = 518
+    Align = alClient
+    ClientHeight = 466
+    ClientWidth = 518
+    TabOrder = 1
+    object Splitter2: TSplitter
+      Cursor = crVSplit
+      Left = 1
+      Height = 5
+      Top = 231
+      Width = 516
+      Align = alBottom
+      Beveled = True
+      ResizeAnchor = akBottom
+    end
+    object detailPanel: TPanel
+      Left = 1
+      Height = 209
+      Top = 236
+      Width = 516
+      Align = alBottom
+      BevelOuter = bvNone
+      ClientHeight = 209
+      ClientWidth = 516
+      TabOrder = 1
+      object Image1: TImage
+        Left = 410
+        Height = 209
+        Width = 106
+        Align = alRight
+        OnClick = Image1Click
+        Proportional = True
+      end
+      object Splitter3: TSplitter
+        Left = 405
+        Height = 209
+        Width = 5
+        Align = alRight
+        ResizeAnchor = akRight
+      end
+    end
+    object Panel1: TPanel
+      Left = 1
+      Height = 20
+      Top = 445
+      Width = 516
+      Align = alBottom
+      ClientHeight = 20
+      ClientWidth = 516
+      TabOrder = 2
+      object Label2: TLabel
+        Left = 8
+        Height = 14
+        Top = 2
+        Width = 118
+        Caption = 'Dieses Buch im Internet:'
+        ParentColor = False
+      end
+      object Label3: TLabel
+        Cursor = crHandPoint
+        Left = 134
+        Height = 14
+        Top = 2
+        Width = 51
+        Caption = 'digibib.net'
+        Font.Color = clBlue
+        Font.Style = [fsUnderline]
+        ParentColor = False
+        OnClick = Label3Click
+      end
+      object Label4: TLabel
+        Cursor = crHandPoint
+        Left = 197
+        Height = 14
+        Top = 2
+        Width = 121
+        Caption = 'Bücherei-eigener Katalog'
+        Font.Color = clBlue
+        Font.Style = [fsUnderline]
+        ParentColor = False
+        OnClick = Label3Click
+      end
+      object Label5: TLabel
+        Cursor = crHandPoint
+        Left = 327
+        Height = 14
+        Top = 2
+        Width = 54
+        Caption = 'amazon.de'
+        Font.Color = clBlue
+        Font.Style = [fsUnderline]
+        ParentColor = False
+        OnClick = Label3Click
+      end
+      object Label6: TLabel
+        Cursor = crHandPoint
+        Left = 391
+        Height = 14
+        Top = 2
+        Width = 49
+        Caption = 'google.de'
+        Font.Color = clBlue
+        Font.Style = [fsUnderline]
+        ParentColor = False
+        OnClick = Label3Click
+      end
+    end
+  end
+  object Splitter1: TSplitter
+    Left = 227
+    Height = 466
+    Width = 5
+    Beveled = True
+  end
+  object StatusBar1: TStatusBar
+    Height = 20
+    Top = 466
+    Width = 750
+    Panels = <    
+      item
+        Width = 200
+      end    
+      item
+        Width = 100
+      end    
+      item
+        Width = 50
+      end>
+    SimplePanel = False
+  end
+end

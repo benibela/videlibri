@@ -49,8 +49,6 @@ object statistikForm: TstatistikForm
         'Monat'
       )
       MaxLength = 0
-      OnChange = ComboBox1Change
-      OnClick = ComboBox1Click
       OnSelect = ComboBox1Select
       Style = csDropDownList
       TabOrder = 0
@@ -59,7 +57,7 @@ object statistikForm: TstatistikForm
       Left = 272
       Height = 19
       Top = 9
-      Width = 107
+      Width = 106
       Caption = 'Summe anzeigen'
       Checked = True
       OnClick = CheckBox1Click
@@ -84,7 +82,7 @@ object statistikForm: TstatistikForm
       ParentColor = False
     end
     object Button1: TButton
-      Left = 318
+      Left = 320
       Height = 25
       Top = 5
       Width = 75

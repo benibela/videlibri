@@ -54,11 +54,13 @@ type
     MenuItem23: TMenuItem;
     MenuItem24: TMenuItem;
     MenuItem25: TMenuItem;
-    MenuItem26: TMenuItem;
-    MenuItem27: TMenuItem;
+    removeSelectedMI: TMenuItem;
+    displayDetailsMI: TMenuItem;
+    searchDetailsMI: TMenuItem;
     MenuItem3: TMenuItem;
     MenuItem9: TMenuItem;
     bookPopupMenu: TPopupMenu;
+
     searchField: TComboBox;
     MenuItem8: TMenuItem;
     searchClose: TButton;
@@ -93,33 +95,16 @@ type
     StatusBar1: TStatusBar;
     procedure appMinimize(Sender: TObject);
     procedure appRestore(Sender: TObject);
+    procedure BookListDblClick(Sender: TObject);
     procedure bookPopupMenuPopup(Sender: TObject);
-    procedure Button1Click(Sender: TObject);
-    procedure Button2Click(Sender: TObject);
     procedure BookListUserSortItemsEvent(sender: TObject;
       var sortColumn: longint; var invertSorting: boolean);
     procedure delayedCallTimer(Sender: TObject);
-    procedure delayedPopupTimer(Sender: TObject);
     procedure FormActivate(Sender: TObject);
     procedure FormClose(Sender: TObject; var CloseAction: TCloseAction);
-    procedure FormCloseQuery(Sender: TObject; var CanClose: boolean);
     procedure FormCreate(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
     procedure FormResize(Sender: TObject);
-    procedure FormShow(Sender: TObject);
-    procedure FormWindowStateChange(Sender: TObject);
-    procedure ListView1ColumnClick(Sender: TObject; Column: TListColumn);
-    procedure ListView1Compare(Sender: TObject; Item1, Item2: TListItem;
-      Data: Integer; var Compare: Integer);
-    procedure ListView1CustomDraw(Sender: TCustomListView; const ARect: TRect;
-      var DefaultDraw: Boolean);
-    procedure ListView1CustomDrawItem(Sender: TCustomListView; Item: TListItem;
-      State: TCustomDrawState; var DefaultDraw: Boolean);
-    procedure ListView1CustomDrawSubItem(Sender: TCustomListView;
-      Item: TListItem; SubItem: Integer; State: TCustomDrawState;
-      var DefaultDraw: Boolean);
-    procedure ListView1MouseUp(Sender: TOBject; Button: TMouseButton;
-      Shift: TShiftState; X, Y: Integer);
     procedure BookListSelectItem(Sender: TObject; Item: TTreeListItem);
     procedure MenuItem11Click(Sender: TObject);
     procedure MenuItem14Click(Sender: TObject);
@@ -130,20 +115,15 @@ type
     procedure MenuItem23Click(Sender: TObject);
     procedure MenuItem24Click(Sender: TObject);
     procedure MenuItem25Click(Sender: TObject);
-    procedure MenuItem26Click(Sender: TObject);
-    procedure MenuItem27Click(Sender: TObject);
-    procedure searchPanelClick(Sender: TObject);
+    procedure removeSelectedMIClick(Sender: TObject);
+    procedure displayDetailsMIClick(Sender: TObject);
+    procedure searchTextKeyDown(Sender: TObject; var Key: Word;
+      Shift: TShiftState);
     procedure UserExtendMenuClick(Sender: TObject);
-    procedure MenuItem19Click(Sender: TObject);
-    procedure MenuItem2Click(Sender: TObject);
     procedure MenuItem3Click(Sender: TObject);
-    procedure MenuItem4Click(Sender: TObject);
     procedure MenuItem6Click(Sender: TObject);
     procedure MenuItem8Click(Sender: TObject);
-    procedure Panel1MouseUp(Sender: TOBject; Button: TMouseButton;
-      Shift: TShiftState; X, Y: Integer);
     procedure searchCloseClick(Sender: TObject);
-    procedure searchDownClick(Sender: TObject);
     procedure searchTextKeyUp(Sender: TObject; var Key: Word; Shift: TShiftState
       );
     procedure searchUpClick(Sender: TObject);
@@ -152,8 +132,6 @@ type
     procedure LibraryHomepageClick(Sender: TObject);
     procedure StatusBar1DblClick(Sender: TObject);
     procedure Timer1Timer(Sender: TObject);
-    procedure ToolBar1Click(Sender: TObject);
-    procedure ToolBar1Resize(Sender: TObject);
     procedure ShowOptionsClick(Sender: TObject);
     procedure btnRefreshClick(Sender: TObject);
     procedure ToolButton2ContextPopup(Sender: TObject; MousePos: TPoint;
@@ -161,7 +139,6 @@ type
     procedure ToolButton3Click(Sender: TObject);
     procedure ViewAllClick(Sender: TObject);
 
-    procedure ListView1WindowProc(var TheMessage: TLMessage);
   private
     { private declarations }
 
@@ -181,7 +158,6 @@ type
     procedure updateGUIItemsForAccount(const account: TCustomAccountAccess);
     procedure removeGUIItemsForAccount(const account: TCustomAccountAccess);
     function addAccount(const libID: string; prettyName, aname, pass: string; extendType: TExtendType; extendDays:integer; history: boolean):TCustomAccountAccess;
-    procedure lm_rbuttonup(var mes: TLMRButtonUp); message lm_rbuttonup;
     //procedure WndProc(var TheMessage : TLMessage); override;
   end;
 
@@ -208,11 +184,6 @@ end;
 procedure showTaskBarIcon();
 begin
   ShowWindow(GetWindow(mainform.handle,GW_OWNER),SW_SHOW); //windows, win32
-end;
-
-
-procedure TmainForm.ListView1WindowProc(var TheMessage: TLMessage);
-begin
 end;
 
 
@@ -265,6 +236,8 @@ begin
   BookList.OnSelect:=@BookListSelectItem;
   BookList.SortColumn:=BL_BOOK_COLUMNS_LIMIT_ID;
   BookList.OnUserSortItemsEvent:=@BookListUserSortItemsEvent;
+  BookList.OnDblClick:=@BookListDblClick;
+ // BookList.TabOrder:=0;
 
   BookList.deserializeColumnOrder(userConfig.ReadString('BookList','ColumnOrder',''));
   BookList.deserializeColumnWidths(userConfig.ReadString('BookList','ColumnWidths',''));
@@ -304,7 +277,6 @@ end;
 procedure TmainForm.FormDestroy(Sender: TObject);
 begin
   BookList.Free;
-  FreeAndNil(searcherForm);
 end;
 
 procedure TmainForm.FormResize(Sender: TObject);
@@ -336,34 +308,15 @@ begin
   if logging then log('FormResize ende');
 end;
 
-procedure TmainForm.FormShow(Sender: TObject);
-begin
-end;
-
-procedure TmainForm.FormWindowStateChange(Sender: TObject);
-begin
-end;
-
-
-procedure TmainForm.ListView1ColumnClick(Sender: TObject; Column: TListColumn);
-begin
-end;
-
-
-procedure TmainForm.Button2Click(Sender: TObject);
-begin
-end;
-
-procedure TmainForm.Button1Click(Sender: TObject);
-begin
-end;
-
 procedure TmainForm.bookPopupMenuPopup(Sender: TObject);
 begin
 {  extendThisBooks.Enabled:=(ListView1.SelCount=1) and
                   (PBook(ListView1.Selected.Data))^.lib.getLibrary().canModifySingleBooks;}
   extendTheseBooks.Enabled:=(BookList.SelCount>=1);
   extendAdjacentBooks.Enabled:=BookList.SelCount=1;
+  displayDetailsMI.Enabled:=BookList.selCount=1;
+  searchDetailsMI.Enabled:=BookList.selCount=1;
+  removeSelectedMI.Enabled:=BookList.selCount>0;
 end;
 
 procedure TmainForm.appMinimize(Sender: TObject);
@@ -376,6 +329,11 @@ procedure TmainForm.appRestore(Sender: TObject);
 begin
   if startToTNA then
     showTaskBarIcon();
+end;
+
+procedure TmainForm.BookListDblClick(Sender: TObject);
+begin
+  if BookList.selCount=1 then displayDetailsMIClick(displayDetailsMI);
 end;
 
 
@@ -392,11 +350,6 @@ begin
   delayedCall.Enabled:=false;
  showErrorMessages();
 end;
-
-procedure TmainForm.delayedPopupTimer(Sender: TObject);
-begin
-end;
-
 
 procedure TmainForm.FormActivate(Sender: TObject);
 var ok3,nok1,nok3:longbool;
@@ -481,38 +434,7 @@ begin
   userConfig.WriteString('BookList','ColumnWidths',BookList.serializeColumnWidths);
   userConfig.WriteString('BookList','ColumnVisibility',BookList.serializeColumnVisibility);
 
-end;
-
-procedure TmainForm.FormCloseQuery(Sender: TObject; var CanClose: boolean);
-begin
-
-end;
-
-procedure TmainForm.ListView1Compare(Sender: TObject; Item1, Item2: TListItem;
-  Data: Integer; var Compare: Integer);
-begin
-end;
-
-procedure TmainForm.ListView1CustomDraw(Sender: TCustomListView;
-  const ARect: TRect; var DefaultDraw: Boolean);
-begin
-end;
-
-
-procedure TmainForm.ListView1CustomDrawItem(Sender: TCustomListView;
-  Item: TListItem; State: TCustomDrawState; var DefaultDraw: Boolean);
-begin
-end;
-
-procedure TmainForm.ListView1CustomDrawSubItem(Sender: TCustomListView;
-  Item: TListItem; SubItem: Integer; State: TCustomDrawState;
-  var DefaultDraw: Boolean);
-begin
-end;
-
-procedure TmainForm.ListView1MouseUp(Sender: TOBject; Button: TMouseButton;
-  Shift: TShiftState; X, Y: Integer);
-begin
+  FreeAndNil(searcherForm);
 end;
 
 procedure TmainForm.BookListSelectItem(Sender: TObject; Item: TTreeListItem);
@@ -596,11 +518,13 @@ end;
 procedure TmainForm.MenuItem25Click(Sender: TObject);
 begin
   if searcherForm=nil then searcherForm:=TbookSearchFrm.Create(nil);
+  searcherForm.loadDefaults;
   searcherForm.ShowModal;
+  searcherForm.saveDefaults;
 
 end;
 
-procedure TmainForm.MenuItem26Click(Sender: TObject);
+procedure TmainForm.removeSelectedMIClick(Sender: TObject);
 var i:longint;
     accountsToSave: tlist;
     book: TBook;
@@ -630,18 +554,28 @@ begin
   RefreshListView;
 end;
 
-procedure TmainForm.MenuItem27Click(Sender: TObject);
+procedure TmainForm.displayDetailsMIClick(Sender: TObject);
 begin
   if BookList.Selected = nil then exit;
   if searcherForm=nil then searcherForm:=TbookSearchFrm.Create(nil);
   searcherForm.selectBookToReSearch(tbook(BookList.Selected.tag));
-  searcherForm.startSearch.Click;
+  if tcontrol(sender).tag<>1 then searcherForm.startSearch.Click;
   searcherForm.ShowModal;
 end;
 
-procedure TmainForm.searchPanelClick(Sender: TObject);
+procedure TmainForm.searchTextKeyDown(Sender: TObject; var Key: Word;
+  Shift: TShiftState);
+var temp:TWMKeyDown;
 begin
-
+  case key of
+    VK_DOWN,VK_UP,VK_NEXT,VK_PRIOR: begin
+      temp.msg:=WM_KEYDOWN;
+      temp.CharCode:=key;
+      temp.KeyData:=0;
+      BookList.WndProc(tmessage(temp));
+      key:=0;
+    end;
+  end;
 end;
 
 procedure TmainForm.UserExtendMenuClick(Sender: TObject);
@@ -651,22 +585,9 @@ begin
   extendBooks(limitTime+currentDate,TCustomAccountAccess(tmenuitem(sender).tag));
 end;
 
-procedure TmainForm.MenuItem19Click(Sender: TObject);
-begin
-
-end;
-
-procedure TmainForm.MenuItem2Click(Sender: TObject);
-begin
-end;
-
 procedure TmainForm.MenuItem3Click(Sender: TObject);
 begin
   close;
-end;
-
-procedure TmainForm.MenuItem4Click(Sender: TObject);
-begin
 end;
 
 procedure TmainForm.MenuItem6Click(Sender: TObject);
@@ -683,20 +604,10 @@ begin
   searchText.SetFocus;
 end;
 
-procedure TmainForm.Panel1MouseUp(Sender: TOBject; Button: TMouseButton;
-  Shift: TShiftState; X, Y: Integer);
-begin
-
-end;
-
 procedure TmainForm.searchCloseClick(Sender: TObject);
 begin
   searchPanel.visible:=false;
-end;
-
-procedure TmainForm.searchDownClick(Sender: TObject);
-begin
-
+  BookList.SetFocus;
 end;
 
 procedure TmainForm.searchTextKeyUp(Sender: TObject; var Key: Word;
@@ -709,6 +620,7 @@ begin
       else searchDown.Click
     end;
     vk_escape: searchClose.click;
+    VK_DOWN,VK_UP,VK_NEXT,VK_PRIOR:; //see key down
     else searchStatus.Caption:=AnsiToUtf8(BookList.search(Utf8ToAnsi(searchText.text), searchField.itemIndex-2,1,true))
   end;
 end;
@@ -727,6 +639,10 @@ begin
     for i:=0 to viewMenu.Count-1 do
       if (viewMenu.Items[i].tag <> 0) and (viewMenu.Items[i].tag <> -1) then
         viewMenu.items[i].Checked:=sender=showAllAccounts;
+  end else if GetKeyState(VK_SHIFT)and $8000<>0 then begin
+      for i:=0 to viewMenu.Count-1 do
+        if (viewMenu.Items[i].tag <> 0) and (viewMenu.Items[i].tag <> -1) then
+          viewMenu.items[i].Checked:=viewMenu.items[i]=sender;
   end else
     TMenuItem(sender).Checked:=not TMenuItem(sender).Checked;
   RefreshListView;
@@ -793,14 +709,6 @@ begin
     showTaskBarIcon();
   if needApplicationRestart and IsWindowEnabled(handle)and IsWindowVisible(handle) then
     close;
-end;
-
-procedure TmainForm.ToolBar1Click(Sender: TObject);
-begin
-end;
-
-procedure TmainForm.ToolBar1Resize(Sender: TObject);
-begin
 end;
 
 procedure TmainForm.ShowOptionsClick(Sender: TObject);
@@ -964,7 +872,8 @@ begin
   end;
   StatusBar1.Panels[SB_PANEL_COUNT].Text:=StatusBar1.Panels[SB_PANEL_COUNT].Text+'/'+inttostr(count);
   if count2>BookList.Items.count then begin
-    with BookList.Items.Add do begin
+    BookList.BeginUpdate;
+    with BookList.items.Add do begin
       text:='ACHTUNG';
       RecordItems.Add('');
       RecordItems.Add('VideLibri');
@@ -972,11 +881,14 @@ begin
       RecordItems.Add('');
       RecordItems.Add('');
       RecordItems.Add('');
+      RecordItems.Add('');
       RecordItems.Add('Nur die Vollversion zeigt mehr als 10 Medien an.');
       RecordItems.Add('');
+      RecordItemsText[BL_BOOK_EXTCOLUMNS_COLOR]:='clRed';
       //SubItems.add('');
       Tag:=0;
     end;
+    BookList.EndUpdate;
   end else if count2>10 then
     if  (nok1 or not ok3) then close;
   //SHAREWARE CODE ENDE
@@ -1111,10 +1023,6 @@ begin
                 'Das Konto '+lib.getPrettyName()+' wurde erstellt.'#13#10'Sollen jetzt die Mediendaten heruntergeladen werden?',
                 mtConfirmation ,[mbYes,mbNo],0)=mrYes then
     mainForm.updateLibrary(lib,false,false);}
-end;
-
-procedure TmainForm.lm_rbuttonup(var mes: TLMRButtonUp);
-begin
 end;
 
 procedure TmainForm.ThreadDone(Sender: TObject);

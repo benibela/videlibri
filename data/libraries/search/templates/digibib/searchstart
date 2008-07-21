@@ -1,0 +1,8 @@
+<frame name="DigiBib_list">
+    <htmlparser:read var="metaid" source="@src" regex="METAID=\d+"/>
+    <htmlparser:read var="sreqid" source="@src" regex="SREQID=ABDEROS:\d+"/>
+    <htmlparser:read var="reqid" source="@src" regex="REQID=ABDEROS:\d+"/>
+    <htmlparser:read var="olreqid" source="@src" regex="OLREQID=ABDEROS:\d+"/>
+</frame>
+
+<!--/Digibib?SERVICE=METASEARCH&amp;SUBSERVICE=GETLIST&amp;METAID=1443&amp;FORMAT=List&amp;URLENCODING=TRUE&amp;START=1&amp;COUNT=50&amp;SID=ABDEROS:1190678421&amp;LOCATION=DUEBIB&amp;SREQID=ABDEROS:695731538&amp;REQID=ABDEROS:695731538&OLREQID=ABDEROS:695731538&amp;STREAMING=on" scrolling="auto">-->

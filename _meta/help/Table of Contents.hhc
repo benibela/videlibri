@@ -34,6 +34,14 @@
 			<param name="Local" value="statistik.html">
 			</OBJECT>
 		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="BibTex-Export">
+			<param name="Local" value="bibtexexport.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="Mediensuche">
+			<param name="Local" value="mediensuche.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
 			<param name="Name" value="Fehlerr&uuml;ckmeldung">
 			<param name="Local" value="fehlermelden.html">
 			</OBJECT>

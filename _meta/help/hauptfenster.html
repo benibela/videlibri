@@ -105,8 +105,16 @@ Im folgenden sind alle vorhandenen Menüeinträge und Untermenüs aufgelistet und e
 <td>In diesem Menü gibt es erweiterte Funktionen, die über das Anzeigen und Verlängern von Medien hinausgehen.</td>
 </tr>
 <tr>
+<td class="pi1">Freischalten</td>
+<td>Öffnet das Fenster zur Eingabe des Freischaltkodes.
+</tr>
+<tr>
 <td class="pi1">Ausleihensuche</td>
 <td>Aktiviert die <a href="#find">Suchleiste<a>.<br>Alternativ kann man auch Strg+F drücken oder, falls die Leiste angezeigt wird, das Suchfeld anklicken.</td>
+</tr>
+<tr>
+<td class="pi1">Mediensuche</td>
+<td>Öffnet ein <a href="mediensuche.html">Fenster <a>, in dem man nach beliebigen Medien suchen kann.
 </tr>
 <tr>
 <td class="pi1">Statistik</td>
@@ -173,6 +181,7 @@ Es gibt dabei folgende Spalten:<br>
 <tr><td>Kategorie</td><td>Hier steht die Ablkürzung für das grundsätzliche Thema des Buches</td></tr>
 <tr><td>Verfasser</td><td>Hier steht natürlich der Autor</td></tr>
 <tr><td>Titel</td><td>Hier steht natürlich der Titel</td></tr>
+<tr><td>Jahr</td><td>Hier steht das Erscheinungsjahr</td></tr>
 <tr><td>Ausleihe</td><td>Hier steht das Datum, an dem das Medium ausgeliehen wurde</td></tr>
 <tr><td>Rückgabe</td><td>Hier steht das Datum, an dem das Medium zurückgegeben sein muss <br>(oder "erledigt", falls das Medium bereits abgegeben worden ist)</td></tr>
 <tr><td>Konto</td><td>Hier steht auf welchem Konto das Medium ausgeliehen wurde</td></tr>
@@ -180,9 +189,9 @@ Es gibt dabei folgende Spalten:<br>
 </table>
 Da das Programm nur die von der Bücherei übermittelten Daten anzeigen kann, fehlen bei manchen Büchereien einige Werte:
 <table>
-<tr><td>Stadtbüchereien Düsseldorf</td><td>Es kann der Autor oder der Titel fehlen oder abgekürzt sein</td></tr>
+<tr><td>Stadtbüchereien Düsseldorf</td><td>Es kann der Autor oder der Titel fehlen oder abgekürzt sein, außerdem fehlt immer das Jahr</td></tr>
 <tr><td>Universitätsbibliothek Düsseldorf</td><td>Es fehlen keine Informationen, das Ausleihdatum und die Bemerkung werden aber erst nach einer Weile angezeigt</td></tr>
-<tr><td>Fachhochschulbibliothek Düsseldorf</td><td>Es fehlt die Kategorie und das Ausleihdatum</td></tr>
+<tr><td>Fachhochschulbibliotheken</td><td>Es fehlt die Kategorie, das Ausleihdatum und das Erscheinungsjahr</td></tr>
 </table>
 Die Farbe gibt Informationen über die Abgabefrist. Sind die Farben nicht über Extras\Einstellungen geändert, so haben sie folgende Bedeutung:
 <table>
@@ -192,7 +201,9 @@ Die Farbe gibt Informationen über die Abgabefrist. Sind die Farben nicht über Ex
 <tr><td>grau</td><td>Das Medium ist bereits abgegeben.</td></tr>
 </table>
 
-Standardmäßig ist die Liste nach dem Rückgabedatum sortiert, dies kann man jedoch ändern, indem man auf die Spaltenüberschrift klickt.
+Standardmäßig ist die Liste nach dem Rückgabedatum sortiert, dies kann man jedoch ändern, indem man auf die Spaltenüberschrift klickt. Wenn nach dem Rückgabedatum sortiert ist, werden Medien die in unterschiedlichen Wochen abgegeben werden müssen durch violette Linien getrennt.<br><br>
+
+Klickt man mit der rechten Maustaste auf ein Medium kann man weitere Optionen anfordern, oder das Medium verlängern.
 
 <h2><a name="find">Die Suchleiste</a></h2>
 <img style="margin: 1em" src="hauptfensterFind.gif"><br>

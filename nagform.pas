@@ -46,6 +46,7 @@ end;
 procedure TnagWindow.Button1Click(Sender: TObject);
 begin
   ModalResult:=mrOK;
+  userConfig.WriteInteger('base','lastNAGTime',currentDate);
   close;
 end;
 
@@ -53,6 +54,7 @@ procedure TnagWindow.Button2Click(Sender: TObject);
 var regForm:TRegForm;
 begin
   ModalResult:=mrOK;
+  userConfig.WriteInteger('base','lastNAGTime',currentDate);
   regForm:=TRegForm.Create(nil);
   regForm.ShowModal;
   regForm.free;
@@ -61,14 +63,14 @@ end;
 
 procedure TnagWindow.FormClose(Sender: TObject; var CloseAction: TCloseAction);
 begin
-  userConfig.WriteBool('base','alreadyShownNAG',true);
 end;
 
 procedure TnagWindow.FormShow(Sender: TObject);
 begin
   tag:=6785;
   mainForm.Label2.Caption:='  eingeschränkte Shareware Version';
-  if userConfig.ReadBool('base','alreadyShownNAG',false) then close;
+  {$include obfuscate.inc}
+  if currentDate-userconfig.ReadInteger('base','lastNAGTime',0)<30 then close;
 end;
 
 initialization
