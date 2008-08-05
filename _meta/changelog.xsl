@@ -9,7 +9,8 @@ Einbinden mit <?xml-stylesheet type="text/xsl" href="changelog.xsl"?>
   <xsl:template match="/">
     <html>
       <head><title><xsl:value-of select="/changelog/@program"/> Changelog</title></head>
-            <body>
+            <body onload="document.links[0].focus()" style="background-color:#FFFFCC">
+              <a name="top" href="#top"></a>
               <h1><xsl:value-of select="/changelog/@program"/></h1>
               <xsl:for-each select="changelog/build">
                <xsl:if test="not(@status='debug')">
