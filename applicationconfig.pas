@@ -57,8 +57,6 @@ var programPath,userPath,dataPath:string;
     colorTimeNear:tcolor;
     colorOK:tcolor;
     colorOld:tcolor;
-    colorSearchMark: tcolor=clAqua;
-    colorSearchMarkField: tcolor=(clBlue + clAqua) div 2;
     colorSearchTextNotFound: tcolor=$6060FF;
     colorSearchTextFound: tcolor=clWindow;
     redTime: integer;
@@ -87,6 +85,7 @@ var tna:TTNAIcon;
   procedure createAndAddException(exception:exception; account:TCustomAccountAccess=nil);
 
   procedure storeException(ex: exception; account:TCustomAccountAccess); //thread safe
+  function MessageBoxUTF8(s:string; typ: longint; cap: string='VideLibri';wnd: THANDLE=0):longint;
 
   //get the values the tna should have not the one it actually has
   //function getTNAHint():string;
@@ -310,30 +309,34 @@ uses bookwatchmain,windows,internetaccess,w32internetaccess,controls,libraryacce
     defaultInternetConfiguration.proxyHTTPSPort:=userConfig.ReadString('access','httpsProxyPort','');
   end;
 
+  function MessageBoxUTF8(s:string; typ: longint; cap: string='VideLibri';wnd: THANDLE=0):longint;
+  begin
+    if (wnd=0) and (mainForm<>nil) then wnd:=mainForm.Handle;
+    result:=MessageBox(wnd,pchar(Utf8ToAnsi(s)),pchar(Utf8ToAnsi(cap)),typ);
+  end;
+
   procedure applicationUpdate(auto:boolean);
   var  updater: TAutoUpdater;
        temp:string;
-       wnd: THANDLE;
+
   begin
     if auto and ((userConfig.ReadInteger('updates','auto-check',1) = 0)
                  or (currentDate-userConfig.ReadInteger('updates','lastcheck',0)<userConfig.ReadInteger('updates','interval',3))) then
       exit;
     if logging then log('applicationUpdate really started');
-    if mainForm<>nil then wnd:=mainForm.Handle
-    else wnd:=0;
     updater:=TAutoUpdater.create(versionNumber,programpath,'http://www.benibela.de/updates/videlibri/version.xml'
                                                           ,'http://www.benibela.de/updates/videlibri/changelog.xml');
     if updater.existsUpdate then begin
       if not updater.hasDirectoryWriteAccess then begin
-        MessageBox(wnd,pchar('Es gibt ein Update auf die Version '+floattostr(updater.newVersion/1000)+':'#13#10#13#10+
+        MessageBoxUTF8('Es gibt ein Update auf die Version '+floattostr(updater.newVersion/1000)+':'#13#10#13#10+
                             updater.listChanges+#13#10+
-                            'Um das Update herunterzuladen und zu installieren, müssen Sie Videlbri unter einem Benutzerkonto mit Administratorrechten starten.'),'Videlibri Update',mb_ok or MB_APPLMODAL);
+                            'Um das Update herunterzuladen und zu installieren, müssen Sie Videlbri unter einem Benutzerkonto mit Administratorrechten starten.',mb_ok or MB_APPLMODAL,'Videlibri Update');
         updater.free;
         if logging then log('applicationUpdate exited');
         exit;
-      end else if { (not auto) or} (MessageBox(wnd,pchar('Es gibt ein Update auf die Version '+floattostr(updater.newVersion/1000)+':'#13#10#13#10+
+      end else if { (not auto) or} (MessageBoxUTF8('Es gibt ein Update auf die Version '+floattostr(updater.newVersion/1000)+':'#13#10#13#10+
                                               updater.listChanges+#13#10+
-                                              'Soll es jetzt heruntergeladen und installiert werden?'),'Videlibri Update',mb_yesno or MB_APPLMODAL)=idyes) then begin
+                                              'Soll es jetzt heruntergeladen und installiert werden?',mb_yesno or MB_APPLMODAL,'Videlibri Update')=idyes) then begin
         if lclStarted then begin
           Screen.cursor:=crHourglass;
           temp:=mainForm.StatusBar1.Panels[0].Text;
@@ -351,10 +354,10 @@ uses bookwatchmain,windows,internetaccess,w32internetaccess,controls,libraryacce
           if lclStarted then mainForm.close
           else PostMessage(tna.messageWindow,WM_CLOSE,0,0);
         end else if not auto then
-          MessageBox(wnd,pchar('Update wurde installiert'),'Videlibri Update',mb_ok or MB_APPLMODAL);
+          MessageBoxUTF8('Update wurde installiert',mb_ok or MB_APPLMODAL,'Videlibri Update');
       end;
     end else if not auto then
-      MessageBox(wnd,pchar('Kein Update gefunden'),'Videlibri Update',mb_ok or MB_APPLMODAL);
+      MessageBoxUTF8('Kein Update gefunden',mb_ok or MB_APPLMODAL,'Videlibri Update');
     updater.free;
     userConfig.WriteInteger('updates','lastcheck',currentDate);
     if logging then log('applicationUpdate ended');
@@ -363,7 +366,7 @@ uses bookwatchmain,windows,internetaccess,w32internetaccess,controls,libraryacce
   //normal exception handling doesn't seem to work properly when lcl is not loaded
   procedure raiseInitializationError(s: string);
   begin
-    MessageBox(0,pchar(s),'VideLibri',MB_APPLMODAL or MB_ICONERROR);
+    MessageBoxUTF8(s,MB_APPLMODAL or MB_ICONERROR);
     cancelStarting:=true;
     if logging then log('raiseInitializationError: '+s);
     raise exception.Create(s);
@@ -436,8 +439,8 @@ uses bookwatchmain,windows,internetaccess,w32internetaccess,controls,libraryacce
 
     //Überprüft die Farbeinstellung des Monitors
     if ScreenInfo.ColorDepth=8 then
-      MessageBox(0,'VideLibri funktioniert im 256-Farbenmodus nur unvollständig.'#13#10+
-                   'Am besten ändern Sie Ihre Monitoreinstellungen.','VideLibri',MB_APPLMODAL or MB_ICONWARNING);
+      MessageBoxUTF8('VideLibri funktioniert im 256-Farbenmodus nur unvollständig.'#13#10+
+                   'Am besten ändern Sie Ihre Monitoreinstellungen.',MB_APPLMODAL or MB_ICONWARNING);
 
     //Pfade auslesen und überprüfen
     programPath:=ExtractFilePath(ParamStr(0));
@@ -513,13 +516,13 @@ uses bookwatchmain,windows,internetaccess,w32internetaccess,controls,libraryacce
 
     if commandLine.readInt('debug-addr-info')<>0 then begin
       cancelStarting:=true;
-      MessageBox(0,@BackTraceStrFunc(pointer(commandLine.readInt('debug-addr-info')))[1],'Point',0);
+      MessageBoxUTF8(BackTraceStrFunc(pointer(commandLine.readInt('debug-addr-info'))),0,'Point');
       raise exception.create(BackTraceStrFunc(pointer(commandLine.readInt('debug-addr-info'))));
     end;
 
     if commandLine.readInt('updated-to')<>0 then begin
       if commandLine.readInt('updated-to')=905 then
-        MessageBox(0,'Die wichtigsten Änderungen sind, dass die Änderungen von zukünftigen Updates vor dem Runterladen dieser angezeigt werden und einige Fehler korrigiert wurden.','',0);
+        MessageBoxUTF8('Die wichtigsten Änderungen sind, dass die Änderungen von zukünftigen Updates vor dem Runterladen dieser angezeigt werden und einige Fehler korrigiert wurden.',0);
 
       userConfig.WriteInteger('version','number',commandLine.readInt('updated-to'));
 
@@ -554,9 +557,9 @@ uses bookwatchmain,windows,internetaccess,w32internetaccess,controls,libraryacce
         reg.OpenKey('\Software\Microsoft\Windows\CurrentVersion\Run',true);
         //MessageBox(0,pchar(ParamStr(0)),'',0);
         if lowercase(reg.ReadString('VideLibriAutostart')) <> lowercase('"'+ParamStr(0)+'" /autostart') then
-          if MessageBox(0,'Der Autostarteintrag ist ungültig'#13#10+
+          if MessageBoxUTF8('Der Autostarteintrag ist ungültig'#13#10+
                           'Wenn er nicht geändert wird, können die Medien wahrscheinlich nicht automatisch verlängert werden.'#13#10+
-                          'Soll er nun geändert werden?','VideLibri',MB_YESNO) = IDYES then
+                          'Soll er nun geändert werden?',MB_YESNO) = IDYES then
             reg.WriteString('VideLibriAutostart','"'+ParamStr(0)+'" /autostart');
         reg.free;
       end;

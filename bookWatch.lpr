@@ -14,7 +14,8 @@ applicationConfig, statistik_u, diagram, tnaAccess, libraryAccess,
 sendBackError, internetAccess, autoupdate, progressDialog, registrierung,
 nagform, bbdebugtools,
 bibtexexport, simplexmlparser, booklistreader, librarySearcher, bookListView,
-bookSearchForm, librarySearcherAccess, extendedhtmlparser, TreeListView;
+bookSearchForm, librarySearcherAccess, extendedhtmlparser, TreeListView, 
+findControl;
 
 type
 
@@ -184,11 +185,11 @@ begin
 //  iconHandle:=LoadImage(0,'ico.ico',IMAGE_ICON,0,0,LR_LOADFROMFILE);//hinstance,MAKEINTRESOURCE(1031));
 //  if iconhandle=0 then iconHandle:=loadicon(0,MAKEINTRESOURCE(32514));
   tna:=ttnaicon.create('VideLibri'{getTNAHint()},getTNAIconFileName());
-  tna.addMenuItem (MENU_ID_START_LCL,'&Öffnen');
-  tna.addMenuItem (MENU_ID_UPDATE,'Medien &aktualisieren');
-  tna.addMenuItem (MENU_ID_EXTEND,'Medien &verlängern');
-  tna.addMenuItem (MENU_ID_LIMIT_INFO,'   Nächste Abgabefrist: '+nextLimitStr);
-  tna.addMenuItem (MENU_ID_CLOSE,'&Beenden');
+  tna.addMenuItem (MENU_ID_START_LCL,Utf8ToAnsi('&Öffnen'));
+  tna.addMenuItem (MENU_ID_UPDATE,Utf8ToAnsi('Medien &aktualisieren'));
+  tna.addMenuItem (MENU_ID_EXTEND,Utf8ToAnsi('Medien &verlängern'));
+  tna.addMenuItem (MENU_ID_LIMIT_INFO,Utf8ToAnsi('   Nächste Abgabefrist: '+nextLimitStr));
+  tna.addMenuItem (MENU_ID_CLOSE,Utf8ToAnsi('&Beenden'));
   events:=ttempclass.Create;
   tna.onMenuClick:=@events.onMenuClick;
   tna.onDblClick:=@events.onDblClick;
@@ -235,10 +236,6 @@ begin
     end;
   end;
   finalizeApplicationConfig;
-{  if startToTNA then begin
-    MessageBox(0,'finalappco ok ','',0);
-  
-    asm_exit(0);
-  end;}
+
   end.
 

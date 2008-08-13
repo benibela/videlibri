@@ -24,8 +24,8 @@
           <htmlparser:read source="text()" var="book.id" regex="^\d+"/>
           <htmlparser:read source="text()" var="book.category" regex="^\d* - ([^ *]*( [a-z1-9])?) ." submatch="1"/>
           <htmlparser:read source="text()" var="book.author" regex="^\d* - [^ *]* ([a-z1-9] )?([^ ]*) *\*" submatch="2"/>
-          <htmlparser:read source="text()" var="book.title" regex="- [^ *]* ([a-z1-9] )?(.*\*)?([^<]*)(<\d*>)?$" submatch="3"/>
-          <htmlparser:read source="text()" var="book.year" regex="<(\d*)>$" submatch="1"/>
+          <htmlparser:read source="text()" var="book.title" regex="- [^ *]* ([a-z1-9] )?(.*\*)?([^<]*)(<\d{2,4}>?)?$" submatch="3"/>
+          <htmlparser:read source="text()" var="book.year" regex="<(\d{2,4})>?$" submatch="1"/>
           <strong><htmlparser:read source="text()" var="book.status:problematic"/></strong>
           </td>
           <td><htmlparser:read source="text()" var="book.issuedate:dd.mm.yyyy"/></td>
@@ -54,8 +54,8 @@
             <htmlparser:read source="text()" var="book.id" regex="^\d+"/>
             <htmlparser:read source="text()" var="book.category" regex="^\d* - ([^ *]*( [A-Z1-9])?) ." submatch="1"/>
             <htmlparser:read source="text()" var="book.author" regex="^\d* - [^ *]* ([A-Z1-9] )?([^ ]*) *\*" submatch="2"/>
-            <htmlparser:read source="text()" var="book.title" regex="- [^ *]* ([A-Z1-9] )?(.*\*)?([^<]*)(<\d*>)?$" submatch="3"/>
-            <htmlparser:read source="text()" var="book.year" regex="<(\d*)>$" submatch="1"/>
+            <htmlparser:read source="text()" var="book.title" regex="- [^ *]* ([A-Z1-9] )?(.*\*)?([^<]*)(<\d{2,4}>?)?$" submatch="3"/>
+            <htmlparser:read source="text()" var="book.year" regex="<(\d{2,4})>?$" submatch="1"/>
           </td>
           <td><htmlparser:read source="text()" var="book.issuedate:dd.mm.yyyy"/></td>
           <td><htmlparser:read source="text()" var="book.limitdate:dd.mm.yyyy"/></td>

@@ -61,23 +61,15 @@ type
     MenuItem9: TMenuItem;
     bookPopupMenu: TPopupMenu;
 
-    searchField: TComboBox;
     MenuItem8: TMenuItem;
-    searchClose: TButton;
-    searchText: TEdit;
     ImageList1: TImageList;
-    Label1: TLabel;
-    searchStatus: TLabel;
     MainMenu1: TMainMenu;
     MenuItem1: TMenuItem;
     MenuItem5: TMenuItem;
     MenuItem6: TMenuItem;
     MenuItem7: TMenuItem;
-    searchPanel: TPanel;
     showAllAccounts: TMenuItem;
     showNoAccounts: TMenuItem;
-    searchDown: TSpeedButton;
-    searchUp: TSpeedButton;
     Timer1: TTimer;
     viewMenu: TMenuItem;
     MenuItem2: TMenuItem;
@@ -100,6 +92,7 @@ type
     procedure BookListUserSortItemsEvent(sender: TObject;
       var sortColumn: longint; var invertSorting: boolean);
     procedure delayedCallTimer(Sender: TObject);
+    procedure extendAdjacentBooksClick(Sender: TObject);
     procedure FormActivate(Sender: TObject);
     procedure FormClose(Sender: TObject; var CloseAction: TCloseAction);
     procedure FormCreate(Sender: TObject);
@@ -243,6 +236,12 @@ begin
   BookList.deserializeColumnWidths(userConfig.ReadString('BookList','ColumnWidths',''));
   BookList.deserializeColumnVisibility(userConfig.ReadString('BookList','ColumnVisibility',''));
   BookList.createUserColumnVisibilityPopupMenu();
+  BookList.createSearchBar();
+  BookList.SearchBar.Caption:='Ausleihensuche:';
+  BookList.SearchBar.SearchForwardText:='&Vorwärts';
+  BookList.SearchBar.SearchBackwardText:='&Rückwärts';
+  BookList.SearchBar.SearchLocations[0]:='alle Felder';
+  BookList.SearchBar.SearchLocations.InsertObject(0,'Verfasser/Titel',tobject(1 shl BL_BOOK_COLUMNS_AUTHOR or 1 shl BL_BOOK_COLUMNS_TITLE));
 
   //TODO Iconoptimize
   //TODO Öffnungszeiten
@@ -309,14 +308,21 @@ begin
 end;
 
 procedure TmainForm.bookPopupMenuPopup(Sender: TObject);
+var rsc,i: longint;
 begin
 {  extendThisBooks.Enabled:=(ListView1.SelCount=1) and
                   (PBook(ListView1.Selected.Data))^.lib.getLibrary().canModifySingleBooks;}
-  extendTheseBooks.Enabled:=(BookList.SelCount>=1);
-  extendAdjacentBooks.Enabled:=BookList.SelCount=1;
-  displayDetailsMI.Enabled:=BookList.selCount=1;
-  searchDetailsMI.Enabled:=BookList.selCount=1;
-  removeSelectedMI.Enabled:=BookList.selCount>0;
+  if BookList.selCount=0 then rsc:=0
+  else begin
+    rsc:=0;
+    for i:=0 to BookList.Items.Count-1 do
+      if BookList.Items[i].Selected then rsc+=1;
+  end;
+  extendTheseBooks.Enabled:=(rsc>=1);
+  extendAdjacentBooks.Enabled:=rsc=1;
+  displayDetailsMI.Enabled:=rsc=1;
+  searchDetailsMI.Enabled:=rsc=1;
+  removeSelectedMI.Enabled:=rsc>0;
 end;
 
 procedure TmainForm.appMinimize(Sender: TObject);
@@ -349,6 +355,12 @@ procedure TmainForm.delayedCallTimer(Sender: TObject);
 begin
   delayedCall.Enabled:=false;
  showErrorMessages();
+end;
+
+procedure TmainForm.extendAdjacentBooksClick(Sender: TObject);
+begin
+  if (BookList.Selected = nil) or (BookList.Selected.tag=0) then exit;
+  extendBooks(MaxLongint,TCustomAccountAccess(tbook(BookList.Selected).owner));
 end;
 
 procedure TmainForm.FormActivate(Sender: TObject);
@@ -401,7 +413,7 @@ begin
           ShowModal;
           free;
         end;
-      until (accountIDs.count<>0) or (MessageBox(0,'Sie müssen ein Konto angeben, um VideLibri benutzen zu können.'#13#10'Wollen Sie eines eingeben?','VideLibri',MB_YESNO or MB_ICONQUESTION)=mrNo);
+      until (accountIDs.count<>0) or (MessageBoxUTF8('Sie müssen ein Konto angeben, um VideLibri benutzen zu können.'#13#10'Wollen Sie eines eingeben?',MB_YESNO or MB_ICONQUESTION)=mrNo);
     end;
   //SHAREWARE CODE
   nag.Free;
@@ -459,7 +471,7 @@ begin
   books:=TBookList.Create;
   books.Capacity:=BookList.selCount;
   for i:=0 to BookList.Items.Count-1 do
-    if BookList.Items[i].Selected then
+    if BookList.Items[i].Selected and (BookList.Items[i].Tag<>0) then
       books.add(TBook(BookList.Items[i].Tag));
   extendBooks(books);
   books.free;
@@ -534,10 +546,14 @@ begin
     exit;
   end;
   for i:=0 to BookList.Items.count-1 do
-    if (BookList.Items[i].Selected) and tbook(BookList.Items[i].Tag).lend then begin
-      ShowMessage('Es sind momentan ausgeliehene Medien markiert, es können aber nur abgegebene Medien aus der History gelöscht werden'#13#10'Bitte demarkieren Sie sie.');
-      exit;
-    end;
+    if (BookList.Items[i].Selected) then
+      if BookList.Items[i].Tag=0 then begin
+        ShowMessage('Es ist momentan ein Eintrag markiert, bei dem es sich nicht um ein Buch handelt'#13#10'Bitte demarkieren Sie ihn.');
+        exit;
+      end else if tbook(BookList.Items[i].Tag).lend then begin
+        ShowMessage('Es sind momentan ausgeliehene Medien markiert, es können aber nur abgegebene Medien aus der History gelöscht werden'#13#10'Bitte demarkieren Sie sie.');
+        exit;
+      end;
   accountsToSave:=tlist.Create;
   for i:=0 to BookList.Items.count-1 do
     if (BookList.Items[i].Selected) then begin
@@ -556,7 +572,7 @@ end;
 
 procedure TmainForm.displayDetailsMIClick(Sender: TObject);
 begin
-  if BookList.Selected = nil then exit;
+  if (BookList.Selected = nil) or (BookList.Selected.tag=0) then exit;
   if searcherForm=nil then searcherForm:=TbookSearchFrm.Create(nil);
   searcherForm.selectBookToReSearch(tbook(BookList.Selected.tag));
   if tcontrol(sender).tag<>1 then searcherForm.startSearch.Click;
@@ -565,17 +581,7 @@ end;
 
 procedure TmainForm.searchTextKeyDown(Sender: TObject; var Key: Word;
   Shift: TShiftState);
-var temp:TWMKeyDown;
 begin
-  case key of
-    VK_DOWN,VK_UP,VK_NEXT,VK_PRIOR: begin
-      temp.msg:=WM_KEYDOWN;
-      temp.CharCode:=key;
-      temp.KeyData:=0;
-      BookList.WndProc(tmessage(temp));
-      key:=0;
-    end;
-  end;
 end;
 
 procedure TmainForm.UserExtendMenuClick(Sender: TObject);
@@ -600,35 +606,21 @@ end;
 
 procedure TmainForm.MenuItem8Click(Sender: TObject);
 begin
-  searchPanel.show;
-  searchText.SetFocus;
+  BookList.SearchBar.Show;
+  BookList.SearchBar.SetFocus;
 end;
 
 procedure TmainForm.searchCloseClick(Sender: TObject);
 begin
-  searchPanel.visible:=false;
-  BookList.SetFocus;
 end;
 
 procedure TmainForm.searchTextKeyUp(Sender: TObject; var Key: Word;
   Shift: TShiftState);
 begin
-  case key of
-    13: begin
-      key:=0;
-      if ssShift in shift then searchUp.Click
-      else searchDown.Click
-    end;
-    vk_escape: searchClose.click;
-    VK_DOWN,VK_UP,VK_NEXT,VK_PRIOR:; //see key down
-    else searchStatus.Caption:=AnsiToUtf8(BookList.search(Utf8ToAnsi(searchText.text), searchField.itemIndex-2,1,true))
-  end;
 end;
 
 procedure TmainForm.searchUpClick(Sender: TObject);
 begin
-  if sender=searchUp then searchStatus.Caption:=AnsiToUtf8(BookList.search(Utf8ToAnsi(searchText.Text), searchField.itemIndex-2, -1))
-  else searchStatus.Caption:=AnsiToUtf8(BookList.search(Utf8ToAnsi(searchText.text), searchField.itemIndex-2,1))
 end;
 
 procedure TmainForm.showAccount(Sender: TObject);
@@ -850,7 +842,7 @@ begin
   if updateThreadConfig.updateThreadsRunning<=0 then
     StatusBar1.Panels[0].text:='Älteste angezeigte Daten sind '+DateToPrettyGrammarStr('vom ','von ',lastCheck);
   icon.LoadFromFile(getTNAIconFileName());
-
+  Application.icon.LoadFromFile(getTNAIconFileName());
   //SHAREWARE CODE
   //Bücherzahl überprüfen
 

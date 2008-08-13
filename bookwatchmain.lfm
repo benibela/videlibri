@@ -1,7 +1,7 @@
 object mainForm: TmainForm
-  Left = 59
+  Left = 60
   Height = 681
-  Top = 23
+  Top = 24
   Width = 949
   Caption = 'Videlibri'
   ClientHeight = 662
@@ -82,98 +82,6 @@ object mainForm: TmainForm
       Caption = 'Homepages'
       ImageIndex = 1
       OnClick = ToolButton3Click
-    end
-  end
-  object searchPanel: TPanel
-    Height = 30
-    Top = 612
-    Width = 949
-    Align = alBottom
-    BevelInner = bvRaised
-    ClientHeight = 30
-    ClientWidth = 949
-    TabOrder = 1
-    object Label1: TLabel
-      Left = 25
-      Height = 14
-      Top = 8
-      Width = 79
-      Caption = 'Ausleihensuche:'
-      ParentColor = False
-    end
-    object searchDown: TSpeedButton
-      Left = 376
-      Height = 22
-      Top = 2
-      Width = 100
-      Caption = 'Abwärts suchen'
-      Color = clBtnFace
-      NumGlyphs = 0
-      OnClick = searchUpClick
-    end
-    object searchUp: TSpeedButton
-      Left = 482
-      Height = 22
-      Top = 2
-      Width = 100
-      Caption = 'Aufwärts suchen'
-      Color = clBtnFace
-      NumGlyphs = 0
-      Transparent = False
-      OnClick = searchUpClick
-    end
-    object searchStatus: TLabel
-      Left = 592
-      Height = 14
-      Top = 6
-      Width = 1
-      ParentColor = False
-    end
-    object searchText: TEdit
-      Left = 104
-      Height = 23
-      Top = 2
-      Width = 136
-      OnKeyDown = searchTextKeyDown
-      OnKeyUp = searchTextKeyUp
-      TabOrder = 0
-    end
-    object searchClose: TButton
-      Left = 5
-      Height = 20
-      Top = 4
-      Width = 17
-      BorderSpacing.InnerBorder = 4
-      Caption = 'X'
-      OnClick = searchCloseClick
-      TabOrder = 1
-      TabStop = False
-    end
-    object searchField: TComboBox
-      Left = 248
-      Height = 21
-      Top = 2
-      Width = 123
-      AutoCompleteText = [cbactEndOfLineComplete, cbactSearchAscending]
-      ItemHeight = 13
-      ItemIndex = 1
-      Items.Strings = (
-        'alle Felder'
-        'Verfasser/Titel'
-        'ID'
-        'Kategorie'
-        'Verfasser'
-        'Titel'
-        'Jahr'
-        'Ausleihe'
-        'Rückgabe'
-        'Konto'
-        'Bemerkung'
-      )
-      MaxLength = 0
-      Style = csDropDownList
-      TabOrder = 2
-      Text = 'Verfasser/Titel'
     end
   end
   object MainMenu1: TMainMenu
@@ -1250,6 +1158,7 @@ object mainForm: TmainForm
     end
     object extendAdjacentBooks: TMenuItem
       Caption = 'Alle Medien dieses Kontos verlängern'
+      OnClick = extendAdjacentBooksClick
     end
     object removeSelectedMI: TMenuItem
       Caption = 'Markierte Medien aus der History löschen'

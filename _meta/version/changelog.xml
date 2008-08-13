@@ -3,6 +3,10 @@
 <changelog program="VideLibri">
   <build version="0990" date="2008-07-19">
     <installer url="http://www.benibela.de/bin/tools/videlibri-setup.exe"/>
+    <fix level="major">STB: Ein Film wird nun auch angezeigt, wenn statt &lt;Jahr> nur &lt;Jahr im WebOPAC steht</fix>
+    <fix level="minor">In den Autostartmeldungen/fenstern werden die Umlaute richtig angezeigt</fix>
+  </build>
+  <build version="0990" date="2008-07-19">
     <add level="major">Es ist nun möglich beliebige Medien zu suchen</add>
     <add level="minor">In der gleichen Woche abzugebende Medien sind markiert</add>
     <change level="minor">Die Statistik wird nun schneller berechnet (Faktor "Zeit der Programmbenutzung" durch "Ausleihzeit eines Medium" ersetzt)</change>
