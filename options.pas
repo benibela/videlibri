@@ -36,11 +36,12 @@ type
     Label20: TLabel;
     Label21: TLabel;
     Label22: TLabel;
+    pageMenu: TPage;
     Panel2: TPanel;
     SpeedButton1: TSpeedButton;
     SpeedButton2: TSpeedButton;
     SpeedButton3: TSpeedButton;
-    SpeedButton4: TSpeedButton;
+    SpeedButton5: TSpeedButton;
     symbols: TComboBox;
     Label19: TLabel;
     proxyHTTPName: TEdit;

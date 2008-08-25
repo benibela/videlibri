@@ -15,7 +15,7 @@ sendBackError, internetAccess, autoupdate, progressDialog, registrierung,
 nagform, bbdebugtools,
 bibtexexport, simplexmlparser, booklistreader, librarySearcher, bookListView,
 bookSearchForm, librarySearcherAccess, extendedhtmlparser, TreeListView, 
-findControl;
+findControl, autoMenuManager;
 
 type
 

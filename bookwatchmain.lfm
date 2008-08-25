@@ -1141,7 +1141,7 @@ object mainForm: TmainForm
   object bookPopupMenu: TPopupMenu
     AutoPopup = False
     OnPopup = bookPopupMenuPopup
-    left = 160
+    left = 200
     top = 224
     object searchDetailsMI: TMenuItem
       Caption = 'Details für dieses Buch suchen...'

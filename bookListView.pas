@@ -44,18 +44,22 @@ windows {for the search only};
 { TBookListView }
 
 procedure TBookListView.BookListViewItemsSortedEvent(Sender: TObject);
+  function dateToWeek(date: longint):longint; //week: monday - sunday
+  begin
+    Result:=(date-2) div 7;
+  end;
 var i: longint;
     lastWeek: longint;
 begin
   if SortColumn<>BL_BOOK_COLUMNS_LIMIT_ID then exit;
   if items.count=0 then exit;
   BeginMultipleUpdate;
-  lastWeek:=currentDate div 7;
+  lastWeek:=dateToWeek(currentDate);
   for i:=0 to Items.Count-1 do
     if (Items[i].tag<>0) and (tbook(Items[i].tag).lend) and
-       (TBook(Items[i].tag).limitDate div 7 <> lastWeek) then begin
-      Items[i].RecordItemsText[BL_BOOK_EXTCOLUMNS_WEEK_SEPARATOR]:=IntToStr(abs(TBook(Items[i].tag).limitDate div 7 - lastWeek));
-      lastWeek:=TBook(Items[i].tag).limitDate div 7;
+       (dateToWeek(TBook(Items[i].tag).limitDate) <> lastWeek) then begin
+      Items[i].RecordItemsText[BL_BOOK_EXTCOLUMNS_WEEK_SEPARATOR]:=IntToStr(abs(dateToWeek(TBook(Items[i].tag).limitDate) - lastWeek));
+      lastWeek:=dateToWeek(TBook(Items[i].tag).limitDate);
      end else
       Items[i].RecordItemsText[BL_BOOK_EXTCOLUMNS_WEEK_SEPARATOR]:='';
   EndMultipleUpdate;

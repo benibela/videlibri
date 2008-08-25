@@ -43,7 +43,7 @@ var programPath,userPath,dataPath:string;
     nextLimitStr: string;
 
     appFullTitle:string='VideLibri';
-    versionNumber:integer=990;//=>versionNumber/1000
+    versionNumber:integer=991;//=>versionNumber/1000
     newVersionInstalled: boolean=false;
 
     startedMutex:THandle=0;
@@ -376,7 +376,7 @@ uses bookwatchmain,windows,internetaccess,w32internetaccess,controls,libraryacce
   var proc: THANDLE;
   begin
     GetWindowThreadProcessId(window,@proc);
-    if proc=_para2 then
+    if proc=thandle(_para2) then
       if IsWindowEnabled(window) and IsWindowVisible(window) then begin
         SetForegroundWindow(window);
         BringWindowToTop(window);

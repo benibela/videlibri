@@ -314,9 +314,9 @@ begin
                   (PBook(ListView1.Selected.Data))^.lib.getLibrary().canModifySingleBooks;}
   if BookList.selCount=0 then rsc:=0
   else begin
-    rsc:=0;
+    rsc:=BookList.selcount;
     for i:=0 to BookList.Items.Count-1 do
-      if BookList.Items[i].Selected then rsc+=1;
+      if BookList.Items[i].Selected and (BookList.Items[i].tag=0) then rsc:=0;
   end;
   extendTheseBooks.Enabled:=(rsc>=1);
   extendAdjacentBooks.Enabled:=rsc=1;

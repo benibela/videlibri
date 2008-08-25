@@ -1,10 +1,12 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <?xml-stylesheet type="text/xsl" href="../changelog.xsl"?>
 <changelog program="VideLibri">
-  <build version="0990" date="2008-07-19">
+  <build version="0991" date="2008-08-24">
     <installer url="http://www.benibela.de/bin/tools/videlibri-setup.exe"/>
     <fix level="major">STB: Ein Film wird nun auch angezeigt, wenn statt &lt;Jahr> nur &lt;Jahr im WebOPAC steht</fix>
     <fix level="minor">In den Autostartmeldungen/fenstern werden die Umlaute richtig angezeigt</fix>
+    <fix>Das Programmicon wird jetzt zusammen mit dem Fenstericon geändert</fix>
+    <change>Die Woche beginnt nun Montags</change>
   </build>
   <build version="0990" date="2008-07-19">
     <add level="major">Es ist nun möglich beliebige Medien zu suchen</add>

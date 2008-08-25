@@ -83,8 +83,8 @@ object bookSearchFrm: TbookSearchFrm
       Left = 45
       Height = 14
       Top = 5
-      Width = 178
-      Caption = '* am Ende sucht alle Verlängerungen'
+      Width = 176
+      Caption = '* am Ende sucht alle mögliche Enden'
       Color = 11400696
       ParentColor = False
       Transparent = False

@@ -32,7 +32,7 @@
         <PackageName Value="LCL"/>
       </Item1>
     </RequiredPackages>
-    <Units Count="32">
+    <Units Count="33">
       <Unit0>
         <Filename Value="bookWatch.lpr"/>
         <IsPartOfProject Value="True"/>
@@ -226,6 +226,11 @@
         <IsPartOfProject Value="True"/>
         <UnitName Value="findControl"/>
       </Unit31>
+      <Unit32>
+        <Filename Value="..\..\..\components\pascal\data\automenumanager.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="autoMenuManager"/>
+      </Unit32>
     </Units>
   </ProjectOptions>
   <CompilerOptions>
@@ -236,7 +241,7 @@
     </Target>
     <SearchPaths>
       <IncludeFiles Value="U:\components\pascal\data\"/>
-      <OtherUnitFiles Value="U:\components\pascal\import\regexpr\source\;U:\components\pascal\html\;U:\components\pascal\system\;U:\components\pascal\data\;U:\components\lazarus\internet\sendBackError\;U:\components\pascal\internet\;U:\components\lazarus\dialogs\"/>
+      <OtherUnitFiles Value="U:\components\pascal\data\;U:\components\pascal\import\regexpr\source\;U:\components\pascal\internet\;U:\components\pascal\system\;U:\components\lazarus\dialogs\;U:\components\lazarus\internet\sendBackError\"/>
       <SrcPath Value="U:\components\pascal\data\;P:\programming\lazarus\fpc\2.2.1\source\rtl\i386\;P:\programming\lazarus\fpc\2.2.1\source\rtl\inc\;$(LazarusDir)\lcl\;U:\components\pascal\INTERNET\;U:\components\lazarus\internet\;$(LazarusDir)\lcl\interfaces\$(LCLWidgetType)\;P:\programming\lazarus\lcl\;P:\programming\lazarus\lcl\include\;P:\programming\lazarus\fpc\2.2.1\source\rtl\objpas\"/>
     </SearchPaths>
     <Parsing>

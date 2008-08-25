@@ -183,9 +183,9 @@ procedure TbookSearchFrm.bookListSelect(sender: TObject; item: TTreeListItem);
   begin
     if length(v)>1000 then v:='<'+IntToStr(length(v))+' Bytes ausgeblendet>';
     if (n<>'')and(n[length(n)]='!')and(v<>'') then
-      detaillist.items.add(Utf8ToAnsi(copy(n,1,length(n)-1))).RecordItems.Add(Utf8ToAnsi(v))
+      detaillist.items.add((copy(n,1,length(n)-1))).RecordItems.Add((v))
      else if displayInternalProperties.Checked then
-      detaillist.items.add(Utf8ToAnsi(n)).RecordItems.Add(Utf8ToAnsi(v))
+      detaillist.items.add((n)).RecordItems.Add((v))
   end;
 var book: tbook;
 
@@ -350,17 +350,17 @@ var intern, empty, normal: TTreeListItems; //item lists
     if length(v)>1000 then v:='<'+IntToStr(length(v))+' Bytes ausgeblendet>';
     if not displayInternalProperties.Checked then begin
       if (n<>'')and(n[length(n)]='!')and(v<>'') then
-        detaillist.items.add(Utf8ToAnsi(copy(n,1,length(n)-1))).RecordItems.Add(Utf8ToAnsi(v))
+        detaillist.items.add((copy(n,1,length(n)-1))).RecordItems.Add((v))
     end else begin
       if (n<>'')and(n[length(n)]='!')and(v<>'') then begin
         if normal=nil then normal:=detaillist.Items.Add('normale Eigenschaften').SubItems;
-        normal.add(Utf8ToAnsi(copy(n,1,length(n)-1))).RecordItems.Add(Utf8ToAnsi(v))
+        normal.add((copy(n,1,length(n)-1))).RecordItems.Add((v))
       end else if (n<>'') and (n[length(n)]<>'!') then begin
         if intern=nil then intern:=detaillist.Items.Add('interne Eigenschaften').SubItems;
-        intern.add(Utf8ToAnsi(n)).RecordItems.Add(Utf8ToAnsi(v));
+        intern.add((n)).RecordItems.Add((v));
       end else begin
         if empty=nil then empty:=detaillist.Items.Add('leere Eigenschaften').SubItems;
-        empty.add(Utf8ToAnsi(n)).RecordItems.Add(Utf8ToAnsi(v))
+        empty.add((n)).RecordItems.Add((v))
       end;
 
 
