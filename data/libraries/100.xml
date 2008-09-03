@@ -3,7 +3,7 @@
   <longName value="Fachhochschulbibliothek Düsseldorf"/>
   <shortName value="FHB Düsseldorf"/>
   <homepage value="http://tisiphone.hbz-nrw.de/libero/WebOpac.cls"/>
-  <template value="libero"/>
+  <template value="libero54"/>
   
   <username matches="^(\d000\d{3}|\w\d{8})$"/>
   <password matches="."/>

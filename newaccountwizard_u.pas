@@ -175,6 +175,8 @@ begin
             showmessage('Internetverbindung fehlgeschlagen, bitte versuchen Sie es später noch einmal.')
            else
             showErrorMessages;
+        on Exception do
+          showErrorMessages();
       end;
     if MessageDlg('Noch ein Konto',
                   'Wollen Sie noch ein anderes Konto registrieren?',

@@ -43,7 +43,8 @@ type
     function equalToKey(aid,aauthor,atitle,ayear:string):boolean;overload;
     
     procedure clear;
-    procedure assignNoReplace(book: TBook);
+    procedure assignNoReplace(book: TBook); //every value not set will be replaced with the one from book
+    //procedure assignOverride(book: TBook);  //every value set in book will be replace the one of self
   end;
   
   TSaveAction = (saReplace, saAdd);
@@ -68,6 +69,7 @@ type
     procedure addList(alist: TBookList);
 
     procedure mergeMissingInformation(const old: TBookList);
+    //procedure overrideOldInformation(const old: TBookList);
     procedure removeAllFrom(booksToRemove: TBookList); //key comparison, not pointer
     procedure removeAllExcept(booksToKeep: TBookList); //key comparison, not pointer
     
@@ -254,7 +256,25 @@ begin
     if getProperty(book.additional[i].name,additional)='' then
       addProperty(book.additional[i].name,book.additional[i].value,additional);
 end;
-
+  {
+procedure TBook.assignOverride(book: TBook);
+var i:longint;
+begin
+  if book=nil then exit;
+  if book.category<>'' then category:=book.category;
+  if book.statusStr<>'' then statusStr:=book.statusStr;
+  if book.otherInfo<>'' then otherInfo:=book.otherInfo;
+  if book.issueDate<>0 then issueDate:=book.issueDate;
+  if book.limitDate<>0 then limitDate:=book.limitDate;
+  if book.status<>bsUnknown then status:=book.status;
+  if book.charges<>0 then charges:=book.charges;
+  if book.lastExistsDate<>0 then lastExistsDate:=book.lastExistsDate;
+  if (firstExistsDate=0) or ((book.firstExistsDate<>0) and (book.firstExistsDate<firstExistsDate)) then
+    firstExistsDate:=book.firstExistsDate;
+  for i:=0 to high(book.additional) do
+    setProperty(book.additional[i].name,book.additional[i].value,additional);
+end;
+   }
 
 { TBookList }
 
@@ -348,6 +368,14 @@ begin
   for i:=0 to count-1 do
     books[i].assignNoReplace(old.findBook(books[i]));
 end;
+
+{procedure TBookList.overrideOldInformation(const old: TBookList);
+var i:longint;
+begin
+  //TODO: Optimize to O(n log n)
+  for i:=0 to count-1 do
+    books[i].assignOverride(old.findBook(books[i]));
+end;}
 
 procedure TBookList.removeAllFrom(booksToRemove: TBookList);
 var i:longint;
@@ -746,7 +774,7 @@ var i:longint;
     parserLog: TTemplateHTMLParserLogClass;
 begin
   if logging then begin
-    log('Enter performAction');
+    log('Enter performAction, finternet:');
     parserLog:=TTemplateHTMLParserLogClass.Create;
     parserLog.parser:=parser;
     parser.onEnterTag:=@parserLog.et;

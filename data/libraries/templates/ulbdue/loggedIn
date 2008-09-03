@@ -3,8 +3,9 @@
 
 <table class="indent1"> 
  <tr> 
+  <td class=td1> Ausleihen</td>
   <td class=td1> 
-    <a><htmlparser:read var="bookpage" source="@href" regex="http://.*bor-loan">Ausleihen</a>
+    <a><htmlparser:read var="bookpage" source="@href" regex="http://.*bor-loan"></a>
   </td>
  </tr>
 </table> 

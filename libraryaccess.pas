@@ -399,6 +399,8 @@ begin
           if account.needSingleBookCheck() then
             account.updateAllSingly;
         end;
+        books.mergeMissingInformation(account.books.currentUpdate);
+        books.mergeMissingInformation(account.books.current);
         account.extendList(books);
         account.books.merge(true);
         account.save();

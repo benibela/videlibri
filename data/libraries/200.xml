@@ -6,10 +6,10 @@
 
   <longName value="Universitäts- und Landesbibliothek Düsseldorf"/>
   <shortName value="ULB Düsseldorf"/>
-  <homepage value="http://kant.ub.uni-duesseldorf.de/F"/>
+  <homepage value="http://katalog.ub.uni-duesseldorf.de/F"/>
   <template value="ulbdue"/>
   
-  <variable name="server" value="kant.ub.uni-duesseldorf.de/"/>
+  <variable name="server" value="katalog.ub.uni-duesseldorf.de/"/>
   
   <variable name="Location" value="Düsseldorf"/>
   <variable name="searchid-digibib" value="SERVICEGROUP1.SERVICE.SEARCH_ULBD"/>

@@ -1,8 +1,17 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <?xml-stylesheet type="text/xsl" href="../changelog.xsl"?>
-<changelog program="VideLibri">
-  <build version="0991" date="2008-08-24">
+<changeLog program="VideLibri">
+  <build version="0992" date="2008-09-03">
     <installer url="http://www.benibela.de/bin/tools/videlibri-setup.exe"/>
+    <fix level="critical">FHB: Die Änderung der Seitenstruktur wurde übernommen</fix>
+    <fix level="major">Das nicht automatische Verlängern funktioniert nun auch zuverlässiger</fix>
+    <fix level="minor">Die Liste verschwindet bei XP-Themes nicht mehr beim Fenstervergrößern</fix>
+  </build>
+  <build version="0992" date="2008-08-30">
+    <fix level="critical">ULB: Die Änderung der Seitenstruktur wurde übernommen</fix>
+    <fix level="critical">Die Autoupdatefunktion wurde repariert</fix>
+  </build>
+  <build version="0991" date="2008-08-24">
     <fix level="major">STB: Ein Film wird nun auch angezeigt, wenn statt &lt;Jahr> nur &lt;Jahr im WebOPAC steht</fix>
     <fix level="minor">In den Autostartmeldungen/fenstern werden die Umlaute richtig angezeigt</fix>
     <fix>Das Programmicon wird jetzt zusammen mit dem Fenstericon geändert</fix>
@@ -70,4 +79,5 @@
     <fix>Es werden nun auch wieder im März fällige Bücher der FHB erkannt.</fix> <!--Problem war: der Umlaut wurde nicht gelesen.--> 
     <fix>Das Benutzerverzeichnis wird nun auch gefunden, wenn der Pfad in machine.config nur relativ angegeben ist.</fix>
   </build>
-</changelog>
+</changeLog>
+

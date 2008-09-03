@@ -883,6 +883,7 @@ procedure TTemplateAccountAccess.extendList(booksToExtend: TBookList);
 var bookListStr:string;
     i:longint;
     extendAction: PTemplateAction;
+    book:TBook;
 begin
   if booksToExtend.Count=0 then exit;
   if logging then log('Enter TTemplateAccountAccess.extendList');
@@ -903,7 +904,10 @@ begin
     extendAction:=reader.findAction('extend-single');
     for i:=0 to booksToExtend.count-1 do begin
       reader.selectBook(booksToExtend[i]);
+      book:=reader.books.findBook(booksToExtend[i]);
+      if book<>nil then reader.selectBook(book); //handles more instances of the same book
       reader.performAction(extendAction^);
+
     end;
   end else if reader.findAction('extend-all')<>nil then begin
     if logging then log('use extendAll Template');

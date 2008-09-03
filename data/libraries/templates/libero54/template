@@ -1,0 +1,45 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<library-template>
+<accountExpired matches="Benutzerkarte ist abgelaufen"/>
+<maxlimit matches="Maximal erlaubte Anzahl Verlängerungen"/>
+
+<action id="connect">
+  <page url="http://$server;WebOpac.cls" templateFile="start"/>
+  <page url="http://$server;WebOpac.cls?VERSION=2&amp;ACTION=MEMBERSERV&amp;RSN=0&amp;DATA=$data;&amp;TOKEN=$token;&amp;Z=1&amp;NewBreadCrumb=1&amp;$logintoken;"/>
+</action>
+
+<action id="update-all">
+  <page url="http://$server;WebOpac.cls" templateFile="update"/>
+    <post name="MGWCHD">0</post>
+    <post name="TOKEN">$token;</post>
+    <post name="TOKENX">$tokenx;</post>
+    <post name="DATA">$data;</post>
+    <post name="usercode"></post>
+    <post name="VERSION">$version;</post>
+    <post name="RSN">0</post>
+    <post name="BARCODE"></post>
+    <post name="TOKENZ">$token;</post>
+    <post name="ACTION">MEMLOGIN</post>
+    <post name="usernum">$username;</post>
+    <post name="password">$password;</post>
+    <post name="btnlogin">LOGIN</post>
+  </page>
+  <error templateFile="loginError"/>
+</action>
+
+<action id="extend-list" singleBookStr="&amp;$book.extendid;=1">
+  <page url="http://$server;WebOpac.cls">
+    <post name="MGWCHD">0</post>
+    <post name="TOKEN">$token;</post>
+    <post name="TOKENX">$tokenx;</post>
+    <post name="DATA">$data;</post>
+    <post name="usercode"></post>
+    <post name="VERSION">$version;</post>
+    <post name="ACTION">MEMSLFISS</post>
+    <post name="bno">$username;</post>
+    <post name="mid">$mid;</post>
+    <post>$book-list;</post>
+  </page>
+  <call action="update-all"/>
+</action>
+</library-template>

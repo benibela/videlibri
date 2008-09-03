@@ -43,7 +43,7 @@ var programPath,userPath,dataPath:string;
     nextLimitStr: string;
 
     appFullTitle:string='VideLibri';
-    versionNumber:integer=991;//=>versionNumber/1000
+    versionNumber:integer=993;//=>versionNumber/1000
     newVersionInstalled: boolean=false;
 
     startedMutex:THandle=0;
@@ -328,13 +328,13 @@ uses bookwatchmain,windows,internetaccess,w32internetaccess,controls,libraryacce
                                                           ,'http://www.benibela.de/updates/videlibri/changelog.xml');
     if updater.existsUpdate then begin
       if not updater.hasDirectoryWriteAccess then begin
-        MessageBoxUTF8('Es gibt ein Update auf die Version '+floattostr(updater.newVersion/1000)+':'#13#10#13#10+
+        MessageBoxUTF8('Es gibt ein Update auf die Version '+floattostr(updater.newestVersion/1000)+':'#13#10#13#10+
                             updater.listChanges+#13#10+
                             'Um das Update herunterzuladen und zu installieren, müssen Sie Videlbri unter einem Benutzerkonto mit Administratorrechten starten.',mb_ok or MB_APPLMODAL,'Videlibri Update');
         updater.free;
         if logging then log('applicationUpdate exited');
         exit;
-      end else if { (not auto) or} (MessageBoxUTF8('Es gibt ein Update auf die Version '+floattostr(updater.newVersion/1000)+':'#13#10#13#10+
+      end else if { (not auto) or} (MessageBoxUTF8('Es gibt ein Update auf die Version '+floattostr(updater.newestVersion/1000)+':'#13#10#13#10+
                                               updater.listChanges+#13#10+
                                               'Soll es jetzt heruntergeladen und installiert werden?',mb_yesno or MB_APPLMODAL,'Videlibri Update')=idyes) then begin
         if lclStarted then begin
@@ -357,7 +357,7 @@ uses bookwatchmain,windows,internetaccess,w32internetaccess,controls,libraryacce
           MessageBoxUTF8('Update wurde installiert',mb_ok or MB_APPLMODAL,'Videlibri Update');
       end;
     end else if not auto then
-      MessageBoxUTF8('Kein Update gefunden',mb_ok or MB_APPLMODAL,'Videlibri Update');
+      MessageBoxUTF8('Kein Update gefunden'#13#10'Die Version '+floattostr(updater.newestVersion/1000)+' ist die aktuelle.',mb_ok or MB_APPLMODAL,'Videlibri Update');
     updater.free;
     userConfig.WriteInteger('updates','lastcheck',currentDate);
     if logging then log('applicationUpdate ended');

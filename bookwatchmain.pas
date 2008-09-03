@@ -360,7 +360,7 @@ end;
 procedure TmainForm.extendAdjacentBooksClick(Sender: TObject);
 begin
   if (BookList.Selected = nil) or (BookList.Selected.tag=0) then exit;
-  extendBooks(MaxLongint,TCustomAccountAccess(tbook(BookList.Selected).owner));
+  extendBooks(MaxLongint,tbook(BookList.Selected.tag).owner as TCustomAccountAccess);
 end;
 
 procedure TmainForm.FormActivate(Sender: TObject);
@@ -993,7 +993,7 @@ begin
                   'Falls Sie eine Eigenschaft von einem Konto ändern wollen, klicken Sie bitte auf den Button "Konto ändern"'#13#10+
                   'Falls Sie das Konto neu erstellen wollen, löschen Sie bitte das zuerst das alte, und erstellen es dann neu');
       exit;
-    end;   }
+   end;   }
 
   result:=libraryManager.getAccount(libID,aname);
   result.prettyName:=prettyName;
