@@ -1,23 +1,24 @@
 object mainForm: TmainForm
-  Left = 60
-  Height = 681
-  Top = 24
-  Width = 949
+  Left = 65
+  Height = 672
+  Top = 29
+  Width = 939
   Caption = 'Videlibri'
-  ClientHeight = 661
-  ClientWidth = 949
+  ClientHeight = 652
+  ClientWidth = 939
   Menu = MainMenu1
   OnActivate = FormActivate
   OnClose = FormClose
   OnCreate = FormCreate
   OnDestroy = FormDestroy
   OnResize = FormResize
+  ParentFont = False
   Position = poScreenCenter
-  LCLVersion = '0.9.25'
+  LCLVersion = '0.9.27'
   object StatusBar1: TStatusBar
     Height = 23
-    Top = 638
-    Width = 949
+    Top = 629
+    Width = 939
     Panels = <    
       item
         Width = 250
@@ -36,7 +37,7 @@ object mainForm: TmainForm
   end
   object ToolBar1: TToolBar
     Height = 54
-    Width = 949
+    Width = 939
     ButtonHeight = 52
     ButtonWidth = 52
     Caption = 'ToolBar1'
@@ -48,6 +49,7 @@ object mainForm: TmainForm
     Images = ImageList1
     Indent = 15
     ParentColor = False
+    ParentFont = False
     TabOrder = 0
     object Label2: TLabel
       Left = 183
@@ -61,6 +63,7 @@ object mainForm: TmainForm
       Font.Pitch = fpVariable
       Font.Style = [fsBold]
       ParentColor = False
+      ParentFont = False
     end
     object ToolButton1: TToolButton
       Left = 131

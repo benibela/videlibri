@@ -35,7 +35,9 @@ Einbinden mit <?xml-stylesheet type="text/xsl" href="changelog.xsl"?>
                  Beseitigte Fehler:
                  <ul>
                  <xsl:for-each select="fix">
-                 <li><xsl:value-of select="."/></li>
+                 <li><xsl:if test="@level = 'critical'"><xsl:attribute name="style">color: red; font-weight:bold;</xsl:attribute></xsl:if>
+                     <xsl:if test="@level = 'major'"><xsl:attribute name="style">font-weight:bold;</xsl:attribute></xsl:if>
+                     <xsl:value-of select="."/></li>
                  </xsl:for-each></ul>
                  </xsl:if>
                  </div>

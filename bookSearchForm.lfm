@@ -1,21 +1,22 @@
 object bookSearchFrm: TbookSearchFrm
-  Left = 297
-  Height = 486
-  Top = 162
-  Width = 750
+  Left = 302
+  Height = 476
+  Top = 167
+  Width = 740
   ActiveControl = optionPanel
   Caption = 'Suche in der DigiBib.net'
-  ClientHeight = 486
-  ClientWidth = 750
+  ClientHeight = 476
+  ClientWidth = 740
   OnCreate = FormCreate
   OnDestroy = FormDestroy
+  ParentFont = False
   LCLVersion = '0.9.25'
   object optionPanel: TPanel
-    Height = 466
-    Width = 227
+    Height = 453
+    Width = 243
     Align = alLeft
-    ClientHeight = 466
-    ClientWidth = 227
+    ClientHeight = 453
+    ClientWidth = 243
     TabOrder = 0
     OnClick = optionPanelClick
     object Label1: TLabel
@@ -34,6 +35,7 @@ object bookSearchFrm: TbookSearchFrm
       Caption = 'Titel'
       Font.Style = [fsBold]
       ParentColor = False
+      ParentFont = False
     end
     object Label8: TLabel
       Left = 14
@@ -43,6 +45,7 @@ object bookSearchFrm: TbookSearchFrm
       Caption = 'Autor'
       Font.Style = [fsBold]
       ParentColor = False
+      ParentFont = False
     end
     object Label9: TLabel
       Left = 14
@@ -69,10 +72,11 @@ object bookSearchFrm: TbookSearchFrm
       ParentColor = False
     end
     object searchAuthorHint: TLabel
-      Left = 48
+      Left = 67
       Height = 14
       Top = 48
       Width = 171
+      Anchors = [akTop, akRight]
       Caption = '"Nachname" oder "Name, Vorname"'
       Color = 11400696
       ParentColor = False
@@ -80,10 +84,11 @@ object bookSearchFrm: TbookSearchFrm
       Visible = False
     end
     object searchTitleHint: TLabel
-      Left = 45
+      Left = 62
       Height = 14
       Top = 5
       Width = 176
+      Anchors = [akTop, akRight]
       Caption = '* am Ende sucht alle mögliche Enden'
       Color = 11400696
       ParentColor = False
@@ -92,9 +97,9 @@ object bookSearchFrm: TbookSearchFrm
     end
     object searchSelectionList: TCheckListBox
       Left = 8
-      Height = 100
+      Height = 82
       Top = 321
-      Width = 212
+      Width = 228
       Anchors = [akTop, akLeft, akRight, akBottom]
       OnClickCheck = searchSelectionListClickCheck
       TabOrder = 0
@@ -103,10 +108,10 @@ object bookSearchFrm: TbookSearchFrm
       Left = 8
       Height = 21
       Top = 22
-      Width = 212
+      Width = 228
       Anchors = [akTop, akLeft, akRight]
-      AutoCompleteText = [cbactEndOfLineComplete, cbactSearchAscending]
       ItemHeight = 13
+      MaxLength = -1
       OnChange = searchTitleChange
       OnEnter = searchAuthorEnter
       OnExit = searchAuthorExit
@@ -116,10 +121,10 @@ object bookSearchFrm: TbookSearchFrm
       Left = 8
       Height = 21
       Top = 64
-      Width = 212
+      Width = 228
       Anchors = [akTop, akLeft, akRight]
-      AutoCompleteText = [cbactEndOfLineComplete, cbactSearchAscending]
       ItemHeight = 13
+      MaxLength = -1
       OnEnter = searchAuthorEnter
       OnExit = searchAuthorExit
       TabOrder = 2
@@ -128,10 +133,10 @@ object bookSearchFrm: TbookSearchFrm
       Left = 8
       Height = 21
       Top = 147
-      Width = 212
+      Width = 228
       Anchors = [akTop, akLeft, akRight]
-      AutoCompleteText = [cbactEndOfLineComplete, cbactSearchAscending]
       ItemHeight = 13
+      MaxLength = -1
       TabOrder = 3
     end
     object startSearch: TButton
@@ -148,10 +153,10 @@ object bookSearchFrm: TbookSearchFrm
       Left = 8
       Height = 21
       Top = 295
-      Width = 212
+      Width = 228
       Anchors = [akTop, akLeft, akRight]
-      AutoCompleteText = [cbactEndOfLineComplete, cbactSearchAscending]
       ItemHeight = 13
+      MaxLength = -1
       OnSelect = searchLocationSelect
       Style = csDropDownList
       TabOrder = 5
@@ -159,7 +164,7 @@ object bookSearchFrm: TbookSearchFrm
     object displayInternalProperties: TCheckBox
       Left = 8
       Height = 19
-      Top = 443
+      Top = 430
       Width = 157
       Anchors = [akLeft, akBottom]
       Caption = 'alle Eigenschaften auflisten'
@@ -169,7 +174,7 @@ object bookSearchFrm: TbookSearchFrm
     object displayImage: TCheckBox
       Left = 8
       Height = 19
-      Top = 426
+      Top = 410
       Width = 88
       Anchors = [akLeft, akBottom]
       Caption = 'Bild anzeigen'
@@ -182,37 +187,37 @@ object bookSearchFrm: TbookSearchFrm
       Left = 8
       Height = 21
       Top = 192
-      Width = 212
+      Width = 228
       Anchors = [akTop, akLeft, akRight]
-      AutoCompleteText = [cbactEndOfLineComplete, cbactSearchAscending]
       ItemHeight = 13
+      MaxLength = -1
       TabOrder = 8
     end
     object searchKeywords: TComboBox
       Left = 8
       Height = 21
       Top = 107
-      Width = 211
+      Width = 227
       Anchors = [akTop, akLeft, akRight]
-      AutoCompleteText = [cbactEndOfLineComplete, cbactSearchAscending]
       ItemHeight = 13
+      MaxLength = -1
       TabOrder = 9
     end
   end
   object bookListPanel: TPanel
-    Left = 232
-    Height = 466
-    Width = 518
+    Left = 248
+    Height = 453
+    Width = 492
     Align = alClient
-    ClientHeight = 466
-    ClientWidth = 518
+    ClientHeight = 453
+    ClientWidth = 492
     TabOrder = 1
     object Splitter2: TSplitter
       Cursor = crVSplit
       Left = 1
       Height = 5
-      Top = 231
-      Width = 516
+      Top = 218
+      Width = 490
       Align = alBottom
       Beveled = True
       ResizeAnchor = akBottom
@@ -220,15 +225,15 @@ object bookSearchFrm: TbookSearchFrm
     object detailPanel: TPanel
       Left = 1
       Height = 209
-      Top = 236
-      Width = 516
+      Top = 223
+      Width = 490
       Align = alBottom
       BevelOuter = bvNone
       ClientHeight = 209
-      ClientWidth = 516
+      ClientWidth = 490
       TabOrder = 1
       object Image1: TImage
-        Left = 410
+        Left = 384
         Height = 209
         Width = 106
         Align = alRight
@@ -236,7 +241,7 @@ object bookSearchFrm: TbookSearchFrm
         Proportional = True
       end
       object Splitter3: TSplitter
-        Left = 405
+        Left = 379
         Height = 209
         Width = 5
         Align = alRight
@@ -246,80 +251,81 @@ object bookSearchFrm: TbookSearchFrm
     object Panel1: TPanel
       Left = 1
       Height = 20
-      Top = 445
-      Width = 516
+      Top = 432
+      Width = 490
       Align = alBottom
+      ChildSizing.EnlargeHorizontal = crsHomogenousChildResize
+      ChildSizing.Layout = cclLeftToRightThenTopToBottom
+      ChildSizing.ControlsPerLine = 5
       ClientHeight = 20
-      ClientWidth = 516
+      ClientWidth = 490
       TabOrder = 2
       object Label2: TLabel
-        Left = 8
         Height = 14
-        Top = 2
         Width = 118
         Caption = 'Dieses Buch im Internet:'
         ParentColor = False
       end
       object Label3: TLabel
         Cursor = crHandPoint
-        Left = 134
+        Left = 138
         Height = 14
-        Top = 2
         Width = 51
         Caption = 'digibib.net'
         Font.Color = clBlue
         Font.Style = [fsUnderline]
         ParentColor = False
+        ParentFont = False
         OnClick = Label3Click
       end
       object Label4: TLabel
         Cursor = crHandPoint
-        Left = 197
+        Left = 209
         Height = 14
-        Top = 2
         Width = 121
         Caption = 'Bücherei-eigener Katalog'
         Font.Color = clBlue
         Font.Style = [fsUnderline]
         ParentColor = False
+        ParentFont = False
         OnClick = Label3Click
       end
       object Label5: TLabel
         Cursor = crHandPoint
-        Left = 327
+        Left = 350
         Height = 14
-        Top = 2
         Width = 54
         Caption = 'amazon.de'
         Font.Color = clBlue
         Font.Style = [fsUnderline]
         ParentColor = False
+        ParentFont = False
         OnClick = Label3Click
       end
       object Label6: TLabel
         Cursor = crHandPoint
-        Left = 391
+        Left = 424
         Height = 14
-        Top = 2
         Width = 49
         Caption = 'google.de'
         Font.Color = clBlue
         Font.Style = [fsUnderline]
         ParentColor = False
+        ParentFont = False
         OnClick = Label3Click
       end
     end
   end
   object Splitter1: TSplitter
-    Left = 227
-    Height = 466
+    Left = 243
+    Height = 453
     Width = 5
     Beveled = True
   end
   object StatusBar1: TStatusBar
-    Height = 20
-    Top = 466
-    Width = 750
+    Height = 23
+    Top = 453
+    Width = 740
     Panels = <    
       item
         Width = 200

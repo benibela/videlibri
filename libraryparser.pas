@@ -264,7 +264,7 @@ begin
     defaultVariables.Add(getProperty('name',properties)+defaultVariables.NameValueSeparator+value);
   end else if tagName='username' then usernameRegEx.Expression:=getProperty('matches',properties)
   else if tagName='password' then passwordRegEx.Expression:=getProperty('matches',properties)
-  else if tagName='maxExtendCount' then maxExtendCount:=StrToInt(value);
+  else if tagName='maxextendcount' then maxExtendCount:=StrToInt(value);
   Result:=true;
 end;
 
@@ -272,7 +272,7 @@ procedure TLibrary.loadFromFile(fileName: string);
 begin
   id:=ChangeFileExt(ExtractFileName(fileName),'');;
   maxExtendCount:=-1;
-  parseXML(loadFileToStr(fileName),@readProperty,nil,nil,eUTF8);
+  parseXML(strLoadFromFile(fileName),@readProperty,nil,nil,eUTF8);
   if template<>nil then begin
     canModifySingleBooks:=(template.findAction('extend-single')<>nil)  or
                           (template.findAction('extend-list')<>nil) ;
@@ -620,14 +620,6 @@ procedure TCustomAccountAccess.init(apath,userID:string);
 begin
   self.path:=apath;
   self.user:=userID;
-  
-  if FileExists(path+getID()+'.old') then begin
-    //Es handelt sich um eine ältere Version (<=0.95)
-    //damals hießen die Dateien .old/.current und waren im Win1252 Zeichensatz
-    saveFileFromStr(path+getID()+'.history',AnsiToUtf8(loadFileToStr(path+getID()+'.old')));
-    saveFileFromStr(path+getID()+'.current',AnsiToUtf8(loadFileToStr(path+getID()+'.current')));
-    DeleteFile(path+getID()+'.old');
-  end;
   
   //Datenladen/cachen
   fbooks:=TBookLists.create(self,path+getID()+'.history',path+getID()+'.current');

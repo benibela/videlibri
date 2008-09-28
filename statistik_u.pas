@@ -15,6 +15,7 @@ type
   TstatistikForm = class(TForm)
     Button1: TButton;
     CheckBox1: TCheckBox;
+    CheckBox2: TCheckBox;
     ComboBox1: TComboBox;
     Label1: TLabel;
     mausInfo: TLabel;
@@ -23,6 +24,7 @@ type
     Panel2: TPanel;
     procedure Button1Click(Sender: TObject);
     procedure CheckBox1Click(Sender: TObject);
+    procedure CheckBox2Change(Sender: TObject);
     procedure ComboBox1Select(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
@@ -205,7 +207,7 @@ procedure TstatistikForm.FormCreate(Sender: TObject);
 begin
   diagram:=TDiagram.create;
   diagram.XAxis.valueTranslate:=@translateDate;
-  diagram.Diagram.Width:=400;
+  diagram.Diagram.SetSize(PaintBox1.Width,PaintBox1.Height);
   ComboBox1.ItemIndex:=0;
 end;
 
@@ -217,6 +219,13 @@ end;
 procedure TstatistikForm.CheckBox1Click(Sender: TObject);
 begin
   updateStatistic;
+end;
+
+procedure TstatistikForm.CheckBox2Change(Sender: TObject);
+begin
+  diagram.filled:=CheckBox2.Checked;
+  diagram.update;
+  PaintBox1Paint(PaintBox1);
 end;
 
 procedure TstatistikForm.ComboBox1Select(Sender: TObject);

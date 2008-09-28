@@ -199,7 +199,7 @@ begin
   fshowlendbooks:=showLendBooks;
   Align:=alClient;
 
-  ColumnsDragable:=true;
+  Options:=Options+[tlvoColumnsDragable];
   Columns.Clear;
   with Columns.Add do begin
     Text:='ID';

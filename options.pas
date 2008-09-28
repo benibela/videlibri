@@ -7,7 +7,7 @@ interface
 uses
   Classes, SysUtils, LResources, Forms, Controls, Graphics, Dialogs, ComCtrls,
   Buttons, StdCtrls, bookWatchMain, libraryParser, ExtCtrls,registry,
-  ButtonPanel, EditBtn;
+  ButtonPanel, EditBtn,Themes;
 //TODO: Fix resizing bug (LCL)
 //TODO2: Offenen Einstellungsfenster => Verschwinden aus Programmauswahl
 type
@@ -61,8 +61,8 @@ type
     Label14: TLabel;
     Label15: TLabel;
     Label16: TLabel;
-    Label17: TLabel;
-    Label18: TLabel;
+    timeNearMeaningLabelLeft: TLabel;
+    timeNearMeaningLabelRight: TLabel;
     Label2: TLabel;
     Label3: TLabel;
     Label6: TLabel;
@@ -109,6 +109,7 @@ type
     procedure ComboBox1Change(Sender: TObject);
     procedure edtAccountUserChange(Sender: TObject);
     procedure FormCreate(Sender: TObject);
+    procedure FormResize(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure ImageList1Change(Sender: TObject);
     procedure ListView2Change(Sender: TObject; Item: TListItem;
@@ -194,7 +195,10 @@ end;
 procedure ToptionForm.FormCreate(Sender: TObject);
 var i:integer;
 begin
-
+  //TrackBar1.Color:=clWhite;
+//  if ThemeServices.ThemesEnabled then TrackBar1.Color:=clWhite;
+//  else TrackBar1.Color:=cl; //ThemeServices.ColorToRGB(clBtnFace);
+   //TrackBar1.ControlStyle:=TrackBar1.ControlStyle-[csOpaque];
 
   Notebook1.PageIndex:=0;
 
@@ -241,6 +245,12 @@ begin
   Notebook1.ShowTabs:=false ;
 
   updateActiveInternetConfig;
+end;
+
+procedure ToptionForm.FormResize(Sender: TObject);
+begin
+  timeNearMeaning.Left:=timeNearMeaningLabelLeft.Left+timeNearMeaningLabelLeft.Width+4;
+  timeNearMeaningLabelRight.Left:=timeNearMeaning.Left+timeNearMeaning.Width+4;
 end;
 
 procedure ToptionForm.FormShow(Sender: TObject);

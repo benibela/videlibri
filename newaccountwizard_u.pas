@@ -26,7 +26,7 @@ type
     accountPrettyName: TEdit;
     extendDaysEdit: TEdit;
     Label1: TLabel;
-    Label2: TLabel;
+    Label2: TLabel;                          //todo: warum immer alle verlängern als standard?
     Label3: TLabel;
     Label4: TLabel;
     passLabel: TLabel;

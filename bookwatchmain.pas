@@ -223,8 +223,7 @@ begin
   BookList:=TBookListView.create(self,true);
   BookList.Parent:=self;
   BookList.BackGroundColor:=colorOK;
-  BookList.Striped:=false;
-  BookList.multiSelect:=true;
+  BookList.Options:=BookList.Options-[tlvoStriped]+[tlvoMultiSelect,tlvoSorted];
   BookList.PopupMenu:=bookPopupMenu;
   BookList.OnSelect:=@BookListSelectItem;
   BookList.SortColumn:=BL_BOOK_COLUMNS_LIMIT_ID;
@@ -774,7 +773,7 @@ begin
     end;
     if oldList then bookList.addBookList(TCustomAccountAccess(viewMenu.Items[i].Tag).books.old);
   end;
-  BookList.Sorted:=true;
+  BookList.Sort;
 
   //SHAREWARE CODE
   {$I obfuscate.inc}

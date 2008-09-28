@@ -1,18 +1,20 @@
 object optionForm: ToptionForm
-  Left = 287
-  Height = 296
-  Top = 128
-  Width = 497
-  HorzScrollBar.Page = 496
-  VertScrollBar.Page = 295
+  Left = 292
+  Height = 300
+  Top = 133
+  Width = 500
+  HorzScrollBar.Page = 499
+  VertScrollBar.Page = 299
   AutoScroll = False
   BorderIcons = [biSystemMenu]
   BorderStyle = bsDialog
   Caption = 'Optionen'
-  ClientHeight = 296
-  ClientWidth = 497
+  ClientHeight = 300
+  ClientWidth = 500
   OnCreate = FormCreate
+  OnResize = FormResize
   OnShow = FormShow
+  ParentFont = False
   Position = poScreenCenter
   LCLVersion = '0.9.25'
   object Bevel1: TBevel
@@ -29,7 +31,7 @@ object optionForm: ToptionForm
     OnChangeBounds = Notebook1ChangeBounds
     OnChanging = Notebook1Changing
     OnPageChanged = Notebook1PageChanged
-    PageIndex = 3
+    PageIndex = 1
     ShowTabs = False
     TabOrder = 0
     object pageAccount: TPage
@@ -82,12 +84,15 @@ object optionForm: ToptionForm
         ParentColor = False
       end
       object lblAccountExtend2: TLabel
-        Left = 281
+        AnchorSideLeft.Control = edtAccountExtendDays
+        AnchorSideLeft.Side = asrBottom
+        Left = 287
         Height = 14
         Top = 188
-        Width = 121
-        Anchors = [akRight, akBottom]
-        Caption = 'Tage vor dem Fristdatum'
+        Width = 98
+        Anchors = [akLeft, akBottom]
+        BorderSpacing.Left = 5
+        Caption = 'Tage vor Fristdatum'
         ParentColor = False
         Visible = False
       end
@@ -153,27 +158,27 @@ object optionForm: ToptionForm
         TabOrder = 9
       end
       object edtAccountPass: TEdit
-        Left = 88
+        Left = 96
         Height = 24
         Top = 158
-        Width = 315
+        Width = 307
         Anchors = [akLeft, akRight, akBottom]
         TabOrder = 3
       end
       object edtAccountUser: TEdit
-        Left = 88
+        Left = 96
         Height = 24
         Top = 132
-        Width = 315
+        Width = 307
         Anchors = [akLeft, akRight, akBottom]
         OnChange = edtAccountUserChange
         TabOrder = 2
       end
       object edtAccountPrettyName: TEdit
-        Left = 88
+        Left = 96
         Height = 24
         Top = 106
-        Width = 315
+        Width = 307
         Anchors = [akLeft, akRight, akBottom]
         TabOrder = 1
       end
@@ -214,29 +219,30 @@ object optionForm: ToptionForm
         OnSelectItem = accountListSelectItem
       end
       object cmbAccountExtend: TComboBox
-        Left = 88
+        Left = 96
         Height = 21
         Top = 184
-        Width = 315
-        Anchors = [akLeft, akRight, akBottom]
-        AutoCompleteText = [cbactEndOfLineComplete, cbactSearchAscending]
+        Width = 307
+        Anchors = [akLeft, akBottom]
         ItemHeight = 13
         Items.Strings = (
           'immer, wenn möglich'
           'immer, wenn nötig'
           'niemals'
         )
-        MaxLength = 0
         OnSelect = ComboBox1Change
         Style = csDropDownList
         TabOrder = 5
       end
       object edtAccountExtendDays: TEdit
-        Left = 249
+        AnchorSideLeft.Control = lblAccountExtend1
+        AnchorSideLeft.Side = asrBottom
+        Left = 250
         Height = 21
         Top = 184
         Width = 32
-        Anchors = [akLeft, akRight, akBottom]
+        Anchors = [akLeft, akBottom]
+        BorderSpacing.Left = 5
         TabOrder = 6
         Text = '7'
         Visible = False
@@ -257,11 +263,11 @@ object optionForm: ToptionForm
     object pageColors: TPage
       Caption = 'pageColors'
       ClientWidth = 407
-      ClientHeight = 279
+      ClientHeight = 261
       object Label8: TLabel
         Left = 12
         Height = 14
-        Top = 11
+        Top = 8
         Width = 281
         Caption = 'Farbe für Medien die bald zurückgegeben werden müssen:'
         ParentColor = False
@@ -276,7 +282,7 @@ object optionForm: ToptionForm
       object Label10: TLabel
         Left = 12
         Height = 30
-        Top = 73
+        Top = 70
         Width = 369
         AutoSize = False
         Caption = 'Farbe für nicht verlängerbare Medien, die nicht bald zurückgegeben werden müssen:'
@@ -286,14 +292,14 @@ object optionForm: ToptionForm
       object ShapeLimited: TShape
         Left = 44
         Height = 17
-        Top = 103
+        Top = 105
         Width = 176
         OnMouseUp = Shape1MouseUp
       end
       object Label11: TLabel
         Left = 12
         Height = 14
-        Top = 127
+        Top = 126
         Width = 203
         Caption = 'Farbe für normale, verlängerbare Medien:'
         ParentColor = False
@@ -316,11 +322,11 @@ object optionForm: ToptionForm
         Left = 12
         Height = 14
         Top = 168
-        Width = 352
-        Caption = 'Farbe für Medien, die einmal ausgeliehen waren, es aber nicht mehr sind:'
+        Width = 312
+        Caption = 'Farbe für zurückgegebene Medien, die früher ausgeliehen waren'
         ParentColor = False
       end
-      object Label17: TLabel
+      object timeNearMeaningLabelLeft: TLabel
         Left = 67
         Height = 14
         Top = 50
@@ -328,8 +334,8 @@ object optionForm: ToptionForm
         Caption = 'bald bedeutet:  innerhalb der nächsten'
         ParentColor = False
       end
-      object Label18: TLabel
-        Left = 311
+      object timeNearMeaningLabelRight: TLabel
+        Left = 341
         Height = 14
         Top = 50
         Width = 25
@@ -339,7 +345,7 @@ object optionForm: ToptionForm
       object Label19: TLabel
         Left = 12
         Height = 14
-        Top = 221
+        Top = 223
         Width = 64
         Caption = 'Symbolleiste:'
         ParentColor = False
@@ -347,7 +353,7 @@ object optionForm: ToptionForm
       object Button4: TButton
         Left = 20
         Height = 25
-        Top = 248
+        Top = 230
         Width = 80
         Anchors = [akLeft, akBottom]
         BorderSpacing.InnerBorder = 4
@@ -358,7 +364,7 @@ object optionForm: ToptionForm
       object Button5: TButton
         Left = 116
         Height = 25
-        Top = 248
+        Top = 230
         Width = 83
         Anchors = [akLeft, akBottom]
         BorderSpacing.InnerBorder = 4
@@ -367,26 +373,29 @@ object optionForm: ToptionForm
         TabOrder = 1
       end
       object timeNearMeaning: TEdit
-        Left = 255
+        Left = 296
         Height = 23
         Top = 47
-        Width = 52
+        Width = 38
         TabOrder = 2
         Text = '2'
       end
       object symbols: TComboBox
-        Left = 81
+        AnchorSideLeft.Control = Label19
+        AnchorSideLeft.Side = asrBottom
+        AnchorSideTop.Control = Label19
+        AnchorSideTop.Side = asrCenter
+        Left = 85
         Height = 21
-        Top = 217
+        Top = 220
         Width = 155
-        AutoCompleteText = [cbactEndOfLineComplete, cbactSearchAscending]
+        BorderSpacing.Left = 9
         ItemHeight = 13
         Items.Strings = (
           'Text und Icons'
           'Nur Text'
           'Nur Icons'
         )
-        MaxLength = 0
         Style = csDropDownList
         TabOrder = 3
       end
@@ -394,36 +403,36 @@ object optionForm: ToptionForm
     object pageInternet: TPage
       Caption = 'pageInternet'
       ClientWidth = 407
-      ClientHeight = 279
+      ClientHeight = 261
       object Label13: TLabel
         Left = 36
-        Height = 14
+        Height = 17
         Top = 91
-        Width = 30
+        Width = 37
         Caption = 'HTTP:'
         ParentColor = False
       end
       object Label14: TLabel
         Left = 35
-        Height = 14
+        Height = 17
         Top = 117
-        Width = 36
+        Width = 45
         Caption = 'HTTPS:'
         ParentColor = False
       end
       object Label15: TLabel
         Left = 13
-        Height = 14
+        Height = 17
         Top = 9
-        Width = 138
+        Width = 163
         Caption = 'Zugriff auf die Mediendaten:'
         ParentColor = False
       end
       object Label16: TLabel
         Left = 13
-        Height = 14
+        Height = 17
         Top = 146
-        Width = 201
+        Width = 240
         Caption = 'Zugriff auf die Homepages der Bücherein:'
         ParentColor = False
       end
@@ -450,27 +459,27 @@ object optionForm: ToptionForm
       end
       object internetWindows: TRadioButton
         Left = 15
-        Height = 19
-        Top = 29
-        Width = 229
+        Height = 22
+        Top = 27
+        Width = 275
         Caption = 'Windowsinterneteinstellungen übernehmen'
         Checked = True
         State = cbChecked
         TabOrder = 2
       end
       object internetDirect: TRadioButton
-        Left = 16
-        Height = 19
-        Top = 47
-        Width = 137
+        Left = 15
+        Height = 22
+        Top = 46
+        Width = 163
         Caption = 'Direkter Internetzugang'
         TabOrder = 3
       end
       object internetProxy: TRadioButton
         Left = 15
-        Height = 19
-        Top = 63
-        Width = 182
+        Height = 22
+        Top = 65
+        Width = 219
         Caption = 'Internetzugang über einen Proxy:'
         TabOrder = 4
       end
@@ -519,9 +528,9 @@ object optionForm: ToptionForm
         TabOrder = 9
         object homepageSimpleBrowser: TRadioButton
           Left = 8
-          Height = 19
+          Height = 22
           Top = -1
-          Width = 182
+          Width = 224
           Caption = 'über integrierten Internet Explorer'
           Checked = True
           State = cbChecked
@@ -529,18 +538,18 @@ object optionForm: ToptionForm
         end
         object homepageDefaultBrowser: TRadioButton
           Left = 8
-          Height = 19
+          Height = 22
           Top = 16
-          Width = 151
+          Width = 182
           Caption = 'über den Standardbrowser'
           TabOrder = 1
         end
       end
       object autoUpdate: TCheckBox
         Left = 16
-        Height = 19
+        Height = 22
         Top = 215
-        Width = 199
+        Width = 237
         Caption = 'Automatisch auf Updates überprüfen'
         TabOrder = 10
       end
@@ -551,7 +560,7 @@ object optionForm: ToptionForm
     object PageBehaviour: TPage
       Caption = 'PageBehaviour'
       ClientWidth = 407
-      ClientHeight = 279
+      ClientHeight = 261
       object Label3: TLabel
         Left = 12
         Height = 14
@@ -569,7 +578,7 @@ object optionForm: ToptionForm
         ParentColor = False
       end
       object Label7: TLabel
-        Left = 342
+        Left = 333
         Height = 14
         Top = 44
         Width = 57
@@ -598,23 +607,26 @@ object optionForm: ToptionForm
         Left = 12
         Height = 14
         Top = 111
-        Width = 379
-        Caption = 'Wie oft soll eine Sicherheitskopie des Ausleiharchives maximal erzeugt werden?'
+        Width = 297
+        Caption = 'Wie oft soll eine Sicherheitskopie der History erzeugt werden?'
         ParentColor = False
       end
       object Label21: TLabel
         Left = 44
         Height = 14
         Top = 130
-        Width = 17
-        Caption = 'alle'
+        Width = 58
+        Caption = 'maximal alle'
         ParentColor = False
       end
       object Label22: TLabel
-        Left = 116
+        AnchorSideLeft.Control = edtHistoryBackupInterval
+        AnchorSideLeft.Side = asrBottom
+        Left = 160
         Height = 14
         Top = 130
         Width = 25
+        BorderSpacing.Left = 9
         Caption = 'Tage'
         ParentColor = False
       end
@@ -622,7 +634,7 @@ object optionForm: ToptionForm
         Left = 56
         Height = 31
         Top = 36
-        Width = 285
+        Width = 269
         Max = 7
         Min = 1
         OnChange = TrackBar1Change
@@ -654,7 +666,7 @@ object optionForm: ToptionForm
       object autostartAlways: TRadioButton
         Left = 60
         Height = 19
-        Top = 177
+        Top = 172
         Width = 92
         Caption = 'immer starten'
         TabOrder = 3
@@ -662,7 +674,7 @@ object optionForm: ToptionForm
       object autostartDepends: TRadioButton
         Left = 60
         Height = 19
-        Top = 193
+        Top = 190
         Width = 303
         Caption = 'nur, wenn dann auch aktualisiert werden soll (siehe oben)'
         Checked = True
@@ -672,7 +684,7 @@ object optionForm: ToptionForm
       object autostartNever: TRadioButton
         Left = 60
         Height = 19
-        Top = 209
+        Top = 208
         Width = 78
         Caption = 'nie starten'
         TabOrder = 5
@@ -686,10 +698,13 @@ object optionForm: ToptionForm
         TabOrder = 6
       end
       object edtHistoryBackupInterval: TEdit
-        Left = 68
+        AnchorSideLeft.Control = Label21
+        AnchorSideLeft.Side = asrBottom
+        Left = 111
         Height = 23
         Top = 127
         Width = 40
+        BorderSpacing.Left = 9
         TabOrder = 7
         Text = 'edtHistoryBackupInterval'
       end

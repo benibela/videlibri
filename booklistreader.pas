@@ -618,7 +618,7 @@ begin
   earMarkedRegEx:=TRegExpr.Create('[vV]orgemerkt');
   maxLimitRegEx:=TRegExpr.Create('[fF]rist erreicht');
   accountExpiredRegEx:=TRegExpr.Create('Karte abgelaufen');
-  parseXML(loadFileToStr(_dataPath+'template'),@readProperty,@leaveTag,@textRead,eUTF8);
+  parseXML(strLoadFromFile(_dataPath+'template'),@readProperty,@leaveTag,@textRead,eUTF8);
 end;
 
 procedure TBookListTemplate.loadTemplates;
@@ -627,12 +627,12 @@ procedure TBookListTemplate.loadTemplates;
   begin
     for i:=0 to high(action.actions) do begin
       if action.actions[i].templateFile='' then continue;
-      action.actions[i].template:=loadFileToStr(self.path+action.actions[i].templateFile);
+      action.actions[i].template:=strLoadFromFile(self.path+action.actions[i].templateFile);
       if action.actions[i].template='' then
         raise EBookListReader.create('Template-Datei "'+self.path+action.actions[i].templateFile+'" konnte nicht geladen werden');
     end;
     for i:=0 to high(action.errors) do begin
-      action.errors[i].template:=loadFileToStr(self.path+action.errors[i].templateFile);
+      action.errors[i].template:=strLoadFromFile(self.path+action.errors[i].templateFile);
       if action.errors[i].template='' then
         raise EBookListReader.create('Template-Datei "'+self.path+action.errors[i].templateFile+'" konnte nicht geladen werden');
     end;
@@ -692,9 +692,9 @@ begin
     end else book.Status:=bsNormal;
        //(bsNormal,bsUnknown,bsIsSearched,bsEarMarked,bsMaxLimitReached,bsProblematicInStr,bsCuriousInStr);
   end else if strlibeginswith(@variable[1],length(variable),'book.issuedate') then
-    book.IssueDate:=parseDate(Utf8ToAnsi(strconv(value)),copyfrom(variable,pos(':',variable)+1))
+    book.IssueDate:=parseDate(Utf8ToAnsi(strconv(value)),strcopy2(variable,pos(':',variable)+1))
   else if strlibeginswith(@variable[1],length(variable),'book.limitdate') then
-    book.LimitDate:=parseDate(Utf8ToAnsi(strconv(value)),copyfrom(variable,pos(':',variable)+1))
+    book.LimitDate:=parseDate(Utf8ToAnsi(strconv(value)),strcopy2(variable,pos(':',variable)+1))
   else if strlibeginswith(variable,'book.') then
     setProperty(copy(variable,pos('.',variable)+1,length(variable)),value,book.Additional);
 end;

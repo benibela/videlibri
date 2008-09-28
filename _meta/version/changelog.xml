@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <?xml-stylesheet type="text/xsl" href="../changelog.xsl"?>
-<changeLog program="VideLibri">
-  <build version="0992" date="2008-09-03">
+<changelog program="VideLibri">
+  <build version="0993" date="2008-09-03">
     <installer url="http://www.benibela.de/bin/tools/videlibri-setup.exe"/>
     <fix level="critical">FHB: Die Änderung der Seitenstruktur wurde übernommen</fix>
     <fix level="major">Das nicht automatische Verlängern funktioniert nun auch zuverlässiger</fix>
@@ -79,5 +79,5 @@
     <fix>Es werden nun auch wieder im März fällige Bücher der FHB erkannt.</fix> <!--Problem war: der Umlaut wurde nicht gelesen.--> 
     <fix>Das Benutzerverzeichnis wird nun auch gefunden, wenn der Pfad in machine.config nur relativ angegeben ist.</fix>
   </build>
-</changeLog>
+</changelog>
 

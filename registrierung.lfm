@@ -1,14 +1,15 @@
 object RegForm: TRegForm
-  Left = 290
-  Height = 167
-  Top = 186
-  Width = 399
+  Left = 295
+  Height = 157
+  Top = 191
+  Width = 389
   ActiveControl = username
   Caption = 'Freischalten'
-  ClientHeight = 167
-  ClientWidth = 399
+  ClientHeight = 140
+  ClientWidth = 389
   OnCreate = FormCreate
   OnResize = FormResize
+  ParentFont = False
   LCLVersion = '0.9.25'
   object Label1: TLabel
     Left = 20
@@ -38,12 +39,13 @@ object RegForm: TRegForm
     Font.Pitch = fpFixed
     Font.Style = [fsBold]
     ParentColor = False
+    ParentFont = False
   end
   object username: TEdit
     Left = 84
     Height = 23
     Top = 44
-    Width = 303
+    Width = 293
     Anchors = [akTop, akLeft, akRight]
     OnKeyUp = usercodeKeyUp
     TabOrder = 0
@@ -52,7 +54,7 @@ object RegForm: TRegForm
     Left = 84
     Height = 23
     Top = 80
-    Width = 303
+    Width = 293
     Anchors = [akTop, akLeft, akRight]
     Font.CharSet = ANSI_CHARSET
     Font.Color = clBlack
@@ -60,6 +62,7 @@ object RegForm: TRegForm
     Font.Name = 'Courier New'
     Font.Pitch = fpFixed
     OnKeyUp = usercodeKeyUp
+    ParentFont = False
     TabOrder = 1
   end
   object Button1: TButton

@@ -4,7 +4,8 @@
   <shortName value="FHB Bochum"/>
   <homepage value="http://liberoboc.hbz-nrw.de/libero/WebOpac.cls"/>
   <template value="libero51"/>
-
+  <maxExtendCount value="3"/>
+  
   <username matches="^(\d000\d{3}|\w\d{8})$"/>
   <password matches="."/>
   

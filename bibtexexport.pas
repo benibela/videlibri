@@ -160,9 +160,9 @@ begin
 
     if clipboardExport.Checked then Clipboard.AsText:=exportStr
     else case outputEncoding of
-      0: saveFileFromStr(FileNameEdit1.Text,exportStr); //exportStr is ASCII, no convert
-      1: saveFileFromStr(FileNameEdit1.Text,Utf8ToAnsi(exportStr)); //exportStr is UTF-8, convert to ANSI
-      2: saveFileFromStr(FileNameEdit1.Text,exportStr); //exportStr is UTF-8, no convert
+      0: strSaveToFile(FileNameEdit1.Text,exportStr); //exportStr is ASCII, no convert
+      1: strSaveToFile(FileNameEdit1.Text,Utf8ToAnsi(exportStr)); //exportStr is UTF-8, convert to ANSI
+      2: strSaveToFile(FileNameEdit1.Text,exportStr); //exportStr is UTF-8, no convert
     end;
 end;
 
