@@ -4,7 +4,7 @@ unit libraryParser;
 interface
 
 uses
-  windows,Classes, SysUtils,extendedhtmlparser, simplexmlparser, inifiles,internetaccess,RegExpr,booklistreader;
+  windows,Classes, SysUtils,extendedhtmlparser, simplexmlparser, inifiles,internetaccess,dRegExpr,booklistreader;
 
 
 type

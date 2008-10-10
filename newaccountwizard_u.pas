@@ -14,9 +14,9 @@ type
 
   TnewAccountWizard = class(TForm)
     cancelBtn: TButton;
+    Label1: TLabel;
     Label8: TLabel;
     identificarionInvalid: TLabel;
-    maxExtendCount: TLabel;
     Label5: TLabel;
     lblWarning: TLabel;
     next: TButton;
@@ -25,7 +25,6 @@ type
     accountPass: TEdit;
     accountPrettyName: TEdit;
     extendDaysEdit: TEdit;
-    Label1: TLabel;
     Label2: TLabel;                          //todo: warum immer alle verlängern als standard?
     Label3: TLabel;
     Label4: TLabel;
@@ -139,8 +138,8 @@ begin
     extendType:=etNever;
   extendTypeRG.tag:=integer(extendType);
   lblWarning.Visible:=(selectedLibrary.maxExtendCount>0) and (extendType=etAlways);
-  maxExtendCount.Visible:=lblWarning.Visible;
-  maxExtendCount.Caption:=IntToStr(selectedLibrary.maxExtendCount);
+  //maxExtendCount.Visible:=lblWarning.Visible;
+  //maxExtendCount.Caption:=IntToStr(selectedLibrary.maxExtendCount);
 
   extendDaysLbl.Visible:=extendType in [etSingleDepends,etAllDepends];
   extendDaysLbl2.Visible:=extendType in [etSingleDepends,etAllDepends];

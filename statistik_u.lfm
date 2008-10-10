@@ -12,7 +12,7 @@ object statistikForm: TstatistikForm
   OnResize = FormResize
   OnShow = FormShow
   ParentFont = False
-  LCLVersion = '0.9.25'
+  LCLVersion = '0.9.27'
   object PaintBox1: TPaintBox
     Height = 288
     Top = 32
@@ -48,7 +48,6 @@ object statistikForm: TstatistikForm
         'Woche'
         'Monat'
       )
-      MaxLength = -1
       OnSelect = ComboBox1Select
       Style = csDropDownList
       TabOrder = 0
