@@ -574,7 +574,7 @@ begin
   if (BookList.Selected = nil) or (BookList.Selected.tag=0) then exit;
   if searcherForm=nil then searcherForm:=TbookSearchFrm.Create(nil);
   searcherForm.selectBookToReSearch(tbook(BookList.Selected.tag));
-  if tcontrol(sender).tag<>1 then searcherForm.startSearch.Click;
+  if TComponent(sender).tag<>1 then searcherForm.startSearch.Click;
   searcherForm.ShowModal;
 end;
 

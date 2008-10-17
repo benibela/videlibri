@@ -1,8 +1,12 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <?xml-stylesheet type="text/xsl" href="../changelog.xsl"?>
 <changelog program="VideLibri">
-  <build version="0993" date="2008-09-03">
+  <build version="0994" date="2008-10-15">
     <installer url="http://www.benibela.de/bin/tools/videlibri-setup.exe"/>
+    <fix level="minor">Größere Icons</fix>
+    <fix level="minor">Keine Textüberlappungen mehr, wenn in Windows große Schrift aktiviert wurde</fix>
+  </build>
+  <build version="0993" date="2008-09-03">
     <fix level="critical">FHB: Die Änderung der Seitenstruktur wurde übernommen</fix>
     <fix level="major">Das nicht automatische Verlängern funktioniert nun auch zuverlässiger</fix>
     <fix level="minor">Die Liste verschwindet bei XP-Themes nicht mehr beim Fenstervergrößern</fix>

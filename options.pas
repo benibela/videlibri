@@ -16,6 +16,9 @@ type
 
   ToptionForm = class(TForm)
     accountList: TListView;
+    autostartAlways: TRadioButton;
+    autostartDepends: TRadioButton;
+    autostartNever: TRadioButton;
     Bevel1: TBevel;
     btnAccountChange: TButton;
     btnAccountCreate: TButton;
@@ -38,6 +41,7 @@ type
     Label22: TLabel;
     pageMenu: TPage;
     Panel2: TPanel;
+    Panel3: TPanel;
     SpeedButton1: TSpeedButton;
     SpeedButton2: TSpeedButton;
     SpeedButton3: TSpeedButton;
@@ -83,9 +87,6 @@ type
     PageBehaviour: TPage;
     Page3: TPage;
     Panel1: TPanel;
-    autostartAlways: TRadioButton;
-    autostartDepends: TRadioButton;
-    autostartNever: TRadioButton;
     internetWindows: TRadioButton;
     internetDirect: TRadioButton;
     homepageSimpleBrowser: TRadioButton;
@@ -376,9 +377,9 @@ procedure ToptionForm.TrackBar1Change(Sender: TObject);
 begin
   lblRefreshTIming.Left:=TrackBar1.left+15+(TrackBar1.width-15)*(TrackBar1.Position-TrackBar1.min) div (TrackBar1.Max-TrackBar1.min)-lblRefreshTIming.Width div 2;
   case TrackBar1.Position of
-    0: lblRefreshTIming.Caption:='Automatische Aktualisierung: bei jedem Start';
-    1: lblRefreshTIming.Caption:='Automatische Aktualisierung: maximal einmal pro Tag';
-    else lblRefreshTIming.Caption:='Automatische Aktualisierung: maximal alle '+IntToStr(TrackBar1.Position)+' Tage';
+    0: lblRefreshTIming.Caption:='Automatische Aktualisierung:'#13#10'bei jedem Start';
+    1: lblRefreshTIming.Caption:='Automatische Aktualisierung:'#13#10'maximal einmal pro Tag';
+    else lblRefreshTIming.Caption:='Automatische Aktualisierung:'#13#10'maximal alle '+IntToStr(TrackBar1.Position)+' Tage';
   end;
 end;
 

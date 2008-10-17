@@ -1,12 +1,12 @@
 object statistikForm: TstatistikForm
-  Left = 332
-  Height = 352
-  Top = 179
-  Width = 474
+  Left = 338
+  Height = 340
+  Top = 185
+  Width = 471
   ActiveControl = ComboBox1
   Caption = 'Statistik'
-  ClientHeight = 352
-  ClientWidth = 474
+  ClientHeight = 340
+  ClientWidth = 471
   OnCreate = FormCreate
   OnDestroy = FormDestroy
   OnResize = FormResize
@@ -14,9 +14,9 @@ object statistikForm: TstatistikForm
   ParentFont = False
   LCLVersion = '0.9.27'
   object PaintBox1: TPaintBox
-    Height = 288
+    Height = 276
     Top = 32
-    Width = 474
+    Width = 471
     Align = alClient
     OnMouseMove = PaintBox1MouseMove
     OnPaint = PaintBox1Paint
@@ -24,24 +24,30 @@ object statistikForm: TstatistikForm
   end
   object Panel1: TPanel
     Height = 32
-    Width = 474
+    Width = 471
     Align = alTop
     ClientHeight = 32
-    ClientWidth = 474
+    ClientWidth = 471
     TabOrder = 0
     object Label1: TLabel
       Left = 7
       Height = 14
       Top = 8
       Width = 151
+      BorderSpacing.Around = 4
       Caption = 'Anzahl ausgeliehener Bücher je'
       ParentColor = False
     end
     object ComboBox1: TComboBox
-      Left = 160
+      AnchorSideLeft.Control = Label1
+      AnchorSideLeft.Side = asrBottom
+      AnchorSideTop.Control = Label1
+      AnchorSideTop.Side = asrCenter
+      Left = 162
       Height = 21
       Top = 5
       Width = 108
+      BorderSpacing.Around = 4
       ItemHeight = 13
       Items.Strings = (
         'Tag'
@@ -53,10 +59,15 @@ object statistikForm: TstatistikForm
       TabOrder = 0
     end
     object CheckBox1: TCheckBox
-      Left = 272
-      Height = 19
-      Top = 9
-      Width = 106
+      AnchorSideLeft.Control = ComboBox1
+      AnchorSideLeft.Side = asrBottom
+      AnchorSideTop.Control = Label1
+      AnchorSideTop.Side = asrCenter
+      Left = 274
+      Height = 25
+      Top = 3
+      Width = 112
+      BorderSpacing.Around = 4
       Caption = 'Summe anzeigen'
       Checked = True
       OnClick = CheckBox1Click
@@ -64,10 +75,15 @@ object statistikForm: TstatistikForm
       TabOrder = 1
     end
     object CheckBox2: TCheckBox
-      Left = 384
-      Height = 19
-      Top = 9
-      Width = 52
+      AnchorSideLeft.Control = CheckBox1
+      AnchorSideLeft.Side = asrBottom
+      AnchorSideTop.Control = Label1
+      AnchorSideTop.Side = asrCenter
+      Left = 390
+      Height = 25
+      Top = 3
+      Width = 58
+      BorderSpacing.Around = 4
       Caption = 'füllen'
       OnChange = CheckBox2Change
       TabOrder = 2
@@ -75,24 +91,28 @@ object statistikForm: TstatistikForm
   end
   object Panel2: TPanel
     Height = 32
-    Top = 320
-    Width = 474
+    Top = 308
+    Width = 471
     Align = alBottom
     ClientHeight = 32
-    ClientWidth = 474
+    ClientWidth = 471
     TabOrder = 1
     object mausInfo: TLabel
+      AnchorSideTop.Control = Panel2
+      AnchorSideTop.Side = asrCenter
       Left = 8
       Height = 14
-      Top = 10
+      Top = 9
       Width = 30
       Caption = 'Maus:'
       ParentColor = False
     end
     object Button1: TButton
-      Left = 396
+      AnchorSideTop.Control = Panel2
+      AnchorSideTop.Side = asrCenter
+      Left = 393
       Height = 25
-      Top = 5
+      Top = 4
       Width = 75
       Anchors = [akTop, akRight]
       BorderSpacing.InnerBorder = 4

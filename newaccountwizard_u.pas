@@ -15,9 +15,11 @@ type
   TnewAccountWizard = class(TForm)
     cancelBtn: TButton;
     Label1: TLabel;
+    Label2: TLabel;
     Label8: TLabel;
     identificarionInvalid: TLabel;
     Label5: TLabel;
+    Label9: TLabel;
     lblWarning: TLabel;
     next: TButton;
     back: TButton;
@@ -25,12 +27,10 @@ type
     accountPass: TEdit;
     accountPrettyName: TEdit;
     extendDaysEdit: TEdit;
-    Label2: TLabel;                          //todo: warum immer alle verlängern als standard?
     Label3: TLabel;
     Label4: TLabel;
     passLabel: TLabel;
     Label6: TLabel;
-    Label7: TLabel;
     extendDaysLbl: TLabel;
     extendDaysLbl2: TLabel;
     Notebook1: TNotebook;
@@ -45,6 +45,7 @@ type
     RadioButton1: TRadioButton;
     saveHistory: TRadioButton;
     StringGrid1: TStringGrid;
+    Timer1: TTimer;
     procedure accountNameChange(Sender: TObject);
     procedure Button1Click(Sender: TObject);
     procedure Button2Click(Sender: TObject);
@@ -55,6 +56,7 @@ type
     procedure Notebook1PageChanged(Sender: TObject);
     procedure RadioGroup1Click(Sender: TObject);
     procedure RadioGroup2Click(Sender: TObject);
+    procedure Timer1Timer(Sender: TObject);
   private
     { private declarations }
   public
@@ -73,7 +75,6 @@ uses applicationconfig,libraryaccess,internetAccess;
 
 procedure TnewAccountWizard.FormCreate(Sender: TObject);
 begin
-  Notebook1.PageIndex:=0;
   StringGrid1.ScrollBars:=ssNone;
   StringGrid1.ColWidths[1]:=StringGrid1.ClientWidth-StringGrid1.ColWidths[0];
   libraryList.Items.text:=libraryManager.enumeratePrettyLongNames;
@@ -85,7 +86,7 @@ end;
 
 procedure TnewAccountWizard.FormShow(Sender: TObject);
 begin
-  Notebook1.Height:=Notebook1.Height+1; Notebook1.Height:=Notebook1.Height-1;
+
 end;
 
 procedure TnewAccountWizard.Notebook1PageChanged(Sender: TObject);
@@ -144,6 +145,14 @@ begin
   extendDaysLbl.Visible:=extendType in [etSingleDepends,etAllDepends];
   extendDaysLbl2.Visible:=extendType in [etSingleDepends,etAllDepends];
   extendDaysEdit.Visible:=extendType in [etSingleDepends,etAllDepends];
+end;
+
+procedure TnewAccountWizard.Timer1Timer(Sender: TObject);
+begin
+Timer1.Enabled:=false;
+Notebook1.PageIndex:=1;
+Notebook1.PageIndex:=0;
+Notebook1.Height:=Notebook1.Height+1;Notebook1.Height:=Notebook1.Height-1;
 end;
 
 procedure TnewAccountWizard.selectCurrentPage;
@@ -217,11 +226,11 @@ end;
 
 procedure TnewAccountWizard.FormActivate(Sender: TObject);
 begin
-
 end;
 
 initialization
   {$I newaccountwizard_u.lrs}
 
 end.
+
 

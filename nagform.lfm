@@ -1,25 +1,31 @@
 object nagWindow: TnagWindow
-  Left = 703
-  Height = 303
-  Top = 432
-  Width = 307
+  Left = 702
+  Height = 313
+  Top = 422
+  Width = 308
+  HorzScrollBar.Page = 307
+  HorzScrollBar.Range = 301
+  VertScrollBar.Page = 312
+  VertScrollBar.Range = 305
   ActiveControl = Button2
+  AutoScroll = False
   BorderIcons = [biSystemMenu]
   BorderStyle = bsDialog
   Caption = 'Shareware-Hinweis'
-  ClientHeight = 286
-  ClientWidth = 290
+  ClientHeight = 313
+  ClientWidth = 308
   OnClose = FormClose
   OnShow = FormShow
   ParentFont = False
   Position = poScreenCenter
-  LCLVersion = '0.9.25'
+  LCLVersion = '0.9.27'
   object Button1: TButton
     Left = 11
-    Height = 25
+    Height = 28
     Hint = 'Fortfahren...'
     Top = 280
     Width = 136
+    Anchors = [akLeft, akBottom]
     BorderSpacing.InnerBorder = 4
     Caption = 'Fortfahren.. (in 3 sek).'
     Enabled = False
@@ -28,9 +34,10 @@ object nagWindow: TnagWindow
   end
   object Button2: TButton
     Left = 168
-    Height = 25
+    Height = 28
     Top = 280
     Width = 133
+    Anchors = [akLeft, akBottom]
     BorderSpacing.InnerBorder = 4
     Caption = 'Freischalten...'
     OnClick = Button2Click
@@ -38,9 +45,10 @@ object nagWindow: TnagWindow
   end
   object Memo1: TMemo
     Left = 11
-    Height = 266
+    Height = 269
     Top = 7
-    Width = 290
+    Width = 289
+    Anchors = [akTop, akLeft, akRight, akBottom]
     Color = clBtnFace
     Lines.Strings = (
       'Dies ist eine eingeschränkte Sharewareversion, die sich '
@@ -54,7 +62,8 @@ object nagWindow: TnagWindow
       '2. Beim Starten wird dieser Dialog geöffnet'
       ''
       'Die für den Freischaltcode notwendige Registrierung '
-      'kostet 10 € (Selbstkostenpreis) und soll per Überweisung '
+      'kostet 10 € (Selbstkostenpreis) und soll per '
+      'Überweisung '
       'vorab bezahlt werden.'
       ''
       'Die Kontonummer bekommt man als Antwort auf eine '

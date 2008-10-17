@@ -53,7 +53,7 @@ var
 
 implementation
 
-uses bookwatchmain,bbutils,booklistreader,libraryParser;
+uses bookwatchmain,bbutils,math,booklistreader,libraryParser;
 { TstatistikForm }
 
 
@@ -111,12 +111,13 @@ begin
   
   if showSum then diagram.addDataList.title:='Summe';
 
+ // exit;
 
   case ComboBox1.itemIndex of
     DIAGRAM_WEEKS:  begin
       earliestDay:=earliestDay-earliestDay mod 7;
       lastDay:=lastDay+7-lastDay mod 7;
-      SetLength(accountValues,(lastDay-earliestDay) div 7+1);
+      SetLength(accountValues,(max(lastDay,currentDate)-earliestDay) div 7+1);
       SetLength(totalValues,length(accountValues));
       FillChar(totalValues[0],length(totalValues)*sizeof(totalValues[0]),0);
       for j:=0 to accountIDs.Count-1 do begin
@@ -143,7 +144,7 @@ begin
     end;
     DIAGRAM_MONTHS:  begin
       DecodeDate(earliestDay,y,m,d);
-      DecodeDate(lastDay,y2,m2,d2);
+      DecodeDate(max(lastDay,currentDate),y2,m2,d2);
       SetLength(accountValues,y2*12+m2-1  - (y*12+m-1) + 1);
       SetLength(totalValues,length(accountValues));
       FillChar(totalValues[0],length(totalValues)*sizeof(totalValues[0]),0);
@@ -173,12 +174,12 @@ begin
 
     end;
     else begin//iterate about days
-      SetLength(accountValues,lastDay-earliestDay+1);
+      SetLength(accountValues,max(lastDay,currentDate)-earliestDay+1);
       SetLength(totalValues,length(accountValues));
       FillChar(totalValues[0],length(totalValues)*sizeof(totalValues[0]),0);
       for j:=0 to accountIDs.Count-1 do begin
         FillChar(accountValues[0],length(accountValues)*sizeof(accountValues[0]),0);
-        books:=TCustomAccountAccess(accountIDs.Objects[j]).books;
+        books:=(accountIDs.Objects[j] as TCustomAccountAccess).books;
         for k:=-books.old.count to books.current.count-1 do begin //loop about union
           if k<0 then book:=books.old[-k-1]
           else book:=books.current[k];

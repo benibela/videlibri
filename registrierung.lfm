@@ -1,16 +1,16 @@
 object RegForm: TRegForm
-  Left = 295
-  Height = 157
-  Top = 191
-  Width = 389
+  Left = 301
+  Height = 165
+  Top = 197
+  Width = 402
   ActiveControl = username
   Caption = 'Freischalten'
-  ClientHeight = 140
-  ClientWidth = 389
+  ClientHeight = 165
+  ClientWidth = 402
   OnCreate = FormCreate
   OnResize = FormResize
   ParentFont = False
-  LCLVersion = '0.9.25'
+  LCLVersion = '0.9.27'
   object Label1: TLabel
     Left = 20
     Height = 14
@@ -45,7 +45,7 @@ object RegForm: TRegForm
     Left = 84
     Height = 23
     Top = 44
-    Width = 293
+    Width = 306
     Anchors = [akTop, akLeft, akRight]
     OnKeyUp = usercodeKeyUp
     TabOrder = 0
@@ -54,7 +54,7 @@ object RegForm: TRegForm
     Left = 84
     Height = 23
     Top = 80
-    Width = 293
+    Width = 306
     Anchors = [akTop, akLeft, akRight]
     Font.CharSet = ANSI_CHARSET
     Font.Color = clBlack
