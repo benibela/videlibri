@@ -20,13 +20,13 @@ object newAccountWizard: TnewAccountWizard
     Width = 421
     Align = alClient
     OnPageChanged = Notebook1PageChanged
-    PageIndex = 0
+    PageIndex = 1
     ShowTabs = False
     TabOrder = 0
     object Page1: TPage
       Caption = 'Page1'
       ClientWidth = 413
-      ClientHeight = 208
+      ClientHeight = 190
       object Label3: TLabel
         AnchorSideTop.Control = Label9
         AnchorSideTop.Side = asrBottom
@@ -53,7 +53,7 @@ object newAccountWizard: TnewAccountWizard
         AnchorSideTop.Side = asrBottom
         AnchorSideBottom.Side = asrBottom
         Left = 28
-        Height = 146
+        Height = 128
         Top = 55
         Width = 358
         Anchors = [akTop, akLeft, akRight, akBottom]
@@ -67,7 +67,7 @@ object newAccountWizard: TnewAccountWizard
         ChildSizing.ShrinkVertical = crsScaleChilds
         ChildSizing.Layout = cclTopToBottomThenLeftToRight
         ChildSizing.ControlsPerLine = 4
-        ClientHeight = 128
+        ClientHeight = 110
         ClientWidth = 354
         ColumnLayout = clVerticalThenHorizontal
         ItemIndex = 0
@@ -83,8 +83,8 @@ object newAccountWizard: TnewAccountWizard
     end
     object Page2: TPage
       Caption = 'Page2'
-      ClientWidth = 415
-      ClientHeight = 192
+      ClientWidth = 413
+      ClientHeight = 190
       object Label4: TLabel
         AnchorSideTop.Control = accountName
         AnchorSideTop.Side = asrCenter
@@ -107,10 +107,13 @@ object newAccountWizard: TnewAccountWizard
         ParentColor = False
       end
       object identificarionInvalid: TLabel
+        AnchorSideTop.Control = accountPass
+        AnchorSideTop.Side = asrBottom
         Left = 20
         Height = 14
-        Top = 142
-        Width = 1
+        Top = 156
+        Width = 48
+        Caption = '(empty)'
         Font.Color = clRed
         Font.Style = [fsBold]
         ParentColor = False
@@ -156,8 +159,8 @@ object newAccountWizard: TnewAccountWizard
     end
     object Page3: TPage
       Caption = 'Page3'
-      ClientWidth = 415
-      ClientHeight = 192
+      ClientWidth = 413
+      ClientHeight = 190
       object Label6: TLabel
         Left = 24
         Height = 27
@@ -193,9 +196,9 @@ object newAccountWizard: TnewAccountWizard
         AnchorSideTop.Control = Label8
         AnchorSideTop.Side = asrBottom
         Left = 55
-        Height = 25
+        Height = 19
         Top = 117
-        Width = 150
+        Width = 144
         BorderSpacing.Top = 6
         Caption = 'ja, alle Medien speichern'
         Checked = True
@@ -206,9 +209,9 @@ object newAccountWizard: TnewAccountWizard
         AnchorSideTop.Control = saveHistory
         AnchorSideTop.Side = asrBottom
         Left = 55
-        Height = 25
-        Top = 142
-        Width = 247
+        Height = 19
+        Top = 136
+        Width = 241
         Caption = 'nein, => keine Ausleihenhistory und Statistik'
         TabOrder = 2
       end

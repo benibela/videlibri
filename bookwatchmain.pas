@@ -166,7 +166,6 @@ implementation
 { TmainForm }
 uses windows,math,options,applicationconfig,newaccountwizard_u,registrierung,nagform,bbdebugtools,bibtexexport,booklistreader;
 
-procedure openAboutDialog(title,description,creditlist: pchar; modal: boolean; game: longint);stdcall;external 'bbabout.dll';
 
 procedure hideTaskBarIcon();
 begin
@@ -274,7 +273,6 @@ end;
 
 procedure TmainForm.FormDestroy(Sender: TObject);
 begin
-  BookList.Free;
 end;
 
 procedure TmainForm.FormResize(Sender: TObject);
@@ -446,6 +444,7 @@ begin
   userConfig.WriteString('BookList','ColumnVisibility',BookList.serializeColumnVisibility);
 
   FreeAndNil(searcherForm);
+  FreeAndNil(BookList);
 end;
 
 procedure TmainForm.BookListSelectItem(Sender: TObject; Item: TTreeListItem);
@@ -492,16 +491,23 @@ begin
 end;
 
 procedure TmainForm.MenuItem17Click(Sender: TObject);
+  type tpopenAboutDialog = procedure (title,description,creditlist: pchar; modal: boolean; game: longint);stdcall;
 var s1, s2, s3: string;
+    openAboutDialog: tpopenAboutDialog;
+    lib:thandle;
 begin
-  openAboutDialog(pchar({'Videlibri '+FloatToStr(versionNumber/1000)}caption),'',pchar(Utf8ToAnsi(
-    'Verwendete Fremdkomponenten:'#13#10'  LCL'#13#10'  FreePascal Runtime'#13#10'  TRegExpr von Andrey V. Sorokin'#13#10#13#10+
-    'Verwendete Entwicklungswerkzeuge:'#13#10'  Lazarus'#13#10'  FreePascal'#13#10'  GIMP'#13#10'  HTML Help Workshop'#13#10'  The Regex Coach'#13#10#13#10+
-    'Die angezeigten Daten stammen von/gehören: '#13#10'  den Stadtbüchereien Düsseldorf'#13#10+
-    '  der Universitäts- und Landesbibliothek Düsseldorf'#13#10+
-    '  den Fachhochschulbüchereien Düsseldorfs und Bochums'#13#10+
-    '  der DigiBib/dem Hochschulbibliothekszentrum des Landes Nordrhein-Westfalen'#13#10+
-    '  Amazon.com')),true,1);
+  lib:=LoadLibrary('bbabout.dll');
+  openAboutDialog:=tpopenAboutDialog(GetProcAddress(lib,'openAboutDialog'));
+  if assigned(openAboutDialog) then
+    openAboutDialog(pchar({'Videlibri '+FloatToStr(versionNumber/1000)}caption),'',pchar(Utf8ToAnsi(
+      'Verwendete Fremdkomponenten:'#13#10'  LCL'#13#10'  FreePascal Runtime'#13#10'  TRegExpr von Andrey V. Sorokin'#13#10#13#10+
+      'Verwendete Entwicklungswerkzeuge:'#13#10'  Lazarus'#13#10'  FreePascal'#13#10'  GIMP'#13#10'  HTML Help Workshop'#13#10'  The Regex Coach'#13#10#13#10+
+      'Die angezeigten Daten stammen von/gehören: '#13#10'  den Stadtbüchereien Düsseldorf'#13#10+
+      '  der Universitäts- und Landesbibliothek Düsseldorf'#13#10+
+      '  den Fachhochschulbüchereien Düsseldorfs und Bochums'#13#10+
+      '  der DigiBib/dem Hochschulbibliothekszentrum des Landes Nordrhein-Westfalen'#13#10+
+      '  Amazon.com')),true,1);
+  FreeLibrary(lib);
 end;
 
 procedure TmainForm.MenuItem18Click(Sender: TObject);

@@ -5,7 +5,7 @@ unit applicationconfig;
 interface
 
 uses
-  Classes, SysUtils,Graphics,forms,libraryparser,registry,inifiles,rcmdline,errordialog,tnaaccess,autoupdate,progressDialog
+  Classes, SysUtils,Graphics,forms,libraryparser,registry,inifiles,rcmdline,errordialog,tnaaccess,autoupdate,progressDialog,extendedhtmlparser
 ;
 
 const MENU_ID_START_LCL=1;
@@ -43,7 +43,7 @@ var programPath,userPath,dataPath:string;
     nextLimitStr: string;
 
     appFullTitle:string='VideLibri';
-    versionNumber:integer=994;//=>versionNumber/1000
+    versionNumber:integer=995;//=>versionNumber/1000
     newVersionInstalled: boolean=false;
 
     startedMutex:THandle=0;
@@ -408,6 +408,14 @@ uses bookwatchmain,windows,internetaccess,w32internetaccess,controls,libraryacce
     commandLine.declareInt('debug-addr-info','Wandelt in der Debugversion eine Adresse in eine Funktionszeile um',0);
     commandLine.declareFlag('log','Zeichnet alle Aktionen auf',false);
     commandLine.declareFlag('refreshAll','Aktualisiert alle Medien',false);
+    commandLine.declareString('debug-html-template','Führt ein Template aus (benötigt Datei)','');
+    commandLine.declareString('on','Datei für das Template von debug-single-template','');
+
+    if commandLine.readString('debug-html-template')<>'' then begin
+      checkHTMLTemplate(commandLine.readString('debug-html-template'),commandLine.readString('on'));
+      cancelStarting:=true;
+      exit;
+    end;
 
     //Überprüft, ob das Programm schon gestart ist, und wenn ja, öffnet dieses
     SetLastError(0);

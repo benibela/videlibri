@@ -1,8 +1,9 @@
 ﻿<html>
 <body>
- <form name="MEMISSIT">
+ <div class='MemStatMembCapt'><htmlparser:read var="delete-current-books()"/></div>
+ <form name="MEMISSIT" htmlparser-optional="true">
    <fieldset id="issued_items">
-     <htmlparser:read var="delete-current-books()"/>
+     
      <table>
        <thead><tr><th id="th1_1" class="barcode" abbr="bc" scope="col"></th>
                   <th id="th1_2" class="titleVolRef" abbr="tit" scope="col"></th>
@@ -41,43 +42,7 @@
      <input type="hidden" name="mid">
        <htmlparser:read var="mid" source="@value"/>
      </input>
-<!--
-  <table>
-   <tr><td>
-    <table><caption ID="MemStatMembCapt"/></table>
-    <table>
-     <tr><th ID=MemStatLoanHeading></th></tr>
-     
-        <tr>
-        
-        <td ID="MemStatLoanBarc"><htmlparser:read source="text()" var="book.id"/></td>
-        <td ID="MemStatLoanTit"><htmlparser:read source="text()" var="book.title"/></td>
-        <td ID="MemStatLoanAut"><htmlparser:read source="text()" var="book.author"/></td>
-        <td ID="MemStatLoanDue"><htmlparser:read source="text()" var="book.limitdate:d mmm yyyy"/></td>
-        <td ID="MemStatLoanRenewCount"><htmlparser:read source="concat('bisher ',text(), ' mal verlängert')" var="book.status:curious"/></td>
-        <td ID="MemStatLoanRen">
-        <htmlparser:read source="text()" var="temp"/>
-        <htmlparser:if test="'$temp;'==''"> 
-          <input type="checkbox">
-            <htmlparser:read var="book.extendid" source="@name"/>
-          </input>
-          <htmlparser:read var="book-end()"/>
-        </htmlparser:if>
-        </td>
-        
-        </tr>
-        <htmlparser:if test="'$temp;'!=''">
-          <tr><td id='MemStatRenewMsg'>
-            <htmlparser:read source="text()" var="temp" regex="1\. Verlängerung.*nicht erlaubt bis"/>
-            <htmlparser:if test="'$temp;'!=''">
-              <htmlparser:read source="text()" var="temp" regex="\d* \w* \d*$"/>
-              <htmlparser:read source="'1. Verlängerung nicht erlaubt bis: $temp;'" var="book.status:problematic"/>
-            </htmlparser:if>
-            <htmlparser:if test="'$temp;'==''">
-              <htmlparser:read source="text()" var="book.status:problematic"/>
-            </htmlparser:if>
-          </td><htmlparser:read var="book-end()"/></tr>
-        </htmlparser:if>
-     </htmlparser:loop>
-     </table>
--->
+  </fieldset>
+ </form>
+</body>
+</html>

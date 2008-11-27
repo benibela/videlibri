@@ -1,8 +1,11 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <?xml-stylesheet type="text/xsl" href="../changelog.xsl"?>
 <changelog program="VideLibri">
-  <build version="0994" date="2008-10-15">
+  <build version="0995" date="2008-11-07">
     <installer url="http://www.benibela.de/bin/tools/videlibri-setup.exe"/>
+    <fix level="minor">FHB: Kein Fehler mehr, wenn keine Medien ausgeliehen sind. </fix>
+  </build>
+  <build version="0994" date="2008-10-15">
     <fix level="minor">Größere Icons</fix>
     <fix level="minor">Keine Textüberlappungen mehr, wenn in Windows große Schrift aktiviert wurde</fix>
   </build>

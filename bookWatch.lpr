@@ -217,6 +217,8 @@ end;
 
 {$IFDEF WINDOWS}{$R manifest.rc}{$ENDIF}
 
+{$ASMMODE intel}
+
 begin
   Application.Initialize;
   Application.Title:='VideLibri';
@@ -236,6 +238,5 @@ begin
     end;
   end;
   finalizeApplicationConfig;
-
-  end.
+end.
 

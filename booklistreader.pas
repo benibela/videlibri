@@ -172,6 +172,7 @@ const BOOK_NOT_EXTENDABLE=[bsEarMarked,bsMaxLimitReached,bsProblematicInStr,bsAc
 
 function BookStatusToStr(book: TBook;verbose:boolean=false): string; //returns utf8
 
+
 implementation
 uses bbdebugtools;
 
@@ -192,6 +193,7 @@ begin
   end;
 
 end;
+
 
 { TBook }
 

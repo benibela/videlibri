@@ -11,7 +11,7 @@ uses
 
  { TBookListView }
 
- TBookListView = class(TTreeListView) //ANSI like TreeListView
+ TBookListView = class(TTreeListView)
 
  private
     fshowlendbooks: boolean;
