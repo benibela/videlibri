@@ -688,8 +688,10 @@ begin
         0: begin
              s:='Die angezeigten Daten der Konten wurden zu folgenden Zeitpunkten'#13#10'das letztemal aktualisiert:';
              for j:=0 to accountIDs.count-1 do
-               with TCustomAccountAccess(accountIDs.Objects[j]) do
+               with TCustomAccountAccess(accountIDs.Objects[j]) do begin
                  s:=s+#13#10'        '+prettyName+': '+DateToPrettyStr(lastCheckDate);
+                 if not enabled then s+=' (DEAKTIVIERT!)';
+               end;
              ShowMessage(s);
            end;
       end;
@@ -756,6 +758,7 @@ var i,j,count,count2:integer;
     maxcharges:currency;
 var ok1,ok2,ok3,nok1,nok2,nok3: longbool; //für Sharewaretest
     user,code:string;                                      //für Sharewaretest
+    disabledAccoutsExists: Boolean;
 label showOnly10;                  //für Sharewaretest
 {$include _shareware.inc}
 begin
@@ -844,8 +847,10 @@ begin
     if nok2 then halt;
   //SHAREWARE CODE END
 
-  if updateThreadConfig.updateThreadsRunning<=0 then
+  if updateThreadConfig.updateThreadsRunning<=0 then begin
     StatusBar1.Panels[0].text:='Älteste angezeigte Daten sind '+DateToPrettyGrammarStr('vom ','von ',lastCheck);
+
+  end;
   icon.LoadFromFile(getTNAIconFileName());
   Application.icon.LoadFromFile(getTNAIconFileName());
   //SHAREWARE CODE
@@ -890,6 +895,30 @@ begin
     if  (nok1 or not ok3) then close;
   //SHAREWARE CODE ENDE
 
+
+  for i:=0 to viewMenu.Count-1 do begin
+    if (viewMenu.Items[i].tag = 0) or (viewMenu.Items[i].tag = -1) then continue;
+    if TCustomAccountAccess(viewMenu.Items[i].Tag).enabled then continue;
+
+    BookList.BeginUpdate;
+    with BookList.items.Add do begin
+      text:='ACHTUNG';
+      RecordItems.Add('');
+      RecordItems.Add('VideLibri');
+      RecordItems.Add('dieses Konto ist deaktiviert und der Ausleihstatus ist folgedessen unbekannt');
+      RecordItems.Add('');
+      RecordItems.Add('');
+      RecordItems.Add('');
+      RecordItems.Add(TCustomAccountAccess(viewMenu.Items[i].Tag).prettyName);
+      RecordItems.Add('');
+      RecordItems.Add('');
+      RecordItemsText[BL_BOOK_EXTCOLUMNS_COLOR]:='clRed';
+      //SubItems.add('');
+      Tag:=0;
+    end;
+    BookList.EndUpdate;
+  end;
+  ;
 
   if criticalSessionUsed then
     LeaveCriticalSection(updateThreadConfig.libraryAccessSection);

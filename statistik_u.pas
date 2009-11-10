@@ -39,7 +39,8 @@ type
     procedure translateDate(sender: TAxis; value: extended; var translated: string);
   public
     { public declarations }
-    diagram: TDiagram;
+    diagramDrawer: TDiagramDrawer;
+    diagramModel: TDiagramDataListModel;
     firstYear: longint;
     procedure updateStatistic;
   end;
@@ -66,7 +67,6 @@ begin
        translated:= format('%.2d',[1+round(value) mod 12]);
     else translated:= FormatDateTime('d.m',round(value));
   end;
-
 end;
 
 procedure TstatistikForm.updateStatistic;
@@ -86,7 +86,8 @@ var i,j,k,c,tc,currentLoop:integer;
 begin
   showSum:=CheckBox1.Checked;
 
-  diagram.clear;
+  diagramModel.deleteLists;
+  diagramModel.Flags:=[mfEditable];
   //Get limits (first known day) and add datalists
   earliestDay:=lastCheck;
   lastDay:=lastCheck;
@@ -105,11 +106,11 @@ begin
           earliestDay:=books.old[j].firstExistsDate;
       end;
 
-      diagram.addDataList.title:=prettyName;
+      diagramModel.addDataList.Title:=prettyName;
     end;
   end;
   
-  if showSum then diagram.addDataList.title:='Summe';
+  if showSum then diagramModel.addDataList.Title:='Summe';
 
  // exit;
 
@@ -136,11 +137,11 @@ begin
           end;
         end;
         for i:=0 to high(accountValues) do
-          TDataList(diagram.dataLists[j]).addPoint(i*7+earliestDay,accountValues[i]);
+          diagramModel.addData(j,i*7+earliestDay,accountValues[i]);
       end;
       if showSum then
         for i:=0 to high(totalValues) do
-          TDataList(diagram.dataLists[diagram.DataLists.Count-1]).addPoint(i*7+earliestDay,totalValues[i]);
+          diagramModel.addData(diagramModel.dataRows-1,i*7+earliestDay,totalValues[i]);
     end;
     DIAGRAM_MONTHS:  begin
       DecodeDate(earliestDay,y,m,d);
@@ -166,11 +167,11 @@ begin
           end;
         end;
         for i:=0 to high(accountValues) do
-          TDataList(diagram.dataLists[j]).addPoint(i+y*12+m-1,accountValues[i]);
+          diagramModel.addData(j,i+y*12+m-1,accountValues[i]);
       end;
       if showSum then
         for i:=0 to high(totalValues) do
-          TDataList(diagram.dataLists[diagram.DataLists.Count-1]).addPoint(i+y*12+m-1,totalValues[i]);
+          diagramModel.addData(diagramModel.dataRows-1,i+y*12+m-1,totalValues[i]);
 
     end;
     else begin//iterate about days
@@ -193,22 +194,27 @@ begin
           end;
         end;
         for i:=0 to high(accountValues) do
-          TDataList(diagram.dataLists[j]).addPoint(i+earliestDay,accountValues[i]);
+          diagramModel.addData(j,i+earliestDay,accountValues[i]);
       end;
       if showSum then
         for i:=0 to high(totalValues) do
-          TDataList(diagram.dataLists[diagram.DataLists.Count-1]).addPoint(i+earliestDay,totalValues[i]);
+          diagramModel.addData(diagramModel.dataRows-1,i+earliestDay,totalValues[i]);
     end;
   end;
-  diagram.update;
-  PaintBox1Paint(PaintBox1);
+  diagramDrawer.AutoSetRangeY:=false;
+  diagramDrawer.RangeMinY:=0;
+  diagramDrawer.RangeMaxY:=diagramModel.maxY;
+  diagramDrawer.update();
+  PaintBox1Paint(PaintBox1) ;
 end;
 
 procedure TstatistikForm.FormCreate(Sender: TObject);
 begin
-  diagram:=TDiagram.create;
-  diagram.XAxis.valueTranslate:=@translateDate;
-  diagram.Diagram.SetSize(PaintBox1.Width,PaintBox1.Height);
+  diagramDrawer:=TDiagramDrawer.create;
+  diagramModel:=TDiagramDataListModel.create;
+  diagramDrawer.SetModel(diagramModel,true);
+  diagramDrawer.BottomAxis.valueTranslate:=@translateDate;
+  diagramDrawer.Diagram.SetSize(PaintBox1.Width,PaintBox1.Height);
   ComboBox1.ItemIndex:=0;
 end;
 
@@ -224,8 +230,9 @@ end;
 
 procedure TstatistikForm.CheckBox2Change(Sender: TObject);
 begin
-  diagram.filled:=CheckBox2.Checked;
-  diagram.update;
+  if CheckBox2.Checked then diagramDrawer.FillStyle:=fsMinOverMax
+  else diagramDrawer.FillStyle:=fsNone;
+  diagramDrawer.update;
   PaintBox1Paint(PaintBox1);
 end;
 
@@ -236,7 +243,7 @@ end;
 
 procedure TstatistikForm.FormDestroy(Sender: TObject);
 begin
-  diagram.free;
+  diagramDrawer.Free;
 end;
 
 procedure TstatistikForm.FormResize(Sender: TObject);
@@ -255,15 +262,15 @@ var day,year,month:longint;
 begin
   case ComboBox1.ItemIndex of
     DIAGRAM_DAYS: begin
-      day:=round(diagram.posXToDataX(x));
+      day:=round(diagramDrawer.posToDataX(x));
       mausInfo.Caption:=DateToStr(day);
     end;
     DIAGRAM_WEEKS: begin
-      day:=round(diagram.posXToDataX(x));
+      day:=round(diagramDrawer.posToDataX(x));
       mausInfo.Caption:=DateToStr(day-DayOfWeek(day))+' - '+DateToStr(day+7-DayOfWeek(day));
     end;
     DIAGRAM_MONTHS:  begin
-      month:=round(diagram.posXToDataX(x));
+      month:=round(diagramDrawer.posToDataX(x));
       year:=month div 12;
       month:=month mod 12+1;
       mausInfo.Caption:=DateToStr(EncodeDate(word(year),word(month),1))+' - '+DateToStr(IncMonth(EncodeDate(word(year),word(month),1))-1);;
@@ -273,13 +280,13 @@ end;
 
 procedure TstatistikForm.PaintBox1Paint(Sender: TObject);
 begin
-  PaintBox1.Canvas.Draw(0,0,diagram.Diagram);
+  PaintBox1.Canvas.Draw(0,0,diagramDrawer.Diagram);
 end;
 
 procedure TstatistikForm.PaintBox1Resize(Sender: TObject);
 begin
-  if diagram=nil then exit;
-  diagram.Diagram.SetSize(PaintBox1.Width,PaintBox1.Height);
+  if diagramDrawer=nil then exit;
+  diagramDrawer.Diagram.SetSize(PaintBox1.Width,PaintBox1.Height);
   updateStatistic;
 end;
 

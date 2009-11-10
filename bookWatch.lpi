@@ -2,10 +2,11 @@
 <CONFIG>
   <ProjectOptions>
     <PathDelim Value="\"/>
-    <Version Value="6"/>
+    <Version Value="7"/>
     <General>
       <Flags>
         <AlwaysBuild Value="False"/>
+        <LRSInOutputDirectory Value="False"/>
       </Flags>
       <SessionStorage Value="InProjectDir"/>
       <MainUnit Value="0"/>
@@ -39,10 +40,9 @@
       </Unit0>
       <Unit1>
         <Filename Value="bookwatchmain.pas"/>
-        <ComponentName Value="mainForm"/>
         <IsPartOfProject Value="True"/>
+        <ComponentName Value="mainForm"/>
         <ResourceBaseClass Value="Form"/>
-        <ResourceFilename Value="bookwatchmain.lrs"/>
         <UnitName Value="bookWatchMain"/>
       </Unit1>
       <Unit2>
@@ -62,26 +62,23 @@
       </Unit4>
       <Unit5>
         <Filename Value="options.pas"/>
-        <ComponentName Value="optionForm"/>
         <IsPartOfProject Value="True"/>
+        <ComponentName Value="optionForm"/>
         <ResourceBaseClass Value="Form"/>
-        <ResourceFilename Value="options.lrs"/>
         <UnitName Value="options"/>
       </Unit5>
       <Unit6>
         <Filename Value="newaccountwizard_u.pas"/>
-        <ComponentName Value="newAccountWizard"/>
         <IsPartOfProject Value="True"/>
+        <ComponentName Value="newAccountWizard"/>
         <ResourceBaseClass Value="Form"/>
-        <ResourceFilename Value="newaccountwizard_u.lrs"/>
         <UnitName Value="newAccountWizard_u"/>
       </Unit6>
       <Unit7>
         <Filename Value="errordialog.pas"/>
-        <ComponentName Value="showErrorForm"/>
         <IsPartOfProject Value="True"/>
+        <ComponentName Value="showErrorForm"/>
         <ResourceBaseClass Value="Form"/>
-        <ResourceFilename Value="errordialog.lrs"/>
         <UnitName Value="errorDialog"/>
       </Unit7>
       <Unit8>
@@ -91,10 +88,9 @@
       </Unit8>
       <Unit9>
         <Filename Value="statistik_u.pas"/>
-        <ComponentName Value="statistikForm"/>
         <IsPartOfProject Value="True"/>
+        <ComponentName Value="statistikForm"/>
         <ResourceBaseClass Value="Form"/>
-        <ResourceFilename Value="statistik_u.lrs"/>
         <UnitName Value="statistik_u"/>
       </Unit9>
       <Unit10>
@@ -114,10 +110,9 @@
       </Unit12>
       <Unit13>
         <Filename Value="..\..\..\components\lazarus\internet\sendBackError\sendBackError.pas"/>
-        <ComponentName Value="sendBackErrorForm"/>
         <IsPartOfProject Value="True"/>
+        <ComponentName Value="sendBackErrorForm"/>
         <ResourceBaseClass Value="Form"/>
-        <ResourceFilename Value="..\..\..\components\lazarus\internet\sendBackError\sendBackError.lrs"/>
         <UnitName Value="sendBackError"/>
       </Unit13>
       <Unit14>
@@ -132,10 +127,9 @@
       </Unit15>
       <Unit16>
         <Filename Value="..\..\..\components\lazarus\dialogs\progressdialog.pas"/>
-        <ComponentName Value="ProgressBarDialog"/>
         <IsPartOfProject Value="True"/>
+        <ComponentName Value="ProgressBarDialog"/>
         <ResourceBaseClass Value="Form"/>
-        <ResourceFilename Value="..\..\..\components\lazarus\dialogs\progressdialog.lrs"/>
         <UnitName Value="progressDialog"/>
       </Unit16>
       <Unit17>
@@ -144,18 +138,16 @@
       </Unit17>
       <Unit18>
         <Filename Value="registrierung.pas"/>
-        <ComponentName Value="RegForm"/>
         <IsPartOfProject Value="True"/>
+        <ComponentName Value="RegForm"/>
         <ResourceBaseClass Value="Form"/>
-        <ResourceFilename Value="registrierung.lrs"/>
         <UnitName Value="registrierung"/>
       </Unit18>
       <Unit19>
         <Filename Value="nagform.pas"/>
-        <ComponentName Value="nagWindow"/>
         <IsPartOfProject Value="True"/>
+        <ComponentName Value="nagWindow"/>
         <ResourceBaseClass Value="Form"/>
-        <ResourceFilename Value="nagform.lrs"/>
         <UnitName Value="nagform"/>
       </Unit19>
       <Unit20>
@@ -170,11 +162,10 @@
       </Unit21>
       <Unit22>
         <Filename Value="bibtexexport.pas"/>
+        <IsPartOfProject Value="True"/>
         <ComponentName Value="BibTexExportFrm"/>
         <HasResources Value="True"/>
-        <IsPartOfProject Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <ResourceFilename Value="bibtexexport.lrs"/>
         <UnitName Value="bibtexexport"/>
       </Unit22>
       <Unit23>
@@ -199,10 +190,9 @@
       </Unit26>
       <Unit27>
         <Filename Value="bookSearchForm.pas"/>
-        <ComponentName Value="bookSearchFrm"/>
         <IsPartOfProject Value="True"/>
+        <ComponentName Value="bookSearchFrm"/>
         <ResourceBaseClass Value="Form"/>
-        <ResourceFilename Value="bookSearchForm.lrs"/>
         <UnitName Value="bookSearchForm"/>
       </Unit27>
       <Unit28>

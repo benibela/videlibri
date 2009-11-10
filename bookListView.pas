@@ -20,8 +20,7 @@ uses
     procedure BookListCompareItems(sender: TObject; i1, i2: TTreeListItem;
       var compare: longint);
     procedure BookListCustomItemDraw(sender: TObject;
-      eventTyp_cdet: TCustomDrawEventTyp; item: TTreeListItem; xpos, ypos,
-      xColumn: integer; lastItem: boolean; var defaultDraw: Boolean);
+      eventTyp_cdet: TCustomDrawEventTyp; item: TTreeListItem; var defaultDraw: Boolean);
     procedure BookListViewItemsSortedEvent(Sender: TObject);
 
    procedure addBook(book: tbook);
@@ -118,11 +117,11 @@ end;
 
 
 procedure TBookListView.BookListCustomItemDraw(sender: TObject;
-  eventTyp_cdet: TCustomDrawEventTyp; item: TTreeListItem; xpos, ypos,
-  xColumn: integer; lastItem: boolean; var defaultDraw: Boolean);
+  eventTyp_cdet: TCustomDrawEventTyp; item: TTreeListItem; var defaultDraw: Boolean);
 var pa: array[0..2] of tpoint;
-    i,x,y:longint;
+    i,x,y,ypos:longint;
 begin
+  ypos:=TTreeListView(sender).DrawingYPos;
   case eventTyp_cdet of
     cdetPrePaint:
       if not item.SeemsSelected then begin

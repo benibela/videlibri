@@ -12,21 +12,22 @@ object newAccountWizard: TnewAccountWizard
   OnActivate = FormActivate
   OnCreate = FormCreate
   OnShow = FormShow
-  ParentFont = False
   Position = poScreenCenter
-  LCLVersion = '0.9.27'
+  LCLVersion = '0.9.29'
   object Notebook1: TNotebook
+    Left = 0
     Height = 216
+    Top = 0
     Width = 421
     Align = alClient
     OnPageChanged = Notebook1PageChanged
-    PageIndex = 1
+    PageIndex = 3
     ShowTabs = False
     TabOrder = 0
     object Page1: TPage
       Caption = 'Page1'
       ClientWidth = 413
-      ClientHeight = 190
+      ClientHeight = 208
       object Label3: TLabel
         AnchorSideTop.Control = Label9
         AnchorSideTop.Side = asrBottom
@@ -53,7 +54,7 @@ object newAccountWizard: TnewAccountWizard
         AnchorSideTop.Side = asrBottom
         AnchorSideBottom.Side = asrBottom
         Left = 28
-        Height = 128
+        Height = 146
         Top = 55
         Width = 358
         Anchors = [akTop, akLeft, akRight, akBottom]
@@ -67,7 +68,7 @@ object newAccountWizard: TnewAccountWizard
         ChildSizing.ShrinkVertical = crsScaleChilds
         ChildSizing.Layout = cclTopToBottomThenLeftToRight
         ChildSizing.ControlsPerLine = 4
-        ClientHeight = 110
+        ClientHeight = 128
         ClientWidth = 354
         ColumnLayout = clVerticalThenHorizontal
         ItemIndex = 0
@@ -84,13 +85,13 @@ object newAccountWizard: TnewAccountWizard
     object Page2: TPage
       Caption = 'Page2'
       ClientWidth = 413
-      ClientHeight = 190
+      ClientHeight = 208
       object Label4: TLabel
         AnchorSideTop.Control = accountName
         AnchorSideTop.Side = asrCenter
         Left = 36
         Height = 14
-        Top = 95
+        Top = 94
         Width = 71
         Alignment = taRightJustify
         Caption = 'Kontonummer:'
@@ -101,7 +102,7 @@ object newAccountWizard: TnewAccountWizard
         AnchorSideTop.Side = asrCenter
         Left = 36
         Height = 14
-        Top = 133
+        Top = 130
         Width = 77
         Caption = 'Geburtstdatum:'
         ParentColor = False
@@ -111,7 +112,7 @@ object newAccountWizard: TnewAccountWizard
         AnchorSideTop.Side = asrBottom
         Left = 20
         Height = 14
-        Top = 156
+        Top = 152
         Width = 48
         Caption = '(empty)'
         Font.Color = clRed
@@ -134,7 +135,7 @@ object newAccountWizard: TnewAccountWizard
         AnchorSideTop.Control = Label1
         AnchorSideTop.Side = asrBottom
         Left = 117
-        Height = 23
+        Height = 21
         Top = 91
         Width = 256
         BorderSpacing.Top = 31
@@ -148,8 +149,8 @@ object newAccountWizard: TnewAccountWizard
         AnchorSideTop.Control = accountName
         AnchorSideTop.Side = asrBottom
         Left = 117
-        Height = 23
-        Top = 129
+        Height = 21
+        Top = 127
         Width = 256
         BorderSpacing.Top = 11
         BorderSpacing.Around = 4
@@ -160,7 +161,7 @@ object newAccountWizard: TnewAccountWizard
     object Page3: TPage
       Caption = 'Page3'
       ClientWidth = 413
-      ClientHeight = 190
+      ClientHeight = 208
       object Label6: TLabel
         Left = 24
         Height = 27
@@ -214,12 +215,13 @@ object newAccountWizard: TnewAccountWizard
         Width = 241
         Caption = 'nein, => keine Ausleihenhistory und Statistik'
         TabOrder = 2
+        TabStop = False
       end
     end
     object Page4: TPage
       Caption = 'Page4'
-      ClientWidth = 415
-      ClientHeight = 192
+      ClientWidth = 413
+      ClientHeight = 208
       object lblWarning: TLabel
         AnchorSideTop.Control = Label2
         AnchorSideTop.Side = asrBottom
@@ -253,7 +255,7 @@ object newAccountWizard: TnewAccountWizard
         AnchorSideTop.Side = asrCenter
         Left = 235
         Height = 27
-        Top = 121
+        Top = 120
         Width = 100
         Caption = 'Tage vor Ablauf der Leihfrist'
         ParentColor = False
@@ -286,8 +288,8 @@ object newAccountWizard: TnewAccountWizard
         ChildSizing.ShrinkVertical = crsScaleChilds
         ChildSizing.Layout = cclLeftToRightThenTopToBottom
         ChildSizing.ControlsPerLine = 1
-        ClientHeight = 125
-        ClientWidth = 150
+        ClientHeight = 107
+        ClientWidth = 146
         ItemIndex = 0
         Items.Strings = (
           'immer, wenn möglich'
@@ -301,7 +303,7 @@ object newAccountWizard: TnewAccountWizard
         AnchorSideTop.Control = extendDaysLbl
         AnchorSideTop.Side = asrBottom
         Left = 204
-        Height = 23
+        Height = 21
         Top = 123
         Width = 27
         BorderSpacing.Top = 14
@@ -312,8 +314,8 @@ object newAccountWizard: TnewAccountWizard
     end
     object lastPage: TPage
       Caption = 'lastPage'
-      ClientWidth = 417
-      ClientHeight = 212
+      ClientWidth = 413
+      ClientHeight = 208
       object Label5: TLabel
         Left = 7
         Height = 27
@@ -328,9 +330,9 @@ object newAccountWizard: TnewAccountWizard
         AnchorSideTop.Side = asrBottom
         AnchorSideBottom.Side = asrBottom
         Left = 21
-        Height = 189
+        Height = 185
         Top = 39
-        Width = 380
+        Width = 376
         Anchors = [akTop, akLeft, akRight, akBottom]
         BorderSpacing.Top = 4
         BorderStyle = bsNone
@@ -338,14 +340,11 @@ object newAccountWizard: TnewAccountWizard
         ColCount = 2
         DefaultColWidth = 150
         Enabled = False
-        ExtendedSelect = True
-        FixedColor = clBtnFace
         FixedCols = 0
         FixedRows = 0
         Flat = True
         GridLineWidth = 0
         Options = [goSmoothScroll]
-        ParentColor = False
         RowCount = 6
         ScrollBars = ssAutoVertical
         TabOrder = 0
@@ -377,6 +376,7 @@ object newAccountWizard: TnewAccountWizard
     end
   end
   object Panel1: TPanel
+    Left = 0
     Height = 31
     Top = 216
     Width = 421

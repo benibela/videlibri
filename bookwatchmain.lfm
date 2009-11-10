@@ -12,10 +12,10 @@ object mainForm: TmainForm
   OnCreate = FormCreate
   OnDestroy = FormDestroy
   OnResize = FormResize
-  ParentFont = False
   Position = poScreenCenter
-  LCLVersion = '0.9.27'
+  LCLVersion = '0.9.29'
   object StatusBar1: TStatusBar
+    Left = 0
     Height = 23
     Top = 612
     Width = 927
@@ -36,7 +36,9 @@ object mainForm: TmainForm
     OnDblClick = StatusBar1DblClick
   end
   object ToolBar1: TToolBar
+    Left = 0
     Height = 54
+    Top = 0
     Width = 927
     ButtonHeight = 52
     ButtonWidth = 52
@@ -44,7 +46,6 @@ object mainForm: TmainForm
     Color = clBtnFace
     EdgeInner = esNone
     EdgeOuter = esNone
-    Flat = True
     Font.Color = clRed
     Images = ImageList1
     Indent = 15
@@ -53,7 +54,8 @@ object mainForm: TmainForm
     TabOrder = 0
     object Label2: TLabel
       Left = 183
-      Height = 52
+      Height = 23
+      Top = 0
       Width = 188
       Caption = '  Shareware Version'
       Font.CharSet = ANSI_CHARSET
@@ -67,12 +69,14 @@ object mainForm: TmainForm
     end
     object ToolButton1: TToolButton
       Left = 131
+      Top = 0
       Caption = 'Einstellungen'
       ImageIndex = 2
       OnClick = ShowOptionsClick
     end
     object btnRefresh: TToolButton
       Left = 15
+      Top = 0
       Caption = 'Aktualisieren '
       DropdownMenu = accountListMenu
       ImageIndex = 0
@@ -82,6 +86,7 @@ object mainForm: TmainForm
     end
     object ToolButton3: TToolButton
       Left = 79
+      Top = 0
       Caption = 'Homepages'
       ImageIndex = 1
       OnClick = ToolButton3Click

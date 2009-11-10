@@ -101,6 +101,7 @@ save
     log('TUpdateLibThread.execute(@lib='+inttostr(longint(lib))+') started');
     log('Library is: '+lib.prettyName);
   end;
+
   try
     listUpdateComplete:=false;
     if lib=nil then
@@ -300,12 +301,19 @@ begin
     account.isThreadRunning:=true;
     TUpdateLibThread.Create(account,updateThreadConfig,ignoreConnErrors,checkDate,extendAlways);
   end else begin
+    //(synchronized) set count of threads
     EnterCriticalSection(updateThreadConfig.threadManagementSection);
     updateThreadConfig.updateThreadsRunning:=accountIDs.count;
-    updateThreadConfig.listUpdateThreadsRunning:=accountIDs.count;
+    for i:=0 to accountIDs.count-1 do
+      if not TCustomAccountAccess(accountIDs.Objects[i]).enabled then
+        updateThreadConfig.updateThreadsRunning-=1;
+    updateThreadConfig.listUpdateThreadsRunning:=updateThreadConfig.updateThreadsRunning;
     LeaveCriticalSection(updateThreadConfig.threadManagementSection);
-    for i:=0 to accountIDs.count-1 do begin
 
+    //actually start threads
+    for i:=0 to accountIDs.count-1 do begin
+      if not TCustomAccountAccess(accountIDs.Objects[i]).enabled then
+        continue;
       TCustomAccountAccess(accountIDs.Objects[i]).isThreadRunning:=true;
       TUpdateLibThread.create(TCustomAccountAccess(accountIDs.Objects[i]),updateThreadConfig,
                               ignoreConnErrors,checkDate,extendAlways);

@@ -11,9 +11,9 @@ object statistikForm: TstatistikForm
   OnDestroy = FormDestroy
   OnResize = FormResize
   OnShow = FormShow
-  ParentFont = False
-  LCLVersion = '0.9.27'
+  LCLVersion = '0.9.29'
   object PaintBox1: TPaintBox
+    Left = 0
     Height = 276
     Top = 32
     Width = 471
@@ -23,7 +23,9 @@ object statistikForm: TstatistikForm
     OnResize = PaintBox1Resize
   end
   object Panel1: TPanel
+    Left = 0
     Height = 32
+    Top = 0
     Width = 471
     Align = alTop
     ClientHeight = 32
@@ -64,9 +66,9 @@ object statistikForm: TstatistikForm
       AnchorSideTop.Control = Label1
       AnchorSideTop.Side = asrCenter
       Left = 274
-      Height = 25
-      Top = 3
-      Width = 112
+      Height = 17
+      Top = 7
+      Width = 98
       BorderSpacing.Around = 4
       Caption = 'Summe anzeigen'
       Checked = True
@@ -79,10 +81,10 @@ object statistikForm: TstatistikForm
       AnchorSideLeft.Side = asrBottom
       AnchorSideTop.Control = Label1
       AnchorSideTop.Side = asrCenter
-      Left = 390
-      Height = 25
-      Top = 3
-      Width = 58
+      Left = 376
+      Height = 17
+      Top = 7
+      Width = 44
       BorderSpacing.Around = 4
       Caption = 'füllen'
       OnChange = CheckBox2Change
@@ -90,6 +92,7 @@ object statistikForm: TstatistikForm
     end
   end
   object Panel2: TPanel
+    Left = 0
     Height = 32
     Top = 308
     Width = 471

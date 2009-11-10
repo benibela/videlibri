@@ -32,6 +32,7 @@ type
     Button7: TButton;
     CheckBox1: TCheckBox;
     autoUpdate: TCheckBox;
+    ckbAccountDisabled: TCheckBox;
     ckbAccountHistory: TCheckBox;
     cmbAccountExtend: TComboBox;
     ColorDialog1: TColorDialog;
@@ -154,7 +155,9 @@ begin
       SubItems.add('ja')
      else
       SubItems.add('nein');
-    case account.extendType of
+    if not account.enabled then
+      SubItems.add('!DEAKTIVIERT!')
+     else case account.extendType of
       etAlways: SubItems.add('immer');
       etAllDepends,etSingleDepends: SubItems.add(IntToStr(account.extendDays)+' Tage vor Frist');
       etNever: SubItems.add('niemals');
@@ -427,17 +430,16 @@ begin
     lib.prettyName:=edtAccountPrettyName.text;
   if ckbAccountHistory.Checked<>(accountList.Selected.SubItems[2]='ja') then
     lib.keepHistory:=ckbAccountHistory.Checked;
-  if currentSelectedExtendType <> lib.extendType then begin
-    lib.extendType:=currentSelectedExtendType;
-    case currentSelectedExtendType of
-      etAlways: accountList.selected.SubItems[3]:='immer';
-      etAllDepends,etSingleDepends: accountList.selected.SubItems[3]:=IntToStr(currentSelectedAccount.extendDays)+' Tage vor Frist';
-      etNever: accountList.selected.SubItems[3]:='niemals';
-    end;
-   end else if (currentSelectedExtendType in [etAllDepends,etSingleDepends]) and (StrToInt(edtAccountExtendDays.Text) <> lib.extendDays) then begin
-    lib.extendDays:=StrToInt(edtAccountExtendDays.Text);
-    accountList.selected.SubItems[3]:=edtAccountExtendDays.Text+' Tage vor Frist';
-   end;
+
+  lib.extendType:=currentSelectedExtendType;
+  lib.extendDays:=StrToInt(edtAccountExtendDays.Text);
+  lib.enabled:=not ckbAccountDisabled.Checked;
+  if not lib.enabled then accountList.selected.SubItems[3]:='!DEAKTIVIERT!'
+  else case currentSelectedExtendType of
+    etAlways: accountList.selected.SubItems[3]:='immer';
+    etAllDepends,etSingleDepends: accountList.selected.SubItems[3]:=IntToStr(currentSelectedAccount.extendDays)+' Tage vor Frist';
+    etNever: accountList.selected.SubItems[3]:='niemals';
+  end;
   if edtAccountUser.text<>item.SubItems[0] then begin
     lib.changeUser(edtAccountUser.text);
     accountIDs[item.Index]:=lib.getID();

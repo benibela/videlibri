@@ -110,6 +110,9 @@ begin
       StringGrid1.Cells[1,5]:='nein' ;
     next.Caption:='&Erstellen >';
   end else next.Caption:='&Weiter >';
+  //fix lcl bug 14877
+  libraryList.ReAlign;
+  extendTypeRG.ReAlign;
 end;
 
 procedure TnewAccountWizard.RadioGroup1Click(Sender: TObject);
@@ -120,14 +123,20 @@ begin
     else passLabel.Caption:='Passwort: ';
   end;                         }
   StringGrid1.Cells[0,2]:=passLabel.Caption;
-  if selectedLibrary.canModifySingleBooks then
-    extendTypeRG.Items.text:='immer, wenn möglich'#13#10'alle, wenn nötig     '#13#10'einzeln, wenn nötig    '#13#10'niemals'
-   else
-    extendTypeRG.Items.Text:='immer, wenn möglich'#13#10'immer, wenn nötig    '#13#10'niemals                       ';
-  application.ProcessMessages;
-  if selectedLibrary.maxExtendCount=-1 then extendTypeRG.ItemIndex:=0
-  else if selectedLibrary.canModifySingleBooks then extendTypeRG.ItemIndex:=2
-  else extendTypeRG.ItemIndex:=1;
+  if selectedLibrary.maxExtendCount=0 then begin
+    extendTypeRG.Items.Text:='niemals                       ';
+    application.ProcessMessages;
+    extendTypeRG.ItemIndex:=0;
+  end else begin
+    if selectedLibrary.canModifySingleBooks then
+      extendTypeRG.Items.text:='immer, wenn möglich'#13#10'alle, wenn nötig     '#13#10'einzeln, wenn nötig    '#13#10'niemals'
+     else
+      extendTypeRG.Items.Text:='immer, wenn möglich'#13#10'immer, wenn nötig    '#13#10'niemals                       ';
+    application.ProcessMessages;
+    if selectedLibrary.maxExtendCount=-1 then extendTypeRG.ItemIndex:=0
+    else if selectedLibrary.canModifySingleBooks then extendTypeRG.ItemIndex:=2
+    else extendTypeRG.ItemIndex:=1;
+  end;
   extendTypeRG.OnClick(extendTypeRG);
 end;
 
@@ -136,6 +145,8 @@ var extendType: TExtendType;
 begin
   extendType:=TExtendType(extendTypeRG.ItemIndex);
   if (not selectedLibrary.canModifySingleBooks) and (extendType=etSingleDepends) then
+    extendType:=etNever;
+  if selectedLibrary.maxExtendCount=0 then
     extendType:=etNever;
   extendTypeRG.tag:=integer(extendType);
   lblWarning.Visible:=(selectedLibrary.maxExtendCount>0) and (extendType=etAlways);

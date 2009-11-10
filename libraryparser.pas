@@ -137,6 +137,8 @@ type
   { TCustomAccountAccess }
                 //first start info
   TCustomAccountAccess=class
+  private
+    FEnabled: boolean;
   protected
     fbooks: TBookLists;
     lib: TLibrary;
@@ -193,6 +195,7 @@ type
     property extendDays: integer read FExtendDays write FExtendDays;
     property extendType: TExtendType read FExtendType write FExtendType;
     property keepHistory: boolean read FKeepHistory write FKeepHistory;
+    property enabled: boolean read FEnabled write FEnabled;
   end;
 
 
@@ -604,6 +607,7 @@ begin
   isThreadRunning:=false;
   lib:=alib;
   fcharges:=-1;
+  FEnabled:=true;
 end;
 
 destructor TCustomAccountAccess.destroy;
@@ -632,6 +636,7 @@ begin
   extendDays:=config.readInteger('base','extend-days',7);
   extendType:=TExtendType(config.readInteger('base','extend',0));
   fcharges:=currency(config.readInteger('base','charge',-100))/100;;
+  FEnabled:=config.ReadBool('base','enabled',true);
 end;
 
 procedure TCustomAccountAccess.save();
@@ -646,6 +651,7 @@ begin
     config.WriteInteger('base','extend-days',extendDays);
     config.WriteInteger('base','extend',integer(extendType));
     config.WriteInteger('base','charge',longint(trunc(charges*100)));
+    config.WriteBool('base','enabled',FEnabled);
 
     config.UpdateFile;
   end;
@@ -723,7 +729,7 @@ begin
   end;
 end;
 
-procedure TCustomAccountAccess.updateAllSingly();
+procedure TCustomAccountAccess.updateAllSingly;
 var i:integer;
 begin
   if not connected then

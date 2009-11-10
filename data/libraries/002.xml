@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<library>
+  <!--<username matches="^\d{8}$"/>
+  <password matches="^\d{1,2}\.\d{1,2}\.\d{2,4}$"/>  -->
+  
+  <longName value="Stadtbibliothek Aachen"/>
+  <shortName value="StB Aachen"/>
+  <homepage value="http://webopac.stadtbibliothek-aachen.de/"/>
+  <template value="libero51"/>
+  <maxExtendCount value="0"/>  
+  
+  <variable name="server" value="webopac.stadtbibliothek-aachen.de/libero/"/>
+  
+  <variable name="Location" value="Aachen"/>
+  <variable name="searchid-digibib" value="SERVICEGROUP1.SERVICE.SEARCH_SBAAC"/>
+</library>
