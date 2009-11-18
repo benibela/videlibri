@@ -528,8 +528,11 @@ procedure TmainForm.MenuItem24Click(Sender: TObject);
 var bibexportForm:TBibTexExportFrm;
 begin
   Application.CreateForm(TBibTexExportFrm,bibexportForm);
-  bibexportForm.ShowModal;
-  bibexportForm.free;
+  try
+    bibexportForm.ShowModal;
+  finally
+    bibexportForm.free;
+  end;
 end;
 
 procedure TmainForm.MenuItem25Click(Sender: TObject);
@@ -560,19 +563,22 @@ begin
         exit;
       end;
   accountsToSave:=tlist.Create;
-  for i:=0 to BookList.Items.count-1 do
-    if (BookList.Items[i].Selected) then begin
-      book:=tbook(BookList.Items[i].Tag);
-      if accountsToSave.IndexOf(book.owner)<0 then accountsToSave.Add(book.owner);
-      if TCustomAccountAccess(book.owner).books.old.Remove(book) < 0 then begin
-        ShowMessage('Das markierte Buch war nicht vorhanden.'#13#10'Das ist eigentlich unmöglich, am besten starten Sie das Programm neu.');
-        exit;
+  try
+    for i:=0 to BookList.Items.count-1 do
+      if (BookList.Items[i].Selected) then begin
+        book:=tbook(BookList.Items[i].Tag);
+        if accountsToSave.IndexOf(book.owner)<0 then accountsToSave.Add(book.owner);
+        if TCustomAccountAccess(book.owner).books.old.Remove(book) < 0 then begin
+          ShowMessage('Das markierte Buch war nicht vorhanden.'#13#10'Das ist eigentlich unmöglich, am besten starten Sie das Programm neu.');
+          exit;
+        end;
       end;
-    end;
-  for i:=0 to accountsToSave.Count-1 do
-    TCustomAccountAccess(accountsToSave[i]).save();
-  accountsToSave.Free;
+    for i:=0 to accountsToSave.Count-1 do
+      TCustomAccountAccess(accountsToSave[i]).save();
   RefreshListView;
+  finally
+    accountsToSave.Free;
+  end;
 end;
 
 procedure TmainForm.displayDetailsMIClick(Sender: TObject);
@@ -666,7 +672,7 @@ begin
     id:=lib.id;
     title:=TMenuItem(sender).Caption;
     extraParams:='';
-    if not lib.allowHomepageNavigation then extraParams:=extraParams+' /no-navigation';
+    //if not lib.allowHomepageNavigation then extraParams:=extraParams+' /no-navigation';
     if lib.bestHomepageWidth>0 then extraParams:=extraParams+' /pagewidth='+InttoStr(lib.bestHomepageWidth);
     if lib.bestHomepageHeight>0 then extraParams:=extraParams+' /pageheight='+InttoStr(lib.bestHomepageHeight);
   end;

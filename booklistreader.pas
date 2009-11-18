@@ -34,7 +34,6 @@ type
 
     //temporary
 
-    changed:boolean;
     charges: currency;
     additional: TProperties;
     
@@ -475,7 +474,6 @@ begin
       lend:=self.lendList;
       owner:=self.owner;
       //list:=self;
-      changed:=false;
     end;
     inherited add(book);
   end;

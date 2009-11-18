@@ -13,11 +13,12 @@
         <td ID="MemStatLoanTit"><htmlparser:read source="text()" var="book.title"/></td>
         <td ID="MemStatLoanAut"><htmlparser:read source="text()" var="book.author"/></td>
         <td ID="MemStatLoanDue"><htmlparser:read source="text()" var="book.limitdate:d mmm yyyy"/></td>
-        <td ID="MemStatLoanRenewCount"><htmlparser:read source="concat('bisher ',text(), ' mal verlängert')" var="book.status:curious"/></td>
+        <td ID="MemStatLoanRenewCount"><htmlparser:read source="concat('bisher ',text(), ' mal verlängert $globalExtraStatusRemark;')" var="book.status:problematic"/></td>
         <td ID="MemStatLoanRen" htmlparser-optional="true">
         <htmlparser:read source="text()" var="temp"/>
         <htmlparser:if test="'$temp;'==''"> 
           <input type="checkbox">
+		    <htmlparser:read source="concat('bisher ',text(), ' mal verlängert')" var="book.status:curious"/>
             <htmlparser:read var="book.extendId" source="@name"/>
           </input>
         </htmlparser:if>

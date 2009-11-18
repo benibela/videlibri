@@ -10,7 +10,8 @@
   <password matches="."/>
   
   <variable name="server" value="liberoboc.hbz-nrw.de/libero/"/>
-  
+
+  <variable name="globalExtraStatusRemark" value=""/>
   <variable name="Location" value="Bochum"/>
   <variable name="searchid-digibib" value="SERVICEGROUP1.SERVICE.SEARCH_FHBBO"/>
 </library>

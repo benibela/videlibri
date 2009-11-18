@@ -28,7 +28,7 @@ type
     id:string;
     maxExtendCount: integer; //-1: if you can extend so frequently you want
     bestHomepageWidth,bestHomepageHeight: integer;
-    allowHomepageNavigation: boolean;
+    //allowHomepageNavigation: boolean;
 
     usernameRegEx,passwordRegEx: TRegExpr;
 
@@ -295,6 +295,8 @@ constructor TLibrary.create;
 begin
   usernameRegEx:=TRegExpr.Create('.');
   passwordRegEx:=TRegExpr.Create('.');
+  bestHomepageWidth:=0;
+  bestHomepageHeight:=0;
 end;
 
 destructor TLibrary.destroy;

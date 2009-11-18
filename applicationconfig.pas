@@ -57,8 +57,7 @@ var programPath,userPath,dataPath:string;
     colorTimeNear:tcolor;
     colorOK:tcolor;
     colorOld:tcolor;
-    colorSearchTextNotFound: tcolor=$6060FF;
-    colorSearchTextFound: tcolor=clWindow;
+    //TODO: customize colors in search panel colorSearchTextNotFound: tcolor=$6060FF;    //colorSearchTextFound: tcolor=clWindow;
     redTime: integer;
     RefreshInterval: integer;
     HistoryBackupInterval: longint;
@@ -548,9 +547,9 @@ uses bookwatchmain,windows,internetaccess,w32internetaccess,controls,libraryacce
       if (userConfig.ReadInteger('autostart','type',1)=1) then begin
         cancelStarting:=true;
         for i:=0 to accountIDs.count-1 do
-          if (TCustomAccountAccess(accountIDs.Objects[i]).lastCheckDate<=currentDate-refreshInterval) or
+          if (TCustomAccountAccess(accountIDs.Objects[i]).enabled) and ((TCustomAccountAccess(accountIDs.Objects[i]).lastCheckDate<=currentDate-refreshInterval) or
              (TCustomAccountAccess(accountIDs.Objects[i]).existsCertainBookToExtend) or
-             ((TCustomAccountAccess(accountIDs.Objects[i]).books.nextLimit<>0)and(TCustomAccountAccess(accountIDs.Objects[i]).books.nextLimit<=redTime))then begin
+             ((TCustomAccountAccess(accountIDs.Objects[i]).books.nextLimit<>0)and(TCustomAccountAccess(accountIDs.Objects[i]).books.nextLimit<=redTime))) then begin
             cancelStarting:=false;
             break;
           end;
