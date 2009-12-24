@@ -6,7 +6,7 @@ interface
 
 uses
   Classes, SysUtils, LResources, Forms, Controls, Graphics, Dialogs, StdCtrls,
-  Buttons, ExtCtrls;
+  Buttons, ExtCtrls, LCLType;
 
 type
 
@@ -40,7 +40,7 @@ var
 
 implementation
 
-uses applicationconfig,windows,bookWatchMain;
+uses applicationconfig,bookWatchMain;
 { TRegForm }
 
 procedure TRegForm.Button1Click(Sender: TObject);

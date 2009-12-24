@@ -38,8 +38,8 @@ const BL_BOOK_COLUMNS_AUTHOR=2;
 
 implementation
 
-uses applicationconfig, bbutils, libraryParser, Graphics,
-windows {for the search only};
+uses applicationconfig, bbutils, libraryParser, Graphics;
+//  ,windows {for the search only};
 { TBookListView }
 
 procedure TBookListView.BookListViewItemsSortedEvent(Sender: TObject);
@@ -49,18 +49,21 @@ procedure TBookListView.BookListViewItemsSortedEvent(Sender: TObject);
   end;
 var i: longint;
     lastWeek: longint;
+    book: TBook;
 begin
   if SortColumn<>BL_BOOK_COLUMNS_LIMIT_ID then exit;
   if items.count=0 then exit;
   BeginMultipleUpdate;
   lastWeek:=dateToWeek(currentDate);
-  for i:=0 to Items.Count-1 do
-    if (Items[i].tag<>0) and (tbook(Items[i].tag).lend) and
-       (dateToWeek(TBook(Items[i].tag).limitDate) <> lastWeek) then begin
-      Items[i].RecordItemsText[BL_BOOK_EXTCOLUMNS_WEEK_SEPARATOR]:=IntToStr(abs(dateToWeek(TBook(Items[i].tag).limitDate) - lastWeek));
-      lastWeek:=dateToWeek(TBook(Items[i].tag).limitDate);
+  for i:=0 to Items.Count-1 do begin
+    book:=TBook(Items[i].data.obj);
+    if (book<>nil) and (book.lend) and
+       (dateToWeek(book.limitDate) <> lastWeek) then begin
+      Items[i].RecordItemsText[BL_BOOK_EXTCOLUMNS_WEEK_SEPARATOR]:=IntToStr(abs(dateToWeek(book.limitDate) - lastWeek));
+      lastWeek:=dateToWeek(book.limitDate);
      end else
       Items[i].RecordItemsText[BL_BOOK_EXTCOLUMNS_WEEK_SEPARATOR]:='';
+  end;
   EndMultipleUpdate;
 end;
 
@@ -68,8 +71,8 @@ procedure TBookListView.BookListCompareItems(sender: TObject; i1,
   i2: TTreeListItem; var compare: longint);
 var book1,book2: TBook;
 begin
-  book1:=TBook(i1.Tag);
-  book2:=TBook(i2.Tag);
+  book1:=TBook(i1.data.obj);
+  book2:=TBook(i2.data.obj);
   if (book1=nil) then begin
     Compare:=1;
     exit;
@@ -182,7 +185,7 @@ begin
     RecordItemsText[BL_BOOK_EXTCOLUMNS_COLOR]:=ColorToString(getBookColor(book));
 
     //else
-    tag:=longint(book);
+    data.obj:=book;
   end;
 end;
 

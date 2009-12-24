@@ -11,7 +11,7 @@ unit libraryAccess;
 
 interface
 uses
-  Classes, SysUtils,libraryParser,booklistreader;
+  Classes, SysUtils,libraryParser,booklistreader, LCLType;
 
 //--Aktualisierungen--
 type
@@ -46,8 +46,11 @@ procedure startDailyCheckDate;
 //Hauptformulars deswegen (->true wenn es geöffnet werden soll)
 function alertAboutBooksThatMustBeReturned:boolean;
 implementation
-uses applicationconfig,internetaccess,w32internetAccess,bookwatchmain,windows,bbdebugtools;
+uses applicationconfig,internetaccess,bookwatchmain,bbdebugtools;
 const TRY_BOOK_UPDATE='Versuche Mediendaten zu aktualisieren...';
+{$IFNDEF WIN32}
+const MB_SYSTEMMODAL=0;
+{$ENDIF}
 
 //==============================================================================
 //============================Aktualisierungs Thread============================
@@ -117,7 +120,7 @@ save
         exit;
       end;
 
-    internet:=TW32InternetAccess.create;
+    internet:=defaultInternetAccessClass.create;
     try
       if logging then log('TUpdateLibThread.execute ended marker 1');
       lib.connect(internet);
@@ -263,7 +266,7 @@ begin
     end;
     if mainform<>nil then
       mainform.delayedCall.Enabled:=true //show error messages
-     else if not lclstarted then
+     else //TODO: if not lclstarted then
       showErrorMessages;
   end;
   if (updateThreadConfig.updateThreadsRunning<=0) then
@@ -348,14 +351,14 @@ procedure TPersistentCheckThread.execute();
 //procedure defaultCheckThread(lpParameter: pointer);stdcall;
 var internet:TInternetAccess;
 begin
-  while (not accountsRefreshed) and (tna<>nil) do begin
+  while (not accountsRefreshed) and (mainForm<>nil) do begin
     try
-      internet:=TW32InternetAccess.create;
+      internet:=defaultInternetAccessClass.create;
       try
         if internet.existsConnection then begin
           //defaultAccountsRefresh;
           if logging then log('defaultCheckThread internet connection exists');
-          postMessage(tna.messageWindow,wm_command,MENU_ID_AUTO_UPDATE,0);
+          //TODO: auto update postMessage(tna.messageWindow,wm_command,MENU_ID_AUTO_UPDATE,0);
           if logging then log('message posted');
           internet.free;
           if logging then log('internet freed');
@@ -388,7 +391,7 @@ end;
 
 procedure extendAccountBookData(account: TCustomAccountAccess;
   books: TBookList);
-var internet:TW32InternetAccess;
+var internet:TInternetAccess;
 begin
   try
     if not assigned(account) then
@@ -399,7 +402,7 @@ begin
       exit; //Nur vom Haupthread aus aufrufen
 
     if (account<>nil) and (books.Count>0) then begin
-        internet:=TW32InternetAccess.create();
+        internet:=defaultInternetAccessClass.create();
       try
         if not account.connected then begin
           account.connect(internet);
@@ -438,7 +441,7 @@ begin
   end;
   current.free;
   showErrorMessages();
-  if lclStarted and (mainform<>nil) and (mainform.visible) then
+  if (mainform<>nil) and (mainform.visible) then
     mainform.RefreshListView;
 end;
 
@@ -461,7 +464,7 @@ begin
   books.free;
 
   showErrorMessages();
-  if lclStarted and (mainform<>nil) and (mainform.visible) then
+  if (mainform<>nil) and (mainform.visible) then
     mainform.RefreshListView;
 end;
 
@@ -480,12 +483,12 @@ type
 
 procedure TDailyCheckThread.execute;
 begin
-  while tna<>nil do begin
+  while mainForm<>nil do begin
     sleep(1000*60*60*24);
     if not checkingThreadRunning then begin
       accountsRefreshed:=false;
       if alertAboutBooksThatMustBeReturned then
-        PostMessage(tna.messageWindow,WM_COMMAND,MENU_ID_START_LCL,0);
+        //TODO: auto update PostMessage(tna.messageWindow,WM_COMMAND,MENU_ID_START_LCL,0);
     end;
   end;
 end;
@@ -539,7 +542,7 @@ begin
     alert:='Bald (bis '+DateToPrettyGrammarStr('zum ','',nextLimit)+') müssen einige Medien ('+IntToStr(count)+') abgegeben werden.'#13#10'Die Medien können allerdings verlängert werden, soll dies jetzt versucht werden?';
     if MessageBoxUTF8(alert,MB_YESNO or MB_ICONWARNING or MB_SYSTEMMODAL)=IDYES then
       result:=true;
-    tempInternet:=TW32InternetAccess.create;
+    tempInternet:=defaultInternetAccessClass.create;
     if not tempInternet.needConnection() then begin
       alert:='Der Aufbau einer Internetverbindung zum Verlängern ist fehlgeschlagen'#13#10'Wollen sie dafür eine Liste der abzugebenden Medien angezeigt bekommen?';
       if MessageBoxUTF8(alert,MB_YESNO or MB_ICONWARNING or MB_SYSTEMMODAL)=IDYES then

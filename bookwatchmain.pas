@@ -16,7 +16,7 @@ uses
   Classes, SysUtils, LResources, Forms, Controls, Graphics, Dialogs,
   StdCtrls, Buttons, libraryParser,internetAccess, ComCtrls, Menus,
   lmessages, ExtCtrls,errorDialog,statistik_u,libraryAccess,sendBackError,Translations,progressDialog,
-  bookListView,TreeListView, bookSearchForm;
+  bookListView,TreeListView, bookSearchForm, LCLType, lclproc, LCLIntf;
 
 const //automaticExtend=true;
       colorSelected=clHighlight;
@@ -54,6 +54,12 @@ type
     MenuItem23: TMenuItem;
     MenuItem24: TMenuItem;
     MenuItem25: TMenuItem;
+    MenuItem26: TMenuItem;
+    MenuItem27: TMenuItem;
+    MenuItem28: TMenuItem;
+    MenuItem29: TMenuItem;
+    MenuItem30: TMenuItem;
+    trayIconPopupMenu: TPopupMenu;
     removeSelectedMI: TMenuItem;
     displayDetailsMI: TMenuItem;
     searchDetailsMI: TMenuItem;
@@ -70,7 +76,7 @@ type
     MenuItem7: TMenuItem;
     showAllAccounts: TMenuItem;
     showNoAccounts: TMenuItem;
-    Timer1: TTimer;
+    TrayIcon1: TTrayIcon;
     viewMenu: TMenuItem;
     MenuItem2: TMenuItem;
     MenuItem4: TMenuItem;
@@ -85,8 +91,6 @@ type
     ViewAll: TMenuItem;
     ViewOld: TMenuItem;
     StatusBar1: TStatusBar;
-    procedure appMinimize(Sender: TObject);
-    procedure appRestore(Sender: TObject);
     procedure BookListDblClick(Sender: TObject);
     procedure bookPopupMenuPopup(Sender: TObject);
     procedure BookListUserSortItemsEvent(sender: TObject;
@@ -99,6 +103,7 @@ type
     procedure FormDestroy(Sender: TObject);
     procedure FormResize(Sender: TObject);
     procedure BookListSelectItem(Sender: TObject; Item: TTreeListItem);
+    procedure FormWindowStateChange(Sender: TObject);
     procedure MenuItem11Click(Sender: TObject);
     procedure MenuItem14Click(Sender: TObject);
     procedure MenuItem15Click(Sender: TObject);
@@ -108,10 +113,16 @@ type
     procedure MenuItem23Click(Sender: TObject);
     procedure MenuItem24Click(Sender: TObject);
     procedure MenuItem25Click(Sender: TObject);
+    procedure MenuItem26Click(Sender: TObject);
+    procedure MenuItem27Click(Sender: TObject);
+    procedure MenuItem28Click(Sender: TObject);
+    procedure MenuItem30Click(Sender: TObject);
     procedure removeSelectedMIClick(Sender: TObject);
     procedure displayDetailsMIClick(Sender: TObject);
     procedure searchTextKeyDown(Sender: TObject; var Key: Word;
       Shift: TShiftState);
+    procedure TrayIcon1Click(Sender: TObject);
+    procedure TrayIcon1DblClick(Sender: TObject);
     procedure UserExtendMenuClick(Sender: TObject);
     procedure MenuItem3Click(Sender: TObject);
     procedure MenuItem6Click(Sender: TObject);
@@ -147,11 +158,13 @@ type
     procedure ThreadDone(Sender: TObject);
     procedure RefreshListView; //Zentrale Anzeige Funktion!
     procedure setSymbolAppearance(showStatus: integer); //0: text and icons 1=only text 2=only icons
-    procedure addGUIItemsForNewAccount(const account: TCustomAccountAccess);
+    procedure refreshAccountGUIElements();
     procedure updateGUIItemsForAccount(const account: TCustomAccountAccess);
     procedure removeGUIItemsForAccount(const account: TCustomAccountAccess);
     function addAccount(const libID: string; prettyName, aname, pass: string; extendType: TExtendType; extendDays:integer; history: boolean):TCustomAccountAccess;
     //procedure WndProc(var TheMessage : TLMessage); override;
+    function menuItem2AssociatedAccount(mi: TMenuItem): TCustomAccountAccess;
+
   end;
 
 
@@ -164,20 +177,7 @@ const SB_PANEL_COUNT=2;
 implementation
 
 { TmainForm }
-uses windows,math,options,applicationconfig,newaccountwizard_u,registrierung,nagform,bbdebugtools,bibtexexport,booklistreader;
-
-
-procedure hideTaskBarIcon();
-begin
-  if not IsWindowVisible(GetWindow(mainform.handle,GW_OWNER)) then exit;
-  ShowWindow(GetWindow(mainform.handle,GW_OWNER),SW_HIDE); //windows, win32
-end;
-
-procedure showTaskBarIcon();
-begin
-  ShowWindow(GetWindow(mainform.handle,GW_OWNER),SW_SHOW); //windows, win32
-end;
-
+uses math,options,applicationconfig,newaccountwizard_u,registrierung,nagform,bbdebugtools,bibtexexport,booklistreader;
 
 procedure TmainForm.FormCreate(Sender: TObject);
 //const IMAGE_FILES:array[0..2] of string=('refresh','homepages','options');
@@ -190,11 +190,7 @@ var i:integer;
     order: array[0..100] of longint;
 begin
   if logging then log('FormCreate started');
-  
 
-  Application.OnMinimize:=@appMinimize;
-  Application.OnRestore:=@appRestore;
-  
   TranslateUnitResourceStrings('LCLStrConsts',dataPath+'lclstrconsts.de.po');
 
   setSymbolAppearance(userConfig.ReadInteger('appearance','symbols',0));
@@ -215,9 +211,8 @@ begin
   tempItem.Tag:=-1;
   tempItem.OnClick:=@LibraryHomepageClick;
   //libraryList.Items.Add(tempItem);
-  
-  for i:=0 to accountIDs.count-1 do
-    addGUIItemsForNewAccount(TCustomAccountAccess(accountIDs.Objects[i]));
+
+  refreshAccountGUIElements();
 
   BookList:=TBookListView.create(self,true);
   BookList.Parent:=self;
@@ -255,19 +250,22 @@ begin
   mask:=graphics.TBitmap.Create;
   ImageList1.Clear;
   for i:=0 to high(IMAGE_FILES) do begin
-    img.LoadFromFile(programPath+'images\'+IMAGE_FILES[i]+'.bmp');
- //   mask.LoadFromFile(programPath+'images\'+IMAGE_FILES[i]+'_mask.bmp');
+    img.LoadFromFile(programPath+'images'+DirectorySeparator+IMAGE_FILES[i]+'.bmp');
+ //   mask.LoadFromFile(programPath+'images'+DirectorySeparator+IMAGE_FILES[i]+'_mask.bmp');
     ImageList1.Add(img,nil)
   end;       }
 
   caption:=appFullTitle;
 
+
+  TrayIcon1.Icon.LoadFromFile(getTNAIconFileName());
+
   {$ifdef debug}
-  caption:=caption+' (DEBUG-MODE!)';
+  caption:=caption+' (DEBUG-BUILD!)';
   {$endif}
 
 
-    //image1.Picture.LoadFromFile(programPath+'images\'+IMAGE_FILES[0]+'.bmp');
+    //image1.Picture.LoadFromFile(programPath+'images'+DirectorySeparator+IMAGE_FILES[0]+'.bmp');
   if logging then log('FormCreate ende');
 end;
 
@@ -313,25 +311,13 @@ begin
   else begin
     rsc:=BookList.selcount;
     for i:=0 to BookList.Items.Count-1 do
-      if BookList.Items[i].Selected and (BookList.Items[i].tag=0) then rsc:=0;
+      if BookList.Items[i].Selected and (BookList.Items[i].data.obj=nil) then rsc:=0;
   end;
   extendTheseBooks.Enabled:=(rsc>=1);
   extendAdjacentBooks.Enabled:=rsc=1;
   displayDetailsMI.Enabled:=rsc=1;
   searchDetailsMI.Enabled:=rsc=1;
   removeSelectedMI.Enabled:=rsc>0;
-end;
-
-procedure TmainForm.appMinimize(Sender: TObject);
-begin
-  if startToTNA then
-    hideTaskBarIcon();
-end;
-
-procedure TmainForm.appRestore(Sender: TObject);
-begin
-  if startToTNA then
-    showTaskBarIcon();
 end;
 
 procedure TmainForm.BookListDblClick(Sender: TObject);
@@ -356,8 +342,8 @@ end;
 
 procedure TmainForm.extendAdjacentBooksClick(Sender: TObject);
 begin
-  if (BookList.Selected = nil) or (BookList.Selected.tag=0) then exit;
-  extendBooks(MaxLongint,tbook(BookList.Selected.tag).owner as TCustomAccountAccess);
+  if (BookList.Selected = nil) or (BookList.Selected.data.obj=nil) then exit;
+  extendBooks(MaxLongint,tbook(BookList.Selected.data.obj).owner as TCustomAccountAccess);
 end;
 
 procedure TmainForm.FormActivate(Sender: TObject);
@@ -462,6 +448,11 @@ begin
     StatusBar1.Panels[SB_PANEL_COUNT].Width:=StatusBar1.Canvas.TextWidth(StatusBar1.Panels[SB_PANEL_COUNT].Text)+10;
 end;
 
+procedure TmainForm.FormWindowStateChange(Sender: TObject);
+begin
+  if WindowState=wsMinimized then hide;
+end;
+
 procedure TmainForm.MenuItem11Click(Sender: TObject);
 var i:integer;
     books:TBookList;
@@ -469,20 +460,20 @@ begin
   books:=TBookList.Create;
   books.Capacity:=BookList.selCount;
   for i:=0 to BookList.Items.Count-1 do
-    if BookList.Items[i].Selected and (BookList.Items[i].Tag<>0) then
-      books.add(TBook(BookList.Items[i].Tag));
+    if BookList.Items[i].Selected and (BookList.Items[i].data.obj<>nil) then
+      books.add(TBook(BookList.Items[i].data.obj));
   extendBooks(books);
   books.free;
 end;
 
 procedure TmainForm.MenuItem14Click(Sender: TObject);
 begin
-  WinExec('hh -mapid 1000 videlibri.chm',sw_shownormal);
+  //TODO: WinExec('hh -mapid 1000 videlibri.chm',sw_shownormal);
 end;
 
 procedure TmainForm.MenuItem15Click(Sender: TObject);
 begin
-  WinExec('hh -mapid 1001 videlibri.chm',sw_shownormal);
+  //TODO: WinExec('hh -mapid 1001 videlibri.chm',sw_shownormal);
 end;
 
 procedure TmainForm.MenuItem16Click(Sender: TObject);
@@ -496,7 +487,8 @@ var s1, s2, s3: string;
     openAboutDialog: tpopenAboutDialog;
     lib:thandle;
 begin
-  lib:=LoadLibrary('bbabout.dll');
+  //TODO:
+  (*lib:=LoadLibrary('bbabout.dll');
   openAboutDialog:=tpopenAboutDialog(GetProcAddress(lib,'openAboutDialog'));
   if assigned(openAboutDialog) then
     openAboutDialog(pchar({'Videlibri '+FloatToStr(versionNumber/1000)}caption),'',pchar(Utf8ToAnsi(
@@ -507,7 +499,7 @@ begin
       '  den Fachhochschulbüchereien Düsseldorfs und Bochums'#13#10+
       '  der DigiBib/dem Hochschulbibliothekszentrum des Landes Nordrhein-Westfalen'#13#10+
       '  Amazon.com')),true,1);
-  FreeLibrary(lib);
+  FreeLibrary(lib);              *)
 end;
 
 procedure TmainForm.MenuItem18Click(Sender: TObject);
@@ -544,6 +536,26 @@ begin
 
 end;
 
+procedure TmainForm.MenuItem26Click(Sender: TObject);
+begin
+  TrayIcon1DblClick(self);
+end;
+
+procedure TmainForm.MenuItem27Click(Sender: TObject);
+begin
+  updateAccountBookData(nil,false,false,false);
+end;
+
+procedure TmainForm.MenuItem28Click(Sender: TObject);
+begin
+  updateAccountBookData(nil,false,false,true);
+end;
+
+procedure TmainForm.MenuItem30Click(Sender: TObject);
+begin
+  close
+end;
+
 procedure TmainForm.removeSelectedMIClick(Sender: TObject);
 var i:longint;
     accountsToSave: tlist;
@@ -555,10 +567,10 @@ begin
   end;
   for i:=0 to BookList.Items.count-1 do
     if (BookList.Items[i].Selected) then
-      if BookList.Items[i].Tag=0 then begin
+      if BookList.Items[i].data.obj=nil then begin
         ShowMessage('Es ist momentan ein Eintrag markiert, bei dem es sich nicht um ein Buch handelt'#13#10'Bitte demarkieren Sie ihn.');
         exit;
-      end else if tbook(BookList.Items[i].Tag).lend then begin
+      end else if tbook(BookList.Items[i].data.obj).lend then begin
         ShowMessage('Es sind momentan ausgeliehene Medien markiert, es können aber nur abgegebene Medien aus der History gelöscht werden'#13#10'Bitte demarkieren Sie sie.');
         exit;
       end;
@@ -566,7 +578,7 @@ begin
   try
     for i:=0 to BookList.Items.count-1 do
       if (BookList.Items[i].Selected) then begin
-        book:=tbook(BookList.Items[i].Tag);
+        book:=tbook(BookList.Items[i].data.obj);
         if accountsToSave.IndexOf(book.owner)<0 then accountsToSave.Add(book.owner);
         if TCustomAccountAccess(book.owner).books.old.Remove(book) < 0 then begin
           ShowMessage('Das markierte Buch war nicht vorhanden.'#13#10'Das ist eigentlich unmöglich, am besten starten Sie das Programm neu.');
@@ -583,9 +595,9 @@ end;
 
 procedure TmainForm.displayDetailsMIClick(Sender: TObject);
 begin
-  if (BookList.Selected = nil) or (BookList.Selected.tag=0) then exit;
+  if (BookList.Selected = nil) or (BookList.Selected.data.obj=nil) then exit;
   if searcherForm=nil then searcherForm:=TbookSearchFrm.Create(nil);
-  searcherForm.selectBookToReSearch(tbook(BookList.Selected.tag));
+  searcherForm.selectBookToReSearch(tbook(BookList.Selected.data.obj));
   if TComponent(sender).tag<>1 then searcherForm.startSearch.Click;
   searcherForm.ShowModal;
 end;
@@ -595,11 +607,81 @@ procedure TmainForm.searchTextKeyDown(Sender: TObject; var Key: Word;
 begin
 end;
 
+procedure TmainForm.TrayIcon1Click(Sender: TObject);
+begin
+
+end;
+
+procedure TmainForm.TrayIcon1DblClick(Sender: TObject);
+//TODO:  function ForceForegroundWindow(hwnd: THandle): WordBool;
+{const
+  SPI_GETFOREGROUNDLOCKTIMEOUT = $2000;
+  SPI_SETFOREGROUNDLOCKTIMEOUT = $2001;
+var
+  ForegroundThreadID: DWORD;
+  ThisThreadID: DWORD;
+  timeout: DWORD;
+begin
+  if IsIconic(hwnd) then ShowWindow(hwnd, SW_RESTORE);
+
+  if GetForegroundWindow = hwnd then Result := True
+  else
+  begin
+    // Windows 98/2000 doesn't want to foreground a window when some other
+    // window has keyboard focus
+
+    if ((Win32Platform = VER_PLATFORM_WIN32_NT) and (Win32MajorVersion > 4)) or
+      ((Win32Platform = VER_PLATFORM_WIN32_WINDOWS) and
+      ((Win32MajorVersion > 4) or ((Win32MajorVersion = 4) and
+      (Win32MinorVersion > 0)))) then
+    begin
+      // Code from Karl E. Peterson, www.mvps.org/vb/sample.htm
+      // Converted to Delphi by Ray Lischner
+      // Published in The Delphi Magazine 55, page 16
+
+      Result := False;
+      ForegroundThreadID := GetWindowThreadProcessID(GetForegroundWindow, nil);
+      ThisThreadID := GetWindowThreadPRocessId(hwnd, nil);
+      if AttachThreadInput(ThisThreadID, ForegroundThreadID, True) then
+      begin
+        BringWindowToTop(hwnd); // IE 5.5 related hack
+        SetForegroundWindow(hwnd);
+        AttachThreadInput(ThisThreadID, ForegroundThreadID, False);
+        Result := (GetForegroundWindow = hwnd);
+      end;
+      if not Result then
+      begin
+        // Code by Daniel P. Stasinski
+        SystemParametersInfo(SPI_GETFOREGROUNDLOCKTIMEOUT, 0, @timeout, 0);
+        SystemParametersInfo(SPI_SETFOREGROUNDLOCKTIMEOUT, 0, TObject(0),
+          SPIF_SENDCHANGE);
+        BringWindowToTop(hwnd); // IE 5.5 related hack
+        SetForegroundWindow(hWnd);
+        SystemParametersInfo(SPI_SETFOREGROUNDLOCKTIMEOUT, 0, TObject(timeout), SPIF_SENDCHANGE);
+      end;
+    end
+    else
+    begin
+      BringWindowToTop(hwnd); // IE 5.5 related hack
+      SetForegroundWindow(hwnd);
+    end;
+
+    Result := (GetForegroundWindow = hwnd);
+  end;
+end;} { ForceForegroundWindow }
+begin
+  //TODO:mainform.WindowState:=wsNormal;?
+  mainform.show;
+  mainform.BringToFront;
+  //TODO: ForceForegroundWindow(mainform.Handle);
+end;
+
+
 procedure TmainForm.UserExtendMenuClick(Sender: TObject);
 var limitTime: longint;
 begin
   limitTime:=(sender as tmenuItem).Parent.tag;
-  extendBooks(limitTime+currentDate,TCustomAccountAccess(tmenuitem(sender).tag));
+  //TODO: extendBooks(limitTime+currentDate,TCustomAccountAccess(tmenuitem(sender).tag));
 end;
 
 procedure TmainForm.MenuItem3Click(Sender: TObject);
@@ -640,11 +722,11 @@ begin
   assert(sender is TMenuItem);
   if (sender =showAllAccounts) or (sender=showNoAccounts) then begin
     for i:=0 to viewMenu.Count-1 do
-      if (viewMenu.Items[i].tag <> 0) and (viewMenu.Items[i].tag <> -1) then
+      if (viewMenu.Items[i].tag >= 1) then
         viewMenu.items[i].Checked:=sender=showAllAccounts;
   end else if GetKeyState(VK_SHIFT)and $8000<>0 then begin
       for i:=0 to viewMenu.Count-1 do
-        if (viewMenu.Items[i].tag <> 0) and (viewMenu.Items[i].tag <> -1) then
+        if (viewMenu.Items[i].tag >= 1) then
           viewMenu.items[i].Checked:=viewMenu.items[i]=sender;
   end else
     TMenuItem(sender).Checked:=not TMenuItem(sender).Checked;
@@ -653,7 +735,7 @@ end;
 
 procedure TmainForm.refreshAccountClick(Sender: TObject);
 begin
-  updateAccountBookData(TCustomAccountAccess((sender as tmenuitem).tag),false,false,false);
+  updateAccountBookData(menuItem2AssociatedAccount((sender as tmenuitem)),false,false,false);
 end;
 
 procedure TmainForm.LibraryHomepageClick(Sender: TObject);
@@ -706,14 +788,6 @@ end;
 
 procedure TmainForm.Timer1Timer(Sender: TObject);
 begin
-  if startToTNA and lclStarted then
-    if // {and (GetTickCount-lclStartedTime>5000) and} and
-    (windowstate=wsMinimized) or (not IsWindowVisible(handle)) then // then
-    hideTaskBarIcon()
-   else
-    showTaskBarIcon();
-  if needApplicationRestart and IsWindowEnabled(handle)and IsWindowVisible(handle) then
-    close;
 end;
 
 procedure TmainForm.ShowOptionsClick(Sender: TObject);
@@ -761,6 +835,7 @@ var i,j,count,count2:integer;
     books:TBookLists;
     typ: TBookOutputType;
     criticalSessionUsed,oldList,currentList:boolean;
+    account: TCustomAccountAccess;
     maxcharges:currency;
 var ok1,ok2,ok3,nok1,nok2,nok3: longbool; //für Sharewaretest
     user,code:string;                                      //für Sharewaretest
@@ -774,19 +849,22 @@ begin
   currentList:=ViewAll.Checked or ViewCurrent.Checked;
   criticalSessionUsed:=false;
   if updateThreadConfig.updateThreadsRunning>0 then begin
-    EnterCriticalSection(updateThreadConfig.libraryAccessSection);
+    system.EnterCriticalSection(updateThreadConfig.libraryAccessSection);
     criticalSessionUsed:=true;
   end;
   BookList.BeginUpdate;
   BookList.items.clear;
   for i:=0 to viewMenu.Count-1 do begin
-    if (viewMenu.Items[i].tag = 0) or (viewMenu.Items[i].tag = -1) then continue;
+    if (viewMenu.Items[i].tag = -1) then continue;
     if not viewMenu.Items[i].Checked then continue;
+    assert(viewMenu.Items[i].tag>=1);
+    assert(viewMenu.Items[i].tag<=accountIDs.Count);
+    account:=TCustomAccountAccess(accountIDs.Objects[viewMenu.Items[i].tag-1]);
     if currentList then begin
-      bookList.addBookList(TCustomAccountAccess(viewMenu.Items[i].Tag).books.current);
-      lastCheck:=min(lastCheck,TCustomAccountAccess(viewMenu.Items[i].Tag).books.current.lastCheck);
+      bookList.addBookList(account.books.current);
+      lastCheck:=min(lastCheck,account.books.current.lastCheck);
     end;
-    if oldList then bookList.addBookList(TCustomAccountAccess(viewMenu.Items[i].Tag).books.old);
+    if oldList then bookList.addBookList(account.books.old);
   end;
   BookList.Sort;
 
@@ -825,8 +903,8 @@ begin
   maxcharges:=0;
   for i:=0 to viewMenu.Count-1 do begin
     if (viewMenu.Items[i].tag = 0) or (viewMenu.Items[i].tag = -1) then continue;
-    if TCustomAccountAccess(viewMenu.Items[i].Tag).charges>0 then
-      maxcharges:=maxcharges+TCustomAccountAccess(viewMenu.Items[i].Tag).charges;
+//    if TCustomAccountAccess(viewMenu.Items[i].Tag).charges>0 then
+ //TODO:     maxcharges:=maxcharges+TCustomAccountAccess(viewMenu.Items[i].Tag).charges;
   end;
 
   //SHAREWARE CODE
@@ -838,10 +916,10 @@ begin
     StatusBar1.Panels[1].text:='Offene Gebühren: '+floattostr(maxcharges)+'€ (';
     for i:=0 to viewMenu.Count-1 do begin
       if (viewMenu.Items[i].tag = 0) or (viewMenu.Items[i].tag = -1) then continue;
-      if TCustomAccountAccess(viewMenu.Items[i].Tag).charges>0 then
-        StatusBar1.Panels[1].text:=StatusBar1.Panels[1].text+
+      //TODO:if TCustomAccountAccess(viewMenu.Items[i].Tag).charges>0 then
+        {StatusBar1.Panels[1].text:=StatusBar1.Panels[1].text+
           TCustomAccountAccess(viewMenu.Items[i].Tag).prettyName+': '+
-          FloatToStr((TCustomAccountAccess(viewMenu.Items[i].Tag).charges)) +'€ ';
+          FloatToStr((TCustomAccountAccess(viewMenu.Items[i].Tag).charges)) +'€ ';}
     end;
     StatusBar1.Panels[1].text:=StatusBar1.Panels[1].text+')';
   end else StatusBar1.Panels[1].text:='';
@@ -868,9 +946,9 @@ begin
   count2:=0;
   for i:=0 to viewMenu.Count-1 do begin
     if (viewMenu.Items[i].tag = 0) or (viewMenu.Items[i].tag = -1) then continue;
-  //  if not viewMenu.Items[i].Checked then continue;
-    books:=///TCustomAccountAccess(accountIDs.objects[viewMenu.Items[i].Tag]).getBooks();
-           TCustomAccountAccess(viewMenu.Items[i].Tag).books;
+    if not viewMenu.Items[i].Checked then continue;
+    books:=TCustomAccountAccess(accountIDs.objects[viewMenu.Items[i].Tag-1]).books;
+           //TCustomAccountAccess(viewMenu.Items[i].Tag).books;
     if currentList then count+=books.current.Count;
     if oldList then count+=books.old.Count;
     if viewMenu.Items[i].Checked then begin
@@ -904,7 +982,8 @@ begin
 
   for i:=0 to viewMenu.Count-1 do begin
     if (viewMenu.Items[i].tag = 0) or (viewMenu.Items[i].tag = -1) then continue;
-    if TCustomAccountAccess(viewMenu.Items[i].Tag).enabled then continue;
+    if menuItem2AssociatedAccount(viewMenu.Items[i]).enabled then continue;
+
 
     BookList.BeginUpdate;
     with BookList.items.Add do begin
@@ -915,7 +994,7 @@ begin
       RecordItems.Add('');
       RecordItems.Add('');
       RecordItems.Add('');
-      RecordItems.Add(TCustomAccountAccess(viewMenu.Items[i].Tag).prettyName);
+      RecordItems.Add(menuItem2AssociatedAccount(viewMenu.Items[i]).prettyName);
       RecordItems.Add('');
       RecordItems.Add('');
       RecordItemsText[BL_BOOK_EXTCOLUMNS_COLOR]:='clRed';
@@ -927,7 +1006,7 @@ begin
   ;
 
   if criticalSessionUsed then
-    LeaveCriticalSection(updateThreadConfig.libraryAccessSection);
+    system.LeaveCriticalSection(updateThreadConfig.libraryAccessSection);
 
   if logging then log('RefreshListView ended');
 end;
@@ -948,31 +1027,56 @@ begin
 end;
 
 
-procedure TmainForm.addGUIItemsForNewAccount(const account: TCustomAccountAccess);
+procedure TmainForm.refreshAccountGUIElements();
 
-  function newItem(owner: TComponent;onClick:TNotifyEvent):TMenuItem;
+  function newItem(owner: TComponent;onClick:TNotifyEvent;id:longint):TMenuItem;
   begin
     newItem:=TMenuItem.Create(owner);
-    newItem.Caption:=account.prettyName;
-    newItem.tag:=longint(account);
+    newItem.Caption:=TCustomAccountAccess(accountIDs.Objects[id]).prettyName;
+    newItem.tag:=id+1; //add one to distinguish valid values from default tag 0
     newItem.OnClick:=onclick;
   end;
-  procedure addToMenuItem(item: TMenuItem;onClick:TNotifyEvent);
+  procedure addToMenuItem(item: TMenuItem;onClick:TNotifyEvent;id:longint);
   begin
-    item.add(newItem(item,onclick));
+    item.add(newItem(item,onclick,id));
   end;
+
+  procedure clearMenuItem(item:TMenuItem);
+  var i:integer;
+  begin
+    for i:=item.Count-1 downto 1 do
+      if item.items[i].tag>=1 then item.Delete(i)
+  end;
+
 var temp:TMenuItem;
     i:integer;
-
+    account: TCustomAccountAccess;
+    j: Integer;
 begin
-  accountListMenu.Items.Add(newItem(accountListMenu,@refreshAccountClick));
-  accountListMenuItem.Add(newItem(accountListMenu,@refreshAccountClick));
-  temp:=newItem(accountListMenu,@showAccount);
-  temp.Checked:=true;
-  viewMenu.Add(temp);
-  addToMenuItem(extendMenuList1,@UserExtendMenuClick);
-  for i:=0 to extendMenuList2_.Count-1 do
-    addToMenuItem(extendMenuList2_[i],@UserExtendMenuClick);
+  //delete old
+  clearMenuItem(accountListMenuItem);
+  clearMenuItem(viewMenu);
+  clearMenuItem(extendMenuList1);
+  for i:=extendMenuList2_.count-1 downto 0 do
+    clearMenuItem(extendMenuList2_[i]);
+  for i:=accountListMenu.items.count-1 downto 0 do
+    if accountListMenu.items[i].tag>=1 then begin
+      accountListMenu.items.Delete(i);
+      break;
+    end;
+
+  //add new
+  for i:=0 to accountIDs.Count-1 do begin
+    account:=TCustomAccountAccess(accountIDs.Objects[i]);
+    accountListMenu.Items.Add(newItem(accountListMenu,@refreshAccountClick,i));
+    accountListMenuItem.Add(newItem(accountListMenu,@refreshAccountClick,i));
+    temp:=newItem(accountListMenu,@showAccount,i);
+    temp.Checked:=true;
+    viewMenu.Add(temp);
+    addToMenuItem(extendMenuList1,@UserExtendMenuClick,i);
+    for j:=0 to extendMenuList2_.Count-1 do
+      addToMenuItem(extendMenuList2_[j],@UserExtendMenuClick,i);
+  end;
 end;
 
 procedure TmainForm.updateGUIItemsForAccount(const account: TCustomAccountAccess);
@@ -1002,26 +1106,7 @@ begin
 end;
 
 procedure TmainForm.removeGUIItemsForAccount(const account: TCustomAccountAccess);
-  procedure checkMenuItem(item:TMenuItem);
-  var i:integer;
-  begin
-    for i:=item.Count-1 downto 1 do
-      if item.items[i].tag=longint(account) then item.Delete(i)
-  end;
-
-var i:integer;
 begin
-  if account=nil then exit;
-  checkMenuItem(accountListMenuItem);
-  checkMenuItem(viewMenu);
-  checkMenuItem(extendMenuList1);
-  for i:=extendMenuList2_.count-1 downto 0 do
-    checkMenuItem(extendMenuList2_[i]);
-  for i:=accountListMenu.items.count-1 downto 0 do
-    if accountListMenu.items[i].tag=longint(account) then begin
-      accountListMenu.items.Delete(i);
-      break;
-    end;
 end;
 
 function TmainForm.addAccount(const libID: string; prettyName, aname, pass: string; extendType: TExtendType; extendDays:integer; history:boolean):TCustomAccountAccess;
@@ -1045,7 +1130,7 @@ begin
   if optionForm<>nil then
     optionForm.addAccount(result);
 
-  addGUIItemsForNewAccount(result);
+  refreshAccountGUIElements();
 
   accountIDs.AddObject(result.getID(),result);
   result.save();
@@ -1055,6 +1140,14 @@ begin
                 'Das Konto '+lib.getPrettyName()+' wurde erstellt.'#13#10'Sollen jetzt die Mediendaten heruntergeladen werden?',
                 mtConfirmation ,[mbYes,mbNo],0)=mrYes then
     mainForm.updateLibrary(lib,false,false);}
+end;
+
+function TmainForm.menuItem2AssociatedAccount(mi: TMenuItem
+  ): TCustomAccountAccess;
+begin
+  if (mi.tag<=0) or (mi.tag>accountIDs.Count) then
+    raise exception.Create('Ungültiges Konto angegeben');
+  result:=TCustomAccountAccess(accountIDs.Objects[mi.tag-1]);
 end;
 
 procedure TmainForm.ThreadDone(Sender: TObject);

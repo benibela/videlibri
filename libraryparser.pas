@@ -4,7 +4,7 @@ unit libraryParser;
 interface
 
 uses
-  windows,Classes, SysUtils,extendedhtmlparser, simplexmlparser, inifiles,internetaccess,dRegExpr,booklistreader;
+  Classes, SysUtils, extendedhtmlparser, simplexmlparser, inifiles,internetaccess,dRegExpr,booklistreader;
 
 
 type
@@ -166,7 +166,7 @@ type
 
     //==============Access functions================
     //At first connect must be called
-    function connect(AInternet:TInternetAccess=nil):boolean; virtual;
+    function connect(AInternet:TInternetAccess=nil):boolean; virtual;abstract;
     //After disconnect you mustn't call any one except connect
     procedure disconnect(); virtual;
     
@@ -232,9 +232,9 @@ type
 
     //function needSingleBookCheck():boolean;virtual;
   end;
-var defaultInternet: TInternetAccess=nil;
+
 implementation
-uses applicationconfig,bbdebugtools,bbutils,FileUtil;
+uses applicationconfig,bbdebugtools,bbutils,FileUtil,LCLIntf;
 function currencyStrToCurrency(s:string):Currency;
 begin
   s:=trim(s);
@@ -340,7 +340,7 @@ var //tempLibrary:TLibrary;
     i:longint;
 begin
   basePath:=apath;
-  libraryPath:=dataPath+'libraries\';
+  libraryPath:=dataPath+'libraries'+DirectorySeparator;
 
   libraryFiles:=TStringList.Create;
   libraryFiles.LoadFromFile(libraryPath+'libraries.list');
@@ -358,7 +358,7 @@ begin
   i:=templates.IndexOf(templateName);
   if i>=0 then Result:=TBookListTemplate(templates.Objects[i])
   else begin
-    Result:=TBookListTemplate.Create(libraryPath+'templates\'+templateName+'\',templateName);
+    Result:=TBookListTemplate.Create(libraryPath+'templates'+DirectorySeparator+templateName+DirectorySeparator,templateName);
     templates.AddObject(templateName,Result);
   end;
 end;
@@ -671,14 +671,6 @@ begin
   result:=config.ReadInteger('base','lastCheck',0);
 end;}
 
-function TCustomAccountAccess.connect(AInternet:TInternetAccess=nil):boolean;
-begin
-  internet:=AInternet;
-  if internet=nil then
-    internet:=defaultInternet;
-  result:=internet<>nil;
-end;
-
 procedure TCustomAccountAccess.disconnect();
 begin
   connected:=false;
@@ -944,7 +936,9 @@ end;
 function TTemplateAccountAccess.connect(AInternet: TInternetAccess): boolean;
 begin
   if logging then log('TTemplateAccountAccess.connect started');
-  result:=inherited;
+  result:=false;
+  internet:=ainternet;
+  assert(internet <> nil);
   reader.internet:=internet;
   if connected then begin
     if logging then log('TTemplateAccountAccess.connect ended (already connected)');

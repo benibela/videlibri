@@ -141,7 +141,7 @@ var
 
 implementation
 
-uses newAccountWizard_u, windows,applicationconfig;
+uses newAccountWizard_u, applicationconfig;
 
 { ToptionForm }
 

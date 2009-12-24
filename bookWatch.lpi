@@ -24,7 +24,7 @@
     <RunParams>
       <local>
         <FormatVersion Value="1"/>
-        <LaunchingApplication PathPlusParams="/usr/X11R6/bin/xterm -T 'Lazarus Run Output' -e $(LazarusDir)/tools/runwait.sh $(TargetCmdLine)"/>
+        <LaunchingApplication PathPlusParams="\usr\X11R6\bin\xterm -T 'Lazarus Run Output' -e $(LazarusDir)\tools\runwait.sh $(TargetCmdLine)"/>
       </local>
     </RunParams>
     <RequiredPackages Count="1">
@@ -32,7 +32,7 @@
         <PackageName Value="LCL"/>
       </Item1>
     </RequiredPackages>
-    <Units Count="33">
+    <Units Count="31">
       <Unit0>
         <Filename Value="bookWatch.lpr"/>
         <IsPartOfProject Value="True"/>
@@ -51,187 +51,177 @@
         <UnitName Value="libraryParser"/>
       </Unit2>
       <Unit3>
-        <Filename Value="..\..\..\components\pascal\internet\w32internetaccess.pas"/>
-        <IsPartOfProject Value="True"/>
-        <UnitName Value="w32InternetAccess"/>
-      </Unit3>
-      <Unit4>
-        <Filename Value="wininet.pas"/>
-        <IsPartOfProject Value="True"/>
-        <UnitName Value="wininet"/>
-      </Unit4>
-      <Unit5>
         <Filename Value="options.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="optionForm"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="options"/>
-      </Unit5>
-      <Unit6>
+      </Unit3>
+      <Unit4>
         <Filename Value="newaccountwizard_u.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="newAccountWizard"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="newAccountWizard_u"/>
-      </Unit6>
-      <Unit7>
+      </Unit4>
+      <Unit5>
         <Filename Value="errordialog.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="showErrorForm"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="errorDialog"/>
-      </Unit7>
-      <Unit8>
+      </Unit5>
+      <Unit6>
         <Filename Value="applicationconfig.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="applicationconfig"/>
-      </Unit8>
-      <Unit9>
+      </Unit6>
+      <Unit7>
         <Filename Value="statistik_u.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="statistikForm"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="statistik_u"/>
-      </Unit9>
-      <Unit10>
+      </Unit7>
+      <Unit8>
         <Filename Value="..\..\..\components\pascal\data\diagram.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="diagram"/>
-      </Unit10>
-      <Unit11>
+      </Unit8>
+      <Unit9>
         <Filename Value="tnaaccess.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="tnaAccess"/>
-      </Unit11>
-      <Unit12>
+      </Unit9>
+      <Unit10>
         <Filename Value="libraryaccess.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="libraryAccess"/>
-      </Unit12>
-      <Unit13>
+      </Unit10>
+      <Unit11>
         <Filename Value="..\..\..\components\lazarus\internet\sendBackError\sendBackError.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="sendBackErrorForm"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="sendBackError"/>
-      </Unit13>
-      <Unit14>
+      </Unit11>
+      <Unit12>
         <Filename Value="..\..\..\components\pascal\internet\internetaccess.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="internetAccess"/>
-      </Unit14>
-      <Unit15>
+      </Unit12>
+      <Unit13>
         <Filename Value="..\..\..\components\pascal\internet\autoupdate.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="autoupdate"/>
-      </Unit15>
-      <Unit16>
+      </Unit13>
+      <Unit14>
         <Filename Value="..\..\..\components\lazarus\dialogs\progressdialog.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="ProgressBarDialog"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="progressDialog"/>
-      </Unit16>
-      <Unit17>
+      </Unit14>
+      <Unit15>
         <Filename Value="..\..\..\components\pascal\data\obfuscate.inc"/>
         <IsPartOfProject Value="True"/>
-      </Unit17>
-      <Unit18>
+      </Unit15>
+      <Unit16>
         <Filename Value="registrierung.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="RegForm"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="registrierung"/>
-      </Unit18>
-      <Unit19>
+      </Unit16>
+      <Unit17>
         <Filename Value="nagform.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="nagWindow"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="nagform"/>
-      </Unit19>
-      <Unit20>
+      </Unit17>
+      <Unit18>
         <Filename Value="..\..\..\components\pascal\system\bbdebugtools.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="bbdebugtools"/>
-      </Unit20>
-      <Unit21>
+      </Unit18>
+      <Unit19>
         <Filename Value="..\..\..\components\pascal\data\bbutils.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="bbutils"/>
-      </Unit21>
-      <Unit22>
+      </Unit19>
+      <Unit20>
         <Filename Value="bibtexexport.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="BibTexExportFrm"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="bibtexexport"/>
-      </Unit22>
-      <Unit23>
+      </Unit20>
+      <Unit21>
         <Filename Value="..\..\..\components\pascal\html\simplexmlparser.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="simplexmlparser"/>
-      </Unit23>
-      <Unit24>
+      </Unit21>
+      <Unit22>
         <Filename Value="booklistreader.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="booklistreader"/>
-      </Unit24>
-      <Unit25>
+      </Unit22>
+      <Unit23>
         <Filename Value="librarysearcher.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="librarySearcher"/>
-      </Unit25>
-      <Unit26>
+      </Unit23>
+      <Unit24>
         <Filename Value="bookListView.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="bookListView"/>
-      </Unit26>
-      <Unit27>
+      </Unit24>
+      <Unit25>
         <Filename Value="bookSearchForm.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="bookSearchFrm"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="bookSearchForm"/>
-      </Unit27>
-      <Unit28>
+      </Unit25>
+      <Unit26>
         <Filename Value="..\..\..\components\pascal\data\TreeListView.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="TreeListView"/>
-      </Unit28>
-      <Unit29>
+      </Unit26>
+      <Unit27>
         <Filename Value="..\..\..\components\pascal\data\extendedhtmlparser.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="extendedhtmlparser"/>
-      </Unit29>
-      <Unit30>
+      </Unit27>
+      <Unit28>
         <Filename Value="librarysearcheraccess.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="librarySearcherAccess"/>
-      </Unit30>
-      <Unit31>
+      </Unit28>
+      <Unit29>
         <Filename Value="..\..\..\components\pascal\data\findControl.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="findControl"/>
-      </Unit31>
-      <Unit32>
+      </Unit29>
+      <Unit30>
         <Filename Value="..\..\..\components\pascal\data\automenumanager.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="autoMenuManager"/>
-      </Unit32>
+      </Unit30>
     </Units>
   </ProjectOptions>
   <CompilerOptions>
     <Version Value="8"/>
     <PathDelim Value="\"/>
     <Target>
-      <Filename Value="VideLibri.exe"/>
+      <Filename Value="videlibri"/>
     </Target>
     <SearchPaths>
-      <IncludeFiles Value="U:\components\pascal\data\"/>
-      <OtherUnitFiles Value="U:\components\pascal\data\;U:\components\pascal\import\regexpr\source\;U:\components\pascal\internet\;U:\components\pascal\system\;U:\components\lazarus\dialogs\;U:\components\lazarus\internet\sendBackError\"/>
-      <SrcPath Value="U:\components\pascal\data\;$(LazarusDir)\lcl\;U:\components\pascal\INTERNET\;U:\components\lazarus\internet\;$(LazarusDir)\lcl\interfaces\$(LCLWidgetType)\;P:\programming\lazarus\lcl\;P:\programming\lazarus\lcl\include\"/>
+      <IncludeFiles Value="..\..\..\components\pascal\data\;..\..\..\components\pascal\import\synapse\"/>
+      <OtherUnitFiles Value="..\..\..\components\pascal\import\regexpr\Source\;..\..\..\components\pascal\import\synapse\;..\..\..\components\lazarus\dialogs\;U:\components\pascal\data\;U:\components\pascal\import\regexpr\source\;U:\components\pascal\internet\;U:\components\pascal\system\;U:\components\lazarus\dialogs\;..\..\..\components\lazarus\internet\sendBackError\;..\..\..\components\pascal\internet\"/>
+      <SrcPath Value="..\..\..\components\pascal\import\synapse\;..\..\..\components\pascal\data\;..\..\..\components\pascal\system\;$(LazarusDir)\lcl\;..\..\..\components\pascal\internet\;..\..\..\components\lazarus\internet\;$(LazarusDir)\lcl\interfaces\$(LCLWidgetType)\"/>
     </SearchPaths>
     <Parsing>
       <SyntaxOptions>
@@ -239,11 +229,10 @@
       </SyntaxOptions>
     </Parsing>
     <Linking>
-      <Options>
-        <Win32>
-          <GraphicApplication Value="True"/>
-        </Win32>
-      </Options>
+      <Debugging>
+        <GenerateDebugInfo Value="True"/>
+        <GenerateDwarf Value="True"/>
+      </Debugging>
     </Linking>
     <Other>
       <CompilerPath Value="$(CompPath)"/>

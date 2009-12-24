@@ -7,8 +7,7 @@ object BibTexExportFrm: TBibTexExportFrm
   HorzScrollBar.Range = 142
   VertScrollBar.Page = 309
   VertScrollBar.Range = 303
-  ActiveControl = exportWhich
-  AutoScroll = False
+  ActiveControl = exportWhich.RadioButton0
   BorderIcons = [biSystemMenu]
   BorderStyle = bsDialog
   Caption = 'BibTex-Export'
@@ -16,9 +15,8 @@ object BibTexExportFrm: TBibTexExportFrm
   ClientWidth = 302
   OnCreate = FormCreate
   OnShow = FormShow
-  ParentFont = False
   Position = poMainFormCenter
-  LCLVersion = '0.9.27'
+  LCLVersion = '0.9.29'
   object exportWhich: TRadioGroup
     AnchorSideTop.Side = asrBottom
     Left = 10
@@ -37,7 +35,7 @@ object BibTexExportFrm: TBibTexExportFrm
     ChildSizing.ShrinkVertical = crsScaleChilds
     ChildSizing.Layout = cclLeftToRightThenTopToBottom
     ChildSizing.ControlsPerLine = 1
-    ClientHeight = 53
+    ClientHeight = 50
     ClientWidth = 278
     ItemIndex = 0
     Items.Strings = (
@@ -57,23 +55,24 @@ object BibTexExportFrm: TBibTexExportFrm
     BorderSpacing.Around = 5
     Caption = 'Export nach...'
     ChildSizing.ControlsPerLine = 1
-    ClientHeight = 62
+    ClientHeight = 59
     ClientWidth = 278
     TabOrder = 1
     object clipboardExport: TRadioButton
       Left = 6
-      Height = 25
+      Height = 23
       Top = 6
-      Width = 108
+      Width = 142
       Caption = 'Zwischenablage'
       TabOrder = 0
+      TabStop = False
     end
     object fileExport: TRadioButton
       AnchorSideTop.Side = asrCenter
       Left = 6
-      Height = 25
+      Height = 23
       Top = 32
-      Width = 61
+      Width = 67
       Caption = 'Datei:'
       Checked = True
       State = cbChecked
@@ -83,13 +82,16 @@ object BibTexExportFrm: TBibTexExportFrm
       AnchorSideTop.Control = fileExport
       AnchorSideTop.Side = asrCenter
       Left = 54
-      Height = 23
-      Top = 33
+      Height = 29
+      Top = 29
       Width = 194
+      DialogOptions = []
+      FilterIndex = 0
+      HideDirectories = False
       ButtonWidth = 23
       NumGlyphs = 1
       Anchors = [akTop, akLeft, akRight]
-      ParentColor = False
+      MaxLength = 0
       TabOrder = 2
     end
   end
@@ -144,7 +146,7 @@ object BibTexExportFrm: TBibTexExportFrm
     ChildSizing.ShrinkVertical = crsScaleChilds
     ChildSizing.Layout = cclLeftToRightThenTopToBottom
     ChildSizing.ControlsPerLine = 1
-    ClientHeight = 74
+    ClientHeight = 71
     ClientWidth = 278
     ItemIndex = 0
     Items.Strings = (

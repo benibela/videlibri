@@ -9,29 +9,28 @@ object RegForm: TRegForm
   ClientWidth = 402
   OnCreate = FormCreate
   OnResize = FormResize
-  ParentFont = False
-  LCLVersion = '0.9.27'
+  LCLVersion = '0.9.29'
   object Label1: TLabel
     Left = 20
-    Height = 14
+    Height = 20
     Top = 49
-    Width = 49
+    Width = 73
     Caption = 'Ihr Name:'
     ParentColor = False
   end
   object Label2: TLabel
     Left = 20
-    Height = 14
+    Height = 20
     Top = 83
-    Width = 47
+    Width = 66
     Caption = 'Ihr Code:'
     ParentColor = False
   end
   object Label3: TLabel
     Left = 88
-    Height = 19
+    Height = 21
     Top = 83
-    Width = 1
+    Width = 3
     Font.CharSet = ANSI_CHARSET
     Font.Color = clGreen
     Font.Height = -16
@@ -43,7 +42,7 @@ object RegForm: TRegForm
   end
   object username: TEdit
     Left = 84
-    Height = 23
+    Height = 29
     Top = 44
     Width = 306
     Anchors = [akTop, akLeft, akRight]
@@ -52,7 +51,7 @@ object RegForm: TRegForm
   end
   object usercode: TEdit
     Left = 84
-    Height = 23
+    Height = 27
     Top = 80
     Width = 306
     Anchors = [akTop, akLeft, akRight]

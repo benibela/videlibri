@@ -123,7 +123,7 @@ begin
   exportStr:='';
   for i:=0 to mainForm.BookList.Items.count-1 do
     if all or (mainForm.BookList.Items[i].Selected) then begin
-      book:=TBook(mainForm.BookList.Items[i].Tag);
+      book:=TBook(mainForm.BookList.Items[i].data.obj);
       if book=nil then continue;
 
       //autor-jahr, autor-titel, titel-jahr, autor, titel, id

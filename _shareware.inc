@@ -59,7 +59,7 @@ begin
     c1:=17;
     i:=1;
     while (i<=length(user)) do begin
-      c1+=longint(ord(user[i])*ord(user[i]))*i;
+      c1+=longint(ord(user[i]))*longint(ord(user[i]))*i;
       c1:=c1 and $FFFFF;
       i+=1;
     end;

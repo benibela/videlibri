@@ -111,7 +111,7 @@ begin
   booklist.deserializeColumnWidths(userConfig.ReadString('BookSearcher','ListColumnWidths','10,10,200,200,50,'));
   booklist.OnSelect:=@bookListSelect;
   
-  searchTemplate:= TBookListTemplate.create(dataPath+'libraries\search\templates\digibib\','digibib');
+  searchTemplate:= TBookListTemplate.create(dataPath+StringReplace('libraries\search\templates\digibib\','\',DirectorySeparator,[rfReplaceAll]),'digibib');
   searchTemplate.loadTemplates;
   searcherAccess:=TLibrarySearcherAccess.create(searchTemplate);
   searcherAccess.OnSearchComplete:=@searcherAccessSearchComplete;
@@ -191,7 +191,7 @@ var book: tbook;
 
 begin
   if item=nil then exit;
-  book:=tbook(item.tag);
+  book:=tbook(item.data.obj);
 
   if displayDetails() < 1 then begin
     searcherAccess.detailsAsyncSave(book);
@@ -371,7 +371,7 @@ var i:longint;
 begin
   if book=nil then
     if bookList.Selected=nil then book:=displayedBook
-    else book:=tbook(bookList.Selected.tag);
+    else book:=tbook(bookList.Selected.data.obj);
   if book=nil then exit;
   intern:=nil;
   empty:=nil;

@@ -692,9 +692,9 @@ begin
     end else book.Status:=bsNormal;
        //(bsNormal,bsUnknown,bsIsSearched,bsEarMarked,bsMaxLimitReached,bsProblematicInStr,bsCuriousInStr);
   end else if strlibeginswith(@variable[1],length(variable),'book.issuedate') then
-    book.IssueDate:=parseDate(Utf8ToAnsi(strconv(value)),strcopy2(variable,pos(':',variable)+1))
+    book.IssueDate:=parseDate(strconv(value),strcopy2(variable,pos(':',variable)+1))
   else if strlibeginswith(@variable[1],length(variable),'book.limitdate') then
-    book.LimitDate:=parseDate(Utf8ToAnsi(strconv(value)),strcopy2(variable,pos(':',variable)+1))
+    book.LimitDate:=parseDate(strconv(value),strcopy2(variable,pos(':',variable)+1))
   else if strlibeginswith(variable,'book.') then
     setProperty(copy(variable,pos('.',variable)+1,length(variable)),value,book.Additional);
 end;

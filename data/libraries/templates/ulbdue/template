@@ -12,7 +12,7 @@
       <post name="bor_verification">$password;</post>
       <post name="bor_library">DUE50</post>
     </page>
-    <error templateFile="loginError"/>    
+    <error templateFile="loginerror"/>    
 </action>
 
 <action id="update-all">

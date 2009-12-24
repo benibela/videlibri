@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="ISO-8859-1"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <library>
   <!--<username matches="^\d{8}$"/>
   <password matches="^\d{1,2}\.\d{1,2}\.\d{2,4}$"/>  -->
@@ -11,7 +11,7 @@
   
   <variable name="server" value="webopac.stadtbibliothek-aachen.de/libero/"/>
   
-  <variable name="globalExtraStatusRemark" value=" (Verlängerung kostenpflichtig, daher nicht von Videlibri aus möglich)"/>
+  <variable name="globalExtraStatusRemark" value=" (VerlÃ¤ngerung kostenpflichtig, daher nicht von Videlibri aus mÃ¶glich)"/>
   <variable name="Location" value="Aachen"/>
   <variable name="searchid-digibib" value="SERVICEGROUP1.SERVICE.SEARCH_SBAAC"/>
 </library>

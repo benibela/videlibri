@@ -41,7 +41,7 @@ public
 end;
 
 implementation
-uses  w32InternetAccess;
+uses internetAccess;
 
 { TLibrarySearcher }
 
@@ -53,7 +53,7 @@ begin
   template:=searchTemplate;
 
   bookListReader:=TBookListReader.create(template);
-  bookListReader.internet:=TW32InternetAccess.create();
+  bookListReader.internet:=defaultInternetAccessClass.create();
 end;
 
 destructor TLibrarySearcher.Destroy;
@@ -98,6 +98,7 @@ var selectedLibraries: string;
     i:longint;
 begin
   fsearchResult.clear;
+  selectedLibraries:='';
   for i:=0 to flibsToSearch.count-1 do
     selectedLibraries+=TLibrary(flibsToSearch[i]).variables.values['searchid-'+template.Name]+template.variables.values['after-id'];
   bookListReader.parser.variables.values['selectedLibraries']:=selectedLibraries;

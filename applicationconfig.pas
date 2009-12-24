@@ -5,15 +5,9 @@ unit applicationconfig;
 interface
 
 uses
-  Classes, SysUtils,Graphics,forms,libraryparser,registry,inifiles,rcmdline,errordialog,tnaaccess,autoupdate,progressDialog,extendedhtmlparser
+  Classes, SysUtils,Graphics,forms,libraryparser,registry,inifiles,rcmdline,errordialog,autoupdate,progressDialog,extendedhtmlparser,
+ExtCtrls
 ;
-
-const MENU_ID_START_LCL=1;
-      MENU_ID_UPDATE=2;
-      MENU_ID_AUTO_UPDATE=3;
-      MENU_ID_EXTEND=4;
-      MENU_ID_LIMIT_INFO=5;
-      MENU_ID_CLOSE=6;
 
 type TErrorArray=array of record
                      error: string;
@@ -33,8 +27,6 @@ var programPath,userPath,dataPath:string;
 
     cancelStarting,startToTNA:boolean;
     accountsRefreshed: boolean=false; //at least one function is to notify the checkthread to stop
-    lclStarted: boolean=false;
-    lclStartedTime: longword=$FFFFFFFF;
 
     currentDate:longint;
     lastCheck: integer;
@@ -69,8 +61,6 @@ var programPath,userPath,dataPath:string;
   errorMessageList:TErrorArray = nil;
   //oldErrorMessageList:TErrorArray = nil;
   oldErrorMessageString:string;
-var tna:TTNAIcon;
-
 
   procedure applicationUpdate(auto:boolean);
 
@@ -84,7 +74,7 @@ var tna:TTNAIcon;
   procedure createAndAddException(exception:exception; account:TCustomAccountAccess=nil);
 
   procedure storeException(ex: exception; account:TCustomAccountAccess); //thread safe
-  function MessageBoxUTF8(s:string; typ: longint; cap: string='VideLibri';wnd: THANDLE=0):longint;
+  function MessageBoxUTF8(s:string; typ: longint; cap: string='VideLibri'):longint;
 
   //get the values the tna should have not the one it actually has
   //function getTNAHint():string;
@@ -98,10 +88,16 @@ var tna:TTNAIcon;
 
   procedure openInternetPage(url: string; myOptions: string='');
 implementation
-uses bookwatchmain,windows,internetaccess,w32internetaccess,controls,libraryaccess,FileUtil,bbdebugtools;
+uses bookwatchmain,internetaccess,controls,libraryaccess,math,FileUtil,bbdebugtools,LCLType,lclintf,LCLProc,
+  {$IFDEF WIN32}
+  w32internetaccess
+  {$ELSE}
+  synapseinternetaccess
+  {$ENDIF}
+  ;
   procedure errorCallback(sender:TObject; var Done: Boolean);
   begin
-    messagebeep(0);
+    //messagebeep(0);
     Application.OnIdle:=nil;
     showErrorMessages();
     done:=true;
@@ -112,20 +108,8 @@ uses bookwatchmain,windows,internetaccess,w32internetaccess,controls,libraryacce
       accountException: boolean;
       //met: TMethod;
   begin
-    if not lclStarted then begin
-      {lclStarted:=true;
-      Application.Initialize;
-      Application.ShowMainForm:=false;
-      Application.CreateForm(TmainForm, mainForm);
-      met.Code:=@errorCallback;
-      met.Data:=nil;
-      Application.OnIdle:=TIdleEvent(met);
-      Application.Run;
-      tna.stopStandalone;}
-      exit;
-    end;
     if logging then log('showErrorMessages called: '+IntToStr(length(errorMessageList))) ;
-    EnterCriticalSection(exceptionStoring);
+    system.EnterCriticalSection(exceptionStoring);
     try
       for i:=0 to high(errorMessageList) do begin
         if oldErrorMessageString='' then
@@ -161,7 +145,7 @@ uses bookwatchmain,windows,internetaccess,w32internetaccess,controls,libraryacce
           oldErrorMessageString:=oldErrorMessageString+'---Fehler---'#13#10+mes+#13#10'Details:'#13#10+mesdetails;
           if accountException then  title:='Fehler beim Aktualisieren der Bücherdaten'
           else title:='Fehler';
-          if lclStarted and mainForm.Visible then
+          if mainForm.Visible then
             TshowErrorForm.showError(title,mes,mesdetails,@mainForm.MenuItem16Click)
            else
             TshowErrorForm.showError(title,mes,mesdetails);
@@ -170,7 +154,7 @@ uses bookwatchmain,windows,internetaccess,w32internetaccess,controls,libraryacce
       end;
       setlength(errorMessageList,0);
     finally
-      LeaveCriticalSection(exceptionStoring);
+      system.LeaveCriticalSection(exceptionStoring);
     end;
   end;
 
@@ -238,11 +222,11 @@ uses bookwatchmain,windows,internetaccess,w32internetaccess,controls,libraryacce
   var  errorstr, errordetails: string;
   begin
     createErrorMessageStr(ex,errorstr,errordetails,account);
-    EnterCriticalSection(exceptionStoring);
+    system.EnterCriticalSection(exceptionStoring);
     try
       addErrorMessage(errorstr,errordetails,account);
     finally
-      LeaveCriticalSection(exceptionStoring);
+      system.LeaveCriticalSection(exceptionStoring);
     end;
 
   end;
@@ -278,10 +262,6 @@ uses bookwatchmain,windows,internetaccess,w32internetaccess,controls,libraryacce
     nextLimitStr:=DateToPrettyStr(nextLimit);
     if nextLimit<>nextNotExtendableLimit then
       nextLimitStr:=nextLimitStr+' (verlängerbar)';
-    if startToTNA then begin
-  //    tna.changeHint(getTNAHint());
-      tna.changeIcon(getTNAIconFileName());
-    end;
     if (mainform<>nil) and mainForm.Visible then
       mainform.StatusBar1.Panels[0].text:='Älteste angezeigte Daten sind '+dateToPrettyGrammarStr('vom ','von ',lastCheck)
   end;
@@ -308,10 +288,12 @@ uses bookwatchmain,windows,internetaccess,w32internetaccess,controls,libraryacce
     defaultInternetConfiguration.proxyHTTPSPort:=userConfig.ReadString('access','httpsProxyPort','');
   end;
 
-  function MessageBoxUTF8(s:string; typ: longint; cap: string='VideLibri';wnd: THANDLE=0):longint;
+  function MessageBoxUTF8(s:string; typ: longint; cap: string='VideLibri'):longint;
+  var wnd: thandle;
   begin
-    if (wnd=0) and (mainForm<>nil) then wnd:=mainForm.Handle;
-    result:=MessageBox(wnd,pchar(Utf8ToAnsi(s)),pchar(Utf8ToAnsi(cap)),typ);
+    if (mainForm<>nil) then
+      wnd:=mainForm.Handle;
+    result:=application.MessageBox(pchar(Utf8ToAnsi(s)),pchar(Utf8ToAnsi(cap)),typ);
   end;
 
   procedure applicationUpdate(auto:boolean);
@@ -329,34 +311,36 @@ uses bookwatchmain,windows,internetaccess,w32internetaccess,controls,libraryacce
       if not updater.hasDirectoryWriteAccess then begin
         MessageBoxUTF8('Es gibt ein Update auf die Version '+floattostr(updater.newestVersion/1000)+':'#13#10#13#10+
                             updater.listChanges+#13#10+
-                            'Um das Update herunterzuladen und zu installieren, müssen Sie Videlbri unter einem Benutzerkonto mit Administratorrechten starten.',mb_ok or MB_APPLMODAL,'Videlibri Update');
+                            'Um das Update herunterzuladen und zu installieren, müssen Sie Videlbri unter einem Benutzerkonto mit Administratorrechten starten.',mb_ok {$IFDEF WIN32}or MB_APPLMODAL{$ENDIF},'Videlibri Update');
         updater.free;
         if logging then log('applicationUpdate exited');
         exit;
       end else if { (not auto) or} (MessageBoxUTF8('Es gibt ein Update auf die Version '+floattostr(updater.newestVersion/1000)+':'#13#10#13#10+
                                               updater.listChanges+#13#10+
-                                              'Soll es jetzt heruntergeladen und installiert werden?',mb_yesno or MB_APPLMODAL,'Videlibri Update')=idyes) then begin
-        if lclStarted then begin
-          Screen.cursor:=crHourglass;
+                                              'Soll es jetzt heruntergeladen und installiert werden?',mb_yesno {$IFDEF WIN32}or MB_APPLMODAL{$ENDIF},'Videlibri Update')=idyes) then begin
+
+        Screen.cursor:=crHourglass;
+        //TODO:
+        if mainForm<>nil then begin;
           temp:=mainForm.StatusBar1.Panels[0].Text;
           mainForm.StatusBar1.Panels[0].Text:='Bitte warten, Update wird heruntergeladen...';
         end;
         updater.downloadUpdate();
-        if lclStarted then
+        if mainForm<>nil then
           mainForm.StatusBar1.Panels[0].Text:='Bitte warten, Update wird installiert...';
         updater.installUpdate();
-        if lclStarted then begin
-          Screen.cursor:=crDefault;
+        Screen.cursor:=crDefault;
+        if mainForm<>nil then
           mainForm.StatusBar1.Panels[0].Text:=temp;
-        end;
+
         if updater.needRestart then begin
-          if lclStarted then mainForm.close
-          else PostMessage(tna.messageWindow,WM_CLOSE,0,0);
+          if mainForm<>nil then mainForm.close
+          //TODO:else PostMessage(tna.messageWindow,WM_CLOSE,0,0);
         end else if not auto then
-          MessageBoxUTF8('Update wurde installiert',mb_ok or MB_APPLMODAL,'Videlibri Update');
+          MessageBoxUTF8('Update wurde installiert',mb_ok {$IFDEF WIN32}or MB_APPLMODAL{$ENDIF},'Videlibri Update');
       end;
     end else if not auto then
-      MessageBoxUTF8('Kein Update gefunden'#13#10'Die Version '+floattostr(updater.newestVersion/1000)+' ist die aktuelle.',mb_ok or MB_APPLMODAL,'Videlibri Update');
+      MessageBoxUTF8('Kein Update gefunden'#13#10'Die Version '+floattostr(updater.newestVersion/1000)+' ist die aktuelle.',mb_ok {$IFDEF WIN32}or MB_APPLMODAL{$ENDIF},'Videlibri Update');
     updater.free;
     userConfig.WriteInteger('updates','lastcheck',currentDate);
     if logging then log('applicationUpdate ended');
@@ -365,12 +349,12 @@ uses bookwatchmain,windows,internetaccess,w32internetaccess,controls,libraryacce
   //normal exception handling doesn't seem to work properly when lcl is not loaded
   procedure raiseInitializationError(s: string);
   begin
-    MessageBoxUTF8(s,MB_APPLMODAL or MB_ICONERROR);
+    MessageBoxUTF8(s,MB_ICONERROR{$IFDEF WIN32}or MB_APPLMODAL{$ENDIF});
     cancelStarting:=true;
     if logging then log('raiseInitializationError: '+s);
     raise exception.Create(s);
   end;
-
+   {$IFDEF WIN32}
   function bringToFrontEnumeration(window:HWND; _para2:LPARAM):WINBOOL;stdcall;
   var proc: THANDLE;
   begin
@@ -383,12 +367,14 @@ uses bookwatchmain,windows,internetaccess,w32internetaccess,controls,libraryacce
       end;
     exit(true);
   end;
+  {$ENDIF}
 
   procedure initApplicationConfig;
   var reg:TRegistry;
       i:integer;
       window,proc:THANDLE;
       commandLine:TCommandLineReader;
+      test: TInternetAccess;
       //checkOne: boolean;
   begin
     currentDate:=trunc(now);
@@ -417,7 +403,8 @@ uses bookwatchmain,windows,internetaccess,w32internetaccess,controls,libraryacce
     end;
 
     //Überprüft, ob das Programm schon gestart ist, und wenn ja, öffnet dieses
-    SetLastError(0);
+    //TODO:
+    {SetLastError(0);
     startedMutex:=CreateMutex(nil,true,VIDELIBRI_MUTEX_NAME);
     if (not commandLine.readFlag('start-always')) and (GetLastError=ERROR_ALREADY_EXISTS) then begin
       window:=FindWindow(pchar(TTNAIcon.getClassName()),nil);
@@ -437,22 +424,22 @@ uses bookwatchmain,windows,internetaccess,w32internetaccess,controls,libraryacce
       cancelStarting:=true;
       commandLine.free;
       exit;
-    end;
+    end;            }
   
     //Aktiviert das Logging
-    logging:=commandLine.readFlag('log');
-    if logging then log('Started with logging enabled, command line:'+GetCommandLine);
+    logging:=commandLine.readFlag('log');//TODO: command line
+    if logging then log('Started with logging enabled, command line:'+ParamStr(0));
 
 
     //Überprüft die Farbeinstellung des Monitors
     if ScreenInfo.ColorDepth=8 then
       MessageBoxUTF8('VideLibri funktioniert im 256-Farbenmodus nur unvollständig.'#13#10+
-                   'Am besten ändern Sie Ihre Monitoreinstellungen.',MB_APPLMODAL or MB_ICONWARNING);
+                   'Am besten ändern Sie Ihre Monitoreinstellungen.',MB_ICONWARNING);
 
     //Pfade auslesen und überprüfen
     programPath:=ExtractFilePath(ParamStr(0));
-    if not (programPath[length(programPath)] in ['/','\']) then programPath:=programPath+'\';
-    dataPath:=programPath+'data\';
+    if not (programPath[length(programPath)] in ['/','\']) then programPath:=programPath+DirectorySeparator;
+    dataPath:=programPath+'data'+DirectorySeparator;
 
     if logging then log('programPath is '+programPath);
     if logging then log('dataPath is '+dataPath);
@@ -476,11 +463,11 @@ uses bookwatchmain,windows,internetaccess,w32internetaccess,controls,libraryacce
     if logging then log('DATA-Version ist nun bekannt: '+inttostr(versionNumber));
 
     //Userpfad auslesen und überprüfen
-    userPath:=machineConfig.ReadString('paths','user',programPath+'config\');
+    userPath:=machineConfig.ReadString('paths','user',programPath+'config'+DirectorySeparator);
     if logging then log('plain user path: '+userPath);
     userPath:=StringReplace(userPath,'{$appdata}',GetAppConfigDir(false),[rfReplaceAll,rfIgnoreCase]);
     if logging then log('replaced user path: '+userPath);
-    if (copy(userpath,2,2)<>':\') and (copy(userpath,1,2)<>'\\') then
+    if (copy(userpath,2,2)<>':\') and (copy(userpath,1,2)<>'\\') and (copy(userpath,1,1) <> '/') then
       userPath:=programPath+userpath;
     userPath:=IncludeTrailingPathDelimiter(userPath);
     if logging then log('finally user path: '+userPath);
@@ -556,7 +543,8 @@ uses bookwatchmain,windows,internetaccess,w32internetaccess,controls,libraryacce
       end else cancelStarting:=false;
     end else begin
       cancelStarting:=false;
-      //Check autostart registry value (for later starts)
+      //TODO: Check autostart registry value (for later starts)
+      {$IFDEF WIN32}
       if (not userConfig.SectionExists('autostart')) or
          (userConfig.ReadInteger('autostart','type',1)<>2) then begin
         reg:=TRegistry.create;
@@ -570,6 +558,7 @@ uses bookwatchmain,windows,internetaccess,w32internetaccess,controls,libraryacce
             reg.WriteString('VideLibriAutostart','"'+ParamStr(0)+'" /autostart');
         reg.free;
       end;
+      {$ENDIF}
     end;
     if not cancelStarting then begin
       refreshAllAndIgnoreDate:=commandline.readFlag('refreshAll');
@@ -579,10 +568,13 @@ uses bookwatchmain,windows,internetaccess,w32internetaccess,controls,libraryacce
       colorOK:=userConfig.ReadInteger('appearance','default',integer((clGreen+clLime) div 2));
       colorOld:=userConfig.ReadInteger('appearance','history',integer(clSilver));
 
-
       updateActiveInternetConfig;
-      defaultInternet:=TW32InternetAccess.create;
-      
+      {$IFDEF WIN32}
+      defaultInternetAccessClass:=TW32InternetAccess;
+      {$ELSE}
+      defaultInternetAccessClass:=TSynapseInternetAccess;
+      {$ENDIF}
+
       fillchar(updateThreadConfig,sizeof(updateThreadConfig),0);
       InitCriticalSection(updateThreadConfig.libraryAccessSection);
       InitCriticalSection(updateThreadConfig.threadManagementSection);
@@ -607,22 +599,22 @@ uses bookwatchmain,windows,internetaccess,w32internetaccess,controls,libraryacce
       userConfig.free;
       machineConfig.free;
     end;
-    FreeAndNil(defaultInternet);
+
     if not cancelStarting then begin
-      DeleteCriticalSection(updateThreadConfig.libraryAccessSection);
-      DeleteCriticalSection(updateThreadConfig.threadManagementSection);
-      DeleteCriticalSection(exceptionStoring);
+      system.DoneCriticalsection(updateThreadConfig.libraryAccessSection);
+      system.DoneCriticalsection(updateThreadConfig.threadManagementSection);
+      system.DoneCriticalsection(exceptionStoring);
     end;
-    if startedMutex<>0 then
-      ReleaseMutex(startedMutex);
+
+    //TODO: if startedMutex<>0 then      ReleaseMutex(startedMutex);
     if needApplicationRestart then begin
-      WinExec(pchar(ParamStr(0)+' --start-always') ,SW_SHOWNORMAL);
+      //TODO: WinExec(pchar(ParamStr(0)+' --start-always') ,SW_SHOWNORMAL);
     end;
     if logging then begin
       log('finalizeApplicationConfig ended'#13#10' => program will exit normally, after closing log');
       if logFileCreated then begin
         close(logFile);
-        DeleteCriticalSection(logFileSection);
+        system.DoneCriticalsection(logFileSection);
       end;
     end;
   end;
@@ -662,9 +654,9 @@ uses bookwatchmain,windows,internetaccess,w32internetaccess,controls,libraryacce
   procedure openInternetPage(url: string; myOptions: string);
   begin
     if (userConfig.ReadInteger('access','homepage-type',1)=0) and (FileExists(programPath+'simpleBrowser.exe')) then
-       WinExec(pchar(programPath+'simpleBrowser /site="'+url+'" '+myOptions),SW_SHOWNORMAL)
+       //TODO: WinExec(pchar(programPath+'simpleBrowser /site="'+url+'" '+myOptions),SW_SHOWNORMAL)
      else if Application.MainForm<>nil then
-       shellexecute(Application.MainForm.Handle,'open',pchar('"'+url+'"'),'','',SW_SHOWNORMAL);
+       //TODO: shellexecute(Application.MainForm.Handle,'open',pchar('"'+url+'"'),'','',SW_SHOWNORMAL);
    end;
 
 end.
