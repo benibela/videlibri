@@ -46,7 +46,8 @@ procedure startDailyCheckDate;
 //Hauptformulars deswegen (->true wenn es geöffnet werden soll)
 function alertAboutBooksThatMustBeReturned:boolean;
 implementation
-uses applicationconfig,internetaccess,bookwatchmain,bbdebugtools;
+uses applicationconfig,internetaccess,bookwatchmain,bbdebugtools,
+     forms; //for messages
 const TRY_BOOK_UPDATE='Versuche Mediendaten zu aktualisieren...';
 {$IFNDEF WIN32}
 const MB_SYSTEMMODAL=0;
@@ -521,7 +522,7 @@ begin
           if books.current[j].limitDate<currentDate then
             count+=1;
     alert:='Einige Medien ('+inttostr(count)+') sind überfällig und sollten schon bis '+DateToPrettyGrammarStr('zum ','',nextLimit)+' abgegeben worden sein.'#13#10'Wollen Sie eine Liste dieser Medien angezeigt bekommen? (Wenn Sie die Medien schon abgegeben haben, müssen Sie die Medienliste aktualisieren)';
-    if MessageBoxUTF8(alert,MB_YESNO or MB_ICONWARNING or MB_SYSTEMMODAL)=IDYES then
+    if Application.MessageBox(pchar(alert),'Videlibri',MB_YESNO or MB_ICONWARNING or MB_SYSTEMMODAL)=IDYES then
       result:=true;
   end else if nextNotExtendableLimit<=redTime then begin
     for i:=0 to accountIDs.count-1 do
@@ -531,7 +532,7 @@ begin
             if (limitDate<=redTime) and (status in BOOK_NOT_EXTENDABLE) then
               count+=1;
     alert:='Bald (bis '+DateToPrettyGrammarStr('zum ','',nextNotExtendableLimit)+') müssen einige nicht verlängerbare Medien ('+IntToStr(count)+') abgegeben werden.'#13#10'Wollen Sie eine Liste dieser Medien angezeigt bekommen?';
-    if MessageBoxUTF8(alert,MB_YESNO or MB_ICONWARNING or MB_SYSTEMMODAL)=IDYES then
+    if Application.MessageBox(pchar(alert),'Videlibri',MB_YESNO or MB_ICONWARNING or MB_SYSTEMMODAL)=IDYES then
       result:=true;
   end else if nextLimit<=redTime then begin
     for i:=0 to accountIDs.count-1 do
@@ -540,12 +541,12 @@ begin
           if books.current[i].limitDate<=redTime then
             count+=1;
     alert:='Bald (bis '+DateToPrettyGrammarStr('zum ','',nextLimit)+') müssen einige Medien ('+IntToStr(count)+') abgegeben werden.'#13#10'Die Medien können allerdings verlängert werden, soll dies jetzt versucht werden?';
-    if MessageBoxUTF8(alert,MB_YESNO or MB_ICONWARNING or MB_SYSTEMMODAL)=IDYES then
+    if Application.MessageBox(pchar(alert),'Videlibri',MB_YESNO or MB_ICONWARNING or MB_SYSTEMMODAL)=IDYES then
       result:=true;
     tempInternet:=defaultInternetAccessClass.create;
     if not tempInternet.needConnection() then begin
       alert:='Der Aufbau einer Internetverbindung zum Verlängern ist fehlgeschlagen'#13#10'Wollen sie dafür eine Liste der abzugebenden Medien angezeigt bekommen?';
-      if MessageBoxUTF8(alert,MB_YESNO or MB_ICONWARNING or MB_SYSTEMMODAL)=IDYES then
+      if Application.MessageBox(pchar(alert),'Videlibri',MB_YESNO or MB_ICONWARNING or MB_SYSTEMMODAL)=IDYES then
         result:=true;
     end;
     tempInternet.free;

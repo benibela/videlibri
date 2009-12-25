@@ -74,7 +74,6 @@ var programPath,userPath,dataPath:string;
   procedure createAndAddException(exception:exception; account:TCustomAccountAccess=nil);
 
   procedure storeException(ex: exception; account:TCustomAccountAccess); //thread safe
-  function MessageBoxUTF8(s:string; typ: longint; cap: string='VideLibri'):longint;
 
   //get the values the tna should have not the one it actually has
   //function getTNAHint():string;
@@ -288,14 +287,6 @@ uses bookwatchmain,internetaccess,controls,libraryaccess,math,FileUtil,bbdebugto
     defaultInternetConfiguration.proxyHTTPSPort:=userConfig.ReadString('access','httpsProxyPort','');
   end;
 
-  function MessageBoxUTF8(s:string; typ: longint; cap: string='VideLibri'):longint;
-  var wnd: thandle;
-  begin
-    if (mainForm<>nil) then
-      wnd:=mainForm.Handle;
-    result:=application.MessageBox(pchar(Utf8ToAnsi(s)),pchar(Utf8ToAnsi(cap)),typ);
-  end;
-
   procedure applicationUpdate(auto:boolean);
   var  updater: TAutoUpdater;
        temp:string;
@@ -309,47 +300,45 @@ uses bookwatchmain,internetaccess,controls,libraryaccess,math,FileUtil,bbdebugto
                                                           ,'http://www.benibela.de/updates/videlibri/changelog.xml');
     if updater.existsUpdate then begin
       if not updater.hasDirectoryWriteAccess then begin
-        MessageBoxUTF8('Es gibt ein Update auf die Version '+floattostr(updater.newestVersion/1000)+':'#13#10#13#10+
+        Application.MessageBox(pchar('Es gibt ein Update auf die Version '+floattostr(updater.newestVersion/1000)+':'#13#10#13#10+
                             updater.listChanges+#13#10+
-                            'Um das Update herunterzuladen und zu installieren, müssen Sie Videlbri unter einem Benutzerkonto mit Administratorrechten starten.',mb_ok {$IFDEF WIN32}or MB_APPLMODAL{$ENDIF},'Videlibri Update');
+                            'Um das Update herunterzuladen und zu installieren, müssen Sie Videlibri unter einem Benutzerkonto mit Administratorrechten starten.'),'Videlibri Update',mb_ok {$IFDEF WIN32}or MB_APPLMODAL{$ENDIF});
         updater.free;
         if logging then log('applicationUpdate exited');
         exit;
-      end else if { (not auto) or} (MessageBoxUTF8('Es gibt ein Update auf die Version '+floattostr(updater.newestVersion/1000)+':'#13#10#13#10+
+      end else if { (not auto) or} (Application.MessageBox(pchar('Es gibt ein Update auf die Version '+floattostr(updater.newestVersion/1000)+':'#13#10#13#10+
                                               updater.listChanges+#13#10+
-                                              'Soll es jetzt heruntergeladen und installiert werden?',mb_yesno {$IFDEF WIN32}or MB_APPLMODAL{$ENDIF},'Videlibri Update')=idyes) then begin
+                                              'Soll es jetzt heruntergeladen und installiert werden?'),'Videlibri Update', mb_yesno {$IFDEF WIN32}or MB_APPLMODAL{$ENDIF})=idyes) then begin
 
         Screen.cursor:=crHourglass;
+        assert(mainForm<>nil);
         //TODO:
-        if mainForm<>nil then begin;
-          temp:=mainForm.StatusBar1.Panels[0].Text;
-          mainForm.StatusBar1.Panels[0].Text:='Bitte warten, Update wird heruntergeladen...';
-        end;
+        temp:=mainForm.StatusBar1.Panels[0].Text;
+        mainForm.StatusBar1.Panels[0].Text:='Bitte warten, Update wird heruntergeladen...';
         updater.downloadUpdate();
-        if mainForm<>nil then
-          mainForm.StatusBar1.Panels[0].Text:='Bitte warten, Update wird installiert...';
+        mainForm.StatusBar1.Panels[0].Text:='Bitte warten, Update wird installiert...';
         updater.installUpdate();
         Screen.cursor:=crDefault;
-        if mainForm<>nil then
-          mainForm.StatusBar1.Panels[0].Text:=temp;
+        mainForm.StatusBar1.Panels[0].Text:=temp;
 
         if updater.needRestart then begin
-          if mainForm<>nil then mainForm.close
+          mainForm.close;
           //TODO:else PostMessage(tna.messageWindow,WM_CLOSE,0,0);
         end else if not auto then
-          MessageBoxUTF8('Update wurde installiert',mb_ok {$IFDEF WIN32}or MB_APPLMODAL{$ENDIF},'Videlibri Update');
+          Application.MessageBox('Update wurde installiert','Videlibri Update', mb_ok {$IFDEF WIN32}or MB_APPLMODAL{$ENDIF});
       end;
     end else if not auto then
-      MessageBoxUTF8('Kein Update gefunden'#13#10'Die Version '+floattostr(updater.newestVersion/1000)+' ist die aktuelle.',mb_ok {$IFDEF WIN32}or MB_APPLMODAL{$ENDIF},'Videlibri Update');
+      Application.MessageBox(pchar('Kein Update gefunden'#13#10'Die Version '+floattostr(updater.newestVersion/1000)+' ist die aktuelle.'),'Videlibri Update', mb_ok {$IFDEF WIN32}or MB_APPLMODAL{$ENDIF});
     updater.free;
     userConfig.WriteInteger('updates','lastcheck',currentDate);
     if logging then log('applicationUpdate ended');
   end;
 
   //normal exception handling doesn't seem to work properly when lcl is not loaded
+  //(update: since dec 2009/linux transition, lcl is always loaded)
   procedure raiseInitializationError(s: string);
   begin
-    MessageBoxUTF8(s,MB_ICONERROR{$IFDEF WIN32}or MB_APPLMODAL{$ENDIF});
+    Application.MessageBox(pchar(s), 'Videlibri Fehler', MB_ICONERROR{$IFDEF WIN32}or MB_APPLMODAL{$ENDIF});
     cancelStarting:=true;
     if logging then log('raiseInitializationError: '+s);
     raise exception.Create(s);
@@ -433,8 +422,8 @@ uses bookwatchmain,internetaccess,controls,libraryaccess,math,FileUtil,bbdebugto
 
     //Überprüft die Farbeinstellung des Monitors
     if ScreenInfo.ColorDepth=8 then
-      MessageBoxUTF8('VideLibri funktioniert im 256-Farbenmodus nur unvollständig.'#13#10+
-                   'Am besten ändern Sie Ihre Monitoreinstellungen.',MB_ICONWARNING);
+      Application.MessageBox(pchar('VideLibri funktioniert im 256-Farbenmodus nur unvollständig.'#13#10+
+                   'Am besten ändern Sie Ihre Monitoreinstellungen.'),'Videlibri',MB_ICONWARNING);
 
     //Pfade auslesen und überprüfen
     programPath:=ExtractFilePath(ParamStr(0));
@@ -510,17 +499,12 @@ uses bookwatchmain,internetaccess,controls,libraryaccess,math,FileUtil,bbdebugto
 
     if commandLine.readInt('debug-addr-info')<>0 then begin
       cancelStarting:=true;
-      MessageBoxUTF8(BackTraceStrFunc(pointer(commandLine.readInt('debug-addr-info'))),0,'Point');
+      Application.MessageBox(pchar(string(BackTraceStrFunc(pointer(commandLine.readInt('debug-addr-info'))))),'Point',0);
       raise exception.create(BackTraceStrFunc(pointer(commandLine.readInt('debug-addr-info'))));
     end;
 
-    if commandLine.readInt('updated-to')<>0 then begin
-      if commandLine.readInt('updated-to')=905 then
-        MessageBoxUTF8('Die wichtigsten Änderungen sind, dass die Änderungen von zukünftigen Updates vor dem Runterladen dieser angezeigt werden und einige Fehler korrigiert wurden.',0);
-
+    if commandLine.readInt('updated-to')<>0 then
       userConfig.WriteInteger('version','number',commandLine.readInt('updated-to'));
-
-    end;
 
     sharewareUser:=userConfig.ReadString('registration','user','');
     sharewareCode:=userConfig.ReadString('registration','code','');

@@ -396,7 +396,7 @@ begin
           ShowModal;
           free;
         end;
-      until (accountIDs.count<>0) or (MessageBoxUTF8('Sie müssen ein Konto angeben, um VideLibri benutzen zu können.'#13#10'Wollen Sie eines eingeben?',MB_YESNO or MB_ICONQUESTION)=mrNo);
+      until (accountIDs.count<>0) or (Application.MessageBox('Sie müssen ein Konto angeben, um VideLibri benutzen zu können.'#13#10'Wollen Sie eines eingeben?','Videlibri',MB_YESNO or MB_ICONQUESTION)=mrNo);
     end;
   //SHAREWARE CODE
   nag.Free;
@@ -681,7 +681,7 @@ procedure TmainForm.UserExtendMenuClick(Sender: TObject);
 var limitTime: longint;
 begin
   limitTime:=(sender as tmenuItem).Parent.tag;
-  //TODO: extendBooks(limitTime+currentDate,TCustomAccountAccess(tmenuitem(sender).tag));
+  extendBooks(limitTime+currentDate,menuItem2AssociatedAccount(tmenuitem(sender)));
 end;
 
 procedure TmainForm.MenuItem3Click(Sender: TObject);
@@ -901,11 +901,8 @@ begin
 
 
   maxcharges:=0;
-  for i:=0 to viewMenu.Count-1 do begin
-    if (viewMenu.Items[i].tag = 0) or (viewMenu.Items[i].tag = -1) then continue;
-//    if TCustomAccountAccess(viewMenu.Items[i].Tag).charges>0 then
- //TODO:     maxcharges:=maxcharges+TCustomAccountAccess(viewMenu.Items[i].Tag).charges;
-  end;
+  for i:=0 to accountIDs.Count-1 do
+    maxcharges:=maxcharges+TCustomAccountAccess(accountIDs.Objects[i]).charges;
 
   //SHAREWARE CODE
   while ok2<>ok1 do maxcharges:=maxcharges+2;
@@ -914,13 +911,11 @@ begin
 
   if maxcharges>0 then begin
     StatusBar1.Panels[1].text:='Offene Gebühren: '+floattostr(maxcharges)+'€ (';
-    for i:=0 to viewMenu.Count-1 do begin
-      if (viewMenu.Items[i].tag = 0) or (viewMenu.Items[i].tag = -1) then continue;
-      //TODO:if TCustomAccountAccess(viewMenu.Items[i].Tag).charges>0 then
-        {StatusBar1.Panels[1].text:=StatusBar1.Panels[1].text+
-          TCustomAccountAccess(viewMenu.Items[i].Tag).prettyName+': '+
-          FloatToStr((TCustomAccountAccess(viewMenu.Items[i].Tag).charges)) +'€ ';}
-    end;
+    for i:=0 to accountIDs.Count-1 do
+        if TCustomAccountAccess(accountIDs[i]).charges>0 then
+           StatusBar1.Panels[1].text:=StatusBar1.Panels[1].text+
+              TCustomAccountAccess(accountIDs[i]).prettyName+': '+
+              FloatToStr(TCustomAccountAccess(accountIDs[i]).charges) +'€ ';
     StatusBar1.Panels[1].text:=StatusBar1.Panels[1].text+')';
   end else StatusBar1.Panels[1].text:='';
   StatusBar1.Panels[SB_PANEL_COUNT].Text:='Medien: '+IntToStr(BookList.Items.Count);
@@ -1083,7 +1078,7 @@ procedure TmainForm.updateGUIItemsForAccount(const account: TCustomAccountAccess
   procedure checkMenuItem(item:TMenuItem);
   var i:integer;
   begin
-    for i:=1 to item.Count-1 do
+    for i:=1 to item.Count-1 do //TODO
       if item.items[i].tag=longint(account) then begin
         item.items[i].caption:=account.prettyName;
         break;
