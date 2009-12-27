@@ -1357,4 +1357,10 @@ object mainForm: TmainForm
       OnClick = MenuItem30Click
     end
   end
+  object EnsureTrayIconTimer: TTimer
+    Interval = 10000
+    OnTimer = EnsureTrayIconTimerTimer
+    left = 471
+    top = 240
+  end
 end

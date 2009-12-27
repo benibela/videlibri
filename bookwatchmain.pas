@@ -13,10 +13,11 @@ unit bookWatchMain;
 interface
                                       
 uses
-  Classes, SysUtils, LResources, Forms, Controls, Graphics, Dialogs,
-  StdCtrls, Buttons, libraryParser,internetAccess, ComCtrls, Menus,
-  lmessages, ExtCtrls,errorDialog,statistik_u,libraryAccess,sendBackError,Translations,progressDialog,
-  bookListView,TreeListView, bookSearchForm, LCLType, lclproc, LCLIntf;
+  Classes, SysUtils, LResources, Forms, Controls, Graphics, Dialogs, StdCtrls,
+  Buttons, libraryParser, internetAccess, ComCtrls, Menus, lmessages, ExtCtrls,
+  errorDialog, statistik_u, libraryAccess, sendBackError, Translations,
+  progressDialog, bookListView, TreeListView, bookSearchForm, LCLType, lclproc,
+  LCLIntf;
 
 const //automaticExtend=true;
       colorSelected=clHighlight;
@@ -59,6 +60,7 @@ type
     MenuItem28: TMenuItem;
     MenuItem29: TMenuItem;
     MenuItem30: TMenuItem;
+    EnsureTrayIconTimer: TTimer;
     trayIconPopupMenu: TPopupMenu;
     removeSelectedMI: TMenuItem;
     displayDetailsMI: TMenuItem;
@@ -96,6 +98,7 @@ type
     procedure BookListUserSortItemsEvent(sender: TObject;
       var sortColumn: longint; var invertSorting: boolean);
     procedure delayedCallTimer(Sender: TObject);
+    procedure EnsureTrayIconTimerTimer(Sender: TObject);
     procedure extendAdjacentBooksClick(Sender: TObject);
     procedure FormActivate(Sender: TObject);
     procedure FormClose(Sender: TObject; var CloseAction: TCloseAction);
@@ -123,6 +126,7 @@ type
       Shift: TShiftState);
     procedure TrayIcon1Click(Sender: TObject);
     procedure TrayIcon1DblClick(Sender: TObject);
+    procedure TreeListView1Click(Sender: TObject);
     procedure UserExtendMenuClick(Sender: TObject);
     procedure MenuItem3Click(Sender: TObject);
     procedure MenuItem6Click(Sender: TObject);
@@ -338,6 +342,16 @@ procedure TmainForm.delayedCallTimer(Sender: TObject);
 begin
   delayedCall.Enabled:=false;
  showErrorMessages();
+end;
+
+procedure TmainForm.EnsureTrayIconTimerTimer(Sender: TObject);
+begin
+  //the Lazarus tray icon is not reliable (at least on debian), so repeat until
+  //it is actually shown
+  if TrayIcon1.Visible then
+    EnsureTrayIconTimer.Enabled:=false
+  else
+    TrayIcon1.Show;
 end;
 
 procedure TmainForm.extendAdjacentBooksClick(Sender: TObject);
@@ -613,67 +627,17 @@ begin
 end;
 
 procedure TmainForm.TrayIcon1DblClick(Sender: TObject);
-//TODO:  function ForceForegroundWindow(hwnd: THandle): WordBool;
-{const
-  SPI_GETFOREGROUNDLOCKTIMEOUT = $2000;
-  SPI_SETFOREGROUNDLOCKTIMEOUT = $2001;
-var
-  ForegroundThreadID: DWORD;
-  ThisThreadID: DWORD;
-  timeout: DWORD;
 begin
-  if IsIconic(hwnd) then ShowWindow(hwnd, SW_RESTORE);
-
-  if GetForegroundWindow = hwnd then Result := True
-  else
-  begin
-    // Windows 98/2000 doesn't want to foreground a window when some other
-    // window has keyboard focus
-
-    if ((Win32Platform = VER_PLATFORM_WIN32_NT) and (Win32MajorVersion > 4)) or
-      ((Win32Platform = VER_PLATFORM_WIN32_WINDOWS) and
-      ((Win32MajorVersion > 4) or ((Win32MajorVersion = 4) and
-      (Win32MinorVersion > 0)))) then
-    begin
-      // Code from Karl E. Peterson, www.mvps.org/vb/sample.htm
-      // Converted to Delphi by Ray Lischner
-      // Published in The Delphi Magazine 55, page 16
-
-      Result := False;
-      ForegroundThreadID := GetWindowThreadProcessID(GetForegroundWindow, nil);
-      ThisThreadID := GetWindowThreadPRocessId(hwnd, nil);
-      if AttachThreadInput(ThisThreadID, ForegroundThreadID, True) then
-      begin
-        BringWindowToTop(hwnd); // IE 5.5 related hack
-        SetForegroundWindow(hwnd);
-        AttachThreadInput(ThisThreadID, ForegroundThreadID, False);
-        Result := (GetForegroundWindow = hwnd);
-      end;
-      if not Result then
-      begin
-        // Code by Daniel P. Stasinski
-        SystemParametersInfo(SPI_GETFOREGROUNDLOCKTIMEOUT, 0, @timeout, 0);
-        SystemParametersInfo(SPI_SETFOREGROUNDLOCKTIMEOUT, 0, TObject(0),
-          SPIF_SENDCHANGE);
-        BringWindowToTop(hwnd); // IE 5.5 related hack
-        SetForegroundWindow(hWnd);
-        SystemParametersInfo(SPI_SETFOREGROUNDLOCKTIMEOUT, 0, TObject(timeout), SPIF_SENDCHANGE);
-      end;
-    end
-    else
-    begin
-      BringWindowToTop(hwnd); // IE 5.5 related hack
-      SetForegroundWindow(hwnd);
-    end;
-
-    Result := (GetForegroundWindow = hwnd);
+  application.BringToFront;
+  if Enabled then begin
+    mainform.show;
+    mainform.BringToFront;
   end;
-end;} { ForceForegroundWindow }
+end;
+
+procedure TmainForm.TreeListView1Click(Sender: TObject);
 begin
-  //TODO:mainform.WindowState:=wsNormal;?
-  mainform.show;
-  mainform.BringToFront;
-  //TODO: ForceForegroundWindow(mainform.Handle);
+
 end;
 
 
@@ -1155,4 +1119,4 @@ end;
 
 initialization
   {$I bookwatchmain.lrs}
-end.
+end.

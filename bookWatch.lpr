@@ -8,13 +8,13 @@ uses
   {$ENDIF}
   Interfaces, // this includes the LCL widgetset
   Forms,menus,Graphics
-  { add your units here }, sysutils,bookWatchMain, libraryParser, options, newAccountWizard_u, errorDialog,
-applicationConfig, statistik_u, diagram, libraryAccess,
-sendBackError, internetAccess, autoupdate, progressDialog, registrierung,
-nagform, bbdebugtools,
-bibtexexport, simplexmlparser, booklistreader, librarySearcher, bookListView,
-bookSearchForm, librarySearcherAccess, extendedhtmlparser, TreeListView, 
-findControl, autoMenuManager,LCLIntf;
+  { add your units here }, sysutils, bookWatchMain, libraryParser, options,
+  newAccountWizard_u, errorDialog, applicationConfig, statistik_u, diagram,
+  libraryAccess, sendBackError, internetAccess, autoupdate, progressDialog,
+  registrierung, nagform, bbdebugtools, bibtexexport, simplexmlparser,
+  booklistreader, librarySearcher, bookListView, bookSearchForm,
+  librarySearcherAccess, extendedhtmlparser, autoMenuManager,
+  treelistviewpackage, LCLIntf;
 
 {$IFDEF WINDOWS}{$R manifest.rc}{$R icons.res}{$ENDIF}
 

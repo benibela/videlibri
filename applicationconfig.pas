@@ -38,7 +38,7 @@ var programPath,userPath,dataPath:string;
     versionNumber:integer=995;//=>versionNumber/1000
     newVersionInstalled: boolean=false;
 
-    startedMutex:THandle=0;
+    {$IFDEF WIN32}startedMutex:THandle=0;{$ENDIF}
 
     exceptionStoring: TRTLCriticalSection;
     
@@ -392,28 +392,26 @@ uses bookwatchmain,internetaccess,controls,libraryaccess,math,FileUtil,bbdebugto
     end;
 
     //Überprüft, ob das Programm schon gestart ist, und wenn ja, öffnet dieses
-    //TODO:
-    {SetLastError(0);
+    {$IFDEF WIN32}
+    SetLastError(0);
     startedMutex:=CreateMutex(nil,true,VIDELIBRI_MUTEX_NAME);
     if (not commandLine.readFlag('start-always')) and (GetLastError=ERROR_ALREADY_EXISTS) then begin
-      window:=FindWindow(pchar(TTNAIcon.getClassName()),nil);
-      if window=0 then begin
-        window:=FindWindow(nil,pchar(appFullTitle));//FindWindow(nil,'VideLibri');
+      window:=FindWindow(nil,pchar(appFullTitle));//FindWindow(nil,'VideLibri');
+      if window<>0 then begin
         if IsWindowEnabled(window) then begin
-          //SendMessage(window,SW_SHOW,0,0);
-          SetForegroundWindow(window);
-          BringWindowToTop(window);
-        end else begin
-          GetWindowThreadProcessId(window,@proc);
-          EnumWindows(@bringToFrontEnumeration,proc);
-        end;
-      end else begin
-        SendMessage(window,WM_COMMAND,MENU_ID_START_LCL,0);
+            //SendMessage(window,SW_SHOW,0,0);
+            SetForegroundWindow(window);
+            BringWindowToTop(window);
+          end else begin //if the window isn't enabled it has opened a modal window which also have to be raised
+            GetWindowThreadProcessId(window,@proc);
+            EnumWindows(@bringToFrontEnumeration,proc);
+          end;
+        cancelStarting:=true;
+        commandLine.free;
+        exit;
       end;
-      cancelStarting:=true;
-      commandLine.free;
-      exit;
-    end;            }
+    end;
+    {$ENDIF}
   
     //Aktiviert das Logging
     logging:=commandLine.readFlag('log');//TODO: command line
@@ -644,4 +642,4 @@ uses bookwatchmain,internetaccess,controls,libraryaccess,math,FileUtil,bbdebugto
    end;
 
 end.
-
+
