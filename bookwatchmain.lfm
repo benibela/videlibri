@@ -4,7 +4,7 @@ object mainForm: TmainForm
   Top = 34
   Width = 927
   Caption = 'Videlibri'
-  ClientHeight = 628
+  ClientHeight = 630
   ClientWidth = 927
   Menu = MainMenu1
   OnActivate = FormActivate
@@ -17,8 +17,8 @@ object mainForm: TmainForm
   LCLVersion = '0.9.29'
   object StatusBar1: TStatusBar
     Left = 0
-    Height = 23
-    Top = 605
+    Height = 21
+    Top = 609
     Width = 927
     Panels = <    
       item
@@ -57,7 +57,7 @@ object mainForm: TmainForm
       Left = 183
       Height = 22
       Top = 0
-      Width = 177
+      Width = 187
       Caption = '  Shareware Version'
       Font.CharSet = ANSI_CHARSET
       Font.Color = clRed
@@ -1134,8 +1134,8 @@ object mainForm: TmainForm
     Enabled = False
     Interval = 100
     OnTimer = delayedCallTimer
-    left = 24
-    top = 280
+    left = 320
+    top = 216
   end
   object libraryList: TPopupMenu
     left = 24
@@ -1147,8 +1147,8 @@ object mainForm: TmainForm
   object bookPopupMenu: TPopupMenu
     AutoPopup = False
     OnPopup = bookPopupMenuPopup
-    left = 200
-    top = 224
+    left = 96
+    top = 104
     object searchDetailsMI: TMenuItem
       Caption = 'Details für dieses Buch suchen...'
       OnClick = displayDetailsMIClick
@@ -1362,5 +1362,17 @@ object mainForm: TmainForm
     OnTimer = EnsureTrayIconTimerTimer
     left = 471
     top = 240
+  end
+  object repeatedCheckTimer: TTimer
+    Interval = 300000
+    OnTimer = repeatedCheckTimerTimer
+    left = 304
+    top = 160
+  end
+  object dailyCheckThread: TTimer
+    Interval = 86400000
+    OnTimer = dailyCheckThreadTimer
+    left = 280
+    top = 112
   end
 end

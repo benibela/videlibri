@@ -26,7 +26,7 @@ var programPath,userPath,dataPath:string;
     libraryManager: TLibraryManager=nil;
 
     cancelStarting,startToTNA:boolean;
-    accountsRefreshed: boolean=false; //at least one function is to notify the checkthread to stop
+    accountsRefreshedToday: boolean=false; //set to true if the account information has been updated in the last 24h
 
     currentDate:longint;
     lastCheck: integer;
@@ -363,7 +363,6 @@ uses bookwatchmain,internetaccess,controls,libraryaccess,math,FileUtil,bbdebugto
       i:integer;
       window,proc:THANDLE;
       commandLine:TCommandLineReader;
-      test: TInternetAccess;
       //checkOne: boolean;
   begin
     currentDate:=trunc(now);

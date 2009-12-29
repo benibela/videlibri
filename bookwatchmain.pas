@@ -17,7 +17,7 @@ uses
   Buttons, libraryParser, internetAccess, ComCtrls, Menus, lmessages, ExtCtrls,
   errorDialog, statistik_u, libraryAccess, sendBackError, Translations,
   progressDialog, bookListView, TreeListView, bookSearchForm, LCLType, lclproc,
-  LCLIntf;
+  LCLIntf,process;
 
 const //automaticExtend=true;
       colorSelected=clHighlight;
@@ -61,6 +61,8 @@ type
     MenuItem29: TMenuItem;
     MenuItem30: TMenuItem;
     EnsureTrayIconTimer: TTimer;
+    repeatedCheckTimer: TTimer;
+    dailyCheckThread: TTimer;
     trayIconPopupMenu: TPopupMenu;
     removeSelectedMI: TMenuItem;
     displayDetailsMI: TMenuItem;
@@ -97,6 +99,7 @@ type
     procedure bookPopupMenuPopup(Sender: TObject);
     procedure BookListUserSortItemsEvent(sender: TObject;
       var sortColumn: longint; var invertSorting: boolean);
+    procedure dailyCheckThreadTimer(Sender: TObject);
     procedure delayedCallTimer(Sender: TObject);
     procedure EnsureTrayIconTimerTimer(Sender: TObject);
     procedure extendAdjacentBooksClick(Sender: TObject);
@@ -122,6 +125,7 @@ type
     procedure MenuItem30Click(Sender: TObject);
     procedure removeSelectedMIClick(Sender: TObject);
     procedure displayDetailsMIClick(Sender: TObject);
+    procedure repeatedCheckTimerTimer(Sender: TObject);
     procedure searchTextKeyDown(Sender: TObject; var Key: Word;
       Shift: TShiftState);
     procedure TrayIcon1Click(Sender: TObject);
@@ -163,8 +167,6 @@ type
     procedure RefreshListView; //Zentrale Anzeige Funktion!
     procedure setSymbolAppearance(showStatus: integer); //0: text and icons 1=only text 2=only icons
     procedure refreshAccountGUIElements();
-    procedure updateGUIItemsForAccount(const account: TCustomAccountAccess);
-    procedure removeGUIItemsForAccount(const account: TCustomAccountAccess);
     function addAccount(const libID: string; prettyName, aname, pass: string; extendType: TExtendType; extendDays:integer; history: boolean):TCustomAccountAccess;
     //procedure WndProc(var TheMessage : TLMessage); override;
     function menuItem2AssociatedAccount(mi: TMenuItem): TCustomAccountAccess;
@@ -338,6 +340,17 @@ begin
   if pos('shareware',lowercase(Label2.Caption))>0 then RefreshListView;
 end;
 
+procedure TmainForm.dailyCheckThreadTimer(Sender: TObject);
+//this will be called every 24h to ensure that videlibri also works if you
+//never turn your computer of
+begin
+  if alertAboutBooksThatMustBeReturned then show
+  else begin
+    accountsRefreshedToday:=false;
+    repeatedCheckTimer.Enabled:=true;
+  end;
+end;
+
 procedure TmainForm.delayedCallTimer(Sender: TObject);
 begin
   delayedCall.Enabled:=false;
@@ -480,14 +493,49 @@ begin
   books.free;
 end;
 
+procedure showCHM(filename:string;contextID:longint; tocname:string);
+  {$IFNDEF WIN32}
+  function couldRun(s:string): boolean;
+  var
+    p: TProcess;
+  begin
+    p:=TProcess.Create(nil);
+    try
+    try
+      p.CommandLine:=s;
+      p.Execute;
+      result:=true;
+    finally
+      p.free;
+    end;
+    except on e:EProcess do
+      result:=false;
+    end;
+  end;
+  {$ENDIF}
+
+begin
+  filename:='"'+filename+'"';
+  {$IFDEF WIN32}
+  WinExec('hh -mapid  '+IntToStr(contextID)+' '+filename,sw_shownormal); //TODO: use modern command like ShellExecute
+  {$ELSE}
+  if not couldRun('xchm -c '+inttostr(contextID)+' '+filename) then
+    if not couldRun('kchmviewer --stoc "'+tocname+'" '+filename) then
+      if not couldRun('chmsee '+filename) then
+        if not couldRun('gnochm '+filename) then
+          ShowMessage('Kein Programm zur Anzeige der Hilfe gefunden.'#13#10'Sie sollten entweder xchm, kchmviewer, chmsee oder gnochm installieren');
+
+  {$ENDIF}
+end;
+
 procedure TmainForm.MenuItem14Click(Sender: TObject);
 begin
-  //TODO: WinExec('hh -mapid 1000 videlibri.chm',sw_shownormal);
+  showCHM('videlibri.chm',1000, 'Fensterbeschreibung');
 end;
 
 procedure TmainForm.MenuItem15Click(Sender: TObject);
 begin
-  //TODO: WinExec('hh -mapid 1001 videlibri.chm',sw_shownormal);
+  showCHM('videlibri.chm',1001, 'Fragen und Antworten');
 end;
 
 procedure TmainForm.MenuItem16Click(Sender: TObject);
@@ -496,24 +544,30 @@ begin
 end;
 
 procedure TmainForm.MenuItem17Click(Sender: TObject);
-  type tpopenAboutDialog = procedure (title,description,creditlist: pchar; modal: boolean; game: longint);stdcall;
-var s1, s2, s3: string;
-    openAboutDialog: tpopenAboutDialog;
-    lib:thandle;
+{$IFDEF WIN32}
+type tpopenAboutDialog = procedure (title,description,creditlist: pchar; modal: boolean; game: longint);stdcall;
+var  openAboutDialog: tpopenAboutDialog;
+     lib:thandle;
+{$ENDIF}
+var infotext: string;
 begin
-  //TODO:
-  (*lib:=LoadLibrary('bbabout.dll');
+  infotext:=
+  'Verwendete Fremdkomponenten:'#13#10'  LCL'#13#10'  FreePascal Runtime'#13#10'  TRegExpr von Andrey V. Sorokin'#13#10#13#10+
+  'Verwendete Entwicklungswerkzeuge:'#13#10'  Lazarus'#13#10'  FreePascal'#13#10'  GIMP'#13#10'  HTML Help Workshop'#13#10'  The Regex Coach'#13#10#13#10+
+  'Die angezeigten Daten stammen von/gehören: '#13#10'  den Stadtbüchereien Düsseldorf'#13#10+
+  '  der Universitäts- und Landesbibliothek Düsseldorf'#13#10+
+  '  den Fachhochschulbüchereien Düsseldorfs und Bochums'#13#10+
+  '  der DigiBib/dem Hochschulbibliothekszentrum des Landes Nordrhein-Westfalen'#13#10+
+  '  Amazon.com';
+  {$IFDEF WIN32}
+  lib:=LoadLibrary('bbabout.dll');
   openAboutDialog:=tpopenAboutDialog(GetProcAddress(lib,'openAboutDialog'));
   if assigned(openAboutDialog) then
-    openAboutDialog(pchar({'Videlibri '+FloatToStr(versionNumber/1000)}caption),'',pchar(Utf8ToAnsi(
-      'Verwendete Fremdkomponenten:'#13#10'  LCL'#13#10'  FreePascal Runtime'#13#10'  TRegExpr von Andrey V. Sorokin'#13#10#13#10+
-      'Verwendete Entwicklungswerkzeuge:'#13#10'  Lazarus'#13#10'  FreePascal'#13#10'  GIMP'#13#10'  HTML Help Workshop'#13#10'  The Regex Coach'#13#10#13#10+
-      'Die angezeigten Daten stammen von/gehören: '#13#10'  den Stadtbüchereien Düsseldorf'#13#10+
-      '  der Universitäts- und Landesbibliothek Düsseldorf'#13#10+
-      '  den Fachhochschulbüchereien Düsseldorfs und Bochums'#13#10+
-      '  der DigiBib/dem Hochschulbibliothekszentrum des Landes Nordrhein-Westfalen'#13#10+
-      '  Amazon.com')),true,1);
-  FreeLibrary(lib);              *)
+    openAboutDialog(pchar({'Videlibri '+FloatToStr(versionNumber/1000)}caption),'',pchar(Utf8ToAnsi(infotext)),true,1);
+  FreeLibrary(lib);
+  {$ELSE}
+  ShowMessage(caption+#13#10#13#10#13#10+infotext); //TODO: platform independen about dialog
+  {$ENDIF}
 end;
 
 procedure TmainForm.MenuItem18Click(Sender: TObject);
@@ -614,6 +668,32 @@ begin
   searcherForm.selectBookToReSearch(tbook(BookList.Selected.data.obj));
   if TComponent(sender).tag<>1 then searcherForm.startSearch.Click;
   searcherForm.ShowModal;
+end;
+
+procedure TmainForm.repeatedCheckTimerTimer(Sender: TObject);
+//this tries to update the books every 5min until a connection to the library
+//could actually established
+var internet: TInternetAccess;
+begin
+  if accountsRefreshedToday then begin
+    repeatedCheckTimer.Enabled:=false;
+    exit;
+  end;
+
+  internet:=defaultInternetAccessClass.create;
+  try
+  try
+    if internet.existsConnection then begin
+      if logging then log('repeatedCheckTimer: internet connection exists');
+      defaultAccountsRefresh;
+      if logging then log('repeatedCheckTimer: called defaultAccountsRefresh');
+    end;
+  finally
+    internet.free;
+    if logging then log('internet freed');
+  end;
+  except
+  end;
 end;
 
 procedure TmainForm.searchTextKeyDown(Sender: TObject; var Key: Word;
@@ -1036,36 +1116,6 @@ begin
     for j:=0 to extendMenuList2_.Count-1 do
       addToMenuItem(extendMenuList2_[j],@UserExtendMenuClick,i);
   end;
-end;
-
-procedure TmainForm.updateGUIItemsForAccount(const account: TCustomAccountAccess);
-  procedure checkMenuItem(item:TMenuItem);
-  var i:integer;
-  begin
-    for i:=1 to item.Count-1 do //TODO
-      if item.items[i].tag=longint(account) then begin
-        item.items[i].caption:=account.prettyName;
-        break;
-      end;
-  end;
-
-var i:integer;
-begin
-  if account=nil then exit;
-  checkMenuItem(accountListMenuItem);
-  checkMenuItem(viewMenu);
-  checkMenuItem(extendMenuList1);
-  for i:=0 to extendMenuList2_.count-1 do
-    checkMenuItem(extendMenuList2_[i]);
-  for i:=0 to accountListMenu.items.count-1 do
-    if accountListMenu.items[i].tag=longint(account) then begin
-      accountListMenu.items[i].caption:=account.prettyName;
-      break;
-    end;
-end;
-
-procedure TmainForm.removeGUIItemsForAccount(const account: TCustomAccountAccess);
-begin
 end;
 
 function TmainForm.addAccount(const libID: string; prettyName, aname, pass: string; extendType: TExtendType; extendDays:integer; history:boolean):TCustomAccountAccess;

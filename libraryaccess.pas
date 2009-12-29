@@ -30,8 +30,6 @@ procedure ThreadDone(sender:TObject);
 procedure updateAccountBookData(account: TCustomAccountAccess;ignoreConnErrors, checkDate,extendAlways: boolean);
 procedure defaultAccountsRefresh;
 
-procedure startCheckThread;
-
 //--Verlängerungen--
 //Verlängert die Bücher des Accounts indem extendAccountBookData aufgerufen wird
 //procedure extendAccountBookData(account: TCustomAccountAccess;books: TBookArray);
@@ -40,8 +38,6 @@ procedure extendBooks(lastLimit:longint; account: TCustomAccountAccess=nil);
 
 
 //--Userkommunikation--
-//Überprüft jeden *Tag* ob nun Medien fällig sind
-procedure startDailyCheckDate;
 //benachrichtigt den Benutzer über fällige Medien und fragt nach dem Öffnen des
 //Hauptformulars deswegen (->true wenn es geöffnet werden soll)
 function alertAboutBooksThatMustBeReturned:boolean;
@@ -75,8 +71,6 @@ type
     constructor Create(alib: TCustomAccountAccess;var config:TThreadConfig;
                        aIgnoreConnectionErrors, ACheckDate,AExtend: boolean);
   end;
-
-var checkingThreadRunning: boolean=false;
 
 procedure TUpdateLibThread.execute;
 var internet: TInternetAccess;
@@ -250,25 +244,21 @@ end;
 
 procedure ThreadDone(sender:TObject);
 //called in the main thread
-//var i,j:integer;
 begin
   if logging then log('ThreadDone started'#13#10'Without this one, '+IntToStr(updateThreadConfig.updateThreadsRunning)+' threads are currently running');
+  Assert(mainForm<>nil);
   if not (sender is TUpdateLibThread) then
     raise exception.Create('Interner Fehler:'#13#10'Die Funktion, die für gerade beendete Aktualisierungthread zuständig ist, wurde auf einen anderen Thread angewendet'#13#10'(kann eigentlich nicht auftreten)');
-
 
   if (updateThreadConfig.updateThreadsRunning<=0) or (updateThreadConfig.listUpdateThreadsRunning<=0) then begin
     if (updateThreadConfig.atLeastOneListUpdateSuccessful) then begin
       updateThreadConfig.atLeastOneListUpdateSuccessful:=updateThreadConfig.updateThreadsRunning>0;
-      accountsRefreshed:=true;
-      if (mainform<>nil) and (mainform.visible) then
+      accountsRefreshedToday:=true;
+      if (mainform.visible) then
         mainform.RefreshListView;
       applicationUpdate(true);
     end;
-    if mainform<>nil then
-      mainform.delayedCall.Enabled:=true //show error messages
-     else //TODO: if not lclstarted then
-      showErrorMessages;
+    mainform.delayedCall.Enabled:=true //show error messages
   end;
   if (updateThreadConfig.updateThreadsRunning<=0) then
     updateGlobalAccountDates();
@@ -327,66 +317,13 @@ end;
 //Bücher aktualisieren
 procedure defaultAccountsRefresh;
 begin
-  if accountsRefreshed then exit;
+  if accountsRefreshedToday then exit;
   if logging then log('defaultAccountsRefresh started');
   case userConfig.ReadInteger('base','startup-connection',1) of
     1: updateAccountBookData(nil,true,true,false);
     2: updateAccountBookData(nil,true,false,false);
   end;
   if logging then log('defaultAccountsRefresh ended');
-end;
-
-type
-  { TPersistentCheckThread }
-
-  TPersistentCheckThread=class(TThread)
-  protected
-    procedure execute;override;
-  public
-    constructor Create();
-  end;
-
-{ TPersistentCheckThread }
-
-procedure TPersistentCheckThread.execute();
-//procedure defaultCheckThread(lpParameter: pointer);stdcall;
-var internet:TInternetAccess;
-begin
-  while (not accountsRefreshed) and (mainForm<>nil) do begin
-    try
-      internet:=defaultInternetAccessClass.create;
-      try
-        if internet.existsConnection then begin
-          //defaultAccountsRefresh;
-          if logging then log('defaultCheckThread internet connection exists');
-          //TODO: auto update postMessage(tna.messageWindow,wm_command,MENU_ID_AUTO_UPDATE,0);
-          if logging then log('message posted');
-          internet.free;
-          if logging then log('internet freed');
-          checkingThreadRunning:=false;
-          exit;
-          //messagebeep(0);
-        end;
-      finally
-        internet.free;
-      end;
-    except
-    end;
-    sleep(5*60*1000);
-  end;
-  checkingThreadRunning:=false;
-end;
-
-constructor TPersistentCheckThread.Create();
-begin
-  FreeOnTerminate:=true;
-  inherited create(false);
-end;
-
-procedure startCheckThread;
-begin
-  checkingThreadRunning:=true;
-  TPersistentCheckThread.Create();
 end;
 
 
@@ -470,41 +407,6 @@ begin
 end;
 
 
-{ TDailyCheckThread }
-
-type
-  { TDailyCheckThread }
-
-  TDailyCheckThread=class(TThread)
-  protected
-    procedure execute;override;
-  public
-    constructor Create();
-  end;
-
-procedure TDailyCheckThread.execute;
-begin
-  while mainForm<>nil do begin
-    sleep(1000*60*60*24);
-    if not checkingThreadRunning then begin
-      accountsRefreshed:=false;
-      if alertAboutBooksThatMustBeReturned then
-        //TODO: auto update PostMessage(tna.messageWindow,WM_COMMAND,MENU_ID_START_LCL,0);
-    end;
-  end;
-end;
-
-constructor TDailyCheckThread.Create();
-begin
-  FreeOnTerminate:=true;
-  inherited create(false);
-end;
-
-
-procedure startDailyCheckDate;
-begin
-  TDailyCheckThread.Create();
-end;
 
 function alertAboutBooksThatMustBeReturned: boolean;
 var alert:string;
@@ -551,11 +453,9 @@ begin
     end;
     tempInternet.free;
   end;
-
-  if (not result) and not checkingThreadRunning then startCheckThread;
 end;
 
 
 
 end.
-
+

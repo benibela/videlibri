@@ -70,8 +70,8 @@ begin
 end;
 
 procedure TstatistikForm.updateStatistic;
-var i,j,k,c,tc,currentLoop:integer;
-    checkDate,nextCheckDate: longint;
+var i,j,k:integer;
+    checkDate: longint;
     y,m,d,y2,m2,d2,y3,m3,d3: word; //year,..
     books: TBookLists;
     book:TBook;
@@ -294,4 +294,4 @@ initialization
   {$I statistik_u.lrs}
 
 end.
-
+

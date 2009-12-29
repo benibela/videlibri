@@ -444,7 +444,8 @@ begin
     lib.changeUser(edtAccountUser.text);
     accountIDs[item.Index]:=lib.getID();
     saveLibIDs;
-    mainForm.updateGUIItemsForAccount(lib);
+    mainForm.refreshAccountGUIElements();
+    mainForm.RefreshListView;
   end else lib.save();
   item.Caption:=edtAccountPrettyName.text;
   item.SubItems[0]:=edtAccountUser.Text;
@@ -513,7 +514,7 @@ begin
     saveLibIDs;
     accountList.Selected.Delete;
     selLib.remove();
-    mainForm.removeGUIItemsForAccount(selLib);
+    mainForm.refreshAccountGUIElements();
     mainForm.RefreshListView;
   end;
 end;
@@ -581,4 +582,4 @@ initialization
   {$I options.lrs}
 
 end.
-
+
