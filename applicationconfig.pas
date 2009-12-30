@@ -6,7 +6,7 @@ interface
 
 uses
   Classes, SysUtils,Graphics,forms,libraryparser,registry,inifiles,rcmdline,errordialog,autoupdate,progressDialog,extendedhtmlparser,
-ExtCtrls
+ExtCtrls ,Dialogs
 ;
 
 type TErrorArray=array of record
@@ -299,31 +299,30 @@ uses bookwatchmain,internetaccess,controls,libraryaccess,math,FileUtil,bbdebugto
     updater:=TAutoUpdater.create(versionNumber,programpath,'http://www.benibela.de/updates/videlibri/version.xml'
                                                           ,'http://www.benibela.de/updates/videlibri/changelog.xml');
     if updater.existsUpdate then begin
-      if not updater.hasDirectoryWriteAccess then begin
-        Application.MessageBox(pchar('Es gibt ein Update auf die Version '+floattostr(updater.newestVersion/1000)+':'#13#10#13#10+
-                            updater.listChanges+#13#10+
-                            'Um das Update herunterzuladen und zu installieren, müssen Sie Videlibri unter einem Benutzerkonto mit Administratorrechten starten.'),'Videlibri Update',mb_ok {$IFDEF WIN32}or MB_APPLMODAL{$ENDIF});
-        updater.free;
-        if logging then log('applicationUpdate exited');
-        exit;
-      end else if { (not auto) or} (Application.MessageBox(pchar('Es gibt ein Update auf die Version '+floattostr(updater.newestVersion/1000)+':'#13#10#13#10+
+      if { (not auto) or} (Application.MessageBox(pchar('Es gibt ein Update auf die Version '+floattostr(updater.newestVersion/1000)+':'#13#10#13#10+
                                               updater.listChanges+#13#10+
-                                              'Soll es jetzt heruntergeladen und installiert werden?'),'Videlibri Update', mb_yesno {$IFDEF WIN32}or MB_APPLMODAL{$ENDIF})=idyes) then begin
+                                              'Soll es jetzt heruntergeladen (und wenn möglich installiert) werden?'),'Videlibri Update', mb_yesno {$IFDEF WIN32}or MB_APPLMODAL{$ENDIF})=idyes) then begin
 
-        Screen.cursor:=crHourglass;
         assert(mainForm<>nil);
-        //TODO:
+                                                //TODO:   update
+                                                //Videlibri install win32 command: /SP- /silent /noicons "/dir=$OLDPATH;"
+        Screen.cursor:=crHourglass;
         temp:=mainForm.StatusBar1.Panels[0].Text;
+
         mainForm.StatusBar1.Panels[0].Text:='Bitte warten, Update wird heruntergeladen...';
         updater.downloadUpdate();
-        mainForm.StatusBar1.Panels[0].Text:='Bitte warten, Update wird installiert...';
-        updater.installUpdate();
+
+        if updater.installerIsExecutable and updater.hasDirectoryWriteAccess then begin
+          mainForm.StatusBar1.Panels[0].Text:='Bitte warten, Update wird installiert...';
+          updater.installUpdate();
+        end else ShowMessage('Update kann nicht automatisch installiert werden.'#13#10'Das Update wurde in der Datei '+updater.installerDownloadedFileName+' gespeichert');
+
         Screen.cursor:=crDefault;
         mainForm.StatusBar1.Panels[0].Text:=temp;
 
         if updater.needRestart then begin
           mainForm.close;
-          //TODO:else PostMessage(tna.messageWindow,WM_CLOSE,0,0);
+          //TODO: update else PostMessage(tna.messageWindow,WM_CLOSE,0,0);
         end else if not auto then
           Application.MessageBox('Update wurde installiert','Videlibri Update', mb_ok {$IFDEF WIN32}or MB_APPLMODAL{$ENDIF});
       end;
@@ -413,7 +412,7 @@ uses bookwatchmain,internetaccess,controls,libraryaccess,math,FileUtil,bbdebugto
     {$ENDIF}
   
     //Aktiviert das Logging
-    logging:=commandLine.readFlag('log');//TODO: command line
+    logging:=commandLine.readFlag('log');
     if logging then log('Started with logging enabled, command line:'+ParamStr(0));
 
 
@@ -587,10 +586,11 @@ uses bookwatchmain,internetaccess,controls,libraryaccess,math,FileUtil,bbdebugto
       system.DoneCriticalsection(exceptionStoring);
     end;
 
-    //TODO: if startedMutex<>0 then      ReleaseMutex(startedMutex);
-    if needApplicationRestart then begin
-      //TODO: WinExec(pchar(ParamStr(0)+' --start-always') ,SW_SHOWNORMAL);
-    end;
+    {$IFDEF WIN32}
+    if startedMutex<>0 then ReleaseMutex(startedMutex);
+    if needApplicationRestart then
+      WinExec(pchar(ParamStr(0)+' --start-always') ,SW_SHOWNORMAL);
+    {$ENDIF}
     if logging then begin
       log('finalizeApplicationConfig ended'#13#10' => program will exit normally, after closing log');
       if logFileCreated then begin

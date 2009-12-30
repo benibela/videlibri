@@ -561,7 +561,7 @@ begin
     lblAccountExtend1.Visible:=false;
     lblAccountExtend2.Visible:=false;
     edtAccountExtendDays.Visible:=false;
-    cmbAccountExtend.Width:=cmbAccountExtend.parent.ClientWidth-(407-315);
+    cmbAccountExtend.Width:=cmbAccountExtend.parent.ClientWidth-cmbAccountExtend.Left-5;
     include(cmbAccountExtend.anchors,akRight);
   end else begin
     lblAccountExtend1.Visible:=true;

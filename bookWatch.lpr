@@ -33,9 +33,8 @@ begin
          mainForm.Visible:=true
         else
          mainForm.Visible:=alertAboutBooksThatMustBeReturned;
-      //TODO:    startDailyCheckDate;
       Application.Run;
   end;
   finalizeApplicationConfig;
 end.
-
+
