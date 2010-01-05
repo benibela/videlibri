@@ -32,7 +32,11 @@ uses
 
 const BL_BOOK_COLUMNS_AUTHOR=2;
       BL_BOOK_COLUMNS_TITLE=3;
+      BL_BOOK_COLUMNS_YEAR=4;
+      BL_BOOK_COLUMNS_ISSUE_ID=5;
       BL_BOOK_COLUMNS_LIMIT_ID=6;
+      BL_BOOK_COLUMNS_ACCOUNT=7;
+      BL_BOOK_COLUMNS_STATUS=8;
       BL_BOOK_EXTCOLUMNS_COLOR=9;
       BL_BOOK_EXTCOLUMNS_WEEK_SEPARATOR=10;
 
@@ -83,10 +87,9 @@ begin
   end;
   compare:=0;
   case SortColumn of
-    4: if book1.issueDate<book2.issueDate then
-         compare:=-1
-       else if book1.issueDate>book2.issueDate then
-         compare:=1;
+    BL_BOOK_COLUMNS_ISSUE_ID:
+        if book1.issueDate<book2.issueDate then compare:=-1
+        else if book1.issueDate>book2.issueDate then compare:=1;
     BL_BOOK_COLUMNS_LIMIT_ID:; //see later
 
     else compare:=CompareText(i1.RecordItemsText[SortColumn],i2.RecordItemsText[SortColumn]);
@@ -169,17 +172,16 @@ begin
     RecordItems.Add(book.category);
     RecordItemsText[BL_BOOK_COLUMNS_AUTHOR] := book.author;
     RecordItemsText[BL_BOOK_COLUMNS_TITLE] := book.title;
-    RecordItems.Add(book.year);
-    RecordItems.Add(DateToPrettyStr(book.issueDate));
+    RecordItemsText[BL_BOOK_COLUMNS_YEAR] := book.year;
+    RecordItemsText[BL_BOOK_COLUMNS_ISSUE_ID] := DateToPrettyStr(book.issueDate);
     if book.lend = false then
-     RecordItems.Add('erledigt')
+     RecordItemsText[BL_BOOK_COLUMNS_LIMIT_ID] := 'erledigt'
     else
-     RecordItems.Add(DateToPrettyStr(book.limitDate));
-    if book.owner<>nil then RecordItems.Add((book.owner as TCustomAccountAccess).prettyName)
-    else RecordItems.Add('unbekannt');
-    RecordItems.Add(BookStatusToStr(book));//Abgegeben nach '+DateToStr(book.lastExistsDate))
-    
-    
+     RecordItemsText[BL_BOOK_COLUMNS_LIMIT_ID] := DateToPrettyStr(book.limitDate);
+    if book.owner<>nil then RecordItemsText[BL_BOOK_COLUMNS_ACCOUNT] := (book.owner as TCustomAccountAccess).prettyName
+    else RecordItemsText[BL_BOOK_COLUMNS_ACCOUNT] := 'unbekannt';
+    RecordItemsText[BL_BOOK_COLUMNS_STATUS]:=BookStatusToStr(book);//Abgegeben nach '+DateToStr(book.lastExistsDate))
+
 //    RecordItems.Add(book.year); ;
    // SubItems.add(book.otherInfo);
     RecordItemsText[BL_BOOK_EXTCOLUMNS_COLOR]:=ColorToString(getBookColor(book));
@@ -259,4 +261,4 @@ begin
 end;
 
 end.
-
+

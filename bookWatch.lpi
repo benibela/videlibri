@@ -124,7 +124,7 @@
         <IsPartOfProject Value="True"/>
         <ComponentName Value="ProgressBarDialog"/>
         <ResourceBaseClass Value="Form"/>
-        <UnitName Value="progressDialog"/>
+        <UnitName Value="progressdialog"/>
       </Unit14>
       <Unit15>
         <Filename Value="..\..\..\components\pascal\data\obfuscate.inc"/>

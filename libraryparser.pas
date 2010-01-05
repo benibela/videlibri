@@ -494,7 +494,7 @@ begin
   if logging then
     log('TBookLists.save started');
   if keepHistory then begin
-    if currentDate-ownerLib.config.ReadInteger('base','last-history-backup',0)>HistoryBackupInterval then begin
+    if (currentDate-ownerLib.config.ReadInteger('base','last-history-backup',0)>HistoryBackupInterval) and (FileExistsUTF8(bookListOldFileName)) then begin
       CopyFile(bookListOldFileName,bookListOldFileName+'.'+FormatDateTime('yyyymmdd',currentDate));
       ownerLib.config.WriteInteger('base','last-history-backup',currentDate);
     end;
@@ -1035,4 +1035,4 @@ if exists books-to-extend then begin
   else if exists #extend-single then for all: #extend-single
   else extend-all
 end
-
+

@@ -28,9 +28,9 @@ object RegForm: TRegForm
   end
   object Label3: TLabel
     Left = 88
-    Height = 21
+    Height = 22
     Top = 83
-    Width = 3
+    Width = 4
     Font.CharSet = ANSI_CHARSET
     Font.Color = clGreen
     Font.Height = -16
@@ -66,23 +66,29 @@ object RegForm: TRegForm
   end
   object Button1: TButton
     Left = 96
-    Height = 25
-    Top = 128
-    Width = 75
+    Height = 30
+    Top = 123
+    Width = 92
+    Anchors = [akLeft, akBottom]
+    AutoSize = True
     BorderSpacing.InnerBorder = 4
-    Caption = '&OK'
+    Caption = '     &OK     '
+    Constraints.MaxHeight = 30
     Default = True
     OnClick = Button1Click
     TabOrder = 2
   end
   object Button2: TButton
     Left = 232
-    Height = 25
-    Top = 129
-    Width = 75
+    Height = 30
+    Top = 124
+    Width = 98
+    Anchors = [akLeft, akBottom]
+    AutoSize = True
     BorderSpacing.InnerBorder = 4
     Cancel = True
     Caption = '&Abbrechen'
+    Constraints.MaxHeight = 30
     OnClick = Button2Click
     TabOrder = 3
   end

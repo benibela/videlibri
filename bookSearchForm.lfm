@@ -1,22 +1,22 @@
 object bookSearchFrm: TbookSearchFrm
   Left = 308
-  Height = 464
+  Height = 567
   Top = 173
-  Width = 728
+  Width = 800
   ActiveControl = optionPanel
   Caption = 'Suche in der DigiBib.net'
-  ClientHeight = 464
-  ClientWidth = 728
+  ClientHeight = 567
+  ClientWidth = 800
   OnCreate = FormCreate
   OnDestroy = FormDestroy
   LCLVersion = '0.9.29'
   object optionPanel: TPanel
     Left = 0
-    Height = 441
+    Height = 544
     Top = 0
     Width = 243
     Align = alLeft
-    ClientHeight = 441
+    ClientHeight = 544
     ClientWidth = 243
     TabOrder = 0
     OnClick = optionPanelClick
@@ -114,8 +114,9 @@ object bookSearchFrm: TbookSearchFrm
     object searchSelectionList: TCheckListBox
       AnchorSideTop.Control = searchLocation
       AnchorSideTop.Side = asrBottom
+      AnchorSideBottom.Control = displayImage
       Left = 8
-      Height = 1
+      Height = 88
       Top = 403
       Width = 228
       Anchors = [akTop, akLeft, akRight, akBottom]
@@ -197,7 +198,7 @@ object bookSearchFrm: TbookSearchFrm
     object displayInternalProperties: TCheckBox
       Left = 8
       Height = 23
-      Top = 414
+      Top = 517
       Width = 222
       Anchors = [akLeft, akBottom]
       Caption = 'alle Eigenschaften auflisten'
@@ -207,7 +208,7 @@ object bookSearchFrm: TbookSearchFrm
     object displayImage: TCheckBox
       Left = 8
       Height = 23
-      Top = 394
+      Top = 497
       Width = 119
       Anchors = [akLeft, akBottom]
       Caption = 'Bild anzeigen'
@@ -243,19 +244,19 @@ object bookSearchFrm: TbookSearchFrm
   end
   object bookListPanel: TPanel
     Left = 248
-    Height = 441
+    Height = 544
     Top = 0
-    Width = 480
+    Width = 552
     Align = alClient
-    ClientHeight = 441
-    ClientWidth = 480
+    ClientHeight = 544
+    ClientWidth = 552
     TabOrder = 1
     object Splitter2: TSplitter
       Cursor = crVSplit
       Left = 1
       Height = 5
-      Top = 206
-      Width = 478
+      Top = 309
+      Width = 550
       Align = alBottom
       Beveled = True
       ResizeAnchor = akBottom
@@ -263,15 +264,15 @@ object bookSearchFrm: TbookSearchFrm
     object detailPanel: TPanel
       Left = 1
       Height = 209
-      Top = 211
-      Width = 478
+      Top = 314
+      Width = 550
       Align = alBottom
       BevelOuter = bvNone
       ClientHeight = 209
-      ClientWidth = 478
+      ClientWidth = 550
       TabOrder = 1
       object Image1: TImage
-        Left = 372
+        Left = 444
         Height = 209
         Top = 0
         Width = 106
@@ -280,7 +281,7 @@ object bookSearchFrm: TbookSearchFrm
         Proportional = True
       end
       object Splitter3: TSplitter
-        Left = 367
+        Left = 439
         Height = 209
         Top = 0
         Width = 5
@@ -291,14 +292,14 @@ object bookSearchFrm: TbookSearchFrm
     object Panel1: TPanel
       Left = 1
       Height = 20
-      Top = 420
-      Width = 478
+      Top = 523
+      Width = 550
       Align = alBottom
       ChildSizing.EnlargeHorizontal = crsHomogenousChildResize
       ChildSizing.Layout = cclLeftToRightThenTopToBottom
       ChildSizing.ControlsPerLine = 5
       ClientHeight = 20
-      ClientWidth = 478
+      ClientWidth = 550
       TabOrder = 2
       object Label2: TLabel
         Left = 0
@@ -364,7 +365,7 @@ object bookSearchFrm: TbookSearchFrm
   end
   object Splitter1: TSplitter
     Left = 243
-    Height = 441
+    Height = 544
     Top = 0
     Width = 5
     Beveled = True
@@ -372,8 +373,8 @@ object bookSearchFrm: TbookSearchFrm
   object StatusBar1: TStatusBar
     Left = 0
     Height = 23
-    Top = 441
-    Width = 728
+    Top = 544
+    Width = 800
     Panels = <    
       item
         Width = 200

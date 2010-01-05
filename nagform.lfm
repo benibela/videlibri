@@ -1,54 +1,60 @@
 object nagWindow: TnagWindow
   Left = 702
-  Height = 313
-  Top = 422
-  Width = 308
+  Height = 363
+  Top = 372
+  Width = 375
   HorzScrollBar.Page = 307
   HorzScrollBar.Range = 301
   VertScrollBar.Page = 312
   VertScrollBar.Range = 305
-  ActiveControl = Button2
-  AutoScroll = False
+  ActiveControl = Memo1
   BorderIcons = [biSystemMenu]
   BorderStyle = bsDialog
   Caption = 'Shareware-Hinweis'
-  ClientHeight = 313
-  ClientWidth = 308
+  ClientHeight = 363
+  ClientWidth = 375
   OnClose = FormClose
   OnShow = FormShow
-  ParentFont = False
   Position = poScreenCenter
-  LCLVersion = '0.9.27'
+  LCLVersion = '0.9.29'
   object Button1: TButton
     Left = 11
-    Height = 28
+    Height = 30
     Hint = 'Fortfahren...'
-    Top = 280
-    Width = 136
+    Top = 328
+    Width = 185
     Anchors = [akLeft, akBottom]
+    AutoSize = True
     BorderSpacing.InnerBorder = 4
     Caption = 'Fortfahren.. (in 3 sek).'
+    Constraints.MaxHeight = 30
+    Constraints.MinHeight = 20
     Enabled = False
     OnClick = Button1Click
     TabOrder = 0
   end
   object Button2: TButton
-    Left = 168
-    Height = 28
-    Top = 280
-    Width = 133
-    Anchors = [akLeft, akBottom]
+    Left = 245
+    Height = 30
+    Top = 328
+    Width = 122
+    Anchors = [akRight, akBottom]
+    AutoSize = True
     BorderSpacing.InnerBorder = 4
     Caption = 'Freischalten...'
+    Constraints.MaxHeight = 30
+    Constraints.MinHeight = 20
     OnClick = Button2Click
     TabOrder = 1
   end
   object Memo1: TMemo
+    AnchorSideBottom.Control = Button1
     Left = 11
-    Height = 269
+    Height = 316
     Top = 7
-    Width = 289
+    Width = 356
     Anchors = [akTop, akLeft, akRight, akBottom]
+    BorderSpacing.Around = 5
     Color = clBtnFace
     Lines.Strings = (
       'Dies ist eine eingeschränkte Sharewareversion, die sich '
@@ -62,7 +68,7 @@ object nagWindow: TnagWindow
       '2. Beim Starten wird dieser Dialog geöffnet'
       ''
       'Die für den Freischaltcode notwendige Registrierung '
-      'kostet 10 € (Selbstkostenpreis) und soll per '
+      'kostet 10  (Selbstkostenpreis) und soll per '
       'Überweisung '
       'vorab bezahlt werden.'
       ''
@@ -80,4 +86,4 @@ object nagWindow: TnagWindow
     left = 14
     top = 56
   end
-end
+end

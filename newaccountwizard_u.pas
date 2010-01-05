@@ -27,7 +27,6 @@ type
     accountPass: TEdit;
     accountPrettyName: TEdit;
     extendDaysEdit: TEdit;
-    Label3: TLabel;
     Label4: TLabel;
     passLabel: TLabel;
     Label6: TLabel;
@@ -75,6 +74,7 @@ uses applicationconfig,libraryaccess,internetAccess;
 
 procedure TnewAccountWizard.FormCreate(Sender: TObject);
 begin
+  identificarionInvalid.Caption:='';
   StringGrid1.ScrollBars:=ssNone;
   StringGrid1.ColWidths[1]:=StringGrid1.ClientWidth-StringGrid1.ColWidths[0];
   libraryList.Items.text:=libraryManager.enumeratePrettyLongNames;
@@ -244,4 +244,4 @@ initialization
 
 end.
 
-
+

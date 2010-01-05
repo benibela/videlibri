@@ -312,10 +312,10 @@ uses bookwatchmain,internetaccess,controls,libraryaccess,math,FileUtil,bbdebugto
         mainForm.StatusBar1.Panels[0].Text:='Bitte warten, Update wird heruntergeladen...';
         updater.downloadUpdate();
 
-        if updater.installerIsExecutable and updater.hasDirectoryWriteAccess then begin
+        if (updater.installerCmd<>'') and updater.hasDirectoryWriteAccess then begin
           mainForm.StatusBar1.Panels[0].Text:='Bitte warten, Update wird installiert...';
           updater.installUpdate();
-        end else ShowMessage('Update kann nicht automatisch installiert werden.'#13#10'Das Update wurde in der Datei '+updater.installerDownloadedFileName+' gespeichert');
+        end else ShowMessage('Update kann nicht automatisch installiert werden.'#13#10'Das Update wurde in der Datei '+updater.downloadedFileName+' gespeichert');
 
         Screen.cursor:=crDefault;
         mainForm.StatusBar1.Panels[0].Text:=temp;
@@ -634,10 +634,11 @@ uses bookwatchmain,internetaccess,controls,libraryaccess,math,FileUtil,bbdebugto
 
   procedure openInternetPage(url: string; myOptions: string);
   begin
-    if (userConfig.ReadInteger('access','homepage-type',1)=0) and (FileExists(programPath+'simpleBrowser.exe')) then
+    (*if (userConfig.ReadInteger('access','homepage-type',1)=0) and (FileExists(programPath+'simpleBrowser.exe')) then
        //TODO: WinExec(pchar(programPath+'simpleBrowser /site="'+url+'" '+myOptions),SW_SHOWNORMAL)
      else if Application.MainForm<>nil then
-       //TODO: shellexecute(Application.MainForm.Handle,'open',pchar('"'+url+'"'),'','',SW_SHOWNORMAL);
+       //TODO: shellexecute(Application.MainForm.Handle,'open',pchar('"'+url+'"'),'','',SW_SHOWNORMAL);*)
+    OpenURL(url)
    end;
 
 end.

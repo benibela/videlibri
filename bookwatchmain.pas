@@ -163,6 +163,7 @@ type
     BookList: TBookListView;
 
 
+    procedure setPanelText(panel: TStatusPanel; atext: string);
     procedure ThreadDone(Sender: TObject);
     procedure RefreshListView; //Zentrale Anzeige Funktion!
     procedure setSymbolAppearance(showStatus: integer); //0: text and icons 1=only text 2=only icons
@@ -184,6 +185,7 @@ implementation
 
 { TmainForm }
 uses math,options,applicationconfig,newaccountwizard_u,registrierung,nagform,bbdebugtools,bibtexexport,booklistreader;
+
 
 procedure TmainForm.FormCreate(Sender: TObject);
 //const IMAGE_FILES:array[0..2] of string=('refresh','homepages','options');
@@ -392,7 +394,7 @@ begin
   {$I obfuscate.inc}
   nag:=TnagWindow.create(nil);
   //SHAREWARE CODE END
-  StatusBar1.Panels[3].Text:={'Datum: '+}DateToStr(currentDate);
+  setPanelText(StatusBar1.Panels[3],{'Datum: '+}DateToStr(currentDate));
   if newVersionInstalled then
     ShowMessage('Das Update wurde installiert.'#13#10'Die installierte Version ist nun Videlibri '+FloatToStr(versionNumber/1000));
   onshow:=nil;
@@ -469,10 +471,8 @@ begin
     delete(s,1,pos('/',s));
   end else  //Format: Medien: 4/5
     delete(s,1,pos(' ',s));
-  if BookList.SelCount=0 then StatusBar1.Panels[SB_PANEL_COUNT].Text:='Medien: '+s
-  else StatusBar1.Panels[SB_PANEL_COUNT].Text:='Medien: '+IntToStr(BookList.SelCount)+'/'+s;
-  if StatusBar1.Canvas.TextWidth(StatusBar1.Panels[SB_PANEL_COUNT].Text)+10>StatusBar1.Panels[SB_PANEL_COUNT].Width then
-    StatusBar1.Panels[SB_PANEL_COUNT].Width:=StatusBar1.Canvas.TextWidth(StatusBar1.Panels[SB_PANEL_COUNT].Text)+10;
+  if BookList.SelCount=0 then setPanelText(StatusBar1.Panels[SB_PANEL_COUNT],'Medien: '+s)
+  else setPanelText(StatusBar1.Panels[SB_PANEL_COUNT],'Medien: '+IntToStr(BookList.SelCount)+'/'+s);
 end;
 
 procedure TmainForm.FormWindowStateChange(Sender: TObject);
@@ -587,7 +587,7 @@ end;
 procedure TmainForm.MenuItem24Click(Sender: TObject);
 var bibexportForm:TBibTexExportFrm;
 begin
-  Application.CreateForm(TBibTexExportFrm,bibexportForm);
+  bibexportForm:=TBibTexExportFrm.Create(nil);
   try
     bibexportForm.ShowModal;
   finally
@@ -837,9 +837,12 @@ end;
 procedure TmainForm.ShowOptionsClick(Sender: TObject);
 var optionsForm:ToptionForm;
 begin
-  Application.CreateForm(ToptionForm,optionsForm);
-  optionsForm.ShowModal;
-  optionsForm.free;
+  optionsForm:=ToptionForm.Create(nil);
+  try
+     optionsForm.ShowModal;
+  finally
+     optionsForm.free;
+  end;
 end;
 
 procedure TmainForm.btnRefreshClick(Sender: TObject);
@@ -870,6 +873,17 @@ begin
   if sender=ViewOld then BookList.BackGroundColor:=colorOld
   else BookList.BackGroundColor:=colorOK;
   RefreshListView;
+end;
+
+procedure TmainForm.setPanelText(panel: TStatusPanel; atext: string);
+var textWidth: longint;
+begin
+  panel.Text:=atext;
+  textWidth:=Canvas.TextWidth(atext)+10;
+  if Canvas.HandleAllocated and (textWidth>panel.Width) then begin
+    panel.Width:=textWidth+10;
+    FormResize(self); //update scrollbar panel width
+  end;
 end;
 
 procedure TmainForm.RefreshListView;
@@ -960,9 +974,9 @@ begin
            StatusBar1.Panels[1].text:=StatusBar1.Panels[1].text+
               TCustomAccountAccess(accountIDs[i]).prettyName+': '+
               FloatToStr(TCustomAccountAccess(accountIDs[i]).charges) +'€ ';
-    StatusBar1.Panels[1].text:=StatusBar1.Panels[1].text+')';
-  end else StatusBar1.Panels[1].text:='';
-  StatusBar1.Panels[SB_PANEL_COUNT].Text:='Medien: '+IntToStr(BookList.Items.Count);
+    setPanelText(StatusBar1.Panels[1],StatusBar1.Panels[1].text+')');
+  end else setPanelText(StatusBar1.Panels[1],'');
+  setPanelText(StatusBar1.Panels[SB_PANEL_COUNT],'Medien: '+IntToStr(BookList.Items.Count));
 
   //SHAREWARE CODE
   {$I obfuscate.inc}
@@ -971,7 +985,7 @@ begin
   //SHAREWARE CODE END
 
   if updateThreadConfig.updateThreadsRunning<=0 then begin
-    StatusBar1.Panels[0].text:='Älteste angezeigte Daten sind '+DateToPrettyGrammarStr('vom ','von ',lastCheck);
+    setPanelText(StatusBar1.Panels[0],'Älteste angezeigte Daten sind '+DateToPrettyGrammarStr('vom ','von ',lastCheck));
 
   end;
   icon.LoadFromFile(getTNAIconFileName());
@@ -995,7 +1009,7 @@ begin
       if oldList then count2+=books.old.Count;
     end;
   end;
-  StatusBar1.Panels[SB_PANEL_COUNT].Text:=StatusBar1.Panels[SB_PANEL_COUNT].Text+'/'+inttostr(count);
+  setPanelText(StatusBar1.Panels[SB_PANEL_COUNT],StatusBar1.Panels[SB_PANEL_COUNT].Text+'/'+inttostr(count));
   if count2>BookList.Items.count then begin
     BookList.BeginUpdate;
     with BookList.items.Add do begin
