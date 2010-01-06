@@ -184,7 +184,7 @@ const SB_PANEL_COUNT=2;
 implementation
 
 { TmainForm }
-uses math,options,applicationconfig,newaccountwizard_u,registrierung,nagform,bbdebugtools,bibtexexport,booklistreader;
+uses math,options,applicationconfig,newaccountwizard_u,registrierung,nagform,bbdebugtools,bibtexexport,booklistreader{$IFDEF WIN32},windows{$ENDIF};
 
 
 procedure TmainForm.FormCreate(Sender: TObject);
@@ -517,7 +517,7 @@ procedure showCHM(filename:string;contextID:longint; tocname:string);
 begin
   filename:='"'+filename+'"';
   {$IFDEF WIN32}
-  WinExec('hh -mapid  '+IntToStr(contextID)+' '+filename,sw_shownormal); //TODO: use modern command like ShellExecute
+  WinExec(pchar('hh -mapid  '+IntToStr(contextID)+' '+filename),sw_shownormal); //TODO: use modern command like ShellExecute
   {$ELSE}
   if not couldRun('xchm -c '+inttostr(contextID)+' '+filename) then
     if not couldRun('kchmviewer --stoc "'+tocname+'" '+filename) then
@@ -554,7 +554,7 @@ begin
   infotext:=
   'Verwendete Fremdkomponenten:'#13#10'  LCL'#13#10'  FreePascal Runtime'#13#10'  TRegExpr von Andrey V. Sorokin'#13#10#13#10+
   'Verwendete Entwicklungswerkzeuge:'#13#10'  Lazarus'#13#10'  FreePascal'#13#10'  GIMP'#13#10'  HTML Help Workshop'#13#10'  The Regex Coach'#13#10#13#10+
-  'Die angezeigten Daten stammen von/gehören: '#13#10'  den Stadtbüchereien Düsseldorf'#13#10+
+  'Die angezeigten Daten stammen von/gehören: '#13#10'  den Stadtbüchereien Düsseldorf, Aachen'#13#10+
   '  der Universitäts- und Landesbibliothek Düsseldorf'#13#10+
   '  den Fachhochschulbüchereien Düsseldorfs und Bochums'#13#10+
   '  der DigiBib/dem Hochschulbibliothekszentrum des Landes Nordrhein-Westfalen'#13#10+
@@ -1153,12 +1153,12 @@ begin
   if optionForm<>nil then
     optionForm.addAccount(result);
 
-  refreshAccountGUIElements();
 
   accountIDs.AddObject(result.getID(),result);
   result.save();
   saveLibIDs;
 
+  refreshAccountGUIElements();
 {  if MessageDlg('Daten laden?',
                 'Das Konto '+lib.getPrettyName()+' wurde erstellt.'#13#10'Sollen jetzt die Mediendaten heruntergeladen werden?',
                 mtConfirmation ,[mbYes,mbNo],0)=mrYes then
@@ -1177,7 +1177,6 @@ procedure TmainForm.ThreadDone(Sender: TObject);
 //called in the main thread
 begin
   libraryAccess.threadDone(Sender); //self=nil !!!
-
 end;
 
 

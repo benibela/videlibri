@@ -261,4 +261,7 @@ begin
 end;
 
 end.
-
+45076
+8->killfocus
+20->ERASEBKGND
+66592=$10420->

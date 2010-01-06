@@ -35,7 +35,7 @@ var programPath,userPath,dataPath:string;
     nextLimitStr: string;
 
     appFullTitle:string='VideLibri';
-    versionNumber:integer=995;//=>versionNumber/1000
+    versionNumber:integer=996;//=>versionNumber/1000
     newVersionInstalled: boolean=false;
 
     {$IFDEF WIN32}startedMutex:THandle=0;{$ENDIF}
@@ -89,7 +89,7 @@ var programPath,userPath,dataPath:string;
 implementation
 uses bookwatchmain,internetaccess,controls,libraryaccess,math,FileUtil,bbdebugtools,LCLType,lclintf,LCLProc,
   {$IFDEF WIN32}
-  w32internetaccess
+  windows,w32internetaccess
   {$ELSE}
   synapseinternetaccess
   {$ENDIF}
@@ -301,7 +301,7 @@ uses bookwatchmain,internetaccess,controls,libraryaccess,math,FileUtil,bbdebugto
     if updater.existsUpdate then begin
       if { (not auto) or} (Application.MessageBox(pchar('Es gibt ein Update auf die Version '+floattostr(updater.newestVersion/1000)+':'#13#10#13#10+
                                               updater.listChanges+#13#10+
-                                              'Soll es jetzt heruntergeladen (und wenn möglich installiert) werden?'),'Videlibri Update', mb_yesno {$IFDEF WIN32}or MB_APPLMODAL{$ENDIF})=idyes) then begin
+                                              'Soll es jetzt heruntergeladen (und wenn möglich installiert) werden?'),'Videlibri Update', mb_yesno)=idyes) then begin
 
         assert(mainForm<>nil);
                                                 //TODO:   update
@@ -324,10 +324,10 @@ uses bookwatchmain,internetaccess,controls,libraryaccess,math,FileUtil,bbdebugto
           mainForm.close;
           //TODO: update else PostMessage(tna.messageWindow,WM_CLOSE,0,0);
         end else if not auto then
-          Application.MessageBox('Update wurde installiert','Videlibri Update', mb_ok {$IFDEF WIN32}or MB_APPLMODAL{$ENDIF});
+          Application.MessageBox('Update wurde installiert','Videlibri Update', mb_ok);
       end;
     end else if not auto then
-      Application.MessageBox(pchar('Kein Update gefunden'#13#10'Die Version '+floattostr(updater.newestVersion/1000)+' ist die aktuelle.'),'Videlibri Update', mb_ok {$IFDEF WIN32}or MB_APPLMODAL{$ENDIF});
+      Application.MessageBox(pchar('Kein Update gefunden'#13#10'Die Version '+floattostr(updater.newestVersion/1000)+' ist die aktuelle.'),'Videlibri Update', mb_ok);
     updater.free;
     userConfig.WriteInteger('updates','lastcheck',currentDate);
     if logging then log('applicationUpdate ended');
@@ -337,7 +337,7 @@ uses bookwatchmain,internetaccess,controls,libraryaccess,math,FileUtil,bbdebugto
   //(update: since dec 2009/linux transition, lcl is always loaded)
   procedure raiseInitializationError(s: string);
   begin
-    Application.MessageBox(pchar(s), 'Videlibri Fehler', MB_ICONERROR{$IFDEF WIN32}or MB_APPLMODAL{$ENDIF});
+    Application.MessageBox(pchar(s), 'Videlibri Fehler', MB_ICONERROR);
     cancelStarting:=true;
     if logging then log('raiseInitializationError: '+s);
     raise exception.Create(s);
@@ -532,9 +532,9 @@ uses bookwatchmain,internetaccess,controls,libraryaccess,math,FileUtil,bbdebugto
         reg.OpenKey('\Software\Microsoft\Windows\CurrentVersion\Run',true);
         //MessageBox(0,pchar(ParamStr(0)),'',0);
         if lowercase(reg.ReadString('VideLibriAutostart')) <> lowercase('"'+ParamStr(0)+'" /autostart') then
-          if MessageBoxUTF8('Der Autostarteintrag ist ungültig'#13#10+
+          if Application.MessageBox('Der Autostarteintrag ist ungültig'#13#10+
                           'Wenn er nicht geändert wird, können die Medien wahrscheinlich nicht automatisch verlängert werden.'#13#10+
-                          'Soll er nun geändert werden?',MB_YESNO) = IDYES then
+                          'Soll er nun geändert werden?','VideLibri',MB_YESNO) = IDYES then
             reg.WriteString('VideLibriAutostart','"'+ParamStr(0)+'" /autostart');
         reg.free;
       end;
@@ -638,7 +638,7 @@ uses bookwatchmain,internetaccess,controls,libraryaccess,math,FileUtil,bbdebugto
        //TODO: WinExec(pchar(programPath+'simpleBrowser /site="'+url+'" '+myOptions),SW_SHOWNORMAL)
      else if Application.MainForm<>nil then
        //TODO: shellexecute(Application.MainForm.Handle,'open',pchar('"'+url+'"'),'','',SW_SHOWNORMAL);*)
-    OpenURL(url)
+    //OpenURL(url)
    end;
 
 end.

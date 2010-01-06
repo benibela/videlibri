@@ -45,7 +45,9 @@ implementation
 uses applicationconfig,internetaccess,bookwatchmain,bbdebugtools,
      forms; //for messages
 const TRY_BOOK_UPDATE='Versuche Mediendaten zu aktualisieren...';
-{$IFNDEF WIN32}
+{$IFDEF WIN32}
+const MB_SYSTEMMODAL = $1000;
+{$ELSE}
 const MB_SYSTEMMODAL=0;
 {$ENDIF}
 
