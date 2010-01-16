@@ -2,7 +2,7 @@
 <library>
   <longName value="Fachhochschulbibliothek Düsseldorf"/>
   <shortName value="FHB Düsseldorf"/>
-  <homepage value="http://tisiphone.hbz-nrw.de/libero/WebOpac.cls"/>
+  <homepage value="http://katalog.bibl.fh-duesseldorf.de/libero/WebOpac.cls"/>
   <template value="libero54"/>
   <maxExtendCount value="3"/>
 
@@ -10,7 +10,7 @@
   <password matches="."/>
   <maxExtendCount value="3"/>
 
-  <variable name="server" value="tisiphone.hbz-nrw.de/libero/"/>
+  <variable name="server" value="katalog.bibl.fh-duesseldorf.de/libero/"/>
   
   <variable name="Location" value="Düsseldorf"/>
   <variable name="searchid-digibib" value="SERVICEGROUP1.SERVICE.SEARCH_FHBDUE"/>

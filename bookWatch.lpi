@@ -112,7 +112,7 @@
       <Unit12>
         <Filename Value="..\..\..\components\pascal\internet\internetaccess.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="internetAccess"/>
+        <UnitName Value="internetaccess"/>
       </Unit12>
       <Unit13>
         <Filename Value="..\..\..\components\pascal\internet\autoupdate.pas"/>

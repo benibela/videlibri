@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<library>
+  <username matches="^\d+..$"/>
+  <password matches="^\d{1,6}$"/>
+  <maxExtendCount value="5"/>
+
+  <longName value="Hochschulbibliothek der RWTH Aachen"/>
+  <shortName value="BTH Aachen"/>
+  <homepage value="http://sisis.bth.rwth-aachen.de:8080/InfoGuideClient/start.do"/>
+  <template value="sisis"/>
+  
+  <variable name="server" value="sisis.bth.rwth-aachen.de:8080/InfoGuideClient/"/>
+  
+  <variable name="Location" value="Aachen"/>
+  <variable name="searchid-digibib" value="SERVICEGROUP1.SERVICE.SEARCH_BTHA"/>
+</library>

@@ -1,0 +1,44 @@
+<html>
+<body>
+  <div id="tab-content">
+    <div class="box">
+      <div class="box-header">
+        <h2>Ausleihen</h2>
+      </div>
+    </div>
+    <fieldset>
+
+    <htmlparser:read var="delete-current-books()"/>
+
+    <table class="data">
+      <tr>
+        <th scope="col"></th>
+      </tr>
+
+      <htmlparser:loop>      
+
+      <tr>
+        <th scope="row"></th>
+        <htmlparser:read var="book-start()"/>
+        <td>
+          <strong><htmlparser:read source="text()" var="book.title"/></strong><br/>
+          <htmlparser:read source="text()" var="book.author"/><br/>
+          <htmlparser:read source="text()" var="book.id" regex="^[^/]*"/><br/>
+	  <span><htmlparser:read source="text()" var="book.status:problematic"/></span>
+         </td>
+         <td>
+           <htmlparser:read source="text()" var="book.issuedate:dd.mm.yyyy" regex="^\d{2}\.\d{2}\.\d{4}"/>
+           <htmlparser:read source="text()" var="book.limitdate:dd.mm.yyyy" regex="- *(\d{2}\.\d{2}\.\d{4})" submatch="1"/><br/>
+	 </td>
+         <htmlparser:read var="book-end()"/>
+       </tr>
+              
+      </htmlparser:loop>      
+               
+      </table>
+    </fieldset>
+
+   </div>
+</body>
+</html>
+  

@@ -799,7 +799,7 @@ begin
                 if logging then log('Parse Template From File: '+template.path+actions[i].templateFile);
                 parser.parseTemplate(actions[i].template,actions[i].templateFile);
               end;
-              if logging then log('Get/Post internet page'+parser.replaceVars(actions[i].url)+#13#10'Post: '+parser.replaceVars(actions[i].postparams));
+              if logging then log('Get/Post internet page ->'+parser.replaceVars(actions[i].url)+'<-'#13#10'Post: '+parser.replaceVars(actions[i].postparams));
               if actions[i].postparams='' then
                 page:=internet.get(parser.replaceVars(actions[i].url))
                else
@@ -898,4 +898,4 @@ end;
 
 end.
 
-
+
