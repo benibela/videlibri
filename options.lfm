@@ -47,13 +47,13 @@ object optionForm: ToptionForm
     object pageAccount: TPage
       Caption = 'pageAccount'
       ClientWidth = 547
-      ClientHeight = 386
+      ClientHeight = 355
       object lblAccountPass: TLabel
         AnchorSideTop.Control = edtAccountPass
         AnchorSideTop.Side = asrCenter
         Left = 8
         Height = 20
-        Top = 248
+        Top = 217
         Width = 113
         Anchors = [akLeft, akBottom]
         BorderSpacing.Around = 10
@@ -65,7 +65,7 @@ object optionForm: ToptionForm
         AnchorSideTop.Side = asrCenter
         Left = 8
         Height = 20
-        Top = 217
+        Top = 186
         Width = 111
         Anchors = [akLeft, akBottom]
         BorderSpacing.Around = 10
@@ -78,7 +78,7 @@ object optionForm: ToptionForm
         AnchorSideTop.Side = asrCenter
         Left = 8
         Height = 20
-        Top = 185
+        Top = 154
         Width = 90
         Anchors = [akLeft, akBottom]
         BorderSpacing.InnerBorder = 10
@@ -90,7 +90,7 @@ object optionForm: ToptionForm
         AnchorSideTop.Side = asrCenter
         Left = 8
         Height = 20
-        Top = 280
+        Top = 249
         Width = 84
         Anchors = [akLeft, akBottom]
         BorderSpacing.Around = 10
@@ -102,7 +102,7 @@ object optionForm: ToptionForm
         AnchorSideTop.Side = asrCenter
         Left = 222
         Height = 20
-        Top = 280
+        Top = 249
         Width = 35
         Caption = 'also '
         ParentColor = False
@@ -114,7 +114,7 @@ object optionForm: ToptionForm
         AnchorSideTop.Side = asrCenter
         Left = 299
         Height = 20
-        Top = 280
+        Top = 249
         Width = 146
         BorderSpacing.Left = 5
         Caption = 'Tage vor Fristdatum'
@@ -124,7 +124,7 @@ object optionForm: ToptionForm
       object Label5: TLabel
         Left = 8
         Height = 20
-        Top = 153
+        Top = 122
         Width = 69
         Anchors = [akLeft, akBottom]
         BorderSpacing.Around = 10
@@ -138,7 +138,7 @@ object optionForm: ToptionForm
         AnchorSideTop.Side = asrCenter
         Left = 131
         Height = 20
-        Top = 153
+        Top = 122
         Width = 246
         Anchors = [akLeft, akBottom]
         Caption = '<hier sollte die Bücherei stehen>'
@@ -149,7 +149,7 @@ object optionForm: ToptionForm
         AnchorSideBottom.Control = btnAccountChange
         Left = 8
         Height = 23
-        Top = 326
+        Top = 295
         Width = 396
         Anchors = [akLeft, akBottom]
         BorderSpacing.Bottom = 3
@@ -163,7 +163,7 @@ object optionForm: ToptionForm
         AnchorSideLeft.Side = asrBottom
         Left = 128
         Height = 30
-        Top = 352
+        Top = 321
         Width = 122
         Anchors = [akLeft, akBottom]
         AutoSize = True
@@ -178,7 +178,7 @@ object optionForm: ToptionForm
       object btnAccountChange: TButton
         Left = 8
         Height = 30
-        Top = 352
+        Top = 321
         Width = 118
         Anchors = [akLeft, akBottom]
         AutoSize = True
@@ -194,7 +194,7 @@ object optionForm: ToptionForm
         AnchorSideLeft.Side = asrBottom
         Left = 260
         Height = 30
-        Top = 352
+        Top = 321
         Width = 111
         Anchors = [akLeft, akBottom]
         AutoSize = True
@@ -214,7 +214,7 @@ object optionForm: ToptionForm
         AnchorSideBottom.Control = cmbAccountExtend
         Left = 131
         Height = 29
-        Top = 241
+        Top = 210
         Width = 412
         Anchors = [akLeft, akRight, akBottom]
         BorderSpacing.Left = 3
@@ -229,7 +229,7 @@ object optionForm: ToptionForm
         AnchorSideBottom.Control = edtAccountPass
         Left = 131
         Height = 29
-        Top = 208
+        Top = 177
         Width = 412
         Anchors = [akLeft, akRight, akBottom]
         BorderSpacing.Left = 3
@@ -245,7 +245,7 @@ object optionForm: ToptionForm
         AnchorSideBottom.Control = edtAccountUser
         Left = 131
         Height = 29
-        Top = 175
+        Top = 144
         Width = 412
         Anchors = [akLeft, akRight, akBottom]
         BorderSpacing.Left = 3
@@ -254,7 +254,7 @@ object optionForm: ToptionForm
       end
       object accountList: TListView
         Left = 0
-        Height = 147
+        Height = 116
         Top = 2
         Width = 544
         Anchors = [akTop, akLeft, akRight, akBottom]
@@ -298,7 +298,7 @@ object optionForm: ToptionForm
         AnchorSideTop.Side = asrCenter
         Left = 131
         Height = 33
-        Top = 274
+        Top = 243
         Width = 412
         Anchors = [akLeft, akRight, akBottom]
         BorderSpacing.Left = 3
@@ -320,7 +320,7 @@ object optionForm: ToptionForm
         AnchorSideTop.Side = asrCenter
         Left = 262
         Height = 29
-        Top = 276
+        Top = 245
         Width = 32
         Anchors = [akLeft, akBottom]
         BorderSpacing.Left = 5
@@ -331,7 +331,7 @@ object optionForm: ToptionForm
       object Button2: TButton
         Left = 455
         Height = 30
-        Top = 352
+        Top = 321
         Width = 89
         Anchors = [akRight, akBottom]
         AutoSize = True
@@ -346,7 +346,7 @@ object optionForm: ToptionForm
       object ckbAccountDisabled: TCheckBox
         Left = 8
         Height = 23
-        Top = 307
+        Top = 276
         Width = 193
         Anchors = [akLeft, akBottom]
         Caption = 'deaktivieren (Vorsicht!)'
@@ -546,7 +546,7 @@ object optionForm: ToptionForm
     object pageInternet: TPage
       Caption = 'pageInternet'
       ClientWidth = 547
-      ClientHeight = 386
+      ClientHeight = 355
       object Label13: TLabel
         Left = 36
         Height = 20
@@ -583,7 +583,7 @@ object optionForm: ToptionForm
       object Button6: TButton
         Left = 16
         Height = 30
-        Top = 345
+        Top = 314
         Width = 92
         Anchors = [akLeft, akBottom]
         AutoSize = True
@@ -602,7 +602,7 @@ object optionForm: ToptionForm
         AnchorSideTop.Side = asrCenter
         Left = 112
         Height = 30
-        Top = 345
+        Top = 314
         Width = 98
         AutoSize = True
         BorderSpacing.Around = 4
@@ -727,7 +727,7 @@ object optionForm: ToptionForm
     object PageBehaviour: TPage
       Caption = 'PageBehaviour'
       ClientWidth = 547
-      ClientHeight = 386
+      ClientHeight = 355
       object Label3: TLabel
         Left = 12
         Height = 20
@@ -843,7 +843,7 @@ object optionForm: ToptionForm
         AnchorSideTop.Side = asrCenter
         Left = 117
         Height = 30
-        Top = 353
+        Top = 322
         Width = 98
         AutoSize = True
         BorderSpacing.Around = 5
@@ -860,7 +860,7 @@ object optionForm: ToptionForm
         AnchorSideBottom.Side = asrBottom
         Left = 20
         Height = 30
-        Top = 353
+        Top = 322
         Width = 92
         Anchors = [akLeft, akBottom]
         AutoSize = True

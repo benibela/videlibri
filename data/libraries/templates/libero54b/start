@@ -2,7 +2,8 @@
 <html>
 <body>
   
-
+<a tabindex='503' ><htmlparser:read source="@href" var="loginToken" regex="LOGINTOKEN=[a-zA-Z0-9]+"/></a>
+  
 <form name="display">
 <input type="hidden" name="TOKEN">
 <htmlparser:read source="@value" var="token"/>

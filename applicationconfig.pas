@@ -5,7 +5,7 @@ unit applicationconfig;
 interface
 
 uses
-  Classes, SysUtils,Graphics,forms,libraryparser,registry,inifiles,rcmdline,errordialog,autoupdate,progressDialog,extendedhtmlparser,
+  Classes, SysUtils,Graphics,forms,libraryparser,{$ifdef win32}registry,{$endif}inifiles,rcmdline,errordialog,autoupdate,progressDialog,extendedhtmlparser,
 ExtCtrls ,Dialogs
 ;
 
@@ -63,6 +63,7 @@ var programPath,userPath,dataPath:string;
   oldErrorMessageString:string;
 
   procedure applicationUpdate(auto:boolean);
+  procedure updateAutostart(enabled, askBeforeChange:boolean);
 
   procedure initApplicationConfig;
   procedure finalizeApplicationConfig;
@@ -87,7 +88,7 @@ var programPath,userPath,dataPath:string;
 
   procedure openInternetPage(url: string; myOptions: string='');
 implementation
-uses bookwatchmain,internetaccess,controls,libraryaccess,math,FileUtil,bbdebugtools,LCLType,lclintf,LCLProc,
+uses bookwatchmain,internetaccess,controls,libraryaccess,math,FileUtil,bbutils,bbdebugtools,LCLType,lclintf,LCLProc,
   {$IFDEF WIN32}
   windows,w32internetaccess
   {$ELSE}
@@ -333,6 +334,68 @@ uses bookwatchmain,internetaccess,controls,libraryaccess,math,FileUtil,bbdebugto
     if logging then log('applicationUpdate ended');
   end;
 
+  procedure updateAutostart(enabled, askBeforeChange: boolean);
+  var {$IFDEF WIN32}reg:TRegistry;{$ENDIF}
+      autostartInvalid, correctAutostart: boolean;
+      autostartCommand:string;
+  begin
+    if enabled then begin
+      autostartInvalid:=false;
+      correctAutostart:=false;
+      {$IFDEF WIN32}
+      reg:=TRegistry.create;
+      reg.RootKey:=HKEY_CURRENT_USER;
+      reg.OpenKey('\Software\Microsoft\Windows\CurrentVersion\Run',true);
+      //MessageBox(0,pchar(ParamStr(0)),'',0);
+      autostartCommand:=lowercase('"'+ParamStr(0)+'" /autostart');
+      autostartInvalid:=lowercase(reg.ReadString('VideLibriAutostart')) <> autostartCommand;
+      {$ENDIF}
+      {$IFDEF UNIX}
+      autostartCommand:='[Desktop Entry]'+LineEnding+
+        'Type=Application'+LineEnding+
+        'Exec='+ParamStrUTF8(0)+' --autostart'+
+        'Hidden=false'+LineEnding+
+        'X-GNOME-Autostart-enabled=true'+LineEnding+
+        'Name=videlibri'+LineEnding+
+        'Comment=Bücherverwaltungsprogramm'+ LineEnding+
+        'Icon='+dataPath+'yellow48.png';
+      if not FileExistsUTF8(GetUserDir+'.config/autostart/videlibri.desktop') then
+        autostartInvalid:=true
+       else
+        autostartInvalid:=strLoadFromFileUTF8(GetUserDir+'.config/autostart/videlibri.desktop')<>autostartCommand;
+      {$ENDIF}
+
+      if autostartInvalid then
+        if not askBeforeChange then correctAutostart:=true
+        else correctAutostart:=Application.MessageBox('Der Autostarteintrag ist ungültig'#13#10+
+                        'Wenn er nicht geändert wird, können die Medien wahrscheinlich nicht automatisch verlängert werden.'#13#10+
+                        'Soll er nun geändert werden?','VideLibri',MB_YESNO) = IDYES;
+
+
+      {$IFDEF WIN32}
+      if correctAutostart then reg.WriteString('VideLibriAutostart','"'+ParamStr(0)+'" /autostart');
+      reg.free;
+      {$ENDIF}
+      {$IFDEF UNIX}
+      if correctAutostart then begin
+        strSaveToFileUTF8(GetUserDir+'.config/autostart/videlibri.desktop',autostartCommand);
+      end;
+      {$ENDIF}
+    end else begin
+      //ignore ask here
+      {$IFDEF WIN32}
+      reg:=TRegistry.create;
+      reg.RootKey:=HKEY_CURRENT_USER;
+      reg.OpenKey('\Software\Microsoft\Windows\CurrentVersion\Run',true);
+      reg.DeleteValue('VideLibriAutostart');
+      reg.free;
+      {$ENDIF}
+      {$IFDEF UNIX}
+      DeleteFileUTF8(GetUserDir+'.config/autostart/videlibri.desktop');
+      {$ENDIF}
+    end;
+  end;
+
   //normal exception handling doesn't seem to work properly when lcl is not loaded
   //(update: since dec 2009/linux transition, lcl is always loaded)
   procedure raiseInitializationError(s: string);
@@ -358,9 +421,9 @@ uses bookwatchmain,internetaccess,controls,libraryaccess,math,FileUtil,bbdebugto
   {$ENDIF}
 
   procedure initApplicationConfig;
-  var reg:TRegistry;
-      i:integer;
+  var i:integer;
       window,proc:THANDLE;
+
       commandLine:TCommandLineReader;
       //checkOne: boolean;
   begin
@@ -430,10 +493,15 @@ uses bookwatchmain,internetaccess,controls,libraryaccess,math,FileUtil,bbdebugto
     if logging then log('dataPath is '+dataPath);
 
     if not DirectoryExists(programPath) then
+      raiseInitializationError('Programmpfad "'+programPath+'" wurde nicht gefunden');
+    if not DirectoryExists(dataPath) then begin
+      {$ifdef UNIX}
+      if DirectoryExists('/usr/share/videlibri/data/') then
+        dataPath:='/usr/share/videlibri/data/'
+       else
+      {$endif}
       raiseInitializationError('Datenpfad "'+dataPath+'" wurde nicht gefunden');
-    if not DirectoryExists(dataPath) then
-      raiseInitializationError('Datenpfad "'+dataPath+'" wurde nicht gefunden');
-
+    end;
     if logging and (not FileExists(datapath+'machine.config')) then
       log('machine.config will be created');
 
@@ -524,21 +592,9 @@ uses bookwatchmain,internetaccess,controls,libraryaccess,math,FileUtil,bbdebugto
     end else begin
       cancelStarting:=false;
       //TODO: Check autostart registry value (for later starts)
-      {$IFDEF WIN32}
       if (not userConfig.SectionExists('autostart')) or
-         (userConfig.ReadInteger('autostart','type',1)<>2) then begin
-        reg:=TRegistry.create;
-        reg.RootKey:=HKEY_CURRENT_USER;
-        reg.OpenKey('\Software\Microsoft\Windows\CurrentVersion\Run',true);
-        //MessageBox(0,pchar(ParamStr(0)),'',0);
-        if lowercase(reg.ReadString('VideLibriAutostart')) <> lowercase('"'+ParamStr(0)+'" /autostart') then
-          if Application.MessageBox('Der Autostarteintrag ist ungültig'#13#10+
-                          'Wenn er nicht geändert wird, können die Medien wahrscheinlich nicht automatisch verlängert werden.'#13#10+
-                          'Soll er nun geändert werden?','VideLibri',MB_YESNO) = IDYES then
-            reg.WriteString('VideLibriAutostart','"'+ParamStr(0)+'" /autostart');
-        reg.free;
-      end;
-      {$ENDIF}
+         (userConfig.ReadInteger('autostart','type',1)<>2) then
+           updateAutostart(true,true);
     end;
     if not cancelStarting then begin
       refreshAllAndIgnoreDate:=commandline.readFlag('refreshAll');
@@ -638,7 +694,7 @@ uses bookwatchmain,internetaccess,controls,libraryaccess,math,FileUtil,bbdebugto
        //TODO: WinExec(pchar(programPath+'simpleBrowser /site="'+url+'" '+myOptions),SW_SHOWNORMAL)
      else if Application.MainForm<>nil then
        //TODO: shellexecute(Application.MainForm.Handle,'open',pchar('"'+url+'"'),'','',SW_SHOWNORMAL);*)
-    //OpenURL(url)
+    OpenURL(url)
    end;
 
 end.

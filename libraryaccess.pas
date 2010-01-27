@@ -252,6 +252,8 @@ begin
   if not (sender is TUpdateLibThread) then
     raise exception.Create('Interner Fehler:'#13#10'Die Funktion, die für gerade beendete Aktualisierungthread zuständig ist, wurde auf einen anderen Thread angewendet'#13#10'(kann eigentlich nicht auftreten)');
 
+  if (updateThreadConfig.updateThreadsRunning<=0) then
+    updateGlobalAccountDates();
   if (updateThreadConfig.updateThreadsRunning<=0) or (updateThreadConfig.listUpdateThreadsRunning<=0) then begin
     if (updateThreadConfig.atLeastOneListUpdateSuccessful) then begin
       updateThreadConfig.atLeastOneListUpdateSuccessful:=updateThreadConfig.updateThreadsRunning>0;
@@ -262,8 +264,6 @@ begin
     end;
     mainform.delayedCall.Enabled:=true //show error messages
   end;
-  if (updateThreadConfig.updateThreadsRunning<=0) then
-    updateGlobalAccountDates();
 
   if logging then log('ThreadDone ended');
 end;

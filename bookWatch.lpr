@@ -14,13 +14,16 @@ uses
   registrierung, nagform, bbdebugtools, bibtexexport, simplexmlparser,
   booklistreader, librarySearcher, bookListView, bookSearchForm,
   librarySearcherAccess, extendedhtmlparser, autoMenuManager,
-  treelistviewpackage, LCLIntf;
+  treelistviewpackage, LCLIntf, LResources;
 
 {$IFDEF WINDOWS}{$R manifest.rc}{$R icons.res}{$ENDIF}
 
 {$ASMMODE intel}
 
+{$IFDEF WINDOWS}{$R bookWatch.rc}{$ENDIF}
+
 begin
+  {$I bookWatch.lrs}
   Application.Initialize;
   Application.Title:='VideLibri';
   application.Name:='VideLibri';

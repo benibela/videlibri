@@ -166,6 +166,7 @@ type
     procedure setPanelText(panel: TStatusPanel; atext: string);
     procedure ThreadDone(Sender: TObject);
     procedure RefreshListView; //Zentrale Anzeige Funktion!
+    procedure refreshShellIntegration;
     procedure setSymbolAppearance(showStatus: integer); //0: text and icons 1=only text 2=only icons
     procedure refreshAccountGUIElements();
     function addAccount(const libID: string; prettyName, aname, pass: string; extendType: TExtendType; extendDays:integer; history: boolean):TCustomAccountAccess;
@@ -253,26 +254,14 @@ begin
   height:=userConfig.ReadInteger('window','height',height);
   if left+width>screen.width then width:=screen.width-left;
   if top+height>screen.height then height:=screen.height-top;
-  
- { img:=graphics.TBitmap.Create;
-  mask:=graphics.TBitmap.Create;
-  ImageList1.Clear;
-  for i:=0 to high(IMAGE_FILES) do begin
-    img.LoadFromFile(programPath+'images'+DirectorySeparator+IMAGE_FILES[i]+'.bmp');
- //   mask.LoadFromFile(programPath+'images'+DirectorySeparator+IMAGE_FILES[i]+'_mask.bmp');
-    ImageList1.Add(img,nil)
-  end;       }
 
   caption:=appFullTitle;
-
-
-  TrayIcon1.Icon.LoadFromFile(getTNAIconFileName());
 
   {$ifdef debug}
   caption:=caption+' (DEBUG-BUILD!)';
   {$endif}
 
-
+  RefreshShellIntegration;
     //image1.Picture.LoadFromFile(programPath+'images'+DirectorySeparator+IMAGE_FILES[0]+'.bmp');
   if logging then log('FormCreate ende');
 end;
@@ -515,7 +504,7 @@ procedure showCHM(filename:string;contextID:longint; tocname:string);
   {$ENDIF}
 
 begin
-  filename:='"'+filename+'"';
+  filename:='"'+dataPath+ filename+'"';
   {$IFDEF WIN32}
   WinExec(pchar('hh -mapid  '+IntToStr(contextID)+' '+filename),sw_shownormal); //TODO: use modern command like ShellExecute
   {$ELSE}
@@ -910,6 +899,7 @@ begin
     system.EnterCriticalSection(updateThreadConfig.libraryAccessSection);
     criticalSessionUsed:=true;
   end;
+  try
   BookList.BeginUpdate;
   BookList.items.clear;
   for i:=0 to viewMenu.Count-1 do begin
@@ -988,8 +978,9 @@ begin
     setPanelText(StatusBar1.Panels[0],'Älteste angezeigte Daten sind '+DateToPrettyGrammarStr('vom ','von ',lastCheck));
 
   end;
-  icon.LoadFromFile(getTNAIconFileName());
-  Application.icon.LoadFromFile(getTNAIconFileName());
+
+  RefreshShellIntegration();
+
   //SHAREWARE CODE
   //Bücherzahl überprüfen
 
@@ -1058,10 +1049,23 @@ begin
   end;
   ;
 
-  if criticalSessionUsed then
-    system.LeaveCriticalSection(updateThreadConfig.libraryAccessSection);
+
+
+  finally
+    if criticalSessionUsed then
+      system.LeaveCriticalSection(updateThreadConfig.libraryAccessSection);
+  end;
 
   if logging then log('RefreshListView ended');
+end;
+
+procedure TmainForm.refreshShellIntegration;
+begin
+  MenuItem29.Caption:='  Nächste Abgabefrist: '+nextLimitStr;
+  TrayIcon1.Hint:='Videlibri'#13#10'  **Nächste Abgabefrist: '+nextLimitStr+'**'#13#10'  Letzte Aktualisierung: '+DateToPrettyStr(lastCheck);
+  TrayIcon1.Icon.LoadFromFile(getTNAIconFileName());
+  icon.LoadFromFile(getTNAIconFileName());
+  Application.icon.LoadFromFile(getTNAIconFileName());
 end;
 
 

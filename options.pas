@@ -6,7 +6,7 @@ interface
 
 uses
   Classes, SysUtils, LResources, Forms, Controls, Graphics, Dialogs, ComCtrls,
-  Buttons, StdCtrls, bookWatchMain, libraryParser, ExtCtrls,registry,
+  Buttons, StdCtrls, bookWatchMain, libraryParser, ExtCtrls,{$ifdef win32}registry,{$endif}
   ButtonPanel, EditBtn,Themes;
 //TODO: Fix resizing bug (LCL)
 //TODO2: Offenen Einstellungsfenster => Verschwinden aus Programmauswahl
@@ -269,7 +269,6 @@ begin
 end;
 
 procedure ToptionForm.Button3Click(Sender: TObject);
-var reg:TRegistry;
 begin
   colorLimited:=ShapeLimited.brush.color;
   colorOK:=ShapeOK.brush.color;
@@ -302,21 +301,12 @@ begin
 
   //Autostart/Zeitenpage
   userConfig.WriteBool('autostart','minimized',CheckBox1.Checked);
-  reg:=TRegistry.create;
-  reg.RootKey:=HKEY_CURRENT_USER;
-  reg.OpenKey('\Software\Microsoft\Windows\CurrentVersion\Run',true);
-  if autostartAlways.Checked then begin
-    userConfig.writeInteger('autostart','type',0);
-    reg.WriteString('VideLibriAutostart','"'+ParamStr(0)+'" /autostart');
-  end else if autostartDepends.Checked then begin
-    userConfig.writeInteger('autostart','type',1);
-    reg.WriteString('VideLibriAutostart','"'+ParamStr(0)+'" /autostart');
-  end else if autostartNever.Checked then begin
-    userConfig.writeInteger('autostart','type',2);
-    reg.DeleteValue('VideLibriAutostart');
-  end;
-  reg.free;
-  
+  updateAutostart(autostartAlways.Checked or autostartDepends.Checked,false);
+  if autostartAlways.Checked then userConfig.writeInteger('autostart','type',0)
+  else if autostartDepends.Checked then userConfig.writeInteger('autostart','type',1)
+  else if autostartNever.Checked then userConfig.writeInteger('autostart','type',2)
+  else ShowMessage('Autostart kaputt');
+
   RefreshInterval:=TrackBar1.Position;
   userConfig.WriteInteger('access','refresh-interval',TrackBar1.Position);
 

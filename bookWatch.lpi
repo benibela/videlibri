@@ -13,8 +13,13 @@
       <AutoCreateForms Value="False"/>
       <TargetFileExt Value=".exe"/>
       <Title Value="VideLibri"/>
+      <Icon Value="0"/>
       <UseXPManifest Value="True"/>
     </General>
+    <VersionInfo>
+      <Language Value="0403"/>
+      <CharSet Value="04E2"/>
+    </VersionInfo>
     <PublishOptions>
       <Version Value="2"/>
       <IgnoreBinaries Value="False"/>

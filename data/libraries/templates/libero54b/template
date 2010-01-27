@@ -5,6 +5,7 @@
 
 <action id="connect">
   <page url="http://$server;WebOpac.cls" templateFile="start"/>
+  <page url="http://$server;WebOpac.cls?VERSION=2&amp;ACTION=MEMBERSERV&amp;RSN=0&amp;DATA=$data;&amp;TOKEN=$token;&amp;Z=1&amp;NewBreadCrumb=1&amp;$logintoken;"/>
 </action>
 
 <action id="update-all">
@@ -16,16 +17,17 @@
     <post name="usercode"></post>
     <post name="VERSION">$version;</post>
     <post name="RSN">0</post>
+    <post name="BARCODE"></post>
     <post name="TOKENZ">$token;</post>
     <post name="ACTION">MEMLOGIN</post>
-    <post name="password">$password;</post>
     <post name="usernum">$username;</post>
-    <post name="login">LOGIN</post>
+    <post name="password">$password;</post>
+    <post name="btnlogin">LOGIN</post>
   </page>
   <error templateFile="loginError"/>
 </action>
 
-<action id="extend-list" singleBookStr="&amp;$book.extendID;=1">
+<action id="extend-list" singleBookStr="&amp;$book.extendid;=1">
   <page url="http://$server;WebOpac.cls">
     <post name="MGWCHD">0</post>
     <post name="TOKEN">$token;</post>
