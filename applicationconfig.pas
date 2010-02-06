@@ -353,7 +353,7 @@ uses bookwatchmain,internetaccess,controls,libraryaccess,math,FileUtil,bbutils,b
       {$IFDEF UNIX}
       autostartCommand:='[Desktop Entry]'+LineEnding+
         'Type=Application'+LineEnding+
-        'Exec='+ParamStrUTF8(0)+' --autostart'+
+        'Exec='+ParamStrUTF8(0)+' --autostart'+LineEnding+
         'Hidden=false'+LineEnding+
         'X-GNOME-Autostart-enabled=true'+LineEnding+
         'Name=videlibri'+LineEnding+
@@ -442,6 +442,7 @@ uses bookwatchmain,internetaccess,controls,libraryaccess,math,FileUtil,bbutils,b
     commandLine.declareInt('updated-to','Das Programm wurde auf Version ($1) aktualisiert (ACHTUNG: veraltet)',0);
     commandLine.declareInt('debug-addr-info','Wandelt in der Debugversion eine Adresse in eine Funktionszeile um',0);
     commandLine.declareFlag('log','Zeichnet alle Aktionen auf',false);
+    commandLine.declareString               ('http-log-path','Pfad wo alle heruntergeladenen Dateien gespeichert werden sollen','');
     commandLine.declareFlag('refreshAll','Aktualisiert alle Medien',false);
     commandLine.declareString('debug-html-template','Führt ein Template aus (benötigt Datei)','');
     commandLine.declareString('on','Datei für das Template von debug-single-template','');
@@ -478,6 +479,10 @@ uses bookwatchmain,internetaccess,controls,libraryaccess,math,FileUtil,bbutils,b
     logging:=commandLine.readFlag('log');
     if logging then log('Started with logging enabled, command line:'+ParamStr(0));
 
+    defaultInternetConfiguration.logToPath:=commandLine.readString('http-log-path');
+    if defaultInternetConfiguration.logToPath <>'' then
+      defaultInternetConfiguration.logToPath:=IncludeTrailingPathDelimiter(defaultInternetConfiguration.logToPath);
+    if logging then log('Started with internet logging enabled');
 
     //Überprüft die Farbeinstellung des Monitors
     if ScreenInfo.ColorDepth=8 then

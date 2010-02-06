@@ -1,7 +1,0 @@
-<b>Systemmeldung</b>
-<b><font>Ihre Anforderung konnte</font></b>
-<blockquote>
-<ul>
-<li><b><font><htmlparser:read var="raise-login()"/></font></b></li>
-<li></li>
-</ul>

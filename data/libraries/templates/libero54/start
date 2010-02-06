@@ -1,8 +1,8 @@
 
 <html>
 <body>
-  
-<a>Benutzerkonto<htmlparser:read source="@href" var="loginToken" regex="LOGINTOKEN=[a-zA-Z0-9]+"/></a>
+
+<a htmlparser-condition="filter(@href, 'LOGINTOKEN=') != ''"><htmlparser:read source="@href" var="loginToken" regex="LOGINTOKEN=[a-zA-Z0-9]+"/></a>
   
 <form name="display">
 <input type="hidden" name="TOKEN">

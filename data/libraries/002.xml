@@ -6,7 +6,7 @@
   <longName value="Stadtbibliothek Aachen"/>
   <shortName value="StB Aachen"/>
   <homepage value="http://webopac.stadtbibliothek-aachen.de/"/>
-  <template value="libero54b"/>
+  <template value="libero54"/>
   <maxExtendCount value="0"/>  
   
   <variable name="server" value="webopac.stadtbibliothek-aachen.de/libero/"/>
