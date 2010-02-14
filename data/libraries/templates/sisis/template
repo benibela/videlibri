@@ -4,9 +4,9 @@
 <maxlimit matches="max. Ausleihfrist erreicht"/>
 
 <action id="connect">
-  <page url="http://$server;start.do" templateFile="start"/>
 </action>
 <action id="update-all">
+  <page url="http://$server;start.do" templateFile="start"/>
   <page url="http://$server;userAccount.do;jsession;?methodToCall=show&amp;type=1"></page>
   <page url="http://$server;login.do;$jsession;" templateFile="loggedIn">
     <post name="methodToCall">submit</post>
@@ -16,6 +16,12 @@
   </page>
 <!--  <error templateFile="loginError"/>-->
 </action>
+
+
+<action id="extend-single">
+  <page url="http://$server;userAccount.do?methodToCall=renewalPossible&amp;actPos=$book.extendID;" templateFile="singleExtended"/>
+</action>
+
 <!--<action id="extend-all">
   <page url="https://$server;AusleiheVerlaengerungServlet;$jsession;" templateFile="KontoServlet">
     <post name="Kontoart">Ausleihkonto</post>

@@ -7,6 +7,7 @@
 
 <variable name="after-id" value="=on&amp;"/>
 <variable name="location:Düsseldorf" value="DUEBIB"/>
+<variable name="location:Aachen" value="AACHBIB"/>
 <variable name="location:Bochum" value="BOBIB"/>
 
 <!--sid = ABDEROS:nummer, $selectedLibraries;

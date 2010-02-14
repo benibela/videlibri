@@ -22,10 +22,22 @@
         <htmlparser:read var="book-start()"/>
         <td>
           <strong><htmlparser:read source="text()" var="book.title"/></strong><br/>
+          <htmlparser:read source="'true'" var="spanmissing"/>
           <htmlparser:read source="text()" var="book.author"/><br/>
           <htmlparser:read source="text()" var="book.id" regex="^[^/]*"/><br/>
-	  <span><htmlparser:read source="text()" var="book.status:problematic"/></span>
+          <a htmlparser-optional="true">
+            <htmlparser:read source="@href" var="book.extendID" regex=";actPos=([0-9]+)$" submatch="1"/>
+            <span>
+              <htmlparser:read source="text()" var="book.status:curious"/>
+              <htmlparser:read source="@class != 'textgruen'" var="spanmissing"/>
+            </span>
+          </a>
+	  <span htmlparser-optional="true">
+            <htmlparser:read source="text()" var="book.status:problematic"/>
+            <htmlparser:read source="'false'" var="spanmissing"/>
+          </span>
          </td>
+         <htmlparser:if test="'$spanmissing;'"><broken/></htmlparser:if>
          <td>
            <htmlparser:read source="text()" var="book.issuedate:dd.mm.yyyy" regex="^\d{2}\.\d{2}\.\d{4}"/>
            <htmlparser:read source="text()" var="book.limitdate:dd.mm.yyyy" regex="- *(\d{2}\.\d{2}\.\d{4})" submatch="1"/><br/>
