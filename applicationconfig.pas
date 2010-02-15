@@ -461,7 +461,7 @@ uses bookwatchmain,internetaccess,controls,libraryaccess,math,FileUtil,bbutils,b
       window:=FindWindow(nil,pchar(appFullTitle));//FindWindow(nil,'VideLibri');
       if window<>0 then begin
         if IsWindowEnabled(window) then begin
-            //SendMessage(window,SW_SHOW,0,0);
+            SendMessage(window,SW_SHOW,0,0);
             SetForegroundWindow(window);
             BringWindowToTop(window);
           end else begin //if the window isn't enabled it has opened a modal window which also have to be raised
