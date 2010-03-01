@@ -13,12 +13,13 @@
       <AutoCreateForms Value="False"/>
       <TargetFileExt Value=".exe"/>
       <Title Value="VideLibri"/>
-      <Icon Value="0"/>
       <UseXPManifest Value="True"/>
+      <Icon Value="0"/>
     </General>
     <VersionInfo>
       <Language Value="0403"/>
       <CharSet Value="04E2"/>
+      <StringTable Comments="" CompanyName="" FileDescription="" FileVersion="0.0.0.0" InternalName="" LegalCopyright="" LegalTrademarks="" OriginalFilename="" ProductName="" ProductVersion="0.0.0.0"/>
     </VersionInfo>
     <PublishOptions>
       <Version Value="2"/>

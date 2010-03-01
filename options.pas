@@ -552,13 +552,13 @@ begin
     lblAccountExtend2.Visible:=false;
     edtAccountExtendDays.Visible:=false;
     cmbAccountExtend.Width:=cmbAccountExtend.parent.ClientWidth-cmbAccountExtend.Left-5;
-    include(cmbAccountExtend.anchors,akRight);
+    cmbAccountExtend.anchors:=cmbAccountExtend.anchors+[akRight];
   end else begin
     lblAccountExtend1.Visible:=true;
     lblAccountExtend2.Visible:=true;
     edtAccountExtendDays.Visible:=true;
     cmbAccountExtend.Width:=lblAccountExtend1.Left-cmbAccountExtend.Left-5;
-    exclude(cmbAccountExtend.anchors,akRight);
+    cmbAccountExtend.anchors:=cmbAccountExtend.anchors+[akRight];
   end;
 end;
 

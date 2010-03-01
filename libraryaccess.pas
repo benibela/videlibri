@@ -98,7 +98,7 @@ end
 save
 }
   if logging then begin
-    log('TUpdateLibThread.execute(@lib='+inttostr(longint(lib))+') started');
+    log('TUpdateLibThread.execute(@lib='+inttostr(int64(Pointer(lib)))+') started');
     log('Library is: '+lib.prettyName);
   end;
 
