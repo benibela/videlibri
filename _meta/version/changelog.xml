@@ -1,8 +1,15 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <?xml-stylesheet type="text/xsl" href="../changelog.xsl"?>
 <changelog program="VideLibri">
-  <build version="0995" date="2008-11-07">
+  <build version="0997" date="2010-02-16">
     <installer url="http://www.benibela.de/bin/tools/videlibri-setup.exe"/>
+    <fix level="critical">FHB Düsseldorf: An Serverumzug angepasst. </fix>
+    <change level="major">FHB Bochum: gestrichen</change>
+    <change level="major">Läuft nun unter Linux</change>
+    <add level="major">Unterstützt nun auch die Stadtbibliothek Aachen</add>
+    <add level="major">Unterstützt nun auch die Hochschulbibliothek der RWTH Aachen</add>
+  </build>
+  <build version="0995" date="2008-11-07">
     <fix level="minor">FHB: Kein Fehler mehr, wenn keine Medien ausgeliehen sind. </fix>
   </build>
   <build version="0994" date="2008-10-15">
