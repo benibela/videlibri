@@ -4,7 +4,7 @@ object mainForm: TmainForm
   Top = 34
   Width = 927
   Caption = 'Videlibri'
-  ClientHeight = 628
+  ClientHeight = 630
   ClientWidth = 927
   Menu = MainMenu1
   OnActivate = FormActivate
@@ -17,8 +17,8 @@ object mainForm: TmainForm
   LCLVersion = '0.9.29'
   object StatusBar1: TStatusBar
     Left = 0
-    Height = 23
-    Top = 605
+    Height = 21
+    Top = 609
     Width = 927
     Panels = <    
       item
@@ -57,7 +57,7 @@ object mainForm: TmainForm
       Left = 183
       Height = 22
       Top = 0
-      Width = 176
+      Width = 187
       Caption = '  Shareware Version'
       Font.CharSet = ANSI_CHARSET
       Font.Color = clRed

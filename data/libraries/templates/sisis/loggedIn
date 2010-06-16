@@ -1,6 +1,13 @@
 <html>
 <body>
+   <div id="main"> 
+     <div id="middle"> 
+        <div id="label1">
+           <a>Ausleihen<htmlparser:read source="text()" var="allBooksAway" regex="(0)"/></a>
+        </div>
   <div id="tab-content">
+  
+
     <div class="box">
       <div class="box-header">
         <h2>Ausleihen</h2>
@@ -10,6 +17,7 @@
 
     <htmlparser:read var="delete-current-books()"/>
 
+    <htmlparser:if test="'$allBooksAway;'==''">
     <table class="data">
       <tr>
         <th scope="col"></th>
@@ -23,6 +31,7 @@
         <td>
           <strong><htmlparser:read source="text()" var="book.title"/></strong><br/>
           <htmlparser:read source="'true'" var="spanmissing"/>
+          <htmlparser:read source="'false'" var="previousspan"/>
           <htmlparser:read source="text()" var="book.author"/><br/>
           <htmlparser:read source="text()" var="book.id" regex="^[^/]*"/><br/>
           <a htmlparser-optional="true">
@@ -35,7 +44,14 @@
 	  <span htmlparser-optional="true">
             <htmlparser:read source="text()" var="book.status:problematic"/>
             <htmlparser:read source="'false'" var="spanmissing"/>
+            <htmlparser:read source="'true'" var="previousspan"/>
           </span>
+<!--	  <htmlparser:if test="'$previousspan;'">
+	    <span htmlparser-optional="true">
+              <htmlparser:read source="concat('$book.status:problematic; ', text())" var="book.status:problematic"/>
+              <htmlparser:read source="'false'" var="spanmissing"/>
+            </span>
+           </htmlparser:if>-->
          </td>
          <htmlparser:if test="'$spanmissing;'"><broken/></htmlparser:if>
          <td>
@@ -48,9 +64,12 @@
       </htmlparser:loop>      
                
       </table>
+      </htmlparser:if>
     </fieldset>
 
    </div>
+  </div>
+ </div>
 </body>
 </html>
   

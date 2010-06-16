@@ -14,7 +14,7 @@ uses
   registrierung, nagform, bbdebugtools, bibtexexport, simplexmlparser,
   booklistreader, librarySearcher, bookListView, bookSearchForm,
   librarySearcherAccess, extendedhtmlparser, autoMenuManager,
-  treelistviewpackage, LCLIntf, LResources;
+  treelistviewpackage, LCLIntf;
 
 {$IFDEF WINDOWS}{$R manifest.rc}{$R icons.res}{$ENDIF}
 
@@ -22,8 +22,9 @@ uses
 
 {$IFDEF WINDOWS}{$R bookWatch.rc}{$ENDIF}
 
+{$R bookWatch.res}
+
 begin
-  {$I bookWatch.lrs}
   Application.Initialize;
   Application.Title:='VideLibri';
   application.Name:='VideLibri';

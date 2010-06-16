@@ -697,6 +697,7 @@ end;
 
 procedure TmainForm.TrayIcon1DblClick(Sender: TObject);
 begin
+  //TODO: why doesn't this work if it is maximized?????
   application.BringToFront;
   if Enabled then begin
     mainform.show;
