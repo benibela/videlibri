@@ -21,7 +21,7 @@
    </tr> 
    
 
-   <htmlparser:loop>
+ <htmlparser:loop>
    <tr> 
     <htmlparser:read var="book-start()"/>
     <td><A><htmlparser:read var="book.detailLink" source="@href"/></A></td> 
@@ -29,7 +29,7 @@
     <td><htmlparser:read var="book.title" source="text()"/></td> 
     <td><htmlparser:read var="book.year" source="text()"/></td> 
     <td><htmlparser:read var="book.limitdate:dd/mm/yy" source="text()"/></td> 
-    <td><!--ignore: Gebühr--></td> 
+    <td><!--ignore: Gebï¿½hr--></td> 
     <td><!--ignore: Standort--></td> 
     <td><htmlparser:read var="book.id" source="text()"/>
         <htmlparser:read var="book.category" source="text()" regex="[a-zA-Z]*"/></td> 

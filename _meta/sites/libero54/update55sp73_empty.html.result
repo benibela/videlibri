@@ -1,0 +1,2 @@
+delete-current-books()=
+bookTableBroken=false

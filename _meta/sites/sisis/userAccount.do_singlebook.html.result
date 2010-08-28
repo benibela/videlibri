@@ -1,0 +1,15 @@
+bookCount=
+bookCount=1
+delete-current-books()=
+book-start()=
+book.title=Introduction to cryptography
+spanmissing=true
+previousspan=false
+book.author=Delfs, Hans
+book.id=BP1357  
+book.status:problematic=Eine Verlängerung ist noch nicht möglich.
+spanmissing=false
+previousspan=true
+book.issuedate:dd.mm.yyyy=19.08.2010
+book.limitdate:dd.mm.yyyy=17.09.2010
+book-end()=

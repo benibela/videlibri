@@ -692,9 +692,9 @@ begin
     end else book.Status:=bsNormal;
        //(bsNormal,bsUnknown,bsIsSearched,bsEarMarked,bsMaxLimitReached,bsProblematicInStr,bsCuriousInStr);
   end else if strlibeginswith(@variable[1],length(variable),'book.issuedate') then
-    book.IssueDate:=parseDate(strconv(value),strcopy2(variable,pos(':',variable)+1))
+    book.IssueDate:=parseDate(strconv(value),strcopyfrom(variable,pos(':',variable)+1))
   else if strlibeginswith(@variable[1],length(variable),'book.limitdate') then
-    book.LimitDate:=parseDate(strconv(value),strcopy2(variable,pos(':',variable)+1))
+    book.LimitDate:=parseDate(strconv(value),strcopyfrom(variable,pos(':',variable)+1))
   else if strlibeginswith(variable,'book.') then
     setProperty(copy(variable,pos('.',variable)+1,length(variable)),value,book.Additional);
 end;
@@ -744,7 +744,6 @@ constructor TBookListReader.create(atemplate:TBookListTemplate);
 begin
   template:=atemplate;
   parser:=THtmlTemplateParser.create;
-  parser.onVariableRead:=@parserVariableRead;
   defaultBook:=TBook.create;
 end;
 
@@ -771,15 +770,13 @@ end;
 procedure TBookListReader.performAction(const action:TTemplateAction);
 var i:longint;
     page:string;
-    parserLog: TTemplateHTMLParserLogClass;
+    aname: String;
+    avalue: String;
+    j: Integer;
 begin
   if logging then begin
     log('Enter performAction, finternet:');
-    parserLog:=TTemplateHTMLParserLogClass.Create;
-    parserLog.parser:=parser;
-    parser.onEnterTag:=@parserLog.et;
-    parser.onLeaveTag:=@parserLog.lt;
-    parser.onTextRead:=@parserLog.tr;
+    //TODO: parser log
   end;
 
   try
@@ -813,7 +810,12 @@ begin
                 if logging then log('parse page: '+parser.replaceVars(actions[i].url));
                 if bookAccessSection<>nil then EnterCriticalsection(bookAccessSection^);
                 try
-                  parser.parseHTML(page);
+                  parser.parseHTML(page,true);
+                  //simulate old parser interface
+                  for j:=0 to parser.variableChangeLog.count-1 do begin
+                    parser.variableChangeLog.GetNameValue(j,aname,avalue);
+                    parserVariableRead(aname,avalue);
+                  end;
                 finally
                   if bookAccessSection<>nil then LeaveCriticalsection(bookAccessSection^);
                 end;
@@ -825,28 +827,31 @@ begin
       except
         on  e:Exception do begin
           if logging then begin
-            log(parserLog.text);
-            parserLog.text:='';
+            //log(parserLog.text);
             log('Exception message: '+e.message);
           end;
           for i:=0 to high(errors) do begin
             if logging then log('Check error: '+IntToStr(i)+': '+errors[i].templateFile);
             parser.parseTemplate(errors[i].template);
+            //simulate old parser interface
+            //TODO: this is absolutely not needed here
+            for j:=0 to parser.variableChangeLog.count-1 do begin
+              parser.variableChangeLog.GetNameValue(j,aname,avalue);
+              parserVariableRead(aname,avalue);
+            end;
             if logging then begin
               log('Error template loaded');
-              parserLog.text:='';
             end;
             try
               if logging then log('parser html: ');
-              parser.parseHTML(page);
-              if logging then log('parserlog (1): '+parserLog.text);
+              parser.parseHTML(page,true);
             except
               on e2: EBookListReader do begin
                 if logging then log('New exception: '+e2.message);
                 raise;
               end;
               on e: Exception do begin//frühere Exception wird weitergegeben/unverständlich
-                if logging then log('parserlog (2): '+parserLog.text);
+                if logging then log('earlier exception: '+e.Message);
               end;
             end;
           end;
@@ -855,19 +860,12 @@ begin
               if logging then log('ele.create');
               raise EBookListReader.create(e.message,'');
             end;
-          if logging then log('parserlog (3): '+parserLog.text);
           raise;
         end;
       end;
     end;
   finally
-    if logging then begin
-      parser.onEnterTag:=nil;
-      parser.onLeaveTag:=nil;
-      parser.onTextRead:=nil;
-      parserLog.Free;
-      log('Leave performAction');
-    end;
+    if logging then log('Leave performAction');
   end;
 end;
 

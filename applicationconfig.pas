@@ -447,11 +447,11 @@ uses bookwatchmain,internetaccess,controls,libraryaccess,math,FileUtil,bbutils,b
     commandLine.declareString('debug-html-template','Führt ein Template aus (benötigt Datei)','');
     commandLine.declareString('on','Datei für das Template von debug-single-template','');
 
-    if commandLine.readString('debug-html-template')<>'' then begin
+    {if commandLine.readString('debug-html-template')<>'' then begin
       checkHTMLTemplate(commandLine.readString('debug-html-template'),commandLine.readString('on'));
       cancelStarting:=true;
       exit;
-    end;
+    end; ??}
 
     //Überprüft, ob das Programm schon gestart ist, und wenn ja, öffnet dieses
     {$IFDEF WIN32}

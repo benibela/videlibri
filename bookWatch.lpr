@@ -14,7 +14,7 @@ uses
   registrierung, nagform, bbdebugtools, bibtexexport, simplexmlparser,
   booklistreader, librarySearcher, bookListView, bookSearchForm,
   librarySearcherAccess, extendedhtmlparser, autoMenuManager,
-  treelistviewpackage, LCLIntf;
+  treelistviewpackage, LCLIntf, messagesystem;
 
 {$IFDEF WINDOWS}{$R manifest.rc}{$R icons.res}{$ENDIF}
 

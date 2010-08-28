@@ -1,0 +1,180 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html lang="de"><head>
+
+
+
+<title>Landeshauptstadt Düsseldorf - Online-Katalog</title>
+<meta http-equiv="imagetoolbar" content="no">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+
+
+<link rel="stylesheet" type="text/css" href="start-Dateien/global.css" title="Cascading Style Sheets">
+<link rel="stylesheet" type="text/css" href="start-Dateien/grau.css" title="Cascading Style Sheets">
+<link rel="stylesheet" type="text/css" href="start-Dateien/table.css" title="Cascading Style Sheets">
+<link rel="stylesheet" type="text/css" href="start-Dateien/table_grau.css" title="Cascading Style Sheets">
+<link rel="stylesheet" type="text/css" href="start-Dateien/print.css" media="print" title="Cascading Style Sheets">
+
+<style type="text/css">
+body { background:url(../grafik/bg_bodyleft_weiss.gif) repeat-y #FFFFFF;}
+</style>
+
+
+<script src="start-Dateien/steuer.html" type="text/javascript"></script>
+<script type="text/javascript">
+if (document.all)
+   {
+   // Funktionsaufruf MS Internet Explorer 4.x
+   document.onmousedown=RMClick;
+   }
+  else
+   {
+   // Funktionsaufruf Netscape
+   if(navigator.appName == "Netscape") document.onmouseup=RMClick1;
+   }
+</script>
+
+      <!-- Externe Anwendung -->
+      <script type="text/javascript">
+      </script>
+
+
+</head><body onload="SetFocus()" bgcolor="#ffffff">
+
+
+
+
+
+<h2 style="display: none; visibility: hidden;">Online-Katalog der Stadtbüchereien Düsseldorf</h2>
+<div class="layoutTable" style="border-right: 0px none; width: 634px;">
+<div class="leftNav" style="width: 0px;"></div>
+<div class="midCol" style="float: left;">
+<div class="midLeft1"><h1>Online-Katalog
+ - Stadtbüchereien Düsseldorf
+</h1>
+
+
+<ul class="liste4">
+
+<li><a href="http://was.duesseldorf.de/WebOPAC/start;jsessionid=0000iAb-a7PQAcFbPAY750b5zb6:-1?homegkz=111" title="Startseite">Startseite</a> | </li>
+
+
+
+<li><a href="http://was.duesseldorf.de/WebOPAC/BenutzerkontoServlet;jsessionid=0000iAb-a7PQAcFbPAY750b5zb6:-1?homegkz=111&amp;Kontoart=Ausleihkonto&amp;Bibliothek=null" title="Ausleihkonto">Ausleihkonto</a> | </li>
+
+
+
+<li><a href="http://was.duesseldorf.de/WebOPAC/BenutzerkontoServlet;jsessionid=0000iAb-a7PQAcFbPAY750b5zb6:-1?homegkz=111&amp;Kontoart=Gebuehrenkonto&amp;Bibliothek=null" title="Gebührenkonto">Gebührenkonto</a> | </li>
+
+<!-- <li><a href="Hilfe.html" target="_blank" onClick="open_window('Hilfe.html','Hilfe','width=520,screenX=0,screenY=0,left=0,top=0,scrollbars=yes,toolbar=no,status=no,resizable=no');return false" title="Benutzerhilfe">Hilfe</a></li> -->
+<li><a href="http://was.duesseldorf.de/WebOPAC/Hilfe.html" title="Benutzerhilfe">Hilfe</a></li>
+</ul>
+<br class="fixfloat">
+<br>
+
+
+
+
+<form name="query" method="post" action="QueryPanelServlet;jsessionid=0000iAb-a7PQAcFbPAY750b5zb6:-1" target="_self" onsubmit="return CheckInputMedien();" class="sichtbar">
+<input name="homegkz" value="111" type="hidden">
+		
+
+
+
+
+
+
+<p>
+<label for="LFinde" class="bezeichner">Finde</label>
+<input id="LFinde" name="Suchbegriff" class="einzug" tabindex="97" maxlength="60" type="text">
+</p>
+
+<p>
+<label for="LKriterium" class="bezeichner">Kriterium</label>
+<select id="LKriterium" name="Kriterium" class="einzug" tabindex="97">
+<option value="Autor">Autor</option>
+<option value="Titel" selected="selected">Titel</option>
+<option value="Thema">Thema</option>
+<option value="ISBN, ISSN, ISMN">ISBN, ISSN, ISMN</option>
+</select>
+</p>
+
+<p>
+<label for="LMedienart" class="bezeichner">Medienart</label>
+
+<select id="LMedienart" name="Medienart" class="einzug" tabindex="97">
+<option value="alle" selected="selected">alle</option>
+<option value="Buch">Buch</option>
+<option value="CD (Musik) / Sach-CD (auch für Kinder)">CD (Musik) / Sach-CD (auch für Kinder)</option>
+<option value="CD-ROM/DVD-ROM">CD-ROM/DVD-ROM</option>
+<option value="Diaserie">Diaserie</option>
+<option value="DVD-Video">DVD-Video</option>
+<option value="Hörbuch (Romane und Erzählungen) auf CD">Hörbuch (Romane und Erzählungen) auf CD</option>
+<option value="Noten">Noten</option>
+<option value="Spiel">Spiel</option>
+<option value="Tonkassette/Schallplatte">Tonkassette/Schallplatte</option>
+<option value="Zeitung/Zeitschrift">Zeitung/Zeitschrift</option>
+
+</select>
+</p>
+
+<p>
+<label for="LBibliothek" class="bezeichner">Bibliothek</label>
+
+<select id="LBibliothek" name="Bibliothek" class="einzug" tabindex="97">
+<option value="Stadtbüchereien Düsseldorf" selected="selected">Stadtbüchereien Düsseldorf</option>
+</select>
+</p>
+
+<p style="border: 0px none ; background-color: rgb(255, 255, 255);">
+<input class="button" name="Suchen" value="Suchen" tabindex="97" type="submit">
+</p>
+</form>
+
+
+
+<div class="spezial1">
+<h2>Hinweise zur Suche</h2>
+<p>Ausführlichere Hinweise finden Sie über den rechts angegebenen Hilfe-Link.</p>
+<p>Vorab die Suchkategorie (Autor, Titel, Thema, ISBN) bestimmen!</p>
+Für alle Suchkategorien gilt:
+<ul>
+<li>Durchgängige Kleinschreibung der Suchbegriffe
+ist ausreichend.</li>
+<li>Umlaute (ä, ö, ü) sowie ß werden akzeptiert.</li>
+<li>Suchbegriffe werden als Wortanfänge angesehen (Eingabe "haus"
+findet auch "Haushalt"), wenn sie aus mindestens 3 Zeichen bestehen.</li>
+</ul>
+
+<h3>Autorensuche</h3>
+Den Namen in der Form "Nachname, Vorname" eingeben.
+
+<h3>Titelsuche</h3>
+Den vollständigen Titel oder einzelne Wörter bzw. Wortanfänge des Titels eingeben.
+
+<h3>Themensuche</h3>
+Einen einzigen Begriff oder den Anfang eines Begriffes eingeben.
+
+<h3>Suche nach ISBN (ISSN, ISMN)</h3>
+Die Nummer vollständig inklusive der Bindestriche eingeben
+</div>
+
+
+
+<!-- Bei verwaltungsinterner Anwendung keine Druckfunktion -->
+<!-- Drucken jetzt über Menü verfügbar. Daher unten auf Kommentar. Schm, 19.11.07 -->
+<div class="logo1">
+    <div class="sichtbar" style="float: right;">
+
+
+      <!-- <a href="javascript:window.print();" class="druck" title="Drucken">Drucken</a> -->
+
+
+    </div>
+</div>
+
+</div> <!-- Ende von midLeft1 -->
+
+</div><!-- Ende von midCol -->
+</div><!-- Ende von layoutTable -->
+</body></html>

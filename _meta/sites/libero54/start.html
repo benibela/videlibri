@@ -1,0 +1,250 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="de" xmlns="http://www.w3.org/1999/xhtml" lang="de"><head>
+
+
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<meta name="author" content="Insight Informatics">
+<meta name="keywords" content="WebOpac">
+<meta name="description" content="Libero OPAC">
+<meta http-equiv="refresh" content="360;URL=http://katalog.bibl.fh-duesseldorf.de/libero/WebOpac.cls?VERSION=2&amp;ACTION=OPACTIMEOUT&amp;DATA=DUE&amp;TOKEN=cuvQ8j0Xfw7414&amp;MGWCHD=0">
+<title>LIBERO WebOPAC Einfaches Suchen (W501)</title>
+<link rel="SHORTCUT ICON" href="http://katalog.bibl.fh-duesseldorf.de/libero/styles/fhd/images/logo.ico">
+<link rel="stylesheet" type="text/css" media="screen" href="start-Dateien/page_layout.css">
+<link rel="stylesheet" type="text/css" media="screen" href="start-Dateien/libero.css">
+<link rel="stylesheet" type="text/css" media="print" href="start-Dateien/libero_002.css">
+<link rel="stylesheet" type="text/css" media="screen" href="start-Dateien/SEARCHS.css">
+<link rel="stylesheet" type="text/css" media="all" href="start-Dateien/SYSMESSAGES.css">
+<!--[if IE]>
+<link rel="Stylesheet" type="text/css" href="http://katalog.bibl.fh-duesseldorf.de/libero/styles/fhd/screen/ie.css">
+<![endif]-->
+<!--[if lte IE 6]>
+<link rel="Stylesheet" type="text/css" href="http://katalog.bibl.fh-duesseldorf.de/libero/styles/fhd/screen/ie6.css">
+<![endif]-->
+<script type="text/javascript" src="start-Dateien/PageLoad.js"></script>
+<script type="text/javascript"><!--
+ 
+function default_focus(eo) { 
+	try { 
+		var e = eo.target;
+		if (!e) e = window.event.srcElement;
+		if (e.readOnly==true) return;
+		if (e.value=='.' || e.value=='JJJJ')
+		{
+			e.value=''; 
+			default_value[e.tabIndex] = '';
+		}
+		if (e.value=='.'|| e.value=='JJJJ')
+			default_value[e.tabIndex] = e.value;
+		focus_colour(eo);
+	} catch (err) {
+		//alert('Error on focus: ' + err);
+	} 
+	return true; 
+} 
+function default_blur(eo) { 
+	try { 
+		var e = eo.target;
+		if (!e) e = window.event.srcElement; 
+		if (e.readOnly==true) return;
+		if (e.value=='') {
+			e.value=default_value[e.tabIndex];
+		if (e.value!='.' && e.value!='JJJJ') 
+				e.value = '';
+		}
+		blur_colour(eo);
+	} catch (err) {
+		//alert('Error on blur: ' + err);
+	} 
+	return true; 
+} 
+
+--></script>
+</head><body class="mainbody" onload="var foc=document.getElementById('TERM_1');page_load(foc);image_load();">
+<div id="PageShortCuts">Shortcuts
+<ul class="shortcuts"><li><a accesskey="0" href="#PageTop">Top of page (Alt+0)</a></li>
+<li><a accesskey="9" href="#PageContent">Page content (Alt+9)</a></li>
+<li><a accesskey="8" href="#PageMenu">Page menu (Alt+8)</a></li>
+</ul>
+</div>
+<div id="wait_image" style="width: 100%; height: 100%; display: none;"><img src="start-Dateien/loading_animation.gif" alt="Please wait while page loads." border="0"></div>
+<script type="text/javascript">
+var ld=(document.all);
+var ns4=document.layers;
+var ns6=document.getElementById&&!document.all;
+var ie4=document.all;
+if (ns4) ld=document.wait_image;
+else if (ns6)
+ld=document.getElementById("wait_image").style;
+else if (ie4)
+ld=document.all.wait_image.style;
+function image_load() {
+	if(ns4){ld.visibility="hidden";}
+else if (ns6||ie4) ld.display="none";
+}
+</script>
+<noscript><div id='NoJsMsg'>Your browser does not support javascript, some WebOpac functionallity will not be available.</div></noscript>
+<a href="http://www.bibl.fh-duesseldorf.de/"><img src="start-Dateien/logo_1.jpg" alt="Logo Bibliothek" height="100" width="500"></a>
+
+<div id="page_container">
+
+<div id="left_column">
+<a class="hide" name="PageMenu">PageMenu</a><span class="URLHack">-</span>
+<span class="MainMenuHeading">Main Menu</span><span class="URLHack">-</span>
+<ul class="Menulist" id="MainMenuList" title="Menu">
+<li id="Suchmenu_fhd"><span>Suchmenü</span>
+<ul title="Suchmenü">
+<li class="MenuItem"><a tabindex="502" class="CurrentLink" href="http://katalog.bibl.fh-duesseldorf.de/libero/WebOpac.cls?VERSION=2&amp;ACTION=SEARCHS&amp;RSN=0&amp;DATA=DUE&amp;TOKEN=cuvQ8j0Xfw7414&amp;Z=1&amp;NewBreadCrumb=1" title="Einfache Suche"><em>Einfache Suche</em></a><span class="href_sep"> . </span></li>
+<li class="MenuItem"><a tabindex="503" href="http://katalog.bibl.fh-duesseldorf.de/libero/WebOpac.cls?VERSION=2&amp;ACTION=SEARCHA&amp;RSN=0&amp;DATA=DUE&amp;TOKEN=cuvQ8j0Xfw7414&amp;Z=1&amp;NewBreadCrumb=1" title="Erweiterte Suche">Erweiterte Suche</a><span class="href_sep"> . </span></li>
+<li class="MenuItem"><a tabindex="504" href="http://katalog.bibl.fh-duesseldorf.de/libero/WebOpac.cls?VERSION=2&amp;ACTION=SEARCHCL&amp;RSN=0&amp;DATA=DUE&amp;TOKEN=cuvQ8j0Xfw7414&amp;Z=1&amp;NewBreadCrumb=1" title="Suchhistorie löschen">Suchhistorie löschen</a><span class="href_sep"> . </span></li>
+<li class="MenuItem"><a tabindex="505" href="http://katalog.bibl.fh-duesseldorf.de/libero/WebOpac.cls?VERSION=2&amp;ACTION=REFINESCREEN&amp;RSN=0&amp;DATA=DUE&amp;TOKEN=cuvQ8j0Xfw7414&amp;Z=1&amp;NewBreadCrumb=1" title="Suchergebnisse verfeinern">Suchergebnisse verfeinern</a><span class="href_sep"> . </span></li>
+<li class="MenuItem"><a tabindex="519" href="http://www.bibl.fh-duesseldorf.de/systematik_new/htmlghb.html" target="_blank" title="Thematische Suche - Wird in neuem Fenster geöffnet.">Thematische Suche</a><span class="href_sep"> . </span></li>
+</ul>
+</li>
+<li id="Benutzermenu_fhd"><span>Benutzerfunktionen</span>
+<ul title="Benutzerfunktionen">
+<li class="MenuItem"><a tabindex="506" target="_blank" href="http://katalog.bibl.fh-duesseldorf.de/libero/WebOpac.cls?VERSION=2&amp;ACTION=MEMBERSERV&amp;RSN=0&amp;DATA=DUE&amp;TOKEN=cuvQ8j0Xfw7414&amp;Z=1&amp;NewBreadCrumb=1&amp;LOGINTOKEN=MHVPOTIEBL" title="Benutzerkonto Wird in neuem Fenster geöffnet.">Benutzerkonto</a><span class="href_sep"> . </span></li>
+<li class="MenuItem"><a tabindex="507" href="http://katalog.bibl.fh-duesseldorf.de/libero/WebOpac.cls?VERSION=2&amp;ACTION=PURCHASESUGGEST&amp;RSN=0&amp;DATA=DUE&amp;TOKEN=cuvQ8j0Xfw7414&amp;Z=1&amp;NewBreadCrumb=1" title="Anschaffungsvorschlag">Anschaffungsvorschlag</a><span class="href_sep"> . </span></li>
+<li class="MenuItem"><a title="Hilfe - Wird in neuem Fenster geöffnet." href="http://katalog.bibl.fh-duesseldorf.de/libero/docs/hilfe.htm" target="_blank">Hilfe</a></li>
+<li class="MenuItem"><a tabindex="508" href="http://katalog.bibl.fh-duesseldorf.de/libero/WebOpac.cls?VERSION=2&amp;ACTION=SIGNOX&amp;RSN=0&amp;DATA=DUE&amp;TOKEN=cuvQ8j0Xfw7414&amp;Z=1&amp;NewBreadCrumb=1" title="Katalog verlassen">Katalog verlassen</a><span class="href_sep"> . </span></li>
+<li class="MenuItem"><a tabindex="519" href="http://www.hbz-nrw.de/kunden/gast/digibib/fhdue/ad_form.htm" target="_blank" title="DigiAuskunft - Wird in neuem Fenster geöffnet.">DigiAuskunft</a><span class="href_sep"> . </span></li>
+</ul>
+</li>
+<li id="Neuerwerbmenu_fhd"><span>Neuerwerbungen</span>
+<ul title="Neuerwerbungen">
+<li class="MenuItem"><a tabindex="509" href="http://katalog.bibl.fh-duesseldorf.de/libero/WebOpac.cls?VERSION=2&amp;ACTION=NEWITEMS&amp;RSN=0&amp;DATA=DUE&amp;TOKEN=cuvQ8j0Xfw7414&amp;Z=1&amp;NewBreadCrumb=1" title="Neuerwerbungsliste">Neuerwerbungsliste</a><span class="href_sep"> . </span></li>
+<li class="MenuItem"><a tabindex="510" href="http://katalog.bibl.fh-duesseldorf.de/libero/WebOpac.cls?VERSION=2&amp;ACTION=NEWITEMSGROUP&amp;RSN=0&amp;DATA=DUE&amp;TOKEN=cuvQ8j0Xfw7414&amp;Z=1&amp;NewBreadCrumb=1" title="Neuerwerbungsliste n. Gruppen">Neuerwerbungsliste n. Gruppen</a><span class="href_sep"> . </span></li>
+</ul>
+</li>
+<li id="bottomMenu"><span>Bottom Menu</span>
+<ul title="Bottom Menu">
+<li class="MenuItem"><a title="Hilfe - Wird in neuem Fenster geöffnet." href="http://katalog.bibl.fh-duesseldorf.de/libero/docs/hilfe.htm" target="_blank">Hilfe</a></li>
+<li class="MenuItem"><a tabindex="511" href="http://katalog.bibl.fh-duesseldorf.de/libero/WebOpac.cls?VERSION=2&amp;ACTION=LOADMAP&amp;RSN=0&amp;DATA=DUE&amp;TOKEN=cuvQ8j0Xfw7414&amp;Z=1&amp;NewBreadCrumb=1" title="Bibliotheksplan">Bibliotheksplan</a><span class="href_sep"> . </span></li>
+</ul>
+</li>
+<li id="languagesMenu"><span>Languages Menu</span>
+<ul title="Languages Menu">
+<li class="MenuItem"><a tabindex="512" href="http://katalog.bibl.fh-duesseldorf.de/libero/WebOpac.cls?VERSION=2&amp;ACTION=LANGEN&amp;RSN=0&amp;DATA=DUE&amp;TOKEN=cuvQ8j0Xfw7414&amp;Z=1" title="Englisch">Englisch</a><span class="href_sep"> . </span></li>
+<li class="MenuItem"><a tabindex="513" href="http://katalog.bibl.fh-duesseldorf.de/libero/WebOpac.cls?VERSION=2&amp;ACTION=LANGDE&amp;RSN=0&amp;DATA=DUE&amp;TOKEN=cuvQ8j0Xfw7414&amp;Z=1" title="Deutsch">Deutsch</a><span class="href_sep"> . </span></li>
+</ul>
+</li>
+<li class="MnuVers">© LIBERO v5.5.sp4</li>
+</ul>
+
+
+<!-- Start feed output -->
+<!-- End feed output -->
+
+
+</div><!-- Close left_column -->
+<div id="right_column">
+<a class="hide" name="PageContent">Page content</a>
+<div id="subheader_container">
+</div> <!-- Close subheader_container -->
+<div id="BreadCrumbs">
+<span class="label">Sie befinden sich hier</span>: <span class="BreadCrumbSep"> &gt; </span><span class="BreadCrumb">Einfaches Suchen</span>
+</div>
+<div class="PageHeading"><h1>Einfaches Suchen</h1></div>
+<!--FORM STARTS HERE-->
+<form name="display" method="post" onsubmit="filterInput();" action="http://katalog.bibl.fh-duesseldorf.de/libero/WebOpac.cls">
+<div>
+<input name="MGWCHD" value="0" type="hidden">
+<input name="TOKEN" value="cuvQ8j0Xfw7414" type="hidden">
+<input name="TOKENX" value="cuvQ8j0Xfw7414" type="hidden">
+<input name="DATA" value="DUE" type="hidden">
+<input name="usercode" value="" type="hidden">
+<input name="VERSION" value="2" type="hidden">
+</div>
+<fieldset id="simple_search">
+<legend>Einfache Suche</legend>
+<div class="subheadmsg">Sie können die Suche erweitern, indem Sie einen Stern '*' am Ende des Suchbegriffes anfügen.</div>
+<label id="lblTERM_1" class="SimpSearchPrompt1" for="TERM_1">Suchbegriff/e</label><input class="undefined" name="TERM_1" id="TERM_1" size="60" tabindex="1">
+<br class="hide"><label id="lblUSE_1" class="SimpSearchPrompt1" for="USE_1">Index</label><select tabindex="2" name="USE_1" id="USE_1" class="USE_1" onchange="updateBrowse(this.id)">
+<option selected="selected" value="ku">Alle Felder</option>
+<option value="k">Titel</option>
+<option value="kb">Autor/Hrsg.</option>
+<option value="kj">Schlagwörter</option>
+<option value="sr">Reihe</option>
+<option value="kc">Institution</option>
+</select>
+
+<br class="hide"><label id="lblPREFER" class="SimpSearchPrefHead" for="PREFER">Bitte wählen Sie Ihre bevorzugte Sortierung aus:</label><select tabindex="4" class="PrefSel" name="PREFER" id="PREFER">
+<option selected="selected" value="5">5 - Erscheinungsjahr absteigend</option>
+<option value="1">1 - Titel, Erscheinungsjahr</option>
+<option value="2">2 - Erscheinungsjahr, Titel</option>
+<option value="3">3 - Erscheinungsjahr, Verfasser</option>
+<option value="4">4 - Verfasser, Erscheinungsjahr</option>
+<option value="6">6 - Regalstandort/Signatur</option>
+<option value="7">7 - Verfasser, Titel</option>
+</select>
+
+<br class="hide"><input name="PHRASE" id="PHRASE" value="1" tabindex="7" type="checkbox">&nbsp;<label id="lblPHRASE" class="SimpSearchPrompt2" for="PHRASE">Phrasensuche einschalten</label><br class="hide"><label id="lblYEARFROM" class="SimpSearchPrompt2" for="YEARFROM">Einschränken von Erscheinungsjahr </label><input class=" InputFocus" name="YEARFROM" id="YEARFROM" size="5" tabindex="9" type="text">
+<br class="hide"><label id="lblYEARTO" class="SimpSearchPrompt2" for="YEARTO">bis</label><input name="YEARTO" id="YEARTO" size="5" tabindex="10" value="JJJJ" type="text">
+<br class="hide"><label id="lblPSIZE" class="SimpSearchPrompt2" for="PSIZE">Datensätze pro Seite anzeigen</label>
+<select name="PSIZE" id="PSIZE" class="" tabindex="11">
+<option value="10">10</option>
+<option value="20" selected="selected">20</option>
+<option value="30">30</option>
+<option value="40">40</option>
+<option value="50">50</option>
+<option value="100">100</option>
+<option value="200">200</option>
+</select>
+
+<br class="hide"><input name="SimpSearch" value="SIMPLESEARCH" type="hidden">
+<input title="Alt-1" accesskey="1" id="btnSEARCH" tabindex="13" class="SimpSearchButtons HitButton" name="ACTION" value="SUCHEN" type="submit">
+<input title="Alt-2" accesskey="2" id="btnBROWSE_INDEX" tabindex="14" class="SimpSearchButtons HitButton" name="ACTION" value="INDEX AUFBLÄTTERN" type="submit">
+<script type="text/javascript"><!--
+function updateBrowse(x)
+{
+var id=document.getElementById(x).value;
+if (id=='cl'||id=='im'||id=='a'||id=='d'||id=='ud'||id=='is'||id=='i'||id=='im')
+{
+document.getElementById('btnBROWSE_INDEX').style.visibility='hidden';
+}
+else
+{
+document.getElementById('btnBROWSE_INDEX').style.visibility='visible';
+}}
+--></script>
+<input title="Alt-4" accesskey="4" id="btnRESET" tabindex="16" class="SimpSearchButtons HitButton" value="LÖSCHEN" type="reset">
+</fieldset>
+<div id="Helpfile">
+
+<b>Einfache Suche</b>&nbsp; <br>
+Geben Sie ihren Suchbegriff ein und klicken anschließend auf den Knopf
+&nbsp; "Suchen" um Ihre Suche zu starten. Alternativ können Sie auch
+die "EINGABETASTE" verwenden.<br><br>
+<b>Index aufblättern</b>&nbsp; <br>
+Durch Anklicken der Schaltfläche <b>Index aufblättern </b>nach Eingabe eines Suchbegriffes wird die Liste der Suchindizes angezeigt.<br><br>
+<b>Bildschirminhalt löschen</b>&nbsp;<br>
+ Die Schaltfläche <b>Löschen</b> bewirkt, dass alle eingegebenen Informationen gelöscht werden, um eine neue Suchanfrage eingeben zu können.
+Sie können außerdem das <b>Erscheinungsjahr von </b> und <b>bis Erscheinungsjahr </b>eingeben, um nur diejenigen Medien zu erhalten, die in dem entsprechenden Zeitraum publiziert wurden.
+<b>Phrasensuche einschalten</b>&nbsp;<br> Die Phrasensuche (oder die
+Suche "beginnt mit ?") ist nur f?r die Titel-, Verfasser-, Reihen- und
+Schlagwort-Suche verf?gbar. Die eingegebene Phrase wird exakt von links
+beginnend durchsucht! Die eingegebene "Phrase" muss exakt mit dem
+gesuchten Eintrag ?bereinstimmen oder Sie geben am Ende des Begriffs
+ein Sternchen * ein. Klicken Sie auf die Checkbox Phrasensuche
+einschalten um von der Stichwort- zur Phrasensuche zu wechseln.
+<br><br><br>
+<br><br><br>
+<br><br><br>
+<br><br><br>
+<br><br><br>
+<br><br><br>
+<br><br><br>
+<br><br><br>
+<br><br><br>
+<br><br><br>
+<br><br><br>
+<br><br><br>
+<font color="white" size="1">(HilfeSimp.dat)</font>
+</div>
+</form> <!--FORM ENDS HERE-->
+</div> <!-- Close right_column --> 
+</div> <!-- Close page_container --> 
+<div id="footer_container">
+<span class="href_sep"> . </span><br>
+<span class="href_sep"> . </span><a class="LiberoPower" title="LIBERO" href="http://www.libero.com.au/">Powered by LIBERO © 2010</a><span class="href_sep"> . </span>&nbsp;
+</div> <!-- Close footer_container --> 
+</body></html>

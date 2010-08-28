@@ -1,8 +1,8 @@
 <?xml version="1.0"?>
 <CONFIG>
   <ProjectOptions>
+    <Version Value="9"/>
     <PathDelim Value="\"/>
-    <Version Value="7"/>
     <General>
       <Flags>
         <AlwaysBuild Value="False"/>
@@ -11,7 +11,6 @@
       <SessionStorage Value="InProjectDir"/>
       <MainUnit Value="0"/>
       <AutoCreateForms Value="False"/>
-      <TargetFileExt Value=".exe"/>
       <Title Value="VideLibri"/>
       <UseXPManifest Value="True"/>
       <Icon Value="0"/>
@@ -19,7 +18,6 @@
     <VersionInfo>
       <Language Value="0403"/>
       <CharSet Value="04E2"/>
-      <StringTable Comments="" CompanyName="" FileDescription="" FileVersion="0.0.0.0" InternalName="" LegalCopyright="" LegalTrademarks="" OriginalFilename="" ProductName="" ProductVersion="0.0.0.0"/>
     </VersionInfo>
     <PublishOptions>
       <Version Value="2"/>
@@ -42,7 +40,7 @@
         <PackageName Value="LCL"/>
       </Item2>
     </RequiredPackages>
-    <Units Count="29">
+    <Units Count="30">
       <Unit0>
         <Filename Value="bookWatch.lpr"/>
         <IsPartOfProject Value="True"/>
@@ -210,10 +208,15 @@
         <IsPartOfProject Value="True"/>
         <UnitName Value="autoMenuManager"/>
       </Unit28>
+      <Unit29>
+        <Filename Value="messagesystem.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="messagesystem"/>
+      </Unit29>
     </Units>
   </ProjectOptions>
   <CompilerOptions>
-    <Version Value="8"/>
+    <Version Value="9"/>
     <PathDelim Value="\"/>
     <Target>
       <Filename Value="videlibri"/>
@@ -227,6 +230,7 @@
     <Parsing>
       <SyntaxOptions>
         <IncludeAssertionCode Value="True"/>
+        <UseAnsiStrings Value="False"/>
       </SyntaxOptions>
     </Parsing>
     <CodeGeneration>

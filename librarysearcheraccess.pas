@@ -5,7 +5,7 @@ unit librarySearcherAccess;
 interface
 
 uses
-  Classes, SysUtils , librarySearcher,booklistreader,bbutils,simplexmlparser;
+  Classes, SysUtils , librarySearcher,booklistreader,bbutils,messagesystem,simplexmlparser;
 
 type
 
@@ -312,4 +312,4 @@ begin
 end;
 
 end.
-
+

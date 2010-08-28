@@ -1,10 +1,15 @@
 <html>
+<head>
+<htmlparser:read source="''" var="bookCount"/>
+</head>
 <body>
    <div id="main"> 
      <div id="middle"> 
-        <div id="label1">
-           <a>Ausleihen<htmlparser:read source="text()" var="allBooksAway" regex="(0)"/></a>
+        <div id="tab"> <!--There is another div in-between, but its id changes between current1, active1 and label1, so don't check it-->
+           Ausleihen<htmlparser:read source="text()" var="bookCount" regex="[0-9]+"/>
+           <htmlparser:if test="'$bookCount;' = ''">INVALID CANCEL CURRENT TAG</htmlparser:if>
         </div>
+        
   <div id="tab-content">
   
 

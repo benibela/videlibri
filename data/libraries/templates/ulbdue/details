@@ -1,3 +1,4 @@
+ <htmlparser:meta encoding="latin1"/>
  <table>
  <tr>
   <td>Ausleihdatum:</td>
@@ -11,7 +12,7 @@
   <td>Verlängerung:</td>
   <td>
     <htmlparser:read var="book.status:problematic" source="text()"/>  
-    <htmlparser:read var="temp" source="text()" regex="[a-zA-z]"/>  
+    <htmlparser:read var="temp" source="text()" regex="[a-zA-Z]"/>  
     <htmlparser:if test="'$temp;'==''">  
     <a><htmlparser:read var="book.status:curious"/><htmlparser:read var="book.extendLink" source="@href"/>Jetzt verlängern</A>
     </htmlparser:if>  

@@ -7,14 +7,14 @@
 </action>
 <action id="update-all">
   <page url="http://$server;start.do" templateFile="start"/>
-  <page url="http://$server;userAccount.do;jsession;?methodToCall=show&amp;type=1"></page>
-  <page url="http://$server;login.do;$jsession;" templateFile="loggedIn">
+  <page url="http://$server;login.do;$jsession;">
     <post name="methodToCall">submit</post>
     <post name="CSId">$CSId;</post>
     <post name="username">$username;</post>
     <post name="password">$password;</post>
   </page>
-<!--  <error templateFile="loginError"/>-->
+  <page url="http://$server;userAccount.do;jsession;?methodToCall=show&amp;type=1"  templateFile="loggedIn"></page>
+  <!--  <error templateFile="loginError"/>-->
 </action>
 
 

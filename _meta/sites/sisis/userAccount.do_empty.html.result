@@ -1,0 +1,3 @@
+bookCount=
+bookCount=0
+delete-current-books()=
