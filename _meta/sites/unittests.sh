@@ -34,6 +34,11 @@ mkdir -p $OUTPATH/sisis
 TEMPLATES=(${TEMPLATES[@]} sisis/start sisis/loggedIn sisis/loggedIn sisis/loggedIn)
 PAGES=(${PAGES[@]} sisis/start.do.html sisis/userAccount.do_empty.html sisis/userAccount.do_singlebook.html sisis/userAccount.do_singlebook2.html)
 
+#=============DIGIBIB==============
+mkdir -p $OUTPATH/digibib
+
+TEMPLATES=(${TEMPLATES[@]} ../search/templates/digibib/search ../search/templates/digibib/details ../search/templates/digibib/details)
+PAGES=(${PAGES[@]} digibib/search.html digibib/details.html digibib/details2.html)
 
 for ((i=0;i<${#TEMPLATES[@]};i++)); do
   echo Testing: ${TEMPLATES[i]}

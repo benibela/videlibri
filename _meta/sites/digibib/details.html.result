@@ -1,0 +1,14 @@
+currentfield=Titel
+book.Titel!=Die Krieger : Roman
+currentfield=Autor/in
+book.Autor/in!=Pierre Grimbert. Aus dem Franz. von Sonja Finck und Nadine Püschel
+currentfield=Ausgabe
+book.Ausgabe!=Dt. Erstausg.
+currentfield=Ort/Verlag
+book.Ort/Verlag!=München : Heyne
+currentfield=Standort
+book.id=WebOPAC
+temp=WebOPAC
+book.id=WebOPACWebOPAC
+book.amazon-url=http://www.amazon.de/exec/obidos/ASIN//digitalebiblio02
+book.image-url=http://images-eu.amazon.com/images/P/.03.MZZZZZZZ.jpg

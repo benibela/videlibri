@@ -1,0 +1,58 @@
+count=0
+count=1
+book-start()=
+book.searchid=START=1
+book.library=DB=SEARCH_SBDUE
+book.detail-url=http://abderos.hbz-nrw.de/Digibib?SERVICE=METASEARCH&SUBSERVICE=GETRECORD&FORMAT=Full&DB=SEARCH_SBDUE&&COUNT=1&NL_START=0&PL_START=0&SID=&LOCATION=&LISTCOUNT=200&X&HIGHLIGHTTERMS=&START=1
+book.author=Grimbert, Philippe
+book.title=Ein Geheimnis
+book.year=2006
+book-end()=
+book-start()=
+book.searchid=START=2
+book.library=DB=SEARCH_SBDUE
+book.detail-url=http://abderos.hbz-nrw.de/Digibib?SERVICE=METASEARCH&SUBSERVICE=GETRECORD&FORMAT=Full&DB=SEARCH_SBDUE&&COUNT=1&NL_START=0&PL_START=0&SID=&LOCATION=&LISTCOUNT=200&X&HIGHLIGHTTERMS=&START=2
+book.author=Grimbert, Philippe
+book.title=Ein Geheimnis
+book.year=2007
+book-end()=
+book-start()=
+book.searchid=START=3
+book.library=DB=SEARCH_SBDUE
+book.detail-url=http://abderos.hbz-nrw.de/Digibib?SERVICE=METASEARCH&SUBSERVICE=GETRECORD&FORMAT=Full&DB=SEARCH_SBDUE&&COUNT=1&NL_START=0&PL_START=0&SID=&LOCATION=&LISTCOUNT=200&X&HIGHLIGHTTERMS=&START=3
+book.author=Grimbert, Philippe
+book.title=Un secret
+book.year=2006
+book-end()=
+book-start()=
+book.searchid=START=4
+book.library=DB=SEARCH_SBDUE
+book.detail-url=http://abderos.hbz-nrw.de/Digibib?SERVICE=METASEARCH&SUBSERVICE=GETRECORD&FORMAT=Full&DB=SEARCH_SBDUE&&COUNT=1&NL_START=0&PL_START=0&SID=&LOCATION=&LISTCOUNT=200&X&HIGHLIGHTTERMS=&START=4
+book.author=Grimbert, Pierre
+book.title=Les enfants de Ji
+book.year=
+book-end()=
+book-start()=
+book.searchid=START=5
+book.library=DB=SEARCH_SBDUE
+book.detail-url=http://abderos.hbz-nrw.de/Digibib?SERVICE=METASEARCH&SUBSERVICE=GETRECORD&FORMAT=Full&DB=SEARCH_SBDUE&&COUNT=1&NL_START=0&PL_START=0&SID=&LOCATION=&LISTCOUNT=200&X&HIGHLIGHTTERMS=&START=5
+book.author=Grimbert, Pierre
+book.title=Die Krieger
+book.year=
+book-end()=
+book-start()=
+book.searchid=START=6
+book.library=DB=SEARCH_SBDUE
+book.detail-url=http://abderos.hbz-nrw.de/Digibib?SERVICE=METASEARCH&SUBSERVICE=GETRECORD&FORMAT=Full&DB=SEARCH_SBDUE&&COUNT=1&NL_START=0&PL_START=0&SID=&LOCATION=&LISTCOUNT=200&X&HIGHLIGHTTERMS=&START=6
+book.author=Grimbert, Pierre
+book.title=Die Magier
+book.year=
+book-end()=
+book-start()=
+book.searchid=START=7
+book.library=DB=SEARCH_SBDUE
+book.detail-url=http://abderos.hbz-nrw.de/Digibib?SERVICE=METASEARCH&SUBSERVICE=GETRECORD&FORMAT=Full&DB=SEARCH_SBDUE&&COUNT=1&NL_START=0&PL_START=0&SID=&LOCATION=&LISTCOUNT=200&X&HIGHLIGHTTERMS=&START=7
+book.author=Grimbert, Pierre
+book.title=Le secret de Ji
+book.year=
+book-end()=
