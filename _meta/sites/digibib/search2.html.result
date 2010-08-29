@@ -1,0 +1,684 @@
+count=0
+count=1
+book-start()=
+book.searchid=START=1
+book.library=DB=SEARCH_ULBD
+book.detail-url=http://abderos.hbz-nrw.de/Digibib?SERVICE=METASEARCH&SUBSERVICE=GETRECORD&FORMAT=Full&DB=SEARCH_ULBD&&COUNT=1&NL_START=0&PL_START=0&SID=&LOCATION=&LISTCOUNT=200&X&HIGHLIGHTTERMS=&START=1
+book.author=Escolano, Francisco
+book.title=Information theory in computer vision and pattern recognition
+book.year=2009
+book-end()=
+book-start()=
+book.searchid=START=2
+book.library=DB=SEARCH_ULBD
+book.detail-url=http://abderos.hbz-nrw.de/Digibib?SERVICE=METASEARCH&SUBSERVICE=GETRECORD&FORMAT=Full&DB=SEARCH_ULBD&&COUNT=1&NL_START=0&PL_START=0&SID=&LOCATION=&LISTCOUNT=200&X&HIGHLIGHTTERMS=&START=2
+book.author=Gomes, Jonas
+book.title=Image processing for computer graphics and vision
+book.year=2009
+book-end()=
+book-start()=
+book.searchid=START=3
+book.library=DB=SEARCH_ULBD
+book.detail-url=http://abderos.hbz-nrw.de/Digibib?SERVICE=METASEARCH&SUBSERVICE=GETRECORD&FORMAT=Full&DB=SEARCH_ULBD&&COUNT=1&NL_START=0&PL_START=0&SID=&LOCATION=&LISTCOUNT=200&X&HIGHLIGHTTERMS=&START=3
+book.author=Rosin, Paul L. [Hrsg.]
+book.title=Special issue Agent based computer vision
+book.year=2004
+book-end()=
+book-start()=
+book.searchid=START=4
+book.library=DB=SEARCH_ULBD
+book.detail-url=http://abderos.hbz-nrw.de/Digibib?SERVICE=METASEARCH&SUBSERVICE=GETRECORD&FORMAT=Full&DB=SEARCH_ULBD&&COUNT=1&NL_START=0&PL_START=0&SID=&LOCATION=&LISTCOUNT=200&X&HIGHLIGHTTERMS=&START=4
+book.author=Pajdla, Tomás [Hrsg.]
+book.title=Computer vision : proceedings
+book.year=2004
+book-end()=
+book-start()=
+book.searchid=START=5
+book.library=DB=SEARCH_ULBD
+book.detail-url=http://abderos.hbz-nrw.de/Digibib?SERVICE=METASEARCH&SUBSERVICE=GETRECORD&FORMAT=Full&DB=SEARCH_ULBD&&COUNT=1&NL_START=0&PL_START=0&SID=&LOCATION=&LISTCOUNT=200&X&HIGHLIGHTTERMS=&START=5
+book.author=Morris, Tim
+book.title=Computer vision and image processing
+book.year=2004
+book-end()=
+book-start()=
+book.searchid=START=6
+book.library=DB=SEARCH_ULBD
+book.detail-url=http://abderos.hbz-nrw.de/Digibib?SERVICE=METASEARCH&SUBSERVICE=GETRECORD&FORMAT=Full&DB=SEARCH_ULBD&&COUNT=1&NL_START=0&PL_START=0&SID=&LOCATION=&LISTCOUNT=200&X&HIGHLIGHTTERMS=&START=6
+book.author=Leonardis, Ales [Hrsg.]
+book.title=Special issue Kernel & subspace methods for computer vision
+book.year=2003
+book-end()=
+book-start()=
+book.searchid=START=7
+book.library=DB=SEARCH_ULBD
+book.detail-url=http://abderos.hbz-nrw.de/Digibib?SERVICE=METASEARCH&SUBSERVICE=GETRECORD&FORMAT=Full&DB=SEARCH_ULBD&&COUNT=1&NL_START=0&PL_START=0&SID=&LOCATION=&LISTCOUNT=200&X&HIGHLIGHTTERMS=&START=7
+book.author=Griffin, Lewis D. [Hrsg.]
+book.title=Scale Space methods in computer vision : proceedings
+book.year=2003
+book-end()=
+book-start()=
+book.searchid=START=8
+book.library=DB=SEARCH_ULBD
+book.detail-url=http://abderos.hbz-nrw.de/Digibib?SERVICE=METASEARCH&SUBSERVICE=GETRECORD&FORMAT=Full&DB=SEARCH_ULBD&&COUNT=1&NL_START=0&PL_START=0&SID=&LOCATION=&LISTCOUNT=200&X&HIGHLIGHTTERMS=&START=8
+book.author= 
+book.title=Computer Vision Dictionary
+book.year=2003
+book-end()=
+book-start()=
+book.searchid=START=9
+book.library=DB=SEARCH_ULBD
+book.detail-url=http://abderos.hbz-nrw.de/Digibib?SERVICE=METASEARCH&SUBSERVICE=GETRECORD&FORMAT=Full&DB=SEARCH_ULBD&&COUNT=1&NL_START=0&PL_START=0&SID=&LOCATION=&LISTCOUNT=200&X&HIGHLIGHTTERMS=&START=9
+book.author=Schiele, Bernt [Hrsg.]
+book.title=Special issue: Computer vision systems
+book.year=2003
+book-end()=
+book-start()=
+book.searchid=START=10
+book.library=DB=SEARCH_ULBD
+book.detail-url=http://abderos.hbz-nrw.de/Digibib?SERVICE=METASEARCH&SUBSERVICE=GETRECORD&FORMAT=Full&DB=SEARCH_ULBD&&COUNT=1&NL_START=0&PL_START=0&SID=&LOCATION=&LISTCOUNT=200&X&HIGHLIGHTTERMS=&START=10
+book.author=Olver, Peter J. [Hrsg.]
+book.title=Mathematical methods in computer vision
+book.year=2003
+book-end()=
+book-start()=
+book.searchid=START=11
+book.library=DB=SEARCH_ULBD
+book.detail-url=http://abderos.hbz-nrw.de/Digibib?SERVICE=METASEARCH&SUBSERVICE=GETRECORD&FORMAT=Full&DB=SEARCH_ULBD&&COUNT=1&NL_START=0&PL_START=0&SID=&LOCATION=&LISTCOUNT=200&X&HIGHLIGHTTERMS=&START=11
+book.author=Pavilidis, Ioannis [Hrsg.]
+book.title=Special issue: Computer vision
+book.year=2003
+book-end()=
+book-start()=
+book.searchid=START=12
+book.library=DB=SEARCH_ULBD
+book.detail-url=http://abderos.hbz-nrw.de/Digibib?SERVICE=METASEARCH&SUBSERVICE=GETRECORD&FORMAT=Full&DB=SEARCH_ULBD&&COUNT=1&NL_START=0&PL_START=0&SID=&LOCATION=&LISTCOUNT=200&X&HIGHLIGHTTERMS=&START=12
+book.author=Bowden, Richard [Hrsg.]
+book.title=Special issue: Probabilistic models in computer vision
+book.year=2003
+book-end()=
+book-start()=
+book.searchid=START=13
+book.library=DB=SEARCH_ULBD
+book.detail-url=http://abderos.hbz-nrw.de/Digibib?SERVICE=METASEARCH&SUBSERVICE=GETRECORD&FORMAT=Full&DB=SEARCH_ULBD&&COUNT=1&NL_START=0&PL_START=0&SID=&LOCATION=&LISTCOUNT=200&X&HIGHLIGHTTERMS=&START=13
+book.author= 
+book.title=Electronic letters on computer vision and image analysis : Elcvia
+book.year=2002
+book-end()=
+book-start()=
+book.searchid=START=14
+book.library=DB=SEARCH_ULBD
+book.detail-url=http://abderos.hbz-nrw.de/Digibib?SERVICE=METASEARCH&SUBSERVICE=GETRECORD&FORMAT=Full&DB=SEARCH_ULBD&&COUNT=1&NL_START=0&PL_START=0&SID=&LOCATION=&LISTCOUNT=200&X&HIGHLIGHTTERMS=&START=14
+book.author=Leopoldseder, Hannes
+book.title=Prixars electronica 2002 cyberarts : international compendium Prix Ars Electronica - net vision , net excellence, interactive art, computer animation, visual effects, digital musics, cybergeneration, u19-freestyle computing
+book.year=2002
+book-end()=
+book-start()=
+book.searchid=START=15
+book.library=DB=SEARCH_ULBD
+book.detail-url=http://abderos.hbz-nrw.de/Digibib?SERVICE=METASEARCH&SUBSERVICE=GETRECORD&FORMAT=Full&DB=SEARCH_ULBD&&COUNT=1&NL_START=0&PL_START=0&SID=&LOCATION=&LISTCOUNT=200&X&HIGHLIGHTTERMS=&START=15
+book.author=Heyden, Anders [Hrsg.]
+book.title=Computer vision : proceedings
+book.year=2002
+book-end()=
+book-start()=
+book.searchid=START=16
+book.library=DB=SEARCH_ULBD
+book.detail-url=http://abderos.hbz-nrw.de/Digibib?SERVICE=METASEARCH&SUBSERVICE=GETRECORD&FORMAT=Full&DB=SEARCH_ULBD&&COUNT=1&NL_START=0&PL_START=0&SID=&LOCATION=&LISTCOUNT=200&X&HIGHLIGHTTERMS=&START=16
+book.author=Sethian, James A.
+book.title=Level set methods and fast marching methods : evolving interfaces in computational geometry, fluid mechanics, computer vision , and materials science
+book.year=2001
+book-end()=
+book-start()=
+book.searchid=START=17
+book.library=DB=SEARCH_ULBD
+book.detail-url=http://abderos.hbz-nrw.de/Digibib?SERVICE=METASEARCH&SUBSERVICE=GETRECORD&FORMAT=Full&DB=SEARCH_ULBD&&COUNT=1&NL_START=0&PL_START=0&SID=&LOCATION=&LISTCOUNT=200&X&HIGHLIGHTTERMS=&START=17
+book.author=Sommer, Gerald [Hrsg.]
+book.title=Geometric computing with Clifford algebras : theoretical foundations and applications in computer vision and robotics ; with 16 tables
+book.year=2001
+book-end()=
+book-start()=
+book.searchid=START=18
+book.library=DB=SEARCH_ULBD
+book.detail-url=http://abderos.hbz-nrw.de/Digibib?SERVICE=METASEARCH&SUBSERVICE=GETRECORD&FORMAT=Full&DB=SEARCH_ULBD&&COUNT=1&NL_START=0&PL_START=0&SID=&LOCATION=&LISTCOUNT=200&X&HIGHLIGHTTERMS=&START=18
+book.author=Flynn, Patrick J. [Hrsg.]
+book.title=Special issue Empirical evaluation of computer vision algorithms
+book.year=2001
+book-end()=
+book-start()=
+book.searchid=START=19
+book.library=DB=SEARCH_ULBD
+book.detail-url=http://abderos.hbz-nrw.de/Digibib?SERVICE=METASEARCH&SUBSERVICE=GETRECORD&FORMAT=Full&DB=SEARCH_ULBD&&COUNT=1&NL_START=0&PL_START=0&SID=&LOCATION=&LISTCOUNT=200&X&HIGHLIGHTTERMS=&START=19
+book.author=Kerckhove, Michael [Hrsg.]
+book.title=Scale space and morphology in computer vision : Third International Conference, Scale Space 2001, Vancouver, Canada, July 7 - 8, 2001 ; proceedings
+book.year=2001
+book-end()=
+book-start()=
+book.searchid=START=20
+book.library=DB=SEARCH_ULBD
+book.detail-url=http://abderos.hbz-nrw.de/Digibib?SERVICE=METASEARCH&SUBSERVICE=GETRECORD&FORMAT=Full&DB=SEARCH_ULBD&&COUNT=1&NL_START=0&PL_START=0&SID=&LOCATION=&LISTCOUNT=200&X&HIGHLIGHTTERMS=&START=20
+book.author=Lee, Seong-Whan
+book.title=Biologically motivated computer vision : proceedings
+book.year=2000
+book-end()=
+book-start()=
+book.searchid=START=21
+book.library=DB=SEARCH_ULBD
+book.detail-url=http://abderos.hbz-nrw.de/Digibib?SERVICE=METASEARCH&SUBSERVICE=GETRECORD&FORMAT=Full&DB=SEARCH_ULBD&&COUNT=1&NL_START=0&PL_START=0&SID=&LOCATION=&LISTCOUNT=200&X&HIGHLIGHTTERMS=&START=21
+book.author=Vernon, David [Hrsg.]
+book.title=Computer vision : proceedings
+book.year=2000
+book-end()=
+book-start()=
+book.searchid=START=22
+book.library=DB=SEARCH_ULBD
+book.detail-url=http://abderos.hbz-nrw.de/Digibib?SERVICE=METASEARCH&SUBSERVICE=GETRECORD&FORMAT=Full&DB=SEARCH_ULBD&&COUNT=1&NL_START=0&PL_START=0&SID=&LOCATION=&LISTCOUNT=200&X&HIGHLIGHTTERMS=&START=22
+book.author=Sethian, James A.
+book.title=Level set methods and fast marching methods : evolving interfaces in computational geometry, fluid mechanics, computer vision , and materials science
+book.year=1999
+book-end()=
+book-start()=
+book.searchid=START=23
+book.library=DB=SEARCH_ULBD
+book.detail-url=http://abderos.hbz-nrw.de/Digibib?SERVICE=METASEARCH&SUBSERVICE=GETRECORD&FORMAT=Full&DB=SEARCH_ULBD&&COUNT=1&NL_START=0&PL_START=0&SID=&LOCATION=&LISTCOUNT=200&X&HIGHLIGHTTERMS=&START=23
+book.author=International Conference on Computer Vision <7, 1999, Kerkyra>
+book.title=The proceedings of the seventh IEEE International Conference on Computer Vision : ICCV'99 ; September 20 - 27, 1999, Kerkyra, Greece
+book.year=1999
+book-end()=
+book-start()=
+book.searchid=START=24
+book.library=DB=SEARCH_ULBD
+book.detail-url=http://abderos.hbz-nrw.de/Digibib?SERVICE=METASEARCH&SUBSERVICE=GETRECORD&FORMAT=Full&DB=SEARCH_ULBD&&COUNT=1&NL_START=0&PL_START=0&SID=&LOCATION=&LISTCOUNT=200&X&HIGHLIGHTTERMS=&START=24
+book.author=Nielsen, Mads [Hrsg.]
+book.title=Scale space theories in computer vision : second international conference ; proceedings
+book.year=1999
+book-end()=
+book-start()=
+book.searchid=START=25
+book.library=DB=SEARCH_ULBD
+book.detail-url=http://abderos.hbz-nrw.de/Digibib?SERVICE=METASEARCH&SUBSERVICE=GETRECORD&FORMAT=Full&DB=SEARCH_ULBD&&COUNT=1&NL_START=0&PL_START=0&SID=&LOCATION=&LISTCOUNT=200&X&HIGHLIGHTTERMS=&START=25
+book.author=International Conference on Computer Vision <6, 1998, Bombay>
+book.title=Sixth International Conference on Computer Vision : January 4 - 7, 1998, Bombay, India
+book.year=1998
+book-end()=
+book-start()=
+book.searchid=START=26
+book.library=DB=SEARCH_ULBD
+book.detail-url=http://abderos.hbz-nrw.de/Digibib?SERVICE=METASEARCH&SUBSERVICE=GETRECORD&FORMAT=Full&DB=SEARCH_ULBD&&COUNT=1&NL_START=0&PL_START=0&SID=&LOCATION=&LISTCOUNT=200&X&HIGHLIGHTTERMS=&START=26
+book.author=Lasenby, Joan [Hrsg.]
+book.title=New geometric techniques in computer vision : a discussion ; discussion held 23 and 24 July 1997
+book.year=1998
+book-end()=
+book-start()=
+book.searchid=START=27
+book.library=DB=SEARCH_ULBD
+book.detail-url=http://abderos.hbz-nrw.de/Digibib?SERVICE=METASEARCH&SUBSERVICE=GETRECORD&FORMAT=Full&DB=SEARCH_ULBD&&COUNT=1&NL_START=0&PL_START=0&SID=&LOCATION=&LISTCOUNT=200&X&HIGHLIGHTTERMS=&START=27
+book.author= 
+book.title=Videre : journal of computer vision research
+book.year=1997
+book-end()=
+book-start()=
+book.searchid=START=28
+book.library=DB=SEARCH_ULBD
+book.detail-url=http://abderos.hbz-nrw.de/Digibib?SERVICE=METASEARCH&SUBSERVICE=GETRECORD&FORMAT=Full&DB=SEARCH_ULBD&&COUNT=1&NL_START=0&PL_START=0&SID=&LOCATION=&LISTCOUNT=200&X&HIGHLIGHTTERMS=&START=28
+book.author=Haar Romeny, Bart M. ter [Hrsg.]
+book.title=Scale space theory in computer vision : proceedings
+book.year=1997
+book-end()=
+book-start()=
+book.searchid=START=29
+book.library=DB=SEARCH_ULBD
+book.detail-url=http://abderos.hbz-nrw.de/Digibib?SERVICE=METASEARCH&SUBSERVICE=GETRECORD&FORMAT=Full&DB=SEARCH_ULBD&&COUNT=1&NL_START=0&PL_START=0&SID=&LOCATION=&LISTCOUNT=200&X&HIGHLIGHTTERMS=&START=29
+book.author=Buxton, Bernard F. [Hrsg.]
+book.title=Computer vision : proceedings
+book.year=1996
+book-end()=
+book-start()=
+book.searchid=START=30
+book.library=DB=SEARCH_ULBD
+book.detail-url=http://abderos.hbz-nrw.de/Digibib?SERVICE=METASEARCH&SUBSERVICE=GETRECORD&FORMAT=Full&DB=SEARCH_ULBD&&COUNT=1&NL_START=0&PL_START=0&SID=&LOCATION=&LISTCOUNT=200&X&HIGHLIGHTTERMS=&START=30
+book.author=6.2002 - 10.2006
+book.title=Medical image analysis : MedIA ; an international journal of computer vision , visualization and image- guided intervention in medicine
+book.year=1996
+book-end()=
+book-start()=
+book.searchid=START=31
+book.library=DB=SEARCH_ULBD
+book.detail-url=http://abderos.hbz-nrw.de/Digibib?SERVICE=METASEARCH&SUBSERVICE=GETRECORD&FORMAT=Full&DB=SEARCH_ULBD&&COUNT=1&NL_START=0&PL_START=0&SID=&LOCATION=&LISTCOUNT=200&X&HIGHLIGHTTERMS=&START=31
+book.author=61.1995 - 104.2006
+book.title=Computer vision and image understanding : CVIU
+book.year=1995
+book-end()=
+book-start()=
+book.searchid=START=32
+book.library=DB=SEARCH_ULBD
+book.detail-url=http://abderos.hbz-nrw.de/Digibib?SERVICE=METASEARCH&SUBSERVICE=GETRECORD&FORMAT=Full&DB=SEARCH_ULBD&&COUNT=1&NL_START=0&PL_START=0&SID=&LOCATION=&LISTCOUNT=200&X&HIGHLIGHTTERMS=&START=32
+book.author=Ahuja, Narendra [Hrsg.]
+book.title=Special volume on computer vision
+book.year=1995
+book-end()=
+book-start()=
+book.searchid=START=33
+book.library=DB=SEARCH_ULBD
+book.detail-url=http://abderos.hbz-nrw.de/Digibib?SERVICE=METASEARCH&SUBSERVICE=GETRECORD&FORMAT=Full&DB=SEARCH_ULBD&&COUNT=1&NL_START=0&PL_START=0&SID=&LOCATION=&LISTCOUNT=200&X&HIGHLIGHTTERMS=&START=33
+book.author=Crowley, James L. [Hrsg.]
+book.title=Vision as process : basic research on computer vision systems ; with 25 tables
+book.year=1995
+book-end()=
+book-start()=
+book.searchid=START=34
+book.library=DB=SEARCH_ULBD
+book.detail-url=http://abderos.hbz-nrw.de/Digibib?SERVICE=METASEARCH&SUBSERVICE=GETRECORD&FORMAT=Full&DB=SEARCH_ULBD&&COUNT=1&NL_START=0&PL_START=0&SID=&LOCATION=&LISTCOUNT=200&X&HIGHLIGHTTERMS=&START=34
+book.author=Lindeberg, Tony
+book.title=Scale space theory in computer vision
+book.year=1994
+book-end()=
+book-start()=
+book.searchid=START=35
+book.library=DB=SEARCH_ULBD
+book.detail-url=http://abderos.hbz-nrw.de/Digibib?SERVICE=METASEARCH&SUBSERVICE=GETRECORD&FORMAT=Full&DB=SEARCH_ULBD&&COUNT=1&NL_START=0&PL_START=0&SID=&LOCATION=&LISTCOUNT=200&X&HIGHLIGHTTERMS=&START=35
+book.author=Vernon, David [Hrsg.]
+book.title=Computer vision : craft, engineering, and science ; workshop proceedings, Killarney, Ireland, September 9/10, 1991
+book.year=1994
+book-end()=
+book-start()=
+book.searchid=START=36
+book.library=DB=SEARCH_ULBD
+book.detail-url=http://abderos.hbz-nrw.de/Digibib?SERVICE=METASEARCH&SUBSERVICE=GETRECORD&FORMAT=Full&DB=SEARCH_ULBD&&COUNT=1&NL_START=0&PL_START=0&SID=&LOCATION=&LISTCOUNT=200&X&HIGHLIGHTTERMS=&START=36
+book.author=Jolion, Jean-Michel
+book.title=A pyramid framework for early vision : multiresolutional computer vision
+book.year=1994
+book-end()=
+book-start()=
+book.searchid=START=37
+book.library=DB=SEARCH_ULBD
+book.detail-url=http://abderos.hbz-nrw.de/Digibib?SERVICE=METASEARCH&SUBSERVICE=GETRECORD&FORMAT=Full&DB=SEARCH_ULBD&&COUNT=1&NL_START=0&PL_START=0&SID=&LOCATION=&LISTCOUNT=200&X&HIGHLIGHTTERMS=&START=37
+book.author=Eklundh, Jan-Olof [Hrsg.]
+book.title=Computer vision : proceedings
+book.year=1994
+book-end()=
+book-start()=
+book.searchid=START=38
+book.library=DB=SEARCH_ULBD
+book.detail-url=http://abderos.hbz-nrw.de/Digibib?SERVICE=METASEARCH&SUBSERVICE=GETRECORD&FORMAT=Full&DB=SEARCH_ULBD&&COUNT=1&NL_START=0&PL_START=0&SID=&LOCATION=&LISTCOUNT=200&X&HIGHLIGHTTERMS=&START=38
+book.author=Klette, Reinhard [Hrsg.]
+book.title=Theoretical foundations of computer vision : proceedings of the Vth workshop 1992, Buckow (Märkische Schweiz) March 30 - April 3, 1992
+book.year=1993
+book-end()=
+book-start()=
+book.searchid=START=39
+book.library=DB=SEARCH_ULBD
+book.detail-url=http://abderos.hbz-nrw.de/Digibib?SERVICE=METASEARCH&SUBSERVICE=GETRECORD&FORMAT=Full&DB=SEARCH_ULBD&&COUNT=1&NL_START=0&PL_START=0&SID=&LOCATION=&LISTCOUNT=200&X&HIGHLIGHTTERMS=&START=39
+book.author= 
+book.title=Computer vision and image understanding : CVIU
+book.year=1993
+book-end()=
+book-start()=
+book.searchid=START=40
+book.library=DB=SEARCH_ULBD
+book.detail-url=http://abderos.hbz-nrw.de/Digibib?SERVICE=METASEARCH&SUBSERVICE=GETRECORD&FORMAT=Full&DB=SEARCH_ULBD&&COUNT=1&NL_START=0&PL_START=0&SID=&LOCATION=&LISTCOUNT=200&X&HIGHLIGHTTERMS=&START=40
+book.author=International Conference on Computer Vision <4, 1993, Berlin>
+book.title=Proceedings Fourth International Conference on Computer Vision : May 11 - 14, 1993, Berlin, Germany
+book.year=1993
+book-end()=
+book-start()=
+book.searchid=START=41
+book.library=DB=SEARCH_ULBD
+book.detail-url=http://abderos.hbz-nrw.de/Digibib?SERVICE=METASEARCH&SUBSERVICE=GETRECORD&FORMAT=Full&DB=SEARCH_ULBD&&COUNT=1&NL_START=0&PL_START=0&SID=&LOCATION=&LISTCOUNT=200&X&HIGHLIGHTTERMS=&START=41
+book.author=Nalwa, Vishvjit S.
+book.title=A guided tour of computer vision
+book.year=1993
+book-end()=
+book-start()=
+book.searchid=START=42
+book.library=DB=SEARCH_ULBD
+book.detail-url=http://abderos.hbz-nrw.de/Digibib?SERVICE=METASEARCH&SUBSERVICE=GETRECORD&FORMAT=Full&DB=SEARCH_ULBD&&COUNT=1&NL_START=0&PL_START=0&SID=&LOCATION=&LISTCOUNT=200&X&HIGHLIGHTTERMS=&START=42
+book.author=Faugeras, Olivier
+book.title=Three-dimensional computer vision : a geometric viewpoint
+book.year=1993
+book-end()=
+book-start()=
+book.searchid=START=43
+book.library=DB=SEARCH_ULBD
+book.detail-url=http://abderos.hbz-nrw.de/Digibib?SERVICE=METASEARCH&SUBSERVICE=GETRECORD&FORMAT=Full&DB=SEARCH_ULBD&&COUNT=1&NL_START=0&PL_START=0&SID=&LOCATION=&LISTCOUNT=200&X&HIGHLIGHTTERMS=&START=43
+book.author=Sandini, Giulio [Hrsg.]
+book.title=Computer vision : proceedings
+book.year=1992
+book-end()=
+book-start()=
+book.searchid=START=44
+book.library=DB=SEARCH_ULBD
+book.detail-url=http://abderos.hbz-nrw.de/Digibib?SERVICE=METASEARCH&SUBSERVICE=GETRECORD&FORMAT=Full&DB=SEARCH_ULBD&&COUNT=1&NL_START=0&PL_START=0&SID=&LOCATION=&LISTCOUNT=200&X&HIGHLIGHTTERMS=&START=44
+book.author=Förstner, Wolfgang [Hrsg.]
+book.title=Robust computer vision : quality of vision algorithms
+book.year=1992
+book-end()=
+book-start()=
+book.searchid=START=45
+book.library=DB=SEARCH_ULBD
+book.detail-url=http://abderos.hbz-nrw.de/Digibib?SERVICE=METASEARCH&SUBSERVICE=GETRECORD&FORMAT=Full&DB=SEARCH_ULBD&&COUNT=1&NL_START=0&PL_START=0&SID=&LOCATION=&LISTCOUNT=200&X&HIGHLIGHTTERMS=&START=45
+book.author=Zhou, Yi-Tong
+book.title=Artificial neural networks for computer vision
+book.year=1992
+book-end()=
+book-start()=
+book.searchid=START=46
+book.library=DB=SEARCH_ULBD
+book.detail-url=http://abderos.hbz-nrw.de/Digibib?SERVICE=METASEARCH&SUBSERVICE=GETRECORD&FORMAT=Full&DB=SEARCH_ULBD&&COUNT=1&NL_START=0&PL_START=0&SID=&LOCATION=&LISTCOUNT=200&X&HIGHLIGHTTERMS=&START=46
+book.author=Barrett, Anthony [Hrsg.]
+book.title=Computer vision and image processing
+book.year=1991
+book-end()=
+book-start()=
+book.searchid=START=47
+book.library=DB=SEARCH_ULBD
+book.detail-url=http://abderos.hbz-nrw.de/Digibib?SERVICE=METASEARCH&SUBSERVICE=GETRECORD&FORMAT=Full&DB=SEARCH_ULBD&&COUNT=1&NL_START=0&PL_START=0&SID=&LOCATION=&LISTCOUNT=200&X&HIGHLIGHTTERMS=&START=47
+book.author=Faugeras, Olivier [Hrsg.]
+book.title=Computer vision : proceedings
+book.year=1990
+book-end()=
+book-start()=
+book.searchid=START=48
+book.library=DB=SEARCH_ULBD
+book.detail-url=http://abderos.hbz-nrw.de/Digibib?SERVICE=METASEARCH&SUBSERVICE=GETRECORD&FORMAT=Full&DB=SEARCH_ULBD&&COUNT=1&NL_START=0&PL_START=0&SID=&LOCATION=&LISTCOUNT=200&X&HIGHLIGHTTERMS=&START=48
+book.author=Krzyzak, Adam [Hrsg.]
+book.title=Computer vision and shape recognition
+book.year=1989
+book-end()=
+book-start()=
+book.searchid=START=49
+book.library=DB=SEARCH_ULBD
+book.detail-url=http://abderos.hbz-nrw.de/Digibib?SERVICE=METASEARCH&SUBSERVICE=GETRECORD&FORMAT=Full&DB=SEARCH_ULBD&&COUNT=1&NL_START=0&PL_START=0&SID=&LOCATION=&LISTCOUNT=200&X&HIGHLIGHTTERMS=&START=49
+book.author=Krotkov, Eric Paul
+book.title=Active computer vision by cooperative focus and stereo
+book.year=1989
+book-end()=
+book-start()=
+book.searchid=START=50
+book.library=DB=SEARCH_ULBD
+book.detail-url=http://abderos.hbz-nrw.de/Digibib?SERVICE=METASEARCH&SUBSERVICE=GETRECORD&FORMAT=Full&DB=SEARCH_ULBD&&COUNT=1&NL_START=0&PL_START=0&SID=&LOCATION=&LISTCOUNT=200&X&HIGHLIGHTTERMS=&START=50
+book.author=Fisher, Robert B.
+book.title=From surfaces to objects : computer vision and three dimensional scene analysis
+book.year=1989
+book-end()=
+book-start()=
+book.searchid=START=51
+book.library=DB=SEARCH_ULBD
+book.detail-url=http://abderos.hbz-nrw.de/Digibib?SERVICE=METASEARCH&SUBSERVICE=GETRECORD&FORMAT=Full&DB=SEARCH_ULBD&&COUNT=1&NL_START=0&PL_START=0&SID=&LOCATION=&LISTCOUNT=200&X&HIGHLIGHTTERMS=&START=51
+book.author=Dew, Peter M. [Hrsg.]
+book.title=Parallel processing for computer vision and display : [papers presented at the International Conference on Computer Vision and Display, held at University of Leeds on 12-15 January 1988]
+book.year=1989
+book-end()=
+book-start()=
+book.searchid=START=52
+book.library=DB=SEARCH_ULBD
+book.detail-url=http://abderos.hbz-nrw.de/Digibib?SERVICE=METASEARCH&SUBSERVICE=GETRECORD&FORMAT=Full&DB=SEARCH_ULBD&&COUNT=1&NL_START=0&PL_START=0&SID=&LOCATION=&LISTCOUNT=200&X&HIGHLIGHTTERMS=&START=52
+book.author=Sanz, Jorge L. C.
+book.title=Radon and projection transform-based computer vision : algorithms, a pipeline architecture, and industrial applications
+book.year=1988
+book-end()=
+book-start()=
+book.searchid=START=53
+book.library=DB=SEARCH_ULBD
+book.detail-url=http://abderos.hbz-nrw.de/Digibib?SERVICE=METASEARCH&SUBSERVICE=GETRECORD&FORMAT=Full&DB=SEARCH_ULBD&&COUNT=1&NL_START=0&PL_START=0&SID=&LOCATION=&LISTCOUNT=200&X&HIGHLIGHTTERMS=&START=53
+book.author=Boyle, Roger D.
+book.title=Computer vision : a first course
+book.year=1988
+book-end()=
+book-start()=
+book.searchid=START=54
+book.library=DB=SEARCH_ULBD
+book.detail-url=http://abderos.hbz-nrw.de/Digibib?SERVICE=METASEARCH&SUBSERVICE=GETRECORD&FORMAT=Full&DB=SEARCH_ULBD&&COUNT=1&NL_START=0&PL_START=0&SID=&LOCATION=&LISTCOUNT=200&X&HIGHLIGHTTERMS=&START=54
+book.author=Page, Ian [Hrsg.]
+book.title=Parallel architectures and computer vision : [based on the proceedings of a Workshop on Parallel Architectures and Computer Vision , organized by the British Computer Society and held in Oxford, 30 - 31 March 1987]
+book.year=1988
+book-end()=
+book-start()=
+book.searchid=START=55
+book.library=DB=SEARCH_ULBD
+book.detail-url=http://abderos.hbz-nrw.de/Digibib?SERVICE=METASEARCH&SUBSERVICE=GETRECORD&FORMAT=Full&DB=SEARCH_ULBD&&COUNT=1&NL_START=0&PL_START=0&SID=&LOCATION=&LISTCOUNT=200&X&HIGHLIGHTTERMS=&START=55
+book.author=International Conference on Computer Vision <2, 1988, Tampa, Fla.>
+book.title=Second International Conference on Computer Vision : December 5-8, 1988, Innisbrook Resort, Tampa, Florida, USA
+book.year=1988
+book-end()=
+book-start()=
+book.searchid=START=56
+book.library=DB=SEARCH_ULBD
+book.detail-url=http://abderos.hbz-nrw.de/Digibib?SERVICE=METASEARCH&SUBSERVICE=GETRECORD&FORMAT=Full&DB=SEARCH_ULBD&&COUNT=1&NL_START=0&PL_START=0&SID=&LOCATION=&LISTCOUNT=200&X&HIGHLIGHTTERMS=&START=56
+book.author=Shirai, Yoshiaki
+book.title=Three-dimensional computer vision
+book.year=1987
+book-end()=
+book-start()=
+book.searchid=START=57
+book.library=DB=SEARCH_ULBD
+book.detail-url=http://abderos.hbz-nrw.de/Digibib?SERVICE=METASEARCH&SUBSERVICE=GETRECORD&FORMAT=Full&DB=SEARCH_ULBD&&COUNT=1&NL_START=0&PL_START=0&SID=&LOCATION=&LISTCOUNT=200&X&HIGHLIGHTTERMS=&START=57
+book.author= 
+book.title=International journal of computer vision
+book.year=1987
+book-end()=
+book-start()=
+book.searchid=START=58
+book.library=DB=SEARCH_ULBD
+book.detail-url=http://abderos.hbz-nrw.de/Digibib?SERVICE=METASEARCH&SUBSERVICE=GETRECORD&FORMAT=Full&DB=SEARCH_ULBD&&COUNT=1&NL_START=0&PL_START=0&SID=&LOCATION=&LISTCOUNT=200&X&HIGHLIGHTTERMS=&START=58
+book.author=Haton, Jean-Paul [Hrsg.]
+book.title=Fundamentals in computer understanding: speech and vision
+book.year=1987
+book-end()=
+book-start()=
+book.searchid=START=59
+book.library=DB=SEARCH_ULBD
+book.detail-url=http://abderos.hbz-nrw.de/Digibib?SERVICE=METASEARCH&SUBSERVICE=GETRECORD&FORMAT=Full&DB=SEARCH_ULBD&&COUNT=1&NL_START=0&PL_START=0&SID=&LOCATION=&LISTCOUNT=200&X&HIGHLIGHTTERMS=&START=59
+book.author=Cantoni, Virginio [Hrsg.]
+book.title=Pyramidal systems for computer vision : [proceedings of the NATO Advanced Research Workshop on Pyramidal Systems for Image Processing and Computer Vision at Maratea, Italy, May 5 - 9, 1986]
+book.year=1986
+book-end()=
+book-start()=
+book.searchid=START=60
+book.library=DB=SEARCH_ULBD
+book.detail-url=http://abderos.hbz-nrw.de/Digibib?SERVICE=METASEARCH&SUBSERVICE=GETRECORD&FORMAT=Full&DB=SEARCH_ULBD&&COUNT=1&NL_START=0&PL_START=0&SID=&LOCATION=&LISTCOUNT=200&X&HIGHLIGHTTERMS=&START=60
+book.author=45.1989 - 52.1990
+book.title=Computer vision , graphics, and image processing : an internat. journal
+book.year=1983
+book-end()=
+book-start()=
+book.searchid=START=61
+book.library=DB=SEARCH_ULBD
+book.detail-url=http://abderos.hbz-nrw.de/Digibib?SERVICE=METASEARCH&SUBSERVICE=GETRECORD&FORMAT=Full&DB=SEARCH_ULBD&&COUNT=1&NL_START=0&PL_START=0&SID=&LOCATION=&LISTCOUNT=200&X&HIGHLIGHTTERMS=&START=61
+book.author= 
+book.title=Computer vision , graphics, and image processing
+book.year=1983
+book-end()=
+book-start()=
+book.searchid=START=62
+book.library=DB=SEARCH_ULBD
+book.detail-url=http://abderos.hbz-nrw.de/Digibib?SERVICE=METASEARCH&SUBSERVICE=GETRECORD&FORMAT=Full&DB=SEARCH_ULBD&&COUNT=1&NL_START=0&PL_START=0&SID=&LOCATION=&LISTCOUNT=200&X&HIGHLIGHTTERMS=&START=62
+book.author=Ballard, Dana H.
+book.title=Computer vision
+book.year=1982
+book-end()=
+book-start()=
+book.searchid=START=63
+book.library=DB=SEARCH_ULBD
+book.detail-url=http://abderos.hbz-nrw.de/Digibib?SERVICE=METASEARCH&SUBSERVICE=GETRECORD&FORMAT=Full&DB=SEARCH_ULBD&&COUNT=1&NL_START=0&PL_START=0&SID=&LOCATION=&LISTCOUNT=200&X&HIGHLIGHTTERMS=&START=63
+book.author=Brady, Michael [Hrsg.]
+book.title=Special volume on computer vision
+book.year=1981
+book-end()=
+book-start()=
+book.searchid=START=64
+book.library=DB=SEARCH_ULBD
+book.detail-url=http://abderos.hbz-nrw.de/Digibib?SERVICE=METASEARCH&SUBSERVICE=GETRECORD&FORMAT=Full&DB=SEARCH_ULBD&&COUNT=1&NL_START=0&PL_START=0&SID=&LOCATION=&LISTCOUNT=200&X&HIGHLIGHTTERMS=&START=64
+book.author= 
+book.title=Understanding vision , manipulation, computer design, symbol manipulation
+book.year=1980
+book-end()=
+book-start()=
+book.searchid=START=65
+book.library=DB=SEARCH_ULBD
+book.detail-url=http://abderos.hbz-nrw.de/Digibib?SERVICE=METASEARCH&SUBSERVICE=GETRECORD&FORMAT=Full&DB=SEARCH_ULBD&&COUNT=1&NL_START=0&PL_START=0&SID=&LOCATION=&LISTCOUNT=200&X&HIGHLIGHTTERMS=&START=65
+book.author= 
+book.title=Understanding vision , manipulation, computer design, symbol manipulation
+book.year=1979
+book-end()=
+book-start()=
+book.searchid=START=66
+book.library=DB=SEARCH_ULBD
+book.detail-url=http://abderos.hbz-nrw.de/Digibib?SERVICE=METASEARCH&SUBSERVICE=GETRECORD&FORMAT=Full&DB=SEARCH_ULBD&&COUNT=1&NL_START=0&PL_START=0&SID=&LOCATION=&LISTCOUNT=200&X&HIGHLIGHTTERMS=&START=66
+book.author=Hanson, Allen R. [Hrsg.]
+book.title=Computer vision systems : [papers from the Workshop on Computer Vision Systems, held at the Univ. of Mass., Amherst, Mass., June 1-3, 1977]
+book.year=1978
+book-end()=
+book-start()=
+book.searchid=START=67
+book.library=DB=SEARCH_ULBD
+book.detail-url=http://abderos.hbz-nrw.de/Digibib?SERVICE=METASEARCH&SUBSERVICE=GETRECORD&FORMAT=Full&DB=SEARCH_ULBD&&COUNT=1&NL_START=0&PL_START=0&SID=&LOCATION=&LISTCOUNT=200&X&HIGHLIGHTTERMS=&START=67
+book.author=Winston, Patrick Henry [Hrsg.]
+book.title=The psychology of computer vision
+book.year=1975
+book-end()=
+book-start()=
+book.searchid=START=68
+book.library=DB=SEARCH_ULBD
+book.detail-url=http://abderos.hbz-nrw.de/Digibib?SERVICE=METASEARCH&SUBSERVICE=GETRECORD&FORMAT=Full&DB=SEARCH_ULBD&&COUNT=1&NL_START=0&PL_START=0&SID=&LOCATION=&LISTCOUNT=200&X&HIGHLIGHTTERMS=&START=68
+book.author=Haralick, Robert M.
+book.title=Computer and robot vision
+book.year=
+book-end()=
+book-start()=
+book.searchid=START=69
+book.library=DB=SEARCH_ULBD
+book.detail-url=http://abderos.hbz-nrw.de/Digibib?SERVICE=METASEARCH&SUBSERVICE=GETRECORD&FORMAT=Full&DB=SEARCH_ULBD&&COUNT=1&NL_START=0&PL_START=0&SID=&LOCATION=&LISTCOUNT=200&X&HIGHLIGHTTERMS=&START=69
+book.author=Burkhardt, Hans [Hrsg.]
+book.title=Computer vision : proceedings
+book.year=
+book-end()=
+count=0
+count=1
+book-start()=
+book.searchid=START=1
+book.library=DB=SEARCH_FHBDUE
+book.detail-url=http://abderos.hbz-nrw.de/Digibib?SERVICE=METASEARCH&SUBSERVICE=GETRECORD&FORMAT=Full&DB=SEARCH_FHBDUE&&COUNT=1&NL_START=0&PL_START=0&SID=&LOCATION=&LISTCOUNT=200&X&HIGHLIGHTTERMS=&START=1
+book.author=Wöhler, Christian
+book.title=3D computer vision : efficient methods and applications
+book.year=2009
+book-end()=
+book-start()=
+book.searchid=START=2
+book.library=DB=SEARCH_FHBDUE
+book.detail-url=http://abderos.hbz-nrw.de/Digibib?SERVICE=METASEARCH&SUBSERVICE=GETRECORD&FORMAT=Full&DB=SEARCH_FHBDUE&&COUNT=1&NL_START=0&PL_START=0&SID=&LOCATION=&LISTCOUNT=200&X&HIGHLIGHTTERMS=&START=2
+book.author=Bradski, Gary R.
+book.title=Learning OpenCV : [ computer vision with the OpenCV library ; software that sees]
+book.year=2008
+book-end()=
+book-start()=
+book.searchid=START=3
+book.library=DB=SEARCH_FHBDUE
+book.detail-url=http://abderos.hbz-nrw.de/Digibib?SERVICE=METASEARCH&SUBSERVICE=GETRECORD&FORMAT=Full&DB=SEARCH_FHBDUE&&COUNT=1&NL_START=0&PL_START=0&SID=&LOCATION=&LISTCOUNT=200&X&HIGHLIGHTTERMS=&START=3
+book.author=Hartley, Richard
+book.title=Multiple view geometry in computer vision
+book.year=2008
+book-end()=
+book-start()=
+book.searchid=START=4
+book.library=DB=SEARCH_FHBDUE
+book.detail-url=http://abderos.hbz-nrw.de/Digibib?SERVICE=METASEARCH&SUBSERVICE=GETRECORD&FORMAT=Full&DB=SEARCH_FHBDUE&&COUNT=1&NL_START=0&PL_START=0&SID=&LOCATION=&LISTCOUNT=200&X&HIGHLIGHTTERMS=&START=4
+book.author=Azad, Pedram
+book.title=Computer Vision : Das Praxisbuch
+book.year=2007
+book-end()=
+book-start()=
+book.searchid=START=5
+book.library=DB=SEARCH_FHBDUE
+book.detail-url=http://abderos.hbz-nrw.de/Digibib?SERVICE=METASEARCH&SUBSERVICE=GETRECORD&FORMAT=Full&DB=SEARCH_FHBDUE&&COUNT=1&NL_START=0&PL_START=0&SID=&LOCATION=&LISTCOUNT=200&X&HIGHLIGHTTERMS=&START=5
+book.author=Leopoldseder, Hannes [Hrsg.]
+book.title=Prix Ars Electronica CyberArts 2006 : international compendium Prix Ars Electronica - computer animation, visual effects, digital musics, interactive art, net vision , digital communities, u19 - freestyle computing (the next idea)
+book.year=2006
+book-end()=
+book-start()=
+book.searchid=START=6
+book.library=DB=SEARCH_FHBDUE
+book.detail-url=http://abderos.hbz-nrw.de/Digibib?SERVICE=METASEARCH&SUBSERVICE=GETRECORD&FORMAT=Full&DB=SEARCH_FHBDUE&&COUNT=1&NL_START=0&PL_START=0&SID=&LOCATION=&LISTCOUNT=200&X&HIGHLIGHTTERMS=&START=6
+book.author=Paragios, Nikos [Hrsg.]
+book.title=Handbook of mathematical models in computer vision
+book.year=2006
+book-end()=
+book-start()=
+book.searchid=START=7
+book.library=DB=SEARCH_FHBDUE
+book.detail-url=http://abderos.hbz-nrw.de/Digibib?SERVICE=METASEARCH&SUBSERVICE=GETRECORD&FORMAT=Full&DB=SEARCH_FHBDUE&&COUNT=1&NL_START=0&PL_START=0&SID=&LOCATION=&LISTCOUNT=200&X&HIGHLIGHTTERMS=&START=7
+book.author= 
+book.title=Computer vision , graphics, and image processing
+book.year=1983
+book-end()=
+book-start()=
+book.searchid=START=8
+book.library=DB=SEARCH_FHBDUE
+book.detail-url=http://abderos.hbz-nrw.de/Digibib?SERVICE=METASEARCH&SUBSERVICE=GETRECORD&FORMAT=Full&DB=SEARCH_FHBDUE&&COUNT=1&NL_START=0&PL_START=0&SID=&LOCATION=&LISTCOUNT=200&X&HIGHLIGHTTERMS=&START=8
+book.author=Forsyth, David A.
+book.title=Computer vision : a modern approach
+book.year=2003
+book-end()=
+book-start()=
+book.searchid=START=9
+book.library=DB=SEARCH_FHBDUE
+book.detail-url=http://abderos.hbz-nrw.de/Digibib?SERVICE=METASEARCH&SUBSERVICE=GETRECORD&FORMAT=Full&DB=SEARCH_FHBDUE&&COUNT=1&NL_START=0&PL_START=0&SID=&LOCATION=&LISTCOUNT=200&X&HIGHLIGHTTERMS=&START=9
+book.author=Shapiro, Linda G.
+book.title=Computer vision
+book.year=2001
+book-end()=
+book-start()=
+book.searchid=START=10
+book.library=DB=SEARCH_FHBDUE
+book.detail-url=http://abderos.hbz-nrw.de/Digibib?SERVICE=METASEARCH&SUBSERVICE=GETRECORD&FORMAT=Full&DB=SEARCH_FHBDUE&&COUNT=1&NL_START=0&PL_START=0&SID=&LOCATION=&LISTCOUNT=200&X&HIGHLIGHTTERMS=&START=10
+book.author= 
+book.title=International journal of computer vision
+book.year=1987
+book-end()=
+book-start()=
+book.searchid=START=11
+book.library=DB=SEARCH_FHBDUE
+book.detail-url=http://abderos.hbz-nrw.de/Digibib?SERVICE=METASEARCH&SUBSERVICE=GETRECORD&FORMAT=Full&DB=SEARCH_FHBDUE&&COUNT=1&NL_START=0&PL_START=0&SID=&LOCATION=&LISTCOUNT=200&X&HIGHLIGHTTERMS=&START=11
+book.author= 
+book.title=Prix ars electronica : ... cyberarts ; international compendium prix ars electronica - computer animation, film, VFX - digital musics - hybrid art - interactive art - digital communities - (the next idea) - media.art.research award - u19 - freestyle computing
+book.year=1990
+book-end()=
+book-start()=
+book.searchid=START=12
+book.library=DB=SEARCH_FHBDUE
+book.detail-url=http://abderos.hbz-nrw.de/Digibib?SERVICE=METASEARCH&SUBSERVICE=GETRECORD&FORMAT=Full&DB=SEARCH_FHBDUE&&COUNT=1&NL_START=0&PL_START=0&SID=&LOCATION=&LISTCOUNT=200&X&HIGHLIGHTTERMS=&START=12
+book.author=Umbaugh, Scott E.
+book.title=Computer vision and image processing : a practical approach using CVIPtools
+book.year=1998
+book-end()=
+book-start()=
+book.searchid=START=13
+book.library=DB=SEARCH_FHBDUE
+book.detail-url=http://abderos.hbz-nrw.de/Digibib?SERVICE=METASEARCH&SUBSERVICE=GETRECORD&FORMAT=Full&DB=SEARCH_FHBDUE&&COUNT=1&NL_START=0&PL_START=0&SID=&LOCATION=&LISTCOUNT=200&X&HIGHLIGHTTERMS=&START=13
+book.author=Parker, Jim R.
+book.title=Algorithms for image processing and computer vision
+book.year=1997
+book-end()=
+book-start()=
+book.searchid=START=14
+book.library=DB=SEARCH_FHBDUE
+book.detail-url=http://abderos.hbz-nrw.de/Digibib?SERVICE=METASEARCH&SUBSERVICE=GETRECORD&FORMAT=Full&DB=SEARCH_FHBDUE&&COUNT=1&NL_START=0&PL_START=0&SID=&LOCATION=&LISTCOUNT=200&X&HIGHLIGHTTERMS=&START=14
+book.author=Klette, Reinhard
+book.title=Computer - Vision : räumliche Information aus digitalen Bildern ; mit 64 Übungsaufgaben
+book.year=1996
+book-end()=
+book-start()=
+book.searchid=START=15
+book.library=DB=SEARCH_FHBDUE
+book.detail-url=http://abderos.hbz-nrw.de/Digibib?SERVICE=METASEARCH&SUBSERVICE=GETRECORD&FORMAT=Full&DB=SEARCH_FHBDUE&&COUNT=1&NL_START=0&PL_START=0&SID=&LOCATION=&LISTCOUNT=200&X&HIGHLIGHTTERMS=&START=15
+book.author=Krotkov, Eric Paul
+book.title=Active computer vision by cooperative focus and stereo
+book.year=1989
+book-end()=
+book-start()=
+book.searchid=START=16
+book.library=DB=SEARCH_FHBDUE
+book.detail-url=http://abderos.hbz-nrw.de/Digibib?SERVICE=METASEARCH&SUBSERVICE=GETRECORD&FORMAT=Full&DB=SEARCH_FHBDUE&&COUNT=1&NL_START=0&PL_START=0&SID=&LOCATION=&LISTCOUNT=200&X&HIGHLIGHTTERMS=&START=16
+book.author=Dodd, George G.
+book.title=Computer vision and sensor-based robots : [proceedings of the Symposium on Computer Vision and Sensor Based Robots, held at the General Motors Research Laboratories, Warren, Michigan, September 25 and 26, 1978]
+book.year=1979
+book-end()=

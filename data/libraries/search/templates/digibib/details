@@ -9,16 +9,27 @@
  <tr>
   <td class="field"><htmlparser:read source="text()" var="currentfield"/></td>
   <htmlparser:if test="'$currentField;' != 'Standort'">
-    <td class="fieldcontent"><htmlparser:read source="deepNodeText()" var="book.$currentfield;!"/></td>
+    <td class="fieldcontent"><htmlparser:read source="deepNodeText(' ')" var="book.$currentfield;!"/></td>
   </htmlparser:if>
   <htmlparser:if test="'$currentField;' == 'Standort'">
     <td class="fieldcontent">
-      <htmlparser:read source="text()" var="book.id"/>
-      <br htmlparser-optional="true"/><img htmlparser-optional="true"/> <!-- FHB 1 -->
-      <a htmlparser-optional="true"> <!-- STB -->
+      <htmlparser:read source="deepNodeText(' ')" var="book.id"/>
+      <!-- choose the last link for FHB -->
+      <htmlparser:loop>
+        <a htmlparser-optional="true"><htmlparser:read var="book.home-url" source="@href"/></a>
+      </htmlparser:loop>
+      <form htmlparser-optional="true">
+        <htmlparser:read var="book.home-url" source="concat(@action,'?')"/>
+        <htmlparser:loop>
+           <input><htmlparser:read var="book.home-url" source="concat('$book.home-url;',@name,'=',@value,'&')"/></input>
+        </htmlparser:loop>
+      </form>
+      <!--
+      <br htmlparser-optional="true"/><img htmlparser-optional="true"/> <!-- FHB 1 --
+      <a htmlparser-optional="true"> <!-- STB --
         <htmlparser:read var="book.home-url" source="@href"/>
       </a>
-      <br htmlparser-optional="true"/><img htmlparser-optional="true"/> <!-- FHB 2 -->
+      <br htmlparser-optional="true"/><img htmlparser-optional="true"/> <!-- FHB 2 --
       <a htmlparser-optional="true"> 
         <htmlparser:read var="book.home-url" source="@href"/>
       </a>
@@ -30,7 +41,7 @@
       </form>
       <br htmlparser-optional="true"/>
       <htmlparser:read source="text()" var="temp" regex=" .*$"/>     
-      <htmlparser:read source="'$book.id;$temp;'" var="book.id"/>     
+      <htmlparser:read source="'$book.id;$temp;'" var="book.id"/>     -->
     </td>
   </htmlparser:if>
  </tr>

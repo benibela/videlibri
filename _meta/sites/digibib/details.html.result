@@ -8,7 +8,6 @@ currentfield=Ort/Verlag
 book.Ort/Verlag!=München : Heyne
 currentfield=Standort
 book.id=WebOPAC
-temp=WebOPAC
-book.id=WebOPACWebOPAC
+book.home-url=http://was.duesseldorf.de/WebOPAC/QueryPanelServlet?homegkz=111&Suchbegriff=idnr=99.464145.1&Kriterium=Titel&Medienart=alle&Bibliothek=Stadtb%FCchereien%20D%FCsseldorf&x=43&y=6
 book.amazon-url=http://www.amazon.de/exec/obidos/ASIN//digitalebiblio02
 book.image-url=http://images-eu.amazon.com/images/P/.03.MZZZZZZZ.jpg

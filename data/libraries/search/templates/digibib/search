@@ -28,9 +28,9 @@
                   <!--<htmlparser:read source="'http://abderos.hbz-nrw.de/Digibib?SERVICE=METASEARCH&amp;SUBSERVICE=GETRECORD&amp;FORMAT=Full&amp;$book.library;&amp;$metaid;&amp;COUNT=1&amp;NL_START=0&amp;PL_START=0&amp;SID=$sid;&amp;LOCATION=&amp;LISTCOUNT=200&amp;X$reqid;&amp;HIGHLIGHTTERMS=&amp;$book.searchid;'" var="book.detail-url"/>-->
                   <htmlparser:read source="'http://abderos.hbz-nrw.de/Digibib?SERVICE=METASEARCH&SUBSERVICE=GETRECORD&FORMAT=Full&$book.library;&$metaid;&COUNT=1&NL_START=0&PL_START=0&SID=$sid;&LOCATION=&LISTCOUNT=200&X$reqid;&HIGHLIGHTTERMS=&$book.searchid;'" var="book.detail-url"/>
                   </a></td>
-           <td><htmlparser:read source="deepNodeText()" var="book.author"/></td>
-           <td><htmlparser:read source="deepNodeText()" var="book.title"/></td>
-           <td><htmlparser:read source="deepNodeText()" var="book.year"/></td>
+           <td><htmlparser:read source="deepNodeText(' ')" var="book.author"/></td>
+           <td><htmlparser:read source="deepNodeText(' ')" var="book.title"/></td>
+           <td><htmlparser:read source="deepNodeText(' ')" var="book.year"/></td>
            <htmlparser:read var="book-end()"/>
          </tr>
        </htmlparser:loop>

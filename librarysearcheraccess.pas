@@ -209,7 +209,11 @@ end;
 procedure TSearcherThread.callBookEventSynchronized;
 begin
   if self<>access.fthread then exit;
-  bookNotifyEvent(self,changedBook);
+  try
+    bookNotifyEvent(self,changedBook);
+  finally
+    changedBook := nil;
+  end;
 end;
 
 procedure TSearcherThread.callNotifyEvent(event: TNotifyEvent);
@@ -222,6 +226,9 @@ end;
 procedure TSearcherThread.callBookEvent(event: TBookNotifyEvent; book: tbook);
 begin
   if event=nil then exit;
+  if logging then log('Changed book: '+strFromPtr(changedBook));
+  while changedBook<>nil do sleep(5);
+  if logging then log('wait complete');
   bookNotifyEvent:=event;
   changedBook:=book;
   Synchronize(@callBookEventSynchronized);
@@ -231,45 +238,73 @@ procedure TSearcherThread.execute;
 var mes: TSearcherMessage;
     image:string;
     book: tbook;
+    i: Integer;
 begin
   while true do begin
     try
       performingAction:=false;
+      if logging then log('Searcher thread: wait for message');
       while not messages.existsMessage do sleep(5);
+      if logging then log('Searcher thread: possible message');
       mes:=TSearcherMessage(messages.retrieveMessageOrNil);
+      if logging then log('Searcher thread: got message'+strFromPtr(mes));
       if mes=nil then continue;
       if mes.typ=smtFree then begin
+        if logging then log('Searcher thread: message typ smtFree');
         mes.free;
         exit;
       end;
       performingAction:=true;
       book:=mes.book;
+      if logging then
+        if mes.book = nil then log('Message book: nil')
+        else begin
+          log('Message book: '+strFromPtr(book) +'  ' +book.title+' from '+book.author);
+          //for i:=0 to high(book.additional) do log('Book properties: '+book.additional[i].name+' = '+book.additional[i].value);
+        end;
       case mes.typ of
         smtConnect: begin
+          if logging then log('Searcher thread: message typ smtConnect');
           searcher.connect;
           callNotifyEvent(access.FOnConnected);
         end;
         smtSearch: begin
+          if logging then log('Searcher thread: message typ smtSearch');
           searcher.search;
           callNotifyEvent(access.FOnSearchComplete);
         end;
-        smtDetails:
+        smtDetails: begin
+          if logging then log('Searcher thread: message typ smtDetails');
           if getproperty('details-searched',book.additional)<>'true' then begin
+            if logging then log('Searcher thread: search details for '+book.title+' from '+book.author);
             Searcher.details(book);
             access.beginBookReading;
             addProperty('details-searched','true',book.additional);
             access.endBookReading;
             callBookEvent(access.FOnDetailsComplete,book);
           end;
-        smtImage:
-          if (getproperty('image-searched',book.additional)<>'true') and (getProperty('image-url',book.additional)<>'') then begin
-            image:=searcher.bookListReader.internet.get(getProperty('image-url',book.additional));
+        end;
+        smtImage: begin
+          if logging then log('Searcher thread: message typ smtImage: image-searched: '+getproperty('image-searched',book.additional)+'  image-url: '+getProperty('image-url',book.additional));
+          if (getproperty('image-searched',book.additional)<>'true') then begin
+            if (getProperty('image-url',book.additional)<>'') then begin
+              if logging then log('image url: '+getProperty('image-url',book.additional));
+              image:=searcher.bookListReader.internet.get(getProperty('image-url',book.additional));
+            end else image:='';
+            if logging then log('got image: size: '+IntToStr(length(image)));
             access.beginBookReading;
+            if logging then log('a');
             addProperty('image',image,book.additional);
+            if logging then log('b');
             addProperty('image-searched','true',book.additional);
+            if logging then log('c');
             access.endBookReading;
+            if logging then log('d');
             callBookEvent(access.FOnImageComplete,book);
+            if logging then log('e');
           end;
+        end;
+        else if logging then log('Searcher thread: unknown type');
       end;
       FreeAndNil(mes);
     except
@@ -290,6 +325,7 @@ begin
   Searcher.bookListReader.bookAccessSection:=@fbookAccessSection;
   self.access:=aaccess;
   messages:=TMessageSystem.create;
+  changedBook:=nil;
   FreeOnTerminate:=true;
   inherited create(false);
 end;

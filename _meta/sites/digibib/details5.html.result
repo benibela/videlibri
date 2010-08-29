@@ -1,0 +1,23 @@
+currentfield=Titel
+book.Titel!=Geometric computing with Clifford algebras : theoretical foundations and applications in computer vision and robotics ; with 16 tables / Gerald Sommer (ed.)
+currentfield=Autor/in
+book.Autor/in!=Sommer, Gerald [Hrsg.]
+currentfield=Ort/Verlag
+book.Ort/Verlag!=Berlin [u.a.]: Springer
+currentfield=Jahr
+book.Jahr!=2001
+currentfield=Umfang
+book.Umfang!=XVIII, 551 S. : Ill., graph. Darst.
+currentfield=ISBN
+book.ISBN!=3-540-41198-4 Pp. : DM 129.00
+currentfield=Schlagwörter
+book.Schlagwörter!=Clifford-Algebra Clifford-Algebra / Anwendung
+currentfield=Standort
+book.id=  Standort: 45 Sign.: matf203.g345
+book.home-url=http://katalog.ub.uni-duesseldorf.de/F/?
+book.home-url=http://katalog.ub.uni-duesseldorf.de/F/?func=find-b&
+book.home-url=http://katalog.ub.uni-duesseldorf.de/F/?func=find-b&request=HT013149188&
+book.home-url=http://katalog.ub.uni-duesseldorf.de/F/?func=find-b&request=HT013149188&find_code=IDN&
+book.home-url=http://katalog.ub.uni-duesseldorf.de/F/?func=find-b&request=HT013149188&find_code=IDN&=Katalog-Eintrag&
+book.amazon-url=http://www.amazon.de/exec/obidos/ASIN/3540411984/digitalebiblio02
+book.image-url=http://images-eu.amazon.com/images/P/3540411984.03.MZZZZZZZ.jpg
