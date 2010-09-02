@@ -14,8 +14,8 @@ fi
 
 #=============WAS==============
 mkdir -p $OUTPATH/wasnrw
-TEMPLATES=(wasnrw/start wasnrw/KontoServlet)
-PAGES=(wasnrw/start.html wasnrw/BenutzerkontoServlet_books2.html)
+TEMPLATES=(wasnrw/start wasnrw/KontoServlet wasnrw/KontoServlet wasnrw/KontoServlet)
+PAGES=(wasnrw/start.html wasnrw/BenutzerkontoServlet_books.html wasnrw/BenutzerkontoServlet_books2.html wasnrw/BenutzerkontoServlet_empty.html)
 
 #=============ALEPH==============
 mkdir -p $OUTPATH/ulbdue
