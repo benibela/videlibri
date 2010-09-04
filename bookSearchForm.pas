@@ -434,8 +434,8 @@ begin
     if s[i] in [' ',',','.'] then s[i]:=' '
     else break;
   s:=trim(s);
-  while strliendswith(s,'Aufl') or strliendswith(s,'Ausg') or strliendswith(s,'Nachdr')
-        or strliendswith(s,'print') or strliendswith(s,' ed') or strliendswith(s,' pr') do begin
+  while striendswith(s,'Aufl') or striendswith(s,'Ausg') or striendswith(s,'Nachdr')
+        or striendswith(s,'print') or striendswith(s,' ed') or striendswith(s,' pr') do begin
     rp:=0;
     for i:=length(s) downto 2 do
       if (s[i] = '.') and (s[i-1] in ['0'..'9']) then begin
@@ -513,4 +513,4 @@ initialization
   {$I bookSearchForm.lrs}
 end.
 
-
+

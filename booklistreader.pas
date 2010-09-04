@@ -695,7 +695,7 @@ begin
     book.IssueDate:=parseDate(strconv(value),strcopyfrom(variable,pos(':',variable)+1))
   else if strlibeginswith(@variable[1],length(variable),'book.limitdate') then
     book.LimitDate:=parseDate(strconv(value),strcopyfrom(variable,pos(':',variable)+1))
-  else if strlibeginswith(variable,'book.') then
+  else if stribeginswith(variable,'book.') then
     setProperty(copy(variable,pos('.',variable)+1,length(variable)),value,book.Additional);
 end;
 
@@ -735,7 +735,7 @@ begin
       setBookProperty(currentBook,'book.author',value)
      else if (template.propertyTitleRegEx <> nil) and (template.propertyTitleRegEx.exec(variable)) then
       setBookProperty(currentBook,'book.title',value)
-     else if strlibeginswith(variable,'book.') then
+     else if stribeginswith(variable,'book.') then
       setBookProperty(currentBook,variable,value)
 
 end;
