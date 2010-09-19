@@ -19,14 +19,14 @@ PAGES=(wasnrw/start.html wasnrw/BenutzerkontoServlet_books.html wasnrw/Benutzerk
 
 #=============ALEPH==============
 mkdir -p $OUTPATH/ulbdue
-TEMPLATES=(${TEMPLATES[@]} ulbdue/start ulbdue/login ulbdue/loggedIn ulbdue/details ulbdue/update)
-PAGES=(${PAGES[@]} ulbdue/start.html ulbdue/login.html ulbdue/loggedIn.html ulbdue/details_1.html ulbdue/update_singlebook.html)
+TEMPLATES=(${TEMPLATES[@]} ulbdue/start ulbdue/login ulbdue/loggedIn ulbdue/details ulbdue/update ulbdue/update)
+PAGES=(${PAGES[@]} ulbdue/start.html ulbdue/login.html ulbdue/loggedIn.html ulbdue/details_1.html ulbdue/update_singlebook.html ulbdue/update_empty.html)
 
 #=============LIBERO==============
 mkdir -p $OUTPATH/libero54
 
-TEMPLATES=(${TEMPLATES[@]} libero54/start libero54/update libero54/update)
-PAGES=(${PAGES[@]} libero54/start.html libero54/update_empty.html libero54/update55sp73_empty.html)
+TEMPLATES=(${TEMPLATES[@]} libero54/start libero54/update libero54/update libero54/update libero54/update)
+PAGES=(${PAGES[@]} libero54/start.html libero54/update_empty.html libero54/update55sp73_empty.html libero54/update55sp4_2books.html libero54/update55sp73_books.html)
 
 #=============SISIS==============
 mkdir -p $OUTPATH/sisis

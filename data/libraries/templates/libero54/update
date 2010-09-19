@@ -30,8 +30,9 @@
           <th class="barcode" headers="th1_1"><htmlparser:read source="text()" var="book.id"/></th>
           <td headers="th1_2">
             <htmlparser:read source="text()" var="book.title"/>
+            <span class='ItemNotesLeader' htmlparser-optional=true/>
             <br htmlparser-optional="true"/>
-            <htmlparser:read source="deepNodeText()" var="temporaryStatusDetails"/>
+            <htmlparser:read source="text()" var="temporaryStatusDetails"/>
           </td>
           <td headers="th1_3"><htmlparser:read source="text()" var="book.author"/></td>
           <td headers="th1_4"><htmlparser:read source="text()" var="book.limitdate:d mmm yyyy"/></td>
