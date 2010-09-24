@@ -35,7 +35,7 @@ var programPath,userPath,dataPath:string;
     nextLimitStr: string;
 
     appFullTitle:string='VideLibri';
-    versionNumber:integer=997;//=>versionNumber/1000
+    versionNumber:integer=998;//=>versionNumber/1000
     newVersionInstalled: boolean=false;
 
     {$IFDEF WIN32}startedMutex:THandle=0;{$ENDIF}

@@ -13,14 +13,13 @@ uses
   libraryAccess, sendBackError, internetAccess, autoupdate, progressDialog,
   registrierung, nagform, bbdebugtools, bibtexexport, simplexmlparser,
   booklistreader, librarySearcher, bookListView, bookSearchForm,
-  librarySearcherAccess, extendedhtmlparser, autoMenuManager,
-  treelistviewpackage, LCLIntf, messagesystem;
+  librarySearcherAccess, extendedhtmlparser, autoMenuManager, LCLIntf, messagesystem;
 
 {$IFDEF WINDOWS}{$R manifest.rc}{$R icons.res}{$ENDIF}
 
 {$ASMMODE intel}
 
-{$IFDEF WINDOWS}{$R bookWatch.rc}{$ENDIF}
+//{$IFDEF WINDOWS}{$R bookWatch.rc}{$ENDIF}
 
 {$R bookWatch.res}
 

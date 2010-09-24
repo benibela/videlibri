@@ -1,8 +1,11 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <?xml-stylesheet type="text/xsl" href="../changelog.xsl"?>
 <changelog program="VideLibri">
-  <build version="0997" date="2010-02-16">
+  <build version="0998" date="2010-09-24">
     <installer url="http://www.benibela.de/bin/tools/videlibri-setup.exe"/>
+    <change level="minor">Interne Templates neugeschrieben</change>
+  </build>
+  <build version="0997" date="2010-02-16">
     <fix level="critical">FHB Düsseldorf: An Serverumzug angepasst. </fix>
     <change level="major">FHB Bochum: gestrichen</change>
     <change level="major">Läuft nun unter Linux</change>

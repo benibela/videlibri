@@ -31,14 +31,10 @@
         <LaunchingApplication PathPlusParams="\usr\X11R6\bin\xterm -T 'Lazarus Run Output' -e $(LazarusDir)\tools\runwait.sh $(TargetCmdLine)"/>
       </local>
     </RunParams>
-    <RequiredPackages Count="2">
+    <RequiredPackages Count="1">
       <Item1>
-        <PackageName Value="treelistviewpackage"/>
-        <MinVersion Valid="True"/>
-      </Item1>
-      <Item2>
         <PackageName Value="LCL"/>
-      </Item2>
+      </Item1>
     </RequiredPackages>
     <Units Count="30">
       <Unit0>
@@ -222,10 +218,10 @@
       <Filename Value="videlibri"/>
     </Target>
     <SearchPaths>
-      <IncludeFiles Value="..\..\..\components\pascal\data\;..\..\..\components\pascal\import\synapse\"/>
-      <OtherUnitFiles Value="..\..\..\components\pascal\import\regexpr\Source\;..\..\..\components\pascal\import\synapse\;..\..\..\components\lazarus\dialogs\;U:\components\pascal\data\;U:\components\pascal\import\regexpr\source\;U:\components\pascal\internet\;U:\components\pascal\system\;U:\components\lazarus\dialogs\;..\..\..\components\lazarus\internet\sendBackError\;..\..\..\components\pascal\internet\"/>
-      <SrcPath Value="..\..\..\components\pascal\import\synapse\;..\..\..\components\pascal\data\;..\..\..\components\pascal\system\;$(LazarusDir)\lcl\;..\..\..\components\pascal\internet\;..\..\..\components\lazarus\internet\;$(LazarusDir)\lcl\interfaces\$(LCLWidgetType)\"/>
-      <LCLWidgetType Value="gtk2"/>
+      <IncludeFiles Value="..\..\..\components\pascal\data;..\..\..\components\pascal\import\synapse"/>
+      <OtherUnitFiles Value="..\..\..\components\pascal\import\regexpr\Source;..\..\..\components\pascal\import\synapse;..\..\..\components\lazarus\dialogs;U:\components\pascal\data;U:\components\pascal\import\regexpr\source;U:\components\pascal\internet;U:\components\pascal\system;U:\components\lazarus\dialogs;..\..\..\components\lazarus\internet\sendBackError;..\..\..\components\pascal\internet"/>
+      <SrcPath Value="..\..\..\components\pascal\import\synapse;..\..\..\components\pascal\data;..\..\..\components\pascal\system;$(LazarusDir)\lcl;..\..\..\components\pascal\internet;..\..\..\components\lazarus\internet;$(LazarusDir)\lcl\interfaces\$(LCLWidgetType)"/>
+      <LCLWidgetType Value="win32"/>
     </SearchPaths>
     <Parsing>
       <SyntaxOptions>
@@ -236,15 +232,22 @@
     <CodeGeneration>
       <SmartLinkUnit Value="True"/>
       <SmallerCode Value="True"/>
+      <TargetCPU Value="i386"/>
+      <TargetOS Value="win32"/>
       <Optimizations>
         <OptimizationLevel Value="3"/>
       </Optimizations>
     </CodeGeneration>
     <Linking>
       <Debugging>
-        <GenerateDebugInfo Value="True"/>
+        <UseLineInfoUnit Value="False"/>
       </Debugging>
       <LinkSmart Value="True"/>
+      <Options>
+        <Win32>
+          <GraphicApplication Value="True"/>
+        </Win32>
+      </Options>
     </Linking>
     <Other>
       <CompilerMessages>

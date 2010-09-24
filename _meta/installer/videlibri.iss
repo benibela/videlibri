@@ -1,7 +1,7 @@
 [Setup]
 ;Change this in every version
-AppVerName=VideLibri 0.995
-AppVersion=0.995
+AppVerName=VideLibri 0.998
+AppVersion=0.998
 
 ;Don't change
 AppName=VideLibri
@@ -40,7 +40,7 @@ Source: "_meta\installer\add\data\machine.config"; DestDir: "{app}\data"; Compon
 Source: "_meta\installer\add_usbstick\data\machine.config"; DestDir: "{app}\data"; Components: usbstick; Flags: onlyifdoesntexist
 Source: "videlibri.exe"; DestDir: "{app}"; Components: main
 Source: "bbabout.dll"; DestDir: "{app}"; Components: main
-Source: "videlibri.chm"; DestDir: "{app}"; Components: help
+Source: "data\videlibri.chm"; DestDir: "{app}"; Components: help
 Source: "simplebrowser.exe"; DestDir: "{app}"; Components: browser
 
 [Icons]
