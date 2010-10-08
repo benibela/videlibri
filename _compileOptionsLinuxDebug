@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<CONFIG>
+  <CompilerOptions>
+    <Version Value="9"/>
+    <SearchPaths>
+      <IncludeFiles Value="../../../components/pascal/data;../../../components/pascal/import/synapse"/>
+      <OtherUnitFiles Value="../../../components/pascal/import/regexpr/Source;../../../components/pascal/import/synapse;../../../components/lazarus/dialogs;U:/components/pascal/data;U:/components/pascal/import/regexpr/source;U:/components/pascal/internet;U:/components/pascal/system;U:/components/lazarus/dialogs;../../../components/lazarus/internet/sendBackError;../../../components/pascal/internet"/>
+      <SrcPath Value="../../../components/pascal/import/synapse;../../../components/pascal/data;../../../components/pascal/system;$(LazarusDir)/lcl;../../../components/pascal/internet;../../../components/lazarus/internet;$(LazarusDir)/lcl/interfaces/$(LCLWidgetType)"/>
+      <LCLWidgetType Value="gtk2"/>
+    </SearchPaths>
+    <Parsing>
+      <SyntaxOptions>
+        <IncludeAssertionCode Value="True"/>
+        <UseAnsiStrings Value="False"/>
+      </SyntaxOptions>
+    </Parsing>
+    <CodeGeneration>
+      <SmallerCode Value="True"/>
+    </CodeGeneration>
+    <Linking>
+      <Debugging>
+        <UseLineInfoUnit Value="False"/>
+      </Debugging>
+    </Linking>
+    <Other>
+      <CompilerMessages>
+        <UseMsgFile Value="True"/>
+      </CompilerMessages>
+      <CompilerPath Value="$(CompPath)"/>
+    </Other>
+  </CompilerOptions>
+</CONFIG>

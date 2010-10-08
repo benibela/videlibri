@@ -1,0 +1,9 @@
+include components/lazarus/dialogs
+include components/lazarus/internet
+include components/pascal/data
+include components/pascal/import
+include components/pascal/internet
+include components/pascal/system
+include programs/internet/VideLibri
+exclude programs/internet/VideLibri/config
+exclude programs/internet/VideLibri/_meta/codegen
