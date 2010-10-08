@@ -297,8 +297,11 @@ uses bookwatchmain,internetaccess,controls,libraryaccess,math,FileUtil,bbutils,b
                  or (currentDate-userConfig.ReadInteger('updates','lastcheck',0)<userConfig.ReadInteger('updates','interval',3))) then
       exit;
     if logging then log('applicationUpdate really started');
-    updater:=TAutoUpdater.create(versionNumber,programpath,'http://www.benibela.de/updates/videlibri/version.xml'
-                                                          ,'http://www.benibela.de/updates/videlibri/changelog.xml');
+    //updater:=TAutoUpdater.create(versionNumber,programpath,'http://www.benibela.de/updates/videlibri/version.xml'
+    //                                                      ,'http://www.benibela.de/updates/videlibri/changelog.xml');
+    updater:=TAutoUpdater.create(versionNumber,programpath,'http://videlibri.hg.sourceforge.net/hgweb/videlibri/videlibri/raw-file/tip/programs/internet/VideLibri/_meta/version/version.xml'
+                                                          ,'http://videlibri.hg.sourceforge.net/hgweb/videlibri/videlibri/raw-file/tip/programs/internet/VideLibri/_meta/version/changelog.xml');
+
     if updater.existsUpdate then begin
       if { (not auto) or} (Application.MessageBox(pchar('Es gibt ein Update auf die Version '+floattostr(updater.newestVersion/1000)+':'#13#10#13#10+
                                               updater.listChanges+#13#10+
@@ -575,8 +578,10 @@ uses bookwatchmain,internetaccess,controls,libraryaccess,math,FileUtil,bbutils,b
     if commandLine.readInt('updated-to')<>0 then
       userConfig.WriteInteger('version','number',commandLine.readInt('updated-to'));
 
-    sharewareUser:=userConfig.ReadString('registration','user','');
-    sharewareCode:=userConfig.ReadString('registration','code','');
+//    sharewareUser:=userConfig.ReadString('registration','user','');
+//    sharewareCode:=userConfig.ReadString('registration','code','');
+    sharewareUser:='SourceForge';
+    sharewareCode:='A8I8D DF3D4 EJ2N9 76IJK';
 
 
 
