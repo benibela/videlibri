@@ -337,7 +337,7 @@ begin
     if not assigned(account) then
       raise EXCEPTION.Create('Kein Konto zum Verlängern ausgewählt');
     if account.isThreadRunning then
-      exit; //TODO: mehrere Threads beim verlängern erlauben
+      exit; //TODO!!!: mehrere Threads beim verlängern erlauben
     if GetThreadID <> MainThreadID then
       exit; //Nur vom Haupthread aus aufrufen
 

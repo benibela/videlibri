@@ -19,6 +19,9 @@
       <Language Value="0403"/>
       <CharSet Value="04E2"/>
     </VersionInfo>
+    <BuildModes Count="1">
+      <Item1 Name="default" Default="True"/>
+    </BuildModes>
     <PublishOptions>
       <Version Value="2"/>
       <IgnoreBinaries Value="False"/>
@@ -213,15 +216,11 @@
   </ProjectOptions>
   <CompilerOptions>
     <Version Value="9"/>
-    <PathDelim Value="\"/>
-    <Target>
-      <Filename Value="videlibri"/>
-    </Target>
     <SearchPaths>
-      <IncludeFiles Value="..\..\..\components\pascal\data;..\..\..\components\pascal\import\synapse"/>
-      <OtherUnitFiles Value="..\..\..\components\pascal\import\regexpr\Source;..\..\..\components\pascal\import\synapse;..\..\..\components\lazarus\dialogs;U:\components\pascal\data;U:\components\pascal\import\regexpr\source;U:\components\pascal\internet;U:\components\pascal\system;U:\components\lazarus\dialogs;..\..\..\components\lazarus\internet\sendBackError;..\..\..\components\pascal\internet"/>
-      <SrcPath Value="..\..\..\components\pascal\import\synapse;..\..\..\components\pascal\data;..\..\..\components\pascal\system;$(LazarusDir)\lcl;..\..\..\components\pascal\internet;..\..\..\components\lazarus\internet;$(LazarusDir)\lcl\interfaces\$(LCLWidgetType)"/>
-      <LCLWidgetType Value="win32"/>
+      <IncludeFiles Value="../../../components/pascal/data;../../../components/pascal/import/synapse"/>
+      <OtherUnitFiles Value="../../../components/pascal/import/regexpr/Source;../../../components/pascal/import/synapse;../../../components/lazarus/dialogs;../../../components/lazarus/internet/sendBackError;../../../components/pascal/internet"/>
+      <SrcPath Value="../../../components/pascal/import/synapse;../../../components/pascal/data;../../../components/pascal/system;$(LazarusDir)/lcl;../../../components/pascal/internet;../../../components/lazarus/internet;$(LazarusDir)/lcl/interfaces/$(LCLWidgetType)"/>
+      <LCLWidgetType Value="gtk2"/>
     </SearchPaths>
     <Parsing>
       <SyntaxOptions>
@@ -230,24 +229,12 @@
       </SyntaxOptions>
     </Parsing>
     <CodeGeneration>
-      <SmartLinkUnit Value="True"/>
       <SmallerCode Value="True"/>
-      <TargetCPU Value="i386"/>
-      <TargetOS Value="win32"/>
-      <Optimizations>
-        <OptimizationLevel Value="3"/>
-      </Optimizations>
     </CodeGeneration>
     <Linking>
       <Debugging>
         <UseLineInfoUnit Value="False"/>
       </Debugging>
-      <LinkSmart Value="True"/>
-      <Options>
-        <Win32>
-          <GraphicApplication Value="True"/>
-        </Win32>
-      </Options>
     </Linking>
     <Other>
       <CompilerMessages>
