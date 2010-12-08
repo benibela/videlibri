@@ -5,17 +5,14 @@
   <td><htmlparser:read var="book.issuedate:dd/mm/yy" source="text()"/></td>
  </tr>
  <tr>
-  <td>Fällig am:</td>
+  <td>Fällig</td>
   <td><htmlparser:read var="book.limitdate:dd/mm/yy" source="text()"/></td>
  </tr>
  <tr>
   <td>Verlängerung:</td>
   <td>
     <htmlparser:read var="book.status:problematic" source="text()"/>  
-    <htmlparser:read var="temp" source="text()" regex="[a-zA-Z]"/>  
-    <htmlparser:if test="'$temp;'==''">  
-    <a><htmlparser:read var="book.status:curious"/><htmlparser:read var="book.extendLink" source="@href"/>Jetzt verlängern</A>
-    </htmlparser:if>  
+    <a htmlparser-optional="true"><htmlparser:read var="book.status:curious"/><htmlparser:read var="book.extendLink" source="@href"/>Jetzt verlängern</a>
   </td>
  </tr>
  <!--<tr>
