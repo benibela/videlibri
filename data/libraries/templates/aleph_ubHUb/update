@@ -28,7 +28,7 @@
     <td><htmlparser:read var="book.author" source="text()"/></td> 
     <td><htmlparser:read var="book.title" source="text()"/></td> 
     <td><htmlparser:read var="book.year" source="text()"/></td> 
-    <td><htmlparser:read var="book.limitdate:dd/mm/yy" source="text()"/></td> 
+    <td><htmlparser:read var="book.limitdate:dd/mm/yyyy" source="text()"/></td> 
     <td><!--ignore: Limittime--></td> 
     <td><!--ignore: Gebühr--></td>
     <td><!--ignore: Standort--></td>      
@@ -40,7 +40,9 @@
     </tr> 
   </htmlparser:loop>
   </table> 
-  
+  <htmlparser:if test="'$book.detailLink;'==''">
+  Seitenlesefehler: Erwartete ausgeliehene Bücher, aber keine gefunden!
+  </htmlparser:if>
   </htmlparser:if>
 </body> 
 </html> 

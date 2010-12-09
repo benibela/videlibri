@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<library>
+  <username matches="^\d+$"/>
+  <password matches="."/>
+  <maxExtendCount value="5"/>
+
+  <longName value="Universitätsbibliothek der TU-Berlin"/>
+  <shortName value="UBTU Berlin"/>
+  <homepage value="http://opac.tu-berlin.de"/>
+  <template value="aleph_ubTUb"/>
+  
+  <variable name="server" value="ublibsprod.ub.tu-berlin.de:80/"/>
+  
+  <!--<variable name="Location" value="Düsseldorf"/>
+  <variable name="searchid-digibib" value="SERVICEGROUP1.SERVICE.SEARCH_ULBD"/>-->
+</library>

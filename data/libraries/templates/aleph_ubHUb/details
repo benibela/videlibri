@@ -1,0 +1,50 @@
+ <htmlparser:meta encoding="utf8"/>
+ <table>
+ <tr>
+  <td>Ausleihdatum:</td>
+  <td><htmlparser:read var="book.issuedate:dd/mm/yyyy" source="text()"/></td>
+ </tr>
+ <tr>
+  <td>Fällig</td>
+  <td><htmlparser:read var="book.limitdate:dd/mm/yyyy" source="text()"/></td>
+ </tr>
+ <tr>
+  <td>Verlängerung:</td>
+  <td>
+    <htmlparser:read var="book.status:problematic" source="text()"/>  
+    <a htmlparser-optional="true"><htmlparser:read var="book.status:curious"/><htmlparser:read var="book.extendLink" source="@href"/>Jetzt verlängern</a>
+  </td>
+ </tr>
+ <!--<tr>
+  <td class=td1 id=bold align=left>Geb&uuml;hr:</td>
+  <td class=td1 align=left></td>
+ </tr>-->
+
+</table>
+
+<!--
+<br>
+<table border=0 cellspacing=2 width="90%">
+ <tr>
+  <td class=td1 id=bold align=left>Standort:</td>
+  <td class=td1 align=left>03: Zentralbibl./Lesesaal 3. Etage</td>
+ </tr>
+ <tr>
+  <td class=td1 id=bold align=left>Signatur:</td>
+  <td class=td1 align=left>matb300.z96</td>
+ </tr>
+ <tr>
+  <td class=td1 id=bold align=left>2. Signatur:</td>
+  <td class=td1 align=left><br></td>
+ </tr>
+ <tr>
+  <td class=td1 id=bold align=left>Beschreibung:</td>
+  <td class=td1 align=left><br></td>
+ </tr>
+ <tr>
+  <td class=td1 id=bold align=left>Exemplarstatus:</td>
+  <td class=td1 align=left>Ausleihbar</td>
+ </tr>
+ <tr>
+  <td class=td1 id=bold align=left>Buchungsnummer:</td>
+  <td class=td1 align=left>098517201</td>           -->

@@ -3,17 +3,13 @@
 <maxlimit matches="Verlängerungslimit erreicht"/>
 
 <action id="connect">
-    <page url="https://vs30.kobv.de:443/pds">
-      <post name="func">login</post>
-      <post name="calling_system">aleph</post>
+    <page url="https://opac.hu-berlin.de:443/F/" templateFile="start">
+      <post name="func">login-session</post>
+      <post name="login_source"></post>
       <post name="bor_id">$username;</post>
       <post name="bor_verification">$password;</post>      
-      <post name="institute">TUB</post>
-      <post name="url"></post>
     </page>
-
-
-    <page url="http://$server;F/?bor-info" templateFile="loggedIn"/>
+    <page url="$accountPage" templateFile="../aleph_base/loggedIn2005"/>
 <!--    <error templateFile="loginerror"/>    -->
 </action>
 
@@ -22,11 +18,11 @@
 </action>
 
 <action id="update-single">
-  <page url="$book.detailLink;" templateFile="../aleph_base/details"/>
+  <page url="$book.detailLink;" templateFile="details"/>
 </action>
 
 <action id="extend-single">
   <page url="$book.extendLink;"/>
-  <page url="$book.detailLink;" templateFile="../aleph_base/details"/>
+  <page url="$book.detailLink;" templateFile="details"/>
 </action>
 </library-template>
