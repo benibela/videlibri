@@ -19,7 +19,7 @@ PAGES=(wasnrw/start.html wasnrw/BenutzerkontoServlet_books.html wasnrw/Benutzerk
 
 #=============ALEPH ULBD==============
 mkdir -p $OUTPATH/ulbdue
-TEMPLATES=(${TEMPLATES[@]} ulbdue/start ulbdue/login aleph_base/loggedIn aleph_base/details ulbdue/update ulbdue/update)
+TEMPLATES=(${TEMPLATES[@]} ulbdue/start ulbdue/login ulbdue/loggedIn aleph_base/details ulbdue/update ulbdue/update)
 PAGES=(${PAGES[@]} ulbdue/start.html ulbdue/login.html ulbdue/loggedIn.html ulbdue/details_1.html ulbdue/update_singlebook.html ulbdue/update_empty.html)
 
 #=============LIBERO==============
