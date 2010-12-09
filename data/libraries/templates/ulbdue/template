@@ -5,7 +5,7 @@
 <action id="connect">
     <page url="http://$server;F" templateFile="start"/>
     <page url="$loginPage;"  templateFile="login"/>
-    <page url="$loginForm;"  templateFile="loggedIn"> 
+    <page url="$loginForm;"  templateFile="../aleph_base/loggedIn2005"> 
       <post name="func">login-session</post>
       <post name="login_source">LOGIN-BOR</post>
       <post name="bor_id">$username;</post>
