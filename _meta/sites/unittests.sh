@@ -19,8 +19,19 @@ PAGES=(wasnrw/start.html wasnrw/BenutzerkontoServlet_books.html wasnrw/Benutzerk
 
 #=============ALEPH ULBD==============
 mkdir -p $OUTPATH/ulbdue
-TEMPLATES=(${TEMPLATES[@]} ulbdue/start ulbdue/login ulbdue/loggedIn aleph_base/details ulbdue/update ulbdue/update)
+TEMPLATES=(${TEMPLATES[@]} ulbdue/start ulbdue/login aleph_base/loggedIn2005 aleph_base/details ulbdue/update ulbdue/update)
 PAGES=(${PAGES[@]} ulbdue/start.html ulbdue/login.html ulbdue/loggedIn.html ulbdue/details_1.html ulbdue/update_singlebook.html ulbdue/update_empty.html)
+
+#=============ALEPH TU/UdK Berlin========
+mkdir -p $OUTPATH/aleph_ubTUb
+TEMPLATES=(${TEMPLATES[@]} aleph_ubTUb/loggedIn aleph_ubTUb/update aleph_base/details)
+PAGES=(${PAGES[@]} aleph_ubTUb/loggedIn.html aleph_ubTUb/update.html aleph_ubTUb/details.html)
+
+#=============ALEPH HU Berlin============
+mkdir -p $OUTPATH/aleph_ubHUb
+TEMPLATES=(${TEMPLATES[@]} aleph_base/loggedIn2005 aleph_base/details aleph_base/details aleph_base/details)
+PAGES=(${PAGES[@]} aleph_ubHUb/loggedIn.html aleph_ubHUb/details1ex.html aleph_ubHUb/details2ex.html aleph_ubHUb/details3ex.html)
+
 
 #=============LIBERO==============
 mkdir -p $OUTPATH/libero54
@@ -43,7 +54,7 @@ TEMPLATES=(${TEMPLATES[@]} $DISE $DISE $DIDE $DIDE $DIDE $DIDE $DIDE)
 PAGES=(${PAGES[@]} digibib/search.html digibib/search2.html digibib/details.html digibib/details2.html digibib/details3.html digibib/details4.html digibib/details5.html)  
 
 for ((i=0;i<${#TEMPLATES[@]};i++)); do
-  echo Testing: ${TEMPLATES[i]}
+  echo -e "Testing: ${TEMPLATES[i]} \t\t\twith\t\t $INPATH/${PAGES[i]}"
   $TEMPLATEPARSER$TEMPLATEPATH/${TEMPLATES[i]} $INPATH/${PAGES[i]} > $OUTPATH/${PAGES[i]}.result
   diff $INPATH/${PAGES[i]}.result $OUTPATH/${PAGES[i]}.result
 done;

@@ -1,0 +1,392 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd"> 
+<!-- filename: bor-loan-head-tuk50--> 
+<html> 
+<head> 
+ <title>TU und UdK - Entliehene Exemplare</title> 
+<!-- filename: meta-tags-tuk50 --> 
+ 
+<META HTTP-EQUIV="Cache-Control" CONTENT="no-cache"> 
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache"> 
+<META HTTP-EQUIV="Expires" CONTENT="Fri, 30 Oct 1998 14:00:00 GMT"> 
+<META HTTP-EQUIV="REFRESH" CONTENT="1200; URL=/cgi-bin/opac-timeout-restart?TUK50"> 
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=UTF-8"> 
+ 
+<link rel="stylesheet" href="/exlibris-tuk50.css" TYPE="text/css"> 
+<script src="/localscript.js" type="text/javascript"></script> 
+<script language="JavaScript"> 
+<!-- 
+   function replacePage (loc) 
+   { 
+     window.location.replace (loc); 
+  } 
+// --> 
+</script> 
+ 
+<script language="JavaScript"> 
+<!-- 
+   function collectData () 
+   { 
+     var strData = "http://ublibsprod.ub.tu-berlin.de:80/F/7HMCUQRX1MFHBXB1L8J3VJFH9IQLBPNKVRGCNVN3CL2DYSXLLC-45728?func=bor-renew-all&renew_selected=Y&adm_library=TUK50"; 
+     var allElements = document.getElementsByTagName("input"); 
+ 
+     var len = allElements.length; 
+     for (i=0; i<len; i++) 
+     { 
+          var el = allElements[i]; 
+          if (el.type == "checkbox" && el.checked) 
+            strData += "&" + el.name + "=" + "Y"; 
+     } 
+     return strData; 
+   } 
+// --> 
+</script> 
+<link rel="stylesheet" type="text/css" media="print" href="/print.css"> 
+</head> 
+ 
+<body topmargin="0"> 
+<div id="bildschirm"> 
+<!-- filename: head-replace-tuk50 --> 
+<script type="text/javascript"> 
+  document.cookie = 'LOGGED_IN = TRUE; PATH = /'; 
+</script> 
+ 
+<table width="100%" border="0" cellspacing="0" cellpadding="0" style="margin-top:30px; margin-bottom:50px" align="center"> 
+ 
+ 
+  <tr> 
+ 
+<td width="20%"> 
+<map name="Mapstarttuk"> 
+<area href="http://www.ub.tu-berlin.de" target="_blank" alt="UB der TU Berlin" shape="rect" coords="3, 0, 229, 62"> 
+<area href="http://www.udk-berlin.de" target="_blank" alt="UdK Berlin " shape="rect" coords="233, 2, 449, 62"> 
+</map> 
+<script type="text/javascript"> 
+var icon_path="http://ublibsprod.ub.tu-berlin.de:80/exlibris/aleph/u18_1/alephe/www_f_ger/icon"; 
+if(window.location.protocol=='https:') { 
+   var hilf=icon_path.replace(/:80/,":443"); 
+   icon_path=hilf.replace(/http:/,"https:"); 
+} 
+document.write('<img src="'+icon_path+'/starttuk_450x63.jpg" usemap="#Mapstarttuk" border="0"  width="450" height="63">'); 
+</script> 
+</td> 
+ 
+ 
+<td> 
+<table width="80%" border="0" cellspacing="0" cellpadding="0" align="center"> 
+<script type="text/javascript"> 
+// Cookie auslesen 
+library=getAlephBase(); 
+ 
+// erste Zeile 
+document.writeln('<tr>'); 
+document.writeln('<td align="center" width="2%">'); 
+document.writeln('<img src="'+icon_path+'/quadrat_666666_12x12.gif" border="0" width="12" height="12">'); 
+document.writeln('</td>'); 
+document.writeln('<td align="left" nowrap width="15%">'); 
+document.writeln('<a href="javascript:replacePage(\'http://ublibsprod.ub.tu-berlin.de:80/F/7HMCUQRX1MFHBXB1L8J3VJFH9IQLBPNKVRGCNVN3CL2DYSXLLC-45729?func=bor-info\');" title="Informationen zum Bibliothekskonto" class="blue">Konto</a>'); 
+document.writeln('</td>'); 
+ 
+document.writeln('<td align="center" width="2%">'); 
+document.writeln('<img src="'+icon_path+'/quadrat_666666_12x12.gif" border="0" width="12" height="12">'); 
+document.writeln('</td>'); 
+document.writeln('<td align="left" width="15%">'); 
+document.writeln('<a href="javascript:replacePage(\'http://ublibsprod.ub.tu-berlin.de:80/F/7HMCUQRX1MFHBXB1L8J3VJFH9IQLBPNKVRGCNVN3CL2DYSXLLC-45730?func=file&file_name=find-b&local_base='+library+'\');" target="_top" title="Neue Suche" class="blue">Suche</a>'); 
+document.writeln('</td>'); 
+ 
+ 
+document.writeln('<td align="center" width="2%">'); 
+document.writeln('<img src="'+icon_path+'/flagge-en.gif" border="0" alt="Englische Flagge" title="Englische Flagge">'); 
+document.writeln('</td>'); 
+document.writeln('<td align="left" width="15%">'); 
+document.writeln('<a href="http://ublibsprod.ub.tu-berlin.de:80/F/7HMCUQRX1MFHBXB1L8J3VJFH9IQLBPNKVRGCNVN3CL2DYSXLLC-45731?func=bor_info&#38;con_lng=eng" title="switch to English" class="blue">English</a>'); 
+document.writeln('</td>'); 
+ 
+ 
+document.writeln('<td align="center" width="2%">'); 
+document.writeln('<img src="'+icon_path+'/quadrat_666666_12x12.gif" border="0" width="12" height="12">'); 
+document.writeln('</td>'); 
+document.writeln('<td align="left" nowrap width="15%">'); 
+document.writeln('<a href="http://www.ub.tu-berlin.de/index.php?id=445" target="_blank" title="Hilfe zum Online-Katalog der TU" class="blue">Hilfe TU</a>'); 
+document.writeln('</td>'); 
+document.writeln('</tr>'); 
+ 
+ 
+// zweite Zeile 
+document.writeln('<tr>'); 
+document.writeln('<td align="center" width="2%">'); 
+document.writeln('<img src="'+icon_path+'/quadrat_666666_12x12.gif" border="0" width="12" height="12">'); 
+document.writeln('</td>'); 
+document.writeln('<td align="left" nowrap width="15%">'); 
+document.writeln('<a href="javascript:replacePage(\'https://vs30.kobv.de:443/pds?func=logout\');" target="_top" title="Sie melden sich im System ab - Hinweis: Ihre bisherigen Suchergebnisse gehen verloren" class="blue"><span style="color:#FF6600">Neustart/Abmelden</span></a>'); 
+document.writeln('</td>'); 
+ 
+document.writeln('<td align="center" width="2%">'); 
+document.writeln('<img src="'+icon_path+'/quadrat_666666_12x12.gif" border="0" width="12" height="12">'); 
+
+document.writeln('</td>'); 
+document.writeln('<td align="left" width="15%">'); 
+document.writeln('<a href="javascript:replacePage(\'http://ublibsprod.ub.tu-berlin.de:80/F/7HMCUQRX1MFHBXB1L8J3VJFH9IQLBPNKVRGCNVN3CL2DYSXLLC-45732?func=history\');" target="_top" title="Ergebnisse Ihrer bisherigen Suchen" class="blue">Suchverlauf</a>'); 
+document.writeln('</td>'); 
+ 
+ 
+ 
+document.writeln('<td align="center" width="2%">'); 
+document.writeln('<img src="'+icon_path+'/quadrat_666666_12x12.gif" border="0" width="12" height="12">'); 
+document.writeln('</td>'); 
+document.writeln('<td align="left" nowrap width="15%">'); 
+document.writeln('<a href="javascript:replacePage(\'http://ublibsprod.ub.tu-berlin.de:80/F/7HMCUQRX1MFHBXB1L8J3VJFH9IQLBPNKVRGCNVN3CL2DYSXLLC-45733?func=myshelf-short\');" target="_top" title="Sehen Sie Ihre Merkliste Meine Titel an" class="blue">Meine Titel</a>'); 
+document.writeln('</td>'); 
+ 
+ 
+document.writeln('<td align="center" width="2%">'); 
+document.writeln('<img src="'+icon_path+'/quadrat_666666_12x12.gif" border="0" width="12" height="12">'); 
+document.writeln('</td>'); 
+document.writeln('<td align="left" nowrap width="15%">'); 
+document.writeln('<a href="http://www.udk-berlin.de/sites/universitaetsbibliothek/content/faq/index_ger.html#konto" target="_blank" title="Hilfe zum Online-Katalog der UdK" class="blue">Hilfe UdK</a>'); 
+document.writeln('</td>'); 
+document.writeln('</tr>'); 
+</script> 
+ 
+</table> 
+</td></tr> 
+<!-- Fehlermeldung --> 
+<tr> <td colspan="2"> &nbsp; </td> </tr> 
+<tr> 
+    <td class="feedbackbar" valign="middle" height="20" align="center" colspan="2"> 
+     &nbsp;</td> 
+</tr> 
+</table> 
+ 
+ 
+<!-- filename: bor-include-7-tuk50--> 
+<table width="100%" align="center" border="0" cellpadding="0" cellspacing="0"> 
+ <tr> 
+  <td class="bar" width="20%" align="center" nowrap> 
+    &nbsp; 
+  </td> 
+  <td class="bar" align="center" nowrap> 
+      <a href="javascript:replacePage('http://ublibsprod.ub.tu-berlin.de:80/F/7HMCUQRX1MFHBXB1L8J3VJFH9IQLBPNKVRGCNVN3CL2DYSXLLC-45734?func=bor-info');" 
+         title="Pers&ouml;nliches Konto" class="blue"> 
+         Konto</a> 
+  </td> 
+  <td class="bar" align="center" nowrap> 
+         &nbsp;|&nbsp; 
+  </td> 
+  <td class="bar" align="center" nowrap> 
+      <a href="javascript:replacePage('http://ublibsprod.ub.tu-berlin.de:80/F/7HMCUQRX1MFHBXB1L8J3VJFH9IQLBPNKVRGCNVN3CL2DYSXLLC-45735?func=bor-loan');" 
+         title="Ausleihen/Verl&auml;ngerungen" class="blue"><span style="color:#999999"> 
+         Ausleihen/Verl&auml;ngerungen</span></a> 
+  </td> 
+  <td class="bar" align="center" nowrap> 
+         &nbsp;|&nbsp; 
+  </td> 
+  <td class="bar" align="center" nowrap> 
+      <a href="javascript:replacePage('http://ublibsprod.ub.tu-berlin.de:80/F/7HMCUQRX1MFHBXB1L8J3VJFH9IQLBPNKVRGCNVN3CL2DYSXLLC-45736?func=bor-hold');" 
+         title="Vormerkungen/Bestellungen" class="blue"> 
+         Vormerkungen/Bestellungen</a> 
+  </td> 
+  <td class="bar" align="center" nowrap> 
+         &nbsp;|&nbsp; 
+  </td> 
+  <td class="bar" align="center" nowrap> 
+      <a href="javascript:replacePage('http://ublibsprod.ub.tu-berlin.de:80/F/7HMCUQRX1MFHBXB1L8J3VJFH9IQLBPNKVRGCNVN3CL2DYSXLLC-45737?func=bor-photo');" 
+         title="Kopierauftr&auml;ge" class="blue"> 
+         Kopierauftr&auml;ge</a> 
+  </td> 
+  <td class="bar" align="center" nowrap> 
+         &nbsp;|&nbsp; 
+  </td> 
+ 
+ 
+  <td class="bar" align="center" nowrap> 
+      <a href="javascript:replacePage('http://ublibsprod.ub.tu-berlin.de:80/F/7HMCUQRX1MFHBXB1L8J3VJFH9IQLBPNKVRGCNVN3CL2DYSXLLC-45738?func=bor-cash');" 
+         title="Geb&uuml;hrenvorg&auml;nge" class="blue"> 
+         Geb&uuml;hren</a> 
+  </td> 
+  <td class="bar" align="center" nowrap> 
+         &nbsp;|&nbsp; 
+  </td> 
+  <td class="bar" align="center" nowrap> 
+      <a href="javascript:replacePage('http://ublibsprod.ub.tu-berlin.de:80/F/7HMCUQRX1MFHBXB1L8J3VJFH9IQLBPNKVRGCNVN3CL2DYSXLLC-45739?func=bor-ill-active');" 
+         title="Fernleihbestellungen" class="blue"> 
+         Fernleihbestellungen</a> 
+  </td> 
+ 
+  <td class="bar" width="20%" align="center" nowrap> 
+    &nbsp; 
+  </td> 
+ </tr> 
+</table> 
+ 
+<br> 
+</div> 
+<div id="drucken"> 
+<div class=title> 
+TU und UdK - Entliehene Exemplare f&uuml;r: SSSSSS, LLLLLLL 
+</div> </div> 
+<div id="bildschirm"> 
+<p> 
+<div class="text1"> 
+<!-- Zur Verl&auml;ngerung (max. 5x m&ouml;glich) einer Ausleihfrist klicken Sie entweder auf <i>Alle verl&auml;ngern</i> 
+oder auf die unterstrichene Nummer f&uuml;r eine Einzelverl&auml;ngerung. Titel, deren Leihfrist nicht verl&auml;ngert wurde, stehen dann 
+in Ihrem Ausleihkonto am Anfang. Um den Ablehnungsgrund zu erfahren, klicken Sie bitte auf die unterstrichene Nummer. 
+Titel, deren Leihfrist erfolgreich verl&auml;ngert wurde, befinden sich mit dem neuen F&auml;lligkeitsdatum am Ende Ihres Ausleihkontos.<br><br> --> 
+ 
+<span class="text3">Fernleihbestellungen</span><br> 
+<!--Informationen zur <a href="http://www.ub.tu-berlin.de/Abteilungen/Hauptbibliothek/Fernleihe/hilfe_online.html" target="_blank" title="Hilfe zur Online-Fernleihe">Online-Fernleihe</a><br> 
+Wenn Sie Fernleihbestellungen aufgegeben haben, finden Sie diese in der Konto&uuml;bersicht. Bitte beachten Sie, dass --> Fernleihen, die bereits in Ihrem 
+Ausleihkonto verbucht sind, werden sofort wie Ihre &uuml;brigen Ausleihen gemahnt. Eine Pauschalverl&auml;ngerung Ihrer Leihfrist beinhaltet <span style="letter-spacing:2pt">NICHT</span> 
+die Medien der Fernleihe.</a> 
+<br><br> 
+ 
+<span class="text3"> Bitte beachten Sie!</span><br> 
+F&uuml;r die fristgerechte Verl&auml;ngerung Ihrer Leihfristen sind Sie auch dann verantwortlich, wenn Ihnen die Verl&auml;ngerung 
+&uuml;ber den OPAC nicht gelingt. In solchen F&auml;llen sind Sie verpflichtet, sich telefonisch, pers&ouml;nlich, per E-Mail 
+
+oder per Fax mit der <a href="http://www.ub.tu-berlin.de/index.php?id=32#content1869" target="_blank">Universit&auml;tsbibliothek </a> in Verbindung zu setzen. Reklamationen, die nach Erstellen der Mahnung eingehen, 
+k&ouml;nnen leider nicht ber&uuml;cksichtigt werden. 
+</div> 
+<br> <br> 
+<div class="text9"> 
+F&uuml;r Details zu einer Ausleihe klicken Sie auf eine unterstrichene Zahl. 
+</div> 
+<!-- <td class="bar" align="center" nowrap> 
+      <a href="javascript:replacePage('http://ublibsprod.ub.tu-berlin.de:80/F/7HMCUQRX1MFHBXB1L8J3VJFH9IQLBPNKVRGCNVN3CL2DYSXLLC-45740?func=bor-renew-all&adm_library=TUK50');" 
+         title="Alle verl&auml;ngern"  class="blue"> 
+      Alle verl&auml;ngern&nbsp;</a> 
+    </td> 
+    <td class="bar" align="center" nowrap> 
+         &nbsp;|&nbsp; 
+    </td> 
+ 
+    <td class="bar" align="center" nowrap> 
+      <a href="javascript:location=collectData();" 
+         title="Ausgew&auml;hlte Titel verl&auml;ngern" class="blue"> 
+         Markierte verl&auml;ngern</a> 
+    </td> --> 
+ 
+    <p class=text1> 
+<!-- 
+   <input type="button" 
+               value="Alle verl&auml;ngern" 
+               onClick="self.location.href='http://ublibsprod.ub.tu-berlin.de:80/F/7HMCUQRX1MFHBXB1L8J3VJFH9IQLBPNKVRGCNVN3CL2DYSXLLC-45741?func=bor-renew-all&adm_library=TUK50'"> --> 
+   <input type="button" 
+               value="Alle verl&auml;ngern" 
+               onClick="javascript:replacePage('http://ublibsprod.ub.tu-berlin.de:80/F/7HMCUQRX1MFHBXB1L8J3VJFH9IQLBPNKVRGCNVN3CL2DYSXLLC-45742?func=bor-renew-all&adm_library=TUK50');"> 
+   <input type="button" 
+               value="Markierte Titel verl&auml;ngern" 
+               onClick="self.location=collectData();"> 
+   <input type="button" 
+               value="Seite drucken" 
+               onClick="window.print();"> 
+ 
+</p> 
+ 
+ 
+ 
+ 
+ </div> 
+ 
+<div id="drucken"> 
+ 
+ 
+<p> 
+<table border=0 cellspacing=2 width="100%"> 
+ <tr class=tr1> 
+  <th class=text3> 
+    Nr. 
+  </th> 
+  <th class=text3> 
+    <br> 
+  </th> 
+  <th class=text3> 
+    Autor 
+  </th> 
+  <th class=text3> 
+    Titel 
+  </th> 
+ 
+  <th class=text3> 
+    Jahr 
+  </th> 
+  <th class=text3> 
+    f&auml;llig am 
+  </th> 
+  <!--<th class=text3> 
+    F&auml;lligkeitszeit 
+  </th> 
+  --> 
+  <!--<th class=text3> 
+    Geb&uuml;hr 
+  </th> 
+  --> 
+  <th class=text3> 
+    Bibliothek 
+  </th> 
+  <th class=text3> 
+   Regalstandort 
+  </th> 
+  <th class=text3> 
+    Signatur 
+  </th> 
+  <!--<th class=text3> 
+    Beschreibung 
+  </th> 
+  --> 
+  <!--<th class=text3> 
+    SFX 
+  </th> 
+  --> 
+     <!--  Not used standard 
+  <th class=text3> 
+    Letter number 
+  </th>  --> 
+ </tr> 
+ 
+</div> 
+
+<!-- filename: bor-loan-body-tuk50 --> 
+ <tr> 
+  <td class=td1 id=centered valign=top><A HREF=http://ublibsprod.ub.tu-berlin.de:80/F/7HMCUQRX1MFHBXB1L8J3VJFH9IQLBPNKVRGCNVN3CL2DYSXLLC-45743?func=BOR-LOAN-EXP&doc_number=001948802&item_sequence=000010&index=0001&adm_library=TUK50>1   </A></td> 
+  <td class=td1 valign=top align="center"><input type="checkbox" name="c001948802000010"></td> 
+  <td class=td1 valign=top>Nachname, Vorname</td> 
+  <td class=td1 valign=top>Biografie</td> 
+  <td class=td1 valign=top>XXXX</td> 
+  <td class=td1 valign=top>10/01/11</td> 
+  <!--<td class=td1 valign=top>22:00</td>--> 
+  <!-- <td class=td1 valign=top><br></td>--> 
+  <td class=td1 valign=top>TU Zentralbibliothek</td> 
+    <td class=td1 valign=top>XX1234Y 5&rsquo;6</td> 
+  <td class=td1 valign=top><br></td> 
+  <!--<td class=td1 valign=top><br></td>--> 
+ <!-- <td class=td1 valign=top><a href="javascript:open_window('http://ublibsprod.ub.tu-berlin.de:80/F/7HMCUQRX1MFHBXB1L8J3VJFH9IQLBPNKVRGCNVN3CL2DYSXLLC-45744?func=service-sfx&doc_number=001749324&line_number=0000&service_type=RECORD');"><img src=http://ublibsprod.ub.tu-berlin.de:80/exlibris/aleph/u18_1/alephe/www_f_ger/icon/f-sfx.gif border=0 alt='Use SFX services'></a></td>--> 
+ 
+ 
+  <!--  Not used standard 
+  <td class=td1 valign=top>00</td> 
+  --> 
+ 
+  </tr> 
+
+<!-- filename: bor-loan-tail-tuk50 --> 
+</table> 
+</div> 
+<div id="bildschirm"> 
+<!-- filename: copyrights-tuk50 --> 
+<!-- 
+<br> 
+<div style="position:static; bottom:0px;"> 
+ 
+<p class="copyright"> 
+&copy; 2007 <a href="http://www.ub.tu-berlin.de" class="blue" target="_blank">UB der TU Berlin</a>, <a href="http://www.ub.udk-berlin.de" class="blue" target="_blank">UB der UdK Berlin</a> &nbsp;| 
+&nbsp;<a href="http://www.ub.tu-berlin.de/index.php?id=561" title="Kontakt" class="blue" target="_blank">Kontakt zur TU</a> &nbsp;| 
+&nbsp;<a href="http://ublibsprod.ub.tu-berlin.de:80/F/7HMCUQRX1MFHBXB1L8J3VJFH9IQLBPNKVRGCNVN3CL2DYSXLLC-45745?func=file&file_name=feedback-hdk01" title="Kontakt" class="blue" target="_blank">Kontakt zur UdK</a> 
+ 
+</p> 
+</div> 
+--> 
+</div> 
+</body> 
+</html> 
+
+ 

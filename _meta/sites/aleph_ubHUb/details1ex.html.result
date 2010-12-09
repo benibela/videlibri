@@ -1,0 +1,5 @@
+book.issuedate:dd/mm/yy=02/11/2010
+book.limitdate:dd/mm/yy=25/01/2011
+book.status:problematic=Jetzt verlängern
+book.status:curious=
+book.extendLink=http://opac.hu-berlin.de:80/F/1B662PQEHGKRA92URUMFDJE3XDVMMVBK8DGPETMVLBQLAE197J-14300?func=BOR-LOAN-RENEW&doc_number=002849817&item_sequence=000010&adm_library=HUB50&ill_unit=
