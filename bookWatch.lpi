@@ -216,6 +216,9 @@
   </ProjectOptions>
   <CompilerOptions>
     <Version Value="9"/>
+    <Target>
+      <Filename Value="videlibri"/>
+    </Target>
     <SearchPaths>
       <IncludeFiles Value="../../../components/pascal/data;../../../components/pascal/import/synapse"/>
       <OtherUnitFiles Value="../../../components/pascal/import/regexpr/Source;../../../components/pascal/import/synapse;../../../components/lazarus/dialogs;../../../components/lazarus/internet/sendBackError;../../../components/pascal/internet"/>

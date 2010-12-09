@@ -385,6 +385,7 @@ begin
   edtAccountUser.Text:=item.SubItems[0];
   edtAccountPass.Text:=item.SubItems[1];
   ckbAccountHistory.Checked:=item.SubItems[2]='ja';
+  ckbAccountDisabled.Checked:=not currentSelectedAccount.enabled;
   if currentSelectedAccount.getLibrary().canModifySingleBooks then begin
     cmbAccountExtend.items.Text:='immer, wenn möglich'#13#10'alle, wenn nötig'#13#10'einzeln, wenn nötig'#13#10'niemals';
     cmbAccountExtend.ItemIndex:=longint(TCustomAccountAccess(item.data).extendType);
@@ -397,7 +398,7 @@ begin
     end;
   end;
   cmbAccountExtend.OnSelect(cmbAccountExtend);
-  edtAccountExtendDays.Text:=inttostr(TCustomAccountAccess(item.data).extendDays);
+  edtAccountExtendDays.Text:=inttostr(currentSelectedAccount.extendDays);
 {  case currentSelectedAccount.getLibrary().passwordType of
     ptCustom: lblAccountPass.caption:='Passwort:';
     else lblAccountPass.caption:='Geburtsdatum:';
