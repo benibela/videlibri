@@ -13,7 +13,7 @@ book.ISBN!=3-540-41198-4 Pp. : DM 129.00
 currentfield=Schlagwörter
 book.Schlagwörter!=Clifford-Algebra Clifford-Algebra / Anwendung
 currentfield=Standort
-book.id=  Standort: 45 Sign.: matf203.g345
+book.id=  Standort: 45 Sign.: matf203.g345
 book.home-url=http://katalog.ub.uni-duesseldorf.de/F/?
 book.home-url=http://katalog.ub.uni-duesseldorf.de/F/?func=find-b&
 book.home-url=http://katalog.ub.uni-duesseldorf.de/F/?func=find-b&request=HT013149188&

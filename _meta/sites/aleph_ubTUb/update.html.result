@@ -6,6 +6,6 @@ book.author=Nachname, Vorname
 book.title=Biografie
 book.year=XXXX
 book.limitdate:dd/mm/yy=10/01/11
-book.id=XX1234Y 5&rsquo;6
+book.id=XX1234Y 5’6
 book.category=XX
 book-end()=
