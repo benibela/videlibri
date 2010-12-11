@@ -81,9 +81,9 @@ object mainForm: TmainForm
       Caption = 'Aktualisieren '
       DropdownMenu = accountListMenu
       ImageIndex = 0
-      Style = tbsDropDown
       OnClick = btnRefreshClick
       OnContextPopup = ToolButton2ContextPopup
+      Style = tbsDropDown
     end
     object ToolButton3: TToolButton
       Left = 79
