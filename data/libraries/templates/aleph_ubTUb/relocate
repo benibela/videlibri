@@ -1,0 +1,11 @@
+ <html>
+ <head>
+ <title>relocate</title>
+ </head>
+ <body>
+ <noscript><a>
+ <htmlparser:read var="borInfoPage2" source="@href" regex="http://.*"/> 
+ </a></noscript>
+ </body>
+ </html>
+

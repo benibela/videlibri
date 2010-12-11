@@ -1,0 +1,10 @@
+<html> 
+<head> 
+<title>PDS SSO</title> 
+<script> 
+<htmlparser:read source="text()" var="borInfoPage" regex="http://.*bor-info"/> <!-- assuming that login server is https and books are http -->
+</script> 
+</head> 
+</html> 
+ 
+ 

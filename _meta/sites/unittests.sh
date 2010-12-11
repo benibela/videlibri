@@ -24,8 +24,8 @@ PAGES=(${PAGES[@]} ulbdue/start.html ulbdue/login.html ulbdue/loggedIn.html ulbd
 
 #=============ALEPH TU/UdK Berlin========
 mkdir -p $OUTPATH/aleph_ubTUb
-TEMPLATES=(${TEMPLATES[@]} aleph_ubTUb/loggedIn aleph_ubTUb/update aleph_base/details)
-PAGES=(${PAGES[@]} aleph_ubTUb/loggedIn.html aleph_ubTUb/update.html aleph_ubTUb/details.html)
+TEMPLATES=(${TEMPLATES[@]} aleph_ubTUb/loggedIn aleph_ubTUb/update aleph_base/details aleph_ubTUb/start)
+PAGES=(${PAGES[@]} aleph_ubTUb/loggedIn.html aleph_ubTUb/update.html aleph_ubTUb/details.html aleph_ubTUb/start.html)
 
 #=============ALEPH HU Berlin============
 mkdir -p $OUTPATH/aleph_ubHUb

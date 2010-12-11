@@ -3,17 +3,16 @@
 <maxlimit matches="Verlängerungslimit erreicht"/>
 
 <action id="connect">
-    <page url="https://vs30.kobv.de:443/pds">
+    <page url="http://ublibsprod.ub.tu-berlin.de/F/?func=bor-info" templateFile="start"/>
+    <page url="https://$loginserver;pds" templateFile="relocate">
       <post name="func">login</post>
       <post name="calling_system">aleph</post>
       <post name="bor_id">$username;</post>
       <post name="bor_verification">$password;</post>      
       <post name="institute">TUB</post>
-      <post name="url"></post>
+      <post name="url">$borInfoPage;</post>
     </page>
-
-
-    <page url="http://$server;F/?bor-info" templateFile="loggedIn"/>
+    <page url="$borInfoPage2;" templateFile="loggedIn"/>-->
 <!--    <error templateFile="loginerror"/>    -->
 </action>
 
