@@ -2,7 +2,6 @@
 <html>
 <body>
  <div class="layoutTable">
-  <div class="midCol">
    <div class="midLeft1">
 
     <div class="tabl110">Offene Gebühren</div>
@@ -68,7 +67,6 @@
 
 
    </div>
-  </div>
  </div>
 </body>
 </html>
