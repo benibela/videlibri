@@ -4,7 +4,7 @@ unit libraryParser;
 interface
 
 uses
-  Classes, SysUtils, extendedhtmlparser, simplexmlparser, inifiles,internetaccess,dRegExpr,booklistreader;
+  Classes, SysUtils, simplehtmlparser, extendedhtmlparser, simplexmlparser, inifiles,internetaccess,dRegExpr,booklistreader;
 
 
 type
@@ -16,7 +16,7 @@ type
   TLibrary=class
   protected
     defaultVariables:TStringList;
-    function readProperty(tagName: string; properties: TProperties):boolean;
+    function readProperty(tagName: string; properties: TProperties):TParsingResult;
   public
     template:TBookListTemplate;
 
@@ -250,7 +250,7 @@ begin
                lastBookCharges:=strtoint(lastBookCharges);}
 end;
 
-function TLibrary.readProperty(tagName: string; properties: TProperties):boolean;
+function TLibrary.readProperty(tagName: string; properties: TProperties):TParsingResult;
 var value:string;
 begin
   tagName:=LowerCase(tagName);
@@ -268,7 +268,7 @@ begin
   end else if tagName='username' then usernameRegEx.Expression:=getProperty('matches',properties)
   else if tagName='password' then passwordRegEx.Expression:=getProperty('matches',properties)
   else if tagName='maxextendcount' then maxExtendCount:=StrToInt(value);
-  Result:=true;
+  Result:=prContinue;
 end;
 
 procedure TLibrary.loadFromFile(fileName: string);

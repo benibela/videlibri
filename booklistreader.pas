@@ -5,7 +5,7 @@ unit booklistreader;
 interface
 
 uses
-  Classes, SysUtils,bbutils,extendedhtmlparser,simplexmlparser,dRegExpr,internetaccess;
+  Classes, SysUtils,bbutils,extendedhtmlparser,simplehtmlparser,simplexmlparser,dRegExpr,internetaccess;
   
 type
   TBookList = class;
@@ -116,9 +116,9 @@ type
   protected
     currentAction:PTemplateAction;
     currentTag: string;
-    function readProperty(tagName: string; properties: TProperties): boolean;
-    function textRead(text: string):boolean;
-    function leaveTag(tagName: string):boolean;
+    function readProperty(tagName: string; properties: TProperties): TParsingResult;
+    function textRead(text: string):TParsingResult;
+    function leaveTag(tagName: string):TParsingResult;
   public
     earMarkedRegEx,maxLimitRegEx,accountExpiredRegEx:TRegExpr;
     propertyAuthorRegEx, propertyTitleRegEx, propertyYearRegEx:TRegExpr;
@@ -518,7 +518,7 @@ end;
 
 
 function TBookListTemplate.readProperty(tagName: string; properties: TProperties
-  ): boolean;
+  ): TParsingResult;
 var i:longint;
     temp:string;
     regex: ^TRegExpr;
@@ -586,10 +586,10 @@ begin
     currentAction^.singleBookStr:=getProperty('singleBookStr',properties);
   end;
   currentTag:=tagName;
-  result:=true;
+  result:=prContinue;
 end;
 
-function TBookListTemplate.textRead(text: string): boolean;
+function TBookListTemplate.textRead(text: string): TParsingResult;
 var page: ^TTemplateRealAction;
 begin
   if currentTag = 'post' then begin
@@ -598,13 +598,13 @@ begin
     page:=@currentAction^.actions[high(currentAction^.actions)];
     page^.postparams+=text
   end;
-  Result:=true;
+  Result:=prContinue;
 end;
 
-function TBookListTemplate.leaveTag(tagName: string): boolean;
+function TBookListTemplate.leaveTag(tagName: string): TParsingResult;
 begin
   currentTag:='';
-  Result:=true;
+  Result:=prContinue;
 end;
 
 constructor TBookListTemplate.create(_dataPath,_name:string);
