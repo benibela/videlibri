@@ -1,0 +1,27 @@
+h1 {border-bottom: 5px solid red; border-right: 3px solid red; padding: 5px; margin-bottom:0}
+h2 {border-bottom: 3px solid green; border-right: 3px solid green; padding: 5px}
+.f1list {padding-left: 4em; list-style: none}
+.f1list h3 {margin-left: -1em}
+#navigation{
+  background-color:#DFDF80;
+  color:#202047;
+  font-family:sans-serif;
+  font-size:0.8em;
+  margin: 0;
+  margin-bottom: 2em;
+  padding: 3px;
+  display: block; 
+}
+
+#navigation li{
+  display: inline;
+  border-right: 1px solid blue;
+  padding-right: 1em;
+  padding-left: 1em;
+  margin: 0;
+}
+
+#navigation a{color:#202047; text-decoration: none;}
+#navigation a:visited{color:#202047}
+#navigation a:hover {font-weight: bold; color: red}
+
