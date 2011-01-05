@@ -42,8 +42,8 @@ PAGES=(${PAGES[@]} libero54/start.html libero54/update_empty.html libero54/updat
 #=============SISIS==============
 mkdir -p $OUTPATH/sisis
 
-TEMPLATES=(${TEMPLATES[@]} sisis/start sisis/loggedIn sisis/loggedIn sisis/loggedIn)
-PAGES=(${PAGES[@]} sisis/start.do.html sisis/userAccount.do_empty.html sisis/userAccount.do_singlebook.html sisis/userAccount.do_singlebook2.html)
+TEMPLATES=(${TEMPLATES[@]} sisis/start sisis/loggedIn sisis/loggedIn sisis/loggedIn sisis/loggedIn)
+PAGES=(${PAGES[@]} sisis/start.do.html sisis/userAccount.do_empty.html sisis/userAccount.do_singlebook.html sisis/userAccount.do_singlebook2.html sisis/userAccount.do_2books.html)
 
 #=============DIGIBIB==============
 mkdir -p $OUTPATH/digibib

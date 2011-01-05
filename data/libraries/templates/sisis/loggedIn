@@ -40,7 +40,7 @@
           <htmlparser:read source="text()" var="book.author"/><br/>
           <htmlparser:read source="text()" var="book.id" regex="^[^/]*"/><br/>
           <a htmlparser-optional="true">
-            <htmlparser:read source="@href" var="book.extendID" regex=";actPos=([0-9]+)$" submatch="1"/>
+            <htmlparser:read source="@href" var="book.extendID" regex="actPos=([0-9]+)$" submatch="1"/>
             <span>
               <htmlparser:read source="text()" var="book.status:curious"/>
               <htmlparser:read source="@class != 'textgruen'" var="spanmissing"/>
