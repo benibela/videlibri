@@ -18,11 +18,11 @@
 </action>
 
 <action id="update-single">
-  <page url="$book.detailLink;" templateFile="details"/>
+  <page url="$book.detailLink;" templateFile="../aleph_base/details"/>
 </action>
 
 <action id="extend-single">
   <page url="$book.extendLink;"/>
-  <page url="$book.detailLink;" templateFile="details"/>
+  <page url="$book.detailLink;" templateFile="../aleph_base/details"/>
 </action>
 </library-template>
