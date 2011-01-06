@@ -33,6 +33,12 @@ TEMPLATES=(${TEMPLATES[@]} aleph_base/loggedIn2005 aleph_base/details aleph_base
 PAGES=(${PAGES[@]} aleph_ubHUb/loggedIn.html aleph_ubHUb/details1ex.html aleph_ubHUb/details2ex.html aleph_ubHUb/details3ex.html aleph_ubHUb/update-3books.html)
 
 
+#=============ALEPH FU Berlin============
+mkdir -p $OUTPATH/aleph_ubFUb
+TEMPLATES=(${TEMPLATES[@]} aleph_base/details)
+PAGES=(${PAGES[@]} aleph_ubFUb/details.html)
+
+
 #=============LIBERO==============
 mkdir -p $OUTPATH/libero54
 

@@ -1,5 +1,5 @@
-book.issuedate:dd/mm/yy=30/12/10
-book.limitdate:dd/mm/yy=10/01/11
+book.issuedate:dd/mm/[yy]yy=30/12/10
+book.limitdate:dd/mm/[yy]yy=10/01/11
 book.status:problematic=Jetzt verlängern
 book.status:curious=
 book.extendLink=http://ublibsprod.ub.tu-berlin.de:80/F/7HMCUQRX1MFHBXB1L8J3VJFH9IQLBPNKVRGCNVN3CL2DYSXLLC-46949?func=BOR-LOAN-RENEW&doc_number=001948802&item_sequence=000010&adm_library=TUK50&ill_unit=

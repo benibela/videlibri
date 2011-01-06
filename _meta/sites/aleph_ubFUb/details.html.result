@@ -1,0 +1,5 @@
+book.issuedate:dd/mm/[yy]yy=05/02/11
+book.limitdate:dd/mm/[yy]yy=30/02/11 um 19:30
+book.status:problematic=Jetzt verlängern
+book.status:curious=
+book.extendLink=http://aleph-www.ub.fu-berlin.de:80/F/BDI3FB89A3CRKIHUJEQNGQ9M4FD2T3E74E9157IM18AMNKNXVE-01446?func=BOR-LOAN-RENEW&doc_number=001234564&item_sequence=000010&adm_library=FUB50&ill_unit=

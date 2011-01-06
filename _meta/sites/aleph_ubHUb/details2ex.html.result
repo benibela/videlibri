@@ -1,5 +1,5 @@
-book.issuedate:dd/mm/yy=01/12/2010
-book.limitdate:dd/mm/yy=24/12/2010
+book.issuedate:dd/mm/[yy]yy=01/12/2010
+book.limitdate:dd/mm/[yy]yy=24/12/2010
 book.status:problematic=Jetzt verlängern
 book.status:curious=
 book.extendLink=http://opac.hu-berlin.de:80/F/1B662PQEHGKRA92URUMFDJE3XDVMMVBK8DGPETMVLBQLAE197J-15082?func=BOR-LOAN-RENEW&doc_number=002065003&item_sequence=000020&adm_library=HUB50&ill_unit=
