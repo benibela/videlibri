@@ -1,16 +1,12 @@
 <html> 
+<head><title> <htmlparser:read source="''" var="noBooks"/> </title> </head>
 <body> 
-<div class="title">
-  <htmlparser:read source="''" var="noBooks"/>
-</div> 
-<div>
 
-  <htmlparser:if test="@class=='text3'">
-    <p>Sie haben momentan keine Exemplare ausgeliehen.</p>
-    <htmlparser:read source="'true'" var="noBooks"/>
-    <htmlparser:read var="delete-current-books()"/>
-  </htmlparser:if>
-</div> 
+<p htmlparser-optional="true"> 
+  Sie haben momentan keine Exemplare ausgeliehen.
+  <htmlparser:read source="'true'" var="noBooks"/>
+  <htmlparser:read var="delete-current-books()"/>
+</p>
 
 <htmlparser:if test="'$noBooks;'!='true'">
   <table border=0 cellspacing=2 width="100%"> 

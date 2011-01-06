@@ -1,0 +1,3 @@
+noBooks=
+noBooks=true
+delete-current-books()=

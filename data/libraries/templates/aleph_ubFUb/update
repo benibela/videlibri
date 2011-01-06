@@ -1,5 +1,7 @@
 <html> 
-<head><title> <htmlparser:read source="''" var="noBooks"/> </title> </head>
+<head>
+<title><htmlparser:read source="''" var="noBooks"/></title>
+</head>
 <body> 
 
 <p htmlparser-optional="true"> 
@@ -10,12 +12,13 @@
 
 <htmlparser:if test="'$noBooks;'!='true'">
   <div> 
+  <table>
    <tr> 
     <th>Autor</th> 
     <th>Titel</th> 
     <htmlparser:read var="delete-current-books()"/>
    </tr> 
-  </div>
+
 
  <htmlparser:loop>
    <tr> 
@@ -35,6 +38,8 @@
     </tr> 
   </htmlparser:loop>
 
+</table>
+</div>
   
   </htmlparser:if>
 </body> 

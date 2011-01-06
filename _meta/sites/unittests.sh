@@ -35,8 +35,8 @@ PAGES=(${PAGES[@]} aleph_ubHUb/loggedIn.html aleph_ubHUb/details1ex.html aleph_u
 
 #=============ALEPH FU Berlin============
 mkdir -p $OUTPATH/aleph_ubFUb
-TEMPLATES=(${TEMPLATES[@]} aleph_base/details)
-PAGES=(${PAGES[@]} aleph_ubFUb/details.html)
+TEMPLATES=(${TEMPLATES[@]} aleph_base/details aleph_ubFUb/update aleph_ubFUb/update)
+PAGES=(${PAGES[@]} aleph_ubFUb/details.html aleph_ubFUb/update-2books.html aleph_ubFUb/update-0books.html)
 
 
 #=============LIBERO==============
