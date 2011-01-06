@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<library>
+  <username matches="^HU[A-Z]{2}\d+$"/>
+  <password matches="."/>
+  <maxExtendCount value="5"/>
+
+  <longName value="Universitätsbibliothek der FU-Berlin"/>
+  <shortName value="UBFU Berlin"/>
+  <homepage value="http://aleph-www.ub.fu-berlin.de"/>
+  <template value="aleph_ubFUb"/>
+  
+  <variable name="server" value="aleph-www.ub.fu-berlin.de/"/>
+  
+  <!--<variable name="Location" value="Düsseldorf"/>
+  <variable name="searchid-digibib" value="SERVICEGROUP1.SERVICE.SEARCH_ULBD"/>-->
+</library>

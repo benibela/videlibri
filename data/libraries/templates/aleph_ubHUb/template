@@ -3,7 +3,7 @@
 <maxlimit matches="Verlängerungslimit erreicht"/>
 
 <action id="connect">
-    <page url="https://opac.hu-berlin.de:443/F/" templateFile="start">
+    <page url="https://opac.hu-berlin.de:443/F/" templateFile="../aleph_base/startBenutzerkonto">
       <post name="func">login-session</post>
       <post name="login_source"></post>
       <post name="bor_id">$username;</post>

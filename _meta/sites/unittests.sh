@@ -24,7 +24,7 @@ PAGES=(${PAGES[@]} ulbdue/start.html ulbdue/login.html ulbdue/loggedIn.html ulbd
 
 #=============ALEPH TU/UdK Berlin========
 mkdir -p $OUTPATH/aleph_ubTUb
-TEMPLATES=(${TEMPLATES[@]} aleph_ubTUb/loggedIn aleph_ubTUb/update aleph_base/details aleph_ubTUb/start)
+TEMPLATES=(${TEMPLATES[@]} aleph_base/loggedIn2007 aleph_ubTUb/update aleph_base/details aleph_ubTUb/start)
 PAGES=(${PAGES[@]} aleph_ubTUb/loggedIn.html aleph_ubTUb/update.html aleph_ubTUb/details.html aleph_ubTUb/start.html)
 
 #=============ALEPH HU Berlin============
@@ -35,8 +35,8 @@ PAGES=(${PAGES[@]} aleph_ubHUb/loggedIn.html aleph_ubHUb/details1ex.html aleph_u
 
 #=============ALEPH FU Berlin============
 mkdir -p $OUTPATH/aleph_ubFUb
-TEMPLATES=(${TEMPLATES[@]} aleph_base/details aleph_ubFUb/update aleph_ubFUb/update)
-PAGES=(${PAGES[@]} aleph_ubFUb/details.html aleph_ubFUb/update-2books.html aleph_ubFUb/update-0books.html)
+TEMPLATES=(${TEMPLATES[@]} aleph_base/details aleph_ubFUb/update aleph_ubFUb/update aleph_base/loggedIn2007)
+PAGES=(${PAGES[@]} aleph_ubFUb/details.html aleph_ubFUb/update-2books.html aleph_ubFUb/update-0books.html aleph_ubFUb/loggedIn.html)
 
 
 #=============LIBERO==============
