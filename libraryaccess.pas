@@ -159,12 +159,14 @@ save
         etAlways: //extend always (when there are books which can be extended)
           booksToExtendCount:=booksExtendableCount;
         etAllDepends,etSingleDepends: begin
+          booksToExtendCount:=0;
           for i:=0 to lib.books.currentUpdate.Count-1 do //check for books to extend
             if lib.shouldExtendBook(lib.books.currentUpdate[i]) then
               booksToExtendCount+=1;
           if (lib.extendType=etAllDepends) and (booksToExtendCount>0) then
             booksToExtendCount:=booksExtendableCount;
         end;
+        else raise Exception.Create('Internal error: unknown lib.extendType');
       end;
 
       if booksToExtendCount>0 then
