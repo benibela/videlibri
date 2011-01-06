@@ -14,7 +14,7 @@ object mainForm: TmainForm
   OnResize = FormResize
   OnWindowStateChange = FormWindowStateChange
   Position = poScreenCenter
-  LCLVersion = '0.9.29'
+  LCLVersion = '0.9.31'
   object StatusBar1: TStatusBar
     Left = 0
     Height = 21
@@ -55,7 +55,7 @@ object mainForm: TmainForm
     TabOrder = 0
     object Label2: TLabel
       Left = 183
-      Height = 22
+      Height = 24
       Top = 0
       Width = 187
       Caption = '  Shareware Version'
@@ -203,6 +203,7 @@ object mainForm: TmainForm
       Caption = 'Extras'
       object MenuItem23: TMenuItem
         Caption = '&Freischalten...'
+        Visible = False
         OnClick = MenuItem23Click
       end
       object MenuItem8: TMenuItem
