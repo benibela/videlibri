@@ -1,0 +1,41 @@
+<htmlparser:meta encoding="utf8"/>
+
+<html>
+
+<htmlparser:read var="templateError" source="'false'"/>
+
+<TD>Ausgeliehene Medien:<htmlparser:read var="delete-current-books()"/><htmlparser:read var="bookCount" source="filter(text(),'\d+')"/></TD>
+
+
+<htmlparser:if test="$bookCount;!='0'">
+<htmlparser:read var="templateError" source="'true'"/>
+<TABLE>
+<TR>
+<TH></TH><TH>Fällig</TH><TH>V</TH><TH>M</TH><TH>Signatur</TH><TH></TH><TH>Status</TH>
+</TR>
+
+<htmlparser:loop>
+<TR>
+<htmlparser:read var="book-start()"/>
+<input type="checkbox" htmlparser-optional="true"><htmlparser:read var="book.extendId" source="@name"/></input>
+<TD align="center"><htmlparser:read var="book.limitDate:dd.mm.yyyy" source="text()"/></TD>
+<TD><htmlparser:read var="V" source="text()"/></TD>
+<TD></TD>
+<TD><htmlparser:read var="book.id" source="text()"/></TD>
+<TD></TD>
+<TD><htmlparser:read var="status" source="deepNodeText()"/></TD>
+<htmlparser:if test="$book.extendId;!=''">
+<htmlparser:read var="book.status:curious" source="concat($V;, '-mal verlängert, ', $status;)"/>
+</htmlparser:if>
+<htmlparser:if test="$book.extendId;=''">
+<htmlparser:read var="book.status:problematic" source="concat($status, ', ', $V;, '-mal verlängert')"/>
+</htmlparser:if>
+<htmlparser:read var="book-end()"/>
+<htmlparser:read var="templateError" source="'false'"/>
+</tr>
+</htmlparser:loop>
+</table>
+</htmlparser:if>
+
+<htmlparser:if test="$templateError;">Template Fehler! Vielleicht hat die Bücherei ihr System geändert.</htmlparser:if>
+</html>

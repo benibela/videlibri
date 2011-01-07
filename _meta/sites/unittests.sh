@@ -38,6 +38,10 @@ mkdir -p $OUTPATH/aleph_ubFUb
 TEMPLATES=(${TEMPLATES[@]} aleph_base/details aleph_ubFUb/update aleph_ubFUb/update aleph_base/loggedIn2007)
 PAGES=(${PAGES[@]} aleph_ubFUb/details.html aleph_ubFUb/update-2books.html aleph_ubFUb/update-0books.html aleph_ubFUb/loggedIn.html)
 
+#============BIBDIA StaBib===============
+mkdir -p $OUTPATH/bibdia_stabib
+TEMPLATES=(${TEMPLATES[@]} bibdia_stabib/update bibdia_stabib/stabikat bibdia_stabib/stabikat bibdia_stabib/stabikat)
+PAGES=(${PAGES[@]} bibdia_stabib/list.html bibdia_stabib/stabikat1.html bibdia_stabib/stabikat2.html bibdia_stabib/stabikat3.html) 	
 
 #=============LIBERO==============
 mkdir -p $OUTPATH/libero54
@@ -59,11 +63,15 @@ DIDE=../search/templates/digibib/details
 TEMPLATES=(${TEMPLATES[@]} $DISE $DISE $DIDE $DIDE $DIDE $DIDE $DIDE)
 PAGES=(${PAGES[@]} digibib/search.html digibib/search2.html digibib/details.html digibib/details2.html digibib/details3.html digibib/details4.html digibib/details5.html)  
 
+error=0
 for ((i=0;i<${#TEMPLATES[@]};i++)); do
   echo -e "Testing: ${TEMPLATES[i]} \t\t\twith\t\t $INPATH/${PAGES[i]}"
   $TEMPLATEPARSER$TEMPLATEPATH/${TEMPLATES[i]} $INPATH/${PAGES[i]} > $OUTPATH/${PAGES[i]}.result
-  diff $INPATH/${PAGES[i]}.result $OUTPATH/${PAGES[i]}.result
+  if diff $INPATH/${PAGES[i]}.result $OUTPATH/${PAGES[i]}.result; then tempasasas=42; else echo ERROR; error=1; fi
 done;
+
+echo $error
+if [[ error -ne 0 ]]; then echo -----ERROR\!\!\!-----; fi
 
 #$TEMPLATEPARSER$TEMPLATES/wasnrw/start $INPAGES/was/start.html > $OUTPAGES/was/start
 #$TEMPLATEPARSER$TEMPLATES/wasnrw/KontoServlet $INPAGES/wasnrw/BenutzerkontoServlet_books.html $OUTPAGES/was/BenutzerkontoServlet_books.ht
