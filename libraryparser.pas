@@ -262,7 +262,6 @@ begin
   else if tagName='singlebookextend' then canModifySingleBooks:=StrToBool(value)
   else if tagName='template' then template:=libraryManager.getTemplate(value)
   else if tagName='variable' then begin
-    if defaultVariables=nil then defaultVariables:=TStringList.Create;
     defaultVariables.NameValueSeparator:='=';
     defaultVariables.Add(getProperty('name',properties)+defaultVariables.NameValueSeparator+value);
   end else if tagName='username' then usernameRegEx.Expression:=getProperty('matches',properties)
@@ -293,6 +292,7 @@ end;
 
 constructor TLibrary.create;
 begin
+  defaultVariables:=TStringList.Create;
   usernameRegEx:=TRegExpr.Create('.');
   passwordRegEx:=TRegExpr.Create('.');
   bestHomepageWidth:=0;
