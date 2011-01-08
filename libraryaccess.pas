@@ -340,8 +340,10 @@ begin
       raise EXCEPTION.Create('Kein Konto zum Verlängern ausgewählt');
     if account.isThreadRunning then
       exit; //TODO!!!: mehrere Threads beim verlängern erlauben
-    if GetThreadID <> MainThreadID then
+    if GetCurrentThreadId <> MainThreadID then begin
+      if logging then log('extendAccountBookData canceled due to thread mismatch: '+IntToStr(GetThreadID)+' '+IntToStr(MainThreadID));
       exit; //Nur vom Haupthread aus aufrufen
+    end;
 
     if (account<>nil) and (books.Count>0) then begin
         internet:=defaultInternetAccessClass.create();
@@ -379,7 +381,8 @@ begin
     for j:=0 to books.count-1 do
       if books[j].owner=accountIDs.Objects[i] then
         current.add(books[j]);
-    extendAccountBookData(TCustomAccountAccess(accountIDs.Objects[i]),current);
+    if current.Count > 0 then
+      extendAccountBookData(TCustomAccountAccess(accountIDs.Objects[i]),current);
   end;
   current.free;
   showErrorMessages();
