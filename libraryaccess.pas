@@ -417,6 +417,7 @@ var alert:string;
     tempInternet: TInternetAccess;
     i,j,count:longint;
 begin
+  if logging then log('alertAboutBooksThatMustBeReturned started');
   result:=false;
   currentDate:=longint(trunc(now));
   count:=0;
@@ -444,7 +445,7 @@ begin
     for i:=0 to accountIDs.count-1 do
       with TCustomAccountAccess(accountIDs.Objects[i]) do
         for j:=0  to books.current.count-1 do
-          if books.current[i].limitDate<=redTime then
+          if books.current[j].limitDate<=redTime then
             count+=1;
     alert:='Bald (bis '+DateToPrettyGrammarStr('zum ','',nextLimit)+') müssen einige Medien ('+IntToStr(count)+') abgegeben werden.'#13#10'Die Medien können allerdings verlängert werden, soll dies jetzt versucht werden?';
     if Application.MessageBox(pchar(alert),'Videlibri',MB_YESNO or MB_ICONWARNING or MB_SYSTEMMODAL)=IDYES then
@@ -457,6 +458,7 @@ begin
     end;
     tempInternet.free;
   end;
+  if logging then log('alertAboutBooksThatMustBeReturned ended');
 end;
 
 
