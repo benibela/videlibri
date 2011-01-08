@@ -19,14 +19,18 @@
 </action>
 
 
-<action id="extend-list" singleBookStr="&amp;$book.extendid;=YES">
+<action id="extend-list" singleBookStr="$book.extendid;=YES&amp;">
   <page url="https://ausleihe.staatsbibliothek-berlin.de/opac/verl.S">
     <post name="LANG">de</post>
     <post name="BENUTZER">$username;</post>
     <post name="PASSWORD">$password;</post>
     <post>$book-list;</post>
   </page>
-<!--  <call action="update-all"/>-->
+  <page url="https://ausleihe.staatsbibliothek-berlin.de/opac/medk.S" templateFile="fastUpdate">
+    <post name="LANG">de</post>
+    <post name="BENUTZER">$username;</post>
+    <post name="PASSWORD">$password;</post>
+  </page>
 </action>
 
 </library-template>

@@ -708,6 +708,8 @@ procedure TBookListReader.parserVariableRead(variable: string; value: String);
   end;
 
 
+var
+ i: Integer;
 begin
   if logging then
     log('** Read variable: "'+variable+'" = "'+value+'"');
@@ -723,6 +725,13 @@ begin
     books
       .add(currentBook.Id,currentBook.Title,currentBook.Author,currentBook.Year)
          .assignNoReplace(currentBook);
+  end else if variable='book-select(id)' then begin
+    currentBook := nil;
+    for i:=0 to books.Count-1 do
+      if books[i].id = value then
+        currentBook:=books[i];
+    if currentBook=nil then
+      raise EBookListReader.create('Template wants to select book '+value+', but it doesn''t exist');
   end else if variable='book-select()' then begin
     //reset
     raise EBookListReader.create('not implemented yet');

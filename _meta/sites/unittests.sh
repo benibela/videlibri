@@ -40,8 +40,8 @@ PAGES=(${PAGES[@]} aleph_ubFUb/details.html aleph_ubFUb/update-2books.html aleph
 
 #============BIBDIA StaBib===============
 mkdir -p $OUTPATH/bibdia_stabib
-TEMPLATES=(${TEMPLATES[@]} bibdia_stabib/update bibdia_stabib/stabikat bibdia_stabib/stabikat bibdia_stabib/stabikat)
-PAGES=(${PAGES[@]} bibdia_stabib/list.html bibdia_stabib/stabikat1.html bibdia_stabib/stabikat2.html bibdia_stabib/stabikat3.html) 	
+TEMPLATES=(${TEMPLATES[@]} bibdia_stabib/update bibdia_stabib/fastUpdate bibdia_stabib/stabikat bibdia_stabib/stabikat bibdia_stabib/stabikat)
+PAGES=(${PAGES[@]} bibdia_stabib/list.html bibdia_stabib/list_f.html bibdia_stabib/stabikat1.html bibdia_stabib/stabikat2.html bibdia_stabib/stabikat3.html) 	
 
 #=============LIBERO==============
 mkdir -p $OUTPATH/libero54

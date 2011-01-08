@@ -1,0 +1,37 @@
+<htmlparser:meta encoding="utf8"/>
+<!-- equivalent to update, but assumes all books are already known and only the status/date has changed-->
+<html>
+
+<htmlparser:read var="templateError" source="'true'"/>
+
+<TD>Ausgeliehene Medien:</TD>
+
+
+<TABLE>
+<TR>
+<TH></TH><TH>Fällig</TH><TH>V</TH><TH>M</TH><TH>Signatur</TH><TH></TH><TH>Status</TH>
+</TR>
+
+<htmlparser:loop>
+<TR>
+<input type="checkbox" htmlparser-optional="true"><htmlparser:read var="newExtendId" source="@name"/></input>
+<TD align="center"><htmlparser:read var="newLimit" source="text()"/></TD>
+<TD><htmlparser:read var="V" source="text()"/></TD>
+<TD></TD>
+<TD><htmlparser:read var="book-select(id)" source="text()"/></TD>
+<TD></TD>
+<TD><htmlparser:read var="status" source="deepNodeText()"/></TD>
+<htmlparser:if test="$newExtendId;!=''">
+<htmlparser:read var="book.status:curious" source="concat($V;, '-mal verlängert, ', $status;)"/>
+</htmlparser:if>
+<htmlparser:if test="$newExtendId;=''">
+<htmlparser:read var="book.status:problematic" source="concat($status, ', ', $V;, '-mal verlängert')"/>
+</htmlparser:if>
+<htmlparser:read var="book.limitDate:dd.mm.yyyy" source="$newLimit;"/>
+<htmlparser:read var="templateError" source="'false'"/>
+</tr>
+</htmlparser:loop>
+</table>
+
+<htmlparser:if test="$templateError;">Template Fehler! Vielleicht hat die Bücherei ihr System geändert.</htmlparser:if>
+</html>
