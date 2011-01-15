@@ -139,6 +139,8 @@ type
   TCustomAccountAccess=class
   private
     FEnabled: boolean;
+    FTimeout: dword;
+    function GetConnected: boolean;
   protected
     fbooks: TBookLists;
     lib: TLibrary;
@@ -148,12 +150,13 @@ type
     FExtendType: TExtendType;
     FExtendDays,FLastCheckDate:integer;
 
-    FKeepHistory: boolean;
+    FKeepHistory, FConnected: boolean;
+    FConnectingTime: dword;
     FCharges:Currency;
     function getCharges:currency;virtual;
   public
 //    nextLimit,nextNotExtendableLimit:longint;
-    connected,isThreadRunning: boolean; //set to true before the thread is called
+    isThreadRunning: boolean; //set to true before the thread is called
                               //set to false after the last change is done
                               //read whenever you want
     constructor create(alib: TLibrary);virtual;
@@ -196,6 +199,8 @@ type
     property extendType: TExtendType read FExtendType write FExtendType;
     property keepHistory: boolean read FKeepHistory write FKeepHistory;
     property enabled: boolean read FEnabled write FEnabled;
+    property connected: boolean read GetConnected;
+    property timeout: dword read FTimeout write FTimeout;
   end;
 
 
@@ -595,6 +600,11 @@ begin
   details:=more_details;
 end;
 
+function TCustomAccountAccess.GetConnected: boolean;
+begin
+  result:=FConnected and (GetTickCount - FConnectingTime < Timeout);
+end;
+
 function TCustomAccountAccess.getCharges: currency;
 begin
   result:=fcharges;
@@ -602,7 +612,7 @@ end;
 
 constructor TCustomAccountAccess.create(alib:TLibrary);
 begin
-  connected:=false;
+  FConnected:=false;
   fbooks:=nil;
   currentDate:=longint(trunc(date));
   config:=nil;
@@ -610,6 +620,7 @@ begin
   lib:=alib;
   fcharges:=-1;
   FEnabled:=true;
+  FTimeout:=10*60*1000;
 end;
 
 destructor TCustomAccountAccess.destroy;
@@ -673,7 +684,7 @@ end;}
 
 procedure TCustomAccountAccess.disconnect();
 begin
-  connected:=false;
+  fconnected:=false;
 end;
 
 procedure TCustomAccountAccess.updateAll();
@@ -844,6 +855,7 @@ begin
   setVariables();
   reader.performAction('update-all');
   lastTodayUpdate:=GetTickCount;
+  FConnectingTime:=GetTickCount;
   if logging then log('Leave TTemplateAccountAccess.updateAll');
 end;
 
@@ -854,6 +866,7 @@ begin
   setVariables();
   reader.selectBook(book);
   reader.performAction('update-single');
+  FConnectingTime:=GetTickCount;
   if logging then
     log('leave TTemplateAccountAccess.updateSingle');
 
@@ -867,6 +880,7 @@ begin
     setVariables();
     reader.performAction('extend-all');
   end else extendList(reader.books);
+  FConnectingTime:=GetTickCount;
   if logging then
     log('leave TTemplateAccountAccess.extendAll');
 end;
@@ -905,6 +919,7 @@ begin
     if logging then log('use extendAll Template');
     reader.performAction('extend-all');
   end;
+  FConnectingTime:=GetTickCount;
   if logging then log('Leave TTemplateAccountAccess.extendList');
 end;
 
@@ -947,7 +962,8 @@ begin
   lastTodayUpdate:=0;
   setVariables();
   reader.performAction('connect');
-  connected:=true;
+  fconnected:=true;
+  FConnectingTime:=GetTickCount;
   if logging then log('TTemplateAccountAccess.connect ended');
 end;
 
