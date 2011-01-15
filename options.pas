@@ -246,7 +246,7 @@ begin
   edtHistoryBackupInterval.text:=IntToStr(HistoryBackupInterval);
 
 
-  Notebook1.ShowTabs:=false ;
+  //Notebook1.ShowTabs:=false ;
 
   updateActiveInternetConfig;
 end;

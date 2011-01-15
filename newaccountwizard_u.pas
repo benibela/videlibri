@@ -53,6 +53,10 @@ type
     procedure FormCreate(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure Notebook1PageChanged(Sender: TObject);
+    procedure Page2BeforeShow(ASender: TObject; ANewPage: TPage;
+     ANewIndex: Integer);
+    procedure Page4BeforeShow(ASender: TObject; ANewPage: TPage;
+     ANewIndex: Integer);
     procedure RadioGroup1Click(Sender: TObject);
     procedure RadioGroup2Click(Sender: TObject);
     procedure Timer1Timer(Sender: TObject);
@@ -91,7 +95,7 @@ end;
 
 procedure TnewAccountWizard.Notebook1PageChanged(Sender: TObject);
 begin
-  if Notebook1.PageIndex=lastPage.PageIndex then begin
+  if Notebook1.ActivePageComponent=lastPage then begin
     StringGrid1.Cells[1,0]:=libraryList.Items[libraryList.ItemIndex];
     StringGrid1.Cells[1,1]:=accountName.text;
     StringGrid1.Cells[1,2]:=accountPass.text;
@@ -113,6 +117,18 @@ begin
   //fix lcl bug 14877
   libraryList.ReAlign;
   extendTypeRG.ReAlign;
+end;
+
+procedure TnewAccountWizard.Page2BeforeShow(ASender: TObject; ANewPage: TPage;
+ ANewIndex: Integer);
+begin
+
+end;
+
+procedure TnewAccountWizard.Page4BeforeShow(ASender: TObject; ANewPage: TPage;
+ ANewIndex: Integer);
+begin
+
 end;
 
 procedure TnewAccountWizard.RadioGroup1Click(Sender: TObject);
