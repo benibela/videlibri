@@ -22,6 +22,7 @@ type
     PaintBox1: TPaintBox;
     Panel1: TPanel;
     Panel2: TPanel;
+    Timer1: TTimer;
     procedure Button1Click(Sender: TObject);
     procedure CheckBox1Click(Sender: TObject);
     procedure CheckBox2Change(Sender: TObject);
@@ -34,6 +35,7 @@ type
       Y: Integer);
     procedure PaintBox1Paint(Sender: TObject);
     procedure PaintBox1Resize(Sender: TObject);
+    procedure Timer1Timer(Sender: TObject);
   private
     { private declarations }
     procedure translateDate(sender: TAxis; value: extended; var translated: string);
@@ -84,6 +86,8 @@ var i,j,k:integer;
     
 
 begin
+  if diagramDrawer=nil then exit;
+
   showSum:=CheckBox1.Checked;
 
   diagramModel.deleteLists;
@@ -210,11 +214,7 @@ end;
 
 procedure TstatistikForm.FormCreate(Sender: TObject);
 begin
-  diagramDrawer:=TDiagramDrawer.create;
-  diagramModel:=TDiagramDataListModel.create;
-  diagramDrawer.SetModel(diagramModel,true);
-  diagramDrawer.BottomAxis.valueTranslate:=@translateDate;
-  diagramDrawer.Diagram.SetSize(PaintBox1.Width,PaintBox1.Height);
+  diagramDrawer:=nil;
   ComboBox1.ItemIndex:=0;
 end;
 
@@ -230,6 +230,7 @@ end;
 
 procedure TstatistikForm.CheckBox2Change(Sender: TObject);
 begin
+  if diagramDrawer=nil then exit;
   if CheckBox2.Checked then diagramDrawer.FillStyle:=fsMinOverMax
   else diagramDrawer.FillStyle:=fsNone;
   diagramDrawer.update;
@@ -243,6 +244,7 @@ end;
 
 procedure TstatistikForm.FormDestroy(Sender: TObject);
 begin
+  if diagramDrawer=nil then exit;
   diagramDrawer.Free;
 end;
 
@@ -253,13 +255,14 @@ end;
 
 procedure TstatistikForm.FormShow(Sender: TObject);
 begin
-  updateStatistic;
+  //updateStatistic;
 end;
 
 procedure TstatistikForm.PaintBox1MouseMove(Sender: TObject;
   Shift: TShiftState; X, Y: Integer);
 var day,year,month:longint;
 begin
+  if diagramDrawer=nil then exit;
   case ComboBox1.ItemIndex of
     DIAGRAM_DAYS: begin
       day:=round(diagramDrawer.posToDataX(x));
@@ -280,12 +283,26 @@ end;
 
 procedure TstatistikForm.PaintBox1Paint(Sender: TObject);
 begin
+  if diagramDrawer=nil then exit;
   PaintBox1.Canvas.Draw(0,0,diagramDrawer.Diagram);
 end;
 
 procedure TstatistikForm.PaintBox1Resize(Sender: TObject);
 begin
   if diagramDrawer=nil then exit;
+  diagramDrawer.Diagram.SetSize(PaintBox1.Width,PaintBox1.Height);
+  updateStatistic;
+end;
+
+procedure TstatistikForm.Timer1Timer(Sender: TObject);
+begin
+  //workaround for LCL bug 18524
+  timer1.Enabled:=false;
+  if diagramDrawer<>nil then exit;
+  diagramDrawer:=TDiagramDrawer.create;
+  diagramModel:=TDiagramDataListModel.create;
+  diagramDrawer.SetModel(diagramModel,true);
+  diagramDrawer.BottomAxis.valueTranslate:=@translateDate;
   diagramDrawer.Diagram.SetSize(PaintBox1.Width,PaintBox1.Height);
   updateStatistic;
 end;

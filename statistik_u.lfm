@@ -11,7 +11,7 @@ object statistikForm: TstatistikForm
   OnDestroy = FormDestroy
   OnResize = FormResize
   OnShow = FormShow
-  LCLVersion = '0.9.29'
+  LCLVersion = '0.9.31'
   object PaintBox1: TPaintBox
     Left = 0
     Height = 313
@@ -37,9 +37,9 @@ object statistikForm: TstatistikForm
     TabOrder = 0
     object Label1: TLabel
       Left = 4
-      Height = 20
+      Height = 18
       Top = 7
-      Width = 228
+      Width = 202
       BorderSpacing.Around = 4
       Caption = 'Anzahl ausgeliehener Bücher je'
       ParentColor = False
@@ -49,8 +49,8 @@ object statistikForm: TstatistikForm
       AnchorSideLeft.Side = asrBottom
       AnchorSideTop.Control = Label1
       AnchorSideTop.Side = asrCenter
-      Left = 236
-      Height = 33
+      Left = 210
+      Height = 31
       Top = 1
       Width = 108
       BorderSpacing.Around = 4
@@ -69,10 +69,10 @@ object statistikForm: TstatistikForm
       AnchorSideLeft.Side = asrBottom
       AnchorSideTop.Control = Label1
       AnchorSideTop.Side = asrCenter
-      Left = 348
-      Height = 23
-      Top = 6
-      Width = 152
+      Left = 322
+      Height = 22
+      Top = 5
+      Width = 137
       BorderSpacing.Around = 4
       Caption = 'Summe anzeigen'
       Checked = True
@@ -85,10 +85,10 @@ object statistikForm: TstatistikForm
       AnchorSideLeft.Side = asrBottom
       AnchorSideTop.Control = Label1
       AnchorSideTop.Side = asrCenter
-      Left = 504
-      Height = 23
-      Top = 6
-      Width = 62
+      Left = 463
+      Height = 22
+      Top = 5
+      Width = 58
       BorderSpacing.Around = 4
       Caption = 'füllen'
       OnChange = CheckBox2Change
@@ -108,9 +108,9 @@ object statistikForm: TstatistikForm
       AnchorSideTop.Control = Panel2
       AnchorSideTop.Side = asrCenter
       Left = 8
-      Height = 20
-      Top = 6
-      Width = 45
+      Height = 18
+      Top = 7
+      Width = 39
       Caption = 'Maus:'
       ParentColor = False
     end
@@ -127,5 +127,11 @@ object statistikForm: TstatistikForm
       OnClick = Button1Click
       TabOrder = 0
     end
+  end
+  object Timer1: TTimer
+    Interval = 100
+    OnTimer = Timer1Timer
+    left = 119
+    top = 87
   end
 end
