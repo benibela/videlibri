@@ -6,19 +6,19 @@
 <h1>Seitenauswertung</h1>
 <br>
 <h2>Allgemeines</h2>
-Der folgende Text beschreibt, wie man ein HTML-Template erzeugt, welches den Inhalt einer bestimmten Seite des Büchereikatalogs auswertet (nicht zu verwechseln mit einem <a href="templates.html">VideLibri-Template</a>, das beschreibt wie die URLs der Seiten lauten und welches HTML-Template welcher Seite zugeordnet wird).<br>
-Ein solches HTML-Template muss für jede auszuwertende Seite erstellt werden und ist eine HTML-Datei,  deren Struktur (DOM-Baum sozusagen) mit der Struktur der Seite übereinstimmt und in der wichtige Element ausgezeichnet sind.<br>
-VideLibri versucht beim Ausführen einer Templateaktion, die HTML-Befehle und Inhalte des Templates in der heruntergeladenen Seite wiederzufinden. Dies funktioniert, so ähnlich wie ein regulärer Ausdruck, bei dem z.B.: foo[A-Z]*bar Großbuchstaben zwischen foo..bar findet, nur dass die Buchstaben durch HTML-Tags ersetzt sind. <br>
-Befinden sich auf der Internetseite zusätzliche Elemente, werden diese ignoriert. Man muss daher im Template keine unnötigen Sachen wie beispielsweise Texte, divs oder css-styles angeben.<br>
-Zum Beispiel kann man mit &lt;td>...&lt;/td> die erste Tabellenzelle auswählen, und mit &lt;div id="xy">... &lt;/div> ein bestimmtes div. <br>
- Alle existierenden VideLibri-Templates  sind im Verzeichnis data/libraries/templates finden, und für einzelne Seiten kann man seine Templates <a href="cgi-bin/htmlparserExampleCGI">online</a> testen. Wenn man den VideLibri-Quellcode hat, kann man dazu auch die Beispielsprogrammen unter components/pascal/data/examples verwenden.
+Der folgende Text beschreibt, wie man ein HTML-Template erzeugt, welches den Inhalt einer bestimmten Seite des BÃ¼chereikatalogs auswertet (nicht zu verwechseln mit einem <a href="templates.html">VideLibri-Template</a>, das beschreibt wie die URLs der Seiten lauten und welches HTML-Template welcher Seite zugeordnet wird).<br>
+Ein solches HTML-Template muss fÃ¼r jede auszuwertende Seite erstellt werden und ist eine HTML-Datei,  deren Struktur (DOM-Baum sozusagen) mit der Struktur der Seite Ã¼bereinstimmt und in der wichtige Element ausgezeichnet sind.<br>
+VideLibri versucht beim AusfÃ¼hren einer Templateaktion, die HTML-Befehle und Inhalte des Templates in der heruntergeladenen Seite wiederzufinden. Dies funktioniert, so Ã¤hnlich wie ein regulÃ¤rer Ausdruck, bei dem z.B.: foo[A-Z]*bar GroÃŸbuchstaben zwischen foo..bar findet, nur dass die Buchstaben durch HTML-Tags ersetzt sind. <br>
+Befinden sich auf der Internetseite zusÃ¤tzliche Elemente, werden diese ignoriert. Man muss daher im Template keine unnÃ¶tigen Sachen wie beispielsweise Texte, divs oder css-styles angeben.<br>
+Zum Beispiel kann man mit &lt;td>...&lt;/td> die erste Tabellenzelle auswÃ¤hlen, und mit &lt;div id="xy">... &lt;/div> ein bestimmtes div. <br>
+ Alle existierenden VideLibri-Templates  sind im Verzeichnis data/libraries/templates finden, und fÃ¼r einzelne Seiten kann man seine Templates <a href="cgi-bin/htmlparserExampleCGI">online</a> testen. Wenn man den VideLibri-Quellcode hat, kann man dazu auch die Beispielsprogrammen unter components/pascal/data/examples verwenden.
 <br>
 <h2>Template-Befehle</h2>
 Es gibt folgende wichtige Befehle:<br>
 <table>
 <tr><td>&lt;htmlparser:meta encoding="windows-1252|utf-8"/></td><td>Sollte der erste Befehl sein, gibt an, ob die Datei in utf-8 oder Windows-1252 codiert ist.</td></tr>
 
-<tr><td>&lt;htmlparser:loop> ... &lt;htmlparser:/loop></td><td>Wiederholt den Inhalt zwischen den geschlossenen Tags, solange wie möglich. (einschließlich niemals)</td></tr>
+<tr><td>&lt;htmlparser:loop> ... &lt;htmlparser:/loop></td><td>Wiederholt den Inhalt zwischen den geschlossenen Tags, solange wie mÃ¶glich. (einschlieÃŸlich niemals)</td></tr>
 
 <tr><td>&lt;htmlparser:if cond="condition"> ... &lt;htmlparser:/if></td><td>Ignoriert alle Elemente innerhalb des if-Tags, falls der Pseudo-XPath-Ausdruck in cond nicht zu true ausgewertet wrid</td></tr>
 
@@ -29,56 +29,56 @@ Es gibt folgende wichtige Befehle:<br>
 <br>
 Weitere Befehle und Details sind auf meiner <a href="http://benibela.de/documentation/internettools/pseudoxpath.TPseudoXPathParser.html">Seite</a> beschrieben.
 <h2>Pseudo-XPath</h2>
-Ein Pseudo-XPath-Ausdruck ähnelt einem XPath-Ausdruck, ist aber auf html-Abfragen optimiert und nicht so umfangreich. <br>
+Ein Pseudo-XPath-Ausdruck Ã¤hnelt einem XPath-Ausdruck, ist aber auf html-Abfragen optimiert und nicht so umfangreich. <br>
 Die wichtigsten Befehle sind:
 <table>
 <tr><td>'abc...' oder  "abc.."</td><td>Der String abc...</td></tr>
 <tr><td>concat(<em>s1</em>,<em>s2</em>,<em>s3</em>,...)</td><td>Die Konkenation aller angegebenen Strings</td></tr>
 <tr><td>text()</td><td>Der Text des aktuellen Knotens als String</td></tr>
 <tr><td>@<em>attrib</em></td><td>Der Wert des Attributes attrib als String</td></tr>
-<tr><td><em>s1</em> == <em>s2</em></td><td>true, falls die Strings s1 und s2 gleich sind. (ohne Berücksichtigung der Groß/Kleinschreibung)</td></tr>
-<tr><td><em>s1</em> != <em>s2</em></td><td>true, falls die Strings s1 und s2 ungleich sind. (ohne Berücksichtigung der Groß/Kleinschreibung)</td></tr>
-<tr><td>filter(<em>str</em>, <em>regex</em>[,<em>match</em>])</em></td><td>Sucht den regulären Ausdruck regex in str und gibt die gefundene Übereinstimmung zurück. Ist match angegeben, wird nur der match-te Teilausdruck zurückgeben. </td></tr>
+<tr><td><em>s1</em> == <em>s2</em></td><td>true, falls die Strings s1 und s2 gleich sind. (ohne BerÃ¼cksichtigung der GroÃŸ/Kleinschreibung)</td></tr>
+<tr><td><em>s1</em> != <em>s2</em></td><td>true, falls die Strings s1 und s2 ungleich sind. (ohne BerÃ¼cksichtigung der GroÃŸ/Kleinschreibung)</td></tr>
+<tr><td>filter(<em>str</em>, <em>regex</em>[,<em>match</em>])</em></td><td>Sucht den regulÃ¤ren Ausdruck regex in str und gibt die gefundene Ãœbereinstimmung zurÃ¼ck. Ist match angegeben, wird nur der match-te Teilausdruck zurÃ¼ckgeben. </td></tr>
 <tr><td><em>$var;</em></td><td>Der Wert der Variable <em>var</em>. Variablen werden entweder von read-Anweisungen oder global im Template gesetzt. ($var; kann auch innerhalb von '..'-Strings verwendet werden)</td></tr>
 </table>
 <br>
 Weitere Befehle und Details sind auf meiner <a href="http://benibela.de/documentation/internettools/pseudoxpath.TPseudoXPathParser.html">Seite</a> beschrieben.
 
 <h2>Variablen</h2>
-Man kann beliebige eigene Variablen definieren, solange der Variablenname kein ; enthält, aber es gibt einige Variablen mit fester Bedeutung in VideLibri, deren Wert vom Programm angezeigt wird:
+Man kann beliebige eigene Variablen definieren, solange der Variablenname kein ; enthÃ¤lt, aber es gibt einige Variablen mit fester Bedeutung in VideLibri, deren Wert vom Programm angezeigt wird:
 <table>
 <tr><td>username</td><td>Benutzer/Kartennummer</td></tr>
-<tr><td>password</td><td>Passwort (üblicherweise das Geburtsdatum)</td></tr>
-<tr><td>charge</td><td>Zu zahlende Gebühren bei diesem Ausleihkonto</td></tr>
+<tr><td>password</td><td>Passwort (Ã¼blicherweise das Geburtsdatum)</td></tr>
+<tr><td>charge</td><td>Zu zahlende GebÃ¼hren bei diesem Ausleihkonto</td></tr>
 <tr><td></td><td></td></tr>
 <tr><td>book.category</td><td>Kategorie des aktuellen Buches</td></tr>
 <tr><td>book.id</td><td>Signatur</td></tr>
 <tr><td>book.author</td><td>Autor</td></tr>
 <tr><td>book.title</td><td>Titel</td></tr>
 <tr><td>book.year</td><td>Erscheinungsjahr</td></tr>
-<tr><td>book.status</td><td>Verlängerungsstatus</td></tr>
-<tr><td>book.status:problematic</td><td>Verlängerungsstatus für nicht-verlängerbare Medien</td></tr>
-<tr><td>book.status:curious</td><td>Verlängerungsstatus für verlängerbare Medien</td></tr>
+<tr><td>book.status</td><td>VerlÃ¤ngerungsstatus</td></tr>
+<tr><td>book.status:problematic</td><td>VerlÃ¤ngerungsstatus fÃ¼r nicht-verlÃ¤ngerbare Medien</td></tr>
+<tr><td>book.status:curious</td><td>VerlÃ¤ngerungsstatus fÃ¼r verlÃ¤ngerbare Medien</td></tr>
 <tr><td>book.issuedate:format</td><td>Ausleihdatum im angegenen Format (z.B.: yyyy-mm-dd)</td></tr>
 <tr><td>book.limitdate:format</td><td>Aubgabedatum im angegenen Format</td></tr>
-<tr><td>book.?????</td><td>Für ????? kann irgendetwas beliebiges stehen, der Wert wird bis zum Programmende für das Buch gemerkt</td></tr>
+<tr><td>book.?????</td><td>FÃ¼r ????? kann irgendetwas beliebiges stehen, der Wert wird bis zum Programmende fÃ¼r das Buch gemerkt</td></tr>
 <tr><td></td><td></td></tr>
-<tr><td><b>delete-current-books()</b></td><td>keine eigentliche Variable, wird ihr ein Wert zu gewiesen, wird die Liste der aktuell ausgeliehen Bücher gelöscht (muss vor neuen Büchern aufgerufen werden)</td></tr>
+<tr><td><b>delete-current-books()</b></td><td>keine eigentliche Variable, wird ihr ein Wert zu gewiesen, wird die Liste der aktuell ausgeliehen BÃ¼cher gelÃ¶scht (muss vor neuen BÃ¼chern aufgerufen werden)</td></tr>
 <tr><td><b>book-start()</b></td><td>Bereitet VideLibri auf ein neues Buch vor</td></tr>
 <tr><td><b>book-end()</b></td><td>Speichert das gerade gelesene Buch</td></tr>
 <tr><td>raise()</td><td>Erzeugt Fehlermeldung mit dem angegebenen Wert</td></tr>
-<tr><td>raise-login()</td><td>Erzeugt eine "ungültiger Benutzername/Passwortfehlermeldung"</td></tr>
+<tr><td>raise-login()</td><td>Erzeugt eine "ungÃ¼ltiger Benutzername/Passwortfehlermeldung"</td></tr>
 <tr><td>book-select()</td><td>Allgemeine Buchauswahl (noch nicht implementiert)</td></tr>
-<tr><td>book-select(id)</td><td>Wählt das Buch mit der als Wert angegebenen ID. (Besser nicht verwenden)</td></tr>
+<tr><td>book-select(id)</td><td>WÃ¤hlt das Buch mit der als Wert angegebenen ID. (Besser nicht verwenden)</td></tr>
 </table>
 
 <br>
-Variablen, die auf () enden, sind keine Variablen im üblichen Sinne, sondern Funktionen, die bei einer Zuweisung aufgerufen werden.<br>
-Es ist nicht nötig, jeder Variable etwas zuzuweisen, aber es können natürlich nur die gesetzten Werte später angezeigt werden.<br>
-Die Aufrufe der fettgedruckten Funktionsvariablen sind dagegen nötig, um VideLibri mitzuteilen, wann ein neues Buch beginnt und endet. Die Sequenz der Variablezuweisungen sieht also normalerweise so aus: delete-current-books() ... book-start() .. book-end() ... book-start() .. book-end() .. book-start() .. book-end() ....
+Variablen, die auf () enden, sind keine Variablen im Ã¼blichen Sinne, sondern Funktionen, die bei einer Zuweisung aufgerufen werden.<br>
+Es ist nicht nÃ¶tig, jeder Variable etwas zuzuweisen, aber es kÃ¶nnen natÃ¼rlich nur die gesetzten Werte spÃ¤ter angezeigt werden.<br>
+Die Aufrufe der fettgedruckten Funktionsvariablen sind dagegen nÃ¶tig, um VideLibri mitzuteilen, wann ein neues Buch beginnt und endet. Die Sequenz der Variablezuweisungen sieht also normalerweise so aus: delete-current-books() ... book-start() .. book-end() ... book-start() .. book-end() .. book-start() .. book-end() ....
 
 <h2>Beispiel</h2>
-Das Beispiel zeigt, wie sich die Tabelle einer idealen Bücherei auswerten lässt, die Id, Titel, Autor und Abgabedatum in jeweils einer Spalte anzeigt und für jedes Buch eine Zeile besitzt: 
+Das Beispiel zeigt, wie sich die Tabelle einer idealen BÃ¼cherei auswerten lÃ¤sst, die Id, Titel, Autor und Abgabedatum in jeweils einer Spalte anzeigt und fÃ¼r jedes Buch eine Zeile besitzt: 
 <pre>
 &lt;table id="books" border=1>
   &lt;tr>
@@ -98,5 +98,5 @@ Das Beispiel zeigt, wie sich die Tabelle einer idealen Bücherei auswerten lässt,
 &lt;/table>
 </pre>
 
-<!--Außerdem gibt es zusätzlich noch <a href="faq.html">Fragen und Antworten--></a>
+<!--AuÃŸerdem gibt es zusÃ¤tzlich noch <a href="faq.html">Fragen und Antworten--></a>
 </body>
