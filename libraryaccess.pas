@@ -450,7 +450,7 @@ begin
         for j:=0  to books.current.count-1 do
           if books.current[j].limitDate<=redTime then
             count+=1;
-    alert:='Bald (bis '+DateToPrettyGrammarStr('zum ','',nextLimit)+') müssen einige Medien ('+IntToStr(count)+') abgegeben werden.'#13#10'Die Medien können allerdings verlängert werden, soll dies jetzt versucht werden?';
+    alert:='Bald (bis '+DateToPrettyGrammarStr('zum ','',nextLimit)+') müssen einige Medien ('+IntToStr(count)+') abgegeben werden.'#13#10'Die Medien können allerdings verlängert werden, soll dies jetzt versucht werden?'#13#10'(Der Versuch kann fehlschlagen, wenn keine Internetverbindung besteht, oder die Medien von nicht automatisch verlängerten Konten stammen)';
     if Application.MessageBox(pchar(alert),'Videlibri',MB_YESNO or MB_ICONWARNING or MB_SYSTEMMODAL)=IDYES then
       result:=true;
     tempInternet:=defaultInternetAccessClass.create;
