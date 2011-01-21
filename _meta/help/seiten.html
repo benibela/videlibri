@@ -8,7 +8,10 @@
 <h2>Allgemeines</h2>
 Der folgende Text beschreibt, wie man ein HTML-Template erzeugt, welches den Inhalt einer bestimmten Seite des Büchereikatalogs auswertet (nicht zu verwechseln mit einem <a href="templates.html">VideLibri-Template</a>, das beschreibt wie die URLs der Seiten lauten und welches HTML-Template welcher Seite zugeordnet wird).<br>
 Ein solches HTML-Template muss für jede auszuwertende Seite erstellt werden und ist eine HTML-Datei,  deren Struktur (DOM-Baum sozusagen) mit der Struktur der Seite übereinstimmt und in der wichtige Element ausgezeichnet sind.<br>
-VideLibri versucht beim Ausführen einer Templateaktion, die HTML-Befehle und Inhalte des Templates in der heruntergeladenen Seite wiederzufinden. Befinden sich auf der Internetseite zusätzliche Elemente, werden diese ignoriert. Man muss daher im Template keine unnötigen Sachen wie beispielsweise Texte, divs oder css-styles angeben.<br>Zum Beispiel kann man mit den &lt;td>...&lt;/td> die erste Tabellenzelle auswählen, und mit &lt;div id="xy">... &lt;/div> ein bestimmtes div. <br>
+VideLibri versucht beim Ausführen einer Templateaktion, die HTML-Befehle und Inhalte des Templates in der heruntergeladenen Seite wiederzufinden. Dies funktioniert, so ähnlich wie ein regulärer Ausdruck, bei dem z.B.: foo[A-Z]*bar Großbuchstaben zwischen foo..bar findet, nur dass die Buchstaben durch HTML-Tags ersetzt sind. <br>
+Befinden sich auf der Internetseite zusätzliche Elemente, werden diese ignoriert. Man muss daher im Template keine unnötigen Sachen wie beispielsweise Texte, divs oder css-styles angeben.<br>
+Zum Beispiel kann man mit &lt;td>...&lt;/td> die erste Tabellenzelle auswählen, und mit &lt;div id="xy">... &lt;/div> ein bestimmtes div. <br>
+ Alle existierenden VideLibri-Templates  sind im Verzeichnis data/libraries/templates finden, und für einzelne Seiten kann man seine Templates <a href="cgi-bin/htmlparserExampleCGI">online</a> testen. Wenn man den VideLibri-Quellcode hat, kann man dazu auch die Beispielsprogrammen unter components/pascal/data/examples verwenden.
 <br>
 <h2>Template-Befehle</h2>
 Es gibt folgende wichtige Befehle:<br>
