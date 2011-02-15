@@ -11,7 +11,7 @@ unit libraryAccess;
 
 interface
 uses
-  Classes, SysUtils,libraryParser,booklistreader, LCLType;
+  Classes, SysUtils,libraryParser,booklistreader, LCLType, strutils, bbutils;
 
 //--Aktualisierungen--
 type
@@ -419,48 +419,53 @@ function alertAboutBooksThatMustBeReturned: boolean;
 var alert:string;
     tempInternet: TInternetAccess;
     i,j,count:longint;
+    booksOverdue, booksSoonNotExtendable, booksSoon: TStringList;
 begin
   if logging then log('alertAboutBooksThatMustBeReturned started');
   result:=false;
   currentDate:=longint(trunc(now));
   count:=0;
 
-  if nextLimit<currentDate then begin
-    for i:=0 to accountIDs.count-1 do
-      with TCustomAccountAccess(accountIDs.Objects[i]) do
-        for j:=0  to books.current.count-1 do
-          if books.current[j].limitDate<currentDate then
-            count+=1;
-    alert:='Einige Medien ('+inttostr(count)+') sind überfällig und sollten schon bis '+DateToPrettyGrammarStr('zum ','',nextLimit)+' abgegeben worden sein.'#13#10'Wollen Sie eine Liste dieser Medien angezeigt bekommen? (Wenn Sie die Medien schon abgegeben haben, müssen Sie die Medienliste aktualisieren)';
-    if Application.MessageBox(pchar(alert),'Videlibri',MB_YESNO or MB_ICONWARNING or MB_SYSTEMMODAL)=IDYES then
-      result:=true;
-  end else if nextNotExtendableLimit<=redTime then begin
-    for i:=0 to accountIDs.count-1 do
-      with TCustomAccountAccess(accountIDs.Objects[i]) do
-        for j:=0  to books.current.count-1 do
-          with books.current[j] do
-            if (limitDate<=redTime) and (status in BOOK_NOT_EXTENDABLE) then
-              count+=1;
-    alert:='Bald (bis '+DateToPrettyGrammarStr('zum ','',nextNotExtendableLimit)+') müssen einige nicht verlängerbare Medien ('+IntToStr(count)+') abgegeben werden.'#13#10'Wollen Sie eine Liste dieser Medien angezeigt bekommen?';
-    if Application.MessageBox(pchar(alert),'Videlibri',MB_YESNO or MB_ICONWARNING or MB_SYSTEMMODAL)=IDYES then
-      result:=true;
-  end else if nextLimit<=redTime then begin
-    for i:=0 to accountIDs.count-1 do
-      with TCustomAccountAccess(accountIDs.Objects[i]) do
-        for j:=0  to books.current.count-1 do
-          if books.current[j].limitDate<=redTime then
-            count+=1;
-    alert:='Bald (bis '+DateToPrettyGrammarStr('zum ','',nextLimit)+') müssen einige Medien ('+IntToStr(count)+') abgegeben werden.'#13#10'Die Medien können allerdings verlängert werden, soll dies jetzt versucht werden?'#13#10'(Der Versuch kann fehlschlagen, wenn keine Internetverbindung besteht, oder die Medien von nicht automatisch verlängerten Konten stammen)';
-    if Application.MessageBox(pchar(alert),'Videlibri',MB_YESNO or MB_ICONWARNING or MB_SYSTEMMODAL)=IDYES then
-      result:=true;
-    tempInternet:=defaultInternetAccessClass.create;
-    if not tempInternet.needConnection() then begin
-      alert:='Der Aufbau einer Internetverbindung zum Verlängern ist fehlgeschlagen'#13#10'Wollen sie dafür eine Liste der abzugebenden Medien angezeigt bekommen?';
-      if Application.MessageBox(pchar(alert),'Videlibri',MB_YESNO or MB_ICONWARNING or MB_SYSTEMMODAL)=IDYES then
-        result:=true;
+  booksOverdue:=TStringList.Create;
+  booksSoonNotExtendable:=TStringList.Create;
+  booksSoon:=TStringList.Create;
+
+  for i:=0 to accountIDs.count-1 do
+    with TCustomAccountAccess(accountIDs.Objects[i]) do
+      for j:=0  to books.current.count-1 do begin
+        if books.current[j].limitDate<currentDate then
+          booksOverdue.Add(books.current[j].toSimpleString())
+        else if (books.current[j].limitDate<=redTime) then begin
+          if (books.current[j].status in BOOK_NOT_EXTENDABLE) then
+            booksSoonNotExtendable.Add(books.current[j].toSimpleString())
+           else
+            booksSoon.Add(books.current[j].toSimpleString());
+        end
+      end;
+  if booksOverdue.Count + booksSoonNotExtendable.Count + booksSoon.Count > 0 then begin
+    alert:='';
+    if booksOverdue.Count > 0 then begin
+      alert+=Format('Die folgenden Medien (%d) sind überfällig und sollten schon bis %s abgegeben worden sein:'#13, [booksOverdue.Count, DateToPrettyGrammarStr('zum ','',nextLimit)]);
+      alert+=#9+strJoin(booksOverdue, #13#9, -10)+#13#13;
     end;
-    tempInternet.free;
+    if booksSoonNotExtendable.Count > 0 then begin
+      alert+=Format('Die folgenden Medien (%d) sind nicht verlängerbar und sollten bis zum %s abgegeben werden:'#13, [booksSoonNotExtendable.Count, DateToPrettyGrammarStr('zum ','',nextNotExtendableLimit)]);
+      alert+=#9+strJoin(booksSoonNotExtendable, #13#9, -10)+#13#13;
+    end;
+    if booksSoon.Count > 0 then begin
+      alert+=Format('Die folgenden Medien (%d) sind bald bis zum %s fällig:'#13, [booksSoon.Count, DateToPrettyGrammarStr('zum ','',nextLimit)]);
+      alert+=#9+strJoin(booksSoon, #13#9, -10)+#13;
+      alert+='VideLibri wird versuchen, diese Bücher automatisch zu verlängern'#13#13;
+    end;
+    alert+='Soll die Gesamt-Übersicht geöffnet werden?';
+    if Application.MessageBox(pchar(alert),'Videlibri',MB_YESNO or MB_ICONWARNING or MB_SYSTEMMODAL)=IDYES then
+      result:=true;
   end;
+
+  booksSoon.Free;
+  booksSoonNotExtendable.free;
+  booksOverdue.Free;
+
   if logging then log('alertAboutBooksThatMustBeReturned ended');
 end;
 

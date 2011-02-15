@@ -43,6 +43,7 @@ type
     
     procedure clear;
     procedure assignNoReplace(book: TBook); //every value not set will be replaced with the one from book
+    function toSimpleString():string;
     //procedure assignOverride(book: TBook);  //every value set in book will be replace the one of self
   end;
   
@@ -257,6 +258,12 @@ begin
     if getProperty(book.additional[i].name,additional)='' then
       addProperty(book.additional[i].name,book.additional[i].value,additional);
 end;
+
+function TBook.toSimpleString():string;
+begin
+  result:=id+' - '+author+' * '+ title;
+end;
+
   {
 procedure TBook.assignOverride(book: TBook);
 var i:longint;
