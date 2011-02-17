@@ -153,7 +153,7 @@ type
 
   private
     { private declarations }
-
+    lastState: TWindowState;
   public
     { public declarations }
     oldListViewWindowProc: TWndMethod;
@@ -254,6 +254,9 @@ begin
   height:=userConfig.ReadInteger('window','height',height);
   if left+width>screen.width then width:=screen.width-left;
   if top+height>screen.height then height:=screen.height-top;
+
+  lastState:=WindowState;
+  if lastState = wsMinimized then lastState:=wsNormal;
 
   caption:=appFullTitle;
 
@@ -466,7 +469,8 @@ end;
 
 procedure TmainForm.FormWindowStateChange(Sender: TObject);
 begin
-  if WindowState=wsMinimized then hide;
+  if WindowState=wsMinimized then hide
+  else lastState := WindowState;
 end;
 
 procedure TmainForm.MenuItem11Click(Sender: TObject);
@@ -696,7 +700,7 @@ end;
 
 procedure TmainForm.TrayIcon1Click(Sender: TObject);
 begin
-
+ TrayIcon1.PopUpMenu.PopUp;
 end;
 
 procedure TmainForm.TrayIcon1DblClick(Sender: TObject);
@@ -704,8 +708,10 @@ begin
   //TODO: why doesn't this work if it is maximized?????
   application.BringToFront;
   if Enabled then begin
-    mainform.show;
-    mainform.BringToFront;
+ //   WindowState:=lastState;
+    {$Ifdef win32}windowstate:=wsNormal;{$endif}
+    show;
+    BringToFront;
   end;
 end;
 
