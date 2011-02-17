@@ -420,6 +420,9 @@ var alert:string;
     tempInternet: TInternetAccess;
     i,j,count:longint;
     booksOverdue, booksSoonNotExtendable, booksSoon: TStringList;
+    minDateSoon: Integer;
+    minDateSoonNotExtendable: Integer;
+    minDateOverdue: Integer;
 begin
   if logging then log('alertAboutBooksThatMustBeReturned started');
   result:=false;
@@ -430,30 +433,41 @@ begin
   booksSoonNotExtendable:=TStringList.Create;
   booksSoon:=TStringList.Create;
 
+  minDateOverdue := currentDate+1000;
+  minDateSoonNotExtendable := currentDate+1000;
+  minDateSoon := currentDate+1000;
+
   for i:=0 to accountIDs.count-1 do
     with TCustomAccountAccess(accountIDs.Objects[i]) do
       for j:=0  to books.current.count-1 do begin
-        if books.current[j].limitDate<currentDate then
-          booksOverdue.Add(books.current[j].toSimpleString())
-        else if (books.current[j].limitDate<=redTime) then begin
-          if (books.current[j].status in BOOK_NOT_EXTENDABLE) then
-            booksSoonNotExtendable.Add(books.current[j].toSimpleString())
-           else
+        if books.current[j].limitDate<currentDate then begin
+          booksOverdue.Add(books.current[j].toSimpleString());
+          if books.current[j].limitDate < minDateOverdue then
+            minDateOverdue:=books.current[j].limitDate;
+        end else if (books.current[j].limitDate<=redTime) then begin
+          if (books.current[j].status in BOOK_NOT_EXTENDABLE) then begin
+            booksSoonNotExtendable.Add(books.current[j].toSimpleString());
+            if books.current[j].limitDate < minDateSoonNotExtendable then
+              minDateSoonNotExtendable:=books.current[j].limitDate;
+           end else begin
             booksSoon.Add(books.current[j].toSimpleString());
+            if books.current[j].limitDate < minDateSoon then
+              minDateSoon:=books.current[j].limitDate;
+           end;
         end
       end;
   if booksOverdue.Count + booksSoonNotExtendable.Count + booksSoon.Count > 0 then begin
     alert:='';
     if booksOverdue.Count > 0 then begin
-      alert+=Format('Die folgenden Medien (%d) sind überfällig und sollten schon bis %s abgegeben worden sein:'#13, [booksOverdue.Count, DateToPrettyGrammarStr('zum ','',nextLimit)]);
+      alert+=Format('Die folgenden Medien (%d) sind überfällig und sollten schon bis %s abgegeben worden sein:'#13, [booksOverdue.Count, DateToPrettyGrammarStr('zum ','',minDateOverdue)]);
       alert+=#9+strJoin(booksOverdue, #13#9, -10)+#13#13;
     end;
     if booksSoonNotExtendable.Count > 0 then begin
-      alert+=Format('Die folgenden Medien (%d) sind nicht verlängerbar und sollten bis zum %s abgegeben werden:'#13, [booksSoonNotExtendable.Count, DateToPrettyGrammarStr('zum ','',nextNotExtendableLimit)]);
+      alert+=Format('Die folgenden Medien (%d) sind nicht verlängerbar und sollten bis %s abgegeben werden:'#13, [booksSoonNotExtendable.Count, DateToPrettyGrammarStr('zum ','',minDateSoonNotExtendable)]);
       alert+=#9+strJoin(booksSoonNotExtendable, #13#9, -10)+#13#13;
     end;
     if booksSoon.Count > 0 then begin
-      alert+=Format('Die folgenden Medien (%d) sind bald bis zum %s fällig:'#13, [booksSoon.Count, DateToPrettyGrammarStr('zum ','',nextLimit)]);
+      alert+=Format('Die folgenden Medien (%d) sind bald bis %s fällig:'#13, [booksSoon.Count, DateToPrettyGrammarStr('zum ','',minDateSoon)]);
       alert+=#9+strJoin(booksSoon, #13#9, -10)+#13;
       alert+='VideLibri wird versuchen, diese Bücher automatisch zu verlängern'#13#13;
     end;
