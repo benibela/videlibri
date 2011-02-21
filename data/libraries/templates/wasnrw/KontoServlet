@@ -9,8 +9,8 @@
         <htmlparser:read source="text()" var="charge" regex="\d+,\d+"/>
         <htmlparser:read var="delete-current-books()"/>
      </div>
-     <div>
-       <table summary="Liste der nicht verlängerbaren Medien" htmlparser-optional="true">
+     <div htmlparser-optional="true">
+       <table summary="Liste der nicht verlängerbaren Medien" >
          <caption>Nicht verlängerbare Ausleihen:<htmlparser:read source="text()" var="tempcount" regex="\d+$"/></caption>
          <htmlparser:if test="'$tempcount;'!='0'">                
            <tr>
@@ -28,7 +28,7 @@
               <htmlparser:read source="text()" var="book.author" regex="^\d* - [^ *]* ([a-z1-9] )?([^ ]*) *\*" submatch="2"/>
               <htmlparser:read source="text()" var="book.title" regex="- [^ *]* ([a-z1-9] )?(.*\*)?([^<]*)(<\d{2,4}>?)?$" submatch="3"/>
               <htmlparser:read source="text()" var="book.year" regex="<(\d{2,4})>?$" submatch="1"/>
-              <htmlparser:read source="text()" var="'Nicht verlängerbar'"/>
+              <htmlparser:read source="'Nicht verlängerbar'" var="book.status:problematic"/>
               <strong htmlparser-optional="true"><htmlparser:read source="text()" var="book.status:problematic"/></strong>
               </td>
               <td><htmlparser:read source="text()" var="book.issuedate:dd.mm.yyyy"/></td>
@@ -39,7 +39,9 @@
          </htmlparser:if>                    
        </table>
     
+    </div>
     
+    <div htmlparser-optional="true">
         <table summary="Liste der verlängerbaren Medien" htmlparser-optional="true">
          <caption>Verlängerbare Ausleihen:<htmlparser:read source="text()" var="tempcount" regex="\d+$"/></caption>
          <htmlparser:if test="'$tempcount;'!='0'">
