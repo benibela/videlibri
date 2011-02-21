@@ -94,7 +94,7 @@ type
     url:string;
     templateFile:string;
     template:string;
-    postparams:string;
+    postparams:array of TProperty;
     //call action
     action: string;
       //callOnce: boolean;
@@ -564,7 +564,7 @@ begin
     SetLength(currentAction^.actions,length(currentAction^.actions)+1);
     with currentAction^.actions[high(currentAction^.actions)] do begin
       typ:=tratLoadPage;
-      postparams:='';
+      setlength(postparams,0);
       for i:=0 to high(properties) do
         if SameText(properties[i].name,'url') then
           url:=Utf8ToAnsi(properties[i].value)
@@ -574,10 +574,8 @@ begin
   end else if SameText(tagName,'post') then begin
     if (currentAction=nil) then raise EBookListReader.create('Template ungültig: post-Tag gefunden, ohne dass eine Aktion definiert wurde');
     if (length(currentAction^.actions)=0)or(currentAction^.actions[high(currentAction^.actions)].typ<>tratLoadPage) then raise EBookListReader.create('Template ungültig: post-Tag nicht innerhalb eines page-Tags');
-    if currentAction^.actions[high(currentAction^.actions)].postparams<>'' then
-      currentAction^.actions[high(currentAction^.actions)].postparams+='&';
-    if getProperty('name',properties)<>'' then
-      currentAction^.actions[high(currentAction^.actions)].postparams+=getProperty('name',properties)+'=';
+    setlength(currentAction^.actions[high(currentAction^.actions)].postparams, length(currentAction^.actions[high(currentAction^.actions)].postparams)+1);
+    currentAction^.actions[high(currentAction^.actions)].postparams[high(currentAction^.actions[high(currentAction^.actions)].postparams)].name:=getProperty('name',properties);
     //for value see textread
   end else if SameText(tagName,'call') then begin
     SetLength(currentAction^.actions,length(currentAction^.actions)+1);
@@ -603,7 +601,8 @@ begin
     if (currentAction=nil) then raise EBookListReader.create('Template ungültig: post-Tag gefunden, ohne dass eine Aktion definiert wurde');
     if (length(currentAction^.actions)=0)or(currentAction^.actions[high(currentAction^.actions)].typ<>tratLoadPage) then raise EBookListReader.create('Template ungültig: post-Tag nicht innerhalb eines page-Tags');
     page:=@currentAction^.actions[high(currentAction^.actions)];
-    page^.postparams+=text
+    if length(page^.postparams) = 0 then raise EBookListReader.create('internal invalid post params');
+    page^.postparams[high(page^.postparams)].value:=text
   end;
   Result:=prContinue;
 end;
@@ -789,6 +788,7 @@ var i:longint;
     aname: String;
     avalue: String;
     j: Integer;
+    postparams: String;
 begin
   if logging then begin
     log('Enter performAction, finternet:');
@@ -812,12 +812,17 @@ begin
                 if logging then log('Parse Template From File: '+template.path+actions[i].templateFile);
                 parser.parseTemplate(actions[i].template,actions[i].templateFile);
               end;
-              if logging then log('Get/Post internet page ->'+parser.replaceVars(actions[i].url)+'<-'#13#10'Post: '+parser.replaceVars(actions[i].postparams));
-              if actions[i].postparams='' then
+              postparams := '';
+              for j:=0 to high(actions[i].postparams) do begin
+                if j <> 0 then postparams += '&';
+                postparams += TInternetAccess.urlEncodeData(parser.replaceVars(actions[i].postparams[j].name))+'='+
+                              TInternetAccess.urlEncodeData(parser.replaceVars(actions[i].postparams[j].value));
+              end;
+              if logging then log('Get/Post internet page ->'+parser.replaceVars(actions[i].url)+'<-'#13#10'Post: '+postparams);
+              if postparams='' then
                 page:=internet.get(parser.replaceVars(actions[i].url))
                else
-                page:=internet.post(parser.replaceVars(actions[i].url),
-                                               parser.replaceVars(actions[i].postparams));
+                page:=internet.post(parser.replaceVars(actions[i].url), postparams);
 
               if logging then log('downloaded: '+inttostr(length(page))+' bytes');
               if page='' then
