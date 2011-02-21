@@ -4,68 +4,74 @@
  <div class="layoutTable">
    <div class="midLeft1">
 
-    <div class="tabl110">Offene Gebühren</div>
-    <div class="tabr110"><htmlparser:read source="text()" var="charge" regex="\d+,\d+"/></div>
+     <div class="spezial3">
+        Offene Gebühren
+        <htmlparser:read source="text()" var="charge" regex="\d+,\d+"/>
+        <htmlparser:read var="delete-current-books()"/>
+     </div>
+     <div>
+       <table summary="Liste der nicht verlängerbaren Medien" htmlparser-optional="true">
+         <caption>Nicht verlängerbare Ausleihen:<htmlparser:read source="text()" var="tempcount" regex="\d+$"/></caption>
+         <htmlparser:if test="'$tempcount;'!='0'">                
+           <tr>
+            <th>Exemplar</th>
+            <th>Ausleihe</th>
+            <th>Frist bis</th>
+           </tr>
+           <htmlparser:loop>
+            <tr>
+             <td>
+              <htmlparser:read var="book-start()"/>
 
-   <table summary="Nicht verlängerbare Ausleihen">
-     <htmlparser:read var="delete-current-books()"/>
-     <caption>Nicht verlängerbare Ausleihen:<htmlparser:read source="text()" var="tempcount" regex="\d+$"/></caption>
-     <htmlparser:if test="'$tempcount;'!='0'">                
-       <tr>
-        <th>Exemplar</th>
-        <th>Ausleihe</th>
-        <th>Frist bis</th>
-       </tr>
-       <htmlparser:loop>
-        <tr>
-         <td>
-          <htmlparser:read var="book-start()"/>
-
-          <htmlparser:read source="text()" var="book.id" regex="^\d+"/>
-          <htmlparser:read source="text()" var="book.category" regex="^\d* - ([^ *]*( [a-z1-9])?) ." submatch="1"/>
-          <htmlparser:read source="text()" var="book.author" regex="^\d* - [^ *]* ([a-z1-9] )?([^ ]*) *\*" submatch="2"/>
-          <htmlparser:read source="text()" var="book.title" regex="- [^ *]* ([a-z1-9] )?(.*\*)?([^<]*)(<\d{2,4}>?)?$" submatch="3"/>
-          <htmlparser:read source="text()" var="book.year" regex="<(\d{2,4})>?$" submatch="1"/>
-          <strong><htmlparser:read source="text()" var="book.status:problematic"/></strong>
-          </td>
-          <td><htmlparser:read source="text()" var="book.issuedate:dd.mm.yyyy"/></td>
-          <td><htmlparser:read source="text()" var="book.limitdate:dd.mm.yyyy"/></td>
-          <htmlparser:read var="book-end()"/>
-        </tr>
-       </htmlparser:loop>
-     </htmlparser:if>                    
-   </table>
+              <htmlparser:read source="text()" var="book.id" regex="^\d+"/>
+              <htmlparser:read source="text()" var="book.category" regex="^\d* - ([^ *]*( [a-z1-9])?) ." submatch="1"/>
+              <htmlparser:read source="text()" var="book.author" regex="^\d* - [^ *]* ([a-z1-9] )?([^ ]*) *\*" submatch="2"/>
+              <htmlparser:read source="text()" var="book.title" regex="- [^ *]* ([a-z1-9] )?(.*\*)?([^<]*)(<\d{2,4}>?)?$" submatch="3"/>
+              <htmlparser:read source="text()" var="book.year" regex="<(\d{2,4})>?$" submatch="1"/>
+              <htmlparser:read source="text()" var="'Nicht verlängerbar'"/>
+              <strong htmlparser-optional="true"><htmlparser:read source="text()" var="book.status:problematic"/></strong>
+              </td>
+              <td><htmlparser:read source="text()" var="book.issuedate:dd.mm.yyyy"/></td>
+              <td><htmlparser:read source="text()" var="book.limitdate:dd.mm.yyyy"/></td>
+              <htmlparser:read var="book-end()"/>
+            </tr>
+           </htmlparser:loop>
+         </htmlparser:if>                    
+       </table>
     
     
-    <table summary="Verlängerbare Ausleihen">
-     <caption>Verlängerbare Ausleihen:<htmlparser:read source="text()" var="tempcount" regex="\d+$"/></caption>
-     <htmlparser:if test="'$tempcount;'!='0'">
-       <tr>
-        <th>Exemplar</th>
-        <th>Ausleihe</th>
-        <th>Frist bis</th>
-       </tr>
-       <htmlparser:loop>
-        <tr>
-          <td>
-            <htmlparser:read var="book-start()"/>
-            <htmlparser:read var="book.status"/>
-            
-            <htmlparser:read source="text()" var="book.id" regex="^\d+"/>
-            <htmlparser:read source="text()" var="book.category" regex="^\d* - ([^ *]*( [A-Z1-9])?) ." submatch="1"/>
-            <htmlparser:read source="text()" var="book.author" regex="^\d* - [^ *]* ([A-Z1-9] )?([^ ]*) *\*" submatch="2"/>
-            <htmlparser:read source="text()" var="book.title" regex="- [^ *]* ([A-Z1-9] )?(.*\*)?([^<]*)(<\d{2,4}>?)?$" submatch="3"/>
-            <htmlparser:read source="text()" var="book.year" regex="<(\d{2,4})>?$" submatch="1"/>
-          </td>
-          <td><htmlparser:read source="text()" var="book.issuedate:dd.mm.yyyy"/></td>
-          <td><htmlparser:read source="text()" var="book.limitdate:dd.mm.yyyy"/></td>
-          <htmlparser:read var="book-end()"/>
-        </tr>
-       </htmlparser:loop>
-     </htmlparser:if>
-    </table>
-
-
+        <table summary="Liste der verlängerbaren Medien" htmlparser-optional="true">
+         <caption>Verlängerbare Ausleihen:<htmlparser:read source="text()" var="tempcount" regex="\d+$"/></caption>
+         <htmlparser:if test="'$tempcount;'!='0'">
+           <tr>
+            <th>Exemplar</th>
+            <th>Ausleihe</th>
+            <th>Frist bis</th>
+           </tr>
+           <htmlparser:loop>
+            <tr>
+              <td>
+                <htmlparser:read var="book-start()"/>
+                <htmlparser:read var="book.status"/>
+                
+                <htmlparser:read source="text()" var="book.id" regex="^\d+"/>
+                <htmlparser:read source="text()" var="book.category" regex="^\d* - ([^ *]*( [A-Z1-9])?) ." submatch="1"/>
+                <htmlparser:read source="text()" var="book.author" regex="^\d* - [^ *]* ([A-Z1-9] )?([^ ]*) *\*" submatch="2"/>
+                <htmlparser:read source="text()" var="book.title" regex="- [^ *]* ([A-Z1-9] )?(.*\*)?([^<]*)(<\d{2,4}>?)?$" submatch="3"/>
+                <htmlparser:read source="text()" var="book.year" regex="<(\d{2,4})>?$" submatch="1"/>
+              </td>
+              <td><htmlparser:read source="text()" var="book.issuedate:dd.mm.yyyy"/></td>
+              <td><htmlparser:read source="text()" var="book.limitdate:dd.mm.yyyy"/></td>
+              <htmlparser:read var="book-end()"/>
+            </tr>
+           </htmlparser:loop>
+         </htmlparser:if>
+        </table>
+ 
+   </div>
+  
+ 
+   <div class="spezial1">Hinweis</div>
    </div>
  </div>
 </body>
