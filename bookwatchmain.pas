@@ -63,6 +63,7 @@ type
     EnsureTrayIconTimer: TTimer;
     repeatedCheckTimer: TTimer;
     dailyCheckThread: TTimer;
+    TrayIconClick: TTimer;
     trayIconPopupMenu: TPopupMenu;
     removeSelectedMI: TMenuItem;
     displayDetailsMI: TMenuItem;
@@ -130,6 +131,7 @@ type
       Shift: TShiftState);
     procedure TrayIcon1Click(Sender: TObject);
     procedure TrayIcon1DblClick(Sender: TObject);
+    procedure TrayIconClickTimer(Sender: TObject);
     procedure TreeListView1Click(Sender: TObject);
     procedure UserExtendMenuClick(Sender: TObject);
     procedure MenuItem3Click(Sender: TObject);
@@ -700,11 +702,13 @@ end;
 
 procedure TmainForm.TrayIcon1Click(Sender: TObject);
 begin
- TrayIcon1.PopUpMenu.PopUp;
+  if Visible then exit;
+  TrayIconClick.Enabled:=true;
 end;
 
 procedure TmainForm.TrayIcon1DblClick(Sender: TObject);
 begin
+ // TrayIconClick.Enabled:=false;
   //TODO: why doesn't this work if it is maximized?????
   application.BringToFront;
   if Enabled then begin
@@ -713,6 +717,15 @@ begin
     show;
     BringToFront;
   end;
+  TrayIconClick.Enabled:=false;
+end;
+
+procedure TmainForm.TrayIconClickTimer(Sender: TObject);
+begin
+  if not TrayIconClick.Enabled then exit;
+  if Visible then exit;
+  TrayIcon1.PopUpMenu.PopUp;
+  TrayIconClick.Enabled:=false;
 end;
 
 procedure TmainForm.TreeListView1Click(Sender: TObject);

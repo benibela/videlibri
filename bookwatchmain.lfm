@@ -1376,4 +1376,11 @@ object mainForm: TmainForm
     left = 280
     top = 112
   end
+  object TrayIconClick: TTimer
+    Enabled = False
+    Interval = 250
+    OnTimer = TrayIconClickTimer
+    left = 468
+    top = 187
+  end
 end
