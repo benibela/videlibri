@@ -60,7 +60,7 @@ book-start()=
 book.searchid=START=8
 book.library=DB=SEARCH_ULBD
 book.detail-url=http://abderos.hbz-nrw.de/Digibib?SERVICE=METASEARCH&SUBSERVICE=GETRECORD&FORMAT=Full&DB=SEARCH_ULBD&&COUNT=1&NL_START=0&PL_START=0&SID=&LOCATION=&LISTCOUNT=200&X&HIGHLIGHTTERMS=&START=8
-book.author= 
+book.author=
 book.title=Computer Vision Dictionary
 book.year=2003
 book-end()=
@@ -100,7 +100,7 @@ book-start()=
 book.searchid=START=13
 book.library=DB=SEARCH_ULBD
 book.detail-url=http://abderos.hbz-nrw.de/Digibib?SERVICE=METASEARCH&SUBSERVICE=GETRECORD&FORMAT=Full&DB=SEARCH_ULBD&&COUNT=1&NL_START=0&PL_START=0&SID=&LOCATION=&LISTCOUNT=200&X&HIGHLIGHTTERMS=&START=13
-book.author= 
+book.author=
 book.title=Electronic letters on computer vision and image analysis : Elcvia
 book.year=2002
 book-end()=
@@ -212,7 +212,7 @@ book-start()=
 book.searchid=START=27
 book.library=DB=SEARCH_ULBD
 book.detail-url=http://abderos.hbz-nrw.de/Digibib?SERVICE=METASEARCH&SUBSERVICE=GETRECORD&FORMAT=Full&DB=SEARCH_ULBD&&COUNT=1&NL_START=0&PL_START=0&SID=&LOCATION=&LISTCOUNT=200&X&HIGHLIGHTTERMS=&START=27
-book.author= 
+book.author=
 book.title=Videre : journal of computer vision research
 book.year=1997
 book-end()=
@@ -308,7 +308,7 @@ book-start()=
 book.searchid=START=39
 book.library=DB=SEARCH_ULBD
 book.detail-url=http://abderos.hbz-nrw.de/Digibib?SERVICE=METASEARCH&SUBSERVICE=GETRECORD&FORMAT=Full&DB=SEARCH_ULBD&&COUNT=1&NL_START=0&PL_START=0&SID=&LOCATION=&LISTCOUNT=200&X&HIGHLIGHTTERMS=&START=39
-book.author= 
+book.author=
 book.title=Computer vision and image understanding : CVIU
 book.year=1993
 book-end()=
@@ -452,7 +452,7 @@ book-start()=
 book.searchid=START=57
 book.library=DB=SEARCH_ULBD
 book.detail-url=http://abderos.hbz-nrw.de/Digibib?SERVICE=METASEARCH&SUBSERVICE=GETRECORD&FORMAT=Full&DB=SEARCH_ULBD&&COUNT=1&NL_START=0&PL_START=0&SID=&LOCATION=&LISTCOUNT=200&X&HIGHLIGHTTERMS=&START=57
-book.author= 
+book.author=
 book.title=International journal of computer vision
 book.year=1987
 book-end()=
@@ -484,7 +484,7 @@ book-start()=
 book.searchid=START=61
 book.library=DB=SEARCH_ULBD
 book.detail-url=http://abderos.hbz-nrw.de/Digibib?SERVICE=METASEARCH&SUBSERVICE=GETRECORD&FORMAT=Full&DB=SEARCH_ULBD&&COUNT=1&NL_START=0&PL_START=0&SID=&LOCATION=&LISTCOUNT=200&X&HIGHLIGHTTERMS=&START=61
-book.author= 
+book.author=
 book.title=Computer vision , graphics, and image processing
 book.year=1983
 book-end()=
@@ -508,7 +508,7 @@ book-start()=
 book.searchid=START=64
 book.library=DB=SEARCH_ULBD
 book.detail-url=http://abderos.hbz-nrw.de/Digibib?SERVICE=METASEARCH&SUBSERVICE=GETRECORD&FORMAT=Full&DB=SEARCH_ULBD&&COUNT=1&NL_START=0&PL_START=0&SID=&LOCATION=&LISTCOUNT=200&X&HIGHLIGHTTERMS=&START=64
-book.author= 
+book.author=
 book.title=Understanding vision , manipulation, computer design, symbol manipulation
 book.year=1980
 book-end()=
@@ -516,7 +516,7 @@ book-start()=
 book.searchid=START=65
 book.library=DB=SEARCH_ULBD
 book.detail-url=http://abderos.hbz-nrw.de/Digibib?SERVICE=METASEARCH&SUBSERVICE=GETRECORD&FORMAT=Full&DB=SEARCH_ULBD&&COUNT=1&NL_START=0&PL_START=0&SID=&LOCATION=&LISTCOUNT=200&X&HIGHLIGHTTERMS=&START=65
-book.author= 
+book.author=
 book.title=Understanding vision , manipulation, computer design, symbol manipulation
 book.year=1979
 book-end()=
@@ -606,7 +606,7 @@ book-start()=
 book.searchid=START=7
 book.library=DB=SEARCH_FHBDUE
 book.detail-url=http://abderos.hbz-nrw.de/Digibib?SERVICE=METASEARCH&SUBSERVICE=GETRECORD&FORMAT=Full&DB=SEARCH_FHBDUE&&COUNT=1&NL_START=0&PL_START=0&SID=&LOCATION=&LISTCOUNT=200&X&HIGHLIGHTTERMS=&START=7
-book.author= 
+book.author=
 book.title=Computer vision , graphics, and image processing
 book.year=1983
 book-end()=
@@ -630,7 +630,7 @@ book-start()=
 book.searchid=START=10
 book.library=DB=SEARCH_FHBDUE
 book.detail-url=http://abderos.hbz-nrw.de/Digibib?SERVICE=METASEARCH&SUBSERVICE=GETRECORD&FORMAT=Full&DB=SEARCH_FHBDUE&&COUNT=1&NL_START=0&PL_START=0&SID=&LOCATION=&LISTCOUNT=200&X&HIGHLIGHTTERMS=&START=10
-book.author= 
+book.author=
 book.title=International journal of computer vision
 book.year=1987
 book-end()=
@@ -638,7 +638,7 @@ book-start()=
 book.searchid=START=11
 book.library=DB=SEARCH_FHBDUE
 book.detail-url=http://abderos.hbz-nrw.de/Digibib?SERVICE=METASEARCH&SUBSERVICE=GETRECORD&FORMAT=Full&DB=SEARCH_FHBDUE&&COUNT=1&NL_START=0&PL_START=0&SID=&LOCATION=&LISTCOUNT=200&X&HIGHLIGHTTERMS=&START=11
-book.author= 
+book.author=
 book.title=Prix ars electronica : ... cyberarts ; international compendium prix ars electronica - computer animation, film, VFX - digital musics - hybrid art - interactive art - digital communities - (the next idea) - media.art.research award - u19 - freestyle computing
 book.year=1990
 book-end()=

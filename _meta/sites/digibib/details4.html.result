@@ -13,7 +13,7 @@ book.Umfang!=IX, 353 S. : Ill., graph. Darst.
 currentfield=ISBN
 book.ISBN!=0-306-40305-6
 currentfield=Standort
-book.id=Fachbibliothek Technik/Gestaltung, Signatur: 11 XRW 23   Standort   Ausleihstatus
+book.id=Fachbibliothek Technik/Gestaltung, Signatur: 11 XRW 23  Standort  Ausleihstatus
 book.home-url=http://www.bibl.fh-duesseldorf.de/h_a_z/standort_medium
 book.home-url=http://katalog.bibl.fh-duesseldorf.de/libero/WebopacOpenURL.cls?LANG=DE&ACTION=DISPLAY&sid=Libero:DUE&RID=HT000073125
 book.amazon-url=http://www.amazon.de/exec/obidos/ASIN/0306403056/digitalebiblio02
