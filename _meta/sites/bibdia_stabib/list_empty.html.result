@@ -1,0 +1,3 @@
+templateError=false
+delete-current-books()=
+bookCount=0
