@@ -4,8 +4,10 @@
 
 <htmlparser:read var="templateError" source="'false'"/>
 
+<htmlparser:switch>
 <TD>Ausgeliehene Medien:<htmlparser:read var="delete-current-books()"/><htmlparser:read var="bookCount" source="filter(text(),'\d+')"/></TD>
-
+<TD>keine Medien entliehen<htmlparser:read var="delete-current-books()"/><htmlparser:read var="bookCount" source="'0'"/></TD>
+</htmlparser:switch>
 
 <htmlparser:if test="$bookCount;!='0'">
 <htmlparser:read var="templateError" source="'true'"/>
