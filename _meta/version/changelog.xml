@@ -2,7 +2,15 @@
 <?xml-stylesheet type="text/xsl" href="../changelog.xsl"?>
 <changelog program="VideLibri">
   <build version="0998" date="2010-09-24">
-    <installer url="http://www.benibela.de/bin/tools/videlibri-setup.exe"/>
+    <installer url="http://sourceforge.net/projects/videlibri/files/VideLibri%200.999/videlibri-setup.exe/download" platform="WINDOWS"/>
+    <installer url="http://sourceforge.net/projects/videlibri/files/VideLibri%200.999/videlibri_0.999-1_amd64.deb/download" platform="LINUX64" execute=""/>
+    <change level="minor">Leicht verbesserte Templateverarbeitung (für die, die ihre eigenen Templates schreiben)</change>
+    <change level="major">Angepasst an neuen STB Düsseldorf WebOPAC</change>
+    <fix level="major">ULB Düsseldorf Verlängerungsfehler behoben</fix>
+    <add level="major">Neue Büchereien dank Leonid: Universitätsbibliothek der TU/HU/FU Berlin und die Staatsbibliothek zu Berlin</add>
+    <fix level="minor">Kleinere Dinge</fix>
+  </build>
+  <build version="0998" date="2010-09-24">
     <change level="minor">Interne Templates neugeschrieben</change>
   </build>
   <build version="0997" date="2010-02-16">
