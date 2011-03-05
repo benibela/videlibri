@@ -723,9 +723,9 @@ end;
 procedure TmainForm.TrayIconClickTimer(Sender: TObject);
 begin
   if not TrayIconClick.Enabled then exit;
+  TrayIconClick.Enabled:=false;
   if Visible then exit;
   TrayIcon1.PopUpMenu.PopUp;
-  TrayIconClick.Enabled:=false;
 end;
 
 procedure TmainForm.TreeListView1Click(Sender: TObject);

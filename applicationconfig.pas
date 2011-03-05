@@ -35,7 +35,8 @@ var programPath,userPath,dataPath:string;
     nextLimitStr: string;
 
     appFullTitle:string='VideLibri';
-    versionNumber:integer=998;//=>versionNumber/1000
+    versionNumber:integer=999;
+    //=>versionNumber/1000
     newVersionInstalled: boolean=false;
 
     {$IFDEF WIN32}startedMutex:THandle=0;{$ENDIF}
@@ -267,9 +268,11 @@ uses bookwatchmain,internetaccess,controls,libraryaccess,math,FileUtil,bbutils,b
   end;
   procedure updateActiveInternetConfig;
   begin
+    //    defaultInternetConfiguration.userAgent:='Mozilla 3.0 (compatible; VideLibri ';//2:13/20
+    //    defaultInternetConfiguration.userAgent:='Mozilla 3.0 (compatible; VideLibri '+IntToStr(versionNumber);//+' '+machineConfig.ReadString('debug','userAgentAdd','')+')';
     defaultInternetConfiguration.userAgent:='Mozilla 3.0 (compatible; VideLibri '+IntToStr(versionNumber)+' '+machineConfig.ReadString('debug','userAgentAdd','')+')';
-//    defaultInternetConfiguration.userAgent:='Mozilla 3.0 (compatible; VideLibri ';//2:13/20
-//    defaultInternetConfiguration.userAgent:='Mozilla 3.0 (compatible; VideLibri '+IntToStr(versionNumber);//+' '+machineConfig.ReadString('debug','userAgentAdd','')+')';
+    if machineConfig.ReadString('debug','userAgentOverride','') <> '' then
+      defaultInternetConfiguration.userAgent:=machineConfig.ReadString('debug','userAgentOverride','');
     defaultInternetConfiguration.connectionCheckPage:='www.duesseldorf.de';
     case userConfig.readInteger('access','internet-type',0) of
       0: defaultInternetConfiguration.tryDefaultConfig:=true;
@@ -708,4 +711,4 @@ uses bookwatchmain,internetaccess,controls,libraryaccess,math,FileUtil,bbutils,b
    end;
 
 end.
-
+
