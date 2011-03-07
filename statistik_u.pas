@@ -209,7 +209,7 @@ begin
   diagramDrawer.RangeMinY:=0;
   diagramDrawer.RangeMaxY:=diagramModel.maxY;
   diagramDrawer.update();
-  PaintBox1Paint(PaintBox1) ;
+  PaintBox1.Update;
 end;
 
 procedure TstatistikForm.FormCreate(Sender: TObject);
@@ -234,7 +234,7 @@ begin
   if CheckBox2.Checked then diagramDrawer.FillStyle:=fsMinOverMax
   else diagramDrawer.FillStyle:=fsNone;
   diagramDrawer.update;
-  PaintBox1Paint(PaintBox1);
+  PaintBox1.Update;
 end;
 
 procedure TstatistikForm.ComboBox1Select(Sender: TObject);
