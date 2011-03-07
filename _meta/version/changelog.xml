@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <?xml-stylesheet type="text/xsl" href="../changelog.xsl"?>
 <changelog program="VideLibri">
-  <build version="0998" date="2010-09-24">
+  <build version="0999" date="2011-03-07">
     <installer url="http://sourceforge.net/projects/videlibri/files/VideLibri%200.999/videlibri-setup.exe/download" platform="WINDOWS"/>
     <installer url="http://sourceforge.net/projects/videlibri/files/VideLibri%200.999/videlibri_0.999-1_amd64.deb/download" platform="LINUX64" execute=""/>
     <change level="minor">Leicht verbesserte Templateverarbeitung (für die, die ihre eigenen Templates schreiben)</change>
