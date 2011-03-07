@@ -331,7 +331,7 @@ uses bookwatchmain,internetaccess,controls,libraryaccess,math,FileUtil,bbutils,b
           mainForm.close;
           //TODO: update else PostMessage(tna.messageWindow,WM_CLOSE,0,0);
         end else if not auto then
-          Application.MessageBox('Update wurde installiert','Videlibri Update', mb_ok);
+          Application.MessageBox('Update abgeschlossen','Videlibri Update', mb_ok);
       end;
     end else if not auto then
       Application.MessageBox(pchar('Kein Update gefunden'#13#10'Die Version '+floattostr(updater.newestVersion/1000)+' ist die aktuelle.'),'Videlibri Update', mb_ok);
@@ -711,4 +711,4 @@ uses bookwatchmain,internetaccess,controls,libraryaccess,math,FileUtil,bbutils,b
    end;
 
 end.
-
+

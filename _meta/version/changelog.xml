@@ -2,7 +2,7 @@
 <?xml-stylesheet type="text/xsl" href="../changelog.xsl"?>
 <changelog program="VideLibri">
   <build version="0999" date="2011-03-07">
-    <download url="http://videlibri.sourceforge.net/updates/videlibri-setup.exe" platform="WINDOWS"/>
+    <download url="http://videlibri.sourceforge.net/updates/videlibri-setup.exe" platform="WINDOWS" execute="&quot;$DOWNLOAD&quot;  /SP- /noicons &quot;/dir=$OLDPATH;&quot; "/>
     <download url="http://videlibri.sourceforge.net/updates/videlibri-linux64.deb" platform="LINUX64" execute=""/>
     <change level="minor">Leicht verbesserte Templateverarbeitung (für die, die ihre eigenen Templates schreiben)</change>
     <change level="major">Angepasst an neuen STB Düsseldorf WebOPAC</change>
