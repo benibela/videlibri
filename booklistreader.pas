@@ -789,6 +789,7 @@ var i:longint;
     avalue: String;
     j: Integer;
     postparams: String;
+    tempname: String;
 begin
   if logging then begin
     log('Enter performAction, finternet:');
@@ -815,8 +816,12 @@ begin
               postparams := '';
               for j:=0 to high(actions[i].postparams) do begin
                 if j <> 0 then postparams += '&';
-                postparams += TInternetAccess.urlEncodeData(parser.replaceVars(actions[i].postparams[j].name))+'='+
-                              TInternetAccess.urlEncodeData(parser.replaceVars(actions[i].postparams[j].value));
+                tempname := parser.replaceVars(actions[i].postparams[j].name);
+                if tempname = '' then
+                  postparams += parser.replaceVars(actions[i].postparams[j].value) //no urlencode! parameter passes multiple values
+                 else
+                  postparams += TInternetAccess.urlEncodeData(tempname)+'='+
+                                TInternetAccess.urlEncodeData(parser.replaceVars(actions[i].postparams[j].value));
               end;
               if logging then log('Get/Post internet page ->'+parser.replaceVars(actions[i].url)+'<-'#13#10'Post: '+postparams);
               if postparams='' then
