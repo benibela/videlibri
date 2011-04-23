@@ -1,0 +1,1 @@
+<input type="hidden" name="BOR_PW_ENC"><htmlparser:read var="pw_enc" source="@value"/></input>

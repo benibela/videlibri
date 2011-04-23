@@ -1,0 +1,77 @@
+<htmlparser:meta encoding="utf-8"/>
+<table summary="list of loans - data">
+  <tr>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td>title<!--Titel--></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td>shelf mark<!--Signatur--></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td>status<!--Status--></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td>volume<!--Band--></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td>expiry<!--Leihfristende--></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td>reservations<!--Vormerkungen--></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td>renewals<!--Verlängerungen--></td>
+    <td></td>
+    <td></td>
+    <td></td>
+  </tr>
+  
+  <tr> <td class="h2"></td> </tr>
+  
+  
+  
+  
+  <htmlparser:loop>
+  <tr>
+    <htmlparser:read var="book-start()"/>
+    <td></td>
+    <td >
+      <input htmlparser-optional="true" name="VB" type="checkbox"><htmlparser:read var="book.extendId" source="@value"/></input>
+    </td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td>
+      <htmlparser:read source="text()" var="book.title" regex="^[^/]*"/>
+      <htmlparser:read source="text()" var="book.author" regex="^[^/]*/\s*(von)?\s*(.*)" submatch="2"/>
+    </td>
+
+    <td></td><td></td><td></td><td class="value-small"><htmlparser:read source="text()" var="book.id"/></td>
+    <td></td><td></td><td></td><td class="value-small">
+      <htmlparser:if test="@book.extendId!=''">
+        <htmlparser:read source="text()" var="book.status:curious" source="text()"/>
+      </htmlparser:if>
+      <htmlparser:if test="@book.extendId==''">
+        <htmlparser:read source="text()" var="book.status:problematic" source="text()"/>
+      </htmlparser:if>
+    </td>
+    <td></td><td></td><td></td><td class="value-small"></td>
+    <td></td><td></td><td></td><td class="value-small"><htmlparser:read source="text()" var="book.limitdate:dd-mm-yyyy"/></td>
+    <td></td><td></td><td></td><td class="value-small"></td>
+    <td></td><td></td><td></td><td class="value-small"><iframe></iframe></td>
+    
+    <htmlparser:read var="book-end()"/>
+  </tr>
+</htmlparser:loop>
+
+
+</table>
