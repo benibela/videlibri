@@ -30,7 +30,7 @@
 </action>
 
 <action id="extend-list" singleBookStr="&amp;VB=$book.extendid;">
-  <page url="https://kataloge.uni-hamburg.de:443/loan/DB=1/LNG=DU/USERINFO">
+  <page url="https://kataloge.uni-hamburg.de:443/loan/DB=1/LNG=DU/USERINFO" templateFile="extend">
     <post name="ACT">UI_RENEWLOAN</post>
     <post name="BOR_U">$username</post>
     <post name="BOR_PW">$password;</post>
