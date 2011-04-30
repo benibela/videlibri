@@ -55,6 +55,12 @@ mkdir -p $OUTPATH/sisis
 TEMPLATES=(${TEMPLATES[@]} sisis/start sisis/loggedIn sisis/loggedIn sisis/loggedIn sisis/loggedIn)
 PAGES=(${PAGES[@]} sisis/start.do.html sisis/userAccount.do_empty.html sisis/userAccount.do_singlebook.html sisis/userAccount.do_singlebook2.html sisis/userAccount.do_2books.html)
 
+#==============GBV================
+mkdir -p $OUTPATH/gbv
+
+TEMPLATES=(${TEMPLATES[@]} gbv/update gbv/extend)
+PAGES=(${PAGES[@]} gbv/update3.html gbv/extend2.html)
+
 #=============DIGIBIB==============
 mkdir -p $OUTPATH/digibib
 
