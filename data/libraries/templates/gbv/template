@@ -22,15 +22,15 @@
     <post name="BOR_U">$username</post>
     <post name="BOR_PW_ENC">$pw_enc;</post>
   </page>-->
-  <page url="https://kataloge.uni-hamburg.de/loan/DB=1/USERINFO" templateFile="update"> 
+  <page url="https://kataloge.uni-hamburg.de/loan/DB=1/LNG=DU/USERINFO" templateFile="update"> 
     <post name="ACT">UI_LOL</post>
     <post name="BOR_U">$username</post>
     <post name="BOR_PW">$password;</post>
   </page>
 </action>
 
-<action id="extend-list">
-  <page url="https://kataloge.uni-hamburg.de:443/loan/DB=1/USERINFO" singleBookStr="&amp;VB=$book.extendid;">
+<action id="extend-list" singleBookStr="&amp;VB=$book.extendid;">
+  <page url="https://kataloge.uni-hamburg.de:443/loan/DB=1/LNG=DU/USERINFO">
     <post name="ACT">UI_RENEWLOAN</post>
     <post name="BOR_U">$username</post>
     <post name="BOR_PW">$password;</post>

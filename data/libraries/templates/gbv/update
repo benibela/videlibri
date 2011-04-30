@@ -5,31 +5,31 @@
     <td></td>
     <td></td>
     <td></td>
-    <td>title<!--Titel--></td>
+    <td><!--title-->Titel</td>
     <td></td>
     <td></td>
     <td></td>
-    <td>shelf mark<!--Signatur--></td>
+    <td><!--shelf mark-->Signatur</td>
     <td></td>
     <td></td>
     <td></td>
-    <td>status<!--Status--></td>
+    <td><!--status-->Status</td>
     <td></td>
     <td></td>
     <td></td>
-    <td>volume<!--Band--></td>
+    <td><!--volume-->Band</td>
     <td></td>
     <td></td>
     <td></td>
-    <td>expiry<!--Leihfristende--></td>
+    <td><!--expiry-->Leihfristende</td>
     <td></td>
     <td></td>
     <td></td>
-    <td>reservations<!--Vormerkungen--></td>
+    <td><!--reservations-->Vormerkungen</td>
     <td></td>
     <td></td>
     <td></td>
-    <td>renewals<!--Verlängerungen--></td>
+    <td><!--renewals-->Verlängerungen</td>
     <td></td>
     <td></td>
     <td></td>
