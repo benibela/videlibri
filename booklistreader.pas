@@ -44,6 +44,7 @@ type
     procedure clear;
     procedure assignNoReplace(book: TBook); //every value not set will be replaced with the one from book
     function toSimpleString():string;
+    function toLimitString():string;
     //procedure assignOverride(book: TBook);  //every value set in book will be replace the one of self
   end;
   
@@ -262,6 +263,11 @@ end;
 function TBook.toSimpleString():string;
 begin
   result:=id+' - '+author+' * '+ title;
+end;
+
+function TBook.toLimitString(): string;
+begin
+  result:=toSimpleString() + '  => '+DateToStr(limitDate);
 end;
 
   {

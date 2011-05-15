@@ -151,6 +151,11 @@ object mainForm: TmainForm
           end
         end
       end
+      object MenuItem31: TMenuItem
+        Caption = 'Kopieren'
+        ShortCut = 16451
+        OnClick = MenuItem31Click
+      end
       object MenuItem24: TMenuItem
         Caption = 'BibTeX-Export...'
         OnClick = MenuItem24Click

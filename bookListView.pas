@@ -23,11 +23,13 @@ uses
       eventTyp_cdet: TCustomDrawEventTyp; item: TTreeListItem; var defaultDraw: Boolean);
     procedure BookListViewItemsSortedEvent(Sender: TObject);
 
-   procedure addBook(book: tbook);
+    procedure addBook(book: tbook);
+    function getBook(i: integer): TBook;
  public
    constructor create(aowner: TComponent;showLendBooks: boolean);
    procedure clear;
    procedure addBookList(list: TBookList);
+   property books[i:integer]: TBook read GetBook;
  end;
 
 const BL_BOOK_COLUMNS_AUTHOR=2;
@@ -189,6 +191,11 @@ begin
     //else
     data.obj:=book;
   end;
+end;
+
+function TBookListView.getBook(i: integer): TBook;
+begin
+  result := tbook(items[i].data.obj);
 end;
 
 constructor TBookListView.create(aowner: TComponent;showLendBooks: boolean);

@@ -9,14 +9,14 @@ object bookSearchFrm: TbookSearchFrm
   ClientWidth = 800
   OnCreate = FormCreate
   OnDestroy = FormDestroy
-  LCLVersion = '0.9.29'
+  LCLVersion = '0.9.31'
   object optionPanel: TPanel
     Left = 0
-    Height = 544
+    Height = 547
     Top = 0
     Width = 243
     Align = alLeft
-    ClientHeight = 544
+    ClientHeight = 547
     ClientWidth = 243
     TabOrder = 0
     OnClick = optionPanelClick
@@ -24,18 +24,18 @@ object bookSearchFrm: TbookSearchFrm
       AnchorSideTop.Control = startSearch
       AnchorSideTop.Side = asrBottom
       Left = 14
-      Height = 20
-      Top = 343
-      Width = 68
+      Height = 17
+      Top = 303
+      Width = 57
       Caption = 'Suche in:'
       ParentColor = False
     end
     object Label7: TLabel
       AnchorSideTop.Side = asrBottom
       Left = 14
-      Height = 20
+      Height = 17
       Top = 7
-      Width = 36
+      Width = 30
       Caption = 'Titel'
       Font.Style = [fsBold]
       ParentColor = False
@@ -45,9 +45,9 @@ object bookSearchFrm: TbookSearchFrm
       AnchorSideTop.Control = searchTitle
       AnchorSideTop.Side = asrBottom
       Left = 14
-      Height = 20
-      Top = 68
-      Width = 46
+      Height = 17
+      Top = 60
+      Width = 39
       Caption = 'Autor'
       Font.Style = [fsBold]
       ParentColor = False
@@ -57,9 +57,9 @@ object bookSearchFrm: TbookSearchFrm
       AnchorSideTop.Control = searchKeywords
       AnchorSideTop.Side = asrBottom
       Left = 14
-      Height = 20
-      Top = 190
-      Width = 40
+      Height = 17
+      Top = 166
+      Width = 33
       Caption = 'ISBN:'
       ParentColor = False
     end
@@ -67,9 +67,9 @@ object bookSearchFrm: TbookSearchFrm
       AnchorSideTop.Control = searchAuthor
       AnchorSideTop.Side = asrBottom
       Left = 14
-      Height = 20
-      Top = 129
-      Width = 103
+      Height = 17
+      Top = 113
+      Width = 86
       Caption = 'Schlagwörter:'
       ParentColor = False
     end
@@ -77,19 +77,19 @@ object bookSearchFrm: TbookSearchFrm
       AnchorSideTop.Control = searchISBN
       AnchorSideTop.Side = asrBottom
       Left = 14
-      Height = 20
-      Top = 251
-      Width = 33
+      Height = 17
+      Top = 219
+      Width = 30
       Caption = 'Jahr:'
       ParentColor = False
     end
     object searchAuthorHint: TLabel
       AnchorSideTop.Control = Label8
       AnchorSideTop.Side = asrCenter
-      Left = -29
-      Height = 20
-      Top = 68
-      Width = 267
+      Left = 14
+      Height = 17
+      Top = 60
+      Width = 224
       Anchors = [akTop, akRight]
       Caption = '"Nachname" oder "Name, Vorname"'
       Color = 11400696
@@ -100,10 +100,10 @@ object bookSearchFrm: TbookSearchFrm
     object searchTitleHint: TLabel
       AnchorSideTop.Control = Label7
       AnchorSideTop.Side = asrCenter
-      Left = -35
-      Height = 20
+      Left = 6
+      Height = 17
       Top = 7
-      Width = 273
+      Width = 232
       Anchors = [akTop, akRight]
       Caption = '* am Ende sucht alle mögliche Enden'
       Color = 11400696
@@ -116,8 +116,8 @@ object bookSearchFrm: TbookSearchFrm
       AnchorSideTop.Side = asrBottom
       AnchorSideBottom.Control = displayImage
       Left = 8
-      Height = 88
-      Top = 403
+      Height = 146
+      Top = 353
       Width = 228
       Anchors = [akTop, akLeft, akRight, akBottom]
       BorderSpacing.Around = 6
@@ -130,8 +130,8 @@ object bookSearchFrm: TbookSearchFrm
       AnchorSideTop.Control = Label7
       AnchorSideTop.Side = asrBottom
       Left = 8
-      Height = 31
-      Top = 27
+      Height = 26
+      Top = 24
       Width = 228
       Anchors = [akTop, akLeft, akRight]
       BorderSpacing.Bottom = 10
@@ -145,8 +145,8 @@ object bookSearchFrm: TbookSearchFrm
       AnchorSideTop.Control = Label8
       AnchorSideTop.Side = asrBottom
       Left = 8
-      Height = 31
-      Top = 88
+      Height = 26
+      Top = 77
       Width = 228
       Anchors = [akTop, akLeft, akRight]
       BorderSpacing.Bottom = 10
@@ -159,8 +159,8 @@ object bookSearchFrm: TbookSearchFrm
       AnchorSideTop.Control = Label9
       AnchorSideTop.Side = asrBottom
       Left = 8
-      Height = 31
-      Top = 210
+      Height = 26
+      Top = 183
       Width = 228
       Anchors = [akTop, akLeft, akRight]
       BorderSpacing.Bottom = 10
@@ -172,10 +172,10 @@ object bookSearchFrm: TbookSearchFrm
       AnchorSideTop.Side = asrBottom
       Left = 16
       Height = 25
-      Top = 312
+      Top = 272
       Width = 112
       BorderSpacing.Around = 6
-      Caption = 'Suche starten'
+      Caption = '&Suche starten'
       Default = True
       OnClick = startSearchClick
       TabOrder = 4
@@ -184,8 +184,8 @@ object bookSearchFrm: TbookSearchFrm
       AnchorSideTop.Control = Label1
       AnchorSideTop.Side = asrBottom
       Left = 8
-      Height = 33
-      Top = 364
+      Height = 26
+      Top = 321
       Width = 228
       Anchors = [akTop, akLeft, akRight]
       BorderSpacing.Top = 1
@@ -197,9 +197,9 @@ object bookSearchFrm: TbookSearchFrm
     end
     object displayInternalProperties: TCheckBox
       Left = 8
-      Height = 23
-      Top = 517
-      Width = 222
+      Height = 18
+      Top = 525
+      Width = 192
       Anchors = [akLeft, akBottom]
       Caption = 'alle Eigenschaften auflisten'
       OnChange = displayInternalPropertiesChange
@@ -207,9 +207,9 @@ object bookSearchFrm: TbookSearchFrm
     end
     object displayImage: TCheckBox
       Left = 8
-      Height = 23
-      Top = 497
-      Width = 119
+      Height = 18
+      Top = 505
+      Width = 104
       Anchors = [akLeft, akBottom]
       Caption = 'Bild anzeigen'
       Checked = True
@@ -221,8 +221,8 @@ object bookSearchFrm: TbookSearchFrm
       AnchorSideTop.Control = Label11
       AnchorSideTop.Side = asrBottom
       Left = 8
-      Height = 31
-      Top = 271
+      Height = 26
+      Top = 236
       Width = 228
       Anchors = [akTop, akLeft, akRight]
       BorderSpacing.Bottom = 10
@@ -233,8 +233,8 @@ object bookSearchFrm: TbookSearchFrm
       AnchorSideTop.Control = Label10
       AnchorSideTop.Side = asrBottom
       Left = 8
-      Height = 31
-      Top = 149
+      Height = 26
+      Top = 130
       Width = 227
       Anchors = [akTop, akLeft, akRight]
       BorderSpacing.Bottom = 10
@@ -244,18 +244,18 @@ object bookSearchFrm: TbookSearchFrm
   end
   object bookListPanel: TPanel
     Left = 248
-    Height = 544
+    Height = 547
     Top = 0
     Width = 552
     Align = alClient
-    ClientHeight = 544
+    ClientHeight = 547
     ClientWidth = 552
     TabOrder = 1
     object Splitter2: TSplitter
       Cursor = crVSplit
       Left = 1
       Height = 5
-      Top = 309
+      Top = 312
       Width = 550
       Align = alBottom
       Beveled = True
@@ -264,7 +264,7 @@ object bookSearchFrm: TbookSearchFrm
     object detailPanel: TPanel
       Left = 1
       Height = 209
-      Top = 314
+      Top = 317
       Width = 550
       Align = alBottom
       BevelOuter = bvNone
@@ -292,7 +292,7 @@ object bookSearchFrm: TbookSearchFrm
     object Panel1: TPanel
       Left = 1
       Height = 20
-      Top = 523
+      Top = 526
       Width = 550
       Align = alBottom
       ChildSizing.EnlargeHorizontal = crsHomogenousChildResize
@@ -303,16 +303,16 @@ object bookSearchFrm: TbookSearchFrm
       TabOrder = 2
       object Label2: TLabel
         Left = 0
-        Height = 20
+        Height = 17
         Top = 0
-        Width = 180
+        Width = 163
         Caption = 'Dieses Buch im Internet:'
         ParentColor = False
       end
       object Label3: TLabel
         Cursor = crHandPoint
-        Left = 180
-        Height = 20
+        Left = 163
+        Height = 17
         Top = 0
         Width = 75
         Caption = 'digibib.net'
@@ -324,10 +324,10 @@ object bookSearchFrm: TbookSearchFrm
       end
       object Label4: TLabel
         Cursor = crHandPoint
-        Left = 255
-        Height = 20
+        Left = 238
+        Height = 17
         Top = 0
-        Width = 183
+        Width = 169
         Caption = 'Bücherei-eigener Katalog'
         Font.Color = clBlue
         Font.Style = [fsUnderline]
@@ -337,10 +337,10 @@ object bookSearchFrm: TbookSearchFrm
       end
       object Label5: TLabel
         Cursor = crHandPoint
-        Left = 438
-        Height = 20
+        Left = 407
+        Height = 17
         Top = 0
-        Width = 83
+        Width = 77
         Caption = 'amazon.de'
         Font.Color = clBlue
         Font.Style = [fsUnderline]
@@ -350,10 +350,10 @@ object bookSearchFrm: TbookSearchFrm
       end
       object Label6: TLabel
         Cursor = crHandPoint
-        Left = 521
-        Height = 20
+        Left = 484
+        Height = 17
         Top = 0
-        Width = 72
+        Width = 66
         Caption = 'google.de'
         Font.Color = clBlue
         Font.Style = [fsUnderline]
@@ -365,15 +365,15 @@ object bookSearchFrm: TbookSearchFrm
   end
   object Splitter1: TSplitter
     Left = 243
-    Height = 544
+    Height = 547
     Top = 0
     Width = 5
     Beveled = True
   end
   object StatusBar1: TStatusBar
     Left = 0
-    Height = 23
-    Top = 544
+    Height = 20
+    Top = 547
     Width = 800
     Panels = <    
       item

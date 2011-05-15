@@ -61,6 +61,7 @@ type
     MenuItem29: TMenuItem;
     MenuItem30: TMenuItem;
     EnsureTrayIconTimer: TTimer;
+    MenuItem31: TMenuItem;
     repeatedCheckTimer: TTimer;
     dailyCheckThread: TTimer;
     TrayIconClick: TTimer;
@@ -124,6 +125,7 @@ type
     procedure MenuItem27Click(Sender: TObject);
     procedure MenuItem28Click(Sender: TObject);
     procedure MenuItem30Click(Sender: TObject);
+    procedure MenuItem31Click(Sender: TObject);
     procedure removeSelectedMIClick(Sender: TObject);
     procedure displayDetailsMIClick(Sender: TObject);
     procedure repeatedCheckTimerTimer(Sender: TObject);
@@ -187,7 +189,7 @@ const SB_PANEL_COUNT=2;
 implementation
 
 { TmainForm }
-uses math,options,applicationconfig,newaccountwizard_u,registrierung,nagform,bbdebugtools,bibtexexport,booklistreader{$IFDEF WIN32},windows{$ENDIF};
+uses math,options,applicationconfig,newaccountwizard_u,registrierung,nagform,bbdebugtools,bibtexexport,booklistreader{$IFDEF WIN32},windows{$ENDIF},Clipbrd;
 
 
 procedure TmainForm.FormCreate(Sender: TObject);
@@ -621,6 +623,17 @@ end;
 procedure TmainForm.MenuItem30Click(Sender: TObject);
 begin
   close
+end;
+
+procedure TmainForm.MenuItem31Click(Sender: TObject);
+var t: string;
+ i: Integer;
+begin
+  for i:=0 to BookList.Items.count-1 do
+    if ((BookList.selCount = 0) or (BookList.Items[i].Selected)) and (BookList.books[i].owner<>nil) then begin
+      t += (BookList.books[i].owner as TCustomAccountAccess).prettyName + ':  ' + BookList.books[i].toLimitString() + LineEnding;
+    end;
+  clipboard.astext := t;
 end;
 
 procedure TmainForm.removeSelectedMIClick(Sender: TObject);
