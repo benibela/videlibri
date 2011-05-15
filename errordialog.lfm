@@ -8,19 +8,18 @@ object showErrorForm: TshowErrorForm
   VertScrollBar.Page = 71
   VertScrollBar.Range = 65
   ActiveControl = Button1
-  AutoScroll = False
   BorderIcons = [biSystemMenu]
   BorderStyle = bsDialog
   Caption = 'showErrorForm'
   ClientHeight = 72
   ClientWidth = 400
   OnCreate = FormCreate
-  ParentFont = False
+  OnShow = FormShow
   Position = poScreenCenter
-  LCLVersion = '0.9.27'
+  LCLVersion = '0.9.31'
   object Label1: TLabel
     Left = 11
-    Height = 14
+    Height = 18
     Top = 10
     Width = 380
     Caption = 'jjhhhhhhhhhhh'
@@ -78,4 +77,4 @@ object showErrorForm: TshowErrorForm
     OnClick = Button3Click
     TabOrder = 3
   end
-end
+end

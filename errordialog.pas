@@ -22,6 +22,7 @@ type
     procedure Button2Click(Sender: TObject);
     procedure Button3Click(Sender: TObject);
     procedure FormCreate(Sender: TObject);
+    procedure FormShow(Sender: TObject);
   private
     { private declarations }
     sendErrorEvent:TNotifyEvent;
@@ -43,23 +44,14 @@ begin
   errorForm:=TShowErrorForm.Create(nil);
   //errorForm:=showErrorForm;
   //TODO Move to create event
-  errorForm.show;
   with errorForm do begin
     caption:=title;
     Label1.Caption:=error;
     Details.Lines.Text:=detailStr;
     Button2.Visible:=detailStr<>'';
-    button1.top:=16+Label1.top+Label1.Height;
-    button2.top:=button1.top;
-    button3.top:=button1.top;
     button3.visible:=sendError<>nil;
     sendErrorEvent:=sendError;
-    details.top:=button1.top+36;
-    height:=button1.top+button1.height+5;
-    details.height:=clientheight-5-details.top;
-    button2.caption:='Details \/\/';
   end;
-  errorForm.hide;
   errorForm.showmodal;
   errorForm.free;
 //  while errorForm.Visible do Application.ProcessMessages;
@@ -93,8 +85,20 @@ begin
 
 end;
 
+procedure TshowErrorForm.FormShow(Sender: TObject);
+begin
+  OnShow:=nil;
+  button1.top:=16+Label1.top+Label1.Height;
+  button2.top:=button1.top;
+  button3.top:=button1.top;
+  details.top:=button1.top+36;
+  height:=button1.top+button1.height+5;
+  details.height:=clientheight-5-details.top;
+  button2.caption:='Details \/\/';
+end;
+
 initialization
   {$I errordialog.lrs}
 
 end.
-
+
