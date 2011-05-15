@@ -299,6 +299,8 @@ begin
   if autoUpdate.Checked then userConfig.WriteInteger('updates','auto-check',1)
   else userConfig.WriteInteger('updates','auto-check',0);
 
+  updateActiveInternetConfig;
+
   //Autostart/Zeitenpage
   userConfig.WriteBool('autostart','minimized',CheckBox1.Checked);
   updateAutostart(autostartAlways.Checked or autostartDepends.Checked,false);
@@ -525,8 +527,7 @@ begin
           mtConfirmation,mbYesNo,0)=mrYes then
         btnAccountChange.Click;
   end;
-  ModalResult:=mrOK;
-  close;
+  button3.Click;
 end;
 
 

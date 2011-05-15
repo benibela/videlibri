@@ -275,7 +275,10 @@ uses bookwatchmain,internetaccess,controls,libraryaccess,math,FileUtil,bbutils,b
       defaultInternetConfiguration.userAgent:=machineConfig.ReadString('debug','userAgentOverride','');
     defaultInternetConfiguration.connectionCheckPage:='www.duesseldorf.de';
     case userConfig.readInteger('access','internet-type',0) of
-      0: defaultInternetConfiguration.tryDefaultConfig:=true;
+      0: begin
+        defaultInternetConfiguration.tryDefaultConfig:=true;
+        defaultInternetConfiguration.useProxy:=false;
+      end;
       1: begin
            defaultInternetConfiguration.tryDefaultConfig:=false;
            defaultInternetConfiguration.useProxy:=false;

@@ -2,7 +2,7 @@ object optionForm: ToptionForm
   Left = 298
   Height = 404
   Top = 139
-  Width = 642
+  Width = 649
   HorzScrollBar.Page = 507
   VertScrollBar.Page = 311
   ActiveControl = Panel2
@@ -10,7 +10,7 @@ object optionForm: ToptionForm
   BorderStyle = bsDialog
   Caption = 'Optionen'
   ClientHeight = 404
-  ClientWidth = 642
+  ClientWidth = 649
   OnCreate = FormCreate
   OnResize = FormResize
   OnShow = FormShow
@@ -22,7 +22,7 @@ object optionForm: ToptionForm
     Left = 84
     Height = 396
     Top = 4
-    Width = 557
+    Width = 564
     Anchors = [akTop, akLeft, akRight, akBottom]
   end
   object Notebook1: TNotebook
@@ -35,15 +35,15 @@ object optionForm: ToptionForm
     Left = 86
     Height = 392
     Top = 6
-    Width = 553
-    PageIndex = 2
+    Width = 560
+    PageIndex = 4
     Anchors = [akTop, akLeft, akRight, akBottom]
     BorderSpacing.Around = 2
     OnChangeBounds = Notebook1ChangeBounds
     TabOrder = 0
     TabStop = True
     object pageAccount: TPage
-      ClientWidth = 553
+      ClientWidth = 549
       ClientHeight = 392
       object lblAccountPass: TLabel
         AnchorSideTop.Control = edtAccountPass
@@ -211,8 +211,8 @@ object optionForm: ToptionForm
         AnchorSideBottom.Control = cmbAccountExtend
         Left = 116
         Height = 27
-        Top = 251
-        Width = 433
+        Top = 255
+        Width = 429
         Anchors = [akLeft, akRight, akBottom]
         BorderSpacing.Left = 3
         BorderSpacing.Around = 4
@@ -226,8 +226,8 @@ object optionForm: ToptionForm
         AnchorSideBottom.Control = edtAccountPass
         Left = 116
         Height = 27
-        Top = 220
-        Width = 433
+        Top = 224
+        Width = 429
         Anchors = [akLeft, akRight, akBottom]
         BorderSpacing.Left = 3
         BorderSpacing.Around = 4
@@ -242,8 +242,8 @@ object optionForm: ToptionForm
         AnchorSideBottom.Control = edtAccountUser
         Left = 116
         Height = 27
-        Top = 189
-        Width = 433
+        Top = 193
+        Width = 429
         Anchors = [akLeft, akRight, akBottom]
         BorderSpacing.Left = 3
         BorderSpacing.Around = 4
@@ -253,7 +253,7 @@ object optionForm: ToptionForm
         Left = 0
         Height = 153
         Top = 2
-        Width = 550
+        Width = 546
         Anchors = [akTop, akLeft, akRight, akBottom]
         Columns = <        
           item
@@ -293,9 +293,9 @@ object optionForm: ToptionForm
         AnchorSideTop.Control = Label4
         AnchorSideTop.Side = asrCenter
         Left = 116
-        Height = 31
-        Top = 282
-        Width = 433
+        Height = 27
+        Top = 286
+        Width = 429
         Anchors = [akLeft, akRight, akBottom]
         BorderSpacing.Left = 3
         BorderSpacing.Around = 4
@@ -325,7 +325,7 @@ object optionForm: ToptionForm
         Visible = False
       end
       object Button2: TButton
-        Left = 468
+        Left = 464
         Height = 30
         Top = 358
         Width = 82
@@ -539,7 +539,7 @@ object optionForm: ToptionForm
       end
     end
     object pageInternet: TPage
-      ClientWidth = 553
+      ClientWidth = 549
       ClientHeight = 392
       object Label13: TLabel
         Left = 36
@@ -639,7 +639,7 @@ object optionForm: ToptionForm
         Left = 85
         Height = 27
         Top = 94
-        Width = 402
+        Width = 398
         Anchors = [akTop, akLeft, akRight]
         BorderSpacing.Around = 4
         TabOrder = 5
@@ -650,13 +650,13 @@ object optionForm: ToptionForm
         Left = 85
         Height = 27
         Top = 123
-        Width = 402
+        Width = 398
         Anchors = [akTop, akLeft, akRight]
         BorderSpacing.Around = 4
         TabOrder = 6
       end
       object proxyHTTPPort: TEdit
-        Left = 490
+        Left = 486
         Height = 27
         Top = 94
         Width = 57
@@ -665,7 +665,7 @@ object optionForm: ToptionForm
         Text = '3128'
       end
       object proxyHTTPSport: TEdit
-        Left = 490
+        Left = 486
         Height = 27
         Top = 123
         Width = 57
@@ -715,7 +715,7 @@ object optionForm: ToptionForm
     object pageMenu: TPage
     end
     object PageBehaviour: TPage
-      ClientWidth = 553
+      ClientWidth = 560
       ClientHeight = 392
       object Label3: TLabel
         Left = 12
@@ -734,7 +734,7 @@ object optionForm: ToptionForm
         ParentColor = False
       end
       object Label7: TLabel
-        Left = 474
+        Left = 481
         Height = 18
         Top = 44
         Width = 75
@@ -815,7 +815,7 @@ object optionForm: ToptionForm
         Left = 65
         Height = 40
         Top = 36
-        Width = 407
+        Width = 414
         Max = 7
         Min = 1
         OnChange = TrackBar1Change
