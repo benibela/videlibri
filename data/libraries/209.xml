@@ -9,7 +9,7 @@
   <homepage value="https://kataloge.uni-hamburg.de/"/>
   <template value="gbv"/>
   
-  <variable name="server" value="kataloge.uni-hamburg.de/"/>
+  <variable name="server" value="https://kataloge.uni-hamburg.de:443/loan/DB=1/LNG=DU/"/>
   
   <!--<variable name="Location" value="Düsseldorf"/>
   <variable name="searchid-digibib" value="SERVICEGROUP1.SERVICE.SEARCH_ULBD"/>-->
