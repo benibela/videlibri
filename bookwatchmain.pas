@@ -17,7 +17,7 @@ uses
   Buttons, libraryParser, internetAccess, ComCtrls, Menus, lmessages, ExtCtrls,
   errorDialog, statistik_u, libraryAccess, sendBackError, Translations,
   progressDialog, bookListView, TreeListView, bookSearchForm, LCLType, lclproc,
-  LCLIntf,process;
+  LCLIntf, process, applicationconfig;
 
 const //automaticExtend=true;
       colorSelected=clHighlight;
@@ -177,6 +177,8 @@ type
     //procedure WndProc(var TheMessage : TLMessage); override;
     function menuItem2AssociatedAccount(mi: TMenuItem): TCustomAccountAccess;
 
+
+    procedure showVidelibri(var m:lcltype.TMsg); message LM_SHOW_VIDELIBRI;
   end;
 
 
@@ -189,7 +191,7 @@ const SB_PANEL_COUNT=2;
 implementation
 
 { TmainForm }
-uses math,options,applicationconfig,newaccountwizard_u,registrierung,nagform,bbdebugtools,bibtexexport,booklistreader{$IFDEF WIN32},windows{$ENDIF},Clipbrd;
+uses math,options,newaccountwizard_u,registrierung,nagform,bbdebugtools,bibtexexport,booklistreader{$IFDEF WIN32},windows{$ENDIF},Clipbrd;
 
 
 procedure TmainForm.FormCreate(Sender: TObject);
@@ -716,6 +718,7 @@ end;
 procedure TmainForm.TrayIcon1Click(Sender: TObject);
 begin
   if Visible then exit;
+  {$ifdef win32}TrayIcon1DblClick(sender); exit;{$endif}
   TrayIconClick.Enabled:=true;
 end;
 
@@ -1212,6 +1215,14 @@ begin
   if (mi.tag<=0) or (mi.tag>accountIDs.Count) then
     raise exception.Create('Ungültiges Konto angegeben');
   result:=TCustomAccountAccess(accountIDs.Objects[mi.tag-1]);
+end;
+
+
+procedure TmainForm.showVidelibri(var m:lcltype.TMsg);
+begin
+  {$ifdef win32}
+  TrayIcon1DblClick(self)
+  {$endif}
 end;
 
 procedure TmainForm.ThreadDone(Sender: TObject);

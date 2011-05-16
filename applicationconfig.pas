@@ -6,7 +6,7 @@ interface
 
 uses
   Classes, SysUtils,Graphics,forms,libraryparser,{$ifdef win32}registry,{$endif}inifiles,rcmdline,errordialog,autoupdate,progressDialog,extendedhtmlparser,
-ExtCtrls ,Dialogs
+ExtCtrls ,Dialogs,LMessages
 ;
 
 type TErrorArray=array of record
@@ -18,6 +18,7 @@ type TErrorArray=array of record
                    end;
   
 const VIDELIBRI_MUTEX_NAME='VideLibriStarted';
+      LM_SHOW_VIDELIBRI = LM_USER + $4224;
   
 var programPath,userPath,dataPath:string;
     machineConfig,userConfig: TIniFile;
@@ -414,20 +415,6 @@ uses bookwatchmain,internetaccess,controls,libraryaccess,math,FileUtil,bbutils,b
     if logging then log('raiseInitializationError: '+s);
     raise exception.Create(s);
   end;
-   {$IFDEF WIN32}
-  function bringToFrontEnumeration(window:HWND; _para2:LPARAM):WINBOOL;stdcall;
-  var proc: THANDLE;
-  begin
-    GetWindowThreadProcessId(window,@proc);
-    if proc=thandle(_para2) then
-      if IsWindowEnabled(window) and IsWindowVisible(window) then begin
-        SetForegroundWindow(window);
-        BringWindowToTop(window);
-        exit(false);
-      end;
-    exit(true);
-  end;
-  {$ENDIF}
 
   procedure initApplicationConfig;
   var i:integer;
@@ -469,15 +456,8 @@ uses bookwatchmain,internetaccess,controls,libraryaccess,math,FileUtil,bbutils,b
     if (not commandLine.readFlag('start-always')) and (GetLastError=ERROR_ALREADY_EXISTS) then begin
       window:=FindWindow(nil,pchar(appFullTitle));//FindWindow(nil,'VideLibri');
       if window<>0 then begin
-        if IsWindowEnabled(window) then begin
-            SendMessage(window,SW_SHOWNORMAL,0,0);
-  //          SendMessage(window,SW_SHOW,0,0);
-            SetForegroundWindow(window);
-            BringWindowToTop(window);
-          end else begin //if the window isn't enabled it has opened a modal window which also have to be raised
-            GetWindowThreadProcessId(window,@proc);
-            EnumWindows(@bringToFrontEnumeration,proc);
-          end;
+        SetForegroundWindow(window); //important to allow the other instance to raise itself
+        sendMessage(window, LM_SHOW_VIDELIBRI, 0,0);
         cancelStarting:=true;
         commandLine.free;
         exit;
