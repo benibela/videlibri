@@ -88,28 +88,32 @@ Praktisch sollte man das Programm genau dann benutzen, wenn man jedes Jahr mehre
 
 d
 <h2><a name="libraries">Unterstützte Büchereien</a></h2>
-Momentan (2010-10-08) unterstützt VideLibri diese Büchereien:<br><br>
+Momentan (2011-05-16) unterstützt VideLibri diese Büchereien:<br><br>
 
 <table>
 <thead>
-<tr style="font-weight:600"><td>Name der Bücherei</td><td>Ausleihenanzeige funktioniert</td><td>Verlängerung funktioniert</td><td>Büchereisystem</td></tr>
+<tr style="font-weight:600"><td>Name der Bücherei</td><td>Ausleihenanzeige funktioniert</td><td>Verlängerung funktioniert</td><td>Suche funktioniert</td><td>Büchereisystem</td></tr>
 </thead>
-<tr><td>Die Fachhochschulbibliothek Düsseldorf</td><td>ja</td><td>ja</td><td>libero</td></tr>
-<tr><td>Die Universitäts- und Landesbibliothek Düsseldorf</td><td>ja</td><td>ja</td><td>aleph</td></tr>
-<tr></tr>
-<tr><td>Die Stadtbibliothek Aachen</td><td>ja</td><td>nicht erlaubt</td><td>libero</td></tr>
-<tr><td>Die Hochschulbibliothek der RWTH Aachen</td><td>ja</td><td>ja</td><td>sisis</td></tr>
-<tr><td>Die Stadtbüchereien Düsseldorf</td>  <td>ja</td><td>ja</td><td></td></tr>
-<tr><td>Universitätsbibliothek der TU Berlin</td><td>ja</td><td>?</td><td>aleph</td></tr>
-<tr><td>Universitätsbibliothek der HU Berlin</td><td>ja</td><td>?</td><td>aleph</td></tr>
-<tr><td>Universitätsbibliothek der FU Berlin</td><td>ja</td><td>?</td><td>aleph</td></tr>
-<tr><td>Staatsbibliothek zu Berlin</td><td>ja</td><td>ja</td><td>bibdia</td></tr>
+<tr class="city"><td colspan=6><b>Düsseldorf</b></td></tr>
+<tr><td>Die Stadtbüchereien Düsseldorf</td>  <td>ja</td><td>ja</td><td>ja</td><td></td></tr>
+<tr><td>Die Fachhochschulbibliothek Düsseldorf</td><td>ja</td><td>ja</td><td>ja</td><td>libero</td></tr>
+<tr><td>Die Universitäts- und Landesbibliothek Düsseldorf</td><td>ja</td><td>ja</td><td>ja</td><td>aleph</td></tr>
+<tr class="city"><td colspan=6><b>Aachen</b></td></tr>
+<tr><td>Die Stadtbibliothek Aachen</td><td>ja</td><td>nicht erlaubt</td><td>ja</td><td>libero</td></tr>
+<tr><td>Die Hochschulbibliothek der RWTH Aachen</td><td>ja</td><td>ja</td><td>ja</td><td>sisis</td></tr>
+<tr  class="city"><td colspan=6><b>Berlin</b></td></tr>
+<tr><td>Universitätsbibliothek der TU Berlin</td><td>ja</td><td>?</td><td>nein</td><td>aleph</td></tr>
+<tr><td>Universitätsbibliothek der HU Berlin</td><td>ja</td><td>?</td><td>nein</td><td>aleph</td></tr>
+<tr><td>Universitätsbibliothek der FU Berlin</td><td>ja</td><td>?</td><td>nein</td><td>aleph</td></tr>
+<tr><td>Staatsbibliothek zu Berlin</td><td>ja</td><td>ja</td><td>(jain)</td><td>bibdia</td></tr>
+<tr  class="city"><td colspan=6><b>Hamburg</b></td></tr>
+<tr><td>Campus Katalog Hamburg</td><td>ja</td><td>ja</td><td>nein</td><td>pica</td></tr>
 </table>
 
 <br><br>
 
 Es ist aber nicht schwer es auch an andere Büchereien anzupassen (sofern man dort eine Ausleihkarte hat). <br>
-Verwendet die Bücherei ein aktuelles aleph/libero/sisis-System sollte es sogar völlig trivial sein, da man dann nur die Serveradresse in die xml-Dateien im data/libraries Verzeichnis eintragen muss. Ansonsten muss man eine Art Template für die Bücherei schreiben, wie es in der <a href="http://videlibri.hg.sourceforge.net/hgweb/videlibri/videlibri/raw-file/tip/programs/internet/VideLibri/_meta/help/neuebibliothek.html">Hilfe</a>  beschrieben wird .
+Verwendet die Bücherei ein aktuelles aleph/libero/sisis/pica-System sollte es sogar völlig trivial sein, da man dann nur die Serveradresse in die xml-Dateien im data/libraries Verzeichnis eintragen muss. Ansonsten muss man eine Art Template für die Bücherei schreiben, wie es in der <a href="http://videlibri.hg.sourceforge.net/hgweb/videlibri/videlibri/raw-file/tip/programs/internet/VideLibri/_meta/help/neuebibliothek.html">Hilfe</a>  beschrieben wird .
 
 
 <h2><a name="downloads">Downloads</a></h2>
