@@ -1,9 +1,15 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <?xml-stylesheet type="text/xsl" href="../changelog.xsl"?>
 <changelog program="VideLibri">
-  <build version="0999" date="2011-03-07">
+  <build version="1000" date="2011-05-17">
     <download url="http://videlibri.sourceforge.net/updates/videlibri-setup.exe" platform="WINDOWS" execute="&quot;$DOWNLOAD&quot;  /SP- /noicons &quot;/dir=$OLDPATH;&quot; "/>
     <download url="http://videlibri.sourceforge.net/updates/videlibri-linux64.deb" platform="LINUX64" execute=""/>
+    <add level="minor">Neue Büchereien dank EDSync/Martin Kim Dung-Pham: Campus Katalog Hamburg (und prinzipiell alle anderen GBV-Bibliotheken)</add>
+    <fix level="minor">Die Digibibsuche geht wieder</fix>
+    <fix level="minor">Die Verlängerung der FHB Düsseldorf funktioniert wieder (sollte zumindest, aber ich gehe da nicht nochmal zum Testen hin)</fix>
+    <fix level="minor">Windows-Fehler behoben: Eine zweite Instanz öffnet wieder das Fenster der ersten.</fix>
+  </build>
+  <build version="0999" date="2011-03-07">
     <change level="minor">Leicht verbesserte Templateverarbeitung (für die, die ihre eigenen Templates schreiben)</change>
     <change level="major">Angepasst an neuen STB Düsseldorf WebOPAC</change>
     <fix level="major">ULB Düsseldorf Verlängerungsfehler behoben</fix>
