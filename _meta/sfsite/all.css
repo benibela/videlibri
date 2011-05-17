@@ -25,3 +25,5 @@ h2 {border-bottom: 3px solid green; border-right: 3px solid green; padding: 5px}
 #navigation a:visited{color:#202047}
 #navigation a:hover {font-weight: bold; color: red}
 .city td{border-top:1px solid #00EE00;}
+.bibsupport a { text-decoration: none; }
+.bibsupport a:hover { text-decoration: underline; }
