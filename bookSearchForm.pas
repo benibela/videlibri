@@ -47,6 +47,7 @@ type
     StatusBar1: TStatusBar;
     procedure bookListSelect(sender: TObject; item: TTreeListItem);
     procedure displayImageChange(Sender: TObject);
+    procedure FormKeyUp(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure searchAuthorEnter(Sender: TObject);
     procedure searchAuthorExit(Sender: TObject);
     procedure searchTitleChange(Sender: TObject);
@@ -85,7 +86,7 @@ const SB_PANEL_FOUND_COUNT=1;
       SB_PANEL_SEARCH_STATUS=0;
 implementation
 
-uses applicationconfig,libraryParser,simplexmlparser,bbdebugtools,bookWatchMain,bbutils;
+uses applicationconfig,libraryParser,simplexmlparser,bbdebugtools,bookWatchMain,bbutils,LCLType;
 
 { TbookSearchFrm }
 //TODO: fehler bei keinem ergebnis
@@ -204,6 +205,15 @@ end;
 procedure TbookSearchFrm.displayImageChange(Sender: TObject);
 begin
   displayDetails(nil);
+end;
+
+procedure TbookSearchFrm.FormKeyUp(Sender: TObject; var Key: Word;
+ Shift: TShiftState);
+begin
+ if key = VK_RETURN then startSearch.Click
+ else if key = VK_ESCAPE then close
+ else exit;
+ key:=0;
 end;
 
 procedure TbookSearchFrm.searchAuthorEnter(Sender: TObject);
