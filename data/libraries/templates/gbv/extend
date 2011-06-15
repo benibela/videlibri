@@ -1,7 +1,7 @@
 
 <HTML><!--fake translations!-->
-<body>
-<table summary="list of loan renewals - data">
+<body>	
+<table summary="list of loan renewals - data" htmlparser-optional="true">
   <tr>
   </tr>
 
@@ -10,7 +10,7 @@
       <table summary="title data">
         <tr><td class="plain"> <!--TITEL/AUTOR--></td></tr>
         <tr><td>
-          <span class="label-small">Signatur:<!--shelf mark--></span><htmlparser:read var="book-select(id)" source="text()"/> 
+          <span class="label-small">Signatur:<!--shelf mark--></span><htmlparser:read var="book-select(id)" source="filter(text(),'[^;]*')"/> 
           <span class="label-small"><!--status:-->Status:</span><htmlparser:read var="book.status" source="text()"/>
           <span class="label-small">Leihfristende:<!--expiry date:--></span><htmlparser:read source="text()" var="book.limitdate:dd-mm-yyyy"/>
         </td></tr>
@@ -20,6 +20,27 @@
 </htmlparser:loop>
 
 </table>
+
+<table summary="list of rejected loan renewals - data">
+  <tr>
+  </tr>
+
+<htmlparser:loop>
+  <tr valign="top"><td>
+      <table summary="title data">
+        <tr><td class="plain"> <!--TITEL/AUTOR--></td></tr>
+        <tr><td>
+          <span class="label-small">Signatur:<!--shelf mark--></span><htmlparser:read var="book-select(id)" source="filter(text(),'[^;]*')"/> 
+          <span class="label-small"><!--???:-->Verweigerungsgrund:</span><htmlparser:read var="book.status:problematic" source="text()"/>
+          <span class="label-small">Leihfristende:<!--expiry date:--></span><htmlparser:read source="text()" var="book.limitdate:dd-mm-yyyy"/>
+        </td></tr>
+      </table>
+    </td>
+  </tr>
+</htmlparser:loop>
+
+</table>
+
 
 </BODY>
 </HTML>
