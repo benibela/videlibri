@@ -58,8 +58,8 @@ PAGES=(${PAGES[@]} sisis/start.do.html sisis/userAccount.do_empty.html sisis/use
 #==============GBV================
 mkdir -p $OUTPATH/gbv
 
-TEMPLATES=(${TEMPLATES[@]} gbv/update gbv/extend)
-PAGES=(${PAGES[@]} gbv/update3.html gbv/extend2.html)
+TEMPLATES=(${TEMPLATES[@]} gbv/update gbv/update gbv/extend)
+PAGES=(${PAGES[@]} gbv/update3.html gbv/update_abholen.html gbv/extend2.html)
 
 #=============DIGIBIB==============
 mkdir -p $OUTPATH/digibib

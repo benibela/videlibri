@@ -21,7 +21,7 @@
 
 </table>
 
-<table summary="list of rejected loan renewals - data">
+<table summary="list of rejected loan renewals - data" htmlparser-optional=true>
   <tr>
   </tr>
 
