@@ -72,6 +72,7 @@ PAGES=(${PAGES[@]} digibib/search.html digibib/search2.html digibib/details.html
 error=0
 for ((i=0;i<${#TEMPLATES[@]};i++)); do
   echo -e "Testing: ${TEMPLATES[i]} \t\t\twith\t\t $INPATH/${PAGES[i]}"
+#  echo $TEMPLATEPARSER$TEMPLATEPATH/${TEMPLATES[i]} $INPATH/${PAGES[i]}
   $TEMPLATEPARSER$TEMPLATEPATH/${TEMPLATES[i]} $INPATH/${PAGES[i]} > $OUTPATH/${PAGES[i]}.result
   if diff $INPATH/${PAGES[i]}.result $OUTPATH/${PAGES[i]}.result; then tempasasas=42; else echo ERROR; error=1; fi
 done;
