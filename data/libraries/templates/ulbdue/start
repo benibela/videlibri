@@ -1,1 +1,1 @@
-<a title="Sehen Sie Ihre gespeicherten Daten an"><htmlparser:read var="loginPage" source="@href"/></a> 
+<a title="Sehen Sie Ihre gespeicherten Daten an"><template:read var="loginPage" source="@href"/></a> 

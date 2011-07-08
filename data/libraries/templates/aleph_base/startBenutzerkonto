@@ -1,1 +1,1 @@
-<li><a><htmlparser:read var="accountPage" source="@href"/>Benutzerkonto</a> </li>
+<li><a><t:read var="accountPage" source="@href"/>Benutzerkonto</a> </li>

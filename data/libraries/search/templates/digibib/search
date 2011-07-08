@@ -1,48 +1,48 @@
 <html><body>
 <table><tr><td>Suchergebnis</td></tr></table>
   
-<htmlparser:loop>
+<template:loop>
   <a href=""></a>
 
   <table>
 
-  <htmlparser:read var="count" source="'0'"/>
+  <template:read var="count" source="'0'"/>
   
   <tr>
     <td></td>
-    <th htmlparser-optional="true"></th>
-    <th htmlparser-optional="true"><span><htmlparser:read var="count" source="text()" regex="\d+"/></span></th>
+    <th template:optional="true"></th>
+    <th template:optional="true"><span><template:read var="count" source="text()" regex="\d+"/></span></th>
   </tr>
   
-  <htmlparser:if test="'$count;'!='0'">
+  <template:if test="$count;!='0'">
   
     <tr>
     <td>
     <table>
       
-       <htmlparser:loop>
+       <template:loop>
          <tr>
-           <htmlparser:read var="book-start()"/>
-           <td><a><htmlparser:read source="@href" var="book.searchid" regex="START=\d+$"/>
-                  <htmlparser:read source="@href" var="book.library" regex="DB=[^=&]+"/>
-                  <!--<htmlparser:read source="'http://abderos.hbz-nrw.de/Digibib?SERVICE=METASEARCH&amp;SUBSERVICE=GETRECORD&amp;FORMAT=Full&amp;$book.library;&amp;$metaid;&amp;COUNT=1&amp;NL_START=0&amp;PL_START=0&amp;SID=$sid;&amp;LOCATION=&amp;LISTCOUNT=200&amp;X$reqid;&amp;HIGHLIGHTTERMS=&amp;$book.searchid;'" var="book.detail-url"/>-->
-                  <htmlparser:read source="'http://abderos.hbz-nrw.de/Digibib?SERVICE=METASEARCH&SUBSERVICE=GETRECORD&FORMAT=Full&$book.library;&$metaid;&COUNT=1&NL_START=0&PL_START=0&SID=$sid;&LOCATION=&LISTCOUNT=200&X$reqid;&HIGHLIGHTTERMS=&$book.searchid;'" var="book.detail-url"/>
+           <template:read var="book-start()"/>
+           <td><a><template:read source="@href" var="book.searchid" regex="START=\d+$"/>
+                  <template:read source="@href" var="book.library" regex="DB=[^=&]+"/>
+                  <!--<template:read source="'http://abderos.hbz-nrw.de/Digibib?SERVICE=METASEARCH&amp;SUBSERVICE=GETRECORD&amp;FORMAT=Full&amp;$book.library;&amp;$metaid;&amp;COUNT=1&amp;NL_START=0&amp;PL_START=0&amp;SID=$sid;&amp;LOCATION=&amp;LISTCOUNT=200&amp;X$reqid;&amp;HIGHLIGHTTERMS=&amp;$book.searchid;'" var="book.detail-url"/>-->
+                  <template:read source='"http://abderos.hbz-nrw.de/Digibib?SERVICE=METASEARCH&SUBSERVICE=GETRECORD&FORMAT=Full&$book.library;&$metaid;&COUNT=1&NL_START=0&PL_START=0&SID=$sid;&LOCATION=&LISTCOUNT=200&X$reqid;&HIGHLIGHTTERMS=&$book.searchid;"' var="book.detail-url"/>
                   </a></td>
-           <td><htmlparser:read source="deepNodeText(' ')" var="book.author"/></td>
-           <td><htmlparser:read source="deepNodeText(' ')" var="book.title"/></td>
-           <td><htmlparser:read source="deepNodeText(' ')" var="book.year"/></td>
-           <htmlparser:read var="book-end()"/>
+           <td><template:read source="deep-text(' ')" var="book.author"/></td>
+           <td><template:read source="deep-text(' ')" var="book.title"/></td>
+           <td><template:read source="deep-text(' ')" var="book.year"/></td>
+           <template:read var="book-end()"/>
          </tr>
-       </htmlparser:loop>
+       </template:loop>
     
     </table>
     </td>
     </tr>
   
-  </htmlparser:if>
+  </template:if>
   
   </table>
-</htmlparser:loop>  
+</template:loop>  
 
 <table><tr><td></td></tr></table>
 

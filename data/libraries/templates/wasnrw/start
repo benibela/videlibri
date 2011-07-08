@@ -3,7 +3,7 @@
  <div class="layoutTable">
    <div class="midLeft1">
     <ul class="liste4">
-     <li><a><htmlparser:read source="@href" var="jsession" regex="jsessionid=[0-9a-zA-Z_-]*:-1"/>Ausleihkonto</a></li>
+     <li><a><template:read source="@href" var="jsession" regex="jsessionid=[0-9a-zA-Z_-]*:-1"/>Ausleihkonto</a></li>
     </ul>
    </div>
  </div>

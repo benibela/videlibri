@@ -4,12 +4,12 @@
     <tr> 
       <td>
         <strong class="c2">Titel:</strong>
-        <strong><htmlparser:read var="newBookTitle" source="text()"/></strong>
+        <strong><template:read var="newBookTitle" source="text()"/></strong>
         <strong class="c2">neues Leihfristende:</strong>
-        <htmlparser:read var="book.limitdate:dd.mm.yyyy" source="text()"/>
-        <htmlparser:if test="'$newBookTitle;'!='$book.title;'">
+        <template:read var="book.limitdate:dd.mm.yyyy" source="text()"/>
+        <template:if test="$newBookTitle;!=$book.title;">
           <broken/>
-        </htmlparser:if>
+        </template:if>
       </td>
     </tr>       
   </table>

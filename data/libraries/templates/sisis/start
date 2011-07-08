@@ -1,10 +1,10 @@
 <html>
 <body>
   <div id="mainnav">
-     <a title="Konto"><htmlparser:read source="@href" var="jsession" regex="jsessionid=[0-9a-zA-Z_-]*"/></a>
+     <a title="Konto"><template:read source="@href" var="jsession" regex="jsessionid=[0-9a-zA-Z_-]*"/></a>
   </div>
   <input type="hidden" name="CSId">
-     <htmlparser:read source="@value" var="CSId"/>
+     <template:read source="@value" var="CSId"/>
   </input>
 </body>
 </html>

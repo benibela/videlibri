@@ -1,47 +1,47 @@
 <html> 
 <head>
-<title><htmlparser:read source="''" var="noBooks"/></title>
+<title><t:read source="''" var="noBooks"/></title>
 </head>
 <body> 
 
-<p htmlparser-optional="true"> 
+<p t:optional="true"> 
   Sie haben momentan keine Exemplare ausgeliehen.
-  <htmlparser:read source="'true'" var="noBooks"/>
-  <htmlparser:read var="delete-current-books()"/>
+  <template:read source="'true'" var="noBooks"/>
+  <template:read var="delete-current-books()"/>
 </p>
 
-<htmlparser:if test="'$noBooks;'!='true'">
+<template:if test='"$noBooks;"!="true"'>
   <div> 
   <table>
    <tr> 
     <th>Autor</th> 
     <th>Titel</th> 
-    <htmlparser:read var="delete-current-books()"/>
+    <template:read var="delete-current-books()"/>
    </tr> 
 
 
- <htmlparser:loop>
+ <template:loop>
    <tr> 
-    <htmlparser:read var="book-start()"/>
-    <td><A><htmlparser:read var="book.detailLink" source="@href"/></A></td> 
+    <template:read var="book-start()"/>
+    <td><A><template:read var="book.detailLink" source="@href"/></A></td> 
     <td><input/></td>
-    <td><htmlparser:read var="book.author" source="text()"/></td> 
-    <td><htmlparser:read var="book.title" source="text()"/></td> 
-    <td><htmlparser:read var="book.year" source="text()"/></td> 
-    <td><htmlparser:read var="book.limitdate:dd/mm/yy" source="text()"/></td> 
+    <td><template:read var="book.author" source="."/></td> 
+    <td><template:read var="book.title" source="."/></td> 
+    <td><template:read var="book.year" source="."/></td> 
+    <td><template:read var="book.limitdate" source="parse-date(.,'dd/mm/yy')"/></td> 
     <td><!--ignore: Standort--></td> 
-    <td><htmlparser:read var="book.id" source="text()"/>
-        <htmlparser:read var="book.category" source="text()" regex="[a-zA-Z]*"/></td> 
+    <td><template:read var="book.id" source="."/>
+        <template:read var="book.category" source="." regex="[a-zA-Z]*"/></td> 
     <!--<td><br></td> 
     <td><br></td> -->
-    <htmlparser:read var="book-end()"/>
+    <template:read var="book-end()"/>
     </tr> 
-  </htmlparser:loop>
+  </template:loop>
 
 </table>
 </div>
   
-  </htmlparser:if>
+  </template:if>
 </body> 
 </html> 
 

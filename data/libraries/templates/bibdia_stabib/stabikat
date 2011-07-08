@@ -1,4 +1,10 @@
 <table>
-<tr><td><strong>Titel:</strong></td><td><htmlparser:read var="book.title" source="filter(deepNodeText(' '), '[^/]+')"/></td></tr>
-<tr><td><strong htmlparser-condition="filter(text(), 'Verfasser|Personen') != ''"/></td><td><htmlparser:read var="book.author" source="filter(deepNodeText(' '), '[^*]+')"/></td></tr>
+<tr>
+  <td><strong>Titel:</strong></td>
+  <td><template:read var="book.title" source="filter(deep-text(' '), '[^/]+')"/></td>
+</tr>
+<tr>
+  <td><strong template:condition="filter(text(), 'Verfasser|Personen') != ''"/></td>
+  <td><template:read var="book.author" source="filter(deep-text(' '), '[^*]+')"/></td>
+</tr>
 </table>

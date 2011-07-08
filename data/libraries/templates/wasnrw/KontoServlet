@@ -1,4 +1,4 @@
-<htmlparser:meta encoding="iso-8859-1"/>
+<template:meta encoding="iso-8859-1"/>
 <html>
 <body>
  <div class="layoutTable">
@@ -6,68 +6,68 @@
 
      <div class="spezial3">
         Offene Gebühren
-        <htmlparser:read source="text()" var="charge" regex="\d+,\d+"/>
-        <htmlparser:read var="delete-current-books()"/>
+        <template:read source="text()" var="charge" regex="\d+,\d+"/>
+        <template:read var="delete-current-books()"/>
      </div>
-     <div htmlparser-optional="true">
+     <div template:optional="true">
        <table summary="Liste der nicht verlängerbaren Medien" >
-         <caption>Nicht verlängerbare Ausleihen:<htmlparser:read source="text()" var="tempcount" regex="\d+$"/></caption>
-         <htmlparser:if test="'$tempcount;'!='0'">                
+         <caption>Nicht verlängerbare Ausleihen:<template:read source="text()" var="tempcount" regex="\d+$"/></caption>
+         <template:if test="$tempcount;!='0'">                
            <tr>
             <th>Exemplar</th>
             <th>Ausleihe</th>
             <th>Frist bis</th>
            </tr>
-           <htmlparser:loop>
+           <template:loop>
             <tr>
              <td>
-              <htmlparser:read var="book-start()"/>
+              <template:read var="book-start()"/>
 
-              <htmlparser:read source="text()" var="book.id" regex="^\d+"/>
-              <htmlparser:read source="text()" var="book.category" regex="^\d* - ([^ *]*( [a-z1-9])?) ." submatch="1"/>
-              <htmlparser:read source="text()" var="book.author" regex="^\d* - [^ *]* ([a-z1-9] )?([^ ]*) *\*" submatch="2"/>
-              <htmlparser:read source="text()" var="book.title" regex="- [^ *]* ([a-z1-9] )?(.*\*)?([^<]*)(<\d{2,4}>?)?$" submatch="3"/>
-              <htmlparser:read source="text()" var="book.year" regex="<(\d{2,4})>?$" submatch="1"/>
-              <htmlparser:read source="'Nicht verlängerbar'" var="book.status:problematic"/>
-              <strong htmlparser-optional="true"><htmlparser:read source="text()" var="book.status:problematic"/></strong>
+              <template:read source="text()" var="book.id" regex="^\d+"/>
+              <template:read source="text()" var="book.category" regex="^\d* - ([^ *]*( [a-z1-9])?) ." submatch="1"/>
+              <template:read source="text()" var="book.author" regex="^\d* - [^ *]* ([a-z1-9] )?([^ ]*) *\*" submatch="2"/>
+              <template:read source="text()" var="book.title" regex="- [^ *]* ([a-z1-9] )?(.*\*)?([^<]*)(<\d{2,4}>?)?$" submatch="3"/>
+              <template:read source="text()" var="book.year" regex="<(\d{2,4})>?$" submatch="1"/>
+              <template:read source="'Nicht verlängerbar'" var="book.status:problematic"/>
+              <strong template:optional="true"><template:read source="text()" var="book.status:problematic"/></strong>
               </td>
-              <td><htmlparser:read source="text()" var="book.issuedate:dd.mm.yyyy"/></td>
-              <td><htmlparser:read source="text()" var="book.limitdate:dd.mm.yyyy"/></td>
-              <htmlparser:read var="book-end()"/>
+              <td><template:read source="text()" var="book.issuedate:dd.mm.yyyy"/></td>
+              <td><template:read source="text()" var="book.limitdate:dd.mm.yyyy"/></td>
+              <template:read var="book-end()"/>
             </tr>
-           </htmlparser:loop>
-         </htmlparser:if>                    
+           </template:loop>
+         </template:if>                    
        </table>
     
     </div>
     
-    <div htmlparser-optional="true">
-        <table summary="Liste der verlängerbaren Medien" htmlparser-optional="true">
-         <caption>Verlängerbare Ausleihen:<htmlparser:read source="text()" var="tempcount" regex="\d+$"/></caption>
-         <htmlparser:if test="'$tempcount;'!='0'">
+    <div template:optional="true">
+        <table summary="Liste der verlängerbaren Medien" template:optional="true">
+         <caption>Verlängerbare Ausleihen:<template:read source="text()" var="tempcount" regex="\d+$"/></caption>
+         <template:if test="$tempcount;!='0'">
            <tr>
             <th>Exemplar</th>
             <th>Ausleihe</th>
             <th>Frist bis</th>
            </tr>
-           <htmlparser:loop>
+           <template:loop>
             <tr>
               <td>
-                <htmlparser:read var="book-start()"/>
-                <htmlparser:read var="book.status"/>
+                <template:read var="book-start()"/>
+                <template:read var="book.status"/>
                 
-                <htmlparser:read source="text()" var="book.id" regex="^\d+"/>
-                <htmlparser:read source="text()" var="book.category" regex="^\d* - ([^ *]*( [A-Z1-9])?) ." submatch="1"/>
-                <htmlparser:read source="text()" var="book.author" regex="^\d* - [^ *]* ([A-Z1-9] )?([^ ]*) *\*" submatch="2"/>
-                <htmlparser:read source="text()" var="book.title" regex="- [^ *]* ([A-Z1-9] )?(.*\*)?([^<]*)(<\d{2,4}>?)?$" submatch="3"/>
-                <htmlparser:read source="text()" var="book.year" regex="<(\d{2,4})>?$" submatch="1"/>
+                <template:read source="text()" var="book.id" regex="^\d+"/>
+                <template:read source="text()" var="book.category" regex="^\d* - ([^ *]*( [A-Z1-9])?) ." submatch="1"/>
+                <template:read source="text()" var="book.author" regex="^\d* - [^ *]* ([A-Z1-9] )?([^ ]*) *\*" submatch="2"/>
+                <template:read source="text()" var="book.title" regex="- [^ *]* ([A-Z1-9] )?(.*\*)?([^<]*)(<\d{2,4}>?)?$" submatch="3"/>
+                <template:read source="text()" var="book.year" regex="<(\d{2,4})>?$" submatch="1"/>
               </td>
-              <td><htmlparser:read source="text()" var="book.issuedate:dd.mm.yyyy"/></td>
-              <td><htmlparser:read source="text()" var="book.limitdate:dd.mm.yyyy"/></td>
-              <htmlparser:read var="book-end()"/>
+              <td><template:read source="text()" var="book.issuedate:dd.mm.yyyy"/></td>
+              <td><template:read source="text()" var="book.limitdate:dd.mm.yyyy"/></td>
+              <template:read var="book-end()"/>
             </tr>
-           </htmlparser:loop>
-         </htmlparser:if>
+           </template:loop>
+         </template:if>
         </table>
  
    </div>

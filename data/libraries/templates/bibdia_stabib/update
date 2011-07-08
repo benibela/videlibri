@@ -1,43 +1,43 @@
-<htmlparser:meta encoding="utf8"/>
+<template:meta encoding="utf8"/>
 
 <html>
 
-<htmlparser:read var="templateError" source="'false'"/>
+<template:read var="templateError" source="'false'"/>
 
-<htmlparser:switch>
-<TD>Ausgeliehene Medien:<htmlparser:read var="delete-current-books()"/><htmlparser:read var="bookCount" source="filter(text(),'\d+')"/></TD>
-<TD>keine Medien entliehen<htmlparser:read var="delete-current-books()"/><htmlparser:read var="bookCount" source="'0'"/></TD>
-</htmlparser:switch>
+<template:switch>
+<TD>Ausgeliehene Medien:<template:read var="delete-current-books()"/><template:read var="bookCount" source="filter(text(),'\d+')"/></TD>
+<TD>keine Medien entliehen<template:read var="delete-current-books()"/><template:read var="bookCount" source="'0'"/></TD>
+</template:switch>
 
-<htmlparser:if test="$bookCount;!='0'">
-<htmlparser:read var="templateError" source="'true'"/>
+<template:if test="$bookCount;!='0'">
+<template:read var="templateError" source="'true'"/>
 <TABLE>
 <TR>
 <TH></TH><TH>Fällig</TH><TH>V</TH><TH>M</TH><TH>Signatur</TH><TH></TH><TH>Status</TH>
 </TR>
 
-<htmlparser:loop>
+<template:loop>
 <TR>
-<htmlparser:read var="book-start()"/>
-<input type="checkbox" htmlparser-optional="true"><htmlparser:read var="book.extendId" source="@name"/></input>
-<TD align="center"><htmlparser:read var="book.limitDate:dd.mm.yyyy" source="text()"/></TD>
-<TD><htmlparser:read var="V" source="text()"/></TD>
+<template:read var="book-start()"/>
+<input type="checkbox" template:optional="true"><template:read var="book.extendId" source="@name"/></input>
+<TD align="center"><template:read var="book.limitDate:dd.mm.yyyy" source="."/></TD>
+<TD><template:read var="V" source="."/></TD>
 <TD></TD>
-<TD><htmlparser:read var="book.id" source="text()"/></TD>
+<TD><template:read var="book.id" source="."/></TD>
 <TD></TD>
-<TD><htmlparser:read var="status" source="deepNodeText()"/></TD>
-<htmlparser:if test="$book.extendId;!=''">
-<htmlparser:read var="book.status:curious" source="concat($V;, '-mal verlängert, ', $status;)"/>
-</htmlparser:if>
-<htmlparser:if test="$book.extendId;=''">
-<htmlparser:read var="book.status:problematic" source="concat($status, ', ', $V;, '-mal verlängert')"/>
-</htmlparser:if>
-<htmlparser:read var="book-end()"/>
-<htmlparser:read var="templateError" source="'false'"/>
+<TD><template:read var="status" source="deep-text()"/></TD>
+<template:if test="$book.extendId;!=''">
+<template:read var="book.status:curious" source="concat($V;, '-mal verlängert, ', $status;)"/>
+</template:if>
+<template:if test="$book.extendId;=''">
+<template:read var="book.status:problematic" source="concat($status, ', ', $V;, '-mal verlängert')"/>
+</template:if>
+<template:read var="book-end()"/>
+<template:read var="templateError" source="'false'"/>
 </tr>
-</htmlparser:loop>
+</template:loop>
 </table>
-</htmlparser:if>
+</template:if>
 
-<htmlparser:if test="$templateError;">Template Fehler! Vielleicht hat die Bücherei ihr System geändert.</htmlparser:if>
+<template:if test="$templateError;">Template Fehler! Vielleicht hat die Bücherei ihr System geändert.</template:if>
 </html>

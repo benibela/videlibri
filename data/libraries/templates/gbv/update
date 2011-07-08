@@ -1,4 +1,4 @@
-<htmlparser:meta encoding="utf-8"/>
+<template:meta encoding="utf-8"/>
 <table summary="list of loans - data">
   <tr>
     <td></td>
@@ -40,47 +40,47 @@
   
   
   
-  <htmlparser:loop>
+  <template:loop>
   <tr>
-    <htmlparser:read var="book-start()"/>
+    <template:read var="book-start()"/>
     <td></td>
     <td >
-      <htmlparser:read var="book.extendId" source="''"/>
-      <input htmlparser-optional="true" name="VB" type="checkbox"><htmlparser:read var="book.extendId" source="@value"/></input>
+      <template:read var="book.extendId" source="''"/>
+      <input template:optional="true" name="VB" type="checkbox"><template:read var="book.extendId" source="@value"/></input>
     </td>
     <td></td>
     <td></td>
     <td></td>
     <td>
-      <htmlparser:read source="text()" var="book.title" regex="^[^/]*"/>
-      <htmlparser:read source="text()" var="book.author" regex="^[^/]*/\s*(von)?\s*(.*)" submatch="2"/>
+      <template:read source="text()" var="book.title" regex="^[^/]*"/>
+      <template:read source="text()" var="book.author" regex="^[^/]*/\s*(von)?\s*(.*)" submatch="2"/>
     </td>
 
-    <td></td><td></td><td></td><td class="value-small"><htmlparser:read source="text()" var="book.id"/></td>
+    <td></td><td></td><td></td><td class="value-small"><template:read source="." var="book.id"/></td>
     <td></td><td></td><td></td><td class="value-small">
-      <htmlparser:if test="$book.extendId;!=''">
-        <htmlparser:read var="book.status:curious" source="text()"/>
-      </htmlparser:if>
-      <htmlparser:if test="$book.extendId;==''">
-        <htmlparser:if test="filter(text(), 'Abholregal') = 'Abholregal'">
-          <htmlparser:read var="book.status:curious" source="text()"/>
-          <htmlparser:read var="book.limitdate:dd-mm-yyyy" source="'31-12-2011'"/>
-        </htmlparser:if>
-        <htmlparser:if test="filter(text(), 'Abholregal') != 'Abholregal'">
-          <htmlparser:read var="book.status:problematic" source="text()"/>
-        </htmlparser:if>
-      </htmlparser:if>
+      <template:switch value="$book.extendId">
+        <template:if value="''">
+          <template:switch value="filter(., 'Abholregal')">
+            <template:if value="'Abholregal'">
+              <template:read var="book.status:curious" source="."/>
+              <template:read var="book.limitdate:dd-mm-yyyy" source="'31-12-2011'"/>
+            </template:if>
+            <template:read var="book.status:problematic" source="."/>
+          </template:switch>
+        </template:if>
+        <template:read var="book.status:curious" source="."/>
+      </template:switch>
     </td>
     <td></td><td></td><td></td><td class="value-small"></td>
     <td></td><td></td><td></td><td class="value-small">
-      <htmlparser:if test="text()!=''"><htmlparser:read source="text()" var="book.limitdate:dd-mm-yyyy"/></htmlparser:if>
+      <template:if test="text()!=''"><template:read source="." var="book.limitdate:dd-mm-yyyy"/></template:if>
     </td>
     <td></td><td></td><td></td><td class="value-small"></td>
     <td></td><td></td><td></td><td class="value-small"><iframe></iframe></td>
     
-    <htmlparser:read var="book-end()"/>
+    <template:read var="book-end()"/>
   </tr>
-</htmlparser:loop>
+</template:loop>
 
 
 </table>

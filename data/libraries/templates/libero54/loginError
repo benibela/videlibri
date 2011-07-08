@@ -2,6 +2,6 @@
 <b><font>Ihre Anforderung konnte</font></b>
 <blockquote>
 <ul>
-<li><b><font><htmlparser:read var="raise-login()"/></font></b></li>
+<li><b><font><template:read var="raise-login()"/></font></b></li>
 <li></li>
 </ul>

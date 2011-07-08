@@ -1,18 +1,22 @@
- <htmlparser:meta encoding="latin1"/>
+ <t:meta encoding="latin1"/>
  <table>
  <tr>
   <td>Ausleihdatum:</td>
-  <td><htmlparser:read var="book.issuedate:dd/mm/[yy]yy" source="text()"/></td>
+  <td><t:s>book.issuedate:=parse-date(.,"dd/mm/[yy]yy")</t:s></td>
  </tr>
  <tr>
   <td>Fällig</td>
-  <td><htmlparser:read var="book.limitdate:dd/mm/[yy]yy" source="text()"/></td>
+  <td><t:s>book.limitdate:=parse-date(.,"dd/mm/[yy]yy")</t:s></td>
  </tr>
  <tr>
   <td>Verlängerung:</td>
   <td>
-    <htmlparser:read var="book.status:problematic" source="text()"/>  
-    <a htmlparser-optional="true"><htmlparser:read var="book.status:curious"/><htmlparser:read var="book.extendLink" source="@href"/>Jetzt verlängern</a>
+    <t:read var="book.status:problematic" source="deep-text()"/>  
+    <a t:optional="true">
+      <t:read var="book.status:curious"/>
+      <t:read var="book.extendLink" source="@href"/>
+      Jetzt verlängern
+    </a>
   </td>
  </tr>
  <!--<tr>

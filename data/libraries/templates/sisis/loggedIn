@@ -1,13 +1,13 @@
 <html>
 <head>
-<htmlparser:read source="''" var="bookCount"/>
+<template:read source="''" var="bookCount"/>
 </head>
 <body>
    <div id="main"> 
      <div id="middle"> 
         <div id="tab"> <!--There is another div in-between, but its id changes between current1, active1 and label1, so don't check it-->
-           Ausleihen<htmlparser:read source="text()" var="bookCount" regex="[0-9]+"/>
-           <htmlparser:if test="'$bookCount;' = ''">INVALID CANCEL CURRENT TAG</htmlparser:if>
+           Ausleihen<template:read source="." var="bookCount" regex="[0-9]+"/>
+           <template:if test="$bookCount; = ''">INVALID CANCEL CURRENT TAG</template:if>
         </div>
         
   <div id="tab-content">
@@ -20,56 +20,56 @@
     </div>
     <fieldset>
 
-    <htmlparser:read var="delete-current-books()"/>
+    <template:read var="delete-current-books()"/>
 
-    <htmlparser:if test="'$allBooksAway;'==''">
+<!--    <template:if test="$allBooksAway;=''">-->
     <table class="data">
       <tr>
         <th scope="col"></th>
       </tr>
 
-      <htmlparser:loop>      
+      <template:loop>      
 
       <tr>
         <th scope="row"></th>
-        <htmlparser:read var="book-start()"/>
+        <template:read var="book-start()"/>
         <td>
-          <strong><htmlparser:read source="text()" var="book.title"/></strong><br/>
-          <htmlparser:read source="'true'" var="spanmissing"/>
-          <htmlparser:read source="'false'" var="previousspan"/>
-          <htmlparser:read source="text()" var="book.author"/><br/>
-          <htmlparser:read source="text()" var="book.id" regex="^[^/]*"/><br/>
-          <a htmlparser-optional="true">
-            <htmlparser:read source="@href" var="book.extendID" regex="actPos=([0-9]+)$" submatch="1"/>
+          <strong><template:read source="." var="book.title"/></strong><br/>
+          <template:read source="true()" var="spanmissing"/>
+          <template:read source="false()" var="previousspan"/>
+          <template:read source="text()" var="book.author"/><br/>
+          <template:read source="text()" var="book.id" regex="^[^/]*"/><br/>
+          <a template:optional="true">
+            <template:read source="@href" var="book.extendID" regex="actPos=([0-9]+)$" submatch="1"/>
             <span>
-              <htmlparser:read source="text()" var="book.status:curious"/>
-              <htmlparser:read source="@class != 'textgruen'" var="spanmissing"/>
+              <template:read source="." var="book.status:curious"/>
+              <template:read source="@class != 'textgruen'" var="spanmissing"/>
             </span>
           </a>
-	  <span htmlparser-optional="true">
-            <htmlparser:read source="text()" var="book.status:problematic"/>
-            <htmlparser:read source="'false'" var="spanmissing"/>
-            <htmlparser:read source="'true'" var="previousspan"/>
+	  <span template:optional="true">
+            <template:read source="." var="book.status:problematic"/>
+            <template:read source="false()" var="spanmissing"/>
+            <template:read source="true()" var="previousspan"/>
           </span>
-<!--	  <htmlparser:if test="'$previousspan;'">
-	    <span htmlparser-optional="true">
-              <htmlparser:read source="concat('$book.status:problematic; ', text())" var="book.status:problematic"/>
-              <htmlparser:read source="'false'" var="spanmissing"/>
+<!--	  <template:if test="$previousspan;">
+	    <span template:optional="true">
+              <template:read source="concat("$book.status:problematic; ", text())" var="book.status:problematic"/>
+              <template:read source="'false'" var="spanmissing"/>
             </span>
-           </htmlparser:if>-->
+           </template:if>-->
          </td>
-         <htmlparser:if test="'$spanmissing;'"><broken/></htmlparser:if>
+         <template:if test="$spanmissing;"><broken/></template:if>
          <td>
-           <htmlparser:read source="text()" var="book.issuedate:dd.mm.yyyy" regex="^\d{2}\.\d{2}\.\d{4}"/>
-           <htmlparser:read source="text()" var="book.limitdate:dd.mm.yyyy" regex="- *(\d{2}\.\d{2}\.\d{4})" submatch="1"/><br/>
+           <template:read source="text()" var="book.issuedate:dd.mm.yyyy" regex="^\d{2}\.\d{2}\.\d{4}"/>
+           <template:read source="text()" var="book.limitdate:dd.mm.yyyy" regex="- *(\d{2}\.\d{2}\.\d{4})" submatch="1"/><br/>
 	 </td>
-         <htmlparser:read var="book-end()"/>
+         <template:read var="book-end()"/>
        </tr>
               
-      </htmlparser:loop>      
+      </template:loop>      
                
       </table>
-      </htmlparser:if>
+  <!--    </template:if>-->
     </fieldset>
 
    </div>

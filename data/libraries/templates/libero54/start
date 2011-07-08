@@ -2,20 +2,22 @@
 <html>
 <body>
 
-<a htmlparser-condition="filter(@href, 'LOGINTOKEN=') != ''"><htmlparser:read source="@href" var="loginToken" regex="LOGINTOKEN=[a-zA-Z0-9]+"/></a>
+<a template:condition="filter(@href, 'LOGINTOKEN=') != ''">
+  <template:read source="@href" var="loginToken" regex="LOGINTOKEN=[a-zA-Z0-9]+"/>
+</a>
   
 <form name="display">
 <input type="hidden" name="TOKEN">
-<htmlparser:read source="@value" var="token"/>
+<template:read source="@value" var="token"/>
 </input>
 <input type="hidden" name="TOKENX">
-<htmlparser:read source="@value" var="tokenx"/>
+<template:read source="@value" var="tokenx"/>
 </input>
 <input type="hidden" name="DATA">
-<htmlparser:read source="@value" var="data"/>
+<template:read source="@value" var="data"/>
 </input>
 <input type="hidden" name="VERSION">
-<htmlparser:read source="@value" var="version"/>
+<template:read source="@value" var="version"/>
 </input>
 </form>
 </BODY></HTML>
