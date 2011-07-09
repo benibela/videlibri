@@ -632,7 +632,7 @@ var t: string;
  i: Integer;
 begin
   for i:=0 to BookList.Items.count-1 do
-    if ((BookList.selCount = 0) or (BookList.Items[i].Selected)) and (BookList.books[i].owner<>nil) then begin
+    if ((BookList.selCount = 0) or (BookList.Items[i].Selected)) and ((BookList.Items[i].data.obj <> nil) and (BookList.books[i].owner<>nil)) then begin
       t += (BookList.books[i].owner as TCustomAccountAccess).prettyName + ':  ' + BookList.books[i].toLimitString() + LineEnding;
     end;
   clipboard.astext := t;
