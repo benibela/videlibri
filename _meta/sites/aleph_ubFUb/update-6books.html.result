@@ -1,0 +1,56 @@
+noBooks=
+delete-current-books()=
+book-start()=
+book.detailLink=http://aleph-www.ub.fu-berlin.de:80/F/YQBPU3RWE71YQQ9PTI1A38NHAX2I5DLCLVKMMMDCYEMTR5S9F-15753?func=BOR-LOAN-EXP&doc_number=00&item_sequence=000010&index=0001&adm_library=FUB50
+book.author=B, M
+book.title=IVAN
+book.year=2000
+book.limitdate=2011-05-13
+book.id=123.4556/B344
+book.category=
+book-end()=
+book-start()=
+book.detailLink=http://aleph-www.ub.fu-berlin.de:80/F/YQBPU3RWE71YQQ9PTI1A38NHAX2I5DLCLVKMMMDCYEMTR5S9F-15755?func=BOR-LOAN-EXP&doc_number=00&item_sequence=000010&index=0002&adm_library=FUB50
+book.author=C,J M
+book.title=Vieta
+book.year=2008
+book.limitdate=2011-05-13
+book.id=123.456/C566
+book.category=
+book-end()=
+book-start()=
+book.detailLink=http://aleph-www.ub.fu-berlin.de:80/F/YQBPU3RWE71YQQ9PTI1A38NHAX2I5DLCLVKMMMDCYEMTR5S9F-15757?func=BOR-LOAN-EXP&doc_number=002&item_sequence=000010&index=0003&adm_library=FUB50
+book.author=Groß-Sack, K.
+book.title=EU
+book.year=2004
+book.limitdate=2011-07-27
+book.id=MA2004/ 1234
+book.category=MA
+book-end()=
+book-start()=
+book.detailLink=http://aleph-www.ub.fu-berlin.de:80/F/YQBPU3RWE71YQQ9PTI1A38NHAX2I5DLCLVKMMMDCYEMTR5S9F-15759?func=BOR-LOAN-EXP&doc_number=002&item_sequence=000010&index=0004&adm_library=FUB50
+book.author=P, Phi
+book.title=Brückenbauen
+book.year=1990
+book.limitdate=2011-07-27
+book.id=MA2005/ 123
+book.category=MA
+book-end()=
+book-start()=
+book.detailLink=http://aleph-www.ub.fu-berlin.de:80/F/YQBPU3RWE71YQQ9PTI1A38NHAX2I5DLCLVKMMMDCYEMTR5S9F-15761?func=BOR-LOAN-EXP&doc_number=002163746&item_sequence=000010&index=0005&adm_library=FUB50
+book.author=Zeder, Erik
+book.title=EU
+book.year=2005
+book.limitdate=2011-07-27
+book.id=MA2005/ 123
+book.category=MA
+book-end()=
+book-start()=
+book.detailLink=http://aleph-www.ub.fu-berlin.de:80/F/YQBPU3RWE71YQQ9PTI1A38NHAX2I5DLCLVKMMMDCYEMTR5S9F-15763?func=BOR-LOAN-EXP&doc_number=002779901&item_sequence=000010&index=0006&adm_library=FUB50
+book.author=Ferrero, Fuchs
+book.title=EU dritte
+book.year=2001
+book.limitdate=2011-07-27
+book.id=MA2001/ 123
+book.category=MA
+book-end()=
