@@ -24,7 +24,7 @@
     <template:read var="book-start()"/>
     <td><A><template:read var="book.detailLink" source="@href"/></A></td> 
     <td><template:read var="book.author" source="."/></td> 
-    <td><template:read var="book.title" source="."/></td> 
+    <td><template:read var="book.title" source="text()"/></td> 
     <td><template:read var="book.year" source="."/></td> 
     <td><template:read var="book.limitdate" source="parse-date(.,'dd/mm/[yy]yy')"/></td> 
     <td><!--ignore: Limittime--></td> 
