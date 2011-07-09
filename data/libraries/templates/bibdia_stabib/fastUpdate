@@ -16,7 +16,7 @@
 <TR>
 <input type="checkbox" template:optional="true"><template:read var="newExtendId" source="@name"/></input>
 <TD align="center"><template:read var="newLimit" source="."/></TD>
-<TD><template:read var="V" source="."/></TD>
+<TD><template:read var="V" source="."/><t:s test="$V; = ''">V:=0</t:s></TD>
 <TD></TD>
 <TD><template:read var="book-select(id)" source="."/></TD>
 <TD></TD>
