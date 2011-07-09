@@ -845,7 +845,16 @@ begin
                   parser.parseHTML(page,true);
                   //simulate old parser interface
                   for j:=0 to parser.variableChangeLog.count-1 do begin
-                    parser.variableChangeLog.GetNameValue(j,aname,avalue);
+                    aname := parser.variableChangeLog.getVariableName(j);
+                    if striEqual(aname, 'book.issuedate') or striEqual(avalue, 'book.limitdate') then begin
+                      if currentBook <>nil then
+                        if striEqual(aname, 'book.issuedate') then
+                          currentBook.IssueDate:=trunc(parser.variableChangeLog.getVariableValueDateTime(j))
+                        else
+                          currentBook.limitdate:=trunc(parser.variableChangeLog.getVariableValueDateTime(j));
+                        Continue;
+                    end;
+                    avalue := parser.variableChangeLog.getVariableValueString(j);
                     parserVariableRead(aname,avalue);
                   end;
                 finally
@@ -868,7 +877,8 @@ begin
             //simulate old parser interface
             //TODO: this is absolutely not needed here
             for j:=0 to parser.variableChangeLog.count-1 do begin
-              parser.variableChangeLog.GetNameValue(j,aname,avalue);
+              aname := parser.variableChangeLog.getVariableName(j);
+              avalue := parser.variableChangeLog.getVariableValueString(j);
               parserVariableRead(aname,avalue);
             end;
             if logging then begin

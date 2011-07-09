@@ -817,9 +817,9 @@ procedure TTemplateAccountAccess.setVariables();
 var i:longint;
 begin
   for i:=0 to lib.defaultVariables.count-1 do
-    reader.parser.variables.Values[lib.defaultVariables.Names[i]]:=lib.defaultVariables.ValueFromIndex[i];
-  reader.parser.variables.Values['username']:=user;
-  reader.parser.variables.Values['password']:=passWord;
+    reader.parser.variableChangeLog.Values[lib.defaultVariables.Names[i]]:=lib.defaultVariables.ValueFromIndex[i];
+  reader.parser.variableChangeLog.Values['username']:=user;
+  reader.parser.variableChangeLog.Values['password']:=passWord;
 end;
 
 

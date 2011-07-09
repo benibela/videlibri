@@ -71,7 +71,7 @@ begin
   if s=flocation then exit;
   flocation:=s;
   bookListReader.parser.variables.Values['location']:=template.variables.Values['location:'+s];
-  if bookListReader.parser.variables.Values['location']='' then
+  if bookListReader.parser.variables.ValuesString['location']='' then
     raise Exception.Create('Unbekannter Suchort');
 end;
 
@@ -118,4 +118,4 @@ begin
 end;
 
 end.
-
+
