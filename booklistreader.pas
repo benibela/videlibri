@@ -765,6 +765,7 @@ constructor TBookListReader.create(atemplate:TBookListTemplate);
 begin
   template:=atemplate;
   parser:=THtmlTemplateParser.create;
+  parser.KeepPreviousVariables:=kpvKeepValues;
   parser.variableChangeLog.caseSensitive:=false;
   defaultBook:=TBook.create;
 end;
@@ -843,7 +844,7 @@ begin
                 if logging then log('parse page: '+parser.replaceVars(actions[i].url));
                 if bookAccessSection<>nil then EnterCriticalsection(bookAccessSection^);
                 try
-                  parser.parseHTML(page,true);
+                  parser.parseHTML(page);
                   //simulate old parser interface
                   for j:=0 to parser.variableChangeLog.count-1 do begin
                     aname := parser.variableChangeLog.getVariableName(j);
@@ -887,7 +888,7 @@ begin
             end;
             try
               if logging then log('parser html: ');
-              parser.parseHTML(page,true);
+              parser.parseHTML(page);
             except
               on e2: EBookListReader do begin
                 if logging then log('New exception: '+e2.message);
