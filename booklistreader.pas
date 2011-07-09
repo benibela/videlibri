@@ -765,6 +765,7 @@ constructor TBookListReader.create(atemplate:TBookListTemplate);
 begin
   template:=atemplate;
   parser:=THtmlTemplateParser.create;
+  parser.variableChangeLog.caseSensitive:=false;
   defaultBook:=TBook.create;
 end;
 
@@ -846,7 +847,7 @@ begin
                   //simulate old parser interface
                   for j:=0 to parser.variableChangeLog.count-1 do begin
                     aname := parser.variableChangeLog.getVariableName(j);
-                    if striEqual(aname, 'book.issuedate') or striEqual(avalue, 'book.limitdate') then begin
+                    if striEqual(aname, 'book.issuedate') or striEqual(aname, 'book.limitdate') then begin
                       if currentBook <>nil then
                         if striEqual(aname, 'book.issuedate') then
                           currentBook.IssueDate:=trunc(parser.variableChangeLog.getVariableValueDateTime(j))
@@ -914,12 +915,12 @@ end;
 procedure TBookListReader.selectBook(book: TBook);
 var i:longint;
 begin
-  parser.variables.Values['book.id']:=book.id;
-  parser.variables.Values['book.author']:=book.author;
-  parser.variables.Values['book.title']:=book.title;
-  parser.variables.Values['book.year']:=book.year;
+  parser.variableChangeLog.Values['book.id']:=book.id;
+  parser.variableChangeLog.Values['book.author']:=book.author;
+  parser.variableChangeLog.Values['book.title']:=book.title;
+  parser.variableChangeLog.Values['book.year']:=book.year;
   for i:=0 to high(book.additional) do
-    parser.variables.Values['book.'+book.additional[i].name]:=book.additional[i].value;
+    parser.variableChangeLog.Values['book.'+book.additional[i].name]:=book.additional[i].value;
   currentBook:=book;
 end;
 
