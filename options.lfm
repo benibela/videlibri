@@ -1,16 +1,16 @@
 object optionForm: ToptionForm
   Left = 298
-  Height = 404
+  Height = 429
   Top = 139
-  Width = 649
+  Width = 695
   HorzScrollBar.Page = 507
   VertScrollBar.Page = 311
   ActiveControl = Panel2
   BorderIcons = [biSystemMenu]
   BorderStyle = bsDialog
   Caption = 'Optionen'
-  ClientHeight = 404
-  ClientWidth = 649
+  ClientHeight = 429
+  ClientWidth = 695
   OnCreate = FormCreate
   OnResize = FormResize
   OnShow = FormShow
@@ -20,9 +20,9 @@ object optionForm: ToptionForm
     AnchorSideLeft.Control = Panel2
     AnchorSideLeft.Side = asrBottom
     Left = 84
-    Height = 396
+    Height = 421
     Top = 4
-    Width = 564
+    Width = 610
     Anchors = [akTop, akLeft, akRight, akBottom]
   end
   object Notebook1: TNotebook
@@ -33,24 +33,24 @@ object optionForm: ToptionForm
     AnchorSideBottom.Control = Bevel1
     AnchorSideBottom.Side = asrBottom
     Left = 86
-    Height = 392
+    Height = 417
     Top = 6
-    Width = 560
-    PageIndex = 4
+    Width = 606
+    PageIndex = 3
     Anchors = [akTop, akLeft, akRight, akBottom]
     BorderSpacing.Around = 2
     OnChangeBounds = Notebook1ChangeBounds
     TabOrder = 0
     TabStop = True
     object pageAccount: TPage
-      ClientWidth = 549
-      ClientHeight = 392
+      ClientWidth = 604
+      ClientHeight = 414
       object lblAccountPass: TLabel
         AnchorSideTop.Control = edtAccountPass
         AnchorSideTop.Side = asrCenter
         Left = 8
         Height = 18
-        Top = 256
+        Top = 278
         Width = 98
         Anchors = [akLeft, akBottom]
         BorderSpacing.Around = 10
@@ -62,7 +62,7 @@ object optionForm: ToptionForm
         AnchorSideTop.Side = asrCenter
         Left = 8
         Height = 18
-        Top = 225
+        Top = 247
         Width = 96
         Anchors = [akLeft, akBottom]
         BorderSpacing.Around = 10
@@ -75,7 +75,7 @@ object optionForm: ToptionForm
         AnchorSideTop.Side = asrCenter
         Left = 8
         Height = 18
-        Top = 193
+        Top = 215
         Width = 78
         Anchors = [akLeft, akBottom]
         BorderSpacing.InnerBorder = 10
@@ -87,7 +87,7 @@ object optionForm: ToptionForm
         AnchorSideTop.Side = asrCenter
         Left = 8
         Height = 18
-        Top = 288
+        Top = 310
         Width = 74
         Anchors = [akLeft, akBottom]
         BorderSpacing.Around = 10
@@ -99,7 +99,7 @@ object optionForm: ToptionForm
         AnchorSideTop.Side = asrCenter
         Left = 222
         Height = 18
-        Top = 288
+        Top = 310
         Width = 31
         Caption = 'also '
         ParentColor = False
@@ -111,7 +111,7 @@ object optionForm: ToptionForm
         AnchorSideTop.Side = asrCenter
         Left = 295
         Height = 18
-        Top = 288
+        Top = 310
         Width = 126
         BorderSpacing.Left = 5
         Caption = 'Tage vor Fristdatum'
@@ -121,7 +121,7 @@ object optionForm: ToptionForm
       object Label5: TLabel
         Left = 8
         Height = 18
-        Top = 161
+        Top = 183
         Width = 61
         Anchors = [akLeft, akBottom]
         BorderSpacing.Around = 10
@@ -135,7 +135,7 @@ object optionForm: ToptionForm
         AnchorSideTop.Side = asrCenter
         Left = 116
         Height = 18
-        Top = 161
+        Top = 183
         Width = 216
         Anchors = [akLeft, akBottom]
         Caption = '<hier sollte die Bücherei stehen>'
@@ -146,7 +146,7 @@ object optionForm: ToptionForm
         AnchorSideBottom.Control = btnAccountChange
         Left = 8
         Height = 22
-        Top = 333
+        Top = 355
         Width = 353
         Anchors = [akLeft, akBottom]
         BorderSpacing.Bottom = 3
@@ -160,7 +160,7 @@ object optionForm: ToptionForm
         AnchorSideLeft.Side = asrBottom
         Left = 115
         Height = 30
-        Top = 358
+        Top = 380
         Width = 109
         Anchors = [akLeft, akBottom]
         AutoSize = True
@@ -175,7 +175,7 @@ object optionForm: ToptionForm
       object btnAccountChange: TButton
         Left = 8
         Height = 30
-        Top = 358
+        Top = 380
         Width = 105
         Anchors = [akLeft, akBottom]
         AutoSize = True
@@ -191,7 +191,7 @@ object optionForm: ToptionForm
         AnchorSideLeft.Side = asrBottom
         Left = 234
         Height = 30
-        Top = 358
+        Top = 380
         Width = 99
         Anchors = [akLeft, akBottom]
         AutoSize = True
@@ -211,8 +211,8 @@ object optionForm: ToptionForm
         AnchorSideBottom.Control = cmbAccountExtend
         Left = 116
         Height = 27
-        Top = 255
-        Width = 429
+        Top = 277
+        Width = 484
         Anchors = [akLeft, akRight, akBottom]
         BorderSpacing.Left = 3
         BorderSpacing.Around = 4
@@ -226,8 +226,8 @@ object optionForm: ToptionForm
         AnchorSideBottom.Control = edtAccountPass
         Left = 116
         Height = 27
-        Top = 224
-        Width = 429
+        Top = 246
+        Width = 484
         Anchors = [akLeft, akRight, akBottom]
         BorderSpacing.Left = 3
         BorderSpacing.Around = 4
@@ -242,8 +242,8 @@ object optionForm: ToptionForm
         AnchorSideBottom.Control = edtAccountUser
         Left = 116
         Height = 27
-        Top = 193
-        Width = 429
+        Top = 215
+        Width = 484
         Anchors = [akLeft, akRight, akBottom]
         BorderSpacing.Left = 3
         BorderSpacing.Around = 4
@@ -251,9 +251,9 @@ object optionForm: ToptionForm
       end
       object accountList: TListView
         Left = 0
-        Height = 153
+        Height = 175
         Top = 2
-        Width = 546
+        Width = 601
         Anchors = [akTop, akLeft, akRight, akBottom]
         Columns = <        
           item
@@ -279,7 +279,7 @@ object optionForm: ToptionForm
           end        
           item
             Caption = 'Bücherei'
-            Width = 180
+            Width = 231
           end>
         HideSelection = False
         RowSelect = True
@@ -294,8 +294,8 @@ object optionForm: ToptionForm
         AnchorSideTop.Side = asrCenter
         Left = 116
         Height = 27
-        Top = 286
-        Width = 429
+        Top = 308
+        Width = 484
         Anchors = [akLeft, akRight, akBottom]
         BorderSpacing.Left = 3
         BorderSpacing.Around = 4
@@ -316,7 +316,7 @@ object optionForm: ToptionForm
         AnchorSideTop.Side = asrCenter
         Left = 258
         Height = 27
-        Top = 284
+        Top = 306
         Width = 32
         Anchors = [akLeft, akBottom]
         BorderSpacing.Left = 5
@@ -325,9 +325,9 @@ object optionForm: ToptionForm
         Visible = False
       end
       object Button2: TButton
-        Left = 464
+        Left = 519
         Height = 30
-        Top = 358
+        Top = 380
         Width = 82
         Anchors = [akRight, akBottom]
         AutoSize = True
@@ -342,7 +342,7 @@ object optionForm: ToptionForm
       object ckbAccountDisabled: TCheckBox
         Left = 8
         Height = 22
-        Top = 314
+        Top = 336
         Width = 172
         Anchors = [akLeft, akBottom]
         Caption = 'deaktivieren (Vorsicht!)'
@@ -350,8 +350,8 @@ object optionForm: ToptionForm
       end
     end
     object pageColors: TPage
-      ClientWidth = 553
-      ClientHeight = 392
+      ClientWidth = 604
+      ClientHeight = 414
       object Label8: TLabel
         Left = 12
         Height = 18
@@ -468,15 +468,15 @@ object optionForm: ToptionForm
         AnchorSideTop.Side = asrCenter
         Left = 12
         Height = 18
-        Top = 238
+        Top = 236
         Width = 87
         Caption = 'Symbolleiste:'
         ParentColor = False
       end
       object Button4: TButton
-        Left = 20
+        Left = 21
         Height = 30
-        Top = 357
+        Top = 374
         Width = 78
         Anchors = [akLeft, akBottom]
         AutoSize = True
@@ -492,9 +492,9 @@ object optionForm: ToptionForm
         AnchorSideLeft.Side = asrBottom
         AnchorSideTop.Control = Button4
         AnchorSideTop.Side = asrCenter
-        Left = 102
+        Left = 103
         Height = 30
-        Top = 357
+        Top = 374
         Width = 89
         AutoSize = True
         BorderSpacing.Around = 4
@@ -524,9 +524,9 @@ object optionForm: ToptionForm
         AnchorSideTop.Control = ShapeOld
         AnchorSideTop.Side = asrBottom
         Left = 108
-        Height = 31
+        Height = 27
         Top = 232
-        Width = 155
+        Width = 158
         BorderSpacing.Around = 9
         ItemHeight = 0
         Items.Strings = (
@@ -539,8 +539,8 @@ object optionForm: ToptionForm
       end
     end
     object pageInternet: TPage
-      ClientWidth = 549
-      ClientHeight = 392
+      ClientWidth = 604
+      ClientHeight = 414
       object Label13: TLabel
         Left = 36
         Height = 18
@@ -577,7 +577,7 @@ object optionForm: ToptionForm
       object Button6: TButton
         Left = 15
         Height = 30
-        Top = 358
+        Top = 354
         Width = 78
         Anchors = [akLeft, akBottom]
         AutoSize = True
@@ -596,7 +596,7 @@ object optionForm: ToptionForm
         AnchorSideTop.Side = asrCenter
         Left = 97
         Height = 30
-        Top = 358
+        Top = 354
         Width = 89
         AutoSize = True
         BorderSpacing.Around = 4
@@ -639,7 +639,7 @@ object optionForm: ToptionForm
         Left = 85
         Height = 27
         Top = 94
-        Width = 398
+        Width = 446
         Anchors = [akTop, akLeft, akRight]
         BorderSpacing.Around = 4
         TabOrder = 5
@@ -650,13 +650,13 @@ object optionForm: ToptionForm
         Left = 85
         Height = 27
         Top = 123
-        Width = 398
+        Width = 446
         Anchors = [akTop, akLeft, akRight]
         BorderSpacing.Around = 4
         TabOrder = 6
       end
       object proxyHTTPPort: TEdit
-        Left = 486
+        Left = 537
         Height = 27
         Top = 94
         Width = 57
@@ -665,7 +665,7 @@ object optionForm: ToptionForm
         Text = '3128'
       end
       object proxyHTTPSport: TEdit
-        Left = 486
+        Left = 537
         Height = 27
         Top = 123
         Width = 57
@@ -712,11 +712,220 @@ object optionForm: ToptionForm
         TabOrder = 10
       end
     end
-    object pageMenu: TPage
+    object pageMail: TPage
+      ClientWidth = 606
+      ClientHeight = 417
+      object Button8: TButton
+        AnchorSideLeft.Control = Button9
+        AnchorSideLeft.Side = asrBottom
+        AnchorSideTop.Control = Button9
+        AnchorSideTop.Side = asrCenter
+        Left = 103
+        Height = 30
+        Top = 383
+        Width = 89
+        AutoSize = True
+        BorderSpacing.Around = 5
+        BorderSpacing.InnerBorder = 4
+        Caption = 'Abbrechen'
+        Constraints.MaxHeight = 30
+        Constraints.MinHeight = 20
+        OnClick = cancelclick
+        TabOrder = 0
+      end
+      object Button9: TButton
+        AnchorSideTop.Control = CheckBox1
+        AnchorSideTop.Side = asrBottom
+        AnchorSideBottom.Side = asrBottom
+        Left = 20
+        Height = 30
+        Top = 383
+        Width = 78
+        Anchors = [akLeft, akBottom]
+        AutoSize = True
+        BorderSpacing.InnerBorder = 4
+        Caption = '     OK     '
+        Constraints.MaxHeight = 30
+        Constraints.MinHeight = 20
+        OnClick = Button3Click
+        TabOrder = 1
+      end
+      object Label17: TLabel
+        Left = 16
+        Height = 18
+        Top = 15
+        Width = 76
+        Caption = 'Mail reports'
+        ParentColor = False
+      end
+      object mailProgram: TEdit
+        AnchorSideLeft.Control = Label18
+        AnchorSideLeft.Side = asrBottom
+        Left = 160
+        Height = 27
+        Top = 41
+        Width = 438
+        Anchors = [akTop, akLeft, akRight]
+        BorderSpacing.Around = 5
+        TabOrder = 2
+        Text = 'sendmail -i -f "$from" $to'
+      end
+      object Label18: TLabel
+        AnchorSideTop.Control = mailProgram
+        AnchorSideTop.Side = asrCenter
+        Left = 31
+        Height = 18
+        Top = 45
+        Width = 124
+        Caption = 'Sendmail program:'
+        ParentColor = False
+      end
+      object mailList: TListView
+        AnchorSideTop.Control = mailProgram
+        AnchorSideTop.Side = asrBottom
+        AnchorSideBottom.Control = mailreceiver
+        Left = 14
+        Height = 167
+        Top = 73
+        Width = 579
+        Anchors = [akTop, akLeft, akRight, akBottom]
+        BorderSpacing.Around = 5
+        Columns = <        
+          item
+            Caption = 'Empfänger'
+            Width = 300
+          end        
+          item
+            Caption = 'Konten'
+            Width = 150
+          end        
+          item
+            Caption = 'Interval'
+            Width = 109
+          end>
+        HideSelection = False
+        RowSelect = True
+        TabOrder = 3
+        ViewStyle = vsReport
+        OnSelectItem = mailListSelectItem
+      end
+      object Label23: TLabel
+        AnchorSideTop.Control = mailreceiver
+        AnchorSideTop.Side = asrCenter
+        Left = 17
+        Height = 18
+        Top = 249
+        Width = 75
+        Caption = 'Empfänger:'
+        ParentColor = False
+      end
+      object Label24: TLabel
+        AnchorSideTop.Control = mailaccounts
+        AnchorSideTop.Side = asrCenter
+        Left = 16
+        Height = 18
+        Top = 281
+        Width = 49
+        Caption = 'Konten:'
+        ParentColor = False
+      end
+      object Label25: TLabel
+        AnchorSideTop.Control = mailinterval
+        AnchorSideTop.Side = asrCenter
+        Left = 16
+        Height = 18
+        Top = 313
+        Width = 52
+        Caption = 'Interval:'
+        ParentColor = False
+      end
+      object mailreceiver: TEdit
+        AnchorSideLeft.Control = Label17
+        AnchorSideLeft.Side = asrBottom
+        AnchorSideTop.Control = mailaccounts
+        AnchorSideRight.Side = asrBottom
+        AnchorSideBottom.Control = mailaccounts
+        Left = 97
+        Height = 27
+        Top = 245
+        Width = 501
+        Anchors = [akLeft, akRight, akBottom]
+        BorderSpacing.Around = 5
+        TabOrder = 4
+      end
+      object mailaccounts: TEdit
+        AnchorSideLeft.Control = Label17
+        AnchorSideLeft.Side = asrBottom
+        AnchorSideRight.Side = asrBottom
+        AnchorSideBottom.Control = mailinterval
+        Left = 97
+        Height = 27
+        Top = 277
+        Width = 501
+        Anchors = [akLeft, akRight, akBottom]
+        BorderSpacing.Around = 5
+        TabOrder = 5
+      end
+      object mailinterval: TEdit
+        AnchorSideLeft.Control = Label17
+        AnchorSideLeft.Side = asrBottom
+        AnchorSideBottom.Control = mailadd
+        Left = 97
+        Height = 27
+        Top = 309
+        Width = 501
+        Anchors = [akLeft, akRight, akBottom]
+        BorderSpacing.Around = 5
+        TabOrder = 6
+      end
+      object mailadd: TButton
+        Left = 97
+        Height = 27
+        Top = 341
+        Width = 91
+        Anchors = [akLeft, akBottom]
+        Caption = 'hinzufügen'
+        OnClick = mailaddClick
+        TabOrder = 7
+      end
+      object mailset: TButton
+        AnchorSideLeft.Control = mailadd
+        AnchorSideLeft.Side = asrBottom
+        AnchorSideTop.Control = mailadd
+        AnchorSideBottom.Control = mailadd
+        AnchorSideBottom.Side = asrBottom
+        Left = 193
+        Height = 27
+        Top = 341
+        Width = 75
+        Anchors = [akTop, akLeft, akBottom]
+        BorderSpacing.Left = 5
+        BorderSpacing.Right = 5
+        Caption = 'ändern'
+        OnClick = mailsetClick
+        TabOrder = 8
+      end
+      object maildel: TButton
+        AnchorSideLeft.Control = mailset
+        AnchorSideLeft.Side = asrBottom
+        AnchorSideTop.Control = mailadd
+        AnchorSideBottom.Control = mailadd
+        AnchorSideBottom.Side = asrBottom
+        Left = 273
+        Height = 27
+        Top = 341
+        Width = 75
+        Anchors = [akTop, akLeft, akBottom]
+        BorderSpacing.Left = 5
+        BorderSpacing.Right = 5
+        Caption = 'löschen'
+        OnClick = maildelClick
+        TabOrder = 9
+      end
     end
     object PageBehaviour: TPage
-      ClientWidth = 560
-      ClientHeight = 392
+      ClientWidth = 604
+      ClientHeight = 414
       object Label3: TLabel
         Left = 12
         Height = 18
@@ -734,9 +943,9 @@ object optionForm: ToptionForm
         ParentColor = False
       end
       object Label7: TLabel
-        Left = 481
+        Left = 474
         Height = 18
-        Top = 44
+        Top = 42
         Width = 75
         Anchors = [akTop, akRight]
         Caption = 'wöchentlich'
@@ -815,7 +1024,7 @@ object optionForm: ToptionForm
         Left = 65
         Height = 40
         Top = 36
-        Width = 414
+        Width = 407
         Max = 7
         Min = 1
         OnChange = TrackBar1Change
@@ -832,7 +1041,7 @@ object optionForm: ToptionForm
         AnchorSideTop.Side = asrCenter
         Left = 103
         Height = 30
-        Top = 358
+        Top = 360
         Width = 89
         AutoSize = True
         BorderSpacing.Around = 5
@@ -849,7 +1058,7 @@ object optionForm: ToptionForm
         AnchorSideBottom.Side = asrBottom
         Left = 20
         Height = 30
-        Top = 358
+        Top = 360
         Width = 78
         Anchors = [akLeft, akBottom]
         AutoSize = True
@@ -922,7 +1131,7 @@ object optionForm: ToptionForm
   end
   object Panel2: TPanel
     Left = -1
-    Height = 323
+    Height = 400
     Top = 0
     Width = 85
     BevelOuter = bvNone
@@ -933,12 +1142,12 @@ object optionForm: ToptionForm
     ChildSizing.EnlargeVertical = crsHomogenousChildResize
     ChildSizing.Layout = cclLeftToRightThenTopToBottom
     ChildSizing.ControlsPerLine = 1
-    ClientHeight = 323
+    ClientHeight = 400
     ClientWidth = 85
     TabOrder = 1
     object SpeedButton1: TSpeedButton
       Left = 5
-      Height = 75
+      Height = 74
       Top = 5
       Width = 75
       Caption = 'Konten'
@@ -1083,8 +1292,8 @@ object optionForm: ToptionForm
     object SpeedButton2: TSpeedButton
       Tag = 1
       Left = 5
-      Height = 75
-      Top = 85
+      Height = 74
+      Top = 84
       Width = 75
       Caption = 'Aussehen'
       Glyph.Data = {
@@ -1227,8 +1436,8 @@ object optionForm: ToptionForm
     object SpeedButton3: TSpeedButton
       Tag = 2
       Left = 5
-      Height = 75
-      Top = 165
+      Height = 74
+      Top = 163
       Width = 75
       Caption = 'Internet'
       Glyph.Data = {
@@ -1369,10 +1578,154 @@ object optionForm: ToptionForm
       OnClick = SpeedButton1Click
     end
     object SpeedButton5: TSpeedButton
+      Tag = 3
+      Left = 5
+      Height = 74
+      Top = 242
+      Width = 75
+      Caption = 'Mail'
+      Glyph.Data = {
+        36100000424D3610000000000000360000002800000020000000200000000100
+        2000000000000010000064000000640000000000000000000000000000000000
+        0000000000000000000000000000000000000000000000000000000000000000
+        0000000000000000000000000000000000000000000000000000000000000000
+        0000000000000000000000000000000000000000000000000000000000000000
+        0000000000000000000000000000000000000000000000000000000000000000
+        0000000000000000000000000000000000000000000000000000000000000000
+        0000000000000000000000000000000000000000000000000000000000000000
+        0000000000000000000000000000000000000000000000000000000000000000
+        0000000000000000000000000000000000000000000000000000000000000000
+        0000000000000000000000000000000000000000000000000000000000000000
+        0000000000000000000000000000000000000000000000000000000000000000
+        0000000000000000000000000000000000000000000000000000000000000000
+        0000000000000000000000000000000000000000000000000000000000000000
+        0000000000000000000000000000000000000000000000000000000000000000
+        0000000000000000000000000000000000000000000000000000000000000000
+        0000000000000000000000000000000000000000000000000000000000000000
+        0000000000000000000000000000000000000000000000000000000000000000
+        0000000000000000000000000000000000000000000000000000000000000000
+        0000000000000000000000000000000000000000000000000000000000000000
+        0000000000000000000000000000000000000000000000000000000000000000
+        0000000000000000000000000000000000000000000000000000000000000000
+        00000000000000000000767676FF767676FF767676FF767676FF767676FF7676
+        76FF767676FF767676FF767676FF767676FF767676FF767676FF767676FF7676
+        76FF767676FF767676FF767676FF767676FF767676FF767676FF767676FF7676
+        76FF767676FF767676FF767676FF000000000000000000000000000000000000
+        000000000000767676FF767676FF767676FF767676FF767676FF767676FF7676
+        76FF767676FF767676FF767676FF767676FF767676FF767676FF767676FF7676
+        76FF767676FF767676FF767676FF767676FF767676FF767676FF767676FF7676
+        76FF767676FF767676FF767676FF000000000000000000000000797979FF0000
+        00FF000000FF000000FF000000FF000000FF000000FF000000FF000000FF0000
+        00FF000000FF000000FF000000FF000000FF000000FF000000FF000000FF0000
+        00FF000000FF000000FF000000FF000000FF000000FF000000FF000000FF0000
+        00FF000000FF767676FF767676FF000000000000000000000000C8C8C8FF0000
+        00FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+        FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+        FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+        FFFF000000FF767676FF767676FF767676FF0000000000000000797979FF0000
+        00FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+        FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+        FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+        FFFF000000FF00000000767676FF767676FF0000000000000000000000000000
+        0000000000FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+        FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+        FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+        FFFFFFFFFFFF000000FF767676FF767676FF767676FF00000000C8C8C8FFC8C8
+        C8FF000000FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+        FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+        FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+        FFFFFFFFFFFF000000FF767676FF767676FF767676FF00000000000000000000
+        0000000000FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+        FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+        FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+        FFFFFFFFFFFF000000FF767676FF767676FF767676FF00000000000000000000
+        0000000000FFFFFFFFFFFFFFFFFF666666FF666666FF666666FF666666FF6666
+        66FF666666FF666666FF666666FF666666FF666666FF666666FF666666FF6666
+        66FF666666FF666666FF666666FF666666FF666666FFFFFFFFFFFFFFFFFFFFFF
+        FFFFFFFFFFFF000000FF767676FF767676FF767676FF00000000C8C8C8FFC8C8
+        C8FF00000000000000FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+        FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+        FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+        FFFFFFFFFFFFFFFFFFFF000000FF767676FF767676FF00000000000000000000
+        000000000000000000FFFFFFFFFF666666FF666666FF666666FF666666FF6666
+        66FF666666FF666666FF666666FF666666FF666666FF666666FF666666FF6666
+        66FF666666FF666666FF666666FF666666FF666666FF666666FFFFFFFFFFFFFF
+        FFFFFFFFFFFFFFFFFFFF000000FF767676FF767676FF00000000000000000000
+        000000000000000000FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+        FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+        FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+        FFFFFFFFFFFFFFFFFFFF000000FF767676FF767676FF00000000C8C8C8FFC8C8
+        C8FFC8C8C8FF000000FFFFFFFFFFFFFFFFFF666666FF666666FF666666FF6666
+        66FF666666FF666666FF666666FF666666FF666666FF666666FFFFFFFFFFFFFF
+        FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+        FFFFFFFFFFFFFFFFFFFF000000FF767676FF767676FF00000000000000000000
+        000000000000000000FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+        FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+        FFFFFFFFFFFFFF0012FFFF0012FFFF0012FFFF0012FF00F6FFFFFFFFFFFFFFFF
+        FFFFFFFFFFFFFFFFFFFF000000FF00000000767676FF00000000000000000000
+        00000000000000000000000000FFFFFFFFFFFFFFFFFF666666FF666666FF6666
+        66FF666666FF666666FF666666FF666666FF666666FF666666FF666666FFFFFF
+        FFFFFFFFFFFFFFFFFFFFFF0012FF00F6FFFFFF0012FFFF0012FFFF0012FFFFFF
+        FFFFFFFFFFFFFFFFFFFFFFFFFFFF000000FF767676FF00000000C8C8C8FFC8C8
+        C8FFC8C8C8FFC8C8C8FF000000FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+        FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+        FFFFFFFFFFFFFFFFFFFFFF0012FFFF0012FF00F6FFFFFF0012FFFF0012FFFFFF
+        FFFFFFFFFFFFFFFFFFFFFFFFFFFF000000FF767676FF00000000000000000000
+        00000000000000000000000000FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+        FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+        FFFFFFFFFFFFFFFFFFFFFFFFFFFF00F6FFFFFF0012FF00F6FFFFFF0012FFFF00
+        12FFFFFFFFFFFFFFFFFFFFFFFFFF000000FF767676FF00000000000000000000
+        00000000000000000000000000FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+        FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+        FFFFFFFFFFFFFFFFFFFFFFFFFFFFFF0012FFFF0012FFFF0012FFFF0012FFFF00
+        12FFFFFFFFFFFFFFFFFFFFFFFFFF000000FF0000000000000000C8C8C8FFC8C8
+        C8FFC8C8C8FFC8C8C8FF00000000000000FFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+        FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+        FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+        FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF000000FF00000000000000000000
+        0000000000000000000000000000000000FFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+        FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+        FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+        FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF000000FF00000000C8C8C8FFC8C8
+        C8FFC8C8C8FFC8C8C8FFC8C8C8FF000000FF000000FF000000FF000000FF0000
+        00FF000000FF000000FF000000FF000000FF000000FF000000FF000000FF0000
+        00FF000000FF000000FF000000FF000000FF000000FF000000FF000000FF0000
+        00FF000000FF000000FF000000FF000000FF000000FF00000000000000000000
+        0000000000000000000000000000000000000000000000000000000000000000
+        0000000000000000000000000000000000000000000000000000000000000000
+        0000000000000000000000000000000000000000000000000000000000000000
+        0000000000000000000000000000000000000000000000000000000000000000
+        0000000000000000000000000000000000000000000000000000000000000000
+        0000000000000000000000000000000000000000000000000000000000000000
+        0000000000000000000000000000000000000000000000000000000000000000
+        0000000000000000000000000000000000000000000000000000000000000000
+        0000000000000000000000000000000000000000000000000000000000000000
+        0000000000000000000000000000000000000000000000000000000000000000
+        0000000000000000000000000000000000000000000000000000000000000000
+        0000000000000000000000000000000000000000000000000000000000000000
+        0000000000000000000000000000000000000000000000000000000000000000
+        0000000000000000000000000000000000000000000000000000000000000000
+        0000000000000000000000000000000000000000000000000000000000000000
+        0000000000000000000000000000000000000000000000000000000000000000
+        0000000000000000000000000000000000000000000000000000000000000000
+        0000000000000000000000000000000000000000000000000000000000000000
+        0000000000000000000000000000000000000000000000000000000000000000
+        0000000000000000000000000000000000000000000000000000000000000000
+        0000000000000000000000000000000000000000000000000000000000000000
+        0000000000000000000000000000000000000000000000000000000000000000
+        0000000000000000000000000000000000000000000000000000000000000000
+        0000000000000000000000000000000000000000000000000000
+      }
+      GroupIndex = 1
+      Layout = blGlyphTop
+      NumGlyphs = 0
+      OnClick = SpeedButton1Click
+    end
+    object SpeedButton6: TSpeedButton
       Tag = 4
       Left = 5
-      Height = 73
-      Top = 245
+      Height = 74
+      Top = 321
       Width = 75
       Caption = 'Sonstiges'
       Glyph.Data = {
@@ -1537,7 +1890,7 @@ object optionForm: ToptionForm
       'ColorS=F0FBFF'
       'ColorT=A4A0A0'
     )
-    left = 64
+    left = 56
     top = 80
   end
 end

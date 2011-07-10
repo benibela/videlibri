@@ -263,6 +263,7 @@ begin
       if (mainform.visible) then
         mainform.RefreshListView;
       applicationUpdate(true);
+      sendMailReports();
     end;
     mainform.delayedCall.Enabled:=true //show error messages
   end;

@@ -16,6 +16,7 @@ type
 
   ToptionForm = class(TForm)
     accountList: TListView;
+    mailList: TListView;
     autostartAlways: TRadioButton;
     autostartDepends: TRadioButton;
     autostartNever: TRadioButton;
@@ -24,29 +25,44 @@ type
     btnAccountCreate: TButton;
     btnAccountDelete: TButton;
     Button1: TButton;
+    mailadd: TButton;
+    mailset: TButton;
+    maildel: TButton;
     Button2: TButton;
     Button3: TButton;
     Button4: TButton;
     Button5: TButton;
     Button6: TButton;
     Button7: TButton;
+    Button8: TButton;
+    Button9: TButton;
     CheckBox1: TCheckBox;
     autoUpdate: TCheckBox;
     ckbAccountDisabled: TCheckBox;
     ckbAccountHistory: TCheckBox;
     cmbAccountExtend: TComboBox;
     ColorDialog1: TColorDialog;
+    mailProgram: TEdit;
+    mailreceiver: TEdit;
+    mailaccounts: TEdit;
+    mailinterval: TEdit;
     edtHistoryBackupInterval: TEdit;
+    Label17: TLabel;
+    Label18: TLabel;
     Label20: TLabel;
     Label21: TLabel;
     Label22: TLabel;
-    pageMenu: TPage;
+    Label23: TLabel;
+    Label24: TLabel;
+    Label25: TLabel;
+    pageMail: TPage;
     Panel2: TPanel;
     Panel3: TPanel;
     SpeedButton1: TSpeedButton;
     SpeedButton2: TSpeedButton;
     SpeedButton3: TSpeedButton;
     SpeedButton5: TSpeedButton;
+    SpeedButton6: TSpeedButton;
     symbols: TComboBox;
     Label19: TLabel;
     proxyHTTPName: TEdit;
@@ -119,6 +135,10 @@ type
     procedure ListView2Click(Sender: TObject);
     procedure ListView2SelectItem(Sender: TObject; Item: TListItem;
       Selected: Boolean);
+    procedure mailaddClick(Sender: TObject);
+    procedure maildelClick(Sender: TObject);
+    procedure mailListSelectItem(Sender: TObject; Item: TListItem; Selected: Boolean);
+    procedure mailsetClick(Sender: TObject);
     procedure Notebook1ChangeBounds(Sender: TObject);
     procedure Notebook1Changing(Sender: TObject; var AllowChange: Boolean);
     procedure Notebook1PageChanged(Sender: TObject);
@@ -198,6 +218,7 @@ end;
 
 procedure ToptionForm.FormCreate(Sender: TObject);
 var i:integer;
+ count: LongInt;
 begin
   //TrackBar1.Color:=clWhite;
 //  if ThemeServices.ThemesEnabled then TrackBar1.Color:=clWhite;
@@ -234,6 +255,18 @@ begin
   end;
   autoUpdate.checked:=userConfig.ReadInteger('updates','auto-check',1)=1;
 
+  //Mail
+  mailProgram.Text := userConfig.ReadString('Mail', 'Sendmail', 'sendmail -i -f "$from" $to');
+  count := userConfig.ReadInteger('Mail', 'Reportcount', 0);
+  for i:=0 to count-1 do begin
+    with mailList.Items.Add do begin
+      caption := userConfig.ReadString('Mailreport'+IntToStr(i), 'To', '');
+      SubItems.add(userConfig.ReadString('Mailreport'+IntToStr(i), 'Accounts',  ''));
+      SubItems.add(IntToStr(userConfig.ReadInteger('Mailreport'+IntToStr(i), 'Interval', 1)));
+    end;
+  end;
+
+
   //Autostartpage
   TrackBar1.Position:=RefreshInterval;
   TrackBar1Change(nil);
@@ -269,6 +302,8 @@ begin
 end;
 
 procedure ToptionForm.Button3Click(Sender: TObject);
+var
+ i: Integer;
 begin
   colorLimited:=ShapeLimited.brush.color;
   colorOK:=ShapeOK.brush.color;
@@ -300,6 +335,16 @@ begin
   else userConfig.WriteInteger('updates','auto-check',0);
 
   updateActiveInternetConfig;
+
+  //Mail
+  userConfig.WriteString('Mail', 'Sendmail', mailProgram.Text);
+  userConfig.WriteInteger('Mail', 'Reportcount', mailList.Items.Count);
+  for i:=0 to mailList.Items.Count-1 do begin
+    userConfig.WriteString('Mailreport'+IntToStr(i), 'To', mailList.Items[i].Caption );
+    userConfig.WriteString('Mailreport'+IntToStr(i), 'Accounts', mailList.Items[i].SubItems[0] );
+    userConfig.WriteInteger('Mailreport'+IntToStr(i), 'Interval', StrToIntDef(mailList.Items[i].SubItems[1],userConfig.ReadInteger('Mailreport'+IntToStr(i), 'Interval', 1)));
+  end;
+
 
   //Autostart/Zeitenpage
   userConfig.WriteBool('autostart','minimized',CheckBox1.Checked);
@@ -337,6 +382,46 @@ end;
 procedure ToptionForm.ListView2SelectItem(Sender: TObject; Item: TListItem;
   Selected: Boolean);
 begin
+end;
+
+procedure ToptionForm.mailaddClick(Sender: TObject);
+begin
+  with mailList.Items.Add do begin
+    Caption:=mailreceiver.Text;
+    SubItems.Add(mailaccounts.Text);
+    SubItems.Add(mailinterval.Text);
+  end;
+end;
+
+procedure ToptionForm.maildelClick(Sender: TObject);
+begin
+  if (mailList.Items.Count = 0) or (mailList.SelCount = 0) or (mailList.Selected=nil) then exit;
+  mailList.Items.Delete(mailList.Items.IndexOf(mailList.Selected));
+end;
+
+procedure ToptionForm.mailListSelectItem(Sender: TObject; Item: TListItem; Selected: Boolean);
+begin
+ if (mailList.Items.Count = 0) or (mailList.SelCount = 0) or (mailList.Selected=nil) then
+   exit;
+
+ with mailList.Selected do begin
+   mailreceiver.Text:=Caption;
+   mailaccounts.Text:=SubItems[0];
+   mailinterval.Text:=SubItems[1];
+ end;
+end;
+
+procedure ToptionForm.mailsetClick(Sender: TObject);
+begin
+ if (mailList.Items.Count = 0) or (mailList.SelCount = 0) or (mailList.Selected=nil) then begin
+   mailadd.Click;
+   exit;
+ end;
+ with mailList.Selected do begin
+   Caption:=mailreceiver.Text;
+   SubItems[0]:=mailaccounts.Text;
+   SubItems[1]:=mailinterval.Text;
+ end;
 end;
 
 procedure ToptionForm.Notebook1ChangeBounds(Sender: TObject);

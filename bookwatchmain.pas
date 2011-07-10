@@ -187,11 +187,118 @@ var
   mainForm: TmainForm;
 const SB_PANEL_COUNT=2;
 
+procedure sendMailReports();
 
 implementation
 
 { TmainForm }
-uses math,options,newaccountwizard_u,registrierung,nagform,bbdebugtools,bibtexexport,booklistreader{$IFDEF WIN32},windows{$ENDIF},Clipbrd;
+uses math,options,newaccountwizard_u,registrierung,nagform,bbdebugtools,bibtexexport,booklistreader{$IFDEF WIN32},windows{$ENDIF},Clipbrd,bbutils;
+
+function sendMailReportCompare(Item1, Item2: Pointer): Integer;
+var book1,book2: TBook;
+begin
+  book1:=tbook(item1);
+  book2:=tbook(item2);
+  if book1.limitDate<book2.limitDate then exit(-1);
+  if book1.limitDate>book2.limitDate then  exit(1);
+  if (book1.status in BOOK_NOT_EXTENDABLE) and (book2.status in BOOK_EXTENDABLE) then exit(-1);
+  if (book1.status in BOOK_EXTENDABLE) and (book2.status in BOOK_NOT_EXTENDABLE) then  exit(1);
+  if book1.id < book2.id then exit(-1);
+  if book1.id > book2.id then exit(1);
+  exit(0);
+end;
+
+procedure sendMailReports();
+function mailDate(d: integer):string;
+begin
+  result := DateToStr(d);
+  if DateToPrettyStr(d) <> result then
+    result += ' ('+DateToPrettyStr(d)+')';
+end;
+
+var prog: string;
+ i: Integer;
+ tmpbl: TBookList;
+ usedaccounts: TFPList;
+ accounts: TStringArray;
+ count: LongInt;
+ receiver: String;
+ interval: LongInt;
+ j: Integer;
+ k: Integer;
+ report: String;
+ week: LongInt;
+ proc: TProcess;
+ subject: String;
+begin
+  prog := userConfig.ReadString('Mail', 'Sendmail', 'sendmail -i -f "$from" $to');
+  count := userConfig.ReadInteger('Mail', 'Reportcount', 0);
+  tmpbl:=TBookList.Create;
+  usedaccounts:=TFPList.Create;
+  for i:=0 to count-1 do begin
+    receiver :=userConfig.ReadString('Mailreport'+IntToStr(i), 'To', '');
+    accounts :=strSplit(userConfig.ReadString('Mailreport'+IntToStr(i), 'Accounts',  ''),',');
+    interval := userConfig.ReadInteger('Mailreport'+IntToStr(i), 'Interval', 1);
+    if userConfig.ReadInteger('Mailreport'+IntToStr(i), 'Lastsent', 0) + interval > currentDate then continue;
+
+    tmpbl.clear;
+    for k:=0 to accountIDs.Count-1 do
+      for j:= 0 to high(accounts) do
+        if strContains(TCustomAccountAccess(accountIDs.Objects[k]).getID(), strTrim(accounts[j])) then begin
+          tmpbl.addList(TCustomAccountAccess(accountIDs.Objects[k]).books.current);
+          usedaccounts.add(accountIDs.Objects[k]);
+        end;
+
+    tmpbl.Sort(@sendMailReportCompare);
+
+    subject:= 'Videlibri Bücherreport vom '+DateToStr(currentDate);
+    report := 'Videlibri Bücherreport vom '+DateToStr(currentDate)+#13#10#13#10;
+    if tmpbl.count = 0 then begin
+      report += 'Keine Bücher registriert'#13#10;
+    end else begin
+      subject := 'Nächste Frist: '  + mailDate(tmpbl.books[0].limitDate) + ' | ' + subject;
+
+      week := dateToWeek(tmpbl.books[j].limitDate);
+      for j:=0 to tmpbl.Count-1 do begin
+        if dateToWeek(tmpbl.books[j].limitDate) <> week then begin
+          week := dateToWeek(tmpbl.books[j].limitDate);
+          report += #13#10#13#10;
+        end;
+        if tmpbl.books[j].owner <> nil then report += TCustomAccountAccess(tmpbl.books[j].owner).prettyName + ': ';
+        report +=  tmpbl.books[j].toSimpleString() + ':  ' + BookStatusToStr(tmpbl.books[j]) +  '  =>  ' +  mailDate(tmpbl.books[j].limitDate);
+        report += #13#10;
+      end;
+    end;
+
+    report += #13#10'Daten von: ';
+    for j:=0 to usedaccounts.Count-1 do
+      with TCustomAccountAccess(usedaccounts[j]) do begin
+        report+=#13#10'        '+prettyName+': '+DateToPrettyStr(lastCheckDate);
+        if not enabled then report+=' (DEAKTIVIERT!)';
+      end;
+
+    report+=#13#10#13#10+'.'+#13#10#13#10;
+
+    log(report);
+
+    proc := TProcess.Create(nil);
+    proc.Options := [poUsePipes];
+    prog :=StringReplace(prog, '$from', ' Videlibri <benito@benibela.de>', [rfReplaceAll, rfIgnoreCase]);
+    prog := StringReplace(prog, '$to', receiver, [rfReplaceAll,rfIgnoreCase]);
+    prog := StringReplace(prog, '$subject', subject, [rfReplaceAll,rfIgnoreCase]);
+    proc.CommandLine := prog;
+    proc.Execute;
+    proc.Input.WriteBuffer(report[1], length(report));
+    proc.CloseInput;
+    while proc.Running do begin
+      Application.ProcessMessages;
+      Sleep(1);
+    end;
+    userConfig.WriteInteger('Mailreport'+IntToStr(i), 'Lastsent', currentDate);
+  end;
+  usedaccounts.free;
+  tmpbl.free;
+end;
 
 
 procedure TmainForm.FormCreate(Sender: TObject);

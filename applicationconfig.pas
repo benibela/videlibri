@@ -67,6 +67,8 @@ var programPath,userPath,dataPath:string;
   procedure applicationUpdate(auto:boolean);
   procedure updateAutostart(enabled, askBeforeChange:boolean);
 
+
+
   procedure initApplicationConfig;
   procedure finalizeApplicationConfig;
   procedure saveLibIDs;

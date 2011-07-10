@@ -42,17 +42,18 @@ const BL_BOOK_COLUMNS_AUTHOR=2;
       BL_BOOK_EXTCOLUMNS_COLOR=9;
       BL_BOOK_EXTCOLUMNS_WEEK_SEPARATOR=10;
 
+function dateToWeek(date: longint):longint; //week: monday - sunday
 implementation
 
 uses applicationconfig, bbutils, libraryParser, Graphics;
 //  ,windows {for the search only};
 { TBookListView }
+function dateToWeek(date: longint):longint; //week: monday - sunday
+begin
+  Result:=(date-2) div 7;
+end;
 
 procedure TBookListView.BookListViewItemsSortedEvent(Sender: TObject);
-  function dateToWeek(date: longint):longint; //week: monday - sunday
-  begin
-    Result:=(date-2) div 7;
-  end;
 var i: longint;
     lastWeek: longint;
     book: TBook;
