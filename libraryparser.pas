@@ -223,6 +223,10 @@ type
     constructor create(alib: TLibrary);override;
     procedure init(apath,userID:string);override;
     destructor destroy;override;
+
+
+    procedure changeUser(const s:string); override;
+
     //==============Access functions================
     function connect(AInternet:TInternetAccess=nil):boolean; override;
     procedure disconnect(); override;
@@ -946,6 +950,12 @@ destructor TTemplateAccountAccess.destroy;
 begin
   reader.free;
   inherited destroy;
+end;
+
+procedure TTemplateAccountAccess.changeUser(const s: string);
+begin
+  inherited changeUser(s);
+  reader.books:=books.bookLists[bltInCurrentDataUpdate];
 end;
 
 function TTemplateAccountAccess.connect(AInternet: TInternetAccess): boolean;

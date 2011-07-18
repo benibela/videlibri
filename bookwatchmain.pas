@@ -1264,10 +1264,8 @@ begin
   for i:=extendMenuList2_.count-1 downto 0 do
     clearMenuItem(extendMenuList2_[i]);
   for i:=accountListMenu.items.count-1 downto 0 do
-    if accountListMenu.items[i].tag>=1 then begin
+    if accountListMenu.items[i].tag>=1 then
       accountListMenu.items.Delete(i);
-      break;
-    end;
 
   //add new
   for i:=0 to accountIDs.Count-1 do begin
