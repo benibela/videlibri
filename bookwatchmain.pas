@@ -230,6 +230,8 @@ var prog: string;
  week: LongInt;
  proc: TProcess;
  subject: String;
+ nextLimitDate, nextLimitDateNotExtendable: integer;
+
 begin
   prog := userConfig.ReadString('Mail', 'Sendmail', 'sendmail -i -f "$from" $to');
   count := userConfig.ReadInteger('Mail', 'Reportcount', 0);
@@ -256,7 +258,10 @@ begin
     if tmpbl.count = 0 then begin
       report += 'Keine Bücher registriert'#13#10;
     end else begin
-      subject := 'Nächste Frist: '  + mailDate(tmpbl.books[0].limitDate) + ' | ' + subject;
+      if (tmpbl.nextLimitDate(false) <= tmpbl.nextLimitDate()) or (tmpbl.nextLimitDate(false) < currentDate + 3) then
+        subject := 'Nächste Frist: '  + mailDate(tmpbl.nextLimitDate()) + '(NICHT verlängerbar)' + ' | ' + subject
+       else
+        subject := 'Nächste Frist: '  + mailDate(tmpbl.nextLimitDate()) + ' | ' + subject;
 
       week := dateToWeek(tmpbl.books[j].limitDate);
       for j:=0 to tmpbl.Count-1 do begin

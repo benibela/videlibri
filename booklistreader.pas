@@ -83,6 +83,7 @@ type
     procedure save(fileName: string; saveAction: TSaveAction);
     
     function lastCheck: longint;
+    function nextLimitDate(const extendable: boolean = true): longint;
     
     property books[i:longint]: TBook read getBook; default;
     property lendList: boolean read flendList write setLendList;
@@ -523,6 +524,16 @@ begin
   Result:=MaxInt;
   for i:=0 to count-1 do
     if books[i].lastExistsDate<result then result:=books[i].lastExistsDate;
+end;
+
+function TBookList.nextLimitDate(const extendable: boolean): longint;
+var i:longint;
+begin
+  Result:=MaxInt;
+  for i:=0 to count-1 do
+    if (books[i].limitDate > 0) and (books[i].limitDate < Result) and
+      (extendable or (books[i].status in BOOK_NOT_EXTENDABLE)) then
+        result:=books[i].limitDate;
 end;
 
 
