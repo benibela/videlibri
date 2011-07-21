@@ -70,8 +70,8 @@ procedure TLibrarySearcher.setLocation(s: string);
 begin
   if s=flocation then exit;
   flocation:=s;
-  bookListReader.parser.variables.Values['location']:=template.variables.Values['location:'+s];
-  if bookListReader.parser.variables.ValuesString['location']='' then
+  bookListReader.parser.variableChangeLog.ValuesString['location']:=template.variables.Values['location:'+s];
+  if bookListReader.parser.variableChangeLog.ValuesString['location']='' then
     raise Exception.Create('Unbekannter Suchort');
 end;
 
@@ -101,7 +101,7 @@ begin
   selectedLibraries:='';
   for i:=0 to flibsToSearch.count-1 do
     selectedLibraries+=TLibrary(flibsToSearch[i]).variables.values['searchid-'+template.Name]+template.variables.values['after-id'];
-  bookListReader.parser.variables.values['selectedLibraries']:=selectedLibraries;
+  bookListReader.parser.variableChangeLog.ValuesString['selectedLibraries']:=selectedLibraries;
   bookListReader.books:=fsearchResult;
   bookListReader.selectBook(SearchOptions);
   bookListReader.performAction('search');

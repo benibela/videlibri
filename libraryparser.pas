@@ -907,7 +907,7 @@ begin
       bookListStr+= reader.parser.replaceVars(extendAction^.singleBookStr);
     end;
     if logging then log('bookList (count: '+inttostr(booksToExtend.count)+') is: '+bookListStr);
-    reader.parser.variables.Values['book-list']:=bookListStr;
+    reader.parser.variableChangeLog.Values['book-list']:=bookListStr;
     reader.performAction(extendAction^);
   end else if reader.findAction('extend-single')<>nil then begin
     if logging then log('use extendSingle Template');
