@@ -158,6 +158,7 @@ type
   private
     { private declarations }
     lastState: TWindowState;
+    lastTrayIconClick: longint;
   public
     { public declarations }
     oldListViewWindowProc: TWndMethod;
@@ -179,6 +180,7 @@ type
 
 
     procedure showVidelibri(var m:lcltype.TMsg); message LM_SHOW_VIDELIBRI;
+    procedure showMainwindow;
   end;
 
 
@@ -721,7 +723,7 @@ end;
 
 procedure TmainForm.MenuItem26Click(Sender: TObject);
 begin
-  TrayIcon1DblClick(self);
+  showMainwindow;
 end;
 
 procedure TmainForm.MenuItem27Click(Sender: TObject);
@@ -829,23 +831,21 @@ end;
 
 procedure TmainForm.TrayIcon1Click(Sender: TObject);
 begin
-  if Visible then exit;
-  {$ifdef win32}TrayIcon1DblClick(sender); exit;{$endif}
-  TrayIconClick.Enabled:=true;
+  if GetTickCount - lastTrayIconClick < 250 then exit;
+  lastTrayIconClick:=GetTickCount;
+  if Visible then begin
+    {$ifndef win32}Hide;{$endif}
+    exit;
+  end;
+  showMainwindow;
+//  TrayIcon1DblClick(sender);
+  //{$ifdef win32}TrayIcon1DblClick(sender); exit;{$endif}
+  //TrayIconClick.Enabled:=true;
 end;
 
 procedure TmainForm.TrayIcon1DblClick(Sender: TObject);
 begin
- // TrayIconClick.Enabled:=false;
-  //TODO: why doesn't this work if it is maximized?????
-  application.BringToFront;
-  if Enabled then begin
- //   WindowState:=lastState;
-    {$Ifdef win32}windowstate:=wsNormal;{$endif}
-    show;
-    BringToFront;
-  end;
-  TrayIconClick.Enabled:=false;
+  //showMainwindow
 end;
 
 procedure TmainForm.TrayIconClickTimer(Sender: TObject);
@@ -1331,8 +1331,22 @@ end;
 procedure TmainForm.showVidelibri(var m:lcltype.TMsg);
 begin
   {$ifdef win32}
-  TrayIcon1DblClick(self)
+  showMainwindow
   {$endif}
+end;
+
+procedure TmainForm.showMainwindow;
+begin
+  // TrayIconClick.Enabled:=false;
+  //TODO: why doesn't this work if it is maximized?????
+  application.BringToFront;
+  if Enabled then begin
+ //   WindowState:=lastState;
+    {$Ifdef win32}windowstate:=wsNormal;{$endif}
+    show;
+    BringToFront;
+  end;
+  TrayIconClick.Enabled:=false;
 end;
 
 procedure TmainForm.ThreadDone(Sender: TObject);
