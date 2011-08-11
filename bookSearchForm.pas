@@ -6,7 +6,8 @@ interface
 
 uses
   Classes, SysUtils, LResources, Forms, Controls, Graphics, Dialogs, ExtCtrls,
-  CheckLst, StdCtrls,bookListView, ComCtrls,librarySearcher,booklistreader,TreeListView,math,librarySearcherAccess;
+  CheckLst, StdCtrls,bookListView, ComCtrls,librarySearcher,booklistreader,TreeListView,math,
+  librarySearcherAccess;
 
 type
 

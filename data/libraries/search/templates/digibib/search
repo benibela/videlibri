@@ -1,49 +1,26 @@
-<html><body>
-<table><tr><td>Suchergebnis</td></tr></table>
-  
-<template:loop>
-  <a href=""></a>
-
-  <table>
-
-  <template:read var="count" source="'0'"/>
-  
-  <tr>
-    <td></td>
-    <th template:optional="true"></th>
-    <th template:optional="true"><span><template:read var="count" source="text()" regex="\d+"/></span></th>
-  </tr>
-  
-  <template:if test="$count;!='0'">
-  
-    <tr>
-    <td>
-    <table>
-      
-       <template:loop>
-         <tr>
-           <template:read var="book-start()"/>
-           <td><a><template:read source="@href" var="book.searchid" regex="START=\d+$"/>
-                  <template:read source="@href" var="book.library" regex="DB=[^=&]+"/>
-                  <!--<template:read source="'http://abderos.hbz-nrw.de/Digibib?SERVICE=METASEARCH&amp;SUBSERVICE=GETRECORD&amp;FORMAT=Full&amp;$book.library;&amp;$metaid;&amp;COUNT=1&amp;NL_START=0&amp;PL_START=0&amp;SID=$sid;&amp;LOCATION=&amp;LISTCOUNT=200&amp;X$reqid;&amp;HIGHLIGHTTERMS=&amp;$book.searchid;'" var="book.detail-url"/>-->
-                  <template:read source='"http://abderos.hbz-nrw.de/Digibib?SERVICE=METASEARCH&SUBSERVICE=GETRECORD&FORMAT=Full&$book.library;&$metaid;&COUNT=1&NL_START=0&PL_START=0&SID=$sid;&LOCATION=&LISTCOUNT=200&X$reqid;&HIGHLIGHTTERMS=&$book.searchid;"' var="book.detail-url"/>
-                  </a></td>
-           <td><template:read source="deep-text(' ')" var="book.author"/></td>
-           <td><template:read source="deep-text(' ')" var="book.title"/></td>
-           <td><template:read source="deep-text(' ')" var="book.year"/></td>
-           <template:read var="book-end()"/>
-         </tr>
-       </template:loop>
-    
-    </table>
-    </td>
-    </tr>
-  
-  </template:if>
-  
-  </table>
-</template:loop>  
-
-<table><tr><td></td></tr></table>
-
-</body></html>
+<html>
+  <head></head>
+  <body><t:loop>
+    <div class="contentblock">
+      <a><t:s>library:=filter(@name,"(.*)_anchor",1)</t:s> </a>
+      <dl class="list"><t:loop>
+        <dt>
+          <t:read var="book-start()"/>
+          <t:s>
+            book.id:=@id,
+            book.detail-url:=a/@href,
+            book.title:=a/deep-text(),
+            book.library:=filter(a/@href, "DB=([^=&]+)", 1)
+          </t:s>
+        </dt>
+        <dd>
+          <t:s>
+            book.author:=filter(./deep-text(),'(.*) *- *[0-9]*$', 1),
+            book.year:=filter(./deep-text(), '[0-9]*$')
+          </t:s>
+          <t:read var="book-end()"/>
+        </dd>
+      </t:loop></dl>
+    </div>
+  </t:loop></body>
+</html>

@@ -7,8 +7,9 @@
 
 <variable name="after-id" value="=on&amp;"/>
 <variable name="location:Düsseldorf" value="DUEBIB"/>
-<variable name="location:Aachen" value="AACHBIB"/>
-<variable name="location:Bochum" value="BOBIB"/>
+<variable name="location:Aachen" value="052"/>
+<variable name="view:Düsseldorf" value="DUEBIB:SGduebib"/>
+<variable name="view:Aachen" value="052:SGBuecherRegional"/>
 
 <!--sid = ABDEROS:nummer, $selectedLibraries;
 SERVICEGROUP1.SERVICE.SEARCH_FHBDUE
@@ -18,23 +19,17 @@ andere server außer abderos: eris, metis, rhea, thetis
 -->
 
 <action id="connect">
-  <page url="http://abderos.hbz-nrw.de/Digibib?SERVICE=SESSION&amp;SUBSERVICE=GUESTLOGIN&amp;LOCATION=$location;&amp;LANGUAGE=de"
-        templateFile="connect"/>
 </action>
 
 <action id="search">
-  <page url="http://abderos.hbz-nrw.de/Digibib" templateFile="searchstart">
-    <post name="SERVICE">METASEARCH</post>
-    <post name="SUBSERVICE">CREATESEARCH</post>
-    <post name="SID">$sid;</post>
-    <post name="URLENCODING">TRUE</post>
+<!--  <page url="http://www.digibib.net/opensearch?S.SEARCH_SBDUE=on&S.SEARCH_SBAA=on&VIEW=HBZ:OeffBibInNRW&QUERY_alAL={searchTerms}&LOCATION=HBZ&
+
+http://www.digibib.net/opensearch?S.SEARCH_SBDUE=on&S.SEARCH_SBAA=on&VIEW=HBZ:OeffBibInNRW&QUERY_azTI=test&LOCATION=HBZ&
+
+-->
+  <page url="http://www.digibib.net/opensearch" templateFile="searchstart">
     <post name="LOCATION">$location;</post>
-    <post name="HIGHLIGHTING">on</post>
-    <post name="START">1</post>
-    <post name="HISTORY">SESSION</post>
-     
-    <post name="GWTIMEOUT">120</post>
-    <post name="COUNT">200</post>
+    <post name="VIEW">$view;</post>
 
     <post name="QUERY_azTI">$book.title;</post>  
     <post name="QUERY_bzAU">$book.author;</post>
@@ -53,15 +48,19 @@ andere server außer abderos: eris, metis, rhea, thetis
     
   </page>  
   
-  <page url="http://abderos.hbz-nrw.de/Digibib?SERVICE=METASEARCH&amp;SUBSERVICE=GETLIST&amp;$metaid;&amp;FORMAT=List&amp;URLENCODING=TRUE&amp;START=1&amp;COUNT=200&amp;SID=$sid;&amp;LOCATION=$location;&amp;$sreqid;&amp;$reqid;&amp;$olreqid;&amp;STREAMING=on" templateFile="search"/>
+  <page url="http://www.digibib.net/$url"/>
   
+  <page url="http://www.digibib.net/Digibib?SID=$sid;&LOCATION=$location;&SERVICE=METASEARCH&SUBSERVICE=GETLIST&PREVREQID=$reqid;&STREAMING=TRUE&VIEW=$view;&FORMAT=List&START=1&COUNT=100&METAID=$metaid" templateFile="search"/>
+  
+<!--  <page url="http://abderos.hbz-nrw.de/Digibib?SERVICE=METASEARCH&amp;SUBSERVICE=GETLIST&amp;$metaid;&amp;FORMAT=List&amp;URLENCODING=TRUE&amp;START=1&amp;COUNT=200&amp;SID=$sid;&amp;LOCATION=$location;&amp;$sreqid;&amp;$reqid;&amp;$olreqid;&amp;STREAMING=on" templateFile="search"/>
+-->  
 
 </action>
 
 
 
 <action id="details"> 
-  <page url="http://abderos.hbz-nrw.de/Digibib?SERVICE=METASEARCH&amp;SUBSERVICE=GETRECORD&amp;FORMAT=Full&amp;$book.library;&amp;$metaid;&amp;COUNT=1&amp;NL_START=0&amp;PL_START=0&amp;SID=$sid;&amp;LOCATION=$location;&amp;LISTCOUNT=200&amp;X$reqid;&amp;HIGHLIGHTTERMS=&amp;$book.searchid;" templateFile="details"/>
+  <page url="http://www.digibib.net/$book.detail-url;" templateFile="details"/>
 </action>
 
 

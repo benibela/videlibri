@@ -1,91 +1,42 @@
-<table width="100%" border="0" cellspacing="0" cellpadding="0">
- <tr>
-  <th>trefferdaten</th>
- </tr>
- 
- <template:loop>
-  
-  <!-- titel, autor/in, jahr, ISBN (++)-->
- <tr>
-  <td class="field"><template:read source="normalize-space(text())" var="currentfield"/></td>
-  <template:if test="$currentfield; != 'Standort'">
-    <td class="fieldcontent"><template:read source="deep-text(' ')" var="book.$currentfield;!"/></td>
-  </template:if>
-  <template:if test="$currentfield; = 'Standort'">
-    <td class="fieldcontent">
-      <template:read source="deep-text(' ')" var="book.id"/>
-      <!-- choose the last link for FHB -->
-      <template:loop>
-        <a template:optional="true"><template:read var="book.home-url" source="@href"/></a>
-      </template:loop>
-      <form template:optional="true">
-        <template:read var="book.home-url" source="concat(@action,'?')"/>
-        <template:loop>
-           <input><template:read var="book.home-url" source="concat($book.home-url;,@name,'=',@value,'&')"/></input>
-        </template:loop>
-      </form>
-      <!--
-      <br template:optional="true"/><img template:optional="true"/> <!-- FHB 1 --
-      <a template:optional="true"> <!-- STB --
-        <template:read var="book.home-url" source="@href"/>
+<html><head></head><body>
+
+<div class="contentblock">
+<dl>
+  <dt>Bibliographische Angaben</dt>
+  <dd>
+
+      <a target="d6_amazon" t:optional="true">
+        <t:s>
+          book.amazon-url:=@href,
+          book.image-url:=img/@src
+        </t:s>
       </a>
-      <br template:optional="true"/><img template:optional="true"/> <!-- FHB 2 --
-      <a template:optional="true"> 
-        <template:read var="book.home-url" source="@href"/>
-      </a>
-      <form template:optional="true">
-        <template:read var="book.home-url" source="concat(@action,'?')"/>
-        <input><template:read var="book.home-url" source="concat($book.home-url;,@name,'=',@value)"/></input>
-        <input><template:read var="book.home-url" source="concat($book.home-url;,'&',@name,'=',@value)"/></input>
-        <input><template:read var="book.home-url" source="concat($book.home-url;,'&',@name,'=',@value)"/></input>
-      </form>
-      <br template:optional="true"/>
-      <template:read source="text()" var="temp" regex=" .*$"/>     
-      <template:read source="'$book.id;$temp;'" var="book.id"/>     -->
-    </td>
-  </template:if>
- </tr>
- <tr>
-  <td class="fieldsep"></td>
- </tr>
+    
+         
+      <table class="datarows"><t:loop>
+        <tr>
+         <th><t:read source="normalize-space(text())" var="currentfield"/></th>
+         <td><t:read source="deep-text(' ')" var="book.$currentfield;!"/></td>
+        </tr>
+      </t:loop></table>
+   </dd>
 
+   <dt>Bestand</dt>      
+   <td>
+     <template:loop>
+       <a template:optional="true"><template:read var="book.home-url" source="@href"/></a>
+     </template:loop>
+     <form template:optional="true">
+       <template:read var="book.home-url" source="concat(@action,'?')"/>
+       <template:loop>
+          <input><template:read var="book.home-url" source="concat($book.home-url;,@name,'=',@value,'&')"/></input>
+       </template:loop>
+     </form>
+   </td>
+   
+</dl>
+</div>
+</body>
+</html>
+    
 
-
-
-
-
-<!-- <tr>
-
-     <tr>
-      <td width="20%" class="field">Standort</td>
-      <td width="80%" class="fieldcontent">14 TAST 1<br/>
-      <img src="/DUEBIB/img/extern.gif" width="11" height="11" border="0" alt="Linkziel liegt ausserhalb der DigiBib" title="Linkziel liegt ausserhalb der DigiBib" align="middle" />&nbsp; 
-      <a href="http://www.bibl.fh-duesseldorf.de/hilfe_standort.html" onclick="openMsgWin('','DigiBib_SigInf',640,450,'yes');return true;" target="DigiBib_SigInf">Standort</a><br/><img src="/DUEBIB/img/extern.gif" width="11" height="11" border="0" alt="Linkziel liegt ausserhalb der DigiBib" title="Linkziel liegt ausserhalb der DigiBib" align="middle" />&nbsp; <a href="http://193.30.112.94/libero/WebopacOpenURL.cls?LANG=DE&ACTION=DISPLAY&sid=Libero:DUE&RID=HT003292469" onclick="openMsgWin('','DigiBib_SigInf',640,450,'yes');return true;" target="DigiBib_SigInf">Ausleihstatus</a></td>
-      <td width="1" class="fieldcontentrightsep"><img src="/default/img/pixel.gif" width="1" height="1" alt="" /></td>
-     </tr>
-     
-     
-     
-     
-     
-           <td width="80%" class="fieldcontent"><a href="http://was.duesseldorf.de/WebOPAC/QueryPanelServlet?homegkz=111&Suchbegriff=idnr=E930439772&Kriterium=Titel&Medienart=alle&Bibliothek=Stadtb%FCchereien%20D%FCsseldorf&x=43&y=6" target="_blank">WebOPAC</a><br/>  5.1 Funke (36)</td>
-
-
-
-           
-                 <td width="80%" class="fieldcontent"><form action="http://kant.ub.uni-duesseldorf.de:80/F/" target="_blank" method="GET"><input type="hidden" name="func" value="find-b"/><input type="hidden" name="request" value="HT006525503"/><input type="hidden" name="find_code" value="IDN"/><img src="/DUEBIB/img/extern.gif" width="11" height="11" border="0" alt="Linkziel liegt ausserhalb der DigiBib" title="Linkziel liegt ausserhalb der DigiBib" align="middle" />&nbsp; <input type="submit" value="Katalog-Eintrag" class="button"/></form>Standort: 00 Sign.: dat/1765<br/></td> </tr>-->
- 
-
- </template:loop>
- 
-</table>
-
-<td>
-<br template:optional="true"/>
-<a target="DigiBib_amazon" template:optional="true">
-  <template:read var="book.amazon-url" source="@href"/>
-  <img>
-    <template:read var="book.image-url" source="@src"/>
-  </img>
-</a>
-</td>

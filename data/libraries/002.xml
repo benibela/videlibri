@@ -12,6 +12,6 @@
   <variable name="server" value="webopac.stadtbibliothek-aachen.de/libero/"/>
   
   <variable name="globalExtraStatusRemark" value=" (Verlängerung kostenpflichtig, daher nicht von Videlibri aus möglich)"/>
-  <variable name="Location" value="Aachen (keine digibib Suche)"/>
-  <variable name="searchid-digibib" value="SERVICEGROUP1.SERVICE.SEARCH_SBAAC"/>
+  <variable name="Location" value="Aachen"/>
+  <variable name="searchid-digibib" value="SERVICEGROUP1.SERVICE.SEARCH_SBAA"/>
 </library>

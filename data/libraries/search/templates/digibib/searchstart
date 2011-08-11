@@ -1,8 +1,17 @@
+<meta http-equiv="Refresh">
+    <t:s>
+        url:=filter(@content,"URL=(.*)",1),
+        metaid:=filter($url;, "METAID=([^&;]*)",1),
+        reqid:=filter($url;, "REQID=([^&;]*)",1),
+        sid:=filter($url;, "SID=([^&;]*)",1)
+    </t:s>
+</meta>
+<!--
 <frame name="DigiBib_list">
     <t:read var="metaid" source="@src" regex="METAID=\d+"/>
     <t:read var="sreqid" source="@src" regex="SREQID=ABDEROS:\d+"/>
     <t:read var="reqid" source="@src" regex="REQID=ABDEROS:\d+"/>
     <t:read var="olreqid" source="@src" regex="OLREQID=ABDEROS:\d+"/>
 </frame>
-
+-->
 <!--/Digibib?SERVICE=METASEARCH&amp;SUBSERVICE=GETLIST&amp;METAID=1443&amp;FORMAT=List&amp;URLENCODING=TRUE&amp;START=1&amp;COUNT=50&amp;SID=ABDEROS:1190678421&amp;LOCATION=DUEBIB&amp;SREQID=ABDEROS:695731538&amp;REQID=ABDEROS:695731538&OLREQID=ABDEROS:695731538&amp;STREAMING=on" scrolling="auto">-->
