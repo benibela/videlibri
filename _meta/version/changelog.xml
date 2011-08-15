@@ -4,9 +4,9 @@
   <build version="1000" date="2011-05-17">
     <download url="http://videlibri.sourceforge.net/updates/videlibri-setup.exe" platform="WINDOWS" execute="&quot;$DOWNLOAD&quot;  /SP- /noicons &quot;/dir=$OLDPATH;&quot; "/>
     <download url="http://videlibri.sourceforge.net/updates/videlibri-linux64.deb" platform="LINUX64" execute=""/>
-    <fix level="major">Unterstützung für den 2.2.1 STB Düsseldorf OPAC</fix>
-    <fix level="minor">Unterstützung für die Digibib 6</fix>
-    <change level="major">Die Templates sind jetzt nahezu vollständig XPath 2 kompatibel</change>
+    <fix level="critical">Unterstützung für den 2.2.1 STB Düsseldorf OPAC</fix>
+    <fix level="major">Unterstützung für die Digibib 6</fix>
+    <change level="major">Die Templates sind jetzt nahezu vollständig XPath 2 kompatibel (womöglich ist VideLibri jetzt die einzige existierende Pascal XPath 2 Implementierung)</change>
     <add level="minor">E-Mailbenachrichtigungen</add>
   </build>
   <build version="1000" date="2011-05-17">
