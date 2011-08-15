@@ -1,6 +1,7 @@
-<html>
+<html lang="de">	
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<meta http-equiv="content-language" content="de"/>
 <link rel="stylesheet" type="text/css" href="all.css"/>
 <title>VideLibri - Ein Bücherausleihverwaltungsprogramm</title></head>
 <body>
@@ -43,6 +44,8 @@ VideLibri zeigt die Ausleihdaten von mehreren Konten gleichzeitig an, so dass ma
 <li><h3>Besseres Interface</h3>
 VideLibri ist nach der Installation sehr viel einfacher zu benutzen, als die meisten Webkataloge/WebOPACs der Büchereien. Man muss nur einmal klicken, um die Ausleihliste zu öffnen, und braucht sich nicht jedesmal anzumelden. Zudem werden alle Bücher farbkodiert in einer sortierbaren Liste angezeigt und die jeweiligen Abgabezeiten nach Wochen getrennt.
 </li>
+<li><h3>E-Mailbenachrichtigung</h3> 
+VideLibri kann einen E-Mailbericht über alle Medien versenden, der <!--im Gegensatz zu deren Schrottsystemen--> sogar dann ankommt, wenn mal Bücher fällig sind.
 <li><h3>Open-Source</h3>
 Jeder kann VideLibri genauso ändern, wie er es haben will, und auch beliebige neue Büchereien hinzufügen.
 </li>
@@ -120,9 +123,9 @@ Verwendet die Bücherei ein aktuelles aleph/libero/sisis/pica-System sollte es s
 <h2><a name="downloads">Downloads</a></h2>
 
 Hier oder auf der <a href="https://sourceforge.net/projects/videlibri/files/">Sourceforge-Downloadseite</a> kann man die 
-<a href="http://sourceforge.net/projects/videlibri/files/VideLibri%201.000/videlibri-setup.exe/download">Windows</a>- und 
-<a href="http://sourceforge.net/projects/videlibri/files/VideLibri%201.000/videlibri_1.000-1_amd64.deb/download">Linux</a>-Version herunterladen. <br>
-Die Windowsversion besteht aus einem automatischen Installer und ist 32 Bit, so dass es auf allen Windowscomputern laufen sollte. Die Linuxversion ist auf Debian amd64 compilert und funktioniert daher nur unter 64-Bit Systemen.
+<a href="http://sourceforge.net/projects/videlibri/files/VideLibri%201.100/videlibri-setup.exe/download">Windows</a>- und 
+<a href="http://sourceforge.net/projects/videlibri/files/VideLibri%201.100/videlibri_1.100-1_amd64.deb/download">Linux</a>-Version herunterladen. <br>
+Die Windowsversion besteht aus einem automatischen Installer und ist 32 Bit, so dass es auf allen Windowscomputern laufen sollte (positiv getestet unter Vista; negativ unter Wine ).  Die Linuxversion ist auf Debian amd64 compilert und funktioniert daher nur unter 64-Bit Systemen. (Wenn jemand ein 32-Bit version braucht, kann ich die auch erstellen...)
 
 <br><br> 
 
@@ -130,7 +133,7 @@ Es gibt auch einen <a href="http://videlibri.hg.sourceforge.net/hgweb/videlibri/
 
 Den gesamten Quellcode gibt es in einem <a href="http://videlibri.hg.sourceforge.net/hgweb/videlibri/videlibri/">Mercurial-Repository</a>.<br>
 Das Programm ist in FreePascal/Lazarus geschrieben, und sollte sich einfach compilern lassen, indem man die bookWatch.lpi in Lazarus öffnet und in den Projekteinstellungen sein Betriebssystem auswählt. 
-Damit sollte es unter Windows/Linux/Mac mit gtk/qt/win32/cocoa-Interface laufen (getestet mit Window/Linux und gtk/qt/win32). Man benötigt aber mindestens Lazarus 0.9.29 und FPC 2.4.0.
+Damit sollte es unter Windows/Linux/Mac mit gtk/qt/win32/cocoa-Interface laufen (getestet mit Window/Linux und gtk/qt/win32). Man benötigt aber mindestens Lazarus 0.9.31 und FPC 2.4.0.
 <br>
 <br><br><br><br>
 <h2><a name="spinoffs">Spin-offs</a></h2>

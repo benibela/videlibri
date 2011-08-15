@@ -4,6 +4,12 @@
   <build version="1000" date="2011-05-17">
     <download url="http://videlibri.sourceforge.net/updates/videlibri-setup.exe" platform="WINDOWS" execute="&quot;$DOWNLOAD&quot;  /SP- /noicons &quot;/dir=$OLDPATH;&quot; "/>
     <download url="http://videlibri.sourceforge.net/updates/videlibri-linux64.deb" platform="LINUX64" execute=""/>
+    <fix level="major">Unterstützung für den 2.2.1 STB Düsseldorf OPAC</fix>
+    <fix level="minor">Unterstützung für die Digibib 6</fix>
+    <change level="major">Die Templates sind jetzt nahezu vollständig XPath 2 kompatibel</change>
+    <add level="minor">E-Mailbenachrichtigungen</add>
+  </build>
+  <build version="1000" date="2011-05-17">
     <add level="minor">Neue Büchereien dank EDSync/Martin Kim Dung-Pham: Campus Katalog Hamburg (und prinzipiell alle anderen GBV-Bibliotheken)</add>
     <fix level="minor">Die Digibibsuche geht wieder</fix>
     <fix level="minor">Die Verlängerung der FHB Düsseldorf funktioniert wieder (sollte zumindest, aber ich gehe da nicht nochmal zum Testen hin)</fix>
