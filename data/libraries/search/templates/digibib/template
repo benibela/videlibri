@@ -60,7 +60,7 @@ http://www.digibib.net/opensearch?S.SEARCH_SBDUE=on&S.SEARCH_SBAA=on&VIEW=HBZ:Oe
 
 
 <action id="details"> 
-  <page url="http://www.digibib.net/$book.detail-url;" templateFile="details"/>
+  <page url="$book.detail-url;" templateFile="details"/>
 </action>
 
 

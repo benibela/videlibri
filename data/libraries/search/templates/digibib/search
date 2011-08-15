@@ -8,7 +8,7 @@
           <t:read var="book-start()"/>
           <t:s>
             book.id:=@id,
-            book.detail-url:=a/@href,
+            book.detail-url:=concat("http://www.digibib.net/",a/@href),
             book.title:=a/deep-text(),
             book.library:=filter(a/@href, "DB=([^=&]+)", 1)
           </t:s>
