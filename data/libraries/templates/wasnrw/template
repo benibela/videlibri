@@ -14,7 +14,7 @@
     <post name="Anmelden">true</post>
     <post name="Ausweisnummer">$username;</post>
     <post name="Kennwort">$password;</post>
-    <post name="Bibliothek">Stadtbüchereien Düsseldorf</post>    
+    <post>Bibliothek=Stadtb%FCchereien D%FCsseldorf</post>    
     <post name="Anmelden">Anmelden</post>
   </page>
   <error templateFile="loginError"/>
