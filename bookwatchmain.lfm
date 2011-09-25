@@ -1337,12 +1337,12 @@ object mainForm: TmainForm
     Visible = True
     OnClick = TrayIcon1Click
     OnDblClick = TrayIcon1DblClick
-    left = 448
-    top = 208
+    left = 432
+    top = 200
   end
   object trayIconPopupMenu: TPopupMenu
-    left = 458
-    top = 225
+    left = 432
+    top = 232
     object MenuItem26: TMenuItem
       Caption = '&Öffnen'
       OnClick = MenuItem26Click
@@ -1366,8 +1366,8 @@ object mainForm: TmainForm
   object EnsureTrayIconTimer: TTimer
     Interval = 10000
     OnTimer = EnsureTrayIconTimerTimer
-    left = 471
-    top = 240
+    left = 464
+    top = 232
   end
   object repeatedCheckTimer: TTimer
     Interval = 300000
@@ -1385,7 +1385,7 @@ object mainForm: TmainForm
     Enabled = False
     Interval = 250
     OnTimer = TrayIconClickTimer
-    left = 468
-    top = 187
+    left = 464
+    top = 200
   end
 end

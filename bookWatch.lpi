@@ -39,7 +39,7 @@
     <RequiredPackages Count="2">
       <Item1>
         <PackageName Value="LCLBase"/>
-        <MinVersion Major="1" Release="1" Valid="True"/>
+        <MinVersion Major="1" Valid="True" Release="1"/>
       </Item1>
       <Item2>
         <PackageName Value="LCL"/>
@@ -239,6 +239,12 @@
     <CodeGeneration>
       <SmallerCode Value="True"/>
     </CodeGeneration>
+    <Linking>
+      <Debugging>
+        <GenerateDebugInfo Value="True"/>
+        <DebugInfoType Value="dsAuto"/>
+      </Debugging>
+    </Linking>
     <Other>
       <CompilerMessages>
         <UseMsgFile Value="True"/>

@@ -158,7 +158,7 @@ type
   private
     { private declarations }
     lastState: TWindowState;
-    lastTrayIconClick: longint;
+    lastTrayIconClick: dword;
   public
     { public declarations }
     oldListViewWindowProc: TWndMethod;
