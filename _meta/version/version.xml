@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <versions>
-  <stabil value="1100"/>
-  <stable value="1100"/> 
+  <stabil value="1110"/>
+  <stable value="1110"/> 
   <debug value="0906"/> 
 </versions>

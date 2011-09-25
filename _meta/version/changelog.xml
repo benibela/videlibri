@@ -1,9 +1,12 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <?xml-stylesheet type="text/xsl" href="../changelog.xsl"?>
 <changelog program="VideLibri">
-  <build version="1100" date="2011-08-16">
+  <build version="1110" date="2011-09-25">
     <download url="http://videlibri.sourceforge.net/updates/videlibri-setup.exe" platform="WINDOWS" execute="&quot;$DOWNLOAD&quot;  /SP- /noicons &quot;/dir=$OLDPATH;&quot; "/>
     <download url="http://videlibri.sourceforge.net/updates/videlibri-linux64.deb" platform="LINUX64" execute=""/>
+    <fix level="critical">Fix Crash unter deutschsprachigen Betriebsystemem</fix>
+  </build>
+  <build version="1100" date="2011-08-16">
     <fix level="critical">Unterstützung für den 2.2.1 STB Düsseldorf OPAC</fix>
     <fix level="major">Unterstützung für die Digibib 6</fix>
     <change level="major">Die Templates sind jetzt nahezu vollständig XPath 2 kompatibel (womöglich ist VideLibri jetzt die einzige existierende Pascal XPath 2 Implementierung)</change>
