@@ -877,13 +877,32 @@ begin
 end;
 
 procedure TTemplateAccountAccess.extendAll;
+var
+ booksExtendableCount: Integer;
+ realBooksToExtend: TBookList;
+ i: Integer;
 begin
   if logging then
     log('enter TTemplateAccountAccess.extendAll');
   if reader.findAction('extend-all')<>nil then begin
     setVariables();
     reader.performAction('extend-all');
-  end else extendList(reader.books);
+  end else begin
+    booksExtendableCount:=0;
+    for i:=0 to books.currentUpdate.count-1 do
+      if books.currentUpdate[i].status in BOOK_EXTENDABLE then
+        booksExtendableCount+=1;
+
+    if booksExtendableCount = reader.books.count then  extendList(reader.books)
+    else begin
+      realBooksToExtend:=TBookList.Create;
+      for i:=0 to books.currentUpdate.Count-1 do
+        if books.currentUpdate[i].status in BOOK_EXTENDABLE then
+          realBooksToExtend.add(books.currentUpdate[i]);
+      extendList(realBooksToExtend);
+      realBooksToExtend.free
+    end;
+  end;
   FConnectingTime:=GetTickCount;
   if logging then
     log('leave TTemplateAccountAccess.extendAll');
