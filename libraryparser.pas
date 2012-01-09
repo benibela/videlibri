@@ -568,7 +568,7 @@ begin
     end;
     
     bookLists[bltInCurrentFile].Assign(bookLists[bltInCurrentDataUpdate]);
-    bookLists[bltInCurrentDataUpdate].clear;
+    //bookLists[bltInCurrentDataUpdate].clear;
     
     updateSharedDates();
     ownerLib.flastCheckDate:=currentDate;
