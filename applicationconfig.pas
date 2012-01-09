@@ -36,7 +36,7 @@ var programPath,userPath,dataPath:string;
     nextLimitStr: string;
 
     appFullTitle:string='VideLibri';
-    versionNumber:integer=1110;
+    versionNumber:integer=1115;
     //=>versionNumber/1000
     newVersionInstalled: boolean=false;
 
@@ -276,6 +276,8 @@ uses bookwatchmain,internetaccess,controls,libraryaccess,math,FileUtil,bbutils,b
     defaultInternetConfiguration.userAgent:='Mozilla 3.0 (compatible; VideLibri '+IntToStr(versionNumber)+' '+machineConfig.ReadString('debug','userAgentAdd','')+')';
     if machineConfig.ReadString('debug','userAgentOverride','') <> '' then
       defaultInternetConfiguration.userAgent:=machineConfig.ReadString('debug','userAgentOverride','');
+    if userConfig.ReadString('debug','userAgentOverride','') <> '' then
+      defaultInternetConfiguration.userAgent:=userConfig.ReadString('debug','userAgentOverride','');
     defaultInternetConfiguration.connectionCheckPage:='www.duesseldorf.de';
     case userConfig.readInteger('access','internet-type',0) of
       0: begin
