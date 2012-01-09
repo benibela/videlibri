@@ -466,6 +466,7 @@ end;
 procedure ToptionForm.accountListSelectItem(Sender: TObject; Item: TListItem;
   Selected: Boolean);
 begin
+  if not Selected then exit;
   currentSelectedAccount:=TCustomAccountAccess(item.data);
   lblAccountLibrary.Caption:=currentSelectedAccount.getLibrary().prettyNameLong;
   edtAccountPrettyName.Text:=item.Caption;
