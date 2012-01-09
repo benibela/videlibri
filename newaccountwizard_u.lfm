@@ -18,16 +18,14 @@ object newAccountWizard: TnewAccountWizard
     Height = 311
     Top = 0
     Width = 465
-    PageIndex = 4
+    PageIndex = 0
     Align = alClient
     TabOrder = 0
     TabStop = True
     object Page1: TPage
-      ClientWidth = 465
-      ClientHeight = 311
       object Label9: TLabel
         Left = 4
-        Height = 81
+        Height = 100
         Top = 5
         Width = 450
         Anchors = [akTop, akLeft, akRight]
@@ -40,8 +38,8 @@ object newAccountWizard: TnewAccountWizard
         AnchorSideTop.Side = asrBottom
         AnchorSideBottom.Side = asrBottom
         Left = 28
-        Height = 214
-        Top = 90
+        Height = 195
+        Top = 109
         Width = 410
         Anchors = [akTop, akLeft, akRight, akBottom]
         AutoFill = True
@@ -54,7 +52,7 @@ object newAccountWizard: TnewAccountWizard
         ChildSizing.ShrinkVertical = crsScaleChilds
         ChildSizing.Layout = cclTopToBottomThenLeftToRight
         ChildSizing.ControlsPerLine = 4
-        ClientHeight = 210
+        ClientHeight = 191
         ClientWidth = 406
         ColumnLayout = clVerticalThenHorizontal
         ItemIndex = 0
@@ -70,8 +68,6 @@ object newAccountWizard: TnewAccountWizard
     end
     object Page2: TPage
       OnBeforeShow = Page2BeforeShow
-      ClientWidth = 465
-      ClientHeight = 311
       object Label4: TLabel
         AnchorSideTop.Control = accountName
         AnchorSideTop.Side = asrCenter
@@ -148,8 +144,6 @@ object newAccountWizard: TnewAccountWizard
       end
     end
     object Page3: TPage
-      ClientWidth = 465
-      ClientHeight = 311
       object Label6: TLabel
         Left = 24
         Height = 39
@@ -209,8 +203,6 @@ object newAccountWizard: TnewAccountWizard
     end
     object Page4: TPage
       OnBeforeShow = Page4BeforeShow
-      ClientWidth = 465
-      ClientHeight = 311
       object lblWarning: TLabel
         AnchorSideTop.Control = Label2
         AnchorSideTop.Side = asrBottom
@@ -284,7 +276,7 @@ object newAccountWizard: TnewAccountWizard
         ChildSizing.ShrinkVertical = crsScaleChilds
         ChildSizing.Layout = cclLeftToRightThenTopToBottom
         ChildSizing.ControlsPerLine = 1
-        ClientHeight = 231
+        ClientHeight = 212
         ClientWidth = 194
         ItemIndex = 0
         Items.Strings = (
@@ -312,8 +304,6 @@ object newAccountWizard: TnewAccountWizard
       end
     end
     object lastPage: TPage
-      ClientWidth = 465
-      ClientHeight = 311
       object Label5: TLabel
         Left = 7
         Height = 39
@@ -384,10 +374,10 @@ object newAccountWizard: TnewAccountWizard
     ClientWidth = 465
     TabOrder = 1
     object cancelBtn: TButton
-      Left = 372
+      Left = 370
       Height = 27
       Top = 3
-      Width = 89
+      Width = 91
       Anchors = [akTop, akRight, akBottom]
       AutoSize = True
       BorderSpacing.InnerBorder = 4
@@ -396,12 +386,12 @@ object newAccountWizard: TnewAccountWizard
       OnClick = Button1Click
       TabOrder = 2
     end
-    object next: TButton
+    object nextbtn: TButton
       AnchorSideRight.Control = cancelBtn
-      Left = 286
+      Left = 280
       Height = 27
       Top = 3
-      Width = 74
+      Width = 78
       Anchors = [akTop, akRight, akBottom]
       AutoSize = True
       BorderSpacing.Right = 10
@@ -413,11 +403,11 @@ object newAccountWizard: TnewAccountWizard
       TabOrder = 0
     end
     object back: TButton
-      AnchorSideRight.Control = next
-      Left = 204
+      AnchorSideRight.Control = nextbtn
+      Left = 200
       Height = 27
       Top = 3
-      Width = 80
+      Width = 78
       Anchors = [akTop, akRight, akBottom]
       AutoSize = True
       BorderSpacing.InnerBorder = 4

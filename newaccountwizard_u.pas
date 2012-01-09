@@ -21,7 +21,7 @@ type
     Label5: TLabel;
     Label9: TLabel;
     lblWarning: TLabel;
-    next: TButton;
+    nextbtn: TButton;
     back: TButton;
     accountName: TEdit;
     accountPass: TEdit;
@@ -112,8 +112,8 @@ begin
       StringGrid1.Cells[1,5]:='ja'
      else
       StringGrid1.Cells[1,5]:='nein' ;
-    next.Caption:='&Erstellen >';
-  end else next.Caption:='&Weiter >';
+    nextbtn.Caption:='&Erstellen >';
+  end else nextbtn.Caption:='&Weiter >';
   //fix lcl bug 14877
   libraryList.ReAlign;
   extendTypeRG.ReAlign;
