@@ -20,8 +20,9 @@
 
 
 <action id="extend-list" singleBookStr="$book.extendid;=YES&amp;">
-  <page url="https://ausleihe.staatsbibliothek-berlin.de/opac/verl.S">
+  <page url="https://ausleihe.staatsbibliothek-berlin.de/opac/verl.S" templateFile="simpleCheck">
     <post name="LANG">de</post>
+    <post name="FUNC">verl</post>
     <post name="BENUTZER">$username;</post>
     <post name="PASSWORD">$password;</post>
     <post>$book-list;</post>
