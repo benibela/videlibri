@@ -933,7 +933,7 @@ begin
   end else if reader.findAction('extend-single')<>nil then begin
     if logging then log('use extendSingle Template');
     extendAction:=reader.findAction('extend-single');
-    for i:=0 to booksToExtend.count-1 do begin
+    for i:=booksToExtend.count-1 downto 0 do begin
       reader.selectBook(booksToExtend[i]);
       book:=reader.books.findBook(booksToExtend[i]);
       if book<>nil then reader.selectBook(book); //handles more instances of the same book
