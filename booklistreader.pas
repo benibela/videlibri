@@ -753,8 +753,10 @@ begin
     for i:=0 to books.Count-1 do
       if books[i].id = value then
         currentBook:=books[i];
-    if currentBook=nil then
+    if currentBook=nil then begin
+      if logging then for i:=0 to books.Count-1 do log('Book-Id: "'+books[i].id + '" <> "'+value+'"');
       raise EBookListReader.create('Template wants to select book '+value+', but it doesn''t exist');
+    end;
   end else if variable='book-select()' then begin
     //reset
     raise EBookListReader.create('not implemented yet');
