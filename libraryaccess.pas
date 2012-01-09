@@ -117,74 +117,69 @@ save
         exit;
       end;
 
-    internet:=defaultInternetAccessClass.create;
-    try
-      if logging then log('TUpdateLibThread.execute ended marker 1');
-      lib.connect(internet);
-      if logging then log('TUpdateLibThread.execute ended marker 2');
-      lib.updateAll();
-      if logging then log('TUpdateLibThread.execute ended marker 3');
-      if lib.needSingleBookCheck() then begin
-        //InterlockedIncrement(@pconfig^.totalBookThreadDone);
-        //Synchronize(@mainForm.RefreshListView);
-        if logging then log('TUpdateLibThread.execute marker 3.1');
-        EnterCriticalSection(pconfig^.libraryAccessSection);
-        lib.books.merge(false);
-        LeaveCriticalSection(pconfig^.libraryAccessSection);
-        if logging then log('TUpdateLibThread.execute marker 3.4');
+    if logging then log('TUpdateLibThread.execute ended marker 1');
+    if not lib.connected then
+      lib.connect(defaultInternetAccessClass.create);
+    if logging then log('TUpdateLibThread.execute ended marker 2');
+    lib.updateAll();
+    if logging then log('TUpdateLibThread.execute ended marker 3');
+    if lib.needSingleBookCheck() then begin
+      //InterlockedIncrement(@pconfig^.totalBookThreadDone);
+      //Synchronize(@mainForm.RefreshListView);
+      if logging then log('TUpdateLibThread.execute marker 3.1');
+      EnterCriticalSection(pconfig^.libraryAccessSection);
+      lib.books.merge(false);
+      LeaveCriticalSection(pconfig^.libraryAccessSection);
+      if logging then log('TUpdateLibThread.execute marker 3.4');
 
 
-        if logging then log('TUpdateLibThread.execute marker 3.5');
-        EnterCriticalSection(pconfig^.threadManagementSection);
-        pconfig^.listUpdateThreadsRunning-=1;
-        pconfig^.atLeastOneListUpdateSuccessful:=true;
-        LeaveCriticalSection(pconfig^.threadManagementSection);
-        if logging then log('TUpdateLibThread.execute marker 3.6');
-        if (pconfig^.listUpdateThreadsRunning<=0) and (mainform<>nil) and (mainForm.visible) then
-          Synchronize(@mainForm.RefreshListView);
+      if logging then log('TUpdateLibThread.execute marker 3.5');
+      EnterCriticalSection(pconfig^.threadManagementSection);
+      pconfig^.listUpdateThreadsRunning-=1;
+      pconfig^.atLeastOneListUpdateSuccessful:=true;
+      LeaveCriticalSection(pconfig^.threadManagementSection);
+      if logging then log('TUpdateLibThread.execute marker 3.6');
+      if (pconfig^.listUpdateThreadsRunning<=0) and (mainform<>nil) and (mainForm.visible) then
+        Synchronize(@mainForm.RefreshListView);
 
-        listUpdateComplete:=true;
-        lib.updateAllSingly();
-      end;
-      if logging then log('TUpdateLibThread.execute marker 4');
-      
-      //Automatisches Verlängern
-      booksExtendableCount:=0;
-      for i:=0 to lib.books.currentUpdate.count-1 do
-        if lib.books.currentUpdate[i].status in BOOK_EXTENDABLE then
-          booksExtendableCount+=1;
-
-      case lib.extendType of
-        etNever: booksToExtendCount:=0;
-        etAlways: //extend always (when there are books which can be extended)
-          booksToExtendCount:=booksExtendableCount;
-        etAllDepends,etSingleDepends: begin
-          booksToExtendCount:=0;
-          for i:=0 to lib.books.currentUpdate.Count-1 do //check for books to extend
-            if lib.shouldExtendBook(lib.books.currentUpdate[i]) then
-              booksToExtendCount+=1;
-          if (lib.extendType=etAllDepends) and (booksToExtendCount>0) then
-            booksToExtendCount:=booksExtendableCount;
-        end;
-        else raise Exception.Create('Internal error: unknown lib.extendType');
-      end;
-
-      if booksToExtendCount>0 then
-        if booksToExtendCount=booksExtendableCount then
-          lib.extendAll
-         else begin
-          realBooksToExtend:=TBookList.Create;
-          for i:=0 to lib.books.currentUpdate.Count-1 do
-            if lib.shouldExtendBook(lib.books.currentUpdate[i]) then
-              realBooksToExtend.add(lib.books.currentUpdate[i]);
-          lib.extendList(realBooksToExtend);
-          realBooksToExtend.free
-         end;
-
-    //lib.disconnect();
-    finally
-      internet.free;
+      listUpdateComplete:=true;
+      lib.updateAllSingly();
     end;
+    if logging then log('TUpdateLibThread.execute marker 4');
+
+    //Automatisches Verlängern
+    booksExtendableCount:=0;
+    for i:=0 to lib.books.currentUpdate.count-1 do
+      if lib.books.currentUpdate[i].status in BOOK_EXTENDABLE then
+        booksExtendableCount+=1;
+
+    case lib.extendType of
+      etNever: booksToExtendCount:=0;
+      etAlways: //extend always (when there are books which can be extended)
+        booksToExtendCount:=booksExtendableCount;
+      etAllDepends,etSingleDepends: begin
+        booksToExtendCount:=0;
+        for i:=0 to lib.books.currentUpdate.Count-1 do //check for books to extend
+          if lib.shouldExtendBook(lib.books.currentUpdate[i]) then
+            booksToExtendCount+=1;
+        if (lib.extendType=etAllDepends) and (booksToExtendCount>0) then
+          booksToExtendCount:=booksExtendableCount;
+      end;
+      else raise Exception.Create('Internal error: unknown lib.extendType');
+    end;
+
+    if booksToExtendCount>0 then
+      if booksToExtendCount=booksExtendableCount then
+        lib.extendAll
+       else begin
+        realBooksToExtend:=TBookList.Create;
+        for i:=0 to lib.books.currentUpdate.Count-1 do
+          if lib.shouldExtendBook(lib.books.currentUpdate[i]) then
+            realBooksToExtend.add(lib.books.currentUpdate[i]);
+        lib.extendList(realBooksToExtend);
+        realBooksToExtend.free
+       end;
+
 
 
 
@@ -347,22 +342,17 @@ begin
     end;
 
     if (account<>nil) and (books.Count>0) then begin
-        internet:=defaultInternetAccessClass.create();
-      try
-        if not account.connected then begin
-          account.connect(internet);
-          account.updateAll();
-          if account.needSingleBookCheck() then
-            account.updateAllSingly;
-        end;
-        books.mergeMissingInformation(account.books.currentUpdate);
-        books.mergeMissingInformation(account.books.current);
-        account.extendList(books);
-        account.books.merge(true);
-        account.save();
-      finally
-        internet.free;
+      if not account.connected then begin
+        account.connect(defaultInternetAccessClass.create());
+        account.updateAll();
+        if account.needSingleBookCheck() then
+          account.updateAllSingly;
       end;
+      books.mergeMissingInformation(account.books.currentUpdate);
+      books.mergeMissingInformation(account.books.current);
+      account.extendList(books);
+      account.books.merge(true);
+      account.save();
     end;
   except
     on e: exception do

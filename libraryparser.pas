@@ -634,6 +634,8 @@ begin
     books.free;
   if config<>nil then
     config.free;
+  if internet<>nil then
+    internet.free;
   inherited;
 end;
 
