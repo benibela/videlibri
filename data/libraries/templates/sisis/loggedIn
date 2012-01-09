@@ -18,7 +18,7 @@
         <h2>Ausleihen</h2>
       </div>
     </div>
-    <fieldset>
+    <!--<fieldset>-->
 
     <template:read var="delete-current-books()"/>
 
@@ -70,7 +70,7 @@
                
       </table>
   <!--    </template:if>-->
-    </fieldset>
+    <!-- </fieldset> -->
 
    </div>
   </div>
