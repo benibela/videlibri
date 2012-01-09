@@ -66,13 +66,10 @@ end;
 procedure TnagWindow.FormShow(Sender: TObject);
 begin
   tag:=6785;
-  mainForm.Label2.Caption:='  eingeschränkte Shareware Version';
-  {$include obfuscate.inc}
-  if currentDate-userconfig.ReadInteger('base','lastNAGTime',0)<30 then close;
 end;
 
 initialization
   {$I nagform.lrs}
 
 end.
-
+

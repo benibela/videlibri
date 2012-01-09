@@ -4,7 +4,7 @@ object mainForm: TmainForm
   Top = 34
   Width = 927
   Caption = 'Videlibri'
-  ClientHeight = 630
+  ClientHeight = 626
   ClientWidth = 927
   Menu = MainMenu1
   OnActivate = FormActivate
@@ -17,8 +17,8 @@ object mainForm: TmainForm
   LCLVersion = '0.9.31'
   object StatusBar1: TStatusBar
     Left = 0
-    Height = 21
-    Top = 609
+    Height = 25
+    Top = 601
     Width = 927
     Panels = <    
       item
@@ -53,21 +53,6 @@ object mainForm: TmainForm
     ParentColor = False
     ParentFont = False
     TabOrder = 0
-    object Label2: TLabel
-      Left = 183
-      Height = 24
-      Top = 0
-      Width = 187
-      Caption = '  Shareware Version'
-      Font.CharSet = ANSI_CHARSET
-      Font.Color = clRed
-      Font.Height = -19
-      Font.Name = 'Arial'
-      Font.Pitch = fpVariable
-      Font.Style = [fsBold]
-      ParentColor = False
-      ParentFont = False
-    end
     object ToolButton1: TToolButton
       Left = 131
       Top = 0

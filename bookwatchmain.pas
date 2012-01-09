@@ -29,7 +29,6 @@ type
   { TmainForm }
   TmainForm = class(TForm)
     accountListMenuItem: TMenuItem;
-    Label2: TLabel;
     MenuItem10: TMenuItem;
     extendMenuList1: TMenuItem;
     extendTheseBooks: TMenuItem;
@@ -451,7 +450,6 @@ end;
 procedure TmainForm.BookListUserSortItemsEvent(sender: TObject;
   var sortColumn: longint; var invertSorting: boolean);
 begin
-  if pos('shareware',lowercase(Label2.Caption))>0 then RefreshListView;
 end;
 
 procedure TmainForm.dailyCheckThreadTimer(Sender: TObject);
@@ -488,43 +486,13 @@ begin
 end;
 
 procedure TmainForm.FormActivate(Sender: TObject);
-var ok3,nok1,nok3:longbool;
-{$include _shareware.inc}
-var nag:TnagWindow;
-    sharewaretest,ok1,ok2,nok2:longbool;
-    user,code:string;
 begin
   if logging then log('FormActivate started');
-  //SHAREWARE CODE
-  {$I obfuscate.inc}
-  user:=sharewareUser;
-  {$I obfuscate.inc}
-  code:=sharewareCode;
-  {$I obfuscate.inc}
-  sharewaretest:=checkShareWare(ok1,nok1,user,code,ok2,nok2);
-  OnActivate:=nil;
-  {$I obfuscate.inc}
-  nag:=TnagWindow.create(nil);
-  //SHAREWARE CODE END
   setPanelText(StatusBar1.Panels[3],{'Datum: '+}DateToStr(currentDate));
   if newVersionInstalled then
     ShowMessage('Das Update wurde installiert.'#13#10'Die installierte Version ist nun Videlibri '+FloatToStr(versionNumber/1000));
   onshow:=nil;
   windowstate:=twindowstate(userConfig.ReadInteger('window','state',integer(windowstate)));
-  //SHAREWARE CODE
-  {$I obfuscate.inc}
-  if (not sharewaretest) then nag.ShowModal
-  else Label2.Caption:='';
-  {$I obfuscate.inc}
-  if sharewaretest <> ok2 then halt;
-  if (ok1=nok1) then halt;
-  if sharewaretest <> ok1 then halt;
-  {$I obfuscate.inc}
-  if 6785<>nag.tag then begin
-    {$I obfuscate.inc}
-    if currentDate>39264 then if nok2 or nok1 then halt;
-  end;
-  //SHAREWARE CODE END
   if accountIDs.count>0 then begin
     RefreshListView;
     if not needApplicationRestart then
@@ -539,9 +507,6 @@ begin
         end;
       until (accountIDs.count<>0) or (Application.MessageBox('Sie müssen ein Konto angeben, um VideLibri benutzen zu können.'#13#10'Wollen Sie eines eingeben?','Videlibri',MB_YESNO or MB_ICONQUESTION)=mrNo);
     end;
-  //SHAREWARE CODE
-  nag.Free;
-  //SHAREWARE CODE END
   if logging then log('FormActivate ended');
   //InternetCheckConnection(FLAG_ICC_FORCE_CONNECTION) ping
     //InternetGetConnectedState (veraltet/get net
@@ -1030,17 +995,11 @@ end;
 procedure TmainForm.RefreshListView;
 var i,j,count,count2:integer;
     book:TBook;
-    sharewaretest:boolean; //für Sharewaretest
     books:TBookLists;
     typ: TBookOutputType;
     criticalSessionUsed,oldList,currentList:boolean;
     account: TCustomAccountAccess;
     maxcharges:currency;
-var ok1,ok2,ok3,nok1,nok2,nok3: longbool; //für Sharewaretest
-    user,code:string;                                      //für Sharewaretest
-    disabledAccoutsExists: Boolean;
-label showOnly10;                  //für Sharewaretest
-{$include _shareware.inc}
 begin
   if logging then log('RefreshListView started');
   lastCheck:=currentDate;
@@ -1068,46 +1027,9 @@ begin
   end;
   BookList.Sort;
 
-  //SHAREWARE CODE
-  {$I obfuscate.inc}
-  user:=sharewareUser;
-  {$I obfuscate.inc}
-  code:=sharewareCode;
-  {$I obfuscate.inc}
-  sharewaretest:=checkShareWare(ok1,nok1,user,code,ok2,nok2);
-  {$I obfuscate.inc}
-  if not sharewaretest then begin
-    showOnly10:
-    BookList.sort;
-    {$I obfuscate.inc}
-    for i:= BookList.items.count-1 downto 10 do begin;
-      {$I obfuscate.inc}
-      BookList.items.Delete(i);
-    end;
-  end;
-
-  if sharewaretest<>ok1 then halt;
-
-  j:=8972;
-  {$I obfuscate.inc}
-  while sharewaretest= nok3 do begin
-    for i:=142 to 2302 do
-      j:=(j+j*i+301) mod 32201;
-    if j<-1 then break;
-  end;
-
-  if nok2=sharewaretest then close;
-  //SHAREWARE CODE END
-
-
   maxcharges:=0;
   for i:=0 to accountIDs.Count-1 do
     maxcharges:=maxcharges+TCustomAccountAccess(accountIDs.Objects[i]).charges;
-
-  //SHAREWARE CODE
-  while ok2<>ok1 do maxcharges:=maxcharges+2;
-  if nok1 = ok1 then close;
-  //SHAREWARE CODE END
 
   if maxcharges>0 then begin
     StatusBar1.Panels[1].text:='Offene Gebühren: '+floattostr(maxcharges)+'€ (';
@@ -1120,11 +1042,6 @@ begin
   end else setPanelText(StatusBar1.Panels[1],'');
   setPanelText(StatusBar1.Panels[SB_PANEL_COUNT],'Medien: '+IntToStr(BookList.Items.Count));
 
-  //SHAREWARE CODE
-  {$I obfuscate.inc}
-  if BookList.Items.count>10 then
-    if nok2 then halt;
-  //SHAREWARE CODE END
 
   if updateThreadConfig.updateThreadsRunning<=0 then begin
     setPanelText(StatusBar1.Panels[0],'Älteste angezeigte Daten sind '+DateToPrettyGrammarStr('vom ','von ',lastCheck));
@@ -1133,47 +1050,7 @@ begin
 
   RefreshShellIntegration();
 
-  //SHAREWARE CODE
-  //Bücherzahl überprüfen
-
   BookList.EndUpdate;
-
-  count:=0;
-  count2:=0;
-  for i:=0 to viewMenu.Count-1 do begin
-    if (viewMenu.Items[i].tag = 0) or (viewMenu.Items[i].tag = -1) then continue;
-    if not viewMenu.Items[i].Checked then continue;
-    books:=TCustomAccountAccess(accountIDs.objects[viewMenu.Items[i].Tag-1]).books;
-           //TCustomAccountAccess(viewMenu.Items[i].Tag).books;
-    if currentList then count+=books.current.Count;
-    if oldList then count+=books.old.Count;
-    if viewMenu.Items[i].Checked then begin
-      if currentList then count2+=books.current.Count;
-      if oldList then count2+=books.old.Count;
-    end;
-  end;
-  setPanelText(StatusBar1.Panels[SB_PANEL_COUNT],StatusBar1.Panels[SB_PANEL_COUNT].Text+'/'+inttostr(count));
-  if count2>BookList.Items.count then begin
-    BookList.BeginUpdate;
-    with BookList.items.Add do begin
-      text:='ACHTUNG';
-      RecordItems.Add('');
-      RecordItems.Add('VideLibri');
-      RecordItems.Add('weitere '+IntToStr(count-BookList.items.count+1)+' Medien ausgeblendet');
-      RecordItems.Add('');
-      RecordItems.Add('');
-      RecordItems.Add('');
-      RecordItems.Add('');
-      RecordItems.Add('Nur die Vollversion zeigt mehr als 10 Medien an.');
-      RecordItems.Add('');
-      RecordItemsText[BL_BOOK_EXTCOLUMNS_COLOR]:='clRed';
-      //SubItems.add('');
-      Tag:=0;
-    end;
-    BookList.EndUpdate;
-  end else if count2>10 then
-    if  (nok1 or not ok3) then close;
-  //SHAREWARE CODE ENDE
 
 
   for i:=0 to viewMenu.Count-1 do begin
