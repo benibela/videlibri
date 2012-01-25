@@ -1,16 +1,17 @@
 <template:meta encoding="iso-8859-1"/>
 <html>
 <body>
- <div class="layoutTable">
-   <div class="midLeft1">
-
-     <div class="spezial3">
-        Offene Gebühren
+ <div class="content">
+   <div class="grau">
+     <form id="leserdaten"> </form>
+     <p class="bezeichner">Offene Gebühren</p>
+     <p class="begriff">
         <template:read source="text()" var="charge" regex="\d+,\d+"/>
         <template:read var="delete-current-books()"/>
-     </div>
-     <div template:optional="true">
-       <table summary="Liste der nicht verlängerbaren Medien" >
+     </p>
+   </div>
+
+       <table summary="Liste der nicht verlängerbaren Medien" template:optional="true">
          <caption>Nicht verlängerbare Ausleihen:<template:read source="text()" var="tempcount" regex="\d+$"/></caption>
          <template:if test="$tempcount;!='0'">                
            <tr>
@@ -39,9 +40,6 @@
          </template:if>                    
        </table>
     
-    </div>
-    
-    <div template:optional="true">
         <table summary="Liste der verlängerbaren Medien" template:optional="true">
          <caption>Verlängerbare Ausleihen:<template:read source="text()" var="tempcount" regex="\d+$"/></caption>
          <template:if test="$tempcount;!='0'">
@@ -70,11 +68,9 @@
          </template:if>
         </table>
  
-   </div>
-  
+
  
-   <div class="spezial1">Hinweis</div>
-   </div>
+   <div class="spezial">Hinweis</div>
  </div>
 </body>
 </html>

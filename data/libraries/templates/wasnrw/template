@@ -4,23 +4,24 @@
 <maxlimit matches="max. Ausleihfrist erreicht"/>
 
 <action id="connect">
-  <page url="http://$server;start?homegkz=111" templateFile="start"/>
+ <!-- <page url="http://$server;start?homegkz=111" templateFile="start"/>-->
+ <page url="https://$server;BenutzerkontoServlet?homegkz=111&Kontoart=Ausleihkonto"/>
 </action>
 <action id="update-all">
   <!--<page url="https://$server;BenutzerkontoServlet;$jsession;?homegkz=111&Kontoart=Ausleihkonto"/>-->
-  <page url="https://$server;BenutzerkontoServlet;$jsession;" templateFile="KontoServlet">
+  <page url="https://$server;BenutzerkontoServlet" templateFile="KontoServlet">
     <post name="Kontoart">Ausleihkonto</post>
     <post name="homegkz">111</post>
     <post name="Anmelden">true</post>
     <post name="Ausweisnummer">$username;</post>
     <post name="Kennwort">$password;</post>
-    <post>Bibliothek=Stadtb%FCchereien D%FCsseldorf</post>    
+    <post>Bibliothek=Stadtb%C3%BCchereien+D%C3%BCsseldorf</post>    
     <post name="Anmelden">Anmelden</post>
   </page>
   <error templateFile="loginError"/>
 </action>
 <action id="extend-all">
-  <page url="https://$server;AusleiheVerlaengerungServlet;$jsession;" templateFile="KontoServlet">
+  <page url="https://$server;AusleiheVerlaengerungServlet" templateFile="KontoServlet">
     <post name="Kontoart">Ausleihkonto</post>
     <post name="Bibliothek">111</post>
     <post name="homegkz">111</post>
