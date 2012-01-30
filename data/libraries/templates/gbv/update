@@ -1,5 +1,6 @@
 <template:meta encoding="utf-8"/>
 <table summary="list of loans - data">
+  <template:read var="delete-current-books()"/>
   <tr>
     <td></td>
     <td></td>
