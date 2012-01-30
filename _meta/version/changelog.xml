@@ -1,9 +1,14 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <?xml-stylesheet type="text/xsl" href="../changelog.xsl"?>
 <changelog program="VideLibri">
-  <build version="1110" date="2011-09-25">
+  <build version="1115" date="2012-01-30">
     <download url="http://videlibri.sourceforge.net/updates/videlibri-setup.exe" platform="WINDOWS" execute="&quot;$DOWNLOAD&quot;  /SP- /noicons &quot;/dir=$OLDPATH;&quot; "/>
     <download url="http://videlibri.sourceforge.net/updates/videlibri-linux64.deb" platform="LINUX64" execute=""/>
+    <change level="minor">Unterstützt die neue BTH Aachen Sisis version</change>
+    <change level="minor">Unterstützt die neue STB Düsseldorf Version</change>
+    <fix level="minor">Kleinere Fehler behoben</fix>
+  </build>
+  <build version="1110" date="2011-09-25">
     <fix level="critical">Fix Crash unter deutschsprachigen Betriebsystemen</fix>
   </build>
   <build version="1100" date="2011-08-16">
