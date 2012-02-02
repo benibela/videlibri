@@ -1,5 +1,7 @@
-h1 {border-bottom: 5px solid red; border-right: 3px solid red; padding: 5px; margin-bottom:0}
-h2 {border-bottom: 3px solid green; border-right: 3px solid green; padding: 5px}
+h1 {border-bottom: 5px solid red; border-right: 3px solid red; padding: 0.3em; margin-bottom:0; background-color: #C00000; color: #DDFFDD; text-align: center}
+h2 {border-bottom: 3px solid green; border-right: 3px solid green; padding: 5px; padding-top: 4em; }
+h2 div {background-color: green; padding: 0.4em}
+h2 a {display: block; max-width: 45em; margin: auto; color: white}
 .f1list {padding-left: 4em; list-style: none}
 .f1list h3 {margin-left: -1em}
 #navigation{
@@ -11,19 +13,28 @@ h2 {border-bottom: 3px solid green; border-right: 3px solid green; padding: 5px}
   margin-bottom: 2em;
   padding: 3px;
   display: block; 
+  padding: 1em;
 }
 
 #navigation li{
   display: inline;
   border-right: 1px solid blue;
-  padding-right: 1em;
-  padding-left: 1em;
   margin: 0;
+  padding-top: 1em;
+  padding-bottom: 1em;  
+  padding-left: 0;
+  padding-right: 0;  
 }
-
-#navigation a{color:#202047; text-decoration: none;}
+#navigation a{color:#202047; text-decoration: none;padding:1em;}
 #navigation a:visited{color:#202047}
-#navigation a:hover {font-weight: bold; color: red}
+#navigation a:hover {color: red; background-color: #AAFFAA}
 .city td{border-top:1px solid #00EE00;}
 .bibsupport a { text-decoration: none; }
 .bibsupport a:hover { text-decoration: underline; }
+
+.content { max-width: 60em; margin-left: auto; margin-right: auto; border-right: 1px solid green; border-left: 1px solid green; padding: 2em }
+
+.content img {margin: 1em;}
+
+th { background-color: #E0FFE0; }
+
