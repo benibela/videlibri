@@ -7,6 +7,8 @@
 <template:switch>
 <TD>Ausgeliehene Medien:<template:read var="delete-current-books()"/><template:read var="bookCount" source="filter(text(),'\d+')"/></TD>
 <TD>keine Medien entliehen<template:read var="delete-current-books()"/><template:read var="bookCount" source="'0'"/></TD>
+<TD>Sie haben keine Medien entliehen<template:read var="delete-current-books()"/><template:read var="bookCount" source="'0'"/></TD>
+<TD>Sie haben keine Medien ausgeliehen<template:read var="delete-current-books()"/><template:read var="bookCount" source="'0'"/></TD>
 </template:switch>
 
 <template:if test="$bookCount;!='0'">
