@@ -51,6 +51,7 @@ const
   DIAGRAM_DAYS=0;
   DIAGRAM_WEEKS=1;
   DIAGRAM_MONTHS=2;
+  DIAGRAM_YEARS=3;
 var
   statistikForm: TstatistikForm;
 
@@ -67,6 +68,8 @@ begin
     //2: translated:= FormatDateTime('m',value);
     DIAGRAM_MONTHS: //translated:= format('%.2d-%.2d',[firstYear+(firstMonth+value) div 12, 1+(firstMonth+value-1) mod 12]);
        translated:= format('%.2d',[1+round(value) mod 12]);
+    DIAGRAM_YEARS:
+       translated:= IntToStr(round(value));
     else translated:= FormatDateTime('d.m',round(value));
   end;
 end;
@@ -178,6 +181,36 @@ begin
           diagramModel.addData(diagramModel.dataRows-1,i+y*12+m-1,totalValues[i]);
 
     end;
+    DIAGRAM_YEARS:  begin
+      DecodeDate(earliestDay,y,m,d);
+      DecodeDate(max(lastDay,currentDate),y2,m2,d2);
+      SetLength(accountValues,y2 - y + 1);
+      SetLength(totalValues,length(accountValues));
+      FillChar(totalValues[0],length(totalValues)*sizeof(totalValues[0]),0);
+      for j:=0 to accountIDs.Count-1 do begin
+        FillChar(accountValues[0],length(accountValues)*sizeof(accountValues[0]),0);
+        books:=TCustomAccountAccess(accountIDs.Objects[j]).books;
+        for k:=-books.old.count to books.current.count-1 do begin //loop about union
+          if k<0 then book:=books.old[-k-1]
+          else book:=books.current[k];
+          checkdate:=book.issueDate;
+          if checkDate = 0 then checkDate:=book.firstExistsDate;
+          if checkDate = 0 then continue;
+          DecodeDate(checkDate,y2,m2,d2);
+          DecodeDate(book.lastExistsDate,y3,m3,d3);
+          for i:=y2 to y3 do begin
+            accountValues[i-y]+=1;
+            totalValues[i-y]+=1;
+          end;
+        end;
+        for i:=0 to high(accountValues) do
+          diagramModel.addData(j,i+y,accountValues[i]);
+      end;
+      if showSum then
+        for i:=0 to high(totalValues) do
+          diagramModel.addData(diagramModel.dataRows-1,i+y,totalValues[i]);
+
+    end;
     else begin//iterate about days
       SetLength(accountValues,max(lastDay,currentDate)-earliestDay+1);
       SetLength(totalValues,length(accountValues));
@@ -277,6 +310,10 @@ begin
       year:=month div 12;
       month:=month mod 12+1;
       mausInfo.Caption:=DateToStr(EncodeDate(word(year),word(month),1))+' - '+DateToStr(IncMonth(EncodeDate(word(year),word(month),1))-1);;
+    end;
+    DIAGRAM_YEARS:  begin
+      year:=round(diagramDrawer.posToDataX(x));
+      mausInfo.Caption:=IntToStr(year);
     end;
   end;
 end;

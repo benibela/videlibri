@@ -37,11 +37,11 @@ object statistikForm: TstatistikForm
     TabOrder = 0
     object Label1: TLabel
       Left = 4
-      Height = 18
+      Height = 16
       Top = 7
-      Width = 202
+      Width = 188
       BorderSpacing.Around = 4
-      Caption = 'Anzahl ausgeliehener Bücher je'
+      Caption = 'Anzahl ausgeliehener BÃ¼cher:'
       ParentColor = False
     end
     object ComboBox1: TComboBox
@@ -49,9 +49,9 @@ object statistikForm: TstatistikForm
       AnchorSideLeft.Side = asrBottom
       AnchorSideTop.Control = Label1
       AnchorSideTop.Side = asrCenter
-      Left = 210
-      Height = 31
-      Top = 1
+      Left = 196
+      Height = 21
+      Top = 5
       Width = 108
       BorderSpacing.Around = 4
       ItemHeight = 0
@@ -59,6 +59,7 @@ object statistikForm: TstatistikForm
         'Tag'
         'Woche'
         'Monat'
+        'Jahr'
       )
       OnSelect = ComboBox1Select
       Style = csDropDownList
@@ -69,10 +70,10 @@ object statistikForm: TstatistikForm
       AnchorSideLeft.Side = asrBottom
       AnchorSideTop.Control = Label1
       AnchorSideTop.Side = asrCenter
-      Left = 322
-      Height = 22
-      Top = 5
-      Width = 137
+      Left = 308
+      Height = 18
+      Top = 6
+      Width = 126
       BorderSpacing.Around = 4
       Caption = 'Summe anzeigen'
       Checked = True
@@ -85,10 +86,10 @@ object statistikForm: TstatistikForm
       AnchorSideLeft.Side = asrBottom
       AnchorSideTop.Control = Label1
       AnchorSideTop.Side = asrCenter
-      Left = 463
-      Height = 22
-      Top = 5
-      Width = 58
+      Left = 438
+      Height = 18
+      Top = 6
+      Width = 20
       BorderSpacing.Around = 4
       Caption = 'füllen'
       OnChange = CheckBox2Change
@@ -108,9 +109,9 @@ object statistikForm: TstatistikForm
       AnchorSideTop.Control = Panel2
       AnchorSideTop.Side = asrCenter
       Left = 8
-      Height = 18
-      Top = 7
-      Width = 39
+      Height = 16
+      Top = 8
+      Width = 37
       Caption = 'Maus:'
       ParentColor = False
     end
@@ -123,7 +124,7 @@ object statistikForm: TstatistikForm
       Width = 75
       Anchors = [akTop, akRight]
       BorderSpacing.InnerBorder = 4
-      Caption = 'Schließen'
+      Caption = 'SchlieÃŸen'
       OnClick = Button1Click
       TabOrder = 0
     end
