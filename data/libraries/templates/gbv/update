@@ -61,10 +61,14 @@
     <td></td><td></td><td></td><td class="value-small">
       <template:switch value="$book.extendId">
         <template:if value="''">
-          <template:switch value="filter(., 'Abholregal')">
+          <template:switch value="filter(., 'Abholregal|Vormerkung')">
             <template:if value="'Abholregal'">
               <template:read var="book.status:curious" source="."/>
-              <template:read var="book.limitdate:dd-mm-yyyy" source="'31-12-2011'"/>
+              <template:read var="book.limitdate:dd-mm-yyyy" source="'31-12-2099'"/>
+            </template:if>
+            <template:if value="'Vormerkung'">
+              <template:read var="book.status:curious" source="."/>
+              <template:read var="book.limitdate:dd-mm-yyyy" source="'31-12-2099'"/>
             </template:if>
             <template:read var="book.status:problematic" source="."/>
           </template:switch>
