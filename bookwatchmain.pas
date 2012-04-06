@@ -535,6 +535,7 @@ begin
   userConfig.WriteString('BookList','ColumnWidths',BookList.serializeColumnWidths);
   userConfig.WriteString('BookList','ColumnVisibility',BookList.serializeColumnVisibility);
 
+  if searcherForm <> nil then searcherForm.saveDefaults;
   FreeAndNil(searcherForm);
   FreeAndNil(BookList);
 end;
@@ -681,7 +682,7 @@ procedure TmainForm.MenuItem25Click(Sender: TObject);
 begin
   if searcherForm=nil then searcherForm:=TbookSearchFrm.Create(nil);
   searcherForm.loadDefaults;
-  searcherForm.ShowModal;
+  searcherForm.Show;
   searcherForm.saveDefaults;
 
 end;
@@ -760,7 +761,7 @@ begin
   if searcherForm=nil then searcherForm:=TbookSearchFrm.Create(nil);
   searcherForm.selectBookToReSearch(tbook(BookList.Selected.data.obj));
   if TComponent(sender).tag<>1 then searcherForm.startSearch.Click;
-  searcherForm.ShowModal;
+  searcherForm.Show;
 end;
 
 procedure TmainForm.repeatedCheckTimerTimer(Sender: TObject);
