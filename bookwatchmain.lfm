@@ -4,7 +4,7 @@ object mainForm: TmainForm
   Top = 34
   Width = 927
   Caption = 'Videlibri'
-  ClientHeight = 626
+  ClientHeight = 632
   ClientWidth = 927
   Menu = MainMenu1
   OnActivate = FormActivate
@@ -17,8 +17,8 @@ object mainForm: TmainForm
   LCLVersion = '0.9.31'
   object StatusBar1: TStatusBar
     Left = 0
-    Height = 25
-    Top = 601
+    Height = 19
+    Top = 613
     Width = 927
     Panels = <    
       item
@@ -91,7 +91,7 @@ object mainForm: TmainForm
         end
       end
       object MenuItem10: TMenuItem
-        Caption = 'Verlängern'
+        Caption = 'VerlÃ¤ngern'
         object extendMenuList1: TMenuItem
           Tag = 9999
           Caption = 'Alle Medien'
@@ -101,7 +101,7 @@ object mainForm: TmainForm
           end
         end
         object extendMenuList2_: TMenuItem
-          Caption = 'abhängig von der Abgabefrist'
+          Caption = 'abhÃ¤ngig von der Abgabefrist'
           object extendMenuList2_1: TMenuItem
             Tag = 7
             Caption = 'in einer Woche'
@@ -169,7 +169,7 @@ object mainForm: TmainForm
       end
       object ViewOld: TMenuItem
         Tag = -1
-        Caption = 'Früher ausgeliehene Medien'
+        Caption = 'FrÃ¼her ausgeliehene Medien'
         GroupIndex = 1
         RadioItem = True
         OnClick = ViewAllClick
@@ -216,7 +216,7 @@ object mainForm: TmainForm
         OnClick = ShowOptionsClick
       end
       object MenuItem18: TMenuItem
-        Caption = 'Auf &Updates prüfen'
+        Caption = 'Auf &Updates prÃ¼fen'
         OnClick = MenuItem18Click
       end
     end
@@ -235,7 +235,7 @@ object mainForm: TmainForm
         OnClick = MenuItem16Click
       end
       object MenuItem17: TMenuItem
-        Caption = 'Über Videlibri'
+        Caption = 'Ãœber Videlibri'
         OnClick = MenuItem17Click
       end
     end
