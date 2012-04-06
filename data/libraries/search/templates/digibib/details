@@ -21,8 +21,8 @@
       </t:loop></table>
    </dd>
 
-   <dt>Bestand</dt>      
-   <td>
+   <dt t:optional="true">Bestand</dt>      
+   <td t:optional="true">
      <template:loop>
        <a template:optional="true"><template:read var="book.home-url" source="@href"/></a>
      </template:loop>
