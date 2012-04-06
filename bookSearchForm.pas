@@ -6,7 +6,7 @@ interface
 
 uses
   Classes, SysUtils, LResources, Forms, Controls, Graphics, Dialogs, ExtCtrls,
-  CheckLst, StdCtrls,bookListView, ComCtrls,librarySearcher,booklistreader,TreeListView,math,
+  CheckLst, StdCtrls,bookListView, ComCtrls, Menus,librarySearcher,booklistreader,TreeListView,math,
   librarySearcherAccess;
 
 type
@@ -16,6 +16,9 @@ type
   TbookSearchFrm = class(TForm)
     Label10: TLabel;
     Label11: TLabel;
+    Label12: TLabel;
+    Label13: TLabel;
+    saveToAccountMenu: TPopupMenu;
     searchAuthorHint: TLabel;
     Label7: TLabel;
     Label8: TLabel;
@@ -49,6 +52,9 @@ type
     procedure bookListSelect(sender: TObject; item: TTreeListItem);
     procedure displayImageChange(Sender: TObject);
     procedure FormKeyUp(Sender: TObject; var Key: Word; Shift: TShiftState);
+    procedure Label12Click(Sender: TObject);
+    procedure Label13Click(Sender: TObject);
+    procedure Label2Click(Sender: TObject);
     procedure searchAuthorEnter(Sender: TObject);
     procedure searchAuthorExit(Sender: TObject);
     procedure searchTitleChange(Sender: TObject);
@@ -79,6 +85,9 @@ type
     procedure selectBookToReSearch(book: TBook);
     procedure loadDefaults;
     procedure saveDefaults;
+  public
+    saveToDefaultAccountID: string;
+    procedure changeDefaultSaveToAccount(sender:tobject);
   end;
 
 var
@@ -133,6 +142,7 @@ begin
     text:='Wert';
     width:=200;
   end;
+
 
   Image1.Width:=0;
 end;
@@ -215,6 +225,44 @@ begin
  else if key = VK_ESCAPE then close
  else exit;
  key:=0;
+end;
+
+procedure TbookSearchFrm.Label12Click(Sender: TObject);
+var temp:TBook;
+    acc: TCustomAccountAccess;
+    i: Integer;
+begin
+  if displayedBook = nil then exit;
+  if accountIDs.Count = 0 then exit;
+  searcherAccess.beginBookReading;
+  temp := tbook.create;
+  temp.assignNoReplace(displayedBook);
+  temp.author:=displayedBook.author;
+  temp.title:=displayedBook.title;
+  temp.year:=displayedBook.year;
+  temp.id:=displayedBook.id;
+  searcherAccess.endBookReading;
+
+  temp.issueDate:=-2;
+  temp.limitDate:=-2;
+
+  acc := TCustomAccountAccess(accountIDs.Objects[0]);
+  for i:=1 to accountIDs.Count-1 do
+    if accountIDs[i] = saveToDefaultAccountID then acc := TCustomAccountAccess(accountIDs.Objects[i]);
+  if acc.isThreadRunning then begin ShowMessage('Während dem Aktualisieren können keine weiteren Medien gespeichert werden.'); exit; end;
+  acc.books.old.add(temp);
+  acc.save();
+  mainForm.RefreshListView;
+end;
+
+procedure TbookSearchFrm.Label13Click(Sender: TObject);
+begin
+  saveToAccountMenu.PopUp;
+end;
+
+procedure TbookSearchFrm.Label2Click(Sender: TObject);
+begin
+
 end;
 
 procedure TbookSearchFrm.searchAuthorEnter(Sender: TObject);
@@ -499,6 +547,7 @@ begin
   loadComboBoxItems(searchKeywords);
   loadComboBoxItems(searchYear);
   loadComboBoxItems(searchISBN);
+  saveToDefaultAccountID := userConfig.ReadString('BookSearcher','default-save-to', '');
 end;
 
 procedure TbookSearchFrm.saveDefaults;
@@ -518,6 +567,17 @@ begin
   saveComboBoxItems(searchKeywords);
   saveComboBoxItems(searchYear);
   saveComboBoxItems(searchISBN);
+  userConfig.WriteString('BookSearcher','default-save-to', saveToDefaultAccountID);
+end;
+
+procedure TbookSearchFrm.changeDefaultSaveToAccount(sender: tobject);
+
+begin
+  if not (sender is TMenuItem) then exit;
+  if tmenuitem(sender).Tag <= 1 then tmenuitem(sender).Tag := 1;
+  if tmenuitem(sender).Tag > accountIDs.count then tmenuitem(sender).Tag := accountIDs.count;
+  saveToDefaultAccountID := accountIDs[tmenuitem(sender).Tag-1];
+  tmenuitem(sender).Checked:=true;
 end;
 
 initialization

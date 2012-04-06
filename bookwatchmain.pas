@@ -680,7 +680,7 @@ end;
 
 procedure TmainForm.MenuItem25Click(Sender: TObject);
 begin
-  if searcherForm=nil then searcherForm:=TbookSearchFrm.Create(nil);
+  if searcherForm=nil then begin searcherForm:=TbookSearchFrm.Create(nil); searcherForm.loadDefaults; refreshAccountGUIElements(); end;
   searcherForm.loadDefaults;
   searcherForm.Show;
   searcherForm.saveDefaults;
@@ -722,6 +722,7 @@ procedure TmainForm.removeSelectedMIClick(Sender: TObject);
 var i:longint;
     accountsToSave: tlist;
     book: TBook;
+    count: Integer;
 begin
   if updateThreadConfig.updateThreadsRunning>0 then begin
     ShowMessage('Diese Aktion kann nicht durchgeführt werden, solange Medien aktualisiert werden.') ;
@@ -736,6 +737,14 @@ begin
         ShowMessage('Es sind momentan ausgeliehene Medien markiert, es können aber nur abgegebene Medien aus der History gelöscht werden'#13#10'Bitte demarkieren Sie sie.');
         exit;
       end;
+  count := 0;
+  for i:=0 to BookList.Items.count-1 do
+    if (BookList.Items[i].Selected) then count+=1;
+  if count = 0 then exit;
+  if MessageDlg('Löschen',
+                  'Sind Sie sicher, dass Sie ' + IntToStr(count) + ' Medium/Medien löschen wollen?',
+                  mtConfirmation ,[mbYes,mbNo],0)<>mrYes then exit;
+
   accountsToSave:=tlist.Create;
   try
     for i:=0 to BookList.Items.count-1 do
@@ -758,7 +767,7 @@ end;
 procedure TmainForm.displayDetailsMIClick(Sender: TObject);
 begin
   if (BookList.Selected = nil) or (BookList.Selected.data.obj=nil) then exit;
-  if searcherForm=nil then searcherForm:=TbookSearchFrm.Create(nil);
+  if searcherForm=nil then begin searcherForm:=TbookSearchFrm.Create(nil); searcherForm.loadDefaults; refreshAccountGUIElements(); end;
   searcherForm.selectBookToReSearch(tbook(BookList.Selected.data.obj));
   if TComponent(sender).tag<>1 then searcherForm.startSearch.Click;
   searcherForm.Show;
@@ -1161,6 +1170,17 @@ begin
     addToMenuItem(extendMenuList1,@UserExtendMenuClick,i);
     for j:=0 to extendMenuList2_.Count-1 do
       addToMenuItem(extendMenuList2_[j],@UserExtendMenuClick,i);
+  end;
+
+  if searcherForm <> nil then begin
+    searcherForm.saveToAccountMenu.Items.Clear;
+    for i:=0 to accountIDs.Count-1 do begin
+      temp := newItem(searcherForm.saveToAccountMenu,@searcherForm.changeDefaultSaveToAccount,i);
+      temp.GroupIndex:=124;
+      temp.RadioItem:=true;
+      searcherForm.saveToAccountMenu.Items.Add(temp);
+      if (i = 0) or (searcherForm.saveToDefaultAccountID = accountIDs[i]) then temp.Checked:=true;
+    end;
   end;
 end;
 

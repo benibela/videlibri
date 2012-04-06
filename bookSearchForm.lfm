@@ -1,12 +1,12 @@
 object bookSearchFrm: TbookSearchFrm
   Left = 308
-  Height = 567
+  Height = 578
   Top = 173
-  Width = 800
+  Width = 801
   ActiveControl = optionPanel
   Caption = 'Suche in der DigiBib.net'
-  ClientHeight = 567
-  ClientWidth = 800
+  ClientHeight = 578
+  ClientWidth = 801
   KeyPreview = True
   OnCreate = FormCreate
   OnDestroy = FormDestroy
@@ -14,11 +14,11 @@ object bookSearchFrm: TbookSearchFrm
   LCLVersion = '0.9.31'
   object optionPanel: TPanel
     Left = 0
-    Height = 548
+    Height = 559
     Top = 0
     Width = 243
     Align = alLeft
-    ClientHeight = 548
+    ClientHeight = 559
     ClientWidth = 243
     TabOrder = 0
     OnClick = optionPanelClick
@@ -118,7 +118,7 @@ object bookSearchFrm: TbookSearchFrm
       AnchorSideTop.Side = asrBottom
       AnchorSideBottom.Control = displayImage
       Left = 8
-      Height = 159
+      Height = 170
       Top = 341
       Width = 228
       Anchors = [akTop, akLeft, akRight, akBottom]
@@ -200,7 +200,7 @@ object bookSearchFrm: TbookSearchFrm
     object displayInternalProperties: TCheckBox
       Left = 8
       Height = 18
-      Top = 526
+      Top = 537
       Width = 192
       Anchors = [akLeft, akBottom]
       Caption = 'alle Eigenschaften auflisten'
@@ -210,7 +210,7 @@ object bookSearchFrm: TbookSearchFrm
     object displayImage: TCheckBox
       Left = 8
       Height = 18
-      Top = 506
+      Top = 517
       Width = 104
       Anchors = [akLeft, akBottom]
       Caption = 'Bild anzeigen'
@@ -246,19 +246,19 @@ object bookSearchFrm: TbookSearchFrm
   end
   object bookListPanel: TPanel
     Left = 248
-    Height = 548
+    Height = 559
     Top = 0
-    Width = 552
+    Width = 553
     Align = alClient
-    ClientHeight = 548
-    ClientWidth = 552
+    ClientHeight = 559
+    ClientWidth = 553
     TabOrder = 1
     object Splitter2: TSplitter
       Cursor = crVSplit
       Left = 1
       Height = 5
-      Top = 313
-      Width = 550
+      Top = 324
+      Width = 551
       Align = alBottom
       Beveled = True
       ResizeAnchor = akBottom
@@ -266,15 +266,15 @@ object bookSearchFrm: TbookSearchFrm
     object detailPanel: TPanel
       Left = 1
       Height = 209
-      Top = 318
-      Width = 550
+      Top = 329
+      Width = 551
       Align = alBottom
       BevelOuter = bvNone
       ClientHeight = 209
-      ClientWidth = 550
+      ClientWidth = 551
       TabOrder = 1
       object Image1: TImage
-        Left = 444
+        Left = 445
         Height = 209
         Top = 0
         Width = 106
@@ -283,7 +283,7 @@ object bookSearchFrm: TbookSearchFrm
         Proportional = True
       end
       object Splitter3: TSplitter
-        Left = 439
+        Left = 440
         Height = 209
         Top = 0
         Width = 5
@@ -294,29 +294,62 @@ object bookSearchFrm: TbookSearchFrm
     object Panel1: TPanel
       Left = 1
       Height = 20
-      Top = 527
-      Width = 550
+      Top = 538
+      Width = 551
       Align = alBottom
       ChildSizing.EnlargeHorizontal = crsHomogenousChildResize
       ChildSizing.Layout = cclLeftToRightThenTopToBottom
-      ChildSizing.ControlsPerLine = 5
+      ChildSizing.ControlsPerLine = 7
       ClientHeight = 20
-      ClientWidth = 550
+      ClientWidth = 551
       TabOrder = 2
-      object Label2: TLabel
+      object Label12: TLabel
+        Cursor = crHandPoint
         Left = 0
         Height = 16
         Top = 0
-        Width = 184
-        Caption = 'Dieses Buch im Internet:'
+        Width = 96
+        Alignment = taCenter
+        Caption = 'Speichern'
+        Font.Color = clBlue
+        Font.Height = -13
+        Font.Name = 'Sans'
+        Font.Style = [fsBold]
         ParentColor = False
+        ParentFont = False
+        OnClick = Label12Click
+      end
+      object Label13: TLabel
+        Cursor = crHandPoint
+        Left = 96
+        Height = 16
+        Top = 0
+        Width = 54
+        Caption = 'in \/'
+        Font.Color = clBlue
+        Font.Style = [fsItalic]
+        ParentColor = False
+        ParentFont = False
+        PopupMenu = saveToAccountMenu
+        OnClick = Label13Click
+      end
+      object Label2: TLabel
+        Left = 150
+        Height = 16
+        Top = 0
+        Width = 59
+        Alignment = taRightJustify
+        Caption = 'Mehr:'
+        ParentColor = False
+        OnClick = Label2Click
       end
       object Label3: TLabel
         Cursor = crHandPoint
-        Left = 184
+        Left = 209
         Height = 16
         Top = 0
-        Width = 96
+        Width = 90
+        Alignment = taCenter
         Caption = 'digibib.net'
         Font.Color = clBlue
         Font.Style = [fsUnderline]
@@ -326,10 +359,11 @@ object bookSearchFrm: TbookSearchFrm
       end
       object Label4: TLabel
         Cursor = crHandPoint
-        Left = 280
+        Left = 299
         Height = 16
         Top = 0
-        Width = 85
+        Width = 79
+        Alignment = taCenter
         Caption = 'Bücherei'
         Font.Color = clBlue
         Font.Style = [fsUnderline]
@@ -339,10 +373,11 @@ object bookSearchFrm: TbookSearchFrm
       end
       object Label5: TLabel
         Cursor = crHandPoint
-        Left = 365
+        Left = 378
         Height = 16
         Top = 0
-        Width = 98
+        Width = 92
+        Alignment = taCenter
         Caption = 'amazon.de'
         Font.Color = clBlue
         Font.Style = [fsUnderline]
@@ -352,10 +387,11 @@ object bookSearchFrm: TbookSearchFrm
       end
       object Label6: TLabel
         Cursor = crHandPoint
-        Left = 463
+        Left = 470
         Height = 16
         Top = 0
-        Width = 87
+        Width = 81
+        Alignment = taCenter
         Caption = 'google.de'
         Font.Color = clBlue
         Font.Style = [fsUnderline]
@@ -367,7 +403,7 @@ object bookSearchFrm: TbookSearchFrm
   end
   object Splitter1: TSplitter
     Left = 243
-    Height = 548
+    Height = 559
     Top = 0
     Width = 5
     Beveled = True
@@ -375,8 +411,8 @@ object bookSearchFrm: TbookSearchFrm
   object StatusBar1: TStatusBar
     Left = 0
     Height = 19
-    Top = 548
-    Width = 800
+    Top = 559
+    Width = 801
     Panels = <    
       item
         Width = 200
@@ -388,5 +424,9 @@ object bookSearchFrm: TbookSearchFrm
         Width = 50
       end>
     SimplePanel = False
+  end
+  object saveToAccountMenu: TPopupMenu
+    left = 408
+    top = 520
   end
 end

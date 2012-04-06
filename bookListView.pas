@@ -177,9 +177,10 @@ begin
     RecordItemsText[BL_BOOK_COLUMNS_TITLE] := book.title;
     RecordItemsText[BL_BOOK_COLUMNS_YEAR] := book.year;
     RecordItemsText[BL_BOOK_COLUMNS_ISSUE_ID] := DateToPrettyStr(book.issueDate);
-    if book.lend = false then
-     RecordItemsText[BL_BOOK_COLUMNS_LIMIT_ID] := 'erledigt'
-    else
+    if book.lend = false then begin
+      if book.limitDate = -2 then RecordItemsText[BL_BOOK_COLUMNS_LIMIT_ID] := 'nie'
+      else RecordItemsText[BL_BOOK_COLUMNS_LIMIT_ID] := 'erledigt'
+    end else
      RecordItemsText[BL_BOOK_COLUMNS_LIMIT_ID] := DateToPrettyStr(book.limitDate);
     if book.owner<>nil then RecordItemsText[BL_BOOK_COLUMNS_ACCOUNT] := (book.owner as TCustomAccountAccess).prettyName
     else RecordItemsText[BL_BOOK_COLUMNS_ACCOUNT] := 'unbekannt';

@@ -22,6 +22,7 @@ type
   //protected
     //persistent
     id,author,title,year:string; //schlüssel
+    isbn: string;
     category,statusStr,otherInfo: string;
     issueDate,limitDate:longint;
     status: TBookStatus;
@@ -247,6 +248,7 @@ var i:longint;
 begin
   if book=nil then exit;
   if category='' then category:=book.category;
+  if isbn='' then isbn:=book.isbn;
   if statusStr='' then statusStr:=book.statusStr;
   if otherInfo='' then otherInfo:=book.otherInfo;
   if issueDate=0 then issueDate:=book.issueDate;
@@ -485,6 +487,7 @@ begin
       status:=TBookStatus(StrToInt(truncNull(line)));
       year:=truncNullDef(line,'');
       firstExistsDate:=StrToInt(truncNullDef(line,'0'));
+      isbn:=truncNullDef(line,'0');
       lend:=self.lendList;
       owner:=self.owner;
       //list:=self;
@@ -511,7 +514,7 @@ begin
       if not (status in [bsProblematicInStr,bsCuriousInStr]) then statusStr:='';
       writeln(text,id+#0+category+#0+author+#0+title+#0+statusStr+#0+otherInfo+#0+
                    IntToStr(issueDate)+#0+IntToStr(limitDate)+#0+
-                   IntToStr(lastExistsDate)+#0+inttostr(integer(status))+#0+year+#0+IntToStr(firstExistsDate)+#0)
+                   IntToStr(lastExistsDate)+#0+inttostr(integer(status))+#0+year+#0+IntToStr(firstExistsDate)+#0+isbn)
     end;
   close(text);
   if logging then

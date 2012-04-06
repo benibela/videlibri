@@ -666,7 +666,8 @@ uses bookwatchmain,internetaccess,controls,libraryaccess,math,FileUtil,bbutils,b
 
   function DateToPrettyStr(const date: tdatetime):string;
   begin
-    if date=0 then result:='unbekannt'
+    if date=-2 then result:='nie'
+    else if date=0 then result:='unbekannt'
     else case trunc(date-currentDate) of
       -2: result:='vorgestern';
       -1: result:='gestern';
@@ -680,7 +681,8 @@ uses bookwatchmain,internetaccess,controls,libraryaccess,math,FileUtil,bbutils,b
   function DateToPrettyGrammarStr(preDate,preName: string; const date: tdatetime
     ): string;
   begin
-    if date=0 then result:='unbekannt'
+    if date=-2 then result:='nie'
+    else if date=0 then result:='unbekannt'
     else case trunc(date-currentDate) of
       -2: result:=preName+'vorgestern';
       -1: result:=preName+'gestern';
