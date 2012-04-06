@@ -164,16 +164,27 @@ begin
       1: strSaveToFile(FileNameEdit1.Text,strConvertFromUtf8(exportStr,eWindows1252)); //exportStr is UTF-8, convert to ANSI
       2: strSaveToFile(FileNameEdit1.Text,exportStr); //exportStr is UTF-8, no convert
     end;
+
+    userConfig.WriteInteger('BibTeX-Export', 'Which', exportWhich.ItemIndex);
+    userConfig.WriteBool('BibTeX-Export', 'Clipboard', clipboardExport.Checked);
+    userConfig.WriteString('BibTeX-Export', 'Filename', FileNameEdit1.Text);
+    userConfig.WriteInteger('BibTeX-Export', 'Charset', RadioGroup1.ItemIndex);
+
 end;
 
 procedure TBibTexExportFrm.FormCreate(Sender: TObject);
 begin
-
 end;
 
 procedure TBibTexExportFrm.FormShow(Sender: TObject);
 begin
-  exportWhich.Controls[1].Enabled:=mainForm.BookList.SelCount<>0;
+  exportWhich.ItemIndex := userConfig.ReadInteger('BibTeX-Export', 'Which', 1);
+  clipboardExport.Checked := userConfig.ReadBool('BibTeX-Export', 'Clipboard', false);
+  FileNameEdit1.Text:= userConfig.ReadString('BibTeX-Export', 'Filename', '');
+  RadioGroup1.ItemIndex := userConfig.ReadInteger('BibTeX-Export', 'Charset', 2);
+  exportWhich.Controls[1].Enabled:=(mainForm.BookList.SelCount<>0);
+  if not exportWhich.Controls[1].Enabled then
+    exportWhich.ItemIndex:=0;
 end;
 
 
