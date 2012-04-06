@@ -1,7 +1,7 @@
 object mainForm: TmainForm
-  Left = 71
+  Left = 555
   Height = 655
-  Top = 34
+  Top = 25
   Width = 927
   Caption = 'Videlibri'
   ClientHeight = 632
@@ -1141,24 +1141,24 @@ object mainForm: TmainForm
     left = 96
     top = 104
     object searchDetailsMI: TMenuItem
-      Caption = 'Details für dieses Buch suchen...'
+      Caption = 'Details fÃ¼r dieses Buch suchen...'
       OnClick = displayDetailsMIClick
     end
     object displayDetailsMI: TMenuItem
       Tag = 1
-      Caption = 'Details für dieses Buch im Suchfenster anzeigen...'
+      Caption = 'Details fÃ¼r dieses Buch im Suchfenster anzeigen...'
       OnClick = displayDetailsMIClick
     end
     object extendTheseBooks: TMenuItem
-      Caption = 'Mindestens alle ausgewählten Medien verlängern'
+      Caption = 'Mindestens alle ausgewÃ¤hten Medien verlÃ¤ngern'
       OnClick = MenuItem11Click
     end
     object extendAdjacentBooks: TMenuItem
-      Caption = 'Alle Medien dieses Kontos verlängern'
+      Caption = 'Alle Medien dieses Kontos verlÃ¤ngern'
       OnClick = extendAdjacentBooksClick
     end
     object removeSelectedMI: TMenuItem
-      Caption = 'Markierte Medien aus der History löschen'
+      Caption = 'Markierte Medien aus der History lÃ¶schen'
       OnClick = removeSelectedMIClick
     end
   end
