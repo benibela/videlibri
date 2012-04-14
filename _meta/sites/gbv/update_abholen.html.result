@@ -1,3 +1,4 @@
+delete-current-books()=
 book-start()=
 book.extendId=
 book.extendId=1049957
@@ -22,5 +23,5 @@ book.title=Grundriss
 book.author=D. Semmel
 book.id=SUB-SM:A 1923/1234
 book.status:curious=Abholregal (Ausleihzentrum)
-book.limitdate:dd-mm-yyyy=31-12-2011
+book.limitdate:dd-mm-yyyy=31-12-2099
 book-end()=

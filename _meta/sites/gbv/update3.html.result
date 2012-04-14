@@ -1,3 +1,4 @@
+delete-current-books()=
 book-start()=
 book.extendId=
 book.extendId=105005296
