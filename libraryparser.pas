@@ -823,9 +823,9 @@ procedure TTemplateAccountAccess.setVariables();
 var i:longint;
 begin
   for i:=0 to lib.defaultVariables.count-1 do
-    reader.parser.variableChangeLog.Values[lib.defaultVariables.Names[i]]:=lib.defaultVariables.ValueFromIndex[i];
-  reader.parser.variableChangeLog.Values['username']:=user;
-  reader.parser.variableChangeLog.Values['password']:=passWord;
+    reader.parser.variableChangeLog.ValuesString[lib.defaultVariables.Names[i]]:=lib.defaultVariables.ValueFromIndex[i];
+  reader.parser.variableChangeLog.ValuesString['username']:=user;
+  reader.parser.variableChangeLog.ValuesString['password']:=passWord;
 end;
 
 
@@ -928,7 +928,7 @@ begin
       bookListStr+= reader.parser.replaceVars(extendAction^.singleBookStr);
     end;
     if logging then log('bookList (count: '+inttostr(booksToExtend.count)+') is: '+bookListStr);
-    reader.parser.variableChangeLog.Values['book-list']:=bookListStr;
+    reader.parser.variableChangeLog.ValuesString['book-list']:=bookListStr;
     reader.performAction(extendAction^);
   end else if reader.findAction('extend-single')<>nil then begin
     if logging then log('use extendSingle Template');

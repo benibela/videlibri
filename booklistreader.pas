@@ -932,12 +932,12 @@ end;
 procedure TBookListReader.selectBook(book: TBook);
 var i:longint;
 begin
-  parser.variableChangeLog.Values['book.id']:=book.id;
-  parser.variableChangeLog.Values['book.author']:=book.author;
-  parser.variableChangeLog.Values['book.title']:=book.title;
-  parser.variableChangeLog.Values['book.year']:=book.year;
+  parser.variableChangeLog.ValuesString['book.id']:=book.id;
+  parser.variableChangeLog.ValuesString['book.author']:=book.author;
+  parser.variableChangeLog.ValuesString['book.title']:=book.title;
+  parser.variableChangeLog.ValuesString['book.year']:=book.year;
   for i:=0 to high(book.additional) do
-    parser.variableChangeLog.Values['book.'+book.additional[i].name]:=book.additional[i].value;
+    parser.variableChangeLog.ValuesString['book.'+book.additional[i].name]:=book.additional[i].value;
   currentBook:=book;
 end;
 
