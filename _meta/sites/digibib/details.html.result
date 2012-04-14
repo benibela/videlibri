@@ -1,13 +1,6 @@
-currentfield=Titel
-book.Titel!=Die Krieger : Roman
-currentfield=Autor/in
-book.Autor/in!=Pierre Grimbert. Aus dem Franz. von Sonja Finck und Nadine Püschel
-currentfield=Ausgabe
-book.Ausgabe!=Dt. Erstausg.
-currentfield=Ort/Verlag
-book.Ort/Verlag!=München : Heyne
-currentfield=Standort
-book.id=WebOPAC
-book.home-url=http://was.duesseldorf.de/WebOPAC/QueryPanelServlet?homegkz=111&Suchbegriff=idnr=99.464145.1&Kriterium=Titel&Medienart=alle&Bibliothek=Stadtb%FCchereien%20D%FCsseldorf&x=43&y=6
-book.amazon-url=http://www.amazon.de/exec/obidos/ASIN//digitalebiblio02
-book.image-url=http://images-eu.amazon.com/images/P/.03.MZZZZZZZ.jpg
+currentfield=Titel:
+book.Titel:!=Beltz- Test
+currentfield=Ort / Verlag, Jahr:
+book.Ort / Verlag, Jahr:!=Göttingen, Bern , Wien , Paris , Oxford , Prag , Toronto , Cambridge, Mass. , Amsterdam , Kopenhagen , Stockholm : Hogrefe
+currentfield=Sonstiges:
+book.Sonstiges:!=Ungezählte Schriftenreihe

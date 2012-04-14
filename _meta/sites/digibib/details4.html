@@ -1,372 +1,587 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html lang="de" xml:lang="de" xmlns="http://www.w3.org/1999/xhtml">
- <head>
-  <link rel="stylesheet" type="text/css" href="/DUEBIB/css/main.css" />
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-  <script type="text/javascript" src="/js/global.js"></script>
-  <script type="text/javascript" src="/js/search.js"></script>
-  <title>DigiBib</title>
- </head>
- <body>
- <a name="start"></a>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="de" lang="de">
+  <head>
+    
+    <title>Einzeltrefferanzeige - DigiBib :: Digitale Bibliothek</title>
+    <meta http-equiv="Content-type"  content="text/html; charset=utf-8" />
+    <link href="favicon.ico" rel="shortcut icon" type="image/x-icon" />
 
- <table summary="" width="100%" cellspacing="0" cellpadding="2" border="0" style="text-align:left;">
-  <tr>
-   <td class="pagenav" rowspan="2">
-    <a href="#ende"><img src="/DUEBIB/img/pfeil_unten.gif" width="9" height="6" alt="" border="0" /></a>
-   </td>
-   <td colspan="4">
-    <h1>Hochschulbibliothek der FH Düsseldorf: Treffer 16 von
-    16</h1>
-   </td>
-  </tr>
-  <tr>
-   <td colspan="4" align="right">
-    <table border="0" summary="" cellspacing="0" cellpadding="1">
-     <tr>
+    <link href="/css/yaml/core/slim_base.css" rel="stylesheet" type="text/css"/>
+    <link href="/css/yaml/screen/forms.css" rel="stylesheet" type="text/css"/>
+    <link href="/css/digibib_vlist.css" rel="stylesheet" type="text/css"/>
+
+    <link href="/css/digibib.css" rel="stylesheet" type="text/css"/>
+    <link href="/css/print.css" rel="stylesheet" media="print" type="text/css" />
+    <link href="/DUEBIB/css/location.css" rel="stylesheet" type="text/css"/>
+    <!--[if lte IE 7]>
+    <link href="/DUEBIB/css/patch_ie.css" rel="stylesheet" type="text/css" />
+    <![endif]-->
+
+    <script type="text/javascript">var sid = "PHOBOS:2092234500"; var alreadyIncluded = new Object; var loc = "DUEBIB";</script>
+    <script type="text/javascript" src="/js/jquery-1.4.2/jquery.min.js"></script>
+    <script type="text/javascript" src="/js/d6-1.0/digibib.js"></script>
+
+    <script type="text/javascript" src="/DUEBIB/js/location.js"></script>
+  </head>
+
+
 
  
+
+
+
+
+
+
+  <body>
+
+    <div class="page_margins">
+      <a name="top"></a>
+      <div class="page">
+
+                
+        <!-- skip link navigation -->
+        <h6 class="hideme">Schnellnavigation</h6>
+        <a class="skip" href="#s-nav">Zur Navigation springen</a><span class="hideme">.</span>
+        <a class="skip" href="#s-content">Zum Inhalt springen</a><span class="hideme">.</span>
+        <!-- seitenkopf -->
+        <div id="header">
+
+          <div id="header_col_left">
+            <p>
+            
+              <a href="/Digibib?SID=PHOBOS:2092234500&amp;LOCATION=DUEBIB&amp;SERVICE=TEMPLATE&amp;SUBSERVICE=TO_CUSTOMER_SITE"><img src="/DUEBIB/img/logo.gif" title="Zur Website der Bibliothek" alt="Logo der Bibliothek" id="loc_logo" /></a>
+            
+            </p>
+          </div>
+          <div id="header_col_middle"></div>
+          <div id="header_col_right"></div>
+
+          <div id="topnav">
+
+            <h6 class="hideme"><a name="s-additionals">Hilfsnavigation und An- bzw. Abmeldung</a></h6> <!-- Gliederung & Skiplink-Anker: Additionals -->
+            <ul>
+              <li><a href="/Digibib?SID=PHOBOS:2092234500&amp;LOCATION=DUEBIB&amp;SERVICE=TEMPLATE&amp;SUBSERVICE=STARTPAGE&amp;LANGUAGE=en" lang="en" xml:lang="en" title="Switch to English" class="langswitch"><img src="/img/flag-switch-de.png" alt="" style="width:16px;height:11px;vertical-align:bottom;padding-bottom:3px;" /> English</a><span class="hideme">.</span></li>
+
   
-      <td>
-       <form name="AvailForm" action="/Digibib" method="post" class="smaller">
-        <input type="hidden" name="SERVICE"    value="AVAIL" />
-        <input type="hidden" name="SUBSERVICE" value="AVAILFRAMESET" />
-        <input type="hidden" name="SID"        value="ABDEROS:1405410671" />
-        <input type="hidden" name="LOCATION"   value="DUEBIB" />
-        <input type="hidden" name="AVAILROOT"  value="/SEARCH_FHBDUE/SESSION[@id='ID_16']/FORMAT[@id='Full']/PART[@id='1']" />
-        <input type="hidden" name="INDEX"      value="16" />
-        <input type="hidden" name="hit_count"  value="-" />
-        <input type="hidden" name="listcount"  value="200" />
-        <input type="hidden" name="xreqid"     value="ABDEROS:2068261004" />
-        <input type="hidden" name="metaid"     value="232" />
-        <input type="submit" value="Verfügbarkeit ermitteln" class="button"/>&nbsp;
-       </form>
-      </td>
-      <td>
-       <form name="CartForm" action="/Digibib" method="post" target="DigiBib_cartmsg" onsubmit="openMsgWin('','DigiBib_cartmsg')" class="smaller">
-        <input type="hidden" name="SID"        value="ABDEROS:1405410671" />
-        <input type="hidden" name="LOCATION"   value="DUEBIB" />
-        <input type="hidden" name="SERVICE"    value="METASEARCH" />
-        <input type="hidden" name="SUBSERVICE" value="CARTPUT" />
-        <input type="hidden" name="ACTION"     value="ADDQUERY" />
-        <input type="hidden" name="DB"         value="SEARCH_FHBDUE" />
-        <input type="hidden" name="METAID"     value="232" />
-        <input type="hidden" name="START"      value="16" />
-        <input type="hidden" name="REQID"      value="ABDEROS:2068261004" />
-        <input type="submit" value="In die Merkliste" class="button"/>
-       </form>
-      </td>
+    
+              <li><a href="/Digibib?SID=PHOBOS:2092234500&amp;LOCATION=DUEBIB&amp;SERVICE=TEMPLATE&amp;SUBSERVICE=CONTACT" class="headcontact">Kontakt</a></li>
+    
   
- 
- 
-      <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
-      <td>
-       <form name="refine_search" action="/Digibib" target="DigiBib_main" method="post" class="smaller">
-        <input type="hidden" name="SERVICE"    value="TEMPLATE" />
-        <input type="hidden" name="SUBSERVICE" value="MSEARCH_SEARCH" />
-        <input type="hidden" name="SID"        value="ABDEROS:1405410671" />
-        <input type="hidden" name="LOCATION"   value="DUEBIB" />
-        <input type="hidden" name="VIEW"       value="DUEBIB:Lokale_Bibliotheken" />
-        <input type="hidden" name="COUNT"      value="200" />
-  
-   
-        <input type="hidden" name="QUERY_azTI"  value="computer vision" />
-        <input type="hidden" name="QUERY_OazTI" value="AND" />
-   
    
     
-        <input type="hidden" name="SEARCH_FHBDUE" value="on" />
-    
-        <input type="hidden" name="SEARCH_ULBD" value="on" />
-    
-   
-  
-        <input type="submit" value="Suche verändern" class="button"/>
-       </form>
-      </td>
- 
-     </tr>
-    </table>
-   </td>
-  </tr>
-
-
-
-  <tr>
-   <td class="pagenav" style="vertical-align:bottom;">
-    <a href="#start"><img src="/DUEBIB/img/pfeil_oben.gif" width="9" height="6" alt="" border="0" /></a>
-   </td>
-   
-   <td width="130" rowspan="2">
-    <br/>
-    <table summary="" width="100%" cellspacing="0" cellpadding="2" border="0">
-     <tr>
-      <th>Navigation</th>
-     </tr>
-     <tr><td height="2" class="hitnavsep"><img src="/default/img/pixel.gif" width="1" height="2" alt="" /></td></tr>
-     <tr>
-      <td class="hitnav">
- 
- 
-
-       <a href="/Digibib?SERVICE=METASEARCH&amp;SUBSERVICE=GETRECORD&amp;FORMAT=Full&amp;SID=ABDEROS:1405410671&amp;LOCATION=DUEBIB&amp;DB=SEARCH_FHBDUE&amp;METAID=232&amp;XREQID=ABDEROS:2068261004&amp;COUNT=1&amp;START=15&amp;HIT_COUNT=-&amp;LISTCOUNT=200&amp;HIGHLIGHTTERMS=">Vorheriger Treffer</a>
-
- 
-      </td>
-     </tr>
-     <tr><td height="2" class="hitnavsep"><img src="/default/img/pixel.gif" width="1" height="2" alt="" /></td>
-     <tr>
-      <td class="hitnav">
- 
- 
-
-       Nächster Treffer
-
- 
-      </td>
-     </tr>
-
-
-
-     <tr><td height="15" class="hitnavsep"><img src="/default/img/pixel.gif" width="1" height="15" alt="" /></td>
-     <tr>
-      <td class="hitnav">
- 
-       Vorherige Trefferliste<br />aller Datenbanken
- 
-      </td>
-     </tr>
-     <tr><td height="2" class="hitnavsep"><img src="/default/img/pixel.gif" width="1" height="2" alt="" /></td>
-     <tr>
-      <td class="hitnav">
-       <a href="/Digibib?SERVICE=METASEARCH&amp;SUBSERVICE=LIST&amp;TEMPLATE=CREATESEARCH&amp;FORMAT=List&amp;START=1&amp;SID=ABDEROS:1405410671&amp;LOCATION=DUEBIB&amp;METAID=232&amp;COUNT=200" target="DigiBib_main">Aktuelle</a> Trefferliste<br />aller Datenbanken
-      </td>
-     </tr>
-     <tr><td height="2" class="hitnavsep"><img src="/default/img/pixel.gif" width="1" height="2" alt="" /></td>
-     <tr>
-      <td class="hitnav">
- 
-  
-
-       Nächste Trefferliste<br />aller Datenbanken
-
-  
- 
-      </td>
-     </tr>
-     <tr><td height="15" class="hitnavsep"><img src="/default/img/pixel.gif" width="1" height="15" alt="" /></td>
-     <tr>
-      <td class="hitnav">
- 
-
-       Vorherige Trefferliste
-
- 
-      </td>
-     </tr>
-     <tr><td height="2" class="hitnavsep"><img src="/default/img/pixel.gif" width="1" height="2" alt="" /></td>
-     <tr>
-      <td class="hitnav">
-       <a href="/Digibib?SERVICE=METASEARCH&amp;SUBSERVICE=LIST&amp;TEMPLATE=CREATESEARCH&amp;FORMAT=List&amp;START=1&amp;COUNT=200&amp;SID=ABDEROS:1405410671&amp;LOCATION=DUEBIB&amp;METAID=232&amp;DB=SEARCH_FHBDUE" target="DigiBib_main">Aktuelle</a> Trefferliste
-      </td>
-     </tr>
-     <tr><td height="2" class="hitnavsep"><img src="/default/img/pixel.gif" width="1" height="2" alt="" /></td>
-     <tr>
-      <td class="hitnav">
- 
-
-  
-       Nächste Trefferliste
-  
- 
-
-      </td>
-     </tr>
-
-     <tr><td height="2" class="hitnavsep"><img src="/default/img/pixel.gif" width="1" height="2" alt="" /></td></tr>
-    </table>
-
-   </td>
-   <td width="30" rowspan="2"><img src="/default/img/pixel.gif" width="30" height="1" alt="" /></td>
-   
-   <td rowspan="2">
-
-
-
- 
-    <br/>
-    <table width="100%" border="0" cellspacing="0" cellpadding="0">
-     <tr>
-      <th colspan="3">Trefferdaten</th>
-     </tr>
-     
-     
-     
       
-     <tr>
-      <td width="20%" class="field">Titel</td>
-      <td width="80%" class="fieldcontent">Computer vision and sensor-based robots : [proceedings of the Symposium on Computer Vision and Sensor Based Robots, held at the General Motors Research Laboratories, Warren, Michigan, September 25 and 26, 1978] / ed. by George G. Dodd ...</td>
-      <td width="1" class="fieldcontentrightsep"><img src="/default/img/pixel.gif" width="1" height="1" alt="" /></td>
-     </tr>
-     <tr>
-      <td width="20%" height="1" class="fieldsep"><img src="/default/img/pixel.gif" width="1" height="1" alt="" /></td>
-      <td width="80%" height="1" class="fieldcontentsep"><img src="/default/img/pixel.gif" width="1" height="1" alt="" /></td>
-      <td class="fieldsep"><img src="/default/img/pixel.gif" width="1" height="1" alt="" /></td>
-     </tr>
-
-  
-
-  
-     <tr>
-      <td width="20%" class="field">Autor/in</td>
-      <td width="80%" class="fieldcontent">Dodd, George G.</td>
-      <td width="1" class="fieldcontentrightsep"><img src="/default/img/pixel.gif" width="1" height="1" alt="" /></td>
-     </tr>
-     <tr>
-      <td width="20%" height="1" class="fieldsep"><img src="/default/img/pixel.gif" width="1" height="1" alt="" /></td>
-      <td width="80%" height="1" class="fieldcontentsep"><img src="/default/img/pixel.gif" width="1" height="1" alt="" /></td>
-      <td class="fieldsep"><img src="/default/img/pixel.gif" width="1" height="1" alt="" /></td>
-     </tr>
-  
-
-  
-     <tr>
-      <td width="20%" class="field">Körperschaft</td>
-      <td width="80%" class="fieldcontent">Symposium on Computer Vision and Sensor Based Robots &lt;1978, Warren, Mich.&gt; ; General Motors Corporation &lt;Detroit, Mich.&gt; / Research Laboratories</td>
-      <td width="1" class="fieldcontentrightsep"><img src="/default/img/pixel.gif" width="1" height="1" alt="" /></td>
-     </tr>
-     <tr>
-      <td width="20%" height="1" class="fieldsep"><img src="/default/img/pixel.gif" width="1" height="1" alt="" /></td>
-      <td width="80%" height="1" class="fieldcontentsep"><img src="/default/img/pixel.gif" width="1" height="1" alt="" /></td>
-      <td class="fieldsep"><img src="/default/img/pixel.gif" width="1" height="1" alt="" /></td>
-     </tr>
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-     <tr>
-      <td width="20%" class="field">Ort/Verlag</td>
-      <td width="80%" class="fieldcontent">New York [u.a.]: Plenum Press</td>
-      <td width="1" class="fieldcontentrightsep"><img src="/default/img/pixel.gif" width="1" height="1" alt="" /></td>
-     </tr>
-     <tr>
-      <td width="20%" height="1" class="fieldsep"><img src="/default/img/pixel.gif" width="1" height="1" alt="" /></td>
-      <td width="80%" height="1" class="fieldcontentsep"><img src="/default/img/pixel.gif" width="1" height="1" alt="" /></td>
-      <td class="fieldsep"><img src="/default/img/pixel.gif" width="1" height="1" alt="" /></td>
-     </tr>
-  
-
-  
-     <tr>
-      <td width="20%" class="field">Jahr</td>
-      <td width="80%" class="fieldcontent">1979</td>
-      <td width="1" class="fieldcontentrightsep"><img src="/default/img/pixel.gif" width="1" height="1" alt="" /></td>
-     </tr>
-     <tr>
-      <td width="20%" height="1" class="fieldsep"><img src="/default/img/pixel.gif" width="1" height="1" alt="" /></td>
-      <td width="80%" height="1" class="fieldcontentsep"><img src="/default/img/pixel.gif" width="1" height="1" alt="" /></td>
-      <td class="fieldsep"><img src="/default/img/pixel.gif" width="1" height="1" alt="" /></td>
-     </tr>
-  
-
-  
-     <tr>
-      <td width="20%" class="field">Umfang</td>
-      <td width="80%" class="fieldcontent">IX, 353 S. : Ill., graph. Darst.</td>
-      <td width="1" class="fieldcontentrightsep"><img src="/default/img/pixel.gif" width="1" height="1" alt="" /></td>
-     </tr>
-     <tr>
-      <td width="20%" height="1" class="fieldsep"><img src="/default/img/pixel.gif" width="1" height="1" alt="" /></td>
-      <td width="80%" height="1" class="fieldcontentsep"><img src="/default/img/pixel.gif" width="1" height="1" alt="" /></td>
-      <td class="fieldsep"><img src="/default/img/pixel.gif" width="1" height="1" alt="" /></td>
-     </tr>
-  
-
-  
-
-  
-
-  
-
-  
-     <tr>
-      <td width="20%" class="field">ISBN</td>
-      <td width="80%" class="fieldcontent">0-306-40305-6</td>
-      <td width="1" class="fieldcontentrightsep"><img src="/default/img/pixel.gif" width="1" height="1" alt="" /></td>
-     </tr>
-     <tr>
-      <td width="20%" height="1" class="fieldsep"><img src="/default/img/pixel.gif" width="1" height="1" alt="" /></td>
-      <td width="80%" height="1" class="fieldcontentsep"><img src="/default/img/pixel.gif" width="1" height="1" alt="" /></td>
-      <td class="fieldsep"><img src="/default/img/pixel.gif" width="1" height="1" alt="" /></td>
-     </tr>
-  
-
-  
-
-  
-
-  
-     <tr>
-      <td width="20%" class="field">Standort</td>
-      <td width="80%" class="fieldcontent">Fachbibliothek Technik/Gestaltung, Signatur: 11 XRW 23<br/><img src="/DUEBIB/img/extern.gif" width="11" height="11" border="0" alt="Linkziel liegt ausserhalb der DigiBib" title="Linkziel liegt ausserhalb der DigiBib" align="middle" />&nbsp; <a href="http://www.bibl.fh-duesseldorf.de/h_a_z/standort_medium" onclick="openMsgWin('','DigiBib_SigInf',640,450,'yes');return true;" target="DigiBib_SigInf">Standort</a><br/><img src="/DUEBIB/img/extern.gif" width="11" height="11" border="0" alt="Linkziel liegt ausserhalb der DigiBib" title="Linkziel liegt ausserhalb der DigiBib" align="middle" />&nbsp; <a href="http://katalog.bibl.fh-duesseldorf.de/libero/WebopacOpenURL.cls?LANG=DE&ACTION=DISPLAY&sid=Libero:DUE&RID=HT000073125" onclick="openMsgWin('','DigiBib_SigInf',640,450,'yes');return true;" target="DigiBib_SigInf">Ausleihstatus</a></td>
-      <td width="1" class="fieldcontentrightsep"><img src="/default/img/pixel.gif" width="1" height="1" alt="" /></td>
-     </tr>
-     <tr>
-      <td width="20%" height="1" class="fieldsep"><img src="/default/img/pixel.gif" width="1" height="1" alt="" /></td>
-      <td width="80%" height="1" class="fieldcontentsep"><img src="/default/img/pixel.gif" width="1" height="1" alt="" /></td>
-      <td class="fieldsep"><img src="/default/img/pixel.gif" width="1" height="1" alt="" /></td>
-     </tr>
-  
-
-  
-
-
-
-
-  
-
-
-     
-    </table>
-   </td>
-  
-   
     
     
-     
+              <li><a href="/Digibib?SERVICE=SESSION&amp;SUBSERVICE=GENLOGIN" class="switchloc" title="Falls Sie Benutzer(in) einer anderen DigiBib-Bibliothek sind">DigiBib-Standort wechseln</a></li>
+
+    
+  
+            </ul>
+
+          </div>
+        </div>
+
+        <!-- begin: main navigation #nav -->
+        
+<div id="nav" class="subcolumns">
+  <div class="leftcol">
+    <div class="subcl">
+      <img src="/img/digibib_logo102x26.png" alt="DigiBib Portal-Logo" title="" id="digi_logo" />
+
+    </div>
+  </div>
+  <div class="rightcol">
+    <div id="nav_main" class="subcl">
+      <h6 class="hideme"><a name="s-nav">Haupt-Navigation</a></h6>
+
+
+  
+
+
+  
+      
+  
+
+
+      <ul>
+  
+  
+            
+    
+    
+        <li id="current"><strong style="padding:0;"><a href="/Digibib?SID=PHOBOS:2092234500&amp;LOCATION=DUEBIB&amp;SERVICE=TEMPLATE&amp;SUBSERVICE=SEARCH&amp;VIEW=DUEBIB:Lokale_Bibliotheken" title="Parallele Suche über verschiedene Kataloge und Datenbanken"><dfn>Aktiver Bereich ist 1. </dfn>Suche</a></strong>
+
+    
+  
+            <span class="hideme">.</span></li>
+  
+  
+          <li><a href="/Digibib?SID=PHOBOS:2092234500&amp;LOCATION=DUEBIB&amp;SERVICE=TEMPLATE&amp;SUBSERVICE=CUSTOMIZE" title="Persönliche Einstellungen für diese Website"><dfn>2. </dfn>Einstellungen</a>
+  
+            <span class="hideme">.</span></li>
+  
+  
+          <li><a href="/Digibib?SID=PHOBOS:2092234500&amp;LOCATION=DUEBIB&amp;SERVICE=TEMPLATE&amp;SUBSERVICE=INFO" title="Informationen und Hilfe zur DigiBib"><dfn>3. </dfn>Info / Kontakt</a>
+  
+            <span class="hideme">.</span></li>
+
+        </ul>
+      </div>
+    </div>
+  </div>
+
+        <!-- end: main navigation -->
+        <div id="breadcrumb" class="subcolumns">
+          <div class="leftcol">
+            <div class="subcl"><hr class="invisible" /></div>
+
+          </div>
+          <div class="rightcol">
+            <div class="subcl" id="breadcrumb_content">
+              <h6 class="hideme">Sie sind hier:</h6>
+              <ul>
+
+                <li>Suche &gt;&nbsp; </li>
+                <li>Datenbankprofile &gt;&nbsp; </li>
+
+                <li><a href="/Digibib?SID=PHOBOS:2092234500&amp;LOCATION=DUEBIB&amp;SERVICE=TEMPLATE&amp;SUBSERVICE=SEARCH_MASK">Suchmaske "Lokale Bibliotheken"</a> &gt;&nbsp; </li>
+                <li><a href="/Digibib?SID=PHOBOS:2092234500&amp;LOCATION=DUEBIB&amp;SERVICE=TEMPLATE&amp;SUBSERVICE=LAST_RESULTS">Trefferliste</a> &gt;&nbsp; </li>
+                <li class="last">Einzeltrefferanzeige</li>
+
+              </ul>&nbsp;
+            </div>
+
+          </div>
+        </div>
+        <!-- begin: content area #main -->
+        <div id="main">
+          <!-- begin: #col1 - first float column -->
+          <div id="col1">
+            <div id="col1_content" class="clearfix">
+              
+  
+
+
+
+  
+  
+
+
+
+  
+
+
+
+  
+  
+  
+  
+    
+      
+    
+  
+
+
+<!-- Gliederung & Skiplink-Anker: Untermenue zur Funktion Suche -->
+<h6 class="hideme"><a name="s-subnav">Untermenü zum Bereich Suche</a></h6>
+
+<ul id="submenu">
+
+  
+  
+    
+  
+  
+  
+  
+    
+    
       
       
+      
+  <li>
+      
+    <dfn>1.1. </dfn><span class="sblock">Datenbankprofile</span><span class="hideme">.</span>
+    <ul>
+      
+        
+        
+          
+            
+             
+              
+                
+                  
+      <li id="active"><dfn>Aktiver Unterbereich ist 1.1.1. </dfn><a href="/Digibib?SID=PHOBOS:2092234500&amp;LOCATION=DUEBIB&amp;SERVICE=TEMPLATE&amp;SUBSERVICE=SEARCH_MASK">Lokale Bibliotheken</a><span class="hideme">.</span></li>
+                  
+                
+              
+            
+          
+        
+      
+    
+  
+    
+      
+      
+    </ul>
+
+  </li>
+    
+    
+      
+      
+      
+      
+        
+        
+      
+      
+        
+      
+      
+        <li><a href="/Digibib?SID=PHOBOS:2092234500&amp;LOCATION=DUEBIB&amp;SERVICE=TEMPLATE&amp;SUBSERVICE=SEARCH_HISTORY"><dfn>1.2. </dfn>Frühere Suchen (Historie) </a>
+      
+          <span class="hideme">.</span></li>
+    
+  
+    
+    
+      
+      
+      
+        
+          
+    
+    
+      
+      
+      
+      
+        
+        
+      
+      
+        
+        
+      
+      
+        <li><a href="/Digibib?SID=PHOBOS:2092234500&amp;LOCATION=DUEBIB&amp;SERVICE=TEMPLATE&amp;SUBSERVICE=CART_LIST&amp;NAVAREA=SEARCH"><dfn>1.3. </dfn>Merkliste [<span id="jsmerkliste">0</span><span class="hideme"> Datensätze</span>]</a>
+
+      
+          <span class="hideme">.</span></li>
+    
+  
+    
+    
+      
+      
+      
+        
+      
+      
+        
+        
+      
+      
+        
+      
+      
+        <li><a href="/Digibib?SID=PHOBOS:2092234500&amp;LOCATION=DUEBIB&amp;SERVICE=TEMPLATE&amp;SUBSERVICE=LAST_RESULTS"><dfn>1.4. </dfn>Letzte Suchergebnisse </a>
+      
+          <span class="hideme">.</span></li>
+    
+  
+  
+
+    </ul>
+
+
+
+              <hr class="hideme" />
+
+              <h1 class="hideme">Parallele Suche in verschiedenen Quellen: Einzeltrefferanzeige</h1>
+
+  
+  
+  
+    
+      
+        
+          
+          
+          
+        
+      
+              <div id="contextnav">
+                <div class="headerpadding">
+                  <h2>Funktionen zu diesem Titel</h2>
+                </div>
+                <div class="contentpadding">
+                  <ul class="func">
+
+                    <li><a href="/Digibib?SID=PHOBOS:2092234500&amp;LOCATION=DUEBIB&amp;SERVICE=TEMPLATE&amp;SUBSERVICE=CART_PUT&amp;DB=SEARCH_FHBDUE&amp;METAID=1503&amp;TYPE=MS&amp;START=2" class="cartPut" target="_blank"><span class="hideme">Treffer </span>merken</a></li>
+                    <li><a href="/Digibib?SID=PHOBOS:2092234500&amp;LOCATION=DUEBIB&amp;SERVICE=METASEARCH&amp;SUBSERVICE=GETRECORD&amp;FORMAT=Full&amp;DB=SEARCH_FHBDUE&amp;METAID=1503&amp;COUNT=1&amp;NL_START=11&amp;PL_START=0&amp;LISTCOUNT=10&amp;HIGHLIGHTTERMS=test&amp;VIEW=DUEBIB:Lokale_Bibliotheken&amp;START=2&amp;PRINT=TRUE" target="_blank" class="printHit"><span class="hideme">Treffer </span>drucken</a></li>
+      
+                    <li><a href="/Digibib?SID=PHOBOS:2092234500&amp;LOCATION=DUEBIB&amp;SERVICE=AVAIL&amp;SUBSERVICE=AVAILABILITY_PREPARE&amp;DB=SEARCH_FHBDUE&amp;METAID=1503&amp;PRETEMPLATE=AVAIL.PREAVAILABILITY&amp;RECNO=2" class="avail" target="_self">Wie komme ich dran?</a></li>
+      
+                    <li><a href="/Digibib?SID=PHOBOS:2092234500&amp;LOCATION=DUEBIB&amp;SERVICE=TEMPLATE&amp;REQID=PHOBOS:894741741&amp;SUBSERVICE=DIRECT_EXPORT&amp;ORIG_SUBSRV=GETRECORD&amp;TYPE=MS&amp;VIEW=DUEBIB:Lokale_Bibliotheken&amp;EX.001.SERVICE=METASEARCH&amp;EX.002.SUBSERVICE=GETRECORD&amp;EX.003.TEMPLATE=FALSE&amp;EX.004.FORMAT=Full&amp;EX.005.DB=SEARCH_FHBDUE&amp;DB=SEARCH_FHBDUE&amp;EX.006.METAID=1503&amp;EX.007.START=2&amp;START=2&amp;EX.008.COUNT=1&amp;FORMAT=TXT" class="nojs_formatExport"><span class="hideme">Treffer </span>exportieren</a><div id="exportdialog_SEARCH_FHBDUE2" class="exportdlg"></div></li>
+                  </ul>
+
+                </div>
+              </div>
+    
+  
+            </div>
+          </div>
+          <!-- end: #col1 -->
+          <!-- begin: #col2 second float column -->
+          <div id="col2"><div id="col2_content" class="clearfix"></div></div>
+          <!-- end: #col2 -->
+          <!-- begin: #col3 static column -->
+
+          <div id="col3">
+            <div id="col3_content" class="clearfix details">
+              <!-- skip anchor: content -->
+              <h6 class="hideme"><a id="s-content" name="s-content">Inhaltsbereich</a></h6>
+  
+    
+      
+              <div class="contenthead">
+                <div class="headerpadding">
+                  <h2>Trainingsbuch Einstellungs<em class="hl">test</em> und Assessment-Center : praktische Übungen für alle <em class="hl">Test</em>formen</h2>
+
+                  <p>
+      
+       
+      
+        
+           
+        
+                    <a href="/Digibib?SID=PHOBOS:2092234500&amp;LOCATION=DUEBIB&amp;SERVICE=METASEARCH&amp;SUBSERVICE=GETRECORD&amp;DB=SEARCH_FHBDUE&amp;FORMAT=Full&amp;START=1&amp;COUNT=1&amp;METAID=1503&amp;NEXTREQID=PHOBOS:894741741&amp;LISTCOUNT=10&amp;NL_START=11&amp;PL_START=0&amp;NAVAREA=SEARCH"><span class="hideme">Vorhergehender Treffer </span>&lt;&lt;</a>
+      
+                    Hochschulbibliothek der FH Düsseldorf - Treffer 2 von 276
+      
+        
+           
+        
+                    <a href="/Digibib?SID=PHOBOS:2092234500&amp;LOCATION=DUEBIB&amp;SERVICE=METASEARCH&amp;SUBSERVICE=GETRECORD&amp;DB=SEARCH_FHBDUE&amp;FORMAT=Full&amp;START=3&amp;COUNT=1&amp;METAID=1503&amp;PREVREQID=PHOBOS:894741741&amp;LISTCOUNT=10&amp;NL_START=11&amp;PL_START=0&amp;NAVAREA=SEARCH"><span class="hideme">Folgender Treffer </span>&gt;&gt;</a>
+      
+                  </p>
+                </div>
+              </div>
+              <div class="contentblock">
+
+                <div class="contentpadding">
+      
+
+<span class="Z3988" title="url_ver=Z39.88-2004&ctx_ver=Z39.88-2004&ctx_enc=info%3Aofi%2Fenc%3AUTF-8&url_ctx_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Actx&ctx_tim=2012-04-14T13%3A09%3A29TZD&url_tim=2012-04-14T13%3A09%3A29TZD&rfr_id=info%3Asid%2Fdigibib.net&rft_id=HBZ%3AHT016961076&rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Abook&rft.aulast=Weiler&rft.date=2006&rft.place=M%FCnchen&rft.genre=book&rft.series=Heyne-B%FCcher%3A+08%2C+Heine-Ratgeber+%3B+86939+Go...&rft.edition=4.+Aufl.%2C+Taschenbuchausg.+10%2F2003&rft.tpages=279+S.+%3A+Ill.%2C+graph.+Darst.&rft.title=Trainingsbuch+Einstellungstest+und+Assessment-Center+%3A+praktische+%DCbungen+f%FCr+alle+Testformen&rft.aufirst=Peter&rft.isbn=3-453-86939-7&rft.pub=+Heyne"></span>
+
+
+  
+
+
+<dl class="no-auto-tabs">
+  <dt class="selected">Bibliographische Angaben</dt>
+  <dd>
+    <div style="overflow:visible;">
+     
+      <p class="coverimg">
+
+        <a target="d6_amazon" href="http://www.amazon.de/exec/obidos/ASIN/3453869397/digitalebiblio02"><img src="http://ecx.images-amazon.com/images/I/41AQ3FT0NAL._SL160_.jpg" style="width:107px;height:160px;" alt="Titelbild zu diesem Buch" title="Link zu Amazon" /></a>
+      </p>
+    
+    
+    
+      <div class="tablecontainer">
+        <table summary="" class="datarows">
+          <!-- Anm.: caption lassen sich einfach schlecht formatieren; insbesondere im IE 6 -->
+          <tr class="odd">
+            <th scope="row">Titel:</th>
+            <td>
+
+              Trainingsbuch Einstellungs<em class="hl">test</em> und Assessment-Center : praktische Übungen für alle <em class="hl">Test</em>formen / Peter Weiler
+            </td>
+          </tr>
+     
+
+    
+
+    
+          <tr class="even">
+            <th scope="row">Autor(in):</th>
+            <td>Weiler, Peter</td>
+
+          </tr> 
+    
+
+    
+
+    
+       
+        
+       
+        
+       
+        
+      
+    
+
+    
+
+    
+          <tr class="odd">
+            <th scope="row">Ausgabe:</th>
+            <td>
+              4. Aufl., Taschenbuchausg. 10/2003. - München: Heyne, 2006
+            </td>
+          </tr> 
+    
+
+    
+          <tr class="even">
+            <th scope="row">Umfang:</th>
+
+            <td>279 S. : Ill., graph. Darst.</td>
+          </tr> 
+    
+
+    
+          <tr class="odd">
+            <th scope="row">Serie:</th>
+            <td><a href="/Digibib?SID=PHOBOS:2092234500&amp;LOCATION=DUEBIB&amp;SERVICE=METASEARCH&amp;SUBSERVICE=INITSEARCH&amp;START=1&amp;COUNT=1&amp;HISTORY=FALSE&amp;STREAMING=TRUE&amp;S.SEARCH_FHBDUE=on&amp;QUERY_ID=HT002159977">Heyne-Bücher: 08, Heine-Ratgeber ; 86939 Go...</a></td>
+          </tr> 
+    
+
+    
+
+    
+
+    
+          <tr class="even">
+            <th scope="row">ISBN:</th>
+
+            <td>3-453-86939-7 : EUR 7.95, CHF 14.20 ; 978-3-453-86939-4</td>
+          </tr> 
+    
+
+    
+
+    
+
+    
+        </table>
+      </div>
+    </div>
+  </dd>
+
      
     
+      
     
-   <td style="padding-top:1.9em;width:1px;padding-left:5px;"><br/><a target="DigiBib_amazon" href="http://www.amazon.de/exec/obidos/ASIN/0306403056/digitalebiblio02" onclick="openMsgWin('','DigiBib_amazon',700,500,'yes');return true;"><img src='http://images-eu.amazon.com/images/P/0306403056.03.MZZZZZZZ.jpg' border="none" onerror="this.src='/default/img/pixel.gif'" title="Titelbild; &copy; beim Verlag; bereitgestellt durch Amazon"/></a></td>
-    
-   
-  
-  </tr>
- </table>
- 
 
- <a name="ende"></a>
- </body>
+    
+  <dt>Angaben zum Inhalt</dt>
+  <dd>
+
+    <div class="tablecontainer">
+      <table summary="" class="datarows">
+      
+        <tr class="odd">
+          <th scope="row">Schlagwörter:</th>
+          <td>
+        
+            <ul style="list-style-type:square;margin:0;margin-left:0.5em;"><li>Ratgeber / <em class="hl">Test</em></li></ul>
+        
+          </td>
+
+        </tr> 
+      
+      
+      
+      
+      
+
+      
+      
+      
+      </table>
+    </div>
+  </dd>
+    
+    
+    
+  <dt>Bestand / Besitz</dt>
+  <dd>
+    <div>
+      <div class="tablecontainer">
+        <table summary="" class="datarows">
+
+      
+          <tr class="odd">
+            <th scope="row">Angaben:</th>
+            <td>
+        
+              Fachbibliothek Wirtschaft, Signatur: 41 QAT 401 (4)<br/><br/> <a href="http://katalog.bibl.fh-duesseldorf.de/libero/WebopacOpenURL.cls?LANG=DE&ACTION=DISPLAY&sid=Libero:DUE&RID=HT016961076" target="DigiBib_SigInf">Ausleihstatus</a>
+        
+            </td>
+          </tr>
+        
+      
+      
+        </table>
+
+      </div>
+    </div>
+  </dd>
+    
+</dl>
+
+
+
+
+                  <span id="zotero" class="z_metasearch_single"/>
+                </div>
+              </div>
+
+    
+  
+
+            </div> <!-- IE column clearing -->
+            <div id="ie_clearing">&nbsp;</div>
+          </div> <!-- end: #col3 -->
+        </div> <!-- end: #main -->
+        <!-- begin: #footer -->
+        
+        
+        <div id="footer" class="subcolumns">
+          <div class="leftcol">
+
+            <div class="subcl"><hr class="invisible" /></div>
+          </div>
+          <div class="rightcol">
+            <div id="footer_content" class="subcl">
+              <div class="contentpadding">
+                <h6 class="hideme">Fußzeile</h6>
+                <ul>
+                  <li><a href="/Digibib?SID=PHOBOS:2092234500&amp;LOCATION=DUEBIB&amp;SERVICE=TEMPLATE&amp;SUBSERVICE=SITEMAP">Übersicht / Sitemap</a> | </li>
+
+                  <li>&copy; <a href="http://www.hbz-nrw.de/" title="Zur Homepage des Portal-Betreibers"><acronym title="Hochschulbibliothekszentrum des Landes Nordrhein-Westfalen">hbz NRW</acronym></a>, 2008-2009 | </li>
+                  <li>Gestaltet mit <a href="http://www.yaml.de/" title="Zur Website des YAML Toolkits"><acronym title="Yet Another Multicolumn Layout">YAML</acronym></a> | </li>
+                  <li lang="en" xml:lang="en">Powered by <a href="http://www.hbz-nrw.de/angebote/ips/" title="Zur Produkt-Website"><acronym title="Information Portal Suite">IPS</acronym> 5.3</a> | </li>
+
+                  <li class="last"><a href="/Digibib?SID=PHOBOS:2092234500&amp;LOCATION=DUEBIB&amp;SERVICE=TEMPLATE&amp;SUBSERVICE=IMPRINT" accesskey="9">Impressum</a></li>
+                  <li class="in_page_ref"><a href="#top">Zum Seitenanfang</a></li>
+                </ul>
+              </div> <!-- .contentpadding: Ende -->
+            </div> <!-- #footer_content: Ende -->
+          </div>
+        </div> <!-- #footer: Ende -->
+
+        <!-- end: #footer -->
+      </div>
+    </div>
+  </body>
 </html>
-

@@ -1,20 +1,15 @@
-currentfield=Titel
-book.Titel!=Computer vision and sensor-based robots : [proceedings of the Symposium on Computer Vision and Sensor Based Robots, held at the General Motors Research Laboratories, Warren, Michigan, September 25 and 26, 1978] / ed. by George G. Dodd ...
-currentfield=Autor/in
-book.Autor/in!=Dodd, George G.
-currentfield=Körperschaft
-book.Körperschaft!=Symposium on Computer Vision and Sensor Based Robots <1978, Warren, Mich.> ; General Motors Corporation <Detroit, Mich.> / Research Laboratories
-currentfield=Ort/Verlag
-book.Ort/Verlag!=New York [u.a.]: Plenum Press
-currentfield=Jahr
-book.Jahr!=1979
-currentfield=Umfang
-book.Umfang!=IX, 353 S. : Ill., graph. Darst.
-currentfield=ISBN
-book.ISBN!=0-306-40305-6
-currentfield=Standort
-book.id=Fachbibliothek Technik/Gestaltung, Signatur: 11 XRW 23  Standort  Ausleihstatus
-book.home-url=http://www.bibl.fh-duesseldorf.de/h_a_z/standort_medium
-book.home-url=http://katalog.bibl.fh-duesseldorf.de/libero/WebopacOpenURL.cls?LANG=DE&ACTION=DISPLAY&sid=Libero:DUE&RID=HT000073125
-book.amazon-url=http://www.amazon.de/exec/obidos/ASIN/0306403056/digitalebiblio02
-book.image-url=http://images-eu.amazon.com/images/P/0306403056.03.MZZZZZZZ.jpg
+book.amazon-url=http://www.amazon.de/exec/obidos/ASIN/3453869397/digitalebiblio02
+book.image-url=http://ecx.images-amazon.com/images/I/41AQ3FT0NAL._SL160_.jpg
+currentfield=Titel:
+book.Titel:!=Trainingsbuch Einstellungs test und Assessment-Center : praktische Übungen für alle Test formen / Peter Weiler
+currentfield=Autor(in):
+book.Autor(in):!=Weiler, Peter
+currentfield=Ausgabe:
+book.Ausgabe:!=4. Aufl., Taschenbuchausg. 10/2003. - München: Heyne, 2006
+currentfield=Umfang:
+book.Umfang:!=279 S. : Ill., graph. Darst.
+currentfield=Serie:
+book.Serie:!=Heyne-Bücher: 08, Heine-Ratgeber ; 86939 Go...
+currentfield=ISBN:
+book.ISBN:!=3-453-86939-7 : EUR 7.95, CHF 14.20 ; 978-3-453-86939-4
+book.home-url=http://katalog.bibl.fh-duesseldorf.de/libero/WebopacOpenURL.cls?LANG=DE&ACTION=DISPLAY&sid=Libero:DUE&RID=HT016961076

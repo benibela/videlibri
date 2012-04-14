@@ -9,14 +9,14 @@
           <t:s>
             book.id:=@id,
             book.detail-url:=concat("http://www.digibib.net/",a/@href),
-            book.title:=a/deep-text(),
+            book.title:=normalize-space(a/deep-text(' ')),
             book.library:=filter(a/@href, "DB=([^=&]+)", 1)
           </t:s>
         </dt>
         <dd>
           <t:s>
-            book.author:=filter(./deep-text(),'(.*) *- *[0-9]*$', 1),
-            book.year:=filter(./deep-text(), '[0-9]*$')
+            book.author:=normalize-space(filter(./deep-text(' '),'(.*) *- *[0-9]*$', 1)),
+            book.year:=normalize-space(filter(./deep-text(' '), '[0-9]*$'))
           </t:s>
           <t:read var="book-end()"/>
         </dd>

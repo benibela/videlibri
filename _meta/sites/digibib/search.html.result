@@ -1,58 +1,81 @@
-count=0
-count=1
+library=SEARCH_HBZ
 book-start()=
-book.searchid=START=1
-book.library=DB=SEARCH_SBDUE
-book.detail-url=http://abderos.hbz-nrw.de/Digibib?SERVICE=METASEARCH&SUBSERVICE=GETRECORD&FORMAT=Full&DB=SEARCH_SBDUE&&COUNT=1&NL_START=0&PL_START=0&SID=&LOCATION=&LISTCOUNT=200&X&HIGHLIGHTTERMS=&START=1
-book.author=Grimbert , Philippe
-book.title=Ein Geheimnis
-book.year=2006
-book-end()=
-book-start()=
-book.searchid=START=2
-book.library=DB=SEARCH_SBDUE
-book.detail-url=http://abderos.hbz-nrw.de/Digibib?SERVICE=METASEARCH&SUBSERVICE=GETRECORD&FORMAT=Full&DB=SEARCH_SBDUE&&COUNT=1&NL_START=0&PL_START=0&SID=&LOCATION=&LISTCOUNT=200&X&HIGHLIGHTTERMS=&START=2
-book.author=Grimbert , Philippe
-book.title=Ein Geheimnis
-book.year=2007
-book-end()=
-book-start()=
-book.searchid=START=3
-book.library=DB=SEARCH_SBDUE
-book.detail-url=http://abderos.hbz-nrw.de/Digibib?SERVICE=METASEARCH&SUBSERVICE=GETRECORD&FORMAT=Full&DB=SEARCH_SBDUE&&COUNT=1&NL_START=0&PL_START=0&SID=&LOCATION=&LISTCOUNT=200&X&HIGHLIGHTTERMS=&START=3
-book.author=Grimbert , Philippe
-book.title=Un secret
-book.year=2006
-book-end()=
-book-start()=
-book.searchid=START=4
-book.library=DB=SEARCH_SBDUE
-book.detail-url=http://abderos.hbz-nrw.de/Digibib?SERVICE=METASEARCH&SUBSERVICE=GETRECORD&FORMAT=Full&DB=SEARCH_SBDUE&&COUNT=1&NL_START=0&PL_START=0&SID=&LOCATION=&LISTCOUNT=200&X&HIGHLIGHTTERMS=&START=4
-book.author=Grimbert , Pierre
-book.title=Les enfants de Ji
+book.id=SEARCH_HBZ1
+book.detail-url=http://www.digibib.net//Digibib?SID=PUELLA:1405161851&LOCATION=EXTERN&SERVICE=METASEARCH&SUBSERVICE=GETRECORD&FORMAT=Full&DB=SEARCH_HBZ&METAID=1589&COUNT=1&NL_START=11&PL_START=0&LISTCOUNT=10&HIGHLIGHTTERMS=mist&VIEW=EXTERN:Recherchedatenbanken&START=1
+book.title=Out of the mist [Musikdruck] : Polychromatics
+book.library=SEARCH_HBZ
+book.author=
 book.year=
 book-end()=
 book-start()=
-book.searchid=START=5
-book.library=DB=SEARCH_SBDUE
-book.detail-url=http://abderos.hbz-nrw.de/Digibib?SERVICE=METASEARCH&SUBSERVICE=GETRECORD&FORMAT=Full&DB=SEARCH_SBDUE&&COUNT=1&NL_START=0&PL_START=0&SID=&LOCATION=&LISTCOUNT=200&X&HIGHLIGHTTERMS=&START=5
-book.author=Grimbert , Pierre
-book.title=Die Krieger
+book.id=SEARCH_HBZ2
+book.detail-url=http://www.digibib.net//Digibib?SID=PUELLA:1405161851&LOCATION=EXTERN&SERVICE=METASEARCH&SUBSERVICE=GETRECORD&FORMAT=Full&DB=SEARCH_HBZ&METAID=1589&COUNT=1&NL_START=11&PL_START=0&LISTCOUNT=10&HIGHLIGHTTERMS=mist&VIEW=EXTERN:Recherchedatenbanken&START=2
+book.title=Der Engel im Nebel : Roman
+book.library=SEARCH_HBZ
+book.author=
 book.year=
 book-end()=
 book-start()=
-book.searchid=START=6
-book.library=DB=SEARCH_SBDUE
-book.detail-url=http://abderos.hbz-nrw.de/Digibib?SERVICE=METASEARCH&SUBSERVICE=GETRECORD&FORMAT=Full&DB=SEARCH_SBDUE&&COUNT=1&NL_START=0&PL_START=0&SID=&LOCATION=&LISTCOUNT=200&X&HIGHLIGHTTERMS=&START=6
-book.author=Grimbert , Pierre
-book.title=Die Magier
-book.year=
+book.id=SEARCH_HBZ3
+book.detail-url=http://www.digibib.net//Digibib?SID=PUELLA:1405161851&LOCATION=EXTERN&SERVICE=METASEARCH&SUBSERVICE=GETRECORD&FORMAT=Full&DB=SEARCH_HBZ&METAID=1589&COUNT=1&NL_START=11&PL_START=0&LISTCOUNT=10&HIGHLIGHTTERMS=mist&VIEW=EXTERN:Recherchedatenbanken&START=3
+book.title=... and the Chinese cliffs emerged out of the mist : Perception and image of China in early photographs
+book.library=SEARCH_HBZ
+book.author=Suchomel, Filip.
+book.year=2011
 book-end()=
 book-start()=
-book.searchid=START=7
-book.library=DB=SEARCH_SBDUE
-book.detail-url=http://abderos.hbz-nrw.de/Digibib?SERVICE=METASEARCH&SUBSERVICE=GETRECORD&FORMAT=Full&DB=SEARCH_SBDUE&&COUNT=1&NL_START=0&PL_START=0&SID=&LOCATION=&LISTCOUNT=200&X&HIGHLIGHTTERMS=&START=7
-book.author=Grimbert , Pierre
-book.title=Le secret de Ji
-book.year=
+book.id=SEARCH_HBZ4
+book.detail-url=http://www.digibib.net//Digibib?SID=PUELLA:1405161851&LOCATION=EXTERN&SERVICE=METASEARCH&SUBSERVICE=GETRECORD&FORMAT=Full&DB=SEARCH_HBZ&METAID=1589&COUNT=1&NL_START=11&PL_START=0&LISTCOUNT=10&HIGHLIGHTTERMS=mist&VIEW=EXTERN:Recherchedatenbanken&START=4
+book.title=Ico : castle in the mist
+book.library=SEARCH_HBZ
+book.author=Miyabe, Miyuki.
+book.year=2011
+book-end()=
+book-start()=
+book.id=SEARCH_HBZ5
+book.detail-url=http://www.digibib.net//Digibib?SID=PUELLA:1405161851&LOCATION=EXTERN&SERVICE=METASEARCH&SUBSERVICE=GETRECORD&FORMAT=Full&DB=SEARCH_HBZ&METAID=1589&COUNT=1&NL_START=11&PL_START=0&LISTCOUNT=10&HIGHLIGHTTERMS=mist&VIEW=EXTERN:Recherchedatenbanken&START=5
+book.title=Ganz viel Mist und ein wenig Poesie
+book.library=SEARCH_HBZ
+book.author=Navarro, Fabian.
+book.year=2011
+book-end()=
+book-start()=
+book.id=SEARCH_HBZ6
+book.detail-url=http://www.digibib.net//Digibib?SID=PUELLA:1405161851&LOCATION=EXTERN&SERVICE=METASEARCH&SUBSERVICE=GETRECORD&FORMAT=Full&DB=SEARCH_HBZ&METAID=1589&COUNT=1&NL_START=11&PL_START=0&LISTCOUNT=10&HIGHLIGHTTERMS=mist&VIEW=EXTERN:Recherchedatenbanken&START=6
+book.title=Sterben ist Mist , der Tod aber schön : Träume vom Himmel
+book.library=SEARCH_HBZ
+book.author=Wohmann, Gabriele.
+book.year=2011
+book-end()=
+book-start()=
+book.id=SEARCH_HBZ7
+book.detail-url=http://www.digibib.net//Digibib?SID=PUELLA:1405161851&LOCATION=EXTERN&SERVICE=METASEARCH&SUBSERVICE=GETRECORD&FORMAT=Full&DB=SEARCH_HBZ&METAID=1589&COUNT=1&NL_START=11&PL_START=0&LISTCOUNT=10&HIGHLIGHTTERMS=mist&VIEW=EXTERN:Recherchedatenbanken&START=7
+book.title=De mist van de geschiedenis : [over herinneren, vergeten en het historisch geheugen van de samenleving]
+book.library=SEARCH_HBZ
+book.author=Frijhoff, Willem.
+book.year=2011
+book-end()=
+book-start()=
+book.id=SEARCH_HBZ8
+book.detail-url=http://www.digibib.net//Digibib?SID=PUELLA:1405161851&LOCATION=EXTERN&SERVICE=METASEARCH&SUBSERVICE=GETRECORD&FORMAT=Full&DB=SEARCH_HBZ&METAID=1589&COUNT=1&NL_START=11&PL_START=0&LISTCOUNT=10&HIGHLIGHTTERMS=mist&VIEW=EXTERN:Recherchedatenbanken&START=8
+book.title=Das Leben des J. Benedict Lemaistre oder Wie der Mist nach Mannheim kam
+book.library=SEARCH_HBZ
+book.author=Bergen-Rösch, Andrea.
+book.year=2011
+book-end()=
+book-start()=
+book.id=SEARCH_HBZ9
+book.detail-url=http://www.digibib.net//Digibib?SID=PUELLA:1405161851&LOCATION=EXTERN&SERVICE=METASEARCH&SUBSERVICE=GETRECORD&FORMAT=Full&DB=SEARCH_HBZ&METAID=1589&COUNT=1&NL_START=11&PL_START=0&LISTCOUNT=10&HIGHLIGHTTERMS=mist&VIEW=EXTERN:Recherchedatenbanken&START=9
+book.title=Skater in de mist
+book.library=SEARCH_HBZ
+book.author=Dhooge, Bavo.
+book.year=2010
+book-end()=
+book-start()=
+book.id=SEARCH_HBZ10
+book.detail-url=http://www.digibib.net//Digibib?SID=PUELLA:1405161851&LOCATION=EXTERN&SERVICE=METASEARCH&SUBSERVICE=GETRECORD&FORMAT=Full&DB=SEARCH_HBZ&METAID=1589&COUNT=1&NL_START=11&PL_START=0&LISTCOUNT=10&HIGHLIGHTTERMS=mist&VIEW=EXTERN:Recherchedatenbanken&START=10
+book.title=Religie en de mist van de geschiedenis : hoe behoefte aan herinnering onze cultuur transformeert ; rede gehouden vanwege een gasthoogleraarschap aan de Faculteit der Letteren van de Radboud Universiteit Nij...
+book.library=SEARCH_HBZ
+book.author=Frijhoff, Willem.
+book.year=2010
 book-end()=

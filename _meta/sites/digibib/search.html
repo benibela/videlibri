@@ -1,569 +1,814 @@
-
- 
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html lang="de" xml:lang="de" xmlns="http://www.w3.org/1999/xhtml">
- <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-  <link rel="stylesheet" type="text/css" href="/DUEBIB/css/main.css" />
-  <script type="text/javascript" src="/js/global.js"></script>
-  <script type="text/javascript" src="/js/dhtml.js"></script>
-  <script type="text/javascript">
-   var totalhits = 0;
-   var thcont;
-   var MyDoc = parent.frames[0].document;
-  </script>
-  <title>DigiBib</title>
- </head>
- <body>
-
- <a name="start"></a>
- <table summary="" width="100%" cellspacing="0" cellpadding="2" border="0">
-  <tr>
-   <td class="pagenav" rowspan="2">
-    <img src="/default/img/pixel.gif" width="9" height="5" alt="" border="0" />
-    <a href="#ende"><img src="/DUEBIB/img/pfeil_unten.gif" width="9" height="6" alt="" border="0" /></a>
-   </td>
-   <td colspan="2">
-    <h1>Suchergebnis</h1>
-   </td>
-  </tr>
-  <tr>
-   <td>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
   
-    &nbsp;Autor/in: 
-    <strong>grimbert</strong>
+  
    
   
-   </td>
-   <td style="text-align:right;">
-    <form name="refine_search" action="/Digibib" target="DigiBib_main" method="post">
-     <input type="hidden" name="SERVICE"    value="TEMPLATE" />
-     <input type="hidden" name="SUBSERVICE" value="MSEARCH_SEARCH" />
-     <input type="hidden" name="SID"        value="ABDEROS:142829985" />
-     <input type="hidden" name="LOCATION"   value="DUEBIB" />
-     <input type="hidden" name="VIEW"       value="DUEBIB:Lokale_Bibliotheken" />
-     <input type="hidden" name="GWTIMEOUT"  value="120" />
-     <input type="hidden" name="COUNT"      value="200" />
-
-     <input type="hidden" name="QUERY_bzAU"  value="grimbert" />
-     <input type="hidden" name="QUERY_ObzAU" value="AND" />
-
-
- 
   
-     <input type="hidden" name="SEARCH_FHBDUE" value="on" />
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="de" lang="de">
+  <head>
+    
+    <title>Trefferliste - DigiBib :: Digitale Bibliothek</title>
+    <meta http-equiv="Content-type"  content="text/html; charset=utf-8" />
+    
+    <script type="text/javascript">var sid = "PUELLA:1405161851"; var overall_hitcount = 0; var alreadyIncluded = new Object; var loc = "EXTERN";</script>
+    <link href="favicon.ico" rel="shortcut icon" type="image/x-icon" />
+    <link href="/css/jquery-ui-1.8/jquery.ui.all.css" rel="stylesheet" type="text/css" />
+
+    <link href="/css/digibib.css" rel="stylesheet" type="text/css"/>
+    <link href="/css/print.css" rel="stylesheet" media="print" type="text/css" />
+    <link href="/EXTERN/css/location.css" rel="stylesheet" type="text/css"/>
+    <!--[if lte IE 7]>
+    <link href="/EXTERN/css/patch_ie.css" rel="stylesheet" type="text/css" />
+    <![endif]-->
+    <script type="text/javascript" src="/js/jquery-1.4.2/jquery.min.js"></script>
+    <script type="text/javascript" src="/js/jquery-ui-1.8.2/jquery-ui.js"></script>
+    <script type="text/javascript" src="/js/d6-1.0/digibib.js"></script>
+
+    <script type="text/javascript" src="/js/d6-1.0/tabs.js"></script>
+    <script type="text/javascript" src="/EXTERN/js/location.js"></script>
+  </head>
+  <body>
+    <div class="page_margins">
+      <a name="top"></a>
+      <div class="page">
+                
+        <!-- skip link navigation -->
+
+        <h6 class="hideme">Schnellnavigation</h6>
+        <a class="skip" href="#s-nav">Zur Navigation springen</a><span class="hideme">.</span>
+        <a class="skip" href="#s-content">Zum Inhalt springen</a><span class="hideme">.</span>
+        <!-- seitenkopf -->
+        <div id="header">
+          <div id="header_col_left">
+
+            <p>
+            
+              <a href="/Digibib?SID=PUELLA:1405161851&amp;LOCATION=EXTERN&amp;SERVICE=TEMPLATE&amp;SUBSERVICE=TO_CUSTOMER_SITE"><img src="/EXTERN/img/logo.gif" title="Zur Website der Bibliothek" alt="Logo der Bibliothek" id="loc_logo" /></a>
+            
+            </p>
+          </div>
+          <div id="header_col_middle"></div>
+          <div id="header_col_right"></div>
+
+          <div id="topnav">
+
+            <h6 class="hideme"><a name="s-additionals">Hilfsnavigation und An- bzw. Abmeldung</a></h6> <!-- Gliederung & Skiplink-Anker: Additionals -->
+
+            <ul>
+              <li><a href="/Digibib?SID=PUELLA:1405161851&amp;LOCATION=EXTERN&amp;SERVICE=TEMPLATE&amp;SUBSERVICE=STARTPAGE&amp;LANGUAGE=en" lang="en" xml:lang="en" title="Switch to English" class="langswitch"><img src="/img/flag-switch-de.png" alt="" style="width:16px;height:11px;vertical-align:bottom;padding-bottom:3px;" /> English</a><span class="hideme">.</span></li>
+
   
-     <input type="hidden" name="SEARCH_SBDUE" value="on" />
+    
+              <li><a href="/Digibib?SID=PUELLA:1405161851&amp;LOCATION=EXTERN&amp;SERVICE=TEMPLATE&amp;SUBSERVICE=CONTACT" class="headcontact">Kontakt</a></li>
+    
   
-     <input type="hidden" name="SEARCH_ULBD" value="on" />
+   
+    
+      
+    
+    
+              <li>
+                <form action="/Digibib" method="post">
+                  <input type="hidden" name="SERVICE" value="SESSION" />
+
+                  <input type="hidden" name="SUBSERVICE" value="GENLOGIN" />
+                  <button type="submit" name="switchloc">DigiBib-Standort wechseln</button>
+                </form>
+              </li>
+    
   
- 
+            </ul>
 
-     <input type="submit" value="Suche verändern" class="button"/>
-    </form>
-   </td>
-  </tr>
- </table>
- <br />
-<!-- 01234567890123456789012345678901234567890123456789012345678901234567890123456789 -->
-<!-- 01234567890123456789012345678901234567890123456789012345678901234567890123456789 -->
-<!-- 01234567890123456789012345678901234567890123456789012345678901234567890123456789 -->
-<!-- 01234567890123456789012345678901234567890123456789012345678901234567890123456789 -->
-<!-- 01234567890123456789012345678901234567890123456789012345678901234567890123456789 -->
-<!-- 01234567890123456789012345678901234567890123456789012345678901234567890123456789 -->
-<!-- 01234567890123456789012345678901234567890123456789012345678901234567890123456789 -->
-<!-- 01234567890123456789012345678901234567890123456789012345678901234567890123456789 -->
-<!-- 01234567890123456789012345678901234567890123456789012345678901234567890123456789 -->
-<!-- 01234567890123456789012345678901234567890123456789012345678901234567890123456789 -->
-<!-- 01234567890123456789012345678901234567890123456789012345678901234567890123456789 -->
-<!-- 01234567890123456789012345678901234567890123456789012345678901234567890123456789 -->
-<!-- 01234567890123456789012345678901234567890123456789012345678901234567890123456789 -->
-<!-- 01234567890123456789012345678901234567890123456789012345678901234567890123456789 -->
-<!-- 01234567890123456789012345678901234567890123456789012345678901234567890123456789 -->
-<!-- 01234567890123456789012345678901234567890123456789012345678901234567890123456789 -->
-<!-- 01234567890123456789012345678901234567890123456789012345678901234567890123456789 -->
-<!-- 01234567890123456789012345678901234567890123456789012345678901234567890123456789 -->
-<!-- 01234567890123456789012345678901234567890123456789012345678901234567890123456789 -->
-<!-- 01234567890123456789012345678901234567890123456789012345678901234567890123456789 -->
-<!-- 01234567890123456789012345678901234567890123456789012345678901234567890123456789 -->
-<!-- 01234567890123456789012345678901234567890123456789012345678901234567890123456789 -->
-<!-- 01234567890123456789012345678901234567890123456789012345678901234567890123456789 -->
-<!-- 01234567890123456789012345678901234567890123456789012345678901234567890123456789 -->
-<!-- 01234567890123456789012345678901234567890123456789012345678901234567890123456789 -->
-<!-- 01234567890123456789012345678901234567890123456789012345678901234567890123456789 -->
-<!-- 01234567890123456789012345678901234567890123456789012345678901234567890123456789 -->
- 
+          </div>
+        </div>
 
+        <!-- begin: main navigation #nav -->
+        
+<div id="nav" class="subcolumns">
+  <div class="leftcol">
+    <div class="subcl">
+      <img src="/img/digibib_logo102x26.png" alt="DigiBib Portal-Logo" title="" id="digi_logo" />
+    </div>
+  </div>
+  <div class="rightcol">
+    <div id="nav_main" class="subcl">
 
- 
- 
+      <h6 class="hideme"><a name="s-nav">Haupt-Navigation</a></h6>
 
-
-
- 
- 
-
-
-
-
- 
- 
-
-
-<!-- BLOCK/START - SEARCH_ULBD - 20100829015046588 -->
- <script type="text/javascript">
-  MyDoc = parent.frames[0].document;
- </script>
- 
-   
-   
-   
- <script type="text/javascript">setCont("id","SEARCH_ULBD",null,"0");</script>
-    
- <!-- 01234567890123456789012345678901234567890123456789012345678901234567890123456789 -->
- <!-- 01234567890123456789012345678901234567890123456789012345678901234567890123456789 -->
- <!-- 01234567890123456789012345678901234567890123456789012345678901234567890123456789 -->
- <!-- 01234567890123456789012345678901234567890123456789012345678901234567890123456789 -->
- <!-- 01234567890123456789012345678901234567890123456789012345678901234567890123456789 -->
- <!-- 01234567890123456789012345678901234567890123456789012345678901234567890123456789 -->
- <!-- 01234567890123456789012345678901234567890123456789012345678901234567890123456789 -->
- <!-- 01234567890123456789012345678901234567890123456789012345678901234567890123456789 -->
- <!-- 01234567890123456789012345678901234567890123456789012345678901234567890123456789 -->
- <!-- 01234567890123456789012345678901234567890123456789012345678901234567890123456789 -->
- <!-- 01234567890123456789012345678901234567890123456789012345678901234567890123456789 -->
- <!-- 01234567890123456789012345678901234567890123456789012345678901234567890123456789 -->
- <!-- 01234567890123456789012345678901234567890123456789012345678901234567890123456789 -->
- <!-- 01234567890123456789012345678901234567890123456789012345678901234567890123456789 -->
- <!-- 01234567890123456789012345678901234567890123456789012345678901234567890123456789 -->
- <!-- 01234567890123456789012345678901234567890123456789012345678901234567890123456789 -->
- <!-- 01234567890123456789012345678901234567890123456789012345678901234567890123456789 -->
- <!-- 01234567890123456789012345678901234567890123456789012345678901234567890123456789 -->
- <!-- 01234567890123456789012345678901234567890123456789012345678901234567890123456789 -->
-     
-
- 
- 
-
-
-
-
- 
- 
-
-
-<!-- BLOCK/START - SEARCH_FHBDUE - 20100829015046838 -->
- <script type="text/javascript">
-  MyDoc = parent.frames[0].document;
- </script>
- 
-   
-   
-   
- <script type="text/javascript">setCont("id","SEARCH_FHBDUE",null,"0");</script>
-    
- <!-- 01234567890123456789012345678901234567890123456789012345678901234567890123456789 -->
- <!-- 01234567890123456789012345678901234567890123456789012345678901234567890123456789 -->
- <!-- 01234567890123456789012345678901234567890123456789012345678901234567890123456789 -->
- <!-- 01234567890123456789012345678901234567890123456789012345678901234567890123456789 -->
- <!-- 01234567890123456789012345678901234567890123456789012345678901234567890123456789 -->
- <!-- 01234567890123456789012345678901234567890123456789012345678901234567890123456789 -->
- <!-- 01234567890123456789012345678901234567890123456789012345678901234567890123456789 -->
- <!-- 01234567890123456789012345678901234567890123456789012345678901234567890123456789 -->
- <!-- 01234567890123456789012345678901234567890123456789012345678901234567890123456789 -->
- <!-- 01234567890123456789012345678901234567890123456789012345678901234567890123456789 -->
- <!-- 01234567890123456789012345678901234567890123456789012345678901234567890123456789 -->
- <!-- 01234567890123456789012345678901234567890123456789012345678901234567890123456789 -->
- <!-- 01234567890123456789012345678901234567890123456789012345678901234567890123456789 -->
- <!-- 01234567890123456789012345678901234567890123456789012345678901234567890123456789 -->
- <!-- 01234567890123456789012345678901234567890123456789012345678901234567890123456789 -->
- <!-- 01234567890123456789012345678901234567890123456789012345678901234567890123456789 -->
- <!-- 01234567890123456789012345678901234567890123456789012345678901234567890123456789 -->
- <!-- 01234567890123456789012345678901234567890123456789012345678901234567890123456789 -->
- <!-- 01234567890123456789012345678901234567890123456789012345678901234567890123456789 -->
-     
-
- 
- 
-
-
-
-
- 
- 
-
-
-<!-- BLOCK/START - SEARCH_SBDUE - 20100829015105279 -->
- <script type="text/javascript">
-  MyDoc = parent.frames[0].document;
- </script>
- 
-   
-   
-   
-   
- <a name="SEARCH_SBDUE"></a>
- <table summary="" width="100%" cellspacing="0" cellpadding="2" border="0">
-  <tr>
-   
-   
-   <script type="text/javascript">
-    setCont("id","SEARCH_SBDUE",null,"7");
-    totalhits = totalhits + 7;
-    thcont = getCont("id","TOTALHITS",null);
-    if( (thcont == '-') || (thcont < totalhits) ) setCont("id","TOTALHITS",null,totalhits) ;
-   </script>
-   <td class="pagenav"><a href="#start"><img src="/DUEBIB/img/pfeil_oben.gif" width="9" height="6" alt="" border="0" style="padding-bottom:1px;" /></a><br/><a href="#ende"><img src="/DUEBIB/img/pfeil_unten.gif" width="9" height="6" alt="" border="0" /></a></td>
-   <th style="border-right:none;">Stadtbüchereien Düsseldorf:</th>
-   <th style="text-align:right;border-left:none;">
-    <span>Treffer 1 - 7 von 7</span>&nbsp;
-   </th>
-  </tr>
-    
-  <tr>
-   <td>&nbsp;</td>
-   <td colspan="2">
-    
-    <table width="100%" border="0" cellspacing="0" cellpadding="3">
-       
-    
-     
-     
-    
-    
-     
-     
-     
-     
-     <tr class='oddnumbered'>
-      <td class='oddnumbered' width="5%">
-       <a href="/Digibib?SERVICE=METASEARCH&amp;SUBSERVICE=GETRECORD&amp;FORMAT=Full&amp;DB=SEARCH_SBDUE&amp;METAID=382&amp;COUNT=1&amp;NL_START=0&amp;PL_START=0&amp;HIT_COUNT=7&amp;SID=ABDEROS:142829985&amp;LOCATION=DUEBIB&amp;LISTCOUNT=200&amp;XREQID=ABDEROS:702791183&amp;HIGHLIGHTTERMS=grimbert&amp;START=1" target='DigiBib_main' style="font-weight:bold;">1&nbsp;&gt;&gt;</a>
-      </td>
-      <td class='oddnumbered' width="20%">
-     
-       <span style="font-weight:bold;font-style:italic;">Grimbert</span>, Philippe
-     
-      </td>
-      <td class='oddnumbered' width="60%">
-       <a href="/Digibib?SERVICE=METASEARCH&amp;SUBSERVICE=GETRECORD&amp;FORMAT=Full&amp;DB=SEARCH_SBDUE&amp;METAID=382&amp;COUNT=1&amp;NL_START=0&amp;PL_START=0&amp;HIT_COUNT=7&amp;SID=ABDEROS:142829985&amp;LOCATION=DUEBIB&amp;LISTCOUNT=200&amp;XREQID=ABDEROS:702791183&amp;HIGHLIGHTTERMS=grimbert&amp;START=1" target='DigiBib_main'>Ein Geheimnis</a>
-      </td>
-      <td class='oddnumbered' width="10%">2006</td>
-      <td class='oddnumbered'>
-       <a href="/Digibib?SERVICE=METASEARCH&amp;SUBSERVICE=CARTPUT&amp;ACTION=ADDQUERY&amp;SID=ABDEROS:142829985&amp;LOCATION=DUEBIB&amp;DB=SEARCH_SBDUE&amp;METAID=382&amp;START=1&amp;REQID=ABDEROS:702791183" onclick="openMsgWin('','DigiBib_cartmsg');return true;" target="DigiBib_cartmsg" title="In die Merkliste"><img src="/DUEBIB/img/add_to_cart.gif" width="21" height="21" alt="In die Merkliste" border="0" /></a>
-      </td>
-     </tr>
-    
-     
-     
-     
-     
-     <tr class='evennumbered'>
-      <td class='evennumbered' width="5%">
-       <a href="/Digibib?SERVICE=METASEARCH&amp;SUBSERVICE=GETRECORD&amp;FORMAT=Full&amp;DB=SEARCH_SBDUE&amp;METAID=382&amp;COUNT=1&amp;NL_START=0&amp;PL_START=0&amp;HIT_COUNT=7&amp;SID=ABDEROS:142829985&amp;LOCATION=DUEBIB&amp;LISTCOUNT=200&amp;XREQID=ABDEROS:702791183&amp;HIGHLIGHTTERMS=grimbert&amp;START=2" target='DigiBib_main' style="font-weight:bold;">2&nbsp;&gt;&gt;</a>
-      </td>
-      <td class='evennumbered' width="20%">
-     
-       <span style="font-weight:bold;font-style:italic;">Grimbert</span>, Philippe
-     
-      </td>
-      <td class='evennumbered' width="60%">
-       <a href="/Digibib?SERVICE=METASEARCH&amp;SUBSERVICE=GETRECORD&amp;FORMAT=Full&amp;DB=SEARCH_SBDUE&amp;METAID=382&amp;COUNT=1&amp;NL_START=0&amp;PL_START=0&amp;HIT_COUNT=7&amp;SID=ABDEROS:142829985&amp;LOCATION=DUEBIB&amp;LISTCOUNT=200&amp;XREQID=ABDEROS:702791183&amp;HIGHLIGHTTERMS=grimbert&amp;START=2" target='DigiBib_main'>Ein Geheimnis</a>
-      </td>
-      <td class='evennumbered' width="10%">2007</td>
-      <td class='evennumbered'>
-       <a href="/Digibib?SERVICE=METASEARCH&amp;SUBSERVICE=CARTPUT&amp;ACTION=ADDQUERY&amp;SID=ABDEROS:142829985&amp;LOCATION=DUEBIB&amp;DB=SEARCH_SBDUE&amp;METAID=382&amp;START=2&amp;REQID=ABDEROS:702791183" onclick="openMsgWin('','DigiBib_cartmsg');return true;" target="DigiBib_cartmsg" title="In die Merkliste"><img src="/DUEBIB/img/add_to_cart.gif" width="21" height="21" alt="In die Merkliste" border="0" /></a>
-      </td>
-     </tr>
-    
-     
-     
-     
-     
-     <tr class='oddnumbered'>
-      <td class='oddnumbered' width="5%">
-       <a href="/Digibib?SERVICE=METASEARCH&amp;SUBSERVICE=GETRECORD&amp;FORMAT=Full&amp;DB=SEARCH_SBDUE&amp;METAID=382&amp;COUNT=1&amp;NL_START=0&amp;PL_START=0&amp;HIT_COUNT=7&amp;SID=ABDEROS:142829985&amp;LOCATION=DUEBIB&amp;LISTCOUNT=200&amp;XREQID=ABDEROS:702791183&amp;HIGHLIGHTTERMS=grimbert&amp;START=3" target='DigiBib_main' style="font-weight:bold;">3&nbsp;&gt;&gt;</a>
-      </td>
-      <td class='oddnumbered' width="20%">
-     
-       <span style="font-weight:bold;font-style:italic;">Grimbert</span>, Philippe
-     
-      </td>
-      <td class='oddnumbered' width="60%">
-       <a href="/Digibib?SERVICE=METASEARCH&amp;SUBSERVICE=GETRECORD&amp;FORMAT=Full&amp;DB=SEARCH_SBDUE&amp;METAID=382&amp;COUNT=1&amp;NL_START=0&amp;PL_START=0&amp;HIT_COUNT=7&amp;SID=ABDEROS:142829985&amp;LOCATION=DUEBIB&amp;LISTCOUNT=200&amp;XREQID=ABDEROS:702791183&amp;HIGHLIGHTTERMS=grimbert&amp;START=3" target='DigiBib_main'>Un secret</a>
-      </td>
-      <td class='oddnumbered' width="10%">2006</td>
-      <td class='oddnumbered'>
-       <a href="/Digibib?SERVICE=METASEARCH&amp;SUBSERVICE=CARTPUT&amp;ACTION=ADDQUERY&amp;SID=ABDEROS:142829985&amp;LOCATION=DUEBIB&amp;DB=SEARCH_SBDUE&amp;METAID=382&amp;START=3&amp;REQID=ABDEROS:702791183" onclick="openMsgWin('','DigiBib_cartmsg');return true;" target="DigiBib_cartmsg" title="In die Merkliste"><img src="/DUEBIB/img/add_to_cart.gif" width="21" height="21" alt="In die Merkliste" border="0" /></a>
-      </td>
-     </tr>
-    
-     
-     
-     
-     
-     <tr class='evennumbered'>
-      <td class='evennumbered' width="5%">
-       <a href="/Digibib?SERVICE=METASEARCH&amp;SUBSERVICE=GETRECORD&amp;FORMAT=Full&amp;DB=SEARCH_SBDUE&amp;METAID=382&amp;COUNT=1&amp;NL_START=0&amp;PL_START=0&amp;HIT_COUNT=7&amp;SID=ABDEROS:142829985&amp;LOCATION=DUEBIB&amp;LISTCOUNT=200&amp;XREQID=ABDEROS:702791183&amp;HIGHLIGHTTERMS=grimbert&amp;START=4" target='DigiBib_main' style="font-weight:bold;">4&nbsp;&gt;&gt;</a>
-      </td>
-      <td class='evennumbered' width="20%">
-     
-       <span style="font-weight:bold;font-style:italic;">Grimbert</span>, Pierre
-     
-      </td>
-      <td class='evennumbered' width="60%">
-       <a href="/Digibib?SERVICE=METASEARCH&amp;SUBSERVICE=GETRECORD&amp;FORMAT=Full&amp;DB=SEARCH_SBDUE&amp;METAID=382&amp;COUNT=1&amp;NL_START=0&amp;PL_START=0&amp;HIT_COUNT=7&amp;SID=ABDEROS:142829985&amp;LOCATION=DUEBIB&amp;LISTCOUNT=200&amp;XREQID=ABDEROS:702791183&amp;HIGHLIGHTTERMS=grimbert&amp;START=4" target='DigiBib_main'>Les enfants de Ji</a>
-      </td>
-      <td class='evennumbered' width="10%"></td>
-      <td class='evennumbered'>
-       <a href="/Digibib?SERVICE=METASEARCH&amp;SUBSERVICE=CARTPUT&amp;ACTION=ADDQUERY&amp;SID=ABDEROS:142829985&amp;LOCATION=DUEBIB&amp;DB=SEARCH_SBDUE&amp;METAID=382&amp;START=4&amp;REQID=ABDEROS:702791183" onclick="openMsgWin('','DigiBib_cartmsg');return true;" target="DigiBib_cartmsg" title="In die Merkliste"><img src="/DUEBIB/img/add_to_cart.gif" width="21" height="21" alt="In die Merkliste" border="0" /></a>
-      </td>
-     </tr>
-    
-     
-     
-     
-     
-     <tr class='oddnumbered'>
-      <td class='oddnumbered' width="5%">
-       <a href="/Digibib?SERVICE=METASEARCH&amp;SUBSERVICE=GETRECORD&amp;FORMAT=Full&amp;DB=SEARCH_SBDUE&amp;METAID=382&amp;COUNT=1&amp;NL_START=0&amp;PL_START=0&amp;HIT_COUNT=7&amp;SID=ABDEROS:142829985&amp;LOCATION=DUEBIB&amp;LISTCOUNT=200&amp;XREQID=ABDEROS:702791183&amp;HIGHLIGHTTERMS=grimbert&amp;START=5" target='DigiBib_main' style="font-weight:bold;">5&nbsp;&gt;&gt;</a>
-      </td>
-      <td class='oddnumbered' width="20%">
-     
-       <span style="font-weight:bold;font-style:italic;">Grimbert</span>, Pierre
-     
-      </td>
-      <td class='oddnumbered' width="60%">
-       <a href="/Digibib?SERVICE=METASEARCH&amp;SUBSERVICE=GETRECORD&amp;FORMAT=Full&amp;DB=SEARCH_SBDUE&amp;METAID=382&amp;COUNT=1&amp;NL_START=0&amp;PL_START=0&amp;HIT_COUNT=7&amp;SID=ABDEROS:142829985&amp;LOCATION=DUEBIB&amp;LISTCOUNT=200&amp;XREQID=ABDEROS:702791183&amp;HIGHLIGHTTERMS=grimbert&amp;START=5" target='DigiBib_main'>Die Krieger</a>
-      </td>
-      <td class='oddnumbered' width="10%"></td>
-      <td class='oddnumbered'>
-       <a href="/Digibib?SERVICE=METASEARCH&amp;SUBSERVICE=CARTPUT&amp;ACTION=ADDQUERY&amp;SID=ABDEROS:142829985&amp;LOCATION=DUEBIB&amp;DB=SEARCH_SBDUE&amp;METAID=382&amp;START=5&amp;REQID=ABDEROS:702791183" onclick="openMsgWin('','DigiBib_cartmsg');return true;" target="DigiBib_cartmsg" title="In die Merkliste"><img src="/DUEBIB/img/add_to_cart.gif" width="21" height="21" alt="In die Merkliste" border="0" /></a>
-      </td>
-     </tr>
-    
-     
-     
-     
-     
-     <tr class='evennumbered'>
-      <td class='evennumbered' width="5%">
-       <a href="/Digibib?SERVICE=METASEARCH&amp;SUBSERVICE=GETRECORD&amp;FORMAT=Full&amp;DB=SEARCH_SBDUE&amp;METAID=382&amp;COUNT=1&amp;NL_START=0&amp;PL_START=0&amp;HIT_COUNT=7&amp;SID=ABDEROS:142829985&amp;LOCATION=DUEBIB&amp;LISTCOUNT=200&amp;XREQID=ABDEROS:702791183&amp;HIGHLIGHTTERMS=grimbert&amp;START=6" target='DigiBib_main' style="font-weight:bold;">6&nbsp;&gt;&gt;</a>
-      </td>
-      <td class='evennumbered' width="20%">
-     
-       <span style="font-weight:bold;font-style:italic;">Grimbert</span>, Pierre
-     
-      </td>
-      <td class='evennumbered' width="60%">
-       <a href="/Digibib?SERVICE=METASEARCH&amp;SUBSERVICE=GETRECORD&amp;FORMAT=Full&amp;DB=SEARCH_SBDUE&amp;METAID=382&amp;COUNT=1&amp;NL_START=0&amp;PL_START=0&amp;HIT_COUNT=7&amp;SID=ABDEROS:142829985&amp;LOCATION=DUEBIB&amp;LISTCOUNT=200&amp;XREQID=ABDEROS:702791183&amp;HIGHLIGHTTERMS=grimbert&amp;START=6" target='DigiBib_main'>Die Magier</a>
-      </td>
-      <td class='evennumbered' width="10%"></td>
-      <td class='evennumbered'>
-       <a href="/Digibib?SERVICE=METASEARCH&amp;SUBSERVICE=CARTPUT&amp;ACTION=ADDQUERY&amp;SID=ABDEROS:142829985&amp;LOCATION=DUEBIB&amp;DB=SEARCH_SBDUE&amp;METAID=382&amp;START=6&amp;REQID=ABDEROS:702791183" onclick="openMsgWin('','DigiBib_cartmsg');return true;" target="DigiBib_cartmsg" title="In die Merkliste"><img src="/DUEBIB/img/add_to_cart.gif" width="21" height="21" alt="In die Merkliste" border="0" /></a>
-      </td>
-     </tr>
-    
-     
-     
-     
-     
-     <tr class='oddnumbered'>
-      <td class='oddnumbered' width="5%">
-       <a href="/Digibib?SERVICE=METASEARCH&amp;SUBSERVICE=GETRECORD&amp;FORMAT=Full&amp;DB=SEARCH_SBDUE&amp;METAID=382&amp;COUNT=1&amp;NL_START=0&amp;PL_START=0&amp;HIT_COUNT=7&amp;SID=ABDEROS:142829985&amp;LOCATION=DUEBIB&amp;LISTCOUNT=200&amp;XREQID=ABDEROS:702791183&amp;HIGHLIGHTTERMS=grimbert&amp;START=7" target='DigiBib_main' style="font-weight:bold;">7&nbsp;&gt;&gt;</a>
-      </td>
-      <td class='oddnumbered' width="20%">
-     
-       <span style="font-weight:bold;font-style:italic;">Grimbert</span>, Pierre
-     
-      </td>
-      <td class='oddnumbered' width="60%">
-       <a href="/Digibib?SERVICE=METASEARCH&amp;SUBSERVICE=GETRECORD&amp;FORMAT=Full&amp;DB=SEARCH_SBDUE&amp;METAID=382&amp;COUNT=1&amp;NL_START=0&amp;PL_START=0&amp;HIT_COUNT=7&amp;SID=ABDEROS:142829985&amp;LOCATION=DUEBIB&amp;LISTCOUNT=200&amp;XREQID=ABDEROS:702791183&amp;HIGHLIGHTTERMS=grimbert&amp;START=7" target='DigiBib_main'>Le secret de Ji</a>
-      </td>
-      <td class='oddnumbered' width="10%"></td>
-      <td class='oddnumbered'>
-       <a href="/Digibib?SERVICE=METASEARCH&amp;SUBSERVICE=CARTPUT&amp;ACTION=ADDQUERY&amp;SID=ABDEROS:142829985&amp;LOCATION=DUEBIB&amp;DB=SEARCH_SBDUE&amp;METAID=382&amp;START=7&amp;REQID=ABDEROS:702791183" onclick="openMsgWin('','DigiBib_cartmsg');return true;" target="DigiBib_cartmsg" title="In die Merkliste"><img src="/DUEBIB/img/add_to_cart.gif" width="21" height="21" alt="In die Merkliste" border="0" /></a>
-      </td>
-     </tr>
-    
-    
-    </table>
-   </td>
-  </tr>
- </table>
- <br />
- <br />
-    
- 
-<!-- BLOCK/END - SEARCH_SBDUE - 20100829015105477 -->
-
-
- 
- 
-
-
-
-
- 
- 
-
-
-
- 
- 
-
-
- 
- <script type="text/javascript">parent.frames[0].location = '/Digibib?SERVICE=TEMPLATE&SUBSERVICE=GETSEARCHINFO&METAID=382&SID=ABDEROS:142829985&REQID=ABDEROS:702791183&START=1&TIMEOUT=0';</script>
 
   
 
- <table summary="" width="100%" cellspacing="0" cellpadding="2" border="0">
-  <tr>
-   <td width="33%" class="smaller" style="text-align:center;">
-   
-    &nbsp;
-   
-   </td>
-   <td width="33%" class="smaller" style="text-align:center;">
-   
-    &nbsp;
-   
-   </td>
-   <td width="33%" class="smaller" style="text-align:center;">
-   
-   </td>
-  </tr>
- </table>
- <br />
- 
- <table summary="" width="100%" cellspacing="0" cellpadding="2" border="0" align="center">
-  <tr>
-   <td class="pagenav" rowspan="2" style="padding-top:9px;">
-    <a href="#start"><img src="/DUEBIB/img/pfeil_oben.gif" width="9" height="6" alt="" border="0" /></a>
-   </td>
-   <th colspan="5">Optionen</th>
-  </tr>
-  <tr>
 
+  
+      
+  
+
+
+      <ul>
+  
+  
+            
+    
+    
+        <li id="current"><strong style="padding:0;"><a href="/Digibib?SID=PUELLA:1405161851&amp;LOCATION=EXTERN&amp;SERVICE=TEMPLATE&amp;SUBSERVICE=SEARCH&amp;VIEW=EXTERN:Recherchedatenbanken" title="Parallele Suche über verschiedene Kataloge und Datenbanken"><dfn>Aktiver Bereich ist 1. </dfn>Suche</a></strong>
+    
+  
+            <span class="hideme">.</span></li>
+  
+  
+          <li><a href="/Digibib?SID=PUELLA:1405161851&amp;LOCATION=EXTERN&amp;SERVICE=TEMPLATE&amp;SUBSERVICE=ERESOURCES" title="Elektronische Quellen, die nicht in die Suche aufgenommen wurden"><dfn>2. </dfn>Elektron. Angebote</a>
+
+  
+            <span class="hideme">.</span></li>
+  
+  
+          <li><a href="/Digibib?SID=PUELLA:1405161851&amp;LOCATION=EXTERN&amp;SERVICE=TEMPLATE&amp;SUBSERVICE=CUSTOMIZE" title="Persönliche Einstellungen für diese Website"><dfn>3. </dfn>Einstellungen</a>
+  
+            <span class="hideme">.</span></li>
+  
+  
+          <li><a href="/Digibib?SID=PUELLA:1405161851&amp;LOCATION=EXTERN&amp;SERVICE=TEMPLATE&amp;SUBSERVICE=INFO" title="Informationen und Hilfe zur DigiBib"><dfn>4. </dfn>Info / Kontakt</a>
+  
+            <span class="hideme">.</span></li>
+
+        </ul>
+      </div>
+    </div>
+  </div>
+
+        <!-- end: main navigation -->
+        <div id="breadcrumb" class="subcolumns">
+          <div class="leftcol">
+            <div class="subcl"><hr class="invisible" /></div>
+
+          </div>
+          <div class="rightcol">
+            <div class="subcl" id="breadcrumb_content">
+              <h6 class="hideme">Sie sind hier:</h6>
+              <ul>
+                <li>Suche &gt;&nbsp; </li>
+                <li>Datenbankprofile &gt;&nbsp; </li>
+
+                <li><a href="/Digibib?SID=PUELLA:1405161851&amp;LOCATION=EXTERN&amp;SERVICE=TEMPLATE&amp;SUBSERVICE=SEARCH_MASK&amp;ACTION=MODIFY&amp;METAID=1589&amp;VIEW=EXTERN:Recherchedatenbanken">Suchmaske "Gesamtangebot"</a> &gt;&nbsp; </li>
+                <li class="last">Trefferliste</li>
+              </ul>&nbsp;
+            </div>
+          </div>
+        </div>
+        <!-- begin: content area #main -->
+
+        <div id="main">
+          <!-- begin: #col1 - first float column -->
+          <div id="col1">
+            <div id="col1_content" class="clearfix">
+              
+  
+
+
+
+  
+  
+
+
+
+  
+
+
+
+  
+  
+  
+  
+
+
+<!-- Gliederung & Skiplink-Anker: Untermenue zur Funktion Suche -->
+<h6 class="hideme"><a name="s-subnav">Untermenü zum Bereich Suche</a></h6>
+<ul id="submenu">
+
+  
+  
+    
+  
+  
+  
+  
+    
+    
+      
+      
+      
+  <li>
+      
+    <dfn>1.1. </dfn><span class="sblock">Datenbankprofile</span><span class="hideme">.</span>
+
+    <ul>
+      
+        
+        
+          
+            
+             
+              
+                
+                  
+      <li id="active"><dfn>Aktiver Unterbereich ist 1.1.1. </dfn><a href="/Digibib?SID=PUELLA:1405161851&amp;LOCATION=EXTERN&amp;SERVICE=TEMPLATE&amp;SUBSERVICE=SEARCH_MASK">Gesamtangebot</a><span class="hideme">.</span></li>
+                  
+                
+              
+            
+          
+        
+      
+    
+  
+    
+      
+      
+    </ul>
+  </li>
+    
+    
+      
+      
+      
+      
+        
+        
+      
+      
+        
+      
+      
+        <li><a href="/Digibib?SID=PUELLA:1405161851&amp;LOCATION=EXTERN&amp;SERVICE=TEMPLATE&amp;SUBSERVICE=SEARCH_HISTORY"><dfn>1.2. </dfn>Frühere Suchen (Historie) </a>
+      
+          <span class="hideme">.</span></li>
+
+    
+  
+    
+    
+      
+      
+      
+        
+          
+    
+    
+      
+      
+      
+      
+        
+        
+      
+      
+        
+        
+      
+      
+        <li><a href="/Digibib?SID=PUELLA:1405161851&amp;LOCATION=EXTERN&amp;SERVICE=TEMPLATE&amp;SUBSERVICE=CART_LIST&amp;NAVAREA=SEARCH"><dfn>1.3. </dfn>Merkliste [<span id="jsmerkliste">0</span><span class="hideme"> Datensätze</span>]</a>
+      
+          <span class="hideme">.</span></li>
+    
+  
+    
+    
+      
+      
+      
+        
+          
+  
+
+    </ul>
+
+
+
+              <hr class="hideme" />
+
+              <h1 class="hideme">Parallele Suche in verschiedenen Quellen: Trefferliste</h1>
+              <div id="contextnav">
+  
+                <script type="text/javascript">
+                  /*<![CDATA[*/
+                  jQuery('<div class="headerpadding"><h2 class="hideme">Navigation innerhalb der Ergebnisseite<\/h2><\/div><div class="contentpadding"><table summary="Übersicht der Datenbanken und Trefferzahlen" id="progressTable" class="full"><caption class="hideme">1 durchsuchte Datenbank(en)<\/caption><thead><tr><th class="name">Datenbank<\/th><th class="value">#<span class="hideme"> Trefferanzahl</span><\/th><\/tr><\/thead><tbody> <tr class="odd"><td id="SEARCH_HBZ_hcname" class="name"><span>Bibliotheksverbund NRW / RLP (hbz)<\/span><\/td><td id="SEARCH_HBZ_hitcnt" class="value">...<\/td><\/tr><tr class="last"><td class="name">Treffer gesamt:<\/td><td id="overall_hitcnt" class="value">-<\/td><\/tr><\/tbody><\/table><\/div>').appendTo('#contextnav');
+                  /*]]>*/
+                </script>
+              </div>
+            </div>
+          </div>
+          <!-- end: #col1 -->
+          <!-- begin: #col2 second float column -->
+
+          <div id="col2"><div id="col2_content" class="clearfix"></div></div>
+          <!-- end: #col2 -->
+          <!-- begin: #col3 static column -->
+          <div id="col3">
+            <div id="col3_content" class="clearfix">
+              <!-- skip anchor: content -->
+              <h6 class="hideme"><a id="s-content" name="s-content">Inhaltsbereich</a></h6>
+
+              <div class="contenthead">
+
+                <div class="headerpadding">
+                  <h2>Suchergebnisse</h2>
+                  <p>Suchanfrage war: <strong><em>Freitext:</em> mist</strong> &nbsp;-&nbsp; <a href="/Digibib?SID=PUELLA:1405161851&amp;LOCATION=EXTERN&amp;SERVICE=TEMPLATE&amp;SUBSERVICE=SEARCH_MASK&amp;ACTION=MODIFY&amp;METAID=1589&amp;VIEW=EXTERN:Recherchedatenbanken"><strong>Anfrage verändern</strong></a></p>
+                </div>
+
+              </div><div class="contentblock">
+  
+    
+                <a name="SEARCH_HBZ_anchor"></a>
+    
+                <script type="text/javascript">updateHitCount('SEARCH_HBZ', '354', '0');</script>
+                <div class="headerpadding">
+                  <h3>Bibliotheksverbund NRW / RLP (hbz) [354 Treffer]</h3>
+      
+                </div>
+                <div class="contentpadding">
+
+                  <div class="listcontainer">
+                    <dl class="list">
+        
+      
+        
+        
+        
+        
+        
+        
+          
+          
+          
+        
+          
+                      <dt class="odd" id="SEARCH_HBZ1">
+                        <span class="recno">001.</span>
+                        <a href="/Digibib?SID=PUELLA:1405161851&amp;LOCATION=EXTERN&amp;SERVICE=METASEARCH&amp;SUBSERVICE=GETRECORD&amp;FORMAT=Full&amp;DB=SEARCH_HBZ&amp;METAID=1589&amp;COUNT=1&amp;NL_START=11&amp;PL_START=0&amp;LISTCOUNT=10&amp;HIGHLIGHTTERMS=mist&amp;VIEW=EXTERN:Recherchedatenbanken&amp;START=1" class="js_getFull" onclick="return getFull(this);"><strong>Out of the <em class="hl">mist</em> [Musikdruck] : Polychromatics</strong></a>
+                      </dt>
+
+                      <dd class="short odd">
+                        Gruenberg, Louis. - [s.a.]
+                      </dd>
+                      <dd class="long odd">&nbsp;</dd>
+                      <dd class="func last odd">
+                        <ul class="func">
+                          <li><a href="/Digibib?SID=PUELLA:1405161851&amp;LOCATION=EXTERN&amp;SERVICE=TEMPLATE&amp;SUBSERVICE=CART_PUT&amp;DB=SEARCH_HBZ&amp;METAID=1589&amp;TYPE=MS&amp;START=1" class="js_cartPut" onclick="return cartPut(this);" target="_blank" title="Out of the mist [Musikdruck] : Polychromatics"><span class="hideme">Treffer </span>merken</a></li>
+                          <li><a href="/Digibib?SID=PUELLA:1405161851&amp;LOCATION=EXTERN&amp;SERVICE=METASEARCH&amp;SUBSERVICE=GETRECORD&amp;FORMAT=Full&amp;DB=SEARCH_HBZ&amp;METAID=1589&amp;COUNT=1&amp;NL_START=11&amp;PL_START=0&amp;LISTCOUNT=10&amp;HIGHLIGHTTERMS=mist&amp;VIEW=EXTERN:Recherchedatenbanken&amp;START=1&amp;PRINT=TRUE" target="_blank" class="printHit" title="Druckansicht für: Out of the mist [Musikdruck] : Polychromatics"><span class="hideme">Treffer </span>drucken</a></li>
+
+                          <li><a href="/Digibib?SID=PUELLA:1405161851&amp;LOCATION=EXTERN&amp;SERVICE=TEMPLATE&amp;REQID=PUELLA:1156796052&amp;SUBSERVICE=DIRECT_EXPORT&amp;ORIG_SUBSRV=GETLIST&amp;TYPE=MS&amp;VIEW=EXTERN:Recherchedatenbanken&amp;EX.001.SERVICE=METASEARCH&amp;EX.002.SUBSERVICE=GETRECORD&amp;EX.003.TEMPLATE=FALSE&amp;EX.004.FORMAT=Full&amp;EX.005.DB=SEARCH_HBZ&amp;DB=SEARCH_HBZ&amp;EX.006.METAID=1589&amp;EX.007.START=1&amp;START=1&amp;EX.008.COUNT=1&amp;FORMAT=TXT" title="Trefferdaten exportieren für: Out of the mist [Musikdruck] : Polychromatics" class="js_formatExport" onclick="return formatExport(this);"><span class="hideme">Treffer </span>exportieren</a><div id="exportdialog_SEARCH_HBZ1" class="exportdlg"></div></li>
+          
+                          <li><a href="/Digibib?SID=PUELLA:1405161851&amp;LOCATION=EXTERN&amp;SERVICE=AVAIL&amp;SUBSERVICE=AVAILABILITY_PREPARE&amp;DB=SEARCH_HBZ&amp;METAID=1589&amp;PRETEMPLATE=AVAIL.PREAVAILABILITY&amp;RECNO=1" class="avail" title="Verfügbarkeit prüfen für: Out of the mist [Musikdruck] : Polychromatics" target="_self">Wie komme ich dran?</a></li>
+          
+          
+          
+                        </ul>
+                      </dd>
+          
+                      <dt class="even" id="SEARCH_HBZ2">
+                        <span class="recno">002.</span>
+                        <a href="/Digibib?SID=PUELLA:1405161851&amp;LOCATION=EXTERN&amp;SERVICE=METASEARCH&amp;SUBSERVICE=GETRECORD&amp;FORMAT=Full&amp;DB=SEARCH_HBZ&amp;METAID=1589&amp;COUNT=1&amp;NL_START=11&amp;PL_START=0&amp;LISTCOUNT=10&amp;HIGHLIGHTTERMS=mist&amp;VIEW=EXTERN:Recherchedatenbanken&amp;START=2" class="js_getFull" onclick="return getFull(this);"><strong>Der Engel im Nebel : Roman</strong></a>
+
+                      </dt>
+                      <dd class="short even">
+                        Speaight, Robert. - o.J.
+                      </dd>
+                      <dd class="long even">&nbsp;</dd>
+                      <dd class="func last even">
+                        <ul class="func">
+                          <li><a href="/Digibib?SID=PUELLA:1405161851&amp;LOCATION=EXTERN&amp;SERVICE=TEMPLATE&amp;SUBSERVICE=CART_PUT&amp;DB=SEARCH_HBZ&amp;METAID=1589&amp;TYPE=MS&amp;START=2" class="js_cartPut" onclick="return cartPut(this);" target="_blank" title="Der Engel im Nebel : Roman"><span class="hideme">Treffer </span>merken</a></li>
+
+                          <li><a href="/Digibib?SID=PUELLA:1405161851&amp;LOCATION=EXTERN&amp;SERVICE=METASEARCH&amp;SUBSERVICE=GETRECORD&amp;FORMAT=Full&amp;DB=SEARCH_HBZ&amp;METAID=1589&amp;COUNT=1&amp;NL_START=11&amp;PL_START=0&amp;LISTCOUNT=10&amp;HIGHLIGHTTERMS=mist&amp;VIEW=EXTERN:Recherchedatenbanken&amp;START=2&amp;PRINT=TRUE" target="_blank" class="printHit" title="Druckansicht für: Der Engel im Nebel : Roman"><span class="hideme">Treffer </span>drucken</a></li>
+                          <li><a href="/Digibib?SID=PUELLA:1405161851&amp;LOCATION=EXTERN&amp;SERVICE=TEMPLATE&amp;REQID=PUELLA:1156796052&amp;SUBSERVICE=DIRECT_EXPORT&amp;ORIG_SUBSRV=GETLIST&amp;TYPE=MS&amp;VIEW=EXTERN:Recherchedatenbanken&amp;EX.001.SERVICE=METASEARCH&amp;EX.002.SUBSERVICE=GETRECORD&amp;EX.003.TEMPLATE=FALSE&amp;EX.004.FORMAT=Full&amp;EX.005.DB=SEARCH_HBZ&amp;DB=SEARCH_HBZ&amp;EX.006.METAID=1589&amp;EX.007.START=2&amp;START=2&amp;EX.008.COUNT=1&amp;FORMAT=TXT" title="Trefferdaten exportieren für: Der Engel im Nebel : Roman" class="js_formatExport" onclick="return formatExport(this);"><span class="hideme">Treffer </span>exportieren</a><div id="exportdialog_SEARCH_HBZ2" class="exportdlg"></div></li>
+          
+                          <li><a href="/Digibib?SID=PUELLA:1405161851&amp;LOCATION=EXTERN&amp;SERVICE=AVAIL&amp;SUBSERVICE=AVAILABILITY_PREPARE&amp;DB=SEARCH_HBZ&amp;METAID=1589&amp;PRETEMPLATE=AVAIL.PREAVAILABILITY&amp;RECNO=2" class="avail" title="Verfügbarkeit prüfen für: Der Engel im Nebel : Roman" target="_self">Wie komme ich dran?</a></li>
+          
+          
+          
+                        </ul>
+                      </dd>
+          
+                      <dt class="odd" id="SEARCH_HBZ3">
+
+                        <span class="recno">003.</span>
+                        <a href="/Digibib?SID=PUELLA:1405161851&amp;LOCATION=EXTERN&amp;SERVICE=METASEARCH&amp;SUBSERVICE=GETRECORD&amp;FORMAT=Full&amp;DB=SEARCH_HBZ&amp;METAID=1589&amp;COUNT=1&amp;NL_START=11&amp;PL_START=0&amp;LISTCOUNT=10&amp;HIGHLIGHTTERMS=mist&amp;VIEW=EXTERN:Recherchedatenbanken&amp;START=3" class="js_getFull" onclick="return getFull(this);"><strong>... and the Chinese cliffs emerged out of the <em class="hl">mist</em> : Perception and image of China in early photographs</strong></a>
+                      </dt>
+                      <dd class="short odd">
+                        Suchomel, Filip. - 2011
+                      </dd>
+                      <dd class="long odd">&nbsp;</dd>
+
+                      <dd class="func last odd">
+                        <ul class="func">
+                          <li><a href="/Digibib?SID=PUELLA:1405161851&amp;LOCATION=EXTERN&amp;SERVICE=TEMPLATE&amp;SUBSERVICE=CART_PUT&amp;DB=SEARCH_HBZ&amp;METAID=1589&amp;TYPE=MS&amp;START=3" class="js_cartPut" onclick="return cartPut(this);" target="_blank" title="... and the Chinese cliffs emerged out of the mist : Perception and image of China in early photographs"><span class="hideme">Treffer </span>merken</a></li>
+                          <li><a href="/Digibib?SID=PUELLA:1405161851&amp;LOCATION=EXTERN&amp;SERVICE=METASEARCH&amp;SUBSERVICE=GETRECORD&amp;FORMAT=Full&amp;DB=SEARCH_HBZ&amp;METAID=1589&amp;COUNT=1&amp;NL_START=11&amp;PL_START=0&amp;LISTCOUNT=10&amp;HIGHLIGHTTERMS=mist&amp;VIEW=EXTERN:Recherchedatenbanken&amp;START=3&amp;PRINT=TRUE" target="_blank" class="printHit" title="Druckansicht für: ... and the Chinese cliffs emerged out of the mist : Perception and image of China in early photographs"><span class="hideme">Treffer </span>drucken</a></li>
+                          <li><a href="/Digibib?SID=PUELLA:1405161851&amp;LOCATION=EXTERN&amp;SERVICE=TEMPLATE&amp;REQID=PUELLA:1156796052&amp;SUBSERVICE=DIRECT_EXPORT&amp;ORIG_SUBSRV=GETLIST&amp;TYPE=MS&amp;VIEW=EXTERN:Recherchedatenbanken&amp;EX.001.SERVICE=METASEARCH&amp;EX.002.SUBSERVICE=GETRECORD&amp;EX.003.TEMPLATE=FALSE&amp;EX.004.FORMAT=Full&amp;EX.005.DB=SEARCH_HBZ&amp;DB=SEARCH_HBZ&amp;EX.006.METAID=1589&amp;EX.007.START=3&amp;START=3&amp;EX.008.COUNT=1&amp;FORMAT=TXT" title="Trefferdaten exportieren für: ... and the Chinese cliffs emerged out of the mist : Perception and image of China in early photographs" class="js_formatExport" onclick="return formatExport(this);"><span class="hideme">Treffer </span>exportieren</a><div id="exportdialog_SEARCH_HBZ3" class="exportdlg"></div></li>
+          
+                          <li><a href="/Digibib?SID=PUELLA:1405161851&amp;LOCATION=EXTERN&amp;SERVICE=AVAIL&amp;SUBSERVICE=AVAILABILITY_PREPARE&amp;DB=SEARCH_HBZ&amp;METAID=1589&amp;PRETEMPLATE=AVAIL.PREAVAILABILITY&amp;RECNO=3" class="avail" title="Verfügbarkeit prüfen für: ... and the Chinese cliffs emerged out of the mist : Perception and image of China in early photographs" target="_self">Wie komme ich dran?</a></li>
+
+          
+          
+          
+                        </ul>
+                      </dd>
+          
+                      <dt class="even" id="SEARCH_HBZ4">
+                        <span class="recno">004.</span>
+                        <a href="/Digibib?SID=PUELLA:1405161851&amp;LOCATION=EXTERN&amp;SERVICE=METASEARCH&amp;SUBSERVICE=GETRECORD&amp;FORMAT=Full&amp;DB=SEARCH_HBZ&amp;METAID=1589&amp;COUNT=1&amp;NL_START=11&amp;PL_START=0&amp;LISTCOUNT=10&amp;HIGHLIGHTTERMS=mist&amp;VIEW=EXTERN:Recherchedatenbanken&amp;START=4" class="js_getFull" onclick="return getFull(this);"><strong>Ico : castle in the <em class="hl">mist</em></strong></a>
+                      </dt>
+                      <dd class="short even">
+
+                        Miyabe, Miyuki. - 2011
+                      </dd>
+                      <dd class="long even">&nbsp;</dd>
+                      <dd class="func last even">
+                        <ul class="func">
+                          <li><a href="/Digibib?SID=PUELLA:1405161851&amp;LOCATION=EXTERN&amp;SERVICE=TEMPLATE&amp;SUBSERVICE=CART_PUT&amp;DB=SEARCH_HBZ&amp;METAID=1589&amp;TYPE=MS&amp;START=4" class="js_cartPut" onclick="return cartPut(this);" target="_blank" title="Ico : castle in the mist"><span class="hideme">Treffer </span>merken</a></li>
+                          <li><a href="/Digibib?SID=PUELLA:1405161851&amp;LOCATION=EXTERN&amp;SERVICE=METASEARCH&amp;SUBSERVICE=GETRECORD&amp;FORMAT=Full&amp;DB=SEARCH_HBZ&amp;METAID=1589&amp;COUNT=1&amp;NL_START=11&amp;PL_START=0&amp;LISTCOUNT=10&amp;HIGHLIGHTTERMS=mist&amp;VIEW=EXTERN:Recherchedatenbanken&amp;START=4&amp;PRINT=TRUE" target="_blank" class="printHit" title="Druckansicht für: Ico : castle in the mist"><span class="hideme">Treffer </span>drucken</a></li>
+
+                          <li><a href="/Digibib?SID=PUELLA:1405161851&amp;LOCATION=EXTERN&amp;SERVICE=TEMPLATE&amp;REQID=PUELLA:1156796052&amp;SUBSERVICE=DIRECT_EXPORT&amp;ORIG_SUBSRV=GETLIST&amp;TYPE=MS&amp;VIEW=EXTERN:Recherchedatenbanken&amp;EX.001.SERVICE=METASEARCH&amp;EX.002.SUBSERVICE=GETRECORD&amp;EX.003.TEMPLATE=FALSE&amp;EX.004.FORMAT=Full&amp;EX.005.DB=SEARCH_HBZ&amp;DB=SEARCH_HBZ&amp;EX.006.METAID=1589&amp;EX.007.START=4&amp;START=4&amp;EX.008.COUNT=1&amp;FORMAT=TXT" title="Trefferdaten exportieren für: Ico : castle in the mist" class="js_formatExport" onclick="return formatExport(this);"><span class="hideme">Treffer </span>exportieren</a><div id="exportdialog_SEARCH_HBZ4" class="exportdlg"></div></li>
+          
+                          <li><a href="/Digibib?SID=PUELLA:1405161851&amp;LOCATION=EXTERN&amp;SERVICE=AVAIL&amp;SUBSERVICE=AVAILABILITY_PREPARE&amp;DB=SEARCH_HBZ&amp;METAID=1589&amp;PRETEMPLATE=AVAIL.PREAVAILABILITY&amp;RECNO=4" class="avail" title="Verfügbarkeit prüfen für: Ico : castle in the mist" target="_self">Wie komme ich dran?</a></li>
+          
+          
+          
+                        </ul>
+                      </dd>
+          
+                      <dt class="odd" id="SEARCH_HBZ5">
+                        <span class="recno">005.</span>
+                        <a href="/Digibib?SID=PUELLA:1405161851&amp;LOCATION=EXTERN&amp;SERVICE=METASEARCH&amp;SUBSERVICE=GETRECORD&amp;FORMAT=Full&amp;DB=SEARCH_HBZ&amp;METAID=1589&amp;COUNT=1&amp;NL_START=11&amp;PL_START=0&amp;LISTCOUNT=10&amp;HIGHLIGHTTERMS=mist&amp;VIEW=EXTERN:Recherchedatenbanken&amp;START=5" class="js_getFull" onclick="return getFull(this);"><strong>Ganz viel <em class="hl">Mist</em> und ein wenig Poesie</strong></a>
+
+                      </dt>
+                      <dd class="short odd">
+                        Navarro, Fabian. - 2011
+                      </dd>
+                      <dd class="long odd">&nbsp;</dd>
+                      <dd class="func last odd">
+                        <ul class="func">
+                          <li><a href="/Digibib?SID=PUELLA:1405161851&amp;LOCATION=EXTERN&amp;SERVICE=TEMPLATE&amp;SUBSERVICE=CART_PUT&amp;DB=SEARCH_HBZ&amp;METAID=1589&amp;TYPE=MS&amp;START=5" class="js_cartPut" onclick="return cartPut(this);" target="_blank" title="Ganz viel Mist und ein wenig Poesie"><span class="hideme">Treffer </span>merken</a></li>
+
+                          <li><a href="/Digibib?SID=PUELLA:1405161851&amp;LOCATION=EXTERN&amp;SERVICE=METASEARCH&amp;SUBSERVICE=GETRECORD&amp;FORMAT=Full&amp;DB=SEARCH_HBZ&amp;METAID=1589&amp;COUNT=1&amp;NL_START=11&amp;PL_START=0&amp;LISTCOUNT=10&amp;HIGHLIGHTTERMS=mist&amp;VIEW=EXTERN:Recherchedatenbanken&amp;START=5&amp;PRINT=TRUE" target="_blank" class="printHit" title="Druckansicht für: Ganz viel Mist und ein wenig Poesie"><span class="hideme">Treffer </span>drucken</a></li>
+                          <li><a href="/Digibib?SID=PUELLA:1405161851&amp;LOCATION=EXTERN&amp;SERVICE=TEMPLATE&amp;REQID=PUELLA:1156796052&amp;SUBSERVICE=DIRECT_EXPORT&amp;ORIG_SUBSRV=GETLIST&amp;TYPE=MS&amp;VIEW=EXTERN:Recherchedatenbanken&amp;EX.001.SERVICE=METASEARCH&amp;EX.002.SUBSERVICE=GETRECORD&amp;EX.003.TEMPLATE=FALSE&amp;EX.004.FORMAT=Full&amp;EX.005.DB=SEARCH_HBZ&amp;DB=SEARCH_HBZ&amp;EX.006.METAID=1589&amp;EX.007.START=5&amp;START=5&amp;EX.008.COUNT=1&amp;FORMAT=TXT" title="Trefferdaten exportieren für: Ganz viel Mist und ein wenig Poesie" class="js_formatExport" onclick="return formatExport(this);"><span class="hideme">Treffer </span>exportieren</a><div id="exportdialog_SEARCH_HBZ5" class="exportdlg"></div></li>
+          
+                          <li><a href="/Digibib?SID=PUELLA:1405161851&amp;LOCATION=EXTERN&amp;SERVICE=AVAIL&amp;SUBSERVICE=AVAILABILITY_PREPARE&amp;DB=SEARCH_HBZ&amp;METAID=1589&amp;PRETEMPLATE=AVAIL.PREAVAILABILITY&amp;RECNO=5" class="avail" title="Verfügbarkeit prüfen für: Ganz viel Mist und ein wenig Poesie" target="_self">Wie komme ich dran?</a></li>
+          
+          
+          
+                        </ul>
+                      </dd>
+          
+                      <dt class="even" id="SEARCH_HBZ6">
+
+                        <span class="recno">006.</span>
+                        <a href="/Digibib?SID=PUELLA:1405161851&amp;LOCATION=EXTERN&amp;SERVICE=METASEARCH&amp;SUBSERVICE=GETRECORD&amp;FORMAT=Full&amp;DB=SEARCH_HBZ&amp;METAID=1589&amp;COUNT=1&amp;NL_START=11&amp;PL_START=0&amp;LISTCOUNT=10&amp;HIGHLIGHTTERMS=mist&amp;VIEW=EXTERN:Recherchedatenbanken&amp;START=6" class="js_getFull" onclick="return getFull(this);"><strong>Sterben ist <em class="hl">Mist</em>, der Tod aber schön : Träume vom Himmel</strong></a>
+                      </dt>
+                      <dd class="short even">
+                        Wohmann, Gabriele. - 2011
+                      </dd>
+                      <dd class="long even">&nbsp;</dd>
+
+                      <dd class="func last even">
+                        <ul class="func">
+                          <li><a href="/Digibib?SID=PUELLA:1405161851&amp;LOCATION=EXTERN&amp;SERVICE=TEMPLATE&amp;SUBSERVICE=CART_PUT&amp;DB=SEARCH_HBZ&amp;METAID=1589&amp;TYPE=MS&amp;START=6" class="js_cartPut" onclick="return cartPut(this);" target="_blank" title="Sterben ist Mist, der Tod aber schön : Träume vom Himmel"><span class="hideme">Treffer </span>merken</a></li>
+                          <li><a href="/Digibib?SID=PUELLA:1405161851&amp;LOCATION=EXTERN&amp;SERVICE=METASEARCH&amp;SUBSERVICE=GETRECORD&amp;FORMAT=Full&amp;DB=SEARCH_HBZ&amp;METAID=1589&amp;COUNT=1&amp;NL_START=11&amp;PL_START=0&amp;LISTCOUNT=10&amp;HIGHLIGHTTERMS=mist&amp;VIEW=EXTERN:Recherchedatenbanken&amp;START=6&amp;PRINT=TRUE" target="_blank" class="printHit" title="Druckansicht für: Sterben ist Mist, der Tod aber schön : Träume vom Himmel"><span class="hideme">Treffer </span>drucken</a></li>
+                          <li><a href="/Digibib?SID=PUELLA:1405161851&amp;LOCATION=EXTERN&amp;SERVICE=TEMPLATE&amp;REQID=PUELLA:1156796052&amp;SUBSERVICE=DIRECT_EXPORT&amp;ORIG_SUBSRV=GETLIST&amp;TYPE=MS&amp;VIEW=EXTERN:Recherchedatenbanken&amp;EX.001.SERVICE=METASEARCH&amp;EX.002.SUBSERVICE=GETRECORD&amp;EX.003.TEMPLATE=FALSE&amp;EX.004.FORMAT=Full&amp;EX.005.DB=SEARCH_HBZ&amp;DB=SEARCH_HBZ&amp;EX.006.METAID=1589&amp;EX.007.START=6&amp;START=6&amp;EX.008.COUNT=1&amp;FORMAT=TXT" title="Trefferdaten exportieren für: Sterben ist Mist, der Tod aber schön : Träume vom Himmel" class="js_formatExport" onclick="return formatExport(this);"><span class="hideme">Treffer </span>exportieren</a><div id="exportdialog_SEARCH_HBZ6" class="exportdlg"></div></li>
+          
+                          <li><a href="/Digibib?SID=PUELLA:1405161851&amp;LOCATION=EXTERN&amp;SERVICE=AVAIL&amp;SUBSERVICE=AVAILABILITY_PREPARE&amp;DB=SEARCH_HBZ&amp;METAID=1589&amp;PRETEMPLATE=AVAIL.PREAVAILABILITY&amp;RECNO=6" class="avail" title="Verfügbarkeit prüfen für: Sterben ist Mist, der Tod aber schön : Träume vom Himmel" target="_self">Wie komme ich dran?</a></li>
+
+          
+          
+          
+                        </ul>
+                      </dd>
+          
+                      <dt class="odd" id="SEARCH_HBZ7">
+                        <span class="recno">007.</span>
+                        <a href="/Digibib?SID=PUELLA:1405161851&amp;LOCATION=EXTERN&amp;SERVICE=METASEARCH&amp;SUBSERVICE=GETRECORD&amp;FORMAT=Full&amp;DB=SEARCH_HBZ&amp;METAID=1589&amp;COUNT=1&amp;NL_START=11&amp;PL_START=0&amp;LISTCOUNT=10&amp;HIGHLIGHTTERMS=mist&amp;VIEW=EXTERN:Recherchedatenbanken&amp;START=7" class="js_getFull" onclick="return getFull(this);"><strong>De <em class="hl">mist</em> van de geschiedenis : [over herinneren, vergeten en het historisch geheugen van de samenleving]</strong></a>
+                      </dt>
+
+                      <dd class="short odd">
+                        Frijhoff, Willem. - 2011
+                      </dd>
+                      <dd class="long odd">&nbsp;</dd>
+                      <dd class="func last odd">
+                        <ul class="func">
+                          <li><a href="/Digibib?SID=PUELLA:1405161851&amp;LOCATION=EXTERN&amp;SERVICE=TEMPLATE&amp;SUBSERVICE=CART_PUT&amp;DB=SEARCH_HBZ&amp;METAID=1589&amp;TYPE=MS&amp;START=7" class="js_cartPut" onclick="return cartPut(this);" target="_blank" title="De mist van de geschiedenis : [over herinneren, vergeten en het historisch geheugen van de samenleving]"><span class="hideme">Treffer </span>merken</a></li>
+                          <li><a href="/Digibib?SID=PUELLA:1405161851&amp;LOCATION=EXTERN&amp;SERVICE=METASEARCH&amp;SUBSERVICE=GETRECORD&amp;FORMAT=Full&amp;DB=SEARCH_HBZ&amp;METAID=1589&amp;COUNT=1&amp;NL_START=11&amp;PL_START=0&amp;LISTCOUNT=10&amp;HIGHLIGHTTERMS=mist&amp;VIEW=EXTERN:Recherchedatenbanken&amp;START=7&amp;PRINT=TRUE" target="_blank" class="printHit" title="Druckansicht für: De mist van de geschiedenis : [over herinneren, vergeten en het historisch geheugen van de samenleving]"><span class="hideme">Treffer </span>drucken</a></li>
+
+                          <li><a href="/Digibib?SID=PUELLA:1405161851&amp;LOCATION=EXTERN&amp;SERVICE=TEMPLATE&amp;REQID=PUELLA:1156796052&amp;SUBSERVICE=DIRECT_EXPORT&amp;ORIG_SUBSRV=GETLIST&amp;TYPE=MS&amp;VIEW=EXTERN:Recherchedatenbanken&amp;EX.001.SERVICE=METASEARCH&amp;EX.002.SUBSERVICE=GETRECORD&amp;EX.003.TEMPLATE=FALSE&amp;EX.004.FORMAT=Full&amp;EX.005.DB=SEARCH_HBZ&amp;DB=SEARCH_HBZ&amp;EX.006.METAID=1589&amp;EX.007.START=7&amp;START=7&amp;EX.008.COUNT=1&amp;FORMAT=TXT" title="Trefferdaten exportieren für: De mist van de geschiedenis : [over herinneren, vergeten en het historisch geheugen van de samenleving]" class="js_formatExport" onclick="return formatExport(this);"><span class="hideme">Treffer </span>exportieren</a><div id="exportdialog_SEARCH_HBZ7" class="exportdlg"></div></li>
+          
+                          <li><a href="/Digibib?SID=PUELLA:1405161851&amp;LOCATION=EXTERN&amp;SERVICE=AVAIL&amp;SUBSERVICE=AVAILABILITY_PREPARE&amp;DB=SEARCH_HBZ&amp;METAID=1589&amp;PRETEMPLATE=AVAIL.PREAVAILABILITY&amp;RECNO=7" class="avail" title="Verfügbarkeit prüfen für: De mist van de geschiedenis : [over herinneren, vergeten en het historisch geheugen van de samenleving]" target="_self">Wie komme ich dran?</a></li>
+          
+          
+          
+                        </ul>
+                      </dd>
+          
+                      <dt class="even" id="SEARCH_HBZ8">
+                        <span class="recno">008.</span>
+                        <a href="/Digibib?SID=PUELLA:1405161851&amp;LOCATION=EXTERN&amp;SERVICE=METASEARCH&amp;SUBSERVICE=GETRECORD&amp;FORMAT=Full&amp;DB=SEARCH_HBZ&amp;METAID=1589&amp;COUNT=1&amp;NL_START=11&amp;PL_START=0&amp;LISTCOUNT=10&amp;HIGHLIGHTTERMS=mist&amp;VIEW=EXTERN:Recherchedatenbanken&amp;START=8" class="js_getFull" onclick="return getFull(this);"><strong>Das Leben des J. Benedict Lemaistre oder Wie der <em class="hl">Mist</em> nach Mannheim kam</strong></a>
+
+                      </dt>
+                      <dd class="short even">
+                        Bergen-Rösch, Andrea. - 2011
+                      </dd>
+                      <dd class="long even">&nbsp;</dd>
+                      <dd class="func last even">
+                        <ul class="func">
+                          <li><a href="/Digibib?SID=PUELLA:1405161851&amp;LOCATION=EXTERN&amp;SERVICE=TEMPLATE&amp;SUBSERVICE=CART_PUT&amp;DB=SEARCH_HBZ&amp;METAID=1589&amp;TYPE=MS&amp;START=8" class="js_cartPut" onclick="return cartPut(this);" target="_blank" title="Das Leben des J. Benedict Lemaistre oder Wie der Mist nach Mannheim kam"><span class="hideme">Treffer </span>merken</a></li>
+
+                          <li><a href="/Digibib?SID=PUELLA:1405161851&amp;LOCATION=EXTERN&amp;SERVICE=METASEARCH&amp;SUBSERVICE=GETRECORD&amp;FORMAT=Full&amp;DB=SEARCH_HBZ&amp;METAID=1589&amp;COUNT=1&amp;NL_START=11&amp;PL_START=0&amp;LISTCOUNT=10&amp;HIGHLIGHTTERMS=mist&amp;VIEW=EXTERN:Recherchedatenbanken&amp;START=8&amp;PRINT=TRUE" target="_blank" class="printHit" title="Druckansicht für: Das Leben des J. Benedict Lemaistre oder Wie der Mist nach Mannheim kam"><span class="hideme">Treffer </span>drucken</a></li>
+                          <li><a href="/Digibib?SID=PUELLA:1405161851&amp;LOCATION=EXTERN&amp;SERVICE=TEMPLATE&amp;REQID=PUELLA:1156796052&amp;SUBSERVICE=DIRECT_EXPORT&amp;ORIG_SUBSRV=GETLIST&amp;TYPE=MS&amp;VIEW=EXTERN:Recherchedatenbanken&amp;EX.001.SERVICE=METASEARCH&amp;EX.002.SUBSERVICE=GETRECORD&amp;EX.003.TEMPLATE=FALSE&amp;EX.004.FORMAT=Full&amp;EX.005.DB=SEARCH_HBZ&amp;DB=SEARCH_HBZ&amp;EX.006.METAID=1589&amp;EX.007.START=8&amp;START=8&amp;EX.008.COUNT=1&amp;FORMAT=TXT" title="Trefferdaten exportieren für: Das Leben des J. Benedict Lemaistre oder Wie der Mist nach Mannheim kam" class="js_formatExport" onclick="return formatExport(this);"><span class="hideme">Treffer </span>exportieren</a><div id="exportdialog_SEARCH_HBZ8" class="exportdlg"></div></li>
+          
+                          <li><a href="/Digibib?SID=PUELLA:1405161851&amp;LOCATION=EXTERN&amp;SERVICE=AVAIL&amp;SUBSERVICE=AVAILABILITY_PREPARE&amp;DB=SEARCH_HBZ&amp;METAID=1589&amp;PRETEMPLATE=AVAIL.PREAVAILABILITY&amp;RECNO=8" class="avail" title="Verfügbarkeit prüfen für: Das Leben des J. Benedict Lemaistre oder Wie der Mist nach Mannheim kam" target="_self">Wie komme ich dran?</a></li>
+          
+          
+          
+                        </ul>
+                      </dd>
+          
+                      <dt class="odd" id="SEARCH_HBZ9">
+
+                        <span class="recno">009.</span>
+                        <a href="/Digibib?SID=PUELLA:1405161851&amp;LOCATION=EXTERN&amp;SERVICE=METASEARCH&amp;SUBSERVICE=GETRECORD&amp;FORMAT=Full&amp;DB=SEARCH_HBZ&amp;METAID=1589&amp;COUNT=1&amp;NL_START=11&amp;PL_START=0&amp;LISTCOUNT=10&amp;HIGHLIGHTTERMS=mist&amp;VIEW=EXTERN:Recherchedatenbanken&amp;START=9" class="js_getFull" onclick="return getFull(this);"><strong>Skater in de <em class="hl">mist</em></strong></a>
+                      </dt>
+                      <dd class="short odd">
+                        Dhooge, Bavo. - 2010
+                      </dd>
+                      <dd class="long odd">&nbsp;</dd>
+                      <dd class="func last odd">
+
+                        <ul class="func">
+                          <li><a href="/Digibib?SID=PUELLA:1405161851&amp;LOCATION=EXTERN&amp;SERVICE=TEMPLATE&amp;SUBSERVICE=CART_PUT&amp;DB=SEARCH_HBZ&amp;METAID=1589&amp;TYPE=MS&amp;START=9" class="js_cartPut" onclick="return cartPut(this);" target="_blank" title="Skater in de mist"><span class="hideme">Treffer </span>merken</a></li>
+                          <li><a href="/Digibib?SID=PUELLA:1405161851&amp;LOCATION=EXTERN&amp;SERVICE=METASEARCH&amp;SUBSERVICE=GETRECORD&amp;FORMAT=Full&amp;DB=SEARCH_HBZ&amp;METAID=1589&amp;COUNT=1&amp;NL_START=11&amp;PL_START=0&amp;LISTCOUNT=10&amp;HIGHLIGHTTERMS=mist&amp;VIEW=EXTERN:Recherchedatenbanken&amp;START=9&amp;PRINT=TRUE" target="_blank" class="printHit" title="Druckansicht für: Skater in de mist"><span class="hideme">Treffer </span>drucken</a></li>
+                          <li><a href="/Digibib?SID=PUELLA:1405161851&amp;LOCATION=EXTERN&amp;SERVICE=TEMPLATE&amp;REQID=PUELLA:1156796052&amp;SUBSERVICE=DIRECT_EXPORT&amp;ORIG_SUBSRV=GETLIST&amp;TYPE=MS&amp;VIEW=EXTERN:Recherchedatenbanken&amp;EX.001.SERVICE=METASEARCH&amp;EX.002.SUBSERVICE=GETRECORD&amp;EX.003.TEMPLATE=FALSE&amp;EX.004.FORMAT=Full&amp;EX.005.DB=SEARCH_HBZ&amp;DB=SEARCH_HBZ&amp;EX.006.METAID=1589&amp;EX.007.START=9&amp;START=9&amp;EX.008.COUNT=1&amp;FORMAT=TXT" title="Trefferdaten exportieren für: Skater in de mist" class="js_formatExport" onclick="return formatExport(this);"><span class="hideme">Treffer </span>exportieren</a><div id="exportdialog_SEARCH_HBZ9" class="exportdlg"></div></li>
+          
+                          <li><a href="/Digibib?SID=PUELLA:1405161851&amp;LOCATION=EXTERN&amp;SERVICE=AVAIL&amp;SUBSERVICE=AVAILABILITY_PREPARE&amp;DB=SEARCH_HBZ&amp;METAID=1589&amp;PRETEMPLATE=AVAIL.PREAVAILABILITY&amp;RECNO=9" class="avail" title="Verfügbarkeit prüfen für: Skater in de mist" target="_self">Wie komme ich dran?</a></li>
+
+          
+          
+          
+                        </ul>
+                      </dd>
+          
+                      <dt class="even" id="SEARCH_HBZ10">
+                        <span class="recno">010.</span>
+                        <a href="/Digibib?SID=PUELLA:1405161851&amp;LOCATION=EXTERN&amp;SERVICE=METASEARCH&amp;SUBSERVICE=GETRECORD&amp;FORMAT=Full&amp;DB=SEARCH_HBZ&amp;METAID=1589&amp;COUNT=1&amp;NL_START=11&amp;PL_START=0&amp;LISTCOUNT=10&amp;HIGHLIGHTTERMS=mist&amp;VIEW=EXTERN:Recherchedatenbanken&amp;START=10" class="js_getFull" onclick="return getFull(this);"><strong>Religie en de <em class="hl">mist</em> van de geschiedenis : hoe behoefte aan herinnering onze cultuur transformeert ; rede gehouden vanwege een gasthoogleraarschap aan de Faculteit der Letteren van de Radboud Universiteit Nij...</strong></a>
+                      </dt>
+
+                      <dd class="short even">
+                        Frijhoff, Willem. - 2010
+                      </dd>
+                      <dd class="long even">&nbsp;</dd>
+                      <dd class="func last even">
+                        <ul class="func">
+                          <li><a href="/Digibib?SID=PUELLA:1405161851&amp;LOCATION=EXTERN&amp;SERVICE=TEMPLATE&amp;SUBSERVICE=CART_PUT&amp;DB=SEARCH_HBZ&amp;METAID=1589&amp;TYPE=MS&amp;START=10" class="js_cartPut" onclick="return cartPut(this);" target="_blank" title="Religie en de mist van de geschiedenis : hoe behoefte aan herinnering onze cultuur transformeert ; rede gehouden vanwege een gasthoogleraarschap aan de Faculteit der Letteren van de Radboud Universiteit Nij..."><span class="hideme">Treffer </span>merken</a></li>
+                          <li><a href="/Digibib?SID=PUELLA:1405161851&amp;LOCATION=EXTERN&amp;SERVICE=METASEARCH&amp;SUBSERVICE=GETRECORD&amp;FORMAT=Full&amp;DB=SEARCH_HBZ&amp;METAID=1589&amp;COUNT=1&amp;NL_START=11&amp;PL_START=0&amp;LISTCOUNT=10&amp;HIGHLIGHTTERMS=mist&amp;VIEW=EXTERN:Recherchedatenbanken&amp;START=10&amp;PRINT=TRUE" target="_blank" class="printHit" title="Druckansicht für: Religie en de mist van de geschiedenis : hoe behoefte aan herinnering onze cultuur transformeert ; rede gehouden vanwege een gasthoogleraarschap aan de Faculteit der Letteren van de Radboud Universiteit Nij..."><span class="hideme">Treffer </span>drucken</a></li>
+
+                          <li><a href="/Digibib?SID=PUELLA:1405161851&amp;LOCATION=EXTERN&amp;SERVICE=TEMPLATE&amp;REQID=PUELLA:1156796052&amp;SUBSERVICE=DIRECT_EXPORT&amp;ORIG_SUBSRV=GETLIST&amp;TYPE=MS&amp;VIEW=EXTERN:Recherchedatenbanken&amp;EX.001.SERVICE=METASEARCH&amp;EX.002.SUBSERVICE=GETRECORD&amp;EX.003.TEMPLATE=FALSE&amp;EX.004.FORMAT=Full&amp;EX.005.DB=SEARCH_HBZ&amp;DB=SEARCH_HBZ&amp;EX.006.METAID=1589&amp;EX.007.START=10&amp;START=10&amp;EX.008.COUNT=1&amp;FORMAT=TXT" title="Trefferdaten exportieren für: Religie en de mist van de geschiedenis : hoe behoefte aan herinnering onze cultuur transformeert ; rede gehouden vanwege een gasthoogleraarschap aan de Faculteit der Letteren van de Radboud Universiteit Nij..." class="js_formatExport" onclick="return formatExport(this);"><span class="hideme">Treffer </span>exportieren</a><div id="exportdialog_SEARCH_HBZ10" class="exportdlg"></div></li>
+          
+                          <li><a href="/Digibib?SID=PUELLA:1405161851&amp;LOCATION=EXTERN&amp;SERVICE=AVAIL&amp;SUBSERVICE=AVAILABILITY_PREPARE&amp;DB=SEARCH_HBZ&amp;METAID=1589&amp;PRETEMPLATE=AVAIL.PREAVAILABILITY&amp;RECNO=10" class="avail" title="Verfügbarkeit prüfen für: Religie en de mist van de geschiedenis : hoe behoefte aan herinnering onze cultuur transformeert ; rede gehouden vanwege een gasthoogleraarschap aan de Faculteit der Letteren van de Radboud Universiteit Nij..." target="_self">Wie komme ich dran?</a></li>
+          
+          
+          
+                        </ul>
+                      </dd>
+        
+      
+                    </dl>
+                  </div>
+                </div>
+
+    
+  
+              </div><div class="contentfoot floatbox">
+
+  
+    
+    
+
+
+
+
+
+
+
+
+
+  
    
     
-   <td class="box_down" width="20%">
-    <span style="font-size:90%;">Suchergebnisse zusenden lassen:</span>
-    <form method="post" action="/Digibib" onsubmit="openMsgWin('','DigiBib_download',450,450,'yes')" target="DigiBib_download">
-     <input type="hidden" name="SERVICE"    value="DISTRIBUTION" />
-     <input type="hidden" name="SUBSERVICE" value="SDPDIALOG" />
-     <input type="hidden" name="SID"        value="ABDEROS:142829985" />
-     <input type="hidden" name="LOCATION"   value="DUEBIB" />
-     <input type="hidden" name="ROLE"       value="DOWNLOADSERVICE" />
-     <input type="hidden" name="START"      value="1" />
-     <input type="hidden" name="COUNT"      value="200" />
-     <input type="hidden" name="METAID"     value="382" />
-     <input type="hidden" name="REQID"      value="ABDEROS:702791183" />
-     <input type="hidden" name="VIEW"       value="DUEBIB:Lokale_Bibliotheken" />
-     <input type="submit" value="Per Mail zusenden" class="button" style="font-size:90%;"/>
-    </form>
-   </td>
+  
+
+  
+                <div class="headerpadding">
+                  <h3 class="hideme">Trefferlisten-Navigation</h3>
+                </div>
+
+                <div class="contentpadding">
+                  <div  class="navlist">
+                    <ul>
+
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+      
+    
+      
+    
+      
+    
+      
+    
+    
+    
+                      <li class="curlist" ><strong>1</strong></li>
+    
+    
+    
+    
+      
+      
+        
+        
+        
+                      <li><a href="/Digibib?SID=PUELLA:1405161851&amp;LOCATION=EXTERN&amp;SERVICE=METASEARCH&amp;SUBSERVICE=GETLIST&amp;STREAMING=TRUE&amp;VIEW=EXTERN:Recherchedatenbanken&amp;FORMAT=List&amp;START=11&amp;COUNT=10&amp;METAID=1589" title="Treffer 11 - 20 je Datenbank">2</a></li>
+        
+      
+    
+      
+      
+        
+        
+        
+                      <li><a href="/Digibib?SID=PUELLA:1405161851&amp;LOCATION=EXTERN&amp;SERVICE=METASEARCH&amp;SUBSERVICE=GETLIST&amp;STREAMING=TRUE&amp;VIEW=EXTERN:Recherchedatenbanken&amp;FORMAT=List&amp;START=21&amp;COUNT=10&amp;METAID=1589" title="Treffer 21 - 30 je Datenbank">3</a></li>
+        
+      
+    
+      
+      
+        
+        
+        
+                      <li><a href="/Digibib?SID=PUELLA:1405161851&amp;LOCATION=EXTERN&amp;SERVICE=METASEARCH&amp;SUBSERVICE=GETLIST&amp;STREAMING=TRUE&amp;VIEW=EXTERN:Recherchedatenbanken&amp;FORMAT=List&amp;START=31&amp;COUNT=10&amp;METAID=1589" title="Treffer 31 - 40 je Datenbank">4</a></li>
+        
+      
+    
+      
+      
+        
+        
+        
+                      <li><a href="/Digibib?SID=PUELLA:1405161851&amp;LOCATION=EXTERN&amp;SERVICE=METASEARCH&amp;SUBSERVICE=GETLIST&amp;STREAMING=TRUE&amp;VIEW=EXTERN:Recherchedatenbanken&amp;FORMAT=List&amp;START=41&amp;COUNT=10&amp;METAID=1589" title="Treffer 41 - 50 je Datenbank">5</a></li>
+        
+          
+            
+          
+        
+      
+    
 
      
-   <td class="box_down" width="20%"><span class="error" style="font-size:90%;">Gastnutzern ist das Anlegen von Suchabos nicht möglich.</span></td>
+                      <li><a href="/Digibib?SID=PUELLA:1405161851&amp;LOCATION=EXTERN&amp;SERVICE=METASEARCH&amp;SUBSERVICE=GETLIST&amp;PREVREQID=PUELLA:1156796052&amp;STREAMING=TRUE&amp;VIEW=EXTERN:Recherchedatenbanken&amp;FORMAT=List&amp;START=11&amp;COUNT=10&amp;METAID=1589" title="Treffer 11 - 20 je Datenbank">Nächste ►</a></li>
+
+    
+                    </ul>
+    
+                    <ul>
+                      <li class="curlist"><span>Treffer 1 - 10 je Datenbank</span></li>
+                    </ul>
+    
+                  </div>
+                </div>
+
+   
+
+
+    
+
+                <div class="headerpadding">
+                  <h3 class="hideme">Trefferlisten-Optionen</h3>
+
+                </div>
+
+                <div class="contentpadding floatbox">
+                  <dl class="no-auto-tabs">
+                    <dt class="selected">Hinweise</dt>
+                    <dd>
+                      <p>
      
+                        Ihre Suche erzielte insgesamt&nbsp;354&nbsp;Treffer in&nbsp;1&nbsp;Datenbank(en).<br />
+
+      
+                        
+                        <br />
+                        Suchanfrage war: <strong><em>Freitext:</em> mist</strong> &nbsp;-&nbsp; <a href="/Digibib?SID=PUELLA:1405161851&amp;LOCATION=EXTERN&amp;SERVICE=TEMPLATE&amp;SUBSERVICE=SEARCH_MASK&amp;ACTION=MODIFY&amp;METAID=1589&amp;VIEW=EXTERN:Recherchedatenbanken"><strong>Anfrage verändern</strong></a>
     
-   
-
-   
-
+                      </p>
+                    </dd>
     
-   <td class="box_down" width="20%"><span class="error" style="font-size:90%;">Gastnutzern ist das Ablegen von Suchanfragen in der Favoritenliste nicht möglich.</span></td>
+                    <dt>Download</dt>
+
+                    <dd>
+      
+                      <p>Sie können die vollständige Trefferliste (nicht die Dokumente selbst!) per Mail versenden lassen.</p>
+                      <form action="/Digibib" method="post">
+                        <fieldset>
+                          <legend style="display:none;">Downloadauftrag</legend>
+                          <input type="hidden" name="SID" value="PUELLA:1405161851" />
+                          <input type="hidden" name="LOCATION" value="EXTERN" />
+                          <input type="hidden" name="SERVICE" value="TEMPLATE" />
+
+                          <input type="hidden" name="SUBSERVICE" value="DOWNLOADSRV" />
+                          <input type="hidden" name="MSMETAID" value="1589" />
+                          <input type="hidden" name="MSREQID" value="PUELLA:1156796052" />
+                          <input type="hidden" name="ROLE" value="MS_DOWNLOAD" />
+                          <p>
+                            <label for="dl_name">Auftragsname (optional):</label>
+                            <input type="text" size="50" id="dl_name" name="DL_NAME" style="width:18em;" />
+                          </p>
+
+                          <p>
+                            <label for="umail">E-Mail-Adresse:</label>
+                            <input type="text" size="50" id="umail" name="UMAIL" style="width:18em;" />
+                          </p>
+                          <p style="float:left;margin-right:1em;">
+                            <label for="FORMAT">Export-Format:</label>
+                            <select name="FORMAT" id="FORMAT" size="1">
+                              <option value="TXT">Einfacher Text</option>
+
+                              <option value="BIB">BibTex (z.B. Citavi)</option>
+                              <option value="ISI">ISI</option>
+                              <option value="RIS">RIS</option>
+                              <option value="MODS">MODS (XML)</option>
+                              <option value="WORD">Word Bibliography</option>
+                              <option value="DC">Dublin Core</option>
+
+                              <option value="MARCXML">MARCXML</option>
+                              <option value="DIN">Zitat: DIN 1505-2</option>
+                              <option value="MLA">Zitat: MLA</option>
+                              <option value="HVD">Zitat: Harvard</option>
+                              <option value="VCV">Zitat: Vancouver</option>
+                            </select>
+
+                          </p>
+                          <p>
+                            <button type="submit">Auftrag erteilen</button>
+                          </p>
+                        </fieldset>
+                      </form>
+      
+                    </dd>
     
- 
- 
-   
-   <td class="box_down" width="20%">
-    <span style="font-size:90%;">Angezeigte Treffer sortieren:</span>
-    <form method="post" action="/Digibib" target="DigiBib_main">
-     <input type="hidden" name="SERVICE"    value="TEMPLATE" />
-     <input type="hidden" name="SUBSERVICE" value="MSEARCH_SORTFRAMESET" />
-     <input type="hidden" name="SID"        value="ABDEROS:142829985" />
-     <input type="hidden" name="VIEW"       value="DUEBIB:Lokale_Bibliotheken" />
-     <input type="hidden" name="LOCATION"   value="DUEBIB" />
-     <input type="hidden" name="METAID"     value="382" />
-     <input type="hidden" name="START"      value="1" />
-     <input type="hidden" name="SREQSTART"  value="1" />
-     <input type="hidden" name="COUNT"      value="200" />
-     <input type="hidden" name="SREQID"     value="ABDEROS:702791183" />
+                  </dl>
 
-     <input type="hidden" name="DBS"        value="*" />
-     <input type="hidden" name="REQID"      value="ABDEROS:702791183_SORT" />
-     <input type="hidden" name="OLREQID"    value="ABDEROS:702791183" />
-
-     <input type="hidden" name="SORTLCV_01" value="de-DE" />
-     <input type="hidden" name="SORTLCV_02" value="de-DE" />
-     <input type="hidden" name="SORTLCV_03" value="de-DE" />
-     <input type="hidden" name="SORTSRN_01" value="TERTIARY" />
-     <input type="hidden" name="SORTSRN_02" value="TERTIARY" />
-     <input type="hidden" name="SORTSRN_03" value="TERTIARY" />
-
-    <table border="0" cellspacing="0" summary="">
-     <tr>
-      <td><div style="font-size:90%;"><input type="submit" value="Sortieren" class="button"/></div></td>
-     </tr>
-     <tr>
-      <td>
-       <div style="font-size:90%;">
-       <select name="SORT_01">
-        <option value="AU" selected="selected">Autor/in</option>
-        <option value="TI">Titel</option>
-        <option value="YR">Jahr</option>
-       </select>
-       <select name="SORTDES_01">
-        <option value="TRUE">z..a</option>
-        <option value="FALSE" selected="selected">a..z</option>
-       </select>
-       </div>
-      </td>
-     </tr>
-    </table>
-    </form>
-   </td>
-
-   
-   
-
-   <td class="box_down" width="20%" style="text-align:right;">
-    <form name="refine_search" action="/Digibib" target="DigiBib_main" method="post">
-     <input type="hidden" name="SERVICE"    value="TEMPLATE" />
-     <input type="hidden" name="SUBSERVICE" value="MSEARCH_SEARCH" />
-     <input type="hidden" name="SID"        value="ABDEROS:142829985" />
-     <input type="hidden" name="LOCATION"   value="DUEBIB" />
-     <input type="hidden" name="VIEW"       value="DUEBIB:Lokale_Bibliotheken" />
-     <input type="hidden" name="GWTIMEOUT"  value="120" />
-     <input type="hidden" name="COUNT"      value="200" />
-
-     <input type="hidden" name="QUERY_bzAU"  value="grimbert" />
-     <input type="hidden" name="QUERY_ObzAU" value="AND" />
-
-
- 
+                </div>
+              </div>
   
-     <input type="hidden" name="SEARCH_FHBDUE" value="on" />
-  
-     <input type="hidden" name="SEARCH_SBDUE" value="on" />
-  
-     <input type="hidden" name="SEARCH_ULBD" value="on" />
-  
- 
+            </div> <!-- IE column clearing -->
+            <div id="ie_clearing">&nbsp;</div>
+          </div> <!-- end: #col3 -->
+        </div> <!-- end: #main -->
+        <!-- begin: #footer -->
 
-     <input type="submit" value="Suche verändern" class="button" style="font-size:90%;"/>
-    </form>
-   </td>
-  </tr>
- </table>
-  
+        
+        
+        <div id="footer" class="subcolumns">
+          <div class="leftcol">
+            <div class="subcl"><hr class="invisible" /></div>
+          </div>
+          <div class="rightcol">
+            <div id="footer_content" class="subcl">
+              <div class="contentpadding">
+                <h6 class="hideme">Fußzeile</h6>
 
- <a name="ende"></a>
- </body>
+                <ul>
+                  <li><a href="/Digibib?SID=PUELLA:1405161851&amp;LOCATION=EXTERN&amp;SERVICE=TEMPLATE&amp;SUBSERVICE=SITEMAP">Übersicht / Sitemap</a> | </li>
+                  <li>&copy; <a href="http://www.hbz-nrw.de/" title="Zur Homepage des Portal-Betreibers"><acronym title="Hochschulbibliothekszentrum des Landes Nordrhein-Westfalen">hbz NRW</acronym></a>, 2008-2009 | </li>
+                  <li>Gestaltet mit <a href="http://www.yaml.de/" title="Zur Website des YAML Toolkits"><acronym title="Yet Another Multicolumn Layout">YAML</acronym></a> | </li>
+
+                  <li lang="en" xml:lang="en">Powered by <a href="http://www.hbz-nrw.de/angebote/ips/" title="Zur Produkt-Website"><acronym title="Information Portal Suite">IPS</acronym> 5.3</a> | </li>
+                  <li class="last"><a href="/Digibib?SID=PUELLA:1405161851&amp;LOCATION=EXTERN&amp;SERVICE=TEMPLATE&amp;SUBSERVICE=IMPRINT" accesskey="9">Impressum</a></li>
+                  <li class="in_page_ref"><a href="#top">Zum Seitenanfang</a></li>
+                </ul>
+              </div> <!-- .contentpadding: Ende -->
+
+            </div> <!-- #footer_content: Ende -->
+          </div>
+        </div> <!-- #footer: Ende -->
+
+        <!-- end: #footer -->
+      </div>
+    </div>
+    <span id="zotero" class="z_metasearch_multi"/>
+
+  </body>
 </html>
- 
- 
-

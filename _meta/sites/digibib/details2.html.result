@@ -1,11 +1,11 @@
-currentfield=Titel
-book.Titel!=Le secret de Ji
-currentfield=Autor/in
-book.Autor/in!=Pierre Grimbert
-currentfield=Ort/Verlag
-book.Ort/Verlag!=Paris : Ed. J'ai lu
-currentfield=Standort
-book.id=WebOPAC
-book.home-url=http://was.duesseldorf.de/WebOPAC/QueryPanelServlet?homegkz=111&Suchbegriff=idnr=E930399450&Kriterium=Titel&Medienart=alle&Bibliothek=Stadtb%FCchereien%20D%FCsseldorf&x=43&y=6
-book.amazon-url=http://www.amazon.de/exec/obidos/ASIN//digitalebiblio02
-book.image-url=http://images-eu.amazon.com/images/P/.03.MZZZZZZZ.jpg
+book.amazon-url=http://www.amazon.de/exec/obidos/ASIN/3125342333/digitalebiblio02
+book.image-url=http://ecx.images-amazon.com/images/I/518dTv26KNL._SL160_.jpg
+currentfield=Titel:
+book.Titel:!=*Target Score ; Student's book with test pack:
+currentfield=Ausgabe:
+book.Ausgabe:!=Second ed., 3rd print.. - 2009
+currentfield=Umfang:
+book.Umfang:!=335 S. : Ill.
+currentfield=ISBN:
+book.ISBN:!=3-12-534233-3
+book.home-url=http://was.duesseldorf.de/WebOPAC/QueryPanelServlet?homegkz=111&Suchbegriff=idnr=E930364613&Kriterium=Titel&Medienart=alle&Bibliothek=Stadtb%C3%BCchereien%20D%C3%BCsseldorf
