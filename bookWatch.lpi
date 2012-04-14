@@ -55,6 +55,7 @@
         <Filename Value="bookwatchmain.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="mainForm"/>
+        <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="bookWatchMain"/>
       </Unit1>
@@ -67,6 +68,7 @@
         <Filename Value="options.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="optionForm"/>
+        <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="options"/>
       </Unit3>
@@ -74,6 +76,7 @@
         <Filename Value="newaccountwizard_u.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="newAccountWizard"/>
+        <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="newAccountWizard_u"/>
       </Unit4>
@@ -81,6 +84,7 @@
         <Filename Value="errordialog.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="showErrorForm"/>
+        <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="errorDialog"/>
       </Unit5>
@@ -93,6 +97,7 @@
         <Filename Value="statistik_u.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="statistikForm"/>
+        <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="statistik_u"/>
       </Unit7>
@@ -143,6 +148,7 @@
         <Filename Value="registrierung.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="RegForm"/>
+        <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="registrierung"/>
       </Unit16>
@@ -150,6 +156,7 @@
         <Filename Value="nagform.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="nagWindow"/>
+        <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="nagform"/>
       </Unit17>
@@ -195,6 +202,7 @@
         <Filename Value="bookSearchForm.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="bookSearchFrm"/>
+        <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="bookSearchForm"/>
       </Unit25>

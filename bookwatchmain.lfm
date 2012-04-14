@@ -1,5 +1,5 @@
 object mainForm: TmainForm
-  Left = 555
+  Left = 503
   Height = 655
   Top = 25
   Width = 927
@@ -14,7 +14,7 @@ object mainForm: TmainForm
   OnResize = FormResize
   OnWindowStateChange = FormWindowStateChange
   Position = poScreenCenter
-  LCLVersion = '0.9.31'
+  LCLVersion = '1.1'
   object StatusBar1: TStatusBar
     Left = 0
     Height = 19
@@ -1329,7 +1329,7 @@ object mainForm: TmainForm
     left = 432
     top = 232
     object MenuItem26: TMenuItem
-      Caption = '&÷ffnen'
+      Caption = '&√ñffnen'
       OnClick = MenuItem26Click
     end
     object MenuItem27: TMenuItem
@@ -1337,11 +1337,11 @@ object mainForm: TmainForm
       OnClick = MenuItem27Click
     end
     object MenuItem28: TMenuItem
-      Caption = 'Medien &verl‰ngern'
+      Caption = 'Medien &verl√§ngern'
       OnClick = MenuItem28Click
     end
     object MenuItem29: TMenuItem
-      Caption = '   N‰chste Abgabefrist: ?'
+      Caption = '   N√§chste Abgabefrist: ?'
     end
     object MenuItem30: TMenuItem
       Caption = '&Beenden'
