@@ -867,9 +867,9 @@ begin
                     if striEqual(aname, 'book.issuedate') or striEqual(aname, 'book.limitdate') then begin
                       if currentBook <>nil then
                         if striEqual(aname, 'book.issuedate') then
-                          currentBook.IssueDate:=trunc(parser.variableChangeLog.getVariableValueDateTime(j))
+                          currentBook.IssueDate:=trunc(parser.variableChangeLog.getVariableValue(j).asDateTime)
                         else
-                          currentBook.limitdate:=trunc(parser.variableChangeLog.getVariableValueDateTime(j));
+                          currentBook.limitdate:=trunc(parser.variableChangeLog.getVariableValue(j).asDateTime);
                         Continue;
                     end;
                     avalue := parser.variableChangeLog.getVariableValueString(j);
