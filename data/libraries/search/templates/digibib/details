@@ -16,7 +16,7 @@
       <table class="datarows"><t:loop>
         <tr>
          <th><t:read source="normalize-space(text())" var="currentfield"/></th>
-         <td><t:read source="deep-text(' ')" var="book.$currentfield;!"/></td>
+         <td><t:read source="deep-text()" var="book.$currentfield;!"/></td>
         </tr>
       </t:loop></table>
    </dd>
