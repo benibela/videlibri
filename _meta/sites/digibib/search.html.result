@@ -42,7 +42,7 @@ book-end()=
 book-start()=
 book.id=SEARCH_HBZ6
 book.detail-url=http://www.digibib.net//Digibib?SID=PUELLA:1405161851&LOCATION=EXTERN&SERVICE=METASEARCH&SUBSERVICE=GETRECORD&FORMAT=Full&DB=SEARCH_HBZ&METAID=1589&COUNT=1&NL_START=11&PL_START=0&LISTCOUNT=10&HIGHLIGHTTERMS=mist&VIEW=EXTERN:Recherchedatenbanken&START=6
-book.title=Sterben ist Mist , der Tod aber schön : Träume vom Himmel
+book.title=Sterben ist Mist, der Tod aber schön : Träume vom Himmel
 book.library=SEARCH_HBZ
 book.author=Wohmann, Gabriele.
 book.year=2011

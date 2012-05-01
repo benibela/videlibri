@@ -10,7 +10,7 @@ book-end()=
 book-start()=
 book.id=SEARCH_HBZ032
 book.detail-url=http://www.digibib.net//Digibib?SID=PUELLA:1881787519&LOCATION=EXTERN&SERVICE=METASEARCH&SUBSERVICE=GETRECORD&FORMAT=Full&DB=SEARCH_HBZ03&METAID=1635&COUNT=1&NL_START=11&PL_START=0&LISTCOUNT=10&HIGHLIGHTTERMS=test&VIEW=EXTERN:Recherchedatenbanken&START=2
-book.title=Englisch gezielt 5.+6. Klasse : [CD-ROM] ; Übung, Test , Quiz, Spiel, Internet
+book.title=Englisch gezielt 5.+6. Klasse : [CD-ROM] ; Übung, Test, Quiz, Spiel, Internet
 book.library=SEARCH_HBZ03
 book.author=
 book.year=
@@ -18,7 +18,7 @@ book-end()=
 book-start()=
 book.id=SEARCH_HBZ033
 book.detail-url=http://www.digibib.net//Digibib?SID=PUELLA:1881787519&LOCATION=EXTERN&SERVICE=METASEARCH&SUBSERVICE=GETRECORD&FORMAT=Full&DB=SEARCH_HBZ03&METAID=1635&COUNT=1&NL_START=11&PL_START=0&LISTCOUNT=10&HIGHLIGHTTERMS=test&VIEW=EXTERN:Recherchedatenbanken&START=3
-book.title=Language- Test er Version 1.02 : Placemen- Test
+book.title=Language-Tester Version 1.02 : Placemen-Test
 book.library=SEARCH_HBZ03
 book.author=
 book.year=
@@ -34,7 +34,7 @@ book-end()=
 book-start()=
 book.id=SEARCH_HBZ035
 book.detail-url=http://www.digibib.net//Digibib?SID=PUELLA:1881787519&LOCATION=EXTERN&SERVICE=METASEARCH&SUBSERVICE=GETRECORD&FORMAT=Full&DB=SEARCH_HBZ03&METAID=1635&COUNT=1&NL_START=11&PL_START=0&LISTCOUNT=10&HIGHLIGHTTERMS=test&VIEW=EXTERN:Recherchedatenbanken&START=5
-book.title=Bunte Städte- Test : eine Dokumentation ; [wo sind die Deutschen am glücklichsten? ; Wo ist das Leben am billigsten? ; Wo macht die Freizeit am meisten Spass? ; Bunte fragte Deutsche aus allen 67 Grosstädten...
+book.title=Bunte Städte-Test : eine Dokumentation ; [wo sind die Deutschen am glücklichsten? ; Wo ist das Leben am billigsten? ; Wo macht die Freizeit am meisten Spass? ; Bunte fragte Deutsche aus allen 67 Grosstädten...
 book.library=SEARCH_HBZ03
 book.author=Burda-GmbH <Offenburg>.
 book.year=1980
@@ -58,7 +58,7 @@ book-end()=
 book-start()=
 book.id=SEARCH_HBZ038
 book.detail-url=http://www.digibib.net//Digibib?SID=PUELLA:1881787519&LOCATION=EXTERN&SERVICE=METASEARCH&SUBSERVICE=GETRECORD&FORMAT=Full&DB=SEARCH_HBZ03&METAID=1635&COUNT=1&NL_START=11&PL_START=0&LISTCOUNT=10&HIGHLIGHTTERMS=test&VIEW=EXTERN:Recherchedatenbanken&START=8
-book.title=Eignungs test s für Dummies : [mit über 1000 Test fragen und Lösungen ; auf einen Blick: typische Fragen aus den Gebieten Mathematik, Sprache, Abstraktionsfähigkeit, technisches Verständnis und Persönlichkeit ...
+book.title=Eignungstests für Dummies : [mit über 1000 Testfragen und Lösungen ; auf einen Blick: typische Fragen aus den Gebieten Mathematik, Sprache, Abstraktionsfähigkeit, technisches Verständnis und Persönlichkeit ...
 book.library=SEARCH_HBZ03
 book.author=Healy, Liam.
 book.year=2011
@@ -74,7 +74,7 @@ book-end()=
 book-start()=
 book.id=SEARCH_HBZ0310
 book.detail-url=http://www.digibib.net//Digibib?SID=PUELLA:1881787519&LOCATION=EXTERN&SERVICE=METASEARCH&SUBSERVICE=GETRECORD&FORMAT=Full&DB=SEARCH_HBZ03&METAID=1635&COUNT=1&NL_START=11&PL_START=0&LISTCOUNT=10&HIGHLIGHTTERMS=test&VIEW=EXTERN:Recherchedatenbanken&START=10
-book.title=Eignungs test s für Dummies : [mit über 1000 Test fragen und Lösungen ; auf einen Blick: typische Fragen aus den Gebieten Mathematik, Sprache, Abstraktionsfähigkeit, technisches Verständnis und Persönlichkeit ...
+book.title=Eignungstests für Dummies : [mit über 1000 Testfragen und Lösungen ; auf einen Blick: typische Fragen aus den Gebieten Mathematik, Sprache, Abstraktionsfähigkeit, technisches Verständnis und Persönlichkeit ...
 book.library=SEARCH_HBZ03
 book.author=Healy, Liam.
 book.year=2011
@@ -123,7 +123,7 @@ book-end()=
 book-start()=
 book.id=SEARCH_HBZ6
 book.detail-url=http://www.digibib.net//Digibib?SID=PUELLA:1881787519&LOCATION=EXTERN&SERVICE=METASEARCH&SUBSERVICE=GETRECORD&FORMAT=Full&DB=SEARCH_HBZ&METAID=1635&COUNT=1&NL_START=11&PL_START=0&LISTCOUNT=10&HIGHLIGHTTERMS=test&VIEW=EXTERN:Recherchedatenbanken&START=6
-book.title=Industrial Process Identification and Control Design [Elektronische Ressource] : Step- test and Relay-experiment-based Methods
+book.title=Industrial Process Identification and Control Design [Elektronische Ressource] : Step-test and Relay-experiment-based Methods
 book.library=SEARCH_HBZ
 book.author=Liu, Tao.
 book.year=2012
@@ -131,7 +131,7 @@ book-end()=
 book-start()=
 book.id=SEARCH_HBZ7
 book.detail-url=http://www.digibib.net//Digibib?SID=PUELLA:1881787519&LOCATION=EXTERN&SERVICE=METASEARCH&SUBSERVICE=GETRECORD&FORMAT=Full&DB=SEARCH_HBZ&METAID=1635&COUNT=1&NL_START=11&PL_START=0&LISTCOUNT=10&HIGHLIGHTTERMS=test&VIEW=EXTERN:Recherchedatenbanken&START=7
-book.title=Built-in-Self- Test and Digital Self-Calibration for RF SoCs [Elektronische Ressource]
+book.title=Built-in-Self-Test and Digital Self-Calibration for RF SoCs [Elektronische Ressource]
 book.library=SEARCH_HBZ
 book.author=Bou-Sleiman, Sleiman.
 book.year=2012
@@ -139,7 +139,7 @@ book-end()=
 book-start()=
 book.id=SEARCH_HBZ8
 book.detail-url=http://www.digibib.net//Digibib?SID=PUELLA:1881787519&LOCATION=EXTERN&SERVICE=METASEARCH&SUBSERVICE=GETRECORD&FORMAT=Full&DB=SEARCH_HBZ&METAID=1635&COUNT=1&NL_START=11&PL_START=0&LISTCOUNT=10&HIGHLIGHTTERMS=test&VIEW=EXTERN:Recherchedatenbanken&START=8
-book.title=Principles of exercise test ing and interpretation : including pathophysiology and clinical applications
+book.title=Principles of exercise testing and interpretation : including pathophysiology and clinical applications
 book.library=SEARCH_HBZ
 book.author=Wasserman, Karlman.
 book.year=2012
