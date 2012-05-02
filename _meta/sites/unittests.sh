@@ -1,7 +1,7 @@
 #!/bin/bash
 
 
-TEMPLATEPARSER="../../../../../components/pascal/data/examples/htmlparserExample --no-header --immediate-vars-changelog --template="
+TEMPLATEPARSER="../../../../../components/pascal/data/examples/htmlparserExample --no-header --immediate-vars-changelog-condensed --type-annotated --template="
 TEMPLATEPATH=../../data/libraries/templates
 INPATH=./
 OUTPATH=/tmp/

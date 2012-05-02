@@ -1,2 +1,1 @@
-book.title=50 Vorschläge für eine gerechtere Welt : gegen Konzernmacht und Kapitalismus 
-book.author=Felber, Christian 
+book=object: {select(current): string: , title: string: 50 Vorschläge für eine gerechtere Welt : gegen Konzernmacht und Kapitalismus , author: string: Felber, Christian }

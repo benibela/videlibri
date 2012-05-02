@@ -1,3 +1,3 @@
-templateError=false
-delete-current-books()=
-bookCount=0
+templateError=string: false
+delete-current-books()=undefined: 
+bookCount=string: 0

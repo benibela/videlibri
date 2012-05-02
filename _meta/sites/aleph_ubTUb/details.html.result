@@ -1,5 +1,1 @@
-book.issuedate=2010-12-30
-book.limitdate=2011-01-10
-book.status:problematic=Jetzt verlängern
-book.status:curious=
-book.extendLink=http://ublibsprod.ub.tu-berlin.de:80/F/7HMCUQRX1MFHBXB1L8J3VJFH9IQLBPNKVRGCNVN3CL2DYSXLLC-46949?func=BOR-LOAN-RENEW&doc_number=001948802&item_sequence=000010&adm_library=TUK50&ill_unit=
+book=object: {select(current): string: , issuedate: date: 2010-12-30, limitdate: date: 2011-01-10, status:problematic: string: Jetzt verlängern, status:curious: undefined: , extendLink: string: http://ublibsprod.ub.tu-berlin.de:80/F/7HMCUQRX1MFHBXB1L8J3VJFH9IQLBPNKVRGCNVN3CL2DYSXLLC-46949?func=BOR-LOAN-RENEW&doc_number=001948802&item_sequence=000010&adm_library=TUK50&ill_unit=}

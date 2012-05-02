@@ -1,6 +1,4 @@
-currentfield=Titel:
-book.Titel:!=Beltz-Test
-currentfield=Ort / Verlag, Jahr:
-book.Ort / Verlag, Jahr:!=Göttingen, Bern , Wien , Paris , Oxford , Prag , Toronto , Cambridge, Mass. , Amsterdam , Kopenhagen , Stockholm : Hogrefe
-currentfield=Sonstiges:
-book.Sonstiges:!=Ungezählte Schriftenreihe
+currentfield=string: Titel:
+currentfield=string: Ort / Verlag, Jahr:
+currentfield=string: Sonstiges:
+book=object: {select(current): string: , Titel:!: string: Beltz-Test, Ort / Verlag, Jahr:!: string: Göttingen, Bern , Wien , Paris , Oxford , Prag , Toronto , Cambridge, Mass. , Amsterdam , Kopenhagen , Stockholm : Hogrefe, Sonstiges:!: string: Ungezählte Schriftenreihe}

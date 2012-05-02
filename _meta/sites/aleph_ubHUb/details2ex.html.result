@@ -1,5 +1,1 @@
-book.issuedate=2010-12-01
-book.limitdate=2010-12-24
-book.status:problematic=Jetzt verlängern
-book.status:curious=
-book.extendLink=http://opac.hu-berlin.de:80/F/1B662PQEHGKRA92URUMFDJE3XDVMMVBK8DGPETMVLBQLAE197J-15082?func=BOR-LOAN-RENEW&doc_number=002065003&item_sequence=000020&adm_library=HUB50&ill_unit=
+book=object: {select(current): string: , issuedate: date: 2010-12-01, limitdate: date: 2010-12-24, status:problematic: string: Jetzt verlängern, status:curious: undefined: , extendLink: string: http://opac.hu-berlin.de:80/F/1B662PQEHGKRA92URUMFDJE3XDVMMVBK8DGPETMVLBQLAE197J-15082?func=BOR-LOAN-RENEW&doc_number=002065003&item_sequence=000020&adm_library=HUB50&ill_unit=}
