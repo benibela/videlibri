@@ -22,7 +22,7 @@
            <template:loop>
             <tr>
              <td>
-              <template:read var="book-start()"/>
+              {book := object(("select(new)", ""))}
 
               <template:read source="text()" var="book.id" regex="^\d+"/>
               <template:read source="text()" var="book.category" regex="^\d* - ([^ *]*( [a-z1-9])?) ." submatch="1"/>
@@ -32,9 +32,9 @@
               <template:read source="'Nicht verlängerbar'" var="book.status:problematic"/>
               <strong template:optional="true"><template:read source="text()" var="book.status:problematic"/></strong>
               </td>
-              <td><template:read source="text()" var="book.issuedate:dd.mm.yyyy"/></td>
-              <td><template:read source="text()" var="book.limitdate:dd.mm.yyyy"/></td>
-              <template:read var="book-end()"/>
+              <td><template:read source="parse-date(text(),'dd.mm.yyyy')" var="book.issuedate"/></td>
+              <td><template:read source="parse-date(text(),'dd.mm.yyyy')" var="book.limitdate"/></td>
+              <!--<template:read var="book-end()"/>-->
             </tr>
            </template:loop>
          </template:if>                    
@@ -51,7 +51,7 @@
            <template:loop>
             <tr>
               <td>
-                <template:read var="book-start()"/>
+                {book := object(("select(new)", ""))}
                 <template:read var="book.status"/>
                 
                 <template:read source="text()" var="book.id" regex="^\d+"/>
@@ -60,9 +60,9 @@
                 <template:read source="text()" var="book.title" regex="- [^ *]* ([A-Z1-9] )?(.*\*)?([^<]*)(<\d{2,4}>?)?$" submatch="3"/>
                 <template:read source="text()" var="book.year" regex="<(\d{2,4})>?$" submatch="1"/>
               </td>
-              <td><template:read source="text()" var="book.issuedate:dd.mm.yyyy"/></td>
-              <td><template:read source="text()" var="book.limitdate:dd.mm.yyyy"/></td>
-              <template:read var="book-end()"/>
+              <td><template:read source="parse-date(text(),'dd.mm.yyyy')" var="book.issuedate"/></td>
+              <td><template:read source="parse-date(text(),'dd.mm.yyyy')" var="book.limitdate"/></td>
+              <!--<template:read var="book-end()"/>-->
             </tr>
            </template:loop>
          </template:if>
