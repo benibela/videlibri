@@ -43,7 +43,7 @@
   
   <template:loop>
   <tr>
-    <template:read var="book-start()"/>
+    {book := object(("select(new)", ""))}
     <td></td>
     <td >
       <template:read var="book.extendId" source="''"/>
@@ -83,7 +83,7 @@
     <td></td><td></td><td></td><td class="value-small"></td>
     <td></td><td></td><td></td><td class="value-small"><iframe></iframe></td>
     
-    <template:read var="book-end()"/>
+    <!--<template:read var="book-end()"/>-->
   </tr>
 </template:loop>
 

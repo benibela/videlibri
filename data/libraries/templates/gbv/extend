@@ -30,9 +30,10 @@
       <table summary="title data">
         <tr><td class="plain"> <!--TITEL/AUTOR--></td></tr>
         <tr><td>
-          <span class="label-small">Signatur:<!--shelf mark--></span><template:read var="book-select(id)" source="filter(text(),'[^;]*')"/> 
-          <span class="label-small"><!--???:-->Verweigerungsgrund:</span><template:read var="book.status:problematic" source="text()"/>
-          <span class="label-small">Leihfristende:<!--expiry date:--></span><template:read source="text()" var="book.limitdate:dd-mm-yyyy"/>
+          <span class="label-small">Signatur:<!--shelf mark--></span>
+          {object(("book.select(id)", filter(text(),'[^;]*')))}
+          <span class="label-small"><!--???:-->Verweigerungsgrund:</span>{book.status:problematic:=text()}
+          <span class="label-small">Leihfristende:<!--expiry date:--></span>{book.limitdate:dd-mm-yyyy:=text()}
         </td></tr>
       </table>
     </td>
