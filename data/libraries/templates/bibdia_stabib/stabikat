@@ -1,4 +1,5 @@
 <table>
+{book:=object(("select(current)", ""))}
 <tr>
   <td><strong>Titel:</strong></td>
   <td><template:read var="book.title" source="filter(deep-text(''), '[^/]+')"/></td>

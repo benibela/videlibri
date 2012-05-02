@@ -20,9 +20,9 @@
 
 <template:loop>
 <TR>
-<template:read var="book-start()"/>
+{book:=object(("select(new)", ""))}
 <input type="checkbox" template:optional="true"><template:read var="book.extendId" source="@name"/></input>
-<TD align="center"><template:read var="book.limitDate:dd.mm.yyyy" source="."/></TD>
+<TD align="center"><template:read var="book.limitDate" source="parse-date(.,'dd.mm.yyyy')"/></TD>
 <TD><template:read var="V" source="."/><t:s test="$V; = ''">V:=0</t:s></TD>
 <TD></TD>
 <TD><template:read var="book.id" source="."/></TD>
@@ -34,7 +34,6 @@
 <template:if test="$book.extendId;=''">
 <template:read var="book.status:problematic" source="concat($status, ', ', $V;, '-mal verlängert')"/>
 </template:if>
-<template:read var="book-end()"/>
 <template:read var="templateError" source="'false'"/>
 </tr>
 </template:loop>
