@@ -196,8 +196,10 @@ save
   except
     on e: EInternetException do {$ifndef activeDebug}if not ignoreConnectionErrors then{$endif}
       storeException(e,lib);
-    on e: exception do
+    on e: exception do begin
+      lib.broken:=currentDate;
       storeException(e,lib);
+    end
     else if logging then log('Unverständliche Fehlermeldung');
   end;
   EnterCriticalSection(pconfig^.threadManagementSection);
@@ -269,6 +271,7 @@ end;
 //Aufruf des Aktualisierungsthread
 procedure updateAccountBookData(account: TCustomAccountAccess;ignoreConnErrors,checkDate,extendAlways: boolean);
 var i: longint;
+  threadsToStart: Integer;
 begin
   if (account=nil) and (updateThreadConfig.updateThreadsRunning>0) then exit;
   if (account<>nil) and (account.isThreadRunning) then exit;
@@ -280,13 +283,14 @@ begin
     ignoreConnErrors:=false;
     checkDate:=false;
   end;
-      
+
+
 //  threadConfig.baseWindow:=handle;
-  if account=nil then
-    updateThreadConfig.atLeastOneListUpdateSuccessful:=false;
-  if (mainform<>nil) and (mainForm.Visible) then
-    mainform.StatusBar1.Panels[0].text:=TRY_BOOK_UPDATE;
   if account<>nil then begin
+    if ignoreConnErrors and (account.broken = currentDate) then
+      exit;
+    if (mainform<>nil) and (mainForm.Visible) then
+      mainform.StatusBar1.Panels[0].text:=TRY_BOOK_UPDATE;
     EnterCriticalSection(updateThreadConfig.threadManagementSection);
     updateThreadConfig.updateThreadsRunning+=1;
     updateThreadConfig.listUpdateThreadsRunning+=1;
@@ -296,21 +300,31 @@ begin
     TUpdateLibThread.Create(account,updateThreadConfig,ignoreConnErrors,checkDate,extendAlways);
   end else begin
     //(synchronized) set count of threads
+    threadsToStart := accountIDs.count;
+    for i:=0 to accountIDs.count-1 do begin
+      account := TCustomAccountAccess(accountIDs.Objects[i]);
+      if (not account.enabled) or (ignoreConnErrors and (account.broken = currentDate)) then
+        threadsToStart-=1;
+    end;
+
+    if threadsToStart = 0 then exit;
+
     EnterCriticalSection(updateThreadConfig.threadManagementSection);
-    updateThreadConfig.updateThreadsRunning:=accountIDs.count;
-    for i:=0 to accountIDs.count-1 do
-      if not TCustomAccountAccess(accountIDs.Objects[i]).enabled then
-        updateThreadConfig.updateThreadsRunning-=1;
-    updateThreadConfig.listUpdateThreadsRunning:=updateThreadConfig.updateThreadsRunning;
+    updateThreadConfig.updateThreadsRunning:=threadsToStart;
+    updateThreadConfig.listUpdateThreadsRunning:=threadstostart;
     LeaveCriticalSection(updateThreadConfig.threadManagementSection);
+
+    updateThreadConfig.atLeastOneListUpdateSuccessful:=false;
+    if (mainform<>nil) and (mainForm.Visible) then
+      mainform.StatusBar1.Panels[0].text:=TRY_BOOK_UPDATE;
 
     //actually start threads
     for i:=0 to accountIDs.count-1 do begin
-      if not TCustomAccountAccess(accountIDs.Objects[i]).enabled then
+      account := TCustomAccountAccess(accountIDs.Objects[i]);
+      if (not account.enabled) or (ignoreConnErrors and (account.broken = currentDate)) then
         continue;
-      TCustomAccountAccess(accountIDs.Objects[i]).isThreadRunning:=true;
-      TUpdateLibThread.create(TCustomAccountAccess(accountIDs.Objects[i]),updateThreadConfig,
-                              ignoreConnErrors,checkDate,extendAlways);
+      account.isThreadRunning:=true;
+      TUpdateLibThread.create(account,updateThreadConfig, ignoreConnErrors,checkDate,extendAlways);
     end;
   end;
 end;

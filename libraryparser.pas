@@ -159,6 +159,7 @@ type
     isThreadRunning: boolean; //set to true before the thread is called
                               //set to false after the last change is done
                               //read whenever you want
+    broken: longint;          //Iff equal currentDate, disable auto checking (only accessed by thread/thread-creator)
     constructor create(alib: TLibrary);virtual;
     destructor destroy;override;
     
@@ -625,6 +626,7 @@ begin
   fcharges:=-1;
   FEnabled:=true;
   FTimeout:=10*60*1000;
+  broken:=0;
 end;
 
 destructor TCustomAccountAccess.destroy;
