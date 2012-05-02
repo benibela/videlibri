@@ -11,7 +11,7 @@ object statistikForm: TstatistikForm
   OnDestroy = FormDestroy
   OnResize = FormResize
   OnShow = FormShow
-  LCLVersion = '0.9.31'
+  LCLVersion = '1.1'
   object PaintBox1: TPaintBox
     Left = 0
     Height = 313
@@ -50,8 +50,8 @@ object statistikForm: TstatistikForm
       AnchorSideTop.Control = Label1
       AnchorSideTop.Side = asrCenter
       Left = 196
-      Height = 21
-      Top = 5
+      Height = 25
+      Top = 3
       Width = 108
       BorderSpacing.Around = 4
       ItemHeight = 0

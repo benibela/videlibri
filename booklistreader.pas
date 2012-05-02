@@ -5,7 +5,7 @@ unit booklistreader;
 interface
 
 uses
-  Classes, SysUtils,bbutils,extendedhtmlparser,simplehtmlparser,simplexmlparser,dRegExpr,internetaccess;
+  Classes, SysUtils,bbutils,extendedhtmlparser,simplehtmlparser,simplexmlparser, pseudoxpath,dRegExpr,internetaccess;
   
 type
   TBookList = class;
@@ -153,8 +153,8 @@ type
   private
     currentBook,defaultBook: TBook;
     template:TBookListTemplate;
-    procedure setBookProperty(book:TBook;variable,value:string);
-    procedure parserVariableRead(variable: string; value: String);
+    procedure setBookProperty(book:TBook;variable: string; value:TPXPValue);
+    procedure parserVariableRead(variable: string; value: TPXPValue);
   public
     bookAccessSection: ^TRTLCriticalSection;
     books: TBookList;
@@ -693,39 +693,41 @@ end;
 
     { TBookListReader }
 
-procedure TBookListReader.setBookProperty(book: TBook; variable, value: string
-  );
-  function strconv(s:string):string;
+procedure TBookListReader.setBookProperty(book: TBook; variable: string; value:TPXPValue);
+  function strconv():string;
   begin
-    result:=StringReplace(s,#13,'',[rfReplaceAll]);
+    result:=StringReplace(value.asString,#13,'',[rfReplaceAll]);
     result:=StringReplace(result,#10,'',[rfReplaceAll]);
     result:=trim(result);
   end;
 begin
-  if variable='book.category' then book.Category:=strconv(value)
-  else if variable='book.id' then book.Id:=strconv(value)
-  else if variable='book.author' then book.Author:=strconv(value)
-  else if variable='book.title' then book.Title:=strconv(value)
-  else if variable='book.year' then book.Year:=strconv(value)
-  else if strlibeginswith(@variable[1],length(variable),'book.status') then begin
-    if variable='book.status:problematic' then book.Status:=bsProblematicInStr
-    else if variable='book.status:curious' then book.Status:=bsCuriousInStr;
-     if value<>'' then begin
-      book.StatusStr:=strconv(value);
-      if template.earMarkedRegEx.Exec(value) then book.Status:=bsEarMarked
-      else if template.maxLimitRegEx.Exec(value) then book.Status:=bsMaxLimitReached
-      else if template.accountExpiredRegEx.Exec(value) then book.Status:=bsAccountExpired;
+  if variable='category' then book.Category:=strconv()
+  else if variable='id' then book.Id:=strconv()
+  else if variable='author' then book.Author:=strconv()
+  else if variable='title' then book.Title:=strconv()
+  else if variable='year' then book.Year:=strconv()
+  else if strlibeginswith(@variable[1],length(variable),'status') then begin
+    if variable='status:problematic' then book.Status:=bsProblematicInStr
+    else if variable='status:curious' then book.Status:=bsCuriousInStr;
+     if strconv()<>'' then begin
+      book.StatusStr:=strconv();
+      if template.earMarkedRegEx.Exec(book.StatusStr) then book.Status:=bsEarMarked
+      else if template.maxLimitRegEx.Exec(book.StatusStr) then book.Status:=bsMaxLimitReached
+      else if template.accountExpiredRegEx.Exec(book.StatusStr) then book.Status:=bsAccountExpired;
     end else book.Status:=bsNormal;
        //(bsNormal,bsUnknown,bsIsSearched,bsEarMarked,bsMaxLimitReached,bsProblematicInStr,bsCuriousInStr);
-  end else if strlibeginswith(@variable[1],length(variable),'book.issuedate') then
-    book.IssueDate:=parseDate(strconv(value),strcopyfrom(variable,pos(':',variable)+1))
-  else if strlibeginswith(@variable[1],length(variable),'book.limitdate') then
-    book.LimitDate:=parseDate(strconv(value),strcopyfrom(variable,pos(':',variable)+1))
-  else if stribeginswith(variable,'book.') then
-    setProperty(copy(variable,pos('.',variable)+1,length(variable)),value,book.Additional);
+  end else if striEqual(variable, 'issuedate') then book.issueDate:=trunc(value.asDateTime)
+  else if striEqual(variable, 'limitdate') then
+    book.limitDate:=trunc(value.asDateTime)
+  else if strlibeginswith(@variable[1],length(variable),'issuedate') then
+    book.IssueDate:=dateParse(strconv(),strcopyfrom(variable,pos(':',variable)+1))
+  else if strlibeginswith(@variable[1],length(variable),'limitdate') then
+    book.LimitDate:=dateParse(strconv(),strcopyfrom(variable,pos(':',variable)+1))
+  else
+    setProperty(variable,strconv(),book.Additional);
 end;
 
-procedure TBookListReader.parserVariableRead(variable: string; value: String);
+procedure TBookListReader.parserVariableRead(variable: string; value: TPXPValue);
   function strconv(s:string):string;
   begin
     result:=StringReplace(s,#13,'',[rfReplaceAll]);
@@ -736,45 +738,83 @@ procedure TBookListReader.parserVariableRead(variable: string; value: String);
 
 var
  i: Integer;
+ book: TPXPValueObject;
+ temp: TPXPValue;
+ s: string;
 begin
   if logging then
-    log('** Read variable: "'+variable+'" = "'+value+'"');
+    log('** Read variable: "'+variable+'" = "'+value.debugAsStringWithTypeAnnotation+'"');
   if variable='delete-current-books()' then begin
     books.clear();
   end else if variable='book-start()' then begin
   //reset
-    currentBook:=defaultBook;
-    currentBook.clear;
+    //currentBook:=defaultBook;
+    //currentBook.clear;
+   raise EBookListReader.create('Deprecated book-start');
   end else if variable='book-end()' then begin
-    currentBook.firstExistsDate:=trunc(now);
+    raise EBookListReader.create('Deprecated book-end');
+    {currentBook.firstExistsDate:=trunc(now);
     currentBook.lastExistsDate:=trunc(now);
     books
       .add(currentBook.Id,currentBook.Title,currentBook.Author,currentBook.Year)
-         .assignNoReplace(currentBook);
+         .assignNoReplace(currentBook);                                         }
   end else if variable='book-select(id)' then begin
-    currentBook := nil;
+   raise EBookListReader.create('Deprecated book-select(id)');
+    {currentBook := nil;
     for i:=0 to books.Count-1 do
       if books[i].id = value then
         currentBook:=books[i];
     if currentBook=nil then begin
       if logging then for i:=0 to books.Count-1 do log('Book-Id: "'+books[i].id + '" <> "'+value+'"');
       raise EBookListReader.create('Template wants to select book '+value+', but it doesn''t exist');
-    end;
+    end;}
   end else if variable='book-select()' then begin
     //reset
     raise EBookListReader.create('not implemented yet');
   end else if variable='raise()' then begin
-    raise EBookListReader.create(value);
-  end else if currentBook<>nil then  //buch eigenschaften
-    if (template.propertyYearRegEx <> nil) and (template.propertyYearRegEx.exec(variable)) then
-      setBookProperty(currentBook,'book.year',value)
-     else if (template.propertyAuthorRegEx <> nil) and (template.propertyAuthorRegEx.exec(variable)) then
-      setBookProperty(currentBook,'book.author',value)
-     else if (template.propertyTitleRegEx <> nil) and (template.propertyTitleRegEx.exec(variable)) then
-      setBookProperty(currentBook,'book.title',value)
-     else if stribeginswith(variable,'book.') then
-      setBookProperty(currentBook,variable,value)
-
+    raise EBookListReader.create(value.asString);
+  end else if variable = 'book' then begin
+    if not (value is TPXPValueObject) then raise EBookListReader.Create('Buch ohne Eigenschaften');
+    book := TPXPValueObject(value.clone);
+    if book.hasProperty('select(new)', @temp) then begin
+      currentBook := defaultBook;
+      currentBook.clear;
+    end else if book.hasProperty('select(current)', @temp) then begin
+      if currentBook = nil then raise EBookListReader.Create('Das Template will mein Buch verändert, aber ich habe kein Buch.');
+    end else if book.hasProperty('select(id)', @temp) then begin
+      s := temp.asString;
+      currentBook := nil;
+      for i:=0 to books.Count-1 do
+        if books[i].id = s then
+          currentBook:=books[i];
+      if currentBook=nil then begin
+        if logging then for i:=0 to books.Count-1 do log('Book-Id: "'+books[i].id + '" <> "'+s+'"');
+        raise EBookListReader.create('Template wants to select book '+s+', but it doesn''t exist');
+      end;
+    end else raise EBookListReader.Create('Das Template will ein Buch verändern, sagt aber nicht welches. (d.h. weder select(new), select(current) noch select(id) wurde gesetzt)');
+    for i:=0 to book.values.count-1 do begin
+      s := book.values.getVariableName(i);
+      if (s = 'select(id)') or (s = 'select(current)') or (s = 'select(new)') then continue;
+      value := book.values.getVariableValue(i);
+      if (template.propertyYearRegEx <> nil) and (template.propertyYearRegEx.exec(s)) then
+        setBookProperty(currentBook, 'year', value)
+      else if (template.propertyAuthorRegEx <> nil) and (template.propertyAuthorRegEx.exec(s)) then
+       setBookProperty(currentBook,'author',value)
+      else if (template.propertyTitleRegEx <> nil) and (template.propertyTitleRegEx.exec(s)) then
+       setBookProperty(currentBook,'title',value)
+      else
+       setBookProperty(currentBook,s,value);
+    end;
+    currentBook.firstExistsDate:=trunc(now);
+    currentBook.lastExistsDate:=trunc(now);
+    if currentBook = defaultBook then  begin
+      if not book.hasProperty('select(new)', @temp) then raise EBookListReader.Create('Interner Logikfehler: Neues Buch gelesen, aber nicht als neu (i.e. select(new) ) markiert.');
+      books
+        .add(currentBook.Id,currentBook.Title,currentBook.Author,currentBook.Year)
+           .assignNoReplace(currentBook);
+    end;
+    book.free;
+  end;
 end;
 
 constructor TBookListReader.create(atemplate:TBookListTemplate);
@@ -810,10 +850,11 @@ procedure TBookListReader.performAction(const action:TTemplateAction);
 var i:longint;
     page:string;
     aname: String;
-    avalue: String;
+    avalue: TPXPValue;
     j: Integer;
     postparams: String;
     tempname: String;
+    varlog: TPXPVariableChangeLog;
 begin
   if logging then begin
     log('Enter performAction, finternet:');
@@ -862,19 +903,10 @@ begin
                 try
                   parser.parseHTML(page);
                   //simulate old parser interface
-                  for j:=0 to parser.variableChangeLog.count-1 do begin
-                    aname := parser.variableChangeLog.getVariableName(j);
-                    if striEqual(aname, 'book.issuedate') or striEqual(aname, 'book.limitdate') then begin
-                      if currentBook <>nil then
-                        if striEqual(aname, 'book.issuedate') then
-                          currentBook.IssueDate:=trunc(parser.variableChangeLog.getVariableValue(j).asDateTime)
-                        else
-                          currentBook.limitdate:=trunc(parser.variableChangeLog.getVariableValue(j).asDateTime);
-                        Continue;
-                    end;
-                    avalue := parser.variableChangeLog.getVariableValueString(j);
-                    parserVariableRead(aname,avalue);
-                  end;
+                  varlog := parser.VariableChangeLogCondensed;
+                  for j:=0 to varlog.count-1 do
+                    parserVariableRead(varlog.getVariableName(j), varlog.getVariableValue(j));
+
                 finally
                   if bookAccessSection<>nil then LeaveCriticalsection(bookAccessSection^);
                 end;
@@ -888,23 +920,25 @@ begin
           if logging then begin
             //log(parserLog.text);
             log('Exception message: '+e.message);
+            if e is EHTMLParseMatchingException then
+              log(parser.debugMatchings(50));
+            if EHTMLParseMatchingException = Exception then log('WRF');
           end;
           for i:=0 to high(errors) do begin
             if logging then log('Check error: '+IntToStr(i)+': '+errors[i].templateFile);
             parser.parseTemplate(errors[i].template);
-            //simulate old parser interface
-            //TODO: this is absolutely not needed here
-            for j:=0 to parser.variableChangeLog.count-1 do begin
-              aname := parser.variableChangeLog.getVariableName(j);
-              avalue := parser.variableChangeLog.getVariableValueString(j);
-              parserVariableRead(aname,avalue);
-            end;
             if logging then begin
               log('Error template loaded');
             end;
             try
               if logging then log('parser html: ');
               parser.parseHTML(page);
+              varlog:=parser.VariableChangeLogCondensed;
+              for j:=0 to varlog.count-1 do begin
+                aname := varlog.getVariableName(j);
+                avalue := varlog.getVariableValue(j);
+                parserVariableRead(aname,avalue);
+              end;
             except
               on e2: EBookListReader do begin
                 if logging then log('New exception: '+e2.message);
@@ -931,13 +965,16 @@ end;
 
 procedure TBookListReader.selectBook(book: TBook);
 var i:longint;
+  obj: TPXPValueObject;
 begin
-  parser.variableChangeLog.ValuesString['book.id']:=book.id;
-  parser.variableChangeLog.ValuesString['book.author']:=book.author;
-  parser.variableChangeLog.ValuesString['book.title']:=book.title;
-  parser.variableChangeLog.ValuesString['book.year']:=book.year;
+  obj := TPXPValueObject.create();
+  obj.setMutable('id', book.id);
+  obj.setMutable('author', book.author);
+  obj.setMutable('title', book.title);
+  obj.setMutable('year', book.year);
   for i:=0 to high(book.additional) do
-    parser.variableChangeLog.ValuesString['book.'+book.additional[i].name]:=book.additional[i].value;
+    obj.setMutable(book.additional[i].name, book.additional[i].value);
+  parser.variableChangeLog.addVariable('book', obj);
   currentBook:=book;
 end;
 

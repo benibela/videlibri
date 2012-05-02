@@ -64,7 +64,7 @@ uses bookwatchmain,bbutils,math,booklistreader,libraryParser;
 procedure TstatistikForm.translateDate(sender: TAxis; value: extended; var translated: string);
 begin
   case combobox1.itemindex of
-    DIAGRAM_WEEKS: translated:= inttostr(weekOfYear(round(value)));
+    DIAGRAM_WEEKS: translated:= inttostr(dateWeekOfYear(round(value)));
     //2: translated:= FormatDateTime('m',value);
     DIAGRAM_MONTHS: //translated:= format('%.2d-%.2d',[firstYear+(firstMonth+value) div 12, 1+(firstMonth+value-1) mod 12]);
        translated:= format('%.2d',[1+round(value) mod 12]);
