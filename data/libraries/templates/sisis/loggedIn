@@ -32,7 +32,7 @@
 
       <tr>
         <th scope="row"></th>
-        <template:read var="book-start()"/>
+        {book := object(("select(new)",""))}
         <td>
           <strong><template:read source="." var="book.title"/></strong><br/>
           <template:read source="true()" var="spanmissing"/>
@@ -60,10 +60,11 @@
          </td>
          <template:if test="$spanmissing;"><broken/></template:if>
          <td>
-           <template:read source="text()" var="book.issuedate:dd.mm.yyyy" regex="^\d{2}\.\d{2}\.\d{4}"/>
-           <template:read source="text()" var="book.limitdate:dd.mm.yyyy" regex="- *(\d{2}\.\d{2}\.\d{4})" submatch="1"/><br/>
+           {book.issuedate:=parse-date(filter(text(), '^\d{2}\.\d{2}\.\d{4}'), 'dd.mm.yyyy'),
+            book.limitdate:=parse-date(filter(text(),'- *(\d{2}\.\d{2}\.\d{4})', 1), 'dd.mm.yyyy')
+           }<br/>
 	 </td>
-         <template:read var="book-end()"/>
+        <!-- <template:read var="book-end()"/>-->
        </tr>
               
       </template:loop>      
