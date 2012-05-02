@@ -12,13 +12,13 @@ object newAccountWizard: TnewAccountWizard
   OnCreate = FormCreate
   OnShow = FormShow
   Position = poScreenCenter
-  LCLVersion = '0.9.31'
+  LCLVersion = '1.1'
   object Notebook1: TNotebook
     Left = 0
     Height = 311
     Top = 0
     Width = 465
-    PageIndex = 4
+    PageIndex = 0
     Align = alClient
     TabOrder = 0
     TabStop = True
@@ -59,7 +59,7 @@ object newAccountWizard: TnewAccountWizard
         Items.Strings = (
           'Unbekannter Fehler,'
           'bitte melden Sie ihn'
-          '(Wahrscheinlich: Bücherei-'
+          '(Wahrscheinlich: BÃ¼cherei-'
           'liste nicht gefunden)'
         )
         OnClick = RadioGroup1Click
@@ -276,12 +276,12 @@ object newAccountWizard: TnewAccountWizard
         ChildSizing.ShrinkVertical = crsScaleChilds
         ChildSizing.Layout = cclLeftToRightThenTopToBottom
         ChildSizing.ControlsPerLine = 1
-        ClientHeight = 236
+        ClientHeight = 223
         ClientWidth = 194
         ItemIndex = 0
         Items.Strings = (
-          'immer, wenn möglich'
-          'immer, wenn nötig'
+          'immer, wenn mÃ¶glich'
+          'immer, wenn nÃ¶tig'
           'niemals'
         )
         OnClick = RadioGroup2Click
@@ -404,14 +404,14 @@ object newAccountWizard: TnewAccountWizard
     end
     object back: TButton
       AnchorSideRight.Control = nextbtn
-      Left = 233
+      Left = 216
       Height = 27
       Top = 3
-      Width = 58
+      Width = 75
       Anchors = [akTop, akRight, akBottom]
       AutoSize = True
       BorderSpacing.InnerBorder = 4
-      Caption = '< &Zurück'
+      Caption = '< &ZurÃ¼ck'
       OnClick = Button3Click
       TabOrder = 1
     end

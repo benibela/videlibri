@@ -371,7 +371,7 @@ object optionForm: ToptionForm
         Width = 292
         BorderSpacing.Top = 4
         BorderSpacing.Around = 4
-        Caption = 'Farbe für verlängerbare Medien, die nicht bald zurückgegeben werden m�ssen:'
+        Caption = 'Farbe für verlängerbare Medien, die nicht bald zurückgegeben werden müssen:'
         Constraints.MaxWidth = 369
         ParentColor = False
         WordWrap = True
