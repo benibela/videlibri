@@ -2,7 +2,7 @@
  <table>
  <tr>
   <td>Ausleihdatum:</td>
-  <td><t:s>book.issuedate:=parse-date(.,"dd/mm/[yy]yy")</t:s></td>
+  <td><t:s>book := object(("select(current)", "")), book.issuedate:=parse-date(.,"dd/mm/[yy]yy")</t:s></td>
  </tr>
  <tr>
   <td>Fällig</td>

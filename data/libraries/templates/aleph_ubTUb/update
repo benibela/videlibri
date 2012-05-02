@@ -19,7 +19,7 @@
 
  <template:loop>
    <tr> 
-    <template:read var="book-start()"/>
+    {book:=object(("select(new)",""))}
     <td><A><template:read var="book.detailLink" source="@href"/></A></td> 
     <td><input/></td>
     <td><template:read var="book.author" source="."/></td> 
@@ -30,8 +30,8 @@
     <td><template:read var="book.id" source="."/>
         <template:read var="book.category" source="." regex="[a-zA-Z]*"/></td> 
     <!--<td><br></td> 
-    <td><br></td> -->
-    <template:read var="book-end()"/>
+    <td><br></td> 
+    <template:read var="book-end()"/>-->
     </tr> 
   </template:loop>
 
