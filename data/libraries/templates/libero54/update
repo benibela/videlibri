@@ -23,7 +23,7 @@
                   
        <template:loop>
        <tbody>
-       <template:read var="book-start()"/>
+       {book := object(("select(new)",""))}
        <tr>
           <template:read source="'false'" var="bookTableBroken"/>
           <template:read var="book.extendid" source="''"/>
@@ -48,7 +48,7 @@
             <template:read var="book.status:problematic" source="'Prinzipiell keine Verlängerung möglich'"/>
           </template:if>
        </tr>
-       <template:read var="book-end()"/>
+       <!--<template:read var="book-end()"/>-->
        </tbody>
        </template:loop>
      </table>
