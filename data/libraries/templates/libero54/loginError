@@ -5,3 +5,4 @@
 <li><b><font><template:read var="raise-login()"/></font></b></li>
 <li></li>
 </ul>
+</blockquote>

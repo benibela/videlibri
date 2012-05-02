@@ -16,9 +16,9 @@
 <TR>
 <input type="checkbox" template:optional="true">{newExtendId:=@name}</input>
 <TD align="center"><template:read var="newLimit" source="."/></TD>
-<TD><template:read var="V" source="."/><t:s test="$V; = ''">V:=0,book:=xs:object(("select(current)", ""))</t:s></TD>
+<TD><template:read var="V" source="."/><t:s test="$V; = ''">V:=0</t:s></TD>
 <TD></TD>
-<TD><template:read var="book-select(id)" source="."/></TD>
+<TD>{book:=xs:object(("select(current)", ""))}</TD>
 <TD></TD>
 <TD><template:read var="status" source="deep-text()"/></TD>
 <template:if test="$newExtendId;!=''">
