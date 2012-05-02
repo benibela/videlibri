@@ -193,7 +193,7 @@ procedure sendMailReports();
 implementation
 
 { TmainForm }
-uses math,options,newaccountwizard_u,registrierung,nagform,bbdebugtools,bibtexexport,booklistreader{$IFDEF WIN32},windows{$ENDIF},Clipbrd,bbutils;
+uses math,options,newaccountwizard_u,bbdebugtools,bibtexexport,booklistreader{$IFDEF WIN32},windows{$ENDIF},Clipbrd,bbutils;
 
 function sendMailReportCompare(Item1, Item2: Pointer): Integer;
 var book1,book2: TBook;
@@ -659,12 +659,7 @@ begin
 end;
 
 procedure TmainForm.MenuItem23Click(Sender: TObject);
-var regForm:TRegForm;
 begin
-  regForm:=TRegForm.Create(nil);
-  regForm.ShowModal;
-  regForm.free;
-  if needApplicationRestart then close;
 end;
 
 procedure TmainForm.MenuItem24Click(Sender: TObject);

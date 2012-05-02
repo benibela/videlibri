@@ -10,8 +10,7 @@ uses
   Forms,menus,Graphics
   { add your units here }, sysutils, bookWatchMain, libraryParser, options,
   newAccountWizard_u, errorDialog, applicationConfig, statistik_u, diagram,
-  libraryAccess, sendBackError, internetAccess, autoupdate, progressDialog,
-  registrierung, nagform, bbdebugtools, bibtexexport, simplexmlparser,
+  libraryAccess, sendBackError, internetAccess, autoupdate, progressDialog, bbdebugtools, bibtexexport, simplexmlparser,
   booklistreader, librarySearcher, bookListView, bookSearchForm,
   librarySearcherAccess, extendedhtmlparser, autoMenuManager, LCLIntf, messagesystem;
 

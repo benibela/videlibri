@@ -58,8 +58,6 @@ var programPath,userPath,dataPath:string;
     refreshAllAndIgnoreDate:boolean; //gibt an, dass alle Medien aktualisiert werden
                                      //sollen unabhängig vom letzten Aktualisierungdatum
 
-    sharewareUser, sharewareCode: string;
-
   errorMessageList:TErrorArray = nil;
   //oldErrorMessageList:TErrorArray = nil;
   oldErrorMessageString:string;
@@ -570,13 +568,6 @@ uses bookwatchmain,internetaccess,controls,libraryaccess,math,FileUtil,bbutils,b
 
     if commandLine.readInt('updated-to')<>0 then
       userConfig.WriteInteger('version','number',commandLine.readInt('updated-to'));
-
-//    sharewareUser:=userConfig.ReadString('registration','user','');
-//    sharewareCode:=userConfig.ReadString('registration','code','');
-    sharewareUser:='SourceForge';
-    sharewareCode:='A8I8D DF3D4 EJ2N9 76IJK';
-
-
 
     redTime:=trunc(now)+userConfig.ReadInteger('base','near-time',2);
 
