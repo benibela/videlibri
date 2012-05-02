@@ -1,0 +1,5 @@
+<html>
+<body>
+<a><t:s>redirectedPage:=filter(@href, "http://.+")</t:s></a>
+</body>
+</html>

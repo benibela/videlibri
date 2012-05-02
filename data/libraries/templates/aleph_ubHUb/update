@@ -21,7 +21,7 @@
 
  <template:loop>
    <tr> 
-    <template:read var="book-start()"/>
+    {book := object(("select(new)", ""))}
     <td><A><template:read var="book.detailLink" source="@href"/></A></td> 
     <td><template:read var="book.author" source="."/></td> 
     <td><template:read var="book.title" source="."/></td> 
@@ -34,11 +34,11 @@
         <template:read var="book.category" source="." regex="[a-zA-Z]*"/></td> 
     <td><!--ignore: Id 2--></td> 
     <td><!--ignore: Beschreibung--></td> 
-    <template:read var="book-end()"/>
+    <!--<template:read var="book-end()"/>-->
     </tr> 
   </template:loop>
   </table> 
-  <template:if test="$book.detailLink;=''">
+  <template:if test="empty($book)">
   Seitenlesefehler: Erwartete ausgeliehene Bücher, aber keine gefunden!
   </template:if>
   </template:if>

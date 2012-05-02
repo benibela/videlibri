@@ -1,14 +1,16 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <library-template>
 <maxlimit matches="Verlängerungslimit erreicht"/>
 
 <action id="connect">
-    <page url="https://opac.hu-berlin.de:443/F/" templateFile="../aleph_base/startBenutzerkonto">
+    <page url="https://opac.hu-berlin.de:443/F/" templateFile="redirection">
       <post name="func">login-session</post>
       <post name="login_source"></post>
       <post name="bor_id">$username;</post>
       <post name="bor_verification">$password;</post>      
     </page>
+    <page url="$redirectedPage" templateFile="redirection2"/>
+    <page url="$redirectedPage" templateFile="../aleph_base/startBenutzerkonto"/>
     <page url="$accountPage" templateFile="../aleph_base/loggedIn2005"/>
 <!--    <error templateFile="loginerror"/>    -->
 </action>
