@@ -1,9 +1,16 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <?xml-stylesheet type="text/xsl" href="../changelog.xsl"?>
 <changelog program="VideLibri">
-  <build version="1117" date="2012-04-06">
+  <build version="1119" date="2012-05-26">
     <download url="http://videlibri.sourceforge.net/updates/videlibri-setup.exe" platform="WINDOWS" execute="&quot;$DOWNLOAD&quot;  /SP- /noicons &quot;/dir=$OLDPATH;&quot; "/>
     <download url="http://videlibri.sourceforge.net/updates/videlibri-linux64.deb" platform="LINUX64" execute=""/>
+    <fix level="minor">Behebt UBHU Weiterleitungsfehler</fix>
+    <fix level="minor">Zeigt Leerzeichen in der Digibibsucher an</fix>
+    <fix level="minor">Zeigt Vormerkungen in Hamburger GBV korrekt an</fix>
+    <change level="minor">Kuerzere interne Templatesyntax, und 99% XPath 2 Unterstuetzung</change>
+    <add level="minor">Mediensucheergebnisse koennen wie in einer Literaturverwaltung gespeichert werden.</add>
+  </build>
+  <build version="1117" date="2012-04-06">
     <change level="minor">Gesuchte Bücher können gespeichert werden</change>
     <change level="minor">Merkt sich die letzten BibTeX-Exporteinstellungen</change>
     <fix level="minor">Zeigt gbv Vormerkungen nicht als fällige Bücher an</fix>
