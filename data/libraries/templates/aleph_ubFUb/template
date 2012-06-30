@@ -3,13 +3,15 @@
 <maxlimit matches="Verlängerungslimit erreicht"/>
 
 <action id="connect">
-    <page url="https://aleph-www.ub.fu-berlin.de:443/F/" templateFile="../aleph_base/startBenutzerkonto">
+    <page url="https://aleph-www.ub.fu-berlin.de:443/F/" templateFile="../aleph_ubHUb/redirection">
       <post name="func">login-session</post>
       <post name="login_source">LOGIN-BOR</post>
       <post name="bor_library">FUB00</post>
       <post name="bor_id">$username;</post>
       <post name="bor_verification">$password;</post>      
     </page>
+    <page url="$redirectedPage" templateFile="../aleph_ubHUb/redirection2"/>
+    <page url="$redirectedPage" templateFile="../aleph_base/startBenutzerkonto"/>
     <page url="$accountPage" templateFile="../aleph_base/loggedIn2007"/>    
 <!--    <error templateFile="loginerror"/>    -->
 </action>
