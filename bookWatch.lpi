@@ -33,6 +33,7 @@
     <RunParams>
       <local>
         <FormatVersion Value="1"/>
+        <CommandLineParams Value="--log"/>
         <LaunchingApplication PathPlusParams="\usr\X11R6\bin\xterm -T 'Lazarus Run Output' -e $(LazarusDir)\tools\runwait.sh $(TargetCmdLine)"/>
       </local>
     </RunParams>
@@ -231,12 +232,20 @@
     <CodeGeneration>
       <SmallerCode Value="True"/>
     </CodeGeneration>
+    <Linking>
+      <Options>
+        <Win32>
+          <GraphicApplication Value="True"/>
+        </Win32>
+      </Options>
+    </Linking>
     <Other>
       <CompilerMessages>
         <UseMsgFile Value="True"/>
       </CompilerMessages>
       <CompilerPath Value="$(CompPath)"/>
     </Other>
+    <LCLWidgetType Value="gtk2"/>
   </CompilerOptions>
   <Debugging>
     <Exceptions Count="1">
