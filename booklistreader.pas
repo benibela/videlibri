@@ -5,7 +5,7 @@ unit booklistreader;
 interface
 
 uses
-  Classes, SysUtils,bbutils,extendedhtmlparser,simplehtmlparser,simplexmlparser, pseudoxpath,dRegExpr,internetaccess;
+  Classes, SysUtils,bbutils,extendedhtmlparser,simplehtmlparser,simplehtmltreeparser,simplexmlparser, pseudoxpath,dRegExpr,internetaccess;
   
 type
   TBookList = class;
@@ -120,7 +120,7 @@ type
   protected
     currentAction:PTemplateAction;
     currentTag: string;
-    function readProperty(tagName: string; properties: TProperties): TParsingResult;
+    procedure readTree(t: TTreeElement);
     function textRead(text: string):TParsingResult;
     function leaveTag(tagName: string):TParsingResult;
   public
@@ -544,74 +544,84 @@ end;
 { TBookListTemplate }
 
 
-function TBookListTemplate.readProperty(tagName: string; properties: TProperties
-  ): TParsingResult;
+procedure TBookListTemplate.readTree(t: TTreeElement);
 var i:longint;
-    temp:string;
+    tagName,temp:string;
     regex: ^TRegExpr;
 begin
-  if SameText(tagName,'variable') then begin
-    variables.Values[getProperty('name',properties)]:=getProperty('value',properties)
-  end else if SameText(tagName,'earmarked') then begin
-    earMarkedRegEx.Expression:=getProperty('matches',properties);
-    if earMarkedRegEx.Expression='' then
-      raise exception.create('tag <earmarked> ungültig in Template von '+path);
-  end else if SameText(tagName,'maxlimit') then begin
-    maxLimitRegEx.Expression:=getProperty('matches',properties);
-    if maxLimitRegEx.Expression='' then
-      raise exception.create('tag <maxLimitRegEx> ungültig in Template von '+path);
-  end else if SameText(tagName,'accountExpired') then begin
-    accountExpiredRegEx.Expression:=getProperty('matches',properties);
-    if accountExpiredRegEx.Expression='' then
-      raise exception.create('tag <accountExpiredRegEx> ungültig in Template von '+path);
-  end else if SameText(tagName,'book-property') then begin
-    temp:=LowerCase(getProperty('name',properties));
-    if temp='author' then regex:=@propertyAuthorRegEx
-    else if temp='title' then regex:=@propertyTitleRegEx
-    else if temp='year' then regex:=@propertyYearRegEx
-    else regex:=nil;
-    if regex <> nil then begin
-      if regex^=nil then regex^:=TRegExpr.Create();
-      regex^.Expression:=getProperty('matches',properties);
-      if regex^.Expression='' then
-        raise exception.create('tag <book-property> ungültig in Template von '+path);
+
+  while t <> nil do begin
+    case t.typ of
+      tetOpen: begin
+        tagName:=t.value;
+        if SameText(tagName,'variable') then begin
+          variables.Values[t['name']]:=t['value']
+        end else if SameText(tagName,'earmarked') then begin
+          earMarkedRegEx.Expression:=t['matches'];
+          if earMarkedRegEx.Expression='' then
+            raise exception.create('tag <earmarked> ungültig in Template von '+path);
+        end else if SameText(tagName,'maxlimit') then begin
+          maxLimitRegEx.Expression:=t['matches'];
+          if maxLimitRegEx.Expression='' then
+            raise exception.create('tag <maxLimitRegEx> ungültig in Template von '+path);
+        end else if SameText(tagName,'accountExpired') then begin
+          accountExpiredRegEx.Expression:=t['matches'];
+          if accountExpiredRegEx.Expression='' then
+            raise exception.create('tag <accountExpiredRegEx> ungültig in Template von '+path);
+        end else if SameText(tagName,'book-property') then begin
+          temp:=LowerCase(t['name']);
+          if temp='author' then regex:=@propertyAuthorRegEx
+          else if temp='title' then regex:=@propertyTitleRegEx
+          else if temp='year' then regex:=@propertyYearRegEx
+          else regex:=nil;
+          if regex <> nil then begin
+            if regex^=nil then regex^:=TRegExpr.Create();
+            regex^.Expression:=t['matches'];
+            if regex^.Expression='' then
+              raise exception.create('tag <book-property> ungültig in Template von '+path);
+          end;
+        end else if SameText(tagName,'error') then begin
+          SetLength(currentAction^.errors,length(currentAction^.errors)+1);
+          currentAction^.errors[high(currentAction^.errors)].
+            templateFile:=Utf8ToAnsi(t['templateFile']);
+        end else if SameText(tagName,'page') then begin
+          SetLength(currentAction^.actions,length(currentAction^.actions)+1);
+          with currentAction^.actions[high(currentAction^.actions)] do begin
+            typ:=tratLoadPage;
+            setlength(postparams,0);
+            url := t.getAttribute('url', url);
+            templateFile := t.getAttribute('templateFile', templateFile);
+          end;
+        end else if SameText(tagName,'post') then begin
+          if (currentAction=nil) then raise EBookListReader.create('Template ungültig: post-Tag gefunden, ohne dass eine Aktion definiert wurde');
+          if (length(currentAction^.actions)=0)or(currentAction^.actions[high(currentAction^.actions)].typ<>tratLoadPage) then raise EBookListReader.create('Template ungültig: post-Tag nicht innerhalb eines page-Tags');
+          setlength(currentAction^.actions[high(currentAction^.actions)].postparams, length(currentAction^.actions[high(currentAction^.actions)].postparams)+1);
+          currentAction^.actions[high(currentAction^.actions)].postparams[high(currentAction^.actions[high(currentAction^.actions)].postparams)].name:=t['name']
+          //for value see textread
+        end else if SameText(tagName,'call') then begin
+          SetLength(currentAction^.actions,length(currentAction^.actions)+1);
+          with currentAction^.actions[high(currentAction^.actions)] do begin
+            typ:=tratCallAction;
+            action:=t['action'];
+          end;
+        end else if SameText(tagName,'action') then begin
+          SetLength(actions,length(actions)+1);
+          FillChar(actions[high(actions)],sizeof(actions[high(actions)]),0);
+          actions[high(actions)].name:=LowerCase(t['id']);
+          currentAction:=@actions[high(actions)];
+          currentAction^.singleBookStr:=t['singleBookStr'];
+        end else if SameText(tagName, 'template') then begin
+          if (currentAction=nil) then raise EBookListReader.create('Template ungültig: html template gefunden, ohne dass eine Aktion definiert wurde');
+          currentAction^.actions[high(currentAction^.actions)].template:=t.innerXML();
+          if t.typ = tetOpen then t := t.reverse;
+        end;
+        currentTag:=tagName;
+      end;
+      tetClose: currentTag := '';
+      tetText: textRead(t.value);
     end;
-  end else if SameText(tagName,'error') then begin
-    SetLength(currentAction^.errors,length(currentAction^.errors)+1);
-    currentAction^.errors[high(currentAction^.errors)].
-      templateFile:=Utf8ToAnsi(getProperty('templateFile',properties));
-  end else if SameText(tagName,'page') then begin
-    SetLength(currentAction^.actions,length(currentAction^.actions)+1);
-    with currentAction^.actions[high(currentAction^.actions)] do begin
-      typ:=tratLoadPage;
-      setlength(postparams,0);
-      for i:=0 to high(properties) do
-        if SameText(properties[i].name,'url') then
-          url:=Utf8ToAnsi(properties[i].value)
-        else if SameText(properties[i].name,'templateFile') then
-          templateFile:=Utf8ToAnsi(properties[i].value);
-    end;
-  end else if SameText(tagName,'post') then begin
-    if (currentAction=nil) then raise EBookListReader.create('Template ungültig: post-Tag gefunden, ohne dass eine Aktion definiert wurde');
-    if (length(currentAction^.actions)=0)or(currentAction^.actions[high(currentAction^.actions)].typ<>tratLoadPage) then raise EBookListReader.create('Template ungültig: post-Tag nicht innerhalb eines page-Tags');
-    setlength(currentAction^.actions[high(currentAction^.actions)].postparams, length(currentAction^.actions[high(currentAction^.actions)].postparams)+1);
-    currentAction^.actions[high(currentAction^.actions)].postparams[high(currentAction^.actions[high(currentAction^.actions)].postparams)].name:=getProperty('name',properties);
-    //for value see textread
-  end else if SameText(tagName,'call') then begin
-    SetLength(currentAction^.actions,length(currentAction^.actions)+1);
-    with currentAction^.actions[high(currentAction^.actions)] do begin
-      typ:=tratCallAction;
-      action:=getProperty('action',properties);
-    end;
-  end else if SameText(tagName,'action') then begin
-    SetLength(actions,length(actions)+1);
-    FillChar(actions[high(actions)],sizeof(actions[high(actions)]),0);
-    actions[high(actions)].name:=LowerCase(getProperty('id',properties));
-    currentAction:=@actions[high(actions)];
-    currentAction^.singleBookStr:=getProperty('singleBookStr',properties);
+    t := t.next;
   end;
-  currentTag:=tagName;
-  result:=prContinue;
 end;
 
 function TBookListTemplate.textRead(text: string): TParsingResult;
@@ -634,6 +644,8 @@ begin
 end;
 
 constructor TBookListTemplate.create(_dataPath,_name:string);
+var
+  tree: TTreeParser;
 begin
   IncludeTrailingPathDelimiter(_dataPath);
   self.path:=_dataPath;
@@ -644,7 +656,11 @@ begin
   earMarkedRegEx:=TRegExpr.Create('[vV]orgemerkt');
   maxLimitRegEx:=TRegExpr.Create('[fF]rist erreicht');
   accountExpiredRegEx:=TRegExpr.Create('Karte abgelaufen');
-  parseXML(strLoadFromFile(_dataPath+'template'),@readProperty,@leaveTag,@textRead,eUTF8);
+
+
+  tree := TTreeParser.Create;
+  readTree(tree.parseTreeFromFile(_dataPath+'template'));
+  tree.free;
 end;
 
 procedure TBookListTemplate.loadTemplates;
