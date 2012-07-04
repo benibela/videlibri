@@ -787,8 +787,8 @@ begin
   end else if variable='book-select()' then begin
     //reset
     raise EBookListReader.create('not implemented yet');
-  end else if variable='raise()' then begin
-    raise EBookListReader.create(value.asString);
+  end else if (variable='raise()') or (variable = 'raise-login()') then begin
+    raise EBookListReader.create(LineEnding + LineEnding + value.asString);
   end else if variable = 'book' then begin
     if not (value is TPXPValueObject) then raise EBookListReader.Create('Buch ohne Eigenschaften');
     book := TPXPValueObject(value.clone);
