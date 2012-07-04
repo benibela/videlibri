@@ -72,7 +72,9 @@
       </table>
   <!--    </template:if>-->
     <!-- </fieldset> -->
-
+      <div class="box"><div class="box-header"><div class="box-right">
+        <a t:optional="true">2<t:read var="raise()" source='"Es scheint, als zeigt der Webkatalog die Ausleihen auf mehreren Seiten an. Ich kann aber momentan nur die Ausleihen einer einzelnen Seite anzeigen. $line-ending; $line-ending;  Um alle Ausleihen zu sehen, musst du die Zahl der angezeigten Suchergebnisse im BTH RWTH Katalog unter der  Konto / Sucheinstellungen Seite entsprechend erhöhen."'/> </a>
+      </div></div></div>
    </div>
   </div>
  </div>
