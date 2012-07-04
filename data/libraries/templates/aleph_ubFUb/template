@@ -1,18 +1,40 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <library-template>
 <maxlimit matches="Verlängerungslimit erreicht"/>
 
 <action id="connect">
-    <page url="https://aleph-www.ub.fu-berlin.de:443/F/" templateFile="../aleph_ubHUb/redirection">
-      <post name="func">login-session</post>
-      <post name="login_source">LOGIN-BOR</post>
-      <post name="bor_library">FUB00</post>
-      <post name="bor_id">$username;</post>
-      <post name="bor_verification">$password;</post>      
+    <page url="https://aleph-www.ub.fu-berlin.de/F/?func=BOR-INFO-LIBRARY&amp;ADM_LIBRARY=FUB50">
+      <template> <a>{redirection:=@href}</a> </template>
     </page>
+    
+    <page url="$redirection;"/>
+    
+    <page url="https://identity.fu-berlin.de/idp-fub-ub/Authn/UserPassword">
+      <post name="j_username">$username;</post>
+      <post name="j_password">$password;</post>    
+        
+      <template>
+        <form method="post"> {action:=@action}
+          <input name="RelayState">{relay:=@value}</input>
+          <input name="SAMLResponse">{saml:=@value}</input>
+        </form>
+      </template>
+    </page>
+    
+    <page url="$action" templateFile="../aleph_ubHUb/redirection">
+      <post name="RelayState">$relay;</post>
+      <post name="SAMLResponse">$saml;</post>
+    </page>
+    
     <page url="$redirectedPage" templateFile="../aleph_ubHUb/redirection2"/>
-    <page url="$redirectedPage" templateFile="../aleph_base/startBenutzerkonto"/>
-    <page url="$accountPage" templateFile="../aleph_base/loggedIn2007"/>    
+
+    <page url="$redirectedPage" templateFile="redirection_b"/>
+
+    <page url="$redirectedPage" templateFile="../aleph_ubHUb/redirection2"/>
+
+    <page url="$redirectedPage;" templateFile="../aleph_base/loggedIn2007">
+    </page>
+    
 <!--    <error templateFile="loginerror"/>    -->
 </action>
 
