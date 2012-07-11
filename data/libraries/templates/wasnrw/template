@@ -18,7 +18,6 @@
     <post>Bibliothek=Stadtb%C3%BCchereien+D%C3%BCsseldorf</post>    
     <post name="Anmelden">Anmelden</post>
   </page>
-  <error templateFile="loginError"/>
 </action>
 <action id="extend-all">
   <page url="https://$server;AusleiheVerlaengerungServlet" templateFile="KontoServlet">

@@ -1,6 +1,7 @@
 <template:meta encoding="iso-8859-1"/>
 <html>
 <body>
+<template:switch>
  <div class="content">
    <div class="grau">
      <form id="leserdaten"> </form>
@@ -72,6 +73,8 @@
  
    <div class="spezial">Hinweis</div>
  </div>
+ <p class="fehler"><t:read var="raise()" source="text()"/></p>
+</template:switch>
 </body>
 </html>
   
