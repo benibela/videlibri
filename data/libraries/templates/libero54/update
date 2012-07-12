@@ -1,5 +1,6 @@
 <template:meta encoding="utf8"/>
 <html>
+<t:switch>
 <body>
  <fieldset><div class='MemStatMembCapt'>
     <template:read var="delete-current-books()"/>
@@ -59,6 +60,18 @@
   </fieldset>
  </form>
 </body>
+
+
+<form>
+Systemmeldung
+<template:read source="'false'" var="bookTableBroken"/>
+<p>Ihre Anforderung konnte</p>
+<blockquote>
+<ul><template:read var="raise()" source="deep-text()"/></ul>
+</blockquote>
+</form>
+</t:switch>
+
 <template:if test="$bookTableBroken;">
   <BOOKTABLEBROKEN>
   Probably site layout changed!

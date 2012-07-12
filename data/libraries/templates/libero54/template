@@ -24,7 +24,6 @@
     <post name="password">$password;</post>
     <post name="btnlogin">LOGIN</post>
   </page>
-  <error templateFile="loginError"/>
 </action>
 
 <action id="extend-list" singleBookStr="&amp;$book.extendid;=1">
