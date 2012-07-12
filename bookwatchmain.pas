@@ -492,6 +492,7 @@ begin
   if newVersionInstalled then
     ShowMessage('Das Update wurde installiert.'#13#10'Die installierte Version ist nun Videlibri '+FloatToStr(versionNumber/1000));
   onshow:=nil;
+  OnActivate:=nil;
   windowstate:=twindowstate(userConfig.ReadInteger('window','state',integer(windowstate)));
   if accountIDs.count>0 then begin
     RefreshListView;
