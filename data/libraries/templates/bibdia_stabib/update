@@ -1,5 +1,5 @@
 <template:meta encoding="utf8"/>
-
+<t:switch>
 <html>
 
 <template:read var="templateError" source="'false'"/>
@@ -42,3 +42,8 @@
 
 <template:if test="$templateError;">Template Fehler! Vielleicht hat die Bücherei ihr System geändert.</template:if>
 </html>
+<html>
+<title>Status</title>
+<font color="red"><b><t:read var="raise()" source="deep-text()"/></b></font>
+</html>
+</t:switch>
