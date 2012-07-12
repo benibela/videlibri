@@ -26,6 +26,7 @@
     <td><template:read var="book.title" source="."/></td> 
     <td><template:read var="book.year" source="."/></td> 
     <td><template:read var="book.limitdate:dd/mm/yy" source="."/></td> 
+    <td><!--ignore: Bibliothek--></td>     
     <td><!--ignore: Standort--></td> 
     <td><template:read var="book.id" source="."/>
         <template:read var="book.category" source="." regex="[a-zA-Z]*"/></td> 
