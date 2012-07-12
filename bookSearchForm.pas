@@ -149,10 +149,16 @@ end;
 
 procedure TbookSearchFrm.startSearchClick(Sender: TObject);
   procedure addCbHistory(cb: TComboBox);
+  var
+    temp: TCaption;
+    maxCount: LongInt;
   begin
     if (cb.text='') or (cb.Items.IndexOf(cb.Text)>=0) then exit;
-    cb.Items.Insert(0,cb.text);
-    while cb.Items.Count>15 do cb.Items.Delete(15);
+    temp := cb.Text;
+    cb.Items.Insert(0,temp);
+    maxCount := userConfig.ReadInteger('BookSearcher', 'HistoryMaxLength', 15);
+    while cb.Items.Count>maxCount do cb.Items.Delete(maxCount);
+    cb.Text := temp; //lines above sometimes erase text
   end;
 var i:longint;
 begin
