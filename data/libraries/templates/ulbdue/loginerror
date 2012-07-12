@@ -1,5 +1,0 @@
-<table>
- <tr> 
-   <td class="feedbackbar">Fehler in ID oder Passwort.<template:read var="raise-login()"/></td> 
-  </tr> 
-</table> 
