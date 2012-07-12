@@ -108,10 +108,12 @@ uses bookwatchmain,internetaccess,controls,libraryaccess,math,FileUtil,bbutils,b
   var i,j:integer;
       title,mes,mesDetails: string;
       accountException: boolean;
+      sl_title, sl_message, sl_messagedetails: tstringlist;
       //met: TMethod;
   begin
     if logging then log('showErrorMessages called: '+IntToStr(length(errorMessageList))) ;
     system.EnterCriticalSection(exceptionStoring);
+    sl_title := TStringList.Create; sl_message := TStringList.Create; sl_messagedetails := TStringList.Create;
     try
       for i:=0 to high(errorMessageList) do begin
         if oldErrorMessageString='' then
@@ -147,16 +149,21 @@ uses bookwatchmain,internetaccess,controls,libraryaccess,math,FileUtil,bbutils,b
           oldErrorMessageString:=oldErrorMessageString+'---Fehler---'#13#10+mes+#13#10'Details:'#13#10+mesdetails;
           if accountException then  title:='Fehler beim Aktualisieren der Bücherdaten'
           else title:='Fehler';
-          if mainForm.Visible then
-            TshowErrorForm.showError(title,mes,mesdetails,@mainForm.MenuItem16Click)
-           else
-            TshowErrorForm.showError(title,mes,mesdetails);
+          sl_title.Add(title);
+          sl_message.add(mes);
+          sl_messagedetails.add(mesDetails);
           //Application.MessageBox(pchar(error),pchar('Fehler bei Zugriff auf '+lib.prettyName),MB_APPLMODAL or MB_ICONERROR or MB_OK);
         end;
       end;
       setlength(errorMessageList,0);
     finally
       system.LeaveCriticalSection(exceptionStoring);
+    end;
+    for i:=0 to sl_title.Count-1 do begin
+      if mainForm.Visible then
+        TshowErrorForm.showError(sl_title[i],sl_message[i],sl_messagedetails[i],@mainForm.MenuItem16Click)
+       else
+        TshowErrorForm.showError(sl_title[i],sl_message[i],sl_messagedetails[i]);
     end;
   end;
 
