@@ -12,7 +12,6 @@
     <page url="$redirectedPage" templateFile="redirection2"/>
     <page url="$redirectedPage" templateFile="../aleph_base/startBenutzerkonto"/>
     <page url="$accountPage" templateFile="../aleph_base/loggedIn2005"/>
-<!--    <error templateFile="loginerror"/>    -->
 </action>
 
 <action id="update-all">

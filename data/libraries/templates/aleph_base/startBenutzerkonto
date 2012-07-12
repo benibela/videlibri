@@ -1,1 +1,7 @@
+<t:switch>
+
 <li><a><t:read var="accountPage" source="@href"/>Benutzerkonto</a> </li>
+
+<div class="feedbackbar"><img/><t:read var="raise()" source="text()"/></div>
+
+</t:switch>
