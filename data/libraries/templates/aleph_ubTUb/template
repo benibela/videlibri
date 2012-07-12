@@ -23,12 +23,21 @@
       <post name="url">$borInfoPage;</post>
       
       <template>
-        <head>
-        <title>relocate</title>
-        </head>
-        <body>
-        <noscript><a><template:read var="borInfoPage2" source="@href" regex="http://.*"/> </a></noscript>
-        </body>
+        <template:switch>
+          <html>
+            <head><title>relocate</title></head>
+            <body>
+            <noscript><a><template:read var="borInfoPage2" source="@href" regex="http://.*"/> </a></noscript>
+            </body>
+          </html>
+          
+          <html>
+            <head><title>Login</title></head>
+            <body>
+              <TD class=msg><t:read var="raise()" source="deep-text()"/></td>
+            </body>
+          </html>
+         </template:switch>
       </template>      
     </page>
     
