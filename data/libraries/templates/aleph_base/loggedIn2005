@@ -1,6 +1,6 @@
 
 
-<t:switch>
+<t:switch-prioritized>
 <table class="indent1"> 
  <tr> 
   <td class=td1> Ausleihen</td>
@@ -10,5 +10,5 @@
  </tr>
 </table> 
 <td class="feedbackbar"><img/><t:read var="raise()" source="text()"/></td>
-</t:switch>
+</t:switch-prioritized>
 

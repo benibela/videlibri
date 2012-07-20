@@ -23,7 +23,7 @@
       <post name="url">$borInfoPage;</post>
       
       <template>
-        <template:switch>
+        <template:switch-prioritized>
           <html>
             <head><title>relocate</title></head>
             <body>
@@ -37,7 +37,7 @@
               <TD class=msg><t:read var="raise()" source="deep-text()"/></td>
             </body>
           </html>
-         </template:switch>
+         </template:switch-prioritized>
       </template>      
     </page>
     

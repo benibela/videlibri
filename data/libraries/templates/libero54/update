@@ -1,6 +1,6 @@
 <template:meta encoding="utf8"/>
 <html>
-<t:switch>
+<t:switch-prioritized>
 <body>
  <fieldset><div class='MemStatMembCapt'>
     <template:read var="delete-current-books()"/>
@@ -70,7 +70,7 @@ Systemmeldung
 <ul><template:read var="raise()" source="deep-text()"/></ul>
 </blockquote>
 </form>
-</t:switch>
+</t:switch-prioritized>
 
 <template:if test="$bookTableBroken;">
   <BOOKTABLEBROKEN>

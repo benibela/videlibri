@@ -1,5 +1,5 @@
 <template:meta encoding="utf-8"/>
-<t:switch>
+<t:switch-prioritized>
 
 <table summary="list of loans - data">
   <template:read var="delete-current-books()"/>
@@ -95,4 +95,4 @@
 <table summary="Message block header">
 <strong class="alert"><t:read var="raise()" source="deep-text()"/></strong>
 </table>
-</t:switch>
+</t:switch-prioritized>
