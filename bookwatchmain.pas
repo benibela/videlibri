@@ -384,6 +384,7 @@ begin
   {$endif}
 
   RefreshShellIntegration;
+
     //image1.Picture.LoadFromFile(programPath+'images'+DirectorySeparator+IMAGE_FILES[0]+'.bmp');
   if logging then log('FormCreate ende');
 end;
@@ -495,7 +496,8 @@ begin
   OnActivate:=nil;
   windowstate:=twindowstate(userConfig.ReadInteger('window','state',integer(windowstate)));
   if accountIDs.count>0 then begin
-    RefreshListView;
+    if userconfig.ReadInteger('BookList', 'Mode', 0) = 1 then ViewAllClick(ViewAll)
+    else RefreshListView;
     if not needApplicationRestart then
       defaultAccountsRefresh;
   end;
@@ -535,6 +537,9 @@ begin
   userConfig.WriteString('BookList','ColumnOrder',BookList.serializeColumnOrder);
   userConfig.WriteString('BookList','ColumnWidths',BookList.serializeColumnWidths);
   userConfig.WriteString('BookList','ColumnVisibility',BookList.serializeColumnVisibility);
+
+  if ViewAll.Checked then userconfig.WriteInteger('BookList', 'Mode', 1)
+  else userconfig.WriteInteger('BookList', 'Mode', 0);
 
   if searcherForm <> nil then searcherForm.saveDefaults;
   FreeAndNil(searcherForm);
