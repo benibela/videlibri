@@ -871,6 +871,7 @@ var i:longint;
     postparams: String;
     tempname: String;
     varlog: TPXPVariableChangeLog;
+    cururl: String;
 begin
   if logging then begin
     log('Enter performAction, finternet:');
@@ -890,6 +891,8 @@ begin
               performAction(actions[i].action);
             end;
             tratLoadPage: begin
+              cururl := parser.replaceVars(actions[i].url);
+              if cururl = '' then continue;
               if actions[i].template<>'' then begin
                 if logging then log('Parse Template From File: '+template.path+actions[i].templateFile);
                 parser.parseTemplate(actions[i].template,actions[i].templateFile);
@@ -906,9 +909,9 @@ begin
               end;
               if logging then log('Get/Post internet page ->'+parser.replaceVars(actions[i].url)+'<-'#13#10'Post: '+postparams);
               if postparams='' then
-                page:=internet.get(parser.replaceVars(actions[i].url))
+                page:=internet.get(cururl)
                else
-                page:=internet.post(parser.replaceVars(actions[i].url), postparams);
+                page:=internet.post(cururl, postparams);
 
               if logging then log('downloaded: '+inttostr(length(page))+' bytes');
               if page='' then
