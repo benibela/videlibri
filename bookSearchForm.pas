@@ -251,7 +251,7 @@ begin
 end;
 
 procedure TbookSearchFrm.Label12Click(Sender: TObject);
-var temp:TBook;
+var temp, old:TBook;
     acc: TCustomAccountAccess;
     i: Integer;
 begin
@@ -273,6 +273,23 @@ begin
   for i:=1 to accountIDs.Count-1 do
     if accountIDs[i] = saveToDefaultAccountID then acc := TCustomAccountAccess(accountIDs.Objects[i]);
   if acc.isThreadRunning then begin ShowMessage('Während dem Aktualisieren können keine weiteren Medien gespeichert werden.'); exit; end;
+
+  if (mainForm.BookList.SelectedBook <> nil) and (mainForm.BookList.Selected.RecordItemsText[BL_BOOK_COLUMNS_ACCOUNT] = acc.prettyName) then begin
+    old := mainForm.BookList.SelectedBook;
+    if (old.author = temp.author) or (old.title = temp.title) or
+       striBeginsWith(temp.author,old.author) or striBeginsWith(temp.title, old.title) then
+     if confirm('Das Medium existiert bereits als "'+old.toSimpleString()+'", soll es mit "'+temp.toSimpleString()+'" überschrieben werden?') then begin
+       old.author:=temp.author; //don't copy id
+       old.title:=temp.title;
+       old.year:=temp.year;
+       old.isbn:=temp.isbn;
+       old.assignNoReplace(temp);
+       acc.save();
+       mainForm.RefreshListView;
+       exit;
+     end;
+  end;
+
   acc.books.old.add(temp);
   acc.save();
   mainForm.RefreshListView;

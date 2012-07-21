@@ -30,6 +30,8 @@ uses
    procedure clear;
    procedure addBookList(list: TBookList);
    property books[i:integer]: TBook read GetBook;
+
+   function SelectedBook: TBooK;
  end;
 
 const BL_BOOK_COLUMNS_AUTHOR=2;
@@ -274,6 +276,12 @@ var i:longint;
 begin
   for i:=0 to list.Count-1 do
     addBook(list[i]);
+end;
+
+function TBookListView.SelectedBook: TBooK;
+begin
+  if Selected = nil then exit(nil);;
+  Result := tbook(Selected.data.obj);
 end;
 
 end.
