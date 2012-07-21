@@ -36,7 +36,7 @@ var programPath,userPath,dataPath:string;
     nextLimitStr: string;
 
     appFullTitle:string='VideLibri';
-    versionNumber:integer=1119;
+    versionNumber:integer=1200;
     //=>versionNumber/1000
     newVersionInstalled: boolean=false;
 
@@ -75,6 +75,8 @@ var programPath,userPath,dataPath:string;
   procedure addErrorMessage(errorStr,errordetails:string;lib:TCustomAccountAccess=nil);
   procedure createErrorMessageStr(exception:exception; out errorStr,errordetails:string;account:TCustomAccountAccess=nil);
   procedure createAndAddException(exception:exception; account:TCustomAccountAccess=nil);
+
+  function confirm(s: string): boolean;
 
   procedure storeException(ex: exception; account:TCustomAccountAccess); //thread safe
 
@@ -226,6 +228,11 @@ uses bookwatchmain,internetaccess,controls,libraryaccess,math,FileUtil,bbutils,b
       result:='VideLibri'#13#10'Nächste bekannte Abgabefrist:'#13#10+DateToPrettyStr(nextLimit)+'  (verlängerbar)';}
      result:='
   end;        *)
+
+  function confirm(s: string): boolean;
+  begin
+    result := MessageDlg(s, mtConfirmation ,[mbYes,mbNo],0) = mrYes;
+  end;
 
   procedure storeException(ex: exception; account:TCustomAccountAccess);
   var  errorstr, errordetails: string;
