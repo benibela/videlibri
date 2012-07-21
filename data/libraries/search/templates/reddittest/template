@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<search-template>
+
+<action id="connect">
+</action>
+
+<action id="search">
+  <page url="http://www.reddit.com/user/$book.author;/">
+    <template>
+    <t:loop>
+      <div class="usertext-body"><div>{book:=xs:object(("select(new)", "", "title", deep-text()))}</div></div>
+      <ul class="flat-list buttons"><a><t:s>book.link:=@href</t:s>permalink</a></ul>
+    </t:loop>
+    </template>
+  </page>  	
+  
+</action>
+
+
+
+<action id="details"> 
+</action>
+
+
+</search-template>
+
