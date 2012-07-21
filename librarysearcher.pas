@@ -72,7 +72,7 @@ begin
   flocation:=s;
   bookListReader.parser.variableChangeLog.ValuesString['location']:=template.variables.Values['location:'+s];
   bookListReader.parser.variableChangeLog.ValuesString['view']:=template.variables.Values['view:'+s];
-  if bookListReader.parser.variableChangeLog.ValuesString['location']='' then
+  if (s <> template.name) and (bookListReader.parser.variableChangeLog.ValuesString['location']='') then
     raise Exception.Create('Unbekannter Suchort');
 end;
 

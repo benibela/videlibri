@@ -67,7 +67,7 @@ private
   function GetSearcher: TLibrarySearcher;
   procedure threadException();
 public
-  constructor create(template: TBookListTemplate);
+  constructor create();
   destructor destroy; override;
 
   procedure beginBookReading;
@@ -76,7 +76,7 @@ public
   procedure endResultReading;
 
 
-  procedure newSearch; //ensures that all operations are finished
+  procedure newSearch(template: TBookListTemplate); //ensures that all operations are finished
 
   procedure connectAsync;
   procedure searchAsync;
@@ -102,6 +102,7 @@ uses applicationconfig, bbdebugtools;
 
 function TLibrarySearcherAccess.GetSearcher: TLibrarySearcher;
 begin
+  if not assigned(fthread) then exit(nil);
   Result:=fthread.Searcher;
 end;
 
@@ -112,25 +113,25 @@ begin
     OnException(self);
 end;
 
-constructor TLibrarySearcherAccess.create(template: TBookListTemplate);
+constructor TLibrarySearcherAccess.create();
 begin
-  ftemplate:=template;
-  fthread:=TSearcherThread.Create(template,self);
 end;
 
 destructor TLibrarySearcherAccess.destroy;
 begin
-  fthread.messages.storeMessage(TSearcherMessage.Create(smtFree));
+  if assigned(fthread) then fthread.messages.storeMessage(TSearcherMessage.Create(smtFree));
   inherited destroy;
 end;
 
 procedure TLibrarySearcherAccess.beginBookReading;
 begin
+  if not assigned(fthread) then exit;
   EnterCriticalsection(fthread. fbookAccessSection);
 end;
 
 procedure TLibrarySearcherAccess.endBookReading;
 begin
+  if not assigned(fthread) then exit;
   LeaveCriticalsection(fthread.fbookAccessSection);
 end;
 
@@ -146,13 +147,14 @@ end;
 
 function TLibrarySearcherAccess.operationActive: boolean;
 begin
-  result:=fthread.messages.existsMessage or fthread.performingAction;
+  result:=assigned(fthread) and (fthread.messages.existsMessage or fthread.performingAction);
 end;
 
 procedure TLibrarySearcherAccess.removeOldMessageOf(typ: TSearcherMessageTyp);
 var list: TFPList;
     i:longint;
 begin
+  if not assigned(fthread) then exit;
   list:=fthread.messages.openDirectMessageAccess;
   for i:=list.Count-1 downto 0 do
     if TSearcherMessage(list[i]).typ=typ then
@@ -160,40 +162,46 @@ begin
   fthread.messages.closeDirectMessageAccess(list);
 end;
 
-procedure TLibrarySearcherAccess.newSearch;
+procedure TLibrarySearcherAccess.newSearch(template: TBookListTemplate);
 begin
-  if operationActive then begin
-    fthread.messages.storeMessage(TSearcherMessage.Create(smtFree));
+  if (operationActive) or not Assigned(fthread) or (ftemplate <> template) then begin
+    if assigned(fthread) then fthread.messages.storeMessage(TSearcherMessage.Create(smtFree));
+    ftemplate := template;
     fthread:=TSearcherThread.Create(ftemplate,self);
   end;
 end;
 
 procedure TLibrarySearcherAccess.connectAsync;
 begin
+  if not assigned(fthread) then exit;
   removeOldMessageOf(smtConnect);
   fthread.messages.storeMessage(TSearcherMessage.Create(smtConnect));
 end;
 
 procedure TLibrarySearcherAccess.searchAsync;
 begin
+  if not assigned(fthread) then exit;
   removeOldMessageOf(smtSearch);
   fthread.messages.storeMessage(TSearcherMessage.Create(smtSearch));
 end;
 
 procedure TLibrarySearcherAccess.detailsAsyncSave(book: TBook);
 begin
+  if not assigned(fthread) then exit;
   removeOldMessageOf(smtDetails);
   fthread.messages.storeMessage(TSearcherMessage.Create(smtDetails,book));
 end;
 
 procedure TLibrarySearcherAccess.imageAsyncSave(book: TBook);
 begin
+  if not assigned(fthread) then exit;
   removeOldMessageOf(smtImage);
   fthread.messages.storeMessage(TSearcherMessage.Create(smtImage,book));
 end;
 
 procedure TLibrarySearcherAccess.disconnectAsync;
 begin
+  if not assigned(fthread) then exit;
   removeOldMessageOf(smtDisconnect);
   fthread.messages.storeMessage(TSearcherMessage.Create(smtDisconnect));
 end;
