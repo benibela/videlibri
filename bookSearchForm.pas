@@ -79,7 +79,7 @@ type
     bookList: TBookListView;
     detaillist: TTreeListView;
     searcherAccess: TLibrarySearcherAccess;
-    searchTemplate: TBookListTemplate;
+    searchTemplates: TStringList; //TBookListTemplate;
     displayedBook: TBook;
     function displayDetails(book: TBook=nil): longint; //0: no details, 1: detail, no image, 2: everything
     procedure selectBookToReSearch(book: TBook);
@@ -102,6 +102,8 @@ uses applicationconfig,libraryParser,simplexmlparser,bbdebugtools,bookWatchMain,
 //TODO: fehler bei keinem ergebnis
 
 procedure TbookSearchFrm.FormCreate(Sender: TObject);
+var
+  i: Integer;
 begin
   selectedLibrariesPerLocation:= TStringList.Create;
   loadDefaults;
@@ -121,10 +123,9 @@ begin
   booklist.deserializeColumnVisibility(userConfig.ReadString('BookSearcher','ListColumnVisibility','--+++----'));
   booklist.deserializeColumnWidths(userConfig.ReadString('BookSearcher','ListColumnWidths','10,10,200,200,50,'));
   booklist.OnSelect:=@bookListSelect;
-  
-  searchTemplate:= TBookListTemplate.create(dataPath+StringReplace('libraries\search\templates\digibib\','\',DirectorySeparator,[rfReplaceAll]),'digibib');
-  searchTemplate.loadTemplates;
-  searcherAccess:=TLibrarySearcherAccess.create(searchTemplate);
+
+
+  searcherAccess:=TLibrarySearcherAccess.Create;
   searcherAccess.OnSearchComplete:=@searcherAccessSearchComplete;
   searcherAccess.OnDetailsComplete:=@searcherAccessDetailsComplete;
   searcherAccess.OnImageComplete:=@searcherAccessImageComplete;
@@ -163,7 +164,11 @@ procedure TbookSearchFrm.startSearchClick(Sender: TObject);
 var i:longint;
 begin
   displayedBook:=nil;
-  searcherAccess.newSearch;
+  i := searchTemplates.IndexOf(searchLocation.Text);
+  if i = -1 then i := searchTemplates.IndexOf('digibib');
+  if i = -1 then begin i := 0; if searchTemplates.Count = 0 then raise exception.Create('No search templates'); end;
+
+  searcherAccess.newSearch(searchTemplates.Objects[i] as TBookListTemplate);
   searcherAccess.searcher.clear;
   for i:=0 to searchSelectionList.Items.count-1 do
     if searchSelectionList.Checked[i] and (searchSelectionList.Items.Objects[i]<>nil) then
@@ -293,12 +298,16 @@ begin
 end;
 
 procedure TbookSearchFrm.FormDestroy(Sender: TObject);
+var
+  i: Integer;
 begin
   bookList.free;
   detaillist.free;
   searcherAccess.disconnectAsync;
   searcherAccess.free;
-  searchTemplate.free;
+  for i:=0 to searchTemplates.Count - 1 do
+    searchTemplates.Objects[i].Free;
+  searchTemplates.free;
   selectedLibrariesPerLocation.free;
 end;
 
@@ -542,6 +551,23 @@ var sl: TStringList;
 begin
   sl:=TStringList.Create;
   libraryManager.enumerateVariableValues('Location',sl);
+  for i := sl.count-1 downto 0 do begin
+    sl[i] := trim(sl[i]);
+    if sl[i] ='' then sl.delete(i);
+  end;
+
+  searchTemplates := TStringList.Create;
+  searchTemplates.LoadFromFile(dataPath+StringReplace('libraries\search\search.list','\',DirectorySeparator,[rfReplaceAll]));
+  for i := searchTemplates.count-1 downto 0 do begin
+    searchTemplates[i] := trim(searchTemplates[i]);
+    if searchTemplates[i] = '' then searchTemplates.Delete(i);
+  end;
+  for i :=0 to searchTemplates.count-1 do begin
+    searchTemplates.Objects[i] := TBookListTemplate.create(dataPath+StringReplace('libraries\search\templates\'+trim(searchTemplates[i])+'\','\',DirectorySeparator,[rfReplaceAll]),trim(searchTemplates[i]));
+    TBookListTemplate(searchTemplates.Objects[i]).loadTemplates;
+    if searchTemplates[i] <> 'digibib' then sl.Add( searchTemplates[i] );
+  end;
+
   for i:=0 to sl.count-1 do
     selectedLibrariesPerLocation.Values[sl[i]]:=userConfig.ReadString('BookSearcher','selection-'+sl[i],'+--');
   searchLocation.items.Assign(sl);
@@ -554,6 +580,7 @@ begin
   loadComboBoxItems(searchYear);
   loadComboBoxItems(searchISBN);
   saveToDefaultAccountID := userConfig.ReadString('BookSearcher','default-save-to', '');
+
 end;
 
 procedure TbookSearchFrm.saveDefaults;
