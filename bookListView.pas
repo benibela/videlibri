@@ -39,8 +39,9 @@ const BL_BOOK_COLUMNS_AUTHOR=2;
       BL_BOOK_COLUMNS_LIMIT_ID=6;
       BL_BOOK_COLUMNS_ACCOUNT=7;
       BL_BOOK_COLUMNS_STATUS=8;
-      BL_BOOK_EXTCOLUMNS_COLOR=9;
-      BL_BOOK_EXTCOLUMNS_WEEK_SEPARATOR=10;
+      BL_BOOK_COLUMNS_ISBN=9;
+      BL_BOOK_EXTCOLUMNS_COLOR=10;
+      BL_BOOK_EXTCOLUMNS_WEEK_SEPARATOR=11;
 
 function dateToWeek(date: longint):longint; //week: monday - sunday
 implementation
@@ -185,6 +186,7 @@ begin
     if book.owner<>nil then RecordItemsText[BL_BOOK_COLUMNS_ACCOUNT] := (book.owner as TCustomAccountAccess).prettyName
     else RecordItemsText[BL_BOOK_COLUMNS_ACCOUNT] := 'unbekannt';
     RecordItemsText[BL_BOOK_COLUMNS_STATUS]:=BookStatusToStr(book);//Abgegeben nach '+DateToStr(book.lastExistsDate))
+    RecordItemsText[BL_BOOK_COLUMNS_ISBN] := book.isbn;
 
 //    RecordItems.Add(book.year); ;
    // SubItems.add(book.otherInfo);
@@ -251,6 +253,11 @@ begin
   with Columns.Add do begin
     Text:='Bemerkung';
     Width:=250;
+  end;
+  with Columns.Add do begin
+    Text:='ISBN';
+    Width:=80;
+    Visible:=false;
   end;
 
 end;
