@@ -178,7 +178,7 @@ begin
   searcherAccess.searcher.SearchOptions.author:=searchAuthor.Text;
   searcherAccess.searcher.SearchOptions.title:=searchTitle.Text;
   searcherAccess.searcher.SearchOptions.year:=searchYear.Text;
-  setProperty('isbn', searchISBN.Text, searcherAccess.searcher.SearchOptions.additional);
+  searcherAccess.searcher.SearchOptions.isbn:=searchISBN.Text;
   setProperty('keywords', searchKeywords.Text, searcherAccess.searcher.SearchOptions.additional);
   if searchLocation.Text<>searcherAccess.searcher.Location then begin
     searcherAccess.searcher.setLocation(searchLocation.Text);
@@ -473,6 +473,7 @@ begin
     propAdd('Autor!',book.author);
     propAdd('Titel!',book.title);
     propAdd('Jahr!',book.year);
+    propAdd('ISBN!',book.isbn);
     if book.owner<>nil then begin
       propAdd('Ausleihdatum!', DateToPrettyStr(book.issueDate));
       propAdd('Fristdatum!', DateToPrettyStr(book.limitDate));

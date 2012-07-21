@@ -4,6 +4,7 @@
 <book-property name="title" matches="Titel"/>
 <book-property name="author" matches="Autor"/>
 <book-property name="year" matches="Jahr"/>
+<book-property name="isbn" matches="ISBN"/>
 
 <variable name="after-id" value="=on&amp;"/>
 <variable name="location:Düsseldorf" value="DUEBIB"/>

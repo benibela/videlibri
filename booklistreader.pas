@@ -125,7 +125,7 @@ type
     function leaveTag(tagName: string):TParsingResult;
   public
     earMarkedRegEx,maxLimitRegEx,accountExpiredRegEx:TRegExpr;
-    propertyAuthorRegEx, propertyTitleRegEx, propertyYearRegEx:TRegExpr;
+    propertyAuthorRegEx, propertyTitleRegEx, propertyISBNRegEx, propertyYearRegEx:TRegExpr;
     
     path,name:string;
     actions:array of TTemplateAction;
@@ -487,7 +487,7 @@ begin
       status:=TBookStatus(StrToInt(truncNull(line)));
       year:=truncNullDef(line,'');
       firstExistsDate:=StrToInt(truncNullDef(line,'0'));
-      isbn:=truncNullDef(line,'0');
+      isbn:=truncNullDef(line,'');
       lend:=self.lendList;
       owner:=self.owner;
       //list:=self;
@@ -572,6 +572,7 @@ begin
           temp:=LowerCase(t['name']);
           if temp='author' then regex:=@propertyAuthorRegEx
           else if temp='title' then regex:=@propertyTitleRegEx
+          else if temp='isbn' then regex:=@propertyISBNRegEx
           else if temp='year' then regex:=@propertyYearRegEx
           else regex:=nil;
           if regex <> nil then begin
@@ -696,6 +697,7 @@ begin
   propertyAuthorRegEx.Free; //nil.free is okay
   propertyTitleRegEx.Free;
   propertyYearRegEx.Free;
+  propertyISBNRegEx.Free;
   inherited destroy;
 end;
 
@@ -722,6 +724,7 @@ begin
   else if variable='author' then book.Author:=strconv()
   else if variable='title' then book.Title:=strconv()
   else if variable='year' then book.Year:=strconv()
+  else if variable='isbn' then book.isbn:=strconv()
   else if strlibeginswith(@variable[1],length(variable),'status') then begin
     if variable='status:problematic' then book.Status:=bsProblematicInStr
     else if variable='status:curious' then book.Status:=bsCuriousInStr;
@@ -818,6 +821,8 @@ begin
        setBookProperty(currentBook,'author',value)
       else if (template.propertyTitleRegEx <> nil) and (template.propertyTitleRegEx.exec(s)) then
        setBookProperty(currentBook,'title',value)
+      else if (template.propertyISBNRegEx <> nil) and (template.propertyISBNRegEx.exec(s)) then
+       setBookProperty(currentBook,'isbn',value)
       else
        setBookProperty(currentBook,s,value);
     end;
@@ -991,6 +996,7 @@ begin
   obj.setMutable('author', book.author);
   obj.setMutable('title', book.title);
   obj.setMutable('year', book.year);
+  obj.setMutable('isbn', book.isbn);
   for i:=0 to high(book.additional) do
     obj.setMutable(book.additional[i].name, book.additional[i].value);
   parser.variableChangeLog.addVariable('book', obj);
