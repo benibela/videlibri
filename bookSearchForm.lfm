@@ -8,7 +8,9 @@ object bookSearchFrm: TbookSearchFrm
   ClientHeight = 578
   ClientWidth = 801
   KeyPreview = True
+  OnClose = FormClose
   OnCreate = FormCreate
+  OnDeactivate = FormDeactivate
   OnDestroy = FormDestroy
   OnKeyUp = FormKeyUp
   LCLVersion = '1.1'
@@ -319,7 +321,7 @@ object bookSearchFrm: TbookSearchFrm
         ParentFont = False
         OnClick = Label12Click
       end
-      object Label13: TLabel
+      object LabelSaveTo: TLabel
         Cursor = crHandPoint
         Left = 96
         Height = 16
@@ -331,7 +333,7 @@ object bookSearchFrm: TbookSearchFrm
         ParentColor = False
         ParentFont = False
         PopupMenu = saveToAccountMenu
-        OnClick = Label13Click
+        OnClick = LabelSaveToClick
       end
       object Label2: TLabel
         Left = 150

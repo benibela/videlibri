@@ -17,7 +17,7 @@ type
     Label10: TLabel;
     Label11: TLabel;
     Label12: TLabel;
-    Label13: TLabel;
+    LabelSaveTo: TLabel;
     saveToAccountMenu: TPopupMenu;
     searchAuthorHint: TLabel;
     Label7: TLabel;
@@ -51,9 +51,11 @@ type
     StatusBar1: TStatusBar;
     procedure bookListSelect(sender: TObject; item: TTreeListItem);
     procedure displayImageChange(Sender: TObject);
+    procedure FormClose(Sender: TObject; var CloseAction: TCloseAction);
+    procedure FormDeactivate(Sender: TObject);
     procedure FormKeyUp(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure Label12Click(Sender: TObject);
-    procedure Label13Click(Sender: TObject);
+    procedure LabelSaveToClick(Sender: TObject);
     procedure Label2Click(Sender: TObject);
     procedure searchAuthorEnter(Sender: TObject);
     procedure searchAuthorExit(Sender: TObject);
@@ -229,6 +231,16 @@ begin
   displayDetails(nil);
 end;
 
+procedure TbookSearchFrm.FormClose(Sender: TObject; var CloseAction: TCloseAction);
+begin
+  saveDefaults;
+end;
+
+procedure TbookSearchFrm.FormDeactivate(Sender: TObject);
+begin
+
+end;
+
 procedure TbookSearchFrm.FormKeyUp(Sender: TObject; var Key: Word;
  Shift: TShiftState);
 begin
@@ -266,7 +278,7 @@ begin
   mainForm.RefreshListView;
 end;
 
-procedure TbookSearchFrm.Label13Click(Sender: TObject);
+procedure TbookSearchFrm.LabelSaveToClick(Sender: TObject);
 begin
   saveToAccountMenu.PopUp;
 end;
@@ -571,7 +583,8 @@ begin
   for i:=0 to sl.count-1 do
     selectedLibrariesPerLocation.Values[sl[i]]:=userConfig.ReadString('BookSearcher','selection-'+sl[i],'+--');
   searchLocation.items.Assign(sl);
-  searchLocation.Text:=searchLocation.items[0];
+  if sl.IndexOf(userConfig.ReadString('BookSearcher', 'default-location', '')) > 0 then searchLocation.Text:=userConfig.ReadString('BookSearcher', 'default-location', '')
+  else searchLocation.Text:=searchLocation.items[0];
   searchLocationSelect(self);
   sl.free;
   loadComboBoxItems(searchAuthor);
@@ -580,7 +593,8 @@ begin
   loadComboBoxItems(searchYear);
   loadComboBoxItems(searchISBN);
   saveToDefaultAccountID := userConfig.ReadString('BookSearcher','default-save-to', '');
-
+  if accountIDs.IndexOf(saveToDefaultAccountID) >= 0 then
+    LabelSaveTo.Caption := 'in \/ '+ TCustomAccountAccess(accountIDs.Objects[accountIDs.IndexOf(saveToDefaultAccountID)]).prettyName;
 end;
 
 procedure TbookSearchFrm.saveDefaults;
@@ -601,6 +615,7 @@ begin
   saveComboBoxItems(searchYear);
   saveComboBoxItems(searchISBN);
   userConfig.WriteString('BookSearcher','default-save-to', saveToDefaultAccountID);
+  userConfig.WriteString('BookSearcher', 'default-location', searchLocation.Text);
 end;
 
 procedure TbookSearchFrm.changeDefaultSaveToAccount(sender: tobject);
@@ -610,6 +625,9 @@ begin
   if tmenuitem(sender).Tag <= 1 then tmenuitem(sender).Tag := 1;
   if tmenuitem(sender).Tag > accountIDs.count then tmenuitem(sender).Tag := accountIDs.count;
   saveToDefaultAccountID := accountIDs[tmenuitem(sender).Tag-1];
+
+  LabelSaveTo.Caption := 'in \/ '+ TMenuItem(sender).Caption;
+
   tmenuitem(sender).Checked:=true;
 end;
 
