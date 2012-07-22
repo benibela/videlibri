@@ -17,7 +17,7 @@ type
     CheckBox1: TCheckBox;
     CheckBox2: TCheckBox;
     ComboBox1: TComboBox;
-    Label1: TLabel;
+    ComboBox2: TComboBox;
     mausInfo: TLabel;
     PaintBox1: TPaintBox;
     Panel1: TPanel;
@@ -86,6 +86,8 @@ var i,j,k:integer;
 
 
     accountValues,totalValues: array of longint;
+    onlyFirstDay: boolean;
+
     
 
 begin
@@ -101,15 +103,15 @@ begin
   for i:=0 to accountIDs.Count-1 do begin
     with TCustomAccountAccess(accountIDs.Objects[i]) do begin
       for j:=0 to books.current.Count-1 do begin
-        if (books.current[j].issueDate<>0) and (books.current[j].issueDate<earliestDay) then
+        if (books.current[j].issueDate>0) and (books.current[j].issueDate<earliestDay) then
           earliestDay:=books.current[j].issueDate;
-        if (books.current[j].firstExistsDate<>0) and (books.current[j].firstExistsDate<earliestDay) then
+        if (books.current[j].firstExistsDate>0) and (books.current[j].firstExistsDate<earliestDay) then
           earliestDay:=books.current[j].firstExistsDate;
       end;
       for j:=0 to books.old.Count-1 do begin
-        if (books.old[j].issueDate<>0) and (books.old[j].issueDate<earliestDay) then
+        if (books.old[j].issueDate>0) and (books.old[j].issueDate<earliestDay) then
           earliestDay:=books.old[j].issueDate;
-        if (books.old[j].firstExistsDate<>0) and (books.old[j].firstExistsDate<earliestDay) then
+        if (books.old[j].firstExistsDate>0) and (books.old[j].firstExistsDate<earliestDay) then
           earliestDay:=books.old[j].firstExistsDate;
       end;
 
@@ -120,6 +122,8 @@ begin
   if showSum then diagramModel.addDataList.Title:='Summe';
 
  // exit;
+
+  onlyFirstDay := ComboBox2.ItemIndex = 1;
 
   case ComboBox1.itemIndex of
     DIAGRAM_WEEKS:  begin
@@ -136,11 +140,12 @@ begin
           else book:=books.current[k];
           checkdate:=book.issueDate div 7;
           if checkDate = 0 then checkDate:=book.firstExistsDate div 7;
-          if checkDate = 0 then continue;
-          while checkdate<=book.lastExistsDate div 7 do begin
+          if checkDate <= 0 then continue;
+          while (checkdate<=book.lastExistsDate div 7) do begin
             accountValues[checkdate-earliestDay div 7]+=1;
             totalValues[checkdate-earliestDay div 7]+=1;
             checkdate+=1;
+            if onlyFirstDay then break;
           end;
         end;
         for i:=0 to high(accountValues) do
@@ -164,13 +169,14 @@ begin
           else book:=books.current[k];
           checkdate:=book.issueDate;
           if checkDate = 0 then checkDate:=book.firstExistsDate;
-          if checkDate = 0 then continue;
+          if checkDate <= 0 then continue;
           DecodeDate(checkDate,y2,m2,d2);
           DecodeDate(book.lastExistsDate,y3,m3,d3);
           for i:=y2*12+m2-1 - (y*12+m-1) to y3*12+m3-1  - (y*12+m-1) do begin
             accountValues[i]+=1;
             totalValues[i]+=1;
             checkdate+=1;
+            if onlyFirstDay then break;
           end;
         end;
         for i:=0 to high(accountValues) do
@@ -195,12 +201,13 @@ begin
           else book:=books.current[k];
           checkdate:=book.issueDate;
           if checkDate = 0 then checkDate:=book.firstExistsDate;
-          if checkDate = 0 then continue;
+          if checkDate <= 0 then continue;
           DecodeDate(checkDate,y2,m2,d2);
           DecodeDate(book.lastExistsDate,y3,m3,d3);
           for i:=y2 to y3 do begin
             accountValues[i-y]+=1;
             totalValues[i-y]+=1;
+            if onlyFirstDay then break;
           end;
         end;
         for i:=0 to high(accountValues) do
@@ -223,7 +230,7 @@ begin
           else book:=books.current[k];
           checkdate:=book.issueDate;
           if checkDate = 0 then checkDate:=book.firstExistsDate;
-          if checkDate = 0 then continue;
+          if checkDate <= 0 then continue;
           while checkdate<=book.lastExistsDate do begin
             accountValues[checkdate-earliestDay]+=1;
             totalValues[checkdate-earliestDay]+=1;
@@ -316,6 +323,7 @@ begin
       mausInfo.Caption:=IntToStr(year);
     end;
   end;
+  mausInfo.Caption := mausInfo.Caption + ': '+inttostr(round(diagramDrawer.posToDataY(y)));
 end;
 
 procedure TstatistikForm.PaintBox1Paint(Sender: TObject);
