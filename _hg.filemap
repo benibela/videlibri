@@ -8,3 +8,5 @@ include programs/internet/VideLibri
 include programs/internet/sourceforgeresponder
 exclude programs/internet/VideLibri/config
 exclude programs/internet/VideLibri/_meta/codegen
+include programs/internet/xibri
+
