@@ -1,0 +1,110 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<link rel="stylesheet" type="text/css" href="all.css"/>
+<link rel="stylesheet" type="text/css" href="xidel.css"/>
+<title>Xidel - HTML data extraction tool </title></head>
+<body>
+<h1><a name="home">Xidel - HTML data extraction tool</a></h1>
+
+<ul id="navigation">
+  <li style="border-left: 1px solid blue;"><a href="#home">Start</a></li>
+  <li><a href="#features">Features</a></li>
+  <li><a href="#examples">Examples</a></li>
+  <li><a href="#downloads">Downloads</a></li>
+  <li><a href="#script">Xidelscript</a></li>
+  <li><a href="#contact">Contact</a></li>
+  
+  <!---<li style="right: 1em; position:absolute"><a href="index.html">Deutsche Version</a></li>-->
+</ul>
+
+<p>
+Xidel is a command line tool to download and extract data from html pages.<br><br>
+
+<h2><div><a name="features">Features</a></div></h2>
+
+It supports:
+ 
+<ul class="xidelfeatures">
+<li>Extract expressions:<ul>
+  <li>CSS 3 Selectors: to extract simple elements</li>
+  <li>XPath 2: to extract values and calculate things with them</li>
+  <li>Templates: to extract several expressions in an easy way using a annotated version of the page in question</li>
+</ul></li>
+<li>Output formats:<ul>
+  <li>Adhoc: just prints the data in a human readable format</li>
+  <li>JSON: encodes the data in a json (as array of objects with extracted values as properties of all pages) </li>
+  <li>XML: encodes the data similarly in a xml  </li>
+</ul></li>
+<li>Following<ul>
+  <li>HTTP Codes: Redirections like 30x are automatically followed, while keeping things like cookies </li>
+  <li>Links: It can follow all links on a page as well as some extracted values </li>
+</ul></li>
+<li>Connections: HTTP / HTTPS as well as local files or stdin</li>
+<li>Systems: Windows (using wininet), Linux (using synapse+openssl), Mac (? with synapse, not tested) </li>
+</ul>
+
+<h2><div><a name="examples">Examples</a></div></h2>
+
+<ol class="examples">
+<li>
+Print all urls found by a google search.<br><br>
+  <code>xidel http://www.google.de/search?q=test -e '//a/filter(@href, "url[?]q=([^&]+)&", 1)[. != ""]'</code>
+</li>
+<li>
+Print the title of all pages found by a google search and download them: <br><br>
+  <code>xidel http://www.google.de/search?q=test -f '//a/filter(@href, "url[?]q=([^&]+)&", 1)[. != ""]' -e //title --download '$host;/'</code>
+</li>
+<li>
+Generally follow all links on a page and print the titles of the linked pages:<ul>
+  <li>With CSS: <code>xidel http://example.org -f 'css("a")' -e 'css("title")'</code> </li>
+  <li>With XPath: <code>xidel http://example.org -f //a -e //title</code> </li>
+  <li>With Templates: <code>xidel http://example.org -f '&lt;a>{.}&lt;/a>*' -e '&lt;title>{.}&lt/;title>'</code> </li>
+</ul></li>
+<li>Another template example: <br><br>
+   If you have an example.xml file like <code>&lt;x>&lt;foo>ood&lt;/foo>&lt;bar>IMPORTANT!&lt;/bar>&lt;/x></code><br>
+   You can read the imporant part like: <code>xidel example.xml -e '&lt;x>&lt;foo>ood&lt;/foo>&lt;bar>{.}&lt;/bar>&lt;/x>'</code><br>
+   (and this will also check, if the part with the ood is there, and fail otherwise)
+</li>
+<li>Print all newest stackoverflow questions with title and url:<br><br>
+
+   <code>xidel http://stackoverflow.com -e '&lt;A class="question-hyperlink">{title:=text(), url:=@href}&lt;/A>*'</code>
+<li>Print all reddit comments of an user, with html and url:<br><br>
+   <code>xidel "http://www.reddit.com/user/user/" --extract '&lt;t:loop>&lt;div class="usertext-body">&lt;div>{outer-xml(.)}&lt;/div>&lt;/div>&lt;ul class="flat-list buttons">&lt;a>&lt;t:s>link:=@href&lt;/t:s>permalink&lt;/a>&lt;/ul>&lt;/div>&lt;/div>&lt;/t:loop>' --follow '&lt;a rel="nofollow next">{.}&lt;/a>?'</code>
+</li>   
+</ol>
+<br>
+You may also want to read the <a href="xidel_readme.txt">readme file of Xidel</a> or my documentation of the <a href="http://benibela.de/documentation/internettools/extendedhtmlparser.THtmlTemplateParser.html">template language</a>.
+
+
+
+<h2><div><a name="downloads">Downloads</a></div></h2>
+
+On the <a href="https://sourceforge.net/projects/videlibri/files/Xidel">sourceforge download page</a> you can download the Windows and Linux version of Xidel.<br><br>
+
+You can also test it online, by sending a request like <a href="/cgi-bin/xidelcgi?data=&lt;html>&lt;title>foobar&lt;/title>&lt;/html>&extract=//title"><code>http://videlibri.sourceforge.net/cgi-bin/xidelcgi?data=&lt;html>&lt;title>foobar&lt;/title>&lt;/html>&extract=//title</code></a> or on the <a href="/cgi-bin/htmlParserExampleCGI">VideLibri example page</a>.<br><br>
+
+The source is stored in a <a href="http://videlibri.hg.sourceforge.net/hgweb/videlibri/videlibri/">mercurial repository</a>.<br><br>
+Since the  program is written in FreePascal/Lazarus, it should be very easy to compile it. Just open the xidel.lpi (in the programs/internet/xidel directory) in Lazarus,  select your platform/OS in the project settings and perhaps add all other sub directories to your unit search path.
+You can compile and run it on Windows/Linux/Mac.
+<br>
+<br><br><br><br>
+
+<h2><div><a id="contact">Contact</a></div></h2>
+Autor: Benito van der Zander, <a href="benito_NOSPAM_benibela.de">benito_NOSPAM_benibela.de</a>, <a href="http://www.benibela.de/index_en.html">www.benibela.de</a><br>
+<div id="sf-logo"><a href="http://sourceforge.net/projects/videlibri"><img src="http://sflogo.sourceforge.net/sflogo.php?group_id=359854&amp;type=1" width="125" height="37" border="0" alt="SourceForge.net Logo" /></a></div>
+
+<!-- Piwik -->
+<script type="text/javascript">
+var pkBaseURL = (("https:" == document.location.protocol) ? "https://sourceforge.net/apps/piwik/videlibri/" : "http://sourceforge.net/apps/piwik/videlibri/");
+document.write(unescape("%3Cscript src='" + pkBaseURL + "piwik.js' type='text/javascript'%3E%3C/script%3E"));
+</script><script type="text/javascript">
+try {
+var piwikTracker = Piwik.getTracker(pkBaseURL + "piwik.php", 1);
+piwikTracker.trackPageView();
+piwikTracker.enableLinkTracking();
+} catch( err ) {}
+</script><noscript><p><img src="http://sourceforge.net/apps/piwik/videlibri/piwik.php?idsite=1" style="border:0" alt=""/></p></noscript>
+<!-- End Piwik Tag -->
+</body>
+</html>
