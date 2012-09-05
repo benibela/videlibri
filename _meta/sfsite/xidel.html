@@ -31,14 +31,14 @@ It supports:
   <li>XPath 2: to extract values and calculate things with them</li>
   <li>Templates: to extract several expressions in an easy way using a annotated version of the page in question</li>
 </ul></li>
-<li>Output formats:<ul>
-  <li>Adhoc: just prints the data in a human readable format</li>
-  <li>JSON: encodes the data in a json (as array of objects with extracted values as properties of all pages) </li>
-  <li>XML: encodes the data similarly in a xml  </li>
-</ul></li>
 <li>Following<ul>
   <li>HTTP Codes: Redirections like 30x are automatically followed, while keeping things like cookies </li>
   <li>Links: It can follow all links on a page as well as some extracted values </li>
+</ul></li>
+<li>Output formats:<ul>
+  <li>Adhoc: just prints the data in a human readable format</li>
+  <li>JSON: encodes the data in a json (as array of all pages of objects with the extracted values as properties ) </li>
+  <li>XML: encodes the data similarly in a xml  </li>
 </ul></li>
 <li>Connections: HTTP / HTTPS as well as local files or stdin</li>
 <li>Systems: Windows (using wininet), Linux (using synapse+openssl), Mac (? with synapse, not tested) </li>
@@ -49,11 +49,11 @@ It supports:
 <ol class="examples">
 <li>
 Print all urls found by a google search.<br><br>
-  <code>xidel http://www.google.de/search?q=test -e '//a/filter(@href, "url[?]q=([^&]+)&", 1)[. != ""]'</code>
+  <code>xidel http://www.google.de/search?q=test --extract '//a/filter(@href, "url[?]q=([^&]+)&", 1)[. != ""]'</code>
 </li>
 <li>
 Print the title of all pages found by a google search and download them: <br><br>
-  <code>xidel http://www.google.de/search?q=test -f '//a/filter(@href, "url[?]q=([^&]+)&", 1)[. != ""]' -e //title --download '$host;/'</code>
+  <code>xidel http://www.google.de/search?q=test --follow '//a/filter(@href, "url[?]q=([^&]+)&", 1)[. != ""]' --extract //title --download '$host;/'</code>
 </li>
 <li>
 Generally follow all links on a page and print the titles of the linked pages:<ul>
@@ -66,11 +66,14 @@ Generally follow all links on a page and print the titles of the linked pages:<u
    You can read the imporant part like: <code>xidel example.xml -e '&lt;x>&lt;foo>ood&lt;/foo>&lt;bar>{.}&lt;/bar>&lt;/x>'</code><br>
    (and this will also check, if the part with the ood is there, and fail otherwise)
 </li>
+<li>Calculate something with XPath: <br><br>
+  <code>xidel '&lt;>' -e "(1 + 2 + 3) * 4 + 5 + 6 + 7"</code>
+</li>
 <li>Print all newest stackoverflow questions with title and url:<br><br>
 
    <code>xidel http://stackoverflow.com -e '&lt;A class="question-hyperlink">{title:=text(), url:=@href}&lt;/A>*'</code>
 <li>Print all reddit comments of an user, with html and url:<br><br>
-   <code>xidel "http://www.reddit.com/user/user/" --extract '&lt;t:loop>&lt;div class="usertext-body">&lt;div>{outer-xml(.)}&lt;/div>&lt;/div>&lt;ul class="flat-list buttons">&lt;a>&lt;t:s>link:=@href&lt;/t:s>permalink&lt;/a>&lt;/ul>&lt;/div>&lt;/div>&lt;/t:loop>' --follow '&lt;a rel="nofollow next">{.}&lt;/a>?'</code>
+   <code>xidel "http://www.reddit.com/user/username/" --extract '&lt;t:loop>&lt;div class="usertext-body">&lt;div>{outer-xml(.)}&lt;/div>&lt;/div>&lt;ul class="flat-list buttons">&lt;a>&lt;t:s>link:=@href&lt;/t:s>permalink&lt;/a>&lt;/ul>&lt;/div>&lt;/div>&lt;/t:loop>' --follow '&lt;a rel="nofollow next">{.}&lt;/a>?'</code>
 </li>   
 </ol>
 <br>
