@@ -49,31 +49,31 @@ It supports:
 <ol class="examples">
 <li>
 Print all urls found by a google search.<br><br>
-  <code>xidel http://www.google.de/search?q=test --extract '//a/filter(@href, "url[?]q=([^&]+)&", 1)[. != ""]'</code>
+  <code>xidel http://www.google.de/search?q=test --extract "//a/filter(@href, 'url[?]q=([^&]+)&', 1)[. != '']"</code>
 </li>
 <li>
 Print the title of all pages found by a google search and download them: <br><br>
-  <code>xidel http://www.google.de/search?q=test --follow '//a/filter(@href, "url[?]q=([^&]+)&", 1)[. != ""]' --extract //title --download '$host;/'</code>
+  <code>xidel http://www.google.de/search?q=test --follow "//a/filter(@href, 'url[?]q=([^&]+)&', 1)[. != '']" --extract //title --download '$host;/'</code>
 </li>
 <li>
 Generally follow all links on a page and print the titles of the linked pages:<ul>
-  <li>With CSS: <code>xidel http://example.org -f 'css("a")' -e 'css("title")'</code> </li>
+  <li>With CSS: <code>xidel http://example.org -f "css('a')" -e "css('title')"</code> </li>
   <li>With XPath: <code>xidel http://example.org -f //a -e //title</code> </li>
-  <li>With Templates: <code>xidel http://example.org -f '&lt;a>{.}&lt;/a>*' -e '&lt;title>{.}&lt/;title>'</code> </li>
+  <li>With Templates: <code>xidel http://example.org -f "&lt;a>{.}&lt;/a>*" -e "&lt;title>{.}&lt/;title>"</code> </li>
 </ul></li>
 <li>Another template example: <br><br>
    If you have an example.xml file like <code>&lt;x>&lt;foo>ood&lt;/foo>&lt;bar>IMPORTANT!&lt;/bar>&lt;/x></code><br>
-   You can read the imporant part like: <code>xidel example.xml -e '&lt;x>&lt;foo>ood&lt;/foo>&lt;bar>{.}&lt;/bar>&lt;/x>'</code><br>
+   You can read the imporant part like: <code>xidel example.xml -e "&lt;x>&lt;foo>ood&lt;/foo>&lt;bar>{.}&lt;/bar>&lt;/x>"</code><br>
    (and this will also check, if the part with the ood is there, and fail otherwise)
 </li>
 <li>Calculate something with XPath: <br><br>
-  <code>xidel '&lt;>' -e "(1 + 2 + 3) * 4 + 5 + 6 + 7"</code>
+  <code>xidel "&lt;>" -e "(1 + 2 + 3) * 4 + 5 + 6 + 7"</code>
 </li>
 <li>Print all newest stackoverflow questions with title and url:<br><br>
 
-   <code>xidel http://stackoverflow.com -e '&lt;A class="question-hyperlink">{title:=text(), url:=@href}&lt;/A>*'</code>
+   <code>xidel http://stackoverflow.com -e "&lt;A class='question-hyperlink'>{title:=text(), url:=@href}&lt;/A>*"</code>
 <li>Print all reddit comments of an user, with html and url:<br><br>
-   <code>xidel "http://www.reddit.com/user/username/" --extract '&lt;t:loop>&lt;div class="usertext-body">&lt;div>{outer-xml(.)}&lt;/div>&lt;/div>&lt;ul class="flat-list buttons">&lt;a>&lt;t:s>link:=@href&lt;/t:s>permalink&lt;/a>&lt;/ul>&lt;/div>&lt;/div>&lt;/t:loop>' --follow '&lt;a rel="nofollow next">{.}&lt;/a>?'</code>
+   <code>xidel "http://www.reddit.com/user/username/" --extract "&lt;t:loop>&lt;div class='usertext-body'>&lt;div>{outer-xml(.)}&lt;/div>&lt;/div>&lt;ul class='flat-list buttons'>&lt;a>&lt;t:s>link:=@href&lt;/t:s>permalink&lt;/a>&lt;/ul>&lt;/div>&lt;/div>&lt;/t:loop>" --follow "&lt;a rel='nofollow next'>{.}&lt;/a>?"</code>
 </li>   
 </ol>
 <br>
