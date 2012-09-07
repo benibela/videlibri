@@ -8,5 +8,5 @@ include programs/internet/VideLibri
 include programs/internet/sourceforgeresponder
 exclude programs/internet/VideLibri/config
 exclude programs/internet/VideLibri/_meta/codegen
-include programs/internet/xibri
+include programs/internet/xidel
 include programs/internet/firefoxgreasemonkey/webscraper/Webscraper.user.js
