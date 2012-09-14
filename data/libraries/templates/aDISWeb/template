@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<library-template>
+<action id="connect"></action>
+
+<action id="update-all">
+
+  <page url="https://$server;/aDISWeb/app"> <template><a>{connectPage:=@href}</a></template> </page>
+  <page url="$connectPage;">
+  <template>
+    <a><span>Benutzerkonto</span>{loginForm:=@href}</a>
+    <template:read var="dollar" source="'$'"/>
+  </template>
+  </page>
+
+  <page url="https://$server;/$loginForm;">
+    <template>
+    <form>
+      {loginFormPostTo:=@action, 
+       loginFormPostData:=string-join(for $i in input[@type="hidden"] return concat(encode-for-uri($i/@name), "=", encode-for-uri($i/@value)), "&" )}
+<!-- todo: fix      <t:loop><input type="hidden">{loginFormPostData := concat($loginFormPostData, @name, "=", @value, "X")}</input></t:loop>-->
+    </form>
+    </template>
+  </page>
+
+  <page url="https://$server;/$loginFormPostTo;">
+  <post>$loginFormPostData;</post>
+  <post name="$dollar;Textfield">$username;</post>
+  <post name="$dollar;Textfield$dollar;0">$password;</post>
+  <post name="textButton">Anmeldung abschicken</post>
+  
+  
+  <template>
+  <a>Ausleihen zeigen oder verlängern<t:s>kontoPage := @href</t:s></a>
+    <!--<t:s>kontoPage := filter(@href, "(.*)&amp;requestCount", 1),
+         requestCount := filter(@href, "requestCount=([0-9]+)", 1)
+    </t:s>-->
+  </template>
+  </page>
+
+
+  <page url="https://$server;/$kontoPage;">
+    <template>
+      <DIV class="aDISMaske">
+      <FORM>
+      {checkFormPostTo := @action,
+       checkFormPostData:=string-join(
+        (for $i in .//input[@type=("hidden","checkbox")] return concat(encode-for-uri($i/@name), "=", encode-for-uri($i/@value)),
+        (.//input[@type = "submit" and contains(@value, "verlängerbar")]/encode-for-uri(@name))
+      ), "&" )
+      }
+      </form>
+      </div>
+    </template>
+  </page>
+
+  <page url="https://$server;/$checkFormPostTo;">
+    <post>$checkFormPostData;</post>
+    
+    <template>
+      <DIV class="aDISMaske">
+      <FORM>
+      {extendFormPostTo := @action,
+       extendFormPostData:=string-join(
+        (for $i in .//input[@type=("hidden")] return concat(encode-for-uri($i/@name), "=", encode-for-uri($i/@value)),
+        (.//input[@type = "submit" and contains(@value, "arkierte") and contains(@value, "ngern")]/encode-for-uri(@name))
+      ), "&" )
+      }
+      
+      <DIV class="clearfix" id="content">
+      
+      <template:read var="delete-current-books()"/>
+      <t:s>requestCount := $requestCount + 1</t:s>
+      
+      <DIV class="innen">
+      <DIV class="fsgrp">
+      <DIV class="rTable_div">
+      <TABLE class="rTable_table">
+      <t:loop>
+      <TR>
+      <TD>{book := object(("select(new)","")),
+           book.extendid := encode-for-uri(input/@name)
+           }</TD>
+      <TD>{book.limitdate := parse-date(., "dd.mm.yyyy")}</TD>
+      <TD>{book.category := filter(text(), "\[(.*)\]", 1),  
+           book.title :=  if (contains(text(), "]")) then filter(text(), "(\] )(.*)", 2) else text()}<BR/>
+          {preid := text()}<BR/>
+          {book.id := concat($preid,":",text())}</TD>
+      <TD>{message := if (contains(., "- Stand")) then filter(., "(.*)- Stand", 1) else .}
+          <t:if test="contains(., 'nicht verl')">{book.status:problematic:=$message}</t:if>
+          <t:else>{book.status:curious:=$message}</t:else>
+      </TD>
+      </TR>
+      </t:loop>
+      </TABLE>
+      </DIV>
+      </DIV>
+      </DIV>
+      </DIV>
+      </FORM>
+      </DIV>
+
+    </template>
+  </page>
+  
+  
+</action>
+
+<action id="extend-list" singleBookStr="&amp;$book.extendid;=">
+  <page url="https://$server;/$extendFormPostTo;">
+    <post>$extendFormPostData;</post>
+    <post>$book-list;</post>
+  </page>
+  
+  <call action="update-all"/>
+</action>
+
+</library-template>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<library>
+  <username matches="^[0-9]+$"/>
+  <password matches="^.+$"/>  
+  
+  <longName value="Münchener Stadtbibliothek"/>
+  <shortName value="StB München"/>
+  <homepage value="https://ssl.muenchen.de/aDISWeb/app"/>
+  <template value="aDISWeb"/>
+
+  <maxExtendCount value="1"/>  
+  
+  <variable name="server" value="ssl.muenchen.de"/>
+</library>
