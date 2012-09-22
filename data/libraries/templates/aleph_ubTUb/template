@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<library-template>
-<maxlimit matches="Verlängerungslimit erreicht"/>
-
+<actions>
 <action id="connect">
     <page url="http://$server;/F/?func=bor-info" >
       <template>
@@ -42,8 +40,7 @@
     </page>
     
     
-    <page url="$borInfoPage2;" templateFile="../aleph_base/loggedIn2007"/>-->
-<!--    <error templateFile="loginerror"/>    -->
+    <page url="$borInfoPage2;" templateFile="../aleph_base/loggedIn2007"/>
 </action>
 
 <action id="update-all">
@@ -58,4 +55,4 @@
   <page url="$book.extendLink;"/>
   <page url="$book.detailLink;" templateFile="../aleph_base/details"/>
 </action>
-</library-template>
+</actions>

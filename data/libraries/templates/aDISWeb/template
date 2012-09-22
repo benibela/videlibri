@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<library-template>
+<actions>
 <action id="connect"></action>
 
 <action id="update-all">
@@ -114,4 +114,4 @@
   <call action="update-all"/>
 </action>
 
-</library-template>
+</actions>

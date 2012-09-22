@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<library-template>
-<earmarked matches="vorgemerkt"/>
-<maxlimit matches="max. Ausleihfrist erreicht"/>
+<actions>
 <!--https://kataloge.uni-hamburg.de/loan/DB=1/LNG=DU/SID=28a05a0c-0/USERINFO_LOGIN-->
 
 <action id="connect">
@@ -29,7 +27,8 @@
   </page>
 </action>
 
-<action id="extend-list" singleBookStr="&amp;VB=$book.extendid;">
+<action id="extend-list">
+  <variable name="book-list">string-join(for $book in $extend-books return "VB=$book.extendid;", "&amp;")</variable> 
   <page url="$server;USERINFO" templateFile="extend">
     <post name="ACT">UI_RENEWLOAN</post>
     <post name="BOR_U">$username</post>
@@ -37,4 +36,4 @@
     <post>$book-list;</post>
   </page>
 </action>
-</library-template> 
+</actions> 

@@ -5,7 +5,7 @@ unit librarySearcherAccess;
 interface
 
 uses
-  Classes, SysUtils , librarySearcher,booklistreader,bbutils,messagesystem,simplexmlparser;
+  Classes, SysUtils , librarySearcher,booklistreader,bbutils,messagesystem,simplexmlparser,multipagetemplate;
 
 type
 
@@ -47,7 +47,7 @@ private
 
   procedure execute;override;
 public
-  constructor create(template: TBookListTemplate; aaccess: TLibrarySearcherAccess);
+  constructor create(template: TMultiPageTemplate; aaccess: TLibrarySearcherAccess);
   destructor destroy;override;
 end;
 
@@ -56,7 +56,7 @@ TLibrarySearcherAccess = class
 private
   FOnException: TNotifyEvent;
   fthread: TSearcherThread;
-  ftemplate: TBookListTemplate;
+  ftemplate: TMultiPageTemplate;
   FOnConnected: TNotifyEvent;
   FOnDetailsComplete: TBookNotifyEvent;
   FOnImageComplete: TBookNotifyEvent;
@@ -76,7 +76,7 @@ public
   procedure endResultReading;
 
 
-  procedure newSearch(template: TBookListTemplate); //ensures that all operations are finished
+  procedure newSearch(template: TMultiPageTemplate); //ensures that all operations are finished
 
   procedure connectAsync;
   procedure searchAsync;
@@ -162,7 +162,7 @@ begin
   fthread.messages.closeDirectMessageAccess(list);
 end;
 
-procedure TLibrarySearcherAccess.newSearch(template: TBookListTemplate);
+procedure TLibrarySearcherAccess.newSearch(template: TMultiPageTemplate);
 begin
   if (operationActive) or not Assigned(fthread) or (ftemplate <> template) then begin
     if assigned(fthread) then fthread.messages.storeMessage(TSearcherMessage.Create(smtFree));
@@ -326,7 +326,7 @@ begin
   end;
 end;
 
-constructor TSearcherThread.create(template: TBookListTemplate; aaccess: TLibrarySearcherAccess);
+constructor TSearcherThread.create(template: TMultiPageTemplate; aaccess: TLibrarySearcherAccess);
 begin
   InitCriticalSection(fbookAccessSection);
   Searcher:=TLibrarySearcher.create(template);

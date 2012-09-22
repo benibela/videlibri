@@ -7,7 +7,7 @@ interface
 uses
   Classes, SysUtils, LResources, Forms, Controls, Graphics, Dialogs, ExtCtrls,
   CheckLst, StdCtrls,bookListView, ComCtrls, Menus,librarySearcher,booklistreader,TreeListView,math,
-  librarySearcherAccess;
+  librarySearcherAccess,multipagetemplate;
 
 type
 
@@ -170,7 +170,7 @@ begin
   if i = -1 then i := searchTemplates.IndexOf('digibib');
   if i = -1 then begin i := 0; if searchTemplates.Count = 0 then raise exception.Create('No search templates'); end;
 
-  searcherAccess.newSearch(searchTemplates.Objects[i] as TBookListTemplate);
+  searcherAccess.newSearch(searchTemplates.Objects[i] as TMultiPageTemplate);
   searcherAccess.searcher.clear;
   for i:=0 to searchSelectionList.Items.count-1 do
     if searchSelectionList.Checked[i] and (searchSelectionList.Items.Objects[i]<>nil) then
@@ -593,8 +593,8 @@ begin
     if searchTemplates[i] = '' then searchTemplates.Delete(i);
   end;
   for i :=0 to searchTemplates.count-1 do begin
-    searchTemplates.Objects[i] := TBookListTemplate.create(dataPath+StringReplace('libraries\search\templates\'+trim(searchTemplates[i])+'\','\',DirectorySeparator,[rfReplaceAll]),trim(searchTemplates[i]));
-    TBookListTemplate(searchTemplates.Objects[i]).loadTemplates;
+    searchTemplates.Objects[i] := TMultiPageTemplate.create();
+    TMultiPageTemplate(searchTemplates.Objects[i]).loadTemplateFromDirectory(dataPath+StringReplace('libraries\search\templates\'+trim(searchTemplates[i])+'\','\',DirectorySeparator,[rfReplaceAll]),trim(searchTemplates[i]));
     if searchTemplates[i] <> 'digibib' then sl.Add( searchTemplates[i] );
   end;
 

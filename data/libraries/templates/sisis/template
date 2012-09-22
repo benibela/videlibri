@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<library-template>
-<earmarked matches="vorgemerkt"/>
-<maxlimit matches="max. Ausleihfrist erreicht"/>
+<actions>
+
 
 <action id="connect">
 </action>
@@ -40,4 +39,4 @@
     <post name="homegkz">111</post>
   </page>
 </action>-->
-</library-template> 
+</actions> 

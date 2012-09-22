@@ -5,11 +5,11 @@ unit booklistreader;
 interface
 
 uses
-  Classes, SysUtils,bbutils,extendedhtmlparser,simplehtmlparser,simplehtmltreeparser,simplexmlparser, pseudoxpath,dRegExpr,internetaccess;
+  Classes, SysUtils,bbutils,extendedhtmlparser,simplehtmlparser,simplehtmltreeparser,simplexmlparser, pseudoxpath,dRegExpr,internetaccess, multipagetemplate;
   
 type
   TBookList = class;
-  TBookStatus=(bsNormal,bsUnknown,bsIsSearchedDONTUSETHIS,bsEarMarked, bsMaxLimitReached,bsProblematicInStr,bsCuriousInStr,bsAccountExpired);
+  TBookStatus=(bsNormal,bsUnknown,bsIsSearchedDONTUSETHIS, bsProblematicInStr,bsCuriousInStr);
 
   { TBook }
 
@@ -90,87 +90,34 @@ type
     property lendList: boolean read flendList write setLendList;
   end;
 
-  TTemplateRealActionType = (tratLoadPage,tratCallAction);
-  TTemplateRealAction=record
-    typ: TTemplateRealActionType;
-    //load page
-    url:string;
-    templateFile:string;
-    template:string;
-    postparams:array of TProperty;
-    //call action
-    action: string;
-      //callOnce: boolean;
-  end;
-
-  TTemplateAction=record
-    name: string;
-    actions:array of TTemplateRealAction;
-    errors: array of record
-      templateFile:string;
-      template:string;
-    end;
-    singleBookStr: string; //Nur benötigt für Listen von Büchern
-  end;
-  PTemplateAction=^TTemplateAction;
-
-  { TBookListTemplate }
-
-  TBookListTemplate=class
-  protected
-    currentAction:PTemplateAction;
-    currentTag: string;
-    procedure readTree(t: TTreeElement);
-    function textRead(text: string):TParsingResult;
-    function leaveTag(tagName: string):TParsingResult;
-  public
-    earMarkedRegEx,maxLimitRegEx,accountExpiredRegEx:TRegExpr;
-    propertyAuthorRegEx, propertyTitleRegEx, propertyISBNRegEx, propertyYearRegEx:TRegExpr;
-    
-    path,name:string;
-    actions:array of TTemplateAction;
-
-    variables: TStringList;
-    
-    constructor create(_dataPath,_name:string);
-    procedure loadTemplates;
-    destructor destroy;override;
-    
-    function findAction(_name:string):PTemplateAction;
-    //function getAccountObject():TCustomAccountAccess;override;
-  end;
-
-  { TBookListReader }
-
-  { EBookListReader }
-
   EBookListReader=class(Exception)
     details:string;
     constructor create;
     constructor create(s:string;more_details:string='');
   end;
-  TBookListReader = class
+
+  { TBookListReader }
+
+  TBookListReader = class(TTemplateReader)
   private
     currentBook,defaultBook: TBook;
-    template:TBookListTemplate;
+    templatereader: TTemplateReader;
     procedure setBookProperty(book:TBook;variable: string; value:TPXPValue);
     procedure parserVariableRead(variable: string; value: TPXPValue);
+    procedure logall(sender: TTemplateReader; logged: string; debugLevel: integer=0);
+  protected
+    procedure processPage(page, cururl, contenttype: string); override;
   public
     bookAccessSection: ^TRTLCriticalSection;
     books: TBookList;
-    internet:TInternetAccess;
-    parser: THtmlTemplateParser;
-    constructor create(atemplate:TBookListTemplate);
+    constructor create(atemplate:TMultiPageTemplate);
     destructor destroy();override;
 
-    function findAction(name:string):PTemplateAction;
-    procedure performAction(action:string);
-    procedure performAction(const action:TTemplateAction);
-    
+    function bookToPXP(book:TBook): TPXPValueObject;
     procedure selectBook(book:TBook);
   end;
   
-const BOOK_NOT_EXTENDABLE=[bsEarMarked,bsMaxLimitReached,bsProblematicInStr,bsAccountExpired];
+const BOOK_NOT_EXTENDABLE=[bsProblematicInStr];
       BOOK_EXTENDABLE=[bsNormal,bsCuriousInStr];
 
 function BookStatusToStr(book: TBook;verbose:boolean=false): string; //returns utf8
@@ -187,9 +134,9 @@ begin
     bsNormal: if verbose then exit('normal verlängerbar') else exit('');
     bsUnknown: exit('Ausleihstatus unbekannt');
     bsIsSearchedDONTUSETHIS: exit('Ausleihstatus wird ermittelt... (sollte nicht vorkommen, bitte melden!)');
-    bsEarMarked:exit('vorgemerkt');
-    bsMaxLimitReached: exit('maximale Ausleihfrist erreicht');
-    bsAccountExpired: exit('Büchereikarte ist abgelaufen');
+//    bsEarMarked:exit('vorgemerkt');
+//    bsMaxLimitReached: exit('maximale Ausleihfrist erreicht');
+//    bsAccountExpired: exit('Büchereikarte ist abgelaufen');
     bsCuriousInStr: if verbose then exit('verlängerbar: '+book.statusStr) else exit(book.statusStr);
     bsProblematicInStr: if verbose then exit('nicht verlängerbar: '+book.statusStr) else exit(book.statusStr);
     else exit('Unbekannter Fehler, bei Ausleihstatusermittlung! Bitte melden!');
@@ -544,172 +491,31 @@ end;
 { TBookListTemplate }
 
 
-procedure TBookListTemplate.readTree(t: TTreeElement);
-var i:longint;
-    tagName,temp:string;
-    regex: ^TRegExpr;
-begin
-
-  while t <> nil do begin
-    case t.typ of
-      tetOpen: begin
-        tagName:=t.value;
-        if SameText(tagName,'variable') then begin
-          variables.Values[t['name']]:=t['value']
-        end else if SameText(tagName,'earmarked') then begin
-          earMarkedRegEx.Expression:=t['matches'];
-          if earMarkedRegEx.Expression='' then
-            raise exception.create('tag <earmarked> ungültig in Template von '+path);
-        end else if SameText(tagName,'maxlimit') then begin
-          maxLimitRegEx.Expression:=t['matches'];
-          if maxLimitRegEx.Expression='' then
-            raise exception.create('tag <maxLimitRegEx> ungültig in Template von '+path);
-        end else if SameText(tagName,'accountExpired') then begin
-          accountExpiredRegEx.Expression:=t['matches'];
-          if accountExpiredRegEx.Expression='' then
-            raise exception.create('tag <accountExpiredRegEx> ungültig in Template von '+path);
-        end else if SameText(tagName,'book-property') then begin
-          temp:=LowerCase(t['name']);
-          if temp='author' then regex:=@propertyAuthorRegEx
-          else if temp='title' then regex:=@propertyTitleRegEx
-          else if temp='isbn' then regex:=@propertyISBNRegEx
-          else if temp='year' then regex:=@propertyYearRegEx
-          else regex:=nil;
-          if regex <> nil then begin
-            if regex^=nil then regex^:=TRegExpr.Create();
-            regex^.Expression:=t['matches'];
-            if regex^.Expression='' then
-              raise exception.create('tag <book-property> ungültig in Template von '+path);
-          end;
-        end else if SameText(tagName,'error') then begin
-          SetLength(currentAction^.errors,length(currentAction^.errors)+1);
-          currentAction^.errors[high(currentAction^.errors)].
-            templateFile:=Utf8ToAnsi(t['templateFile']);
-        end else if SameText(tagName,'page') then begin
-          SetLength(currentAction^.actions,length(currentAction^.actions)+1);
-          with currentAction^.actions[high(currentAction^.actions)] do begin
-            typ:=tratLoadPage;
-            setlength(postparams,0);
-            url := t.getAttribute('url', url);
-            templateFile := t.getAttribute('templateFile', templateFile);
-          end;
-        end else if SameText(tagName,'post') then begin
-          if (currentAction=nil) then raise EBookListReader.create('Template ungültig: post-Tag gefunden, ohne dass eine Aktion definiert wurde');
-          if (length(currentAction^.actions)=0)or(currentAction^.actions[high(currentAction^.actions)].typ<>tratLoadPage) then raise EBookListReader.create('Template ungültig: post-Tag nicht innerhalb eines page-Tags');
-          setlength(currentAction^.actions[high(currentAction^.actions)].postparams, length(currentAction^.actions[high(currentAction^.actions)].postparams)+1);
-          currentAction^.actions[high(currentAction^.actions)].postparams[high(currentAction^.actions[high(currentAction^.actions)].postparams)].name:=t['name']
-          //for value see textread
-        end else if SameText(tagName,'call') then begin
-          SetLength(currentAction^.actions,length(currentAction^.actions)+1);
-          with currentAction^.actions[high(currentAction^.actions)] do begin
-            typ:=tratCallAction;
-            action:=t['action'];
-          end;
-        end else if SameText(tagName,'action') then begin
-          SetLength(actions,length(actions)+1);
-          FillChar(actions[high(actions)],sizeof(actions[high(actions)]),0);
-          actions[high(actions)].name:=LowerCase(t['id']);
-          currentAction:=@actions[high(actions)];
-          currentAction^.singleBookStr:=t['singleBookStr'];
-        end else if SameText(tagName, 'template') then begin
-          if (currentAction=nil) then raise EBookListReader.create('Template ungültig: html template gefunden, ohne dass eine Aktion definiert wurde');
-          currentAction^.actions[high(currentAction^.actions)].template:=t.innerXML();
-          if t.typ = tetOpen then t := t.reverse;
-        end;
-        currentTag:=tagName;
-      end;
-      tetClose: currentTag := '';
-      tetText: textRead(t.value);
-    end;
-    t := t.next;
-  end;
-end;
-
-function TBookListTemplate.textRead(text: string): TParsingResult;
-var page: ^TTemplateRealAction;
-begin
-  if currentTag = 'post' then begin
-    if (currentAction=nil) then raise EBookListReader.create('Template ungültig: post-Tag gefunden, ohne dass eine Aktion definiert wurde');
-    if (length(currentAction^.actions)=0)or(currentAction^.actions[high(currentAction^.actions)].typ<>tratLoadPage) then raise EBookListReader.create('Template ungültig: post-Tag nicht innerhalb eines page-Tags');
-    page:=@currentAction^.actions[high(currentAction^.actions)];
-    if length(page^.postparams) = 0 then raise EBookListReader.create('internal invalid post params');
-    page^.postparams[high(page^.postparams)].value:=text
-  end;
-  Result:=prContinue;
-end;
-
-function TBookListTemplate.leaveTag(tagName: string): TParsingResult;
-begin
-  currentTag:='';
-  Result:=prContinue;
-end;
-
-constructor TBookListTemplate.create(_dataPath,_name:string);
-var
-  tree: TTreeParser;
-begin
-  IncludeTrailingPathDelimiter(_dataPath);
-  self.path:=_dataPath;
-  self.name:=_name;
-  if not FileExists(_dataPath+'template') then
-    raise Exception.Create('Template '+_dataPath+' nicht gefunden');
-  variables:=TStringList.Create;
-  earMarkedRegEx:=TRegExpr.Create('[vV]orgemerkt');
-  maxLimitRegEx:=TRegExpr.Create('[fF]rist erreicht');
-  accountExpiredRegEx:=TRegExpr.Create('Karte abgelaufen');
-
-
-  tree := TTreeParser.Create;
-  readTree(tree.parseTreeFromFile(_dataPath+'template'));
-  tree.free;
-end;
-
-procedure TBookListTemplate.loadTemplates;
-  procedure load(var action:TTemplateAction);
-  var i:longint;
-  begin
-    for i:=0 to high(action.actions) do begin
-      if action.actions[i].templateFile='' then continue;
-      action.actions[i].template:=strLoadFromFile(self.path+action.actions[i].templateFile);
-      if action.actions[i].template='' then
-        raise EBookListReader.create('Template-Datei "'+self.path+action.actions[i].templateFile+'" konnte nicht geladen werden');
-    end;
-    for i:=0 to high(action.errors) do begin
-      action.errors[i].template:=strLoadFromFile(self.path+action.errors[i].templateFile);
-      if action.errors[i].template='' then
-        raise EBookListReader.create('Template-Datei "'+self.path+action.errors[i].templateFile+'" konnte nicht geladen werden');
-    end;
-  end;
-var i:longint;
-begin
-  for i:=0 to high(actions) do
-    load(actions[i]);
-end;
-
-
-destructor TBookListTemplate.destroy;
-begin
-  earMarkedRegEx.free;
-  maxLimitRegEx.free;
-  accountExpiredRegEx.free;
-  variables.Free;
-
-  propertyAuthorRegEx.Free; //nil.free is okay
-  propertyTitleRegEx.Free;
-  propertyYearRegEx.Free;
-  propertyISBNRegEx.Free;
-  inherited destroy;
-end;
-
-function TBookListTemplate.findAction(_name: string): PTemplateAction;
-var i:longint;
-begin
-  result:=nil;
-  for i:=0 to high(actions) do
-    if actions[i].name=_name then exit(@actions[i]);;
-end;
 
     { TBookListReader }
+
+procedure TBookListReader.logall(sender: TTemplateReader; logged: string; debugLevel: integer=0);
+begin
+  log(logged);
+end;
+
+procedure TBookListReader.processPage(page, cururl, contenttype: string);
+var
+  varlog: TPXPVariableChangeLog;
+  j: Integer;
+begin
+  if bookAccessSection<>nil then EnterCriticalsection(bookAccessSection^);
+  try
+    inherited;
+
+    //simulate old parser interface
+    varlog := parser.VariableChangeLogCondensed;
+    for j:=0 to varlog.count-1 do
+      parserVariableRead(varlog.getVariableName(j), varlog.getVariableValue(j));
+  finally
+    if bookAccessSection<>nil then LeaveCriticalsection(bookAccessSection^);
+  end;
+end;
 
 procedure TBookListReader.setBookProperty(book: TBook; variable: string; value:TPXPValue);
   function strconv():string;
@@ -728,13 +534,8 @@ begin
   else if strlibeginswith(@variable[1],length(variable),'status') then begin
     if variable='status:problematic' then book.Status:=bsProblematicInStr
     else if variable='status:curious' then book.Status:=bsCuriousInStr;
-     if strconv()<>'' then begin
-      book.StatusStr:=strconv();
-      if template.earMarkedRegEx.Exec(book.StatusStr) then book.Status:=bsEarMarked
-      else if template.maxLimitRegEx.Exec(book.StatusStr) then book.Status:=bsMaxLimitReached
-      else if template.accountExpiredRegEx.Exec(book.StatusStr) then book.Status:=bsAccountExpired;
-    end else book.Status:=bsNormal;
-       //(bsNormal,bsUnknown,bsIsSearched,bsEarMarked,bsMaxLimitReached,bsProblematicInStr,bsCuriousInStr);
+    if strconv()<>'' then book.StatusStr:=strconv()
+    else book.Status:=bsNormal;
   end else if striEqual(variable, 'issuedate') then book.issueDate:=trunc(value.asDateTime)
   else if striEqual(variable, 'limitdate') then
     book.limitDate:=trunc(value.asDateTime)
@@ -815,16 +616,7 @@ begin
       s := book.values.getVariableName(i);
       if (s = 'select(id)') or (s = 'select(current)') or (s = 'select(new)') then continue;
       value := book.values.getVariableValue(i);
-      if (template.propertyYearRegEx <> nil) and (template.propertyYearRegEx.exec(s)) then
-        setBookProperty(currentBook, 'year', value)
-      else if (template.propertyAuthorRegEx <> nil) and (template.propertyAuthorRegEx.exec(s)) then
-       setBookProperty(currentBook,'author',value)
-      else if (template.propertyTitleRegEx <> nil) and (template.propertyTitleRegEx.exec(s)) then
-       setBookProperty(currentBook,'title',value)
-      else if (template.propertyISBNRegEx <> nil) and (template.propertyISBNRegEx.exec(s)) then
-       setBookProperty(currentBook,'isbn',value)
-      else
-       setBookProperty(currentBook,s,value);
+      setBookProperty(currentBook,s,value);
     end;
     currentBook.firstExistsDate:=trunc(now);
     currentBook.lastExistsDate:=trunc(now);
@@ -838,168 +630,36 @@ begin
   end;
 end;
 
-constructor TBookListReader.create(atemplate:TBookListTemplate);
+constructor TBookListReader.create(atemplate:TMultiPageTemplate);
 begin
-  template:=atemplate;
-  parser:=THtmlTemplateParser.create;
-  parser.KeepPreviousVariables:=kpvKeepValues;
-  parser.variableChangeLog.caseSensitive:=false;
+  inherited create(atemplate, nil);
   defaultBook:=TBook.create;
+  if logging then onLog:=@logall;
 end;
 
 destructor TBookListReader.destroy();
 begin
-  parser.free;
   defaultBook.free;
   inherited destroy();
 end;
 
-function TBookListReader.findAction(name:string): PTemplateAction;
+function TBookListReader.bookToPXP(book: TBook): TPXPValueObject;
+var
+  i: Integer;
 begin
-  result:=template.findAction(name);
-end;
-
-procedure TBookListReader.performAction(action: string);
-var act: PTemplateAction;
-begin
-  act:=findAction(action);
-  if act=nil then raise EBookListReader.Create('Aktion '+action+' konnte nicht ausgeführt werden, da sie nicht gefunden wurde.');
-  performAction(act^);
-end;
-
-procedure TBookListReader.performAction(const action:TTemplateAction);
-var i:longint;
-    page:string;
-    aname: String;
-    avalue: TPXPValue;
-    j: Integer;
-    postparams: String;
-    tempname: String;
-    varlog: TPXPVariableChangeLog;
-    cururl: String;
-begin
-  if logging then begin
-    log('Enter performAction, finternet:');
-    //TODO: parser log
-  end;
-
-  try
-    //OutputDebugString(pchar(lib.defaultVariables.Text));
-    Assert(internet<>nil,'Internet nicht initialisiert');
-
-    with action do begin
-      try
-        for i:=0 to high(actions) do
-          case actions[i].typ of
-            tratCallAction: begin
-              if logging then log('Action call: '+actions[i].action);
-              performAction(actions[i].action);
-            end;
-            tratLoadPage: begin
-              cururl := parser.replaceVars(actions[i].url);
-              if cururl = '' then continue;
-              if actions[i].template<>'' then begin
-                if logging then log('Parse Template From File: '+template.path+actions[i].templateFile);
-                parser.parseTemplate(actions[i].template,actions[i].templateFile);
-              end;
-              postparams := '';
-              for j:=0 to high(actions[i].postparams) do begin
-                if j <> 0 then postparams += '&';
-                tempname := parser.replaceVars(actions[i].postparams[j].name);
-                if tempname = '' then
-                  postparams += parser.replaceVars(actions[i].postparams[j].value) //no urlencode! parameter passes multiple values
-                 else
-                  postparams += TInternetAccess.urlEncodeData(tempname)+'='+
-                                TInternetAccess.urlEncodeData(parser.replaceVars(actions[i].postparams[j].value));
-              end;
-              if logging then log('Get/Post internet page ->'+parser.replaceVars(actions[i].url)+'<-'#13#10'Post: '+postparams);
-              if postparams='' then
-                page:=internet.get(cururl)
-               else
-                page:=internet.post(cururl, postparams);
-
-              if logging then log('downloaded: '+inttostr(length(page))+' bytes');
-              if page='' then
-                raise EInternetException.Create(actions[i].url +' konnte nicht geladen werden');
-              if actions[i].template<>'' then begin
-                if logging then log('parse page: '+parser.replaceVars(actions[i].url));
-                if bookAccessSection<>nil then EnterCriticalsection(bookAccessSection^);
-                try
-                  parser.parseHTML(page);
-                  //simulate old parser interface
-                  varlog := parser.VariableChangeLogCondensed;
-                  for j:=0 to varlog.count-1 do
-                    parserVariableRead(varlog.getVariableName(j), varlog.getVariableValue(j));
-
-                finally
-                  if bookAccessSection<>nil then LeaveCriticalsection(bookAccessSection^);
-                end;
-              end;
-              if logging then log('page finished');
-            end;
-          end;
-        if logging then log('pages finished');
-      except
-        on  e:Exception do begin
-          if logging then begin
-            //log(parserLog.text);
-            log('Exception message: '+e.message);
-            if e is EHTMLParseMatchingException then
-              log(parser.debugMatchings(50));
-            if EHTMLParseMatchingException = Exception then log('WRF');
-          end;
-          for i:=0 to high(errors) do begin
-            if logging then log('Check error: '+IntToStr(i)+': '+errors[i].templateFile);
-            parser.parseTemplate(errors[i].template);
-            if logging then begin
-              log('Error template loaded');
-            end;
-            try
-              if logging then log('parser html: ');
-              parser.parseHTML(page);
-              varlog:=parser.VariableChangeLogCondensed;
-              for j:=0 to varlog.count-1 do begin
-                aname := varlog.getVariableName(j);
-                avalue := varlog.getVariableValue(j);
-                parserVariableRead(aname,avalue);
-              end;
-            except
-              on e2: EBookListReader do begin
-                if logging then log('New exception: '+e2.message);
-                raise;
-              end;
-              on e: Exception do begin//frühere Exception wird weitergegeben/unverständlich
-                if logging then log('earlier exception: '+e.Message);
-              end;
-            end;
-          end;
-          if e is EHTMLParseException then
-            if pos('Die HTML Datei ist kürzer als das Template',e.message)=1 then begin
-              if logging then log('ele.create');
-              raise EBookListReader.create(e.message,'');
-            end;
-          raise;
-        end;
-      end;
-    end;
-  finally
-    if logging then log('Leave performAction');
-  end;
+  result := TPXPValueObject.create();
+  result.setMutable('id', book.id);
+  result.setMutable('author', book.author);
+  result.setMutable('title', book.title);
+  result.setMutable('year', book.year);
+  result.setMutable('isbn', book.isbn);
+  for i:=0 to high(book.additional) do
+    result.setMutable(book.additional[i].name, book.additional[i].value);
 end;
 
 procedure TBookListReader.selectBook(book: TBook);
-var i:longint;
-  obj: TPXPValueObject;
 begin
-  obj := TPXPValueObject.create();
-  obj.setMutable('id', book.id);
-  obj.setMutable('author', book.author);
-  obj.setMutable('title', book.title);
-  obj.setMutable('year', book.year);
-  obj.setMutable('isbn', book.isbn);
-  for i:=0 to high(book.additional) do
-    obj.setMutable(book.additional[i].name, book.additional[i].value);
-  parser.variableChangeLog.addVariable('book', obj);
+  parser.variableChangeLog.addVariable('book', bookToPXP(book));
   currentBook:=book;
 end;
 

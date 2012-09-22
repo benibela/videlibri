@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<library-template>
+<actions>
 
 <action id="connect">
 </action>
@@ -19,7 +19,9 @@
 </action>
 
 
-<action id="extend-list" singleBookStr="$book.extendid;=YES&amp;">
+<action id="extend-list">
+  <variable name="book-list">string-join(for $book in $extend-books return "$book.extendid;=YES", "&amp;")</variable> 
+
   <page url="https://ausleihe.staatsbibliothek-berlin.de/opac/verl.S" templateFile="simpleCheck">
     <post name="LANG">de</post>
     <post name="FUNC">verl</post>
@@ -34,4 +36,4 @@
   </page>
 </action>
 
-</library-template>
+</actions>

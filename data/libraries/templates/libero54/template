@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<library-template>
-<accountExpired matches="Benutzerkarte ist abgelaufen"/>
-<maxlimit matches="Maximal erlaubte Anzahl Verlängerungen"/>
+<actions>
 
 <action id="connect">
   <page url="http://$server;WebOpac.cls" templateFile="start"/>
@@ -26,7 +24,9 @@
   </page>
 </action>
 
-<action id="extend-list" singleBookStr="&amp;$book.extendid;=1">
+<action id="extend-list">
+  <variable name="book-list">string-join(for $book in $books return "$book.extendid;=1", "&amp;")</variable>
+  
   <page url="http://$server;WebOpac.cls">
     <post name="MGWCHD">0</post>
     <post name="TOKEN">$token;</post>
@@ -41,4 +41,4 @@
   </page>
   <call action="update-all"/>
 </action>
-</library-template>
+</actions>

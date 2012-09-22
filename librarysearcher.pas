@@ -5,7 +5,7 @@ unit librarySearcher;
 interface
 
 uses
-  Classes, SysUtils, booklistreader, libraryParser;
+  Classes, SysUtils, booklistreader, libraryParser, multipagetemplate;
 
 type
 TBookSearchOptions = class(TBook);
@@ -17,12 +17,12 @@ private
   flibsToSearch: TList;
   fsearchBook: TBookSearchOptions;
   fsearchResult: TBookList;
-  template: TBookListTemplate;
+  template: TMultiPageTemplate;
   flocation:string;
 public
   bookListReader:TBookListReader;
 
-  constructor create(searchTemplate: TBookListTemplate);
+  constructor create(searchTemplate: TMultiPageTemplate);
   destructor Destroy; override;
   
   procedure setLocation(s:string);
@@ -45,7 +45,7 @@ uses internetAccess;
 
 { TLibrarySearcher }
 
-constructor TLibrarySearcher.create(searchTemplate: TBookListTemplate);
+constructor TLibrarySearcher.create(searchTemplate: TMultiPageTemplate);
 begin
   fsearchBook:=TBookSearchOptions.create;
   flibsToSearch:=TList.Create;
@@ -70,8 +70,8 @@ procedure TLibrarySearcher.setLocation(s: string);
 begin
   if s=flocation then exit;
   flocation:=s;
-  bookListReader.parser.variableChangeLog.ValuesString['location']:=template.variables.Values['location:'+s];
-  bookListReader.parser.variableChangeLog.ValuesString['view']:=template.variables.Values['view:'+s];
+  bookListReader.parser.variableChangeLog.ValuesString['location']:=template.findVariableValue('location:'+s);
+  bookListReader.parser.variableChangeLog.ValuesString['view']:=template.findVariableValue('view:'+s);
   if (s <> template.name) and (bookListReader.parser.variableChangeLog.ValuesString['location']='') then
     raise Exception.Create('Unbekannter Suchort');
 end;
@@ -101,7 +101,7 @@ begin
   fsearchResult.clear;
   selectedLibraries:='';
   for i:=0 to flibsToSearch.count-1 do
-    selectedLibraries+=TLibrary(flibsToSearch[i]).variables.values['searchid-'+template.Name]+template.variables.values['after-id'];
+    selectedLibraries+=TLibrary(flibsToSearch[i]).variables.values['searchid-'+template.Name]+template.findVariableValue('after-id');
   bookListReader.parser.variableChangeLog.ValuesString['selectedLibraries']:=selectedLibraries;
   bookListReader.books:=fsearchResult;
   bookListReader.selectBook(SearchOptions);

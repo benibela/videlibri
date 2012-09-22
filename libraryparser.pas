@@ -4,7 +4,7 @@ unit libraryParser;
 interface
 
 uses
-  Classes, SysUtils, simplehtmlparser, extendedhtmlparser, simplexmlparser, inifiles,internetaccess,dRegExpr,booklistreader;
+  Classes, SysUtils, simplehtmlparser, extendedhtmlparser, simplexmlparser, inifiles,internetaccess,dRegExpr,booklistreader,multipagetemplate;
 
 
 type
@@ -18,7 +18,7 @@ type
     defaultVariables:TStringList;
     function readProperty(tagName: string; properties: TProperties):TParsingResult;
   public
-    template:TBookListTemplate;
+    template:TMultiPageTemplate;
 
     canModifySingleBooks:boolean;
     //function getPrettyNameShort():string;virtual;
@@ -54,7 +54,7 @@ type
     destructor destroy();override;
     procedure init(apath:string);
     
-    function getTemplate(templateName: string):TBookListTemplate;
+    function getTemplate(templateName: string):TMultiPageTemplate;
     function getAccount(libID,accountID: string):TCustomAccountAccess;overload;
     function getAccount(mixID: string):TCustomAccountAccess;overload;
 
@@ -244,7 +244,7 @@ type
   end;
 
 implementation
-uses applicationconfig,bbdebugtools,bbutils,FileUtil,LCLIntf;
+uses applicationconfig,bbdebugtools,bbutils,FileUtil,LCLIntf,pseudoxpath;
 function currencyStrToCurrency(s:string):Currency;
 begin
   s:=trim(s);
@@ -297,7 +297,6 @@ end;
 function TLibrary.getAccountObject():TCustomAccountAccess;
 begin
   result:=TTemplateAccountAccess.create(self);
-  template.loadTemplates();
 end;
 
 constructor TLibrary.create;
@@ -338,7 +337,7 @@ begin
     TCustomAccountAccess(libraries[i]).free;
   libraries.free;
   for i:=0 to templates.Count-1 do
-    TBookListTemplate(templates.Objects[i]).free;
+    TMultiPageTemplate(templates.Objects[i]).free;
   templates.free;
   inherited;
 end;
@@ -362,13 +361,14 @@ begin
   libraryFiles.free;
 end;
 
-function TLibraryManager.getTemplate(templateName: string): TBookListTemplate;
+function TLibraryManager.getTemplate(templateName: string): TMultiPageTemplate;
 var i:longint;
 begin
   i:=templates.IndexOf(templateName);
-  if i>=0 then Result:=TBookListTemplate(templates.Objects[i])
+  if i>=0 then Result:=TMultiPageTemplate(templates.Objects[i])
   else begin
-    Result:=TBookListTemplate.Create(libraryPath+'templates'+DirectorySeparator+templateName+DirectorySeparator,templateName);
+    Result:=TMultiPageTemplate.Create();
+    result.loadTemplateFromDirectory(libraryPath+'templates'+DirectorySeparator+templateName+DirectorySeparator,templateName);
     templates.AddObject(templateName,Result);
   end;
 end;
@@ -915,8 +915,9 @@ end;
 procedure TTemplateAccountAccess.extendList(booksToExtend: TBookList);
 var bookListStr:string;
     i:longint;
-    extendAction: PTemplateAction;
+    extendAction: TTemplateAction;
     book:TBook;
+    extendBookList: TPXPValueSequence;
 begin
   if booksToExtend.Count=0 then exit;
   if logging then log('Enter TTemplateAccountAccess.extendList');
@@ -924,14 +925,12 @@ begin
   extendAction:=reader.findAction('extend-list');
   if extendAction<>nil then begin
     if logging then log('use extendList Template');
-    bookListStr:='';
-    for i:=0 to booksToExtend.Count-1 do begin
-      reader.selectBook(booksToExtend[i]);
-      bookListStr+= reader.parser.replaceVars(extendAction^.singleBookStr);
-    end;
-    if logging then log('bookList (count: '+inttostr(booksToExtend.count)+') is: '+bookListStr);
-    reader.parser.variableChangeLog.ValuesString['book-list']:=bookListStr;
-    reader.performAction(extendAction^);
+    extendBookList := TPXPValueSequence.create(booksToExtend.Count);
+    for i:=0 to booksToExtend.Count-1 do
+      extendBookList.addChild(reader.bookToPXP(booksToExtend[i]));
+    if logging then log('bookList (count: '+inttostr(extendBookList.seq.count)+') is: '+extendBookList.debugAsStringWithTypeAnnotation());
+    reader.parser.variableChangeLog.addVariable('extend-books', extendBookList);
+    reader.performAction(extendAction);
   end else if reader.findAction('extend-single')<>nil then begin
     if logging then log('use extendSingle Template');
     extendAction:=reader.findAction('extend-single');
@@ -939,8 +938,7 @@ begin
       reader.selectBook(booksToExtend[i]);
       book:=reader.books.findBook(booksToExtend[i]);
       if book<>nil then reader.selectBook(book); //handles more instances of the same book
-      reader.performAction(extendAction^);
-
+      reader.performAction(extendAction);
     end;
   end else if reader.findAction('extend-all')<>nil then begin
     if logging then log('use extendAll Template');
