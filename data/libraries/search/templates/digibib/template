@@ -1,33 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<search-template>
-
-<book-property name="title" matches="Titel"/>
-<book-property name="author" matches="Autor"/>
-<book-property name="year" matches="Jahr"/>
-<book-property name="isbn" matches="ISBN"/>
-
-<variable name="book-aliases">
-  object((
-    "title", "Titel",
-    "author", "Autor", 
-    "year", "Jahr",
-    "isbn", "ISBN"
-  ))
-</variable>
-
-<!--<variable name="book-aliases">
-  object(("title", "Titel")),
-  object(("author", "Autor")),
-  object(("year", "Jahr")),
-  object(("isbn", "ISBN")),
-</variable>
-
-<variable name="book-aliases">
-  object(("id", "title", "regex", "Titel")),
-  object(("id", "author", "regex", "Autor")),
-  object(("id", "year", "regex", "Jahr")),
-  object(("id", "isbn", "regex", "ISBN")),
-</variable>-->
+<actions>
 
 <variable name="after-id" value="=on&amp;"/>
 <variable name="location:Düsseldorf" value="DUEBIB"/>
@@ -88,7 +60,7 @@ http://www.digibib.net/opensearch?S.SEARCH_SBDUE=on&S.SEARCH_SBAA=on&VIEW=HBZ:Oe
 </action>
 
 
-</search-template>
+</actions>
 
  <!--<input type="hidden" name="VIEW"        value="DUEBIB:Lokale_Bibliotheken" />"/><input type="hidden" name="LOCATION"    value="DUEBIB
       QUERY_czCO = körperschaft, QUERY_0czCO
