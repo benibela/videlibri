@@ -13,28 +13,19 @@
   </page>
 
   <page url="https://$server;/$loginForm;">
-    <template>
-    <form>
-      {loginFormPostTo:=@action, 
-       loginFormPostData:=string-join(for $i in input[@type="hidden"] return concat(encode-for-uri($i/@name), "=", encode-for-uri($i/@value)), "&" )}
-<!-- todo: fix      <t:loop><input type="hidden">{loginFormPostData := concat($loginFormPostData, @name, "=", @value, "X")}</input></t:loop>-->
-    </form>
-    </template>
+    <template><form>{loginFormPost := form(., ("$dollar;Textfield=$username;", "$dollar;Textfield$dollar;0=$password;"))}</form></template>
   </page>
 
-  <page url="https://$server;/$loginFormPostTo;">
-  <post>$loginFormPostData;</post>
-  <post name="$dollar;Textfield">$username;</post>
-  <post name="$dollar;Textfield$dollar;0">$password;</post>
-  <post name="textButton">Anmeldung abschicken</post>
+  <page url="$loginFormPost;">
+    <post name="textButton">Anmeldung abschicken</post>
   
   
-  <template>
-  <a>Ausleihen zeigen oder verlängern<t:s>kontoPage := @href</t:s></a>
-    <!--<t:s>kontoPage := filter(@href, "(.*)&amp;requestCount", 1),
-         requestCount := filter(@href, "requestCount=([0-9]+)", 1)
-    </t:s>-->
-  </template>
+    <template>
+    <a>Ausleihen zeigen oder verlängern<t:s>kontoPage := @href</t:s></a>
+      <!--<t:s>kontoPage := filter(@href, "(.*)&amp;requestCount", 1),
+           requestCount := filter(@href, "requestCount=([0-9]+)", 1)
+      </t:s>-->
+    </template>
   </page>
 
 
@@ -42,34 +33,28 @@
     <template>
       <DIV class="aDISMaske">
       <FORM>
-      {checkFormPostTo := @action,
-       checkFormPostData:=string-join(
-        (for $i in .//input[@type=("hidden","checkbox")] return concat(encode-for-uri($i/@name), "=", encode-for-uri($i/@value)),
-        (.//input[@type = "submit" and contains(@value, "verlängerbar")]/encode-for-uri(@name))
-      ), "&" )
-      }
+      {checkFormPost := (form(., (.//input[(@type = "checkbox" and not(exists(@checked))) or (@type = "submit" and contains(@value, "verlängerbar"))])/concat(@name,"=",@value)))}
+      
+      <DIV class="clearfix" id="content">
+        <TABLE class="rTable_table">
+          <template:read var="delete-current-books()"/>
+          {hasBooks := false()}
+          <input type="checkbox" t:optional="true">{hasBooks := true()}</input>
+        </TABLE>
+      </DIV>
+
       </form>
       </div>
     </template>
   </page>
 
-  <page url="https://$server;/$checkFormPostTo;">
-    <post>$checkFormPostData;</post>
-    
+  <page url="$checkFormPost;" condition="$hasBooks">    
     <template>
       <DIV class="aDISMaske">
       <FORM>
-      {extendFormPostTo := @action,
-       extendFormPostData:=string-join(
-        (for $i in .//input[@type=("hidden")] return concat(encode-for-uri($i/@name), "=", encode-for-uri($i/@value)),
-        (.//input[@type = "submit" and contains(@value, "arkierte") and contains(@value, "ngern")]/encode-for-uri(@name))
-      ), "&" )
-      }
+      {extendFormPost := form(., .//input[@type = "submit" and contains(@value, "arkierte") and contains(@value, "ngern")]/concat(@name, "=", @value))}
       
       <DIV class="clearfix" id="content">
-      
-      <template:read var="delete-current-books()"/>
-      <t:s>requestCount := $requestCount + 1</t:s>
       
       <DIV class="innen">
       <DIV class="fsgrp">
@@ -105,9 +90,9 @@
   
 </action>
 
-<action id="extend-list" singleBookStr="&amp;$book.extendid;=">
-  <page url="https://$server;/$extendFormPostTo;">
-    <post>$extendFormPostData;</post>
+<action id="extend-list" singleBookStr="&amp;">
+  <variable name="book-list">string-join(for $book in $extend-books return "$book.extendid;=", "&amp;")</variable> 
+  <page url="$extendFormPost;">
     <post>$book-list;</post>
   </page>
   
