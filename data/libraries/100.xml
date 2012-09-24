@@ -4,7 +4,6 @@
   <shortName value="FHB Düsseldorf"/>
   <homepage value="http://katalog.bibl.fh-duesseldorf.de/libero/WebOpac.cls"/>
   <template value="libero54"/>
-  <maxExtendCount value="3"/>
 
   <username matches="^(\d000\d{3}|\w\d{8})$"/>
   <password matches="."/>
