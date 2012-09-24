@@ -1,11 +1,14 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<meta name="description" content="Xidel is a command line tool to download html/xml pages and extract data from them using CSS 3 selectors, XPath 2 expressions or pattern-matching templates." />
+<meta name="author" content="Benito van der Zander" />
+<meta name="keywords" content="Xidel,  xpath, xpath 2, css, css 3, template, pattern matching, xml, html, download" />
 <link rel="stylesheet" type="text/css" href="all.css"/>
 <link rel="stylesheet" type="text/css" href="xidel.css"/>
-<title>Xidel - HTML data extraction tool </title></head>
+<title>Xidel - HTML/XML data extraction tool </title></head>
 <body>
-<h1><a name="home">Xidel - HTML data extraction tool</a></h1>
+<h1><a name="home">Xidel - HTML/XML data extraction tool</a></h1>
 
 <ul id="navigation">
   <li style="border-left: 1px solid blue;"><a href="#home">Start</a></li>
@@ -19,7 +22,7 @@
 </ul>
 
 <p>
-Xidel is a command line tool to download and extract data from html pages.<br><br>
+Xidel is a command line tool to download and extract data from html/xml pages.<br><br>
 
 <h2><div><a name="features">Features</a></div></h2>
 
@@ -31,7 +34,7 @@ It supports:
   <li>XPath 2: to extract values and calculate things with them</li>
   <li>Templates: to extract several expressions in an easy way using a annotated version of the page in question</li>
 </ul></li>
-<li>Following<ul>
+<li>Following:<ul>
   <li>HTTP Codes: Redirections like 30x are automatically followed, while keeping things like cookies </li>
   <li>Links: It can follow all links on a page as well as some extracted values </li>
 </ul></li>
@@ -59,7 +62,7 @@ Print the title of all pages found by a google search and download them: <br><br
 Generally follow all links on a page and print the titles of the linked pages:<ul>
   <li>With CSS: <code>xidel http://example.org -f "css('a')" -e "css('title')"</code> </li>
   <li>With XPath: <code>xidel http://example.org -f //a -e //title</code> </li>
-  <li>With Templates: <code>xidel http://example.org -f "&lt;a>{.}&lt;/a>*" -e "&lt;title>{.}&lt/;title>"</code> </li>
+  <li>With Templates: <code>xidel http://example.org -f "&lt;a>{.}&lt;/a>*" -e "&lt;title>{.}&lt;/title>"</code> </li>
 </ul></li>
 <li>Another template example: <br><br>
    If you have an example.xml file like <code>&lt;x>&lt;foo>ood&lt;/foo>&lt;bar>IMPORTANT!&lt;/bar>&lt;/x></code><br>
@@ -77,22 +80,22 @@ Generally follow all links on a page and print the titles of the linked pages:<u
 </li>   
 </ol>
 <br>
-You may also want to read the <a href="xidel_readme.txt">readme file of Xidel</a> or my documentation of the <a href="http://benibela.de/documentation/internettools/extendedhtmlparser.THtmlTemplateParser.html">template language</a>.
+You may also want to read the <a href="xidel_readme.txt">readme file of Xidel</a>, the documentation of my <a href="http://benibela.de/documentation/internettools/extendedhtmlparser.THtmlTemplateParser.html">template language</a> and the documentation of <a href="http://www.benibela.de/documentation/internettools/pseudoxpath.TPseudoXPathParser.html">my XPath 2 library</a>.
 
 
 
 <h2><div><a name="downloads">Downloads</a></div></h2>
 
-On the <a href="https://sourceforge.net/projects/videlibri/files/Xidel">sourceforge download page</a> you can download the Windows and Linux version of Xidel.<br><br>
+On the <a href="https://sourceforge.net/projects/videlibri/files/Xidel" rel="nofollow">sourceforge download page</a> you can download the Windows and Linux version of Xidel.<br><br>
 
-You can also test it online, by sending a request like <a href="/cgi-bin/xidelcgi?data=&lt;html>&lt;title>foobar&lt;/title>&lt;/html>&extract=//title"><code>http://videlibri.sourceforge.net/cgi-bin/xidelcgi?data=&lt;html>&lt;title>foobar&lt;/title>&lt;/html>&extract=//title</code></a> or on the <a href="/cgi-bin/htmlParserExampleCGI">VideLibri example page</a>.<br><br>
+You can also test it online, by sending a request to the cgi service like <a href="/cgi-bin/xidelcgi?data=&lt;html>&lt;title>foobar&lt;/title>&lt;/html>&extract=//title" rel="nofollow"><code>http://videlibri.sourceforge.net/cgi-bin/xidelcgi?data=&lt;html>&lt;title>foobar&lt;/title>&lt;/html>&extract=//title</code></a> or on the <a href="/cgi-bin/htmlParserExampleCGI" rel="nofollow">VideLibri example page</a>.<br><br>
 
 The source is stored in a <a href="http://videlibri.hg.sourceforge.net/hgweb/videlibri/videlibri/">mercurial repository</a>.<br><br>
 Since the  program is written in FreePascal/Lazarus, it should be very easy to compile it. Just open the xidel.lpi (in the programs/internet/xidel directory) in Lazarus,  select your platform/OS in the project settings and perhaps add all other sub directories to your unit search path.
 You can compile and run it on Windows/Linux/Mac.
 <br>
 
-<h2><div><a name="downloads">Xidelscript</a></div></h2>
+<h2><div><a name="script">Xidelscript</a></div></h2>
 
 <p>There is also a Greasemonkey script to automatically generate templates by selecting the interesting values on a webpage. The script intercepts the selection and marks the element as shown in the screenshots below: 
 <br>
