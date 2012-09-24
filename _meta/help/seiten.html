@@ -1,5 +1,6 @@
 <html>
 <head>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -7,50 +8,85 @@
 <br>
 <h2>Allgemeines</h2>
 Der folgende Text beschreibt, wie man ein HTML-Template erzeugt, welches den Inhalt einer bestimmten Seite des Büchereikatalogs auswertet (nicht zu verwechseln mit einem <a href="templates.html">VideLibri-Template</a>, das beschreibt wie die URLs der Seiten lauten und welches HTML-Template welcher Seite zugeordnet wird).<br>
-Ein solches HTML-Template muss für jede auszuwertende Seite erstellt werden und ist eine HTML-Datei,  deren Struktur (DOM-Baum sozusagen) mit der Struktur der Seite übereinstimmt und in der wichtige Element ausgezeichnet sind.<br>
-VideLibri versucht beim Ausführen einer Templateaktion, die HTML-Befehle und Inhalte des Templates in der heruntergeladenen Seite wiederzufinden. Dies funktioniert, so ähnlich wie ein regulärer Ausdruck, bei dem z.B.: foo[A-Z]*bar Großbuchstaben zwischen foo..bar findet, nur dass die Buchstaben durch HTML-Tags ersetzt sind. <br>
-Befinden sich auf der Internetseite zusätzliche Elemente, werden diese ignoriert. Man muss daher im Template keine unnötigen Sachen wie beispielsweise Texte, divs oder css-styles angeben.<br>
-Zum Beispiel kann man mit &lt;td>...&lt;/td> die erste Tabellenzelle auswählen, und mit &lt;div id="xy">... &lt;/div> ein bestimmtes div. <br>
- Alle existierenden VideLibri-Templates  sind im Verzeichnis data/libraries/templates finden, und für einzelne Seiten kann man seine Templates <a href="cgi-bin/htmlparserExampleCGI">online</a> testen. Wenn man den VideLibri-Quellcode hat, kann man dazu auch die Beispielsprogrammen unter components/pascal/data/examples verwenden.
+Ein solches HTML-Template muss für jede auszuwertende Seite erstellt werden und ist eine HTML-Datei,  deren Struktur (DOM-Baum sozusagen) mit der Struktur der Seite übereinstimmt und in der wichtige Element ausgezeichnet sind.
+<p>
+VideLibri sucht/matches beim Ausführen einer Templateaktion, die HTML-Befehle und Inhalte des Templates in der heruntergeladene Seite. Dies funktioniert, so ähnlich wie ein regulärer Ausdruck, bei dem z.B.: foo[A-Z]*bar Großbuchstaben zwischen foo..bar findet, nur dass die Buchstaben durch HTML-Tags ersetzt sind. <br>
 <br>
-<h2>Template-Befehle</h2>
-Es gibt folgende wichtige Befehle:<br>
+Zum Beispiel kann man mit <code>&lt;td>...&lt;/td></code> die erste Tabellenzelle auswählen, und mit <code>&lt;div id="xy">... &lt;/div></code> ein bestimmtes div. <br>
+Eine mögliche Annotation ist <code>{.}</code> welches den aktuellen Knoten in der Variable <code>$_result</code> speichert.<br>
+Entsprechend kann man <code>&lt;table class="example">&lt;tr>&lt;td/> &lt;td> {.} &lt;/td> &lt;/tr> &lt;/table> </code> verwenden, um die zweite Spalte der ersten Zeile einer Tabelle der Klasse example zu lesen. <br>
+Oder man verwendet <code>&lt;table class="example">&lt;tr>&lt;td>Überschrift XYZ: &lt;/td> &lt;td> {.} &lt;/td> &lt;/tr> &lt;/table> </code>, um die Tabellenzelle zu lesen, die nach der Zelle mit dem Inhalt <code>Überschrift XYZ:</code> kommt. <br>
+Eine andere Annotation ist <code>*</code>, um Wiederholungen zu markieren, und man kann zum Beispiel <code>&lt;table class="example">&lt;tr>&lt;td/> &lt;td> {.} &lt;/td> &lt;/tr> * &lt;/table> </code> verwenden, um alle zweiten Spalten aller Zeilen zu lesen. Oder <code>&lt;table class="example">&lt;tr>&lt;td>Überschrift XYZ:&lt;/td> &lt;td> {.} &lt;/td> &lt;/tr> * &lt;/table> </code>, um alle Tabellenzellen mit der entsprechenden Überschrift zu lesen. <br>
+
+<p>Befinden sich auf der Internetseite zusätzliche Elemente, werden diese ignoriert. Man muss daher im Template keine unnötigen Sachen wie beispielsweise Texte, divs oder css-styles angeben.<br>
+Fehlen dagegen auf der Internetseite Elemente, die sich im Template befinden, so wird das Templatematching abgebrochen. Dadurch wird die Seitenstruktur jedesmal validiert, und es ist garantiert, dass keine falschen Daten gelesen werden.
+
+<p> Alle existierenden VideLibri-Templates  sind im Verzeichnis data/libraries/templates finden, und für einzelne Seiten kann man seine Templates <a href="cgi-bin/htmlparserExampleCGI">online</a> oder mit <a href="http://videlibri.sourceforge.net/xidel.html">Xidel</a> testen.  Wenn man den VideLibri-Quellcode hat, kann man dazu auch die Beispielsprogrammen unter components/pascal/data/examples verwenden.
+<br>
+<h2>Template-Annotations</h2>
+Es gibt folgende wichtige Annotations/Befehle:<br>
 <table>
-<tr><td>&lt;htmlparser:meta encoding="windows-1252|utf-8"/></td><td>Sollte der erste Befehl sein, gibt an, ob die Datei in utf-8 oder Windows-1252 codiert ist.</td></tr>
 
-<tr><td>&lt;htmlparser:loop> ... &lt;htmlparser:/loop></td><td>Wiederholt den Inhalt zwischen den geschlossenen Tags, solange wie möglich. (einschließlich niemals)</td></tr>
+<tr><td><code>&lt;template:read var=".." source=".."/></code></td><td> Wertet den Pseudo-XPath-Ausdruck im Attribut <code>source</code> aus und speichert das Ergebnis in der Variablen <code>$var</code>.<br>Beispiel: <code>&lt;template:read var="foobar" source="1+2"/></code> speichert 3 in variable <code>$foobar</code>.</td></tr>
 
-<tr><td>&lt;htmlparser:if cond="condition"> ... &lt;htmlparser:/if></td><td>Ignoriert alle Elemente innerhalb des if-Tags, falls der Pseudo-XPath-Ausdruck in cond nicht zu true ausgewertet wrid</td></tr>
+<tr><td><code>&lt;template:s>var:= ..source.. &lt;/template:s></code></td><td>Kurzform: Wertet den Pseudo-XPath-Ausdruck <code>..source..</code> aus und speichert das Ergebnis in der Variablen <code>$var</code>.<br>Beispiel: <code>&lt;template:s>foobar := 1+2&lt;/template:s></code>, entspricht dem vorherigen Beispiel</td></tr>
 
-<tr><td>&lt;htmlparser:read var=".." source=".."/></td><td> Wertet den Pseudo-XPath-Ausdruck im Attribut source aus und speichert das Ergebnis in der Variablen var.</td></tr>
+<tr><td><code>{var := ..source..}</code></td><td>Kurzform der Kurzform: Wertet den Pseudo-XPath-Ausdruck <code>..source..</code> aus und speichert das Ergebnis in der Variablen <code>$var</code>.<br>Beispiel: <code>{foobar := 1 + 2}</code>, entspricht dem vorherigen Beispiel</td></tr>
+
+<tr><td><code>&lt;template:loop> ... &lt;template:/loop></code></td><td>Wiederholt den Inhalt zwischen den geschlossenen Tags, solange wie möglich. (einschließlich niemals)<br>Beispiel: <code>&lt;template:loop>&lt;tr>{x := .}&lt;/tr>&lt;/template:loop></code>, speichert alle Zeilen einer Tabelle, nacheinander in Variable $x. (überschreibt den alten Wert von x, aber VideLibri kann von außerhalb des Templates auf alle Werte von x zugreifen)</td></tr>
+
+<tr><td><code>&lt;template:if test="condition"> ... &lt;template:/if></code></td><td>Ignoriert alle Elemente innerhalb des if-Tags, falls der Pseudo-XPath-Ausdruck in <code>test</code> nicht zu true ausgewertet wrid<br>Beispiel: <code>&lt;template:fi test="contains(text(), 'verlängerbar')">{verlängerbar := 1} &lt;/template:if></code>, speichert 1 in der Variable $verlängerbar, falls der Text des aktuellen Elements "verlängerbar" enthält.</td></tr>
+
+
+<tr><td><code>template:optional="true"</code></td><td>Attribut, das ein Element als optional markiert. <br>Z.B.: <code>&lt;div template:optional = "true">&lt;h1>{t := .}&lt;/h1>&lt;/div></code>, speichert die erste Überschrift des ersten Div in Variable $t, falls ein Div, welches eine Überschrift enthält, auf der Seite existiert, und wird ignoriert, wenn es nicht existiert.  </td></tr>
+
+<tr><td><code>?</code></td><td>Kurzform für template:optional. <br>Z.B.: <code>&lt;div>&lt;h1>{t := .}&lt;/h1>&lt;/div>?</code>, entspricht dem vorherigen Beispiel.  </td></tr>
+
+<tr><td><code>*</code></td><td>Kurzform für <code>&lt;template:loop></code>. <br>Z.B.: <code>&lt;div>&lt;h1>..&lt;/h1>&lt;/div>*</code>, wiederholt .. für alle divs, die eine Überschrift enthalten.  </td></tr>
+
+<tr><td><code>+</code></td><td>Kurzform für <code>&lt;template:loop min="1"></code>. <br>Z.B.: <code>&lt;div>&lt;h1>..&lt;/h1>&lt;/div>+</code>, wiederholt .. für alle divs, die eine Überschrift enthalten. Wenn keines existiert, wird eine Fehlermeldung ausgegeben. </td></tr>
+
+<tr><td><code>&lt;template:meta encoding="windows-1252|utf-8"/></code></td><td>Gibt an, ob die Datei in utf-8 oder Windows-1252 codiert ist. (optional)</td></tr>
+
 </table>
 <br>
+Der Namespaceprefix <code>template:</code> kann grundsätzlich mit <code>t:</code> abgekürzt werden. (z.B.: <code>t:s</code> statt <code>template:s</code>)
 <br>
 <br>
-Weitere Befehle und Details sind auf meiner <a href="http://benibela.de/documentation/internettools/pseudoxpath.TPseudoXPathParser.html">Seite</a> beschrieben.
-<h2>Pseudo-XPath</h2>
-Ein Pseudo-XPath-Ausdruck ähnelt einem XPath-Ausdruck, ist aber auf html-Abfragen optimiert und nicht so umfangreich. <br>
-Die wichtigsten Befehle sind:
+Weitere Befehle und Details sind auf meiner <a href="http://www.benibela.de/documentation/internettools/extendedhtmlparser.THtmlTemplateParser.html">Seite</a> beschrieben.
+<h2>(Pseudo-)XPath</h2>
+Ein Pseudo-XPath-Ausdruck ähnelt einem XPath 2-Ausdruck, ist aber auf html-Abfragen optimiert und umfangreicher. Vergleiche eine <a href="http://de.wikipedia.org/wiki/XPath">Standard XPath-Referenz</a>. <br>
+Einige wichtige oder nicht-Standard Funktionen sind:
 <table>
 <tr><td>'abc...' oder  "abc.."</td><td>Der String abc...</td></tr>
+<tr><td>variable := value</td><td>Weist value der Variable <code>$variable</code> zu. <br>Beispiel: <code>foobar := 1+2+3</code> speichert 6 in <code>$foobar</code></td><tr>
+<tr><td><em>$var</em></td><td>Der Wert der Variable <em>var</em>. Variablen werden entweder von read-Anweisungen oder global im Template gesetzt. ($var; kann auch innerhalb von ".."-Strings verwendet werden)<br>Beispiel: <code>"hallo $abc; welt!"</code> ist dasselbe wie <code>concat("hallo ", $abc, " welt!")</code></td></tr>
 <tr><td>concat(<em>s1</em>,<em>s2</em>,<em>s3</em>,...)</td><td>Die Konkenation aller angegebenen Strings</td></tr>
-<tr><td>text()</td><td>Der Text des aktuellen Knotens als String</td></tr>
-<tr><td>@<em>attrib</em></td><td>Der Wert des Attributes attrib als String</td></tr>
-<tr><td><em>s1</em> == <em>s2</em></td><td>true, falls die Strings s1 und s2 gleich sind. (ohne Berücksichtigung der Groß/Kleinschreibung)</td></tr>
+<tr><td>text()</td><td>Der Text des aktuellen Knotens als String.<br>Beispiel: <code>&lt;td>{foobar := text()}&lt;/td></code>  liest den Text einer Tabellenzelle. Und <code>&lt;br>{x:=text()}</code> liest den Text einer zweiten Zeile. </td></tr>
+<tr><td>@<em>attrib</em></td><td>Der Wert des Attributes attrib als String<br>Beispiel: <code>&lt;a>{foobar := @href}&lt;/a></code>  liest die Addresse eines Links.</td></tr>
+
+<tr><td><em>s1</em> == <em>s2</em></td><td>true, falls die Strings s1 und s2 gleich sind. (ohne Berücksichtigung der Groß/Kleinschreibung)<br>Beispiel: <code>"hallo" == "Hallo"</code> ist true().</td></tr>
 <tr><td><em>s1</em> != <em>s2</em></td><td>true, falls die Strings s1 und s2 ungleich sind. (ohne Berücksichtigung der Groß/Kleinschreibung)</td></tr>
-<tr><td>filter(<em>str</em>, <em>regex</em>[,<em>match</em>])</em></td><td>Sucht den regulären Ausdruck regex in str und gibt die gefundene Übereinstimmung zurück. Ist match angegeben, wird nur der match-te Teilausdruck zurückgeben. </td></tr>
-<tr><td><em>$var;</em></td><td>Der Wert der Variable <em>var</em>. Variablen werden entweder von read-Anweisungen oder global im Template gesetzt. ($var; kann auch innerhalb von '..'-Strings verwendet werden)</td></tr>
+
+<tr><td>filter(<em>str</em>, <em>regex</em>[,<em>match</em>])</em></td><td>Sucht den regulären Ausdruck regex in str und gibt die gefundene Übereinstimmung zurück. Ist match angegeben, wird nur der match-te Teilausdruck zurückgeben.<br>Beispiel: <code>filter("Hallo Welt: 123", ".*: ([0-9]+)", 1)</code> ergibt 123</td></tr>
+<tr><td>css("..")</td><td>Wertet einen CSS 3 Selektor aus<br>Beispiel: <code>css("div.foobar")/text()</code> gibt den Text aller divs mit Klasse foobar zurück.</td><tr>
+<tr><td>parse-date(date, format)</td><td>Wandelt einen String in ein Datum um.<br>Beispiel: <code>parse-date("2012-07-05", "YYYY-MM-DD")</code> gibt das Datum 2012-07-05 in einem echten Datumsformat zurück.</td><tr>
+<tr><td>deep-text()</td><td>Der gesamte Text des aktuellen Knotens.<br>Beispiel: <code>deep-text() == string-join(.//text(), "")</code> ist immer true(). (von <code>.//text()</code> würde VideLibri dagegen nur den ersten Text anzeigen)</td><tr>
+<tr><td>object((name1, value1, name2, value2, ...))</td><td>Erzeugt ein Objekt mit den angegebenen Eigenschaften.<br>Beispiel: <code>abc := object(("hallo", "welt", "foo", "bar"))</code> speichert ein Objekt in Variable <code>$abc</code>, dessen Eigenschaft <code>$abc.hallo</code> den Wert "welt" hat, und dessen Eigenschaft <code>$abc.foo</code> den Wert "bar" hat.</td><tr>
+
+<tr><td>form(form, [parameter])</td><td>Wandelt ein html <code>&lt;form></code>-Element in ein Objekt um, welches dem entsprechen GET/Post-Request entspricht. Falls parameter gegeben sind, werden sie zum Request hinzugefügt.</code><br>Beispiel: <code>form(//form[1], "foo=bar&hallo=789")</code> mit einer HTML-Seite, die <code>&lt;form action="myurl" method="POST">&lt;input name="abc" value="def"/>&lt;input name="foo" value="123"/>&lt;/form></code> enthält, ergibt folgendes Objekt: <code>object(("url","myurl",  "method","POST",  "post","abc=def&foo=bar&hallo=789"))</code>.</td><tr>
 </table>
 <br>
-Weitere Befehle und Details sind auf meiner <a href="http://benibela.de/documentation/internettools/pseudoxpath.TPseudoXPathParser.html">Seite</a> beschrieben.
+Weitere Befehle und Details sind auf meiner <a href="http://www.benibela.de/documentation/internettools/pseudoxpath.TPseudoXPathParser.html">Seite</a> beschrieben.
 
 <h2>Variablen</h2>
-Man kann beliebige eigene Variablen definieren, solange der Variablenname kein ; enthält, aber es gibt einige Variablen mit fester Bedeutung in VideLibri, deren Wert vom Programm angezeigt wird:
+Man kann beliebige eigene Variablen definieren, solange der Variablenname kein $ oder ; enthält, aber es gibt einige Variablen mit fester Bedeutung in VideLibri, deren Wert vom Programm angezeigt wird:
 <table>
 <tr><td>username</td><td>Benutzer/Kartennummer</td></tr>
 <tr><td>password</td><td>Passwort (üblicherweise das Geburtsdatum)</td></tr>
 <tr><td>charge</td><td>Zu zahlende Gebühren bei diesem Ausleihkonto</td></tr>
 <tr><td></td><td></td></tr>
+<tr><td><b>book</b></td><td>Das Buch (siehe unten).</td></tr>
 <tr><td>book.category</td><td>Kategorie des aktuellen Buches</td></tr>
 <tr><td>book.id</td><td>Signatur</td></tr>
 <tr><td>book.author</td><td>Autor</td></tr>
@@ -59,40 +95,48 @@ Man kann beliebige eigene Variablen definieren, solange der Variablenname kein ;
 <tr><td>book.status</td><td>Verlängerungsstatus</td></tr>
 <tr><td>book.status:problematic</td><td>Verlängerungsstatus für nicht-verlängerbare Medien</td></tr>
 <tr><td>book.status:curious</td><td>Verlängerungsstatus für verlängerbare Medien</td></tr>
-<tr><td>book.issuedate:format</td><td>Ausleihdatum im angegenen Format (z.B.: yyyy-mm-dd)</td></tr>
-<tr><td>book.limitdate:format</td><td>Aubgabedatum im angegenen Format</td></tr>
-<tr><td>book.?????</td><td>Für ????? kann irgendetwas beliebiges stehen, der Wert wird bis zum Programmende für das Buch gemerkt</td></tr>
+<tr><td>book.issuedate</td><td>Ausleihdatum. Die Funktion <code>parse-date(text(),'dd.mm.yyyy')</code> kann verwendet werden, um ein Format anzugeben.</td></tr>
+<tr><td>book.limitdate</td><td>Aubgabedatum. im angegenen Format</td></tr>
+<tr><td>book.?????</td><td>Für ????? kann irgendetwas beliebiges stehen, der Wert wird bis zum Programmende für das Buch gespeichert</td></tr>
 <tr><td></td><td></td></tr>
-<tr><td><b>delete-current-books()</b></td><td>keine eigentliche Variable, wird ihr ein Wert zu gewiesen, wird die Liste der aktuell ausgeliehen Bücher gelöscht (muss vor neuen Büchern aufgerufen werden)</td></tr>
-<tr><td><b>book-start()</b></td><td>Bereitet VideLibri auf ein neues Buch vor</td></tr>
-<tr><td><b>book-end()</b></td><td>Speichert das gerade gelesene Buch</td></tr>
+<tr><td><b>delete-current-books()</b></td><td>keine eigentliche Variable, wird ihr ein Wert zu gewiesen, wird die Liste der aktuell ausgeliehen Bücher gelöscht <br>(Muss aktualisiert/aufgerufen werden, bevor neue Büchern gelesen werden! Ansonsten entstehen Duplikate)<br>Auf Grund der Klammern im Namen, kann diese Variable nur mit <code>template:read</code> und nicht mit den <code>template:s, {}</code> Kurzformen verwendet werden</td></tr>
 <tr><td>raise()</td><td>Erzeugt Fehlermeldung mit dem angegebenen Wert</td></tr>
 <tr><td>raise-login()</td><td>Erzeugt eine "ungültiger Benutzername/Passwortfehlermeldung"</td></tr>
 <tr><td>book-select()</td><td>Allgemeine Buchauswahl (noch nicht implementiert)</td></tr>
 <tr><td>book-select(id)</td><td>Wählt das Buch mit der als Wert angegebenen ID. (Besser nicht verwenden)</td></tr>
 </table>
 
-<br>
+Es ist nicht nötig, jeder Variable etwas zuzuweisen, aber es können nur die gesetzten Werte später angezeigt werden. <br>
 Variablen, die auf () enden, sind keine Variablen im üblichen Sinne, sondern Funktionen, die bei einer Zuweisung aufgerufen werden.<br>
-Es ist nicht nötig, jeder Variable etwas zuzuweisen, aber es können natürlich nur die gesetzten Werte später angezeigt werden.<br>
-Die Aufrufe der fettgedruckten Funktionsvariablen sind dagegen nötig, um VideLibri mitzuteilen, wann ein neues Buch beginnt und endet. Die Sequenz der Variablezuweisungen sieht also normalerweise so aus: delete-current-books() ... book-start() .. book-end() ... book-start() .. book-end() .. book-start() .. book-end() ....
+<br>
+Bevor die Eigenschaften von <code>book</code> verändert werden können, muss ein Buch mit der <code>object()</code>-Funktion erstellt werden.<br> Dabei muss eine <code>select(new|current|id)</code>-Eigenschaft gesetzt werden, durch die VideLibri erkennen kann, ob ein neues Buch erstellt oder ein altes verändert werden soll:
+
+<ul>
+<li><code>{  book := object(("select(new)",""))  }</code><br>Erzeugt ein neues Buch</li>
+<li><code>{  book := object(("select(current)",""))  }</code><br>Wählt das aktuelle Buch für Veränderungen. (in den <code>update-single</code> oder <code>extend-single</code>-Aktionen)</li>
+<li><code>{  book := object(("select(id)","12345"))  }</code><br>Wählt das Buch mit ID 12345 für  Veränderungen.</li>
+</ul>
+
+Nachdem das Objekt erstellt wurde, können die Eigenschaften mit <code>{book.author := "foobar", book.title := "wie"}</code> geändert werden.<br><br>
+
+
+(um genau zu sein, werden alle Variablenänderungen in einem Changelog gespeichert. Nachdem das Einzelseiten-Template angewandt wurde und keine Fehler (wie Abweichungen zwischen der Template- und Seitenstruktur) festgestellt wurden, wird das Changelog abgearbeitet und alle Änderungen auf die tatsächen Bücherlisten angewandt.)
 
 <h2>Beispiel</h2>
 Das Beispiel zeigt, wie sich die Tabelle einer idealen Bücherei auswerten lässt, die Id, Titel, Autor und Abgabedatum in jeweils einer Spalte anzeigt und für jedes Buch eine Zeile besitzt: 
 <pre>
 &lt;table id="books" border=1>
   &lt;tr>
-    &lt;htmlparser:read var="delete-current-books()"/>
+    &lt;template:read var="delete-current-books()"/>
     &lt;th>Id&lt;/th>&lt;th>Titel&lt;/th>&lt;th>Autor&lt;/th>&lt;th>Abgabedatum&lt;/th>
   &lt;/tr>
   &lt;htmlparser:loop>
   &lt;tr>
-    &lt;htmlparser:read var="book-start()"/>
-    &lt;td>&lt;htmlparser:read var="book.id" source="text()"/>&lt;/td>
-    &lt;td>&lt;htmlparser:read var="book.title" source="text()"/>&lt;/td>
-    &lt;td>&lt;htmlparser:read var="book.author" source="text()"/>&lt;/td>
-    &lt;td>&lt;htmlparser:read var="book.limitdate:dd.mm.yyyy" source="text()"/>&lt;/td>
-    &lt;htmlparser:read var="book-end()"/>
+    { book := object(("select(new)","")) }
+    &lt;td>{book.id := text()}&lt;/td>
+    &lt;td>{book.title := text()}&lt;/td>
+    &lt;td>{book.author := text()}&lt;/td>
+    &lt;td>{book.limitdate := parse-date(text(),'dd.mm.yyyy')}&lt;/td>
   &lt;/tr>
   &lt;/htmlparser:loop>  
 &lt;/table>
