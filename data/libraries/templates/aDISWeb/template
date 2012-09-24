@@ -48,7 +48,7 @@
     </template>
   </page>
 
-  <page url="$checkFormPost;" condition="$hasBooks">    
+  <page url="$checkFormPost;" test="$hasBooks">    
     <template>
       <DIV class="aDISMaske">
       <FORM>
@@ -90,7 +90,7 @@
   
 </action>
 
-<action id="extend-list" singleBookStr="&amp;">
+<action id="extend-list">
   <variable name="book-list">string-join(for $book in $extend-books return "$book.extendid;=", "&amp;")</variable> 
   <page url="$extendFormPost;">
     <post>$book-list;</post>
