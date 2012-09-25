@@ -861,7 +861,7 @@ procedure TTemplateAccountAccess.updateAll;
 begin
   if logging then log('Enter TTemplateAccountAccess.updateAll');
   setVariables();
-  reader.performAction('update-all');
+  reader.callAction('update-all');
   lastTodayUpdate:=GetTickCount;
   FConnectingTime:=GetTickCount;
   if logging then log('Leave TTemplateAccountAccess.updateAll');
@@ -873,7 +873,7 @@ begin
     log('enter TTemplateAccountAccess.updateSingle');
   setVariables();
   reader.selectBook(book);
-  reader.performAction('update-single');
+  reader.callAction('update-single');
   FConnectingTime:=GetTickCount;
   if logging then
     log('leave TTemplateAccountAccess.updateSingle');
@@ -890,7 +890,7 @@ begin
     log('enter TTemplateAccountAccess.extendAll');
   if reader.findAction('extend-all')<>nil then begin
     setVariables();
-    reader.performAction('extend-all');
+    reader.callAction('extend-all');
   end else begin
     booksExtendableCount:=0;
     for i:=0 to books.currentUpdate.count-1 do
@@ -930,7 +930,7 @@ begin
       extendBookList.addChild(reader.bookToPXP(booksToExtend[i]));
     if logging then log('bookList (count: '+inttostr(extendBookList.seq.count)+') is: '+extendBookList.debugAsStringWithTypeAnnotation());
     reader.parser.variableChangeLog.addVariable('extend-books', extendBookList);
-    reader.performAction(extendAction);
+    reader.callAction(extendAction);
   end else if reader.findAction('extend-single')<>nil then begin
     if logging then log('use extendSingle Template');
     extendAction:=reader.findAction('extend-single');
@@ -938,11 +938,11 @@ begin
       reader.selectBook(booksToExtend[i]);
       book:=reader.books.findBook(booksToExtend[i]);
       if book<>nil then reader.selectBook(book); //handles more instances of the same book
-      reader.performAction(extendAction);
+      reader.callAction(extendAction);
     end;
   end else if reader.findAction('extend-all')<>nil then begin
     if logging then log('use extendAll Template');
-    reader.performAction('extend-all');
+    reader.callAction('extend-all');
   end;
   FConnectingTime:=GetTickCount;
   if logging then log('Leave TTemplateAccountAccess.extendList');
@@ -992,7 +992,7 @@ begin
   end;
   lastTodayUpdate:=0;
   setVariables();
-  reader.performAction('connect');
+  reader.callAction('connect');
   fconnected:=true;
   FConnectingTime:=GetTickCount;
   if logging then log('TTemplateAccountAccess.connect ended');

@@ -91,7 +91,7 @@ end;
 
 procedure TLibrarySearcher.connect;
 begin
-  bookListReader.performAction('connect');
+  bookListReader.callAction('connect');
 end;
 
 procedure TLibrarySearcher.search;
@@ -105,13 +105,13 @@ begin
   bookListReader.parser.variableChangeLog.ValuesString['selectedLibraries']:=selectedLibraries;
   bookListReader.books:=fsearchResult;
   bookListReader.selectBook(SearchOptions);
-  bookListReader.performAction('search');
+  bookListReader.callAction('search');
 end;
 
 procedure TLibrarySearcher.details(book: tbook);
 begin
   bookListReader.selectBook(book);
-  bookListReader.performAction('details');
+  bookListReader.callAction('details');
 end;
 
 procedure TLibrarySearcher.disconnect;

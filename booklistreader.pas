@@ -98,13 +98,13 @@ type
 
   { TBookListReader }
 
-  TBookListReader = class(TTemplateReader)
+  TBookListReader = class(TMultipageTemplateReader)
   private
     currentBook,defaultBook: TBook;
-    templatereader: TTemplateReader;
+    templatereader: TMultipageTemplateReader;
     procedure setBookProperty(book:TBook;variable: string; value:TPXPValue);
     procedure parserVariableRead(variable: string; value: TPXPValue);
-    procedure logall(sender: TTemplateReader; logged: string; debugLevel: integer=0);
+    procedure logall(sender: TMultipageTemplateReader; logged: string; debugLevel: integer=0);
   protected
     procedure processPage(page, cururl, contenttype: string); override;
   public
@@ -494,7 +494,7 @@ end;
 
     { TBookListReader }
 
-procedure TBookListReader.logall(sender: TTemplateReader; logged: string; debugLevel: integer=0);
+procedure TBookListReader.logall(sender: TMultipageTemplateReader; logged: string; debugLevel: integer=0);
 begin
   log(logged);
 end;
