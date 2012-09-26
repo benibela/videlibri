@@ -9,7 +9,7 @@ uses
   
 type
   TBookList = class;
-  TBookStatus=(bsNormal,bsUnknown,bsIsSearchedDONTUSETHIS, bsProblematicInStr,bsCuriousInStr);
+  TBookStatus=(bsNormal,bsUnknown,bsIsSearchedDONTUSETHIS,bsEarMarkedDONTUSETHIS, bsMaxLimitReachedDONTUSETHIS,bsProblematicInStr,bsCuriousInStr,bsAccountExpiredDONTUSETHIS);
 
   { TBook }
 
@@ -117,7 +117,7 @@ type
     procedure selectBook(book:TBook);
   end;
   
-const BOOK_NOT_EXTENDABLE=[bsProblematicInStr];
+const BOOK_NOT_EXTENDABLE=[bsProblematicInStr,bsEarMarkedDONTUSETHIS,bsMaxLimitReachedDONTUSETHIS,bsAccountExpiredDONTUSETHIS];
       BOOK_EXTENDABLE=[bsNormal,bsCuriousInStr];
 
 function BookStatusToStr(book: TBook;verbose:boolean=false): string; //returns utf8
@@ -532,10 +532,11 @@ begin
   else if variable='year' then book.Year:=strconv()
   else if variable='isbn' then book.isbn:=strconv()
   else if strlibeginswith(@variable[1],length(variable),'status') then begin
+    book.StatusStr:=strconv();
     if variable='status:problematic' then book.Status:=bsProblematicInStr
-    else if variable='status:curious' then book.Status:=bsCuriousInStr;
-    if strconv()<>'' then book.StatusStr:=strconv()
-    else book.Status:=bsNormal;
+    else if variable='status:curious' then book.Status:=bsCuriousInStr
+    else if pos(':', variable) > 0 then book.statusStr:=book.statusStr + ' Achtung: Ungültige Statusvariable "' + variable + '" in Template'
+    else book.status := bsNormal;
   end else if striEqual(variable, 'issuedate') then book.issueDate:=trunc(value.asDateTime)
   else if striEqual(variable, 'limitdate') then
     book.limitDate:=trunc(value.asDateTime)
