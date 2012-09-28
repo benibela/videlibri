@@ -124,7 +124,7 @@ function BookStatusToStr(book: TBook;verbose:boolean=false): string; //returns u
 
 
 implementation
-uses bbdebugtools;
+uses bbdebugtools, applicationconfig;
 
 function BookStatusToStr(book: TBook;verbose:boolean=false): string;
 begin
@@ -217,7 +217,7 @@ end;
 
 function TBook.toLimitString(): string;
 begin
-  result:=toSimpleString() + '  => '+DateToStr(limitDate);
+  result:=toSimpleString() + '  => '+DateToPrettyStr(limitDate);
 end;
 
   {

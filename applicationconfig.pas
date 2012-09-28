@@ -87,6 +87,7 @@ var programPath,userPath,dataPath:string;
   procedure updateGlobalAccountDates;
   procedure updateActiveInternetConfig;
 
+  function DateToSimpleStr(const date: tdatetime):string;
   function DateToPrettyStr(const date: tdatetime):string;
   function DateToPrettyGrammarStr(preDate,preName:string;const date: tdatetime):string;
 
@@ -669,6 +670,11 @@ uses bookwatchmain,internetaccess,controls,libraryaccess,math,FileUtil,bbutils,b
     accountIDs.SaveToFile(userPath+'account.list');
   end;
 
+  function DateToSimpleStr(const date: tdatetime): string;
+  begin
+    result := dateTimeFormat(FormatSettings.ShortDateFormat , date);
+  end;
+
   function DateToPrettyStr(const date: tdatetime):string;
   begin
     if date=-2 then result:='nie'
@@ -679,7 +685,7 @@ uses bookwatchmain,internetaccess,controls,libraryaccess,math,FileUtil,bbutils,b
       0: result:='heute';
       1: result:='morgen';
       2: result:='übermorgen';
-      else result:=DateToStr(date);
+      else result:=DateToSimpleStr(date);
     end;
   end;
 
@@ -694,7 +700,7 @@ uses bookwatchmain,internetaccess,controls,libraryaccess,math,FileUtil,bbutils,b
       0: result:=preName+'heute';
       1: result:=preName+'morgen';
       2: result:=preName+'übermorgen';
-      else result:=preDate+DateToStr(date);
+      else result:=preDate+DateToSimpleStr(date);
     end;
   end;
 

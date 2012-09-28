@@ -187,7 +187,7 @@ begin
      RecordItemsText[BL_BOOK_COLUMNS_LIMIT_ID] := DateToPrettyStr(book.limitDate);
     if book.owner<>nil then RecordItemsText[BL_BOOK_COLUMNS_ACCOUNT] := (book.owner as TCustomAccountAccess).prettyName
     else RecordItemsText[BL_BOOK_COLUMNS_ACCOUNT] := 'unbekannt';
-    RecordItemsText[BL_BOOK_COLUMNS_STATUS]:=BookStatusToStr(book);//Abgegeben nach '+DateToStr(book.lastExistsDate))
+    RecordItemsText[BL_BOOK_COLUMNS_STATUS]:=BookStatusToStr(book);//Abgegeben nach '+DateToSimpleStr(book.lastExistsDate))
     RecordItemsText[BL_BOOK_COLUMNS_ISBN] := book.isbn;
 
 //    RecordItems.Add(book.year); ;

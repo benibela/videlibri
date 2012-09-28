@@ -65,12 +65,12 @@ procedure TstatistikForm.translateDate(sender: TAxis; value: extended; var trans
 begin
   case combobox1.itemindex of
     DIAGRAM_WEEKS: translated:= inttostr(dateWeekOfYear(round(value)));
-    //2: translated:= FormatDateTime('m',value);
+    //2: translated:= dateTimeFormat('m',value);
     DIAGRAM_MONTHS: //translated:= format('%.2d-%.2d',[firstYear+(firstMonth+value) div 12, 1+(firstMonth+value-1) mod 12]);
        translated:= format('%.2d',[1+round(value) mod 12]);
     DIAGRAM_YEARS:
        translated:= IntToStr(round(value));
-    else translated:= FormatDateTime('d.m',round(value));
+    else translated:= dateTimeFormat('d.m',round(value));
   end;
 end;
 
@@ -306,17 +306,17 @@ begin
   case ComboBox1.ItemIndex of
     DIAGRAM_DAYS: begin
       day:=round(diagramDrawer.posToDataX(x));
-      mausInfo.Caption:=DateToStr(day);
+      mausInfo.Caption:=DateToSimpleStr(day);
     end;
     DIAGRAM_WEEKS: begin
       day:=round(diagramDrawer.posToDataX(x));
-      mausInfo.Caption:=DateToStr(day-DayOfWeek(day))+' - '+DateToStr(day+7-DayOfWeek(day));
+      mausInfo.Caption:=DateToSimpleStr(day-DayOfWeek(day))+' - '+DateToSimpleStr(day+7-DayOfWeek(day));
     end;
     DIAGRAM_MONTHS:  begin
       month:=round(diagramDrawer.posToDataX(x));
       year:=month div 12;
       month:=month mod 12+1;
-      mausInfo.Caption:=DateToStr(EncodeDate(word(year),word(month),1))+' - '+DateToStr(IncMonth(EncodeDate(word(year),word(month),1))-1);;
+      mausInfo.Caption:=DateToSimpleStr(EncodeDate(word(year),word(month),1))+' - '+DateToSimpleStr(IncMonth(EncodeDate(word(year),word(month),1))-1);;
     end;
     DIAGRAM_YEARS:  begin
       year:=round(diagramDrawer.posToDataX(x));

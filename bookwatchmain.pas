@@ -212,7 +212,7 @@ end;
 procedure sendMailReports();
 function mailDate(d: integer):string;
 begin
-  result := DateToStr(d);
+  result := DateToSimpleStr(d);
   if DateToPrettyStr(d) <> result then
     result += ' ('+DateToPrettyStr(d)+')';
 end;
@@ -254,8 +254,8 @@ begin
 
     tmpbl.Sort(@sendMailReportCompare);
 
-    subject:= 'Videlibri Bücherreport vom '+DateToStr(currentDate);
-    report := 'Videlibri Bücherreport vom '+DateToStr(currentDate)+#13#10#13#10;
+    subject:= 'Videlibri Bücherreport vom '+DateToSimpleStr(currentDate);
+    report := 'Videlibri Bücherreport vom '+DateToSimpleStr(currentDate)+#13#10#13#10;
     if tmpbl.count = 0 then begin
       report += 'Keine Bücher registriert'#13#10;
     end else begin
@@ -489,7 +489,7 @@ end;
 procedure TmainForm.FormActivate(Sender: TObject);
 begin
   if logging then log('FormActivate started');
-  setPanelText(StatusBar1.Panels[3],{'Datum: '+}DateToStr(currentDate));
+  setPanelText(StatusBar1.Panels[3],{'Datum: '+}DateToSimpleStr(currentDate));
   if newVersionInstalled then
     ShowMessage('Das Update wurde installiert.'#13#10'Die installierte Version ist nun Videlibri '+FloatToStr(versionNumber/1000));
   onshow:=nil;

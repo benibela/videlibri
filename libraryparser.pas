@@ -505,7 +505,7 @@ begin
     log('TBookLists.save started');
   if keepHistory then begin
     if (currentDate-ownerLib.config.ReadInteger('base','last-history-backup',0)>HistoryBackupInterval) and (FileExistsUTF8(bookListOldFileName)) then begin
-      CopyFile(bookListOldFileName,bookListOldFileName+'.'+FormatDateTime('yyyymmdd',currentDate));
+      CopyFile(bookListOldFileName,bookListOldFileName+'.'+dateTimeFormat('yyyymmdd',currentDate));
       ownerLib.config.WriteInteger('base','last-history-backup',currentDate);
     end;
     if bookLists[bltInOldData].Count>0 then
