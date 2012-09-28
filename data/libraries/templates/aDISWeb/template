@@ -17,7 +17,7 @@
   </page>
 
   <page url="$loginFormPost;">
-    <post name="textButton">Anmeldung abschicken</post>
+    <post name="textButton" value="Anmeldung abschicken"/>
   
   
     <template>
@@ -93,7 +93,7 @@
 <action id="extend-list">
   <variable name="book-list">string-join(for $book in $extend-books return "$book.extendid;=", "&amp;")</variable> 
   <page url="$extendFormPost;">
-    <post>$book-list;</post>
+    <post value="$book-list;"/>
   </page>
   
   <call action="update-all"/>

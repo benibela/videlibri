@@ -8,8 +8,8 @@
     <page url="$redirection;"/>
     
     <page url="https://identity.fu-berlin.de/idp-fub-ub/Authn/UserPassword">
-      <post name="j_username">$username;</post>
-      <post name="j_password">$password;</post>    
+      <post name="j_username" value="$username;"/>
+      <post name="j_password" value="$password;"/>    
         
       <template>
         <form method="post"> {action:=@action}
@@ -20,8 +20,8 @@
     </page>
     
     <page url="$action" templateFile="../aleph_ubHUb/redirection">
-      <post name="RelayState">$relay;</post>
-      <post name="SAMLResponse">$saml;</post>
+      <post name="RelayState" value="$relay;"/>
+      <post name="SAMLResponse" value="$saml;"/>
     </page>
     
     <page url="$redirectedPage" templateFile="../aleph_ubHUb/redirection2"/>

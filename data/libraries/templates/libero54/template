@@ -8,19 +8,19 @@
 
 <action id="update-all">
   <page url="http://$server;WebOpac.cls" templateFile="update">
-    <post name="MGWCHD">0</post>
-    <post name="TOKEN">$token;</post>
-    <post name="TOKENX">$tokenx;</post>
-    <post name="DATA">$data;</post>
-    <post name="usercode"></post>
-    <post name="VERSION">$version;</post>
-    <post name="RSN">0</post>
-    <post name="BARCODE"></post>
-    <post name="TOKENZ">$token;</post>
-    <post name="ACTION">MEMLOGIN</post>
-    <post name="usernum">$username;</post>
-    <post name="password">$password;</post>
-    <post name="btnlogin">LOGIN</post>
+    <post name="MGWCHD" value="0"/>
+    <post name="TOKEN" value="$token;"/>
+    <post name="TOKENX" value="$tokenx;"/>
+    <post name="DATA" value="$data;"/>
+    <post name="usercode" value=""/>
+    <post name="VERSION" value="$version;"/>
+    <post name="RSN" value="0"/>
+    <post name="BARCODE" value=""/>
+    <post name="TOKENZ" value="$token;"/>
+    <post name="ACTION" value="MEMLOGIN"/>
+    <post name="usernum" value="$username;"/>
+    <post name="password" value="$password;"/>
+    <post name="btnlogin" value="LOGIN"/>
   </page>
 </action>
 
@@ -28,16 +28,16 @@
   <variable name="book-list">string-join(for $book in $extend-books return "$book.extendid;=1", "&amp;")</variable>
   
   <page url="http://$server;WebOpac.cls">
-    <post name="MGWCHD">0</post>
-    <post name="TOKEN">$token;</post>
-    <post name="TOKENX">$tokenx;</post>
-    <post name="DATA">$data;</post>
-    <post name="usercode"></post>
-    <post name="VERSION">$version;</post>
-    <post name="ACTION">MEMSLFISS</post>
-    <post name="bno">$username;</post>
-    <post name="mid">$mid;</post>
-    <post>$book-list;</post>
+    <post name="MGWCHD" value="0"/>
+    <post name="TOKEN" value="$token;"/>
+    <post name="TOKENX" value="$tokenx;"/>
+    <post name="DATA" value="$data;"/>
+    <post name="usercode" value=""/>
+    <post name="VERSION" value="$version;"/>
+    <post name="ACTION" value="MEMSLFISS"/>
+    <post name="bno" value="$username;"/>
+    <post name="mid" value="$mid;"/>
+    <post value="$book-list;"/>
   </page>
   <call action="update-all"/>
 </action>

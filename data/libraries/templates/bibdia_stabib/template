@@ -6,9 +6,9 @@
 
 <action id="update-all">
   <page url="https://ausleihe.staatsbibliothek-berlin.de/opac/medk.S" templateFile="update">
-    <post name="LANG">de</post>
-    <post name="BENUTZER">$username;</post>
-    <post name="PASSWORD">$password;</post>
+    <post name="LANG" value="de"/>
+    <post name="BENUTZER" value="$username;"/>
+    <post name="PASSWORD" value="$password;"/>
   </page>
 <!--  <error templateFile="loginError"/>-->
 </action>
@@ -23,16 +23,16 @@
   <variable name="book-list">string-join(for $book in $extend-books return "$book.extendid;=YES", "&amp;")</variable> 
 
   <page url="https://ausleihe.staatsbibliothek-berlin.de/opac/verl.S" templateFile="simpleCheck">
-    <post name="LANG">de</post>
-    <post name="FUNC">verl</post>
-    <post name="BENUTZER">$username;</post>
-    <post name="PASSWORD">$password;</post>
-    <post>$book-list;</post>
+    <post name="LANG" value="de"/>
+    <post name="FUNC" value="verl"/>
+    <post name="BENUTZER" value="$username;"/>
+    <post name="PASSWORD" value="$password;"/>
+    <post value="$book-list;"/>
   </page>
   <page url="https://ausleihe.staatsbibliothek-berlin.de/opac/medk.S" templateFile="fastUpdate">
-    <post name="LANG">de</post>
-    <post name="BENUTZER">$username;</post>
-    <post name="PASSWORD">$password;</post>
+    <post name="LANG" value="de"/>
+    <post name="BENUTZER" value="$username;"/>
+    <post name="PASSWORD" value="$password;"/>
   </page>
 </action>
 

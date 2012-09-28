@@ -7,10 +7,10 @@
 <action id="update-all">
   <page url="http://$server;start.do" templateFile="start"/>
   <page url="http://$server;login.do;$jsession;">
-    <post name="methodToCall">submit</post>
-    <post name="CSId">$CSId;</post>
-    <post name="username">$username;</post>
-    <post name="password">$password;</post>
+    <post name="methodToCall" value="submit"/>
+    <post name="CSId" value="$CSId;"/>
+    <post name="username" value="$username;"/>
+    <post name="password" value="$password;"/>
     
     <template>
     <body>
@@ -34,9 +34,9 @@
 
 <!--<action id="extend-all">
   <page url="https://$server;AusleiheVerlaengerungServlet;$jsession;" templateFile="KontoServlet">
-    <post name="Kontoart">Ausleihkonto</post>
-    <post name="Bibliothek">111</post>
-    <post name="homegkz">111</post>
+    <post name="Kontoart" value="Ausleihkonto"/>
+    <post name="Bibliothek" value="111"/>
+    <post name="homegkz" value="111"/>
   </page>
 </action>-->
 </actions> 

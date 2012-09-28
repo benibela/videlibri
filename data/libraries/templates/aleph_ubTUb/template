@@ -13,12 +13,12 @@
     </page>
     <page url="$borInfoPage"/>
     <page url="https://$server;pds">
-      <post name="func">login</post>
-      <post name="calling_system">aleph</post>
-      <post name="bor_id">$username;</post>
-      <post name="bor_verification">$password;</post>      
-      <post name="institute">TUK50</post>
-      <post name="url">$borInfoPage;</post>
+      <post name="func" value="login"/>
+      <post name="calling_system" value="aleph"/>
+      <post name="bor_id" value="$username;"/>
+      <post name="bor_verification" value="$password;"/>      
+      <post name="institute" value="TUK50"/>
+      <post name="url" value="$borInfoPage;"/>
       
       <template>
         <template:switch-prioritized>

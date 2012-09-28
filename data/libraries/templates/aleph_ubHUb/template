@@ -2,10 +2,10 @@
 <actions>
 <action id="connect">
     <page url="https://opac.hu-berlin.de:443/F/" templateFile="redirection">
-      <post name="func">login-session</post>
-      <post name="login_source"></post>
-      <post name="bor_id">$username;</post>
-      <post name="bor_verification">$password;</post>      
+      <post name="func" value="login-session"/>
+      <post name="login_source" value=""/>
+      <post name="bor_id" value="$username;"/>
+      <post name="bor_verification" value="$password;"/>      
     </page>
     <page url="$redirectedPage" templateFile="redirection2"/>
     <page url="$redirectedPage" templateFile="../aleph_base/startBenutzerkonto"/>
