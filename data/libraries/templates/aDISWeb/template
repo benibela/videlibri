@@ -70,7 +70,7 @@
            book.title :=  if (contains(text(), "]")) then filter(text(), "(\] )(.*)", 2) else text()}<BR/>
           {preid := text()}<BR/>
           {book.id := concat($preid,":",text())}</TD>
-      <TD>{message := if (contains(., "- Stand")) then filter(., "(.*)- Stand", 1) else .}
+      <TD>{message := if (contains(., "- Stand")) then filter(deep-text("   "), "(.*)- Stand", 1) else deep-text("   ")}
           <t:if test="contains(., 'nicht verl')">{book.status:problematic:=$message}</t:if>
           <t:else>{book.status:curious:=$message}</t:else>
       </TD>
