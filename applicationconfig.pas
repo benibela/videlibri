@@ -672,7 +672,7 @@ uses bookwatchmain,internetaccess,controls,libraryaccess,math,FileUtil,bbutils,b
 
   function DateToSimpleStr(const date: tdatetime): string;
   begin
-    result := dateTimeFormat(FormatSettings.ShortDateFormat , date);
+    result := dateTimeFormat(lowercase(FormatSettings.ShortDateFormat), date);
   end;
 
   function DateToPrettyStr(const date: tdatetime):string;
