@@ -1,12 +1,12 @@
-bookCount=string: 
-bookCount=string: 2
-delete-current-books()=undefined: 
-spanmissing=boolean: true
-previousspan=boolean: false
-spanmissing=boolean: false
-previousspan=boolean: true
-book=object: {select(new): string: , title: sequence: (node: Introduction to cryptography), author: node: Delfs, Hans, id: string: BP1357  , status:problematic: sequence: (node: Dieses Medium wurde bereits 5 mal verlängert.), issuedate: date: 2010-08-19, limitdate: date: 2011-01-05}
-spanmissing=boolean: true
-previousspan=boolean: false
-spanmissing=boolean: false
-book=object: {select(new): string: , title: sequence: (node: Experimentalphysik/2), author: node: Demtröder, Wolfgang, id: string: (1)003187  , extendID: string: 1, status:curious: sequence: (node: Eine Verlängerung ist möglich.), issuedate: date: 2010-12-09, limitdate: date: 2011-01-10}
+bookCount: string: 
+bookCount: string: 2
+delete-current-books(): undefined: 
+spanmissing: boolean: true
+previousspan: boolean: false
+spanmissing: boolean: false
+previousspan: boolean: true
+book: object: {select(new): string: , title: node: Introduction to cryptography, author: node: Delfs, Hans, id: string: BP1357  , status:problematic: node: Dieses Medium wurde bereits 5 mal verlängert., issuedate: date: 2010-08-19, limitdate: date: 2011-01-05}
+spanmissing: boolean: true
+previousspan: boolean: false
+spanmissing: boolean: false
+book: object: {select(new): string: , title: node: Experimentalphysik/2, author: node: Demtröder, Wolfgang, id: string: (1)003187  , extendID: string: 1, status:curious: node: Eine Verlängerung ist möglich., issuedate: date: 2010-12-09, limitdate: date: 2011-01-10}

@@ -1,1 +1,24 @@
-borInfoPage=string: http://ublibsprod.ub.tu-berlin.de:80/F/YJ7GU32HQ9NRAKFU5R7DVYKPSB5P88MP1VSJXJSQ1BB3V6ECD5-33487?func=bor-info
+[FORMS.PP] ExceptionOccurred 
+  Sender=EFOpenError
+  Exception=Unable to open file "../../data/libraries/templates/aleph_ubTUb/start"
+  Stack trace:
+  $00000000004B4A26
+  $000000000047AA4E line 7178 of data/bbutils.pas
+  $000000000048BC4A line 180 of xidelbase.pas
+  $0000000000491A82 line 740 of xidelbase.pas
+  $000000000049B773 line 452 of ../../../components/pascal/system/rcmdline.pas
+  $000000000049A5B9 line 332 of ../../../components/pascal/system/rcmdline.pas
+  $00000000004962B4 line 858 of xidelbase.pas
+  $00000000004404B1 line 43 of xidel.pas
+TApplication.HandleException Unable to open file "../../data/libraries/templates/aleph_ubTUb/start"
+  Stack trace:
+  $00000000004B4A26
+  $000000000047AA4E line 7178 of data/bbutils.pas
+  $000000000048BC4A line 180 of xidelbase.pas
+  $0000000000491A82 line 740 of xidelbase.pas
+  $000000000049B773 line 452 of ../../../components/pascal/system/rcmdline.pas
+  $000000000049A5B9 line 332 of ../../../components/pascal/system/rcmdline.pas
+  $00000000004962B4 line 858 of xidelbase.pas
+  $00000000004404B1 line 43 of xidel.pas
+exception at 00000000004B4A26:
+Unable to open file "../../data/libraries/templates/aleph_ubTUb/start".

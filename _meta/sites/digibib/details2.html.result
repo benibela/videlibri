@@ -1,5 +1,7 @@
-currentfield=string: Titel:
-currentfield=string: Ausgabe:
-currentfield=string: Umfang:
-currentfield=string: ISBN:
-book=object: {select(current): string: , amazon-url: string: http://www.amazon.de/exec/obidos/ASIN/3125342333/digitalebiblio02, image-url: string: http://ecx.images-amazon.com/images/I/518dTv26KNL._SL160_.jpg, Titel:!: string: *Target Score ; Student's book with test pack:, Ausgabe:!: string: Second ed., 3rd print.. - 2009, Umfang:!: string: 335 S. : Ill., ISBN:!: string: 3-12-534233-3, home-url: string: http://was.duesseldorf.de/WebOPAC/QueryPanelServlet?homegkz=111&Suchbegriff=idnr=E930364613&Kriterium=Titel&Medienart=alle&Bibliothek=Stadtb%C3%BCchereien%20D%C3%BCsseldorf}
+currentfield: string: Titel:!
+currentfield: string: title
+currentfield: string: Ausgabe:!
+currentfield: string: Umfang:!
+currentfield: string: ISBN:!
+currentfield: string: isbn
+book: object: {select(current): string: , amazon-url: string: http://www.amazon.de/exec/obidos/ASIN/3125342333/digitalebiblio02, image-url: string: http://ecx.images-amazon.com/images/I/518dTv26KNL._SL160_.jpg, title: string: *Target Score ; Student's book with test pack:, Ausgabe:!: string: Second ed., 3rd print.. - 2009, Umfang:!: string: 335 S. : Ill., isbn: string: 3-12-534233-3, home-url: string: http://was.duesseldorf.de/WebOPAC/QueryPanelServlet?homegkz=111&Suchbegriff=idnr=E930364613&Kriterium=Titel&Medienart=alle&Bibliothek=Stadtb%C3%BCchereien%20D%C3%BCsseldorf}

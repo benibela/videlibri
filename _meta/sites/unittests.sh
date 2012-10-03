@@ -1,7 +1,7 @@
 #!/bin/bash
 
 
-TEMPLATEPARSER="../../../../../components/pascal/data/examples/htmlparserExample --no-header --immediate-vars-changelog-condensed --type-annotated --template="
+TEMPLATEPARSER="../../../xidel/xidel --print-type-annotations --extract-kind=template --extract-file="
 TEMPLATEPATH=../../data/libraries/templates
 INPATH=./
 OUTPATH=/tmp/
@@ -24,8 +24,8 @@ PAGES=(${PAGES[@]} ulbdue/start.html ulbdue/login.html ulbdue/loggedIn.html ulbd
 
 #=============ALEPH TU/UdK Berlin========
 mkdir -p $OUTPATH/aleph_ubTUb
-TEMPLATES=(${TEMPLATES[@]} aleph_base/loggedIn2007 aleph_ubTUb/update aleph_base/details aleph_ubTUb/start)
-PAGES=(${PAGES[@]} aleph_ubTUb/loggedIn.html aleph_ubTUb/update.html aleph_ubTUb/details.html aleph_ubTUb/start.html)
+TEMPLATES=(${TEMPLATES[@]} aleph_base/loggedIn2007 aleph_ubTUb/update aleph_base/details)
+PAGES=(${PAGES[@]} aleph_ubTUb/loggedIn.html aleph_ubTUb/update.html aleph_ubTUb/details.html)
 
 #=============ALEPH HU Berlin============
 mkdir -p $OUTPATH/aleph_ubHUb
@@ -74,7 +74,7 @@ for ((i=0;i<${#TEMPLATES[@]};i++)); do
   echo -e "Testing: ${TEMPLATES[i]} \t\t\twith\t\t $INPATH/${PAGES[i]}"
 #  echo $TEMPLATEPARSER$TEMPLATEPATH/${TEMPLATES[i]} $INPATH/${PAGES[i]}
   $TEMPLATEPARSER$TEMPLATEPATH/${TEMPLATES[i]} $INPATH/${PAGES[i]} > $OUTPATH/${PAGES[i]}.result
-  if diff $INPATH/${PAGES[i]}.result $OUTPATH/${PAGES[i]}.result; then tempasasas=42; else echo ERROR; error=1; fi
+  if diff -q $INPATH/${PAGES[i]}.result $OUTPATH/${PAGES[i]}.result; then tempasasas=42; else echo ERROR; error=1;     git diff --color-words $INPATH/${PAGES[i]}.result $OUTPATH/${PAGES[i]}.result; fi
 done;
 
 echo $error

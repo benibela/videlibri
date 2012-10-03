@@ -1,8 +1,12 @@
-currentfield=string: Titel:
-currentfield=string: Autor(in):
-currentfield=string: Ort / Verlag, Jahr:
-currentfield=string: Umfang:
-currentfield=string: Serie:
-currentfield=string: ISBN:
-currentfield=string: Sonstiges:
-book=object: {select(current): string: , Titel:!: string: Der Einfluß der Schulbildung auf Intelligenztestleistungen : eine Längsschnittuntersuchung, Autor(in):!: string: Langfeldt-Nagel, Maria, Ort / Verlag, Jahr:!: string: Frankfurt am Main [u.a.]: Lang, 1982, Umfang:!: string: 145 S. : graph. Darst., Serie:!: string: Europäische Hochschulschriften : Reihe 6, Psychologie ; 77, ISBN:!: string: 3-8204-6928-1, Sonstiges:!: string: Zugl.: Köln, Päd.Hochschule Rheinland, Diss., 1979, home-url: string: http://katalog.ub.uni-duesseldorf.de/F/?, home-url: string: http://katalog.ub.uni-duesseldorf.de/F/?func=find-b&, home-url: string: http://katalog.ub.uni-duesseldorf.de/F/?func=find-b&request=HT001117118&, home-url: string: http://katalog.ub.uni-duesseldorf.de/F/?func=find-b&request=HT001117118&find_code=IDN&, home-url: string: http://katalog.ub.uni-duesseldorf.de/F/?func=find-b&request=HT001117118&find_code=IDN&=Katalog-Eintrag&}
+currentfield: string: Titel:!
+currentfield: string: title
+currentfield: string: Autor(in):!
+currentfield: string: author
+currentfield: string: Ort / Verlag, Jahr:!
+currentfield: string: year
+currentfield: string: Umfang:!
+currentfield: string: Serie:!
+currentfield: string: ISBN:!
+currentfield: string: isbn
+currentfield: string: Sonstiges:!
+book: object: {select(current): string: , title: string: Der Einfluß der Schulbildung auf Intelligenztestleistungen : eine Längsschnittuntersuchung, author: string: Langfeldt-Nagel, Maria, year: string: Frankfurt am Main [u.a.]: Lang, 1982, Umfang:!: string: 145 S. : graph. Darst., Serie:!: string: Europäische Hochschulschriften : Reihe 6, Psychologie ; 77, isbn: string: 3-8204-6928-1, Sonstiges:!: string: Zugl.: Köln, Päd.Hochschule Rheinland, Diss., 1979, home-url: string: http://katalog.ub.uni-duesseldorf.de/F/?, home-url: string: http://katalog.ub.uni-duesseldorf.de/F/?func=find-b&, home-url: string: http://katalog.ub.uni-duesseldorf.de/F/?func=find-b&request=HT001117118&, home-url: string: http://katalog.ub.uni-duesseldorf.de/F/?func=find-b&request=HT001117118&find_code=IDN&, home-url: string: http://katalog.ub.uni-duesseldorf.de/F/?func=find-b&request=HT001117118&find_code=IDN&=Katalog-Eintrag&}

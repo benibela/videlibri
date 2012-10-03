@@ -1,3 +1,3 @@
-noBooks=string: 
-delete-current-books()=undefined: 
-book=object: {select(new): string: , detailLink: string: http://katalog.ub.uni-duesseldorf.de/F/58US79HFSX7SBDT2X5CTNM2K4H7AK8LFPXPVBF5X4N8XP9LJII-01568?func=BOR-LOAN-EXP&doc_number=002223656&item_sequence=000010&index=0001&adm_library=DUE50, author: sequence: (node: Gowers, Timothy), title: sequence: (node: The Princeton companion to mathematics), year: sequence: (node: 2008), limitdate:dd/mm/yy: sequence: (node: 13/09/10), id: node: mata410.g723, category: string: mata}
+noBooks: string: 
+delete-current-books(): undefined: 
+book: object: {select(new): string: , detailLink: string: http://katalog.ub.uni-duesseldorf.de/F/58US79HFSX7SBDT2X5CTNM2K4H7AK8LFPXPVBF5X4N8XP9LJII-01568?func=BOR-LOAN-EXP&doc_number=002223656&item_sequence=000010&index=0001&adm_library=DUE50, author: node: Gowers, Timothy, title: node: The Princeton companion to mathematics, year: node: 2008, limitdate:dd/mm/yy: node: 13/09/10, id: node: mata410.g723, category: string: mata}

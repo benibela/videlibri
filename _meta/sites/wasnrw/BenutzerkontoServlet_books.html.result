@@ -1,10 +1,10 @@
-charge=string: 0,00
-delete-current-books()=undefined: 
-tempcount=string: 3
-book=object: {select(new): string: , id: string: 10056233, category: string: Z, author: string: Gerdom, title: string: Seele der Elben, year: string: , status:problematic: string: Nicht verlängerbar, issuedate: date: 2011-12-29, limitdate: date: 2012-04-17}
-book=object: {select(new): string: , id: string: 10774594, category: string: Z, author: string: , title: string: Chimaere, year: string: , status:problematic: string: Nicht verlängerbar, issuedate: date: 2011-12-29, limitdate: date: 2012-04-17}
-book=object: {select(new): string: , id: string: 29097879, category: string: Z, author: string: Banks, title: string: Sphären, year: string: , status:problematic: string: Nicht verlängerbar, issuedate: date: 2011-12-29, limitdate: date: 2012-04-17}
-tempcount=string: 3
-book=object: {select(new): string: , status: undefined: , id: string: 11161863, category: string: Z, author: string: Cook, title: string: Blutkind, year: string: , issuedate: date: 2012-02-17, limitdate: date: 2012-05-10}
-book=object: {select(new): string: , status: undefined: , id: string: 11584829, category: string: fantasy, author: string: Strazzu, title: string: Tharkarun, year: string: , issuedate: date: 2012-02-17, limitdate: date: 2012-05-10}
-book=object: {select(new): string: , status: undefined: , id: string: 12539576, category: string: Z, author: string: , title: string: Furcht des Weisen, year: string: , issuedate: date: 2012-02-17, limitdate: date: 2012-05-10}
+charge: string: 0,00
+delete-current-books(): undefined: 
+tempcount: string: 3
+book: object: {select(new): string: , id: string: 10056233, category: string: Z, author: string: Gerdom, title: string: Seele der Elben, year: string: , status:problematic: string: Nicht verlängerbar, issuedate: date: 2011-12-29, limitdate: date: 2012-04-17}
+book: object: {select(new): string: , id: string: 10774594, category: string: Z, author: string: , title: string: Chimaere, year: string: , status:problematic: string: Nicht verlängerbar, issuedate: date: 2011-12-29, limitdate: date: 2012-04-17}
+book: object: {select(new): string: , id: string: 29097879, category: string: Z, author: string: Banks, title: string: Sphären, year: string: , status:problematic: string: Nicht verlängerbar, issuedate: date: 2011-12-29, limitdate: date: 2012-04-17}
+tempcount: string: 3
+book: object: {select(new): string: , status: undefined: , id: string: 11161863, category: string: Z, author: string: Cook, title: string: Blutkind, year: string: , issuedate: date: 2012-02-17, limitdate: date: 2012-05-10}
+book: object: {select(new): string: , status: undefined: , id: string: 11584829, category: string: fantasy, author: string: Strazzu, title: string: Tharkarun, year: string: , issuedate: date: 2012-02-17, limitdate: date: 2012-05-10}
+book: object: {select(new): string: , status: undefined: , id: string: 12539576, category: string: Z, author: string: , title: string: Furcht des Weisen, year: string: , issuedate: date: 2012-02-17, limitdate: date: 2012-05-10}
