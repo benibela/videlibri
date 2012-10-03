@@ -1,10 +1,16 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <?xml-stylesheet type="text/xsl" href="../changelog.xsl"?>
 <changelog program="VideLibri">
-  <build version="1200" date="2012-07-22">
+  <build version="1250" date="2012-10-03">
     <download url="http://videlibri.sourceforge.net/updates/videlibri-setup.exe" platform="WINDOWS" execute="&quot;$DOWNLOAD&quot;  /SP- /noicons &quot;/dir=$OLDPATH;&quot; "/>
     <download url="http://videlibri.sourceforge.net/updates/videlibri-linux64.deb" platform="LINUX64" execute=""/>
     
+    <fix level="minor">Beschreibung der aktuellen Templates in der Hilfe anstatt die fünf-Jahre alten</fix>
+    <change level="minor">Digibibsuche nach weiteren Buch-Details kann das alte Buch immer überschreiben, nicht nur wenn Autor/Titel ähnlich sind</change>
+    <change level="minor">Generalisierte Templates, die in ihrer Syntax keinerlei Beziehung mehr zu Büchern haben</change>
+    <add>Unterstützung für Münchener Stadtbibliothek.</add>
+  </build>
+  <build version="1200" date="2012-07-22">
     <change>Fehlermeldungen der Büchereikataloge werden unverändert statt als "Matchfehler" angezeigt</change>
     <fix level="minor">Zeigt nicht mehr unendlich viele Fehlermeldungen bei fehlendem Internetzugang unter Linux</fix>
     <change level="minor">RWTH BTH Aachen: Warnung bei nicht unterstützten Benutzereinstellungen</change>
@@ -18,7 +24,7 @@
   </build>
   <build version="1119" date="2012-05-26">
     <fix level="minor">Behebt UBHU Weiterleitungsfehler</fix>
-    <fix level="minor">Zeigt Leerzeichen in der Digibibsucher an</fix>
+    <fix level="minor">Zeigt Leerzeichen in der Digibibsuche an</fix>
     <fix level="minor">Zeigt Vormerkungen in Hamburger GBV korrekt an</fix>
     <change level="minor">Kuerzere interne Templatesyntax, und 99% XPath 2 Unterstuetzung</change>
     <add level="minor">Mediensucheergebnisse koennen wie in einer Literaturverwaltung gespeichert werden.</add>
