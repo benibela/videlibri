@@ -21,8 +21,104 @@
     <MacroValues Count="1">
       <Macro1 Name="LCLWidgetType" Value="gtk2"/>
     </MacroValues>
-    <BuildModes Count="1">
+    <BuildModes Count="3">
       <Item1 Name="default" Default="True"/>
+      <Item2 Name="win32release">
+        <MacroValues Count="1">
+          <Macro1 Name="LCLWidgetType" Value="win32"/>
+        </MacroValues>
+        <CompilerOptions>
+          <Version Value="11"/>
+          <Target>
+            <Filename Value="videlibri"/>
+          </Target>
+          <SearchPaths>
+            <IncludeFiles Value="../../../components/pascal/data;../../../components/pascal/import/synapse"/>
+            <OtherUnitFiles Value="../../../components/pascal/import/synapse;../../../components/lazarus/dialogs;../../../components/lazarus/internet/sendBackError;../../../components/pascal/internet;../../../components/pascal/data"/>
+            <SrcPath Value="../../../components/pascal/system;$(LazarusDir)/lcl;../../../components/lazarus/internet;$(LazarusDir)/lcl/interfaces/$(LCLWidgetType)"/>
+          </SearchPaths>
+          <Parsing>
+            <SyntaxOptions>
+              <IncludeAssertionCode Value="True"/>
+              <UseAnsiStrings Value="False"/>
+            </SyntaxOptions>
+          </Parsing>
+          <CodeGeneration>
+            <SmartLinkUnit Value="True"/>
+            <TargetCPU Value="i386"/>
+            <TargetOS Value="win32"/>
+            <Optimizations>
+              <OptimizationLevel Value="3"/>
+            </Optimizations>
+          </CodeGeneration>
+          <Linking>
+            <Debugging>
+              <GenerateDebugInfo Value="False"/>
+              <StripSymbols Value="True"/>
+            </Debugging>
+            <LinkSmart Value="True"/>
+            <Options>
+              <Win32>
+                <GraphicApplication Value="True"/>
+              </Win32>
+            </Options>
+          </Linking>
+          <Other>
+            <CompilerMessages>
+              <UseMsgFile Value="True"/>
+            </CompilerMessages>
+            <CompilerPath Value="$(CompPath)"/>
+          </Other>
+          <LCLWidgetType Value="win32"/>
+        </CompilerOptions>
+      </Item2>
+      <Item3 Name="linux64release">
+        <MacroValues Count="1">
+          <Macro1 Name="LCLWidgetType" Value="gtk2"/>
+        </MacroValues>
+        <CompilerOptions>
+          <Version Value="11"/>
+          <Target>
+            <Filename Value="videlibri"/>
+          </Target>
+          <SearchPaths>
+            <IncludeFiles Value="../../../components/pascal/data;../../../components/pascal/import/synapse"/>
+            <OtherUnitFiles Value="../../../components/pascal/import/synapse;../../../components/lazarus/dialogs;../../../components/lazarus/internet/sendBackError;../../../components/pascal/internet;../../../components/pascal/data"/>
+            <SrcPath Value="../../../components/pascal/system;$(LazarusDir)/lcl;../../../components/lazarus/internet;$(LazarusDir)/lcl/interfaces/$(LCLWidgetType)"/>
+          </SearchPaths>
+          <Parsing>
+            <SyntaxOptions>
+              <IncludeAssertionCode Value="True"/>
+              <UseAnsiStrings Value="False"/>
+            </SyntaxOptions>
+          </Parsing>
+          <CodeGeneration>
+            <SmartLinkUnit Value="True"/>
+            <Optimizations>
+              <OptimizationLevel Value="3"/>
+            </Optimizations>
+          </CodeGeneration>
+          <Linking>
+            <Debugging>
+              <GenerateDebugInfo Value="False"/>
+              <StripSymbols Value="True"/>
+            </Debugging>
+            <LinkSmart Value="True"/>
+            <Options>
+              <Win32>
+                <GraphicApplication Value="True"/>
+              </Win32>
+            </Options>
+          </Linking>
+          <Other>
+            <CompilerMessages>
+              <UseMsgFile Value="True"/>
+            </CompilerMessages>
+            <CompilerPath Value="$(CompPath)"/>
+          </Other>
+          <LCLWidgetType Value="gtk2"/>
+        </CompilerOptions>
+      </Item3>
     </BuildModes>
     <PublishOptions>
       <Version Value="2"/>
