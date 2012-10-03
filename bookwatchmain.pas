@@ -683,6 +683,7 @@ procedure TmainForm.MenuItem25Click(Sender: TObject);
 begin
   if searcherForm=nil then begin searcherForm:=TbookSearchFrm.Create(nil); searcherForm.loadDefaults; refreshAccountGUIElements(); end;
   searcherForm.loadDefaults;
+  searcherForm.selectBookToReSearch(nil);
   searcherForm.Show;
   searcherForm.saveDefaults;
 

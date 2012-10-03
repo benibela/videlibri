@@ -83,6 +83,7 @@ type
     searcherAccess: TLibrarySearcherAccess;
     searchTemplates: TStringList; //TBookListTemplate;
     displayedBook: TBook;
+    researchedBook: TBook;
     function displayDetails(book: TBook=nil): longint; //0: no details, 1: detail, no image, 2: everything
     procedure selectBookToReSearch(book: TBook);
     procedure loadDefaults;
@@ -288,11 +289,24 @@ begin
        mainForm.RefreshListView;
        exit;
      end;
+    if researchedBook <> nil then
+     if confirm('Soll das markierte Medium "'+old.toSimpleString()+'" mit "'+temp.toSimpleString()+'" überschrieben werden?') then begin
+       old.author:=temp.author; //don't copy id
+       old.title:=temp.title;
+       old.year:=temp.year;
+       old.isbn:=temp.isbn;
+       old.assignNoReplace(temp);
+       acc.save();
+       mainForm.RefreshListView;
+       researchedBook := nil;
+       exit;
+     end;
   end;
 
   acc.books.old.add(temp);
   acc.save();
   mainForm.RefreshListView;
+  researchedBook := nil;
 end;
 
 procedure TbookSearchFrm.LabelSaveToClick(Sender: TObject);
@@ -530,7 +544,12 @@ end;
 procedure TbookSearchFrm.selectBookToReSearch(book: TBook);
 var i,rp:longint;
     s: string;
+    accId: Integer;
 begin
+  researchedBook := nil;
+  if book = nil then
+    exit;
+
   displayDetails(book);
   searchAuthor.Text:=book.author;
   s:=book.title;
@@ -562,7 +581,15 @@ begin
     searchLocationSelect(self);
     for i:=0 to searchSelectionList.items.Count-1 do
       searchSelectionList.Checked[i]:=searchSelectionList.items.Objects[i]=TCustomAccountAccess(book.owner).getLibrary();
+
+    accId := accountIDs.IndexOfObject(book.owner);
+    if (accId >= 0) and (accId < saveToAccountMenu.Items.Count) then begin
+      changeDefaultSaveToAccount(saveToAccountMenu.Items[accId]);
+      researchedBook := book;
+    end;
   end;
+
+
 end;
 
 procedure TbookSearchFrm.loadDefaults;
