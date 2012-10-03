@@ -17,7 +17,7 @@
       <table class="datarows"><t:loop>
         <tr>
          <th>{currentfield := concat(normalize-space(text()), "!")}</th>
-         <t:if   test="contains($currentfield, 'Titel')">{currentfield := "title"}</t:if>
+         <t:if   test="contains($currentfield, 'Titel') and not(contains($currentfield, 'Einheitssachtitel'))">{currentfield := "title"}</t:if>
          <t:else test="contains($currentfield, 'Autor')">{currentfield := "author"}</t:else>
          <t:else test="contains($currentfield, 'ISBN')" >{currentfield := "isbn"}</t:else>
          <t:else test="contains($currentfield, 'Jahr')" >{currentfield := "year"}</t:else>
