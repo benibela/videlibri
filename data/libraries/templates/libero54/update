@@ -4,11 +4,11 @@
 <body>
  <fieldset><div class='MemStatMembCapt'>
     <template:read var="delete-current-books()"/>
-    <template:read source="'false'" var="bookTableBroken"/>
+    <template:read source="false()" var="bookTableBroken"/>
  </div></fieldset>
 
  <form name="MEMISSIT" template:optional="true">
-   <template:read source="'true'" var="bookTableBroken"/>
+   <template:read source="true()" var="bookTableBroken"/>
    <fieldset id="issued_items">
      
      <table>
@@ -19,14 +19,14 @@
                   <th id="th1_4" class="dueDate" abbr="due" scope="col"></th>
                   <th id="th1_5" class="numRenewals" abbr="num" scope="col"></th>
                   <th id="th1_7" class="renew" abbr="ren" scope="col" template:optional="true">
-                    <template:read source="'false'" var="noExtendingPossible"/>
+                    <template:read source="false()" var="noExtendingPossible"/>
                   </th></tr></thead>
                   
        <template:loop>
        <tbody>
        {book := object(("select(new)",""))}
        <tr>
-          <template:read source="'false'" var="bookTableBroken"/>
+          <template:read source="false()" var="bookTableBroken"/>
           <template:read var="book.extendid" source="''"/>
           <th class="barcode" headers="th1_1"><template:read source="." var="book.id"/></th>
           <td headers="th1_2">
@@ -64,7 +64,7 @@
 
 <form>
 Systemmeldung
-<template:read source="'false'" var="bookTableBroken"/>
+<template:read source="false()" var="bookTableBroken"/>
 <p>Ihre Anforderung konnte</p>
 <blockquote>
 <ul><template:read var="raise()" source="deep-text()"/></ul>

@@ -2,7 +2,7 @@
 <t:switch-prioritized>
 <html>
 
-<template:read var="templateError" source="'false'"/>
+<template:read var="templateError" source="false()"/>
 
 <template:switch>
 <TD>Ausgeliehene Medien:<template:read var="delete-current-books()"/><template:read var="bookCount" source="filter(text(),'\d+')"/></TD>
@@ -34,7 +34,7 @@
 <template:if test="$book.extendId;=''">
 <template:read var="book.status:problematic" source="concat($status, ', ', $V;, '-mal verlängert')"/>
 </template:if>
-<template:read var="templateError" source="'false'"/>
+<template:read var="templateError" source="false()"/>
 </tr>
 </template:loop>
 </table>

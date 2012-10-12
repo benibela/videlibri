@@ -54,7 +54,7 @@
 <!--	  <template:if test="$previousspan;">
 	    <span template:optional="true">
               <template:read source="concat("$book.status:problematic; ", text())" var="book.status:problematic"/>
-              <template:read source="'false'" var="spanmissing"/>
+              <template:read source="false()" var="spanmissing"/>
             </span>
            </template:if>-->
          </td>
