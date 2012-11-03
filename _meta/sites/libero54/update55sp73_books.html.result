@@ -1,29 +1,29 @@
 delete-current-books(): undefined: 
-bookTableBroken: string: false
-bookTableBroken: string: true
+bookTableBroken: boolean: false
+bookTableBroken: boolean: true
 noExtendingPossible: string: true
-bookTableBroken: string: false
+bookTableBroken: boolean: false
 temporaryStatusDetails: node: ¬Der¬ Geist des Jedi. Armee des Terrors
 book: object: {select(new): string: , extendid: string: , id: node: 20258942, title: node: ¬Der¬ Geist des Jedi. Armee des Terrors, author: node: Whitman, John, limitdate:d mmm yyyy: node: 14 Okt 2010, status:curious: string: bisher 0 mal verlängert, status:problematic: node: ¬Der¬ Geist des Jedi. Armee des Terrors, status:problematic: string: Prinzipiell keine Verlängerung möglich}
-bookTableBroken: string: false
+bookTableBroken: boolean: false
 temporaryStatusDetails: node: ¬Die¬ sterbende Stadt
 book: object: {select(new): string: , extendid: string: , id: node: 22349341, title: node: ¬Die¬ sterbende Stadt, author: node: Anthony, Mark, limitdate:d mmm yyyy: node: 14 Okt 2010, status:curious: string: bisher 0 mal verlängert, status:problematic: node: ¬Die¬ sterbende Stadt, status:problematic: string: Prinzipiell keine Verlängerung möglich}
-bookTableBroken: string: false
+bookTableBroken: boolean: false
 temporaryStatusDetails: node: ¬Das¬ Schwert von Malachor
 book: object: {select(new): string: , extendid: string: , id: node: 23348659, title: node: ¬Das¬ Schwert von Malachor, author: node: Anthony, Mark, limitdate:d mmm yyyy: node: 14 Okt 2010, status:curious: string: bisher 0 mal verlängert, status:problematic: node: ¬Das¬ Schwert von Malachor, status:problematic: string: Prinzipiell keine Verlängerung möglich}
-bookTableBroken: string: false
+bookTableBroken: boolean: false
 temporaryStatusDetails: node: ¬Das¬ Tor des Winters
 book: object: {select(new): string: , extendid: string: , id: node: 24304000, title: node: ¬Das¬ Tor des Winters, author: node: Anthony, Mark, limitdate:d mmm yyyy: node: 14 Okt 2010, status:curious: string: bisher 0 mal verlängert, status:problematic: node: ¬Das¬ Tor des Winters, status:problematic: string: Prinzipiell keine Verlängerung möglich}
-bookTableBroken: string: false
+bookTableBroken: boolean: false
 temporaryStatusDetails: node: Der Runenbrecher
 book: object: {select(new): string: , extendid: string: , id: node: 24335054, title: node: Der Runenbrecher, author: node: Anthony, Mark, limitdate:d mmm yyyy: node: 14 Okt 2010, status:curious: string: bisher 0 mal verlängert, status:problematic: node: Der Runenbrecher, status:problematic: string: Prinzipiell keine Verlängerung möglich}
-bookTableBroken: string: false
+bookTableBroken: boolean: false
 temporaryStatusDetails: node: ¬Das¬ Blut der Wüste
 book: object: {select(new): string: , extendid: string: , id: node: 25280210, title: node: ¬Das¬ Blut der Wüste, author: node: Anthony, Mark, limitdate:d mmm yyyy: node: 14 Okt 2010, status:curious: string: bisher 0 mal verlängert, status:problematic: node: ¬Das¬ Blut der Wüste, status:problematic: string: Prinzipiell keine Verlängerung möglich}
-bookTableBroken: string: false
+bookTableBroken: boolean: false
 temporaryStatusDetails: node: ¬Die¬ letzte Schlacht
 book: object: {select(new): string: , extendid: string: , id: node: 25361008, title: node: ¬Die¬ letzte Schlacht, author: node: Anthony, Mark, limitdate:d mmm yyyy: node: 14 Okt 2010, status:curious: string: bisher 0 mal verlängert, status:problematic: node: ¬Die¬ letzte Schlacht, status:problematic: string: Prinzipiell keine Verlängerung möglich}
-bookTableBroken: string: false
+bookTableBroken: boolean: false
 temporaryStatusDetails: node: Schattenritter
 book: object: {select(new): string: , extendid: string: , id: node: 26289548, title: node: Schattenritter, author: node: Clemens, James, limitdate:d mmm yyyy: node: 14 Okt 2010, status:curious: string: bisher 0 mal verlängert, status:problematic: node: Schattenritter, status:problematic: string: Prinzipiell keine Verlängerung möglich}
-mid: string: 140602
+mid: node: 140602

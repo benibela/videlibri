@@ -1,2 +1,2 @@
 delete-current-books(): undefined: 
-bookTableBroken: string: false
+bookTableBroken: boolean: false

@@ -1,31 +1,31 @@
 templateError: string: true
-newExtendId: string: 111111234
+newExtendId: node: 111111234
 newLimit: node: 10.01.2011
 V: node: 1
 status: string: Potsdamer Straße, Buchabholbereich
 book: object: {select(current): string: , status:curious: string: 1-mal verlängert, Potsdamer Straße, Buchabholbereich, limitDate: date: 2011-01-10}
-templateError: string: false
-newExtendId: string: 145555567
+templateError: boolean: false
+newExtendId: node: 145555567
 newLimit: node: 10.01.2011
 V: node: 1
 status: string: Potsdamer Straße, Buchabholbereich
 book: object: {select(current): string: , status:curious: string: 1-mal verlängert, Potsdamer Straße, Buchabholbereich, limitDate: date: 2011-01-10}
-templateError: string: false
-newExtendId: string: 147328083
+templateError: boolean: false
+newExtendId: node: 147328083
 newLimit: node: 12.01.2011
 V: node: 1
 status: string: Potsdamer Straße, Buchabholbereich
 book: object: {select(current): string: , status:curious: string: 1-mal verlängert, Potsdamer Straße, Buchabholbereich, limitDate: date: 2011-01-12}
-templateError: string: false
-newExtendId: string: 148213492
+templateError: boolean: false
+newExtendId: node: 148213492
 newLimit: node: 22.01.2011
 V: node: 1
 status: string: Potsdamer Straße, Buchabholbereich
 book: object: {select(current): string: , status:curious: string: 1-mal verlängert, Potsdamer Straße, Buchabholbereich, limitDate: date: 2011-01-22}
-templateError: string: false
-newExtendId: string: 115650431
+templateError: boolean: false
+newExtendId: node: 115650431
 newLimit: node: 22.01.2011
 V: node: 1
 status: string: Potsdamer Straße, Buchabholbereich
 book: object: {select(current): string: , status:curious: string: 1-mal verlängert, Potsdamer Straße, Buchabholbereich, limitDate: date: 2011-01-22}
-templateError: string: false
+templateError: boolean: false
