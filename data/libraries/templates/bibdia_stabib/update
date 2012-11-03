@@ -1,4 +1,4 @@
-<template:meta encoding="utf8"/>
+<?xml version="1.0" encoding="UTF-8"?>
 <t:switch-prioritized>
 <html>
 
@@ -11,7 +11,7 @@
 <TD>Sie haben keine Medien ausgeliehen<template:read var="delete-current-books()"/><template:read var="bookCount" source="'0'"/></TD>
 </template:switch>
 
-<template:if test="$bookCount;!='0'">
+<template:if test="$bookCount!='0'">
 <template:read var="templateError" source="'true'"/>
 <TABLE>
 <TR>
@@ -23,16 +23,16 @@
 {book:=object(("select(new)", ""))}
 <input type="checkbox" template:optional="true"><template:read var="book.extendId" source="@name"/></input>
 <TD align="center"><template:read var="book.limitDate" source="parse-date(.,'dd.mm.yyyy')"/></TD>
-<TD><template:read var="V" source="."/><t:s test="$V; = ''">V:=0</t:s></TD>
+<TD><template:read var="V" source="."/><t:s test="$V = ''">V:=0</t:s></TD>
 <TD></TD>
 <TD><template:read var="book.id" source="translate(.,' ','')"/></TD>
 <TD></TD>
 <TD><template:read var="status" source="deep-text()"/></TD>
-<template:if test="$book.extendId;!=''">
-<template:read var="book.status:curious" source="concat($V;, '-mal verlängert, ', $status;)"/>
+<template:if test="$book.extendId!=''">
+<template:read var="book.status:curious" source="concat($V, '-mal verlängert, ', $status)"/>
 </template:if>
-<template:if test="$book.extendId;=''">
-<template:read var="book.status:problematic" source="concat($status, ', ', $V;, '-mal verlängert')"/>
+<template:if test="$book.extendId=''">
+<template:read var="book.status:problematic" source="concat($status, ', ', $V, '-mal verlängert')"/>
 </template:if>
 <template:read var="templateError" source="false()"/>
 </tr>
@@ -40,7 +40,7 @@
 </table>
 </template:if>
 
-<template:if test="$templateError;">Template Fehler! Vielleicht hat die Bücherei ihr System geändert.</template:if>
+<template:if test="$templateError">Template Fehler! Vielleicht hat die Bücherei ihr System geändert.</template:if>
 </html>
 
 <html>

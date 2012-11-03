@@ -1,4 +1,4 @@
-<template:meta encoding="utf8"/>
+<?xml version="1.0" encoding="UTF-8"?>
 <html>
 <t:switch-prioritized>
 <body>
@@ -42,10 +42,10 @@
             <label template:optional="true"/>
             <input template:optional="true"><template:read var="book.extendid" source="@name"/></input>
           </td>
-          <template:if test="$book.extendid;=''">
-            <template:read var="book.status:problematic" source="$temporaryStatusDetails;"/>
+          <template:if test="$book.extendid=''">
+            <template:read var="book.status:problematic" source="$temporaryStatusDetails"/>
           </template:if>
-          <template:if test="$noExtendingPossible;">
+          <template:if test="$noExtendingPossible">
             <template:read var="book.status:problematic" source="'Prinzipiell keine Verlängerung möglich'"/>
           </template:if>
        </tr>
@@ -72,7 +72,7 @@ Systemmeldung
 </form>
 </t:switch-prioritized>
 
-<template:if test="$bookTableBroken;">
+<template:if test="$bookTableBroken">
   <BOOKTABLEBROKEN>
   Probably site layout changed!
   </BOOKTABLEBROKEN>

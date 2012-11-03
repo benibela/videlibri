@@ -34,7 +34,7 @@
      <form template:optional="true">
        <template:read var="book.home-url" source="concat(@action,'?')"/>
        <template:loop>
-          <input><template:read var="book.home-url" source="concat($book.home-url;,@name,'=',@value,'&')"/></input>
+          <input><template:read var="book.home-url" source="concat($book.home-url,@name,'=',@value,'&')"/></input>
        </template:loop>
      </form>
    </td>

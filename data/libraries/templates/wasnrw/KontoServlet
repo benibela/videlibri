@@ -1,4 +1,4 @@
-<template:meta encoding="iso-8859-1"/>
+<?xml version="1.0" encoding="ISO-8859-1"?>
 <html>
 <body>
 <template:switch-prioritized>
@@ -14,7 +14,7 @@
 
        <table summary="Liste der nicht verlängerbaren Medien" template:optional="true">
          <caption>Nicht verlängerbare Ausleihen:<template:read source="text()" var="tempcount" regex="\d+$"/></caption>
-         <template:if test="$tempcount;!='0'">                
+         <template:if test="$tempcount!='0'">                
            <tr>
             <th>Exemplar</th>
             <th>Ausleihe</th>
@@ -43,7 +43,7 @@
     
         <table summary="Liste der verlängerbaren Medien" template:optional="true">
          <caption>Verlängerbare Ausleihen:<template:read source="text()" var="tempcount" regex="\d+$"/></caption>
-         <template:if test="$tempcount;!='0'">
+         <template:if test="$tempcount!='0'">
            <tr>
             <th>Exemplar</th>
             <th>Ausleihe</th>

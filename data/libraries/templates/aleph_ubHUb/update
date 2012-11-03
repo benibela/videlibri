@@ -10,7 +10,7 @@
 
 
 
-<template:if test="$noBooks;!='true'">
+<template:if test="$noBooks!='true'">
   <table border=0 cellspacing=2> 
    <tr> 
     <th>Autor</th> 

@@ -12,7 +12,7 @@
         
         <strong class="c2">neues Leihfristende:</strong>
         <template:read var="book.limitdate" source="parse-date(text(),'dd.mm.yyyy')"/>
-        <template:if test="$newBookTitle;!=$book.title;">
+        <template:if test="$newBookTitle!=$book.title">
           <broken/>
         </template:if>
       </td>

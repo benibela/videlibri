@@ -7,7 +7,7 @@
      <div id="middle"> 
         <div id="tab"> <!--There is another div in-between, but its id changes between current1, active1 and label1, so don't check it-->
            Ausleihen<template:read source="." var="bookCount" regex="[0-9]+"/>
-           <template:if test="$bookCount; = ''">INVALID CANCEL CURRENT TAG</template:if>
+           <template:if test="$bookCount = ''">INVALID CANCEL CURRENT TAG</template:if>
         </div>
         
   <div id="tab-content">
@@ -22,7 +22,7 @@
 
     <template:read var="delete-current-books()"/>
 
-<!--    <template:if test="$allBooksAway;=''">-->
+<!--    <template:if test="$allBooksAway=''">-->
     <table class="data">
       <tr>
         <th scope="col"></th>
@@ -51,14 +51,14 @@
             <template:read source="false()" var="spanmissing"/>
             <template:read source="true()" var="previousspan"/>
           </span>
-<!--	  <template:if test="$previousspan;">
+<!--	  <template:if test="$previousspan">
 	    <span template:optional="true">
-              <template:read source="concat("$book.status:problematic; ", text())" var="book.status:problematic"/>
+              <template:read source="concat("$book.status:problematic ", text())" var="book.status:problematic"/>
               <template:read source="false()" var="spanmissing"/>
             </span>
            </template:if>-->
          </td>
-         <template:if test="$spanmissing;"><broken/></template:if>
+         <template:if test="$spanmissing"><broken/></template:if>
          <td>
            {book.issuedate:=parse-date(filter(text(), '^\d{2}\.\d{2}\.\d{4}'), 'dd.mm.yyyy'),
             book.limitdate:=parse-date(filter(text(),'- *(\d{2}\.\d{2}\.\d{4})', 1), 'dd.mm.yyyy')

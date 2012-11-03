@@ -15,7 +15,7 @@
     <template>
     <body>
     <a t:optional="true">deutsch<t:if test="/html/@lang != 'de'">
-      <t:read var="raise()" source="concat('VideLibri funktioniert nur, wenn die Sprache des BTH-RWTH-Webkatalogs auf deutsch gesetzt ist.', $line-ending;, 'Die Einstellung kann auf der normalen Katalogseite unter Konto / Sucheinstellungen / Sprache geändert werden.', $line-ending;, $line-ending;, $line-ending;, 'VideLibri only works, if the language of the library web catalog is set to German. ', $line-ending;, ' You can change the language setting on the normal web page on the  Account / Search preferences / Language page.')"/>
+      <t:read var="raise()" source="concat('VideLibri funktioniert nur, wenn die Sprache des BTH-RWTH-Webkatalogs auf deutsch gesetzt ist.', $line-ending, 'Die Einstellung kann auf der normalen Katalogseite unter Konto / Sucheinstellungen / Sprache geändert werden.', $line-ending, $line-ending, $line-ending, 'VideLibri only works, if the language of the library web catalog is set to German. ', $line-ending, ' You can change the language setting on the normal web page on the  Account / Search preferences / Language page.')"/>
     </t:if></a>
     <form id="LoginBean" t:optional="true">
       <div class="error"><t:read var="raise-login()" source="."/></div>

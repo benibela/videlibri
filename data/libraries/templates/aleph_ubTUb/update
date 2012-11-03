@@ -8,7 +8,7 @@
   <template:read var="delete-current-books()"/>
 </p>
 
-<template:if test="$noBooks;!='true'">
+<template:if test="$noBooks!='true'">
   <div> 
    <tr> 
     <th>Autor</th> 
