@@ -559,7 +559,8 @@ procedure TBookListReader.parserVariableRead(variable: string; value: IXQValue);
 var
  i: Integer;
  book: TXQValueObject;
- temp, temp2: IXQValue;
+ temp2: IXQValue;
+ temp: TXQValue;
  s: string;
 begin
   if logging then
@@ -616,8 +617,7 @@ begin
     for i:=0 to book.values.count-1 do begin
       s := book.values.getName(i);
       if (s = 'select(id)') or (s = 'select(current)') or (s = 'select(new)') then continue;
-      value := book.values.get(i);
-      setBookProperty(currentBook,s,value);
+      setBookProperty(currentBook,s,book.values.get(i));
     end;
     currentBook.firstExistsDate:=trunc(now);
     currentBook.lastExistsDate:=trunc(now);
@@ -627,7 +627,7 @@ begin
         .add(currentBook.Id,currentBook.Title,currentBook.Author,currentBook.Year)
            .assignNoReplace(currentBook);
     end;
-    book.free;
+    temp2:=nil;
   end;
 end;
 
