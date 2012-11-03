@@ -244,7 +244,7 @@ type
   end;
 
 implementation
-uses applicationconfig,bbdebugtools,bbutils,FileUtil,LCLIntf,pseudoxpath;
+uses applicationconfig,bbdebugtools,bbutils,FileUtil,LCLIntf,xquery;
 function currencyStrToCurrency(s:string):Currency;
 begin
   s:=trim(s);
@@ -917,7 +917,7 @@ var bookListStr:string;
     i:longint;
     extendAction: TTemplateAction;
     book:TBook;
-    extendBookList: TPXPValueSequence;
+    extendBookList: TXQValueSequence;
 begin
   if booksToExtend.Count=0 then exit;
   if logging then log('Enter TTemplateAccountAccess.extendList');
@@ -925,11 +925,11 @@ begin
   extendAction:=reader.findAction('extend-list');
   if extendAction<>nil then begin
     if logging then log('use extendList Template');
-    extendBookList := TPXPValueSequence.create(booksToExtend.Count);
+    extendBookList := TXQValueSequence.create(booksToExtend.Count);
     for i:=0 to booksToExtend.Count-1 do
       extendBookList.addChild(reader.bookToPXP(booksToExtend[i]));
     if logging then log('bookList (count: '+inttostr(extendBookList.seq.count)+') is: '+extendBookList.debugAsStringWithTypeAnnotation());
-    reader.parser.variableChangeLog.addVariable('extend-books', extendBookList);
+    reader.parser.variableChangeLog.add('extend-books', extendBookList);
     reader.callAction(extendAction);
   end else if reader.findAction('extend-single')<>nil then begin
     if logging then log('use extendSingle Template');

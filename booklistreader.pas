@@ -5,7 +5,7 @@ unit booklistreader;
 interface
 
 uses
-  Classes, SysUtils,bbutils,extendedhtmlparser,simplehtmlparser,simplehtmltreeparser,simplexmlparser, pseudoxpath,dRegExpr,internetaccess, multipagetemplate;
+  Classes, SysUtils,bbutils,extendedhtmlparser,simplehtmlparser,simplehtmltreeparser,simplexmlparser, xquery, dRegExpr,internetaccess, multipagetemplate;
   
 type
   TBookList = class;
@@ -101,9 +101,8 @@ type
   TBookListReader = class(TMultipageTemplateReader)
   private
     currentBook,defaultBook: TBook;
-    templatereader: TMultipageTemplateReader;
-    procedure setBookProperty(book:TBook;variable: string; value:TPXPValue);
-    procedure parserVariableRead(variable: string; value: TPXPValue);
+    procedure setBookProperty(book:TBook;variable: string; value:IXQValue);
+    procedure parserVariableRead(variable: string; value: IXQValue);
     procedure logall(sender: TMultipageTemplateReader; logged: string; debugLevel: integer=0);
   protected
     procedure processPage(page, cururl, contenttype: string); override;
@@ -113,7 +112,7 @@ type
     constructor create(atemplate:TMultiPageTemplate);
     destructor destroy();override;
 
-    function bookToPXP(book:TBook): TPXPValueObject;
+    function bookToPXP(book:TBook): TXQValueObject;
     procedure selectBook(book:TBook);
   end;
   
@@ -501,7 +500,7 @@ end;
 
 procedure TBookListReader.processPage(page, cururl, contenttype: string);
 var
-  varlog: TPXPVariableChangeLog;
+  varlog: TXQVariableChangeLog;
   j: Integer;
 begin
   if bookAccessSection<>nil then EnterCriticalsection(bookAccessSection^);
@@ -511,16 +510,16 @@ begin
     //simulate old parser interface
     varlog := parser.VariableChangeLogCondensed;
     for j:=0 to varlog.count-1 do
-      parserVariableRead(varlog.getVariableName(j), varlog.getVariableValue(j));
+      parserVariableRead(varlog.getName(j), varlog.get(j));
   finally
     if bookAccessSection<>nil then LeaveCriticalsection(bookAccessSection^);
   end;
 end;
 
-procedure TBookListReader.setBookProperty(book: TBook; variable: string; value:TPXPValue);
+procedure TBookListReader.setBookProperty(book: TBook; variable: string; value:IXQValue);
   function strconv():string;
   begin
-    result:=StringReplace(value.asString,#13,'',[rfReplaceAll]);
+    result:=StringReplace(value.toString,#13,'',[rfReplaceAll]);
     result:=StringReplace(result,#10,'',[rfReplaceAll]);
     result:=trim(result);
   end;
@@ -537,9 +536,9 @@ begin
     else if variable='status:curious' then book.Status:=bsCuriousInStr
     else if pos(':', variable) > 0 then book.statusStr:=book.statusStr + ' Achtung: Ungültige Statusvariable "' + variable + '" in Template'
     else book.status := bsNormal;
-  end else if striEqual(variable, 'issuedate') then book.issueDate:=trunc(value.asDateTime)
+  end else if striEqual(variable, 'issuedate') then book.issueDate:=trunc(value.toDateTime)
   else if striEqual(variable, 'limitdate') then
-    book.limitDate:=trunc(value.asDateTime)
+    book.limitDate:=trunc(value.toDateTime)
   else if strlibeginswith(@variable[1],length(variable),'issuedate') then
     book.IssueDate:=dateParse(strconv(),strcopyfrom(variable,pos(':',variable)+1))
   else if strlibeginswith(@variable[1],length(variable),'limitdate') then
@@ -548,7 +547,7 @@ begin
     setProperty(variable,strconv(),book.Additional);
 end;
 
-procedure TBookListReader.parserVariableRead(variable: string; value: TPXPValue);
+procedure TBookListReader.parserVariableRead(variable: string; value: IXQValue);
   function strconv(s:string):string;
   begin
     result:=StringReplace(s,#13,'',[rfReplaceAll]);
@@ -559,8 +558,8 @@ procedure TBookListReader.parserVariableRead(variable: string; value: TPXPValue)
 
 var
  i: Integer;
- book: TPXPValueObject;
- temp: TPXPValue;
+ book: TXQValueObject;
+ temp, temp2: IXQValue;
  s: string;
 begin
   if logging then
@@ -593,17 +592,18 @@ begin
     //reset
     raise EBookListReader.create('not implemented yet');
   end else if (variable='raise()') or (variable = 'raise-login()') then begin
-    raise EBookListReader.create(LineEnding + LineEnding + value.asString);
+    raise EBookListReader.create(LineEnding + LineEnding + value.toString);
   end else if variable = 'book' then begin
-    if not (value is TPXPValueObject) then raise EBookListReader.Create('Buch ohne Eigenschaften');
-    book := TPXPValueObject(value.clone);
+    if not (value is TXQValueObject) then raise EBookListReader.Create('Buch ohne Eigenschaften');
+    temp2 := value.clone;
+    book := temp2 as TXQValueObject;
     if book.hasProperty('select(new)', @temp) then begin
       currentBook := defaultBook;
       currentBook.clear;
     end else if book.hasProperty('select(current)', @temp) then begin
       if currentBook = nil then raise EBookListReader.Create('Das Template will mein Buch verändert, aber ich habe kein Buch.');
     end else if book.hasProperty('select(id)', @temp) then begin
-      s := temp.asString;
+      s := temp.toString;
       currentBook := nil;
       for i:=0 to books.Count-1 do
         if books[i].id = s then
@@ -614,9 +614,9 @@ begin
       end;
     end else raise EBookListReader.Create('Das Template will ein Buch verändern, sagt aber nicht welches. (d.h. weder select(new), select(current) noch select(id) wurde gesetzt)');
     for i:=0 to book.values.count-1 do begin
-      s := book.values.getVariableName(i);
+      s := book.values.getName(i);
       if (s = 'select(id)') or (s = 'select(current)') or (s = 'select(new)') then continue;
-      value := book.values.getVariableValue(i);
+      value := book.values.get(i);
       setBookProperty(currentBook,s,value);
     end;
     currentBook.firstExistsDate:=trunc(now);
@@ -644,11 +644,11 @@ begin
   inherited destroy();
 end;
 
-function TBookListReader.bookToPXP(book: TBook): TPXPValueObject;
+function TBookListReader.bookToPXP(book: TBook): TXQValueObject;
 var
   i: Integer;
 begin
-  result := TPXPValueObject.create();
+  result := TXQValueObject.create();
   result.setMutable('id', book.id);
   result.setMutable('author', book.author);
   result.setMutable('title', book.title);
@@ -660,7 +660,7 @@ end;
 
 procedure TBookListReader.selectBook(book: TBook);
 begin
-  parser.variableChangeLog.addVariable('book', bookToPXP(book));
+  parser.variableChangeLog.add('book', bookToPXP(book));
   currentBook:=book;
 end;
 
