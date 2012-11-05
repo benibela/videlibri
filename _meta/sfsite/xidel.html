@@ -32,6 +32,7 @@ It supports:
 <li>Extract expressions:<ul>
   <li>CSS 3 Selectors: to extract simple elements</li>
   <li>XPath 2: to extract values and calculate things with them</li>
+  <li>XQuery 1: to  create new documents from the extracted values</li> 
   <li>Templates: to extract several expressions in an easy way using a annotated version of the page for pattern-matching</li>
 </ul></li>
 <li>Following:<ul>
@@ -70,7 +71,7 @@ Generally follow all links on a page and print the titles of the linked pages:<u
    (and this will also check, if the part with the ood is there, and fail otherwise)
 </li>
 <li>Calculate something with XPath: <br><br>
-  <code>xidel "&lt;>" -e "(1 + 2 + 3) * 4 + 5 + 6 + 7"</code>
+  <code>xidel -e "(1 + 2 + 3) * 4 + 5 + 6 + 7"</code>
 </li>
 <li>Print all newest stackoverflow questions with title and url:<br><br>
 
@@ -78,9 +79,11 @@ Generally follow all links on a page and print the titles of the linked pages:<u
 <li>Print all reddit comments of an user, with html and url:<br><br>
    <code>xidel "http://www.reddit.com/user/username/" --extract "&lt;t:loop>&lt;div class='usertext-body'>&lt;div>{outer-xml(.)}&lt;/div>&lt;/div>&lt;ul class='flat-list buttons'>&lt;a>&lt;t:s>link:=@href&lt;/t:s>permalink&lt;/a>&lt;/ul>&lt;/div>&lt;/div>&lt;/t:loop>" --follow "&lt;a rel='nofollow next'>{.}&lt;/a>?"</code>
 </li>   
+<li>Use XQuery, to create a html table of odd and even numbers: <br><br>
+   <code>xidel -e 'xquery version "1.0"; &lt;table>{for $i in 1 to 1000 return &lt;tr>&lt;td>{$i}&lt;/td>&lt;td>{if ($i mod 2 = 0) then "even" else "odd"}&lt;/td>&lt;/tr>}&lt;/table>' --printed-node-format xml </code></li>
 </ol>
 <br>
-You may also want to read the <a href="xidel_readme.txt">readme file of Xidel</a>, the documentation of my <a href="http://benibela.de/documentation/internettools/extendedhtmlparser.THtmlTemplateParser.html">template language</a> and the documentation of <a href="http://www.benibela.de/documentation/internettools/pseudoxpath.TPseudoXPathParser.html">my XPath 2 library</a>.
+You may also want to read the <a href="xidel_readme.txt">readme file of Xidel</a>, the documentation of my <a href="http://benibela.de/documentation/internettools/extendedhtmlparser.THtmlTemplateParser.html">template language</a> and <a href="http://www.benibela.de/documentation/internettools/xquery.TXQueryEngine.html"> XPath 2/XQuery library</a>.
 
 
 
@@ -88,7 +91,7 @@ You may also want to read the <a href="xidel_readme.txt">readme file of Xidel</a
 
 On the <a href="https://sourceforge.net/projects/videlibri/files/Xidel" rel="nofollow">sourceforge download page</a> you can download the Windows and Linux version of Xidel.<br><br>
 
-You can also test it online, by sending a request to the cgi service like <a href="/cgi-bin/xidelcgi?data=&lt;html>&lt;title>foobar&lt;/title>&lt;/html>&extract=//title" rel="nofollow"><code>http://videlibri.sourceforge.net/cgi-bin/xidelcgi?data=&lt;html>&lt;title>foobar&lt;/title>&lt;/html>&extract=//title</code></a> or on the <a href="/cgi-bin/htmlParserExampleCGI" rel="nofollow">VideLibri example page</a>.<br><br>
+You can also test it <a href="/cgi-bin/xidelcgi">online on a webpage</a> or directly by sending a request to the cgi service like <a href="/cgi-bin/xidelcgi?data=&lt;html>&lt;title>foobar&lt;/title>&lt;/html>&extract=//title&raw=true" rel="nofollow"><code>http://videlibri.sourceforge.net/cgi-bin/xidelcgi?data=&lt;html>&lt;title>foobar&lt;/title>&lt;/html>&extract=//title&raw=true</code></a>.<br><br>
 
 The source is stored in a <a href="http://videlibri.hg.sourceforge.net/hgweb/videlibri/videlibri/">mercurial repository</a>.<br><br>
 Since the  program is written in FreePascal/Lazarus, it should be very easy to compile it. Just open the xidel.lpi (in the programs/internet/xidel directory) in Lazarus,  select your platform/OS in the project settings and perhaps add all other sub directories to your unit search path.
