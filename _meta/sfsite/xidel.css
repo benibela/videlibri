@@ -10,3 +10,4 @@ h2 div a { color: #330000;  }
 .examples {style: list-type: none}
 .examples li {margin-bottom: 1em}
 .examples li ul {margin-top: 1em}
+.downloadTable td { padding-right: 2em; padding-left: 2em}
