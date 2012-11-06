@@ -80,7 +80,9 @@ Generally follow all links on a page and print the titles of the linked pages:<u
    <code>xidel "http://www.reddit.com/user/username/" --extract "&lt;t:loop>&lt;div class='usertext-body'>&lt;div>{outer-xml(.)}&lt;/div>&lt;/div>&lt;ul class='flat-list buttons'>&lt;a>&lt;t:s>link:=@href&lt;/t:s>permalink&lt;/a>&lt;/ul>&lt;/div>&lt;/div>&lt;/t:loop>" --follow "&lt;a rel='nofollow next'>{.}&lt;/a>?"</code>
 </li>   
 <li>Use XQuery, to create a html table of odd and even numbers: <br><br>
-   <code>xidel -e 'xquery version "1.0"; &lt;table>{for $i in 1 to 1000 return &lt;tr>&lt;td>{$i}&lt;/td>&lt;td>{if ($i mod 2 = 0) then "even" else "odd"}&lt;/td>&lt;/tr>}&lt;/table>' --printed-node-format xml </code></li>
+   Windows: <code>xidel -e "xquery version '1.0'; &lt;table>{for $i in 1 to 1000 return &lt;tr>&lt;td>{$i}&lt;/td>&lt;td>{if ($i mod 2 = 0) then 'even' else 'odd'}&lt;/td>&lt;/tr>}&lt;/table>" --printed-node-format xml </code><br>
+   Linux: <code>xidel -e 'xquery version "1.0"; &lt;table>{for $i in 1 to 1000 return &lt;tr>&lt;td>{$i}&lt;/td>&lt;td>{if ($i mod 2 = 0) then "even" else "odd"}&lt;/td>&lt;/tr>}&lt;/table>' --printed-node-format xml</code><br>
+   <span style="font-size:75%">(xidel itself supports ' and "-quotes on all platforms, but ' does not escape &lt;&gt; in Windows cmd, and " does not escape $ in the Linux shells)</span>  </li>
 </ol>
 <br>
 You may also want to read the <a href="xidel_readme.txt">readme file of Xidel</a>, the documentation of my <a href="http://benibela.de/documentation/internettools/extendedhtmlparser.THtmlTemplateParser.html">template language</a> and <a href="http://www.benibela.de/documentation/internettools/xquery.TXQueryEngine.html"> XPath 2/XQuery library</a>.
