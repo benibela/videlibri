@@ -24,7 +24,7 @@
                   
        <template:loop>
        <tbody>
-       {book := object(("select(new)",""))}
+       {book := object()}
        <tr>
           <template:read source="false()" var="bookTableBroken"/>
           <template:read var="book.extendid" source="''"/>

@@ -598,11 +598,9 @@ begin
     if not (value is TXQValueObject) then raise EBookListReader.Create('Buch ohne Eigenschaften');
     temp2 := value.clone;
     book := temp2 as TXQValueObject;
-    if book.hasProperty('select(new)', @temp) then begin
-      currentBook := defaultBook;
-      currentBook.clear;
-    end else if book.hasProperty('select(current)', @temp) then begin
-      if currentBook = nil then raise EBookListReader.Create('Das Template will mein Buch verändert, aber ich habe kein Buch.');
+    if book.hasProperty('_existing', @temp) then begin
+      if not temp.toBoolean then raise EBookListReader.create('Das Buch hat einen _existing Marker, aber er sagt, das Buch existiere nicht : '+temp.debugAsStringWithTypeAnnotation());
+      if currentBook = nil then raise EBookListReader.Create('Das Template will ein existierendes Buch verändert, aber mir ist kein Buch bekannt.');
     end else if book.hasProperty('select(id)', @temp) then begin
       s := temp.toString;
       currentBook := nil;
@@ -613,16 +611,20 @@ begin
         if logging then for i:=0 to books.Count-1 do log('Book-Id: "'+books[i].id + '" <> "'+s+'"');
         raise EBookListReader.create('Template wants to select book '+s+', but it doesn''t exist');
       end;
-    end else raise EBookListReader.Create('Das Template will ein Buch verändern, sagt aber nicht welches. (d.h. weder select(new), select(current) noch select(id) wurde gesetzt)');
+    end else if book.hasProperty('select(new)', @temp) or book.hasProperty('select(current)', @temp) then
+      raise EBookListReader.Create('Das Template hat die Bucheigenschaften select(new) oder select(current) gesetzt, aber in der neuesten Version, werden sie nicht länger benötigt)')
+    else begin
+      currentBook := defaultBook;
+      currentBook.clear;
+    end;
     for i:=0 to book.values.count-1 do begin
       s := book.values.getName(i);
-      if (s = 'select(id)') or (s = 'select(current)') or (s = 'select(new)') then continue;
+      if (s = '_existing') or (s = 'select(id)') or (s = 'select(current)') or (s = 'select(new)')  then continue;
       setBookProperty(currentBook,s,book.values.get(i));
     end;
     currentBook.firstExistsDate:=trunc(now);
     currentBook.lastExistsDate:=trunc(now);
     if currentBook = defaultBook then  begin
-      if not book.hasProperty('select(new)', @temp) then raise EBookListReader.Create('Interner Logikfehler: Neues Buch gelesen, aber nicht als neu (i.e. select(new) ) markiert.');
       books
         .add(currentBook.Id,currentBook.Title,currentBook.Author,currentBook.Year)
            .assignNoReplace(currentBook);
@@ -656,6 +658,7 @@ begin
   result.setMutable('isbn', book.isbn);
   for i:=0 to high(book.additional) do
     result.setMutable(book.additional[i].name, book.additional[i].value);
+  result.setMutable('_existing', xqvalueTrue);
 end;
 
 procedure TBookListReader.selectBook(book: TBook);

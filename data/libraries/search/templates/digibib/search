@@ -6,7 +6,7 @@
       <dl class="list"><t:loop>
         <dt>
           <t:s>
-            book := object(("select(new)", "")),
+            book := object(),
             book.id:=@id,
             book.detail-url:=concat("http://www.digibib.net/",a/@href),
             book.title:=normalize-space(a/deep-text('')),

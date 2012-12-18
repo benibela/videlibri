@@ -23,7 +23,7 @@
            <template:loop>
             <tr>
              <td>
-              {book := object(("select(new)", ""))}
+              {book := object()}
 
               <template:read source="text()" var="book.id" regex="^\d+"/>
               <template:read source="text()" var="book.category" regex="^\d* - ([^ *]*( [a-z1-9])?) ." submatch="1"/>
@@ -52,7 +52,7 @@
            <template:loop>
             <tr>
               <td>
-                {book := object(("select(new)", ""))}
+                {book := object()}
                 <template:read var="book.status"/>
                 
                 <template:read source="text()" var="book.id" regex="^\d+"/>

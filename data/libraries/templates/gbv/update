@@ -45,7 +45,7 @@
   
   <template:loop>
   <tr>
-    {book := object(("select(new)", ""))}
+    {book := object()}
     <td></td>
     <td >
       <template:read var="book.extendId" source="''"/>

@@ -62,7 +62,7 @@
       <TABLE class="rTable_table">
       <t:loop>
       <TR>
-      <TD>{book := object(("select(new)","")),
+      <TD>{book := object(),
            book.extendid := encode-for-uri(input/@name)
            }</TD>
       <TD>{book.limitdate := parse-date(., "dd.mm.yyyy")}</TD>

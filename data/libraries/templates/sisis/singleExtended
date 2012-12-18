@@ -6,7 +6,7 @@
         <strong class="c2">Titel:</strong>
         <strong><template:read var="newBookTitle" source="text()"/></strong>
         
-        <t:s>status_found:=false(), book := object(("select(current)", ""))</t:s>
+        <t:s>status_found:=false()</t:s>
         <strong class="c2" template:optional=true>Status:<t:s>status_found:=true()</t:s></strong>
         <t:if test="$status_found"><strong><t:s>book.status:problematic:=text()</t:s></strong></t:if>
         

@@ -32,7 +32,7 @@
 
       <tr>
         <th scope="row"></th>
-        {book := object(("select(new)",""))}
+        {book := object()}
         <td>
           <strong><template:read source="." var="book.title"/></strong><br/>
           <template:read source="true()" var="spanmissing"/>

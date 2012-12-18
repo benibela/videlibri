@@ -19,7 +19,7 @@
 
  <template:loop>
    <tr> 
-    {book:=object(("select(new)",""))}
+    {book:=object()}
     <td><A><template:read var="book.detailLink" source="@href"/></A></td> 
     <td><input/></td>
     <td><template:read var="book.author" source="."/></td> 

@@ -1,5 +1,4 @@
 <html>
-{book:=object(("select(current)", ""))}
 <template:switch-prioritized>
 <table>
 <tr>
