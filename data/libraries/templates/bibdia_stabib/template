@@ -5,11 +5,7 @@
 </action>
 
 <action id="update-all">
-  <page url="https://ausleihe.staatsbibliothek-berlin.de/opac/medk.S" templateFile="update">
-    <post name="LANG" value="de"/>
-    <post name="BENUTZER" value="$username;"/>
-    <post name="PASSWORD" value="$password;"/>
-  </page>
+  <page url="https://ausleihe.staatsbibliothek-berlin.de/opac/user.S?LANG=de&FUNC=medk&DUM1=&BENUTZER=$username;&PASSWORD=$password;" templateFile="update"/>
 <!--  <error templateFile="loginError"/>-->
 </action>
 

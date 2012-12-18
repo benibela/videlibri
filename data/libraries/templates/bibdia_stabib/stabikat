@@ -1,5 +1,7 @@
-<table>
+<html>
 {book:=object(("select(current)", ""))}
+<template:switch-prioritized>
+<table>
 <tr>
   <td><strong>Titel:</strong></td>
   <td><template:read var="book.title" source="filter(deep-text(''), '[^/]+')"/></td>
@@ -9,3 +11,6 @@
   <td><template:read var="book.author" source="filter(deep-text(''), '[^*]+')"/></td>
 </tr>
 </table>
+<strong>Leider keine Treffer.<t:s>book.title := "??? (Keine Ergebnisse bei einer Suche nach $book.id; im StaBiKat)", book.author := "???"</t:s></strong>
+</template:switch-prioritized>
+</html>
