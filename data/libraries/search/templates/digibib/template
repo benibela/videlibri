@@ -40,6 +40,9 @@ http://www.digibib.net/opensearch?S.SEARCH_SBDUE=on&S.SEARCH_SBAA=on&VIEW=HBZ:Oe
     <post name="QUERY_OhzYR" value="AND"/>
     <post name="QUERY_OezKY" value="AND"/>
     
+    <post name="COUNT" value="50"/>
+    <post name="GWTIMEOUT" value="90"/>
+    
     <post value="$selectedLibraries;"/>
     
   </page>  
