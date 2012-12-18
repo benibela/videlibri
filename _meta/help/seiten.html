@@ -27,15 +27,15 @@ Fehlen dagegen auf der Internetseite Elemente, die sich im Template befinden, so
 Es gibt folgende wichtige Annotations/Befehle:<br>
 <table>
 
-<tr><td><code>&lt;template:read var=".." source=".."/></code></td><td> Wertet den Pseudo-XPath-Ausdruck im Attribut <code>source</code> aus und speichert das Ergebnis in der Variablen <code>$var</code>.<br>Beispiel: <code>&lt;template:read var="foobar" source="1+2"/></code> speichert 3 in variable <code>$foobar</code>.</td></tr>
+<tr><td><code>&lt;template:read var=".." source=".."/></code></td><td> Wertet den XPath-Ausdruck im Attribut <code>source</code> aus und speichert das Ergebnis in der Variablen <code>$var</code>.<br>Beispiel: <code>&lt;template:read var="foobar" source="1+2"/></code> speichert 3 in variable <code>$foobar</code>.</td></tr>
 
-<tr><td><code>&lt;template:s>var:= ..source.. &lt;/template:s></code></td><td>Kurzform: Wertet den Pseudo-XPath-Ausdruck <code>..source..</code> aus und speichert das Ergebnis in der Variablen <code>$var</code>.<br>Beispiel: <code>&lt;template:s>foobar := 1+2&lt;/template:s></code>, entspricht dem vorherigen Beispiel</td></tr>
+<tr><td><code>&lt;template:s>var:= ..source.. &lt;/template:s></code></td><td>Kurzform: Wertet den XPath-Ausdruck <code>..source..</code> aus und speichert das Ergebnis in der Variablen <code>$var</code>.<br>Beispiel: <code>&lt;template:s>foobar := 1+2&lt;/template:s></code>, entspricht dem vorherigen Beispiel</td></tr>
 
-<tr><td><code>{var := ..source..}</code></td><td>Kurzform der Kurzform: Wertet den Pseudo-XPath-Ausdruck <code>..source..</code> aus und speichert das Ergebnis in der Variablen <code>$var</code>.<br>Beispiel: <code>{foobar := 1 + 2}</code>, entspricht dem vorherigen Beispiel</td></tr>
+<tr><td><code>{var := ..source..}</code></td><td>Kurzform der Kurzform: Wertet den XPath-Ausdruck <code>..source..</code> aus und speichert das Ergebnis in der Variablen <code>$var</code>.<br>Beispiel: <code>{foobar := 1 + 2}</code>, entspricht dem vorherigen Beispiel</td></tr>
 
 <tr><td><code>&lt;template:loop> ... &lt;template:/loop></code></td><td>Wiederholt den Inhalt zwischen den geschlossenen Tags, solange wie möglich. (einschließlich niemals)<br>Beispiel: <code>&lt;template:loop>&lt;tr>{x := .}&lt;/tr>&lt;/template:loop></code>, speichert alle Zeilen einer Tabelle, nacheinander in Variable $x. (überschreibt den alten Wert von x, aber VideLibri kann von außerhalb des Templates auf alle Werte von x zugreifen)</td></tr>
 
-<tr><td><code>&lt;template:if test="condition"> ... &lt;template:/if></code></td><td>Ignoriert alle Elemente innerhalb des if-Tags, falls der Pseudo-XPath-Ausdruck in <code>test</code> nicht zu true ausgewertet wrid<br>Beispiel: <code>&lt;template:fi test="contains(text(), 'verlängerbar')">{verlängerbar := 1} &lt;/template:if></code>, speichert 1 in der Variable $verlängerbar, falls der Text des aktuellen Elements "verlängerbar" enthält.</td></tr>
+<tr><td><code>&lt;template:if test="condition"> ... &lt;template:/if></code></td><td>Ignoriert alle Elemente innerhalb des if-Tags, falls der XPath-Ausdruck in <code>test</code> nicht zu true ausgewertet wrid<br>Beispiel: <code>&lt;template:fi test="contains(text(), 'verlängerbar')">{verlängerbar := 1} &lt;/template:if></code>, speichert 1 in der Variable $verlängerbar, falls der Text des aktuellen Elements "verlängerbar" enthält.</td></tr>
 
 
 <tr><td><code>template:optional="true"</code></td><td>Attribut, das ein Element als optional markiert. <br>Z.B.: <code>&lt;div template:optional = "true">&lt;h1>{t := .}&lt;/h1>&lt;/div></code>, speichert die erste Überschrift des ersten Div in Variable $t, falls ein Div, welches eine Überschrift enthält, auf der Seite existiert, und wird ignoriert, wenn es nicht existiert.  </td></tr>
@@ -54,8 +54,8 @@ Der Namespaceprefix <code>template:</code> kann grundsätzlich mit <code>t:</cod
 <br>
 <br>
 Weitere Befehle und Details sind auf meiner <a href="http://www.benibela.de/documentation/internettools/extendedhtmlparser.THtmlTemplateParser.html">Seite</a> beschrieben.
-<h2>(Pseudo-)XPath</h2>
-Ein Pseudo-XPath-Ausdruck ähnelt einem XPath 2-Ausdruck, ist aber auf html-Abfragen optimiert und umfangreicher. Vergleiche eine <a href="http://de.wikipedia.org/wiki/XPath">Standard XPath-Referenz</a>. <br>
+<h2>Extended-XPath</h2>
+Ein Extended-XPath-Ausdruck ähnelt einem XPath 2-Ausdruck, ist aber auf html-Abfragen optimiert und umfangreicher. Vergleiche eine <a href="http://de.wikipedia.org/wiki/XPath">Standard XPath-Referenz</a>. <br>
 Einige wichtige oder nicht-Standard Funktionen sind:
 <table>
 <tr><td>'abc...' oder  "abc.."</td><td>Der String abc...</td></tr>
@@ -77,7 +77,7 @@ Einige wichtige oder nicht-Standard Funktionen sind:
 <tr><td>form(form, [parameter])</td><td>Wandelt ein html <code>&lt;form></code>-Element in ein Objekt um, welches dem entsprechen GET/Post-Request entspricht. Falls parameter gegeben sind, werden sie zum Request hinzugefügt.</code><br>Beispiel: <code>form(//form[1], "foo=bar&hallo=789")</code> mit einer HTML-Seite, die <code>&lt;form action="myurl" method="POST">&lt;input name="abc" value="def"/>&lt;input name="foo" value="123"/>&lt;/form></code> enthält, ergibt folgendes Objekt: <code>object(("url","myurl",  "method","POST",  "post","abc=def&foo=bar&hallo=789"))</code>.</td><tr>
 </table>
 <br>
-Weitere Befehle und Details sind auf meiner <a href="http://www.benibela.de/documentation/internettools/pseudoxpath.TPseudoXPathParser.html">Seite</a> beschrieben.
+Weitere Befehle und Details sind auf meiner <a href="http://www.benibela.de/documentation/internettools/xquery.TXQueryEngine.html">Seite</a> beschrieben.
 
 <h2>Variablen</h2>
 Man kann beliebige eigene Variablen definieren, solange der Variablenname kein $ oder ; enthält, aber es gibt einige Variablen mit fester Bedeutung in VideLibri, deren Wert vom Programm angezeigt wird:
@@ -102,22 +102,18 @@ Man kann beliebige eigene Variablen definieren, solange der Variablenname kein $
 <tr><td><b>delete-current-books()</b></td><td>keine eigentliche Variable, wird ihr ein Wert zu gewiesen, wird die Liste der aktuell ausgeliehen Bücher gelöscht <br>(Muss aktualisiert/aufgerufen werden, bevor neue Büchern gelesen werden! Ansonsten entstehen Duplikate)<br>Auf Grund der Klammern im Namen, kann diese Variable nur mit <code>template:read</code> und nicht mit den <code>template:s, {}</code> Kurzformen verwendet werden</td></tr>
 <tr><td>raise()</td><td>Erzeugt Fehlermeldung mit dem angegebenen Wert</td></tr>
 <tr><td>raise-login()</td><td>Erzeugt eine "ungültiger Benutzername/Passwortfehlermeldung"</td></tr>
-<tr><td>book-select()</td><td>Allgemeine Buchauswahl (noch nicht implementiert)</td></tr>
-<tr><td>book-select(id)</td><td>Wählt das Buch mit der als Wert angegebenen ID. (Besser nicht verwenden)</td></tr>
 </table>
 
 Es ist nicht nötig, jeder Variable etwas zuzuweisen, aber es können nur die gesetzten Werte später angezeigt werden. <br>
 Variablen, die auf () enden, sind keine Variablen im üblichen Sinne, sondern Funktionen, die bei einer Zuweisung aufgerufen werden.<br>
 <br>
-Bevor die Eigenschaften von <code>book</code> verändert werden können, muss ein Buch mit der <code>object()</code>-Funktion erstellt werden.<br> Dabei muss eine <code>select(new|current|id)</code>-Eigenschaft gesetzt werden, durch die VideLibri erkennen kann, ob ein neues Buch erstellt oder ein altes verändert werden soll:
-
-<ul>
-<li><code>{  book := object(("select(new)",""))  }</code><br>Erzeugt ein neues Buch</li>
-<li><code>{  book := object(("select(current)",""))  }</code><br>Wählt das aktuelle Buch für Veränderungen. (in den <code>update-single</code> oder <code>extend-single</code>-Aktionen)</li>
-<li><code>{  book := object(("select(id)","12345"))  }</code><br>Wählt das Buch mit ID 12345 für  Veränderungen.</li>
-</ul>
-
-Nachdem das Objekt erstellt wurde, können die Eigenschaften mit <code>{book.author := "foobar", book.title := "wie"}</code> geändert werden.<br><br>
+Wenn ein neues Buch gelesen wird, muss ein entsprechend neues Buchobjekt mittels <code>$book := object()</code> erstellt werden.<br>
+In einem Seitentemplate, das aufgerufen, um ein bereits gelesenes Buch zu verlängern oder mehr Details über es zu ermitteln, ist bereits ein Buchobjekt <code>$book</code> vordefiniert, so dass kein Buchobjekt erstellt werden muss.<br>
+Es ist auch möglich, ein bestimmtes Buch an Hand seiner ID auszuwählen, indem der pseudo-Eigenschaft select(id) mittels <code>book := object(("select(id)","12345"))</code> die gewünschte ID bei der Buchobjekterstellung zugewiesen wird.<br><br>
+ 
+Nachdem das Objekt erstellt ist, können die Eigenschaften mit <code>{$book.author := "foobar", $book.title := "wie"}</code> geändert werden. Oder mittels <code>$book.author</code> ausgelesen werden. <br>
+(beim Setzen einer Eigenschaft durch :=, ist das $-Prefix nicht nötig)
+<br><br>
 
 
 (um genau zu sein, werden alle Variablenänderungen in einem Changelog gespeichert. Nachdem das Einzelseiten-Template angewandt wurde und keine Fehler (wie Abweichungen zwischen der Template- und Seitenstruktur) festgestellt wurden, wird das Changelog abgearbeitet und alle Änderungen auf die tatsächen Bücherlisten angewandt.)
@@ -130,15 +126,15 @@ Das Beispiel zeigt, wie sich die Tabelle einer idealen Bücherei auswerten läss
     &lt;template:read var="delete-current-books()"/>
     &lt;th>Id&lt;/th>&lt;th>Titel&lt;/th>&lt;th>Autor&lt;/th>&lt;th>Abgabedatum&lt;/th>
   &lt;/tr>
-  &lt;htmlparser:loop>
+  &lt;template:loop>
   &lt;tr>
-    { book := object(("select(new)","")) }
+    { book := object() }
     &lt;td>{book.id := text()}&lt;/td>
     &lt;td>{book.title := text()}&lt;/td>
     &lt;td>{book.author := text()}&lt;/td>
     &lt;td>{book.limitdate := parse-date(text(),'dd.mm.yyyy')}&lt;/td>
   &lt;/tr>
-  &lt;/htmlparser:loop>  
+  &lt;/template:loop>  
 &lt;/table>
 </pre>
 
