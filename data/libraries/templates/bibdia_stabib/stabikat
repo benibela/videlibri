@@ -1,5 +1,6 @@
 <html>
 <template:switch-prioritized>
+
 <table>
 <tr>
   <td><strong>Titel:</strong></td>
@@ -8,8 +9,22 @@
 <tr>
   <td><strong template:condition="filter(text(), 'Verfasser|Personen') != ''"/></td>
   <td><template:read var="book.author" source="filter(deep-text(''), '[^*]+')"/></td>
-</tr>
+</tr> <!-- this row probably also ensures that not the td containing the table is choosen -->
+{book.stabikatFound := true()}
 </table>
-<strong>Leider keine Treffer.<t:s>book.title := "??? (Keine Ergebnisse bei einer Suche nach $book.id; im StaBiKat)", book.author := "???"</t:s></strong>
+
+<table>
+<tr>
+  <td class="preslabel"><strong>Zeitschrift:</strong></td>
+  <td>{book.title := concat(if (contains(deep-text(""), ":")) then substring-before(deep-text(""), ":") else deep-text(""), 
+                            if (contains($book.id, "-")) then concat(" [",substring-after($book.id, "-"), "]") else ""),
+       book.author := "Zeitschrift"}</td>
+</tr>
+{book.stabikatFound := true()}
+</table>
+
+
+<strong>Leider keine Treffer.<t:s>book.title := "??? (Keine Ergebnisse bei einer Suche nach $book.id; im StaBiKat)", book.author := "???",book.stabikatFound := false()</t:s></strong>
+
 </template:switch-prioritized>
 </html>
