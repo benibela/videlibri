@@ -1,25 +1,24 @@
 object showErrorForm: TshowErrorForm
   Left = 335
-  Height = 72
+  Height = 69
   Top = 187
-  Width = 400
+  Width = 403
   HorzScrollBar.Page = 399
   HorzScrollBar.Range = 392
   VertScrollBar.Page = 71
   VertScrollBar.Range = 65
   ActiveControl = Button1
   BorderIcons = [biSystemMenu]
-  BorderStyle = bsDialog
   Caption = 'showErrorForm'
-  ClientHeight = 72
-  ClientWidth = 400
+  ClientHeight = 69
+  ClientWidth = 403
   OnCreate = FormCreate
   OnShow = FormShow
   Position = poScreenCenter
-  LCLVersion = '0.9.31'
+  LCLVersion = '1.1'
   object Label1: TLabel
     Left = 11
-    Height = 18
+    Height = 15
     Top = 10
     Width = 380
     Caption = 'jjhhhhhhhhhhh'
@@ -51,10 +50,10 @@ object showErrorForm: TshowErrorForm
     TabOrder = 1
   end
   object Details: TMemo
-    Left = 11
-    Height = 105
-    Top = 72
-    Width = 468
+    Left = 7
+    Height = 61
+    Top = 71
+    Width = 388
     Anchors = [akTop, akLeft, akRight, akBottom]
     Lines.Strings = (
       'M'
