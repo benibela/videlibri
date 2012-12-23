@@ -5,7 +5,7 @@
       <template> <a>{redirection:=@href}</a> </template>
     </page>
     
-    <page url="$redirection;"/>
+    <page test="not(starts-with($redirection, '#'))" url="$redirection;"/>
     
     <page url="https://identity.fu-berlin.de/idp-fub-ub/Authn/UserPassword">
       <post name="j_username" value="$username;"/>
