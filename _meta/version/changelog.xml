@@ -1,10 +1,15 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <?xml-stylesheet type="text/xsl" href="../changelog.xsl"?>
 <changelog program="VideLibri">
-  <build version="1250" date="2012-10-03">
+  <build version="1300" date="2012-12-23">
     <download url="http://videlibri.sourceforge.net/updates/videlibri-setup.exe" platform="WINDOWS" execute="&quot;$DOWNLOAD&quot;  /SP- /noicons &quot;/dir=$OLDPATH;&quot; "/>
     <download url="http://videlibri.sourceforge.net/updates/videlibri-linux64.deb" platform="LINUX64" execute=""/>
-    
+    <fix level="major">Digibib: Entities in Templatedateien werden nicht mehr doppelt aufgelöst (=> Die Suche in der Digibib funktioniert wieder)</fix>
+    <fix level="major">Staatsbibliothek Berlin: Anpassung an geänderten Webserver</fix>
+    <change level="minor">Staatsbibliothek Berlin: Zeigt Titel von ausgeliehenen Zeitschriften an</change>
+    <fix level="major">Universitätsbibliothek der FU-Berlin: Cookies die während 302-Weiterleitungen gesetzt werden, werden auch unter Windows gespeichert. (=> UB FU funktioniert wieder)</fix>
+  </build>
+  <build version="1250" date="2012-10-03">
     <fix level="minor">Beschreibung der aktuellen Templates in der Hilfe anstatt die fünf-Jahre alten</fix>
     <change level="minor">Digibibsuche nach weiteren Buch-Details kann das alte Buch immer überschreiben, nicht nur wenn Autor/Titel ähnlich sind</change>
     <change level="minor">Generalisierte Templates, die in ihrer Syntax keinerlei Beziehung mehr zu Büchern haben</change>
@@ -33,7 +38,7 @@
     <change level="minor">Gesuchte Bücher können gespeichert werden</change>
     <change level="minor">Merkt sich die letzten BibTeX-Exporteinstellungen</change>
     <fix level="minor">Zeigt gbv Vormerkungen nicht als fällige Bücher an</fix>
-    <fix level="minor">Mit neuer Lazarusversion kompiliert, so dass es nicht nach mehreren Suchen nicht abstürzt.</fix>
+    <fix level="minor">Mit neuer Lazarusversion kompiliert, so dass es nach mehreren Suchen nicht abstürzt.</fix>
   </build>
   <build version="1115" date="2012-01-30">
     <change level="minor">Unterstützt die neue BTH Aachen Sisis version</change>

@@ -1,7 +1,7 @@
 [Setup]
 ;Change this in every version
-AppVerName=VideLibri 1.25
-AppVersion=1.25
+AppVerName=VideLibri 1.3
+AppVersion=1.3
 
 ;Don't change
 AppName=VideLibri
