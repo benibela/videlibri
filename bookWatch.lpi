@@ -145,7 +145,7 @@
         <PackageName Value="LCL"/>
       </Item3>
     </RequiredPackages>
-    <Units Count="29">
+    <Units Count="28">
       <Unit0>
         <Filename Value="bookWatch.lpr"/>
         <IsPartOfProject Value="True"/>
@@ -250,71 +250,66 @@
         <UnitName Value="bbdebugtools"/>
       </Unit16>
       <Unit17>
-        <Filename Value="..\..\..\components\pascal\data\bbutils.pas"/>
-        <IsPartOfProject Value="True"/>
-        <UnitName Value="bbutils"/>
-      </Unit17>
-      <Unit18>
         <Filename Value="bibtexexport.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="BibTexExportFrm"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="bibtexexport"/>
-      </Unit18>
-      <Unit19>
+      </Unit17>
+      <Unit18>
         <Filename Value="..\..\..\components\pascal\html\simplexmlparser.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="simplexmlparser"/>
-      </Unit19>
-      <Unit20>
+      </Unit18>
+      <Unit19>
         <Filename Value="booklistreader.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="booklistreader"/>
-      </Unit20>
-      <Unit21>
+      </Unit19>
+      <Unit20>
         <Filename Value="librarysearcher.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="librarySearcher"/>
-      </Unit21>
-      <Unit22>
+      </Unit20>
+      <Unit21>
         <Filename Value="bookListView.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="bookListView"/>
-      </Unit22>
-      <Unit23>
+      </Unit21>
+      <Unit22>
         <Filename Value="bookSearchForm.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="bookSearchFrm"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="bookSearchForm"/>
-      </Unit23>
-      <Unit24>
+      </Unit22>
+      <Unit23>
         <Filename Value="..\..\..\components\pascal\data\extendedhtmlparser.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="extendedhtmlparser"/>
-      </Unit24>
-      <Unit25>
+      </Unit23>
+      <Unit24>
         <Filename Value="librarysearcheraccess.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="librarySearcherAccess"/>
-      </Unit25>
-      <Unit26>
+      </Unit24>
+      <Unit25>
         <Filename Value="..\..\..\components\pascal\data\automenumanager.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="autoMenuManager"/>
-      </Unit26>
-      <Unit27>
+      </Unit25>
+      <Unit26>
         <Filename Value="messagesystem.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="messagesystem"/>
-      </Unit27>
-      <Unit28>
+      </Unit26>
+      <Unit27>
         <Filename Value="..\..\..\components\pascal\internet\multipagetemplate.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="multipagetemplate"/>
-      </Unit28>
+      </Unit27>
     </Units>
   </ProjectOptions>
   <CompilerOptions>
