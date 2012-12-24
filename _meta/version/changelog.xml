@@ -1,9 +1,13 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <?xml-stylesheet type="text/xsl" href="../changelog.xsl"?>
 <changelog program="VideLibri">
-  <build version="1300" date="2012-12-23">
+  <build version="1301" date="2012-12-23">
     <download url="http://videlibri.sourceforge.net/updates/videlibri-setup.exe" platform="WINDOWS" execute="&quot;$DOWNLOAD&quot;  /SP- /noicons &quot;/dir=$OLDPATH;&quot; "/>
     <download url="http://videlibri.sourceforge.net/updates/videlibri-linux64.deb" platform="LINUX64" execute=""/>
+    <fix level="major">Universitätsbibliothek der FU-Berlin: Behebt Timeout bei Weiterleitungen zu einem anderen Server (=> UB FU funktioniert jetzt wirklich)</fix
+    <fix level="minor">Aktualisiert einige veraltete Templates zur neuen Status/Zeitsyntax (Münchener Stadtbibliothek, RWTH Hochschulbibliothek, Campus Katalog Hamburg)</fix>
+  </build>
+  <build version="1300" date="2012-12-23">
     <fix level="major">Digibib: Entities in Templatedateien werden nicht mehr doppelt aufgelöst (=> Die Suche in der Digibib funktioniert wieder)</fix>
     <fix level="major">Staatsbibliothek Berlin: Anpassung an geänderten Webserver</fix>
     <change level="minor">Staatsbibliothek Berlin: Zeigt Titel von ausgeliehenen Zeitschriften an</change>
