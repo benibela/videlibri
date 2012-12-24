@@ -128,11 +128,11 @@ Das Beispiel zeigt, wie sich die Tabelle einer idealen Bücherei auswerten läss
   &lt;/tr>
   &lt;template:loop>
   &lt;tr>
-    { book := object() }
-    &lt;td>{book.id := text()}&lt;/td>
-    &lt;td>{book.title := text()}&lt;/td>
-    &lt;td>{book.author := text()}&lt;/td>
-    &lt;td>{book.limitdate := parse-date(text(),'dd.mm.yyyy')}&lt;/td>
+    { $book := object() }
+    &lt;td>{$book.id}&lt;/td>
+    &lt;td>{$book.title}&lt;/td>
+    &lt;td>{$book.author}&lt;/td>
+    &lt;td>{$book.limitdate := parse-date(text(),'dd.mm.yyyy')}&lt;/td>
   &lt;/tr>
   &lt;/template:loop>  
 &lt;/table>
