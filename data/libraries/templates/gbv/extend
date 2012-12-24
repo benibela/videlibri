@@ -12,8 +12,10 @@
         <tr><td>
           <span class="label-small">Signatur:<!--shelf mark--></span>
           {book:=object(("select(id)", filter(text(),'[^;]*')))} 
-          <span class="label-small"><!--status:-->Status:</span><template:read var="book.status" source="text()"/>
-          <span class="label-small">Leihfristende:<!--expiry date:--></span><template:read source="text()" var="book.limitdate:dd-mm-yyyy"/>
+          <span class="label-small"><!--status:-->Status:</span>
+          <template:read var="book.status" source="text()"/>
+          <span class="label-small">Leihfristende:<!--expiry date:--></span>
+          <template:read source="parse-date(text(), 'dd-mm-yyyy')" var="book.limitdate"/>
         </td></tr>
       </table>
     </td>
@@ -33,8 +35,10 @@
         <tr><td>
           <span class="label-small">Signatur:<!--shelf mark--></span>
           {book:=object(("select(id)", filter(text(),'[^;]*')))}
-          <span class="label-small"><!--???:-->Verweigerungsgrund:</span>{book.status:problematic:=text()}
-          <span class="label-small">Leihfristende:<!--expiry date:--></span>{book.limitdate:dd-mm-yyyy:=text()}
+          <span class="label-small"><!--???:-->Verweigerungsgrund:</span>
+          <template:read var="book.status:problematic" source="text()"/>
+          <span class="label-small">Leihfristende:<!--expiry date:--></span>
+          <template:read source="parse-date(text(), 'dd-mm-yyyy')" var="book.limitdate"/>
         </td></tr>
       </table>
     </td>

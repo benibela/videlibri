@@ -8,7 +8,9 @@
         
         <t:s>status_found:=false()</t:s>
         <strong class="c2" template:optional=true>Status:<t:s>status_found:=true()</t:s></strong>
-        <t:if test="$status_found"><strong><t:s>book.status:problematic:=text()</t:s></strong></t:if>
+        <t:if test="$status_found"><strong>
+          <template:read source="text()" var="book.status:problematic"/>
+        </strong></t:if>
         
         <strong class="c2">neues Leihfristende:</strong>
         <template:read var="book.limitdate" source="parse-date(text(),'dd.mm.yyyy')"/>

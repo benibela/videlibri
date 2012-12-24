@@ -71,8 +71,8 @@
           {preid := text()}<BR/>
           {book.id := concat($preid,":",text())}</TD>
       <TD>{message := if (contains(., "- Stand")) then filter(deep-text("   "), "(.*)- Stand", 1) else deep-text("   ")}
-          <t:if test="contains(., 'nicht verl')">{book.status:problematic:=$message}</t:if>
-          <t:else>{book.status:curious:=$message}</t:else>
+          <t:if test="contains(., 'nicht verl')"><t:read source="$message" var="book.status:problematic"/></t:if>
+          <t:else><t:read source="$message" var="book.status:curious"/></t:else>
       </TD>
       </TR>
       </t:loop>
