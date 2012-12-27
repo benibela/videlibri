@@ -1,10 +1,10 @@
-d c<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="de">	
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 <meta http-equiv="content-language" content="de"/>
 <link rel="stylesheet" type="text/css" href="all.css"/>
-<title>VideLibri - Ein Bücherausleihverwaltungsprogramm</title></head>
+<title>VideLibri - Ein Bücher-Ausleihverwaltungsprogramm</title></head>
 
 <?php
 //from http://stackoverflow.com/questions/3770513/detect-browser-language-in-php
@@ -89,7 +89,7 @@ if (count($matches) == 0 || count(reset($matches)) == 0 || (reset(reset($matches
   print ("<style>#navigation a.enlink { text-decoration: blink; font-weight: bold; color: #AA0000} </style>");
 ?>
 <body>
-<h1><a name="home">VideLibri - Ein Bücherausleihverwaltungsprogramm</a></h1>
+<h1><a name="home">VideLibri - Ein Bücher-Ausleihverwaltungsprogramm</a></h1>
 
 <ul id="navigation">
   <li style="border-left: 1px solid blue;"><a href="#home">Start</a></li>
@@ -111,23 +111,26 @@ VideLibri ist eine Erweiterung der normalen Büchereikataloge/WebOPACs, die eine
 VideLibri hat folgende Vorteile gegenüber den normalen Web-Katalogen der Büchereien:
 <ul class="f1list">
 <li><h3>Automatische Verlängerung</h3>
-VideLibri verlängert alle ausgeliehenen Bücher automatisch, so dass man es nie vergessen kann. 
+VideLibri verlängert alle ausgeliehenen Bücher automatisch, so dass man dies nie vergessen kann. 
 </li>
 <li><h3>Zuverlässige Benachrichtigung über Ausleihfristen</h3>
 Bei den Benachrichtigungen der Büchereien passiert es ständig, dass die Benachrichtigungsemails nicht ankommen, oder ihr Katalog nicht erreichbar ist. 
 VideLibri ist zuverlässiger, da es auf dem lokalen Rechner läuft und eine Art fail-safe Prinzip realisiert: es wird immer gewarnt, wenn nicht gezeigt werden kann, dass keine Bücher abzugeben sind. 
 </li>
 <li><h3>Kein permanter Internetzugang nötig</h3>
-Um den normalen Katalog aufzurufen, muss man immer eine Internetverbindung haben. VideLibri dagegen speichert  alle Ausleihdaten auf der Festplatte, so dass es auch funktioniert, wenn man zeitweilig keinen  Internetzugang hat, beispiels wenn  man  unterwegs ist.
+Um den normalen Katalog aufzurufen, muss man immer eine Internetverbindung haben. VideLibri dagegen speichert  alle Ausleihdaten auf der Festplatte, so dass es auch funktioniert, wenn man zeitweilig nicht online ist, weil man beispielsweise im Zug sitzt.
 </li>
 <li><h3>Gesamthistorie aller Ausleihen</h3>
-Es speichert auch alle jemals ausgeliehenen Bücher, wodurch  man jederzeit nachsehen kann, wann man, welche Bücher ausgeliehen hatte. Das ist nützlich, wenn man bei einer Arbeit vergessen hat, das Literaturverzeichnis zu schreiben, oder einfach nur wissen will, wieviel man ausgeliehen hatte.  (man kann die Funktion aber auch abschalten)
+Es speichert auch alle jemals ausgeliehenen Bücher, wodurch  man jederzeit nachsehen kann, wann man, welche Bücher ausgeliehen hatte. Das ist nützlich, wenn man bei einer Arbeit vergessen hat, das Literaturverzeichnis zu schreiben, oder einfach nur wissen will, wieviel man ausgeliehen hatte.  (Paranoide können die Funktion aber auch abschalten)
 </li>
 <li><h3>Übersicht über mehrere Ausleihkonten</h3>
-VideLibri zeigt die Ausleihdaten von mehreren Konten gleichzeitig an, so dass man, wenn man in mehreren Büchereien angemeldet ist, nicht jeden Katalog einzeln aufrufen muss. Auch wenn in einer mehrköpfigen Familie jeder eine eigene Ausleihkarte hat, stellt es sicher, dass niemand/kein Kind vergessen hat, etwas abzugeben.
+VideLibri zeigt die Ausleihdaten von mehreren Konten gleichzeitig an, so dass man, wenn man in mehreren Büchereien angemeldet ist, nicht jeden Katalog einzeln aufrufen muss. Auch wenn in einer mehrköpfigen Familie jeder eine eigene Ausleihkarte hat, wie von der Benutzerordnung vorgeschrieben, stellt es sicher, dass niemand/kein Kind vergessen hat, etwas abzugeben.
+</li>
+<li><h3>Mehr Details</h3>
+Viele Bibliotheken zeigen in ihrem Online-Katalog keine Details an. So fehlt bei den Stadtbüchereien Düsseldorfs normalerweise der Autor; während die Berliner Staatsbibliothek weder Autor noch Titel anzeigt und stattdessen lediglich die Inventarnummer nennt. VideLibri dagegen kann diese Informationen anzeigen, im Falle der Stabi wird automatisch im Katalog gesucht, für andere Büchereien kann man manuell die Digibibsuche starten und bekommt dann sogar ein Titelbild angezeigt. 
 </li>
 <li><h3>Besseres Interface</h3>
-VideLibri ist nach der Installation sehr viel einfacher zu benutzen, als die meisten Webkataloge/WebOPACs der Büchereien. Man muss nur einmal klicken, um die Ausleihliste zu öffnen, und braucht sich nicht jedesmal anzumelden. Zudem werden alle Bücher farbkodiert in einer sortierbaren Liste angezeigt und die jeweiligen Abgabezeiten nach Wochen getrennt.
+VideLibri ist nach der Installation sehr viel einfacher zu benutzen, als die meisten Webkataloge/WebOPACs der Büchereien. Man muss nur einmal klicken, um die Ausleihliste zu öffnen, und braucht nicht jedesmal sein Passwort einzugeben. Zudem werden alle Bücher farbkodiert in einer sortierbaren Liste angezeigt und die jeweiligen Abgabezeiten nach Wochen getrennt.
 </li>
 <li><h3>E-Mailbenachrichtigung</h3> 
 VideLibri kann einen E-Mailbericht über alle Medien versenden, in dem fällige und nicht fällige Bücher aufgelistet sind.
@@ -157,27 +160,28 @@ Einige andere Features sind:
 <li>Es kann nach beliebigen (auch nicht ausgeliehenen, mittels der digibib) Medien gesucht werden</li>
 <li>VideLibri wird (je nach Einstellung) bei jedem Systemstart minimiert in der Symbolleiste gestartet</li>
 <li>Es gibt eine Statistik über alle ausgeliehenen Medien</li>
-<li>BibTeX-Export für die Erstellung von Literaturverzeichnisse</li>
+<li>BibTeX-Export für die Erstellung von Literaturverzeichnissen</li>
+<li>Vollständige XQuery-Unterstützung für neue Templates</li>
 <li>Automatisches Update</li>
 </ul>
 
-Es gibt allerdings auch ein paar Nachteile im Vergleich zu den Webkatalogen:
+Es gibt allerdings auch ein paar Nachteile im Vergleich zu den online Web-Katalogen:
 <ul>
-<li>Es muss erst heruntergeladen und eingerichtet werden, so dass man nicht schnell auf einem fremden Computer seine Ausleihdaten nachsehen kann. </li>
-<li>Es unterstützt nicht alle Büchereien und muss die Internetseite der Bücherei kennen. Wenn die Bücherei ihre Internetseite plötzlich ändert, lassen sich also die Daten nicht mehr aktualisieren. (da alles gecacht ist, funktioniert VideLibri aber trotzdem noch einen Monat weiter) </li>
+<li>Es muss erst heruntergeladen und eingerichtet werden, so dass man nicht schnell auf einem fremden Computer seine Ausleihdaten nachsehen kann. (man kann es aber auf einem USB-Stick installieren) </li>
+<li>Es unterstützt nicht alle Büchereien und muss die Internetseite der Bücherei kennen. Wenn die Bücherei ihre Internetseite plötzlich ändert, lassen sich also die Daten nicht mehr aktualisieren. (da alles gecacht ist, funktioniert VideLibri aber trotzdem noch einen Monat weiter. Allerdings ist der Bibliotheksserver auch üblicherweise abgestürzt, so dass der Online-Katalog selbst nicht aufgerufen werden kann, und der VideLibri-Cache die einzige verfügbare Ausleihenübersicht ist) </li>
 </ul>
 
-Praktisch sollte man das Programm genau dann benutzen, wenn man jedes Jahr mehrere hunderte Bücher ausleiht. (Ich habe zum Beispiel mit meiner Mutter nach der Ausleihhistorie in den letzten vier Jahren genau 2396 Bücher ausgeliehen). 
+Praktisch sollte man das Programm genau dann benutzen, wenn man jedes Jahr mehrere hunderte Bücher ausleiht. 
 </div>
 
 <h2><div><a name="screenshots">Screenshots</a></div></h2>
 <div class="content">
 <center>
-<img src="http://sourceforge.net/dbimage.php?id=280463" title="Allgemeine Übersicht"/>
+<img src="http://sourceforge.net/dbimage.php?id=280463" title="Allgemeine Übersicht über ausgeliehene Bücher (von den Büchereien in Düsseldorf und Aachen)" alt="Allgemeine Übersicht über ausgeliehene Bücher (von den Büchereien in Düsseldorf und Aachen)"/>
 
-<img src="http://sourceforge.net/dbimage.php?id=280465" title="Ausleihstatistik"/>
+<img src="http://sourceforge.net/dbimage.php?id=280465" title="Ausleihstatistik (über alle von meiner Familie in Düsseldorf und Aachen ausgeliehenen Bücher)" alt="Ausleihstatistik (über alle von meiner Familie in Düsseldorf und Aachen ausgeliehenen Bücher)"/>
 
-<img src="http://sourceforge.net/dbimage.php?id=306557" title="Suche in der Digibib"/>
+<img src="http://sourceforge.net/dbimage.php?id=306557" title="Suche in der Digibib. (öffnet sich automatisch nach Doppelklick auf ein ausgeliehenes Buch, und ist z.B.: bei den Stadtbüchereien von Düsseldorf nötig, um mehr als Autor oder Titel angezeigt zu bekommen)" alt="Suche in der Digibib. (öffnet sich automatisch nach Doppelklick auf ein ausgeliehenes Buch, und ist z.B.: bei den Stadtbüchereien von Düsseldorf nötig, um mehr als Autor oder Titel angezeigt zu bekommen)"/>
 </center>
 </div>
 <h2><div><a name="libraries">Unterstützte Büchereien</a></div></h2>
@@ -189,21 +193,21 @@ Momentan  unterstützt VideLibri diese Büchereien:<br><br>
 <tr><th>Name der Bücherei</th><th>Ausleihenanzeige funktioniert<br><i>(zuletzt getestet)</i></th><th>Verlängerung funktioniert<br><i>(zuletzt getestet)</i></th><th>Suche funktioniert<br><i>(zuletzt getestet)</i></th><th>Büchereisystem</th></tr>
 </thead>
 <tr class="city"><td colspan=6><b>Düsseldorf</b></td></tr>
-<tr><td><a href="http://www.duesseldorf.de/stadtbuechereien/index.shtml">Die Stadtbüchereien Düsseldorf</a></td>  <td>ja <i>(täglich)</i></td><td>ja <i>(täglich)</i></td><td>ja <i>(2012-07-08)</i></td><td></td></tr>
-<tr><td><a href="http://www.bibl.fh-duesseldorf.de/">Die Fachhochschulbibliothek Düsseldorf</a></td><td>ja <i>(2011-05-16)</i></td><td>ja <i>(2011-05-16)</i></td><td>ja <i>(2011-05-16)</i></td><td>libero</td></tr>
-<tr><td><a href="http://www.ub.uni-duesseldorf.de/">Die Universitäts- und Landesbibliothek Düsseldorf</a></td><td>ja <i>(2011-05-16)</i></td><td>ja <i>(2011-05-16)</i></td><td>ja <i>(2011-05-16)</i></td><td>aleph</td></tr>
+<tr><td><a href="http://www.duesseldorf.de/stadtbuechereien/index.shtml" rel="nofollow">Die Stadtbüchereien Düsseldorf</a></td>  <td>ja <i>(täglich)</i></td><td>ja <i>(täglich)</i></td><td>ja <i>(2012-12-27)</i></td><td></td></tr>
+<tr><td><a href="http://www.bibl.fh-duesseldorf.de/" rel="nofollow">Die Fachhochschulbibliothek Düsseldorf</a></td><td>ja <i>(2011-05-16)</i></td><td>ja <i>(2011-05-16)</i></td><td>ja <i>(2011-05-16)</i></td><td>libero</td></tr>
+<tr><td><a href="http://www.ub.uni-duesseldorf.de/" rel="nofollow">Die Universitäts- und Landesbibliothek Düsseldorf</a></td><td>ja <i>(2011-05-16)</i></td><td>ja <i>(2011-05-16)</i></td><td>ja <i>(2011-05-16)</i></td><td>aleph</td></tr>
 <tr class="city"><td colspan=6><b>Aachen</b></td></tr>
-<tr><td><a href="http://www.aachen.de/DE/stadt_buerger/bildung/oeffentliche_bibliothek/stadtteile/index.html">Die Stadtbibliothek Aachen</a></td><td>ja <i>(2011-05-16)</i></td><td>nicht erlaubt</td><td>ja <i>(2011-05-16)</i></td><td>libero</td></tr>
-<tr><td><a href="http://www.bth.rwth-aachen.de/">Die Hochschulbibliothek der RWTH Aachen</a></td><td>ja <i>(2012-07-08)</td><td>ja <i>(2011-05-16)</i></td><td>ja <i>(2011-05-16)</i></td><td>sisis</td></tr>
+<tr><td><a href="http://www.aachen.de/DE/stadt_buerger/bildung/oeffentliche_bibliothek/stadtteile/index.html" rel="nofollow">Die Stadtbibliothek Aachen</a></td><td>ja <i>(2011-05-16)</i></td><td>nicht erlaubt</td><td>ja <i>(2011-05-16)</i></td><td>libero</td></tr>
+<tr><td><a href="http://www.bth.rwth-aachen.de/" rel="nofollow">Die Hochschulbibliothek der RWTH Aachen</a></td><td>ja <i>(2012-07-08)</td><td>ja <i>(2011-05-16)</i></td><td>ja <i>(2011-05-16)</i></td><td>sisis</td></tr>
 <tr  class="city"><td colspan=6><b>Berlin</b></td></tr>
-<tr><td><a href="http://www.ub.tu-berlin.de/">Universitätsbibliothek der TU Berlin</a></td><td>ja <i>(2012-07-12)</i></td><td>Ja <i>(2012-07-12)</i></td><td>nein</td><td>aleph</td></tr>
-<tr><td><a href="http://www.ub.hu-berlin.de/">Universitätsbibliothek der HU Berlin</a></td><td>ja <i>(2012-03-03)</i></td><td>?</td><td>nein</td><td>aleph</td></tr>
-<tr><td><a href="http://www.ub.fu-berlin.de/">Universitätsbibliothek der FU Berlin</a></td><td>ja <i>(2012-07-09)</i></td><td>?</td><td>nein</td><td>aleph</td></tr>
-<tr><td><a href="http://staatsbibliothek-berlin.de/">Staatsbibliothek zu Berlin </a></td><td>ja <i>(2012-12-18)</i></td><td>ja <i>(2011-05-16)</i></td><td><a title="Die Suche funktioniert prima, lässt sich aber aus der GUI nicht aufrufen">(jain)</a></td><td>bibdia</td></tr>
+<tr><td><a href="http://www.ub.tu-berlin.de/" rel="nofollow">Universitätsbibliothek der TU Berlin</a></td><td>ja <i>(2012-07-12)</i></td><td>Ja <i>(2012-07-12)</i></td> <td>nein</td><td>aleph</td></tr>
+<tr><td><a href="http://www.ub.hu-berlin.de/" rel="nofollow">Universitätsbibliothek der HU Berlin</a></td><td>ja <i>(2012-03-03)</i></td> <td>?</td><td>nein</td><td>aleph</td></tr>
+<tr><td><a href="http://www.ub.fu-berlin.de/" rel="nofollow">Universitätsbibliothek der FU Berlin</a></td><td>ja <i>(2012-12-23)</i></td> <td>?</td><td>nein</td><td>aleph</td></tr>
+<tr><td><a href="http://staatsbibliothek-berlin.de/" rel="nofollow">Staatsbibliothek zu Berlin </a></td><td>ja <i>(2012-12-23)</i></td> <td>ja <i>(2012-05-16)</i></td><td><a title="Die Suche funktioniert prima, lässt sich aber aus der GUI nicht aufrufen">(jain)</a></td><td>bibdia</td></tr>
 <tr  class="city"><td colspan=6><b>Hamburg</b></td></tr>
-<tr><td><a href="http://kataloge.uni-hamburg.de/">Campus Katalog Hamburg</a></td><td>ja <i>(2011-05-16)</i></td><td>ja <i>(2011-05-16)</i></td><td>nein</td><td>pica</td></tr>
+<tr><td><a href="http://kataloge.uni-hamburg.de/" rel="nofollow">Campus Katalog Hamburg</a></td><td>ja <i>(2011-05-16)</i></td><td>ja <i>(2011-05-16)</i></td><td>nein</td><td>pica</td></tr>
 <tr  class="city"><td colspan=6><b>München</b></td></tr>
-<tr><td><a href="https://ssl.muenchen.de/aDISWeb">Münchener Stadtbibliothek-Katalog</a></td><td>ja <i>(2012-10-03)</i></td><td>ja <i>(2012-10-01)</i></td><td>nein</td><td>adisweb</td></tr>
+<tr><td><a href="https://ssl.muenchen.de/aDISWeb" rel="nofollow">Münchener Stadtbibliothek-Katalog</a></td><td>ja <i>(2012-10-03)</i></td><td>ja <i>(2012-10-01)</i></td><td>nein</td><td>adisweb</td></tr>
 </table>
 
 <br><br>
