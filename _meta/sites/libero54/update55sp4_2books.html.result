@@ -1,3 +1,5 @@
+{}
+
 delete-current-books(): undefined: 
 bookTableBroken: boolean: false
 bookTableBroken: boolean: true
@@ -5,8 +7,8 @@ noExtendingPossible: string: true
 noExtendingPossible: boolean: false
 bookTableBroken: boolean: false
 temporaryStatusDetails: node: 017602601 - 1. Verlängerung   für Benutzer #9000491; Verlängerung des Mediums nicht erlaubt bis: 16 Sep 2010.
-book: object: {select(new): string: , extendid: string: , id: node: 017602601, title: node: ZOPE : [Grundlagen, Praxis, Referenz ; Entwicklung von dynamischen Webanwendungen ; aktuell zu Zope 2.6, 2.7 und 3.0 ; mit kompletter API-Referenz], author: node: Walerowski, Peter, limitdate:d mmm yyyy: node: 11 Okt 2010, status:curious: string: bisher 0 mal verlängert, status:problematic: node: 017602601 - 1. Verlängerung   für Benutzer #9000491; Verlängerung des Mediums nicht erlaubt bis: 16 Sep 2010.}
+book: object: {extendid: string: , id: node: 017602601, title: node: ZOPE : [Grundlagen, Praxis, Referenz ; Entwicklung von dynamischen Webanwendungen ; aktuell zu Zope 2.6, 2.7 und 3.0 ; mit kompletter API-Referenz], author: node: Walerowski, Peter, limitdate:d mmm yyyy: node: 11 Okt 2010, status:curious: string: bisher 0 mal verlängert, status:problematic: node: 017602601 - 1. Verlängerung   für Benutzer #9000491; Verlängerung des Mediums nicht erlaubt bis: 16 Sep 2010.}
 bookTableBroken: boolean: false
 temporaryStatusDetails: node: 019965801 - 1. Verlängerung   für Benutzer #9000491; Verlängerung des Mediums nicht erlaubt bis: 16 Sep 2010.
-book: object: {select(new): string: , extendid: string: , id: node: 019965801, title: node: ¬Die¬ Anarchie der Hacker : Richard Stallman und die Freie-Software-Bewegung, author: node: Imhorst, Christian, limitdate:d mmm yyyy: node: 11 Okt 2010, status:curious: string: bisher 0 mal verlängert, status:problematic: node: 019965801 - 1. Verlängerung   für Benutzer #9000491; Verlängerung des Mediums nicht erlaubt bis: 16 Sep 2010.}
+book: object: {extendid: string: , id: node: 019965801, title: node: ¬Die¬ Anarchie der Hacker : Richard Stallman und die Freie-Software-Bewegung, author: node: Imhorst, Christian, limitdate:d mmm yyyy: node: 11 Okt 2010, status:curious: string: bisher 0 mal verlängert, status:problematic: node: 019965801 - 1. Verlängerung   für Benutzer #9000491; Verlängerung des Mediums nicht erlaubt bis: 16 Sep 2010.}
 mid: node: 16642

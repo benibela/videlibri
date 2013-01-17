@@ -1,3 +1,5 @@
+{}
+
 currentfield: string: Titel:!
 currentfield: string: title
 currentfield: string: Autor(in):!
@@ -7,4 +9,4 @@ currentfield: string: Serie:!
 currentfield: string: ISBN:!
 currentfield: string: isbn
 currentfield: string: Sonstiges:!
-book: object: {select(current): string: , title: string: Testtheorie und Fragebogenkonstruktion : Elektronische Ressource / herausgegeben von Helfried Moosbrugger, Augustin Kelava, author: string: Moosbrugger, Helfried ; Kelava, Augustin, Ausgabe:!: string: 2., aktualisierte und überarbeitete Auflage. - Berlin, Heidelberg: Springer-Verlag Berlin Heidelberg, 2012, Serie:!: string: Springer-Lehrbuch, isbn: string: 978-3-642-20072-4, Sonstiges:!: string: NWBib-Titel}
+book: object: {title: string: Testtheorie und Fragebogenkonstruktion : Elektronische Ressource / herausgegeben von Helfried Moosbrugger, Augustin Kelava, author: string: Moosbrugger, Helfried ; Kelava, Augustin, Ausgabe:!: string: 2., aktualisierte und überarbeitete Auflage. - Berlin, Heidelberg: Springer-Verlag Berlin Heidelberg, 2012, Serie:!: string: Springer-Lehrbuch, isbn: string: 978-3-642-20072-4, Sonstiges:!: string: NWBib-Titel}

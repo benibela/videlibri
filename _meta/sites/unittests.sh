@@ -1,7 +1,7 @@
 #!/bin/bash
 
-
-TEMPLATEPARSER="../../../xidel/xidel --print-type-annotations --extract-kind=template --extract-file="
+TEMPLATEPARSER="../../../xidel/xidel"
+TEMPLATEPARSERARGS="--extract=\"book:=object()\" --print-type-annotations  --extract-kind=template"
 TEMPLATEPATH=../../data/libraries/templates
 INPATH=./
 OUTPATH=/tmp/
@@ -72,8 +72,8 @@ PAGES=(${PAGES[@]} digibib/search.html digibib/search2.html digibib/details.html
 error=0
 for ((i=0;i<${#TEMPLATES[@]};i++)); do
   echo -e "Testing: ${TEMPLATES[i]} \t\t\twith\t\t $INPATH/${PAGES[i]}"
-#  echo $TEMPLATEPARSER$TEMPLATEPATH/${TEMPLATES[i]} $INPATH/${PAGES[i]}
-  $TEMPLATEPARSER$TEMPLATEPATH/${TEMPLATES[i]} $INPATH/${PAGES[i]} > $OUTPATH/${PAGES[i]}.result
+  echo $TEMPLATEPARSER $TEMPLATEPARSERARGS $INPATH/${PAGES[i]} --extract-file=$TEMPLATEPATH/${TEMPLATES[i]} '<empty/>' -e '$book'
+  eval $TEMPLATEPARSER $TEMPLATEPARSERARGS $INPATH/${PAGES[i]} --extract-file=$TEMPLATEPATH/${TEMPLATES[i]}  > $OUTPATH/${PAGES[i]}.result
   if diff -q $INPATH/${PAGES[i]}.result $OUTPATH/${PAGES[i]}.result; then tempasasas=42; else echo ERROR; error=1;     git diff --color-words $INPATH/${PAGES[i]}.result $OUTPATH/${PAGES[i]}.result; fi
 done;
 

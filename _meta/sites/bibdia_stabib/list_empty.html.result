@@ -1,3 +1,5 @@
+{}
+
 templateError: boolean: false
 delete-current-books(): undefined: 
 bookCount: string: 0

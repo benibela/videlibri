@@ -1,1 +1,3 @@
-book: object: {select(current): string: , title: string: Alexander the Great : a new history , author: string: Heckel, Waldemar }
+{}
+
+book: object: {title: string: Alexander the Great : a new history , author: string: Heckel, Waldemar , stabikatFound: boolean: true}

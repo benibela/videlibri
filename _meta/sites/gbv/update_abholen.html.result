@@ -1,4 +1,6 @@
+{}
+
 delete-current-books(): undefined: 
-book: object: {select(new): string: , extendId: string: , extendId: node: 1049957, title: string: Some Systems: a abc, author: string: def introductio, id: node: 12/3456:X ABC, status:curious: node: ausgeliehen (0 Mahnung/en), limitdate:dd-mm-yyyy: node: 11-07-2011}
-book: object: {select(new): string: , extendId: string: , extendId: node: 123, title: string: Systeme: blabla , author: string: Sound So; Aber W, id: node: 18/123:C ABC, status:curious: node: ausgeliehen (0 Mahnung/en), limitdate:dd-mm-yyyy: node: 18-07-2011}
-book: object: {select(new): string: , extendId: string: , title: string: Grundriss  , author: string: D. Semmel, id: node: SUB-SM:A 1923/1234, status:curious: node: Abholregal (Ausleihzentrum), limitdate:dd-mm-yyyy: string: 31-12-2099}
+book: object: {extendId: string: , extendId: node: 1049957, title: string: Some Systems: a abc, author: string: def introductio, id: node: 12/3456:X ABC, status:curious: node: ausgeliehen (0 Mahnung/en), limitdate:dd-mm-yyyy: node: 11-07-2011}
+book: object: {extendId: string: , extendId: node: 123, title: string: Systeme: blabla , author: string: Sound So; Aber W, id: node: 18/123:C ABC, status:curious: node: ausgeliehen (0 Mahnung/en), limitdate:dd-mm-yyyy: node: 18-07-2011}
+book: object: {extendId: string: , title: string: Grundriss  , author: string: D. Semmel, id: node: SUB-SM:A 1923/1234, status:curious: node: Abholregal (Ausleihzentrum), limitdate:dd-mm-yyyy: string: 31-12-2099}
