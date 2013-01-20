@@ -1,100 +1,170 @@
 <!DOCTYPE HTML PUBLIC "-//SQ//DTD HTML 2.0 + all extensions//EN" "hmpro3.dtd">
+<!-- opac/de/user -->
 <html>
 <head>
-<title>BIBDIA WWW-OPAC</title>
-<script language="JavaScript" src="/opac/scripts_spk.js.S">
+<meta http-equiv="Content-Type" content="text/html; charset=iso-9059-1">
+<LINK REL="stylesheet" HREF="/opac/OPAC.css.S" TYPE="text/css">
+<title> Bibliothekskonto</title>
+<!-- ! /behaviors/cacheas?as=text/css ! -->
+<script language="JavaScript" type="text/javascript">
+  parent.frames[0].document.getElementById("LeftFrame1").style.display = "none";
+  parent.frames[0].document.getElementById("LeftFrame2").style.display = "block";
+var checkflag = "false";
 </script>
-</head>
+<script language="JavaScript" src="scripts_spk.js.S"></script>
 
-<LINK REL="stylesheet" HREF="/bibdia.css.S" TYPE="text/css">
+<body onload="onLoad('Bibliothekskonto anzeigen')"; onclick="resetLogoutTimer('K')" onmouseover="resetLogoutTimer('M')" style="margin: 0 0 0 0; border-top: 1px solid #FFFFFF">
+<div id="LeftKonto" style="display:none;"><p class="navi">Bibliothekskonto</p>
 
+<p class="navi" style="margin: 0 0 0 7px"><A href="javascript:konto_func('medk')" title="Medienkonto">Entleihungen (5)</A></p>
+<p class="navi" style="margin: 0 0 0 7px"><A href="javascript:konto_func('vorm')" title="Vormerkungen">Vormerkungen (0)</A></p>
+<p class="navi" style="margin: 0 0 0 7px"><A href="javascript:konto_func('best')" title="Bestellungen">Bestellungen (0)</A></p>
+<p class="navi" style="margin: 0 0 0 7px"><A href="javascript:konto_func('gebk')" title="Geb&#252;hrenkonto">Geb&#252;hren</A></p>
+<p class="navi" style="margin: 0 0 0 7px"><A href="javascript:konto_func('kurz')" title="Kurzinformation">Kurzinformation</A></p>
+<p class="navi" style="margin: 0 0 0 7px"><a href="javascript:frm_left('isrv')">Benachrichtigungen</a></p>
+<p class="navi" style="margin: 0 0 0 7px"><a href="javascript:start();">Abmelden</a></p>
+</div>
+<div style="height: 90px; background-color: #EEEEEE">
 
-<form name="medk" method="post" action="/opac/verl.S">
-<TITLE>Gesamtauszug-Medienkonten</TITLE>
-<table class="tab1" width="100%">
-<tr><td><h2><a href="javascript:help2('KOVER')">Medienkonto</a></h2><td>
-
-<td align="right"><b>SBB PK</b></td></tr>
-</table>
-<img src="/opac/image/linie_990000.gif.S" width="100%" height="5">
-<input name="LANG" type="hidden" value="de">
-<br><HR>
-<table width="100%"><tr>
-<td>001234566</td>
-<td>Abcdefg,Hij</td>
-<TD>Ausgeliehene Medien: 5</TD>
-</tr>
-<TR><TD>Ausweis g&#252;ltig : 09.08.2012</TD></TR>
-
-</TABLE><HR><BR>
-
-<table class="1" width="100%">
-<TD align="left">
-<table class="1" width="100%"></table>
-<b>Verl&#228;ngerungen bitte markieren und </b>
-<a href="javascript:sm_frm2('del')"><img src="/opac/de/button/go1.gif.S" border="0"></a>
-<input type="hidden" name="BENUTZER" value="001234567">
-<input type="hidden" name="PASSWORD" value="!!!!!! ">
-
-</TD>
-</table>
-
-<TABLE BORDER="1" WIDTH="100%">
-<TR><TH>&nbsp;</TH><TH>F&#228;llig</TH><TH><a href="#" title="Verl&#228;ngerungen"> V</a></TH><TH><a href="#" title="Mahnungen"> M </a></TH><TH>Signatur </TH><TH>&nbsp;</TH><TH>Status</TH></TR>
-
-<TR><TD width="3%"><input type="checkbox" name="111111234"value="YES">
-<TD width="12%" align="center">10.01.2011</TD><TD width="3%" align="center">1</TD><TD width="3%" align="center">&nbsp;</TD><TD>123456
-</TD>
-<TD>&nbsp;</TD><TD align="CENTER"><FONT COLOR="blue">Potsdamer Stra&#223;e, Buchabholbereich      </FONT></TD></TR>
-<TR><TD width="3%"><input type="checkbox" name="145555567"value="YES">
-<TD width="12%" align="center">10.01.2011</TD><TD width="3%" align="center">1</TD><TD width="3%" align="center">&nbsp;</TD><TD>1A654321
-</TD>
-<TD>&nbsp;</TD><TD align="CENTER"><FONT COLOR="blue">Potsdamer Stra&#223;e, Buchabholbereich      </FONT></TD></TR>
-<TR><TD width="3%"><input type="checkbox" name="147328083"value="YES">
-
-<TD width="12%" align="center">12.01.2011</TD><TD width="3%" align="center">1</TD><TD width="3%" align="center">&nbsp;</TD><TD>1A654320
-</TD>
-<TD>&nbsp;</TD><TD align="CENTER"><FONT COLOR="blue">Potsdamer Stra&#223;e, Buchabholbereich      </FONT></TD></TR>
-<TR><TD width="3%"><input type="checkbox" name="148213492"value="YES">
-<TD width="12%" align="center">22.01.2011</TD><TD width="3%" align="center">1</TD><TD width="3%" align="center">&nbsp;</TD><TD>1A765432
-</TD>
-<TD>&nbsp;</TD><TD align="CENTER"><FONT COLOR="blue">Potsdamer Stra&#223;e, Buchabholbereich      </FONT></TD></TR>
-<TR><TD width="3%"><input type="checkbox" name="115650431"value="YES">
-<TD width="12%" align="center">22.01.2011</TD><TD width="3%" align="center">1</TD><TD width="3%" align="center">&nbsp;</TD><TD>1A176543
-
-</TD>
-<TD>&nbsp;</TD><TD align="CENTER"><FONT COLOR="blue">Potsdamer Stra&#223;e, Buchabholbereich      </FONT></TD></TR>
-</TABLE>
-</tr></table>
-<BR>
-</form>
-<br>
-Unter <A HREF="https://ausleihe.staatsbibliothek-berlin.de/opac/de/best_frm.html.S" target="_top">Bestellungen anzeigen</A> finden Sie Informationen zum Bearbeitungsstand Ihrer offenen bzw. negativ erledigten Bestellungen. 
-<img src="/opac/image/linie_990000.gif.S" width="100%" height="5">
-<b><address>
-<font size="2"><font face="Arial">Fragen und Anmerkungen zum Ausleihsystem unter Tel. +49 30 <font size="3">266 433999 </font> oder an</font></font>&nbsp;<a href="mailto:ausleihe&#64;sbb.spk-berlin.de"><font face="Arial">ausleihe&#64;sbb.spk-berlin.de</font></a></font><br>
-
-<!--ACHTUNG! Neue Benutzungs- und Geb&uuml;hrenordnung: 1&euro; Geb&uuml;hr f&#252;r die Vormerkung auf entliehene Medien.</FONT> <a href="http://staatsbibliothek-berlin.de/deutsch/abteilungen/benutzungsabteilung/Benutzungs_Gebuehrenordnungneu.pdf">N&#228;here Informationen</a><br><br> -->
 <br><br>
-<font size="2">Optimal ab Netscape 7.01, Internet Explorer 6.0, Opera 7.0, Mozilla 1.4, Firebird 0.6, Konqueror 3.1.1 - JavaScript aktivieren<br>
-Apple: Mac OS X mit Safari 1.2.2, Netscape 7.1; Mac OS Classic mit Netscape 7.0.2 </font><br><br><br>
+<!-- <H2 class="mainheader" style="color: #000000">Bibliothekskonto</H2> -->
+<H2 class="mainheader" style="color: #000000">Bibliothekskonto - Entleihungen/Bereitstellungen<span onmouseover="event.cancelBubble=true;" id="msg" style="color:red; margin left:2cm;"></span></H2>
+
+<a href="javascript:kontohilfe('callhinweise')" id="callhinweise" class="collapsed" style="float: left; display: block; line-height: 26px; margin: 0 0 0 40px;">Hinweise</a>
+<div style="clear: both"></div>
+<div id="hinweis_entleihungen/bereitstellungen" style="display: none; position: absolute; z-index: 1; background: #F5F5DC; border: 1px solid #577FBB; font-weight: normal; padding: 11px;">
+<div style="text-align: right"><a href="javascript:kontohilfe('callhinweise')" title="schlie&#223;en"><img src="/opac/image/close_small.gif.S" border="0" /></a></div>
+Die Leihfrist f&uuml;r entliehene Medien kann viermal verl&auml;ngert werden, <br> wenn keine Vormerkung eines 
+anderen Benutzers vorliegt. Eine Verl&auml;ngerung ist fr&uuml;hestens <br> 10 Tage vor Ablauf der Leihfrist m&ouml;glich. <br><br>
+
+Unter &quot;Benachrichtigungen&quot; k&ouml;nnen Sie einstellen, wenn Sie vor Ablauf der Leihfrist per E-Mail <br> oder SMS benachrichtigt werden m&ouml;chten. 
+<br><br>
+Die Frist f&#252;r die Abholung abholbereiter Medien betr&auml;gt 7 Tage f&#252;r die Ausleihe au&szlig;er Haus und <br> 3 Tage f&uuml;r die erste Einsichtnahme bei Lesesaalbenutzung. 
+
+<br><br>
+&quot;Medien in Transit&quot; bedeutet, dass das Medium zu Ihrem gew&uuml;nschten Ausgabeort (in der Spalte <br> &quot;Status&quot; angegeben) unterwegs ist.
+</div>
+
+
+<div id="hinweis_bestellungen" style="display: none; position: absolute; z-index: 1; background: #F5F5DC; border: 1px solid #577FBB; font-weight: normal; padding: 11px;">
+<div style="text-align: right"><a href="javascript:kontohilfe('callhinweise')" title="schlie&#223;en"><img src="/opac/image/close_small.gif.S" border="0" /></a></div>
+Hier finden Sie alle bestellten, aber noch nicht bereit liegenden Medien. Abholbereite Medien<br> finden
+Sie unter &quot;Entleihungen&quot;. Bestellungen, die noch nicht bearbeitet werden, k&ouml;nnen Sie l&ouml;schen.
+
+</div>
+
+<div id="hinweis_vormerkungen" style="display: none; position: absolute; z-index: 1; background: #F5F5DC; border: 1px solid #577FBB; font-weight: normal; padding: 11px;">
+<div style="text-align: right"><a href="javascript:kontohilfe('callhinweise')" title="schlie&#223;en"><img src="/opac/image/close_small.gif.S" border="0" /></a></div>
+In dieser Tabelle sind alle Vormerkungen aufgelistet, die noch nicht f&uuml;r Sie bereitgestellt <br> worden sind.
+Pro Bereitstellung eines vorgemerkten Mediums fallen Geb&uuml;hren in H&#246;he von 1,- &euro; an. <br> Wenn Sie die Vormerkung nicht w&uuml;nschen, k&ouml;nnen Sie diese l&oumlschen. Der Rang bezeichnet die <br> Warteposition Ihrer 
+Vormerkung. Rechnen Sie ab dem zweiten Rang mit einer l&auml;ngeren Frist bis zur <br> Bereitstellung.
+
+</div>
+
+
+<div id="hinweis_geb&#252;hren" style="display: none; position: absolute; z-index: 1; background: #F5F5DC; border: 1px solid #577FBB; font-weight: normal; padding: 11px;">
+<div style="text-align: right"><a href="javascript:kontohilfe('callhinweise')" title="schlie&#223;en"><img src="/opac/image/close_small.gif.S" border="0" /></a></div>
+Sie haben die M&ouml;glichkeit, offene Geb&uuml;hren an den Anmeldestellen, an den <br> Kassenautomaten zu
+bezahlen oder diese zu &uuml;berweisen:<br><br> 
+Zahlungsempf&auml;nger: Bundeskasse Trier - Dienstsitz Kiel<br><br>
+Bankverbindung: Bundesbank-Filiale Kiel<br>
+
+BIC: MARKDEF 1210<br>
+IBAN: DE 42210000000021001030<br><br>
+Konto-Nr. 210 010 30<br>
+BLZ 210 000 00<br><br>
+zugunsten SPK-0683111012<br><br>
+Bitte geben Sie bei der &Uuml;berweisung Ihre Bibliotheksausweisnummer und die interne Zuweisung <br>
+(zugunsten SPK-0683111012)an und rechnen Sie mit einer Bearbeitungszeit von ungef&auml;hr 10 Tagen.<br><br>
+Umsatzsteueridentifikationsnummer: DE 811176976<br>
+
+Die Staatsbibliothek ist gem. &#167;4 Ne. 20a UStG von der Umsatzsteuer befreit.
+</div>
+
+<div id="hinweis_kurzinformation" style="display: none; position: absolute; z-index: 1; background: #F5F5DC; border: 1px solid #577FBB; font-weight: normal; padding: 11px;">
+<div style="text-align: right"><a href="javascript:kontohilfe('callhinweise')" title="schlie&#223;en"><img src="/opac/image/close_small.gif.S" border="0" /></a></div>
+Hier k&ouml;nnen Sie die von der Bibliothek erfassten Kontaktdaten <br> und Ausleihberechtigungen zu Ihrem Konto einsehen. &Auml;nderungen veranlassen Sie bitte bei den Leihstellen. </div>
+
+
+
+</div>
+<div class="blueborder"></div>
+
+<br>
+<div class="content">
+<html><body><table  width="99%"><tr><td >12345</td><td >&#160;&#160;S.L.<br/>
+</td><td >Entliehen/Bereitgestellt: 5</td><td >Geb&#252;hren: 2,00&#160;&#8364;</td></tr></table><br/>
+<table ><tr><td  colspan="9">Ausweis g&#252;ltig bis: 05.05.2013</td><td ></td></tr><tr></tr><tr></tr></table><br/>
+</body></html>
+
+<!-- Your output data goes in here -->
+<font color="black"><br></font>
+ 
+
+<br><b>Entliehene Medien</b><br>
+Verl&auml;ngerungen bitte markieren und&nbsp; &nbsp;<A href="javascript:sm_frm2('de')"><img src="/opac/de/button/go1.gif.S" tabindex="3" alt="Medien verl&#228;ngern" border="0"></A>
+<form name="verl" method="post" action="/opac/verl.S">
+<input name="LANG" type="hidden" value="de">
+<input name="FUNC" type="hidden" value="verl">
+<input name="BENUTZER" type="hidden" value="12345">
+<input name="PASSWORD" type="hidden" value="password">
+<table border="1" width="99%">
+<tr>
+<th width="2%"><A href="javascript:sl_all2('de')">Alle</A></th>
+<th width="3%">F&auml;llig</th>
+
+<th width="2%"><a href="#" title="Verl&auml;ngerungen" style="text-decoration:none; color:black">  V </a></th>
+<th width="2%"><a href="#" title="Mahnungen" style="text-decoration:none; color:black">  M </a></th>
+<th width="*" align="center">Signatur </th><th>&nbsp;</th>
+<th width="*" colspan="2">Status</th>
+</tr>
+<TR><TD width="1%">&nbsp;</TD>
+<TD width="11%" align="center">15.01.2013</TD><TD width="1%" align="center">&nbsp;</TD><TD width="1%"><A href="/opac/m38.S?tnummer=12345">M</A></TD><TD>27BA1234
+</TD>
+<TD>&nbsp;</TD><TD align="center"><FONT COLOR="black">Potsdamer Stra&#223;e, Lesesaal Abholbereich </FONT></TD></TR>
+
+<TR><TD width="1%">&nbsp;</TD>
+<TD width="11%" align="center">16.01.2013</TD><TD width="1%" align="center">&nbsp;</TD><TD width="1%">&nbsp;</TD><TD>26B7178
+</TD>
+<TD>&nbsp;</TD><TD align="center"><FONT COLOR="black">Potsdamer Stra&#223;e, Lesesaal Abholbereich </FONT></TD></TR>
+<TR><TD width="1%"><input type="checkbox" name="12345"value="YES">
+<TD width="11%" align="center">19.01.2013</TD><TD width="1%" align="center">2</TD><TD width="1%">&nbsp;</TD><TD>Abc12345-88.2012
+</TD>
+<TD>&nbsp;</TD><TD align="center"><FONT COLOR="black">Potsdamer Stra&#223;e, Ausleihe au&#223;er Haus   </FONT></TD></TR>
+<TR><TD width="1%"><input type="checkbox" name="123456789"value="YES">
+
+<TD width="11%" align="center">19.01.2013</TD><TD width="1%" align="center">3</TD><TD width="1%">&nbsp;</TD><TD>Abc23456-88/89.2012
+</TD>
+<TD>&nbsp;</TD><TD align="center"><FONT COLOR="black">Potsdamer Stra&#223;e, Ausleihe au&#223;er Haus   </FONT></TD></TR>
+<TR><TD width="1%">&nbsp;</TD>
+<TD width="11%" align="center">16.02.2013</TD><TD width="1%" align="center">&nbsp;</TD><TD width="1%">&nbsp;</TD><TD>25BA306-1234 &lt;2&gt;
+</TD>
+<TD>&nbsp;</TD><TD align="center"><FONT COLOR="black">Potsdamer Stra&#223;e, Ausleihe au&#223;er Haus   </FONT></TD></TR>
+
+</TABLE>
+</form>
+
+ 
+
+<br>
+<a href="http://staatsbibliothek-berlin.de/index.php?id=17172" target="_blank"><font color="red">Das Haus Unter den Linden ist vom 8. Dezember 2012 bis voraussichtlich Mitte M&auml;rz 2013 geschlossen!</font></a><br>
+Aufgrund der Schlie&szlig;ung kann es zu Verz&ouml;gerungen in der Bereitstellung kommen.
+<img src="/opac/image/linie_990000-neu.gif.S" width="100%" height="5"> 
+<font size="2"><font face="Arial">Fragen und Anmerkungen k&ouml;nnen Sie telefonisch (+49 30) 266 433999 oder <a target="_blank" href="http://staatsbibliothek-berlin.de/service/hinweise-zu-ausleihe-und-benutzung/anfragen/">schriftlich</a> an uns richten.<br><br>
+
+<i>Optimal ab Internet Explorer 8.0, Firefox 6.0, Safari 5.1.2, Opera 11.6. </i>
+</font><br><br>
+<address>
+<!--
 <font size="1">&copy; copyright 2001-2009 by BiBer GmbH.<br>All rights reserved </font>
-</address></b>
+-->
+</address>
 </body>
 </html>
 
 
-
-
-
-
-
-
-
-
-
-
-
+</div>
+</body>
 
 
 
