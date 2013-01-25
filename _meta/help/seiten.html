@@ -13,7 +13,7 @@ Ein solches HTML-Template muss für jede auszuwertende Seite erstellt werden und
 VideLibri sucht/matches beim Ausführen einer Templateaktion, die HTML-Befehle und Inhalte des Templates in der heruntergeladene Seite. Dies funktioniert, so ähnlich wie ein regulärer Ausdruck, bei dem z.B.: foo[A-Z]*bar Großbuchstaben zwischen foo..bar findet, nur dass die Buchstaben durch HTML-Tags ersetzt sind. <br>
 <br>
 Zum Beispiel kann man mit <code>&lt;td>...&lt;/td></code> die erste Tabellenzelle auswählen, und mit <code>&lt;div id="xy">... &lt;/div></code> ein bestimmtes div. <br>
-Eine mögliche Annotation ist <code>{.}</code> welches den aktuellen Knoten in der Variable <code>$_result</code> speichert.<br>
+Eine mögliche Annotation ist <code>{.}</code> welches den aktuellen Knoten in der Variable <code>$result</code> speichert.<br>
 Entsprechend kann man <code>&lt;table class="example">&lt;tr>&lt;td/> &lt;td> {.} &lt;/td> &lt;/tr> &lt;/table> </code> verwenden, um die zweite Spalte der ersten Zeile einer Tabelle der Klasse example zu lesen. <br>
 Oder man verwendet <code>&lt;table class="example">&lt;tr>&lt;td>Überschrift XYZ: &lt;/td> &lt;td> {.} &lt;/td> &lt;/tr> &lt;/table> </code>, um die Tabellenzelle zu lesen, die nach der Zelle mit dem Inhalt <code>Überschrift XYZ:</code> kommt. <br>
 Eine andere Annotation ist <code>*</code>, um Wiederholungen zu markieren, und man kann zum Beispiel <code>&lt;table class="example">&lt;tr>&lt;td/> &lt;td> {.} &lt;/td> &lt;/tr> * &lt;/table> </code> verwenden, um alle zweiten Spalten aller Zeilen zu lesen. Oder <code>&lt;table class="example">&lt;tr>&lt;td>Überschrift XYZ:&lt;/td> &lt;td> {.} &lt;/td> &lt;/tr> * &lt;/table> </code>, um alle Tabellenzellen mit der entsprechenden Überschrift zu lesen. <br>
@@ -60,10 +60,11 @@ Einige wichtige oder nicht-Standard Funktionen sind:
 <table>
 <tr><td>'abc...' oder  "abc.."</td><td>Der String abc...</td></tr>
 <tr><td>variable := value</td><td>Weist value der Variable <code>$variable</code> zu. <br>Beispiel: <code>foobar := 1+2+3</code> speichert 6 in <code>$foobar</code></td><tr>
-<tr><td><em>$var</em></td><td>Der Wert der Variable <em>var</em>. Variablen werden entweder von read-Anweisungen oder global im Template gesetzt. ($var; kann auch innerhalb von ".."-Strings verwendet werden)<br>Beispiel: <code>"hallo $abc; welt!"</code> ist dasselbe wie <code>concat("hallo ", $abc, " welt!")</code></td></tr>
+<tr><td><em>$var</em></td><td>Der Wert der Variable <em>var</em>. Variablen werden entweder von read-Anweisungen oder global im Template gesetzt.</tr>
 <tr><td>concat(<em>s1</em>,<em>s2</em>,<em>s3</em>,...)</td><td>Die Konkenation aller angegebenen Strings</td></tr>
 <tr><td>text()</td><td>Der Text des aktuellen Knotens als String.<br>Beispiel: <code>&lt;td>{foobar := text()}&lt;/td></code>  liest den Text einer Tabellenzelle. Und <code>&lt;br>{x:=text()}</code> liest den Text einer zweiten Zeile. </td></tr>
 <tr><td>@<em>attrib</em></td><td>Der Wert des Attributes attrib als String<br>Beispiel: <code>&lt;a>{foobar := @href}&lt;/a></code>  liest die Addresse eines Links.</td></tr>
+<tr><td><em>x"foo{$var}bar"</em></td><td>Ein erweiterter String, in dem XPath-Ausdrücke innerhalb von {} ausgewertet werden.<br> Das Beispiel ist äquivalent zu <code>concat("foo", $var, "bar")</code>.</td></tr>
 
 <tr><td><em>s1</em> == <em>s2</em></td><td>true, falls die Strings s1 und s2 gleich sind. (ohne Berücksichtigung der Groß/Kleinschreibung)<br>Beispiel: <code>"hallo" == "Hallo"</code> ist true().</td></tr>
 <tr><td><em>s1</em> != <em>s2</em></td><td>true, falls die Strings s1 und s2 ungleich sind. (ohne Berücksichtigung der Groß/Kleinschreibung)</td></tr>
