@@ -2,23 +2,23 @@
 <actions>
 
 <action id="connect">
- <!-- <page url="http://$server;start?homegkz=111" templateFile="start"/>-->
- <page url="https://$server;BenutzerkontoServlet?homegkz=111&Kontoart=Ausleihkonto"/>
+ <!-- <page url="http://{$server}start?homegkz=111" templateFile="start"/>-->
+ <page url="https://{$server}BenutzerkontoServlet?homegkz=111&Kontoart=Ausleihkonto"/>
 </action>
 <action id="update-all">
-  <!--<page url="https://$server;BenutzerkontoServlet;$jsession;?homegkz=111&Kontoart=Ausleihkonto"/>-->
-  <page url="https://$server;BenutzerkontoServlet" templateFile="KontoServlet">
+  <!--<page url="https://{$server}BenutzerkontoServlet;{$jsession}?homegkz=111&Kontoart=Ausleihkonto"/>-->
+  <page url="https://{$server}BenutzerkontoServlet" templateFile="KontoServlet">
     <post name="Kontoart" value="Ausleihkonto"/>
     <post name="homegkz" value="111"/>
     <post name="Anmelden" value="true"/>
-    <post name="Ausweisnummer" value="$username;"/>
-    <post name="Kennwort" value="$password;"/>
+    <post name="Ausweisnummer" value="{$username}"/>
+    <post name="Kennwort" value="{$password}"/>
     <post value="Bibliothek=Stadtb%C3%BCchereien+D%C3%BCsseldorf"/>    
     <post name="Anmelden" value="Anmelden"/>
   </page>
 </action>
 <action id="extend-all">
-  <page url="https://$server;AusleiheVerlaengerungServlet" templateFile="KontoServlet">
+  <page url="https://{$server}AusleiheVerlaengerungServlet" templateFile="KontoServlet">
     <post name="Kontoart" value="Ausleihkonto"/>
     <post name="Bibliothek" value="111"/>
     <post name="homegkz" value="111"/>

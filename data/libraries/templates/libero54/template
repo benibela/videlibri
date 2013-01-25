@@ -2,42 +2,42 @@
 <actions>
 
 <action id="connect">
-  <page url="http://$server;WebOpac.cls" templateFile="start"/>
-  <page url="http://$server;WebOpac.cls?VERSION=2&amp;ACTION=MEMBERSERV&amp;RSN=0&amp;DATA=$data;&amp;TOKEN=$token;&amp;Z=1&amp;NewBreadCrumb=1&amp;$logintoken;"/>
+  <page url="http://{$server}WebOpac.cls" templateFile="start"/>
+  <page url="http://{$server}WebOpac.cls?VERSION=2&amp;ACTION=MEMBERSERV&amp;RSN=0&amp;DATA={$data}&amp;TOKEN={$token}&amp;Z=1&amp;NewBreadCrumb=1&amp;{$logintoken}"/>
 </action>
 
 <action id="update-all">
-  <page url="http://$server;WebOpac.cls" templateFile="update">
+  <page url="http://{$server}WebOpac.cls" templateFile="update">
     <post name="MGWCHD" value="0"/>
-    <post name="TOKEN" value="$token;"/>
-    <post name="TOKENX" value="$tokenx;"/>
-    <post name="DATA" value="$data;"/>
+    <post name="TOKEN" value="{$token}"/>
+    <post name="TOKENX" value="{$tokenx}"/>
+    <post name="DATA" value="{$data}"/>
     <post name="usercode" value=""/>
-    <post name="VERSION" value="$version;"/>
+    <post name="VERSION" value="{$version}"/>
     <post name="RSN" value="0"/>
     <post name="BARCODE" value=""/>
-    <post name="TOKENZ" value="$token;"/>
+    <post name="TOKENZ" value="{$token}"/>
     <post name="ACTION" value="MEMLOGIN"/>
-    <post name="usernum" value="$username;"/>
-    <post name="password" value="$password;"/>
+    <post name="usernum" value="{$username}"/>
+    <post name="password" value="{$password}"/>
     <post name="btnlogin" value="LOGIN"/>
   </page>
 </action>
 
 <action id="extend-list">
-  <variable name="book-list">string-join(for $book in $extend-books return "$book.extendid;=1", "&amp;")</variable>
+  <variable name="book-list">string-join(for $book in $extend-books return x"{$book.extendid}=1", "&amp;")</variable>
   
-  <page url="http://$server;WebOpac.cls">
+  <page url="http://{$server}WebOpac.cls">
     <post name="MGWCHD" value="0"/>
-    <post name="TOKEN" value="$token;"/>
-    <post name="TOKENX" value="$tokenx;"/>
-    <post name="DATA" value="$data;"/>
+    <post name="TOKEN" value="{$token}"/>
+    <post name="TOKENX" value="{$tokenx}"/>
+    <post name="DATA" value="{$data}"/>
     <post name="usercode" value=""/>
-    <post name="VERSION" value="$version;"/>
+    <post name="VERSION" value="{$version}"/>
     <post name="ACTION" value="MEMSLFISS"/>
-    <post name="bno" value="$username;"/>
-    <post name="mid" value="$mid;"/>
-    <post value="$book-list;"/>
+    <post name="bno" value="{$username}"/>
+    <post name="mid" value="{$mid}"/>
+    <post value="{$book-list}"/>
   </page>
   <call action="update-all"/>
 </action>

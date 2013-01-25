@@ -4,24 +4,24 @@
     <page url="https://opac.hu-berlin.de:443/F/" templateFile="redirection">
       <post name="func" value="login-session"/>
       <post name="login_source" value=""/>
-      <post name="bor_id" value="$username;"/>
-      <post name="bor_verification" value="$password;"/>      
+      <post name="bor_id" value="{$username}"/>
+      <post name="bor_verification" value="{$password}"/>      
     </page>
-    <page url="$redirectedPage" templateFile="redirection2"/>
-    <page url="$redirectedPage" templateFile="../aleph_base/startBenutzerkonto"/>
-    <page url="$accountPage" templateFile="../aleph_base/loggedIn2005"/>
+    <page url="{$redirectedPage}" templateFile="redirection2"/>
+    <page url="{$redirectedPage}" templateFile="../aleph_base/startBenutzerkonto"/>
+    <page url="{$accountPage}" templateFile="../aleph_base/loggedIn2005"/>
 </action>
 
 <action id="update-all">
-  <page url="$bookPage;" templateFile="update"/>
+  <page url="{$bookPage}" templateFile="update"/>
 </action>
 
 <action id="update-single">
-  <page url="$book.detailLink;" templateFile="../aleph_base/details"/>
+  <page url="{$book.detailLink}" templateFile="../aleph_base/details"/>
 </action>
 
 <action id="extend-single">
-  <page url="$book.extendLink;"/>
-  <page url="$book.detailLink;" templateFile="../aleph_base/details"/>
+  <page url="{$book.extendLink}"/>
+  <page url="{$book.detailLink}" templateFile="../aleph_base/details"/>
 </action>
 </actions>

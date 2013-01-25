@@ -10,30 +10,30 @@
     <post name="HOST_SCRIPT"/>
     <post name="LOGIN" value="KNOWNUSER"/>
     <post name="STATUS" value="HML_OK"/>
-    <post name="BOR_U" value="$username;"/>
-    <post name="BOR_PW" value="$password;"/>
+    <post name="BOR_U" value="{$username}"/>
+    <post name="BOR_PW" value="{$password}"/>
   </page>-->
 </action>
 
 <action id="update-all">
  <!-- <page url="https://kataloge.uni-hamburg.de/loan/DB=1/USERINFO?ACT=UI_LOL" > 
-    <post name="BOR_U" value="$username"/>
-    <post name="BOR_PW_ENC" value="$pw_enc;"/>
+    <post name="BOR_U" value="{$username}"/>
+    <post name="BOR_PW_ENC" value="{$pw_enc}"/>
   </page>-->
-  <page url="$server;USERINFO" templateFile="update"> 
+  <page url="{$server}USERINFO" templateFile="update"> 
     <post name="ACT" value="UI_LOL"/>
-    <post name="BOR_U" value="$username"/>
-    <post name="BOR_PW" value="$password;"/>
+    <post name="BOR_U" value="{$username}"/>
+    <post name="BOR_PW" value="{$password}"/>
   </page>
 </action>
 
 <action id="extend-list">
-  <variable name="book-list">string-join(for $book in $extend-books return "VB=$book.extendid;", "&amp;")</variable> 
-  <page url="$server;USERINFO" templateFile="extend">
+  <variable name="book-list">string-join(for $book in $extend-books return x"VB={$book.extendid}", "&amp;")</variable> 
+  <page url="{$server}USERINFO" templateFile="extend">
     <post name="ACT" value="UI_RENEWLOAN"/>
-    <post name="BOR_U" value="$username"/>
-    <post name="BOR_PW" value="$password;"/>
-    <post value="$book-list;"/>
+    <post name="BOR_U" value="{$username}"/>
+    <post name="BOR_PW" value="{$password}"/>
+    <post value="{$book-list}"/>
   </page>
 </action>
 </actions> 

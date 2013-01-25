@@ -4,19 +4,22 @@
 
 <action id="update-all">
 
-  <page url="https://$server;/aDISWeb/app"> <template><a>{connectPage:=@href}</a></template> </page>
-  <page url="$connectPage;">
+  <page url="https://{$server}/aDISWeb/app"> <template><a>{connectPage:=@href}</a></template> </page>
+  <page url="{$connectPage}">
   <template>
     <a><span>Benutzerkonto</span>{loginForm:=@href}</a>
     <template:read var="dollar" source="'$'"/>
   </template>
   </page>
 
-  <page url="https://$server;/$loginForm;">
-    <template><form>{loginFormPost := form(., ("$dollar;Textfield=$username;", "$dollar;Textfield$dollar;0=$password;"))}</form></template>
+  <page url="https://{$server}/{$loginForm}">
+    <template><form>{
+      loginFormPost := form(., 
+                           (x"{$dollar}Textfield={$username}", 
+                            x"{$dollar}Textfield{$dollar}0={$password}"))}</form></template>
   </page>
 
-  <page url="$loginFormPost;">
+  <page url="{$loginFormPost}">
     <post name="textButton" value="Anmeldung abschicken"/>
   
   
@@ -29,7 +32,7 @@
   </page>
 
 
-  <page url="https://$server;/$kontoPage;">
+  <page url="https://{$server}/{$kontoPage}">
     <template>
       <DIV class="aDISMaske">
       <FORM>
@@ -48,7 +51,7 @@
     </template>
   </page>
 
-  <page url="$checkFormPost;" test="$hasBooks">    
+  <page url="{$checkFormPost}" test="$hasBooks">    
     <template>
       <DIV class="aDISMaske">
       <FORM>
@@ -91,9 +94,9 @@
 </action>
 
 <action id="extend-list">
-  <variable name="book-list">string-join(for $book in $extend-books return "$book.extendid=on", "&amp;")</variable> 
-  <page url="$extendFormPost;">
-    <post value="$book-list;"/>
+  <variable name="book-list">string-join(for $book in $extend-books return x"{$book.extendid}=on", "&amp;")</variable> 
+  <page url="{$extendFormPost}">
+    <post value="{$book-list}"/>
   </page>
   
   <call action="update-all"/>

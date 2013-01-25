@@ -5,7 +5,7 @@
 </action>
 
 <action id="search">
-  <page url="http://www.reddit.com/user/$book.author;/">
+  <page url="http://www.reddit.com/user/{$book.author}/">
     <template>
     <t:loop>
       <div class="usertext-body"><div>{book:=xs:object(("title", deep-text()))}</div></div>

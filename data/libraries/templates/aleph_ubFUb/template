@@ -5,11 +5,11 @@
       <template> <a>{redirection:=@href}</a> </template>
     </page>
     
-    <page test="not(starts-with($redirection, '#'))" url="$redirection;"/>
+    <page test="not(starts-with($redirection, '#'))" url="{$redirection}"/>
     
     <page url="https://identity.fu-berlin.de/idp-fub-ub/Authn/UserPassword">
-      <post name="j_username" value="$username;"/>
-      <post name="j_password" value="$password;"/>    
+      <post name="j_username" value="{$username}"/>
+      <post name="j_password" value="{$password}"/>    
         
       <template>
         <form method="post"> {action:=@action}
@@ -19,33 +19,33 @@
       </template>
     </page>
     
-    <page url="$action" templateFile="../aleph_ubHUb/redirection">
-      <post name="RelayState" value="$relay;"/>
-      <post name="SAMLResponse" value="$saml;"/>
+    <page url="{$action}" templateFile="../aleph_ubHUb/redirection">
+      <post name="RelayState" value="{$relay}"/>
+      <post name="SAMLResponse" value="{$saml}"/>
     </page>
     
-    <page url="$redirectedPage" templateFile="../aleph_ubHUb/redirection2"/>
+    <page url="{$redirectedPage}" templateFile="../aleph_ubHUb/redirection2"/>
 
-    <page url="$redirectedPage" templateFile="redirection_b"/>
+    <page url="{$redirectedPage}" templateFile="redirection_b"/>
 
-    <page url="$redirectedPage" templateFile="../aleph_ubHUb/redirection2"/>
+    <page url="{$redirectedPage}" templateFile="../aleph_ubHUb/redirection2"/>
 
-    <page url="$redirectedPage;" templateFile="../aleph_base/loggedIn2007">
+    <page url="{$redirectedPage}" templateFile="../aleph_base/loggedIn2007">
     </page>
     
 <!--    <error templateFile="loginerror"/>    -->
 </action>
 
 <action id="update-all">
-  <page url="$bookPage;" templateFile="update"/>
+  <page url="{$bookPage}" templateFile="update"/>
 </action>
 
 <action id="update-single">
-  <page url="$book.detailLink;" templateFile="../aleph_base/details"/>
+  <page url="{$book.detailLink}" templateFile="../aleph_base/details"/>
 </action>
 
 <action id="extend-single">
-  <page url="$book.extendLink;"/>
-  <page url="$book.detailLink;" templateFile="../aleph_base/details"/>
+  <page url="{$book.extendLink}"/>
+  <page url="{$book.detailLink}" templateFile="../aleph_base/details"/>
 </action>
 </actions>

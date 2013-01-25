@@ -20,7 +20,7 @@
          <t:else test="contains($currentfield, 'Autor')">{currentfield := "author"}</t:else>
          <t:else test="contains($currentfield, 'ISBN')" >{currentfield := "isbn"}</t:else>
          <t:else test="contains($currentfield, 'Jahr')" >{currentfield := "year"}</t:else>
-         <td><t:read source="deep-text()" var="book.$currentfield;"/></td>
+         <td><t:read source="deep-text()" var="book.{$currentfield}"/></td>
         </tr>
       </t:loop></table>
    </dd>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <actions>
 <action id="connect">
-    <page url="http://$server;/F/?func=bor-info" >
+    <page url="http://{$server}/F/?func=bor-info" >
       <template>
         <head> 
         <title>PDS SSO</title> 
@@ -11,14 +11,14 @@
         </head> 
       </template>
     </page>
-    <page url="$borInfoPage"/>
-    <page url="https://$server;pds">
+    <page url="{$borInfoPage}"/>
+    <page url="https://{$server}pds">
       <post name="func" value="login"/>
       <post name="calling_system" value="aleph"/>
-      <post name="bor_id" value="$username;"/>
-      <post name="bor_verification" value="$password;"/>      
+      <post name="bor_id" value="{$username}"/>
+      <post name="bor_verification" value="{$password}"/>      
       <post name="institute" value="TUK50"/>
-      <post name="url" value="$borInfoPage;"/>
+      <post name="url" value="{$borInfoPage}"/>
       
       <template>
         <template:switch-prioritized>
@@ -40,19 +40,19 @@
     </page>
     
     
-    <page url="$borInfoPage2;" templateFile="../aleph_base/loggedIn2007"/>
+    <page url="{$borInfoPage2}" templateFile="../aleph_base/loggedIn2007"/>
 </action>
 
 <action id="update-all">
-  <page url="$bookPage;" templateFile="update"/>
+  <page url="{$bookPage}" templateFile="update"/>
 </action>
 
 <action id="update-single">
-  <page url="$book.detailLink;" templateFile="../aleph_base/details"/>
+  <page url="{$book.detailLink}" templateFile="../aleph_base/details"/>
 </action>
 
 <action id="extend-single">
-  <page url="$book.extendLink;"/>
-  <page url="$book.detailLink;" templateFile="../aleph_base/details"/>
+  <page url="{$book.extendLink}"/>
+  <page url="{$book.detailLink}" templateFile="../aleph_base/details"/>
 </action>
 </actions>

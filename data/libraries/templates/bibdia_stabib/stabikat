@@ -24,7 +24,7 @@
 </table>
 
 
-<strong>Leider keine Treffer.<t:s>book.title := "??? (Keine Ergebnisse bei einer Suche nach $book.id; im StaBiKat)", book.author := "???",book.stabikatFound := false()</t:s></strong>
+<strong>Leider keine Treffer.<t:s>book.title := x"??? (Keine Ergebnisse bei einer Suche nach {$book.id} im StaBiKat)", book.author := "???", book.stabikatFound := false()</t:s></strong>
 
 </template:switch-prioritized>
 </html>

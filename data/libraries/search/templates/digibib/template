@@ -7,7 +7,7 @@
 <variable name="view:Düsseldorf" value="DUEBIB:SGduebib"/>
 <variable name="view:Aachen" value="052:SGBuecherRegional"/>
 
-<!--sid = ABDEROS:nummer, $selectedLibraries;
+<!--sid = ABDEROS:nummer, {$selectedLibraries}
 SERVICEGROUP1.SERVICE.SEARCH_FHBDUE
 SERVICEGROUP1.SERVICE.SEARCH_SBDUE
 SERVICEGROUP1.SERVICE.SEARCH_ULBD=on
@@ -24,15 +24,15 @@ http://www.digibib.net/opensearch?S.SEARCH_SBDUE=on&S.SEARCH_SBAA=on&VIEW=HBZ:Oe
 
 -->
   <page url="http://www.digibib.net/opensearch" templateFile="searchstart">
-    <post name="LOCATION" value="$location;"/>
-    <post name="VIEW" value="$view;"/>
+    <post name="LOCATION" value="{$location}"/>
+    <post name="VIEW" value="{$view}"/>
 
-    <post name="QUERY_azTI" value="$book.title;"/>  
-    <post name="QUERY_bzAU" value="$book.author;"/>
-    <post name="QUERY_fzIB" value="$book.isbn;"/>
-    <post name="QUERY_gzIS" value="$book.issn;"/>
-    <post name="QUERY_hzYR" value="$book.year;"/>
-    <post name="QUERY_ezKY" value="$book.keywords;"/>
+    <post name="QUERY_azTI" value="{$book.title}"/>  
+    <post name="QUERY_bzAU" value="{$book.author}"/>
+    <post name="QUERY_fzIB" value="{$book.isbn}"/>
+    <post name="QUERY_gzIS" value="{$book.issn}"/>
+    <post name="QUERY_hzYR" value="{$book.year}"/>
+    <post name="QUERY_ezKY" value="{$book.keywords}"/>
     <post name="QUERY_OazTI" value="AND"/>
     <post name="QUERY_ObzAU" value="AND"/>
     <post name="QUERY_OfzIB" value="AND"/>
@@ -43,15 +43,15 @@ http://www.digibib.net/opensearch?S.SEARCH_SBDUE=on&S.SEARCH_SBAA=on&VIEW=HBZ:Oe
     <post name="COUNT" value="50"/>
     <post name="GWTIMEOUT" value="90"/>
     
-    <post value="$selectedLibraries;"/>
+    <post value="{$selectedLibraries}"/>
     
   </page>  
   
-  <page url="http://www.digibib.net/$url"/>
+  <page url="http://www.digibib.net/{$url}"/>
   
-  <page url="http://www.digibib.net/Digibib?SID=$sid;&LOCATION=$location;&SERVICE=METASEARCH&SUBSERVICE=GETLIST&PREVREQID=$reqid;&STREAMING=TRUE&VIEW=$view;&FORMAT=List&START=1&COUNT=100&METAID=$metaid" templateFile="search"/>
+  <page url="http://www.digibib.net/Digibib?SID={$sid}&LOCATION={$location}&SERVICE=METASEARCH&SUBSERVICE=GETLIST&PREVREQID={$reqid}&STREAMING=TRUE&VIEW={$view}&FORMAT=List&START=1&COUNT=100&METAID={$metaid}" templateFile="search"/>
   
-<!--  <page url="http://abderos.hbz-nrw.de/Digibib?SERVICE=METASEARCH&amp;SUBSERVICE=GETLIST&amp;$metaid;&amp;FORMAT=List&amp;URLENCODING=TRUE&amp;START=1&amp;COUNT=200&amp;SID=$sid;&amp;LOCATION=$location;&amp;$sreqid;&amp;$reqid;&amp;$olreqid;&amp;STREAMING=on" templateFile="search"/>
+<!--  <page url="http://abderos.hbz-nrw.de/Digibib?SERVICE=METASEARCH&amp;SUBSERVICE=GETLIST&amp;{$metaid}&amp;FORMAT=List&amp;URLENCODING=TRUE&amp;START=1&amp;COUNT=200&amp;SID={$sid}&amp;LOCATION={$location}&amp;{$sreqid}&amp;{$reqid}&amp;{$olreqid}&amp;STREAMING=on" templateFile="search"/>
 -->  
 
 </action>

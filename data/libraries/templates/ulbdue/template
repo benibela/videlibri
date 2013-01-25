@@ -2,27 +2,27 @@
 <actions>
 
 <action id="connect">
-    <page url="http://$server;F" templateFile="start"/>
-    <page url="$loginPage;"  templateFile="login"/>
-    <page url="$loginForm;"  templateFile="../aleph_base/loggedIn2005"> 
+    <page url="http://{$server}F" templateFile="start"/>
+    <page url="{$loginPage}"  templateFile="login"/>
+    <page url="{$loginForm}"  templateFile="../aleph_base/loggedIn2005"> 
       <post name="func" value="login-session"/>
       <post name="login_source" value="LOGIN-BOR"/>
-      <post name="bor_id" value="$username;"/>
-      <post name="bor_verification" value="$password;"/>
+      <post name="bor_id" value="{$username}"/>
+      <post name="bor_verification" value="{$password}"/>
       <post name="bor_library" value="DUE50"/>
     </page>
 </action>
 
 <action id="update-all">
-  <page url="$bookPage;" templateFile="update"/>
+  <page url="{$bookPage}" templateFile="update"/>
 </action>
 
 <action id="update-single">
-  <page url="$book.detailLink;" templateFile="../aleph_base/details"/>
+  <page url="{$book.detailLink}" templateFile="../aleph_base/details"/>
 </action>
 
 <action id="extend-single">
-  <page url="$book.extendLink;"/>
-  <page url="$book.detailLink;" templateFile="../aleph_base/details"/>
+  <page url="{$book.extendLink}"/>
+  <page url="{$book.detailLink}" templateFile="../aleph_base/details"/>
 </action>
 </actions>
