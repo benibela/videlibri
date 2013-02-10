@@ -2,7 +2,7 @@
 <library>
   <username matches="."/>
   <password matches="."/>
-  <maxExtendCount value="5"/>
+  <maxRenewCount value="5"/>
 
   <longName value="Campus-Katalog Hamburg"/>
   <shortName value="SUB Hamburg"/>

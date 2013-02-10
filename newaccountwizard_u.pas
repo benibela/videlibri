@@ -139,7 +139,7 @@ begin
     else passLabel.Caption:='Passwort: ';
   end;                         }
   StringGrid1.Cells[0,2]:=passLabel.Caption;
-  if selectedLibrary.maxExtendCount=0 then begin
+  if selectedLibrary.maxRenewCount=0 then begin
     extendTypeRG.Items.Text:='niemals                       ';
     application.ProcessMessages;
     extendTypeRG.ItemIndex:=0;
@@ -149,7 +149,7 @@ begin
      else
       extendTypeRG.Items.Text:='immer, wenn möglich'#13#10'immer, wenn nötig    '#13#10'niemals                       ';
     application.ProcessMessages;
-    if selectedLibrary.maxExtendCount=-1 then extendTypeRG.ItemIndex:=0
+    if selectedLibrary.maxRenewCount=-1 then extendTypeRG.ItemIndex:=0
     else if selectedLibrary.canModifySingleBooks then extendTypeRG.ItemIndex:=2
     else extendTypeRG.ItemIndex:=1;
   end;
@@ -162,10 +162,10 @@ begin
   extendType:=TExtendType(extendTypeRG.ItemIndex);
   if (not selectedLibrary.canModifySingleBooks) and (extendType=etSingleDepends) then
     extendType:=etNever;
-  if selectedLibrary.maxExtendCount=0 then
+  if selectedLibrary.maxRenewCount=0 then
     extendType:=etNever;
   extendTypeRG.tag:=integer(extendType);
-  lblWarning.Visible:=(selectedLibrary.maxExtendCount>0) and (extendType=etAlways);
+  lblWarning.Visible:=(selectedLibrary.maxRenewCount>0) and (extendType=etAlways);
   //maxExtendCount.Visible:=lblWarning.Visible;
   //maxExtendCount.Caption:=IntToStr(selectedLibrary.maxExtendCount);
 

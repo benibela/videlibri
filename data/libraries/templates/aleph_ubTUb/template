@@ -51,7 +51,7 @@
   <page url="{$book.detailLink}" templateFile="../aleph_base/details"/>
 </action>
 
-<action id="extend-single">
+<action id="renew-single">
   <page url="{$book.extendLink}"/>
   <page url="{$book.detailLink}" templateFile="../aleph_base/details"/>
 </action>

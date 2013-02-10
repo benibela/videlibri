@@ -28,11 +28,11 @@
 </action>
 
 
-<action id="extend-single">
+<action id="renew-single">
   <page url="http://{$server}userAccount.do?methodToCall=renewalPossible&amp;actPos={$book.extendID}" templateFile="singleExtended"/>
 </action>
 
-<!--<action id="extend-all">
+<!--<action id="renew-all">
   <page url="https://{$server}AusleiheVerlaengerungServlet;{$jsession}" templateFile="KontoServlet">
     <post name="Kontoart" value="Ausleihkonto"/>
     <post name="Bibliothek" value="111"/>

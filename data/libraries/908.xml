@@ -2,7 +2,7 @@
 <library>
   <username matches="^\d+$"/>
   <password matches="."/>
-  <maxExtendCount value="2"/>
+  <maxRenewCount value="2"/>
 
   <longName value="Staatsbibliothek zu Berlin"/>
   <shortName value="Stabi Berlin"/>

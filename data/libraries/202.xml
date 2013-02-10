@@ -2,7 +2,7 @@
 <library>
   <username matches="^([a-zA-Z]{2}[0-9]{6}|[A-Za-z0-9]{10,})$"/>
   <password matches="^.{1,6}$"/>
-  <maxExtendCount value="5"/>
+  <maxRenewCount value="5"/>
 
   <longName value="Hochschulbibliothek der RWTH Aachen"/>
   <shortName value="BTH Aachen"/>

@@ -8,7 +8,7 @@
   <homepage value="https://ssl.muenchen.de/aDISWeb/app"/>
   <template value="aDISWeb"/>
 
-  <maxExtendCount value="1"/>  
+  <maxRenewCount value="1"/>  
   
   <variable name="server" value="ssl.muenchen.de"/>
 </library>

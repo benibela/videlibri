@@ -2,7 +2,7 @@
 <library>
   <username matches="^HU[A-Z]{2}\d+$"/>
   <password matches="."/>
-  <maxExtendCount value="5"/>
+  <maxRenewCount value="5"/>
 
   <longName value="Universitätsbibliothek der HU-Berlin"/>
   <shortName value="UBHU Berlin"/>

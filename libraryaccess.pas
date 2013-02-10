@@ -89,10 +89,10 @@ begin
 #update-all
 (merge and display)
 if exists #update-single then for all: #update-single
-if exists books-to-extend then begin
-  if exists #extend-list then extend-list
-  else if exists #extend-single then for all: #extend-single
-  else extend-all
+if exists books-to-renew then begin
+  if exists #renew-list then renew-list
+  else if exists #renew-single then for all: #renew-single
+  else renew-all
 end
 (disconnect)
 save
@@ -155,11 +155,11 @@ save
 
     case lib.extendType of
       etNever: booksToExtendCount:=0;
-      etAlways: //extend always (when there are books which can be extended)
+      etAlways: //renew always (when there are books which can be extended)
         booksToExtendCount:=booksExtendableCount;
       etAllDepends,etSingleDepends: begin
         booksToExtendCount:=0;
-        for i:=0 to lib.books.currentUpdate.Count-1 do //check for books to extend
+        for i:=0 to lib.books.currentUpdate.Count-1 do //check for books to renew
           if lib.shouldExtendBook(lib.books.currentUpdate[i]) then
             booksToExtendCount+=1;
         if (lib.extendType=etAllDepends) and (booksToExtendCount>0) then

@@ -17,7 +17,7 @@
     <post name="Anmelden" value="Anmelden"/>
   </page>
 </action>
-<action id="extend-all">
+<action id="renew-all">
   <page url="https://{$server}AusleiheVerlaengerungServlet" templateFile="KontoServlet">
     <post name="Kontoart" value="Ausleihkonto"/>
     <post name="Bibliothek" value="111"/>

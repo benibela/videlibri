@@ -26,7 +26,7 @@ type
     prettyNameLong:string;
     prettyNameShort:string;
     id:string;
-    maxExtendCount: integer; //-1: if you can extend so frequently you want
+    maxRenewCount: integer; //-1: if you can renew so frequently you want
     bestHomepageWidth,bestHomepageHeight: integer;
     //allowHomepageNavigation: boolean;
 
@@ -269,25 +269,25 @@ begin
   else if tagName='longname' then prettyNameLong:=value
   else if tagName='shortname' then prettyNameShort:=value
   else if tagName='longname' then prettyNameLong:=value
-  else if tagName='singlebookextend' then canModifySingleBooks:=StrToBool(value)
+  else if tagName='singlebookrenew' then canModifySingleBooks:=StrToBool(value) //deprecated, will be overriden at the end of loadFromFile
   else if tagName='template' then template:=libraryManager.getTemplate(value)
   else if tagName='variable' then begin
     defaultVariables.NameValueSeparator:='=';
     defaultVariables.Add(getProperty('name',properties)+defaultVariables.NameValueSeparator+value);
   end else if tagName='username' then usernameRegEx.Expression:=getProperty('matches',properties)
   else if tagName='password' then passwordRegEx.Expression:=getProperty('matches',properties)
-  else if tagName='maxextendcount' then maxExtendCount:=StrToInt(value);
+  else if tagName='maxrenewcount' then maxRenewCount:=StrToInt(value);
   Result:=prContinue;
 end;
 
 procedure TLibrary.loadFromFile(fileName: string);
 begin
   id:=ChangeFileExt(ExtractFileName(fileName),'');;
-  maxExtendCount:=-1;
+  maxRenewCount:=-1;
   parseXML(strLoadFromFile(fileName),@readProperty,nil,nil,eUTF8);
   if template<>nil then begin
-    canModifySingleBooks:=(template.findAction('extend-single')<>nil)  or
-                          (template.findAction('extend-list')<>nil) ;
+    canModifySingleBooks:=(template.findAction('renew-single')<>nil)  or
+                          (template.findAction('renew-list')<>nil) ;
   end;
 end;
 
@@ -888,9 +888,9 @@ var
 begin
   if logging then
     log('enter TTemplateAccountAccess.extendAll');
-  if reader.findAction('extend-all')<>nil then begin
+  if reader.findAction('renew-all')<>nil then begin
     setVariables();
-    reader.callAction('extend-all');
+    reader.callAction('renew-all');
   end else begin
     booksExtendableCount:=0;
     for i:=0 to books.currentUpdate.count-1 do
@@ -922,27 +922,27 @@ begin
   if booksToExtend.Count=0 then exit;
   if logging then log('Enter TTemplateAccountAccess.extendList');
   setVariables();
-  extendAction:=reader.findAction('extend-list');
+  extendAction:=reader.findAction('renew-list');
   if extendAction<>nil then begin
     if logging then log('use extendList Template');
     extendBookList := TXQValueSequence.create(booksToExtend.Count);
     for i:=0 to booksToExtend.Count-1 do
       extendBookList.addChild(reader.bookToPXP(booksToExtend[i]));
     if logging then log('bookList (count: '+inttostr(extendBookList.seq.count)+') is: '+extendBookList.debugAsStringWithTypeAnnotation());
-    reader.parser.variableChangeLog.add('extend-books', extendBookList);
+    reader.parser.variableChangeLog.add('renew-books', extendBookList);
     reader.callAction(extendAction);
-  end else if reader.findAction('extend-single')<>nil then begin
-    if logging then log('use extendSingle Template');
-    extendAction:=reader.findAction('extend-single');
+  end else if reader.findAction('renew-single')<>nil then begin
+    if logging then log('use renew-single Template');
+    extendAction:=reader.findAction('renew-single');
     for i:=booksToExtend.count-1 downto 0 do begin
       reader.selectBook(booksToExtend[i]);
       book:=reader.books.findBook(booksToExtend[i]);
       if book<>nil then reader.selectBook(book); //handles more instances of the same book
       reader.callAction(extendAction);
     end;
-  end else if reader.findAction('extend-all')<>nil then begin
-    if logging then log('use extendAll Template');
-    reader.callAction('extend-all');
+  end else if reader.findAction('renew-all')<>nil then begin
+    if logging then log('use renew-all Template');
+    reader.callAction('renew-all');
   end;
   FConnectingTime:=GetTickCount;
   if logging then log('Leave TTemplateAccountAccess.extendList');
@@ -1034,10 +1034,10 @@ begin
 
   case extendType of
     etNever: exit;
-    etAlways: //extend always (when there are books which can be extended)
+    etAlways: //renew always (when there are books which can be extended)
       booksToExtendCount:=booksExtendableCount;
     etAllDepends,etSingleDepends: begin
-      for i:=0 to reader.books.count-1 do //check for books to extend
+      for i:=0 to reader.books.count-1 do //check for books to renew
         if shouldExtendBook(reader.books[i]) then
           booksToExtend+=1;
       if (extendType=etAllDepends) and (booksToExtend>0) then
@@ -1072,14 +1072,4 @@ begin
   inherited create(mes+' (dieser Fehler dürfte niemals auftreten)');
 end;
 
-end.
-
-
---schnelles VERLÄNGERN--
-assume connected
-if exists books-to-extend then begin
-  if exists #extend-list then extend-list
-  else if exists #extend-single then for all: #extend-single
-  else extend-all
-end
-
+end.

@@ -7,7 +7,7 @@
 
   <username matches="^(\d000\d{3}|\w\d{8})$"/>
   <password matches="."/>
-  <maxExtendCount value="3"/>
+  <maxRenewCount value="3"/>
 
   <variable name="server" value="katalog.bibl.fh-duesseldorf.de/libero/"/>
   
