@@ -24,7 +24,7 @@ type
     id,author,title,year:string; //schlüssel
     isbn: string;
     category,statusStr,otherInfo: string;
-    issueDate,limitDate:longint;
+    issueDate,dueDate:longint;
     status: TBookStatus;
     lend: boolean;
 
@@ -184,7 +184,7 @@ begin
   year:='';
   StatusStr:='';
   Status:=bsUnknown;
-  limitDate:=0;
+  dueDate:=0;
   issueDate:=0;
   SetLength(Additional,0);
 end;
@@ -198,7 +198,7 @@ begin
   if statusStr='' then statusStr:=book.statusStr;
   if otherInfo='' then otherInfo:=book.otherInfo;
   if issueDate=0 then issueDate:=book.issueDate;
-  if limitDate=0 then limitDate:=book.limitDate;
+  if dueDate=0 then dueDate:=book.dueDate;
   if status=bsUnknown then status:=book.status;
   if charges=0 then charges:=book.charges;
   if lastExistsDate=0 then lastExistsDate:=book.lastExistsDate;
@@ -216,7 +216,7 @@ end;
 
 function TBook.toLimitString(): string;
 begin
-  result:=toSimpleString() + '  => '+DateToPrettyStr(limitDate);
+  result:=toSimpleString() + '  => '+DateToPrettyStr(dueDate);
 end;
 
   {
@@ -228,7 +228,7 @@ begin
   if book.statusStr<>'' then statusStr:=book.statusStr;
   if book.otherInfo<>'' then otherInfo:=book.otherInfo;
   if book.issueDate<>0 then issueDate:=book.issueDate;
-  if book.limitDate<>0 then limitDate:=book.limitDate;
+  if book.dueDate<>0 then dueDate:=book.dueDate;
   if book.status<>bsUnknown then status:=book.status;
   if book.charges<>0 then charges:=book.charges;
   if book.lastExistsDate<>0 then lastExistsDate:=book.lastExistsDate;
@@ -428,7 +428,7 @@ begin
       statusStr:=truncNull(line);
       otherInfo:=truncNull(line);
       issueDate:=StrToInt(truncNull(line));
-      limitDate:=StrToInt(truncNull(line));
+      dueDate:=StrToInt(truncNull(line));
       lastExistsDate:=StrToInt(truncNull(line));
       status:=TBookStatus(StrToInt(truncNull(line)));
       year:=truncNullDef(line,'');
@@ -459,7 +459,7 @@ begin
     with books[i] do begin
       if not (status in [bsProblematicInStr,bsCuriousInStr]) then statusStr:='';
       writeln(text,id+#0+category+#0+author+#0+title+#0+statusStr+#0+otherInfo+#0+
-                   IntToStr(issueDate)+#0+IntToStr(limitDate)+#0+
+                   IntToStr(issueDate)+#0+IntToStr(dueDate)+#0+
                    IntToStr(lastExistsDate)+#0+inttostr(integer(status))+#0+year+#0+IntToStr(firstExistsDate)+#0+isbn+#0)
     end;
   close(text);
@@ -480,9 +480,9 @@ var i:longint;
 begin
   Result:=MaxInt;
   for i:=0 to count-1 do
-    if (books[i].limitDate > 0) and (books[i].limitDate < Result) and
+    if (books[i].dueDate > 0) and (books[i].dueDate < Result) and
       (extendable or (books[i].status in BOOK_NOT_EXTENDABLE)) then
-        result:=books[i].limitDate;
+        result:=books[i].dueDate;
 end;
 
 
@@ -537,12 +537,14 @@ begin
     else if pos(':', variable) > 0 then book.statusStr:=book.statusStr + ' Achtung: Ungültige Statusvariable "' + variable + '" in Template'
     else book.status := bsNormal;
   end else if striEqual(variable, 'issuedate') then book.issueDate:=trunc(value.toDateTime)
-  else if striEqual(variable, 'limitdate') then
-    book.limitDate:=trunc(value.toDateTime)
+  else if striEqual(variable, 'duedate') then
+    book.dueDate:=trunc(value.toDateTime)
   else if strlibeginswith(@variable[1],length(variable),'issuedate') then
     book.IssueDate:=dateParse(strconv(),strcopyfrom(variable,pos(':',variable)+1))
-  else if strlibeginswith(@variable[1],length(variable),'limitdate') then
-    book.LimitDate:=dateParse(strconv(),strcopyfrom(variable,pos(':',variable)+1))
+  else if strlibeginswith(@variable[1],length(variable),'duedate') then
+    book.dueDate:=dateParse(strconv(),strcopyfrom(variable,pos(':',variable)+1))
+  else if striEqual(variable, 'limitdate') or strlibeginswith(@variable[1],length(variable),'limitdate') then
+    raise EBookListReader.create('The template is using the limitdate property which is deprecated. It should now be called duedate')
   else
     setProperty(variable,strconv(),book.Additional);
 end;

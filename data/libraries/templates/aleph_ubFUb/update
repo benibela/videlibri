@@ -28,7 +28,7 @@
     <td><template:read var="book.author" source="."/></td> 
     <td><template:read var="book.title" source="."/></td> 
     <td><template:read var="book.year" source="."/></td> 
-    <td><template:read var="book.limitdate" source="parse-date(.,'dd/mm/yy')"/></td> 
+    <td><template:read var="book.duedate" source="parse-date(.,'dd/mm/yy')"/></td> 
     <td><!--ignore: Standort--></td> 
     <td><template:read var="book.id" source="."/>
         <template:read var="book.category" source="." regex="[a-zA-Z]*"/></td> 

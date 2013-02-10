@@ -68,7 +68,7 @@
       <TD>{book := object(),
            book.extendid := encode-for-uri(input/@name)
            }</TD>
-      <TD>{book.limitdate := parse-date(., "dd.mm.yyyy")}</TD>
+      <TD>{book.duedate := parse-date(., "dd.mm.yyyy")}</TD>
       <TD>{book.category := filter(text(), "\[(.*)\]", 1),  
            book.title :=  if (contains(text(), "]")) then filter(text(), "(\] )(.*)", 2) else text()}<BR/>
           {preid := text()}<BR/>

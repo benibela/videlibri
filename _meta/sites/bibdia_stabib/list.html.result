@@ -7,23 +7,23 @@ templateError: string: true
 V: node: 
 V: integer: 0
 status: string: Potsdamer Straße, Lesesaal Abholbereich
-book: object: {stabikatFound: boolean: false, limitDate: date: 2013-01-15, id: string: 27BA1234, shortId: string: 27BA1234, status:problematic: string: Potsdamer Straße, Lesesaal Abholbereich, 0-mal verlängert}
+book: object: {stabikatFound: boolean: false, duedate: date: 2013-01-15, id: string: 27BA1234, shortId: string: 27BA1234, status:problematic: string: Potsdamer Straße, Lesesaal Abholbereich, 0-mal verlängert}
 templateError: boolean: false
 V: node: 
 V: integer: 0
 status: string: Potsdamer Straße, Lesesaal Abholbereich
-book: object: {stabikatFound: boolean: false, limitDate: date: 2013-01-16, id: string: 26B7178, shortId: string: 26B7178, status:problematic: string: Potsdamer Straße, Lesesaal Abholbereich, 0-mal verlängert}
+book: object: {stabikatFound: boolean: false, duedate: date: 2013-01-16, id: string: 26B7178, shortId: string: 26B7178, status:problematic: string: Potsdamer Straße, Lesesaal Abholbereich, 0-mal verlängert}
 templateError: boolean: false
 V: node: 2
 status: string: Potsdamer Straße, Ausleihe außer Haus
-book: object: {stabikatFound: boolean: false, extendId: node: 12345, limitDate: date: 2013-01-19, id: string: Abc12345-88.2012, shortId: string: Abc12345, status:curious: string: 2-mal verlängert, Potsdamer Straße, Ausleihe außer Haus}
+book: object: {stabikatFound: boolean: false, extendId: node: 12345, duedate: date: 2013-01-19, id: string: Abc12345-88.2012, shortId: string: Abc12345, status:curious: string: 2-mal verlängert, Potsdamer Straße, Ausleihe außer Haus}
 templateError: boolean: false
 V: node: 3
 status: string: Potsdamer Straße, Ausleihe außer Haus
-book: object: {stabikatFound: boolean: false, extendId: node: 123456789, limitDate: date: 2013-01-19, id: string: Abc23456-88/89.2012, shortId: string: Abc23456, status:curious: string: 3-mal verlängert, Potsdamer Straße, Ausleihe außer Haus}
+book: object: {stabikatFound: boolean: false, extendId: node: 123456789, duedate: date: 2013-01-19, id: string: Abc23456-88/89.2012, shortId: string: Abc23456, status:curious: string: 3-mal verlängert, Potsdamer Straße, Ausleihe außer Haus}
 templateError: boolean: false
 V: node: 
 V: integer: 0
 status: string: Potsdamer Straße, Ausleihe außer Haus
-book: object: {stabikatFound: boolean: false, limitDate: date: 2013-02-16, id: string: 25BA306-1234<2>, shortId: string: 25BA306, status:problematic: string: Potsdamer Straße, Ausleihe außer Haus, 0-mal verlängert}
+book: object: {stabikatFound: boolean: false, duedate: date: 2013-02-16, id: string: 25BA306-1234<2>, shortId: string: 25BA306, status:problematic: string: Potsdamer Straße, Ausleihe außer Haus, 0-mal verlängert}
 templateError: boolean: false

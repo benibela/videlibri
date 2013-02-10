@@ -3,25 +3,25 @@
 charge: string: 0,00
 delete-current-books(): undefined: 
 tempcount: string: 2
-book: object: {id: string: 22258915, category: string: Ofk 7, author: string: , title: string: Englisch-Deutsch, year: string: , status:problematic: string: Nicht verlängerbar, issuedate: date: 2012-01-19, limitdate: date: 2012-05-04}
-book: object: {id: string: 22278541, category: string: Ofk 7, author: string: , title: string: Deutsch-Englisch, year: string: , status:problematic: string: Nicht verlängerbar, issuedate: date: 2012-01-19, limitdate: date: 2012-05-04}
+book: object: {id: string: 22258915, category: string: Ofk 7, author: string: , title: string: Englisch-Deutsch, year: string: , status:problematic: string: Nicht verlängerbar, issuedate: date: 2012-01-19, duedate: date: 2012-05-04}
+book: object: {id: string: 22278541, category: string: Ofk 7, author: string: , title: string: Deutsch-Englisch, year: string: , status:problematic: string: Nicht verlängerbar, issuedate: date: 2012-01-19, duedate: date: 2012-05-04}
 tempcount: string: 19
-book: object: {status: undefined: , id: string: 10094623, category: string: Z, author: string: Jacobse, title: string: Passagier, year: string: , issuedate: date: 2012-04-12, limitdate: date: 2012-05-10}
-book: object: {status: undefined: , id: string: 10329248, category: string: Z, author: string: McDermi, title: string: Vatermord, year: string: , issuedate: date: 2012-03-19, limitdate: date: 2012-05-04}
-book: object: {status: undefined: , id: string: 11089445, category: string: Bd, author: string: Diller, title: string: Als ich vom Himm, year: string: , issuedate: date: 2012-04-12, limitdate: date: 2012-05-10}
-book: object: {status: undefined: , id: string: 11115845, category: string: Z, author: string: Schwarz, title: string: Nephilim, year: string: , issuedate: date: 2012-03-26, limitdate: date: 2012-05-04}
-book: object: {status: undefined: , id: string: 11242413, category: string: Ze, author: string: McDermi, title: string: Trick of the da, year: string: , issuedate: date: 2012-02-07, limitdate: date: 2012-05-04}
-book: object: {status: undefined: , id: string: 11574092, category: string: Ze, author: string: Evanovi, title: string: Hard eight, year: string: , issuedate: date: 2012-04-12, limitdate: date: 2012-05-10}
-book: object: {status: undefined: , id: string: 11767869, category: string: Ze, author: string: Carver, title: string: Cage of bones, year: string: , issuedate: date: 2012-04-12, limitdate: date: 2012-05-10}
-book: object: {status: undefined: , id: string: 11820352, category: string: Z, author: string: Parrish, title: string: Knochenacker, year: string: , issuedate: date: 2012-02-24, limitdate: date: 2012-05-04}
-book: object: {status: undefined: , id: string: 11851592, category: string: Z, author: string: Klönne, title: string: Nichts als Erlösu, year: string: , issuedate: date: 2012-04-12, limitdate: date: 2012-05-10}
-book: object: {status: undefined: , id: string: 12501064, category: string: Pfm 1, author: string: Oates, title: string: Meine Zeit der, year: string: , issuedate: date: 2012-03-07, limitdate: date: 2012-05-04}
-book: object: {status: undefined: , id: string: 12579306, category: string: Z, author: string: Granhus, title: string: Mahlstrom, year: string: , issuedate: date: 2012-03-14, limitdate: date: 2012-05-04}
-book: object: {status: undefined: , id: string: 26687691, category: string: Z, author: string: Macdona, title: string: lügt immer, year: string: , issuedate: date: 2012-04-12, limitdate: date: 2012-05-10}
-book: object: {status: undefined: , id: string: 27077536, category: string: Bd, author: string: Bedford, title: string: Treibsand, year: string: , issuedate: date: 2012-04-12, limitdate: date: 2012-05-10}
-book: object: {status: undefined: , id: string: 28094981, category: string: Z, author: string: Roth, title: string: Exit ghost, year: string: , issuedate: date: 2012-03-26, limitdate: date: 2012-05-04}
-book: object: {status: undefined: , id: string: 29626111, category: string: Ze, author: string: Connell, title: string: brass verdict, year: string: , issuedate: date: 2012-04-12, limitdate: date: 2012-05-10}
-book: object: {status: undefined: , id: string: 29749086, category: string: Ugl 5, author: string: , title: string: Früchte, year: string: , issuedate: date: 2012-02-07, limitdate: date: 2012-05-04}
-book: object: {status: undefined: , id: string: 29927634, category: string: Z, author: string: Burnsid, title: string: Glister, year: string: , issuedate: date: 2012-04-12, limitdate: date: 2012-05-10}
-book: object: {status: undefined: , id: string: 57523255, category: string: Uhn, author: string: , title: string: Traumgebild, year: string: , issuedate: date: 2012-02-07, limitdate: date: 2012-05-04}
-book: object: {status: undefined: , id: string: 92337545, category: string: Z, author: string: Macdona, title: string: Drahtzieher, year: string: , issuedate: date: 2012-04-12, limitdate: date: 2012-05-10}
+book: object: {status: undefined: , id: string: 10094623, category: string: Z, author: string: Jacobse, title: string: Passagier, year: string: , issuedate: date: 2012-04-12, duedate: date: 2012-05-10}
+book: object: {status: undefined: , id: string: 10329248, category: string: Z, author: string: McDermi, title: string: Vatermord, year: string: , issuedate: date: 2012-03-19, duedate: date: 2012-05-04}
+book: object: {status: undefined: , id: string: 11089445, category: string: Bd, author: string: Diller, title: string: Als ich vom Himm, year: string: , issuedate: date: 2012-04-12, duedate: date: 2012-05-10}
+book: object: {status: undefined: , id: string: 11115845, category: string: Z, author: string: Schwarz, title: string: Nephilim, year: string: , issuedate: date: 2012-03-26, duedate: date: 2012-05-04}
+book: object: {status: undefined: , id: string: 11242413, category: string: Ze, author: string: McDermi, title: string: Trick of the da, year: string: , issuedate: date: 2012-02-07, duedate: date: 2012-05-04}
+book: object: {status: undefined: , id: string: 11574092, category: string: Ze, author: string: Evanovi, title: string: Hard eight, year: string: , issuedate: date: 2012-04-12, duedate: date: 2012-05-10}
+book: object: {status: undefined: , id: string: 11767869, category: string: Ze, author: string: Carver, title: string: Cage of bones, year: string: , issuedate: date: 2012-04-12, duedate: date: 2012-05-10}
+book: object: {status: undefined: , id: string: 11820352, category: string: Z, author: string: Parrish, title: string: Knochenacker, year: string: , issuedate: date: 2012-02-24, duedate: date: 2012-05-04}
+book: object: {status: undefined: , id: string: 11851592, category: string: Z, author: string: Klönne, title: string: Nichts als Erlösu, year: string: , issuedate: date: 2012-04-12, duedate: date: 2012-05-10}
+book: object: {status: undefined: , id: string: 12501064, category: string: Pfm 1, author: string: Oates, title: string: Meine Zeit der, year: string: , issuedate: date: 2012-03-07, duedate: date: 2012-05-04}
+book: object: {status: undefined: , id: string: 12579306, category: string: Z, author: string: Granhus, title: string: Mahlstrom, year: string: , issuedate: date: 2012-03-14, duedate: date: 2012-05-04}
+book: object: {status: undefined: , id: string: 26687691, category: string: Z, author: string: Macdona, title: string: lügt immer, year: string: , issuedate: date: 2012-04-12, duedate: date: 2012-05-10}
+book: object: {status: undefined: , id: string: 27077536, category: string: Bd, author: string: Bedford, title: string: Treibsand, year: string: , issuedate: date: 2012-04-12, duedate: date: 2012-05-10}
+book: object: {status: undefined: , id: string: 28094981, category: string: Z, author: string: Roth, title: string: Exit ghost, year: string: , issuedate: date: 2012-03-26, duedate: date: 2012-05-04}
+book: object: {status: undefined: , id: string: 29626111, category: string: Ze, author: string: Connell, title: string: brass verdict, year: string: , issuedate: date: 2012-04-12, duedate: date: 2012-05-10}
+book: object: {status: undefined: , id: string: 29749086, category: string: Ugl 5, author: string: , title: string: Früchte, year: string: , issuedate: date: 2012-02-07, duedate: date: 2012-05-04}
+book: object: {status: undefined: , id: string: 29927634, category: string: Z, author: string: Burnsid, title: string: Glister, year: string: , issuedate: date: 2012-04-12, duedate: date: 2012-05-10}
+book: object: {status: undefined: , id: string: 57523255, category: string: Uhn, author: string: , title: string: Traumgebild, year: string: , issuedate: date: 2012-02-07, duedate: date: 2012-05-04}
+book: object: {status: undefined: , id: string: 92337545, category: string: Z, author: string: Macdona, title: string: Drahtzieher, year: string: , issuedate: date: 2012-04-12, duedate: date: 2012-05-10}

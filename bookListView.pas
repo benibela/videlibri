@@ -68,9 +68,9 @@ begin
   for i:=0 to Items.Count-1 do begin
     book:=TBook(Items[i].data.obj);
     if (book<>nil) and (book.lend) and
-       (dateToWeek(book.limitDate) <> lastWeek) then begin
-      Items[i].RecordItemsText[BL_BOOK_EXTCOLUMNS_WEEK_SEPARATOR]:=IntToStr(abs(dateToWeek(book.limitDate) - lastWeek));
-      lastWeek:=dateToWeek(book.limitDate);
+       (dateToWeek(book.dueDate) <> lastWeek) then begin
+      Items[i].RecordItemsText[BL_BOOK_EXTCOLUMNS_WEEK_SEPARATOR]:=IntToStr(abs(dateToWeek(book.dueDate) - lastWeek));
+      lastWeek:=dateToWeek(book.dueDate);
      end else
       Items[i].RecordItemsText[BL_BOOK_EXTCOLUMNS_WEEK_SEPARATOR]:='';
   end;
@@ -101,9 +101,9 @@ begin
     else compare:=CompareText(i1.RecordItemsText[SortColumn],i2.RecordItemsText[SortColumn]);
   end;
   if compare=0 then  //Sort LimitDate
-    if book1.limitDate<book2.limitDate then
+    if book1.dueDate<book2.dueDate then
        compare:=-1
-    else if book1.limitDate>book2.limitDate then
+    else if book1.dueDate>book2.dueDate then
        compare:=1;
   if compare=0 then       //Sort Status
     if (book1.status in BOOK_NOT_EXTENDABLE) and (book2.status in BOOK_EXTENDABLE) then
@@ -120,7 +120,7 @@ begin
   if book = nil then exit(colorTimeNear);
   if book.lend=false then
     result:=colorOld
-  else if book.limitDate<=redTime then
+  else if book.dueDate<=redTime then
     result:=colorTimeNear
   else if book.status in BOOK_NOT_EXTENDABLE then
     result:=colorLimited
@@ -181,10 +181,10 @@ begin
     RecordItemsText[BL_BOOK_COLUMNS_YEAR] := book.year;
     RecordItemsText[BL_BOOK_COLUMNS_ISSUE_ID] := DateToPrettyStr(book.issueDate);
     if book.lend = false then begin
-      if book.limitDate = -2 then RecordItemsText[BL_BOOK_COLUMNS_LIMIT_ID] := 'nie'
+      if book.dueDate = -2 then RecordItemsText[BL_BOOK_COLUMNS_LIMIT_ID] := 'nie'
       else RecordItemsText[BL_BOOK_COLUMNS_LIMIT_ID] := 'erledigt'
     end else
-     RecordItemsText[BL_BOOK_COLUMNS_LIMIT_ID] := DateToPrettyStr(book.limitDate);
+     RecordItemsText[BL_BOOK_COLUMNS_LIMIT_ID] := DateToPrettyStr(book.dueDate);
     if book.owner<>nil then RecordItemsText[BL_BOOK_COLUMNS_ACCOUNT] := (book.owner as TCustomAccountAccess).prettyName
     else RecordItemsText[BL_BOOK_COLUMNS_ACCOUNT] := 'unbekannt';
     RecordItemsText[BL_BOOK_COLUMNS_STATUS]:=BookStatusToStr(book);//Abgegeben nach '+DateToSimpleStr(book.lastExistsDate))

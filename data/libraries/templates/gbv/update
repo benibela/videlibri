@@ -66,11 +66,11 @@
           <template:switch value="filter(., 'Abholregal|Vormerkung')">
             <template:if value="'Abholregal'">
               <template:read var="book.status:curious" source="."/>
-              <template:read var="book.limitdate:dd-mm-yyyy" source="'31-12-2099'"/>
+              <template:read var="book.duedate:dd-mm-yyyy" source="'31-12-2099'"/>
             </template:if>
             <template:if value="'Vormerkung'">
               <template:read var="book.status:curious" source="."/>
-              <template:read var="book.limitdate:dd-mm-yyyy" source="'31-12-2099'"/>
+              <template:read var="book.duedate:dd-mm-yyyy" source="'31-12-2099'"/>
             </template:if>
             <template:read var="book.status:problematic" source="."/>
           </template:switch>
@@ -80,7 +80,7 @@
     </td>
     <td></td><td></td><td></td><td class="value-small"></td>
     <td></td><td></td><td></td><td class="value-small">
-      <template:if test="text()!=''"><template:read source="." var="book.limitdate:dd-mm-yyyy"/></template:if>
+      <template:if test="text()!=''"><template:read source="." var="book.duedate:dd-mm-yyyy"/></template:if>
     </td>
     <td></td><td></td><td></td><td class="value-small"></td>
     <td></td><td></td><td></td><td class="value-small"><iframe></iframe></td>

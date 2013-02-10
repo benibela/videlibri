@@ -220,6 +220,7 @@
         <Filename Value="..\..\..\components\lazarus\internet\sendBackError\sendBackError.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="sendBackErrorForm"/>
+        <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="sendBackError"/>
       </Unit11>

@@ -23,7 +23,7 @@
 <TR>
 {book:=object(), book.stabikatFound := false()}
 <input type="checkbox" template:optional="true"><template:read var="book.extendId" source="@name"/></input>
-<TD align="center"><template:read var="book.limitDate" source="parse-date(.,'dd.mm.yyyy')"/></TD>
+<TD align="center"><template:read var="book.duedate" source="parse-date(.,'dd.mm.yyyy')"/></TD>
 <TD><template:read var="V" source="."/><t:s test="$V = ''">V:=0</t:s></TD>
 <TD></TD>
 <TD>{book.id := translate(.,' ',''), book.shortId := filter($book.id, '[^-]*') }</TD>

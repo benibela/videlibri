@@ -25,7 +25,7 @@
     <td><template:read var="book.author" source="."/></td> 
     <td><template:read var="book.title" source="."/></td> 
     <td><template:read var="book.year" source="."/></td> 
-    <td><template:read var="book.limitdate:dd/mm/yy" source="."/></td> 
+    <td><template:read var="book.duedate:dd/mm/yy" source="."/></td> 
     <td><!--ignore: Bibliothek--></td>     
     <td><!--ignore: Standort--></td> 
     <td><template:read var="book.id" source="."/>

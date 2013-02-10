@@ -7,4 +7,4 @@ spanmissing: boolean: true
 previousspan: boolean: false
 spanmissing: boolean: false
 previousspan: boolean: true
-book: object: {title: node: Introduction to cryptography, author: node: Delfs, Hans, id: string: BP1357  , status:problematic: node: Eine Verlängerung ist noch nicht möglich., issuedate: date: 2010-08-19, limitdate: date: 2010-09-17}
+book: object: {title: node: Introduction to cryptography, author: node: Delfs, Hans, id: string: BP1357  , status:problematic: node: Eine Verlängerung ist noch nicht möglich., issuedate: date: 2010-08-19, duedate: date: 2010-09-17}

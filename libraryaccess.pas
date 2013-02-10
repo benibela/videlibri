@@ -407,7 +407,7 @@ begin
   books:=TBookList.Create;
   //TODO: Optimize
   for i:=0 to account.books.current.Count-1 do
-    if (account.books.current[i].limitDate<=lastLimit) and
+    if (account.books.current[i].dueDate<=lastLimit) and
        (account.books.current[i].status in BOOK_EXTENDABLE) then
        books.add(account.books.current[i]);
   extendAccountBookData(account,books);
@@ -445,19 +445,19 @@ begin
   for i:=0 to accountIDs.count-1 do
     with TCustomAccountAccess(accountIDs.Objects[i]) do
       for j:=0  to books.current.count-1 do begin
-        if books.current[j].limitDate<currentDate then begin
+        if books.current[j].dueDate<currentDate then begin
           booksOverdue.Add(books.current[j].toSimpleString());
-          if books.current[j].limitDate < minDateOverdue then
-            minDateOverdue:=books.current[j].limitDate;
-        end else if (books.current[j].limitDate<=redTime) then begin
+          if books.current[j].dueDate < minDateOverdue then
+            minDateOverdue:=books.current[j].dueDate;
+        end else if (books.current[j].dueDate<=redTime) then begin
           if (books.current[j].status in BOOK_NOT_EXTENDABLE) then begin
             booksSoonNotExtendable.Add(books.current[j].toSimpleString());
-            if books.current[j].limitDate < minDateSoonNotExtendable then
-              minDateSoonNotExtendable:=books.current[j].limitDate;
+            if books.current[j].dueDate < minDateSoonNotExtendable then
+              minDateSoonNotExtendable:=books.current[j].dueDate;
            end else begin
             booksSoon.Add(books.current[j].toSimpleString());
-            if books.current[j].limitDate < minDateSoon then
-              minDateSoon:=books.current[j].limitDate;
+            if books.current[j].dueDate < minDateSoon then
+              minDateSoon:=books.current[j].dueDate;
            end;
         end
       end;

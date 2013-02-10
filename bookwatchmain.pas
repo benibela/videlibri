@@ -200,8 +200,8 @@ var book1,book2: TBook;
 begin
   book1:=tbook(item1);
   book2:=tbook(item2);
-  if book1.limitDate<book2.limitDate then exit(-1);
-  if book1.limitDate>book2.limitDate then  exit(1);
+  if book1.dueDate<book2.dueDate then exit(-1);
+  if book1.dueDate>book2.dueDate then  exit(1);
   if (book1.status in BOOK_NOT_EXTENDABLE) and (book2.status in BOOK_EXTENDABLE) then exit(-1);
   if (book1.status in BOOK_EXTENDABLE) and (book2.status in BOOK_NOT_EXTENDABLE) then  exit(1);
   if book1.id < book2.id then exit(-1);
@@ -264,14 +264,14 @@ begin
        else
         subject := 'Nächste Frist: '  + mailDate(tmpbl.nextLimitDate()) + ' | ' + subject;
 
-      week := dateToWeek(tmpbl.books[j].limitDate);
+      week := dateToWeek(tmpbl.books[j].dueDate);
       for j:=0 to tmpbl.Count-1 do begin
-        if dateToWeek(tmpbl.books[j].limitDate) <> week then begin
-          week := dateToWeek(tmpbl.books[j].limitDate);
+        if dateToWeek(tmpbl.books[j].dueDate) <> week then begin
+          week := dateToWeek(tmpbl.books[j].dueDate);
           report += #13#10#13#10;
         end;
         if tmpbl.books[j].owner <> nil then report += TCustomAccountAccess(tmpbl.books[j].owner).prettyName + ': ';
-        report +=  tmpbl.books[j].toSimpleString() + ':  ' + BookStatusToStr(tmpbl.books[j]) +  '  =>  ' +  mailDate(tmpbl.books[j].limitDate);
+        report +=  tmpbl.books[j].toSimpleString() + ':  ' + BookStatusToStr(tmpbl.books[j]) +  '  =>  ' +  mailDate(tmpbl.books[j].dueDate);
         report += #13#10;
       end;
     end;

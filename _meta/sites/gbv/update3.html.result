@@ -1,6 +1,6 @@
 {}
 
 delete-current-books(): undefined: 
-book: object: {extendId: string: , extendId: node: 105005296, title: string: a title: and subtitle, author: string: , id: node: 23/434:W XYZ, status:curious: node: ausgeliehen (0 Mahnung/en), limitdate:dd-mm-yyyy: node: 25-05-2011}
-book: object: {extendId: string: , extendId: node: 101430092, title: string: Titel: ein Untertitel , author: string: Vor Name; Vorr X, id: node: 19/123:X MUI, status:curious: node: ausgeliehen (0 Mahnung/en), limitdate:dd-mm-yyyy: node: 30-05-2011}
-book: object: {extendId: string: , extendId: node: 104990438, title: string: Title: sbttitle, author: string: , id: node: 12/345:X YSI 12345, status:curious: node: ausgeliehen (0 Mahnung/en), limitdate:dd-mm-yyyy: node: 30-05-2011}
+book: object: {extendId: string: , extendId: node: 105005296, title: string: a title: and subtitle, author: string: , id: node: 23/434:W XYZ, status:curious: node: ausgeliehen (0 Mahnung/en), duedate:dd-mm-yyyy: node: 25-05-2011}
+book: object: {extendId: string: , extendId: node: 101430092, title: string: Titel: ein Untertitel , author: string: Vor Name; Vorr X, id: node: 19/123:X MUI, status:curious: node: ausgeliehen (0 Mahnung/en), duedate:dd-mm-yyyy: node: 30-05-2011}
+book: object: {extendId: string: , extendId: node: 104990438, title: string: Title: sbttitle, author: string: , id: node: 12/345:X YSI 12345, status:curious: node: ausgeliehen (0 Mahnung/en), duedate:dd-mm-yyyy: node: 30-05-2011}

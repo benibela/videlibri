@@ -27,7 +27,7 @@
 <template:if test="$newExtendId=''">
 <template:read var="book.status:problematic" source="concat($status, ', ', $V, '-mal verlängert')"/>
 </template:if>
-<template:read var="book.limitDate" source="parse-date($newLimit,'dd.mm.yyyy')"/>
+<template:read var="book.duedate" source="parse-date($newLimit,'dd.mm.yyyy')"/>
 <template:read var="templateError" source="false()"/>
 </tr>
 </template:loop>

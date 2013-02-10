@@ -26,7 +26,7 @@
     <td><template:read var="book.author" source="."/></td> 
     <td><template:read var="book.title" source="."/></td> 
     <td><template:read var="book.year" source="."/></td> 
-    <td><template:read var="book.limitdate" source="parse-date(.,'dd/mm/[yy]yy')"/></td> 
+    <td><template:read var="book.duedate" source="parse-date(.,'dd/mm/[yy]yy')"/></td> 
     <td><!--ignore: Limittime--></td> 
     <td><!--ignore: Gebühr--></td>
     <td><!--ignore: Standort--></td>      

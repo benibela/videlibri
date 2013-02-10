@@ -6,7 +6,7 @@
  </tr>
  <tr>
   <td>Fällig</td>
-  <td><t:s>book.limitdate:=parse-date(.,"dd/mm/[yy]yy")</t:s></td>
+  <td><t:s>book.duedate:=parse-date(.,"dd/mm/[yy]yy")</t:s></td>
  </tr>
  <tr>
   <td>Verlängerung:</td>

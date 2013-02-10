@@ -440,12 +440,12 @@ begin
   nextLimit:=MaxInt-1;
   nextNotExtendableLimit:=MaxInt;
   for i:=0 to bookLists[bltInCurrentFile].count-1 do
-    if bookLists[bltInCurrentFile][i].limitDate>0 then begin
-      if bookLists[bltInCurrentFile][i].limitDate<nextLimit then
-        nextLimit:=bookLists[bltInCurrentFile][i].limitDate;
+    if bookLists[bltInCurrentFile][i].dueDate>0 then begin
+      if bookLists[bltInCurrentFile][i].dueDate<nextLimit then
+        nextLimit:=bookLists[bltInCurrentFile][i].dueDate;
       if bookLists[bltInCurrentFile][i].status in BOOK_NOT_EXTENDABLE then
-        if bookLists[bltInCurrentFile][i].limitDate<nextNotExtendableLimit then
-          nextNotExtendableLimit:=bookLists[bltInCurrentFile][i].limitDate;
+        if bookLists[bltInCurrentFile][i].dueDate<nextNotExtendableLimit then
+          nextNotExtendableLimit:=bookLists[bltInCurrentFile][i].dueDate;
     end;
 
   if logging then
@@ -726,7 +726,7 @@ end;
 function TCustomAccountAccess.shouldExtendBook(book: TBook): boolean;
 begin
   Result:=(book.status in BOOK_EXTENDABLE) and
-          (book.limitDate<=currentDate+extendDays);
+          (book.dueDate<=currentDate+extendDays);
 end;
 
 function TCustomAccountAccess.existsCertainBookToExtend: boolean;
@@ -1015,7 +1015,7 @@ end;
   begin
     Result:=(reader.books[i].status in BOOK_EXTENDABLE) and
              ((booksToExtend.findBook(book)<>nil) or
-              (book.limitDate<=currentDate+extendDays));
+              (book.dueDate<=currentDate+extendDays));
   end;
 var booksToExtendCount,booksExtendableCount: longint;
     realBooksToExtend: TBookList;

@@ -15,7 +15,7 @@
           <span class="label-small"><!--status:-->Status:</span>
           <template:read var="book.status" source="text()"/>
           <span class="label-small">Leihfristende:<!--expiry date:--></span>
-          <template:read source="parse-date(text(), 'dd-mm-yyyy')" var="book.limitdate"/>
+          <template:read source="parse-date(text(), 'dd-mm-yyyy')" var="book.duedate"/>
         </td></tr>
       </table>
     </td>
@@ -38,7 +38,7 @@
           <span class="label-small"><!--???:-->Verweigerungsgrund:</span>
           <template:read var="book.status:problematic" source="text()"/>
           <span class="label-small">Leihfristende:<!--expiry date:--></span>
-          <template:read source="parse-date(text(), 'dd-mm-yyyy')" var="book.limitdate"/>
+          <template:read source="parse-date(text(), 'dd-mm-yyyy')" var="book.duedate"/>
         </td></tr>
       </table>
     </td>

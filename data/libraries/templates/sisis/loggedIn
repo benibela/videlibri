@@ -61,7 +61,7 @@
          <template:if test="$spanmissing"><broken/></template:if>
          <td>
            {book.issuedate:=parse-date(filter(text(), '^\d{2}\.\d{2}\.\d{4}'), 'dd.mm.yyyy'),
-            book.limitdate:=parse-date(filter(text(),'- *(\d{2}\.\d{2}\.\d{4})', 1), 'dd.mm.yyyy')
+            book.duedate:=parse-date(filter(text(),'- *(\d{2}\.\d{2}\.\d{4})', 1), 'dd.mm.yyyy')
            }<br/>
 	 </td>
         <!-- <template:read var="book-end()"/>-->

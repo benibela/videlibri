@@ -34,7 +34,7 @@
               <strong template:optional="true"><template:read source="text()" var="book.status:problematic"/></strong>
               </td>
               <td><template:read source="parse-date(text(),'dd.mm.yyyy')" var="book.issuedate"/></td>
-              <td><template:read source="parse-date(text(),'dd.mm.yyyy')" var="book.limitdate"/></td>
+              <td><template:read source="parse-date(text(),'dd.mm.yyyy')" var="book.duedate"/></td>
               <!--<template:read var="book-end()"/>-->
             </tr>
            </template:loop>
@@ -49,6 +49,7 @@
             <th>Ausleihe</th>
             <th>Frist bis</th>
            </tr>
+
            <template:loop>
             <tr>
               <td>
@@ -62,7 +63,7 @@
                 <template:read source="text()" var="book.year" regex="<(\d{2,4})>?$" submatch="1"/>
               </td>
               <td><template:read source="parse-date(text(),'dd.mm.yyyy')" var="book.issuedate"/></td>
-              <td><template:read source="parse-date(text(),'dd.mm.yyyy')" var="book.limitdate"/></td>
+              <td><template:read source="parse-date(text(),'dd.mm.yyyy')" var="book.duedate"/></td>
               <!--<template:read var="book-end()"/>-->
             </tr>
            </template:loop>

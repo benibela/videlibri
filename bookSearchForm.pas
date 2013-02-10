@@ -268,7 +268,7 @@ begin
   searcherAccess.endBookReading;
 
   temp.issueDate:=-2;
-  temp.limitDate:=-2;
+  temp.dueDate:=-2;
 
   acc := TCustomAccountAccess(accountIDs.Objects[0]);
   for i:=1 to accountIDs.Count-1 do
@@ -507,7 +507,7 @@ begin
     propAdd('ISBN!',book.isbn);
     if book.owner<>nil then begin
       propAdd('Ausleihdatum!', DateToPrettyStr(book.issueDate));
-      propAdd('Fristdatum!', DateToPrettyStr(book.limitDate));
+      propAdd('Fristdatum!', DateToPrettyStr(book.dueDate));
       propAdd('Ausleihstatus!', BookStatusToStr(book,true));
       propAdd('Erstes Vorkommen',DateToPrettyStr(book.firstExistsDate));
       propAdd('Letztes Vorkommen',DateToPrettyStr(book.lastExistsDate));

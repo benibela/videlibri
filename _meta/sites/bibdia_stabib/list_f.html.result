@@ -25,5 +25,5 @@ newExtendId: node: 115650431
 newLimit: node: 22.01.2011
 V: node: 1
 status: string: Potsdamer Straße, Buchabholbereich
-book: object: {status:curious: string: 1-mal verlängert, Potsdamer Straße, Buchabholbereich, limitDate: date: 2011-01-10, status:curious: string: 1-mal verlängert, Potsdamer Straße, Buchabholbereich, limitDate: date: 2011-01-10, status:curious: string: 1-mal verlängert, Potsdamer Straße, Buchabholbereich, limitDate: date: 2011-01-12, status:curious: string: 1-mal verlängert, Potsdamer Straße, Buchabholbereich, limitDate: date: 2011-01-22, status:curious: string: 1-mal verlängert, Potsdamer Straße, Buchabholbereich, limitDate: date: 2011-01-22}
+book: object: {status:curious: string: 1-mal verlängert, Potsdamer Straße, Buchabholbereich, duedate: date: 2011-01-10, status:curious: string: 1-mal verlängert, Potsdamer Straße, Buchabholbereich, duedate: date: 2011-01-10, status:curious: string: 1-mal verlängert, Potsdamer Straße, Buchabholbereich, duedate: date: 2011-01-12, status:curious: string: 1-mal verlängert, Potsdamer Straße, Buchabholbereich, duedate: date: 2011-01-22, status:curious: string: 1-mal verlängert, Potsdamer Straße, Buchabholbereich, duedate: date: 2011-01-22}
 templateError: boolean: false
