@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<actions>
+<action id="connect">
+  <page url="https://{$server}/auth/login">
+    <header>Content-Type: application/json</header>
+    <post>
+    {{
+      "username": "{$username}",
+      "password": "{$password}",
+      "grant_type": "password"
+    }}
+    </post>
+    <template>{
+      xquery version "1.0";
+      let $answer := json($raw) return
+      (
+        access_token := encode-for-uri($answer.access_token),
+        patron_identifier := encode-for-uri($answer.patron),
+        allow_renew := contains(x" {$answer.scope} ", " write_items "),
+        if (not(contains(x" {$answer.scope} ", " read_items "))) then ( error(QName("VL:1"), "No access" ) ) else ()        
+      )
+    }</template>
+  </page>
+</action>
+
+<action id="update-all">
+  <page url="https://{$server}/core/{$patron_identifier}/items?access_token={$access_token}">
+    <template>{
+       videlibri:delete-current-books(),
+       for $doc in (json($raw).doc)[(.).status = 3] return
+         book := {
+           "id": $doc.label,
+           "title": $doc.about,
+           "duedate": if ($doc.duedate) then parse-date($doc.duedate, "YYYY-MM-DD") else (),
+           "status": if ($doc.renewals) then x"bisher {$doc.renewals}-mal verlängert" else (),
+           "statusId": if ($doc.canrenew) then "curious" else "critical",
+           
+           "item": $doc.item, 
+           "edition": $doc.edition
+         }
+    }</template>
+  </page>
+</action>
+
+<action id="renew-list">
+  <page test="$allow_renew" url="https://{$server}/core/{$patron_identifier}/renew?access_token={$access_token}" >
+    <post>
+    {{ "doc": [ { string-join(
+      for $book in $renew-books return serialize-json({
+        "item": $book.item,
+        "edition": $book.edition
+      })
+    , ", ") } ] }}
+    </post> 
+    <template>
+    </template>
+  </page>
+  <call action="update-all"/>
+</action>
+
+
+</actions>
