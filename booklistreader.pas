@@ -125,6 +125,9 @@ function BookStatusToStr(book: TBook;verbose:boolean=false): string; //returns u
 implementation
 uses bbdebugtools, applicationconfig;
 
+const XMLNamespaceURL_VideLibri = 'http://www.benibela.de/2013/videlibri/';
+var XMlNamespaceVideLibri, XMlNamespaceVideLibri_VL: INamespace;
+
 function BookStatusToStr(book: TBook;verbose:boolean=false): string;
 begin
   if book.lend =false then
@@ -640,6 +643,8 @@ begin
   inherited create(atemplate, nil);
   defaultBook:=TBook.create;
   if logging then onLog:=@logall;
+  parser.QueryEngine.GlobalNamespaces.add(XMlNamespaceVideLibri);
+  parser.QueryEngine.GlobalNamespaces.add(XMlNamespaceVideLibri_VL);
 end;
 
 destructor TBookListReader.destroy();
@@ -682,6 +687,38 @@ begin
   details:=more_details;
 end;
 
+function xqFunctionDelete_Current_Books(const context: TXQEvaluationContext; const args: TXQVArray): IXQValue;
+begin
+  requiredArgCount(args, 0);
+  context.staticContext.sender.OnDefineVariable(nil, 'delete-current-books()', xqvalueTrue);
+  result := xqvalue();
+end;
+
+function xqFunctionRaise_Login(const context: TXQEvaluationContext; const args: TXQVArray): IXQValue;
+begin
+  requiredArgCount(args, 0, 1);
+  if length(args) = 0 then context.staticContext.sender.OnDefineVariable(nil, 'raise-login()', xqvalue())
+  else context.staticContext.sender.OnDefineVariable(nil, 'raise-login()', args[0]);
+  result := xqvalue();
+end;
+
+function xqFunctionRaise(const context: TXQEvaluationContext; const args: TXQVArray): IXQValue;
+begin
+  requiredArgCount(args, 0, 1);
+  if length(args) = 0 then context.staticContext.sender.OnDefineVariable(nil, 'raise()', xqvalue())
+  else context.staticContext.sender.OnDefineVariable(nil, 'raise()', args[0]);
+  result := xqvalue();
+end;
+
+var vl: TXQNativeModule;
+initialization
+  XMlNamespaceVideLibri := TNamespace.create(XMLNamespaceURL_VideLibri, 'videlibri');
+  XMlNamespaceVideLibri_VL := TNamespace.create(XMLNamespaceURL_VideLibri, 'vl');
+  vl := TXQNativeModule.Create(XMLNamespaceVideLibri);
+  vl.registerFunction('delete-current-books', @xqFunctionDelete_Current_Books, []);
+  vl.registerFunction('raise', @xqFunctionRaise, []);
+  vl.registerFunction('raise-login', @xqFunctionRaise_Login, []);
+  TXQueryEngine.registerNativeModule(vl);
 end.
 
 
