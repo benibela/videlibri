@@ -16,6 +16,10 @@ type
 
   ToptionForm = class(TForm)
     accountList: TListView;
+    lblShowWarning: TLabel;
+    Label27: TLabel;
+    Label28: TLabel;
+    Label29: TLabel;
     mailList: TListView;
     autostartAlways: TRadioButton;
     autostartDepends: TRadioButton;
@@ -114,6 +118,7 @@ type
     ShapeOK: TShape;
     ShapeOld: TShape;
     TrackBar1: TTrackBar;
+    TrackBar2: TTrackBar;
     procedure accountListSelectItem(Sender: TObject; Item: TListItem;
       Selected: Boolean);
     procedure BitBtn1Click(Sender: TObject);
@@ -130,6 +135,7 @@ type
     procedure FormResize(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure ImageList1Change(Sender: TObject);
+    procedure lblShowWarningClick(Sender: TObject);
     procedure ListView2Change(Sender: TObject; Item: TListItem;
       Change: TItemChange);
     procedure ListView2Click(Sender: TObject);
@@ -146,6 +152,7 @@ type
       Shift: TShiftState; X, Y: Integer);
     procedure SpeedButton1Click(Sender: TObject);
     procedure TrackBar1Change(Sender: TObject);
+    procedure TrackBar2Change(Sender: TObject);
   private
     { private declarations }
   public
@@ -269,7 +276,9 @@ begin
 
   //Autostartpage
   TrackBar1.Position:=RefreshInterval;
+  trackbar2.Position:=WarnInterval;
   TrackBar1Change(nil);
+  TrackBar2Change(nil);
   case userConfig.readInteger('autostart','type',1) of
     0:autostartAlways.Checked:=true;
     1:autostartDepends.Checked:=true;
@@ -297,6 +306,11 @@ begin
 end;
 
 procedure ToptionForm.ImageList1Change(Sender: TObject);
+begin
+
+end;
+
+procedure ToptionForm.lblShowWarningClick(Sender: TObject);
 begin
 
 end;
@@ -355,7 +369,9 @@ begin
   else ShowMessage('Autostart kaputt');
 
   RefreshInterval:=TrackBar1.Position;
+  WarnInterval:=trackbar2.Position;
   userConfig.WriteInteger('access','refresh-interval',TrackBar1.Position);
+  userConfig.WriteInteger('base','warn-interval',TrackBar2.Position);
 
   HistoryBackupInterval:=StrToInt(edtHistoryBackupInterval.Text);
   userConfig.WriteInteger('base','history-backup-interval',HistoryBackupInterval);
@@ -461,6 +477,17 @@ begin
     1: lblRefreshTIming.Caption:='Automatische Aktualisierung:'#13#10'maximal einmal pro Tag';
     else lblRefreshTIming.Caption:='Automatische Aktualisierung:'#13#10'maximal alle '+IntToStr(TrackBar1.Position)+' Tage';
   end;
+end;
+
+procedure ToptionForm.TrackBar2Change(Sender: TObject);
+begin
+ lblShowWarning.Left:=TrackBar2.left+15+(TrackBar2.width-15)*(TrackBar2.Position-TrackBar2.min) div (TrackBar2.Max-TrackBar2.min)-lblShowWarning.Width div 2;
+ case TrackBar2.Position of
+   0: lblShowWarning.Caption:='Anzeige einer Warnung:'#13#10'bei jedem Start';
+   1: lblShowWarning.Caption:='Anzeige einer Warnung:'#13#10'maximal einmal pro Tag';
+   else lblShowWarning.Caption:='Anzeige einer Warnung:'#13#10'maximal alle '+IntToStr(TrackBar2.Position)+' Tage';
+ end;
+
 end;
 
 procedure ToptionForm.accountListSelectItem(Sender: TObject; Item: TListItem;

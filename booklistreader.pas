@@ -5,7 +5,7 @@ unit booklistreader;
 interface
 
 uses
-  Classes, SysUtils,bbutils,extendedhtmlparser,simplehtmlparser,simplehtmltreeparser,simplexmlparser, xquery, dRegExpr,internetaccess, multipagetemplate;
+  Classes, SysUtils,bbutils,extendedhtmlparser,simplehtmltreeparser,simplexmlparser, xquery, dRegExpr,internetaccess, multipagetemplate;
   
 type
   TBookList = class;

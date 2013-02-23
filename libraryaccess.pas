@@ -461,7 +461,7 @@ begin
            end;
         end
       end;
-  if booksOverdue.Count + booksSoonNotExtendable.Count + booksSoon.Count > 0 then begin
+  if (lastWarnDate + WarnInterval <= currentDate) and (booksOverdue.Count + booksSoonNotExtendable.Count + booksSoon.Count > 0) then begin
     alert:='';
     if booksOverdue.Count > 0 then begin
       alert+=Format('Die folgenden Medien (%d) sind überfällig und sollten schon bis %s abgegeben worden sein:'#13, [booksOverdue.Count, DateToPrettyGrammarStr('zum ','',minDateOverdue)]);
@@ -484,6 +484,9 @@ begin
   booksSoon.Free;
   booksSoonNotExtendable.free;
   booksOverdue.Free;
+
+  lastWarnDate:=currentDate;
+  userConfig.WriteInteger('base','last-warn-date',currentDate);
 
   if logging then log('alertAboutBooksThatMustBeReturned ended');
 end;

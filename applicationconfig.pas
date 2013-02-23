@@ -53,7 +53,8 @@ var programPath,userPath,dataPath:string;
     colorOld:tcolor;
     //TODO: customize colors in search panel colorSearchTextNotFound: tcolor=$6060FF;    //colorSearchTextFound: tcolor=clWindow;
     redTime: integer;
-    RefreshInterval: integer;
+    RefreshInterval, WarnInterval: integer;
+    lastWarnDate: integer;
     HistoryBackupInterval: longint;
     refreshAllAndIgnoreDate:boolean; //gibt an, dass alle Medien aktualisiert werden
                                      //sollen unabhängig vom letzten Aktualisierungdatum
@@ -557,6 +558,8 @@ uses bookwatchmain,internetaccess,controls,libraryaccess,math,FileUtil,bbutils,b
     //Userdaten lesen
     userConfig:=TIniFile.Create(userPath+'user.config');
     RefreshInterval:=userConfig.ReadInteger('access','refresh-interval',2);
+    WarnInterval:=userConfig.ReadInteger('base','warn-interval',0);
+    lastWarnDate:=userConfig.ReadInteger('base','last-warn-date',0);
     HistoryBackupInterval:=userConfig.ReadInteger('base','history-backup-interval',30);
 
     libraryManager:=TLibraryManager.create();
