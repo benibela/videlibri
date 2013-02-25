@@ -1,9 +1,10 @@
 <table> 
  <tr> 
-  <td class=td1> Ausleihen</td>
-  <td class=td1> 
+  <td class=td1>Ausleihen<t:read var="bookpage" source="''"/></td>
+  <td class=td1 template:optional="true"> 
     <a><t:read var="bookpage" source="@href" regex="http://.*bor-loan[^']*"/></a>
   </td>
  </tr>
+ <tr>Vormerkungen<t:if test="$bookpage = ''">{videlibri:delete-current-books()}</t:if></tr>
 </table> 
 
