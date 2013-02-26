@@ -123,7 +123,8 @@ function BookStatusToStr(book: TBook;verbose:boolean=false): string; //returns u
 
 
 implementation
-uses bbdebugtools, applicationconfig;
+uses bbdebugtools, applicationconfig, xquery_json //<- enable JSON
+  ;
 
 const XMLNamespaceURL_VideLibri = 'http://www.benibela.de/2013/videlibri/';
 var XMlNamespaceVideLibri, XMlNamespaceVideLibri_VL: INamespace;
