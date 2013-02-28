@@ -201,12 +201,16 @@ uses bookwatchmain,internetaccess,controls,libraryaccess,math,FileUtil,bbutils,b
      end else if exception is ELibraryException then begin
       errorstr:=#13#10+exception.message;
       errordetails:=ELibraryException(exception).details;
+     end else if exception is EHTMLParseMatchingException then begin
+       errorstr:=//'Es ist folgender Fehler aufgetreten:      '#13#10+
+            exception.className()+': '+ exception.message+'     ';
+       errordetails:=EHTMLParseMatchingException(exception).partialMatches;
      end else begin
       errorstr:=//'Es ist folgender Fehler aufgetreten:      '#13#10+
            exception.className()+': '+ exception.message+'     ';
       errordetails:='';
      end;
-    errordetails:=errordetails+#13#10'Detaillierte Informationen über die entsprechende Quellcodestelle: (zur Angabe bei Supportanfragen) '#13#10+ BackTraceStrFunc(ExceptAddr);
+    errordetails:=errordetails+#13#10'Detaillierte Informationen über die entsprechende Quellcodestelle:'#13#10+ BackTraceStrFunc(ExceptAddr);
     for i:=0 to ExceptFrameCount-1 do
       errordetails:=errordetails+#13#10+BackTraceStrFunc(ExceptFrames[i]);
     if logging then log('createErrorMessageStr: Exception: '+errorstr+#13#10'      Details: '+errordetails);
