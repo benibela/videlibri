@@ -1,4 +1,6 @@
-{}
+
+book: {}
+
 
 noBooks: string: 
 delete-current-books(): undefined: 

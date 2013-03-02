@@ -1,4 +1,6 @@
-{}
+
+book: {}
+
 
 library: string: SEARCH_HBZ
 book: object: {id: node: SEARCH_HBZ1, detail-url: string: http://www.digibib.net//Digibib?SID=PUELLA:1405161851&LOCATION=EXTERN&SERVICE=METASEARCH&SUBSERVICE=GETRECORD&FORMAT=Full&DB=SEARCH_HBZ&METAID=1589&COUNT=1&NL_START=11&PL_START=0&LISTCOUNT=10&HIGHLIGHTTERMS=mist&VIEW=EXTERN:Recherchedatenbanken&START=1, title: string: Out of the mist [Musikdruck] : Polychromatics, library: string: SEARCH_HBZ, author: string: , year: string: }

@@ -1,3 +1,5 @@
-{}
+
+book: {}
+
 
 book: object: {issuedate: date: 2010-12-01, duedate: date: 2010-12-24, status:problematic: string: Jetzt verlängern, status:curious: undefined: , extendLink: node: http://opac.hu-berlin.de:80/F/1B662PQEHGKRA92URUMFDJE3XDVMMVBK8DGPETMVLBQLAE197J-04273?func=BOR-LOAN-RENEW&doc_number=002883697&item_sequence=000020&adm_library=HUB50&ill_unit=}

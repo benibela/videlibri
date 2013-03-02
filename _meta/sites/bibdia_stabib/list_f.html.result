@@ -1,4 +1,6 @@
-{}
+
+book: {}
+
 
 templateError: string: true
 newExtendId: node: 111111234

@@ -1,4 +1,6 @@
-{}
+
+book: {}
+
 
 library: string: SEARCH_HBZ03
 book: object: {id: node: SEARCH_HBZ031, detail-url: string: http://www.digibib.net//Digibib?SID=PUELLA:1881787519&LOCATION=EXTERN&SERVICE=METASEARCH&SUBSERVICE=GETRECORD&FORMAT=Full&DB=SEARCH_HBZ03&METAID=1635&COUNT=1&NL_START=11&PL_START=0&LISTCOUNT=10&HIGHLIGHTTERMS=test&VIEW=EXTERN:Recherchedatenbanken&START=1, title: string: This is not a test [CD], library: string: SEARCH_HBZ03, author: string: , year: string: }

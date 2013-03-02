@@ -1,4 +1,6 @@
-{}
+
+book: {}
+
 
 currentfield: string: Titel:!
 currentfield: string: title

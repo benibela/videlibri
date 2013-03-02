@@ -1,3 +1,5 @@
-{}
+
+book: {}
+
 
 book: object: {issuedate: date: 2010-07-03, duedate: date: 2010-09-13, status:problematic: string: Verlängerungslimit erreicht - Anz. d. Verlängerungen: 02}

@@ -1,4 +1,6 @@
-{}
+
+book: {}
+
 
 templateError: boolean: false
 delete-current-books(): undefined: 

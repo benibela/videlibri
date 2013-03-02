@@ -1,4 +1,6 @@
-{}
+
+book: {}
+
 
 loginToken: string: LOGINTOKEN=MHVPOTIEBL
 token: node: cuvQ8j0Xfw7414

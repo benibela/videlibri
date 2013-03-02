@@ -1,4 +1,6 @@
-{}
+
+book: {}
+
 
 delete-current-books(): undefined: 
 book: object: {extendId: string: , extendId: node: 1049957, title: string: Some Systems: a abc, author: string: def introductio, id: node: 12/3456:X ABC, status:curious: node: ausgeliehen (0 Mahnung/en), duedate:dd-mm-yyyy: node: 11-07-2011}

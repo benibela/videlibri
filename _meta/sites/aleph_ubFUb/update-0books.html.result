@@ -1,4 +1,6 @@
-{}
+
+book: {}
+
 
 noBooks: string: 
 noBooks: string: true
