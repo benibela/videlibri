@@ -23,7 +23,10 @@
   
   
     <template>
+    <t:switch>
     <a>Ausleihen zeigen oder verlängern<t:s>kontoPage := @href</t:s></a>
+    <a>Ausleihe zeigen oder verlängern<t:s>kontoPage := @href</t:s></a>
+    </t:switch>
       <!--<t:s>kontoPage := filter(@href, "(.*)&amp;requestCount", 1),
            requestCount := filter(@href, "requestCount=([0-9]+)", 1)
       </t:s>-->
