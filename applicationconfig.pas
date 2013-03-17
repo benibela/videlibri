@@ -296,7 +296,7 @@ uses bookwatchmain,internetaccess,controls,libraryaccess,math,FileUtil,bbutils,b
       defaultInternetConfiguration.userAgent:=machineConfig.ReadString('debug','userAgentOverride','');
     if userConfig.ReadString('debug','userAgentOverride','') <> '' then
       defaultInternetConfiguration.userAgent:=userConfig.ReadString('debug','userAgentOverride','');
-    defaultInternetConfiguration.connectionCheckPage:='www.duesseldorf.de';
+    //defaultInternetConfiguration.connectionCheckPage:='www.duesseldorf.de';
     case userConfig.readInteger('access','internet-type',0) of
       0: begin
         defaultInternetConfiguration.tryDefaultConfig:=true;
