@@ -37,7 +37,7 @@
     <template>
       <DIV class="aDISMaske"><!-- this page shows the books, but not if they are renewable. need to click on a button for that -->
       <FORM>
-      {checkFormPost := (form(., jn:object((.//input[(@type = "checkbox" and not(exists(@checked))) or (@type = "submit" and contains(@value, "verlängerbar"))])/{@name: @value})))} <!-- that's not fully correct because it contains two "clicked" submit buttons. And uses checkbox=& instead of checkbox=on& . And encodes " " as "%20" instead of "+" like Firefox -->
+      {checkFormPost := (form(., jn:object((.//input[(@type = "checkbox" and not(exists(@checked))) or (@type = "submit" and contains(@value, "verlängerbar"))])/{string(@name): @value})))} <!-- that's not fully correct because it contains two "clicked" submit buttons. And uses checkbox=& instead of checkbox=on& . And encodes " " as "%20" instead of "+" like Firefox -->
       
       <DIV class="clearfix" id="content">
         <TABLE class="rTable_table">
@@ -56,7 +56,7 @@
     <template>
       <DIV class="aDISMaske">
       <FORM>
-      {extendFormPost := form(., jn:object(.//input[@type = "submit" and contains(@value, "arkierte") and contains(@value, "ngern")]/{@name: @value}))}
+      {extendFormPost := form(., jn:object(.//input[@type = "submit" and contains(@value, "arkierte") and contains(@value, "ngern")]/{string(@name): @value}))}
       
       <DIV class="clearfix" id="content">
       
