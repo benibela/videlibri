@@ -7,9 +7,17 @@
   <longName value="Universitätsbibliothek der FU-Berlin"/>
   <shortName value="UBFU Berlin"/>
   <homepage value="http://aleph-www.ub.fu-berlin.de"/>
-  <template value="aleph_ubFUb"/>
+
+
   
+  <!--ALEPH System:-->
+  <template value="aleph_ubFUb"/>
   <variable name="server" value="aleph-www.ub.fu-berlin.de/"/>
+
+  <!-- PRIMO System   
+  <template value="primo"/>
+  <variable name="institute" value="FUB"/>
+  -->
   
   <!--<variable name="Location" value="Düsseldorf"/>
   <variable name="searchid-digibib" value="SERVICEGROUP1.SERVICE.SEARCH_ULBD"/>-->

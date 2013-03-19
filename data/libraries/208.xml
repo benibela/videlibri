@@ -7,9 +7,16 @@
   <longName value="Universitätsbibliothek der HU-Berlin"/>
   <shortName value="UBHU Berlin"/>
   <homepage value="http://opac.hu-berlin.de"/>
-  <template value="aleph_ubHUb"/>
+
   
+  <template value="aleph_ubHUb"/>  
   <variable name="server" value="opac.hu-berlin.de/"/>
+ 
+  
+<!--  <template value="primo"/>
+  <variable name="institute" value="HUB_UB"/>
+-->
+  
   
   <!--<variable name="Location" value="Düsseldorf"/>
   <variable name="searchid-digibib" value="SERVICEGROUP1.SERVICE.SEARCH_ULBD"/>-->

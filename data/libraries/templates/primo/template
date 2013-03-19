@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<actions>
+
+<action id="connect">
+</action>
+
+<action id="update-all">
+  <variable name="loginServer" value="vs30.kobv.de"/>
+  <variable name="server" value="vs30.kobv.de"/>
+  <variable name="primoView" value="FUB_MOBILE"/>
+  
+
+  <page url="https://{$loginServer}/pds?func=load-login">
+  <template><html>{
+    if (//form) then
+      login := form(., {"bor_id": $username, "bor_verification": $password, "institute": $institute, "calling_system": "primo"})
+     else (
+      redirect :=  resolve-uri((//a/@href)[1]),
+      login := ()
+     )
+  }</html></template>
+  </page>
+  
+  <page url="{$login}"><template><html>
+  <t:switch>
+    <form><td class="msg">{videlibri:raise-login(.)}</td></form>
+    <a>{redirect:=resolve-uri(@href)}</a>
+  </t:switch>
+  </html></template></page>
+  
+  <page url="{$redirect}"></page>
+  
+  <page url="http://{$server}/primo_library/libweb/action/myAccountMenu.do?vid={$primoView}">
+  <template><a>{redirect:=resolve-uri(@href)}</a></template>
+  </page>
+  
+
+  <page url="{$redirect}">
+  <template>
+    <DIV class="EXLMyAccountContainer" id="exlidMyAccountContainer">
+      <DIV class="EXLMyAccountMainContainer">
+        {videlibri:delete-current-books()}
+        <TABLE class="EXLMyAccountTable">
+          <t:loop>
+            <TR>
+              <TD/><!--number-->
+              <TD>{book:={"title": ., "detailUrl": resolve-uri(./a/@href)}}</TD>
+              <TD>{book.author := .}</TD>
+              <TD>{book.dueDate := parse-date(., "dd.mm.yyyy")}</TD>
+              <TD/><!-- Uhrzeit -->
+              <TD/><!-- Gebühr -->
+              <TD/><!-- Bibliothek -->
+              <TD>
+              {if (./a) then (book.statusId := "curious", book._renewUrl := resolve-uri(./a/@href))
+               else (book.status := ., book.statusId := "critical")}
+              </TD>
+            </Tr>
+          </t:loop>
+        </TABLE>
+      </DIV>
+    </DIV>
+  </template>
+  </page>
+  
+<!--  <error templateFile="loginError"/>-->
+</action>
+
+
+<action id="update-single">
+  <page url="{$book.detailUrl}">
+  <template>
+    <DIV class="EXLMyAccountContainer" id="exlidMyAccountContainer">
+      <template:meta default-text-matching="regex"/>
+      <DIV class="EXLMyAccountMainContainer">
+        <H1>Details of loan:|Details der Ausleihe:</H1>
+        <TABLE class="EXLMyAccountTableDetails">
+          <TR><TH>Year:|Jahr:</TH><TD>{book.year:=.}</TD></TR>
+          <TR><TH>Call number:|Signatur:</TH><TD>{book.id:=.}</TD></TR>
+          <TR t:optional="true"><TH>Loan date:|Ausleihdatum:</TH><TD>{book.issueData:=parse-date(., "dd.mm.yyyy")}</TD></TR>
+        </TABLE>
+      </DIV>
+    </DIV>
+  </template>
+  </page> 
+</action>
+
+<action id="renew-list">
+  <loop var="b" list="$book-list">
+    <page url="{$b._renewUrl}">
+    </page>
+  </loop>
+  <call action="update-all"/>
+</action>
+
+</actions>
