@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<library>
+  <username matches="^[0-9]+$"/>
+  <password matches="^.+$"/>  
+  
+  <maxRenewCount value="4"/>
+
+  <longName value="Universitätsbibliothek Hildesheim"/>
+  <shortName value="UB Hildesheim"/>
+  <homepage value="http://katalog.uni-hildesheim.de/DB=1/LNG=DU/"/>
+  <!--<template value="paia"/>
+  <variable name="server" value="paia.gbv.de/isil/DE-Hil2"/>-->
+  
+  <template value="gbv"/>
+  
+  <variable name="server" value="https://opac.lbs-hildesheim.gbv.de/loan/DB=1/LNG=DU/"/>
+	
+</library>
