@@ -534,11 +534,19 @@ begin
   else if variable='title' then book.Title:=strconv()
   else if variable='year' then book.Year:=strconv()
   else if variable='isbn' then book.isbn:=strconv()
-  else if strlibeginswith(@variable[1],length(variable),'status') then begin
+  else if variable = 'statusId' then begin
+    case strconv() of
+      'curious': book.status:=bsCuriousInStr;
+      'critical': book.status:=bsProblematicInStr;
+      'normal': book.status:=bsNormal;
+      else EBookListReader.create('Ungültiger Bücherstatus: '+strconv());
+    end;
+  end else if strlibeginswith(@variable[1],length(variable),'status') then begin //carefully with order
     book.StatusStr:=strconv();
     if variable='status:problematic' then book.Status:=bsProblematicInStr
     else if variable='status:curious' then book.Status:=bsCuriousInStr
     else if pos(':', variable) > 0 then book.statusStr:=book.statusStr + ' Achtung: Ungültige Statusvariable "' + variable + '" in Template'
+    else if book.statusStr <> '' then book.Status:=bsCuriousInStr
     else book.status := bsNormal;
   end else if striEqual(variable, 'issuedate') then book.issueDate:=trunc(value.toDateTime)
   else if striEqual(variable, 'duedate') then
