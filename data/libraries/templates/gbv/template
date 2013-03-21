@@ -28,7 +28,7 @@
 </action>
 
 <action id="renew-list">
-  <variable name="book-list">string-join(for $book in $renew-books return x"VB={$book.extendid}", "&amp;")</variable> 
+  <variable name="book-list">string-join(for $book in $renew-books return x"VB={$book.extendId}", "&amp;")</variable> 
   <page url="{$server}USERINFO" templateFile="extend">
     <post name="ACT" value="UI_RENEWLOAN"/>
     <post name="BOR_U" value="{$username}"/>
