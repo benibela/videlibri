@@ -45,6 +45,7 @@ It supports:
   <li>CSS 3 Selectors: to extract simple elements</li>
   <li>XPath 2: to extract values and calculate things with them</li>
   <li>XQuery 1: to  create new documents from the extracted values</li> 
+  <li>JSONiq: to  work with JSON apis</li> 
   <li>Templates: to extract several expressions in an easy way using a annotated version of the page for pattern-matching</li>
 </ul></li>
 <li>Following:<ul>
@@ -53,8 +54,10 @@ It supports:
 </ul></li>
 <li>Output formats:<ul>
   <li>Adhoc: just prints the data in a human readable format</li>
+  <li>XML: encodes the data in xml  </li>
+  <li>HTML: encodes the data in html  </li>
   <li>JSON: encodes the data in a json (as array of all pages of objects with the extracted values as properties ) </li>
-  <li>XML: encodes the data similarly in a xml  </li>
+  <li>bash/cmd: exports the data as shell variables  </li>
 </ul></li>
 <li>Connections: HTTP / HTTPS as well as local files or stdin</li>
 <li>Systems: Windows (using wininet), Linux (using synapse+openssl), Mac (? with synapse, not tested) </li>
@@ -65,16 +68,16 @@ It supports:
 <ol class="examples">
 <li>
 Print all urls found by a google search.<br><br>
-  <code>xidel http://www.google.de/search?q=test --extract "//a/filter(@href, 'url[?]q=([^&]+)&', 1)[. != '']"</code>
+  <code>xidel http://www.google.de/search?q=test --extract "//a/extract(@href, 'url[?]q=([^&]+)&', 1)[. != '']"</code>
 </li>
 <li>
 Print the title of all pages found by a google search and download them: <br><br>
-  <code>xidel http://www.google.de/search?q=test --follow "//a/filter(@href, 'url[?]q=([^&]+)&', 1)[. != '']" --extract //title --download '$host;/'</code>
+  <code>xidel http://www.google.de/search?q=test --follow "//a/extract(@href, 'url[?]q=([^&]+)&', 1)[. != '']" --extract //title --download '$host;/'</code>
 </li>
 <li>
 Generally follow all links on a page and print the titles of the linked pages:<ul>
-  <li>With CSS: <code>xidel http://example.org -f "css('a')" -e "css('title')"</code> </li>
   <li>With XPath: <code>xidel http://example.org -f //a -e //title</code> </li>
+  <li>With CSS: <code>xidel http://example.org -f "css('a')" --css title</code> </li>
   <li>With Templates: <code>xidel http://example.org -f "&lt;a>{.}&lt;/a>*" -e "&lt;title>{.}&lt;/title>"</code> </li>
 </ul></li>
 <li>Another template example: <br><br>
@@ -91,11 +94,14 @@ Generally follow all links on a page and print the titles of the linked pages:<u
 <li>Print all reddit comments of an user, with html and url:<br><br>
    <code>xidel "http://www.reddit.com/user/username/" --extract "&lt;t:loop>&lt;div class='usertext-body'>&lt;div>{outer-xml(.)}&lt;/div>&lt;/div>&lt;ul class='flat-list buttons'>&lt;a>&lt;t:s>link:=@href&lt;/t:s>permalink&lt;/a>&lt;/ul>&lt;/div>&lt;/div>&lt;/t:loop>" --follow "&lt;a rel='nofollow next'>{.}&lt;/a>?"</code>
 </li>
-<li>Check if your reddit letter is red; combining CSS, XPath and automatically form evaluation:<br><br>
-    <code>xidel http://reddit.com -f "form(css('form.login-form')[1], 'user=$your_username&passwd=$your_password')" -e "css('#mail')/@title"</code>
+<li>Check if your reddit letter is red:
+<ul><li>Webscraping, combining CSS, XPath, JSONiq and automatically form evaluation:<br><br>
+    <code>xidel http://reddit.com -f "form(css('form.login-form')[1], {'user': '$your_username', 'passwd': '$your_password'})" -e "css('#mail')/@title"</code></li>
+    <li>Using the Reddit API with JSONiq:<br><br>
+    <code>xidel --post "user=$your_username&passwd=$your_password&api_type=json" https://ssl.reddit.com/api/login --method GET 'http://www.reddit.com/api/me.json' -e 'jn:parse-json($raw)("data")("has_mail")'</code></li></ul>
 <li>Use XQuery, to create a html table of odd and even numbers: <br><br>
-   Windows: <code>xidel -e "xquery version '1.0'; &lt;table>{for $i in 1 to 1000 return &lt;tr>&lt;td>{$i}&lt;/td>&lt;td>{if ($i mod 2 = 0) then 'even' else 'odd'}&lt;/td>&lt;/tr>}&lt;/table>" --printed-node-format xml </code><br>
-   Linux: <code>xidel -e 'xquery version "1.0"; &lt;table>{for $i in 1 to 1000 return &lt;tr>&lt;td>{$i}&lt;/td>&lt;td>{if ($i mod 2 = 0) then "even" else "odd"}&lt;/td>&lt;/tr>}&lt;/table>' --printed-node-format xml</code><br>
+   Windows: <code>xidel --xquery "&lt;table>{for $i in 1 to 1000 return &lt;tr>&lt;td>{$i}&lt;/td>&lt;td>{if ($i mod 2 = 0) then 'even' else 'odd'}&lt;/td>&lt;/tr>}&lt;/table>" --output-format xml </code><br>
+   Linux: <code>xidel --xquery '&lt;table>{for $i in 1 to 1000 return &lt;tr>&lt;td>{$i}&lt;/td>&lt;td>{if ($i mod 2 = 0) then "even" else "odd"}&lt;/td>&lt;/tr>}&lt;/table>' --output-format xml</code><br>
    <span style="font-size:75%">(xidel itself supports ' and "-quotes on all platforms, but ' does not escape &lt;&gt; in Windows cmd, and " does not escape $ in the Linux shells)</span>  </li>
 </ol>
 <br>
