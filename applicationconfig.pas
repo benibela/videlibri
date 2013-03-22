@@ -315,6 +315,7 @@ uses bookwatchmain,internetaccess,controls,libraryaccess,math,FileUtil,bbutils,b
     defaultInternetConfiguration.proxyHTTPPort:=userConfig.ReadString('access','httpProxyPort','');
     defaultInternetConfiguration.proxyHTTPSName:=userConfig.ReadString('access','httpsProxyName','');
     defaultInternetConfiguration.proxyHTTPSPort:=userConfig.ReadString('access','httpsProxyPort','');
+    defaultInternetConfiguration.checkSSLCertificates:=userConfig.ReadBool('access', 'checkCertificates', true);
   end;
 
   procedure applicationUpdate(auto:boolean);

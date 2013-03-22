@@ -36,7 +36,7 @@ object optionForm: ToptionForm
     Height = 430
     Top = 6
     Width = 612
-    PageIndex = 4
+    PageIndex = 2
     Anchors = [akTop, akLeft, akRight, akBottom]
     BorderSpacing.Around = 2
     OnChangeBounds = Notebook1ChangeBounds
@@ -529,33 +529,33 @@ object optionForm: ToptionForm
     object pageInternet: TPage
       object Label13: TLabel
         Left = 36
-        Height = 16
+        Height = 15
         Top = 96
-        Width = 39
+        Width = 38
         Caption = 'HTTP:'
         ParentColor = False
       end
       object Label14: TLabel
         Left = 35
-        Height = 16
+        Height = 15
         Top = 126
-        Width = 46
+        Width = 45
         Caption = 'HTTPS:'
         ParentColor = False
       end
       object Label15: TLabel
         Left = 13
-        Height = 16
+        Height = 15
         Top = 9
-        Width = 178
+        Width = 177
         Caption = 'Zugriff auf die Mediendaten:'
         ParentColor = False
       end
       object Label16: TLabel
         Left = 13
-        Height = 16
+        Height = 15
         Top = 157
-        Width = 270
+        Width = 269
         Caption = 'Zugriff auf die Homepages der Büchereien:'
         ParentColor = False
         Visible = False
@@ -622,10 +622,10 @@ object optionForm: ToptionForm
       object proxyHTTPName: TEdit
         AnchorSideLeft.Control = Label14
         AnchorSideLeft.Side = asrBottom
-        Left = 85
+        Left = 84
         Height = 25
         Top = 94
-        Width = 454
+        Width = 455
         Anchors = [akTop, akLeft, akRight]
         BorderSpacing.Around = 4
         TabOrder = 5
@@ -633,10 +633,10 @@ object optionForm: ToptionForm
       object proxyHTTPSname: TEdit
         AnchorSideLeft.Control = Label14
         AnchorSideLeft.Side = asrBottom
-        Left = 85
+        Left = 84
         Height = 25
         Top = 123
-        Width = 454
+        Width = 455
         Anchors = [akTop, akLeft, akRight]
         BorderSpacing.Around = 4
         TabOrder = 6
@@ -696,6 +696,14 @@ object optionForm: ToptionForm
         Width = 255
         Caption = 'Automatisch auf Updates überprüfen'
         TabOrder = 10
+      end
+      object checkCertificates: TCheckBox
+        Left = 18
+        Height = 18
+        Top = 242
+        Width = 190
+        Caption = 'SSL-Zertifikate überprüfen'
+        TabOrder = 11
       end
     end
     object pageMail: TPage

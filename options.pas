@@ -16,6 +16,7 @@ type
 
   ToptionForm = class(TForm)
     accountList: TListView;
+    checkCertificates: TCheckBox;
     lblShowWarning: TLabel;
     Label27: TLabel;
     Label28: TLabel;
@@ -261,6 +262,7 @@ begin
     1: homepageDefaultBrowser.Checked:=true;
   end;
   autoUpdate.checked:=userConfig.ReadInteger('updates','auto-check',1)=1;
+  checkCertificates.Checked:=userConfig.ReadBool('access', 'checkCertificates', true);
 
   //Mail
   mailProgram.Text := userConfig.ReadString('Mail', 'Sendmail', 'sendmail -i -f "$from" $to');
@@ -347,6 +349,7 @@ begin
   else if homepageDefaultBrowser.Checked then userConfig.writeInteger('access','homepage-type',1);
   if autoUpdate.Checked then userConfig.WriteInteger('updates','auto-check',1)
   else userConfig.WriteInteger('updates','auto-check',0);
+  userConfig.WriteBool('access', 'checkCertificates', checkCertificates.Checked);
 
   updateActiveInternetConfig;
 
