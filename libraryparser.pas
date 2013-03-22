@@ -353,6 +353,8 @@ begin
 
   libraryFiles:=TStringList.Create;
   libraryFiles.LoadFromFile(libraryPath+'libraries.list');
+  for i:=libraryFiles.Count-1 downto 0 do
+    if libraryFiles[i] = '' then libraryFiles.Delete(i);
   for i:=0 to libraryFiles.count-1 do begin
     newLib:=TLibrary.Create;
     newLib.loadFromFile(libraryPath+libraryFiles[i]);
