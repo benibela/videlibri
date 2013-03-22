@@ -78,6 +78,11 @@ downloadTable)
   webUpload $VIDELIBRIBASE/_meta/sfsite/downloadTable.html /
 
 ;;
+  
+
+defaults)
+  setFileDefaults  VideLibri/VideLibri%20$VERSION/
+;;
 
 src)
   pushhg
