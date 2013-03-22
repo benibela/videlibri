@@ -36,7 +36,7 @@ var programPath,userPath,dataPath:string;
     nextLimitStr: string;
 
     appFullTitle:string='VideLibri';
-    versionNumber:integer=1301;
+    versionNumber:integer=1400;
     //=>versionNumber/1000
     newVersionInstalled: boolean=false;
 
@@ -348,7 +348,7 @@ uses bookwatchmain,internetaccess,controls,libraryaccess,math,FileUtil,bbutils,b
         mainForm.StatusBar1.Panels[0].Text:='Bitte warten, Update wird heruntergeladen...';
         updater.downloadUpdate();
 
-        if (updater.installerCmd<>'') and updater.hasDirectoryWriteAccess then begin
+        if (updater.installerCmd<>'') and (updater.canRunInstaller) then begin
           mainForm.StatusBar1.Panels[0].Text:='Bitte warten, Update wird installiert...';
           updater.installUpdate();
         end else ShowMessage('Update kann nicht automatisch installiert werden.'#13#10'Das Update wurde in der Datei '+updater.downloadedFileName+' gespeichert');
