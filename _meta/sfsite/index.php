@@ -218,13 +218,11 @@ Verwendet die Bücherei ein aktuelles aleph/libero/sisis/pica-System sollte es s
 
 <h2><div><a name="downloads">Downloads</a></div></h2>
 <div class="content">
+<?php include 'downloadTable.html'; ?>
 
-Hier oder auf der <a href="https://sourceforge.net/projects/videlibri/files/">Sourceforge-Downloadseite</a> kann man die
-<a href="http://sourceforge.net/projects/videlibri/files/VideLibri%201.400/videlibri-setup.exe/download"><!--DOWNLOAD-WIN-MARKER-->Windows</a>- 
-und 
-<a href="http://sourceforge.net/projects/videlibri/files/VideLibri%201.400/videlibri_1.400-1_amd64.deb/download"><!--DOWNLOAD-LINUX64-MARKER-->Linux</a>-Version
-herunterladen. <br>
-Die Windowsversion besteht aus einem automatischen Installer und ist 32 Bit, so dass es auf allen Windowscomputern laufen sollte.  Die Linuxversion ist auf Debian amd64 compilert und funktioniert daher nur unter 64-Bit Systemen. (Wenn jemand ein 32-Bit version braucht, kann ich die auch erstellen...)
+<br><br>
+Die Windowsversion besteht aus einem automatischen Installer und ist 32 Bit, so dass sie auf allen Windowscomputern laufen sollte. <br>
+Für Linux muss jeweils die passende Version heruntergeladen werden.
 
 <br><br> 
 
