@@ -31,7 +31,7 @@ Dort erstellt man dann wiederum eine XML-Datei namens template mit dieser Strukt
 
 &lt;/action>
 
-&lt;action id="extend-(all|list|single)">
+&lt;action id="renew-(all|list|single)">
 &lt;/action>
 
 &lt;/actions>
@@ -46,13 +46,13 @@ Ein solches <code>actions</code>-Template besteht aus einer Liste von <code><b>&
 <li><code>connect</code> wird einmal ausgeführt, um eine Verbindung zur Bücherei herzustellen. <br>Die Variablen <code>$username</code> und <code>$password</code> enthalten die entsprechenden Benutzerdaten. Außerdem kann man auf alle in der Büchereimetadatendatei von Schritt 1 definierten Variablen zugreifen.</li>
 <li><code>update-all</code> wird jedesmal ausgeführt, um die Medienliste zu aktualisieren und ist die einzige notwendige Aktion.<br>Es sind dieselben Variablen, wie beim Aufruf <code>connect</code> definiert, sowie alle Variablen, die <i>von</i> <code>connect</code> definiert wurden.</li>
 <li><code>update-single</code> wird direkt nach <code>update-all</code> ausgeführt und zwar einmal für jedes Buch, welches <code>update-all</code> gefunden hat. <br>Die Variable <code>$book</code> enthält das jeweilige Buch.</li>
-<li><code>extend-all</code> wird ausgeführt, wenn alle Medien verlängert werden sollen.</li>
-<li><code>extend-list</code> wird zum Verlängern von mehreren Medien ausgeführt. <br>Die Variable <code>$extend-books</code> enthält die Liste aller zu verlängernden Bücher. </li>
-<li><code>extend-single</code> wird ausgeführt, um ein einzelnes Buch zu verlängert.<br>Die Variable <code>book</code> enthält das jeweilige Buch.</li>
+<li><code>renew-all</code> wird ausgeführt, wenn alle Medien verlängert werden sollen.</li>
+<li><code>renew-list</code> wird zum Verlängern von mehreren Medien ausgeführt. <br>Die Variable <code>$renew-books</code> enthält die Liste aller zu verlängernden Bücher. </li>
+<li><code>renew-single</code> wird ausgeführt, um ein einzelnes Buch zu verlängert.<br>Die Variable <code>book</code> enthält das jeweilige Buch.</li>
 </ul>
 <p>
 <code>update-single</code> ist nicht nötig, wenn <code>update-all</code> bereits genügend Information über alle Bücher ermitteln kann. (aber viele Büchereien zeigen auf der Gesamtübersicht nicht an, ob ein Buch verlängerbar ist.)<br>
-<code>extend-all</code>, <code>extend-list</code>, <code>extend-single</code> werden nur benötigt, wenn die Bücher tatsächlich verlängert werden sollen. Es ist dabei nicht nötig, alle anzugeben. Wenn es zum Beispiel <code>extend-list</code> nicht gibt, und mehrere Bücher verlängert werden sollen, ruft VideLibri automatisch <code>extend-single</code> für jedes dieser Bücher einzeln auf. Gibt es auch <code>extend-single</code> nicht, wird in diesem Fall <code>extend-all</code> aufgerufen. 
+<code>renew-all</code>, <code>renew-list</code>, <code>renew-single</code> werden nur benötigt, wenn die Bücher tatsächlich verlängert werden sollen. Es ist dabei nicht nötig, alle anzugeben. Wenn es zum Beispiel <code>renew-list</code> nicht gibt, und mehrere Bücher verlängert werden sollen, ruft VideLibri automatisch <code>renew-single</code> für jedes dieser Bücher einzeln auf. Gibt es auch <code>renew-single</code> nicht, wird in diesem Fall <code>renew-all</code> aufgerufen. 
 
 
 
@@ -66,9 +66,9 @@ Für jede dieser Seiten kann ein <a href="seiten.html">Seiten-Template</a> angel
 <p>Auf alle definierten Variablen, kann innerhalb von anderen XPath-Ausdrücken mit <code>$variablename</code> zugegriffen werden. Außerdem wird in string-Attributen (wie url, oder value) jedes Vorkommen von <code>{$variablename}</code> durch den Wert der Variablen ersetzt (Warnung: In älteren VideLibri-Versionen <= 1.301 wurde stattdessen <code>$variablename;</code> verwendet). <br>
 VideLibri verwendet eine erweiterte XPath-Syntax, die auch Objektvariablen unterstützt: Wenn z.B.: die Variable <code>$book</code> die Daten zu einem Buch enthält, kann mittels <code>$book.title</code> auf den Buchtitel, und mittels <code>$book.author</code> auf den Autor zugegriffen werden. (siehe die Dokumentation für  <a href="seiten.html">Seiten-Template</a> für eine Übersicht über alle Buch-Eigenschaften)<br>
 Diese Objekterweiterung wird auch in einem Spezialfall von den <code>url</code>-Attributen von <code>&lt;page></code> verwendet: Wenn <code>url="{$variable}"</code> auf eine einzige Variable verweist und diese Variable ein Objekt ist, wird die Eigenschaft <code>$variable.url</code> als URL für den Seitenaufruf verwendet. Desweiteren wird <code>$variable.post</code> für die Postdaten verwendet. Ein entsprechendes Objekt kann zum Beispiel mit der Funktion <code>form(//form[1])</code> in einem XPathausdruck erstellt werden (dies würde die Daten der ersten Form auf einer Seite enthalten). <br>
-Die Variable <code>$extend-books</code> der <code>extend-list</code>-Aktion enthält eine Liste von Buchobjekten, und lässt sich am besten mit XPath-<code>for</code>-Ausdrücken verwenden. Z.B.: Wenn jedes Buchobject eine (benutzerdefinierte) Eigenschaft <code>extendid</code> hat, die auf true gesetzt werden muss, kann eine Variable für das Postrequest mit folgendem XPath-Ausdruck erzeugt werden:
-<code>&lt;variable name="book-list">string-join(for $book in $extend-books return concat($book.extendid, ";=true"), "&amp;amp;")&lt;/variable> </code>. (siehe eine Standardreferenz über XPath für Details).  <br>
-(in älteren Versionen von VideLibri, die XPath-for noch nicht unterstützen, gab es dafür ein <code>singleBookStr</code>-Attribut von action. Wenn es zum Beispiel auf <code>$book.extendid;=true</code> gesetzt wurde, wurde genau die Variable vom obigen Beispiel definiert)<br>
+Die Variable <code>$renew-books</code> der <code>renew-list</code>-Aktion enthält eine Liste von Buchobjekten, und lässt sich am besten mit XPath-<code>for</code>-Ausdrücken verwenden. Z.B.: Wenn jedes Buchobject eine (benutzerdefinierte) Eigenschaft <code>renewid</code> hat, die auf true gesetzt werden muss, kann eine Variable für das Postrequest mit folgendem XPath-Ausdruck erzeugt werden:
+<code>&lt;variable name="book-list">string-join(for $book in $renew-books return concat($book.renewid, ";=true"), "&amp;amp;")&lt;/variable> </code>. (siehe eine Standardreferenz über XPath für Details).  <br>
+(in älteren Versionen von VideLibri, die XPath-for noch nicht unterstützen, gab es dafür ein <code>singleBookStr</code>-Attribut von action. Wenn es zum Beispiel auf <code>$book.renewid;=true</code> gesetzt wurde, wurde genau die Variable vom obigen Beispiel definiert)<br>
 
 
 <p>Es ist gibt auch einen  <code>&lt;<b>call action="name"/></b></code> Befehl, um Aktionen von anderen Aktionen aus aufzurufen. Dabei werden auch neue, benutzerdefinierte Aktionen mit anderen Namen unterstützt.
@@ -77,7 +77,7 @@ Die Variable <code>$extend-books</code> der <code>extend-list</code>-Aktion enth
 <p>Und schließlich gibt es ein <code><b>&lt;loop></b></code>-Element mit diesen beiden Syntaxformen: <code>&lt;loop var="varname" list="eine Liste"/></code> und <code>&lt;loop test="Bedingung"/></code>.<br>
 Die erste Form wiederholt die Kindelemente von <code>loop</code> wie ein üblicher foreach-Ausdruck für jeden Wert in der Liste <code>eine Liste</code>, wobei der jeweilige Wert der Variable <code>$varname</code> zugewiesen wird. Die zweite Form, wiederholt solange, wie <code>test</code> true ist. <br>
 Sowohl <code>list</code> wie auch <code>test</code> erlauben beliebige XPath-Ausdrücke.<br>
-(dieses Element macht <code>update-single</code> und <code>extend-single</code> im Grunde redunant.)
+(dieses Element macht <code>update-single</code> und <code>renew-single</code> im Grunde redunant.)
 
 
 <p><br>

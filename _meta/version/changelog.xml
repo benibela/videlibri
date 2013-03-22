@@ -1,9 +1,19 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <?xml-stylesheet type="text/xsl" href="../changelog.xsl"?>
 <changelog program="VideLibri">
-  <build version="1301" date="2012-12-24">
+  <build version="1400" date="2013-03-22">
     <download url="http://videlibri.sourceforge.net/updates/videlibri-setup.exe" platform="WINDOWS" execute="&quot;$DOWNLOAD&quot;  /SP- /noicons &quot;/dir=$OLDPATH;&quot; "/>
     <download url="http://videlibri.sourceforge.net/updates/videlibri-linux64.deb" platform="LINUX64" execute=""/>
+    <fix level="major">Münchener Stadtbibliothek: Behebt Fehler bei genau einem ausgeliehenen Buch, behebt Verlängerungsfehler</fix>
+    <fix level="minor">FU Berlin: Behebt Fehler bei genau einem ausgeliehenen Buch</fix>
+    <fix level="major">ULB Düsseldorf: Anpassung an neuen Katalog</fix>
+    <change>Reaktiviert die SSL-Zertifikatüberprüfung, mit einer zusätzlichen Option, um sie zu deaktivieren.</change>
+    <change>Templatesyntax: Die Syntax für Variablen in "-Strings wurde geändert, JSONiq wird nun unterstützt, "extend" und "limitDate" wurde in "renew" und "dueDate" umbenannt, um kompatibel zu PAIA zu sein </change>
+    <change>Geändertes Auto-Update-System, sollte nun den Installer auch aufrufen können, wenn VideLibri nicht als Administrator gestartet wurde</change>
+    <add>Systeme: Unterstützung für das Primo-System der Berliner+Düsseldorf Büchereien, Unterstützung für PAIA (Patron Account Information API)</add>
+    <add>Unterstützung für die Universitätsbibliothek Hildesheim (über Webscraping, nicht PAIA)</add>
+  </build>
+  <build version="1301" date="2012-12-24">
     <fix level="major">Universitätsbibliothek der FU-Berlin: Behebt Timeout bei Weiterleitungen zu einem anderen Server (=> UB FU funktioniert jetzt wirklich)</fix>
     <fix level="minor">Aktualisiert einige veraltete Templates zur neuen Status/Zeitsyntax (Münchener Stadtbibliothek, RWTH Hochschulbibliothek, Campus Katalog Hamburg)</fix>
     <change>Deaktiviert die SSL-Zertifikatüberprüfung, weil sie die Verwendung der Münchener Stadtbibliothek unter WINE verhindert.</change>

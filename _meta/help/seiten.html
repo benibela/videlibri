@@ -96,11 +96,12 @@ Man kann beliebige eigene Variablen definieren, solange der Variablenname kein $
 <tr><td>book.status</td><td>Verlängerungsstatus</td></tr>
 <tr><td>book.status:problematic</td><td>Verlängerungsstatus für nicht-verlängerbare Medien</td></tr>
 <tr><td>book.status:curious</td><td>Verlängerungsstatus für verlängerbare Medien</td></tr>
-<tr><td>book.issuedate</td><td>Ausleihdatum. Die Funktion <code>parse-date(text(),'dd.mm.yyyy')</code> kann verwendet werden, um ein Format anzugeben.</td></tr>
-<tr><td>book.limitdate</td><td>Aubgabedatum. im angegenen Format</td></tr>
+<tr><td>book.statusId</td><td>Entweder curious oder problematic (Alternativsyntax für :curious)</td></tr>
+<tr><td>book.issueDate</td><td>Ausleihdatum. Die Funktion <code>parse-date(text(),'dd.mm.yyyy')</code> kann verwendet werden, um ein Format anzugeben.</td></tr>
+<tr><td>book.dueDate</td><td>Aubgabedatum. im angegenen Format</td></tr>
 <tr><td>book.?????</td><td>Für ????? kann irgendetwas beliebiges stehen, der Wert wird bis zum Programmende für das Buch gespeichert</td></tr>
 <tr><td></td><td></td></tr>
-<tr><td><b>delete-current-books()</b></td><td>keine eigentliche Variable, wird ihr ein Wert zu gewiesen, wird die Liste der aktuell ausgeliehen Bücher gelöscht <br>(Muss aktualisiert/aufgerufen werden, bevor neue Büchern gelesen werden! Ansonsten entstehen Duplikate)<br>Auf Grund der Klammern im Namen, kann diese Variable nur mit <code>template:read</code> und nicht mit den <code>template:s, {}</code> Kurzformen verwendet werden</td></tr>
+<tr><td><b>delete-current-books()</b></td><td>keine eigentliche Variable, wird ihr ein Wert zu gewiesen, wird die Liste der aktuell ausgeliehen Bücher gelöscht <br>(Muss aktualisiert/aufgerufen werden, bevor neue Büchern gelesen werden! Ansonsten entstehen Duplikate)<br>Statt der Variable einen Wert zuzuweisen, kann sie auch in Funktionsschreibweise als videlibri:delete-current-books() aufgerufen werden.</td></tr>
 <tr><td>raise()</td><td>Erzeugt Fehlermeldung mit dem angegebenen Wert</td></tr>
 <tr><td>raise-login()</td><td>Erzeugt eine "ungültiger Benutzername/Passwortfehlermeldung"</td></tr>
 </table>
@@ -108,9 +109,9 @@ Man kann beliebige eigene Variablen definieren, solange der Variablenname kein $
 Es ist nicht nötig, jeder Variable etwas zuzuweisen, aber es können nur die gesetzten Werte später angezeigt werden. <br>
 Variablen, die auf () enden, sind keine Variablen im üblichen Sinne, sondern Funktionen, die bei einer Zuweisung aufgerufen werden.<br>
 <br>
-Wenn ein neues Buch gelesen wird, muss ein entsprechend neues Buchobjekt mittels <code>$book := object()</code> erstellt werden.<br>
+Wenn ein neues Buch gelesen wird, muss ein entsprechend neues Buchobjekt mittels <code>$book := {}</code> erstellt werden.<br>
 In einem Seitentemplate, das aufgerufen, um ein bereits gelesenes Buch zu verlängern oder mehr Details über es zu ermitteln, ist bereits ein Buchobjekt <code>$book</code> vordefiniert, so dass kein Buchobjekt erstellt werden muss.<br>
-Es ist auch möglich, ein bestimmtes Buch an Hand seiner ID auszuwählen, indem der pseudo-Eigenschaft select(id) mittels <code>book := object(("select(id)","12345"))</code> die gewünschte ID bei der Buchobjekterstellung zugewiesen wird.<br><br>
+Es ist auch möglich, ein bestimmtes Buch an Hand seiner ID auszuwählen, indem der pseudo-Eigenschaft select(id) mittels <code>book := {"select(id)": "12345"}</code> die gewünschte ID bei der Buchobjekterstellung zugewiesen wird.<br><br>
  
 Nachdem das Objekt erstellt ist, können die Eigenschaften mit <code>{$book.author := "foobar", $book.title := "wie"}</code> geändert werden. Oder mittels <code>$book.author</code> ausgelesen werden. <br>
 (beim Setzen einer Eigenschaft durch :=, ist das $-Prefix nicht nötig)
@@ -129,11 +130,11 @@ Das Beispiel zeigt, wie sich die Tabelle einer idealen Bücherei auswerten läss
   &lt;/tr>
   &lt;template:loop>
   &lt;tr>
-    { $book := object() }
+    { $book := {} }
     &lt;td>{$book.id}&lt;/td>
     &lt;td>{$book.title}&lt;/td>
     &lt;td>{$book.author}&lt;/td>
-    &lt;td>{$book.limitdate := parse-date(text(),'dd.mm.yyyy')}&lt;/td>
+    &lt;td>{$book.dueDate := parse-date(text(),'dd.mm.yyyy')}&lt;/td>
   &lt;/tr>
   &lt;/template:loop>  
 &lt;/table>
