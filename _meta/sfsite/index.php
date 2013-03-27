@@ -226,9 +226,9 @@ Für Linux muss jeweils die passende Version heruntergeladen werden.
 
 <br><br> 
 
-Es gibt auch einen <a href="updates/changelog.xml">Changelog</a>, das alle Änderungen der letzten Version auflistet (und ein <a href="http://videlibri.hg.sourceforge.net/hgweb/videlibri/videlibri/shortlog">Repositorylog</a>, welches alle Entwicklungsschritte zeigt.).<br><br>
+Es gibt auch einen <a href="updates/changelog.xml">Changelog</a>, das alle Änderungen der letzten Version auflistet (und ein <a href="https://sourceforge.net/p/videlibri/code/ci/tip/log/">Repositorylog</a>, welches alle Entwicklungsschritte zeigt.).<br><br>
 
-Den gesamten Quellcode gibt es in einem <a href="http://videlibri.hg.sourceforge.net/hgweb/videlibri/videlibri/">Mercurial-Repository</a>.<br>
+Den gesamten Quellcode gibt es in einem <a href="https://sourceforge.net/p/videlibri/code/ci/tip/tree/">Mercurial-Repository</a>.<br>
 Das Programm ist in FreePascal/Lazarus geschrieben, und sollte sich einfach compilern lassen, indem man die bookWatch.lpi in Lazarus öffnet und in den Projekteinstellungen sein Betriebssystem auswählt. 
 Damit sollte es unter Windows/Linux/Mac mit gtk/qt/win32/cocoa-Interface laufen (getestet mit Window/Linux und gtk/qt/win32). Man benötigt aber mindestens Lazarus 1.0 und FPC 2.6.0.
 <br>
@@ -236,7 +236,7 @@ Damit sollte es unter Windows/Linux/Mac mit gtk/qt/win32/cocoa-Interface laufen 
 <br><br><br><br>
 <h2><div><a name="spinoffs">Spin-offs</a></div></h2>
 <div class="content">
-Mit dem VideLibri-Framework ist es auch trivial andere Webseiten in lokale Programme umzuwandeln, und, da der Quellcode dieser Programme größtenteils mit VideLibri übereinstimmt, liegen sie im selben <a href="http://videlibri.hg.sourceforge.net/hgweb/videlibri/videlibri/">Repository</a>:
+Mit dem VideLibri-Framework ist es auch trivial andere Webseiten in lokale Programme umzuwandeln, und, da der Quellcode dieser Programme größtenteils mit VideLibri übereinstimmt, liegen sie im selben <a href="https://sourceforge.net/p/videlibri/code/ci/tip/tree/">Repository</a>:
 <h3><a name="xibel">Xidel</a></h3>
 Xidel ist VideLibri ohne libri, also ohne irgendwas, das mit Bibliotheken und Büchern zu tun, und nützlich, um Internetseiten abzufragen.<br>
 Es hat sogar eine eigene <a href="xidel.html">Xidel-Seite</a>.
