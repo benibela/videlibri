@@ -4,7 +4,9 @@
 
 <action id="update-all">
 
-  <page url="https://{$server}/aDISWeb/app"> <template><a>{connectPage:=@href}</a></template> </page>
+  <page url="https://{$server}/aDISWeb/app"> <template>
+     <meta http-equiv="refresh">{connectPage:=extract(@content, "url=(.*)", 1)}</meta>
+  </template> </page>
   <page url="{$connectPage}">
   <template>
     <a><span>Benutzerkonto</span>{loginForm:=@href}</a>
@@ -17,10 +19,20 @@
     }</form></template>
   </page>
 
+
   <page url="{$loginFormPost}">
     <post name="textButton" value="Anmeldung abschicken"/>
+    
+    <template>
+      <form>{loginFormPost:=form(.)}
+      <h1>Sie sind angemeldet.</h1>
+      </form>
+      
+    </template>
+  </page>
   
   
+  <page url="{$loginFormPost}">  
     <template>
     <t:switch>
     <a>Ausleihen zeigen oder verlängern<t:s>kontoPage := @href</t:s></a>
@@ -38,17 +50,18 @@
       <DIV class="aDISMaske"><!-- this page shows the books, but not if they are renewable. need to click on a button for that -->
       <FORM>
       {checkFormPost := (form(., jn:object((
-        (.//input[(@type = "submit" and contains(@value, "verlängerbar"))])[1]/{string(@name): @value},
-        (.//input[(@type = "checkbox" and not(exists(@checked)) and not(exists(@disabled))) ])/{string(@name): "on"}
+     (:   (.//input[(@type = "submit" and contains(@value, "verlängerbar"))])[1]/{string(@name): @value}, :)
+        (.//input[(@type = "checkbox" and not(exists(@checked)) and not(exists(@disabled))) ])/{string(@name): "on"},
+        {"textButton$3": "Markierte Titel verl&#228;ngerbar?"}
         ))))} <!-- that's not fully correct because it contains two "clicked" submit buttons. And uses checkbox=& instead of checkbox=on& . And encodes " " as "%20" instead of "+" like Firefox -->
       
-      <DIV class="clearfix" id="content">
+        <DIV class="rTable_div">
         <TABLE class="rTable_table">
           <template:read var="delete-current-books()"/>
           {hasBooks := false()}
           <input type="checkbox" t:optional="true">{hasBooks := true()}</input>
         </TABLE>
-      </DIV>
+        </DIV>
 
       </form>
       </div>
@@ -63,9 +76,7 @@
       extendFormPost.post := replace($extendFormPost.post, "[a-zA-Z0-9]+=on&", "")
       }
       
-      <DIV class="clearfix" id="content">
       
-      <DIV class="innen">
       <DIV class="fsgrp">
       <DIV class="rTable_div">
       <TABLE class="rTable_table">
@@ -75,8 +86,14 @@
            book.extendid := encode-for-uri(input/@name)
            }</TD>
       <TD>{book.duedate := parse-date(., "dd.mm.yyyy")}</TD>
+      <TD><!--bib skip--></TD>
       <TD>{book.category := filter(text(), "\[(.*)\]", 1),  
-           book.title :=  if (contains(text(), "]")) then filter(text(), "(\] )(.*)", 2) else text()}<BR/>
+           book.title :=  if (contains(text(), "]")) then filter(text(), "(\] )(.*)", 2) else text(),
+           if (contains($book.title, "/")) then (
+             $book.author := substring-after($book.title, "/"),
+             $book.title := substring-before($book.title, "/")
+           ) else ()
+           }<BR/>
           {preid := text()}<BR/>
           {book.id := concat($preid,":",text())}</TD>
       <TD>{message := if (contains(., "- Stand")) then filter(deep-text("   "), "(.*)- Stand", 1) else deep-text("   ")}
@@ -86,8 +103,7 @@
       </TR>
       </t:loop>
       </TABLE>
-      </DIV>
-      </DIV>
+
       </DIV>
       </DIV>
       </FORM>
