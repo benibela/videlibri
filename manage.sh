@@ -46,6 +46,19 @@ linux64)
 		fileUpload videlibri_$VERSION-1_amd64.deb "/VideLibri/VideLibri\ $VERSION/"
 		webUpload  videlibri_$VERSION-1_amd64.deb /updates/
 		;;
+		
+win32)
+		find . -name "*.ppu" | grep -v /lib/ | xargs rm
+		lazCompileWin32 bookWatch
+		strip --strip-all $VIDELIBRIBASE/videlibri.exe
+		cd $VIDELIBRIBASE  #innosetup does not understand absolute linux paths
+		wine ~/.wine/drive_c/programs/programming/InnoSetup/Compil32.exe _meta/installer/videlibri.iss
+
+		cd $VIDELIBRIBASE/Output
+		fileUpload videlibri-setup.exe "/VideLibri/VideLibri\ $VERSION/"
+		webUpload  videlibri-setup.exe /updates/
+		;;
+
 
 
 downloadTable) 
@@ -79,6 +92,21 @@ downloadTable)
 
 ;;
   
+	changelog)
+		sed -e 's/<stable  *value="[0-9]*"/<stable value="'$INTVERSION'"/'  -i $VIDELIBRIBASE/_meta/version/version.xml;
+		vim $VIDELIBRIBASE/_meta/version/version.xml
+		vim $VIDELIBRIBASE/_meta/version/changelog.xml
+		./manage.sh --publish videlibri_web
+		;;
+		
+	web)
+		cd $VIDELIBRIBASE/_meta/sfsite
+		rsync -av -e ssh index.html index_en.html index.php all.css "benibela,videlibri@web.sourceforge.net:/home/project-web/videlibri/htdocs/"
+		cd ../version/
+		rsync -av -e ssh version.xml changelog.xml "benibela,videlibri@web.sourceforge.net:/home/project-web/videlibri/htdocs/updates"
+		exit;
+		;;
+
 
 defaults)
   setFileDefaults  VideLibri/VideLibri%20$VERSION/
