@@ -96,7 +96,7 @@ downloadTable)
 		sed -e 's/<stable  *value="[0-9]*"/<stable value="'$INTVERSION'"/'  -i $VIDELIBRIBASE/_meta/version/version.xml;
 		vim $VIDELIBRIBASE/_meta/version/version.xml
 		vim $VIDELIBRIBASE/_meta/version/changelog.xml
-		./manage.sh --publish videlibri_web
+		./manage.sh web
 		;;
 		
 	web)
@@ -104,7 +104,6 @@ downloadTable)
 		rsync -av -e ssh index.html index_en.html index.php all.css "benibela,videlibri@web.sourceforge.net:/home/project-web/videlibri/htdocs/"
 		cd ../version/
 		rsync -av -e ssh version.xml changelog.xml "benibela,videlibri@web.sourceforge.net:/home/project-web/videlibri/htdocs/updates"
-		exit;
 		;;
 
 
@@ -121,6 +120,17 @@ src)
   rm -Rvf $SRCDIR/programs/internet/xidel $SRCDIR/programs/internet/sourceforgeresponder/
   tar -cvzf /tmp/videlibri-$VERSION.src.tar.gz --exclude=.hg videlibri-$VERSION-src
   fileUpload videlibri-$VERSION.src.tar.gz "/VideLibri/VideLibri\ $VERSION/"
+;;
+
+	videlibri_release)
+		./manage.sh linux64
+		./manage.sh win32
+		./manage.sh linux32
+	  ./manage.sh changelog
+	  ./manage.sh defaults
+	  ./manage.sh downloadTable
+		thg commit
+		;;
 
 esac
 

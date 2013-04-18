@@ -1,9 +1,13 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <?xml-stylesheet type="text/xsl" href="../changelog.xsl"?>
 <changelog program="VideLibri">
-  <build version="1400" date="2013-03-22">
+  
+  <build version="1402" date="2013-04-17">
     <download url="http://videlibri.sourceforge.net/updates/videlibri-setup.exe" platform="WINDOWS" execute="&quot;$DOWNLOAD&quot;  /SP- /noicons &quot;/dir=$OLDPATH;&quot; "/>
     <download url="http://videlibri.sourceforge.net/updates/videlibri-linux64.deb" platform="LINUX64" execute=""/>
+    <fix level="major">Münchener Stadtbibliothek: Unterstützung für neue Katalogversion</fix>
+  </build>
+  <build version="1400" date="2013-03-22">
     <fix level="major">Münchener Stadtbibliothek: Behebt Fehler bei genau einem ausgeliehenen Buch, behebt Verlängerungsfehler</fix>
     <fix level="minor">FU Berlin: Behebt Fehler bei genau einem ausgeliehenen Buch</fix>
     <fix level="major">ULB Düsseldorf: Anpassung an neuen Katalog</fix>
