@@ -10,3 +10,8 @@ exclude programs/internet/VideLibri/config
 exclude programs/internet/VideLibri/_meta/codegen
 include programs/internet/xidel
 include programs/internet/firefoxgreasemonkey/webscraper/Webscraper.user.js
+include components/pascal/internettools.lpk 
+include components/pascal/internettools.pas 
+include components/pascal/internettools_utf8.lpk 
+include components/pascal/internettools_utf8.pas
+
