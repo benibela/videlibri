@@ -1,4 +1,3 @@
-
 book: {}
 
 
@@ -8,26 +7,26 @@ bookTableBroken: boolean: true
 noExtendingPossible: string: true
 bookTableBroken: boolean: false
 temporaryStatusDetails: node: ¬Der¬ Geist des Jedi. Armee des Terrors
-book: object: {extendid: string: , id: node: 20258942, title: node: ¬Der¬ Geist des Jedi. Armee des Terrors, author: node: Whitman, John, duedate:d mmm yyyy: node: 14 Okt 2010, status:curious: string: bisher 0 mal verlängert, status:problematic: node: ¬Der¬ Geist des Jedi. Armee des Terrors, status:problematic: string: Prinzipiell keine Verlängerung möglich}
+book: object: {"extendid": "", "id": "20258942", "title": "¬Der¬ Geist des Jedi. Armee des Terrors", "author": "Whitman, John", "duedate:d mmm yyyy": "14 Okt 2010", "status:curious": "bisher 0 mal verlängert", "status:problematic": "¬Der¬ Geist des Jedi. Armee des Terrors", "status:problematic": "Prinzipiell keine Verlängerung möglich"}
 bookTableBroken: boolean: false
 temporaryStatusDetails: node: ¬Die¬ sterbende Stadt
-book: object: {extendid: string: , id: node: 22349341, title: node: ¬Die¬ sterbende Stadt, author: node: Anthony, Mark, duedate:d mmm yyyy: node: 14 Okt 2010, status:curious: string: bisher 0 mal verlängert, status:problematic: node: ¬Die¬ sterbende Stadt, status:problematic: string: Prinzipiell keine Verlängerung möglich}
+book: object: {"extendid": "", "id": "22349341", "title": "¬Die¬ sterbende Stadt", "author": "Anthony, Mark", "duedate:d mmm yyyy": "14 Okt 2010", "status:curious": "bisher 0 mal verlängert", "status:problematic": "¬Die¬ sterbende Stadt", "status:problematic": "Prinzipiell keine Verlängerung möglich"}
 bookTableBroken: boolean: false
 temporaryStatusDetails: node: ¬Das¬ Schwert von Malachor
-book: object: {extendid: string: , id: node: 23348659, title: node: ¬Das¬ Schwert von Malachor, author: node: Anthony, Mark, duedate:d mmm yyyy: node: 14 Okt 2010, status:curious: string: bisher 0 mal verlängert, status:problematic: node: ¬Das¬ Schwert von Malachor, status:problematic: string: Prinzipiell keine Verlängerung möglich}
+book: object: {"extendid": "", "id": "23348659", "title": "¬Das¬ Schwert von Malachor", "author": "Anthony, Mark", "duedate:d mmm yyyy": "14 Okt 2010", "status:curious": "bisher 0 mal verlängert", "status:problematic": "¬Das¬ Schwert von Malachor", "status:problematic": "Prinzipiell keine Verlängerung möglich"}
 bookTableBroken: boolean: false
 temporaryStatusDetails: node: ¬Das¬ Tor des Winters
-book: object: {extendid: string: , id: node: 24304000, title: node: ¬Das¬ Tor des Winters, author: node: Anthony, Mark, duedate:d mmm yyyy: node: 14 Okt 2010, status:curious: string: bisher 0 mal verlängert, status:problematic: node: ¬Das¬ Tor des Winters, status:problematic: string: Prinzipiell keine Verlängerung möglich}
+book: object: {"extendid": "", "id": "24304000", "title": "¬Das¬ Tor des Winters", "author": "Anthony, Mark", "duedate:d mmm yyyy": "14 Okt 2010", "status:curious": "bisher 0 mal verlängert", "status:problematic": "¬Das¬ Tor des Winters", "status:problematic": "Prinzipiell keine Verlängerung möglich"}
 bookTableBroken: boolean: false
 temporaryStatusDetails: node: Der Runenbrecher
-book: object: {extendid: string: , id: node: 24335054, title: node: Der Runenbrecher, author: node: Anthony, Mark, duedate:d mmm yyyy: node: 14 Okt 2010, status:curious: string: bisher 0 mal verlängert, status:problematic: node: Der Runenbrecher, status:problematic: string: Prinzipiell keine Verlängerung möglich}
+book: object: {"extendid": "", "id": "24335054", "title": "Der Runenbrecher", "author": "Anthony, Mark", "duedate:d mmm yyyy": "14 Okt 2010", "status:curious": "bisher 0 mal verlängert", "status:problematic": "Der Runenbrecher", "status:problematic": "Prinzipiell keine Verlängerung möglich"}
 bookTableBroken: boolean: false
 temporaryStatusDetails: node: ¬Das¬ Blut der Wüste
-book: object: {extendid: string: , id: node: 25280210, title: node: ¬Das¬ Blut der Wüste, author: node: Anthony, Mark, duedate:d mmm yyyy: node: 14 Okt 2010, status:curious: string: bisher 0 mal verlängert, status:problematic: node: ¬Das¬ Blut der Wüste, status:problematic: string: Prinzipiell keine Verlängerung möglich}
+book: object: {"extendid": "", "id": "25280210", "title": "¬Das¬ Blut der Wüste", "author": "Anthony, Mark", "duedate:d mmm yyyy": "14 Okt 2010", "status:curious": "bisher 0 mal verlängert", "status:problematic": "¬Das¬ Blut der Wüste", "status:problematic": "Prinzipiell keine Verlängerung möglich"}
 bookTableBroken: boolean: false
 temporaryStatusDetails: node: ¬Die¬ letzte Schlacht
-book: object: {extendid: string: , id: node: 25361008, title: node: ¬Die¬ letzte Schlacht, author: node: Anthony, Mark, duedate:d mmm yyyy: node: 14 Okt 2010, status:curious: string: bisher 0 mal verlängert, status:problematic: node: ¬Die¬ letzte Schlacht, status:problematic: string: Prinzipiell keine Verlängerung möglich}
+book: object: {"extendid": "", "id": "25361008", "title": "¬Die¬ letzte Schlacht", "author": "Anthony, Mark", "duedate:d mmm yyyy": "14 Okt 2010", "status:curious": "bisher 0 mal verlängert", "status:problematic": "¬Die¬ letzte Schlacht", "status:problematic": "Prinzipiell keine Verlängerung möglich"}
 bookTableBroken: boolean: false
 temporaryStatusDetails: node: Schattenritter
-book: object: {extendid: string: , id: node: 26289548, title: node: Schattenritter, author: node: Clemens, James, duedate:d mmm yyyy: node: 14 Okt 2010, status:curious: string: bisher 0 mal verlängert, status:problematic: node: Schattenritter, status:problematic: string: Prinzipiell keine Verlängerung möglich}
+book: object: {"extendid": "", "id": "26289548", "title": "Schattenritter", "author": "Clemens, James", "duedate:d mmm yyyy": "14 Okt 2010", "status:curious": "bisher 0 mal verlängert", "status:problematic": "Schattenritter", "status:problematic": "Prinzipiell keine Verlängerung möglich"}
 mid: node: 140602

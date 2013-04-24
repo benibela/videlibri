@@ -1,5 +1,4 @@
-
 book: {}
 
 
-book: object: {title: string: 50 Vorschläge für eine gerechtere Welt : gegen Konzernmacht und Kapitalismus , author: string: Felber, Christian , stabikatFound: boolean: true}
+book: object: {"title": "50 Vorschläge für eine gerechtere Welt : gegen Konzernmacht und Kapitalismus ", "author": "Felber, Christian ", "stabikatFound": true}

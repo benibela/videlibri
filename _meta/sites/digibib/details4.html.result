@@ -1,4 +1,3 @@
-
 book: {}
 
 
@@ -11,4 +10,4 @@ currentfield: string: Umfang:!
 currentfield: string: Serie:!
 currentfield: string: ISBN:!
 currentfield: string: isbn
-book: object: {amazon-url: node: http://www.amazon.de/exec/obidos/ASIN/3453869397/digitalebiblio02, image-url: node: http://ecx.images-amazon.com/images/I/41AQ3FT0NAL._SL160_.jpg, title: string: Trainingsbuch Einstellungstest und Assessment-Center : praktische Übungen für alle Testformen / Peter Weiler, author: string: Weiler, Peter, Ausgabe:!: string: 4. Aufl., Taschenbuchausg. 10/2003. - München: Heyne, 2006, Umfang:!: string: 279 S. : Ill., graph. Darst., Serie:!: string: Heyne-Bücher: 08, Heine-Ratgeber ; 86939 Go..., isbn: string: 3-453-86939-7 : EUR 7.95, CHF 14.20 ; 978-3-453-86939-4, home-url: node: http://katalog.bibl.fh-duesseldorf.de/libero/WebopacOpenURL.cls?LANG=DE&ACTION=DISPLAY&sid=Libero:DUE&RID=HT016961076}
+book: object: {"amazon-url": "http://www.amazon.de/exec/obidos/ASIN/3453869397/digitalebiblio02", "image-url": "http://ecx.images-amazon.com/images/I/41AQ3FT0NAL._SL160_.jpg", "title": "Trainingsbuch Einstellungstest und Assessment-Center : praktische Übungen für alle Testformen / Peter Weiler", "author": "Weiler, Peter", "Ausgabe:!": "4. Aufl., Taschenbuchausg. 10/2003. - München: Heyne, 2006", "Umfang:!": "279 S. : Ill., graph. Darst.", "Serie:!": "Heyne-Bücher: 08, Heine-Ratgeber ; 86939 Go...", "isbn": "3-453-86939-7 : EUR 7.95, CHF 14.20 ; 978-3-453-86939-4", "home-url": "http://katalog.bibl.fh-duesseldorf.de/libero/WebopacOpenURL.cls?LANG=DE&ACTION=DISPLAY&sid=Libero:DUE&RID=HT016961076"}

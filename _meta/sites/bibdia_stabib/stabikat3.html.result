@@ -1,5 +1,4 @@
-
 book: {}
 
 
-book: object: {title: string: Alexander the Great : a new history , author: string: Heckel, Waldemar , stabikatFound: boolean: true}
+book: object: {"title": "Alexander the Great : a new history ", "author": "Heckel, Waldemar ", "stabikatFound": true}

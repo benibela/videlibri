@@ -1,4 +1,3 @@
-
 book: {}
 
 
@@ -13,4 +12,4 @@ currentfield: string: Serie:!
 currentfield: string: ISBN:!
 currentfield: string: isbn
 currentfield: string: Sonstiges:!
-book: object: {title: string: Der Einfluß der Schulbildung auf Intelligenztestleistungen : eine Längsschnittuntersuchung, author: string: Langfeldt-Nagel, Maria, year: string: Frankfurt am Main [u.a.]: Lang, 1982, Umfang:!: string: 145 S. : graph. Darst., Serie:!: string: Europäische Hochschulschriften : Reihe 6, Psychologie ; 77, isbn: string: 3-8204-6928-1, Sonstiges:!: string: Zugl.: Köln, Päd.Hochschule Rheinland, Diss., 1979, home-url: string: http://katalog.ub.uni-duesseldorf.de/F/?, home-url: string: http://katalog.ub.uni-duesseldorf.de/F/?func=find-b&, home-url: string: http://katalog.ub.uni-duesseldorf.de/F/?func=find-b&request=HT001117118&, home-url: string: http://katalog.ub.uni-duesseldorf.de/F/?func=find-b&request=HT001117118&find_code=IDN&, home-url: string: http://katalog.ub.uni-duesseldorf.de/F/?func=find-b&request=HT001117118&find_code=IDN&=Katalog-Eintrag&}
+book: object: {"title": "Der Einfluß der Schulbildung auf Intelligenztestleistungen : eine Längsschnittuntersuchung", "author": "Langfeldt-Nagel, Maria", "year": "Frankfurt am Main [u.a.]: Lang, 1982", "Umfang:!": "145 S. : graph. Darst.", "Serie:!": "Europäische Hochschulschriften : Reihe 6, Psychologie ; 77", "isbn": "3-8204-6928-1", "Sonstiges:!": "Zugl.: Köln, Päd.Hochschule Rheinland, Diss., 1979", "home-url": "http://katalog.ub.uni-duesseldorf.de/F/?", "home-url": "http://katalog.ub.uni-duesseldorf.de/F/?func=find-b&", "home-url": "http://katalog.ub.uni-duesseldorf.de/F/?func=find-b&request=HT001117118&", "home-url": "http://katalog.ub.uni-duesseldorf.de/F/?func=find-b&request=HT001117118&find_code=IDN&", "home-url": "http://katalog.ub.uni-duesseldorf.de/F/?func=find-b&request=HT001117118&find_code=IDN&=Katalog-Eintrag&"}

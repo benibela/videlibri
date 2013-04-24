@@ -1,4 +1,3 @@
-
 book: {}
 
 
@@ -9,8 +8,8 @@ spanmissing: boolean: true
 previousspan: boolean: false
 spanmissing: boolean: false
 previousspan: boolean: true
-book: object: {title: node: Introduction to cryptography, author: node: Delfs, Hans, id: string: BP1357  , status:problematic: node: Dieses Medium wurde bereits 5 mal verlängert., issuedate: date: 2010-08-19, duedate: date: 2011-01-05}
+book: object: {"title": "Introduction to cryptography", "author": "Delfs, Hans", "id": "BP1357  ", "status:problematic": "Dieses Medium wurde bereits 5 mal verlängert.", "issuedate": "2010-08-19", "duedate": "2011-01-05"}
 spanmissing: boolean: true
 previousspan: boolean: false
 spanmissing: boolean: false
-book: object: {title: node: Experimentalphysik/2, author: node: Demtröder, Wolfgang, id: string: (1)003187  , extendID: string: 1, status:curious: node: Eine Verlängerung ist möglich., issuedate: date: 2010-12-09, duedate: date: 2011-01-10}
+book: object: {"title": "Experimentalphysik/2", "author": "Demtröder, Wolfgang", "id": "(1)003187  ", "extendID": "1", "status:curious": "Eine Verlängerung ist möglich.", "issuedate": "2010-12-09", "duedate": "2011-01-10"}

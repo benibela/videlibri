@@ -1,4 +1,3 @@
-
 book: {}
 
 
@@ -9,8 +8,8 @@ noExtendingPossible: string: true
 noExtendingPossible: boolean: false
 bookTableBroken: boolean: false
 temporaryStatusDetails: node: 017602601 - 1. Verlängerung   für Benutzer #9000491; Verlängerung des Mediums nicht erlaubt bis: 16 Sep 2010.
-book: object: {extendid: string: , id: node: 017602601, title: node: ZOPE : [Grundlagen, Praxis, Referenz ; Entwicklung von dynamischen Webanwendungen ; aktuell zu Zope 2.6, 2.7 und 3.0 ; mit kompletter API-Referenz], author: node: Walerowski, Peter, duedate:d mmm yyyy: node: 11 Okt 2010, status:curious: string: bisher 0 mal verlängert, status:problematic: node: 017602601 - 1. Verlängerung   für Benutzer #9000491; Verlängerung des Mediums nicht erlaubt bis: 16 Sep 2010.}
+book: object: {"extendid": "", "id": "017602601", "title": "ZOPE : [Grundlagen, Praxis, Referenz ; Entwicklung von dynamischen Webanwendungen ; aktuell zu Zope 2.6, 2.7 und 3.0 ; mit kompletter API-Referenz]", "author": "Walerowski, Peter", "duedate:d mmm yyyy": "11 Okt 2010", "status:curious": "bisher 0 mal verlängert", "status:problematic": "017602601 - 1. Verlängerung   für Benutzer #9000491; Verlängerung des Mediums nicht erlaubt bis: 16 Sep 2010."}
 bookTableBroken: boolean: false
 temporaryStatusDetails: node: 019965801 - 1. Verlängerung   für Benutzer #9000491; Verlängerung des Mediums nicht erlaubt bis: 16 Sep 2010.
-book: object: {extendid: string: , id: node: 019965801, title: node: ¬Die¬ Anarchie der Hacker : Richard Stallman und die Freie-Software-Bewegung, author: node: Imhorst, Christian, duedate:d mmm yyyy: node: 11 Okt 2010, status:curious: string: bisher 0 mal verlängert, status:problematic: node: 019965801 - 1. Verlängerung   für Benutzer #9000491; Verlängerung des Mediums nicht erlaubt bis: 16 Sep 2010.}
+book: object: {"extendid": "", "id": "019965801", "title": "¬Die¬ Anarchie der Hacker : Richard Stallman und die Freie-Software-Bewegung", "author": "Imhorst, Christian", "duedate:d mmm yyyy": "11 Okt 2010", "status:curious": "bisher 0 mal verlängert", "status:problematic": "019965801 - 1. Verlängerung   für Benutzer #9000491; Verlängerung des Mediums nicht erlaubt bis: 16 Sep 2010."}
 mid: node: 16642
