@@ -23,7 +23,7 @@ type
     //persistent
     id,author,title,year:string; //schlüssel
     isbn: string;
-    category,statusStr,otherInfo: string;
+    category,statusStr{,otherInfo}: string;
     issueDate,dueDate:longint;
     status: TBookStatus;
     lend: boolean;
@@ -47,10 +47,10 @@ type
     function toSimpleString():string;
     function toLimitString():string;
     //procedure assignOverride(book: TBook);  //every value set in book will be replace the one of self
+
+    procedure setProperty(const name, value: string);
   end;
   
-  TSaveAction = (saReplace, saAdd);
-
   { TBookList }
 
   TBookList = class(TFPList)
@@ -81,7 +81,7 @@ type
     function findBook(id,author,title,year:string):TBook;
     
     procedure load(fileName: string);
-    procedure save(fileName: string; saveAction: TSaveAction);
+    procedure save(fileName: string);
     
     function lastCheck: longint;
     function nextLimitDate(const extendable: boolean = true): longint;
@@ -123,7 +123,7 @@ function BookStatusToStr(book: TBook;verbose:boolean=false): string; //returns u
 
 
 implementation
-uses bbdebugtools, applicationconfig, xquery_json //<- enable JSON
+uses bbdebugtools, simplehtmlparser, applicationconfig, xquery_json//<- enable JSON
   ;
 
 const XMLNamespaceURL_VideLibri = 'http://www.benibela.de/2013/videlibri/';
@@ -200,7 +200,7 @@ begin
   if category='' then category:=book.category;
   if isbn='' then isbn:=book.isbn;
   if statusStr='' then statusStr:=book.statusStr;
-  if otherInfo='' then otherInfo:=book.otherInfo;
+  //if otherInfo='' then otherInfo:=book.otherInfo;
   if issueDate=0 then issueDate:=book.issueDate;
   if dueDate=0 then dueDate:=book.dueDate;
   if status=bsUnknown then status:=book.status;
@@ -209,7 +209,7 @@ begin
   if (firstExistsDate=0) or ((book.firstExistsDate<>0) and (book.firstExistsDate<firstExistsDate)) then
     firstExistsDate:=book.firstExistsDate;
   for i:=0 to high(book.additional) do
-    if getProperty(book.additional[i].name,additional)='' then
+    if  simplexmlparser.getProperty(book.additional[i].name,additional)='' then
       addProperty(book.additional[i].name,book.additional[i].value,additional);
 end;
 
@@ -221,6 +221,32 @@ end;
 function TBook.toLimitString(): string;
 begin
   result:=toSimpleString() + '  => '+DateToPrettyStr(dueDate);
+end;
+
+procedure TBook.setProperty(const name, value: string);
+begin
+  case lowercase(name) of
+    'category': Category:=value;
+    'id': Id:=value;
+    'author': Author:=value;
+    'title': Title:=value;
+    'year': Year:=value;
+    'isbn': isbn:=value;
+    'statusid':
+        case value of
+          'curious': status:=bsCuriousInStr;
+          'critical': status:=bsProblematicInStr;
+          'normal': status:=bsNormal;
+          'unknown': status:=bsUnknown;
+          else EBookListReader.create('Ungültiger Bücherstatus: '+value);
+        end;
+    'status': statusStr := value;
+    'issuedate': issueDate:=bbutils.dateParse(value, 'yyyy-mm-dd');
+    'duedate': dueDate:=bbutils.dateParse(value, 'yyyy-mm-dd');
+    '_firstExistsDate': firstExistsDate:=bbutils.dateParse(value, 'yyyy-mm-dd');
+    '_lastExistsDate': lastExistsDate:=bbutils.dateParse(value, 'yyyy-mm-dd');
+    else simplexmlparser.setProperty(name,value,additional);
+  end;
 end;
 
   {
@@ -393,6 +419,73 @@ begin
   Result:=nil;
 end;
 
+type
+
+{ TBookListXMLReader }
+
+ TBookListXMLReader = class
+  list: TBookList;
+  constructor Create(alist: TBookList);
+  procedure parse(data: string);
+private
+  currentBook: TBook;
+  currentPropertyName, currentPropertyValue: string;
+  function enterTag(tagName: string; properties: TProperties): TParsingResult;
+  function leaveTag(tagName: string): TParsingResult;
+  function textRead(text: string): TParsingResult;
+end;
+
+constructor TBookListXMLReader.Create(alist: TBookList);
+begin
+  list := alist;
+end;
+
+function TBookListXMLReader.leaveTag(tagName: string): TParsingResult;
+begin
+  result := prContinue;
+  case tagName of
+    'books': result := prStop;
+    'book': begin
+      list.add(currentBook);
+      currentBook.decReference; //HUH? That is not the same as the old loading (now ref count = 1 in list, previously was ref count = 2)
+      currentBook := nil;
+    end;
+    'v': if (currentPropertyName = '') or (currentBook = nil) then raise EBookListReader.create('Korrupte Bücherdatei')
+         else begin
+           currentBook.setProperty(currentPropertyName, currentPropertyValue);
+           currentPropertyName := '';
+           currentPropertyValue := '';
+         end;
+    else raise EBookListReader.create('Korrupte Bücherdatei (ungültiger geschlossener Tag)');
+  end;
+end;
+
+procedure TBookListXMLReader.parse(data: string);
+begin
+  simplexmlparser.parseXML(data, @enterTag, @leaveTag, @textRead, eUTF8);
+end;
+
+function TBookListXMLReader.enterTag(tagName: string; properties: TProperties): TParsingResult;
+begin
+  case LowerCase(tagName) of
+    'books': ; //
+    'book': currentBook := TBook.create;
+    'v': begin
+       currentPropertyName := simplexmlparser.getProperty('n', properties);
+       currentPropertyValue := '';
+    end;
+    '?xml': ;
+    else raise EBookListReader.create('Korrupte Bücherdatei (ungültiger geöffneter Tag)');
+  end;
+  result := prContinue;
+end;
+
+function TBookListXMLReader.textRead(text: string): TParsingResult;
+begin
+  if currentPropertyName <> '' then currentPropertyValue += text;
+  result := prContinue;
+end;
+
 procedure TBookList.load(fileName: string);
   function truncNull(var source: string):string;
   var p:integer;
@@ -413,50 +506,92 @@ var sl:TStringList;
     line:string;
     i:integer;
     book:TBook;
+    xmlReader: TBookListXMLReader;
 begin
   if logging then
     log('TBookList.load('+fileName+') started');
-  if not FileExists(fileName) then exit;
   clear;
-  sl:=TStringList.create;
-  sl.LoadFromFile(fileName);
-  Capacity:=sl.count;
-  for i:=0 to sl.count-1 do begin
-    book:=TBook.Create;
-    with book do begin
-      line:=sl[i];
-      id:=truncNull(line);
-      category:=truncNull(line);
-      author:=truncNull(line);
-      title:=truncNull(line);
-      statusStr:=truncNull(line);
-      otherInfo:=truncNull(line);
-      issueDate:=StrToInt(truncNull(line));
-      dueDate:=StrToInt(truncNull(line));
-      lastExistsDate:=StrToInt(truncNull(line));
-      status:=TBookStatus(StrToInt(truncNull(line)));
-      year:=truncNullDef(line,'');
-      firstExistsDate:=StrToInt(truncNullDef(line,'0'));
-      isbn:=truncNullDef(line,'');
-      lend:=self.lendList;
-      owner:=self.owner;
-      //list:=self;
+  if FileExists(fileName+'.xml') then begin
+    xmlReader := TBookListXMLReader.Create(self);
+    xmlReader.parse(strLoadFromFileUTF8(fileName+'.xml'));
+    xmlReader.free;
+  end else if FileExists(fileName) then begin
+    log('Import old file format');
+    sl:=TStringList.create;
+    sl.LoadFromFile(fileName);
+    Capacity:=sl.count;
+    for i:=0 to sl.count-1 do begin
+      book:=TBook.Create;
+      with book do begin
+        line:=sl[i];
+        id:=truncNull(line);
+        category:=truncNull(line);
+        author:=truncNull(line);
+        title:=truncNull(line);
+        statusStr:=truncNull(line);
+        {otherInfo:=}truncNull(line);
+        issueDate:=StrToInt(truncNull(line));
+        dueDate:=StrToInt(truncNull(line));
+        lastExistsDate:=StrToInt(truncNull(line));
+        status:=TBookStatus(StrToInt(truncNull(line)));
+        year:=truncNullDef(line,'');
+        firstExistsDate:=StrToInt(truncNullDef(line,'0'));
+        isbn:=truncNullDef(line,'');
+        lend:=self.lendList;
+        owner:=self.owner;
+        //list:=self;
+      end;
+      inherited add(book);
     end;
-    inherited add(book);
+    sl.free;
   end;
-  sl.free;
   if logging then
     log('TBookList.load('+fileName+') ended')
 end;
 
-procedure TBookList.save(fileName: string; saveAction: TSaveAction);
+procedure TBookList.save(fileName: string);
 var text:TextFile;
     i:integer;
+    procedure writeProp(const n,v:string);
+    begin
+      writeln(text, '<v n="',xmlStrEscape(n,true),'">',xmlStrEscape(v),'</v>');
+    end;
 begin
   if logging then
     log('TBookList.save('+fileName+') started');
+  AssignFile(text,fileName+'.xml');
+  Rewrite(text);
+  writeln(text, '<?xml version="1.0" encoding="UTF-8"?>');
+  writeln(text, '<books>');
+  for i := 0 to count-1 do begin
+    writeln(text, '<book>');
+    with books[i] do begin
+      writeProp('id', id);
+      writeProp('author', author);
+      writeProp('title', title);
+      writeProp('isbn', isbn);
+      writeProp('year', year);
+      writeProp('category', category);
+      writeProp('status', statusStr);
+      //writeProp('otherInfo', otherInfo);
+      writeProp('issueDate', dateTimeFormat('yyyy-mm-dd', issueDate));
+      writeProp('dueDate', dateTimeFormat('yyyy-mm-dd', dueDate));
+      writeProp('_lastExistsDate', dateTimeFormat('yyyy-mm-dd', lastExistsDate));
+      writeProp('_firstExistsDate', dateTimeFormat('yyyy-mm-dd', lastExistsDate));
+      case status of
+        bsNormal: writeProp('statusId', 'normal');
+        bsUnknown: writeProp('statusId', 'unknown');
+        bsProblematicInStr: writeProp('statusId', 'critical');
+        bsCuriousInStr: writeProp('statusId', 'curious');
+        else writeProp('statusId', '--invalid--'+inttostr(integer(status)));
+      end;
+    end;
+    writeln(text, '</book>');
+  end;
+  writeln(text, '</books>');
+
+  {
   if (saveAction<>saReplace) and not FileExists(fileName) then saveAction:=saReplace;
-  AssignFile(text,fileName);
   if saveAction=saReplace then rewrite(text)
   else Append(text);
   for i:=0 to count-1 do
@@ -465,8 +600,8 @@ begin
       writeln(text,id+#0+category+#0+author+#0+title+#0+statusStr+#0+otherInfo+#0+
                    IntToStr(issueDate)+#0+IntToStr(dueDate)+#0+
                    IntToStr(lastExistsDate)+#0+inttostr(integer(status))+#0+year+#0+IntToStr(firstExistsDate)+#0+isbn+#0)
-    end;
-  close(text);
+    end;                                            }
+  CloseFile(text);
   if logging then
     log('TBookList.save('+fileName+') ended')
 end;
@@ -528,20 +663,8 @@ procedure TBookListReader.setBookProperty(book: TBook; variable: string; value:I
     result:=trim(result);
   end;
 begin
-  if variable='category' then book.Category:=strconv()
-  else if variable='id' then book.Id:=strconv()
-  else if variable='author' then book.Author:=strconv()
-  else if variable='title' then book.Title:=strconv()
-  else if variable='year' then book.Year:=strconv()
-  else if variable='isbn' then book.isbn:=strconv()
-  else if variable = 'statusId' then begin
-    case strconv() of
-      'curious': book.status:=bsCuriousInStr;
-      'critical': book.status:=bsProblematicInStr;
-      'normal': book.status:=bsNormal;
-      else EBookListReader.create('Ungültiger Bücherstatus: '+strconv());
-    end;
-  end else if strlibeginswith(@variable[1],length(variable),'status') then begin //carefully with order
+  variable := LowerCase(variable);
+  if (variable <> 'statusId') and strlibeginswith(@variable[1],length(variable),'status') then begin
     book.StatusStr:=strconv();
     if variable='status:problematic' then book.Status:=bsProblematicInStr
     else if variable='status:curious' then book.Status:=bsCuriousInStr
@@ -549,8 +672,7 @@ begin
     else if book.statusStr <> '' then book.Status:=bsCuriousInStr
     else book.status := bsNormal;
   end else if striEqual(variable, 'issuedate') then book.issueDate:=trunc(value.toDateTime)
-  else if striEqual(variable, 'duedate') then
-    book.dueDate:=trunc(value.toDateTime)
+  else if striEqual(variable, 'duedate') then book.dueDate:=trunc(value.toDateTime)
   else if strlibeginswith(@variable[1],length(variable),'issuedate') then
     book.IssueDate:=dateParse(strconv(),strcopyfrom(variable,pos(':',variable)+1))
   else if strlibeginswith(@variable[1],length(variable),'duedate') then
@@ -558,7 +680,7 @@ begin
   else if striEqual(variable, 'limitdate') or strlibeginswith(@variable[1],length(variable),'limitdate') then
     raise EBookListReader.create('The template is using the limitdate property which is deprecated. It should now be called duedate')
   else
-    setProperty(variable,strconv(),book.Additional);
+    book.setProperty(variable, strconv());
 end;
 
 procedure TBookListReader.parserVariableRead(variable: string; value: IXQValue);

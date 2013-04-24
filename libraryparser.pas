@@ -510,14 +510,13 @@ begin
       CopyFile(bookListOldFileName,bookListOldFileName+'.'+dateTimeFormat('yyyymmdd',currentDate));
       ownerLib.config.WriteInteger('base','last-history-backup',currentDate);
     end;
-    if bookLists[bltInOldData].Count>0 then
-      if bookListOldLoaded then bookLists[bltInOldData].save(bookListOldFileName,saReplace)
-      else begin
-        bookLists[bltInOldData].save(bookListOldFileName,saAdd);
-        bookLists[bltInOldData].clear;
-      end;
+    if bookLists[bltInOldData].Count>0 then begin
+      if not bookListOldLoaded then
+        needOldBookList;
+      bookLists[bltInOldData].save(bookListOldFileName)
+    end;
   end;
-  bookLists[bltInCurrentFile].save(bookListCurFileName,saReplace);
+  bookLists[bltInCurrentFile].save(bookListCurFileName);
   if logging then
     log('TBookLists.save ended')
 end;

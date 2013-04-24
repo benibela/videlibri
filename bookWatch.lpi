@@ -145,7 +145,7 @@
         <PackageName Value="LCL"/>
       </Item3>
     </RequiredPackages>
-    <Units Count="28">
+    <Units Count="27">
       <Unit0>
         <Filename Value="bookWatch.lpr"/>
         <IsPartOfProject Value="True"/>
@@ -287,30 +287,25 @@
         <UnitName Value="bookSearchForm"/>
       </Unit22>
       <Unit23>
-        <Filename Value="..\..\..\components\pascal\data\extendedhtmlparser.pas"/>
-        <IsPartOfProject Value="True"/>
-        <UnitName Value="extendedhtmlparser"/>
-      </Unit23>
-      <Unit24>
         <Filename Value="librarysearcheraccess.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="librarySearcherAccess"/>
-      </Unit24>
-      <Unit25>
+      </Unit23>
+      <Unit24>
         <Filename Value="..\..\..\components\pascal\data\automenumanager.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="autoMenuManager"/>
-      </Unit25>
-      <Unit26>
+      </Unit24>
+      <Unit25>
         <Filename Value="messagesystem.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="messagesystem"/>
-      </Unit26>
-      <Unit27>
+      </Unit25>
+      <Unit26>
         <Filename Value="..\..\..\components\pascal\internet\multipagetemplate.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="multipagetemplate"/>
-      </Unit27>
+      </Unit26>
     </Units>
   </ProjectOptions>
   <CompilerOptions>

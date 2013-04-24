@@ -12,7 +12,7 @@ uses
   newAccountWizard_u, errorDialog, applicationConfig, statistik_u, diagram,
   libraryAccess, sendBackError, internetAccess, autoupdate, progressDialog, bbdebugtools, bibtexexport, simplexmlparser,
   booklistreader, librarySearcher, bookListView, bookSearchForm,
-  librarySearcherAccess, extendedhtmlparser, autoMenuManager, LCLIntf, messagesystem, multipagetemplate;
+  librarySearcherAccess, autoMenuManager, LCLIntf, messagesystem, multipagetemplate;
 
 {$IFDEF WINDOWS}{$R manifest.rc}{$R icons.res}{$ENDIF}
 
