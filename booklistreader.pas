@@ -243,8 +243,8 @@ begin
     'status': statusStr := value;
     'issuedate': issueDate:=bbutils.dateParse(value, 'yyyy-mm-dd');
     'duedate': dueDate:=bbutils.dateParse(value, 'yyyy-mm-dd');
-    '_firstExistsDate': firstExistsDate:=bbutils.dateParse(value, 'yyyy-mm-dd');
-    '_lastExistsDate': lastExistsDate:=bbutils.dateParse(value, 'yyyy-mm-dd');
+    '_firstexistsdate': firstExistsDate:=bbutils.dateParse(value, 'yyyy-mm-dd');
+    '_lastexistsdate': lastExistsDate:=bbutils.dateParse(value, 'yyyy-mm-dd');
     else simplexmlparser.setProperty(name,value,additional);
   end;
 end;
