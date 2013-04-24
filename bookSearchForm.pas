@@ -369,7 +369,7 @@ begin
   site:=(sender as tlabel).Caption;
   if pos('digibib',LowerCase(site))>0 then begin
     site:=getProperty('detail-url',displayedBook.additional);
-  end else if pos('katalog',LowerCase(site))>0 then begin
+  end else if (pos('katalog',LowerCase(site))>0) or (pos('bücherei',LowerCase(site))>0) then begin
     site:=getProperty('home-url',displayedBook.additional);
   end else if pos('amazon',LowerCase(site))>0 then begin
     site:=getProperty('amazon-url',displayedBook.additional);
