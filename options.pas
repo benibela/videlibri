@@ -200,8 +200,8 @@ var i,newLibIndex:integer;
     currentLib: TCustomAccountAccess;
 begin
   newLibIndex:=-1;
-  for i:=0 to accountIDs.count-1 do begin
-    currentLib:=TCustomAccountAccess(accountIDs.objects[i]);
+  for i:=0 to accounts.count-1 do begin
+    currentLib:=accounts[i];
     if edtAccountPrettyName.Text=currentLib.prettyName then begin
       if edtAccountUser.Text=currentLib.getUser() then begin
         newLibIndex:=i;
@@ -219,7 +219,7 @@ begin
     end;
   end;
   if newLibIndex<>-1 then begin
-    result:=TCustomAccountAccess(accountIDs.objects[newLibIndex]);
+    result:=accounts[newLibIndex];
     accountList.Selected:=accountList.items[newLibIndex];
   end else result:=nil;
 end;
@@ -236,8 +236,8 @@ begin
   Notebook1.PageIndex:=0;
 
   //Accountpage
-  for i:=0 to accountIDs.count-1 do
-    addAccount(TCustomAccountAccess(accountIDs.objects[i]));
+  for i:=0 to accounts.count-1 do
+    addAccount((accounts[i]));
 
   //Colorpage
   ShapeLimited.brush.color:=colorLimited;
@@ -532,7 +532,7 @@ var item:TListItem;
     lib: TCustomAccountAccess;
 begin
   item:=accountList.Selected;
-  lib:=TCustomAccountAccess(accountIDs.Objects[item.Index]);
+  lib:=(accounts[item.Index]);
   if edtAccountPass.text<>accountList.Selected.SubItems[1] then
     lib.password:=edtAccountPass.text;
   if edtAccountPrettyName.text<>accountList.Selected.Caption then
@@ -551,8 +551,8 @@ begin
   end;
   if edtAccountUser.text<>item.SubItems[0] then begin
     lib.changeUser(edtAccountUser.text);
-    accountIDs[item.Index]:=lib.getID();
-    saveLibIDs;
+    accounts.Strings[item.Index]:=lib.getID();
+    accounts.save;
     mainForm.refreshAccountGUIElements();
     mainForm.RefreshListView;
   end else lib.save();
@@ -580,8 +580,8 @@ begin
   newAccount.ShowModal;
   newAccount.free;
 
-  for i:=accountList.Items.count to accountIDs.count -1 do
-    addAccount(TCustomAccountAccess(accountIDs.Objects[i]));
+  for i:=accountList.Items.count to accounts.count -1 do
+    addAccount((accounts[i]));
   {if accountList.Selected <> nil then
     if (accountList.Selected.Caption=edtAccountPrettyName.Text) or
        (accountList.Selected.SubItems[0]=edtAccountUser.Text) then begin
@@ -619,8 +619,8 @@ begin
   if selLib=nil then exit;
   if MessageDlg('Konto löschung','Soll auf diesem Computer das Konto '+edtAccountPrettyName.text+' - '+edtAccountUser.text+' wirklich gelöscht werden?    '#13#10'Dadurch werden auch alle gespeicherten Bücherdaten dieses Kontos gelöscht   ',
                 mtConfirmation ,[mbYes,mbNo],0)=mrYes then begin
-    accountIDs.Delete(accountList.Selected.Index);
-    saveLibIDs;
+    accounts.Delete(accountList.Selected.Index);
+    accounts.save;
     accountList.Selected.Delete;
     selLib.remove();
     mainForm.refreshAccountGUIElements();

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<library>
+  <deprecatedName value="gbv"/>
+  <username matches="^[0-9]+$"/>
+  <password matches="^.+$"/>  
+  
+  <maxRenewCount value="4"/>
+
+  <longName value="Verbundzentrale des GBV"/>
+  <shortName value="GBV"/>
+  <homepage value="http://http://www.gbv.de/"/>
+  <template value="paia"/>
+  
+  <variable name="server" value="paia.gbv.de/isil/DE-601"/>
+  
+</library>

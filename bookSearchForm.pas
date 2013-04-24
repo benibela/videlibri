@@ -257,7 +257,7 @@ var temp, old:TBook;
     i: Integer;
 begin
   if displayedBook = nil then exit;
-  if accountIDs.Count = 0 then exit;
+  if accounts.Count = 0 then exit;
   searcherAccess.beginBookReading;
   temp := tbook.create;
   temp.assignNoReplace(displayedBook);
@@ -270,9 +270,9 @@ begin
   temp.issueDate:=-2;
   temp.dueDate:=-2;
 
-  acc := TCustomAccountAccess(accountIDs.Objects[0]);
-  for i:=1 to accountIDs.Count-1 do
-    if accountIDs[i] = saveToDefaultAccountID then acc := TCustomAccountAccess(accountIDs.Objects[i]);
+  acc := accounts[0];
+  for i:=1 to accounts.Count-1 do
+    if accounts.Strings[i] = saveToDefaultAccountID then acc := accounts[i];
   if acc.isThreadRunning then begin ShowMessage('Während dem Aktualisieren können keine weiteren Medien gespeichert werden.'); exit; end;
 
   if (mainForm.BookList.SelectedBook <> nil) and (mainForm.BookList.Selected.RecordItemsText[BL_BOOK_COLUMNS_ACCOUNT] = acc.prettyName) then begin
@@ -582,7 +582,7 @@ begin
     for i:=0 to searchSelectionList.items.Count-1 do
       searchSelectionList.Checked[i]:=searchSelectionList.items.Objects[i]=TCustomAccountAccess(book.owner).getLibrary();
 
-    accId := accountIDs.IndexOfObject(book.owner);
+    accId := accounts.IndexOfObject(book.owner);
     if (accId >= 0) and (accId < saveToAccountMenu.Items.Count) then begin
       changeDefaultSaveToAccount(saveToAccountMenu.Items[accId]);
       researchedBook := book;
@@ -638,8 +638,8 @@ begin
   loadComboBoxItems(searchYear);
   loadComboBoxItems(searchISBN);
   saveToDefaultAccountID := userConfig.ReadString('BookSearcher','default-save-to', '');
-  if accountIDs.IndexOf(saveToDefaultAccountID) >= 0 then
-    LabelSaveTo.Caption := 'in \/ '+ TCustomAccountAccess(accountIDs.Objects[accountIDs.IndexOf(saveToDefaultAccountID)]).prettyName;
+  if accounts.IndexOf(saveToDefaultAccountID) >= 0 then
+    LabelSaveTo.Caption := 'in \/ '+ accounts[accounts.IndexOf(saveToDefaultAccountID)].prettyName;
 end;
 
 procedure TbookSearchFrm.saveDefaults;
@@ -668,8 +668,8 @@ procedure TbookSearchFrm.changeDefaultSaveToAccount(sender: tobject);
 begin
   if not (sender is TMenuItem) then exit;
   if tmenuitem(sender).Tag <= 1 then tmenuitem(sender).Tag := 1;
-  if tmenuitem(sender).Tag > accountIDs.count then tmenuitem(sender).Tag := accountIDs.count;
-  saveToDefaultAccountID := accountIDs[tmenuitem(sender).Tag-1];
+  if tmenuitem(sender).Tag > accounts.count then tmenuitem(sender).Tag := accounts.count;
+  saveToDefaultAccountID := accounts.Strings[tmenuitem(sender).Tag-1];
 
   LabelSaveTo.Caption := 'in \/ '+ TMenuItem(sender).Caption;
 

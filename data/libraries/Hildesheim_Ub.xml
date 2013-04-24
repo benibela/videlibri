@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <library>
+  <deprecatedName value="206"/>
   <username matches="^[0-9]+$"/>
   <password matches="^.+$"/>  
   

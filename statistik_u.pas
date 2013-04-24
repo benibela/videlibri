@@ -100,8 +100,8 @@ begin
   //Get limits (first known day) and add datalists
   earliestDay:=lastCheck;
   lastDay:=lastCheck;
-  for i:=0 to accountIDs.Count-1 do begin
-    with TCustomAccountAccess(accountIDs.Objects[i]) do begin
+  for i:=0 to accounts.Count-1 do begin
+    with (accounts[i]) do begin
       for j:=0 to books.current.Count-1 do begin
         if (books.current[j].issueDate>0) and (books.current[j].issueDate<earliestDay) then
           earliestDay:=books.current[j].issueDate;
@@ -132,9 +132,9 @@ begin
       SetLength(accountValues,(max(lastDay,currentDate)-earliestDay) div 7+1);
       SetLength(totalValues,length(accountValues));
       FillChar(totalValues[0],length(totalValues)*sizeof(totalValues[0]),0);
-      for j:=0 to accountIDs.Count-1 do begin
+      for j:=0 to accounts.Count-1 do begin
         FillChar(accountValues[0],length(accountValues)*sizeof(accountValues[0]),0);
-        books:=TCustomAccountAccess(accountIDs.Objects[j]).books;
+        books:=TCustomAccountAccess(accounts[j]).books;
         for k:=-books.old.count to books.current.count-1 do begin //loop about union
           if k<0 then book:=books.old[-k-1]
           else book:=books.current[k];
@@ -161,9 +161,9 @@ begin
       SetLength(accountValues,y2*12+m2-1  - (y*12+m-1) + 1);
       SetLength(totalValues,length(accountValues));
       FillChar(totalValues[0],length(totalValues)*sizeof(totalValues[0]),0);
-      for j:=0 to accountIDs.Count-1 do begin
+      for j:=0 to accounts.Count-1 do begin
         FillChar(accountValues[0],length(accountValues)*sizeof(accountValues[0]),0);
-        books:=TCustomAccountAccess(accountIDs.Objects[j]).books;
+        books:=(accounts[j]).books;
         for k:=-books.old.count to books.current.count-1 do begin //loop about union
           if k<0 then book:=books.old[-k-1]
           else book:=books.current[k];
@@ -193,9 +193,9 @@ begin
       SetLength(accountValues,y2 - y + 1);
       SetLength(totalValues,length(accountValues));
       FillChar(totalValues[0],length(totalValues)*sizeof(totalValues[0]),0);
-      for j:=0 to accountIDs.Count-1 do begin
+      for j:=0 to accounts.Count-1 do begin
         FillChar(accountValues[0],length(accountValues)*sizeof(accountValues[0]),0);
-        books:=TCustomAccountAccess(accountIDs.Objects[j]).books;
+        books:=(accounts[j]).books;
         for k:=-books.old.count to books.current.count-1 do begin //loop about union
           if k<0 then book:=books.old[-k-1]
           else book:=books.current[k];
@@ -222,9 +222,9 @@ begin
       SetLength(accountValues,max(lastDay,currentDate)-earliestDay+1);
       SetLength(totalValues,length(accountValues));
       FillChar(totalValues[0],length(totalValues)*sizeof(totalValues[0]),0);
-      for j:=0 to accountIDs.Count-1 do begin
+      for j:=0 to accounts.Count-1 do begin
         FillChar(accountValues[0],length(accountValues)*sizeof(accountValues[0]),0);
-        books:=(accountIDs.Objects[j] as TCustomAccountAccess).books;
+        books:=(accounts.Objects[j] as TCustomAccountAccess).books;
         for k:=-books.old.count to books.current.count-1 do begin //loop about union
           if k<0 then book:=books.old[-k-1]
           else book:=books.current[k];

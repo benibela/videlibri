@@ -221,7 +221,7 @@ var prog: string;
  i: Integer;
  tmpbl: TBookList;
  usedaccounts: TFPList;
- accounts: TStringArray;
+ accountsToSend: TStringArray;
  count: LongInt;
  receiver: String;
  interval: LongInt;
@@ -240,16 +240,16 @@ begin
   usedaccounts:=TFPList.Create;
   for i:=0 to count-1 do begin
     receiver :=userConfig.ReadString('Mailreport'+IntToStr(i), 'To', '');
-    accounts :=strSplit(userConfig.ReadString('Mailreport'+IntToStr(i), 'Accounts',  ''),',');
+    accountsToSend :=strSplit(userConfig.ReadString('Mailreport'+IntToStr(i), 'Accounts',  ''),',');
     interval := userConfig.ReadInteger('Mailreport'+IntToStr(i), 'Interval', 1);
     if userConfig.ReadInteger('Mailreport'+IntToStr(i), 'Lastsent', 0) + interval > currentDate then continue;
 
     tmpbl.clear;
-    for k:=0 to accountIDs.Count-1 do
-      for j:= 0 to high(accounts) do
-        if strContains(TCustomAccountAccess(accountIDs.Objects[k]).getID(), strTrim(accounts[j])) then begin
-          tmpbl.addList(TCustomAccountAccess(accountIDs.Objects[k]).books.current);
-          usedaccounts.add(accountIDs.Objects[k]);
+    for k:=0 to accounts.Count-1 do
+      for j:= 0 to high(accountsToSend) do
+        if strContains((accounts[k]).getID(), strTrim(accountsToSend[j])) then begin
+          tmpbl.addList((accounts[k]).books.current);
+          usedaccounts.add(accounts[k]);
         end;
 
     tmpbl.Sort(@sendMailReportCompare);
@@ -495,20 +495,20 @@ begin
   onshow:=nil;
   OnActivate:=nil;
   windowstate:=twindowstate(userConfig.ReadInteger('window','state',integer(windowstate)));
-  if accountIDs.count>0 then begin
+  if accounts.count>0 then begin
     if userconfig.ReadInteger('BookList', 'Mode', 0) = 1 then ViewAllClick(ViewAll)
     else RefreshListView;
     if not needApplicationRestart then
       defaultAccountsRefresh;
   end;
   if not needApplicationRestart then
-    if accountIDs.count=0 then begin
+    if accounts.count=0 then begin
       repeat
         with TnewAccountWizard.Create(nil) do begin
           ShowModal;
           free;
         end;
-      until (accountIDs.count<>0) or (Application.MessageBox('Sie müssen ein Konto angeben, um VideLibri benutzen zu können.'#13#10'Wollen Sie eines eingeben?','Videlibri',MB_YESNO or MB_ICONQUESTION)=mrNo);
+      until (accounts.count<>0) or (Application.MessageBox('Sie müssen ein Konto angeben, um VideLibri benutzen zu können.'#13#10'Wollen Sie eines eingeben?','Videlibri',MB_YESNO or MB_ICONQUESTION)=mrNo);
     end;
   if logging then log('FormActivate ended');
   //InternetCheckConnection(FLAG_ICC_FORCE_CONNECTION) ping
@@ -937,8 +937,8 @@ begin
       case i of
         0: begin
              s:='Die angezeigten Daten der Konten wurden zu folgenden Zeitpunkten'#13#10'das letztemal aktualisiert:';
-             for j:=0 to accountIDs.count-1 do
-               with TCustomAccountAccess(accountIDs.Objects[j]) do begin
+             for j:=0 to accounts.count-1 do
+               with (accounts[j]) do begin
                  s:=s+#13#10'        '+prettyName+': '+DateToPrettyStr(lastCheckDate);
                  if not enabled then s+=' (DEAKTIVIERT!)';
                end;
@@ -1029,8 +1029,8 @@ begin
     if (viewMenu.Items[i].tag = -1) then continue;
     if not viewMenu.Items[i].Checked then continue;
     assert(viewMenu.Items[i].tag>=1);
-    assert(viewMenu.Items[i].tag<=accountIDs.Count);
-    account:=TCustomAccountAccess(accountIDs.Objects[viewMenu.Items[i].tag-1]);
+    assert(viewMenu.Items[i].tag<=accounts.Count);
+    account:=(accounts[viewMenu.Items[i].tag-1]);
     if currentList then begin
       bookList.addBookList(account.books.current);
       lastCheck:=min(lastCheck,account.books.current.lastCheck);
@@ -1040,16 +1040,16 @@ begin
   BookList.Sort;
 
   maxcharges:=0;
-  for i:=0 to accountIDs.Count-1 do
-    maxcharges:=maxcharges+TCustomAccountAccess(accountIDs.Objects[i]).charges;
+  for i:=0 to accounts.Count-1 do
+    maxcharges:=maxcharges+(accounts[i]).charges;
 
   if maxcharges>0 then begin
     StatusBar1.Panels[1].text:='Offene Gebühren: '+floattostr(maxcharges)+'€ (';
-    for i:=0 to accountIDs.Count-1 do
-        if TCustomAccountAccess(accountIDs[i]).charges>0 then
+    for i:=0 to accounts.Count-1 do
+        if accounts[i].charges>0 then
            StatusBar1.Panels[1].text:=StatusBar1.Panels[1].text+
-              TCustomAccountAccess(accountIDs[i]).prettyName+': '+
-              FloatToStr(TCustomAccountAccess(accountIDs[i]).charges) +'€ ';
+              accounts[i].prettyName+': '+
+              FloatToStr(accounts[i].charges) +'€ ';
     setPanelText(StatusBar1.Panels[1],StatusBar1.Panels[1].text+')');
   end else setPanelText(StatusBar1.Panels[1],'');
   setPanelText(StatusBar1.Panels[SB_PANEL_COUNT],'Medien: '+IntToStr(BookList.Items.Count));
@@ -1130,7 +1130,7 @@ procedure TmainForm.refreshAccountGUIElements();
   function newItem(owner: TComponent;onClick:TNotifyEvent;id:longint):TMenuItem;
   begin
     newItem:=TMenuItem.Create(owner);
-    newItem.Caption:=TCustomAccountAccess(accountIDs.Objects[id]).prettyName;
+    newItem.Caption:=(accounts[id]).prettyName;
     newItem.tag:=id+1; //add one to distinguish valid values from default tag 0
     newItem.OnClick:=onclick;
   end;
@@ -1162,8 +1162,8 @@ begin
       accountListMenu.items.Delete(i);
 
   //add new
-  for i:=0 to accountIDs.Count-1 do begin
-    account:=TCustomAccountAccess(accountIDs.Objects[i]);
+  for i:=0 to accounts.Count-1 do begin
+    account:=(accounts[i]);
     accountListMenu.Items.Add(newItem(accountListMenu,@refreshAccountClick,i));
     accountListMenuItem.Add(newItem(accountListMenu,@refreshAccountClick,i));
     temp:=newItem(accountListMenu,@showAccount,i);
@@ -1176,12 +1176,12 @@ begin
 
   if searcherForm <> nil then begin
     searcherForm.saveToAccountMenu.Items.Clear;
-    for i:=0 to accountIDs.Count-1 do begin
+    for i:=0 to accounts.Count-1 do begin
       temp := newItem(searcherForm.saveToAccountMenu,@searcherForm.changeDefaultSaveToAccount,i);
       temp.GroupIndex:=124;
       temp.RadioItem:=true;
       searcherForm.saveToAccountMenu.Items.Add(temp);
-      if (i = 0) or (searcherForm.saveToDefaultAccountID = accountIDs[i]) then temp.Checked:=true;
+      if (i = 0) or (searcherForm.saveToDefaultAccountID = accounts.Strings[i]) then temp.Checked:=true;
     end;
   end;
 end;
@@ -1208,9 +1208,9 @@ begin
     optionForm.addAccount(result);
 
 
-  accountIDs.AddObject(result.getID(),result);
+  accounts.AddObject(result.getID(),result);
   result.save();
-  saveLibIDs;
+  accounts.save;
 
   refreshAccountGUIElements();
 {  if MessageDlg('Daten laden?',
@@ -1222,9 +1222,9 @@ end;
 function TmainForm.menuItem2AssociatedAccount(mi: TMenuItem
   ): TCustomAccountAccess;
 begin
-  if (mi.tag<=0) or (mi.tag>accountIDs.Count) then
+  if (mi.tag<=0) or (mi.tag>accounts.Count) then
     raise exception.Create('Ungültiges Konto angegeben');
-  result:=TCustomAccountAccess(accountIDs.Objects[mi.tag-1]);
+  result:=(accounts[mi.tag-1]);
 end;
 
 

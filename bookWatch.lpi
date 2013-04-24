@@ -145,7 +145,7 @@
         <PackageName Value="LCL"/>
       </Item3>
     </RequiredPackages>
-    <Units Count="27">
+    <Units Count="28">
       <Unit0>
         <Filename Value="bookWatch.lpr"/>
         <IsPartOfProject Value="True"/>
@@ -306,6 +306,11 @@
         <IsPartOfProject Value="True"/>
         <UnitName Value="multipagetemplate"/>
       </Unit26>
+      <Unit27>
+        <Filename Value="accountlist.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="accountlist"/>
+      </Unit27>
     </Units>
   </ProjectOptions>
   <CompilerOptions>
@@ -321,7 +326,6 @@
     <Parsing>
       <SyntaxOptions>
         <IncludeAssertionCode Value="True"/>
-        <UseAnsiStrings Value="False"/>
       </SyntaxOptions>
     </Parsing>
     <CodeGeneration>

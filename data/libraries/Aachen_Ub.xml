@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <library>
+  <deprecatedName value="202"/>
   <username matches="^([a-zA-Z]{2}[0-9]{6}|[A-Za-z0-9]{10,})$"/>
   <password matches="^.{1,6}$"/>
   <maxRenewCount value="5"/>

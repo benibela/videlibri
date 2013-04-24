@@ -276,8 +276,8 @@ begin
   if (account=nil) and (updateThreadConfig.updateThreadsRunning>0) then exit;
   if (account<>nil) and (account.isThreadRunning) then exit;
 
-  if (account=nil)and(accountIDs.count=1) then
-    account:=TCustomAccountAccess(accountIDs.Objects[0]);
+  if (account=nil)and(accounts.count=1) then
+    account:=(accounts[0]);
     
   if refreshAllAndIgnoreDate then begin
     ignoreConnErrors:=false;
@@ -300,9 +300,9 @@ begin
     TUpdateLibThread.Create(account,updateThreadConfig,ignoreConnErrors,checkDate,extendAlways);
   end else begin
     //(synchronized) set count of threads
-    threadsToStart := accountIDs.count;
-    for i:=0 to accountIDs.count-1 do begin
-      account := TCustomAccountAccess(accountIDs.Objects[i]);
+    threadsToStart := accounts.count;
+    for i:=0 to accounts.count-1 do begin
+      account := (accounts[i]);
       if (not account.enabled) or (ignoreConnErrors and (account.broken = currentDate)) then
         threadsToStart-=1;
     end;
@@ -319,8 +319,8 @@ begin
       mainform.StatusBar1.Panels[0].text:=TRY_BOOK_UPDATE;
 
     //actually start threads
-    for i:=0 to accountIDs.count-1 do begin
-      account := TCustomAccountAccess(accountIDs.Objects[i]);
+    for i:=0 to accounts.count-1 do begin
+      account := (accounts[i]);
       if (not account.enabled) or (ignoreConnErrors and (account.broken = currentDate)) then
         continue;
       account.isThreadRunning:=true;
@@ -379,15 +379,15 @@ var current:TBookList;
     i,j:integer;
 begin
   //TODO: optimize
-  //SetLength(accBoo,accountIDs.Count);
+  //SetLength(accBoo,accounts.Count);
   current:=TBookList.Create;
-  for i:=0 to accountIDs.Count-1 do begin
+  for i:=0 to accounts.Count-1 do begin
     current.clear;
     for j:=0 to books.count-1 do
-      if books[j].owner=accountIDs.Objects[i] then
+      if books[j].owner=accounts.Objects[i] then
         current.add(books[j]);
     if current.Count > 0 then
-      extendAccountBookData(TCustomAccountAccess(accountIDs.Objects[i]),current);
+      extendAccountBookData((accounts[i]),current);
   end;
   current.free;
   showErrorMessages();
@@ -400,8 +400,8 @@ var i:integer;
     books: TBookList;
 begin
   if account=nil then begin
-     for i:=0 to accountIDs.count-1 do
-       extendBooks(lastLimit,TCustomAccountAccess(accountIDs.Objects[i]));
+     for i:=0 to accounts.count-1 do
+       extendBooks(lastLimit,(accounts[i]));
      exit;
   end;
   books:=TBookList.Create;
@@ -442,8 +442,8 @@ begin
   minDateSoonNotExtendable := currentDate+1000;
   minDateSoon := currentDate+1000;
 
-  for i:=0 to accountIDs.count-1 do
-    with TCustomAccountAccess(accountIDs.Objects[i]) do
+  for i:=0 to accounts.count-1 do
+    with (accounts[i]) do
       for j:=0  to books.current.count-1 do begin
         if books.current[j].dueDate<currentDate then begin
           booksOverdue.Add(books.current[j].toSimpleString());

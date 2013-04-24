@@ -20,12 +20,14 @@ type
   public
     template:TMultiPageTemplate;
 
+
     canModifySingleBooks:boolean;
     //function getPrettyNameShort():string;virtual;
     homepage:string;
     prettyNameLong:string;
     prettyNameShort:string;
     id:string;
+    deprecatedId: string;
     maxRenewCount: integer; //-1: if you can renew so frequently you want
     bestHomepageWidth,bestHomepageHeight: integer;
     //allowHomepageNavigation: boolean;
@@ -276,7 +278,9 @@ begin
     defaultVariables.Add(getProperty('name',properties)+defaultVariables.NameValueSeparator+value);
   end else if tagName='username' then usernameRegEx.Expression:=getProperty('matches',properties)
   else if tagName='password' then passwordRegEx.Expression:=getProperty('matches',properties)
-  else if tagName='maxrenewcount' then maxRenewCount:=StrToInt(value);
+  else if tagName='maxrenewcount' then maxRenewCount:=StrToInt(value)
+  else if tagName='deprecatedname' then deprecatedId:=value
+  ;
   Result:=prContinue;
 end;
 
@@ -321,7 +325,7 @@ var i:integer;
 begin
   Result:=nil;
   for i:=0 to libraries.count-1 do
-    if TLibrary(libraries[i]).id=libID then
+    if (TLibrary(libraries[i]).id=libID) or (TLibrary(libraries[i]).deprecatedId = libID) then
       exit(TLibrary(libraries[i]).getAccountObject());
   raise Exception('Bücherei '+libID+' ist unbekannt');
 end;
@@ -379,14 +383,19 @@ function TLibraryManager.getAccount(libID,accountID: string):TCustomAccountAcces
 begin
   if logging then log('TLibraryManager.getAccount('+libID+','+accountID+') started');
   Result:=getAccountObject(libID);
+  if libID = Result.lib.deprecatedId then begin
+    CopyFile(basePath+libID+'#'+accountID+'.history', basePath+result.lib.id+'#'+accountID+'.history'); //old files, not xml files
+    CopyFile(basePath+libID+'#'+accountID+'.current', basePath+result.lib.id+'#'+accountID+'.current');
+    CopyFile(basePath+libID+'#'+accountID+'.config', basePath+result.lib.id+'#'+accountID+'.config');
+    log('Import old '+basePath+libID+'#'+accountID+'.* => ' +basePath+result.lib.id+'#'+accountID+'.*');
+  end;
   result.init(basePath,accountID);
   if logging then log('TLibraryManager.getAccount('+libID+','+accountID+') ended');
 end;
 function TLibraryManager.getAccount(mixID: string): TCustomAccountAccess;
 var libID: string;
 begin
-  libID:=copy(mixID,1,3);
-  delete(mixId,1,4);
+  libID:=strSplitGet('#', mixID);
   result:=getAccount(libID,mixID);
 end;
 
@@ -646,7 +655,7 @@ procedure TCustomAccountAccess.init(apath,userID:string);
 begin
   self.path:=apath;
   self.user:=userID;
-  
+
   //Datenladen/cachen
   fbooks:=TBookLists.create(self,path+getID()+'.history',path+getID()+'.current');
   config:=TIniFile.Create(path+getID()+'.config');

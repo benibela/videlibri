@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <library>
+  <deprecatedName value="100"/>
   <longName value="Fachhochschulbibliothek Düsseldorf"/>
   <shortName value="FHB Düsseldorf"/>
   <homepage value="http://katalog.bibl.fh-duesseldorf.de/libero/WebOpac.cls"/>

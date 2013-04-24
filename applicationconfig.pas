@@ -6,7 +6,7 @@ interface
 
 uses
   Classes, SysUtils,Graphics,forms,libraryparser,{$ifdef win32}registry,{$endif}inifiles,rcmdline,errordialog,autoupdate,progressDialog,extendedhtmlparser,
-ExtCtrls ,Dialogs,LMessages
+ExtCtrls ,Dialogs,LMessages,accountlist
 ;
 
 type TErrorArray=array of record
@@ -23,7 +23,7 @@ const VIDELIBRI_MUTEX_NAME='VideLibriStarted';
 var programPath,userPath,dataPath:string;
     machineConfig,userConfig: TIniFile;
 
-    accountIDs: TStringList;
+    accounts: TAccountList;
     libraryManager: TLibraryManager=nil;
 
     cancelStarting,startToTNA:boolean;
@@ -70,7 +70,6 @@ var programPath,userPath,dataPath:string;
 
   procedure initApplicationConfig;
   procedure finalizeApplicationConfig;
-  procedure saveLibIDs;
 
   procedure showErrorMessages();
   procedure addErrorMessage(errorStr,errordetails:string;lib:TCustomAccountAccess=nil);
@@ -272,14 +271,14 @@ uses bookwatchmain,internetaccess,controls,libraryaccess,math,FileUtil,bbutils,b
     nextNotExtendableLimit:=MaxInt;
 
     lastcheck:=currentDate;
-    for i:=0 to accountIDs.count-1 do begin
-      for j:=0 to TCustomAccountAccess(accountIDs.objects[i]).books.current.count-1 do
-        with TCustomAccountAccess(accountIDs.objects[i]).books.current[j] do
+    for i:=0 to accounts.count-1 do begin
+      for j:=0 to accounts[i].books.current.count-1 do
+        with (accounts[i]).books.current[j] do
           lastcheck:=min(lastcheck,lastExistsDate);
-      if (TCustomAccountAccess(accountIDs.objects[i]).books.nextLimit>0) then
-         nextLimit:=min(nextLimit,TCustomAccountAccess(accountIDs.objects[i]).books.nextLimit);
-      if (TCustomAccountAccess(accountIDs.objects[i]).books.nextNotExtendableLimit>0) then
-        nextNotExtendableLimit:=min(nextNotExtendableLimit,TCustomAccountAccess(accountIDs.objects[i]).books.nextNotExtendableLimit);
+      if ((accounts[i]).books.nextLimit>0) then
+         nextLimit:=min(nextLimit,(accounts[i]).books.nextLimit);
+      if ((accounts[i]).books.nextNotExtendableLimit>0) then
+        nextNotExtendableLimit:=min(nextNotExtendableLimit,(accounts[i]).books.nextNotExtendableLimit);
     end;
     nextLimitStr:=DateToPrettyStr(nextLimit);
     if nextLimit<>nextNotExtendableLimit then
@@ -572,11 +571,8 @@ uses bookwatchmain,internetaccess,controls,libraryaccess,math,FileUtil,bbutils,b
     if libraryManager.enumeratePrettyLongNames()='' then
       raise EXCEPTION.Create('Keine Büchereitemplates im Verzeichnis '+dataPath+' vorhanden');
 
-    accountIDs:=TStringList.create;
-    if FileExists(userPath+'account.list') then
-      accountIDs.LoadFromFile(userPath+'account.list');
-    for i:=0 to accountIDs.count-1 do
-      accountIDs.Objects[i]:=libraryManager.getAccount(accountIDs[i]);
+    accounts:=TAccountList.create(userPath+'account.list', libraryManager);
+    accounts.load;
 
     nextLimitStr:=DateToPrettyStr(nextLimit);
     if nextLimit<>nextNotExtendableLimit then
@@ -598,10 +594,10 @@ uses bookwatchmain,internetaccess,controls,libraryaccess,math,FileUtil,bbutils,b
       startToTNA:=userConfig.ReadBool('autostart','minimized',true);
       if (userConfig.ReadInteger('autostart','type',1)=1) then begin
         cancelStarting:=true;
-        for i:=0 to accountIDs.count-1 do
-          if (TCustomAccountAccess(accountIDs.Objects[i]).enabled) and ((TCustomAccountAccess(accountIDs.Objects[i]).lastCheckDate<=currentDate-refreshInterval) or
-             (TCustomAccountAccess(accountIDs.Objects[i]).existsCertainBookToExtend) or
-             ((TCustomAccountAccess(accountIDs.Objects[i]).books.nextLimit<>0)and(TCustomAccountAccess(accountIDs.Objects[i]).books.nextLimit<=redTime))) then begin
+        for i:=0 to accounts.count-1 do
+          if ((accounts[i]).enabled) and (((accounts[i]).lastCheckDate<=currentDate-refreshInterval) or
+             ((accounts[i]).existsCertainBookToExtend) or
+             (((accounts[i]).books.nextLimit<>0)and((accounts[i]).books.nextLimit<=redTime))) then begin
             cancelStarting:=false;
             break;
           end;
@@ -640,14 +636,8 @@ uses bookwatchmain,internetaccess,controls,libraryaccess,math,FileUtil,bbutils,b
   var i:integer;
   begin
     if logging then log('finalizeApplicationConfig started');
-    if accountIDs<>nil then begin
-      for i:=0 to accountIDs.count-1 do
-        try
-          accountIDs.Objects[i].free;
-        except
-          ;
-        end;
-      accountIDs.free;
+    if accounts<>nil then begin
+      accounts.free;
       libraryManager.free;
       userConfig.free;
       machineConfig.free;
@@ -671,11 +661,6 @@ uses bookwatchmain,internetaccess,controls,libraryaccess,math,FileUtil,bbutils,b
         system.DoneCriticalsection(logFileSection);
       end;
     end;
-  end;
-  
-  procedure saveLibIDs;
-  begin
-    accountIDs.SaveToFile(userPath+'account.list');
   end;
 
   function DateToSimpleStr(const date: tdatetime): string;

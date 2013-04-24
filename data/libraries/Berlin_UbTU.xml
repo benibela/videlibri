@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <library>
+  <deprecatedName value="308"/>
   <username matches="^\d+$"/>
   <password matches="."/>
   <maxRenewCount value="5"/>

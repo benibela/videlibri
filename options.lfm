@@ -36,7 +36,7 @@ object optionForm: ToptionForm
     Height = 430
     Top = 6
     Width = 612
-    PageIndex = 2
+    PageIndex = 0
     Anchors = [akTop, akLeft, akRight, akBottom]
     BorderSpacing.Around = 2
     OnChangeBounds = Notebook1ChangeBounds
