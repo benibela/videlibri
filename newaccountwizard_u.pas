@@ -14,6 +14,7 @@ type
 
   TnewAccountWizard = class(TForm)
     cancelBtn: TButton;
+    locationList: TComboBox;
     Label1: TLabel;
     Label2: TLabel;
     Label8: TLabel;
@@ -52,6 +53,7 @@ type
     procedure FormActivate(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure FormShow(Sender: TObject);
+    procedure locationListChange(Sender: TObject);
     procedure Notebook1PageChanged(Sender: TObject);
     procedure Page2BeforeShow(ASender: TObject; ANewPage: TPage;
      ANewIndex: Integer);
@@ -81,10 +83,12 @@ begin
   identificarionInvalid.Caption:='';
   StringGrid1.ScrollBars:=ssNone;
   StringGrid1.ColWidths[1]:=StringGrid1.ClientWidth-StringGrid1.ColWidths[0];
-  libraryList.Items.text:=libraryManager.enumeratePrettyLongNames;
+  locationList.Items.Text:=libraryManager.enumerateLocations;
+  locationList.ItemIndex:=0;
+  libraryList.Items.text:=libraryManager.enumeratePrettyLongNames('Aachen');
   libraryList.Items.Add('sollte nicht angezeigt werden');
   libraryList.Items.Delete(libraryList.Items.Count-1);
-  selectedLibrary:=libraryManager.getLibraryFromEnumeration(0);
+  selectedLibrary:=libraryManager.getLibraryFromEnumeration('Aachen', 0);
   //if accountIDs.Count =0 then FormStyle:=fsStayOnTop;
 end;
 
@@ -93,18 +97,24 @@ begin
 
 end;
 
+procedure TnewAccountWizard.locationListChange(Sender: TObject);
+begin
+  libraryList.Items.text:=libraryManager.enumeratePrettyLongNames(locationList.Items[locationList.ItemIndex]);
+  RadioGroup1Click(libraryList);
+end;
+
 procedure TnewAccountWizard.Notebook1PageChanged(Sender: TObject);
 begin
   if Notebook1.ActivePageComponent=lastPage then begin
-    StringGrid1.Cells[1,0]:=libraryList.Items[libraryList.ItemIndex];
+    StringGrid1.Cells[1,0]:=selectedLibrary.prettyNameLong ;//libraryList.Items[libraryList.ItemIndex];
     StringGrid1.Cells[1,1]:=accountName.text;
     StringGrid1.Cells[1,2]:=accountPass.text;
     StringGrid1.Cells[1,3]:=accountPrettyName.text;
     case TExtendType(extendTypeRG.tag) of
       etAlways: StringGrid1.Cells[1,4]:='immer, wenn möglich';
       etAllDepends:
-        if libraryList.ItemIndex=0 then StringGrid1.Cells[1,4]:='immer '+extendDaysEdit.text+' Tage vor Ende der Leihfrist'
-        else StringGrid1.Cells[1,4]:='immer alle Medien '+extendDaysEdit.text+' Tage vor Ende der Leihfrist';
+        {if libraryList.ItemIndex=0 then StringGrid1.Cells[1,4]:='immer '+extendDaysEdit.text+' Tage vor Ende der Leihfrist'
+        else }StringGrid1.Cells[1,4]:='immer alle Medien '+extendDaysEdit.text+' Tage vor Ende der Leihfrist';
       etSingleDepends: StringGrid1.Cells[1,4]:='immer einzeln '+extendDaysEdit.text+' Tage vor Ende der Leihfrist';
       etNever: StringGrid1.Cells[1,4]:='niemals';
     end;
@@ -133,7 +143,7 @@ end;
 
 procedure TnewAccountWizard.RadioGroup1Click(Sender: TObject);
 begin
-  selectedLibrary:=libraryManager.getLibraryFromEnumeration(libraryList.ItemIndex);
+  selectedLibrary:=libraryManager.getLibraryFromEnumeration(locationList.Items[locationList.ItemIndex], libraryList.ItemIndex);
  { case selectedLibrary.passwordType of
     ptBirthday: passLabel.Caption:='Geburtstdatum: ';
     else passLabel.Caption:='Passwort: ';
@@ -248,6 +258,7 @@ end;
 
 procedure TnewAccountWizard.Button3Click(Sender: TObject);
 begin
+  if Notebook1.PageIndex = 0 then exit;
   Notebook1.PageIndex:=Notebook1.PageIndex-1;
   selectCurrentPage;
 end;

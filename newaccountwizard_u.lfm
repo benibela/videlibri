@@ -2,12 +2,12 @@ object newAccountWizard: TnewAccountWizard
   Left = 349
   Height = 344
   Top = 141
-  Width = 465
+  Width = 520
   BorderIcons = [biSystemMenu]
   BorderStyle = bsDialog
   Caption = 'Neues Konto'
   ClientHeight = 344
-  ClientWidth = 465
+  ClientWidth = 520
   OnActivate = FormActivate
   OnCreate = FormCreate
   OnShow = FormShow
@@ -17,33 +17,34 @@ object newAccountWizard: TnewAccountWizard
     Left = 0
     Height = 311
     Top = 0
-    Width = 465
-    PageIndex = 0
+    Width = 520
+    PageIndex = 4
     Align = alClient
     TabOrder = 0
     TabStop = True
     object Page1: TPage
       object Label9: TLabel
-        Left = 4
-        Height = 70
-        Top = 5
-        Width = 450
+        Left = 20
+        Height = 87
+        Top = 7
+        Width = 473
         Anchors = [akTop, akLeft, akRight]
-        Caption = 'Um die auf einem Konto ausgeliehenen Medien zu betrachten, müssen Sie hier Ihre Büchereikontodaten eingeben.    '#10'Bitte wählen Sie zuerst die Bücherei aus, zu der das entsprechende Konto gehört und klicken dann auf "Weiter".'
+        Caption = 'Um die auf einem Konto ausgeliehenen Medien zu betrachten, müssen Sie hier Ihre Büchereikontodaten eingeben.    '#10#10'Bitte wählen Sie zuerst die Stadt und dann die Bücherei aus, zu der das entsprechende Konto gehört und klicken dann auf "Weiter".'
         ParentColor = False
         WordWrap = True
       end
       object libraryList: TRadioGroup
-        AnchorSideTop.Control = Label9
+        AnchorSideTop.Control = locationList
         AnchorSideTop.Side = asrBottom
         AnchorSideBottom.Side = asrBottom
         Left = 28
-        Height = 225
-        Top = 79
-        Width = 410
+        Height = 157
+        Top = 147
+        Width = 465
         Anchors = [akTop, akLeft, akRight, akBottom]
         AutoFill = True
         BorderSpacing.Top = 4
+        BorderSpacing.Around = 4
         ChildSizing.LeftRightSpacing = 6
         ChildSizing.TopBottomSpacing = 1
         ChildSizing.EnlargeHorizontal = crsHomogenousChildResize
@@ -52,8 +53,8 @@ object newAccountWizard: TnewAccountWizard
         ChildSizing.ShrinkVertical = crsScaleChilds
         ChildSizing.Layout = cclTopToBottomThenLeftToRight
         ChildSizing.ControlsPerLine = 4
-        ClientHeight = 221
-        ClientWidth = 406
+        ClientHeight = 153
+        ClientWidth = 461
         ColumnLayout = clVerticalThenHorizontal
         ItemIndex = 0
         Items.Strings = (
@@ -64,6 +65,22 @@ object newAccountWizard: TnewAccountWizard
         )
         OnClick = RadioGroup1Click
         TabOrder = 0
+      end
+      object locationList: TComboBox
+        AnchorSideTop.Control = Label9
+        AnchorSideTop.Side = asrBottom
+        Left = 28
+        Height = 25
+        Top = 108
+        Width = 465
+        Anchors = [akTop, akLeft, akRight]
+        BorderSpacing.Top = 10
+        BorderSpacing.Bottom = 10
+        BorderSpacing.Around = 4
+        ItemHeight = 0
+        OnChange = locationListChange
+        Style = csDropDownList
+        TabOrder = 1
       end
     end
     object Page2: TPage
@@ -306,9 +323,9 @@ object newAccountWizard: TnewAccountWizard
     object lastPage: TPage
       object Label5: TLabel
         Left = 7
-        Height = 34
+        Height = 33
         Top = 8
-        Width = 450
+        Width = 505
         Anchors = [akTop, akLeft, akRight]
         Caption = 'Klicken Sie nun auf "Erstellen", um ein Konto mit folgenden Eigenschaften zu registrieren:'
         ParentColor = False
@@ -319,9 +336,9 @@ object newAccountWizard: TnewAccountWizard
         AnchorSideTop.Side = asrBottom
         AnchorSideBottom.Side = asrBottom
         Left = 21
-        Height = 252
-        Top = 46
-        Width = 427
+        Height = 253
+        Top = 45
+        Width = 482
         Anchors = [akTop, akLeft, akRight, akBottom]
         BorderSpacing.Top = 4
         BorderStyle = bsNone
@@ -368,13 +385,13 @@ object newAccountWizard: TnewAccountWizard
     Left = 0
     Height = 33
     Top = 311
-    Width = 465
+    Width = 520
     Align = alBottom
     ClientHeight = 33
-    ClientWidth = 465
+    ClientWidth = 520
     TabOrder = 1
     object cancelBtn: TButton
-      Left = 376
+      Left = 431
       Height = 27
       Top = 3
       Width = 85
@@ -388,7 +405,7 @@ object newAccountWizard: TnewAccountWizard
     end
     object nextbtn: TButton
       AnchorSideRight.Control = cancelBtn
-      Left = 293
+      Left = 348
       Height = 27
       Top = 3
       Width = 71
@@ -404,7 +421,7 @@ object newAccountWizard: TnewAccountWizard
     end
     object back: TButton
       AnchorSideRight.Control = nextbtn
-      Left = 216
+      Left = 271
       Height = 27
       Top = 3
       Width = 75

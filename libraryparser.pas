@@ -60,8 +60,11 @@ type
     function getAccount(libID,accountID: string):TCustomAccountAccess;overload;
     function getAccount(mixID: string):TCustomAccountAccess;overload;
 
+    function enumerateLocations: string;
+    function enumeratePrettyLongNames(location: string): string;
     function enumeratePrettyLongNames: string;
     function enumeratePrettyShortNames: string;
+    function getLibraryFromEnumeration(location: string; pos:integer):TLibrary;
     function getLibraryFromEnumeration(const pos:integer):TLibrary;
     function getLibraryCountInEnumeration:integer;
     
@@ -399,6 +402,30 @@ begin
   result:=getAccount(libID,mixID);
 end;
 
+function TLibraryManager.enumerateLocations: string;
+var sl: TStringList;
+  i: Integer;
+begin
+  sl := TStringList.Create;
+  for i:= 0 to libraries.count -1 do
+    if sl.IndexOf(strSplit(TLibrary(libraries[i]).id, '_')[0]) < 0 then
+      sl.Add(strSplit(TLibrary(libraries[i]).id, '_')[0]);
+  sl.Sort;
+  result := sl.text;
+  Result := StringReplace(result, 'ue', 'ü', [rfReplaceAll]);
+end;
+
+function TLibraryManager.enumeratePrettyLongNames(location: string): string;
+var
+  i: Integer;
+begin
+  location := StringReplace(location, 'ü', 'ue', [rfReplaceAll]);
+  location:=location+'_';
+  for i:=0 to libraries.count-1 do
+    if strBeginsWith(TLibrary(libraries[i]).id, location) then
+      result:=result+TLibrary(libraries[i]).prettyNameLong+#13#10;
+end;
+
 function TLibraryManager.enumeratePrettyLongNames: string;
 var i:integer;
 begin
@@ -413,6 +440,22 @@ begin
   for i:=0 to libraries.count-1 do
     result:=result+TLibrary(libraries[i]).prettyNameShort+#13#10;
 end;
+
+function TLibraryManager.getLibraryFromEnumeration(location: string; pos: integer): TLibrary;
+var
+  i: Integer;
+begin
+  location := StringReplace(location, 'ü', 'ue', [rfReplaceAll]);
+  location:=location+'_';
+  for i:=0 to libraries.count-1 do
+    if strBeginsWith(TLibrary(libraries[i]).id, location) then begin
+      if pos = 0 then
+        exit(TLibrary(libraries[i]));
+      pos -= 1;
+    end;
+  raise ELibraryException.Create('Bücherei nicht gefunden: '+location+':'+IntToStr(pos));
+end;
+
 function TLibraryManager.getLibraryFromEnumeration(const pos:integer):TLibrary;
 begin
   Result:=TLibrary(libraries[pos]);
