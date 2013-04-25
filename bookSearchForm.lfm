@@ -4,7 +4,7 @@ object bookSearchFrm: TbookSearchFrm
   Top = 173
   Width = 801
   ActiveControl = optionPanel
-  Caption = 'Suche in der DigiBib.net'
+  Caption = 'Suche in den Katalogen'
   ClientHeight = 578
   ClientWidth = 801
   KeyPreview = True
