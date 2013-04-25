@@ -3,9 +3,10 @@
 
 
 <action id="connect">
-</action>
-<action id="update-all">
   <page url="http://{$server}start.do" templateFile="start"/>
+</action>
+
+<action id="update-all">
   <page url="http://{$server}login.do;{$jsession}">
     <post name="methodToCall" value="submit"/>
     <post name="CSId" value="{$CSId}"/>
@@ -32,6 +33,7 @@
   <page url="http://{$server}userAccount.do?methodToCall=renewalPossible&amp;actPos={$book.extendID}" templateFile="singleExtended"/>
 </action>
 
+
 <!--<action id="renew-all">
   <page url="https://{$server}AusleiheVerlaengerungServlet;{$jsession}" templateFile="KontoServlet">
     <post name="Kontoart" value="Ausleihkonto"/>
@@ -39,4 +41,28 @@
     <post name="homegkz" value="111"/>
   </page>
 </action>-->
+
+<action id="search">
+
+  <variable name="searchOptions">
+  (if ($book.title != "")    ["331", $book.title]    else (),
+   if ($book.author != "")   ["100", $book.author]   else (),
+   if ($book.isbn != "")     ["540", $book.isbn]     else (),
+   if ($book.year != "")     ["425", $book.year]     else (),
+   if ($book.keywords != "") ["902", $book.keywords] else ())
+  </variable>
+
+  <variable name="searchUrl">
+  concat(x"http://{$server}search.do?methodToCall=submit&CSId={$CSId}&methodToCallParameter=submitSearch&",
+         x"searchCategories%5B0%5D={$searchOptions[1](1)}&searchString%5B0%5D={$searchOptions[1](2)}&",
+         if (count($searchOptions) > 1) x"combinationOperator%5B1%5D=AND&searchCategories%5B1%5D={$searchOptions[2](1)}&searchString%5B1%5D={$searchOptions[2](2)}&" else "",
+         if (count($searchOptions) > 2) x"combinationOperator%5B2%5D=AND&searchCategories%5B2%5D={$searchOptions[3](1)}&searchString%5B2%5D={$searchOptions[3](2)}&" else "",
+         "submitSearch=Suchen&callingPage=searchParameters"
+  )
+  </variable>
+
+  <page url="$searchUrl" templateFile="searchList"/>
+</action>
+
+
 </actions> 

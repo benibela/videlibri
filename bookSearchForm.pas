@@ -32,10 +32,10 @@ type
     detailPanel: TPanel;
     Image1: TImage;
     Label2: TLabel;
-    Label3: TLabel;
-    Label4: TLabel;
-    Label5: TLabel;
-    Label6: TLabel;
+    linkLabelDigibib: TLabel;
+    linkLabelBib: TLabel;
+    linkLabelAmazon: TLabel;
+    linkLabelGoogle: TLabel;
     Panel1: TPanel;
     searchLocation: TComboBox;
     searchTitle: TComboBox;
@@ -65,7 +65,7 @@ type
     procedure FormCreate(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
     procedure Image1Click(Sender: TObject);
-    procedure Label3Click(Sender: TObject);
+    procedure linkLabelDigibibClick(Sender: TObject);
     procedure optionPanelClick(Sender: TObject);
     procedure searcherAccessDetailsComplete(sender: TObject; book: TBook);
     procedure searcherAccessException(Sender: TObject);
@@ -75,13 +75,13 @@ type
     procedure searchSelectionListClickCheck(Sender: TObject);
   private
     { private declarations }
+    locations: TSearchableLocations;
     selectedLibrariesPerLocation: TStringList;
   public
     { public declarations }
     bookList: TBookListView;
     detaillist: TTreeListView;
     searcherAccess: TLibrarySearcherAccess;
-    searchTemplates: TStringList; //TBookListTemplate;
     displayedBook: TBook;
     researchedBook: TBook;
     function displayDetails(book: TBook=nil): longint; //0: no details, 1: detail, no image, 2: everything
@@ -103,6 +103,8 @@ uses applicationconfig,libraryParser,simplexmlparser,bbdebugtools,bookWatchMain,
 
 { TbookSearchFrm }
 //TODO: fehler bei keinem ergebnis
+
+
 
 procedure TbookSearchFrm.FormCreate(Sender: TObject);
 var
@@ -164,29 +166,32 @@ procedure TbookSearchFrm.startSearchClick(Sender: TObject);
     while cb.Items.Count>maxCount do cb.Items.Delete(maxCount);
     cb.Text := temp; //lines above sometimes erase text
   end;
-var i:longint;
+var i, j:longint;
+  first: Boolean;
 begin
   displayedBook:=nil;
-  i := searchTemplates.IndexOf(searchLocation.Text);
-  if i = -1 then i := searchTemplates.IndexOf('digibib');
-  if i = -1 then begin i := 0; if searchTemplates.Count = 0 then raise exception.Create('No search templates'); end;
 
-  searcherAccess.newSearch(searchTemplates.Objects[i] as TMultiPageTemplate);
-  searcherAccess.searcher.clear;
-  for i:=0 to searchSelectionList.Items.count-1 do
-    if searchSelectionList.Checked[i] and (searchSelectionList.Items.Objects[i]<>nil) then
-      searcherAccess.searcher.addLibrary(searchSelectionList.Items.Objects[i] as tlibrary);
+  i := locations.locations.IndexOf(searchLocation.Text);
+  if i = -1 then begin i := 0; if locations.locations.Count = 0 then raise exception.Create('No search templates'); end;
+
+  first := true;
+  for j := 0 to searchSelectionList.Items.count - 1 do
+    if searchSelectionList.Checked[j] then begin
+      if first then begin
+        searcherAccess.newSearch( TSearchTarget((TStringList(locations.locations.Objects[i])).Objects[j]).template );
+        searcherAccess.searcher.clear;
+      end;
+      searcherAccess.searcher.addLibrary(TSearchTarget((TStringList(locations.locations.Objects[i])).Objects[j]).lib);
+    end;
+
   searcherAccess.searcher.SearchOptions.author:=searchAuthor.Text;
   searcherAccess.searcher.SearchOptions.title:=searchTitle.Text;
   searcherAccess.searcher.SearchOptions.year:=searchYear.Text;
   searcherAccess.searcher.SearchOptions.isbn:=searchISBN.Text;
   setProperty('keywords', searchKeywords.Text, searcherAccess.searcher.SearchOptions.additional);
-  if searchLocation.Text<>searcherAccess.searcher.Location then begin
-    searcherAccess.searcher.setLocation(searchLocation.Text);
-    searcherAccess.connectAsync;//digibib speziell, Suchmöglichkeiten ortabhängig
-  end;
 
-  
+  searcherAccess.searcher.setLocation(searchLocation.Text);
+  searcherAccess.connectAsync;
   searcherAccess.searchAsync;
 
   StatusBar1.Panels[SB_PANEL_SEARCH_STATUS].Text:='Suche Medien...';
@@ -225,6 +230,9 @@ begin
     StatusBar1.Panels[SB_PANEL_SEARCH_STATUS].Text:='Suche Details für dieses Medium...';
   end;
 
+  linkLabelDigibib.Enabled := getProperty('digibib-url', book.additional) <> '';
+  linkLabelBib.Enabled := getProperty('home-url', book.additional) <> '';
+  linkLabelAmazon.Enabled := getProperty('amazon-url', book.additional) <> '';
 end;
 
 procedure TbookSearchFrm.displayImageChange(Sender: TObject);
@@ -348,9 +356,12 @@ begin
   detaillist.free;
   searcherAccess.disconnectAsync;
   searcherAccess.free;
-  for i:=0 to searchTemplates.Count - 1 do
-    searchTemplates.Objects[i].Free;
-  searchTemplates.free;
+  for i:=0 to locations.searchTemplates.Count - 1 do
+    locations.searchTemplates.Objects[i].Free;
+  locations.searchTemplates.free;
+  for i:=0 to locations.locations.Count - 1 do
+    locations.locations.Objects[i].Free;
+  locations.locations.Free;
   selectedLibrariesPerLocation.free;
 end;
 
@@ -358,7 +369,7 @@ procedure TbookSearchFrm.Image1Click(Sender: TObject);
 begin
 
 end;
-procedure TbookSearchFrm.Label3Click(Sender: TObject);
+procedure TbookSearchFrm.linkLabelDigibibClick(Sender: TObject);
 var site: string;
 begin
   if displayedBook=nil then begin
@@ -368,7 +379,7 @@ begin
 
   site:=(sender as tlabel).Caption;
   if pos('digibib',LowerCase(site))>0 then begin
-    site:=getProperty('detail-url',displayedBook.additional);
+    site:=getProperty('digibib-url',displayedBook.additional);
   end else if (pos('katalog',LowerCase(site))>0) or (pos('bücherei',LowerCase(site))>0) then begin
     site:=getProperty('home-url',displayedBook.additional);
   end else if pos('amazon',LowerCase(site))>0 then begin
@@ -437,13 +448,11 @@ end;
 procedure TbookSearchFrm.searchLocationSelect(Sender: TObject);
 var list: TList;
     i:longint;
+    loki: Integer;
 begin
-  searchSelectionList.Clear;
-  list:=TList.Create;
-  libraryManager.enumerateLibrariesWithValue('Location',searchLocation.Text,list);
-  for i:= 0 to list.count-1  do
-    searchSelectionList.items.AddObject(tlibrary(list[i]).prettyNameLong,tobject(list[i]));
-  list.free;
+  loki := locations.locations.IndexOf(searchLocation.Text);
+  searchSelectionList.Items.Assign(TStringList(locations.locations.Objects[loki]));
+
   for i:=1 to min(length(selectedLibrariesPerLocation.Values[searchLocation.Text]),
                   searchSelectionList.Items.count) do
     searchSelectionList.Checked[i-1]:=selectedLibrariesPerLocation.Values[searchLocation.Text][i]='+';
@@ -536,6 +545,10 @@ begin
     if getProperty('details-searched',book.additional) <> 'true' then Result:=0
     else if getProperty('image-searched',book.additional) <> 'true' then result:=1
     else result:=2;
+
+    linkLabelDigibib.Enabled := getProperty('digibib-url', book.additional) <> '';
+    linkLabelBib.Enabled := getProperty('home-url', book.additional) <> '';
+    linkLabelAmazon.Enabled := getProperty('amazon-url', book.additional) <> '';
   finally
     searcherAccess.endBookReading;
   end;
@@ -603,35 +616,26 @@ procedure TbookSearchFrm.loadDefaults;
                          [rfReplaceAll]),
                       '\\','\',[rfReplaceAll]);
   end;
-var sl: TStringList;
-   i:longint;
+var i:longint;
+   location: String;
+   temp: TMultiPageTemplate;
 begin
-  sl:=TStringList.Create;
-  libraryManager.enumerateVariableValues('Location',sl);
-  for i := sl.count-1 downto 0 do begin
-    sl[i] := trim(sl[i]);
-    if sl[i] ='' then sl.delete(i);
-  end;
+  locations := getSearchableLocations;
 
-  searchTemplates := TStringList.Create;
-  searchTemplates.LoadFromFile(dataPath+StringReplace('libraries\search\search.list','\',DirectorySeparator,[rfReplaceAll]));
-  for i := searchTemplates.count-1 downto 0 do begin
-    searchTemplates[i] := trim(searchTemplates[i]);
-    if searchTemplates[i] = '' then searchTemplates.Delete(i);
-  end;
-  for i :=0 to searchTemplates.count-1 do begin
-    searchTemplates.Objects[i] := TMultiPageTemplate.create();
-    TMultiPageTemplate(searchTemplates.Objects[i]).loadTemplateFromDirectory(dataPath+StringReplace('libraries\search\templates\'+trim(searchTemplates[i])+'\','\',DirectorySeparator,[rfReplaceAll]),trim(searchTemplates[i]));
-    if searchTemplates[i] <> 'digibib' then sl.Add( searchTemplates[i] );
-  end;
+  searchLocation.Items.Clear;
+  for i := 0 to locations.locations.count - 1 do
+    searchLocation.Items.add(locations.locations[i]);
 
-  for i:=0 to sl.count-1 do
-    selectedLibrariesPerLocation.Values[sl[i]]:=userConfig.ReadString('BookSearcher','selection-'+sl[i],'+--');
-  searchLocation.items.Assign(sl);
-  if sl.IndexOf(userConfig.ReadString('BookSearcher', 'default-location', '')) > 0 then searchLocation.Text:=userConfig.ReadString('BookSearcher', 'default-location', '')
-  else searchLocation.Text:=searchLocation.items[0];
+
+  for i:=0 to locations.locations.count-1 do
+    selectedLibrariesPerLocation.Values[locations.locations[i]]:=userConfig.ReadString('BookSearcher','selection-'+locations.locations[i],'+--');
+
+  if locations.locations.IndexOf(userConfig.ReadString('BookSearcher', 'default-location', '')) > 0 then
+    searchLocation.Text:=userConfig.ReadString('BookSearcher', 'default-location', '')
+  else
+    searchLocation.Text:=searchLocation.items[0];
   searchLocationSelect(self);
-  sl.free;
+
   loadComboBoxItems(searchAuthor);
   loadComboBoxItems(searchTitle);
   loadComboBoxItems(searchKeywords);

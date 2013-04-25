@@ -662,7 +662,10 @@ procedure TBookListReader.setBookProperty(book: TBook; variable: string; value:I
     result:=StringReplace(result,#10,'',[rfReplaceAll]);
     result:=trim(result);
   end;
+var
+  basevariable: String;
 begin
+  basevariable := variable;
   variable := LowerCase(variable);
   if (variable <> 'statusId') and strlibeginswith(@variable[1],length(variable),'status') then begin
     book.StatusStr:=strconv();
@@ -680,7 +683,7 @@ begin
   else if striEqual(variable, 'limitdate') or strlibeginswith(@variable[1],length(variable),'limitdate') then
     raise EBookListReader.create('The template is using the limitdate property which is deprecated. It should now be called duedate')
   else
-    book.setProperty(variable, strconv());
+    book.setProperty(basevariable, strconv()); //preserve case
 end;
 
 procedure TBookListReader.parserVariableRead(variable: string; value: IXQValue);

@@ -70,15 +70,23 @@ procedure TLibrarySearcher.setLocation(s: string);
 begin
   if s=flocation then exit;
   flocation:=s;
+  if pos('digibib', s) > 0 then s := copy(s, 1, pos(' ', s)-1);
   bookListReader.parser.variableChangeLog.ValuesString['location']:=template.findVariableValue('location:'+s);
   bookListReader.parser.variableChangeLog.ValuesString['view']:=template.findVariableValue('view:'+s);
-  if (s <> template.name) and (bookListReader.parser.variableChangeLog.ValuesString['location']='') then
+  if (s <> template.name) //not a standard search template
+      and (bookListReader.parser.variableChangeLog.ValuesString['location']='') //not a digibib template
+      and (template.findAction('update-all') = nil) and (template.findAction('update-single') = nil) //and not a account template
+      then
     raise Exception.Create('Unbekannter Suchort');
 end;
 
 function TLibrarySearcher.addLibrary(lib: tlibrary): boolean;
+var
+  j: Integer;
 begin
   flibsToSearch.Add(lib);
+  for j := 0 to lib.variables.Count-1 do
+    bookListReader.parser.variableChangeLog.ValuesString[lib.variables.Names[j]] := lib.variables.ValueFromIndex[j];
   Result:=true;
 end;
 
@@ -90,19 +98,22 @@ begin
 end;
 
 procedure TLibrarySearcher.connect;
-begin
-  bookListReader.callAction('connect');
-end;
-
-procedure TLibrarySearcher.search;
 var selectedLibraries: string;
-    i:longint;
+  i: Integer;
+  j: Integer;
 begin
-  fsearchResult.clear;
   selectedLibraries:='';
   for i:=0 to flibsToSearch.count-1 do
     selectedLibraries+=TLibrary(flibsToSearch[i]).variables.values['searchid-'+template.Name]+template.findVariableValue('after-id');
   bookListReader.parser.variableChangeLog.ValuesString['selectedLibraries']:=selectedLibraries;
+
+
+  bookListReader.callAction('connect');
+end;
+
+procedure TLibrarySearcher.search;
+begin
+  fsearchResult.clear;
   bookListReader.books:=fsearchResult;
   bookListReader.selectBook(SearchOptions);
   bookListReader.callAction('search');
@@ -111,7 +122,7 @@ end;
 procedure TLibrarySearcher.details(book: tbook);
 begin
   bookListReader.selectBook(book);
-  bookListReader.callAction('details');
+  bookListReader.callAction('searchDetails');
 end;
 
 procedure TLibrarySearcher.disconnect;

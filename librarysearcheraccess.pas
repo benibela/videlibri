@@ -5,7 +5,7 @@ unit librarySearcherAccess;
 interface
 
 uses
-  Classes, SysUtils , librarySearcher,booklistreader,bbutils,messagesystem,simplexmlparser,multipagetemplate;
+  Classes, SysUtils , librarySearcher,libraryParser, booklistreader,bbutils,messagesystem,simplexmlparser,multipagetemplate;
 
 type
 
@@ -91,12 +91,85 @@ public
   property OnImageComplete: TBookNotifyEvent read FOnImageComplete write FOnImageComplete;
   property searcher: TLibrarySearcher read GetSearcher;
 end;
-  
+
+type
+
+  { TSearchTarget }
+
+  TSearchTarget = class
+    name: string;
+    lib: TLibrary; //might be nil
+    template: TMultiPageTemplate;
+    constructor create(aname: string; alib: TLibrary; atemplate: TMultiPageTemplate);
+  end;
+
+  { TSearchableLocations }
+
+  TSearchableLocations = record
+    locations:  TStringList; //string->stringlist of TSearchTarget
+    searchTemplates: TStringList;
+  end;
+
+function getSearchableLocations: TSearchableLocations;
 implementation
 
 uses applicationconfig, bbdebugtools;
 
+function getSearchableLocations: TSearchableLocations;
+var digibib: TMultiPageTemplate;
+  temp: TStringList;
+  i: Integer;
+  loc: String;
+begin
+  with result do begin
+    locations := TStringList.Create;
 
+    searchTemplates := TStringList.Create;
+    searchTemplates.LoadFromFile(dataPath+StringReplace('libraries\search\search.list','\',DirectorySeparator,[rfReplaceAll]));
+    for i := searchTemplates.count-1 downto 0 do begin
+      searchTemplates[i] := trim(searchTemplates[i]);
+      if searchTemplates[i] = '' then searchTemplates.Delete(i);
+    end;
+    for i :=0 to searchTemplates.count-1 do begin
+      searchTemplates.Objects[i] := TMultiPageTemplate.create();
+      TMultiPageTemplate(searchTemplates.Objects[i]).loadTemplateFromDirectory(dataPath+StringReplace('libraries\search\templates\'+trim(searchTemplates[i])+'\','\',DirectorySeparator,[rfReplaceAll]),trim(searchTemplates[i]));
+      if searchTemplates[i] <> 'digibib' then begin
+        temp := TStringList.Create;
+        temp.AddObject(searchTemplates[i], TSearchTarget.create(searchTemplates[i], nil, TMultiPageTemplate(searchTemplates.Objects[i])));
+        locations.AddObject(searchTemplates[i], temp);
+      end else digibib := TMultiPageTemplate(searchTemplates.Objects[i]);
+    end;
+
+    if digibib = nil then raise ELibraryException.create('Digibib template not found');
+
+    for i := 0 to libraryManager.getLibraryCountInEnumeration-1 do begin
+      loc := libraryManager[i].prettyLocation;
+      if libraryManager[i].template.findAction('search') <> nil then begin
+        if locations.IndexOf(loc) < 0 then
+          locations.AddObject(loc, TStringList.Create);
+        temp := TStringList(locations.Objects[locations.IndexOf(loc)]);
+        temp.AddObject(libraryManager[i].prettyNameLong, TSearchTarget.create(libraryManager[i].prettyNameLong, libraryManager[i], libraryManager[i].template));
+      end;
+      if libraryManager[i].variables.IndexOfName('searchid-digibib') >= 0 then begin
+        if locations.IndexOf(loc+' (digibib)') < 0 then
+          locations.AddObject(loc+' (digibib)', TStringList.Create);
+        temp := TStringList(locations.Objects[locations.IndexOf(loc+' (digibib)')]);
+        temp.AddObject(libraryManager[i].prettyNameLong, TSearchTarget.create(libraryManager[i].prettyNameLong, libraryManager[i], digibib));
+      end;
+    end;
+
+    locations.Sort;
+  end;
+end;
+
+{ TSearchTarget }
+
+constructor TSearchTarget.create(aname: string; alib: TLibrary; atemplate: TMultiPageTemplate);
+begin
+  name := aname;
+  lib := alib;
+  template := atemplate;
+end;
 
 { TLibrarySearcherAccess }
 

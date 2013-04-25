@@ -1,30 +1,58 @@
 <html>
-<template:switch-prioritized>
 
-<table>
-<tr>
-  <td><strong>Titel:</strong></td>
-  <td><template:read var="book.title" source="filter(deep-text(''), '[^/]+')"/></td>
-</tr>
-<tr>
-  <td><strong template:condition="filter(text(), 'Verfasser|Personen') != ''"/></td>
-  <td><template:read var="book.author" source="filter(deep-text(''), '[^*]+')"/></td>
-</tr> <!-- this row probably also ensures that not the td containing the table is choosen -->
-{book.stabikatFound := true()}
+<template:meta default-text-matching="regex"/>
+
+<table summary="Main layout">
+  
+  <template:switch-prioritized>
+  
+  <table>
+  <tr>
+    <td><strong >.*Titel:.*</strong></td>
+    <td><template:read var="book.title" source="filter(deep-text(''), '[^/]+')"/></td>
+  </tr>
+  <tr t:optional="true">
+    <td><strong>.*Verfasser|Personen.*</strong></td>
+    <td><template:read var="book.author" source="filter(deep-text(''), '[^*]+')"/></td>
+  </tr>
+  <tr t:optional="true">
+    <td><strong>.*ISBN:.*</strong></td>
+    <td>{$book.isbn := text()}</td>
+  </tr> 
+  <tr><td class="preslabel"/></tr> <!-- force it to choose a table containing at least two content/preslabel rows. Otherwise it will choose a table, containing this table, and then the optional elements will not match -->
+  {book.stabikatFound := true()}
+  </table>
+  
+  <table>
+  <tr>
+    <td class="preslabel"><strong>.*Zeitschrift:.*</strong></td>
+    <td>{book.title := concat(if (contains(deep-text(""), ":")) then substring-before(deep-text(""), ":") else deep-text(""), 
+                              if (contains($book.id, "-")) then concat(" [",substring-after($book.id, "-"), "]") else ""),
+         book.author := "Zeitschrift"}</td>
+  </tr>
+  <tr><td class="preslabel"/></tr>
+  {book.stabikatFound := true()}
+  </table>
+  
+  <table>
+  <tr>
+    <td class="preslabel"><strong>.*Schriftenreihe:.*</strong></td>
+  </tr>
+  <tr><td class="preslabel"/></tr>
+  </table>
+  
+  
+  <strong>Leider keine Treffer.<t:s>book.title := x"??? (Keine Ergebnisse bei einer Suche nach {$book.id} im StaBiKat)", book.author := "???", book.stabikatFound := false()</t:s></strong>
+  
+  </template:switch-prioritized>
+  
+  <a target="_blank"><img src="http://stabikat.sbb.spk-berlin.de/img_psi/2.0/gui/permalink.gif"/>
+  {book.home-url:=if (contains(@href, "://")) then @href else concat($base,"/",@href)}
+  </a>?
+  
+  
 </table>
 
-<table>
-<tr>
-  <td class="preslabel"><strong>Zeitschrift:</strong></td>
-  <td>{book.title := concat(if (contains(deep-text(""), ":")) then substring-before(deep-text(""), ":") else deep-text(""), 
-                            if (contains($book.id, "-")) then concat(" [",substring-after($book.id, "-"), "]") else ""),
-       book.author := "Zeitschrift"}</td>
-</tr>
-{book.stabikatFound := true()}
-</table>
 
 
-<strong>Leider keine Treffer.<t:s>book.title := x"??? (Keine Ergebnisse bei einer Suche nach {$book.id} im StaBiKat)", book.author := "???", book.stabikatFound := false()</t:s></strong>
-
-</template:switch-prioritized>
 </html>

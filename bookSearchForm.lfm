@@ -345,7 +345,7 @@ object bookSearchFrm: TbookSearchFrm
         ParentColor = False
         OnClick = Label2Click
       end
-      object Label3: TLabel
+      object linkLabelDigibib: TLabel
         Cursor = crHandPoint
         Left = 209
         Height = 15
@@ -357,9 +357,9 @@ object bookSearchFrm: TbookSearchFrm
         Font.Style = [fsUnderline]
         ParentColor = False
         ParentFont = False
-        OnClick = Label3Click
+        OnClick = linkLabelDigibibClick
       end
-      object Label4: TLabel
+      object linkLabelBib: TLabel
         Cursor = crHandPoint
         Left = 299
         Height = 15
@@ -371,9 +371,9 @@ object bookSearchFrm: TbookSearchFrm
         Font.Style = [fsUnderline]
         ParentColor = False
         ParentFont = False
-        OnClick = Label3Click
+        OnClick = linkLabelDigibibClick
       end
-      object Label5: TLabel
+      object linkLabelAmazon: TLabel
         Cursor = crHandPoint
         Left = 378
         Height = 15
@@ -385,9 +385,9 @@ object bookSearchFrm: TbookSearchFrm
         Font.Style = [fsUnderline]
         ParentColor = False
         ParentFont = False
-        OnClick = Label3Click
+        OnClick = linkLabelDigibibClick
       end
-      object Label6: TLabel
+      object linkLabelGoogle: TLabel
         Cursor = crHandPoint
         Left = 470
         Height = 15
@@ -399,7 +399,7 @@ object bookSearchFrm: TbookSearchFrm
         Font.Style = [fsUnderline]
         ParentColor = False
         ParentFont = False
-        OnClick = Label3Click
+        OnClick = linkLabelDigibibClick
       end
     end
   end

@@ -1,0 +1,15 @@
+ <DIV id="hitlist">
+  <DIV class="box">
+  <TABLE class="data">
+    <TR>
+    <TD>
+    <A>{book := {"title": text(), "_detailUrl": .}}</A>
+    {book.author := text(), 
+     book.subTitle := if (./br) ./br/text() else "",
+     book.year := extract($book.subTitle, "[(]([0-9]+)[)]", 1)}
+   <!-- <SPAN class="textgruen">{$book.availability}</SPAN>? who cares?-->
+    </TD>
+    </TR>*
+    </TABLE>
+  </DIV>
+</DIV>

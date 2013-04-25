@@ -40,6 +40,8 @@ type
     destructor destroy;override;
     
     property variables: TStringList read defaultVariables;
+    function location: string;
+    function prettyLocation: string;
   end;
 
   { TLibraryManager }
@@ -48,7 +50,7 @@ type
   protected
     basePath,libraryPath: string;
     
-    libraries: TList;
+    flibraries: TList;
     templates:TStringList;
     function getAccountObject(libID: string):TCustomAccountAccess;
   public
@@ -64,12 +66,14 @@ type
     function enumeratePrettyLongNames(location: string): string;
     function enumeratePrettyLongNames: string;
     function enumeratePrettyShortNames: string;
+    function getLibraryFromEnumeration(const pos:integer):TLibrary;inline;
     function getLibraryFromEnumeration(location: string; pos:integer):TLibrary;
-    function getLibraryFromEnumeration(const pos:integer):TLibrary;
     function getLibraryCountInEnumeration:integer;
     
     procedure enumerateVariableValues(const varName: string; result: TStringList);
     procedure enumerateLibrariesWithValue(const varName, value: string; result: TList);
+
+    property libraries[i: integer]: TLibrary read getLibraryFromEnumeration; default;
   end;
 
   TVariables=array of record
@@ -323,26 +327,36 @@ begin
   inherited destroy;
 end;
 
+function TLibrary.location: string;
+begin
+  result := strSplit(id, '_')[0];
+end;
+
+function TLibrary.prettyLocation: string;
+begin
+  result := StringReplace(location, 'ue', 'ü', [rfReplaceAll]);
+end;
+
 function TLibraryManager.getAccountObject(libID: string):TCustomAccountAccess;
 var i:integer;
 begin
   Result:=nil;
-  for i:=0 to libraries.count-1 do
+  for i:=0 to flibraries.count-1 do
     if (TLibrary(libraries[i]).id=libID) or (TLibrary(libraries[i]).deprecatedId = libID) then
       exit(TLibrary(libraries[i]).getAccountObject());
   raise Exception('Bücherei '+libID+' ist unbekannt');
 end;
 constructor TLibraryManager.create();
 begin
-  libraries:=Tlist.create;
+  flibraries:=Tlist.create;
   templates:=tStringList.Create;
 end;
 destructor TLibraryManager.destroy();
 var i:integer;
 begin
-  for i:=0 to libraries.Count-1 do
-    TCustomAccountAccess(libraries[i]).free;
-  libraries.free;
+  for i:=0 to flibraries.Count-1 do
+    libraries[i].free;
+  flibraries.free;
   for i:=0 to templates.Count-1 do
     TMultiPageTemplate(templates.Objects[i]).free;
   templates.free;
@@ -365,7 +379,7 @@ begin
   for i:=0 to libraryFiles.count-1 do begin
     newLib:=TLibrary.Create;
     newLib.loadFromFile(libraryPath+libraryFiles[i]);
-    libraries.Add(newLib);
+    flibraries.Add(newLib);
   end;
   libraryFiles.free;
 end;
@@ -407,7 +421,7 @@ var sl: TStringList;
   i: Integer;
 begin
   sl := TStringList.Create;
-  for i:= 0 to libraries.count -1 do
+  for i:= 0 to flibraries.count -1 do
     if sl.IndexOf(strSplit(TLibrary(libraries[i]).id, '_')[0]) < 0 then
       sl.Add(strSplit(TLibrary(libraries[i]).id, '_')[0]);
   sl.Sort;
@@ -421,7 +435,7 @@ var
 begin
   location := StringReplace(location, 'ü', 'ue', [rfReplaceAll]);
   location:=location+'_';
-  for i:=0 to libraries.count-1 do
+  for i:=0 to flibraries.count-1 do
     if strBeginsWith(TLibrary(libraries[i]).id, location) then
       result:=result+TLibrary(libraries[i]).prettyNameLong+#13#10;
 end;
@@ -430,14 +444,14 @@ function TLibraryManager.enumeratePrettyLongNames: string;
 var i:integer;
 begin
   result:='';
-  for i:=0 to libraries.count-1 do
+  for i:=0 to flibraries.count-1 do
     result:=result+TLibrary(libraries[i]).prettyNameLong+#13#10;
 end;
 function TLibraryManager.enumeratePrettyShortNames: string;
 var i:integer;
 begin
   result:='';
-  for i:=0 to libraries.count-1 do
+  for i:=0 to flibraries.count-1 do
     result:=result+TLibrary(libraries[i]).prettyNameShort+#13#10;
 end;
 
@@ -447,7 +461,7 @@ var
 begin
   location := StringReplace(location, 'ü', 'ue', [rfReplaceAll]);
   location:=location+'_';
-  for i:=0 to libraries.count-1 do
+  for i:=0 to flibraries.count-1 do
     if strBeginsWith(TLibrary(libraries[i]).id, location) then begin
       if pos = 0 then
         exit(TLibrary(libraries[i]));
@@ -458,11 +472,11 @@ end;
 
 function TLibraryManager.getLibraryFromEnumeration(const pos:integer):TLibrary;
 begin
-  Result:=TLibrary(libraries[pos]);
+  Result:=TLibrary(flibraries[pos]);
 end;
 function TLibraryManager.getLibraryCountInEnumeration:integer;
 begin
-  result:=libraries.count;
+  result:=flibraries.count;
 end;
 
 procedure TLibraryManager.enumerateVariableValues(const varName: string;
@@ -470,7 +484,7 @@ procedure TLibraryManager.enumerateVariableValues(const varName: string;
 var i:longint;
 begin
   result.clear;
-  for i:=0 to libraries.count-1 do
+  for i:=0 to flibraries.count-1 do
     if  result.IndexOf(TLibrary(libraries[i]).defaultVariables.Values[varName])<0 then
       result.add(TLibrary(libraries[i]).defaultVariables.Values[varName]);
 end;
@@ -480,7 +494,7 @@ procedure TLibraryManager.enumerateLibrariesWithValue(const varName,
 var i:longint;
 begin
   result.clear;
-  for i:=0 to libraries.count-1 do
+  for i:=0 to flibraries.count-1 do
     if TLibrary(libraries[i]).defaultVariables.Values[varName]=value then
       result.add(TLibrary(libraries[i]));
 end;
