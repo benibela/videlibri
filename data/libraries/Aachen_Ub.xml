@@ -12,6 +12,6 @@
   
   <variable name="server" value="sisis.bth.rwth-aachen.de:8080/InfoGuideClient/"/>
   
-  <variable name="Location" value="Aachen"/>
+  <variable name="location" value="Aachen"/>
   <variable name="searchid-digibib" value="SERVICEGROUP1.SERVICE.SEARCH_BTHA"/>
 </library>

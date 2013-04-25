@@ -45,24 +45,47 @@
 <action id="search">
 
   <variable name="searchOptions">
-  (if ($book.title != "")    ["331", $book.title]    else (),
-   if ($book.author != "")   ["100", $book.author]   else (),
-   if ($book.isbn != "")     ["540", $book.isbn]     else (),
-   if ($book.year != "")     ["425", $book.year]     else (),
-   if ($book.keywords != "") ["902", $book.keywords] else ())
+  (if ($book.title != "")    then ["331", $book.title]    else (),
+   if ($book.author != "")   then ["100", $book.author]   else (),
+   if ($book.isbn != "")     then ["540", $book.isbn]     else (),
+   if ($book.year != "")     then ["425", $book.year]     else (),
+   if ($book.keywords != "") then ["902", $book.keywords] else ())
   </variable>
 
   <variable name="searchUrl">
   concat(x"http://{$server}search.do?methodToCall=submit&CSId={$CSId}&methodToCallParameter=submitSearch&",
          x"searchCategories%5B0%5D={$searchOptions[1](1)}&searchString%5B0%5D={$searchOptions[1](2)}&",
-         if (count($searchOptions) > 1) x"combinationOperator%5B1%5D=AND&searchCategories%5B1%5D={$searchOptions[2](1)}&searchString%5B1%5D={$searchOptions[2](2)}&" else "",
-         if (count($searchOptions) > 2) x"combinationOperator%5B2%5D=AND&searchCategories%5B2%5D={$searchOptions[3](1)}&searchString%5B2%5D={$searchOptions[3](2)}&" else "",
+         if (count($searchOptions) > 1) then x"combinationOperator%5B1%5D=AND&searchCategories%5B1%5D={$searchOptions[2](1)}&searchString%5B1%5D={$searchOptions[2](2)}&" else "",
+         if (count($searchOptions) > 2) then x"combinationOperator%5B2%5D=AND&searchCategories%5B2%5D={$searchOptions[3](1)}&searchString%5B2%5D={$searchOptions[3](2)}&" else "",
          "submitSearch=Suchen&callingPage=searchParameters"
   )
   </variable>
 
-  <page url="$searchUrl" templateFile="searchList"/>
+  <variable name="nextPage"/>
+  <page url="{$searchUrl}" templateFile="searchList"/>
+
+  <variable name="i">0</variable>
+  <loop test="$nextPage != '' and $i < 10">
+    <page url="{$nextPage}" templateFile="searchList"></page>
+    <variable name="i">$i + 1</variable>
+  </loop>
 </action>
 
+<action id="searchDetails">
+  <page url="{$book._detail-url}&amp;tab=showTitleActive">
+    <template>
+      <div id="tab-content">
+        <table>
+          <tr><td>Titel:</td><td>{$book.title}</td></tr>?
+          <tr><td>Verfasser</td><td>{$book.author}</td></tr>?
+          <tr><td>Ort:</td><td>{$book.location}</td></tr>?
+          <tr><td>Verlag:</td><td>{$book.publisher}</td></tr>?
+          <tr><td>Jahr:</td><td>{$book.year}</td></tr>?
+          <tr><td>ISBN:</td><td>{$book.isbn}</td></tr>?
+        </table>
+      </div>
+    </template>
+  </page>
+</action>
 
 </actions> 

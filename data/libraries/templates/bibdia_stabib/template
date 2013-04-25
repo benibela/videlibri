@@ -55,7 +55,6 @@
   <page test="$singleResult" url="http://stabikat.de/DB=1/SET=2/TTL=1/CMD?ACT=SRCHA&IKT=1016&SRT=RLV&TRM={$searchOptions}" templateFile="stabikat"></page>
 
   <variable name="i">0</variable>
-  
   <loop test="$nextPage != '' and $i < 10">
     <page url="{$nextPage}" templateFile="stabikatSearch"></page>
     <variable name="i">$i + 1</variable>
