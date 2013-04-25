@@ -514,6 +514,8 @@ begin
     propAdd('Titel!',book.title);
     propAdd('Jahr!',book.year);
     propAdd('ISBN!',book.isbn);
+    if getProperty('publisher', book.additional) <> '' then propAdd('Verlag!', getProperty('publisher', book.additional));
+    if getProperty('location', book.additional) <> '' then propAdd('Ort!', getProperty('location', book.additional));
     if book.owner<>nil then begin
       propAdd('Ausleihdatum!', DateToPrettyStr(book.issueDate));
       propAdd('Fristdatum!', DateToPrettyStr(book.dueDate));
