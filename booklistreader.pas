@@ -667,7 +667,7 @@ var
 begin
   basevariable := variable;
   variable := LowerCase(variable);
-  if (variable <> 'statusId') and strlibeginswith(@variable[1],length(variable),'status') then begin
+  if (variable <> 'statusid') and strlibeginswith(@variable[1],length(variable),'status') then begin
     book.StatusStr:=strconv();
     if variable='status:problematic' then book.Status:=bsProblematicInStr
     else if variable='status:curious' then book.Status:=bsCuriousInStr
