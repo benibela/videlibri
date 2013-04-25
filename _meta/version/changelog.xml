@@ -1,7 +1,10 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <?xml-stylesheet type="text/xsl" href="../changelog.xsl"?>
 <changelog program="VideLibri">
-  
+  <build version="1500" date="noch nicht veröffentlicht">
+    <change level="major">Geändertes Dateiformat für Ausleihen, xml statt csv-ähnlich</change>
+    <add level="major">Staatsbibliothek Berlin, RWTH Hochschulbibliothek: Direkte Suche im Katalog (neu bzw. ohne Umweg über Digibib)</add>
+  </build>
   <build version="1402" date="2013-04-17">
     <download url="http://videlibri.sourceforge.net/updates/videlibri-setup.exe" platform="WINDOWS" execute="&quot;$DOWNLOAD&quot;  /SP- /noicons &quot;/dir=$OLDPATH;&quot; "/>
     <download url="http://videlibri.sourceforge.net/updates/videlibri-linux64.deb" platform="LINUX64" execute=""/>

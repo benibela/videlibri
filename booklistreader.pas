@@ -577,7 +577,7 @@ begin
       writeProp('issueDate', dateTimeFormat('yyyy-mm-dd', issueDate));
       writeProp('dueDate', dateTimeFormat('yyyy-mm-dd', dueDate));
       writeProp('_lastExistsDate', dateTimeFormat('yyyy-mm-dd', lastExistsDate));
-      writeProp('_firstExistsDate', dateTimeFormat('yyyy-mm-dd', lastExistsDate));
+      writeProp('_firstExistsDate', dateTimeFormat('yyyy-mm-dd', firstExistsDate));
       case status of
         bsNormal: writeProp('statusId', 'normal');
         bsUnknown: writeProp('statusId', 'unknown');
