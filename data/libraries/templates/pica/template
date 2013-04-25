@@ -36,4 +36,35 @@
     <post value="{$book-list}"/>
   </page>
 </action>
+
+
+
+
+<action id="search">
+  <variable name="searchOptions">
+  encode-for-uri( string-join(
+    (if ($book.title != "")    then concat("xtit ", $book.title)    else (),
+     if ($book.author != "")   then concat("xprs ", $book.author)   else (),
+     if ($book.isbn != "")     then concat("xisb ", $book.isbn)     else (),
+     if ($book.year != "")     then concat("xjah ", $book.year)     else (),
+     if ($book.keywords != "") then concat("xslw ", $book.keywords) else ()), "&amp;"))
+  </variable>
+
+
+  <page url="http://stabikat.de/DB=1/SET=2/TTL=1/CMD?ACT=SRCHA&IKT=1016&SRT=RLV&TRM={$searchOptions}" templateFile="searchList"></page>
+  
+  <page test="$singleResult" url="http://stabikat.de/DB=1/SET=2/TTL=1/CMD?ACT=SRCHA&IKT=1016&SRT=RLV&TRM={$searchOptions}" templateFile="searchDetails"></page>
+
+  <variable name="i">0</variable>
+  <loop test="$nextPage != '' and $i < 10">
+    <page url="{$nextPage}" templateFile="searchList"></page>
+    <variable name="i">$i + 1</variable>
+  </loop>
+    
+</action>
+
+<action id="searchDetails">
+  <page url="{$book.home-url}" templateFile="searchDetails"></page>
+</action>
+
 </actions> 

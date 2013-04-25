@@ -8,7 +8,7 @@
   <longName value="Campus-Katalog Hamburg"/>
   <shortName value="SUB Hamburg"/>
   <homepage value="https://kataloge.uni-hamburg.de/"/>
-  <template value="gbv"/>
+  <template value="pica"/>
   
   <variable name="server" value="https://kataloge.uni-hamburg.de:443/loan/DB=1/LNG=DU/"/>
   

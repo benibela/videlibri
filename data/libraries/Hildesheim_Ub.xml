@@ -12,8 +12,7 @@
   <!--<template value="paia"/>
   <variable name="server" value="paia.gbv.de/isil/DE-Hil2"/>-->
   
-  <template value="gbv"/>
-  
+  <template value="pica"/>
   <variable name="server" value="https://opac.lbs-hildesheim.gbv.de/loan/DB=1/LNG=DU/"/>
 	
 </library>
