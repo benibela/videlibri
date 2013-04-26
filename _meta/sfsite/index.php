@@ -186,34 +186,159 @@ Praktisch sollte man das Programm genau dann benutzen, wenn man jedes Jahr mehre
 </div>
 <h2><div><a name="libraries">Unterstützte Büchereien</a></div></h2>
 <div class="content">
-Momentan  unterstützt VideLibri diese Büchereien:<br><br>
+Bislang  wurde VideLibri mit diesen Büchereien getestet:<br><br>
 
 <table class="bibsupport">
 <thead>
 <tr><th>Name der Bücherei</th><th>Ausleihenanzeige funktioniert<br><i>(zuletzt getestet)</i></th><th>Verlängerung funktioniert<br><i>(zuletzt getestet)</i></th><th>Suche funktioniert<br><i>(zuletzt getestet)</i></th><th>Büchereisystem</th></tr>
 </thead>
-<tr class="city"><td colspan=6><b>Düsseldorf</b></td></tr>
-<tr><td><a href="http://www.duesseldorf.de/stadtbuechereien/index.shtml" rel="nofollow">Die Stadtbüchereien Düsseldorf</a></td>  <td>ja <i>(täglich)</i></td><td>ja <i>(täglich)</i></td><td>ja <i>(2012-12-27)</i></td><td></td></tr>
-<tr><td><a href="http://www.bibl.fh-duesseldorf.de/" rel="nofollow">Die Fachhochschulbibliothek Düsseldorf</a></td><td>ja <i>(2011-05-16)</i></td><td>ja <i>(2011-05-16)</i></td><td>ja <i>(2011-05-16)</i></td><td>libero</td></tr>
-<tr><td><a href="http://www.ub.uni-duesseldorf.de/" rel="nofollow">Die Universitäts- und Landesbibliothek Düsseldorf</a></td><td>ja <i>(2011-05-16)</i></td><td>ja <i>(2011-05-16)</i></td><td>ja <i>(2011-05-16)</i></td><td>aleph</td></tr>
 <tr class="city"><td colspan=6><b>Aachen</b></td></tr>
-<tr><td><a href="http://www.aachen.de/DE/stadt_buerger/bildung/oeffentliche_bibliothek/stadtteile/index.html" rel="nofollow">Die Stadtbibliothek Aachen</a></td><td>ja <i>(2011-05-16)</i></td><td>nicht erlaubt</td><td>ja <i>(2011-05-16)</i></td><td>libero</td></tr>
-<tr><td><a href="http://www.bth.rwth-aachen.de/" rel="nofollow">Die Hochschulbibliothek der RWTH Aachen</a></td><td>ja <i>(2012-07-08)</td><td>ja <i>(2011-05-16)</i></td><td>ja <i>(2011-05-16)</i></td><td>sisis</td></tr>
+<tr><td><a href="http://www.aachen.de/DE/stadt_buerger/bildung/oeffentliche_bibliothek/stadtteile/index.html" rel="nofollow">Stadtbibliothek Aachen</a></td>
+        <td>ja (digibib) <i>(2011-05-16)</i></td> <td>ja <i>(2011-05-16)</i></td><td>nicht erlaubt</td><td>libero</td></tr>
+<tr><td><a href="http://www.bth.rwth-aachen.de/" rel="nofollow">Die Hochschulbibliothek der RWTH Aachen</a></td>
+        <td>ja (digibib) (direkt in 1.5) <i>(2011-05-16)</i></td><td>ja <i>(2012-07-08)</td><td>ja <i>(2011-05-16)</i></td><td>sisis</td></tr>
+
+<tr class="city"><td colspan=6><b>Anhalt</b></td></tr>
+<tr><td><a href="http://www.hs-anhalt.de/hochschulbibliothek" rel="nofollow">Hochschulbibliothek Anhalt</a></td>
+        <td>in 1.5 <i>(2013-04-26)</i></td> <td>?</td><td>?</td><td>pica</td></tr>
+
 <tr  class="city"><td colspan=6><b>Berlin</b></td></tr>
-<tr><td><a href="http://www.ub.tu-berlin.de/" rel="nofollow">Universitätsbibliothek der TU Berlin</a></td><td>ja <i>(2012-07-12)</i></td><td>Ja <i>(2012-07-12)</i></td> <td>nein</td><td>aleph</td></tr>
-<tr><td><a href="http://www.ub.hu-berlin.de/" rel="nofollow">Universitätsbibliothek der HU Berlin</a></td><td>ja <i>(2012-03-03)</i></td> <td>?</td><td>nein</td><td>aleph</td></tr>
-<tr><td><a href="http://www.ub.fu-berlin.de/" rel="nofollow">Universitätsbibliothek der FU Berlin</a></td><td>ja <i>(2012-12-23)</i></td> <td>?</td><td>nein</td><td>aleph</td></tr>
-<tr><td><a href="http://staatsbibliothek-berlin.de/" rel="nofollow">Staatsbibliothek zu Berlin </a></td><td>ja <i>(2012-12-23)</i></td> <td>ja <i>(2012-05-16)</i></td><td><a title="Die Suche funktioniert prima, lässt sich aber aus der GUI nicht aufrufen">(jain)</a></td><td>bibdia</td></tr>
+  <tr><td><a href="http://staatsbibliothek-berlin.de/" rel="nofollow">Staatsbibliothek zu Berlin </a></td>
+        <td>in 1.5 <i>(2013-04-26)</i></td><td>ja <i>(2012-12-23)</i></td> <td>ja <i>(2012-05-16)</i></td><td>pica/bibdia</td></tr>  
+  <tr><td><a href="http://www.ub.tu-berlin.de/" rel="nofollow">Universitätsbibliothek der TU Berlin</a></td>
+        <td>nein</td> <td>ja <i>(2012-07-12)</i></td><td>Ja <i>(2012-07-12)</i></td> <td>aleph</td></tr>
+  <tr><td><a href="http://www.ub.hu-berlin.de/" rel="nofollow">Universitätsbibliothek der HU Berlin</a></td>
+        <td>nein</td><td>ja <i>(2012-03-03)</i></td> <td>?</td><td>aleph</td></tr>
+  <tr><td><a href="http://www.ub.fu-berlin.de/" rel="nofollow">Universitätsbibliothek der FU Berlin</a></td>
+        <td>nein</td><td>ja <i>(2012-12-23)</i></td> <td>?</td><td>aleph</td></tr>
+
+<tr class="city"><td colspan=6><b>Braunschweig</b></td></tr>
+<tr><td><a href="http://www.biblio.tu-bs.de/" rel="nofollow">Universitätsbibliothek Braunschweig</a></td>
+        <td>in 1.5 <i>(2013-04-26)</i></td> <td>?</td><td>?</td><td>pica</td></tr>
+
+<tr class="city"><td colspan=6><b>Bremen</b></td></tr>
+<tr><td><a href="http://www.suub.uni-bremen.de/" rel="nofollow">Staats- und Universitätsbibliothek Bremen</a></td>
+        <td>in 1.5 <i>(2013-04-26)</i></td> <td>?</td><td>?</td><td>pica</td></tr>
+
+<tr class="city"><td colspan=6><b>Clausthal</b></td></tr>
+<tr><td><a href="http://www.suub.uni-bremen.de/" rel="nofollow">Universitätsbibliothek Clausthal</a></td>
+        <td>in 1.5 <i>(2013-04-26)</i></td> <td>?</td><td>?</td><td>pica</td></tr>
+
+<tr class="city"><td colspan=6><b>Düsseldorf</b></td></tr>
+  <tr><td><a href="http://www.duesseldorf.de/stadtbuechereien/index.shtml" rel="nofollow">Stadtbüchereien Düsseldorf</a></td> <td>ja (digibib) <i>(2013-04-26)</i></td> <td>ja <i>(täglich)</i></td><td>ja <i>(täglich)</i></td><td></td></tr>
+  <tr><td><a href="http://www.bibl.fh-duesseldorf.de/" rel="nofollow">Fachhochschulbibliothek Düsseldorf</a></td> <td>ja (digibib) <i>(2011-05-16)</i></td> <td>ja <i>(2011-05-16)</i></td><td>ja <i>(2011-05-16)</i></td><td>libero</td></tr>
+  <tr><td><a href="http://www.ub.uni-duesseldorf.de/" rel="nofollow">Universitäts- und Landesbibliothek Düsseldorf</a></td><td>ja (digibib) <i>(2011-05-16)</i></td><td>nicht mehr</td><td>nicht mehr</td><td>aleph</td></tr>
+
+<tr class="city"><td colspan=6><b>Elsfleth</b></td></tr>
+<tr><td><a href="http://www.jade-hs.de/?id=1465" rel="nofollow">Bibliothek der Jadehochschule Elsfleth</a></td>
+        <td>in 1.5 <i>(2013-04-26)</i></td> <td>?</td><td>?</td><td>pica</td></tr>
+
+<tr class="city"><td colspan=6><b>Emden</b></td></tr>
+<tr><td><a href="http://www.jalb.de/" rel="nofollow">Johannes a Lasco Bibliothek Emden</a></td>
+        <td>in 1.5 <i>(2013-04-26)</i></td> <td>?</td><td>?</td><td>pica</td></tr>
+<tr><td><a href="http://www.ostfriesischelandschaft.de/4.html" rel="nofollow">Landschaftsbibliothek Aurich</a></td>
+        <td>in 1.5 <i>(2013-04-26)</i></td> <td>?</td><td>?</td><td>pica</td></tr>
+<tr><td><a href="http://www.hs-emden-leer.de/einrichtungen/bibliothek.html" rel="nofollow">Hochschulbibliothek Emden/Leer</a></td>
+        <td>in 1.5 <i>(2013-04-26)</i></td> <td>?</td><td>?</td><td>pica</td></tr>
+
+<tr class="city"><td colspan=6><b>Erfurt</b></td></tr>
+<tr><td><a href="http://www.fh-erfurt.de/bibo/" rel="nofollow">Fachhochschulbibliothek Erfurt</a></td>
+        <td>in 1.5 <i>(2013-04-26)</i></td> <td>?</td><td>?</td><td>pica</td></tr>
+<tr><td><a href="http://www.uni-erfurt.de/bibliothek" rel="nofollow">Universitäts- und Forschungsbibliothek Erfurt/Gotha</a></td>
+        <td>in 1.5 <i>(2013-04-26)</i></td> <td>?</td><td>?</td><td>pica</td></tr>
+
+<tr class="city"><td colspan=6><b>Göttingen</b></td></tr>
+<tr><td><a href="http://www.sub.uni-goettingen.de/sub-aktuell/" rel="nofollow">Niedersächsische Staats- und Universitätsbibliothek</a></td>
+        <td>in 1.5 <i>(2013-04-26)</i></td> <td>?</td><td>?</td><td>pica</td></tr>
+
+<tr class="city"><td colspan=6><b>Greifswald</b></td></tr>
+<tr><td><a href="http://www.ub.uni-greifswald.de" rel="nofollow">Universitätsbibliothek Greifswald</a></td>
+        <td>in 1.5 <i>(2013-04-26)</i></td> <td>?</td><td>?</td><td>pica</td></tr>
+
+<tr class="city"><td colspan=6><b>Halle</b></td></tr>
+<tr><td><a href="http://www.bibliothek.uni-halle.de/" rel="nofollow">Universitäts- und Landesbibliothek Halle</a></td>
+        <td>in 1.5 <i>(2013-04-26)</i></td> <td>?</td><td>?</td><td>pica</td></tr>
+
 <tr  class="city"><td colspan=6><b>Hamburg</b></td></tr>
-<tr><td><a href="http://kataloge.uni-hamburg.de/" rel="nofollow">Campus Katalog Hamburg</a></td><td>ja <i>(2011-05-16)</i></td><td>ja <i>(2011-05-16)</i></td><td>nein</td><td>pica</td></tr>
+  <tr><td><a href="http://kataloge.uni-hamburg.de/" rel="nofollow">Campus Katalog Hamburg</a></td>
+        <td>in 1.5 <i>(2013-04-26)</i></td><td>ja <i>(2011-05-16)</i></td><td>ja <i>(2011-05-16)</i></td><td>pica</td></tr>
+  <tr><td><a href="http://www.hsu-bibliothek.de/" rel="nofollow">Bibliothek der Helmut-Schmidt-Universität Hamburg</a></td>
+        <td>in 1.5 <i>(2013-04-26)</i></td> <td>?</td><td>?</td><td>pica</td></tr>
+
+<tr class="city"><td colspan=6><b>Hannover</b></td></tr>
+<tr><td><a href="http://www.hs-hannover.de/bibl/" rel="nofollow">Bibliothek der Hochschule Hannover</a></td>
+        <td>in 1.5 <i>(2013-04-26)</i></td> <td>?</td><td>?</td><td>pica</td></tr>
+<tr><td><a href="http://www.tib.uni-hannover.de/" rel="nofollow">Technische Informationsbibliothek und Universitätsbibliothek Hannover</a></td>
+        <td>in 1.5 <i>(2013-04-26)</i></td> <td>?</td><td>?</td><td>pica</td></tr>
+
+
+<tr class="city"><td colspan=6><b>Hildesheim</b></td></tr>
+<tr><td><a href="http://www.uni-hildesheim.de/index.php?id=bibliothek" rel="nofollow">Universitätsbibliothek Hildesheim</a></td>
+        <td>in 1.5 <i>(2013-04-26)</i></td> <td>ja <i>(2013-04-26)</i></td> <td>ja <i>(2013-04-01)</i></td> <td>pica</td></tr>
+
+<tr class="city"><td colspan=6><b>Ilmenau</b></td></tr>
+<tr><td><a href="http://www.tu-ilmenau.de/ub/" rel="nofollow">Universitätsbibliothek Ilmenau</a></td>
+        <td>in 1.5 <i>(2013-04-26)</i></td> <td>?</td><td>?</td><td>pica</td></tr>
+
+
+<tr class="city"><td colspan=6><b>Jena</b></td></tr>
+<tr><td><a href="http://www.thulb.uni-jena.de/" rel="nofollow">Thüringer Universitäts- und Landesbibliothek</a></td>
+        <td>in 1.5 <i>(2013-04-26)</i></td> <td>?</td><td>?</td><td>pica</td></tr>
+<tr><td><a href="http://www.fh-jena.de/bib/" rel="nofollow">Bibliothek der EAH Jena</a></td>
+        <td>in 1.5 <i>(2013-04-26)</i></td> <td>?</td><td>?</td><td>pica</td></tr>
+
+<tr class="city"><td colspan=6><b>Kiel</b></td></tr>
+<tr><td><a href="http://www.ub.uni-kiel.de/" rel="nofollow">Universitätsbibliothek Kiel</a></td>
+        <td>in 1.5 <i>(2013-04-26)</i></td> <td>?</td><td>?</td><td>pica</td></tr>
+<tr><td><a href="http://www.fh-kiel.de/index.php?id=2874" rel="nofollow">Bibliotheken der FH Kiel</a></td>
+        <td>in 1.5 <i>(2013-04-26)</i></td> <td>?</td><td>?</td><td>pica</td></tr>
+
+<tr class="city"><td colspan=6><b>Lüneburg</b></td></tr>
+<tr><td><a href="http://www.leuphana.de/bibliothek.html" rel="nofollow">Universitätsbibliothek Lüneburg</a></td>
+        <td>in 1.5 <i>(2013-04-26)</i></td> <td>?</td><td>?</td><td>pica</td></tr>
+
+<tr class="city"><td colspan=6><b>Merseburg</b></td></tr>
+<tr><td><a href="http://www.ub.ovgu.de/" rel="nofollow">Universitätsbibliothek Magdeburg</a></td>
+        <td>in 1.5 <i>(2013-04-26)</i></td> <td>?</td><td>?</td><td>pica</td></tr>
+<tr><td><a href="http://www.hs-merseburg.de/bibliothek" rel="nofollow">Hochschulbibliothek der Hochschule Merseburg</a></td>
+        <td>in 1.5 <i>(2013-04-26)</i></td> <td>?</td><td>?</td><td>pica</td></tr>
+
 <tr  class="city"><td colspan=6><b>München</b></td></tr>
-<tr><td><a href="https://ssl.muenchen.de/aDISWeb" rel="nofollow">Münchener Stadtbibliothek-Katalog</a></td><td>ja <i>(2012-10-03)</i></td><td>ja <i>(2012-10-01)</i></td><td>nein</td><td>adisweb</td></tr>
+  <tr><td><a href="https://ssl.muenchen.de/aDISWeb" rel="nofollow">Münchener Stadtbibliothek</a></td>
+        <td>nein</td><td>ja <i>(2012-10-03)</i></td><td>ja <i>(2012-10-01)</i></td><td>adisweb</td></tr>
+
+
+<tr class="city"><td colspan=6><b>Nordhausen</b></td></tr>
+<tr><td><a href="http://www.fh-nordhausen.de/bibliothek.html" rel="nofollow">Fachhochschulbibliothek Nordhausen</a></td>
+        <td>in 1.5 <i>(2013-04-26)</i></td> <td>?</td><td>?</td><td>pica</td></tr>
+
+<tr class="city"><td colspan=6><b>Osnabrück</b></td></tr>
+<tr><td><a href="http://www.ub.uni-osnabrueck.de/" rel="nofollow">Universitätsbibliothek Osnabrück</a></td>
+        <td>in 1.5 <i>(2013-04-26)</i></td> <td>?</td><td>?</td><td>pica</td></tr>
+<tr><td><a href="http://www.bib.hs-osnabrueck.de/" rel="nofollow">Bibliothek der Hochschule Osnabrück</a></td>
+        <td>in 1.5 <i>(2013-04-26)</i></td> <td>?</td><td>?</td><td>pica</td></tr>
+
+<tr class="city"><td colspan=6><b>Schmalkalden</b></td></tr>
+<tr><td><a href="http://www.fh-schmalkalden.de/Bibliothek.html" rel="nofollow">Bibliothek der FH Schmalkalden</a></td>
+        <td>in 1.5 <i>(2013-04-26)</i></td> <td>?</td><td>?</td><td>pica</td></tr>
+
+<tr class="city"><td colspan=6><b>Weimar</b></td></tr>
+<tr><td><a href="http://www.uni-weimar.de/ub" rel="nofollow">Universitätsbibliothek Weimar</a></td>
+        <td>in 1.5 <i>(2013-04-26)</i></td> <td>?</td><td>?</td><td>pica</td></tr>
+
+<tr class="city"><td colspan=6><b>Wilhelmshaven</b></td></tr>
+<tr><td><a href="http://www.jade-hs.de/?id=1469" rel="nofollow">Bibliothek der Jadehochschule Wilhelmshaven</a></td>
+        <td>in 1.5 <i>(2013-04-26)</i></td> <td>?</td><td>?</td><td>pica</td></tr>
+
 </table>
+<br>
+
+? in der Tabelle heißt, dass mir dort keine Ausleihkarte oder verlängerbare Medien zur Verfügung standen, und ich es nicht direkt testen konnte. Wenn es das gleiche System wie eine oben mit "ja" markierte Bibliothek verwendet, funktioniert es aber vermutlich trotzdem.
 
 <br><br>
 
-Es ist aber nicht schwer es auch an andere Büchereien anzupassen (sofern man dort eine Ausleihkarte hat offensichtlich). <br>
-Verwendet die Bücherei ein aktuelles aleph/libero/sisis/pica-System sollte es sogar völlig trivial sein, da man dann nur die Serveradresse in die xml-Dateien im data/libraries Verzeichnis eintragen muss. Ansonsten muss man eine Art Template für die Bücherei schreiben, wie es in der <a href="http://videlibri.hg.sourceforge.net/hgweb/videlibri/videlibri/raw-file/tip/programs/internet/VideLibri/_meta/help/neuebibliothek.html">Hilfe</a>  beschrieben wird. <span style="font-size:75%">(<a href="http://videlibri.hg.sourceforge.net/hgweb/videlibri/videlibri/raw-file/cf010f1d77ea/programs/internet/VideLibri/_meta/help/neuebibliothek.html">Alte Version der Hilfe</a>. Manchmal spinnt das sf-hg-System und der Link zur aktuellen Hilfe funktioniert nicht. )</span>
+Man kann es aber auch mit anderen Bibliotheken benutzen, wenn man dort eine Ausleihkarte hat. Dazu ist es nicht einmal nötig VideLibri umzuprogrammieren, da VideLibri auf einem Templatesystem basiert. Um ein Template für eine neue Bibliothek hinzuzufügen, speichert man im wesentlichen jede Seite des WebOPACs ab, und markiert die Stellen, die Medieninformationen wie Autor/Titel enthalten, mit semantischen Annotationen. Wie genau  das funktioniert, ist in der <a href="http://videlibri.hg.sourceforge.net/hgweb/videlibri/videlibri/raw-file/tip/programs/internet/VideLibri/_meta/help/neuebibliothek.html">Hilfe</a> beschrieben. Programmierkenntnisse sind dabei nur erforderlich, wenn der Katalog irgendwelche Merkwürdigkeiten, wie beispielsweise ungültiges HTML oder einen komplizierten XSS-Schutz, aufweist.<br>
+Verwendet die Bücherei ein aktuelles aleph/libero/sisis/pica-System ist es nicht mal nötig ein Template zu schreiben, weil man dann einfach die Serveradresse in die xml-Dateien im data/libraries Verzeichnis eintragen kann. 
 </div>
 
 <h2><div><a name="downloads">Downloads</a></div></h2>
