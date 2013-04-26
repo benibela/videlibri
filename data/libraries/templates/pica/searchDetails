@@ -1,46 +1,45 @@
 <html>
 
 <template:meta default-text-matching="regex"/>
+<t:s>curAuthor := ()</t:s> <!-- extra variable to prevent contamination by previously set book.author -->
+
 
 <table summary="Main layout">
   
   <template:switch-prioritized>
   
-  <table>
-  <tr>
-    <td><strong >.*Titel:.*</strong></td>
-    <td><template:read var="book.title" source="filter(deep-text(''), '[^/]+')"/></td>
-  </tr>
-  <tr t:optional="true">
-    <td><strong>.*Verfasser|Personen.*</strong></td>
-    <td><template:read var="book.author" source="filter(deep-text(''), '[^*]+')"/></td>
-  </tr>
-  <tr t:optional="true">
-    <td><strong>.*ISBN:.*</strong></td>
-    <td>{$book.isbn := text()}</td>
-  </tr> 
-  <tr><td class="preslabel"/></tr> <!-- force it to choose a table containing at least two content/preslabel rows. Otherwise it will choose a table, containing this table, and then the optional elements will not match -->
+  <table t:condition="exists((. | ./tbody)/tr/td[contains(@class, 'preslabel')])">
+  <template:loop><template:switch>
+    <tr>
+      <td><strong>^[ ]*Titel:</strong></td>
+      <td>{book.title := filter(deep-text(''), '[^/]+')}</td>
+    </tr>
+    
+    <tr>
+      <td><strong>Verfasser|Personen</strong></td>
+      <td>{curAuthor := ($curAuthor, filter(deep-text(''), '[^*]+') ),
+           book.author := string-join($curAuthor, "; ")}</td>
+    </tr>
+    
+    <tr>
+      <td><strong>ISBN:</strong></td>
+      <td>{$book.isbn := text()}</td>
+    </tr>
+    
+    <tr>
+      <td><strong>Zeitschrift:</strong></td>
+      <td>{book.title := concat(if (contains(deep-text(""), ":")) then substring-before(deep-text(""), ":") else deep-text(""), 
+                                if (contains($book.id, "-")) then concat(" [",substring-after($book.id, "-"), "]") else ""),
+           book.author := "Zeitschrift"}</td>
+    </tr>
+    
+    <tr>
+      <td><strong>{propname := filter(translate(normalize-space(.), ".", ""), "[^:]+")}</strong></td>
+      <td><t:if test="$propname != ''"><t:read var="book.{$propname}!" source="."/></t:if></td>
+    </tr>
+  </template:switch></template:loop>
   {book.stabikatFound := true()}
   </table>
-  
-  <table>
-  <tr>
-    <td class="preslabel"><strong>.*Zeitschrift:.*</strong></td>
-    <td>{book.title := concat(if (contains(deep-text(""), ":")) then substring-before(deep-text(""), ":") else deep-text(""), 
-                              if (contains($book.id, "-")) then concat(" [",substring-after($book.id, "-"), "]") else ""),
-         book.author := "Zeitschrift"}</td>
-  </tr>
-  <tr><td class="preslabel"/></tr>
-  {book.stabikatFound := true()}
-  </table>
-  
-  <table>
-  <tr>
-    <td class="preslabel"><strong>.*Schriftenreihe:.*</strong></td>
-  </tr>
-  <tr><td class="preslabel"/></tr>
-  </table>
-  
   
   <strong>Leider keine Treffer.<t:s>book.title := x"??? (Keine Ergebnisse bei einer Suche nach {$book.id} im StaBiKat)", book.author := "???", book.stabikatFound := false()</t:s></strong>
   
