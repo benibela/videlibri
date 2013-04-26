@@ -40,7 +40,7 @@ PAGES=(${PAGES[@]} aleph_ubFUb/details.html aleph_ubFUb/update-2books.html aleph
 
 #============BIBDIA StaBib===============
 mkdir -p $OUTPATH/bibdia_stabib
-TEMPLATES=(${TEMPLATES[@]} bibdia_stabib/update bibdia_stabib/fastUpdate bibdia_stabib/update bibdia_stabib/stabikat bibdia_stabib/stabikat bibdia_stabib/stabikat) 
+TEMPLATES=(${TEMPLATES[@]} bibdia_stabib/update bibdia_stabib/fastUpdate bibdia_stabib/update pica/searchDetails pica/searchDetails pica/searchDetails) 
 PAGES=(${PAGES[@]} bibdia_stabib/list.html bibdia_stabib/list_f.html bibdia_stabib/list_empty.html bibdia_stabib/stabikat1.html bibdia_stabib/stabikat2.html bibdia_stabib/stabikat3.html)
 
 #=============LIBERO==============
@@ -55,11 +55,11 @@ mkdir -p $OUTPATH/sisis
 TEMPLATES=(${TEMPLATES[@]} sisis/start sisis/loggedIn sisis/loggedIn sisis/loggedIn sisis/loggedIn)
 PAGES=(${PAGES[@]} sisis/start.do.html sisis/userAccount.do_empty.html sisis/userAccount.do_singlebook.html sisis/userAccount.do_singlebook2.html sisis/userAccount.do_2books.html)
 
-#==============GBV================
-mkdir -p $OUTPATH/gbv
+#==============PICA================
+mkdir -p $OUTPATH/pica
 
-TEMPLATES=(${TEMPLATES[@]} gbv/update gbv/update gbv/extend)
-PAGES=(${PAGES[@]} gbv/update3.html gbv/update_abholen.html gbv/extend2.html)
+TEMPLATES=(${TEMPLATES[@]} pica/update pica/update pica/extend)
+PAGES=(${PAGES[@]} pica/update3.html pica/update_abholen.html pica/extend2.html)
 
 #=============DIGIBIB==============
 mkdir -p $OUTPATH/digibib
