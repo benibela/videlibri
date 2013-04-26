@@ -1,4 +1,15 @@
 book: {}
 
 
-book: object: {"title": "Kina nu. ; Vad skulle Mao ha sagt? Ett reportage av Cecilia och Sven Lindqvist", "author": "Lindqvist, Cecilia", "isbn": "91-7588-022-9", "stabikatFound": true}
+curAuthor: undefined: 
+curAuthor: sequence: string: Lindqvist, Cecilia
+curAuthor: sequence: string: Lindqvist, Cecilia
+string: Lindqvist, Sven
+propname: string: Erschienen
+propname: string: Umfang
+propname: string: 
+propname: string: Signatur
+propname: string: Standort
+propname: string: 
+propname: string: 
+book: object: {"title": "Kina nu. ; Vad skulle Mao ha sagt? Ett reportage av Cecilia och Sven Lindqvist", "author": "Lindqvist, Cecilia", "author": "Lindqvist, Cecilia; Lindqvist, Sven", "Erschienen!": "Stockholm: Förl. A.B. Marieberg, 1980", "Umfang!": "72 S. 4\".", "isbn": "91-7588-022-9", "Signatur!": "4\" 493678 Verfügbarkeit anzeigen / bestellen", "Standort!": "Potsdamer Straße", "stabikatFound": true}

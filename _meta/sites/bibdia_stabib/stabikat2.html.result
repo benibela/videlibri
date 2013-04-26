@@ -1,4 +1,18 @@
 book: {}
 
 
-book: object: {"title": "50 Vorschläge für eine gerechtere Welt : gegen Konzernmacht und Kapitalismus ", "author": "Felber, Christian ", "isbn": "3-552-06040-5, 978-3-552-06040-1*brosch., EUR 19.90", "stabikatFound": true}
+curAuthor: undefined: 
+curAuthor: sequence: string: Felber, Christian 
+propname: string: Erschienen
+propname: string: Umfang
+propname: string: Anmerkung
+propname: string: Schlagwörter
+propname: string: Sachgebiete
+propname: string: Mehr zum Thema
+propname: string: Link
+propname: string: 
+propname: string: Signatur
+propname: string: Standort
+propname: string: 
+propname: string: 
+book: object: {"title": "50 Vorschläge für eine gerechtere Welt : gegen Konzernmacht und Kapitalismus ", "author": "Felber, Christian ", "Erschienen!": "Wien : Deuticke, 2006", "Umfang!": "334 S. : graph. Darst. ; 21 cm", "Anmerkung!": "Literaturverz. S. 331 - [335]", "isbn": "3-552-06040-5, 978-3-552-06040-1*brosch., EUR 19.90", "Schlagwörter!": "*Globalisierung  / Kapitalismus  / Neoliberalismus  / Kritik *Globalisierung  / Gerechtigkeit  / Politische Verantwortung Globalisierung  / Kapitalismus  / Wirtschaftsliberalismus  / Kritik  / Gerechtigkeit  / Welt", "Sachgebiete!": "89.30 ; Politische Systeme: Allgemeines89.19 ; Sozialistische Richtungen", "Mehr zum Thema!": "Regensburger Verbund-Klassifikation: 330", "Link!": "http://www.gbv.de/dms/zbw/510626998.pdf [Inhaltsverzeichnis]", "Signatur!": "1 A 632123 Verfügbarkeit anzeigen / bestellen", "Standort!": "Potsdamer Straße", "stabikatFound": true}

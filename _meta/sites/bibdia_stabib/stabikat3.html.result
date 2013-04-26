@@ -1,4 +1,19 @@
 book: {}
 
 
-book: object: {"title": "Alexander the Great : a new history ", "author": "Heckel, Waldemar ", "isbn": "1-405-13082-2, 978-1-405-13082-0*(pbk)", "stabikatFound": true}
+curAuthor: undefined: 
+curAuthor: sequence: string: Heckel, Waldemar 
+propname: string: Erschienen
+propname: string: Umfang
+propname: string: Anmerkung
+propname: string: Schlagwörter
+propname: string: Sachgebiete
+propname: string: Mehr zum Thema
+propname: string: Mehr zum Titel
+propname: string: 
+propname: string: Signatur
+propname: string: Standort
+propname: string: Ausleihstatus
+propname: string: 
+propname: string: 
+book: object: {"title": "Alexander the Great : a new history ", "author": "Heckel, Waldemar ", "Erschienen!": "Malden, Mass. [u.a.] : Wiley-Blackwell, 2009", "Umfang!": "XIX, 366 S. : Ill., Kt.", "Anmerkung!": "Literaturverz. S. [311] - 348", "isbn": "1-405-13082-2, 978-1-405-13082-0*(pbk)", "Schlagwörter!": "*Alexander <Makedonien, König, III.>  / Biographie*Alexander -- the Great -- 356-323 B.C / Generals -- Biography", "Sachgebiete!": "15.27 ; Griechische Welt <Alte Geschichte>", "Mehr zum Thema!": "Klassifikation der Library of Congress: DF234Dewey Dezimal-Klassifikation: 938/.07092 BRegensburger Verbund-Klassifikation: NH 6450", "Mehr zum Titel!": "Inhaltsverzeichnis", "Signatur!": "1 A 743781 Verfügbarkeit anzeigen / bestellen", "Standort!": "Potsdamer Straße", "Ausleihstatus!": "Benutzung nur im Lesesaal", "stabikatFound": true}
