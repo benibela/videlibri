@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<library>
+  <longName value="Landschaftsbibliothek Aurich und Johannes a Lasco Bibliothek Emden (ungetestet) "/>
+  <shortName value="Emden/Aurich Bib"/>
+  
+  <template value="pica"/>
+  <variable name="server" value="http://lhemd.gbv.de/"/>	
+  <variable name="picadb" value="1"/>	
+</library>

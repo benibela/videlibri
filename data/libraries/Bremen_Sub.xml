@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<library>
+  <longName value="Staats- und Universitätsbibliothek Bremen (ungetestet)"/>
+  <shortName value="SUB Bremen"/>
+  
+  <template value="pica"/>
+  <variable name="server" value="https://opac.suub.uni-bremen.de/"/>	
+</library>

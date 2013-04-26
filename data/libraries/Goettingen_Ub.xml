@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<library>
+  <longName value="Göttinger Universitätskataloge (ungetestet)"/>
+  <shortName value="Ub Göttingen"/>
+  
+  <template value="pica"/>
+  <variable name="server" value="https://opac.sub.uni-goettingen.de/"/>	
+</library>

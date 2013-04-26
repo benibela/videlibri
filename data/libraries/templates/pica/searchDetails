@@ -46,7 +46,7 @@
   
   </template:switch-prioritized>
   
-  <a target="_blank"><img src="http://stabikat.sbb.spk-berlin.de/img_psi/2.0/gui/permalink.gif"/>
+  <a target="_blank"><img t:condition="contains(@src, 'permalink')"/>  <!-- permalink.gif, or permalink_du.gif, ... -->
   {book.home-url:=if (contains(@href, "://")) then @href else concat($base,"/",@href)}
   </a>?
   

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<library>
+  <longName value="Universitätsbibliothek Greifswald (ungetestet)"/>
+  <shortName value="Ub Greifswald"/>
+  
+  <template value="pica"/>
+  <variable name="server" value="https://opac.ub.uni-greifswald.de/"/>
+  <variable name="picadb" value="1"/>
+</library>

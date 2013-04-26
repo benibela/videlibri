@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<library>
+  <longName value="Bibliothek der Jadehochschule Wilhelmshaven (ungetestet)"/>
+  <shortName value="HS Wilhelmshaven"/>
+  
+  <template value="pica"/>
+  <variable name="server" value="http://lhemd.gbv.de/"/>	
+  <variable name="picadb" value="4"/>	
+</library>

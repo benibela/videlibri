@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<library>
+  <longName value="Universitäts- und Landesbibliothek Jena (ungetestet)"/>
+  <shortName value="ThULB Jena"/>
+  
+  <template value="pica"/>  
+  <variable name="server" value="https://kataloge.thulb.uni-jena.de/"/>
+  <variable name="picadb" value="1"/>
+</library>

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<library>
+  <longName value="Bibliothek der Hochschule Osnabrück (ungetestet)"/>
+  <shortName value="HSB Osnabrück"/>
+  
+  <template value="pica"/>  
+  <variable name="server" value="http://osopc4.ub.uni-osnabrueck.de:8080/"/>
+  <variable name="picadb" value="2"/>
+</library>

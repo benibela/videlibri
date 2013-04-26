@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<library>
+  <longName value="Fachhochschulbibliothek Erfurt (ungetestet)"/>
+  <shortName value="Fhb Erfurt"/>
+  
+  <template value="pica"/>
+  <variable name="server" value="https://opac.uni-erfurt.de/"/>	
+  <variable name="picadb" value="4"/>	
+</library>

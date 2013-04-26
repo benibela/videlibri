@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<library>
+  <longName value="Bibliothek der EAH Jena (ungetestet)"/>
+  <shortName value="EAH Jena"/>
+  
+  <template value="pica"/>  
+  <variable name="server" value="https://kataloge.thulb.uni-jena.de/"/>
+  <variable name="picadb" value="2"/>
+</library>

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<library>
+  <longName value="Universitätsbibliothek Weimar (ungetestet)"/>
+  <shortName value="Ub Weimar"/>
+  
+  <template value="pica"/>  
+  <variable name="server" value="http://opac.ub.uni-weimar.de/"/>
+</library>

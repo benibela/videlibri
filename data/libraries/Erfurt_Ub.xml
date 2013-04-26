@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<library>
+  <longName value="Universitäts- und Forschungsbibliothek Erfurt/Gotha (ungetestet)"/>
+  <shortName value="Ub Erfurt"/>
+  
+  <template value="pica"/>
+  <variable name="server" value="http://opac.uni-erfurt.de/"/>	
+  <variable name="picadb" value="1"/>	
+</library>

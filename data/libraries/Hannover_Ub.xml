@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<library>
+  <longName value="Bibliothek der Hochschule Hannover (ungetestet)"/>
+  <shortName value="HSUB Hannover"/>
+  
+  <template value="pica"/>  
+  <variable name="server" value="https://opac.tib.uni-hannover.de/"/>
+  <variable name="picadb" value="4"/>
+</library>

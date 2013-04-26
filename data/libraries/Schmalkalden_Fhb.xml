@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<library>
+  <longName value="Bibliothek der FH Schmalkalden (ungetestet)"/>
+  <shortName value="FHB Schmalkalden"/>
+  
+  <template value="pica"/>  
+  <variable name="server" value="http://katalog.bibliothek.tu-ilmenau.de/"/>
+  <variable name="picadb" value="2"/>
+</library>

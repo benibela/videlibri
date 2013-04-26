@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<library>
+  <longName value="Universitätsbibliothek Kiel (ungetestet)"/>
+  <shortName value="Ub Kiel"/>
+  
+  <template value="pica"/>  
+  <variable name="server" value="https://lhopc4.ub.uni-kiel.de/"/>
+  <variable name="picadb" value="1"/>
+</library>

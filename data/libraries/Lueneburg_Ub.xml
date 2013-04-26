@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<library>
+  <longName value="Universitätsbibliothek Lüneburg (ungetestet)"/>
+  <shortName value="Ub Lüneburg"/>
+  
+  <template value="pica"/>  
+  <variable name="server" value="http://lhlue.gbv.de"/>
+</library>

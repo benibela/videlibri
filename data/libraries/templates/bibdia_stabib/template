@@ -39,7 +39,10 @@
 
 
 
-<!-- compare pica template -->
+<!-- compare pica template. 
+Changes:
+    x before all search options
+     -->
 <action id="search">
   <variable name="searchOptions">
   encode-for-uri( string-join(

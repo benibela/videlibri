@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<library>
+  <longName value="Hochschulbibliothek der Hochschule Merseburg (FH) (ungetestet)"/>
+  <shortName value="FH Merseburg"/>
+  
+  <template value="pica"/>
+  <variable name="server" value="https://opac.bibliothek.uni-halle.de/"/>	
+  <variable name="picadb" value="2"/>
+</library>

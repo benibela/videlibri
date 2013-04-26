@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<library>
+  <longName value="Hochschulbibliothek Emden/Leer (ungetestet)"/>
+  <shortName value="HS Emden/Leer"/>
+  
+  <template value="pica"/>
+  <variable name="server" value="http://lhemd.gbv.de/"/>	
+  <variable name="picadb" value="2"/>	
+</library>

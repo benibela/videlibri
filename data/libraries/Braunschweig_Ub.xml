@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<library>
+  <longName value="Universitätsbibliothek Braunschweig (ungetestet)"/>
+  <shortName value="UB Braunschweig"/>
+  
+  <template value="pica"/>
+  <variable name="server" value="http://opac.lbs-braunschweig.gbv.de/"/>	
+</library>

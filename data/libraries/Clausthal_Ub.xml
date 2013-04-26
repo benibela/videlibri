@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<library>
+  <longName value="Universitätsbibliothek Clausthal (ungetestet)"/>
+  <shortName value="Ub Clausthal"/>
+  
+  <template value="pica"/>
+  <variable name="server" value="http://lhclz.gbv.de/"/>	
+</library>

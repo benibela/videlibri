@@ -13,6 +13,7 @@
     <post name="BOR_U" value="{$username}"/>
     <post name="BOR_PW" value="{$password}"/>
   </page>-->
+  <variable name="loanServer" value="{$server}/loan/DB=1/LNG=DU/"/>
 </action>
 
 <action id="update-all">
@@ -20,7 +21,7 @@
     <post name="BOR_U" value="{$username}"/>
     <post name="BOR_PW_ENC" value="{$pw_enc}"/>
   </page>-->
-  <page url="{$server}USERINFO" templateFile="update"> 
+  <page url="{$loanServer}/USERINFO" templateFile="update"> 
     <post name="ACT" value="UI_LOL"/>
     <post name="BOR_U" value="{$username}"/>
     <post name="BOR_PW" value="{$password}"/>
@@ -29,7 +30,7 @@
 
 <action id="renew-list">
   <variable name="book-list">string-join(for $book in $renew-books return x"VB={$book.extendId}", "&amp;")</variable> 
-  <page url="{$server}USERINFO" templateFile="extend">
+  <page url="{$loanServer}/USERINFO" templateFile="extend">
     <post name="ACT" value="UI_RENEWLOAN"/>
     <post name="BOR_U" value="{$username}"/>
     <post name="BOR_PW" value="{$password}"/>
@@ -43,17 +44,17 @@
 <action id="search">
   <variable name="searchOptions">
   encode-for-uri( string-join(
-    (if ($book.title != "")    then concat("xtit ", $book.title)    else (),
-     if ($book.author != "")   then concat("xprs ", $book.author)   else (),
-     if ($book.isbn != "")     then concat("xisb ", $book.isbn)     else (),
-     if ($book.year != "")     then concat("xjah ", $book.year)     else (),
-     if ($book.keywords != "") then concat("xslw ", $book.keywords) else ()), "&amp;"))
+    (if ($book.title != "")    then concat("tit ", $book.title)    else (),
+     if ($book.author != "")   then concat("prs ", $book.author)   else (),
+     if ($book.isbn != "")     then concat("isb ", $book.isbn)     else (),
+     if ($book.year != "")     then concat("jah ", $book.year)     else (),
+     if ($book.keywords != "") then concat("slw ", $book.keywords) else ()), "&amp;"))
   </variable>
 
 
-  <page url="http://stabikat.de/DB=1/SET=2/TTL=1/CMD?ACT=SRCHA&IKT=1016&SRT=RLV&TRM={$searchOptions}" templateFile="searchList"></page>
+  <page url="{$server}/CMD?ACT=SRCHA&IKT=1016&SRT=RLV&TRM={$searchOptions}" templateFile="searchList"></page>
   
-  <page test="$singleResult" url="http://stabikat.de/DB=1/SET=2/TTL=1/CMD?ACT=SRCHA&IKT=1016&SRT=RLV&TRM={$searchOptions}" templateFile="searchDetails"></page>
+  <page test="$singleResult" url="{$server}/CMD?ACT=SRCHA&IKT=1016&SRT=RLV&TRM={$searchOptions}" templateFile="searchDetails"></page>
 
   <variable name="i">0</variable>
   <loop test="$nextPage != '' and $i < 10">

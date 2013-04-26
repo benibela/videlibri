@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<library>
+  <longName value="Hochschulbibliothek Anhalt (ungetestet)"/>
+  <shortName value="HSB Anhalt"/>
+  
+  <template value="pica"/>
+  <variable name="server" value="http://lhanh.gbv.de/"/>	
+</library>
