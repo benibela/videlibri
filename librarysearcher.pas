@@ -95,6 +95,8 @@ begin
   flibsToSearch.Clear;
   fsearchResult.clear;
   fsearchBook.clear;
+  bookListReader.parser.variableChangeLog.clear;
+  bookListReader.parser.oldVariableChangeLog.clear;
 end;
 
 procedure TLibrarySearcher.connect;
