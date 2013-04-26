@@ -6,4 +6,5 @@
   <template value="pica"/>  
   <variable name="server" value="https://lhopc4.ub.uni-kiel.de/"/>
   <variable name="picadb" value="2"/>
+  <variable name="searchKeysOverride" value="tnt;per;isb;erj;swo"/>
 </library>

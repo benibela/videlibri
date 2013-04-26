@@ -25,12 +25,23 @@
       <td><strong>ISBN:</strong></td>
       <td>{$book.isbn := text()}</td>
     </tr>
+
+    <tr>
+      <td><strong>PPN:</strong></td>
+      <td><a>{$book.home-url := if (contains(@href, "://")) then @href else concat($base,"/",@href)}</a></td>
+    </tr>
     
     <tr>
       <td><strong>Zeitschrift:</strong></td>
-      <td>{book.title := concat(if (contains(deep-text(""), ":")) then substring-before(deep-text(""), ":") else deep-text(""), 
+      <td>{temp := deep-text(""),
+           book.title := concat(if (contains($temp, ":")) then substring-before($temp, ":") else $temp, 
                                 if (contains($book.id, "-")) then concat(" [",substring-after($book.id, "-"), "]") else ""),
-           book.author := "Zeitschrift"}</td>
+           book.author := if (contains($temp, "/")) then x"{substring-after(normalize-space($temp), "/")} (Zeitschrift)" else "Zeitschrift"}</td>
+    </tr>
+
+    <tr>
+      <td><strong>Körperschaft:</strong></td>
+      <td>{if ($book.author = "Zeitschrift") then book.author := concat(., " (Zeitschrift)") else ()}</td>
     </tr>
     
     <tr>
@@ -45,9 +56,9 @@
   
   </template:switch-prioritized>
   
-  <a target="_blank"><img t:condition="contains(@src, 'permalink')"/>  <!-- permalink.gif, or permalink_du.gif, ... -->
-  {book.home-url:=if (contains(@href, "://")) then @href else concat($base,"/",@href)}
-  </a>?
+  <img t:condition="contains(@src, 'permalink')">  <!-- permalink.gif, or permalink_du.gif, ... -->
+  {book.home-url:=if (contains(../@href, "://")) then ../@href else concat($base,"/",../@href)}
+  </img>?
   
   
 </table>

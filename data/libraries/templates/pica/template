@@ -13,7 +13,8 @@
     <post name="BOR_U" value="{$username}"/>
     <post name="BOR_PW" value="{$password}"/>
   </page>-->
-  <variable name="loanServer" value="{$server}/loan/DB=1/LNG=DU/"/>
+  <variable name="db" value="DB={get('picadb', 1)}"/>
+  <variable name="loanServer" value="{$server}/loan/{$db}/LNG=DU/"/>
 </action>
 
 <action id="update-all">
@@ -42,19 +43,24 @@
 
 
 <action id="search">
+  
+  <variable name="searchKeys">
+  tokenize(get("searchKeysOverride", "tit;prs;isb;jah;slw"), ";")
+  </variable>
+  
   <variable name="searchOptions">
   encode-for-uri( string-join(
-    (if ($book.title != "")    then concat("tit ", $book.title)    else (),
-     if ($book.author != "")   then concat("prs ", $book.author)   else (),
-     if ($book.isbn != "")     then concat("isb ", $book.isbn)     else (),
-     if ($book.year != "")     then concat("jah ", $book.year)     else (),
-     if ($book.keywords != "") then concat("slw ", $book.keywords) else ()), "&amp;"))
+    (if ($book.title != "")    then concat($searchKeys[1], " ", $book.title)    else (),
+     if ($book.author != "")   then concat($searchKeys[2], " ", $book.author)   else (),
+     if ($book.isbn != "")     then concat($searchKeys[3], " ", $book.isbn)     else (),
+     if ($book.year != "")     then concat($searchKeys[4], " ", $book.year)     else (),
+     if ($book.keywords != "") then concat($searchKeys[5], " ", $book.keywords) else ()), "&amp;"))
   </variable>
 
 
-  <page url="{$server}/CMD?ACT=SRCHA&IKT=1016&SRT=RLV&TRM={$searchOptions}" templateFile="searchList"></page>
+  <page url="{$server}/{$db}/CMD?ACT=SRCHA&IKT=1016&SRT=RLV&TRM={$searchOptions}" templateFile="searchList"></page>
   
-  <page test="$singleResult" url="{$server}/CMD?ACT=SRCHA&IKT=1016&SRT=RLV&TRM={$searchOptions}" templateFile="searchDetails"></page>
+  <page test="$singleResult" url="{$server}/{$db}/CMD?ACT=SRCHA&IKT=1016&SRT=RLV&TRM={$searchOptions}" templateFile="searchDetails"></page>
 
   <variable name="i">0</variable>
   <loop test="$nextPage != '' and $i < 10">

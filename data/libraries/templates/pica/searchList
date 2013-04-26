@@ -42,6 +42,14 @@
   </table>
   
   <strong class="error">Es wurde nichts gefunden.</strong>
+
+  <strong class="error">Nichts gefunden.</strong>
+  
+  <form method="POST" name="browslistform" class="form">    <!-- nicht gefunden, opac schlägt alternativen vor -->
+    <input type="submit" value="absenden" name="" class="button"/>
+    <input type="checkbox" name="SST" class="form"/>
+  </form>
+  
 </template:switch-prioritized>
 </body>
 </html>
