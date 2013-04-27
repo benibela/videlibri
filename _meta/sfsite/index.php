@@ -190,7 +190,7 @@ Bislang  wurde VideLibri mit diesen Büchereien getestet:<br><br>
 
 <table class="bibsupport">
 <thead>
-<tr><th>Name der Bücherei</th><th>Ausleihenanzeige funktioniert<br><i>(zuletzt getestet)</i></th><th>Verlängerung funktioniert<br><i>(zuletzt getestet)</i></th><th>Suche funktioniert<br><i>(zuletzt getestet)</i></th><th>Büchereisystem</th></tr>
+<tr><th>Name der Bücherei</th><th>Suche funktioniert<br><i>(zuletzt getestet)</i></th><th>Ausleihenanzeige funktioniert<br><i>(zuletzt getestet)</i></th><th>Verlängerung funktioniert<br><i>(zuletzt getestet)</i></th><th>Büchereisystem</th></tr>
 </thead>
 <tr class="city"><td colspan=6><b>Aachen</b></td></tr>
 <tr><td><a href="http://www.aachen.de/DE/stadt_buerger/bildung/oeffentliche_bibliothek/stadtteile/index.html" rel="nofollow">Stadtbibliothek Aachen</a></td>
@@ -206,7 +206,7 @@ Bislang  wurde VideLibri mit diesen Büchereien getestet:<br><br>
   <tr><td><a href="http://staatsbibliothek-berlin.de/" rel="nofollow">Staatsbibliothek zu Berlin </a></td>
         <td>in 1.5 <i>(2013-04-26)</i></td><td>ja <i>(2012-12-23)</i></td> <td>ja <i>(2012-05-16)</i></td><td>pica/bibdia</td></tr>  
   <tr><td><a href="http://www.ub.tu-berlin.de/" rel="nofollow">Universitätsbibliothek der TU Berlin</a></td>
-        <td>nein</td> <td>ja <i>(2012-07-12)</i></td><td>Ja <i>(2012-07-12)</i></td> <td>aleph</td></tr>
+        <td>nein</td> <td>ja <i>(2012-07-12)</i></td><td>ja <i>(2012-07-12)</i></td> <td>aleph</td></tr>
   <tr><td><a href="http://www.ub.hu-berlin.de/" rel="nofollow">Universitätsbibliothek der HU Berlin</a></td>
         <td>nein</td><td>ja <i>(2012-03-03)</i></td> <td>?</td><td>aleph</td></tr>
   <tr><td><a href="http://www.ub.fu-berlin.de/" rel="nofollow">Universitätsbibliothek der FU Berlin</a></td>
