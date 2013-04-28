@@ -62,7 +62,7 @@ It supports:
   <li>bash/cmd: exports the data as shell variables  </li>
 </ul></li>
 <li>Connections: HTTP / HTTPS as well as local files or stdin</li>
-<li>Systems: Windows (using wininet), Linux (using synapse+openssl), Mac (? with synapse, not tested) </li>
+<li>Systems: Windows (using wininet), Linux (using synapse+openssl), Mac (with newest synapse) </li>
 </ul>
 
 <h2><div><a name="examples">Examples</a></div></h2>
@@ -147,8 +147,12 @@ However, for https connections on Linux openssl and libcrypto (or even openssl-d
 You can also test it <a href="/cgi-bin/xidelcgi">online on a webpage</a> or directly by sending a request to the cgi service like <a href="/cgi-bin/xidelcgi?data=&lt;html>&lt;title>foobar&lt;/title>&lt;/html>&extract=//title&raw=true" rel="nofollow"><code>http://videlibri.sourceforge.net/cgi-bin/xidelcgi?data=&lt;html>&lt;title>foobar&lt;/title>&lt;/html>&extract=//title&raw=true</code></a>.<br><br>
 
 The source is stored in a <a href="https://sourceforge.net/p/videlibri/code/ci/tip/tree/">mercurial repository</a> together with the VideLibri source.<br>
-The  program is written in FreePascal/Lazarus, so you need these to compile it. First open the internettools.lpk (in the components/pascal directory) in Lazarus, compile and install it there. On Linux that also requires the synapse library, if you do not have it already installed, you should add the components/pascal/import/synapse directory to the package search path.    Then open xidel.lpi (in the programs/internet/xidel directory),  select possibly your platform/OS in the project settings, and compile it.<br>
-It should be possible to compile it on Mac.
+The  program is written in FreePascal/Lazarus, so you need these to compile it. <br>
+With the source from the repository, it should be possible to just open the xidel.lpi (in the programs/internet/xidel directory) in Lazarus and click on Run\Compile.<br>
+With the source tar ball, you first need to open the "project options" to add the "other unit file" paths to all subdirectories in the components/pascal directory (they are already set, but as absolute instead relative paths, so they need to be fixed), open the project inspector to remove the dependancy on "internet tools" (alternatively, you can download the <a href="http://www.benibela.de/sources_en.html#internettools">internet tools package</a> from my homepage, but it should not be necessary, once the paths are set) and compile it then.<br> 
+<!--First open the internettools.lpk (in the components/pascal directory) in Lazarus, compile and install it there. On Linux that also requires the synapse library, if you do not have it already installed, you should add the components/pascal/import/synapse directory to the package search path.    Then open xidel.lpi (in the programs/internet/xidel directory),  select possibly your platform/OS in the project settings, and compile it.<br>-->
+It is also possible to compile it on Mac: There you need the newest version of the <a href="http://synapse.ararat.cz/doku.php/download">synapse library</a> (the version included in the Xidel source is not mac-compatible),  then you can compile it as described <a href="https://www.evernote.com/shard/s69/sh/ff1e78f3-a369-4855-b18f-6184ce789c45/f3511927d0fb356ce883835f2eb712e0">here</a>. There you can find a prebuild mac version.
+""
 <br>
 
 <h2><div><a name="script">Xidelscript</a></div></h2>
