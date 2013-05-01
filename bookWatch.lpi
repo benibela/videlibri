@@ -145,7 +145,7 @@
         <PackageName Value="LCL"/>
       </Item3>
     </RequiredPackages>
-    <Units Count="28">
+    <Units Count="29">
       <Unit0>
         <Filename Value="bookWatch.lpr"/>
         <IsPartOfProject Value="True"/>
@@ -311,6 +311,11 @@
         <IsPartOfProject Value="True"/>
         <UnitName Value="accountlist"/>
       </Unit27>
+      <Unit28>
+        <Filename Value="librarylistview.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="libraryListView"/>
+      </Unit28>
     </Units>
   </ProjectOptions>
   <CompilerOptions>

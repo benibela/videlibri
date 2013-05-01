@@ -6,7 +6,7 @@ interface
 
 uses
   Classes, SysUtils, LResources, Forms, Controls, Graphics, Dialogs, ExtCtrls,
-  Buttons, StdCtrls, Grids,bookwatchmain,libraryParser;
+  Buttons, StdCtrls, Grids,bookwatchmain,libraryParser, libraryListView, TreeListView;
 
 type
 
@@ -14,7 +14,6 @@ type
 
   TnewAccountWizard = class(TForm)
     cancelBtn: TButton;
-    locationList: TComboBox;
     Label1: TLabel;
     Label2: TLabel;
     Label8: TLabel;
@@ -29,6 +28,7 @@ type
     accountPrettyName: TEdit;
     extendDaysEdit: TEdit;
     Label4: TLabel;
+    Panel2: TPanel;
     passLabel: TLabel;
     Label6: TLabel;
     extendDaysLbl: TLabel;
@@ -40,7 +40,6 @@ type
     Page4: TPage;
     lastPage: TPage;
     Panel1: TPanel;
-    libraryList: TRadioGroup;
     extendTypeRG: TRadioGroup;
     RadioButton1: TRadioButton;
     saveHistory: TRadioButton;
@@ -53,6 +52,7 @@ type
     procedure FormActivate(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure FormShow(Sender: TObject);
+    procedure libsSelect(sender: TObject; item: TTreeListItem);
     procedure locationListChange(Sender: TObject);
     procedure Notebook1PageChanged(Sender: TObject);
     procedure Page2BeforeShow(ASender: TObject; ANewPage: TPage;
@@ -66,7 +66,7 @@ type
     { private declarations }
   public
     { public declarations }
-    selectedLibrary: TLibrary;
+    libs: TLibraryListView;
     procedure selectCurrentPage;
   end;
 
@@ -83,12 +83,10 @@ begin
   identificarionInvalid.Caption:='';
   StringGrid1.ScrollBars:=ssNone;
   StringGrid1.ColWidths[1]:=StringGrid1.ClientWidth-StringGrid1.ColWidths[0];
-  locationList.Items.Text:=libraryManager.enumerateLocations;
-  locationList.ItemIndex:=0;
-  libraryList.Items.text:=libraryManager.enumeratePrettyLongNames('Aachen');
-  libraryList.Items.Add('sollte nicht angezeigt werden');
-  libraryList.Items.Delete(libraryList.Items.Count-1);
-  selectedLibrary:=libraryManager.getLibraryFromEnumeration('Aachen', 0);
+  libs := TLibraryListView.create(Panel2);
+  libs.Align:=alClient;
+  libs.OnSelect:=@libsSelect;
+  libs.Parent := panel2;
   //if accountIDs.Count =0 then FormStyle:=fsStayOnTop;
 end;
 
@@ -97,53 +95,12 @@ begin
 
 end;
 
-procedure TnewAccountWizard.locationListChange(Sender: TObject);
+procedure TnewAccountWizard.libsSelect(sender: TObject; item: TTreeListItem);
+var
+  selectedLibrary: TLibrary;
 begin
-  libraryList.Items.text:=libraryManager.enumeratePrettyLongNames(locationList.Items[locationList.ItemIndex]);
-  RadioGroup1Click(libraryList);
-end;
-
-procedure TnewAccountWizard.Notebook1PageChanged(Sender: TObject);
-begin
-  if Notebook1.ActivePageComponent=lastPage then begin
-    StringGrid1.Cells[1,0]:=selectedLibrary.prettyNameLong ;//libraryList.Items[libraryList.ItemIndex];
-    StringGrid1.Cells[1,1]:=accountName.text;
-    StringGrid1.Cells[1,2]:=accountPass.text;
-    StringGrid1.Cells[1,3]:=accountPrettyName.text;
-    case TExtendType(extendTypeRG.tag) of
-      etAlways: StringGrid1.Cells[1,4]:='immer, wenn möglich';
-      etAllDepends:
-        {if libraryList.ItemIndex=0 then StringGrid1.Cells[1,4]:='immer '+extendDaysEdit.text+' Tage vor Ende der Leihfrist'
-        else }StringGrid1.Cells[1,4]:='immer alle Medien '+extendDaysEdit.text+' Tage vor Ende der Leihfrist';
-      etSingleDepends: StringGrid1.Cells[1,4]:='immer einzeln '+extendDaysEdit.text+' Tage vor Ende der Leihfrist';
-      etNever: StringGrid1.Cells[1,4]:='niemals';
-    end;
-    if saveHistory.Checked then
-      StringGrid1.Cells[1,5]:='ja'
-     else
-      StringGrid1.Cells[1,5]:='nein' ;
-    nextbtn.Caption:='&Erstellen >';
-  end else nextbtn.Caption:='&Weiter >';
-  //fix lcl bug 14877
-  libraryList.ReAlign;
-  extendTypeRG.ReAlign;
-end;
-
-procedure TnewAccountWizard.Page2BeforeShow(ASender: TObject; ANewPage: TPage;
- ANewIndex: Integer);
-begin
-
-end;
-
-procedure TnewAccountWizard.Page4BeforeShow(ASender: TObject; ANewPage: TPage;
- ANewIndex: Integer);
-begin
-
-end;
-
-procedure TnewAccountWizard.RadioGroup1Click(Sender: TObject);
-begin
-  selectedLibrary:=libraryManager.getLibraryFromEnumeration(locationList.Items[locationList.ItemIndex], libraryList.ItemIndex);
+  selectedLibrary:=libs.selectedLibrary;
+  if selectedLibrary = nil then exit;
  { case selectedLibrary.passwordType of
     ptBirthday: passLabel.Caption:='Geburtstdatum: ';
     else passLabel.Caption:='Passwort: ';
@@ -166,9 +123,62 @@ begin
   extendTypeRG.OnClick(extendTypeRG);
 end;
 
+procedure TnewAccountWizard.locationListChange(Sender: TObject);
+begin
+end;
+
+procedure TnewAccountWizard.Notebook1PageChanged(Sender: TObject);
+begin
+  if Notebook1.ActivePageComponent=lastPage then begin
+    if libs.selectedLibrary = nil then begin
+      StringGrid1.Cells[1,0]:='Keine Bücherei ausgewählt!';
+      exit;
+    end;
+    StringGrid1.Cells[1,0]:=libs.selectedLibrary.prettyNameLong ;//libraryList.Items[libraryList.ItemIndex];
+    StringGrid1.Cells[1,1]:=accountName.text;
+    StringGrid1.Cells[1,2]:=accountPass.text;
+    StringGrid1.Cells[1,3]:=accountPrettyName.text;
+    case TExtendType(extendTypeRG.tag) of
+      etAlways: StringGrid1.Cells[1,4]:='immer, wenn möglich';
+      etAllDepends:
+        {if libraryList.ItemIndex=0 then StringGrid1.Cells[1,4]:='immer '+extendDaysEdit.text+' Tage vor Ende der Leihfrist'
+        else }StringGrid1.Cells[1,4]:='immer alle Medien '+extendDaysEdit.text+' Tage vor Ende der Leihfrist';
+      etSingleDepends: StringGrid1.Cells[1,4]:='immer einzeln '+extendDaysEdit.text+' Tage vor Ende der Leihfrist';
+      etNever: StringGrid1.Cells[1,4]:='niemals';
+    end;
+    if saveHistory.Checked then
+      StringGrid1.Cells[1,5]:='ja'
+     else
+      StringGrid1.Cells[1,5]:='nein' ;
+    nextbtn.Caption:='&Erstellen >';
+  end else nextbtn.Caption:='&Weiter >';
+  //fix lcl bug 14877
+  Panel2.ReAlign;
+  extendTypeRG.ReAlign;
+end;
+
+procedure TnewAccountWizard.Page2BeforeShow(ASender: TObject; ANewPage: TPage;
+ ANewIndex: Integer);
+begin
+
+end;
+
+procedure TnewAccountWizard.Page4BeforeShow(ASender: TObject; ANewPage: TPage;
+ ANewIndex: Integer);
+begin
+
+end;
+
+procedure TnewAccountWizard.RadioGroup1Click(Sender: TObject);
+begin
+end;
+
 procedure TnewAccountWizard.RadioGroup2Click(Sender: TObject);
 var extendType: TExtendType;
+  selectedLibrary: TLibrary;
 begin
+  selectedLibrary:=libs.selectedLibrary;
+  if selectedLibrary = nil then exit;
   extendType:=TExtendType(extendTypeRG.ItemIndex);
   if (not selectedLibrary.canModifySingleBooks) and (extendType=etSingleDepends) then
     extendType:=etNever;
@@ -205,7 +215,14 @@ end;
 procedure TnewAccountWizard.Button2Click(Sender: TObject);
 //const libraryIDs:array[0..1] of string=('001','200');
 var newLib:TCustomAccountAccess;
+  selectedLibrary: TLibrary;
 begin
+  selectedLibrary:=libs.selectedLibrary;
+  if selectedLibrary = nil then begin
+    ShowMessage('Es muss eine Bücherei ausgewählt werden.');
+    exit;
+  end;
+
   if Notebook1.PageIndex=Notebook1.PageCount-1 then begin
     newLib:=mainform.addAccount(selectedLibrary.id,accountPrettyName.text,accountName.text,accountPass.text,
                         TExtendType(extendTypeRG.Tag),strtoint(extendDaysEdit.text),saveHistory.checked);
@@ -246,7 +263,11 @@ begin
 end;
 
 procedure TnewAccountWizard.accountNameChange(Sender: TObject);
+var
+  selectedLibrary: TLibrary;
 begin
+  selectedLibrary:=libs.selectedLibrary;
+  if selectedLibrary = nil then exit;
   accountPrettyName.text:=accountName.text;
   identificarionInvalid.Caption:='';
   if (selectedLibrary<>nil) and (selectedLibrary.template<>nil) then

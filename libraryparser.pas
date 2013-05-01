@@ -4,7 +4,7 @@ unit libraryParser;
 interface
 
 uses
-  Classes, SysUtils, simplehtmlparser, extendedhtmlparser, simplexmlparser, inifiles,internetaccess,dRegExpr,booklistreader,multipagetemplate;
+  Classes, SysUtils, simplehtmlparser, extendedhtmlparser, simplexmlparser, inifiles,internetaccess,dRegExpr,booklistreader,multipagetemplate,bbutils;
 
 
 type
@@ -62,8 +62,8 @@ type
     function getAccount(libID,accountID: string):TCustomAccountAccess;overload;
     function getAccount(mixID: string):TCustomAccountAccess;overload;
 
-    function enumerateLocations: string;
-    function enumeratePrettyLongNames(location: string): string;
+    function enumerateLocations: TStringArray;
+    function enumeratePrettyLongNames(location: string): TStringArray;
     function enumeratePrettyLongNames: string;
     function enumeratePrettyShortNames: string;
     function getLibraryFromEnumeration(const pos:integer):TLibrary;inline;
@@ -74,6 +74,7 @@ type
     procedure enumerateLibrariesWithValue(const varName, value: string; result: TList);
 
     property libraries[i: integer]: TLibrary read getLibraryFromEnumeration; default;
+    property count: integer read getLibraryCountInEnumeration;
   end;
 
   TVariables=array of record
@@ -253,7 +254,7 @@ type
   end;
 
 implementation
-uses applicationconfig,bbdebugtools,bbutils,FileUtil,LCLIntf,xquery;
+uses applicationconfig,bbdebugtools,FileUtil,LCLIntf,xquery;
 function currencyStrToCurrency(s:string):Currency;
 begin
   s:=trim(s);
@@ -416,7 +417,7 @@ begin
   result:=getAccount(libID,mixID);
 end;
 
-function TLibraryManager.enumerateLocations: string;
+function TLibraryManager.enumerateLocations: TStringArray;
 var sl: TStringList;
   i: Integer;
 begin
@@ -425,19 +426,26 @@ begin
     if sl.IndexOf(strSplit(TLibrary(libraries[i]).id, '_')[0]) < 0 then
       sl.Add(strSplit(TLibrary(libraries[i]).id, '_')[0]);
   sl.Sort;
-  result := sl.text;
-  Result := StringReplace(result, 'ue', 'ü', [rfReplaceAll]);
+  setlength(result, sl.Count);
+  for i := 0 to high(result) do
+    result[i] := sl[i];
+  sl.free;
+
+
+  for i := 0 to high(result) do
+    result[i] := StringReplace(result[i], 'ue', 'ü', [rfReplaceAll]);
 end;
 
-function TLibraryManager.enumeratePrettyLongNames(location: string): string;
+function TLibraryManager.enumeratePrettyLongNames(location: string): TStringArray;
 var
   i: Integer;
 begin
+  result := nil;
   location := StringReplace(location, 'ü', 'ue', [rfReplaceAll]);
   location:=location+'_';
   for i:=0 to flibraries.count-1 do
     if strBeginsWith(TLibrary(libraries[i]).id, location) then
-      result:=result+TLibrary(libraries[i]).prettyNameLong+#13#10;
+      arrayAdd(result, TLibrary(libraries[i]).prettyNameLong);
 end;
 
 function TLibraryManager.enumeratePrettyLongNames: string;

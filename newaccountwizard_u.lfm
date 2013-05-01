@@ -18,7 +18,7 @@ object newAccountWizard: TnewAccountWizard
     Height = 311
     Top = 0
     Width = 520
-    PageIndex = 4
+    PageIndex = 0
     Align = alClient
     TabOrder = 0
     TabStop = True
@@ -33,54 +33,13 @@ object newAccountWizard: TnewAccountWizard
         ParentColor = False
         WordWrap = True
       end
-      object libraryList: TRadioGroup
-        AnchorSideTop.Control = locationList
-        AnchorSideTop.Side = asrBottom
-        AnchorSideBottom.Side = asrBottom
-        Left = 28
-        Height = 157
-        Top = 147
-        Width = 465
-        Anchors = [akTop, akLeft, akRight, akBottom]
-        AutoFill = True
-        BorderSpacing.Top = 4
-        BorderSpacing.Around = 4
-        ChildSizing.LeftRightSpacing = 6
-        ChildSizing.TopBottomSpacing = 1
-        ChildSizing.EnlargeHorizontal = crsHomogenousChildResize
-        ChildSizing.EnlargeVertical = crsHomogenousChildResize
-        ChildSizing.ShrinkHorizontal = crsScaleChilds
-        ChildSizing.ShrinkVertical = crsScaleChilds
-        ChildSizing.Layout = cclTopToBottomThenLeftToRight
-        ChildSizing.ControlsPerLine = 4
-        ClientHeight = 153
-        ClientWidth = 461
-        ColumnLayout = clVerticalThenHorizontal
-        ItemIndex = 0
-        Items.Strings = (
-          'Unbekannter Fehler,'
-          'bitte melden Sie ihn'
-          '(Wahrscheinlich: Bücherei-'
-          'liste nicht gefunden)'
-        )
-        OnClick = RadioGroup1Click
+      object Panel2: TPanel
+        Left = 19
+        Height = 196
+        Top = 103
+        Width = 486
+        BevelInner = bvLowered
         TabOrder = 0
-      end
-      object locationList: TComboBox
-        AnchorSideTop.Control = Label9
-        AnchorSideTop.Side = asrBottom
-        Left = 28
-        Height = 25
-        Top = 108
-        Width = 465
-        Anchors = [akTop, akLeft, akRight]
-        BorderSpacing.Top = 10
-        BorderSpacing.Bottom = 10
-        BorderSpacing.Around = 4
-        ItemHeight = 0
-        OnChange = locationListChange
-        Style = csDropDownList
-        TabOrder = 1
       end
     end
     object Page2: TPage
