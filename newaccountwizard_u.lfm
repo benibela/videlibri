@@ -18,7 +18,7 @@ object newAccountWizard: TnewAccountWizard
     Height = 311
     Top = 0
     Width = 520
-    PageIndex = 0
+    PageIndex = 4
     Align = alClient
     TabOrder = 0
     TabStop = True
@@ -182,10 +182,10 @@ object newAccountWizard: TnewAccountWizard
       object lblWarning: TLabel
         AnchorSideTop.Control = Label2
         AnchorSideTop.Side = asrBottom
-        Left = 241
-        Height = 142
-        Top = 68
-        Width = 216
+        Left = 242
+        Height = 141
+        Top = 67
+        Width = 215
         Anchors = [akTop, akRight]
         BorderSpacing.Top = 13
         Caption = 'Achtung: '#10'Die Bücherei erlaubt nur wenige Verlängerungen pro Medium. Bei der Option "immer, wenn möglich" werden daher, nach kurzer Zeit, keinerlei Verlängerungen mehr erlaubt sein.'
@@ -200,9 +200,9 @@ object newAccountWizard: TnewAccountWizard
         AnchorSideTop.Control = Label2
         AnchorSideTop.Side = asrBottom
         Left = 293
-        Height = 16
-        Top = 102
-        Width = 97
+        Height = 15
+        Top = 101
+        Width = 96
         BorderSpacing.Top = 47
         Caption = 'Nötig bedeutet:'
         ParentColor = False
@@ -211,10 +211,10 @@ object newAccountWizard: TnewAccountWizard
       object extendDaysLbl2: TLabel
         AnchorSideTop.Control = extendDaysLbl
         AnchorSideTop.Side = asrBottom
-        Left = 266
-        Height = 16
-        Top = 126
-        Width = 184
+        Left = 267
+        Height = 15
+        Top = 124
+        Width = 183
         Anchors = [akTop, akRight]
         BorderSpacing.Top = 8
         Caption = 'Tage vor Ablauf der Leihfrist'
@@ -224,7 +224,7 @@ object newAccountWizard: TnewAccountWizard
       end
       object Label2: TLabel
         Left = 9
-        Height = 34
+        Height = 33
         Top = 21
         Width = 437
         Anchors = [akTop, akLeft, akRight]
@@ -237,8 +237,8 @@ object newAccountWizard: TnewAccountWizard
         AnchorSideTop.Side = asrBottom
         AnchorSideRight.Control = lblWarning
         Left = 18
-        Height = 240
-        Top = 66
+        Height = 241
+        Top = 65
         Width = 198
         Anchors = [akTop, akLeft, akBottom]
         AutoFill = True
@@ -252,7 +252,7 @@ object newAccountWizard: TnewAccountWizard
         ChildSizing.ShrinkVertical = crsScaleChilds
         ChildSizing.Layout = cclLeftToRightThenTopToBottom
         ChildSizing.ControlsPerLine = 1
-        ClientHeight = 223
+        ClientHeight = 237
         ClientWidth = 194
         ItemIndex = 0
         Items.Strings = (
@@ -267,9 +267,9 @@ object newAccountWizard: TnewAccountWizard
         AnchorSideTop.Control = extendDaysLbl2
         AnchorSideTop.Side = asrCenter
         AnchorSideRight.Control = extendDaysLbl2
-        Left = 223
+        Left = 224
         Height = 25
-        Top = 122
+        Top = 119
         Width = 34
         Anchors = [akTop, akRight]
         BorderSpacing.Top = 14
@@ -290,53 +290,21 @@ object newAccountWizard: TnewAccountWizard
         ParentColor = False
         WordWrap = True
       end
-      object StringGrid1: TStringGrid
+      object StringGrid1: TPanel
         AnchorSideTop.Control = Label5
         AnchorSideTop.Side = asrBottom
         AnchorSideBottom.Side = asrBottom
         Left = 21
-        Height = 253
+        Height = 608
         Top = 45
         Width = 482
         Anchors = [akTop, akLeft, akRight, akBottom]
         BorderSpacing.Top = 4
-        BorderStyle = bsNone
+        BevelInner = bvLowered
+        BevelOuter = bvLowered
         Color = clBtnFace
-        ColCount = 2
-        DefaultColWidth = 150
-        Enabled = False
-        FixedCols = 0
-        FixedRows = 0
-        Flat = True
-        GridLineWidth = 0
-        Options = [goSmoothScroll]
-        RowCount = 6
-        ScrollBars = ssAutoVertical
+        ParentColor = False
         TabOrder = 0
-        Cells = (
-          7
-          0
-          0
-          'Bibliothek:'
-          0
-          1
-          'Kartennummer:'
-          0
-          2
-          'Passwort:'
-          0
-          3
-          'angezeigter Name:'
-          0
-          4
-          'Verlängerung:'
-          0
-          5
-          'History'
-          1
-          0
-          '9'
-        )
       end
     end
   end
@@ -395,7 +363,7 @@ object newAccountWizard: TnewAccountWizard
   object Timer1: TTimer
     Interval = 60
     OnTimer = Timer1Timer
-    left = 144
-    top = 35
+    left = 456
+    top = 32
   end
 end

@@ -5,7 +5,7 @@ unit libraryListView;
 interface
 
 uses
-  Classes, SysUtils, applicationconfig, TreeListView, libraryParser;
+  Classes, SysUtils, applicationconfig,TreeListView, libraryParser;
 
 type
 
@@ -13,6 +13,7 @@ type
 
 TLibraryListView = class(TTreeListView)
   lastCollapsed: TTreeListItem;
+  procedure LibraryListViewClick(sender: TObject);
   procedure LibraryListViewItemCollapsed(sender: TObject; item: TTreeListItem);
 public
   constructor create(aowner: TComponent);
@@ -28,6 +29,17 @@ uses bbutils;
 procedure TLibraryListView.LibraryListViewItemCollapsed(sender: TObject; item: TTreeListItem);
 begin
   lastCollapsed := item;
+end;
+
+procedure TLibraryListView.LibraryListViewClick(sender: TObject);
+begin
+  if (Selected <> nil) then begin
+    if (Selected.data.obj = nil) and (Selected.SubItems.Count>0) and (Selected <> lastCollapsed) then begin
+      Selected.Expand;
+      Selected := Selected.SubItems[0];
+    end;
+    lastCollapsed := nil;
+  end;
 end;
 
 constructor TLibraryListView.create(aowner: TComponent);
@@ -49,7 +61,9 @@ begin
       end;
   HeaderVisible:=false;
   OnItemCollapsed:=@LibraryListViewItemCollapsed;
+  OnClick:=@LibraryListViewClick;
   EndUpdate;
+  RowHeight:=RowHeight+5;
 end;
 
 function TLibraryListView.selectedLibrary: TLibrary;
@@ -64,10 +78,7 @@ end;
 procedure TLibraryListView.DoSelect(item: TTreeListItem);
 begin
   inherited DoSelect(item);
-  if (item.data.obj = nil) and (item.SubItems.Count>0) and (item <> lastCollapsed) then begin
-    item.Expand;
-    Selected := item.SubItems[0];
-  end;
+
 end;
 
 end.

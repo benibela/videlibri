@@ -43,7 +43,7 @@ type
     extendTypeRG: TRadioGroup;
     RadioButton1: TRadioButton;
     saveHistory: TRadioButton;
-    StringGrid1: TStringGrid;
+    StringGrid1: TPanel;
     Timer1: TTimer;
     procedure accountNameChange(Sender: TObject);
     procedure Button1Click(Sender: TObject);
@@ -67,6 +67,7 @@ type
   public
     { public declarations }
     libs: TLibraryListView;
+    finalPage: TTreeListView;
     procedure selectCurrentPage;
   end;
 
@@ -81,8 +82,27 @@ uses applicationconfig,libraryaccess,internetAccess;
 procedure TnewAccountWizard.FormCreate(Sender: TObject);
 begin
   identificarionInvalid.Caption:='';
-  StringGrid1.ScrollBars:=ssNone;
-  StringGrid1.ColWidths[1]:=StringGrid1.ClientWidth-StringGrid1.ColWidths[0];
+  finalPage := TTreeListView.Create(StringGrid1);
+  finalPage.Parent:=StringGrid1;
+  finalPage.Align:=alClient;
+  finalPage.Columns.Clear;
+  with finalPage.Columns.Add() do begin Width:=175; Text:= 'Name';end;
+  with finalPage.Columns.Add() do begin Width:=300; Text:= 'Value';end;
+//  with finalPage.Columns.Add() do begin Width:=300; Text:= 'Value';end;
+  finalPage.Items.Add('Bibliothek:');
+  finalPage.Items.Add('Kartennummer:');
+  finalPage.Items.Add('Passwort:');
+  finalPage.Items.Add('angezeigter Name:');
+  finalPage.Items.Add('Verlängerung:');
+  finalPage.Items.Add('History:');
+  finalPage.HeaderVisible:=false;
+  finalPage.Scrollbars:=ssAutoHorizontal;
+  finalPage.VerticalLineMode:=lmNone;
+  finalPage.Visible:=true;
+  finalPage.RowHeight:=finalPage.RowHeight+10;
+  finalPage.Enabled:=false;
+
+
   libs := TLibraryListView.create(Panel2);
   libs.Align:=alClient;
   libs.OnSelect:=@libsSelect;
@@ -105,7 +125,7 @@ begin
     ptBirthday: passLabel.Caption:='Geburtstdatum: ';
     else passLabel.Caption:='Passwort: ';
   end;                         }
-  StringGrid1.Cells[0,2]:=passLabel.Caption;
+  finalPage.Items[2].RecordItemsText[0]:=passLabel.Caption;
   if selectedLibrary.maxRenewCount=0 then begin
     extendTypeRG.Items.Text:='niemals                       ';
     application.ProcessMessages;
@@ -131,26 +151,27 @@ procedure TnewAccountWizard.Notebook1PageChanged(Sender: TObject);
 begin
   if Notebook1.ActivePageComponent=lastPage then begin
     if libs.selectedLibrary = nil then begin
-      StringGrid1.Cells[1,0]:='Keine Bücherei ausgewählt!';
+      finalPage.Items[0].RecordItemsText[1]:='Keine Bücherei ausgewählt!';
       exit;
     end;
-    StringGrid1.Cells[1,0]:=libs.selectedLibrary.prettyNameLong ;//libraryList.Items[libraryList.ItemIndex];
-    StringGrid1.Cells[1,1]:=accountName.text;
-    StringGrid1.Cells[1,2]:=accountPass.text;
-    StringGrid1.Cells[1,3]:=accountPrettyName.text;
+    finalPage.Items[0].RecordItemsText[1]:=libs.selectedLibrary.prettyNameLong ;//libraryList.Items[libraryList.ItemIndex];
+    finalPage.Items[1].RecordItemsText[1]:=accountName.text;
+    finalPage.Items[2].RecordItemsText[1]:=accountPass.text;
+    finalPage.Items[3].RecordItemsText[1]:=accountPrettyName.text;
     case TExtendType(extendTypeRG.tag) of
-      etAlways: StringGrid1.Cells[1,4]:='immer, wenn möglich';
+      etAlways: finalPage.Items[4].RecordItemsText[1]:='immer, wenn möglich';
       etAllDepends:
         {if libraryList.ItemIndex=0 then StringGrid1.Cells[1,4]:='immer '+extendDaysEdit.text+' Tage vor Ende der Leihfrist'
-        else }StringGrid1.Cells[1,4]:='immer alle Medien '+extendDaysEdit.text+' Tage vor Ende der Leihfrist';
-      etSingleDepends: StringGrid1.Cells[1,4]:='immer einzeln '+extendDaysEdit.text+' Tage vor Ende der Leihfrist';
-      etNever: StringGrid1.Cells[1,4]:='niemals';
+        else }finalPage.Items[4].RecordItemsText[1]:='immer alle Medien '+extendDaysEdit.text+' Tage vor Ende der Leihfrist';
+      etSingleDepends: finalPage.Items[4].RecordItemsText[1]:='immer einzeln '+extendDaysEdit.text+' Tage vor Ende der Leihfrist';
+      etNever: finalPage.Items[4].RecordItemsText[1]:='niemals';
     end;
     if saveHistory.Checked then
-      StringGrid1.Cells[1,5]:='ja'
+      finalPage.Items[5].RecordItemsText[1]:='ja'
      else
-      StringGrid1.Cells[1,5]:='nein' ;
+      finalPage.Items[5].RecordItemsText[1]:='nein' ;
     nextbtn.Caption:='&Erstellen >';
+    finalPage.Repaint;
   end else nextbtn.Caption:='&Weiter >';
   //fix lcl bug 14877
   Panel2.ReAlign;
