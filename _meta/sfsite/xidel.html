@@ -128,7 +128,9 @@ The following Xidel downloads are available on the <a href="http://sourceforge.n
                         xidel-0.7.linux32.tar.gz</a></td><td>1.2 MB</td></tr><tr><td>Source:</td><td><a href="http://sourceforge.net/projects/videlibri/files/Xidel/Xidel%200.7/xidel-0.7.src.tar.gz/download">
                         xidel-0.7.src.tar.gz</a></td><td>1.1 MB</td></tr><tr><td>Debian: 64 Bit</td><td><a href="http://sourceforge.net/projects/videlibri/files/Xidel/Xidel%200.7/xidel_0.7-1_amd64.deb/download">
                         xidel_0.7-1_amd64.deb</a></td><td>1.5 MB</td></tr><tr><td>Debian: 32 Bit</td><td><a href="http://sourceforge.net/projects/videlibri/files/Xidel/Xidel%200.7/xidel_0.7-1_i386.deb/download">
-                        xidel_0.7-1_i386.deb</a></td><td>1.2 MB</td></tr></table>
+                        xidel_0.7-1_i386.deb</a></td><td>1.2 MB</td></tr>
+                        <tr><td>Mac 10.8</td><td colspan="2"><a href="https://www.evernote.com/shard/s69/sh/ff1e78f3-a369-4855-b18f-6184ce789c45/f3511927d0fb356ce883835f2eb712e0">externally prebuilt 0.7 version</a> and compile instructions.</td></td></tr>
+                        </table>
 
 
                         
@@ -139,19 +141,21 @@ The following Xidel downloads are available on the <a href="http://sourceforge.n
                         { for $link in match(<TABLE id="files_list"><t:loop><TR class="file warn"><TH><A class="name">{{link := object(), link.verboseName := verboseName(.), link.a := .}}</A></TH><td/><td>{{link.size := .}}</td></TR></t:loop></TABLE>, /).link 
                           order by $link.verboseName descending 
                           return <tr><td>{$link.verboseName}</td><td><a href="{$link.a/@href}">{$link.a/text()}</a></td><td>{$link.size/text()}</td></tr>}</table>'     --printed-node-format xml -->
-<br>Usually you can just extract the zip/deb and call Xidel, or copy it somewhere in your PATH, <br>
+<br>Usually you can just extract the zip/deb and call Xidel, or copy it to some place in your PATH, <br>
 because it consists of a single binary without any external dependencies, except the standard system libraries (i.e. Windows API or respectively libc).<br>
 However, for https connections on Linux openssl and libcrypto (or even openssl-dev?) are also required.
 <br><br>
 
-You can also test it <a href="/cgi-bin/xidelcgi">online on a webpage</a> or directly by sending a request to the cgi service like <a href="/cgi-bin/xidelcgi?data=&lt;html>&lt;title>foobar&lt;/title>&lt;/html>&extract=//title&raw=true" rel="nofollow"><code>http://videlibri.sourceforge.net/cgi-bin/xidelcgi?data=&lt;html>&lt;title>foobar&lt;/title>&lt;/html>&extract=//title&raw=true</code></a>.<br><br>
+You can also test it <a href="/cgi-bin/xidelcgi">online on a webpage</a> or directly by sending a request to the cgi service like <a href="/cgi-bin/xidelcgi?data=&lt;html>&lt;title>foobar&lt;/title>&lt;/html>&extract=//title&raw=true" rel="nofollow"><code>http://videlibri.sourceforge.net/cgi-bin/xidelcgi?data=&lt;html>&lt;title>foobar&lt;/title>&lt;/html>&extract=//title&raw=true</code></a>.<br><br><br>
 
-The source is stored in a <a href="https://sourceforge.net/p/videlibri/code/ci/tip/tree/">mercurial repository</a> together with the VideLibri source.<br>
-The  program is written in FreePascal/Lazarus, so you need these to compile it. <br>
-With the source from the repository, it should be possible to just open the xidel.lpi (in the programs/internet/xidel directory) in Lazarus and click on Run\Compile. (it might complains about missing packages, then you need to open the components/pascal/internettools.lpk and components/pascal/import/utf8tools/utf8tools.lpk files and click the Use/Install button)<br>
-With the source tar ball, you first need to open the "project options" to add the "other unit file" paths to all subdirectories in the components/pascal directory (they are already set, but as absolute instead relative paths, so they need to be fixed), open the project inspector to remove the dependancy on "internet tools" (alternatively, you can download the <a href="http://www.benibela.de/sources_en.html#internettools">internet tools package</a> from my homepage, but it should not be necessary, once the paths are set) and compile it then.<br> 
+The source is stored in a <a href="https://sourceforge.net/p/videlibri/code/ci/tip/tree/">mercurial repository</a> together with the VideLibri source.<br><br>
+The  program is written in FreePascal/Lazarus, so you need these to compile it. <br><br>
+With the source from the repository, it should be possible to just open the project file xidel.lpi (in the programs/internet/xidel directory) in Lazarus and click on Run\Compile.<br>
+If that fails, because it complains about missing packages, you first need to register the packages  in Lazarus, by opening the components/pascal/internettools.lpk and components/pascal/import/utf8tools/utf8tools.lpk files and clicking the "Use/Install" button.<br><br>
+
+In the source tar ball, the paths are not fully correct (absolute instead relative) and a package file is missing. So before compiling the xidel.lpi, you need to open the "project options" dialog to add the "other unit file" paths to all subdirectories in the components/pascal directory and open the "project inspector" to remove the dependency on "internet tools" (alternatively, you can download the <a href="http://www.benibela.de/sources_en.html#internettools">internet tools package</a> from my homepage, but that should not be necessary, once the paths are set).<br> <br>
 <!--First open the internettools.lpk (in the components/pascal directory) in Lazarus, compile and install it there. On Linux that also requires the synapse library, if you do not have it already installed, you should add the components/pascal/import/synapse directory to the package search path.    Then open xidel.lpi (in the programs/internet/xidel directory),  select possibly your platform/OS in the project settings, and compile it.<br>-->
-It is also possible to compile it on Mac: There you need the newest version of the <a href="http://synapse.ararat.cz/doku.php/download">synapse library</a> (the version included in the Xidel source is not mac-compatible),  then you can compile it as described <a href="https://www.evernote.com/shard/s69/sh/ff1e78f3-a369-4855-b18f-6184ce789c45/f3511927d0fb356ce883835f2eb712e0">here</a>. There you can find a prebuild mac version.
+It is also possible to compile it on Mac: There you need the newest version of the <a href="http://synapse.ararat.cz/doku.php/download">synapse library</a> (the version included in the Xidel source is not mac-compatible),  then you can compile it as described <a href="https://www.evernote.com/shard/s69/sh/ff1e78f3-a369-4855-b18f-6184ce789c45/f3511927d0fb356ce883835f2eb712e0">here</a>. There you can find a prebuilt mac version.
 
 <br>
 
