@@ -113,7 +113,7 @@ type
 function getSearchableLocations: TSearchableLocations;
 implementation
 
-uses applicationconfig, bbdebugtools;
+uses applicationconfig, bbdebugtools, androidutils;
 
 function getSearchableLocations: TSearchableLocations;
 var digibib: TMultiPageTemplate;
@@ -125,14 +125,14 @@ begin
     locations := TStringList.Create;
 
     searchTemplates := TStringList.Create;
-    searchTemplates.LoadFromFile(dataPath+StringReplace('libraries\search\search.list','\',DirectorySeparator,[rfReplaceAll]));
+    searchTemplates.text := assetFileAsString('libraries/search/search.list');
     for i := searchTemplates.count-1 downto 0 do begin
       searchTemplates[i] := trim(searchTemplates[i]);
       if searchTemplates[i] = '' then searchTemplates.Delete(i);
     end;
     for i :=0 to searchTemplates.count-1 do begin
       searchTemplates.Objects[i] := TMultiPageTemplate.create();
-      TMultiPageTemplate(searchTemplates.Objects[i]).loadTemplateFromDirectory(dataPath+StringReplace('libraries\search\templates\'+trim(searchTemplates[i])+'\','\',DirectorySeparator,[rfReplaceAll]),trim(searchTemplates[i]));
+      TMultiPageTemplate(searchTemplates.Objects[i]).loadTemplateWithCallback(@assetFileAsString, StringReplace('libraries\search\templates\' +trim(searchTemplates[i])+'\','\',DirectorySeparator,[rfReplaceAll]),trim(searchTemplates[i]));
       if searchTemplates[i] <> 'digibib' then begin
         temp := TStringList.Create;
         temp.AddObject(searchTemplates[i], TSearchTarget.create(searchTemplates[i], nil, TMultiPageTemplate(searchTemplates.Objects[i])));

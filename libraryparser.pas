@@ -35,6 +35,7 @@ type
     usernameRegEx,passwordRegEx: TRegExpr;
 
     procedure loadFromFile(fileName:string);
+    procedure loadFromString(data, fileName:string); //fileName is used for id
     function getAccountObject():TCustomAccountAccess;virtual;
     constructor create;
     destructor destroy;override;
@@ -48,7 +49,7 @@ type
 
   TLibraryManager=class
   protected
-    basePath,libraryPath: string;
+    basePath: string;
     
     flibraries: TList;
     templates:TStringList;
@@ -254,7 +255,7 @@ type
   end;
 
 implementation
-uses applicationconfig,bbdebugtools,FileUtil,LCLIntf,xquery;
+uses applicationconfig,bbdebugtools,FileUtil,LCLIntf,xquery,androidutils;
 function currencyStrToCurrency(s:string):Currency;
 begin
   s:=trim(s);
@@ -294,9 +295,14 @@ end;
 
 procedure TLibrary.loadFromFile(fileName: string);
 begin
+  loadFromString(strLoadFromFileUTF8(fileName), '');
+end;
+
+procedure TLibrary.loadFromString(data, fileName: string);
+begin
   id:=ChangeFileExt(ExtractFileName(fileName),'');;
   maxRenewCount:=-1;
-  parseXML(strLoadFromFile(fileName),@readProperty,nil,nil,eUTF8);
+  parseXML(data,@readProperty,nil,nil,eUTF8);
   if template<>nil then begin
     canModifySingleBooks:=(template.findAction('renew-single')<>nil)  or
                           (template.findAction('renew-list')<>nil) ;
@@ -371,15 +377,14 @@ var //tempLibrary:TLibrary;
     i:longint;
 begin
   basePath:=apath;
-  libraryPath:=dataPath+'libraries'+DirectorySeparator;
 
   libraryFiles:=TStringList.Create;
-  libraryFiles.LoadFromFile(libraryPath+'libraries.list');
+  libraryFiles.text := assetFileAsString('libraries/libraries.list');
   for i:=libraryFiles.Count-1 downto 0 do
     if libraryFiles[i] = '' then libraryFiles.Delete(i);
   for i:=0 to libraryFiles.count-1 do begin
     newLib:=TLibrary.Create;
-    newLib.loadFromFile(libraryPath+libraryFiles[i]);
+    newLib.loadFromString(assetFileAsString('libraries/'+libraryFiles[i]), 'libraries/'+libraryFiles[i]);
     flibraries.Add(newLib);
   end;
   libraryFiles.free;
@@ -392,7 +397,7 @@ begin
   if i>=0 then Result:=TMultiPageTemplate(templates.Objects[i])
   else begin
     Result:=TMultiPageTemplate.Create();
-    result.loadTemplateFromDirectory(libraryPath+'templates'+DirectorySeparator+templateName+DirectorySeparator,templateName);
+    result.loadTemplateWithCallback(@assetFileAsString, 'libraries/templates'+DirectorySeparator+templateName+DirectorySeparator,templateName);
     templates.AddObject(templateName,Result);
   end;
 end;

@@ -32,7 +32,7 @@ type
     MenuItem10: TMenuItem;
     extendMenuList1: TMenuItem;
     extendTheseBooks: TMenuItem;
-    MenuItem11: TMenuItem;
+    helpMenu: TMenuItem;
     MenuItem117: TMenuItem;
     MenuItem12: TMenuItem;
     MenuItem13: TMenuItem;
@@ -63,19 +63,20 @@ type
     MenuItem31: TMenuItem;
     repeatedCheckTimer: TTimer;
     dailyCheckThread: TTimer;
+    androidActivationTimer: TTimer;
     TrayIconClick: TTimer;
     trayIconPopupMenu: TPopupMenu;
     removeSelectedMI: TMenuItem;
     displayDetailsMI: TMenuItem;
     searchDetailsMI: TMenuItem;
     MenuItem3: TMenuItem;
-    MenuItem9: TMenuItem;
+    bookMenu: TMenuItem;
     bookPopupMenu: TPopupMenu;
 
     MenuItem8: TMenuItem;
     ImageList1: TImageList;
     MainMenu1: TMainMenu;
-    MenuItem1: TMenuItem;
+    extraMenu: TMenuItem;
     MenuItem5: TMenuItem;
     MenuItem6: TMenuItem;
     MenuItem7: TMenuItem;
@@ -96,6 +97,7 @@ type
     ViewAll: TMenuItem;
     ViewOld: TMenuItem;
     StatusBar1: TStatusBar;
+    procedure androidActivationTimerTimer(Sender: TObject);
     procedure BookListDblClick(Sender: TObject);
     procedure bookPopupMenuPopup(Sender: TObject);
     procedure BookListUserSortItemsEvent(sender: TObject;
@@ -110,6 +112,7 @@ type
     procedure FormDestroy(Sender: TObject);
     procedure FormResize(Sender: TObject);
     procedure BookListSelectItem(Sender: TObject; Item: TTreeListItem);
+    procedure FormShow(Sender: TObject);
     procedure FormWindowStateChange(Sender: TObject);
     procedure MenuItem11Click(Sender: TObject);
     procedure MenuItem14Click(Sender: TObject);
@@ -125,6 +128,7 @@ type
     procedure MenuItem28Click(Sender: TObject);
     procedure MenuItem30Click(Sender: TObject);
     procedure MenuItem31Click(Sender: TObject);
+    procedure newAccountWizardClosed(Sender: TObject; var CloseAction: TCloseAction);
     procedure removeSelectedMIClick(Sender: TObject);
     procedure displayDetailsMIClick(Sender: TObject);
     procedure repeatedCheckTimerTimer(Sender: TObject);
@@ -193,7 +197,7 @@ procedure sendMailReports();
 implementation
 
 { TmainForm }
-uses math,options,newaccountwizard_u,bbdebugtools,bibtexexport,booklistreader{$IFDEF WIN32},windows{$ENDIF},Clipbrd,bbutils;
+uses math,options,newaccountwizard_u,bbdebugtools,bibtexexport,booklistreader{$IFDEF WIN32},windows{$ENDIF},Clipbrd,bbutils,androidutils;
 
 function sendMailReportCompare(Item1, Item2: Pointer): Integer;
 var book1,book2: TBook;
@@ -316,10 +320,38 @@ var i:integer;
     tempItem:TMenuItem;
     img,mask: graphics.TBITMAP;
     order: array[0..100] of longint;
+    stream: TStringStream;
+    po: TPOFile;
 begin
   if logging then log('FormCreate started');
 
-  TranslateUnitResourceStrings('LCLStrConsts',dataPath+'lclstrconsts.de.po');
+
+  {$ifndef android}
+  ToolBar1.Visible:=true;
+  TrayIcon1.Visible:=true;
+  StatusBar1.Visible:=true;
+  bookMenu.Visible:=true;
+  extraMenu.Visible:=true;
+  viewMenu.Visible:=true;
+  helpMenu.Visible:=true;
+  {$else}
+  //sleep(8000); for gdb
+  StatusBar1.Visible:=false;
+  androidActivationTimer.Enabled:=true;
+  EnsureTrayIconTimer.Enabled:=false;
+  {bookMenu.Visible:=false;
+  extraMenu.Visible:=false;
+  viewMenu.Visible:=false;
+  helpMenu.Visible:=false;}
+  {$endif} //turning to false on android also works
+
+
+  stream := TStringStream.Create(assetFileAsString('lclstrconsts.de.po'));
+  po := TPOFile.Create(stream);
+  TranslateUnitResourceStrings('LCLStrConsts', po);
+  po.free;
+  stream.free;
+
 
   setSymbolAppearance(userConfig.ReadInteger('appearance','symbols',0));
 
@@ -347,7 +379,7 @@ begin
   BookList.BackGroundColor:=colorOK;
   BookList.Options:=BookList.Options-[tlvoStriped]+[tlvoMultiSelect,tlvoSorted];
   BookList.PopupMenu:=bookPopupMenu;
-  BookList.OnSelect:=@BookListSelectItem;
+   BookList.OnSelect:=@BookListSelectItem;
   BookList.SortColumn:=BL_BOOK_COLUMNS_LIMIT_ID;
   BookList.OnUserSortItemsEvent:=@BookListUserSortItemsEvent;
   BookList.OnDblClick:=@BookListDblClick;
@@ -357,13 +389,14 @@ begin
   BookList.deserializeColumnWidths(userConfig.ReadString('BookList','ColumnWidths',''));
   BookList.deserializeColumnVisibility(userConfig.ReadString('BookList','ColumnVisibility',''));
   BookList.createUserColumnVisibilityPopupMenu();
+  {$ifndef android}
   BookList.createSearchBar();
   BookList.SearchBar.Caption:='Ausleihensuche:';
   BookList.SearchBar.SearchForwardText:='&Vorwärts';
   BookList.SearchBar.SearchBackwardText:='&Rückwärts';
   BookList.SearchBar.SearchLocations[0]:='alle Felder';
   BookList.SearchBar.SearchLocations.InsertObject(0,'Verfasser/Titel',tobject(1 shl BL_BOOK_COLUMNS_AUTHOR or 1 shl BL_BOOK_COLUMNS_TITLE));
-
+  {$endif}
   //TODO Iconoptimize
   //TODO Öffnungszeiten
 
@@ -445,6 +478,13 @@ begin
   if BookList.selCount=1 then displayDetailsMIClick(displayDetailsMI);
 end;
 
+procedure TmainForm.androidActivationTimerTimer(Sender: TObject);
+begin
+  androidActivationTimer.OnTimer:=nil;
+  androidActivationTimer.Enabled:=false;
+  if OnActivate <> nil then OnActivate(nil);
+end;
+
 
 
 
@@ -489,6 +529,9 @@ end;
 procedure TmainForm.FormActivate(Sender: TObject);
 begin
   if logging then log('FormActivate started');
+  {$ifdef android}
+  if sender <> nil then exit; //activate is not called on android. Call it from timer with nil. Check prevents double calling, when onActivate is fixed and called in possible later LCL versions
+  {$endif}
   setPanelText(StatusBar1.Panels[3],{'Datum: '+}DateToSimpleStr(currentDate));
   if newVersionInstalled then
     ShowMessage('Das Update wurde installiert.'#13#10'Die installierte Version ist nun Videlibri '+FloatToStr(versionNumber/1000));
@@ -503,12 +546,12 @@ begin
   end;
   if not needApplicationRestart then
     if accounts.count=0 then begin
-      repeat
-        with TnewAccountWizard.Create(nil) do begin
-          ShowModal;
-          free;
-        end;
-      until (accounts.count<>0) or (Application.MessageBox('Sie müssen ein Konto angeben, um VideLibri benutzen zu können.'#13#10'Wollen Sie eines eingeben?','Videlibri',MB_YESNO or MB_ICONQUESTION)=mrNo);
+      if logging then log('No accounts. Show TnewAccountWizard');
+      with TnewAccountWizard.Create(nil) do begin
+        OnClose:=@newAccountWizardClosed;
+        Show;
+        if logging then log('wizard done');
+      end;
     end;
   if logging then log('FormActivate ended');
   //InternetCheckConnection(FLAG_ICC_FORCE_CONNECTION) ping
@@ -559,6 +602,10 @@ begin
   else setPanelText(StatusBar1.Panels[SB_PANEL_COUNT],'Medien: '+IntToStr(BookList.SelCount)+'/'+s);
 end;
 
+procedure TmainForm.FormShow(Sender: TObject);
+begin
+end;
+
 procedure TmainForm.FormWindowStateChange(Sender: TObject);
 begin
   if WindowState=wsMinimized then hide
@@ -600,7 +647,7 @@ procedure showCHM(filename:string;contextID:longint; tocname:string);
   {$ENDIF}
 
 begin
-  filename:='"'+dataPath+ filename+'"';
+  filename:='"'+assetPath+ filename+'"';
   {$IFDEF WIN32}
   WinExec(pchar('hh -mapid  '+IntToStr(contextID)+' '+filename),sw_shownormal); //TODO: use modern command like ShellExecute
   {$ELSE}
@@ -718,6 +765,17 @@ begin
       t += (BookList.books[i].owner as TCustomAccountAccess).prettyName + ':  ' + BookList.books[i].toLimitString() + LineEnding;
     end;
   clipboard.astext := t;
+end;
+
+procedure TmainForm.newAccountWizardClosed(Sender: TObject; var CloseAction: TCloseAction);
+begin
+  if accounts.count = 0 then
+    if Application.MessageBox('Sie müssen ein Konto angeben, um VideLibri für Verlängerungen benutzen zu können.'#13#10+
+                              'Wollen Sie eines eingeben?','Videlibri',MB_YESNO or MB_ICONQUESTION)=mrYes then begin
+      CloseAction:=caNone;
+      exit;
+  end;
+  CloseAction:=caFree;
 end;
 
 procedure TmainForm.removeSelectedMIClick(Sender: TObject);
@@ -861,8 +919,10 @@ end;
 
 procedure TmainForm.MenuItem8Click(Sender: TObject);
 begin
+  {$ifndef android}
   BookList.SearchBar.Show;
   BookList.SearchBar.SetFocus;
+  {$endif}
 end;
 
 procedure TmainForm.searchCloseClick(Sender: TObject);
@@ -1101,12 +1161,16 @@ begin
 end;
 
 procedure TmainForm.refreshShellIntegration;
+var
+  iconStream: TStringStream;
 begin
   MenuItem29.Caption:='  Nächste Abgabefrist: '+nextLimitStr;
   TrayIcon1.Hint:='Videlibri'#13#10'  **Nächste Abgabefrist: '+nextLimitStr+'**'#13#10'  Letzte Aktualisierung: '+DateToPrettyStr(lastCheck);
-  TrayIcon1.Icon.LoadFromFile(getTNAIconFileName());
-  icon.LoadFromFile(getTNAIconFileName());
-  Application.icon.LoadFromFile(getTNAIconFileName());
+  iconStream := TStringStream.Create(assetFileAsString(getTNAIconBaseFileName()));
+  TrayIcon1.Icon.LoadFromStream(iconStream);
+  icon.LoadFromStream(iconStream);
+  Application.icon.LoadFromStream(iconStream);
+  iconStream.Free;
 end;
 
 

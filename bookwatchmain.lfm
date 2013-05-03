@@ -4,7 +4,7 @@ object mainForm: TmainForm
   Top = 25
   Width = 927
   Caption = 'Videlibri'
-  ClientHeight = 632
+  ClientHeight = 651
   ClientWidth = 927
   Menu = MainMenu1
   OnActivate = FormActivate
@@ -12,13 +12,14 @@ object mainForm: TmainForm
   OnCreate = FormCreate
   OnDestroy = FormDestroy
   OnResize = FormResize
+  OnShow = FormShow
   OnWindowStateChange = FormWindowStateChange
   Position = poScreenCenter
   LCLVersion = '1.1'
   object StatusBar1: TStatusBar
     Left = 0
     Height = 19
-    Top = 613
+    Top = 632
     Width = 927
     Panels = <    
       item
@@ -34,6 +35,7 @@ object mainForm: TmainForm
         Width = 100
       end>
     SimplePanel = False
+    Visible = False
     OnDblClick = StatusBar1DblClick
   end
   object ToolBar1: TToolBar
@@ -53,6 +55,7 @@ object mainForm: TmainForm
     ParentColor = False
     ParentFont = False
     TabOrder = 0
+    Visible = False
     object ToolButton1: TToolButton
       Left = 131
       Top = 0
@@ -81,8 +84,9 @@ object mainForm: TmainForm
   object MainMenu1: TMainMenu
     left = 24
     top = 152
-    object MenuItem9: TMenuItem
+    object bookMenu: TMenuItem
       Caption = '&Medien'
+      Visible = False
       object accountListMenuItem: TMenuItem
         Caption = 'Aktualisieren'
         object MenuItem12: TMenuItem
@@ -152,6 +156,7 @@ object mainForm: TmainForm
     end
     object viewMenu: TMenuItem
       Caption = '&Ansicht'
+      Visible = False
       object ViewCurrent: TMenuItem
         Tag = -1
         Caption = 'Momentan ausgeliehenen Medien'
@@ -189,16 +194,18 @@ object mainForm: TmainForm
         OnClick = showAccount
       end
     end
-    object MenuItem1: TMenuItem
+    object extraMenu: TMenuItem
       Caption = 'E&xtras'
+      Visible = False
       object MenuItem23: TMenuItem
         Caption = '&Freischalten...'
         Visible = False
         OnClick = MenuItem23Click
       end
       object MenuItem8: TMenuItem
-        Caption = '&Ausleihensuche'
+        Caption = 'Ausleihensuche'
         ShortCut = 16454
+        Visible = False
         OnClick = MenuItem8Click
       end
       object MenuItem25: TMenuItem
@@ -220,8 +227,9 @@ object mainForm: TmainForm
         OnClick = MenuItem18Click
       end
     end
-    object MenuItem11: TMenuItem
+    object helpMenu: TMenuItem
       Caption = '&Hilfe'
+      Visible = False
       object MenuItem14: TMenuItem
         Caption = 'Fensterbeschreibung'
         OnClick = MenuItem14Click
@@ -1319,7 +1327,6 @@ object mainForm: TmainForm
       0000FFFFFF0FFFFF0000FFFFFFFFFFFF0000
     }
     Hint = 'VideLibri'
-    Visible = True
     OnClick = TrayIcon1Click
     OnDblClick = TrayIcon1DblClick
     left = 432
@@ -1372,5 +1379,12 @@ object mainForm: TmainForm
     OnTimer = TrayIconClickTimer
     left = 464
     top = 200
+  end
+  object androidActivationTimer: TTimer
+    Enabled = False
+    Interval = 750
+    OnTimer = androidActivationTimerTimer
+    left = 181
+    top = 293
   end
 end

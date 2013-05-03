@@ -6,7 +6,7 @@ interface
 
 uses
   Classes, SysUtils,Graphics,forms,libraryparser,{$ifdef win32}registry,{$endif}inifiles,rcmdline,errordialog,autoupdate,progressDialog,extendedhtmlparser,
-ExtCtrls ,Dialogs,LMessages,accountlist
+ExtCtrls ,Dialogs,LMessages,accountlist, androidutils
 ;
 
 type TErrorArray=array of record
@@ -20,7 +20,7 @@ type TErrorArray=array of record
 const VIDELIBRI_MUTEX_NAME='VideLibriStarted';
       LM_SHOW_VIDELIBRI = LM_USER + $4224;
   
-var programPath,userPath,dataPath:string;
+var programPath,userPath:string;
     machineConfig,userConfig: TIniFile;
 
     accounts: TAccountList;
@@ -82,7 +82,7 @@ var programPath,userPath,dataPath:string;
 
   //get the values the tna should have not the one it actually has
   //function getTNAHint():string;
-  function getTNAIconFileName():string;
+  function getTNAIconBaseFileName():string;
 
   procedure updateGlobalAccountDates;
   procedure updateActiveInternetConfig;
@@ -97,7 +97,11 @@ uses bookwatchmain,internetaccess,controls,libraryaccess,math,FileUtil,bbutils,b
   {$IFDEF WIN32}
   windows,w32internetaccess
   {$ELSE}
+  {$IFDEF ANDROID}
+  androidinternetaccess
+  {$ELSE}
   synapseinternetaccess
+  {$ENDIF}
   {$ENDIF}
   ;
   procedure errorCallback(sender:TObject; var Done: Boolean);
@@ -252,14 +256,14 @@ uses bookwatchmain,internetaccess,controls,libraryaccess,math,FileUtil,bbutils,b
 
   end;
 
-  function getTNAIconFileName(): string;
+  function getTNAIconBaseFileName(): string;
   begin
     if nextLimit<=redTime then
-      result:=dataPath+'smallRed.ico'
+      result:='smallRed.ico'
      else if nextNotExtendableLimit=nextLimit then
-      result:=dataPath+'smallYellow.ico'
+      result:='smallYellow.ico'
      else
-      result:=dataPath+'smallGreen.ico';
+      result:='smallGreen.ico';
   end;
 
   procedure updateGlobalAccountDates;
@@ -385,6 +389,7 @@ uses bookwatchmain,internetaccess,controls,libraryaccess,math,FileUtil,bbutils,b
       autostartInvalid:=lowercase(reg.ReadString('VideLibriAutostart')) <> autostartCommand;
       {$ENDIF}
       {$IFDEF UNIX}
+      {$IFNDEF ANDROID}
       autostartCommand:='[Desktop Entry]'+LineEnding+
         'Type=Application'+LineEnding+
         'Exec='+ParamStrUTF8(0)+' --autostart'+LineEnding+
@@ -392,11 +397,13 @@ uses bookwatchmain,internetaccess,controls,libraryaccess,math,FileUtil,bbutils,b
         'X-GNOME-Autostart-enabled=true'+LineEnding+
         'Name=videlibri'+LineEnding+
         'Comment=Bücherverwaltungsprogramm'+ LineEnding+
-        'Icon='+dataPath+'yellow48.png';
+        'Icon='+assetPath+'yellow48.png';
       if not FileExistsUTF8(GetUserDir+'.config/autostart/videlibri.desktop') then
         autostartInvalid:=true
        else
         autostartInvalid:=strLoadFromFileUTF8(GetUserDir+'.config/autostart/videlibri.desktop')<>autostartCommand;
+      {$ELSE}
+      {$ENDIF}
       {$ENDIF}
 
       if autostartInvalid then
@@ -490,7 +497,7 @@ uses bookwatchmain,internetaccess,controls,libraryaccess,math,FileUtil,bbutils,b
     {$ENDIF}
   
     //Aktiviert das Logging
-    logging:=commandLine.readFlag('log');
+    logging:=commandLine.readFlag('log') {$ifdef android}or true{$endif};
     if logging then log('Started with logging enabled, command line:'+ParamStr(0));
 
     defaultInternetConfiguration.logToPath:=commandLine.readString('http-log-path');
@@ -506,26 +513,28 @@ uses bookwatchmain,internetaccess,controls,libraryaccess,math,FileUtil,bbutils,b
     //Pfade auslesen und überprüfen
     programPath:=ExtractFilePath(ParamStr(0));
     if not (programPath[length(programPath)] in ['/','\']) then programPath:=programPath+DirectorySeparator;
-    dataPath:=programPath+'data'+DirectorySeparator;
+    assetPath:=programPath+'data'+DirectorySeparator; {$ifdef android}assetPath:='';{$endif}
 
     if logging then log('programPath is '+programPath);
-    if logging then log('dataPath is '+dataPath);
+    if logging then log('dataPath is '+assetPath);
 
+    {$ifndef android}
     if not DirectoryExists(programPath) then
       raiseInitializationError('Programmpfad "'+programPath+'" wurde nicht gefunden');
-    if not DirectoryExists(dataPath) then begin
+    if not DirectoryExists(assetPath) then begin
       {$ifdef UNIX}
       if DirectoryExists('/usr/share/videlibri/data/') then
-        dataPath:='/usr/share/videlibri/data/'
+        assetPath:='/usr/share/videlibri/data/'
        else
       {$endif}
-      raiseInitializationError('Datenpfad "'+dataPath+'" wurde nicht gefunden');
+      raiseInitializationError('Datenpfad "'+assetPath+'" wurde nicht gefunden');
     end;
-    if logging and (not FileExists(datapath+'machine.config')) then
+    if logging and (not FileExists(assetPath+'machine.config')) then
       log('machine.config will be created');
+    {$endif}
 
     //Globale Einstellungen lesen
-    machineConfig:=TIniFile.Create(datapath+'machine.config');
+    machineConfig:=iniFileFromString(assetFileAsString('machine.config'));
     if machineConfig.ReadInteger('version','number',versionNumber)<versionNumber then begin
       machineConfig.writeInteger('version','number',versionNumber);
       newVersionInstalled:=true;
@@ -537,7 +546,7 @@ uses bookwatchmain,internetaccess,controls,libraryaccess,math,FileUtil,bbutils,b
     //Userpfad auslesen und überprüfen
     userPath:=machineConfig.ReadString('paths','user',programPath+'config'+DirectorySeparator);
     if logging then log('plain user path: '+userPath);
-    userPath:=StringReplace(userPath,'{$appdata}',GetAppConfigDir(false),[rfReplaceAll,rfIgnoreCase]);
+    userPath:=StringReplace(userPath,'{$appdata}',getUserConfigPath,[rfReplaceAll,rfIgnoreCase]);
     if logging then log('replaced user path: '+userPath);
     if (copy(userpath,2,2)<>':\') and (copy(userpath,1,2)<>'\\') and (copy(userpath,1,1) <> '/') then
       userPath:=programPath+userpath;
@@ -560,7 +569,7 @@ uses bookwatchmain,internetaccess,controls,libraryaccess,math,FileUtil,bbutils,b
       log('user.config will be created');
 
     //Userdaten lesen
-    userConfig:=TIniFile.Create(userPath+'user.config');
+    userConfig:=TIniFile.Create(userPath + 'user.config');
     RefreshInterval:=userConfig.ReadInteger('access','refresh-interval',2);
     WarnInterval:=userConfig.ReadInteger('base','warn-interval',0);
     lastWarnDate:=userConfig.ReadInteger('base','last-warn-date',0);
@@ -569,7 +578,7 @@ uses bookwatchmain,internetaccess,controls,libraryaccess,math,FileUtil,bbutils,b
     libraryManager:=TLibraryManager.create();
     libraryManager.init(userPath);
     if libraryManager.enumeratePrettyLongNames()='' then
-      raise EXCEPTION.Create('Keine Büchereitemplates im Verzeichnis '+dataPath+' vorhanden');
+      raise EXCEPTION.Create('Keine Büchereitemplates im Verzeichnis '+assetPath+' vorhanden');
 
     accounts:=TAccountList.create(userPath+'account.list', libraryManager);
     accounts.load;
@@ -621,7 +630,11 @@ uses bookwatchmain,internetaccess,controls,libraryaccess,math,FileUtil,bbutils,b
       {$IFDEF WIN32}
       defaultInternetAccessClass:=TW32InternetAccess;
       {$ELSE}
+      {$IFDEF ANDROID}
+      defaultInternetAccessClass:=TAndroidInternetAccess;
+      {$ELSE}
       defaultInternetAccessClass:=TSynapseInternetAccess;
+      {$ENDIF}
       {$ENDIF}
 
       fillchar(updateThreadConfig,sizeof(updateThreadConfig),0);
@@ -661,6 +674,7 @@ uses bookwatchmain,internetaccess,controls,libraryaccess,math,FileUtil,bbutils,b
         system.DoneCriticalsection(logFileSection);
       end;
     end;
+    androidutils.uninit;
   end;
 
   function DateToSimpleStr(const date: tdatetime): string;

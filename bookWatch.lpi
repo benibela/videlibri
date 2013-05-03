@@ -145,7 +145,7 @@
         <PackageName Value="LCL"/>
       </Item3>
     </RequiredPackages>
-    <Units Count="29">
+    <Units Count="30">
       <Unit0>
         <Filename Value="bookWatch.lpr"/>
         <IsPartOfProject Value="True"/>
@@ -316,6 +316,11 @@
         <IsPartOfProject Value="True"/>
         <UnitName Value="libraryListView"/>
       </Unit28>
+      <Unit29>
+        <Filename Value="android\androidutils.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="androidutils"/>
+      </Unit29>
     </Units>
   </ProjectOptions>
   <CompilerOptions>
@@ -325,7 +330,7 @@
     </Target>
     <SearchPaths>
       <IncludeFiles Value="../../../components/pascal/data;../../../components/pascal/import/synapse"/>
-      <OtherUnitFiles Value="../../../components/pascal/import/synapse;../../../components/lazarus/dialogs;../../../components/lazarus/internet/sendBackError;../../../components/pascal/internet;../../../components/pascal/data"/>
+      <OtherUnitFiles Value="../../../components/pascal/import/synapse;../../../components/lazarus/dialogs;../../../components/lazarus/internet/sendBackError;../../../components/pascal/internet;../../../components/pascal/data;android"/>
       <SrcPath Value="../../../components/pascal/system;$(LazarusDir)/lcl;../../../components/lazarus/internet;$(LazarusDir)/lcl/interfaces/$(LCLWidgetType)"/>
     </SearchPaths>
     <Parsing>

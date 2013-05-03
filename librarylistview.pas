@@ -64,6 +64,9 @@ begin
   OnClick:=@LibraryListViewClick;
   EndUpdate;
   RowHeight:=RowHeight+5;
+  {$ifdef android}
+  RowHeight:=RowHeight*2-10;
+  {$endif}
 end;
 
 function TLibraryListView.selectedLibrary: TLibrary;

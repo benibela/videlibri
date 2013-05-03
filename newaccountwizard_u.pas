@@ -14,12 +14,12 @@ type
 
   TnewAccountWizard = class(TForm)
     cancelBtn: TButton;
-    Label1: TLabel;
-    Label2: TLabel;
+    label2Account: TLabel;
+    label4autoextend: TLabel;
     Label8: TLabel;
     identificarionInvalid: TLabel;
     Label5: TLabel;
-    Label9: TLabel;
+    Label1ChooseLib: TLabel;
     lblWarning: TLabel;
     nextbtn: TButton;
     back: TButton;
@@ -30,7 +30,7 @@ type
     Label4: TLabel;
     Panel2: TPanel;
     passLabel: TLabel;
-    Label6: TLabel;
+    label3displayName: TLabel;
     extendDaysLbl: TLabel;
     extendDaysLbl2: TLabel;
     Notebook1: TNotebook;
@@ -57,6 +57,7 @@ type
     procedure Notebook1PageChanged(Sender: TObject);
     procedure Page2BeforeShow(ASender: TObject; ANewPage: TPage;
      ANewIndex: Integer);
+    procedure Page2MouseUp(Sender: TObject; Button: TMouseButton; Shift: TShiftState; X, Y: Integer);
     procedure Page4BeforeShow(ASender: TObject; ANewPage: TPage;
      ANewIndex: Integer);
     procedure RadioGroup1Click(Sender: TObject);
@@ -75,7 +76,7 @@ var
   newAccountWizard: TnewAccountWizard;
 
 implementation
-uses applicationconfig,libraryaccess,internetAccess;
+uses applicationconfig,libraryaccess,internetAccess,LCLProc,bbdebugtools;
 { TnewAccountWizard }
 
 
@@ -108,6 +109,29 @@ begin
   libs.OnSelect:=@libsSelect;
   libs.Parent := panel2;
   //if accountIDs.Count =0 then FormStyle:=fsStayOnTop;
+
+  {$ifdef android}
+  Label1ChooseLib.WordWrap:=false;
+  DebugLn('1');
+  Label1ChooseLib.Caption := 'Wählen Sie Ihre Bücherei:';
+  DebugLn('2');
+  label2Account.Caption:='Geben Sie nun Ihre Kontodaten ein:'+LineEnding+'  (nicht nötig für Suche)';
+  DebugLn('3');
+  label2Account.WordWrap:=false;
+  DebugLn('4:'+inttohex(ptruint(label3displayName),8 ));
+
+  label3displayName.Caption:='Unter welchem Namen soll das Konto angezeigt werden?';
+  DebugLn('5');
+  label3displayName.WordWrap:=false;
+  DebugLn('6');
+  label4autoextend.WordWrap:=false;
+  DebugLn('7');
+  label4autoextend.Caption:='Sollen die Medien automatisch verlängert werden?';
+  DebugLn('8');
+  label5.WordWrap:=false;
+  DebugLn('9');
+  label5.Caption:='Sind alle Angaben korrekt?';
+  {$endif}
 end;
 
 procedure TnewAccountWizard.FormShow(Sender: TObject);
@@ -119,8 +143,10 @@ procedure TnewAccountWizard.libsSelect(sender: TObject; item: TTreeListItem);
 var
   selectedLibrary: TLibrary;
 begin
+  debugln('clicked re: '+item.Text);
   selectedLibrary:=libs.selectedLibrary;
   if selectedLibrary = nil then exit;
+
  { case selectedLibrary.passwordType of
     ptBirthday: passLabel.Caption:='Geburtstdatum: ';
     else passLabel.Caption:='Passwort: ';
@@ -184,6 +210,10 @@ begin
 
 end;
 
+procedure TnewAccountWizard.Page2MouseUp(Sender: TObject; Button: TMouseButton; Shift: TShiftState; X, Y: Integer);
+begin
+end;
+
 procedure TnewAccountWizard.Page4BeforeShow(ASender: TObject; ANewPage: TPage;
  ANewIndex: Integer);
 begin
@@ -216,11 +246,33 @@ begin
 end;
 
 procedure TnewAccountWizard.Timer1Timer(Sender: TObject);
+var
+  panelBorder: Integer;
 begin
 Timer1.Enabled:=false;
 Notebook1.PageIndex:=1;
 Notebook1.PageIndex:=0;
 Notebook1.Height:=Notebook1.Height+1;Notebook1.Height:=Notebook1.Height-1;
+{$ifdef android}
+//debugln(inttostr(Width)+' '+inttostr(height)+' / '+inttostr(screen.Height));
+height := screen.Height;
+panel1.height := libs.RowHeight; //layout corrections, screwed up by lcl customdrawn
+panelBorder := panel2.Left;
+panel2.Anchors:=[aktop, akLeft];
+panel2.Width := panel2.Parent.Width - 2 * panelborder;
+panel2.Height := Panel2.Parent.Height - panel2.Top - panelBorder;
+
+log(IntToStr(accountPass.Width) + ' '+ IntToStr(accountPass.parent.Width)+ ' '+IntToStr(accountPass.parent.Width));
+log(IntToStr(accountPass.clientWidth) + ' '+ IntToStr(accountPass.parent.clientWidth)+ ' '+IntToStr(accountPass.parent.clientWidth));
+log(inttostr(accountPass.left));
+
+accountName.Anchors:=[akLeft, akTop];
+accountName.Width:=accountName.parent.Width - accountName.Left - 400;
+accountPass.Anchors:=[akLeft, akTop];
+accountPass.Width:=accountPass.parent.Width - accountPass.Left - 400 {?? <- tested on tablet ui};
+
+{$endif}
+log(IntToStr(height) + ' '+ IntToStr(Notebook1.Height)+ ' '+IntToStr(page1.Height)+' '+IntToStr(panel2.height)+  ' '+ IntToStr(libs.Height));
 end;
 
 procedure TnewAccountWizard.selectCurrentPage;
@@ -237,6 +289,7 @@ procedure TnewAccountWizard.Button2Click(Sender: TObject);
 //const libraryIDs:array[0..1] of string=('001','200');
 var newLib:TCustomAccountAccess;
   selectedLibrary: TLibrary;
+  i: Integer;
 begin
   selectedLibrary:=libs.selectedLibrary;
   if selectedLibrary = nil then begin
@@ -275,6 +328,17 @@ begin
     selectCurrentPage;
   end;
   Notebook1.Height:=Notebook1.Height+1; Notebook1.Height:=Notebook1.Height-1;
+  {$ifdef android}
+  Notebook1.ReAlign;
+  for i := 0 to Notebook1.PageCount - 1 do
+    Notebook1.Page[i].Visible:=false ;
+  Notebook1.Page[Notebook1.PageIndex].Enabled:=false;
+  Notebook1.Page[Notebook1.PageIndex].Visible:=true;
+  Notebook1.Page[Notebook1.PageIndex].Enabled:=true;
+//  debugln(BoolToStr(accountName.HandleObjectShouldBeVisible)+ ' '+accountName.ControlAtPos(point(x,y), false, true).Name);
+  debugln(BoolToStr(accountName.HandleObjectShouldBeVisible)+ ' '+BoolToStr(accountName.Enabled)+ ' '+booltostr(Page2.Enabled));
+  debugln(inttostr(accountName.Top)+' '+inttostr(page2.Top)+' '+inttostr(Notebook1.Top)+' '+inttostr(Top));
+   {$endif}
 end;
 
 procedure TnewAccountWizard.Button1Click(Sender: TObject);
