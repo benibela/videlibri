@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+
+    <ScrollView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/scrollView">
+        <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent">
+            <TextView
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/libraryTextView" android:textStyle="bold" android:layout_gravity="center"/>
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Um die Ausleihenanzeige und Verlängerung verwenden zu könne, geben Sie hier ihre Kontodaten ein: (unnötig für Suche)"
+                    android:id="@+id/textView" android:layout_gravity="center"/>
+            <TextView
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Kontonummer:"
+                    android:id="@+id/textView1"/>
+            <EditText
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/accountId" android:singleLine="true" android:inputType="textNoSuggestions"/>
+            <TextView
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Passwort:"
+                    android:id="@+id/textView2"/>
+            <EditText
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/accountPassword" android:password="true" android:singleLine="true"/>
+            <TextView
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Name des Kontos in VideLibri:"
+                    android:id="@+id/textView3"/>
+            <EditText
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/accountPrettyName" android:singleLine="true"/>
+            <TextView
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Sollen die Ausleihen automatisch verlängert werden?"
+                    android:id="@+id/textView4"/>
+            <RadioGroup
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:orientation="horizontal">
+                <RadioButton
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="ja"
+                        android:id="@+id/autoExtendButton" android:layout_gravity="center" android:checked="true"/>
+                <RadioButton
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="nein"
+                        android:id="@+id/radioButton1" android:layout_gravity="center" android:checked="false"/>
+            </RadioGroup>
+            <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent">
+                <EditText
+                        android:layout_width="60sp"
+                        android:layout_height="40sp"
+                        android:text="7"
+                        android:id="@+id/autoExtendDaysEdit" android:numeric="integer"/>
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Tage vor Fristablauf"
+                        android:id="@+id/textView6" android:layout_gravity="center"/>
+            </LinearLayout>
+            <TextView
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Soll eine Historie aller Ausleihen gespeichert  werden?"
+                    android:id="@+id/textView5"/>
+            <RadioGroup
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent" android:orientation="horizontal">
+                <RadioButton
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="ja"
+                        android:id="@+id/saveHistoryButton" android:layout_gravity="center" android:checked="true"/>
+                <RadioButton
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="nein"
+                        android:id="@+id/radioButton3" android:layout_gravity="center" android:checked="false"/>
+            </RadioGroup>
+            <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Konto registrieren"
+                    android:id="@+id/completeAccountButton" android:layout_gravity="left|center_vertical"/>
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

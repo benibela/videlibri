@@ -1,4 +1,4 @@
-package com.pascal.videlibri;
+package com.benibela.videlibri;
 
 import android.app.*;
 import android.content.*;

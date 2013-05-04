@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-      package="com.pascal.videlibri"
+      package="com.benibela.videlibri"
       android:versionCode="1"
       android:versionName="1.0">
     <uses-permission android:name="android.permission.VIBRATE" />
@@ -13,7 +13,7 @@
     <application android:label="@string/app_name" 
         android:icon="@drawable/icon"
         android:debuggable="true">
-        <activity android:name="LCLActivity"
+        <activity android:name="VideLibri"
                   android:configChanges="orientation|keyboardHidden"
                   android:label="@string/app_name"
                   android:launchMode="singleTop">
@@ -22,5 +22,23 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity android:name=".NewAccountWizard"
+                  android:configChanges="orientation|keyboardHidden"
+                  android:label="@string/app_name"
+                  android:launchMode="singleTop">
+
+        </activity>
+
+
+        <activity android:name=".AccountInfo"
+                  android:configChanges="orientation|keyboardHidden"
+                  android:label="@string/app_name"
+                  android:launchMode="singleTop">
+
+        </activity>
+
     </application>
+
+
 </manifest> 
