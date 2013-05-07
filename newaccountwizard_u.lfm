@@ -17,7 +17,7 @@ object newAccountWizard: TnewAccountWizard
     Height = 311
     Top = 0
     Width = 520
-    PageIndex = 2
+    PageIndex = 0
     Align = alClient
     TabOrder = 0
     TabStop = True
@@ -261,7 +261,7 @@ object newAccountWizard: TnewAccountWizard
         ChildSizing.ShrinkVertical = crsScaleChilds
         ChildSizing.Layout = cclLeftToRightThenTopToBottom
         ChildSizing.ControlsPerLine = 1
-        ClientHeight = 237
+        ClientHeight = 224
         ClientWidth = 194
         ItemIndex = 0
         Items.Strings = (

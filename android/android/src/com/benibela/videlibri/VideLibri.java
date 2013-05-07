@@ -41,6 +41,7 @@ public class VideLibri extends  Activity{
     FileInputStream fis =  */
 //  }
     static VideLibri instance;
+    Bridge.Account accounts[];
     public VideLibri(){
     }
     String userPath(){
@@ -49,10 +50,19 @@ public class VideLibri extends  Activity{
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Bridge.VLInit(this);
-        startActivity(new Intent(this, NewAccountWizard.class));
+
         instance = this;
+
+        Bridge.VLInit(this);
+
+        accounts = Bridge.VLGetAccounts();
+        if (accounts == null || accounts.length == 0) startActivity(new Intent(this, NewAccountWizard.class));
+        else {
+            for (Bridge.Account a: accounts) updateAccount(a, true, false);
+        }
     }
+
+
 
     public void onDestroy(){
         super.onDestroy();
@@ -60,10 +70,15 @@ public class VideLibri extends  Activity{
         Bridge.VLFinalize();
     }
 
-    public void displayAccount(){
-
+    public void displayAccount(Bridge.Account acc){
+        Bridge.Book[] books = Bridge.VLGetBooks(acc, false);
+        String temp = "";
+        for (Bridge.Book b: books)
+            temp += b.title + " von " + b.author + "\n";
+        showMessage(temp);
     }
 
+    public void showMessage(String message){ showMessage(this, message); }
     static public void showMessage(Context context, String message){
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
         builder.setMessage(message);
@@ -73,15 +88,15 @@ public class VideLibri extends  Activity{
     }
 
     static List<Bridge.Account> runningUpdates = new ArrayList<Bridge.Account>();
-    static public void updateAccount(Bridge.Account acc){
+    static public void updateAccount(Bridge.Account acc, final boolean autoUpdate, final boolean forceExtend){
         if (runningUpdates.contains(acc)) return;
         runningUpdates.add(acc);
         final Bridge.Account facc = acc;
         Thread t = new Thread(new Runnable() {
             @Override
             public void run() {
-                Bridge.VLUpdateAccount(facc);
-                runningUpdates.removeAll(facc);
+                Bridge.VLUpdateAccount(facc, autoUpdate, forceExtend);
+                runningUpdates.remove(facc);
                 instance.displayAccount(facc);
             }
         });

@@ -22,6 +22,7 @@ type
     updateThreadsRunning:integer; //all threads
     listUpdateThreadsRunning: integer; //count of threads which are updating the list of books (and have not started updating singely)
     atLeastOneListUpdateSuccessful: boolean;
+    OnPartialUpdated: TNotifyEvent;
   end;
 var updateThreadConfig: TThreadConfig;
 procedure ThreadDone(sender:TObject);
@@ -41,6 +42,11 @@ procedure extendBooks(lastLimit:longint; account: TCustomAccountAccess=nil);
 //benachrichtigt den Benutzer über fällige Medien und fragt nach dem Öffnen des
 //Hauptformulars deswegen (->true wenn es geöffnet werden soll)
 function alertAboutBooksThatMustBeReturned:boolean;
+
+
+type PThreadConfig=^TThreadConfig;
+procedure updateBooksDirectBlocking(const lib: TCustomAccountAccess; const pconfig: PThreadConfig; const ignoreConnectionErrors, checkDate, extend: boolean);
+
 implementation
 uses applicationconfig,internetaccess,bookwatchmain,bbdebugtools,
      forms; //for messages
@@ -51,30 +57,8 @@ const MB_SYSTEMMODAL = $1000;
 const MB_SYSTEMMODAL=0;
 {$ENDIF}
 
-//==============================================================================
-//============================Aktualisierungs Thread============================
-//==============================================================================
-type
-  PThreadConfig=^TThreadConfig;
-  TUpdateLibThread = class(TThread)
-  protected
-    pconfig: PThreadConfig;
-    lib: TCustomAccountAccess;
-    errorstr,errordetails:string;
-    messageShown: boolean;
-    ignoreConnectionErrors: boolean;   //read only
-    checkDate: boolean;                //read only
-
-    extend: boolean;
-    procedure execute;override;
-    //procedure exceptionRaised(raisedException:Exception);
-    //procedure showError;
-  public
-    constructor Create(alib: TCustomAccountAccess;var config:TThreadConfig;
-                       aIgnoreConnectionErrors, ACheckDate,AExtend: boolean);
-  end;
-
-procedure TUpdateLibThread.execute;
+procedure updateBooksDirectBlocking(const lib: TCustomAccountAccess; const pconfig: PThreadConfig; const ignoreConnectionErrors,
+  checkDate, extend: boolean);
 var internet: TInternetAccess;
     listUpdateComplete: boolean;
 
@@ -139,8 +123,7 @@ save
       pconfig^.atLeastOneListUpdateSuccessful:=true;
       LeaveCriticalSection(pconfig^.threadManagementSection);
       if logging then log('TUpdateLibThread.execute marker 3.6');
-      if (pconfig^.listUpdateThreadsRunning<=0) and (mainform<>nil) and (mainForm.visible) then
-        Synchronize(@mainForm.RefreshListView);
+      if assigned(pconfig^.OnPartialUpdated) then pconfig^.OnPartialUpdated(lib);
 
       listUpdateComplete:=true;
       lib.updateAllSingly();
@@ -209,6 +192,36 @@ save
   LeaveCriticalSection(pconfig^.threadManagementSection);
   lib.isThreadRunning:=false;
   if logging then log('TUpdateLibThread.execute ended');
+
+end;
+
+
+//==============================================================================
+//============================Aktualisierungs Thread============================
+//==============================================================================
+type
+
+  TUpdateLibThread = class(TThread)
+  protected
+    pconfig: PThreadConfig;
+    lib: TCustomAccountAccess;
+    errorstr,errordetails:string;
+    messageShown: boolean;
+    ignoreConnectionErrors: boolean;   //read only
+    checkDate: boolean;                //read only
+
+    extend: boolean;
+    procedure execute;override;
+    //procedure exceptionRaised(raisedException:Exception);
+    //procedure showError;
+  public
+    constructor Create(alib: TCustomAccountAccess;var config:TThreadConfig;
+                       aIgnoreConnectionErrors, ACheckDate,AExtend: boolean);
+  end;
+
+procedure TUpdateLibThread.execute;
+begin
+  updateBooksDirectBlocking(lib, pconfig, ignoreConnectionErrors, checkDate, extend);
 end;
 
                                            {
@@ -490,6 +503,7 @@ begin
 
   if logging then log('alertAboutBooksThatMustBeReturned ended');
 end;
+
 
 
 

@@ -97,6 +97,8 @@ type
     ViewAll: TMenuItem;
     ViewOld: TMenuItem;
     StatusBar1: TStatusBar;
+    procedure accountAddedChanged(acc: TCustomAccountAccess);
+    procedure accountsChanged(Sender: TObject);
     procedure androidActivationTimerTimer(Sender: TObject);
     procedure BookListDblClick(Sender: TObject);
     procedure bookPopupMenuPopup(Sender: TObject);
@@ -138,6 +140,7 @@ type
     procedure TrayIcon1DblClick(Sender: TObject);
     procedure TrayIconClickTimer(Sender: TObject);
     procedure TreeListView1Click(Sender: TObject);
+    procedure updateThreadConfigPartialUpdated(Sender: TObject);
     procedure UserExtendMenuClick(Sender: TObject);
     procedure MenuItem3Click(Sender: TObject);
     procedure MenuItem6Click(Sender: TObject);
@@ -177,7 +180,6 @@ type
     procedure refreshShellIntegration;
     procedure setSymbolAppearance(showStatus: integer); //0: text and icons 1=only text 2=only icons
     procedure refreshAccountGUIElements();
-    function addAccount(const libID: string; prettyName, aname, pass: string; extendType: TExtendType; extendDays:integer; history: boolean):TCustomAccountAccess;
     //procedure WndProc(var TheMessage : TLMessage); override;
     function menuItem2AssociatedAccount(mi: TMenuItem): TCustomAccountAccess;
 
@@ -346,6 +348,8 @@ begin
   {$endif} //turning to false on android also works
 
 
+  accounts.OnAccountAdd:=@accountAddedChanged;
+
   stream := TStringStream.Create(assetFileAsString('lclstrconsts.de.po'));
   po := TPOFile.Create(stream);
   TranslateUnitResourceStrings('LCLStrConsts', po);
@@ -418,6 +422,7 @@ begin
 
   RefreshShellIntegration;
 
+  updateThreadConfig.OnPartialUpdated:=@updateThreadConfigPartialUpdated;
     //image1.Picture.LoadFromFile(programPath+'images'+DirectorySeparator+IMAGE_FILES[0]+'.bmp');
   if logging then log('FormCreate ende');
 end;
@@ -483,6 +488,16 @@ begin
   androidActivationTimer.OnTimer:=nil;
   androidActivationTimer.Enabled:=false;
   if OnActivate <> nil then OnActivate(nil);
+end;
+
+procedure TmainForm.accountsChanged(Sender: TObject);
+begin
+end;
+
+procedure TmainForm.accountAddedChanged(acc: TCustomAccountAccess);
+begin
+  if optionForm <> nil then optionForm.addAccount(acc);
+  refreshAccountGUIElements();
 end;
 
 
@@ -896,6 +911,12 @@ begin
 
 end;
 
+procedure TmainForm.updateThreadConfigPartialUpdated(Sender: TObject);
+begin
+  if (updateThreadConfig.listUpdateThreadsRunning<=0) and (mainform<>nil) and (mainForm.visible) then
+    TThread.Synchronize(nil, @mainForm.RefreshListView);
+end;
+
 
 procedure TmainForm.UserExtendMenuClick(Sender: TObject);
 var limitTime: longint;
@@ -1250,38 +1271,6 @@ begin
   end;
 end;
 
-function TmainForm.addAccount(const libID: string; prettyName, aname, pass: string; extendType: TExtendType; extendDays:integer; history:boolean):TCustomAccountAccess;
-begin
-{if accountList.Selected <> nil then
-    if (accountList.Selected.Caption=edtAccountPrettyName.Text) or
-       (accountList.Selected.SubItems[0]=edtAccountUser.Text) then begin
-      ShowMessage('Das Konto existiert bereits auf diesem Computer und kann deshalb nicht erstellt werden.   '#13#10+
-                  'Falls Sie eine Eigenschaft von einem Konto ändern wollen, klicken Sie bitte auf den Button "Konto ändern"'#13#10+
-                  'Falls Sie das Konto neu erstellen wollen, löschen Sie bitte das zuerst das alte, und erstellen es dann neu');
-      exit;
-   end;   }
-
-  result:=libraryManager.getAccount(libID,aname);
-  result.prettyName:=prettyName;
-  result.password:=pass;
-  result.keepHistory:=history;//ckbAccountHistory.Checked;
-  result.extendType:=extendType;// TExtendType( cmbAccountExtend.ItemIndex));
-  result.extendDays:=extendDays;// StrToInt(edtAccountExtendDays.Text));
-
-  if optionForm<>nil then
-    optionForm.addAccount(result);
-
-
-  accounts.AddObject(result.getID(),result);
-  result.save();
-  accounts.save;
-
-  refreshAccountGUIElements();
-{  if MessageDlg('Daten laden?',
-                'Das Konto '+lib.getPrettyName()+' wurde erstellt.'#13#10'Sollen jetzt die Mediendaten heruntergeladen werden?',
-                mtConfirmation ,[mbYes,mbNo],0)=mrYes then
-    mainForm.updateLibrary(lib,false,false);}
-end;
 
 function TmainForm.menuItem2AssociatedAccount(mi: TMenuItem
   ): TCustomAccountAccess;

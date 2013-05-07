@@ -13,6 +13,8 @@ type
 
   { TBook }
 
+  TSerializeStringProperty = procedure (name: string; value: string) of object;
+  TSerializeDateProperty = procedure (name: string; date: integer) of object;
   TBook=class
   protected
     _referenceCount: longint;
@@ -41,7 +43,9 @@ type
     constructor create;
     function equalToKey(compareTo: TBook): boolean;overload;
     function equalToKey(aid,aauthor,atitle,ayear:string):boolean;overload;
-    
+
+    procedure serialize(str: TSerializeStringProperty; date: TSerializeDateProperty);
+
     procedure clear;
     procedure assignNoReplace(book: TBook); //every value not set will be replaced with the one from book
     function toSimpleString():string;
@@ -177,6 +181,29 @@ function TBook.equalToKey(aid, aauthor, atitle, ayear: string): boolean;
 begin
   result:=(id=aid) and (title=atitle) and
           (author=aauthor) and (year=ayear);
+end;
+
+procedure TBook.serialize(str: TSerializeStringProperty; date: TSerializeDateProperty);
+begin
+  str('id', id);
+  str('author', author);
+  str('title', title);
+  str('isbn', isbn);
+  str('year', year);
+  str('category', category);
+  str('status', statusStr);
+  //str('otherInfo', otherInfo);
+  date('issueDate', issueDate);
+  date('dueDate', dueDate);
+  date('_lastExistsDate', lastExistsDate);
+  date('_firstExistsDate', firstExistsDate);
+  case status of
+    bsNormal: str('statusId', 'normal');
+    bsUnknown: str('statusId', 'unknown');
+    bsProblematicInStr: str('statusId', 'critical');
+    bsCuriousInStr: str('statusId', 'curious');
+    else str('statusId', '--invalid--'+inttostr(integer(status)));
+  end;
 end;
 
 procedure TBook.clear;
@@ -549,43 +576,41 @@ begin
     log('TBookList.load('+fileName+') ended')
 end;
 
+type
+
+{ TBookListSerializer }
+
+TBookListSerializer = object
+  text:TextFile;
+  procedure writeProp(n,v:string);
+  procedure writeDateProp(n: string; d: integer);
+end;
+
+procedure TBookListSerializer.writeProp(n, v: string);
+begin
+  writeln(text, '<v n="',xmlStrEscape(n,true),'">',xmlStrEscape(v),'</v>');
+end;
+
+procedure TBookListSerializer.writeDateProp(n: string; d: integer);
+begin
+  writeProp(n, dateTimeFormat('yyyy-mm-dd', d));
+end;
+
 procedure TBookList.save(fileName: string);
 var text:TextFile;
+    temp: TBookListSerializer;
     i:integer;
-    procedure writeProp(const n,v:string);
-    begin
-      writeln(text, '<v n="',xmlStrEscape(n,true),'">',xmlStrEscape(v),'</v>');
-    end;
 begin
   if logging then
     log('TBookList.save('+fileName+') started');
   AssignFile(text,fileName+'.xml');
+  temp.text := text;
   Rewrite(text);
   writeln(text, '<?xml version="1.0" encoding="UTF-8"?>');
   writeln(text, '<books>');
   for i := 0 to count-1 do begin
     writeln(text, '<book>');
-    with books[i] do begin
-      writeProp('id', id);
-      writeProp('author', author);
-      writeProp('title', title);
-      writeProp('isbn', isbn);
-      writeProp('year', year);
-      writeProp('category', category);
-      writeProp('status', statusStr);
-      //writeProp('otherInfo', otherInfo);
-      writeProp('issueDate', dateTimeFormat('yyyy-mm-dd', issueDate));
-      writeProp('dueDate', dateTimeFormat('yyyy-mm-dd', dueDate));
-      writeProp('_lastExistsDate', dateTimeFormat('yyyy-mm-dd', lastExistsDate));
-      writeProp('_firstExistsDate', dateTimeFormat('yyyy-mm-dd', firstExistsDate));
-      case status of
-        bsNormal: writeProp('statusId', 'normal');
-        bsUnknown: writeProp('statusId', 'unknown');
-        bsProblematicInStr: writeProp('statusId', 'critical');
-        bsCuriousInStr: writeProp('statusId', 'curious');
-        else writeProp('statusId', '--invalid--'+inttostr(integer(status)));
-      end;
-    end;
+    books[i].serialize(@temp.writeProp, @temp.writeDateProp);
     writeln(text, '</book>');
   end;
   writeln(text, '</books>');

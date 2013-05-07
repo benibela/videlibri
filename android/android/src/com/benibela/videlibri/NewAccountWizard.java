@@ -29,7 +29,7 @@ public class NewAccountWizard extends Activity {
             localLibs.get(localLibs.size()-1).add(new TreeMap<String, String>());;
             localLibs.get(localLibs.size()-1).get(localLibs.get(localLibs.size()-1).size()-1).put("NAME", temp[2]);
             shortNames.put(temp[2], temp[3]);
-            ids.put(temp[2], temp[1]);
+            ids.put(temp[2], temp[0]);
         }
 
         SimpleExpandableListAdapter adapter = new SimpleExpandableListAdapter(

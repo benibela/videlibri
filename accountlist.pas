@@ -11,21 +11,26 @@ type
 
 { TAccountList }
 
+ TAccountEvent = procedure (acc: TCustomAccountAccess) of object;
  TAccountList = class(TStringList)
 private
   fileName: string;
   libs: TLibraryManager;
   function get(i: integer): TCustomAccountAccess;
 public
+  OnAccountAdd: TAccountEvent;
+
   constructor create(listFile: string; libraries: TLibraryManager);
   procedure load;
   procedure save;
   property Accounts[i: integer]: TCustomAccountAccess read get; default;
   destructor Destroy; override;
+
+  function add(const libID: string; prettyName, aname, pass: string; extendType: TExtendType; extendDays:integer; history: boolean):TCustomAccountAccess;
 end;
 implementation
 
-uses bbdebugtools;
+uses bbdebugtools, applicationconfig;
 { TAccountList }
 
 function TAccountList.get(i: integer): TCustomAccountAccess;
@@ -78,6 +83,38 @@ begin
       ;
     end;
   inherited Destroy;
+end;
+
+function TAccountList.add(const libID: string; prettyName, aname, pass: string; extendType: TExtendType; extendDays: integer;
+  history: boolean): TCustomAccountAccess;
+begin
+  {if accountList.Selected <> nil then
+      if (accountList.Selected.Caption=edtAccountPrettyName.Text) or
+         (accountList.Selected.SubItems[0]=edtAccountUser.Text) then begin
+        ShowMessage('Das Konto existiert bereits auf diesem Computer und kann deshalb nicht erstellt werden.   '#13#10+
+                    'Falls Sie eine Eigenschaft von einem Konto ändern wollen, klicken Sie bitte auf den Button "Konto ändern"'#13#10+
+                    'Falls Sie das Konto neu erstellen wollen, löschen Sie bitte das zuerst das alte, und erstellen es dann neu');
+        exit;
+     end;   }
+
+  result:=libraryManager.getAccount(libID,aname);
+  result.prettyName:=prettyName;
+  result.password:=pass;
+  result.keepHistory:=history;//ckbAccountHistory.Checked;
+  result.extendType:=extendType;// TExtendType( cmbAccountExtend.ItemIndex));
+  result.extendDays:=extendDays;// StrToInt(edtAccountExtendDays.Text));
+
+
+
+  AddObject(result.getID(),result);
+  result.save();
+  save;
+
+  if assigned(OnAccountAdd) then OnAccountAdd(result);
+{  if MessageDlg('Daten laden?',
+                'Das Konto '+lib.getPrettyName()+' wurde erstellt.'#13#10'Sollen jetzt die Mediendaten heruntergeladen werden?',
+                mtConfirmation ,[mbYes,mbNo],0)=mrYes then
+    mainForm.updateLibrary(lib,false,false);}
 end;
 
 end.

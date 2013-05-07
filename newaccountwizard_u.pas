@@ -298,7 +298,7 @@ begin
   end;
 
   if Notebook1.PageIndex=Notebook1.PageCount-1 then begin
-    newLib:=mainform.addAccount(selectedLibrary.id,accountPrettyName.text,accountName.text,accountPass.text,
+    newLib:=accounts.add(selectedLibrary.id,accountPrettyName.text,accountName.text,accountPass.text,
                         TExtendType(extendTypeRG.Tag),strtoint(extendDaysEdit.text),saveHistory.checked);
     if MessageDlg('Daten laden?',
                   'Das Konto '+accountPrettyName.text+' wurde erstellt.'#13#10'Sollen jetzt die Mediendaten heruntergeladen werden?',
