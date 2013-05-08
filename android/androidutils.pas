@@ -22,7 +22,9 @@ function getUserConfigPath: string;
 function loaded: integer;
 procedure uninit;
 
-
+{$ifdef android}
+procedure androidAllThreadsDone();
+{$endif}
 
 
 
@@ -52,7 +54,7 @@ function loaded: LongInt; begin end;
 var assets: jobject = nil;
     assetCount: integer = 0;
     jmAssetManager_Open_StringInputStream, jmInputStream_Read_B: jmethodID;
-    videLibriMethodUserPath: jmethodID;
+    videLibriMethodUserPath, videLibriMethodVLAllThreadsDone: jmethodID;
     accountClass, bookClass: jobject;
     accountClassInit, bookClassInit: jmethodID;
     accountFields: record
@@ -104,6 +106,11 @@ begin
   end;
 end;
 
+procedure androidAllThreadsDone;
+begin
+  needJ.callObjMethod(jActivityObject, videLibriMethodVLAllThreadsDone);
+end;
+
 procedure Java_de_benibela_VideLibri_Bridge_VLInit(env:PJNIEnv; this:jobject; videlibri: jobject); cdecl;
 var videlibriClass: jclass;
 begin
@@ -111,6 +118,7 @@ begin
   videlibriClass := j.getclass('com/benibela/videlibri/VideLibri');
   jActivityObject := needj.env^^.NewGlobalRef(j.env, videlibri);
   videLibriMethodUserPath := j.getmethod(videlibriClass, 'userPath', '()Ljava/lang/String;');
+  videLibriMethodVLAllThreadsDone := j.getmethod(videlibriClass, 'allThreadsDone', '()V');
 
   accountClass := j.newGlobalRefAndDelete(j.getclass('com/benibela/videlibri/Bridge$Account'));
   accountClassInit := j.getmethod(accountClass, '<init>', '()V');
@@ -327,13 +335,14 @@ begin
   //if ignoreConnErrors and (account.broken = currentDate) then
   //  exit;
   try
-    EnterCriticalSection(updateThreadConfig.threadManagementSection);
+ {   EnterCriticalSection(updateThreadConfig.threadManagementSection);
     updateThreadConfig.updateThreadsRunning+=1;
     updateThreadConfig.listUpdateThreadsRunning+=1;
     LeaveCriticalSection(updateThreadConfig.threadManagementSection);
     acc.isThreadRunning:=true;
 
-    updateBooksDirectBlocking(acc, @updateThreadConfig, autoupdate, autoupdate, forceExtend);
+    updateBooksDirectBlocking(acc, @updateThreadConfig, autoupdate, autoupdate, forceExtend);   }
+    updateAccountBookData(acc, autoupdate, autoupdate, forceExtend);
   except
     on e: Exception do j.ThrowNew('com/benibela/videlibri/Bridge$InternalError', 'Interner Fehler: '+e.Message);
   end;

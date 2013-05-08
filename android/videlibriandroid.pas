@@ -2,9 +2,12 @@ library videlibriandroid;
 
 {$mode objfpc}{$H+}
 
+{$DEFINE UseCThreads}
 
 uses
-  Interfaces, applicationconfig, jni, bbjniutils, androidutils;
+{$IFDEF UNIX}{$IFDEF UseCThreads}
+cthreads,
+{$ENDIF}{$ENDIF} Interfaces, applicationconfig, jni, bbjniutils, androidutils;
 
 exports
   bbjniutils.JNI_OnLoad name 'JNI_OnLoad',

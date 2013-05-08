@@ -48,6 +48,12 @@ public class VideLibri extends  Activity{
         return getFilesDir().getAbsolutePath();
     }
 
+    void allThreadsDone(){
+        if (instance == null) return;
+        instance.displayAccount(null);
+        runningUpdates.clear();
+    }
+
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
@@ -71,6 +77,10 @@ public class VideLibri extends  Activity{
     }
 
     public void displayAccount(Bridge.Account acc){
+        if (acc == null) {
+            for (Bridge.Account facc: accounts) displayAccount(facc);
+            return;
+        }
         Bridge.Book[] books = Bridge.VLGetBooks(acc, false);
         String temp = "";
         for (Bridge.Book b: books)
@@ -91,16 +101,17 @@ public class VideLibri extends  Activity{
     static public void updateAccount(Bridge.Account acc, final boolean autoUpdate, final boolean forceExtend){
         if (runningUpdates.contains(acc)) return;
         runningUpdates.add(acc);
-        final Bridge.Account facc = acc;
+        Bridge.VLUpdateAccount(acc, autoUpdate, forceExtend);
+       /* final Bridge.Account facc = acc;
         Thread t = new Thread(new Runnable() {
             @Override
             public void run() {
                 Bridge.VLUpdateAccount(facc, autoUpdate, forceExtend);
-                runningUpdates.remove(facc);
-                instance.displayAccount(facc);
+               // runningUpdates.remove(facc);
+               // instance.displayAccount(facc);
             }
         });
-        t.start();
+        t.start();*/
     }
 
 }

@@ -48,7 +48,7 @@ type PThreadConfig=^TThreadConfig;
 procedure updateBooksDirectBlocking(const lib: TCustomAccountAccess; const pconfig: PThreadConfig; const ignoreConnectionErrors, checkDate, extend: boolean);
 
 implementation
-uses applicationconfig,internetaccess,bookwatchmain,bbdebugtools,
+uses applicationconfig,internetaccess,bookwatchmain,bbdebugtools,androidutils,
      forms; //for messages
 const TRY_BOOK_UPDATE='Versuche Mediendaten zu aktualisieren...';
 {$IFDEF WIN32}
@@ -260,7 +260,7 @@ procedure ThreadDone(sender:TObject);
 //called in the main thread
 begin
   if logging then log('ThreadDone started'#13#10'Without this one, '+IntToStr(updateThreadConfig.updateThreadsRunning)+' threads are currently running');
-  Assert(mainForm<>nil);
+//  Assert(mainForm<>nil);
   if not (sender is TUpdateLibThread) then
     raise exception.Create('Interner Fehler:'#13#10'Die Funktion, die für gerade beendete Aktualisierungthread zuständig ist, wurde auf einen anderen Thread angewendet'#13#10'(kann eigentlich nicht auftreten)');
 
@@ -270,12 +270,13 @@ begin
     if (updateThreadConfig.atLeastOneListUpdateSuccessful) then begin
       updateThreadConfig.atLeastOneListUpdateSuccessful:=updateThreadConfig.updateThreadsRunning>0;
       accountsRefreshedToday:=true;
-      if (mainform.visible) then
+      if (mainForm <> nil) and (mainform.visible) then
         mainform.RefreshListView;
       applicationUpdate(true);
       sendMailReports();
     end;
-    mainform.delayedCall.Enabled:=true //show error messages
+    if mainForm <> nil then mainform.delayedCall.Enabled:=true; //show error messages
+    {$ifdef android}androidAllThreadsDone();{$endif}
   end;
 
   if logging then log('ThreadDone ended');
