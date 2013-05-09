@@ -326,6 +326,7 @@ uses bookwatchmain,internetaccess,controls,libraryaccess,math,FileUtil,bbutils,b
        temp:string;
 
   begin
+    {$ifdef android}exit;{$endif}
     if auto and ((userConfig.ReadInteger('updates','auto-check',1) = 0)
                  or (currentDate-userConfig.ReadInteger('updates','lastcheck',0)<userConfig.ReadInteger('updates','interval',3))) then
       exit;

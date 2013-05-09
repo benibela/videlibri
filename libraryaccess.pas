@@ -25,7 +25,7 @@ type
     OnPartialUpdated: TNotifyEvent;
   end;
 var updateThreadConfig: TThreadConfig;
-procedure ThreadDone(sender:TObject);
+procedure ThreadDone(pself: TObject; sender:TObject);
 
 //Aktualisiert eine (oder bei lib=nil alle) Konten in einem extra-thread
 procedure updateAccountBookData(account: TCustomAccountAccess;ignoreConnErrors, checkDate,extendAlways: boolean);
@@ -48,7 +48,7 @@ type PThreadConfig=^TThreadConfig;
 procedure updateBooksDirectBlocking(const lib: TCustomAccountAccess; const pconfig: PThreadConfig; const ignoreConnectionErrors, checkDate, extend: boolean);
 
 implementation
-uses applicationconfig,internetaccess,bookwatchmain,bbdebugtools,androidutils,
+uses applicationconfig,internetaccess,bookwatchmain,bbdebugtools,androidutils,{$ifdef android}bbjniutils,{$endif}
      forms; //for messages
 const TRY_BOOK_UPDATE='Versuche Mediendaten zu aktualisieren...';
 {$IFDEF WIN32}
@@ -222,6 +222,12 @@ type
 procedure TUpdateLibThread.execute;
 begin
   updateBooksDirectBlocking(lib, pconfig, ignoreConnectionErrors, checkDate, extend);
+  {$ifdef android}
+  if Assigned(OnTerminate) then begin //normal onterminate does not work without event loop as it is called by synchronize
+   OnTerminate(self);
+   OnTerminate:=nil;
+  end;
+  {$endif}
 end;
 
                                            {
@@ -250,19 +256,24 @@ begin
   checkDate:=ACheckDate;
   pconfig:=@config;
   extend:=AExtend;
-  OnTerminate:=@mainForm.ThreadDone;
+  OnTerminate:=TNotifyEvent(procedureToMethod(TProcedure(@ThreadDone)));
   FreeOnTerminate:=true;
 
+  if logging then log('TUpdateLibThread.Create');
   inherited create(false);
 end;
 
-procedure ThreadDone(sender:TObject);
-//called in the main thread
+procedure ThreadDone(pself: TObject; sender:TObject);
+//called in the main thread on normal OS
+//called in update thread on Android!
 begin
   if logging then log('ThreadDone started'#13#10'Without this one, '+IntToStr(updateThreadConfig.updateThreadsRunning)+' threads are currently running');
 //  Assert(mainForm<>nil);
+log(booltostr(sender is TUpdateLibThread) );
   if not (sender is TUpdateLibThread) then
     raise exception.Create('Interner Fehler:'#13#10'Die Funktion, die für gerade beendete Aktualisierungthread zuständig ist, wurde auf einen anderen Thread angewendet'#13#10'(kann eigentlich nicht auftreten)');
+
+  {$ifdef android}EnterCriticalSection(updateThreadConfig.threadManagementSection);{$endif}
 
   if (updateThreadConfig.updateThreadsRunning<=0) then
     updateGlobalAccountDates();
@@ -279,6 +290,11 @@ begin
     {$ifdef android}androidAllThreadsDone();{$endif}
   end;
 
+  {$ifdef android}
+  LeaveCriticalsection(updateThreadConfig.threadManagementSection);
+  jvmref^^.DetachCurrentThread(jvmref);
+  {$endif}
+
   if logging then log('ThreadDone ended');
 end;
 
@@ -287,6 +303,8 @@ procedure updateAccountBookData(account: TCustomAccountAccess;ignoreConnErrors,c
 var i: longint;
   threadsToStart: Integer;
 begin
+  if logging then log('updateAccountBookData started');
+
   if (account=nil) and (updateThreadConfig.updateThreadsRunning>0) then exit;
   if (account<>nil) and (account.isThreadRunning) then exit;
 
@@ -297,7 +315,6 @@ begin
     ignoreConnErrors:=false;
     checkDate:=false;
   end;
-
 
 //  threadConfig.baseWindow:=handle;
   if account<>nil then begin

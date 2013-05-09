@@ -38,7 +38,7 @@
         <PackageName Value="LCL"/>
       </Item1>
     </RequiredPackages>
-    <Units Count="7">
+    <Units Count="8">
       <Unit0>
         <Filename Value="videlibriandroid.pas"/>
         <IsPartOfProject Value="True"/>
@@ -81,6 +81,11 @@
         <IsPartOfProject Value="True"/>
         <UnitName Value="androidutils"/>
       </Unit6>
+      <Unit7>
+        <Filename Value="..\libraryaccess.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="libraryAccess"/>
+      </Unit7>
     </Units>
   </ProjectOptions>
   <CompilerOptions>

@@ -7,6 +7,7 @@ import java.util.*;
 import java.lang.*;
 import android.app.*;
 import android.os.Bundle;
+import android.util.Log;
 
 
 public class VideLibri extends  Activity{
@@ -48,14 +49,27 @@ public class VideLibri extends  Activity{
         return getFilesDir().getAbsolutePath();
     }
 
-    void allThreadsDone(){
+    static void allThreadsDone(){
         if (instance == null) return;
-        instance.displayAccount(null);
-        runningUpdates.clear();
+        //Log.i("VideLibri", "allThreadsDone started");
+        instance.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                instance.displayAccount(null);
+                runningUpdates.clear();
+
+                Bridge.PendingException[] exceptions = Bridge.VLTakePendingExceptions();
+                for (Bridge.PendingException ex : exceptions)
+                    instance.showMessage(ex.accountPrettyNames + ": " + ex.error);
+            }
+        });
+
     }
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        Log.i("VideLibri", "onCreate")               ;
 
         instance = this;
 

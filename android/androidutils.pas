@@ -5,7 +5,7 @@ unit androidutils;
 interface
 
 uses
-  Classes, SysUtils,  IniFiles{$ifdef android}, jni, bbjniutils, libraryParser, booklistreader{$endif};
+  Classes, SysUtils,  IniFiles{$ifdef android}, jni, bbjniutils, libraryParser, LCLProc, booklistreader{$endif};
 
 //procedure deleteLocalRef(jobj: pointer);
 
@@ -54,6 +54,7 @@ function loaded: LongInt; begin end;
 var assets: jobject = nil;
     assetCount: integer = 0;
     jmAssetManager_Open_StringInputStream, jmInputStream_Read_B: jmethodID;
+    videlibriClass: jclass;
     videLibriMethodUserPath, videLibriMethodVLAllThreadsDone: jmethodID;
     accountClass, bookClass: jobject;
     accountClassInit, bookClassInit: jmethodID;
@@ -108,17 +109,19 @@ end;
 
 procedure androidAllThreadsDone;
 begin
-  needJ.callObjMethod(jActivityObject, videLibriMethodVLAllThreadsDone);
+  if logging then bbdebugtools.log('androidAllThreadsDone started');
+  needJ.callStaticVoidMethod(videlibriClass, videLibriMethodVLAllThreadsDone);
+  if logging then bbdebugtools.log('androidAllThreadsDone ended');
 end;
 
+
 procedure Java_de_benibela_VideLibri_Bridge_VLInit(env:PJNIEnv; this:jobject; videlibri: jobject); cdecl;
-var videlibriClass: jclass;
 begin
-  if logging then log('de.benibela.VideLibri.Bride.VLInit (started)');
-  videlibriClass := j.getclass('com/benibela/videlibri/VideLibri');
+  if logging then bbdebugtools.log('de.benibela.VideLibri.Bride.VLInit (started)');
+  videlibriClass :=  j.newGlobalRefAndDelete(j.getclass('com/benibela/videlibri/VideLibri'));
   jActivityObject := needj.env^^.NewGlobalRef(j.env, videlibri);
   videLibriMethodUserPath := j.getmethod(videlibriClass, 'userPath', '()Ljava/lang/String;');
-  videLibriMethodVLAllThreadsDone := j.getmethod(videlibriClass, 'allThreadsDone', '()V');
+  videLibriMethodVLAllThreadsDone := j.getstaticmethod(videlibriClass, 'allThreadsDone', '()V');
 
   accountClass := j.newGlobalRefAndDelete(j.getclass('com/benibela/videlibri/Bridge$Account'));
   accountClassInit := j.getmethod(accountClass, '<init>', '()V');
@@ -146,8 +149,13 @@ begin
 
 
 
+  beginAssetRead;
   initApplicationConfig;
-  if logging then log('de.benibela.VideLibri.Bride.VLInit (ended)');
+  endAssetRead;
+
+ // bbdebugtools.OnLog := TStringNotifyEvent(procedureToMethod(TProcedure(@onLog)));
+
+  if logging then bbdebugtools.log('de.benibela.VideLibri.Bride.VLInit (ended)');
 end;
 
 procedure Java_de_benibela_VideLibri_Bridge_VLFInit(env:PJNIEnv; this:jobject); cdecl;
@@ -160,9 +168,9 @@ var
   lib: TLibrary;
   i: Integer;
 begin
-  if logging then log('de.benibela.VideLibri.Bride.VLGetLibraries (started)');
-  log(strFromPtr(libraryManager));
-  log(IntToStr(libraryManager.count));
+  if logging then bbdebugtools.log('de.benibela.VideLibri.Bride.VLGetLibraries (started)');
+  bbdebugtools.log(strFromPtr(libraryManager));
+  bbdebugtools.log(IntToStr(libraryManager.count));
   try
     result := j.newObjectArray(libraryManager.count, j.getclass('java/lang/String'), j.stringToJString(''));
     for i := 0 to libraryManager.count - 1 do begin
@@ -172,35 +180,35 @@ begin
   except
     on e: Exception do j.ThrowNew('com/benibela/videlibri/Bridge$InternalError', 'Interner Fehler: '+e.Message);
   end;
-  if logging then log('de.benibela.VideLibri.Bride.VLGetLibraries (ended)');
+  if logging then bbdebugtools.log('de.benibela.VideLibri.Bride.VLGetLibraries (ended)');
 end;
 
 function Java_de_benibela_VideLibri_Bridge_VLAddAccount(env:PJNIEnv; this:jobject; acc: jobject): jobject; cdecl;
 var
   temp: TExtendType;
 begin
-  if logging then log('de.benibela.VideLibri.Bride.VLAddAccount (started)');
+  if logging then bbdebugtools.log('de.benibela.VideLibri.Bride.VLAddAccount (started)');
   try
     with accountFields do begin
-      log('AddAccount A');
+      bbdebugtools.log('AddAccount A');
       if j.getBooleanField(acc, ExtendZ) then temp := etSingleDepends
       else temp := etNever;
-      log('AddAccount B');
-      log('AddAccount B: '+j.getStringField(acc, LibIdS));
-      log('AddAccount B: '+j.getStringField(acc, PrettyNameS));
-      log('AddAccount B: '+j.getStringField(acc, NameS));
-      log('AddAccount B: '+j.getStringField(acc, PassS));
+      bbdebugtools.log('AddAccount B');
+      bbdebugtools.log('AddAccount B: '+j.getStringField(acc, LibIdS));
+      bbdebugtools.log('AddAccount B: '+j.getStringField(acc, PrettyNameS));
+      bbdebugtools.log('AddAccount B: '+j.getStringField(acc, NameS));
+      bbdebugtools.log('AddAccount B: '+j.getStringField(acc, PassS));
       accounts.Add(j.getStringField(acc, LibIdS) , j.getStringField(acc, PrettyNameS),
                    j.getStringField(acc, NameS), j.getStringField(acc, PassS),
                    temp, j.getIntField(acc, ExtendDaysI), j.getBooleanField(acc, HistoryZ));
-      log('AddAccount C');
+      bbdebugtools.log('AddAccount C');
     end;
     accounts.save;
   except
     on e: Exception do j.ThrowNew('com/benibela/videlibri/Bridge$InternalError', 'Interner Fehler: '+e.Message);
   end;
   result := nil;
-  if logging then log('de.benibela.VideLibri.Bride.VLAddAccount (ended)');
+  if logging then bbdebugtools.log('de.benibela.VideLibri.Bride.VLAddAccount (ended)');
 end;
 
 function Java_de_benibela_VideLibri_Bridge_VLGetAccounts(env:PJNIEnv; this:jobject): jobject; cdecl;
@@ -208,7 +216,7 @@ var
   i: Integer;
   temp: jobject;
 begin
-  if logging then log('de.benibela.VideLibri.Bride.VLGetAccounts (started)');
+  if logging then bbdebugtools.log('de.benibela.VideLibri.Bride.VLGetAccounts (started)');
   try
     result := j.newObjectArray(accounts.Count, accountClass, nil);
     for i := 0 to accounts.Count - 1 do begin
@@ -228,7 +236,7 @@ begin
   except
     on e: Exception do j.ThrowNew('com/benibela/videlibri/Bridge$InternalError', 'Interner Fehler: '+e.Message);
   end;
-  if logging then log('de.benibela.VideLibri.Bride.VLGetAccounts (ended)');
+  if logging then bbdebugtools.log('de.benibela.VideLibri.Bride.VLGetAccounts (ended)');
 end;
 
 function getRealAccount(acc: jobject): TCustomAccountAccess;
@@ -256,6 +264,7 @@ TJBookSerializer = object
   procedure writeProp(n,v:string);
   procedure writeDateProp(n: string; d: integer);
 end;
+
 
 procedure TJBookSerializer.writeProp(n, v: string);
 begin
@@ -291,9 +300,13 @@ var
   i: Integer;
   temp: TJBookSerializer;
 begin
+  if logging then bbdebugtools.log('Java_de_benibela_VideLibri_Bridge_VLGetBooks started');
+
   acc := getRealAccount(jacc);
   if acc = nil then exit;
   history := jhistory <> JNI_FALSE;
+
+  if logging then bbdebugtools.log(acc.prettyName);
 
   system.EnterCriticalSection(updateThreadConfig.libraryAccessSection);
 
@@ -316,6 +329,9 @@ begin
   except
     on e: Exception do j.ThrowNew('com/benibela/videlibri/Bridge$InternalError', 'Interner Fehler: '+e.Message);
   end;
+
+  if logging then bbdebugtools.log('Java_de_benibela_VideLibri_Bridge_VLGetBooks ended');
+
 end;
 
 function Java_de_benibela_VideLibri_Bridge_VLUpdateAccounts(env:PJNIEnv; this:jobject; jacc: jobject; jautoupdate: jvalue; jforceExtend: jvalue): jobject; cdecl;
@@ -324,10 +340,10 @@ var
   autoupdate: boolean;
   forceExtend: boolean;
 begin
-  log('VLUpdateAccounts');
+  bbdebugtools.log('VLUpdateAccounts');
   acc := getRealAccount(jacc);
-  if acc = nil then begin log('x'); exit;end;
-  log('a');
+  if acc = nil then begin bbdebugtools.log('x'); exit;end;
+  bbdebugtools.log('a');
 
   autoupdate := jautoupdate.z <> JNI_FALSE;
   forceExtend := jforceExtend.z <> JNI_FALSE;
@@ -350,7 +366,57 @@ begin
   result := nil;
 end;
 
-const nativeMethods: array[1..7] of JNINativeMethod=
+function Java_de_benibela_VideLibri_Bridge_VLGetPendingExceptions(env:PJNIEnv; this:jobject): jobject;
+var
+  pendingExceptionClass: jclass;
+  pendingExceptionClassInit: jmethodID;
+  pendingExceptionFields: record
+    accountPrettyNamesS, errorS, detailsS: jfieldID;
+  end;
+
+
+var
+  details: String;
+  names: String;
+  i: Integer;
+  temp: jobject;
+  k: Integer;
+begin
+  if logging then bbdebugtools.log('Bridge_VLGetPendingExceptions started');
+
+
+  pendingExceptionClass := j.newGlobalRefAndDelete(j.getclass('com/benibela/videlibri/Bridge$PendingException'));
+  pendingExceptionClassInit := j.getmethod(pendingExceptionClass, '<init>', '()V');
+  with pendingExceptionFields do begin
+    accountPrettyNamesS := j.getfield(pendingExceptionClass, 'accountPrettyNames', 'Ljava/lang/String;');
+    errorS := j.getfield(pendingExceptionClass, 'error', 'Ljava/lang/String;');
+    detailsS := j.getfield(pendingExceptionClass, 'details', 'Ljava/lang/String;');
+  end;
+
+
+
+  result := j.newObjectArray(length(errorMessageList), pendingExceptionClass, nil);
+  for i :=  0 to high(errorMessageList) do begin
+    temp := j.newObject(pendingExceptionClass, pendingExceptionClassInit);
+    with pendingExceptionFields do begin
+      details := '';
+      names := '';
+      for k := 0 to high(errorMessageList[i].details) do begin
+        details += errorMessageList[i].details[k].details+LineEnding+LineEnding;
+        if names <> '' then names += ', ';
+        names += errorMessageList[i].details[k].account.prettyName;
+      end;
+      j.SetStringField(temp, detailsS, details);
+      j.SetStringField(temp, accountPrettyNamesS, names);
+      j.SetStringField(temp, errorS, errorMessageList[i].error);
+    end;
+    j.SetObjectArrayElement(result, i, temp);
+    j.deleteLocalRef(temp);
+  end;
+  if logging then bbdebugtools.log('Bridge_VLGetPendingExceptions ended');
+end;
+
+const nativeMethods: array[1..8] of JNINativeMethod=
   ((name:'VLInit';          signature:'(Lcom/benibela/videlibri/VideLibri;)V';                   fnPtr:@Java_de_benibela_VideLibri_Bridge_VLInit)
    ,(name:'VLFinalize';      signature:'()V';                   fnPtr:@Java_de_benibela_VideLibri_Bridge_VLFInit)
    ,(name:'VLGetLibraries'; signature:'()[Ljava/lang/String;'; fnPtr:@Java_de_benibela_VideLibri_Bridge_VLGetLibraries)
@@ -358,6 +424,7 @@ const nativeMethods: array[1..7] of JNINativeMethod=
    ,(name:'VLGetAccounts'; signature:'()[Lcom/benibela/videlibri/Bridge$Account;'; fnPtr:@Java_de_benibela_VideLibri_Bridge_VLGetAccounts)
    ,(name:'VLGetBooks'; signature:'(Lcom/benibela/videlibri/Bridge$Account;Z)[Lcom/benibela/videlibri/Bridge$Book;'; fnPtr:@Java_de_benibela_VideLibri_Bridge_VLGetBooks)
    ,(name:'VLUpdateAccount'; signature:'(Lcom/benibela/videlibri/Bridge$Account;ZZ)V'; fnPtr:@Java_de_benibela_VideLibri_Bridge_VLUpdateAccounts)
+   ,(name:'VLTakePendingExceptions'; signature: '()[Lcom/benibela/videlibri/Bridge$PendingException;'; fnPtr: @Java_de_benibela_VideLibri_Bridge_VLGetPendingExceptions)
   );
 
 
@@ -370,11 +437,11 @@ begin
 
   bridgeClass := j.env^^.FindClass(j.env, 'com/benibela/videlibri/Bridge');
   if (not assigned(bridgeClass)) or (j.env^^.ExceptionCheck(j.env)<>0) then begin
-    log('failed to find VideLibri Bridge');
+    bbdebugtools.log('failed to find VideLibri Bridge');
     exit(JNI_ERR);
   end;
   if j.env^^.RegisterNatives(j.env, bridgeClass, @NativeMethods[low(nativeMethods)],length(NativeMethods)) < 0 then begin
-    log('failed to register methods');
+    bbdebugtools.log('failed to register methods');
     exit(JNI_ERR);
   end;
   result := JNI_VERSION_1_4;
