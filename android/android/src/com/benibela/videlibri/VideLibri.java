@@ -45,6 +45,8 @@ public class VideLibri extends  Activity{
     Bridge.Account accounts[];
     public VideLibri(){
     }
+
+    //Bridge functions called from VideLibri-midend
     String userPath(){
         return getFilesDir().getAbsolutePath();
     }
@@ -66,6 +68,8 @@ public class VideLibri extends  Activity{
 
     }
 
+    //Called from Android OS
+
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
@@ -78,6 +82,7 @@ public class VideLibri extends  Activity{
         accounts = Bridge.VLGetAccounts();
         if (accounts == null || accounts.length == 0) startActivity(new Intent(this, NewAccountWizard.class));
         else {
+            displayAccount(null);
             for (Bridge.Account a: accounts) updateAccount(a, true, false);
         }
     }
@@ -90,16 +95,27 @@ public class VideLibri extends  Activity{
         Bridge.VLFinalize();
     }
 
+
+    //Mix
+
+    static void addAccount(Bridge.Account acc){
+        if (instance == null) return;
+        Bridge.VLAddAccount(acc);
+        instance.accounts = Bridge.VLGetAccounts();
+        VideLibri.updateAccount(acc, false, false);
+    }
+
     public void displayAccount(Bridge.Account acc){
         if (acc == null) {
             for (Bridge.Account facc: accounts) displayAccount(facc);
             return;
         }
         Bridge.Book[] books = Bridge.VLGetBooks(acc, false);
+        showMessage(books.length+"");
         String temp = "";
         for (Bridge.Book b: books)
-            temp += b.title + " von " + b.author + "\n";
-        showMessage(temp);
+            showMessage(b.title + " von " + b.author + "\n");
+
     }
 
     public void showMessage(String message){ showMessage(this, message); }

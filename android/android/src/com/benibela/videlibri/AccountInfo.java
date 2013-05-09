@@ -61,8 +61,7 @@ public class AccountInfo extends Activity {
                 acc.extend = ((RadioButton) findViewById(R.id.autoExtendButton)).isChecked();
                 acc.extendDays = Integer.parseInt( ((EditText) findViewById(R.id.autoExtendDaysEdit)).getText().toString());
                 acc.history = ((RadioButton) findViewById(R.id.saveHistoryButton)).isChecked();
-                Bridge.VLAddAccount(acc);
-                VideLibri.updateAccount(acc, false, false);
+                VideLibri.addAccount(acc);
                 AccountInfo.this.finish();
             }
         });

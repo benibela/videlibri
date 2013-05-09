@@ -313,8 +313,8 @@ begin
 
   try
     try
-      if history then books := acc.books.current
-      else books := acc.books.old;
+      if history then books := acc.books.old
+      else books := acc.books.current;
 
       result := j.newObjectArray(books.Count, bookClass, nil);
       for i := 0 to books.Count - 1 do begin

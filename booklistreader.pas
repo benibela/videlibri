@@ -597,23 +597,21 @@ begin
 end;
 
 procedure TBookList.save(fileName: string);
-var text:TextFile;
-    temp: TBookListSerializer;
+var temp: TBookListSerializer;
     i:integer;
 begin
   if logging then
     log('TBookList.save('+fileName+') started');
-  AssignFile(text,fileName+'.xml');
-  temp.text := text;
-  Rewrite(text);
-  writeln(text, '<?xml version="1.0" encoding="UTF-8"?>');
-  writeln(text, '<books>');
+  AssignFile(temp.text,fileName+'.xml');
+  Rewrite(temp.text);
+  writeln(temp.text, '<?xml version="1.0" encoding="UTF-8"?>');
+  writeln(temp.text, '<books>');
   for i := 0 to count-1 do begin
-    writeln(text, '<book>');
+    writeln(temp.text, '<book>');
     books[i].serialize(@temp.writeProp, @temp.writeDateProp);
-    writeln(text, '</book>');
+    writeln(temp.text, '</book>');
   end;
-  writeln(text, '</books>');
+  writeln(temp.text, '</books>');
 
   {
   if (saveAction<>saReplace) and not FileExists(fileName) then saveAction:=saReplace;
@@ -626,7 +624,7 @@ begin
                    IntToStr(issueDate)+#0+IntToStr(dueDate)+#0+
                    IntToStr(lastExistsDate)+#0+inttostr(integer(status))+#0+year+#0+IntToStr(firstExistsDate)+#0+isbn+#0)
     end;                                            }
-  CloseFile(text);
+  CloseFile(temp.text);
   if logging then
     log('TBookList.save('+fileName+') ended')
 end;
