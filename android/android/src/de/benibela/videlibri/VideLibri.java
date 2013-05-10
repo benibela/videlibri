@@ -88,7 +88,7 @@ public class VideLibri extends  Activity{
         Bridge.VLInit(this);
 
         accounts = Bridge.VLGetAccounts();
-        if (accounts == null || accounts.length == 0) startActivity(new Intent(this, NewAccountWizard.class));
+        if (accounts == null || accounts.length == 0) ; //startActivity(new Intent(this, NewAccountWizard.class));
         else {
             displayAccount(null);
             for (Bridge.Account a: accounts) updateAccount(a, true, false);
