@@ -63,6 +63,7 @@ var assets: jobject = nil;
     end;
     bookFields: record
       authorS, titleS, issueDateGC, dueDateGC, dueDatePrettyS, accountL, historyZ: jfieldID;
+      setPropertyMethod: jmethodID;
     end;
     gregorianCalenderClass: jclass;
     gregorianCalenderClassInit: jmethodID;
@@ -145,7 +146,9 @@ begin
     dueDatePrettyS := j.getfield(bookClass, 'dueDatePretty', 'Ljava/lang/String;');
     accountL := j.getfield(bookClass, 'account', 'Lde/benibela/videlibri/Bridge$Account;');
     historyZ := j.getfield(bookClass, 'history', 'Z');
+    setPropertyMethod := j.getmethod(bookClass, 'setProperty', '(Ljava/lang/String;Ljava/lang/String;)V');
   end;
+
 
   gregorianCalenderClass := j.newGlobalRefAndDelete(j.getclass('java/util/GregorianCalendar'));
   gregorianCalenderClassInit := j.getmethod(gregorianCalenderClass, '<init>', '(III)V');
@@ -270,11 +273,18 @@ end;
 
 
 procedure TJBookSerializer.writeProp(n, v: string);
+var args: array[0..1] of jvalue;
 begin
   case n of
   'title': j.SetStringField(book, bookFields.titleS, v);
   'author': j.SetStringField(book, bookFields.authorS, v);
-
+  else begin
+    args[0].l := j.stringToJString(n);
+    args[1].l := j.stringToJString(v);
+    j.callVoidMethod(book, bookFields.setPropertyMethod, @args);
+    j.deleteLocalRef(args[0].l);
+    j.deleteLocalRef(args[1].l);
+  end;
   end;
 end;
 

@@ -42,7 +42,6 @@ public class NewAccountWizard extends Activity {
             @Override
             public boolean onChildClick(ExpandableListView expandableListView, View view, int i, int i2, long l) {
                 //VideLibri.showMessage(NewAccountWizard.this, localLibs.get(i).get(i2).get("NAME"));
-
                 Intent intent = new Intent(NewAccountWizard.this, AccountInfo.class);
                 intent.putExtra("libName", localLibs.get(i).get(i2).get("NAME"));
                 intent.putExtra("libShortName", shortNames.get(localLibs.get(i).get(i2).get("NAME")));

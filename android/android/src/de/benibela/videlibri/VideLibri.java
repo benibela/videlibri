@@ -98,6 +98,7 @@ public class VideLibri extends  Activity{
     @Override
     protected void onResume() {
         super.onResume();
+        defaultColor = getResources().getColor(android.R.color.primary_text_dark);
         if (accounts == null || accounts.length == 0) startActivity(new Intent(this, NewAccountWizard.class));
     }
 
@@ -149,11 +150,8 @@ public class VideLibri extends  Activity{
             if (book.author.trim().equals("")) holder.more.setText("");
             else holder.more.setText(" von " + book.author);
 
-            int c = Color.GREEN;
-            if (book.history) c = android.R.color.primary_text_light;
-            else if (book.dueDate.getTimeInMillis() - Calendar.getInstance().getTimeInMillis() < 1000 * 60 * 60 * 24 * 3) c = Color.RED;
-            else if ("critical".equals(book.more.get("status"))) c = Color.YELLOW;
-            else c = Color.GREEN;
+            int c = book.getStatusColor();
+            if (c == -1) c = VideLibri.defaultColor;
             holder.caption.setTextColor(c);
             holder.more.setTextColor(c);
             holder.date.setTextColor(c);
@@ -164,6 +162,7 @@ public class VideLibri extends  Activity{
 
     ArrayList<Bridge.Book> bookCache = new ArrayList<Bridge.Book>();
     DateFormat dateFormatDefault;
+    static int defaultColor;
 
     public void displayAccount(Bridge.Account acc){
         if (acc == null) {
@@ -197,6 +196,14 @@ public class VideLibri extends  Activity{
 
         ListView lv = (ListView) findViewById(R.id.booklistview);
         BookOverviewAdapter sa = new BookOverviewAdapter(this, bookCache);
+        lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Intent intent = new Intent(VideLibri.this, BookDetails.class);
+                intent.putExtra("book", bookCache.get(i));
+                startActivity(intent);
+            }
+        });
         lv.setAdapter(sa);
    /*     if (acc == null) {
             for (Bridge.Account facc: accounts) displayAccount(facc);
