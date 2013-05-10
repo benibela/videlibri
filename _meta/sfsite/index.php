@@ -186,7 +186,8 @@ Praktisch sollte man das Programm genau dann benutzen, wenn man jedes Jahr mehre
 </div>
 <h2><div><a name="libraries">Unterstützte Büchereien</a></div></h2>
 <div class="content">
-Bislang  wurde VideLibri mit diesen Büchereien getestet:<br><br>
+Prinzipiell unterstützt VideLibri sämtliche existierenden Bibliotheken, da jeder durch das zugrundeliegende Templatesystem beliebige Datenquellen hinzufügen kann.<br>
+Es liegen aber auch einige Templates standardmäßig bei, welche erfolgreich mit den folgenden Büchereien getestet wurden:<br><br>
 
 <table class="bibsupport">
 <thead>
@@ -333,11 +334,11 @@ Bislang  wurde VideLibri mit diesen Büchereien getestet:<br><br>
 </table>
 <br>
 
-? in der Tabelle heißt, dass mir dort keine Ausleihkarte oder verlängerbare Medien zur Verfügung standen, und ich es nicht direkt testen konnte. Wenn es das gleiche System wie eine oben mit "ja" markierte Bibliothek verwendet, funktioniert es aber vermutlich trotzdem.
+? in der Tabelle heißt, dass mir dort keine Ausleihkarte oder verlängerbare Medien zur Verfügung standen, und ich die entsprechende Funktionalität dort nicht direkt testen konnte. Wenn es das gleiche System wie eine oben mit "ja" markierte Bibliothek verwendet, funktioniert es aber vermutlich trotzdem.
 
 <br><br>
 
-Man kann es aber auch mit anderen Bibliotheken benutzen, wenn man dort eine Ausleihkarte hat. Dazu ist es nicht einmal nötig VideLibri umzuprogrammieren, da VideLibri auf einem Templatesystem basiert. Um ein Template für eine neue Bibliothek hinzuzufügen, speichert man im wesentlichen jede Seite des WebOPACs ab, und markiert die Stellen, die Medieninformationen wie Autor/Titel enthalten, mit semantischen Annotationen. Wie genau  das funktioniert, ist in der <a href="http://videlibri.hg.sourceforge.net/hgweb/videlibri/videlibri/raw-file/tip/programs/internet/VideLibri/_meta/help/neuebibliothek.html">Hilfe</a> beschrieben. Programmierkenntnisse sind dabei nur erforderlich, wenn der Katalog irgendwelche Merkwürdigkeiten, wie beispielsweise ungültiges HTML oder einen komplizierten XSS-Schutz, aufweist.<br>
+Man kann es aber auch mit anderen Bibliotheken benutzen, wenn man dort eine Ausleihkarte hat. Wegen dem zugrundeliegenden Templatesystem ist es nicht einmal nötig VideLibri umzuprogrammieren. Um ein solches Template für eine neue Bibliothek hinzuzufügen, speichert man im wesentlichen jede Seite des WebOPACs ab, und markiert die Stellen, die Medieninformationen wie Autor/Titel enthalten, mit semantischen Annotationen. Wie genau  das funktioniert, ist ausführlich in der <a href="http://videlibri.hg.sourceforge.net/hgweb/videlibri/videlibri/raw-file/tip/programs/internet/VideLibri/_meta/help/neuebibliothek.html">Hilfe</a> beschrieben.  Programmierkenntnisse sind dabei nur erforderlich, wenn der Katalog irgendwelche Merkwürdigkeiten, wie beispielsweise ungültiges HTML oder einen komplizierten XSS-Schutz, aufweist. Das englischsprachige <a href="http://userscripts.org/scripts/show/144991">Xidelscript</a> kann verwendet werden, um ein Template automatisch  durch Markieren der Buchinformationen in Firefox zu erstellen.<br>
 Verwendet die Bücherei ein aktuelles aleph/libero/sisis/pica-System ist es nicht mal nötig ein Template zu schreiben, weil man dann einfach die Serveradresse in die xml-Dateien im data/libraries Verzeichnis eintragen kann. 
 </div>
 
