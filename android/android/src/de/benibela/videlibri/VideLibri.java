@@ -9,9 +9,10 @@ import java.lang.*;
 import android.app.*;
 import android.os.Bundle;
 import android.util.Log;
-import android.widget.ExpandableListView;
-import android.widget.ListView;
-import android.widget.SimpleAdapter;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.*;
 
 
 public class VideLibri extends  Activity{
@@ -111,53 +112,72 @@ public class VideLibri extends  Activity{
         VideLibri.updateAccount(acc, false, false);
     }
 
-    ArrayList<Map<String, String> > bookCache = new ArrayList<Map<String, String>>();
-    DateFormat dateFormatDefault;
-    private void changeBook(Bridge.Account acc, Bridge.Book book){
-        book.more.put("_author", book.author);
-        book.more.put("_title", book.title);
-        book.more.put("_issueDate",dateFormatDefault.format(book.issueDate.getTime()));
-        book.more.put("_dueDate", dateFormatDefault.format(book.dueDate.getTime()));
-        book.more.put("_account", acc.internalId());
-        if (book.author!="") book.more.put("_more", "von "+book.author);
-        else  book.more.put("_more", book.author);
+    static class BookOverviewAdapter extends ArrayAdapter<Bridge.Book>{
+        private final Activity context;
+        private final ArrayList<Bridge.Book> books;
+        BookOverviewAdapter(Activity context, ArrayList<Bridge.Book> books){
+            super(context, R.layout.bookoverview, books);
+            this.context = context;
+            this.books = books;
+        }
+
+        static class ViewHolder {
+            public TextView caption, date, more;
+        }
+
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
+            View view = convertView;
+            if (view == null){
+                LayoutInflater inflater = context.getLayoutInflater();
+                view = inflater.inflate(R.layout.bookoverview, null);
+                ViewHolder viewHolder = new ViewHolder();
+                viewHolder.caption = (TextView) view.findViewById(R.id.bookoverviewCaption);
+                viewHolder.date = (TextView) view.findViewById(R.id.bookoverviewDate);
+                viewHolder.more = (TextView) view.findViewById(R.id.bookoverviewMore);
+                view.setTag(viewHolder);
+            }
+            ViewHolder holder = (ViewHolder) view.getTag();
+            Bridge.Book book = books.get(position);
+            holder.caption.setText(book.title);
+            holder.date.setText(book.dueDatePretty);
+            if (book.author.trim().equals("")) holder.more.setText("");
+            else holder.more.setText(" von " + book.author);
+            return view;
+        }
     }
+
+    ArrayList<Bridge.Book> bookCache = new ArrayList<Bridge.Book>();
+    DateFormat dateFormatDefault;
 
     public void displayAccount(Bridge.Account acc){
         if (acc == null) {
-            bookCache = new ArrayList<Map<String, String>>();
+            bookCache = new ArrayList<Bridge.Book>();
             for (Bridge.Account facc: accounts) {
                 Bridge.Book[] books = Bridge.VLGetBooks(facc, false);
-                for (Bridge.Book b: books){
-                    changeBook(facc,b);
-                    bookCache.add(b.more);
-                }
+                for (Bridge.Book b: books)
+                    bookCache.add(b);
             }
         } else {
-            ArrayList<Map<String, String> > oldBookCache = bookCache;
-            bookCache = new ArrayList<Map<String, String>>();
-            for (Map<String, String> b: oldBookCache)
-                if (b.get("_account") != acc.internalId()) bookCache.add(b);
+            ArrayList<Bridge.Book> oldBookCache = bookCache;
+            bookCache = new ArrayList<Bridge.Book>();
+            for (Bridge.Book b: oldBookCache)
+                if (!acc.equals(b.account)) bookCache.add(b);
             Bridge.Book[] books = Bridge.VLGetBooks(acc, false);
-            for (Bridge.Book b: books){
-                changeBook(acc,b);
-                bookCache.add(b.more);
-            }
+            for (Bridge.Book b: books)
+                bookCache.add(b);
         }
 
-        Collections.sort(bookCache, new Comparator<Map<String, String>>() {
+        Collections.sort(bookCache, new Comparator<Bridge.Book>() {
             @Override
-            public int compare(Map<String, String> stringStringMap, Map<String, String> stringStringMap2) {
-                String s1 = stringStringMap.get("_dueDate");
-                String s2 = stringStringMap2.get("_dueDate");
-                return s1.compareTo(s2);
+            public int compare(Bridge.Book book, Bridge.Book book2) {
+                return book.dueDate.compareTo(book2.dueDate);
             }
-        });
+        }
+        );
 
         ListView lv = (ListView) findViewById(R.id.booklistview);
-        SimpleAdapter sa = new SimpleAdapter(this, bookCache,  R.layout.bookoverview,
-                new String[]{"_title", "_more", "_dueDate"},
-                new int[]{R.id.bookoverviewCaption, R.id.bookoverviewMore, R.id.bookoverviewDate});
+        BookOverviewAdapter sa = new BookOverviewAdapter(this, bookCache);
         lv.setAdapter(sa);
    /*     if (acc == null) {
             for (Bridge.Account facc: accounts) displayAccount(facc);

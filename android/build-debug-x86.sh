@@ -10,6 +10,6 @@ if /opt/lazarus/lazbuild --os=android --ws=customdrawn --cpu=i386 videlibriandro
 
 cd android
 if ant debug; then echo;  else echo "FAILED!"; exit; fi
-$SDK_HOME/adb uninstall com.benibela.videlibri 
+$SDK_HOME/adb uninstall de.benibela.videlibri 
 $SDK_HOME/adb install bin/videlibri-debug.apk || (echo "FAILED!"; exit 1)
 
