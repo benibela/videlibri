@@ -3,11 +3,15 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.res.AssetManager;
 import java.io.InputStream;
+import java.text.DateFormat;
 import java.util.*;
 import java.lang.*;
 import android.app.*;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.ExpandableListView;
+import android.widget.ListView;
+import android.widget.SimpleAdapter;
 
 
 public class VideLibri extends  Activity{
@@ -72,10 +76,12 @@ public class VideLibri extends  Activity{
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         Log.i("VideLibri", "onCreate")               ;
 
         instance = this;
+        setContentView(R.layout.booklist);
+
+        dateFormatDefault = android.text.format.DateFormat.getDateFormat(this);
 
         Bridge.VLInit(this);
 
@@ -105,8 +111,55 @@ public class VideLibri extends  Activity{
         VideLibri.updateAccount(acc, false, false);
     }
 
+    ArrayList<Map<String, String> > bookCache = new ArrayList<Map<String, String>>();
+    DateFormat dateFormatDefault;
+    private void changeBook(Bridge.Account acc, Bridge.Book book){
+        book.more.put("_author", book.author);
+        book.more.put("_title", book.title);
+        book.more.put("_issueDate",dateFormatDefault.format(book.issueDate.getTime()));
+        book.more.put("_dueDate", dateFormatDefault.format(book.dueDate.getTime()));
+        book.more.put("_account", acc.internalId());
+        if (book.author!="") book.more.put("_more", "von "+book.author);
+        else  book.more.put("_more", book.author);
+    }
+
     public void displayAccount(Bridge.Account acc){
         if (acc == null) {
+            bookCache = new ArrayList<Map<String, String>>();
+            for (Bridge.Account facc: accounts) {
+                Bridge.Book[] books = Bridge.VLGetBooks(facc, false);
+                for (Bridge.Book b: books){
+                    changeBook(facc,b);
+                    bookCache.add(b.more);
+                }
+            }
+        } else {
+            ArrayList<Map<String, String> > oldBookCache = bookCache;
+            bookCache = new ArrayList<Map<String, String>>();
+            for (Map<String, String> b: oldBookCache)
+                if (b.get("_account") != acc.internalId()) bookCache.add(b);
+            Bridge.Book[] books = Bridge.VLGetBooks(acc, false);
+            for (Bridge.Book b: books){
+                changeBook(acc,b);
+                bookCache.add(b.more);
+            }
+        }
+
+        Collections.sort(bookCache, new Comparator<Map<String, String>>() {
+            @Override
+            public int compare(Map<String, String> stringStringMap, Map<String, String> stringStringMap2) {
+                String s1 = stringStringMap.get("_dueDate");
+                String s2 = stringStringMap2.get("_dueDate");
+                return s1.compareTo(s2);
+            }
+        });
+
+        ListView lv = (ListView) findViewById(R.id.booklistview);
+        SimpleAdapter sa = new SimpleAdapter(this, bookCache,  R.layout.bookoverview,
+                new String[]{"_title", "_more", "_dueDate"},
+                new int[]{R.id.bookoverviewCaption, R.id.bookoverviewMore, R.id.bookoverviewDate});
+        lv.setAdapter(sa);
+   /*     if (acc == null) {
             for (Bridge.Account facc: accounts) displayAccount(facc);
             return;
         }
@@ -114,7 +167,7 @@ public class VideLibri extends  Activity{
         showMessage(books.length+"");
         String temp = "";
         for (Bridge.Book b: books)
-            showMessage(b.title + " von " + b.author + "\n");
+            showMessage(b.title + " von " + b.author + "\n");      */
 
     }
 
