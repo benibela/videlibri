@@ -75,7 +75,7 @@
           {preid := text()}<BR/>
           {book.id := concat($preid,":",text())}</TD>
       <TD>{book.status := deep-text("   ")}
-          <t:if test="matches(., x'(nicht +verl.*ngerbar|Keine Verl.*gerung +m.*glich).*Stand +{string-join(reverse(tokenize(current-date(), '-')), '[.]')}','i')">
+          <t:if test="matches(., x'((nicht +verl.*ngerbar|Keine Verl.*gerung +m.*glich).*Stand +{string-join(reverse(tokenize(current-date(), '-')), '[.]')})|(Max. +Anzahl +der +Verl.*erreicht)','i')">
             {book.statusId := "critical"}
           </t:if>
       </TD>
