@@ -2,6 +2,7 @@ package de.benibela.videlibri;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -62,6 +63,7 @@ public class AccountInfo extends Activity {
                 acc.extendDays = Integer.parseInt( ((EditText) findViewById(R.id.autoExtendDaysEdit)).getText().toString());
                 acc.history = ((RadioButton) findViewById(R.id.saveHistoryButton)).isChecked();
                 VideLibri.addAccount(acc);
+                setResult(RESULT_OK, new Intent());
                 AccountInfo.this.finish();
             }
         });

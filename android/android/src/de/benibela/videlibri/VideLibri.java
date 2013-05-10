@@ -95,7 +95,11 @@ public class VideLibri extends  Activity{
         }
     }
 
-
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (accounts == null || accounts.length == 0) startActivity(new Intent(this, NewAccountWizard.class));
+    }
 
     public void onDestroy(){
         super.onDestroy();

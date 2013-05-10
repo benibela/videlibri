@@ -47,7 +47,7 @@ public class NewAccountWizard extends Activity {
                 intent.putExtra("libName", localLibs.get(i).get(i2).get("NAME"));
                 intent.putExtra("libShortName", shortNames.get(localLibs.get(i).get(i2).get("NAME")));
                 intent.putExtra("libId", ids.get(localLibs.get(i).get(i2).get("NAME")));
-                startActivity(intent);
+                startActivityForResult(intent, 123);
                 return true;
             }
         });
@@ -103,5 +103,11 @@ public class NewAccountWizard extends Activity {
 
         ExpandableListView lv = (ExpandableListView) findViewById(R.id.libListView);
         makeLibView(lv);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == 123)
+            finish(); //account created (if resultCode == REQUEST_OK)
     }
 }
