@@ -1,4 +1,4 @@
-package com.benibela.videlibri;
+package de.benibela.videlibri;
 
 import android.app.Activity;
 import android.app.AlertDialog;
