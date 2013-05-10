@@ -1,0 +1,146 @@
+<!DOCTYPE HTML PUBLIC "-//SQ//DTD HTML 2.0 + all extensions//EN" "hmpro3.dtd">
+<!-- opac/de/user -->
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-9059-1">
+<LINK REL="stylesheet" HREF="/opac/OPAC.css.S" TYPE="text/css">
+<title> Bibliothekskonto</title>
+<!-- ! /behaviors/cacheas?as=text/css ! -->
+<script language="JavaScript" type="text/javascript">
+  parent.frames[0].document.getElementById("LeftFrame1").style.display = "none";
+  parent.frames[0].document.getElementById("LeftFrame2").style.display = "block";
+var checkflag = "false";
+</script>
+<script language="JavaScript" src="scripts_spk.js.S"></script>
+
+<body onload="onLoad('Bibliothekskonto anzeigen')"; onclick="resetLogoutTimer('K')" onmouseover="resetLogoutTimer('M')" style="margin: 0 0 0 0; border-top: 1px solid #FFFFFF">
+<div id="LeftKonto" style="display:none;"><p class="navi">Bibliothekskonto</p>
+<p class="navi" style="margin: 0 0 0 7px"><A href="javascript:konto_func('medk')" title="Medienkonto">Entleihungen (1)</A></p>
+<p class="navi" style="margin: 0 0 0 7px"><A href="javascript:konto_func('vorm')" title="Vormerkungen">Vormerkungen (0)</A></p>
+<p class="navi" style="margin: 0 0 0 7px"><A href="javascript:konto_func('best')" title="Bestellungen">Bestellungen (0)</A></p>
+<p class="navi" style="margin: 0 0 0 7px"><A href="javascript:konto_func('gebk')" title="Geb&#252;hrenkonto">Geb&#252;hren</A></p>
+<p class="navi" style="margin: 0 0 0 7px"><A href="javascript:konto_func('kurz')" title="Kurzinformation">Kurzinformation</A></p>
+<p class="navi" style="margin: 0 0 0 7px"><a href="javascript:frm_left('isrv')">Benachrichtigungen</a></p>
+<p class="navi" style="margin: 0 0 0 7px"><a href="javascript:start();">Abmelden</a></p>
+</div>
+<div style="height: 90px; background-color: #EEEEEE">
+<br><br>
+<!-- <H2 class="mainheader" style="color: #000000">Bibliothekskonto</H2> -->
+<H2 class="mainheader" style="color: #000000">Bibliothekskonto - Entleihungen/Bereitstellungen<span onmouseover="event.cancelBubble=true;" id="msg" style="color:red; margin left:2cm;"></span></H2>
+
+<a href="javascript:kontohilfe('callhinweise')" id="callhinweise" class="collapsed" style="float: left; display: block; line-height: 26px; margin: 0 0 0 40px;">Hinweise</a>
+<div style="clear: both"></div>
+<div id="hinweis_entleihungen/bereitstellungen" style="display: none; position: absolute; z-index: 1; background: #F5F5DC; border: 1px solid #577FBB; font-weight: normal; padding: 11px;">
+<div style="text-align: right"><a href="javascript:kontohilfe('callhinweise')" title="schlie&#223;en"><img src="/opac/image/close_small.gif.S" border="0" /></a></div>
+Die Leihfrist f&uuml;r entliehene Medien kann viermal verl&auml;ngert werden, <br> wenn keine Vormerkung eines 
+anderen Benutzers vorliegt. Eine Verl&auml;ngerung ist fr&uuml;hestens <br> 10 Tage vor Ablauf der Leihfrist m&ouml;glich. <br><br>
+Unter &quot;Benachrichtigungen&quot; k&ouml;nnen Sie einstellen, wenn Sie vor Ablauf der Leihfrist per E-Mail <br> oder SMS benachrichtigt werden m&ouml;chten. 
+<br><br>
+Die Frist f&#252;r die Abholung abholbereiter Medien betr&auml;gt 7 Tage f&#252;r die Ausleihe au&szlig;er Haus und <br> 3 Tage f&uuml;r die erste Einsichtnahme bei Lesesaalbenutzung. 
+<br><br>
+&quot;Medien in Transit&quot; bedeutet, dass das Medium zu Ihrem gew&uuml;nschten Ausgabeort (in der Spalte <br> &quot;Status&quot; angegeben) unterwegs ist.
+</div>
+
+
+<div id="hinweis_bestellungen" style="display: none; position: absolute; z-index: 1; background: #F5F5DC; border: 1px solid #577FBB; font-weight: normal; padding: 11px;">
+<div style="text-align: right"><a href="javascript:kontohilfe('callhinweise')" title="schlie&#223;en"><img src="/opac/image/close_small.gif.S" border="0" /></a></div>
+Hier finden Sie alle bestellten, aber noch nicht bereit liegenden Medien. Abholbereite Medien<br> finden
+Sie unter &quot;Entleihungen&quot;. Bestellungen, die noch nicht bearbeitet werden, k&ouml;nnen Sie l&ouml;schen.
+</div>
+
+<div id="hinweis_vormerkungen" style="display: none; position: absolute; z-index: 1; background: #F5F5DC; border: 1px solid #577FBB; font-weight: normal; padding: 11px;">
+<div style="text-align: right"><a href="javascript:kontohilfe('callhinweise')" title="schlie&#223;en"><img src="/opac/image/close_small.gif.S" border="0" /></a></div>
+In dieser Tabelle sind alle Vormerkungen aufgelistet, die noch nicht f&uuml;r Sie bereitgestellt <br> worden sind.
+Pro Bereitstellung eines vorgemerkten Mediums fallen Geb&uuml;hren in H&#246;he von 1,- &euro; an. <br> Wenn Sie die Vormerkung nicht w&uuml;nschen, k&ouml;nnen Sie diese l&oumlschen. Der Rang bezeichnet die <br> Warteposition Ihrer 
+Vormerkung. Rechnen Sie ab dem zweiten Rang mit einer l&auml;ngeren Frist bis zur <br> Bereitstellung.
+</div>
+
+
+<div id="hinweis_geb&#252;hren" style="display: none; position: absolute; z-index: 1; background: #F5F5DC; border: 1px solid #577FBB; font-weight: normal; padding: 11px;">
+<div style="text-align: right"><a href="javascript:kontohilfe('callhinweise')" title="schlie&#223;en"><img src="/opac/image/close_small.gif.S" border="0" /></a></div>
+Sie haben die M&ouml;glichkeit, offene Geb&uuml;hren an den Anmeldestellen, an den <br> Kassenautomaten zu
+bezahlen oder diese zu &uuml;berweisen:<br><br> 
+Zahlungsempf&auml;nger: Bundeskasse Trier - Dienstsitz Kiel<br><br>
+Bankverbindung: Bundesbank-Filiale Kiel<br>
+BIC: MARKDEF 1210<br>
+IBAN: DE 42210000000021001030<br><br>
+Konto-Nr. 210 010 30<br>
+BLZ 210 000 00<br><br>
+zugunsten SPK-0683111012<br><br>
+Bitte geben Sie bei der &Uuml;berweisung Ihre Bibliotheksausweisnummer und die interne Zuweisung <br>
+(zugunsten SPK-0683111012)an und rechnen Sie mit einer Bearbeitungszeit von ungef&auml;hr 10 Tagen.<br><br>
+Umsatzsteueridentifikationsnummer: DE 811176976<br>
+Die Staatsbibliothek ist gem. &#167;4 Ne. 20a UStG von der Umsatzsteuer befreit.
+</div>
+
+<div id="hinweis_kurzinformation" style="display: none; position: absolute; z-index: 1; background: #F5F5DC; border: 1px solid #577FBB; font-weight: normal; padding: 11px;">
+<div style="text-align: right"><a href="javascript:kontohilfe('callhinweise')" title="schlie&#223;en"><img src="/opac/image/close_small.gif.S" border="0" /></a></div>
+Hier k&ouml;nnen Sie die von der Bibliothek erfassten Kontaktdaten <br> und Ausleihberechtigungen zu Ihrem Konto einsehen. &Auml;nderungen veranlassen Sie bitte bei den Leihstellen. </div>
+
+
+
+</div>
+<div class="blueborder"></div>
+<br>
+<div class="content">
+<html><body><table  width="99%"><tr><td >12345</td><td >&#160;&#160;SL<br/>
+</td><td >Entliehen/Bereitgestellt: 1</td><td >Geb&#252;hren: 1,00&#160;&#8364;</td></tr></table><br/>
+<table ><tr></tr><tr><td  style="color:red"colspan="9">Ihr Bibliotheksausweis ist nicht mehr g&#252;ltig. Bitte verl&#228;ngern lassen! </td></tr><tr></tr></table><br/>
+</body></html>
+
+<!-- Your output data goes in here -->
+<font color="black"><br></font>
+ 
+<form name="verl" action="" method="POST">
+<input type="hidden" name="LANG" value="de">
+<input name="BENUTZER" type="hidden" value="12345">
+<input type="hidden" name="PASSWORD" value="!!!">
+<input name="FUNC" type="hidden" value="verl">
+</TABLE>
+<BR><BR>
+<a name="abh"><b>Abholbereite Medien</b></a>
+<BR><BR>
+<table border="1" width="99%">
+<tr>
+<th width="13%">F&auml;llig</th>
+<th width="2%"><a href="#" title="Verl&auml;ngerungen" style="text-decoration:none; color:black">  V </a></th>
+<th width="2%"><a href="#" title="Mahnungen" style="text-decoration:none; color:black">  M </a></th>
+<th width="31%" align="center">Signatur </th>
+<th width="*" colspan="6">Status</th>
+</tr>
+<tr>
+<TD width="13%" align="center">04.05.2013</TD><TD width="2%" align="center">&nbsp;</TD><TD width="2%">&nbsp;</TD><TD width="31%">3A12345
+</TD>
+<TD align="CENTER"><FONT COLOR="black">abholbereit Potsdamer Stra&#223;e, Ausleihe au&#223;er Haus   </FONT></TD></TR>
+</TABLE>
+</form>
+
+ 
+
+<br><br>
+<img src="/opac/image/linie_990000-neu.gif.S" width="100%" height="5"> 
+<font size="2"><font face="Arial">Fragen und Anmerkungen k&ouml;nnen Sie telefonisch (+49 30) 266 433999 oder <a target="_blank" href="http://staatsbibliothek-berlin.de/service/hinweise-zu-ausleihe-und-benutzung/anfragen/">schriftlich</a> an uns richten.<br><br>
+<i>Optimal ab Internet Explorer 8.0, Firefox 6.0, Safari 5.1.2, Opera 11.6. </i>
+</font><br><br>
+<address>
+<!--
+<font size="1">&copy; copyright 2001-2009 by BiBer GmbH.<br>All rights reserved </font>
+-->
+</address>
+</body>
+</html>
+
+
+</div>
+</body>
+
+
+
+
+
+
+
+
+
+
+

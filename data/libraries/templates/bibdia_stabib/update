@@ -16,26 +16,26 @@
 <template:read var="templateError" source="'true'"/>
 <TABLE>
 <TR>
-<TH></TH><TH>Fällig</TH><TH>V</TH><TH>M</TH><TH>Signatur</TH><TH></TH><TH>Status</TH>
+<!--<TH></TH>--><TH>Fällig</TH><TH>V</TH><TH>M</TH><TH>Signatur</TH><!--<TH></TH>--><TH>Status</TH>
 </TR>
 
 <template:loop>
 <TR>
 {book:=object(), book.stabikatFound := false()}
 <input type="checkbox" template:optional="true"><template:read var="book.extendId" source="@name"/></input>
-<TD align="center"><template:read var="book.duedate" source="parse-date(.,'dd.mm.yyyy')"/></TD>
-<TD><template:read var="V" source="."/><t:s test="$V = ''">V:=0</t:s></TD>
-<TD></TD>
-<TD>{book.id := translate(.,' ',''), book.shortId := filter($book.id, '[^-]*') }</TD>
-<TD></TD>
-<TD><template:read var="status" source="deep-text()"/></TD>
-<template:if test="$book.extendId!=''">
-<template:read var="book.status:curious" source="concat($V, '-mal verlängert, ', $status)"/>
-</template:if>
-<template:if test="empty($book.extendId)">
-<template:read var="book.status:problematic" source="concat($status, ', ', $V, '-mal verlängert')"/>
-</template:if>
-<template:read var="templateError" source="false()"/>
+ <TD align="center"><template:read var="book.duedate" source="parse-date(.,'dd.mm.yyyy')"/></TD>
+ <TD><template:read var="V" source="."/><t:s test="$V = ''">V:=0</t:s></TD>
+ <TD></TD> 
+ <TD>{book.id := translate(.,' ',''), book.shortId := filter($book.id, '[^-]*') }</TD>
+<!-- <TD></TD>-->
+ <TD><template:read var="status" source="../td[last()]/deep-text()"/></TD>
+ <template:if test="$book.extendId!=''">
+   <template:read var="book.status:curious" source="concat($V, '-mal verlängert, ', $status)"/>
+ </template:if>
+ <template:if test="empty($book.extendId)">
+   <template:read var="book.status:problematic" source="concat($status, ', ', $V, '-mal verlängert')"/>
+ </template:if>
+ <template:read var="templateError" source="false()"/>
 </tr>
 </template:loop>
 </table>
