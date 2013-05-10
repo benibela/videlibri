@@ -8,7 +8,8 @@
             android:layout_height="wrap_content"
             android:text="New Text"
             android:id="@+id/bookoverviewCaption" android:layout_alignParentLeft="true" android:layout_alignParentTop="true"
-            android:textStyle="bold" android:layout_margin="5dp" android:layout_toLeftOf="@+id/bookoverviewDate"/>
+            android:textStyle="bold" android:layout_margin="5dp" android:layout_toLeftOf="@+id/bookoverviewDate"
+            />
     <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

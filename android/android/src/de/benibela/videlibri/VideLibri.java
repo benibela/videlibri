@@ -7,6 +7,7 @@ import java.text.DateFormat;
 import java.util.*;
 import java.lang.*;
 import android.app.*;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -143,6 +144,16 @@ public class VideLibri extends  Activity{
             holder.date.setText(book.dueDatePretty);
             if (book.author.trim().equals("")) holder.more.setText("");
             else holder.more.setText(" von " + book.author);
+
+            int c = Color.GREEN;
+            if (book.history) c = android.R.color.primary_text_light;
+            else if (book.dueDate.getTimeInMillis() - Calendar.getInstance().getTimeInMillis() < 1000 * 60 * 60 * 24 * 3) c = Color.RED;
+            else if ("critical".equals(book.more.get("status"))) c = Color.YELLOW;
+            else c = Color.GREEN;
+            holder.caption.setTextColor(c);
+            holder.more.setTextColor(c);
+            holder.date.setTextColor(c);
+
             return view;
         }
     }
@@ -171,6 +182,10 @@ public class VideLibri extends  Activity{
         Collections.sort(bookCache, new Comparator<Bridge.Book>() {
             @Override
             public int compare(Bridge.Book book, Bridge.Book book2) {
+                if (book.history != book2.history) {
+                    if (book.history) return  -1;
+                    else return 1;
+                }
                 return book.dueDate.compareTo(book2.dueDate);
             }
         }

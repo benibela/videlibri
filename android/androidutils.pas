@@ -62,7 +62,7 @@ var assets: jobject = nil;
       LibIdS, NameS, PassS, PrettyNameS, ExtendDaysI, ExtendZ, HistoryZ: jfieldID;
     end;
     bookFields: record
-      authorS, titleS, issueDateGC, dueDateGC, dueDatePrettyS, accountL: jfieldID;
+      authorS, titleS, issueDateGC, dueDateGC, dueDatePrettyS, accountL, historyZ: jfieldID;
     end;
     gregorianCalenderClass: jclass;
     gregorianCalenderClassInit: jmethodID;
@@ -144,6 +144,7 @@ begin
     dueDateGC := j.getfield(bookClass, 'dueDate', 'Ljava/util/GregorianCalendar;');
     dueDatePrettyS := j.getfield(bookClass, 'dueDatePretty', 'Ljava/lang/String;');
     accountL := j.getfield(bookClass, 'account', 'Lde/benibela/videlibri/Bridge$Account;');
+    historyZ := j.getfield(bookClass, 'history', 'Z');
   end;
 
   gregorianCalenderClass := j.newGlobalRefAndDelete(j.getclass('java/util/GregorianCalendar'));
@@ -326,6 +327,7 @@ begin
         temp.book := j.newObject(bookClass, bookClassInit);
         books[i].serialize(@temp.writeProp,@temp.writeDateProp);
         j.SetObjectField(temp.book, bookFields.accountL, jacc);
+        j.SetBooleanField(temp.book, bookFields.historyZ, history);
         j.SetObjectArrayElement(result, i, temp.book);
         j.deleteLocalRef(temp.book);
       end;
