@@ -17,6 +17,10 @@ type
   ToptionForm = class(TForm)
     accountList: TListView;
     checkCertificates: TCheckBox;
+    proxySocksName: TEdit;
+     SocksName: TEdit;
+    proxySocksPort: TEdit;
+    Label26: TLabel;
     lblShowWarning: TLabel;
     Label27: TLabel;
     Label28: TLabel;
@@ -257,6 +261,8 @@ begin
   proxyHTTPPort.Text:=userConfig.ReadString('access','httpProxyPort','');
   proxyHTTPSname.Text:=userConfig.ReadString('access','httpsProxyName','');
   proxyHTTPSport.Text:=userConfig.ReadString('access','httpsProxyPort','');
+  proxySocksName.Text:=userConfig.ReadString('access','socksProxyName','');
+  proxySocksPort.Text:=userConfig.ReadString('access','socksProxyPort','');
   case userConfig.readInteger('access','homepage-type',1) of
     0: homepageSimpleBrowser.Checked:=true;
     1: homepageDefaultBrowser.Checked:=true;
@@ -345,6 +351,8 @@ begin
   userConfig.WriteString('access','httpProxyPort',proxyHTTPPort.Text);
   userConfig.WriteString('access','httpsProxyName',proxyHTTPSname.Text);
   userConfig.WriteString('access','httpsProxyPort',proxyHTTPSport.Text);
+  userConfig.WriteString('access','socksProxyName',proxySocksName.Text);
+  userConfig.WriteString('access','socksProxyPort',proxySocksPort.Text);
   if homepageSimpleBrowser.Checked then userConfig.writeInteger('access','homepage-type',0)
   else if homepageDefaultBrowser.Checked then userConfig.writeInteger('access','homepage-type',1);
   if autoUpdate.Checked then userConfig.WriteInteger('updates','auto-check',1)

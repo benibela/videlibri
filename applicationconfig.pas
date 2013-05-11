@@ -315,9 +315,11 @@ uses bookwatchmain,internetaccess,controls,libraryaccess,math,FileUtil,bbutils,b
          end;
     end;
     defaultInternetConfiguration.proxyHTTPName:=userConfig.ReadString('access','httpProxyName','');
-    defaultInternetConfiguration.proxyHTTPPort:=userConfig.ReadString('access','httpProxyPort','');
+    defaultInternetConfiguration.proxyHTTPPort:=userConfig.ReadString('access','httpProxyPort','8080');
     defaultInternetConfiguration.proxyHTTPSName:=userConfig.ReadString('access','httpsProxyName','');
-    defaultInternetConfiguration.proxyHTTPSPort:=userConfig.ReadString('access','httpsProxyPort','');
+    defaultInternetConfiguration.proxyHTTPSPort:=userConfig.ReadString('access','httpsProxyPort','8080');
+    defaultInternetConfiguration.proxySOCKSName:=userConfig.ReadString('access','socksProxyName','');
+    defaultInternetConfiguration.proxySOCKSPort:=userConfig.ReadString('access','socksProxyPort','1080');
     defaultInternetConfiguration.checkSSLCertificates:=userConfig.ReadBool('access', 'checkCertificates', true);
   end;
 
@@ -474,6 +476,7 @@ uses bookwatchmain,internetaccess,controls,libraryaccess,math,FileUtil,bbutils,b
     commandLine.declareFlag('refreshAll','Aktualisiert alle Medien',false);
     commandLine.declareString('debug-html-template','Führt ein Template aus (benötigt Datei)','');
     commandLine.declareString('on','Datei für das Template von debug-single-template','');
+    commandLine.declareString('user-path','Pfad für Benutzereinstellungen','');
 
     {if commandLine.readString('debug-html-template')<>'' then begin
       checkHTMLTemplate(commandLine.readString('debug-html-template'),commandLine.readString('on'));
@@ -545,7 +548,10 @@ uses bookwatchmain,internetaccess,controls,libraryaccess,math,FileUtil,bbutils,b
     if logging then log('DATA-Version ist nun bekannt: '+inttostr(versionNumber));
 
     //Userpfad auslesen und überprüfen
-    userPath:=machineConfig.ReadString('paths','user',programPath+'config'+DirectorySeparator);
+    if commandLine.existsProperty('user-path') then
+      userPath:=commandLine.readString('user-path')
+     else
+      userPath:=machineConfig.ReadString('paths','user',programPath+'config'+DirectorySeparator);
     if logging then log('plain user path: '+userPath);
     userPath:=StringReplace(userPath,'{$appdata}',getUserConfigPath,[rfReplaceAll,rfIgnoreCase]);
     if logging then log('replaced user path: '+userPath);

@@ -36,7 +36,7 @@ object optionForm: ToptionForm
     Height = 430
     Top = 6
     Width = 612
-    PageIndex = 0
+    PageIndex = 2
     Anchors = [akTop, akLeft, akRight, akBottom]
     BorderSpacing.Around = 2
     OnChangeBounds = Notebook1ChangeBounds
@@ -552,9 +552,9 @@ object optionForm: ToptionForm
         ParentColor = False
       end
       object Label16: TLabel
-        Left = 13
+        Left = 18
         Height = 15
-        Top = 157
+        Top = 202
         Width = 269
         Caption = 'Zugriff auf die Homepages der Büchereien:'
         ParentColor = False
@@ -660,10 +660,13 @@ object optionForm: ToptionForm
         Text = '3128'
       end
       object Panel1: TPanel
+        AnchorSideTop.Control = Label16
+        AnchorSideTop.Side = asrBottom
         Left = 28
         Height = 44
-        Top = 173
+        Top = 222
         Width = 364
+        BorderSpacing.Around = 5
         BevelOuter = bvNone
         ClientHeight = 44
         ClientWidth = 364
@@ -690,20 +693,61 @@ object optionForm: ToptionForm
         end
       end
       object autoUpdate: TCheckBox
+        AnchorSideTop.Control = Panel1
+        AnchorSideTop.Side = asrBottom
         Left = 16
         Height = 18
-        Top = 221
+        Top = 271
         Width = 255
         Caption = 'Automatisch auf Updates überprüfen'
         TabOrder = 10
       end
       object checkCertificates: TCheckBox
+        AnchorSideTop.Control = autoUpdate
+        AnchorSideTop.Side = asrBottom
         Left = 18
         Height = 18
-        Top = 242
+        Top = 294
         Width = 190
+        BorderSpacing.Around = 5
         Caption = 'SSL-Zertifikate überprüfen'
         TabOrder = 11
+      end
+      object proxySocksName: TEdit
+        AnchorSideLeft.Control = proxyHTTPSname
+        AnchorSideTop.Control = proxyHTTPSname
+        AnchorSideTop.Side = asrBottom
+        AnchorSideRight.Control = proxyHTTPSname
+        AnchorSideRight.Side = asrBottom
+        Left = 84
+        Height = 25
+        Top = 152
+        Width = 455
+        Anchors = [akTop, akLeft, akRight]
+        TabOrder = 12
+      end
+      object proxySocksPort: TEdit
+        AnchorSideLeft.Control = proxyHTTPSport
+        AnchorSideTop.Control = proxySocksName
+        AnchorSideRight.Control = proxyHTTPSport
+        AnchorSideRight.Side = asrBottom
+        Left = 545
+        Height = 25
+        Top = 152
+        Width = 57
+        Anchors = [akTop, akLeft, akRight]
+        TabOrder = 13
+      end
+      object Label26: TLabel
+        AnchorSideLeft.Control = Label14
+        AnchorSideTop.Control = proxySocksName
+        AnchorSideTop.Side = asrCenter
+        Left = 35
+        Height = 15
+        Top = 157
+        Width = 37
+        Caption = 'Socks'
+        ParentColor = False
       end
     end
     object pageMail: TPage
