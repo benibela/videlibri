@@ -71,7 +71,7 @@
   </loop>
 </action>
 
-<action id="searchDetails">
+<action id="search-details">
   <page url="{$book._detail-url}&amp;tab=showTitleActive">
     <template>
       <div id="tab-content">

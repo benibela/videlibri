@@ -123,7 +123,7 @@ end;
 procedure TLibrarySearcher.details(book: tbook);
 begin
   bookListReader.selectBook(book);
-  bookListReader.callAction('searchDetails');
+  bookListReader.callAction('search-details');
 end;
 
 procedure TLibrarySearcher.disconnect;

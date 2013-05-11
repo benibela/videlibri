@@ -58,7 +58,7 @@ http://www.digibib.net/opensearch?S.SEARCH_SBDUE=on&S.SEARCH_SBAA=on&VIEW=HBZ:Oe
 
 
 
-<action id="searchDetails"> 
+<action id="search-details"> 
   <page url="{$book.digibib-url}" templateFile="details"/>
 </action>
 

@@ -66,7 +66,7 @@ Changes:
     
 </action>
 
-<action id="searchDetails">
+<action id="search-details">
   <page url="{$book.home-url}" templateFile="../pica/searchDetails"></page>
 </action>
 
