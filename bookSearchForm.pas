@@ -461,11 +461,28 @@ end;
 procedure TbookSearchFrm.searchSelectionListClickCheck(Sender: TObject);
 var s:string;
     i:longint;
+    oldState: String;
+    last: LongInt;
+    disallowMultiselect: Boolean;
 begin
+  oldState := selectedLibrariesPerLocation.Values[searchLocation.Text];
+  disallowMultiselect := pos('digibib', searchLocation.Text) = 0;
   s:='';
-  for i:=0 to searchSelectionList.Items.count-1 do
+  last := 0;
+  for i:=0 to searchSelectionList.Items.count-1 do begin
     if searchSelectionList.Checked[i] then s+='+'
     else s+='-';
+    if disallowMultiselect and searchSelectionList.Checked[i] and (i + 1 <= length(oldState)) and (oldState[i+1] = '+') then begin
+      s[length(s)] := '-';
+      last := i;
+      searchSelectionList.Checked[i] := false;
+    end;
+  end;
+  if (pos('+', s) = 0) and (last < searchSelectionList.Items.count) then begin
+    searchSelectionList.Checked[last] := true;
+    s[last+1] := '+';
+  end;
+
   selectedLibrariesPerLocation.Values[searchLocation.Text]:=s;
 end;
 
@@ -557,6 +574,27 @@ begin
 end;
 
 procedure TbookSearchFrm.selectBookToReSearch(book: TBook);
+  function selectLibrary(location: string; lib: TLibrary): boolean;
+  var
+    state: String;
+    i: Integer;
+  begin
+    if searchLocation.Items.IndexOf(location) < 0 then exit(false);
+    searchLocation.Text:=location;
+    searchLocationSelect(self);
+
+    state := '';
+    for i:=0 to searchSelectionList.items.Count-1 do begin
+      searchSelectionList.Checked[i]:=TSearchTarget(searchSelectionList.items.Objects[i]).lib=lib;
+      if searchSelectionList.Checked[i] then state += '+'
+      else state += '-';
+    end;
+    selectedLibrariesPerLocation.Values[searchLocation.Text]:=state;
+
+    result := pos('+', state) > 0;
+
+  end;
+
 var i,rp:longint;
     s: string;
     accId: Integer;
@@ -593,26 +631,8 @@ begin
   
   searchTitle.Text:=trim(s)+'*';
   if book.owner is TCustomAccountAccess then begin
-    found := false;
-    if searchLocation.Items.IndexOf(TCustomAccountAccess(book.owner).getLibrary().prettyLocation) >= 0 then begin
-      searchLocation.Text:=TCustomAccountAccess(book.owner).getLibrary().prettyLocation;
-      searchLocationSelect(self);
-      for i:=0 to searchSelectionList.items.Count-1 do begin
-        searchSelectionList.Checked[i]:=TSearchTarget(searchSelectionList.items.Objects[i]).lib=TCustomAccountAccess(book.owner).getLibrary();
-        found := found or searchSelectionList.Checked[i];
-      end;
-    end;
-    if not found then begin
-      if searchLocation.Items.IndexOf(TCustomAccountAccess(book.owner).getLibrary().prettyLocation + ' (digibib)') >= 0 then begin
-        searchLocation.Text:=TCustomAccountAccess(book.owner).getLibrary().prettyLocation + ' (digibib)';
-        searchLocationSelect(self);
-        found := false;
-        for i:=0 to searchSelectionList.items.Count-1 do begin
-          searchSelectionList.Checked[i]:=TSearchTarget(searchSelectionList.items.Objects[i]).lib=TCustomAccountAccess(book.owner).getLibrary();
-          found := found or searchSelectionList.Checked[i];
-        end;
-      end;
-    end;
+    if not selectLibrary(TCustomAccountAccess(book.owner).getLibrary().prettyLocation, TCustomAccountAccess(book.owner).getLibrary()) then
+      selectLibrary(TCustomAccountAccess(book.owner).getLibrary().prettyLocation+ ' (digibib)', TCustomAccountAccess(book.owner).getLibrary());
 
     accId := accounts.IndexOfObject(book.owner);
     if (accId >= 0) and (accId < saveToAccountMenu.Items.Count) then begin
