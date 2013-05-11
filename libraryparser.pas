@@ -407,8 +407,8 @@ begin
   if logging then log('TLibraryManager.getAccount('+libID+','+accountID+') started');
   Result:=getAccountObject(libID);
   if libID = Result.lib.deprecatedId then begin
-    CopyFile(basePath+libID+'#'+accountID+'.history', basePath+result.lib.id+'#'+accountID+'.history'); //old files, not xml files
-    CopyFile(basePath+libID+'#'+accountID+'.current', basePath+result.lib.id+'#'+accountID+'.current');
+    if FileExists(basePath+libID+'#'+accountID+'.history') then CopyFile(basePath+libID+'#'+accountID+'.history', basePath+result.lib.id+'#'+accountID+'.history'); //old files, not xml files
+    if FileExists(basePath+libID+'#'+accountID+'.current') then CopyFile(basePath+libID+'#'+accountID+'.current', basePath+result.lib.id+'#'+accountID+'.current');
     CopyFile(basePath+libID+'#'+accountID+'.config', basePath+result.lib.id+'#'+accountID+'.config');
     log('Import old '+basePath+libID+'#'+accountID+'.* => ' +basePath+result.lib.id+'#'+accountID+'.*');
   end;
