@@ -417,10 +417,10 @@ object bookSearchFrm: TbookSearchFrm
     Width = 801
     Panels = <    
       item
-        Width = 200
+        Width = 350
       end    
       item
-        Width = 100
+        Width = 150
       end    
       item
         Width = 50

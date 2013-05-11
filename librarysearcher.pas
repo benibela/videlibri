@@ -16,9 +16,12 @@ TLibrarySearcher = class
 private
   flibsToSearch: TList;
   fsearchBook: TBookSearchOptions;
+  FSearchNextPageAvailable: boolean;
   fsearchResult: TBookList;
+  fsearchResultCount: integer;
   template: TMultiPageTemplate;
   flocation:string;
+  function GetSearchNextPageAvailable: boolean;
 public
   bookListReader:TBookListReader;
 
@@ -31,6 +34,7 @@ public
   
   procedure connect;
   procedure search;
+  procedure searchNext;
   procedure details(book: tbook);
   procedure disconnect;
 
@@ -38,12 +42,19 @@ public
 
   property SearchOptions: TBookSearchOptions read fsearchBook;
   property SearchResult: TBookList read fsearchResult;
+  property SearchResultCount: integer read fsearchResultCount;
+  property SearchNextPageAvailable: boolean read GetSearchNextPageAvailable ;
 end;
 
 implementation
 uses internetAccess;
 
 { TLibrarySearcher }
+
+function TLibrarySearcher.GetSearchNextPageAvailable: boolean;
+begin
+  result := bookListReader.parser.variables.get('search-next-page-available').toBooleanEffective;
+end;
 
 constructor TLibrarySearcher.create(searchTemplate: TMultiPageTemplate);
 begin
@@ -117,7 +128,16 @@ begin
   fsearchResult.clear;
   bookListReader.books:=fsearchResult;
   bookListReader.selectBook(SearchOptions);
+  bookListReader.parser.variableChangeLog.add('search-next-page-available', false);
   bookListReader.callAction('search');
+  fsearchResultCount := bookListReader.parser.variableChangeLog.get('search-result-count').toInt64;
+end;
+
+procedure TLibrarySearcher.searchNext;
+begin
+  bookListReader.parser.variableChangeLog.add('search-next-page-available', false);
+  bookListReader.callAction('search-next-page');
+  fsearchResultCount := bookListReader.parser.variableChangeLog.get('search-result-count').toInt64;
 end;
 
 procedure TLibrarySearcher.details(book: tbook);

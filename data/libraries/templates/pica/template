@@ -61,17 +61,20 @@
   <page url="{$server}/{$db}/CMD?ACT=SRCHA&IKT=1016&SRT=RLV&TRM={$searchOptions}" templateFile="searchList"></page>
   
   <page test="$singleResult" url="{$server}/{$db}/CMD?ACT=SRCHA&IKT=1016&SRT=RLV&TRM={$searchOptions}" templateFile="searchDetails"></page>
-
-  <variable name="i">0</variable>
-  <loop test="$nextPage != '' and $i < 10">
-    <page url="{$nextPage}" templateFile="searchList"></page>
-    <variable name="i">$i + 1</variable>
-  </loop>
-    
+  
+  <variable name="search-next-page-available">$nextPage</variable>
 </action>
+
+<action id="search-next-page">
+  <page url="{$nextPage}" templateFile="searchList"></page>
+
+  <variable name="search-next-page-available">$nextPage</variable>
+</action>
+
 
 <action id="search-details">
   <page url="{$book.home-url}" templateFile="searchDetails"></page>
 </action>
+
 
 </actions> 

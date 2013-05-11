@@ -50,6 +50,7 @@ type
     Splitter3: TSplitter;
     StatusBar1: TStatusBar;
     procedure bookListSelect(sender: TObject; item: TTreeListItem);
+    procedure bookListVScrollBarChange(Sender: TObject);
     procedure displayImageChange(Sender: TObject);
     procedure FormClose(Sender: TObject; var CloseAction: TCloseAction);
     procedure FormDeactivate(Sender: TObject);
@@ -70,7 +71,7 @@ type
     procedure searcherAccessDetailsComplete(sender: TObject; book: TBook);
     procedure searcherAccessException(Sender: TObject);
     procedure searcherAccessImageComplete(sender: TObject; book: TBook);
-    procedure searcherAccessSearchComplete(Sender: TObject);
+    procedure searcherAccessSearchComplete(sender: TObject; firstPage, nextPageAvailable: boolean);
     procedure searchLocationSelect(Sender: TObject);
     procedure searchSelectionListClickCheck(Sender: TObject);
   private
@@ -82,6 +83,7 @@ type
     bookList: TBookListView;
     detaillist: TTreeListView;
     searcherAccess: TLibrarySearcherAccess;
+    nextPageAvailable: boolean;
     displayedBook: TBook;
     researchedBook: TBook;
     function displayDetails(book: TBook=nil): longint; //0: no details, 1: detail, no image, 2: everything
@@ -128,10 +130,11 @@ begin
   booklist.deserializeColumnVisibility(userConfig.ReadString('BookSearcher','ListColumnVisibility','--+++----'));
   booklist.deserializeColumnWidths(userConfig.ReadString('BookSearcher','ListColumnWidths','10,10,200,200,50,'));
   booklist.OnSelect:=@bookListSelect;
+  bookList.OnVScrollBarChange:=@bookListVScrollBarChange;
 
 
   searcherAccess:=TLibrarySearcherAccess.Create;
-  searcherAccess.OnSearchComplete:=@searcherAccessSearchComplete;
+  searcherAccess.OnSearchPageComplete:=@searcherAccessSearchComplete;
   searcherAccess.OnDetailsComplete:=@searcherAccessDetailsComplete;
   searcherAccess.OnImageComplete:=@searcherAccessImageComplete;
   searcherAccess.OnException:=@searcherAccessException;
@@ -170,6 +173,7 @@ var i, j:longint;
   first: Boolean;
 begin
   displayedBook:=nil;
+  nextPageAvailable:=false;
 
   i := locations.locations.IndexOf(searchLocation.Text);
   if i = -1 then begin i := 0; if locations.locations.Count = 0 then raise exception.Create('No search templates'); end;
@@ -233,6 +237,17 @@ begin
   linkLabelDigibib.Enabled := getProperty('digibib-url', book.additional) <> '';
   linkLabelBib.Enabled := getProperty('home-url', book.additional) <> '';
   linkLabelAmazon.Enabled := getProperty('amazon-url', book.additional) <> '';
+end;
+
+procedure TbookSearchFrm.bookListVScrollBarChange(Sender: TObject);
+begin
+  if nextPageAvailable
+     and (bookList.VisibleRowCount > bookList.Items.Count - bookList.TopItemVisualIndex)
+     then begin
+    nextPageAvailable := false;
+    searcherAccess.searchNextAsync;
+    StatusBar1.Panels[SB_PANEL_SEARCH_STATUS].Text:='Lade nächste Seite...';
+  end;
 end;
 
 procedure TbookSearchFrm.displayImageChange(Sender: TObject);
@@ -343,6 +358,33 @@ begin
   hi.Visible:=false
 end;
 
+procedure TbookSearchFrm.searcherAccessSearchComplete(sender: TObject; firstPage, nextPageAvailable: boolean);
+begin
+  bookList.BeginUpdate;
+  if firstPage then bookList.items.Clear;
+  self.nextPageAvailable := nextPageAvailable;;
+
+  searcherAccess.beginResultReading;
+  bookList.addBookList(searcherAccess.searcher.SearchResult);
+  if (bookList.Items.Count = searcherAccess.searcher.SearchResultCount) or (searcherAccess.searcher.SearchResultCount = 0) then
+    StatusBar1.Panels[SB_PANEL_FOUND_COUNT].text:=IntToStr(bookList.Items.Count)+' Treffer'
+  else
+    StatusBar1.Panels[SB_PANEL_FOUND_COUNT].text:=Format('%D / %D Treffer', [bookList.Items.Count, searcherAccess.searcher.SearchResultCount]);
+  searcherAccess.endResultReading;
+
+  bookList.endupdate;
+
+  if (bookList.VisibleRowCount > bookList.Items.Count) and (nextPageAvailable) then begin
+    searcherAccess.searchNextAsync;
+    StatusBar1.Panels[SB_PANEL_SEARCH_STATUS].Text:='Lade nächste Seite...';
+  end else if nextPageAvailable then
+    StatusBar1.Panels[SB_PANEL_SEARCH_STATUS].Text:='Suche abgeschlossen (mehr Ergebnisse verfügbar)'
+  else
+    StatusBar1.Panels[SB_PANEL_SEARCH_STATUS].Text:='Suche abgeschlossen';
+
+  screen.Cursor:=crDefault;
+end;
+
 procedure TbookSearchFrm.searchTitleChange(Sender: TObject);
 begin
 
@@ -429,21 +471,6 @@ begin
   screen.Cursor:=crDefault;
 end;
 
-procedure TbookSearchFrm.searcherAccessSearchComplete(Sender: TObject);
-begin
-  bookList.BeginUpdate;
-  bookList.items.Clear;
-
-  searcherAccess.beginResultReading;
-  bookList.addBookList(searcherAccess.searcher.SearchResult);
-  StatusBar1.Panels[SB_PANEL_FOUND_COUNT].text:=IntToStr(searcherAccess.searcher.SearchResult.Count)+' Treffer';
-  searcherAccess.endResultReading;
-
-  bookList.endupdate;
-
-  StatusBar1.Panels[SB_PANEL_SEARCH_STATUS].Text:='Suche abgeschlossen';
-  screen.Cursor:=crDefault;
-end;
 
 procedure TbookSearchFrm.searchLocationSelect(Sender: TObject);
 var list: TList;

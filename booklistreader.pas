@@ -18,6 +18,7 @@ type
   TBook=class
   protected
     _referenceCount: longint;
+  public
     procedure decReference;
     procedure incReference;
   public

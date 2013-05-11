@@ -174,6 +174,8 @@ end;
 procedure TBookListView.addBook(book: tbook);
 begin
   with items.Add do begin
+    book.incReference;
+
     text:=book.id;
     RecordItems.Add(book.category);
     RecordItemsText[BL_BOOK_COLUMNS_AUTHOR] := book.author;
@@ -266,7 +268,11 @@ end;
 
 
 procedure TBookListView.clear;
+var
+  i: Integer;
 begin
+  for i := 0 to items.count-1 do
+    TBook(Items[i].data.obj).decReference;
   Items.Clear;
   lastAddBook:=nil;
 end;

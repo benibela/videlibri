@@ -10,11 +10,12 @@ uses
 type
 
 TBookNotifyEvent=procedure (sender: TObject; book: TBook) of object;
+TPageCompleteNotifyEvent=procedure (sender: TObject; firstPage, nextPageAvailable: boolean) of object;
 TLibrarySearcherAccess = class;
 
 { TLibrarySearcherAccess }
 
-TSearcherMessageTyp=(smtFree, smtConnect, smtSearch, smtDetails, smtImage, smtDisconnect);
+TSearcherMessageTyp=(smtFree, smtConnect, smtSearch, smtSearchNext, smtDetails, smtImage, smtDisconnect);
 
 { TSearcherMessage }
 
@@ -36,14 +37,20 @@ private
   
   notifyEvent: TNotifyEvent;
   bookNotifyEvent: TBookNotifyEvent;
+  pageCompleteEvent: TPageCompleteNotifyEvent;
   changedBook: tbook;
-  
+  firstPageForSync, nextPageAvailableForSync: boolean;
+
+
   performingAction: boolean;
-  
+
+
   procedure callNotifyEventSynchronized;
   procedure callBookEventSynchronized;
+  procedure callPageCompleteEventSynchronized;
   procedure callNotifyEvent(event: TNotifyEvent);
   procedure callBookEvent(event: TBookNotifyEvent; book: tbook);
+  procedure callPageCompleteEvent(event: TPageCompleteNotifyEvent; firstPage, nextPageAvailable: boolean);
 
   procedure execute;override;
 public
@@ -60,7 +67,7 @@ private
   FOnConnected: TNotifyEvent;
   FOnDetailsComplete: TBookNotifyEvent;
   FOnImageComplete: TBookNotifyEvent;
-  FOnSearchComplete: TNotifyEvent;
+  FOnSearchPageComplete: TPageCompleteNotifyEvent;
 
   function operationActive: boolean;
   procedure removeOldMessageOf(typ: TSearcherMessageTyp);
@@ -80,13 +87,14 @@ public
 
   procedure connectAsync;
   procedure searchAsync;
+  procedure searchNextAsync;
   procedure detailsAsyncSave(book: TBook); //save means they make sure the
   procedure imageAsyncSave(book: TBook);   //book is not updated only once
   procedure disconnectAsync;
 
   property OnException: TNotifyEvent read FOnException write FOnException;
   property OnConnected: TNotifyEvent read FOnConnected write FOnConnected;
-  property OnSearchComplete: TNotifyEvent read FOnSearchComplete write FOnSearchComplete;
+  property OnSearchPageComplete: TPageCompleteNotifyEvent read FOnSearchPageComplete write FOnSearchPageComplete;
   property OnDetailsComplete: TBookNotifyEvent read FOnDetailsComplete write FOnDetailsComplete;
   property OnImageComplete: TBookNotifyEvent read FOnImageComplete write FOnImageComplete;
   property searcher: TLibrarySearcher read GetSearcher;
@@ -258,6 +266,13 @@ begin
   fthread.messages.storeMessage(TSearcherMessage.Create(smtSearch));
 end;
 
+procedure TLibrarySearcherAccess.searchNextAsync;
+begin
+  if not assigned(fthread) then exit;
+  removeOldMessageOf(smtSearchNext);
+  fthread.messages.storeMessage(TSearcherMessage.Create(smtSearchNext));
+end;
+
 procedure TLibrarySearcherAccess.detailsAsyncSave(book: TBook);
 begin
   if not assigned(fthread) then exit;
@@ -297,6 +312,17 @@ begin
   end;
 end;
 
+procedure TSearcherThread.callPageCompleteEventSynchronized;
+begin
+  if self<>access.fthread then exit;
+  if pageCompleteEvent = nil then exit;
+  try
+    pageCompleteEvent(self, firstPageForSync, nextPageAvailableForSync);
+  finally
+    pageCompleteEvent:=nil;
+  end;
+end;
+
 procedure TSearcherThread.callNotifyEvent(event: TNotifyEvent);
 begin
   if event=nil then exit;
@@ -313,6 +339,16 @@ begin
   bookNotifyEvent:=event;
   changedBook:=book;
   Synchronize(@callBookEventSynchronized);
+end;
+
+procedure TSearcherThread.callPageCompleteEvent(event: TPageCompleteNotifyEvent; firstPage, nextPageAvailable: boolean);
+begin
+  if event = nil then exit;
+  while pageCompleteEvent <> nil do sleep(5);
+  pageCompleteEvent:=event;
+  firstPageForSync:=firstPage;
+  nextPageAvailableForSync:=nextPageAvailable;
+  Synchronize(@callPageCompleteEventSynchronized);
 end;
 
 procedure TSearcherThread.execute;
@@ -351,8 +387,15 @@ begin
         end;
         smtSearch: begin
           if logging then log('Searcher thread: message typ smtSearch');
+          access.beginResultReading; Searcher.SearchResult.clear; access.endResultReading;
           searcher.search;
-          callNotifyEvent(access.FOnSearchComplete);
+          callPageCompleteEvent(access.FOnSearchPageComplete, true, searcher.SearchNextPageAvailable);
+        end;
+        smtSearchNext: begin
+          if logging then log('Searcher thread: message typ smtSearchNext');
+          access.beginResultReading; Searcher.SearchResult.clear; access.endResultReading;
+          Searcher.searchNext;
+          callPageCompleteEvent(access.FOnSearchPageComplete, false, searcher.SearchNextPageAvailable);
         end;
         smtDetails: begin
           if logging then log('Searcher thread: message typ smtDetails');
@@ -384,7 +427,7 @@ begin
             callBookEvent(access.FOnImageComplete,book);
             if logging then log('e');
           end;
-        end;
+        end
         else if logging then log('Searcher thread: unknown type');
       end;
       FreeAndNil(mes);
