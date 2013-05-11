@@ -68,7 +68,6 @@ end;
 
 procedure TLibrarySearcher.setLocation(s: string);
 begin
-  if s=flocation then exit;
   flocation:=s;
   if pos('digibib', s) > 0 then s := copy(s, 1, pos(' ', s)-1);
   bookListReader.parser.variableChangeLog.ValuesString['location']:=template.findVariableValue('location:'+s);
