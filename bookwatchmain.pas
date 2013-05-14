@@ -324,6 +324,10 @@ var i:integer;
     order: array[0..100] of longint;
     stream: TStringStream;
     po: TPOFile;
+    locations: TStringArray;
+    libsAtLoc: TStringArray;
+    tempItem2: TMenuItem;
+    j: Integer;
 begin
   if logging then log('FormCreate started');
 
@@ -359,21 +363,30 @@ begin
 
   setSymbolAppearance(userConfig.ReadInteger('appearance','symbols',0));
 
-  
+
   tempItem:=TMenuItem.Create(libraryList);
-  for i:=0 to libraryManager.getLibraryCountInEnumeration-1 do begin
-    tempItem:=TMenuItem.Create(libraryList);
-    tempItem.caption:=libraryManager.getLibraryFromEnumeration(i).prettyNameShort;
-    tempItem.Tag:=i;
-    tempItem.OnClick:=@LibraryHomepageClick;
+  locations := libraryManager.enumerateLocations;
+  for i := 0 to high(locations) do begin
+    tempItem := TMenuItem.Create(libraryList);
+    tempItem.Caption:=locations[i];
+    libsAtLoc := libraryManager.enumeratePrettyLongNames(locations[i]);
+    for j := 0 to high(libsAtLoc) do begin
+      tempItem2 := TMenuItem.Create(tempItem);
+      tempItem2.Caption:= libsAtLoc[j];
+      tempItem2.Tag:=j;
+      tempItem2.OnClick:=@LibraryHomepageClick;
+      tempItem.Add(tempItem2);
+    end;
     libraryList.Items.Add(tempItem);
   end;
-  //TODO0: Passwort änderung
+
+  libraryList.items[0].Visible:=false;//place holder
+  {
   //TODO1: Bessere Statistik
   tempItem:=libraryList.items[0];
   tempItem.caption:='alle';
   tempItem.Tag:=-1;
-  tempItem.OnClick:=@LibraryHomepageClick;
+  tempItem.OnClick:=@LibraryHomepageClick;}
   //libraryList.Items.Add(tempItem);
 
   refreshAccountGUIElements();
@@ -992,7 +1005,7 @@ begin
     title:='DigiBib: Düsseldorfer Bibliotheken';
     extraParams:='';
   end else begin
-    lib:=libraryManager.getLibraryFromEnumeration(tcontrol(sender).Tag);
+    lib:=libraryManager.getLibraryFromEnumeration(TMenuItem(sender).Parent.Caption, tcontrol(sender).Tag);
     baseURL:=lib.homepage;
     id:=lib.id;
     title:=TMenuItem(sender).Caption;
