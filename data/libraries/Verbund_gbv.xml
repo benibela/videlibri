@@ -8,7 +8,7 @@
 
   <longName value="Verbundzentrale des GBV"/>
   <shortName value="GBV"/>
-  <homepage value="http://http://www.gbv.de/"/>
+  <homepage value="http://www.gbv.de/"/>
   <template value="paia"/>
   
   <variable name="server" value="paia.gbv.de/isil/DE-601"/>

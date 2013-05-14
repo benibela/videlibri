@@ -385,6 +385,12 @@ begin
   for i:=0 to libraryFiles.count-1 do begin
     newLib:=TLibrary.Create;
     newLib.loadFromString(assetFileAsString('libraries/'+libraryFiles[i]), 'libraries/'+libraryFiles[i]);
+    if (newLib.homepage = '')  then begin
+      newLib.homepage := newLib.variables.Values['server'];
+      if not strContains(newLib.homepage, '://') then newLib.homepage:='http://'+newLib.homepage;
+      if (newLib.template <> nil) and (newLib.template.name = 'pica') and (newLib.variables.Values['picadb'] <> '') then
+        newLib.homepage := newLib.homepage + '/DB='+newLib.variables.Values['picadb'];
+    end;
     flibraries.Add(newLib);
   end;
   libraryFiles.free;
