@@ -682,9 +682,7 @@ end;
 procedure TBookListReader.setBookProperty(book: TBook; variable: string; value:IXQValue);
   function strconv():string;
   begin
-    result:=StringReplace(value.toString,#13,'',[rfReplaceAll]);
-    result:=StringReplace(result,#10,'',[rfReplaceAll]);
-    result:=trim(result);
+    result:=strTrimAndNormalize(value.toString);
   end;
 var
   basevariable: String;
