@@ -1,8 +1,11 @@
  <DIV id="hitlist">
   <DIV class="box">
-    <DIV class="box-right">
-    <span class="selectedlink"/>
-    <a>{nextPage:=@href}</a>
+    <DIV class="box-header">
+      <DIV class="box-right">
+      <span class="selectedlink"/>
+      <a>{nextPage:=@href}</a>
+      </DIV>
+      <H2>{search-result-count := extract(., "[0-9]+")}</h2>
     </DIV>?
     
     
