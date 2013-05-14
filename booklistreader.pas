@@ -684,6 +684,7 @@ procedure TBookListReader.setBookProperty(book: TBook; variable: string; value:I
   begin
     result:=strTrimAndNormalize(value.toString);
   end;
+
 var
   basevariable: String;
 begin
