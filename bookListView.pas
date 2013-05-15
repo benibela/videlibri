@@ -95,7 +95,8 @@ begin
   case SortColumn of
     BL_BOOK_COLUMNS_ISSUE_ID:
         if book1.issueDate<book2.issueDate then compare:=-1
-        else if book1.issueDate>book2.issueDate then compare:=1;
+        else if book1.issueDate>book2.issueDate then compare:=1
+        else compare := CompareText(book1.libraryBranch, book2.libraryBranch);
     BL_BOOK_COLUMNS_LIMIT_ID:; //see later
 
     else compare:=CompareText(i1.RecordItemsText[SortColumn],i2.RecordItemsText[SortColumn]);
@@ -181,7 +182,9 @@ begin
     RecordItemsText[BL_BOOK_COLUMNS_AUTHOR] := book.author;
     RecordItemsText[BL_BOOK_COLUMNS_TITLE] := book.title;
     RecordItemsText[BL_BOOK_COLUMNS_YEAR] := book.year;
-    RecordItemsText[BL_BOOK_COLUMNS_ISSUE_ID] := DateToPrettyStr(book.issueDate);
+    if book.libraryBranch = '' then RecordItemsText[BL_BOOK_COLUMNS_ISSUE_ID] := DateToPrettyStr(book.issueDate)
+    else if book.issueDate = 0 then RecordItemsText[BL_BOOK_COLUMNS_ISSUE_ID] := book.libraryBranch
+    else RecordItemsText[BL_BOOK_COLUMNS_ISSUE_ID] := DateToPrettyStr(book.issueDate) + ' in ' + book.libraryBranch;
     if book.lend = false then begin
       if book.dueDate = -2 then RecordItemsText[BL_BOOK_COLUMNS_LIMIT_ID] := 'nie'
       else RecordItemsText[BL_BOOK_COLUMNS_LIMIT_ID] := 'erledigt'

@@ -64,7 +64,7 @@
            book.extendid := encode-for-uri(input/@name)
            }</TD>
       <TD>{book.duedate := parse-date(., "dd.mm.yyyy")}</TD>
-      <TD><!--bib skip--></TD>
+      <TD>{book.libraryBranch := .}</TD>
       <TD>{book.category := filter(text(), "\[(.*)\]", 1),  
            book.title :=  if (contains(text(), "]")) then filter(text(), "(\] )(.*)", 2) else text(),
            if (contains($book.title, "/")) then (

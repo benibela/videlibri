@@ -25,6 +25,7 @@ type
   //protected
     //persistent
     id,author,title,year:string; //schlüssel
+    libraryBranch: string; //branch of the library ("Filiale")
     isbn: string;
     category,statusStr{,otherInfo}: string;
     issueDate,dueDate:longint;
@@ -187,6 +188,7 @@ end;
 procedure TBook.serialize(str: TSerializeStringProperty; date: TSerializeDateProperty);
 begin
   str('id', id);
+  str('libraryBranch', libraryBranch);
   str('author', author);
   str('title', title);
   str('isbn', isbn);
@@ -226,6 +228,7 @@ var i:longint;
 begin
   if book=nil then exit;
   if category='' then category:=book.category;
+  if libraryBranch='' then libraryBranch:=book.libraryBranch;
   if isbn='' then isbn:=book.isbn;
   if statusStr='' then statusStr:=book.statusStr;
   //if otherInfo='' then otherInfo:=book.otherInfo;
@@ -255,6 +258,7 @@ procedure TBook.setProperty(const name, value: string);
 begin
   case lowercase(name) of
     'category': Category:=value;
+    'librarybranch': libraryBranch := value;
     'id': Id:=value;
     'author': Author:=value;
     'title': Title:=value;
