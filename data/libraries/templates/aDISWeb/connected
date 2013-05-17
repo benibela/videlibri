@@ -1,0 +1,4 @@
+    <template:switch-prioritized>
+       <meta http-equiv="refresh">{connectPage:=extract(@content, "url=(.*)", 1)}</meta>
+       <a title="Zur Startseite">{connectPage:=@href}</a>
+     </template:switch-prioritized>

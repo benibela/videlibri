@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<library>
+  <longName value="Stadtbibliothek im Bildungscampus Nürnberg (alpha)"/>
+  <shortName value="StB Nürnberg"/>
+  <catalogue value="https://online-service2.nuernberg.de/aDISWeb"/>
+
+  <template value="aDISWeb"/>
+  <variable name="server" value="online-service2.nuernberg.de"/>
+
+
+  <homepage value="http://www.nuernberg.de/internet/stadtbibliothek/"/>
+  <testing-search value="in 1.5" date="2013-05-17"/>
+  <testing-account value="nein ?" date=""/>
+  <testing-renew value="nein ?" date=""/>
+</library>

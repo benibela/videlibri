@@ -4,9 +4,8 @@
 
 <action id="update-all">
 
-  <page url="https://{$server}/aDISWeb/app"> <template>
-     <meta http-equiv="refresh">{connectPage:=extract(@content, "url=(.*)", 1)}</meta>
-  </template> </page>
+  <page url="https://{$server}/aDISWeb/app" templateFile="connected"/>
+
   <page url="{$connectPage}">
   <template>
     <a><span>Benutzerkonto</span>{loginForm:=@href}</a>
@@ -124,15 +123,15 @@
   </loop>
 
   <loop test="$lastIndex < $targetIndex">
-    <page url="{$form}" templateFile="search"/>
+    <page url="{$form.url}" templateFile="search">
+      <post value="{$form.post}&%24Toolbar_5.x=0&%24Toolbar_5.y=0"/>
+    </page>
   </loop>
   
 </action>
 
 <action id="search">
-  <page url="https://{$server}/aDISWeb/app"> <template>
-     <meta http-equiv="refresh">{connectPage:=extract(@content, "url=(.*)", 1)}</meta>
-  </template> </page>
+  <page url="https://{$server}/aDISWeb/app" templateFile="connected"/>
 
   <page url="{$connectPage}">
   <template>
@@ -141,13 +140,20 @@
   </page>
   
   <page url="https://{$server}/{$seachPage}">
-    <template><form>{
+    <template><form>
+    <template:meta default-text-matching="regex"/>
+    <label>Titel</label><input>{$nameTitle := @name}</input>
+    <label>Person|Name</label><input>{$nameAuthor := @name}</input>
+    <label>ISBN</label><input>{$nameIsbn := @name}</input>
+    <label>Schlag</label><input>{$nameKeywords := @name}</input>
+    <label>[jJ]ahr</label><input>{$nameYear := @name}</input>
+    {
       startSearch := form(., {
-        "$Textfield$0": $book.title,
-        "$Textfield$1": $book.author,
-        "$Textfield$4": $book.isbn,
-        "$Textfield$5": $book.keywords,
-        "$Textfield$6": $book.year
+        $nameTitle: $book.title,
+        $nameAuthor: $book.author,
+        $nameIsbn: $book.isbn,
+        $nameKeywords: $book.keywords,
+        $nameYear: $book.year
       })
     }</form></template>
   </page>
@@ -165,18 +171,18 @@
 <action id="search-details">
   <variable name="targetIndex">$book._index * 1</variable> <call action="gotoindex"/>
 
-  <page url="{$form.url}">
+    <page url="{$form.url}">
     <post>{replace($form.post, "selected=", concat("selected=", $book._searchId))}</post>
     
     <template>
     <template:meta default-text-matching="regex"/>
     
-    <a title="Trefferliste">{goback:=@href}</a>
+    <a title="Trefferliste">{goback:=@href}</a><!--inside main in munich, outside in nürnberg-->
     
-    <DIV id="main"><!--{form:=form(//form)}-->
+<!--    <DIV id="main">
       <DIV class="inside">
         <DIV class="block">
-          <DIV class="fsgrp">
+          <DIV class="fsgrp">-->
               <DIV class="aDISListe">
                 <DIV class="html_div">
                   <DIV class="aDISListe">
@@ -220,10 +226,10 @@
               </TABLE>
             </DIV>
   
-          </DIV>
+       <!--   </DIV>
         </DIV>
       </DIV>
-    </DIV>
+    </DIV>-->
     
     </template>
   </page>
