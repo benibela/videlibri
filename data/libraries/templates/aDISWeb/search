@@ -1,0 +1,53 @@
+<DIV id="right">
+  <DIV class="inside">
+    <DIV class="block">
+      <DIV>
+        <P>
+          <SPAN>Gesucht<t:s>search-result-count := filter(., "[0-9]+$")</t:s></SPAN>
+        </P>
+      </DIV>
+    </DIV>
+  </DIV>
+</DIV>
+
+<DIV id="main">
+  <DIV class="inside">
+    <DIV class="block">
+    
+    <div class="toolbar_div"><ul class="toolbar_ul"><li class="toolbar_li">
+      <span class="toolbar_txt">Vorwärts</span>
+      {search-next-page-available := not(./input/@disabled),
+       form := form(//form) 
+       
+      }
+    </li></ul></div>
+    
+      <DIV class="fsgrp">
+        <DIV>
+          <DIV class="rTable_div">
+            <TABLE class="rTable_table"> 
+              <thead/>
+              <TR>
+                <TD/><TD/><TD/> <!-id, checkbox, kind--> 
+                <TD>
+                  <A>{
+                    (:tempDetails := form(//form, {"selected": concat("ZTEXT       ", filter(@href, "\('(.*)'\)", 1))}),:)
+                    book := {
+                      "title": filter(., "^[^/]+"), 
+                      "author": filter(., "^[^/]+/([^-]+)", 1), 
+                      "publisher": filter(., "-([^-]+)$", 1),
+                      "_searchId": encode-for-uri(concat("ZTEXT       ", filter(@href, "\('(.*)'\)", 1))),
+                      "_page": $currentPage
+                    }
+                  }</A>
+                </TD>
+                <TD/> <!--available-->
+                <TD>{book.year := .}</TD>
+              </TR>*
+            </TABLE>
+          </DIV>
+        </DIV>
+      </DIV>
+    </DIV>
+  </DIV>
+</DIV>   

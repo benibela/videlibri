@@ -104,4 +104,142 @@
   <call action="update-all"/>
 </action>
 
+
+
+
+
+
+
+
+
+
+
+
+
+<action id="gotopage">
+  <loop test="$currentPage < $targetPage">
+    <page url="{$form}" templateFile="searchBasicForm"/>
+    <variable name="currentPage">$currentPage + 1</variable>
+  </loop>
+  
+  <loop test="$currentPage > $targetPage">
+    <page url="{$form.url}" templateFile="searchBasicForm">
+      <post value="{$form.post}&%24Toolbar_4.x=0&%24Toolbar_4.y=0"/>
+    </page>
+    <variable name="currentPage">$currentPage - 1</variable>
+  </loop>
+</action>
+
+<action id="search">
+  <page url="https://{$server}/aDISWeb/app"> <template>
+     <meta http-equiv="refresh">{connectPage:=extract(@content, "url=(.*)", 1)}</meta>
+  </template> </page>
+
+  <page url="{$connectPage}">
+  <template>
+    <a><span>Erweiterte Suche</span>{seachPage:=@href}</a>
+  </template>
+  </page>
+  
+  <page url="https://{$server}/{$seachPage}">
+    <template><form>{
+      startSearch := form(., {
+        "$Textfield$0": $book.title,
+        "$Textfield$1": $book.author,
+        "$Textfield$4": $book.isbn,
+        "$Textfield$5": $book.keywords,
+        "$Textfield$6": $book.year
+      })
+    }</form></template>
+  </page>
+
+  <variable name="currentPage">1</variable>
+  <variable name="nextPageToSearch">2</variable>
+
+  <page url="{$startSearch}" templateFile="search"/>
+</action>
+
+<action id="search-next-page">
+  <variable name="targetPage">$nextPageToSearch - 1</variable> <call action="gotopage"/>
+  
+  <variable name="currentPage">$currentPage + 1</variable>
+  <variable name="nextPageToSearch">$nextPageToSearch + 1</variable>
+
+  <page url="{$form}" templateFile="search"/>  
+</action>
+
+
+<action id="search-details">
+  <variable name="targetPage">$book._page * 1</variable> <call action="gotopage"/>
+
+  <page url="{$form.url}">
+    <post>{replace($form.post, "selected=", concat("selected=", $book._searchId))}</post>
+    
+    <template>
+    <template:meta default-text-matching="regex"/>
+    
+    <a title="Trefferliste">{goback:=@href}</a>
+    
+    <DIV id="main">{form:=form(//form)}
+      <DIV class="inside">
+        <DIV class="block">
+          <DIV class="fsgrp">
+              <DIV class="aDISListe">
+                <DIV class="html_div">
+                  <DIV class="aDISListe">
+                    <TABLE class="gi">
+                      <t:loop>
+                        <t:switch>
+                        <TR>
+                          <TH class="spaltelinks">Titel</TH>
+                          <TD class="spalterechts">{book.title:=.}</TD>
+                        </TR>
+                        
+                        <TR>
+                          <TH class="spaltelinks">Person|Autor</TH>
+                          <TD class="spalterechts">{book.author:=.}</TD>
+                        </TR>
+  
+                        <TR>
+                          <TH class="spaltelinks">erschienen</TH>
+                          <TD class="spalterechts">{book.year:=translate(., "[]", "")}</TD>
+                        </TR>
+  
+                        <TR>
+                          <TH class="spaltelinks">{name:=translate(normalize-space(.), ".", "")}</TH>
+                          <TD class="spalterechts"><t:read source="." var="book.{$name}!"/></TD>
+                        </TR>
+                        </t:switch>
+                      </t:loop>
+                    </TABLE>
+                  </DIV>
+                </DIV>
+              </DIV>
+  
+            <DIV class="rTable_div" template:optional="true">
+              {exemplarCount := 0}
+              <TABLE class="rTable_table">
+                <thead/>
+                <TR>
+                  {exemplarCount := $exemplarCount + 1}
+                  <t:read source="string-join(./td, ',  ')" var="book.Exemplar {$exemplarCount}!"/>
+                </TR>*
+              </TABLE>
+            </DIV>
+  
+          </DIV>
+        </DIV>
+      </DIV>
+    </DIV>
+    
+    </template>
+  </page>
+  
+<!--  <page url="{$goback}" templateFile="searchBasicForm"/>-->
+  <page url="{$form.url}" templateFile="searchBasicForm">
+    <post value="{$form.post}&%24Toolbar_0.x=0&%24Toolbar_0.y=0"/>
+  </page>
+  
+</action>
+
 </actions>
