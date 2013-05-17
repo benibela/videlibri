@@ -44,6 +44,7 @@ private
 
   performingAction: boolean;
 
+  procedure desktopSynchronized(t: TThreadMethod);
 
   procedure callNotifyEventSynchronized;
   procedure callBookEventSynchronized;
@@ -296,6 +297,15 @@ end;
 
 { TSearcherThread }
 
+procedure TSearcherThread.desktopSynchronized(t: TThreadMethod);
+begin
+  {$ifndef android}
+  Synchronize(t);
+  {$else}
+  t();
+  {$endif}
+end;
+
 procedure TSearcherThread.callNotifyEventSynchronized;
 begin
   if self<>access.fthread then exit;
@@ -327,7 +337,7 @@ procedure TSearcherThread.callNotifyEvent(event: TNotifyEvent);
 begin
   if event=nil then exit;
   notifyEvent:=event;
-  Synchronize(@callNotifyEventSynchronized);
+  desktopSynchronized(@callNotifyEventSynchronized);
 end;
 
 procedure TSearcherThread.callBookEvent(event: TBookNotifyEvent; book: tbook);
@@ -338,7 +348,7 @@ begin
   if logging then log('wait complete');
   bookNotifyEvent:=event;
   changedBook:=book;
-  Synchronize(@callBookEventSynchronized);
+  desktopSynchronized(@callBookEventSynchronized);
 end;
 
 procedure TSearcherThread.callPageCompleteEvent(event: TPageCompleteNotifyEvent; firstPage, nextPageAvailable: boolean);
@@ -348,7 +358,7 @@ begin
   pageCompleteEvent:=event;
   firstPageForSync:=firstPage;
   nextPageAvailableForSync:=nextPageAvailable;
-  Synchronize(@callPageCompleteEventSynchronized);
+  desktopSynchronized(@callPageCompleteEventSynchronized);
 end;
 
 procedure TSearcherThread.execute;
@@ -436,7 +446,7 @@ begin
         storeException(e,nil);
         FreeAndNil(mes);
         messages.removeAndFreeAll;
-        Synchronize(@access.threadException);
+        desktopSynchronized(@access.threadException);
       end;
     end;
   end;

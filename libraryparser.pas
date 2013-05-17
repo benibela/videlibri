@@ -74,6 +74,8 @@ type
     procedure enumerateVariableValues(const varName: string; result: TStringList);
     procedure enumerateLibrariesWithValue(const varName, value: string; result: TList);
 
+    function get(id: string): TLibrary;
+
     property libraries[i: integer]: TLibrary read getLibraryFromEnumeration; default;
     property count: integer read getLibraryCountInEnumeration;
   end;
@@ -516,6 +518,15 @@ begin
   for i:=0 to flibraries.count-1 do
     if TLibrary(libraries[i]).defaultVariables.Values[varName]=value then
       result.add(TLibrary(libraries[i]));
+end;
+
+function TLibraryManager.get(id: string): TLibrary;
+var
+  i: Integer;
+begin
+  for i := 0 to count - 1 do
+    if TLibrary(libraries[i]).id = id then exit(TLibrary(libraries[i]));
+  exit(nil);
 end;
 
 

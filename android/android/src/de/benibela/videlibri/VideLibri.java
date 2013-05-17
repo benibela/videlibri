@@ -16,7 +16,7 @@ import android.view.ViewGroup;
 import android.widget.*;
 
 
-public class VideLibri extends  Activity{
+public class VideLibri extends  BookListActivity{
  /* AssetManager assets;
   byte[] getDataFile(String fileName){//implemented with JNI on pascal side
     InputStream is = assets.open(fileName);
@@ -81,10 +81,6 @@ public class VideLibri extends  Activity{
         Log.i("VideLibri", "onCreate")               ;
 
         instance = this;
-        setContentView(R.layout.booklist);
-
-        dateFormatDefault = android.text.format.DateFormat.getDateFormat(this);
-
         Bridge.VLInit(this);
 
         accounts = Bridge.VLGetAccounts();
@@ -99,7 +95,7 @@ public class VideLibri extends  Activity{
     protected void onResume() {
         super.onResume();
         defaultColor = getResources().getColor(android.R.color.primary_text_dark);
-        if (accounts == null || accounts.length == 0) startActivity(new Intent(this, NewAccountWizard.class));
+        if (accounts == null || accounts.length == 0) newAccountDialog();
     }
 
     public void onDestroy(){
@@ -110,6 +106,41 @@ public class VideLibri extends  Activity{
 
 
     //Mix
+    static final int REQUEST_LIBRARY_FOR_ACCOUNT_CREATION = 122347;
+
+    void newAccountDialog(){
+        startActivityForResult(new Intent(this, LibraryList.class), REQUEST_LIBRARY_FOR_ACCOUNT_CREATION);
+    }
+
+    static void newSearchActivity(){
+        Intent intent = new Intent(instance, Search.class);
+        if (instance.accounts.length > 0){
+            intent.putExtra("libId", instance.accounts[0].libId);
+            String[] libraries = Bridge.VLGetLibraries();
+            for (String s: libraries)
+                if (s.startsWith(instance.accounts[0].libId+"|"))
+                    intent.putExtra("libName", s.split("|")[2]);
+        }
+        instance.startActivity(intent);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        Log.i("VL","A");
+        if (requestCode == REQUEST_LIBRARY_FOR_ACCOUNT_CREATION) {
+            Log.i("VL","B");
+            if (resultCode == LibraryList.RESULT_OK) {
+                Log.i("VL","C");
+                Intent account = new Intent(this, AccountInfo.class);
+                account.putExtra("libName", data.getStringExtra("libName"));
+                account.putExtra("libShortName", data.getStringExtra("libShortName"));
+                account.putExtra("libId", data.getStringExtra("libId"));
+                account.putExtra("mode", AccountInfo.MODE_ACCOUNT_CREATION);
+                startActivity(account);
+                Log.i("VL","D");
+            }
+        }
+    }
 
     static void addAccount(Bridge.Account acc){
         if (instance == null) return;
@@ -117,52 +148,6 @@ public class VideLibri extends  Activity{
         instance.accounts = Bridge.VLGetAccounts();
         VideLibri.updateAccount(acc, false, false);
     }
-
-    static class BookOverviewAdapter extends ArrayAdapter<Bridge.Book>{
-        private final Activity context;
-        private final ArrayList<Bridge.Book> books;
-        BookOverviewAdapter(Activity context, ArrayList<Bridge.Book> books){
-            super(context, R.layout.bookoverview, books);
-            this.context = context;
-            this.books = books;
-        }
-
-        static class ViewHolder {
-            public TextView caption, date, more;
-        }
-
-        @Override
-        public View getView(int position, View convertView, ViewGroup parent) {
-            View view = convertView;
-            if (view == null){
-                LayoutInflater inflater = context.getLayoutInflater();
-                view = inflater.inflate(R.layout.bookoverview, null);
-                ViewHolder viewHolder = new ViewHolder();
-                viewHolder.caption = (TextView) view.findViewById(R.id.bookoverviewCaption);
-                viewHolder.date = (TextView) view.findViewById(R.id.bookoverviewDate);
-                viewHolder.more = (TextView) view.findViewById(R.id.bookoverviewMore);
-                view.setTag(viewHolder);
-            }
-            ViewHolder holder = (ViewHolder) view.getTag();
-            Bridge.Book book = books.get(position);
-            holder.caption.setText(book.title);
-            holder.date.setText(book.dueDatePretty);
-            if (book.author.trim().equals("")) holder.more.setText("");
-            else holder.more.setText(" von " + book.author);
-
-            int c = book.getStatusColor();
-            if (c == -1) c = VideLibri.defaultColor;
-            holder.caption.setTextColor(c);
-            holder.more.setTextColor(c);
-            holder.date.setTextColor(c);
-
-            return view;
-        }
-    }
-
-    ArrayList<Bridge.Book> bookCache = new ArrayList<Bridge.Book>();
-    DateFormat dateFormatDefault;
-    static int defaultColor;
 
     public void displayAccount(Bridge.Account acc){
         if (acc == null) {
@@ -194,26 +179,7 @@ public class VideLibri extends  Activity{
         }
         );
 
-        ListView lv = (ListView) findViewById(R.id.booklistview);
-        BookOverviewAdapter sa = new BookOverviewAdapter(this, bookCache);
-        lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Intent intent = new Intent(VideLibri.this, BookDetails.class);
-                intent.putExtra("book", bookCache.get(i));
-                startActivity(intent);
-            }
-        });
-        lv.setAdapter(sa);
-   /*     if (acc == null) {
-            for (Bridge.Account facc: accounts) displayAccount(facc);
-            return;
-        }
-        Bridge.Book[] books = Bridge.VLGetBooks(acc, false);
-        showMessage(books.length+"");
-        String temp = "";
-        for (Bridge.Book b: books)
-            showMessage(b.title + " von " + b.author + "\n");      */
+        displayBookCache();
 
     }
 

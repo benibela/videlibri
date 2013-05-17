@@ -24,10 +24,12 @@ class EmptyTextWatcher implements TextWatcher{
     }
 }
 
-public class AccountInfo extends Activity {
+public class AccountInfo extends VideLibriBaseActivity {
 
     String libId;
     EditText accountId, accountPassword, accountPrettyName;
+
+    static final int MODE_ACCOUNT_CREATION = 134394;
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,7 +41,7 @@ public class AccountInfo extends Activity {
         accountPrettyName = (EditText) findViewById(R.id.accountPrettyName);
 
         lib.setText(getIntent().getStringExtra("libName"));
-        final String libShortName =           getIntent().getStringExtra("libShortName");
+        final String libShortName = getIntent().getStringExtra("libShortName");
         accountPrettyName.setText(libShortName);
         libId = getIntent().getStringExtra("libId");
 

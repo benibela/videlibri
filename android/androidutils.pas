@@ -5,7 +5,7 @@ unit androidutils;
 interface
 
 uses
-  Classes, SysUtils,  IniFiles{$ifdef android}, jni, bbjniutils, libraryParser, LCLProc, booklistreader{$endif};
+  Classes, SysUtils,  IniFiles{$ifdef android}, jni, bbjniutils, libraryParser, LCLProc, booklistreader, librarySearcherAccess{$endif};
 
 //procedure deleteLocalRef(jobj: pointer);
 
@@ -62,11 +62,17 @@ var assets: jobject = nil;
       LibIdS, NameS, PassS, PrettyNameS, ExtendDaysI, ExtendZ, HistoryZ: jfieldID;
     end;
     bookFields: record
-      authorS, titleS, issueDateGC, dueDateGC, dueDatePrettyS, accountL, historyZ: jfieldID;
+      authorS, titleS, issueDateGC, dueDateGC, dueDatePrettyS, accountL, historyZ, moreL: jfieldID;
       setPropertyMethod: jmethodID;
     end;
     gregorianCalenderClass: jclass;
     gregorianCalenderClassInit: jmethodID;
+    searcherClass: jclass;
+    searcherFields: record
+      nativePtrJ, totalResultCountI, nextPageAvailableZ: jfieldID;
+    end;
+    searcherResultInterface: jclass;
+    searcherOnSearchFirstPageComplete, searcherOnSearchNextPageComplete, searcherOnSearchDetailsComplete, searcherOnException: jmethodID;
 
 function assetFileAsString(name: string): string;
 begin
@@ -96,7 +102,7 @@ end;
 
 function getUserConfigPath: string;
 begin
-  result := j.jStringToStringAndDelete(j.callObjMethodChecked(jActivityObject, videLibriMethodUserPath));
+  result := j.jStringToStringAndDelete(j.callObjectMethodChecked(jActivityObject, videLibriMethodUserPath));
 end;
 
 
@@ -147,13 +153,23 @@ begin
     accountL := j.getfield(bookClass, 'account', 'Lde/benibela/videlibri/Bridge$Account;');
     historyZ := j.getfield(bookClass, 'history', 'Z');
     setPropertyMethod := j.getmethod(bookClass, 'setProperty', '(Ljava/lang/String;Ljava/lang/String;)V');
+    moreL := j.getfield(bookClass, 'more', 'Ljava/util/Map;');
   end;
 
 
   gregorianCalenderClass := j.newGlobalRefAndDelete(j.getclass('java/util/GregorianCalendar'));
   gregorianCalenderClassInit := j.getmethod(gregorianCalenderClass, '<init>', '(III)V');
 
-
+  searcherClass := j.newGlobalRefAndDelete(j.getclass('de/benibela/videlibri/Bridge$SearcherAccess'));
+  with searcherFields do begin
+    nativePtrJ := j.getfield(searcherClass, 'nativePtr', 'J');
+    totalResultCountI := j.getfield(searcherClass, 'totalResultCount', 'I');
+    nextPageAvailableZ := j.getfield(searcherClass, 'nextPageAvailable', 'Z');
+  end;
+  searcherOnSearchFirstPageComplete := j.getmethod(searcherClass, 'onSearchFirstPageComplete', '([Lde/benibela/videlibri/Bridge$Book;)V');
+  searcherOnSearchNextPageComplete := j.getmethod(searcherClass, 'onSearchNextPageComplete', '([Lde/benibela/videlibri/Bridge$Book;)V');
+  searcherOnSearchDetailsComplete := j.getmethod(searcherClass, 'onSearchDetailsComplete', '(Lde/benibela/videlibri/Bridge$Book;)V');
+  searcherOnException := j.getmethod(searcherClass, 'onException', '()V');
 
   beginAssetRead;
   initApplicationConfig;
@@ -307,6 +323,13 @@ begin
     j.SetStringField(book, bookFields.dueDatePrettyS, DateToPrettyStr(d));
 end;
 
+function bookToJBook(book: TBook): jobject;
+var temp: TJBookSerializer;
+begin
+  temp.book := j.newObject(bookClass, bookClassInit);
+  book.serialize(@temp.writeProp,@temp.writeDateProp);
+  result := temp.book;
+end;
 
 function Java_de_benibela_VideLibri_Bridge_VLGetBooks(env:PJNIEnv; this:jobject; jacc: jobject; jhistory: jboolean): jobject; cdecl;
 var
@@ -314,7 +337,7 @@ var
   history: Boolean;
   books: TBookList;
   i: Integer;
-  temp: TJBookSerializer;
+  book: jobject;
 begin
   if logging then bbdebugtools.log('Java_de_benibela_VideLibri_Bridge_VLGetBooks started');
 
@@ -334,12 +357,11 @@ begin
 
       result := j.newObjectArray(books.Count, bookClass, nil);
       for i := 0 to books.Count - 1 do begin
-        temp.book := j.newObject(bookClass, bookClassInit);
-        books[i].serialize(@temp.writeProp,@temp.writeDateProp);
-        j.SetObjectField(temp.book, bookFields.accountL, jacc);
-        j.SetBooleanField(temp.book, bookFields.historyZ, history);
-        j.SetObjectArrayElement(result, i, temp.book);
-        j.deleteLocalRef(temp.book);
+        book := bookToJBook(books[i]);
+        j.SetBooleanField(book, bookFields.historyZ, history);
+        j.SetObjectField(book, bookFields.accountL, jacc);
+        j.SetObjectArrayElement(result, i, book);
+        j.deleteLocalRef(book);
       end;
     finally
       system.LeaveCriticalsection(updateThreadConfig.libraryAccessSection)
@@ -361,7 +383,6 @@ begin
   bbdebugtools.log('VLUpdateAccounts');
   acc := getRealAccount(jacc);
   if acc = nil then begin bbdebugtools.log('x'); exit;end;
-  bbdebugtools.log('a');
 
   autoupdate := jautoupdate.z <> JNI_FALSE;
   forceExtend := jforceExtend.z <> JNI_FALSE;
@@ -434,7 +455,188 @@ begin
   if logging then bbdebugtools.log('Bridge_VLGetPendingExceptions ended');
 end;
 
-const nativeMethods: array[1..8] of JNINativeMethod=
+
+type
+
+{ TLibrarySearcherAccessWrapper }
+
+ TLibrarySearcherAccessWrapper = class(TLibrarySearcherAccess)
+  jsearcher: jobject;
+  tempBooks: TBookList;
+  procedure OnSearchPageCompleteImpl(sender: TObject; firstPage, nextPageAvailable: boolean);
+  procedure OnDetailsCompleteImpl(sender: TObject; book: TBook);
+  procedure OnExceptionImpl(Sender: TObject);
+  constructor create;
+  destructor destroy; override;
+end;
+
+
+procedure TLibrarySearcherAccessWrapper.OnSearchPageCompleteImpl(sender: TObject; firstPage, nextPageAvailable: boolean);
+var
+  books: jobject;
+  i: Integer;
+  temp: jobject;
+begin
+  j.SetIntField(jsearcher, searcherFields.totalResultCountI, searcher.SearchResultCount);
+  j.SetBooleanField(jsearcher, searcherFields.nextPageAvailableZ, nextPageAvailable);
+  books := j.newObjectArray(searcher.SearchResult.Count, bookClass, nil);
+  for i := 0 to searcher.SearchResult.Count-1 do begin
+    temp := bookToJBook(searcher.SearchResult[i]);
+    j.SetObjectArrayElement(books, i, temp);
+    j.deleteLocalRef(temp);
+  end;
+  if firstPage then j.callVoidMethod(jsearcher, searcherOnSearchFirstPageComplete, @books)
+  else j.callVoidMethod(jsearcher, searcherOnSearchNextPageComplete, @books);
+  j.deleteLocalRef(books);
+end;
+
+procedure TLibrarySearcherAccessWrapper.OnDetailsCompleteImpl(sender: TObject; book: TBook);
+var
+  jbook: jobject;
+begin
+  jbook := bookToJBook(book);
+  j.callVoidMethod(jsearcher, searcherOnSearchDetailsComplete, @jbook);
+  j.deleteLocalRef(jbook);
+end;
+
+procedure TLibrarySearcherAccessWrapper.OnExceptionImpl(Sender: TObject);
+begin
+  j.callVoidMethod(jsearcher, searcherOnException);
+end;
+
+constructor TLibrarySearcherAccessWrapper.create;
+begin
+  tempBooks:=TBookList.Create;
+end;
+
+destructor TLibrarySearcherAccessWrapper.destroy;
+begin
+  tempBooks.free;
+  j.deleteGlobalRef(jsearcher);
+  inherited destroy;
+end;
+
+
+function unwrapSearcher(const searcher: jobject): TLibrarySearcherAccessWrapper;
+begin
+  result := TLibrarySearcherAccessWrapper(PtrInt(j.getLongField(searcher, searcherFields.nativePtrJ)));
+end;
+
+function wrapSearcherPtr(const searcher: TLibrarySearcherAccess): int64;
+begin
+  result:=PtrInt(searcher);
+end;
+
+procedure Java_de_benibela_VideLibri_Bridge_VLSearchStart(env:PJNIEnv; this:jobject; searcher: jobject; query: jobject); cdecl;
+var
+  searcherAccess: TLibrarySearcherAccessWrapper;
+  tempAccount: jobject;
+  lib: TLibrary;
+  more: jobject;
+  libId: String;
+begin
+  with bookFields do begin
+    tempAccount := j.getObjectField(query, accountL);
+    libId := j.getStringField(tempAccount, accountFields.LibIdS);
+    j.deleteLocalRef(tempAccount);
+
+    lib := libraryManager.get(libId);
+    if lib = nil then begin
+      j.SetLongField(query, searcherFields.nativePtrJ, wrapSearcherPtr(nil));
+      exit;
+    end;
+
+    searcherAccess := TLibrarySearcherAccessWrapper.create();
+
+    searcherAccess.OnSearchPageComplete:=@searcherAccess.OnSearchPageCompleteImpl;
+    searcherAccess.OnDetailsComplete:=@searcherAccess.OnDetailsCompleteImpl;
+    searcherAccess.OnException:=@searcherAccess.OnExceptionImpl;
+
+    searcherAccess.newSearch( lib.template );
+  //searcherAccess.searcher.clear;
+    searcherAccess.searcher.addLibrary(lib);
+
+    searcherAccess.searcher.SearchOptions.author:=j.getStringField(query, authorS);
+    searcherAccess.searcher.SearchOptions.title:=j.getStringField(query, titleS);
+    more := j.getObjectField(query, moreL);
+    searcherAccess.searcher.SearchOptions.year:=j.jStringToStringAndDelete(j.getMapProperty(more, j.stringToJString('year')));
+    searcherAccess.searcher.SearchOptions.isbn:=j.jStringToStringAndDelete(j.getMapProperty(more, j.stringToJString('isbn')));
+    searcherAccess.searcher.SearchOptions.setProperty('keywords', j.jStringToStringAndDelete(j.getMapProperty(more, j.stringToJString('keywords'))));
+
+    //searcherAccess.searcher.setLocation(searchLocation.Text); that's for digibib
+    searcherAccess.connectAsync;
+    searcherAccess.searchAsync;
+
+    j.SetLongField(searcher, searcherFields.nativePtrJ, wrapSearcherPtr(searcherAccess));
+    searcherAccess.jsearcher:=j.newGlobalRefAndDelete(searcher);
+  end;
+end;
+
+procedure Java_de_benibela_VideLibri_Bridge_VLSearchNextPage(env:PJNIEnv; this:jobject; searcher: jobject); cdecl;
+var
+  sa: TLibrarySearcherAccess;
+begin
+  sa := unwrapSearcher(searcher);
+  sa.searchNextAsync;
+end;
+
+procedure Java_de_benibela_VideLibri_Bridge_VLSearchDetails(env:PJNIEnv; this:jobject; searcher: jobject; jbook: jobject); cdecl;
+var
+  sa: TLibrarySearcherAccessWrapper;
+  book: TBook;
+  more: jobject;
+  entrySet: jobject;
+  iterator: jobject;
+  hasNext: jmethodID;
+  next: jmethodID;
+  getKey: jmethodID;
+  getValue: jmethodID;
+  entry: jobject;
+begin
+  sa := unwrapSearcher(searcher);
+  book := TBook.create;
+  with bookFields do begin
+    book.author := j.getStringField(jbook, authorS);
+    book.title := j.getStringField(jbook, titleS);
+    more := j.getObjectField(jbook, moreL);
+
+
+    entrySet := j.callObjectMethodChecked(more, j.getmethod('java/util/Map', 'entrySet', '()Ljava/util/Set;'));
+    iterator := j.callObjectMethodChecked(entrySet, j.getmethod('java/util/Set', 'iterator', '()Ljava/util/Iterator;'));
+
+    hasNext := j.getmethod('java/util/Iterator', 'hasNext', '()Z');
+    next := j.getmethod('java/util/Iterator', 'next', '()Ljava/lang/Object;');
+    getKey := j.getmethod('java/util/Map$Entry', 'getKey', '()Ljava/lang/Object;');
+    getValue := j.getmethod('java/util/Map$Entry', 'getValue', '()Ljava/lang/Object;');
+
+    while j.callBooleanMethodChecked(iterator, hasNext) do begin
+      entry := j.callObjectMethodChecked(iterator, next);
+      book.setProperty(j.jStringToStringAndDelete(j.callObjectMethodChecked(entry, getKey)),
+                       j.jStringToStringAndDelete(j.callObjectMethodChecked(entry, getValue)));
+      j.deleteLocalRef(entry);
+    end;
+  end;
+  sa.tempBooks.add(book);
+  sa.detailsAsyncSave(book);
+end;
+
+
+
+procedure Java_de_benibela_VideLibri_Bridge_VLSearchEnd(env:PJNIEnv; this:jobject; searcher: jobject); cdecl;
+var
+  sa: TLibrarySearcherAccessWrapper;
+begin
+  sa := unwrapSearcher(searcher);
+  sa.free;
+  j.SetLongField(searcher, searcherFields.nativePtrJ, 0);
+end;
+
+
+
+
+
+
+const nativeMethods: array[1..12] of JNINativeMethod=
   ((name:'VLInit';          signature:'(Lde/benibela/videlibri/VideLibri;)V';                   fnPtr:@Java_de_benibela_VideLibri_Bridge_VLInit)
    ,(name:'VLFinalize';      signature:'()V';                   fnPtr:@Java_de_benibela_VideLibri_Bridge_VLFInit)
    ,(name:'VLGetLibraries'; signature:'()[Ljava/lang/String;'; fnPtr:@Java_de_benibela_VideLibri_Bridge_VLGetLibraries)
@@ -443,6 +645,11 @@ const nativeMethods: array[1..8] of JNINativeMethod=
    ,(name:'VLGetBooks'; signature:'(Lde/benibela/videlibri/Bridge$Account;Z)[Lde/benibela/videlibri/Bridge$Book;'; fnPtr:@Java_de_benibela_VideLibri_Bridge_VLGetBooks)
    ,(name:'VLUpdateAccount'; signature:'(Lde/benibela/videlibri/Bridge$Account;ZZ)V'; fnPtr:@Java_de_benibela_VideLibri_Bridge_VLUpdateAccounts)
    ,(name:'VLTakePendingExceptions'; signature: '()[Lde/benibela/videlibri/Bridge$PendingException;'; fnPtr: @Java_de_benibela_VideLibri_Bridge_VLGetPendingExceptions)
+   ,(name:'VLSearchStart'; signature: '(Lde/benibela/videlibri/Bridge$SearcherAccess;Lde/benibela/videlibri/Bridge$Book;)V'; fnPtr: @Java_de_benibela_VideLibri_Bridge_VLSearchStart)
+   ,(name:'VLSearchNextPage'; signature: '(Lde/benibela/videlibri/Bridge$SearcherAccess;)V'; fnPtr: @Java_de_benibela_VideLibri_Bridge_VLSearchNextPage)
+   ,(name:'VLSearchDetails'; signature: '(Lde/benibela/videlibri/Bridge$SearcherAccess;Lde/benibela/videlibri/Bridge$Book;)V'; fnPtr: @Java_de_benibela_VideLibri_Bridge_VLSearchDetails)
+   ,(name:'VLSearchEnd'; signature: '(Lde/benibela/videlibri/Bridge$SearcherAccess;)V'; fnPtr: @Java_de_benibela_VideLibri_Bridge_VLSearchEnd)
+
   );
 
 
@@ -476,6 +683,7 @@ begin
   result := TIniFile.Create(stream);
   stream.free;
 end;
+
 
 
 
