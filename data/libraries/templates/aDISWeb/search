@@ -26,23 +26,26 @@
         <DIV>
           <DIV class="rTable_div">
             <TABLE class="rTable_table"> 
+             {firstIndex := tbody/tr[1]/td[1] * 1}
               <thead/>
               <TR>
-                <TD/><TD/><TD/> <!-id, checkbox, kind--> 
+                <TD>{lastIndex := . * 1}</TD>
+                <TD/><TD/> <!-id, checkbox, kind--> 
                 <TD>
                   <A>{
-                    (:tempDetails := form(//form, {"selected": concat("ZTEXT       ", filter(@href, "\('(.*)'\)", 1))}),:)
-                    book := {
-                      "title": filter(., "^[^/]+"), 
-                      "author": filter(., "^[^/]+/([^-]+)", 1), 
-                      "publisher": filter(., "-([^-]+)$", 1),
-                      "_searchId": encode-for-uri(concat("ZTEXT       ", filter(@href, "\('(.*)'\)", 1))),
-                      "_page": $currentPage
-                    }
+                    if ($lastIndex > $lastSearchedIndex) then (
+                       book := {
+                         "title": filter(., "^[^/]+"), 
+                         "author": filter(., "^[^/]+/([^-]+)", 1), 
+                         "publisher": filter(., "-([^-]+)$", 1),
+                         "_searchId": encode-for-uri(concat("ZTEXT       ", filter(@href, "\('(.*)'\)", 1))),
+                         "_index": $lastIndex*1
+                       }
+                    ) else ()
                   }</A>
                 </TD>
                 <TD/> <!--available-->
-                <TD>{book.year := .}</TD>
+                <TD>{if ($lastIndex > $lastSearchedIndex) then (book.year := .,  lastSearchedIndex := $lastIndex) else ()}</TD>
               </TR>*
             </TABLE>
           </DIV>

@@ -116,18 +116,17 @@
 
 
 
-<action id="gotopage">
-  <loop test="$currentPage < $targetPage">
-    <page url="{$form}" templateFile="searchBasicForm"/>
-    <variable name="currentPage">$currentPage + 1</variable>
-  </loop>
-  
-  <loop test="$currentPage > $targetPage">
+<action id="gotoindex">
+  <loop test="$firstIndex > $targetIndex">
     <page url="{$form.url}" templateFile="searchBasicForm">
       <post value="{$form.post}&%24Toolbar_4.x=0&%24Toolbar_4.y=0"/>
     </page>
-    <variable name="currentPage">$currentPage - 1</variable>
   </loop>
+
+  <loop test="$lastIndex < $targetIndex">
+    <page url="{$form}" templateFile="search"/>
+  </loop>
+  
 </action>
 
 <action id="search">
@@ -153,24 +152,18 @@
     }</form></template>
   </page>
 
-  <variable name="currentPage">1</variable>
-  <variable name="nextPageToSearch">2</variable>
+  <variable>lastSearchedIndex := 0</variable>
 
   <page url="{$startSearch}" templateFile="search"/>
 </action>
 
 <action id="search-next-page">
-  <variable name="targetPage">$nextPageToSearch - 1</variable> <call action="gotopage"/>
-  
-  <variable name="currentPage">$currentPage + 1</variable>
-  <variable name="nextPageToSearch">$nextPageToSearch + 1</variable>
-
-  <page url="{$form}" templateFile="search"/>  
+  <variable name="targetIndex">$lastSearchedIndex + 1</variable> <call action="gotoindex"/>
 </action>
 
 
 <action id="search-details">
-  <variable name="targetPage">$book._page * 1</variable> <call action="gotopage"/>
+  <variable name="targetIndex">$book._index * 1</variable> <call action="gotoindex"/>
 
   <page url="{$form.url}">
     <post>{replace($form.post, "selected=", concat("selected=", $book._searchId))}</post>
@@ -180,7 +173,7 @@
     
     <a title="Trefferliste">{goback:=@href}</a>
     
-    <DIV id="main">{form:=form(//form)}
+    <DIV id="main"><!--{form:=form(//form)}-->
       <DIV class="inside">
         <DIV class="block">
           <DIV class="fsgrp">
@@ -235,10 +228,7 @@
     </template>
   </page>
   
-<!--  <page url="{$goback}" templateFile="searchBasicForm"/>-->
-  <page url="{$form.url}" templateFile="searchBasicForm">
-    <post value="{$form.post}&%24Toolbar_0.x=0&%24Toolbar_0.y=0"/>
-  </page>
+  <page url="{$goback}" templateFile="searchBasicForm"/>
   
 </action>
 

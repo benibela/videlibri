@@ -1,4 +1,21 @@
-<div class="toolbar_div"><ul class="toolbar_ul"><li class="toolbar_li">
-  <span class="toolbar_txt">Vorwärts</span>
-  {form := form(//form)}
-</li></ul></div>
+
+<DIV id="main">
+  <DIV class="inside">
+    <DIV class="block">
+    
+    <div class="toolbar_div"><ul class="toolbar_ul"><li class="toolbar_li">
+      <span class="toolbar_txt">Vorwärts</span>
+      {form := form(//form)}
+    </li></ul></div>
+    
+    
+      <DIV class="fsgrp">
+        <DIV class="rTable_div">
+          <TABLE class="rTable_table"> 
+            {firstIndex := tbody/tr[1]/td[1] * 1, lastIndex := tbody/tr[last()]/td[1] * 1}
+          </TABLE>
+        </DIV>
+      </DIV>
+    </DIV>
+  </DIV>
+</DIV>   
