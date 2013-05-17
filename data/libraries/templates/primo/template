@@ -5,8 +5,8 @@
 </action>
 
 <action id="update-all">
-  <variable name="loginServer" value="vs30.kobv.de"/>
-  <variable name="server" value="vs30.kobv.de"/>
+  <variable name="loginServer" value="kobv1.tubit.tu-berlin.de"/>
+  <variable name="server" value="kobv1.tubit.tu-berlin.de"/>
   <variable name="primoView" value="FUB_MOBILE"/>
   
 
