@@ -35,7 +35,9 @@ Funktioniert das sollten alle <strong>externen Fehlerquellen ausgeschlossen sein
 Nutzt dies alles nichts, gibt es wahrscheinlich einen Programmierfehler, den Sie über das Menü "Hilfe\Fehler melden" bekannt geben können, und der dann (hoffentlich schnell) von mir gelöst wird.
 
 <H3><a name="firewall">Welche Firewalleinstellungen benötigt Videlibri?</a></H3>
-Das Programm greift auf folgende Server zu, die in der Firewall freigegeben sein müssen:
+VideLibri greift auf die Server der Büchereien unter den Porten 80, und 443 zu, welche dementsprechend freigegeben sein müssen.<br>
+Desweiteren ruft es videlibri.sourceforge.net auf, um mögliche Updates zu finden.
+<!--Das Programm greift auf folgende Server zu, die in der Firewall freigegeben sein müssen:
 <table>
 <tr>
 <td><b>Server</b></td>
@@ -74,7 +76,7 @@ Das Programm greift auf folgende Server zu, die in der Firewall freigegeben sein
 </tr>
 </table>
 Ein zweites Programm "simpleBrowser.exe" dient als integrierter Browser und greift auf die ersten drei Server dieser Liste zu.<br>
-
+-->
 
 <H3><a name="extend">Wann werden die Medien verlängert?</a></H3>
 Das lässt für jedes Konto einzeln einstellen. Zur Auswahl stehen dabei folgende Möglichkeiten:
@@ -141,12 +143,12 @@ Dann kann man Videlibri für diese Bücherei nicht mehr benutzen und muss auf ein 
 <H3><a name="send-back">Wie funktioniert das Melden eines Fehlers?</a></H3>
 Das Programm überträgt die eingebenen Fehlerbeschreibung und (sofern vorhanden) Kontaktinformationen zusammen mit dem Namen des Programms und der Versionsnummer an www.benibela.de, wo diese Informationen per Mail an mich weitergeleitet werden.<br>
 Wer dem Verfahren nicht traut, kann mir auch ruhig eine Mail, an <a href="benito@benibela.de">benito@benibela.de</a> schicken.
-
+<!--
 <H3><a name="daten">Wie sind die Mediendatendateien aufgebaut?</a></H3>
 Für jedes Medium gibt es eine Zeile, in der die einzelnen Eigenschaften durch #0-Zeichen von einander getrennt  sind. <br>
 Die Reihenfolge der Felder ist: ID, Kategorie, Autor, Titel, Status als Text, Sonstiges, Ausleihdatum, Fristdatum, Status als Zahl, Erscheinungsjahr. <br>
 Die Daten sind als Zahl der Tage seit dem 31.12.1899 gespeichert, beim Status gibt die Zahl die Nummer eines der folgenden Stati an (startend mit 0):  Normal, Unbekannt, wird ermittelt, vorgemerkt, Ausleihfrist erreicht, mehr Information im Text (nicht verlängerbar), mehr Information im Text (verlängerbar), Karte abgelaufen.<br>
-Wegen der #0-Zeichen kann die Datei im normalen Notepad nicht verändert werden, es gibt aber ein erweiterte Editoren (z.B.:<a href="http://notepad-plus.sourceforge.net/">NotePad++</a>) mit denen es problemlos geht.
+Wegen der #0-Zeichen kann die Datei im normalen Notepad nicht verändert werden, es gibt aber ein erweiterte Editoren (z.B.:<a href="http://notepad-plus.sourceforge.net/">NotePad++</a>) mit denen es problemlos geht.-->
 
 <H3><a name="usb">Wie lässt man das Programm von einem USB-Stick laufen?</a></h3>
 Man muss den Programmordner zusammen mit dem Ordner config im Benutzerverzeichnis   auf den USB-Stick kopieren.<br>

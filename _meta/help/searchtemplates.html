@@ -1,0 +1,23 @@
+<html>
+<head>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<h1>4. Suchtemplates</h1>
+Für Katalogsuche werden nur die folgenden Aktionen im Templates verwendet: <code>connect</code>, <code>search</code>, <code>search-next-</code>, <code>search-details</code>
+
+<ul>
+<li><code>connect</code>: Alle Variablen, die in der Bibliotheks xml-Datei definiert wurden.</li>
+<li><code>search</code>: Zusätzlich die Variable <code>book</code>, die die Suchanfrage enthält. <br>
+                         Die folgenden Eigenschaften können gesetzt sein: <code>book.author</code>, <code>book.title</code>, <code>book.keywords</code>, <code>book.isbn</code>, <code>book.year</code>. <br><br>
+                         
+                         Um die Suchergebnisse an VideLibri zu übergeben, wird ebenfalls die Variable <code>book</code> verwendet, jede Zuweisung eines Objekts an <code>book</code> erstellt ein neues Medium in der angezeigten Ergebnisliste. Z.B.: <code>book := {"author": td[1], "title": td[2]}</code>. (genauso wie im <code>update-all</code>-Template)
+                         
+                         Desweiteren sollte die Variable <code>search-result-count</code> auf die Zahl der gefundenen Medien gesetzt werden und, wenn es mehrere Seiten gibt, die Variable <code>search-next-page-available</code> auf <code>true()</code>.
+                         </li>
+<li><code>search-next-page</code>: Diese Aktion wird nur aufgerufen, wenn die vorherige Aktion <code>search-next-page-available</code> entsprechend gesetzt hat, und der Benutzer in der Ergebnisliste entsprechend weit hinab gescrollt hat. <br> 
+  Ansonsten verhält sie sich genau wie die <code>search</code>-Aktion. Insbesondere muss <code>search-next-page-available</code> wieder auf <code>true()</code> gesetzt werden, wenn es noch weitere Seiten gibt.</li>
+<li><code>search-details</code>: Diese Aktion wird aufgerufen, wenn der Benutzer ein Buch auswählt. Die Variable <code>book</code> ist auf das ausgewählte Buch gesetzt und die Eigenschaften können verändert werden, um die Details zu übermitteln. (wie in update-single)<br>Alle Eigenschaften die auf <code>!</code> enden, werden in der Detailliste angezeigt, alle anderen nicht. (dies könnte in Zukunft zu, "alle Eigenschaften, die nicht mit <code>_</code> beginnen werden angezeigt", geändert werden) <br> Es gibt die folgenden weiteren, speziellen Eigenschaften: <code>book.digibib-url</code>, <code>book.home-url</code>, <code>book.amazon</code>, die jeweils Links zu dem Buch in der Digibib, dem Büchereikatalog oder Amazon speichern.</li>
+</ul>
+</html>

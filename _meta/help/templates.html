@@ -31,16 +31,27 @@ Dort erstellt man dann wiederum eine XML-Datei namens template mit dieser Strukt
 
 &lt;/action>
 
-&lt;action id="renew-(all|list|single)">
+&lt;action id="renew-(all|list|single)"> 
 &lt;/action>
+
+...
+
+&lt;action id="search">
+&lt;/action>
+
+&lt;action id="search-next-page">
+&lt;/action>
+
+&lt;action id="search-details">
+&lt;/action>
+
 
 &lt;/actions>
 
-  ...
 </pre>
 
 
-Ein solches <code>actions</code>-Template besteht aus einer Liste von <code><b>&lt;action></b></code> Aktionen, die jeweils beschreiben, welche Seiten aufzurufen sind. VideLibri unterstützt die folgenden Aktionen:
+Ein solches <code>actions</code>-Template besteht aus einer Liste von <code><b>&lt;action></b></code> Aktionen, die jeweils beschreiben, welche Seiten aufzurufen sind.  VideLibri unterstützt die folgenden Aktionen, wobei es nicht nötig ist, alle anzugeben:
 
 <ul>
 <li><code>connect</code> wird einmal ausgeführt, um eine Verbindung zur Bücherei herzustellen. <br>Die Variablen <code>$username</code> und <code>$password</code> enthalten die entsprechenden Benutzerdaten. Außerdem kann man auf alle in der Büchereimetadatendatei von Schritt 1 definierten Variablen zugreifen.</li>
@@ -49,10 +60,17 @@ Ein solches <code>actions</code>-Template besteht aus einer Liste von <code><b>&
 <li><code>renew-all</code> wird ausgeführt, wenn alle Medien verlängert werden sollen.</li>
 <li><code>renew-list</code> wird zum Verlängern von mehreren Medien ausgeführt. <br>Die Variable <code>$renew-books</code> enthält die Liste aller zu verlängernden Bücher. </li>
 <li><code>renew-single</code> wird ausgeführt, um ein einzelnes Buch zu verlängert.<br>Die Variable <code>book</code> enthält das jeweilige Buch.</li>
+<li><code>search</code> wird ausgeführt, um im Katalog zu suchen.<br>Die Variable <code>book</code> enthält die Parameter für eine Suchanfrage</li>
+<li><code>search-next-page</code> wird ausgeführt, um die nächste Seite der Suchergebnisse zu laden.</li>
+<li><code>search-details</code> wird ausgeführt, um die Details zu einem Suchergebnis abzufragen.<br>Die Variable<code>book</code> enthält das abzufragende Suchergebnis.</li>
+
 </ul>
 <p>
-<code>update-single</code> ist nicht nötig, wenn <code>update-all</code> bereits genügend Information über alle Bücher ermitteln kann. (aber viele Büchereien zeigen auf der Gesamtübersicht nicht an, ob ein Buch verlängerbar ist.)<br>
-<code>renew-all</code>, <code>renew-list</code>, <code>renew-single</code> werden nur benötigt, wenn die Bücher tatsächlich verlängert werden sollen. Es ist dabei nicht nötig, alle anzugeben. Wenn es zum Beispiel <code>renew-list</code> nicht gibt, und mehrere Bücher verlängert werden sollen, ruft VideLibri automatisch <code>renew-single</code> für jedes dieser Bücher einzeln auf. Gibt es auch <code>renew-single</code> nicht, wird in diesem Fall <code>renew-all</code> aufgerufen. 
+Für ein einfaches Anzeigen aller ausgeliehenen Bücher, muss man nur <code>update-all</code> definieren. 
+<p>
+<code>update-single</code> ist insbesondere nicht nötig, wenn <code>update-all</code> bereits genügend Information über alle Bücher ermitteln kann. (aber viele Büchereien zeigen auf der Gesamtübersicht nicht an, ob ein Buch verlängerbar ist.)<br>
+<code>renew-all</code>, <code>renew-list</code>, <code>renew-single</code> werden nur benötigt, wenn die Bücher tatsächlich verlängert werden sollen. Es ist dabei nicht nötig, alle anzugeben. Wenn es zum Beispiel <code>renew-list</code> nicht gibt, und mehrere Bücher verlängert werden sollen, ruft VideLibri automatisch <code>renew-single</code> für jedes dieser Bücher einzeln auf. Gibt es auch <code>renew-single</code> nicht, wird in diesem Fall <code>renew-all</code> aufgerufen. <br>
+<code>search</code>, <code>search-next-page</code>, <code>search-details</code> werden nur für die Suche im Katalog benötigt, und für die Anzeige der Ausleihen ignoriert.
 
 
 
@@ -63,7 +81,7 @@ Für jede dieser Seiten kann ein <a href="seiten.html">Seiten-Template</a> angel
 
 <p>Zudem gibt es auch <code><b>&lt;variable></b></code>-Elemente, mit denen im Template neue Variablen definiert werden können: <code>&lt;variable name="foobar" value="123"/></code> definiert eine Variable mit Name <code>$foobar</code> und dem Stringwert <code>123</code>. Alternativ kann eine Variable mit <code>&lt;variable name="foobar">123&lt;/variable></code> definiert werden, wodurch eine Variable mit Name <code>$foobar</code> und dem <i>Integer</i>wert <code>123</code> definiert wird. In diesem Fall kann statt 123 jeder beliebige XPath-Ausdruck angegeben werden (z.B.: um reguläre Ausdrücke auf andere Variablen anzuwenden). Das <code>value</code>-Attribut definiert aber immer einen String.
 
-<p>Auf alle definierten Variablen, kann innerhalb von anderen XPath-Ausdrücken mit <code>$variablename</code> zugegriffen werden. Außerdem wird in string-Attributen (wie url, oder value) jedes Vorkommen von <code>{$variablename}</code> durch den Wert der Variablen ersetzt (Warnung: In älteren VideLibri-Versionen <= 1.301 wurde stattdessen <code>$variablename;</code> verwendet). <br>
+<p>Auf alle definierten Variablen, kann innerhalb von anderen XPath-Ausdrücken mit <code>$variablename</code> zugegriffen werden. Außerdem wird in string-Attributen (wie url, oder value) jedes Vorkommen von <code>{$variablename}</code> durch den Wert der Variablen ersetzt (Warnung: In älteren VideLibri-Versionen &lt;= 1.301 wurde stattdessen <code>$variablename;</code> verwendet). <br>
 VideLibri verwendet eine erweiterte XPath-Syntax, die auch Objektvariablen unterstützt: Wenn z.B.: die Variable <code>$book</code> die Daten zu einem Buch enthält, kann mittels <code>$book.title</code> auf den Buchtitel, und mittels <code>$book.author</code> auf den Autor zugegriffen werden. (siehe die Dokumentation für  <a href="seiten.html">Seiten-Template</a> für eine Übersicht über alle Buch-Eigenschaften)<br>
 Diese Objekterweiterung wird auch in einem Spezialfall von den <code>url</code>-Attributen von <code>&lt;page></code> verwendet: Wenn <code>url="{$variable}"</code> auf eine einzige Variable verweist und diese Variable ein Objekt ist, wird die Eigenschaft <code>$variable.url</code> als URL für den Seitenaufruf verwendet. Desweiteren wird <code>$variable.post</code> für die Postdaten verwendet. Ein entsprechendes Objekt kann zum Beispiel mit der Funktion <code>form(//form[1])</code> in einem XPathausdruck erstellt werden (dies würde die Daten der ersten Form auf einer Seite enthalten). <br>
 Die Variable <code>$renew-books</code> der <code>renew-list</code>-Aktion enthält eine Liste von Buchobjekten, und lässt sich am besten mit XPath-<code>for</code>-Ausdrücken verwenden. Z.B.: Wenn jedes Buchobject eine (benutzerdefinierte) Eigenschaft <code>renewid</code> hat, die auf true gesetzt werden muss, kann eine Variable für das Postrequest mit folgendem XPath-Ausdruck erzeugt werden:

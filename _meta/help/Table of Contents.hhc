@@ -63,6 +63,10 @@
 			<param name="Name" value="3. Seitenauslesen">
 			<param name="Local" value="seiten.html">
 			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="4. Suche im Katalog">
+			<param name="Local" value="searchtemplates.html">
+			</OBJECT>
 	</UL>
 	<LI> <OBJECT type="text/sitemap">
 		<param name="Name" value="Fragen und Antworten">
