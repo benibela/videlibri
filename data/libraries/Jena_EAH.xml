@@ -1,9 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <library>
-  <longName value="Bibliothek der EAH Jena (ungetestet)"/>
+  <longName value="Bibliothek der EAH Jena (alpha)"/>
   <shortName value="EAH Jena"/>
   
   <template value="pica"/>  
   <variable name="server" value="https://kataloge.thulb.uni-jena.de/"/>
   <variable name="picadb" value="2"/>
+
+
+  <homepage value="http://www.fh-jena.de/bib/"/>
+  <testing-search value="in 1.5" date="2013-04-26"/>
+  <testing-account value="?" date=""/>
+  <testing-renew value="?" date=""/>
 </library>

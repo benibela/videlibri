@@ -1,8 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <library>
-  <longName value="Göttinger Universitätskataloge (ungetestet)"/>
+  <longName value="Göttinger Universitätskataloge (alpha)"/>
   <shortName value="Ub Göttingen"/>
   
   <template value="pica"/>
   <variable name="server" value="https://opac.sub.uni-goettingen.de/"/>	
+
+
+  <homepage value="http://www.sub.uni-goettingen.de/sub-aktuell/"/>
+  <testing-search value="in 1.5" date="2013-04-26"/>
+  <testing-account value="?" date=""/>
+  <testing-renew value="?" date=""/>
 </library>

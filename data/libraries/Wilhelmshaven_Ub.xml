@@ -1,9 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <library>
-  <longName value="Bibliothek der Jadehochschule Wilhelmshaven (ungetestet)"/>
+  <longName value="Bibliothek der Jadehochschule Wilhelmshaven (alpha)"/>
   <shortName value="HS Wilhelmshaven"/>
   
   <template value="pica"/>
   <variable name="server" value="http://lhemd.gbv.de/"/>	
   <variable name="picadb" value="4"/>	
+
+
+  <homepage value="http://www.jade-hs.de/?id=1469"/>
+  <testing-search value="in 1.5" date="2013-04-26"/>
+  <testing-account value="?" date=""/>
+  <testing-renew value="?" date=""/>
 </library>

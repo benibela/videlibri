@@ -1,10 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <library>
-  <longName value="Universitätsbibliothek Kiel (ungetestet)"/>
+  <longName value="Universitätsbibliothek Kiel (alpha)"/>
   <shortName value="Ub Kiel"/>
   
   <template value="pica"/>  
   <variable name="server" value="https://lhopc4.ub.uni-kiel.de/"/>
   <variable name="picadb" value="1"/>
   <variable name="searchKeysOverride" value="tnt;per;isb;erj;swo"/>
+
+
+  <homepage value="http://www.ub.uni-kiel.de/"/>
+  <testing-search value="in 1.5" date="2013-04-26"/>
+  <testing-account value="?" date=""/>
+  <testing-renew value="?" date=""/>
 </library>

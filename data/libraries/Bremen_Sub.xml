@@ -1,8 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <library>
-  <longName value="Staats- und Universitätsbibliothek Bremen (ungetestet)"/>
+  <longName value="Staats- und Universitätsbibliothek Bremen (alpha)"/>
   <shortName value="SUB Bremen"/>
   
   <template value="pica"/>
   <variable name="server" value="https://opac.suub.uni-bremen.de/"/>	
+
+  <homepage value="http://www.suub.uni-bremen.de/"/>
+  <testing-search value="in 1.5" date="2013-04-26"/>
+  <testing-account value="?" date=""/>
+  <testing-renew value="?" date=""/>
 </library>

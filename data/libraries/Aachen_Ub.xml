@@ -7,11 +7,16 @@
 
   <longName value="Hochschulbibliothek der RWTH Aachen"/>
   <shortName value="BTH Aachen"/>
-  <homepage value="http://sisis.bth.rwth-aachen.de:8080/InfoGuideClient/start.do"/>
+  <catalogue value="http://sisis.bth.rwth-aachen.de:8080/InfoGuideClient/start.do"/>
   <template value="sisis"/>
   
   <variable name="server" value="sisis.bth.rwth-aachen.de:8080/InfoGuideClient/"/>
   
   <variable name="location" value="Aachen"/>
   <variable name="searchid-digibib" value="SERVICEGROUP1.SERVICE.SEARCH_BTHA"/>
+
+  <homepage value="http://www.bth.rwth-aachen.de/"/>
+  <testing-search value="ja (digibib) (direkt in 1.5)" date="2011-05-16"/>
+  <testing-account value="ja" date="2012-07-08"/>
+  <testing-renew value="ja" date="2011-05-16"/>
 </library>

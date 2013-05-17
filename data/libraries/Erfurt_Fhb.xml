@@ -1,9 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <library>
-  <longName value="Fachhochschulbibliothek Erfurt (ungetestet)"/>
+  <longName value="Fachhochschulbibliothek Erfurt (alpha)"/>
   <shortName value="Fhb Erfurt"/>
   
   <template value="pica"/>
   <variable name="server" value="https://opac.uni-erfurt.de/"/>	
   <variable name="picadb" value="4"/>	
+
+
+  <homepage value="http://www.fh-erfurt.de/bibo/"/>
+  <testing-search value="in 1.5" date="2013-04-26"/>
+  <testing-account value="?" date=""/>
+  <testing-renew value="?" date=""/>
 </library>

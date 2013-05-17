@@ -1,8 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <library>
-  <longName value="Universitätsbibliothek Osnabrück (ungetestet)"/>
+  <longName value="Universitätsbibliothek Osnabrück (alpha)"/>
   <shortName value="Ub Osnabrück"/>
   
   <template value="pica"/>  
   <variable name="server" value="http://osopc4.ub.uni-osnabrueck.de:8080/"/>
+
+
+
+  <homepage value="http://www.bib.hs-osnabrueck.de/"/>
+  <testing-search value="in 1.5" date="2013-04-26"/>
+  <testing-account value="?" date=""/>
+  <testing-renew value="?" date=""/>
 </library>

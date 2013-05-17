@@ -8,11 +8,16 @@
 
   <longName value="Universitätsbibliothek Hildesheim"/>
   <shortName value="UB Hildesheim"/>
-  <homepage value="http://katalog.uni-hildesheim.de/DB=1/LNG=DU/"/>
+  <catalogue value="http://katalog.uni-hildesheim.de/DB=1/LNG=DU/"/>
   <!--<template value="paia"/>
   <variable name="server" value="paia.gbv.de/isil/DE-Hil2"/>-->
   
   <template value="pica"/>
   <variable name="server" value="https://opac.lbs-hildesheim.gbv.de/"/>
 	
+
+  <homepage value="http://www.uni-hildesheim.de/index.php?id=bibliothek"/>
+  <testing-search value="in 1.5" date="2013-04-26"/>
+  <testing-account value="ja" date="2013-04-26"/>
+  <testing-renew value="ja" date="2013-04-01"/>
 </library>

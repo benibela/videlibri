@@ -1,9 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <library>
-  <longName value="Fachhochschulbibliothek Nordhausen (ungetestet)"/>
+  <longName value="Fachhochschulbibliothek Nordhausen (alpha)"/>
   <shortName value="Fhb Nordhausen"/>
   
   <template value="pica"/>
   <variable name="server" value="http://opac.uni-erfurt.de/"/>	
   <variable name="picadb" value="5"/>	
+
+
+  <homepage value="http://www.fh-nordhausen.de/bibliothek.html"/>
+  <testing-search value="in 1.5" date="2013-04-26"/>
+  <testing-account value="?" date=""/>
+  <testing-renew value="?" date=""/>
 </library>

@@ -1,8 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <library>
-  <longName value="Universitätsbibliothek Braunschweig (ungetestet)"/>
+  <longName value="Universitätsbibliothek Braunschweig (alpha)"/>
   <shortName value="UB Braunschweig"/>
   
   <template value="pica"/>
   <variable name="server" value="http://opac.lbs-braunschweig.gbv.de/"/>	
+
+
+  <homepage value="http://www.biblio.tu-bs.de/"/>
+  <testing-search value="in 1.5" date="2013-04-26"/>
+  <testing-account value="?" date=""/>
+  <testing-renew value="?" date=""/>
 </library>

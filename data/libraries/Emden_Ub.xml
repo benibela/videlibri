@@ -1,9 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <library>
-  <longName value="Hochschulbibliothek Emden/Leer (ungetestet)"/>
+  <longName value="Hochschulbibliothek Emden/Leer (alpha)"/>
   <shortName value="HS Emden/Leer"/>
   
   <template value="pica"/>
   <variable name="server" value="http://lhemd.gbv.de/"/>	
   <variable name="picadb" value="2"/>	
+
+
+  <homepage value="http://www.hs-emden-leer.de/einrichtungen/bibliothek.html"/>
+  <testing-search value="in 1.5" date="2013-04-26"/>
+  <testing-account value="?" date=""/>
+  <testing-renew value="?" date=""/>
 </library>

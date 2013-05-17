@@ -91,6 +91,40 @@ downloadTable)
   webUpload $VIDELIBRIBASE/_meta/sfsite/downloadTable.html /
 
 ;;
+
+  supportTable)
+     TABLE=_meta/sfsite/supportTable.html 
+     echo  '
+      <table class="bibsupport">
+      <thead>
+       <tr><th>Name der Bücherei</th><th>Suche funktioniert<br><i>(zuletzt getestet)</i></th><th>Ausleihenanzeige funktioniert<br><i>(zuletzt getestet)</i></th><th>Verlängerung funktioniert<br><i>(zuletzt getestet)</i></th><th>Büchereisystem</th></tr>
+      </thead>' > $TABLE
+
+    xidel \
+      --extract-exclude "city,newcity" \
+      --printed-node-format html \
+      --xquery 'declare function state($element){
+        if (exists($element/@date) and $element/@date != "") then (
+          <td>{string($element/@value)} <i>({string($element/@date)})</i></td>
+        ) else (
+          <td>{string($element/@value)}</td>
+        )
+      }' \
+      --xquery 'declare function row($element, $homepage){
+        $element / <tr><td><a href="{$homepage/@value}" rel="nofollow">{filter(($homepage/@name, .//longName/@value)[1], "[^(]+")}</a></td>
+        {state(.//testing-search), state(.//testing-account), state(.//testing-renew)}
+        <td>{string(.//template/@value)}</td></tr> 
+      }' \
+      -e 'city:=("nimbo")' \
+      data/libraries/*.xml  \
+      -e 'newcity := filter($url, "/([^/]*)_", 1)' \
+      --xquery 'if ($newcity  != $city and not(//homepage/@nolist = "true")) then <tr class="city"><td colspan="6"><b>{$newcity}</b></td></tr> else ()'   \
+      --xquery 'if (//homepage/@nolist = "true") then () else city := $newcity' \
+      --xquery 'if (//homepage/@nolist = "true") then () else //homepage/row(/,.)' \
+       >> $TABLE;
+      echo '</table>' >> $TABLE
+      webUpload $VIDELIBRIBASE/$TABLE /
+    ;;
   
 	changelog)
 		sed -e 's/<stable  *value="[0-9]*"/<stable value="'$INTVERSION'"/'  -i $VIDELIBRIBASE/_meta/version/version.xml;

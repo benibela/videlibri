@@ -6,7 +6,7 @@
   
   <longName value="Stadtbibliothek Aachen"/>
   <shortName value="StB Aachen"/>
-  <homepage value="http://webopac.stadtbibliothek-aachen.de/"/>
+  <catalogue value="http://webopac.stadtbibliothek-aachen.de/"/>
   <template value="libero54"/>
   <maxRenewCount value="0"/>  
   
@@ -15,4 +15,10 @@
   <variable name="globalExtraStatusRemark" value=" (Verlängerung kostenpflichtig, daher nicht von Videlibri aus möglich)"/>
   <variable name="Location" value="Aachen"/>
   <variable name="searchid-digibib" value="SERVICEGROUP1.SERVICE.SEARCH_SBAA"/>
+
+
+  <homepage value="http://www.aachen.de/DE/stadt_buerger/bildung/oeffentliche_bibliothek/stadtteile/index.html"/>
+  <testing-search value="ja (digibib)" date="2011-05-16"/>
+  <testing-account value="ja" date="2011-05-16"/>
+  <testing-renew value="nicht erlaubt" date=""/>
 </library>

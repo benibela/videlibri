@@ -1,8 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <library>
-  <longName value="Universitätsbibliothek Lüneburg (ungetestet)"/>
+  <longName value="Universitätsbibliothek Lüneburg (alpha)"/>
   <shortName value="Ub Lüneburg"/>
   
   <template value="pica"/>  
   <variable name="server" value="http://lhlue.gbv.de"/>
+
+
+  <homepage value="http://www.leuphana.de/bibliothek.html"/>
+  <testing-search value="in 1.5" date="2013-04-26"/>
+  <testing-account value="?" date=""/>
+  <testing-renew value="?" date=""/>
 </library>

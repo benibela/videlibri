@@ -1006,13 +1006,13 @@ begin
     extraParams:='';
   end else begin
     lib:=libraryManager.getLibraryFromEnumeration(TMenuItem(sender).Parent.Caption, tcontrol(sender).Tag);
-    baseURL:=lib.homepage;
+    baseURL:=lib.homepageCatalogue;
     id:=lib.id;
     title:=TMenuItem(sender).Caption;
     extraParams:='';
     //if not lib.allowHomepageNavigation then extraParams:=extraParams+' /no-navigation';
-    if lib.bestHomepageWidth>0 then extraParams:=extraParams+' /pagewidth='+InttoStr(lib.bestHomepageWidth);
-    if lib.bestHomepageHeight>0 then extraParams:=extraParams+' /pageheight='+InttoStr(lib.bestHomepageHeight);
+    //if lib.bestHomepageWidth>0 then extraParams:=extraParams+' /pagewidth='+InttoStr(lib.bestHomepageWidth);
+    //if lib.bestHomepageHeight>0 then extraParams:=extraParams+' /pageheight='+InttoStr(lib.bestHomepageHeight);
   end;
 //  ShowMessage(TMenuItem(sender).Caption);
   openInternetPage(baseURL,'/title="'+title+'" /configfile="'+userPath+'browserconfig.ini" /windowsection='+id+' '+extraParams);

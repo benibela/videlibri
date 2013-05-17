@@ -6,10 +6,16 @@
   
   <longName value="Münchener Stadtbibliothek"/>
   <shortName value="StB München"/>
-  <homepage value="https://ssl.muenchen.de/aDISWeb/app"/>
+  <catalogue value="https://ssl.muenchen.de/aDISWeb/app"/>
   <template value="aDISWeb"/>
 
   <maxRenewCount value="1"/>  
   
   <variable name="server" value="ssl.muenchen.de"/>
+
+
+  <homepage value="https://ssl.muenchen.de/aDISWeb"/>
+  <testing-search value="nein" date=""/>
+  <testing-account value="ja" date="2012-10-03"/>
+  <testing-renew value="ja" date="2012-10-01"/>
 </library>

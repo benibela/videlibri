@@ -1,9 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <library>
-  <longName value="Bibliothek der Jadehochschule Elsfleth (ungetestet)"/>
+  <longName value="Bibliothek der Jadehochschule Elsfleth (alpha)"/>
   <shortName value="HS Elsfleth"/>
   
   <template value="pica"/>
   <variable name="server" value="http://lhemd.gbv.de/"/>	
   <variable name="picadb" value="5"/>	
+
+
+  <homepage value="http://www.jade-hs.de/?id=1465"/>
+  <testing-search value="in 1.5" date="2013-04-26"/>
+  <testing-account value="?" date=""/>
+  <testing-renew value="?" date=""/>
 </library>

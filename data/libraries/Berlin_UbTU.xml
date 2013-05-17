@@ -7,7 +7,7 @@
 
   <longName value="Universitätsbibliothek der TU-Berlin"/>
   <shortName value="UBTU Berlin"/>
-  <homepage value="http://opac.tu-berlin.de"/>
+  <catalogue value="http://opac.tu-berlin.de"/>
   <template value="aleph_ubTUb"/>
   
   <variable name="server" value="ublibsprod.ub.tu-berlin.de/"/>
@@ -15,4 +15,9 @@
   
   <!--<variable name="Location" value="Düsseldorf"/>
   <variable name="searchid-digibib" value="SERVICEGROUP1.SERVICE.SEARCH_ULBD"/>-->
+
+  <homepage value="http://www.ub.fu-berlin.de/"/>
+  <testing-search value="nein" date=""/>
+  <testing-account value="ja" date="2012-12-23"/>
+  <testing-renew value="?" date=""/>
 </library>

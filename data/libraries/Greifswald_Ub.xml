@@ -1,9 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <library>
-  <longName value="Universitätsbibliothek Greifswald (ungetestet)"/>
+  <longName value="Universitätsbibliothek Greifswald (alpha)"/>
   <shortName value="Ub Greifswald"/>
   
   <template value="pica"/>
   <variable name="server" value="https://opac.ub.uni-greifswald.de/"/>
   <variable name="picadb" value="1"/>
+
+
+  <homepage value="http://www.ub.uni-greifswald.de"/>
+  <testing-search value="in 1.5" date="2013-04-26"/>
+  <testing-account value="?" date=""/>
+  <testing-renew value="?" date=""/>
 </library>

@@ -1,8 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <library>
-  <longName value="Universitätsbibliothek Clausthal (ungetestet)"/>
+  <longName value="Universitätsbibliothek Clausthal (alpha)"/>
   <shortName value="Ub Clausthal"/>
   
   <template value="pica"/>
   <variable name="server" value="http://lhclz.gbv.de/"/>	
+
+  <homepage value="http://www.bibliothek.tu-clausthal.de/"/>
+  <testing-search value="in 1.5" date="2013-04-26"/>
+  <testing-account value="?" date=""/>
+  <testing-renew value="?" date=""/>
 </library>

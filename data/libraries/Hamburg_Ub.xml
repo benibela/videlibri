@@ -7,11 +7,17 @@
 
   <longName value="Campus-Katalog Hamburg"/>
   <shortName value="SUB Hamburg"/>
-  <homepage value="https://kataloge.uni-hamburg.de/"/>
+  <catalogue value="https://kataloge.uni-hamburg.de/"/>
   <template value="pica"/>
   
   <variable name="server" value="https://kataloge.uni-hamburg.de:443/"/>
   
   <!--<variable name="Location" value="Düsseldorf"/>
   <variable name="searchid-digibib" value="SERVICEGROUP1.SERVICE.SEARCH_ULBD"/>-->
+
+
+  <homepage value="http://www.hsu-bibliothek.de/"/>
+  <testing-search value="in 1.5" date="2013-04-26"/>
+  <testing-account value="?" date=""/>
+  <testing-renew value="?" date=""/>
 </library>

@@ -1,8 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <library>
-  <longName value="Universitätsbibliothek Weimar (ungetestet)"/>
+  <longName value="Universitätsbibliothek Weimar (alpha)"/>
   <shortName value="Ub Weimar"/>
   
   <template value="pica"/>  
   <variable name="server" value="http://opac.ub.uni-weimar.de/"/>
+
+
+
+  <homepage value="http://www.uni-weimar.de/ub"/>
+  <testing-search value="in 1.5" date="2013-04-26"/>
+  <testing-account value="?" date=""/>
+  <testing-renew value="?" date=""/>
 </library>

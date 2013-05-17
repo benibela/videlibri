@@ -23,14 +23,12 @@ type
 
     canModifySingleBooks:boolean;
     //function getPrettyNameShort():string;virtual;
-    homepage:string;
+    homepageBase, homepageCatalogue:string;
     prettyNameLong:string;
     prettyNameShort:string;
     id:string;
     deprecatedId: string;
     maxRenewCount: integer; //-1: if you can renew so frequently you want
-    bestHomepageWidth,bestHomepageHeight: integer;
-    //allowHomepageNavigation: boolean;
 
     usernameRegEx,passwordRegEx: TRegExpr;
 
@@ -278,7 +276,8 @@ var value:string;
 begin
   tagName:=LowerCase(tagName);
   value:=getProperty('value',properties);
-  if  tagName='homepage' then homepage:=value
+  if  tagName='homepage' then homepageBase:=value
+  else if  tagName='catalogue' then homepageCatalogue:=value
   else if tagName='longname' then prettyNameLong:=value
   else if tagName='shortname' then prettyNameShort:=value
   else if tagName='longname' then prettyNameLong:=value
@@ -324,8 +323,6 @@ begin
   defaultVariables:=TStringList.Create;
   usernameRegEx:=TRegExpr.Create('.');
   passwordRegEx:=TRegExpr.Create('.');
-  bestHomepageWidth:=0;
-  bestHomepageHeight:=0;
 end;
 
 destructor TLibrary.destroy;
@@ -387,12 +384,13 @@ begin
   for i:=0 to libraryFiles.count-1 do begin
     newLib:=TLibrary.Create;
     newLib.loadFromString(assetFileAsString('libraries/'+libraryFiles[i]), 'libraries/'+libraryFiles[i]);
-    if (newLib.homepage = '')  then begin
-      newLib.homepage := newLib.variables.Values['server'];
-      if not strContains(newLib.homepage, '://') then newLib.homepage:='http://'+newLib.homepage;
+    if (newLib.homepageCatalogue = '')  then begin
+      newLib.homepageCatalogue := newLib.variables.Values['server'];
+      if not strContains(newLib.homepageCatalogue, '://') then newLib.homepageCatalogue:='http://'+newLib.homepageCatalogue;
       if (newLib.template <> nil) and (newLib.template.name = 'pica') and (newLib.variables.Values['picadb'] <> '') then
-        newLib.homepage := newLib.homepage + '/DB='+newLib.variables.Values['picadb'];
+        newLib.homepageCatalogue := newLib.homepageCatalogue + '/DB='+newLib.variables.Values['picadb'];
     end;
+    if newLib.homepageCatalogue = '' then newLib.homepageCatalogue := newLib.homepageBase;
     flibraries.Add(newLib);
   end;
   libraryFiles.free;

@@ -8,9 +8,14 @@
 
   <longName value="Verbundzentrale des GBV"/>
   <shortName value="GBV"/>
-  <homepage value="http://www.gbv.de/"/>
+  <catalogue value="http://www.gbv.de/"/>
   <template value="paia"/>
   
   <variable name="server" value="paia.gbv.de/isil/DE-601"/>
   
+
+  <homepage value="" nolist="true"/>
+  <testing-search value="in 1.5" date="2013-04-26"/>
+  <testing-account value="?" date=""/>
+  <testing-renew value="?" date=""/>
 </library>

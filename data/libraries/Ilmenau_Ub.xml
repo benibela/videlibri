@@ -1,9 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <library>
-  <longName value="Universitätsbibliothek Ilmenau (ungetestet)"/>
+  <longName value="Universitätsbibliothek Ilmenau (alpha)"/>
   <shortName value="Ub Ilmenau"/>
   
   <template value="pica"/>  
   <variable name="server" value="http://katalog.bibliothek.tu-ilmenau.de/"/>
   <variable name="picadb" value="1"/>
+
+
+  <homepage value="http://www.thulb.uni-jena.de/"/>
+  <testing-search value="in 1.5" date="2013-04-26"/>
+  <testing-account value="?" date=""/>
+  <testing-renew value="?" date=""/>
 </library>

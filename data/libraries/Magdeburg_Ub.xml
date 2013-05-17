@@ -1,8 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <library>
-  <longName value="Universitätsbibliothek Magdeburg (ungetestet)"/>
+  <longName value="Universitätsbibliothek Magdeburg (alpha)"/>
   <shortName value="Ub Magdeburg"/>
   
   <template value="pica"/>  
   <variable name="server" value="https://opac.uni-magdeburg.de/"/>
+
+
+  <homepage value="http://www.ub.ovgu.de/"/>
+  <testing-search value="in 1.5" date="2013-04-26"/>
+  <testing-account value="?" date=""/>
+  <testing-renew value="?" date=""/>
 </library>

@@ -6,13 +6,17 @@
   
   <longName value="Stadtbüchereien Düsseldorf"/>
   <shortName value="StB Düsseldorf"/>
-  <homepage value="http://was.duesseldorf.de/WebOPAC/start?homegkz=111"/>
-  <homepageWidth value="750"/>
-  <homepageNavigation value="false"/>
+  <catalogue value="http://was.duesseldorf.de/WebOPAC/start?homegkz=111"/>
   <template value="wasnrw"/>
   
   <variable name="server" value="was.duesseldorf.de/WebOPAC/"/>
   
   <variable name="Location" value="Düsseldorf"/>
   <variable name="searchid-digibib" value="SERVICEGROUP1.SERVICE.SEARCH_SBDUE"/>
+
+
+  <homepage value="http://www.duesseldorf.de/stadtbuechereien/index.shtml"/>
+  <testing-search value="ja (digibib)" date="2013-04-26"/>
+  <testing-account value="ja" date="täglich"/>
+  <testing-renew value="ja" date="täglich"/>
 </library>

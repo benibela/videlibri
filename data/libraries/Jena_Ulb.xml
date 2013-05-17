@@ -1,9 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <library>
-  <longName value="Universitäts- und Landesbibliothek Jena (ungetestet)"/>
+  <longName value="Universitäts- und Landesbibliothek Jena (alpha)"/>
   <shortName value="ThULB Jena"/>
   
   <template value="pica"/>  
   <variable name="server" value="https://kataloge.thulb.uni-jena.de/"/>
   <variable name="picadb" value="1"/>
+
+
+  <homepage value="http://www.thulb.uni-jena.de/"/>
+  <testing-search value="in 1.5" date="2013-04-26"/>
+  <testing-account value="?" date=""/>
+  <testing-renew value="?" date=""/>
 </library>

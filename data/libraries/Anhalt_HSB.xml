@@ -1,8 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <library>
-  <longName value="Hochschulbibliothek Anhalt (ungetestet)"/>
+  <longName value="Hochschulbibliothek Anhalt (alpha)"/>
   <shortName value="HSB Anhalt"/>
   
   <template value="pica"/>
   <variable name="server" value="http://lhanh.gbv.de/"/>	
+
+
+  <homepage value="http://www.hs-anhalt.de/hochschulbibliothek"/>
+  <testing-search value="in 1.5" date="2013-04-26"/>
+  <testing-account value="?" date=""/>
+  <testing-renew value="?" date=""/>
 </library>

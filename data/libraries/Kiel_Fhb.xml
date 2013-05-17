@@ -1,10 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <library>
-  <longName value="Bibliotheken der FH Kiel (ungetestet)"/>
+  <longName value="Bibliotheken der FH Kiel (alpha)"/>
   <shortName value="Fhb Kiel"/>
   
   <template value="pica"/>  
   <variable name="server" value="https://lhopc4.ub.uni-kiel.de/"/>
   <variable name="picadb" value="2"/>
   <variable name="searchKeysOverride" value="tnt;per;isb;erj;swo"/>
+
+
+  <homepage value="http://www.fh-kiel.de/index.php?id=2874"/>
+  <testing-search value="in 1.5" date="2013-04-26"/>
+  <testing-account value="?" date=""/>
+  <testing-renew value="?" date=""/>
 </library>
