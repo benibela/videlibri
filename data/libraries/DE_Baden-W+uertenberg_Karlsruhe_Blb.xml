@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<library>
+  <longName value="Badische Landesbibliothek (alpha)"/>
+
+  <template value="aDISWeb"/>
+  <variable name="server" value="blb.ibs-bw.de"/>
+
+  <homepage value="http://www.blb-karlsruhe.de/"/>
+  <testing-search value="in 1.5" date="2013-05-18"/>
+  <testing-account value="?" date=""/>
+  <testing-renew value="?" date=""/>
+</library>

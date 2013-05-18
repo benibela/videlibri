@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<library>
+  <longName value="Bibliothek der Hochschule für Musik und darstellende Kunst (alpha)"/>
+
+  <template value="aDISWeb"/>
+  <variable name="server" value="bsz.ibs-bw.de"/>
+  <variable name="startparams" value="?service=direct/0/Home/$DirectLink&sp=S127.0.0.1:23352"/>
+
+  <homepage value="http://www.mh-stuttgart.de/einrichtungen/bibliothek/"/>
+  <testing-search value="in 1.5" date="2013-05-18"/>
+  <testing-account value="?" date=""/>
+  <testing-renew value="?" date=""/>
+</library>  

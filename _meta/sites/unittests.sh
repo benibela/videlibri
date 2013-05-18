@@ -67,6 +67,12 @@ mkdir -p $OUTPATH/pica
 TEMPLATES=(${TEMPLATES[@]} pica/update pica/update pica/extend)
 PAGES=(${PAGES[@]} pica/update3.html pica/update_abholen.html pica/extend2.html)
 
+#=============ADISWEB==============
+mkdir -p $OUTPATH/aDISWeb
+
+TEMPLATES=(${TEMPLATES[@]} aDISWeb/search)
+PAGES=(${PAGES[@]} aDISWeb/search_stuttgart_abk.do.html)
+
 #=============DIGIBIB==============
 mkdir -p $OUTPATH/digibib
 

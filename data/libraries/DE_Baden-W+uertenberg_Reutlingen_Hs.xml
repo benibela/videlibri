@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<library>
+  <longName value="Bibliothek de Hochschule Reutlingen (alpha)"/>
+
+  <template value="aDISWeb"/>
+  <variable name="server" value="bsz.ibs-bw.de"/>
+  <variable name="startparams" value="?service=direct/0/Home/$DirectLink&sp=S127.0.0.1:23312"/>
+
+  <homepage value="http://www.reutlingen-university.de/im-studium/angebote-service/bibliothek.html"/>
+  <testing-search value="in 1.5" date="2013-05-18"/>
+  <testing-account value="?" date=""/>
+  <testing-renew value="?" date=""/>
+</library>  

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<library>
+  <longName value="Bibliothek der Dualen Hochschule Villingen-Schwenningen (alpha)"/>
+
+  <template value="aDISWeb"/>
+  <variable name="server" value="bsz.ibs-bw.de"/>
+  <variable name="startparams" value="?service=direct/0/Home/$DirectLink&sp=S127.0.0.1:23222"/>
+
+  <homepage value="http://www.dhbw-vs.de/ueber-uns/zentrale-einrichtungen/bibliothek.html"/>
+  <testing-search value="in 1.5" date="2013-05-18"/>
+  <testing-account value="?" date=""/>
+  <testing-renew value="?" date=""/>
+</library>

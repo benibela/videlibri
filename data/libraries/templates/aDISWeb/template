@@ -4,11 +4,12 @@
 
 <action id="update-all">
 
-  <page url="https://{$server}/aDISWeb/app" templateFile="connected"/>
+  <page url="https://{$server}/aDISWeb/app{get('startparams', '')}" templateFile="connected"/>
 
   <page url="{$connectPage}">
   <template>
     <a><span>Benutzerkonto</span>{loginForm:=@href}</a>
+    <a><span>Mein Konto</span>{loginForm:=@href}</a>
   </template>
   </page>
 
@@ -131,22 +132,19 @@
 </action>
 
 <action id="search">
-  <page url="https://{$server}/aDISWeb/app" templateFile="connected"/>
-
-  <page url="{$connectPage}">
-  <template>
-    <a><span>Erweiterte Suche</span>{seachPage:=@href}</a>
-  </template>
-  </page>
+  <variable name="connected">false()</variable>
   
-  <page url="https://{$server}/{$seachPage}">
+  <page url="https://{$server}/aDISWeb/app{get('startparams', '')}" templateFile="connected"/> <!-- some libraries log in directly, some redirect -->
+  <page url="{$connectPage}" test="not($connected)" templateFile="connected"/>
+  
+  <page url="{$seachPage}">
     <template><form>
     <template:meta default-text-matching="regex"/>
-    <label>Titel</label><input>{$nameTitle := @name}</input>
-    <label>Person|Name</label><input>{$nameAuthor := @name}</input>
-    <label>ISBN</label><input>{$nameIsbn := @name}</input>
-    <label>Schlag</label><input>{$nameKeywords := @name}</input>
-    <label>[jJ]ahr</label><input>{$nameYear := @name}</input>
+    <t:switch><label>Titel</label>       <option>Titel</option>   </t:switch>   <input>{$nameTitle := @name}</input>
+    <t:switch><label>Person|Name</label> <option>Autor</option>   </t:switch>   <input>{$nameAuthor := @name}</input>
+    <t:switch><label>ISBN</label>        <option>ISSN</option>    </t:switch>   <input>{$nameIsbn := @name}</input>
+    <t:switch><label>Schlag</label>      <option>Schlag</option>  </t:switch>   <input>{$nameKeywords := @name}</input>
+    <label>[jJ]ahr</label>     <input>{$nameYear := @name}</input>
     {
       startSearch := form(., {
         $nameTitle: $book.title,
@@ -174,10 +172,23 @@
     <page url="{$form.url}">
     <post>{replace($form.post, "selected=", concat("selected=", $book._searchId))}</post>
     
-    <template>
+    <template><html>
     <template:meta default-text-matching="regex"/>
     
+    <DIV id="right">
+      <DIV class="inside">
+        <DIV id="R30">
+          <DIV class="html_div">
+            <div id="R001">
+              <a><img>{book.image-url:=@src}</img></a>
+            </div>
+          </DIV>
+        </DIV>
+      </DIV>
+    </DIV>?
+
     <a title="Trefferliste">{goback:=@href}</a><!--inside main in munich, outside in nürnberg-->
+    
     
 <!--    <DIV id="main">
       <DIV class="inside">
@@ -205,6 +216,10 @@
                         </TR>
   
                         <TR>
+                          <TD class="spalterechts"><a href="{$book.home-url}">Zitierlink</a></TD>
+                        </TR>
+
+                        <TR>
                           <TH class="spaltelinks">{name:=translate(normalize-space(.), ".", "")}</TH>
                           <TD class="spalterechts"><t:read source="." var="book.{$name}!"/></TD>
                         </TR>
@@ -231,7 +246,7 @@
       </DIV>
     </DIV>-->
     
-    </template>
+    </html></template>
   </page>
   
   <page url="{$goback}" templateFile="searchBasicForm"/>

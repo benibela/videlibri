@@ -1,12 +1,10 @@
 <DIV id="right">
   <DIV class="inside">
-    <DIV class="block">
       <DIV>
         <P>
-          <SPAN>Gesucht<t:s>search-result-count := filter(., "[0-9]+$")</t:s></SPAN>
+          <SPAN>Gesucht<t:s>search-result-count := filter(., "[0-9]+$"),  lastSearchedIndex := get("lastSearchedIndex", 0) (: for unittests :)</t:s></SPAN>
         </P>
       </DIV>
-    </DIV>
   </DIV>
 </DIV>
 
@@ -15,7 +13,7 @@
     <DIV class="block">
     
     <div class="toolbar_div"><ul class="toolbar_ul"><li class="toolbar_li">
-      <span class="toolbar_txt">Vorwärts</span>
+      <span>Vorwärts</span>
       {search-next-page-available := not(./input/@disabled),
        form := form(//form) 
        
@@ -44,7 +42,8 @@
                     ) else ()
                   }</A>
                 </TD>
-                <TD/> <!--available-->
+                <!-- td sometimes signature -->
+                <TD><img/></td> <!--available-->
                 <TD>{if ($lastIndex > $lastSearchedIndex) then (book.year := .,  lastSearchedIndex := $lastIndex) else ()}</TD>
               </TR>*
             </TABLE>
