@@ -1,0 +1,2371 @@
+
+
+
+
+
+
+
+
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!-- START jsp/common/metaHeader.jsp -->
+
+
+
+<html xmlns="http://www.w3.org/1999/xhtml" 
+ xml:lang="de" 
+ lang="de"
+> 
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <meta http-equiv="pragma" content="no-cache" />
+  <meta http-equiv="expires" content="0" />
+  <meta http-equiv="cache-control" content="no-cache" />
+
+  
+  
+
+
+
+
+
+
+
+
+
+        
+        
+            <link media="screen" rel="stylesheet" href="/InfoGuideClient/jsp/common/infoguide.css"  type="text/css" />
+            <!--[if IE]>  <link rel="stylesheet" href="/InfoGuideClient/jsp/common/infoguide.css"  type="text/css" />  <![endif]-->
+            <!--[if IE 7]>
+            <style type="text/css">
+              #tab-content{margin-top:5px;}
+              select {height:auto;}
+              #searchfield input#f1 {width:10em;}
+            </style>
+            <![endif]-->
+        
+  
+  
+
+  
+  
+
+  <link rel="shortcut icon" href="/InfoGuideClient/images/OCLC.ico" />
+  
+  <!--[if IE 7]>
+    <style type="text/css">
+      #tab-content{margin-top:5px;}
+      select {height:auto;}
+      #searchfield input#f1 {width:10em;}
+    </style>
+  <![endif]-->
+  
+  <title>
+    
+      InfoGuide
+    
+  </title>
+</head>
+<!-- END of jsp/common/metaHeader.jsp -->
+
+<!-- START jsp/result/HitlistLayout.jsp --> 
+
+
+
+
+
+
+
+
+			
+	
+
+	
+		
+	
+		
+		
+		
+		
+			<!-- fast drilldowns available -->
+			<style type="text/css">
+			  #main {border-left:12em solid white;}
+			  #middle {float:right; margin:0 0 0 -1px; width:100%;}
+			  #left {float:left; width:11em; margin:0 -1px 0 -11.25em;} /*links bleibt ein Abstand von 0.75em zum Rand*/
+			  #hitlist {margin:0 0.75em; border:0;}
+			  table.data {border:0;}
+			</style>
+		
+		
+	
+
+
+<body>
+	<div id="pageContainer">
+
+		
+
+
+
+<!-- START jsp/common/header.jsp -->
+
+
+<div id="branding">
+  <span id="logo">
+    
+    
+      <img src="/InfoGuideClient/images/webOPAC.gif" width="84" height="16" alt="webOPAC" title="webOPAC" />
+    
+  </span>
+  <span id="timer">&nbsp;</span>
+</div>
+
+
+<script language="javascript" type="text/javascript" src="/InfoGuideClient/js/jquery.js" ></script>
+
+<!-- BEGIN /bsb/mobileOPAC/addMobileFunctionality.jsp -->
+
+
+
+
+
+
+<!-- END /bsb/mobileOPAC/addMobileFunctionality.jsp -->
+
+
+<!-- END of jsp/common/header.jsp -->
+
+
+		<div id="mainnav">
+			
+
+
+
+
+<!-- START jsp/navigation/mainNavi.jsp --> 
+
+
+<!-- Actual Tiles Context 754 -->
+
+<ul>
+
+
+	<li id="current"><div id="active">Suche</div>
+		<ul>
+			 
+				
+				
+					<li>
+						<a href="/InfoGuideClient/search.do?methodToCall=switchSearchPage&amp;SearchType=1" title="Einfache Suche">Einfache Suche</a>
+					</li>
+				
+			
+			 
+				
+				
+					<li>
+						<a href="/InfoGuideClient/search.do?methodToCall=switchSearchPage&amp;SearchType=2" title="Erweiterte Suche">Erweiterte Suche</a>
+					</li>
+				
+			
+
+<!-- KUHN ANFANG: Systematische Suche nicht anzeigen -->
+
+<!-- KUHN ENDE: Systematische Suche nicht anzeigen -->
+
+      
+  		  
+		    
+		      <li>
+		        <a href="/InfoGuideClient/searchHistory.do?methodToCall=showHistory" title="Suchhistorie">Suchhistorie</a>
+		      </li>	
+		    
+		  
+		  
+			  
+          <li id="current2">Trefferliste</li>
+				
+        
+			
+		
+			
+			
+			
+		</ul>
+	</li>
+
+
+
+	<li><a href="/InfoGuideClient/memorizelist.do?methodToCall=show" title="Merkliste">Merkliste</a></li>
+
+
+
+
+
+<li><a href="/InfoGuideClient/userAccount.do?methodToCall=show&amp;type=1" title="Konto">Konto</a></li>
+
+
+
+
+
+</ul>
+<!-- END of jsp/navigation/mainNavi.jsp --> 
+
+			
+
+
+
+
+<!-- START jsp/navigation/loginnavi.jsp --> 
+
+<div id="login">
+	
+		<a href="/InfoGuideClient/loginpage.do?methodToCall=showLogin" title="<u><strong>Anmelden</strong></u>"><u><strong>Anmelden</strong></u></a>
+	
+	
+</div>
+<!-- END of jsp/navigation/loginnavi.jsp --> 
+		</div> 
+ 		<br class="cleaner" />
+ 		
+
+
+
+
+
+
+
+
+
+<!-- START jsp/navigation/bgnavi.jsp --> 
+<script language="javascript" type="text/javascript"
+ src="/InfoGuideClient/help/help.js">
+</script>
+
+<div id="bgmainnav">
+	<div id="nav2">
+		<ul>
+			
+			
+			
+				
+				
+					
+						
+						<li><a href="/InfoGuideClient/asklibrary.do?methodToCall=show" title="Auskunft">Auskunft</a></li>
+						
+					
+					
+					
+				
+			
+			
+			
+			<li>
+			  <a href="#" onclick="return openHelp('/InfoGuideClient');"
+			     title="Hilfe">
+			   Hilfe</a>
+		  </li>
+  		
+	    	
+		  	
+			   	<li><a href="/InfoGuideClient/actual.do?methodToCall=show" title="Neuerwerbungen">Neuerwerbungen</a></li>
+    		
+    	
+		</ul>
+	</div>  
+</div>
+<!-- END of jsp/navigation/bgnavi.jsp --> 
+
+		<br class="cleaner" />
+		
+
+
+
+
+
+
+
+
+
+
+<!-- START jsp/search/searchbar.jsp --> 
+ 
+<div id="searchfield">
+
+
+<form id="AdvancedSearchForm" method="post" action="/InfoGuideClient/search.do">
+<input type="hidden" name="methodToCall" value="submit" />
+<input type="hidden" name="searchCategories[0]" value="-1" />
+
+
+
+
+
+<input type="hidden" name="searchString[1]" value="" />
+
+
+
+<input type="hidden" name="searchString[2]" value="" />
+
+
+
+<input type="hidden" name="searchString[3]" value="" />
+
+
+
+<input type="hidden" name="searchString[4]" value="" />
+
+
+
+<input type="hidden" name="CSId" value="15752N18Sab709b59f218c321096d461787a492269b838969" />
+<input type="hidden" name="searchHistory" value="" />
+<input type="text" name="searchString[0]" value="" id="f1" />
+
+
+
+<input type="submit" class="dbutton" id="submitSearch" name="submitSearch" value="Suchen" />
+</form>  
+</div>
+
+<!-- END of jsp/search/searchbar.jsp --> 
+		
+			
+
+
+
+
+<!-- START jsp/result/searchinfo.jsp --> 
+<div id="info1">
+	
+
+	
+	<strong class="c1">Ihre Suchanfrage</strong>
+	Titel = test
+	
+	
+	
+</div> 
+<!-- END of jsp/result/searchinfo.jsp --> 
+		
+		<br class="cleaner" />
+		<div id="main"> 
+			<div id="SOWrap"> 
+				<div id="middle"> 
+					
+
+
+
+<!-- START jsp/result/hitlist.jsp --> 
+			
+	
+		
+			
+			
+
+
+
+<!-- START jsp/result/singlehitlist.jsp --> 
+
+
+	<div id="hitlist">
+		<div class="box">
+			<div class="box-header">
+				<div class="box-right">
+					<span class="selectedlink">|&#171;</span>
+<span class="selectedlink">&#171;</span>
+<span class="selectedlink">1</span>
+<a href="/InfoGuideClient/hitList.do?methodToCall=pos&amp;identifier=-1_FT_982427123&amp;curPos=11#-1"> 2</a>
+<a href="/InfoGuideClient/hitList.do?methodToCall=pos&amp;identifier=-1_FT_982427123&amp;curPos=21#-1"> 3</a>
+<a href="/InfoGuideClient/hitList.do?methodToCall=pos&amp;identifier=-1_FT_982427123&amp;curPos=31#-1"> 4</a>
+<a href="/InfoGuideClient/hitList.do?methodToCall=pos&amp;identifier=-1_FT_982427123&amp;curPos=41#-1"> 5</a>
+<a href="/InfoGuideClient/hitList.do?methodToCall=pos&amp;identifier=-1_FT_982427123&amp;curPos=51#-1"> 6</a>
+<a href="/InfoGuideClient/hitList.do?methodToCall=pos&amp;identifier=-1_FT_982427123&amp;curPos=61#-1"> 7</a>
+<a href="/InfoGuideClient/hitList.do?methodToCall=pos&amp;identifier=-1_FT_982427123&amp;curPos=71#-1"> 8</a>
+<span class="selectedlink">&#187;</span>
+<a href="/InfoGuideClient/hitList.do?methodToCall=pos&amp;identifier=-1_FT_982427123&amp;curPos=71#-1">&#187;|</a>
+
+				</div>
+				<a name="-1"></a>
+				
+				
+					<h2>Treffer lokale Datenbank (73)</h2>	
+				
+			</div>
+			<div class="cleaner"></div>
+			
+			    
+			<table class="data" style="border:0; width:100%" summary="Trefferanzeige f&uuml;r lokale Datenbank">
+	            
+	            
+	            
+				
+						
+				
+	            
+				
+					
+					
+
+
+
+
+
+
+
+<!-- START jsp/result/simplehit.jsp --> 
+<tr>
+	<th scope="row">
+	
+	<a name="-1_1"></a> 
+	1.
+	</th>
+	
+	
+
+	
+
+	
+
+	
+		<td>
+		 <a href='/InfoGuideClient/singleHit.do?methodToCall=showHit&amp;curPos=1&amp;identifier=-1_FT_982427123#-1_1'>
+		  <img src="/InfoGuideClient/images/buch01.gif" alt="Buch" title="Buch" />
+		 </a>
+		</td>
+	
+
+
+	
+<!-- KUHN ANFANG: Originalausgabe wird auskommentiert -->
+
+<!--KUHN ENDE: Originalausgabe wird auskommentiert -->
+
+<!-- KUHN: Verbesserte Ausgabe -->
+  <td style="width:100%">
+    <a href="/InfoGuideClient/singleHit.do?methodToCall=showHit&amp;curPos=1&amp;identifier=-1_FT_982427123" }>
+      Essstörungen
+    </a><br />
+
+    
+      <a href="/InfoGuideClient/search.do?methodToCall=quickSearch&amp;Kateg=100&amp;Content=Nolte%2C+Anke">
+        Nolte, Anke
+      </a><br />
+    
+
+    
+    2013<br />
+
+    
+    2. Obergeschoss/Kantonsbibliothek<br />
+
+    
+    
+      Medizin<br />
+    
+
+    
+    
+      Signatur: 613.8<br />
+    
+    
+
+    
+    
+
+    
+      
+      
+
+      
+        entliehen (gesamte Vormerkungen: 0)<br />
+        <a href="/InfoGuideClient/singleHit.do?methodToCall=showHit&amp;curPos=1&amp;identifier=-1_FT_982427123&tab=showAvailabilityActive"
+          title="vormerken/bestellen">
+          vormerken/bestellen
+        </a>
+      
+    
+
+    
+    |
+<!-- KUHN ENDE: Verbesserte Ausgabe -->
+	
+			
+			<a href='/InfoGuideClient/memorizeHitList.do?methodToCall=addToMemorizeList&amp;curPos=1&amp;forward=hitlist&amp;identifier=-1_FT_982427123#-1_1' title="in die Merkliste">in die Merkliste</a>
+		
+		
+	
+	
+
+
+
+
+<!-- KUHN ANFANG: Erweiterte Band-, UEG- und Serienanzeige -->
+    
+
+    
+    
+
+    
+<!-- KUHN ENDE: Erweiterte Band-, UEG- und Serienanzeige -->
+
+	
+	</td>
+
+<!-- KUHN ANFANG: Bildanzeige auf rechter Seite -->
+
+  
+
+
+
+  <td style="text-align:right;">
+    <a href='/InfoGuideClient/singleHit.do?methodToCall=showHit&amp;curPos=1&amp;identifier=-1_FT_982427123#-1_1'>
+      <img src="/InfoGuideClient/showCover.do?ImageID=22747866}""
+        title="Buchcover"
+        alt="Buchcover" width=70/>
+    </a>
+  </td>
+
+<!-- KUHN ENDE: Bildanzeige auf rechter Seite -->
+
+</tr>
+<!-- END of jsp/result/simplehit.jsp --> 
+
+
+				
+					
+					
+
+
+
+
+
+
+
+<!-- START jsp/result/simplehit.jsp --> 
+<tr>
+	<th scope="row">
+	
+	<a name="-1_2"></a> 
+	2.
+	</th>
+	
+	
+
+	
+
+	
+
+	
+		<td>
+		 <a href='/InfoGuideClient/singleHit.do?methodToCall=showHit&amp;curPos=2&amp;identifier=-1_FT_982427123#-1_2'>
+		  <img src="/InfoGuideClient/images/buch01.gif" alt="Buch" title="Buch" />
+		 </a>
+		</td>
+	
+
+
+	
+<!-- KUHN ANFANG: Originalausgabe wird auskommentiert -->
+
+<!--KUHN ENDE: Originalausgabe wird auskommentiert -->
+
+<!-- KUHN: Verbesserte Ausgabe -->
+  <td style="width:100%">
+    <a href="/InfoGuideClient/singleHit.do?methodToCall=showHit&amp;curPos=2&amp;identifier=-1_FT_982427123" }>
+      Lieber gesund &amp; glücklich
+    </a><br />
+
+    
+      <a href="/InfoGuideClient/search.do?methodToCall=quickSearch&amp;Kateg=100&amp;Content=Bannasch%2C+Lutz">
+        Bannasch, Lutz
+      </a><br />
+    
+
+    
+    2013<br />
+
+    
+    2. Obergeschoss/Kantonsbibliothek<br />
+
+    
+    
+      Medizin<br />
+    
+
+    
+    
+      Signatur: 616.02<br />
+    
+    
+
+    
+    
+
+    
+      
+      
+
+      
+        entliehen (gesamte Vormerkungen: 0)<br />
+        <a href="/InfoGuideClient/singleHit.do?methodToCall=showHit&amp;curPos=2&amp;identifier=-1_FT_982427123&tab=showAvailabilityActive"
+          title="vormerken/bestellen">
+          vormerken/bestellen
+        </a>
+      
+    
+
+    
+    |
+<!-- KUHN ENDE: Verbesserte Ausgabe -->
+	
+			
+			<a href='/InfoGuideClient/memorizeHitList.do?methodToCall=addToMemorizeList&amp;curPos=2&amp;forward=hitlist&amp;identifier=-1_FT_982427123#-1_2' title="in die Merkliste">in die Merkliste</a>
+		
+		
+	
+	
+
+
+
+
+<!-- KUHN ANFANG: Erweiterte Band-, UEG- und Serienanzeige -->
+    
+
+    
+    
+
+    
+<!-- KUHN ENDE: Erweiterte Band-, UEG- und Serienanzeige -->
+
+	
+	</td>
+
+<!-- KUHN ANFANG: Bildanzeige auf rechter Seite -->
+
+  
+
+
+
+  <td style="text-align:right;">
+    <a href='/InfoGuideClient/singleHit.do?methodToCall=showHit&amp;curPos=2&amp;identifier=-1_FT_982427123#-1_2'>
+      <img src="/InfoGuideClient/showCover.do?ImageID=22607195}""
+        title="Buchcover"
+        alt="Buchcover" width=70/>
+    </a>
+  </td>
+
+<!-- KUHN ENDE: Bildanzeige auf rechter Seite -->
+
+</tr>
+<!-- END of jsp/result/simplehit.jsp --> 
+
+
+				
+					
+					
+
+
+
+
+
+
+
+<!-- START jsp/result/simplehit.jsp --> 
+<tr>
+	<th scope="row">
+	
+	<a name="-1_3"></a> 
+	3.
+	</th>
+	
+	
+
+	
+
+	
+
+	
+		<td>
+		 <a href='/InfoGuideClient/singleHit.do?methodToCall=showHit&amp;curPos=3&amp;identifier=-1_FT_982427123#-1_3'>
+		  <img src="/InfoGuideClient/images/buch01.gif" alt="Buch" title="Buch" />
+		 </a>
+		</td>
+	
+
+
+	
+<!-- KUHN ANFANG: Originalausgabe wird auskommentiert -->
+
+<!--KUHN ENDE: Originalausgabe wird auskommentiert -->
+
+<!-- KUHN: Verbesserte Ausgabe -->
+  <td style="width:100%">
+    <a href="/InfoGuideClient/singleHit.do?methodToCall=showHit&amp;curPos=3&amp;identifier=-1_FT_982427123" }>
+      ¬Die Psychopathen sind unter uns
+    </a><br />
+
+    
+      <a href="/InfoGuideClient/search.do?methodToCall=quickSearch&amp;Kateg=100&amp;Content=Ronson%2C+Jon">
+        Ronson, Jon
+      </a><br />
+    
+
+    
+    2012<br />
+
+    
+    2. Obergeschoss/Kantonsbibliothek<br />
+
+    
+    
+      Medizin<br />
+    
+
+    
+    
+      Signatur: 616.85<br />
+    
+    
+
+    
+    
+
+    
+      
+      
+        <span class="textgruen">ausleihbar</span>
+      
+
+      
+    
+
+    
+    |
+<!-- KUHN ENDE: Verbesserte Ausgabe -->
+	
+			
+			<a href='/InfoGuideClient/memorizeHitList.do?methodToCall=addToMemorizeList&amp;curPos=3&amp;forward=hitlist&amp;identifier=-1_FT_982427123#-1_3' title="in die Merkliste">in die Merkliste</a>
+		
+		
+	
+	
+
+
+
+
+<!-- KUHN ANFANG: Erweiterte Band-, UEG- und Serienanzeige -->
+    
+
+    
+    
+
+    
+<!-- KUHN ENDE: Erweiterte Band-, UEG- und Serienanzeige -->
+
+	
+	</td>
+
+<!-- KUHN ANFANG: Bildanzeige auf rechter Seite -->
+
+  
+
+
+
+  <td style="text-align:right;">
+    <a href='/InfoGuideClient/singleHit.do?methodToCall=showHit&amp;curPos=3&amp;identifier=-1_FT_982427123#-1_3'>
+      <img src="/InfoGuideClient/showCover.do?ImageID=18746256}""
+        title="Buchcover"
+        alt="Buchcover" width=70/>
+    </a>
+  </td>
+
+<!-- KUHN ENDE: Bildanzeige auf rechter Seite -->
+
+</tr>
+<!-- END of jsp/result/simplehit.jsp --> 
+
+
+				
+					
+					
+
+
+
+
+
+
+
+<!-- START jsp/result/simplehit.jsp --> 
+<tr>
+	<th scope="row">
+	
+	<a name="-1_4"></a> 
+	4.
+	</th>
+	
+	
+
+	
+
+	
+
+	
+		<td>
+		 <a href='/InfoGuideClient/singleHit.do?methodToCall=showHit&amp;curPos=4&amp;identifier=-1_FT_982427123#-1_4'>
+		  <img src="/InfoGuideClient/images/buch01.gif" alt="Buch" title="Buch" />
+		 </a>
+		</td>
+	
+
+
+	
+<!-- KUHN ANFANG: Originalausgabe wird auskommentiert -->
+
+<!--KUHN ENDE: Originalausgabe wird auskommentiert -->
+
+<!-- KUHN: Verbesserte Ausgabe -->
+  <td style="width:100%">
+    <a href="/InfoGuideClient/singleHit.do?methodToCall=showHit&amp;curPos=4&amp;identifier=-1_FT_982427123" }>
+      ¬Der Garten-Coach
+    </a><br />
+
+    
+      <a href="/InfoGuideClient/search.do?methodToCall=quickSearch&amp;Kateg=100&amp;Content=Kullmann%2C+Folko">
+        Kullmann, Folko
+      </a><br />
+    
+
+    
+    2012<br />
+
+    
+    2. Obergeschoss/Kantonsbibliothek<br />
+
+    
+    
+      Botanik + Garten<br />
+    
+
+    
+    
+      Signatur: 635<br />
+    
+    
+
+    
+    
+
+    
+      
+      
+        <span class="textgruen">ausleihbar</span>
+      
+
+      
+    
+
+    
+    |
+<!-- KUHN ENDE: Verbesserte Ausgabe -->
+	
+			
+			<a href='/InfoGuideClient/memorizeHitList.do?methodToCall=addToMemorizeList&amp;curPos=4&amp;forward=hitlist&amp;identifier=-1_FT_982427123#-1_4' title="in die Merkliste">in die Merkliste</a>
+		
+		
+	
+	
+
+
+
+
+<!-- KUHN ANFANG: Erweiterte Band-, UEG- und Serienanzeige -->
+    
+
+    
+    
+
+    
+<!-- KUHN ENDE: Erweiterte Band-, UEG- und Serienanzeige -->
+
+	
+	</td>
+
+<!-- KUHN ANFANG: Bildanzeige auf rechter Seite -->
+
+  
+
+
+
+  <td style="text-align:right;">
+    <a href='/InfoGuideClient/singleHit.do?methodToCall=showHit&amp;curPos=4&amp;identifier=-1_FT_982427123#-1_4'>
+      <img src="/InfoGuideClient/showCover.do?ImageID=18802590}""
+        title="Buchcover"
+        alt="Buchcover" width=70/>
+    </a>
+  </td>
+
+<!-- KUHN ENDE: Bildanzeige auf rechter Seite -->
+
+</tr>
+<!-- END of jsp/result/simplehit.jsp --> 
+
+
+				
+					
+					
+
+
+
+
+
+
+
+<!-- START jsp/result/simplehit.jsp --> 
+<tr>
+	<th scope="row">
+	
+	<a name="-1_5"></a> 
+	5.
+	</th>
+	
+	
+
+	
+
+	
+
+	
+		<td>
+		 <a href='/InfoGuideClient/singleHit.do?methodToCall=showHit&amp;curPos=5&amp;identifier=-1_FT_982427123#-1_5'>
+		  <img src="/InfoGuideClient/images/buch01.gif" alt="Buch" title="Buch" />
+		 </a>
+		</td>
+	
+
+
+	
+<!-- KUHN ANFANG: Originalausgabe wird auskommentiert -->
+
+<!--KUHN ENDE: Originalausgabe wird auskommentiert -->
+
+<!-- KUHN: Verbesserte Ausgabe -->
+  <td style="width:100%">
+    <a href="/InfoGuideClient/singleHit.do?methodToCall=showHit&amp;curPos=5&amp;identifier=-1_FT_982427123" }>
+      Español Sprachkurs 2 [DVD-ROM, Compact Disc]
+    </a><br />
+
+    
+
+    
+    2012<br />
+
+    
+    2. Obergeschoss/Kantonsbibliothek<br />
+
+    
+    
+      Sprache + Literatur<br />
+    
+
+    
+    
+      Signatur: 806.0(07)<br />
+    
+    
+
+    
+    
+
+    
+      
+      
+        <span class="textgruen">ausleihbar</span>
+      
+
+      
+    
+
+    
+    |
+<!-- KUHN ENDE: Verbesserte Ausgabe -->
+	
+			
+			<a href='/InfoGuideClient/memorizeHitList.do?methodToCall=addToMemorizeList&amp;curPos=5&amp;forward=hitlist&amp;identifier=-1_FT_982427123#-1_5' title="in die Merkliste">in die Merkliste</a>
+		
+		
+	
+	
+
+
+
+
+<!-- KUHN ANFANG: Erweiterte Band-, UEG- und Serienanzeige -->
+    
+
+    
+    
+
+    
+<!-- KUHN ENDE: Erweiterte Band-, UEG- und Serienanzeige -->
+
+	
+	</td>
+
+<!-- KUHN ANFANG: Bildanzeige auf rechter Seite -->
+
+  
+
+
+
+  <td style="text-align:right;">
+    <a href='/InfoGuideClient/singleHit.do?methodToCall=showHit&amp;curPos=5&amp;identifier=-1_FT_982427123#-1_5'>
+      <img src="/InfoGuideClient/showCover.do?ImageID=20766476}""
+        title="Buchcover"
+        alt="Buchcover" width=70/>
+    </a>
+  </td>
+
+<!-- KUHN ENDE: Bildanzeige auf rechter Seite -->
+
+</tr>
+<!-- END of jsp/result/simplehit.jsp --> 
+
+
+				
+					
+					
+
+
+
+
+
+
+
+<!-- START jsp/result/simplehit.jsp --> 
+<tr>
+	<th scope="row">
+	
+	<a name="-1_6"></a> 
+	6.
+	</th>
+	
+	
+
+	
+
+	
+
+	
+		<td>
+		 <a href='/InfoGuideClient/singleHit.do?methodToCall=showHit&amp;curPos=6&amp;identifier=-1_FT_982427123#-1_6'>
+		  <img src="/InfoGuideClient/images/buch01.gif" alt="Buch" title="Buch" />
+		 </a>
+		</td>
+	
+
+
+	
+<!-- KUHN ANFANG: Originalausgabe wird auskommentiert -->
+
+<!--KUHN ENDE: Originalausgabe wird auskommentiert -->
+
+<!-- KUHN: Verbesserte Ausgabe -->
+  <td style="width:100%">
+    <a href="/InfoGuideClient/singleHit.do?methodToCall=showHit&amp;curPos=6&amp;identifier=-1_FT_982427123" }>
+      Mathematik 5
+    </a><br />
+
+    
+
+    
+    2012<br />
+
+    
+    2. Obergeschoss/Kantonsbibliothek<br />
+
+    
+    
+      Naturwissenschaften<br />
+    
+
+    
+    
+      Signatur: 51<br />
+    
+    
+
+    
+    
+
+    
+      
+      
+
+      
+        entliehen (gesamte Vormerkungen: 0)<br />
+        <a href="/InfoGuideClient/singleHit.do?methodToCall=showHit&amp;curPos=6&amp;identifier=-1_FT_982427123&tab=showAvailabilityActive"
+          title="vormerken/bestellen">
+          vormerken/bestellen
+        </a>
+      
+    
+
+    
+    |
+<!-- KUHN ENDE: Verbesserte Ausgabe -->
+	
+			
+			<a href='/InfoGuideClient/memorizeHitList.do?methodToCall=addToMemorizeList&amp;curPos=6&amp;forward=hitlist&amp;identifier=-1_FT_982427123#-1_6' title="in die Merkliste">in die Merkliste</a>
+		
+		
+	
+	
+
+
+
+
+<!-- KUHN ANFANG: Erweiterte Band-, UEG- und Serienanzeige -->
+    
+
+    
+    
+
+    
+<!-- KUHN ENDE: Erweiterte Band-, UEG- und Serienanzeige -->
+
+	
+	</td>
+
+<!-- KUHN ANFANG: Bildanzeige auf rechter Seite -->
+
+  
+
+
+
+  <td style="text-align:right;">
+    <a href='/InfoGuideClient/singleHit.do?methodToCall=showHit&amp;curPos=6&amp;identifier=-1_FT_982427123#-1_6'>
+      <img src="/InfoGuideClient/showCover.do?ImageID=20942865}""
+        title="Buchcover"
+        alt="Buchcover" width=70/>
+    </a>
+  </td>
+
+<!-- KUHN ENDE: Bildanzeige auf rechter Seite -->
+
+</tr>
+<!-- END of jsp/result/simplehit.jsp --> 
+
+
+				
+					
+					
+
+
+
+
+
+
+
+<!-- START jsp/result/simplehit.jsp --> 
+<tr>
+	<th scope="row">
+	
+	<a name="-1_7"></a> 
+	7.
+	</th>
+	
+	
+
+	
+
+	
+
+	
+		<td>
+		 <a href='/InfoGuideClient/singleHit.do?methodToCall=showHit&amp;curPos=7&amp;identifier=-1_FT_982427123#-1_7'>
+		  <img src="/InfoGuideClient/images/buch01.gif" alt="Buch" title="Buch" />
+		 </a>
+		</td>
+	
+
+
+	
+<!-- KUHN ANFANG: Originalausgabe wird auskommentiert -->
+
+<!--KUHN ENDE: Originalausgabe wird auskommentiert -->
+
+<!-- KUHN: Verbesserte Ausgabe -->
+  <td style="width:100%">
+    <a href="/InfoGuideClient/singleHit.do?methodToCall=showHit&amp;curPos=7&amp;identifier=-1_FT_982427123" }>
+      Medikamente im Test Krebs
+    </a><br />
+
+    
+      <a href="/InfoGuideClient/search.do?methodToCall=quickSearch&amp;Kateg=100&amp;Content=Bopp%2C+Annette">
+        Bopp, Annette
+      </a><br />
+    
+
+    
+    2012<br />
+
+    
+    2. Obergeschoss/Kantonsbibliothek<br />
+
+    
+    
+      Medizin<br />
+    
+
+    
+    
+      Signatur: 616-006<br />
+    
+    
+
+    
+    
+
+    
+      
+      
+        <span class="textgruen">ausleihbar</span>
+      
+
+      
+    
+
+    
+    |
+<!-- KUHN ENDE: Verbesserte Ausgabe -->
+	
+			
+			<a href='/InfoGuideClient/memorizeHitList.do?methodToCall=addToMemorizeList&amp;curPos=7&amp;forward=hitlist&amp;identifier=-1_FT_982427123#-1_7' title="in die Merkliste">in die Merkliste</a>
+		
+		
+	
+	
+
+
+
+
+<!-- KUHN ANFANG: Erweiterte Band-, UEG- und Serienanzeige -->
+    
+
+    
+    
+
+    
+<!-- KUHN ENDE: Erweiterte Band-, UEG- und Serienanzeige -->
+
+	
+	</td>
+
+<!-- KUHN ANFANG: Bildanzeige auf rechter Seite -->
+
+  
+
+
+
+  <td style="text-align:right;">
+    <a href='/InfoGuideClient/singleHit.do?methodToCall=showHit&amp;curPos=7&amp;identifier=-1_FT_982427123#-1_7'>
+      <img src="/InfoGuideClient/showCover.do?ImageID=20701522}""
+        title="Buchcover"
+        alt="Buchcover" width=70/>
+    </a>
+  </td>
+
+<!-- KUHN ENDE: Bildanzeige auf rechter Seite -->
+
+</tr>
+<!-- END of jsp/result/simplehit.jsp --> 
+
+
+				
+					
+					
+
+
+
+
+
+
+
+<!-- START jsp/result/simplehit.jsp --> 
+<tr>
+	<th scope="row">
+	
+	<a name="-1_8"></a> 
+	8.
+	</th>
+	
+	
+
+	
+
+	
+
+	
+		<td>
+		 <a href='/InfoGuideClient/singleHit.do?methodToCall=showHit&amp;curPos=8&amp;identifier=-1_FT_982427123#-1_8'>
+		  <img src="/InfoGuideClient/images/buch01.gif" alt="Buch" title="Buch" />
+		 </a>
+		</td>
+	
+
+
+	
+<!-- KUHN ANFANG: Originalausgabe wird auskommentiert -->
+
+<!--KUHN ENDE: Originalausgabe wird auskommentiert -->
+
+<!-- KUHN: Verbesserte Ausgabe -->
+  <td style="width:100%">
+    <a href="/InfoGuideClient/singleHit.do?methodToCall=showHit&amp;curPos=8&amp;identifier=-1_FT_982427123" }>
+      Solarwärme
+    </a><br />
+
+    
+      <a href="/InfoGuideClient/search.do?methodToCall=quickSearch&amp;Kateg=100&amp;Content=Oberzig%2C+Klaus">
+        Oberzig, Klaus
+      </a><br />
+    
+
+    
+    2012<br />
+
+    
+    2. Obergeschoss/Kantonsbibliothek<br />
+
+    
+    
+      Technik + Verkehr<br />
+    
+
+    
+    
+      Signatur: 620.93<br />
+    
+    
+
+    
+    
+
+    
+      
+      
+
+      
+        entliehen (gesamte Vormerkungen: 0)<br />
+        <a href="/InfoGuideClient/singleHit.do?methodToCall=showHit&amp;curPos=8&amp;identifier=-1_FT_982427123&tab=showAvailabilityActive"
+          title="vormerken/bestellen">
+          vormerken/bestellen
+        </a>
+      
+    
+
+    
+    |
+<!-- KUHN ENDE: Verbesserte Ausgabe -->
+	
+			
+			<a href='/InfoGuideClient/memorizeHitList.do?methodToCall=addToMemorizeList&amp;curPos=8&amp;forward=hitlist&amp;identifier=-1_FT_982427123#-1_8' title="in die Merkliste">in die Merkliste</a>
+		
+		
+	
+	
+
+
+
+
+<!-- KUHN ANFANG: Erweiterte Band-, UEG- und Serienanzeige -->
+    
+
+    
+    
+
+    
+<!-- KUHN ENDE: Erweiterte Band-, UEG- und Serienanzeige -->
+
+	
+	</td>
+
+<!-- KUHN ANFANG: Bildanzeige auf rechter Seite -->
+
+  
+
+
+
+  <td style="text-align:right;">
+    <a href='/InfoGuideClient/singleHit.do?methodToCall=showHit&amp;curPos=8&amp;identifier=-1_FT_982427123#-1_8'>
+      <img src="/InfoGuideClient/showCover.do?ImageID=18802595}""
+        title="Buchcover"
+        alt="Buchcover" width=70/>
+    </a>
+  </td>
+
+<!-- KUHN ENDE: Bildanzeige auf rechter Seite -->
+
+</tr>
+<!-- END of jsp/result/simplehit.jsp --> 
+
+
+				
+					
+					
+
+
+
+
+
+
+
+<!-- START jsp/result/simplehit.jsp --> 
+<tr>
+	<th scope="row">
+	
+	<a name="-1_9"></a> 
+	9.
+	</th>
+	
+	
+
+	
+
+	
+
+	
+		<td>
+		 <a href='/InfoGuideClient/singleHit.do?methodToCall=showHit&amp;curPos=9&amp;identifier=-1_FT_982427123#-1_9'>
+		  <img src="/InfoGuideClient/images/buch01.gif" alt="Buch" title="Buch" />
+		 </a>
+		</td>
+	
+
+
+	
+<!-- KUHN ANFANG: Originalausgabe wird auskommentiert -->
+
+<!--KUHN ENDE: Originalausgabe wird auskommentiert -->
+
+<!-- KUHN: Verbesserte Ausgabe -->
+  <td style="width:100%">
+    <a href="/InfoGuideClient/singleHit.do?methodToCall=showHit&amp;curPos=9&amp;identifier=-1_FT_982427123" }>
+      Erschöpfung und Depression: Wenn die Hormone verrücktspielen
+    </a><br />
+
+    
+      <a href="/InfoGuideClient/search.do?methodToCall=quickSearch&amp;Kateg=100&amp;Content=Spitzbart%2C+Michael">
+        Spitzbart, Michael
+      </a><br />
+    
+
+    
+    2012<br />
+
+    
+    2. Obergeschoss/Kantonsbibliothek<br />
+
+    
+    
+      Psychologie<br />
+    
+
+    
+    
+      Signatur: 159.14<br />
+    
+    
+
+    
+    
+
+    
+      
+      
+        <span class="textgruen">ausleihbar</span>
+      
+
+      
+    
+
+    
+    |
+<!-- KUHN ENDE: Verbesserte Ausgabe -->
+	
+			
+			<a href='/InfoGuideClient/memorizeHitList.do?methodToCall=addToMemorizeList&amp;curPos=9&amp;forward=hitlist&amp;identifier=-1_FT_982427123#-1_9' title="in die Merkliste">in die Merkliste</a>
+		
+		
+	
+	
+
+
+
+
+<!-- KUHN ANFANG: Erweiterte Band-, UEG- und Serienanzeige -->
+    
+
+    
+    
+
+    
+<!-- KUHN ENDE: Erweiterte Band-, UEG- und Serienanzeige -->
+
+	
+	</td>
+
+<!-- KUHN ANFANG: Bildanzeige auf rechter Seite -->
+
+  
+
+
+
+  <td style="text-align:right;">
+    <a href='/InfoGuideClient/singleHit.do?methodToCall=showHit&amp;curPos=9&amp;identifier=-1_FT_982427123#-1_9'>
+      <img src="/InfoGuideClient/showCover.do?ImageID=20543758}""
+        title="Buchcover"
+        alt="Buchcover" width=70/>
+    </a>
+  </td>
+
+<!-- KUHN ENDE: Bildanzeige auf rechter Seite -->
+
+</tr>
+<!-- END of jsp/result/simplehit.jsp --> 
+
+
+				
+					
+					
+
+
+
+
+
+
+
+<!-- START jsp/result/simplehit.jsp --> 
+<tr>
+	<th scope="row">
+	
+	<a name="-1_10"></a> 
+	10.
+	</th>
+	
+	
+
+	
+
+	
+
+	
+		<td>
+		 <a href='/InfoGuideClient/singleHit.do?methodToCall=showHit&amp;curPos=10&amp;identifier=-1_FT_982427123#-1_10'>
+		  <img src="/InfoGuideClient/images/buch01.gif" alt="Buch" title="Buch" />
+		 </a>
+		</td>
+	
+
+
+	
+<!-- KUHN ANFANG: Originalausgabe wird auskommentiert -->
+
+<!--KUHN ENDE: Originalausgabe wird auskommentiert -->
+
+<!-- KUHN: Verbesserte Ausgabe -->
+  <td style="width:100%">
+    <a href="/InfoGuideClient/singleHit.do?methodToCall=showHit&amp;curPos=10&amp;identifier=-1_FT_982427123" }>
+      Schwanger, na und?
+    </a><br />
+
+    
+      <a href="/InfoGuideClient/search.do?methodToCall=quickSearch&amp;Kateg=100&amp;Content=Heckscher%2C+Melissa">
+        Heckscher, Melissa
+      </a><br />
+    
+
+    
+    2012<br />
+
+    
+    1. Obergeschoss/Kantonsbibliothek<br />
+
+    
+    
+      Für Eltern<br />
+    
+
+    
+    
+      Signatur: 618.3<br />
+    
+    
+
+    
+    
+
+    
+      
+      
+        <span class="textgruen">ausleihbar</span>
+      
+
+      
+    
+
+    
+    |
+<!-- KUHN ENDE: Verbesserte Ausgabe -->
+	
+			
+			<a href='/InfoGuideClient/memorizeHitList.do?methodToCall=addToMemorizeList&amp;curPos=10&amp;forward=hitlist&amp;identifier=-1_FT_982427123#-1_10' title="in die Merkliste">in die Merkliste</a>
+		
+		
+	
+	
+
+
+
+
+<!-- KUHN ANFANG: Erweiterte Band-, UEG- und Serienanzeige -->
+    
+
+    
+    
+
+    
+<!-- KUHN ENDE: Erweiterte Band-, UEG- und Serienanzeige -->
+
+	
+	</td>
+
+<!-- KUHN ANFANG: Bildanzeige auf rechter Seite -->
+
+  
+
+
+
+  <td style="text-align:right;">
+    <a href='/InfoGuideClient/singleHit.do?methodToCall=showHit&amp;curPos=10&amp;identifier=-1_FT_982427123#-1_10'>
+      <img src="/InfoGuideClient/showCover.do?ImageID=19010358}""
+        title="Buchcover"
+        alt="Buchcover" width=70/>
+    </a>
+  </td>
+
+<!-- KUHN ENDE: Bildanzeige auf rechter Seite -->
+
+</tr>
+<!-- END of jsp/result/simplehit.jsp --> 
+
+
+				
+	            
+            	
+      </table>
+	    <div class="box">
+			  <div class="box-header">
+			    <div class="box-right">
+    			  <span class="selectedlink">|&#171;</span>
+<span class="selectedlink">&#171;</span>
+<span class="selectedlink">1</span>
+<a href="/InfoGuideClient/hitList.do?methodToCall=pos&amp;identifier=-1_FT_982427123&amp;curPos=11#-1"> 2</a>
+<a href="/InfoGuideClient/hitList.do?methodToCall=pos&amp;identifier=-1_FT_982427123&amp;curPos=21#-1"> 3</a>
+<a href="/InfoGuideClient/hitList.do?methodToCall=pos&amp;identifier=-1_FT_982427123&amp;curPos=31#-1"> 4</a>
+<a href="/InfoGuideClient/hitList.do?methodToCall=pos&amp;identifier=-1_FT_982427123&amp;curPos=41#-1"> 5</a>
+<a href="/InfoGuideClient/hitList.do?methodToCall=pos&amp;identifier=-1_FT_982427123&amp;curPos=51#-1"> 6</a>
+<a href="/InfoGuideClient/hitList.do?methodToCall=pos&amp;identifier=-1_FT_982427123&amp;curPos=61#-1"> 7</a>
+<a href="/InfoGuideClient/hitList.do?methodToCall=pos&amp;identifier=-1_FT_982427123&amp;curPos=71#-1"> 8</a>
+<span class="selectedlink">&#187;</span>
+<a href="/InfoGuideClient/hitList.do?methodToCall=pos&amp;identifier=-1_FT_982427123&amp;curPos=71#-1">&#187;|</a>
+
+		  		</div>
+	  		</div>
+			</div>
+		</div>
+	</div>
+	<br />
+
+<!-- END of jsp/result/singlehitlist.jsp --> 
+
+		
+	
+	
+
+
+
+
+
+<script language="javascript" type="text/javascript">
+ setHelp("trefferliste", "");
+</script>
+<!-- END of jsp/result/hitlist.jsp --> 
+
+				</div>
+   			
+				  
+
+
+
+
+
+
+
+
+
+
+
+<!-- START jsp/result/hitlistNavigators.jsp --> 
+    
+
+
+  
+    <div id="left"> 
+    <style type="text/css">
+        li.c11 {font-weight:bold; color:#666; padding:0.75em 0.5em 0 0;}
+        li.c11 li {font-weight:normal;}
+    </style>
+    
+    <div class="box1">
+      <h2>Treffer eingrenzen</h2>
+      <ul>
+        
+          
+
+          
+          
+            <!-- KUHN ANFANG: Anzeigemenge 3 -->
+            
+            
+            <!-- KUHN ENDE: Anzeigemenge 3 -->
+          
+          
+          
+            
+            
+              <li class="c11">
+                <a href="/InfoGuideClient/refineSearch.do?methodToCall=close&amp;id=standortnavigator" title="close Standort"><img src="images/minus1.gif" alt="" width="13" height="13" /></a>Standort
+                <ul>
+                  
+                  
+                  
+                  
+
+                  
+                  
+                    <li>
+                      <a href="/InfoGuideClient/refineSearch.do?methodToCall=filterSearch&amp;id=standortnavigator&amp;subval=Medizin" title="Medizin">Medizin</a>
+                      &nbsp;(17)
+                    </li>
+                  
+                    <li>
+                      <a href="/InfoGuideClient/refineSearch.do?methodToCall=filterSearch&amp;id=standortnavigator&amp;subval=Sprache%2BLiteratur" title="Sprache + Literatur">Sprache + Liter...</a>
+                      &nbsp;(9)
+                    </li>
+                  
+                    <li>
+                      <a href="/InfoGuideClient/refineSearch.do?methodToCall=filterSearch&amp;id=standortnavigator&amp;subval=e-kbldigitaleMedien" title="e-kbl digitale Medien">e-kbl digitale ...</a>
+                      &nbsp;(6)
+                    </li>
+                  
+                  
+
+                  
+                    <li>
+
+                       <a href="/InfoGuideClient/refineSearch.do?methodToCall=showNext&amp;id=standortnavigator&amp;type=" title="Mehr anzeigen...">Mehr anzeigen...</a>
+                    </li>
+                  
+                </ul>
+              </li>
+            
+          
+          
+          
+          
+          
+
+          
+          
+            <!-- KUHN ANFANG: Anzeigemenge 3 -->
+            
+            
+            <!-- KUHN ENDE: Anzeigemenge 3 -->
+          
+          
+          
+            
+            
+              <li class="c11">
+                <a href="/InfoGuideClient/refineSearch.do?methodToCall=close&amp;id=medienartnavigator" title="close Medienart"><img src="images/minus1.gif" alt="" width="13" height="13" /></a>Medienart
+                <ul>
+                  
+                  
+                  
+                  
+
+                  
+                  
+                    <li>
+                      <a href="/InfoGuideClient/refineSearch.do?methodToCall=filterSearch&amp;id=medienartnavigator&amp;subval=Buch" title="Buch">Buch</a>
+                      &nbsp;(60)
+                    </li>
+                  
+                    <li>
+                      <a href="/InfoGuideClient/refineSearch.do?methodToCall=filterSearch&amp;id=medienartnavigator&amp;subval=eBook" title="eBook">eBook</a>
+                      &nbsp;(6)
+                    </li>
+                  
+                    <li>
+                      <a href="/InfoGuideClient/refineSearch.do?methodToCall=filterSearch&amp;id=medienartnavigator&amp;subval=CD" title="CD">CD</a>
+                      &nbsp;(2)
+                    </li>
+                  
+                  
+
+                  
+                    <li>
+
+                       <a href="/InfoGuideClient/refineSearch.do?methodToCall=showNext&amp;id=medienartnavigator&amp;type=" title="Mehr anzeigen...">Mehr anzeigen...</a>
+                    </li>
+                  
+                </ul>
+              </li>
+            
+          
+          
+          
+          
+          
+
+          
+          
+            <!-- KUHN ANFANG: Anzeigemenge 3 -->
+            
+            
+            <!-- KUHN ENDE: Anzeigemenge 3 -->
+          
+          
+          
+            
+            
+              <li class="c11">
+                <a href="/InfoGuideClient/refineSearch.do?methodToCall=close&amp;id=alterskategorienavigator" title="close Alterskategorie"><img src="images/minus1.gif" alt="" width="13" height="13" /></a>Alterskategorie
+                <ul>
+                  
+                  
+                  
+                  
+
+                  
+                  
+                    <li>
+                      <a href="/InfoGuideClient/refineSearch.do?methodToCall=filterSearch&amp;id=alterskategorienavigator&amp;subval=Erwachsene" title="Erwachsene">Erwachsene</a>
+                      &nbsp;(57)
+                    </li>
+                  
+                    <li>
+                      <a href="/InfoGuideClient/refineSearch.do?methodToCall=filterSearch&amp;id=alterskategorienavigator&amp;subval=Jugend" title="Jugend">Jugend</a>
+                      &nbsp;(8)
+                    </li>
+                  
+                  
+
+                  
+                </ul>
+              </li>
+            
+          
+          
+          
+          
+          
+
+          
+          
+            <!-- KUHN ANFANG: Anzeigemenge 3 -->
+            
+            
+            <!-- KUHN ENDE: Anzeigemenge 3 -->
+          
+          
+          
+            
+            
+              <li class="c11">
+                <a href="/InfoGuideClient/refineSearch.do?methodToCall=close&amp;id=sprachenavigator" title="close Sprache"><img src="images/minus1.gif" alt="" width="13" height="13" /></a>Sprache
+                <ul>
+                  
+                  
+                  
+                  
+
+                  
+                  
+                    <li>
+                      <a href="/InfoGuideClient/refineSearch.do?methodToCall=filterSearch&amp;id=sprachenavigator&amp;subval=deutsch" title="deutsch">deutsch</a>
+                      &nbsp;(60)
+                    </li>
+                  
+                    <li>
+                      <a href="/InfoGuideClient/refineSearch.do?methodToCall=filterSearch&amp;id=sprachenavigator&amp;subval=englisch" title="englisch">englisch</a>
+                      &nbsp;(3)
+                    </li>
+                  
+                    <li>
+                      <a href="/InfoGuideClient/refineSearch.do?methodToCall=filterSearch&amp;id=sprachenavigator&amp;subval=deutsch-franz%C3%B6sisch" title="deutsch-französisch">deutsch-französ...</a>
+                      &nbsp;(1)
+                    </li>
+                  
+                  
+
+                  
+                    <li>
+
+                       <a href="/InfoGuideClient/refineSearch.do?methodToCall=showNext&amp;id=sprachenavigator&amp;type=" title="Mehr anzeigen...">Mehr anzeigen...</a>
+                    </li>
+                  
+                </ul>
+              </li>
+            
+          
+          
+          
+          
+          
+
+          
+          
+            <!-- KUHN ANFANG: Anzeigemenge 3 -->
+            
+            
+            <!-- KUHN ENDE: Anzeigemenge 3 -->
+          
+          
+          
+            
+            
+              <li class="c11">
+                <a href="/InfoGuideClient/refineSearch.do?methodToCall=close&amp;id=authornavigator" title="close Autor"><img src="images/minus1.gif" alt="" width="13" height="13" /></a>Autor
+                <ul>
+                  
+                  
+                  
+                  
+
+                  
+                  
+                    <li>
+                      <a href="/InfoGuideClient/refineSearch.do?methodToCall=filterSearch&amp;id=authornavigator&amp;subval=Geist%2CAlexander" title="Geist, Alexander">Geist, Alexander</a>
+                      &nbsp;(4)
+                    </li>
+                  
+                    <li>
+                      <a href="/InfoGuideClient/refineSearch.do?methodToCall=filterSearch&amp;id=authornavigator&amp;subval=Bopp%2CAnnette" title="Bopp, Annette">Bopp, Annette</a>
+                      &nbsp;(3)
+                    </li>
+                  
+                    <li>
+                      <a href="/InfoGuideClient/refineSearch.do?methodToCall=filterSearch&amp;id=authornavigator&amp;subval=Herbst%2CVera" title="Herbst, Vera">Herbst, Vera</a>
+                      &nbsp;(3)
+                    </li>
+                  
+                  
+
+                  
+                    <li>
+
+                       <a href="/InfoGuideClient/refineSearch.do?methodToCall=showNext&amp;id=authornavigator&amp;type=" title="Mehr anzeigen...">Mehr anzeigen...</a>
+                    </li>
+                  
+                </ul>
+              </li>
+            
+          
+          
+          
+          
+          
+
+          
+            
+          
+          
+          
+          
+            
+            
+              <li class="c11">
+                <a href="/InfoGuideClient/refineSearch.do?methodToCall=close&amp;id=yearnavigator" title="close Jahr"><img src="images/minus1.gif" alt="" width="13" height="13" /></a>Jahr
+                <ul>
+                  
+                  
+                  
+                  
+                  
+                    
+                    <li>
+                      <a href="/InfoGuideClient/refineSearch.do?methodToCall=filterSearch&amp;id=yearnavigator&amp;subval=gt%3D2010" title="&gt;= 2010">&gt;= 2010</a>
+                      &nbsp;(20)
+                    </li>
+                  
+                    
+                    <li>
+                      <a href="/InfoGuideClient/refineSearch.do?methodToCall=filterSearch&amp;id=yearnavigator&amp;subval=2007-2009" title="2007 - 2009">2007 - 2009</a>
+                      &nbsp;(23)
+                    </li>
+                  
+                    
+                    <li>
+                      <a href="/InfoGuideClient/refineSearch.do?methodToCall=filterSearch&amp;id=yearnavigator&amp;subval=2000-2006" title="2000 - 2006">2000 - 2006</a>
+                      &nbsp;(12)
+                    </li>
+                  
+                    
+                    <li>
+                      <a href="/InfoGuideClient/refineSearch.do?methodToCall=filterSearch&amp;id=yearnavigator&amp;subval=lt%3D1999" title="&lt;= 1999">&lt;= 1999</a>
+                      &nbsp;(16)
+                    </li>
+                  
+                  
+
+                  
+
+                  
+                </ul>
+              </li>
+            
+          
+          
+          
+          
+          
+
+          
+          
+            <!-- KUHN ANFANG: Anzeigemenge 3 -->
+            
+            
+            <!-- KUHN ENDE: Anzeigemenge 3 -->
+          
+          
+          
+            
+            
+              <li class="c11">
+                <a href="/InfoGuideClient/refineSearch.do?methodToCall=close&amp;id=institutionnavigator" title="close Körperschaften"><img src="images/minus1.gif" alt="" width="13" height="13" /></a>Körperschaften
+                <ul>
+                  
+                  
+                  
+                  
+
+                  
+                  
+                    <li>
+                      <a href="/InfoGuideClient/refineSearch.do?methodToCall=filterSearch&amp;id=institutionnavigator&amp;subval=ASSI%28Blauen%29" title="ASSI (Blauen)">ASSI (Blauen)</a>
+                      &nbsp;(4)
+                    </li>
+                  
+                    <li>
+                      <a href="/InfoGuideClient/refineSearch.do?methodToCall=filterSearch&amp;id=institutionnavigator&amp;subval=StiftungWarentest%28Berlin%29" title="Stiftung Warentest (Berlin)">Stiftung Warent...</a>
+                      &nbsp;(4)
+                    </li>
+                  
+                    <li>
+                      <a href="/InfoGuideClient/refineSearch.do?methodToCall=filterSearch&amp;id=institutionnavigator&amp;subval=StiftungzumSchutzderVersicherten%28Blauen%29" title="Stiftung zum Schutz der Versicherten (Blauen)">Stiftung zum Sc...</a>
+                      &nbsp;(4)
+                    </li>
+                  
+                  
+
+                  
+                    <li>
+
+                       <a href="/InfoGuideClient/refineSearch.do?methodToCall=showNext&amp;id=institutionnavigator&amp;type=" title="Mehr anzeigen...">Mehr anzeigen...</a>
+                    </li>
+                  
+                </ul>
+              </li>
+            
+          
+          
+          
+          
+          
+
+          
+          
+            <!-- KUHN ANFANG: Anzeigemenge 3 -->
+            
+            
+            <!-- KUHN ENDE: Anzeigemenge 3 -->
+          
+          
+          
+            
+            
+              <li class="c11">
+                <a href="/InfoGuideClient/refineSearch.do?methodToCall=close&amp;id=subjectnavigator" title="close Schlagwort"><img src="images/minus1.gif" alt="" width="13" height="13" /></a>Schlagwort
+                <ul>
+                  
+                  
+                  
+                  
+
+                  
+                  
+                    <li>
+                      <a href="/InfoGuideClient/refineSearch.do?methodToCall=filterSearch&amp;id=subjectnavigator&amp;subval=803.0-1DeutscheSprache%2COrthographie" title="803.0-1 Deutsche Sprache, Orthographie">803.0-1 Deutsch...</a>
+                      &nbsp;(4)
+                    </li>
+                  
+                    <li>
+                      <a href="/InfoGuideClient/refineSearch.do?methodToCall=filterSearch&amp;id=subjectnavigator&amp;subval=159.14Stress" title="159.14 Stress">159.14 Stress</a>
+                      &nbsp;(3)
+                    </li>
+                  
+                    <li>
+                      <a href="/InfoGuideClient/refineSearch.do?methodToCall=filterSearch&amp;id=subjectnavigator&amp;subval=615Arzneikunde" title="615 Arzneikunde">615 Arzneikunde</a>
+                      &nbsp;(3)
+                    </li>
+                  
+                  
+
+                  
+                    <li>
+
+                       <a href="/InfoGuideClient/refineSearch.do?methodToCall=showNext&amp;id=subjectnavigator&amp;type=" title="Mehr anzeigen...">Mehr anzeigen...</a>
+                    </li>
+                  
+                </ul>
+              </li>
+            
+          
+          
+          
+          
+          
+
+          
+          
+            <!-- KUHN ANFANG: Anzeigemenge 3 -->
+            
+            
+            <!-- KUHN ENDE: Anzeigemenge 3 -->
+          
+          
+          
+            
+            
+              <li class="c11">
+                <a href="/InfoGuideClient/refineSearch.do?methodToCall=close&amp;id=stoffkreisnavigator" title="close Stoffkreis"><img src="images/minus1.gif" alt="" width="13" height="13" /></a>Stoffkreis
+                <ul>
+                  
+                  
+                  
+                  
+
+                  
+                  
+                    <li>
+                      <a href="/InfoGuideClient/refineSearch.do?methodToCall=filterSearch&amp;id=stoffkreisnavigator&amp;subval=EnglischsprachigeLiteratur%28Erwachsene%29%7CEasyReaders%28Erwachsene%29" title="Englischsprachige Literatur (Erwachsene)|Easy Readers (Erwachsene)">Englischsprachi...</a>
+                      &nbsp;(1)
+                    </li>
+                  
+                  
+
+                  
+                </ul>
+              </li>
+            
+          
+          
+          
+          
+      </ul>
+    </div>
+  </div>
+  
+
+
+
+<!-- END of jsp/result/hitlistNavigators.jsp --> 
+
+				
+			</div>
+			
+			<div id="right">
+				
+
+
+
+
+
+
+
+
+
+
+
+<!-- START jsp/result/rechtsoben.jsp --> 
+
+
+
+
+<div class="box3">
+	<div class="box3-header">
+		<div class="box3-img"><img src="images/box3-right.gif" width="8" height="8" alt="" /></div>
+		<h2>weitere Optionen</h2>
+	</div>
+	<div class="box3-content">
+	<p><strong>Suchanfrage</strong><br />
+			<a href="/InfoGuideClient/search.do?methodToCall=start" title="Suchanfrage &auml;ndern">&auml;ndern</a>
+	</p>
+	
+					
+			
+				
+				
+				
+					 
+						
+						
+					
+				
+				
+					<p><strong>Treffersortierung</strong><br />	
+					
+						<form id="SearchRefineForm" method="post" action="/InfoGuideClient/refineSearch.do">
+							<input type="hidden" name="methodToCall" value="changeDBView" />
+							<input type="hidden" name="CSId" value="15752N18Sab709b59f218c321096d461787a492269b838969" />
+							<select name="sorting"><option value="Fast+0">Relevanz</option>
+				                 	
+			                 	
+			                  
+			               
+									
+										
+			                 	
+			                  
+
+<!-- KUHN ANFANG: Reihenfolge Jahr (absteigend), Jahr (aufsteigend) -->
+
+<option value="Fast-1">Jahr (absteigend)</option>
+<option value="Fast+1">Jahr (aufsteigend)</option>
+<!-- KUHN ENDE: Reihenfolge Jahr (absteigend), Jahr (aufsteigend) -->
+			                 	
+			               
+									
+										
+			                 	
+			                  
+
+<!-- KUHN ANFANG: Reihenfolge Jahr (absteigend), Jahr (aufsteigend) -->
+
+<option value="Fast-2">Alphabetisch (absteigend)</option>
+<option value="Fast+2">Alphabetisch (aufsteigend)</option>
+<!-- KUHN ENDE: Reihenfolge Jahr (absteigend), Jahr (aufsteigend) --></select>
+							
+							<a href="#" title="sortieren" onclick="return document.forms['SearchRefineForm'].submit();">sortieren</a>
+						</form>
+						</p>
+					
+  				
+             
+						
+					
+			
+		
+	
+	
+	
+		 
+			<p><strong>Ausgabe</strong><br />
+				
+				
+					<a href="/InfoGuideClient/hitOutput.do?methodToCall=show" title="Trefferliste ausgeben">Trefferliste ausgeben</a>
+				
+		 </p>
+		
+	
+	
+	
+	
+
+	
+</div> <!-- box3-content --> 
+</div><!-- box3 -->
+
+<!-- END of jsp/result/rechtsoben.jsp --> 
+
+				<br class="space" />
+				
+
+
+
+
+
+
+
+<!-- START jsp/result/rechtsunten.jsp --> 
+
+
+<!-- END of jsp/result/rechtsunten.jsp --> 
+
+				<br class="space" />
+				
+
+
+
+
+<!-- START jsp/common/news.jsp -->
+
+<!-- END of jsp/common/news.jsp --> 
+			</div>
+			
+ 			
+			<!-- right -->
+			<br class="cleaner" />
+		</div>
+		
+
+
+
+
+
+
+
+
+<!-- START jsp/common/footer.jsp -->
+
+<div id="footer">
+  
+	
+	
+		&nbsp;
+	
+	
+  <div id="copyright">
+	  Copyright &copy; 2011.&nbsp;Alle Rechte vorbehalten.
+	  <img src="/InfoGuideClient/images/OCLC.jpg" alt="OCLC" title="OCLC" width="54" height="19" />
+  </div>
+  <div class="cleaner"></div>
+</div>
+<!-- END of jsp/common/footer.jsp -->
+ 
+	</div> 
+</body>
+
+
+
+<!-- END of the jsp/result/HitlistLayout.jsp --> 
+<!-- START jsp/common/metaFooter.jsp -->
+</html>
+<!-- END of jsp/common/metaFooter.jsp -->

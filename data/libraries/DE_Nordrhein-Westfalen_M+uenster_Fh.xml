@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<library>
+  <longName value="Hochschulbibliothek der Fachhochschule Münster (alpha)"/>
+  
+  <template value="sisis"/>  
+  <variable name="server" value="https://hb063.fh-muenster.de/webOPACClient/"/>
+  <variable name="startparams" value="?Login=jopacf"/>
+  
+  <homepage value="http://www.fh-muenster.de/BIBL/index.php"/>
+  <testing-search value="in 1.5" date="2013-05-18"/>
+  <testing-account value="?" date=""/>
+  <testing-renew value="?" date=""/>
+</library>

@@ -41,6 +41,7 @@ type
     property variables: TStringList read defaultVariables;
     function location: string;
     function prettyLocation: string;
+    class function unprettyLocation(l: string): string;
   end;
 
   { TLibraryManager }
@@ -335,12 +336,24 @@ end;
 
 function TLibrary.location: string;
 begin
-  result := strSplit(id, '_')[0];
+  result := strSplit(id, '_')[2];
 end;
 
 function TLibrary.prettyLocation: string;
 begin
-  result := StringReplace(location, 'ue', 'ü', [rfReplaceAll]);
+  Result := location;
+  if pos('+', result) = 0 then exit;
+  result := StringReplace(Result, '+ue', 'ü', [rfReplaceAll]);
+  result := StringReplace(Result, '+oe', 'ö', [rfReplaceAll]);
+  result := StringReplace(Result, '+ae', 'ä', [rfReplaceAll]);
+end;
+
+class function TLibrary.unprettyLocation(l: string): string;
+begin
+  Result := l;
+  result := StringReplace(Result, 'ü', '+ue', [rfReplaceAll]);
+  result := StringReplace(Result, 'ö', '+oe', [rfReplaceAll]);
+  result := StringReplace(Result, 'ä', '+ae', [rfReplaceAll]);
 end;
 
 function TLibraryManager.getAccountObject(libID: string):TCustomAccountAccess;
@@ -434,17 +447,13 @@ var sl: TStringList;
 begin
   sl := TStringList.Create;
   for i:= 0 to flibraries.count -1 do
-    if sl.IndexOf(strSplit(TLibrary(libraries[i]).id, '_')[0]) < 0 then
-      sl.Add(strSplit(TLibrary(libraries[i]).id, '_')[0]);
+    if sl.IndexOf(TLibrary(libraries[i]).prettyLocation) < 0 then
+      sl.Add(TLibrary(libraries[i]).prettyLocation);
   sl.Sort;
   setlength(result, sl.Count);
   for i := 0 to high(result) do
     result[i] := sl[i];
   sl.free;
-
-
-  for i := 0 to high(result) do
-    result[i] := StringReplace(result[i], 'ue', 'ü', [rfReplaceAll]);
 end;
 
 function TLibraryManager.enumeratePrettyLongNames(location: string): TStringArray;
@@ -452,10 +461,10 @@ var
   i: Integer;
 begin
   result := nil;
-  location := StringReplace(location, 'ü', 'ue', [rfReplaceAll]);
-  location:=location+'_';
+  location := TLibrary.unprettyLocation(location);
+  location:='_'+location+'_';
   for i:=0 to flibraries.count-1 do
-    if strBeginsWith(TLibrary(libraries[i]).id, location) then
+    if strContains(TLibrary(libraries[i]).id, location) then
       arrayAdd(result, TLibrary(libraries[i]).prettyNameLong);
 end;
 
@@ -478,10 +487,10 @@ function TLibraryManager.getLibraryFromEnumeration(location: string; pos: intege
 var
   i: Integer;
 begin
-  location := StringReplace(location, 'ü', 'ue', [rfReplaceAll]);
-  location:=location+'_';
+  location := TLibrary.unprettyLocation(location);
+  location:='_'+location+'_';
   for i:=0 to flibraries.count-1 do
-    if strBeginsWith(TLibrary(libraries[i]).id, location) then begin
+    if strContains(TLibrary(libraries[i]).id, location) then begin
       if pos = 0 then
         exit(TLibrary(libraries[i]));
       pos -= 1;

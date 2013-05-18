@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<library>
+  <longName value="Stadtbücherei Augsburg (alpha)"/>
+  <shortName value="Stb Augsburg"/> 
+  
+  <template value="sisis"/>  
+  <variable name="server" value="https://stadtbuecherei1.augsburg.de/webOPACClient.stasis/"/>
+  
+  <homepage value="http://www.stadtbuecherei.augsburg.de/"/>
+  <testing-search value="in 1.5" date="2013-05-17"/>
+  <testing-account value="?" date=""/>
+  <testing-renew value="?" date=""/>
+</library>

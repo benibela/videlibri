@@ -8,9 +8,9 @@
   <longName value="Hochschulbibliothek der RWTH Aachen"/>
   <shortName value="BTH Aachen"/>
   <catalogue value="http://sisis.bth.rwth-aachen.de:8080/InfoGuideClient/start.do"/>
+
   <template value="sisis"/>
-  
-  <variable name="server" value="sisis.bth.rwth-aachen.de:8080/InfoGuideClient/"/>
+  <variable name="server" value="http://sisis.bth.rwth-aachen.de:8080/InfoGuideClient/"/>
   
   <variable name="location" value="Aachen"/>
   <variable name="searchid-digibib" value="SERVICEGROUP1.SERVICE.SEARCH_BTHA"/>

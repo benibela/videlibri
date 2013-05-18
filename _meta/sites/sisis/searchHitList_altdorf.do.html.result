@@ -1,0 +1,12 @@
+An unhandled exception occurred at $0000000000486876 :
+EFOpenError : Unable to open file "../../data/libraries/templates/sisis/searcshList"
+  $0000000000486876
+  $00000000004865C7
+  $000000000045812A line 3343 of ../../../components/pascal/data/bbutils.pas
+  $0000000000463B6A line 159 of xidelbase.pas
+  $00000000004756C9 line 2290 of xidelbase.pas
+  $0000000000481213 line 531 of ../../../components/pascal/system/rcmdline.pas
+  $0000000000480011 line 409 of ../../../components/pascal/system/rcmdline.pas
+  $000000000047C52C line 2488 of xidelbase.pas
+  $0000000000417914 line 57 of xidel.pas
+

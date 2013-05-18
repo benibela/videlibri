@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<library>
+  <longName value="Universitätsbibliothek Regensburg (alpha)"/>
+  
+  <template value="sisis"/>  
+  <variable name="server" value="https://www.regensburger-katalog.de/InfoGuideClient.ubrsis/"/>
+  
+  <homepage value="http://www.uni-regensburg.de/bibliothek/"/>
+  <testing-search value="in 1.5" date="2013-05-18"/>
+  <testing-account value="?" date=""/>
+  <testing-renew value="?" date=""/>
+</library>

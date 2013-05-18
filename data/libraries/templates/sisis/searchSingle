@@ -1,0 +1,33 @@
+<div id="tab-content">
+  {if ($singleBookResult != "") then book := {"_detail-url": $url} else ()}
+  <template:switch-prioritized>
+    <table class="data2">
+      <template:loop><template:switch>
+      <tr><td>Titel:</td><td>{$book.title}</td></tr>
+      <tr><td>Verfasser</td><td>{$book.author}</td></tr>
+      <tr><td>Ort:</td><td>{$book.location}</td></tr>
+      <tr><td>Verlag:</td><td>{$book.publisher}</td></tr>
+      <tr><td>Jahr:</td><td>{$book.year}</td></tr>
+      <tr><td>ISBN:</td><td>{$book.isbn}</td></tr>
+      <tr><td>{$temp := translate(normalize-space(.), ".", "")}</td><td><t:read var="book.{$temp}!" source="."/></td></tr>
+      </template:switch></template:loop>
+    </table>
+    
+    <table class="data">
+    <td>
+    <template:loop><template:switch>
+      <strong>Titelzusatz<t:s>$book.title:= concat($book.title, " ", (./following-sibling::*[1] | ./following-sibling::text())[normalize-space(.)][1])</t:s></strong>
+      <strong>Titel<t:s>$book.title:=       (./following-sibling::*[1] | ./following-sibling::text())[normalize-space(.)][1]</t:s></strong>
+      <strong>Autor<t:s>$book.author:=      (./following-sibling::*[1] | ./following-sibling::text())[normalize-space(.)][1]</t:s></strong>
+      <strong>Verfasser<t:s>$book.author:=  (./following-sibling::*[1] | ./following-sibling::text())[normalize-space(.)][1]</t:s></strong>
+      <strong>Ort<t:s>$book.location:=      (./following-sibling::*[1] | ./following-sibling::text())[normalize-space(.)][1]</t:s></strong>
+      <strong>Verlag<t:s>$book.publisher:=  (./following-sibling::*[1] | ./following-sibling::text())[normalize-space(.)][1]</t:s></strong>
+      <strong>Jahr<t:s>$book.publisher:=    (./following-sibling::*[1] | ./following-sibling::text())[normalize-space(.)][1]</t:s></strong>
+      <strong>ISBN<t:s>$book.isbn:=         (./following-sibling::*[1] | ./following-sibling::text())[normalize-space(.)][1]</t:s></strong>
+      <strong>{$temp := translate(normalize-space(.), ".", "")}
+              <t:read var="book.{$temp}!" source="(./following-sibling::*[1] | ./following-sibling::text())[normalize-space(.)][1]"/></strong>
+    </template:switch></template:loop>
+    </td>
+    </table>
+  </template:switch-prioritized>
+</div>

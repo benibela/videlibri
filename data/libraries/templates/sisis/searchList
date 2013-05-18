@@ -1,25 +1,76 @@
- <DIV id="hitlist">
-  <DIV class="box">
-    <DIV class="box-header">
-      <DIV class="box-right">
-      <span class="selectedlink"/>
-      <a>{nextPage:=@href}</a>
-      </DIV>
-      <H2>{search-result-count := extract(., "[0-9]+")}</h2>
-    </DIV>?
-    
-    
-    <TABLE class="data">
-      <TR>
-      <TD/>
-      <TD>
-      <A>{book := {"title": text(), "_detail-url": @href}}</A>
-      {book.author := text(), 
-       book.subTitle := if (./br) then ./br/text() else "",
-       book.year := extract($book.subTitle, "[(]([0-9]+)[)]", 1)}
-     <!-- <SPAN class="textgruen">{$book.availability}</SPAN>? who cares?-->
-      </TD>
-      </TR>*
-    </TABLE>
+<template:switch-prioritized>
+   <DIV id="hitlist">
+    <DIV class="box">
+      <DIV class="box-header">
+        <DIV class="box-right">
+        <span class="selectedlink" t:condition="not(contains(text(), '&#171;'))"/>
+        <a>{nextPage:=@href}</a>
+        </DIV>
+        <H2>{search-result-count := extract(., "[0-9]+")}</h2>
+      </DIV>?
+      
+      
+      <TABLE class="data">
+        <TR>
+        <TD/>
+        <TD>
+        {book := {}, hasZ3988 := false()}
+        <span class="Z3988">{hasZ3988 := true(),
+        for $entry in tokenize(@title, "&amp") return 
+           if (starts-with($entry, "rft.au=")) then book.author :=               uri-decode(substring-after($entry, "="))
+           else if (starts-with($entry, "rft.isbn=")) then book.isbn :=          uri-decode(substring-after($entry, "="))
+           else if (starts-with($entry, "rft.pub=")) then book.publisher :=      uri-decode(substring-after($entry, "="))
+           else if (starts-with($entry, "rft.date=")) then book.year :=          uri-decode(substring-after($entry, "="))
+           else if (starts-with($entry, "rft.atitle=") or starts-with($entry, "rft.btitle=") (:or starts-with($entry, "rft.tpages=") :)) then 
+             book.title := concat($book.title, " ", uri-decode(substring-after($entry, "=")))
+           else if (starts-with($entry, "rft_id=")) then book.home-url :=        uri-decode(substring-after($entry, "="))
+           else ()      
+        }</span>?
+                    
+        <A t:condition="contains(@href, 'singleHit')">{book._detail-url:=@href, if (not($hasZ3988) or $book.title = "") then book.title := . else ()}</A>
+        <t:if test="not($hasZ3988)">
+          {if (exists($book.title/following-sibling::comment()[contains(., "Autor")])) then (
+              $book.year := normalize-space(text()),  (: special output in winterthur :)
+              $book.author := $book.title/following-sibling::br[2]/preceding-sibling::text()[1]  (: use preceding instead following to skip over comment :)
+            ) else book.author := normalize-space(text())
+          }
+          <strong class="c2">Band<t:s>
+            temp := ./following-sibling::text()[1],
+            book.subTitle := replace($temp, "\( *[0-9]+ *\)", ""), 
+            book.year := extract($temp, "([0-9]{4})[. )]", 1)
+          </t:s></strong>?
+          <t:s>          
+          if ($book.author = "" and not($book.subTitle) and exists($book.title/following-sibling::br[1])) then (
+            brs := if ($book.title/following-sibling::comment()[contains(., "Zusatz HST")]) then   
+                           (: for chemnitz brs[1] would be additional title data:)
+                     ($book.title/following-sibling::comment()[contains(., "Zusatz HST")])[last()]/following-sibling::br/following-sibling::text()[1]
+                   else $book.title/following-sibling::br/following-sibling::text()[1], 
+            if (matches($brs[1], "[0-9]{2,4}")) then brs := ("", $brs) else (),
+            book.author := $brs[1],
+            if (($book.author = "von" or $book.author = "") and $brs[1]/following-sibling::a and ($brs[1]/following-sibling::a)[1] &lt;&lt; $brs[2]  ) then book.author := $brs[1]/following-sibling::a[1] 
+            else if (matches($book.author, "^(ausleihbar|(entliehen|bestellbar).*)$")) then book.author := ""  (: pulheim :)
+            else (),
+            book.year := if (matches($brs[2], "[0-9]{2}")) then ($brs[2]) else ""
+            (:,book.id := $brs[3] this can also be more title data (e.g. basel):)
+          ) else ()
+          </t:s>
+        </t:if>
+       <!-- <SPAN class="textgruen">{$book.availability}</SPAN>? who cares?-->
+        </TD>
+        </TR>*
+      </TABLE>
+    </DIV>    
   </DIV>
-</DIV>
+
+  <div id="main">
+    <a>Titeldaten<t:s>singleBookResult:=@href, search-result-count:=1</t:s></a>
+    <div id="tab-content"> 
+      <template:switch>
+        <table class="data"/>
+        <table class="data2"/>
+      </template:switch>
+    </div>
+  </div>
+  
+  <h2>Ihre Suche erzielte keine Treffer</h2>    
+</template:switch-prioritized>

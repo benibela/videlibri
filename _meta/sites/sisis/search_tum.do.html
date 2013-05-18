@@ -1,0 +1,552 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!-- START jsp/common/metaHeader.jsp -->
+
+<html xmlns="http://www.w3.org/1999/xhtml" 
+ xml:lang="de" 
+ lang="de"
+> 
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <meta http-equiv="pragma" content="no-cache" />
+  <meta http-equiv="expires" content="0" />
+  <meta http-equiv="cache-control" content="no-cache" />
+
+  <!-- Bereich mobiler OPAC -->
+  <!-- <link rel="stylesheet" href="/Katalog/jsp/common/infoguide.css"  type="text/css" /> -->
+  <link rel="stylesheet" type="text/css" href="/Katalog/ulb/css/custom-theme/jquery-ui-1.7.2.custom.css" />
+  <!--not a mobile Device-->
+            <link rel="stylesheet" href="/Katalog/jsp/common/infoguide.css"  type="text/css" />
+            <link rel="stylesheet" href="/Katalog/ulb/css/ulbkatalog.css" />
+            <!--[if IE 7]>
+            <style type="text/css">
+              #tab-content{margin-top:5px;}
+              select {height:auto;}
+              #searchfield input#f1 {width:10em;}
+            </style>
+            <![endif]-->
+        <!-- <link rel="stylesheet" href="/Katalog/ulb/css/ulbkatalog.css" />  -->
+  <script language="javascript" type="text/javascript" src="/Katalog/ulb/js/jquery-1.4.1.min.js" ></script>
+  <script language="javascript" type="text/javascript" src="/Katalog/ulb/js/jquery-ui-1.7.2.custom.min.js"></script>
+  <script type="text/javascript" src="/Katalog/ulb/js/tooltip.js"></script>
+  <!--[if IE]>
+    <style type="text/css">
+      #hit td.hit-content strong.c2, #hit td.teaser-info strong.c2, #MemorizeBean div.full-hit strong.c2 { line-height:1.15em; }
+    </style>
+  <![endif]-->
+  <!--[if IE 7]>
+    <style type="text/css">
+      select {height:auto;}
+      #searchfield input#f1 {width:10em;}
+    </style>
+  <![endif]-->
+  
+  <link href="/favicon.ico" rel="SHORTCUT ICON" />
+  
+  <title>
+    Katalog WWU Münster</title>
+</head>
+<!-- END of jsp/common/metaHeader.jsp -->
+<!-- START jsp/result/HitlistLayout.jsp --> 
+<body id="hitlist">
+	<div id="pageContainer">
+
+		<!-- START jsp/common/header.jsp -->
+<div id="branding">
+  <span id="logo">
+    <div id="logo1">
+        <a title="Startseite WWU" href="http://www.uni-muenster.de/de/" rel="top"><img src="/Katalog/ulb/pics/wwu_logo.gif" alt="Westf&auml;lische Wilhelms-Universit&auml;t M&uuml;nster" width="278" height="60" class="logo" /></a>
+      </div>
+      <div id="logo2">
+         <a href="http://www.ulb.uni-muenster.de" title="Startseite Universitäts- und Landesbibliothek"><img src="/Katalog/ulb/pics/logo.gif" alt="Logo der Bibliothek" class="logo" /></a></div>
+      <div id="product">Universitäts- und Landesbibliothek - Katalog</div>
+    </span>
+  <span id="timer">&nbsp;</span>
+</div>
+<!-- BEGIN /bsb/mobileOPAC/addMobileFunctionality.jsp -->
+<!-- END /bsb/mobileOPAC/addMobileFunctionality.jsp --><!-- START jsp/common/timer.jsp -->
+
+<script type="text/javascript" language="javascript">
+
+var timeout=(10 * 60 * 1000)  + new Date().getTime();
+timeout-=2000;
+var mesg="Diese Sitzung läuft in %VAR% Sek. ab!";
+var toFront=false;
+
+if(mesg.length <= 0 || mesg.indexOf("???") >= 0)
+	mesg="Diese Sitzung läuft in %VAR% Sek. ab!";
+ticker(); 
+
+function ticker()
+{
+  var timeoutID;
+  var s; 
+  var t=timeout - new Date().getTime();
+  t=(t<0)?0:Math.round(t/1000);
+  s=""+ ((t>60)?"":t.toFixed(0));
+ 	if(t <= 60)
+ 	{
+ 		if(toFront == false)
+ 		{
+ 			toFront=true;
+ 			window.focus();
+ 		}
+ 		var msg = mesg.replace("%VAR%", s);
+    document.getElementById("timer").innerHTML = msg;
+ 	}
+  if(t == 0)
+  {
+    window.clearTimeout(timeoutID);
+    window.location.replace("/Katalog/jsp/common/timeout.jsp");
+  } 
+  else
+    timeoutID = window.setTimeout("ticker()",(t>60) ? 6000 : 1000);
+}
+
+</script>
+<!-- END of jsp/common/timer.jsp --> <!-- END of jsp/common/header.jsp -->
+
+<div id="mainnav">
+			<!-- START jsp/navigation/mainNavi.jsp --> 
+<!-- Actual Tiles Context 754 -->
+
+<ul>
+<li id="current"><div id="active">Suche</div>
+		<ul>
+			<li>
+						<a href="/Katalog/search.do?methodToCall=switchSearchPage&amp;SearchType=2" title="Neue Suche">Neue Suche</a></li>
+				<li>
+		        <a href="/Katalog/searchHistory.do?methodToCall=showHistory" title="Suchhistorie">Suchhistorie</a></li>	
+		    <li id="current2">Trefferliste</li>
+				</ul>
+	</li>
+<li><a href="/Katalog/memorizelist.do?methodToCall=show" title="Merkliste">Merkliste</a></li>
+<li><a href="/Katalog/userAccount.do?methodToCall=show&amp;type=1" title="Konto">Konto</a></li>
+<li><a href="/Katalog/stackOrder.do?methodToCall=start" title="Magazin-Bestellung">Magazin-Bestellung</a></li>
+  <li><a href="/Katalog/additional.do?methodToCall=show" title="weitere Angebote">weitere Angebote</a></li>
+</ul>
+<!-- END of jsp/navigation/mainNavi.jsp --> 
+<!-- START jsp/navigation/loginnavi.jsp --> 
+<div id="login" >
+	<a href="/Katalog/loginpage.do?methodToCall=showLogin" title="Anmelden">Anmelden</a></div>
+<!-- END of jsp/navigation/loginnavi.jsp --> </div> 
+ 		<br class="cleaner" />
+ 		<!-- START jsp/navigation/bgnavi.jsp --> 
+<script language="javascript" type="text/javascript"
+ src="/Katalog/help/help.js">
+</script>
+
+<div id="bgmainnav">
+	<div id="nav2">
+		<ul>
+			
+			<li>
+			  <a href="#" onclick="return openHelp('/Katalog');"
+			     title="Hilfe">
+			   Hilfe</a>
+		  </li>
+				<li><a href="/Katalog/asklibrary.do?methodToCall=show" title="Fragen Sie uns!">Fragen Sie uns!</a></li>
+						</ul>
+	</div>  
+</div>
+<!-- END of jsp/navigation/bgnavi.jsp --> 
+<br class="cleaner" />
+		<!-- START jsp/search/searchbar.jsp --> 
+<!-- END of jsp/search/searchbar.jsp --> <!-- START jsp/result/searchinfo.jsp --> 
+<div id="info1">
+	<strong class="c1">Ihre Suchanfrage</strong>
+	Titelwörter = test</div> 
+<!-- END of jsp/result/searchinfo.jsp --> <br class="cleaner" />
+		<div id="main"> 
+			<div id="SOWrap"> 
+				<div id="middle"> 
+					<!-- START jsp/result/hitlist.jsp --> 
+<!-- START jsp/result/singlehitlist.jsp --> 
+
+<!--    Sat May 18 14:43:49 CEST 2013
+ -->
+	<div id="hitlist">
+		<div class="box">
+			<div class="box-header">
+				<div class="box-right">
+					<span class="selectedlink">|&#171;</span>
+<span class="selectedlink">&#171;</span>
+<span class="selectedlink">1</span>
+<a href="/Katalog/hitList.do?methodToCall=pos&amp;identifier=-1_S_IG.42.3087&amp;curPos=11#-1"> 2</a>
+<a href="/Katalog/hitList.do?methodToCall=pos&amp;identifier=-1_S_IG.42.3087&amp;curPos=21#-1"> 3</a>
+<a href="/Katalog/hitList.do?methodToCall=pos&amp;identifier=-1_S_IG.42.3087&amp;curPos=31#-1"> 4</a>
+<a href="/Katalog/hitList.do?methodToCall=pos&amp;identifier=-1_S_IG.42.3087&amp;curPos=41#-1"> 5</a>
+<a href="/Katalog/hitList.do?methodToCall=pos&amp;identifier=-1_S_IG.42.3087&amp;curPos=51#-1"> 6</a>
+<a href="/Katalog/hitList.do?methodToCall=pos&amp;identifier=-1_S_IG.42.3087&amp;curPos=61#-1"> 7</a>
+<a href="/Katalog/hitList.do?methodToCall=pos&amp;identifier=-1_S_IG.42.3087&amp;curPos=71#-1"> 8</a>
+<a href="/Katalog/hitList.do?methodToCall=pos&amp;identifier=-1_S_IG.42.3087&amp;curPos=81#-1"> 9</a>
+<a href="/Katalog/hitList.do?methodToCall=pos&amp;identifier=-1_S_IG.42.3087&amp;curPos=91#-1">&#187;</a>
+<a href="/Katalog/hitList.do?methodToCall=pos&amp;identifier=-1_S_IG.42.3087&amp;curPos=2081#-1">&#187;|</a>
+</div>
+				<a name="-1"></a>
+				<h2>Treffer Katalog (2090)</h2>	
+				</div>
+			<div class="cleaner"></div>
+			
+			    
+			<table class="data" style="border:0; width:100%" summary="Trefferanzeige f&uuml;r Katalog">
+	            <!-- START jsp/result/simplehit.jsp -->
+<tr>
+	<th scope="row">
+	<a name="-1_1"></a> 
+	1.
+	</th>
+	<td>
+  		<img src="/Katalog/images/buch01.gif" alt=""  title="Buch" />
+		</td>
+		<td style="width:100%">
+	<a name="-1_1"></a> 
+<span class="titleData">
+       <a href='/Katalog/singleHit.do?methodToCall=showHit&amp;curPos=1&amp;identifier=-1_S_IG.42.3087'>Qualitätssicherung durch Softwaretests</a><br />
+Kleuker, Stephan<br />
+2013<br />
+entliehen (gesamte Vormerkungen: 0)</span>
+  <br />
+	<a href='/Katalog/memorizeHitList.do?methodToCall=addToMemorizeList&amp;curPos=1&amp;forward=hitlist&amp;identifier=-1_S_IG.42.3087#-1_1' title="in die Merkliste" class="memorize-hit">in die Merkliste</a>
+		<!-- Erweiterung um Band- und UEG-Anzeige -->
+    <!-- Ende Erweiterung um Band- und UEG-Anzeige -->
+	
+	</td>
+
+        <td>
+          </td>
+</tr>
+<!-- END of jsp/result/simplehit.jsp --> 
+
+<!-- START jsp/result/simplehit.jsp -->
+<tr>
+	<th scope="row">
+	<a name="-1_2"></a> 
+	2.
+	</th>
+	<td>
+  		<img src="/Katalog/images/buch03.gif" alt=""  title="Einzelband einer Serie, siehe auch übergeordnete Titel" />
+		</td>
+		<td style="width:100%">
+	<a name="-1_2"></a> 
+<span class="titleData">
+       <a href='/Katalog/singleHit.do?methodToCall=showHit&amp;curPos=2&amp;identifier=-1_S_IG.42.3087'>Auswertungsmanual für den Operanten Multi-Motiv-Test OMT</a><br />
+Kuhl, Julius<br />
+2013<br />
+<span class="textgruen">bestellbar</span></span>
+  <br />
+	<a href='/Katalog/memorizeHitList.do?methodToCall=addToMemorizeList&amp;curPos=2&amp;forward=hitlist&amp;identifier=-1_S_IG.42.3087#-1_2' title="in die Merkliste" class="memorize-hit">in die Merkliste</a>
+		<!-- Erweiterung um Band- und UEG-Anzeige -->
+    
+      |
+      <a href="/Katalog/search.do?methodToCall=parentSearch&amp;dbIdentifier=-1&amp;forward=success&amp;catKey=4993857" class="memorize-hit">&uuml;bergeordnete Titel</a>
+    <!-- Ende Erweiterung um Band- und UEG-Anzeige -->
+	
+	</td>
+
+        <td>
+          </td>
+</tr>
+<!-- END of jsp/result/simplehit.jsp --> 
+
+<!-- START jsp/result/simplehit.jsp -->
+<tr>
+	<th scope="row">
+	<a name="-1_3"></a> 
+	3.
+	</th>
+	<td>
+  		<img src="/Katalog/images/buch03.gif" alt=""  title="Einzelband einer Serie, siehe auch übergeordnete Titel" />
+		</td>
+		<td style="width:100%">
+	<a name="-1_3"></a> 
+<span class="titleData">
+       <a href='/Katalog/singleHit.do?methodToCall=showHit&amp;curPos=3&amp;identifier=-1_S_IG.42.3087'>Diagnosis, treatment, and effects of the crisis in Greece</a><br />
+Markantonatou, Maria<br />
+2013<br />
+<span class="textgruen">Nutzungsinformationen finden Sie in der Detailanzeige</span></span>
+  <br />
+	<a href='/Katalog/memorizeHitList.do?methodToCall=addToMemorizeList&amp;curPos=3&amp;forward=hitlist&amp;identifier=-1_S_IG.42.3087#-1_3' title="in die Merkliste" class="memorize-hit">in die Merkliste</a>
+		<!-- Erweiterung um Band- und UEG-Anzeige -->
+    
+      |
+      <a href="/Katalog/search.do?methodToCall=parentSearch&amp;dbIdentifier=-1&amp;forward=success&amp;catKey=4986948" class="memorize-hit">&uuml;bergeordnete Titel</a>
+    <!-- Ende Erweiterung um Band- und UEG-Anzeige -->
+	
+	</td>
+
+        <td>
+          </td>
+</tr>
+<!-- END of jsp/result/simplehit.jsp --> 
+
+<!-- START jsp/result/simplehit.jsp -->
+<tr>
+	<th scope="row">
+	<a name="-1_4"></a> 
+	4.
+	</th>
+	<td>
+  		<img src="/Katalog/images/buch01.gif" alt=""  title="Buch" />
+		</td>
+		<td style="width:100%">
+	<a name="-1_4"></a> 
+<span class="titleData">
+       <a href='/Katalog/singleHit.do?methodToCall=showHit&amp;curPos=4&amp;identifier=-1_S_IG.42.3087'>Design characteristics of virtual learning environments</a><br />
+Müller, Daniel<br />
+2013<br />
+<span class="textgruen">Ein oder mehrere Exemplare dieses Titels sind in der aktuellen Zweigstelle ausleihbar.</span></span>
+  <br />
+	<a href='/Katalog/memorizeHitList.do?methodToCall=addToMemorizeList&amp;curPos=4&amp;forward=hitlist&amp;identifier=-1_S_IG.42.3087#-1_4' title="in die Merkliste" class="memorize-hit">in die Merkliste</a>
+		<!-- Erweiterung um Band- und UEG-Anzeige -->
+    <!-- Ende Erweiterung um Band- und UEG-Anzeige -->
+	
+	</td>
+
+        <td>
+          </td>
+</tr>
+<!-- END of jsp/result/simplehit.jsp --> 
+
+<!-- START jsp/result/simplehit.jsp -->
+<tr>
+	<th scope="row">
+	<a name="-1_5"></a> 
+	5.
+	</th>
+	<td>
+  		<img src="/Katalog/images/buch01.gif" alt=""  title="Buch" />
+		</td>
+		<td style="width:100%">
+	<a name="-1_5"></a> 
+<span class="titleData">
+       <a href='/Katalog/singleHit.do?methodToCall=showHit&amp;curPos=5&amp;identifier=-1_S_IG.42.3087'>¬Der Alcohol Use Disorders Identification Test (AUDIT) als präoperatives Screeninginstrument für die postoperative exogene Psychose</a><br />
+Buschmeier, Isabell<br />
+2012<br />
+<span class="textgruen">bestellbar</span></span>
+  <br />
+	<a href='/Katalog/memorizeHitList.do?methodToCall=addToMemorizeList&amp;curPos=5&amp;forward=hitlist&amp;identifier=-1_S_IG.42.3087#-1_5' title="in die Merkliste" class="memorize-hit">in die Merkliste</a>
+		<!-- Erweiterung um Band- und UEG-Anzeige -->
+    <!-- Ende Erweiterung um Band- und UEG-Anzeige -->
+	
+	</td>
+
+        <td>
+          </td>
+</tr>
+<!-- END of jsp/result/simplehit.jsp --> 
+
+<!-- START jsp/result/simplehit.jsp -->
+<tr>
+	<th scope="row">
+	<a name="-1_6"></a> 
+	6.
+	</th>
+	<td>
+  		<img src="/Katalog/ulb/pics/onl.gif" alt=""  title="Onlineressource" />
+		</td>
+		<td style="width:100%">
+	<a name="-1_6"></a> 
+<span class="titleData">
+       <a href='/Katalog/singleHit.do?methodToCall=showHit&amp;curPos=6&amp;identifier=-1_S_IG.42.3087'>¬Der Alcohol Use Disorders Identification Test (AUDIT) als präoperatives Screeninginstrument für die postoperative exogene Psychose</a><br />
+Buschmeier, Isabell<br />
+2012<br />
+<span class="textgruen">Nutzungsinformationen finden Sie in der Detailanzeige</span></span>
+  <br />
+	<a href='/Katalog/memorizeHitList.do?methodToCall=addToMemorizeList&amp;curPos=6&amp;forward=hitlist&amp;identifier=-1_S_IG.42.3087#-1_6' title="in die Merkliste" class="memorize-hit">in die Merkliste</a>
+		<!-- Erweiterung um Band- und UEG-Anzeige -->
+    <!-- Ende Erweiterung um Band- und UEG-Anzeige -->
+	
+	</td>
+
+        <td>
+          <a href="http://nbn-resolving.de/urn:nbn:de:hbz:6-28369368816" target="_blank" class="memorize-hit">Volltext</a><br/>
+              </td>
+</tr>
+<!-- END of jsp/result/simplehit.jsp --> 
+
+<!-- START jsp/result/simplehit.jsp -->
+<tr>
+	<th scope="row">
+	<a name="-1_7"></a> 
+	7.
+	</th>
+	<td>
+  		<img src="/Katalog/ulb/pics/artikel.gif" alt=""  title="Artikel" />
+		</td>
+		<td style="width:100%">
+	<a name="-1_7"></a> 
+<span class="titleData">
+       <a href='/Katalog/singleHit.do?methodToCall=showHit&amp;curPos=7&amp;identifier=-1_S_IG.42.3087'>Enacted support and well-being</a><br />
+Chen, Yixin<br />
+2012<br />
+<span class="textgruen">Nutzungsinformationen finden Sie in der Detailanzeige</span></span>
+  <br />
+	<a href='/Katalog/memorizeHitList.do?methodToCall=addToMemorizeList&amp;curPos=7&amp;forward=hitlist&amp;identifier=-1_S_IG.42.3087#-1_7' title="in die Merkliste" class="memorize-hit">in die Merkliste</a>
+		<!-- Erweiterung um Band- und UEG-Anzeige -->
+    <!-- Ende Erweiterung um Band- und UEG-Anzeige -->
+	
+	</td>
+
+        <td>
+          </td>
+</tr>
+<!-- END of jsp/result/simplehit.jsp --> 
+
+<!-- START jsp/result/simplehit.jsp -->
+<tr>
+	<th scope="row">
+	<a name="-1_8"></a> 
+	8.
+	</th>
+	<td>
+  		<img src="/Katalog/images/buch01.gif" alt=""  title="Buch" />
+		</td>
+		<td style="width:100%">
+	<a name="-1_8"></a> 
+<span class="titleData">
+       <a href='/Katalog/singleHit.do?methodToCall=showHit&amp;curPos=8&amp;identifier=-1_S_IG.42.3087'>¬Der Giessen-Test-II</a><br />
+Beckmann, Dieter<br />
+2012<br />
+<span class="textrot">Pr&auml;senzbestand, nicht ausleihbar</span></span>
+  <br />
+	<a href='/Katalog/memorizeHitList.do?methodToCall=addToMemorizeList&amp;curPos=8&amp;forward=hitlist&amp;identifier=-1_S_IG.42.3087#-1_8' title="in die Merkliste" class="memorize-hit">in die Merkliste</a>
+		<!-- Erweiterung um Band- und UEG-Anzeige -->
+    <!-- Ende Erweiterung um Band- und UEG-Anzeige -->
+	
+	</td>
+
+        <td>
+          </td>
+</tr>
+<!-- END of jsp/result/simplehit.jsp --> 
+
+<!-- START jsp/result/simplehit.jsp -->
+<tr>
+	<th scope="row">
+	<a name="-1_9"></a> 
+	9.
+	</th>
+	<td>
+  		<img src="/Katalog/images/buch01.gif" alt=""  title="Buch" />
+		</td>
+		<td style="width:100%">
+	<a name="-1_9"></a> 
+<span class="titleData">
+       <a href='/Katalog/singleHit.do?methodToCall=showHit&amp;curPos=9&amp;identifier=-1_S_IG.42.3087'>¬The last Afrikaner leaders</a><br />
+Giliomee, Hermann Buhr<br />
+2012<br />
+<span class="textgruen">Ein ausleihbares Exemplar finden Sie in einer anderen Zweigstelle</span></span>
+  <br />
+	<a href='/Katalog/memorizeHitList.do?methodToCall=addToMemorizeList&amp;curPos=9&amp;forward=hitlist&amp;identifier=-1_S_IG.42.3087#-1_9' title="in die Merkliste" class="memorize-hit">in die Merkliste</a>
+		<!-- Erweiterung um Band- und UEG-Anzeige -->
+    <!-- Ende Erweiterung um Band- und UEG-Anzeige -->
+	
+	</td>
+
+        <td>
+          </td>
+</tr>
+<!-- END of jsp/result/simplehit.jsp --> 
+
+<!-- START jsp/result/simplehit.jsp -->
+<tr>
+	<th scope="row">
+	<a name="-1_10"></a> 
+	10.
+	</th>
+	<td>
+  		<img src="/Katalog/ulb/pics/artikel.gif" alt=""  title="Artikel" />
+		</td>
+		<td style="width:100%">
+	<a name="-1_10"></a> 
+<span class="titleData">
+       <a href='/Katalog/singleHit.do?methodToCall=showHit&amp;curPos=10&amp;identifier=-1_S_IG.42.3087'>Effects of media ratings on children and adolescents</a><br />
+Gosselt, Jordy F.<br />
+2012<br />
+<span class="textgruen">Nutzungsinformationen finden Sie in der Detailanzeige</span></span>
+  <br />
+	<a href='/Katalog/memorizeHitList.do?methodToCall=addToMemorizeList&amp;curPos=10&amp;forward=hitlist&amp;identifier=-1_S_IG.42.3087#-1_10' title="in die Merkliste" class="memorize-hit">in die Merkliste</a>
+		<!-- Erweiterung um Band- und UEG-Anzeige -->
+    <!-- Ende Erweiterung um Band- und UEG-Anzeige -->
+	
+	</td>
+
+        <td>
+          </td>
+</tr>
+<!-- END of jsp/result/simplehit.jsp --> 
+
+</table>
+	    <div class="box">
+			  <div class="box-header">
+			    <div class="box-right">
+    			  <span class="selectedlink">|&#171;</span>
+<span class="selectedlink">&#171;</span>
+<span class="selectedlink">1</span>
+<a href="/Katalog/hitList.do?methodToCall=pos&amp;identifier=-1_S_IG.42.3087&amp;curPos=11#-1"> 2</a>
+<a href="/Katalog/hitList.do?methodToCall=pos&amp;identifier=-1_S_IG.42.3087&amp;curPos=21#-1"> 3</a>
+<a href="/Katalog/hitList.do?methodToCall=pos&amp;identifier=-1_S_IG.42.3087&amp;curPos=31#-1"> 4</a>
+<a href="/Katalog/hitList.do?methodToCall=pos&amp;identifier=-1_S_IG.42.3087&amp;curPos=41#-1"> 5</a>
+<a href="/Katalog/hitList.do?methodToCall=pos&amp;identifier=-1_S_IG.42.3087&amp;curPos=51#-1"> 6</a>
+<a href="/Katalog/hitList.do?methodToCall=pos&amp;identifier=-1_S_IG.42.3087&amp;curPos=61#-1"> 7</a>
+<a href="/Katalog/hitList.do?methodToCall=pos&amp;identifier=-1_S_IG.42.3087&amp;curPos=71#-1"> 8</a>
+<a href="/Katalog/hitList.do?methodToCall=pos&amp;identifier=-1_S_IG.42.3087&amp;curPos=81#-1"> 9</a>
+<a href="/Katalog/hitList.do?methodToCall=pos&amp;identifier=-1_S_IG.42.3087&amp;curPos=91#-1">&#187;</a>
+<a href="/Katalog/hitList.do?methodToCall=pos&amp;identifier=-1_S_IG.42.3087&amp;curPos=2081#-1">&#187;|</a>
+</div>
+	  		</div>
+			</div>
+		</div>
+	</div>
+           <!-- Sat May 18 14:43:50 CEST 2013
+ -->
+	<br />
+<!-- END of jsp/result/singlehitlist.jsp --> 
+<script language="javascript" type="text/javascript">
+ setHelp("trefferliste", "");
+</script>
+<!-- END of jsp/result/hitlist.jsp --> 
+</div>
+   			<!-- START jsp/result/hitlistNavigators.jsp --> 
+<!-- END of jsp/result/hitlistNavigators.jsp --> 
+</div>
+			<div id="right">
+				<!-- START jsp/result/rechtsoben.jsp --> 
+<div class="box3">
+	<div class="box3-header">
+		<div class="box3-img"><img src="images/box3-right.gif" width="8" height="8" alt="" /></div>
+		<h2>weitere Optionen</h2>
+	</div>
+	<div class="box3-content">
+	<p><strong>Suchanfrage</strong><br />
+			<a href="/Katalog/search.do?methodToCall=start" title="Suchanfrage &auml;ndern">&auml;ndern</a></p>
+	<p><strong>Ausgabe</strong><br />
+				<a href="/Katalog/hitOutput.do?methodToCall=show" title="Trefferliste ausgeben">Trefferliste ausgeben</a></p>
+		</div> <!-- box3-content --> 
+</div><!-- box3 -->
+
+<!-- END of jsp/result/rechtsoben.jsp --> 
+<br class="space" />
+				<!-- START jsp/result/rechtsunten.jsp --> 
+<!-- END of jsp/result/rechtsunten.jsp --> 
+</div>
+			<!-- right -->
+			<br class="cleaner" />
+		</div>
+		<!-- START jsp/common/footer.jsp -->
+
+<div id="footer">
+  &nbsp;<div id="copyright">
+	  <span>Copyright &copy; 2012.&nbsp;Alle Rechte vorbehalten.<img src="/Katalog/images/OCLC.jpg" alt="OCLC" title="OCLC" width="54" height="19" />
+          </span>
+  </div>
+  <div class="cleaner"></div>
+</div>
+<!-- END of jsp/common/footer.jsp -->
+</div> 
+</body>
+<!-- END of the jsp/result/HitlistLayout.jsp --> 
+<!-- START jsp/common/metaFooter.jsp -->
+</html>
+<!-- END of jsp/common/metaFooter.jsp -->

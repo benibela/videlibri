@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<library>
+  <longName value="Unibibliothek Bochum (alpha)"/>
+  <shortName value="Ub Bochum"/> 
+  
+  <template value="sisis"/>  
+  <variable name="server" value="http://opac.ub.rub.de:8080/webOPACClient/"/>
+  
+  <homepage value="http://www.ub.rub.de/"/>
+  <testing-search value="in 1.5" date="2013-05-18"/>
+  <testing-account value="?" date=""/>
+  <testing-renew value="?" date=""/>
+</library>

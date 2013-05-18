@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<library>
+  <longName value="Städtische Bibliotheken Dresden (alpha)"/>
+  <shortName value="Bibo Dresden"/> 
+  
+  <template value="sisis"/>  
+  <variable name="server" value="http://katalog.bibo-dresden.de/webOPACClient/"/>
+  <variable name="startparams" value="?Login=webopac"/>
+  
+  <homepage value="http://www.bibo-dresden.de/"/>
+  <testing-search value="in 1.5" date="2013-05-18"/>
+  <testing-account value="?" date=""/>
+  <testing-renew value="?" date=""/>
+</library>

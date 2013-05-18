@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<library>
+  <longName value="Hochschulbibliothek der Fachhochschule Münster (alpha)"/>
+  
+  <template value="sisis"/>  
+  <variable name="server" value="https://superfix.uni-muenster.de/Katalog/"/>
+  
+  <homepage value="http://www.ulb.uni-muenster.de/bibliothek/"/>
+  <testing-search value="in 1.5" date="2013-05-18"/>
+  <testing-account value="?" date=""/>
+  <testing-renew value="?" date=""/>
+</library>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<library>
+  <longName value="Stadtbibliothek Oberhausen (alpha)"/>
+  
+  <template value="sisis"/>  
+  <variable name="server" value="https://bibliothek.oberhausen.de/webOPACClient.sisis/"/>
+  
+  <homepage value="http://www.oberhausen.de/0A1C46AD57614F1B8C5CD011AF1C5911.php"/>
+  <testing-search value="in 1.5" date="2013-05-18"/>
+  <testing-account value="?" date=""/>
+  <testing-renew value="?" date=""/>
+</library>

@@ -55,6 +55,12 @@ mkdir -p $OUTPATH/sisis
 TEMPLATES=(${TEMPLATES[@]} sisis/start sisis/loggedIn sisis/loggedIn sisis/loggedIn sisis/loggedIn)
 PAGES=(${PAGES[@]} sisis/start.do.html sisis/userAccount.do_empty.html sisis/userAccount.do_singlebook.html sisis/userAccount.do_singlebook2.html sisis/userAccount.do_2books.html)
 
+#search
+
+TEMPLATES=(${TEMPLATES[@]} sisis/searchList sisis/searchList sisis/searchList sisis/searcshList sisis/searchList sisis/searchList sisis/searchList sisis/searchList sisis/searchList sisis/searchList sisis/searchList sisis/searchList sisis/searchList sisis/searchList)
+PAGES=(${PAGES[@]} sisis/search_rwth.do.html sisis/searchHitlist_rwth.do.html sisis/search_altdorf.do.html sisis/searchHitList_altdorf.do.html sisis/search_Z3988_haw-aw.do.html sisis/search_augsburg.do.html sisis/search_augsburg2.do.html sisis/search_basel.do.html sisis/search_chemnitz.do.html sisis/search_liestal.do.html sisis/search_tum.do.html sisis/search_pulheim.do.html sisis/searchHitlist_pulheim.do.html sisis/search_winterthur.do.html) 
+
+
 #==============PICA================
 mkdir -p $OUTPATH/pica
 

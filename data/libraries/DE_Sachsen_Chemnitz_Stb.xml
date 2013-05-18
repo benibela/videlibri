@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<library>
+  <longName value="Stadtbibliothek Chemnitz (alpha)"/>
+  <shortName value="Stb Chemnitz"/> 
+  
+  <template value="sisis"/>  
+  <variable name="server" value="http://opac.stadtbibliothek-chemnitz.de/webOPACClient/"/>
+  <variable name="startparams" value="?Login=opsb"/>
+  
+  <homepage value="http://www.stadtbibliothek-chemnitz.de/"/>
+  <testing-search value="in 1.5" date="2013-05-18"/>
+  <testing-account value="?" date=""/>
+  <testing-renew value="?" date=""/>
+</library>

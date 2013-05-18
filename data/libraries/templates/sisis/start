@@ -1,7 +1,7 @@
 <html>
 <body>
   <div id="mainnav">
-     <a title="Konto"><template:read source="@href" var="jsession" regex="jsessionid=[0-9a-zA-Z_-]*"/></a>
+     <a template:condition="contains(@href, 'userAccount.do')"><template:read source="@href" var="jsession" regex="jsessionid=[0-9a-zA-Z_-]*"/></a> <!-- jsession can be empty?-->
   </div>
   <input type="hidden" name="CSId">
      <template:read source="@value" var="CSId"/>
