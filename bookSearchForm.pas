@@ -374,7 +374,7 @@ begin
 
   bookList.endupdate;
 
-  if (bookList.VisibleRowCount > bookList.Items.Count) and (nextPageAvailable) then begin
+  if (bookList.TopItemVisualIndex + bookList.VisibleRowCount > bookList.Items.Count) and (nextPageAvailable) then begin
     searcherAccess.searchNextAsync;
     StatusBar1.Panels[SB_PANEL_SEARCH_STATUS].Text:='Lade nächste Seite...';
   end else if nextPageAvailable then

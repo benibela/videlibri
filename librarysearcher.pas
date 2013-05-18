@@ -53,7 +53,7 @@ uses internetAccess;
 
 function TLibrarySearcher.GetSearchNextPageAvailable: boolean;
 begin
-  result := bookListReader.parser.variables.get('search-next-page-available').toBooleanEffective;
+  result := bookListReader.parser.variableChangeLog.get('search-next-page-available').toBooleanEffective;
 end;
 
 constructor TLibrarySearcher.create(searchTemplate: TMultiPageTemplate);
