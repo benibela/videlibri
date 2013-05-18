@@ -93,6 +93,8 @@ downloadTable)
 ;;
 
   supportTable)
+     LIBS=$(ls data/libraries/*.xml | grep -oE "[^_]+_[^_]+.xml" | sort | xargs -I{} find data/libraries/ -name "*{}" -maxdepth 1)
+     
      TABLE=_meta/sfsite/supportTable.html 
      echo  '
       <table class="bibsupport">
@@ -116,8 +118,8 @@ downloadTable)
         <td>{string(.//template/@value)}</td></tr> 
       }' \
       -e 'city:=("nimbo")' \
-      data/libraries/*.xml  \
-      -e 'newcity := filter($url, "/([^/]*)_", 1)' \
+      $LIBS  \
+      -e 'newcity := replace(replace(replace(filter($url, "/[^_]+_[^_]+_([^/]*)_", 1), "[+]ue", "ü"), "[+]oe", "ö"), "[+]ae", "ä")' \
       --xquery 'if ($newcity  != $city and not(//homepage/@nolist = "true")) then <tr class="city"><td colspan="6"><b>{$newcity}</b></td></tr> else ()'   \
       --xquery 'if (//homepage/@nolist = "true") then () else city := $newcity' \
       --xquery 'if (//homepage/@nolist = "true") then () else //homepage/row(/,.)' \
