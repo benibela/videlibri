@@ -538,6 +538,7 @@ var intern, empty, normal: TTreeListItems; //item lists
   end;
 var i:longint;
     tempStream: TStringStream;
+    ext: String;
 begin
   if book=nil then
     if bookList.Selected=nil then book:=displayedBook
@@ -578,8 +579,12 @@ begin
       try
         tempStream:=TStringStream.Create(getProperty('image',book.additional));
         try
-          image1.Picture.LoadFromStreamWithFileExt(tempStream, ExtractFileExt(getProperty('image-url',book.additional)));
-          Image1.width:=Image1.Picture.Width;
+          ext := getProperty('image-content-type',book.additional);
+          if (ext = 'image/jpeg') or (ext = 'image/jpg') then ext := '.jpg'
+          else if ext = 'image/png' then ext := '.png'
+          else ext := ExtractFileExt(getProperty('image-url',book.additional));
+          image1.Picture.LoadFromStreamWithFileExt(tempStream, ext);
+          Image1.width:=min(image1.Picture.Width, Image1.Picture.Width * image1.Height div max(1,image1.Picture.Height));
         finally
           tempStream.free;
         end;

@@ -427,15 +427,12 @@ begin
             end else image:='';
             if logging then log('got image: size: '+IntToStr(length(image)));
             access.beginBookReading;
-            if logging then log('a');
             addProperty('image',image,book.additional);
-            if logging then log('b');
+            addProperty('image-content-type', searcher.bookListReader.internet.getLastContentType,book.additional);
             addProperty('image-searched','true',book.additional);
-            if logging then log('c');
             access.endBookReading;
-            if logging then log('d');
             callBookEvent(access.FOnImageComplete,book);
-            if logging then log('e');
+            if logging then log('end image');
           end;
         end
         else if logging then log('Searcher thread: unknown type');
