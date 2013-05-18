@@ -76,5 +76,9 @@
   <page url="{$book.home-url}" templateFile="searchDetails"></page>
 </action>
 
+<action id="catalogue">
+  <variable name="db" value="DB={get('picadb', 1)}"/>
+  <variable name="url" value="{$server}/{$db}/LNG=DU/"/>
+</action>
 
 </actions> 

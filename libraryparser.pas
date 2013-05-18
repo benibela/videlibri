@@ -16,6 +16,7 @@ type
   TLibrary=class
   protected
     defaultVariables:TStringList;
+    fhomepageCatalogue: string;
     function readProperty(tagName: string; properties: TProperties):TParsingResult;
   public
     template:TMultiPageTemplate;
@@ -23,7 +24,7 @@ type
 
     canModifySingleBooks:boolean;
     //function getPrettyNameShort():string;virtual;
-    homepageBase, homepageCatalogue:string;
+    homepageBase:string;
     prettyNameLong:string;
     prettyNameShort:string;
     id:string;
@@ -39,6 +40,7 @@ type
     destructor destroy;override;
     
     property variables: TStringList read defaultVariables;
+    function homepageCatalogue: string;
     function location: string;
     function prettyLocation: string;
     class function unprettyLocation(l: string): string;
@@ -278,7 +280,7 @@ begin
   tagName:=LowerCase(tagName);
   value:=getProperty('value',properties);
   if  tagName='homepage' then homepageBase:=value
-  else if  tagName='catalogue' then homepageCatalogue:=value
+  else if  tagName='catalogue' then fhomepageCatalogue:=value
   else if tagName='longname' then prettyNameLong:=value
   else if tagName='shortname' then prettyNameShort:=value
   else if tagName='longname' then prettyNameLong:=value
@@ -332,6 +334,24 @@ begin
   passwordRegEx.Free;
   defaultVariables.free;
   inherited destroy;
+end;
+
+function TLibrary.homepageCatalogue: string;
+var
+  action: TTemplateAction;
+  parser: TMultipageTemplateReader;
+  i: Integer;
+begin
+  if (fhomepageCatalogue = '') and (template.findAction('catalogue') <> nil)  then begin
+    parser := TMultipageTemplateReader.create(template,nil);
+    for i:=0 to defaultVariables.count-1 do
+      parser.parser.variableChangeLog.ValuesString[defaultVariables.Names[i]]:=defaultVariables.ValueFromIndex[i];
+    parser.callAction('catalogue');
+    fhomepageCatalogue:=parser.parser.variableChangeLog['url'].toString;
+    parser.free;
+  end;
+  if fhomepageCatalogue = '' then fhomepageCatalogue := homepageBase;
+  result := fhomepageCatalogue;
 end;
 
 function TLibrary.location: string;
@@ -397,13 +417,6 @@ begin
   for i:=0 to libraryFiles.count-1 do begin
     newLib:=TLibrary.Create;
     newLib.loadFromString(assetFileAsString('libraries/'+libraryFiles[i]), 'libraries/'+libraryFiles[i]);
-    if (newLib.homepageCatalogue = '')  then begin
-      newLib.homepageCatalogue := newLib.variables.Values['server'];
-      if not strContains(newLib.homepageCatalogue, '://') then newLib.homepageCatalogue:='http://'+newLib.homepageCatalogue;
-      if (newLib.template <> nil) and (newLib.template.name = 'pica') and (newLib.variables.Values['picadb'] <> '') then
-        newLib.homepageCatalogue := newLib.homepageCatalogue + '/DB='+newLib.variables.Values['picadb'];
-    end;
-    if newLib.homepageCatalogue = '' then newLib.homepageCatalogue := newLib.homepageBase;
     flibraries.Add(newLib);
   end;
   libraryFiles.free;
