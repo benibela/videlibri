@@ -73,6 +73,9 @@ mkdir -p $OUTPATH/aDISWeb
 TEMPLATES=(${TEMPLATES[@]} aDISWeb/search aDISWeb/search)
 PAGES=(${PAGES[@]} aDISWeb/search_stuttgart_abk.do.html aDISWeb/search_no-result.aalen.html)
 
+TEMPLATES=(${TEMPLATES[@]} aDISWeb/searchDetails)
+PAGES=(${PAGES[@]} aDISWeb/searchDetails_albstadt.html)
+
 #=============DIGIBIB==============
 mkdir -p $OUTPATH/digibib
 

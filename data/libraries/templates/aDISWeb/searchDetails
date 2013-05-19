@@ -1,0 +1,75 @@
+<html>
+    <template:meta default-text-matching="regex"/>
+    
+    <DIV id="right">
+      <DIV class="inside">
+        <DIV id="R30">
+          <DIV class="html_div">
+            <div id="R001">
+              <a><img>{book.image-url:=@src}</img></a>
+            </div>
+          </DIV>
+        </DIV>
+      </DIV>
+    </DIV>?
+
+    <a title="Trefferliste">{goback:=@href}</a><!--inside main in munich, outside in nürnberg-->
+    
+    
+<!--    <DIV id="main">
+      <DIV class="inside">
+        <DIV class="block">
+          <DIV class="fsgrp">-->
+              <DIV class="aDISListe">
+                <DIV class="html_div">
+                  <DIV class="aDISListe">
+                    <TABLE class="gi">
+                      <t:loop>
+                        <t:switch>
+                        <TR>
+                          <TH class="spaltelinks">Titel</TH>
+                          <TD class="spalterechts">{book.title:=.}</TD>
+                        </TR>
+                        
+                        <TR>
+                          <TH class="spaltelinks">Person|Autor</TH>
+                          <TD class="spalterechts">{book.author:=.}</TD>
+                        </TR>
+  
+                        <TR>
+                          <TH class="spaltelinks">erschienen</TH>
+                          <TD class="spalterechts">{book.year:=translate(., "[]", "")}</TD>
+                        </TR>
+  
+                        <TR>
+                          <TD class="spalterechts"><a href="{$book.home-url}">Zitierlink</a></TD>
+                        </TR>
+
+                        <TR>
+                          <TH class="spaltelinks">{name:=translate(normalize-space(.), ".", "")}</TH>
+                          <TD class="spalterechts"><t:read source="." var="book.{$name}!"/></TD>
+                        </TR>
+                        </t:switch>
+                      </t:loop>
+                    </TABLE>
+                  </DIV>
+                </DIV>
+              </DIV>
+  
+            <DIV class="rTable_div" template:optional="true">
+              {exemplarCount := 0}
+              <TABLE class="rTable_table">
+                <thead/>
+                <TR>
+                  {exemplarCount := $exemplarCount + 1}
+                  <t:read source="string-join(./td, ',  ')" var="book.Exemplar {$exemplarCount}!"/>
+                </TR>*
+              </TABLE>
+            </DIV>
+  
+       <!--   </DIV>
+        </DIV>
+      </DIV>
+    </DIV>-->
+    
+    </html>
