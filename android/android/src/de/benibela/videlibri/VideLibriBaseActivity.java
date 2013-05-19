@@ -68,7 +68,7 @@ public class VideLibriBaseActivity extends Activity {
 
 
     public void showMessage(String message){ showMessage(this, message, null); }
-    public void showMessage(String message, MessageHandler handler){ showMessage(this, message, null); }
+    public void showMessage(String message, MessageHandler handler){ showMessage(this, message, handler); }
     static public void showMessage(Context context, String message, final MessageHandler handler){
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
         builder.setMessage(message);

@@ -14,7 +14,7 @@ import android.widget.TextView;
 
 import java.util.*;
 
-public class BookDetails extends Activity {
+public class BookDetails extends VideLibriBaseActivity {
     Bridge.Book book;
 
     static class Details{
@@ -23,6 +23,7 @@ public class BookDetails extends Activity {
             this.name = name;
             this.data = data;
             if (name == null) this.name = "??";
+            if (this.name.endsWith("!")) this.name = this.name.substring(0,this.name.length()-1);
             if (data == null) this.data = "";
         }
     }
@@ -132,12 +133,14 @@ public class BookDetails extends Activity {
         book = newBook;
         if (book == null) book = new Bridge.Book();
 
+        boolean searchedBook = book.account == null;
+
         ListView lv = (ListView) findViewById(R.id.bookdetailsview);
 
         details.clear();
         details.add(new Details("Titel", book.title));
         details.add(new Details("Verfasser", book.author));
-        if (!book.history || book.dueDatePretty != null)
+        if ((!searchedBook && !book.history) || book.dueDate != null)
             details.add(new Details("Abgabefrist", book.dueDatePretty));
 
         String status = book.more.get("status");
@@ -146,18 +149,22 @@ public class BookDetails extends Activity {
         if (!"".equals(status)) details.add(new Details("Bemerkung", status));
 
         if (book.issueDate != null)
-          details.add(new Details("Ausleihdatum", android.text.format.DateFormat.getDateFormat(this).format(book.issueDate)));
+          details.add(new Details("Ausleihdatum", android.text.format.DateFormat.getDateFormat(this).format(book.issueDate.getTime())));
         addIfExists("Ausgeliehen in", "libraryBranch");
         if (book.account != null) details.add(new Details("Konto", book.account.prettyName));
 
         addIfExists("ID", "id");
         addIfExists("Kategorie", "category");
         addIfExists("Jahr", "year");
+        addIfExists("Verlag", "publisher");
 
-        final List<String> above = Arrays.asList(new String[]{"status", "id", "category", "year", "statusId", "libraryBranch"});
+        final List<String> above = Arrays.asList("status", "id", "category", "year", "statusId", "libraryBranch", "publisher");
 
         for (Map.Entry<String, String> entry : book.more.entrySet())
-            if (entry.getValue() != null && !"".equals(entry.getValue()) && !above.contains(entry.getKey()))
+            if ( entry.getValue() != null && !"".equals(entry.getValue()) && (
+                    (!searchedBook && !above.contains(entry.getKey()))
+                    || (searchedBook && entry.getKey().endsWith("!"))
+            ))
                 details.add(new Details(entry.getKey(), entry.getValue()));
 
         lv.setAdapter(new BookDetailsAdapter(this, details, book));

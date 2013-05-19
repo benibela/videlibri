@@ -69,8 +69,8 @@ public class BookListActivity extends VideLibriBaseActivity {
 
                 int c = book.getStatusColor();
                 if (c == -1) c = VideLibri.defaultColor;
-                holder.caption.setTextColor(c);
-                holder.more.setTextColor(c);
+                //holder.caption.setTextColor(c);
+                //holder.more.setTextColor(c);
                 holder.date.setTextColor(c);
             } else holder.date.setText("");
             return view;
