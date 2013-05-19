@@ -1,0 +1,552 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="de" lang="de">
+<!-- solution for: conditional-comments block downloads  -->
+<!--[if IE]><![endif]--><head>
+	<style type="text/css">
+		@import url(css/aDISStandard.css);
+	</style>
+	<script src="js/aDISMain.js" type="text/javascript"></script>
+	<script src="js/fckeditor/fckeditor.js" type="text/javascript"></script>
+	<title> Hochschule Mannheim            </title><script type="text/javascript">
+	var text = '';
+	window.defaultStatus=text;
+</script> <!--
+  (c) Software: aDIS/BMS und aDIS/Archiv by |a|S|tec| GmbH Berlin und Muenchen - www.astec.de
+  HTML-/CSS-Anpassungen: ena Webstudio - www.ena-webstudio.com
+  HTML-/CSS-Framework basiert grob auf Contao (c) Leo Feyer www.contao.org
+  Formulare, Tabellen, etc. werden automatisch durch aDIS generiert
+  Projekt: BSZ M02, Deutsch - OPAC03
+  Letztes Update: 27.09.2012
+  //-->
+  
+  <meta http-equiv="x-ua-compatible" content="ie=edge" />
+  <meta http-equiv="cache-control" content="no-cache" />
+  <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+  <meta http-equiv="content-style-type" content="text/css" />
+  <meta http-equiv="content-script-type" content="text/javascript" />
+  <meta http-equiv="content-language" content="de" />
+  <meta name="language" content="de" />
+  <!-- incl=includeMeta_de.html -->  <meta name="description" content="Bibliothekskatalog" />
+  <link rel="shortcut icon" type="image/x-icon" href="/aDISWeb_bsz/m24/images/favicon.ico" />
+<!-- stop -->
+  <!-- incl=includeCSS.html -->  <link rel="stylesheet" href="/aDISWeb_bsz/basis/css/framework.css" type="text/css" media="screen" />
+  <!--[if lte IE 7]><link rel="stylesheet" href="/aDISWeb_bsz/basis/css/framework_iefixes.css" type="text/css" media="screen" /><![endif]-->
+
+  <link rel="stylesheet" href="/aDISWeb_bsz/basis/css/layout.css" type="text/css" media="screen" />
+
+  <!-- START: individuelles Differenz-Stylesheet -->   
+  <link rel="stylesheet" type="text/css" media="screen, projection" href="/aDISWeb_bsz/m24/css/diff.css" />
+  <!-- STOP: individuelles Differenz-Stylesheet -->
+ 
+  <!--[if lt IE 7]><link rel="stylesheet" href="/aDISWeb_bsz/basis/css/ieonly.css" type="text/css" media="screen" /><![endif]--> 
+  <!--[if IE 7]><link rel="stylesheet" href="/aDISWeb_bsz/basis/css/ieonly7.css" type="text/css" media="screen" /><![endif]--> 
+  <!--[if gte IE 8]><link rel="stylesheet" href="/aDISWeb_bsz/basis/css/ieonly8.css" type="text/css" media="screen" /><![endif]-->
+  <link rel="stylesheet" type="text/css" href="/aDISWeb_bsz/basis/css/print.css" media="print" />
+
+  <!-- Mobildarstellung -->
+  <meta name="viewport" content="width=device-width; initial-scale=1.0" />
+  <link rel="stylesheet" href="/aDISWeb_bsz/basis/css/media.css" type="text/css" />
+  <!--[if lt IE 9]>
+	<script type="text/javascript" src="/aDISWeb_bsz/basis/js/css3-mediaqueries.js"></script>
+   <![endif]--> 
+<!-- stop --> 
+</head>
+<body class="zweier deutsch">
+<script type="text/javascript"><!--
+
+
+
+
+function startIdleTimer() {
+  if (typeof idleId != 'undefined')
+    clearTimeout(idleId)
+  idleId = window.setTimeout("to('"+ idleLink + "')", idleTime);
+  }			
+function to(link) {
+  location.href=link;
+  }
+
+
+
+
+					
+function setupHandlers()  {
+	document.onmousedown = docOnEvent;		
+	document.onkeydown = docOnEvent;	
+	document.onkeypress = docOnEvent;
+	document.onhelp = cancelF1;
+	
+	initFormElements();
+	initIframes();
+	initScrollPos();
+	}
+function getDimensions()  {
+	document.forms[0].scrDim.value = screen.width + ";" + screen.height;
+	if (window.innerWidth)
+		document.forms[0].winDim.value = window.innerWidth + ";" + window.innerHeight;
+	else
+		document.forms[0].winDim.value = document.body.offsetWidth + ";" + document.body.offsetHeight;
+	node = document.getElementById("img_content");
+	if (node != undefined)
+		document.forms[0].imgDim.value = node.offsetWidth + ";" + node.offsetHeight;
+	}
+
+
+
+
+window.onload = function (e)
+{
+
+  idleTime=360000000;
+  idleLink="/aDISWeb/app;jsessionid=115DA206421D6D67D1F0DADECB606D0C?service=direct/1/POOLM24PBSZPROD@_44276700_2AE9E380/$Timeout";
+  startIdleTimer();
+
+
+if (!e) var e = window.event;
+document.forms[0].scriptEnabled.value=true;
+if (self.specialOnLoad != undefined)
+	specialOnLoad(e);
+setupHandlers();
+getDimensions();
+
+}
+
+// --></script>
+<div class="aDISMaske"><form method="post" name="Form0" action="/aDISWeb/app;jsessionid=115DA206421D6D67D1F0DADECB606D0C" onsubmit="return formOnSubmit();">
+<input type="hidden" name="service" value="direct/1/POOLM24PBSZPROD@_44276700_2AE9E380/$Form.form"/>
+<input type="hidden" name="sp" value="S0"/>
+<input type="hidden" name="Form0" value="focus,keyCode,stz,source,selected,requestCount,scriptEnabled,scrollPos,scrDim,winDim,imgDim,$Toolbar,select,$Textfield,$FormConditional,imageButton,select$0,select$1,$Textfield$0,$FormConditional$0,imageButton$0,select$2,select$3,$Textfield$1,$FormConditional$1,imageButton$1,select$4,select$5,$Textfield$2,$FormConditional$2,imageButton$2,select$6,select$7,$Textfield$3,$Textfield$4,$Textfield$5,$Textfield$6,$Textfield$7,$Textfield$8,$Textfield$9,$Textfield$10,$Toolbar$0"/>
+<input type="hidden" name="focus" value=""/>
+<input type="hidden" name="keyCode" value="0"/>
+<input type="hidden" name="stz" value=""/>
+<input type="hidden" name="source" value=""/>
+<input type="hidden" name="selected" value=""/>
+<input type="hidden" name="requestCount" value="1"/>
+<input type="hidden" name="scriptEnabled" value="F"/>
+<input type="hidden" name="scrollPos" value="0"/>
+<input type="hidden" name="scrDim" value=""/>
+<input type="hidden" name="winDim" value=""/>
+<input type="hidden" name="imgDim" value=""/>
+<input type="hidden" name="$FormConditional" value="T"/>
+<input type="hidden" name="$FormConditional$0" value="T"/>
+<input type="hidden" name="$FormConditional$1" value="T"/>
+<input type="hidden" name="$FormConditional$2" value="T"/>
+				
+<div id="wrapper">
+  <div id="wrapper_inside">
+  
+    <div id="header" role="banner">
+      <div class="inside">     
+      
+          <ul id="sprunglinks">
+            <li><a class="sprung" href="#main">Zum Hauptinhalt</a></li>
+            <li><a class="sprung" href="#left">Zur Navigation</a></li>
+          </ul>
+  <!-- incl=includeLogo_de.html --><p id="logo"><a href="/aDISWeb/app;jsessionid=115DA206421D6D67D1F0DADECB606D0C?service=direct/1/POOLM24PBSZPROD@_44276700_2AE9E380/$InternalLink.directlink&amp;sp=S%24%24GFNV_1&amp;sp=SStartseite%3DCW00&amp;requestCount=1" title="Zur Startseite" fld="$$GFNV_1"><img src="/aDISWeb_bsz/m24/images/logo.gif" height="105" alt="Logo" /></a>	<span class="outside">.</span></p>
+<!-- stop --> 
+      </div>
+    </div>
+  
+    <div id="container">
+      <div id="container_inside">
+  
+        <div id="left">
+          <div class="inside">
+
+            <h2 class="invisible">Navigation</h2>
+  <!-- incl=includeNavigation1.html -->            <div id="settings">
+              <p>
+<span><a href="/aDISWeb/app;jsessionid=115DA206421D6D67D1F0DADECB606D0C?service=direct/1/POOLM24PBSZPROD@_44276700_2AE9E380/$NavPath.intlink.directlink&amp;sp=S%24%24SPDF_1&amp;sp=SEN&amp;requestCount=1" title="" fld="$$SPDF_1"><span lang="en" xml:lang="en">English</span></a>	<span class="outside">.</span></span> </p>
+            </div>
+   <!-- stop -->
+  
+            <div id="navbox" class="block">
+            <div id="R20"><span class="bnzeig"></span><span class="mmzeig">Sie sind nicht im Bibliothekskonto angemeldet</span> </div>
+            </div> 
+
+            <div class="mod_navigation block" id="unav" role="navigation"> 
+  <!-- incl=includeNavigation2_a.html --><!-- Platz fuer externe Navigation VOR aDIS-Navigation -->
+<!-- stop --> <div class="tree_div">
+<ul class="tree_ul">
+<li class="tree_branch_li_exp">
+<a href="/aDISWeb/app;jsessionid=115DA206421D6D67D1F0DADECB606D0C?service=direct/1/POOLM24PBSZPROD@_44276700_2AE9E380/$Tree.treeNodes&amp;sp=SBD&amp;requestCount=1" class="tree_branch_a"><span>Online-Katalog</span></a><div class="tree_divsub">
+<ul class="tree_ulsub">
+<li class="tree_leaf_li">
+<a href="/aDISWeb/app;jsessionid=115DA206421D6D67D1F0DADECB606D0C?service=direct/1/POOLM24PBSZPROD@_44276700_2AE9E380/$Tree.treeNodes&amp;sp=SS1&amp;requestCount=1" class="tree_leaf_a"><span>Einfache Suche</span></a><span class="outside">.</span></li>
+<li class="tree_leaf_li_sel">
+<strong><span class="tree_strong">Erweiterte Suche</span></strong></li>
+<li class="tree_leaf_li">
+<a href="/aDISWeb/app;jsessionid=115DA206421D6D67D1F0DADECB606D0C?service=direct/1/POOLM24PBSZPROD@_44276700_2AE9E380/$Tree.treeNodes&amp;sp=SAP&amp;requestCount=1" class="tree_leaf_a"><span>Meine Suchen</span></a><span class="outside">.</span></li>
+</ul></div>
+</li>
+<li class="tree_branch_li">
+<a href="/aDISWeb/app;jsessionid=115DA206421D6D67D1F0DADECB606D0C?service=direct/1/POOLM24PBSZPROD@_44276700_2AE9E380/$Tree.treeNodes&amp;sp=SF1&amp;requestCount=1" class="tree_branch_a"><span>Fernleihe</span></a><span class="outside">.</span></li>
+<li class="tree_leaf_li">
+<a href="/aDISWeb/app;jsessionid=115DA206421D6D67D1F0DADECB606D0C?service=direct/1/POOLM24PBSZPROD@_44276700_2AE9E380/$Tree.treeNodes&amp;sp=SBK&amp;requestCount=1" class="tree_leaf_a"><span>Mein Konto</span></a><span class="outside">.</span></li>
+<li class="tree_leaf_li">
+<span class="tree_disabled">Abmelden</span>
+<span class="outside">.</span></li>
+<li class="tree_leaf_li">
+<a href="/aDISWeb/app;jsessionid=115DA206421D6D67D1F0DADECB606D0C?service=direct/1/POOLM24PBSZPROD@_44276700_2AE9E380/$Tree.treeNodes&amp;sp=SW1&amp;requestCount=1" class="tree_leaf_a"><span>Semesterapparate</span></a><span class="outside">.</span></li>
+<li class="tree_leaf_li">
+<a href="/aDISWeb/app;jsessionid=115DA206421D6D67D1F0DADECB606D0C?service=direct/1/POOLM24PBSZPROD@_44276700_2AE9E380/$Tree.treeNodes&amp;sp=SW2&amp;requestCount=1" class="tree_leaf_a"><span>Neuerwerbungsliste</span></a><span class="outside">.</span></li>
+</ul></div>
+ <!-- incl=includeNavigation2_b.html --><!-- Platz fuer externe Navigation NACH aDIS-Navigation -->
+<!-- stop -->  
+            </div>
+             
+          </div>
+        </div>
+  
+        <div id="main" role="main">
+          <div class="inside">
+          
+            <div class="block">
+               
+              <h1><span class="invisible">Aktuelle Seite: </span> <span class="txtinsert">Erweiterte Suche</span> </h1>  
+      
+              <div id="topleiste" class="block">  
+              
+              
+                       
+
+              <p id="breadcrumb"><!-- incl=includeBreadcrumb_de.html --><span class="invisible">Sie sind hier: </span> 
+<!-- stop --> <a href="/aDISWeb/app;jsessionid=115DA206421D6D67D1F0DADECB606D0C?service=direct/1/POOLM24PBSZPROD@_44276700_2AE9E380/$InternalLink$0.directlink&amp;sp=S%24%24GFNV_1&amp;sp=SStartseite%3DCW00&amp;requestCount=1" title="" fld="$$GFNV_1">Online-Katalog</a>	<span class="outside">.</span> &gt; <span class="txtinsert">Erweiterte Suche</span> </p>               
+              </div><div class="toolbar_div">
+<ul class="toolbar_ul">
+<li class="toolbar_li">
+<input type="image" src="/aDISWeb/images/POOLM24PBSZPROD@/gif/POOLM24PBSZPROD@_57000E00_28A47E00.gif;jsessionid=115DA206421D6D67D1F0DADECB606D0C" alt="Die Suche wird gestartet" id="Toolbar_0" name="$Toolbar_0" title="Die Suche wird gestartet" onmouseover="self.status='Die Suche wird gestartet';return true;" onmouseout="self.status='';" class="toolbar_img"/><label for="Toolbar_0"><span class="toolbar_txt">Suche starten</span></label></li>
+<li class="toolbar_li">
+<input type="image" src="/aDISWeb/images/POOLM24PBSZPROD@/gif/POOLM24PBSZPROD@_57001300_28A47E00.gif;jsessionid=115DA206421D6D67D1F0DADECB606D0C" alt="Eingaben des Suchformulars l&#246;schen" id="Toolbar_1" name="$Toolbar_1" title="Eingaben des Suchformulars l&#246;schen" onmouseover="self.status='Eingaben des Suchformulars l&#246;schen';return true;" onmouseout="self.status='';" class="toolbar_img"/><label for="Toolbar_1"><span class="toolbar_txt">Leeren</span></label></li>
+<li class="toolbar_li">
+<input type="image" src="/aDISWeb/images/POOLM24PBSZPROD@/gif/POOLM24PBSZPROD@_57001400_28A47E00.gif;jsessionid=115DA206421D6D67D1F0DADECB606D0C" alt="Wiederherstellung der letzten Sucheingaben" id="Toolbar_2" name="$Toolbar_2" title="Wiederherstellung der letzten Sucheingaben" onmouseover="self.status='Wiederherstellung der letzten Sucheingaben';return true;" onmouseout="self.status='';" class="toolbar_img"/><label for="Toolbar_2"><span class="toolbar_txt">Wiederholen</span></label></li>
+<li class="toolbar_li">
+<input type="image" src="/aDISWeb/images/POOLM24PBSZPROD@/gif/POOLM24PBSZPROD@_57000B00_28A47E00.gif;jsessionid=115DA206421D6D67D1F0DADECB606D0C" alt="Beenden der Recherche" id="Toolbar_4" name="$Toolbar_4" title="Beenden der Recherche" onmouseover="self.status='Beenden der Recherche';return true;" onmouseout="self.status='';" class="toolbar_img"/><label for="Toolbar_4"><span class="toolbar_txt">Beenden</span></label></li>
+<li class="toolbar_li">
+<input type="image" src="/aDISWeb/images/POOLM24PBSZPROD@/gif/POOLM24PBSZPROD@_57000500_28A47E00.gif;jsessionid=115DA206421D6D67D1F0DADECB606D0C" alt="Hilfe zur Suchmaske" id="Toolbar_5" name="$Toolbar_5" title="Hilfe zur Suchmaske" onmouseover="self.status='Hilfe zur Suchmaske';return true;" onmouseout="self.status='';" class="toolbar_img"/><label for="Toolbar_5"><span class="toolbar_txt">Hilfe</span></label></li></ul><div style="clear:both"></div></div> <div class="fsgrp">
+              
+              
+                
+              
+              
+               
+              
+               
+              
+              
+              
+              
+              <div id="OPACLI" style="   width:99%;" class="aDISListe"><div class="html_div" style="width:99%; height:100%;"><p><img src="https://dbspixel.hbz-nrw.de/count?id=BC097&amp;page=2" width="1" height="1"></p>
+<h1>Bibliothek Hochschule Mannheim</h1>
+<p>Der <b>Katalog der Hochschulbibliothek</b> enthält den physischen Bestand der Bibliothek (Bücher, Print-Zeitschriften, AV-Medien etc.) sowie die von der Bibliothek lizenzierten E-Books, deren Volltexte im Campusnetz verfügbar sind.<p>
+E-Journals sind nicht enthalten sondern über die <b>Elektronische Zeitschriftenbibliothek (EZB)</b> recherchierbar. Lizenzierte Fachdatenbanken über das <b>Datenbank-Infosystem DBIS</b>.<p>
+
+<p><b>Erweiterte Suche</b></br>
+Für die Suche ist in allen Suchfeldern die Stichwortsuche voreingestellt. Eine bestimmte Reihenfolge der Suchbegriffe ist</br>
+nicht einzuhalten. Es werden die exakten Wörter gesucht. Mehrere Einträge in einem Suchfeld werden automatisch mit "und" verknüpft und in Kombination gesucht.</br>
+
+Verwenden Sie <b>"*"</b> (Asterisk), um Suchbegriffe am Wortende zu trunkieren, damit erweitern Sie den Suchbegriff</br>
+<i>Beispiel: Die Suche mit dem Begriff <b>Sozial*</b> findet Treffer, die die Begriffe Sozialpolitik, Sozialrecht, Sozialversicherung, Sozialismus usw. enthalten.</i></br>
+Um mehrere Suchfelder zu kombinieren, verwenden Sie bitte die Listboxen UND/ODER/NICHT.</p></P>
+
+</BODY></HTML></div></div>
+              
+              
+              
+              
+              
+              
+              
+              <fieldset id="FSET01" class="grp" >
+        <div id="F13">
+          <label for="SUCH01_1" id="S21" class="invisible">Suchen in PLATZHALTER2:</label><select name="select" style="position:absolute;  left:16.9%; width:22.0%;" id="SUCH01_1">
+<option value="Titelwort" selected="selected">Titelwort</option>
+<option value="Autor (Person)">Autor (Person)</option>
+<option value="Freie Suche">Freie Suche</option>
+<option value="ISSN, ISBN, SWB-Nr.">ISSN, ISBN, SWB-Nr.</option>
+<option value="Institution">Institution</option>
+<option value="Schlagwort">Schlagwort</option>
+<option value="Signatur">Signatur</option>
+<option value="Systematikgruppe">Systematikgruppe</option>
+<option value="Systematikstichwort">Systematikstichwort</option>
+<option value="Titel pr&#228;zis">Titel pr&#228;zis</option>
+<option value="Titelanfang">Titelanfang</option>
+<option value="Titelwort">Titelwort</option>
+</select> <label for="FELD01_1" id="S31" class="invisible">Suchbegriff (in PLATZHALTER2):</label><input type="text" name="$Textfield" fld="FELD01_1" value="" style="position:absolute;  left:40.3%; width:41.1%;" id="FELD01_1"/> <label for="PBNR01_1" id="S41"><span class="fbz-text" style="position:absolute;  left:83.6%; width:9.8%;overflow:hidden; max-width:9.8%;">Register</span><em class="invisible">(f&uuml;r PLATZHALTER2)</em></label><input type="image" name="imageButton" src="/aDISWeb/images/POOLM24PBSZPROD@/gif/POOLM24PBSZPROD@_4B011F00_228F8280.gif" class="sbmt" title="Register (je nach Feldauswahl)" style="position:absolute;  left:94.1%; " alt="Register (je nach Feldauswahl)" id="PBNR01_1" fld="PBNR01_1"/> </div><br/><span style="line-height:12px;">&nbsp;</span><br/>
+        <div id="F27">
+          <label for="LOP01_1" id="S11" class="invisible">Verkn&uuml;pfung mit PLATZHALTER1:</label><select name="select$0" style="position:absolute;  left:2.8%; width:12.9%;" id="LOP01_1">
+<option value="UND" selected="selected">UND</option>
+<option value="NICHT">NICHT</option>
+<option value="ODER">ODER</option>
+<option value="UND">UND</option>
+</select> <label for="SUCH01_2" id="S22" class="invisible">Suchen in PLATZHALTER2:</label><select name="select$1" style="position:absolute;  left:16.9%; width:22.0%;" id="SUCH01_2">
+<option value="Autor (Person)" selected="selected">Autor (Person)</option>
+<option value="Autor (Person)">Autor (Person)</option>
+<option value="Freie Suche">Freie Suche</option>
+<option value="ISSN, ISBN, SWB-Nr.">ISSN, ISBN, SWB-Nr.</option>
+<option value="Institution">Institution</option>
+<option value="Schlagwort">Schlagwort</option>
+<option value="Signatur">Signatur</option>
+<option value="Systematikgruppe">Systematikgruppe</option>
+<option value="Systematikstichwort">Systematikstichwort</option>
+<option value="Titel pr&#228;zis">Titel pr&#228;zis</option>
+<option value="Titelanfang">Titelanfang</option>
+<option value="Titelwort">Titelwort</option>
+</select> <label for="FELD01_2" id="S32" class="invisible">Suchbegriff (in PLATZHALTER2):</label><input type="text" name="$Textfield$0" fld="FELD01_2" style="position:absolute;  left:40.3%; width:41.1%;" id="FELD01_2"/> <label for="PBNR01_2" id="S42"><span class="fbz-text" style="position:absolute;  left:83.6%; width:9.8%;overflow:hidden; max-width:9.8%;">Register</span><em class="invisible">(f&uuml;r PLATZHALTER2)</em></label><input type="image" name="imageButton$0" src="/aDISWeb/images/POOLM24PBSZPROD@/gif/POOLM24PBSZPROD@_4B011F00_228F8280.gif" class="sbmt" title="Register (je nach Feldauswahl)" style="position:absolute;  left:94.1%; " alt="Register (je nach Feldauswahl)" id="PBNR01_2" fld="PBNR01_2"/> </div><br/><span style="line-height:12px;">&nbsp;</span><br/>
+        <div id="F14">
+          <label for="LOP01_2" id="S12" class="invisible">Verkn&uuml;pfung mit PLATZHALTER1:</label><select name="select$2" style="position:absolute;  left:2.8%; width:12.9%;" id="LOP01_2">
+<option value="UND" selected="selected">UND</option>
+<option value="NICHT">NICHT</option>
+<option value="ODER">ODER</option>
+<option value="UND">UND</option>
+</select> <label for="SUCH01_3" id="S23" class="invisible">Suchen in PLATZHALTER2:</label><select name="select$3" style="position:absolute;  left:16.9%; width:22.0%;" id="SUCH01_3">
+<option value="ISSN, ISBN, SWB-Nr." selected="selected">ISSN, ISBN, SWB-Nr.</option>
+<option value="Autor (Person)">Autor (Person)</option>
+<option value="Freie Suche">Freie Suche</option>
+<option value="ISSN, ISBN, SWB-Nr.">ISSN, ISBN, SWB-Nr.</option>
+<option value="Institution">Institution</option>
+<option value="Schlagwort">Schlagwort</option>
+<option value="Signatur">Signatur</option>
+<option value="Systematikgruppe">Systematikgruppe</option>
+<option value="Systematikstichwort">Systematikstichwort</option>
+<option value="Titel pr&#228;zis">Titel pr&#228;zis</option>
+<option value="Titelanfang">Titelanfang</option>
+<option value="Titelwort">Titelwort</option>
+</select> <label for="FELD01_3" id="S33" class="invisible">Suchbegriff (in PLATZHALTER2):</label><input type="text" name="$Textfield$1" fld="FELD01_3" style="position:absolute;  left:40.3%; width:41.1%;" id="FELD01_3"/> <label for="PBNR01_3" id="S43"><span class="fbz-text" style="position:absolute;  left:83.6%; width:9.8%;overflow:hidden; max-width:9.8%;">Register</span><em class="invisible">(f&uuml;r PLATZHALTER2)</em></label><input type="image" name="imageButton$1" src="/aDISWeb/images/POOLM24PBSZPROD@/gif/POOLM24PBSZPROD@_4B011F00_228F8280.gif" class="sbmt" title="Register (je nach Feldauswahl)" style="position:absolute;  left:94.1%; " alt="Register (je nach Feldauswahl)" id="PBNR01_3" fld="PBNR01_3"/> </div><br/><span style="line-height:12px;">&nbsp;</span><br/>
+        <div id="F15">
+          <label for="LOP01_3" id="S13" class="invisible">Verkn&uuml;pfung mit PLATZHALTER1:</label><select name="select$4" style="position:absolute;  left:2.8%; width:12.9%;" id="LOP01_3">
+<option value="UND" selected="selected">UND</option>
+<option value="NICHT">NICHT</option>
+<option value="ODER">ODER</option>
+<option value="UND">UND</option>
+</select> <label for="SUCH01_4" id="S24" class="invisible">Suchen in PLATZHALTER2:</label><select name="select$5" style="position:absolute;  left:16.9%; width:22.0%;" id="SUCH01_4">
+<option value="Schlagwort" selected="selected">Schlagwort</option>
+<option value="Autor (Person)">Autor (Person)</option>
+<option value="Freie Suche">Freie Suche</option>
+<option value="ISSN, ISBN, SWB-Nr.">ISSN, ISBN, SWB-Nr.</option>
+<option value="Institution">Institution</option>
+<option value="Schlagwort">Schlagwort</option>
+<option value="Signatur">Signatur</option>
+<option value="Systematikgruppe">Systematikgruppe</option>
+<option value="Systematikstichwort">Systematikstichwort</option>
+<option value="Titel pr&#228;zis">Titel pr&#228;zis</option>
+<option value="Titelanfang">Titelanfang</option>
+<option value="Titelwort">Titelwort</option>
+</select> <label for="FELD01_4" id="S34" class="invisible">Suchbegriff (in PLATZHALTER2):</label><input type="text" name="$Textfield$2" fld="FELD01_4" style="position:absolute;  left:40.3%; width:41.1%;" id="FELD01_4"/> <label for="PBNR01_4" id="S44"><span class="fbz-text" style="position:absolute;  left:83.6%; width:9.8%;overflow:hidden; max-width:9.8%;">Register</span><em class="invisible">(f&uuml;r PLATZHALTER2)</em></label><input type="image" name="imageButton$2" src="/aDISWeb/images/POOLM24PBSZPROD@/gif/POOLM24PBSZPROD@_4B011F00_228F8280.gif" class="sbmt" title="Register (je nach Feldauswahl)" style="position:absolute;  left:94.1%; " alt="Register (je nach Feldauswahl)" id="PBNR01_4" fld="PBNR01_4"/> </div><br/><span style="line-height:12px;">&nbsp;</span><br/>
+        <div id="F36">
+          <label for="MEDIUM_1"><span class="fbz-text" style="position:absolute;  left:16.9%; width:23.6%;overflow:hidden; max-width:23.6%;">Medientyp</span> </label><select name="select$6" style="position:absolute;  left:40.3%; width:41.1%;" id="MEDIUM_1">
+<option value=""></option>
+<option value="B&#252;cher">B&#252;cher</option>
+<option value="Datentr&#228;ger">Datentr&#228;ger</option>
+<option value="E-Book">E-Book</option>
+<option value="Filme">Filme</option>
+<option value="Hochschulschrift">Hochschulschrift</option>
+<option value="Tontr&#228;ger">Tontr&#228;ger</option>
+<option value="Zeitschrift">Zeitschrift</option>
+</select> </div><br/><span style="line-height:12px;">&nbsp;</span><br/>
+        <div id="F37">
+          <label for="GHTSPR_1"><span class="fbz-text" style="position:absolute;  left:16.9%; width:23.6%;overflow:hidden; max-width:23.6%;">Sprache</span> </label><select name="select$7" style="position:absolute;  left:40.3%; width:41.1%;" id="GHTSPR_1">
+<option value=""></option>
+<option value="Deutsch">Deutsch</option>
+<option value="Englisch">Englisch</option>
+<option value="Franz&#246;sisch">Franz&#246;sisch</option>
+<option value="Italienisch">Italienisch</option>
+<option value="Spanisch">Spanisch</option>
+</select> </div><br/><span style="line-height:12px;">&nbsp;</span><br/>
+      <br class="klar"/></fieldset>
+              
+              
+              
+              
+              
+              
+
+              <fieldset id="OPACGP" class="grp" ><legend class="leg">Einengende Suchaspekte</legend>    
+        <div id="F54">
+          <label for="VERLAG_1"><span class="fbz-text" style="position:absolute;  left:1.4%; width:23.6%;overflow:hidden; max-width:23.6%;">Verlag</span> </label><input type="text" name="$Textfield$3" fld="VERLAG_1" value="" style="position:absolute;  left:25.6%; width:55.8%;" id="VERLAG_1"/> </div><br/><span style="line-height:12px;">&nbsp;</span><br/>
+        <div id="F55">
+          <label for="ORT_1"><span class="fbz-text" style="position:absolute;  left:1.4%; width:23.6%;overflow:hidden; max-width:23.6%;">Erscheinungsort</span> </label><input type="text" name="$Textfield$4" fld="ORT_1" value="" style="position:absolute;  left:25.6%; width:55.8%;" id="ORT_1"/> </div><br/><span style="line-height:12px;">&nbsp;</span><br/>
+        <div id="F39">
+          <label for="GEJAHR_1"><span class="fbz-text" style="position:absolute;  left:1.4%; width:23.6%;overflow:hidden; max-width:23.6%;">Jahr pr&#228;zis</span> </label><input type="text" name="$Textfield$5" fld="GEJAHR_1" onkeypress="checkNumeric(event,this);" value="" style="position:absolute;  left:25.6%; width:7.6%;" id="GEJAHR_1"/> <label for="GEJAHV_1"><span class="fbz-text" style="position:absolute;  left:34.8%; width:13.4%;overflow:hidden; max-width:13.4%;">Jahr von</span> </label><input type="text" name="$Textfield$6" fld="GEJAHV_1" onkeypress="checkNumeric(event,this);" value="" style="position:absolute;  left:49.4%; width:7.6%;" id="GEJAHV_1"/> <label for="GEJAHB_1"><span class="fbz-text" style="position:absolute;  left:62.3%; width:10.0%;overflow:hidden; max-width:10.0%;">Jahr bis</span> </label><input type="text" name="$Textfield$7" fld="GEJAHB_1" onkeypress="checkNumeric(event,this);" value="" style="position:absolute;  left:73.8%; width:7.6%;" id="GEJAHB_1"/> </div><br/><span style="line-height:12px;">&nbsp;</span><br/>
+        <div id="F40">
+          <label for="BANDNR_1"><span class="fbz-text" style="position:absolute;  left:1.4%; width:23.6%;overflow:hidden; max-width:23.6%;">Bandnummer</span> </label><input type="text" name="$Textfield$8" fld="BANDNR_1" onkeypress="checkNumeric(event,this);" value="" style="position:absolute;  left:25.6%; width:7.6%;" id="BANDNR_1"/> <label for="HEFTNR_1"><span class="fbz-text" style="position:absolute;  left:34.8%; width:13.4%;overflow:hidden; max-width:13.4%;">Heftnummer</span> </label><input type="text" name="$Textfield$9" fld="HEFTNR_1" onkeypress="checkNumeric(event,this);" value="" style="position:absolute;  left:49.4%; width:7.6%;" id="HEFTNR_1"/> <label for="A0400_1"><span class="fbz-text" style="position:absolute;  left:62.3%; width:10.0%;overflow:hidden; max-width:10.0%;">Auflage</span> </label><input type="text" name="$Textfield$10" fld="A0400_1" onkeypress="checkNumeric(event,this);" value="" style="position:absolute;  left:73.8%; width:7.6%;" id="A0400_1" maxlength="60"/> </div><br/><span style="line-height:12px;">&nbsp;</span><br/>
+        <div id="F42">
+<script type="text/javascript"><!--
+//Globale Variable des Ersetzungstextes der Labels
+var replT1;
+var replT2;
+var replT3;
+var replT4;
+function setInvisibleHandler(){
+  var selectFields = document.getElementsByTagName("select");
+  var label;
+  for (var i = 0; i < selectFields.length; i++){
+    label = selectFields[i].nextSibling;
+    while(label != null && label.nodeType != 1){
+      label = label.nextSibling;
+    }
+    if(label != null && label.className == "invisible"){
+      var cid = selectFields[i].id.substr(0,3);
+      switch (cid) {
+        case "LOP" :
+          selectFields[i].onchange = invisibleHandler;
+          break;
+        case "SUC" :
+          selectFields[i].onchange = invisibleHandler;
+          break;
+        default:
+          break;
+      }
+      var value = selectFields[i].options[selectFields[i].selectedIndex].value;
+      var parent = selectFields[i].parentNode;
+      var labels = parent.getElementsByTagName("label");
+      var elem;
+      for (var i1 = 0; i1 < labels.length; i1++) {
+        elem = labels[i1];
+        var sid = elem.id.substr(0,2);
+        var vph1 = "PLATZHALTER1";
+        var vph2 = "PLATZHALTER2";
+        if (cid == "LOP")
+          vph1 = value;
+        else vph2 = value;
+        if (cid == "LOP" && sid == "S1") {
+          if (replT1 == null) replT1 = elem.textContent;
+          elem.value = replT1.replace("PLATZHALTER1", vph1);
+          elem.textContent = elem.value;
+        }
+        else switch (sid) {
+          //case "S1" :
+          //  break;
+          case "S2" :
+            if (replT2 == null) replT2 = elem.textContent;
+            elem.value = replT2.replace("PLATZHALTER2", vph2);
+            elem.firstChild.nodeValue = elem.value;
+            break;
+          case "S3" :
+            if (replT3 == null) replT3 = elem.textContent;
+            elem.value = replT3.replace("PLATZHALTER2", vph2);
+            elem.firstChild.nodeValue = elem.value;
+            break;
+          case "S4" :
+            if (replT4 == null) replT4 = elem.children[1].textContent;
+            elem.children[1].value = replT4.replace("PLATZHALTER2", vph2);
+            elem.children[1].innerHTML = elem.children[1].value;
+            break;
+          default :
+            break;
+        }
+      }
+    }
+  }
+}
+function invisibleHandler(event){
+  var select = event.target;
+  if (select.id.substr(0,3) == "LOP")
+    var cid = "S1";
+  else
+    var cid = "S2";
+  if (cid == "S1")
+    var vph1 = select.options[select.selectedIndex].value;
+  else
+    var vph2 = select.options[select.selectedIndex].value;
+  var parent = select.parentNode;
+  var labels = parent.getElementsByTagName("label");
+  var elem;
+  for (var i = 0; i < labels.length; i++) {
+    elem = labels[i];
+    if (cid == "S1" && elem.id.substr(0,2) == cid) {
+      elem.value = replT1.replace("PLATZHALTER1", vph1);
+      elem.innerHTML = elem.value;
+    }
+    else if (cid == "S2") {
+      var sid = elem.id.substr(0,2);
+      switch (sid) {
+        case "S2" :
+          elem.value = replT2.replace("PLATZHALTER2", vph2);
+          elem.firstChild.nodeValue = elem.value;
+          break;
+        case "S3" :
+          elem.value = replT3.replace("PLATZHALTER2", vph2);
+          elem.firstChild.nodeValue = elem.value;
+          break;
+        case "S4" :
+          elem.children[1].value = replT4.replace("PLATZHALTER2", vph2);
+          elem.children[1].innerHTML = elem.children[1].value;
+          break;
+        default :
+          break;
+      }
+    }
+  }
+}
+specialOnLoad = function (e)
+{
+  setInvisibleHandler();
+}
+// --></script>
+
+        </div><br/><span style="line-height:12px;">&nbsp;</span><br/>
+      <br class="klar"/></fieldset>
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+             
+              
+              
+              </div>
+
+              <div class="clear"></div> <div class="toolbar_div">
+<ul class="toolbar_ul">
+<li class="toolbar_li">
+<input type="image" src="/aDISWeb/images/POOLM24PBSZPROD@/gif/POOLM24PBSZPROD@_57000E00_28A47E00.gif;jsessionid=115DA206421D6D67D1F0DADECB606D0C" alt="Die Suche wird gestartet" id="Toolbar$0_0" name="$Toolbar$0_0" title="Die Suche wird gestartet" onmouseover="self.status='Die Suche wird gestartet';return true;" onmouseout="self.status='';" class="toolbar_img"/><label for="Toolbar$0_0"><span class="toolbar_txt">Suche starten</span></label></li>
+<li class="toolbar_li">
+<input type="image" src="/aDISWeb/images/POOLM24PBSZPROD@/gif/POOLM24PBSZPROD@_57001300_28A47E00.gif;jsessionid=115DA206421D6D67D1F0DADECB606D0C" alt="Eingaben des Suchformulars l&#246;schen" id="Toolbar$0_1" name="$Toolbar$0_1" title="Eingaben des Suchformulars l&#246;schen" onmouseover="self.status='Eingaben des Suchformulars l&#246;schen';return true;" onmouseout="self.status='';" class="toolbar_img"/><label for="Toolbar$0_1"><span class="toolbar_txt">Leeren</span></label></li>
+<li class="toolbar_li">
+<input type="image" src="/aDISWeb/images/POOLM24PBSZPROD@/gif/POOLM24PBSZPROD@_57001400_28A47E00.gif;jsessionid=115DA206421D6D67D1F0DADECB606D0C" alt="Wiederherstellung der letzten Sucheingaben" id="Toolbar$0_2" name="$Toolbar$0_2" title="Wiederherstellung der letzten Sucheingaben" onmouseover="self.status='Wiederherstellung der letzten Sucheingaben';return true;" onmouseout="self.status='';" class="toolbar_img"/><label for="Toolbar$0_2"><span class="toolbar_txt">Wiederholen</span></label></li>
+<li class="toolbar_li">
+<input type="image" src="/aDISWeb/images/POOLM24PBSZPROD@/gif/POOLM24PBSZPROD@_57000B00_28A47E00.gif;jsessionid=115DA206421D6D67D1F0DADECB606D0C" alt="Beenden der Recherche" id="Toolbar$0_4" name="$Toolbar$0_4" title="Beenden der Recherche" onmouseover="self.status='Beenden der Recherche';return true;" onmouseout="self.status='';" class="toolbar_img"/><label for="Toolbar$0_4"><span class="toolbar_txt">Beenden</span></label></li>
+<li class="toolbar_li">
+<input type="image" src="/aDISWeb/images/POOLM24PBSZPROD@/gif/POOLM24PBSZPROD@_57000500_28A47E00.gif;jsessionid=115DA206421D6D67D1F0DADECB606D0C" alt="Hilfe zur Suchmaske" id="Toolbar$0_5" name="$Toolbar$0_5" title="Hilfe zur Suchmaske" onmouseover="self.status='Hilfe zur Suchmaske';return true;" onmouseout="self.status='';" class="toolbar_img"/><label for="Toolbar$0_5"><span class="toolbar_txt">Hilfe</span></label></li></ul><div style="clear:both"></div></div> </div>
+            <div class="clear"></div>        
+      
+          </div>
+          <div id="clear"></div>
+        </div>
+        
+      </div><!-- /container_inside -->
+    </div><!-- /container -->
+
+    <div id="footer">
+      <div class="inside">
+
+        <div id="foot1">     
+          <p id="credits">
+  <!-- incl=includeFooter_de.html -->|a|S|tec| angewandte Systemtechnik GmbH - <a href="http://www.astec.de">Barrierefreie Bibliothekssoftware - OPAC</a><!-- stop -->
+          </p>
+        </div>
+      
+        <div id="foot2">
+          <div id="goingup"><a href="#wrapper">Seitenanfang</a></div>
+        </div> 
+                      
+        <div class="clear"></div>
+
+      </div>
+    </div>
+    
+  </div><!-- /wrapper_inside -->
+</div><!-- /wrapper -->
+
+<script src="/aDISWeb_bsz/basis/js/yaml-focusfix.js" type="text/javascript"></script></form>
+</div></body>
+</html>

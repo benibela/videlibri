@@ -83,6 +83,12 @@ PAGES=(${PAGES[@]} aDISWeb/search_stuttgart_abk.do.html aDISWeb/search_no-result
 TEMPLATES=(${TEMPLATES[@]} aDISWeb/searchDetails)
 PAGES=(${PAGES[@]} aDISWeb/searchDetails_albstadt.html )
 
+ADDTEMPLATE aDISWeb/connected 1
+PAGES=(${PAGES[@]} aDISWeb/connected_furtwangen.html )
+
+ADDTEMPLATE aDISWeb/searchInputForm 1
+PAGES=(${PAGES[@]} aDISWeb/searchInputForm_mannheim-hsb.html )
+
 #=============DIGIBIB==============
 mkdir -p $OUTPATH/digibib
 

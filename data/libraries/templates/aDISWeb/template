@@ -137,24 +137,7 @@
   <page url="https://{$server}/aDISWeb/app{get('startparams', '')}" templateFile="connected"/> <!-- some libraries log in directly, some redirect -->
   <page url="{$connectPage}" test="not($connected)" templateFile="connected"/>
   
-  <page url="{$seachPage}">
-    <template><form>
-    <template:meta default-text-matching="regex"/>
-    <t:switch><label>Titel</label>       <option>Titel</option>   </t:switch>   <input>{$nameTitle := @name}</input>
-    <t:switch><label>Person|Name</label> <option>Autor</option>   </t:switch>   <input>{$nameAuthor := @name}</input>
-    <t:switch><label>ISBN</label>        <option>ISSN</option>    </t:switch>   <input>{$nameIsbn := @name}</input>
-    <t:switch><label>Schlag</label>      <option>Schlag</option>  </t:switch>   <input>{$nameKeywords := @name}</input>
-    <label>[jJ]ahr</label>     <input>{$nameYear := @name}</input>
-    {
-      startSearch := form(., {
-        $nameTitle: $book.title,
-        $nameAuthor: $book.author,
-        $nameIsbn: $book.isbn,
-        $nameKeywords: $book.keywords,
-        $nameYear: $book.year
-      })
-    }</form></template>
-  </page>
+  <page url="{$seachPage}" templateFile="searchInputForm"/>
 
   <variable>lastSearchedIndex := 0, search-next-page-available := ()</variable>
 
@@ -162,7 +145,15 @@
 </action>
 
 <action id="search-next-page">
-  <variable name="targetIndex">$lastSearchedIndex + 1</variable> <call action="gotoindex"/>
+  <variable name="targetIndex">$lastSearchedIndex + 1</variable>
+  <choose>
+    <when test="get('goback', ()) and $firstIndex <= $targetIndex and $targetIndex <= $lastIndex">
+      <page url="{$goback}" templateFile="search"/>
+    </when>
+    <otherwise>
+      <call action="gotoindex"/>
+    </otherwise>
+  </choose>
 </action>
 
 
