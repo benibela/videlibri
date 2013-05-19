@@ -11,6 +11,13 @@ echo "GENERATING"
 OUTPATH=./
 fi
 
+function ADDTEMPLATE {
+  TEMP=$1
+  COUNT=$2
+  for ((i=0;$i<$COUNT;i++)); do   
+    TEMPLATES=(${TEMPLATES[@]} $TEMP) 
+  done
+}
 
 #=============WAS==============
 mkdir -p $OUTPATH/wasnrw
@@ -70,11 +77,11 @@ PAGES=(${PAGES[@]} pica/update3.html pica/update_abholen.html pica/extend2.html)
 #=============ADISWEB==============
 mkdir -p $OUTPATH/aDISWeb
 
-TEMPLATES=(${TEMPLATES[@]} aDISWeb/search aDISWeb/search)
-PAGES=(${PAGES[@]} aDISWeb/search_stuttgart_abk.do.html aDISWeb/search_no-result.aalen.html)
+ADDTEMPLATE aDISWeb/search 4
+PAGES=(${PAGES[@]} aDISWeb/search_stuttgart_abk.do.html aDISWeb/search_no-result.aalen.html aDISWeb/search_single-page.biberach.html aDISWeb/search_go-back.freiburg.html)
 
 TEMPLATES=(${TEMPLATES[@]} aDISWeb/searchDetails)
-PAGES=(${PAGES[@]} aDISWeb/searchDetails_albstadt.html)
+PAGES=(${PAGES[@]} aDISWeb/searchDetails_albstadt.html )
 
 #=============DIGIBIB==============
 mkdir -p $OUTPATH/digibib

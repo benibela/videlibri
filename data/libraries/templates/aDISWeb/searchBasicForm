@@ -4,7 +4,7 @@
     <DIV class="block">
     
     <div class="toolbar_div"><ul class="toolbar_ul"><li class="toolbar_li">
-      <span class="toolbar_txt">Vorwärts</span>
+      <span>Vorwärts</span>
       {form := form(//form)}
     </li></ul></div>
     

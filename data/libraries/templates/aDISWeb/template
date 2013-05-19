@@ -123,7 +123,7 @@
     </page>
   </loop>
 
-  <loop test="$lastIndex < $targetIndex">
+  <loop test="$lastIndex < $targetIndex and $targetIndex < $search-result-count">
     <page url="{$form.url}" templateFile="search">
       <post value="{$form.post}&%24Toolbar_5.x=0&%24Toolbar_5.y=0"/>
     </page>
@@ -156,7 +156,7 @@
     }</form></template>
   </page>
 
-  <variable>lastSearchedIndex := 0</variable>
+  <variable>lastSearchedIndex := 0, search-next-page-available := ()</variable>
 
   <page url="{$startSearch}" templateFile="search"/>
 </action>
