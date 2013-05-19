@@ -70,8 +70,8 @@ PAGES=(${PAGES[@]} pica/update3.html pica/update_abholen.html pica/extend2.html)
 #=============ADISWEB==============
 mkdir -p $OUTPATH/aDISWeb
 
-TEMPLATES=(${TEMPLATES[@]} aDISWeb/search)
-PAGES=(${PAGES[@]} aDISWeb/search_stuttgart_abk.do.html)
+TEMPLATES=(${TEMPLATES[@]} aDISWeb/search aDISWeb/search)
+PAGES=(${PAGES[@]} aDISWeb/search_stuttgart_abk.do.html aDISWeb/search_no-result.aalen.html)
 
 #=============DIGIBIB==============
 mkdir -p $OUTPATH/digibib

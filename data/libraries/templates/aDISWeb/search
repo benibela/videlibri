@@ -1,55 +1,63 @@
-<DIV id="right">
-  <DIV class="inside">
-      <DIV>
-        <P>
-          <SPAN>Gesucht<t:s>search-result-count := filter(., "[0-9]+$"),  lastSearchedIndex := get("lastSearchedIndex", 0) (: for unittests :)</t:s></SPAN>
-        </P>
+<template:switch-prioritized>
+  <html>
+    <DIV id="right">
+      <DIV class="inside">
+          <DIV>
+            <P>
+              <SPAN>Gesucht<t:s>search-result-count := filter(., "[0-9]+$"),  lastSearchedIndex := get("lastSearchedIndex", 0) (: for unittests :)</t:s></SPAN>
+            </P>
+          </DIV>
       </DIV>
-  </DIV>
-</DIV>
-
-<DIV id="main">
-  <DIV class="inside">
-    <DIV class="block">
+    </DIV>
     
-    <div class="toolbar_div"><ul class="toolbar_ul"><li class="toolbar_li">
-      <span>Vorwärts</span>
-      {search-next-page-available := not(./input/@disabled),
-       form := form(//form) 
-       
-      }
-    </li></ul></div>
-    
-      <DIV class="fsgrp">
-        <DIV>
-          <DIV class="rTable_div">
-            <TABLE class="rTable_table"> 
-             {firstIndex := tbody/tr[1]/td[1] * 1}
-              <thead/>
-              <TR>
-                <TD>{lastIndex := . * 1}</TD>
-                <TD/><TD/> <!-id, checkbox, kind--> 
-                <TD>
-                  <A>{
-                    if ($lastIndex > $lastSearchedIndex) then (
-                       book := {
-                         "title": filter(., "^[^/]+"), 
-                         "author": filter(., "^[^/]+/([^-]+)", 1), 
-                         "publisher": filter(., "-([^-]+)$", 1),
-                         "_searchId": encode-for-uri(concat("ZTEXT       ", filter(@href, "\('(.*)'\)", 1))),
-                         "_index": $lastIndex*1
-                       }
-                    ) else ()
-                  }</A>
-                </TD>
-                <!-- td sometimes signature -->
-                <TD><img/></td> <!--available-->
-                <TD>{if ($lastIndex > $lastSearchedIndex) then (book.year := .,  lastSearchedIndex := $lastIndex) else ()}</TD>
-              </TR>*
-            </TABLE>
+    <DIV id="main">
+      <DIV class="inside">
+        <DIV class="block">
+        
+        <div class="toolbar_div"><ul class="toolbar_ul"><li class="toolbar_li">
+          <span>Vorwärts</span>
+          {search-next-page-available := not(./input/@disabled),
+           form := form(//form) 
+           
+          }
+        </li></ul></div>
+        
+          <DIV class="fsgrp">
+            <DIV>
+              <DIV class="rTable_div">
+                <TABLE class="rTable_table"> 
+                 {firstIndex := tbody/tr[1]/td[1] * 1}
+                  <thead/>
+                  <TR>
+                    <TD>{lastIndex := . * 1}</TD>
+                    <TD/><TD/> <!-id, checkbox, kind--> 
+                    <TD>
+                      <A>{
+                        if ($lastIndex > $lastSearchedIndex) then (
+                           book := {
+                             "title": filter(., "^[^/]+"), 
+                             "author": filter(., "^[^/]+/([^-]+)", 1), 
+                             "publisher": filter(., "-([^-]+)$", 1),
+                             "_searchId": encode-for-uri(concat("ZTEXT       ", filter(@href, "\('(.*)'\)", 1))),
+                             "_index": $lastIndex*1
+                           }
+                        ) else ()
+                      }</A>
+                    </TD>
+                    <!-- td sometimes signature -->
+                    <TD><img/></td> <!--available-->
+                    <TD>{if ($lastIndex > $lastSearchedIndex) then (book.year := .,  lastSearchedIndex := $lastIndex) else ()}</TD>
+                  </TR>*
+                </TABLE>
+              </DIV>
+            </DIV>
           </DIV>
         </DIV>
       </DIV>
-    </DIV>
-  </DIV>
-</DIV>   
+    </DIV>   
+  </html>
+
+
+  <h1>Ihre Suche erzielte keinen Treffer.<t:s>search-result-count :=  0</t:s></h1>
+
+</template:switch-prioritized>
