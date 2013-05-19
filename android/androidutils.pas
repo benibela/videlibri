@@ -191,8 +191,8 @@ var
   i: Integer;
 begin
   if logging then bbdebugtools.log('de.benibela.VideLibri.Bride.VLGetLibraries (started)');
-  bbdebugtools.log(strFromPtr(libraryManager));
-  bbdebugtools.log(IntToStr(libraryManager.count));
+  //bbdebugtools.log(strFromPtr(libraryManager));
+  //bbdebugtools.log(IntToStr(libraryManager.count));
   try
     result := j.newObjectArray(libraryManager.count, j.getclass('java/lang/String'), j.stringToJString(''));
     for i := 0 to libraryManager.count - 1 do begin

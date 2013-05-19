@@ -95,7 +95,7 @@ public class VideLibri extends  BookListActivity{
     protected void onResume() {
         super.onResume();
         defaultColor = getResources().getColor(android.R.color.primary_text_dark);
-        if (accounts == null || accounts.length == 0) newAccountDialog();
+        if (accounts == null || accounts.length == 0) newAccountDialog(true);
     }
 
     public void onDestroy(){
@@ -106,10 +106,11 @@ public class VideLibri extends  BookListActivity{
 
 
     //Mix
-    static final int REQUEST_LIBRARY_FOR_ACCOUNT_CREATION = 122347;
 
-    void newAccountDialog(){
-        startActivityForResult(new Intent(this, LibraryList.class), REQUEST_LIBRARY_FOR_ACCOUNT_CREATION);
+    void newAccountDialog(boolean initial){
+        Intent intent = new Intent(this, AccountInfo.class);
+        intent.putExtra("mode", initial ? AccountInfo.MODE_ACCOUNT_CREATION_INITIAL : AccountInfo.MODE_ACCOUNT_CREATION) ;
+        startActivity(intent);
     }
 
     static void newSearchActivity(){
@@ -126,20 +127,7 @@ public class VideLibri extends  BookListActivity{
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        Log.i("VL","A");
-        if (requestCode == REQUEST_LIBRARY_FOR_ACCOUNT_CREATION) {
-            Log.i("VL","B");
-            if (resultCode == LibraryList.RESULT_OK) {
-                Log.i("VL","C");
-                Intent account = new Intent(this, AccountInfo.class);
-                account.putExtra("libName", data.getStringExtra("libName"));
-                account.putExtra("libShortName", data.getStringExtra("libShortName"));
-                account.putExtra("libId", data.getStringExtra("libId"));
-                account.putExtra("mode", AccountInfo.MODE_ACCOUNT_CREATION);
-                startActivity(account);
-                Log.i("VL","D");
-            }
-        }
+
     }
 
     static void addAccount(Bridge.Account acc){
@@ -181,15 +169,6 @@ public class VideLibri extends  BookListActivity{
 
         displayBookCache();
 
-    }
-
-    public void showMessage(String message){ showMessage(this, message); }
-    static public void showMessage(Context context, String message){
-        AlertDialog.Builder builder = new AlertDialog.Builder(context);
-        builder.setMessage(message);
-        builder.setTitle("VideLibri");
-        builder.setNegativeButton("OK", null);
-        builder.show();
     }
 
     static List<Bridge.Account> runningUpdates = new ArrayList<Bridge.Account>();

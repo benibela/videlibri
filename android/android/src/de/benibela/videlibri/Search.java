@@ -50,6 +50,8 @@ public class Search extends VideLibriBaseActivity{
     void changeSearchLib(){
         Intent intent = new Intent(this, LibraryList.class);
         intent.putExtra("defaultLibId", libId);
+        intent.putExtra("reason", "Wählen Sie die Bibliothek, in der Sie suchen wollen:");
+        intent.putExtra("search", true);
         startActivityForResult(intent, REQUEST_CHOOSE_LIBRARY);
     }
 

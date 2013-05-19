@@ -2,12 +2,12 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:orientation="vertical"
               android:layout_width="match_parent"
-              android:layout_height="match_parent">
+              android:layout_height="wrap_content">
 
     <ScrollView
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/scrollView">
+            android:id="@+id/scrollView" android:layout_weight="1">
         <LinearLayout
                 android:orientation="vertical"
                 android:layout_width="fill_parent"
@@ -15,17 +15,19 @@
             <TextView
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
-                    android:id="@+id/libraryTextView" android:textStyle="bold" android:layout_gravity="center"/>
+                    android:id="@+id/libraryTextView" android:textStyle="bold" android:layout_gravity="center"
+                    android:clickable="true" android:padding="4sp"/>
             <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Um die Ausleihenanzeige und Verlängerung verwenden zu könne, geben Sie hier ihre Kontodaten ein: (unnötig für Suche)"
-                    android:id="@+id/textView" android:layout_gravity="center"/>
+                    android:id="@+id/textView" android:layout_gravity="center" android:padding="3sp"
+                    android:password="false" android:layout_marginBottom="6sp"/>
             <TextView
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:text="Kontonummer:"
-                    android:id="@+id/textView1"/>
+                    android:id="@+id/textView1" android:padding="3sp"/>
             <EditText
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
@@ -34,7 +36,7 @@
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:text="Passwort:"
-                    android:id="@+id/textView2"/>
+                    android:id="@+id/textView2" android:padding="3sp"/>
             <EditText
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
@@ -43,35 +45,30 @@
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:text="Name des Kontos in VideLibri:"
-                    android:id="@+id/textView3"/>
+                    android:id="@+id/textView3" android:padding="3sp"/>
             <EditText
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:id="@+id/accountPrettyName" android:singleLine="true"/>
-            <TextView
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Sollen die Ausleihen automatisch verlängert werden?"
-                    android:id="@+id/textView4"/>
-            <RadioGroup
-                    android:layout_width="fill_parent"
-                    android:layout_height="fill_parent"
-                    android:orientation="horizontal">
-                <RadioButton
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="ja"
-                        android:id="@+id/autoExtendButton" android:layout_gravity="center" android:checked="true"/>
-                <RadioButton
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="nein"
-                        android:id="@+id/radioButton1" android:layout_gravity="center" android:checked="false"/>
-            </RadioGroup>
             <LinearLayout
                     android:orientation="horizontal"
                     android:layout_width="fill_parent"
-                    android:layout_height="fill_parent">
+                    android:layout_height="fill_parent" android:weightSum="10">
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Sollen die Ausleihen automatisch verlängert werden?"
+                        android:id="@+id/textView4" android:layout_weight="9" android:layout_margin="3sp"/>
+                <CheckBox
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/autoExtendButton" android:layout_weight="1"
+                        android:checked="true" android:layout_margin="3sp"/>
+            </LinearLayout>
+            <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent" android:gravity="right">
                 <EditText
                         android:layout_width="60sp"
                         android:layout_height="40sp"
@@ -81,32 +78,29 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Tage vor Fristablauf"
-                        android:id="@+id/textView6" android:layout_gravity="center"/>
+                        android:id="@+id/textView6" android:layout_gravity="center" android:padding="3sp"/>
             </LinearLayout>
-            <TextView
+            <LinearLayout
+                    android:orientation="horizontal"
                     android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Soll eine Historie aller Ausleihen gespeichert  werden?"
-                    android:id="@+id/textView5"/>
-            <RadioGroup
-                    android:layout_width="fill_parent"
-                    android:layout_height="fill_parent" android:orientation="horizontal">
-                <RadioButton
+                    android:layout_height="fill_parent" android:weightSum="10">
+                <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="ja"
-                        android:id="@+id/saveHistoryButton" android:layout_gravity="center" android:checked="true"/>
-                <RadioButton
+                        android:text="Soll eine Historie aller Ausleihen gespeichert  werden?"
+                        android:id="@+id/textView5" android:layout_gravity="left|center_vertical"
+                        android:layout_weight="9" android:layout_margin="3sp"/>
+                <CheckBox
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="nein"
-                        android:id="@+id/radioButton3" android:layout_gravity="center" android:checked="false"/>
-            </RadioGroup>
-            <Button
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Konto registrieren"
-                    android:id="@+id/completeAccountButton" android:layout_gravity="left|center_vertical"/>
+                        android:id="@+id/saveHistoryButton" android:layout_gravity="center" android:layout_weight="1"
+                        android:checked="true" android:layout_margin="3sp"/>
+            </LinearLayout>
         </LinearLayout>
     </ScrollView>
+    <Button
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="Konto registrieren"
+            android:id="@+id/completeAccountButton" android:layout_weight="0"/>
 </LinearLayout>

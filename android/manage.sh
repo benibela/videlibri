@@ -21,11 +21,15 @@ if [[ $1 == "build" ]]; then
   if ! $BUILDX86 ; then rm android/libs/x86/liblclapp.so; fi;
 
   if $BUILDARM; then
-    if /opt/lazarus/lazbuild --os=android --ws=customdrawn --cpu=arm videlibriandroid.lpi; then echo; else echo "FAILED!"; exit 1; fi
+    FORCE=""
+    if [[ ! -f android/libs/armeabi/liblclapp.so ]]; then FORCE=-B; fi
+    if /opt/lazarus/lazbuild $FORCE --os=android --ws=customdrawn --cpu=arm videlibriandroid.lpi; then echo; else echo "FAILED!"; exit 1; fi
   fi
 
   if $BUILDX86; then
-    if /opt/lazarus/lazbuild --os=android --ws=customdrawn --cpu=i386 videlibriandroid.lpi; then echo; else echo "FAILED!"; exit 1; fi
+    FORCE=""
+    if [[ ! -f android/libs/x86/liblclapp.so ]]; then FORCE=-B; fi
+    if /opt/lazarus/lazbuild $FORCE --os=android --ws=customdrawn --cpu=i386 videlibriandroid.lpi; then echo; else echo "FAILED!"; exit 1; fi
   fi
 
   if [[ $BUILDMODE == "release" ]]; then
