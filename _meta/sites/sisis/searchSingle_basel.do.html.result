@@ -1,0 +1,17 @@
+book: {}
+
+
+result: undefined: 
+temp: string: Untertitel:
+temp: string: Urheberangabe:
+temp: string: Umfang:
+temp: string: Reihe/Serie:
+temp: string: Sach-Schlagwort:
+temp: string: DK-Notation:
+temp: string: Sprache:
+temp: string: Altersgruppe:
+temp: string: Medienart:
+temp: string: Medienart:
+temp: string: Grundsignatur:
+temp: string: Kurzbesprechung:
+book: object: {"author": "Ahnert, Sven", "title": "Virtuelle Maschinen mit VMware und Microsoft", "Untertitel:!": "für Entwicklung, Schulung, Test und Produktion : [sofort nachvollziehbare Praxisworkshops : VMware Server, Player, Workstation, Infrastructure 3 : Microsoft Virtual Server, Virtual PC]", "Urheberangabe:!": "Sven Ahnert", "location": "München [etc.]", "publisher": "Addison-Wesley", "isbn": "978-3-8273-2535-8", "publisher": "2008", "Umfang:!": "773 S. : zahlr. Ill., graph. Darst. + 1 DVD-ROM", "Reihe/Serie:!": "Addison-Wesley ; 2535. Net.com", "Sach-Schlagwort:!": "Virtualisierung", "DK-Notation:!": "681.34", "Sprache:!": "deutsch", "Altersgruppe:!": "Erwachsene", "Medienart:!": "Sachbuch", "Medienart:!": "Buch", "Grundsignatur:!": "Kommunikation & Information: 681.34", "Kurzbesprechung:!": "Grundlagen von Virtuellen Maschinen und Marktübersicht zu aktuellen Virtualisierungsprodukten von Microsoft und VMware; mit Praxisworkshops."}
