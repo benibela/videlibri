@@ -303,6 +303,8 @@ begin
 end;
 
 procedure TLibrary.loadFromString(data, fileName: string);
+var
+  temp: TStringArray;
 begin
   id:=ChangeFileExt(ExtractFileName(fileName),'');;
   maxRenewCount:=-1;
@@ -311,6 +313,8 @@ begin
     canModifySingleBooks:=(template.findAction('renew-single')<>nil)  or
                           (template.findAction('renew-list')<>nil) ;
   end;
+  if prettyNameShort = '' then
+    prettyNameShort:=strCopyFrom(id, strRpos('_', id)+1) + ' '+ prettyLocation;
 end;
 
 //==============================================================================

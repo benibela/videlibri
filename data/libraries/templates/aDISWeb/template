@@ -7,9 +7,10 @@
   <page url="https://{$server}/aDISWeb/app{get('startparams', '')}" templateFile="connected"/>
 
   <page url="{$connectPage}">
-  <template>
+  <template><template:switch>
     <a><span>Benutzerkonto</span>{loginForm:=@href}</a>
     <a><span>Mein Konto</span>{loginForm:=@href}</a>
+  </template:switch>
   </template>
   </page>
 

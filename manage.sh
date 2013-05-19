@@ -94,6 +94,8 @@ downloadTable)
 
   supportTable)
      LIBS=$(ls data/libraries/*.xml | grep -oE "[^_]+_[^_]+.xml" | sort | xargs -I{} find data/libraries/ -name "*{}" -maxdepth 1)
+     grep -oE "[^/]*$" <<<"$LIBS" > data/libraries/libraries.list
+     
      
      TABLE=_meta/sfsite/supportTable.html 
      echo  '
