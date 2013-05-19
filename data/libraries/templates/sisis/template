@@ -28,7 +28,6 @@
     </template>
   </page>
 
-  <variable name="nextPage" value=""/>
   <page url="{$server}userAccount.do;jsession;?methodToCall=show&amp;type=1"  templateFile="loggedIn"></page>
   <loop test="$nextPage != ''">
     <page url="{$nextPage}"  templateFile="loggedIn"></page>

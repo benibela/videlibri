@@ -2,6 +2,7 @@ book: {}
 
 
 bookCount: string: 
+nextPage: string: 
 bookCount: string: 2
 delete-current-books(): undefined: 
 spanmissing: boolean: true

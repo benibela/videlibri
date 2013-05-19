@@ -1,6 +1,7 @@
 <html>
 <head>
 <template:read source="''" var="bookCount"/>
+<template:read source="get('nextPage', '')" var="nextPage"/>
 </head>
 <body>
    <div id="main"> 
