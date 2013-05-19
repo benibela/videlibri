@@ -340,19 +340,49 @@ begin
   inherited destroy;
 end;
 
+type
+
+{ TInternetAccessNonSense }
+
+ TInternetAccessNonSense = class(TInternetAccess)
+  constructor create; override;
+  function doTransfer(method: string; const url: TDecodedUrl; data: string): string; override;
+  function GetLastHTTPHeaders: TStringList; override;
+end;
+
+{ TInternetAccessNonSense }
+
+constructor TInternetAccessNonSense.create;
+begin
+
+end;
+
+function TInternetAccessNonSense.doTransfer(method: string; const url: TDecodedUrl; data: string): string;
+begin
+  result := '<html>Internet disabled</html>';
+end;
+
+function TInternetAccessNonSense.GetLastHTTPHeaders: TStringList;
+begin
+  result := additionalHeaders;
+end;
+
 function TLibrary.homepageCatalogue: string;
 var
   action: TTemplateAction;
   parser: TMultipageTemplateReader;
   i: Integer;
+  tempinternet: TInternetAccess;
 begin
   if (fhomepageCatalogue = '') and (template.findAction('catalogue') <> nil)  then begin
-    parser := TMultipageTemplateReader.create(template,nil);
+    tempinternet := TInternetAccessNonSense.create(); //will crash if used
+    parser := TMultipageTemplateReader.create(template,tempinternet);
     for i:=0 to defaultVariables.count-1 do
       parser.parser.variableChangeLog.ValuesString[defaultVariables.Names[i]]:=defaultVariables.ValueFromIndex[i];
     parser.callAction('catalogue');
     fhomepageCatalogue:=parser.parser.variableChangeLog['url'].toString;
     parser.free;
+    tempinternet.free;
   end;
   if fhomepageCatalogue = '' then fhomepageCatalogue := homepageBase;
   result := fhomepageCatalogue;
