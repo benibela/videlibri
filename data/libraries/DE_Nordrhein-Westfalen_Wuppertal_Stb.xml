@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <library>
-  <longName value="Universitätsbibliothek Würzburg (alpha)"/>
+  <longName value="Stadtbibliothek Wuppertal (alpha)"/>
   
   <template value="sisis"/>  
   <variable name="server" value="http://webopac.wuppertal.de/webOPACClient.sisis/"/>
