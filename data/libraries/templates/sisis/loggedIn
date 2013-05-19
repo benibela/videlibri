@@ -20,7 +20,8 @@
     </div>
     <!--<fieldset>-->
 
-    <template:read var="delete-current-books()"/>
+    <t:if test="$nextPage = ''"><template:read var="delete-current-books()"/></t:if>
+    <t:else>{nextPage:=""}</t:else>
 
 <!--    <template:if test="$allBooksAway=''">-->
     <table class="data">
@@ -73,8 +74,10 @@
   <!--    </template:if>-->
     <!-- </fieldset> -->
       <div class="box"><div class="box-header"><div class="box-right">
-        <a t:optional="true">2<t:read var="raise()" source='"Es scheint, als zeigt der Webkatalog die Ausleihen auf mehreren Seiten an. Ich kann aber momentan nur die Ausleihen einer einzelnen Seite anzeigen. $line-ending; $line-ending;  Um alle Ausleihen zu sehen, musst du die Zahl der angezeigten Suchergebnisse im BTH RWTH Katalog unter der  Konto / Sucheinstellungen Seite entsprechend erhöhen."'/> </a>
-      </div></div></div>
+        <!--<a t:optional="true">2<t:read var="raise()" source='"Es scheint, als zeigt der Webkatalog die Ausleihen auf mehreren Seiten an. Ich kann aber momentan nur die Ausleihen einer einzelnen Seite anzeigen. $line-ending; $line-ending;  Um alle Ausleihen zu sehen, musst du die Zahl der angezeigten Suchergebnisse im BTH RWTH Katalog unter der  Konto / Sucheinstellungen Seite entsprechend erhöhen."'/> </a>-->
+        <span class="selectedlink" t:condition="not(contains(text(), '&#171;'))"/>
+        <a>{nextPage:=@href}</a>
+      </div></div></div>?
    </div>
   </div>
  </div>
