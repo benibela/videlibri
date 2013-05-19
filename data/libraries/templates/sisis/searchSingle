@@ -1,5 +1,11 @@
+<html>
+{if (get("singleBookResult", "") != "") then book := {"_detail-url": $url} else ()}
+
+<div class="box">
+  <img alt="Buchcover">{book.image-url := @src}</img>
+</div>?
+
 <div id="tab-content">
-  {if (get("singleBookResult", "") != "") then book := {"_detail-url": $url} else ()}
   <template:switch-prioritized>
     <table class="data2">
       <template:loop><template:switch>
@@ -32,3 +38,4 @@
     </table>
   </template:switch-prioritized>
 </div>
+</html>
