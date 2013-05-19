@@ -117,10 +117,9 @@ public class VideLibri extends  BookListActivity{
         Intent intent = new Intent(instance, Search.class);
         if (instance.accounts.length > 0){
             intent.putExtra("libId", instance.accounts[0].libId);
-            String[] libraries = Bridge.VLGetLibraries();
-            for (String s: libraries)
-                if (s.startsWith(instance.accounts[0].libId+"|"))
-                    intent.putExtra("libName", s.split("|")[2]);
+            Bridge.Library[] libraries = Bridge.getLibraries();
+            for (Bridge.Library lib: libraries)
+                lib.putInIntent(intent);
         }
         instance.startActivity(intent);
     }

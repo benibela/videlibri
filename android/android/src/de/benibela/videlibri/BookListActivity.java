@@ -113,9 +113,7 @@ public class BookListActivity extends VideLibriBaseActivity {
         bookListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Intent intent = new Intent(BookListActivity.this, BookDetails.class);
-                intent.putExtra("book", bookCache.get(i));
-                startActivity(intent);
+                viewDetails(i);
             }
         });
         bookListView.setAdapter(sa);
@@ -130,4 +128,10 @@ public class BookListActivity extends VideLibriBaseActivity {
     }
 
     public void onPlaceHolderShown(int position){}
+
+    public void viewDetails(int bookpos){
+        Intent intent = new Intent(BookListActivity.this, BookDetails.class);
+        intent.putExtra("book", bookCache.get(bookpos));
+        startActivity(intent);
+    }
 }

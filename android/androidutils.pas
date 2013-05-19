@@ -283,6 +283,7 @@ type
 
 TJBookSerializer = object
   book: jobject;
+  includeDates: boolean;
   procedure writeProp(n,v:string);
   procedure writeDateProp(n: string; d: integer);
 end;
@@ -309,8 +310,9 @@ var args: array[0..2] of jvalue;
     temp: jobject;
     field: jfieldID;
 begin
+  if not includeDates then exit;
   case n of
-  'issueDate': field := bookFields.issueDateGC;
+  'issueDate': begin field := bookFields.issueDateGC; if d = 0 then exit; end;
   'dueDate': field := bookFields.dueDateGC;
   else exit;
   end;
@@ -323,11 +325,16 @@ begin
     j.SetStringField(book, bookFields.dueDatePrettyS, DateToPrettyStr(d));
 end;
 
-function bookToJBook(book: TBook): jobject;
+function bookToJBook(book: TBook; includeDates: boolean = true; includeAllStrings: boolean = false): jobject;
 var temp: TJBookSerializer;
+  i: Integer;
 begin
   temp.book := j.newObject(bookClass, bookClassInit);
+  temp.includeDates := includeDates;
   book.serialize(@temp.writeProp,@temp.writeDateProp);
+  if includeAllStrings then
+    for i := 0 to high(book.additional) do
+      temp.writeProp(book.additional[i].name, book.additional[i].value);
   result := temp.book;
 end;
 
@@ -481,7 +488,7 @@ begin
   j.SetBooleanField(jsearcher, searcherFields.nextPageAvailableZ, nextPageAvailable);
   books := j.newObjectArray(searcher.SearchResult.Count, bookClass, nil);
   for i := 0 to searcher.SearchResult.Count-1 do begin
-    temp := bookToJBook(searcher.SearchResult[i]);
+    temp := bookToJBook(searcher.SearchResult[i], false, true);
     j.SetObjectArrayElement(books, i, temp);
     j.deleteLocalRef(temp);
   end;
@@ -494,7 +501,7 @@ procedure TLibrarySearcherAccessWrapper.OnDetailsCompleteImpl(sender: TObject; b
 var
   jbook: jobject;
 begin
-  jbook := bookToJBook(book);
+  jbook := bookToJBook(book, false, true);
   j.callVoidMethod(jsearcher, searcherOnSearchDetailsComplete, @jbook);
   j.deleteLocalRef(jbook);
 end;

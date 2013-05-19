@@ -17,6 +17,15 @@ public class SearchResult extends BookListActivity implements Bridge.SearchResul
         if (book == null) { Log.i("VideLibri", "search without book. Abort."); finish(); return; }
 
         searcher = new Bridge.SearcherAccess(this, book);
+        waitingForDetails = -1;
+        nextDetailsRequested = -1;
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        nextDetailsRequested = -1;
     }
 
     @Override
@@ -42,9 +51,36 @@ public class SearchResult extends BookListActivity implements Bridge.SearchResul
         });
     }
 
+    //The detail search runs in the background, for a single book.
+    //But the user might request other detail searches, before the search is complete.
+    //Then wait for the old search to complete, and then start the newest search, unless the user has closed the view
+    int waitingForDetails;    //nr of book currently searched. Only set when the search is started or has ended (-1 if no search is running)
+    int nextDetailsRequested; //nr of the book that *should* be searched. Set when requesting a new search, or to -1 to cancel the current search
+
     @Override
-    public void onSearchDetailsComplete(Bridge.Book book) {
-        //To change body of implemented methods use File | Settings | File Templates.
+    public void onSearchDetailsComplete(final Bridge.Book book) {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                int oldWaitingForDetails = waitingForDetails;
+                waitingForDetails = -1; //search has ended
+
+                book.more.put("__details", "");
+                bookCache.set(oldWaitingForDetails, book); //still save the search result, so it does not need to be searched again
+
+                if (BookDetails.instance != null) {
+                    if (nextDetailsRequested == -1)
+                        return;
+                    if (nextDetailsRequested != oldWaitingForDetails) {
+                        waitingForDetails = nextDetailsRequested;
+                        searcher.details(bookCache.get(waitingForDetails));
+                        return;
+                    }
+
+                    BookDetails.instance.setBook(book);
+                }
+            }
+        });
     }
 
     @Override
@@ -55,5 +91,19 @@ public class SearchResult extends BookListActivity implements Bridge.SearchResul
     public void onPlaceHolderShown(int position){
         if (searcher.nextPageAvailable) searcher.nextPage();
         searcher.nextPageAvailable = false;
+    }
+
+    @Override
+    public void viewDetails(int bookpos) {
+        super.viewDetails(bookpos);    //To change body of overridden methods use File | Settings | File Templates.
+        if (bookCache.get(bookpos).more.containsKey("__details"))    {
+            nextDetailsRequested = -1;
+            return;
+        }
+        nextDetailsRequested = bookpos;
+        if (waitingForDetails == -1) {
+            waitingForDetails = bookpos;
+            searcher.details(bookCache.get(waitingForDetails));
+        }
     }
 }

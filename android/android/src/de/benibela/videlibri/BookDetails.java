@@ -99,31 +99,62 @@ public class BookDetails extends Activity {
         }
     }
 
+    ArrayList<Details> details = new ArrayList<Details>();
+    void addIfExists(String displayName, String propertyName){
+        String value = book.more.get(propertyName);
+        if (value == null || "".equals(value)) return;
+        details.add(new Details(displayName, value));
+    }
+
+    static BookDetails instance = null;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        book = (Bridge.Book) getIntent().getSerializableExtra("book");
-        if (book == null) book = new Bridge.Book();
-
         setContentView(R.layout.bookdetails);
+
+        setBook( (Bridge.Book) getIntent().getSerializableExtra("book") );
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();    //To change body of overridden methods use File | Settings | File Templates.
+        instance = this;
+    }
+
+    @Override
+    protected void onPause() {
+        instance = null;
+        super.onPause();    //To change body of overridden methods use File | Settings | File Templates.
+    }
+
+    void setBook(Bridge.Book newBook){
+        book = newBook;
+        if (book == null) book = new Bridge.Book();
 
         ListView lv = (ListView) findViewById(R.id.bookdetailsview);
 
-
-        ArrayList<Details> details = new ArrayList<Details>();
+        details.clear();
         details.add(new Details("Titel", book.title));
         details.add(new Details("Verfasser", book.author));
-        details.add(new Details("Abgabefrist", book.dueDatePretty));
-        details.add(new Details("Ausleihdatum", android.text.format.DateFormat.getDateFormat(this).format(book.issueDate.getTime())));
-        details.add(new Details("Bemerkung", book.more.get("status")));
+        if (!book.history || book.dueDatePretty != null)
+            details.add(new Details("Abgabefrist", book.dueDatePretty));
+
+        String status = book.more.get("status");
+        if (status == null) status = "";
+        if ("".equals(status) && "critical".equals(book.more.get("statusId"))) status = "(nicht verlängerbar)";
+        if (!"".equals(status)) details.add(new Details("Bemerkung", status));
+
+        if (book.issueDate != null)
+          details.add(new Details("Ausleihdatum", android.text.format.DateFormat.getDateFormat(this).format(book.issueDate)));
+        addIfExists("Ausgeliehen in", "libraryBranch");
         if (book.account != null) details.add(new Details("Konto", book.account.prettyName));
 
-        details.add(new Details("ID", book.more.get("id")));
-        details.add(new Details("Kategorie", book.more.get("category")));
-        details.add(new Details("Jahr", book.more.get("year")));
+        addIfExists("ID", "id");
+        addIfExists("Kategorie", "category");
+        addIfExists("Jahr", "year");
 
-        final List<String> above = Arrays.asList(new String[]{"status", "id", "category", "year"});
+        final List<String> above = Arrays.asList(new String[]{"status", "id", "category", "year", "statusId", "libraryBranch"});
 
         for (Map.Entry<String, String> entry : book.more.entrySet())
             if (entry.getValue() != null && !"".equals(entry.getValue()) && !above.contains(entry.getKey()))

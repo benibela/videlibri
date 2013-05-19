@@ -187,25 +187,29 @@ end;
 
 procedure TBook.serialize(str: TSerializeStringProperty; date: TSerializeDateProperty);
 begin
-  str('id', id);
-  str('libraryBranch', libraryBranch);
-  str('author', author);
-  str('title', title);
-  str('isbn', isbn);
-  str('year', year);
-  str('category', category);
-  str('status', statusStr);
-  //str('otherInfo', otherInfo);
-  date('issueDate', issueDate);
-  date('dueDate', dueDate);
-  date('_lastExistsDate', lastExistsDate);
-  date('_firstExistsDate', firstExistsDate);
-  case status of
-    bsNormal: str('statusId', 'normal');
-    bsUnknown: str('statusId', 'unknown');
-    bsProblematicInStr: str('statusId', 'critical');
-    bsCuriousInStr: str('statusId', 'curious');
-    else str('statusId', '--invalid--'+inttostr(integer(status)));
+  if Assigned(str) then begin
+    str('id', id);
+    str('libraryBranch', libraryBranch);
+    str('author', author);
+    str('title', title);
+    str('isbn', isbn);
+    str('year', year);
+    str('category', category);
+    str('status', statusStr);
+    //str('otherInfo', otherInfo);
+    case status of
+      bsNormal: str('statusId', 'normal');
+      bsUnknown: str('statusId', 'unknown');
+      bsProblematicInStr: str('statusId', 'critical');
+      bsCuriousInStr: str('statusId', 'curious');
+      else str('statusId', '--invalid--'+inttostr(integer(status)));
+    end;
+  end;
+  if assigned(date) then begin
+    date('issueDate', issueDate);
+    date('dueDate', dueDate);
+    date('_lastExistsDate', lastExistsDate);
+    date('_firstExistsDate', firstExistsDate);
   end;
 end;
 
