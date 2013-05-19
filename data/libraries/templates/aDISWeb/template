@@ -169,4 +169,8 @@
   
 </action>
 
+<action id="catalogue">
+  <variable name="url" value="https://{$server}/aDISWeb/app{get('startparams', '')}"/>
+</action>
+
 </actions>
