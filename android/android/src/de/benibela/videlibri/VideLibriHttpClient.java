@@ -64,10 +64,21 @@ import org.apache.http.protocol.HTTP;
 }        */
 
 
-class SSLSocketFactoryWithAdditionalKeyStore extends SSLSocketFactory {
+class LazyLoadKeystore {
+    private KeyStore store;
+    public KeyStore getStore(){
+        if (store == null) store = loadStore();
+        return store;
+    }
+    protected KeyStore loadStore(){
+        return null;
+    }
+}
+
+class SSLSocketFactoryWithAdditionalLazyKeyStore extends SSLSocketFactory {
     protected SSLContext sslContext = SSLContext.getInstance("TLS");
 
-    public SSLSocketFactoryWithAdditionalKeyStore(KeyStore keyStore) throws NoSuchAlgorithmException, KeyManagementException, KeyStoreException, UnrecoverableKeyException {
+    public SSLSocketFactoryWithAdditionalLazyKeyStore(LazyLoadKeystore keyStore) throws NoSuchAlgorithmException, KeyManagementException, KeyStoreException, UnrecoverableKeyException {
         super(null, null, null, null, null, null);
         sslContext.init(null, new TrustManager[]{new AdditionalKeyStoresTrustManager(keyStore)}, null);
     }
@@ -89,76 +100,108 @@ class SSLSocketFactoryWithAdditionalKeyStore extends SSLSocketFactory {
      */
     public static class AdditionalKeyStoresTrustManager implements X509TrustManager {
 
-        protected ArrayList<X509TrustManager> x509TrustManagers = new ArrayList<X509TrustManager>();
+        protected ArrayList<X509TrustManager> originalTrustManagers = new ArrayList<X509TrustManager>(); //system TMs
+        protected ArrayList<X509TrustManager> cachedAdditionalTrustManagers = new ArrayList<X509TrustManager>(); //our TMs that accepted the connection (will probably accept later connections as well)
+        protected ArrayList<X509TrustManager> additionalTrustManagers = new ArrayList<X509TrustManager>(); //other TMs to check
+        protected ArrayList<X509Certificate> issuers = new ArrayList<X509Certificate>();
+        protected X509Certificate[] issuersArray = new X509Certificate[0];
 
+        LazyLoadKeystore additionalKeystores;
 
-        protected AdditionalKeyStoresTrustManager(KeyStore... additionalkeyStores) {
+        protected AdditionalKeyStoresTrustManager(LazyLoadKeystore additionalkeyStores) {
+            this.additionalKeystores = additionalkeyStores;
+            loadKeystore(null, originalTrustManagers);
+
+            for( X509TrustManager tm : originalTrustManagers )
+                issuers.addAll(Arrays.asList(tm.getAcceptedIssuers()));
+            issuersArray = issuers.toArray(new X509Certificate[issuers.size()]);
+        }
+
+        void loadKeystore(KeyStore store, ArrayList<X509TrustManager> outManagers){
             final ArrayList<TrustManagerFactory> factories = new ArrayList<TrustManagerFactory>();
-
             try {
                 // The default Trustmanager with default keystore
                 final TrustManagerFactory original = TrustManagerFactory.getInstance(TrustManagerFactory.getDefaultAlgorithm());
-                original.init((KeyStore) null);
+                original.init(store);
                 factories.add(original);
-
-                for( KeyStore keyStore : additionalkeyStores ) {
-                    final TrustManagerFactory additionalCerts = TrustManagerFactory.getInstance(TrustManagerFactory.getDefaultAlgorithm());
-                    additionalCerts.init(keyStore);
-                    factories.add(additionalCerts);
-                }
-
             } catch (Exception e) {
                 throw new RuntimeException(e);
             }
-
-
 
             /*
              * Iterate over the returned trustmanagers, and hold on
              * to any that are X509TrustManagers
              */
             for (TrustManagerFactory tmf : factories)        {
-                Log.i("VL", "factory: "+tmf);
                 for( TrustManager tm : tmf.getTrustManagers() ){
-                    Log.i("VL", "tm: "+tm);
                     if (tm instanceof X509TrustManager)
-                        x509TrustManagers.add( (X509TrustManager)tm );
+                        outManagers.add( (X509TrustManager)tm );
                 }
             }
-
-            if( x509TrustManagers.size()==0 )
-                throw new RuntimeException("Couldn't find any X509TrustManagers");
-
         }
 
         /*
          * Delegate to the default trust manager.
          */
         public void checkClientTrusted(X509Certificate[] chain, String authType) throws CertificateException {
-            final X509TrustManager defaultX509TrustManager = x509TrustManagers.get(0);
-            defaultX509TrustManager.checkClientTrusted(chain, authType);
+            for (X509TrustManager tm: originalTrustManagers)
+                try {
+                    tm.checkClientTrusted(chain, authType);
+                    return;
+                } catch (CertificateException e){
+                    //ignore
+                }
+            throw  new CertificateException("Ungültiges Clientzertifikat.");
+
         }
 
         /*
          * Loop over the trustmanagers until we find one that accepts our server
          */
         public void checkServerTrusted(X509Certificate[] chain, String authType) throws CertificateException {
-            for( X509TrustManager tm : x509TrustManagers ) {
+
+            if (chain.length > 0 && chain[0].getSubjectDN().toString().contains("CN=was.duesseldorf.de"))
+                chain = new X509Certificate[]{ chain[0] };
+
+            for (X509TrustManager tm: cachedAdditionalTrustManagers)
                 try {
-                    tm.checkServerTrusted(new X509Certificate[]{ chain[0] },authType);
+                    tm.checkServerTrusted(chain, authType);
                     return;
-                } catch( CertificateException e ) {
-                    // ignore
-                }
+                } catch (CertificateException e){ /*ignore*/ }
+
+            for (int i=originalTrustManagers.size()-1;i>=0;i--)
+                try {
+                    originalTrustManagers.get(i).checkServerTrusted(chain, authType);
+                    //cachedAdditionalTrustManagers.add(originalTrustManagers.get(i));
+                    //originalTrustManagers.remove(i);
+                    return;
+                } catch (CertificateException e){ /*ignore*/ }
+                catch (RuntimeException re) { /* ignore */ }
+
+            //only load additional keystores when the system ones failed
+            if (additionalKeystores != null) {
+                loadKeystore(additionalKeystores.getStore(), additionalTrustManagers);
+                   additionalKeystores = null;
             }
-            throw new CertificateException();
+
+            for (int i=additionalTrustManagers.size()-1;i>=0;i--)
+                try {
+                    additionalTrustManagers.get(i).checkServerTrusted(chain, authType);
+
+                    issuers.addAll(Arrays.asList(additionalTrustManagers.get(i).getAcceptedIssuers()));
+                    issuersArray = issuers.toArray(new X509Certificate[issuers.size()]);
+                    cachedAdditionalTrustManagers.add(additionalTrustManagers.get(i));
+                    additionalTrustManagers.remove(i);
+                    return;
+                } catch (CertificateException e) {
+                    //ignore
+                }
+
+            throw new CertificateException("Ungültiges Serverzertifikat.");
         }
 
         public X509Certificate[] getAcceptedIssuers() {
-            final ArrayList<X509Certificate> list = new ArrayList<X509Certificate>();
-            for( X509TrustManager tm : x509TrustManagers )
-                list.addAll(Arrays.asList(tm.getAcceptedIssuers()));
-            return list.toArray(new X509Certificate[list.size()]);
+            return issuersArray;
         }
     }
 
@@ -166,53 +209,41 @@ class SSLSocketFactoryWithAdditionalKeyStore extends SSLSocketFactory {
 
 
 
+//also based on http://blog.antoine.li/2010/10/22/android-trusting-ssl-certificates/
 public class VideLibriHttpClient extends DefaultHttpClient {
     public VideLibriHttpClient(){
-        super(getMyManager(getMyParams()), getMyParams());
+        super();
     }
 
-    static HttpParams getMyParams(){
-        HttpParams params = new BasicHttpParams();
-        HttpProtocolParams.setVersion(params, HttpVersion.HTTP_1_1);
-        HttpProtocolParams.setContentCharset(params, HTTP.UTF_8);
-        return params;
+    @Override
+    protected ClientConnectionManager createClientConnectionManager() {
+        SchemeRegistry registry = new SchemeRegistry();
+        registry.register(new Scheme("http", PlainSocketFactory.getSocketFactory(), 80));
+        // Register for port 443 our SSLSocketFactory with our keystore
+        // to the ConnectionManager
+        registry.register(new Scheme("https", createAdditionalCertsSSLSocketFactory(), 443));
+        return new SingleClientConnManager(getParams(), registry);
     }
-
-    static ClientConnectionManager getMyManager(HttpParams params) {
-        try {
-
-            final SchemeRegistry schemeRegistry = new SchemeRegistry();
-            schemeRegistry.register(new Scheme("http", PlainSocketFactory.getSocketFactory(), 80));
-            schemeRegistry.register(new Scheme("https", createAdditionalCertsSSLSocketFactory(), 443));
-
-            ClientConnectionManager ccm = new SingleClientConnManager(params, schemeRegistry);
-
-            return ccm;
-            //--------------------
-
-
-
-        } catch (Exception e) {
-            return new SingleClientConnManager(params, new SchemeRegistry());
-        }
-
-    }
-
     static private SocketFactory createAdditionalCertsSSLSocketFactory() {
         try {
-            final KeyStore ks = KeyStore.getInstance("BKS");
-
-            // the bks file we generated above
-            final InputStream in = VideLibri.instance.getResources().openRawResource( R.raw.keystore);
-            try {
-                ks.load(in, ( "password" ).toCharArray());
-            } finally {
-                in.close();
-            }
-
-            return new SSLSocketFactoryWithAdditionalKeyStore(ks);
-
-        } catch( Exception e ) {
+            return new SSLSocketFactoryWithAdditionalLazyKeyStore(new LazyLoadKeystore(){
+                @Override
+                protected KeyStore loadStore() {
+                    final KeyStore ks;
+                    try {
+                        ks = KeyStore.getInstance("BKS");
+                        final InputStream in = VideLibri.instance.getResources().openRawResource( R.raw.keystore);
+                        try {
+                            ks.load(in, ( "password" ).toCharArray());
+                        } finally {
+                            in.close();
+                        }
+                    } catch( Exception e ) {
+                        throw new RuntimeException(e);
+                    }
+                    return ks;
+                }});
+        } catch (Exception e) {
             throw new RuntimeException(e);
         }
     }
