@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Paint;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -43,6 +44,7 @@ public class AccountInfo extends VideLibriBaseActivity {
         setContentView(R.layout.accountinfo);
 
         lib = (TextView) findViewById(R.id.libraryTextView);
+        lib.setPaintFlags(lib.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
         accountId = (EditText) findViewById(R.id.accountId);
         accountPassword = (EditText) findViewById(R.id.accountPassword);
         accountPrettyName = (EditText) findViewById(R.id.accountPrettyName);

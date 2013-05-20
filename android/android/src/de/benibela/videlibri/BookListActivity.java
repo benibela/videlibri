@@ -108,12 +108,13 @@ public class BookListActivity extends VideLibriBaseActivity {
     static int defaultColor;
 
     void displayBookCache(int partialSize){
-        Log.i("VL","Book count: "+partialSize);
+        //Log.i("VL","Book count: "+partialSize);
         BookOverviewAdapter sa = new BookOverviewAdapter(this, bookCache, partialSize);
         bookListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                viewDetails(i);
+                if (i < bookCache.size() && bookCache.get(i) != null)
+                    viewDetails(i);
             }
         });
         bookListView.setAdapter(sa);

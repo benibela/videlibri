@@ -185,6 +185,8 @@ public class VideLibri extends  BookListActivity{
     static List<Bridge.Account> runningUpdates = new ArrayList<Bridge.Account>();
     static public void updateAccount(Bridge.Account acc, final boolean autoUpdate, final boolean forceExtend){
         if (runningUpdates.contains(acc)) return;
+        if ((acc.name == null || acc.name.equals("")) && (acc.pass == null || acc.pass.equals("")))
+            return; //search only account
         runningUpdates.add(acc);
         if (instance != null) instance.setLoading(true);
         Bridge.VLUpdateAccount(acc, autoUpdate, forceExtend);

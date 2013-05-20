@@ -16,7 +16,7 @@
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:id="@+id/libraryTextView" android:textStyle="bold" android:layout_gravity="center"
-                    android:clickable="true" android:padding="4sp"/>
+                    android:clickable="true" android:padding="4sp" android:gravity="center"/>
             <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

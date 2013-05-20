@@ -3,6 +3,7 @@ package de.benibela.videlibri;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Paint;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -17,7 +18,9 @@ public class Search extends VideLibriBaseActivity{
         libId = getIntent().getStringExtra("libId");
         libName = getIntent().getStringExtra("libName");
 
-        ((TextView) findViewById(R.id.library)).setText(libName);
+        TextView lib = ((TextView) findViewById(R.id.library));
+        lib.setText(libName);
+        lib.setPaintFlags(lib.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
         if (libId == null || libId.equals("")) changeSearchLib();
 
         ((TextView) findViewById(R.id.library)).setOnClickListener(new View.OnClickListener() {
