@@ -14,6 +14,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.*;
+import com.actionbarsherlock.view.Menu;
 
 
 public class VideLibri extends  BookListActivity{
@@ -145,6 +146,12 @@ public class VideLibri extends  BookListActivity{
     public ArrayList<Bridge.Account> hiddenAccounts = new ArrayList<Bridge.Account>();
     private ArrayList<Bridge.Account> hiddenAccountsActually = new ArrayList<Bridge.Account>();
 
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        boolean x = super.onPrepareOptionsMenu(menu);    //To change body of overridden methods use File | Settings | File Templates.
+        menu.findItem(R.id.accounts).setVisible(false);
+        return x;
+    }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -156,6 +163,18 @@ public class VideLibri extends  BookListActivity{
         Bridge.VLAddAccount(acc);
         instance.accounts = Bridge.VLGetAccounts();
         VideLibri.updateAccount(acc, false, false);
+    }
+    static void deleteAccount(Bridge.Account acc){
+        if (instance == null) return;
+        Bridge.VLDeleteAccount(acc);
+        instance.accounts = Bridge.VLGetAccounts();
+        instance.displayAccount(null);
+    }
+    static void changeAccount(Bridge.Account old, Bridge.Account newacc){
+        if (instance == null) return;
+        Bridge.VLChangeAccount(old, newacc);
+        instance.accounts = Bridge.VLGetAccounts();
+        VideLibri.updateAccount(newacc, false, false);
     }
 
     public void displayAccount(Bridge.Account acc){
@@ -203,8 +222,8 @@ public class VideLibri extends  BookListActivity{
             @Override
             public int compare(Bridge.Book book, Bridge.Book book2) {
                 if (book.history != book2.history) {
-                    if (book.history) return  -1;
-                    else return 1;
+                    if (book.history) return  1;
+                    else return -1;
                 }
                 return book.dueDate.compareTo(book2.dueDate);
             }
@@ -217,6 +236,12 @@ public class VideLibri extends  BookListActivity{
 
     static List<Bridge.Account> runningUpdates = new ArrayList<Bridge.Account>();
     static public void updateAccount(Bridge.Account acc, final boolean autoUpdate, final boolean forceExtend){
+        if (acc == null ) {
+            if (instance == null) return;
+            for (Bridge.Account a: instance.accounts)
+                updateAccount(a, autoUpdate, forceExtend);
+            return;
+        }
         if (runningUpdates.contains(acc)) return;
         if ((acc.name == null || acc.name.equals("")) && (acc.pass == null || acc.pass.equals("")))
             return; //search only account

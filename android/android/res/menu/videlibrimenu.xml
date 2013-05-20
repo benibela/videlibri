@@ -8,7 +8,16 @@
     <item android:id="@+id/options"
           android:title="Einstellungen" />
     <item android:id="@+id/others"
-          android:title="Sonstiges" />
+          android:title="Sonstiges" >
+        <menu>
+            <item android:id="@+id/renew" android:title="Alle verlängern"/>
+            <item android:id="@+id/refresh" android:title="Alle aktualisieren"/>
+            <item android:id="@+id/libinfo" android:title="Webseiten"/>
+            <item android:id="@+id/libcatalogue" android:title="Katalogseiten"/>
+            <item android:id="@+id/feedback" android:title="Feedback"/>
+            <item android:id="@+id/about" android:title="Über Videlibri"/>
+        </menu>
+    </item>
 
 
     <item android:id="@+id/loading"

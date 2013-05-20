@@ -1,5 +1,6 @@
 package de.benibela.videlibri;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -53,10 +54,19 @@ public class Options extends VideLibriBaseActivity{
             linearLayout.removeAllViews();
             LayoutInflater inflater = getLayoutInflater();
 
-            for (Bridge.Account acc: VideLibri.instance.accounts) if (acc != null) {
+            for (final Bridge.Account acc: VideLibri.instance.accounts) if (acc != null) {
                 Button btn = (Button) inflater.inflate(R.layout.insetbutton, null);
                 btn.setText(acc.prettyName);
                 linearLayout.addView(btn);
+                btn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Intent intent = new Intent(Options.this, AccountInfo.class);
+                        intent.putExtra("mode", AccountInfo.MODE_ACCOUNT_MODIFY);
+                        intent.putExtra("account", acc);
+                        startActivity(intent);
+                    }
+                });
             }
 
             if (!VideLibri.instance.displayHistory) ((RadioButton) findViewById(R.id.radioButton1)).setChecked(true);

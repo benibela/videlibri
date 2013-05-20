@@ -33,10 +33,11 @@
             <TextView
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
-                    android:text="Angezeigte Ausleihkonten:"
+                    android:text="Konten, deren Medien angezeigt werden:"
                     android:id="@+id/textView" android:layout_gravity="left|center_vertical"
                     android:gravity="left" android:padding="@dimen/optionheaderpadding"
-                    android:background="@color/optionHeaderBackgroundColor" android:textStyle="bold"/>
+                    android:background="@color/optionHeaderBackgroundColor" android:textStyle="bold"
+                    android:layout_marginTop="@dimen/optionheaderpadding"/>
             <LinearLayout
                     android:orientation="vertical"
                     android:layout_width="fill_parent"
@@ -45,10 +46,10 @@
             <TextView
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
-                    android:text="Existierende Konten:"
+                    android:text="Konten ändern:"
                     android:id="@+id/textView2" android:layout_gravity="left|center_vertical"
                     android:padding="@dimen/optionheaderpadding" android:background="@color/optionHeaderBackgroundColor"
-                    android:textStyle="bold"/>
+                    android:textStyle="bold" android:layout_marginTop="@dimen/optionheaderpadding"/>
             <LinearLayout
                     android:orientation="vertical"
                     android:layout_width="fill_parent"

@@ -3,6 +3,7 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.app.Activity;
@@ -48,6 +49,20 @@ public class VideLibriBaseActivity extends SherlockActivity {
     }
 
     @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        boolean x = super.onPrepareOptionsMenu(menu);    //To change body of overridden methods use File | Settings | File Templates.
+        if (VideLibri.instance != null) {
+            menu.findItem(R.id.refresh).setEnabled(!VideLibri.instance.loading);
+
+            menu.findItem(R.id.accounts).setEnabled(VideLibri.instance.accounts.length > 0);
+            menu.findItem(R.id.refresh).setEnabled(VideLibri.instance.accounts.length > 0);
+            menu.findItem(R.id.renew).setEnabled(VideLibri.instance.accounts.length > 0);
+            menu.findItem(R.id.options).setEnabled(VideLibri.instance.accounts.length > 0);
+        }
+        return x;
+    }
+
+    @Override
     protected void onResume() {
         super.onResume();    //To change body of overridden methods use File | Settings | File Templates.
 
@@ -62,25 +77,33 @@ public class VideLibriBaseActivity extends SherlockActivity {
 
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle item selection
+        Intent intent;
         switch (item.getItemId()) {
             case R.id.search:
                 VideLibri.newSearchActivity();
                 return true;
-            case R.id.accounts: {
-                Intent intent = new Intent(this, VideLibri.class);
+            case R.id.accounts:
+                intent = new Intent(this, VideLibri.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);
                 return true;
-            } case R.id.options: {
-                Intent intent = new Intent(this, Options.class);
+            case R.id.options:
+                intent = new Intent(this, Options.class);
                 startActivity(intent);
                 return true;
-            } case  android.R.id.home:
+            case R.id.refresh:
+                if (VideLibri.instance != null && !VideLibri.instance.loading)
+                    VideLibri.updateAccount(null, false, false);
+                return true;
+            case R.id.renew:
+                if (VideLibri.instance != null && !VideLibri.instance.loading)
+                    VideLibri.updateAccount(null, false, true);
+                return true;
+            case  android.R.id.home:
                 openOptionsMenu();
                 return true;
-            default:
-                return super.onOptionsItemSelected(item);
         }
+        return super.onOptionsItemSelected(item);
     }
 
 
@@ -120,21 +143,38 @@ public class VideLibriBaseActivity extends SherlockActivity {
     static interface MessageHandler{
         void onDialogEnd(DialogInterface dialogInterface, int i);
     }
-    static int MessageHandlerCanceled = -1;
+    static int MessageHandlerCanceled = -123;
 
 
     public void showMessage(String message){ showMessage(this, message, null); }
     public void showMessage(String message, MessageHandler handler){ showMessage(this, message, handler); }
-    static public void showMessage(Context context, String message, final MessageHandler handler){
+    public void showMessageYesNo(String message, MessageHandler handler){ showMessage(this, message, "Nein", null, "Ja", handler); }
+    static public void showMessage(Context context, String message, final MessageHandler handler){showMessage(context, message, null, "OK", null, handler);}
+    static public void showMessage(Context context, String message, String negative, String neutral, String positive, final MessageHandler handler){
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
         builder.setMessage(message);
         builder.setTitle("VideLibri");
-        builder.setNegativeButton("OK", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                if (handler != null) handler.onDialogEnd(dialogInterface, i);
-            }
-        });
+        if (negative != null)
+            builder.setNegativeButton(negative, new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                 if (handler != null) handler.onDialogEnd(dialogInterface, i);
+                }
+            });
+        if (neutral != null)
+            builder.setNeutralButton(neutral, new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                    if (handler != null) handler.onDialogEnd(dialogInterface, i);
+                }
+            });
+        if (positive != null)
+            builder.setPositiveButton(positive, new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                    if (handler != null) handler.onDialogEnd(dialogInterface, i);
+                }
+            });
         if (handler != null) {
             builder.setOnCancelListener(new DialogInterface.OnCancelListener() {
                 @Override

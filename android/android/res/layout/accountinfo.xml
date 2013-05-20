@@ -107,9 +107,19 @@
                     android:id="@+id/accountPrettyName" android:singleLine="true"/>
         </LinearLayout>
     </ScrollView>
-    <Button
+    <LinearLayout
+            android:orientation="horizontal"
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:text="Konto registrieren"
-            android:id="@+id/completeAccountButton" android:layout_weight="0"/>
+            android:layout_height="fill_parent" android:layout_weight="0">
+        <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Konto registrieren"
+                android:id="@+id/completeAccountButton" android:layout_gravity="center" android:layout_weight="1"/>
+        <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="löschen!"
+                android:id="@+id/deleteButton" android:layout_gravity="center" android:layout_weight="0"/>
+    </LinearLayout>
 </LinearLayout>

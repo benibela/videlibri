@@ -214,18 +214,16 @@ begin
   if logging then bbdebugtools.log('de.benibela.VideLibri.Bride.VLAddAccount (started)');
   try
     with accountFields do begin
-      bbdebugtools.log('AddAccount A');
       if j.getBooleanField(acc, ExtendZ) then temp := etSingleDepends
       else temp := etNever;
-      bbdebugtools.log('AddAccount B');
+      {bbdebugtools.log('AddAccount B');
       bbdebugtools.log('AddAccount B: '+j.getStringField(acc, LibIdS));
       bbdebugtools.log('AddAccount B: '+j.getStringField(acc, PrettyNameS));
       bbdebugtools.log('AddAccount B: '+j.getStringField(acc, NameS));
-      bbdebugtools.log('AddAccount B: '+j.getStringField(acc, PassS));
+      bbdebugtools.log('AddAccount B: '+j.getStringField(acc, PassS));}
       accounts.Add(j.getStringField(acc, LibIdS) , j.getStringField(acc, PrettyNameS),
                    j.getStringField(acc, NameS), j.getStringField(acc, PassS),
                    temp, j.getIntField(acc, ExtendDaysI), j.getBooleanField(acc, HistoryZ));
-      bbdebugtools.log('AddAccount C');
     end;
     accounts.save;
   except
@@ -234,6 +232,100 @@ begin
   result := nil;
   if logging then bbdebugtools.log('de.benibela.VideLibri.Bride.VLAddAccount (ended)');
 end;
+
+function findAccountIndex(jacc: jobject): integer;
+var
+  libId: String;
+  pretty: String;
+  name: String;
+  i: Integer;
+begin
+  with accountFields do begin
+    libId := j.getStringField(jacc, LibIdS);
+    pretty := j.getStringField(jacc, PrettyNameS);
+    name := j.getStringField(jacc, NameS);
+  end;
+
+  for i := 0 to accounts.count-1 do
+    if (accounts[i].prettyName = pretty) and (accounts[i].getLibrary().id = libId) and (accounts[i].getUser() = name) then
+      exit(i);
+  exit(-1);
+end;
+
+function Java_de_benibela_VideLibri_Bridge_VLDeleteAccount(env:PJNIEnv; this:jobject; acc: jobject): jobject; cdecl;
+var
+  oldAcc: Integer;
+  temp: TCustomAccountAccess;
+begin
+  if logging then bbdebugtools.log('de.benibela.VideLibri.Bride.VLDeleteAccount (started)');
+  try
+    oldAcc := findAccountIndex(acc);
+    if oldAcc >= 0 then begin
+      temp := accounts[oldAcc];
+      accounts.Delete(oldAcc);
+      accounts.save;
+      temp.remove();
+    end;
+  except
+    on e: Exception do j.ThrowNew('de/benibela/videlibri/Bridge$InternalError', 'Interner Fehler: '+e.Message);
+  end;
+  result := nil;
+  if logging then bbdebugtools.log('de.benibela.VideLibri.Bride.VLDeleteAccount (ended)');
+end;
+
+
+procedure changeAccount(
+      i: integer;
+      enabled: boolean;
+      prettyName, username, password: string;
+      keepHistory: boolean;
+      extendType: TExtendType; extendDays: integer);
+var oldacc: TCustomAccountAccess;
+begin
+  oldacc := accounts[i];
+  oldacc.prettyName:=prettyName;
+  oldacc.passWord:=password;
+  oldacc.keepHistory:=keepHistory;
+
+  oldacc.extendType:=extendType;
+  oldacc.extendDays:=extendDays;
+
+  oldacc.enabled:=enabled;
+
+  if oldacc.getUser() <> username then begin
+    oldacc.changeUser(username);
+    accounts.Strings[i] := oldacc.getID();
+    accounts.save;
+  end else
+    oldacc.save;
+end;
+
+function Java_de_benibela_VideLibri_Bridge_VLChangeAccount(env:PJNIEnv; this:jobject; joldacc, jnewacc: jobject): jobject; cdecl;
+var
+  oldAccI: Integer;
+  temp: TExtendType;
+begin
+  if logging then bbdebugtools.log('de.benibela.VideLibri.Bride.VLChangeAccount (started)');
+  try
+    oldAccI := findAccountIndex(joldacc);
+    if oldAccI >= 0 then
+      with accountFields do begin
+        if j.getBooleanField(jnewacc, ExtendZ) then temp := etSingleDepends
+        else temp := etNever;
+        changeAccount(oldAccI,
+                      true,
+                      j.getStringField(jnewacc, PrettyNameS), j.getStringField(jnewacc, NameS), j.getStringField(jnewacc, PassS),
+                      j.getBooleanField(jnewacc, HistoryZ),
+                      temp, j.getIntField(jnewacc, ExtendDaysI)
+                      );
+      end;
+  except
+    on e: Exception do j.ThrowNew('de/benibela/videlibri/Bridge$InternalError', 'Interner Fehler: '+e.Message);
+  end;
+  result := nil;
+  if logging then bbdebugtools.log('de.benibela.VideLibri.Bride.VLChangeAccount (ended)');
+end;
+
 
 function Java_de_benibela_VideLibri_Bridge_VLGetAccounts(env:PJNIEnv; this:jobject): jobject; cdecl;
 var
@@ -383,7 +475,7 @@ begin
 
 end;
 
-function Java_de_benibela_VideLibri_Bridge_VLUpdateAccounts(env:PJNIEnv; this:jobject; jacc: jobject; jautoupdate: jvalue; jforceExtend: jvalue): jobject; cdecl;
+function Java_de_benibela_VideLibri_Bridge_VLUpdateAccounts(env:PJNIEnv; this:jobject; jacc: jobject; jautoupdate: jboolean; jforceExtend: jboolean): jobject; cdecl;
 var
   acc: TCustomAccountAccess;
   autoupdate: boolean;
@@ -393,8 +485,8 @@ begin
   acc := getRealAccount(jacc);
   if acc = nil then begin bbdebugtools.log('x'); exit;end;
 
-  autoupdate := jautoupdate.z <> JNI_FALSE;
-  forceExtend := jforceExtend.z <> JNI_FALSE;
+  autoupdate := jautoupdate <> JNI_FALSE;
+  forceExtend := jforceExtend <> JNI_FALSE;
 
   //if ignoreConnErrors and (account.broken = currentDate) then
   //  exit;
@@ -645,11 +737,13 @@ end;
 
 
 
-const nativeMethods: array[1..12] of JNINativeMethod=
+const nativeMethods: array[1..14] of JNINativeMethod=
   ((name:'VLInit';          signature:'(Lde/benibela/videlibri/VideLibri;)V';                   fnPtr:@Java_de_benibela_VideLibri_Bridge_VLInit)
    ,(name:'VLFinalize';      signature:'()V';                   fnPtr:@Java_de_benibela_VideLibri_Bridge_VLFInit)
    ,(name:'VLGetLibraries'; signature:'()[Ljava/lang/String;'; fnPtr:@Java_de_benibela_VideLibri_Bridge_VLGetLibraries)
    ,(name:'VLAddAccount'; signature:'(Lde/benibela/videlibri/Bridge$Account;)V'; fnPtr:@Java_de_benibela_VideLibri_Bridge_VLAddAccount)
+   ,(name:'VLDeleteAccount'; signature:'(Lde/benibela/videlibri/Bridge$Account;)V'; fnPtr:@Java_de_benibela_VideLibri_Bridge_VLDeleteAccount)
+   ,(name:'VLChangeAccount'; signature:'(Lde/benibela/videlibri/Bridge$Account;Lde/benibela/videlibri/Bridge$Account;)V'; fnPtr:@Java_de_benibela_VideLibri_Bridge_VLChangeAccount)
    ,(name:'VLGetAccounts'; signature:'()[Lde/benibela/videlibri/Bridge$Account;'; fnPtr:@Java_de_benibela_VideLibri_Bridge_VLGetAccounts)
    ,(name:'VLGetBooks'; signature:'(Lde/benibela/videlibri/Bridge$Account;Z)[Lde/benibela/videlibri/Bridge$Book;'; fnPtr:@Java_de_benibela_VideLibri_Bridge_VLGetBooks)
    ,(name:'VLUpdateAccount'; signature:'(Lde/benibela/videlibri/Bridge$Account;ZZ)V'; fnPtr:@Java_de_benibela_VideLibri_Bridge_VLUpdateAccounts)
