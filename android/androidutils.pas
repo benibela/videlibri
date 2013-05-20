@@ -5,7 +5,7 @@ unit androidutils;
 interface
 
 uses
-  Classes, SysUtils,  IniFiles{$ifdef android}, jni, bbjniutils, libraryParser, LCLProc, booklistreader, librarySearcherAccess{$endif};
+  Classes, SysUtils,  IniFiles{$ifdef android}, jni, bbjniutils, libraryParser, LCLProc, booklistreader, librarySearcherAccess, androidinternetaccess{$endif};
 
 //procedure deleteLocalRef(jobj: pointer);
 
@@ -125,6 +125,8 @@ end;
 procedure Java_de_benibela_VideLibri_Bridge_VLInit(env:PJNIEnv; this:jobject; videlibri: jobject); cdecl;
 begin
   if logging then bbdebugtools.log('de.benibela.VideLibri.Bride.VLInit (started)');
+  defaultHttpClientClass:=j.newGlobalRefAndDelete(j.getclass('de/benibela/videlibri/VideLibriHttpClient'));
+
   videlibriClass :=  j.newGlobalRefAndDelete(j.getclass('de/benibela/videlibri/VideLibri'));
   jActivityObject := needj.env^^.NewGlobalRef(j.env, videlibri);
   videLibriMethodUserPath := j.getmethod(videlibriClass, 'userPath', '()Ljava/lang/String;');
