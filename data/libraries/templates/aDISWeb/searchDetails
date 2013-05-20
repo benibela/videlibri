@@ -28,7 +28,7 @@
                         <t:switch>
                         <TR>
                           <TH class="spaltelinks">Titel</TH>
-                          <TD class="spalterechts">{book.title:=.}</TD>
+                          <TD class="spalterechts">{book.title:=if (contains(., "/")) then extract(., "(.*)/", 1) else .}</TD>
                         </TR>
                         
                         <TR>
@@ -38,7 +38,15 @@
   
                         <TR>
                           <TH class="spaltelinks">erschienen</TH>
-                          <TD class="spalterechts">{book.year:=translate(., "[]", "")}</TD>
+                          <TD class="spalterechts">{
+                            book.year:=if (contains(., "/")) then translate(substring-after(., "/"), "[]", "")  (: translate for cases like [2009]? :)
+                                       else if (contains(., ",")) then translate(extract(., ",[^,0-9]*([0-9]+)[^,0-9]*$", 1), "[]", "")
+                                       else $book.year,  
+                            book.location:=if (contains(., ":")) then substring-before(., ":") else $book.location, 
+                            book.publisher:=if (contains(., ":") and contains(., "/")) then substring-before(substring-after(., ":"), "/") 
+                                            else if (contains(., ":") and contains(., ",")) then substring-before(substring-after(., ":"), ",") 
+                                            else $book.publisher
+                            }</TD>
                         </TR>
   
                         <TR>

@@ -81,8 +81,8 @@ mkdir -p $OUTPATH/aDISWeb
 ADDTEMPLATE aDISWeb/search 4
 PAGES=(${PAGES[@]} aDISWeb/search_stuttgart_abk.do.html aDISWeb/search_no-result.aalen.html aDISWeb/search_single-page.biberach.html aDISWeb/search_go-back.freiburg.html)
 
-TEMPLATES=(${TEMPLATES[@]} aDISWeb/searchDetails)
-PAGES=(${PAGES[@]} aDISWeb/searchDetails_albstadt.html )
+ADDTEMPLATE aDISWeb/searchDetails 3
+PAGES=(${PAGES[@]} aDISWeb/searchDetails_albstadt.html aDISWeb/searchDetails_heilbronn.html aDISWeb/searchDetails_heilbronn2.html)
 
 ADDTEMPLATE aDISWeb/connected 1
 PAGES=(${PAGES[@]} aDISWeb/connected_furtwangen.html )
