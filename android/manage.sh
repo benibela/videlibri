@@ -64,6 +64,40 @@ clean-java)
   cd android
   ant clean
 ;;
+
+brokenServers)
+   PASSWORD=password
+   KEYSTORE=android/res/raw/keystore.bks 
+   SERVERLIST=../data/libraries/brokenServers.list
+   RESSERVERLIST=android/res/values/brokenServers.xml
+   TMPFILE=__vl__certificate.pem
+
+   echo '<?xml version="1.0" encoding="utf-8"?>' > $RESSERVERLIST
+   echo "<resources>" >> $RESSERVERLIST
+   echo '<string-array name="broken_servers">' >> $RESSERVERLIST
+   
+   rm $KEYSTORE
+   i=0
+   while read server; do
+     if [[ -n "$server" ]]; then
+       echo "<item>CN=$server</item>" >> $RESSERVERLIST
+       echo something | openssl s_client -connect $server:443 > $TMPFILE
+       yes | keytool       -import       -v       -trustcacerts       -alias $i       -file <(openssl x509 -in $TMPFILE)       -keystore $KEYSTORE       -storetype BKS       -provider org.bouncycastle.jce.provider.BouncyCastleProvider       -providerpath /usr/share/java/bcprov.jar       -storepass $PASSWORD
+       ((i=i+1))
+     fi
+   done <  $SERVERLIST
+
+   echo '</string-array>' >> $RESSERVERLIST
+   echo "</resources>" >> $RESSERVERLIST
+   
+   echo 
+   echo
+   echo
+   
+    keytool -list -keystore $KEYSTORE -provider org.bouncycastle.jce.provider.BouncyCastleProvider -providerpath /usr/share/java/bcprov.jar  -storetype BKS -storepass $PASSWORD
+   
+   rm $TMPFILE
+;;
   
 esac
 

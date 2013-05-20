@@ -85,6 +85,9 @@ public class VideLibri extends  BookListActivity{
        // Log.i("VideLibri", "onCreate")               ;
 
         instance = this;
+
+        VideLibriHttpClient.BrokenServers = getResources().getStringArray(R.array.broken_servers);
+
         Bridge.VLInit(this);
 
         accounts = Bridge.VLGetAccounts();

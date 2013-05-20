@@ -160,8 +160,22 @@ class SSLSocketFactoryWithAdditionalLazyKeyStore extends SSLSocketFactory {
          */
         public void checkServerTrusted(X509Certificate[] chain, String authType) throws CertificateException {
 
-            if (chain.length > 0 && chain[0].getSubjectDN().toString().contains("CN=was.duesseldorf.de"))
-                chain = new X509Certificate[]{ chain[0] };
+            if (chain.length > 0) {
+                String name = chain[0].getSubjectDN().toString();
+                for (String bs: VideLibriHttpClient.BrokenServers)
+                    if (name.startsWith(bs)) {
+                        //Only check the first certificate in the chain for the libraries we have the certificates in the keystore
+                        //Workaround for big trouble :
+                        // -  Checking the full chain with the original and our TM fails to validate the libraries with broken https
+                        //    (even if all certificates of the chain were included in the keystore)
+                        // -  Checking only the first certificate with the original and our TM does not make any sense
+                        // -  Checking the full chain with the original TM and then checking the first certificate with our TM
+                        //    fails with java.lang.RuntimeException: java.lang.RuntimeException: error:0407006A:rsa routines:RSA_padding_check_PKCS1_type_1:block type is not 01 (SHA-1)
+
+                        chain = new X509Certificate[]{ chain[0] };
+                    }
+            }
+
 
             for (X509TrustManager tm: cachedAdditionalTrustManagers)
                 try {
@@ -247,5 +261,8 @@ public class VideLibriHttpClient extends DefaultHttpClient {
             throw new RuntimeException(e);
         }
     }
+
+
+    static String[] BrokenServers = new String[0];
 
 }

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+<string-array name="broken_servers">
+<item>CN=was.duesseldorf.de</item>
+<item>CN=sisis.rz.htw-berlin.de</item>
+<item>CN=webopac.braunschweig.de</item>
+</string-array>
+</resources>
