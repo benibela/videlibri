@@ -2,16 +2,19 @@ package de.benibela.videlibri;
 
 
 import android.app.Activity;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Typeface;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-import android.widget.BaseAdapter;
-import android.widget.ListView;
-import android.widget.TextView;
+import android.widget.*;
 
+import java.io.InputStream;
 import java.util.*;
 
 public class BookDetails extends VideLibriBaseActivity {
@@ -33,6 +36,7 @@ public class BookDetails extends VideLibriBaseActivity {
         private final ArrayList<Details> details;
         private final Bridge.Book book;
 
+
         final int defaultColor;
         final float scale;
         int toPx(float sp) { return (int) (sp * scale + 0.5f); }
@@ -42,6 +46,7 @@ public class BookDetails extends VideLibriBaseActivity {
             this.context = context;
             this.details = details;
             this.book = book;
+            if (book.image != null) image = new BitmapDrawable(book.image);
 
             this.defaultColor = context.getResources().getColor(android.R.color.primary_text_dark);
 
@@ -54,12 +59,12 @@ public class BookDetails extends VideLibriBaseActivity {
 
         @Override
         public int getCount() {
-            return 2 * details.size();
+            return 2 * details.size() + 1;
         }
 
         @Override
         public Object getItem(int i) {
-            return details.get(i/2);
+            return details.get((i-1)/2);
         }
 
         @Override
@@ -78,25 +83,37 @@ public class BookDetails extends VideLibriBaseActivity {
                 view.setTag(viewHolder);
             }
             ViewHolder holder = (ViewHolder) view.getTag();
-            Details d = details.get(position/2);
-            int c =  defaultColor;
-            if (position % 2 == 0) {
-                holder.text.setTypeface(Typeface.DEFAULT_BOLD);
-                holder.text.setText(d.name);
-                holder.text.setPadding(toPx(10),toPx(1),toPx(10),toPx(1));
-            } else {
-                holder.text.setTypeface(Typeface.DEFAULT);
-                holder.text.setText(d.data);
-                holder.text.setPadding(toPx(30),toPx(1),toPx(10),toPx(2));
-                if ("Bemerkung".equals(d.name) || "Abgabefrist".equals(d.name)){
-                    c = book.getStatusColor();
-                    if (c == -1) c = defaultColor;
+            if (position > 0) {
+                Details d = details.get((position-1)/2);
+                int c =  defaultColor;
+                if (position % 2 == 1) {
+                    holder.text.setTypeface(Typeface.DEFAULT_BOLD);
+                    holder.text.setText(d.name);
+                    holder.text.setPadding(toPx(10),toPx(1),toPx(10),toPx(1));
+                } else {
+                    holder.text.setTypeface(Typeface.DEFAULT);
+                    holder.text.setText(d.data);
+                    holder.text.setPadding(toPx(30),toPx(1),toPx(10),toPx(2));
+                    if ("Bemerkung".equals(d.name) || "Abgabefrist".equals(d.name)){
+                        c = book.getStatusColor();
+                        if (c == -1) c = defaultColor;
+                    }
                 }
+                holder.text.setCompoundDrawables(null, null, null, null);
+                holder.text.setTextColor(c);
+            } else {
+                holder.text.setText("");
+                holder.text.setCompoundDrawablesWithIntrinsicBounds(null, null, null, image);
             }
-            holder.text.setTextColor(c);
 
 
             return view;
+        }
+
+        Drawable image;
+        void updateImage(){
+            image = new BitmapDrawable(book.image);
+            notifyDataSetChanged();
         }
     }
 
@@ -137,6 +154,7 @@ public class BookDetails extends VideLibriBaseActivity {
 
         ListView lv = (ListView) findViewById(R.id.bookdetailsview);
 
+
         details.clear();
         details.add(new Details("Titel", book.title));
         details.add(new Details("Verfasser", book.author));
@@ -169,6 +187,46 @@ public class BookDetails extends VideLibriBaseActivity {
 
         lv.setAdapter(new BookDetailsAdapter(this, details, book));
 
-        setLoading(searchedBook && !book.more.containsKey("__details"));
+        setLoading(searchedBook && (!book.more.containsKey("__details") || (book.image == null && book.more.containsKey("image-url"))));
+
+        if (book.more != null && book.more.containsKey("image-url") && book.image == null)
+            new DownloadImageTask(this, book).execute(book.more.get("image-url"));
+
+    }
+
+    void updateImage(){
+        setLoading(false);
+        ((BookDetailsAdapter) (((ListView) findViewById(R.id.bookdetailsview)).getAdapter())).updateImage();
+    }
+
+    //from http://stackoverflow.com/questions/5776851/load-image-from-url
+    class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
+        ImageView bmImage;
+        Bridge.Book book;
+        BookDetails activity;
+
+        public DownloadImageTask(BookDetails activity, Bridge.Book book) {
+            this.book = book;
+            this.bmImage = bmImage;
+            this.activity = activity;
+        }
+
+        protected Bitmap doInBackground(String... urls) {
+            String urldisplay = urls[0];
+            Bitmap mIcon11 = null;
+            try {
+                InputStream in = new java.net.URL(urldisplay).openStream();
+                mIcon11 = BitmapFactory.decodeStream(in);
+            } catch (Exception e) {
+                //Log.e("Error", e.getMessage());
+                e.printStackTrace();
+            }
+            return mIcon11;
+        }
+
+        protected void onPostExecute(Bitmap result) {
+            book.image = result;
+            if (book == activity.book) activity.updateImage();
+        }
     }
 }
