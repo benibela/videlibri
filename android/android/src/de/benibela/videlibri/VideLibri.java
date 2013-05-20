@@ -107,7 +107,7 @@ public class VideLibri extends  BookListActivity{
         setTitle("Ausleihen");  //does not work in onCreate (why? makes the title invisible) No. it just works sometimes?
 
 
-        if (displayHistoryActually != displayHistory)
+        if (displayHistoryActually != displayHistory || !hiddenAccounts.equals(hiddenAccountsActually))
             displayAccount(null);
     }
 
@@ -142,6 +142,8 @@ public class VideLibri extends  BookListActivity{
 
     public boolean displayHistory = false;
     private boolean displayHistoryActually = false;
+    public ArrayList<Bridge.Account> hiddenAccounts = new ArrayList<Bridge.Account>();
+    private ArrayList<Bridge.Account> hiddenAccountsActually = new ArrayList<Bridge.Account>();
 
 
     @Override
@@ -158,26 +160,42 @@ public class VideLibri extends  BookListActivity{
 
     public void displayAccount(Bridge.Account acc){
         displayHistoryActually = displayHistory;
+        hiddenAccountsActually.clear();
+        hiddenAccountsActually.addAll(hiddenAccounts);
         if (acc == null) {
             bookCache = new ArrayList<Bridge.Book>();
             for (Bridge.Account facc: accounts) {
+                if (hiddenAccounts.contains(facc))
+                    continue;
                 Bridge.Book[] books = Bridge.VLGetBooks(facc, false);
                 for (Bridge.Book b: books) bookCache.add(b);
                 if (displayHistoryActually){
-                    books = Bridge.VLGetBooks(acc, true);
+                    books = Bridge.VLGetBooks(facc, true);
                     for (Bridge.Book b: books) bookCache.add(b);
                 }
             }
         } else {
             ArrayList<Bridge.Book> oldBookCache = bookCache;
+            boolean hidden = hiddenAccounts.contains(acc);
+            if (hidden) {
+                boolean currentlyVisible = false;
+                for (Bridge.Book b: oldBookCache)
+                    if (acc.equals(b.account)) {
+                        currentlyVisible = true;
+                        break;
+                    }
+                if (!currentlyVisible) return;
+            }
             bookCache = new ArrayList<Bridge.Book>();
             for (Bridge.Book b: oldBookCache)
                 if (!acc.equals(b.account)) bookCache.add(b);
-            Bridge.Book[] books = Bridge.VLGetBooks(acc, false);
-            for (Bridge.Book b: books) bookCache.add(b);
-            if (displayHistoryActually){
-                books = Bridge.VLGetBooks(acc, true);
+            if (!hidden) {
+                Bridge.Book[] books = Bridge.VLGetBooks(acc, false);
                 for (Bridge.Book b: books) bookCache.add(b);
+                if (displayHistoryActually){
+                    books = Bridge.VLGetBooks(acc, true);
+                    for (Bridge.Book b: books) bookCache.add(b);
+                }
             }
         }
 

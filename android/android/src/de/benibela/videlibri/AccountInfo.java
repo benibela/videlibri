@@ -128,7 +128,10 @@ public class AccountInfo extends VideLibriBaseActivity {
                 lib.setText(libName);
                 accountPrettyName.setText(libShortName);
             } else if (libId.equals(""))
-                updateLibrary();
+                if (mode == MODE_ACCOUNT_CREATION_INITIAL)
+                    updateLibrary();
+                else
+                    finish();
         }
     }
 }

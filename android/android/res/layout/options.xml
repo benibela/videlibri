@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+    <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:id="@+id/scrollView">
+        <LinearLayout
+                android:id="@+id/tab1"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent" android:orientation="vertical">
+            <TextView
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Angezeigte Ausleihen:"
+                    android:id="@+id/textView1" android:layout_gravity="left|center_vertical"
+                    android:padding="@dimen/optionheaderpadding" android:background="@color/optionHeaderBackgroundColor"
+                    android:textStyle="bold"/>
+            <RadioGroup
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content">
+                <RadioButton
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:text="aktuelle Ausleihen"
+                        android:id="@+id/radioButton1" android:checked="false"/>
+                <RadioButton
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:text="alle Ausleihen, inklusive Historie"
+                        android:id="@+id/radioButton2" android:checked="false"/>
+            </RadioGroup>
+            <TextView
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Angezeigte Ausleihkonten:"
+                    android:id="@+id/textView" android:layout_gravity="left|center_vertical"
+                    android:gravity="left" android:padding="@dimen/optionheaderpadding"
+                    android:background="@color/optionHeaderBackgroundColor" android:textStyle="bold"/>
+            <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent" android:id="@+id/viewaccounts">
+            </LinearLayout>
+            <TextView
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Existierende Konten:"
+                    android:id="@+id/textView2" android:layout_gravity="left|center_vertical"
+                    android:padding="@dimen/optionheaderpadding" android:background="@color/optionHeaderBackgroundColor"
+                    android:textStyle="bold"/>
+            <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent" android:id="@+id/accounts">
+            </LinearLayout>
+            <Button
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Neues Konto registrieren"
+                    android:id="@+id/newaccount"/>
+        </LinearLayout>
+    </ScrollView>
