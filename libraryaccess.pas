@@ -45,7 +45,7 @@ function alertAboutBooksThatMustBeReturned:boolean;
 
 
 type PThreadConfig=^TThreadConfig;
-procedure updateBooksDirectBlocking(const lib: TCustomAccountAccess; const pconfig: PThreadConfig; const ignoreConnectionErrors, checkDate, extend: boolean);
+procedure updateBooksDirectBlocking(const lib: TCustomAccountAccess; const pconfig: PThreadConfig; const ignoreConnectionErrors, checkDate, forceExtend: boolean);
 
 implementation
 uses applicationconfig,internetaccess,bookwatchmain,bbdebugtools,androidutils,{$ifdef android}bbjniutils,{$endif}
@@ -58,7 +58,7 @@ const MB_SYSTEMMODAL=0;
 {$ENDIF}
 
 procedure updateBooksDirectBlocking(const lib: TCustomAccountAccess; const pconfig: PThreadConfig; const ignoreConnectionErrors,
-  checkDate, extend: boolean);
+  checkDate, forceExtend: boolean);
 var internet: TInternetAccess;
     listUpdateComplete: boolean;
 
@@ -150,6 +150,10 @@ save
       end;
       else raise Exception.Create('Internal error: unknown lib.extendType');
     end;
+
+    if forceExtend then
+      booksToExtendCount := booksExtendableCount;
+
 
     if booksToExtendCount>0 then
       if booksToExtendCount=booksExtendableCount then

@@ -629,6 +629,8 @@ var sl:TStringList;
 begin
   DeleteFile(bookListCurFileName);
   DeleteFile(bookListOldFileName);
+  DeleteFile(bookListCurFileName+'.xml');
+  DeleteFile(bookListOldFileName+'.xml');
   sl:=FindAllFiles(ExtractFilePath(bookListOldFileName),ExtractFileNameOnly(bookListOldFileName)+'.????????',false);
   for i:=0 to sl.count-1 do
     DeleteFile(sl[i]);
@@ -923,8 +925,8 @@ begin
   
   user:=s;
   newID:=getID();
-  RenameFile(path+oldID+'.history',path+newID+'.history');
-  RenameFile(path+oldID+'.current',path+newID+'.current');
+   RenameFile(path+oldID+'.history.xml',path+newID+'.history.xml');
+  RenameFile(path+oldID+'.current.xml',path+newID+'.current.xml');
   RenameFile(path+oldID+'.config',path+newID+'.config');
   fbooks:=TBookLists.create(self,path+getID()+'.history',path+getID()+'.current');
   config:=TIniFile.Create(path+getID()+'.config');
