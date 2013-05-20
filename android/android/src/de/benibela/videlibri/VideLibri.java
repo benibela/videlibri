@@ -105,6 +105,10 @@ public class VideLibri extends  BookListActivity{
         defaultColor = getResources().getColor(android.R.color.primary_text_dark);
         if (accounts == null || accounts.length == 0) newAccountDialog(true);
         setTitle("Ausleihen");  //does not work in onCreate (why? makes the title invisible) No. it just works sometimes?
+
+
+        if (displayHistoryActually != displayHistory)
+            displayAccount(null);
     }
 
     public void onDestroy(){
@@ -116,7 +120,7 @@ public class VideLibri extends  BookListActivity{
 
     //Mix
 
-    void newAccountDialog(boolean initial){
+    public void newAccountDialog(boolean initial){
         Intent intent = new Intent(this, AccountInfo.class);
         intent.putExtra("mode", initial ? AccountInfo.MODE_ACCOUNT_CREATION_INITIAL : AccountInfo.MODE_ACCOUNT_CREATION) ;
         startActivity(intent);
@@ -136,6 +140,10 @@ public class VideLibri extends  BookListActivity{
         instance.startActivity(intent);
     }
 
+    public boolean displayHistory = false;
+    private boolean displayHistoryActually = false;
+
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 
@@ -149,12 +157,16 @@ public class VideLibri extends  BookListActivity{
     }
 
     public void displayAccount(Bridge.Account acc){
+        displayHistoryActually = displayHistory;
         if (acc == null) {
             bookCache = new ArrayList<Bridge.Book>();
             for (Bridge.Account facc: accounts) {
                 Bridge.Book[] books = Bridge.VLGetBooks(facc, false);
-                for (Bridge.Book b: books)
-                    bookCache.add(b);
+                for (Bridge.Book b: books) bookCache.add(b);
+                if (displayHistoryActually){
+                    books = Bridge.VLGetBooks(acc, true);
+                    for (Bridge.Book b: books) bookCache.add(b);
+                }
             }
         } else {
             ArrayList<Bridge.Book> oldBookCache = bookCache;
@@ -162,8 +174,11 @@ public class VideLibri extends  BookListActivity{
             for (Bridge.Book b: oldBookCache)
                 if (!acc.equals(b.account)) bookCache.add(b);
             Bridge.Book[] books = Bridge.VLGetBooks(acc, false);
-            for (Bridge.Book b: books)
-                bookCache.add(b);
+            for (Bridge.Book b: books) bookCache.add(b);
+            if (displayHistoryActually){
+                books = Bridge.VLGetBooks(acc, true);
+                for (Bridge.Book b: books) bookCache.add(b);
+            }
         }
 
         Collections.sort(bookCache, new Comparator<Bridge.Book>() {

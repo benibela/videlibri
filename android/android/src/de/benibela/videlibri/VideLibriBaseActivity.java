@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.app.Activity;
 import android.os.Bundle;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.actionbarsherlock.app.*;
@@ -65,15 +66,16 @@ public class VideLibriBaseActivity extends SherlockActivity {
             case R.id.search:
                 VideLibri.newSearchActivity();
                 return true;
-            case R.id.accounts:
+            case R.id.accounts: {
                 Intent intent = new Intent(this, VideLibri.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);
                 return true;
-            case R.id.options:
-                //todo
+            } case R.id.options: {
+                Intent intent = new Intent(this, Options.class);
+                startActivity(intent);
                 return true;
-            case  android.R.id.home:
+            } case  android.R.id.home:
                 openOptionsMenu();
                 return true;
             default:
@@ -99,6 +101,10 @@ public class VideLibriBaseActivity extends SherlockActivity {
         String r = getIntent().getStringExtra(id);
         if (r == null) return "";
         return  r;
+    }
+
+    public Button findButtonById(int id){
+        return (Button)findViewById(id);
     }
 
     public void setTextViewText(int id, CharSequence text){
