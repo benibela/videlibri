@@ -245,7 +245,7 @@ begin
     result := j.newObjectArray(accounts.Count, accountClass, nil);
     for i := 0 to accounts.Count - 1 do begin
       temp := j.newObject(accountClass, accountClassInit);
-      j.SetObjectArrayElement(result, 0,  temp);
+      j.SetObjectArrayElement(result, i,  temp);
       with accountFields  do begin
         j.SetObjectField(temp, LibIdS, j.stringToJString(accounts[i].getLibrary().id));
         j.SetObjectField(temp, NameS, j.stringToJString(accounts[i].getUser()));
