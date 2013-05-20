@@ -89,6 +89,11 @@ public class VideLibriBaseActivity extends SherlockActivity {
         loadingItem.setVisible(loading);
     }
 
+    @Override
+    public void setTitle(CharSequence title){
+        super.setTitle(title.length() > 0 ? "VideLibri: "+title : "VideLibri");
+    }
+
     //Util
     String getStringExtraSafe(String id){
         String r = getIntent().getStringExtra(id);

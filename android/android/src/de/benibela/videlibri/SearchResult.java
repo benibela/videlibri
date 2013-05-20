@@ -20,6 +20,7 @@ public class SearchResult extends BookListActivity implements Bridge.SearchResul
         waitingForDetails = -1;
         nextDetailsRequested = -1;
         setLoading(true);
+        setTitle("Suche läuft...");
     }
 
     @Override
@@ -37,6 +38,7 @@ public class SearchResult extends BookListActivity implements Bridge.SearchResul
                 bookCache.clear();
                 for (Bridge.Book b : books) bookCache.add(b);
                 displayBookCache(searcher.totalResultCount);
+                setTitle(searcher.totalResultCount+" Treffer");
                 setLoading(false);
             }
         });

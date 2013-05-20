@@ -50,6 +50,7 @@ public class VideLibri extends  BookListActivity{
     static VideLibri instance;
     Bridge.Account accounts[];
     public VideLibri(){
+        super();
     }
 
     //Bridge functions called from VideLibri-midend
@@ -81,7 +82,7 @@ public class VideLibri extends  BookListActivity{
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Log.i("VideLibri", "onCreate")               ;
+       // Log.i("VideLibri", "onCreate")               ;
 
         instance = this;
         Bridge.VLInit(this);
@@ -92,6 +93,7 @@ public class VideLibri extends  BookListActivity{
             displayAccount(null);
             for (Bridge.Account a: accounts) updateAccount(a, true, false);
         }
+
     }
 
     @Override
@@ -99,6 +101,7 @@ public class VideLibri extends  BookListActivity{
         super.onResume();
         defaultColor = getResources().getColor(android.R.color.primary_text_dark);
         if (accounts == null || accounts.length == 0) newAccountDialog(true);
+        setTitle("Ausleihen");  //does not work in onCreate (why? makes the title invisible) No. it just works sometimes?
     }
 
     public void onDestroy(){

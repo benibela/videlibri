@@ -64,10 +64,17 @@ public class AccountInfo extends VideLibriBaseActivity {
             }
         });
 
-        accountId.addTextChangedListener(new EmptyTextWatcher(){
+        accountId.addTextChangedListener(new EmptyTextWatcher() {
             @Override
             public void afterTextChanged(Editable editable) {
-                accountPrettyName.setText(accountId.getText()+" "+libShortName);
+                accountPrettyName.setText(accountId.getText() + " " + libShortName);
+            }
+        });
+
+        ((CheckBox) findViewById(R.id.autoExtendButton)).setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                ((EditText) findViewById(R.id.autoExtendDaysEdit)).setEnabled(b);
             }
         });
 

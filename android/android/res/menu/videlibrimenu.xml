@@ -2,13 +2,13 @@
 
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item android:id="@+id/accounts"
-          android:title="Kontoübersicht..." />
+          android:title="Ausleihen" />
     <item android:id="@+id/search"
-          android:title="Mediensuche..." />
-    <item android:id="@+id/view"
-          android:title="Anzeige Einstellungen..." />
+          android:title="Suche" />
     <item android:id="@+id/options"
-          android:title="Einstellungen..." />
+          android:title="Einstellungen" />
+    <item android:id="@+id/others"
+          android:title="Sonstiges" />
 
 
     <item android:id="@+id/loading"
