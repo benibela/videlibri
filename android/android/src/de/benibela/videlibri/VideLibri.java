@@ -66,9 +66,12 @@ public class VideLibri extends  BookListActivity{
                 instance.displayAccount(null);
                 runningUpdates.clear();
 
+                instance.setLoading(false);
+
                 Bridge.PendingException[] exceptions = Bridge.VLTakePendingExceptions();
                 for (Bridge.PendingException ex : exceptions)
                     instance.showMessage(ex.accountPrettyNames + ": " + ex.error);
+
             }
         });
 
@@ -177,6 +180,7 @@ public class VideLibri extends  BookListActivity{
     static public void updateAccount(Bridge.Account acc, final boolean autoUpdate, final boolean forceExtend){
         if (runningUpdates.contains(acc)) return;
         runningUpdates.add(acc);
+        if (instance != null) instance.setLoading(true);
         Bridge.VLUpdateAccount(acc, autoUpdate, forceExtend);
        /* final Bridge.Account facc = acc;
         Thread t = new Thread(new Runnable() {

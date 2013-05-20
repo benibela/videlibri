@@ -1,7 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/accounts"
+          android:title="Kontoübersicht..." />
     <item android:id="@+id/search"
           android:title="Mediensuche..." />
+    <item android:id="@+id/view"
+          android:title="Anzeige Einstellungen..." />
+    <item android:id="@+id/options"
+          android:title="Einstellungen..." />
 
+
+    <item android:id="@+id/loading"
+          android:title=""
+          android:visible="false"
+          android:showAsAction="always"/>
 </menu>

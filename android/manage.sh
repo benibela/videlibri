@@ -3,8 +3,8 @@
 export JAVA_HOME=/usr/lib/jvm/java-6-sun-1.6.0.26/jre 
 export SDK_HOME=/home/benito/opt/android-sdk-linux/platform-tools/
 
-if [[ $1 == "build" ]]; then
-
+case "$1" in
+build)
   if [[ $2 == "arm" || $3 == "arm" || $2 != "x86" ]]; then BUILDARM=true
   else BUILDARM=false; fi
 
@@ -42,17 +42,29 @@ if [[ $1 == "build" ]]; then
 
   $SDK_HOME/adb uninstall de.benibela.videlibri || (echo "FAILED!"; exit)
   $SDK_HOME/adb install bin/videlibri-debug.apk || (echo "FAILED!"; exit)
-elif [[ $1 == "install" ]]; then
+;;
+
+
+install)
 
   cd android
   $SDK_HOME/adb uninstall de.benibela.videlibri || (echo "FAILED!"; exit)
   $SDK_HOME/adb install bin/videlibri-debug.apk || (echo "FAILED!"; exit)
-elif [[ $1 == "clean" ]]; then
+  
+;;
+
+clean)
   rm android/libs/armeabi/liblclapp.so; 
   rm android/libs/x86/liblclapp.so; 
   cd android
   ant clean
-fi
+;;
 
+clean-java)
+  cd android
+  ant clean
+;;
+  
+esac
 
 

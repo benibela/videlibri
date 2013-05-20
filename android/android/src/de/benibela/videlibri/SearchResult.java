@@ -19,6 +19,7 @@ public class SearchResult extends BookListActivity implements Bridge.SearchResul
         searcher = new Bridge.SearcherAccess(this, book);
         waitingForDetails = -1;
         nextDetailsRequested = -1;
+        setLoading(true);
     }
 
     @Override
@@ -36,6 +37,7 @@ public class SearchResult extends BookListActivity implements Bridge.SearchResul
                 bookCache.clear();
                 for (Bridge.Book b : books) bookCache.add(b);
                 displayBookCache(searcher.totalResultCount);
+                setLoading(false);
             }
         });
     }
@@ -47,6 +49,7 @@ public class SearchResult extends BookListActivity implements Bridge.SearchResul
             public void run() {
                 for (Bridge.Book b: books) bookCache.add(b);
                 updateDisplayBookCache();
+                setLoading(waitingForDetails != -1);
             }
         });
     }
@@ -68,11 +71,14 @@ public class SearchResult extends BookListActivity implements Bridge.SearchResul
                 book.more.put("__details", "");
                 bookCache.set(oldWaitingForDetails, book); //still save the search result, so it does not need to be searched again
 
+                setLoading(false);
+
                 if (BookDetails.instance != null) {
                     if (nextDetailsRequested == -1)
                         return;
                     if (nextDetailsRequested != oldWaitingForDetails) {
                         waitingForDetails = nextDetailsRequested;
+                        setLoading(true);
                         searcher.details(bookCache.get(waitingForDetails));
                         return;
                     }
@@ -86,10 +92,14 @@ public class SearchResult extends BookListActivity implements Bridge.SearchResul
     @Override
     public void onException() {
         //To change body of implemented methods use File | Settings | File Templates.
+        setLoading(false);
     }
 
     public void onPlaceHolderShown(int position){
-        if (searcher.nextPageAvailable) searcher.nextPage();
+        if (searcher.nextPageAvailable) {
+            setLoading(true);
+            searcher.nextPage();
+        }
         searcher.nextPageAvailable = false;
     }
 
@@ -103,6 +113,7 @@ public class SearchResult extends BookListActivity implements Bridge.SearchResul
         nextDetailsRequested = bookpos;
         if (waitingForDetails == -1) {
             waitingForDetails = bookpos;
+            setLoading(true);
             searcher.details(bookCache.get(waitingForDetails));
         }
     }

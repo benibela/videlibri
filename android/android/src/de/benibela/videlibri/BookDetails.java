@@ -168,5 +168,7 @@ public class BookDetails extends VideLibriBaseActivity {
                 details.add(new Details(entry.getKey(), entry.getValue()));
 
         lv.setAdapter(new BookDetailsAdapter(this, details, book));
+
+        setLoading(searchedBook && !book.more.containsKey("__details"));
     }
 }

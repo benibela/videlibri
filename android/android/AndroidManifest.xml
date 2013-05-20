@@ -12,7 +12,7 @@
     <uses-sdk android:minSdkVersion="8" android:targetSdkVersion="14" />
     <application android:label="@string/app_name" 
         android:icon="@drawable/icon"
-        android:theme="@style/Theme.Sherlock"
+        android:theme="@style/Theme.VideLibri"
         android:debuggable="true">
         <activity android:name="VideLibri"
                   android:configChanges="orientation|keyboardHidden"
