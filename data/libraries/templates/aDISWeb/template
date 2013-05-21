@@ -25,10 +25,14 @@
     <post name="textButton" value="Anmeldung abschicken"/>
     
     <template>
-      <form>{loginFormPost:=form(.)}
-      <h1>Sie sind angemeldet.</h1>
-      </form>
-      
+      <template:switch-prioritized>
+        <form>{loginFormPost:=form(.)}
+        <h1>Sie sind angemeldet.</h1>
+        </form>
+        
+        <h1>Bitte auch das Passwort angeben<t:s>vl:raise-login(.)</t:s></h1>
+        <h1>Sie sind nicht mit Ihren Angaben registriert<t:s>vl:raise-login(.)</t:s></h1>
+      </template:switch-prioritized>
     </template>
   </page>
   
