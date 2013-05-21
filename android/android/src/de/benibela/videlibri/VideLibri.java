@@ -203,8 +203,6 @@ public class VideLibri extends  BookListActivity{
         hiddenAccountsActually.clear();
         hiddenAccountsActually.addAll(hiddenAccounts);
 
-        if (hiddenAccounts.size() == 0) setTitle("Ausleihen");
-        else setTitle("Ausleihen: "+(accounts.length-hiddenAccounts.size())+ "/"+accounts.length+" Konten");
 
         if (acc == null) {
             bookCache = new ArrayList<Bridge.Book>();
@@ -228,6 +226,8 @@ public class VideLibri extends  BookListActivity{
                         currentlyVisible = true;
                         break;
                     }
+                if (hiddenAccounts.size() == 0) setTitle(bookCache.size() + "Ausleihen");
+                else setTitle(bookCache.size() + " Ausleihen: "+(accounts.length-hiddenAccounts.size())+ "/"+accounts.length+" Konten");
                 if (!currentlyVisible) return;
             }
             bookCache = new ArrayList<Bridge.Book>();
@@ -256,6 +256,9 @@ public class VideLibri extends  BookListActivity{
         );
 
         displayBookCache();
+
+        if (hiddenAccounts.size() == 0) setTitle(bookCache.size() + "Ausleihen");
+        else setTitle(bookCache.size() + " Ausleihen: "+(accounts.length-hiddenAccounts.size())+ "/"+accounts.length+" Konten");
 
     }
 

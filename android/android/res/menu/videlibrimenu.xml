@@ -12,10 +12,10 @@
         <menu>
             <item android:id="@+id/renew" android:title="Alle verlängern"/>
             <item android:id="@+id/refresh" android:title="Alle aktualisieren"/>
-            <item android:id="@+id/libinfo" android:title="Webseiten"/>
-            <item android:id="@+id/libcatalogue" android:title="Katalogseiten"/>
-            <item android:id="@+id/feedback" android:title="Feedback"/>
-            <item android:id="@+id/about" android:title="Über Videlibri"/>
+            <item android:id="@+id/libinfo" android:title="Webseiten (todo)"/>
+            <item android:id="@+id/libcatalogue" android:title="Katalogseiten (todo)"/>
+            <item android:id="@+id/feedback" android:title="Feedback (todo)"/>
+            <item android:id="@+id/about" android:title="Über Videlibri (todo)"/>
         </menu>
     </item>
 

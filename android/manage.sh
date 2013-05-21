@@ -33,7 +33,7 @@ build)
   fi
 
   if [[ $BUILDMODE == "release" ]]; then
-    strip --strip-all android/libs/armeabi/liblclapp.so
+     arm-linux-strip --strip-all android/libs/armeabi/liblclapp.so
     strip --strip-all android/libs/x86/liblclapp.so
   fi
 
@@ -41,15 +41,17 @@ build)
   ant $BUILDMODE || (echo "FAILED!"; exit)
 
   $SDK_HOME/adb uninstall de.benibela.videlibri || (echo "FAILED!"; exit)
-  $SDK_HOME/adb install bin/videlibri-debug.apk || (echo "FAILED!"; exit)
+  $SDK_HOME/adb install bin/videlibri-$BUILDMODE.apk || (echo "FAILED!"; exit)
 ;;
 
 
 install)
+  if [[ $2 == "release" ]]; then BUILDMODE=release
+  else BUILDMODE=debug;  fi
 
   cd android
   $SDK_HOME/adb uninstall de.benibela.videlibri || (echo "FAILED!"; exit)
-  $SDK_HOME/adb install bin/videlibri-debug.apk || (echo "FAILED!"; exit)
+  $SDK_HOME/adb install bin/videlibri-$BUILDMODE.apk || (echo "FAILED!"; exit)
   
 ;;
 

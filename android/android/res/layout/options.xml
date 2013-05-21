@@ -79,7 +79,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:id="@+id/notificationsTimeDelta" android:layout_gravity="left|center_vertical"
-                        android:numeric="integer" android:minWidth="60sp"/>
+                        android:numeric="integer" android:minWidth="60sp" android:gravity="right"/>
                 <TextView
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
@@ -95,7 +95,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:id="@+id/notificationsServiceDelay" android:layout_gravity="left|center_vertical"
-                        android:numeric="integer" android:minWidth="60sp"/>
+                        android:numeric="integer" android:minWidth="60sp" android:gravity="right"/>
                 <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -121,7 +121,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:id="@+id/refreshInterval" android:layout_gravity="left|center_vertical"
-                        android:numeric="integer" android:minWidth="60sp"/>
+                        android:numeric="integer" android:minWidth="60sp" android:gravity="right"/>
                 <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"

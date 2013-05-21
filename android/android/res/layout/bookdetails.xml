@@ -7,7 +7,7 @@
 
     <ListView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:id="@+id/bookdetailsview" android:layout_gravity="right|center_vertical" android:choiceMode="none"
             android:cacheColorHint="@android:color/transparent" android:listSelector="@android:color/transparent"/>
 </LinearLayout>
