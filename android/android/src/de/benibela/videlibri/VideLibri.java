@@ -104,14 +104,21 @@ public class VideLibri extends  BookListActivity{
     protected void onResume() {
         super.onResume();
         defaultColor = getResources().getColor(android.R.color.primary_text_dark);
-        if (accounts == null || accounts.length == 0) newAccountDialog(true);
-        else if (displayHistoryActually != displayHistory || !hiddenAccounts.equals(hiddenAccountsActually))
+       /* if (accounts == null || accounts.length == 0) newAccountDialog(true);
+        else
+         */
+
+        if (displayHistoryActually != displayHistory || !hiddenAccounts.equals(hiddenAccountsActually))
             displayAccount(null);
-
-
         //setTitle("Ausleihen");  //does not work in onCreate (why? makes the title invisible) No. it just works sometimes?
 
-
+        if (accounts == null || accounts.length == 0)
+            findViewById(R.id.booklistview).postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    newAccountDialog(true); //do not call directly, because then the main activity becomes not visible till restart
+                }
+            }, 400);
 
     }
 
