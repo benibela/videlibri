@@ -126,12 +126,15 @@ public class BookDetails extends VideLibriBaseActivity {
 
     static BookDetails instance = null;
 
+    static Bridge.Book bookToView = null; //passed as parameter to newly created detail display (do not serialize, as it crashes with books with images and is slow in any case)
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.bookdetails);
 
-        setBook( (Bridge.Book) getIntent().getSerializableExtra("book") );
+        setBook( bookToView );
+        bookToView = null;
     }
 
     @Override

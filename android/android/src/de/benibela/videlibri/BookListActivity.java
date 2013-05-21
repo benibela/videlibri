@@ -132,7 +132,7 @@ public class BookListActivity extends VideLibriBaseActivity {
 
     public void viewDetails(int bookpos){
         Intent intent = new Intent(BookListActivity.this, BookDetails.class);
-        intent.putExtra("book", bookCache.get(bookpos));
+        BookDetails.bookToView = bookCache.get(bookpos);
         startActivity(intent);
     }
 }
