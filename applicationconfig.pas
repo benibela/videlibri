@@ -577,7 +577,7 @@ uses bookwatchmain,internetaccess,controls,libraryaccess,math,FileUtil,bbutils,b
 
     //Userdaten lesen
     userConfig:=TIniFile.Create(userPath + 'user.config');
-    RefreshInterval:=userConfig.ReadInteger('access','refresh-interval',2);
+    RefreshInterval:=userConfig.ReadInteger('access','refresh-interval',1);
     WarnInterval:=userConfig.ReadInteger('base','warn-interval',0);
     lastWarnDate:=userConfig.ReadInteger('base','last-warn-date',0);
     HistoryBackupInterval:=userConfig.ReadInteger('base','history-backup-interval',30);

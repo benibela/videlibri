@@ -83,8 +83,9 @@
                 <TextView
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
-                        android:text=" Tage vor Fristablauf"
-                        android:id="@+id/textView4" android:layout_gravity="center"/>
+                        android:text="Tage vor Fristablauf"
+                        android:id="@+id/textView4" android:layout_gravity="center" android:padding="@dimen/defborder"
+                        android:singleLine="false"/>
             </LinearLayout>
             <LinearLayout
                     android:orientation="horizontal"
@@ -98,14 +99,35 @@
                 <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text=" Minuten nach Systemstart"
-                        android:id="@+id/textView5" android:layout_gravity="center"/>
+                        android:text="Minuten nach Systemstart"
+                        android:id="@+id/textView5" android:layout_gravity="center" android:padding="@dimen/defborder"/>
             </LinearLayout>
             <TextView android:layout_width="fill_parent" android:layout_height="wrap_content"
                       android:text="Sonstige Einstellungen:" android:id="@+id/textView3"
                       android:padding="@dimen/optionheaderpadding"
                       android:background="@color/optionHeaderBackgroundColor" android:textStyle="bold"
                       android:layout_marginTop="@dimen/optionheaderpadding"/>
+            <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent">
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="alle"
+                        android:id="@+id/textView6" android:layout_gravity="center"
+                        android:padding="@dimen/defborder"/>
+                <EditText
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/refreshInterval" android:layout_gravity="left|center_vertical"
+                        android:numeric="integer" android:minWidth="20sp"/>
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text=" Tage aktualisieren"
+                        android:id="@+id/textView5" android:layout_gravity="center" android:padding="@dimen/defborder"/>
+            </LinearLayout>
             <CheckBox
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"

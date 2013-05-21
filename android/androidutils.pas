@@ -801,7 +801,7 @@ end;
 type TJOptionClass = record
   c: jclass;
   init: jmethodID;
-  nearTimeI, loggingZ: jfieldID;
+  nearTimeI, loggingZ, refreshIntervalI: jfieldID;
 end;
 
 function getOptionClass: TJOptionClass;
@@ -811,6 +811,7 @@ begin
     init := j.getmethod(c, '<init>', '()V');
     nearTimeI := j.getfield(c, 'nearTime', 'I');
     loggingZ := j.getfield(c, 'logging', 'Z');
+    refreshIntervalI := j.getfield(c, 'refreshInterval','I');
   end;
 end;
 
@@ -826,6 +827,7 @@ begin
     with getOptionClass do begin
       result := j.newObject(c, init);
       j.SetIntField(result, nearTimeI, userConfig.ReadInteger('base','near-time',3));
+      j.SetIntField(result, refreshIntervalI, RefreshInterval);
       j.SetBooleanField(result, loggingZ, logging);
     end;
   except
@@ -838,7 +840,6 @@ function Java_de_benibela_VideLibri_Bridge_VLSetOptions(env:PJNIEnv; this:jobjec
 var
   lib: TLibrary;
   i: Integer;
-  optionClass: jclass;
 begin
   if logging then bbdebugtools.log('de.benibela.VideLibri.Bride.VLSetOptions (started)');
   //bbdebugtools.log(strFromPtr(libraryManager));
@@ -847,6 +848,10 @@ begin
     with getOptionClass do begin
       userConfig.WriteInteger('base','near-time', j.getIntField(options, nearTimeI));
       redTime := currentDate + j.getIntField(options, nearTimeI);
+
+      RefreshInterval:=j.getIntField(options, refreshIntervalI);
+      userConfig.WriteInteger('access','refresh-interval',refreshInterval);
+
       logging := j.getBooleanField(options, loggingZ);
       userConfig.WriteBool('base','logging', logging);
     end;

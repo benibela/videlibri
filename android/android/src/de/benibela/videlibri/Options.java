@@ -37,6 +37,7 @@ public class Options extends VideLibriBaseActivity{
         Bridge.Options options = Bridge.VLGetOptions();
 
         setEditTextText(R.id.notificationsTimeDelta,""+options.nearTime);
+        setEditTextText(R.id.refreshInterval,""+options.refreshInterval);
         setCheckBoxChecked(R.id.logging, options.logging);
 
         SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(this);
@@ -112,6 +113,7 @@ public class Options extends VideLibriBaseActivity{
 
         Bridge.Options options = new Bridge.Options();
         options.nearTime = Integer.parseInt(getEditTextText(R.id.notificationsTimeDelta));
+        options.refreshInterval = Integer.parseInt(getEditTextText(R.id.refreshInterval));
         options.logging = getCheckBoxChecked(R.id.logging);
         Bridge.VLSetOptions(options);
 
