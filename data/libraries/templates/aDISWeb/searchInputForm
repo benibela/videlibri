@@ -1,0 +1,19 @@
+<t:if> 
+<!-- no wrapping form/fieldset, due to invalid /html closing tag in mannheim. 
+    t:if makes it a valid xml file -->
+  <template:meta default-text-matching="regex"/>
+  <t:switch><label>Titel</label>       <option>Titel</option>   </t:switch>   <input>{$nameTitle := @name}</input>
+  <t:switch><label>Person|Name</label> <option>Autor</option>   </t:switch>   <input>{$nameAuthor := @name}</input>
+  <t:switch><label>ISBN</label>        <option>ISSN</option>    </t:switch>   <input>{$nameIsbn := @name}</input>
+  <t:switch><label>Schlag</label>      <option>Schlag</option>  </t:switch>   <input>{$nameKeywords := @name}</input>
+  <label>[jJ]ahr</label>     <input>{$nameYear := @name}</input>
+  <t:s>
+    startSearch := form(//form, {
+      $nameTitle: $book.title,
+      $nameAuthor: $book.author,
+      $nameIsbn: $book.isbn,
+      $nameKeywords: $book.keywords,
+      $nameYear: $book.year
+    })
+  </t:s>
+</t:if>
