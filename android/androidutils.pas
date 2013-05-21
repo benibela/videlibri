@@ -600,7 +600,7 @@ begin
       if booksSoon.Count > 0 then begin
         if text <> '' then text += '; ';
         text += format('%s bis %s',
-                     [grammar(booksSoonNotExtendable.Count, 'verlängerbare'), DateToPrettyGrammarStr('zum ','',minDateSoon)]);
+                     [grammar(booksSoon.Count, 'verlängerbare'), DateToPrettyGrammarStr('zum ','',minDateSoon)]);
       end;
     end;
   end;
