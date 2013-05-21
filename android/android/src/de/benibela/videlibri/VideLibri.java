@@ -257,7 +257,7 @@ public class VideLibri extends  BookListActivity{
 
         displayBookCache();
 
-        if (hiddenAccounts.size() == 0) setTitle(bookCache.size() + "Ausleihen");
+        if (hiddenAccounts.size() == 0) setTitle(bookCache.size() + " Ausleihen");
         else setTitle(bookCache.size() + " Ausleihen: "+(accounts.length-hiddenAccounts.size())+ "/"+accounts.length+" Konten");
 
     }

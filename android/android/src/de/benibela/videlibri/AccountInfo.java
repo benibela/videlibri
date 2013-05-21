@@ -59,13 +59,13 @@ public class AccountInfo extends VideLibriBaseActivity {
         libId = getStringExtraSafe("libId");
 
 
-
-        accountId.addTextChangedListener(new EmptyTextWatcher() {
-            @Override
-            public void afterTextChanged(Editable editable) {
-                accountPrettyName.setText(accountId.getText() + " " + libShortName);
-            }
-        });
+        if (mode != MODE_ACCOUNT_MODIFY || accountPrettyName.equals(accountId + " "+libShortName) )
+            accountId.addTextChangedListener(new EmptyTextWatcher() {
+                @Override
+                public void afterTextChanged(Editable editable) {
+                    accountPrettyName.setText(accountId.getText() + " " + libShortName);
+                }
+            });
 
         ((CheckBox) findViewById(R.id.autoExtendButton)).setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
