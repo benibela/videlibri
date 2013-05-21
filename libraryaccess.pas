@@ -39,6 +39,8 @@ procedure extendBooks(lastLimit:longint; account: TCustomAccountAccess=nil);
 
 
 //--Userkommunikation--
+
+procedure findBooksThatMustBeReturned(out booksOverdue, booksSoonNotExtendable, booksSoon: TList; out minDateOverdue, minDateSoonNotExtendable, minDateSoon: integer);
 //benachrichtigt den Benutzer über fällige Medien und fragt nach dem Öffnen des
 //Hauptformulars deswegen (->true wenn es geöffnet werden soll)
 function alertAboutBooksThatMustBeReturned:boolean;
@@ -454,61 +456,83 @@ begin
 end;
 
 
+procedure findBooksThatMustBeReturned(out booksOverdue, booksSoonNotExtendable, booksSoon: TList; out minDateOverdue, minDateSoonNotExtendable,
+  minDateSoon: integer);
+var
+  i,j: Integer;
+begin
+  currentDate:=longint(trunc(now));
+
+  booksOverdue:=TList.Create;
+  booksSoonNotExtendable:=TList.Create;
+  booksSoon:=TList.Create;
+
+  minDateOverdue := currentDate+1000;
+  minDateSoonNotExtendable := currentDate+1000;
+  minDateSoon := currentDate+1000;
+
+  //redTime := currentDate+14; //debug!
+
+  for i:=0 to accounts.count-1 do
+    with (accounts[i]) do
+      for j:=0  to books.current.count-1 do begin
+        if books.current[j].dueDate<currentDate then begin
+          booksOverdue.Add(books.current[j]);
+          if books.current[j].dueDate < minDateOverdue then
+            minDateOverdue:=books.current[j].dueDate;
+        end else if (books.current[j].dueDate<=redTime) then begin
+          if (books.current[j].status in BOOK_NOT_EXTENDABLE) then begin
+            booksSoonNotExtendable.Add(books.current[j]);
+            if books.current[j].dueDate < minDateSoonNotExtendable then
+              minDateSoonNotExtendable:=books.current[j].dueDate;
+           end else begin
+            booksSoon.Add(books.current[j]);
+            if books.current[j].dueDate < minDateSoon then
+              minDateSoon:=books.current[j].dueDate;
+           end;
+        end
+      end;
+end;
 
 function alertAboutBooksThatMustBeReturned: boolean;
+  function strJoin(l: tlist): string;
+  var sl: TStringList;
+    i: Integer;
+  begin
+    sl := TStringList.Create;
+    for i := 0 to l.Count - 1 do sl.Add(tbook(l[i]).toSimpleString());
+    result := #9 + bbutils.strJoin(sl, LineEnding + #9, -10)+LineEnding;
+    sl.free;
+  end;
 var alert:string;
     tempInternet: TInternetAccess;
-    i,j,count:longint;
-    booksOverdue, booksSoonNotExtendable, booksSoon: TStringList;
+    booksOverdue, booksSoonNotExtendable, booksSoon: TList;
     minDateSoon: Integer;
     minDateSoonNotExtendable: Integer;
     minDateOverdue: Integer;
 begin
   if logging then log('alertAboutBooksThatMustBeReturned started');
   result:=false;
-  currentDate:=longint(trunc(now));
-  count:=0;
 
-  booksOverdue:=TStringList.Create;
-  booksSoonNotExtendable:=TStringList.Create;
-  booksSoon:=TStringList.Create;
+  findBooksThatMustBeReturned(booksOverdue, booksSoonNotExtendable, booksSoon,
+                              minDateOverdue, minDateSoonNotExtendable, minDateSoon);
 
-  minDateOverdue := currentDate+1000;
-  minDateSoonNotExtendable := currentDate+1000;
-  minDateSoon := currentDate+1000;
-
-  for i:=0 to accounts.count-1 do
-    with (accounts[i]) do
-      for j:=0  to books.current.count-1 do begin
-        if books.current[j].dueDate<currentDate then begin
-          booksOverdue.Add(books.current[j].toSimpleString());
-          if books.current[j].dueDate < minDateOverdue then
-            minDateOverdue:=books.current[j].dueDate;
-        end else if (books.current[j].dueDate<=redTime) then begin
-          if (books.current[j].status in BOOK_NOT_EXTENDABLE) then begin
-            booksSoonNotExtendable.Add(books.current[j].toSimpleString());
-            if books.current[j].dueDate < minDateSoonNotExtendable then
-              minDateSoonNotExtendable:=books.current[j].dueDate;
-           end else begin
-            booksSoon.Add(books.current[j].toSimpleString());
-            if books.current[j].dueDate < minDateSoon then
-              minDateSoon:=books.current[j].dueDate;
-           end;
-        end
-      end;
-  if (lastWarnDate + WarnInterval <= currentDate) and (booksOverdue.Count + booksSoonNotExtendable.Count + booksSoon.Count > 0) then begin
+  if ((lastWarnDate + WarnInterval <= currentDate) and (booksOverdue.Count + booksSoonNotExtendable.Count + booksSoon.Count > 0))
+     or (booksOverdue.Count > 0) then begin
     alert:='';
     if booksOverdue.Count > 0 then begin
-      alert+=Format('Die folgenden Medien (%d) sind überfällig und sollten schon bis %s abgegeben worden sein:'#13, [booksOverdue.Count, DateToPrettyGrammarStr('zum ','',minDateOverdue)]);
-      alert+=#9+strJoin(booksOverdue, #13#9, -10)+#13#13;
+      alert+=Format('Die folgenden Medien (%d) sind überfällig und sollten schon bis %s abgegeben worden sein:'#13,
+                    [booksOverdue.Count, DateToPrettyGrammarStr('zum ','',minDateOverdue)]);
+      alert+=strJoin(booksOverdue) + LineEnding;
     end;
     if booksSoonNotExtendable.Count > 0 then begin
-      alert+=Format('Die folgenden Medien (%d) sind nicht verlängerbar und sollten bis %s abgegeben werden:'#13, [booksSoonNotExtendable.Count, DateToPrettyGrammarStr('zum ','',minDateSoonNotExtendable)]);
-      alert+=#9+strJoin(booksSoonNotExtendable, #13#9, -10)+#13#13;
+      alert+=Format('Die folgenden Medien (%d) sind nicht verlängerbar und sollten bis %s abgegeben werden:'#13,
+                   [booksSoonNotExtendable.Count, DateToPrettyGrammarStr('zum ','',minDateSoonNotExtendable)]);
+      alert+=strJoin(booksSoonNotExtendable) + LineEnding;
     end;
     if booksSoon.Count > 0 then begin
       alert+=Format('Die folgenden Medien (%d) sind bald bis %s fällig:'#13, [booksSoon.Count, DateToPrettyGrammarStr('zum ','',minDateSoon)]);
-      alert+=#9+strJoin(booksSoon, #13#9, -10)+#13;
+      alert+=strJoin(booksSoon) + LineEnding;
       alert+='VideLibri wird versuchen, diese Bücher automatisch zu verlängern'#13#13;
     end;
     alert+='Soll die Gesamt-Übersicht geöffnet werden?';

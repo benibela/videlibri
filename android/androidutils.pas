@@ -556,6 +556,72 @@ begin
   if logging then bbdebugtools.log('Bridge_VLGetPendingExceptions ended');
 end;
 
+function Java_de_benibela_VideLibri_Bridge_VLGetNotifications(env:PJNIEnv; this:jobject): jobject;
+    function grammar(number: integer): string;
+    begin
+      if number = 1 then exit('1 Buch')
+      else exit(IntToStr(number)+' Bücher');
+    end;
+    function grammar(number: integer; adjective:string): string;
+    begin
+      if number = 1 then exit('1 '+adjective+'s Buch')
+      else exit(IntToStr(number)+' '+adjective+' Bücher');
+    end;
+var title, text: string;
+  booksOverdue: TList;
+  booksSoonNotExtendable: TList;
+  booksSoon: TList;
+  minDateOverdue: integer;
+  minDateSoonNotExtendable: integer;
+  minDateSoon: integer;
+begin
+  if logging then bbdebugtools.log('Bridge_VLGetNotifications started');
+
+  title := '';
+  text := '';
+
+  findBooksThatMustBeReturned(booksOverdue, booksSoonNotExtendable, booksSoon,
+                              minDateOverdue, minDateSoonNotExtendable, minDateSoon);
+
+  if ((lastWarnDate + WarnInterval <= currentDate) and (booksOverdue.Count + booksSoonNotExtendable.Count + booksSoon.Count > 0))
+     or (booksOverdue.Count > 0) then begin
+    if booksOverdue.Count > 0 then begin
+      title := grammar(booksOverdue.Count, 'überfällige')+' ! ';
+      text := format('%s seit %s' + LineEnding,
+                    [grammar(booksOverdue.Count), DateToPrettyGrammarStr('dem ','',minDateOverdue)]);
+    end;
+    if (booksSoonNotExtendable.Count > 0) or (booksSoon.Count > 0) then begin
+      title += grammar(booksSoonNotExtendable.Count+booksSoon.Count, 'fällige');
+      if booksSoonNotExtendable.Count > 0 then begin
+        if text <> '' then text += '; ';
+        text += format('%s bis %s',
+                      [grammar(booksSoonNotExtendable.Count), DateToPrettyGrammarStr('zum ','',minDateSoonNotExtendable)]);
+      end;
+      if booksSoon.Count > 0 then begin
+        if text <> '' then text += '; ';
+        text += format('%s bis %s',
+                     [grammar(booksSoonNotExtendable.Count, 'verlängerbare'), DateToPrettyGrammarStr('zum ','',minDateSoon)]);
+      end;
+    end;
+  end;
+
+  if title = '' then result := nil
+  else begin
+    result := j.newObjectArray(2, j.getclass('java/lang/String'), nil);
+    j.SetObjectArrayElement(result, 0, j.stringToJString(title));
+    j.SetObjectArrayElement(result, 1, j.stringToJString(text));
+  end;
+
+  booksSoon.Free;
+  booksSoonNotExtendable.free;
+  booksOverdue.Free;
+
+  lastWarnDate:=currentDate;
+  userConfig.WriteInteger('base','last-warn-date',currentDate);
+
+  if logging then bbdebugtools.log('Bridge_VLGetNotifications ended');
+end;
+
 
 type
 
@@ -737,7 +803,7 @@ end;
 
 
 
-const nativeMethods: array[1..14] of JNINativeMethod=
+const nativeMethods: array[1..15] of JNINativeMethod=
   ((name:'VLInit';          signature:'(Lde/benibela/videlibri/VideLibri;)V';                   fnPtr:@Java_de_benibela_VideLibri_Bridge_VLInit)
    ,(name:'VLFinalize';      signature:'()V';                   fnPtr:@Java_de_benibela_VideLibri_Bridge_VLFInit)
    ,(name:'VLGetLibraries'; signature:'()[Ljava/lang/String;'; fnPtr:@Java_de_benibela_VideLibri_Bridge_VLGetLibraries)
@@ -748,6 +814,7 @@ const nativeMethods: array[1..14] of JNINativeMethod=
    ,(name:'VLGetBooks'; signature:'(Lde/benibela/videlibri/Bridge$Account;Z)[Lde/benibela/videlibri/Bridge$Book;'; fnPtr:@Java_de_benibela_VideLibri_Bridge_VLGetBooks)
    ,(name:'VLUpdateAccount'; signature:'(Lde/benibela/videlibri/Bridge$Account;ZZ)V'; fnPtr:@Java_de_benibela_VideLibri_Bridge_VLUpdateAccounts)
    ,(name:'VLTakePendingExceptions'; signature: '()[Lde/benibela/videlibri/Bridge$PendingException;'; fnPtr: @Java_de_benibela_VideLibri_Bridge_VLGetPendingExceptions)
+   ,(name:'VLGetNotifications'; signature: '()[Ljava/lang/String;'; fnPtr: @Java_de_benibela_VideLibri_Bridge_VLGetNotifications)
    ,(name:'VLSearchStart'; signature: '(Lde/benibela/videlibri/Bridge$SearcherAccess;Lde/benibela/videlibri/Bridge$Book;)V'; fnPtr: @Java_de_benibela_VideLibri_Bridge_VLSearchStart)
    ,(name:'VLSearchNextPage'; signature: '(Lde/benibela/videlibri/Bridge$SearcherAccess;)V'; fnPtr: @Java_de_benibela_VideLibri_Bridge_VLSearchNextPage)
    ,(name:'VLSearchDetails'; signature: '(Lde/benibela/videlibri/Bridge$SearcherAccess;Lde/benibela/videlibri/Bridge$Book;)V'; fnPtr: @Java_de_benibela_VideLibri_Bridge_VLSearchDetails)

@@ -49,7 +49,7 @@ public class VideLibri extends  BookListActivity{
     FileInputStream fis =  */
 //  }
     static VideLibri instance;
-    Bridge.Account accounts[];
+    static Bridge.Account accounts[] = null;
     public VideLibri(){
         super();
     }
@@ -60,11 +60,15 @@ public class VideLibri extends  BookListActivity{
     }
 
     static void allThreadsDone(){
+        if (NotificationService.instance != null)
+            NotificationService.instance.stopSelf();
         if (instance == null) return;
         //Log.i("VideLibri", "allThreadsDone started");
         instance.runOnUiThread(new Runnable() {
             @Override
             public void run() {
+                NotificationService.showNotification(VideLibri.instance);
+
                 instance.displayAccount(null);
                 runningUpdates.clear();
 
@@ -83,6 +87,8 @@ public class VideLibri extends  BookListActivity{
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        Bridge.initialize();
        // Log.i("VideLibri", "onCreate")               ;
 
         instance = this;
@@ -256,8 +262,8 @@ public class VideLibri extends  BookListActivity{
     static List<Bridge.Account> runningUpdates = new ArrayList<Bridge.Account>();
     static public void updateAccount(Bridge.Account acc, final boolean autoUpdate, final boolean forceExtend){
         if (acc == null ) {
-            if (instance == null) return;
-            for (Bridge.Account a: instance.accounts)
+            if (accounts == null) accounts = Bridge.VLGetAccounts();
+            for (Bridge.Account a: accounts)
                 updateAccount(a, autoUpdate, forceExtend);
             return;
         }
