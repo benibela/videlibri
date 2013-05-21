@@ -63,7 +63,9 @@ public class BookListActivity extends VideLibriBaseActivity {
                 holder.more.setText(book.author); //not an author
             } else {
                 String more = "";
-                if (!book.author.trim().equals("")) more = " von " + shortened(book.author);
+                if (!book.author.trim().equals(""))
+                    if (!book.author.startsWith("von") && !book.author.startsWith("by")) more = " von " + shortened(book.author);
+                    else more = " " + shortened(book.author);
                 String year =book.more.get("year");
                 if (year != null && !"".equals(year)) more += " ; " + year;
                 String id =book.more.get("id");
