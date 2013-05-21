@@ -159,8 +159,18 @@ public class BookDetails extends VideLibriBaseActivity {
 
 
         details.clear();
-        details.add(new Details("Titel", book.title));
-        details.add(new Details("Verfasser", book.author));
+        String titleData = book.title;
+        if (book.author != null && !book.author.equals("")) {
+            if (!book.author.startsWith("von") && !book.author.startsWith("by")) titleData += "\n\n von " + book.author;
+            else titleData += "\n\n "+book.author;
+        }
+        String year = book.more.get("year");
+        if (year != null && !year.equals("")) titleData += "\n " + year;
+        String id = book.more.get("id");
+        if (id != null && !id.equals("")) titleData += "\n " + id;
+
+        details.add(new Details("Titeldaten", titleData));
+
         if ((!searchedBook && !book.history) || book.dueDate != null)
             details.add(new Details("Abgabefrist", book.dueDatePretty));
 
@@ -174,9 +184,9 @@ public class BookDetails extends VideLibriBaseActivity {
         addIfExists("Ausgeliehen in", "libraryBranch");
         if (book.account != null) details.add(new Details("Konto", book.account.prettyName));
 
-        addIfExists("ID", "id");
+        //addIfExists("ID", "id");
         addIfExists("Kategorie", "category");
-        addIfExists("Jahr", "year");
+        //addIfExists("Jahr", "year");
         addIfExists("Verlag", "publisher");
 
         final List<String> above = Arrays.asList("status", "id", "category", "year", "statusId", "libraryBranch", "publisher");

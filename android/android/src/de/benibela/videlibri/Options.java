@@ -26,6 +26,8 @@ public class Options extends VideLibriBaseActivity{
 
     }
 
+    static final int NEW_ACCOUNT_CREATION_RESULT = 1234512;
+
     @Override
     protected void onResume() {
         super.onResume();    //To change body of overridden methods use File | Settings | File Templates.
@@ -75,10 +77,18 @@ public class Options extends VideLibriBaseActivity{
             findButtonById(R.id.newaccount).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    VideLibri.instance.newAccountDialog(false);
+                    Intent intent = new Intent(Options.this, AccountInfo.class);
+                    intent.putExtra("mode", AccountInfo.MODE_ACCOUNT_CREATION) ;
+                    startActivityForResult(intent, NEW_ACCOUNT_CREATION_RESULT);
                 }
             });
         }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == NEW_ACCOUNT_CREATION_RESULT && resultCode == AccountInfo.RESULT_OK)
+            finish();
     }
 
     @Override

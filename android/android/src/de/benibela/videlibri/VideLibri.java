@@ -105,11 +105,14 @@ public class VideLibri extends  BookListActivity{
         super.onResume();
         defaultColor = getResources().getColor(android.R.color.primary_text_dark);
         if (accounts == null || accounts.length == 0) newAccountDialog(true);
-        setTitle("Ausleihen");  //does not work in onCreate (why? makes the title invisible) No. it just works sometimes?
-
-
-        if (displayHistoryActually != displayHistory || !hiddenAccounts.equals(hiddenAccountsActually))
+        else if (displayHistoryActually != displayHistory || !hiddenAccounts.equals(hiddenAccountsActually))
             displayAccount(null);
+
+
+        //setTitle("Ausleihen");  //does not work in onCreate (why? makes the title invisible) No. it just works sometimes?
+
+
+
     }
 
     public void onDestroy(){
@@ -130,13 +133,18 @@ public class VideLibri extends  BookListActivity{
     static void newSearchActivity(){
         Intent intent = new Intent(instance, Search.class);
         if (instance.accounts.length > 0){
-            //intent.putExtra("libId", instance.accounts[0].libId);
-            Bridge.Library[] libraries = Bridge.getLibraries();
-            for (Bridge.Library lib: libraries)
-                if (lib.id.equals(instance.accounts[0].libId)){
-                    lib.putInIntent(intent);
+            String libId = instance.accounts[0].libId;
+            intent.putExtra("libId", libId);
+            intent.putExtra("libName", instance.accounts[0].getLibrary().namePretty);
+
+            boolean sure = true;
+            for (int i=1;i<instance.accounts.length;i++)
+                if (!libId.equals(instance.accounts[i].libId)) {
+                    sure = false;
                     break;
                 }
+
+            if (!sure) intent.putExtra("showLibList", true);
         }
         instance.startActivity(intent);
     }
@@ -155,7 +163,7 @@ public class VideLibri extends  BookListActivity{
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-
+        super.onActivityResult(requestCode, resultCode, data);
     }
 
     static void addAccount(Bridge.Account acc){
@@ -181,6 +189,10 @@ public class VideLibri extends  BookListActivity{
         displayHistoryActually = displayHistory;
         hiddenAccountsActually.clear();
         hiddenAccountsActually.addAll(hiddenAccounts);
+
+        if (hiddenAccounts.size() == 0) setTitle("Ausleihen");
+        else setTitle("Ausleihen: "+(accounts.length-hiddenAccounts.size())+ "/"+accounts.length+" Konten");
+
         if (acc == null) {
             bookCache = new ArrayList<Bridge.Book>();
             for (Bridge.Account facc: accounts) {

@@ -61,8 +61,15 @@ public class BookListActivity extends VideLibriBaseActivity {
             if (book == placeHolder) {
                 context.onPlaceHolderShown(position);
                 holder.more.setText(book.author); //not an author
-            } else if (book.author.trim().equals("")) holder.more.setText("");
-            else holder.more.setText(" von " + shortened(book.author));
+            } else {
+                String more = "";
+                if (!book.author.trim().equals("")) more = " von " + shortened(book.author);
+                String year =book.more.get("year");
+                if (year != null && !"".equals(year)) more += " ; " + year;
+                String id =book.more.get("id");
+                if (id != null && !"".equals(id)) more += " ; " + id;
+                holder.more.setText(more);
+            }
 
             if (book.account != null) { //lend book
                 holder.date.setText(book.dueDatePretty);
