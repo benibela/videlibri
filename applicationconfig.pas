@@ -501,7 +501,7 @@ uses bookwatchmain,internetaccess,controls,libraryaccess,math,FileUtil,bbutils,b
     {$ENDIF}
   
     //Aktiviert das Logging
-    logging:=commandLine.readFlag('log') {$ifdef android}or true{$endif};
+    logging:=commandLine.readFlag('log');
     if logging then log('Started with logging enabled, command line:'+ParamStr(0));
 
     defaultInternetConfiguration.logToPath:=commandLine.readString('http-log-path');
@@ -581,6 +581,8 @@ uses bookwatchmain,internetaccess,controls,libraryaccess,math,FileUtil,bbutils,b
     WarnInterval:=userConfig.ReadInteger('base','warn-interval',0);
     lastWarnDate:=userConfig.ReadInteger('base','last-warn-date',0);
     HistoryBackupInterval:=userConfig.ReadInteger('base','history-backup-interval',30);
+
+    {$ifdef android}logging:=logging or userConfig.ReadBool('base','logging',false);{$endif};
 
     libraryManager:=TLibraryManager.create();
     libraryManager.init(userPath);

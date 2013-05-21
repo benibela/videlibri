@@ -1,7 +1,9 @@
 package de.benibela.videlibri;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.*;
@@ -31,6 +33,15 @@ public class Options extends VideLibriBaseActivity{
     @Override
     protected void onResume() {
         super.onResume();    //To change body of overridden methods use File | Settings | File Templates.
+
+        Bridge.Options options = Bridge.VLGetOptions();
+
+        setEditTextText(R.id.notificationsTimeDelta,""+options.nearTime);
+        setCheckBoxChecked(R.id.logging, options.logging);
+
+        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(this);
+        setCheckBoxChecked(R.id.notifications, sp.getBoolean("notifications", true));
+        setEditTextText(R.id.notificationsServiceDelay, ""+sp.getInt("notificationsServiceDelay", 15));
 
         if (VideLibri.instance != null) {
             ArrayList<String> accounts = new ArrayList<String>();
@@ -99,6 +110,15 @@ public class Options extends VideLibriBaseActivity{
 
         VideLibri.instance.displayHistory = ((RadioButton) findViewById(R.id.radioButton2)).isChecked();
 
+        Bridge.Options options = new Bridge.Options();
+        options.nearTime = Integer.parseInt(getEditTextText(R.id.notificationsTimeDelta));
+        options.logging = getCheckBoxChecked(R.id.logging);
+        Bridge.VLSetOptions(options);
 
+        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(this);
+        SharedPreferences.Editor editor = sp.edit();
+        editor.putBoolean("notifications", getCheckBoxChecked(R.id.notifications));
+        editor.putInt("notificationsServiceDelay", Integer.parseInt(getEditTextText(R.id.notificationsServiceDelay)));
+        editor.commit();
     }
 }

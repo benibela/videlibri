@@ -3,8 +3,10 @@ package de.benibela.videlibri;
 import android.app.*;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.preference.PreferenceManager;
 import android.support.v4.app.NotificationCompat;
 import android.os.Binder;
 import android.os.IBinder;
@@ -38,6 +40,10 @@ public class NotificationService extends Service {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         //Log.i("LocalService", "Received start id " + startId + ": " + intent);
+        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(this);
+        if (!sp.getBoolean("notifications", true)) return START_NOT_STICKY;
+
+
         NetworkInfo network = ((ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE)).getActiveNetworkInfo();
         if (network != null && network.isConnected())
             VideLibri.updateAccount(null, true, false);

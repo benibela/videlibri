@@ -9,6 +9,8 @@ import android.view.View;
 import android.app.Activity;
 import android.os.Bundle;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import com.actionbarsherlock.app.*;
@@ -130,6 +132,8 @@ public class VideLibriBaseActivity extends SherlockActivity {
         return (Button)findViewById(id);
     }
 
+
+
     public void setTextViewText(int id, CharSequence text){
         TextView tv = (TextView) findViewById(id);
         tv.setText(text);
@@ -139,6 +143,27 @@ public class VideLibriBaseActivity extends SherlockActivity {
         TextView tv = (TextView) findViewById(id);
         return tv.getText().toString();
     }
+
+    public void setEditTextText(int id, CharSequence text){
+        EditText tv = (EditText) findViewById(id);
+        tv.setText(text);
+    }
+
+    public String getEditTextText(int id){
+        EditText tv = (EditText) findViewById(id);
+        return tv.getText().toString();
+    }
+
+    public void setCheckBoxChecked(int id, boolean text){
+        CheckBox tv = (CheckBox) findViewById(id);
+        tv.setChecked(text);
+    }
+
+    public boolean getCheckBoxChecked(int id){
+        CheckBox tv = (CheckBox) findViewById(id);
+        return tv.isChecked();
+    }
+
 
     static interface MessageHandler{
         void onDialogEnd(DialogInterface dialogInterface, int i);
