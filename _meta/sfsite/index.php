@@ -198,7 +198,7 @@ Es liegen aber auch einige Templates standardmäßig bei, welche erfolgreich mit
 <br><br>
 
 Man kann es aber auch mit anderen Bibliotheken benutzen, wenn man dort eine Ausleihkarte hat. Wegen dem zugrundeliegenden Templatesystem ist es nicht einmal nötig VideLibri umzuprogrammieren. Um ein solches Template für eine neue Bibliothek hinzuzufügen, speichert man im wesentlichen jede Seite des WebOPACs ab, und markiert die Stellen, die Medieninformationen wie Autor/Titel enthalten, mit semantischen Annotationen. Wie genau  das funktioniert, ist ausführlich in der <a href="http://videlibri.sourceforge.net/help/neuebibliothek.html">Hilfe</a> beschrieben.  Programmierkenntnisse sind dabei nur erforderlich, wenn der Katalog irgendwelche Merkwürdigkeiten, wie beispielsweise ungültiges HTML oder einen komplizierten XSS-Schutz, aufweist. Das englischsprachige <a href="http://userscripts.org/scripts/show/144991">Xidelscript</a> kann verwendet werden, um ein Template automatisch  durch Markieren der Buchinformationen in Firefox zu erstellen.<br>
-Verwendet die Bücherei ein aktuelles aleph/libero/sisis/pica-System ist es nicht mal nötig ein Template zu schreiben, weil man dann einfach die Serveradresse in die xml-Dateien im data/libraries Verzeichnis eintragen kann. 
+Verwendet die Bücherei ein aktuelles aleph/libero/sisis/pica/aDISWeb-System ist es nicht mal nötig ein Template zu schreiben, weil man dann einfach die Serveradresse in die xml-Dateien im data/libraries Verzeichnis eintragen kann. 
 </div>
 
 <h2><div><a name="downloads">Downloads</a></div></h2>
