@@ -1,8 +1,9 @@
 <html>
-  <head></head>
+  <head>{search-result-count:=0}</head>
   <body><t:loop>
     <div class="contentblock">
       <a><t:s>library:=filter(@name,"(.*)_anchor",1)</t:s> </a>
+      <h3>{search-result-count:=$search-result-count + filter(.,"([0-9]+) *Treffer", 1)}</h3>
       <dl class="list"><t:loop>
         <dt>
           <t:s>
@@ -21,5 +22,16 @@
         </dd>
       </t:loop></dl>
     </div>
-  </t:loop></body>
+  </t:loop>
+  
+  <div class="contentpadding">
+    <div  class="navlist">
+      <a>Nächste<t:s>
+        search-next-page-available := true(),
+        next-page := @href
+      </t:s></a>
+    </div>
+  </div>?
+  
+  </body>
 </html>
