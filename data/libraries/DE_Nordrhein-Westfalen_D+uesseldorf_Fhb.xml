@@ -4,13 +4,20 @@
   <longName value="Fachhochschulbibliothek Düsseldorf"/>
   <shortName value="FHB Düsseldorf"/>
   <catalogue value="http://katalog.bibl.fh-duesseldorf.de/libero/WebOpac.cls"/>
-  <template value="libero54"/>
 
   <username matches="^(\d000\d{3}|\w\d{8})$"/>
   <password matches="."/>
   <maxRenewCount value="3"/>
 
+  <template value="libero54"/>
   <variable name="server" value="katalog.bibl.fh-duesseldorf.de/libero/"/>
+
+  <template value="digibib"/>
+  <variable name="location" value="DUEBIB"/>
+  <variable name="view" value="DUEBIB:SGduebib"/>
+  <!--<variable name="selectedLibraries" value="SERVICEGROUP1.SERVICE.SEARCH_FHBDUE"/>  selectedLibraries is overriden by searchid-templatename-->
+  <variable name="searchid-libero54|digibib" value="SERVICEGROUP1.SERVICE.SEARCH_FHBDUE"/>
+
   
   <variable name="Location" value="Düsseldorf"/>
   <variable name="searchid-digibib" value="SERVICEGROUP1.SERVICE.SEARCH_FHBDUE"/>

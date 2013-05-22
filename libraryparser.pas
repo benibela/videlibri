@@ -61,6 +61,7 @@ type
     procedure init(apath:string);
     
     function getTemplate(templateName: string):TMultiPageTemplate;
+    function getCombinedTemplate(template: TMultiPageTemplate; templateName: string):TMultiPageTemplate;
     function getAccount(libID,accountID: string):TCustomAccountAccess;overload;
     function getAccount(mixID: string):TCustomAccountAccess;overload;
 
@@ -285,7 +286,7 @@ begin
   else if tagName='shortname' then prettyNameShort:=value
   else if tagName='longname' then prettyNameLong:=value
   else if tagName='singlebookrenew' then canModifySingleBooks:=StrToBool(value) //deprecated, will be overriden at the end of loadFromFile
-  else if tagName='template' then template:=libraryManager.getTemplate(value)
+  else if tagName='template' then template:=libraryManager.getCombinedTemplate(template, value)
   else if tagName='variable' then begin
     defaultVariables.NameValueSeparator:='=';
     defaultVariables.Add(getProperty('name',properties)+defaultVariables.NameValueSeparator+value);
@@ -464,6 +465,25 @@ begin
   else begin
     Result:=TMultiPageTemplate.Create();
     result.loadTemplateWithCallback(@assetFileAsString, 'libraries/templates'+DirectorySeparator+templateName+DirectorySeparator,templateName);
+    templates.AddObject(templateName,Result);
+  end;
+end;
+
+function TLibraryManager.getCombinedTemplate(template: TMultiPageTemplate; templateName: string): TMultiPageTemplate;
+var i:longint;
+  child: TMultiPageTemplate;
+begin
+  if template = nil then exit(getTemplate(templateName));
+  i:=templates.IndexOf(template.name + '|' + templateName);
+  if i>=0 then Result:=TMultiPageTemplate(templates.Objects[i])
+  else begin
+    result := template.clone;
+    Result.name:=Result.name+'|'+templateName;
+    child := getTemplate(templateName);
+    for i := 0 to high(child.baseActions.children) do begin
+      setlength(Result.baseActions.children, length(Result.baseActions.children) + 1);
+      Result.baseActions.children[high(Result.baseActions.children)] := child.baseActions.children[i].clone;
+    end;
     templates.AddObject(templateName,Result);
   end;
 end;

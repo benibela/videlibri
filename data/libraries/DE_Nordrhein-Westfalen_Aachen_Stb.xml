@@ -7,10 +7,17 @@
   <longName value="Stadtbibliothek Aachen"/>
   <shortName value="StB Aachen"/>
   <catalogue value="http://webopac.stadtbibliothek-aachen.de/"/>
-  <template value="libero54"/>
   <maxRenewCount value="0"/>  
   
+  <template value="libero54"/>
   <variable name="server" value="webopac.stadtbibliothek-aachen.de/libero/"/>
+  
+  <template value="digibib"/>
+  <variable name="location" value="052"/>
+  <variable name="view" value="052:SGBuecherRegional"/>
+  <!--<variable name="selectedLibraries" value="SERVICEGROUP1.SERVICE.SEARCH_SBAA"/>  selectedLibraries is overriden by searchid-templatename-->
+  <variable name="searchid-libero54|digibib" value="SERVICEGROUP1.SERVICE.SEARCH_SBAA"/>
+
   
   <variable name="globalExtraStatusRemark" value=" (Verlängerung kostenpflichtig, daher nicht von Videlibri aus möglich)"/>
   <variable name="Location" value="Aachen"/>

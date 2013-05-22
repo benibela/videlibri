@@ -12,6 +12,14 @@
   <template value="sisis"/>
   <variable name="server" value="http://sisis.bth.rwth-aachen.de:8080/InfoGuideClient/"/>
   
+  <template value="digibib"/>
+  <variable name="location" value="052"/>
+  <variable name="view" value="052:SGBuecherRegional"/>
+  <!--<variable name="selectedLibraries" value="SERVICEGROUP1.SERVICE.SEARCH_BTHA"/>  selectedLibraries is overriden by searchid-templatename-->
+  <variable name="searchid-sisis|digibib" value="SERVICEGROUP1.SERVICE.SEARCH_BTHA"/>
+
+  
+  
   <variable name="location" value="Aachen"/>
   <variable name="searchid-digibib" value="SERVICEGROUP1.SERVICE.SEARCH_BTHA"/>
 
