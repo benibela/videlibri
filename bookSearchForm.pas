@@ -184,6 +184,7 @@ begin
       if first then begin
         searcherAccess.newSearch( TSearchTarget((TStringList(locations.locations.Objects[i])).Objects[j]).template );
         searcherAccess.searcher.clear;
+        first := false;
       end;
       searcherAccess.searcher.addLibrary(TSearchTarget((TStringList(locations.locations.Objects[i])).Objects[j]).lib);
     end;
