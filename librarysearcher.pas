@@ -113,14 +113,15 @@ procedure TLibrarySearcher.connect;
 var selectedLibraries: string;
   i: Integer;
   j: Integer;
+  connectAction: TTemplateAction;
 begin
   selectedLibraries:='';
   for i:=0 to flibsToSearch.count-1 do
     selectedLibraries+=TLibrary(flibsToSearch[i]).variables.values['searchid-'+template.Name]+template.findVariableValue('after-id');
   bookListReader.parser.variableChangeLog.ValuesString['selectedLibraries']:=selectedLibraries;
 
-
-  bookListReader.callAction('connect');
+  connectAction := bookListReader.findAction('search-connect');
+  if connectAction <> nil then bookListReader.callAction(connectAction)
 end;
 
 procedure TLibrarySearcher.search;

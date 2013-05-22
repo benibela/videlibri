@@ -49,6 +49,11 @@
   </page>
 </action>-->
 
+<action id="search-connect">
+  <call action="connect"/>
+</action>
+
+
 <action id="search">
 
   <variable name="searchOptions">
