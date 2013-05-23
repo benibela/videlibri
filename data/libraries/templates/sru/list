@@ -9,7 +9,7 @@
           <record xmlns:dc="http://purl.org/dc/elements/1.1/">
           <template:switch>
             <dc:title>{$book.title := concat($book.title, " ", .)}</dc:title>
-            <dc:author>{$book.author := concat($book.author, " ", .)}</dc:author>
+            <dc:creator>{$book.author := concat($book.author, " ", .)}</dc:creator>
             <dc:date>{$book.year}</dc:date>
             <dc:publisher>{$book.publisher}</dc:publisher>
             <dc:identifier>{$book.isbn}</dc:identifier>
@@ -19,6 +19,30 @@
         </record></zs:recordData>
       </zs:record>    
       
+      <zs:record>
+        <zs:recordSchema>marcxml</zs:recordSchema>
+        <zs:recordData>{book := {}}
+          <record>
+          <template:switch>
+            <datafield tag="100"><subfield code="a">{$book.author}</subfield></datafield>
+            <datafield tag="245">
+              <subfield code="a">{$book.title}</subfield>
+              <subfield code="b">{$book.title := concat($book.title, " ", .)}</subfield>? <!-- sub title?? -->
+            <!--  <subfield code="c">{$book.title := concat($book.title, " ", .)}</subfield> autor??-->
+            </datafield>
+            <datafield tag="020">
+              <subfield code="a">{$book.isbn}</subfield>
+            </datafield>
+            <datafield tag="260">
+              <subfield code="a">{$book.location}</subfield>?
+              <subfield code="b">{$book.publisher}</subfield>?
+              <subfield code="c">{$book.year}</subfield>?
+            </datafield>
+            <datafield tag="700"><subfield code="a">{$book.author := if ($book.author) then concat($book.author, "; ", .) else .}</subfield></datafield>
+<!--            <t:if><t:s>temp:=name()</t:s><t:read var="book.{}</t:if>-->
+          </template:switch>*
+        </record></zs:recordData>
+      </zs:record>    
       
     </template:switch-prioritized>*
   </zs:records>
