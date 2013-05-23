@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<actions>
+
+<!--
+<meta>
+  <description>Template für SRU-Standard</description>
+  <variable name="baseurl"><description></description></variable>
+  <variable name="searchKeys" default="dc.title;dc.creator;dc.identifier;dc.date;dc.subject"><description></description></variable>
+</meta>
+-->
+
+<action id="search">
+  
+  <variable name="maximumRecords">15</variable>
+  <variable name="recordSchema">dc</variable>
+
+  <variable name="searchKey">
+  tokenize(get("searchKeys", "dc.title;dc.creator;dc.identifier;dc.date;dc.subject"), ";")
+  </variable>
+  
+  <variable name="query">
+  encode-for-uri( string-join(
+    (if ($book.title != "")    then concat($searchKey[1], "=", $book.title)    else (),
+     if ($book.author != "")   then concat($searchKey[2], "=", $book.author)   else (),
+     if ($book.isbn != "")     then concat($searchKey[3], "=", $book.isbn)     else (),
+     if ($book.year != "")     then concat($searchKey[4], "=", $book.year)     else (),
+     if ($book.keywords != "") then concat($searchKey[5], "=", $book.keywords) else ()), " AND "))
+  </variable>
+
+  <variable name="position">1</variable>
+
+  <page url="{$baseurl}?version=1.1&operation=searchRetrieve&query={$query}&maximumRecords={$maximumRecords}&recordSchema={$recordSchema}" templateFile="list"/>
+</action>
+
+<action id="search-next-page">
+  <variable name="position">$position + $maximumRecords</variable>
+  <page url="{$baseurl}?version=1.1&operation=searchRetrieve&query={$query}&maximumRecords={$maximumRecords}&recordSchema={$recordSchema}&startRecord={$position}" templateFile="list"/>
+</action>
+
+
+</actions>
