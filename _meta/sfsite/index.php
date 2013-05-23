@@ -4,7 +4,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 <meta http-equiv="content-language" content="de"/>
 <link rel="stylesheet" type="text/css" href="all.css"/>
-<title>VideLibri - Ein Bücher-Ausleihverwaltungsprogramm</title></head>
+<title>VideLibri - Eine Bücher-Ausleihverwaltungsapp</title></head>
 
 <?php
 //from http://stackoverflow.com/questions/3770513/detect-browser-language-in-php
@@ -89,7 +89,7 @@ if (count($matches) == 0 || count(reset($matches)) == 0 || (reset(reset($matches
   print ("<style>#navigation a.enlink { text-decoration: blink; font-weight: bold; color: #AA0000} </style>");
 ?>
 <body>
-<h1><a name="home">VideLibri - Ein Bücher-Ausleihverwaltungsprogramm</a></h1>
+<h1><a name="home">VideLibri - Eine Bücher-Ausleihverwaltungsapp</a></h1>
 
 <ul id="navigation">
   <li style="border-left: 1px solid blue;"><a href="#home">Start</a></li>
