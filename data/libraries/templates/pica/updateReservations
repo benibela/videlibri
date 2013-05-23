@@ -1,0 +1,66 @@
+  <?xml version="1.0" encoding="UTF-8"?>
+<t:switch-prioritized>
+
+<table summary="list of reservations - data">
+  <template:read var="delete-current-books()"/>
+  <tr>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td><!--title-->Titel</td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td><!--shelf mark-->Signatur</td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td><!--volume-->Band</td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td><!--reservations-->Vormerkdatum</td>
+    <td></td>
+    <td></td>
+    <td></td>
+  </tr>
+  
+  <tr> <td class="h2"></td> </tr>
+  
+  
+  
+  
+  <template:loop>
+  <tr>
+    {book := {"statusId": "ordered"}}
+    <td></td>
+    <td >
+      {book.extendId:=''}
+      <input name="VB" type="checkbox">{book.extendId:=@value}</input>?
+    </td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td>
+      <template:read source="text()" var="book.title" regex="^[^/]*"/>
+      <template:read source="text()" var="book.author" regex="^[^/]*/\s*(von)?\s*(.*)" submatch="2"/>
+    </td>
+
+    <td></td><td></td><td></td><td class="value-small">{$book.id}</td>
+    <td></td><td></td><td></td><td class="value-small"></td>
+    <td></td><td></td><td></td><td class="value-small">
+      <template:if test="text()!=''"><template:read source="." var="book.issuedate:dd-mm-yyyy"/></template:if>
+    </td>
+  </tr>
+</template:loop>
+
+
+</table>
+
+<body>Keine Vormerkungen vorhanden</body>
+
+<table summary="Message block header">
+<strong class="alert"><t:read var="raise()" source="deep-text()"/></strong>
+</table>
+</t:switch-prioritized>
