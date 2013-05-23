@@ -101,6 +101,11 @@ begin
 
     else compare:=CompareText(i1.RecordItemsText[SortColumn],i2.RecordItemsText[SortColumn]);
   end;
+  if (compare=0) and (book1.status in BOOK_NOT_LEND) <> (book2.status in BOOK_NOT_LEND) then
+    if book1.status in BOOK_NOT_LEND then
+      compare := 1
+     else
+      compare := -1;
   if compare=0 then  //Sort LimitDate
     if book1.dueDate<book2.dueDate then
        compare:=-1
@@ -121,6 +126,10 @@ begin
   if book = nil then exit(colorTimeNear);
   if book.lend=false then
     result:=colorOld
+  else if book.status = bsProvided then
+    result:=colorProvided
+  else if book.status = bsOrdered then
+    result:=colorOrdered
   else if book.dueDate<=redTime then
     result:=colorTimeNear
   else if book.status in BOOK_NOT_EXTENDABLE then

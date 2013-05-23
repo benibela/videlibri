@@ -9,7 +9,7 @@ uses
   
 type
   TBookList = class;
-  TBookStatus=(bsNormal,bsUnknown,bsIsSearchedDONTUSETHIS,bsEarMarkedDONTUSETHIS, bsMaxLimitReachedDONTUSETHIS,bsProblematicInStr,bsCuriousInStr,bsAccountExpiredDONTUSETHIS);
+  TBookStatus=(bsNormal,bsUnknown,bsIsSearchedDONTUSETHIS,bsEarMarkedDONTUSETHIS, bsMaxLimitReachedDONTUSETHIS,bsProblematicInStr,bsCuriousInStr,bsAccountExpiredDONTUSETHIS,bsOrdered,bsProvided);
 
   { TBook }
 
@@ -124,6 +124,7 @@ type
   
 const BOOK_NOT_EXTENDABLE=[bsProblematicInStr,bsEarMarkedDONTUSETHIS,bsMaxLimitReachedDONTUSETHIS,bsAccountExpiredDONTUSETHIS];
       BOOK_EXTENDABLE=[bsNormal,bsCuriousInStr];
+      BOOK_NOT_LEND=[bsOrdered, bsProvided];
 
 function BookStatusToStr(book: TBook;verbose:boolean=false): string; //returns utf8
 
@@ -148,6 +149,8 @@ begin
 //    bsAccountExpired: exit('Büchereikarte ist abgelaufen');
     bsCuriousInStr: if verbose then exit('verlängerbar: '+book.statusStr) else exit(book.statusStr);
     bsProblematicInStr: if verbose then exit('nicht verlängerbar: '+book.statusStr) else exit(book.statusStr);
+    bsOrdered: exit('vorgemerkt');
+    bsProvided: exit('zur Abholung bereit');
     else exit('Unbekannter Fehler, bei Ausleihstatusermittlung! Bitte melden!');
   end;
 
@@ -202,6 +205,8 @@ begin
       bsUnknown: str('statusId', 'unknown');
       bsProblematicInStr: str('statusId', 'critical');
       bsCuriousInStr: str('statusId', 'curious');
+      bsOrdered: str('statusId', 'ordered');
+      bsProvided: str('statusId', 'provided');
       else str('statusId', '--invalid--'+inttostr(integer(status)));
     end;
   end;
@@ -272,6 +277,8 @@ begin
         case value of
           'curious': status:=bsCuriousInStr;
           'critical': status:=bsProblematicInStr;
+          'ordered': status:=bsOrdered;
+          'provided': status:=bsProvided;
           'normal': status:=bsNormal;
           'unknown': status:=bsUnknown;
           else EBookListReader.create('Ungültiger Bücherstatus: '+value);

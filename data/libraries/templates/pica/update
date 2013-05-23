@@ -1,96 +1,98 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <t:switch-prioritized>
 
-<table summary="list of loans - data">
-  <template:read var="delete-current-books()"/>
-  <tr>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td><!--title-->Titel</td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td><!--shelf mark-->Signatur</td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td><!--status-->Status</td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td><!--volume-->Band</td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td><!--expiry-->Leihfristende</td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td><!--reservations-->Vormerkungen</td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td><!--renewals-->Verlängerungen</td>
-    <td></td>
-    <td></td>
-    <td></td>
-  </tr>
+<html>
+  <a>Vormerkungen<t:s>reservations:=@href</t:s></a>?
   
-  <tr> <td class="h2"></td> </tr>
-  
-  
-  
-  
-  <template:loop>
-  <tr>
-    {book := object()}
-    <td></td>
-    <td >
-      <template:read var="book.extendId" source="''"/>
-      <input template:optional="true" name="VB" type="checkbox"><template:read var="book.extendId" source="@value"/></input>
-    </td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td>
-      <template:read source="text()" var="book.title" regex="^[^/]*"/>
-      <template:read source="text()" var="book.author" regex="^[^/]*/\s*(von)?\s*(.*)" submatch="2"/>
-    </td>
-
-    <td></td><td></td><td></td><td class="value-small"><template:read source="." var="book.id"/></td>
-    <td></td><td></td><td></td><td class="value-small">
-      <template:switch value="$book.extendId">
-        <template:if value="''">
-          <template:switch value="filter(., 'Abholregal|Vormerkung')">
-            <template:if value="'Abholregal'">
-              <template:read var="book.status:curious" source="."/>
-              <template:read var="book.duedate:dd-mm-yyyy" source="'31-12-2099'"/>
-            </template:if>
-            <template:if value="'Vormerkung'">
-              <template:read var="book.status:curious" source="."/>
-              <template:read var="book.duedate:dd-mm-yyyy" source="'31-12-2099'"/>
-            </template:if>
-            <template:read var="book.status:problematic" source="."/>
-          </template:switch>
-        </template:if>
-        <template:read var="book.status:curious" source="."/>
-      </template:switch>
-    </td>
-    <td></td><td></td><td></td><td class="value-small"></td>
-    <td></td><td></td><td></td><td class="value-small">
-      <template:if test="text()!=''"><template:read source="." var="book.duedate:dd-mm-yyyy"/></template:if>
-    </td>
-    <td></td><td></td><td></td><td class="value-small"></td>
-    <td></td><td></td><td></td><td class="value-small"><iframe></iframe></td>
+  <table summary="list of loans - data">
+    <template:read var="delete-current-books()"/>
+    <tr>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td><!--title-->Titel</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td><!--shelf mark-->Signatur</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td><!--status-->Status</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td><!--volume-->Band</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td><!--expiry-->Leihfristende</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td><!--reservations-->Vormerkungen</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td><!--renewals-->Verlängerungen</td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
     
-    <!--<template:read var="book-end()"/>-->
-  </tr>
-</template:loop>
+    <tr> <td class="h2"></td> </tr>
+    
+    
+    
+    
+    <template:loop>
+    <tr>
+      {book := object()}
+      <td></td>
+      <td >
+        {book.extendId:=''}
+        <input name="VB" type="checkbox">{book.extendId:=@value}</input>?
+      </td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td>
+        <template:read source="text()" var="book.title" regex="^[^/]*"/>
+        <template:read source="text()" var="book.author" regex="^[^/]*/\s*(von)?\s*(.*)" submatch="2"/>
+      </td>
+  
+      <td></td><td></td><td></td><td class="value-small">{$book.id}</td>
+      <td></td><td></td><td></td><td class="value-small">
+        <template:switch value="$book.extendId">
+          <template:if value="''">
+            <template:switch value="filter(., 'Abholregal|Vormerkung')">
+              <template:if value="'Abholregal'">
+                <template:read var="book.status:curious" source="."/>
+                <template:read var="book.statusId" source="'provided'"/>                
+              </template:if>
+              <template:if value="'Vormerkung'">
+                <template:read var="book.status:curious" source="."/>
+                <template:read var="book.statusId" source="'ordered'"/>                
+              </template:if>
+              <template:read var="book.status:problematic" source="."/>
+            </template:switch>
+          </template:if>
+          <template:read var="book.status:curious" source="."/>
+        </template:switch>
+      </td>
+      <td></td><td></td><td></td><td class="value-small"></td>
+      <td></td><td></td><td></td><td class="value-small">
+        <template:if test="text()!=''"><template:read source="." var="book.duedate:dd-mm-yyyy"/></template:if>
+      </td>
+      <td></td><td></td><td></td><td class="value-small"></td>
+      <td></td><td></td><td></td><td class="value-small"><iframe></iframe></td>
+    </tr>
+  </template:loop>
+  
+  </table>
+</html>
 
-
-</table>
 
 <table summary="Message block header">
 <strong class="alert"><t:read var="raise()" source="deep-text()"/></strong>

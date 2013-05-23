@@ -17,7 +17,11 @@ type
   ToptionForm = class(TForm)
     accountList: TListView;
     checkCertificates: TCheckBox;
+    Label30: TLabel;
+    Label31: TLabel;
     proxySocksName: TEdit;
+    ShapeOrdered: TShape;
+    ShapeProvided: TShape;
      SocksName: TEdit;
     proxySocksPort: TEdit;
     Label26: TLabel;
@@ -248,6 +252,8 @@ begin
   ShapeOK.brush.color:=colorOK;
   ShapeTimeNear.brush.color:=colorTimeNear;
   ShapeOld.brush.color:=colorOld;
+  ShapeOrdered.brush.color:=colorOrdered;
+  ShapeProvided.brush.color:=colorProvided;
   timeNearMeaning.Text:=IntToStr(redTime-currentDate);
   symbols.ItemIndex:=userConfig.ReadInteger('appearance','symbols',0);
 
@@ -331,11 +337,15 @@ begin
   colorOK:=ShapeOK.brush.color;
   colorTimeNear:=ShapeTimeNear.brush.color;
   colorOld:=ShapeOld.brush.color;
+  colorProvided := ShapeProvided.brush.Color;
+  colorOrdered := ShapeOrdered.brush.Color;
   redTime:=StrToInt(timeNearMeaning.Text)+currentDate;mainForm.RefreshListView;
   userConfig.WriteInteger('appearance','limited',colorLimited);
   userConfig.WriteInteger('appearance','timeNear',colorTimeNear);
   userConfig.WriteInteger('appearance','default',colorOK);
   userConfig.WriteInteger('appearance','history',colorOld);
+  userConfig.WriteInteger('appearance','ordered',colorOrdered);
+  userConfig.WriteInteger('appearance','provided',colorProvided);
   userConfig.WriteInteger('base','near-time',StrToInt(timeNearMeaning.Text));
   if mainForm.ViewOld.Checked then mainform.BookList.BackGroundColor:=ShapeOld.brush.color
   else mainform.BookList.BackGroundColor:=ShapeOK.brush.color;

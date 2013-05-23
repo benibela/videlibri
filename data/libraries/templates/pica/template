@@ -22,11 +22,13 @@
     <post name="BOR_U" value="{$username}"/>
     <post name="BOR_PW_ENC" value="{$pw_enc}"/>
   </page>-->
+  <variable name="reservations"/>
   <page url="{$loanServer}/USERINFO" templateFile="update"> 
     <post name="ACT" value="UI_LOL"/>
     <post name="BOR_U" value="{$username}"/>
     <post name="BOR_PW" value="{$password}"/>
   </page>
+  <page url="{$reservations}" templateFile="updateReservations"/> 
 </action>
 
 <action id="renew-list">

@@ -49,6 +49,7 @@ var programPath,userPath:string;
     //cached
     colorLimited:tcolor;
     colorTimeNear:tcolor;
+    colorOrdered, colorProvided:tcolor;
     colorOK:tcolor;
     colorOld:tcolor;
     //TODO: customize colors in search panel colorSearchTextNotFound: tcolor=$6060FF;    //colorSearchTextFound: tcolor=clWindow;
@@ -634,6 +635,8 @@ uses bookwatchmain,internetaccess,controls,libraryaccess,math,FileUtil,bbutils,b
       colorTimeNear:=userConfig.ReadInteger('appearance','timeNear',integer(clRed));
       colorOK:=userConfig.ReadInteger('appearance','default',integer((clGreen+clLime) div 2));
       colorOld:=userConfig.ReadInteger('appearance','history',integer(clSilver));
+      colorProvided:=userConfig.ReadInteger('appearance','provided',integer(clFuchsia));
+      colorOrdered:=userConfig.ReadInteger('appearance','ordered',integer(clAqua));
 
       updateActiveInternetConfig;
       {$IFDEF WIN32}

@@ -36,7 +36,7 @@ object optionForm: ToptionForm
     Height = 430
     Top = 6
     Width = 612
-    PageIndex = 2
+    PageIndex = 1
     Anchors = [akTop, akLeft, akRight, akBottom]
     BorderSpacing.Around = 2
     OnChangeBounds = Notebook1ChangeBounds
@@ -346,9 +346,9 @@ object optionForm: ToptionForm
     object pageColors: TPage
       object Label8: TLabel
         Left = 12
-        Height = 16
+        Height = 15
         Top = 8
-        Width = 368
+        Width = 367
         Caption = 'Farbe für Medien die bald zurückgegeben werden müssen:'
         ParentColor = False
       end
@@ -357,7 +357,7 @@ object optionForm: ToptionForm
         AnchorSideTop.Side = asrBottom
         Left = 44
         Height = 17
-        Top = 28
+        Top = 27
         Width = 176
         BorderSpacing.Around = 4
         OnMouseUp = Shape1MouseUp
@@ -366,9 +366,9 @@ object optionForm: ToptionForm
         AnchorSideTop.Control = timeNearMeaningLabelLeft
         AnchorSideTop.Side = asrBottom
         Left = 12
-        Height = 34
-        Top = 73
-        Width = 292
+        Height = 33
+        Top = 71
+        Width = 291
         BorderSpacing.Top = 4
         BorderSpacing.Around = 4
         Caption = 'Farbe für verlängerbare Medien, die nicht bald zurückgegeben werden müssen:'
@@ -381,7 +381,7 @@ object optionForm: ToptionForm
         AnchorSideTop.Side = asrBottom
         Left = 44
         Height = 17
-        Top = 111
+        Top = 108
         Width = 176
         BorderSpacing.Around = 4
         OnMouseUp = Shape1MouseUp
@@ -390,9 +390,9 @@ object optionForm: ToptionForm
         AnchorSideTop.Control = ShapeLimited
         AnchorSideTop.Side = asrBottom
         Left = 12
-        Height = 16
-        Top = 132
-        Width = 206
+        Height = 15
+        Top = 129
+        Width = 205
         BorderSpacing.Around = 4
         Caption = 'Farbe für  verlängerbare Medien:'
         ParentColor = False
@@ -402,7 +402,7 @@ object optionForm: ToptionForm
         AnchorSideTop.Side = asrBottom
         Left = 44
         Height = 17
-        Top = 152
+        Top = 148
         Width = 176
         BorderSpacing.Around = 4
         OnMouseUp = Shape1MouseUp
@@ -412,7 +412,7 @@ object optionForm: ToptionForm
         AnchorSideTop.Side = asrBottom
         Left = 44
         Height = 17
-        Top = 193
+        Top = 188
         Width = 176
         OnMouseUp = Shape1MouseUp
       end
@@ -420,9 +420,9 @@ object optionForm: ToptionForm
         AnchorSideTop.Control = ShapeOK
         AnchorSideTop.Side = asrBottom
         Left = 12
-        Height = 16
-        Top = 173
-        Width = 192
+        Height = 15
+        Top = 169
+        Width = 191
         BorderSpacing.Around = 4
         Caption = 'Farbe für abgegebene Medien: '
         ParentColor = False
@@ -431,9 +431,9 @@ object optionForm: ToptionForm
         AnchorSideTop.Control = ShapeTimeNear
         AnchorSideTop.Side = asrBottom
         Left = 67
-        Height = 16
-        Top = 49
-        Width = 175
+        Height = 15
+        Top = 48
+        Width = 174
         BorderSpacing.Around = 4
         Caption = 'bald heißt:  in den nächsten'
         ParentColor = False
@@ -443,10 +443,10 @@ object optionForm: ToptionForm
         AnchorSideLeft.Side = asrBottom
         AnchorSideTop.Control = timeNearMeaning
         AnchorSideTop.Side = asrCenter
-        Left = 288
-        Height = 16
-        Top = 49
-        Width = 39
+        Left = 287
+        Height = 15
+        Top = 48
+        Width = 38
         BorderSpacing.Left = 4
         Caption = 'Tagen'
         ParentColor = False
@@ -455,9 +455,9 @@ object optionForm: ToptionForm
         AnchorSideTop.Control = symbols
         AnchorSideTop.Side = asrCenter
         Left = 12
-        Height = 16
-        Top = 223
-        Width = 84
+        Height = 15
+        Top = 297
+        Width = 83
         Caption = 'Symbolleiste:'
         ParentColor = False
       end
@@ -498,9 +498,9 @@ object optionForm: ToptionForm
         AnchorSideLeft.Side = asrBottom
         AnchorSideTop.Control = timeNearMeaningLabelLeft
         AnchorSideTop.Side = asrCenter
-        Left = 246
+        Left = 245
         Height = 25
-        Top = 45
+        Top = 43
         Width = 38
         BorderSpacing.Left = 4
         TabOrder = 2
@@ -509,11 +509,11 @@ object optionForm: ToptionForm
       object symbols: TComboBox
         AnchorSideLeft.Control = Label19
         AnchorSideLeft.Side = asrBottom
-        AnchorSideTop.Control = ShapeOld
+        AnchorSideTop.Control = ShapeProvided
         AnchorSideTop.Side = asrBottom
-        Left = 105
-        Height = 25
-        Top = 219
+        Left = 104
+        Height = 21
+        Top = 294
         Width = 158
         BorderSpacing.Around = 9
         ItemHeight = 0
@@ -524,6 +524,48 @@ object optionForm: ToptionForm
         )
         Style = csDropDownList
         TabOrder = 3
+      end
+      object ShapeOrdered: TShape
+        AnchorSideTop.Control = Label30
+        AnchorSideTop.Side = asrBottom
+        Left = 44
+        Height = 17
+        Top = 228
+        Width = 176
+        BorderSpacing.Around = 4
+        OnMouseUp = Shape1MouseUp
+      end
+      object ShapeProvided: TShape
+        AnchorSideTop.Control = Label31
+        AnchorSideTop.Side = asrBottom
+        Left = 44
+        Height = 17
+        Top = 268
+        Width = 176
+        BorderSpacing.Around = 4
+        OnMouseUp = Shape1MouseUp
+      end
+      object Label30: TLabel
+        AnchorSideTop.Control = ShapeOld
+        AnchorSideTop.Side = asrBottom
+        Left = 12
+        Height = 15
+        Top = 209
+        Width = 194
+        BorderSpacing.Around = 4
+        Caption = 'Farbe für vorgemerkte Medien:'
+        ParentColor = False
+      end
+      object Label31: TLabel
+        AnchorSideTop.Control = ShapeOrdered
+        AnchorSideTop.Side = asrBottom
+        Left = 12
+        Height = 15
+        Top = 249
+        Width = 285
+        BorderSpacing.Around = 4
+        Caption = 'Farbe für abholbereite (vorgemerkte) Medien:'
+        ParentColor = False
       end
     end
     object pageInternet: TPage
