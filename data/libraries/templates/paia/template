@@ -32,7 +32,8 @@
              "statusId": if ($doc.canrenew) then "curious" else "critical",
              
              "item": $doc.item, 
-             "edition": $doc.edition
+             "edition": $doc.edition,
+             "barcode": $doc.barcode 
            }
        )
     </t:s></template>
@@ -40,21 +41,23 @@
 </action>
 
 <action id="renew-list">
-  <variable name="book-list">encode-for-uri(serialize-json([ 
+  <!--<variable name="book-list">encode-for-uri(serialize-json([ 
         for $book in $renew-books return {
           "item": $book.item,
           "edition": $book.edition
-        } ]))</variable>
-  <page test="$allow_renew" url="https://{$server}/core/{$patron_identifier}/renew?access_token={$access_token}&doc={$book-list}" >
-  <!--  <method>POST</method>
+        } ]))</variable>-->
+  <page test="$allow_renew" url="https://{$server}/core/{$patron_identifier}/renew?access_token={$access_token}" >
+    <header>Content-Type: application/json; charset=utf-8</header>
+    <method>POST</method>
     <post>
-    {{ "doc": [ { string-join(
-      for $book in $renew-books return serialize-json({
+    { serialize-json({ "doc":  
+      for $book in $renew-books return {
         "item": $book.item,
-        "edition": $book.edition
-      })
-    , ", ") } ] }}
-    </post> -->
+        "edition": $book.edition,
+        "barcode": $book.barcode
+      }
+    }) }
+    </post> 
     <template>
     </template>
   </page>
