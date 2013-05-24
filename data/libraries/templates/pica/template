@@ -42,7 +42,22 @@
 </action>
 
 
+<action id="cancel-list">
+  <variable name="book-list">string-join(for $book in $cancel-books return x"VB={$book.extendId}", "&amp;")</variable> 
+  <page url="{$loanServer}/USERINFO">
+    <post name="ACT" value="UI_CANCELRES"/>
+    <post name="BOR_U" value="{$username}"/>
+    <post name="BOR_PW" value="{$password}"/>
+    <post value="{$book-list}"/>
+    <template><html>
+    Ihre Vormerkungen sind zurückgenommen.
+    </html></template>
+  </page>
+</action>
 
+<action id="search-connect">
+  <call action="connect"/>
+</action>
 
 <action id="search">
   
@@ -76,6 +91,16 @@
 
 <action id="search-details">
   <page url="{$book.home-url}" templateFile="searchDetails"></page>
+</action>
+
+
+<action id="order-single">
+  <page url="{$book.orders0}">
+    <template><html>{order:=form(//form, {"BOR_U": $username, "BOR_PW": $password})}</html></template>
+  </page>
+  <page url="{$order}">
+    
+  </page>
 </action>
 
 <action id="catalogue">

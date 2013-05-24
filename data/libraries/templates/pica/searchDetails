@@ -1,7 +1,7 @@
 <html>
 
 <template:meta default-text-matching="regex"/>
-<t:s>curAuthor := ()</t:s> <!-- extra variable to prevent contamination by previously set book.author -->
+<t:s>curAuthor := (), sigid := 0, book.orderable := 0</t:s> <!-- extra variable to prevent contamination by previously set book.author -->
 
 
 <table summary="Main layout">
@@ -42,6 +42,25 @@
     <tr>
       <td><strong>Körperschaft:</strong></td>
       <td>{if ($book.author = "Zeitschrift") then book.author := concat(., " (Zeitschrift)") else ()}</td>
+    </tr>
+    
+    
+    <tr>
+      <td><strong>Standort:</strong></td>
+      <td><t:read var="book.Standort {$sigid + 1}!" source="."/></td>
+    </tr>
+
+    <tr>
+      <td><strong>Signatur:</strong></td>
+      <td>{sigid := $sigid + 1}<t:read var="book.Signatur {$sigid}!" source="."/></td>
+    </tr>
+    
+    <tr>
+      <td><strong>Ausleihstatus:</strong></td>
+      <td><t:read var="book.Ausleihstatus {$sigid}!" source="string-join(div/text(), '; ')"/>
+        <script><t:read var="book.orders{$book.orderable}" source="extract(., '(/loan[^'']*)\''', 1)"/><!-- source="extract(., '(/loan.*)LOGIN', 1)"/> -->
+                <t:read var="book.ordersTitle{$book.orderable}" source="concat($book(x'Standort {$sigid}!'), ' ',$book(x'Signatur {$sigid}!') )"/> 
+                {book.orderable := $book.orderable + 1}</script>?</td>
     </tr>
     
     <tr>
