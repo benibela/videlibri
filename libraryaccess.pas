@@ -13,6 +13,8 @@ interface
 uses
   Classes, SysUtils,libraryParser,booklistreader, LCLType, strutils, bbutils;
 
+type TBookListOperation = procedure (list: TBookList) of object;
+
 //--Aktualisierungen--
 type
   TThreadConfig=record
@@ -37,6 +39,8 @@ procedure defaultAccountsRefresh;
 procedure extendBooks(books: TBookList);
 procedure extendBooks(lastLimit:longint; account: TCustomAccountAccess=nil);
 
+procedure orderBooks(books: TBookList);
+procedure cancelBooks(books: TBookList);
 
 //--Userkommunikation--
 
@@ -47,7 +51,7 @@ function alertAboutBooksThatMustBeReturned:boolean;
 
 
 type PThreadConfig=^TThreadConfig;
-procedure updateBooksDirectBlocking(const lib: TCustomAccountAccess; const pconfig: PThreadConfig; const ignoreConnectionErrors, checkDate, forceExtend: boolean);
+//procedure updateBooksDirectBlocking(const lib: TCustomAccountAccess; const pconfig: PThreadConfig; const ignoreConnectionErrors, checkDate, forceExtend: boolean);
 
 implementation
 uses applicationconfig,internetaccess,bookwatchmain,bbdebugtools,androidutils,{$ifdef android}bbjniutils,{$endif}
@@ -59,14 +63,15 @@ const MB_SYSTEMMODAL = $1000;
 const MB_SYSTEMMODAL=0;
 {$ENDIF}
 
-procedure updateBooksDirectBlocking(const lib: TCustomAccountAccess; const pconfig: PThreadConfig; const ignoreConnectionErrors,
-  checkDate, forceExtend: boolean);
+procedure processBooksDirectBlocking(const lib: TCustomAccountAccess; const pconfig: PThreadConfig; const ignoreConnectionErrors,
+  checkDate, useExtendOverride: boolean; ExtendOverride: TExtendType; partialList: TBookList; partialListOperation: TBookListOperation);
 var internet: TInternetAccess;
     listUpdateComplete: boolean;
 
     booksToExtendCount,booksExtendableCount: longint;
     realBooksToExtend: TBookList;
     i:longint;
+    wasConnected: Boolean;
 begin
 //Die Funktionsweise ist folgende:
 {
@@ -104,72 +109,80 @@ save
       end;
 
     if logging then log('TUpdateLibThread.execute ended marker 1');
-    if not lib.connected then
+    wasConnected := lib.connected;
+    if not wasConnected then
       lib.connect(defaultInternetAccessClass.create);
     if logging then log('TUpdateLibThread.execute ended marker 2');
-    lib.updateAll();
-    if logging then log('TUpdateLibThread.execute ended marker 3');
-    if lib.needSingleBookCheck() then begin
-      //InterlockedIncrement(@pconfig^.totalBookThreadDone);
-      //Synchronize(@mainForm.RefreshListView);
-      if logging then log('TUpdateLibThread.execute marker 3.1');
-      EnterCriticalSection(pconfig^.libraryAccessSection);
-      lib.books.merge(false);
-      LeaveCriticalSection(pconfig^.libraryAccessSection);
-      if logging then log('TUpdateLibThread.execute marker 3.4');
+    if (not wasConnected) or (partialListOperation = nil) then begin //default behaviour is "update", disabled when a special partial list operation is given, but if we were not connected, it still needs to update
+      lib.updateAll();
+      if logging then log('TUpdateLibThread.execute ended marker 3');
+      if lib.needSingleBookCheck() then begin
+        //InterlockedIncrement(@pconfig^.totalBookThreadDone);
+        //Synchronize(@mainForm.RefreshListView);
+        if logging then log('TUpdateLibThread.execute marker 3.1');
+        EnterCriticalSection(pconfig^.libraryAccessSection);
+        lib.books.merge(false);
+        LeaveCriticalSection(pconfig^.libraryAccessSection);
+        if logging then log('TUpdateLibThread.execute marker 3.4');
 
 
-      if logging then log('TUpdateLibThread.execute marker 3.5');
-      EnterCriticalSection(pconfig^.threadManagementSection);
-      pconfig^.listUpdateThreadsRunning-=1;
-      pconfig^.atLeastOneListUpdateSuccessful:=true;
-      LeaveCriticalSection(pconfig^.threadManagementSection);
-      if logging then log('TUpdateLibThread.execute marker 3.6');
-      if assigned(pconfig^.OnPartialUpdated) then pconfig^.OnPartialUpdated(lib);
+        if logging then log('TUpdateLibThread.execute marker 3.5');
+        EnterCriticalSection(pconfig^.threadManagementSection);
+        pconfig^.listUpdateThreadsRunning-=1;
+        pconfig^.atLeastOneListUpdateSuccessful:=true;
+        LeaveCriticalSection(pconfig^.threadManagementSection);
+        if logging then log('TUpdateLibThread.execute marker 3.6');
+        if assigned(pconfig^.OnPartialUpdated) then pconfig^.OnPartialUpdated(lib);
 
-      listUpdateComplete:=true;
-      lib.updateAllSingly();
+        listUpdateComplete:=true;
+        lib.updateAllSingly();
+      end;
     end;
     if logging then log('TUpdateLibThread.execute marker 4');
 
+    if not useExtendOverride then ExtendOverride := lib.extendType;
     //Automatisches Verlängern
-    booksExtendableCount:=0;
-    for i:=0 to lib.books.currentUpdate.count-1 do
-      if lib.books.currentUpdate[i].status in BOOK_EXTENDABLE then
-        booksExtendableCount+=1;
+    if ExtendOverride <> etNever then begin
+      booksExtendableCount:=0;
+      for i:=0 to lib.books.currentUpdate.count-1 do
+        if lib.books.currentUpdate[i].status in BOOK_EXTENDABLE then
+          booksExtendableCount+=1;
 
-    case lib.extendType of
-      etNever: booksToExtendCount:=0;
-      etAlways: //renew always (when there are books which can be extended)
-        booksToExtendCount:=booksExtendableCount;
-      etAllDepends,etSingleDepends: begin
-        booksToExtendCount:=0;
-        for i:=0 to lib.books.currentUpdate.Count-1 do //check for books to renew
-          if lib.shouldExtendBook(lib.books.currentUpdate[i]) then
-            booksToExtendCount+=1;
-        if (lib.extendType=etAllDepends) and (booksToExtendCount>0) then
+      case ExtendOverride of
+        etNever: booksToExtendCount:=0;
+        etAlways: //renew always (when there are books which can be extended)
           booksToExtendCount:=booksExtendableCount;
+        etAllDepends,etSingleDepends: begin
+          booksToExtendCount:=0;
+          for i:=0 to lib.books.currentUpdate.Count-1 do //check for books to renew
+            if lib.shouldExtendBook(lib.books.currentUpdate[i]) then
+              booksToExtendCount+=1;
+          if (lib.extendType=etAllDepends) and (booksToExtendCount>0) then
+            booksToExtendCount:=booksExtendableCount;
+        end;
+        else raise Exception.Create('Internal error: unknown lib.extendType');
       end;
-      else raise Exception.Create('Internal error: unknown lib.extendType');
+
+
+      if booksToExtendCount>0 then
+        if booksToExtendCount=booksExtendableCount then
+          lib.extendAll
+         else begin
+          realBooksToExtend:=TBookList.Create;
+          for i:=0 to lib.books.currentUpdate.Count-1 do
+            if lib.shouldExtendBook(lib.books.currentUpdate[i]) then
+              realBooksToExtend.add(lib.books.currentUpdate[i]);
+          lib.extendList(realBooksToExtend);
+          realBooksToExtend.free
+         end;
     end;
 
-    if forceExtend then
-      booksToExtendCount := booksExtendableCount;
-
-
-    if booksToExtendCount>0 then
-      if booksToExtendCount=booksExtendableCount then
-        lib.extendAll
-       else begin
-        realBooksToExtend:=TBookList.Create;
-        for i:=0 to lib.books.currentUpdate.Count-1 do
-          if lib.shouldExtendBook(lib.books.currentUpdate[i]) then
-            realBooksToExtend.add(lib.books.currentUpdate[i]);
-        lib.extendList(realBooksToExtend);
-        realBooksToExtend.free
-       end;
-
-
+    //other, special operation
+    if (partialList <> nil) and (Assigned(partialListOperation)) then begin
+      partialList.mergeMissingInformation(lib.books.currentUpdate);
+      partialList.mergeMissingInformation(lib.books.current);
+      partialListOperation(partialList);
+    end;
 
 
     if logging then log('TUpdateLibThread.execute ended marker 5');
@@ -216,18 +229,25 @@ type
     ignoreConnectionErrors: boolean;   //read only
     checkDate: boolean;                //read only
 
-    extend: boolean;
+    UseExtendOverride: Boolean;
+    extendOverride: TExtendType;
+
+    partialList: TBookList;
+    partialListOperation: TBookListOperation;
     procedure execute;override;
     //procedure exceptionRaised(raisedException:Exception);
     //procedure showError;
   public
     constructor Create(alib: TCustomAccountAccess;var config:TThreadConfig;
-                       aIgnoreConnectionErrors, ACheckDate,AExtend: boolean);
+                       aIgnoreConnectionErrors, ACheckDate: boolean; AUseExtendOverride: Boolean; AExtendOverride: TExtendType;
+                       apartialList: TBookList = nil; apartialListOperation: TBookListOperation = nil);
   end;
 
 procedure TUpdateLibThread.execute;
 begin
-  updateBooksDirectBlocking(lib, pconfig, ignoreConnectionErrors, checkDate, extend);
+  processBooksDirectBlocking(lib, pconfig, ignoreConnectionErrors, checkDate,
+                            UseExtendOverride, extendOverride,
+                            partialList, partialListOperation);
   {$ifdef android}
   if Assigned(OnTerminate) then begin //normal onterminate does not work without event loop as it is called by synchronize
    OnTerminate(self);
@@ -255,18 +275,41 @@ begin
 end;                                      }
 
 constructor TUpdateLibThread.Create(alib: TCustomAccountAccess;var config:TThreadConfig;
-                                    aIgnoreConnectionErrors, ACheckDate,AExtend: boolean);
+                                    aIgnoreConnectionErrors, ACheckDate: boolean;
+                                    AUseExtendOverride: Boolean; AExtendOverride: TExtendType;
+                                    apartialList: TBookList; apartialListOperation: TBookListOperation);
 begin
   lib:=alib;
   ignoreConnectionErrors:=aignoreConnectionErrors;
   checkDate:=ACheckDate;
   pconfig:=@config;
-  extend:=AExtend;
+  UseExtendOverride:=AUseExtendOverride;
+  extendOverride:=aExtendOverride;
+  partialList := apartialList;
+  partialListOperation := apartialListOperation;
   OnTerminate:=TNotifyEvent(procedureToMethod(TProcedure(@ThreadDone)));
   FreeOnTerminate:=true;
 
   if logging then log('TUpdateLibThread.Create');
   inherited create(false);
+end;
+
+procedure startSingleThread(account: TCustomAccountAccess;var config:TThreadConfig;
+                            aIgnoreConnectionErrors, ACheckDate: boolean;
+                            AUseExtendOverride: Boolean; AExtendOverride: TExtendType;
+                            apartialList: TBookList; apartialListOperation: TBookListOperation);
+begin
+  if account.isThreadRunning then begin
+    storeException(EBookListReader.create('Die Aktion konnte nicht durchgefürt werden, weil bereits eine Operation auf dem Konto durchgeführt wird. Bitte warten Sie, bis diese abgeschlossen ist.'), account);
+    exit;
+  end;
+  EnterCriticalSection(config.threadManagementSection);
+  config.updateThreadsRunning+=1;
+  config.listUpdateThreadsRunning+=1;
+  LeaveCriticalSection(config.threadManagementSection);
+
+  account.isThreadRunning:=true;
+  TUpdateLibThread.Create(account,config,aIgnoreConnectionErrors,acheckDate,AUseExtendOverride,AExtendOverride,apartialList,apartialListOperation);
 end;
 
 procedure ThreadDone(pself: TObject; sender:TObject);
@@ -275,7 +318,7 @@ procedure ThreadDone(pself: TObject; sender:TObject);
 begin
   if logging then log('ThreadDone started'#13#10'Without this one, '+IntToStr(updateThreadConfig.updateThreadsRunning)+' threads are currently running');
 //  Assert(mainForm<>nil);
-log(booltostr(sender is TUpdateLibThread) );
+//log(booltostr(sender is TUpdateLibThread) );
   if not (sender is TUpdateLibThread) then
     raise exception.Create('Interner Fehler:'#13#10'Die Funktion, die für gerade beendete Aktualisierungthread zuständig ist, wurde auf einen anderen Thread angewendet'#13#10'(kann eigentlich nicht auftreten)');
 
@@ -328,13 +371,7 @@ begin
       exit;
     if (mainform<>nil) and (mainForm.Visible) then
       mainform.StatusBar1.Panels[0].text:=TRY_BOOK_UPDATE;
-    EnterCriticalSection(updateThreadConfig.threadManagementSection);
-    updateThreadConfig.updateThreadsRunning+=1;
-    updateThreadConfig.listUpdateThreadsRunning+=1;
-    LeaveCriticalSection(updateThreadConfig.threadManagementSection);
-
-    account.isThreadRunning:=true;
-    TUpdateLibThread.Create(account,updateThreadConfig,ignoreConnErrors,checkDate,extendAlways);
+    startSingleThread(account,updateThreadConfig,ignoreConnErrors,checkDate,extendAlways,etAlways,nil,nil);
   end else begin
     //(synchronized) set count of threads
     threadsToStart := accounts.count;
@@ -361,7 +398,7 @@ begin
       if (not account.enabled) or (ignoreConnErrors and (account.broken = currentDate)) then
         continue;
       account.isThreadRunning:=true;
-      TUpdateLibThread.create(account,updateThreadConfig, ignoreConnErrors,checkDate,extendAlways);
+      TUpdateLibThread.create(account,updateThreadConfig, ignoreConnErrors,checkDate,extendAlways,etAlways);
     end;
   end;
 end;
@@ -378,8 +415,11 @@ begin
 end;
 
 
-procedure extendAccountBookData(account: TCustomAccountAccess;
-  books: TBookList);
+//type TProcessBooks procedure extendAccountBookData(account: TCustomAccountAccess;
+//  books: TBookList);
+
+                 (*
+procedure extendAccountBookData(account: TCustomAccountAccess; books: TBookList);
 var internet:TInternetAccess;
 begin
   try
@@ -401,6 +441,7 @@ begin
       end;
       books.mergeMissingInformation(account.books.currentUpdate);
       books.mergeMissingInformation(account.books.current);
+
       account.extendList(books);
       account.books.merge(true);
       account.save();
@@ -410,26 +451,29 @@ begin
       createAndAddException(e,account);
   end;
 end;
+                        *)
 
-procedure extendBooks(books: TBookList);
+procedure applyAccountMethodForBooks(books: TBookList; method: TBookListOperation);
 var current:TBookList;
     i,j:integer;
 begin
   //TODO: optimize
   //SetLength(accBoo,accounts.Count);
-  current:=TBookList.Create;
   for i:=0 to accounts.Count-1 do begin
-    current.clear;
+    current:=nil;
     for j:=0 to books.count-1 do
-      if books[j].owner=accounts.Objects[i] then
+      if books[j].owner=accounts.Objects[i] then begin
+        if current = nil then current := TBookList.Create;
         current.add(books[j]);
-    if current.Count > 0 then
-      extendAccountBookData((accounts[i]),current);
+      end;
+    if current <> nil then begin
+      TMethod(method).Data:=accounts.Objects[i];
+      startSingleThread( accounts[i], updateThreadConfig, false, false, true, etNever, current, method);
+    end;
   end;
-  current.free;
-  showErrorMessages();
+  {showErrorMessages();
   if (mainform<>nil) and (mainform.visible) then
-    mainform.RefreshListView;
+    mainform.RefreshListView;     }
 end;
 
 procedure extendBooks(lastLimit: longint; account: TCustomAccountAccess);
@@ -447,13 +491,29 @@ begin
     if (account.books.current[i].dueDate<=lastLimit) and
        (account.books.current[i].status in BOOK_EXTENDABLE) then
        books.add(account.books.current[i]);
-  extendAccountBookData(account,books);
+  extendBooks(books);
   books.free;
 
   showErrorMessages();
   if (mainform<>nil) and (mainform.visible) then
     mainform.RefreshListView;
 end;
+
+procedure extendBooks(books: TBookList);
+begin
+  applyAccountMethodForBooks(books, TBookListOperation(procedureToMethod(TProcedure(@TTemplateAccountAccess.extendList))));
+end;
+
+procedure orderBooks(books: TBookList);
+begin
+  applyAccountMethodForBooks(books, TBookListOperation(procedureToMethod(TProcedure(@TTemplateAccountAccess.orderList))));
+end;
+
+procedure cancelBooks(books: TBookList);
+begin
+  applyAccountMethodForBooks(books, TBookListOperation(procedureToMethod(TProcedure(@TTemplateAccountAccess.cancelList))));
+end;
+
 
 
 procedure findBooksThatMustBeReturned(out booksOverdue, booksSoonNotExtendable, booksSoon: TList; out minDateOverdue, minDateSoonNotExtendable,

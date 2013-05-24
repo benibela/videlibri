@@ -1165,6 +1165,10 @@ object mainForm: TmainForm
       Caption = 'Alle Medien dieses Kontos verlängern'
       OnClick = extendAdjacentBooksClick
     end
+    object cancelTheseBooks: TMenuItem
+      Caption = 'ausgewählte Vormerkungen/Bestellungen abbrechen'
+      Enabled = False
+    end
     object removeSelectedMI: TMenuItem
       Caption = 'Markierte Medien aus der History löschen'
       OnClick = removeSelectedMIClick

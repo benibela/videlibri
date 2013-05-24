@@ -29,6 +29,7 @@ type
   { TmainForm }
   TmainForm = class(TForm)
     accountListMenuItem: TMenuItem;
+    cancelTheseBooks: TMenuItem;
     MenuItem10: TMenuItem;
     extendMenuList1: TMenuItem;
     extendTheseBooks: TMenuItem;
@@ -474,21 +475,30 @@ begin
 end;
 
 procedure TmainForm.bookPopupMenuPopup(Sender: TObject);
-var rsc,i: longint;
+var bookCount,i: longint;
+  extendableBooks: Integer;
+  cancelableBooks: Integer;
 begin
 {  extendThisBooks.Enabled:=(ListView1.SelCount=1) and
                   (PBook(ListView1.Selected.Data))^.lib.getLibrary().canModifySingleBooks;}
-  if BookList.selCount=0 then rsc:=0
+  if BookList.selCount=0 then bookCount:=0
   else begin
-    rsc:=BookList.selcount;
+    bookCount:=BookList.selcount;
+    extendableBooks := 0;
+    cancelableBooks := 0;
     for i:=0 to BookList.Items.Count-1 do
-      if BookList.Items[i].Selected and (BookList.Items[i].data.obj=nil) then rsc:=0;
+      if BookList.Items[i].Selected then begin
+        if (BookList.Items[i].data.obj=nil) then bookCount:=0
+        else if TBook(BookList.Items[i].data.obj).status in BOOK_EXTENDABLE then extendableBooks += 1
+        else if TBook(BookList.Items[i].data.obj).status = bsOrdered then cancelableBooks += 1;
+      end;
   end;
-  extendTheseBooks.Enabled:=(rsc>=1);
-  extendAdjacentBooks.Enabled:=rsc=1;
-  displayDetailsMI.Enabled:=rsc=1;
-  searchDetailsMI.Enabled:=rsc=1;
-  removeSelectedMI.Enabled:=rsc>0;
+  extendTheseBooks.Enabled:=(bookCount>=1) and (extendableBooks >= 1);
+  extendAdjacentBooks.Enabled:=bookCount=1;
+  cancelTheseBooks.Enabled:=(bookCount>=1) and (cancelableBooks >= 1);
+  displayDetailsMI.Enabled:=bookCount=1;
+  searchDetailsMI.Enabled:=bookCount=1;
+  removeSelectedMI.Enabled:=bookCount>0;
 end;
 
 procedure TmainForm.BookListDblClick(Sender: TObject);

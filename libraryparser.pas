@@ -195,6 +195,11 @@ type
     procedure extendAll(); virtual;
     procedure extendList(bookList:TBookList); virtual;
 
+    procedure orderSingle(book: TBook); virtual;
+    procedure orderList(booklist: TBookList); virtual;
+    procedure cancelSingle(book: TBook); virtual;
+    procedure cancelList(booklist: TBookList); virtual;
+
     function shouldExtendBook(book: TBook):boolean;
     function existsCertainBookToExtend: boolean;
     function needSingleBookCheck():boolean;virtual;
@@ -254,6 +259,8 @@ type
     procedure extendAll;override;
     procedure extendList(booksToExtend: TBookList);override;
 
+    procedure orderList(booklist: TBookList); override;
+    procedure cancelList(booklist: TBookList); override;
 
     //function needSingleBookCheck():boolean;virtual;
   end;
@@ -896,6 +903,34 @@ begin
       raise ELibraryException.Create('Zugriff auf die Bücherei fehlgeschlagen'#13#10#13#10'Bitte überprüfen Sie Ihre Internetverbindung');
 end;
 
+procedure TCustomAccountAccess.orderSingle(book: TBook);
+begin
+  if not connected then
+    if not connect then
+      raise ELibraryException.Create('Zugriff auf die Bücherei fehlgeschlagen'#13#10#13#10'Bitte überprüfen Sie Ihre Internetverbindung');
+end;
+
+procedure TCustomAccountAccess.orderList(booklist: TBookList);
+begin
+  if not connected then
+    if not connect then
+      raise ELibraryException.Create('Zugriff auf die Bücherei fehlgeschlagen'#13#10#13#10'Bitte überprüfen Sie Ihre Internetverbindung');
+end;
+
+procedure TCustomAccountAccess.cancelSingle(book: TBook);
+begin
+  if not connected then
+    if not connect then
+      raise ELibraryException.Create('Zugriff auf die Bücherei fehlgeschlagen'#13#10#13#10'Bitte überprüfen Sie Ihre Internetverbindung');
+end;
+
+procedure TCustomAccountAccess.cancelList(booklist: TBookList);
+begin
+  if not connected then
+    if not connect then
+      raise ELibraryException.Create('Zugriff auf die Bücherei fehlgeschlagen'#13#10#13#10'Bitte überprüfen Sie Ihre Internetverbindung');
+end;
+
 function TCustomAccountAccess.shouldExtendBook(book: TBook): boolean;
 begin
   Result:=(book.status in BOOK_EXTENDABLE) and
@@ -1085,6 +1120,15 @@ begin
     log('leave TTemplateAccountAccess.extendAll');
 end;
 
+function xqvalueBookList(reader: TBookListReader; list: TBookList): TXQValueSequence;
+var
+  i: Integer;
+begin
+  result := TXQValueSequence.create(list.Count);
+  for i:=0 to list.Count-1 do
+    result.addChild(reader.bookToPXP(list[i]));
+end;
+
 procedure TTemplateAccountAccess.extendList(booksToExtend: TBookList);
 var bookListStr:string;
     i:longint;
@@ -1098,11 +1142,8 @@ begin
   extendAction:=reader.findAction('renew-list');
   if extendAction<>nil then begin
     if logging then log('use extendList Template');
-    extendBookList := TXQValueSequence.create(booksToExtend.Count);
-    for i:=0 to booksToExtend.Count-1 do
-      extendBookList.addChild(reader.bookToPXP(booksToExtend[i]));
-    if logging then log('bookList (count: '+inttostr(extendBookList.seq.count)+') is: '+extendBookList.debugAsStringWithTypeAnnotation());
-    reader.parser.variableChangeLog.add('renew-books', extendBookList);
+    //if logging then log('bookList (count: '+inttostr(extendBookList.seq.count)+') is: '+extendBookList.debugAsStringWithTypeAnnotation());
+    reader.parser.variableChangeLog.add('renew-books', xqvalueBookList(reader, booksToExtend));
     reader.callAction(extendAction);
   end else if reader.findAction('renew-single')<>nil then begin
     if logging then log('use renew-single Template');
@@ -1119,6 +1160,50 @@ begin
   end;
   FConnectingTime:=GetTickCount;
   if logging then log('Leave TTemplateAccountAccess.extendList');
+end;
+
+procedure TTemplateAccountAccess.orderList(booklist: TBookList);
+var
+  action: TTemplateAction;
+  i: Integer;
+begin
+  if booklist.Count = 0 then exit;
+  if logging then log('Enter TTemplateAccountAccess.orderList');
+  setVariables();
+  action := reader.findAction('order-list');
+  if action <> nil then begin
+    reader.parser.variableChangeLog.add('order-books', xqvalueBookList(reader, booklist));
+    reader.callAction(action);
+  end else if reader.findAction('order-single') <> nil then begin
+    action := reader.findAction('order-single');
+    for i := 0 to booklist.Count do begin
+      reader.selectBook(booklist[i]);
+      reader.callAction(action);
+    end;
+  end;
+  if logging then log('Leave TTemplateAccountAccess.orderList');
+end;
+
+procedure TTemplateAccountAccess.cancelList(booklist: TBookList);
+var
+  action: TTemplateAction;
+  i: Integer;
+begin
+  if booklist.Count = 0 then exit;
+  if logging then log('Enter TTemplateAccountAccess.cancelList');
+  setVariables();
+  action := reader.findAction('cancel-list');
+  if action <> nil then begin
+    reader.parser.variableChangeLog.add('cancel-books', xqvalueBookList(reader, booklist));
+    reader.callAction(action);
+  end else if reader.findAction('cancel-single') <> nil then begin
+    action := reader.findAction('cancel-single');
+    for i := 0 to booklist.Count do begin
+      reader.selectBook(booklist[i]);
+      reader.callAction(action);
+    end;
+  end;
+  if logging then log('Leave TTemplateAccountAccess.cancelList');
 end;
 
 
