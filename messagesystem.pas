@@ -69,7 +69,7 @@ function TMessageSystem.waitForMessage: TObject;
 begin
   Result:=nil;
   while result = nil do begin
-    while list.count=0 do sleep(5);
+    while list.count=0 do sleep(20);
     result:=retrieveMessageOrNil; //list.count=0 is possible
   end;
 end;
