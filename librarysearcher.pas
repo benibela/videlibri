@@ -36,6 +36,7 @@ public
   procedure search;
   procedure searchNext;
   procedure details(book: tbook);
+  procedure orderSingle(book: tbook);
   procedure disconnect;
 
   property Location: string read flocation write setLocation;
@@ -145,6 +146,13 @@ procedure TLibrarySearcher.details(book: tbook);
 begin
   bookListReader.selectBook(book);
   bookListReader.callAction('search-details');
+end;
+
+procedure TLibrarySearcher.orderSingle(book: tbook);
+begin
+  bookListReader.selectBook(book);
+  if book.owner is TTemplateAccountAccess then TTemplateAccountAccess(book.owner).setVariables(bookListReader.parser);
+  bookListReader.callAction('order-single');
 end;
 
 procedure TLibrarySearcher.disconnect;

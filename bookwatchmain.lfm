@@ -1168,6 +1168,7 @@ object mainForm: TmainForm
     object cancelTheseBooks: TMenuItem
       Caption = 'ausgewählte Vormerkungen/Bestellungen abbrechen'
       Enabled = False
+      OnClick = cancelTheseBooksClick
     end
     object removeSelectedMI: TMenuItem
       Caption = 'Markierte Medien aus der History löschen'

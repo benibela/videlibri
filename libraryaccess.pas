@@ -39,7 +39,7 @@ procedure defaultAccountsRefresh;
 procedure extendBooks(books: TBookList);
 procedure extendBooks(lastLimit:longint; account: TCustomAccountAccess=nil);
 
-procedure orderBooks(books: TBookList);
+//procedure orderBooks(books: TBookList);
 procedure cancelBooks(books: TBookList);
 
 //--Userkommunikation--
@@ -210,6 +210,7 @@ save
   pconfig^.updateThreadsRunning-=1;
   LeaveCriticalSection(pconfig^.threadManagementSection);
   lib.isThreadRunning:=false;
+  if assigned(partialList) then partialList.Free;
   if logging then log('TUpdateLibThread.execute ended');
 
 end;
@@ -492,7 +493,6 @@ begin
        (account.books.current[i].status in BOOK_EXTENDABLE) then
        books.add(account.books.current[i]);
   extendBooks(books);
-  books.free;
 
   showErrorMessages();
   if (mainform<>nil) and (mainform.visible) then
@@ -504,11 +504,11 @@ begin
   applyAccountMethodForBooks(books, TBookListOperation(procedureToMethod(TProcedure(@TTemplateAccountAccess.extendList))));
 end;
 
-procedure orderBooks(books: TBookList);
+{procedure orderBooks(books: TBookList);
 begin
   applyAccountMethodForBooks(books, TBookListOperation(procedureToMethod(TProcedure(@TTemplateAccountAccess.orderList))));
 end;
-
+ }
 procedure cancelBooks(books: TBookList);
 begin
   applyAccountMethodForBooks(books, TBookListOperation(procedureToMethod(TProcedure(@TTemplateAccountAccess.cancelList))));

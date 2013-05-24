@@ -259,7 +259,7 @@ object bookSearchFrm: TbookSearchFrm
       Cursor = crVSplit
       Left = 1
       Height = 5
-      Top = 324
+      Top = 310
       Width = 551
       Align = alBottom
       Beveled = True
@@ -268,7 +268,7 @@ object bookSearchFrm: TbookSearchFrm
     object detailPanel: TPanel
       Left = 1
       Height = 209
-      Top = 329
+      Top = 315
       Width = 551
       Align = alBottom
       BevelOuter = bvNone
@@ -295,14 +295,14 @@ object bookSearchFrm: TbookSearchFrm
     end
     object Panel1: TPanel
       Left = 1
-      Height = 20
-      Top = 538
+      Height = 34
+      Top = 524
       Width = 551
       Align = alBottom
       ChildSizing.EnlargeHorizontal = crsHomogenousChildResize
       ChildSizing.Layout = cclLeftToRightThenTopToBottom
-      ChildSizing.ControlsPerLine = 7
-      ClientHeight = 20
+      ChildSizing.ControlsPerLine = 5
+      ClientHeight = 34
       ClientWidth = 551
       TabOrder = 2
       object Label12: TLabel
@@ -310,7 +310,7 @@ object bookSearchFrm: TbookSearchFrm
         Left = 0
         Height = 15
         Top = 0
-        Width = 96
+        Width = 102
         Alignment = taCenter
         Caption = 'Speichern'
         Font.Color = clBlue
@@ -323,10 +323,10 @@ object bookSearchFrm: TbookSearchFrm
       end
       object LabelSaveTo: TLabel
         Cursor = crHandPoint
-        Left = 96
+        Left = 102
         Height = 15
         Top = 0
-        Width = 54
+        Width = 96
         Caption = 'in \/'
         Font.Color = clBlue
         Font.Style = [fsItalic]
@@ -335,22 +335,56 @@ object bookSearchFrm: TbookSearchFrm
         PopupMenu = saveToAccountMenu
         OnClick = LabelSaveToClick
       end
-      object Label2: TLabel
-        Left = 150
+      object Label3: TLabel
+        Cursor = crHandPoint
+        Left = 198
         Height = 15
         Top = 0
-        Width = 59
+        Width = 170
+        Caption = 'Vormerken/Bestellen'
+        Font.Color = clBlue
+        Font.Style = [fsBold]
+        ParentColor = False
+        ParentFont = False
+        OnClick = Label3Click
+      end
+      object LabelOrderFor: TLabel
+        Cursor = crHandPoint
+        Left = 368
+        Height = 15
+        Top = 0
+        Width = 98
+        Caption = 'für \/'
+        Font.Color = clBlue
+        Font.Style = [fsItalic]
+        ParentColor = False
+        ParentFont = False
+        OnClick = LabelOrderForClick
+      end
+      object Label2: TLabel
+        Left = 466
+        Height = 15
+        Top = 0
+        Width = 85
         Alignment = taRightJustify
-        Caption = 'Mehr:'
         ParentColor = False
         OnClick = Label2Click
       end
+      object Label2xx: TLabel
+        Left = 0
+        Height = 15
+        Top = 15
+        Width = 102
+        Alignment = taRightJustify
+        Caption = 'Mehr:'
+        ParentColor = False
+      end
       object linkLabelDigibib: TLabel
         Cursor = crHandPoint
-        Left = 209
+        Left = 102
         Height = 15
-        Top = 0
-        Width = 90
+        Top = 15
+        Width = 96
         Alignment = taCenter
         Caption = 'digibib.net'
         Font.Color = clBlue
@@ -361,10 +395,10 @@ object bookSearchFrm: TbookSearchFrm
       end
       object linkLabelBib: TLabel
         Cursor = crHandPoint
-        Left = 299
+        Left = 198
         Height = 15
-        Top = 0
-        Width = 79
+        Top = 15
+        Width = 170
         Alignment = taCenter
         Caption = 'Bücherei'
         Font.Color = clBlue
@@ -375,10 +409,10 @@ object bookSearchFrm: TbookSearchFrm
       end
       object linkLabelAmazon: TLabel
         Cursor = crHandPoint
-        Left = 378
+        Left = 368
         Height = 15
-        Top = 0
-        Width = 92
+        Top = 15
+        Width = 98
         Alignment = taCenter
         Caption = 'amazon.de'
         Font.Color = clBlue
@@ -389,10 +423,10 @@ object bookSearchFrm: TbookSearchFrm
       end
       object linkLabelGoogle: TLabel
         Cursor = crHandPoint
-        Left = 470
+        Left = 466
         Height = 15
-        Top = 0
-        Width = 81
+        Top = 15
+        Width = 85
         Alignment = taCenter
         Caption = 'google.de'
         Font.Color = clBlue
@@ -428,7 +462,11 @@ object bookSearchFrm: TbookSearchFrm
     SimplePanel = False
   end
   object saveToAccountMenu: TPopupMenu
-    left = 408
-    top = 520
+    left = 400
+    top = 400
+  end
+  object orderForAccountMenu: TPopupMenu
+    left = 640
+    top = 448
   end
 end

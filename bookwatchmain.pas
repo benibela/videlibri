@@ -105,6 +105,7 @@ type
     procedure bookPopupMenuPopup(Sender: TObject);
     procedure BookListUserSortItemsEvent(sender: TObject;
       var sortColumn: longint; var invertSorting: boolean);
+    procedure cancelTheseBooksClick(Sender: TObject);
     procedure dailyCheckThreadTimer(Sender: TObject);
     procedure delayedCallTimer(Sender: TObject);
     procedure EnsureTrayIconTimerTimer(Sender: TObject);
@@ -490,7 +491,7 @@ begin
       if BookList.Items[i].Selected then begin
         if (BookList.Items[i].data.obj=nil) then bookCount:=0
         else if TBook(BookList.Items[i].data.obj).status in BOOK_EXTENDABLE then extendableBooks += 1
-        else if TBook(BookList.Items[i].data.obj).status = bsOrdered then cancelableBooks += 1;
+        else if TBook(BookList.Items[i].data.obj).status in [bsOrdered,bsProvided] then cancelableBooks += 1;
       end;
   end;
   extendTheseBooks.Enabled:=(bookCount>=1) and (extendableBooks >= 1);
@@ -529,6 +530,18 @@ end;
 procedure TmainForm.BookListUserSortItemsEvent(sender: TObject;
   var sortColumn: longint; var invertSorting: boolean);
 begin
+end;
+
+procedure TmainForm.cancelTheseBooksClick(Sender: TObject);
+var i:integer;
+    books:TBookList;
+begin
+  books:=TBookList.Create;
+  books.Capacity:=BookList.selCount;
+  for i:=0 to BookList.Items.Count-1 do
+    if BookList.Items[i].Selected and (BookList.Items[i].data.obj<>nil) and (tbook(BookList.Items[i].data.obj).status in [bsOrdered,bsProvided]) then
+      books.add(TBook(BookList.Items[i].data.obj));
+  cancelBooks(books);
 end;
 
 procedure TmainForm.dailyCheckThreadTimer(Sender: TObject);
@@ -660,7 +673,6 @@ begin
     if BookList.Items[i].Selected and (BookList.Items[i].data.obj<>nil) then
       books.add(TBook(BookList.Items[i].data.obj));
   extendBooks(books);
-  books.free;
 end;
 
 procedure showCHM(filename:string;contextID:longint; tocname:string);
@@ -1284,12 +1296,19 @@ begin
 
   if searcherForm <> nil then begin
     searcherForm.saveToAccountMenu.Items.Clear;
+    searcherForm.orderForAccountMenu.Items.Clear;
     for i:=0 to accounts.Count-1 do begin
       temp := newItem(searcherForm.saveToAccountMenu,@searcherForm.changeDefaultSaveToAccount,i);
       temp.GroupIndex:=124;
       temp.RadioItem:=true;
       searcherForm.saveToAccountMenu.Items.Add(temp);
       if (i = 0) or (searcherForm.saveToDefaultAccountID = accounts.Strings[i]) then temp.Checked:=true;
+
+      temp := newItem(searcherForm.orderForAccountMenu,@searcherForm.changeDefaultOrderForAccount,i);
+      temp.GroupIndex:=124;
+      temp.RadioItem:=true;
+      searcherForm.orderForAccountMenu.Items.Add(temp);
+      if (i = 0) or (searcherForm.orderForDefaultAccountID = accounts.Strings[i]) then temp.Checked:=true;
     end;
   end;
 end;

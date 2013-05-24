@@ -34,7 +34,7 @@ type
 
  // public
     lastExistsDate,firstExistsDate:longint;
-    owner: TObject;
+    owner: TObject; //account
   //  list: TBookList;
 
     //temporary
@@ -49,7 +49,10 @@ type
     procedure serialize(str: TSerializeStringProperty; date: TSerializeDateProperty);
 
     procedure clear;
-    procedure assignNoReplace(book: TBook); //every value not set will be replaced with the one from book
+    procedure assignNoReplace(book: TBook); //every value not set will be replaced with the one from book (will not change key author/title/id/year)
+    procedure assignNoReplaceAll(book: TBook); //every value not set will be replaced with the one from book (will not change key author/title/id/year)
+    function clone: TBook;
+
     function toSimpleString():string;
     function toLimitString():string;
     //procedure assignOverride(book: TBook);  //every value set in book will be replace the one of self
@@ -251,6 +254,21 @@ begin
   for i:=0 to high(book.additional) do
     if  simplexmlparser.getProperty(book.additional[i].name,additional)='' then
       addProperty(book.additional[i].name,book.additional[i].value,additional);
+end;
+
+procedure TBook.assignNoReplaceAll(book: TBook);
+begin
+  assignNoReplace(book);
+  if author = '' then author:=book.author;
+  if title = '' then title:=book.title;
+  if year = '' then year:=book.year;
+  if id = '' then id:=book.id;
+end;
+
+function TBook.clone: TBook;
+begin
+  result := TBook.create;
+  result.assignNoReplaceAll(self);
 end;
 
 function TBook.toSimpleString():string;

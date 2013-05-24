@@ -195,8 +195,8 @@ type
     procedure extendAll(); virtual;
     procedure extendList(bookList:TBookList); virtual;
 
-    procedure orderSingle(book: TBook); virtual;
-    procedure orderList(booklist: TBookList); virtual;
+    //procedure orderSingle(book: TBook); virtual;
+    //procedure orderList(booklist: TBookList); virtual;
     procedure cancelSingle(book: TBook); virtual;
     procedure cancelList(booklist: TBookList); virtual;
 
@@ -236,11 +236,14 @@ type
 
     procedure parserVariableRead(variable: string; value: String);
 
-    procedure setVariables();
 
     //procedure selectBook(variable,value: string); not needed
+    procedure setVariables();
 
   public
+    procedure setVariables(parser: THtmlTemplateParser);
+
+
     constructor create(alib: TLibrary);override;
     procedure init(apath,userID:string);override;
     destructor destroy;override;
@@ -259,7 +262,7 @@ type
     procedure extendAll;override;
     procedure extendList(booksToExtend: TBookList);override;
 
-    procedure orderList(booklist: TBookList); override;
+   // procedure orderList(booklist: TBookList); override;
     procedure cancelList(booklist: TBookList); override;
 
     //function needSingleBookCheck():boolean;virtual;
@@ -903,7 +906,7 @@ begin
       raise ELibraryException.Create('Zugriff auf die Bücherei fehlgeschlagen'#13#10#13#10'Bitte überprüfen Sie Ihre Internetverbindung');
 end;
 
-procedure TCustomAccountAccess.orderSingle(book: TBook);
+{procedure TCustomAccountAccess.orderSingle(book: TBook);
 begin
   if not connected then
     if not connect then
@@ -915,7 +918,7 @@ begin
   if not connected then
     if not connect then
       raise ELibraryException.Create('Zugriff auf die Bücherei fehlgeschlagen'#13#10#13#10'Bitte überprüfen Sie Ihre Internetverbindung');
-end;
+end;}
 
 procedure TCustomAccountAccess.cancelSingle(book: TBook);
 begin
@@ -1029,13 +1032,18 @@ begin
     'Unbekannte Variable '+variable+' mit Wert '+value);}
 end;
 
-procedure TTemplateAccountAccess.setVariables();
+procedure TTemplateAccountAccess.setVariables;
+begin
+  setVariables(reader.parser);
+end;
+
+procedure TTemplateAccountAccess.setVariables(parser: THtmlTemplateParser);
 var i:longint;
 begin
   for i:=0 to lib.defaultVariables.count-1 do
-    reader.parser.variableChangeLog.ValuesString[lib.defaultVariables.Names[i]]:=lib.defaultVariables.ValueFromIndex[i];
-  reader.parser.variableChangeLog.ValuesString['username']:=user;
-  reader.parser.variableChangeLog.ValuesString['password']:=passWord;
+    parser.variableChangeLog.ValuesString[lib.defaultVariables.Names[i]]:=lib.defaultVariables.ValueFromIndex[i];
+  parser.variableChangeLog.ValuesString['username']:=user;
+  parser.variableChangeLog.ValuesString['password']:=passWord;
 end;
 
 
@@ -1161,7 +1169,7 @@ begin
   FConnectingTime:=GetTickCount;
   if logging then log('Leave TTemplateAccountAccess.extendList');
 end;
-
+{
 procedure TTemplateAccountAccess.orderList(booklist: TBookList);
 var
   action: TTemplateAction;
@@ -1183,11 +1191,13 @@ begin
   end;
   if logging then log('Leave TTemplateAccountAccess.orderList');
 end;
-
+  }
 procedure TTemplateAccountAccess.cancelList(booklist: TBookList);
 var
   action: TTemplateAction;
   i: Integer;
+  curlist: TBookList;
+  j: Integer;
 begin
   if booklist.Count = 0 then exit;
   if logging then log('Enter TTemplateAccountAccess.cancelList');
@@ -1203,6 +1213,19 @@ begin
       reader.callAction(action);
     end;
   end;
+
+  //remove books (todo, do this in the template?)
+  curlist := books.currentUpdate;
+  for i := curlist.Count - 1 downto 0 do
+    if curlist[i].status in [bsProvided, bsOrdered] then
+      for j := 0 to booklist.Count - 1 do
+        if curlist[i].equalToKey(booklist[j]) then begin
+          curlist.delete(i);
+          booklist.delete(j);
+          break;
+        end;
+
+
   if logging then log('Leave TTemplateAccountAccess.cancelList');
 end;
 

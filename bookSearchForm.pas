@@ -17,8 +17,12 @@ type
     Label10: TLabel;
     Label11: TLabel;
     Label12: TLabel;
+    Label2xx: TLabel;
+    Label3: TLabel;
+    LabelOrderFor: TLabel;
     LabelSaveTo: TLabel;
     saveToAccountMenu: TPopupMenu;
+    orderForAccountMenu: TPopupMenu;
     searchAuthorHint: TLabel;
     Label7: TLabel;
     Label8: TLabel;
@@ -56,10 +60,13 @@ type
     procedure FormDeactivate(Sender: TObject);
     procedure FormKeyUp(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure Label12Click(Sender: TObject);
+    procedure Label3Click(Sender: TObject);
+    procedure LabelOrderForClick(Sender: TObject);
     procedure LabelSaveToClick(Sender: TObject);
     procedure Label2Click(Sender: TObject);
     procedure searchAuthorEnter(Sender: TObject);
     procedure searchAuthorExit(Sender: TObject);
+    procedure searcherAccessOrderComplete(sender: TObject; book: TBook);
     procedure searchTitleChange(Sender: TObject);
     procedure startSearchClick(Sender: TObject);
     procedure displayInternalPropertiesChange(Sender: TObject);
@@ -87,12 +94,14 @@ type
     displayedBook: TBook;
     researchedBook: TBook;
     function displayDetails(book: TBook=nil): longint; //0: no details, 1: detail, no image, 2: everything
+    function cloneDisplayedBook: TBook;
     procedure selectBookToReSearch(book: TBook);
     procedure loadDefaults;
     procedure saveDefaults;
   public
-    saveToDefaultAccountID: string;
+    saveToDefaultAccountID, orderForDefaultAccountID: string;
     procedure changeDefaultSaveToAccount(sender:tobject);
+    procedure changeDefaultOrderForAccount(sender:tobject);
   end;
 
 var
@@ -101,7 +110,7 @@ const SB_PANEL_FOUND_COUNT=1;
       SB_PANEL_SEARCH_STATUS=0;
 implementation
 
-uses applicationconfig,libraryParser,simplexmlparser,bbdebugtools,bookWatchMain,bbutils,LCLType;
+uses applicationconfig,libraryParser,simplexmlparser,bbdebugtools,bookWatchMain,bbutils,LCLType,libraryAccess;
 
 { TbookSearchFrm }
 //TODO: fehler bei keinem ergebnis
@@ -136,6 +145,7 @@ begin
   searcherAccess:=TLibrarySearcherAccess.Create;
   searcherAccess.OnSearchPageComplete:=@searcherAccessSearchComplete;
   searcherAccess.OnDetailsComplete:=@searcherAccessDetailsComplete;
+  searcherAccess.OnOrderComplete:=@searcherAccessOrderComplete;
   searcherAccess.OnImageComplete:=@searcherAccessImageComplete;
   searcherAccess.OnException:=@searcherAccessException;
   
@@ -282,22 +292,17 @@ var temp, old:TBook;
 begin
   if displayedBook = nil then exit;
   if accounts.Count = 0 then exit;
-  searcherAccess.beginBookReading;
-  temp := tbook.create;
-  temp.assignNoReplace(displayedBook);
-  temp.author:=displayedBook.author;
-  temp.title:=displayedBook.title;
-  temp.year:=displayedBook.year;
-  temp.id:=displayedBook.id;
-  searcherAccess.endBookReading;
-
-  temp.issueDate:=-2;
-  temp.dueDate:=-2;
 
   acc := accounts[0];
   for i:=1 to accounts.Count-1 do
     if accounts.Strings[i] = saveToDefaultAccountID then acc := accounts[i];
   if acc.isThreadRunning then begin ShowMessage('Während dem Aktualisieren können keine weiteren Medien gespeichert werden.'); exit; end;
+
+  temp := cloneDisplayedBook;
+
+  temp.issueDate:=-2;
+  temp.dueDate:=-2;
+
 
   if (mainForm.BookList.SelectedBook <> nil) and (mainForm.BookList.Selected.RecordItemsText[BL_BOOK_COLUMNS_ACCOUNT] = acc.prettyName) then begin
     old := mainForm.BookList.SelectedBook;
@@ -333,6 +338,38 @@ begin
   researchedBook := nil;
 end;
 
+procedure TbookSearchFrm.Label3Click(Sender: TObject);
+var
+  temp: TBook;
+  acc: TCustomAccountAccess;
+  tempList: TBookList;
+  i: Integer;
+begin
+  if displayedBook = nil then exit;
+  if accounts.Count = 0 then exit;
+
+  acc := accounts[0];
+  for i:=1 to accounts.Count-1 do
+   if accounts.Strings[i] = orderForDefaultAccountID then acc := accounts[i];
+  if acc.isThreadRunning then begin ShowMessage('Während dem Aktualisieren/Verlängern/Vormerken können keine weiteren Medien vorgemerkt werden.'); exit; end;
+
+  acc.isThreadRunning:=true;
+  searcherAccess.orderAsync(acc, displayedBook);
+
+  {temp := cloneDisplayedBook;
+
+  temp.owner := acc;
+  tempList := TBookList.create(acc);
+  tempList.add(temp);
+
+  orderBooks(tempList);}
+end;
+
+procedure TbookSearchFrm.LabelOrderForClick(Sender: TObject);
+begin
+  orderForAccountMenu.PopUp();
+end;
+
 procedure TbookSearchFrm.LabelSaveToClick(Sender: TObject);
 begin
   saveToAccountMenu.PopUp;
@@ -357,6 +394,24 @@ begin
   if not (sender is tcontrol) then exit;
   hi:=FindComponent(tcontrol(sender).Name+'hint') as TControl;
   hi.Visible:=false
+end;
+
+procedure TbookSearchFrm.searcherAccessOrderComplete(sender: TObject; book: TBook);
+var
+  acc: TCustomAccountAccess;
+  temp: TBook;
+begin
+  searcherAccess.beginBookReading;
+  EnterCriticalSection(updateThreadConfig.libraryAccessSection);
+  acc := TCustomAccountAccess(book.owner);
+  temp := book.clone; temp.status:=bsOrdered;
+  acc.books.current.add(temp);
+  temp := book.clone; temp.status:=bsOrdered;
+  acc.books.currentUpdate.add(temp); //cannot know which one is the correct one? one will be discarded?
+  acc.save();
+  LeaveCriticalSection(updateThreadConfig.libraryAccessSection);
+  searcherAccess.endBookReading;
+
 end;
 
 procedure TbookSearchFrm.searcherAccessSearchComplete(sender: TObject; firstPage, nextPageAvailable: boolean);
@@ -606,6 +661,13 @@ begin
   end;
 end;
 
+function TbookSearchFrm.cloneDisplayedBook: TBook;
+begin
+  searcherAccess.beginBookReading;
+  result := displayedBook.clone;
+  searcherAccess.endBookReading;
+end;
+
 procedure TbookSearchFrm.selectBookToReSearch(book: TBook);
   function selectLibrary(location: string; lib: TLibrary): boolean;
   var
@@ -672,6 +734,9 @@ begin
       changeDefaultSaveToAccount(saveToAccountMenu.Items[accId]);
       researchedBook := book;
     end;
+    if (accId >= 0) and (accId < orderForAccountMenu.Items.Count) then begin
+      changeDefaultOrderForAccount(orderForAccountMenu.Items[accId]);
+    end;
   end;
 
 
@@ -716,6 +781,9 @@ begin
   saveToDefaultAccountID := userConfig.ReadString('BookSearcher','default-save-to', '');
   if accounts.IndexOf(saveToDefaultAccountID) >= 0 then
     LabelSaveTo.Caption := 'in \/ '+ accounts[accounts.IndexOf(saveToDefaultAccountID)].prettyName;
+  orderForDefaultAccountID := userConfig.ReadString('BookSearcher','default-order-for', '');
+  if accounts.IndexOf(orderForDefaultAccountID) >= 0 then
+    LabelOrderFor.Caption := 'in \/ '+ accounts[accounts.IndexOf(orderForDefaultAccountID)].prettyName;
 end;
 
 procedure TbookSearchFrm.saveDefaults;
@@ -736,6 +804,7 @@ begin
   saveComboBoxItems(searchYear);
   saveComboBoxItems(searchISBN);
   userConfig.WriteString('BookSearcher','default-save-to', saveToDefaultAccountID);
+  userConfig.WriteString('BookSearcher','default-order-for', orderForDefaultAccountID);
   userConfig.WriteString('BookSearcher', 'default-location', searchLocation.Text);
 end;
 
@@ -748,6 +817,19 @@ begin
   saveToDefaultAccountID := accounts.Strings[tmenuitem(sender).Tag-1];
 
   LabelSaveTo.Caption := 'in \/ '+ TMenuItem(sender).Caption;
+
+  tmenuitem(sender).Checked:=true;
+end;
+
+procedure TbookSearchFrm.changeDefaultOrderForAccount(sender: tobject);
+
+begin
+  if not (sender is TMenuItem) then exit;
+  if tmenuitem(sender).Tag <= 1 then tmenuitem(sender).Tag := 1;
+  if tmenuitem(sender).Tag > accounts.count then tmenuitem(sender).Tag := accounts.count;
+
+  orderForDefaultAccountID := accounts.Strings[tmenuitem(sender).Tag-1];
+  LabelOrderFor.Caption := 'für \/ '+ TMenuItem(sender).Caption;
 
   tmenuitem(sender).Checked:=true;
 end;

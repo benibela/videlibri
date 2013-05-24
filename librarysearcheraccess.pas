@@ -15,7 +15,7 @@ TLibrarySearcherAccess = class;
 
 { TLibrarySearcherAccess }
 
-TSearcherMessageTyp=(smtFree, smtConnect, smtSearch, smtSearchNext, smtDetails, smtImage, smtDisconnect);
+TSearcherMessageTyp=(smtFree, smtConnect, smtSearch, smtSearchNext, smtDetails, smtImage, smtOrder, smtDisconnect);
 
 { TSearcherMessage }
 
@@ -66,7 +66,7 @@ private
   fthread: TSearcherThread;
   ftemplate: TMultiPageTemplate;
   FOnConnected: TNotifyEvent;
-  FOnDetailsComplete: TBookNotifyEvent;
+  FOnDetailsComplete, FOnOrderComplete: TBookNotifyEvent;
   FOnImageComplete: TBookNotifyEvent;
   FOnSearchPageComplete: TPageCompleteNotifyEvent;
 
@@ -91,12 +91,14 @@ public
   procedure searchNextAsync;
   procedure detailsAsyncSave(book: TBook); //save means they make sure the
   procedure imageAsyncSave(book: TBook);   //book is not updated only once
+  procedure orderAsync(account: TCustomAccountAccess; book: TBook);
   procedure disconnectAsync;
 
   property OnException: TNotifyEvent read FOnException write FOnException;
   property OnConnected: TNotifyEvent read FOnConnected write FOnConnected;
   property OnSearchPageComplete: TPageCompleteNotifyEvent read FOnSearchPageComplete write FOnSearchPageComplete;
   property OnDetailsComplete: TBookNotifyEvent read FOnDetailsComplete write FOnDetailsComplete;
+  property OnOrderComplete: TBookNotifyEvent read FOnOrderComplete write FOnOrderComplete;
   property OnImageComplete: TBookNotifyEvent read FOnImageComplete write FOnImageComplete;
   property searcher: TLibrarySearcher read GetSearcher;
 end;
@@ -288,6 +290,13 @@ begin
   fthread.messages.storeMessage(TSearcherMessage.Create(smtImage,book));
 end;
 
+procedure TLibrarySearcherAccess.orderAsync(account: TCustomAccountAccess; book: TBook);
+begin
+  if not assigned(fthread) then exit;
+  book.owner := account;
+  fthread.messages.storeMessage(TSearcherMessage.Create(smtOrder,book));
+end;
+
 procedure TLibrarySearcherAccess.disconnectAsync;
 begin
   if not assigned(fthread) then exit;
@@ -434,6 +443,12 @@ begin
             callBookEvent(access.FOnImageComplete,book);
             if logging then log('end image');
           end;
+        end;
+        smtOrder: begin
+          if logging then log('Searcher thread: message smtOrder: '+book.toSimpleString());
+          Searcher.orderSingle(book);
+          callBookEvent(access.FOnOrderComplete, book);
+          if logging then log('end order');
         end
         else if logging then log('Searcher thread: unknown type');
       end;
