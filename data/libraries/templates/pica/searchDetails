@@ -58,8 +58,9 @@
     <tr>
       <td><strong>Ausleihstatus:</strong></td>
       <td><t:read var="book.Ausleihstatus {$sigid}!" source="string-join(div/text(), '; ')"/>
-        <script><t:read var="book.orders{$book.orderable}" source="extract(., '(/loan[^'']*)\''', 1)"/><!-- source="extract(., '(/loan.*)LOGIN', 1)"/> -->
-                <t:read var="book.ordersTitle{$book.orderable}" source="concat($book(x'Standort {$sigid}!'), ' ',$book(x'Signatur {$sigid}!') )"/> 
+        <script><t:read var="book.order{$book.orderable}" source="extract(., '(/loan[^'']*)\''', 1)"/><!-- source="extract(., '(/loan.*)LOGIN', 1)"/> -->
+                <t:read var="book.orderTitle{$book.orderable}" 
+                        source="concat($book(x'Standort {$sigid}!'), ' ',$book(x'Signatur {$sigid}!'), ' ', $book(x'Ausleihstatus {$sigid}!') )"/> 
                 {book.orderable := $book.orderable + 1}</script>?</td>
     </tr>
     

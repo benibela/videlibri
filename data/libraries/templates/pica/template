@@ -95,7 +95,7 @@
 
 
 <action id="order-single">
-  <page url="{$book.orders0}">
+  <page url="{$book(x'order{$book.choosenOrder}')}">
     <template><html>{order:=form(//form, {"BOR_U": $username, "BOR_PW": $password})}</html></template>
   </page>
   <page url="{$order}">

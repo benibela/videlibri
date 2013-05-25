@@ -2,7 +2,6 @@
 <t:switch-prioritized>
 
 <table summary="list of reservations - data">
-  <template:read var="delete-current-books()"/>
   <tr>
     <td></td>
     <td></td>
