@@ -53,9 +53,10 @@ type
     basePath: string;
     
     flibraries: TList;
-    templates:TStringList;
     function getAccountObject(libID: string):TCustomAccountAccess;
   public
+    templates:TStringList;
+
     constructor create();
     destructor destroy();override;
     procedure init(apath:string);
@@ -77,6 +78,10 @@ type
     procedure enumerateLibrariesWithValue(const varName, value: string; result: TList);
 
     function get(id: string): TLibrary;
+
+    function getUserLibraries(): TList;
+    function setUserLibrary(trueid, data: string): TLibrary;
+    procedure deleteUserLibrary(trueid: string);
 
     property libraries[i: integer]: TLibrary read getLibraryFromEnumeration; default;
     property count: integer read getLibraryCountInEnumeration;
@@ -428,7 +433,8 @@ begin
   for i:=0 to flibraries.count-1 do
     if (TLibrary(libraries[i]).id=libID) or (TLibrary(libraries[i]).deprecatedId = libID) then
       exit(TLibrary(libraries[i]).getAccountObject());
-  raise Exception('Bücherei '+libID+' ist unbekannt');
+  result := libraries[0].getAccountObject(); //exception will crash since nothing is initialized yet
+  //raise Exception('Bücherei '+libID+' ist unbekannt');
 end;
 constructor TLibraryManager.create();
 begin
@@ -470,9 +476,12 @@ begin
   for i := 0 to high(userlibs) do begin
     userlibs[i] := trim(userlibs[i]);
     if userlibs[i] = '' then continue;
-    newLib:=TLibrary.Create;
-    newLib.loadFromString(assetFileAsString('libraries/'+userlibs[i]), 'libraries/'+userlibs[i]);
-    flibraries.Add(newLib);
+    try
+      newLib:=TLibrary.Create;
+      newLib.loadFromString(assetFileAsString('libraries/'+userlibs[i]+'.xml'), 'libraries/'+userlibs[i]+'.xml');
+      flibraries.Add(newLib);
+    except
+    end;
   end;
 end;
 
@@ -503,7 +512,7 @@ begin
       setlength(Result.baseActions.children, length(Result.baseActions.children) + 1);
       Result.baseActions.children[high(Result.baseActions.children)] := child.baseActions.children[i].clone;
     end;
-    templates.AddObject(templateName,Result);
+    templates.AddObject(result.name,Result);
   end;
 end;
 
@@ -620,6 +629,57 @@ begin
   for i := 0 to count - 1 do
     if TLibrary(libraries[i]).id = id then exit(TLibrary(libraries[i]));
   exit(nil);
+end;
+
+function TLibraryManager.getUserLibraries: TList;
+var
+  temp: TStringArray;
+  i: Integer;
+begin
+  temp := strSplit(userConfig.ReadString('base', 'user-libraries', ''), ',');
+  result := tlist.Create;
+  result.Capacity:=length(temp);
+  for i:=0 to high(temp) do
+    if Trim(temp[i])<>'' then begin
+      result.Add(get(trim(temp[i])));
+      if result.Last = nil then result.Delete(result.Count-1);
+    end;
+end;
+
+function TLibraryManager.setUserLibrary(trueid, data: string): TLibrary;
+var
+  lib: TLibrary;
+  userlibs: TStringArray;
+begin
+  strSaveToFileUTF8(userPath+'libraries/'+trueid+'.xml', data);
+
+  userlibs := strSplit(userConfig.ReadString('base', 'user-libraries', ''), ',');
+  if arrayIndexOf(userlibs, trueId) < 0 then
+    if userConfig.ReadString('base', 'user-libraries', '') = '' then userConfig.WriteString('base', 'user-libraries', trueId)
+    else userConfig.WriteString('base', 'user-libraries', userConfig.ReadString('base', 'user-libraries', '')+','+trueId);
+
+  lib := get(trueId);
+  if lib = nil then begin
+    lib := TLibrary.create;
+    flibraries.Add(lib);
+  end;
+  lib.template:=nil;
+  lib.variables.Clear;
+  lib.loadFromString(data, 'libraries/'+trueid+'.xml');
+
+  result := lib;
+end;
+
+procedure TLibraryManager.deleteUserLibrary(trueid: string);
+var
+  temp: TStringArray;
+  i: Integer;
+begin
+  temp := strSplit(userConfig.ReadString('base', 'user-libraries', ''), ',');
+  for i:=high(temp) downto 0 do
+    if Trim(temp[i])=trueid then
+      arrayDelete(temp, i);
+  userConfig.WriteString('base', 'user-libraries', strJoin(temp, ','));
 end;
 
 

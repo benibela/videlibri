@@ -7,7 +7,7 @@ interface
 uses
   Classes, SysUtils, LResources, Forms, Controls, Graphics, Dialogs, ComCtrls,
   Buttons, StdCtrls, bookWatchMain, libraryParser, ExtCtrls,{$ifdef win32}registry,{$endif}
-  ButtonPanel, EditBtn,Themes;
+  ButtonPanel, EditBtn,Themes, xquery;
 //TODO: Fix resizing bug (LCL)
 //TODO2: Offenen Einstellungsfenster => Verschwinden aus Programmauswahl
 type
@@ -16,9 +16,25 @@ type
 
   ToptionForm = class(TForm)
     accountList: TListView;
+    libNameEdit: TEdit;
+    Label33: TLabel;
+    templateDefine: TButton;
+    Button11: TButton;
+    templateName: TEdit;
+    Label32: TLabel;
+    libChange: TButton;
+    libDelete: TButton;
+    libAdd: TButton;
     checkCertificates: TCheckBox;
     Label30: TLabel;
     Label31: TLabel;
+    libList: TListView;
+    templateList: TListBox;
+    libxml: TMemo;
+    templatexml: TMemo;
+    pageLibs: TPage;
+    Panel4: TPanel;
+    Panel5: TPanel;
     proxySocksName: TEdit;
     ShapeOrdered: TShape;
     ShapeProvided: TShape;
@@ -76,6 +92,8 @@ type
     SpeedButton3: TSpeedButton;
     SpeedButton5: TSpeedButton;
     SpeedButton6: TSpeedButton;
+    SpeedButton7: TSpeedButton;
+    Splitter1: TSplitter;
     symbols: TComboBox;
     Label19: TLabel;
     proxyHTTPName: TEdit;
@@ -134,6 +152,12 @@ type
     procedure btnAccountChangeClick(Sender: TObject);
     procedure btnAccountCreateClick(Sender: TObject);
     procedure accountdeleteClick(Sender: TObject);
+    procedure Button11Click(Sender: TObject);
+    procedure libAddClick(Sender: TObject);
+    procedure libChangeClick(Sender: TObject);
+    procedure libDeleteClick(Sender: TObject);
+    procedure libListSelectItem(Sender: TObject; Item: TListItem; Selected: Boolean);
+    procedure templateDefineClick(Sender: TObject);
     procedure Button2Click(Sender: TObject);
     procedure Button3Click(Sender: TObject);
     procedure Button8Click(Sender: TObject);
@@ -157,11 +181,15 @@ type
     procedure Notebook1ChangeBounds(Sender: TObject);
     procedure Notebook1Changing(Sender: TObject; var AllowChange: Boolean);
     procedure Notebook1PageChanged(Sender: TObject);
+    procedure Panel4Click(Sender: TObject);
+    procedure Panel5Click(Sender: TObject);
     procedure Shape1MouseUp(Sender: TOBject; Button: TMouseButton;
       Shift: TShiftState; X, Y: Integer);
     procedure SpeedButton1Click(Sender: TObject);
+    procedure templateListSelectionChange(Sender: TObject; User: boolean);
     procedure TrackBar1Change(Sender: TObject);
     procedure TrackBar2Change(Sender: TObject);
+
   private
     { private declarations }
   public
@@ -170,6 +198,7 @@ type
     currentSelectedExtendType: TExtendType;
     function backSelect(const prompt: boolean):TCustomAccountAccess;
     procedure addAccount(const account: TCustomAccountAccess);
+    procedure addUserLibrary(lib: TLibrary);
   end;
 
 var
@@ -177,7 +206,7 @@ var
 
 implementation
 
-uses newAccountWizard_u, applicationconfig;
+uses newAccountWizard_u, applicationconfig, simplehtmltreeparser, androidutils, multipagetemplate, bbutils, internetaccess, simpleinternet;
 
 { ToptionForm }
 
@@ -200,6 +229,34 @@ begin
     end;
     subItems.Add(account.getLibrary().prettyNameShort);
     data:=account;
+  end;
+end;
+
+procedure ToptionForm.addUserLibrary(lib: TLibrary);
+var
+  temp: String;
+  vars: String;
+  i: Integer;
+  li: TListItem;
+begin
+  if lib = nil then exit;
+  li := nil;
+  for i:=0 to libList.Items.count-1 do
+    if libList.Items[i].Data=pointer(lib) then li := libList.Items[i];
+  if li = nil then li := libList.Items.Add;
+  with li do begin
+    SubItems.Clear;
+    temp := lib.id;
+    if strBeginsWith(temp, '-_-_-_') then system.delete(temp, 1, 6);
+    Caption:=temp;
+    data := lib;
+    SubItems.Add(lib.prettyNameLong);
+    if lib.template <> nil then SubItems.add(lib.template.name);
+    vars := '';
+    for i := 0 to lib.variables.count-1 do
+      if vars = '' then vars := lib.variables[i]
+      else vars += ', '+lib.variables[i];
+    SubItems.add(vars);
   end;
 end;
 
@@ -235,6 +292,9 @@ end;
 procedure ToptionForm.FormCreate(Sender: TObject);
 var i:integer;
  count: LongInt;
+ searchResult: TSearchRec;
+ list: TList;
+ temp: String;
 begin
   //TrackBar1.Color:=clWhite;
 //  if ThemeServices.ThemesEnabled then TrackBar1.Color:=clWhite;
@@ -301,6 +361,23 @@ begin
   CheckBox1.Checked:=userConfig.ReadBool('autostart','minimized',true);
   edtHistoryBackupInterval.text:=IntToStr(HistoryBackupInterval);
 
+  //Libpage
+  for i := 0 to libraryManager.templates.Count - 1 do
+    if pos('|',libraryManager.templates[i]) = 0 then
+      templateList.Items.add(libraryManager.templates[i]);
+  if DirectoryExists(userPath+'libraries/templates') then begin
+    if FindFirst(userPath+'libraries/templates/*', faDirectory, searchResult) = 0 then begin
+      repeat
+        if (searchResult.Name = '') or (searchResult.Name = '.') or (searchResult.Name = '..') then continue;
+        if templateList.Items.IndexOf(searchResult.Name) < 0 then
+          templateList.Items.Add(searchResult.Name);
+      until FindNext(searchResult) <> 0;
+    end;
+  end;
+
+  list := libraryManager.getUserLibraries();
+  for i := 0 to list.count - 1 do
+    addUserLibrary(tlibrary(list[i]));
 
   //Notebook1.ShowTabs:=false ;
 
@@ -476,6 +553,16 @@ procedure ToptionForm.Notebook1PageChanged(Sender: TObject);
 begin
 end;
 
+procedure ToptionForm.Panel4Click(Sender: TObject);
+begin
+
+end;
+
+procedure ToptionForm.Panel5Click(Sender: TObject);
+begin
+
+end;
+
 procedure ToptionForm.Shape1MouseUp(Sender: TOBject; Button: TMouseButton;
   Shift: TShiftState; X, Y: Integer);
 begin
@@ -488,6 +575,16 @@ begin
   Notebook1.PageIndex:=(sender as tcontrol).Tag;
   Notebook1.Height:=Notebook1.Height+1;
   Notebook1.Height:=Notebook1.Height-1;
+end;
+
+procedure ToptionForm.templateListSelectionChange(Sender: TObject; User: boolean);
+var
+  temp: String;
+begin
+  temp := templateList.Items[templateList.ItemIndex];
+  templateName.text:=temp;
+  temp := 'libraries/templates/'+temp+'/template';
+  templatexml.Lines.text := assetFileAsString(temp);
 end;
 
 procedure ToptionForm.TrackBar1Change(Sender: TObject);
@@ -609,25 +706,25 @@ begin
       exit;
     end;
   //TODO: Select library (in btnAccountCreateClick)
-  lib:=TAccountAccessSTBDuesseldorf.create;
-  lib.init(mainForm.basePath,edtAccountUser.Text);
-  lib.setPrettyName(edtAccountPrettyName.Text);
-  lib.setPassword(edtAccountPass.Text);
-  lib.keepHistory:=ckbAccountHistory.Checked;
-  lib.setExtendType(TExtendType( cmbAccountExtend.ItemIndex));
-  lib.setExtendDays(StrToInt(edtAccountExtendDays.Text));
+  libxml:=TAccountAccessSTBDuesseldorf.create;
+  libxml.init(mainForm.basePath,edtAccountUser.Text);
+  libxml.setPrettyName(edtAccountPrettyName.Text);
+  libxml.setPassword(edtAccountPass.Text);
+  libxml.keepHistory:=ckbAccountHistory.Checked;
+  libxml.setExtendType(TExtendType( cmbAccountExtend.ItemIndex));
+  libxml.setExtendDays(StrToInt(edtAccountExtendDays.Text));
 
-  addAccount(lib);
+  addAccount(libxml);
 
-  mainForm.addGUIItemsForNewAccount(lib);
+  mainForm.addGUIItemsForNewAccount(libxml);
 
-  accountIDs.AddObject(lib.getID(),lib);
+  accountIDs.AddObject(libxml.getID(),libxml);
   saveLibIDs;
 
   if MessageDlg('Daten laden?',
-                'Das Konto '+lib.getPrettyName()+' wurde erstellt.'#13#10'Sollen jetzt die Mediendaten heruntergeladen werden?',
+                'Das Konto '+libxml.getPrettyName()+' wurde erstellt.'#13#10'Sollen jetzt die Mediendaten heruntergeladen werden?',
                 mtConfirmation ,[mbYes,mbNo],0)=mrYes then
-    mainForm.updateLibrary(lib,false,false);      }
+    mainForm.updateLibrary(libxml,false,false);      }
 end;
 
 procedure ToptionForm.accountdeleteClick(Sender: TObject);
@@ -644,6 +741,184 @@ begin
     mainForm.refreshAccountGUIElements();
     mainForm.RefreshListView;
   end;
+end;
+
+procedure ToptionForm.Button11Click(Sender: TObject);
+begin
+  if confirm(format('Soll das System "%s" wirklich gelöscht werden?', [templateName.Text])) then begin
+    DeleteFile(userPath+'libraries/templates/'+templateName.Text+'/template');
+    RemoveDir(userPath+'libraries/templates/'+templateName.Text);
+    if (templateList.Items.IndexOf(templateName.text) >= 0) and not DirectoryExists(assetPath+'libraries/templates/'+templateName.text) then
+      templateList.Items.Delete(templateList.Items.IndexOf(templateName.text));
+  end;
+end;
+
+procedure ToptionForm.libAddClick(Sender: TObject);
+  procedure downloadAndInstallTemplate;
+  var temp: IXQValue;
+    page: String;
+    url: String;
+    template, templateId, templateUrl: String;
+    description: String;
+    id: String;
+    lib: TLibrary;
+  begin
+    url := '';
+    if not InputQuery('VideLibri', 'Geben Sie die Adresse des von der Bibliothek zur Verfügung gestellten Templates ein:', url) then exit;
+    try
+      page := retrieve(url);
+      temp := process(page, '<link rel="videlibri.description" href="{.}"/>');
+      if temp.isUndefined then begin
+        ShowMessage('Der Link verweist auf kein VideLibri-Template (kein videlibri.description link rel vorhanden)');
+        exit;
+      end;
+      description := retrieve(strResolveURI(temp.toString, url));
+
+      temp := process(description, '(//id/@value)[1]');
+      if temp.isUndefined then id := '-_-_-_undefined'+IntToStr(Random(10000))
+      else id := temp.toString;
+
+      temp := process(page, '<link rel="videlibri.template" href="{.}"/>');
+      if not temp.isUndefined then begin
+        templateUrl := strResolveURI(temp.toString, url);
+        template := retrieve(templateUrl);
+        templateId := process(description, '(//template/@value)[1]').toString;
+
+        if not DirectoryExists(userPath+'libraries/templates/'+templateId) then
+          ForceDirectories(userPath+'libraries/templates/'+templateId);
+        strSaveToFileUTF8(userPath+'libraries/templates/'+templateId+'/template', template);
+
+        for temp in process(template, '//@templateFile') do
+          if not strContains(temp.toString, '..') then
+            strSaveToFileUTF8(userPath+'libraries/templates/'+templateId+'/'+temp.toString, retrieve(strResolveURI(temp.toString, templateUrl)));
+
+        if templateList.Items.IndexOf(templateId) < 0 then  templateList.Items.add(templateId);
+      end;
+
+
+      lib := libraryManager.setUserLibrary(id, description);
+      addUserLibrary(lib);
+
+      ShowMessage('Template installiert')
+    except on e: EInternetException do
+      ShowMessage('Template nicht gefunden: '+e.Message);
+    end;
+  end;
+
+var
+  libname: String;
+  system: String;
+  result: String;
+  i: Integer;
+  template: TMultiPageTemplate;
+  meta: TTemplateActionMeta;
+  vari: String;
+  desc: String;
+  systems: String;
+  url: string;
+
+label systemWrong;
+begin
+  if confirm('Stellt die Bibliothek ein eigenes VideLibri-Template zur Verfügung?') then begin
+    downloadAndInstallTemplate;
+    exit;
+  end;
+
+  libname := '';
+  if not InputQuery('VideLibri', 'Geben Sie den Namen der Bibliothek ein', libname) then exit;
+  system := '';
+  systems := '';
+  for i := 0 to templateList.Items.Count - 1 do
+    if systems = '' then systems :=  templateList.Items[i]
+    else systems += ', '+templateList.Items[i];
+
+  systemWrong:
+  if not InputQuery('VideLibri', 'Welches System verwendet die Bibliothek?'+LineEnding+'Die folgenden Systeme stehen zur Auswahl: '+systems, system) then
+    exit;
+  if templateList.Items.IndexOf(system) < 0 then goto systemWrong;
+
+  result := '<?xml version="1.0" encoding="UTF-8"?>' + LineEnding;
+  result += '<library>' + LineEnding;
+  result += '  <longName value="'+xmlStrEscape(libname)+'"/>'+LineEnding;
+  result += '  <template value="'+xmlStrEscape(system)+'"/>'+LineEnding;
+
+  template := TMultiPageTemplate(libraryManager.templates.Objects[libraryManager.templates.IndexOf(system)]);
+  meta := nil;
+  for i := 0 to high(template.baseActions.children) do
+    if template.baseActions.children[i] is TTemplateActionMeta then
+      meta := template.baseActions.children[i] as TTemplateActionMeta ;
+
+  if meta <> nil then begin
+    for i := 0 to high(meta.variables) do begin
+      vari := meta.variables[i].def;
+      if meta.variables[i].hasDef then begin
+        desc := format('Es kann ein Wert für die optionale Variable "%s" gesetzt werden. (%s)', [meta.variables[i].name, meta.variables[i].description]);
+        if not InputQuery('VideLibri', desc, vari) then exit;
+        if vari <> meta.variables[i].def then
+          result += '  <variable name="'+xmlStrEscape(meta.variables[i].name)+'" value="'+xmlStrEscape(vari)+'"/>'+LineEnding;
+      end
+      else begin
+        desc := format('Das Template benötigt einen Wert für die Variable "%s". (%s)', [meta.variables[i].name, meta.variables[i].description]);
+        if not InputQuery('VideLibri', desc, vari) then exit;
+        result += '  <variable name="'+xmlStrEscape(meta.variables[i].name)+'" value="'+xmlStrEscape(vari)+'"/>'+LineEnding;
+      end;
+    end;
+  end;
+
+
+  result += '</library>' + LineEnding;
+
+  ShowMessage('Bibliotheksdaten erstellt. Um sie zu speichern, klicken Sie auf "Bibliothek speichern"');
+
+  libxml.text := result;
+end;
+
+procedure ToptionForm.libChangeClick(Sender: TObject);
+var
+  trueId: String;
+  userlibs: TStringArray;
+begin
+  trueId := '-_-_-_'+libNameEdit.text;
+  libraryManager.setUserLibrary(trueId, libxml.Lines.Text);
+  addUserLibrary(libraryManager.get(trueId));
+end;
+
+procedure ToptionForm.libDeleteClick(Sender: TObject);
+var
+  trueId: String;
+  i: Integer;
+begin
+  if not confirm('Wollen Sie die Bücherei '+libNameEdit.Text+' löschen?') then exit;
+  trueId := '-_-_-_'+trim(libNameEdit.text);
+  libraryManager.deleteUserLibrary(trueid);
+  for i := 0 to libList.Items.Count - 1 do
+    if libList.Items[i].Caption = trim(libNameEdit.text) then begin
+      libList.Items.Delete(i);
+      break;
+  end;
+end;
+
+procedure ToptionForm.libListSelectItem(Sender: TObject; Item: TListItem; Selected: Boolean);
+var
+  lib: TLibrary;
+  temp: String;
+begin
+  if not Selected then exit;
+  lib := TLibrary(item.Data);
+  libxml.Lines.LoadFromFile(userPath+'libraries/'+lib.id+'.xml');
+  temp := lib.id;
+  if strBeginsWith(temp, '-_-_-_') then delete(temp,1,6);
+  libNameEdit.Text:=temp;
+end;
+
+
+procedure ToptionForm.templateDefineClick(Sender: TObject);
+begin
+  if not DirectoryExists(userPath+'libraries/templates/'+templateName.Text) then
+    ForceDirectories(userPath+'libraries/templates/'+templateName.Text+'');
+  templatexml.Lines.SaveToFile(userPath+'libraries/templates/'+templateName.Text+'/template');
+  if templateList.Items.IndexOf(templateName.Text) < 0 then
+    templateList.Items.add(templateName.Text);
 end;
 
 procedure ToptionForm.Button2Click(Sender: TObject);

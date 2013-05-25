@@ -370,7 +370,8 @@ begin
   locations := libraryManager.enumerateLocations;
   for i := 0 to high(locations) do begin
     tempItem := TMenuItem.Create(libraryList);
-    tempItem.Caption:=locations[i];
+    if locations[i] <> '-' then tempItem.Caption:=locations[i]
+    else tempItem.Caption:='<eigene>';
     libsAtLoc := libraryManager.enumeratePrettyLongNames(locations[i]);
     for j := 0 to high(libsAtLoc) do begin
       tempItem2 := TMenuItem.Create(tempItem);

@@ -1,15 +1,14 @@
 object optionForm: ToptionForm
-  Left = 322
-  Height = 442
+  Left = 371
+  Height = 495
   Top = 147
   Width = 701
   HorzScrollBar.Page = 507
   VertScrollBar.Page = 311
   ActiveControl = Panel2
   BorderIcons = [biSystemMenu]
-  BorderStyle = bsDialog
   Caption = 'Optionen'
-  ClientHeight = 442
+  ClientHeight = 495
   ClientWidth = 701
   OnCreate = FormCreate
   OnResize = FormResize
@@ -20,7 +19,7 @@ object optionForm: ToptionForm
     AnchorSideLeft.Control = Panel2
     AnchorSideLeft.Side = asrBottom
     Left = 84
-    Height = 434
+    Height = 487
     Top = 4
     Width = 616
     Anchors = [akTop, akLeft, akRight, akBottom]
@@ -33,10 +32,10 @@ object optionForm: ToptionForm
     AnchorSideBottom.Control = Bevel1
     AnchorSideBottom.Side = asrBottom
     Left = 86
-    Height = 430
+    Height = 483
     Top = 6
     Width = 612
-    PageIndex = 1
+    PageIndex = 5
     Anchors = [akTop, akLeft, akRight, akBottom]
     BorderSpacing.Around = 2
     OnChangeBounds = Notebook1ChangeBounds
@@ -48,7 +47,7 @@ object optionForm: ToptionForm
         AnchorSideTop.Side = asrCenter
         Left = 8
         Height = 15
-        Top = 289
+        Top = 342
         Width = 94
         BorderSpacing.Around = 10
         Caption = 'Geburtsdatum:'
@@ -59,7 +58,7 @@ object optionForm: ToptionForm
         AnchorSideTop.Side = asrCenter
         Left = 8
         Height = 15
-        Top = 260
+        Top = 313
         Width = 94
         BorderSpacing.Around = 10
         BorderSpacing.InnerBorder = 10
@@ -71,7 +70,7 @@ object optionForm: ToptionForm
         AnchorSideTop.Side = asrCenter
         Left = 8
         Height = 15
-        Top = 231
+        Top = 284
         Width = 75
         BorderSpacing.InnerBorder = 10
         Caption = 'Kontoname:'
@@ -82,7 +81,7 @@ object optionForm: ToptionForm
         AnchorSideTop.Side = asrCenter
         Left = 8
         Height = 15
-        Top = 318
+        Top = 371
         Width = 72
         BorderSpacing.Around = 10
         Caption = 'Verlängern:'
@@ -93,7 +92,7 @@ object optionForm: ToptionForm
         AnchorSideTop.Side = asrCenter
         Left = 222
         Height = 15
-        Top = 318
+        Top = 371
         Width = 30
         Caption = 'also '
         ParentColor = False
@@ -105,7 +104,7 @@ object optionForm: ToptionForm
         AnchorSideTop.Side = asrCenter
         Left = 294
         Height = 15
-        Top = 318
+        Top = 371
         Width = 128
         BorderSpacing.Left = 5
         Caption = 'Tage vor Fristdatum'
@@ -115,7 +114,7 @@ object optionForm: ToptionForm
       object Label5: TLabel
         Left = 8
         Height = 15
-        Top = 189
+        Top = 242
         Width = 58
         Anchors = [akLeft, akBottom]
         BorderSpacing.Around = 10
@@ -129,7 +128,7 @@ object optionForm: ToptionForm
         AnchorSideTop.Side = asrCenter
         Left = 112
         Height = 15
-        Top = 189
+        Top = 242
         Width = 8
         Anchors = [akLeft, akBottom]
         Caption = '  '
@@ -140,7 +139,7 @@ object optionForm: ToptionForm
         AnchorSideBottom.Control = btnAccountChange
         Left = 8
         Height = 18
-        Top = 362
+        Top = 415
         Width = 343
         Anchors = [akLeft, akBottom]
         BorderSpacing.Bottom = 3
@@ -154,7 +153,7 @@ object optionForm: ToptionForm
         AnchorSideLeft.Side = asrBottom
         Left = 112
         Height = 30
-        Top = 383
+        Top = 436
         Width = 107
         Anchors = [akLeft, akBottom]
         AutoSize = True
@@ -169,7 +168,7 @@ object optionForm: ToptionForm
       object btnAccountChange: TButton
         Left = 8
         Height = 30
-        Top = 383
+        Top = 436
         Width = 102
         Anchors = [akLeft, akBottom]
         AutoSize = True
@@ -185,13 +184,13 @@ object optionForm: ToptionForm
         AnchorSideLeft.Side = asrBottom
         Left = 229
         Height = 30
-        Top = 383
-        Width = 95
+        Top = 436
+        Width = 108
         Anchors = [akLeft, akBottom]
         AutoSize = True
         BorderSpacing.Around = 10
         BorderSpacing.InnerBorder = 4
-        Caption = 'neues Konto'
+        Caption = 'neues Konto ...'
         Constraints.MaxHeight = 30
         Constraints.MinHeight = 20
         OnClick = btnAccountCreateClick
@@ -205,7 +204,7 @@ object optionForm: ToptionForm
         AnchorSideBottom.Control = cmbAccountExtend
         Left = 112
         Height = 25
-        Top = 284
+        Top = 337
         Width = 490
         Anchors = [akLeft, akRight, akBottom]
         BorderSpacing.Left = 3
@@ -220,7 +219,7 @@ object optionForm: ToptionForm
         AnchorSideBottom.Control = edtAccountPass
         Left = 112
         Height = 25
-        Top = 255
+        Top = 308
         Width = 490
         Anchors = [akLeft, akRight, akBottom]
         BorderSpacing.Left = 3
@@ -236,7 +235,7 @@ object optionForm: ToptionForm
         AnchorSideBottom.Control = edtAccountUser
         Left = 112
         Height = 25
-        Top = 226
+        Top = 279
         Width = 490
         Anchors = [akLeft, akRight, akBottom]
         BorderSpacing.Left = 3
@@ -245,7 +244,7 @@ object optionForm: ToptionForm
       end
       object accountList: TListView
         Left = 0
-        Height = 178
+        Height = 231
         Top = 2
         Width = 603
         Anchors = [akTop, akLeft, akRight, akBottom]
@@ -288,7 +287,7 @@ object optionForm: ToptionForm
         AnchorSideTop.Side = asrCenter
         Left = 112
         Height = 25
-        Top = 313
+        Top = 366
         Width = 490
         Anchors = [akLeft, akRight, akBottom]
         BorderSpacing.Left = 3
@@ -310,7 +309,7 @@ object optionForm: ToptionForm
         AnchorSideTop.Side = asrCenter
         Left = 257
         Height = 25
-        Top = 311
+        Top = 364
         Width = 32
         Anchors = [akLeft, akBottom]
         BorderSpacing.Left = 5
@@ -321,7 +320,7 @@ object optionForm: ToptionForm
       object Button2: TButton
         Left = 527
         Height = 30
-        Top = 383
+        Top = 436
         Width = 76
         Anchors = [akRight, akBottom]
         AutoSize = True
@@ -336,7 +335,7 @@ object optionForm: ToptionForm
       object ckbAccountDisabled: TCheckBox
         Left = 8
         Height = 18
-        Top = 343
+        Top = 396
         Width = 167
         Anchors = [akLeft, akBottom]
         Caption = 'deaktivieren (Vorsicht!)'
@@ -1267,10 +1266,413 @@ object optionForm: ToptionForm
         ParentColor = False
       end
     end
+    object pageLibs: TPage
+      object Panel4: TPanel
+        Left = 0
+        Height = 281
+        Top = 0
+        Width = 612
+        Align = alClient
+        ClientHeight = 281
+        ClientWidth = 612
+        TabOrder = 0
+        OnClick = Panel4Click
+        object libList: TListView
+          AnchorSideBottom.Control = libxml
+          Left = 4
+          Height = 107
+          Top = 2
+          Width = 603
+          Anchors = [akTop, akLeft, akRight, akBottom]
+          BorderSpacing.Bottom = 4
+          Columns = <          
+            item
+              Caption = 'ID'
+            end          
+            item
+              Caption = 'Name der Bibliothek'
+              Width = 200
+            end          
+            item
+              Caption = 'System'
+              Width = 75
+            end          
+            item
+              Caption = 'Variablen'
+              Width = 309
+            end>
+          HideSelection = False
+          RowSelect = True
+          TabOrder = 0
+          ViewStyle = vsReport
+          OnSelectItem = libListSelectItem
+        end
+        object libxml: TMemo
+          AnchorSideBottom.Control = libDelete
+          Left = 6
+          Height = 134
+          Top = 113
+          Width = 596
+          Anchors = [akLeft, akRight, akBottom]
+          BorderSpacing.Bottom = 4
+          Lines.Strings = (
+            '<!--    XML-Beschreibung einer selbstdefinierten Bibliothek'
+            ''
+            'Klicken Sie auf "Neue Bibliothek hinzufügen", um eine neue Bibliothek zu VideLibri hinzuzufügen, welche dasselbe System wie eine bereits existierende verwendet. Dies öffnet einen neuen Dialog, der alle relevanten Informationen abfragt.'
+            ''
+            'Um eine Bibliothek hinzuzufügen, die ein bisher unbekanntes System verwenden, erstellen Sie zuerst ein neues Template für das System mit den unteren Feldern.'
+            ''
+            'Eine Beispielsbeschreibung:'
+            '-->'
+            ''
+            '<library>'
+            '  <longName value="Name der Bibliothek"/>'
+            '  '
+            '  <template value="sisis"/> <!-- Name des Bibliotheksystems, z.B.: sisis -->'
+            '  <variable name="server" value="https://<Addresse des Bibliothek >"/>'
+            ''
+            '</library>'
+          )
+          ScrollBars = ssAutoVertical
+          TabOrder = 1
+        end
+        object libChange: TButton
+          AnchorSideLeft.Control = libNameEdit
+          AnchorSideLeft.Side = asrBottom
+          AnchorSideTop.Control = libNameEdit
+          AnchorSideTop.Side = asrCenter
+          Left = 110
+          Height = 23
+          Top = 251
+          Width = 138
+          AutoSize = True
+          BorderSpacing.Left = 4
+          Caption = 'Bibliothek speichern'
+          OnClick = libChangeClick
+          TabOrder = 2
+        end
+        object libDelete: TButton
+          AnchorSideLeft.Control = libChange
+          AnchorSideLeft.Side = asrBottom
+          AnchorSideTop.Control = libChange
+          Left = 252
+          Height = 24
+          Top = 251
+          Width = 125
+          Anchors = [akTop, akLeft, akBottom]
+          AutoSize = True
+          BorderSpacing.Left = 4
+          Caption = 'Bibliothek löschen'
+          OnClick = libDeleteClick
+          TabOrder = 3
+        end
+        object libAdd: TButton
+          AnchorSideLeft.Control = libDelete
+          AnchorSideLeft.Side = asrBottom
+          AnchorSideTop.Control = libDelete
+          Left = 392
+          Height = 23
+          Top = 252
+          Width = 183
+          Anchors = [akLeft, akBottom]
+          AutoSize = True
+          BorderSpacing.Left = 15
+          Caption = 'Neue Bibliothek hinzufügen'
+          OnClick = libAddClick
+          TabOrder = 4
+        end
+        object Label33: TLabel
+          AnchorSideTop.Control = libNameEdit
+          AnchorSideTop.Side = asrCenter
+          Left = 12
+          Height = 15
+          Top = 255
+          Width = 17
+          Caption = 'ID:'
+          ParentColor = False
+        end
+        object libNameEdit: TEdit
+          Left = 39
+          Height = 25
+          Top = 250
+          Width = 67
+          Anchors = [akLeft, akBottom]
+          TabOrder = 5
+          Text = 'user1'
+        end
+      end
+      object Panel5: TPanel
+        Left = 0
+        Height = 195
+        Top = 288
+        Width = 612
+        Align = alBottom
+        Caption = 'Panel5'
+        ClientHeight = 195
+        ClientWidth = 612
+        TabOrder = 1
+        OnClick = Panel5Click
+        object templatexml: TMemo
+          Left = 122
+          Height = 158
+          Top = 1
+          Width = 480
+          Anchors = [akTop, akLeft, akRight, akBottom]
+          Lines.Strings = (
+            '<!-- '
+            ''
+            'XML-Beschreibung eines Bibliotheksystems als Template.'
+            ''
+            'Schlagen Sie in der Hilfe nach, wie ein solches Template aufgebaut ist.'
+            ''
+            'Beispielstemplate:'
+            '-->'
+            ''
+            '<actions>'
+            '<action id="connect">'
+            ' <!-- Aktion zum Herstellene einer Verbindung zum Bibliotheksserver -->'
+            '  <variable name="db" value="DB={get(''picadb'', 1)}"/>'
+            '  <variable name="loanServer" value="{$server}/loan/{$db}/LNG=DU/"/>'
+            '</action>'
+            ''
+            '<action id="update-all">'
+            ' <!-- Aktion zum Abfragen der aktuellen Ausleihen -->'
+            '  <page url="{$loanServer}/USERINFO"> '
+            '    <post name="ACT" value="UI_LOL"/>'
+            '    <post name="BOR_U" value="{$username}"/>'
+            '    <post name="BOR_PW" value="{$password}"/>'
+            '    '
+            '    <!-- Template zur Beschreibung der Ausleihliste -->'
+            '    <template>'
+            '    <html>     '
+            '      <table summary="list of loans - data">'
+            '        <template:read var="delete-current-books()"/>'
+            '        <tr> <!-- Header der Liste -->'
+            '          <td></td>'
+            '          <td></td>'
+            '          <td></td>'
+            '          <td></td>'
+            '          <td><!--title-->Titel</td>'
+            '          <td></td>'
+            '          <td></td>'
+            '          <td></td>'
+            '          <td><!--shelf mark-->Signatur</td>'
+            '          <td></td>'
+            '          <td></td>'
+            '          <td></td>'
+            '          <td><!--status-->Status</td>'
+            '          <td></td>'
+            '          <td></td>'
+            '          <td></td>'
+            '          <td><!--volume-->Band</td>'
+            '          <td></td>'
+            '          <td></td>'
+            '          <td></td>'
+            '          <td><!--expiry-->Leihfristende</td>'
+            '          <td></td>'
+            '          <td></td>'
+            '          <td></td>'
+            '          <td><!--reservations-->Vormerkungen</td>'
+            '          <td></td>'
+            '          <td></td>'
+            '          <td></td>'
+            '          <td><!--renewals-->Verlängerungen</td>'
+            '          <td></td>'
+            '          <td></td>'
+            '          <td></td>'
+            '        </tr>'
+            '        '
+            '        <tr> <td class="h2"></td> </tr>'
+            '        '
+            '        '
+            '        '
+            '        <!-- Abfragen aller Medien -->'
+            '        <template:loop>'
+            '        <tr>'
+            '          {book := object()}'
+            '          <td></td>'
+            '          <td >'
+            '            {book.extendId:=''''}'
+            '            <input name="VB" type="checkbox">{book.extendId:=@value}</input>?'
+            '          </td>'
+            '          <td></td>'
+            '          <td></td>'
+            '          <td></td>'
+            '          <td>'
+            '            <template:read source="text()" var="book.title" regex="^[^/]*"/>'
+            '            <template:read source="text()" var="book.author" regex="^[^/]*/\s*(von)?\s*(.*)" submatch="2"/>'
+            '          </td>'
+            '      '
+            '          <td></td><td></td><td></td><td class="value-small">{$book.id}</td>'
+            '          <td></td><td></td><td></td><td class="value-small">'
+            '            <template:switch value="$book.extendId">'
+            '              <template:if value="''''">'
+            '                <template:switch value="filter(., ''Abholregal|Vormerkung|bestellt'')">'
+            '                  <template:if value="''Abholregal''">'
+            '                    {book.status := ., book.statusId := ''provided''}'
+            '                  </template:if>'
+            '                  <template:if value="''Vormerkung''">'
+            '                    {book.status := ., book.statusId := ''ordered''}'
+            '                  </template:if>'
+            '                  <template:if value="''bestellt''">'
+            '                    {book.status := ., book.statusId := ''ordered''}'
+            '                  </template:if>'
+            '                  <template:read var="book.status:problematic" source="."/>'
+            '                </template:switch>'
+            '              </template:if>'
+            '              <template:read var="book.status:curious" source="."/>'
+            '            </template:switch>'
+            '          </td>'
+            '          <td></td><td></td><td></td><td class="value-small"></td>'
+            '          <td></td><td></td><td></td><td class="value-small">'
+            '            <template:if test="text()!=''''"><template:read source="." var="book.duedate:dd-mm-yyyy"/></template:if>'
+            '          </td>'
+            '          <td></td><td></td><td></td><td class="value-small"></td>'
+            '          <td></td><td></td><td></td><td class="value-small"><iframe></iframe></td>'
+            '        </tr>'
+            '      </template:loop>'
+            '      '
+            '      </table>'
+            '    </html>'
+            '    </template>'
+            '    '
+            '  </page>'
+            '</action>'
+            ''
+            '<action id="renew-list">'
+            '  <!-- Aktion zum Verlängern der Medien. '
+            '       $renew-books ist die Liste der zu verlängernden Medien -->'
+            '  <variable name="book-list">string-join(for $book in $renew-books return x"VB={$book.extendId}", "&amp;")</variable> '
+            '  <page url="{$loanServer}/USERINFO" templateFile="extend">'
+            '    <post name="ACT" value="UI_RENEWLOAN"/>'
+            '    <post name="BOR_U" value="{$username}"/>'
+            '    <post name="BOR_PW" value="{$password}"/>'
+            '    <post value="{$book-list}"/>'
+            '    <template>'
+            '      <!-- Template zum Abfragen der neuen Ablauffristen -->'
+            '      <table summary="list of loan renewals - data" template:optional="true">'
+            '        <tr>'
+            '        </tr>'
+            '      '
+            '        <template:loop>'
+            '          <tr valign="top"><td>'
+            '              <table summary="title data">'
+            '                <tr><td class="plain"> <!--TITEL/AUTOR--></td></tr>'
+            '                <tr><td>'
+            '                  <span class="label-small">Signatur:<!--shelf mark--></span>'
+            '                  {book:=object(("select(id)", filter(text(),''[^;]*'')))} '
+            '                  <span class="label-small"><!--status:-->Status:</span>'
+            '                  <template:read var="book.status" source="text()"/>'
+            '                  <span class="label-small">Leihfristende:<!--expiry date:--></span>'
+            '                  <template:read source="parse-date(text(), ''dd-mm-yyyy'')" var="book.duedate"/>'
+            '                </td></tr>'
+            '              </table>'
+            '            </td>'
+            '          </tr>'
+            '        </template:loop>'
+            '        '
+            '      </table>'
+            '    </template>'
+            '    '
+            '  </page>'
+            '</action>'
+            ''
+            ''
+            ''
+            ''
+            '<action id="search-connect">'
+            '  <!-- Aktion für Suchverbindung -->'
+            '  <call action="connect"/>'
+            '</action>'
+            ''
+            '<action id="search">'
+            '  <!-- Aktion für Suchstart -->'
+            '</action>'
+            ''
+            '<action id="search-next-page">'
+            '  <!-- Aktion für Suchnächste Seite -->'
+            '</action>'
+            ''
+            ''
+            '<action id="search-details">'
+            '  <!-- Aktion für Suchdetails -->'
+            '</action>'
+            '</actions> '
+          )
+          ScrollBars = ssAutoBoth
+          TabOrder = 0
+        end
+        object templateDefine: TButton
+          Left = 146
+          Height = 23
+          Top = 165
+          Width = 121
+          Anchors = [akLeft, akBottom]
+          AutoSize = True
+          Caption = 'System definieren'
+          OnClick = templateDefineClick
+          TabOrder = 1
+        end
+        object Label32: TLabel
+          Left = 12
+          Height = 15
+          Top = 170
+          Width = 17
+          Anchors = [akLeft, akBottom]
+          Caption = 'ID:'
+          ParentColor = False
+        end
+        object templateName: TEdit
+          Left = 39
+          Height = 25
+          Top = 165
+          Width = 67
+          Anchors = [akLeft, akBottom]
+          TabOrder = 2
+          Text = 'user1'
+        end
+        object Button11: TButton
+          AnchorSideLeft.Control = templateDefine
+          AnchorSideLeft.Side = asrBottom
+          AnchorSideTop.Control = templateDefine
+          Left = 271
+          Height = 23
+          Top = 165
+          Width = 106
+          Anchors = [akLeft, akBottom]
+          AutoSize = True
+          BorderSpacing.Left = 4
+          Caption = 'System löschen'
+          OnClick = Button11Click
+          TabOrder = 3
+        end
+        object templateList: TListBox
+          Left = 6
+          Height = 159
+          Top = 1
+          Width = 110
+          Anchors = [akTop, akLeft, akBottom]
+          ItemHeight = 0
+          OnSelectionChange = templateListSelectionChange
+          ScrollWidth = 106
+          TabOrder = 4
+          TopIndex = -1
+        end
+      end
+      object Splitter1: TSplitter
+        Cursor = crVSplit
+        Left = 0
+        Height = 7
+        Top = 281
+        Width = 612
+        Align = alBottom
+        ResizeAnchor = akBottom
+      end
+    end
   end
   object Panel2: TPanel
     Left = -1
-    Height = 400
+    Height = 466
     Top = 0
     Width = 85
     BevelOuter = bvNone
@@ -1281,12 +1683,12 @@ object optionForm: ToptionForm
     ChildSizing.EnlargeVertical = crsHomogenousChildResize
     ChildSizing.Layout = cclLeftToRightThenTopToBottom
     ChildSizing.ControlsPerLine = 1
-    ClientHeight = 400
+    ClientHeight = 466
     ClientWidth = 85
     TabOrder = 1
     object SpeedButton1: TSpeedButton
       Left = 5
-      Height = 74
+      Height = 72
       Top = 5
       Width = 75
       Caption = 'Konten'
@@ -1427,11 +1829,154 @@ object optionForm: ToptionForm
       Layout = blGlyphTop
       OnClick = SpeedButton1Click
     end
+    object SpeedButton7: TSpeedButton
+      Tag = 5
+      Left = 5
+      Height = 72
+      Top = 82
+      Width = 75
+      Caption = 'Büchereien'
+      Glyph.Data = {
+        36100000424D3610000000000000360000002800000020000000200000000100
+        2000000000000010000064000000640000000000000000000000FF100000FF10
+        0000FF100000FF100000FF100000FF100000FF100000FF100000FF100000FF10
+        0000FF100000FF100000FF100000FF100000FF100000FF100000FF100000FF10
+        0000FF100000FF100000FF100000FF100000FF100000FF100000FF100000FF10
+        0000FF100000FF100000FF100000FF100000FF100000FF100000FF100000FF10
+        0000FF100000FF100000FF100000FF100000FF100000FF100000FF100000FF10
+        0000FF100000FF100000FF100000FF100000FF100000FF100000FF100000FF10
+        0000FF100000FF100000FF100000FF100000FF100000C6C6C6FFFF100000FF10
+        0000FF100000FF100000FF100000FF100000FF100000FF100000FF100000FF10
+        0000FF100000FF100000FF100000FF100000FF100000FF100000FF100000FF10
+        0000FF100000FF100000FF100000000000FF000000FF000000FF000000FF0000
+        00FFC6C6C6FFC6C6C6FFC6C6C6FFC6C6C6FFFF100000C6C6C6FFFF100000FF10
+        0000FF100000FF100000FF100000FF100000FF100000FF100000FF100000FF10
+        0000FF100000FF100000FF100000FF100000FF100000FF100000FF100000FF10
+        0000000000FF000000FF000000FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+        FFFF000000FF000000FF000000FFC6C6C6FFC6C6C6FF848484FFC6C6C6FFFF10
+        0000FF100000FF100000FF100000FF100000FF100000FF100000FF100000FF10
+        0000FF100000FF100000FF100000FF100000FF100000FF100000000000FF0000
+        00FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF000000FFFFFFFFFFFFFF
+        FFFFFFFFFFFFFFFFFFFF848484FF000000FF000000FF848484FF848484FFC6C6
+        C6FFFF100000FF100000FF100000FF100000FF100000FF100000FF100000FF10
+        0000FF100000FF100000FF100000FF100000FF100000000000FFFFFFFFFFFFFF
+        FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF000000FF000000FF000000FFFFFF
+        FFFFFFFFFFFFFFFFFFFF848484FF848484FFFFFFFFFF000000FF848484FF8484
+        84FF848484FFFF100000FF100000FF100000FF100000FF100000FF100000FF10
+        0000FF100000FF100000FF100000FF100000000000FFFFFFFFFFFFFFFFFFFFFF
+        FFFFFFFFFFFF000000FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+        FFFFFFFFFFFF000000FF848484FFFFFFFFFFFFFFFFFFFFFFFFFF000000FF8484
+        84FF848484FFC6C6C6FFFF100000FF100000FF100000FF100000FF100000FF10
+        0000FF100000FF100000FF100000000000FFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+        FFFF000000FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+        FFFFFFFFFFFF848484FF000000FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF0000
+        00FF848484FFC6C6C6FFFF100000FF100000FF100000FF100000FF100000FF10
+        0000FF100000FF100000000000FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+        FFFF0000FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+        FFFF848484FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+        FFFF000000FF848484FFC6C6C6FFFF100000FF100000FF100000FF100000FF10
+        0000FF100000FF100000000000FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF0000
+        FFFF0000FFFF0000FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF8484
+        84FF848484FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+        FFFF000000FFFF100000848484FFC6C6C6FFFF100000FF100000FF100000FF10
+        0000FF100000000000FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+        FFFF0000FFFF0000FFFF0000FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF8484
+        84FF848484FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF000000FFFFFFFFFFFFFF
+        FFFFFFFFFFFF000000FF848484FFC6C6C6FFFF100000FF100000FF100000FF10
+        0000FF100000000000FFFFFFFFFFFFFFFFFFFFFFFFFF000000FFFFFFFFFFFFFF
+        FFFFFFFFFFFF0000FFFF0000FFFF0000FFFFFFFFFFFFFFFFFFFF848484FF8484
+        84FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF000000FFFFFF
+        FFFFFFFFFFFF000000FF848484FF848484FFFF100000FF100000FF100000FF10
+        0000FF100000000000FFFFFFFFFFFFFFFFFF000000FFFFFFFFFFFFFFFFFFFFFF
+        FFFFFFFFFFFFFFFFFFFF0000FFFF0000FFFF0000FFFFFFFFFFFF848484FFFFFF
+        FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+        FFFFFFFFFFFF000000FF848484FF848484FFC6C6C6FFFF100000FF100000FF10
+        0000000000FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+        FFFFFFFFFFFFFFFFFFFFFFFFFFFF0000FFFF0000FFFF848484FF848484FFFFFF
+        FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+        FFFFFFFFFFFFFFFFFFFF000000FF848484FF848484FFFF100000FF100000FF10
+        0000000000FFFFFFFFFFFFFFFFFF000000FFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+        FFFFFFFFFFFFFFFFFFFFFFFFFFFF0000FFFF000000FF000000FF848484FFFFFF
+        FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF0000
+        00FFFFFFFFFFFFFFFFFF000000FF848484FFC6C6C6FFFF100000FF100000FF10
+        0000000000FFFFFFFFFF000000FF000000FFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+        FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF000000FF848484FF000000FFFFFF
+        FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF0000
+        00FF000000FFFFFFFFFF000000FF848484FFC6C6C6FFFF100000FF100000FF10
+        0000000000FFFFFFFFFFFFFFFFFF000000FFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+        FFFFFFFFFFFFFFFFFFFFFFFFFFFF848484FF000000FF848484FF848484FF8484
+        84FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF0000
+        00FFFFFFFFFFFFFFFFFF000000FF848484FFC6C6C6FFC6C6C6FFFF100000FF10
+        0000000000FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+        FFFFFFFFFFFFFFFFFFFF848484FFFFFFFFFF848484FF848484FF848484FF8484
+        84FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+        FFFFFFFFFFFFFFFFFFFF000000FFC6C6C6FF848484FFC6C6C6FFFF100000FF10
+        0000FF100000000000FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+        FFFFFFFFFFFF848484FFFFFFFFFFFFFFFFFFFFFFFFFF848484FF848484FF8484
+        84FF848484FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+        FFFFFFFFFFFF000000FFC6C6C6FF848484FF848484FFC6C6C6FFFF100000FF10
+        0000FF100000000000FFFFFFFFFFFFFFFFFF000000FFFFFFFFFFFFFFFFFFFFFF
+        FFFF848484FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF848484FF848484FF8484
+        84FF848484FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF000000FFFFFF
+        FFFFFFFFFFFF000000FFC6C6C6FFC6C6C6FF848484FFC6C6C6FFFF100000FF10
+        0000FF100000000000FFFFFFFFFFFFFFFFFFFFFFFFFF000000FFFFFFFFFF8484
+        84FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF848484FF8484
+        84FF848484FF848484FFFFFFFFFFFFFFFFFFFFFFFFFF000000FFFFFFFFFFFFFF
+        FFFFFFFFFFFF000000FFFF100000FF100000C6C6C6FFC61000FFFF100000FF10
+        0000FF100000FF100000000000FFFFFFFFFFFFFFFFFFFFFFFFFF848484FFFFFF
+        FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF8484
+        84FF848484FF848484FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+        FFFF000000FFFF100000FF100000FF100000FF100000C6C6C6FFFF100000FF10
+        0000FF100000FF100000000000FFFFFFFFFFFFFFFFFF848484FFFFFFFFFFFFFF
+        FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+        FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+        FFFF000000FFFF100000FF100000FF100000FF100000FF100000FF100000FF10
+        0000FF100000FF100000FF100000000000FF848484FFFFFFFFFFFFFFFFFFFFFF
+        FFFF000000FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+        FFFFFFFFFFFFFFFFFFFF000000FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF0000
+        00FFFF100000FF100000FF100000FF100000FF100000FF100000FF100000FF10
+        0000FF100000FF100000FF100000FF100000000000FFFFFFFFFFFFFFFFFFFFFF
+        FFFFFFFFFFFF000000FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+        FFFFFFFFFFFF000000FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF000000FFFF10
+        0000FF100000FF100000FF100000FF100000FF100000FF100000FF100000FF10
+        0000FF100000FF100000FF100000FF100000FF100000000000FFFFFFFFFFFFFF
+        FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF000000FF000000FF000000FFFFFF
+        FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF000000FFFF100000FF10
+        0000FF100000FF100000FF100000FF100000FF100000FF100000FF100000FF10
+        0000FF100000FF100000FF100000FF100000FF100000FF100000000000FF0000
+        00FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF000000FFFFFFFFFFFFFF
+        FFFFFFFFFFFFFFFFFFFFFFFFFFFF000000FF000000FFFF100000FF100000FF10
+        0000FF100000FF100000FF100000FF100000FF100000FF100000FF100000FF10
+        0000FF100000FF100000FF100000FF100000FF100000FF100000FF100000FF10
+        0000000000FF000000FF000000FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+        FFFF000000FF000000FF000000FFFF100000FF100000FF100000FF100000FF10
+        0000FF100000FF100000FF100000FF100000FF100000FF100000FF100000FF10
+        0000FF100000FF100000FF100000FF100000FF100000FF100000FF100000FF10
+        0000FF100000000000FF000000FF000000FF000000FF000000FF000000FF0000
+        00FF0000FFFF0000FFFF0000FFFFFF100000FF100000FF100000FF100000FF10
+        0000FF100000FF100000FF100000FF100000FF100000FF100000FF100000FF10
+        0000FF100000FF100000FF100000FF100000FF100000FF100000FF100000FF10
+        0000000000FF000000FFFF100000FF100000000000FFFFFFFFFF000000FFFF10
+        0000FF1000000000FFFF0000FFFF0000FFFFFF100000FF100000FF100000FF10
+        0000FF100000FF100000FF100000FF100000FF100000FF100000FF100000FF10
+        0000FF100000FF100000FF100000FF100000FF100000FF100000FF1000000000
+        00FF000000FFFF100000FF100000FF100000000000FFFFFFFFFF000000FFFF10
+        0000FF100000FF1000000000FFFFFF100000FF100000FF100000FF100000FF10
+        0000FF100000FF100000FF100000FF100000FF100000FF100000FF100000FF10
+        0000FF100000FF100000FF100000FF100000FF100000FF100000FF100000FF10
+        0000FF100000FF100000FF100000FF100000000000FF000000FF000000FFFF10
+        0000FF100000FF100000FF100000FF100000FF100000FF100000FF100000FF10
+        0000FF100000FF100000FF100000FF100000FF100000FF100000
+      }
+      GroupIndex = 1
+      Layout = blGlyphTop
+      OnClick = SpeedButton1Click
+    end
     object SpeedButton2: TSpeedButton
       Tag = 1
       Left = 5
-      Height = 74
-      Top = 84
+      Height = 72
+      Top = 159
       Width = 75
       Caption = 'Aussehen'
       Glyph.Data = {
@@ -1573,8 +2118,8 @@ object optionForm: ToptionForm
     object SpeedButton3: TSpeedButton
       Tag = 2
       Left = 5
-      Height = 74
-      Top = 163
+      Height = 72
+      Top = 236
       Width = 75
       Caption = 'Internet'
       Glyph.Data = {
@@ -1716,8 +2261,8 @@ object optionForm: ToptionForm
     object SpeedButton5: TSpeedButton
       Tag = 3
       Left = 5
-      Height = 74
-      Top = 242
+      Height = 72
+      Top = 313
       Width = 75
       Caption = 'Mail'
       Glyph.Data = {
@@ -1859,8 +2404,8 @@ object optionForm: ToptionForm
     object SpeedButton6: TSpeedButton
       Tag = 4
       Left = 5
-      Height = 74
-      Top = 321
+      Height = 71
+      Top = 390
       Width = 75
       Caption = 'Sonstiges'
       Glyph.Data = {
