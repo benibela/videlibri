@@ -18,7 +18,7 @@ type
     Label11: TLabel;
     Label12: TLabel;
     Label2xx: TLabel;
-    Label3: TLabel;
+    LabelOrder: TLabel;
     LabelOrderFor: TLabel;
     LabelSaveTo: TLabel;
     saveToAccountMenu: TPopupMenu;
@@ -60,7 +60,7 @@ type
     procedure FormDeactivate(Sender: TObject);
     procedure FormKeyUp(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure Label12Click(Sender: TObject);
-    procedure Label3Click(Sender: TObject);
+    procedure LabelOrderClick(Sender: TObject);
     procedure LabelOrderForClick(Sender: TObject);
     procedure LabelSaveToClick(Sender: TObject);
     procedure Label2Click(Sender: TObject);
@@ -338,12 +338,14 @@ begin
   researchedBook := nil;
 end;
 
-procedure TbookSearchFrm.Label3Click(Sender: TObject);
+procedure TbookSearchFrm.LabelOrderClick(Sender: TObject);
 var
   temp: TBook;
   acc: TCustomAccountAccess;
   tempList: TBookList;
   i: Integer;
+  v: String;
+  s: String;
 begin
   if displayedBook = nil then exit;
   if accounts.Count = 0 then exit;
@@ -353,7 +355,20 @@ begin
    if accounts.Strings[i] = orderForDefaultAccountID then acc := accounts[i];
   if acc.isThreadRunning then begin ShowMessage('Während dem Aktualisieren/Verlängern/Vormerken können keine weiteren Medien vorgemerkt werden.'); exit; end;
 
-  acc.isThreadRunning:=true;
+  searcherAccess.beginBookReading;
+  try
+    if StrToIntDef(displayedBook.getPropertyAdditional('orderable'), 1) > 1 then begin
+      s := 'Es gibt mehrere vormerkbare/Bestellbare Exemplare. Welches wollen Sie? (Nummer eingeben)'+LineEnding;
+      for i :=  0 to StrToIntDef(displayedBook.getPropertyAdditional('orderable'), 1) - 1 do
+       s += inttostr(i+1)+': '+ displayedBook.getPropertyAdditional('orderTitle'+inttostr(i))+LineEnding;
+      v := '1';
+      if not InputQuery('VideLibri', s, v) then exit;
+      displayedBook.setProperty('choosenOrder', inttostr(strtointdef(v,1)-1));
+    end else displayedBook.setProperty('choosenOrder', '0');
+  finally
+    searcherAccess.endBookReading;
+  end;
+
   searcherAccess.orderAsync(acc, displayedBook);
 
   {temp := cloneDisplayedBook;
@@ -411,7 +426,8 @@ begin
   acc.save();
   LeaveCriticalSection(updateThreadConfig.libraryAccessSection);
   searcherAccess.endBookReading;
-
+  if mainForm <> nil then mainForm.RefreshListView;
+  ShowMessage(format('Das Buch "%s" wurde ohne Fehler vorgemerkt.', [book.toSimpleString()])  );
 end;
 
 procedure TbookSearchFrm.searcherAccessSearchComplete(sender: TObject; firstPage, nextPageAvailable: boolean);
@@ -653,6 +669,7 @@ begin
     else if getProperty('image-searched',book.additional) <> 'true' then result:=1
     else result:=2;
 
+    LabelOrder.Enabled:=(getProperty( 'orderable', book.additional) <> '') and (getProperty('orderable', book.additional) <> '0') and (getProperty('orderable', book.additional) <> 'false');
     linkLabelDigibib.Enabled := getProperty('digibib-url', book.additional) <> '';
     linkLabelBib.Enabled := getProperty('home-url', book.additional) <> '';
     linkLabelAmazon.Enabled := getProperty('amazon-url', book.additional) <> '';

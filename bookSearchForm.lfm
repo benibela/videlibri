@@ -335,7 +335,7 @@ object bookSearchFrm: TbookSearchFrm
         PopupMenu = saveToAccountMenu
         OnClick = LabelSaveToClick
       end
-      object Label3: TLabel
+      object LabelOrder: TLabel
         Cursor = crHandPoint
         Left = 198
         Height = 15
@@ -346,7 +346,7 @@ object bookSearchFrm: TbookSearchFrm
         Font.Style = [fsBold]
         ParentColor = False
         ParentFont = False
-        OnClick = Label3Click
+        OnClick = LabelOrderClick
       end
       object LabelOrderFor: TLabel
         Cursor = crHandPoint

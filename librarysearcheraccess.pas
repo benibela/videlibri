@@ -446,8 +446,13 @@ begin
         end;
         smtOrder: begin
           if logging then log('Searcher thread: message smtOrder: '+book.toSimpleString());
-          Searcher.orderSingle(book);
-          callBookEvent(access.FOnOrderComplete, book);
+          TCustomAccountAccess(book.owner).isThreadRunning:=true;
+          try
+            Searcher.orderSingle(book);
+            callBookEvent(access.FOnOrderComplete, book);
+          finally
+            TCustomAccountAccess(book.owner).isThreadRunning:=false;
+          end;
           if logging then log('end order');
         end
         else if logging then log('Searcher thread: unknown type');

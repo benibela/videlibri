@@ -58,6 +58,7 @@ type
     //procedure assignOverride(book: TBook);  //every value set in book will be replace the one of self
 
     procedure setProperty(const name, value: string);
+    function getPropertyAdditional(const name: string): string; inline;
   end;
   
   { TBookList }
@@ -308,6 +309,11 @@ begin
     '_lastexistsdate': lastExistsDate:=bbutils.dateParse(value, 'yyyy-mm-dd');
     else simplexmlparser.setProperty(name,value,additional);
   end;
+end;
+
+function TBook.getPropertyAdditional(const name: string): string;
+begin
+  result := simplexmlparser.getProperty(name, additional);
 end;
 
   {
