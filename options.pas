@@ -878,7 +878,9 @@ var
   trueId: String;
   userlibs: TStringArray;
 begin
-  trueId := '-_-_-_'+libNameEdit.text;
+  if (libList.Selected <> nil) and (libList.Selected.Caption = libNameEdit.Text) then trueid := TLibrary(libList.Selected.Data).id
+  else trueId := '-_-_-_'+trim(libNameEdit.text);
+
   libraryManager.setUserLibrary(trueId, libxml.Lines.Text);
   addUserLibrary(libraryManager.get(trueId));
 end;
@@ -889,7 +891,8 @@ var
   i: Integer;
 begin
   if not confirm('Wollen Sie die Bücherei '+libNameEdit.Text+' löschen?') then exit;
-  trueId := '-_-_-_'+trim(libNameEdit.text);
+  if (libList.Selected <> nil) and (libList.Selected.Caption = libNameEdit.Text) then trueid := TLibrary(libList.Selected.Data).id
+  else trueId := '-_-_-_'+trim(libNameEdit.text);
   libraryManager.deleteUserLibrary(trueid);
   for i := 0 to libList.Items.Count - 1 do
     if libList.Items[i].Caption = trim(libNameEdit.text) then begin
