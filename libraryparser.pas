@@ -452,6 +452,7 @@ var //tempLibrary:TLibrary;
     libraryFiles: TStringList;
     newLib:TLibrary;
     i:longint;
+    userlibs: TStringArray;
 begin
   basePath:=apath;
 
@@ -465,6 +466,14 @@ begin
     flibraries.Add(newLib);
   end;
   libraryFiles.free;
+  userlibs := strSplit(userConfig.ReadString('base', 'user-libraries', ''), ',');
+  for i := 0 to high(userlibs) do begin
+    userlibs[i] := trim(userlibs[i]);
+    if userlibs[i] = '' then continue;
+    newLib:=TLibrary.Create;
+    newLib.loadFromString(assetFileAsString('libraries/'+userlibs[i]), 'libraries/'+userlibs[i]);
+    flibraries.Add(newLib);
+  end;
 end;
 
 function TLibraryManager.getTemplate(templateName: string): TMultiPageTemplate;

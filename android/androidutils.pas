@@ -36,7 +36,8 @@ uses bbutils, accountlist, applicationconfig, bbdebugtools, libraryAccess;
 {$ifndef android}
 function assetFileAsString(name: string): string;
 begin
-  result := strLoadFromFileUTF8(assetPath + name);
+  if FileExists(userPath + name) then result := strLoadFromFileUTF8(userPath + name)
+  else result := strLoadFromFileUTF8(assetPath + name);
 end;
 
 function getUserConfigPath: string;
@@ -76,6 +77,7 @@ var assets: jobject = nil;
 
 function assetFileAsString(name: string): string;
 begin
+  if FileExists(userPath + name) then exit(strLoadFromFileUTF8(userPath + name));
   beginAssetRead;
   try
     result := j.getAssetAsString(assets, name, jmAssetManager_Open_StringInputStream, jmInputStream_Read_B);
