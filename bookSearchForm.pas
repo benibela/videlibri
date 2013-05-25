@@ -800,7 +800,7 @@ begin
     LabelSaveTo.Caption := 'in \/ '+ accounts[accounts.IndexOf(saveToDefaultAccountID)].prettyName;
   orderForDefaultAccountID := userConfig.ReadString('BookSearcher','default-order-for', '');
   if accounts.IndexOf(orderForDefaultAccountID) >= 0 then
-    LabelOrderFor.Caption := 'in \/ '+ accounts[accounts.IndexOf(orderForDefaultAccountID)].prettyName;
+    LabelOrderFor.Caption := 'für \/ '+ accounts[accounts.IndexOf(orderForDefaultAccountID)].prettyName;
 end;
 
 procedure TbookSearchFrm.saveDefaults;
