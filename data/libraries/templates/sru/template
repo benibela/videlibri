@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <actions>
 
-<!--
+
 <meta>
-  <description>Template für SRU-Standard</description>
-  <variable name="baseurl"><description></description></variable>
-  <variable name="searchKeys" default="dc.title;dc.creator;dc.identifier;dc.date;dc.subject"><description></description></variable>
+  <description>Template für die standardisierte SRU-API für Suche in Katalogen</description>
+  <variable name="baseurl"><description>Url des Servers, inklusive Protokoll</description></variable>
+  <variable name="searchKeys" default="dc.title;dc.creator;dc.identifier;dc.date;dc.subject"><description>zu verwendende Suchschlüssel</description></variable>
 </meta>
--->
 
 <action id="search-connect"></action>
 

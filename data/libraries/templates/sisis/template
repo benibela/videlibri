@@ -1,6 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <actions>
 
+
+<meta>
+  <description>Template für das Sisis-System</description>
+  <variable name="server"><description>Serveraddresse (inklusive Protokoll)</description></variable>
+  <variable name="startparams" default=""><description>Parameter für den Aufruf des Web-OPACs, falls mehrere Bibliotheken auf dem Server existieren (inklusive "?")</description></variable>
+</meta>
+
 <action id="catalogue">
   <variable name="url" value="{$server}start.do{get('startparams','')}"/>
 </action>

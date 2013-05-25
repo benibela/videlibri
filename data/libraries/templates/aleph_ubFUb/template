@@ -1,5 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <actions>
+
+<meta>
+  <description>spezielles Template für aleph-System der FU-Berlin</description>
+</meta>
+
+
+
 <action id="connect">
     <page url="https://aleph-www.ub.fu-berlin.de/F/?func=BOR-INFO-LIBRARY&amp;ADM_LIBRARY=FUB50">
       <template> <a>{redirection:=@href}</a> </template>

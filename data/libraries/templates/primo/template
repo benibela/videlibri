@@ -1,13 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <actions>
 
+<meta>
+  <description>Template für das Primo-System</description>
+  <variable name="institute"><description>Institutsid der Bücherei im Primosystem</description></variable>
+  <variable name="server" default="kobv1.tubit.tu-berlin.de"><description>Serveraddresse</description></variable>
+  <variable name="loginServer" default="kobv1.tubit.tu-berlin.de"><description>alternative Serveraddresse</description></variable>
+  <variable name="primoView" default="FUB_MOBILE"><description>View</description></variable>
+</meta>
+
+
 <action id="connect">
 </action>
 
 <action id="update-all">
-  <variable name="loginServer" value="kobv1.tubit.tu-berlin.de"/>
-  <variable name="server" value="kobv1.tubit.tu-berlin.de"/>
-  <variable name="primoView" value="FUB_MOBILE"/>
+  <variable name="server">get("server", "kobv1.tubit.tu-berlin.de")</variable>
+  <variable name="loginServer">get("loginServer", $server)</variable>
+  <variable name="primoView">get("primoView", "FUB_MOBILE")</variable>
   
 
   <page url="https://{$loginServer}/pds?func=load-login">

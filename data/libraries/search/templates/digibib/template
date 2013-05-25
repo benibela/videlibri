@@ -1,6 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <actions>
 
+<meta>
+  <description>reines Such-Template für Suche über die Digibib</description>
+  <variable name="location"><description>Such-Ort (siehe digibib-Dokumentation)</description></variable>
+  <variable name="view"><description>Such-View (siehe digibib-Dokumentation)</description></variable>
+  <variable name="searchid-digibib"><description>Sigel der Bücherei (siehe digibib-Dokumentation)</description></variable>
+</meta>
+
+
 <variable name="after-id" value="=on&amp;"/>
 <variable name="location:Düsseldorf" value="DUEBIB"/>
 <variable name="location:Aachen" value="052"/>

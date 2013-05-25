@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <actions>
 
+
+<meta>
+  <description>Template für das Aleph-System, wie früher von der ULB Düsseldorf verwendet</description>
+  <variable name="server"><description>Serveraddresse</description></variable>
+</meta>
+
 <action id="connect">
     <page url="http://{$server}F" templateFile="start"/>
     <page url="{$loginPage}"  templateFile="login"/>

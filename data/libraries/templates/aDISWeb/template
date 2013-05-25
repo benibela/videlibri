@@ -1,5 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <actions>
+
+<meta>
+  <description>Template des aDISWeb-Systems, üblicherweise in Bayern verwendet</description>
+  <variable name="server"><description>reiner Servername, (z.B.: ssl.muenchen.de) </description></variable>
+  <variable name="startparams" default=""><description>Parameter in der URL nach aDISWeb/app für Server, auf denen mehrere Bibliothekssysteme laufen</description></variable>    
+</meta>
+
+
 <action id="connect"></action>
 
 <action id="update-all">

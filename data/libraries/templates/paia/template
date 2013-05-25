@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <actions>
+
+<meta>
+  <description>Template für die standardisierte PAIA-API</description>
+  <variable name="server"><description>Serveraddresse</description></variable>
+</meta>
+
 <action id="connect">
   <page url="https://{$server}/auth/login?username={$username}&amp;password={$password}&amp;grant_type=password">
 <!--    <header>Content-Type: application/json</header>-->

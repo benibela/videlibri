@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <actions>
 
+
+<meta>
+  <description>Template für das Libero-System, version 5.4</description>
+  <variable name="server"><description>Serveraddresse</description></variable>
+</meta>
+
 <action id="connect">
   <page url="http://{$server}WebOpac.cls" templateFile="start"/>
   <page url="http://{$server}WebOpac.cls?VERSION=2&amp;ACTION=MEMBERSERV&amp;RSN=0&amp;DATA={$data}&amp;TOKEN={$token}&amp;Z=1&amp;NewBreadCrumb=1&amp;{$logintoken}"/>

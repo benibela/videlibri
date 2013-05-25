@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <actions>
+
+<meta>
+  <description>spezielles Template für aleph-System der HU-Berlin</description>
+</meta>
+
 <action id="connect">
     <page url="https://opac.hu-berlin.de:443/F/" templateFile="redirection">
       <post name="func" value="login-session"/>

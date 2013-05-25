@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <actions>
 
+<meta>
+  <description>Template für das System der Düsseldorfer Stadtbüchereien</description>
+  <variable name="server"><description>Serveraddresse</description></variable>
+</meta>
+
 <action id="connect">
  <!-- <page url="http://{$server}start?homegkz=111" templateFile="start"/>-->
  <page url="https://{$server}BenutzerkontoServlet?homegkz=111&Kontoart=Ausleihkonto"/>

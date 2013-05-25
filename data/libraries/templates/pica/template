@@ -2,6 +2,15 @@
 <actions>
 <!--https://kataloge.uni-hamburg.de/loan/DB=1/LNG=DU/SID=28a05a0c-0/USERINFO_LOGIN-->
 
+
+<meta>
+  <description>Template das PICA-System, üblicherweise von den GBV Bibliotheken verwendet</description>
+  <variable name="server"><description>Serveraddresse, inklusive Protokoll und Parameter (z.B.: http://katalog.uni-hildesheim.de/DB=1/LNG=DU/) </description></variable>
+  <variable name="picadb" default="1"><description>Datenbanknummer, wenn mehrere Datenbanken auf demselben Server liegen</description></variable>    
+  <variable name="searchKeysOverride" default="tit;prs;isb;jah;slw"><description>Abkürzungen der Suchschlüssel bei Katalogsuchen</description></variable>
+</meta>
+
+
 <action id="connect">
  <!-- <page url="https://kataloge.uni-hamburg.de:443/loan/DB=1/USERINFO" templateFile="start">
     <post name="ACT" value="UI_DATA"/>

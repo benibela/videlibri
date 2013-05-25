@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <actions>
+
+<meta>
+  <description>spezielles Template für aleph-System der TU-Berlin</description>
+  <variable name="server"><description>Serveraddresse</description></variable>
+</meta>
+
 <action id="connect">
     <page url="http://{$server}/F/?func=bor-info" >
       <template>
