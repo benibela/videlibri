@@ -16,7 +16,7 @@
   <page url="{$server}start.do{get('startparams','')}" templateFile="start"/>
 </action>
 
-<action id="update-all">
+<action id="login">
   <page url="{$server}login.do;{$jsession}">
     <post name="methodToCall" value="submit"/>
     <post name="CSId" value="{$CSId}"/>
@@ -34,6 +34,10 @@
     </body>
     </template>
   </page>
+</action>
+
+<action id="update-all">
+  <call action="login"/>
   
   <variable name="requestedUrl" value=""/>
   <variable name="orderedUrl" value=""/>
@@ -58,6 +62,11 @@
 
 <action id="renew-single">
   <page url="{$server}userAccount.do?methodToCall=renewalPossible&amp;actPos={$book.extendID}" templateFile="singleExtended"/>
+</action>
+
+<action id="cancel-single">
+  <page url="{$server}userAccount.do?methodToCall=cancelReservation&amp;actPos={$book.extendID}"/>
+<!--  <template>      	 <span class="textgruen"><strong>Stornierung durchgeführt</strong></span></br></template>-->
 </action>
 
 
@@ -112,5 +121,25 @@
   <page url="{$book._detail-url}&amp;tab=showTitleActive" templateFile="searchSingle"/>
 </action>
 
+
+<action id="order-single"> 
+  <if test="not(get('loggedIn', false()))"> 
+    <call action="login"/>
+    <variable name="loggedIn">true()</variable>
+  </if>
+  
+  <page url="{$book.order0}">
+    <template><t:s>order := form(//form[contains(@action, "availability")])</t:s></template>
+  </page>
+  
+  <page url="{$order}">
+    <template><t:s>confirm := form(//form[contains(@action, "reservation")])</t:s></template>
+  </page>
+  
+  <page url="{$confirm}">
+<!--    <template>          Das Medium wurde für Sie vorgemerkt
+    und ist voraussichtlich bis </template>-->
+  </page>
+</action>
 
 </actions> 

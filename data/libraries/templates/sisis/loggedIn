@@ -19,10 +19,10 @@
       <div class="box-header">
         <template:switch>
           <h2>Ausleihen
-             <t:s>bookCount := $bookCountLend</t:s>
+             <t:s>bookCount := $bookCountLend, inOrdered := false()</t:s>
              <t:if test="$nextPage = ''"><template:read var="delete-current-books()"/></t:if></h2>
           <h2>Bestellungen<t:s>bookCount := $bookCountRequested</t:s></h2>
-          <h2>Vormerkungen<t:s>bookCount := $bookCountOrdered</t:s></h2>
+          <h2>Vormerkungen<t:s>bookCount := $bookCountOrdered, inOrdered := true()</t:s></h2>
         </template:switch>
       </div>
     </div>
@@ -43,22 +43,26 @@
         {book := object()}
         <td>
           <strong><template:read source="." var="book.title"/></strong><br/>
-          <template:read source="true()" var="spanmissing"/>
-          <template:read source="false()" var="previousspan"/>
+          <!-- <template:read source="true()" var="spanmissing"/>
+         <template:read source="false()" var="previousspan"/>-->
           <template:read source="text()" var="book.author"/><br/>
           <template:read source="text()" var="book.id" regex="^[^/]*"/><br/>
           <a template:optional="true">
             <template:read source="@href" var="book.extendID" regex="actPos=([0-9]+)$" submatch="1"/>
             <span>
               <template:read source="." var="book.status:curious"/>
-              <template:read source="@class != 'textgruen'" var="spanmissing"/>
+            <!--  <template:read source="@class != 'textgruen'" var="spanmissing"/>-->
             </span>
           </a>
-	  <span template:optional="true">
+          <span template:optional="true">
             <template:read source="." var="book.status:problematic"/>
-            <template:read source="false()" var="spanmissing"/>
-            <template:read source="true()" var="previousspan"/>
+            <!--<template:read source="false()" var="spanmissing"/>
+            <template:read source="true()" var="previousspan"/>-->
           </span>
+          <a template:optional="true">
+            {book.extendID := extract(@href, "actPos=([0-9]+)$", "1"),
+             book.statusId := if ($inOrdered) then "ordered" else "curious" }            
+          </a>
 <!--	  <template:if test="$previousspan">
 	    <span template:optional="true">
               <template:read source="concat(x"$book.status:problematic ", text())" var="book.status:problematic"/>
@@ -74,8 +78,8 @@
                    book.statusId := "ordered"</t:s>
            </td>
            <td>
-             {book.issuedate:=parse-date(filter(text(), '^\d{2}\.\d{2}\.\d{4}'), 'dd.mm.yyyy'),
-              book.duedate:=parse-date(filter(text(),'- *(\d{2}\.\d{2}\.\d{4})', 1), 'dd.mm.yyyy')
+             {book.issuedate:=parse-date(filter(., '(\d{2}\.\d{2}\.\d{4}) *-', 1), 'dd.mm.yyyy'),
+              book.duedate:=parse-date(filter(.,'- *(\d{2}\.\d{2}\.\d{4})', 1), 'dd.mm.yyyy')
              }
            </td>
          </template:switch>

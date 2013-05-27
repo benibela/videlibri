@@ -14,7 +14,9 @@
         <TR>
         <TD/>
         <TD>
-        {book := {}, hasZ3988 := false()}
+        {book := {"orderable": .//a[contains(., 'vormerk') or contains(., 'bestell')]}, 
+         if ($book.orderable) then book.order0 := $book.orderable/@href else (), 
+         hasZ3988 := false()}
         <span class="Z3988">{hasZ3988 := true(),
         for $entry in tokenize(@title, "&amp") return 
            if (starts-with($entry, "rft.au=")) then book.author :=               uri-decode(substring-after($entry, "="))
@@ -55,6 +57,7 @@
           ) else ()
           </t:s>
         </t:if>
+        
        <!-- <SPAN class="textgruen">{$book.availability}</SPAN>? who cares?-->
         </TD>
         </TR>*
