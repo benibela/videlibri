@@ -8,55 +8,55 @@ brs: sequence: node: Zeitschrift
 node: 
 node: 
 node: 
-book: object: {"_detail-url": "/webOPACClient/singleHit.do?methodToCall=showHit&curPos=1&identifier=-1_S_IG.505.23157", "title": "Öko-Test/07/12", "author": "", "author": "Zeitschrift", "year": ""}
+book: object: {"orderable": "Vormerkung", "order0": "/webOPACClient/singleHit.do?methodToCall=showHit&curPos=1&identifier=-1_S_IG.505.23157&tab=showAvailabilityActive", "_detail-url": "/webOPACClient/singleHit.do?methodToCall=showHit&curPos=1&identifier=-1_S_IG.505.23157", "title": "Öko-Test/07/12", "author": "", "author": "Zeitschrift", "year": ""}
 hasZ3988: boolean: false
 brs: sequence: node: Zeitschrift
 node: 
 node: 
 node: 
-book: object: {"_detail-url": "/webOPACClient/singleHit.do?methodToCall=showHit&curPos=2&identifier=-1_S_IG.505.23157", "title": "Öko-Test/08/12", "author": "", "author": "Zeitschrift", "year": ""}
+book: object: {"orderable": "Vormerkung", "order0": "/webOPACClient/singleHit.do?methodToCall=showHit&curPos=2&identifier=-1_S_IG.505.23157&tab=showAvailabilityActive", "_detail-url": "/webOPACClient/singleHit.do?methodToCall=showHit&curPos=2&identifier=-1_S_IG.505.23157", "title": "Öko-Test/08/12", "author": "", "author": "Zeitschrift", "year": ""}
 hasZ3988: boolean: false
 brs: sequence: node: Zeitschrift
 node: 
 node: 
 node: 
-book: object: {"_detail-url": "/webOPACClient/singleHit.do?methodToCall=showHit&curPos=3&identifier=-1_S_IG.505.23157", "title": "Öko-Test/09/12", "author": "", "author": "Zeitschrift", "year": ""}
+book: object: {"orderable": "Vormerkung", "order0": "/webOPACClient/singleHit.do?methodToCall=showHit&curPos=3&identifier=-1_S_IG.505.23157&tab=showAvailabilityActive", "_detail-url": "/webOPACClient/singleHit.do?methodToCall=showHit&curPos=3&identifier=-1_S_IG.505.23157", "title": "Öko-Test/09/12", "author": "", "author": "Zeitschrift", "year": ""}
 hasZ3988: boolean: false
 brs: sequence: node: Zeitschrift
 node: 
 node: 
 node: 
-book: object: {"_detail-url": "/webOPACClient/singleHit.do?methodToCall=showHit&curPos=4&identifier=-1_S_IG.505.23157", "title": "Öko-Test/10/12", "author": "", "author": "Zeitschrift", "year": ""}
+book: object: {"orderable": "Vormerkung", "order0": "/webOPACClient/singleHit.do?methodToCall=showHit&curPos=4&identifier=-1_S_IG.505.23157&tab=showAvailabilityActive", "_detail-url": "/webOPACClient/singleHit.do?methodToCall=showHit&curPos=4&identifier=-1_S_IG.505.23157", "title": "Öko-Test/10/12", "author": "", "author": "Zeitschrift", "year": ""}
 hasZ3988: boolean: false
 brs: sequence: node: Zeitschrift
 node: 
 node: 
 node: 
-book: object: {"_detail-url": "/webOPACClient/singleHit.do?methodToCall=showHit&curPos=5&identifier=-1_S_IG.505.23157", "title": "Öko-Test/11/12", "author": "", "author": "Zeitschrift", "year": ""}
+book: object: {"orderable": "Vormerkung", "order0": "/webOPACClient/singleHit.do?methodToCall=showHit&curPos=5&identifier=-1_S_IG.505.23157&tab=showAvailabilityActive", "_detail-url": "/webOPACClient/singleHit.do?methodToCall=showHit&curPos=5&identifier=-1_S_IG.505.23157", "title": "Öko-Test/11/12", "author": "", "author": "Zeitschrift", "year": ""}
 hasZ3988: boolean: false
 brs: sequence: node: Zeitschrift
 node: 
 node: 
 node: 
-book: object: {"_detail-url": "/webOPACClient/singleHit.do?methodToCall=showHit&curPos=6&identifier=-1_S_IG.505.23157", "title": "Öko-Test/12/12", "author": "", "author": "Zeitschrift", "year": ""}
+book: object: {"orderable": "Vormerkung", "order0": "/webOPACClient/singleHit.do?methodToCall=showHit&curPos=6&identifier=-1_S_IG.505.23157&tab=showAvailabilityActive", "_detail-url": "/webOPACClient/singleHit.do?methodToCall=showHit&curPos=6&identifier=-1_S_IG.505.23157", "title": "Öko-Test/12/12", "author": "", "author": "Zeitschrift", "year": ""}
 hasZ3988: boolean: false
 brs: sequence: node: Zeitschrift
 node: 
 node: 
 node: 
-book: object: {"_detail-url": "/webOPACClient/singleHit.do?methodToCall=showHit&curPos=7&identifier=-1_S_IG.505.23157", "title": "Öko-Test/01/13", "author": "", "author": "Zeitschrift", "year": ""}
+book: object: {"orderable": "Vormerkung", "order0": "/webOPACClient/singleHit.do?methodToCall=showHit&curPos=7&identifier=-1_S_IG.505.23157&tab=showAvailabilityActive", "_detail-url": "/webOPACClient/singleHit.do?methodToCall=showHit&curPos=7&identifier=-1_S_IG.505.23157", "title": "Öko-Test/01/13", "author": "", "author": "Zeitschrift", "year": ""}
 hasZ3988: boolean: false
 brs: sequence: node: entliehen (gesamte Vormerkungen: 0)
 node: 
 node: 
-book: object: {"_detail-url": "/webOPACClient/singleHit.do?methodToCall=showHit&curPos=8&identifier=-1_S_IG.505.23157", "title": "Öko-Test/02/13", "author": "", "author": "entliehen (gesamte Vormerkungen: 0)", "author": "", "year": ""}
+book: object: {"orderable": "Vormerkung", "order0": "/webOPACClient/singleHit.do?methodToCall=showHit&curPos=8&identifier=-1_S_IG.505.23157&tab=showAvailabilityActive", "_detail-url": "/webOPACClient/singleHit.do?methodToCall=showHit&curPos=8&identifier=-1_S_IG.505.23157", "title": "Öko-Test/02/13", "author": "", "author": "entliehen (gesamte Vormerkungen: 0)", "author": "", "year": ""}
 hasZ3988: boolean: false
 brs: sequence: node: entliehen (gesamte Vormerkungen: 0)
 node: 
 node: 
-book: object: {"_detail-url": "/webOPACClient/singleHit.do?methodToCall=showHit&curPos=9&identifier=-1_S_IG.505.23157", "title": "Öko-Test/03/13", "author": "", "author": "entliehen (gesamte Vormerkungen: 0)", "author": "", "year": ""}
+book: object: {"orderable": "Vormerkung", "order0": "/webOPACClient/singleHit.do?methodToCall=showHit&curPos=9&identifier=-1_S_IG.505.23157&tab=showAvailabilityActive", "_detail-url": "/webOPACClient/singleHit.do?methodToCall=showHit&curPos=9&identifier=-1_S_IG.505.23157", "title": "Öko-Test/03/13", "author": "", "author": "entliehen (gesamte Vormerkungen: 0)", "author": "", "year": ""}
 hasZ3988: boolean: false
 brs: sequence: node: entliehen (gesamte Vormerkungen: 0)
 node: 
 node: 
-book: object: {"_detail-url": "/webOPACClient/singleHit.do?methodToCall=showHit&curPos=10&identifier=-1_S_IG.505.23157", "title": "Öko-Test/04/13", "author": "", "author": "entliehen (gesamte Vormerkungen: 0)", "author": "", "year": ""}
+book: object: {"orderable": "Vormerkung", "order0": "/webOPACClient/singleHit.do?methodToCall=showHit&curPos=10&identifier=-1_S_IG.505.23157&tab=showAvailabilityActive", "_detail-url": "/webOPACClient/singleHit.do?methodToCall=showHit&curPos=10&identifier=-1_S_IG.505.23157", "title": "Öko-Test/04/13", "author": "", "author": "entliehen (gesamte Vormerkungen: 0)", "author": "", "year": ""}

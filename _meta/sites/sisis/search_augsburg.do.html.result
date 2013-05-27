@@ -15,7 +15,7 @@ node: eBook
 node: 
 node: 
 node: 
-book: object: {"_detail-url": "/webOPACClient.stasis/singleHit.do?methodToCall=showHit&curPos=1&identifier=-1_S_IG.45.27053", "title": "Abwechslungsreicher Test", "author": "", "author": "", "year": "2002"}
+book: object: {"orderable": "zur Vormerkung", "order0": "/webOPACClient.stasis/singleHit.do?methodToCall=showHit&curPos=1&identifier=-1_S_IG.45.27053&tab=showAvailabilityActive", "_detail-url": "/webOPACClient.stasis/singleHit.do?methodToCall=showHit&curPos=1&identifier=-1_S_IG.45.27053", "title": "Abwechslungsreicher Test", "author": "", "author": "", "year": "2002"}
 hasZ3988: boolean: false
 brs: sequence: node: 2002
 node: eBook
@@ -28,7 +28,7 @@ node: eBook
 node: 
 node: 
 node: 
-book: object: {"_detail-url": "/webOPACClient.stasis/singleHit.do?methodToCall=showHit&curPos=2&identifier=-1_S_IG.45.27053", "title": "Aufbau des deutschen Gerichtswesens", "author": "", "author": "", "year": "2002"}
+book: object: {"orderable": "zur Vormerkung", "order0": "/webOPACClient.stasis/singleHit.do?methodToCall=showHit&curPos=2&identifier=-1_S_IG.45.27053&tab=showAvailabilityActive", "_detail-url": "/webOPACClient.stasis/singleHit.do?methodToCall=showHit&curPos=2&identifier=-1_S_IG.45.27053", "title": "Aufbau des deutschen Gerichtswesens", "author": "", "author": "", "year": "2002"}
 hasZ3988: boolean: false
 brs: sequence: node: 2002
 node: eBook
@@ -41,7 +41,7 @@ node: eBook
 node: 
 node: 
 node: 
-book: object: {"_detail-url": "/webOPACClient.stasis/singleHit.do?methodToCall=showHit&curPos=3&identifier=-1_S_IG.45.27053", "title": "Aufbau und Funktion der Verwaltung", "author": "", "author": "", "year": "2002"}
+book: object: {"orderable": "zur Vormerkung", "order0": "/webOPACClient.stasis/singleHit.do?methodToCall=showHit&curPos=3&identifier=-1_S_IG.45.27053&tab=showAvailabilityActive", "_detail-url": "/webOPACClient.stasis/singleHit.do?methodToCall=showHit&curPos=3&identifier=-1_S_IG.45.27053", "title": "Aufbau und Funktion der Verwaltung", "author": "", "author": "", "year": "2002"}
 hasZ3988: boolean: false
 brs: sequence: node: 2001
 node: eBook
@@ -54,7 +54,7 @@ node: eBook
 node: 
 node: 
 node: 
-book: object: {"_detail-url": "/webOPACClient.stasis/singleHit.do?methodToCall=showHit&curPos=4&identifier=-1_S_IG.45.27053", "title": "Der Mensch und seine Rollen", "author": "", "author": "", "year": "2001"}
+book: object: {"orderable": "zur Vormerkung", "order0": "/webOPACClient.stasis/singleHit.do?methodToCall=showHit&curPos=4&identifier=-1_S_IG.45.27053&tab=showAvailabilityActive", "_detail-url": "/webOPACClient.stasis/singleHit.do?methodToCall=showHit&curPos=4&identifier=-1_S_IG.45.27053", "title": "Der Mensch und seine Rollen", "author": "", "author": "", "year": "2001"}
 hasZ3988: boolean: false
 brs: sequence: node: 2006
 node: eBook
@@ -67,7 +67,7 @@ node: eBook
 node: 
 node: 
 node: 
-book: object: {"_detail-url": "/webOPACClient.stasis/singleHit.do?methodToCall=showHit&curPos=5&identifier=-1_S_IG.45.27053", "title": "Der Nahe Osten", "author": "", "author": "", "year": "2006"}
+book: object: {"orderable": "zur Vormerkung", "order0": "/webOPACClient.stasis/singleHit.do?methodToCall=showHit&curPos=5&identifier=-1_S_IG.45.27053&tab=showAvailabilityActive", "_detail-url": "/webOPACClient.stasis/singleHit.do?methodToCall=showHit&curPos=5&identifier=-1_S_IG.45.27053", "title": "Der Nahe Osten", "author": "", "author": "", "year": "2006"}
 hasZ3988: boolean: false
 brs: sequence: node: 2002
 node: eBook
@@ -80,7 +80,7 @@ node: eBook
 node: 
 node: 
 node: 
-book: object: {"_detail-url": "/webOPACClient.stasis/singleHit.do?methodToCall=showHit&curPos=6&identifier=-1_S_IG.45.27053", "title": "Deutsches Sozialsystem", "author": "", "author": "", "year": "2002"}
+book: object: {"orderable": "zur Vormerkung", "order0": "/webOPACClient.stasis/singleHit.do?methodToCall=showHit&curPos=6&identifier=-1_S_IG.45.27053&tab=showAvailabilityActive", "_detail-url": "/webOPACClient.stasis/singleHit.do?methodToCall=showHit&curPos=6&identifier=-1_S_IG.45.27053", "title": "Deutsches Sozialsystem", "author": "", "author": "", "year": "2002"}
 hasZ3988: boolean: false
 brs: sequence: node: 2001
 node: eBook
@@ -93,7 +93,7 @@ node: eBook
 node: 
 node: 
 node: 
-book: object: {"_detail-url": "/webOPACClient.stasis/singleHit.do?methodToCall=showHit&curPos=7&identifier=-1_S_IG.45.27053", "title": "Englisch Test zum Buch Animal Farm", "author": "", "author": "", "year": "2001"}
+book: object: {"orderable": "zur Vormerkung", "order0": "/webOPACClient.stasis/singleHit.do?methodToCall=showHit&curPos=7&identifier=-1_S_IG.45.27053&tab=showAvailabilityActive", "_detail-url": "/webOPACClient.stasis/singleHit.do?methodToCall=showHit&curPos=7&identifier=-1_S_IG.45.27053", "title": "Englisch Test zum Buch Animal Farm", "author": "", "author": "", "year": "2001"}
 hasZ3988: boolean: false
 brs: sequence: node: 2006
 node: eBook
@@ -106,7 +106,7 @@ node: eBook
 node: 
 node: 
 node: 
-book: object: {"_detail-url": "/webOPACClient.stasis/singleHit.do?methodToCall=showHit&curPos=8&identifier=-1_S_IG.45.27053", "title": "Englisch-Test  zum Thema Australien", "author": "", "author": "", "year": "2006"}
+book: object: {"orderable": "zur Vormerkung", "order0": "/webOPACClient.stasis/singleHit.do?methodToCall=showHit&curPos=8&identifier=-1_S_IG.45.27053&tab=showAvailabilityActive", "_detail-url": "/webOPACClient.stasis/singleHit.do?methodToCall=showHit&curPos=8&identifier=-1_S_IG.45.27053", "title": "Englisch-Test  zum Thema Australien", "author": "", "author": "", "year": "2006"}
 hasZ3988: boolean: false
 brs: sequence: node: 2001
 node: eBook
@@ -119,7 +119,7 @@ node: eBook
 node: 
 node: 
 node: 
-book: object: {"_detail-url": "/webOPACClient.stasis/singleHit.do?methodToCall=showHit&curPos=9&identifier=-1_S_IG.45.27053", "title": "Freiheitlich-demokratische Grundordnung", "author": "", "author": "", "year": "2001"}
+book: object: {"orderable": "zur Vormerkung", "order0": "/webOPACClient.stasis/singleHit.do?methodToCall=showHit&curPos=9&identifier=-1_S_IG.45.27053&tab=showAvailabilityActive", "_detail-url": "/webOPACClient.stasis/singleHit.do?methodToCall=showHit&curPos=9&identifier=-1_S_IG.45.27053", "title": "Freiheitlich-demokratische Grundordnung", "author": "", "author": "", "year": "2001"}
 hasZ3988: boolean: false
 brs: sequence: node: 2005
 node: eBook
@@ -132,4 +132,4 @@ node: eBook
 node: 
 node: 
 node: 
-book: object: {"_detail-url": "/webOPACClient.stasis/singleHit.do?methodToCall=showHit&curPos=10&identifier=-1_S_IG.45.27053", "title": "Grundwissen Weimarer Republik", "author": "", "author": "", "year": "2005"}
+book: object: {"orderable": "zur Vormerkung", "order0": "/webOPACClient.stasis/singleHit.do?methodToCall=showHit&curPos=10&identifier=-1_S_IG.45.27053&tab=showAvailabilityActive", "_detail-url": "/webOPACClient.stasis/singleHit.do?methodToCall=showHit&curPos=10&identifier=-1_S_IG.45.27053", "title": "Grundwissen Weimarer Republik", "author": "", "author": "", "year": "2005"}

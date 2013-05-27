@@ -4,32 +4,32 @@ book: {}
 nextPage: node: /webOPACClient.sisis/hitList.do?methodToCall=pos&identifier=-1_FT_1786867544&curPos=11#-1
 search-result-count: string: 178
 hasZ3988: boolean: false
-book: object: {"_detail-url": "/webOPACClient.sisis/singleHit.do?methodToCall=showHit&curPos=1&identifier=-1_FT_1786867544", "title": "Wie fair sind Apple & Co.?", "year": "  (2013)", "author": "Wiebe, Frank"}
+book: object: {"orderable": null, "_detail-url": "/webOPACClient.sisis/singleHit.do?methodToCall=showHit&curPos=1&identifier=-1_FT_1786867544", "title": "Wie fair sind Apple & Co.?", "year": "  (2013)", "author": "Wiebe, Frank"}
 result: undefined: 
 hasZ3988: boolean: false
-book: object: {"_detail-url": "/webOPACClient.sisis/singleHit.do?methodToCall=showHit&curPos=2&identifier=-1_FT_1786867544", "title": "Genetic Balance - Die Diät-Revolution", "year": "  (2013)", "author": "Bannasch, Lutz"}
+book: object: {"orderable": null, "_detail-url": "/webOPACClient.sisis/singleHit.do?methodToCall=showHit&curPos=2&identifier=-1_FT_1786867544", "title": "Genetic Balance - Die Diät-Revolution", "year": "  (2013)", "author": "Bannasch, Lutz"}
 result: undefined: 
 hasZ3988: boolean: false
-book: object: {"_detail-url": "/webOPACClient.sisis/singleHit.do?methodToCall=showHit&curPos=3&identifier=-1_FT_1786867544", "title": "Medikamente im Test - Krebs", "year": "  (2012)", "author": "Bopp, Annette"}
+book: object: {"orderable": "vormerken (3.-)/bestellen", "order0": "/webOPACClient.sisis/singleHit.do?methodToCall=showHit&curPos=3&identifier=-1_FT_1786867544&tab=showAvailabilityActive", "_detail-url": "/webOPACClient.sisis/singleHit.do?methodToCall=showHit&curPos=3&identifier=-1_FT_1786867544", "title": "Medikamente im Test - Krebs", "year": "  (2012)", "author": "Bopp, Annette"}
 result: undefined: 
 hasZ3988: boolean: false
-book: object: {"_detail-url": "/webOPACClient.sisis/singleHit.do?methodToCall=showHit&curPos=4&identifier=-1_FT_1786867544", "title": "Laurel und Hardy Kurzfilme (1921-1943)", "year": "  (2012)", "author": "KURZFILM LAUREL # DVD_14974"}
+book: object: {"orderable": null, "_detail-url": "/webOPACClient.sisis/singleHit.do?methodToCall=showHit&curPos=4&identifier=-1_FT_1786867544", "title": "Laurel und Hardy Kurzfilme (1921-1943)", "year": "  (2012)", "author": "KURZFILM LAUREL # DVD_14974"}
 result: undefined: 
 hasZ3988: boolean: false
-book: object: {"_detail-url": "/webOPACClient.sisis/singleHit.do?methodToCall=showHit&curPos=5&identifier=-1_FT_1786867544", "title": "Prüfungstraining telc-Test Deutsch B1+ Beruf", "year": "  (2012)", "author": "Maenner, Dieter"}
+book: object: {"orderable": "vormerken (3.-)/bestellen", "order0": "/webOPACClient.sisis/singleHit.do?methodToCall=showHit&curPos=5&identifier=-1_FT_1786867544&tab=showAvailabilityActive", "_detail-url": "/webOPACClient.sisis/singleHit.do?methodToCall=showHit&curPos=5&identifier=-1_FT_1786867544", "title": "Prüfungstraining telc-Test Deutsch B1+ Beruf", "year": "  (2012)", "author": "Maenner, Dieter"}
 result: undefined: 
 hasZ3988: boolean: false
-book: object: {"_detail-url": "/webOPACClient.sisis/singleHit.do?methodToCall=showHit&curPos=6&identifier=-1_FT_1786867544", "title": "Test your English vocabulary in use", "year": "  (2012)", "author": "O'Dell, Felicity"}
+book: object: {"orderable": "vormerken (3.-)/bestellen", "order0": "/webOPACClient.sisis/singleHit.do?methodToCall=showHit&curPos=6&identifier=-1_FT_1786867544&tab=showAvailabilityActive", "_detail-url": "/webOPACClient.sisis/singleHit.do?methodToCall=showHit&curPos=6&identifier=-1_FT_1786867544", "title": "Test your English vocabulary in use", "year": "  (2012)", "author": "O'Dell, Felicity"}
 result: undefined: 
 hasZ3988: boolean: false
-book: object: {"_detail-url": "/webOPACClient.sisis/singleHit.do?methodToCall=showHit&curPos=7&identifier=-1_FT_1786867544", "title": "Fit für TOEFL (Test of English as a Foreign Language)", "year": "  (2012)", "author": "Petersen, Mary"}
+book: object: {"orderable": "vormerken (3.-)/bestellen", "order0": "/webOPACClient.sisis/singleHit.do?methodToCall=showHit&curPos=7&identifier=-1_FT_1786867544&tab=showAvailabilityActive", "_detail-url": "/webOPACClient.sisis/singleHit.do?methodToCall=showHit&curPos=7&identifier=-1_FT_1786867544", "title": "Fit für TOEFL (Test of English as a Foreign Language)", "year": "  (2012)", "author": "Petersen, Mary"}
 result: undefined: 
 hasZ3988: boolean: false
-book: object: {"_detail-url": "/webOPACClient.sisis/singleHit.do?methodToCall=showHit&curPos=8&identifier=-1_FT_1786867544", "title": "Prüfungstraining Deutsch-Test für Zuwanderer : (Niveau A2/B1)", "year": "  (2011)", "author": "Maenner, Dieter"}
+book: object: {"orderable": null, "_detail-url": "/webOPACClient.sisis/singleHit.do?methodToCall=showHit&curPos=8&identifier=-1_FT_1786867544", "title": "Prüfungstraining Deutsch-Test für Zuwanderer : (Niveau A2/B1)", "year": "  (2011)", "author": "Maenner, Dieter"}
 result: undefined: 
 hasZ3988: boolean: false
-book: object: {"_detail-url": "/webOPACClient.sisis/singleHit.do?methodToCall=showHit&curPos=9&identifier=-1_FT_1786867544", "title": "KEYS  - Das Magazin für Musik und Computer", "year": "  (2011)", "author": "004.032.6CUBASE # 674499"}
+book: object: {"orderable": null, "_detail-url": "/webOPACClient.sisis/singleHit.do?methodToCall=showHit&curPos=9&identifier=-1_FT_1786867544", "title": "KEYS  - Das Magazin für Musik und Computer", "year": "  (2011)", "author": "004.032.6CUBASE # 674499"}
 result: undefined: 
 hasZ3988: boolean: false
-book: object: {"_detail-url": "/webOPACClient.sisis/singleHit.do?methodToCall=showHit&curPos=10&identifier=-1_FT_1786867544", "title": "¬Das Geheimnis kluger Entscheidungen", "year": "  (2011)", "author": "Storch, Maja"}
+book: object: {"orderable": null, "_detail-url": "/webOPACClient.sisis/singleHit.do?methodToCall=showHit&curPos=10&identifier=-1_FT_1786867544", "title": "¬Das Geheimnis kluger Entscheidungen", "year": "  (2011)", "author": "Storch, Maja"}
 result: undefined: 

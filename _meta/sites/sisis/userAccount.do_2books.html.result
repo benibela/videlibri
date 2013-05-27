@@ -9,13 +9,7 @@ requestedUrl: node: /InfoGuideClient/userAccount.do?methodToCall=showAccount&typ
 bookCountOrdered: string: 0
 orderedUrl: node: /InfoGuideClient/userAccount.do?methodToCall=showAccount&typ=7
 bookCount: string: 2
+inOrdered: boolean: false
 delete-current-books(): undefined: 
-spanmissing: boolean: true
-previousspan: boolean: false
-spanmissing: boolean: false
-previousspan: boolean: true
 book: object: {"title": "Introduction to cryptography", "author": "Delfs, Hans", "id": "BP1357  ", "status:problematic": "Dieses Medium wurde bereits 5 mal verlängert.", "issuedate": "2010-08-19", "duedate": "2011-01-05"}
-spanmissing: boolean: true
-previousspan: boolean: false
-spanmissing: boolean: false
 book: object: {"title": "Experimentalphysik/2", "author": "Demtröder, Wolfgang", "id": "(1)003187  ", "extendID": "1", "status:curious": "Eine Verlängerung ist möglich.", "issuedate": "2010-12-09", "duedate": "2011-01-10"}
