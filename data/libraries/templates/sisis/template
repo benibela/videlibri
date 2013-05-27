@@ -86,11 +86,11 @@
 <action id="search">
 
   <variable name="searchOptions">
-  (if ($book.title != "")    then ["331", $book.title]    else (),
-   if ($book.author != "")   then ["100", $book.author]   else (),
-   if ($book.isbn != "")     then ["540", $book.isbn]     else (),
-   if ($book.year != "")     then ["425", $book.year]     else (),
-   if ($book.keywords != "") then ["902", $book.keywords] else ())
+  (if ($book.title != "")    then ["331", uri-encode($book.title)]    else (),
+   if ($book.author != "")   then ["100", uri-encode($book.author)]   else (),
+   if ($book.isbn != "")     then ["540", uri-encode($book.isbn)]     else (),
+   if ($book.year != "")     then ["425", uri-encode($book.year)]     else (),
+   if ($book.keywords != "") then ["902", uri-encode($book.keywords)] else ())
   </variable>
 
   <variable name="searchUrl">
