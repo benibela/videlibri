@@ -3,6 +3,11 @@ book: {}
 
 bookCount: string: 
 nextPage: string: 
+bookCountLend: string: 2
+bookCountRequested: string: 0
+requestedUrl: node: /InfoGuideClient/userAccount.do?methodToCall=showAccount&typ=6
+bookCountOrdered: string: 0
+orderedUrl: node: /InfoGuideClient/userAccount.do?methodToCall=showAccount&typ=7
 bookCount: string: 2
 delete-current-books(): undefined: 
 spanmissing: boolean: true

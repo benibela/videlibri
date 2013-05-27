@@ -1,7 +1,8 @@
 book: {}
 
 
+reservations: node: /loan/DB=1/LNG=DU/USERINFO?ACT=UI_LOR&BOR_U=123&BOR_PW_ENC=xxx
 delete-current-books(): undefined: 
 book: object: {"extendId": "", "extendId": "1049957", "title": "Some Systems: a abc", "author": "def introductio", "id": "12/3456:X ABC", "status:curious": "ausgeliehen (0 Mahnung/en)", "duedate:dd-mm-yyyy": "11-07-2011"}
 book: object: {"extendId": "", "extendId": "123", "title": "Systeme: blabla ", "author": "Sound So; Aber W", "id": "18/123:C ABC", "status:curious": "ausgeliehen (0 Mahnung/en)", "duedate:dd-mm-yyyy": "18-07-2011"}
-book: object: {"extendId": "", "title": "Grundriss  ", "author": "D. Semmel", "id": "SUB-SM:A 1923/1234", "status:curious": "Abholregal (Ausleihzentrum)", "duedate:dd-mm-yyyy": "31-12-2099"}
+book: object: {"extendId": "", "title": "Grundriss  ", "author": "D. Semmel", "id": "SUB-SM:A 1923/1234", "status": "Abholregal (Ausleihzentrum)", "statusId": "provided"}
