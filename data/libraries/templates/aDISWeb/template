@@ -78,7 +78,7 @@
            }</TD>
       <TD>{book.duedate := parse-date(., "dd.mm.yyyy")}</TD>
       <TD>{book.libraryBranch := .}</TD>
-      <TD>{book.category := filter(text(), "\[(.*)\]", 1),  
+      <TD>{book.category := filter(text(), "\[([^]]*)\]", 1),  
            book.title :=  if (contains(text(), "]")) then filter(text(), "(\] )(.*)", 2) else text(),
            if (contains($book.title, "/")) then (
              $book.author := substring-after($book.title, "/"),
