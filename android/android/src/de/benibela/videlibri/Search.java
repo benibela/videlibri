@@ -21,7 +21,7 @@ public class Search extends VideLibriBaseActivity{
         TextView lib = ((TextView) findViewById(R.id.library));
         lib.setText(libName);
         lib.setPaintFlags(lib.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
-        if (libId == null || libId.equals("")) changeSearchLib();
+        if (libId == null || libId.equals("") || getIntent().getBooleanExtra("showLibList", false)) changeSearchLib();
 
         ((TextView) findViewById(R.id.library)).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -39,9 +39,9 @@ public class Search extends VideLibriBaseActivity{
                 book.account.libId = libId;
                 book.title = getTextViewText(R.id.title);
                 book.author = getTextViewText(R.id.author);
-                book.more.put("keywords", getTextViewText(R.id.keywords));
-                book.more.put("year", getTextViewText(R.id.year));
-                book.more.put("isbn", getTextViewText(R.id.isbn));
+                book.setProperty("keywords", getTextViewText(R.id.keywords));
+                book.setProperty("year", getTextViewText(R.id.year));
+                book.setProperty("isbn", getTextViewText(R.id.isbn));
                 intent.putExtra("searchQuery", book);
                 startActivity(intent);
             }
