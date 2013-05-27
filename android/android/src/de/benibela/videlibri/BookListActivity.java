@@ -73,9 +73,12 @@ public class BookListActivity extends VideLibriBaseActivity {
                 holder.more.setText(more);
             }
 
-            if (book.account != null) { //lend book
-                holder.date.setText(book.dueDatePretty);
-
+            if (book.account != null && !book.history ) { //lend book
+                switch (book.getStatus()) {
+                    case Provided:  holder.date.setText("abholbereit"); break;
+                    case Ordered:  holder.date.setText("vorgemerkt"); break;
+                    default: holder.date.setText(book.dueDatePretty); break;
+                }
                 int c = book.getStatusColor();
                 if (c == -1) c = VideLibri.defaultColor;
                 //holder.caption.setTextColor(c);

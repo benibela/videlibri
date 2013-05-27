@@ -250,6 +250,16 @@ public class VideLibri extends  BookListActivity{
                     if (book.history) return  1;
                     else return -1;
                 }
+                if ((book.getStatus() == Bridge.Book.StatusEnum.Ordered  || book.getStatus() == Bridge.Book.StatusEnum.Provided)
+                    !=
+                    (book2.getStatus() == Bridge.Book.StatusEnum.Ordered || book2.getStatus() == Bridge.Book.StatusEnum.Provided))
+                    if ((book.getStatus() == Bridge.Book.StatusEnum.Ordered  || book.getStatus() == Bridge.Book.StatusEnum.Provided)) return 1;
+                    else return -1;
+
+                if ((book.dueDate == null) != (book2.dueDate == null))
+                    if (book.dueDate == null) return -1;
+                    else return 1;
+
                 return book.dueDate.compareTo(book2.dueDate);
             }
         }

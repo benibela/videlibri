@@ -63,7 +63,7 @@ var assets: jobject = nil;
       LibIdS, NameS, PassS, PrettyNameS, ExtendDaysI, ExtendZ, HistoryZ: jfieldID;
     end;
     bookFields: record
-      authorS, titleS, issueDateGC, dueDateGC, dueDatePrettyS, accountL, historyZ, moreL: jfieldID;
+      authorS, titleS, issueDateGC, dueDateGC, dueDatePrettyS, accountL, historyZ, statusI, moreL: jfieldID;
       setPropertyMethod: jmethodID;
     end;
     gregorianCalenderClass: jclass;
@@ -158,6 +158,7 @@ begin
     historyZ := j.getfield(bookClass, 'history', 'Z');
     setPropertyMethod := j.getmethod(bookClass, 'setProperty', '(Ljava/lang/String;Ljava/lang/String;)V');
     moreL := j.getfield(bookClass, 'more', 'Ljava/util/Map;');
+    statusI := j.getfield(bookClass, 'status', 'I');
   end;
 
 
@@ -412,10 +413,13 @@ begin
   'dueDate': field := bookFields.dueDateGC;
   else exit;
   end;
-  dateDecode(d, @args[0].i, @args[1].i, @args[2].i);
-  temp := j.newObject(gregorianCalenderClass, gregorianCalenderClassInit, @args);
-  j.SetObjectField(book, field, temp);
-  j.deleteLocalRef(temp);
+  if d = 0 then j.SetObjectField(book, field, nil)
+  else begin
+    dateDecode(d, @args[0].i, @args[1].i, @args[2].i);
+    temp := j.newObject(gregorianCalenderClass, gregorianCalenderClassInit, @args);
+    j.SetObjectField(book, field, temp);
+    j.deleteLocalRef(temp);
+  end;
 
   if bookFields.dueDateGC = bookFields.dueDateGC then
     j.SetStringField(book, bookFields.dueDatePrettyS, DateToPrettyStr(d));
@@ -428,6 +432,13 @@ begin
   temp.book := j.newObject(bookClass, bookClassInit);
   temp.includeDates := includeDates;
   book.serialize(@temp.writeProp,@temp.writeDateProp);
+  case book.status of
+    bsNormal, bsCuriousInStr: j.SetIntField(temp.book, bookFields.statusI, 1);
+    bsProblematicInStr: j.SetIntField(temp.book, bookFields.statusI, 2);
+    bsOrdered: j.SetIntField(temp.book, bookFields.statusI, 3);
+    bsProvided: j.SetIntField(temp.book, bookFields.statusI, 4);
+    else j.SetIntField(temp.book, bookFields.statusI, 0);
+  end;
   if includeAllStrings then
     for i := 0 to high(book.additional) do
       temp.writeProp(book.additional[i].name, book.additional[i].value);
