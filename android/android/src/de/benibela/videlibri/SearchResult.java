@@ -70,7 +70,7 @@ public class SearchResult extends BookListActivity implements Bridge.SearchResul
                 int oldWaitingForDetails = waitingForDetails;
                 waitingForDetails = -1; //search has ended
 
-                book.more.put("__details", "");
+                book.setProperty("__details", "");
                 bookCache.set(oldWaitingForDetails, book); //still save the search result, so it does not need to be searched again
 
                 setLoading(false);
@@ -108,7 +108,7 @@ public class SearchResult extends BookListActivity implements Bridge.SearchResul
     @Override
     public void viewDetails(int bookpos) {
         super.viewDetails(bookpos);    //To change body of overridden methods use File | Settings | File Templates.
-        if (bookCache.get(bookpos).more.containsKey("__details"))    {
+        if (bookCache.get(bookpos).hasProperty("__details"))    {
             nextDetailsRequested = -1;
             return;
         }

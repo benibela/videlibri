@@ -63,8 +63,8 @@ var assets: jobject = nil;
       LibIdS, NameS, PassS, PrettyNameS, ExtendDaysI, ExtendZ, HistoryZ: jfieldID;
     end;
     bookFields: record
-      authorS, titleS, issueDateGC, dueDateGC, dueDatePrettyS, accountL, historyZ, statusI, moreL: jfieldID;
-      setPropertyMethod: jmethodID;
+      authorS, titleS, issueDateGC, dueDateGC, dueDatePrettyS, accountL, historyZ, statusI: jfieldID;
+      setPropertyMethod, getPropertyMethod: jmethodID;
     end;
     gregorianCalenderClass: jclass;
     gregorianCalenderClassInit: jmethodID;
@@ -157,7 +157,7 @@ begin
     accountL := j.getfield(bookClass, 'account', 'Lde/benibela/videlibri/Bridge$Account;');
     historyZ := j.getfield(bookClass, 'history', 'Z');
     setPropertyMethod := j.getmethod(bookClass, 'setProperty', '(Ljava/lang/String;Ljava/lang/String;)V');
-    moreL := j.getfield(bookClass, 'more', 'Ljava/util/Map;');
+    getPropertyMethod := j.getmethod(bookClass, 'getProperty', '(Ljava/lang/String;)Ljava/lang/String;');
     statusI := j.getfield(bookClass, 'status', 'I');
   end;
 
@@ -715,6 +715,7 @@ var
   more: jobject;
   libId: String;
 begin
+  if logging then log('Bridge_VLSearchStart started');
   with bookFields do begin
     tempAccount := j.getObjectField(query, accountL);
     libId := j.getStringField(tempAccount, accountFields.LibIdS);
@@ -736,12 +737,11 @@ begin
   //searcherAccess.searcher.clear;
     searcherAccess.searcher.addLibrary(lib);
 
-    searcherAccess.searcher.SearchOptions.author:=j.getStringField(query, authorS);
-    searcherAccess.searcher.SearchOptions.title:=j.getStringField(query, titleS);
-    more := j.getObjectField(query, moreL);
-    searcherAccess.searcher.SearchOptions.year:=j.jStringToStringAndDelete(j.getMapProperty(more, j.stringToJString('year')));
-    searcherAccess.searcher.SearchOptions.isbn:=j.jStringToStringAndDelete(j.getMapProperty(more, j.stringToJString('isbn')));
-    searcherAccess.searcher.SearchOptions.setProperty('keywords', j.jStringToStringAndDelete(j.getMapProperty(more, j.stringToJString('keywords'))));
+    searcherAccess.searcher.SearchOptions.author:= j.getStringField(query, authorS);
+    searcherAccess.searcher.SearchOptions.title:= j.getStringField(query, titleS);
+    searcherAccess.searcher.SearchOptions.year:= j.callStringMethod(query, bookFields.getPropertyMethod, j.stringToJString('year'));
+    searcherAccess.searcher.SearchOptions.isbn:= j.callStringMethod(query, bookFields.getPropertyMethod, j.stringToJString('isbn'));
+    searcherAccess.searcher.SearchOptions.setProperty('keywords', j.callStringMethod(query, bookFields.getPropertyMethod, j.stringToJString('keywords')));
 
     //searcherAccess.searcher.setLocation(searchLocation.Text); that's for digibib
     searcherAccess.connectAsync;
@@ -750,14 +750,17 @@ begin
     j.SetLongField(searcher, searcherFields.nativePtrJ, wrapSearcherPtr(searcherAccess));
     searcherAccess.jsearcher:=j.newGlobalRefAndDelete(searcher);
   end;
+  if logging then log('Bridge_VLSearchStart ended');
 end;
 
 procedure Java_de_benibela_VideLibri_Bridge_VLSearchNextPage(env:PJNIEnv; this:jobject; searcher: jobject); cdecl;
 var
   sa: TLibrarySearcherAccess;
 begin
+  if logging then log('Bridge_VLSearchNextPage started');
   sa := unwrapSearcher(searcher);
   sa.searchNextAsync;
+  if logging then log('Bridge_VLSearchNextPage started');
 end;
 
 procedure Java_de_benibela_VideLibri_Bridge_VLSearchDetails(env:PJNIEnv; this:jobject; searcher: jobject; jbook: jobject); cdecl;
@@ -765,23 +768,36 @@ var
   sa: TLibrarySearcherAccessWrapper;
   book: TBook;
   more: jobject;
-  entrySet: jobject;
-  iterator: jobject;
-  hasNext: jmethodID;
-  next: jmethodID;
-  getKey: jmethodID;
-  getValue: jmethodID;
-  entry: jobject;
+  get: jmethodID;
+  iv: jvalue;
+  first: jfieldID;
+  second: jfieldID;
+  pair: jobject;
+  size: jint;
+  i: Integer;
+
 begin
+  if logging then log('Bridge_VLSearchDetails started');
   sa := unwrapSearcher(searcher);
   book := TBook.create;
   with bookFields do begin
     book.author := j.getStringField(jbook, authorS);
     book.title := j.getStringField(jbook, titleS);
-    more := j.getObjectField(jbook, moreL);
+    more := j.getObjectField(jbook, j.getfield(bookClass, 'more', 'Ljava/util/ArrayList;'));
+
+    size := j.callIntMethodChecked(more, j.getmethod('java/util/ArrayList', 'size', '()I'));
+    get := j.getmethod('java/util/ArrayList', 'get', '(I)Ljava/lang/Object;');
+    first := j.getfield('de/benibela/videlibri/Bridge$Book$Pair', 'first', 'Ljava/lang/String;');
+    second := j.getfield('de/benibela/videlibri/Bridge$Book$Pair', 'second', 'Ljava/lang/String;');
+    for i := 0 to size - 1 do begin
+      iv.i:=i;
+      pair := j.callObjectMethodChecked(more, get, @iv);
+      book.setProperty(j.getStringField(pair, first), j.getStringField(pair, second));
+      j.deleteLocalRef(pair);
+    end;
 
 
-    entrySet := j.callObjectMethodChecked(more, j.getmethod('java/util/Map', 'entrySet', '()Ljava/util/Set;'));
+    {entrySet := j.callObjectMethodChecked(more, j.getmethod('java/util/Map', 'entrySet', '()Ljava/util/Set;'));
     iterator := j.callObjectMethodChecked(entrySet, j.getmethod('java/util/Set', 'iterator', '()Ljava/util/Iterator;'));
 
     hasNext := j.getmethod('java/util/Iterator', 'hasNext', '()Z');
@@ -794,10 +810,11 @@ begin
       book.setProperty(j.jStringToStringAndDelete(j.callObjectMethodChecked(entry, getKey)),
                        j.jStringToStringAndDelete(j.callObjectMethodChecked(entry, getValue)));
       j.deleteLocalRef(entry);
-    end;
+    end;}
   end;
   sa.tempBooks.add(book);
   sa.detailsAsyncSave(book);
+  if logging then log('Bridge_VLSearchDetails ended');
 end;
 
 

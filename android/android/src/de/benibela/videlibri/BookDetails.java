@@ -119,7 +119,7 @@ public class BookDetails extends VideLibriBaseActivity {
 
     ArrayList<Details> details = new ArrayList<Details>();
     void addIfExists(String displayName, String propertyName){
-        String value = book.more.get(propertyName);
+        String value = book.getProperty(propertyName);
         if (value == null || "".equals(value)) return;
         details.add(new Details(displayName, value));
     }
@@ -164,9 +164,9 @@ public class BookDetails extends VideLibriBaseActivity {
             if (!book.author.startsWith("von") && !book.author.startsWith("by")) titleData += "\n\n von " + book.author;
             else titleData += "\n\n "+book.author;
         }
-        String year = book.more.get("year");
+        String year = book.getProperty("year");
         if (year != null && !year.equals("")) titleData += "\n " + year;
-        String id = book.more.get("id");
+        String id = book.getProperty("id");
         if (id != null && !id.equals("")) titleData += "\n " + id;
 
         details.add(new Details("Titeldaten", titleData));
@@ -174,9 +174,14 @@ public class BookDetails extends VideLibriBaseActivity {
         if ((!searchedBook && !book.history) || book.dueDate != null)
             details.add(new Details("Abgabefrist", book.dueDatePretty));
 
-        String status = book.more.get("status");
+        String status = book.getProperty("status");
         if (status == null) status = "";
-        if ("".equals(status) && "critical".equals(book.more.get("statusId"))) status = "(nicht verlängerbar)";
+        if ("".equals(status))
+            switch (book.getStatus()){
+                case Problematic: status = "(nicht verlängerbar)"; break;
+                case Ordered: status = "(vorgemerkt)"; break;
+                case Provided: status = "(abholbereit)"; break;
+            }
         if (!"".equals(status)) details.add(new Details("Bemerkung", status));
 
         if (book.issueDate != null)
@@ -191,19 +196,19 @@ public class BookDetails extends VideLibriBaseActivity {
 
         final List<String> above = Arrays.asList("status", "id", "category", "year", "statusId", "libraryBranch", "publisher");
 
-        for (Map.Entry<String, String> entry : book.more.entrySet())
-            if ( entry.getValue() != null && !"".equals(entry.getValue()) && (
-                    (!searchedBook && !above.contains(entry.getKey()))
-                    || (searchedBook && entry.getKey().endsWith("!"))
+        for (int i=0;i<book.more.size();i++)
+            if ( book.more.get(i).second != null && !"".equals(book.more.get(i).second) && (
+                    (!searchedBook && !above.contains(book.more.get(i).first))
+                    || (searchedBook && book.more.get(i).first.endsWith("!"))
             ))
-                details.add(new Details(entry.getKey(), entry.getValue()));
+                details.add(new Details(book.more.get(i).first, book.more.get(i).second));
 
         lv.setAdapter(new BookDetailsAdapter(this, details, book));
 
-        setLoading(searchedBook && (!book.more.containsKey("__details") || (book.image == null && book.more.containsKey("image-url"))));
+        setLoading(searchedBook && (!book.hasProperty("__details") || (book.image == null && book.hasProperty("image-url"))));
 
-        if (book.more != null && book.more.containsKey("image-url") && book.image == null)
-            new DownloadImageTask(this, book).execute(book.more.get("image-url"));
+        if (book.more != null && book.hasProperty("image-url") && book.image == null)
+            new DownloadImageTask(this, book).execute(book.getProperty("image-url"));
 
     }
 
