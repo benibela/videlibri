@@ -123,6 +123,7 @@ public class Bridge {
 
     static public native void VLInit(VideLibri videlibri);
     static public native String[] VLGetLibraries(); //id|pretty location|name|short name
+    static public native String[] VLGetLibraryDetails(String id); //[homepage, catlogue]
     static public native Account[] VLGetAccounts();
     static public native void VLAddAccount(Account acc);
     static public native void VLChangeAccount(Account oldacc, Account newacc);

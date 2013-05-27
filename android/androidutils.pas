@@ -199,7 +199,7 @@ begin
   //bbdebugtools.log(strFromPtr(libraryManager));
   //bbdebugtools.log(IntToStr(libraryManager.count));
   try
-    result := j.newObjectArray(libraryManager.count, j.getclass('java/lang/String'), j.stringToJString(''));
+    result := j.newObjectArray(libraryManager.count, j.getclass('java/lang/String'), nil);
     for i := 0 to libraryManager.count - 1 do begin
       lib := libraryManager[i];
       j.env^^.SetObjectArrayElement(j.env, result, i, j.stringToJString(lib.id+'|'+lib.prettyLocation+'|'+lib.prettyNameLong+'|'+lib.prettyNameShort));
@@ -209,6 +209,26 @@ begin
   end;
   if logging then bbdebugtools.log('de.benibela.VideLibri.Bride.VLGetLibraries (ended)');
 end;
+
+function Java_de_benibela_VideLibri_Bridge_VLGetLibraryDetails(env:PJNIEnv; this:jobject; id: jstring): jobject; cdecl;
+var
+  lib: TLibrary;
+  i: Integer;
+begin
+  if logging then bbdebugtools.log('de.benibela.VideLibri.Bride.VLGetLibraryDetails (started)');
+  //bbdebugtools.log(strFromPtr(libraryManager));
+  //bbdebugtools.log(IntToStr(libraryManager.count));
+  try
+    lib := libraryManager.get(j.jStringToStringAndDelete(id));
+    result := j.newObjectArray(2, j.getclass('java/lang/String'), nil);
+    j.SetObjectArrayElement(result, 0, j.stringToJString(lib.homepageBase));
+    j.SetObjectArrayElement(result, 1, j.stringToJString(lib.homepageCatalogue));
+  except
+    on e: Exception do j.ThrowNew('de/benibela/videlibri/Bridge$InternalError', 'Interner Fehler: '+e.Message);
+  end;
+  if logging then bbdebugtools.log('de.benibela.VideLibri.Bride.VLGetLibraryDetails (ended)');
+end;
+
 
 function Java_de_benibela_VideLibri_Bridge_VLAddAccount(env:PJNIEnv; this:jobject; acc: jobject): jobject; cdecl;
 var
@@ -898,11 +918,12 @@ end;
 
 
 
-const nativeMethods: array[1..17] of JNINativeMethod=
+const nativeMethods: array[1..18] of JNINativeMethod=
   ((name:'VLInit';          signature:'(Lde/benibela/videlibri/VideLibri;)V';                   fnPtr:@Java_de_benibela_VideLibri_Bridge_VLInit)
    ,(name:'VLFinalize';      signature:'()V';                   fnPtr:@Java_de_benibela_VideLibri_Bridge_VLFInit)
 
    ,(name:'VLGetLibraries'; signature:'()[Ljava/lang/String;'; fnPtr:@Java_de_benibela_VideLibri_Bridge_VLGetLibraries)
+   ,(name:'VLGetLibraryDetails'; signature:'(Ljava/lang/String;)[Ljava/lang/String;'; fnPtr:@Java_de_benibela_VideLibri_Bridge_VLGetLibraryDetails)
 
    ,(name:'VLAddAccount'; signature:'(Lde/benibela/videlibri/Bridge$Account;)V'; fnPtr:@Java_de_benibela_VideLibri_Bridge_VLAddAccount)
    ,(name:'VLDeleteAccount'; signature:'(Lde/benibela/videlibri/Bridge$Account;)V'; fnPtr:@Java_de_benibela_VideLibri_Bridge_VLDeleteAccount)

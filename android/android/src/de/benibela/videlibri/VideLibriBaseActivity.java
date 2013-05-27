@@ -3,6 +3,7 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.Uri;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -77,6 +78,9 @@ public class VideLibriBaseActivity extends SherlockActivity {
 
     }
 
+    private static final int REQUESTED_LIBRARY_HOMEPAGE  = 89324;
+    private static final int REQUESTED_LIBRARY_CATALOGUE = 89325;
+
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle item selection
         Intent intent;
@@ -100,6 +104,18 @@ public class VideLibriBaseActivity extends SherlockActivity {
             case R.id.renew:
                 if (VideLibri.instance != null && !VideLibri.instance.loading)
                     VideLibri.updateAccount(null, false, true);
+                return true;
+            case R.id.libinfo:
+                intent = new Intent(this, LibraryList.class);
+                intent.putExtra("reason", "Wählen Sie eine Bücherei um ihre Homepage zu öffnen:");
+                intent.putExtra("search", true);
+                startActivityForResult(intent, REQUESTED_LIBRARY_HOMEPAGE);
+                return true;
+            case R.id.libcatalogue:
+                intent = new Intent(this, LibraryList.class);
+                intent.putExtra("reason", "Wählen Sie eine Bücherei um ihren Webkatalog zu öffnen:");
+                intent.putExtra("search", true);
+                startActivityForResult(intent, REQUESTED_LIBRARY_CATALOGUE);
                 return true;
             case  android.R.id.home:
                 openOptionsMenu();
@@ -209,5 +225,17 @@ public class VideLibriBaseActivity extends SherlockActivity {
             });
         }
         builder.show();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if ((requestCode == REQUESTED_LIBRARY_CATALOGUE || requestCode == REQUESTED_LIBRARY_HOMEPAGE) && resultCode == LibraryList.RESULT_OK) {
+            String id = data.getStringExtra("libId");
+            String [] details = Bridge.VLGetLibraryDetails(id);
+            startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(details[
+                requestCode == REQUESTED_LIBRARY_HOMEPAGE ? 0 : 1
+            ])));
+        }
+
     }
 }
