@@ -1277,7 +1277,7 @@ begin
     reader.callAction(action);
   end else if reader.findAction('cancel-single') <> nil then begin
     action := reader.findAction('cancel-single');
-    for i := 0 to booklist.Count do begin
+    for i := 0 to booklist.Count - 1 do begin
       reader.selectBook(booklist[i]);
       reader.callAction(action);
     end;
