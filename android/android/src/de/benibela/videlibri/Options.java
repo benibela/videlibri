@@ -101,6 +101,7 @@ public class Options extends VideLibriBaseActivity{
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == NEW_ACCOUNT_CREATION_RESULT && resultCode == AccountInfo.RESULT_OK)
             finish();
+        else super.onActivityResult(requestCode, resultCode, data);
     }
 
     @Override

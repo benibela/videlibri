@@ -236,6 +236,7 @@ public class VideLibriBaseActivity extends SherlockActivity {
                 requestCode == REQUESTED_LIBRARY_HOMEPAGE ? 0 : 1
             ])));
         }
+        else super.onActivityResult(requestCode, resultCode, data);
 
     }
 }

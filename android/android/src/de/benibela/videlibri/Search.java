@@ -66,6 +66,6 @@ public class Search extends VideLibriBaseActivity{
                 libName = data.getStringExtra("libName");
                 ((TextView) findViewById(R.id.library)).setText(libName);
             }
-        }
+        } else super.onActivityResult(requestCode, resultCode, data);
     }
 }
