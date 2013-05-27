@@ -34,8 +34,21 @@
     </body>
     </template>
   </page>
+  
+  <variable name="requestedUrl" value=""/>
+  <variable name="orderedUrl" value=""/>
 
-  <page url="{$server}userAccount.do;jsession;?methodToCall=show&amp;type=1"  templateFile="loggedIn"></page>
+  <page url="{$server}userAccount.do;jsession;?methodToCall=show&amp;typ=1"  templateFile="loggedIn"></page>
+  <loop test="$nextPage != ''">
+    <page url="{$nextPage}"  templateFile="loggedIn"></page>
+  </loop>
+
+  <page url="{$requestedUrl}"  templateFile="loggedIn"></page>
+  <loop test="$nextPage != ''">
+    <page url="{$nextPage}"  templateFile="loggedIn"></page>
+  </loop>
+
+  <page url="{$orderedUrl}"  templateFile="loggedIn"></page>
   <loop test="$nextPage != ''">
     <page url="{$nextPage}"  templateFile="loggedIn"></page>
   </loop>

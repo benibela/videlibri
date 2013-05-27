@@ -153,8 +153,8 @@ begin
 //    bsAccountExpired: exit('Büchereikarte ist abgelaufen');
     bsCuriousInStr: if verbose then exit('verlängerbar: '+book.statusStr) else exit(book.statusStr);
     bsProblematicInStr: if verbose then exit('nicht verlängerbar: '+book.statusStr) else exit(book.statusStr);
-    bsOrdered: exit('vorgemerkt');
-    bsProvided: exit('zur Abholung bereit');
+    bsOrdered: if book.statusStr <> '' then exit(book.statusStr) else exit('vorgemerkt');
+    bsProvided: if book.statusStr <> '' then exit(book.statusStr) else exit('zur Abholung bereit');
     else exit('Unbekannter Fehler, bei Ausleihstatusermittlung! Bitte melden!');
   end;
 

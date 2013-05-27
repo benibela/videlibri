@@ -6,23 +6,29 @@
 <body>
    <div id="main"> 
      <div id="middle"> 
-        <div id="tab"> <!--There is another div in-between, but its id changes between current1, active1 and label1, so don't check it-->
-           Ausleihen<template:read source="." var="bookCount" regex="[0-9]+"/>
-           <template:if test="$bookCount = ''">INVALID CANCEL CURRENT TAG</template:if>
-        </div>
+      <div id="tab">
+        <div>Ausleihen<t:s>bookCountLend := extract(., "[0-9]+")</t:s></div>
+        <div>Bestellungen<t:s>bookCountRequested := extract(., "[0-9]+"), requestedUrl := a/@href</t:s></div>?
+        <div>Vormerkungen<t:s>bookCountOrdered := extract(., "[0-9]+"), orderedUrl := a/@href</t:s></div>?
+      </div>
         
   <div id="tab-content">
   
 
     <div class="box">
       <div class="box-header">
-        <h2>Ausleihen</h2>
+        <template:switch>
+          <h2>Ausleihen
+             <t:s>bookCount := $bookCountLend</t:s>
+             <t:if test="$nextPage = ''"><template:read var="delete-current-books()"/></t:if></h2>
+          <h2>Bestellungen<t:s>bookCount := $bookCountRequested</t:s></h2>
+          <h2>Vormerkungen<t:s>bookCount := $bookCountOrdered</t:s></h2>
+        </template:switch>
       </div>
     </div>
     <!--<fieldset>-->
 
-    <t:if test="$nextPage = ''"><template:read var="delete-current-books()"/></t:if>
-    <t:else>{nextPage:=""}</t:else>
+    <t:if test="$nextPage != ''">{nextUrl := ""}</t:if>
 
 <!--    <template:if test="$allBooksAway=''">-->
     <table class="data">
@@ -60,13 +66,19 @@
             </span>
            </template:if>-->
          </td>
-         <template:if test="$spanmissing"><broken/></template:if>
-         <td>
-           {book.issuedate:=parse-date(filter(text(), '^\d{2}\.\d{2}\.\d{4}'), 'dd.mm.yyyy'),
-            book.duedate:=parse-date(filter(text(),'- *(\d{2}\.\d{2}\.\d{4})', 1), 'dd.mm.yyyy')
-           }<br/>
-	 </td>
-        <!-- <template:read var="book-end()"/>-->
+      <!--   <template:if test="$spanmissing"><broken/></template:if>-->
+         <template:switch>
+           <td>bestellt<br/>
+              <t:s>book.status := "bestellt",
+                   book.issuedate := parse-date(filter(., '\d{2}\.\d{2}\.\d{4}', 0), 'dd.mm.yyyy'), 
+                   book.statusId := "ordered"</t:s>
+           </td>
+           <td>
+             {book.issuedate:=parse-date(filter(text(), '^\d{2}\.\d{2}\.\d{4}'), 'dd.mm.yyyy'),
+              book.duedate:=parse-date(filter(text(),'- *(\d{2}\.\d{2}\.\d{4})', 1), 'dd.mm.yyyy')
+             }
+           </td>
+         </template:switch>
        </tr>
               
       </template:loop>      
