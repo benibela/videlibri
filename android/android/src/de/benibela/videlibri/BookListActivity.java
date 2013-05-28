@@ -37,6 +37,10 @@ public class BookListActivity extends VideLibriBaseFragmentActivity{
     }
 
 
+    @Override
+    void setLoading(boolean loading) {
+        super.setLoading(loading || (details() != null && details().loading) || (list() != null && list().loading));
+    }
 
     public ArrayList<Bridge.Book> bookCache = new ArrayList<Bridge.Book>();
 
@@ -106,6 +110,11 @@ public class BookListActivity extends VideLibriBaseFragmentActivity{
     public BookDetails details(){
         if (lastDetails != null) return lastDetails;
         BookDetails fragment = (BookDetails) getSupportFragmentManager().findFragmentById(R.id.details); //does not work in portrait mode (id is not set??)
+        return fragment;
+    }
+    public BookListFragment list(){
+        if (listFragment != null) return listFragment;
+        BookListFragment fragment = (BookListFragment) getSupportFragmentManager().findFragmentById(R.id.list); //does not work in portrait mode (id is not set??)
         return fragment;
     }
 }

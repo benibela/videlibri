@@ -10,13 +10,17 @@ public class VideLibriBaseFragmentActivity extends SherlockFragmentActivity{
     MenuItem loadingItem;
 
     void setLoading(boolean loading){
-        //TODO
+        this.loading = loading;
+        if (loadingItem == null) return;
+        loadingItem.setVisible(loading);
     }
 
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         VideLibriSuperBase.onCreateOptionsMenu(getSherlock(), menu);
+        loadingItem = menu.findItem(R.id.loading);
+        if (loadingItem != null) loadingItem.setVisible(loading);
         return super.onCreateOptionsMenu(menu);
     }
 

@@ -5,7 +5,9 @@ import android.widget.Button;
 import com.actionbarsherlock.app.SherlockFragment;
 
 public class VideLibriBaseFragment extends SherlockFragment {
+    boolean loading;
     void setLoading(boolean loading){
+        this.loading = loading;
         if (getSherlockActivity() instanceof VideLibriBaseFragmentActivity)
             ((VideLibriBaseFragmentActivity) getSherlockActivity()).setLoading(loading);
     }

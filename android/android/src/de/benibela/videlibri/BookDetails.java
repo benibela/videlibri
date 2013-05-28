@@ -153,7 +153,7 @@ public class BookDetails extends VideLibriBaseFragment {
         Log.i("VL", ""+getSherlockActivity());
         Log.i("VL", ""+getView());       */
 
-        if (getSherlockActivity() == null || getView() == null) return;
+        if (getSherlockActivity() == null || getView() == null || newBook == null) return;
 
         boolean searchedBook = book.account == null;
 
