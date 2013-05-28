@@ -48,6 +48,8 @@ public class BookListActivity extends VideLibriBaseFragmentActivity{
         //Log.i("VL","Book count: "+partialSize);
         BookOverviewAdapter sa = new BookOverviewAdapter(this, bookCache, partialSize);
         ListView bookListView = (ListView) findViewById(R.id.booklistview);
+        if (bookListView == null && list() != null) bookListView = (ListView) (list().findViewById(R.id.booklistview));
+        if (bookListView == null) return; //this might get executed before the fragment/view is loaded
         bookListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {

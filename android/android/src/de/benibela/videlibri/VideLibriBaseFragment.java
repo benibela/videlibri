@@ -14,10 +14,14 @@ public class VideLibriBaseFragment extends SherlockFragment {
 
 
     View findViewById(int id){
-        return getView().findViewById(id);
+        View v = getView();
+        if (v == null) return null;
+        return v.findViewById(id);
     }
     Button findButtonById(int id){
-        return (Button) getView().findViewById(id);
+        View v = getView();
+        if (v == null) return null;
+        return (Button) (v.findViewById(id));
     }
 
 
