@@ -40,7 +40,7 @@ public class AccountInfo extends VideLibriBaseActivity {
     static final int MODE_ACCOUNT_CREATION = 134390 ;
     static final int MODE_ACCOUNT_CREATION_INITIAL = 134391 ;
     static final int MODE_ACCOUNT_MODIFY = 134392 ;
-    static final int REQUEST_LIBRARY_FOR_ACCOUNT_CREATION = 122347;
+    static final int REQUEST_LIBRARY_FOR_ACCOUNT_CREATION = 1236;
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

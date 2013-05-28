@@ -20,8 +20,8 @@ import com.actionbarsherlock.view.MenuItem;
  * To change this template use File | Settings | File Templates.
  */
 public class VideLibriSuperBase {
-    private static final int REQUESTED_LIBRARY_HOMEPAGE  = 89324;
-    private static final int REQUESTED_LIBRARY_CATALOGUE = 89325;
+    private static final int REQUESTED_LIBRARY_HOMEPAGE  = 29324;
+    private static final int REQUESTED_LIBRARY_CATALOGUE = 29325;
 
     static public boolean onOptionsItemSelected(Activity context, MenuItem item) {
         // Handle item selection

@@ -28,7 +28,7 @@ public class Options extends VideLibriBaseActivity{
 
     }
 
-    static final int NEW_ACCOUNT_CREATION_RESULT = 1234512;
+    static final int NEW_ACCOUNT_CREATION_RESULT = 1235;
 
     @Override
     protected void onResume() {

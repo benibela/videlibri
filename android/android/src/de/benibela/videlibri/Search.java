@@ -10,7 +10,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 public class Search extends VideLibriBaseActivity{
-    static final int REQUEST_CHOOSE_LIBRARY = 123435;
+    static final int REQUEST_CHOOSE_LIBRARY = 1234;
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.searchlayout);
