@@ -9,6 +9,7 @@ import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,7 +18,7 @@ import android.widget.*;
 import java.io.InputStream;
 import java.util.*;
 
-public class BookDetails extends VideLibriBaseActivity {
+public class BookDetails extends VideLibriBaseFragment {
     Bridge.Book book;
 
     static class Details{
@@ -124,39 +125,41 @@ public class BookDetails extends VideLibriBaseActivity {
         details.add(new Details(displayName, value));
     }
 
-    static BookDetails instance = null;
-
     static Bridge.Book bookToView = null; //passed as parameter to newly created detail display (do not serialize, as it crashes with books with images and is slow in any case)
 
+
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.bookdetails);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.bookdetails, container, false);
+
+
+        return view;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();    //To change body of overridden methods use File | Settings | File Templates.
 
         setBook( bookToView );
         bookToView = null;
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();    //To change body of overridden methods use File | Settings | File Templates.
-        instance = this;
-    }
-
-    @Override
-    protected void onPause() {
-        instance = null;
-        super.onPause();    //To change body of overridden methods use File | Settings | File Templates.
-    }
-
     void setBook(Bridge.Book newBook){
-        book = newBook;
+        if (newBook != null) book = newBook;
         if (book == null) book = new Bridge.Book();
+
+        /*Log.i("VL",  ""+isInLayout());
+        Log.i("VL", ""+getSherlockActivity());
+        Log.i("VL", ""+getView());       */
+
+        if (getSherlockActivity() == null || getView() == null) return;
 
         boolean searchedBook = book.account == null;
 
         ListView lv = (ListView) findViewById(R.id.bookdetailsview);
 
+        if (lv == null) return;
 
         details.clear();
         String titleData = book.title;
@@ -185,7 +188,7 @@ public class BookDetails extends VideLibriBaseActivity {
         if (!"".equals(status)) details.add(new Details("Bemerkung", status));
 
         if (book.issueDate != null)
-          details.add(new Details("Ausleihdatum", android.text.format.DateFormat.getDateFormat(this).format(book.issueDate.getTime())));
+          details.add(new Details("Ausleihdatum", android.text.format.DateFormat.getDateFormat(getSherlockActivity()).format(book.issueDate.getTime())));
         addIfExists("Ausgeliehen in", "libraryBranch");
         if (book.account != null) details.add(new Details("Konto", book.account.prettyName));
 
@@ -203,7 +206,7 @@ public class BookDetails extends VideLibriBaseActivity {
             ))
                 details.add(new Details(book.more.get(i).first, book.more.get(i).second));
 
-        lv.setAdapter(new BookDetailsAdapter(this, details, book));
+        lv.setAdapter(new BookDetailsAdapter(getSherlockActivity(), details, book));
 
         setLoading(searchedBook && (!book.hasProperty("__details") || (book.image == null && book.hasProperty("image-url"))));
 
