@@ -61,6 +61,7 @@ var assets: jobject = nil;
     accountClassInit, bookClassInit: jmethodID;
     accountFields: record
       LibIdS, NameS, PassS, PrettyNameS, ExtendDaysI, ExtendZ, HistoryZ: jfieldID;
+//      internalIdMethod: jmethodID;
     end;
     bookFields: record
       authorS, titleS, issueDateGC, dueDateGC, dueDatePrettyS, accountL, historyZ, statusI: jfieldID;
@@ -144,6 +145,7 @@ begin
     ExtendDaysI := j.getfield(accountClass, 'extendDays', 'I');
     ExtendZ := j.getfield(accountClass, 'extend', 'Z');
     HistoryZ := j.getfield(accountClass, 'history', 'Z');
+//    internalIdMethod := j.getmethod(accountClass, 'internalId', '()Ljava/lang/String;');
   end;
 
   bookClass := j.newGlobalRefAndDelete(j.getclass('de/benibela/videlibri/Bridge$Book'));
@@ -390,9 +392,14 @@ begin
     if (accounts[i].getUser() = user) and (accounts[i].getLibrary().id = libId) then
       exit(accounts[i]);
   result := nil;
-  needJ.ThrowNew('de/benibela/videlibri/Bridge$InternalError', 'Konto nicht gefunden: '+libId+':'+user);
 end;
 
+function getRealAccountChecked(acc: jobject): TCustomAccountAccess;
+begin
+  result := getRealAccount(acc);
+  if result = nil then
+    needJ.ThrowNew('de/benibela/videlibri/Bridge$InternalError', 'Konto nicht gefunden: '+needj.getStringField(acc, accountFields.LibIdS)+':'+ j.getStringField(acc, accountFields.NameS));
+end;
 
 type
 
@@ -465,6 +472,62 @@ begin
   result := temp.book;
 end;
 
+function jbookToBookAndDelete(jbook: jobject): TBook;
+var
+  more: jobject;
+  get: jmethodID;
+  iv: jvalue;
+  first: jfieldID;
+  second: jfieldID;
+  pair: jobject;
+  size: jint;
+  i: Integer;
+  jaccount: jobject;
+  accountId: String;
+  accountIndex: Integer;
+begin
+  result := TBook.create;
+  with bookFields do begin
+    result.author := j.getStringField(jbook, authorS);
+    result.title := j.getStringField(jbook, titleS);
+    more := j.getObjectField(jbook, j.getfield(bookClass, 'more', 'Ljava/util/ArrayList;'));
+
+    size := j.callIntMethodChecked(more, j.getmethod('java/util/ArrayList', 'size', '()I'));
+    get := j.getmethod('java/util/ArrayList', 'get', '(I)Ljava/lang/Object;');
+    first := j.getfield('de/benibela/videlibri/Bridge$Book$Pair', 'first', 'Ljava/lang/String;');
+    second := j.getfield('de/benibela/videlibri/Bridge$Book$Pair', 'second', 'Ljava/lang/String;');
+    for i := 0 to size - 1 do begin
+      iv.i:=i;
+      pair := j.callObjectMethodChecked(more, get, @iv);
+      result.setProperty(j.getStringField(pair, first), j.getStringField(pair, second));
+      j.deleteLocalRef(pair);
+    end;
+
+
+    jaccount := j.getObjectField(jbook, bookFields.accountL);
+    if jaccount <> nil then begin
+      result.owner := getRealAccount(jaccount);
+      j.deleteLocalRef(jaccount);
+    end;
+
+    {entrySet := j.callObjectMethodChecked(more, j.getmethod('java/util/Map', 'entrySet', '()Ljava/util/Set;'));
+    iterator := j.callObjectMethodChecked(entrySet, j.getmethod('java/util/Set', 'iterator', '()Ljava/util/Iterator;'));
+
+    hasNext := j.getmethod('java/util/Iterator', 'hasNext', '()Z');
+    next := j.getmethod('java/util/Iterator', 'next', '()Ljava/lang/Object;');
+    getKey := j.getmethod('java/util/Map$Entry', 'getKey', '()Ljava/lang/Object;');
+    getValue := j.getmethod('java/util/Map$Entry', 'getValue', '()Ljava/lang/Object;');
+
+    while j.callBooleanMethodChecked(iterator, hasNext) do begin
+      entry := j.callObjectMethodChecked(iterator, next);
+      result.setProperty(j.jStringToStringAndDelete(j.callObjectMethodChecked(entry, getKey)),
+                       j.jStringToStringAndDelete(j.callObjectMethodChecked(entry, getValue)));
+      j.deleteLocalRef(entry);
+    end;}
+  end;
+  j.deleteLocalRef(jbook);
+end;
+
 function Java_de_benibela_VideLibri_Bridge_VLGetBooks(env:PJNIEnv; this:jobject; jacc: jobject; jhistory: jboolean): jobject; cdecl;
 var
   acc: TCustomAccountAccess;
@@ -475,7 +538,7 @@ var
 begin
   if logging then bbdebugtools.log('Java_de_benibela_VideLibri_Bridge_VLGetBooks started');
 
-  acc := getRealAccount(jacc);
+  acc := getRealAccountChecked(jacc);
   if acc = nil then exit;
   history := jhistory <> JNI_FALSE;
 
@@ -514,8 +577,8 @@ var
   autoupdate: boolean;
   forceExtend: boolean;
 begin
-  bbdebugtools.log('VLUpdateAccounts');
-  acc := getRealAccount(jacc);
+  if logging then log('VLUpdateAccounts');
+  acc := getRealAccountChecked(jacc);
   if acc = nil then begin bbdebugtools.log('x'); exit;end;
 
   autoupdate := jautoupdate <> JNI_FALSE;
@@ -535,6 +598,38 @@ begin
   except
     on e: Exception do j.ThrowNew('de/benibela/videlibri/Bridge$InternalError', 'Interner Fehler: '+e.Message);
   end;
+  if logging then log('VLUpdateAccounts ended');
+
+  result := nil;
+end;
+
+function Java_de_benibela_VideLibri_Bridge_VLBookOperation(env:PJNIEnv; this:jobject; jbooks: jobject; operation: jint): jobject; cdecl;
+var
+  acc: TCustomAccountAccess;
+  autoupdate: boolean;
+  forceExtend: boolean;
+  books: TBookList;
+  book: TBook;
+  i: Integer;
+begin
+  if logging then log('VLBookOperation');
+
+  try
+    books := TBookList.create();
+    books.Capacity:=j.getArrayLength(jbooks);
+    for i := 0 to j.getArrayLength(jbooks) - 1 do begin
+      book := jbookToBookAndDelete(j.getObjectArrayElement(jbooks, i));
+      if book.owner <> nil then books.add(book);
+    end;
+    case operation of
+      1: extendBooks(books);
+      2: cancelBooks(books);
+    end;
+    books.free;
+  except
+    on e: Exception do j.ThrowNew('de/benibela/videlibri/Bridge$InternalError', 'Interner Fehler: '+e.Message);
+  end;
+  if logging then log('VLBookOperation ended');
 
   result := nil;
 end;
@@ -787,57 +882,34 @@ procedure Java_de_benibela_VideLibri_Bridge_VLSearchDetails(env:PJNIEnv; this:jo
 var
   sa: TLibrarySearcherAccessWrapper;
   book: TBook;
-  more: jobject;
-  get: jmethodID;
-  iv: jvalue;
-  first: jfieldID;
-  second: jfieldID;
-  pair: jobject;
-  size: jint;
-  i: Integer;
 
 begin
   if logging then log('Bridge_VLSearchDetails started');
   sa := unwrapSearcher(searcher);
-  book := TBook.create;
-  with bookFields do begin
-    book.author := j.getStringField(jbook, authorS);
-    book.title := j.getStringField(jbook, titleS);
-    more := j.getObjectField(jbook, j.getfield(bookClass, 'more', 'Ljava/util/ArrayList;'));
-
-    size := j.callIntMethodChecked(more, j.getmethod('java/util/ArrayList', 'size', '()I'));
-    get := j.getmethod('java/util/ArrayList', 'get', '(I)Ljava/lang/Object;');
-    first := j.getfield('de/benibela/videlibri/Bridge$Book$Pair', 'first', 'Ljava/lang/String;');
-    second := j.getfield('de/benibela/videlibri/Bridge$Book$Pair', 'second', 'Ljava/lang/String;');
-    for i := 0 to size - 1 do begin
-      iv.i:=i;
-      pair := j.callObjectMethodChecked(more, get, @iv);
-      book.setProperty(j.getStringField(pair, first), j.getStringField(pair, second));
-      j.deleteLocalRef(pair);
-    end;
-
-
-    {entrySet := j.callObjectMethodChecked(more, j.getmethod('java/util/Map', 'entrySet', '()Ljava/util/Set;'));
-    iterator := j.callObjectMethodChecked(entrySet, j.getmethod('java/util/Set', 'iterator', '()Ljava/util/Iterator;'));
-
-    hasNext := j.getmethod('java/util/Iterator', 'hasNext', '()Z');
-    next := j.getmethod('java/util/Iterator', 'next', '()Ljava/lang/Object;');
-    getKey := j.getmethod('java/util/Map$Entry', 'getKey', '()Ljava/lang/Object;');
-    getValue := j.getmethod('java/util/Map$Entry', 'getValue', '()Ljava/lang/Object;');
-
-    while j.callBooleanMethodChecked(iterator, hasNext) do begin
-      entry := j.callObjectMethodChecked(iterator, next);
-      book.setProperty(j.jStringToStringAndDelete(j.callObjectMethodChecked(entry, getKey)),
-                       j.jStringToStringAndDelete(j.callObjectMethodChecked(entry, getValue)));
-      j.deleteLocalRef(entry);
-    end;}
-  end;
+  book := jbookToBookAndDelete(jbook);
   sa.tempBooks.add(book);
   sa.detailsAsyncSave(book);
   if logging then log('Bridge_VLSearchDetails ended');
 end;
 
+procedure Java_de_benibela_VideLibri_Bridge_VLSearchOrder(env:PJNIEnv; this:jobject; searcher: jobject; jbooks: jobject); cdecl;
+var
+  sa: TLibrarySearcherAccessWrapper;
+  accountId: String;
+  accountIndex: Integer;
+  book: TBook;
+  i: Integer;
 
+begin
+  if logging then log('Bridge_VLSearchOrder started');
+  sa := unwrapSearcher(searcher);
+  for i := 0 to j.getArrayLength(jbooks) do begin
+    book :=  jbookToBookAndDelete(j.getObjectArrayElement(jbooks, i));
+    sa.orderAsync(TCustomAccountAccess(book.owner), book);
+  end;
+
+  if logging then log('Bridge_VLSearchOrder ended');
+end;
 
 procedure Java_de_benibela_VideLibri_Bridge_VLSearchEnd(env:PJNIEnv; this:jobject; searcher: jobject); cdecl;
 var
@@ -918,7 +990,7 @@ end;
 
 
 
-const nativeMethods: array[1..18] of JNINativeMethod=
+const nativeMethods: array[1..20] of JNINativeMethod=
   ((name:'VLInit';          signature:'(Lde/benibela/videlibri/VideLibri;)V';                   fnPtr:@Java_de_benibela_VideLibri_Bridge_VLInit)
    ,(name:'VLFinalize';      signature:'()V';                   fnPtr:@Java_de_benibela_VideLibri_Bridge_VLFInit)
 
@@ -932,6 +1004,7 @@ const nativeMethods: array[1..18] of JNINativeMethod=
    ,(name:'VLGetBooks'; signature:'(Lde/benibela/videlibri/Bridge$Account;Z)[Lde/benibela/videlibri/Bridge$Book;'; fnPtr:@Java_de_benibela_VideLibri_Bridge_VLGetBooks)
 
    ,(name:'VLUpdateAccount'; signature:'(Lde/benibela/videlibri/Bridge$Account;ZZ)V'; fnPtr:@Java_de_benibela_VideLibri_Bridge_VLUpdateAccounts)
+   ,(name:'VLBookOperation'; signature:'([Lde/benibela/videlibri/Bridge$Book;I)V'; fnPtr:@Java_de_benibela_VideLibri_Bridge_VLBookOperation)
    ,(name:'VLTakePendingExceptions'; signature: '()[Lde/benibela/videlibri/Bridge$PendingException;'; fnPtr: @Java_de_benibela_VideLibri_Bridge_VLGetPendingExceptions)
 
    ,(name:'VLGetNotifications'; signature: '()[Ljava/lang/String;'; fnPtr: @Java_de_benibela_VideLibri_Bridge_VLGetNotifications)
@@ -939,6 +1012,7 @@ const nativeMethods: array[1..18] of JNINativeMethod=
    ,(name:'VLSearchStart'; signature: '(Lde/benibela/videlibri/Bridge$SearcherAccess;Lde/benibela/videlibri/Bridge$Book;)V'; fnPtr: @Java_de_benibela_VideLibri_Bridge_VLSearchStart)
    ,(name:'VLSearchNextPage'; signature: '(Lde/benibela/videlibri/Bridge$SearcherAccess;)V'; fnPtr: @Java_de_benibela_VideLibri_Bridge_VLSearchNextPage)
    ,(name:'VLSearchDetails'; signature: '(Lde/benibela/videlibri/Bridge$SearcherAccess;Lde/benibela/videlibri/Bridge$Book;)V'; fnPtr: @Java_de_benibela_VideLibri_Bridge_VLSearchDetails)
+   ,(name:'VLSearchOrder'; signature: '(Lde/benibela/videlibri/Bridge$SearcherAccess;[Lde/benibela/videlibri/Bridge$Book;)V'; fnPtr: @Java_de_benibela_VideLibri_Bridge_VLSearchOrder)
    ,(name:'VLSearchEnd'; signature: '(Lde/benibela/videlibri/Bridge$SearcherAccess;)V'; fnPtr: @Java_de_benibela_VideLibri_Bridge_VLSearchEnd)
 
    ,(name:'VLSetOptions'; signature: '(Lde/benibela/videlibri/Bridge$Options;)V'; fnPtr: @Java_de_benibela_VideLibri_Bridge_VLSetOptions)

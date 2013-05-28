@@ -23,7 +23,7 @@ public class Bridge {
             return  (a.libId == libId && a.prettyName == prettyName);
         }
         String internalId(){
-            return libId+"_"+name;
+            return libId+"#"+name;
         }
         Library getLibrary(){ //warning slow
             Library[] libs = getLibraries();
@@ -130,6 +130,7 @@ public class Bridge {
     static public native void VLDeleteAccount(Account acc);
     static public native Book[] VLGetBooks(Account acc, boolean history);
     static public native void VLUpdateAccount(Account acc, boolean autoUpdate, boolean forceExtend);
+    static public native void VLBookOperation(Book[] books, int operation);
     static public native PendingException[] VLTakePendingExceptions();
 
     static public native String[] VLGetNotifications();
@@ -137,6 +138,7 @@ public class Bridge {
     static public native void VLSearchStart(SearcherAccess searcher, Book query);
     static public native void VLSearchNextPage(SearcherAccess searcher);
     static public native void VLSearchDetails(SearcherAccess searcher, Book book);
+    static public native void VLSearchOrder(SearcherAccess searcher, Book[] book);
     static public native void VLSearchEnd(SearcherAccess searcher);
 
     static public native void VLSetOptions(Options options);
@@ -164,6 +166,9 @@ public class Bridge {
         }
         public void details(Book book){
             VLSearchDetails(this, book);
+        }
+        public void order(Book book){
+            VLSearchOrder(this, new Book[]{book});
         }
         public void free(){
             VLSearchEnd(this);

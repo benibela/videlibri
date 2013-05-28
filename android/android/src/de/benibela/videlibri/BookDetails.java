@@ -207,6 +207,26 @@ public class BookDetails extends VideLibriBaseActivity {
 
         setLoading(searchedBook && (!book.hasProperty("__details") || (book.image == null && book.hasProperty("image-url"))));
 
+        String action = null;
+        if (searchedBook) {
+            String orderable = book.getProperty("orderable");
+            if (orderable != null && !"".equals(orderable) && !"0".equals(orderable) && !"false".equals(orderable))
+                action = "vormerken/bestellen";
+        } else if (!book.history)
+            switch (book.getStatus()) {
+                case Unknown: action = "verlängern"; break;
+                case Normal: action = "verlängern"; break;
+                //case Problematic: break;
+                case Ordered:  action = "Bestellung abbrechen"; break;
+                //case Provided:  break;
+            }
+        Button actionButton = findButtonById(R.id.button);
+        if (action != null) {
+            actionButton.setText(action);
+            actionButton.setVisibility(View.VISIBLE);
+            //actionButton.setOnClickListener(actionButtonClickListener);
+        } else actionButton.setVisibility(View.GONE);
+
         if (book.more != null && book.hasProperty("image-url") && book.image == null)
             new DownloadImageTask(this, book).execute(book.getProperty("image-url"));
 

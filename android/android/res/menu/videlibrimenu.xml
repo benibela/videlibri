@@ -11,6 +11,7 @@
           android:title="Sonstiges" >
         <menu>
             <item android:id="@+id/renew" android:title="Alle verlängern"/>
+            <item android:id="@+id/renewlist" android:title="Manche verlängern (todo)"/>
             <item android:id="@+id/refresh" android:title="Alle aktualisieren"/>
             <item android:id="@+id/libinfo" android:title="Webseiten"/>
             <item android:id="@+id/libcatalogue" android:title="Katalogseiten"/>
