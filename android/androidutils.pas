@@ -54,7 +54,7 @@ function loaded: LongInt; begin end;
 
 var assets: jobject = nil;
     assetCount: integer = 0;
-    jmAssetManager_Open_StringInputStream, jmInputStream_Read_B: jmethodID;
+    jmAssetManager_Open_StringInputStream, jmInputStream_Read_B, jmInputStream_Close: jmethodID;
     videlibriClass: jclass;
     videLibriMethodUserPath, videLibriMethodVLAllThreadsDone: jmethodID;
     accountClass, bookClass: jobject;
@@ -81,7 +81,7 @@ begin
   if FileExists(userPath + name) then exit(strLoadFromFileUTF8(userPath + name));
   beginAssetRead;
   try
-    result := j.getAssetAsString(assets, name, jmAssetManager_Open_StringInputStream, jmInputStream_Read_B);
+    result := j.getAssetAsString(assets, name, jmAssetManager_Open_StringInputStream, jmInputStream_Read_B, jmInputStream_Close);
   finally
     endAssetRead;
   end;
@@ -93,6 +93,7 @@ begin
     assets := needJ.getAssets;
     jmAssetManager_Open_StringInputStream := j.commonMethods_AssetManager_Open_StringInputStream;
     jmInputStream_Read_B := j.commonMethods_InputStream_Read_B;
+    jmInputStream_Close := j.commonMethods_InputStream_Close;
   end;
   assetCount += 1;
 end;
