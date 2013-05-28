@@ -536,6 +536,7 @@ begin
   for i:=0 to accounts.count-1 do
     with (accounts[i]) do
       for j:=0  to books.current.count-1 do begin
+        if books.current[j].status in BOOK_NOT_LEND then continue;
         if books.current[j].dueDate<currentDate then begin
           booksOverdue.Add(books.current[j]);
           if books.current[j].dueDate < minDateOverdue then
