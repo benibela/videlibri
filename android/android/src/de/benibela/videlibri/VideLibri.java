@@ -118,13 +118,18 @@ public class VideLibri extends  BookListActivity{
             displayAccount(null);
         //setTitle("Ausleihen");  //does not work in onCreate (why? makes the title invisible) No. it just works sometimes?
 
-        if (accounts == null || accounts.length == 0)
-            findViewById(R.id.layout).postDelayed(new Runnable() {
+        if (accounts == null || accounts.length == 0){
+            View v = findViewById(R.id.layout); //need an arbitrary view. Depends on landscape/portrait, which is there
+            if (v == null) v = findViewById(R.id.booklistview);
+            if (v == null) v = findViewById(R.id.list);
+            if (v != null) v.postDelayed(new Runnable() {
                 @Override
                 public void run() {
                     newAccountDialog(true); //do not call directly, because then the main activity becomes not visible till restart
                 }
             }, 400);
+        }
+
 
     }
 
