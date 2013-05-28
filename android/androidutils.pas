@@ -538,9 +538,15 @@ var
   book: jobject;
 begin
   if logging then bbdebugtools.log('Java_de_benibela_VideLibri_Bridge_VLGetBooks started');
-
-  acc := getRealAccountChecked(jacc);
-  if acc = nil then exit;
+  try
+    acc := getRealAccountChecked(jacc);
+    if acc = nil then exit;
+  except
+    on e: Exception do begin
+      j.ThrowNew('de/benibela/videlibri/Bridge$InternalError', 'Interner Fehler: '+e.Message);
+      exit;
+    end;
+  end;
   history := jhistory <> JNI_FALSE;
 
   if logging then bbdebugtools.log(acc.prettyName);
@@ -579,15 +585,16 @@ var
   forceExtend: boolean;
 begin
   if logging then log('VLUpdateAccounts');
-  acc := getRealAccountChecked(jacc);
-  if acc = nil then begin bbdebugtools.log('x'); exit;end;
-
-  autoupdate := jautoupdate <> JNI_FALSE;
-  forceExtend := jforceExtend <> JNI_FALSE;
-
-  //if ignoreConnErrors and (account.broken = currentDate) then
-  //  exit;
   try
+    acc := getRealAccountChecked(jacc);
+    if acc = nil then begin bbdebugtools.log('x'); exit;end;
+
+    autoupdate := jautoupdate <> JNI_FALSE;
+    forceExtend := jforceExtend <> JNI_FALSE;
+
+    //if ignoreConnErrors and (account.broken = currentDate) then
+    //  exit;
+
  {   EnterCriticalSection(updateThreadConfig.threadManagementSection);
     updateThreadConfig.updateThreadsRunning+=1;
     updateThreadConfig.listUpdateThreadsRunning+=1;
@@ -654,33 +661,37 @@ begin
   if logging then bbdebugtools.log('Bridge_VLGetPendingExceptions started');
 
 
-  pendingExceptionClass := j.newGlobalRefAndDelete(j.getclass('de/benibela/videlibri/Bridge$PendingException'));
-  pendingExceptionClassInit := j.getmethod(pendingExceptionClass, '<init>', '()V');
-  with pendingExceptionFields do begin
-    accountPrettyNamesS := j.getfield(pendingExceptionClass, 'accountPrettyNames', 'Ljava/lang/String;');
-    errorS := j.getfield(pendingExceptionClass, 'error', 'Ljava/lang/String;');
-    detailsS := j.getfield(pendingExceptionClass, 'details', 'Ljava/lang/String;');
-  end;
-
-
-
-  result := j.newObjectArray(length(errorMessageList), pendingExceptionClass, nil);
-  for i :=  0 to high(errorMessageList) do begin
-    temp := j.newObject(pendingExceptionClass, pendingExceptionClassInit);
+  try
+    pendingExceptionClass := j.newGlobalRefAndDelete(j.getclass('de/benibela/videlibri/Bridge$PendingException'));
+    pendingExceptionClassInit := j.getmethod(pendingExceptionClass, '<init>', '()V');
     with pendingExceptionFields do begin
-      details := '';
-      names := '';
-      for k := 0 to high(errorMessageList[i].details) do begin
-        details += errorMessageList[i].details[k].details+LineEnding+LineEnding;
-        if names <> '' then names += ', ';
-        names += errorMessageList[i].details[k].account.prettyName;
-      end;
-      j.SetStringField(temp, detailsS, details);
-      j.SetStringField(temp, accountPrettyNamesS, names);
-      j.SetStringField(temp, errorS, errorMessageList[i].error);
+      accountPrettyNamesS := j.getfield(pendingExceptionClass, 'accountPrettyNames', 'Ljava/lang/String;');
+      errorS := j.getfield(pendingExceptionClass, 'error', 'Ljava/lang/String;');
+      detailsS := j.getfield(pendingExceptionClass, 'details', 'Ljava/lang/String;');
     end;
-    j.SetObjectArrayElement(result, i, temp);
-    j.deleteLocalRef(temp);
+
+
+
+    result := j.newObjectArray(length(errorMessageList), pendingExceptionClass, nil);
+    for i :=  0 to high(errorMessageList) do begin
+      temp := j.newObject(pendingExceptionClass, pendingExceptionClassInit);
+      with pendingExceptionFields do begin
+        details := '';
+        names := '';
+        for k := 0 to high(errorMessageList[i].details) do begin
+          details += errorMessageList[i].details[k].details+LineEnding+LineEnding;
+          if names <> '' then names += ', ';
+          names += errorMessageList[i].details[k].account.prettyName;
+        end;
+        j.SetStringField(temp, detailsS, details);
+        j.SetStringField(temp, accountPrettyNamesS, names);
+        j.SetStringField(temp, errorS, errorMessageList[i].error);
+      end;
+      j.SetObjectArrayElement(result, i, temp);
+      j.deleteLocalRef(temp);
+    end;
+  except
+    on e: Exception do j.ThrowNew('de/benibela/videlibri/Bridge$InternalError', 'Interner Fehler: '+e.Message);
   end;
   if logging then bbdebugtools.log('Bridge_VLGetPendingExceptions ended');
 end;
@@ -706,47 +717,52 @@ var title, text: string;
 begin
   if logging then bbdebugtools.log('Bridge_VLGetNotifications started');
 
-  title := '';
-  text := '';
+  try
+    title := '';
+    text := '';
 
-  findBooksThatMustBeReturned(booksOverdue, booksSoonNotExtendable, booksSoon,
-                              minDateOverdue, minDateSoonNotExtendable, minDateSoon);
 
-  if ((lastWarnDate + WarnInterval <= currentDate) and (booksOverdue.Count + booksSoonNotExtendable.Count + booksSoon.Count > 0))
-     or (booksOverdue.Count > 0) then begin
-    if booksOverdue.Count > 0 then begin
-      title := grammar(booksOverdue.Count, 'überfällige')+' ! ';
-      text := format('%s seit %s' + LineEnding,
-                    [grammar(booksOverdue.Count), DateToPrettyGrammarStr('dem ','',minDateOverdue)]);
-    end;
-    if (booksSoonNotExtendable.Count > 0) or (booksSoon.Count > 0) then begin
-      title += grammar(booksSoonNotExtendable.Count+booksSoon.Count, 'fällige');
-      if booksSoonNotExtendable.Count > 0 then begin
-        if text <> '' then text += '; ';
-        text += format('%s bis %s',
-                      [grammar(booksSoonNotExtendable.Count), DateToPrettyGrammarStr('zum ','',minDateSoonNotExtendable)]);
+    findBooksThatMustBeReturned(booksOverdue, booksSoonNotExtendable, booksSoon,
+                                minDateOverdue, minDateSoonNotExtendable, minDateSoon);
+
+    if ((lastWarnDate + WarnInterval <= currentDate) and (booksOverdue.Count + booksSoonNotExtendable.Count + booksSoon.Count > 0))
+       or (booksOverdue.Count > 0) then begin
+      if booksOverdue.Count > 0 then begin
+        title := grammar(booksOverdue.Count, 'überfällige')+' ! ';
+        text := format('%s seit %s' + LineEnding,
+                      [grammar(booksOverdue.Count), DateToPrettyGrammarStr('dem ','',minDateOverdue)]);
       end;
-      if booksSoon.Count > 0 then begin
-        if text <> '' then text += '; ';
-        text += format('%s bis %s',
-                     [grammar(booksSoon.Count, 'verlängerbare'), DateToPrettyGrammarStr('zum ','',minDateSoon)]);
+      if (booksSoonNotExtendable.Count > 0) or (booksSoon.Count > 0) then begin
+        title += grammar(booksSoonNotExtendable.Count+booksSoon.Count, 'fällige');
+        if booksSoonNotExtendable.Count > 0 then begin
+          if text <> '' then text += '; ';
+          text += format('%s bis %s',
+                        [grammar(booksSoonNotExtendable.Count), DateToPrettyGrammarStr('zum ','',minDateSoonNotExtendable)]);
+        end;
+        if booksSoon.Count > 0 then begin
+          if text <> '' then text += '; ';
+          text += format('%s bis %s',
+                       [grammar(booksSoon.Count, 'verlängerbare'), DateToPrettyGrammarStr('zum ','',minDateSoon)]);
+        end;
       end;
     end;
+
+    if title = '' then result := nil
+    else begin
+      result := j.newObjectArray(2, j.getclass('java/lang/String'), nil);
+      j.SetObjectArrayElement(result, 0, j.stringToJString(title));
+      j.SetObjectArrayElement(result, 1, j.stringToJString(text));
+    end;
+
+    booksSoon.Free;
+    booksSoonNotExtendable.free;
+    booksOverdue.Free;
+
+    lastWarnDate:=currentDate;
+    userConfig.WriteInteger('base','last-warn-date',currentDate);
+  except
+    on e: Exception do j.ThrowNew('de/benibela/videlibri/Bridge$InternalError', 'Interner Fehler: '+e.Message);
   end;
-
-  if title = '' then result := nil
-  else begin
-    result := j.newObjectArray(2, j.getclass('java/lang/String'), nil);
-    j.SetObjectArrayElement(result, 0, j.stringToJString(title));
-    j.SetObjectArrayElement(result, 1, j.stringToJString(text));
-  end;
-
-  booksSoon.Free;
-  booksSoonNotExtendable.free;
-  booksOverdue.Free;
-
-  lastWarnDate:=currentDate;
-  userConfig.WriteInteger('base','last-warn-date',currentDate);
 
   if logging then bbdebugtools.log('Bridge_VLGetNotifications ended');
 end;
@@ -832,39 +848,43 @@ var
   libId: String;
 begin
   if logging then log('Bridge_VLSearchStart started');
-  with bookFields do begin
-    tempAccount := j.getObjectField(query, accountL);
-    libId := j.getStringField(tempAccount, accountFields.LibIdS);
-    j.deleteLocalRef(tempAccount);
+  try
+    with bookFields do begin
+      tempAccount := j.getObjectField(query, accountL);
+      libId := j.getStringField(tempAccount, accountFields.LibIdS);
+      j.deleteLocalRef(tempAccount);
 
-    lib := libraryManager.get(libId);
-    if lib = nil then begin
-      j.SetLongField(query, searcherFields.nativePtrJ, wrapSearcherPtr(nil));
-      exit;
+      lib := libraryManager.get(libId);
+      if lib = nil then begin
+        j.SetLongField(query, searcherFields.nativePtrJ, wrapSearcherPtr(nil));
+        exit;
+      end;
+
+      searcherAccess := TLibrarySearcherAccessWrapper.create();
+
+      searcherAccess.OnSearchPageComplete:=@searcherAccess.OnSearchPageCompleteImpl;
+      searcherAccess.OnDetailsComplete:=@searcherAccess.OnDetailsCompleteImpl;
+      searcherAccess.OnException:=@searcherAccess.OnExceptionImpl;
+
+      searcherAccess.newSearch( lib.template );
+    //searcherAccess.searcher.clear;
+      searcherAccess.searcher.addLibrary(lib);
+
+      searcherAccess.searcher.SearchOptions.author:= j.getStringField(query, authorS);
+      searcherAccess.searcher.SearchOptions.title:= j.getStringField(query, titleS);
+      searcherAccess.searcher.SearchOptions.year:= j.callStringMethod(query, bookFields.getPropertyMethod, j.stringToJString('year'));
+      searcherAccess.searcher.SearchOptions.isbn:= j.callStringMethod(query, bookFields.getPropertyMethod, j.stringToJString('isbn'));
+      searcherAccess.searcher.SearchOptions.setProperty('keywords', j.callStringMethod(query, bookFields.getPropertyMethod, j.stringToJString('keywords')));
+
+      //searcherAccess.searcher.setLocation(searchLocation.Text); that's for digibib
+      searcherAccess.connectAsync;
+      searcherAccess.searchAsync;
+
+      j.SetLongField(searcher, searcherFields.nativePtrJ, wrapSearcherPtr(searcherAccess));
+      searcherAccess.jsearcher:=j.newGlobalRefAndDelete(searcher);
     end;
-
-    searcherAccess := TLibrarySearcherAccessWrapper.create();
-
-    searcherAccess.OnSearchPageComplete:=@searcherAccess.OnSearchPageCompleteImpl;
-    searcherAccess.OnDetailsComplete:=@searcherAccess.OnDetailsCompleteImpl;
-    searcherAccess.OnException:=@searcherAccess.OnExceptionImpl;
-
-    searcherAccess.newSearch( lib.template );
-  //searcherAccess.searcher.clear;
-    searcherAccess.searcher.addLibrary(lib);
-
-    searcherAccess.searcher.SearchOptions.author:= j.getStringField(query, authorS);
-    searcherAccess.searcher.SearchOptions.title:= j.getStringField(query, titleS);
-    searcherAccess.searcher.SearchOptions.year:= j.callStringMethod(query, bookFields.getPropertyMethod, j.stringToJString('year'));
-    searcherAccess.searcher.SearchOptions.isbn:= j.callStringMethod(query, bookFields.getPropertyMethod, j.stringToJString('isbn'));
-    searcherAccess.searcher.SearchOptions.setProperty('keywords', j.callStringMethod(query, bookFields.getPropertyMethod, j.stringToJString('keywords')));
-
-    //searcherAccess.searcher.setLocation(searchLocation.Text); that's for digibib
-    searcherAccess.connectAsync;
-    searcherAccess.searchAsync;
-
-    j.SetLongField(searcher, searcherFields.nativePtrJ, wrapSearcherPtr(searcherAccess));
-    searcherAccess.jsearcher:=j.newGlobalRefAndDelete(searcher);
+  except
+    on e: Exception do j.ThrowNew('de/benibela/videlibri/Bridge$InternalError', 'Interner Fehler: '+e.Message);
   end;
   if logging then log('Bridge_VLSearchStart ended');
 end;
@@ -874,8 +894,12 @@ var
   sa: TLibrarySearcherAccess;
 begin
   if logging then log('Bridge_VLSearchNextPage started');
-  sa := unwrapSearcher(searcher);
-  sa.searchNextAsync;
+  try
+    sa := unwrapSearcher(searcher);
+    sa.searchNextAsync;
+  except
+    on e: Exception do j.ThrowNew('de/benibela/videlibri/Bridge$InternalError', 'Interner Fehler: '+e.Message);
+  end;
   if logging then log('Bridge_VLSearchNextPage started');
 end;
 
@@ -886,10 +910,14 @@ var
 
 begin
   if logging then log('Bridge_VLSearchDetails started');
-  sa := unwrapSearcher(searcher);
-  book := jbookToBookAndDelete(jbook);
-  sa.tempBooks.add(book);
-  sa.detailsAsyncSave(book);
+  try
+    sa := unwrapSearcher(searcher);
+    book := jbookToBookAndDelete(jbook);
+    sa.tempBooks.add(book);
+    sa.detailsAsyncSave(book);
+  except
+    on e: Exception do j.ThrowNew('de/benibela/videlibri/Bridge$InternalError', 'Interner Fehler: '+e.Message);
+  end;
   if logging then log('Bridge_VLSearchDetails ended');
 end;
 
@@ -903,12 +931,15 @@ var
 
 begin
   if logging then log('Bridge_VLSearchOrder started');
-  sa := unwrapSearcher(searcher);
-  for i := 0 to j.getArrayLength(jbooks) do begin
-    book :=  jbookToBookAndDelete(j.getObjectArrayElement(jbooks, i));
-    sa.orderAsync(TCustomAccountAccess(book.owner), book);
+  try
+    sa := unwrapSearcher(searcher);
+    for i := 0 to j.getArrayLength(jbooks) do begin
+      book :=  jbookToBookAndDelete(j.getObjectArrayElement(jbooks, i));
+      sa.orderAsync(TCustomAccountAccess(book.owner), book);
+    end;
+  except
+    on e: Exception do j.ThrowNew('de/benibela/videlibri/Bridge$InternalError', 'Interner Fehler: '+e.Message);
   end;
-
   if logging then log('Bridge_VLSearchOrder ended');
 end;
 

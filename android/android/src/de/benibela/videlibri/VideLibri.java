@@ -251,6 +251,7 @@ public class VideLibri extends  BookListActivity{
         Collections.sort(bookCache, new Comparator<Bridge.Book>() {
             @Override
             public int compare(Bridge.Book book, Bridge.Book book2) {
+                if (book == null || book2 == null) return 0;
                 if (book.history != book2.history) {
                     if (book.history) return  1;
                     else return -1;
@@ -264,6 +265,9 @@ public class VideLibri extends  BookListActivity{
                 if ((book.dueDate == null) != (book2.dueDate == null))
                     if (book.dueDate == null) return -1;
                     else return 1;
+
+                if (book.dueDate == null && book2.dueDate == null)
+                    return 0;
 
                 return book.dueDate.compareTo(book2.dueDate);
             }
