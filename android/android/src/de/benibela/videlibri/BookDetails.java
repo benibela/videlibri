@@ -172,7 +172,8 @@ public class BookDetails extends VideLibriBaseFragment {
         String id = book.getProperty("id");
         if (id != null && !id.equals("")) titleData += "\n " + id;
 
-        details.add(new Details("Titeldaten", titleData));
+        if (titleData != null && !"".equals(titleData))
+            details.add(new Details("Titeldaten", titleData));
 
         if ((!searchedBook && !book.history) || book.dueDate != null)
             details.add(new Details("Abgabefrist", book.dueDatePretty));
