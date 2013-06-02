@@ -67,6 +67,7 @@ type
     procedure searchAuthorEnter(Sender: TObject);
     procedure searchAuthorExit(Sender: TObject);
     procedure searcherAccessOrderComplete(sender: TObject; book: TBook);
+    procedure searcherAccessOrderConfirm(sender: TObject; book: TBook);
     procedure searchTitleChange(Sender: TObject);
     procedure startSearchClick(Sender: TObject);
     procedure displayInternalPropertiesChange(Sender: TObject);
@@ -146,6 +147,7 @@ begin
   searcherAccess.OnSearchPageComplete:=@searcherAccessSearchComplete;
   searcherAccess.OnDetailsComplete:=@searcherAccessDetailsComplete;
   searcherAccess.OnOrderComplete:=@searcherAccessOrderComplete;
+  searcherAccess.OnOrderConfirm:=@searcherAccessOrderConfirm;
   searcherAccess.OnImageComplete:=@searcherAccessImageComplete;
   searcherAccess.OnException:=@searcherAccessException;
   
@@ -428,6 +430,18 @@ begin
   searcherAccess.endBookReading;
   if mainForm <> nil then mainForm.RefreshListView;
   ShowMessage(format('Das Buch "%s" wurde ohne Fehler vorgemerkt.', [book.toSimpleString()])  );
+end;
+
+procedure TbookSearchFrm.searcherAccessOrderConfirm(sender: TObject; book: TBook);
+var
+  question: String;
+begin
+  searcherAccess.beginBookReading;
+  question := book.getPropertyAdditional('orderConfirmation');
+  searcherAccess.endBookReading;
+
+  question := StringReplace(question, '\n', LineEnding, [rfReplaceAll]);
+  if confirm(question) then searcherAccess.orderConfirmedAsync(book);
 end;
 
 procedure TbookSearchFrm.searcherAccessSearchComplete(sender: TObject; firstPage, nextPageAvailable: boolean);

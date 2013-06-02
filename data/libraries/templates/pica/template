@@ -103,10 +103,33 @@
 </action>
 
 
-<action id="order-single">
+<action id="order-confirm-single">
   <page url="{$book(x'order{$book.choosenOrder}')}">
-    <template><html>{order:=form(//form, {"BOR_U": $username, "BOR_PW": $password})}</html></template>
+    <template><html>
+      <form>
+      {order:=form(., {"BOR_U": $username, "BOR_PW": $password})}
+
+        <table summary="Message block header">
+        <td/><td>{book.orderConfirmation := x"Soll das folgende Buch {
+          if ($book.orderTitle = "Vormerken") then "vorgemerkt"
+          else  if ($book.orderTitle = "Bestellen") then "bestellt"
+          else $book.orderTitle
+        } werden?\n{$book.title}: \n{.}\n"}</td>
+        </table> ? 
+      
+        <table summary="title data">
+        <tr><td>Signatur</td><td><img/></td>?<td>{$book.orderConfirmation := concat($book.orderConfirmation,      "\nSignatur: ", .)}</td></tr>
+        <tr><td>Standort</td><td><img/></td>?<td>{$book.orderConfirmation := concat($book.orderConfirmation,      "\nStandort: ", .)}</td></tr>
+        <tr><td>Ausleihstatus</td><td><img/></td>?<td>{$book.orderConfirmation := concat($book.orderConfirmation, "\nAusleihstatus: ", .)}</td></tr>
+        <tr><td>Vormerkungen</td><td><img/></td>?<td>{$book.orderConfirmation := concat($book.orderConfirmation,  "\nVormerkungen: ", .)}</td></tr>
+        </table> ?
+      
+      </form>
+    </html></template>
   </page>
+</action>
+
+<action id="order-single">
   <page url="{$order}">
     
   </page>

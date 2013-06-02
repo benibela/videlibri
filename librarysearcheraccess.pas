@@ -15,7 +15,7 @@ TLibrarySearcherAccess = class;
 
 { TLibrarySearcherAccess }
 
-TSearcherMessageTyp=(smtFree, smtConnect, smtSearch, smtSearchNext, smtDetails, smtImage, smtOrder, smtDisconnect);
+TSearcherMessageTyp=(smtFree, smtConnect, smtSearch, smtSearchNext, smtDetails, smtImage, smtOrder, smtOrderConfirmed, smtDisconnect);
 
 { TSearcherMessage }
 
@@ -66,7 +66,7 @@ private
   fthread: TSearcherThread;
   ftemplate: TMultiPageTemplate;
   FOnConnected: TNotifyEvent;
-  FOnDetailsComplete, FOnOrderComplete: TBookNotifyEvent;
+  FOnDetailsComplete, FOnOrderComplete, FOnOrderConfirm: TBookNotifyEvent;
   FOnImageComplete: TBookNotifyEvent;
   FOnSearchPageComplete: TPageCompleteNotifyEvent;
 
@@ -92,6 +92,7 @@ public
   procedure detailsAsyncSave(book: TBook); //save means they make sure the
   procedure imageAsyncSave(book: TBook);   //book is not updated only once
   procedure orderAsync(account: TCustomAccountAccess; book: TBook);
+  procedure orderConfirmedAsync(book: TBook);
   procedure disconnectAsync;
 
   property OnException: TNotifyEvent read FOnException write FOnException;
@@ -99,6 +100,7 @@ public
   property OnSearchPageComplete: TPageCompleteNotifyEvent read FOnSearchPageComplete write FOnSearchPageComplete;
   property OnDetailsComplete: TBookNotifyEvent read FOnDetailsComplete write FOnDetailsComplete;
   property OnOrderComplete: TBookNotifyEvent read FOnOrderComplete write FOnOrderComplete;
+  property OnOrderConfirm: TBookNotifyEvent read FOnOrderConfirm write FOnOrderConfirm;
   property OnImageComplete: TBookNotifyEvent read FOnImageComplete write FOnImageComplete;
   property searcher: TLibrarySearcher read GetSearcher;
 end;
@@ -297,6 +299,12 @@ begin
   fthread.messages.storeMessage(TSearcherMessage.Create(smtOrder,book));
 end;
 
+procedure TLibrarySearcherAccess.orderConfirmedAsync(book: TBook);
+begin
+  if not assigned(fthread) then exit;
+  fthread.messages.storeMessage(TSearcherMessage.Create(smtOrderConfirmed,book));
+end;
+
 procedure TLibrarySearcherAccess.disconnectAsync;
 begin
   if not assigned(fthread) then exit;
@@ -444,12 +452,17 @@ begin
             if logging then log('end image');
           end;
         end;
-        smtOrder: begin
+        smtOrder, smtOrderConfirmed: begin
           if logging then log('Searcher thread: message smtOrder: '+book.toSimpleString());
           TCustomAccountAccess(book.owner).isThreadRunning:=true;
           try
-            Searcher.orderSingle(book);
-            callBookEvent(access.FOnOrderComplete, book);
+            if (mes.typ = smtOrderConfirmed) or not searcher.orderNeedsConfirmation(book) then begin
+              Searcher.orderSingle(book);
+              callBookEvent(access.FOnOrderComplete, book);
+            end else begin
+              Searcher.orderConfirmSingle(book);
+              callBookEvent(access.FOnOrderConfirm, book);
+            end;
           finally
             TCustomAccountAccess(book.owner).isThreadRunning:=false;
           end;
