@@ -130,7 +130,7 @@
   </if>
   
   <page url="{$book.order0}">
-    <template><t:s>order := form(//form[contains(@action, "availability")])</t:s></template>
+    <template><t:s>order := form(//form[contains(@action, "availability")]), book.orderConfirmationOptionTitles := ()</t:s></template>
   </page>
   
   <page url="{$order}">

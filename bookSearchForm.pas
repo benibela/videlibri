@@ -371,6 +371,8 @@ begin
     searcherAccess.endBookReading;
   end;
 
+
+  screen.Cursor:=crHourGlass;
   searcherAccess.orderAsync(acc, displayedBook);
 
   {temp := cloneDisplayedBook;
@@ -430,6 +432,7 @@ begin
   searcherAccess.endBookReading;
   if mainForm <> nil then mainForm.RefreshListView;
   ShowMessage(format('Das Buch "%s" wurde ohne Fehler vorgemerkt.', [book.toSimpleString()])  );
+  screen.Cursor:=crDefault;
 end;
 
 procedure TbookSearchFrm.searcherAccessOrderConfirm(sender: TObject; book: TBook);
@@ -452,7 +455,9 @@ begin
     for i := 0 to high(temp) do
       question += LineEnding + IntToStr(i+1) +':'  + temp[i];
     v := '1';
+    screen.Cursor:=crDefault;
     if not InputQuery('VideLibri', question, v) then exit;
+    screen.Cursor:=crHourGlass;
 
     searcherAccess.beginBookReading;
     book.setProperty('choosenConfirmation', inttostr(strtointdef(v,1)));
