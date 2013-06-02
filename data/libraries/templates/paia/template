@@ -39,6 +39,7 @@
                          else if ($doc.stauts = 4) then "provided"
                          else if ($doc.canrenew) then "curious" 
                          else "critical",
+             "cancelable": $doc.cancancel,
              
              "item": $doc.item, 
              "edition": $doc.edition,
