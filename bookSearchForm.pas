@@ -465,7 +465,7 @@ begin
 
     searcherAccess.orderConfirmedAsync(book);
   end else
-    if confirm(question) then searcherAccess.orderConfirmedAsync(book);
+    if (question = '') or confirm(question) then searcherAccess.orderConfirmedAsync(book);
 end;
 
 procedure TbookSearchFrm.searcherAccessSearchComplete(sender: TObject; firstPage, nextPageAvailable: boolean);
