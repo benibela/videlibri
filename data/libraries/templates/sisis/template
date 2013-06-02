@@ -122,7 +122,8 @@
 </action>
 
 
-<action id="order-single"> 
+
+<action id="order-confirm-single"> 
   <if test="not(get('loggedIn', false()))"> 
     <call action="login"/>
     <variable name="loggedIn">true()</variable>
@@ -133,9 +134,38 @@
   </page>
   
   <page url="{$order}">
-    <template><t:s>confirm := form(//form[contains(@action, "reservation")])</t:s></template>
+    <template><form t:condition="contains(@action, 'reservation')">
+        <table class="formular">
+          <tr><td> 
+              <input name="issuepoint" class="radio">{
+                book.orderConfirmationOptionTitles := 
+                  if ($book.orderConfirmationOptionTitles) then concat($book.orderConfirmationOptionTitles, "\|", ..)
+                  else ..,
+                issuePoints := (get("issuePoints", ()), @value)}</input>
+          </td></tr>*
+        </table>
+
+      {if (contains($book.orderConfirmationOptionTitles, "\|") ) then (
+        confirm := form(., {"issuepoint": ""}),
+        book.orderConfirmation := "Wohin soll das Buch vorbestellt werden?"
+       ) else (
+        confirm := form(.),
+        book.orderConfirmation := "")
+      }
+    </form></template>
   </page>
-  
+</action>
+
+<action id="order-single"> 
+  <if test="$book.orderConfirmation != ''">
+    <variable name="confirm">
+    {
+      "url": $confirm.url,
+      "method": $confirm.method,
+      "post": replace($confirm.post, "issuepoint=", concat("issuepoint=", get("issuePoints", ())[$book.choosenConfirmation * 1] ))
+    }
+    </variable>  
+  </if>
   <page url="{$confirm}">
 <!--    <template>          Das Medium wurde für Sie vorgemerkt
     und ist voraussichtlich bis </template>-->

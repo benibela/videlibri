@@ -435,13 +435,32 @@ end;
 procedure TbookSearchFrm.searcherAccessOrderConfirm(sender: TObject; book: TBook);
 var
   question: String;
+  orderConfirmationOptionTitles: String;
+  temp: TStringArray;
+  i: Integer;
+  v: string;
 begin
   searcherAccess.beginBookReading;
   question := book.getPropertyAdditional('orderConfirmation');
+  orderConfirmationOptionTitles := book.getPropertyAdditional('orderConfirmationOptionTitles');
   searcherAccess.endBookReading;
 
   question := StringReplace(question, '\n', LineEnding, [rfReplaceAll]);
-  if confirm(question) then searcherAccess.orderConfirmedAsync(book);
+  if orderConfirmationOptionTitles <> '' then begin
+    question += ' (Nummer eingeben)';
+    temp := strSplit(orderConfirmationOptionTitles, '\|');
+    for i := 0 to high(temp) do
+      question += LineEnding + IntToStr(i+1) +':'  + temp[i];
+    v := '1';
+    if not InputQuery('VideLibri', question, v) then exit;
+
+    searcherAccess.beginBookReading;
+    book.setProperty('choosenConfirmation', inttostr(strtointdef(v,1)));
+    searcherAccess.endBookReading;
+
+    searcherAccess.orderConfirmedAsync(book);
+  end else
+    if confirm(question) then searcherAccess.orderConfirmedAsync(book);
 end;
 
 procedure TbookSearchFrm.searcherAccessSearchComplete(sender: TObject; firstPage, nextPageAvailable: boolean);
