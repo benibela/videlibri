@@ -10,6 +10,7 @@ uses
 type
   TBookList = class;
   TBookStatus=(bsNormal,bsUnknown,bsIsSearchedDONTUSETHIS,bsEarMarkedDONTUSETHIS, bsMaxLimitReachedDONTUSETHIS,bsProblematicInStr,bsCuriousInStr,bsAccountExpiredDONTUSETHIS,bsOrdered,bsProvided);
+  trilean = (tUnknown, tFalse, tTrue);
 
   { TBook }
 
@@ -30,7 +31,10 @@ type
     category,statusStr{,otherInfo}: string;
     issueDate,dueDate:longint;
     status: TBookStatus;
+    cancelable: trilean;
     lend: boolean;
+
+    //*how to add a new property: define it, update: assignNoReplace, clear, serialize, setProperty
 
  // public
     lastExistsDate,firstExistsDate:longint;
@@ -58,7 +62,7 @@ type
     //procedure assignOverride(book: TBook);  //every value set in book will be replace the one of self
 
     procedure setProperty(const name, value: string);
-    function getPropertyAdditional(const name: string): string; inline;
+    function getPropertyAdditional(const name: string; const def: string = ''): string; inline;
   end;
   
   { TBookList }
@@ -178,6 +182,7 @@ constructor TBook.create;
 begin
   _referenceCount:=1;
   status:=bsUnknown;
+  cancelable:=tUnknown;
 end;
 
 function TBook.equalToKey(compareTo: TBook): boolean;
@@ -213,6 +218,11 @@ begin
       bsProvided: str('statusId', 'provided');
       else str('statusId', '--invalid--'+inttostr(integer(status)));
     end;
+    case cancelable of
+      tUnknown: str('cancelable', '?');
+      tTrue: str('cancelable', 'true');
+      tFalse: str('cancelable', 'false');
+    end;
   end;
   if assigned(date) then begin
     date('issueDate', issueDate);
@@ -231,6 +241,7 @@ begin
   year:='';
   StatusStr:='';
   Status:=bsUnknown;
+  cancelable:=tUnknown;
   dueDate:=0;
   issueDate:=0;
   SetLength(Additional,0);
@@ -252,6 +263,7 @@ begin
   if lastExistsDate=0 then lastExistsDate:=book.lastExistsDate;
   if (firstExistsDate=0) or ((book.firstExistsDate<>0) and (book.firstExistsDate<firstExistsDate)) then
     firstExistsDate:=book.firstExistsDate;
+  if cancelable = tUnknown then cancelable:=book.cancelable;
   for i:=0 to high(book.additional) do
     if  simplexmlparser.getProperty(book.additional[i].name,additional)='' then
       addProperty(book.additional[i].name,book.additional[i].value,additional);
@@ -302,6 +314,9 @@ begin
           'unknown': status:=bsUnknown;
           else EBookListReader.create('Ungültiger Bücherstatus: '+value);
         end;
+    'cancelable': if (value <> '') and (value <> '0') and not striEqual(value, 'false') and (value <> '?') then cancelable:=tTrue
+                 else if value = '?' then cancelable:=tUnknown
+                 else cancelable:=tFalse;
     'status': statusStr := value;
     'issuedate': issueDate:=bbutils.dateParse(value, 'yyyy-mm-dd');
     'duedate': dueDate:=bbutils.dateParse(value, 'yyyy-mm-dd');
@@ -311,9 +326,9 @@ begin
   end;
 end;
 
-function TBook.getPropertyAdditional(const name: string): string;
+function TBook.getPropertyAdditional(const name: string; const def: string): string;
 begin
-  result := simplexmlparser.getProperty(name, additional);
+  result := simplexmlparser.getProperty(name, additional, def);
 end;
 
   {

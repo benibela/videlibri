@@ -492,7 +492,7 @@ begin
       if BookList.Items[i].Selected then begin
         if (BookList.Items[i].data.obj=nil) then bookCount:=0
         else if TBook(BookList.Items[i].data.obj).status in BOOK_EXTENDABLE then extendableBooks += 1
-        else if TBook(BookList.Items[i].data.obj).status in [bsOrdered,bsProvided] then cancelableBooks += 1;
+        else if (TBook(BookList.Items[i].data.obj).status in [bsOrdered,bsProvided]) and (TBook(BookList.Items[i].data.obj).cancelable <> tFalse) then cancelableBooks += 1;
       end;
   end;
   extendTheseBooks.Enabled:=(bookCount>=1) and (extendableBooks >= 1);

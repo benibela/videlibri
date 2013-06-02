@@ -61,7 +61,8 @@
           </span>
           <a template:optional="true">
             {book.extendID := extract(@href, "actPos=([0-9]+)$", "1"),
-             book.statusId := if ($inOrdered) then "ordered" else "curious" }            
+             book.statusId := if ($inOrdered) then "ordered" else "curious",
+             book.cancelable := $inOrdered }            
           </a>
 <!--	  <template:if test="$previousspan">
 	    <span template:optional="true">

@@ -15,7 +15,7 @@
         <TD/>
         <TD>
         {book := {"orderable": .//a[contains(., 'vormerk') or contains(., 'bestell')]}, 
-         if ($book.orderable) then book.order0 := $book.orderable/@href else (), 
+         if ($book.orderable) then (book.order0 := $book.orderable/@href, book.orderTitle :=  $book.orderable) else (), 
          hasZ3988 := false()}
         <span class="Z3988">{hasZ3988 := true(),
         for $entry in tokenize(@title, "&amp") return 

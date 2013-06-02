@@ -68,13 +68,13 @@
           <template:if value="''">
             <template:switch value="filter(., 'Abholregal|Vormerkung|bestellt')">
               <template:if value="'Abholregal'">
-                {book.status := ., book.statusId := 'provided'}
+                {book.status := ., book.statusId := 'provided', book.cancelable := false()}
               </template:if>
               <template:if value="'Vormerkung'">
-                {book.status := ., book.statusId := 'ordered'}
+                {book.status := ., book.statusId := 'ordered', book.cancelable := false()}
               </template:if>
               <template:if value="'bestellt'">
-                {book.status := ., book.statusId := 'ordered'}
+                {book.status := ., book.statusId := 'ordered', book.cancelable := false()}
               </template:if>
               <template:read var="book.status:problematic" source="."/>
             </template:switch>

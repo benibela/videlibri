@@ -670,7 +670,7 @@ begin
     else result:=2;
 
     LabelOrder.Enabled:=(getProperty( 'orderable', book.additional) <> '') and (getProperty('orderable', book.additional) <> '0') and (getProperty('orderable', book.additional) <> 'false');
-    linkLabelDigibib.Enabled := getProperty('digibib-url', book.additional) <> '';
+    LabelOrder.Caption := book.getPropertyAdditional('orderTitle', 'Vormerken/Bestellen');
     linkLabelBib.Enabled := getProperty('home-url', book.additional) <> '';
     linkLabelAmazon.Enabled := getProperty('amazon-url', book.additional) <> '';
   finally
