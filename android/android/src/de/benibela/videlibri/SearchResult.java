@@ -137,7 +137,10 @@ public class SearchResult extends BookListActivity implements Bridge.SearchResul
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                showMessage("Das Buch "+book.title+" wurde ohne Fehler vorbestellt.");
+                showMessage("Das Buch \""+book.title+"\" wurde ohne Fehler vorbestellt.");
+                if (VideLibri.instance != null)
+                    if (orderingAccount == null) VideLibri.instance.displayAccount(null);
+                    else VideLibri.updateAccount(orderingAccount, false, false); //full update, so the book is only shown if it worked, and canceling works
             }
         });
     }

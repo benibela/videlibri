@@ -1,5 +1,6 @@
 package de.benibela.videlibri;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.AssetManager;
 import java.io.InputStream;
@@ -309,13 +310,23 @@ public class VideLibri extends  BookListActivity{
     }
 
     @Override
-    public void onBookActionButtonClicked(Bridge.Book book) {
+    public void onBookActionButtonClicked(final Bridge.Book book) {
         int action = -1;
         switch (book.getStatus()) {
-            case Normal: action = 1; break;
-            case Ordered: case Provided: action = 2; break;
+            case Normal:
+                Bridge.VLBookOperation(new Bridge.Book[]{book}, 1); //renew
+                if (detailsOpened) onBackPressed();
+                break;
+            case Ordered: case Provided:
+                showMessageYesNo("Soll die Bestellung abgebrochen werden?", new MessageHandler() {
+                    @Override
+                    public void onDialogEnd(DialogInterface dialogInterface, int i) {
+                        if (i == DialogInterface.BUTTON_POSITIVE) {
+                            Bridge.VLBookOperation(new Bridge.Book[]{book}, 2); //cancel
+                            if (detailsOpened) onBackPressed();
+                        }
+                    }
+                });
         }
-        if (action <= 0) return;
-        Bridge.VLBookOperation(new Bridge.Book[]{book}, action);
     }
 }

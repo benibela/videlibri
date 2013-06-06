@@ -819,7 +819,23 @@ end;
 procedure TLibrarySearcherAccessWrapper.OnOrderCompleteImpl(sender: TObject; book: TBook);
 var
   jbook: jobject;
+  acc: TCustomAccountAccess;
+  temp: TBook;
 begin
+  if book.owner <> nil then begin
+    //see androidutils/bookSearchForm
+    self.beginBookReading;
+    EnterCriticalSection(updateThreadConfig.libraryAccessSection);
+    acc := TCustomAccountAccess(book.owner);
+    temp := book.clone; temp.status:=bsOrdered;
+    acc.books.current.add(temp);
+    temp := book.clone; temp.status:=bsOrdered;
+    acc.books.currentUpdate.add(temp); //cannot know which one is the correct one? one will be discarded?
+    acc.save();
+    LeaveCriticalSection(updateThreadConfig.libraryAccessSection);
+    self.endBookReading;
+  end;
+
   jbook := bookToJBook(book, false, true);
   j.callVoidMethod(jsearcher, searcherOnOrderComplete, @jbook);
   j.deleteLocalRef(jbook);
