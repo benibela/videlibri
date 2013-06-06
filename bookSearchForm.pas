@@ -420,6 +420,7 @@ var
   acc: TCustomAccountAccess;
   temp: TBook;
 begin
+  //see androidutils/bookSearchForm
   searcherAccess.beginBookReading;
   EnterCriticalSection(updateThreadConfig.libraryAccessSection);
   acc := TCustomAccountAccess(book.owner);
@@ -430,6 +431,8 @@ begin
   acc.save();
   LeaveCriticalSection(updateThreadConfig.libraryAccessSection);
   searcherAccess.endBookReading;
+
+
   if mainForm <> nil then mainForm.RefreshListView;
   ShowMessage(format('Das Buch "%s" wurde ohne Fehler vorgemerkt.', [book.toSimpleString()])  );
   screen.Cursor:=crDefault;
