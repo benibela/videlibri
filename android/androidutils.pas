@@ -673,25 +673,29 @@ begin
       detailsS := j.getfield(pendingExceptionClass, 'details', 'Ljava/lang/String;');
     end;
 
-
-
-    result := j.newObjectArray(length(errorMessageList), pendingExceptionClass, nil);
-    for i :=  0 to high(errorMessageList) do begin
-      temp := j.newObject(pendingExceptionClass, pendingExceptionClassInit);
-      with pendingExceptionFields do begin
-        details := '';
-        names := '';
-        for k := 0 to high(errorMessageList[i].details) do begin
-          details += errorMessageList[i].details[k].details+LineEnding+LineEnding;
-          if names <> '' then names += ', ';
-          names += errorMessageList[i].details[k].account.prettyName;
+    system.EnterCriticalSection(exceptionStoring);
+    try
+      result := j.newObjectArray(length(errorMessageList), pendingExceptionClass, nil);
+      for i :=  0 to high(errorMessageList) do begin
+        temp := j.newObject(pendingExceptionClass, pendingExceptionClassInit);
+        with pendingExceptionFields do begin
+          details := '';
+          names := '';
+          for k := 0 to high(errorMessageList[i].details) do begin
+            details += errorMessageList[i].details[k].details+LineEnding+LineEnding;
+            if names <> '' then names += ', ';
+            names += errorMessageList[i].details[k].account.prettyName;
+          end;
+          j.SetStringField(temp, detailsS, details);
+          j.SetStringField(temp, accountPrettyNamesS, names);
+          j.SetStringField(temp, errorS, errorMessageList[i].error);
         end;
-        j.SetStringField(temp, detailsS, details);
-        j.SetStringField(temp, accountPrettyNamesS, names);
-        j.SetStringField(temp, errorS, errorMessageList[i].error);
+        j.SetObjectArrayElement(result, i, temp);
+        j.deleteLocalRef(temp);
       end;
-      j.SetObjectArrayElement(result, i, temp);
-      j.deleteLocalRef(temp);
+      SetLength(errorMessageList, 0);
+    finally
+      system.LeaveCriticalSection(exceptionStoring);
     end;
   except
     on e: Exception do j.ThrowNew('de/benibela/videlibri/Bridge$InternalError', 'Interner Fehler: '+e.Message);
