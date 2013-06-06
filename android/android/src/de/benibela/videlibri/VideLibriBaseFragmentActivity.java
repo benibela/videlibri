@@ -1,6 +1,7 @@
 package de.benibela.videlibri;
 
 import android.content.Intent;
+import android.os.Bundle;
 import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
@@ -15,6 +16,11 @@ public class VideLibriBaseFragmentActivity extends SherlockFragmentActivity{
         loadingItem.setVisible(loading);
     }
 
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        getSupportActionBar().setHomeButtonEnabled(true);
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
