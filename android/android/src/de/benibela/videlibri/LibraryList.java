@@ -14,6 +14,7 @@ import java.util.*;
 public class LibraryList extends VideLibriBaseActivity {
 
     void makeLibView(ExpandableListView lv){
+        Bridge.initialize();
         Bridge.Library[] libs = Bridge.getLibraries();
 
         final List<Map<String, String>> cities = new ArrayList<Map<String, String>>();

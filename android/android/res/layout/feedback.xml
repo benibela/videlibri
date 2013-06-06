@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+
+    <ScrollView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/scrollView" android:layout_weight="1">
+
+        <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content">
+
+    <TextView android:layout_width="fill_parent" android:layout_height="wrap_content"
+              android:text="Per E-Mail:" android:id="@+id/textView"
+              android:padding="@dimen/optionheaderpadding"
+              android:background="@color/optionHeaderBackgroundColor" android:textStyle="bold"/>
+    <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="benito@benibela.de"
+            android:id="@+id/textViewMail" android:padding="20sp"
+            android:gravity="center" android:clickable="true" android:textColor="#5830ff"/>
+
+
+    <TextView android:layout_width="fill_parent" android:layout_height="wrap_content"
+              android:text="Per Google Play Store:"
+              android:padding="@dimen/optionheaderpadding"
+              android:background="@color/optionHeaderBackgroundColor" android:textStyle="bold"/>
+    <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="https://play.google.com/store/apps/details?id=de.benibela.videlibri"
+              android:autoLink="email|web" android:padding="20sp"
+            android:gravity="center"/>
+
+    <TextView android:layout_width="fill_parent" android:layout_height="wrap_content" android:text="Per Formular:"
+              android:id="@+id/textView2" android:padding="@dimen/optionheaderpadding"
+              android:background="@color/optionHeaderBackgroundColor" android:textStyle="bold"/>
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Feedback:"
+            android:id="@+id/textView3" android:layout_gravity="left|center_vertical"
+            android:padding="@dimen/defborder"/>
+    <EditText
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/text" android:minLines="4" android:layout_weight="1"/>
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/textView4" android:layout_gravity="left|center_vertical"
+            android:text="Ihr Name (optional):" android:padding="@dimen/defborder"/>
+    <EditText
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/name" android:singleLine="true"/>
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Ihre E-Mail (optional):"
+            android:id="@+id/textView5" android:layout_gravity="left|center_vertical"
+            android:padding="@dimen/defborder"/>
+    <EditText
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/mail" android:singleLine="true"/>
+    <Button
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="absenden "
+            android:id="@+id/button"/>
+        </LinearLayout>
+</ScrollView>
+</LinearLayout>

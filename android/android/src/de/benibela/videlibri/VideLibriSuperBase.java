@@ -59,6 +59,10 @@ public class VideLibriSuperBase {
                 intent.putExtra("search", true);
                 context.startActivityForResult(intent, REQUESTED_LIBRARY_CATALOGUE);
                 return true;
+            case R.id.feedback:
+                intent = new Intent(context, Feedback.class);
+                context.startActivity(intent);
+                return true;
             case R.id.about:
                 intent = new Intent(context, About.class);
                 context.startActivity(intent);

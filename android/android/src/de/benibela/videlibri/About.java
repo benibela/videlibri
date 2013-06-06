@@ -1,5 +1,6 @@
 package de.benibela.videlibri;
 
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.util.Xml;
 import android.widget.ListView;
@@ -96,8 +97,11 @@ public class About extends VideLibriBaseActivity {
         }
 
 
-
-        details.add(0, new BookDetails.Details("Version", "VideLibri "+(Util.strToIntDef(firstVersion, 0) / 1000.0) ));
+        try {
+            details.add(0, new BookDetails.Details("Version", "VideLibri "+getPackageManager().getPackageInfo("de.benibela.videlibri", 0).versionName ));
+        } catch (PackageManager.NameNotFoundException e) {
+            details.add(0, new BookDetails.Details("Version", "VideLibri "+(Util.strToIntDef(firstVersion, 0) / 1000.0)  + " ??"));
+        }
         details.add(1, new BookDetails.Details("Homepage", "http://videlibri.sourceforge.net"));
 
 
