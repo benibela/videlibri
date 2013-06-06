@@ -681,10 +681,7 @@ uses bookwatchmain,internetaccess,controls,libraryaccess,math,FileUtil,bbutils,b
     {$ENDIF}
     if logging then begin
       log('finalizeApplicationConfig ended'#13#10' => program will exit normally, after closing log');
-      if logFileCreated then begin
-        close(logFile);
-        system.DoneCriticalsection(logFileSection);
-      end;
+      bbdebugtools.stoplogging();
     end;
     androidutils.uninit;
   end;
