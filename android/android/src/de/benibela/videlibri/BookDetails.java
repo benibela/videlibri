@@ -9,6 +9,7 @@ import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.text.util.Linkify;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -81,6 +82,7 @@ public class BookDetails extends VideLibriBaseFragment {
                 view = inflater.inflate(R.layout.simpletextview, null);
                 ViewHolder viewHolder = new ViewHolder();
                 viewHolder.text = (TextView) view.findViewById(R.id.simpletextview);
+                viewHolder.text.setAutoLinkMask(Linkify.WEB_URLS);
                 view.setTag(viewHolder);
             }
             ViewHolder holder = (ViewHolder) view.getTag();
@@ -99,6 +101,8 @@ public class BookDetails extends VideLibriBaseFragment {
                         c = book.getStatusColor();
                         if (c == -1) c = defaultColor;
                     }
+
+
                 }
                 holder.text.setCompoundDrawables(null, null, null, null);
                 holder.text.setTextColor(c);
