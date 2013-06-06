@@ -684,7 +684,8 @@ begin
           for k := 0 to high(errorMessageList[i].details) do begin
             details += errorMessageList[i].details[k].details+LineEnding+LineEnding;
             if names <> '' then names += ', ';
-            names += errorMessageList[i].details[k].account.prettyName;
+            if errorMessageList[i].details[k].account <> nil then
+              names += errorMessageList[i].details[k].account.prettyName;
           end;
           j.SetStringField(temp, detailsS, details);
           j.SetStringField(temp, accountPrettyNamesS, names);

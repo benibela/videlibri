@@ -147,8 +147,16 @@ public class SearchResult extends BookListActivity implements Bridge.SearchResul
 
     @Override
     public void onException() {
-        //To change body of implemented methods use File | Settings | File Templates.
-        setLoading(false);
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                setLoading(false);
+                setTitle("Suche fehlgeschlagen");
+                Bridge.PendingException[] exceptions = Bridge.VLTakePendingExceptions();
+                for (Bridge.PendingException ex : exceptions)
+                    showMessage(ex.accountPrettyNames + ": " + ex.error);
+            }
+        });
     }
 
     public void onPlaceHolderShown(int position){
