@@ -1,8 +1,15 @@
 package de.benibela.videlibri;
 
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ListView;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created with IntelliJ IDEA.
@@ -52,5 +59,24 @@ public class Util {
             });
         }
         builder.show();
+    }
+
+    static public void chooseDialog(Context context, String message, String[] options, final MessageHandler handler) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        builder.setTitle(message);
+        builder.setItems(options, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int item) {
+                if (handler != null) handler.onDialogEnd(dialog, item);
+            }
+        });
+        if (handler != null)
+            builder.setOnCancelListener(new DialogInterface.OnCancelListener() {
+                @Override
+                public void onCancel(DialogInterface dialogInterface) {
+                    handler.onDialogEnd(dialogInterface, MessageHandlerCanceled);
+                }
+            });
+        AlertDialog alert = builder.create();
+        alert.show();
     }
 }

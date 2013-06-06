@@ -87,6 +87,15 @@ public class Bridge {
             }
         }
 
+        boolean isOrderable(){
+            String orderable = getProperty("orderable");
+            return (orderable != null && !"".equals(orderable) && !"0".equals(orderable) && !"false".equals(orderable));
+        }
+        boolean isCancelable(){
+            String cancelable = getProperty("cancelable");;
+            return cancelable == null || !"false".equals(cancelable);
+        }
+
         //called from Videlibri midend
         void setProperty(String name, String value){
             more.add(new Pair(name, value));
@@ -139,6 +148,7 @@ public class Bridge {
     static public native void VLSearchNextPage(SearcherAccess searcher);
     static public native void VLSearchDetails(SearcherAccess searcher, Book book);
     static public native void VLSearchOrder(SearcherAccess searcher, Book[] book);
+    static public native void VLSearchOrderConfirmed(SearcherAccess searcher, Book[] book);
     static public native void VLSearchEnd(SearcherAccess searcher);
 
     static public native void VLSetOptions(Options options);
@@ -170,6 +180,9 @@ public class Bridge {
         public void order(Book book){
             VLSearchOrder(this, new Book[]{book});
         }
+        public void orderConfirmed(Book book){
+            VLSearchOrderConfirmed(this, new Book[]{book});
+        }
         public void free(){
             VLSearchEnd(this);
         }
@@ -177,6 +190,8 @@ public class Bridge {
         public void onSearchFirstPageComplete(Book[] books) { display.onSearchFirstPageComplete(books); }
         public void onSearchNextPageComplete(Book[] books) { display.onSearchNextPageComplete(books); }
         public void onSearchDetailsComplete(Book book) { display.onSearchDetailsComplete(book); }
+        public void onOrderComplete(Book book) { display.onOrderComplete(book); }
+        public void onOrderConfirm(Book book) { display.onOrderConfirm(book); }
         public void onException() { display.onException(); }
     }
 
@@ -185,6 +200,8 @@ public class Bridge {
         void onSearchFirstPageComplete(Book[] books);
         void onSearchNextPageComplete(Book[] books);
         void onSearchDetailsComplete(Book book);
+        void onOrderComplete(Book book);
+        void onOrderConfirm(Book book);
         void onException();
     }
 

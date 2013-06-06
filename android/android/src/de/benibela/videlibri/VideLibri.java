@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.content.res.AssetManager;
 import java.io.InputStream;
 import java.text.DateFormat;
+import java.text.Normalizer;
 import java.util.*;
 import java.lang.*;
 import android.app.*;
@@ -307,4 +308,14 @@ public class VideLibri extends  BookListActivity{
         t.start();*/
     }
 
+    @Override
+    public void onBookActionButtonClicked(Bridge.Book book) {
+        int action = -1;
+        switch (book.getStatus()) {
+            case Normal: action = 1; break;
+            case Ordered: case Provided: action = 2; break;
+        }
+        if (action <= 0) return;
+        Bridge.VLBookOperation(new Bridge.Book[]{book}, action);
+    }
 }

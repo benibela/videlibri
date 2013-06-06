@@ -74,7 +74,7 @@ var assets: jobject = nil;
       nativePtrJ, totalResultCountI, nextPageAvailableZ: jfieldID;
     end;
     searcherResultInterface: jclass;
-    searcherOnSearchFirstPageComplete, searcherOnSearchNextPageComplete, searcherOnSearchDetailsComplete, searcherOnException: jmethodID;
+    searcherOnSearchFirstPageComplete, searcherOnSearchNextPageComplete, searcherOnSearchDetailsComplete, searcherOnOrderComplete, searcherOnOrderConfirm,  searcherOnException: jmethodID;
 
 function assetFileAsString(name: string): string;
 begin
@@ -177,6 +177,8 @@ begin
   searcherOnSearchFirstPageComplete := j.getmethod(searcherClass, 'onSearchFirstPageComplete', '([Lde/benibela/videlibri/Bridge$Book;)V');
   searcherOnSearchNextPageComplete := j.getmethod(searcherClass, 'onSearchNextPageComplete', '([Lde/benibela/videlibri/Bridge$Book;)V');
   searcherOnSearchDetailsComplete := j.getmethod(searcherClass, 'onSearchDetailsComplete', '(Lde/benibela/videlibri/Bridge$Book;)V');
+  searcherOnOrderComplete := j.getmethod(searcherClass, 'onOrderComplete', '(Lde/benibela/videlibri/Bridge$Book;)V');
+  searcherOnOrderConfirm := j.getmethod(searcherClass, 'onOrderConfirm', '(Lde/benibela/videlibri/Bridge$Book;)V');
   searcherOnException := j.getmethod(searcherClass, 'onException', '()V');
 
   beginAssetRead;
@@ -389,6 +391,7 @@ var
 begin
   libId := needj.getStringField(acc, accountFields.LibIdS);
   user := j.getStringField(acc, accountFields.NameS);
+  log('Account: '+libId+' '+user);
   for i := 0 to accounts.Count-1 do
     if (accounts[i].getUser() = user) and (accounts[i].getLibrary().id = libId) then
       exit(accounts[i]);
@@ -505,7 +508,7 @@ begin
     end;
 
 
-    jaccount := j.getObjectField(jbook, bookFields.accountL);
+    jaccount := j.getObjectField(jbook, accountL);
     if jaccount <> nil then begin
       result.owner := getRealAccount(jaccount);
       j.deleteLocalRef(jaccount);
@@ -777,6 +780,8 @@ type
   tempBooks: TBookList;
   procedure OnSearchPageCompleteImpl(sender: TObject; firstPage, nextPageAvailable: boolean);
   procedure OnDetailsCompleteImpl(sender: TObject; book: TBook);
+  procedure OnOrderCompleteImpl(sender: TObject; book: TBook);
+  procedure OnOrderConfirmImpl(sender: TObject; book: TBook);
   procedure OnExceptionImpl(Sender: TObject);
   constructor create;
   destructor destroy; override;
@@ -808,6 +813,24 @@ var
 begin
   jbook := bookToJBook(book, false, true);
   j.callVoidMethod(jsearcher, searcherOnSearchDetailsComplete, @jbook);
+  j.deleteLocalRef(jbook);
+end;
+
+procedure TLibrarySearcherAccessWrapper.OnOrderCompleteImpl(sender: TObject; book: TBook);
+var
+  jbook: jobject;
+begin
+  jbook := bookToJBook(book, false, true);
+  j.callVoidMethod(jsearcher, searcherOnOrderComplete, @jbook);
+  j.deleteLocalRef(jbook);
+end;
+
+procedure TLibrarySearcherAccessWrapper.OnOrderConfirmImpl(sender: TObject; book: TBook);
+var
+  jbook: jobject;
+begin
+  jbook := bookToJBook(book, false, true);
+  j.callVoidMethod(jsearcher, searcherOnOrderConfirm, @jbook);
   j.deleteLocalRef(jbook);
 end;
 
@@ -864,6 +887,8 @@ begin
 
       searcherAccess.OnSearchPageComplete:=@searcherAccess.OnSearchPageCompleteImpl;
       searcherAccess.OnDetailsComplete:=@searcherAccess.OnDetailsCompleteImpl;
+      searcherAccess.OnOrderConfirm:=@searcherAccess.OnOrderConfirmImpl;
+      searcherAccess.OnOrderComplete:=@searcherAccess.OnOrderCompleteImpl;
       searcherAccess.OnException:=@searcherAccess.OnExceptionImpl;
 
       searcherAccess.newSearch( lib.template );
@@ -933,14 +958,40 @@ begin
   if logging then log('Bridge_VLSearchOrder started');
   try
     sa := unwrapSearcher(searcher);
-    for i := 0 to j.getArrayLength(jbooks) do begin
+    for i := 0 to j.getArrayLength(jbooks) - 1 do begin
       book :=  jbookToBookAndDelete(j.getObjectArrayElement(jbooks, i));
+      if book.owner = nil then begin
+        log('Owner of book '+book.title+' not found');
+        continue;
+      end;
       sa.orderAsync(TCustomAccountAccess(book.owner), book);
     end;
   except
     on e: Exception do j.ThrowNew('de/benibela/videlibri/Bridge$InternalError', 'Interner Fehler: '+e.Message);
   end;
   if logging then log('Bridge_VLSearchOrder ended');
+end;
+
+procedure Java_de_benibela_VideLibri_Bridge_VLSearchOrderConfirmed(env:PJNIEnv; this:jobject; searcher: jobject; jbooks: jobject); cdecl;
+var
+  sa: TLibrarySearcherAccessWrapper;
+  accountId: String;
+  accountIndex: Integer;
+  book: TBook;
+  i: Integer;
+
+begin
+  if logging then log('Bridge_VLSearchOrderConfirmed started');
+  try
+    sa := unwrapSearcher(searcher);
+    for i := 0 to j.getArrayLength(jbooks) - 1 do begin
+      book :=  jbookToBookAndDelete(j.getObjectArrayElement(jbooks, i));
+      sa.orderConfirmedAsync(book);
+    end;
+  except
+    on e: Exception do j.ThrowNew('de/benibela/videlibri/Bridge$InternalError', 'Interner Fehler: '+e.Message);
+  end;
+  if logging then log('Bridge_VLSearchOrderConfirmed ended');
 end;
 
 procedure Java_de_benibela_VideLibri_Bridge_VLSearchEnd(env:PJNIEnv; this:jobject; searcher: jobject); cdecl;
@@ -1022,7 +1073,7 @@ end;
 
 
 
-const nativeMethods: array[1..20] of JNINativeMethod=
+const nativeMethods: array[1..21] of JNINativeMethod=
   ((name:'VLInit';          signature:'(Lde/benibela/videlibri/VideLibri;)V';                   fnPtr:@Java_de_benibela_VideLibri_Bridge_VLInit)
    ,(name:'VLFinalize';      signature:'()V';                   fnPtr:@Java_de_benibela_VideLibri_Bridge_VLFInit)
 
@@ -1045,6 +1096,7 @@ const nativeMethods: array[1..20] of JNINativeMethod=
    ,(name:'VLSearchNextPage'; signature: '(Lde/benibela/videlibri/Bridge$SearcherAccess;)V'; fnPtr: @Java_de_benibela_VideLibri_Bridge_VLSearchNextPage)
    ,(name:'VLSearchDetails'; signature: '(Lde/benibela/videlibri/Bridge$SearcherAccess;Lde/benibela/videlibri/Bridge$Book;)V'; fnPtr: @Java_de_benibela_VideLibri_Bridge_VLSearchDetails)
    ,(name:'VLSearchOrder'; signature: '(Lde/benibela/videlibri/Bridge$SearcherAccess;[Lde/benibela/videlibri/Bridge$Book;)V'; fnPtr: @Java_de_benibela_VideLibri_Bridge_VLSearchOrder)
+   ,(name:'VLSearchOrderConfirmed'; signature: '(Lde/benibela/videlibri/Bridge$SearcherAccess;[Lde/benibela/videlibri/Bridge$Book;)V'; fnPtr: @Java_de_benibela_VideLibri_Bridge_VLSearchOrderConfirmed)
    ,(name:'VLSearchEnd'; signature: '(Lde/benibela/videlibri/Bridge$SearcherAccess;)V'; fnPtr: @Java_de_benibela_VideLibri_Bridge_VLSearchEnd)
 
    ,(name:'VLSetOptions'; signature: '(Lde/benibela/videlibri/Bridge$Options;)V'; fnPtr: @Java_de_benibela_VideLibri_Bridge_VLSetOptions)

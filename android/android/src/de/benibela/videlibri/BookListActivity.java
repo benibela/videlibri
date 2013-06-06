@@ -107,6 +107,8 @@ public class BookListActivity extends VideLibriBaseFragmentActivity{
         } else super.onBackPressed();
     }
 
+    public void onBookActionButtonClicked(Bridge.Book book){} //called from detail fragment
+
     BookListFragment listFragment;
     BookDetails lastDetails;
     public BookDetails details(){

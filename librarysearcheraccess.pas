@@ -454,17 +454,20 @@ begin
         end;
         smtOrder, smtOrderConfirmed: begin
           if logging then log('Searcher thread: message smtOrder: '+book.toSimpleString());
-          TCustomAccountAccess(book.owner).isThreadRunning:=true;
-          try
-            if (mes.typ = smtOrderConfirmed) or not searcher.orderNeedsConfirmation(book) then begin
-              Searcher.orderSingle(book);
-              callBookEvent(access.FOnOrderComplete, book);
-            end else begin
-              Searcher.orderConfirmSingle(book);
-              callBookEvent(access.FOnOrderConfirm, book);
+          if (book = nil) or (book.owner = nil) then log('Invalid book')
+          else begin
+            TCustomAccountAccess(book.owner).isThreadRunning:=true;
+            try
+              if (mes.typ = smtOrderConfirmed) or not searcher.orderNeedsConfirmation(book) then begin
+                Searcher.orderSingle(book);
+                callBookEvent(access.FOnOrderComplete, book);
+              end else begin
+                Searcher.orderConfirmSingle(book);
+                callBookEvent(access.FOnOrderConfirm, book);
+              end;
+            finally
+              TCustomAccountAccess(book.owner).isThreadRunning:=false;
             end;
-          finally
-            TCustomAccountAccess(book.owner).isThreadRunning:=false;
           end;
           if logging then log('end order');
         end

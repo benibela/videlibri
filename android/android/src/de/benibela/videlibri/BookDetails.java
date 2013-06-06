@@ -213,22 +213,30 @@ public class BookDetails extends VideLibriBaseFragment {
 
         String action = null;
         if (searchedBook) {
-            String orderable = book.getProperty("orderable");
-            if (orderable != null && !"".equals(orderable) && !"0".equals(orderable) && !"false".equals(orderable))
-                action = "vormerken/bestellen";
+            if (book.isOrderable()) {
+                action = book.getProperty("orderTitle");
+                if (action == null || "".equals(action)) action = "vormerken/bestellen";
+            }
         } else if (!book.history)
             switch (book.getStatus()) {
                 case Unknown: action = "verlängern"; break;
                 case Normal: action = "verlängern"; break;
                 //case Problematic: break;
-                case Ordered:  action = "Bestellung abbrechen"; break;
-                //case Provided:  break;
+                case Ordered:  case Provided:
+                    if (book.isCancelable()) action = "Bestellung abbrechen";
+                    else action = null;
+                break;
             }
         Button actionButton = findButtonById(R.id.button);
         if (action != null) {
             actionButton.setText(action);
             actionButton.setVisibility(View.VISIBLE);
-            //actionButton.setOnClickListener(actionButtonClickListener);
+            actionButton.setOnClickListener(new View.OnClickListener() {
+                public void onClick(View view){
+                    if (getSherlockActivity() instanceof BookListActivity)
+                        ((BookListActivity) getSherlockActivity()).onBookActionButtonClicked(book);
+                }
+            });
         } else actionButton.setVisibility(View.GONE);
 
         if (book.more != null && book.hasProperty("image-url") && book.image == null)

@@ -1,5 +1,6 @@
 package de.benibela.videlibri;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.util.Log;
 import de.benibela.videlibri.BookListActivity;
@@ -10,10 +11,12 @@ import de.benibela.videlibri.VideLibriBaseActivity;
 public class SearchResult extends BookListActivity implements Bridge.SearchResultDisplay  {
 
     Bridge.SearcherAccess searcher;
+    String libId = "";
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Bridge.Book book = (Bridge.Book) getIntent().getSerializableExtra("searchQuery");
+        libId = book.account.libId;
         if (book == null) { Log.i("VideLibri", "search without book. Abort."); finish(); return; }
 
         searcher = new Bridge.SearcherAccess(this, book);
@@ -92,6 +95,54 @@ public class SearchResult extends BookListActivity implements Bridge.SearchResul
     }
 
     @Override
+    public void onOrderConfirm(final Bridge.Book book) {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                //see bookSearchForm.pas
+                String question = book.getProperty("orderConfirmation").replace("\\n", "\n");
+                String orderConfirmationOptionTitles = book.getProperty("orderConfirmationOptionTitles");
+
+                book.account = orderingAccount;
+
+                if (question == null || "".equals(question))
+                    searcher.orderConfirmed(book);
+                else if (orderConfirmationOptionTitles == null || "".equals(orderConfirmationOptionTitles)) {
+                    showMessageYesNo(question, new MessageHandler() {
+                        @Override
+                        public void onDialogEnd(DialogInterface dialogInterface, int i) {
+                            if (i == DialogInterface.BUTTON_POSITIVE) {
+                                searcher.orderConfirmed(book);
+                            }
+                        }
+                    });
+                } else {
+                    final String[] options = orderConfirmationOptionTitles.split("\\\\[|]");
+                    Util.chooseDialog(SearchResult.this, question, options,new MessageHandler() {
+                        @Override
+                        public void onDialogEnd(DialogInterface dialogInterface, int i) {
+                            if (i >= 0 && i < options.length) {
+                                book.setProperty("choosenConfirmation", (i+1)+"");
+                                searcher.orderConfirmed(book);
+                            }
+                        }
+                    });
+                }
+            }
+        });
+    }
+
+    @Override
+    public void onOrderComplete(final Bridge.Book book) {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                showMessage("Das Buch "+book.title+" wurde ohne Fehler vorbestellt.");
+            }
+        });
+    }
+
+    @Override
     public void onException() {
         //To change body of implemented methods use File | Settings | File Templates.
         setLoading(false);
@@ -117,6 +168,67 @@ public class SearchResult extends BookListActivity implements Bridge.SearchResul
             waitingForDetails = bookpos;
             setLoading(true);
             searcher.details(bookCache.get(waitingForDetails));
+        }
+    }
+
+    private Bridge.Account orderingAccount;
+
+    public void orderBook(final Bridge.Book book, int choosenOrder){
+        book.setProperty("choosenOrder", "" + choosenOrder);
+        final java.util.ArrayList<Bridge.Account> matchingAccounts = new java.util.ArrayList();
+        for (Bridge.Account acc: VideLibri.accounts)
+            if (acc.libId.equals(libId) && acc.name != null && !acc.name.equals(""))
+                matchingAccounts.add(acc);
+        if (matchingAccounts.size() == 0) {
+            showMessage("Bestellungen benötigen ein registriertes Bibliothekskonto in VideLibri.");
+            return;
+        }
+        if (matchingAccounts.size() > 1) {
+            String [] temp = new String[matchingAccounts.size()];
+            for (int i=0;i<matchingAccounts.size();i++)
+                temp[i] = matchingAccounts.get(i).prettyName;
+
+            Util.chooseDialog(this, "Für welches Konto soll es bestellt werden?", temp, new MessageHandler() {
+                @Override
+                public void onDialogEnd(DialogInterface dialogInterface, int i) {
+                    if (i >= 0 && i < matchingAccounts.size()) {
+                        book.account = matchingAccounts.get(i);
+                        orderingAccount = book.account; //this property is lost on roundtrip, saved it on java side
+                        searcher.order(book);
+                    }
+                }
+            });
+        } else {
+            book.account = matchingAccounts.get(0);
+            orderingAccount = book.account;
+            searcher.order(book);
+        }
+    }
+
+    @Override
+    public void onBookActionButtonClicked(final Bridge.Book book){
+        if (book != null && book.isOrderable()) {
+            int orders = 1;
+            try{
+                orders = Integer.parseInt(book.getProperty("orderable"));
+            } catch (NumberFormatException e) {
+            }
+
+            if (orders == 1) orderBook(book, 0);
+            else {
+                final String versions[] = new String[orders];
+                for (int i=0;i<orders;i++)
+                    versions[i] = book.getProperty("orderTitle"+i);
+                Util.chooseDialog(this, "Welches Exemplar wollen Sie vorbestellen?", versions, new MessageHandler() {
+                    @Override
+                    public void onDialogEnd(DialogInterface dialogInterface, int i) {
+                        if (i >= 0 && i < versions.length)
+                            orderBook(book, i);
+                    }
+                });
+            }
+
+
         }
     }
 }
