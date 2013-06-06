@@ -11,8 +11,10 @@
 <action id="connect"></action>
 
 <action id="update-all">
-
+  <variable name="connected">false()</variable>
   <page url="https://{$server}/aDISWeb/app{get('startparams', '')}" templateFile="connected"/>
+
+  <if test="$connected"><variable name="connectPage">$searchPage</variable></if>
 
   <page url="{$connectPage}">
   <template><template:switch>
@@ -37,6 +39,9 @@
         <form>{loginFormPost:=form(.)}
         <h1>Sie sind angemeldet.</h1>
         </form>
+
+        <a>Ausleihen zeigen oder verlängern</a> <!-- seems we already are on the correct page, send request again (not tested with any library) -->
+        <a>Ausleihe zeigen oder verlängern</a>
         
         <h1>Bitte auch das Passwort angeben<t:s>vl:raise-login(.)</t:s></h1>
         <h1>Sie sind nicht mit Ihren Angaben registriert<t:s>vl:raise-login(.)</t:s></h1>
@@ -150,7 +155,7 @@
   <page url="https://{$server}/aDISWeb/app{get('startparams', '')}" templateFile="connected"/> <!-- some libraries log in directly, some redirect -->
   <page url="{$connectPage}" test="not($connected)" templateFile="connected"/>
   
-  <page url="{$seachPage}" templateFile="searchInputForm"/>
+  <page url="{$searchPage}" templateFile="searchInputForm"/>
 
   <variable>lastSearchedIndex := 0, search-next-page-available := ()</variable>
 
