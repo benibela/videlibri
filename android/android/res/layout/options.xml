@@ -131,6 +131,11 @@
             <CheckBox
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
+                    android:text="nur Titel der Ausleihen anzeigen"
+                    android:id="@+id/noLendBookDetails" android:checked="false"/>
+            <CheckBox
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
                     android:text="aktiviere debug logging"
                     android:id="@+id/logging" android:checked="false"/>
         </LinearLayout>

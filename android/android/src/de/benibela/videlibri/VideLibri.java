@@ -108,6 +108,8 @@ public class VideLibri extends  BookListActivity{
 
     }
 
+
+
     @Override
     protected void onResume() {
         super.onResume();
@@ -116,7 +118,7 @@ public class VideLibri extends  BookListActivity{
         else
          */
 
-        if (displayHistoryActually != displayHistory || !hiddenAccounts.equals(hiddenAccountsActually))
+        if (displayHistoryActually != displayHistory || !hiddenAccounts.equals(hiddenAccountsActually) || noDetailsInOverviewActually != noDetailsInOverview)
             displayAccount(null);
         //setTitle("Ausleihen");  //does not work in onCreate (why? makes the title invisible) No. it just works sometimes?
 
@@ -171,6 +173,7 @@ public class VideLibri extends  BookListActivity{
 
     public boolean displayHistory = false;
     private boolean displayHistoryActually = false;
+    private boolean noDetailsInOverviewActually = false;
     public ArrayList<Bridge.Account> hiddenAccounts = new ArrayList<Bridge.Account>();
     private ArrayList<Bridge.Account> hiddenAccountsActually = new ArrayList<Bridge.Account>();
 
@@ -207,6 +210,7 @@ public class VideLibri extends  BookListActivity{
 
     public void displayAccount(Bridge.Account acc){
         displayHistoryActually = displayHistory;
+        noDetailsInOverviewActually = noDetailsInOverview;
         hiddenAccountsActually.clear();
         hiddenAccountsActually.addAll(hiddenAccounts);
 

@@ -42,6 +42,7 @@ public class Options extends VideLibriBaseActivity{
 
         SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(this);
         setCheckBoxChecked(R.id.notifications, sp.getBoolean("notifications", true));
+        setCheckBoxChecked(R.id.noLendBookDetails, sp.getBoolean("noLendBookDetails", false));
         setEditTextText(R.id.notificationsServiceDelay, ""+sp.getInt("notificationsServiceDelay", 15));
 
         if (VideLibri.instance != null) {
@@ -121,6 +122,8 @@ public class Options extends VideLibriBaseActivity{
         SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(this);
         SharedPreferences.Editor editor = sp.edit();
         editor.putBoolean("notifications", getCheckBoxChecked(R.id.notifications));
+        editor.putBoolean("noLendBookDetails", getCheckBoxChecked(R.id.noLendBookDetails));
+        VideLibri.instance.noDetailsInOverview = getCheckBoxChecked(R.id.noLendBookDetails);
         editor.putInt("notificationsServiceDelay", Integer.parseInt(getEditTextText(R.id.notificationsServiceDelay)));
         editor.commit();
     }

@@ -18,12 +18,14 @@ class BookOverviewAdapter extends ArrayAdapter<Bridge.Book> {
     private ArrayList<Bridge.Book> books;
     private Bridge.Book placeHolder;
     private int completeCount;
-    BookOverviewAdapter(BookListActivity context, ArrayList<Bridge.Book> books, int completeCount){
+    private final boolean noDetailsInOverview;
+    BookOverviewAdapter(BookListActivity context, ArrayList<Bridge.Book> books, int completeCount, boolean noDetailsInOverview){
         super(context, R.layout.bookoverview, books);
         this.context = context;
         this.books = books;
         this.completeCount = completeCount;
         if (this.completeCount == 0) this.completeCount = books.size();
+        this.noDetailsInOverview = noDetailsInOverview;
 
         defaultColor = context.getResources().getColor(android.R.color.primary_text_dark);
 
@@ -56,7 +58,8 @@ class BookOverviewAdapter extends ArrayAdapter<Bridge.Book> {
         ViewHolder holder = (ViewHolder) view.getTag();
         Bridge.Book book = getItem(position);
         holder.caption.setText(shortened(book.title));
-        if (book == placeHolder) {
+        if (noDetailsInOverview) holder.more.setVisibility(View.GONE);
+        else if (book == placeHolder) {
             context.onPlaceHolderShown(position);
             holder.more.setText(book.author); //not an author
         } else {
