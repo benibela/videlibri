@@ -922,7 +922,7 @@ begin
       searcherAccess.searcher.SearchOptions.isbn:= j.callStringMethod(query, bookFields.getPropertyMethod, j.stringToJString('isbn'));
       searcherAccess.searcher.SearchOptions.setProperty('keywords', j.callStringMethod(query, bookFields.getPropertyMethod, j.stringToJString('keywords')));
 
-      //searcherAccess.searcher.setLocation(searchLocation.Text); that's for digibib
+      searcherAccess.searcher.setLocation(lib.prettyLocation); //for digibib search (also needed for libs that only have digibib search, not just meta search)
       searcherAccess.connectAsync;
       searcherAccess.searchAsync;
 
