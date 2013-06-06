@@ -198,7 +198,7 @@ public class BookDetails extends VideLibriBaseFragment {
         //addIfExists("Jahr", "year");
         addIfExists("Verlag", "publisher");
 
-        final List<String> above = Arrays.asList("status", "id", "category", "year", "statusId", "libraryBranch", "publisher");
+        final List<String> above = Arrays.asList("status", "id", "category", "year", "statusId", "libraryBranch", "publisher", "orderable", "cancelable");
 
         for (int i=0;i<book.more.size();i++)
             if ( book.more.get(i).second != null && !"".equals(book.more.get(i).second) && (
