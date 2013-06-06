@@ -16,7 +16,7 @@
             <item android:id="@+id/libinfo" android:title="Webseiten"/>
             <item android:id="@+id/libcatalogue" android:title="Katalogseiten"/>
             <item android:id="@+id/feedback" android:title="Feedback (todo)"/>
-            <item android:id="@+id/about" android:title="Über Videlibri (todo)"/>
+            <item android:id="@+id/about" android:title="Über Videlibri"/>
         </menu>
     </item>
 

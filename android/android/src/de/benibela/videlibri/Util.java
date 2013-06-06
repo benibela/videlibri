@@ -79,4 +79,12 @@ public class Util {
         AlertDialog alert = builder.create();
         alert.show();
     }
+
+    public static int strToIntDef(String firstVersion, int i) {
+        try {
+            return Integer.parseInt(firstVersion);
+        } catch (NumberFormatException e) {
+            return i;
+        }
+    }
 }
