@@ -12,6 +12,15 @@ import java.io.Serializable;
 import java.util.*;
 
 public class Bridge {
+    public static class LibraryDetails {
+        String homepageBase, homepageCatalogue;
+        String prettyName;
+        String id;
+        String templateId;
+        String variableNames[];
+        String variableValues[];
+    }
+
     public static class Account implements Serializable{
         String libId, name, pass, prettyName;
         boolean extend;
@@ -128,11 +137,14 @@ public class Bridge {
     public static class Options{
         boolean logging;
         int nearTime, refreshInterval;
+        String roUserLibIds[];
     }
 
     static public native void VLInit(VideLibri videlibri);
     static public native String[] VLGetLibraries(); //id|pretty location|name|short name
-    static public native String[] VLGetLibraryDetails(String id); //[homepage, catlogue]
+    static public native LibraryDetails VLGetLibraryDetails(String id);
+    static public native void VLSetLibraryDetails(String id, LibraryDetails details);
+    static public native void VLInstallLibrary(String url);
     static public native Account[] VLGetAccounts();
     static public native void VLAddAccount(Account acc);
     static public native void VLChangeAccount(Account oldacc, Account newacc);

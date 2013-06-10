@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<search-template>
+<actions>
+
+<variable name="location:-" value=".."/>
 
 <action id="connect">
 </action>
@@ -9,18 +11,17 @@
     <template>
     <t:loop>
       <div class="usertext-body"><div>{book:=xs:object(("title", deep-text()))}</div></div>
-      <ul class="flat-list buttons"><a><t:s>book.link:=@href</t:s>permalink</a></ul>
+      <ul class="flat-list buttons"><a><t:s>book.home-url:=@href</t:s>permalink</a></ul>
     </t:loop>
     </template>
-  </page>  	
-  
+  </page>  	  
 </action>
 
 
 
-<action id="details"> 
+<action id="search-details"> 
 </action>
 
 
-</search-template>
+</actions>
 

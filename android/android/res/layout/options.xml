@@ -103,6 +103,21 @@
                         android:id="@+id/textView5" android:layout_gravity="center" android:padding="@dimen/defborder"/>
             </LinearLayout>
             <TextView android:layout_width="fill_parent" android:layout_height="wrap_content"
+                      android:text="Eigene Bibliotheken:" android:id="@+id/textView7"
+                      android:padding="@dimen/optionheaderpadding"
+                      android:background="@color/optionHeaderBackgroundColor" android:textStyle="bold"
+                      android:layout_marginTop="@dimen/optionheaderpadding"/>
+            <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent" android:id="@+id/libraries">
+            </LinearLayout>
+            <Button
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Neue Bibliothek registrieren"
+                    android:id="@+id/newlib"/>
+            <TextView android:layout_width="fill_parent" android:layout_height="wrap_content"
                       android:text="Sonstige Einstellungen:" android:id="@+id/textView3"
                       android:padding="@dimen/optionheaderpadding"
                       android:background="@color/optionHeaderBackgroundColor" android:textStyle="bold"

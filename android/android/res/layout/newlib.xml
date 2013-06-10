@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ScrollView    xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/scrollView">
+<LinearLayout
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+
+    <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent" android:id="@+id/createGroup     " android:longClickable="false">
+        <TextView android:layout_width="fill_parent" android:layout_height="wrap_content" android:text="Vollständiges Metadaten von URL laden:"
+                  android:id="@+id/textView"
+                  android:padding="@dimen/optionheaderpadding" android:background="@color/optionHeaderBackgroundColor"
+                  android:textStyle="bold" android:layout_marginTop="@dimen/optionheaderpadding"/>
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Adresse:"
+                android:id="@+id/textView2" android:layout_gravity="left|center_vertical"
+                android:padding="@dimen/defborder"/>
+        <EditText
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/url" android:inputType="textUri" android:text="http://" android:singleLine="true"
+                android:selectAllOnFocus="true"/>
+        <Button
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="installieren"
+                android:id="@+id/install"/>
+    </LinearLayout>
+    <TextView android:layout_width="fill_parent" android:layout_height="wrap_content" android:text="Eigene Bibliothek :"
+              android:id="@+id/textView1"
+              android:padding="@dimen/optionheaderpadding" android:background="@color/optionHeaderBackgroundColor"
+              android:textStyle="bold" android:layout_marginTop="@dimen/optionheaderpadding"/>
+    <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="Interne Id:"
+            android:id="@+id/textView4" android:padding="@dimen/defborder"/>
+    <EditText
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/id" android:text="user" android:singleLine="true" android:selectAllOnFocus="true"/>
+    <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="Name:"
+            android:id="@+id/textView5" android:padding="@dimen/defborder"/>
+    <EditText
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="meine neue Bib"
+            android:id="@+id/name" android:singleLine="true" android:selectAllOnFocus="true"/>
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Zugrunde liegendes Template:"
+            android:id="@+id/textView3" android:layout_gravity="left|center_vertical"
+            android:padding="@dimen/defborder"/>
+    <Spinner
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/template"/>
+    <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent" android:id="@+id/options">
+    </LinearLayout>
+    <Button
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="erstellen"
+            android:id="@+id/create"/>
+    <Button
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="löschen"
+            android:id="@+id/deleteButton"/>
+
+</LinearLayout>
+    </ScrollView>

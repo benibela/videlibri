@@ -126,7 +126,7 @@ type
 function getSearchableLocations: TSearchableLocations;
 implementation
 
-uses applicationconfig, bbdebugtools, androidutils;
+uses applicationconfig, bbdebugtools, androidutils {$ifdef android}, bbjniutils{$endif};
 
 function getSearchableLocations: TSearchableLocations;
 var digibib: TMultiPageTemplate;
@@ -483,6 +483,9 @@ begin
       end;
     end;
   end;
+  {$ifdef android}
+  jvmref^^.DetachCurrentThread(jvmref);
+  {$endif}
 end;
 
 constructor TSearcherThread.create(template: TMultiPageTemplate; aaccess: TLibrarySearcherAccess);

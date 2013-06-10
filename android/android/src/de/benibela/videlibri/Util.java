@@ -26,6 +26,7 @@ public class Util {
     static public void showMessage(Context context, String message, final MessageHandler handler){showMessage(context, message, null, "OK", null, handler);}
     static public void showMessageYesNo(Context context, String message, MessageHandler handler){ Util.showMessage(context, message, "Nein", null, "Ja", handler); }
     static public void showMessage(Context context, String message, String negative, String neutral, String positive, final MessageHandler handler){
+        if (context == null) return;
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
         builder.setMessage(message);
         builder.setTitle("VideLibri");

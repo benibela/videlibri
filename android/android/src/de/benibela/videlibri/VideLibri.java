@@ -85,6 +85,29 @@ public class VideLibri extends  BookListActivity{
 
     }
 
+    static void installationDone(final int status){
+       if (instance == null) return;
+       instance.runOnUiThread(new Runnable() {
+           @Override
+           public void run() {
+                String message = status == 1
+                       ? "Bibliothek wurde registriert."
+                       : "Bibliotheksregistrierung fehlgeschlagen.";
+                Util.showMessage(NewLibrary.currentNewLibrary != null ? NewLibrary.currentNewLibrary : instance,
+                       message,
+                       new MessageHandler() {
+                           @Override
+                           public void onDialogEnd(DialogInterface dialogInterface, int i) {
+                               if (status == 1)
+                                   NewLibrary.currentNewLibrary.finish();
+                           }
+                       } );
+                if (NewLibrary.currentNewLibrary != null)
+                    NewLibrary.currentNewLibrary.setLoading(false);
+           }
+       });
+    }
+
     //Called from Android OS
 
     public void onCreate(Bundle savedInstanceState) {

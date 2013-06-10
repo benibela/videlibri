@@ -99,17 +99,17 @@ public class VideLibriSuperBase {
             menu.findItem(R.id.accounts).setEnabled(VideLibri.instance.accounts.length > 0);
             menu.findItem(R.id.refresh).setEnabled(VideLibri.instance.accounts.length > 0);
             menu.findItem(R.id.renew).setEnabled(VideLibri.instance.accounts.length > 0);
-            menu.findItem(R.id.options).setEnabled(VideLibri.instance.accounts.length > 0);
+            //menu.findItem(R.id.options).setEnabled(VideLibri.instance.accounts.length > 0);
         }
     }
 
     public static boolean onActivityResult(Activity activity, int requestCode, int resultCode, Intent data) {
        if ((requestCode == REQUESTED_LIBRARY_CATALOGUE || requestCode == REQUESTED_LIBRARY_HOMEPAGE) && resultCode == LibraryList.RESULT_OK) {
             String id = data.getStringExtra("libId");
-            String [] details = Bridge.VLGetLibraryDetails(id);
-            activity.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(details[
-                    requestCode == REQUESTED_LIBRARY_HOMEPAGE ? 0 : 1
-                    ])));
+            Bridge.LibraryDetails details = Bridge.VLGetLibraryDetails(id);
+            activity.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(
+                    requestCode == REQUESTED_LIBRARY_HOMEPAGE ? details.homepageBase : details.homepageCatalogue
+                    )));
             return  true;
         }
         return false;

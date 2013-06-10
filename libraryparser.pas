@@ -81,6 +81,7 @@ type
 
     function getUserLibraries(): TList;
     function setUserLibrary(trueid, data: string): TLibrary;
+    function downloadAndInstallUserLibrary(url: string): TLibrary;
     procedure deleteUserLibrary(trueid: string);
 
     property libraries[i: integer]: TLibrary read getLibraryFromEnumeration; default;
@@ -274,7 +275,7 @@ type
   end;
 
 implementation
-uses applicationconfig,bbdebugtools,FileUtil,LCLIntf,xquery,androidutils;
+uses applicationconfig,bbdebugtools,FileUtil,LCLIntf,xquery,androidutils,simpleinternet;
 function currencyStrToCurrency(s:string):Currency;
 begin
   s:=trim(s);
@@ -668,6 +669,47 @@ begin
   lib.loadFromString(data, 'libraries/'+trueid+'.xml');
 
   result := lib;
+end;
+
+function TLibraryManager.downloadAndInstallUserLibrary(url: string): TLibrary;
+var
+  page: String;
+  temp: IXQValue;
+  description: String;
+  id: String;
+  templateUrl: String;
+  template: String;
+  templateId: String;
+begin
+  page := retrieve(url);
+  temp := process(page, '<link rel="videlibri.description" href="{.}"/>');
+  if temp.isUndefined then begin
+    raise ELibraryException.create('Der Link verweist auf kein VideLibri-Template (kein videlibri.description link rel vorhanden)');
+    exit(nil);
+  end;
+  description := retrieve(strResolveURI(temp.toString, url));
+
+  temp := process(description, '(//id/@value)[1]');
+  if temp.isUndefined then id := '-_-_-_undefined'+IntToStr(Random(10000))
+  else id := temp.toString;
+
+  temp := process(page, '<link rel="videlibri.template" href="{.}"/>');
+  if not temp.isUndefined then begin
+    templateUrl := strResolveURI(temp.toString, url);
+    template := retrieve(templateUrl);
+    templateId := process(description, '(//template/@value)[1]').toString;
+
+    if not DirectoryExists(userPath+'libraries/templates/'+templateId) then
+      ForceDirectories(userPath+'libraries/templates/'+templateId);
+    strSaveToFileUTF8(userPath+'libraries/templates/'+templateId+'/template', template);
+
+    for temp in process(template, '//@templateFile') do
+      if not strContains(temp.toString, '..') then
+        strSaveToFileUTF8(userPath+'libraries/templates/'+templateId+'/'+temp.toString, retrieve(strResolveURI(temp.toString, templateUrl)));
+  end;
+
+
+  result := libraryManager.setUserLibrary(id, description);
 end;
 
 procedure TLibraryManager.deleteUserLibrary(trueid: string);

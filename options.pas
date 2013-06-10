@@ -755,52 +755,25 @@ end;
 
 procedure ToptionForm.libAddClick(Sender: TObject);
   procedure downloadAndInstallTemplate;
-  var temp: IXQValue;
-    page: String;
-    url: String;
-    template, templateId, templateUrl: String;
-    description: String;
-    id: String;
+  var
     lib: TLibrary;
+    url: String;
   begin
     url := '';
     if not InputQuery('VideLibri', 'Geben Sie die Adresse des von der Bibliothek zur Verfügung gestellten Templates ein:', url) then exit;
     try
-      page := retrieve(url);
-      temp := process(page, '<link rel="videlibri.description" href="{.}"/>');
-      if temp.isUndefined then begin
-        ShowMessage('Der Link verweist auf kein VideLibri-Template (kein videlibri.description link rel vorhanden)');
-        exit;
+
+      lib := libraryManager.downloadAndInstallUserLibrary(url);
+      if lib <> nil then begin
+        addUserLibrary(lib);
+        if (lib.template <> nil) and (templateList.Items.IndexOf(lib.template.name) < 0) then
+          templateList.Items.add(lib.template.name);;
       end;
-      description := retrieve(strResolveURI(temp.toString, url));
-
-      temp := process(description, '(//id/@value)[1]');
-      if temp.isUndefined then id := '-_-_-_undefined'+IntToStr(Random(10000))
-      else id := temp.toString;
-
-      temp := process(page, '<link rel="videlibri.template" href="{.}"/>');
-      if not temp.isUndefined then begin
-        templateUrl := strResolveURI(temp.toString, url);
-        template := retrieve(templateUrl);
-        templateId := process(description, '(//template/@value)[1]').toString;
-
-        if not DirectoryExists(userPath+'libraries/templates/'+templateId) then
-          ForceDirectories(userPath+'libraries/templates/'+templateId);
-        strSaveToFileUTF8(userPath+'libraries/templates/'+templateId+'/template', template);
-
-        for temp in process(template, '//@templateFile') do
-          if not strContains(temp.toString, '..') then
-            strSaveToFileUTF8(userPath+'libraries/templates/'+templateId+'/'+temp.toString, retrieve(strResolveURI(temp.toString, templateUrl)));
-
-        if templateList.Items.IndexOf(templateId) < 0 then  templateList.Items.add(templateId);
-      end;
-
-
-      lib := libraryManager.setUserLibrary(id, description);
-      addUserLibrary(lib);
 
       ShowMessage('Template installiert')
     except on e: EInternetException do
+      ShowMessage('Template nicht gefunden: '+e.Message);
+    on e: ELibraryException do
       ShowMessage('Template nicht gefunden: '+e.Message);
     end;
   end;

@@ -41,7 +41,7 @@ public class SearchResult extends BookListActivity implements Bridge.SearchResul
                 bookCache.clear();
                 for (Bridge.Book b : books) bookCache.add(b);
                 displayBookCache(searcher.totalResultCount);
-                setTitle(searcher.totalResultCount+" Treffer");
+                setTitle(Math.max(searcher.totalResultCount, bookCache.size())+" Treffer");
                 setLoading(false);
             }
         });

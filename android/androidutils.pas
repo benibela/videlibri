@@ -31,7 +31,7 @@ procedure androidAllThreadsDone();
 
 
 implementation
-uses bbutils, accountlist, applicationconfig, bbdebugtools, libraryAccess;
+uses bbutils, accountlist, applicationconfig, bbdebugtools, libraryAccess, simplehtmltreeparser;
 
 {$ifndef android}
 function assetFileAsString(name: string): string;
@@ -56,7 +56,7 @@ var assets: jobject = nil;
     assetCount: integer = 0;
     jmAssetManager_Open_StringInputStream, jmInputStream_Read_B, jmInputStream_Close: jmethodID;
     videlibriClass: jclass;
-    videLibriMethodUserPath, videLibriMethodVLAllThreadsDone: jmethodID;
+    videLibriMethodUserPath, videLibriMethodVLAllThreadsDone, videLibriMethodVLInstallationDone: jmethodID;
     accountClass, bookClass: jobject;
     accountClassInit, bookClassInit: jmethodID;
     accountFields: record
@@ -135,6 +135,7 @@ begin
   jActivityObject := needj.env^^.NewGlobalRef(j.env, videlibri);
   videLibriMethodUserPath := j.getmethod(videlibriClass, 'userPath', '()Ljava/lang/String;');
   videLibriMethodVLAllThreadsDone := j.getstaticmethod(videlibriClass, 'allThreadsDone', '()V');
+  videLibriMethodVLInstallationDone := j.getstaticmethod(videlibriClass, 'installationDone', '(I)V');
 
   accountClass := j.newGlobalRefAndDelete(j.getclass('de/benibela/videlibri/Bridge$Account'));
   accountClassInit := j.getmethod(accountClass, '<init>', '()V');
@@ -215,25 +216,159 @@ begin
   if logging then bbdebugtools.log('de.benibela.VideLibri.Bride.VLGetLibraries (ended)');
 end;
 
+type TLibraryDetails = record
+  homepageBase, homepageCatalogue, prettyName, id, templateId, variableNames, variableValues: jfieldID;
+end;
+function getLibraryDetailsFields(c: jclass): TLibraryDetails;
+begin
+  with result, j do begin
+    homepageBase := getfield(c, 'homepageBase', 'Ljava/lang/String;');
+    homepageCatalogue := getfield(c, 'homepageCatalogue', 'Ljava/lang/String;');
+    prettyName := getfield(c, 'prettyName', 'Ljava/lang/String;');
+    id := getfield(c, 'id', 'Ljava/lang/String;');
+    templateId := getfield(c, 'templateId', 'Ljava/lang/String;');
+    variableNames := getfield(c, 'variableNames', '[Ljava/lang/String;');
+    variableValues := getfield(c, 'variableValues', '[Ljava/lang/String;');
+  end;
+end;
+
 function Java_de_benibela_VideLibri_Bridge_VLGetLibraryDetails(env:PJNIEnv; this:jobject; id: jstring): jobject; cdecl;
 var
   lib: TLibrary;
   i: Integer;
+  detailClass: jclass;
+  namesArray: jobject;
+  valuesArray: jobject;
 begin
   if logging then bbdebugtools.log('de.benibela.VideLibri.Bride.VLGetLibraryDetails (started)');
   //bbdebugtools.log(strFromPtr(libraryManager));
   //bbdebugtools.log(IntToStr(libraryManager.count));
   try
     lib := libraryManager.get(j.jStringToStringAndDelete(id));
-    result := j.newObjectArray(2, j.getclass('java/lang/String'), nil);
-    j.SetObjectArrayElement(result, 0, j.stringToJString(lib.homepageBase));
-    j.SetObjectArrayElement(result, 1, j.stringToJString(lib.homepageCatalogue));
+    detailClass := j.getclass('de/benibela/videlibri/Bridge$LibraryDetails');
+
+    result := j.newObject(detailClass, j.getmethod(detailClass, '<init>', '()V'));
+
+    with getLibraryDetailsFields(detailClass), j do begin
+      SetStringField(result, homepageBase, lib.homepageBase);
+      SetStringField(result, homepageCatalogue, lib.homepageCatalogue);
+      SetStringField(result, prettyName, lib.prettyNameLong);
+      SetStringField(result, id, lib.id);
+      if lib.template <> nil then SetStringField(result, templateId, lib.template.name)
+      else SetStringField(result, templateId, '');
+      namesArray := newObjectArray(lib.variables.count, commonClasses_String, nil);
+      valuesArray := newObjectArray(lib.variables.count, commonClasses_String, nil);
+      for i := 0 to lib.variables.count-1 do begin
+        setObjectArrayElement(variableNames, i, stringToJString(lib.variables.Names[i]));
+        setObjectArrayElement(variableValues, i, stringToJString(lib.variables.ValueFromIndex[i]));
+      end;
+      SetObjectField(result, variableNames, namesArray);
+      SetObjectField(result, variableValues, valuesArray);
+    end;
   except
     on e: Exception do j.ThrowNew('de/benibela/videlibri/Bridge$InternalError', 'Interner Fehler: '+e.Message);
   end;
   if logging then bbdebugtools.log('de.benibela.VideLibri.Bride.VLGetLibraryDetails (ended)');
 end;
 
+procedure Java_de_benibela_VideLibri_Bridge_VLSetLibraryDetails(env:PJNIEnv; this:jobject; id: jstring; details: jobject); cdecl;
+var
+  lib: TLibrary;
+  i: Integer;
+  detailClass: jclass;
+  namesArray: jobject;
+  valuesArray: jobject;
+  names: jobject;
+  values: jobject;
+  libid: String;
+  libXml: String;
+begin
+  if logging then bbdebugtools.log('de.benibela.VideLibri.Bride.VLSetLibraryDetails (started)');
+  //bbdebugtools.log(strFromPtr(libraryManager));
+  //bbdebugtools.log(IntToStr(libraryManager.count));
+  try
+    libid := j.jStringToStringAndDelete(id);
+    if details = nil then begin
+      //null means delete
+      libraryManager.deleteUserLibrary(libid);
+    end else begin
+      detailClass := j.getclass('de/benibela/videlibri/Bridge$LibraryDetails');
+
+      with getLibraryDetailsFields(detailClass), j do begin
+        libXml := '<?xml version="1.0" encoding="UTF-8"?>'+LineEnding;
+        libXml += '<library>'+LineEnding;
+        libXml += '   <longName value="'+xmlStrEscape(getStringField(details, prettyName))+'"/>'+LineEnding;
+        if getStringField(details, homepageBase) <> '' then
+          libXml += '   <homepage value="'+xmlStrEscape(getStringField(details, prettyName))+'"/>'+LineEnding;
+        if getStringField(details, homepageCatalogue) <> '' then
+          libXml += '   <catalogue value="'+xmlStrEscape(getStringField(details, prettyName))+'"/>'+LineEnding;
+        libXml += '   <template value="'+xmlStrEscape(getStringField(details, templateId))+'"/>'+LineEnding;
+        names := getObjectField(details, variableNames);
+        values:= getObjectField(details, variableNames);
+        for i := 0 to getArrayLength(names) - 1 do
+          libXml += '   <variable name="'+xmlStrEscape(jStringToStringAndDelete(getObjectArrayElement(names, i)))+'" '+
+                                 'value="'+xmlStrEscape(jStringToStringAndDelete(getObjectArrayElement(values, i)))+'"/>'+LineEnding;
+
+        libXml += '</library>';
+        libraryManager.setUserLibrary(libid, libXml);
+      end;
+    end;
+  except
+    on e: Exception do j.ThrowNew('de/benibela/videlibri/Bridge$InternalError', 'Interner Fehler: '+e.Message);
+  end;
+  if logging then bbdebugtools.log('de.benibela.VideLibri.Bride.VLSetLibraryDetails (ended)');
+end;
+
+type
+
+{ TInstallLibraryThread }
+
+TInstallLibraryThread = class(TThread)
+  url: string;
+  constructor Create(aurl: string);
+  procedure Execute; override;
+end;
+
+constructor TInstallLibraryThread.Create(aurl: string);
+begin
+  inherited Create(true);
+  url := aurl;
+  FreeOnTerminate:=true;
+end;
+
+procedure TInstallLibraryThread.Execute;
+var
+  ok: jint;
+begin
+  ok := -1;
+  if logging then bbdebugtools.log('TInstallLibraryThread (started)');
+  try
+    needJ;
+    libraryManager.downloadAndInstallUserLibrary(url);
+    ok := 1;
+  except
+    on e:Exception do storeException(e, nil);
+  end;
+  needJ.callStaticVoidMethod(videlibriClass, videLibriMethodVLInstallationDone, @ok);
+  if logging then bbdebugtools.log('TInstallLibraryThread (ended)');
+  jvmref^^.DetachCurrentThread(jvmref);
+end;
+
+
+function Java_de_benibela_VideLibri_Bridge_VLInstallLibrary(env:PJNIEnv; this:jobject; url: jobject): jobject; cdecl;
+var
+  surl: string;
+begin
+  if logging then bbdebugtools.log('de.benibela.VideLibri.Bride.VLInstallLibrary (started)');
+  try
+    surl := j.jStringToStringAndDelete(url);
+    TInstallLibraryThread.Create(surl).Start;
+  except
+    on e: Exception do j.ThrowNew('de/benibela/videlibri/Bridge$InternalError', 'Interner Fehler: '+e.Message);
+  end;
+  result := nil;
+  if logging then bbdebugtools.log('de.benibela.VideLibri.Bride.VLInstallLibrary (ended)');
+end;
 
 function Java_de_benibela_VideLibri_Bridge_VLAddAccount(env:PJNIEnv; this:jobject; acc: jobject): jobject; cdecl;
 var
@@ -415,6 +550,7 @@ TJBookSerializer = object
   procedure writeProp(n,v:string);
   procedure writeDateProp(n: string; d: integer);
 end;
+
 
 
 procedure TJBookSerializer.writeProp(n, v: string);
@@ -1027,7 +1163,8 @@ end;
 type TJOptionClass = record
   c: jclass;
   init: jmethodID;
-  nearTimeI, loggingZ, refreshIntervalI: jfieldID;
+  nearTimeI, loggingZ, refreshIntervalI, roUserLibIdsAS: jfieldID;
+
 end;
 
 function getOptionClass: TJOptionClass;
@@ -1038,6 +1175,7 @@ begin
     nearTimeI := j.getfield(c, 'nearTime', 'I');
     loggingZ := j.getfield(c, 'logging', 'Z');
     refreshIntervalI := j.getfield(c, 'refreshInterval','I');
+    roUserLibIdsAS := j.getfield(c, 'roUserLibIds', '[Ljava/lang/String;');
   end;
 end;
 
@@ -1045,6 +1183,8 @@ function Java_de_benibela_VideLibri_Bridge_VLGetOptions(env:PJNIEnv; this:jobjec
 var
   lib: TLibrary;
   i: Integer;
+  userlibs: TList;
+  temp, temp2: jobject;
 begin
   if logging then bbdebugtools.log('de.benibela.VideLibri.Bride.VLGetOptions (started)');
   //bbdebugtools.log(strFromPtr(libraryManager));
@@ -1055,6 +1195,15 @@ begin
       j.SetIntField(result, nearTimeI, userConfig.ReadInteger('base','near-time',3));
       j.SetIntField(result, refreshIntervalI, RefreshInterval);
       j.SetBooleanField(result, loggingZ, logging);
+
+      userlibs := libraryManager.getUserLibraries();
+      temp := j.newObjectArray(userlibs.Count, j.commonClasses_String, nil);
+      for i := 0 to userlibs.Count-1 do begin
+        temp2 := j.stringToJString(TLibrary(userlibs[i]).id);
+        j.setObjectArrayElement(temp, i, temp2);
+        j.deleteLocalRef(temp2);
+      end;
+      j.SetObjectField(result, roUserLibIdsAS, temp);
     end;
   except
     on e: Exception do j.ThrowNew('de/benibela/videlibri/Bridge$InternalError', 'Interner Fehler: '+e.Message);
@@ -1094,12 +1243,14 @@ end;
 
 
 
-const nativeMethods: array[1..21] of JNINativeMethod=
+const nativeMethods: array[1..23] of JNINativeMethod=
   ((name:'VLInit';          signature:'(Lde/benibela/videlibri/VideLibri;)V';                   fnPtr:@Java_de_benibela_VideLibri_Bridge_VLInit)
    ,(name:'VLFinalize';      signature:'()V';                   fnPtr:@Java_de_benibela_VideLibri_Bridge_VLFInit)
 
    ,(name:'VLGetLibraries'; signature:'()[Ljava/lang/String;'; fnPtr:@Java_de_benibela_VideLibri_Bridge_VLGetLibraries)
-   ,(name:'VLGetLibraryDetails'; signature:'(Ljava/lang/String;)[Ljava/lang/String;'; fnPtr:@Java_de_benibela_VideLibri_Bridge_VLGetLibraryDetails)
+   ,(name:'VLGetLibraryDetails'; signature:'(Ljava/lang/String;)Lde/benibela/videlibri/Bridge$LibraryDetails;'; fnPtr:@Java_de_benibela_VideLibri_Bridge_VLGetLibraryDetails)
+   ,(name:'VLSetLibraryDetails'; signature:'(Ljava/lang/String;Lde/benibela/videlibri/Bridge$LibraryDetails;)V'; fnPtr:@Java_de_benibela_VideLibri_Bridge_VLSetLibraryDetails)
+   ,(name:'VLInstallLibrary'; signature:'(Ljava/lang/String;)V'; fnPtr:@Java_de_benibela_VideLibri_Bridge_VLInstallLibrary)
 
    ,(name:'VLAddAccount'; signature:'(Lde/benibela/videlibri/Bridge$Account;)V'; fnPtr:@Java_de_benibela_VideLibri_Bridge_VLAddAccount)
    ,(name:'VLDeleteAccount'; signature:'(Lde/benibela/videlibri/Bridge$Account;)V'; fnPtr:@Java_de_benibela_VideLibri_Bridge_VLDeleteAccount)

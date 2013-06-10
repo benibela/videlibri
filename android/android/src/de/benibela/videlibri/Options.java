@@ -95,6 +95,34 @@ public class Options extends VideLibriBaseActivity{
                     startActivityForResult(intent, NEW_ACCOUNT_CREATION_RESULT);
                 }
             });
+
+
+            linearLayout = (LinearLayout) findViewById(R.id.libraries);
+            linearLayout.removeAllViews();
+            for (final String userLibId: options.roUserLibIds) if (userLibId != null) {
+                final Bridge.LibraryDetails details = Bridge.VLGetLibraryDetails(userLibId);
+                if (details == null) continue;
+                Button btn = (Button) inflater.inflate(R.layout.insetbutton, null);
+                btn.setText(details.prettyName);
+                linearLayout.addView(btn);
+                btn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Intent intent = new Intent(Options.this, NewLibrary.class);
+                        intent.putExtra("mode", NewLibrary.MODE_LIBRARY_MODIFY);
+                        intent.putExtra("libId", userLibId);
+                        startActivity(intent);
+                    }
+                });
+            }
+
+
+            findButtonById(R.id.newlib).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    startActivity(new Intent(Options.this, NewLibrary.class));
+                }
+            });
         }
     }
 
