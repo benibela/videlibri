@@ -19,13 +19,13 @@
   <li style="right: 1em; position:absolute; margin-top: -1em"><a href="index.php">Deutsche Version</a></li>
 </ul>
 
-VideLibri is a locally running extension of the usual library web catalogues. Its main function is to automatically extend the lend books and warn the user of an ending loan period, but it also has several other features.
+VideLibri is a extension of the usual library web catalogues, running locally on desktop computers or Android mobiles. Its main function is to automatically renew the lend books and warn the user of an ending loan period, but it also has several other features.
 <br><br>
 It works by parsing the web page of the library, so it does not support all libraries.<br>
 
-In fact, I have only tested it with 5 libraries, and all of them are in a local region of Germany (read the <a href="index.html">German page</a> for more information) and I have not translated the program into English, so far. <br><br>
+Currently it has only been tested with German/Swiss libraries (but with over 100 of them, see the <a href="index.html">German page</a> for more information) and I have not translated the program into English, so far. If you are interested in a translation, you can send me a mail. <br><br>
 
-But it is not difficult to extend it with new libraries due to the simple templates it used. Especially if your library uses a system of libero, aleph or sisis, because in these cases you only have to change the server URL.
+It is not difficult to extend it with new libraries due to the simple templates it used. Especially if your library uses a system of libero, aleph or sisis, because in these cases you only have to change the server URL.
 <br>
 The template language is described on my <a href="http://benibela.de/documentation/internettools/extendedhtmlparser.THtmlTemplateParser.html">homepage</a>, and the currently existing templates are stored in the directory data/libraries/templates. In case you write your own template, you can test it with a single page <a href="cgi-bin/htmlparserExampleCGI">online</a> or with the example programs in directory components/pascal/data/example of the VideLibri source.
 

@@ -182,6 +182,8 @@ Praktisch sollte man das Programm genau dann benutzen, wenn man jedes Jahr mehre
 <img src="http://sourceforge.net/dbimage.php?id=280465" title="Ausleihstatistik (über alle von meiner Familie in Düsseldorf und Aachen ausgeliehenen Bücher)" alt="Ausleihstatistik (über alle von meiner Familie in Düsseldorf und Aachen ausgeliehenen Bücher)"/>
 
 <img src="http://sourceforge.net/dbimage.php?id=306557" title="Suche in der Digibib. (öffnet sich automatisch nach Doppelklick auf ein ausgeliehenes Buch, und ist z.B.: bei den Stadtbüchereien von Düsseldorf nötig, um mehr als Autor oder Titel angezeigt zu bekommen)" alt="Suche in der Digibib. (öffnet sich automatisch nach Doppelklick auf ein ausgeliehenes Buch, und ist z.B.: bei den Stadtbüchereien von Düsseldorf nötig, um mehr als Autor oder Titel angezeigt zu bekommen)"/>
+
+<img src="http://sourceforge.net/p/videlibri/screenshot/android.png" title="VideLibri 1.5 unter Android" alt="VideLibri 1.5 unter Android"/>
 </center>
 </div>
 <h2><div><a name="libraries">Unterstützte Büchereien</a></div></h2>
@@ -198,7 +200,9 @@ Es liegen aber auch einige Templates standardmäßig bei, welche erfolgreich mit
 <br><br>
 
 Man kann es aber auch mit anderen Bibliotheken benutzen, wenn man dort eine Ausleihkarte hat. Wegen dem zugrundeliegenden Templatesystem ist es nicht einmal nötig VideLibri umzuprogrammieren. Um ein solches Template für eine neue Bibliothek hinzuzufügen, speichert man im wesentlichen jede Seite des WebOPACs ab, und markiert die Stellen, die Medieninformationen wie Autor/Titel enthalten, mit semantischen Annotationen. Wie genau  das funktioniert, ist ausführlich in der <a href="http://videlibri.sourceforge.net/help/neuebibliothek.html">Hilfe</a> beschrieben.  Programmierkenntnisse sind dabei nur erforderlich, wenn der Katalog irgendwelche Merkwürdigkeiten, wie beispielsweise ungültiges HTML oder einen komplizierten XSS-Schutz, aufweist. Das englischsprachige <a href="http://userscripts.org/scripts/show/144991">Xidelscript</a> kann verwendet werden, um ein Template automatisch  durch Markieren der Buchinformationen in Firefox zu erstellen.<br>
+Zudem kann eine interessierte Bibliothek ein Videlibri-Template auf ihrem Server hinterlegen und mit den entsprechenden Linkmetatags verlinken. Dann reicht die Eingabe der Serveraddresse in Videlibri, um das Template automatisch herunterzuladen und zu installieren.<br>
 Verwendet die Bücherei ein aktuelles aleph/libero/sisis/pica/aDISWeb-System ist es nicht mal nötig ein Template zu schreiben, weil man dann einfach die Serveradresse in die xml-Dateien im data/libraries Verzeichnis eintragen kann. 
+
 </div>
 
 <h2><div><a name="downloads">Downloads</a></div></h2>
