@@ -5,7 +5,7 @@ unit androidutils;
 interface
 
 uses
-  Classes, SysUtils,  IniFiles{$ifdef android}, jni, bbjniutils, libraryParser, LCLProc, booklistreader, librarySearcherAccess, androidinternetaccess{$endif};
+Classes, SysUtils,  IniFiles{$ifdef android}, jni, bbjniutils, libraryParser, LCLProc, booklistreader, librarySearcherAccess, androidinternetaccess, multipagetemplate{$endif};
 
 //procedure deleteLocalRef(jobj: pointer);
 
@@ -216,20 +216,81 @@ begin
   if logging then bbdebugtools.log('de.benibela.VideLibri.Bride.VLGetLibraries (ended)');
 end;
 
+type TTemplateDetails = record
+  variablesNames, variablesDescription, variablesDefault: jfieldID;
+end;
+function getTemplateDetailsFields(c: jclass): TTemplateDetails;
+begin
+  with result, j do begin
+    variablesNames := getfield(c, 'variablesNames', '[Ljava/lang/String;');
+    variablesDescription := getfield(c, 'variablesDescription', '[Ljava/lang/String;');
+    variablesDefault := getfield(c, 'variablesDefault', '[Ljava/lang/String;');
+  end;
+end;
+
+function Java_de_benibela_VideLibri_Bridge_VLGetTemplateDetails(env:PJNIEnv; this:jobject; id: jstring): jobject; cdecl;
+var
+  i: Integer;
+  detailClass: jclass;
+  namesArray: jobject;
+  valuesArray: jobject;
+  template: TMultiPageTemplate;
+  meta: TTemplateActionMeta;
+  names: jobject;
+  defs: jobject;
+  desc: jobject;
+begin
+  if logging then bbdebugtools.log('de.benibela.VideLibri.Bride.VLGetTemplateDetails (started)');
+  //bbdebugtools.log(strFromPtr(libraryManager));
+  //bbdebugtools.log(IntToStr(libraryManager.count));
+  try
+    template := libraryManager.getTemplate(j.jStringToStringAndDelete(id));
+    if template = nil then exit(nil);
+    meta := nil;
+    for i := 0 to high(template.baseActions.children) do
+      if template.baseActions.children[i] is TTemplateActionMeta then
+        meta := template.baseActions.children[i] as TTemplateActionMeta ;
+
+    if meta = nil then exit(nil);
+
+    detailClass := j.getclass('de/benibela/videlibri/Bridge$TemplateDetails');
+    result := j.newObject(detailClass, j.getmethod(detailClass, '<init>', '()V'));
+    with getTemplateDetailsFields(detailClass), j do begin
+      names := j.newObjectArray(length(meta.variables), j.commonClasses_String, nil);
+      defs := j.newObjectArray(length(meta.variables), j.commonClasses_String, nil);
+      desc := j.newObjectArray(length(meta.variables), j.commonClasses_String, nil);
+      SetObjectField(result, variablesNames, names);
+      SetObjectField(result, variablesDefault, defs);
+      SetObjectField(result, variablesDescription, desc);
+
+      for i:=0 to high(meta.variables) do begin
+        setStringArrayElement(names, i, meta.variables[i].name);
+        setStringArrayElement(desc, i, meta.variables[i].description);
+        if meta.variables[i].hasDef then
+          setStringArrayElement(defs, i, meta.variables[i].def);
+      end;
+    end;
+  except
+    on e: Exception do j.ThrowNew('de/benibela/videlibri/Bridge$InternalError', 'Interner Fehler: '+e.Message);
+  end;
+  if logging then bbdebugtools.log('de.benibela.VideLibri.Bride.VLGetTemplateDetails (ended)');
+end;
+
+
 type TLibraryDetails = record
   homepageBase, homepageCatalogue, prettyName, id, templateId, variableNames, variableValues: jfieldID;
 end;
 function getLibraryDetailsFields(c: jclass): TLibraryDetails;
 begin
-  with result, j do begin
-    homepageBase := getfield(c, 'homepageBase', 'Ljava/lang/String;');
-    homepageCatalogue := getfield(c, 'homepageCatalogue', 'Ljava/lang/String;');
-    prettyName := getfield(c, 'prettyName', 'Ljava/lang/String;');
-    id := getfield(c, 'id', 'Ljava/lang/String;');
-    templateId := getfield(c, 'templateId', 'Ljava/lang/String;');
-    variableNames := getfield(c, 'variableNames', '[Ljava/lang/String;');
-    variableValues := getfield(c, 'variableValues', '[Ljava/lang/String;');
-  end;
+   with result, j do begin
+     homepageBase := getfield(c, 'homepageBase', 'Ljava/lang/String;');
+     homepageCatalogue := getfield(c, 'homepageCatalogue', 'Ljava/lang/String;');
+     prettyName := getfield(c, 'prettyName', 'Ljava/lang/String;');
+     id := getfield(c, 'id', 'Ljava/lang/String;');
+     templateId := getfield(c, 'templateId', 'Ljava/lang/String;');
+     variableNames := getfield(c, 'variableNames', '[Ljava/lang/String;');
+     variableValues := getfield(c, 'variableValues', '[Ljava/lang/String;');
+   end;
 end;
 
 function Java_de_benibela_VideLibri_Bridge_VLGetLibraryDetails(env:PJNIEnv; this:jobject; id: jstring): jobject; cdecl;
@@ -239,14 +300,15 @@ var
   detailClass: jclass;
   namesArray: jobject;
   valuesArray: jobject;
+  libId: String;
 begin
   if logging then bbdebugtools.log('de.benibela.VideLibri.Bride.VLGetLibraryDetails (started)');
   //bbdebugtools.log(strFromPtr(libraryManager));
   //bbdebugtools.log(IntToStr(libraryManager.count));
   try
-    lib := libraryManager.get(j.jStringToStringAndDelete(id));
+    libId := j.jStringToStringAndDelete(id);
+    lib := libraryManager.get(libId);
     detailClass := j.getclass('de/benibela/videlibri/Bridge$LibraryDetails');
-
     result := j.newObject(detailClass, j.getmethod(detailClass, '<init>', '()V'));
 
     with getLibraryDetailsFields(detailClass), j do begin
@@ -259,8 +321,8 @@ begin
       namesArray := newObjectArray(lib.variables.count, commonClasses_String, nil);
       valuesArray := newObjectArray(lib.variables.count, commonClasses_String, nil);
       for i := 0 to lib.variables.count-1 do begin
-        setObjectArrayElement(variableNames, i, stringToJString(lib.variables.Names[i]));
-        setObjectArrayElement(variableValues, i, stringToJString(lib.variables.ValueFromIndex[i]));
+        setObjectArrayElement(namesArray, i, stringToJString(lib.variables.Names[i]));
+        setObjectArrayElement(valuesArray, i, stringToJString(lib.variables.ValueFromIndex[i]));
       end;
       SetObjectField(result, variableNames, namesArray);
       SetObjectField(result, variableValues, valuesArray);
@@ -299,12 +361,12 @@ begin
         libXml += '<library>'+LineEnding;
         libXml += '   <longName value="'+xmlStrEscape(getStringField(details, prettyName))+'"/>'+LineEnding;
         if getStringField(details, homepageBase) <> '' then
-          libXml += '   <homepage value="'+xmlStrEscape(getStringField(details, prettyName))+'"/>'+LineEnding;
+          libXml += '   <homepage value="'+xmlStrEscape(getStringField(details, homepageBase))+'"/>'+LineEnding;
         if getStringField(details, homepageCatalogue) <> '' then
-          libXml += '   <catalogue value="'+xmlStrEscape(getStringField(details, prettyName))+'"/>'+LineEnding;
+          libXml += '   <catalogue value="'+xmlStrEscape(getStringField(details, homepageCatalogue))+'"/>'+LineEnding;
         libXml += '   <template value="'+xmlStrEscape(getStringField(details, templateId))+'"/>'+LineEnding;
         names := getObjectField(details, variableNames);
-        values:= getObjectField(details, variableNames);
+        values:= getObjectField(details, variableValues);
         for i := 0 to getArrayLength(names) - 1 do
           libXml += '   <variable name="'+xmlStrEscape(jStringToStringAndDelete(getObjectArrayElement(names, i)))+'" '+
                                  'value="'+xmlStrEscape(jStringToStringAndDelete(getObjectArrayElement(values, i)))+'"/>'+LineEnding;
@@ -369,6 +431,35 @@ begin
   result := nil;
   if logging then bbdebugtools.log('de.benibela.VideLibri.Bride.VLInstallLibrary (ended)');
 end;
+
+function Java_de_benibela_VideLibri_Bridge_VLGetTemplates(env:PJNIEnv; this:jobject): jobject; cdecl;
+var
+  i: Integer;
+  templ: String;
+  trueTemplateCount: Integer;
+begin
+  if logging then bbdebugtools.log('de.benibela.VideLibri.Bride.VLGetTemplates (started)');
+  //bbdebugtools.log(strFromPtr(libraryManager));
+  //bbdebugtools.log(IntToStr(libraryManager.count));
+  try
+    trueTemplateCount := 0;
+    for i := 0 to libraryManager.templates.count - 1 do
+      if not strContains(libraryManager.templates[i], '|') then
+        trueTemplateCount += 1;
+    result := j.newObjectArray(trueTemplateCount, j.getclass('java/lang/String'), nil);
+    trueTemplateCount := 0;
+    for i := 0 to libraryManager.templates.count - 1 do begin
+      templ := libraryManager.templates[i];
+      if strContains(templ, '|') then continue;
+      j.setObjectArrayElement(result, trueTemplateCount, j.stringToJString(templ));
+      trueTemplateCount += 1;
+    end;
+  except
+    on e: Exception do j.ThrowNew('de/benibela/videlibri/Bridge$InternalError', 'Interner Fehler: '+e.Message);
+  end;
+  if logging then bbdebugtools.log('de.benibela.VideLibri.Bride.VLGetTemplates (ended)');
+end;
+
 
 function Java_de_benibela_VideLibri_Bridge_VLAddAccount(env:PJNIEnv; this:jobject; acc: jobject): jobject; cdecl;
 var
@@ -1243,7 +1334,7 @@ end;
 
 
 
-const nativeMethods: array[1..23] of JNINativeMethod=
+const nativeMethods: array[1..25] of JNINativeMethod=
   ((name:'VLInit';          signature:'(Lde/benibela/videlibri/VideLibri;)V';                   fnPtr:@Java_de_benibela_VideLibri_Bridge_VLInit)
    ,(name:'VLFinalize';      signature:'()V';                   fnPtr:@Java_de_benibela_VideLibri_Bridge_VLFInit)
 
@@ -1251,6 +1342,8 @@ const nativeMethods: array[1..23] of JNINativeMethod=
    ,(name:'VLGetLibraryDetails'; signature:'(Ljava/lang/String;)Lde/benibela/videlibri/Bridge$LibraryDetails;'; fnPtr:@Java_de_benibela_VideLibri_Bridge_VLGetLibraryDetails)
    ,(name:'VLSetLibraryDetails'; signature:'(Ljava/lang/String;Lde/benibela/videlibri/Bridge$LibraryDetails;)V'; fnPtr:@Java_de_benibela_VideLibri_Bridge_VLSetLibraryDetails)
    ,(name:'VLInstallLibrary'; signature:'(Ljava/lang/String;)V'; fnPtr:@Java_de_benibela_VideLibri_Bridge_VLInstallLibrary)
+   ,(name:'VLGetTemplates'; signature:'()[Ljava/lang/String;'; fnPtr:@Java_de_benibela_VideLibri_Bridge_VLGetTemplates)
+   ,(name:'VLGetTemplateDetails'; signature:'(Ljava/lang/String;)Lde/benibela/videlibri/Bridge$TemplateDetails;'; fnPtr:@Java_de_benibela_VideLibri_Bridge_VLGetTemplateDetails)
 
    ,(name:'VLAddAccount'; signature:'(Lde/benibela/videlibri/Bridge$Account;)V'; fnPtr:@Java_de_benibela_VideLibri_Bridge_VLAddAccount)
    ,(name:'VLDeleteAccount'; signature:'(Lde/benibela/videlibri/Bridge$Account;)V'; fnPtr:@Java_de_benibela_VideLibri_Bridge_VLDeleteAccount)

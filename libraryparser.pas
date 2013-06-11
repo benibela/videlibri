@@ -662,6 +662,7 @@ begin
   lib := get(trueId);
   if lib = nil then begin
     lib := TLibrary.create;
+    lib.id:=trueid;
     flibraries.Add(lib);
   end;
   lib.template:=nil;

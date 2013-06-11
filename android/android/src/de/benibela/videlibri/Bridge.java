@@ -140,11 +140,19 @@ public class Bridge {
         String roUserLibIds[];
     }
 
+    public static class TemplateDetails{
+        String variablesNames[];
+        String variablesDescription[];
+        String variablesDefault[];
+    }
+
     static public native void VLInit(VideLibri videlibri);
     static public native String[] VLGetLibraries(); //id|pretty location|name|short name
     static public native LibraryDetails VLGetLibraryDetails(String id);
     static public native void VLSetLibraryDetails(String id, LibraryDetails details);
     static public native void VLInstallLibrary(String url);
+    static public native String[] VLGetTemplates(); //array of ids
+    static public native TemplateDetails VLGetTemplateDetails(String id);
     static public native Account[] VLGetAccounts();
     static public native void VLAddAccount(Account acc);
     static public native void VLChangeAccount(Account oldacc, Account newacc);
