@@ -219,13 +219,18 @@ public class VideLibri extends  BookListActivity{
         VideLibri.updateAccount(acc, false, false);
     }
     static void deleteAccount(Bridge.Account acc){
-        if (instance == null) return;
+        if (instance == null || acc == null) return;
+        if (instance.hiddenAccounts.contains(acc)) instance.hiddenAccounts.remove(acc);
         Bridge.VLDeleteAccount(acc);
         instance.accounts = Bridge.VLGetAccounts();
         instance.displayAccount(null);
     }
     static void changeAccount(Bridge.Account old, Bridge.Account newacc){
         if (instance == null) return;
+        if (instance.hiddenAccounts.contains(old)) {
+            instance.hiddenAccounts.remove(old);
+            instance.hiddenAccounts.add(newacc)
+        }
         Bridge.VLChangeAccount(old, newacc);
         instance.accounts = Bridge.VLGetAccounts();
         VideLibri.updateAccount(newacc, false, false);
