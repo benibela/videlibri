@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -29,6 +30,23 @@ public class BookListFragment extends VideLibriBaseFragment {
 
         bookListView = (ListView) view.findViewById(R.id.booklistview);
         dateFormatDefault = android.text.format.DateFormat.getDateFormat(getSherlockActivity());
+
+        if (getActivity() instanceof RenewList) {
+            //if (l == null) return;
+            final RenewList rl = ((RenewList)getActivity());
+            rl.button = (Button) view.findViewById(R.id.button);
+            //if (button == null) return;
+            rl.button.setVisibility(View.VISIBLE);
+            rl.button.setEnabled(false);
+            rl.button.setText("noch keine Auswahl");
+            rl.button.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Bridge.VLBookOperation((Bridge.Book[]) rl.selectedBooks.toArray(), Bridge.BOOK_OPERATION_RENEW);
+                    rl.finish();
+                }
+            });
+        }
 
         return view;
     }

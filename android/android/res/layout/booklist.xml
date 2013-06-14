@@ -5,13 +5,13 @@
               android:layout_width="match_parent"
               android:layout_height="match_parent">
 
-    <LinearLayout
-            android:orientation="vertical"
+    <ListView
             android:layout_width="fill_parent"
-            android:layout_height="fill_parent">
-        <ListView
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/booklistview"/>
-    </LinearLayout>
+            android:layout_height="wrap_content"
+            android:id="@+id/booklistview" android:layout_weight="1"/>
+    <Button
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="verlängern"
+            android:id="@+id/button" android:visibility="gone" android:layout_weight="0"/>
 </LinearLayout>

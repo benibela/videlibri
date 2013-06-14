@@ -229,7 +229,7 @@ public class VideLibri extends  BookListActivity{
         if (instance == null) return;
         if (instance.hiddenAccounts.contains(old)) {
             instance.hiddenAccounts.remove(old);
-            instance.hiddenAccounts.add(newacc)
+            instance.hiddenAccounts.add(newacc);
         }
         Bridge.VLChangeAccount(old, newacc);
         instance.accounts = Bridge.VLGetAccounts();
@@ -346,7 +346,7 @@ public class VideLibri extends  BookListActivity{
         int action = -1;
         switch (book.getStatus()) {
             case Normal:
-                Bridge.VLBookOperation(new Bridge.Book[]{book}, 1); //renew
+                Bridge.VLBookOperation(new Bridge.Book[]{book}, Bridge.BOOK_OPERATION_RENEW); //renew
                 if (detailsOpened) onBackPressed();
                 break;
             case Ordered: case Provided:
@@ -354,7 +354,7 @@ public class VideLibri extends  BookListActivity{
                     @Override
                     public void onDialogEnd(DialogInterface dialogInterface, int i) {
                         if (i == DialogInterface.BUTTON_POSITIVE) {
-                            Bridge.VLBookOperation(new Bridge.Book[]{book}, 2); //cancel
+                            Bridge.VLBookOperation(new Bridge.Book[]{book}, Bridge.BOOK_OPERATION_CANCEL); //cancel
                             if (detailsOpened) onBackPressed();
                         }
                     }

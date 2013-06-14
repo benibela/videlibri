@@ -159,6 +159,8 @@ public class Bridge {
     static public native void VLDeleteAccount(Account acc);
     static public native Book[] VLGetBooks(Account acc, boolean history);
     static public native void VLUpdateAccount(Account acc, boolean autoUpdate, boolean forceExtend);
+    static final int BOOK_OPERATION_RENEW = 1;
+    static final int BOOK_OPERATION_CANCEL = 2;
     static public native void VLBookOperation(Book[] books, int operation);
     static public native PendingException[] VLTakePendingExceptions();
 
@@ -281,7 +283,7 @@ public class Bridge {
         }
         catch(UnsatisfiedLinkError ule)
         {
-            Log.e("Videlibri", "WARNING: Could not load liblclapp.so");
+            Log.e("Videlibri", "WARNING: Could not load liblclapp.so: " + ule.getMessage());
             ule.printStackTrace();
         }
     }

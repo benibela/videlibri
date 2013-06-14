@@ -45,6 +45,8 @@ public class BookListActivity extends VideLibriBaseFragmentActivity{
     public ArrayList<Bridge.Book> bookCache = new ArrayList<Bridge.Book>();
     public boolean noDetailsInOverview = false;
 
+    public ArrayList<Bridge.Book> selectedBooks = null;
+
     void displayBookCache(int partialSize){
         //Log.i("VL","Book count: "+partialSize);
         BookOverviewAdapter sa = new BookOverviewAdapter(this, bookCache, partialSize, noDetailsInOverview);

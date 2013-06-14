@@ -47,6 +47,9 @@ public class VideLibriSuperBase {
                 if (VideLibri.instance != null && !VideLibri.instance.loading)
                     VideLibri.updateAccount(null, false, true);
                 return true;
+            case R.id.renewlist:
+                context.startActivity(new Intent(context, RenewList.class));
+                return true;
             case R.id.libinfo:
                 intent = new Intent(context, LibraryList.class);
                 intent.putExtra("reason", "Wählen Sie eine Bücherei um ihre Homepage zu öffnen:");

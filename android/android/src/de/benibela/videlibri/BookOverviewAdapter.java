@@ -1,5 +1,6 @@
 package de.benibela.videlibri;
 
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +16,7 @@ import java.util.ArrayList;
 class BookOverviewAdapter extends ArrayAdapter<Bridge.Book> {
     private final BookListActivity context;
     private final int defaultColor;
+    private final int defaultBackgroundColor;
     private ArrayList<Bridge.Book> books;
     private Bridge.Book placeHolder;
     private int completeCount;
@@ -28,6 +30,7 @@ class BookOverviewAdapter extends ArrayAdapter<Bridge.Book> {
         this.noDetailsInOverview = noDetailsInOverview;
 
         defaultColor = context.getResources().getColor(android.R.color.primary_text_dark);
+        defaultBackgroundColor = context.getResources().getColor(android.R.color.background_dark);
 
         placeHolder = new Bridge.Book();
         placeHolder.author = "Ergebnisse werden geladen...";
@@ -36,6 +39,7 @@ class BookOverviewAdapter extends ArrayAdapter<Bridge.Book> {
 
     static class ViewHolder {
         public TextView caption, date, more;
+        public View layout;
     }
 
     private String shortened(String s){
@@ -53,6 +57,7 @@ class BookOverviewAdapter extends ArrayAdapter<Bridge.Book> {
             viewHolder.caption = (TextView) view.findViewById(R.id.bookoverviewCaption);
             viewHolder.date = (TextView) view.findViewById(R.id.bookoverviewDate);
             viewHolder.more = (TextView) view.findViewById(R.id.bookoverviewMore);
+            viewHolder.layout = view;
             view.setTag(viewHolder);
         }
         ViewHolder holder = (ViewHolder) view.getTag();
@@ -72,6 +77,14 @@ class BookOverviewAdapter extends ArrayAdapter<Bridge.Book> {
             String id = book.getProperty("id");
             if (id != null && !"".equals(id)) more += " ; " + id;
             holder.more.setText(more);
+        }
+
+        if (context.selectedBooks != null) {
+            boolean selected = false;
+            for (Bridge.Book b: context.selectedBooks)
+                if (b == book) { selected = true; break; }
+            if (selected) holder.layout.setBackgroundColor(Color.rgb(0,0,96));
+            else holder.layout.setBackgroundColor(defaultBackgroundColor);
         }
 
         if (book.account != null && !book.history ) { //lend book
