@@ -36,6 +36,12 @@ public class BookListActivity extends VideLibriBaseFragmentActivity{
         }
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (!cacheShown)
+            displayBookCache();
+    }
 
     @Override
     void setLoading(boolean loading) {
@@ -47,12 +53,14 @@ public class BookListActivity extends VideLibriBaseFragmentActivity{
 
     public ArrayList<Bridge.Book> selectedBooks = null;
 
+    private boolean cacheShown = false;
     void displayBookCache(int partialSize){
         //Log.i("VL","Book count: "+partialSize);
         BookOverviewAdapter sa = new BookOverviewAdapter(this, bookCache, partialSize, noDetailsInOverview);
         ListView bookListView = (ListView) findViewById(R.id.booklistview);
         if (bookListView == null && list() != null) bookListView = (ListView) (list().findViewById(R.id.booklistview));
         if (bookListView == null) return; //this might get executed before the fragment/view is loaded
+        cacheShown = true;
         bookListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
