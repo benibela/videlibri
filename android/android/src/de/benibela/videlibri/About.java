@@ -103,7 +103,7 @@ public class About extends VideLibriBaseActivity {
             details.add(0, new BookDetails.Details("Version", "VideLibri "+(Util.strToIntDef(firstVersion, 0) / 1000.0)  + " ??"));
         }
         details.add(1, new BookDetails.Details("Homepage", "http://videlibri.sourceforge.net"));
-        details.add(2, new BookDetails.Details("Quellcode", "http://sourceforge.net/p/videlibri/code/"));
+        details.add(2, new BookDetails.Details("Quellcode", "http://sourceforge.net/p/videlibri/code/ci/trunks/tree/"));
 
 
 
