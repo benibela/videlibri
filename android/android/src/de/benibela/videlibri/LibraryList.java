@@ -49,6 +49,7 @@ public class LibraryList extends VideLibriBaseActivity {
             if (cities.isEmpty() || !cities.get(cities.size()-1).get("NAME").equals(lib.locationPretty)) {
                 cities.add(new TreeMap<String, String>());
                 cities.get(cities.size()-1).put("NAME", lib.locationPretty);
+                if ("-".equals(lib.locationPretty) && autoExpand < 2) autoExpand+=1;
                 localLibs.add(new ArrayList<Map<String, String>>());
             }
             TreeMap<String,String> map = new TreeMap<String, String>();

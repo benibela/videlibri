@@ -454,12 +454,23 @@ begin
   inherited;
 end;
 
+function libraryLocationCompare(lib1: TObject; lib2: pointer): integer;
+var
+  loc1: String;
+  loc2: String;
+begin
+  loc1 := TLibrary(lib1).location;
+  loc2 := TLibrary(lib1).location;
+  result := CompareStr(loc1, loc2);
+end;
+
 procedure TLibraryManager.init(apath: string);
 var //tempLibrary:TLibrary;
     libraryFiles: TStringList;
     newLib:TLibrary;
     i:longint;
     userlibs: TStringArray;
+    next: Pointer;
 begin
   basePath:=apath;
 
@@ -480,7 +491,9 @@ begin
     try
       newLib:=TLibrary.Create;
       newLib.loadFromString(assetFileAsString('libraries/'+userlibs[i]+'.xml'), 'libraries/'+userlibs[i]+'.xml');
-      flibraries.Add(newLib);
+      next := binarySearch(@flibraries.List[0], @flibraries.List[flibraries.Count-1], sizeof(pointer), @libraryLocationCompare, newLib, bsFirst, [bsGreater]);
+      if next = nil then flibraries.Insert(0, newLib)
+      else flibraries.Insert((next - @flibraries.List[0]) div sizeof(Pointer), newLib)
     except
     end;
   end;
@@ -651,6 +664,7 @@ function TLibraryManager.setUserLibrary(trueid, data: string): TLibrary;
 var
   lib: TLibrary;
   userlibs: TStringArray;
+  next: Pointer;
 begin
   strSaveToFileUTF8(userPath+'libraries/'+trueid+'.xml', data);
 
@@ -663,7 +677,9 @@ begin
   if lib = nil then begin
     lib := TLibrary.create;
     lib.id:=trueid;
-    flibraries.Add(lib);
+    next := binarySearch(@flibraries.List[0], @flibraries.List[flibraries.Count-1], sizeof(pointer), @libraryLocationCompare, lib, bsFirst, [bsGreater]);
+    if next = nil then flibraries.Insert(0, lib)
+    else flibraries.Insert((next - @flibraries.List[0]) div sizeof(Pointer), lib)
   end;
   lib.template:=nil;
   lib.variables.Clear;

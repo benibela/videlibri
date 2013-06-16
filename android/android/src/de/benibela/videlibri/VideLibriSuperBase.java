@@ -102,6 +102,7 @@ public class VideLibriSuperBase {
             menu.findItem(R.id.accounts).setEnabled(VideLibri.instance.accounts.length > 0);
             menu.findItem(R.id.refresh).setEnabled(VideLibri.instance.accounts.length > 0);
             menu.findItem(R.id.renew).setEnabled(VideLibri.instance.accounts.length > 0);
+            menu.findItem(R.id.renewlist).setEnabled(VideLibri.instance.accounts.length > 0);
             //menu.findItem(R.id.options).setEnabled(VideLibri.instance.accounts.length > 0);
         }
     }
