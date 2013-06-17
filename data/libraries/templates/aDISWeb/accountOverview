@@ -1,0 +1,19 @@
+<html>
+  {goBackPage := ""}
+  <t:switch>
+  <a>Keine Ausleihen<t:s>kontoPage:=""</t:s></a>
+  <a>Ausleihen zeigen oder verlängern<t:s>kontoPage := @href</t:s></a>
+  <a>Ausleihe zeigen oder verlängern<t:s>kontoPage := @href</t:s></a>
+  </t:switch>
+  
+  <t:switch>
+  <a>Keine Bestellwünsche</a>
+  <a>Bestellwunsch zeigen oder löschen<t:s>orderedPage := @href</t:s></a>
+  <a>Bestellwünsche zeigen oder löschen<t:s>orderedPage := @href</t:s></a>
+  </t:switch>
+  
+  
+      <!--<t:s>kontoPage := filter(@href, "(.*)&amp;requestCount", 1),
+           requestCount := filter(@href, "requestCount=([0-9]+)", 1)
+      </t:s>-->
+</html>      

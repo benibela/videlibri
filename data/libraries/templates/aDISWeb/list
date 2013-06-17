@@ -1,0 +1,67 @@
+  <DIV class="aDISMaske"><!-- this page shows the books, but not if they are renewable. need to click on a button for that -->
+  <FORM>
+      
+  
+  
+  <a title="Benutzerkonto Übersicht">{goBackPage:=@href}</a>
+  
+  <t:switch>
+    <span class="txtinsert">Benutzerkonto Ausleihen<t:s>mode:="lend"</t:s></span>
+    <span class="txtinsert">Benutzerkonto Bestellwünsche<t:s>mode:="ordered"</t:s></span>
+  </t:switch>
+  
+  <template:switch value="$mode">
+  <t:if value="'lend'">{
+    extendFormPost := form(., jn:object((.//input[@type = "submit" and contains(@value, "arkierte") and contains(@value, "ngern")])[1]/{string(@name): @value})),
+    extendFormPost.post := replace($extendFormPost.post, "[a-zA-Z0-9]+=on&", "")
+  }</t:if>
+  <t:if value="'ordered'">{
+    cancelFormPost := form(., jn:object((.//input[@type = "submit" and contains(@value, "arkierte") and contains(@value, "schen")])[1]/{string(@name): @value})),
+    cancelFormPost.post := replace($cancelFormPost.post, "[a-zA-Z0-9]+=on&", "")
+  }</t:if>
+  </template:switch>
+  
+    
+  <DIV class="fsgrp">
+  <DIV class="rTable_div">
+  <TABLE class="rTable_table">
+
+  
+  <t:loop>
+  <TR>
+  <TD>{
+    book := object(),
+    if ($mode = "lend") then book.extendid := encode-for-uri(input/@name)
+    else if ($mode = "ordered") then book.cancelid := encode-for-uri(input/@name)
+    else ()
+  }</TD>
+  <t:if test="$mode='lend'"> <TD>{book.duedate := parse-date(., "dd.mm.yyyy")}</TD> </t:if>
+  <TD>{book.libraryBranch := .}</TD>
+  <TD>{book.category := filter(text(), "\[([^]]*)\]", 1),  
+       book.title :=  if (contains(text(), "]")) then filter(text(), "(\] )(.*)", 2) else text(),
+       if (contains($book.title, "/")) then (
+         $book.author := substring-after($book.title, "/"),
+         $book.title := substring-before($book.title, "/")
+       ) else ()
+       }
+       <t:if test="./br"><BR/>
+        {preid := text()}<BR/>
+        {book.id := concat($preid,":",text())}
+       </t:if>
+  </TD>
+  <TD>{book.status := deep-text("   ")}
+      <t:if test="matches(., x'((nicht +verl.*ngerbar|Keine Verl.*gerung +m.*glich).*Stand +{string-join(reverse(tokenize(current-date(), '-')), '[.]')})|(Max. +Anzahl +der +Verl.*erreicht)','i')">
+        {book.statusId := "critical"}
+      </t:if>
+      <t:if test="$mode='ordered'">{book.statusId := "ordered"}</t:if>
+  </TD>
+  </TR>
+  </t:loop>
+  </TABLE>
+
+  </DIV>
+  </DIV>
+
+
+  </form>
+  </div>
