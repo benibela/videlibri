@@ -73,6 +73,9 @@ brokenServers)
    SERVERLIST=../data/libraries/brokenServers.list
    RESSERVERLIST=android/res/values/brokenServers.xml
    TMPFILE=__vl__certificate.pem
+   KEYTOOL=keytool
+   #/usr/lib/jvm/java-6-sun/jre/bin/keytool
+   BOUNCYCASTLE=/usr/share/java/bcprov-1.46.jar
 
    echo '<?xml version="1.0" encoding="utf-8"?>' > $RESSERVERLIST
    echo "<resources>" >> $RESSERVERLIST
@@ -84,7 +87,7 @@ brokenServers)
      if [[ -n "$server" ]]; then
        echo "<item>CN=$server</item>" >> $RESSERVERLIST
        echo something | openssl s_client -connect $server:443 > $TMPFILE
-       yes | keytool       -import       -v       -trustcacerts       -alias $i       -file <(openssl x509 -in $TMPFILE)       -keystore $KEYSTORE       -storetype BKS       -provider org.bouncycastle.jce.provider.BouncyCastleProvider       -providerpath /usr/share/java/bcprov.jar       -storepass $PASSWORD
+       yes | $KEYTOOL       -import       -v       -trustcacerts       -alias $i       -file <(openssl x509 -in $TMPFILE)       -keystore $KEYSTORE       -storetype BKS       -provider org.bouncycastle.jce.provider.BouncyCastleProvider       -providerpath $BOUNCYCASTLE       -storepass $PASSWORD
        ((i=i+1))
      fi
    done <  $SERVERLIST
@@ -96,7 +99,7 @@ brokenServers)
    echo
    echo
    
-    keytool -list -keystore $KEYSTORE -provider org.bouncycastle.jce.provider.BouncyCastleProvider -providerpath /usr/share/java/bcprov.jar  -storetype BKS -storepass $PASSWORD
+    $KEYTOOL -list -keystore $KEYSTORE -provider org.bouncycastle.jce.provider.BouncyCastleProvider -providerpath $BOUNCYCASTLE -storetype BKS -storepass $PASSWORD
    
    rm $TMPFILE
 ;;
