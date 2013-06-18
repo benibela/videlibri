@@ -483,9 +483,6 @@ begin
       end;
     end;
   end;
-  {$ifdef android}
-  jvmref^^.DetachCurrentThread(jvmref);
-  {$endif}
 end;
 
 constructor TSearcherThread.create(template: TMultiPageTemplate; aaccess: TLibrarySearcherAccess);
@@ -506,6 +503,9 @@ begin
   while messages.existsMessage do messages.retrieveLatestMessageOrNil.free;
   messages.free;
   DoneCriticalsection(fbookAccessSection);
+  {$ifdef android}
+  jvmref^^.DetachCurrentThread(jvmref);
+  {$endif}
   inherited destroy;
 end;
 

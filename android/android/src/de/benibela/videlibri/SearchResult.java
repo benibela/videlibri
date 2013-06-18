@@ -7,7 +7,6 @@ import de.benibela.videlibri.BookListActivity;
 import de.benibela.videlibri.Bridge;
 import de.benibela.videlibri.VideLibriBaseActivity;
 
-
 public class SearchResult extends BookListActivity implements Bridge.SearchResultDisplay  {
 
     Bridge.SearcherAccess searcher;
@@ -31,6 +30,15 @@ public class SearchResult extends BookListActivity implements Bridge.SearchResul
         super.onResume();
 
         nextDetailsRequested = -1;
+    }
+
+    @Override
+    protected void onDestroy() {
+        if (searcher != null) {
+            searcher.free();
+            searcher = null;
+        }
+        super.onDestroy();
     }
 
     @Override
