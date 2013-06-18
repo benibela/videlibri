@@ -19,5 +19,29 @@ Für Katalogsuche werden nur die folgenden Aktionen im Templates verwendet: <cod
 <li><code>search-next-page</code>: Diese Aktion wird nur aufgerufen, wenn die vorherige Aktion <code>search-next-page-available</code> entsprechend gesetzt hat, und der Benutzer in der Ergebnisliste entsprechend weit hinab gescrollt hat. <br> 
   Ansonsten verhält sie sich genau wie die <code>search</code>-Aktion. Insbesondere muss <code>search-next-page-available</code> wieder auf <code>true()</code> gesetzt werden, wenn es noch weitere Seiten gibt.</li>
 <li><code>search-details</code>: Diese Aktion wird aufgerufen, wenn der Benutzer ein Buch auswählt. Die Variable <code>book</code> ist auf das ausgewählte Buch gesetzt und die Eigenschaften können verändert werden, um die Details zu übermitteln. (wie in update-single)<br>Alle Eigenschaften die auf <code>!</code> enden, werden in der Detailliste angezeigt, alle anderen nicht. (dies könnte in Zukunft zu, "alle Eigenschaften, die nicht mit <code>_</code> beginnen werden angezeigt", geändert werden) <br> Es gibt die folgenden weiteren, speziellen Eigenschaften: <code>book.digibib-url</code>, <code>book.home-url</code>, <code>book.amazon</code>, die jeweils Links zu dem Buch in der Digibib, dem Büchereikatalog oder Amazon speichern.</li>
+
+
+<!---
+Work in progress:
+
+ Bestellungen:
+ 
+ Actions: 
+   search, search-details:  
+                           out: $book.orderable
+ 
+   order-confirm-single      
+                           in: $book
+                           out: 
+                             $book.orderConfirmation  question ask in message box
+                             $book.orderConfirmationOptionTitles     sequence of possible options (deprecated: \| separated string list)
+                             
+                           
+   order-single            in $book
+                              $book.choosenConfirmation  if order-confirm-single has been called, the choosen option (as string! do not use as index! todo: change it to int?  )
+
+
+-->
+
 </ul>
 </html>

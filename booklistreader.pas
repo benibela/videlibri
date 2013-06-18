@@ -740,7 +740,8 @@ procedure TBookListReader.setBookProperty(book: TBook; variable: string; value:I
   end;
 
 var
-  basevariable: String;
+  basevariable, temp: String;
+  x: IXQValue;
 begin
   basevariable := variable;
   variable := LowerCase(variable);
@@ -759,7 +760,13 @@ begin
     book.dueDate:=dateParse(strconv(),strcopyfrom(variable,pos(':',variable)+1))
   else if striEqual(variable, 'limitdate') or strlibeginswith(@variable[1],length(variable),'limitdate') then
     raise EBookListReader.create('The template is using the limitdate property which is deprecated. It should now be called duedate')
-  else
+  else if striEqual(variable, 'orderConfirmationOptionTitles') and (value.getSequenceCount > 1) then begin
+    temp := '';
+    for x in value do
+      if temp = '' then temp := strTrimAndNormalize(x.toString)
+      else temp += '\|' + strTrimAndNormalize(x.toString);
+    book.setProperty('orderConfirmationOptionTitles', temp);
+  end else
     book.setProperty(basevariable, strconv()); //preserve case
 end;
 
