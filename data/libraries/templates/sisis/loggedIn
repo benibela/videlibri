@@ -28,7 +28,7 @@
     </div>
     <!--<fieldset>-->
 
-    <t:if test="$nextPage != ''">{nextUrl := ""}</t:if>
+    <t:if test="$nextPage != ''">{nextPage := ""}</t:if>
 
 <!--    <template:if test="$allBooksAway=''">-->
     <table class="data">
