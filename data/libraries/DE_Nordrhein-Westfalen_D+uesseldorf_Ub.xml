@@ -9,12 +9,13 @@
   <shortName value="ULB Düsseldorf"/>
   <catalogue value="http://katalog.ub.uni-duesseldorf.de/F"/>
   
-  <!--
   <template value="ulbdue"/>  
-  <variable name="server" value="katalog.ub.uni-duesseldorf.de/"/>
-  -->
-  <template value="primo"/>  
-  <variable name="institute" value="DUE"/>  
+  <variable name="server" value="fichte.ub.uni-duesseldorf.de/"/>
+
+<!--  <template value="primo"/>  
+  <variable name="loginServer" value="fichte.ub.uni-duesseldorf.de"/>  
+  <variable name="server" value="katalog.ulb.hhu.de"/>    
+  <variable name="institute" value="DUE"/>  -->
     
    
   <template value="digibib"/>

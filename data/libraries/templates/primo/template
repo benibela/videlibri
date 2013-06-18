@@ -4,8 +4,8 @@
 <meta>
   <description>Template für das Primo-System</description>
   <variable name="institute"><description>Institutsid der Bücherei im Primosystem</description></variable>
-  <variable name="server" default="kobv1.tubit.tu-berlin.de"><description>Serveraddresse</description></variable>
-  <variable name="loginServer" default="kobv1.tubit.tu-berlin.de"><description>alternative Serveraddresse</description></variable>
+  <variable name="server" default="primo.kobv.de"><description>Serveraddresse</description></variable>
+  <variable name="loginServer" default="primo.kobv.de"><description>alternative Serveraddresse</description></variable>
   <variable name="primoView" default="FUB_MOBILE"><description>View</description></variable>
 </meta>
 
@@ -14,7 +14,7 @@
 </action>
 
 <action id="update-all">
-  <variable name="server">get("server", "kobv1.tubit.tu-berlin.de")</variable>
+  <variable name="server">get("server", "primo.kobv.de")</variable>
   <variable name="loginServer">get("loginServer", $server)</variable>
   <variable name="primoView">get("primoView", "FUB_MOBILE")</variable>
   

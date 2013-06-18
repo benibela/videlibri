@@ -8,7 +8,7 @@
 </meta>
 
 <action id="connect">
-    <page url="http://{$server}F" templateFile="start"/>
+<!--    <page url="http://{$server}F" templateFile="start"/>
     <page url="{$loginPage}"  templateFile="login"/>
     <page url="{$loginForm}"  templateFile="../aleph_base/loggedIn2005"> 
       <post name="func" value="login-session"/>
@@ -16,7 +16,39 @@
       <post name="bor_id" value="{$username}"/>
       <post name="bor_verification" value="{$password}"/>
       <post name="bor_library" value="DUE50"/>
-    </page>
+    </page>-->
+    
+  <variable name="institute" value="DUE50"/>
+  
+  <page url="https://{$server}/pds?func=load-login&calling_system=aleph&institute={$institute}">
+  <template><html>{
+    if (//form) then
+      login := form(., {"bor_id": $username, "bor_verification": $password})
+     else (
+      redirect :=  resolve-uri((//a/@href)[1]),
+      login := ()
+     )
+  }</html></template>
+  </page>
+  
+  <page url="{$login}"><template><html>
+  <t:switch>
+    <form><td class="msg">{videlibri:raise-login(.)}</td></form>
+    <a>{redirect:=resolve-uri(@href)}</a>
+  </t:switch>
+  </html></template></page>
+  
+  <page url="{$redirect}"></page>
+    
+    
+  <page url="http://{$server}F">
+  <template><script>
+  {redirect := extract(., "url *= *'([^']+)'", 1)}
+  </script></template>
+  </page>
+  <page url="{$redirect}"><template><a>{redirect:=@href}</a></template></page>
+  <page url="{$redirect}" templateFile="start"/>
+  <page url="{$loginPage}"  templateFile="../aleph_base/loggedIn2005"/>
 </action>
 
 <action id="update-all">
