@@ -1117,6 +1117,7 @@ var
   lib: TLibrary;
   more: jobject;
   libId: String;
+  temp: jobject;
 begin
   if logging then log('Bridge_VLSearchStart started');
   try
@@ -1145,9 +1146,12 @@ begin
 
       searcherAccess.searcher.SearchOptions.author:= j.getStringField(query, authorS);
       searcherAccess.searcher.SearchOptions.title:= j.getStringField(query, titleS);
-      searcherAccess.searcher.SearchOptions.year:= j.callStringMethod(query, bookFields.getPropertyMethod, j.stringToJString('year'));
-      searcherAccess.searcher.SearchOptions.isbn:= j.callStringMethod(query, bookFields.getPropertyMethod, j.stringToJString('isbn'));
-      searcherAccess.searcher.SearchOptions.setProperty('keywords', j.callStringMethod(query, bookFields.getPropertyMethod, j.stringToJString('keywords')));
+      temp := j.stringToJString('year');
+      searcherAccess.searcher.SearchOptions.year:= j.callStringMethod(query, bookFields.getPropertyMethod, @temp);
+      temp := j.stringToJString('isbn');
+      searcherAccess.searcher.SearchOptions.isbn:= j.callStringMethod(query, bookFields.getPropertyMethod, @temp);
+      temp := j.stringToJString('keywords');
+      searcherAccess.searcher.SearchOptions.setProperty('keywords', j.callStringMethod(query, bookFields.getPropertyMethod, @temp));
 
       searcherAccess.searcher.setLocation(lib.prettyLocation); //for digibib search (also needed for libs that only have digibib search, not just meta search)
       searcherAccess.connectAsync;
