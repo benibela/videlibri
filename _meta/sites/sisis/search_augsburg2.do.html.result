@@ -13,7 +13,7 @@ node: 1980
 node: Rml/The
 node: 
 node: 
-book: object: {"orderable": "zur Vormerkung", "order0": "/webOPACClient.stasis/singleHit.do?methodToCall=showHit&curPos=1&identifier=-1_S_IG.49.27050&tab=showAvailabilityActive", "_detail-url": "/webOPACClient.stasis/singleHit.do?methodToCall=showHit&curPos=1&identifier=-1_S_IG.49.27050", "title": "/1. 1839-1912.", "author": "", "author": "", "year": "1980"}
+book: object: {"orderable": "zur Vormerkung", "order0": "/webOPACClient.stasis/singleHit.do?methodToCall=showHit&curPos=1&identifier=-1_S_IG.49.27050&tab=showAvailabilityActive", "orderTitle": "zur Vormerkung", "_detail-url": "/webOPACClient.stasis/singleHit.do?methodToCall=showHit&curPos=1&identifier=-1_S_IG.49.27050", "title": "/1. 1839-1912.", "author": "", "author": "", "year": "1980"}
 hasZ3988: boolean: false
 brs: sequence: node: 1983
 node: Rml/The
@@ -24,12 +24,12 @@ node: 1983
 node: Rml/The
 node: 
 node: 
-book: object: {"orderable": "zur Vormerkung", "order0": "/webOPACClient.stasis/singleHit.do?methodToCall=showHit&curPos=2&identifier=-1_S_IG.49.27050&tab=showAvailabilityActive", "_detail-url": "/webOPACClient.stasis/singleHit.do?methodToCall=showHit&curPos=2&identifier=-1_S_IG.49.27050", "title": "/3. 1945-1980.", "author": "", "author": "", "year": "1983"}
+book: object: {"orderable": "zur Vormerkung", "order0": "/webOPACClient.stasis/singleHit.do?methodToCall=showHit&curPos=2&identifier=-1_S_IG.49.27050&tab=showAvailabilityActive", "orderTitle": "zur Vormerkung", "_detail-url": "/webOPACClient.stasis/singleHit.do?methodToCall=showHit&curPos=2&identifier=-1_S_IG.49.27050", "title": "/3. 1945-1980.", "author": "", "author": "", "year": "1983"}
 hasZ3988: boolean: false
 brs: sequence: node: Sbh2
 node: 
 node: 
-book: object: {"orderable": "zur Vormerkung", "order0": "/webOPACClient.stasis/singleHit.do?methodToCall=showHit&curPos=3&identifier=-1_S_IG.49.27050&tab=showAvailabilityActive", "_detail-url": "/webOPACClient.stasis/singleHit.do?methodToCall=showHit&curPos=3&identifier=-1_S_IG.49.27050", "title": "Ästhetische Theorie und musikpädagogische Theoriebildung : Sitzungsbericht der Wissenschaftlichen Sozietät Musikpädagogik", "author": "", "author": "Sbh2", "year": ""}
+book: object: {"orderable": "zur Vormerkung", "order0": "/webOPACClient.stasis/singleHit.do?methodToCall=showHit&curPos=3&identifier=-1_S_IG.49.27050&tab=showAvailabilityActive", "orderTitle": "zur Vormerkung", "_detail-url": "/webOPACClient.stasis/singleHit.do?methodToCall=showHit&curPos=3&identifier=-1_S_IG.49.27050", "title": "Ästhetische Theorie und musikpädagogische Theoriebildung : Sitzungsbericht der Wissenschaftlichen Sozietät Musikpädagogik", "author": "", "author": "Sbh2", "year": ""}
 hasZ3988: boolean: false
 brs: sequence: node: 2001
 node: eBook
@@ -42,7 +42,7 @@ node: eBook
 node: 
 node: 
 node: 
-book: object: {"orderable": "zur Vormerkung", "order0": "/webOPACClient.stasis/singleHit.do?methodToCall=showHit&curPos=4&identifier=-1_S_IG.49.27050&tab=showAvailabilityActive", "_detail-url": "/webOPACClient.stasis/singleHit.do?methodToCall=showHit&curPos=4&identifier=-1_S_IG.49.27050", "title": "Räumliche Ordnungsprinzipien", "author": "", "author": "", "year": "2001"}
+book: object: {"orderable": "zur Vormerkung", "order0": "/webOPACClient.stasis/singleHit.do?methodToCall=showHit&curPos=4&identifier=-1_S_IG.49.27050&tab=showAvailabilityActive", "orderTitle": "zur Vormerkung", "_detail-url": "/webOPACClient.stasis/singleHit.do?methodToCall=showHit&curPos=4&identifier=-1_S_IG.49.27050", "title": "Räumliche Ordnungsprinzipien", "author": "", "author": "", "year": "2001"}
 hasZ3988: boolean: false
 brs: sequence: node: 2001
 node: eBook
@@ -55,7 +55,7 @@ node: eBook
 node: 
 node: 
 node: 
-book: object: {"orderable": "zur Vormerkung", "order0": "/webOPACClient.stasis/singleHit.do?methodToCall=showHit&curPos=5&identifier=-1_S_IG.49.27050&tab=showAvailabilityActive", "_detail-url": "/webOPACClient.stasis/singleHit.do?methodToCall=showHit&curPos=5&identifier=-1_S_IG.49.27050", "title": "Räumliche Ordnungsprinzipien - Walter Christallers", "author": "", "author": "", "year": "2001"}
+book: object: {"orderable": "zur Vormerkung", "order0": "/webOPACClient.stasis/singleHit.do?methodToCall=showHit&curPos=5&identifier=-1_S_IG.49.27050&tab=showAvailabilityActive", "orderTitle": "zur Vormerkung", "_detail-url": "/webOPACClient.stasis/singleHit.do?methodToCall=showHit&curPos=5&identifier=-1_S_IG.49.27050", "title": "Räumliche Ordnungsprinzipien - Walter Christallers", "author": "", "author": "", "year": "2001"}
 hasZ3988: boolean: false
 brs: sequence: node: 2003
 node: CD-ROM-Wkm11/Dre
@@ -66,7 +66,7 @@ node: 2003
 node: CD-ROM-Wkm11/Dre
 node: 
 node: 
-book: object: {"orderable": "zur Vormerkung", "order0": "/webOPACClient.stasis/singleHit.do?methodToCall=showHit&curPos=6&identifier=-1_S_IG.49.27050&tab=showAvailabilityActive", "_detail-url": "/webOPACClient.stasis/singleHit.do?methodToCall=showHit&curPos=6&identifier=-1_S_IG.49.27050", "title": "3D-Fahrschule 2 (CD-ROM)", "author": "", "author": "", "year": "2003"}
+book: object: {"orderable": "zur Vormerkung", "order0": "/webOPACClient.stasis/singleHit.do?methodToCall=showHit&curPos=6&identifier=-1_S_IG.49.27050&tab=showAvailabilityActive", "orderTitle": "zur Vormerkung", "_detail-url": "/webOPACClient.stasis/singleHit.do?methodToCall=showHit&curPos=6&identifier=-1_S_IG.49.27050", "title": "3D-Fahrschule 2 (CD-ROM)", "author": "", "author": "", "year": "2003"}
 hasZ3988: boolean: false
 brs: sequence: node: 2009
 node: Technik/CD-ROM
@@ -77,25 +77,25 @@ node: 2009
 node: Technik/CD-ROM
 node: entliehen (gesamte Vormerkungen: 0)
 node: 
-book: object: {"orderable": "zur Vormerkung", "order0": "/webOPACClient.stasis/singleHit.do?methodToCall=showHit&curPos=7&identifier=-1_S_IG.49.27050&tab=showAvailabilityActive", "_detail-url": "/webOPACClient.stasis/singleHit.do?methodToCall=showHit&curPos=7&identifier=-1_S_IG.49.27050", "title": "3D-Fahrschule 2010", "author": "", "author": "", "year": "2009"}
+book: object: {"orderable": "zur Vormerkung", "order0": "/webOPACClient.stasis/singleHit.do?methodToCall=showHit&curPos=7&identifier=-1_S_IG.49.27050&tab=showAvailabilityActive", "orderTitle": "zur Vormerkung", "_detail-url": "/webOPACClient.stasis/singleHit.do?methodToCall=showHit&curPos=7&identifier=-1_S_IG.49.27050", "title": "3D-Fahrschule 2010", "author": "", "author": "", "year": "2009"}
 hasZ3988: boolean: false
 brs: sequence: node: Abel-Struth, Sigrid
 node: 1978
 node: Sbh2/Abe-1
 node: 
 node: 
-book: object: {"orderable": "zur Vormerkung", "order0": "/webOPACClient.stasis/singleHit.do?methodToCall=showHit&curPos=8&identifier=-1_S_IG.49.27050&tab=showAvailabilityActive", "_detail-url": "/webOPACClient.stasis/singleHit.do?methodToCall=showHit&curPos=8&identifier=-1_S_IG.49.27050", "title": "Ziele des Musik-Lernens/1. Beitrag zur Entwicklung ihrer Theorie", "author": "", "author": "Abel-Struth, Sigrid", "year": "1978"}
+book: object: {"orderable": "zur Vormerkung", "order0": "/webOPACClient.stasis/singleHit.do?methodToCall=showHit&curPos=8&identifier=-1_S_IG.49.27050&tab=showAvailabilityActive", "orderTitle": "zur Vormerkung", "_detail-url": "/webOPACClient.stasis/singleHit.do?methodToCall=showHit&curPos=8&identifier=-1_S_IG.49.27050", "title": "Ziele des Musik-Lernens/1. Beitrag zur Entwicklung ihrer Theorie", "author": "", "author": "Abel-Struth, Sigrid", "year": "1978"}
 hasZ3988: boolean: false
 brs: sequence: node: Abendroth, Walter
 node: 1963
 node: Sbm45/Abe
 node: 
 node: 
-book: object: {"orderable": "zur Vormerkung", "order0": "/webOPACClient.stasis/singleHit.do?methodToCall=showHit&curPos=9&identifier=-1_S_IG.49.27050&tab=showAvailabilityActive", "_detail-url": "/webOPACClient.stasis/singleHit.do?methodToCall=showHit&curPos=9&identifier=-1_S_IG.49.27050", "title": "Selbstmord der Musik? : Zur Theorie, Ideologie und Phraseologie des modernen Schaffens", "author": "", "author": "Abendroth, Walter", "year": "1963"}
+book: object: {"orderable": "zur Vormerkung", "order0": "/webOPACClient.stasis/singleHit.do?methodToCall=showHit&curPos=9&identifier=-1_S_IG.49.27050&tab=showAvailabilityActive", "orderTitle": "zur Vormerkung", "_detail-url": "/webOPACClient.stasis/singleHit.do?methodToCall=showHit&curPos=9&identifier=-1_S_IG.49.27050", "title": "Selbstmord der Musik? : Zur Theorie, Ideologie und Phraseologie des modernen Schaffens", "author": "", "author": "Abendroth, Walter", "year": "1963"}
 hasZ3988: boolean: false
 brs: sequence: node: Assunto, Rosario
 node: 1982
 node: Rbk/Ass
 node: 
 node: 
-book: object: {"orderable": "zur Vormerkung", "order0": "/webOPACClient.stasis/singleHit.do?methodToCall=showHit&curPos=10&identifier=-1_S_IG.49.27050&tab=showAvailabilityActive", "_detail-url": "/webOPACClient.stasis/singleHit.do?methodToCall=showHit&curPos=10&identifier=-1_S_IG.49.27050", "title": "¬Die Theorie des Schönen im Mittelalter", "author": "", "author": "Assunto, Rosario", "year": "1982"}
+book: object: {"orderable": "zur Vormerkung", "order0": "/webOPACClient.stasis/singleHit.do?methodToCall=showHit&curPos=10&identifier=-1_S_IG.49.27050&tab=showAvailabilityActive", "orderTitle": "zur Vormerkung", "_detail-url": "/webOPACClient.stasis/singleHit.do?methodToCall=showHit&curPos=10&identifier=-1_S_IG.49.27050", "title": "¬Die Theorie des Schönen im Mittelalter", "author": "", "author": "Assunto, Rosario", "year": "1982"}

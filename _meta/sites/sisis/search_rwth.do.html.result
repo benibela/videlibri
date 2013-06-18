@@ -14,11 +14,11 @@ book: object: {"orderable": null, "_detail-url": "/InfoGuideClient/singleHit.do?
 result: undefined: 
 hasZ3988: boolean: false
 temp: node:  Section 2, structure and written expression (1996). 
-book: object: {"orderable": "bestellen", "order0": "/InfoGuideClient/singleHit.do?methodToCall=showHit&curPos=4&identifier=-1_S_IG.805.4070&tab=showAvailabilityActive", "_detail-url": "/InfoGuideClient/singleHit.do?methodToCall=showHit&curPos=4&identifier=-1_S_IG.805.4070", "title": "¬The Penguin practice book for the TOEFL test/Section 2, structure and written expression (1996)", "author": "", "subTitle": " Section 2, structure and written expression . ", "year": "1996"}
+book: object: {"orderable": "bestellen", "order0": "/InfoGuideClient/singleHit.do?methodToCall=showHit&curPos=4&identifier=-1_S_IG.805.4070&tab=showAvailabilityActive", "orderTitle": "bestellen", "_detail-url": "/InfoGuideClient/singleHit.do?methodToCall=showHit&curPos=4&identifier=-1_S_IG.805.4070", "title": "¬The Penguin practice book for the TOEFL test/Section 2, structure and written expression (1996)", "author": "", "subTitle": " Section 2, structure and written expression . ", "year": "1996"}
 result: undefined: 
 hasZ3988: boolean: false
 temp: node:  Section 3, reading comprehension (1996). 
-book: object: {"orderable": "bestellen", "order0": "/InfoGuideClient/singleHit.do?methodToCall=showHit&curPos=5&identifier=-1_S_IG.805.4070&tab=showAvailabilityActive", "_detail-url": "/InfoGuideClient/singleHit.do?methodToCall=showHit&curPos=5&identifier=-1_S_IG.805.4070", "title": "¬The Penguin practice book for the TOEFL test/Section 3, reading comprehension (1996)", "author": "", "subTitle": " Section 3, reading comprehension . ", "year": "1996"}
+book: object: {"orderable": "bestellen", "order0": "/InfoGuideClient/singleHit.do?methodToCall=showHit&curPos=5&identifier=-1_S_IG.805.4070&tab=showAvailabilityActive", "orderTitle": "bestellen", "_detail-url": "/InfoGuideClient/singleHit.do?methodToCall=showHit&curPos=5&identifier=-1_S_IG.805.4070", "title": "¬The Penguin practice book for the TOEFL test/Section 3, reading comprehension (1996)", "author": "", "subTitle": " Section 3, reading comprehension . ", "year": "1996"}
 result: undefined: 
 hasZ3988: boolean: false
 brs: node: 

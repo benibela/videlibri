@@ -11,7 +11,7 @@ node: Medizin
 node: Signatur: 613.8
 node: entliehen (gesamte Vormerkungen: 0)
 node: 
-book: object: {"orderable": "vormerken/bestellen", "order0": "/InfoGuideClient/singleHit.do?methodToCall=showHit&curPos=1&identifier=-1_FT_982427123&tab=showAvailabilityActive", "_detail-url": "/InfoGuideClient/singleHit.do?methodToCall=showHit&curPos=1&identifier=-1_FT_982427123", "title": "Essstörungen", "author": "", "author": "", "author": "Nolte, Anke", "year": "2013"}
+book: object: {"orderable": "vormerken/bestellen", "order0": "/InfoGuideClient/singleHit.do?methodToCall=showHit&curPos=1&identifier=-1_FT_982427123&tab=showAvailabilityActive", "orderTitle": "vormerken/bestellen", "_detail-url": "/InfoGuideClient/singleHit.do?methodToCall=showHit&curPos=1&identifier=-1_FT_982427123", "title": "Essstörungen", "author": "", "author": "", "author": "Nolte, Anke", "year": "2013"}
 hasZ3988: boolean: false
 brs: sequence: node: 
 node: 2013
@@ -20,7 +20,7 @@ node: Medizin
 node: Signatur: 616.02
 node: entliehen (gesamte Vormerkungen: 0)
 node: 
-book: object: {"orderable": "vormerken/bestellen", "order0": "/InfoGuideClient/singleHit.do?methodToCall=showHit&curPos=2&identifier=-1_FT_982427123&tab=showAvailabilityActive", "_detail-url": "/InfoGuideClient/singleHit.do?methodToCall=showHit&curPos=2&identifier=-1_FT_982427123", "title": "Lieber gesund & glücklich", "author": "", "author": "", "author": "Bannasch, Lutz", "year": "2013"}
+book: object: {"orderable": "vormerken/bestellen", "order0": "/InfoGuideClient/singleHit.do?methodToCall=showHit&curPos=2&identifier=-1_FT_982427123&tab=showAvailabilityActive", "orderTitle": "vormerken/bestellen", "_detail-url": "/InfoGuideClient/singleHit.do?methodToCall=showHit&curPos=2&identifier=-1_FT_982427123", "title": "Lieber gesund & glücklich", "author": "", "author": "", "author": "Bannasch, Lutz", "year": "2013"}
 hasZ3988: boolean: false
 brs: sequence: node: 
 node: 2012
@@ -64,7 +64,7 @@ node: Naturwissenschaften
 node: Signatur: 51
 node: entliehen (gesamte Vormerkungen: 0)
 node: 
-book: object: {"orderable": "vormerken/bestellen", "order0": "/InfoGuideClient/singleHit.do?methodToCall=showHit&curPos=6&identifier=-1_FT_982427123&tab=showAvailabilityActive", "_detail-url": "/InfoGuideClient/singleHit.do?methodToCall=showHit&curPos=6&identifier=-1_FT_982427123", "title": "Mathematik 5", "author": "", "author": "", "year": "2012"}
+book: object: {"orderable": "vormerken/bestellen", "order0": "/InfoGuideClient/singleHit.do?methodToCall=showHit&curPos=6&identifier=-1_FT_982427123&tab=showAvailabilityActive", "orderTitle": "vormerken/bestellen", "_detail-url": "/InfoGuideClient/singleHit.do?methodToCall=showHit&curPos=6&identifier=-1_FT_982427123", "title": "Mathematik 5", "author": "", "author": "", "year": "2012"}
 hasZ3988: boolean: false
 brs: sequence: node: 
 node: 2012
@@ -81,7 +81,7 @@ node: Technik + Verkehr
 node: Signatur: 620.93
 node: entliehen (gesamte Vormerkungen: 0)
 node: 
-book: object: {"orderable": "vormerken/bestellen", "order0": "/InfoGuideClient/singleHit.do?methodToCall=showHit&curPos=8&identifier=-1_FT_982427123&tab=showAvailabilityActive", "_detail-url": "/InfoGuideClient/singleHit.do?methodToCall=showHit&curPos=8&identifier=-1_FT_982427123", "title": "Solarwärme", "author": "", "author": "", "author": "Oberzig, Klaus", "year": "2012"}
+book: object: {"orderable": "vormerken/bestellen", "order0": "/InfoGuideClient/singleHit.do?methodToCall=showHit&curPos=8&identifier=-1_FT_982427123&tab=showAvailabilityActive", "orderTitle": "vormerken/bestellen", "_detail-url": "/InfoGuideClient/singleHit.do?methodToCall=showHit&curPos=8&identifier=-1_FT_982427123", "title": "Solarwärme", "author": "", "author": "", "author": "Oberzig, Klaus", "year": "2012"}
 hasZ3988: boolean: false
 brs: sequence: node: 
 node: 2012
