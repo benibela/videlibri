@@ -1,15 +1,21 @@
 <html>
-  {goBackPage := ""}
+  {goBackPage := "", if (get("first-login", false())) then (videlibri:delete-current-books(), first-login := false()) else () }
   <t:switch>
-  <a>Keine Ausleihen<t:s>kontoPage:=""</t:s></a>
+  <td>Keine Ausleihen<t:s>kontoPage:=""</t:s></td>
   <a>Ausleihen zeigen oder verlängern<t:s>kontoPage := @href</t:s></a>
   <a>Ausleihe zeigen oder verlängern<t:s>kontoPage := @href</t:s></a>
   </t:switch>
   
   <t:switch>
-  <a>Keine Bestellwünsche</a>
+  <td>Keine Bestellwünsche<t:s>orderedPage:=""</t:s></td>
   <a>Bestellwunsch zeigen oder löschen<t:s>orderedPage := @href</t:s></a>
   <a>Bestellwünsche zeigen oder löschen<t:s>orderedPage := @href</t:s></a>
+  </t:switch>
+
+  <t:switch>
+  <td>Keine Vormerkung<t:s>requestedPage:=""</t:s></td>
+  <a>Vormerkung zeigen oder löschen<t:s>requestedPage := @href</t:s></a>
+  <a>Vormerkungen zeigen oder löschen<t:s>requestedPage := @href</t:s></a>
   </t:switch>
   
   

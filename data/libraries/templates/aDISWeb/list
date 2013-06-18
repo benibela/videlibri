@@ -8,18 +8,17 @@
   <t:switch>
     <span class="txtinsert">Benutzerkonto Ausleihen<t:s>mode:="lend"</t:s></span>
     <span class="txtinsert">Benutzerkonto Bestellwünsche<t:s>mode:="ordered"</t:s></span>
+    <span class="txtinsert">Benutzerkonto Vormerkungen<t:s>mode:="requested"</t:s></span>
   </t:switch>
   
-  <template:switch value="$mode">
-  <t:if value="'lend'">{
+  <t:if test="$mode = 'lend'">{
     extendFormPost := form(., jn:object((.//input[@type = "submit" and contains(@value, "arkierte") and contains(@value, "ngern")])[1]/{string(@name): @value})),
     extendFormPost.post := replace($extendFormPost.post, "[a-zA-Z0-9]+=on&", "")
   }</t:if>
-  <t:if value="'ordered'">{
+  <t:if test="$mode = ('ordered', 'requested')">{
     cancelFormPost := form(., jn:object((.//input[@type = "submit" and contains(@value, "arkierte") and contains(@value, "schen")])[1]/{string(@name): @value})),
     cancelFormPost.post := replace($cancelFormPost.post, "[a-zA-Z0-9]+=on&", "")
   }</t:if>
-  </template:switch>
   
     
   <DIV class="fsgrp">
@@ -30,12 +29,13 @@
   <t:loop>
   <TR>
   <TD>{
-    book := object(),
+    book := {"_mode": $mode},
     if ($mode = "lend") then book.extendid := encode-for-uri(input/@name)
-    else if ($mode = "ordered") then book.cancelid := encode-for-uri(input/@name)
+    else if ($mode = ("ordered", "requested")) then book.cancelid := encode-for-uri(input/@name)
     else ()
   }</TD>
   <t:if test="$mode='lend'"> <TD>{book.duedate := parse-date(., "dd.mm.yyyy")}</TD> </t:if>
+  <t:if test="$mode='requested'"> <TD><!-- vormerkungs verfall --></TD> </t:if>
   <TD>{book.libraryBranch := .}</TD>
   <TD>{book.category := filter(text(), "\[([^]]*)\]", 1),  
        book.title :=  if (contains(text(), "]")) then filter(text(), "(\] )(.*)", 2) else text(),
@@ -54,6 +54,7 @@
         {book.statusId := "critical"}
       </t:if>
       <t:if test="$mode='ordered'">{book.statusId := "ordered"}</t:if>
+      <t:if test="$mode='requested'">{book.status := concat("vorgemerkt am ", $book.status), book.statusId := "ordered"}</t:if>
   </TD>
   </TR>
   </t:loop>

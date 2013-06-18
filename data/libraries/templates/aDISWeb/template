@@ -10,21 +10,9 @@
 
 <action id="connect"></action>
 
-<action id="update-all">
-  <variable name="connected">false()</variable>
-  <page url="https://{$server}/aDISWeb/app{get('startparams', '')}" templateFile="connected"/>
+<action id="internal-login">
 
-  <if test="$connected"><variable name="connectPage">$searchPage</variable></if>
-
-  <page url="{$connectPage}">
-  <template><template:switch>
-    <a><span>Benutzerkonto</span>{loginForm:=@href}</a>
-    <a><span>Mein Konto</span>{loginForm:=@href}</a>
-  </template:switch>
-  </template>
-  </page>
-
-  <page url="https://{$server}/{$loginForm}">
+  <page url="{$loginForm}">
     <template><form>{
       loginFormPost := form(., {"$Textfield": $username, "$Textfield$0": $password})
     }</form></template>
@@ -48,9 +36,25 @@
         <h1>Sie sind nicht mit Ihren Angaben registriert<t:s>vl:raise-login(.)</t:s></h1>
       </template:switch-prioritized>
     </template>
+  </page>  
+</action>
+
+<action id="update-all">
+  <variable name="connected">false()</variable>
+  <page url="https://{$server}/aDISWeb/app{get('startparams', '')}" templateFile="connected"/>
+
+  <if test="$connected"><variable name="connectPage">$searchPage</variable></if>
+
+  <page url="{$connectPage}">
+    <template><template:switch>
+      <a><span>Benutzerkonto</span>{loginForm:=@href}</a>
+      <a><span>Mein Konto</span>{loginForm:=@href}</a>
+    </template:switch></template>
   </page>
+
+  <call action="internal-login"/>
   
-  <variable name="delete-current-books()">1</variable>
+  <variable name="first-login">true()</variable>
   
   
   <page url="{$loginFormPost}" templateFile="accountOverview"/>
@@ -62,13 +66,52 @@
   <page url="{$orderedPage}" test="$orderedPage != ''" templateFile="list"/>
   <page url="{$goBackPage}" templateFile="accountOverview"/>
   
+  <page url="{$requestedPage}" test="$requestedPage != ''" templateFile="list"/>
+  <page url="{$goBackPage}" templateFile="accountOverview"/>
+
+
 </action>
 
 <action id="renew-list">
+  <page url="{$kontoPage}" templateFile="list">
+  <template>
+    <form>{
+      extendFormPost := form(., jn:object((.//input[@type = "submit" and contains(@value, "arkierte") and contains(@value, "ngern")])[1]/{string(@name): @value})),
+      extendFormPost.post := replace($extendFormPost.post, "[a-zA-Z0-9]+=on&amp;", "")
+    }</form>
+  </template>  
+  </page>
+
   <variable name="book-list">string-join(for $book in $renew-books return x"{$book.extendid}=on", "&amp;")</variable> 
   <page url="{$extendFormPost}">
     <post value="{$book-list}"/>
   </page>
+  
+  <call action="update-all"/>
+</action>
+
+
+
+<action id="cancel-single">
+  <page url="{$orderedPage}" test="$book._mode = 'ordered'">
+    <template><form>{
+      cancelFormPost := form(., jn:object((.//input[@type = "submit" and contains(@value, "arkierte") and contains(@value, "schen")])[1]/{string(@name): @value})),
+      cancelFormPost.post := replace($cancelFormPost.post, "[a-zA-Z0-9]+=on&", "")
+    }</form></template>
+  </page> 
+  <page url="{$requestedPage}" test="$book._mode = 'requested'">
+    <template><form>{
+      cancelFormPost := form(., jn:object((.//input[@type = "submit" and contains(@value, "arkierte") and contains(@value, "schen")])[1]/{string(@name): @value})),
+      cancelFormPost.post := replace($cancelFormPost.post, "[a-zA-Z0-9]+=on&", "")
+    }</form></template>
+  </page>
+  
+  <variable name="book-list">string-join((: for $book in $cancel-books return (only single, do not distinguish order/requested) :) x"{$book.cancelid}=on", "&amp;")</variable> 
+  
+  <page url="{$cancelFormPost}">
+    <post value="{$book-list}"/>
+  </page>
+  
   
   <call action="update-all"/>
 </action>
@@ -81,20 +124,16 @@
 
 
 
-
-
-
-
 <action id="gotoindex">
   <loop test="$firstIndex > $targetIndex">
     <page url="{$form.url}" templateFile="searchBasicForm">
-      <post value="{$form.post}&%24Toolbar_4.x=0&%24Toolbar_4.y=0"/>
+      <post value="{$form.post}&amp;%24Toolbar_4.x=0&amp;%24Toolbar_4.y=0"/>
     </page>
   </loop>
 
-  <loop test="$lastIndex < $targetIndex and $targetIndex < $search-result-count">
+  <loop test="$lastIndex &lt; $targetIndex and $targetIndex &lt; $search-result-count">
     <page url="{$form.url}" templateFile="search">
-      <post value="{$form.post}&%24Toolbar_5.x=0&%24Toolbar_5.y=0"/>
+      <post value="{$form.post}&amp;%24Toolbar_5.x=0&amp;%24Toolbar_5.y=0"/>
     </page>
   </loop>
   
@@ -116,7 +155,7 @@
 <action id="search-next-page">
   <variable name="targetIndex">$lastSearchedIndex + 1</variable>
   <choose>
-    <when test="get('goback', ()) and $firstIndex <= $targetIndex and $targetIndex <= $lastIndex">
+    <when test="get('goback', ()) and $firstIndex &lt;= $targetIndex and $targetIndex &lt;= $lastIndex">
       <page url="{$goback}" templateFile="search"/>
     </when>
     <otherwise>
@@ -129,7 +168,7 @@
 <action id="search-details">
   <variable name="targetIndex">$book._index * 1</variable> <call action="gotoindex"/>
 
-    <page url="{$form.url}" templateFile="searchDetails">
+  <page url="{$form.url}" templateFile="searchDetails">
     <post>{replace($form.post, "selected=", concat("selected=", $book._searchId))}</post>
   </page>
   
@@ -137,8 +176,83 @@
   
 </action>
 
+
+
+
+<action id="order-confirm-single">
+  <variable name="targetIndex">$book._index * 1</variable> <call action="gotoindex"/>
+
+  <page url="{$form.url}">
+    <post>{replace($form.post, "selected=", concat("selected=", $book._searchId))}</post>
+    <template><form>{form:=form(., (.//input[@type = "submit" and contains(@value, "Bestellen")])[1]/{string(@name): @value})}</form></template>
+  </page>
+  
+  <if test="not(get('internal-loggedin', false()))">
+    <variable name="loginForm">$form</variable>
+    <call action="internal-login"/>
+    <variable name="internal-loggedin">true()</variable>
+    <variable name="form">$loginFormPost</variable>
+  </if>
+
+  <page url="{$form}">
+    <template>
+      <form>
+      {form := form(., {"select": "_DESTINATIONFILLER_", "select$0": "Nein"})}
+      
+      <DIV class="fsgrp">
+        <DIV id="OPACLI">
+          <STRONG>{book.orderConfirmation := x"Wohin soll das Buch ""{.}"" vorbestellt werden?"}</STRONG>
+        </DIV>
+
+        <select name="select">{book.orderConfirmationOptionTitles := ./option[. != ""], options := $book.orderConfirmationOptionTitles/@value}</select>    
+      </DIV>
+      </form>
+    </template>
+  </page>
+  
+</action>
+
+
+<action id="order-single">
+    <variable name="form">
+    {
+      "url": $form.url,
+      "method": $form.method,
+      "post": replace($form.post, "_DESTINATIONFILLER_", $options[$book.choosenConfirmation * 1])
+    }
+    </variable>  
+
+  <page url="{$form}">
+    <template>
+      <form>
+      {form := form(., (.//input[@type = "submit" and contains(., "bestellen")])[1]/{string(@name): @value})}
+      </form>
+    </template>
+  </page>
+
+  <page url="{$form}">
+    <template>
+      <form>
+        {form := form(.)}
+        
+        <div id="R01">Informationen zu Ihrem Bestellvorgang:</div>
+      
+        <div id="OPACLI" t:condition="contains(., 'erfolgt')"/>
+      </form>
+    </template>
+  </page>
+  
+  <page url="{$form}">
+    <a title="Trefferliste">{goback:=@href}</a><!--inside main in munich, outside in nürnberg-->
+  </page>
+  
+  <page url="{$goback}" templateFile="searchBasicForm"/>
+</action>
+
 <action id="catalogue">
   <variable name="url" value="https://{$server}/aDISWeb/app{get('startparams', '')}"/>
 </action>
+
+
 
 </actions>

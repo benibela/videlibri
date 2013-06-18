@@ -14,8 +14,10 @@
     </DIV>?
 
     <a title="Trefferliste">{goback:=@href}</a><!--inside main in munich, outside in nürnberg-->
-    
-    
+
+    <input type="submit" value="Bestellen">{book.orderable := true()}</input>?
+        
+      
 <!--    <DIV id="main">
       <DIV class="inside">
         <DIV class="block">
