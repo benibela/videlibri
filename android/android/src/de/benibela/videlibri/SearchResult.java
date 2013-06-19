@@ -50,7 +50,7 @@ public class SearchResult extends BookListActivity implements Bridge.SearchResul
                 for (Bridge.Book b : books) bookCache.add(b);
                 displayBookCache(searcher.totalResultCount);
                 setTitle(Math.max(searcher.totalResultCount, bookCache.size())+" Treffer");
-                setLoading(false);
+                setLoading(false || orderingAccount != null);
             }
         });
     }
@@ -62,7 +62,7 @@ public class SearchResult extends BookListActivity implements Bridge.SearchResul
             public void run() {
                 for (Bridge.Book b: books) bookCache.add(b);
                 updateDisplayBookCache();
-                setLoading(waitingForDetails != -1);
+                setLoading(waitingForDetails != -1 || orderingAccount != null);
             }
         });
     }
@@ -84,7 +84,7 @@ public class SearchResult extends BookListActivity implements Bridge.SearchResul
                 book.setProperty("__details", "");
                 bookCache.set(oldWaitingForDetails, book); //still save the search result, so it does not need to be searched again
 
-                setLoading(false);
+                setLoading(false || orderingAccount != null);
 
                 if (details() != null) {
                     if (nextDetailsRequested == -1)
@@ -113,6 +113,9 @@ public class SearchResult extends BookListActivity implements Bridge.SearchResul
 
                 book.account = orderingAccount;
 
+                setLoading(waitingForDetails != -1 || false);
+                if (bookActionButton != null) bookActionButton.setClickable(true);
+
                 if (question == null || "".equals(question))
                     searcher.orderConfirmed(book);
                 else if (orderConfirmationOptionTitles == null || "".equals(orderConfirmationOptionTitles)) {
@@ -120,6 +123,8 @@ public class SearchResult extends BookListActivity implements Bridge.SearchResul
                         @Override
                         public void onDialogEnd(DialogInterface dialogInterface, int i) {
                             if (i == DialogInterface.BUTTON_POSITIVE) {
+                                setLoading(true);
+                                if (bookActionButton != null) bookActionButton.setClickable(false);
                                 searcher.orderConfirmed(book);
                             }
                         }
@@ -131,6 +136,8 @@ public class SearchResult extends BookListActivity implements Bridge.SearchResul
                         public void onDialogEnd(DialogInterface dialogInterface, int i) {
                             if (i >= 0 && i < options.length) {
                                 book.setProperty("choosenConfirmation", (i+1)+"");
+                                setLoading(true);
+                                if (bookActionButton != null) bookActionButton.setClickable(false);
                                 searcher.orderConfirmed(book);
                             }
                         }
@@ -148,7 +155,13 @@ public class SearchResult extends BookListActivity implements Bridge.SearchResul
                 showMessage("Das Buch \""+book.title+"\" wurde ohne Fehler vorbestellt.");
                 if (VideLibri.instance != null)
                     if (orderingAccount == null) VideLibri.instance.displayAccount(null);
-                    else VideLibri.updateAccount(orderingAccount, false, false); //full update, so the book is only shown if it worked, and canceling works
+                    else {
+                        VideLibri.instance.displayAccount(orderingAccount); //immediate update
+                        VideLibri.updateAccount(orderingAccount, false, false); //full update, so the book is only shown if it worked, and canceling work
+                    }
+                orderingAccount = null;
+                setLoading(waitingForDetails != -1 || false);
+                if (bookActionButton != null) bookActionButton.setClickable(true);
             }
         });
     }
@@ -213,6 +226,8 @@ public class SearchResult extends BookListActivity implements Bridge.SearchResul
                     if (i >= 0 && i < matchingAccounts.size()) {
                         book.account = matchingAccounts.get(i);
                         orderingAccount = book.account; //this property is lost on roundtrip, saved it on java side
+                        if (bookActionButton != null) bookActionButton.setClickable(false);
+                        setLoading(true);
                         searcher.order(book);
                     }
                 }
@@ -220,6 +235,8 @@ public class SearchResult extends BookListActivity implements Bridge.SearchResul
         } else {
             book.account = matchingAccounts.get(0);
             orderingAccount = book.account;
+            if (bookActionButton != null) bookActionButton.setClickable(false);
+            setLoading(true);
             searcher.order(book);
         }
     }

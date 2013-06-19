@@ -28,7 +28,9 @@ Work in progress:
  
  Actions: 
    search, search-details:  
-                           out: $book.orderable
+                           out: 
+                              $book.orderable    if the book can be ordered
+                              $book.orderTitle   how the action of ordering is called (e.g. bestellen/vormerken)
  
    order-confirm-single      
                            in: $book

@@ -355,6 +355,7 @@ public class VideLibri extends  BookListActivity{
                     public void onDialogEnd(DialogInterface dialogInterface, int i) {
                         if (i == DialogInterface.BUTTON_POSITIVE) {
                             Bridge.VLBookOperation(new Bridge.Book[]{book}, Bridge.BOOK_OPERATION_CANCEL); //cancel
+                            setLoading(true);
                             if (detailsOpened) onBackPressed();
                         }
                     }

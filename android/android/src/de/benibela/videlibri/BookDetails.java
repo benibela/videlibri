@@ -241,6 +241,8 @@ public class BookDetails extends VideLibriBaseFragment {
                         ((BookListActivity) getSherlockActivity()).onBookActionButtonClicked(book);
                 }
             });
+            if (getSherlockActivity() instanceof BookListActivity)
+                ((BookListActivity) getSherlockActivity()).bookActionButton = actionButton;
         } else actionButton.setVisibility(View.GONE);
 
         if (book.more != null && book.hasProperty("image-url") && book.image == null)

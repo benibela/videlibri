@@ -8,10 +8,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
-import android.widget.TextView;
+import android.widget.*;
 import com.actionbarsherlock.app.SherlockFragmentActivity;
 
 import java.text.DateFormat;
@@ -52,6 +49,8 @@ public class BookListActivity extends VideLibriBaseFragmentActivity{
     public boolean noDetailsInOverview = false;
 
     public ArrayList<Bridge.Book> selectedBooks = null;
+
+    public Button bookActionButton = null; //set from detail fragment
 
     private boolean cacheShown = false;
     void displayBookCache(int partialSize){
