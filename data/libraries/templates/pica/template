@@ -23,7 +23,7 @@
     <post name="BOR_PW" value="{$password}"/>
   </page>-->
   <variable name="db" value="DB={get('picadb', 1)}"/>
-  <variable name="loanServer" value="{$server}/loan/{$db}/LNG=DU/"/>
+  <variable name="loanServer" value="{$server}/loan/{$db}/LNG=DU/HTML=Y/"/>
 </action>
 
 <action id="update-all">
@@ -84,7 +84,7 @@
   </variable>
 
 
-  <page url="{$server}/{$db}/CMD?ACT=SRCHA&IKT=1016&SRT=RLV&TRM={$searchOptions}" templateFile="searchList"></page>
+  <page url="{$server}/{$db}/HTML=Y/CMD?ACT=SRCHA&IKT=1016&SRT=RLV&TRM={$searchOptions}" templateFile="searchList"></page>
   
   <page test="$singleResult" url="{$server}/{$db}/CMD?ACT=SRCHA&IKT=1016&SRT=RLV&TRM={$searchOptions}" templateFile="searchDetails"></page>
   
