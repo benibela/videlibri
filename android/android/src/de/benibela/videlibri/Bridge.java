@@ -158,7 +158,7 @@ public class Bridge {
     static public native void VLChangeAccount(Account oldacc, Account newacc);
     static public native void VLDeleteAccount(Account acc);
     static public native Book[] VLGetBooks(Account acc, boolean history);
-    static public native void VLUpdateAccount(Account acc, boolean autoUpdate, boolean forceExtend);
+    static public native boolean VLUpdateAccount(Account acc, boolean autoUpdate, boolean forceExtend);
     static final int BOOK_OPERATION_RENEW = 1;
     static final int BOOK_OPERATION_CANCEL = 2;
     static public native void VLBookOperation(Book[] books, int operation);

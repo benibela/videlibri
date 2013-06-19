@@ -808,13 +808,14 @@ begin
 
 end;
 
-function Java_de_benibela_VideLibri_Bridge_VLUpdateAccounts(env:PJNIEnv; this:jobject; jacc: jobject; jautoupdate: jboolean; jforceExtend: jboolean): jobject; cdecl;
+function Java_de_benibela_VideLibri_Bridge_VLUpdateAccounts(env:PJNIEnv; this:jobject; jacc: jobject; jautoupdate: jboolean; jforceExtend: jboolean): jboolean; cdecl;
 var
   acc: TCustomAccountAccess;
   autoupdate: boolean;
   forceExtend: boolean;
 begin
   if logging then log('VLUpdateAccounts');
+  result := JNI_FALSE;
   try
     acc := getRealAccountChecked(jacc);
     if acc = nil then begin bbdebugtools.log('x'); exit;end;
@@ -832,13 +833,13 @@ begin
     acc.isThreadRunning:=true;
 
     updateBooksDirectBlocking(acc, @updateThreadConfig, autoupdate, autoupdate, forceExtend);   }
-    updateAccountBookData(acc, autoupdate, autoupdate, forceExtend);
+    if updateAccountBookData(acc, autoupdate, autoupdate, forceExtend) then
+      result := JNI_TRUE;
   except
     on e: Exception do j.ThrowNew('de/benibela/videlibri/Bridge$InternalError', 'Interner Fehler: '+e.Message);
   end;
   if logging then log('VLUpdateAccounts ended');
 
-  result := nil;
 end;
 
 function Java_de_benibela_VideLibri_Bridge_VLBookOperation(env:PJNIEnv; this:jobject; jbooks: jobject; operation: jint): jobject; cdecl;
@@ -1355,7 +1356,7 @@ const nativeMethods: array[1..25] of JNINativeMethod=
    ,(name:'VLGetAccounts'; signature:'()[Lde/benibela/videlibri/Bridge$Account;'; fnPtr:@Java_de_benibela_VideLibri_Bridge_VLGetAccounts)
    ,(name:'VLGetBooks'; signature:'(Lde/benibela/videlibri/Bridge$Account;Z)[Lde/benibela/videlibri/Bridge$Book;'; fnPtr:@Java_de_benibela_VideLibri_Bridge_VLGetBooks)
 
-   ,(name:'VLUpdateAccount'; signature:'(Lde/benibela/videlibri/Bridge$Account;ZZ)V'; fnPtr:@Java_de_benibela_VideLibri_Bridge_VLUpdateAccounts)
+   ,(name:'VLUpdateAccount'; signature:'(Lde/benibela/videlibri/Bridge$Account;ZZ)Z'; fnPtr:@Java_de_benibela_VideLibri_Bridge_VLUpdateAccounts)
    ,(name:'VLBookOperation'; signature:'([Lde/benibela/videlibri/Bridge$Book;I)V'; fnPtr:@Java_de_benibela_VideLibri_Bridge_VLBookOperation)
    ,(name:'VLTakePendingExceptions'; signature: '()[Lde/benibela/videlibri/Bridge$PendingException;'; fnPtr: @Java_de_benibela_VideLibri_Bridge_VLGetPendingExceptions)
 

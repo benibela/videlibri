@@ -30,7 +30,7 @@ var updateThreadConfig: TThreadConfig;
 procedure ThreadDone(pself: TObject; sender:TObject);
 
 //Aktualisiert eine (oder bei lib=nil alle) Konten in einem extra-thread
-procedure updateAccountBookData(account: TCustomAccountAccess;ignoreConnErrors, checkDate,extendAlways: boolean);
+function updateAccountBookData(account: TCustomAccountAccess;ignoreConnErrors, checkDate,extendAlways: boolean): boolean;
 procedure defaultAccountsRefresh;
 
 //--Verlängerungen--
@@ -349,11 +349,13 @@ begin
 end;
 
 //Aufruf des Aktualisierungsthread
-procedure updateAccountBookData(account: TCustomAccountAccess;ignoreConnErrors,checkDate,extendAlways: boolean);
+function updateAccountBookData(account: TCustomAccountAccess;ignoreConnErrors,checkDate,extendAlways: boolean): boolean;
 var i: longint;
   threadsToStart: Integer;
 begin
   if logging then log('updateAccountBookData started');
+
+  result := false;
 
   if (account=nil) and (updateThreadConfig.updateThreadsRunning>0) then exit;
   if (account<>nil) and (account.isThreadRunning) then exit;
@@ -402,6 +404,7 @@ begin
       TUpdateLibThread.create(account,updateThreadConfig, ignoreConnErrors,checkDate,extendAlways,etAlways);
     end;
   end;
+  result := true;
 end;
 //Bücher aktualisieren
 procedure defaultAccountsRefresh;

@@ -326,9 +326,10 @@ public class VideLibri extends  BookListActivity{
         if (runningUpdates.contains(acc)) return;
         if ((acc.name == null || acc.name.equals("")) && (acc.pass == null || acc.pass.equals("")))
             return; //search only account
-        runningUpdates.add(acc);
-        if (instance != null) instance.setLoading(true);
-        Bridge.VLUpdateAccount(acc, autoUpdate, forceExtend);
+        if (Bridge.VLUpdateAccount(acc, autoUpdate, forceExtend)) {
+            if (instance != null) instance.setLoading(true);
+            runningUpdates.add(acc);
+        }
        /* final Bridge.Account facc = acc;
         Thread t = new Thread(new Runnable() {
             @Override
