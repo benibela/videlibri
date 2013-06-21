@@ -19,13 +19,13 @@ import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
 import com.actionbarsherlock.view.MenuInflater;
 
-public class VideLibriBaseActivity extends SherlockActivity {
+public class VideLibriBaseActivity extends SherlockActivity implements Bridge.VideLibriContext {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);    //To change body of overridden methods use File | Settings | File Templates.
         getSupportActionBar().setHomeButtonEnabled(true);
-
+        Bridge.initialize(this);
     }
 
     @Override
@@ -143,4 +143,9 @@ public class VideLibriBaseActivity extends SherlockActivity {
     public void showMessageYesNo(String message, MessageHandler handler){ Util.showMessageYesNo(this, message, handler); }
 
 
+
+    @Override
+    public String userPath() {
+        return VideLibriSuperBase.userPath(this);
+    }
 }

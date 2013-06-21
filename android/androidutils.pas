@@ -55,8 +55,10 @@ function loaded: LongInt; begin end;
 var assets: jobject = nil;
     assetCount: integer = 0;
     jmAssetManager_Open_StringInputStream, jmInputStream_Read_B, jmInputStream_Close: jmethodID;
-    videlibriClass: jclass;
-    videLibriMethodUserPath, videLibriMethodVLAllThreadsDone, videLibriMethodVLInstallationDone: jmethodID;
+    videlibriContextInterface: jclass;
+    videLibriContextMethodUserPath: jmethodID;
+    bridgeClass: jclass;
+    bridgeCallbackMethods: record VLAllThreadsDone, VLInstallationDone: jmethodID; end;
     accountClass, bookClass: jobject;
     accountClassInit, bookClassInit: jmethodID;
     accountFields: record
@@ -106,22 +108,22 @@ end;
 
 function getUserConfigPath: string;
 begin
-  result := j.jStringToStringAndDelete(j.callObjectMethodChecked(jActivityObject, videLibriMethodUserPath));
+  result := j.jStringToStringAndDelete(j.callObjectMethodChecked(jContextObject, videLibriContextMethodUserPath));
 end;
 
 
 procedure uninit;
 begin
-  if jActivityObject <> nil then begin
-    j.env^^.DeleteGlobalRef(j.env, jActivityObject);
-    jActivityObject := nil;
+  if jContextObject <> nil then begin
+    j.env^^.DeleteGlobalRef(j.env, jContextObject);
+    jContextObject := nil;
   end;
 end;
 
 procedure androidAllThreadsDone;
 begin
   if logging then bbdebugtools.log('androidAllThreadsDone started');
-  needJ.callStaticVoidMethod(videlibriClass, videLibriMethodVLAllThreadsDone);
+  needJ.callStaticVoidMethod(bridgeClass, bridgeCallbackMethods.VLAllThreadsDone);
   if logging then bbdebugtools.log('androidAllThreadsDone ended');
 end;
 
@@ -131,11 +133,13 @@ begin
   if logging then bbdebugtools.log('de.benibela.VideLibri.Bride.VLInit (started)');
   defaultHttpClientClass:=j.newGlobalRefAndDelete(j.getclass('de/benibela/videlibri/VideLibriHttpClient'));
 
-  videlibriClass :=  j.newGlobalRefAndDelete(j.getclass('de/benibela/videlibri/VideLibri'));
-  jActivityObject := needj.env^^.NewGlobalRef(j.env, videlibri);
-  videLibriMethodUserPath := j.getmethod(videlibriClass, 'userPath', '()Ljava/lang/String;');
-  videLibriMethodVLAllThreadsDone := j.getstaticmethod(videlibriClass, 'allThreadsDone', '()V');
-  videLibriMethodVLInstallationDone := j.getstaticmethod(videlibriClass, 'installationDone', '(I)V');
+  videlibriContextInterface :=  j.newGlobalRefAndDelete(j.getclass('de/benibela/videlibri/Bridge$VideLibriContext'));
+  jContextObject := needj.env^^.NewGlobalRef(j.env, videlibri);
+  videLibriContextMethodUserPath := j.getmethod(videlibriContextInterface, 'userPath', '()Ljava/lang/String;');
+
+  bridgeClass := j.newGlobalRefAndDelete(j.getclass('de/benibela/videlibri/Bridge'));
+  bridgeCallbackMethods.VLAllThreadsDone := j.getstaticmethod(bridgeClass, 'allThreadsDone', '()V');
+  bridgeCallbackMethods.VLInstallationDone := j.getstaticmethod(bridgeClass, 'installationDone', '(I)V');
 
   accountClass := j.newGlobalRefAndDelete(j.getclass('de/benibela/videlibri/Bridge$Account'));
   accountClassInit := j.getmethod(accountClass, '<init>', '()V');
@@ -411,7 +415,7 @@ begin
   except
     on e:Exception do storeException(e, nil);
   end;
-  needJ.callStaticVoidMethod(videlibriClass, videLibriMethodVLInstallationDone, @ok);
+  needJ.callStaticVoidMethod(bridgeClass, bridgeCallbackMethods.VLInstallationDone, @ok);
   if logging then bbdebugtools.log('TInstallLibraryThread (ended)');
   jvmref^^.DetachCurrentThread(jvmref);
 end;
@@ -1340,7 +1344,7 @@ end;
 
 
 const nativeMethods: array[1..25] of JNINativeMethod=
-  ((name:'VLInit';          signature:'(Lde/benibela/videlibri/VideLibri;)V';                   fnPtr:@Java_de_benibela_VideLibri_Bridge_VLInit)
+  ((name:'VLInit';          signature:'(Lde/benibela/videlibri/Bridge$VideLibriContext;)V';                   fnPtr:@Java_de_benibela_VideLibri_Bridge_VLInit)
    ,(name:'VLFinalize';      signature:'()V';                   fnPtr:@Java_de_benibela_VideLibri_Bridge_VLFInit)
 
    ,(name:'VLGetLibraries'; signature:'()[Ljava/lang/String;'; fnPtr:@Java_de_benibela_VideLibri_Bridge_VLGetLibraries)
@@ -1380,7 +1384,6 @@ function loaded: integer;
 var bridgeClass: jclass;
 begin
   needJ;
-
   bridgeClass := j.env^^.FindClass(j.env, 'de/benibela/videlibri/Bridge');
   if (not assigned(bridgeClass)) or (j.env^^.ExceptionCheck(j.env)<>0) then begin
     bbdebugtools.log('failed to find VideLibri Bridge');

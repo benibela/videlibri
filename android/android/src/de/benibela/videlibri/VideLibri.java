@@ -56,71 +56,16 @@ public class VideLibri extends  BookListActivity{
         super();
     }
 
-    //Bridge functions called from VideLibri-midend
-    String userPath(){
-        return getFilesDir().getAbsolutePath();
-    }
-
-    static void allThreadsDone(){
-        if (NotificationService.instance != null)
-            NotificationService.instance.stopSelf();
-        if (instance == null) return;
-        //Log.i("VideLibri", "allThreadsDone started");
-        instance.runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                NotificationService.showNotification(VideLibri.instance);
-
-                instance.displayAccount(null);
-                runningUpdates.clear();
-
-                instance.setLoading(false);
-
-                Bridge.PendingException[] exceptions = Bridge.VLTakePendingExceptions();
-                for (Bridge.PendingException ex : exceptions)
-                    instance.showMessage(ex.accountPrettyNames + ": " + ex.error);
-
-            }
-        });
-
-    }
-
-    static void installationDone(final int status){
-       if (instance == null) return;
-       instance.runOnUiThread(new Runnable() {
-           @Override
-           public void run() {
-                String message = status == 1
-                       ? "Bibliothek wurde registriert."
-                       : "Bibliotheksregistrierung fehlgeschlagen.";
-                Util.showMessage(NewLibrary.currentNewLibrary != null ? NewLibrary.currentNewLibrary : instance,
-                       message,
-                       new MessageHandler() {
-                           @Override
-                           public void onDialogEnd(DialogInterface dialogInterface, int i) {
-                               if (status == 1)
-                                   NewLibrary.currentNewLibrary.finish();
-                           }
-                       } );
-                if (NewLibrary.currentNewLibrary != null)
-                    NewLibrary.currentNewLibrary.setLoading(false);
-           }
-       });
-    }
-
     //Called from Android OS
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        Bridge.initialize();
        // Log.i("VideLibri", "onCreate")               ;
 
         instance = this;
 
         VideLibriHttpClient.BrokenServers = getResources().getStringArray(R.array.broken_servers);
-
-        Bridge.VLInit(this);
 
         accounts = Bridge.VLGetAccounts();
         if (accounts == null || accounts.length == 0) ; //startActivity(new Intent(this, NewAccountWizard.class));

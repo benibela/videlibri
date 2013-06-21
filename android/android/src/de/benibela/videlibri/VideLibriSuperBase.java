@@ -118,4 +118,9 @@ public class VideLibriSuperBase {
         }
         return false;
     }
+
+
+    public static String userPath(Context context) {
+        return context.getFilesDir().getAbsolutePath();
+    }
 }

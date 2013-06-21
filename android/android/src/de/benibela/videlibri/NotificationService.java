@@ -12,7 +12,7 @@ import android.os.Binder;
 import android.os.IBinder;
 import android.util.Log;
 
-public class NotificationService extends Service {
+public class NotificationService extends Service implements Bridge.VideLibriContext{
     // Unique Identification Number for the Notification.
     // We use it on Notification start, and to cancel it.
 
@@ -33,7 +33,7 @@ public class NotificationService extends Service {
     public void onCreate() {
         super.onCreate();
 
-        Bridge.initialize();
+        Bridge.initialize(this);
         instance = this;
     }
 
@@ -114,5 +114,10 @@ public class NotificationService extends Service {
                 new Intent(context, NotificationShowNow.class),
                 PendingIntent.FLAG_UPDATE_CURRENT);
         ((AlarmManager) context.getSystemService(Context.ALARM_SERVICE)).set(AlarmManager.RTC, System.currentTimeMillis() + delayMs, intent);
+    }
+
+    @Override
+    public String userPath() {
+        return VideLibriSuperBase.userPath(this);
     }
 }

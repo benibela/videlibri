@@ -6,7 +6,7 @@ import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
 
-public class VideLibriBaseFragmentActivity extends SherlockFragmentActivity{
+public class VideLibriBaseFragmentActivity extends SherlockFragmentActivity implements Bridge.VideLibriContext{
     boolean loading;
     MenuItem loadingItem;
 
@@ -20,6 +20,7 @@ public class VideLibriBaseFragmentActivity extends SherlockFragmentActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getSupportActionBar().setHomeButtonEnabled(true);
+        Bridge.initialize(this);
     }
 
     @Override
@@ -56,4 +57,9 @@ public class VideLibriBaseFragmentActivity extends SherlockFragmentActivity{
     public void showMessage(String message, MessageHandler handler){ Util.showMessage(this, message, handler); }
     public void showMessageYesNo(String message, MessageHandler handler){ Util.showMessageYesNo(this, message, handler); }
 
+
+    @Override
+    public String userPath() {
+        return VideLibriSuperBase.userPath(this);
+    }
 }

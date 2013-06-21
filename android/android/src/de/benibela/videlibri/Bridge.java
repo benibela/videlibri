@@ -2,6 +2,7 @@ package de.benibela.videlibri;
 
 import android.*;
 import android.R;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Color;
@@ -146,7 +147,7 @@ public class Bridge {
         String variablesDefault[];
     }
 
-    static public native void VLInit(VideLibri videlibri);
+    static private native void VLInit(VideLibriContext videlibri);
     static public native String[] VLGetLibraries(); //id|pretty location|name|short name
     static public native LibraryDetails VLGetLibraryDetails(String id);
     static public native void VLSetLibraryDetails(String id, LibraryDetails details);
@@ -227,7 +228,6 @@ public class Bridge {
         void onException();
     }
 
-
     static class Library{
         String id, locationPretty, namePretty, nameShort;
         void putInIntent(Intent intent){
@@ -268,18 +268,75 @@ public class Bridge {
     //static public void VLUpdateAccount(Account acc){}
 
 
+    //called from VideLibri
+
+    public static interface VideLibriContext{
+        String userPath();
+    }
+
+
+    static void allThreadsDone(){
+        if (NotificationService.instance != null)
+            NotificationService.instance.stopSelf();
+        if (VideLibri.instance == null) return;
+        //Log.i("VideLibri", "allThreadsDone started");
+        VideLibri.instance.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                NotificationService.showNotification(VideLibri.instance);
+
+                VideLibri.instance.displayAccount(null);
+                VideLibri.runningUpdates.clear();
+
+                VideLibri.instance.setLoading(false);
+
+                Bridge.PendingException[] exceptions = Bridge.VLTakePendingExceptions();
+                for (Bridge.PendingException ex : exceptions)
+                    VideLibri.instance.showMessage(ex.accountPrettyNames + ": " + ex.error);
+
+            }
+        });
+
+    }
+
+    static void installationDone(final int status){
+        if (VideLibri.instance == null) return;
+        VideLibri.instance.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                String message = status == 1
+                        ? "Bibliothek wurde registriert."
+                        : "Bibliotheksregistrierung fehlgeschlagen.";
+                Util.showMessage(NewLibrary.currentNewLibrary != null ? NewLibrary.currentNewLibrary : VideLibri.instance,
+                        message,
+                        new MessageHandler() {
+                            @Override
+                            public void onDialogEnd(DialogInterface dialogInterface, int i) {
+                                if (status == 1)
+                                    NewLibrary.currentNewLibrary.finish();
+                            }
+                        } );
+                if (NewLibrary.currentNewLibrary != null)
+                    NewLibrary.currentNewLibrary.setLoading(false);
+            }
+        });
+    }
+
+    //init
+
     static public void log(final String message){
         Log.i("VideLibri", message);
     }
 
     private static boolean initialized = false;
-    static public void initialize(){
+    static public void initialize(VideLibriContext context){
         if (initialized) return;
         initialized = true;
         try
         {
             Log.i("Videlibri", "Trying to load liblclapp.so");
             System.loadLibrary("lclapp");
+            VLInit(context);
         }
         catch(UnsatisfiedLinkError ule)
         {
