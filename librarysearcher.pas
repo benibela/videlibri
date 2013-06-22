@@ -81,11 +81,17 @@ begin
 end;
 
 procedure TLibrarySearcher.setLocation(s: string);
+var
+  temp: String;
 begin
   flocation:=s;
   if pos('digibib', s) > 0 then s := copy(s, 1, pos(' ', s)-1);
-  bookListReader.parser.variableChangeLog.ValuesString['location']:=template.findVariableValue('location:'+s);
-  bookListReader.parser.variableChangeLog.ValuesString['view']:=template.findVariableValue('view:'+s);
+  temp := template.findVariableValue('location:'+s);
+  if temp <> '' then
+    bookListReader.parser.variableChangeLog.ValuesString['location']:=temp;
+  temp := template.findVariableValue('view:'+s);
+  if temp <> '' then
+    bookListReader.parser.variableChangeLog.ValuesString['view']:=temp;
   {if (s <> template.name) //not a standard search template
       and (bookListReader.parser.variableChangeLog.ValuesString['location']='') //not a digibib template
       and (template.findAction('update-all') = nil) and (template.findAction('update-single') = nil) //and not a account template
