@@ -1356,6 +1356,8 @@ begin
         end;
 
 
+  FConnectingTime:=GetTickCount;
+
   if logging then log('Leave TTemplateAccountAccess.cancelList');
 end;
 
