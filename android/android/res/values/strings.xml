@@ -1,4 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">VideLibri</string>
+
+    <string name="crash_toast_text">VideLibri ist leider abgestürzt. Bitte warten, während ein Crash-Report erstellt wird.</string>
+    <string name="crash_dialog_text">VideLibri ist leider abgestürzt. Sie können einen Crash-Report senden, um zu helfen, den Fehler in der nächsten Version zu beseitigen.</string>
+    <string name="crash_dialog_comment_prompt">Ihr Kommentar und Kontaktdaten für eine Antwort:</string>
+    <string name="crash_dialog_ok_toast">Danke!</string>
 </resources>

@@ -75,6 +75,11 @@
             android:layout_height="wrap_content"
             android:text="absenden "
             android:id="@+id/button"/>
+            <TextView android:layout_width="fill_parent" android:layout_height="wrap_content" android:text="Per ACRA für Fehlerberichte (enthält debug log): "
+                      android:id="@+id/textView1" android:padding="@dimen/optionheaderpadding"
+                      android:background="@color/optionHeaderBackgroundColor" android:textStyle="bold"/>
+            <Button android:layout_width="fill_parent" android:layout_height="wrap_content" android:text="ACRA Fehlerbericht erstellen "
+                    android:id="@+id/acra"/>
         </LinearLayout>
 </ScrollView>
 </LinearLayout>

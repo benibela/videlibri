@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.view.View;
+import org.acra.ACRA;
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.ClientProtocolException;
@@ -105,6 +106,14 @@ public class Feedback extends VideLibriBaseActivity {
                 } catch (ActivityNotFoundException e) {
                     showMessage("Keine Mailapp gefunden.");
                 }
+            }
+        });
+
+        findViewById(R.id.acra).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ACRA.getErrorReporter().handleException(null);
+                finish();
             }
         });
     }
