@@ -131,75 +131,82 @@ end;
 procedure Java_de_benibela_VideLibri_Bridge_VLInit(env:PJNIEnv; this:jobject; videlibri: jobject); cdecl;
 begin
   if logging then bbdebugtools.log('de.benibela.VideLibri.Bride.VLInit (started)');
-  defaultHttpClientClass:=j.newGlobalRefAndDelete(j.getclass('de/benibela/videlibri/VideLibriHttpClient'));
+  try
+    defaultHttpClientClass:=j.newGlobalRefAndDelete(j.getclass('de/benibela/videlibri/VideLibriHttpClient'));
 
-  videlibriContextInterface :=  j.newGlobalRefAndDelete(j.getclass('de/benibela/videlibri/Bridge$VideLibriContext'));
-  jContextObject := needj.env^^.NewGlobalRef(j.env, videlibri);
-  videLibriContextMethodUserPath := j.getmethod(videlibriContextInterface, 'userPath', '()Ljava/lang/String;');
+    videlibriContextInterface :=  j.newGlobalRefAndDelete(j.getclass('de/benibela/videlibri/Bridge$VideLibriContext'));
+    jContextObject := needj.env^^.NewGlobalRef(j.env, videlibri);
+    videLibriContextMethodUserPath := j.getmethod(videlibriContextInterface, 'userPath', '()Ljava/lang/String;');
 
-  bridgeClass := j.newGlobalRefAndDelete(j.getclass('de/benibela/videlibri/Bridge'));
-  bridgeCallbackMethods.VLAllThreadsDone := j.getstaticmethod(bridgeClass, 'allThreadsDone', '()V');
-  bridgeCallbackMethods.VLInstallationDone := j.getstaticmethod(bridgeClass, 'installationDone', '(I)V');
+    bridgeClass := j.newGlobalRefAndDelete(j.getclass('de/benibela/videlibri/Bridge'));
+    bridgeCallbackMethods.VLAllThreadsDone := j.getstaticmethod(bridgeClass, 'allThreadsDone', '()V');
+    bridgeCallbackMethods.VLInstallationDone := j.getstaticmethod(bridgeClass, 'installationDone', '(I)V');
 
-  accountClass := j.newGlobalRefAndDelete(j.getclass('de/benibela/videlibri/Bridge$Account'));
-  accountClassInit := j.getmethod(accountClass, '<init>', '()V');
-  with accountFields  do begin
-    LibIdS := j.getfield(accountClass, 'libId', 'Ljava/lang/String;');
-    NameS := j.getfield(accountClass, 'name', 'Ljava/lang/String;');
-    PassS := j.getfield(accountClass, 'pass', 'Ljava/lang/String;');
-    PrettyNameS := j.getfield(accountClass, 'prettyName', 'Ljava/lang/String;');
-    ExtendDaysI := j.getfield(accountClass, 'extendDays', 'I');
-    ExtendZ := j.getfield(accountClass, 'extend', 'Z');
-    HistoryZ := j.getfield(accountClass, 'history', 'Z');
-//    internalIdMethod := j.getmethod(accountClass, 'internalId', '()Ljava/lang/String;');
-  end;
+    accountClass := j.newGlobalRefAndDelete(j.getclass('de/benibela/videlibri/Bridge$Account'));
+    accountClassInit := j.getmethod(accountClass, '<init>', '()V');
+    with accountFields  do begin
+      LibIdS := j.getfield(accountClass, 'libId', 'Ljava/lang/String;');
+      NameS := j.getfield(accountClass, 'name', 'Ljava/lang/String;');
+      PassS := j.getfield(accountClass, 'pass', 'Ljava/lang/String;');
+      PrettyNameS := j.getfield(accountClass, 'prettyName', 'Ljava/lang/String;');
+      ExtendDaysI := j.getfield(accountClass, 'extendDays', 'I');
+      ExtendZ := j.getfield(accountClass, 'extend', 'Z');
+      HistoryZ := j.getfield(accountClass, 'history', 'Z');
+  //    internalIdMethod := j.getmethod(accountClass, 'internalId', '()Ljava/lang/String;');
+    end;
 
-  bookClass := j.newGlobalRefAndDelete(j.getclass('de/benibela/videlibri/Bridge$Book'));
-  bookClassInit := j.getmethod(bookClass, '<init>', '()V');
-  with bookFields do begin
-    authorS := j.getfield(bookClass, 'author', 'Ljava/lang/String;');
-    titleS := j.getfield(bookClass, 'title', 'Ljava/lang/String;');
-    issueDateGC := j.getfield(bookClass, 'issueDate', 'Ljava/util/GregorianCalendar;');
-    dueDateGC := j.getfield(bookClass, 'dueDate', 'Ljava/util/GregorianCalendar;');
-    dueDatePrettyS := j.getfield(bookClass, 'dueDatePretty', 'Ljava/lang/String;');
-    accountL := j.getfield(bookClass, 'account', 'Lde/benibela/videlibri/Bridge$Account;');
-    historyZ := j.getfield(bookClass, 'history', 'Z');
-    setPropertyMethod := j.getmethod(bookClass, 'setProperty', '(Ljava/lang/String;Ljava/lang/String;)V');
-    getPropertyMethod := j.getmethod(bookClass, 'getProperty', '(Ljava/lang/String;)Ljava/lang/String;');
-    statusI := j.getfield(bookClass, 'status', 'I');
-  end;
+    bookClass := j.newGlobalRefAndDelete(j.getclass('de/benibela/videlibri/Bridge$Book'));
+    bookClassInit := j.getmethod(bookClass, '<init>', '()V');
+    with bookFields do begin
+      authorS := j.getfield(bookClass, 'author', 'Ljava/lang/String;');
+      titleS := j.getfield(bookClass, 'title', 'Ljava/lang/String;');
+      issueDateGC := j.getfield(bookClass, 'issueDate', 'Ljava/util/GregorianCalendar;');
+      dueDateGC := j.getfield(bookClass, 'dueDate', 'Ljava/util/GregorianCalendar;');
+      dueDatePrettyS := j.getfield(bookClass, 'dueDatePretty', 'Ljava/lang/String;');
+      accountL := j.getfield(bookClass, 'account', 'Lde/benibela/videlibri/Bridge$Account;');
+      historyZ := j.getfield(bookClass, 'history', 'Z');
+      setPropertyMethod := j.getmethod(bookClass, 'setProperty', '(Ljava/lang/String;Ljava/lang/String;)V');
+      getPropertyMethod := j.getmethod(bookClass, 'getProperty', '(Ljava/lang/String;)Ljava/lang/String;');
+      statusI := j.getfield(bookClass, 'status', 'I');
+    end;
 
 
-  gregorianCalenderClass := j.newGlobalRefAndDelete(j.getclass('java/util/GregorianCalendar'));
-  gregorianCalenderClassInit := j.getmethod(gregorianCalenderClass, '<init>', '(III)V');
+    gregorianCalenderClass := j.newGlobalRefAndDelete(j.getclass('java/util/GregorianCalendar'));
+    gregorianCalenderClassInit := j.getmethod(gregorianCalenderClass, '<init>', '(III)V');
 
-  searcherClass := j.newGlobalRefAndDelete(j.getclass('de/benibela/videlibri/Bridge$SearcherAccess'));
-  with searcherFields do begin
-    nativePtrJ := j.getfield(searcherClass, 'nativePtr', 'J');
-    totalResultCountI := j.getfield(searcherClass, 'totalResultCount', 'I');
-    nextPageAvailableZ := j.getfield(searcherClass, 'nextPageAvailable', 'Z');
-  end;
-  searcherOnSearchFirstPageComplete := j.getmethod(searcherClass, 'onSearchFirstPageComplete', '([Lde/benibela/videlibri/Bridge$Book;)V');
-  searcherOnSearchNextPageComplete := j.getmethod(searcherClass, 'onSearchNextPageComplete', '([Lde/benibela/videlibri/Bridge$Book;)V');
-  searcherOnSearchDetailsComplete := j.getmethod(searcherClass, 'onSearchDetailsComplete', '(Lde/benibela/videlibri/Bridge$Book;)V');
-  searcherOnOrderComplete := j.getmethod(searcherClass, 'onOrderComplete', '(Lde/benibela/videlibri/Bridge$Book;)V');
-  searcherOnOrderConfirm := j.getmethod(searcherClass, 'onOrderConfirm', '(Lde/benibela/videlibri/Bridge$Book;)V');
-  searcherOnException := j.getmethod(searcherClass, 'onException', '()V');
+    searcherClass := j.newGlobalRefAndDelete(j.getclass('de/benibela/videlibri/Bridge$SearcherAccess'));
+    with searcherFields do begin
+      nativePtrJ := j.getfield(searcherClass, 'nativePtr', 'J');
+      totalResultCountI := j.getfield(searcherClass, 'totalResultCount', 'I');
+      nextPageAvailableZ := j.getfield(searcherClass, 'nextPageAvailable', 'Z');
+    end;
+    searcherOnSearchFirstPageComplete := j.getmethod(searcherClass, 'onSearchFirstPageComplete', '([Lde/benibela/videlibri/Bridge$Book;)V');
+    searcherOnSearchNextPageComplete := j.getmethod(searcherClass, 'onSearchNextPageComplete', '([Lde/benibela/videlibri/Bridge$Book;)V');
+    searcherOnSearchDetailsComplete := j.getmethod(searcherClass, 'onSearchDetailsComplete', '(Lde/benibela/videlibri/Bridge$Book;)V');
+    searcherOnOrderComplete := j.getmethod(searcherClass, 'onOrderComplete', '(Lde/benibela/videlibri/Bridge$Book;)V');
+    searcherOnOrderConfirm := j.getmethod(searcherClass, 'onOrderConfirm', '(Lde/benibela/videlibri/Bridge$Book;)V');
+    searcherOnException := j.getmethod(searcherClass, 'onException', '()V');
 
-  beginAssetRead;
-  initApplicationConfig;
-  endAssetRead;
+    beginAssetRead;
+    initApplicationConfig;
+    endAssetRead;
 
  // bbdebugtools.OnLog := TStringNotifyEvent(procedureToMethod(TProcedure(@onLog)));
-
+  except
+    on e: Exception do j.ThrowNew('de/benibela/videlibri/Bridge$InternalError', 'Interner Fehler: '+e.Message);
+  end;
   if logging then bbdebugtools.log('de.benibela.VideLibri.Bride.VLInit (ended)');
 end;
 
 procedure Java_de_benibela_VideLibri_Bridge_VLFInit(env:PJNIEnv; this:jobject); cdecl;
 begin
-  finalizeApplicationConfig;
-  j.deleteGlobalRef(jContextObject);
-  jContextObject:=nil;
+  try
+    finalizeApplicationConfig;
+    j.deleteGlobalRef(jContextObject);
+    jContextObject:=nil;
+  except
+    on e: Exception do j.ThrowNew('de/benibela/videlibri/Bridge$InternalError', 'Interner Fehler: '+e.Message);
+  end;
 end;
 
 function Java_de_benibela_VideLibri_Bridge_VLGetLibraries(env:PJNIEnv; this:jobject): jobject; cdecl;
