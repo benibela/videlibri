@@ -448,25 +448,39 @@ end;
 function Java_de_benibela_VideLibri_Bridge_VLGetTemplates(env:PJNIEnv; this:jobject): jobject; cdecl;
 var
   i: Integer;
-  templ: String;
-  trueTemplateCount: Integer;
+ // templ: String;
+  templates: TStringList;
+  path: jobject;
+  list: jobject;
 begin
   if logging then bbdebugtools.log('de.benibela.VideLibri.Bride.VLGetTemplates (started)');
   //bbdebugtools.log(strFromPtr(libraryManager));
   //bbdebugtools.log(IntToStr(libraryManager.count));
   try
-    trueTemplateCount := 0;
+    beginAssetRead;
+
+    path := j.stringToJString('libraries/templates');
+    list:= j.callObjectMethodChecked(assets, j.getmethod('android/content/res/AssetManager', 'list', '(Ljava/lang/String;)[Ljava/lang/String;'), @path);
+    j.deleteLocalRef(path);
+
+    endAssetRead;
+
+
+    templates := TStringList.Create;
+
+    for i := 0 to j.getArrayLength(list) - 1 do
+      templates.Add(j.getStringArrayElement(list, i));
+    templates.Sorted:=true;
+
     for i := 0 to libraryManager.templates.count - 1 do
-      if not strContains(libraryManager.templates[i], '|') then
-        trueTemplateCount += 1;
-    result := j.newObjectArray(trueTemplateCount, j.getclass('java/lang/String'), nil);
-    trueTemplateCount := 0;
-    for i := 0 to libraryManager.templates.count - 1 do begin
-      templ := libraryManager.templates[i];
-      if strContains(templ, '|') then continue;
-      j.setObjectArrayElement(result, trueTemplateCount, j.stringToJString(templ));
-      trueTemplateCount += 1;
-    end;
+      if not strContains(libraryManager.templates[i], '|') and (templates.IndexOf(libraryManager.templates[i])<0)  then
+        templates.Add(libraryManager.templates[i]);
+
+    result := j.newObjectArray(templates.Count, j.getclass('java/lang/String'), nil);
+    for i := 0 to templates.count - 1 do
+      j.setObjectArrayElement(result, i, j.stringToJString(templates[i]));
+
+    templates.free;
   except
     on e: Exception do j.ThrowNew('de/benibela/videlibri/Bridge$InternalError', 'Interner Fehler: '+e.Message);
   end;

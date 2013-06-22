@@ -374,6 +374,15 @@ begin
       until FindNext(searchResult) <> 0;
     end;
   end;
+  if DirectoryExists(assetPath+'libraries/templates') then begin
+    if FindFirst(assetPath+'libraries/templates/*', faDirectory, searchResult) = 0 then begin
+      repeat
+        if (searchResult.Name = '') or (searchResult.Name = '.') or (searchResult.Name = '..') then continue;
+        if templateList.Items.IndexOf(searchResult.Name) < 0 then
+          templateList.Items.Add(searchResult.Name);
+      until FindNext(searchResult) <> 0;
+    end;
+  end;
 
   list := libraryManager.getUserLibraries();
   for i := 0 to list.count - 1 do

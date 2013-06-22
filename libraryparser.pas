@@ -666,6 +666,8 @@ var
   userlibs: TStringArray;
   next: Pointer;
 begin
+  if not DirectoryExists(userPath+'libraries') then
+    ForceDirectory(userPath+'libraries');
   strSaveToFileUTF8(userPath+'libraries/'+trueid+'.xml', data);
 
   userlibs := strSplit(userConfig.ReadString('base', 'user-libraries', ''), ',');
