@@ -107,8 +107,11 @@ public class VideLibri extends  BookListActivity{
 
     public void onDestroy(){
         super.onDestroy();
-        instance = null;
-        Bridge.VLFinalize();
+        if (instance == this) {
+            Bridge.VLFinalize();
+            Bridge.initialized = false;
+            instance = null;
+        }
     }
 
 

@@ -328,7 +328,7 @@ public class Bridge {
         Log.i("VideLibri", message);
     }
 
-    private static boolean initialized = false;
+    static boolean initialized = false;
     static public void initialize(VideLibriContext context){
         if (initialized) return;
         initialized = true;

@@ -198,6 +198,8 @@ end;
 procedure Java_de_benibela_VideLibri_Bridge_VLFInit(env:PJNIEnv; this:jobject); cdecl;
 begin
   finalizeApplicationConfig;
+  j.deleteGlobalRef(jContextObject);
+  jContextObject:=nil;
 end;
 
 function Java_de_benibela_VideLibri_Bridge_VLGetLibraries(env:PJNIEnv; this:jobject): jobject; cdecl;
