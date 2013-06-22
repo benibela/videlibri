@@ -86,11 +86,11 @@ begin
   if pos('digibib', s) > 0 then s := copy(s, 1, pos(' ', s)-1);
   bookListReader.parser.variableChangeLog.ValuesString['location']:=template.findVariableValue('location:'+s);
   bookListReader.parser.variableChangeLog.ValuesString['view']:=template.findVariableValue('view:'+s);
-  if (s <> template.name) //not a standard search template
+  {if (s <> template.name) //not a standard search template
       and (bookListReader.parser.variableChangeLog.ValuesString['location']='') //not a digibib template
       and (template.findAction('update-all') = nil) and (template.findAction('update-single') = nil) //and not a account template
       then
-    raise Exception.Create('Unbekannter Suchort');
+    raise Exception.Create('Unbekannter Suchort');}
 end;
 
 function TLibrarySearcher.addLibrary(lib: tlibrary): boolean;
