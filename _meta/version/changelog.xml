@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?xml-stylesheet type="text/xsl" href="../changelog.xsl"?>
 <changelog program="VideLibri">
-  <build version="1500" date="noch nicht veröffentlicht">
+  <build version="1500" date="2013-06-24">
     <change level="major">Geändertes Dateiformat für Ausleihen, xml statt csv-ähnlich</change>
     <change level="minor">Suchtemplates unterstützen nun lazy-ladende Ergebnisseiten, statt alle Ergebnisse auf einmal runterzuladen</change>
     
