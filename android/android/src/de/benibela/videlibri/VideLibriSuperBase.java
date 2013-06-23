@@ -196,8 +196,9 @@ public class VideLibriSuperBase {
         if (VideLibri.instance != null && VideLibri.instance.accounts.length > 0 ) {
             texts.add("Manche verlängern"); icons.add(context.getResources().getDrawable(android.R.drawable.ic_menu_week)); ids.add(R.id.renewlist);
             texts.add("Alle verlängern"); icons.add(context.getResources().getDrawable(android.R.drawable.ic_menu_month)); ids.add(R.id.renew);
-            if (!VideLibri.instance.loading)
+            if (!VideLibri.instance.loading) {
                 texts.add("Alle aktualisieren"); icons.add(context.getResources().getDrawable(android.R.drawable.ic_menu_rotate)); ids.add(R.id.refresh);
+            }
         }
         texts.add("Webseiten"); icons.add(context.getResources().getDrawable(android.R.drawable.ic_menu_info_details)); ids.add(R.id.libinfo);
         texts.add("Katalogseiten"); icons.add(context.getResources().getDrawable(android.R.drawable.ic_menu_info_details)); ids.add(R.id.libcatalogue);
