@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:orientation="horizontal" android:layout_width="fill_parent"
-              android:layout_height="fill_parent" android:padding="10px">
+              android:layout_height="fill_parent" android:padding="10px"
+              >
 
     <ImageView android:id="@+id/icon_item" android:layout_width="wrap_content"
                android:layout_height="fill_parent"/>
     <TextView android:id="@+id/text_item" android:layout_width="wrap_content"
               android:layout_height="fill_parent" android:paddingLeft="10px"
-              android:paddingTop="5px" android:textStyle="bold"
-              android:textColor="#000000"/>
+              android:paddingTop="5px" android:textColor="#000"
+              />
 </LinearLayout>

@@ -2,9 +2,11 @@ package de.benibela.videlibri;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.util.Log;
@@ -12,9 +14,7 @@ import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-import android.widget.ImageView;
-import android.widget.TextView;
+import android.widget.*;
 import com.actionbarsherlock.ActionBarSherlock;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
@@ -207,14 +207,22 @@ public class VideLibriSuperBase {
 
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
         builder.setTitle("Sonstiges");
-        builder.setAdapter(new SubMenuWithIconsAdapter(context, texts, icons, ids), new DialogInterface.OnClickListener() {
+        ListView view = new ListView(context);
+        view.setAdapter(new SubMenuWithIconsAdapter(context, texts, icons, ids));
+        view.setCacheColorHint(0);
+        view.setBackgroundColor(Color.WHITE);
+        builder.setView(view);
+        final Dialog dialog = builder.create();
+        view.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 if (i >= 0 && i < ids.size()) {
                     onOptionsItemIdSelected(context, ids.get(i));
+                    dialog.dismiss();
                 }
             }
         });
-        builder.create().show();
+        dialog.setCanceledOnTouchOutside(true);
+        dialog.show();
     }
 }
