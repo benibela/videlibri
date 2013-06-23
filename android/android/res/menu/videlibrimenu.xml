@@ -2,22 +2,17 @@
 
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item android:id="@+id/accounts"
-          android:title="Ausleihen" />
+          android:title="Ausleihen"
+          android:icon="@android:drawable/ic_menu_view"/>
     <item android:id="@+id/search"
-          android:title="Suche" />
+          android:title="Suche"
+          android:icon="@android:drawable/ic_menu_search"/>
     <item android:id="@+id/options"
-          android:title="Einstellungen" />
+          android:title="Einstellungen"
+          android:icon="@android:drawable/ic_menu_preferences"/>
     <item android:id="@+id/others"
-          android:title="Sonstiges" >
-        <menu>
-            <item android:id="@+id/renew" android:title="Alle verlängern"/>
-            <item android:id="@+id/renewlist" android:title="Manche verlängern"/>
-            <item android:id="@+id/refresh" android:title="Alle aktualisieren"/>
-            <item android:id="@+id/libinfo" android:title="Webseiten"/>
-            <item android:id="@+id/libcatalogue" android:title="Katalogseiten"/>
-            <item android:id="@+id/feedback" android:title="Feedback"/>
-            <item android:id="@+id/about" android:title="Über Videlibri"/>
-        </menu>
+          android:title="Sonstiges"
+          android:icon="@android:drawable/ic_menu_more">
     </item>
 
 
