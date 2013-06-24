@@ -735,7 +735,7 @@ begin
   result := temp.book;
 end;
 
-function jbookToBookAndDelete(jbook: jobject): TBook;
+function jbookToBook(jbook: jobject): TBook;
 var
   more: jobject;
   get: jmethodID;
@@ -788,6 +788,11 @@ begin
       j.deleteLocalRef(entry);
     end;}
   end;
+end;
+
+function jbookToBookAndDelete(jbook: jobject): TBook;
+begin
+  result := jbookToBook(jbook);
   j.deleteLocalRef(jbook);
 end;
 
@@ -1222,7 +1227,7 @@ begin
   if logging then log('Bridge_VLSearchDetails started');
   try
     sa := unwrapSearcher(searcher);
-    book := jbookToBookAndDelete(jbook);
+    book := jbookToBook (jbook);
     sa.tempBooks.add(book);
     sa.detailsAsyncSave(book);
   except
