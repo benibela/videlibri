@@ -273,7 +273,7 @@ public class BookDetails extends VideLibriBaseFragment {
             try {
                 InputStream in = new java.net.URL(urldisplay).openStream();
                 mIcon11 = BitmapFactory.decodeStream(in);
-            } catch (Exception e) {
+            } catch (Throwable e) { //need to catch OutOfMemoryError and broken images exceptions
                 //Log.e("Error", e.getMessage());
                 e.printStackTrace();
             }
@@ -281,6 +281,7 @@ public class BookDetails extends VideLibriBaseFragment {
         }
 
         protected void onPostExecute(Bitmap result) {
+            if (result == null) return;
             book.image = result;
             if (book == activity.book) activity.updateImage();
         }
