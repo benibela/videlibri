@@ -22,13 +22,13 @@ public class LibraryList extends VideLibriBaseActivity {
         //final TreeMap<String, String> ids = new TreeMap<String, String>();
 
         int autoExpand = 0;
-        if (VideLibri.instance != null && VideLibri.instance.accounts != null && VideLibri.instance.accounts.length > 0) {
+        if (VideLibri.instance != null && VideLibriApp.accounts != null && VideLibriApp.accounts.length > 0) {
             ArrayList<String> used = new ArrayList<String>();
             autoExpand = 1;
             cities.add(new TreeMap<String, String>());
             cities.get(cities.size()-1).put("NAME", "mit Konten");
             localLibs.add(new ArrayList<Map<String, String>>());
-            for (Bridge.Account account: VideLibri.instance.accounts) {
+            for (Bridge.Account account: VideLibriApp.accounts) {
                 if (used.contains(account.libId)) continue;
                 used.add(account.libId);
 

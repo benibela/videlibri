@@ -51,7 +51,6 @@ public class VideLibri extends  BookListActivity{
     FileInputStream fis =  */
 //  }
     static VideLibri instance;
-    static Bridge.Account accounts[] = null;
     public VideLibri(){
         super();
     }
@@ -65,13 +64,10 @@ public class VideLibri extends  BookListActivity{
 
         instance = this;
 
-        VideLibriHttpClient.BrokenServers = getResources().getStringArray(R.array.broken_servers);
-
-        accounts = Bridge.VLGetAccounts();
-        if (accounts == null || accounts.length == 0) ; //startActivity(new Intent(this, NewAccountWizard.class));
+        if (VideLibriApp.accounts == null || VideLibriApp.accounts.length == 0) ; //startActivity(new Intent(this, NewAccountWizard.class));
         else {
             displayAccount(null);
-            for (Bridge.Account a: accounts) updateAccount(a, true, false);
+            for (Bridge.Account a: VideLibriApp.accounts) VideLibriApp.updateAccount(a, true, false);
         }
 
     }
@@ -90,7 +86,7 @@ public class VideLibri extends  BookListActivity{
             displayAccount(null);
         //setTitle("Ausleihen");  //does not work in onCreate (why? makes the title invisible) No. it just works sometimes?
 
-        if (accounts == null || accounts.length == 0){
+        if (VideLibriApp.accounts == null || VideLibriApp.accounts.length == 0){
             View v = findViewById(R.id.layout); //need an arbitrary view. Depends on landscape/portrait, which is there
             if (v == null) v = findViewById(R.id.booklistview);
             if (v == null) v = findViewById(R.id.list);
@@ -108,8 +104,8 @@ public class VideLibri extends  BookListActivity{
     public void onDestroy(){
         super.onDestroy();
         if (instance == this) {
-            Bridge.VLFinalize();
-            Bridge.initialized = false;
+        //    Bridge.VLFinalize();
+        //    Bridge.initialized = false;
             instance = null;
         }
     }
@@ -123,24 +119,6 @@ public class VideLibri extends  BookListActivity{
         startActivity(intent);
     }
 
-    static void newSearchActivity(){
-        Intent intent = new Intent(instance, Search.class);
-        if (instance.accounts.length > 0){
-            String libId = instance.accounts[0].libId;
-            intent.putExtra("libId", libId);
-            intent.putExtra("libName", instance.accounts[0].getLibrary().namePretty);
-
-            boolean sure = true;
-            for (int i=1;i<instance.accounts.length;i++)
-                if (!libId.equals(instance.accounts[i].libId)) {
-                    sure = false;
-                    break;
-                }
-
-            if (!sure) intent.putExtra("showLibList", true);
-        }
-        instance.startActivity(intent);
-    }
 
     public boolean displayHistory = false;
     private boolean displayHistoryActually = false;
@@ -160,29 +138,7 @@ public class VideLibri extends  BookListActivity{
         super.onActivityResult(requestCode, resultCode, data);
     }
 
-    static void addAccount(Bridge.Account acc){
-        if (instance == null) return;
-        Bridge.VLAddAccount(acc);
-        instance.accounts = Bridge.VLGetAccounts();
-        VideLibri.updateAccount(acc, false, false);
-    }
-    static void deleteAccount(Bridge.Account acc){
-        if (instance == null || acc == null) return;
-        if (instance.hiddenAccounts.contains(acc)) instance.hiddenAccounts.remove(acc);
-        Bridge.VLDeleteAccount(acc);
-        instance.accounts = Bridge.VLGetAccounts();
-        instance.displayAccount(null);
-    }
-    static void changeAccount(Bridge.Account old, Bridge.Account newacc){
-        if (instance == null) return;
-        if (instance.hiddenAccounts.contains(old)) {
-            instance.hiddenAccounts.remove(old);
-            instance.hiddenAccounts.add(newacc);
-        }
-        Bridge.VLChangeAccount(old, newacc);
-        instance.accounts = Bridge.VLGetAccounts();
-        VideLibri.updateAccount(newacc, false, false);
-    }
+
 
     public void displayAccount(Bridge.Account acc){
         displayHistoryActually = displayHistory;
@@ -193,7 +149,7 @@ public class VideLibri extends  BookListActivity{
 
         if (acc == null) {
             bookCache = new ArrayList<Bridge.Book>();
-            for (Bridge.Account facc: accounts) {
+            for (Bridge.Account facc: VideLibriApp.accounts) {
                 if (hiddenAccounts.contains(facc))
                     continue;
                 Bridge.Book[] books = Bridge.VLGetBooks(facc, false);
@@ -214,7 +170,7 @@ public class VideLibri extends  BookListActivity{
                         break;
                     }
                 if (hiddenAccounts.size() == 0) setTitle(bookCache.size() + "Ausleihen");
-                else setTitle(bookCache.size() + " Ausleihen: "+(accounts.length-hiddenAccounts.size())+ "/"+accounts.length+" Konten");
+                else setTitle(bookCache.size() + " Ausleihen: "+(VideLibriApp.accounts.length-hiddenAccounts.size())+ "/"+VideLibriApp.accounts.length+" Konten");
                 if (!currentlyVisible) return;
             }
             bookCache = new ArrayList<Bridge.Book>();
@@ -259,36 +215,11 @@ public class VideLibri extends  BookListActivity{
         displayBookCache();
 
         if (hiddenAccounts.size() == 0) setTitle(bookCache.size() + " Ausleihen");
-        else setTitle(bookCache.size() + " Ausleihen: "+(accounts.length-hiddenAccounts.size())+ "/"+accounts.length+" Konten");
+        else setTitle(bookCache.size() + " Ausleihen: "+(VideLibriApp.accounts.length-hiddenAccounts.size())+ "/"+VideLibriApp.accounts.length+" Konten");
 
     }
 
-    static List<Bridge.Account> runningUpdates = new ArrayList<Bridge.Account>();
-    static public void updateAccount(Bridge.Account acc, final boolean autoUpdate, final boolean forceExtend){
-        if (acc == null ) {
-            if (accounts == null) accounts = Bridge.VLGetAccounts();
-            for (Bridge.Account a: accounts)
-                updateAccount(a, autoUpdate, forceExtend);
-            return;
-        }
-        if (runningUpdates.contains(acc)) return;
-        if ((acc.name == null || acc.name.equals("")) && (acc.pass == null || acc.pass.equals("")))
-            return; //search only account
-        if (Bridge.VLUpdateAccount(acc, autoUpdate, forceExtend)) {
-            if (instance != null) instance.setLoading(true);
-            runningUpdates.add(acc);
-        }
-       /* final Bridge.Account facc = acc;
-        Thread t = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                Bridge.VLUpdateAccount(facc, autoUpdate, forceExtend);
-               // runningUpdates.remove(facc);
-               // instance.displayAccount(facc);
-            }
-        });
-        t.start();*/
-    }
+
 
     @Override
     public void onBookActionButtonClicked(final Bridge.Book book) {

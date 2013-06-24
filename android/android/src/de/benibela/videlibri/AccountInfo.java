@@ -98,7 +98,7 @@ public class AccountInfo extends VideLibriBaseActivity {
                         @Override
                         public void onDialogEnd(DialogInterface dialogInterface, int i) {
                             if (i == DialogInterface.BUTTON_POSITIVE) {
-                                VideLibri.deleteAccount(oldAccount);
+                                VideLibriApp.deleteAccount(oldAccount);
                                 setResult(RESULT_OK, new Intent());
                                 AccountInfo.this.finish();
                             }
@@ -110,7 +110,7 @@ public class AccountInfo extends VideLibriBaseActivity {
             findViewById(R.id.completeAccountButton).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    VideLibri.changeAccount(oldAccount, inputToAccount());
+                    VideLibriApp.changeAccount(oldAccount, inputToAccount());
                     setResult(RESULT_OK, new Intent());
                     AccountInfo.this.finish();
                 }
@@ -132,7 +132,7 @@ public class AccountInfo extends VideLibriBaseActivity {
                     MessageHandler temp = new MessageHandler() {
                         @Override
                         public void onDialogEnd(DialogInterface dialogInterface, int i) {
-                            VideLibri.addAccount(inputToAccount());
+                            VideLibriApp.addAccount(inputToAccount());
                             setResult(RESULT_OK, new Intent());
                             AccountInfo.this.finish();
                         }

@@ -46,7 +46,7 @@ public class NotificationService extends Service implements Bridge.VideLibriCont
 
         NetworkInfo network = ((ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE)).getActiveNetworkInfo();
         if (network != null && network.isConnected())
-            VideLibri.updateAccount(null, true, false);
+            VideLibriApp.updateAccount(null, true, false);
         else
             showLater(this, 1000*60*60); //wait 1 h
 
@@ -79,9 +79,9 @@ public class NotificationService extends Service implements Bridge.VideLibriCont
      * (partly from http://stackoverflow.com/questions/13902115/how-to-create-a-notification-with-notificationcompat-builder)
      */
     static void showNotification(Context context) {
-        if (VideLibri.accounts == null) VideLibri.accounts = Bridge.VLGetAccounts();
+        if (VideLibriApp.accounts == null) VideLibriApp.accounts = Bridge.VLGetAccounts();
 
-        if (VideLibri.accounts.length == 0) return;
+        if (VideLibriApp.accounts.length == 0) return;
 
         String [] notification = Bridge.VLGetNotifications();
 

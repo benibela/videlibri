@@ -286,7 +286,7 @@ public class Bridge {
                 NotificationService.showNotification(VideLibri.instance);
 
                 VideLibri.instance.displayAccount(null);
-                VideLibri.runningUpdates.clear();
+                VideLibriApp.runningUpdates.clear();
 
                 VideLibri.instance.setLoading(false);
 

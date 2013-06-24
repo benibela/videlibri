@@ -157,7 +157,7 @@ public class SearchResult extends BookListActivity implements Bridge.SearchResul
                     if (orderingAccount == null) VideLibri.instance.displayAccount(null);
                     else {
                         VideLibri.instance.displayAccount(orderingAccount); //immediate update
-                        VideLibri.updateAccount(orderingAccount, false, false); //full update, so the book is only shown if it worked, and canceling work
+                        VideLibriApp.updateAccount(orderingAccount, false, false); //full update, so the book is only shown if it worked, and canceling work
                     }
                 orderingAccount = null;
                 setLoading(waitingForDetails != -1 || false);
@@ -208,7 +208,7 @@ public class SearchResult extends BookListActivity implements Bridge.SearchResul
     public void orderBook(final Bridge.Book book, int choosenOrder){
         book.setProperty("choosenOrder", "" + choosenOrder);
         final java.util.ArrayList<Bridge.Account> matchingAccounts = new java.util.ArrayList();
-        for (Bridge.Account acc: VideLibri.accounts)
+        for (Bridge.Account acc: VideLibriApp.accounts)
             if (acc.libId.equals(libId) && acc.name != null && !acc.name.equals(""))
                 matchingAccounts.add(acc);
         if (matchingAccounts.size() == 0) {

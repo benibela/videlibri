@@ -42,7 +42,7 @@ public class VideLibriSuperBase {
         Intent intent;
         switch (id) {
             case R.id.search:
-                VideLibri.newSearchActivity();
+                VideLibriApp.newSearchActivity();
                 return true;
             case R.id.accounts:
                 intent = new Intent(context, VideLibri.class);
@@ -55,11 +55,11 @@ public class VideLibriSuperBase {
                 return true;
             case R.id.refresh:
                 if (VideLibri.instance != null && !VideLibri.instance.loading)
-                    VideLibri.updateAccount(null, false, false);
+                    VideLibriApp.updateAccount(null, false, false);
                 return true;
             case R.id.renew:
                 if (VideLibri.instance != null && !VideLibri.instance.loading)
-                    VideLibri.updateAccount(null, false, true);
+                    VideLibriApp.updateAccount(null, false, true);
                 return true;
             case R.id.renewlist:
                 context.startActivity(new Intent(context, RenewList.class));
@@ -112,7 +112,7 @@ public class VideLibriSuperBase {
 
     static public void onPrepareOptionsMenu(Menu menu) {
         if (VideLibri.instance != null) {
-            menu.findItem(R.id.accounts).setEnabled(VideLibri.instance.accounts.length > 0);
+            menu.findItem(R.id.accounts).setEnabled(VideLibriApp.accounts.length > 0);
             /*
             menu.findItem(R.id.refresh).setEnabled(!VideLibri.instance.loading);
 
@@ -193,7 +193,7 @@ public class VideLibriSuperBase {
         final ArrayList<Integer> ids = new ArrayList<Integer>();
 
 
-        if (VideLibri.instance != null && VideLibri.instance.accounts.length > 0 ) {
+        if (VideLibri.instance != null && VideLibriApp.accounts.length > 0 ) {
             texts.add("Manche verlängern"); icons.add(context.getResources().getDrawable(android.R.drawable.ic_menu_week)); ids.add(R.id.renewlist);
             texts.add("Alle verlängern"); icons.add(context.getResources().getDrawable(android.R.drawable.ic_menu_month)); ids.add(R.id.renew);
             if (!VideLibri.instance.loading) {
