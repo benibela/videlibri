@@ -35,7 +35,7 @@
              "title": $doc.about,
              "duedate": if ($doc.duedate) then parse-date($doc.duedate, if (substring($doc.duedate, 3, 1) = "-") then "dd-mm-yyyy" else "yyyy-mm-dd") else (),
              "status": if ($doc.renewals) then x"bisher {$doc.renewals}-mal verlängert" else (),
-             "statusId": if ($doc.status = (1,2)) "ordered"
+             "statusId": if ($doc.status = (1,2)) then "ordered"
                          else if ($doc.stauts = 4) then "provided"
                          else if ($doc.canrenew) then "curious" 
                          else "critical",
