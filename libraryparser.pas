@@ -491,7 +491,7 @@ begin
     try
       newLib:=TLibrary.Create;
       newLib.loadFromString(assetFileAsString('libraries/'+userlibs[i]+'.xml'), 'libraries/'+userlibs[i]+'.xml');
-      next := binarySearch(@flibraries.List[0], @flibraries.List[flibraries.Count-1], sizeof(pointer), @libraryLocationCompare, newLib, bsFirst, [bsGreater]);
+      next := binarySearch(@flibraries.List^[0], @flibraries.List^[flibraries.Count-1], sizeof(pointer), @libraryLocationCompare, newLib, bsFirst, [bsGreater]);
       if next = nil then flibraries.Insert(0, newLib)
       else flibraries.Insert((next - @flibraries.List[0]) div sizeof(Pointer), newLib)
     except
