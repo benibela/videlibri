@@ -246,7 +246,7 @@ public class VideLibriHttpClient extends DefaultHttpClient {
                     final KeyStore ks;
                     try {
                         ks = KeyStore.getInstance("BKS");
-                        final InputStream in = VideLibri.instance.getResources().openRawResource( R.raw.keystore);
+                        final InputStream in = VideLibriApp.instance.getResources().openRawResource( R.raw.keystore);
                         try {
                             ks.load(in, ( "password" ).toCharArray());
                         } finally {
