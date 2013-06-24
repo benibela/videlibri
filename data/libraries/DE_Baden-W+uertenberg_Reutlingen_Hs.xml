@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <library>
-  <longName value="Bibliothek de Hochschule Reutlingen (alpha)"/>
+  <longName value="Bibliothek der Hochschule Reutlingen (alpha)"/>
 
   <template value="aDISWeb"/>
   <variable name="server" value="bsz.ibs-bw.de"/>
