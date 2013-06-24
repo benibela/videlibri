@@ -115,8 +115,13 @@ end;
 procedure uninit;
 begin
   if jContextObject <> nil then begin
-    j.env^^.DeleteGlobalRef(j.env, jContextObject);
-    jContextObject := nil;
+    try
+      finalizeApplicationConfig;
+      j.deleteGlobalRef(jContextObject);
+      jContextObject:=nil;
+    except
+      on e: Exception do ;
+    end;
   end;
 end;
 
@@ -200,13 +205,13 @@ end;
 
 procedure Java_de_benibela_VideLibri_Bridge_VLFInit(env:PJNIEnv; this:jobject); cdecl;
 begin
-  try
+{  try
     finalizeApplicationConfig;
     j.deleteGlobalRef(jContextObject);
     jContextObject:=nil;
   except
     on e: Exception do j.ThrowNew('de/benibela/videlibri/Bridge$InternalError', 'Interner Fehler: '+e.Message);
-  end;
+  end;            }
 end;
 
 function Java_de_benibela_VideLibri_Bridge_VLGetLibraries(env:PJNIEnv; this:jobject): jobject; cdecl;

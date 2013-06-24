@@ -18,7 +18,13 @@ begin
   result := androidutils.loaded;
 end;
 
+procedure onUnload;
+begin
+  androidutils.uninit;
+end;
+
 begin
   bbjniutils.onLoad:=@onLoad;
+  bbjniutils.onUnload:=@onUnload;
 end.
 
