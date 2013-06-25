@@ -7,7 +7,7 @@
   <variable name="startparams" value="?Login=wotum"/>
   
   <homepage value="http://www.ub.tum.de/"/>
-  <testing-search value="in 1.5" date="2013-05-18"/>
+  <testing-search value="ja" date="2013-05-18"/>
   <testing-account value="?" date=""/>
   <testing-renew value="?" date=""/>
 </library>

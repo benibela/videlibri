@@ -8,7 +8,7 @@
   <variable name="picadb" value="1.3"/>
 
   <homepage value="http://www.tu-ilmenau.de/ub/" nolist="true"/>
-  <testing-search value="in 1.5" date="2013-04-26"/>
+  <testing-search value="ja" date="2013-04-26"/>
   <testing-account value="?" date=""/>
   <testing-renew value="?" date=""/>
 </library>

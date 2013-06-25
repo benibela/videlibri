@@ -16,7 +16,7 @@
   <variable name="searchid-digibib" value="SERVICEGROUP1.SERVICE.SEARCH_ULBD"/>-->
 
   <homepage value="http://staatsbibliothek-berlin.de/"/>
-  <testing-search value="in 1.5" date="2013-04-26"/>
+  <testing-search value="ja" date="2013-04-26"/>
   <testing-account value="ja" date="2012-12-23"/>
   <testing-renew value="ja" date="2012-05-16"/>
 </library>

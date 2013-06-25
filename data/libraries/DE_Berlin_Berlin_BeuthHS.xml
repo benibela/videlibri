@@ -7,7 +7,7 @@
   <variable name="server" value="https://webopac.beuth-hochschule.de/webOPACClient.bhssis/"/>
   
   <homepage value="http://www.beuth-hochschule.de/bibliothek/"/>
-  <testing-search value="in 1.5" date="2013-05-18"/>
+  <testing-search value="ja" date="2013-05-18"/>
   <testing-account value="?" date=""/>
   <testing-renew value="?" date=""/>
 </library>

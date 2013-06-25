@@ -8,7 +8,7 @@
   <variable name="startparams" value="?Login=wofwss"/>
   
   <homepage value="http://www.hs-coburg.de/library.html"/>
-  <testing-search value="in 1.5" date="2013-05-18"/>
+  <testing-search value="ja" date="2013-05-18"/>
   <testing-account value="?" date=""/>
   <testing-renew value="?" date=""/>
 </library>

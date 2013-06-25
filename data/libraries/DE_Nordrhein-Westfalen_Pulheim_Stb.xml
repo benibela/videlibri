@@ -6,7 +6,7 @@
   <variable name="server" value="http://212.16.253.33:8080/webOPACClient/"/>
   
   <homepage value="http://www.stadtbuecherei.pulheim.de/"/>
-  <testing-search value="in 1.5" date="2013-05-18"/>
+  <testing-search value="ja" date="2013-05-18"/>
   <testing-account value="?" date=""/>
   <testing-renew value="?" date=""/>
 </library>

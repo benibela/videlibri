@@ -7,7 +7,7 @@
   <variable name="startparams" value="?service=direct/0/Home/$DirectLink&sp=S127.0.0.1:23262"/>
 
   <homepage value="http://www.ph-heidelberg.de/org/phb/index.shtml"/>
-  <testing-search value="in 1.5" date="2013-05-18"/>
+  <testing-search value="ja" date="2013-05-18"/>
   <testing-account value="?" date=""/>
   <testing-renew value="?" date=""/>
 </library>  

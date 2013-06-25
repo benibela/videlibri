@@ -23,7 +23,7 @@
 	
 
   <homepage value="http://www.uni-hildesheim.de/index.php?id=bibliothek"/>
-  <testing-search value="in 1.5" date="2013-04-26"/>
+  <testing-search value="ja" date="2013-04-26"/>
   <testing-account value="ja" date="2013-04-26"/>
   <testing-renew value="ja" date="2013-04-01"/>
 </library>

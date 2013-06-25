@@ -7,7 +7,7 @@
   <variable name="server" value="https://katalog.ub.uni-bamberg.de/InfoGuideClient.ubgsis/"/>
   
   <homepage value="http://www.uni-bamberg.de/ub/"/>
-  <testing-search value="in 1.5" date="2013-05-17"/>
+  <testing-search value="ja" date="2013-05-17"/>
   <testing-account value="?" date=""/>
   <testing-renew value="?" date=""/>
 </library>

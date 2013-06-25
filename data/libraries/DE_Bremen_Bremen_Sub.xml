@@ -7,7 +7,7 @@
   <variable name="server" value="https://opac.suub.uni-bremen.de/"/>	
 
   <homepage value="http://www.suub.uni-bremen.de/"/>
-  <testing-search value="in 1.5" date="2013-04-26"/>
+  <testing-search value="ja" date="2013-04-26"/>
   <testing-account value="?" date=""/>
   <testing-renew value="?" date=""/>
 </library>

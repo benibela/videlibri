@@ -6,7 +6,7 @@
   <variable name="server" value="https://bibliothek.oberhausen.de/webOPACClient.sisis/"/>
   
   <homepage value="http://www.oberhausen.de/0A1C46AD57614F1B8C5CD011AF1C5911.php"/>
-  <testing-search value="in 1.5" date="2013-05-18"/>
+  <testing-search value="ja" date="2013-05-18"/>
   <testing-account value="?" date=""/>
   <testing-renew value="?" date=""/>
 </library>
