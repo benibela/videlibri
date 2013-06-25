@@ -4,7 +4,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 <meta http-equiv="content-language" content="de"/>
 <link rel="stylesheet" type="text/css" href="all.css"/>
-<title>VideLibri - Eine Bücher-Ausleihverwaltungsapp</title></head>
+<title>VideLibri - Die Bibliotheks-App</title></head>
 
 <?php
 //from http://stackoverflow.com/questions/3770513/detect-browser-language-in-php
@@ -89,7 +89,7 @@ if (count($matches) == 0 || count(reset($matches)) == 0 || (reset(reset($matches
   print ("<style>#navigation a.enlink { text-decoration: blink; font-weight: bold; color: #AA0000} </style>");
 ?>
 <body>
-<h1><a name="home">VideLibri - Eine Bücher-Ausleihverwaltungsapp</a></h1>
+<h1><a name="home">VideLibri - Die Bibliotheks-App</a></h1>
 
 <ul id="navigation">
   <li style="border-left: 1px solid blue;"><a href="#home">Start</a></li>
@@ -102,9 +102,23 @@ if (count($matches) == 0 || count(reset($matches)) == 0 || (reset(reset($matches
   
   <li style="right: 1em; position:absolute; margin-top: -1em"><a class="enlink" href="index_en.html">English Version</a></li>
 </ul>
+
 <div class="content" style="border:none;">
-VideLibri ist eine Erweiterung der normalen Büchereikataloge/WebOPACs, die einem alle jemals ausgeliehenen Bücher anzeigt und automatisch  verlängert.
+
+
+<div style="float: right">
+<a href="https://play.google.com/store/apps/details?id=de.benibela.videlibri" rel="nofollow" style="vertical-align:center;display:block">
+  <img alt="Android app on Google Play"
+       src="https://developer.android.com/images/brand/de_app_rgb_wo_45.png" style="position:relative;top: -40px" width="125" height="45"/>
+
+  <img alt="Android app on Google Play" width="126" height="126" src="img/qrcode_pretty.png" />
+</a>
 </div>
+
+Mit VideLibri kann man auf die Katalogen/WebOPACs zahlreicher Bibliotheken zugreifen, um darin zu suchen und seine Ausleihen zu sehen oder zu verlängern.
+
+</div>
+
 
 <h2><div><a name="features">Features</a></div></h2>
 <div class="content">
@@ -126,13 +140,17 @@ Es speichert auch alle jemals ausgeliehenen Bücher, wodurch  man jederzeit nach
 <li><h3>Übersicht über mehrere Ausleihkonten</h3>
 VideLibri zeigt die Ausleihdaten von mehreren Konten gleichzeitig an, so dass man, wenn man in mehreren Büchereien angemeldet ist, nicht jeden Katalog einzeln aufrufen muss. Auch wenn in einer mehrköpfigen Familie jeder eine eigene Ausleihkarte hat, wie von der Benutzerordnung vorgeschrieben, stellt es sicher, dass niemand/kein Kind vergessen hat, etwas abzugeben.
 </li>
-<li><h3>Mehr Details</h3>
-Viele Bibliotheken zeigen in ihrem Online-Katalog keine Details an. So fehlt bei den Stadtbüchereien Düsseldorfs normalerweise der Autor; während die Berliner Staatsbibliothek weder Autor noch Titel anzeigt und stattdessen lediglich die Inventarnummer nennt. VideLibri dagegen kann diese Informationen anzeigen, im Falle der Stabi wird automatisch im Katalog gesucht, für andere Büchereien kann man manuell die Digibibsuche starten und bekommt dann sogar ein Titelbild angezeigt. 
-</li>
 <li><h3>Besseres Interface</h3>
 VideLibri ist nach der Installation sehr viel einfacher zu benutzen, als die meisten Webkataloge/WebOPACs der Büchereien. Man muss nur einmal klicken, um die Ausleihliste zu öffnen, und braucht nicht jedesmal sein Passwort einzugeben. Zudem werden alle Bücher farbkodiert in einer sortierbaren Liste angezeigt und die jeweiligen Abgabezeiten nach Wochen getrennt.
 </li>
-<li><h3>E-Mailbenachrichtigung</h3> 
+<li><h3>Mobile Android-Version</h3>
+VideLibri läuft als App nativ auf Androidsystemen und bietet so eine bessere und bequemere Integration in das System als Webkataloge. 
+</li>
+<li><h3>Mehr Details</h3>
+Viele Bibliotheken zeigen in ihrem Online-Katalog keine Details an. So fehlt bei den Stadtbüchereien Düsseldorfs normalerweise der Autor; während die Berliner Staatsbibliothek weder Autor noch Titel anzeigt und stattdessen lediglich die Inventarnummer nennt. VideLibri dagegen kann diese Informationen anzeigen, im Falle der Stabi wird automatisch im Katalog gesucht, für andere Büchereien kann man manuell die Digibibsuche starten<sup class="desktop">D</sup> und bekommt dann sogar ein Titelbild<sup class="desktop">D</sup> angezeigt. 
+</li>
+
+<li><h3>E-Mailbenachrichtigung<sup class="desktop">D</sup></h3> 
 VideLibri kann einen E-Mailbericht über alle Medien versenden, in dem fällige und nicht fällige Bücher aufgelistet sind.
 
 <li><h3>Open-Source</h3>
@@ -156,14 +174,18 @@ Einige andere Features sind:
     * Links zu den Homepages der einzelnen Büchereien und der digi-bib
 -->
 <ul>
-<li>Abgabezeiten in unterschiedlichen Wochen werden markiert</li>
-<li>Es kann nach beliebigen (auch nicht ausgeliehenen, mittels der digibib) Medien gesucht werden</li>
+<li>Abgabezeiten in unterschiedlichen Wochen werden markiert<sup class="desktop">D</sup></li>
+<li>Es kann nach beliebigen Medien gesucht werden</li>
+<li>Vormerkungen und Bestellungen im Katalog</li>
 <li>VideLibri wird (je nach Einstellung) bei jedem Systemstart minimiert in der Symbolleiste gestartet</li>
-<li>Es gibt eine Statistik über alle ausgeliehenen Medien</li>
-<li>BibTeX-Export für die Erstellung von Literaturverzeichnissen</li>
+<li>Es gibt eine Statistik über alle ausgeliehenen Medien<sup class="desktop">D</sup></li>
+<li>BibTeX-Export für die Erstellung von Literaturverzeichnissen<sup class="desktop">D</sup></li>
 <li>Vollständige XQuery-Unterstützung für neue Templates</li>
-<li>Automatisches Update</li>
+<li>Automatisches Update<sup class="desktop">D</sup></li>
+<li>Speicherung von gesuchten Medien in der Kontohistorie, was zur Literaturverwaltung oder als Merkliste verwendet werden kann.<sup class="desktop">D</sup></li>
 </ul>
+
+Nicht alle Features funktionieren mit allen Bibliotheken. Mit <sup class="desktop">D</sup>-markiere Features sind nur in der Desktopversion enthalten, und fehlen in der Androidversion.<br/><br/>
 
 Es gibt allerdings auch ein paar Nachteile im Vergleich zu den online Web-Katalogen:
 <ul>
@@ -181,9 +203,17 @@ Praktisch sollte man das Programm genau dann benutzen, wenn man jedes Jahr mehre
 
 <img src="http://sourceforge.net/dbimage.php?id=280465" title="Ausleihstatistik (über alle von meiner Familie in Düsseldorf und Aachen ausgeliehenen Bücher)" alt="Ausleihstatistik (über alle von meiner Familie in Düsseldorf und Aachen ausgeliehenen Bücher)"/>
 
+
 <img src="http://sourceforge.net/dbimage.php?id=306557" title="Suche in der Digibib. (öffnet sich automatisch nach Doppelklick auf ein ausgeliehenes Buch, und ist z.B.: bei den Stadtbüchereien von Düsseldorf nötig, um mehr als Autor oder Titel angezeigt zu bekommen)" alt="Suche in der Digibib. (öffnet sich automatisch nach Doppelklick auf ein ausgeliehenes Buch, und ist z.B.: bei den Stadtbüchereien von Düsseldorf nötig, um mehr als Autor oder Titel angezeigt zu bekommen)"/>
 
+<div>
 <img src="http://sourceforge.net/p/videlibri/screenshot/android.png" title="VideLibri 1.5 unter Android" alt="VideLibri 1.5 unter Android"/>
+<div style="display: inline-block">
+<img src="http://sourceforge.net/p/videlibri/screenshot/android-search-list.png" title="VideLibri 1.5 unter Android (Liste der Suchergebnisse)" alt="VideLibri 1.5 unter Android (Liste der Suchergebnisse)"/>
+<img src="http://sourceforge.net/p/videlibri/screenshot/android-search-result.png" title="VideLibri 1.5 unter Android (Details eines Suchergebnisses)" alt="VideLibri 1.5 unter Android (Details eines Suchergebnisses)"/>
+</div>
+</div>
+
 </center>
 </div>
 <h2><div><a name="libraries">Unterstützte Büchereien</a></div></h2>
@@ -199,9 +229,11 @@ Es liegen aber auch einige Templates standardmäßig bei, welche erfolgreich mit
 
 <br><br>
 
-Man kann es aber auch mit anderen Bibliotheken benutzen, wenn man dort eine Ausleihkarte hat. Wegen dem zugrundeliegenden Templatesystem ist es nicht einmal nötig VideLibri umzuprogrammieren. Um ein solches Template für eine neue Bibliothek hinzuzufügen, speichert man im wesentlichen jede Seite des WebOPACs ab, und markiert die Stellen, die Medieninformationen wie Autor/Titel enthalten, mit semantischen Annotationen. Wie genau  das funktioniert, ist ausführlich in der <a href="http://videlibri.sourceforge.net/help/neuebibliothek.html">Hilfe</a> beschrieben.  Programmierkenntnisse sind dabei nur erforderlich, wenn der Katalog irgendwelche Merkwürdigkeiten, wie beispielsweise ungültiges HTML oder einen komplizierten XSS-Schutz, aufweist. Das englischsprachige <a href="http://userscripts.org/scripts/show/144991">Xidelscript</a> kann verwendet werden, um ein Template automatisch  durch Markieren der Buchinformationen in Firefox zu erstellen.<br>
+Man kann es aber auch mit anderen Bibliotheken benutzen, wenn man dort eine Ausleihkarte hat. Wegen dem zugrundeliegenden Templatesystem ist es nicht einmal nötig VideLibri umzuprogrammieren. Um ein solches Template für eine neue Bibliothek hinzuzufügen, speichert man im wesentlichen jede Seite des WebOPACs ab, und markiert die Stellen, die Medieninformationen wie Autor/Titel enthalten, mit semantischen Annotationen. Wie genau  das funktioniert, ist ausführlich in der <a href="http://videlibri.sourceforge.net/help/neuebibliothek.html">Hilfe</a> beschrieben.  Programmierkenntnisse sind dabei nur erforderlich, wenn der Katalog irgendwelche Merkwürdigkeiten, wie beispielsweise ungültiges HTML oder einen komplizierten XSS-Schutz, aufweist, oder man das Template für mehrere unterschiedliche Bibliotheken verwenden will. Das englischsprachige <a href="http://userscripts.org/scripts/show/144991">Xidelscript</a> kann verwendet werden, um ein Template automatisch  durch Markieren der Buchinformationen in Firefox zu erstellen.<br>
 Zudem kann eine interessierte Bibliothek ein Videlibri-Template auf ihrem Server hinterlegen und mit den entsprechenden Linkmetatags verlinken. Dann reicht die Eingabe der Serveraddresse in Videlibri, um das Template automatisch herunterzuladen und zu installieren.<br>
-Verwendet die Bücherei ein aktuelles aleph/libero/sisis/pica/aDISWeb-System ist es nicht mal nötig ein Template zu schreiben, weil man dann einfach die Serveradresse in die xml-Dateien im data/libraries Verzeichnis eintragen kann. 
+Verwendet die Bücherei ein aktuelles aleph/libero/sisis/pica/aDISWeb-System ist es nicht mal nötig ein Template zu schreiben, weil man dann einfach die Serveradresse in die xml-Dateien im data/libraries Verzeichnis eintragen kann. <br/><br/>
+
+Nichtsdestotrotz kann ich aber bei Anfragen einer Bibliothek oder eines Lesers auch direkte Unterstützung für den entsprechenden Katalog in VideLibri einbauen. Für eine vollständige Unterstützung benötigte ich allerdings auch gültige Kontozugangsdaten mit verlängerbaren Büchern. Ein Template für das bloße Anzeigen der Ausleihen kann ich in der Regel innerhalb eines Tages erstellt, ein Template für alle Funktionen inklusive Vormerkungen kann aber auch schon mal eine Woche dauern (und Testen, ob es keine Sonderfälle gibt noch länger). Auch bei Fragen zu den Templates können Sie mir gerne eine <a href="#contact">Mail</a> schreiben.
 
 </div>
 
@@ -221,6 +253,7 @@ Den gesamten Quellcode gibt es in einem <a href="https://sourceforge.net/p/videl
 Das Programm ist in FreePascal/Lazarus geschrieben, und sollte sich einfach compilern lassen, indem man die bookWatch.lpi in Lazarus öffnet und in den Projekteinstellungen sein Betriebssystem auswählt. 
 Damit sollte es unter Windows/Linux/Mac mit gtk/qt/win32/cocoa-Interface laufen (getestet mit Window/Linux und gtk/qt/win32). Man benötigt aber mindestens Lazarus 1.0 und FPC 2.6.0.
 <br>
+Das Selbst-Compilern einer Androidversion ist komplizierter und erfordert sowohl ein installiertes Android-SDK wie auch ein Android-NDK. Nach Anpassung der Pfade kann das <code>android/manage.sh</code>-Skript verwendt werden, um es automatisch zu compilern.
 </div>
 <br><br><br><br>
 <h2><div><a name="spinoffs">Spin-offs</a></div></h2>

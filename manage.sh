@@ -58,18 +58,24 @@ win32)
 		webUpload  videlibri-setup.exe /updates/
 		;;
 
-
+android) 
+    cp android/android/bin/videlibri-release.apk /tmp/videlibri_$VERSION-release.apk
+    cd /tmp
+		fileUpload videlibri_$VERSION-release.apk "/VideLibri/VideLibri\ $VERSION/"
+;;
 
 downloadTable) 
   URL=http://sourceforge.net/projects/videlibri/files/VideLibri/VideLibri%20$VERSION/
   PROJNAME=VideLibri
   ~/hg/programs/internet/xidel/xidel $URL --extract-exclude=pname  --extract-kind=xquery  \
-     -e "pname := '$PROJNAME'" \
+     -e "declare variable \$pname := '$PROJNAME'" \
+     -e "declare variable \$url := '$URL'" \
      -e 'declare variable $lang := 2; 
          declare function verboseName($n){ concat ( 
            if (contains($n, "win") or contains($n, ".exe")) then "Windows: " 
            else if (contains($n, "linux")) then "Universal Linux: " 
            else if (contains($n, ".deb")) then "Debian/Ubuntu: " 
+           else if (contains($n, ".apk")) then "Android: " 
            else if (contains($n, "src")) then ("Source:", "Quellcode:")[$lang] 
            else "", 
            if (contains($n, "32") or contains($n, "386")) then "32 Bit" 
@@ -170,9 +176,9 @@ src)
 		./manage.sh win32
 		./manage.sh linux32
 	  ./manage.sh changelog
-	  ./manage.sh defaults
 	  ./manage.sh downloadTable
 		thg commit
+	  ./manage.sh defaults
 		;;
 
 esac
