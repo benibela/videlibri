@@ -5,10 +5,41 @@
 </head>
 <body>
 <h1>1. Büchereibeschreibung</h1>
-In diesem Schritt gibt man allgemeine Informationen über die jeweilige Bücherei ein.<br>
-<br>
-Hierzu legt man eine im Verzeichnis data\libraries (alle Pfade sind hier relativ zum Programmverzeichnis angegeben) eine Datei namens XXX.xml (für XXX eine beliebige 3-stellige Zahl angeben) an. Diesen Dateinamen schreibt man dann in die Datei libraries.list.<br>
-Die XXX.xml sollte man dann gemäß diesem Format mit Inhalt füllen:<br>
+<p>In diesem Schritt gibt man allgemeine Informationen über die jeweilige Bücherei ein.
+<p>Verwendet die Bücherei ein bereits in VideLibri  registriertes Bibliothekssystem, kann dies durch Beantworten der Fragen in der GUI erfolgen. Ansonsten muss man die internen XML-Dateien bearbeiten.
+
+<h2>Beschreibung für ein bereits unterstütztes System über die GUI</h2>
+
+<h3>Desktop-Version</h3>
+
+<p>In der Desktop-Version klickt man dazu nacheinander auf "Extras / Einstellungen / Büchereien / Neue Bibliothek hinzufügen". 
+
+<p>Im seltenen Fall, dass die Bücherei ein eigenes VideLibri-Template zur Verfügung stellt, kann man nun auf "Ja" klicken und die URL des Templates eingeben. Alles weitere geschieht automatisch (d.h. der restliche Text in dieser Hilfe ist nicht relevant). 
+
+<p>Gibt es dagegen kein Template mit fertigen Metadaten, klickt man auf "Nein" und beantwortet die darauf folgenden Fragen zum Namen der Bibliothek und des verwendeten Systems. Dabei wird eine Liste aller installierter Systeme angezeigt. <br>
+Jedes System-Template benötigt eigene Variablen, die anschließend der Reihe nach abgefragt werden. Die meisten Systeme benötigen die Adresse des Bibliothekskatalog, so fragt zum Beispiel das "sisis"-System nach einem "server" mit Protokoll, wo man dann beispielsweise <code>http://sisis.bibliotheks-server.de</code> eingeben muss. 
+
+<p>Nachdem alle Fragen beantwortet wurden, erstellt VideLibri automatisch das dazugehörige XML und zeigt es an. Es wird allerdings erst gespeichert, wenn man auf "Bibliothek speichern" klickt. Anschließend kann der Dialog geschlossen werden.
+
+<h3>Android-Version</h3>
+
+<p>In der Android-Version findet man diese Konfigurationsmöglichkeit unter "Einstellungen / Neue Bibliothek registrieren".
+
+<p>Im seltenen Fall, dass die Bücherei ein eigenes VideLibri-Template zur Verfügung stellt, kann man die URL im ersten Feld eingeben und auf "installieren" klicken. Alles weitere geschieht wie bei der Desktop-Version automatisch (d.h. der restliche Text in dieser Hilfe ist nicht relevant). 
+
+<p>Gibt es dagegen kein Template mit fertigen Metadaten, muss man die darunter liegenden Felder ausfüllen.<br>
+D.h. die Id (welche nicht wirklich relevant ist, aber man darf jede Id nur einmal verwenden), den Namen der Bibliothek und den Namen des System. Nachdem man ein System ausgewählt hat, werden die Felder für die Variablen des System angezeigt, wobei jedes System eigene Variablen hat.<br>
+Zum Beispiel benötigen die meisten Systeme die Adresse des Bibliothekskatalog und das "sisis"-System hat beispielsweise eine "server"-Variable mit Protokoll, wo man dann eine Adresse wie <code>http://sisis.bibliotheks-server.de</code> eingeben muss. 
+
+
+<h2>Beschreibung durch Bearbeitung der XML-Dateien</h2>
+
+<h3>Desktop-Version</h3>
+
+<p>Der einfachste Weg eine neue Bibliotheks-XML einzugeben, ist auf "Extras / Einstellungen / Büchereien" zu klicken und die XML im oberen Feld einzugeben. Dann kann man einfach auf "Bibliothek speichern" klicken, und die Bibliothek ist registriert (dafür muss man aber <em>zuerst</em> das Template von <a href="templates.html">Schritt 2</a> erstellen, was ebenfalls im Dialog mit dem unteren Feld möglich ist).  
+
+<p>
+Die XML-Dateien zur Beschreibung einer Bibliothek haben folgendes Format:
 <pre>
 &lt;?xml version="1.0" encoding="UTF-8"?>
 &lt;library>
@@ -19,9 +50,10 @@ Die XXX.xml sollte man dann gemäß diesem Format mit Inhalt füllen:<br>
   
   &lt;!-- die folgenden  Elemente sind optional und können üblicherweise weggelassen werden-->
   
-  &lt;variable name="server" value="hier die URL ihres Webkatalogs"/>
+  &lt;variable name="server" value="hier die URL ihres Webkatalogs. (abhängig vom gewählten Template)"/>
   
-  &lt;catalogue value="Hier die Adresse der Bücherei Internetseite"/>
+  &lt;homepage value="Hier die Adresse der Bücherei Internetseite"/>  
+  &lt;catalogue value="Hier die Adresse der Bücherei Katalog-Internetseite"/>
 
   &lt;username matches="^regulärer Ausdruck, der den Benutzernamen überprüft$"/>
   &lt;password matches="^regulärer Ausdruck, der den Benutzernamen überprüft$"/>  
@@ -30,16 +62,33 @@ Die XXX.xml sollte man dann gemäß diesem Format mit Inhalt füllen:<br>
 &lt;/library>
 </pre>
 
+
+
+<p>
 Entspricht der Katalog dem einer bereits unterstützten Bibliothek, so kann für template den Namen aus der xml-Beschreibung dieser Bibliothek übernehmen, ansonsten wählt man einen neuen, beliebigen Namen und erstellt im zweiten Schritte ein <a href="templates.html">neues Template</a> mit dem gewählten Name.<br>
 
 
-&lt;variable> definiert eine Variable mit dem angegebenen Variablen und Namen. Welche Variablen verwendet werden, hängt vom Template ab. Die Standardtemplates benutzen nur "server"  (mit / am Ende).<br>
-Falls die Bücherei in der digibib vertreten ist, kann man  <pre> 
-  &lt;variable name="Location" value="Ort"/>
+
+<p>
+&lt;variable> definiert eine Variable mit dem angegebenen Variablen und Namen. Welche Variablen verwendet werden, hängt vom Template ab. Man kann in der Templatedatei <code>libraries/templates/(Der Template-Name)/template</code> nachschauen, welche benötigt werden. Meistens reicht eine <code>server</code> Variable.<br>
+Falls die Bücherei in der digibib vertreten ist, kann man  
+<pre>  &lt;variable name="location" value="Ort"/>
+  &lt;variable name="view" value="View"/>
   &lt;variable name="searchid-digibib" value="Digibib Suchid, wie: SERVICEGROUP1.SERVICE.SEARCH_SBDUE"/>
 </pre> verwenden, um mit der Mediensuche in ihrem Katalog beliebige Bücher zu suchen.
 
-Als Zeichensatz darf man in dieser Datei nur normales Windows-1252 (ANSI) und UTF-8 verwenden.
+<p>Als Zeichensatz darf man in dieser Datei nur normales Windows-1252 (ANSI) und UTF-8 verwenden.
+
+
+<p>Abgespeichert werden diese Dateien im Verzeichnis <code>data\libraries</code> (im Programmverzeichnis bzw. Lokalen Anwendungsdateien unter Windows und <code>/usr/share/videlibri</code> bzw. <code>~/.config/VideLibri</code> unter Linux für mitgelieferte bzw. neu-erstellte Dateien), und der Dateiname sollte dem Format LAND-BUNDESSTAAT-STADT-BIBLIOTHEK.xml folgen.<br>
+Zudem müssen alle im globalen Verzeichnis in der <code>libraries.list</code> eingetragen werden, und über die GUI Benutzer-erstellte in der <code>user.config</code> Datei (ersteres ist einfacher, letzeres macht die GUI automatisch).<br>
+
+
+<h3>Android-Version</h3>
+
+Im Prinzip verwendet die Android-Version dieselben XML-Dateien wie die Desktop-Version. Allerdings sind diese im APK eingeschlossen, so dass die mitgelieferten Dateien nicht bearbeitet werden können. <br>
+
+Es gibt aber ein alternatives Verzeichnis <code>/data/data/de.benibela.videlibri/files/libraries</code>, in dem neue XML-Dateien angelegt werden können und die dann wie in der Desktop-Version geladen werden. Dies ist allerdings nur auf gerooten-Geräten modifizierbar.
 
 <!--Außerdem gibt es zusätzlich noch <a href="faq.html">Fragen und Antworten--></a>
 </body>
