@@ -87,6 +87,7 @@ $available = parseLanguageList('en, de, DE');
 $matches = findMatches($accepted, $available);
 if (count($matches) == 0 || count(reset($matches)) == 0 || (reset(reset($matches)) != "de" && reset(reset($matches)) != "DE"))
   print ("<style>#navigation a.enlink { text-decoration: blink; font-weight: bold; color: #AA0000} </style>");
+  //$
 ?>
 <body>
 <h1><a name="home">VideLibri - Die Bibliotheks-App</a></h1>
@@ -131,11 +132,11 @@ VideLibri verlängert alle ausgeliehenen Bücher automatisch, so dass man dies n
 Bei den Benachrichtigungen der Büchereien passiert es ständig, dass die Benachrichtigungsemails nicht ankommen, oder ihr Katalog nicht erreichbar ist. 
 VideLibri ist zuverlässiger, da es auf dem lokalen Rechner läuft und eine Art fail-safe Prinzip realisiert: es wird immer gewarnt, wenn nicht gezeigt werden kann, dass keine Bücher abzugeben sind. 
 </li>
-<li><h3>Kein permanter Internetzugang nötig</h3>
+<li><h3>Kein permanenter Internetzugang nötig</h3>
 Um den normalen Katalog aufzurufen, muss man immer eine Internetverbindung haben. VideLibri dagegen speichert  alle Ausleihdaten auf der Festplatte, so dass es auch funktioniert, wenn man zeitweilig nicht online ist, weil man beispielsweise im Zug sitzt.
 </li>
 <li><h3>Gesamthistorie aller Ausleihen</h3>
-Es speichert auch alle jemals ausgeliehenen Bücher, wodurch  man jederzeit nachsehen kann, wann man, welche Bücher ausgeliehen hatte. Das ist nützlich, wenn man bei einer Arbeit vergessen hat, das Literaturverzeichnis zu schreiben, oder einfach nur wissen will, wieviel man ausgeliehen hatte.  (Paranoide können die Funktion aber auch abschalten)
+Es speichert auch alle jemals ausgeliehenen Bücher, wodurch  man jederzeit nachsehen kann, wann man, welche Bücher ausgeliehen hatte. Das ist nützlich, wenn man bei einer Arbeit vergessen hat, das Literaturverzeichnis zu schreiben, oder einfach nur wissen will, wie viel man ausgeliehen hatte.  (Paranoide können die Funktion aber auch abschalten)
 </li>
 <li><h3>Übersicht über mehrere Ausleihkonten</h3>
 VideLibri zeigt die Ausleihdaten von mehreren Konten gleichzeitig an, so dass man, wenn man in mehreren Büchereien angemeldet ist, nicht jeden Katalog einzeln aufrufen muss. Auch wenn in einer mehrköpfigen Familie jeder eine eigene Ausleihkarte hat, wie von der Benutzerordnung vorgeschrieben, stellt es sicher, dass niemand/kein Kind vergessen hat, etwas abzugeben.
@@ -147,7 +148,7 @@ VideLibri ist nach der Installation sehr viel einfacher zu benutzen, als die mei
 VideLibri läuft als App nativ auf Androidsystemen und bietet so eine bessere und bequemere Integration in das System als Webkataloge. 
 </li>
 <li><h3>Mehr Details</h3>
-Viele Bibliotheken zeigen in ihrem Online-Katalog keine Details an. So fehlt bei den Stadtbüchereien Düsseldorfs normalerweise der Autor; während die Berliner Staatsbibliothek weder Autor noch Titel anzeigt und stattdessen lediglich die Inventarnummer nennt. VideLibri dagegen kann diese Informationen anzeigen, im Falle der Stabi wird automatisch im Katalog gesucht, für andere Büchereien kann man manuell die Digibibsuche starten<sup class="desktop">D</sup> und bekommt dann sogar ein Titelbild<sup class="desktop">D</sup> angezeigt. 
+Viele Bibliotheken zeigen in ihrem Online-Katalog keine Details an. So fehlt bei den Stadtbüchereien Düsseldorfs normalerweise der Autor; während die Berliner Staatsbibliothek weder Autor noch Titel anzeigt und stattdessen lediglich die Inventarnummer nennt. VideLibri dagegen kann diese Informationen anzeigen, im Falle der Stabi wird automatisch im Katalog gesucht, für andere Büchereien kann man manuell die Digibib-Suche starten<sup class="desktop">D</sup> und bekommt dann sogar ein Titelbild<sup class="desktop">D</sup> angezeigt. 
 </li>
 
 <li><h3>E-Mailbenachrichtigung<sup class="desktop">D</sup></h3> 
@@ -169,9 +170,9 @@ Einige andere Features sind:
     * VideLibri wird (je nach Einstellung) bei jedem Systemstart minimiert in der Symbolleiste gestartet
     * Alle jemals ausgeliehenen Medien können gespeichert
     * Es gibt eine Statistik über alle ausgeliehenen Medien
-    * BibTex-Export für die Erstellung von Literaturverzeichnisse.
+    * BibTeX-Export für die Erstellung von Literaturverzeichnisse.
     * Automatisches Update
-    * Links zu den Homepages der einzelnen Büchereien und der digi-bib
+    * Links zu den Homepages und Katalogen der einzelnen Büchereien 
 -->
 <ul>
 <li>Abgabezeiten in unterschiedlichen Wochen werden markiert<sup class="desktop">D</sup></li>
@@ -210,7 +211,7 @@ Praktisch sollte man das Programm genau dann benutzen, wenn man jedes Jahr mehre
 <img src="http://sourceforge.net/p/videlibri/screenshot/android.png" title="VideLibri 1.5 unter Android" alt="VideLibri 1.5 unter Android"/>
 <div style="display: inline-block">
 <img src="http://sourceforge.net/p/videlibri/screenshot/android-search-list.png" title="VideLibri 1.5 unter Android (Liste der Suchergebnisse)" alt="VideLibri 1.5 unter Android (Liste der Suchergebnisse)"/>
-<img src="http://sourceforge.net/p/videlibri/screenshot/android-search-result.png" title="VideLibri 1.5 unter Android (Details eines Suchergebnisses)" alt="VideLibri 1.5 unter Android (Details eines Suchergebnisses)"/>
+<img src="http://sourceforge.net/p/videlibri/screenshot/android-search-result.png" title="VideLibri 1.5 unter Android (Details eines Suchergebnisses)" alt="VideLibri 1.5 unter Android (Details eines Suchergebnis)"/>
 </div>
 </div>
 
@@ -251,9 +252,9 @@ Es gibt auch einen <a href="updates/changelog.xml">Changelog</a>, das alle Ände
 
 Den gesamten Quellcode gibt es in einem <a href="https://sourceforge.net/p/videlibri/code/ci/tip/tree/">Mercurial-Repository</a>.<br>
 Das Programm ist in FreePascal/Lazarus geschrieben, und sollte sich einfach compilern lassen, indem man die bookWatch.lpi in Lazarus öffnet und in den Projekteinstellungen sein Betriebssystem auswählt. 
-Damit sollte es unter Windows/Linux/Mac mit gtk/qt/win32/cocoa-Interface laufen (getestet mit Window/Linux und gtk/qt/win32). Man benötigt aber mindestens Lazarus 1.0 und FPC 2.6.0.
+Damit sollte es unter Windows/Linux/Mac mit gtk/qt/win32/cocoa-Interface laufen (getestet mit Windows/Linux und gtk/qt/win32). Man benötigt aber mindestens Lazarus 1.0 und FPC 2.6.0.
 <br>
-Das Selbst-Compilern einer Androidversion ist komplizierter und erfordert sowohl ein installiertes Android-SDK wie auch ein Android-NDK. Nach Anpassung der Pfade kann das <code>android/manage.sh</code>-Skript verwendt werden, um es automatisch zu compilern.
+Das Selbst-Compilern einer Androidversion ist komplizierter und erfordert sowohl ein installiertes Android-SDK wie auch ein Android-NDK. Nach Anpassung der Pfade kann das <code>android/manage.sh</code>-Skript verwendet werden, um es automatisch zu compilern.
 </div>
 <br><br><br><br>
 <h2><div><a name="spinoffs">Spin-offs</a></div></h2>
