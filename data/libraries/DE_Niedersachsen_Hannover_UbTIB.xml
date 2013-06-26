@@ -7,7 +7,7 @@
   <variable name="server" value="https://opac.tib.uni-hannover.de/"/>
 
 
-  <homepage value="http://www.hs-hannover.de/bibl/"/>
+  <homepage value="http://www.tib.uni-hannover.de/"/>
   <testing-search value="ja" date="2013-04-26"/>
   <testing-account value="?" date=""/>
   <testing-renew value="?" date=""/>

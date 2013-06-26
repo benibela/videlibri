@@ -7,7 +7,7 @@
   <variable name="server" value="https://recherche.bibkatalog.de/InfoGuideClient.fwssis/"/>
   <variable name="startparams" value="?Login=wofwsa"/>
   
-  <homepage value="http://www.haw-aw.de/einrichtungen/bibliothek/"/>
+  <homepage value="http://www.h-ab.de/bibliothek"/>
   <testing-search value="ja" date="2013-05-17"/>
   <testing-account value="?" date=""/>
   <testing-renew value="?" date=""/>
