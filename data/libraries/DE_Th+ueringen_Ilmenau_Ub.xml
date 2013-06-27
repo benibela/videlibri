@@ -4,12 +4,12 @@
   <shortName value="Ub Ilmenau"/>
   
   <template value="pica"/>  
-  <variable name="server" value="http://katalog.bibliothek.tu-ilmenau.de/"/>
+  <variable name="server" value="https://katalog.bibliothek.tu-ilmenau.de/"/>
   <variable name="picadb" value="1"/>
 
 
   <homepage value="http://www.tu-ilmenau.de/ub/"/>
   <testing-search value="ja" date="2013-04-26"/>
-  <testing-account value="?" date=""/>
-  <testing-renew value="?" date=""/>
+  <testing-account value="in 1.51" date="2013-06-27"/>
+  <testing-renew value="in 1.51" date="2013-06-27"/>
 </library>

@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <t:switch-prioritized>
-
 <html>
   <a>Vormerkungen<t:s>reservations:=@href</t:s></a>?
   
@@ -35,7 +34,7 @@
       <td></td>
       <td></td>
       <td></td>
-      <td><!--renewals-->Verlängerungen</td>
+      <td><!--renewals--><template:match-text regex="Verlängerungen"/></td>
       <td></td>
       <td></td>
       <td></td>

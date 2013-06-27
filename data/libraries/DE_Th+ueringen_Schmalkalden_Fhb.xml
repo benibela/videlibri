@@ -4,13 +4,13 @@
   <shortName value="FHB Schmalkalden"/>
   
   <template value="pica"/>  
-  <variable name="server" value="http://katalog.bibliothek.tu-ilmenau.de/"/>
+  <variable name="server" value="https://opac.lbs-ilmenau.gbv.de:443/"/>
   <variable name="picadb" value="2"/>
 
 
 
   <homepage value="http://www.fh-schmalkalden.de/Bibliothek.html"/>
   <testing-search value="ja" date="2013-04-26"/>
-  <testing-account value="?" date=""/>
-  <testing-renew value="?" date=""/>
+  <testing-account value="in 1.51" date="2013-06-27"/>
+  <testing-renew value="in 1.51" date="2013-06-27"/>
 </library>
