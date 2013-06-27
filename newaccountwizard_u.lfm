@@ -17,7 +17,7 @@ object newAccountWizard: TnewAccountWizard
     Height = 311
     Top = 0
     Width = 520
-    PageIndex = 0
+    PageIndex = 1
     Align = alClient
     TabOrder = 0
     TabStop = True
@@ -68,8 +68,8 @@ object newAccountWizard: TnewAccountWizard
         Left = 36
         Height = 15
         Top = 142
-        Width = 94
-        Caption = 'Geburtsdatum:'
+        Width = 96
+        Caption = 'Passwort:         '
         ParentColor = False
       end
       object identificarionInvalid: TLabel
@@ -91,7 +91,7 @@ object newAccountWizard: TnewAccountWizard
         Top = 29
         Width = 436
         Anchors = [akTop, akLeft, akRight]
-        Caption = 'Bitte geben Sie jetzt Ihre Kartennummer und ihr Passwort (Geburtsdatum) ein und klicken Sie dann auf "Weiter".'
+        Caption = 'Bitte geben Sie jetzt Ihre Kartennummer und ihr Passwort (häufig Geburtsdatum) ein und klicken Sie dann auf "Weiter".'
         ParentColor = False
         WordWrap = True
       end
@@ -100,10 +100,10 @@ object newAccountWizard: TnewAccountWizard
         AnchorSideLeft.Side = asrBottom
         AnchorSideTop.Control = label2Account
         AnchorSideTop.Side = asrBottom
-        Left = 140
+        Left = 142
         Height = 25
         Top = 97
-        Width = 307
+        Width = 305
         Anchors = [akTop, akLeft, akRight]
         BorderSpacing.Left = 6
         BorderSpacing.Top = 31
@@ -116,10 +116,10 @@ object newAccountWizard: TnewAccountWizard
         AnchorSideLeft.Side = asrBottom
         AnchorSideTop.Control = accountName
         AnchorSideTop.Side = asrBottom
-        Left = 140
+        Left = 142
         Height = 25
         Top = 137
-        Width = 307
+        Width = 305
         Anchors = [akTop, akLeft, akRight]
         BorderSpacing.Left = 6
         BorderSpacing.Top = 11
