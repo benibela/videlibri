@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <library>
-  <longName value="Universitätsbibliothek Ilmenau (alpha)"/>
+  <longName value="Universitätsbibliothek Ilmenau"/>
   <shortName value="Ub Ilmenau"/>
   
   <template value="pica"/>  

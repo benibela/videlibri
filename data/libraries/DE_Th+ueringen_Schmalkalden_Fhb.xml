@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <library>
-  <longName value="Bibliothek der FH Schmalkalden (alpha)"/>
+  <longName value="Bibliothek der FH Schmalkalden"/>
   <shortName value="FHB Schmalkalden"/>
   
   <template value="pica"/>  

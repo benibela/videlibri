@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <library>
-  <longName value="Universitätsbibliothek Braunschweig (alpha)"/>
+  <longName value="Universitätsbibliothek Braunschweig"/>
   <shortName value="UB Braunschweig"/>
   
   <template value="pica"/>
@@ -9,6 +9,6 @@
 
   <homepage value="http://www.biblio.tu-bs.de/"/>
   <testing-search value="ja" date="2013-04-26"/>
-  <testing-account value="?" date=""/>
-  <testing-renew value="?" date=""/>
+  <testing-account value="ja" date="2013-06-27"/>
+  <testing-renew value="ja" date="2013-06-27"/>
 </library>

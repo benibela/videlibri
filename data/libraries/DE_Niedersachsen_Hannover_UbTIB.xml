@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <library>
-  <longName value="Technische Informationsbibliothek und Universitätsbibliothek Hannover (alpha)"/>
+  <longName value="Technische Informationsbibliothek und Universitätsbibliothek Hannover"/>
   <shortName value="TIB/UB Hannover"/>
   
   <template value="pica"/>  
@@ -9,6 +9,6 @@
 
   <homepage value="http://www.tib.uni-hannover.de/"/>
   <testing-search value="ja" date="2013-04-26"/>
-  <testing-account value="?" date=""/>
-  <testing-renew value="?" date=""/>
+  <testing-account value="ja" date="2013-06-26"/>
+  <testing-renew value="ja" date="2013-06-26"/>
 </library>

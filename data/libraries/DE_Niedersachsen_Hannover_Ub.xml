@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <library>
-  <longName value="Bibliothek der Hochschule Hannover (alpha)"/>
+  <longName value="Bibliothek der Hochschule Hannover"/>
   <shortName value="HSUB Hannover"/>
   
   <template value="pica"/>  
@@ -10,6 +10,6 @@
 
   <homepage value="http://www.hs-hannover.de/bibl/"/>
   <testing-search value="ja" date="2013-04-26"/>
-  <testing-account value="?" date=""/>
-  <testing-renew value="?" date=""/>
+  <testing-account value="ja" date="2013-06-26"/>
+  <testing-renew value="ja" date="2013-06-26"/>
 </library>
