@@ -151,7 +151,7 @@
             <CheckBox
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
-                    android:text="aktiviere debug logging"
+                    android:text="aktiviere debug logging (kann auch Passwörter loggen)"
                     android:id="@+id/logging" android:checked="false"/>
         </LinearLayout>
 
