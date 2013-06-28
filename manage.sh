@@ -32,7 +32,7 @@ linux32)
 		checkinstall --pkgarch=i386 --install=no --pkgname=videlibri --default  --pkgversion=$VERSION --nodoc --maintainer="Benito van der Zander \<benito@benibela.de\>" --requires="libgtk2.0-0" bash _meta/install_direct.sh 
 		
 		fileUpload videlibri_$VERSION-1_i386.deb "/VideLibri/VideLibri\ $VERSION/"
-		webUpload  videlibri_$VERSION-1_i386.deb /updates/
+		webUpload  videlibri_$VERSION-1_i386.deb /updates/videlibri-linux32.deb
 		;;
 
 linux64)
@@ -43,7 +43,7 @@ linux64)
 		checkinstall --install=no --pkgname=VideLibri --default  --pkgversion=$VERSION --nodoc --maintainer="Benito van der Zander \<benito@benibela.de\>" --requires="libgtk2.0-0" bash _meta/install_direct.sh 
 		
 		fileUpload videlibri_$VERSION-1_amd64.deb "/VideLibri/VideLibri\ $VERSION/"
-		webUpload  videlibri_$VERSION-1_amd64.deb /updates/
+		webUpload  videlibri_$VERSION-1_amd64.deb /updates/videlibri-linux64.deb
 		;;
 		
 win32)

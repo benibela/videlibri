@@ -2,6 +2,10 @@
 <?xml-stylesheet type="text/xsl" href="../changelog.xsl"?>
 <changelog program="VideLibri">
   <build version="1500" date="2013-06-24">
+    <download url="http://videlibri.sourceforge.net/updates/videlibri-setup.exe" platform="WINDOWS" execute="&quot;$DOWNLOAD&quot;  /SP- /noicons &quot;/dir=$OLDPATH&quot; " restart="true"/>
+    <download url="http://videlibri.sourceforge.net/updates/videlibri-linux32.deb" platform="LINUX32" execute=""/>
+    <download url="http://videlibri.sourceforge.net/updates/videlibri-linux64.deb" platform="LINUX64" execute=""/>
+    
     <change level="major">Geändertes Dateiformat für Ausleihen, xml statt csv-ähnlich</change>
     <change level="minor">Suchtemplates unterstützen nun lazy-ladende Ergebnisseiten, statt alle Ergebnisse auf einmal runterzuladen</change>
     
@@ -16,8 +20,6 @@
   <change>ULB Düsseldorf: verwendet wieder den alten Katalog</change>
   </build>
   <build version="1402" date="2013-04-17">
-    <download url="http://videlibri.sourceforge.net/updates/videlibri-setup.exe" platform="WINDOWS" execute="&quot;$DOWNLOAD&quot;  /SP- /noicons &quot;/dir=$OLDPATH;&quot; "/>
-    <download url="http://videlibri.sourceforge.net/updates/videlibri-linux64.deb" platform="LINUX64" execute=""/>
     <fix level="major">Münchener Stadtbibliothek: Unterstützung für neue Katalogversion</fix>
   </build>
   <build version="1400" date="2013-03-22">
