@@ -29,7 +29,7 @@ build)
   if $BUILDX86; then
     FORCE=""
     if [[ ! -f android/libs/x86/liblclapp.so ]]; then FORCE=-B; fi
-    if /opt/lazarus/lazbuild $FORCE --os=android --ws=customdrawn --cpu=i386 videlibriandroid.lpi; then echo; else echo "FAILED!"; exit 1; fi
+    if /opt/lazarus/lazbuild $FORCE --compiler=/usr/local/bin/ppcross386_271 --os=android --ws=customdrawn --cpu=i386 videlibriandroid.lpi; then echo; else echo "FAILED!"; exit 1; fi
   fi
 
   if [[ $BUILDMODE == "release" ]]; then
