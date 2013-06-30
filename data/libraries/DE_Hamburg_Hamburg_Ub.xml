@@ -16,8 +16,8 @@
   <variable name="searchid-digibib" value="SERVICEGROUP1.SERVICE.SEARCH_ULBD"/>-->
 
 
-  <homepage value="http://www.hsu-bibliothek.de/"/>
+  <homepage value="http://kataloge.uni-hamburg.de/"/>
   <testing-search value="ja" date="2013-04-26"/>
-  <testing-account value="?" date=""/>
+  <testing-account value="ja" date="2013-04-26"/>
   <testing-renew value="?" date=""/>
 </library>

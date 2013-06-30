@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <library>
-  <longName value="Hochschulbibliothek der Fachhochschule Münster (alpha)"/>
+  <longName value="Universitäts- und Landesbibliothek Münster (alpha)"/>
   
   <template value="sisis"/>  
   <variable name="server" value="https://superfix.uni-muenster.de/Katalog/"/>
