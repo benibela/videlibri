@@ -11,6 +11,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.TextView;
+import com.actionbarsherlock.view.Menu;
 
 public class Search extends VideLibriBaseActivity implements Bridge.SearchConnector{
     static final int REQUEST_CHOOSE_LIBRARY = 1234;
@@ -59,6 +60,15 @@ public class Search extends VideLibriBaseActivity implements Bridge.SearchConnec
                 startActivity(intent);
             }
         });
+
+        setTitle("Katalog-Suche");
+    }
+
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        boolean x= super.onPrepareOptionsMenu(menu);
+        menu.findItem(R.id.search).setVisible(false);
+        return x;
     }
 
     @Override

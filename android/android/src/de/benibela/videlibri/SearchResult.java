@@ -3,6 +3,7 @@ package de.benibela.videlibri;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.util.Log;
+import com.actionbarsherlock.view.Menu;
 import de.benibela.videlibri.BookListActivity;
 import de.benibela.videlibri.Bridge;
 import de.benibela.videlibri.VideLibriBaseActivity;
@@ -33,6 +34,13 @@ public class SearchResult extends BookListActivity implements Bridge.SearchResul
         super.onResume();
 
         nextDetailsRequested = -1;
+    }
+
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        boolean x= super.onPrepareOptionsMenu(menu);
+        menu.findItem(R.id.search).setVisible(false);
+        return x;
     }
 
     @Override

@@ -3,8 +3,8 @@
 <changelog program="VideLibri">
   <build version="1510" date="?">
     <add>SISIS: Unterstützung für Zweigstellen</add>
-    <fix>Falsche Bibliothek-Homepages</change>
-    <fix>aDIS: Benutzerkontenzugriff für die Nürnberger Stadtbibliothek (und BSZ-Bibliotheken?)</change>
+    <fix>Falsche Bibliothek-Homepages</fix>
+    <fix>aDIS: Benutzerkontenzugriff für die Nürnberger Stadtbibliothek (und BSZ-Bibliotheken?)</fix>
     <change>Entferne (alpha)-Markierung von Bibliotheken, die VideLibri getestet haben</change>
   </build>
   

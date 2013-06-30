@@ -44,7 +44,10 @@ public class VideLibriSuperBase {
             case R.id.search:
                 VideLibriApp.newSearchActivity();
                 return true;
-            case R.id.accounts:
+            case  android.R.id.home:
+//                context.openOptionsMenu();
+  //              return true;
+//            case R.id.accounts:
                 intent = new Intent(context, VideLibri.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 context.startActivity(intent);
@@ -84,9 +87,6 @@ public class VideLibriSuperBase {
                 intent = new Intent(context, About.class);
                 context.startActivity(intent);
                 return true;
-            case  android.R.id.home:
-                context.openOptionsMenu();
-                return true;
             case R.id.others:
                 displayOthersMenu(context);
         }
@@ -112,7 +112,7 @@ public class VideLibriSuperBase {
 
     static public void onPrepareOptionsMenu(Menu menu) {
         if (VideLibri.instance != null) {
-            menu.findItem(R.id.accounts).setEnabled(VideLibriApp.accounts.length > 0);
+          //  menu.findItem(R.id.accounts).setEnabled(VideLibriApp.accounts.length > 0);
             /*
             menu.findItem(R.id.refresh).setEnabled(!VideLibri.instance.loading);
 

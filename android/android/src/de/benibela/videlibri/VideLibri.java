@@ -129,7 +129,7 @@ public class VideLibri extends  BookListActivity{
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
         boolean x = super.onPrepareOptionsMenu(menu);    //To change body of overridden methods use File | Settings | File Templates.
-        menu.findItem(R.id.accounts).setVisible(false);
+        //menu.findItem(R.id.accounts).setVisible(false);
         return x;
     }
 
