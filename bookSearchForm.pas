@@ -151,7 +151,6 @@ begin
   bookList.OnVScrollBarChange:=@bookListVScrollBarChange;
 
   searcherAccess := nil;
-  newSearcherAccess := makeSearcherAccess;
 
   detaillist:=TTreeListView.Create(self);
   detaillist.Parent:=detailPanel;
@@ -696,6 +695,15 @@ begin
       end;
       result.searcher.addLibrary(TSearchTarget((TStringList(locations.locations.Objects[i])).Objects[j]).lib);
     end;
+
+  if first then begin
+    if TStringList(locations.locations.Objects[i]).count = 0 then exit;
+    result.newSearch( TSearchTarget((TStringList(locations.locations.Objects[i])).Objects[0]).template );
+    result.searcher.clear;
+    result.searcher.addLibrary(TSearchTarget((TStringList(locations.locations.Objects[i])).Objects[0]).lib);
+    if searchSelectionList.Count > 0 then
+      searchSelectionList.Checked[0] := true;
+  end;
 
   result.searcher.setLocation(searchLocation.Text);
   result.connectAsync;
