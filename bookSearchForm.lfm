@@ -1,11 +1,11 @@
 object bookSearchFrm: TbookSearchFrm
   Left = 308
-  Height = 578
+  Height = 584
   Top = 173
   Width = 801
   ActiveControl = optionPanel
   Caption = 'Suche in den Katalogen'
-  ClientHeight = 578
+  ClientHeight = 584
   ClientWidth = 801
   KeyPreview = True
   OnClose = FormClose
@@ -16,180 +16,60 @@ object bookSearchFrm: TbookSearchFrm
   LCLVersion = '1.1'
   object optionPanel: TPanel
     Left = 0
-    Height = 559
+    Height = 565
     Top = 0
     Width = 243
     Align = alLeft
-    ClientHeight = 559
+    ClientHeight = 565
     ClientWidth = 243
     TabOrder = 0
     OnClick = optionPanelClick
     object Label1: TLabel
-      AnchorSideTop.Control = startSearch
       AnchorSideTop.Side = asrBottom
       Left = 14
       Height = 15
-      Top = 288
+      Top = 8
       Width = 56
       Caption = 'Suche in:'
       ParentColor = False
     end
-    object Label7: TLabel
-      AnchorSideTop.Side = asrBottom
-      Left = 14
-      Height = 15
-      Top = 7
-      Width = 29
-      Caption = 'Titel'
-      Font.Style = [fsBold]
-      ParentColor = False
-      ParentFont = False
-    end
-    object Label8: TLabel
-      AnchorSideTop.Control = searchTitle
-      AnchorSideTop.Side = asrBottom
-      Left = 14
-      Height = 15
-      Top = 57
-      Width = 38
-      Caption = 'Autor'
-      Font.Style = [fsBold]
-      ParentColor = False
-      ParentFont = False
-    end
-    object Label9: TLabel
-      AnchorSideTop.Control = searchKeywords
-      AnchorSideTop.Side = asrBottom
-      Left = 14
-      Height = 15
-      Top = 157
-      Width = 32
-      Caption = 'ISBN:'
-      ParentColor = False
-    end
-    object Label10: TLabel
-      AnchorSideTop.Control = searchAuthor
-      AnchorSideTop.Side = asrBottom
-      Left = 14
-      Height = 15
-      Top = 107
-      Width = 85
-      Caption = 'Schlagwörter:'
-      ParentColor = False
-    end
-    object Label11: TLabel
-      AnchorSideTop.Control = searchISBN
-      AnchorSideTop.Side = asrBottom
-      Left = 14
-      Height = 15
-      Top = 207
-      Width = 29
-      Caption = 'Jahr:'
-      ParentColor = False
-    end
-    object searchAuthorHint: TLabel
-      AnchorSideTop.Control = Label8
-      AnchorSideTop.Side = asrCenter
-      Left = 15
-      Height = 15
-      Top = 57
-      Width = 223
-      Anchors = [akTop, akRight]
-      Caption = '"Nachname" oder "Name, Vorname"'
-      Color = 11400696
-      ParentColor = False
-      Transparent = False
-      Visible = False
-    end
-    object searchTitleHint: TLabel
-      AnchorSideTop.Control = Label7
-      AnchorSideTop.Side = asrCenter
-      Left = 7
-      Height = 15
-      Top = 7
-      Width = 231
-      Anchors = [akTop, akRight]
-      Caption = '* am Ende sucht alle mögliche Enden'
-      Color = 11400696
-      ParentColor = False
-      Transparent = False
-      Visible = False
-    end
     object searchSelectionList: TCheckListBox
       AnchorSideTop.Control = searchLocation
       AnchorSideTop.Side = asrBottom
-      AnchorSideBottom.Control = displayImage
       Left = 8
-      Height = 176
-      Top = 335
+      Height = 76
+      Top = 55
       Width = 228
-      Anchors = [akTop, akLeft, akRight, akBottom]
+      Anchors = [akTop, akLeft, akRight]
       BorderSpacing.Around = 6
       ItemHeight = 0
       OnClickCheck = searchSelectionListClickCheck
       TabOrder = 0
       TopIndex = -1
     end
-    object searchTitle: TComboBox
-      AnchorSideTop.Control = Label7
-      AnchorSideTop.Side = asrBottom
-      Left = 8
-      Height = 25
-      Top = 22
-      Width = 228
-      Anchors = [akTop, akLeft, akRight]
-      BorderSpacing.Bottom = 10
-      ItemHeight = 0
-      OnChange = searchTitleChange
-      OnEnter = searchAuthorEnter
-      OnExit = searchAuthorExit
-      TabOrder = 1
-    end
-    object searchAuthor: TComboBox
-      AnchorSideTop.Control = Label8
-      AnchorSideTop.Side = asrBottom
-      Left = 8
-      Height = 25
-      Top = 72
-      Width = 228
-      Anchors = [akTop, akLeft, akRight]
-      BorderSpacing.Bottom = 10
-      ItemHeight = 0
-      OnEnter = searchAuthorEnter
-      OnExit = searchAuthorExit
-      TabOrder = 2
-    end
-    object searchISBN: TComboBox
-      AnchorSideTop.Control = Label9
-      AnchorSideTop.Side = asrBottom
-      Left = 8
-      Height = 25
-      Top = 172
-      Width = 228
-      Anchors = [akTop, akLeft, akRight]
-      BorderSpacing.Bottom = 10
-      ItemHeight = 0
-      TabOrder = 3
-    end
     object startSearch: TButton
-      AnchorSideTop.Control = searchYear
+      AnchorSideTop.Control = ScrollBox1
       AnchorSideTop.Side = asrBottom
-      Left = 16
-      Height = 25
-      Top = 257
-      Width = 112
+      Left = 8
+      Height = 26
+      Top = 475
+      Width = 228
       BorderSpacing.Around = 6
       Caption = '&Suche starten'
       Default = True
+      Font.Height = -13
+      Font.Name = 'Sans'
+      Font.Style = [fsBold]
       OnClick = startSearchClick
-      TabOrder = 4
+      ParentFont = False
+      TabOrder = 1
     end
     object searchLocation: TComboBox
       AnchorSideTop.Control = Label1
       AnchorSideTop.Side = asrBottom
       Left = 8
       Height = 25
-      Top = 304
+      Top = 24
       Width = 228
       Anchors = [akTop, akLeft, akRight]
       BorderSpacing.Top = 1
@@ -197,69 +77,256 @@ object bookSearchFrm: TbookSearchFrm
       ItemHeight = 0
       OnSelect = searchLocationSelect
       Style = csDropDownList
-      TabOrder = 5
+      TabOrder = 2
     end
     object displayInternalProperties: TCheckBox
       Left = 8
       Height = 18
-      Top = 537
+      Top = 543
       Width = 192
       Anchors = [akLeft, akBottom]
       Caption = 'alle Eigenschaften auflisten'
       OnChange = displayInternalPropertiesChange
-      TabOrder = 6
+      TabOrder = 3
     end
     object displayImage: TCheckBox
       Left = 8
       Height = 18
-      Top = 517
+      Top = 523
       Width = 104
       Anchors = [akLeft, akBottom]
       Caption = 'Bild anzeigen'
       Checked = True
       OnChange = displayImageChange
       State = cbChecked
-      TabOrder = 7
+      TabOrder = 4
     end
-    object searchYear: TComboBox
-      AnchorSideTop.Control = Label11
+    object ScrollBox1: TScrollBox
+      AnchorSideTop.Control = searchSelectionList
       AnchorSideTop.Side = asrBottom
       Left = 8
-      Height = 25
-      Top = 222
+      Height = 332
+      Top = 137
       Width = 228
-      Anchors = [akTop, akLeft, akRight]
-      BorderSpacing.Bottom = 10
-      ItemHeight = 0
-      TabOrder = 8
-    end
-    object searchKeywords: TComboBox
-      AnchorSideTop.Control = Label10
-      AnchorSideTop.Side = asrBottom
-      Left = 8
-      Height = 25
-      Top = 122
-      Width = 227
-      Anchors = [akTop, akLeft, akRight]
-      BorderSpacing.Bottom = 10
-      ItemHeight = 0
-      TabOrder = 9
+      HorzScrollBar.Page = 224
+      HorzScrollBar.Range = 188
+      VertScrollBar.Page = 332
+      VertScrollBar.Range = 400
+      Anchors = [akTop, akLeft, akRight, akBottom]
+      AutoScroll = False
+      ClientHeight = 328
+      ClientWidth = 209
+      TabOrder = 5
+      object Label7: TLabel
+        AnchorSideTop.Side = asrBottom
+        Left = 17
+        Height = 15
+        Top = 6
+        Width = 29
+        Caption = 'Titel'
+        Font.Style = [fsBold]
+        ParentColor = False
+        ParentFont = False
+      end
+      object searchTitle: TComboBox
+        AnchorSideTop.Control = Label7
+        AnchorSideTop.Side = asrBottom
+        Left = 6
+        Height = 25
+        Top = 21
+        Width = 196
+        Anchors = [akTop, akLeft, akRight]
+        BorderSpacing.Bottom = 10
+        ItemHeight = 0
+        OnChange = searchTitleChange
+        OnEnter = searchAuthorEnter
+        OnExit = searchAuthorExit
+        TabOrder = 0
+      end
+      object Label8: TLabel
+        AnchorSideTop.Control = searchTitle
+        AnchorSideTop.Side = asrBottom
+        Left = 14
+        Height = 15
+        Top = 56
+        Width = 38
+        Caption = 'Autor'
+        Font.Style = [fsBold]
+        ParentColor = False
+        ParentFont = False
+      end
+      object searchAuthor: TComboBox
+        AnchorSideTop.Control = Label8
+        AnchorSideTop.Side = asrBottom
+        Left = 6
+        Height = 25
+        Top = 71
+        Width = 196
+        Anchors = [akTop, akLeft, akRight]
+        BorderSpacing.Bottom = 10
+        ItemHeight = 0
+        OnEnter = searchAuthorEnter
+        OnExit = searchAuthorExit
+        TabOrder = 1
+      end
+      object Label10: TLabel
+        AnchorSideTop.Control = searchAuthor
+        AnchorSideTop.Side = asrBottom
+        Left = 14
+        Height = 15
+        Top = 106
+        Width = 85
+        Caption = 'Schlagwörter:'
+        ParentColor = False
+      end
+      object searchKeywords: TComboBox
+        AnchorSideTop.Control = Label10
+        AnchorSideTop.Side = asrBottom
+        Left = 6
+        Height = 25
+        Top = 121
+        Width = 194
+        Anchors = [akTop, akLeft, akRight]
+        BorderSpacing.Bottom = 10
+        ItemHeight = 0
+        TabOrder = 2
+      end
+      object Label9: TLabel
+        AnchorSideTop.Control = searchKeywords
+        AnchorSideTop.Side = asrBottom
+        Left = 14
+        Height = 15
+        Top = 156
+        Width = 32
+        Caption = 'ISBN:'
+        ParentColor = False
+      end
+      object searchISBN: TComboBox
+        AnchorSideTop.Control = Label9
+        AnchorSideTop.Side = asrBottom
+        Left = 6
+        Height = 25
+        Top = 171
+        Width = 196
+        Anchors = [akTop, akLeft, akRight]
+        BorderSpacing.Bottom = 10
+        ItemHeight = 0
+        TabOrder = 3
+      end
+      object Label11: TLabel
+        AnchorSideTop.Control = searchISBN
+        AnchorSideTop.Side = asrBottom
+        Left = 14
+        Height = 15
+        Top = 206
+        Width = 29
+        Caption = 'Jahr:'
+        ParentColor = False
+      end
+      object searchYear: TComboBox
+        AnchorSideTop.Control = Label11
+        AnchorSideTop.Side = asrBottom
+        Left = 6
+        Height = 25
+        Top = 221
+        Width = 196
+        Anchors = [akTop, akLeft, akRight]
+        BorderSpacing.Bottom = 10
+        ItemHeight = 0
+        TabOrder = 4
+      end
+      object searchBranchLabel: TLabel
+        AnchorSideTop.Control = searchYear
+        AnchorSideTop.Side = asrBottom
+        AnchorSideBottom.Control = searchBranch
+        Left = 14
+        Height = 15
+        Top = 256
+        Width = 173
+        Caption = 'Zweigstelle (für Suchfilter): '
+        ParentColor = False
+      end
+      object searchBranch: TComboBox
+        AnchorSideTop.Control = searchBranchLabel
+        AnchorSideTop.Side = asrBottom
+        AnchorSideBottom.Control = homeBranchLabel
+        Left = 6
+        Height = 25
+        Top = 271
+        Width = 196
+        Anchors = [akTop, akLeft, akRight]
+        BorderSpacing.Bottom = 10
+        ItemHeight = 0
+        Style = csDropDownList
+        TabOrder = 5
+      end
+      object homeBranchLabel: TLabel
+        AnchorSideTop.Control = searchBranch
+        AnchorSideTop.Side = asrBottom
+        AnchorSideBottom.Control = homeBranch
+        Left = 14
+        Height = 15
+        Top = 306
+        Width = 188
+        Caption = 'Zweigstelle (für Bestellungen):'
+        ParentColor = False
+      end
+      object homeBranch: TComboBox
+        AnchorSideTop.Control = homeBranchLabel
+        AnchorSideTop.Side = asrBottom
+        Left = 6
+        Height = 25
+        Top = 321
+        Width = 196
+        Anchors = [akTop, akLeft, akRight]
+        ItemHeight = 0
+        Style = csDropDownList
+        TabOrder = 6
+      end
+      object searchAuthorHint: TLabel
+        AnchorSideTop.Control = Label8
+        AnchorSideTop.Side = asrCenter
+        Left = 6
+        Height = 15
+        Top = 56
+        Width = 223
+        Anchors = [akTop, akRight]
+        Caption = '"Nachname" oder "Name, Vorname"'
+        Color = 11400696
+        ParentColor = False
+        Transparent = False
+        Visible = False
+      end
+      object searchTitleHint: TLabel
+        AnchorSideTop.Control = Label7
+        AnchorSideTop.Side = asrCenter
+        Left = 6
+        Height = 15
+        Top = 6
+        Width = 231
+        Anchors = [akTop, akRight]
+        Caption = '* am Ende sucht alle mögliche Enden'
+        Color = 11400696
+        ParentColor = False
+        Transparent = False
+        Visible = False
+      end
     end
   end
   object bookListPanel: TPanel
     Left = 248
-    Height = 559
+    Height = 565
     Top = 0
     Width = 553
     Align = alClient
-    ClientHeight = 559
+    ClientHeight = 565
     ClientWidth = 553
     TabOrder = 1
     object Splitter2: TSplitter
       Cursor = crVSplit
       Left = 1
       Height = 5
-      Top = 310
+      Top = 316
       Width = 551
       Align = alBottom
       Beveled = True
@@ -268,7 +335,7 @@ object bookSearchFrm: TbookSearchFrm
     object detailPanel: TPanel
       Left = 1
       Height = 209
-      Top = 315
+      Top = 321
       Width = 551
       Align = alBottom
       BevelOuter = bvNone
@@ -296,7 +363,7 @@ object bookSearchFrm: TbookSearchFrm
     object Panel1: TPanel
       Left = 1
       Height = 34
-      Top = 524
+      Top = 530
       Width = 551
       Align = alBottom
       ChildSizing.EnlargeHorizontal = crsHomogenousChildResize
@@ -439,7 +506,7 @@ object bookSearchFrm: TbookSearchFrm
   end
   object Splitter1: TSplitter
     Left = 243
-    Height = 559
+    Height = 565
     Top = 0
     Width = 5
     Beveled = True
@@ -447,7 +514,7 @@ object bookSearchFrm: TbookSearchFrm
   object StatusBar1: TStatusBar
     Left = 0
     Height = 19
-    Top = 559
+    Top = 565
     Width = 801
     Panels = <    
       item

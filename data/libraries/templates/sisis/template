@@ -98,7 +98,9 @@
          x"searchCategories%5B0%5D={$searchOptions[1](1)}&searchString%5B0%5D={$searchOptions[1](2)}&",
          if (count($searchOptions) > 1) then x"combinationOperator%5B1%5D=AND&searchCategories%5B1%5D={$searchOptions[2](1)}&searchString%5B1%5D={$searchOptions[2](2)}&" else "",
          if (count($searchOptions) > 2) then x"combinationOperator%5B2%5D=AND&searchCategories%5B2%5D={$searchOptions[3](1)}&searchString%5B2%5D={$searchOptions[3](2)}&" else "",
-         "submitSearch=Suchen&callingPage=searchParameters"
+         "submitSearch=Suchen&callingPage=searchParameters",
+         if (exists(get("home-branches", ())[get("home-branch-id", 0)])) then x"&selectedViewBranchlib={uri-encode($home-branch-values[$home-branch-id])}" else "",
+         if (exists(get("search-branches", ())[get("search-branch-id", 0)])) then x"&selectedSearchBranchlib={uri-encode($search-branch-values[$search-branch-id])}" else ""
   )
   </variable>
 

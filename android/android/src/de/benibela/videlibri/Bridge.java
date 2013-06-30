@@ -167,7 +167,8 @@ public class Bridge {
 
     static public native String[] VLGetNotifications();
 
-    static public native void VLSearchStart(SearcherAccess searcher, Book query);
+    static public native void VLSearchConnect(SearcherAccess searcher, String libId);
+    static public native void VLSearchStart(SearcherAccess searcher, Book query, int homeBranch, int searchBranch);
     static public native void VLSearchNextPage(SearcherAccess searcher);
     static public native void VLSearchDetails(SearcherAccess searcher, Book book);
     static public native void VLSearchOrder(SearcherAccess searcher, Book[] book);
@@ -185,14 +186,26 @@ public class Bridge {
     //All events are called in the same thread ()
     public static class SearcherAccess implements SearchResultDisplay{
         long nativePtr;
-        final SearchResultDisplay display;
+
+        final String libId;
+        SearchConnector connector;
+        SearchResultDisplay display;
 
         int totalResultCount;
         boolean nextPageAvailable;
+        String[] homeBranches, searchBranches;
 
-        SearcherAccess(SearchResultDisplay display, Book query){
+        SearcherAccess(SearchConnector connector, String libId){
+            this.connector = connector;
+            this.libId = libId;
+            this.display = null;
+            VLSearchConnect(this, libId);
+        }
+        public void setDisplay(SearchResultDisplay display){
             this.display = display;
-            VLSearchStart(this, query);
+        }
+        public void start(Book query, int homeBranch, int searchBranch){
+            VLSearchStart(this, query, homeBranch, searchBranch);
         }
         public void nextPage(){
             VLSearchNextPage(this);
@@ -207,25 +220,31 @@ public class Bridge {
             VLSearchOrderConfirmed(this, new Book[]{book});
         }
         public void free(){
+            display = null;
+            connector = null;
             VLSearchEnd(this);
         }
 
-        public void onSearchFirstPageComplete(Book[] books) { display.onSearchFirstPageComplete(books); }
-        public void onSearchNextPageComplete(Book[] books) { display.onSearchNextPageComplete(books); }
-        public void onSearchDetailsComplete(Book book) { display.onSearchDetailsComplete(book); }
-        public void onOrderComplete(Book book) { display.onOrderComplete(book); }
-        public void onOrderConfirm(Book book) { display.onOrderConfirm(book); }
-        public void onException() { display.onException(); }
+        public void onConnected(String[] homeBranches, String[] searchBranches){ if (connector != null) connector.onConnected(homeBranches, searchBranches); }
+        public void onSearchFirstPageComplete(Book[] books) { if (display != null) display.onSearchFirstPageComplete(books); }
+        public void onSearchNextPageComplete(Book[] books) { if (display != null) display.onSearchNextPageComplete(books); }
+        public void onSearchDetailsComplete(Book book) { if (display != null) display.onSearchDetailsComplete(book); }
+        public void onOrderComplete(Book book) { if (display != null) display.onOrderComplete(book); }
+        public void onOrderConfirm(Book book) { if (display != null) display.onOrderConfirm(book); }
+        public void onException() { if (display != null) display.onException(); else if (connector != null) connector.onException();}
     }
 
+    public static interface SearchConnector{
+        void onConnected(String[] homeBranches, String[] searchBranches);
+        void onException();
+    }
 
-    public static interface SearchResultDisplay{
+    public static interface SearchResultDisplay extends SearchConnector{
         void onSearchFirstPageComplete(Book[] books);
         void onSearchNextPageComplete(Book[] books);
         void onSearchDetailsComplete(Book book);
         void onOrderComplete(Book book);
         void onOrderConfirm(Book book);
-        void onException();
     }
 
     static class Library{

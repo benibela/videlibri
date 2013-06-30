@@ -6,6 +6,8 @@
   <input type="hidden" name="CSId">
      <template:read source="@value" var="CSId"/>
   </input>
+  <select id="selectedViewBranchlib">{home-branches := option, home-branch-values := option/@value}</select>?
+  <select id="selectedSearchBranchlib">{search-branches := option, search-branch-values := option/@value}</select>?
 </body>
 </html>
   

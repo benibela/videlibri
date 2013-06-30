@@ -15,10 +15,13 @@ public class SearchResult extends BookListActivity implements Bridge.SearchResul
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Bridge.Book book = (Bridge.Book) getIntent().getSerializableExtra("searchQuery");
-        libId = book.account.libId;
         if (book == null) { Log.i("VideLibri", "search without book. Abort."); finish(); return; }
 
-        searcher = new Bridge.SearcherAccess(this, book);
+        searcher = Search.searcherStatic;
+        Search.searcherStatic = null;
+        libId = searcher.libId;
+        searcher.setDisplay(this);
+        searcher.start(book, getIntent().getIntExtra("homeBranch", -1), getIntent().getIntExtra("searchBranch", -1));
         waitingForDetails = -1;
         nextDetailsRequested = -1;
         setLoading(true);
@@ -34,10 +37,7 @@ public class SearchResult extends BookListActivity implements Bridge.SearchResul
 
     @Override
     protected void onDestroy() {
-        if (searcher != null) {
-            searcher.free();
-            searcher = null;
-        }
+        searcher.setDisplay(null);
         super.onDestroy();
     }
 
@@ -266,5 +266,10 @@ public class SearchResult extends BookListActivity implements Bridge.SearchResul
 
 
         }
+    }
+
+    @Override
+    public void onConnected(String[] homeBranches, String[] searchBranches) {
+
     }
 }

@@ -38,9 +38,9 @@ private
   notifyEvent: TNotifyEvent;
   bookNotifyEvent: TBookNotifyEvent;
   pageCompleteEvent: TPageCompleteNotifyEvent;
+  connectedEvent: TNotifyEvent;
   changedBook: tbook;
   firstPageForSync, nextPageAvailableForSync: boolean;
-
 
   performingAction: boolean;
 
@@ -49,6 +49,7 @@ private
   procedure callNotifyEventSynchronized;
   procedure callBookEventSynchronized;
   procedure callPageCompleteEventSynchronized;
+
   procedure callNotifyEvent(event: TNotifyEvent);
   procedure callBookEvent(event: TBookNotifyEvent; book: tbook);
   procedure callPageCompleteEvent(event: TPageCompleteNotifyEvent; firstPage, nextPageAvailable: boolean);
@@ -85,6 +86,7 @@ public
 
 
   procedure newSearch(template: TMultiPageTemplate); //ensures that all operations are finished
+  procedure prepareNewSearchWithoutDisconnect; //ensures that all operations are finished, without changing the connection state
 
   procedure connectAsync;
   procedure searchAsync;
@@ -257,6 +259,20 @@ begin
   end;
 end;
 
+procedure TLibrarySearcherAccess.prepareNewSearchWithoutDisconnect;
+var
+  list: TFPList;
+  i: Integer;
+begin
+  list:=fthread.messages.openDirectMessageAccess;
+  for i:=list.Count-1 downto 0 do
+    if not (TSearcherMessage(list[i]).typ in [smtFree, smtConnect, smtDisconnect]) then
+      list.Delete(i);
+  fthread.messages.closeDirectMessageAccess(list);
+
+  while operationActive do sleep(50);
+end;
+
 procedure TLibrarySearcherAccess.connectAsync;
 begin
   if not assigned(fthread) then exit;
@@ -326,14 +342,18 @@ end;
 procedure TSearcherThread.callNotifyEventSynchronized;
 begin
   if self<>access.fthread then exit;
-  notifyEvent(self);
+  try
+    notifyEvent(access);
+  finally
+    notifyEvent:=nil;
+  end;
 end;
 
 procedure TSearcherThread.callBookEventSynchronized;
 begin
   if self<>access.fthread then exit;
   try
-    bookNotifyEvent(self,changedBook);
+    bookNotifyEvent(access,changedBook);
   finally
     changedBook := nil;
   end;
@@ -344,15 +364,17 @@ begin
   if self<>access.fthread then exit;
   if pageCompleteEvent = nil then exit;
   try
-    pageCompleteEvent(self, firstPageForSync, nextPageAvailableForSync);
+    pageCompleteEvent(access, firstPageForSync, nextPageAvailableForSync);
   finally
     pageCompleteEvent:=nil;
   end;
 end;
 
+
 procedure TSearcherThread.callNotifyEvent(event: TNotifyEvent);
 begin
   if event=nil then exit;
+  while notifyEvent<>nil do sleep(5);
   notifyEvent:=event;
   desktopSynchronized(@callNotifyEventSynchronized);
 end;
@@ -378,6 +400,7 @@ begin
   desktopSynchronized(@callPageCompleteEventSynchronized);
 end;
 
+
 procedure TSearcherThread.execute;
 var mes: TSearcherMessage;
     image:string;
@@ -396,7 +419,7 @@ begin
       if mes.typ=smtFree then begin
         if logging then log('Searcher thread: message typ smtFree');
         mes.free;
-        exit;
+        break;
       end;
       performingAction:=true;
       book:=mes.book;
@@ -409,7 +432,9 @@ begin
       case mes.typ of
         smtConnect: begin
           if logging then log('Searcher thread: message typ smtConnect');
+          access.beginResultReading;
           searcher.connect;
+          access.endResultReading;
           callNotifyEvent(access.FOnConnected);
         end;
         smtSearch: begin
@@ -483,6 +508,7 @@ begin
       end;
     end;
   end;
+  performingAction:=false;
 end;
 
 constructor TSearcherThread.create(template: TMultiPageTemplate; aaccess: TLibrarySearcherAccess);

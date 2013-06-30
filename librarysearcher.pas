@@ -5,7 +5,7 @@ unit librarySearcher;
 interface
 
 uses
-  Classes, SysUtils, booklistreader, libraryParser, multipagetemplate;
+  Classes, SysUtils, booklistreader, libraryParser, multipagetemplate, xquery, bbutils;
 
 type
 TBookSearchOptions = class(TBook);
@@ -14,6 +14,10 @@ TBookSearchOptions = class(TBook);
 
 TLibrarySearcher = class
 private
+  fhomeBranch: integer;
+  fhomeBranches: TStringArray;
+  fsearchBranch: integer;
+  fsearchBranches: TStringArray;
   flibsToSearch: TList;
   fsearchBook: TBookSearchOptions;
   FSearchNextPageAvailable: boolean;
@@ -22,6 +26,8 @@ private
   template: TMultiPageTemplate;
   flocation:string;
   function GetSearchNextPageAvailable: boolean;
+  procedure setHomeBranch(AValue: Integer);
+  procedure setSearchBranch(AValue: Integer);
 public
   bookListReader:TBookListReader;
 
@@ -42,6 +48,11 @@ public
   procedure disconnect;
 
   property Location: string read flocation write setLocation;
+  property HomeBranch: Integer read fhomebranch write setHomeBranch;
+  property SearchBranch: Integer read fsearchBranch write setSearchBranch;
+
+  property HomeBranches: TStringArray read fhomeBranches;
+  property SearchBranches: TStringArray read fsearchBranches;
 
   property SearchOptions: TBookSearchOptions read fsearchBook;
   property SearchResult: TBookList read fsearchResult;
@@ -57,6 +68,20 @@ uses internetAccess;
 function TLibrarySearcher.GetSearchNextPageAvailable: boolean;
 begin
   result := bookListReader.parser.variableChangeLog.get('search-next-page-available').toBooleanEffective;
+end;
+
+procedure TLibrarySearcher.setHomeBranch(AValue: integer);
+begin
+  if fhomeBranch=AValue then Exit;
+  fhomeBranch:=AValue;
+  bookListReader.parser.variableChangeLog.add('home-branch-id', AValue);
+end;
+
+procedure TLibrarySearcher.setSearchBranch(AValue: integer);
+begin
+  if fsearchBranch=AValue then Exit;
+  fsearchBranch:=AValue;
+  bookListReader.parser.variableChangeLog.add('search-branch-id', AValue);
 end;
 
 constructor TLibrarySearcher.create(searchTemplate: TMultiPageTemplate);
@@ -123,14 +148,35 @@ var selectedLibraries: string;
   i: Integer;
   j: Integer;
   connectAction: TTemplateAction;
+  temp: IXQValue;
 begin
   selectedLibraries:='';
   for i:=0 to flibsToSearch.count-1 do
     selectedLibraries+=TLibrary(flibsToSearch[i]).variables.values['searchid-'+template.Name]+template.findVariableValue('after-id');
   bookListReader.parser.variableChangeLog.ValuesString['selectedLibraries']:=selectedLibraries;
 
+  SetLength(fhomebranches, 0);
+  SetLength(fsearchBranches, 0);
   connectAction := bookListReader.findAction('search-connect');
-  if connectAction <> nil then bookListReader.callAction(connectAction)
+  if connectAction <> nil then begin
+    bookListReader.callAction(connectAction);
+
+    temp := bookListReader.parser.variableChangeLog.get('home-branches');
+    if temp.getSequenceCount > 0 then begin
+      SetLength(fhomebranches, temp.getSequenceCount+1);
+      fhomebranches[0] := '(Standard)';
+      for i:=1 to temp.getSequenceCount do
+        fhomebranches[i] := temp.getChild(i).toString;
+    end;
+
+    temp := bookListReader.parser.variableChangeLog.get('search-branches');
+    if temp.getSequenceCount > 0 then begin
+      SetLength(fsearchBranches, temp.getSequenceCount+1);
+      fsearchBranches[0] := '(Standard)';
+      for i:=1 to temp.getSequenceCount do
+        fsearchBranches[i] := temp.getChild(i).toString;
+    end;
+  end;
 end;
 
 procedure TLibrarySearcher.search;

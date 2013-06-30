@@ -16,13 +16,13 @@
             <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Bücherei"
+                    android:text="Bibliothek"
                     android:id="@+id/textView4" android:layout_gravity="left|center_vertical" android:textStyle="bold"
                     android:padding="3sp"/>
             <TextView
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
-                    android:text="Bitte wählen Sie eine Bücherei aus"
+                    android:text="Bitte wählen Sie eine Bibliothek aus"
                     android:id="@+id/library" android:paddingLeft="30sp" android:clickable="true"/>
             <TextView
                     android:layout_width="fill_parent"
@@ -69,6 +69,34 @@
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:id="@+id/year" android:singleLine="true"/>
+            <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent" android:id="@+id/searchBranchLayout">
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Zweigstelle (für Suchfilter)"
+                        android:id="@+id/textView5"/>
+                <Spinner
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/searchBranch"/>
+            </LinearLayout>
+            <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent" android:id="@+id/homeBranchLayout">
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Zweigstelle (für Bestellungsfilter)"
+                        android:id="@+id/textView6"/>
+                <Spinner
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/homeBranch"/>
+            </LinearLayout>
         </LinearLayout>
     </ScrollView>
     <Button

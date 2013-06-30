@@ -14,21 +14,29 @@ type
   { TbookSearchFrm }
 
   TbookSearchFrm = class(TForm)
+    searchAuthorHint: TLabel;
+    searchTitleHint: TLabel;
+    searchBranch: TComboBox;
+    homeBranch: TComboBox;
     Label10: TLabel;
     Label11: TLabel;
     Label12: TLabel;
     Label2xx: TLabel;
+    searchBranchLabel: TLabel;
+    homeBranchLabel: TLabel;
+    Label7: TLabel;
+    Label8: TLabel;
+    Label9: TLabel;
     LabelOrder: TLabel;
     LabelOrderFor: TLabel;
     LabelSaveTo: TLabel;
     saveToAccountMenu: TPopupMenu;
     orderForAccountMenu: TPopupMenu;
-    searchAuthorHint: TLabel;
-    Label7: TLabel;
-    Label8: TLabel;
-    Label9: TLabel;
+    ScrollBox1: TScrollBox;
+    searchAuthor: TComboBox;
+    searchISBN: TComboBox;
     searchKeywords: TComboBox;
-    searchTitleHint: TLabel;
+    searchTitle: TComboBox;
     searchYear: TComboBox;
     startSearch: TButton;
     displayImage: TCheckBox;
@@ -42,9 +50,6 @@ type
     linkLabelGoogle: TLabel;
     Panel1: TPanel;
     searchLocation: TComboBox;
-    searchTitle: TComboBox;
-    searchAuthor: TComboBox;
-    searchISBN: TComboBox;
     searchSelectionList: TCheckListBox;
     Label1: TLabel;
     optionPanel: TPanel;
@@ -55,6 +60,7 @@ type
     StatusBar1: TStatusBar;
     procedure bookListSelect(sender: TObject; item: TTreeListItem);
     procedure bookListVScrollBarChange(Sender: TObject);
+    procedure searcherAccessConnected(Sender: TObject);
     procedure displayImageChange(Sender: TObject);
     procedure FormClose(Sender: TObject; var CloseAction: TCloseAction);
     procedure FormDeactivate(Sender: TObject);
@@ -86,11 +92,13 @@ type
     { private declarations }
     locations: TSearchableLocations;
     selectedLibrariesPerLocation: TStringList;
+    function makeSearcherAccess: TLibrarySearcherAccess;
   public
     { public declarations }
     bookList: TBookListView;
     detaillist: TTreeListView;
     searcherAccess: TLibrarySearcherAccess;
+    newSearcherAccess: TLibrarySearcherAccess;
     nextPageAvailable: boolean;
     displayedBook: TBook;
     researchedBook: TBook;
@@ -142,15 +150,9 @@ begin
   booklist.OnSelect:=@bookListSelect;
   bookList.OnVScrollBarChange:=@bookListVScrollBarChange;
 
+  searcherAccess := nil;
+  newSearcherAccess := makeSearcherAccess;
 
-  searcherAccess:=TLibrarySearcherAccess.Create;
-  searcherAccess.OnSearchPageComplete:=@searcherAccessSearchComplete;
-  searcherAccess.OnDetailsComplete:=@searcherAccessDetailsComplete;
-  searcherAccess.OnOrderComplete:=@searcherAccessOrderComplete;
-  searcherAccess.OnOrderConfirm:=@searcherAccessOrderConfirm;
-  searcherAccess.OnImageComplete:=@searcherAccessImageComplete;
-  searcherAccess.OnException:=@searcherAccessException;
-  
   detaillist:=TTreeListView.Create(self);
   detaillist.Parent:=detailPanel;
   detaillist.align:=alClient;
@@ -187,19 +189,25 @@ begin
   displayedBook:=nil;
   nextPageAvailable:=false;
 
+  if newSearcherAccess <> nil then begin
+    if (searcherAccess <> nil) then begin
+      searcherAccess.free;;
+    end;
+    searcherAccess := newSearcherAccess;
+    newSearcherAccess := nil;
+  end;
+
   i := locations.locations.IndexOf(searchLocation.Text);
   if i = -1 then begin i := 0; if locations.locations.Count = 0 then raise exception.Create('No search templates'); end;
 
-  first := true;
-  for j := 0 to searchSelectionList.Items.count - 1 do
-    if searchSelectionList.Checked[j] then begin
-      if first then begin
-        searcherAccess.newSearch( TSearchTarget((TStringList(locations.locations.Objects[i])).Objects[j]).template );
-        searcherAccess.searcher.clear;
-        first := false;
-      end;
-      searcherAccess.searcher.addLibrary(TSearchTarget((TStringList(locations.locations.Objects[i])).Objects[j]).lib);
-    end;
+  screen.Cursor:=crHourGlass;
+
+  StatusBar1.Panels[SB_PANEL_SEARCH_STATUS].Text:='Warte...';
+
+  searcherAccess.prepareNewSearchWithoutDisconnect;
+
+  if homeBranch.ItemIndex >= 0 then searcherAccess.searcher.HomeBranch:=homeBranch.ItemIndex;
+  if searchBranch.ItemIndex >= 0 then searcherAccess.searcher.SearchBranch:=searchBranch.ItemIndex;
 
   searcherAccess.searcher.SearchOptions.author:=searchAuthor.Text;
   searcherAccess.searcher.SearchOptions.title:=searchTitle.Text;
@@ -207,12 +215,10 @@ begin
   searcherAccess.searcher.SearchOptions.isbn:=searchISBN.Text;
   setProperty('keywords', searchKeywords.Text, searcherAccess.searcher.SearchOptions.additional);
 
-  searcherAccess.searcher.setLocation(searchLocation.Text);
-  searcherAccess.connectAsync;
+
   searcherAccess.searchAsync;
 
   StatusBar1.Panels[SB_PANEL_SEARCH_STATUS].Text:='Suche Medien...';
-  screen.Cursor:=crHourGlass;
 
   addCbHistory(searchAuthor);
   addCbHistory(searchTitle );
@@ -239,6 +245,7 @@ var book: tbook;
 
 begin
   if item=nil then exit;
+  if searcherAccess = nil then exit;
   book:=tbook(item.data.obj);
 
   if displayDetails() < 1 then begin
@@ -256,11 +263,32 @@ procedure TbookSearchFrm.bookListVScrollBarChange(Sender: TObject);
 begin
   if nextPageAvailable
      and (bookList.VisibleRowCount > bookList.Items.Count - bookList.TopItemVisualIndex)
+     and (searcherAccess<>nil)
      then begin
     nextPageAvailable := false;
     searcherAccess.searchNextAsync;
     StatusBar1.Panels[SB_PANEL_SEARCH_STATUS].Text:='Lade nächste Seite...';
   end;
+end;
+
+procedure TbookSearchFrm.searcherAccessConnected(Sender: TObject);
+  procedure update(cb: TComboBox; sa: TStringArray; l: TLabel);
+  var
+    i: Integer;
+  begin
+    l.Visible:=length(sa) > 0;
+    cb.Visible:=length(sa) > 0;
+    cb.Clear;
+    if length(sa) = 0 then exit;
+    for i := 0 to high(sa) do
+      cb.Items.Add(sa[i]);
+    if cb.ItemIndex < 0 then cb.ItemIndex:=0;
+  end;
+
+begin
+  if sender <> newSearcherAccess then exit;
+  update(homeBranch, newSearcherAccess.searcher.HomeBranches, homeBranchLabel);
+  update(searchBranch, newSearcherAccess.searcher.SearchBranches, searchBranchLabel);
 end;
 
 procedure TbookSearchFrm.displayImageChange(Sender: TObject);
@@ -349,7 +377,7 @@ var
   v: String;
   s: String;
 begin
-  if displayedBook = nil then exit;
+  if (displayedBook = nil) or (searcherAccess = nil) then exit;
   if accounts.Count = 0 then exit;
 
   acc := accounts[0];
@@ -420,6 +448,7 @@ var
   acc: TCustomAccountAccess;
   temp: TBook;
 begin
+  if sender <> searcherAccess then exit;
   //see androidutils/bookSearchForm
   searcherAccess.beginBookReading;
   EnterCriticalSection(updateThreadConfig.libraryAccessSection);
@@ -446,6 +475,8 @@ var
   i: Integer;
   v: string;
 begin
+  if sender <> searcherAccess then exit;
+
   searcherAccess.beginBookReading;
   question := book.getPropertyAdditional('orderConfirmation');
   orderConfirmationOptionTitles := book.getPropertyAdditional('orderConfirmationOptionTitles');
@@ -473,6 +504,8 @@ end;
 
 procedure TbookSearchFrm.searcherAccessSearchComplete(sender: TObject; firstPage, nextPageAvailable: boolean);
 begin
+  if sender <> searcherAccess then exit;
+
   bookList.BeginUpdate;
   if firstPage then bookList.items.Clear;
   self.nextPageAvailable := nextPageAvailable;;
@@ -509,8 +542,8 @@ var
 begin
   bookList.free;
   detaillist.free;
-  searcherAccess.disconnectAsync;
   searcherAccess.free;
+  newSearcherAccess.free;
   for i:=0 to locations.searchTemplates.Count - 1 do
     locations.searchTemplates.Objects[i].Free;
   locations.searchTemplates.free;
@@ -562,6 +595,7 @@ end;
 procedure TbookSearchFrm.searcherAccessDetailsComplete(sender: TObject;
   book: TBook);
 begin
+  if sender <> searcherAccess then exit;
   if (displayDetails() < 2) and (displayImage.Checked) then begin
     searcherAccess.imageAsyncSave(displayedBook);
     StatusBar1.Panels[SB_PANEL_SEARCH_STATUS].Text:='Suche Titelbild...';
@@ -573,12 +607,14 @@ end;
 
 procedure TbookSearchFrm.searcherAccessException(Sender: TObject);
 begin
+  if (sender <> searcherAccess) and (sender <> newSearcherAccess) then exit;
   mainForm.delayedCall.Enabled:=true;
 end;
 
 procedure TbookSearchFrm.searcherAccessImageComplete(sender: TObject;
   book: TBook);
 begin
+  if sender <> searcherAccess then exit;
   displayDetails();
   StatusBar1.Panels[SB_PANEL_SEARCH_STATUS].Text:='';
   screen.Cursor:=crDefault;
@@ -596,6 +632,8 @@ begin
   for i:=1 to min(length(selectedLibrariesPerLocation.Values[searchLocation.Text]),
                   searchSelectionList.Items.count) do
     searchSelectionList.Checked[i-1]:=selectedLibrariesPerLocation.Values[searchLocation.Text][i]='+';
+
+  newSearcherAccess := makeSearcherAccess;
 end;
 
 procedure TbookSearchFrm.searchSelectionListClickCheck(Sender: TObject);
@@ -624,6 +662,43 @@ begin
   end;
 
   selectedLibrariesPerLocation.Values[searchLocation.Text]:=s;
+
+
+  newSearcherAccess := makeSearcherAccess;
+end;
+
+function TbookSearchFrm.makeSearcherAccess: TLibrarySearcherAccess;
+var
+  first: Boolean;
+  j: Integer;
+  i: Integer;
+begin
+  result:=TLibrarySearcherAccess.Create;
+  result.OnSearchPageComplete:=@searcherAccessSearchComplete;
+  result.OnDetailsComplete:=@searcherAccessDetailsComplete;
+  result.OnOrderComplete:=@searcherAccessOrderComplete;
+  result.OnOrderConfirm:=@searcherAccessOrderConfirm;
+  result.OnImageComplete:=@searcherAccessImageComplete;
+  result.OnException:=@searcherAccessException;
+  result.OnConnected:=@searcherAccessConnected;
+  newSearcherAccess := result;
+
+  i := locations.locations.IndexOf(searchLocation.Text);
+  if i = -1 then exit;
+
+  first := true;
+  for j := 0 to searchSelectionList.Items.count - 1 do
+    if searchSelectionList.Checked[j] then begin
+      if first then begin
+        result.newSearch( TSearchTarget((TStringList(locations.locations.Objects[i])).Objects[j]).template );
+        result.searcher.clear;
+        first := false;
+      end;
+      result.searcher.addLibrary(TSearchTarget((TStringList(locations.locations.Objects[i])).Objects[j]).lib);
+    end;
+
+  result.searcher.setLocation(searchLocation.Text);
+  result.connectAsync;
 end;
 
 function TbookSearchFrm.displayDetails(book: TBook): longint;
@@ -656,7 +731,7 @@ begin
   if book=nil then
     if bookList.Selected=nil then book:=displayedBook
     else book:=tbook(bookList.Selected.data.obj);
-  if book=nil then exit;
+  if (book=nil) or (searcherAccess = nil) then exit;
   intern:=nil;
   empty:=nil;
   normal:=nil;
@@ -721,6 +796,7 @@ end;
 
 function TbookSearchFrm.cloneDisplayedBook: TBook;
 begin
+  if searcherAccess = nil then exit;
   searcherAccess.beginBookReading;
   result := displayedBook.clone;
   searcherAccess.endBookReading;
