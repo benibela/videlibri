@@ -1,64 +1,83 @@
   <DIV class="aDISMaske"><!-- this page shows the books, but not if they are renewable. need to click on a button for that -->
   <FORM>
-      
+  {form := .}
   
-  
-  <a title="Benutzerkonto Übersicht">{goBackPage:=@href}</a>
-  
+ 
   <t:switch>
     <span class="txtinsert">Benutzerkonto Ausleihen<t:s>mode:="lend"</t:s></span>
     <span class="txtinsert">Benutzerkonto Bestellwünsche<t:s>mode:="ordered"</t:s></span>
     <span class="txtinsert">Benutzerkonto Vormerkungen<t:s>mode:="requested"</t:s></span>
+    <span class="txtinsert">Benutzerkonto: Übersicht<t:s>invertedOrder := true()</t:s></span>
   </t:switch>
+
+
+
+  <t:switch-prioritized>
+    <input title="Zurück zur vorherigen Seite">{backButtonName := uri-encode(@name)}</input>
+    <input t:condition="contains(@title, 'zur vorherigen Seite')">{backButtonName := uri-encode(@name)}</input>
+  </t:switch-prioritized> 
+   
+   
+  <DIV class="fsgrp">
+    
+    <t:if test="get('invertedOrder', false())"><t:switch>
+      <h2>Konto - Ausleihen<t:s>mode:="lend"</t:s></h2>
+      <h2>Konto - Bestellwünsche<t:s>mode:="ordered"</t:s></h2>
+      <h2>Konto - Vormerkungen<t:s>mode:="requested"</t:s></h2>
+    </t:switch></t:if>
   
-  <t:if test="$mode = 'lend'">{
-    extendFormPost := form(., jn:object((.//input[@type = "submit" and contains(@value, "arkierte") and contains(@value, "ngern")])[1]/{string(@name): @value})),
-    extendFormPost.post := replace($extendFormPost.post, "[a-zA-Z0-9]+=on&", "")
-  }</t:if>
-  <t:if test="$mode = ('ordered', 'requested')">{
-    cancelFormPost := form(., jn:object((.//input[@type = "submit" and contains(@value, "arkierte") and contains(@value, "schen")])[1]/{string(@name): @value})),
-    cancelFormPost.post := replace($cancelFormPost.post, "[a-zA-Z0-9]+=on&", "")
-  }</t:if>
+    <t:if test="$mode = 'lend'">{
+      extendFormPost := form($form, jn:object(($form//input[@type = "submit" and contains(@value, "arkierte") and contains(@value, "ngern")])[1]/{string(@name): @value})),
+      extendFormPost.post := replace($extendFormPost.post, "[a-zA-Z0-9]+=on&", ""),
+      goBackPage := form($form),
+      goBackPage.post := x"{$goBackPage.post}&{$backButtonName}.x=0&{$backButtonName}.y=0"
+    }</t:if>
+    <t:if test="$mode = ('ordered', 'requested')">{
+      cancelFormPost := form($form, jn:object(($form//input[@type = "submit" and contains(@value, "arkierte") and contains(@value, "schen")])[1]/{string(@name): @value})),
+      cancelFormPost.post := replace($cancelFormPost.post, "[a-zA-Z0-9]+=on&", ""),
+      goBackPage := form($form),
+      goBackPage.post := x"{$goBackPage.post}&{$backButtonName}.x=0&{$backButtonName}.y=0"
+    }</t:if>
+    
+      
+    <DIV class="rTable_div">
+    <TABLE class="rTable_table">
+  
   
     
-  <DIV class="fsgrp">
-  <DIV class="rTable_div">
-  <TABLE class="rTable_table">
-
-  
-  <t:loop>
-  <TR>
-  <TD>{
-    book := {"_mode": $mode},
-    if ($mode = "lend") then book.extendid := encode-for-uri(input/@name)
-    else if ($mode = ("ordered", "requested")) then book.cancelid := encode-for-uri(input/@name)
-    else ()
-  }</TD>
-  <t:if test="$mode='lend'"> <TD>{book.duedate := parse-date(., "dd.mm.yyyy")}</TD> </t:if>
-  <t:if test="$mode='requested'"> <TD><!-- vormerkungs verfall --></TD> </t:if>
-  <TD>{book.libraryBranch := .}</TD>
-  <TD>{book.category := filter(text(), "\[([^]]*)\]", 1),  
-       book.title :=  if (contains(text(), "]")) then filter(text(), "(\] )(.*)", 2) else text(),
-       if (contains($book.title, "/")) then (
-         $book.author := substring-after($book.title, "/"),
-         $book.title := substring-before($book.title, "/")
-       ) else ()
-       }
-       <t:if test="./br"><BR/>
-        {preid := text()}<BR/>
-        {book.id := concat($preid,":",text())}
-       </t:if>
-  </TD>
-  <TD>{book.status := deep-text("   ")}
-      <t:if test="matches(., x'((nicht +verl.*ngerbar|Keine Verl.*gerung +m.*glich).*Stand +{string-join(reverse(tokenize(current-date(), '-')), '[.]')})|(Max. +Anzahl +der +Verl.*erreicht)','i')">
-        {book.statusId := "critical"}
-      </t:if>
-      <t:if test="$mode='ordered'">{book.statusId := "ordered"}</t:if>
-      <t:if test="$mode='requested'">{book.status := concat("vorgemerkt am ", $book.status), book.statusId := "ordered"}</t:if>
-  </TD>
-  </TR>
-  </t:loop>
-  </TABLE>
+    <t:loop>
+    <TR>
+    <TD>{
+      book := {"_mode": $mode},
+      if ($mode = "lend") then book.extendid := encode-for-uri(input/@name)
+      else if ($mode = ("ordered", "requested")) then book.cancelid := encode-for-uri(input/@name)
+      else ()
+    }</TD>
+    <t:if test="$mode='lend'"> <TD>{book.duedate := parse-date(., "dd.mm.yyyy")}</TD> </t:if>
+    <t:if test="$mode='requested'"> <TD><!-- vormerkungs verfall --></TD> </t:if>
+    <TD>{book.libraryBranch := .}</TD>
+    <TD>{book.category := filter(text(), "\[([^]]*)\]", 1),  
+         book.title :=  if (contains(text(), "]")) then filter(text(), "(\] )(.*)", 2) else text(),
+         if (contains($book.title, "/")) then (
+           $book.author := substring-after($book.title, "/"),
+           $book.title := substring-before($book.title, "/")
+         ) else ()
+         }
+         <t:if test="./br"><BR/>
+          {preid := text()}<BR/>
+          {book.id := concat($preid,":",text())}
+         </t:if>
+    </TD>
+    <TD>{book.status := deep-text("   ")}
+        <t:if test="matches(., x'((nicht +verl.*ngerbar|Keine Verl.*gerung +m.*glich).*Stand +{string-join(reverse(tokenize(current-date(), '-')), '[.]')})|(Max. +Anzahl +der +Verl.*erreicht)','i')">
+          {book.statusId := "critical"}
+        </t:if>
+        <t:if test="$mode='ordered'">{book.statusId := "ordered"}</t:if>
+        <t:if test="$mode='requested'">{book.status := concat("vorgemerkt am ", $book.status), book.statusId := "ordered"}</t:if>
+    </TD>
+    </TR>
+    </t:loop>
+    </TABLE>
 
   </DIV>
   </DIV>
