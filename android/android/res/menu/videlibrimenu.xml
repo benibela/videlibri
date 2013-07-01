@@ -9,7 +9,7 @@
           android:title="Suche"
           android:icon="@android:drawable/ic_menu_search"
           android:showAsAction="ifRoom"/>
-    <item android:id="@+id/renewlist" android:title="Manche verlängern" android:icon="@android:drawable/ic_menu_week"/>
+    <item android:id="@+id/renewlist" android:title="Verlängern" android:icon="@android:drawable/ic_menu_week"/>
     <item android:id="@+id/options"
           android:title="Einstellungen"
           android:icon="@android:drawable/ic_menu_preferences"

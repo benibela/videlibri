@@ -11,6 +11,7 @@ import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.*;
+import com.actionbarsherlock.view.Menu;
 
 import java.util.*;
 
@@ -150,11 +151,19 @@ public class AccountInfo extends VideLibriBaseActivity {
         lib.setText(libName);
     }
 
+    /*@Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        boolean x = super.onPrepareOptionsMenu(menu);
+        if (mode == MODE_ACCOUNT_CREATION_INITIAL) menu.findItem(R.id.search).setVisible(false);
+        return x;
+    } */
+
     void updateLibrary(){
         Intent intent = new Intent(this, LibraryList.class);
-        if (mode == MODE_ACCOUNT_CREATION_INITIAL)
+        if (mode == MODE_ACCOUNT_CREATION_INITIAL) {
             intent.putExtra("reason", "Wählen Sie Ihre Bibliothek, um in ihrem Katalog zu suchen oder auf Ihr Bibliothekskonto zuzugreifen: ");
-        else
+         //        intent.putExtra("initial", true);
+        } else
             intent.putExtra("reason", "Wählen Sie Ihre Bibliothek, um ein neues Konto zu registrieren: ");
         startActivityForResult(intent, REQUEST_LIBRARY_FOR_ACCOUNT_CREATION);
     }
