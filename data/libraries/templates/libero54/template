@@ -4,16 +4,16 @@
 
 <meta>
   <description>Template für das Libero-System, version 5.4</description>
-  <variable name="server"><description>Serveraddresse</description></variable>
+  <variable name="baseurl"><description>Serveraddresse (inklusive Protokoll)</description></variable>
 </meta>
 
 <action id="connect">
-  <page url="http://{$server}WebOpac.cls" templateFile="start"/>
-  <page url="http://{$server}WebOpac.cls?VERSION=2&amp;ACTION=MEMBERSERV&amp;RSN=0&amp;DATA={$data}&amp;TOKEN={$token}&amp;Z=1&amp;NewBreadCrumb=1&amp;{$logintoken}"/>
+  <page url="{$baseurl}WebOpac.cls" templateFile="start"/>
+  <page url="{$baseurl}WebOpac.cls?VERSION=2&amp;ACTION=MEMBERSERV&amp;RSN=0&amp;DATA={$data}&amp;TOKEN={$token}&amp;Z=1&amp;NewBreadCrumb=1&amp;{$logintoken}"/>
 </action>
 
 <action id="update-all">
-  <page url="http://{$server}WebOpac.cls" templateFile="update">
+  <page url="{$baseurl}WebOpac.cls" templateFile="update">
     <post name="MGWCHD" value="0"/>
     <post name="TOKEN" value="{$token}"/>
     <post name="TOKENX" value="{$tokenx}"/>
@@ -33,7 +33,7 @@
 <action id="renew-list">
   <variable name="book-list">string-join(for $book in $renew-books return x"{$book.extendid}=1", "&amp;")</variable>
   
-  <page url="http://{$server}WebOpac.cls">
+  <page url="{$baseurl}WebOpac.cls">
     <post name="MGWCHD" value="0"/>
     <post name="TOKEN" value="{$token}"/>
     <post name="TOKENX" value="{$tokenx}"/>
@@ -47,4 +47,59 @@
   </page>
   <call action="update-all"/>
 </action>
+
+
+<action id="search-connect">
+  <page url="{$baseurl}WebOpac.cls">
+  <template><a>Erweiterte Suche<t:s>search:=@href</t:s></a></template>
+  </page>
+
+  <variable name="search-keys">{"author": "kb", "title": "k", "keywords": "kj", "isbn": "i"}</variable>
+
+  <page url="{$search}">
+  <template><form>
+    {search-form := form(., .//input[@type="submit"]), keyword-key := ""}
+    
+    <option>Schlagwörter<t:s>search-keys.keywords := @value</t:s></option>?
+    <option>Schlagwort<t:s>search-keys.keywords := @value</t:s></option>?
+    
+    <select name='LIMLOC' t:optional="true">
+    {search-branches := option, search-branch-values := option/@value}
+    </select>?
+  </form></template>
+  </page>
+</action>
+
+
+<action id="search">  
+  <s>
+     i := 1, 
+     f := $search-form,
+     f.post := uri-combine($f.post, (
+       if ($book.year != "") then 
+         if (contains(§book.year, "-")) then 
+           {"YEARFROM": normalize-space(substring-before($book.year, "-")), "YEARTO": normalize-space(substring-after($book.year, "-"))} 
+         else 
+           {"YEARFROM": $book.year, "YEARTO": $book.year} 
+       else (),
+       if (get("search-branch-values", ())[get("search-branch-id", 0)] != "") then {"LIMLOC": $search-branch-values[$search-branch-id]} else (),
+       for $key in jn:keys($book) return if ($book($key) != "" and exists($search-keys($key))) then (
+         {x"TERM_{$i}": $book($key), x"USE_{$i}": $search-keys($key)},
+         (i := i + 1)[2]
+       ) else ()
+    )
+     )
+  </s>
+  <page url="{$f}" templateFile="searchList"/>
+  
+</action>
+
+<action id="search-next-page">
+  <page url="{$next-page}" templateFile="searchList"/>
+</action>
+
+<action id="search-details">
+  <page url="{$book._detail-url}" templateFile="searchDetails"/>
+</action>
+
 </actions>

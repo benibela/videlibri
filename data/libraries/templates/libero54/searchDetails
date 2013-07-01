@@ -1,0 +1,27 @@
+<html>
+
+  <DIV class="DisplayRecord">
+   <t:loop><t:switch>
+      <DIV class="CatInfoCont">
+        <TABLE>
+          <t:loop><t:switch>
+            <TR><TH>T I T E L</TH><TD>{$book.title}</TD></TR>
+            <TR><TH>Autor</TH><TD>{$book.author}</TD></TR>
+            <TR><TH>Erscheinungsjahr</TH><TD>{$book.year}</TD></TR>
+            <TR><TH>ISBN</TH><TD>{$book.isbn}</TD></TR>
+            <TR><TH>{currentfield := replace(normalize-space(text()), "[.]", "")}</TH>
+                <TD><t:read source="." var="book.{$currentfield}!"/></TD></TR>
+          </t:switch></t:loop>
+        </TABLE>
+      </DIV>
+
+      <DIV class="ItemInfoCont">
+        {id := 1}
+        <TABLE><TBODY>
+        <TR><t:read source="." var="book.Exemplar {$id}!"/>{id := $id+1}</TR>*
+        </TBODY></TABLE>
+      </DIV>
+   </t:switch></t:loop>
+  </DIV>
+
+</html>

@@ -10,7 +10,7 @@
   <maxRenewCount value="3"/>
 
   <template value="libero54"/>
-  <variable name="server" value="katalog.bibl.fh-duesseldorf.de/libero/"/>
+  <variable name="baseurl" value="http://katalog.bibl.fh-duesseldorf.de/libero/"/>
 
   <template value="digibib"/>
   <variable name="location" value="DUEBIB"/>

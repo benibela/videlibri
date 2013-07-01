@@ -1,0 +1,30 @@
+<HTML>
+
+  <span class='SearchMsg3'>{$search-result-count}</span>?
+
+  <A>Nächste<t:s>next-page:=@href, search-next-page-available := true()</t:s></a>?
+  
+  <TABLE id="searchResults">
+    <THEAD>
+      <TR>
+        <TH class="title">
+        </TH>
+        <TH class="author">
+        </TH>
+        <TH class="info">
+        </TH>
+      </TR>
+    </THEAD>
+    <t:loop>
+      <TR>
+        <TH>{book:={}}</TH>
+        <TD><img>{$book.image-url:=@src}</img>?</TD>
+        <TD><a>{$book.title := ., $book._detail-url := @href}</a></TD>
+        <TD>{$book.author}</TD>
+        <TD>{$book.year}</TD>
+        <TD/>
+        <TD>{$book.status}</TD>
+      </TR>
+    </t:loop>
+  </TABLE>
+</HTML>
