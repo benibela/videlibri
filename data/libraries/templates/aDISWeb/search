@@ -43,6 +43,7 @@
                            }
                         ) else ()
                       }</A>
+                      <A>Volltext<t:read var="book.Volltext!" source="x'Volltext ( {@href} )'"/></A>?
                     </TD>
                     <!-- td sometimes signature -->
                     <TD><img/></td> <!--available-->
