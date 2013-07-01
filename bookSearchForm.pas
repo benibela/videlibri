@@ -60,6 +60,10 @@ type
     StatusBar1: TStatusBar;
     procedure bookListSelect(sender: TObject; item: TTreeListItem);
     procedure bookListVScrollBarChange(Sender: TObject);
+    procedure detaillistClickAtRecordItem(sender: TObject; recorditem: TTreeListRecordItem);
+    procedure detaillistCustomRecordItemDraw(sender: TObject; eventTyp_cdet: TCustomDrawEventTyp; recordItem: TTreeListRecordItem;
+      var defaultDraw: Boolean);
+    procedure detaillistMouseMove(Sender: TObject; Shift: TShiftState; X, Y: Integer);
     procedure searcherAccessConnected(Sender: TObject);
     procedure displayImageChange(Sender: TObject);
     procedure FormClose(Sender: TObject; var CloseAction: TCloseAction);
@@ -164,6 +168,9 @@ begin
     text:='Wert';
     width:=200;
   end;
+  detaillist.OnCustomRecordItemDraw:=@detaillistCustomRecordItemDraw;
+  detaillist.OnClickAtRecordItem:=@detaillistClickAtRecordItem;
+  detaillist.OnMouseMove:=@detaillistMouseMove;
 
 
   Image1.Width:=0;
@@ -268,6 +275,39 @@ begin
     searcherAccess.searchNextAsync;
     StatusBar1.Panels[SB_PANEL_SEARCH_STATUS].Text:='Lade nächste Seite...';
   end;
+end;
+
+procedure TbookSearchFrm.detaillistClickAtRecordItem(sender: TObject; recorditem: TTreeListRecordItem);
+var
+  i: SizeInt;
+  temp: String;
+begin
+  if strContains(recordItem.Text, 'http://') or strContains(recordItem.Text, 'https://') then begin
+    i := pos('http://', recordItem.Text);
+    if i < 0 then i := pos('https://', recordItem.Text);
+    temp := strCopyFrom(recorditem.Text, i);
+    if strContains(temp, ' ') then delete(temp, strIndexOf(temp, ' '), length(temp));
+    openInternetPage(temp);
+  end;
+end;
+
+procedure TbookSearchFrm.detaillistCustomRecordItemDraw(sender: TObject; eventTyp_cdet: TCustomDrawEventTyp;
+  recordItem: TTreeListRecordItem; var defaultDraw: Boolean);
+begin
+  if strContains(recordItem.Text, 'http://') or strContains(recordItem.Text, 'https://') then ttreelistview(sender).Canvas.Font.Color:=clBlue
+  else ttreelistview(sender).Canvas.Font.Color:=clBlack;
+end;
+
+procedure TbookSearchFrm.detaillistMouseMove(Sender: TObject; Shift: TShiftState; X, Y: Integer);
+var
+  tlv: TTreeListView;
+begin
+  tlv := TTreeListView(sender);
+  recordItem := tlv.GetRecordItemAtPos(x,y);
+  if (recorditem <> nil) and (strContains(recordItem.Text, 'http://') or strContains(recordItem.Text, 'https://')) then
+     tlv.Cursor:=crHandPoint
+    else
+     tlv.Cursor:=crDefault;
 end;
 
 procedure TbookSearchFrm.searcherAccessConnected(Sender: TObject);

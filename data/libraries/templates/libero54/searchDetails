@@ -9,7 +9,8 @@
             <TR><TH>Autor</TH><TD>{$book.author}</TD></TR>
             <TR><TH>Erscheinungsjahr</TH><TD>{$book.year}</TD></TR>
             <TR><TH>ISBN</TH><TD>{$book.isbn}</TD></TR>
-            <TR><TH>{currentfield := replace(normalize-space(text()), "[.]", "")}</TH>
+            <TR><TH>Link</TH><TD><a><t:read var="book.Link!" source="x'{.} ( {@href} )'" /></a></TD></TR>
+            <TR><TH>{currentfield := replace(normalize-space(.), "[.]", "")}</TH>
                 <TD><t:read source="." var="book.{$currentfield}!"/></TD></TR>
           </t:switch></t:loop>
         </TABLE>
