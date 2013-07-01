@@ -13,7 +13,7 @@ public class RenewList extends BookListActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setTitle("Verlängern");
+        setTitle("Auswahl zur Verlängerung");
         selectedBooks = new ArrayList<Bridge.Book>();
     }
 
