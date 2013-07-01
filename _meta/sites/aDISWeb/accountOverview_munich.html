@@ -1,0 +1,623 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="de" lang="de">
+<!-- solution for: conditional-comments block downloads  -->
+<!--[if IE]><![endif]-->
+<head>
+	<style type="text/css">
+		@import url(css/aDISStandard.css);
+	</style>
+	<script src="js/aDISMain.js" type="text/javascript"></script>
+	<script src="js/fckeditor/fckeditor.js" type="text/javascript"></script>
+	<title> MSB-Katalog                    </title>
+<script type="text/javascript">
+	var text = 'Anzahl der gefundenen Informationen 1';
+	window.defaultStatus=text;
+</script>
+<!--
+(c) Software: aDIS/BMS und aDIS/Archiv by |a|S|tec| GmbH Berlin und Muenchen - www.astec.de
+HTML-/CSS-Anpassungen: ena Webstudio - www.ena-webstudio.com
+HTML-/CSS-Framework basiert grob auf Contao (c) Leo Feyer www.contao.org
+Projekt: Stadtbibliothek Muenchen, OPAC03
+Letztes Update: 07.03.2013
+//-->
+
+  <meta http-equiv="x-ua-compatible" content="ie=edge" />
+  <meta http-equiv="cache-control" content="no-cache" />
+  <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+  <meta http-equiv="content-style-type" content="text/css" />
+  <meta http-equiv="content-script-type" content="text/javascript" />
+  <meta http-equiv="content-language" content="de" />
+  <meta name="language" content="de" />
+  <link rel="shortcut icon" type="image/x-icon" href="/aDISWeb_stbm/images/favicon.ico" />
+    
+  <script type="text/javascript" src="/aDISWeb_stbm/js/cookies.js"></script>
+  <script type="text/javascript" src="/aDISWeb_stbm/js/efa_fontsize.js"></script>  
+  
+  <link rel="stylesheet" href="/aDISWeb_stbm/css/framework.css" type="text/css" media="screen" />
+  <!--[if lte IE 7]><link rel="stylesheet" href="/aDISWeb_stbm/css/framework_iefixes.css" type="text/css" media="screen" /><![endif]-->
+
+  <link rel="stylesheet" href="/aDISWeb_stbm/css/layout.css" type="text/css" media="screen" />
+  <!--[if lt IE 7]><link rel="stylesheet" href="/aDISWeb_stbm/css/ieonly.css" type="text/css" media="screen" /><![endif]--> 
+  <!--[if IE 7]><link rel="stylesheet" href="/aDISWeb_stbm/css/ieonly7.css" type="text/css" media="screen" /><![endif]--> 
+  <!--[if gte IE 8]><link rel="stylesheet" href="/aDISWeb_stbm/css/ieonly8.css" type="text/css" media="screen" /><![endif]-->
+  <link rel="stylesheet" type="text/css" href="/aDISWeb_stbm/css/print.css" media="print" />
+ <!-- Mobildarstellung -->
+  <meta name="viewport" content="width=device-width; initial-scale=1.0" />
+  <link rel="stylesheet" href="/aDISWeb_stbm/css/media.css" type="text/css" />
+  <!--[if lt IE 9]>
+	<script type="text/javascript" src="/aDISWeb_stbm/js/css3-mediaqueries.js"></script>
+   <![endif]--> 
+</head>
+
+<body id="top" class="zweier">
+<script type="text/javascript"><!--
+
+
+
+					
+function setupHandlers()  {
+	document.onmousedown = docOnEvent;		
+	document.onkeydown = docOnEvent;	
+	document.onkeypress = docOnEvent;
+	document.onhelp = cancelF1;
+	
+	initFormElements();
+	initIframes();
+	initScrollPos();
+	}
+function getDimensions()  {
+	document.forms[0].scrDim.value = screen.width + ";" + screen.height;
+	if (window.innerWidth)
+		document.forms[0].winDim.value = window.innerWidth + ";" + window.innerHeight;
+	else
+		document.forms[0].winDim.value = document.body.offsetWidth + ";" + document.body.offsetHeight;
+	node = document.getElementById("img_content");
+	if (node != undefined)
+		document.forms[0].imgDim.value = node.offsetWidth + ";" + node.offsetHeight;
+	}
+
+
+
+
+window.onload = function (e)
+{
+
+if (!e) var e = window.event;
+document.forms[0].scriptEnabled.value=true;
+if (self.specialOnLoad != undefined)
+	specialOnLoad(e);
+setupHandlers();
+getDimensions();
+
+}
+
+// --></script>
+
+<div class="aDISMaske">
+<form method="post" name="Form0" action="/aDISWeb/app;jsessionid=F02D4F8BF97D318DEEA6E4E6F6FCB914" onsubmit="return formOnSubmit();">
+<input type="hidden" name="service" value="direct/1/POOLSTPM@@@@@@@@_4B004500_2C17CB00/$Form.form"/>
+<input type="hidden" name="sp" value="S0"/>
+<input type="hidden" name="Form0" value="focus,keyCode,stz,source,selected,requestCount,scriptEnabled,scrollPos,scrDim,winDim,imgDim,$FormConditional,textButton,$Toolbar,$FormConditional$0,textButton$0,$Toolbar$0"/>
+<input type="hidden" name="focus" value=""/>
+<input type="hidden" name="keyCode" value="0"/>
+<input type="hidden" name="stz" value=""/>
+<input type="hidden" name="source" value=""/>
+<input type="hidden" name="selected" value=""/>
+<input type="hidden" name="requestCount" value="3"/>
+<input type="hidden" name="scriptEnabled" value="T"/>
+<input type="hidden" name="scrollPos" value="0"/>
+<input type="hidden" name="scrDim" value=""/>
+<input type="hidden" name="winDim" value=""/>
+<input type="hidden" name="imgDim" value=""/>
+<input type="hidden" name="$FormConditional" value="T"/>
+<input type="hidden" name="$FormConditional$0" value="T"/>
+
+
+
+
+
+		
+	
+
+
+
+	 <script type="text/javascript">
+  // <![CDATA[
+    if (efa_fontSize) efa_fontSize.efaInit();
+  // ]]>
+  </script>
+
+<div id="wrapper">
+  <div id="wrapper_inside">
+  
+    <div id="header" role="banner">
+      <div class="inside">
+                
+        <ul id="sprunglinks">
+          <li><a class="sprung" href="#main">Zum Hauptinhalt</a></li>
+          <li><a class="sprung" href="#hnav">Zur Navigation - 1. Ebene</a></li> 
+          <li><a class="sprung" href="#left">Zur Navigation - Unterebenen</a></li>
+        </ul>
+                                     
+        <p id="logo"><a href="http://www.muenchner-stadtbibliothek.de/" title="Zur Startseite Bibliothek"><img src="/aDISWeb_stbm/images/logo.png" width="281" height="40" alt="Logo der Stadtbibliothek M&uuml;nchen" /></a></p>
+        <p id="logo2"><img src="/aDISWeb_stbm/images/logo2.png" width="323" height="56" alt="Online-Katalog" /></p>
+
+        <script type="text/javascript">
+          // <![CDATA[
+            if (efa_fontSize) document.write(efa_fontSize.allLinks);
+          // ]]>
+        </script>
+              
+      </div>
+    </div>
+  
+    <div id="container">
+      <div id="container_inside">
+        
+        <h1 class="invisible">Navigation - 1. Ebene</h1>
+        <div class="mod_navigation block" id="hnav" role="navigation"> <div class="tree_div">
+<ul class="tree_ul">
+<li class="tree_leaf_li_sel">
+<strong><span class="tree_strong">Bibliothek</span></strong></li>
+<li class="tree_leaf_li">
+<a href="/aDISWeb/app;jsessionid=F02D4F8BF97D318DEEA6E4E6F6FCB914?service=direct/1/POOLSTPM@@@@@@@@_4B004500_2C17CB00/$Tree.treeNodes&amp;sp=SAD&amp;requestCount=3" class="tree_leaf_a"><span>Literaturarchiv</span></a><span class="outside">.</span></li>
+<li class="tree_leaf_li">
+<a href="http://www.muenchner-stadtbibliothek.de" class="tree_leaf_a"><span>MSB online</span></a><span class="outside">.</span></li>
+<li class="tree_leaf_li">
+<a href="/aDISWeb/app;jsessionid=F02D4F8BF97D318DEEA6E4E6F6FCB914?service=direct/1/POOLSTPM@@@@@@@@_4B004500_2C17CB00/$Tree.treeNodes&amp;sp=SKV&amp;requestCount=3" class="tree_leaf_a"><span>Kontakt</span></a><span class="outside">.</span></li>
+</ul></div>
+
+ </div>
+           
+        <div class="block" id="topleiste">                    
+          <p id="druckversion">
+
+
+<input type="submit" name="textButton" value="Druckversion" fld="$$GFBO_88"/>
+
+
+
+ </p>     
+
+          <p class="block" id="breadcrumb">Sie sind hier: 
+<a href="/aDISWeb/app;jsessionid=F02D4F8BF97D318DEEA6E4E6F6FCB914?service=direct/1/POOLSTPM@@@@@@@@_4B004500_2C17CB00/$InternalLink.directlink&amp;sp=S%24%24GFNV_1&amp;sp=SStartseite+Bibliothek%3DCW00&amp;requestCount=3" fld="$$GFNV_1" title="">
+
+
+Startseite Bibliothek
+
+</a>	<span class="outside">.</span>
+ &gt;
+<span class="navicl">
+
+
+
+
+<a href="/aDISWeb/app;jsessionid=F02D4F8BF97D318DEEA6E4E6F6FCB914?service=direct/1/POOLSTPM@@@@@@@@_4B004500_2C17CB00/navpath.intlink.directlink&amp;sp=S%24%24GFNV_1&amp;sp=SBKAU&amp;requestCount=3" fld="$$GFNV_1" title="Benutzerkonto Anmeldung">
+Benutzerkonto Anmeldung
+
+</a>	<span class="outside">.</span>
+
+
+
+
+</span> &gt;
+
+<span class="txtinsert">
+Benutzerkonto &#220;bersicht
+</span>
+ </p> 
+        </div>
+
+        <div id="left">
+          <div class="inside">
+  
+            <div class="block" id="navbox">
+            <div id="R20">
+<span class="bnzeig">
+XXXX, YYyyyy: Sie sind angemeldet
+</span>
+
+
+<span class="mmzeig">
+
+</span>
+</div>
+
+            </div>
+
+            <h1 class="invisible">Navigation - Unterebenen</h1>
+            <div class="mod_navigation block" id="unav" role="navigation"> <div class="tree_div">
+<ul class="tree_ul">
+<li class="tree_leaf_li">
+<span class="tree_disabled">Anmelden / Login</span>
+<span class="outside">.</span></li>
+<li class="tree_leaf_li">
+<a href="/aDISWeb/app;jsessionid=F02D4F8BF97D318DEEA6E4E6F6FCB914?service=direct/1/POOLSTPM@@@@@@@@_4B004500_2C17CB00/$Tree$0.treeNodes&amp;sp=SL2&amp;requestCount=3" class="tree_leaf_a"><span>Abmelden / Logout</span></a><span class="outside">.</span></li>
+<li class="tree_leaf_li_sel">
+<strong><span class="tree_strong">Benutzerkonto</span></strong></li>
+<li class="tree_leaf_li">
+<a href="/aDISWeb/app;jsessionid=F02D4F8BF97D318DEEA6E4E6F6FCB914?service=direct/1/POOLSTPM@@@@@@@@_4B004500_2C17CB00/$Tree$0.treeNodes&amp;sp=SS1&amp;requestCount=3" class="tree_leaf_a"><span>Schnellsuche</span></a><span class="outside">.</span></li>
+<li class="tree_leaf_li">
+<a href="/aDISWeb/app;jsessionid=F02D4F8BF97D318DEEA6E4E6F6FCB914?service=direct/1/POOLSTPM@@@@@@@@_4B004500_2C17CB00/$Tree$0.treeNodes&amp;sp=SS2&amp;requestCount=3" class="tree_leaf_a"><span>Erweiterte Suche</span></a><span class="outside">.</span></li>
+<li class="tree_leaf_li">
+<a href="/aDISWeb/app;jsessionid=F02D4F8BF97D318DEEA6E4E6F6FCB914?service=direct/1/POOLSTPM@@@@@@@@_4B004500_2C17CB00/$Tree$0.treeNodes&amp;sp=SAP&amp;requestCount=3" class="tree_leaf_a"><span>Meine Suchprofile</span></a><span class="outside">.</span></li>
+<li class="tree_leaf_li">
+<a href="/aDISWeb/app;jsessionid=F02D4F8BF97D318DEEA6E4E6F6FCB914?service=direct/1/POOLSTPM@@@@@@@@_4B004500_2C17CB00/$Tree$0.treeNodes&amp;sp=SW1&amp;requestCount=3" class="tree_leaf_a"><span>Medienlisten</span></a><span class="outside">.</span></li>
+<li class="tree_leaf_li">
+<a href="/aDISWeb/app;jsessionid=F02D4F8BF97D318DEEA6E4E6F6FCB914?service=direct/1/POOLSTPM@@@@@@@@_4B004500_2C17CB00/$Tree$0.treeNodes&amp;sp=SRD01&amp;requestCount=3" class="tree_leaf_a"><span>Munzinger</span></a><span class="outside">.</span></li>
+<li class="tree_leaf_li">
+<a href="http://www.muenchner-stadtbibliothek.de/footer/impressum/" class="tree_leaf_a"><span>Impressum</span></a><span class="outside">.</span></li>
+<li class="tree_leaf_li">
+<a href="http://www.muenchner-stadtbibliothek.de/footer/datenschutz" class="tree_leaf_a"><span>Datenschutz</span></a><span class="outside">.</span></li>
+</ul></div>
+
+ </div>
+
+            <div class="clear"></div>
+      
+          </div>
+        </div>
+        <div id="main" role="main">
+          <div class="inside">
+            <div class="block">
+           
+         <h1><span class="invisible">Aktuelle Seite: </span> 
+<span class="txtinsert">
+Benutzerkonto &#220;bersicht
+</span>
+ </h1>
+<div class="toolbar_div">
+<ul class="toolbar_ul">
+<li class="toolbar_li">
+<input type="image" src="/aDISWeb/images/POOLSTPM@@@@@@@@/gif/POOLSTPM@@@@@@@@_44006901_23D52500.gif;jsessionid=F02D4F8BF97D318DEEA6E4E6F6FCB914" alt="Zur&#252;ck zur vorherigen Seite" id="Toolbar_0" name="$Toolbar_0" disabled="disabled" title="Zur&#252;ck zur vorherigen Seite" onmouseover="self.status='Zur&#252;ck zur vorherigen Seite';return true;" onmouseout="self.status='';" class="toolbar_img_dis"/><label for="Toolbar_0"><span class="toolbar_txt_dis">Zur&#252;ck</span></label></li>
+<li class="toolbar_li">
+<input type="image" src="/aDISWeb/images/POOLSTPM@@@@@@@@/gif/POOLSTPM@@@@@@@@_44005F00_23D7C800.gif;jsessionid=F02D4F8BF97D318DEEA6E4E6F6FCB914" alt="Beenden der Recherche" id="Toolbar_2" name="$Toolbar_2" title="Beenden der Recherche" onmouseover="self.status='Beenden der Recherche';return true;" onmouseout="self.status='';" class="toolbar_img"/><label for="Toolbar_2"><span class="toolbar_txt">Beenden</span></label></li>
+<li class="toolbar_li">
+<input type="image" src="/aDISWeb/images/POOLSTPM@@@@@@@@/gif/POOLSTPM@@@@@@@@_44005900_23D52500.gif;jsessionid=F02D4F8BF97D318DEEA6E4E6F6FCB914" alt="Hilfe zur Vollanzeige" id="Toolbar_3" name="$Toolbar_3" title="Hilfe zur Vollanzeige" onmouseover="self.status='Hilfe zur Vollanzeige';return true;" onmouseout="self.status='';" class="toolbar_img"/><label for="Toolbar_3"><span class="toolbar_txt">Hilfe</span></label></li></ul><div style="clear:both"></div></div> <div class="fsgrp">
+               
+                 
+               
+               
+                
+                
+               
+               
+               
+                
+               
+               
+               
+               
+               
+               
+               
+               
+               <div id="R03"><div style="   width:99%;" class="aDISListe"><div class="html_div" style="width:99%; height:100%;"><p>Hier erhalten Sie eine Übersicht über Ihr persönliches Benutzerkonto.<br/>Für die vollständigen Auflistungen, bitte entsprechenden Link benutzen.</p></div></div>
+
+
+<object data="/aDISWeb/app;jsessionid=F02D4F8BF97D318DEEA6E4E6F6FCB914?service=aDISPrint/POOLSTPM@@@@@@@@_4B004500_2C17CB00/$Plugin" id="$Plugin" height="0" type="application/x-aStec-aDISPrint" width="0"></object>
+</div>
+<div id="R04"><p>
+<span style="   width:99%;">
+Benutzerkonto f&#252;r Herrn XXXX, yyyy
+</span>
+</p>
+</div>
+<div id="R07"><div id="OPACLI" class="aDISListe"><div class="html_div" style="width:100%; height:100%;"><div class="aDISListe">
+<table class="gi" summary="Auflistung der Kategorien des ausgewählten Treffers" width="100%"><colgroup><col align="left" valign=top width="35%"/>
+<col align="left" valign=top width="65%"/>
+</colgroup><tbody><tr><th scope="row" class="spaltelinks">Ausweis g&uuml;ltig bis </th><td class="spalterechts">12.03.2014 </td></tr>
+<tr><th scope="row" class="spaltelinks">Kontostand vom</th><td class="spalterechts">Datum: 01.07.2013 Uhrzeit: 14:50 </td></tr>
+</tbody></table></div></div></div>
+</div>
+<div id="R06"><div class="rTable_div">
+<table class="rTable_table" colDisable="[true, true]" colNumeric="[true, false]" width="100%">
+	<colgroup>
+<col width="12%"></col><col width="88%"></col>	</colgroup>
+	<thead class="rTable_thead">
+			<tr>
+<th scope="col" class="rTable_th">Anzahl</th><th scope="col" class="rTable_th">Darstellung</th>	</tr>	
+		</thead>
+		<tbody>
+
+<tr class="rTable_tr_even">
+
+
+<td class="rTable_td_num">
+
+</td>
+
+
+
+<td class="zelleo">
+
+<a href="/aDISWeb/app;jsessionid=F02D4F8BF97D318DEEA6E4E6F6FCB914?service=direct/1/POOLSTPM@@@@@@@@_4B004500_2C17CB00/Tabelle_ZLLW01.cellInternalLink.directlink&amp;sp=SRGLINK_1&amp;sp=SGG&amp;requestCount=3" fld="RGLINK_1" title="Geb&#252;hrenkonto zeigen">
+Geb&#252;hrenkonto zeigen
+
+</a>	<span class="outside">.</span>
+
+</td>
+
+
+</tr>
+
+<tr class="rTable_tr_odd">
+
+
+<td class="rTable_td_num">
+
+</td>
+
+
+
+<td class="zelleo">
+
+<a href="/aDISWeb/app;jsessionid=F02D4F8BF97D318DEEA6E4E6F6FCB914?service=direct/1/POOLSTPM@@@@@@@@_4B004500_2C17CB00/Tabelle_ZLLW01.cellInternalLink.directlink&amp;sp=SRGLINK_2&amp;sp=SEM&amp;requestCount=3" fld="RGLINK_2" title="E-Mail Verwaltung">
+E-Mail Verwaltung
+
+</a>	<span class="outside">.</span>
+
+</td>
+
+
+</tr>
+
+<tr class="rTable_tr_even">
+
+
+<td class="rTable_td_num">
+
+</td>
+
+
+
+<td class="zelleo">
+
+<a href="/aDISWeb/app;jsessionid=F02D4F8BF97D318DEEA6E4E6F6FCB914?service=direct/1/POOLSTPM@@@@@@@@_4B004500_2C17CB00/Tabelle_ZLLW01.cellInternalLink.directlink&amp;sp=SRGLINK_3&amp;sp=SPP&amp;requestCount=3" fld="RGLINK_3" title="Passwort &#228;ndern">
+Passwort &#228;ndern
+
+</a>	<span class="outside">.</span>
+
+</td>
+
+
+</tr>
+
+<tr class="rTable_tr_odd">
+
+
+<td class="rTable_td_num">
+
+</td>
+
+
+
+<td class="zelleo">
+
+<a href="/aDISWeb/app;jsessionid=F02D4F8BF97D318DEEA6E4E6F6FCB914?service=direct/1/POOLSTPM@@@@@@@@_4B004500_2C17CB00/Tabelle_ZLLW01.cellInternalLink.directlink&amp;sp=SRGLINK_4&amp;sp=SAD&amp;requestCount=3" fld="RGLINK_4" title="Adresse zeigen">
+Adresse zeigen
+
+</a>	<span class="outside">.</span>
+
+</td>
+
+
+</tr>
+
+<tr class="rTable_tr_even">
+
+
+<td class="rTable_td_num">
+2
+</td>
+
+
+
+<td class="zelleo">
+
+<a href="/aDISWeb/app;jsessionid=F02D4F8BF97D318DEEA6E4E6F6FCB914?service=direct/1/POOLSTPM@@@@@@@@_4B004500_2C17CB00/Tabelle_ZLLW01.cellInternalLink.directlink&amp;sp=SRGLINK_5&amp;sp=SZA&amp;requestCount=3" fld="RGLINK_5" title="Ausleihen zeigen oder verl&#228;ngern">
+Ausleihen zeigen oder verl&#228;ngern
+
+</a>	<span class="outside">.</span>
+
+</td>
+
+
+</tr>
+
+<tr class="rTable_tr_odd">
+
+
+<td class="rTable_td_num">
+1
+</td>
+
+
+
+<td class="zelleo">
+
+<a href="/aDISWeb/app;jsessionid=F02D4F8BF97D318DEEA6E4E6F6FCB914?service=direct/1/POOLSTPM@@@@@@@@_4B004500_2C17CB00/Tabelle_ZLLW01.cellInternalLink.directlink&amp;sp=SRGLINK_6&amp;sp=SZV&amp;requestCount=3" fld="RGLINK_6" title="Verlust zeigen">
+Verlust zeigen
+
+</a>	<span class="outside">.</span>
+
+</td>
+
+
+</tr>
+
+<tr class="rTable_tr_even">
+
+
+<td class="rTable_td_num">
+
+</td>
+
+
+
+<td class="zelleo">
+
+
+Keine Bestellungen/Magazin
+
+	<span class="outside">.</span>
+
+</td>
+
+
+</tr>
+
+<tr class="rTable_tr_odd">
+
+
+<td class="rTable_td_num">
+
+</td>
+
+
+
+<td class="zelleo">
+
+
+Keine Bereitstellungen
+
+	<span class="outside">.</span>
+
+</td>
+
+
+</tr>
+
+<tr class="rTable_tr_even">
+
+
+<td class="rTable_td_num">
+
+</td>
+
+
+
+<td class="zelleo">
+
+
+Keine Bestellw&#252;nsche
+
+	<span class="outside">.</span>
+
+</td>
+
+
+</tr>
+
+<tr class="rTable_tr_odd">
+
+
+<td class="rTable_td_num">
+
+</td>
+
+
+
+<td class="zelleo">
+
+
+Keine Vormerkungen
+
+	<span class="outside">.</span>
+
+</td>
+
+
+</tr>
+	</tbody>
+</table>
+</div>
+
+
+
+
+
+
+
+</div>
+<div id="R05" class="links">
+
+<input type="submit" name="textButton$0" value="Benutzerkonto schlie&#223;en" class="buttong_l" fld="$$GFBO_2"/>
+
+
+
+</div><br class="klar"/>
+               
+               
+               
+               
+               
+               
+               
+               
+               
+               
+                   
+               
+               
+               
+               
+               
+               
+               
+               
+               
+               
+               
+               
+               
+               
+             </div>
+             <div class="clear"></div>
+             <br></br>
+<div class="toolbar_div">
+<ul class="toolbar_ul">
+<li class="toolbar_li">
+<input type="image" src="/aDISWeb/images/POOLSTPM@@@@@@@@/gif/POOLSTPM@@@@@@@@_44006901_23D52500.gif;jsessionid=F02D4F8BF97D318DEEA6E4E6F6FCB914" alt="Zur&#252;ck zur vorherigen Seite" id="Toolbar$0_0" name="$Toolbar$0_0" disabled="disabled" title="Zur&#252;ck zur vorherigen Seite" onmouseover="self.status='Zur&#252;ck zur vorherigen Seite';return true;" onmouseout="self.status='';" class="toolbar_img_dis"/><label for="Toolbar$0_0"><span class="toolbar_txt_dis">Zur&#252;ck</span></label></li>
+<li class="toolbar_li">
+<input type="image" src="/aDISWeb/images/POOLSTPM@@@@@@@@/gif/POOLSTPM@@@@@@@@_44005F00_23D7C800.gif;jsessionid=F02D4F8BF97D318DEEA6E4E6F6FCB914" alt="Beenden der Recherche" id="Toolbar$0_2" name="$Toolbar$0_2" title="Beenden der Recherche" onmouseover="self.status='Beenden der Recherche';return true;" onmouseout="self.status='';" class="toolbar_img"/><label for="Toolbar$0_2"><span class="toolbar_txt">Beenden</span></label></li>
+<li class="toolbar_li">
+<input type="image" src="/aDISWeb/images/POOLSTPM@@@@@@@@/gif/POOLSTPM@@@@@@@@_44005900_23D52500.gif;jsessionid=F02D4F8BF97D318DEEA6E4E6F6FCB914" alt="Hilfe zur Vollanzeige" id="Toolbar$0_3" name="$Toolbar$0_3" title="Hilfe zur Vollanzeige" onmouseover="self.status='Hilfe zur Vollanzeige';return true;" onmouseout="self.status='';" class="toolbar_img"/><label for="Toolbar$0_3"><span class="toolbar_txt">Hilfe</span></label></li></ul><div style="clear:both"></div></div> <div class="clear"></div>
+      
+            </div>
+          </div>
+          <div id="clear"></div>
+          
+        </div>
+        
+      </div>
+    </div>
+
+    <div id="footer">
+      <div class="inside">
+        
+        <p id="foot1">
+          &copy; M&uuml;nchner Stadtbibliothek
+        </p>
+        
+        <p class="block" id="goingup">
+          <a href="#wrapper" class="sprung">nach oben</a>
+        </p>
+        <div class="clear"></div>
+
+        <p id="credits">
+          <a href="http://www.astec.de">Barrierefreie Bibliothekssoftware - OPAC von |a|S|tec| GmbH</a> | <a href="http://www.ena-webstudio.com">ena Webdesign - Berlin</a>
+        </p>
+  
+      </div>
+    </div>
+    
+  </div>
+</div>
+
+<script src="/aDISWeb_stbm/js/yaml-focusfix.js" type="text/javascript"></script> 
+</form>
+</div>
+</body>
+</html>

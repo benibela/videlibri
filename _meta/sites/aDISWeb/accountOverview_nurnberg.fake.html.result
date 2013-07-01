@@ -1,0 +1,7 @@
+book: {}
+
+
+goBackPage: string: 
+orderedPage: string: 
+kontoPage: node: /fakeurl
+requestedPage: node: /fakeurl2

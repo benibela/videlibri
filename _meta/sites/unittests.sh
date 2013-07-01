@@ -78,6 +78,14 @@ PAGES=(${PAGES[@]} pica/update3.html pica/update_abholen.html pica/extend2.html)
 #=============ADISWEB==============
 mkdir -p $OUTPATH/aDISWeb
 
+
+ADDTEMPLATE aDISWeb/accountOverview 3
+PAGES=(${PAGES[@]} aDISWeb/accountOverview_munich.html aDISWeb/accountOverview_nurnberg.html aDISWeb/accountOverview_nurnberg.fake.html)
+
+ADDTEMPLATE aDISWeb/list 2
+PAGES=(${PAGES[@]} aDISWeb/list_munich.html aDISWeb/list_nurnberg.html)
+
+
 ADDTEMPLATE aDISWeb/search 4
 PAGES=(${PAGES[@]} aDISWeb/search_stuttgart_abk.do.html aDISWeb/search_no-result.aalen.html aDISWeb/search_single-page.biberach.html aDISWeb/search_go-back.freiburg.html)
 
