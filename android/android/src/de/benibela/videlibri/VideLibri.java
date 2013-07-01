@@ -17,6 +17,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.*;
 import com.actionbarsherlock.view.Menu;
+import com.actionbarsherlock.view.MenuItem;
 
 
 public class VideLibri extends  BookListActivity{
@@ -99,6 +100,16 @@ public class VideLibri extends  BookListActivity{
         }
 
 
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            if (detailsOpened) onBackPressed();
+            else openOptionsMenu();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     public void onDestroy(){
