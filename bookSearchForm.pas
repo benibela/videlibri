@@ -301,6 +301,7 @@ end;
 procedure TbookSearchFrm.detaillistMouseMove(Sender: TObject; Shift: TShiftState; X, Y: Integer);
 var
   tlv: TTreeListView;
+  recordItem: TTreeListRecordItem;
 begin
   tlv := TTreeListView(sender);
   recordItem := tlv.GetRecordItemAtPos(x,y);

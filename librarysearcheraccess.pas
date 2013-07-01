@@ -5,7 +5,7 @@ unit librarySearcherAccess;
 interface
 
 uses
-  Classes, SysUtils , librarySearcher,libraryParser, booklistreader,bbutils,messagesystem,simplexmlparser,multipagetemplate;
+  Classes, SysUtils , librarySearcher,libraryParser, booklistreader,bbutils,messagesystem,simplexmlparser,multipagetemplate,forms;
 
 type
 
@@ -270,7 +270,10 @@ begin
       list.Delete(i);
   fthread.messages.closeDirectMessageAccess(list);
 
-  while operationActive do sleep(50);
+  while operationActive do begin
+    sleep(50);
+    {$ifndef android}application.ProcessMessages;{$endif}
+  end;
 end;
 
 procedure TLibrarySearcherAccess.connectAsync;
