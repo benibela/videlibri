@@ -7,7 +7,7 @@ search-next-page-available: boolean: false
 form: object: {"method": "POST", "post": "service=direct%2F1%2FPOOLM39PBSZPROD%40_44002500_2BD9D480%2F%24Form.form&sp=S0&Form0=focus%2CkeyCode%2Cstz%2Csource%2Cselected%2CrequestCount%2CscriptEnabled%2CscrollPos%2CscrDim%2CwinDim%2CimgDim%2C%24Textfield%2C%24FormConditional%2CtextButton%2C%24FormConditional%240%2CtextButton%240%2C%24FormConditional%241%2C%24FormConditional%242%2CtextButton%241%2C%24FormConditional%243%2CtextButton%242%2C%24FormConditional%244%2CtextButton%243%2CtextButton%244%2CtextButton%245%2CtextButton%246%2CtextButton%247%2CtextButton%248%2CtextButton%249%2C%24FormConditional%245%2CtextButton%2410%2C%24Toolbar%2CcellCheck%2CcellCheck%240%2CcellCheck%241%2CcellCheck%242%2CcellCheck%243%2CcellCheck%244%2CcellCheck%245%2CcellCheck%246%2CcellCheck%247%2CcellCheck%248%2CcellCheck%249%2CcellCheck%2410%2CcellCheck%2411%2CcellCheck%2412%2CcellCheck%2413%2CcellCheck%2414%2CcellCheck%2415%2CcellCheck%2416%2CcellCheck%2417%2CcellCheck%2418%2CcellCheck%2419%2CcellCheck%2420%2CcellCheck%2421%2CcellCheck%2422%2CcellCheck%2423%2CcellCheck%2424%2CcellCheck%2425%2CcellCheck%2426%2C%24Toolbar%240&focus=&keyCode=0&stz=&source=&selected=&requestCount=2&scriptEnabled=F&scrollPos=0&scrDim=&winDim=&imgDim=&%24FormConditional=T&%24FormConditional%240=T&%24FormConditional%241=F&%24FormConditional%242=T&%24FormConditional%243=T&%24FormConditional%244=F&%24FormConditional%245=T&%24Textfield=", "url": "/aDISWeb/app;jsessionid=2C10F71CD5A73C3C9717C7EB493EC2D8"}
 firstIndex: double: 1
 lastIndex: double: 1
-book: object: {"title": "Qualitätssicherung durch Softwaretests : Vorgehensweisen und Werkzeuge zum Test von Java-Programmen ", "author": " von Stephan Kleuker. ", "publisher": " Springer Vieweg", "_searchId": "ZTEXT%20%20%20%20%20%20%20AK02167123", "_index": 1, "year": "2013"}
+book: object: {"title": "Qualitätssicherung durch Softwaretests : Vorgehensweisen und Werkzeuge zum Test von Java-Programmen ", "author": " von Stephan Kleuker. ", "publisher": " Springer Vieweg", "_searchId": "ZTEXT%20%20%20%20%20%20%20AK02167123", "_index": 1, "Volltext!": "Volltext ( http://dx.doi.org/10.1007/978-3-8348-2068-6 )", "year": "2013"}
 lastSearchedIndex: double: 1
 lastIndex: double: 2
 book: object: {"title": "Immobilien-Fachwissen im Test : 500 Fragen, 500 Antworten ", "author": " Erwin Sailer. ", "publisher": " Grabener", "_searchId": "ZTEXT%20%20%20%20%20%20%20AK00514319", "_index": 2, "year": "2010"}
@@ -16,7 +16,7 @@ lastIndex: double: 3
 book: object: {"title": "TOEFL iBT Internetbased Test  In: Barron's TOEFL iBT : internet-based test. - Buch. - (2010)", "author": "", "publisher": " (2010)", "_searchId": "ZTEXT%20%20%20%20%20%20%20AK10003817", "_index": 3, "year": "2010"}
 lastSearchedIndex: double: 3
 lastIndex: double: 4
-book: object: {"title": "Intangible Impairment : Qualitativer Impairment-Test für immaterielle Vermögenswerte ", "author": " von Arnt Wöhrmann. ", "publisher": " Gabler", "_searchId": "ZTEXT%20%20%20%20%20%20%20AK00322396", "_index": 4, "year": "2009"}
+book: object: {"title": "Intangible Impairment : Qualitativer Impairment-Test für immaterielle Vermögenswerte ", "author": " von Arnt Wöhrmann. ", "publisher": " Gabler", "_searchId": "ZTEXT%20%20%20%20%20%20%20AK00322396", "_index": 4, "Volltext!": "Volltext ( http://dx.doi.org/10.1007/978-3-8349-8448-7 )", "year": "2009"}
 lastSearchedIndex: double: 4
 lastIndex: double: 5
 book: object: {"title": "¬The¬ official guide to the TOEFL test : [find out all about the TOEFL Internet-based Test ; practice with hundreds of real TOEFL questions and essay topics ; read ETS raters' comments on actual responses ; CD-ROM with 2 full-length authentic TOEFL tests] ", "author": " ETS. ", "publisher": "Hill", "_searchId": "ZTEXT%20%20%20%20%20%20%20AK00312862", "_index": 5, "year": "2009"}
@@ -34,16 +34,16 @@ lastIndex: double: 9
 book: object: {"title": "Barron's TOEFL iBT : internet-based test 2008 ", "author": " Pamela J. Sharpe. ", "publisher": " Barron's", "_searchId": "ZTEXT%20%20%20%20%20%20%20AK00616581", "_index": 9, "year": "2007"}
 lastSearchedIndex: double: 9
 lastIndex: double: 10
-book: object: {"title": "Fundamentals of Pap Test Cytology ", "author": " by Rana S. Hoda, Syed A. Hoda. ", "publisher": " Humana Press", "_searchId": "ZTEXT%20%20%20%20%20%20%20AK00323748", "_index": 10, "year": "2007"}
+book: object: {"title": "Fundamentals of Pap Test Cytology ", "author": " by Rana S. Hoda, Syed A. Hoda. ", "publisher": " Humana Press", "_searchId": "ZTEXT%20%20%20%20%20%20%20AK00323748", "_index": 10, "Volltext!": "Volltext ( http://dx.doi.org/10.1007/978-1-59745-276-2 )", "year": "2007"}
 lastSearchedIndex: double: 10
 lastIndex: double: 11
 book: object: {"title": "TestDaF : Musterprüfung 1 ", "author": " hrsg. vom TestDAF", "publisher": " Hueber", "_searchId": "ZTEXT%20%20%20%20%20%20%20AK15006051", "_index": 11, "year": "2005"}
 lastSearchedIndex: double: 11
 lastIndex: double: 12
-book: object: {"title": "Testtheorie : Inleiding in de theorie van de psychologische test en zijn toepassingen ", "author": " by P. J. D. Drenth, K. Sijtsma. ", "publisher": " Bohn Stafleu van Loghum", "_searchId": "ZTEXT%20%20%20%20%20%20%20AK00310298", "_index": 12, "year": "2005"}
+book: object: {"title": "Testtheorie : Inleiding in de theorie van de psychologische test en zijn toepassingen ", "author": " by P. J. D. Drenth, K. Sijtsma. ", "publisher": " Bohn Stafleu van Loghum", "_searchId": "ZTEXT%20%20%20%20%20%20%20AK00310298", "_index": 12, "Volltext!": "Volltext ( http://dx.doi.org/10.1007/978-90-313-6540-1 )", "year": "2005"}
 lastSearchedIndex: double: 12
 lastIndex: double: 13
-book: object: {"title": "30 Minuten für eine bessere Unternehmensfitness : Mit Unternehmens-Test ", "author": " Jürgen Frey. ", "publisher": " GABAL Verlag", "_searchId": "ZTEXT%20%20%20%20%20%20%20AK00322609", "_index": 13, "year": "2002"}
+book: object: {"title": "30 Minuten für eine bessere Unternehmensfitness : Mit Unternehmens-Test ", "author": " Jürgen Frey. ", "publisher": " GABAL Verlag", "_searchId": "ZTEXT%20%20%20%20%20%20%20AK00322609", "_index": 13, "Volltext!": "Volltext ( http://www.redi-bw.de/start/fhbib/WISO-eBooks/GABA,AGAB/978389749281380 )", "year": "2002"}
 lastSearchedIndex: double: 13
 lastIndex: double: 14
 book: object: {"title": "Ergänzende Prüfverfahren zu den TP HGT : Raumbeständigkeitsprüfung, Bedampfungsversuch; Frostprüfungen, Dyn. E.-Modul, CIF-Test ", "author": " Arbeitskreis Prüfverfahren für Tragschichten mit hydraulischen Bindemitteln.... ", "publisher": " FGSV", "_searchId": "ZTEXT%20%20%20%20%20%20%20AK02071512", "_index": 14, "year": "2001"}
