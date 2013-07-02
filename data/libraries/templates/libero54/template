@@ -48,6 +48,16 @@
   <call action="update-all"/>
 </action>
 
+<action id="cancel-list">
+  <variable name="book-list">string-join(for $book in $cancel-books return $book.cancelId, "&amp;")</variable>
+  <s>f := $cancelForm, f.post := concat($f.post, "&amp;", $book-list)</s>
+  <page url="{$f}">
+  <template>
+    <b>Löschen der Benutzervormerkung wird bearbeitet</b>
+    <b>Transaktion verarbeitet</b>
+  </template>
+  </page>
+</action>
 
 <action id="search-connect">
   <page url="{$baseurl}WebOpac.cls">
@@ -101,5 +111,52 @@
 <action id="search-details">
   <page url="{$book._detail-url}" templateFile="searchDetails"/>
 </action>
+
+<action id="order-confirm-single"> 
+  <page url="{$book._order-url}">
+    <template><form>{f := form(., {"usernum": $username, "password": $password})}</form></template>
+  </page>
+  <page url="{$f}">  
+    <template>
+     <t:switch>
+      <form>
+        {issuePoints := (), confirm := form(.)}
+        <select name='BRANCH'>
+          {book.orderConfirmationOptionTitles := option, issuePoints := $book.orderConfirmationOptionTitles/@value}
+        </select>
+        
+        {if (count($issuePoints) > 1 ) then book.orderConfirmation := "Wohin soll das Buch vorbestellt werden?"
+         else book.orderConfirmation := ""
+        }
+      </form>
+      <ul class='SysMsgList'>
+        <b>Die Transaktion wurde abgelehnt</b>
+        <t:s>vl:raise(.)</t:s>
+      </ul>
+    </t:switch></template>   
+  </page>
+</action>
+
+
+<action id="order-single"> 
+  <if test="$book.orderConfirmation != ''">
+    <s>confirm.post := uri-combine($confirm.post, {"BRANCH": $issuePoints[$book.choosenConfirmation*1]})</s>
+  </if>
+  <page url="{$confirm}">
+  <template><t:switch>    
+    <b>Ihre Vormerkung wurde vorgenommen</b>
+    <ul class="SysMsgList">
+      <b>Für diesen Titel konnte keine Vormerkung eingetragen werden</b>
+      <t:s>vl:raise(.)</t:s>
+    </ul>    
+  </t:switch></template>
+  </page>
+</action>
+
+
+<action id="catalogue">
+  <variable name="url" value="{$baseurl}WebOpac.cls"/>
+</action>
+
 
 </actions>

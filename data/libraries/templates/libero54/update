@@ -13,19 +13,18 @@
      
      <table>
        <template:read source="'true'" var="noExtendingPossible"/>
-       <thead><tr><th id="th1_1" class="barcode" abbr="bc" scope="col"></th>
-                  <th id="th1_2" class="titleVolRef" abbr="tit" scope="col"></th>
-                  <th id="th1_3" class="author" abbr="aut" scope="col"></th>
-                  <th id="th1_4" class="dueDate" abbr="due" scope="col"></th>
-                  <th id="th1_5" class="numRenewals" abbr="num" scope="col"></th>
-                  <th id="th1_7" class="renew" abbr="ren" scope="col" template:optional="true">
+       <thead><tr><th  class="barcode" abbr="bc" ></th>
+                  <th  abbr="tit" ></th>
+                  <th  class="author" abbr="aut" ></th>
+                  <th  class="dueDate" abbr="due" ></th>
+                  <th  class="numRenewals" abbr="num" ></th>
+                  <th  class="renew" abbr="ren"  template:optional="true">
                     <template:read source="false()" var="noExtendingPossible"/>
                   </th></tr></thead>
                   
-       <template:loop>
-       <tbody>
-       {book := object()}
+       <template:loop> 
        <tr>
+          {book := object()}
           <template:read source="false()" var="bookTableBroken"/>
           <template:read var="book.extendid" source="''"/>
           <th class="barcode" headers="th1_1"><template:read source="." var="book.id"/></th>
@@ -49,8 +48,6 @@
             <template:read var="book.status:problematic" source="'Prinzipiell keine Verlängerung möglich'"/>
           </template:if>
        </tr>
-       <!--<template:read var="book-end()"/>-->
-       </tbody>
        </template:loop>
      </table>
 
@@ -59,6 +56,39 @@
      </input>
   </fieldset>
  </form>
+ 
+ 
+ <form name="MEMSLFRES" template:optional="true">
+   {cancelForm := form(.)}
+   <fieldset id="reserved_items_flds">     
+     <table>
+       
+       <thead><tr> 
+                  <th class="barcode" abbr="bc" ></th>
+                  <th abbr="tit" ></th>
+                  <th class="author" abbr="aut" ></th>
+                  <th class="reserveDate" abbr="date" ></th>
+                  <th class="delete" abbr="del" ></th>
+              </tr></thead>
+                  
+       <template:loop>
+       <tr>
+          {book := {"statusId": "ordered"}}
+          <td headers='th7_2'>{$book.id}</td>
+          <td headers='th7_3'>{$book.title}</td>
+          <td headers='th7_4'>{$book.author}</td>
+          <td headers='th7_5'>{$book.issueDate := parse-date(., "d mmm yyyy")}</td>
+          <td headers='th7_6'><input type="checkbox">{book.cancelId := uri-combine(., ())}</input>?</td>
+       </tr>
+       <!--<template:read var="book-end()"/>-->
+       </template:loop>
+     </table>
+
+     <input type="hidden" name="mid">
+       <template:read var="mid" source="@value"/>
+     </input>
+  </fieldset>
+ </form> 
 </body>
 
 
