@@ -57,10 +57,24 @@
       </DIV>
     </DIV>   
   </html>
-
+ 
 
   <h1>Ihre Suche erzielte keinen Treffer.<t:s>search-result-count :=  0</t:s></h1>
   
   <h1>Die Person wurde nicht gefunden<t:s>search-result-count :=  0</t:s></h1>  
 
+  <html>  
+    <form>
+      <span>Vollanzeige Katalog</span>
+
+      <t:switch-prioritized>
+        <input title="Zurück zur Trefferliste">{backButtonName := uri-encode(@name)}</input>
+        <input t:condition="contains(@title, 'zur Trefferliste')">{backButtonName := uri-encode(@name)}</input>
+      </t:switch-prioritized> 
+      
+      {gotDetails_GoBackPage := form(.),
+       gotDetails_GoBackPage.post := x"{$gotDetails_GoBackPage.post}&{$backButtonName}.x=0&{$backButtonName}.y=0"
+      }    
+    </form>
+  </html>
 </template:switch-prioritized>

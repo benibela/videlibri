@@ -159,6 +159,8 @@
   <variable>lastSearchedIndex := 0, search-next-page-available := ()</variable>
 
   <page url="{$startSearch}" templateFile="search"/>
+
+  <page test="exists(get('gotDetails_GoBackPage', ()))" url="{$gotDetails_GoBackPage}" templateFile="search"/>
 </action>
 
 <action id="search-next-page">

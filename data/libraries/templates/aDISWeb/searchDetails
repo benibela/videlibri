@@ -57,7 +57,7 @@
 
                         <TR>
                           <TH class="spaltelinks">{name:=translate(normalize-space(.), ".", "")}</TH>
-                          <TD class="spalterechts"><t:read source="." var="book.{$name}!"/></TD>
+                          <TD class="spalterechts"><t:read source="if (./a and contains(./a/@href, '://')) then x'{.} ( {./a/@href} )' else ."  var="book.{$name}!"/></TD>
                         </TR>
                         </t:switch>
                       </t:loop>
