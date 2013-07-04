@@ -35,7 +35,7 @@ object optionForm: ToptionForm
     Height = 483
     Top = 6
     Width = 612
-    PageIndex = 0
+    PageIndex = 1
     Anchors = [akTop, akLeft, akRight, akBottom]
     BorderSpacing.Around = 2
     OnChangeBounds = Notebook1ChangeBounds
@@ -47,10 +47,10 @@ object optionForm: ToptionForm
         AnchorSideTop.Side = asrCenter
         Left = 8
         Height = 15
-        Top = 342
-        Width = 94
+        Top = 346
+        Width = 116
         BorderSpacing.Around = 10
-        Caption = 'Geburtsdatum:'
+        Caption = 'Passwort:              '
         ParentColor = False
       end
       object Label2: TLabel
@@ -58,7 +58,7 @@ object optionForm: ToptionForm
         AnchorSideTop.Side = asrCenter
         Left = 8
         Height = 15
-        Top = 313
+        Top = 317
         Width = 94
         BorderSpacing.Around = 10
         BorderSpacing.InnerBorder = 10
@@ -70,7 +70,7 @@ object optionForm: ToptionForm
         AnchorSideTop.Side = asrCenter
         Left = 8
         Height = 15
-        Top = 284
+        Top = 288
         Width = 75
         BorderSpacing.InnerBorder = 10
         Caption = 'Kontoname:'
@@ -81,7 +81,7 @@ object optionForm: ToptionForm
         AnchorSideTop.Side = asrCenter
         Left = 8
         Height = 15
-        Top = 371
+        Top = 373
         Width = 72
         BorderSpacing.Around = 10
         Caption = 'Verlängern:'
@@ -92,7 +92,7 @@ object optionForm: ToptionForm
         AnchorSideTop.Side = asrCenter
         Left = 222
         Height = 15
-        Top = 371
+        Top = 373
         Width = 30
         Caption = 'also '
         ParentColor = False
@@ -104,7 +104,7 @@ object optionForm: ToptionForm
         AnchorSideTop.Side = asrCenter
         Left = 294
         Height = 15
-        Top = 371
+        Top = 373
         Width = 128
         BorderSpacing.Left = 5
         Caption = 'Tage vor Fristdatum'
@@ -126,7 +126,7 @@ object optionForm: ToptionForm
         AnchorSideLeft.Side = asrBottom
         AnchorSideTop.Control = Label5
         AnchorSideTop.Side = asrCenter
-        Left = 112
+        Left = 134
         Height = 15
         Top = 242
         Width = 8
@@ -202,10 +202,10 @@ object optionForm: ToptionForm
         AnchorSideTop.Control = lblAccountPass
         AnchorSideTop.Side = asrCenter
         AnchorSideBottom.Control = cmbAccountExtend
-        Left = 112
+        Left = 134
         Height = 25
-        Top = 337
-        Width = 490
+        Top = 341
+        Width = 468
         Anchors = [akLeft, akRight, akBottom]
         BorderSpacing.Left = 3
         BorderSpacing.Around = 4
@@ -217,10 +217,10 @@ object optionForm: ToptionForm
         AnchorSideTop.Control = Label2
         AnchorSideTop.Side = asrCenter
         AnchorSideBottom.Control = edtAccountPass
-        Left = 112
+        Left = 134
         Height = 25
-        Top = 308
-        Width = 490
+        Top = 312
+        Width = 468
         Anchors = [akLeft, akRight, akBottom]
         BorderSpacing.Left = 3
         BorderSpacing.Around = 4
@@ -233,10 +233,10 @@ object optionForm: ToptionForm
         AnchorSideTop.Control = Label1
         AnchorSideTop.Side = asrCenter
         AnchorSideBottom.Control = edtAccountUser
-        Left = 112
+        Left = 134
         Height = 25
-        Top = 279
-        Width = 490
+        Top = 283
+        Width = 468
         Anchors = [akLeft, akRight, akBottom]
         BorderSpacing.Left = 3
         BorderSpacing.Around = 4
@@ -285,10 +285,10 @@ object optionForm: ToptionForm
         AnchorSideLeft.Side = asrBottom
         AnchorSideTop.Control = Label4
         AnchorSideTop.Side = asrCenter
-        Left = 112
-        Height = 25
-        Top = 366
-        Width = 490
+        Left = 134
+        Height = 21
+        Top = 370
+        Width = 468
         Anchors = [akLeft, akRight, akBottom]
         BorderSpacing.Left = 3
         BorderSpacing.Around = 4
@@ -367,10 +367,10 @@ object optionForm: ToptionForm
         Left = 12
         Height = 33
         Top = 71
-        Width = 291
+        Width = 327
         BorderSpacing.Top = 4
         BorderSpacing.Around = 4
-        Caption = 'Farbe für verlängerbare Medien, die nicht bald zurückgegeben werden müssen:'
+        Caption = 'Farbe für nicht verlängerbare Medien, die nicht bald zurückgegeben werden müssen:'
         Constraints.MaxWidth = 369
         ParentColor = False
         WordWrap = True
