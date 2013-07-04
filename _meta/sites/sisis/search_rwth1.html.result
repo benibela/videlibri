@@ -1,0 +1,5 @@
+book: {}
+
+
+singleBookResult: node: http://sisis.bth.rwth-aachen.de:8080/InfoGuideClient/singleHit.do?methodToCall=activateTab&tab=showTitleActive
+search-result-count: integer: 1

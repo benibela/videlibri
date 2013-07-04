@@ -1,3 +1,4 @@
+<template:meta default-text-matching="regex"/>
 <template:switch-prioritized>
    <DIV id="hitlist">
     <DIV class="box">
@@ -66,7 +67,7 @@
   </DIV>
 
   <div id="main">
-    <a>Titeldaten<t:s>singleBookResult:=@href, search-result-count:=1</t:s></a>
+    <a>Titeldaten|mehr zum Titel<t:s>singleBookResult:=@href, search-result-count:=1</t:s></a>
     <div id="tab-content"> 
       <template:switch>
         <table class="data"/>

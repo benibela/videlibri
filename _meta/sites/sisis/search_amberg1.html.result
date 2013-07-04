@@ -1,0 +1,5 @@
+book: {}
+
+
+singleBookResult: node: /InfoGuideClient.fawsis/singleHit.do?methodToCall=activateTab&tab=showTitleActive
+search-result-count: integer: 1
