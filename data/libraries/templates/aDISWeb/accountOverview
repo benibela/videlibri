@@ -5,6 +5,12 @@
   <a>Ausleihen zeigen oder verlängern<t:s>kontoPage := @href</t:s></a>
   <a>Ausleihe zeigen oder verlängern<t:s>kontoPage := @href</t:s></a>
   </t:switch>
+
+  <t:switch>
+  <td>Keine Bereitstellung<t:s>providedPage:=""</t:s></td>
+  <a>Bereitstellung zeigen oder löschen<t:s>providedPage := @href</t:s></a>
+  <a>Bereitstellungen zeigen oder löschen<t:s>providedPage := @href</t:s></a>
+  </t:switch>
   
   <t:switch t:optional="true">
   <td>Keine Bestellwünsche<t:s>orderedPage:=""</t:s></td>

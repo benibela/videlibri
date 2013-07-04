@@ -59,16 +59,25 @@
   
   <page url="{$loginFormPost}" templateFile="accountOverview"/>
 
-  <page url="{$kontoPage}" test="$kontoPage != ''" templateFile="list"/>
-  <page url="{$goBackPage}" templateFile="accountOverview"/>
+  <if test="$kontoPage != ''">
+    <page url="{$kontoPage}" templateFile="list"/>
+    <page url="{$goBackPage}" templateFile="accountOverview"/>
+  </if>
   
-  
-  <page url="{$orderedPage}" test="$orderedPage != ''" templateFile="list"/>
-  <page url="{$goBackPage}" templateFile="accountOverview"/>
-  
-  <page url="{$requestedPage}" test="$requestedPage != ''" templateFile="list"/>
-  <page url="{$goBackPage}" templateFile="accountOverview"/>
+  <if test="$providedPage != ''">
+    <page url="{$providedPage}" templateFile="list"/>
+    <page url="{$goBackPage}" templateFile="accountOverview"/>
+  </if>
 
+  <if test="$orderedPage != ''">
+    <page url="{$orderedPage}" templateFile="list"/>
+    <page url="{$goBackPage}" templateFile="accountOverview"/>
+  </if>
+  
+  <if test="$requestedPage != ''">
+    <page url="{$requestedPage}" templateFile="list"/>
+    <page url="{$goBackPage}" templateFile="accountOverview"/>
+  </if>
 
 </action>
 
