@@ -68,7 +68,7 @@
     <t:if test="$hasTill"> <TD><!-- vormerkungs verfall --></TD> </t:if>
     <TD>{book.libraryBranch := .}</TD>
     <TD>{book.category := filter(text(), "^ *\[([^]]*)\]", 1),  
-         book.title :=  if (starts-with(text(), "]")) then filter(text(), "(\] )(.*)", 2) else text(),
+         book.title :=  if (starts-with(text(), "[")) then filter(text(), "(\] )(.*)", 2) else text(),
          if (contains($book.title, "/")) then (
            $book.author := substring-after($book.title, "/"),
            $book.title := substring-before($book.title, "/")
