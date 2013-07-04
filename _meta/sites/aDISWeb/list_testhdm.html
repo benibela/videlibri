@@ -1,0 +1,334 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="de" lang="de">
+<!-- solution for: conditional-comments block downloads  -->
+<!--[if IE]><![endif]--><head>
+	<style type="text/css">
+		@import url(css/aDISStandard.css);
+	</style>
+	<script src="js/aDISMain.js" type="text/javascript"></script>
+	<script src="js/fckeditor/fckeditor.js" type="text/javascript"></script>
+	<title> HDM Stuttgart                  </title><script type="text/javascript">
+	var text = '';
+	window.defaultStatus=text;
+</script> <!--
+  (c) Software: aDIS/BMS und aDIS/Archiv by |a|S|tec| GmbH Berlin und Muenchen - www.astec.de
+  HTML-/CSS-Anpassungen: ena Webstudio - www.ena-webstudio.com
+  HTML-/CSS-Framework basiert grob auf Contao (c) Leo Feyer www.contao.org
+  Formulare, Tabellen, etc. werden automatisch durch aDIS generiert
+  Projekt: BSZ, Deutsch - OPAC03
+  Letztes Update: 25.06.2013
+  //-->
+
+  <meta http-equiv="content-language" content="de" />
+  <meta name="language" content="de" />  
+  <meta http-equiv="x-ua-compatible" content="ie=edge" />
+  <meta http-equiv="cache-control" content="no-cache" />
+  <meta http-equiv="content-type" content="text/html; charset=utf-8" />  
+  <meta name="viewport" content="width=device-width; initial-scale=1.0" />
+  <meta http-equiv="content-style-type" content="text/css" />
+  <meta http-equiv="content-script-type" content="text/javascript" /> 
+    
+  <link rel="stylesheet" href="/aDISWeb_bsz/basis/css/framework.css" type="text/css" media="screen" />
+  <!--[if lte IE 7]><link rel="stylesheet" href="/aDISWeb_bsz/basis/css/framework_iefixes.css" type="text/css" media="screen" /><![endif]-->
+  <link rel="stylesheet" href="/aDISWeb_bsz/basis/css/layout.css" type="text/css" media="screen" />
+  
+  <!-- Individuell START -->
+  <!-- incl=includeCSS.html --> <link rel="stylesheet" type="text/css" media="screen, projection" href="/aDISWeb_bsz/m21/css/diff.css" />
+ <link rel="shortcut icon" type="image/x-icon" href="/aDISWeb_bsz/m21/images/favicon.ico" />
+<!-- stop -->
+  <!-- Individuell STOP -->  
+  
+  <!--[if lt IE 7]><link rel="stylesheet" href="/aDISWeb_bsz/basis/css/ieonly.css" type="text/css" media="screen" /><![endif]--> 
+  <!--[if IE 7]><link rel="stylesheet" href="/aDISWeb_bsz/basis/css/ieonly7.css" type="text/css" media="screen" /><![endif]--> 
+  <!--[if gte IE 8]><link rel="stylesheet" href="/aDISWeb_bsz/basis/css/ieonly8.css" type="text/css" media="screen" /><![endif]-->
+  <link rel="stylesheet" type="text/css" href="/aDISWeb_bsz/basis/css/print.css" media="print" />
+  <link rel="stylesheet" href="/aDISWeb_bsz/basis/css/media.css" type="text/css" />
+  <!--[if lt IE 9]><script type="text/javascript" src="/aDISWeb_bsz/basis/js/css3-mediaqueries.js"></script><![endif]--> 
+  
+  <!-- incl=includeMeta_de.html --><meta name="description" content="Bibliothekskatalog" />
+<!-- stop -->
+</head>
+<body class="zweier deutsch">
+<script type="text/javascript"><!--
+
+
+
+
+function startIdleTimer() {
+  if (typeof idleId != 'undefined')
+    clearTimeout(idleId)
+  idleId = window.setTimeout("to('"+ idleLink + "')", idleTime);
+  }			
+function to(link) {
+  location.href=link;
+  }
+
+
+
+
+					
+function setupHandlers()  {
+	document.onmousedown = docOnEvent;		
+	document.onkeydown = docOnEvent;	
+	document.onkeypress = docOnEvent;
+	document.onhelp = cancelF1;
+	
+	initFormElements();
+	initIframes();
+	initScrollPos();
+	}
+function getDimensions()  {
+	document.forms[0].scrDim.value = screen.width + ";" + screen.height;
+	if (window.innerWidth)
+		document.forms[0].winDim.value = window.innerWidth + ";" + window.innerHeight;
+	else
+		document.forms[0].winDim.value = document.body.offsetWidth + ";" + document.body.offsetHeight;
+	node = document.getElementById("img_content");
+	if (node != undefined)
+		document.forms[0].imgDim.value = node.offsetWidth + ";" + node.offsetHeight;
+	}
+
+
+
+
+window.onload = function (e)
+{
+
+  idleTime=600000;
+  idleLink="/aDISWeb/app;jsessionid=242F8BC2F9FDAE1AD306A578E462FA1F?service=direct/1/POOLM21PBSZTEST@_4B004600_2C34CC00/$Timeout";
+  startIdleTimer();
+
+
+if (!e) var e = window.event;
+document.forms[0].scriptEnabled.value=true;
+if (self.specialOnLoad != undefined)
+	specialOnLoad(e);
+setupHandlers();
+getDimensions();
+
+}
+
+// --></script>
+<div class="aDISMaske"><form method="post" name="Form0" action="/aDISWeb/app;jsessionid=242F8BC2F9FDAE1AD306A578E462FA1F" onsubmit="return formOnSubmit();">
+<input type="hidden" name="service" value="direct/1/POOLM21PBSZTEST@_4B004600_2C34CC00/$Form.form"/>
+<input type="hidden" name="sp" value="S0"/>
+<input type="hidden" name="Form0" value="focus,keyCode,stz,source,selected,requestCount,scriptEnabled,scrollPos,scrDim,winDim,imgDim,$FormConditional,textButton,$Toolbar,$FormConditional$0,$FormConditional$1,textButton$0,$FormConditional$2,textButton$1,$FormConditional$3,$FormConditional$4,cellCheck,cellCheck$0,cellCheck$1,cellCheck$2,cellCheck$3,cellCheck$4,cellCheck$5,cellCheck$6,cellCheck$7,cellCheck$8,cellCheck$9,cellCheck$10,cellCheck$11,cellCheck$12,cellCheck$13,cellCheck$14,cellCheck$15,cellCheck$16,cellCheck$17,$FormConditional$5,$FormConditional$6,textButton$2,$FormConditional$7,textButton$3,$FormConditional$8,$FormConditional$9,$Toolbar$0"/>
+<input type="hidden" name="focus" value=""/>
+<input type="hidden" name="keyCode" value="0"/>
+<input type="hidden" name="stz" value=""/>
+<input type="hidden" name="source" value=""/>
+<input type="hidden" name="selected" value=""/>
+<input type="hidden" name="requestCount" value="4"/>
+<input type="hidden" name="scriptEnabled" value="F"/>
+<input type="hidden" name="scrollPos" value="0"/>
+<input type="hidden" name="scrDim" value=""/>
+<input type="hidden" name="winDim" value=""/>
+<input type="hidden" name="imgDim" value=""/>
+<input type="hidden" name="$FormConditional" value="T"/>
+<input type="hidden" name="$FormConditional$0" value="F"/>
+<input type="hidden" name="$FormConditional$1" value="T"/>
+<input type="hidden" name="$FormConditional$2" value="T"/>
+<input type="hidden" name="$FormConditional$3" value="F"/>
+<input type="hidden" name="$FormConditional$4" value="F"/>
+<input type="hidden" name="$FormConditional$5" value="F"/>
+<input type="hidden" name="$FormConditional$6" value="T"/>
+<input type="hidden" name="$FormConditional$7" value="T"/>
+<input type="hidden" name="$FormConditional$8" value="F"/>
+<input type="hidden" name="$FormConditional$9" value="F"/>
+				
+<div id="wrapper">
+  <div id="wrapper_inside">
+  
+    <div id="header" role="banner">
+      <div class="inside">     
+      
+          <ul id="sprunglinks">
+            <li><a class="sprung" href="#main">Zum Hauptinhalt</a></li>
+            <li><a class="sprung" href="#left">Zur Navigation</a></li>
+          </ul>              
+          
+          <div id="settings">
+            <p>
+              
+            </p>
+          </div>
+          
+          
+  <!-- incl=includeLogo_de.html -->      <p id="logo">
+	<a href="http://www.hdm-stuttgart.de/bibliothek" title="Zur Homepage der Bibliothek" target="_blank">
+	<img src="/aDISWeb_bsz/m21/images/logo.gif" height="105" alt="Logo" /></a></p>
+<!-- stop --> 
+      </div>
+    </div>
+  
+    <div id="container">
+      <div id="container_inside">
+  
+        <div id="left">
+          <div class="inside">
+
+            <h2 class="invisible">Navigation</h2>
+  
+            <div id="navbox" class="block">
+            <div id="R20"><span class="bnzeig">van der Zander, Benito: Sie sind angemeldet</span><span class="mmzeig"></span>
+</div>
+            </div> 
+
+            <div class="mod_navigation block" id="unav" role="navigation"> 
+  <!-- incl=includeNavigation_a.html --><!-- Platz fuer externe Navigation VOR aDIS-Navigation -->
+<!-- stop --> <div class="tree_div">
+<ul class="tree_ul">
+<li class="tree_leaf_li">
+<a href="/aDISWeb/app;jsessionid=242F8BC2F9FDAE1AD306A578E462FA1F?service=direct/1/POOLM21PBSZTEST@_4B004600_2C34CC00/$Tree.treeNodes&amp;sp=SS6&amp;requestCount=4" class="tree_leaf_a"><span>Online-Katalog</span></a><span class="outside">.</span></li>
+<li class="tree_branch_li">
+<a href="/aDISWeb/app;jsessionid=242F8BC2F9FDAE1AD306A578E462FA1F?service=direct/1/POOLM21PBSZTEST@_4B004600_2C34CC00/$Tree.treeNodes&amp;sp=SF1&amp;requestCount=4" class="tree_branch_a"><span>Fernleihe</span></a><span class="outside">.</span></li>
+<li class="tree_leaf_li">
+<a href="/aDISWeb/app;jsessionid=242F8BC2F9FDAE1AD306A578E462FA1F?service=direct/1/POOLM21PBSZTEST@_4B004600_2C34CC00/$Tree.treeNodes&amp;sp=SW1&amp;requestCount=4" class="tree_leaf_a"><span>Seminarapparate</span></a><span class="outside">.</span></li>
+<li class="tree_leaf_li">
+<a href="/aDISWeb/app;jsessionid=242F8BC2F9FDAE1AD306A578E462FA1F?service=direct/1/POOLM21PBSZTEST@_4B004600_2C34CC00/$Tree.treeNodes&amp;sp=SW2&amp;requestCount=4" class="tree_leaf_a"><span>Neuerwerbungsliste</span></a><span class="outside">.</span></li>
+<li class="tree_leaf_li">
+<a href="javascript:win=window.open('http://www.hdm-stuttgart.de/bibliothek//digibib/');if(win)win.focus()" class="tree_leaf_a"><span>Die digitale Bibliothek</span></a><span class="outside">.</span></li>
+<li class="tree_leaf_li">
+<a href="javascript:win=window.open('https://www.hdm-stuttgart.de/bibliothek/wir_ueber_uns/anschaffungsvorschlag/');if(win)win.focus()" class="tree_leaf_a"><span>Anschaffungsvorschlag</span></a><span class="outside">.</span></li>
+<li class="tree_leaf_li">
+<a href="/aDISWeb/app;jsessionid=242F8BC2F9FDAE1AD306A578E462FA1F?service=direct/1/POOLM21PBSZTEST@_4B004600_2C34CC00/$Tree.treeNodes&amp;sp=SL2&amp;requestCount=4" class="tree_leaf_a"><span>Abmelden</span></a><span class="outside">.</span></li>
+<li class="tree_leaf_li_sel">
+<strong><span class="tree_strong">Mein Konto</span></strong></li>
+</ul></div>
+ <!-- incl=includeNavigation_b.html --><!-- Platz fuer externe Navigation NACH aDIS-Navigation -->
+<!-- stop -->  
+            </div>
+             
+          </div>
+        </div>
+  
+        <div id="main" role="main">
+          <div class="inside">
+          
+            <div class="block">
+             <h1>
+               
+              <span class="invisible">Aktuelle Seite:</span><span class="txtinsert">Mein Konto / Ausleihen</span> </h1>
+      
+              <div id="topleiste" class="block">  
+              <p id="druckversion"><input type="submit" name="textButton" value="Druckversion" fld="$$GFBO_88"/> </p>         
+
+              <p id="breadcrumb"><!-- incl=includeBreadcrumb_de.html --><span class="invisible">Sie sind hier: </span> 
+<!-- stop --> <a href="/aDISWeb/app;jsessionid=242F8BC2F9FDAE1AD306A578E462FA1F?service=direct/1/POOLM21PBSZTEST@_4B004600_2C34CC00/$InternalLink.directlink&amp;sp=S%24%24GFNV_1&amp;sp=SStartseite%3DCW00&amp;requestCount=4" title="" fld="$$GFNV_1">Online-Katalog</a>	<span class="outside">.</span> &gt; <span class="navicl"><a href="/aDISWeb/app;jsessionid=242F8BC2F9FDAE1AD306A578E462FA1F?service=direct/1/POOLM21PBSZTEST@_4B004600_2C34CC00/navpath.intlink.directlink&amp;sp=S%24%24GFNV_1&amp;sp=SAAAU&amp;requestCount=4" title="Mein Konto / &#220;bersicht" fld="$$GFNV_1">Mein Konto / &#220;bersicht</a>	<span class="outside">.</span></span> &gt;<span class="txtinsert">Mein Konto / Ausleihen</span> </p>
+              </div><div class="toolbar_div">
+<ul class="toolbar_ul">
+<li class="toolbar_li">
+<input type="image" src="/aDISWeb/images/POOLM21PBSZTEST@/gif/POOLM21PBSZTEST@_57001500_283DA900.gif;jsessionid=242F8BC2F9FDAE1AD306A578E462FA1F" alt="Zur&#252;ck zur vorherigen Seite" id="Toolbar_0" name="$Toolbar_0" title="Zur&#252;ck zur vorherigen Seite" onmouseover="self.status='Zur&#252;ck zur vorherigen Seite';return true;" onmouseout="self.status='';" class="toolbar_img"/><label for="Toolbar_0"><span class="toolbar_txt">Zur&#252;ck</span></label></li>
+<li class="toolbar_li">
+<input type="image" src="/aDISWeb/images/POOLM21PBSZTEST@/gif/POOLM21PBSZTEST@_57000B00_283DA900.gif;jsessionid=242F8BC2F9FDAE1AD306A578E462FA1F" alt="Beenden der Recherche" id="Toolbar_2" name="$Toolbar_2" title="Beenden der Recherche" onmouseover="self.status='Beenden der Recherche';return true;" onmouseout="self.status='';" class="toolbar_img"/><label for="Toolbar_2"><span class="toolbar_txt">Beenden</span></label></li>
+<li class="toolbar_li">
+<input type="image" src="/aDISWeb/images/POOLM21PBSZTEST@/gif/POOLM21PBSZTEST@_57000500_283DA900.gif;jsessionid=242F8BC2F9FDAE1AD306A578E462FA1F" alt="Hilfe zur Vollanzeige" id="Toolbar_3" name="$Toolbar_3" title="Hilfe zur Vollanzeige" onmouseover="self.status='Hilfe zur Vollanzeige';return true;" onmouseout="self.status='';" class="toolbar_img"/><label for="Toolbar_3"><span class="toolbar_txt">Hilfe</span></label></li></ul><div style="clear:both"></div></div> <!-- incl=includeHinweis_de.html --><!-- <p class="hinweisbox">Derzeit keine Hinweise</p> --> 
+<!-- stop --> 
+
+              <div class="fsgrp">
+                
+                
+                  
+                
+                
+                 
+                
+                 
+                
+                
+                
+                
+                <div id="OPACLI" style="   width:99%;" class="aDISListe"><div class="html_div" style="width:99%; height:100%;"><p>Ihre ausgeliehenen Titel: Bitte beachten Sie das Fälligkeitsdatum. Nutzen Sie rechtzeitig das Verlängerungsangebot.</p><p> Herrn van der Zander, Benito</p><p>Sie haben heute für alle Medien eine Verlängerung durchgeführt.<br/>Für abgelehnte Verlängerungen bitte die Spalte "Hinweis" beachten.<br/>Eine nochmalige Verlängerung ist heute nicht möglich.</p></div></div>
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+          
+                
+                 
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <div id="R04">
+<p><input type="submit" name="textButton$0" value="Alle verl&#228;ngern" class="buttong_l" fld="$$GFBO_3"/><input type="submit" name="textButton$1" value="Markierte Titel verl&#228;ngern" class="buttong_l" fld="$$GFBO_4"/>
+<br class="klar"/>
+</p>
+</div><div id="R05"><div style="   width:99%; "><div class="rTable_div"><table colCase="[, , , , ]" colDisable="[true, true, true, true, true]" class="rTable_table" width="100%">	<colgroup><col width="04%"></col><col width="14%"></col><col width="19%"></col><col width="34%"></col><col width="29%"></col>	</colgroup>	<thead class="rTable_thead">
+			<tr><th scope="col" class="rTable_th"></th><th scope="col" class="rTable_th">Ausleihe am - Fällig am</th><th scope="col" class="rTable_th">Bibliothek</th><th scope="col" class="rTable_th">Titel</th><th scope="col" class="rTable_th">Hinweis</th>	</tr>	
+		</thead>
+		<tbody><tr class="rTable_tr_even"><td class="rTable_td_check"><label for="cellCheck" class="invisible">Markieren</label><input type="checkbox" name="cellCheck" fld="###CHK_1" id="cellCheck"/></td><td class="zellef">14.05.2013</td><td class="rTable_td_text">Campus Nobelstrasse</td><td class="rTable_td_text">Leitfaden WOM-Marketing : die neue Empfehlungsgesellschaft; Online und offline neue Kunden gewinnen durch Social Media Marketing, Viral Marketing, Advocating und Buzz<br/>Hkm 72 LEI</td><td class="rTable_td_text">Keine Verlängerung: Vormerkungen!- Stand 04.07.2013<br/>3 Verlängerungen<br/>1 Vormerker</td></tr><tr class="rTable_tr_odd"><td class="rTable_td_check"><label for="cellCheck_0" class="invisible">Markieren</label><input type="checkbox" name="cellCheck$0" fld="###CHK_2" id="cellCheck_0"/></td><td class="zellef">16.05.2013</td><td class="rTable_td_text">Campus Nobelstrasse</td><td class="rTable_td_text">¬Die¬ große Social-Media- & Online-PR-Bibel : [erfolgreiche Unternehmenskommunikation im Social Web, auf Facebook & Co]<br/>Hkm 48 BAR</td><td class="rTable_td_text">Keine Verlängerung: Vormerkungen!- Stand 04.07.2013<br/>2 Vormerker</td></tr><tr class="rTable_tr_even"><td class="zellgb"><label for="cellCheck_1" class="invisible">Markieren</label><input type="checkbox" name="cellCheck$1" fld="###CHK_3" id="cellCheck_1" disabled="disabled"/></td><td class="zellgb">05.07.2013</td><td class="zellgb">Campus Nobelstrasse</td><td class="zellgb">¬Die¬ Web 2.0-Strategie : [innovative Geschäftsmodelle im Internet]<br/>Hkm 72 SHU</td><td class="zellgb">Heute verlängert<br/>2 Verlängerungen</td></tr><tr class="rTable_tr_odd"><td class="zellgb"><label for="cellCheck_2" class="invisible">Markieren</label><input type="checkbox" name="cellCheck$2" fld="###CHK_4" id="cellCheck_2" disabled="disabled"/></td><td class="zellgb">05.07.2013</td><td class="zellgb">Campus Nobelstrasse</td><td class="zellgb">Community-Marketing : wie Unternehmen in sozialen Netzwerken Werte schaffen<br/>Hkm 72 COM</td><td class="zellgb">Heute verlängert<br/>5 Verlängerungen</td></tr><tr class="rTable_tr_even"><td class="zellgb"><label for="cellCheck_3" class="invisible">Markieren</label><input type="checkbox" name="cellCheck$3" fld="###CHK_5" id="cellCheck_3" disabled="disabled"/></td><td class="zellgb">05.07.2013</td><td class="zellgb">Campus Nobelstrasse</td><td class="zellgb">Erfolgreiches Online-Marketing : Schritt für Schritt zum Ziel<br/>Hkm 72 SCHWA</td><td class="zellgb">Heute verlängert<br/>2 Verlängerungen</td></tr><tr class="rTable_tr_odd"><td class="zellgb"><label for="cellCheck_4" class="invisible">Markieren</label><input type="checkbox" name="cellCheck$4" fld="###CHK_6" id="cellCheck_4" disabled="disabled"/></td><td class="zellgb">05.07.2013</td><td class="zellgb">Campus Nobelstrasse</td><td class="zellgb">Social media marketing : Strategien für Twitter, Facebook & Co<br/>Hkk 14 WEI</td><td class="zellgb">Heute verlängert<br/>5 Verlängerungen</td></tr><tr class="rTable_tr_even"><td class="zellgb"><label for="cellCheck_5" class="invisible">Markieren</label><input type="checkbox" name="cellCheck$5" fld="###CHK_7" id="cellCheck_5" disabled="disabled"/></td><td class="zellgb">05.07.2013</td><td class="zellgb">Campus Nobelstrasse</td><td class="zellgb">Handbuch Online-Kommunikation<br/>Kal HAN</td><td class="zellgb">Heute verlängert<br/>3 Verlängerungen</td></tr><tr class="rTable_tr_odd"><td class="zellgb"><label for="cellCheck_6" class="invisible">Markieren</label><input type="checkbox" name="cellCheck$6" fld="###CHK_8" id="cellCheck_6" disabled="disabled"/></td><td class="zellgb">05.07.2013</td><td class="zellgb">Campus Nobelstrasse</td><td class="zellgb">Social media marketing : Marketing mit Blogs, sozialen Netzwerken und weiteren Anwendungen des Web 2.0<br/>Hkm 72 HET</td><td class="zellgb">Heute verlängert<br/>1 Verlängerung</td></tr><tr class="rTable_tr_even"><td class="zellgb"><label for="cellCheck_7" class="invisible">Markieren</label><input type="checkbox" name="cellCheck$7" fld="###CHK_9" id="cellCheck_7" disabled="disabled"/></td><td class="zellgb">05.07.2013</td><td class="zellgb">Campus Nobelstrasse</td><td class="zellgb">¬Die¬ TOP100 Strategie für Social Media Marketing. - 1. 100 Praxis-Tipps zur Positionierung Ihrer Marke und zum Verkauf Ihrer Produkte mit Facebook, YouTube, Twitter & Co.; [inkl. Agentur-Empfehlungen]<br/>Hkm 72 MUEH</td><td class="zellgb">Heute verlängert<br/>5 Verlängerungen</td></tr><tr class="rTable_tr_odd"><td class="zellgb"><label for="cellCheck_8" class="invisible">Markieren</label><input type="checkbox" name="cellCheck$8" fld="###CHK_10" id="cellCheck_8" disabled="disabled"/></td><td class="zellgb">05.07.2013</td><td class="zellgb">Campus Nobelstrasse</td><td class="zellgb">Facebook - Marketing unter Freunden : Dialog statt plumpe Werbung<br/>Hkk 14 HOL</td><td class="zellgb">Heute verlängert<br/>5 Verlängerungen</td></tr><tr class="rTable_tr_even"><td class="zellgb"><label for="cellCheck_9" class="invisible">Markieren</label><input type="checkbox" name="cellCheck$9" fld="###CHK_11" id="cellCheck_9" disabled="disabled"/></td><td class="zellgb">05.07.2013</td><td class="zellgb">Campus Nobelstrasse</td><td class="zellgb">Social Media Kompass. - 2010/2011.<br/>Hkm 72 SOC</td><td class="zellgb">Heute verlängert<br/>2 Verlängerungen</td></tr><tr class="rTable_tr_odd"><td class="zellgb"><label for="cellCheck_10" class="invisible">Markieren</label><input type="checkbox" name="cellCheck$10" fld="###CHK_12" id="cellCheck_10" disabled="disabled"/></td><td class="zellgb">05.07.2013</td><td class="zellgb">Campus Nobelstrasse</td><td class="zellgb">Digitale Bildkompetenz und Kommunikation : gute Fotos erkennen, bearbeiten und nutzen<br/>Who 15 GUR</td><td class="zellgb">Heute verlängert<br/>5 Verlängerungen</td></tr><tr class="rTable_tr_even"><td class="zellgb"><label for="cellCheck_11" class="invisible">Markieren</label><input type="checkbox" name="cellCheck$11" fld="###CHK_13" id="cellCheck_11" disabled="disabled"/></td><td class="zellgb">05.07.2013</td><td class="zellgb">Campus Nobelstrasse</td><td class="zellgb">Online-Marketing<br/>Hkm 72 SHE</td><td class="zellgb">Heute verlängert<br/>2 Verlängerungen</td></tr><tr class="rTable_tr_odd"><td class="zellgb"><label for="cellCheck_12" class="invisible">Markieren</label><input type="checkbox" name="cellCheck$12" fld="###CHK_14" id="cellCheck_12" disabled="disabled"/></td><td class="zellgb">05.07.2013</td><td class="zellgb">Campus Nobelstrasse</td><td class="zellgb">Online strategy : das 10 x 10 des Online-Marketings, SEO, Social Media<br/>Hkm 72 BOE</td><td class="zellgb">Heute verlängert<br/>5 Verlängerungen</td></tr><tr class="rTable_tr_even"><td class="zellgb"><label for="cellCheck_13" class="invisible">Markieren</label><input type="checkbox" name="cellCheck$13" fld="###CHK_15" id="cellCheck_13" disabled="disabled"/></td><td class="zellgb">05.07.2013</td><td class="zellgb">Campus Nobelstrasse</td><td class="zellgb">Bildkommunikation : Imagerystrategien für die Werbung<br/>Mbk 2 KROE</td><td class="zellgb">Heute verlängert<br/>3 Verlängerungen</td></tr><tr class="rTable_tr_odd"><td class="zellgb"><label for="cellCheck_14" class="invisible">Markieren</label><input type="checkbox" name="cellCheck$14" fld="###CHK_16" id="cellCheck_14" disabled="disabled"/></td><td class="zellgb">05.07.2013</td><td class="zellgb">Campus Nobelstrasse</td><td class="zellgb">Visuelle Kommunikation in Theorie und Praxis<br/>Ahl 21 BAL</td><td class="zellgb">Heute verlängert<br/>5 Verlängerungen</td></tr><tr class="rTable_tr_even"><td class="zellgb"><label for="cellCheck_15" class="invisible">Markieren</label><input type="checkbox" name="cellCheck$15" fld="###CHK_17" id="cellCheck_15" disabled="disabled"/></td><td class="zellgb">05.07.2013</td><td class="zellgb">Campus Nobelstrasse</td><td class="zellgb">Follow me! : erfolgreiches Social Media Marketing mit Facebook, Twitter und Co. ; [von der Planung bis zum Monitoring und Reputation Management; Kundenbeziehungen stärken und Empfehlungsmarketing nutzen; inkl. Google+, Social Commerce und vielen Fallbei<br/>Hkm 72 GRA</td><td class="zellgb">Heute verlängert<br/>4 Verlängerungen</td></tr><tr class="rTable_tr_odd"><td class="zellgb"><label for="cellCheck_16" class="invisible">Markieren</label><input type="checkbox" name="cellCheck$16" fld="###CHK_18" id="cellCheck_16" disabled="disabled"/></td><td class="zellgb">15.07.2013</td><td class="zellgb">Campus Nobelstrasse</td><td class="zellgb">¬Der¬ Weg zum Social Business : mit Social Media Methoden erfolgreicher werden<br/>Hkk 14 SCHUET</td><td class="zellgb">Heute verlängert<br/>1 Verlängerung</td></tr><tr class="rTable_tr_even"><td class="zellgb"><label for="cellCheck_17" class="invisible">Markieren</label><input type="checkbox" name="cellCheck$17" fld="###CHK_19" id="cellCheck_17" disabled="disabled"/></td><td class="zellgb">15.07.2013</td><td class="zellgb">Campus Nobelstrasse</td><td class="zellgb">Social Media Communities erfolgreich nutzen<br/>Hkk 14 ROS</td><td class="zellgb">Heute verlängert<br/>1 Verlängerung</td></tr>	</tbody></table>
+</div></div><object data="/aDISWeb/app;jsessionid=242F8BC2F9FDAE1AD306A578E462FA1F?service=aDISPrint/POOLM21PBSZTEST@_4B004600_2C34CC00/$Plugin" type="application/x-aStec-aDISPrint" id="$Plugin" width="0" height="0"></object>
+</div><div id="R06"><input type="submit" name="textButton$2" value="Alle verl&#228;ngern" class="buttong_l" fld="$$GFBO_13"/><input type="submit" name="textButton$3" value="Markierte Titel verl&#228;ngern" class="buttong_l" fld="$$GFBO_14"/>
+<br class="klar"/>
+</div><br/><span style="line-height:12px;">&nbsp;</span><br/>
+                
+                
+                
+                
+                
+                   
+              </div>
+            <br/>
+
+              <div class="clear"></div> <div class="toolbar_div">
+<ul class="toolbar_ul">
+<li class="toolbar_li">
+<input type="image" src="/aDISWeb/images/POOLM21PBSZTEST@/gif/POOLM21PBSZTEST@_57001500_283DA900.gif;jsessionid=242F8BC2F9FDAE1AD306A578E462FA1F" alt="Zur&#252;ck zur vorherigen Seite" id="Toolbar$0_0" name="$Toolbar$0_0" title="Zur&#252;ck zur vorherigen Seite" onmouseover="self.status='Zur&#252;ck zur vorherigen Seite';return true;" onmouseout="self.status='';" class="toolbar_img"/><label for="Toolbar$0_0"><span class="toolbar_txt">Zur&#252;ck</span></label></li>
+<li class="toolbar_li">
+<input type="image" src="/aDISWeb/images/POOLM21PBSZTEST@/gif/POOLM21PBSZTEST@_57000B00_283DA900.gif;jsessionid=242F8BC2F9FDAE1AD306A578E462FA1F" alt="Beenden der Recherche" id="Toolbar$0_2" name="$Toolbar$0_2" title="Beenden der Recherche" onmouseover="self.status='Beenden der Recherche';return true;" onmouseout="self.status='';" class="toolbar_img"/><label for="Toolbar$0_2"><span class="toolbar_txt">Beenden</span></label></li>
+<li class="toolbar_li">
+<input type="image" src="/aDISWeb/images/POOLM21PBSZTEST@/gif/POOLM21PBSZTEST@_57000500_283DA900.gif;jsessionid=242F8BC2F9FDAE1AD306A578E462FA1F" alt="Hilfe zur Vollanzeige" id="Toolbar$0_3" name="$Toolbar$0_3" title="Hilfe zur Vollanzeige" onmouseover="self.status='Hilfe zur Vollanzeige';return true;" onmouseout="self.status='';" class="toolbar_img"/><label for="Toolbar$0_3"><span class="toolbar_txt">Hilfe</span></label></li></ul><div style="clear:both"></div></div> </div>
+            <div class="clear"></div>     
+         
+          </div>
+          <div id="clear"></div>
+        </div>
+        
+      </div>
+    </div>
+
+    <div id="footer">
+      <div class="inside">
+
+        <div id="foot1">     
+          <p id="credits">
+  <!-- incl=includeFooter_de.html -->|a|S|tec| angewandte Systemtechnik GmbH - <a href="http://www.astec.de">Barrierefreie Bibliothekssoftware - OPAC</a><!-- stop -->
+          </p>
+        </div>
+      
+        <div id="foot2">
+          <div id="goingup"><a href="#wrapper">Seitenanfang</a></div>
+        </div> 
+                      
+        <div class="clear"></div>
+
+      </div>
+    </div>
+    
+  </div>
+</div>
+
+<script src="/aDISWeb_bsz/basis/js/yaml-focusfix.js" type="text/javascript"></script></form>
+</div></body>
+</html>
