@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <library>
-  <longName value="Stadtbibliothek Hanau"/>
+  <longName value="Stadtbibliothek Hanau (alpha)"/>
 
   <template value="libero5"/>
   <variable name="baseurl" value="https://medienkatalog.hanau.de/libero/"/>

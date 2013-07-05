@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <library>
-  <longName value="Universitätsbibliothek Witten/Herdecke"/>
+  <longName value="Universitätsbibliothek Witten/Herdecke (alpha)"/>
 
   <template value="libero5"/>
   <variable name="baseurl" value="https://bib.uni-wh.de/libero/"/>

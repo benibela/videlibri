@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <library>
-  <longName value="SVK (Standort- und Ausleih-OPAC)"/>
+  <longName value="SVK (Standort- und Ausleih-OPAC) (alpha)"/>
 
   <template value="libero5"/>
   <variable name="baseurl" value="http://opac.sulb.uni-saarland.de/libero/"/>

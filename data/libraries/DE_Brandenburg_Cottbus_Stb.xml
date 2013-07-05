@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <library>
-  <longName value="Stadt- und Regionalbibliothek Cottbus"/>
+  <longName value="Stadt- und Regionalbibliothek Cottbus (alpha)"/>
 
   <template value="libero5"/>
   <variable name="baseurl" value="http://web-opac.bibliothek-cottbus.de/libero/"/>

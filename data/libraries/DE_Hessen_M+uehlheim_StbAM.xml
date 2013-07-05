@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <library>
-  <longName value="Stadtbücherei Mühlheim (am Main)"/>
+  <longName value="Stadtbücherei Mühlheim (am Main) (alpha)"/>
 
   <template value="libero5"/>
   <variable name="baseurl" value="https://webopac.muehlheim.de/libero/"/>

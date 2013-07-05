@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <library>
-  <longName value="Hochschulbibliothek Zwickau"/>
+  <longName value="Hochschulbibliothek Zwickau (alpha)"/>
 
   <template value="libero5"/>
   <variable name="baseurl" value="https://opac.fh-zwickau.de/libero/"/>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <library>
-  <longName value="Bibliothek der Westfälischen Hochschule"/>
+  <longName value="Bibliothek der Westfälischen Hochschule (alpha)"/>
 
   <template value="libero5"/>
   <variable name="baseurl" value="https://katalog.w-hs.de/libero/"/>

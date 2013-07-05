@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <library>
-  <longName value="Stadtbibliothek Pfungstadt"/>
+  <longName value="Stadtbibliothek Pfungstadt (alpha)"/>
 
   <template value="libero5"/>
   <variable name="baseurl" value="http://buecherei.pfungstadt.de/libero/"/>

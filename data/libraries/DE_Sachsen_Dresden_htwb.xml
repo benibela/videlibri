@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <library>
-  <longName value="Hochschulbibliothek der HTW"/>
+  <longName value="Hochschulbibliothek der HTW (alpha)"/>
 
   <template value="libero5"/>
   <variable name="baseurl" value="http://bsv2.bib.htw-dresden.de/libero/"/>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <library>
-  <longName value="Stadtbibliothek Hattersheim"/>
+  <longName value="Stadtbibliothek Hattersheim (alpha)"/>
 
   <template value="libero5"/>
   <variable name="baseurl" value="http://webopac.stadtbuecherei-hattersheim.de/libero/"/>

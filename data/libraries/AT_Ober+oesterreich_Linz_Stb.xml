@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <library>
-  <longName value="Stadtbibliothek Linz"/>
+  <longName value="Stadtbibliothek Linz (alpha)"/>
 
   <template value="libero5"/>
   <variable name="baseurl" value="https://stadtbibliothek.linz.at/libero/"/>

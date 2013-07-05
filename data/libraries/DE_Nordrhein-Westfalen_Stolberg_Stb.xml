@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <library>
-  <longName value="Stadtbücherei Stolberg"/>
+  <longName value="Stadtbücherei Stolberg (alpha)"/>
 
   <template value="libero5"/>
   <variable name="baseurl" value="http://webopac.stolberg.de/libero/"/>

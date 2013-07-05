@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <library>
-  <longName value="Stadtbibliothek Hildesheim"/>
+  <longName value="Stadtbibliothek Hildesheim (alpha)"/>
 
   <template value="libero5"/>
   <variable name="baseurl" value="https://webopac.stadt-hildesheim.de/libero/"/>
