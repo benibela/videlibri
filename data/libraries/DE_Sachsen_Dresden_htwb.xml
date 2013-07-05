@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<library>
+  <longName value="Hochschulbibliothek der HTW"/>
+
+  <template value="libero5"/>
+  <variable name="baseurl" value="http://bsv2.bib.htw-dresden.de/libero/"/>
+
+  <homepage value="http://www.htw-dresden.de/bibliothek/"/>
+  <testing-search value="in 1.51" date="2013-07-05"/>
+  <testing-account value="?" date=""/>
+  <testing-renew value="?" date=""/>
+</library>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<library>
+  <longName value="Stadtbücheri Dieburg"/>
+
+  <template value="libero5"/>
+  <variable name="baseurl" value="http://www.stadtbuecherei-dieburg.de/libero/"/>
+
+  <homepage value="http://www.stadtbuecherei-dieburg.de/"/>
+  <testing-search value="in 1.51" date="2013-07-05"/>
+  <testing-account value="?" date=""/>
+  <testing-renew value="?" date=""/>
+</library>

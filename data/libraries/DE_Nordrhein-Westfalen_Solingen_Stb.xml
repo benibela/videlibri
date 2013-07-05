@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<library>
+  <longName value="Stadtbibliothek Solingen"/>
+
+  <template value="libero5"/>
+  <variable name="baseurl" value="http://www.stadtbib.stadt-solingen.de/libero/"/>
+
+  <homepage value="http://www2.solingen.de/C12573970063EF58/0/CDC94D6BCCF210FAC12573A3003EFE72?OpenDocument"/>
+  <testing-search value="in 1.51" date="2013-07-05"/>
+  <testing-account value="?" date=""/>
+  <testing-renew value="?" date=""/>
+</library>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<library>
+  <longName value="SLUB Dresden (alter Katalog)"/>
+
+  <template value="libero5"/>
+  <variable name="baseurl" value="https://webopac.slub-dresden.de/libero/"/>
+
+  <homepage value="http://www.slub-dresden.de/"/>
+  <testing-search value="in 1.51" date="2013-07-05"/>
+  <testing-account value="?" date=""/>
+  <testing-renew value="?" date=""/>
+</library>

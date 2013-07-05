@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<library>
+  <longName value="Stadtbibliothek Filderstadt"/>
+
+  <template value="libero5"/>
+  <variable name="baseurl" value="http://opac.filderstadt.de/libero/"/>
+  <variable name="loginBaseurl" value="https://opac.filderstadt.de/libero/"/>
+
+  <homepage value="http://www.filderstadt.de/servlet/PB/menu/1002829/1002829.html"/>
+  <testing-search value="in 1.51" date="2013-07-05"/>
+  <testing-account value="?" date=""/>
+  <testing-renew value="?" date=""/>
+</library>

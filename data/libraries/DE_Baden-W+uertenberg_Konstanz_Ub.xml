@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<library>
+  <longName value="Universitätsbibliothek Konstanz"/>
+
+  <template value="libero5"/>
+  <variable name="baseurl" value="https://libero.ub.uni-konstanz.de/libero/"/>
+
+  <homepage value="http://www.ub.uni-konstanz.de/home/"/>
+  <testing-search value="in 1.51" date="2013-07-05"/>
+  <testing-account value="?" date=""/>
+  <testing-renew value="?" date=""/>
+</library>

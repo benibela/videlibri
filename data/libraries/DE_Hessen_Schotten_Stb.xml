@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<library>
+  <longName value="Stadtbibliothek Schotten"/>
+
+  <template value="libero5"/>
+  <variable name="baseurl" value="http://bibliothek.schotten.de/libero/"/>
+
+  <homepage value="http://www.schotten.de/index_main.php?unid=740"/>
+  <testing-search value="in 1.51" date="2013-07-05"/>
+  <testing-account value="?" date=""/>
+  <testing-renew value="?" date=""/>
+</library>

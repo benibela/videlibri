@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<library>
+  <longName value="Stadtbücherei Stolberg"/>
+
+  <template value="libero5"/>
+  <variable name="baseurl" value="http://webopac.stolberg.de/libero/"/>
+
+  <homepage value="http://www.stolberg.de//city_info/anzeige/redaktionssystem/main/show.cfm?region_id=75&amp;ID=861"/>
+  <testing-search value="in 1.51" date="2013-07-05"/>
+  <testing-account value="?" date=""/>
+  <testing-renew value="?" date=""/>
+</library>
