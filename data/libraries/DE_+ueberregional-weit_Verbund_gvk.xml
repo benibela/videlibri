@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<library>
+  <deprecatedName value="gbv"/>
+
+  <longName value="GVK - Gemeinsamer Verbundkatalog"/>
+  <catalogue value="http://www.gbv.de/"/>
+
+  <template value="sru"/>
+  <variable name="baseurl" value="http://sru.gbv.de/gvk"/>
+
+ <!-- <template value="pica"/>  
+  <variable name="server" value="http://gso.gbv.de"/>
+  <variable name="picadb" value="2.1"/>-->
+
+<!--  <template value="paia"/>
+  <variable name="paia:server" value="paia.gbv.de/isil/DE-601"/>-->
+  
+
+  <homepage value="" nolist="true"/>
+  <testing-search value="ja" date="2013-04-26"/>
+  <testing-account value="?" date=""/>
+  <testing-renew value="?" date=""/>
+</library>

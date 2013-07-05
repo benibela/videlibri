@@ -12,12 +12,12 @@
   <template value="libero5"/>
   <variable name="baseurl" value="http://webopac.stadtbibliothek-aachen.de/libero/"/>
   
-  <template value="digibib"/>
+  <!--<template value="digibib"/>
   <variable name="location" value="052"/>
   <variable name="view" value="052:SGBuecherRegional"/>
+  <variable name="searchid-libero54|digibib" value="SERVICEGROUP1.SERVICE.SEARCH_SBAA"/>-->
   <!--<variable name="selectedLibraries" value="SERVICEGROUP1.SERVICE.SEARCH_SBAA"/>  selectedLibraries is overriden by searchid-templatename-->
-  <variable name="searchid-libero54|digibib" value="SERVICEGROUP1.SERVICE.SEARCH_SBAA"/>
-
+  
   
   <variable name="globalExtraStatusRemark" value=" (Verlängerung kostenpflichtig, daher nicht von Videlibri aus möglich)"/>
   <variable name="Location" value="Aachen"/>
