@@ -142,8 +142,8 @@ public class Options extends VideLibriBaseActivity{
         VideLibri.instance.displayHistory = ((RadioButton) findViewById(R.id.radioButton2)).isChecked();
 
         Bridge.Options options = new Bridge.Options();
-        options.nearTime = Integer.parseInt(getEditTextText(R.id.notificationsTimeDelta));
-        options.refreshInterval = Integer.parseInt(getEditTextText(R.id.refreshInterval));
+        options.nearTime = Util.strToIntDef(getEditTextText(R.id.notificationsTimeDelta), 3);
+        options.refreshInterval = Util.strToIntDef(getEditTextText(R.id.refreshInterval), 1);
         options.logging = getCheckBoxChecked(R.id.logging);
         Bridge.VLSetOptions(options);
 
@@ -152,7 +152,7 @@ public class Options extends VideLibriBaseActivity{
         editor.putBoolean("notifications", getCheckBoxChecked(R.id.notifications));
         editor.putBoolean("noLendBookDetails", getCheckBoxChecked(R.id.noLendBookDetails));
         VideLibri.instance.noDetailsInOverview = getCheckBoxChecked(R.id.noLendBookDetails);
-        editor.putInt("notificationsServiceDelay", Integer.parseInt(getEditTextText(R.id.notificationsServiceDelay)));
+        editor.putInt("notificationsServiceDelay", Util.strToIntDef((getEditTextText(R.id.notificationsServiceDelay)), 15));
         editor.commit();
     }
 }

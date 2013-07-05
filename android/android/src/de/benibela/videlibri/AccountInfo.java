@@ -14,6 +14,7 @@ import android.widget.*;
 import com.actionbarsherlock.view.Menu;
 
 import java.util.*;
+import java.util.concurrent.RunnableFuture;
 
 class EmptyTextWatcher implements TextWatcher{
     @Override
@@ -159,13 +160,18 @@ public class AccountInfo extends VideLibriBaseActivity {
     } */
 
     void updateLibrary(){
-        Intent intent = new Intent(this, LibraryList.class);
-        if (mode == MODE_ACCOUNT_CREATION_INITIAL) {
-            intent.putExtra("reason", "Wählen Sie Ihre Bibliothek, um in ihrem Katalog zu suchen oder auf Ihr Bibliothekskonto zuzugreifen: ");
-         //        intent.putExtra("initial", true);
-        } else
-            intent.putExtra("reason", "Wählen Sie Ihre Bibliothek, um ein neues Konto zu registrieren: ");
-        startActivityForResult(intent, REQUEST_LIBRARY_FOR_ACCOUNT_CREATION);
+        findViewById(R.id.libraryTextView).postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                Intent intent = new Intent(AccountInfo.this, LibraryList.class);
+                if (mode == MODE_ACCOUNT_CREATION_INITIAL) {
+                    intent.putExtra("reason", "Wählen Sie Ihre Bibliothek, um in ihrem Katalog zu suchen oder auf Ihr Bibliothekskonto zuzugreifen: ");
+                    //        intent.putExtra("initial", true);
+                } else
+                    intent.putExtra("reason", "Wählen Sie Ihre Bibliothek, um ein neues Konto zu registrieren: ");
+                startActivityForResult(intent, REQUEST_LIBRARY_FOR_ACCOUNT_CREATION);
+            }
+        }, 200);
     }
 
     Bridge.Account inputToAccount(){
@@ -175,7 +181,7 @@ public class AccountInfo extends VideLibriBaseActivity {
         acc.pass = accountPassword.getText().toString();
         acc.prettyName = accountPrettyName.getText().toString();
         acc.extend = ((CheckBox) findViewById(R.id.autoExtendButton)).isChecked();
-        acc.extendDays = Integer.parseInt( ((EditText) findViewById(R.id.autoExtendDaysEdit)).getText().toString());
+        acc.extendDays = Util.strToIntDef( ((EditText) findViewById(R.id.autoExtendDaysEdit)).getText().toString(), 7);
         acc.history = ((CheckBox) findViewById(R.id.saveHistoryButton)).isChecked();
         return acc;
     }
@@ -191,7 +197,7 @@ public class AccountInfo extends VideLibriBaseActivity {
                 lib.setText(libName);
                 accountPrettyName.setText(libShortName);
             } else if (libId.equals(""))
-                if (mode == MODE_ACCOUNT_CREATION_INITIAL)
+                if (mode == MODE_ACCOUNT_CREATION_INITIAL && (VideLibriApp.accounts == null || VideLibriApp.accounts.length == 0))
                     updateLibrary();
                 else
                     finish();
