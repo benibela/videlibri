@@ -120,7 +120,7 @@ downloadTable)
         )
       }' \
       --xquery 'declare function row($element, $homepage){
-        $element / <tr><td><a href="{$homepage/@value}" rel="nofollow">{filter(($homepage/@name, .//longName/@value)[1], "[^(]+")}</a></td>
+        $element / <tr><td><a href="{$homepage/@value}" rel="nofollow">{ let $name := ($homepage/@name, .//longName/@value)[1] return if (contains($name, "(alpha)")) then substring-before($name, "(alpha") else data($name)}</a></td>
         {state(.//testing-search), state(.//testing-account), state(.//testing-renew)}
         <td>{string(.//template/@value)}</td></tr> 
       }' \
