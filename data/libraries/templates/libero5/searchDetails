@@ -11,7 +11,7 @@
             <TR><TH>ISBN</TH><TD>{$book.isbn}</TD></TR>
             <TR><TH>Link</TH><TD><a><t:read var="book.Link: {replace(., '[.]', '')}!" source="x'{@href}'" /></a></TD></TR>
             <TR><TH>{currentfield := replace(normalize-space(.), "[.]", "")}</TH>
-                <TD><t:read source="." var="book.{$currentfield}!"/></TD></TR>
+                <TD><t:read source="if (./a/contains(@href, '://')) then x'{.} ( {./a/@href} )' else ." var="book.{$currentfield}!"/></TD></TR>
           </t:switch></t:loop>
         </TABLE>
       </DIV>

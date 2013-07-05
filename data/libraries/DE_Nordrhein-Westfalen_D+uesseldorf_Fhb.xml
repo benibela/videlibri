@@ -9,7 +9,7 @@
   <password matches="."/>
   <maxRenewCount value="3"/>
 
-  <template value="libero54"/>
+  <template value="libero5"/>
   <variable name="baseurl" value="http://katalog.bibl.fh-duesseldorf.de/libero/"/>
 
   <template value="digibib"/>

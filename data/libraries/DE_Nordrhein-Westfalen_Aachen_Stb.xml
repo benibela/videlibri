@@ -9,7 +9,7 @@
   <catalogue value="http://webopac.stadtbibliothek-aachen.de/"/>
   <maxRenewCount value="0"/>  
   
-  <template value="libero54"/>
+  <template value="libero5"/>
   <variable name="baseurl" value="http://webopac.stadtbibliothek-aachen.de/libero/"/>
   
   <template value="digibib"/>

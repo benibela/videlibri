@@ -1,0 +1,43 @@
+<t:switch-prioritized>
+  <HTML>
+  
+    <span class='SearchMsg3'>{$search-result-count}</span>?
+  
+    <A>Nächste<t:s>next-page:=@href, search-next-page-available := true()</t:s></a>?
+    
+    <TABLE id="searchResults">
+      <THEAD>
+        <TR>
+          <TH class="title">
+          </TH>
+          <TH class="author">
+          </TH>
+          <TH class="info">
+          </TH>
+        </TR>
+      </THEAD>
+      <t:loop>
+        <TR>
+          <TH>{book:={}}</TH>
+          <TD><img>{$book.image-url:=@src}</img>?</TD>
+          <TD><a>{$book.title := ., $book._detail-url := @href}</a></TD>
+          <TD>{$book.author}</TD>
+          <TD>{$book.year}</TD>
+          <TD/>
+          <TD>{$book.status := ., if (contains($book.status, "Anzahl Exemplare: 0")) then book.statusId := "critical" else () }</TD>
+        </TR>
+      </t:loop>
+    </TABLE>
+  </HTML>
+  
+  <html>
+    <h1>Indexliste der Begriffe</h1>
+    Die Suche nach den ähnlichsten Indexeinträgen 
+    <t:s>search-result-count := 0</t:s>
+  </html>
+  
+  <div class='SysMsgHeading'>
+  {vl:raise(concat(., ./following-sibling::blockquote))}
+  </div>
+  
+</t:switch-prioritized>

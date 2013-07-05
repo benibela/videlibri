@@ -61,7 +61,13 @@
 
 <action id="search-connect">
   <page url="{$baseurl}WebOpac.cls">
-  <template><a>Erweiterte Suche<t:s>search:=@href</t:s></a></template>
+  <template>
+    <t:switch-prioritized>
+      <a t:condition="contains(@href, 'WebOpac.cls')">Erweiterte Suche<t:s>search:=@href</t:s></a>
+      <title>LIBERO WebOPAC Erweiterte Suche<t:s>search:=$url</t:s></title>
+      <font>Server ist zurzeit nicht verfügbar<t:s>vl:raise(.)</t:s></font>
+    </t:switch-prioritized>
+  </template> <!-- condition is for dresden which has a link "erweiterte suche in der Hilfe" -->
   </page>
 
   <variable name="search-keys">{"author": "kb", "title": "k", "keywords": "kj", "isbn": "i"}</variable>
@@ -95,7 +101,7 @@
        if (get("search-branch-values", ())[get("search-branch-id", 0)] != "") then {"LIMLOC": $search-branch-values[$search-branch-id]} else (),
        for $key in jn:keys($book) return if ($book($key) != "" and exists($search-keys($key))) then (
          {x"TERM_{$i}": $book($key), x"USE_{$i}": $search-keys($key)},
-         (i := i + 1)[2]
+         (i := $i + 1)[2]
        ) else ()
     )
      )

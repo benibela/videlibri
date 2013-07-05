@@ -51,10 +51,10 @@ TEMPLATES=(${TEMPLATES[@]} bibdia_stabib/update bibdia_stabib/update bibdia_stab
 PAGES=(${PAGES[@]} bibdia_stabib/list.html bibdia_stabib/list_abhol.html bibdia_stabib/list_f.html bibdia_stabib/list_empty.html bibdia_stabib/stabikat1.html bibdia_stabib/stabikat2.html bibdia_stabib/stabikat3.html)
 
 #=============LIBERO==============
-mkdir -p $OUTPATH/libero54
+mkdir -p $OUTPATH/libero5
 
-TEMPLATES=(${TEMPLATES[@]} libero54/start libero54/update libero54/update libero54/update libero54/update)
-PAGES=(${PAGES[@]} libero54/start.html libero54/update_empty.html libero54/update55sp73_empty.html libero54/update55sp4_2books.html libero54/update55sp73_books.html)
+TEMPLATES=(${TEMPLATES[@]} libero5/start libero5/update libero5/update libero5/update libero5/update)
+PAGES=(${PAGES[@]} libero5/start.html libero5/update_empty.html libero5/update55sp73_empty.html libero5/update55sp4_2books.html libero5/update55sp73_books.html)
 
 #=============SISIS==============
 mkdir -p $OUTPATH/sisis
