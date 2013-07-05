@@ -417,6 +417,7 @@ begin
   result := StringReplace(Result, '+ue', 'ü', [rfReplaceAll]);
   result := StringReplace(Result, '+oe', 'ö', [rfReplaceAll]);
   result := StringReplace(Result, '+ae', 'ä', [rfReplaceAll]);
+  result := StringReplace(Result, '+sz', 'ß', [rfReplaceAll]);
 end;
 
 class function TLibrary.unprettyLocation(l: string): string;
@@ -425,6 +426,7 @@ begin
   result := StringReplace(Result, 'ü', '+ue', [rfReplaceAll]);
   result := StringReplace(Result, 'ö', '+oe', [rfReplaceAll]);
   result := StringReplace(Result, 'ä', '+ae', [rfReplaceAll]);
+  result := StringReplace(Result, 'ß', '+sz', [rfReplaceAll]);
 end;
 
 function TLibraryManager.getAccountObject(libID: string):TCustomAccountAccess;
