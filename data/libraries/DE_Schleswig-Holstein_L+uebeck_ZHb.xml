@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<library>
+  <longName value="Zentralen Hochschulbibliothek Lübeck (alpha)"/>
+  
+  <template value="pica"/>  
+  <variable name="server" value="https://lhopc4.ub.uni-kiel.de/"/>
+  <variable name="picadb" value="4"/>
+  <variable name="searchKeysOverride" value="tnt;per;isb;erj;swo"/>
+
+
+  <homepage value="http://www.zhb.uni-luebeck.de/"/>
+  <testing-search value="ja" date="2013-07-07"/>
+  <testing-account value="?" date=""/>
+  <testing-renew value="?" date=""/>
+</library>

@@ -24,7 +24,7 @@
   <variable name="searchid-digibib" value="SERVICEGROUP1.SERVICE.SEARCH_ULBD"/>-->
 
   <homepage value="http://www.ub.fu-berlin.de/"/>
-  <testing-search value="nein" date=""/>
+  <testing-search value="in 1.51" date="2013-07-07"/>
   <testing-account value="ja" date="2012-07-12"/>
   <testing-renew value="ja" date="2012-07-12"/>
 </library>

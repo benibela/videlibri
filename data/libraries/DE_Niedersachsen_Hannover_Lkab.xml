@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<library>
+  <longName value="Bibliothek des Landeskirchenamts Hannovers"/>
+  
+  <template value="pica"/>  
+  <variable name="server" value="https://opac.tib.uni-hannover.de/"/>
+  <variable name="picadb" value="10.1"/>
+
+
+  <homepage value="http://www.landeskirche-hannovers.de/evlka-de/wir-ueber-uns/weitere-einrichtungen/bibliothek"/>
+  <testing-search value="ja" date="2013-07-07"/>
+  <testing-account value="ja ?" date=""/>
+  <testing-renew value="ja ?" date=""/>
+</library>

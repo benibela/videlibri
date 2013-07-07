@@ -61,12 +61,19 @@ DE_Sachsen-Anhalt_Halle_Ub.xml
 DE_Hamburg_Hamburg_UbHSU.xml
 DE_Hamburg_Hamburg_Ub.xml
 DE_Hessen_Hanau_Stb.xml
+DE_Niedersachsen_Hannover_GWLB.xml
+DE_Niedersachsen_Hannover_HMTMH.xml
+DE_Niedersachsen_Hannover_KSF.xml
+DE_Niedersachsen_Hannover_Lkab.xml
+DE_Niedersachsen_Hannover_MHb.xml
+DE_Niedersachsen_Hannover_TiHo.xml
 DE_Niedersachsen_Hannover_UbTIB.xml
 DE_Niedersachsen_Hannover_Ub.xml
 DE_Hessen_Hattersheim_Stb.xml
 DE_Baden-W+uertenberg_Heidelberg_Ph.xml
 DE_Baden-W+uertenberg_Heidenheim_HS.xml
 DE_Baden-W+uertenberg_Heilbronn_HS.xml
+DE_Niedersachsen_Hildesheim_Mkb.xml
 DE_Niedersachsen_Hildesheim_Stb.xml
 DE_Niedersachsen_Hildesheim_Ub.xml
 DE_Th+ueringen_Ilmenau_Ub.xml
@@ -77,6 +84,7 @@ DE_Baden-W+uertenberg_Karlsruhe_Hfm.xml
 DE_Baden-W+uertenberg_Karlsruhe_Ph.xml
 DE_Baden-W+uertenberg_Kehl_HS.xml
 DE_Schleswig-Holstein_Kiel_Fhb.xml
+DE_Schleswig-Holstein_Kiel_SHLB.xml
 DE_Schleswig-Holstein_Kiel_Ub.xml
 DE_Baden-W+uertenberg_Konstanz_HS.xml
 DE_Baden-W+uertenberg_Konstanz_Ub.xml
@@ -88,6 +96,7 @@ AT_Ober+oesterreich_Linz_Stb.xml
 DE_Baden-W+uertenberg_L+oerrach_DHS.xml
 DE_Baden-W+uertenberg_L+oerrach_WRb.xml
 DE_Baden-W+uertenberg_Ludwigsburg_Hb.xml
+DE_Schleswig-Holstein_L+uebeck_ZHb.xml
 DE_Niedersachsen_L+ueneburg_Ub.xml
 DE_Sachsen-Anhalt_Magdeburg_Ub.xml
 DE_Baden-W+uertenberg_Mannheim_DHs.xml

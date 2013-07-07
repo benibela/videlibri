@@ -24,7 +24,7 @@
 
 
   <homepage value="http://www.bibl.fh-duesseldorf.de/"/>
-  <testing-search value="ja (digibib)" date="2011-05-16"/>
+  <testing-search value="ja (direkt + digibib)" date="2011-05-16"/>
   <testing-account value="ja" date="2011-05-16"/>
   <testing-renew value="ja" date="2011-05-16"/>
 </library>
