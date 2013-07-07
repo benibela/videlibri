@@ -13,6 +13,8 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import com.actionbarsherlock.view.Menu;
 
+import java.util.Arrays;
+
 public class Search extends VideLibriBaseActivity implements Bridge.SearchConnector{
     static final int REQUEST_CHOOSE_LIBRARY = 1234;
     Bridge.SearcherAccess searcher;
@@ -150,6 +152,7 @@ public class Search extends VideLibriBaseActivity implements Bridge.SearchConnec
                 Bridge.PendingException[] exceptions = Bridge.VLTakePendingExceptions();
                 for (Bridge.PendingException ex : exceptions)
                     showMessage(ex.accountPrettyNames + ": " + ex.error);
+                VideLibriApp.errors.addAll(Arrays.asList(exceptions));
             }
         });
     }

@@ -6,6 +6,8 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.TextView;
 import org.acra.ACRA;
 import org.apache.http.HttpResponse;
@@ -38,13 +40,55 @@ public class Feedback extends VideLibriBaseActivity {
         setTitle("VideLibri Feedback");
         if (!ACRA.getACRASharedPreferences().getBoolean(ACRA.PREF_ENABLE_SYSTEM_LOGS, true))
             ((TextView)findViewById(R.id.feedbackACRAHeader)).setText("Per ACRA für Fehlerberichte: ");
+
+        if (VideLibriApp.errors.size() > 0) {
+            {
+                final CheckBox errors = ((CheckBox) findViewById(R.id.feedbackIncludeErrors));
+                final CheckBox details = (CheckBox) findViewById(R.id.feedbackIncludeErrorDetails);
+                errors.setVisibility(View.VISIBLE);
+                errors.setChecked(true);
+                details.setVisibility(View.VISIBLE);
+                errors.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                    @Override
+                    public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                        details.setEnabled(b);
+                        details.setChecked(details.isChecked() && b);
+                    }
+                });
+            }
+
+            {
+                final CheckBox errors = ((CheckBox) findViewById(R.id.feedbackACRAIncludeErrors));
+                final CheckBox details = (CheckBox) findViewById(R.id.feedbackACRAIncludeErrorDetails);
+                errors.setVisibility(View.VISIBLE);
+                errors.setChecked(true);
+                details.setVisibility(View.VISIBLE);
+                errors.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                    @Override
+                    public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                        details.setEnabled(b);
+                        details.setChecked(details.isChecked() && b);
+                    }
+                });
+            }
+        }
+
         findButtonById(R.id.button).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 String name = getTextViewText(R.id.name);
                 String mail = getTextViewText(R.id.mail);
                 String feedback = getTextViewText(R.id.text);
-                final String sendData = "Name: "+name+"\n"+"Mail: "+mail+"\n"+feedback;
+                String sendData = "Name: "+name+"\n"+"Mail: "+mail+"\n"+feedback;
+                if (((CheckBox) findViewById(R.id.feedbackIncludeErrors)).isChecked()) {
+                    boolean details = ((CheckBox) findViewById(R.id.feedbackIncludeErrorDetails)).isChecked();
+                    sendData += "\nErrors: \n";
+                    for (Bridge.PendingException e: VideLibriApp.errors) {
+                        sendData += "Error: " + e.error+"\n";
+                        if (details) sendData += e.details +"\n\n\n";
+                    }
+                }
+                final String sendDataFinal = sendData;
                 final String version =  getVersion();
                 (new Thread(new Runnable() {
                     @Override
@@ -54,7 +98,7 @@ public class Feedback extends VideLibriBaseActivity {
                         List<NameValuePair> data = new ArrayList<NameValuePair>(2);
                         data.add(new BasicNameValuePair("app", "VideLibri"));
                         data.add(new BasicNameValuePair("ver", version+" (android)"));
-                        data.add(new BasicNameValuePair("data", sendData));
+                        data.add(new BasicNameValuePair("data", sendDataFinal));
                         boolean ok = false;
                         try {
                             post.setEntity(new UrlEncodedFormEntity(data));
@@ -115,6 +159,18 @@ public class Feedback extends VideLibriBaseActivity {
         findViewById(R.id.acra).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                String sendData = "";
+                if (((CheckBox) findViewById(R.id.feedbackACRAIncludeErrors)).isChecked()) {
+                    boolean details = ((CheckBox) findViewById(R.id.feedbackACRAIncludeErrorDetails)).isChecked();
+                    sendData += "\nErrors: \n";
+                    for (Bridge.PendingException e: VideLibriApp.errors) {
+                        sendData += "Error: " + e.error+"\n";
+                        if (details) sendData += e.details +"\n\n\n";
+                    }
+                }
+
+                ACRA.getErrorReporter().putCustomData("errors", sendData);
+
                 ACRA.getErrorReporter().handleException(null);
                 finish();
             }

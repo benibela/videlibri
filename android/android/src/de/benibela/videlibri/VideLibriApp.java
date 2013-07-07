@@ -54,7 +54,7 @@ public class VideLibriApp extends Application implements Bridge.VideLibriContext
                     newFields[p] = fields[i];
                     p+=1;
                 }
-            config.setCustomReportContent( Arrays.copyOf(newFields, p) );
+            config.setCustomReportContent(Arrays.copyOf(newFields, p));
         }
 
         SharedPreferences prefs = ACRA.getACRASharedPreferences();
@@ -76,6 +76,8 @@ public class VideLibriApp extends Application implements Bridge.VideLibriContext
 
     static VideLibriApp instance;
     static Bridge.Account accounts[] = null;
+
+    static ArrayList<Bridge.PendingException> errors = new ArrayList<Bridge.PendingException>();
 
     static void addAccount(Bridge.Account acc){
         if (instance == null) return;

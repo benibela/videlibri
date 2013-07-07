@@ -51,7 +51,12 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:id="@+id/text" android:minLines="4" android:layout_weight="1"/>
-    <TextView
+    <CheckBox android:layout_width="fill_parent" android:layout_height="wrap_content"
+              android:text="Fehlermeldungen mitsenden" android:id="@+id/feedbackIncludeErrors" android:checked="false"
+              android:visibility="gone"/>
+    <CheckBox android:layout_width="fill_parent" android:layout_height="wrap_content"
+              android:text="Katalogseiten, auf denen die Fehler aufgetreten sind, mitsenden"
+              android:id="@+id/feedbackIncludeErrorDetails" android:checked="false" android:visibility="gone"/><TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/textView4" android:layout_gravity="left|center_vertical"
@@ -70,7 +75,8 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:id="@+id/mail" android:singleLine="true"/>
-    <Button
+
+            <Button
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:text="absenden "
@@ -78,6 +84,18 @@
             <TextView android:layout_width="fill_parent" android:layout_height="wrap_content" android:text="Per ACRA für Fehlerberichte (enthält debug log): "
                       android:id="@+id/feedbackACRAHeader" android:padding="@dimen/optionheaderpadding"
                       android:background="@color/optionHeaderBackgroundColor" android:textStyle="bold"/>
+            <CheckBox
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Fehlermeldungen mitsenden"
+                    android:id="@+id/feedbackACRAIncludeErrors" android:checked="false"
+                    android:visibility="gone"/>
+            <CheckBox
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Katalogseiten, auf denen die Fehler aufgetreten sind, mitsenden"
+                    android:id="@+id/feedbackACRAIncludeErrorDetails" android:checked="false"
+                    android:visibility="gone"/>
             <Button android:layout_width="fill_parent" android:layout_height="wrap_content" android:text="ACRA Fehlerbericht erstellen "
                     android:id="@+id/acra"/>
         </LinearLayout>

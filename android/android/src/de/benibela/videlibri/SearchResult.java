@@ -8,6 +8,8 @@ import de.benibela.videlibri.BookListActivity;
 import de.benibela.videlibri.Bridge;
 import de.benibela.videlibri.VideLibriBaseActivity;
 
+import java.util.Arrays;
+
 public class SearchResult extends BookListActivity implements Bridge.SearchResultDisplay  {
 
     Bridge.SearcherAccess searcher;
@@ -184,6 +186,7 @@ public class SearchResult extends BookListActivity implements Bridge.SearchResul
                 Bridge.PendingException[] exceptions = Bridge.VLTakePendingExceptions();
                 for (Bridge.PendingException ex : exceptions)
                     showMessage(ex.accountPrettyNames + ": " + ex.error);
+                VideLibriApp.errors.addAll(Arrays.asList(exceptions));
             }
         });
     }

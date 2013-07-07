@@ -312,6 +312,7 @@ public class Bridge {
                 Bridge.PendingException[] exceptions = Bridge.VLTakePendingExceptions();
                 for (Bridge.PendingException ex : exceptions)
                     VideLibri.instance.showMessage(ex.accountPrettyNames + ": " + ex.error);
+                VideLibriApp.errors.addAll(Arrays.asList(exceptions));
 
             }
         });
