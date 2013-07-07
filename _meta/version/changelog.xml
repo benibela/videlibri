@@ -10,8 +10,10 @@
     <add>Stadtbücherei Aachen, Fachhochschulbibliothek Düsseldorf: Direkte Katalogsuche (ohne Umweg über Digibib), Bestellfunktionen </add>
     <add>Bibliotheken der HU/TU/FU Berlin: Suche im Primosystem</add>
     <add level="major">Auflistung aller Bibliotheken, deren Suche mit dem libero-Template funktioniert. Also: Stadtbibliothek Linz, Stadtbibliothek Filderstadt, Universitätsbibliothek Konstanz, Stadt- und Regionalbibliothek Cottbus, Stadtbücheri Dieburg, Stadtbücherei Erbach, Stadtbücherei Gießen, Stadtbibliothek Hanau, Stadtbibliothek Hattersheim, Stadtbücherei Mörfelden-Walldorf, Stadtbücherei Mühlheim (am Main), Stadtbücherei (Oberts-)hausen, Stadtbibliothek Pfungstadt, Stadtbibliothek Schotten, Stadtbibliothek Hildesheim, Hochschulbibliothek Bochum, Bibliothek der Westfälischen Hochschule, Stadtbibliothek Solingen, Stadtbücherei Stolberg, Bibliothek Verl, Universitätsbibliothek Witten/Herdecke, Stadtbibliothek Saarbrücken, SVK (Standort- und Ausleih-OPAC), Universitätsbibliothek Chemnitz (alter Katalog), Hochschulbibliothek der HTW, SLUB Dresden (alter Katalog), Bibliothek der Hochschule für Grafik und Buchkunst, Bibliothek der Hochschule für Musik und Theater (alter Katalog), Hochschulbibliothek Zittau/Görlitz, Hochschulbibliothek Zwickau</add>
+    <add>Weitere pica-Bibliotheken: Zentrale Hochschulbibliothek Lübeck, Schleswig-Holsteinische Landesbibliothek, Gottfried Wilhelm Leibniz Bibliothek, Bibliothek der Hochschule für Musik, Theater und Medien Hannover, Bibliothek im Kurt-Schwitters-Forum, Bibliothek des Landeskirchenamts Hannovers, Bibliothek der Medizinischen Hochschule Hannover, Bibliothek der Tierärztlichen Hochschule Hannover</add>
     <fix>TU Ilmenau: Korrigierte Benutzerkontenanzeige</fix>
     <change>Verbesserte Android-GUI</change>
+    <cgabge>Geändertes Layout der Mediensuche</change>
   </build>
   
   <build version="1500" date="2013-06-24">
