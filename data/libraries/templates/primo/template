@@ -3,10 +3,14 @@
 
 <meta>
   <description>Template für das Primo-System</description>
-  <variable name="institute"><description>Institutsid der Bücherei im Primosystem</description></variable>
-  <variable name="server" default="primo.kobv.de"><description>Serveraddresse</description></variable>
-  <variable name="loginServer" default="primo.kobv.de"><description>alternative Serveraddresse</description></variable>
-  <variable name="primoView" default="FUB_MOBILE"><description>View</description></variable>
+
+  <variable name="baseurl"><description>volle Serverurl, inklusive trailing slash (z.B.: http://portal.ub.tu-berlin.de/primo_library/libweb/action/)</description></variable>
+
+  <variable name="institute"><description>(veraltet) Institutsid der Bücherei im Primosystem</description></variable>
+  <variable name="server" default="primo.kobv.de"><description>(veraltet) Serveraddresse</description></variable>
+  <variable name="loginServer" default="primo.kobv.de"><description>(veraltet) alternative Serveraddresse</description></variable>
+  <variable name="primoView" default="FUB_MOBILE"><description>(veraltet) View für Benutzerkontenanzeige</description></variable>
+  
 </meta>
 
 
@@ -99,6 +103,38 @@
     </page>
   </loop>
   <call action="update-all"/>
+</action>
+
+
+
+
+
+
+<action id="search">
+  
+  <variable name="search-keys">{"author": "creator", "title": "title", "keywords": "subject", "isbn": "isbn", "year": "cdate"}</variable>
+
+  <s>redirect:=()</s>
+
+  <page url="{$baseurl}search.do?mode=Advanced&amp;fromLogin=true&amp;vid={$institute}" templateFile="searchStart"/>
+  
+  <page url="{$redirect}" templateFile="searchStart"/>
+
+  <page url="{$form}" templateFile="searchList">
+  </page>
+  
+</action>
+
+
+<action id="search-next-page">
+  <page url="{$search-next}" templateFile="searchList">
+  </page>
+</action>
+
+<action id="search-details">
+  <page url="{$book.home-url}" templateFile="searchDetails">
+  </page>
+
 </action>
 
 </actions>

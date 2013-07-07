@@ -1,0 +1,28 @@
+ <DIV class="EXLResultsList" id="resultsListNoId">
+   <t:meta default-text-matching="regex"/>
+   <DIV class="EXLSummary EXLResult">
+     <DIV class="EXLResultTabContainer">
+       <FORM>
+         <DIV class="EXLDetailsTabContent">
+           <DIV class="EXLDetailsContent">
+             <UL>
+               <t:loop><t:switch>
+                 <LI><STRONG>^(Title|Titel)$</STRONG><SPAN>{$book.title}</SPAN></LI>
+                 <LI><STRONG>^(Author|Autor)$</STRONG><SPAN>{$book.author}</SPAN></LI>
+                 <LI><STRONG>^(Creation Date)$</STRONG><SPAN>{$book.year}</SPAN></LI>
+                 <LI><STRONG>{currentfield := replace(normalize-space(.), "[.]", "")}</STRONG>
+                     <SPAN><t:read source="if (./a/contains(@href, '://')) then x'{.} ( {./a/@href} )' else ." var="book.{$currentfield}!"/></SPAN></LI>
+               </t:switch></t:loop>
+             </UL>
+             
+           </DIV>
+           <DIV class="EXLDetailsLinks">
+             <EM/>
+             <A><t:read var="book.{translate(., '.', '')}!" source="x'{.} ( {@href} )'"/></A>*
+           </DIV>?
+         </DIV>
+       </FORM>
+     </DIV>
+   </DIV>
+ </DIV>
+ 

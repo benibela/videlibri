@@ -13,6 +13,10 @@
   <template value="aleph_ubHUb"/>  
   <variable name="server" value="opac.hu-berlin.de/"/>
  
+  <template value="primo"/>
+  <variable name="baseurl" value="http://primo.kobv.de/primo_library/libweb/action/"/>
+  <variable name="baseurlLogin" value="https://opac.hu-berlin.de/"/>
+  <variable name="institute" value="hub_ub"/>
   
 <!--  <template value="primo"/>
   <variable name="institute" value="HUB_UB"/>

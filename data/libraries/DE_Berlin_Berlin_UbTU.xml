@@ -16,6 +16,11 @@
   <!--<variable name="Location" value="Düsseldorf"/>
   <variable name="searchid-digibib" value="SERVICEGROUP1.SERVICE.SEARCH_ULBD"/>-->
 
+  <template value="primo"/>
+  <variable name="baseurl" value="http://portal.ub.tu-berlin.de/primo_library/libweb/action/"/>
+  <variable name="institute" value="TUB"/>
+
+
   <homepage value="http://www.ub.tu-berlin.de/"/>
   <testing-search value="nein" date=""/>
   <testing-account value="ja" date="2012-12-23"/>
