@@ -126,7 +126,7 @@ downloadTable)
       }' \
       -e 'city:=("nimbo")' \
       $LIBS  \
-      -e 'newcity := replace(replace(replace(filter($url, "/[^_]+_[^_]+_([^/]*)_", 1), "[+]ue", "ü"), "[+]oe", "ö"), "[+]ae", "ä")' \
+      -e 'newcity := replace(replace(replace(replace(filter($url, "/[^_]+_[^_]+_([^/]*)_", 1), "[+]ue", "ü"), "[+]oe", "ö"), "[+]ae", "ä"), "[+]sz", "ß")' \
       --xquery 'if ($newcity  != $city and not(//homepage/@nolist = "true")) then <tr class="city"><td colspan="6"><b>{$newcity}</b></td></tr> else ()'   \
       --xquery 'if (//homepage/@nolist = "true") then () else city := $newcity' \
       --xquery 'if (//homepage/@nolist = "true") then () else //homepage/row(/,.)' \
