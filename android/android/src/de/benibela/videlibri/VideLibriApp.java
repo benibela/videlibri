@@ -2,11 +2,13 @@ package de.benibela.videlibri;
 
 import android.app.Application;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import org.acra.*;
 import org.acra.annotation.*;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 @ReportsCrashes(formKey = "",
@@ -26,6 +28,9 @@ public class VideLibriApp extends Application implements Bridge.VideLibriContext
 
         ACRA.init(this);
 
+        setACRAlogcat(false);
+
+
         instance = this;
 
         Bridge.initialize(this);
@@ -34,6 +39,28 @@ public class VideLibriApp extends Application implements Bridge.VideLibriContext
 
         //ACRA.getErrorReporter().putCustomData("app", "VideLibri");
         //ACRA.getErrorReporter().putCustomData("ver", getVersion()+" (android)");
+
+    }
+
+    static void setACRAlogcat(boolean enabled) {
+        ACRAConfiguration config = ACRA.getConfig();
+        if (enabled) config.setCustomReportContent(ACRAConstants.DEFAULT_REPORT_FIELDS);
+        else {
+            ReportField[] fields = ACRAConstants.DEFAULT_REPORT_FIELDS;
+            ReportField[] newFields = new ReportField[fields.length];
+            int p = 0;
+            for (int i=0;i<fields.length;i++)
+                if (fields[i] != ReportField.LOGCAT) {
+                    newFields[p] = fields[i];
+                    p+=1;
+                }
+            config.setCustomReportContent( Arrays.copyOf(newFields, p) );
+        }
+
+        SharedPreferences prefs = ACRA.getACRASharedPreferences();
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.putBoolean(ACRA.PREF_ENABLE_SYSTEM_LOGS, enabled);
+        editor.commit();
 
     }
 

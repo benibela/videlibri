@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.TextView;
 import org.acra.ACRA;
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
@@ -35,6 +36,8 @@ public class Feedback extends VideLibriBaseActivity {
         super.onCreate(savedInstanceState);    //To change body of overridden methods use File | Settings | File Templates.
         setContentView(R.layout.feedback);
         setTitle("VideLibri Feedback");
+        if (!ACRA.getACRASharedPreferences().getBoolean(ACRA.PREF_ENABLE_SYSTEM_LOGS, true))
+            ((TextView)findViewById(R.id.feedbackACRAHeader)).setText("Per ACRA für Fehlerberichte: ");
         findButtonById(R.id.button).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

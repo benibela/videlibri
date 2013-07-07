@@ -153,6 +153,11 @@
                     android:layout_height="wrap_content"
                     android:text="aktiviere debug logging (kann auch Passwörter loggen)"
                     android:id="@+id/logging" android:checked="false"/>
+            <CheckBox
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Logdaten bei Fehlerberichten mitsenden"
+                    android:id="@+id/loggingSend" android:checked="false"/>
         </LinearLayout>
 
 

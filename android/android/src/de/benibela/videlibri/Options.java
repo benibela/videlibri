@@ -7,6 +7,7 @@ import android.preference.PreferenceManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.*;
+import org.acra.ACRA;
 
 import java.util.ArrayList;
 
@@ -44,6 +45,9 @@ public class Options extends VideLibriBaseActivity{
         setCheckBoxChecked(R.id.notifications, sp.getBoolean("notifications", true));
         setCheckBoxChecked(R.id.noLendBookDetails, sp.getBoolean("noLendBookDetails", false));
         setEditTextText(R.id.notificationsServiceDelay, ""+sp.getInt("notificationsServiceDelay", 15));
+
+        SharedPreferences acraprefs = ACRA.getACRASharedPreferences();
+        setCheckBoxChecked(R.id.loggingSend, acraprefs.getBoolean(ACRA.PREF_ENABLE_SYSTEM_LOGS, true));
 
         if (VideLibri.instance != null) {
             ArrayList<String> accounts = new ArrayList<String>();
@@ -154,5 +158,9 @@ public class Options extends VideLibriBaseActivity{
         VideLibri.instance.noDetailsInOverview = getCheckBoxChecked(R.id.noLendBookDetails);
         editor.putInt("notificationsServiceDelay", Util.strToIntDef((getEditTextText(R.id.notificationsServiceDelay)), 15));
         editor.commit();
+
+
+        VideLibriApp.setACRAlogcat(getCheckBoxChecked(R.id.loggingSend));
+
     }
 }
