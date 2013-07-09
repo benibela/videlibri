@@ -11,6 +11,6 @@
 
   <homepage value="http://www.fh-schmalkalden.de/Bibliothek.html"/>
   <testing-search value="ja" date="2013-04-26"/>
-  <testing-account value="in 1.51" date="2013-06-27"/>
-  <testing-renew value="in 1.51" date="2013-06-27"/>
+  <testing-account value="ja" date="2013-06-27"/>
+  <testing-renew value="ja" date="2013-06-27"/>
 </library>

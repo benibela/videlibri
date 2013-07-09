@@ -7,7 +7,7 @@
   <variable name="loginBaseurl" value="https://opac.hmt-leipzig.de/libero/"/>
 
   <homepage value="http://www.hmt-leipzig.de/index.php?bibliothek"/>
-  <testing-search value="in 1.51" date="2013-07-05"/>
+  <testing-search value="ja" date="2013-07-05"/>
   <testing-account value="?" date=""/>
   <testing-renew value="?" date=""/>
 </library>

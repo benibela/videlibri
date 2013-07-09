@@ -6,7 +6,7 @@
   <variable name="baseurl" value="http://buecherei.pfungstadt.de/libero/"/>
 
   <homepage value="http://buecherei.pfungstadt.de/libero/WebOpac.cls"/>
-  <testing-search value="in 1.51" date="2013-07-05"/>
+  <testing-search value="ja" date="2013-07-05"/>
   <testing-account value="?" date=""/>
   <testing-renew value="?" date=""/>
 </library>

@@ -6,7 +6,7 @@
   <variable name="baseurl" value="http://webpac.bibhgb.hgb-leipzig.de/libero/"/>
 
   <homepage value="http://www.hgb-leipzig.de/index.php?a=inst&amp;b=biblio"/>
-  <testing-search value="in 1.51" date="2013-07-05"/>
+  <testing-search value="ja" date="2013-07-05"/>
   <testing-account value="?" date=""/>
   <testing-renew value="?" date=""/>
 </library>

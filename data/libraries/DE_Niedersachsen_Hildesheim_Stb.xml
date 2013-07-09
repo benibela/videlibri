@@ -6,7 +6,7 @@
   <variable name="baseurl" value="https://webopac.stadt-hildesheim.de/libero/"/>
 
   <homepage value="http://www.hildesheim.de/staticsite/staticsite.php?menuid=435&amp;topmenu=435"/>
-  <testing-search value="in 1.51" date="2013-07-05"/>
+  <testing-search value="ja" date="2013-07-05"/>
   <testing-account value="?" date=""/>
   <testing-renew value="?" date=""/>
 </library>

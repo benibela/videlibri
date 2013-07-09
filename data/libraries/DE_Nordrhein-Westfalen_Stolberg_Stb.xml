@@ -6,7 +6,7 @@
   <variable name="baseurl" value="http://webopac.stolberg.de/libero/"/>
 
   <homepage value="http://www.stolberg.de//city_info/anzeige/redaktionssystem/main/show.cfm?region_id=75&amp;ID=861"/>
-  <testing-search value="in 1.51" date="2013-07-05"/>
+  <testing-search value="ja" date="2013-07-05"/>
   <testing-account value="?" date=""/>
   <testing-renew value="?" date=""/>
 </library>

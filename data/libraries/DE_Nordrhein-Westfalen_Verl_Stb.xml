@@ -6,7 +6,7 @@
   <variable name="baseurl" value="http://katalog.bibliothek.verl.de/libero/"/>
 
   <homepage value="http://bibliothek.verl.de/wDeutsch/"/>
-  <testing-search value="in 1.51" date="2013-07-05"/>
+  <testing-search value="ja" date="2013-07-05"/>
   <testing-account value="?" date=""/>
   <testing-renew value="?" date=""/>
 </library>
