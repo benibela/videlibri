@@ -132,30 +132,15 @@
   </if>
   
   <page url="{$book.order0}">
-    <template><t:s>order := form(//form[contains(@action, "availability")]), book.orderConfirmationOptionTitles := ()</t:s></template>
+    <template> 
+      <t:switch-prioritized>
+        <form t:condition="contains(@action, 'availability.do') ">{order := form(.), book.orderConfirmationOptionTitles := ()}</form>
+        <a t:condition="contains(@href, 'availability.do') and contains(@href, 'katkey')">{order := @href, book.orderConfirmationOptionTitles := ()}</a>
+      </t:switch-prioritized>
+    </template>
   </page>
   
-  <page url="{$order}">
-    <template><form t:condition="contains(@action, 'reservation')">
-        <table class="formular">
-          <tr><td> 
-              <input name="issuepoint" class="radio">{
-                book.orderConfirmationOptionTitles := 
-                  if ($book.orderConfirmationOptionTitles) then concat($book.orderConfirmationOptionTitles, "\|", ..)
-                  else ..,
-                issuePoints := (get("issuePoints", ()), @value)}</input>
-          </td></tr>*
-        </table>
-
-      {if (contains($book.orderConfirmationOptionTitles, "\|") ) then (
-        confirm := form(., {"issuepoint": ""}),
-        book.orderConfirmation := "Wohin soll das Buch vorbestellt werden?"
-       ) else (
-        confirm := form(.),
-        book.orderConfirmation := "")
-      }
-    </form></template>
-  </page>
+  <page url="{$order}" templateFile="orderConfirmation"/>
 </action>
 
 <action id="order-single"> 
