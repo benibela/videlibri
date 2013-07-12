@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <library>
-  <longName value="Stadtbücherei Pulheim (alpha)"/>
+  <longName value="Stadtbücherei Pulheim"/>
   
   <template value="sisis"/>  
   <variable name="server" value="http://212.16.253.33:8080/webOPACClient/"/>

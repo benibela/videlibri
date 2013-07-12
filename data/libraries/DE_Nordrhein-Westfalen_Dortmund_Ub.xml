@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <library>
-  <longName value="Universitätsbibliothek Dortmund (alpha)"/>
+  <longName value="Universitätsbibliothek Dortmund"/>
   <shortName value="Ub Dortmund"/> 
   
   <template value="sisis"/>  

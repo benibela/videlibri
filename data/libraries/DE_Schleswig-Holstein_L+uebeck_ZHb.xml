@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <library>
-  <longName value="Zentralen Hochschulbibliothek Lübeck (alpha)"/>
+  <longName value="Zentrale Hochschulbibliothek Lübeck (alpha)"/>
   
   <template value="pica"/>  
   <variable name="server" value="https://lhopc4.ub.uni-kiel.de/"/>
