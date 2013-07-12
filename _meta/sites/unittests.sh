@@ -69,6 +69,10 @@ PAGES=(${PAGES[@]} sisis/search_rwth.do.html sisis/searchHitlist_rwth.do.html si
 ADDTEMPLATE sisis/searchSingle 1
 PAGES=(${PAGES[@]} sisis/searchSingle_basel.do.html )
 
+ADDTEMPLATE sisis/orderConfirmation 2
+PAGES=(${PAGES[@]} sisis/orderConfirmation_aachen.html sisis/orderConfirmation_pulheim.html  )
+
+
 #==============PICA================
 mkdir -p $OUTPATH/pica
 

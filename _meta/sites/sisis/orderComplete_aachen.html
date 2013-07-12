@@ -1,0 +1,1163 @@
+
+
+
+
+
+
+
+
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!-- START jsp/common/metaHeader.jsp -->
+
+
+
+<html xmlns="http://www.w3.org/1999/xhtml" 
+ xml:lang="de" 
+ lang="de"
+> 
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <meta http-equiv="pragma" content="no-cache" />
+  <meta http-equiv="expires" content="0" />
+  <meta http-equiv="cache-control" content="no-cache" />
+  <link rel="stylesheet" href="/InfoGuideClient/jsp/common/infoguide.css"  type="text/css" />
+  <link rel="shortcut icon" href="/InfoGuideClient/images/OCLC.ico" />
+  
+  <!--[if IE 7]>
+    <style type="text/css">
+      #tab-content{margin-top:5px;}
+      select {height:auto;}
+      #searchfield input#f1 {width:10em;}
+    </style>
+  <![endif]-->
+  
+  <title>
+    
+      RWTH Aachen - Hochschulbibliothek
+    
+  </title>
+</head>
+<!-- END of jsp/common/metaHeader.jsp -->
+<!-- START jsp/result/HitLayout.jsp --> 
+
+
+
+<body>
+	<div id="pageContainer">
+		
+		
+			
+		
+		
+
+
+
+<!-- START jsp/common/header.jsp -->
+
+
+
+<div id="branding">
+  
+    <a href="http://www.bth.rwth-aachen.de">
+    <img src="/InfoGuideClient/images/LBTH535x60N.jpg" width="535" heigth="60" alt="Hochschulbibliothek" title="Hochschulbibliothek" /></a>
+    <div style="position:absolute; top:0; right:0px">
+      <a href="/InfoGuideClient/start.do"><br /><br /> 
+      <img src="/InfoGuideClient/images/InfoGuide.gif" width="84" height="16" alt="InfoGuide" title="InfoGuide" /></a>
+       
+    </div>
+  
+  
+</div>
+
+<script type="text/javascript">
+  if (window.location.search=="?Login=i601") 
+    { 
+      <!-- document.write("Bibliothek des Philosophischen Instituts<br /><br />") -->
+      
+    }
+  else
+    {
+      
+        <!-- document.write("Bibliothek des Philosophischen Instituts<br /><br />") -->
+        i601
+      
+      x
+    }
+</script>
+
+<!-- END of jsp/common/header.jsp -->
+
+		<div id="mainnav">
+			
+
+
+
+
+<!-- START jsp/navigation/mainNavi.jsp --> 
+
+
+<!-- Actual Tiles Context 755 -->
+
+<ul>
+
+
+	<li id="current"><div id="active">Suche</div>
+		<ul>
+			 
+				
+				
+					<li>
+						<a href="/InfoGuideClient/search.do?methodToCall=switchSearchPage&amp;SearchType=1" title="Einfache Suche">Einfache Suche</a>
+					</li>
+				
+			
+			 
+				
+				
+					<li>
+						<a href="/InfoGuideClient/search.do?methodToCall=switchSearchPage&amp;SearchType=2" title="Erweiterte Suche">Erweiterte Suche</a>
+					</li>
+				
+			
+			 
+				
+				
+					<li>
+						<a href="/InfoGuideClient/search.do?methodToCall=switchSearchPage&amp;SearchType=3" title="Fachzeitschriften">Fachzeitschriften</a>
+					</li>
+				
+			
+      
+  		  
+		    
+		      <li>
+		        <a href="/InfoGuideClient/searchHistory.do?methodToCall=showHistory" title="Suchhistorie">Suchhistorie</a>
+		      </li>	
+		    
+		  
+		  
+		
+			
+				
+				
+							
+					
+				
+				
+			
+				
+			
+			
+				<li id="current2">Detailanzeige</li>
+			
+			
+		</ul>
+	</li>
+
+
+
+	<li><a href="/InfoGuideClient/memorizelist.do?methodToCall=show" title="Merkliste">Merkliste</a></li>
+
+
+
+
+
+<li><a href="/InfoGuideClient/userAccount.do?methodToCall=show&amp;type=1" title="Konto">Konto</a></li>
+
+
+
+
+  
+    <li><a href="/InfoGuideClient/stackOrder.do?methodToCall=start" title="Magazin-Bestellung">Magazin-Bestellung</a></li>
+  
+  
+
+
+
+	<li><a href="/InfoGuideClient/additional.do?methodToCall=show" title="Nichts gefunden?">Nichts gefunden?</a></li>
+
+
+
+</ul>
+<!-- END of jsp/navigation/mainNavi.jsp --> 
+
+			
+
+
+
+
+<!-- START jsp/navigation/loginnavi.jsp --> 
+
+<div id="login">
+	
+	
+		<strong class="c1">Benutzerkennung</strong> 960915871#D 
+		<a href="/InfoGuideClient/login.do?methodToCall=logout" title="Abmelden">Abmelden</a>
+	
+</div>
+<!-- END of jsp/navigation/loginnavi.jsp --> 
+		</div> 
+ 		<br class="cleaner" />
+ 		
+
+
+
+
+
+
+
+
+
+<!-- START jsp/navigation/bgnavi.jsp --> 
+<script language="javascript" type="text/javascript"
+ src="/InfoGuideClient/help/help.js">
+</script>
+
+<div id="bgmainnav">
+	<div id="nav2">
+		<ul>
+			
+			
+			
+				
+				
+					
+						
+						<li><a href="/InfoGuideClient/asklibrary.do?methodToCall=show" title="Auskunft">Auskunft</a></li>
+						
+					
+					
+					
+				
+			
+			
+			
+			<li>
+			  <a href="#" onclick="return openHelp('/InfoGuideClient');"
+			     title="Hilfe">
+			   Hilfe</a>
+		  </li>
+  		
+	    	
+		  	
+			   	<li><a href="/InfoGuideClient/actual.do?methodToCall=show" title="Aktuelles">Aktuelles</a></li>
+    		
+    	
+		</ul>
+	</div>  
+</div>
+<!-- END of jsp/navigation/bgnavi.jsp --> 
+
+		<br class="cleaner" />
+		
+		
+			
+
+
+
+
+<!-- START jsp/result/searchinfo.jsp -->
+
+<div id="info1">
+	
+
+	
+	<strong class="c1">Ihre Suchanfrage</strong>
+
+
+	
+        
+               
+
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+    
+   
+   
+
+   
+   
+   
+   
+   
+   
+
+    
+    
+     
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+
+
+
+     
+    
+     
+
+          
+    
+     
+     
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+     
+    
+    
+    
+    
+    
+    
+      
+    
+    
+    
+    
+    
+    
+    
+    
+     
+    
+     
+     
+ 
+
+
+<strong>Titel = computer vision<br /></strong>
+
+
+
+ 
+	
+	
+</div> 
+<!-- END of jsp/result/searchinfo.jsp --> 
+		
+		
+		<br class="cleaner" />
+		<div id="main"> 
+			<div id="SOWrap"> 
+				<div id="middle"> 
+					<div class="box">
+						
+
+
+
+<!-- START jsp/result/hit.jsp -->
+<!-- START jsp/result/hit.jsp -->
+
+
+
+<div class="box-header">
+	
+
+	
+  
+  
+
+	
+	
+</div>
+<div class="box-container">
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- START jsp/result/teaser.jsp -->
+
+
+
+
+
+
+ <table class="data" style="width:100%">
+
+
+<span class="Z3988" title='ctx_ver=Z39.88-2004&amp;rft_val_fmt=info:ofi/fmt:kev:mtx:book&amp;rft.btitle=Computer+vision&amp;rft.au=Forsyth%2C+David+A.'></span>
+
+
+ <tr>
+  <td>
+       
+       
+       
+       
+
+
+ 
+  
+ 
+  
+  
+
+ 
+   
+
+  
+
+ 
+  
+  
+  
+
+  
+ 
+ 
+
+  
+   <img src="/InfoGuideClient/images/buch01.gif" alt="Buch"  title="Buch" />
+ 
+
+
+
+ 
+
+
+
+      
+       <strong>Computer vision</strong>
+      
+      
+      
+
+     
+
+
+      
+      
+       <strong class="c2">:&nbsp;a modern approach</strong>
+      
+
+      
+      
+       <span style="color:#6f6f6f;">. - Reprint. with corr.</span>
+      
+
+      
+      
+        <br />&nbsp;<br />
+
+ 
+
+      
+        <div class="bez">Verfasser:</div><div style="float:left;"> 
+        
+          
+           <a style="text-decoration:none;" href='/InfoGuideClient/search.do?methodToCall=quickSearch&amp;Kateg=100&amp;Content=Forsyth%2C+David+A.'>
+           Forsyth, David A.</a>
+          
+          
+        
+        </div> <div style="clear:both">
+      
+        
+ 
+
+      
+
+ 
+
+      
+       
+ 
+
+      
+      
+	
+	<div class="bez">Ort, Verlag, Jahr:
+        </div><div style="float:left;">
+        Upper Saddle River, NJ, Prentice Hall, 2003
+        </div> <div style="clear:both">  
+      
+
+      
+	
+      
+
+      
+
+      
+
+      
+
+
+ 
+
+      
+        <div class="bez">Serie/Reihe Band:
+        </div><div style="float:left;">¬An Alan R. Apt book
+         </div> <div style="clear:both">
+      
+
+ 
+
+      
+
+
+      
+        <div class="bez">ISBN:
+        </div><div style="float:left;">
+        
+          0-13-085198-1
+          
+           <br/>
+        
+        </div> <div style="clear:both">
+      
+
+ 
+      
+     
+
+ 
+
+      
+        
+        <div class="bez">Sprache:
+        </div><div style="float:left;">
+        
+          
+ 	  
+	  
+ 	  
+ 	  
+ 	  
+ 	   
+ 	   
+ 	   
+	   
+ 	   
+ 	   
+ 	  
+ 	  
+ 	  
+	  
+          
+ 	  
+ 	  
+ 	  
+ 	  
+ 	  
+ 	  
+     	  
+	  
+ 	  
+ 	  
+ 	  
+ 	  
+ 	  
+	  
+ 	  
+ 	  
+ 	  
+ 	  
+ 	  
+ 	  
+          
+          
+          
+  	  Englisch
+          
+         
+        </div> <div style="clear:both">
+      
+
+
+
+
+ 
+ 
+
+      
+
+ 
+
+      
+
+
+   
+ 
+
+      
+        
+        </div> <div style="clear:both">
+      
+
+
+ 
+       
+      
+     <br />
+      
+
+      
+ 
+      
+
+
+
+
+
+      
+  
+ 
+      
+        
+        
+        
+        
+        
+         
+      
+       <div style="clear:both">
+
+</TD>
+
+
+
+ 
+
+
+ <td style="vertical-align:text-top;text-align:right;">
+  
+    
+      
+
+ 
+
+      
+        
+
+
+
+
+<script language="javascript" type="text/javascript">
+/* <![CDATA[ */
+	var isbns="[0-13-085198-1]";
+	
+    isbns=isbns.replace("[","");
+    isbns=isbns.replace("]","");
+    isbns=isbns.replace(" ","");
+	
+	var isbnarray=isbns.split(",");
+
+	for (i in isbnarray)
+	{
+		isbnarray[i]="ISBN" + isbnarray[i];
+	}
+	
+	var api_url="http://books.google.com/books?jscmd=viewapi&bibkeys=" + isbnarray.join(",");
+	document.write(unescape("%3Cscript src=" + api_url + " type='text/javascript'%3E%3C/script%3E"));
+/* ]]> */
+</script>
+
+<script language="javascript" type="text/javascript">
+/* <![CDATA[ */
+	var firstbook=true;
+        var books = new Array();
+	for (i in isbnarray)
+	{
+		var bookInfo=_GBSBookInfo[isbnarray[i]];
+		if (bookInfo && bookInfo.preview_url && bookInfo.thumbnail_url ) 
+		{
+			books[bookInfo.preview_url]=bookInfo.thumbnail_url;
+		}
+	}
+	document.write("<table border='0'><tr>");
+        var j=0;
+	for (i in books)
+	{
+		var img ="<img style=\"margin: 0 0 10px 10px; border: 1px solid #666; padding: 2px;\" border=\"0\" src=" + books[i] + " />";
+                  
+                   var isb=isbnarray[j];
+                   isb=isb.replace("ISBN",""); 
+	       	document.write("<td><a href=\"" + i + "\" target=\"_\">" + img + "</a><br>ISBN <nobr>" + isb + "</nobr></td>");j++;
+	}
+	document.write("</tr></table>");
+/* ]]> */
+</script>
+
+      
+
+    
+  
+  </td>
+
+  
+
+  
+
+  
+
+ </tr>
+
+<tr><td colspan="2">
+
+ 
+
+  
+ 
+
+
+
+ 
+
+ 
+
+ 
+
+
+
+
+
+ 
+
+      
+
+
+ 
+
+      
+ 
+
+</td></tr> 
+
+
+
+
+ 
+
+<tr><td colspan="2">
+     <div style="width:80px;float:left; color:#666; font-size:xx-small; text-weight:bold;">
+       Schlagworte:</div><div style="float:left;">
+      
+       
+        
+        
+          
+          <div style="float:left; font-size:xx-small;">&#187;
+	  <a style="text-decoration:none;" href="/InfoGuideClient/search.do?methodToCall=quickSearch&amp;Kateg=902&amp;Content=Maschinelles+Sehen">		                     
+          <span style="font-size:xx-small;">Maschinelles Sehen</a>
+          
+           
+          
+          
+            </div><div style="clear:both">
+          
+        
+       <div style="clear:both">
+      
+        
+        
+       <div style="clear:both">
+      
+        
+        
+       <div style="clear:both">
+      
+        
+        
+       <div style="clear:both">
+      
+        
+        
+       <div style="clear:both">
+     
+</td></tr>
+
+
+
+
+
+
+ 
+<tr><td colspan="2">
+   <div style="clear:both"> <div align="right">
+      
+
+      
+        
+          
+            
+            <a href="/InfoGuideClient/memorizeHitList.do?methodToCall=addToMemorizeList&amp;curPos=79&amp;forward=singlehit&amp;identifier=-1_S_IG.175.11336" title="in die Merkliste">
+            in die Merkliste</a>
+          
+          
+        
+        
+      
+
+      
+
+      
+
+      
+
+      
+
+      </div>
+
+</td></tr>
+
+
+ </table>
+
+<!-- END of jsp/result/teaser.jsp --> 
+
+
+</div>
+<script language="javascript" type="text/javascript">
+ setHelp("trefferliste", "");
+</script>
+
+<!-- END of jsp/result/hit.jsp --> 
+
+					</div>
+					<br />
+					
+
+
+
+
+<!-- START jsp/result/singleHitTabNavi.jsp --> 
+
+<div id="tab">
+	
+         <ul>
+	  
+           
+
+                 
+                  
+                  
+		  <li id="tabExemplare">
+                    <div id="labelExemplare">
+		    
+				
+		  </div>
+                 </li>
+                  
+                  
+		<li id="tabAvailability">
+		  <div id="labelAvailability">
+			  
+			  
+			</div>
+		</li>
+		<li id="tabTitle">
+		  <div id="labelTitle">
+			   
+  			
+			</div>
+		</li>
+		
+    
+
+	</ul>
+</div>
+<!-- END of jsp/result/singleHitTabNavi.jsp --> 
+
+					<div class="cleaner"></div>	
+					
+
+
+
+
+
+
+
+
+
+<!-- START jsp/circulation/acknowledgeDialog.jsp -->
+
+<div id="tab-content">
+  <div class="box">
+    <div class="box-header">
+      <div class="box-right">
+	      
+      </div>
+      <h2>Zu Ihrer Information</h2>
+    </div><!-- box-header -->
+  
+
+  <form id="CirculationForm" method="post" action="/InfoGuideClient/acknowledge.do">
+  <input type="hidden" name="CSId" value="34973N33S510eac3e35861e5a86b08c269f23b8a6a000a0ea" />
+  
+  <fieldset>
+  <table class="formular">
+    
+    <tr> 
+      <td><strong>Verfasser:</strong></td>
+      <td align="left" width="90%">Forsyth, David A.</td>
+    </tr>
+    <tr> 
+      <td><strong>Titel:</strong></td>
+      <td align="left" width="90%">Computer vision</td>
+    </tr>
+         
+
+
+    
+    <tr>
+      <td colspan="2">
+        <strong>
+        
+          <br />
+          Das Medium wurde für Sie vorgemerkt
+und ist voraussichtlich bis 
+ zum: 09.08.2013 entliehen.
+         
+        </strong>
+        
+          <br />
+          <strong>Ausgabeort:</strong>
+          Ausleihtheke
+             
+			</td>
+    </tr>
+    
+    
+    
+    <tr>
+      <td colspan="2" align="left">
+        <br />
+         <a href="/InfoGuideClient/hitList.do?methodToCall=backToCompleteList" title='zur Trefferliste'>
+          zur Trefferliste</a> 
+        
+       
+      </td>
+    </tr>
+  </table>
+  </fieldset>
+  </form>
+ </div><!-- box -->
+</div> <!-- tab-content -->
+
+<script language="javascript" type="text/javascript">
+/* <![CDATA[ */
+if (document.layers)
+ document.captureEvents(Event.KEYDOWN);
+
+document.onkeydown = function (evt)
+{
+  var keyCode = evt ? (evt.which ? evt.which : evt.keyCode) : event.keyCode;
+  if (keyCode == 13 || keyCode == 4100)
+ {
+   return false;
+  }
+}
+/* ]]> */
+</script>
+<!-- END of jsp/circulation/acknowledgeDialog.jsp -->
+				
+				</div>
+			</div>
+			<!-- SOWrap -->
+			
+				<div id="right">
+					
+
+
+
+
+
+
+
+
+
+
+
+<!-- START jsp/result/rechtsoben.jsp --> 
+
+
+
+
+<div class="box3">
+	<div class="box3-header">
+		<div class="box3-img"><img src="images/box3-right.gif" width="8" height="8" alt="" /></div>
+		<h2>weitere Optionen</h2>
+	</div>
+	<div class="box3-content">
+	<p><strong>Suchanfrage</strong><br />
+			<a href="/InfoGuideClient/search.do?methodToCall=start" title="Suchanfrage &auml;ndern">&auml;ndern</a>
+	</p>
+	
+	
+	
+	
+			
+		 
+			<p><strong>Katalog-Auswahl</strong><br />
+			Auswahl<br />
+				
+					<a href="/InfoGuideClient/search.do?methodToCall=submit&amp;methodToCallParameter=databaseSelection" title="Katalogauswahl automat. erweitern">&auml;ndern</a> 
+			</p>
+		
+	
+	
+
+	 
+		
+			
+		
+	
+</div> <!-- box3-content --> 
+</div><!-- box3 -->
+
+<!-- END of jsp/result/rechtsoben.jsp --> 
+
+					<br class="space" />
+					<!-- filler /jsp/common/empty.jsp --> 
+					<br class="space" />
+					
+
+
+
+
+<!-- START jsp/common/news.jsp -->
+
+
+	<!-- START jsp/news+info/de_755_8.jsp -->
+		<div class="box3">
+   <div class="box3-header">
+      <div class="box3-img"><img src="images/box3-right.gif" width="8" height="8" alt="" /></div>
+      <h2>Buch nicht im Katalog?</h2>
+   </div>
+   <p>
+     <div class="box3-content">
+        Ein geringer Teil unserer <b>Bücher</b> mit einem Erscheinungsjahr
+        <b>vor 1989</b> wurde noch nicht elektronisch erfaßt und kann
+        daher in InfoGuide nicht gefunden werden. Sie können 
+        diese Bücher im alphabetischen <b>Zettelkatalog</b> im 
+            <a href="iz.html" target="_blank">Informationszentrum</a>
+        suchen und bei den Mitarbeitern der Bibliothek bestellen.
+     </div>
+   </p>
+</div>
+	<!-- END of jsp/news+info/de_755_8.jsp -->
+	<br class="space" />
+
+
+
+<!-- END of jsp/common/news.jsp --> 
+				</div>
+			
+			
+			
+			<!-- right -->
+			<br class="cleaner" />
+		</div>
+		
+
+
+
+
+
+
+
+<!-- START jsp/common/footer.jsp -->
+
+<div id="footer">
+	
+	
+	
+		Bitte verwenden Sie die Funktion 
+		<a href="/InfoGuideClient/login.do?methodToCall=logout" title="Abmelden">Abmelden</a>, um den versehentlichen Zugriff auf Ihre pers&ouml;nlichen Daten zu vermeiden. 
+	
+ <hr noshadow> 
+ <div id="bibliothek">
+ <a href="mailto:iz@bth.rwth-aachen.de">iz@bth.rwth-aachen.de</a> &nbsp;&nbsp;&nbsp;
+ <a target="_parent" href="http://www.bth.rwth-aachen.de">&copy;Hochschulbibliothek</a> &nbsp;&nbsp;&nbsp;
+ <a href="http://www.rwth-aachen.de/zentral/disclaimer.htm" target=_blank>Haftungsausschluss</a>
+ </div>
+  <div id="copyright">Copyright &copy; 2011.&nbsp;Alle Rechte vorbehalten.
+          <img src="/InfoGuideClient/images/OCLC.jpg" alt="OCLC" title="OCLC" width="54" height="19" />
+  </div>
+  <div class="cleaner"></div>
+</div>
+<!-- END of jsp/common/footer.jsp -->
+ 
+	</div> 
+</body>
+<!-- END of jsp/result/HitLayout.jsp --> 
+<!-- START jsp/common/metaFooter.jsp -->
+</html>
+<!-- END of jsp/common/metaFooter.jsp -->
