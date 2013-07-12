@@ -1,0 +1,2348 @@
+
+
+
+
+
+
+
+
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!-- START jsp/common/metaHeader.jsp -->
+
+
+
+<html xmlns="http://www.w3.org/1999/xhtml" 
+ xml:lang="de" 
+ lang="de"
+> 
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <meta http-equiv="pragma" content="no-cache" />
+  <meta http-equiv="expires" content="0" />
+  <meta http-equiv="cache-control" content="no-cache" />
+  <link rel="stylesheet" href="/InfoGuideClient/jsp/common/infoguide.css"  type="text/css" />
+  <link rel="shortcut icon" href="/InfoGuideClient/images/OCLC.ico" />
+  
+  <!--[if IE 7]>
+    <style type="text/css">
+      #tab-content{margin-top:5px;}
+      select {height:auto;}
+      #searchfield input#f1 {width:10em;}
+    </style>
+  <![endif]-->
+  
+  <title>
+    
+      RWTH Aachen - Hochschulbibliothek
+    
+  </title>
+</head>
+<!-- END of jsp/common/metaHeader.jsp -->
+<!-- START jsp/result/HitLayout.jsp --> 
+
+
+
+<body>
+	<div id="pageContainer">
+		
+					
+			
+		
+			
+		
+		
+
+
+
+<!-- START jsp/common/header.jsp -->
+
+
+
+<div id="branding">
+  
+    <a href="http://www.bth.rwth-aachen.de">
+    <img src="/InfoGuideClient/images/LBTH535x60N.jpg" width="535" heigth="60" alt="Hochschulbibliothek" title="Hochschulbibliothek" /></a>
+    <div style="position:absolute; top:0; right:0px">
+      <a href="/InfoGuideClient/start.do"><br /><br /> 
+      <img src="/InfoGuideClient/images/InfoGuide.gif" width="84" height="16" alt="InfoGuide" title="InfoGuide" /></a>
+       
+    </div>
+  
+  
+</div>
+
+<script type="text/javascript">
+  if (window.location.search=="?Login=i601") 
+    { 
+      <!-- document.write("Bibliothek des Philosophischen Instituts<br /><br />") -->
+      
+    }
+  else
+    {
+      
+        <!-- document.write("Bibliothek des Philosophischen Instituts<br /><br />") -->
+        i601
+      
+      x
+    }
+</script>
+
+<!-- END of jsp/common/header.jsp -->
+
+		<div id="mainnav">
+			
+
+
+
+
+<!-- START jsp/navigation/mainNavi.jsp --> 
+
+
+<!-- Actual Tiles Context 755 -->
+
+<ul>
+
+
+	<li id="current"><div id="active">Suche</div>
+		<ul>
+			 
+				
+				
+					<li>
+						<a href="/InfoGuideClient/search.do?methodToCall=switchSearchPage&amp;SearchType=1" title="Einfache Suche">Einfache Suche</a>
+					</li>
+				
+			
+			 
+				
+				
+					<li>
+						<a href="/InfoGuideClient/search.do?methodToCall=switchSearchPage&amp;SearchType=2" title="Erweiterte Suche">Erweiterte Suche</a>
+					</li>
+				
+			
+			 
+				
+				
+					<li>
+						<a href="/InfoGuideClient/search.do?methodToCall=switchSearchPage&amp;SearchType=3" title="Fachzeitschriften">Fachzeitschriften</a>
+					</li>
+				
+			
+      
+  		  
+		    
+		      <li>
+		        <a href="/InfoGuideClient/searchHistory.do?methodToCall=showHistory" title="Suchhistorie">Suchhistorie</a>
+		      </li>	
+		    
+		  
+		  
+		
+			
+				
+				
+							
+					
+						
+					
+				
+				
+			
+				
+					<li>
+						<a href="/InfoGuideClient/hitList.do?methodToCall=backToPrimaryHitList" title="Trefferliste">Trefferliste</a>
+					</li>
+				
+			
+			
+				<li id="current2">Detailanzeige</li>
+			
+			
+		</ul>
+	</li>
+
+
+
+	<li><a href="/InfoGuideClient/memorizelist.do?methodToCall=show" title="Merkliste">Merkliste</a></li>
+
+
+
+
+
+<li><a href="/InfoGuideClient/userAccount.do?methodToCall=show&amp;type=1" title="Konto">Konto</a></li>
+
+
+
+
+  
+    <li><a href="/InfoGuideClient/stackOrder.do?methodToCall=start" title="Magazin-Bestellung">Magazin-Bestellung</a></li>
+  
+  
+
+
+
+	<li><a href="/InfoGuideClient/additional.do?methodToCall=show" title="Nichts gefunden?">Nichts gefunden?</a></li>
+
+
+
+</ul>
+<!-- END of jsp/navigation/mainNavi.jsp --> 
+
+			
+
+
+
+
+<!-- START jsp/navigation/loginnavi.jsp --> 
+
+<div id="login">
+	
+		<a href="/InfoGuideClient/loginpage.do?methodToCall=showLogin" title="Anmelden">Anmelden</a>
+	
+	
+</div>
+<!-- END of jsp/navigation/loginnavi.jsp --> 
+		</div> 
+ 		<br class="cleaner" />
+ 		
+
+
+
+
+
+
+
+
+
+<!-- START jsp/navigation/bgnavi.jsp --> 
+<script language="javascript" type="text/javascript"
+ src="/InfoGuideClient/help/help.js">
+</script>
+
+<div id="bgmainnav">
+	<div id="nav2">
+		<ul>
+			
+			
+			
+				
+				
+					
+						
+						<li><a href="/InfoGuideClient/asklibrary.do?methodToCall=show" title="Auskunft">Auskunft</a></li>
+						
+					
+					
+					
+				
+			
+			
+			
+			<li>
+			  <a href="#" onclick="return openHelp('/InfoGuideClient');"
+			     title="Hilfe">
+			   Hilfe</a>
+		  </li>
+  		
+	    	
+		  	
+			   	<li><a href="/InfoGuideClient/actual.do?methodToCall=show" title="Aktuelles">Aktuelles</a></li>
+    		
+    	
+		</ul>
+	</div>  
+</div>
+<!-- END of jsp/navigation/bgnavi.jsp --> 
+
+		<br class="cleaner" />
+		
+		
+			
+
+
+
+
+<!-- START jsp/result/searchinfo.jsp -->
+
+<div id="info1">
+	
+
+	
+	<strong class="c1">Ihre Suchanfrage</strong>
+
+
+	
+        
+               
+
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+    
+   
+   
+
+   
+   
+   
+   
+   
+   
+
+    
+    
+     
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+
+
+
+     
+    
+     
+
+          
+    
+     
+     
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+     
+    
+    
+    
+    
+    
+    
+      
+    
+    
+    
+    
+    
+    
+    
+    
+     
+    
+     
+     
+ 
+
+
+<strong>Titel = test<br /></strong>
+
+
+
+ 
+	
+	
+</div> 
+<!-- END of jsp/result/searchinfo.jsp --> 
+		
+		
+		<br class="cleaner" />
+		<div id="main"> 
+			<div id="SOWrap"> 
+				<div id="middle"> 
+					<div class="box">
+						
+
+
+
+<!-- START jsp/result/hit.jsp -->
+<!-- START jsp/result/hit.jsp -->
+
+
+
+<div class="box-header">
+	
+		<div class="box-right">
+
+<a style="text-decoration:none" href="/InfoGuideClient/hitList.do?methodToCall=backToPrimaryHitList" title="Trefferliste"> 
+&#171;<small>Trefferliste</small></a>&nbsp;&nbsp;&nbsp;
+
+ 
+<a style="text-decoration:none" href="/InfoGuideClient/hitList.do?methodToCall=backToCompleteList" title="Trefferliste">
+&larr;<small>Trefferliste</small></a>&nbsp;&nbsp;&nbsp;
+
+ 
+ <a style="text-decoration:none" href="/InfoGuideClient/search.do?methodToCall=start" title='Suchanfrage'>
+&uarr;<small>Suchanfrage</small></a>&nbsp;&nbsp;&nbsp;
+
+
+<a style="text-decoration:none" href="/InfoGuideClient/searchHistory.do?methodToCall=showHistory" title="Suchhistorie">
+&uarr;&uarr;<small>Suchhistorie</small></a>&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;
+
+			<a href="/InfoGuideClient/singleHit.do?methodToCall=showHit&amp;identifier=-1_S_IG.375.3865&amp;curPos=1&amp;tab=showTitleActive">|&#171;</a>
+<a href="/InfoGuideClient/singleHit.do?methodToCall=showHit&amp;identifier=-1_S_IG.375.3865&amp;curPos=26&amp;tab=showTitleActive">&#171;</a>
+<a href="/InfoGuideClient/singleHit.do?methodToCall=showHit&amp;identifier=-1_S_IG.375.3865&amp;curPos=28&amp;tab=showTitleActive">&#187;</a>
+<a href="/InfoGuideClient/singleHit.do?methodToCall=showHit&amp;identifier=-1_S_IG.375.3865&amp;curPos=1425&amp;tab=showTitleActive">&#187;|</a>
+
+		</div>
+	
+
+	
+  
+  
+
+	
+		<h2>Hochschulbibliothek (27/1425)</h2>
+	
+	
+</div>
+<div class="box-container">
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- START jsp/result/teaser.jsp -->
+
+
+
+
+
+
+ <table class="data" style="width:100%">
+
+
+<span class="Z3988" title='ctx_ver=Z39.88-2004&amp;rft_val_fmt=info:ofi/fmt:kev:mtx:book&amp;rft.btitle=Test&amp;rft.au='></span>
+
+
+ <tr>
+  <td>
+       
+       
+       
+       
+
+
+ 
+  
+ 
+  
+  
+
+ 
+   
+
+  
+
+ 
+  
+  
+  
+
+  
+ 
+ 
+
+  
+   <img src="/InfoGuideClient/images/buch02.gif" alt="Übergeordneter Titel, siehe Einzelbände"  title="Übergeordneter Titel, siehe Einzelbände" />
+ 
+
+
+
+ 
+
+
+
+      
+       <strong>Test</strong>
+      
+      
+      
+
+     
+
+
+      
+      
+
+      
+      
+
+      
+      
+       
+      
+        <br />&nbsp;<br />
+
+ 
+
+      
+        
+ 
+
+      
+
+ 
+
+      
+       
+ 
+
+      
+      
+
+      
+	
+      
+
+        
+
+	
+
+	
+      
+
+      
+	
+	  <div class="bez">Ort:
+           </div><div style="float:left;">London
+           </div> <div style="clear:both">
+	
+
+	
+
+	
+      
+
+      
+	
+
+        
+
+	
+      
+
+      
+	
+
+	
+
+	
+      
+
+
+ 
+
+      
+
+ 
+
+      
+
+
+      
+
+ 
+      
+     
+
+ 
+
+      
+
+
+
+
+ 
+ 
+
+      
+
+ 
+
+      
+
+
+   
+ 
+
+      
+        
+        </div> <div style="clear:both">
+      
+
+
+ 
+       
+      
+     <br />
+      
+
+      
+ 
+      
+
+
+
+
+
+      
+  
+ 
+      
+        <div><br /><span class="textgruen">Übergeordneter Titel, siehe Einzelbände</span></div>
+        
+        
+        
+        
+         
+      
+       <div style="clear:both">
+
+</TD>
+
+
+
+ 
+
+
+ <td style="vertical-align:text-top;text-align:right;">
+  
+    
+  
+  </td>
+
+  
+
+  
+
+  
+
+ </tr>
+
+<tr><td colspan="2">
+
+ 
+
+ 
+   
+
+ <div><br />
+
+ <table class="data1" style="width:90%;">
+  <tr>
+  <th class="left"><strong class="c1">Band.Jahr</strong></th>
+  <th class="left"><strong class="c1">Standort</strong></th>
+  <th class="left"><strong class="c1">Signatur</strong></th>
+ </tr>
+
+ 
+
+  
+  
+  
+  
+  <tr><td>
+   
+   1.1756 - 35.1757
+   
+  
+  
+   
+   
+
+
+  
+  
+  
+
+   
+  
+
+
+   
+  
+
+
+
+  
+  
+  
+    <br />
+      
+      <span class="c1">Repr. 1979</span>
+          
+    
+  
+  </td>
+  <td>
+  
+
+  
+  
+     
+
+
+  
+  
+  
+  
+
+   
+   
+     
+
+
+    
+     
+     
+     
+     
+    
+
+    
+              
+               
+               
+              
+     
+   
+
+  
+
+   
+
+ 
+
+
+    
+     
+   
+
+   
+   
+     Zentralbibliothek siehe <a style="text-decoration:none" href='/InfoGuideClient/search.do?methodToCall=volumeSearch&amp;dbIdentifier=-1&amp;forward=success&amp;catKey=230990&amp;periodical=Y' title='Einzelb&auml;nde'>
+    Einzelb&auml;nde</a>
+
+ 
+
+ 
+
+   </td><td>&nbsp;
+ 
+  
+  
+  
+   Zf2304
+  </td></tr>
+ 
+
+  
+  
+  
+  
+ 
+
+  
+  
+  
+  
+ 
+
+  
+  
+  
+  
+ 
+
+  
+  
+  
+  
+ 
+
+  
+  
+  
+  
+ 
+
+  
+  
+  
+  
+ 
+
+  
+  
+  
+  
+ 
+
+  
+  
+  
+  
+ 
+
+  
+  
+  
+  
+ 
+
+  
+  
+  
+  
+ 
+
+  
+  
+  
+  
+ 
+
+  
+  
+  
+  
+ 
+
+  
+  
+  
+  
+ 
+
+  
+  
+  
+  
+ 
+
+  
+  
+  
+  
+ 
+
+  
+  
+  
+  
+ 
+
+  
+  
+  
+  
+ 
+
+  
+  
+  
+  
+ 
+
+  
+  
+  
+  
+ 
+
+  
+  
+  
+  
+ 
+
+  
+  
+  
+  
+ 
+
+  
+  
+  
+  
+ 
+
+  
+  
+  
+  
+ 
+
+  
+  
+  
+  
+ 
+
+  
+  
+  
+  
+ 
+
+  
+  
+  
+  
+ 
+
+  
+  
+  
+  
+ 
+
+  
+  
+  
+  
+ 
+
+  
+  
+  
+  
+ 
+
+  
+  
+  
+  
+ 
+
+  
+  
+  
+  
+ 
+
+  
+  
+  
+  
+ 
+
+  
+  
+  
+  
+ 
+
+  
+  
+  
+  
+ 
+
+  
+  
+  
+  
+ 
+
+  
+  
+  
+  
+ 
+
+  
+  
+  
+  
+ 
+
+  
+  
+  
+  
+ 
+
+  
+  
+  
+  
+ 
+
+  
+  
+  
+  
+ 
+
+  
+  
+  
+  
+ 
+
+  
+  
+  
+  
+ 
+
+  
+  
+  
+  
+ 
+
+  
+  
+  
+  
+ 
+
+  
+  
+  
+  
+ 
+
+  
+  
+  
+  
+ 
+
+  
+  
+  
+  
+ 
+
+  
+  
+  
+  
+ 
+
+  
+  
+  
+  
+ 
+  
+ 
+ </div>
+ </table>
+
+  
+  
+ 
+
+
+
+ 
+
+ 
+
+ 
+
+
+
+
+
+ 
+
+      
+
+
+ 
+
+      
+ 
+
+</td></tr> 
+
+
+
+
+
+
+
+
+
+
+ 
+<tr><td colspan="2">
+   <div style="clear:both"> <div align="right">
+      
+
+      
+        
+          
+            
+            <a href="/InfoGuideClient/memorizeHitList.do?methodToCall=addToMemorizeList&amp;curPos=27&amp;forward=singlehit&amp;identifier=-1_S_IG.375.3865" title="in die Merkliste">
+            in die Merkliste</a>
+          
+          
+        
+        
+      
+
+      
+
+      
+        |
+        
+        <a href='/InfoGuideClient/search.do?methodToCall=volumeSearch&amp;dbIdentifier=-1&amp;forward=success&amp;catKey=230990&amp;periodical=Y' title="Einzelb&auml;nde">Einzelb&auml;nde</a>
+      
+
+      
+
+      
+
+      </div>
+
+</td></tr>
+
+
+ </table>
+
+<!-- END of jsp/result/teaser.jsp --> 
+
+
+</div>
+<script language="javascript" type="text/javascript">
+ setHelp("trefferliste", "");
+</script>
+
+<!-- END of jsp/result/hit.jsp --> 
+
+					</div>
+					<br />
+					
+
+
+
+
+<!-- START jsp/result/singleHitTabNavi.jsp --> 
+
+<div id="tab">
+	
+         <ul>
+	  
+           
+
+                 
+                  
+                  
+		  <li id="tabExemplare">
+                    <div id="labelExemplare">
+		    
+				
+					<a href="/InfoGuideClient/singleHit.do?methodToCall=activateTab&amp;tab=showExemplarActive" title="Exemplare">
+					  Exemplare
+					</a>
+				
+		  </div>
+                 </li>
+                  
+                  
+		<li id="tabAvailability">
+		  <div id="labelAvailability">
+			  
+			  
+				  <a href="/InfoGuideClient/singleHit.do?methodToCall=activateTab&amp;tab=showAvailabilityActive" title="Bestellung/Vormerkung">
+				    Bestellung/Vormerkung
+				  </a>
+			  
+			</div>
+		</li>
+		<li id="tabTitle">
+		  <div id="labelTitle">
+			   
+  			
+				  <a href="/InfoGuideClient/singleHit.do?methodToCall=activateTab&amp;tab=showTitleActive" title="Titeldaten">
+				    Titeldaten
+				  </a>
+			  
+			</div>
+		</li>
+		
+    
+
+	</ul>
+</div>
+<!-- END of jsp/result/singleHitTabNavi.jsp --> 
+
+					<div class="cleaner"></div>	
+					
+
+
+
+
+<!-- START jsp/result/titleinfo.jsp -->
+
+<script language="javascript" type="text/javascript">
+  m_id=document.getElementById("labelTitle");
+  if(m_id != null)
+  {
+    m_id.innerHTML='Titeldaten';
+    m_id.id="active1";
+
+    m_id=document.getElementById("tabTitle");
+    m_id.id="current1";
+  }
+</script>
+
+<div id="tab-content">
+
+
+
+
+
+<table class="data2" style="width:100%;">
+  
+ 
+
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+   
+
+
+   
+
+
+   
+
+
+   
+
+
+
+
+    
+
+    
+
+
+
+
+
+   
+
+     
+   
+
+
+
+
+
+       
+
+
+
+
+
+
+   
+
+
+  
+    
+    
+
+
+   
+    
+   
+
+
+
+   
+   
+
+
+   
+
+  
+  
+ 
+ 
+   
+
+
+   
+
+
+   
+
+
+   
+
+
+
+
+    
+
+    
+
+
+
+
+
+   
+
+     
+   
+
+
+
+
+
+       
+
+
+
+
+
+
+   
+
+
+  
+    
+    
+
+
+   
+    
+   
+
+
+
+   
+   
+
+
+   
+     <tr><td class="rc1">Bestand:</td><td>
+     
+     
+     1.1756 - 35.1757
+     
+         
+</td></tr>
+   
+
+  
+  
+ 
+ 
+   
+
+
+   
+
+
+   
+
+
+   
+
+
+
+
+    
+
+    
+
+
+
+
+
+   
+
+     
+   
+
+
+
+
+
+       
+
+
+
+
+
+
+   
+
+
+  
+    
+    
+
+
+   
+    
+   
+
+
+
+   
+   
+
+
+   
+     <tr><td class="rc1">ZDB-Signatur:</td><td>
+     
+     
+     Zf2304
+     
+         
+</td></tr>
+   
+
+  
+  
+ 
+ 
+   
+
+
+   
+
+
+   
+
+
+   
+
+
+
+
+    
+
+    
+
+
+
+
+
+   
+
+     
+   
+
+
+
+
+
+       
+
+
+
+
+
+
+   
+
+
+  
+    
+    
+
+
+   
+    
+   
+
+
+
+   
+   
+
+
+   
+     <tr><td class="rc1">ZDB-Bemerkung:</td><td>
+     
+     
+     Repr. 1979
+     
+         
+</td></tr>
+   
+
+  
+  
+ 
+ 
+   
+
+
+   
+
+
+   
+
+
+   
+
+
+
+
+    
+
+    
+
+
+
+
+
+   
+
+     
+   
+
+
+
+
+
+       
+
+
+
+
+
+
+   
+
+
+  
+    
+    
+
+
+   
+    
+   
+
+
+
+   
+   
+
+
+   
+     <tr><td class="rc1">Titel:</td><td>
+     
+     
+     Test
+     
+         
+</td></tr>
+   
+
+  
+  
+ 
+ 
+   
+
+
+   
+
+
+   
+
+
+   
+
+
+
+
+    
+
+    
+
+
+
+
+
+   
+
+     
+   
+
+
+
+
+
+       
+
+
+
+
+
+
+   
+
+
+  
+    
+    
+
+
+   
+    
+   
+
+
+
+   
+   
+
+
+   
+     <tr><td class="rc1">Erscheinungsverlauf:</td><td>
+     
+     
+     1.1756 - 35.1757; damit Ersch. eingest.
+     
+         
+</td></tr>
+   
+
+  
+  
+ 
+ 
+   
+
+
+   
+
+
+   
+
+
+   
+
+
+
+
+    
+
+    
+
+
+
+
+
+   
+
+     
+   
+
+
+
+
+
+       
+
+
+
+
+
+
+   
+
+
+  
+    
+    
+
+
+   
+    
+   
+
+
+
+   
+   
+
+
+   
+     <tr><td class="rc1">Ort:</td><td>
+     
+     
+     London
+     
+         
+</td></tr>
+   
+
+  
+  
+ 
+ 
+   
+
+
+   
+
+
+   
+
+
+   
+
+
+
+
+    
+
+    
+
+
+
+
+
+   
+
+     
+   
+
+
+
+
+
+       
+
+
+
+
+
+
+   
+
+
+  
+    
+    
+
+
+   
+    
+   
+
+
+
+   
+   
+
+
+   
+     <tr><td class="rc1">Jahr, Ansetzung:</td><td>
+     
+     
+     1756
+     
+         
+</td></tr>
+   
+
+  
+  
+ 
+ 
+   
+
+
+   
+
+
+   
+
+
+   
+
+
+
+
+    
+
+    
+
+
+
+
+
+   
+
+     
+   
+
+
+
+
+
+       
+
+
+
+
+
+
+   
+
+
+  
+    
+    
+
+
+   
+    
+   
+
+
+
+   
+   
+
+
+   
+     <tr><td class="rc1">Ausgabeform:</td><td>
+     
+     
+     Repr.: New York, NY : AMS Pr
+     
+         
+</td></tr>
+   
+
+  
+  
+ 
+ 
+   
+
+
+   
+
+
+   
+
+
+   
+
+
+
+
+    
+
+    
+
+
+
+
+
+   
+     
+      <tr><td class="rc1">Erscheinungsart:</td><td>p ( =
+        Zeitschrift
+        
+        
+        
+        
+        
+        
+        
+        ) </td></tr>
+   
+
+     
+   
+
+
+
+
+
+       
+
+
+
+
+
+
+   
+
+
+  
+    
+    
+
+
+   
+    
+   
+
+
+
+   
+   
+
+
+   
+
+  
+  
+ 
+ 
+   
+
+
+   
+
+
+   
+
+
+   
+
+
+
+
+    
+
+    
+
+
+
+
+
+   
+
+     
+   
+
+
+
+
+
+       
+
+
+
+
+
+
+   
+
+
+  
+    
+    
+
+
+   
+    
+   
+
+
+
+   
+   
+
+
+   
+     <tr><td class="rc1">ID:</td><td>
+     
+     
+     HT007016928
+     
+         
+</td></tr>
+   
+
+  
+  
+ 
+ 
+   
+
+
+   
+
+
+   
+
+
+   
+
+
+
+
+    
+
+    
+
+
+
+
+
+   
+
+     
+   
+
+
+
+
+
+       
+
+
+
+
+
+
+   
+     <tr><td class="rc1">MedienArt:</td>
+     <td>a ( = Gedrucktes Werk )</td></tr>
+   
+
+
+  
+    
+    
+
+
+   
+    
+   
+
+
+
+   
+   
+
+
+   
+
+  
+  
+ 
+</table>
+
+
+
+
+
+</div>
+
+<!-- END of jsp/result/titleinfo.jsp -->
+				
+				</div>
+			</div>
+			<!-- SOWrap -->
+			
+				<div id="right">
+					
+
+
+
+
+
+
+
+
+
+
+
+<!-- START jsp/result/rechtsoben.jsp --> 
+
+
+
+
+<div class="box3">
+	<div class="box3-header">
+		<div class="box3-img"><img src="images/box3-right.gif" width="8" height="8" alt="" /></div>
+		<h2>weitere Optionen</h2>
+	</div>
+	<div class="box3-content">
+	<p><strong>Suchanfrage</strong><br />
+			<a href="/InfoGuideClient/search.do?methodToCall=start" title="Suchanfrage &auml;ndern">&auml;ndern</a>
+	</p>
+	
+	
+	
+		 
+			<p><strong>Ausgabe</strong><br />
+				
+					<a href="/InfoGuideClient/hitOutput.do?methodToCall=show&amp;caller=singlehit" title="Treffer ausgeben">Treffer ausgeben</a>
+				
+				
+		 </p>
+		
+	
+	
+			
+		 
+			<p><strong>Katalog-Auswahl</strong><br />
+			Auswahl<br />
+				
+					<a href="/InfoGuideClient/search.do?methodToCall=submit&amp;methodToCallParameter=databaseSelection" title="Katalogauswahl automat. erweitern">&auml;ndern</a> 
+			</p>
+		
+	
+	
+
+	 
+		
+			
+  		<p>
+			<strong>Suchdienst</strong><br />
+			
+				<a href="/InfoGuideClient/loginpage.do?methodToCall=showLogin">Bitte erst anmelden!</a>
+			
+			
+			</p>
+			
+		
+	
+</div> <!-- box3-content --> 
+</div><!-- box3 -->
+
+<!-- END of jsp/result/rechtsoben.jsp --> 
+
+					<br class="space" />
+					<!-- filler /jsp/common/empty.jsp --> 
+					<br class="space" />
+					
+
+
+
+
+<!-- START jsp/common/news.jsp -->
+
+
+	<!-- START jsp/news+info/de_755_8.jsp -->
+		<div class="box3">
+   <div class="box3-header">
+      <div class="box3-img"><img src="images/box3-right.gif" width="8" height="8" alt="" /></div>
+      <h2>Buch nicht im Katalog?</h2>
+   </div>
+   <p>
+     <div class="box3-content">
+        Ein geringer Teil unserer <b>Bücher</b> mit einem Erscheinungsjahr
+        <b>vor 1989</b> wurde noch nicht elektronisch erfaßt und kann
+        daher in InfoGuide nicht gefunden werden. Sie können 
+        diese Bücher im alphabetischen <b>Zettelkatalog</b> im 
+            <a href="iz.html" target="_blank">Informationszentrum</a>
+        suchen und bei den Mitarbeitern der Bibliothek bestellen.
+     </div>
+   </p>
+</div>
+	<!-- END of jsp/news+info/de_755_8.jsp -->
+	<br class="space" />
+
+
+
+<!-- END of jsp/common/news.jsp --> 
+				</div>
+			
+			
+			
+			<!-- right -->
+			<br class="cleaner" />
+		</div>
+		
+
+
+
+
+
+
+
+<!-- START jsp/common/footer.jsp -->
+
+<div id="footer">
+	
+	
+		&nbsp;
+	
+	
+ <hr noshadow> 
+ <div id="bibliothek">
+ <a href="mailto:iz@bth.rwth-aachen.de">iz@bth.rwth-aachen.de</a> &nbsp;&nbsp;&nbsp;
+ <a target="_parent" href="http://www.bth.rwth-aachen.de">&copy;Hochschulbibliothek</a> &nbsp;&nbsp;&nbsp;
+ <a href="http://www.rwth-aachen.de/zentral/disclaimer.htm" target=_blank>Haftungsausschluss</a>
+ </div>
+  <div id="copyright">Copyright &copy; 2011.&nbsp;Alle Rechte vorbehalten.
+          <img src="/InfoGuideClient/images/OCLC.jpg" alt="OCLC" title="OCLC" width="54" height="19" />
+  </div>
+  <div class="cleaner"></div>
+</div>
+<!-- END of jsp/common/footer.jsp -->
+ 
+	</div> 
+</body>
+<!-- END of jsp/result/HitLayout.jsp --> 
+<!-- START jsp/common/metaFooter.jsp -->
+</html>
+<!-- END of jsp/common/metaFooter.jsp -->

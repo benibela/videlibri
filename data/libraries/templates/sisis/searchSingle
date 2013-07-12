@@ -7,7 +7,7 @@
     <strong>Signatur|Regalstandort</strong>{$book.id := text()}
   </td>?
   <img alt="Buchcover">{book.image-url := @src}</img>?
-</div>
+</div>?
 
 <div id="tab-content">
   <template:switch-prioritized>
