@@ -5,9 +5,11 @@
 <meta>
   <description>Template für das Libero-System, version 5.4</description>
   <variable name="baseurl"><description>Serveraddresse (inklusive Protokoll)</description></variable>
+  <variable name="loginBaseurl" default=""><description>Serveraddresse für Kontozugriff(inklusive Protokoll)</description></variable>
 </meta>
 
 <action id="connect">
+  <variable name="baseurl">get("loginBaseurl", $baseurl)</variable>
   <page url="{$baseurl}WebOpac.cls" templateFile="start"/>
   <page url="{$baseurl}WebOpac.cls?VERSION=2&amp;ACTION=MEMBERSERV&amp;RSN=0&amp;DATA={$data}&amp;TOKEN={$token}&amp;Z=1&amp;NewBreadCrumb=1&amp;{$logintoken}"/>
 </action>
