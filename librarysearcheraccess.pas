@@ -442,6 +442,13 @@ begin
         end;
         smtSearch: begin
           if logging then log('Searcher thread: message typ smtSearch');
+          if not searcher.Connected then begin //handles timeouts
+            if logging then log('Searcher thread: timeout reconnect');
+            access.beginResultReading;
+            searcher.connect;
+            access.endResultReading;
+            callNotifyEvent(access.FOnConnected);
+          end;
           access.beginResultReading; Searcher.SearchResult.clear; access.endResultReading;
           searcher.search;
           callPageCompleteEvent(access.FOnSearchPageComplete, true, searcher.SearchNextPageAvailable);
