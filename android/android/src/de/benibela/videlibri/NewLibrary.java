@@ -17,7 +17,6 @@ public class NewLibrary extends VideLibriBaseActivity{
 
     static final int MODE_LIBRARY_MODIFY = 1237;
 
-    static NewLibrary currentNewLibrary = null;
     Bridge.LibraryDetails details;
 
 
@@ -143,19 +142,6 @@ spinner.setAdapter(adapter);*/
         });
 
     }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        currentNewLibrary = this;
-    }
-
-    @Override
-    protected void onPause() {
-        currentNewLibrary = null;
-        super.onPause();
-    }
-
 
     EditText addTemplateVariable(LinearLayout linearLayout, LayoutInflater inflater, String name, String desc, String value){
         View option = inflater.inflate(R.layout.newliboption, null);

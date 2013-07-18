@@ -1,9 +1,13 @@
 package de.benibela.videlibri;
 
+import android.app.Activity;
 import android.app.Application;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.os.Handler;
+import android.os.Message;
 import org.acra.*;
 import org.acra.annotation.*;
 
@@ -40,6 +44,47 @@ public class VideLibriApp extends Application implements Bridge.VideLibriContext
         //ACRA.getErrorReporter().putCustomData("app", "VideLibri");
         //ACRA.getErrorReporter().putCustomData("ver", getVersion()+" (android)");
 
+        allThreadsDoneHandler = new Handler(){
+            @Override
+            public void handleMessage(Message msg) {
+                VideLibriApp.runningUpdates.clear();
+                Bridge.PendingException[] exceptions = Bridge.VLTakePendingExceptions();
+                VideLibriApp.errors.addAll(Arrays.asList(exceptions));
+
+                if (currentActivity != null) {
+                    NotificationService.showNotification(currentActivity);
+
+                    if (currentActivity instanceof VideLibri)
+                        ((VideLibri)currentActivity).setLoading(false);
+
+                    VideLibriApp.displayAccount(null);
+
+                    for (Bridge.PendingException ex : exceptions)
+                        Util.showMessage(currentActivity, ex.accountPrettyNames + ": " + ex.error);
+                }
+            }
+        };
+
+        installationDoneHandler = new Handler(){
+            @Override
+            public void handleMessage(Message msg) {
+                final int status = msg.what;
+                String message = status == 1
+                        ? "Bibliothek wurde registriert."
+                        : "Bibliotheksregistrierung fehlgeschlagen.";
+                Util.showMessage(currentActivity,
+                        message,
+                        new MessageHandler() {
+                            @Override
+                            public void onDialogEnd(DialogInterface dialogInterface, int i) {
+                                if (status == 1 && (currentActivity instanceof NewLibrary))
+                                    currentActivity.finish();
+                            }
+                        } );
+                if (currentActivity instanceof NewLibrary)
+                    ((NewLibrary)currentActivity).setLoading(false);
+            }
+        };
     }
 
     static void setACRAlogcat(boolean enabled) {
@@ -74,41 +119,41 @@ public class VideLibriApp extends Application implements Bridge.VideLibriContext
 
 
 
+
+
     static VideLibriApp instance;
+    static Activity currentActivity;
+
     static Bridge.Account accounts[] = null;
 
     static ArrayList<Bridge.PendingException> errors = new ArrayList<Bridge.PendingException>();
 
     static void addAccount(Bridge.Account acc){
-        if (instance == null) return;
         Bridge.VLAddAccount(acc);
-        instance.accounts = Bridge.VLGetAccounts();
+        accounts = Bridge.VLGetAccounts();
         updateAccount(acc, false, false);
     }
     static void deleteAccount(Bridge.Account acc){
-        if (instance == null || acc == null) return;
+        if (acc == null) return;
         Bridge.VLDeleteAccount(acc);
-        instance.accounts = Bridge.VLGetAccounts();
-        if (VideLibri.instance != null) {
-            if (VideLibri.instance.hiddenAccounts.contains(acc)) VideLibri.instance.hiddenAccounts.remove(acc);
-            VideLibri.instance.displayAccount(null);
-        }
+        accounts = Bridge.VLGetAccounts();
+        if (VideLibri.hiddenAccounts.contains(acc)) VideLibri.hiddenAccounts.remove(acc);
+        VideLibriApp.displayAccount(null);
     }
     static void changeAccount(Bridge.Account old, Bridge.Account newacc){
-        if (instance == null) return;
         Bridge.VLChangeAccount(old, newacc);
-        instance.accounts = Bridge.VLGetAccounts();
+        accounts = Bridge.VLGetAccounts();
         updateAccount(newacc, false, false);
-        if (VideLibri.instance != null) {
-            if (VideLibri.instance.hiddenAccounts.contains(old)) {
-                VideLibri.instance.hiddenAccounts.remove(old);
-                VideLibri.instance.hiddenAccounts.add(newacc);
-            }
+        if (VideLibri.hiddenAccounts.contains(old)) {
+            VideLibri.hiddenAccounts.remove(old);
+            VideLibri.hiddenAccounts.add(newacc);
         }
     }
 
 
     static List<Bridge.Account> runningUpdates = new ArrayList<Bridge.Account>();
+    static Handler allThreadsDoneHandler, installationDoneHandler;
+    static int bookUpdateCounter = 1;
     static public void updateAccount(Bridge.Account acc, final boolean autoUpdate, final boolean forceExtend){
         if (acc == null ) {
             if (accounts == null) accounts = Bridge.VLGetAccounts();
@@ -120,7 +165,7 @@ public class VideLibriApp extends Application implements Bridge.VideLibriContext
         if ((acc.name == null || acc.name.equals("")) && (acc.pass == null || acc.pass.equals("")))
             return; //search only account
         if (Bridge.VLUpdateAccount(acc, autoUpdate, forceExtend)) {
-            if (VideLibri.instance != null) VideLibri.instance.setLoading(true);
+            if (currentActivity instanceof VideLibri) ((VideLibri)currentActivity).setLoading(true);
             runningUpdates.add(acc);
         }
        /* final Bridge.Account facc = acc;
@@ -137,34 +182,40 @@ public class VideLibriApp extends Application implements Bridge.VideLibriContext
 
 
 
+
     static void newSearchActivity(){
         Intent intent;
-        if (VideLibri.instance != null)
-            intent = new Intent(VideLibri.instance, Search.class);
-        else {
+      //  if (VideLibri.instance != null)
+      //      intent = new Intent(VideLibri.instance, Search.class);
+      //  else {
             intent = new Intent(instance, Search.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        }
-        if (instance.accounts.length > 0){
-            String libId = instance.accounts[0].libId;
+      //  }
+        if (accounts.length > 0){
+            String libId = accounts[0].libId;
             intent.putExtra("libId", libId);
-            intent.putExtra("libName", instance.accounts[0].getLibrary().namePretty);
+            intent.putExtra("libName", accounts[0].getLibrary().namePretty);
 
             boolean sure = true;
-            for (int i=1;i<instance.accounts.length;i++)
-                if (!libId.equals(instance.accounts[i].libId)) {
+            for (int i=1;i< accounts.length;i++)
+                if (!libId.equals(accounts[i].libId)) {
                     sure = false;
                     break;
                 }
 
             if (!sure) intent.putExtra("showLibList", true);
         }
-        if (VideLibri.instance != null) VideLibri.instance.startActivity(intent);
-        else instance.startActivity(intent);
+        //if (VideLibri.instance != null) VideLibri.instance.startActivity(intent);
+        //else
+        instance.startActivity(intent);
     }
 
     @Override
     public String userPath() {
         return VideLibriSuperBase.userPath(this);
+    }
+
+    public static void displayAccount(Bridge.Account account) {
+        VideLibri.displayAccountStatically(account);
     }
 }

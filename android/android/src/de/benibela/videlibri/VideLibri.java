@@ -2,6 +2,7 @@ package de.benibela.videlibri;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.AssetManager;
 import java.io.InputStream;
 import java.text.DateFormat;
@@ -11,6 +12,7 @@ import java.lang.*;
 import android.app.*;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -51,7 +53,6 @@ public class VideLibri extends  BookListActivity{
     int read;
     FileInputStream fis =  */
 //  }
-    static VideLibri instance;
     public VideLibri(){
         super();
     }
@@ -63,7 +64,6 @@ public class VideLibri extends  BookListActivity{
 
        // Log.i("VideLibri", "onCreate")               ;
 
-        instance = this;
 
         if (VideLibriApp.accounts == null || VideLibriApp.accounts.length == 0) ; //startActivity(new Intent(this, NewAccountWizard.class));
         else {
@@ -82,8 +82,11 @@ public class VideLibri extends  BookListActivity{
        /* if (accounts == null || accounts.length == 0) newAccountDialog(true);
         else
          */
-
-        if (displayHistoryActually != displayHistory || !hiddenAccounts.equals(hiddenAccountsActually) || noDetailsInOverviewActually != noDetailsInOverview)
+        noDetailsInOverview = PreferenceManager.getDefaultSharedPreferences(this).getBoolean("noLendBookDetails", false);
+        if (displayHistoryActually != displayHistory
+                || !hiddenAccounts.equals(hiddenAccountsActually)
+                || noDetailsInOverviewActually != noDetailsInOverview
+                || displayForcedCounterActually != displayForcedCounter)
             displayAccount(null);
         //setTitle("Ausleihen");  //does not work in onCreate (why? makes the title invisible) No. it just works sometimes?
 
@@ -99,7 +102,7 @@ public class VideLibri extends  BookListActivity{
             }, 400);
         }
 
-
+        setLoading(!VideLibriApp.runningUpdates.isEmpty());
     }
 
     @Override
@@ -112,15 +115,6 @@ public class VideLibri extends  BookListActivity{
         return super.onOptionsItemSelected(item);
     }
 
-    public void onDestroy(){
-        super.onDestroy();
-        if (instance == this) {
-        //    Bridge.VLFinalize();
-        //    Bridge.initialized = false;
-            instance = null;
-        }
-    }
-
 
     //Mix
 
@@ -131,10 +125,10 @@ public class VideLibri extends  BookListActivity{
     }
 
 
-    public boolean displayHistory = false;
+    static public boolean displayHistory = false;
     private boolean displayHistoryActually = false;
     private boolean noDetailsInOverviewActually = false;
-    public ArrayList<Bridge.Account> hiddenAccounts = new ArrayList<Bridge.Account>();
+    static public ArrayList<Bridge.Account> hiddenAccounts = new ArrayList<Bridge.Account>();
     private ArrayList<Bridge.Account> hiddenAccountsActually = new ArrayList<Bridge.Account>();
 
     @Override
@@ -149,48 +143,27 @@ public class VideLibri extends  BookListActivity{
         super.onActivityResult(requestCode, resultCode, data);
     }
 
-
-
-    public void displayAccount(Bridge.Account acc){
-        displayHistoryActually = displayHistory;
-        noDetailsInOverviewActually = noDetailsInOverview;
-        hiddenAccountsActually.clear();
-        hiddenAccountsActually.addAll(hiddenAccounts);
-
-
+    static public ArrayList<Bridge.Book> makeUpdatedBookCache(Bridge.Account acc, ArrayList<Bridge.Book> oldBookCache){
+        ArrayList<Bridge.Book> bookCache = new ArrayList<Bridge.Book>();
         if (acc == null) {
-            bookCache = new ArrayList<Bridge.Book>();
             for (Bridge.Account facc: VideLibriApp.accounts) {
                 if (hiddenAccounts.contains(facc))
                     continue;
                 Bridge.Book[] books = Bridge.VLGetBooks(facc, false);
                 for (Bridge.Book b: books) bookCache.add(b);
-                if (displayHistoryActually){
+                if (displayHistory){
                     books = Bridge.VLGetBooks(facc, true);
                     for (Bridge.Book b: books) bookCache.add(b);
                 }
             }
         } else {
-            ArrayList<Bridge.Book> oldBookCache = bookCache;
             boolean hidden = hiddenAccounts.contains(acc);
-            if (hidden) {
-                boolean currentlyVisible = false;
-                for (Bridge.Book b: oldBookCache)
-                    if (acc.equals(b.account)) {
-                        currentlyVisible = true;
-                        break;
-                    }
-                if (hiddenAccounts.size() == 0) setTitle(bookCache.size() + "Ausleihen");
-                else setTitle(bookCache.size() + " Ausleihen: "+(VideLibriApp.accounts.length-hiddenAccounts.size())+ "/"+VideLibriApp.accounts.length+" Konten");
-                if (!currentlyVisible) return;
-            }
-            bookCache = new ArrayList<Bridge.Book>();
             for (Bridge.Book b: oldBookCache)
                 if (!acc.equals(b.account)) bookCache.add(b);
             if (!hidden) {
                 Bridge.Book[] books = Bridge.VLGetBooks(acc, false);
                 for (Bridge.Book b: books) bookCache.add(b);
-                if (displayHistoryActually){
+                if (displayHistory){
                     books = Bridge.VLGetBooks(acc, true);
                     for (Bridge.Book b: books) bookCache.add(b);
                 }
@@ -206,8 +179,8 @@ public class VideLibri extends  BookListActivity{
                     else return -1;
                 }
                 if ((book.getStatus() == Bridge.Book.StatusEnum.Ordered  || book.getStatus() == Bridge.Book.StatusEnum.Provided)
-                    !=
-                    (book2.getStatus() == Bridge.Book.StatusEnum.Ordered || book2.getStatus() == Bridge.Book.StatusEnum.Provided))
+                        !=
+                        (book2.getStatus() == Bridge.Book.StatusEnum.Ordered || book2.getStatus() == Bridge.Book.StatusEnum.Provided))
                     if ((book.getStatus() == Bridge.Book.StatusEnum.Ordered  || book.getStatus() == Bridge.Book.StatusEnum.Provided)) return 1;
                     else return -1;
 
@@ -223,6 +196,19 @@ public class VideLibri extends  BookListActivity{
         }
         );
 
+        return bookCache;
+    }
+
+
+    public void displayAccount(Bridge.Account acc){
+        displayHistoryActually = displayHistory;
+        noDetailsInOverviewActually = noDetailsInOverview;
+        displayForcedCounterActually = displayForcedCounter;
+        hiddenAccountsActually.clear();
+        hiddenAccountsActually.addAll(hiddenAccounts);
+
+
+        bookCache = makeUpdatedBookCache(acc, bookCache);
         displayBookCache();
 
         if (hiddenAccounts.size() == 0) setTitle(bookCache.size() + " Ausleihen");
@@ -252,5 +238,13 @@ public class VideLibri extends  BookListActivity{
                     }
                 });
         }
+    }
+
+    static int displayForcedCounter = 1;
+    int displayForcedCounterActually;
+    public static void displayAccountStatically(Bridge.Account account) {
+        displayForcedCounter += 1;
+        if (VideLibriApp.currentActivity instanceof VideLibri)
+            ((VideLibri)VideLibriApp.currentActivity).displayAccount(account);
     }
 }

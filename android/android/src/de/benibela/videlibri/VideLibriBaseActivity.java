@@ -68,6 +68,7 @@ public class VideLibriBaseActivity extends SherlockActivity implements Bridge.Vi
     protected void onResume() {
         super.onResume();    //To change body of overridden methods use File | Settings | File Templates.
 
+        VideLibriApp.currentActivity = this;
 
         /*if(refreshing)
             refreshView = inflater.inflate(R.layout.actionbar_refresh_progress, null);
@@ -77,9 +78,17 @@ public class VideLibriBaseActivity extends SherlockActivity implements Bridge.Vi
 
     }
 
+    @Override
+    protected void onPause() {
+        if (VideLibriApp.currentActivity == this) VideLibriApp.currentActivity = null;
+        super.onPause();
+    }
 
-
-
+    @Override
+    protected void onDestroy() {
+        if (VideLibriApp.currentActivity == this) VideLibriApp.currentActivity = null;
+        super.onDestroy();
+    }
 
     void setLoading(boolean loading){
         this.loading = loading;

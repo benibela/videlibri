@@ -2,6 +2,8 @@ package de.benibela.videlibri;
 
 import android.*;
 import android.R;
+import android.app.Activity;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -295,51 +297,14 @@ public class Bridge {
 
 
     static void allThreadsDone(){
-        if (NotificationService.instance != null)
-            NotificationService.instance.stopSelf();
-        if (VideLibri.instance == null) return;
-        //Log.i("VideLibri", "allThreadsDone started");
-        VideLibri.instance.runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                NotificationService.showNotification(VideLibri.instance);
-
-                VideLibri.instance.displayAccount(null);
-                VideLibriApp.runningUpdates.clear();
-
-                VideLibri.instance.setLoading(false);
-
-                Bridge.PendingException[] exceptions = Bridge.VLTakePendingExceptions();
-                for (Bridge.PendingException ex : exceptions)
-                    VideLibri.instance.showMessage(ex.accountPrettyNames + ": " + ex.error);
-                VideLibriApp.errors.addAll(Arrays.asList(exceptions));
-
-            }
-        });
+        if (VideLibriApp.allThreadsDoneHandler == null) return;
+        VideLibriApp.allThreadsDoneHandler.sendEmptyMessage(0);
 
     }
 
     static void installationDone(final int status){
-        if (VideLibri.instance == null) return;
-        VideLibri.instance.runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                String message = status == 1
-                        ? "Bibliothek wurde registriert."
-                        : "Bibliotheksregistrierung fehlgeschlagen.";
-                Util.showMessage(NewLibrary.currentNewLibrary != null ? NewLibrary.currentNewLibrary : VideLibri.instance,
-                        message,
-                        new MessageHandler() {
-                            @Override
-                            public void onDialogEnd(DialogInterface dialogInterface, int i) {
-                                if (status == 1)
-                                    NewLibrary.currentNewLibrary.finish();
-                            }
-                        } );
-                if (NewLibrary.currentNewLibrary != null)
-                    NewLibrary.currentNewLibrary.setLoading(false);
-            }
-        });
+        if (VideLibriApp.installationDoneHandler == null) return;
+        VideLibriApp.installationDoneHandler.sendEmptyMessage(status);
     }
 
     //init

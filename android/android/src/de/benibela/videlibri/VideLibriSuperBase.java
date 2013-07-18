@@ -57,12 +57,16 @@ public class VideLibriSuperBase {
                 context.startActivity(intent);
                 return true;
             case R.id.refresh:
-                if (VideLibri.instance != null && !VideLibri.instance.loading)
+                if (VideLibriApp.runningUpdates.isEmpty())
                     VideLibriApp.updateAccount(null, false, false);
+                else
+                    Util.showMessage(context, "Es kann immer nur ein Aktualisierungs/Verlängerungsvorgang für alle Konten gestartet werden.");
                 return true;
             case R.id.renew:
-                if (VideLibri.instance != null && !VideLibri.instance.loading)
+                if (VideLibriApp.runningUpdates.isEmpty())
                     VideLibriApp.updateAccount(null, false, true);
+                else
+                    Util.showMessage(context, "Es kann immer nur ein Aktualisierungs/Verlängerungsvorgang für alle Konten gestartet werden.");
                 return true;
             case R.id.renewlist:
                 context.startActivity(new Intent(context, RenewList.class));
@@ -111,15 +115,15 @@ public class VideLibriSuperBase {
     }
 
     static public void onPrepareOptionsMenu(Menu menu) {
-        if (VideLibri.instance != null) {
+        if (VideLibriApp.instance != null) {
           //  menu.findItem(R.id.accounts).setEnabled(VideLibriApp.accounts.length > 0);
             /*
-            menu.findItem(R.id.refresh).setEnabled(!VideLibri.instance.loading);
+            menu.findItem(R.id.refresh).setEnabled(!VideLibriApp.runningUpdates empty);
 
-            menu.findItem(R.id.refresh).setEnabled(VideLibri.instance.accounts.length > 0);
-            menu.findItem(R.id.renew).setEnabled(VideLibri.instance.accounts.length > 0);
-            menu.findItem(R.id.renewlist).setEnabled(VideLibri.instance.accounts.length > 0);   */
-            //menu.findItem(R.id.options).setEnabled(VideLibri.instance.accounts.length > 0);
+            menu.findItem(R.id.refresh).setEnabled(VideLibriApp.accounts.length > 0);
+            menu.findItem(R.id.renew).setEnabled(VideLibriApp.accounts.length > 0);
+            menu.findItem(R.id.renewlist).setEnabled(VideLibriApp.accounts.length > 0);   */
+            //menu.findItem(R.id.options).setEnabled(VideLibriApp.accounts.length > 0);
         }
     }
 
@@ -193,10 +197,10 @@ public class VideLibriSuperBase {
         final ArrayList<Integer> ids = new ArrayList<Integer>();
 
 
-        if (VideLibri.instance != null && VideLibriApp.accounts.length > 0 ) {
+        if (VideLibriApp.accounts.length > 0) {
             texts.add("Manche verlängern"); icons.add(context.getResources().getDrawable(android.R.drawable.ic_menu_week)); ids.add(R.id.renewlist);
             texts.add("Alle verlängern"); icons.add(context.getResources().getDrawable(android.R.drawable.ic_menu_month)); ids.add(R.id.renew);
-            if (!VideLibri.instance.loading) {
+            if (VideLibriApp.runningUpdates.isEmpty()) {
                 texts.add("Alle aktualisieren"); icons.add(context.getResources().getDrawable(android.R.drawable.ic_menu_rotate)); ids.add(R.id.refresh);
             }
         }

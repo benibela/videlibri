@@ -24,6 +24,24 @@ public class VideLibriBaseFragmentActivity extends SherlockFragmentActivity impl
     }
 
     @Override
+    protected void onResume() {
+        super.onResume();
+        VideLibriApp.currentActivity = this;
+    }
+
+    @Override
+    protected void onPause() {
+        if (VideLibriApp.currentActivity == this) VideLibriApp.currentActivity = null;
+        super.onPause();
+    }
+
+    @Override
+    protected void onDestroy() {
+        if (VideLibriApp.currentActivity == this) VideLibriApp.currentActivity = null;
+        super.onDestroy();
+    }
+
+    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         VideLibriSuperBase.onCreateOptionsMenu(getSherlock(), menu);
         loadingItem = menu.findItem(R.id.loading);

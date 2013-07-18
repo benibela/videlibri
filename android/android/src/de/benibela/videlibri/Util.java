@@ -23,6 +23,7 @@ interface MessageHandler{
 }
 public class Util {
     static int MessageHandlerCanceled = -123;
+    static public void showMessage(Context context, String message){showMessage(context, message, null, "OK", null, null);}
     static public void showMessage(Context context, String message, final MessageHandler handler){showMessage(context, message, null, "OK", null, handler);}
     static public void showMessageYesNo(Context context, String message, MessageHandler handler){ Util.showMessage(context, message, "Nein", null, "Ja", handler); }
     static public void showMessage(Context context, String message, String negative, String neutral, String positive, final MessageHandler handler){

@@ -49,85 +49,83 @@ public class Options extends VideLibriBaseActivity{
         SharedPreferences acraprefs = ACRA.getACRASharedPreferences();
         setCheckBoxChecked(R.id.loggingSend, acraprefs.getBoolean(ACRA.PREF_ENABLE_SYSTEM_LOGS, true));
 
-        if (VideLibri.instance != null) {
-            ArrayList<String> accounts = new ArrayList<String>();
+        ArrayList<String> accounts = new ArrayList<String>();
 
-            LinearLayout linearLayout = (LinearLayout) findViewById(R.id.viewaccounts);
-            linearLayout.removeAllViews();
-            for (final Bridge.Account acc: VideLibriApp.accounts) if (acc != null) {
-                CheckBox viewAcc = new CheckBox(this);
-                viewAcc.setText(acc.prettyName);
-                viewAcc.setChecked(!VideLibri.instance.hiddenAccounts.contains(acc));
-                viewAcc.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-                    @Override
-                    public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                        if (!b == VideLibri.instance.hiddenAccounts.contains(acc)) return;
-                        if (!b) VideLibri.instance.hiddenAccounts.add(acc);
-                        else VideLibri.instance.hiddenAccounts.remove(acc);
-                    }
-                });
-                linearLayout.addView(viewAcc);
-            }
+        LinearLayout linearLayout = (LinearLayout) findViewById(R.id.viewaccounts);
+        linearLayout.removeAllViews();
+        for (final Bridge.Account acc: VideLibriApp.accounts) if (acc != null) {
+            CheckBox viewAcc = new CheckBox(this);
+            viewAcc.setText(acc.prettyName);
+            viewAcc.setChecked(!VideLibri.hiddenAccounts.contains(acc));
+            viewAcc.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                    if (!b == VideLibri.hiddenAccounts.contains(acc)) return;
+                    if (!b) VideLibri.hiddenAccounts.add(acc);
+                    else VideLibri.hiddenAccounts.remove(acc);
+                }
+            });
+            linearLayout.addView(viewAcc);
+        }
 
-            linearLayout = (LinearLayout) findViewById(R.id.accounts);
-            linearLayout.removeAllViews();
-            LayoutInflater inflater = getLayoutInflater();
+        linearLayout = (LinearLayout) findViewById(R.id.accounts);
+        linearLayout.removeAllViews();
+        LayoutInflater inflater = getLayoutInflater();
 
-            for (final Bridge.Account acc: VideLibriApp.accounts) if (acc != null) {
-                Button btn = (Button) inflater.inflate(R.layout.insetbutton, null);
-                btn.setText(acc.prettyName);
-                linearLayout.addView(btn);
-                btn.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        Intent intent = new Intent(Options.this, AccountInfo.class);
-                        intent.putExtra("mode", AccountInfo.MODE_ACCOUNT_MODIFY);
-                        intent.putExtra("account", acc);
-                        startActivity(intent);
-                    }
-                });
-            }
-
-            if (!VideLibri.instance.displayHistory) ((RadioButton) findViewById(R.id.radioButton1)).setChecked(true);
-            else ((RadioButton) findViewById(R.id.radioButton2)).setChecked(true);
-
-            findButtonById(R.id.newaccount).setOnClickListener(new View.OnClickListener() {
+        for (final Bridge.Account acc: VideLibriApp.accounts) if (acc != null) {
+            Button btn = (Button) inflater.inflate(R.layout.insetbutton, null);
+            btn.setText(acc.prettyName);
+            linearLayout.addView(btn);
+            btn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     Intent intent = new Intent(Options.this, AccountInfo.class);
-                    intent.putExtra("mode", AccountInfo.MODE_ACCOUNT_CREATION) ;
-                    startActivityForResult(intent, NEW_ACCOUNT_CREATION_RESULT);
-                }
-            });
-
-
-            linearLayout = (LinearLayout) findViewById(R.id.libraries);
-            linearLayout.removeAllViews();
-            for (final String userLibId: options.roUserLibIds) if (userLibId != null) {
-                final Bridge.LibraryDetails details = Bridge.VLGetLibraryDetails(userLibId);
-                if (details == null) continue;
-                Button btn = (Button) inflater.inflate(R.layout.insetbutton, null);
-                btn.setText(details.prettyName);
-                linearLayout.addView(btn);
-                btn.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        Intent intent = new Intent(Options.this, NewLibrary.class);
-                        intent.putExtra("mode", NewLibrary.MODE_LIBRARY_MODIFY);
-                        intent.putExtra("libId", userLibId);
-                        startActivity(intent);
-                    }
-                });
-            }
-
-
-            findButtonById(R.id.newlib).setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    startActivity(new Intent(Options.this, NewLibrary.class));
+                    intent.putExtra("mode", AccountInfo.MODE_ACCOUNT_MODIFY);
+                    intent.putExtra("account", acc);
+                    startActivity(intent);
                 }
             });
         }
+
+        if (!VideLibri.displayHistory) ((RadioButton) findViewById(R.id.radioButton1)).setChecked(true);
+        else ((RadioButton) findViewById(R.id.radioButton2)).setChecked(true);
+
+        findButtonById(R.id.newaccount).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(Options.this, AccountInfo.class);
+                intent.putExtra("mode", AccountInfo.MODE_ACCOUNT_CREATION) ;
+                startActivityForResult(intent, NEW_ACCOUNT_CREATION_RESULT);
+            }
+        });
+
+
+        linearLayout = (LinearLayout) findViewById(R.id.libraries);
+        linearLayout.removeAllViews();
+        for (final String userLibId: options.roUserLibIds) if (userLibId != null) {
+            final Bridge.LibraryDetails details = Bridge.VLGetLibraryDetails(userLibId);
+            if (details == null) continue;
+            Button btn = (Button) inflater.inflate(R.layout.insetbutton, null);
+            btn.setText(details.prettyName);
+            linearLayout.addView(btn);
+            btn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(Options.this, NewLibrary.class);
+                    intent.putExtra("mode", NewLibrary.MODE_LIBRARY_MODIFY);
+                    intent.putExtra("libId", userLibId);
+                    startActivity(intent);
+                }
+            });
+        }
+
+
+        findButtonById(R.id.newlib).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(Options.this, NewLibrary.class));
+            }
+        });
     }
 
     @Override
@@ -141,9 +139,6 @@ public class Options extends VideLibriBaseActivity{
     protected void onPause() {
         super.onPause();    //To change body of overridden methods use File | Settings | File Templates.
 
-        if (VideLibri.instance == null) return;
-
-        VideLibri.instance.displayHistory = ((RadioButton) findViewById(R.id.radioButton2)).isChecked();
 
         Bridge.Options options = new Bridge.Options();
         options.nearTime = Util.strToIntDef(getEditTextText(R.id.notificationsTimeDelta), 3);
@@ -155,12 +150,12 @@ public class Options extends VideLibriBaseActivity{
         SharedPreferences.Editor editor = sp.edit();
         editor.putBoolean("notifications", getCheckBoxChecked(R.id.notifications));
         editor.putBoolean("noLendBookDetails", getCheckBoxChecked(R.id.noLendBookDetails));
-        VideLibri.instance.noDetailsInOverview = getCheckBoxChecked(R.id.noLendBookDetails);
         editor.putInt("notificationsServiceDelay", Util.strToIntDef((getEditTextText(R.id.notificationsServiceDelay)), 15));
         editor.commit();
 
 
         VideLibriApp.setACRAlogcat(getCheckBoxChecked(R.id.loggingSend));
 
+        VideLibri.displayHistory = ((RadioButton) findViewById(R.id.radioButton2)).isChecked();
     }
 }

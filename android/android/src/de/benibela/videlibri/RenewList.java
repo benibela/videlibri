@@ -1,6 +1,7 @@
 package de.benibela.videlibri;
 
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
@@ -21,8 +22,8 @@ public class RenewList extends BookListActivity {
     protected void onResume() {
         super.onResume();
         bookCache = new ArrayList<Bridge.Book> ();
-        noDetailsInOverview = VideLibri.instance.noDetailsInOverview;
-        for (Bridge.Book book: VideLibri.instance.bookCache)
+        noDetailsInOverview = PreferenceManager.getDefaultSharedPreferences(this).getBoolean("noLendBookDetails", false);
+        for (Bridge.Book book: VideLibri.makeUpdatedBookCache(null, new ArrayList<Bridge.Book>()))
             if (!book.history) {
                 Bridge.Book.StatusEnum status = book.getStatus();
                 if (status == Bridge.Book.StatusEnum.Unknown || status == Bridge.Book.StatusEnum.Normal)

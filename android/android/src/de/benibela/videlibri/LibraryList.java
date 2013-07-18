@@ -22,7 +22,7 @@ public class LibraryList extends VideLibriBaseActivity {
         //final TreeMap<String, String> ids = new TreeMap<String, String>();
 
         int autoExpand = 0;
-        if (VideLibri.instance != null && VideLibriApp.accounts != null && VideLibriApp.accounts.length > 0) {
+        if (VideLibriApp.accounts != null && VideLibriApp.accounts.length > 0) {
             ArrayList<String> used = new ArrayList<String>();
             autoExpand = 1;
             cities.add(new TreeMap<String, String>());
