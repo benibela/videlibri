@@ -12,7 +12,7 @@
     <LinearLayout
             android:orientation="vertical"
             android:layout_width="fill_parent"
-            android:layout_height="fill_parent" android:id="@+id/createGroup     " android:longClickable="false">
+            android:layout_height="fill_parent" android:id="@+id/createGroup" android:longClickable="false">
         <TextView android:layout_width="fill_parent" android:layout_height="wrap_content" android:text="Vollständige Metadaten von URL laden:"
                   android:id="@+id/textView"
                   android:padding="@dimen/optionheaderpadding" android:background="@color/optionHeaderBackgroundColor"
