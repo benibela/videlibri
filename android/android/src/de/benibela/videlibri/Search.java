@@ -13,12 +13,32 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import com.actionbarsherlock.view.Menu;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Stack;
 
 public class Search extends VideLibriBaseActivity implements Bridge.SearchConnector{
     static final int REQUEST_CHOOSE_LIBRARY = 1234;
-    Bridge.SearcherAccess searcher;
-    static Bridge.SearcherAccess searcherStatic = null;
+    static ArrayList< Bridge.SearcherAccess> searchers = new ArrayList<Bridge.SearcherAccess>();
+
+    private Bridge.SearcherAccess createSearcher(){
+        Bridge.SearcherAccess searcher = new Bridge.SearcherAccess(this, libId);
+        searchers.add(searcher);
+        return searcher;
+    }
+
+    static void removeSearcherOwner(Object owner){
+        if (searchers.isEmpty()) return;
+        for (int i=searchers.size()-1; i >= 0; i--) {
+            Bridge.SearcherAccess current = searchers.get(i);
+            if (current.connector == owner) current.connector = null;
+            if (current.display == owner) current.setDisplay(null);
+            if (current.connector == null && current.display == null && !current.waitingForDisplay) {
+                current.free();
+                searchers.remove(i);
+            }
+        }
+    }
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,7 +53,7 @@ public class Search extends VideLibriBaseActivity implements Bridge.SearchConnec
         if (libId == null || libId.equals("") || getIntent().getBooleanExtra("showLibList", false)) changeSearchLib();
         else {
             setLoading(true);
-            searcher = new Bridge.SearcherAccess(this, libId);
+            createSearcher();
         }
 
         ((TextView) findViewById(R.id.library)).setOnClickListener(new View.OnClickListener() {
@@ -46,7 +66,9 @@ public class Search extends VideLibriBaseActivity implements Bridge.SearchConnec
         ((Button) findViewById(R.id.button)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                searcherStatic = searcher;
+                if (searchers.isEmpty()) { showMessage("Kein Suchvorgang"); return; }
+                searchers.get(searchers.size()-1).waitingForDisplay = true;
+
                 Intent intent = new Intent(Search.this, SearchResult.class);
                 Bridge.Book book = new Bridge.Book();
                 book.title = getTextViewText(R.id.title);
@@ -75,11 +97,7 @@ public class Search extends VideLibriBaseActivity implements Bridge.SearchConnec
 
     @Override
     protected void onDestroy() {
-        if (searcher != null) {
-            searcher.free();
-            searcher = null;
-        }
-
+        removeSearcherOwner(this);
         super.onDestroy();
     }
 
@@ -120,13 +138,10 @@ public class Search extends VideLibriBaseActivity implements Bridge.SearchConnec
                 libName = data.getStringExtra("libName");
                 ((TextView) findViewById(R.id.library)).setText(libName);
 
-                if (searcher != null) {
-                    searcher.free();
-                    searcher = null;
-                }
 
                 setLoading(true);
-                searcher = new Bridge.SearcherAccess(this, libId);
+                removeSearcherOwner(this);
+                createSearcher();
             }
         } else super.onActivityResult(requestCode, resultCode, data);
     }

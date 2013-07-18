@@ -20,8 +20,11 @@ public class SearchResult extends BookListActivity implements Bridge.SearchResul
         Bridge.Book book = (Bridge.Book) getIntent().getSerializableExtra("searchQuery");
         if (book == null) { Log.i("VideLibri", "search without book. Abort."); finish(); return; }
 
-        searcher = Search.searcherStatic;
-        Search.searcherStatic = null;
+        searcher = Search.searchers.isEmpty() ? null : Search.searchers.get(Search.searchers.size()-1);
+        if (searcher == null) {
+            setTitle("Suchvorgang verschwunden");
+            return;
+        }
         libId = searcher.libId;
         searcher.setDisplay(this);
         searcher.start(book, getIntent().getIntExtra("homeBranch", -1), getIntent().getIntExtra("searchBranch", -1));
@@ -47,7 +50,8 @@ public class SearchResult extends BookListActivity implements Bridge.SearchResul
 
     @Override
     protected void onDestroy() {
-        searcher.setDisplay(null);
+        Search.removeSearcherOwner(this);
+        searcher = null;
         super.onDestroy();
     }
 
@@ -56,6 +60,7 @@ public class SearchResult extends BookListActivity implements Bridge.SearchResul
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
+                if (searcher == null) return;
                 bookCache.clear();
                 for (Bridge.Book b : books) bookCache.add(b);
                 displayBookCache(searcher.totalResultCount);
@@ -102,6 +107,7 @@ public class SearchResult extends BookListActivity implements Bridge.SearchResul
                     if (nextDetailsRequested != oldWaitingForDetails) {
                         waitingForDetails = nextDetailsRequested;
                         setLoading(true);
+                        if (searcher == null) return;
                         searcher.details(bookCache.get(waitingForDetails));
                         return;
                     }
@@ -189,6 +195,7 @@ public class SearchResult extends BookListActivity implements Bridge.SearchResul
     }
 
     public void onPlaceHolderShown(int position){
+        if (searcher == null) return;
         if (searcher.nextPageAvailable) {
             setLoading(true);
             searcher.nextPage();
@@ -207,6 +214,7 @@ public class SearchResult extends BookListActivity implements Bridge.SearchResul
         if (waitingForDetails == -1) {
             waitingForDetails = bookpos;
             setLoading(true);
+            if (searcher == null) return;
             searcher.details(bookCache.get(waitingForDetails));
         }
     }
@@ -214,6 +222,7 @@ public class SearchResult extends BookListActivity implements Bridge.SearchResul
     private Bridge.Account orderingAccount;
 
     public void orderBook(final Bridge.Book book, int choosenOrder){
+        if (searcher == null) return;
         book.setProperty("choosenOrder", "" + choosenOrder);
         final java.util.ArrayList<Bridge.Account> matchingAccounts = new java.util.ArrayList();
         for (Bridge.Account acc: VideLibriApp.accounts)

@@ -192,6 +192,7 @@ public class Bridge {
         final String libId;
         SearchConnector connector;
         SearchResultDisplay display;
+        boolean waitingForDisplay;
 
         int totalResultCount;
         boolean nextPageAvailable;
@@ -205,6 +206,7 @@ public class Bridge {
         }
         public void setDisplay(SearchResultDisplay display){
             this.display = display;
+            this.waitingForDisplay = false;
         }
         public void start(Book query, int homeBranch, int searchBranch){
             VLSearchStart(this, query, homeBranch, searchBranch);
