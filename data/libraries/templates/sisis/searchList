@@ -2,6 +2,7 @@
 <template:switch-prioritized>
    <DIV id="hitlist">
     <DIV class="box">
+      {nextPage := ()}
       <DIV class="box-header">
         <DIV class="box-right">
         <span class="selectedlink" t:condition="not(contains(text(), '&#171;'))"/>

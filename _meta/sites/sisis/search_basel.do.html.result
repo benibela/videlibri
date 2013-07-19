@@ -1,6 +1,7 @@
 book: {}
 
 
+nextPage: undefined: 
 nextPage: node: /InfoGuideClient.sisis/hitList.do?methodToCall=pos&identifier=-1_S_IG.1273.27359&curPos=21#-1
 search-result-count: string: 133
 hasZ3988: boolean: false

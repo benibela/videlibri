@@ -1,6 +1,7 @@
 book: {}
 
 
+nextPage: undefined: 
 nextPage: node: /InfoGuideClient/hitList.do?methodToCall=pos&identifier=-1_S_IG.805.4070&curPos=11#-1
 search-result-count: string: 1419
 hasZ3988: boolean: false

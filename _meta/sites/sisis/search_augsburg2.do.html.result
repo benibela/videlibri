@@ -1,6 +1,7 @@
 book: {}
 
 
+nextPage: undefined: 
 nextPage: node: /webOPACClient.stasis/hitList.do?methodToCall=pos&identifier=-1_S_IG.49.27050&curPos=11#-1
 search-result-count: string: 156
 hasZ3988: boolean: false

@@ -1,0 +1,752 @@
+
+
+
+
+
+
+
+
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!-- START jsp/common/metaHeader.jsp -->
+
+
+
+<html xmlns="http://www.w3.org/1999/xhtml" 
+ xml:lang="de" 
+ lang="de"
+> 
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <meta http-equiv="pragma" content="no-cache" />
+  <meta http-equiv="expires" content="0" />
+  <meta http-equiv="cache-control" content="no-cache" />
+  <link rel="stylesheet" href="/webOPACClient/jsp/common/infoguide.css"  type="text/css" />
+  <link rel="shortcut icon" href="/webOPACClient/images/OCLC.ico" />
+  
+  <!--[if IE 7]>
+    <style type="text/css">
+      #tab-content{margin-top:5px;}
+      select {height:auto;}
+      #searchfield input#f1 {width:10em;}
+    </style>
+  <![endif]-->
+  
+  <title>
+    
+      Katalog der Volksbücherei Fürth
+    
+  </title>
+</head>
+<!-- END of jsp/common/metaHeader.jsp -->
+<!-- START jsp/result/HitlistLayout.jsp --> 
+
+
+
+
+
+
+
+
+			
+	
+
+	
+		
+	
+
+
+<body>
+	<div id="pageContainer">
+
+		
+
+
+
+<!-- START jsp/common/header.jsp -->
+
+
+<div id="branding">
+  <span id="logo">
+    
+    
+      <img src="/webOPACClient/images/vobu.jpg" width="80" height="35" alt="vob�" title="vob�" />
+	</ br>
+	</ br>  
+    
+  </span>
+  <span id="timer">&nbsp;</span>
+</div>
+
+
+<!-- END of jsp/common/header.jsp -->
+
+
+		<div id="mainnav">
+			
+
+
+
+
+<!-- START jsp/navigation/mainNavi.jsp --> 
+
+
+<!-- Actual Tiles Context 754 -->
+
+<ul>
+
+
+	<li id="current"><div id="active">Suche</div>
+		<ul>
+			 
+				
+				
+					<li>
+						<a href="/webOPACClient/search.do?methodToCall=switchSearchPage&amp;SearchType=1" title="Einfache Suche">Einfache Suche</a>
+					</li>
+				
+			
+			 
+				
+				
+					<li>
+						<a href="/webOPACClient/search.do?methodToCall=switchSearchPage&amp;SearchType=2" title="Erweiterte Suche">Erweiterte Suche</a>
+					</li>
+				
+			
+			
+      
+  		  
+		    
+		      <li>
+		        <a href="/webOPACClient/searchHistory.do?methodToCall=showHistory" title="Suchhistorie">Suchhistorie</a>
+		      </li>	
+		    
+		  
+		  
+			  
+          <li id="current2">Suchergebnis</li>
+				
+        
+			
+		
+			
+			
+			
+		</ul>
+	</li>
+
+
+
+	<li><a href="/webOPACClient/memorizelist.do?methodToCall=show" title="Merkliste">Merkliste</a></li>
+
+
+
+
+
+<li><a href="/webOPACClient/userAccount.do?methodToCall=show&amp;type=1" title="Konto">Konto</a></li>
+
+
+
+
+
+</ul>
+<!-- END of jsp/navigation/mainNavi.jsp --> 
+
+			
+
+
+
+
+<!-- START jsp/navigation/loginnavi.jsp --> 
+
+<div id="login">
+	
+		<a href="/webOPACClient/loginpage.do?methodToCall=showLogin" title="Anmelden">Anmelden</a>
+	
+	
+</div>
+<!-- END of jsp/navigation/loginnavi.jsp --> 
+		</div> 
+ 		<br class="cleaner" />
+ 		
+
+
+
+
+
+
+
+
+
+<!-- START jsp/navigation/bgnavi.jsp --> 
+<script language="javascript" type="text/javascript"
+ src="/webOPACClient/help/help.js">
+</script>
+
+<div id="bgmainnav">
+	<div id="nav2">
+		<ul>
+			
+			
+			
+			<li>
+			  <a href="#" onclick="return openHelp('/webOPACClient');"
+			     title="Hilfe">
+			   Hilfe</a>
+		  </li>
+  		
+	    	
+		  	
+			   	<li><a href="/webOPACClient/actual.do?methodToCall=show" title="Aktuelles">Aktuelles</a></li>
+    		
+    	
+		</ul>
+	</div>  
+</div>
+<!-- END of jsp/navigation/bgnavi.jsp --> 
+
+		<br class="cleaner" />
+		
+
+
+
+
+
+
+
+
+
+
+<!-- START jsp/search/searchbar.jsp --> 
+ 
+<div id="searchfield">
+
+
+<form id="AdvancedSearchForm" method="post" action="/webOPACClient/search.do">
+<input type="hidden" name="methodToCall" value="submit" />
+<input type="hidden" name="searchCategories[0]" value="-1" />
+
+
+
+
+
+<input type="hidden" name="searchString[1]" value="" />
+
+
+
+<input type="hidden" name="searchString[2]" value="" />
+
+
+
+<input type="hidden" name="searchString[3]" value="" />
+
+
+
+<input type="hidden" name="searchString[4]" value="" />
+
+
+
+<input type="hidden" name="CSId" value="6278N1S64e144a326c7b24a5f6d80a02a1b65ffece23c36" />
+<input type="hidden" name="searchHistory" value="" />
+<input type="text" name="searchString[0]" value="" id="f1" />
+
+
+
+<input type="submit" class="dbutton" id="submitSearch" name="submitSearch" value="Suchen" />
+</form>  
+</div>
+
+<!-- END of jsp/search/searchbar.jsp --> 
+		
+			
+
+
+
+
+<!-- START jsp/result/searchinfo.jsp --> 
+<div id="info1">
+	
+
+	
+	<strong class="c1">Ihre Suchanfrage</strong>
+	Titel = inferno
+	
+	
+	
+</div> 
+<!-- END of jsp/result/searchinfo.jsp --> 
+		
+		<br class="cleaner" />
+		<div id="main"> 
+			<div id="SOWrap"> 
+				<div id="middle"> 
+					
+
+
+
+<!-- START jsp/result/hitlist.jsp --> 
+			
+	
+		
+			
+			
+
+
+
+<!-- START jsp/result/singlehitlist.jsp --> 
+
+
+	<div id="hitlist">
+		<div class="box">
+			<div class="box-header">
+				<div class="box-right">
+					<a href="/webOPACClient/hitList.do?methodToCall=pos&amp;identifier=-1_S_IG.12.6398&amp;curPos=1#-1">|&#171;</a>
+<span class="selectedlink">&#171;</span>
+<a href="/webOPACClient/hitList.do?methodToCall=pos&amp;identifier=-1_S_IG.12.6398&amp;curPos=1#-1"> 1</a>
+<a href="/webOPACClient/hitList.do?methodToCall=pos&amp;identifier=-1_S_IG.12.6398&amp;curPos=11#-1"> 2</a>
+<span class="selectedlink">3</span>
+<span class="selectedlink">&#187;</span>
+<span class="selectedlink">&#187;|</span>
+
+				</div>
+				<a name="-1"></a>
+				
+				
+					<h2>Treffer lokale Datenbank (23)</h2>	
+				
+			</div>
+			<div class="cleaner"></div>
+			
+			    
+			<table class="data" style="border:0; width:100%" summary="Trefferanzeige f&uuml;r lokale Datenbank">
+	            
+	            
+	            
+				
+						
+				
+	            
+				
+					
+					
+
+
+
+
+
+
+
+<!-- START jsp/result/simplehit.jsp --> 
+<tr>
+	<th scope="row">
+	
+	<a name="-1_21"></a> 
+	21.
+	</th>
+	
+	
+
+	
+
+	
+
+	
+		<td>
+		 <a href='/webOPACClient/singleHit.do?methodToCall=showHit&amp;curPos=21&amp;identifier=-1_S_IG.12.6398#-1_21'>
+		  <img src="/webOPACClient/images/buch01.gif" alt="Buch" title="Buch" />
+		 </a>
+		</td>
+	
+
+
+	
+	<td style="width:100%">
+	<a name="-1_21"></a> 
+	<a href='/webOPACClient/singleHit.do?methodToCall=showHit&amp;curPos=21&amp;identifier=-1_S_IG.12.6398'>Fire Flight</a><br />
+Nance, John J.<br />
+2006<br />
+Nanc<br />
+bestellbar
+  
+
+<br/>
+        
+
+
+  
+  
+  
+	    
+	<br />
+	<a href="/webOPACClient/singleHit.do?methodToCall=showHit&amp;curPos=21&amp;identifier=-1_S_IG.12.6398&amp;tab=showAvailabilityActive" title="Vormerken / Bestellen (mit Brief 0,60 EUR)">Vormerken / Bestellen (mit Brief 0,60 EUR)</a>
+	|
+	
+			
+			<a href='/webOPACClient/memorizeHitList.do?methodToCall=addToMemorizeList&amp;curPos=21&amp;forward=hitlist&amp;identifier=-1_S_IG.12.6398#-1_21' title="in die Merkliste">in die Merkliste</a>
+		
+		
+	
+	
+
+
+
+	
+	</td>
+</tr>
+<!-- END of jsp/result/simplehit.jsp --> 
+
+
+				
+					
+					
+
+
+
+
+
+
+
+<!-- START jsp/result/simplehit.jsp --> 
+<tr>
+	<th scope="row">
+	
+	<a name="-1_22"></a> 
+	22.
+	</th>
+	
+	
+
+	
+
+	
+
+	
+		<td>
+		 <a href='/webOPACClient/singleHit.do?methodToCall=showHit&amp;curPos=22&amp;identifier=-1_S_IG.12.6398#-1_22'>
+		  <img src="/webOPACClient/images/buch01.gif" alt="Buch" title="Buch" />
+		 </a>
+		</td>
+	
+
+
+	
+	<td style="width:100%">
+	<a name="-1_22"></a> 
+	<a href='/webOPACClient/singleHit.do?methodToCall=showHit&amp;curPos=22&amp;identifier=-1_S_IG.12.6398'>Michelangelo</a><br />
+Stone, Irving<br />
+Ston<br />
+<span class="textrot">Das Medium wird vermisst. Eventuell können Sie die Fernleihmöglichkeit nutzen. </span>
+  
+
+<br/>
+        
+
+
+  
+  
+  
+	    
+	<br />
+	<a href="/webOPACClient/singleHit.do?methodToCall=showHit&amp;curPos=22&amp;identifier=-1_S_IG.12.6398&amp;tab=showAvailabilityActive" title="Vormerken / Bestellen (mit Brief 0,60 EUR)">Vormerken / Bestellen (mit Brief 0,60 EUR)</a>
+	|
+	
+			
+			<a href='/webOPACClient/memorizeHitList.do?methodToCall=addToMemorizeList&amp;curPos=22&amp;forward=hitlist&amp;identifier=-1_S_IG.12.6398#-1_22' title="in die Merkliste">in die Merkliste</a>
+		
+		
+	
+	
+
+
+
+	
+	</td>
+</tr>
+<!-- END of jsp/result/simplehit.jsp --> 
+
+
+				
+					
+					
+
+
+
+
+
+
+
+<!-- START jsp/result/simplehit.jsp --> 
+<tr>
+	<th scope="row">
+	
+	<a name="-1_23"></a> 
+	23.
+	</th>
+	
+	
+
+	
+
+	
+
+	
+		<td>
+		 <a href='/webOPACClient/singleHit.do?methodToCall=showHit&amp;curPos=23&amp;identifier=-1_S_IG.12.6398#-1_23'>
+		  <img src="/webOPACClient/images/buch01.gif" alt="Buch" title="Buch" />
+		 </a>
+		</td>
+	
+
+
+	
+	<td style="width:100%">
+	<a name="-1_23"></a> 
+	<a href='/webOPACClient/singleHit.do?methodToCall=showHit&amp;curPos=23&amp;identifier=-1_S_IG.12.6398'>Michelangelo</a><br />
+Stone, Irving<br />
+1963<br />
+Ston<br />
+<span class="textgruen">Ein oder mehrere Exemplare dieses Titels sind in der aktuellen Zweigstelle ausleihbar.</span>
+  
+
+<br/>
+        
+
+
+  
+  
+  
+	    
+	<br />
+	<a href="/webOPACClient/singleHit.do?methodToCall=showHit&amp;curPos=23&amp;identifier=-1_S_IG.12.6398&amp;tab=showAvailabilityActive" title="Vormerken / Bestellen (mit Brief 0,60 EUR)">Vormerken / Bestellen (mit Brief 0,60 EUR)</a>
+	|
+	
+			
+			<a href='/webOPACClient/memorizeHitList.do?methodToCall=addToMemorizeList&amp;curPos=23&amp;forward=hitlist&amp;identifier=-1_S_IG.12.6398#-1_23' title="in die Merkliste">in die Merkliste</a>
+		
+		
+	
+	
+
+
+
+	
+	</td>
+</tr>
+<!-- END of jsp/result/simplehit.jsp --> 
+
+
+				
+	            
+            	
+      </table>
+	    <div class="box">
+			  <div class="box-header">
+			    <div class="box-right">
+    			  <a href="/webOPACClient/hitList.do?methodToCall=pos&amp;identifier=-1_S_IG.12.6398&amp;curPos=1#-1">|&#171;</a>
+<span class="selectedlink">&#171;</span>
+<a href="/webOPACClient/hitList.do?methodToCall=pos&amp;identifier=-1_S_IG.12.6398&amp;curPos=1#-1"> 1</a>
+<a href="/webOPACClient/hitList.do?methodToCall=pos&amp;identifier=-1_S_IG.12.6398&amp;curPos=11#-1"> 2</a>
+<span class="selectedlink">3</span>
+<span class="selectedlink">&#187;</span>
+<span class="selectedlink">&#187;|</span>
+
+		  		</div>
+	  		</div>
+			</div>
+		</div>
+	</div>
+	<br />
+
+<!-- END of jsp/result/singlehitlist.jsp --> 
+
+		
+	
+	
+
+
+
+
+
+<script language="javascript" type="text/javascript">
+ setHelp("trefferliste", "");
+</script>
+<!-- END of jsp/result/hitlist.jsp --> 
+
+				</div>
+   			
+				  
+
+
+
+
+
+
+
+
+
+
+
+<!-- START jsp/result/hitlistNavigators.jsp --> 
+    
+
+
+  
+
+
+
+<!-- END of jsp/result/hitlistNavigators.jsp --> 
+
+				
+			</div>
+			
+			<div id="right">
+				
+
+
+
+
+
+
+
+
+
+
+
+<!-- START jsp/result/rechtsoben.jsp --> 
+
+
+
+
+<div class="box3">
+	<div class="box3-header">
+		<div class="box3-img"><img src="images/box3-right.gif" width="8" height="8" alt="" /></div>
+		<h2>weitere Optionen</h2>
+	</div>
+	<div class="box3-content">
+	<p><strong>Suchanfrage</strong><br />
+			<a href="/webOPACClient/search.do?methodToCall=start" title="Suchanfrage &auml;ndern">&auml;ndern</a>
+	</p>
+	
+					
+			
+				
+				
+				
+					
+				
+				
+					<p><strong>Treffersortierung</strong><br />	
+					
+						<form id="SearchRefineForm" method="post" action="/webOPACClient/refineSearch.do">
+							<input type="hidden" name="methodToCall" value="changeDBView" />
+							<input type="hidden" name="CSId" value="6278N1S64e144a326c7b24a5f6d80a02a1b65ffece23c36" />
+							<select name="sorting"><option value="" selected="selected">unsortiert</option>
+			               
+								
+									
+			                  
+			                 		<option value="+0">Standardsortierung (aufsteigend)</option>
+										<option value="-0">Standardsortierung (absteigend)</option></select>
+							
+							<a href="#" title="sortieren" onclick="return document.forms['SearchRefineForm'].submit();">sortieren</a>
+						</form>
+						</p>
+					
+  				
+             
+						
+					
+			
+		
+	
+	
+	
+		 
+			<p><strong>Ausgabe</strong><br />
+				
+				
+					<a href="/webOPACClient/hitOutput.do?methodToCall=show" title="Trefferliste ausgeben">Trefferliste ausgeben</a>
+				
+		 </p>
+		
+	
+	
+	
+	
+
+	
+</div> <!-- box3-content --> 
+</div><!-- box3 -->
+
+<!-- END of jsp/result/rechtsoben.jsp --> 
+
+				<br class="space" />
+				
+
+
+
+
+
+
+
+<!-- START jsp/result/rechtsunten.jsp --> 
+
+
+<!-- END of jsp/result/rechtsunten.jsp --> 
+
+				<br class="space" />
+				
+
+
+
+
+<!-- START jsp/common/news.jsp -->
+
+<!-- END of jsp/common/news.jsp --> 
+			</div>
+			
+ 			
+			<!-- right -->
+			<br class="cleaner" />
+		</div>
+		
+
+
+
+
+
+
+
+
+<!-- START jsp/common/footer.jsp -->
+
+<div id="footer">
+  
+	
+	
+		&nbsp;
+	
+	
+  <div id="copyright">
+	  <a href="http://www.fuerth.de/home/impressum/impressum.aspx" title="Impressum" target="_blank">Impressum</a>
+	  Copyright &copy; 2009.&nbsp;Alle Rechte vorbehalten.
+	  <img src="/webOPACClient/images/OCLC.jpg" alt="OCLC" title="OCLC" width="54" height="19" />
+
+  </div>
+  <div class="cleaner"></div>
+</div>
+<!-- END of jsp/common/footer.jsp -->
+ 
+	</div> 
+</body>
+
+
+
+<!-- END of the jsp/result/HitlistLayout.jsp --> 
+<!-- START jsp/common/metaFooter.jsp -->
+</html>
+<!-- END of jsp/common/metaFooter.jsp -->
