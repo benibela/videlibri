@@ -4,9 +4,9 @@
   <shortName value="Vb Fürth"/> 
   
   <template value="sisis"/>  
-  <variable name="server" value="https://serviceweb.fuerth.de/webOPAC/"/>
+  <variable name="server" value="https://serviceweb.fuerth.de/webOPACClient/"/>
   
-  <homepage value="http://fuerth.de/Home/Leben-in-Fuerth/schulen-bildung/volksbuecherei.aspx"/>
+  <homepage value="http://www.fuerth.de/Home/Leben-in-Fuerth/Volksbuecherei/Aktuelles-VOBUE.aspx"/>
   <testing-search value="ja" date="2013-05-18"/>
   <testing-account value="?" date=""/>
   <testing-renew value="?" date=""/>
