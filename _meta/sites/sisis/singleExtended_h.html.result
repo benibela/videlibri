@@ -1,0 +1,7 @@
+book: {}
+
+
+newBookTitle: node: D K
+status_found: boolean: false
+status_found: boolean: true
+book: object: {"status:problematic": "2. Verlängerung", "duedate": "2013-08-19"}

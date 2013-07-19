@@ -2,6 +2,7 @@
 <head>
 <template:read source="''" var="bookCount"/>
 <template:read source="get('nextPage', '')" var="nextPage"/>
+<template:read source="get('startUrl', '')" var="startUrl"/>
 </head>
 <body>
    <div id="main"> 
@@ -53,6 +54,7 @@
               <template:read source="." var="book.status:curious"/>
             <!--  <template:read source="@class != 'textgruen'" var="spanmissing"/>-->
             </span>
+            {book._onPage := $url, book._onPageStart := $startUrl}
           </a>
           <span template:optional="true">
             <template:read source="." var="book.status:problematic"/>
@@ -62,7 +64,8 @@
           <a template:optional="true">
             {book.extendID := extract(@href, "actPos=([0-9]+)$", "1"),
              book.statusId := if ($inOrdered) then "ordered" else "curious",
-             book.cancelable := $inOrdered }            
+             book.cancelable := $inOrdered,
+             book._onPage := $url, book._onPageStart := $startUrl}          
           </a>
 <!--	  <template:if test="$previousspan">
 	    <span template:optional="true">
@@ -74,7 +77,7 @@
       <!--   <template:if test="$spanmissing"><broken/></template:if>-->
          <template:switch>
            <td>bestellt<br/>
-              <t:s>book.status := "bestellt",
+              <t:s>book.status := ./text()[1],
                    book.issuedate := parse-date(filter(., '\d{2}\.\d{2}\.\d{4}', 0), 'dd.mm.yyyy'), 
                    book.statusId := "ordered"</t:s>
            </td>

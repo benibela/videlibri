@@ -3,6 +3,7 @@ book: {}
 
 bookCount: string: 
 nextPage: string: 
+startUrl: string: 
 bookCountLend: string: 1
 bookCountRequested: string: 0
 requestedUrl: node: /InfoGuideClient/userAccount.do?methodToCall=showAccount&typ=6

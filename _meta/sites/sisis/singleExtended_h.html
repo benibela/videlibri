@@ -1,0 +1,701 @@
+ 
+
+
+
+
+
+
+
+
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!-- START jsp/common/metaHeader.jsp -->
+
+
+
+<html xmlns="http://www.w3.org/1999/xhtml" 
+ xml:lang="de" 
+ lang="de"
+> 
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <meta http-equiv="pragma" content="no-cache" />
+  <meta http-equiv="expires" content="0" />
+  <meta http-equiv="cache-control" content="no-cache" />
+  <link rel="stylesheet" href="/webOPACClient/jsp/common/infoguide.css"  type="text/css" />
+  <link rel="shortcut icon" href="/webOPACClient/images/OCLC.ico" />
+  
+  <!--[if IE 7]>
+    <style type="text/css">
+      #tab-content{margin-top:5px;}
+      select {height:auto;}
+      #searchfield input#f1 {width:10em;}
+    </style>
+  <![endif]-->
+  
+  <title>
+    
+      Katalog der H
+    
+  </title>
+</head>
+<!-- END of jsp/common/metaHeader.jsp -->
+<!-- START jsp/useraccount/accountdata/Layout.jsp --> 	
+
+
+
+<body onunload="unBlockAction();">
+
+<script language="javascript" type="text/javascript"
+ src="/webOPACClient/jsp/common/stdButton.js">
+</script>
+
+	<div id="pageContainer">
+	  
+		
+		
+ 		
+
+
+
+<!-- START jsp/common/header.jsp -->
+
+<div id="branding" class="floatcon">
+  <span id="logo">
+    
+    
+      <strong>Online-Katalog der H&nbsp;&nbsp;&nbsp;</strong><img src="/webOPACClient/images/webOPAC.gif" width="60" height="50" align="right" alt="Stadtb&uuml;cherei R&uuml;sselsheim" title="H"/>
+    
+  </span>
+  <span id="timer">&nbsp;</span>
+</div>
+
+
+<!-- END of jsp/common/header.jsp -->
+
+
+		<div id="mainnav">
+			
+
+
+
+
+<!-- START jsp/navigation/mainNavi.jsp --> 
+
+
+<!-- Actual Tiles Context 756 -->
+
+<ul>
+
+
+	<li><a href="/webOPACClient/search.do?methodToCall=start" title="Suche">Suche</a>
+	
+	</li>
+
+
+
+
+	<li><a href="/webOPACClient/memorizelist.do?methodToCall=show" title="Merkliste">Merkliste</a></li>
+
+
+
+
+
+
+	<li id="current"><div id="active">Konto</div>
+		
+		<ul>
+			
+					<li id="current2">Kontostand</li>
+			
+			
+			
+			
+					<li><a href="/webOPACClient/userdata.do?methodToCall=showUserData" title="Benutzerdaten">Benutzerdaten</a></li>
+			
+			
+			
+					<li><a href="/webOPACClient/searchpreferences.do?methodToCall=showSearchpreferences" title="Sucheinstellungen">Sucheinstellungen</a></li>
+			
+	    
+    </ul>
+		
+	</li>
+
+
+
+
+
+	<li><a href="/webOPACClient/additional.do?methodToCall=show" title="weitere Angebote">weitere Angebote</a></li>
+
+
+
+</ul>
+<!-- END of jsp/navigation/mainNavi.jsp --> 
+
+			
+
+
+
+
+<!-- START jsp/navigation/loginnavi.jsp --> 
+
+<div id="login">
+	
+	
+		<strong class="c1">Benutzernummer</strong> 00000123456
+		<a href="/webOPACClient/login.do?methodToCall=logout" title="Abmelden"><span class="textrot"><b>Abmelden</b></span></a>
+	
+</div>
+<!-- END of jsp/navigation/loginnavi.jsp --> 
+		</div> 
+		<br class="cleaner" />
+ 		
+
+
+
+
+
+
+
+
+
+<!-- START jsp/navigation/bgnavi.jsp --> 
+<script language="javascript" type="text/javascript"
+ src="/webOPACClient/help/help.js">
+</script>
+
+<div id="bgmainnav">
+	<div id="nav2">
+		<ul>
+			
+			
+			
+				
+				
+					
+					
+						
+						
+							<li><a href="/webOPACClient/ilrequest.do?methodToCall=show" title="Fernleihe">Fernleihe</a></li>
+						
+						
+						
+					
+					
+				
+			
+			
+			
+			<li>
+			  <a href="#" onclick="return openHelp('/webOPACClient');"
+			     title="Hilfe">
+			   Hilfe</a>
+		  </li>
+  		
+	    	
+		  	
+			   	<li><a href="/webOPACClient/actual.do?methodToCall=show" title="Aktuelles">Aktuelles</a></li>
+    		
+    	
+		</ul>
+	</div>  
+</div>
+<!-- END of jsp/navigation/bgnavi.jsp --> 
+
+ 		<br class="cleaner" />
+		
+
+
+
+
+
+
+
+
+
+
+<!-- START jsp/search/searchbar.jsp --> 
+ 
+<div id="searchfield">
+
+
+<form id="AdvancedSearchForm" method="post" action="/webOPACClient/search.do">
+<input type="hidden" name="methodToCall" value="submit" />
+<input type="hidden" name="searchCategories[0]" value="-1" />
+
+
+
+
+
+<input type="hidden" name="searchString[1]" value="" />
+
+
+
+<input type="hidden" name="searchString[2]" value="" />
+
+
+
+<input type="hidden" name="searchString[3]" value="" />
+
+
+
+<input type="hidden" name="searchString[4]" value="" />
+
+
+
+<input type="hidden" name="CSId" value="xxx" />
+<input type="hidden" name="searchHistory" value="" />
+<input type="text" name="searchString[0]" value="" id="f1" />
+
+
+
+<input type="submit" class="dbutton" id="submitSearch" name="submitSearch" value="Suchen" />
+</form>  
+</div>
+
+<!-- END of jsp/search/searchbar.jsp --> 
+		<br class="cleaner" />
+ 	 	<div id="main"> 
+    	<div id="SOWrap"> 
+			  <div id="middle"> 
+	 				
+
+
+
+
+
+
+
+<style type="text/css">
+#bgtab {width:auto;/*44.9em*/ height:1.5em; border:1px solid #a9bcd5;}
+* html #bgtab {margin-top:-1px;}
+/* wichtig bei Angabe in em: width:44.9em und nicht 45em, da sonst Verschiebungen (Abstand zw.Hauptnavi und Unternavi!) im Firefox!, zus㳺lich keine einheitliche re border */
+#tab-content {border-top:0;}
+table.data {width:100%; border-top:0;}
+</style>
+  
+  <!--[if IE 7]>
+    <style type="text/css">#bgtab {margin-top:5px;}</style>
+  <![endif]-->	
+
+<!-- START jsp/useraccount/accountdata/accountNavi.jsp --> 
+
+
+
+ 	  <div id="tab">
+      <ul>
+        
+		      <li id="tab1">
+		        <div id="label1">
+              <a href="/webOPACClient/userAccount.do?methodToCall=showAccount&amp;typ=1">Ausleihen
+               (7)</a>
+		        </div>
+            
+             <ul>
+				      <li id="typ1">
+				        <a href="/webOPACClient/userAccount.do?methodToCall=showAccount&amp;typ=1">Übersicht</a>
+              </li>
+              <li id="typ2">
+               <a href="/webOPACClient/userAccount.do?methodToCall=showAccount&amp;typ=2">Gemahnte Medien</a>
+              </li>
+				      <li id="typ3">
+               <a href="/webOPACClient/userAccount.do?methodToCall=showAccount&amp;typ=3">Rückgeforderte Medien</a>
+				      </li>
+				      <li id="typ4">
+				       <a href="/webOPACClient/userAccount.do?methodToCall=showAccount&amp;typ=4">Verlängerte Medien</a>
+				      </li>
+				      <li id="typ5">
+				       <a href="/webOPACClient/userAccount.do?methodToCall=showAccount&amp;typ=5">Fernleihen</a>
+				      </li>
+      			 </ul>
+      		  
+		      </li>
+        
+        
+        	<li id="tab6">
+        	  <div id="label6">
+	  	       <a href="/webOPACClient/userAccount.do?methodToCall=showAccount&amp;typ=6">Bestellungen
+		          (0)</a>
+        	  </div>
+        	</li>
+        
+        
+      		<li id="tab7">
+      		  <div id="label7">
+  		       <a href="/webOPACClient/userAccount.do?methodToCall=showAccount&amp;typ=7">Vormerkungen
+        		  (0)</a>
+        	 </div>
+      		</li>
+        
+        
+       		<li id="tab8">
+       		  <div id="label8">
+  		       <a href="/webOPACClient/userAccount.do?methodToCall=showAccount&amp;typ=8">Gebühren
+        		  &nbsp;(0,00&nbsp;EUR)</a>
+          	</div>
+       		</li>
+        
+      </ul>
+
+  	</div> <!-- tab -->
+    <div class="cleaner"></div>
+	<div id="bgtab"></div>
+
+<script language="javascript" type="text/javascript">
+/* <![CDATA[ */
+var typ="1";
+if(typ <= 5)
+{
+  var m_id;
+  var m_TypLabels = new Array();
+
+  m_TypLabels[1]='Übersicht';
+  m_TypLabels[2]='Gemahnte Medien';
+  m_TypLabels[3]='Rückgeforderte Medien';
+  m_TypLabels[4]='Verlängerte Medien';
+  m_TypLabels[5]='Fernleihen';
+
+  m_id=document.getElementById("typ" + typ);
+  if(m_id != null)
+  {
+    m_id.innerHTML=m_TypLabels[typ];
+    m_id.id="current2";
+
+    m_id=document.getElementById("label1");
+    m_id.innerHTML='Ausleihen' +
+                   '&nbsp;(7)';
+    m_id.id="active1";
+
+    m_id=document.getElementById("tab1");
+    m_id.id="current1";
+  }
+}
+else
+{
+  var m_id;
+  var m_TabLabels = new Array();
+
+  m_TabLabels[6]='Bestellungen' +
+		        '&nbsp;(0)';
+  m_TabLabels[7]='Vormerkungen' +
+        		'&nbsp;(0)';
+  m_TabLabels[8]='Gebühren' +
+      		       '&nbsp;(0,00&nbsp;EUR)';
+
+  m_id=document.getElementById("label" + typ);
+  if(m_id != null)
+  {
+    m_id.innerHTML=m_TabLabels[typ];
+    m_id.id="active1";
+
+    m_id=document.getElementById("tab" + typ);
+    m_id.id="current1";
+  }
+}
+/* ]]> */
+</script>
+<!-- END of jsp/useraccount/accountdata/accountNavi.jsp -->
+
+      		<div class="cleaner"></div>
+	 				
+
+
+
+
+
+
+
+
+
+
+<!-- START jsp/circulation/renewalConfirm.jsp -->
+
+
+
+
+<form id="UserAccountForm" method="post" action="/webOPACClient/userAccount.do" onsubmit="return blockAction();">
+<input type="hidden" name="methodToCall" value="showAccount" />
+<input type="hidden" name="CSId" value="xxx" />
+
+
+<div class="box">
+  <div class="box-header">
+    <h2>
+      Verl&auml;ngerung
+    </h2>
+  </div><!-- box-header -->
+
+  <fieldset>
+  <div id="myPrint">
+  <table class="formular" style="border:0">
+    <tr>
+      <td>
+        <strong class="c2">Datum:</strong>
+        19.07.2013
+        <br/>
+        <strong class="c2">Benutzernummer:</strong>
+        00000123456
+        <br/>
+        <strong class="c2">Zweigstelle:</strong>
+        1
+        
+      </td>
+    </tr>
+    <tr>
+      <td>
+         
+        <input type="submit" class="dbutton" style="font-weight:bold"
+         value="Zurück zu den Ausleihen" />
+ 
+      </td>
+    </tr>
+
+    
+  </table>
+  
+  
+  
+  
+  <table class="data" style="border:0">
+    
+    
+
+    
+
+    <tr> 
+      <td>
+        <strong class="c2">Titel:</strong>
+        <strong>D K</strong>
+        <br/>
+        <strong class="c2">Verfasser:</strong>
+        B D
+        <br/>
+        <strong class="c2">Mediennummer:</strong>
+        123
+        <br/>
+        <strong class="c2">Signatur:</strong>
+        xyz
+        <br/>
+        <strong class="c2">Status:</strong>
+        <strong>2. Verl&auml;ngerung</strong>
+        <br/>
+        <strong class="c2">neues Leihfristende:</strong>
+        <strong><span class="textrot">19.08.2013</span><strong>
+      </td>
+    </tr>
+       
+  </table>
+  </div>
+  
+  <fieldset>
+</div>
+</form>
+
+<script language="javascript" type="text/javascript">
+/* <![CDATA[ */
+if (document.layers)
+ document.captureEvents(Event.KEYDOWN);
+
+document.onkeydown = function (evt)
+{
+  var keyCode = evt ? (evt.which ? evt.which : evt.keyCode) : event.keyCode;
+  if (keyCode == 13 || keyCode == 4100)
+ {
+   return false;
+ }
+}
+
+function myPrint(content) 
+{ 
+ var sOption="toolbar=yes,location=no,directories=yes,menubar=yes,"; 
+     sOption+="scrollbars=yes,width=750,height=600,left=100,top=25"; 
+
+ var sWinHTML = document.getElementById(content).innerHTML; 
+   
+ var winprint=window.open("","",""); 
+     winprint.document.open(); 
+     winprint.document.write('<html><head>');
+     winprint.document.write('<link rel="stylesheet" href="./jsp/common/infoguide.css" type="text/css">');
+     winprint.document.write('</head><body>'); 
+     winprint.document.write(sWinHTML);          
+     winprint.document.write('</body></html>'); 
+     winprint.document.close();
+     winprint.print();
+     winprint.close(); 
+}
+/* ]]> */
+</script>
+<!-- END of jsp/circulation/renewalConfirm.jsp -->
+
+  			</div> <!-- middle -->
+		  </div> <!-- SOWrap -->
+ 	 		<div id="right"> 
+ 	 			
+
+
+
+
+
+
+
+
+
+<!-- START jsp/useraccount/action.jsp --> 
+<div class="box3">
+  <div class="box3-header">
+    <div class="box3-img"><img src="images/box3-right.gif" width="8" height="8" alt="" /></div>
+    <h2>
+      weitere Optionen
+    </h2>
+  </div>
+<div class="box3-content">
+  
+ <p>
+ 	<strong>Konto verlängern</strong>
+	<br />
+    <a href="/webOPACClient/userAccount.do?methodToCall=renewalPossible&amp;renewal=account" onclick="return blockAction();">verlängern</a>
+ </p> 
+
+
+
+
+
+</div> <!-- box3-content --> 
+</div> <!-- box3 -->
+<script language="javascript" type="text/javascript">
+/* <![CDATA[ */
+function printSubmit()
+{
+   document.forms['UserAccountForm'].methodToCall.value="print";
+   document.forms['UserAccountForm'].submit();
+   return false;
+ }
+
+function saveSubmit()
+{
+   document.forms['UserAccountForm'].methodToCall.value="save";
+   document.forms['UserAccountForm'].submit();
+   return false;
+ }
+ function mailSubmit()
+{
+   if(document.forms['UserAccountForm'].email.value.length <= 0 ||
+      document.forms['UserAccountForm'].subject.value.length <= 0)
+   {
+     alert("Bitte geben Sie eine E-Mail-Adresse, bzw. einen Betreff ein!");
+     return false;
+   }
+   document.forms['UserAccountForm'].methodToCall.value="mail";
+   document.forms['UserAccountForm'].submit();
+   return false;
+ }
+/* ]]> */
+</script>
+<!-- END of jsp/useraccount/action.jsp --> 
+ 	 			
+
+
+
+
+
+
+<!-- START jsp/useraccount/information.jsp --> 
+
+
+
+	<br class="space"/>
+	<div class="box3">
+  	<div class="box3-header">
+    	<div class="box3-img"><img src="images/box3-right.gif" width="8" height="8" alt="" /></div>
+    		<h2>Benutzerkonto</h2>
+    	</div>
+    	<div class="box3-content">
+    		
+    			<p>
+    			<strong>Ausweis gültig bis</strong>
+    			<br />
+    			31.12.2014
+    			</p> 
+    		
+    		
+    			<p>
+   				<strong>Jahresgebühren</strong>
+   				<br />
+   				fällig am
+   				10.09.2013
+   				</p> 
+   			
+   			
+   		</div>
+  </div>
+
+<!-- END of jsp/useraccount/information.jsp --> 
+ 	 			<br class="space" />
+ 	 			
+
+
+
+
+<!-- START jsp/common/news.jsp -->
+
+
+	<!-- START jsp/news+info/de_756_3.jsp -->
+		<div class="box3">
+   <div class="box3-header">
+      <div class="box3-img"><img src="images/box3-right.gif" width="8" height="8" alt="" /></div>
+      <h2>Öffnungszeiten</h2>
+   </div>
+   <p>
+    
+   </p>
+</div>
+	<!-- END of jsp/news+info/de_756_3.jsp -->
+	<br class="space" />
+
+
+
+
+</div>
+	<!-- END of jsp/news+info/de_756_4.jsp -->
+	<br class="space" />
+
+
+
+<!-- END of jsp/common/news.jsp --> 
+ 	 		</div> <!-- right -->
+    	<br class="cleaner" />
+    </div> <!-- main -->
+ 		
+
+
+
+
+
+
+
+
+<!-- START jsp/common/footer.jsp -->
+
+<div id="footer">
+  
+	
+	
+	
+		Bitte verwenden Sie die Funktion 
+		<a href="/webOPACClient/login.do?methodToCall=logout" title="Abmelden">Abmelden</a>, um den versehentlichen Zugriff auf Ihre pers&ouml;nlichen Daten zu vermeiden. 
+	
+  <div class="cleaner"></div>
+</div>
+<!-- END of jsp/common/footer.jsp -->
+ 
+ 	</div> 
+</body>
+<!-- END of jsp/useraccount/accountdata/Layout.jsp --> 	
+<!-- START jsp/common/metaFooter.jsp -->
+</html>
+<!-- END of jsp/common/metaFooter.jsp -->
+  

@@ -42,17 +42,20 @@
   <variable name="requestedUrl" value=""/>
   <variable name="orderedUrl" value=""/>
 
-  <page url="{$server}userAccount.do;jsession;?methodToCall=show&amp;typ=1"  templateFile="loggedIn"></page>
+  <variable name="startUrl">x'{$server}userAccount.do;jsession;?methodToCall=show&amp;typ=1'</variable>
+  <page url="{$startUrl}"  templateFile="loggedIn"></page>
   <loop test="$nextPage != ''">
     <page url="{$nextPage}"  templateFile="loggedIn"></page>
   </loop>
 
-  <page url="{$requestedUrl}"  templateFile="loggedIn"></page>
+  <variable name="startUrl">$requestedUrl</variable>
+  <page url="{$startUrl}"  templateFile="loggedIn"></page>
   <loop test="$nextPage != ''">
     <page url="{$nextPage}"  templateFile="loggedIn"></page>
   </loop>
 
-  <page url="{$orderedUrl}"  templateFile="loggedIn"></page>
+  <variable name="orderedUrl">$requestedUrl</variable>
+  <page url="{$startUrl}"  templateFile="loggedIn"></page>
   <loop test="$nextPage != ''">
     <page url="{$nextPage}"  templateFile="loggedIn"></page>
   </loop>
@@ -61,10 +64,16 @@
 
 
 <action id="renew-single">
+  <page url="{$book._onPageStart}"/> <!-- only possible  -->
+  <page test="$book._onPage != $book._onPageStart" url="$book._onPage"/> <!-- todo: test if this is needed as well -->
+  
   <page url="{$server}userAccount.do?methodToCall=renewalPossible&amp;actPos={$book.extendID}" templateFile="singleExtended"/>
 </action>
 
 <action id="cancel-single">
+  <page url="{$book._onPageStart}"/>
+  <page test="$book._onPage != $book._onPageStart" url="$book._onPage"/>
+
   <page url="{$server}userAccount.do?methodToCall=cancelReservation&amp;actPos={$book.extendID}"/>
 <!--  <template>      	 <span class="textgruen"><strong>Stornierung durchgeführt</strong></span></br></template>-->
 </action>

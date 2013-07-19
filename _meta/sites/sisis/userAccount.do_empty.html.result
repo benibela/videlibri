@@ -3,6 +3,7 @@ book: {}
 
 bookCount: string: 
 nextPage: string: 
+startUrl: string: 
 bookCountLend: string: 0
 bookCountRequested: string: 1
 requestedUrl: node: http://sisis.bth.rwth-aachen.de:8080/InfoGuideClient/userAccount.do?methodToCall=showAccount&typ=6
