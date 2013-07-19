@@ -94,24 +94,26 @@
 
 <action id="search">
 
-  <variable name="searchOptions">
-  (if ($book.title != "")    then ["331", uri-encode($book.title)]    else (),
-   if ($book.author != "")   then ["100", uri-encode($book.author)]   else (),
-   if ($book.isbn != "")     then ["540", uri-encode($book.isbn)]     else (),
-   if ($book.year != "")     then ["425", uri-encode($book.year)]     else (),
-   if ($book.keywords != "") then ["902", uri-encode($book.keywords)] else ())
-  </variable>
+  <s>
+  oldSearchOptionCount := get("searchOptionCount", 0),
+  searchOptions := 
+    (if ($book.title != "")    then ["331", uri-encode($book.title)]    else (),
+     if ($book.author != "")   then ["100", uri-encode($book.author)]   else (),
+     if ($book.isbn != "")     then ["540", uri-encode($book.isbn)]     else (),
+     if ($book.year != "")     then ["425", uri-encode($book.year)]     else (),
+     if ($book.keywords != "") then ["902", uri-encode($book.keywords)] else ()),
+  searchOptionCount := count($searchOptions),
+  searchUrl :=   
+    concat(x"{$server}search.do?methodToCall=submit&CSId={$CSId}&methodToCallParameter=submitSearch&",
+     x"searchCategories%5B0%5D={$searchOptions[1](1)}&searchString%5B0%5D={$searchOptions[1](2)}&",
+     if ($searchOptionCount > 1 or $oldSearchOptionCount > 1) then x"combinationOperator%5B1%5D=AND&searchCategories%5B1%5D={$searchOptions[2](1)}&searchString%5B1%5D={$searchOptions[2](2)}&" else "",
+     if ($searchOptionCount > 2 or $oldSearchOptionCount > 2) then x"combinationOperator%5B2%5D=AND&searchCategories%5B2%5D={$searchOptions[3](1)}&searchString%5B2%5D={$searchOptions[3](2)}&" else "",
+     "submitSearch=Suchen&callingPage=searchParameters",
+     if (exists(get("home-branches", ())[get("home-branch-id", 0)])) then x"&selectedViewBranchlib={uri-encode($home-branch-values[$home-branch-id])}" else "",
+     if (exists(get("search-branches", ())[get("search-branch-id", 0)])) then x"&selectedSearchBranchlib={uri-encode($search-branch-values[$search-branch-id])}" else ""
+    )
+  </s>
 
-  <variable name="searchUrl">
-  concat(x"{$server}search.do?methodToCall=submit&CSId={$CSId}&methodToCallParameter=submitSearch&",
-         x"searchCategories%5B0%5D={$searchOptions[1](1)}&searchString%5B0%5D={$searchOptions[1](2)}&",
-         if (count($searchOptions) > 1) then x"combinationOperator%5B1%5D=AND&searchCategories%5B1%5D={$searchOptions[2](1)}&searchString%5B1%5D={$searchOptions[2](2)}&" else "",
-         if (count($searchOptions) > 2) then x"combinationOperator%5B2%5D=AND&searchCategories%5B2%5D={$searchOptions[3](1)}&searchString%5B2%5D={$searchOptions[3](2)}&" else "",
-         "submitSearch=Suchen&callingPage=searchParameters",
-         if (exists(get("home-branches", ())[get("home-branch-id", 0)])) then x"&selectedViewBranchlib={uri-encode($home-branch-values[$home-branch-id])}" else "",
-         if (exists(get("search-branches", ())[get("search-branch-id", 0)])) then x"&selectedSearchBranchlib={uri-encode($search-branch-values[$search-branch-id])}" else ""
-  )
-  </variable>
 
   <variable name="nextPage" value=""/>
   <variable name="singleBookResult" value=""/>
