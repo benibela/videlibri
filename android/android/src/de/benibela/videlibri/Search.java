@@ -66,7 +66,8 @@ public class Search extends VideLibriBaseActivity implements Bridge.SearchConnec
         ((Button) findViewById(R.id.button)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (searchers.isEmpty()) { showMessage("Kein Suchvorgang"); return; }
+                if (searchers.isEmpty() || searchers.get(searchers.size()-1).connector != Search.this)
+                    createSearcher();
                 searchers.get(searchers.size()-1).waitingForDisplay = true;
 
                 Intent intent = new Intent(Search.this, SearchResult.class);
