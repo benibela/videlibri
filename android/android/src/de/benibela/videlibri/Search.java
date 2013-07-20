@@ -50,8 +50,10 @@ public class Search extends VideLibriBaseActivity implements Bridge.SearchConnec
         TextView lib = ((TextView) findViewById(R.id.library));
         lib.setText(libName);
         lib.setPaintFlags(lib.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
-        if (libId == null || libId.equals("") || getIntent().getBooleanExtra("showLibList", false)) changeSearchLib();
-        else {
+        if (libId == null || libId.equals("") || getIntent().getBooleanExtra("showLibList", false)) {
+            libId = "";
+            changeSearchLib();
+        } else {
             setLoading(true);
             createSearcher();
         }
@@ -143,7 +145,7 @@ public class Search extends VideLibriBaseActivity implements Bridge.SearchConnec
                 setLoading(true);
                 removeSearcherOwner(this);
                 createSearcher();
-            }
+            } else if ("".equals(libId)) finish();
         } else super.onActivityResult(requestCode, resultCode, data);
     }
 

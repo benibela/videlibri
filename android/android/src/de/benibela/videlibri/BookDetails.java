@@ -221,7 +221,7 @@ public class BookDetails extends VideLibriBaseFragment {
                 action = book.getProperty("orderTitle");
                 if (action == null || "".equals(action)) action = "vormerken/bestellen";
             }
-        } else if (!book.history)
+        } else if (!book.history && !(getActivity() instanceof RenewList))
             switch (book.getStatus()) {
                 case Unknown: action = "verlängern"; break;
                 case Normal: action = "verlängern"; break;
