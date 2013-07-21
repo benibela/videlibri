@@ -42,7 +42,7 @@ public class BookListFragment extends VideLibriBaseFragment {
             rl.button.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Bridge.VLBookOperation((Bridge.Book[]) rl.selectedBooks.toArray(), Bridge.BOOK_OPERATION_RENEW);
+                    Bridge.VLBookOperation((Bridge.Book[]) rl.selectedBooks.toArray(new Bridge.Book[0]), Bridge.BOOK_OPERATION_RENEW);
                     rl.finish();
                 }
             });
