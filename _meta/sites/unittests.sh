@@ -59,8 +59,12 @@ PAGES=(${PAGES[@]} libero5/start.html libero5/update_empty.html libero5/update55
 #=============SISIS==============
 mkdir -p $OUTPATH/sisis
 
-TEMPLATES=(${TEMPLATES[@]} sisis/start sisis/loggedIn sisis/loggedIn sisis/loggedIn sisis/loggedIn)
-PAGES=(${PAGES[@]} sisis/start.do.html sisis/userAccount.do_empty.html sisis/userAccount.do_singlebook.html sisis/userAccount.do_singlebook2.html sisis/userAccount.do_2books.html)
+
+ADDTEMPLATE sisis/start 2
+PAGES=(${PAGES[@]} sisis/start.do.html sisis/start_schweinfurt.do.html)
+
+ADDTEMPLATE sisis/loggedIn 4
+PAGES=(${PAGES[@]} sisis/userAccount.do_empty.html sisis/userAccount.do_singlebook.html sisis/userAccount.do_singlebook2.html sisis/userAccount.do_2books.html)
 
 #search
 ADDTEMPLATE sisis/searchList 17

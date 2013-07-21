@@ -114,7 +114,7 @@
     if (exists(get("home-branches", ())[get("home-branch-id", 0)])) then  
       {"selectedViewBranchlib": $home-branch-values[$home-branch-id]} else (),
     if (exists(get("search-branches", ())[get("search-branch-id", 0)])) then   
-      {"selectedSearchBranchlib": $search-branch-values[$search-branch-id]} else ()
+      {$search-branch-name: $search-branch-values[$search-branch-id]} else ()
     )
   )
   </s>
