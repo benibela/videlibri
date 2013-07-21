@@ -126,7 +126,15 @@ public class Feedback extends VideLibriBaseActivity {
                                     showMessage("Feedback wurde erfolgreich abgeschickt.", new MessageHandler() {
                                         @Override
                                         public void onDialogEnd(DialogInterface dialogInterface, int i) {
-                                            finish();
+                                            if (VideLibriApp.currentActivity == Feedback.this) {
+                                                findViewById(R.id.button).postDelayed(new Runnable() {
+                                                    @Override
+                                                    public void run() {
+                                                        finish();
+                                                    }
+                                                }, 100); //delayed to avoid  "android.view.WindowManager$BadTokenException: Unable to add window -- token android.os.BinderProxy@40b47bd8 is not valid" error.
+                                                         // Probably not necessary
+                                            }
                                         }
                                     });
                                 } else

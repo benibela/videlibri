@@ -147,9 +147,9 @@ public class VideLibriBaseActivity extends SherlockActivity implements Bridge.Vi
 
 
 
-    public void showMessage(String message){ Util.showMessage(this, message, null); }
-    public void showMessage(String message, MessageHandler handler){ Util.showMessage(this, message, handler); }
-    public void showMessageYesNo(String message, MessageHandler handler){ Util.showMessageYesNo(this, message, handler); }
+    public void showMessage(String message){ Util.showMessage(message, null); }
+    public void showMessage(String message, MessageHandler handler){ Util.showMessage(message, handler); }
+    public void showMessageYesNo(String message, MessageHandler handler){ Util.showMessageYesNo(message, handler); }
 
 
 

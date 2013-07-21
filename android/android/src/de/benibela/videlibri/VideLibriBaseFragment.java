@@ -25,8 +25,8 @@ public class VideLibriBaseFragment extends SherlockFragment {
     }
 
 
-    public void showMessage(String message){ Util.showMessage(getSherlockActivity(), message, null); }
-    public void showMessage(String message, MessageHandler handler){ Util.showMessage(getSherlockActivity(), message, handler); }
-    public void showMessageYesNo(String message, MessageHandler handler){ Util.showMessageYesNo(getSherlockActivity(), message, handler); }
+    public void showMessage(String message){ Util.showMessage(message, null); }
+    public void showMessage(String message, MessageHandler handler){ Util.showMessage(message, handler); }
+    public void showMessageYesNo(String message, MessageHandler handler){ Util.showMessageYesNo(message, handler); }
 
 }
