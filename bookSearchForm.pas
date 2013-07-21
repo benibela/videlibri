@@ -871,6 +871,7 @@ procedure TbookSearchFrm.selectBookToReSearch(book: TBook);
 
     result := pos('+', state) > 0;
 
+    newSearcherAccess := makeSearcherAccess;
   end;
 
 var i,rp:longint;
