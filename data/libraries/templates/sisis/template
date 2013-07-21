@@ -48,13 +48,13 @@
     <page url="{$nextPage}"  templateFile="loggedIn"></page>
   </loop>
 
-  <variable name="startUrl">$requestedUrl</variable>
+  <variable name="startUrl">resolve-uri($requestedUrl)</variable>
   <page url="{$startUrl}"  templateFile="loggedIn"></page>
   <loop test="$nextPage != ''">
     <page url="{$nextPage}"  templateFile="loggedIn"></page>
   </loop>
 
-  <variable name="orderedUrl">$requestedUrl</variable>
+  <variable name="startUrl">resolve-uri($orderedUrl)</variable>
   <page url="{$startUrl}"  templateFile="loggedIn"></page>
   <loop test="$nextPage != ''">
     <page url="{$nextPage}"  templateFile="loggedIn"></page>
@@ -65,14 +65,14 @@
 
 <action id="renew-single">
   <page url="{$book._onPageStart}"/> <!-- only possible  -->
-  <page test="$book._onPage != $book._onPageStart" url="$book._onPage"/> <!-- todo: test if this is needed as well -->
+  <page test="$book._onPage != $book._onPageStart" url="{$book._onPage}"/> <!-- todo: test if this is needed as well -->
   
   <page url="{$server}userAccount.do?methodToCall=renewalPossible&amp;actPos={$book.extendID}" templateFile="singleExtended"/>
 </action>
 
 <action id="cancel-single">
   <page url="{$book._onPageStart}"/>
-  <page test="$book._onPage != $book._onPageStart" url="$book._onPage"/>
+  <page test="$book._onPage != $book._onPageStart" url="{$book._onPage}"/>
 
   <page url="{$server}userAccount.do?methodToCall=cancelReservation&amp;actPos={$book.extendID}"/>
 <!--  <template>      	 <span class="textgruen"><strong>Stornierung durchgeführt</strong></span></br></template>-->
@@ -138,7 +138,7 @@
 <action id="search-details">
   <page url="{$book._detail-url}&amp;tab=showTitleActive" templateFile="searchSingle"/>
   <page url="{$book._detail-url}&amp;tab=showExemplarActive" templateFile="searchSingleExemplar"/>
-<!--  <page url="{$book._detail-url}&amp;tab=showAvailabilityActive" templateFile="searchSingleAvailability"/>-->
+  <page url="{$book._detail-url}&amp;tab=showAvailabilityActive" templateFile="searchSingleAvailability"/>
 </action>
 
 
@@ -149,16 +149,11 @@
     <variable name="loggedIn">true()</variable>
   </if>
   
-  <page url="{$book.order0}">
-    <template> 
-      <t:switch-prioritized>
-        <form t:condition="contains(@action, 'availability.do') ">{order := form(.), book.orderConfirmationOptionTitles := ()}</form>
-        <a t:condition="contains(@href, 'availability.do') and contains(@href, 'katkey')">{order := @href, book.orderConfirmationOptionTitles := ()}</a>
-      </t:switch-prioritized>
-    </template>
-  </page>
-  
-  <page url="{$order}" templateFile="orderConfirmation"/>
+  <s>url := $book(concat('order', $book.choosenOrder)), 
+     post := $book(concat('orderPost', $book.choosenOrder)),
+     if ($post != "") then url := {"url": $url, "post": $post, "method": "POST"} else ()
+    </s>
+  <page url="{$url}"  templateFile="orderConfirmation"/>
 </action>
 
 <action id="order-single"> 
@@ -170,11 +165,18 @@
       "post": replace($confirm.post, "issuepoint=", concat("issuepoint=", get("issuePoints", ())[$book.choosenConfirmation * 1] ))
     }
     </variable>  
-  </if>
-  <page url="{$confirm}">
+    <page url="{$confirm}">
+      <template>
+        <form t:condition="contains(@action, 'acknowledge.do') ">
+         <!-- ok -->
 <!--    <template>          Das Medium wurde für Sie vorgemerkt
-    und ist voraussichtlich bis </template>-->
-  </page>
+    und ist voraussichtlich bis |  Das Medium wurde für Sie an 2. Stelle vorgemerkt.  
+    
+     Ausgabeort: Zentralbibliothek    </template>-->
+        </form>      
+      </template>
+    </page>
+  </if>
 </action>
 
 </actions> 

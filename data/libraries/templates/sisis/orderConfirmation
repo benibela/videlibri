@@ -25,6 +25,9 @@
       {confirm := form(.)}
     </form>
     
+    <form t:condition="contains(@action, 'acknowledge.do') ">
+     <!-- ok -->
+    </form>
   </t:switch-prioritized>
 </html>
     

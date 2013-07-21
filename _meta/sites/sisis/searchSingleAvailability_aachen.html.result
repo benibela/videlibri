@@ -1,0 +1,5 @@
+book: {}
+
+
+temp: object: {"method": "POST", "post": "context=hitlist&katkey=247212&methodToCall=doBestellung&author=&title=%C2%ACThe%20Penguin%20practice%20book%20for%20the%20TOEFL%20test%2FSection%203%2C%20reading%20comprehension%20%281996%29", "url": "/InfoGuideClient/availability.do"}
+book: object: {"orderTitle": "", "order": "/InfoGuideClient/availability.do", "orderPost": "context=hitlist&katkey=247212&methodToCall=doBestellung&author=&title=%C2%ACThe%20Penguin%20practice%20book%20for%20the%20TOEFL%20test%2FSection%203%2C%20reading%20comprehension%20%281996%29", "orderConfirmationOptionTitles": null, "orderable": null}

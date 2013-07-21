@@ -5,36 +5,36 @@ nextPage: undefined:
 nextPage: node: /InfoGuideClient/hitList.do?methodToCall=pos&identifier=-1_S_IG.92.25225&curPos=21#-1
 search-result-count: string: 1419
 hasZ3988: boolean: false
-book: object: {"orderable": null, "_detail-url": "/InfoGuideClient/singleHit.do?methodToCall=showHit&curPos=11&identifier=-1_S_IG.92.25225", "title": "TOEFL, test of English as a foreign language", "author": " Babin, Edith H."}
+book: object: {"orderable": 0, "_detail-url": "/InfoGuideClient/singleHit.do?methodToCall=showHit&curPos=11&identifier=-1_S_IG.92.25225", "title": "TOEFL, test of English as a foreign language", "author": " Babin, Edith H."}
 result: undefined: 
 hasZ3988: boolean: false
 brs: node: 
-book: object: {"orderable": null, "_detail-url": "/InfoGuideClient/singleHit.do?methodToCall=showHit&curPos=12&identifier=-1_S_IG.92.25225", "title": "AASHO road test", "author": "", "author": "", "year": ""}
+book: object: {"orderable": 0, "_detail-url": "/InfoGuideClient/singleHit.do?methodToCall=showHit&curPos=12&identifier=-1_S_IG.92.25225", "title": "AASHO road test", "author": "", "author": "", "year": ""}
 hasZ3988: boolean: false
-book: object: {"orderable": null, "_detail-url": "/InfoGuideClient/singleHit.do?methodToCall=showHit&curPos=13&identifier=-1_S_IG.92.25225", "title": "Cambridge preparation for the TOEFL Test", "author": " Gear, Jolene"}
+book: object: {"orderable": 0, "_detail-url": "/InfoGuideClient/singleHit.do?methodToCall=showHit&curPos=13&identifier=-1_S_IG.92.25225", "title": "Cambridge preparation for the TOEFL Test", "author": " Gear, Jolene"}
 result: undefined: 
 hasZ3988: boolean: false
-book: object: {"orderable": null, "_detail-url": "/InfoGuideClient/singleHit.do?methodToCall=showHit&curPos=14&identifier=-1_S_IG.92.25225", "title": "¬The children's aphasia screening test", "author": " Whurr, Renata"}
+book: object: {"orderable": 0, "_detail-url": "/InfoGuideClient/singleHit.do?methodToCall=showHit&curPos=14&identifier=-1_S_IG.92.25225", "title": "¬The children's aphasia screening test", "author": " Whurr, Renata"}
 result: undefined: 
 hasZ3988: boolean: false
 temp: node:  Manual. - 1986. 
-book: object: {"orderable": null, "_detail-url": "/InfoGuideClient/singleHit.do?methodToCall=showHit&curPos=15&identifier=-1_S_IG.92.25225", "title": "¬The children's aphasia screening test/Manual. - 1986", "author": " Whurr, Renata", "subTitle": " Manual. - 1986. ", "year": "1986"}
+book: object: {"orderable": 0, "_detail-url": "/InfoGuideClient/singleHit.do?methodToCall=showHit&curPos=15&identifier=-1_S_IG.92.25225", "title": "¬The children's aphasia screening test/Manual. - 1986", "author": " Whurr, Renata", "subTitle": " Manual. - 1986. ", "year": "1986"}
 result: undefined: 
 hasZ3988: boolean: false
 temp: node:  Display book. - 1986. 
-book: object: {"orderable": null, "_detail-url": "/InfoGuideClient/singleHit.do?methodToCall=showHit&curPos=16&identifier=-1_S_IG.92.25225", "title": "¬The children's aphasia screening test/Display book. - 1986", "author": " Whurr, Renata", "subTitle": " Display book. - 1986. ", "year": "1986"}
+book: object: {"orderable": 0, "_detail-url": "/InfoGuideClient/singleHit.do?methodToCall=showHit&curPos=16&identifier=-1_S_IG.92.25225", "title": "¬The children's aphasia screening test/Display book. - 1986", "author": " Whurr, Renata", "subTitle": " Display book. - 1986. ", "year": "1986"}
 result: undefined: 
 hasZ3988: boolean: false
-book: object: {"orderable": null, "_detail-url": "/InfoGuideClient/singleHit.do?methodToCall=showHit&curPos=17&identifier=-1_S_IG.92.25225", "title": "AGARD flight test instrumentation series", "author": " NATO / Advisory Group for Aerospace Research and Development"}
+book: object: {"orderable": 0, "_detail-url": "/InfoGuideClient/singleHit.do?methodToCall=showHit&curPos=17&identifier=-1_S_IG.92.25225", "title": "AGARD flight test instrumentation series", "author": " NATO / Advisory Group for Aerospace Research and Development"}
 result: undefined: 
 hasZ3988: boolean: false
 brs: node: 
-book: object: {"orderable": null, "_detail-url": "/InfoGuideClient/singleHit.do?methodToCall=showHit&curPos=18&identifier=-1_S_IG.92.25225", "title": "¬A selection of experimental test cases for the validation of CFD codes", "author": "", "author": "", "year": ""}
+book: object: {"orderable": 0, "_detail-url": "/InfoGuideClient/singleHit.do?methodToCall=showHit&curPos=18&identifier=-1_S_IG.92.25225", "title": "¬A selection of experimental test cases for the validation of CFD codes", "author": "", "author": "", "year": ""}
 hasZ3988: boolean: false
 temp: node:  1 (1994). 
-book: object: {"orderable": "bestellen", "order0": "/InfoGuideClient/singleHit.do?methodToCall=showHit&curPos=19&identifier=-1_S_IG.92.25225&tab=showAvailabilityActive", "orderTitle": "bestellen", "_detail-url": "/InfoGuideClient/singleHit.do?methodToCall=showHit&curPos=19&identifier=-1_S_IG.92.25225", "title": "¬A selection of experimental test cases for the validation of CFD codes/1 (1994)", "author": "", "subTitle": " 1 . ", "year": "1994"}
+book: object: {"orderable": 0, "_detail-url": "/InfoGuideClient/singleHit.do?methodToCall=showHit&curPos=19&identifier=-1_S_IG.92.25225", "title": "¬A selection of experimental test cases for the validation of CFD codes/1 (1994)", "author": "", "subTitle": " 1 . ", "year": "1994"}
 result: undefined: 
 hasZ3988: boolean: false
 temp: node:  2 (1994). 
-book: object: {"orderable": "bestellen", "order0": "/InfoGuideClient/singleHit.do?methodToCall=showHit&curPos=20&identifier=-1_S_IG.92.25225&tab=showAvailabilityActive", "orderTitle": "bestellen", "_detail-url": "/InfoGuideClient/singleHit.do?methodToCall=showHit&curPos=20&identifier=-1_S_IG.92.25225", "title": "¬A selection of experimental test cases for the validation of CFD codes/2 (1994)", "author": "", "subTitle": " 2 . ", "year": "1994"}
+book: object: {"orderable": 0, "_detail-url": "/InfoGuideClient/singleHit.do?methodToCall=showHit&curPos=20&identifier=-1_S_IG.92.25225", "title": "¬A selection of experimental test cases for the validation of CFD codes/2 (1994)", "author": "", "subTitle": " 2 . ", "year": "1994"}
 result: undefined: 

@@ -9,14 +9,14 @@ node: Nanc
 node: bestellbar
 node: 
 node: 
-book: object: {"orderable": "Vormerken / Bestellen (mit Brief 0,60 EUR)", "order0": "/webOPACClient/singleHit.do?methodToCall=showHit&curPos=21&identifier=-1_S_IG.12.6398&tab=showAvailabilityActive", "orderTitle": "Vormerken / Bestellen (mit Brief 0,60 EUR)", "_detail-url": "/webOPACClient/singleHit.do?methodToCall=showHit&curPos=21&identifier=-1_S_IG.12.6398", "title": "Fire Flight", "author": "", "author": "Nance, John J.", "year": "2006"}
+book: object: {"orderable": 0, "_detail-url": "/webOPACClient/singleHit.do?methodToCall=showHit&curPos=21&identifier=-1_S_IG.12.6398", "title": "Fire Flight", "author": "", "author": "Nance, John J.", "year": "2006"}
 hasZ3988: boolean: false
 brs: sequence: node: Stone, Irving
 node: Ston
 node: 
 node: 
 node: 
-book: object: {"orderable": "Vormerken / Bestellen (mit Brief 0,60 EUR)", "order0": "/webOPACClient/singleHit.do?methodToCall=showHit&curPos=22&identifier=-1_S_IG.12.6398&tab=showAvailabilityActive", "orderTitle": "Vormerken / Bestellen (mit Brief 0,60 EUR)", "_detail-url": "/webOPACClient/singleHit.do?methodToCall=showHit&curPos=22&identifier=-1_S_IG.12.6398", "title": "Michelangelo", "author": "", "author": "Stone, Irving", "year": ""}
+book: object: {"orderable": 0, "_detail-url": "/webOPACClient/singleHit.do?methodToCall=showHit&curPos=22&identifier=-1_S_IG.12.6398", "title": "Michelangelo", "author": "", "author": "Stone, Irving", "year": ""}
 hasZ3988: boolean: false
 brs: sequence: node: Stone, Irving
 node: 1963
@@ -24,4 +24,4 @@ node: Ston
 node: 
 node: 
 node: 
-book: object: {"orderable": "Vormerken / Bestellen (mit Brief 0,60 EUR)", "order0": "/webOPACClient/singleHit.do?methodToCall=showHit&curPos=23&identifier=-1_S_IG.12.6398&tab=showAvailabilityActive", "orderTitle": "Vormerken / Bestellen (mit Brief 0,60 EUR)", "_detail-url": "/webOPACClient/singleHit.do?methodToCall=showHit&curPos=23&identifier=-1_S_IG.12.6398", "title": "Michelangelo", "author": "", "author": "Stone, Irving", "year": "1963"}
+book: object: {"orderable": 0, "_detail-url": "/webOPACClient/singleHit.do?methodToCall=showHit&curPos=23&identifier=-1_S_IG.12.6398", "title": "Michelangelo", "author": "", "author": "Stone, Irving", "year": "1963"}

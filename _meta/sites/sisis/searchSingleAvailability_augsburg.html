@@ -1,0 +1,746 @@
+
+
+
+
+
+
+
+
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!-- START jsp/common/metaHeader.jsp -->
+
+
+
+<html xmlns="http://www.w3.org/1999/xhtml" 
+ xml:lang="de" 
+ lang="de"
+> 
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <meta http-equiv="pragma" content="no-cache" />
+  <meta http-equiv="expires" content="0" />
+  <meta http-equiv="cache-control" content="no-cache" />
+  <link rel="stylesheet" href="/webOPACClient.stasis/jsp/common/infoguide.css"  type="text/css" />
+  <link rel="shortcut icon" href="/webOPACClient.stasis/images/OCLC.ico" />
+  
+  <!--[if IE 7]>
+    <style type="text/css">
+      #tab-content{margin-top:5px;}
+      select {height:auto;}
+      #searchfield input#f1 {width:10em;}
+    </style>
+  <![endif]-->
+  
+  <title>
+    
+      webOPAC der  Stadtbücherei Augsburg
+    
+  </title>
+</head>
+<!-- END of jsp/common/metaHeader.jsp -->
+<!-- START jsp/result/HitLayout.jsp --> 
+
+
+
+<body>
+	<div id="pageContainer">
+		
+					
+			
+		
+			
+		
+		
+
+
+
+<!-- START jsp/common/header.jsp -->
+
+
+
+
+<div id="branding_logo">
+<table border="0" cellspacing="10" cellpadding="4" width="100%">
+  <tr>
+<td>
+    
+    
+      <img src="/webOPACClient.stasis/images/webOPAC.gif" width="84" height="16" alt="webOPAC" title="webOPAC" />
+    
+</td>
+<td align="right">
+<img src="/webOPACClient.stasis/images/logo_STA.gif" alt="" title="" border=0 />
+</td>
+</tr>
+</table>
+</div>
+
+
+
+
+
+<!-- END of jsp/common/header.jsp -->
+
+
+		<div id="mainnav">
+			
+
+
+
+
+<!-- START jsp/navigation/mainNavi.jsp --> 
+
+
+<!-- Actual Tiles Context 755 -->
+
+<ul>
+
+
+	<li id="current"><div id="active">Suche</div>
+		<ul>
+			 
+				
+				
+					<li>
+						<a href="/webOPACClient.stasis/search.do?methodToCall=switchSearchPage&amp;SearchType=1" title="Einfache Suche">Einfache Suche</a>
+					</li>
+				
+			
+			 
+				
+				
+					<li>
+						<a href="/webOPACClient.stasis/search.do?methodToCall=switchSearchPage&amp;SearchType=2" title="Erweiterte Suche">Erweiterte Suche</a>
+					</li>
+				
+			
+			
+      
+  		  
+		    
+		      <li>
+		        <a href="/webOPACClient.stasis/searchHistory.do?methodToCall=showHistory" title="Suchhistorie">Suchhistorie</a>
+		      </li>	
+		    
+		  
+		  
+		
+			
+				
+				
+							
+					
+						
+					
+				
+				
+			
+				
+					<li>
+						<a href="/webOPACClient.stasis/hitList.do?methodToCall=backToPrimaryHitList" title="Suchergebnis">Suchergebnis</a>
+					</li>
+				
+			
+			
+				<li id="current2">Detailanzeige</li>
+			
+			
+		</ul>
+	</li>
+
+
+
+	<li><a href="/webOPACClient.stasis/memorizelist.do?methodToCall=show" title="Merkliste">Merkliste</a></li>
+
+
+
+
+
+<li><a href="/webOPACClient.stasis/userAccount.do?methodToCall=show&amp;type=1" title="Konto">Konto</a></li>
+
+
+
+
+
+</ul>
+<!-- END of jsp/navigation/mainNavi.jsp --> 
+
+			
+
+
+
+
+<!-- START jsp/navigation/loginnavi.jsp --> 
+
+<div id="login">
+	
+		<a href="/webOPACClient.stasis/loginpage.do?methodToCall=showLogin" title="Anmelden">Anmelden</a>
+	
+	
+</div>
+<!-- END of jsp/navigation/loginnavi.jsp --> 
+		</div> 
+ 		<br class="cleaner" />
+ 		
+
+
+
+
+
+
+
+
+
+<!-- START jsp/navigation/bgnavi.jsp --> 
+<script language="javascript" type="text/javascript"
+ src="/webOPACClient.stasis/help/help.js">
+</script>
+
+<div id="bgmainnav">
+	<div id="nav2">
+		<ul>
+			
+			
+			
+				
+				
+					
+						
+						<li><a href="/webOPACClient.stasis/asklibrary.do?methodToCall=show" title="Auskunft">Auskunft</a></li>
+						
+					
+					
+					
+						
+					
+				
+			
+			
+			
+			<li>
+			  <a href="#" onclick="return openHelp('/webOPACClient.stasis');"
+			     title="Hilfe">
+			   Hilfe</a>
+		  </li>
+  		
+	    	
+		  	
+			   	<li><a href="/webOPACClient.stasis/actual.do?methodToCall=show" title="Aktuelles">Aktuelles</a></li>
+    		
+    	
+		</ul>
+	</div>  
+</div>
+<!-- END of jsp/navigation/bgnavi.jsp --> 
+
+		<br class="cleaner" />
+		
+		
+			
+
+
+
+
+<!-- START jsp/result/searchinfo.jsp --> 
+<div id="info1">
+	
+
+	
+	<strong class="c1">Ihre Suchanfrage</strong>
+	Titel = test
+	
+	
+	
+</div> 
+<!-- END of jsp/result/searchinfo.jsp --> 
+		
+		
+		<br class="cleaner" />
+		<div id="main"> 
+			<div id="SOWrap"> 
+				<div id="middle"> 
+					<div class="box">
+						
+
+
+
+
+<!-- START jsp/result/hit.jsp --> 
+
+
+
+<div class="box-header">
+	
+		<div class="box-right">
+			|&#171;
+&#171;
+<a href="/webOPACClient.stasis/singleHit.do?methodToCall=showHit&amp;identifier=-1_S_IG.38.13976&amp;curPos=2&amp;tab=showAvailabilityActive">&#187;</a>
+<a href="/webOPACClient.stasis/singleHit.do?methodToCall=showHit&amp;identifier=-1_S_IG.38.13976&amp;curPos=298&amp;tab=showAvailabilityActive">&#187;|</a>
+
+		</div>
+	
+
+	
+  
+  
+
+	
+		<h2>lokale Datenbank (1/298)</h2>
+	
+	
+</div>
+<div class="box-container">
+	
+
+
+
+
+
+
+<!-- START jsp/result/teaser.jsp --> 
+<table class="data" style="width:100%">
+
+
+
+<tr>
+	<td>
+	
+	
+  
+    <strong>Abwechslungsreicher Test</strong><br />
+    
+  
+  
+  
+  
+   Übung mit Lösungen<br /><br />
+  
+
+
+ 
+
+
+	
+	
+	
+
+	
+	
+	
+		
+		
+
+		
+	
+
+	
+		
+		
+		<strong class="c2">Verlag:</strong> School Scout<br />
+		
+		
+	
+
+	
+		
+		
+
+		
+	
+
+	
+		
+		
+		
+		<strong class="c2">Jahr:</strong> 2002<br />
+		
+	
+
+	
+        
+          <strong class="c2">Seiten: Ill.:</strong>
+          9 S.<br />
+        
+
+	
+        
+        
+	
+	
+  
+	  
+		 
+	    
+       <strong class="c2">Schlagwort:</strong> 
+		  
+		  
+		  <a href="/webOPACClient.stasis/search.do?methodToCall=quickSearch&amp;Kateg=902&amp;Content=Grammatik">Grammatik</a>
+		  ,
+		  
+		 
+	    
+		  
+		  <a href="/webOPACClient.stasis/search.do?methodToCall=quickSearch&amp;Kateg=902&amp;Content=Wortschatz">Wortschatz</a>
+		  ,
+		  
+		 
+	    
+		  
+		  <a href="/webOPACClient.stasis/search.do?methodToCall=quickSearch&amp;Kateg=902&amp;Content=Englischunterricht">Englischunterricht</a>
+		  
+		  <br/>
+		
+	
+	  
+		
+	
+	  
+		
+	
+	  
+		
+	
+		
+	
+		
+	
+        
+		
+	
+        
+		
+		<p>&nbsp;</p>
+		
+					
+			
+				
+					
+					<a href="/webOPACClient.stasis/memorizeHitList.do?methodToCall=addToMemorizeList&amp;curPos=1&amp;forward=singlehit&amp;identifier=-1_S_IG.38.13976" title="in die Merkliste">in die Merkliste</a>
+				
+				
+			
+			
+		
+    
+
+		
+		
+		
+		
+		
+		
+
+		
+
+                                                                                                               
+                                                                 
+                                              
+                
+
+
+
+
+
+
+
+<strong class="c2">URL:</strong>
+<a href='http://www.bibliothek-digital.de/augsburg/frontend/mediaInfo,0-0-34974251-100-0-0-0-0-0-0-0.html' target="_">
+  Titel digital verfügbar; zum Herunterladen bitte hier klicken.
+</a>
+<br/>
+
+
+
+
+
+
+
+
+
+                                                                                        
+                                                                                                                                       
+        
+		
+		
+	</td>
+
+
+
+	
+	
+	
+</tr>
+</table>
+
+
+	
+<!-- END of jsp/result/teaser.jsp --> 
+
+
+</div>
+<script language="javascript" type="text/javascript">
+ setHelp("trefferliste", "");
+</script>
+
+<!-- END of jsp/result/hit.jsp --> 
+					</div>
+					<br />
+					
+
+
+
+
+
+<!-- START jsp/result/singleHitTabNavi.jsp --> 
+<div id="tab">
+	<ul>
+	  
+	
+     
+		<li id="tabExemplare">
+		  <div id="labelExemplare">
+		    
+				
+					<a href="/webOPACClient.stasis/singleHit.do?methodToCall=activateTab&amp;tab=showExemplarActive" title="Exemplare">
+					  Exemplare
+					</a>
+				
+		  </div>
+		</li>
+    
+		<li id="tabAvailability">
+		  <div id="labelAvailability">
+			  
+			  
+				  <a href="/webOPACClient.stasis/singleHit.do?methodToCall=activateTab&amp;tab=showAvailabilityActive" title="zur Vormerkung">
+				    zur Vormerkung
+				  </a>
+			  
+			</div>
+		</li>
+		<li id="tabTitle">
+		  <div id="labelTitle">
+			   
+  			
+				  <a href="/webOPACClient.stasis/singleHit.do?methodToCall=activateTab&amp;tab=showTitleActive" title="mehr zum Titel">
+				    mehr zum Titel
+				  </a>
+			  
+			</div>
+		</li>
+		
+       		
+	</ul>
+</div>
+<!-- END of jsp/result/singleHitTabNavi.jsp --> 
+
+					<div class="cleaner"></div>	
+					
+
+
+
+
+<!-- START jsp/result/availabilityinfo.jsp --> 
+
+<script language="javascript" type="text/javascript">
+  m_id=document.getElementById("labelAvailability");
+  if(m_id != null)
+  {
+    m_id.innerHTML='zur Vormerkung';
+    m_id.id="active1";
+
+    m_id=document.getElementById("tabAvailability");
+    m_id.id="current1";
+  }
+</script>
+
+<div id="tab-content">
+	<!-- com.sisis.infoguide.availibility.AvailabilityResultVector@ac86bb -->
+		
+	
+	
+	<table class="data" width="100%">
+		 
+		
+		
+		
+		<tr class="bg3">
+			<th colspan="3" style="text-align:left">Lokale Datenbank</th>
+		</tr>
+			 
+			
+			
+				
+				
+				
+				<tr>
+					<td>
+						
+						Lokaler Bibliotheksbestand
+						
+						
+					</td>
+					<td>
+						
+
+
+
+
+<!-- START jsp/result/availabilitystate.jsp --> 
+<span class="textgruen">Ein ausleihbares Exemplar finden Sie in einer anderen Zweigstelle.</span>
+
+<!-- END of jsp/result/availabilitystate.jsp --> 
+					</td>
+					<td>
+						
+
+
+
+
+
+<!-- START jsp/result/availabilityaction.jsp --> 
+
+
+		
+	
+		
+	
+
+	
+
+	
+		
+	
+  
+	
+		
+		
+		&nbsp;
+	
+
+	
+
+	
+
+<!-- END of jsp/result/availabilityaction.jsp --> 
+
+					</td>
+				</tr>
+				
+			
+		
+	</table>
+	
+	
+</div>
+<!-- END of jsp/result/availabilityinfo.jsp --> 
+				
+				</div>
+			</div>
+			<!-- SOWrap -->
+			
+				<div id="right">
+					
+
+
+
+
+
+
+
+
+
+
+
+<!-- START jsp/result/rechtsoben.jsp --> 
+
+
+
+
+<div class="box3">
+	<div class="box3-header">
+		<div class="box3-img"><img src="images/box3-right.gif" width="8" height="8" alt="" /></div>
+		<h2>weitere Optionen</h2>
+	</div>
+	<div class="box3-content">
+	<p><strong>Suchanfrage</strong><br />
+			<a href="/webOPACClient.stasis/search.do?methodToCall=start" title="Suchanfrage &auml;ndern">&auml;ndern</a>
+	</p>
+	
+	
+	
+		 
+			<p><strong>Ausgabe</strong><br />
+				
+					<a href="/webOPACClient.stasis/hitOutput.do?methodToCall=show&amp;caller=singlehit" title="Treffer ausgeben">Treffer ausgeben</a>
+				
+				
+		 </p>
+		
+	
+	
+			
+		
+	
+	
+
+	
+</div> <!-- box3-content --> 
+</div><!-- box3 -->
+
+<!-- END of jsp/result/rechtsoben.jsp --> 
+
+					<br class="space" />
+					<!-- filler /jsp/common/empty.jsp --> 
+					<br class="space" />
+					
+
+
+
+
+<!-- START jsp/common/news.jsp -->
+
+<!-- END of jsp/common/news.jsp --> 
+				</div>
+			
+			
+			
+			<!-- right -->
+			<br class="cleaner" />
+		</div>
+		
+
+
+
+
+
+
+
+
+<!-- START jsp/common/footer.jsp -->
+
+<div id="footer">
+  
+	
+	
+		&nbsp;
+	
+	
+  <div id="copyright">
+	  Copyright &copy; 2009.&nbsp;Alle Rechte vorbehalten.
+	  <img src="/webOPACClient.stasis/images/OCLC.jpg" alt="OCLC" title="OCLC" width="54" height="19" />
+  </div>
+  <div class="cleaner"></div>
+</div>
+<!-- END of jsp/common/footer.jsp -->
+ 
+	</div> 
+</body>
+<!-- END of jsp/result/HitLayout.jsp --> 
+<!-- START jsp/common/metaFooter.jsp -->
+</html>
+<!-- END of jsp/common/metaFooter.jsp -->
