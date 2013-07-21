@@ -7,8 +7,8 @@
      <template:read source="@value" var="CSId"/>
   </input>
   <select id="selectedViewBranchlib">{home-branches := option, home-branch-values := option/@value}</select>?
-  <select id="selectedSearchBranchlib">{search-branches := option, search-branch-values := option/@value, search-branch-name := @name}</select>?
-  <select id="Suche in Zweigstelle">{search-branches := option, search-branch-values := option/@value, search-branch-name := @name}</select>?
+  <select id="selectedSearchBranchlib">{search-branches := option, search-branch-values := option/@value, search-branch-name := @name, search-branch-extended-options := ()}</select>?
+  <select id="Suche in Zweigstelle">{search-branches := option, search-branch-values := option/@value, search-branch-name := @name, search-branch-extended-options := ./preceding-sibling::input[1]}</select>?
 </body>
 </html>
   
