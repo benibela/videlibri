@@ -1,0 +1,6 @@
+book: {}
+
+
+row: integer: 0
+row: integer: 1
+book: object: {"Exemplar 1!": "10/ZO 4250 G924-4, 004000844139, ausleihbar, Lesesaal FH Amberg"}

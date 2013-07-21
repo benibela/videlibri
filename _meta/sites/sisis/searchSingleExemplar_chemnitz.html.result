@@ -1,0 +1,7 @@
+book: {}
+
+
+row: integer: 0
+row: integer: 1
+row: integer: 2
+book: object: {"Exemplar 1!": "B055580X, 210 I 211 Bol, Zentralbibl. / Reisen und Sprachen  (IB,I,L), ausleihbar", "Exemplar 2!": "B0555810, 210 I 211 Bol, Zentralbibl. / Reisen und Sprachen  (IB,I,L), ausleihbar"}

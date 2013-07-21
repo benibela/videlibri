@@ -1,0 +1,6 @@
+book: {}
+
+
+row: integer: 0
+row: integer: 1
+book: object: {"Exemplar 1!": "TEMP2376, eBook, eAusleihe, andere Zweigstelle (frei)"}

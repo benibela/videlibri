@@ -1,0 +1,43 @@
+<html>
+<!--<template:meta default-text-matching="regex"/>-->
+  <DIV id="tab-content">
+    <TABLE class="data">
+    <TR><TH/></TR>
+    {row := 0}
+    <TR>{row := $row + 1}<t:read var="book.Exemplar {$row}!" source="string-join(./td/(text()|a[. != 'Lageplan' and . != 'Wegweiser']|div/a/b)[normalize-space(.)], ', ')"/></TR>*
+    </TABLE>
+  </DIV>?
+
+<!--<DIV id="tab-content">
+  <TABLE class="data">
+    {pos := 0, map := }
+    <TR>
+      <TH/>
+      <t:switch>
+        <TH>{pos := $pos + 2,}<BR/>{}</TH>
+        <TH>{pos := $pos + 2,}</TH>
+      </t:switch>*
+    </TR>
+    <TR>
+      {pos:=0, }
+      <TD/> 
+      <t:switch>     
+      <TD>{pos := $pos + 2, text()}<BR/>{}</TD>
+      <TD>{pos := $pos + 2, text()}</TD>
+      </t:switch>*
+    </TR>*
+  </TABLE>
+</DIV>-->
+
+
+</html>
+
+<!--Signatur: 1 2
+Mediennummer: 1 2
+Standort: 2 5 1b
+Zweigstelle: 3
+Status: 2 3 4
+Zweigstelle/Standort: 3
+Hinweise: 4
+Fußnoten: 1b
+QR-Code: 6-->

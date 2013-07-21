@@ -1,0 +1,6 @@
+book: {}
+
+
+row: integer: 0
+row: integer: 1
+book: object: {"Exemplar 1!": "ALK5424231, UBg 7949, Kantonsbibliothek Uri, ausleihbar"}

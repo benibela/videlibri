@@ -1,0 +1,1024 @@
+
+
+
+
+
+
+
+
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!-- START jsp/common/metaHeader.jsp -->
+
+
+
+<html xmlns="http://www.w3.org/1999/xhtml" 
+ xml:lang="de" 
+ lang="de"
+> 
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <meta http-equiv="pragma" content="no-cache" />
+  <meta http-equiv="expires" content="0" />
+  <meta http-equiv="cache-control" content="no-cache" />
+  
+   <link rel="shortcut icon" href="/favicon.ico" />
+   <script src="/lib-opac/js/jquery.js" type="text/javascript"></script>
+    <script type="text/javascript" src="/lib-opac/js/tooltipp.js"></script>
+  
+  <!--[if IE 7]>
+    <style type="text/css">
+      #tab-content{margin-top:5px;}
+      select {height:auto;}
+      #searchfield input#f1 {width:10em;}
+    </style>
+  <![endif]-->
+  
+  <title>
+    
+      Unser Katalog | Universitätsbibliothek Dortmund
+    
+  </title>
+  <link rel="search" type="application/opensearchdescription+xml" title="Katalog der UB Dortmund" href="http://www.ub.tu-dortmund.de/literatursuche/ub-do-unser-katalog.xml" />   
+  
+
+
+
+
+
+
+
+
+
+        
+        
+            <link media="all" rel="stylesheet" href="/webOPACClient/jsp/common/infoguide.css"  type="text/css" />
+            <link rel="stylesheet" href="/webOPACClient/jsp/common/infoguide-print.css" type="text/css" media="print" />
+            <!--[if IE]>  <link rel="stylesheet" href="/webOPACClient/jsp/common/infoguide.css"  type="text/css" />  <![endif]-->
+            <link rel="stylesheet" href="/webOPACClient/jsp/common/infoguide-print.css" type="text/css" media="print" />
+            <!--[if IE 7]>
+            <style type="text/css">
+              #tab-content{margin-top:5px;}
+              select {height:auto;}
+              #searchfield input#f1 {width:10em;}
+            </style>
+            <![endif]-->
+        
+  
+  
+
+</head>
+<!-- END of jsp/common/metaHeader.jsp -->
+<!-- START jsp/result/HitLayout.jsp --> 
+
+
+
+<body>
+	<div id="pageContainer">
+		
+					
+			
+		
+			
+		
+		
+
+
+
+<!-- START jsp/common/header.jsp -->
+
+
+
+<!-- #kopf -->
+<div id="kopfgrafikbereich">
+<a href="http://www.tu-dortmund.de/"><img src="https://www.ub.tu-dortmund.de/images/tu-logo.png" id="unido-logo" alt="Universit&auml;t Dortmund" width="255" height="41" /></a>
+<div id="ebene2-logo"><a href="http://www.ub.tu-dortmund.de/index.html"><img src="https://www.ub.tu-dortmund.de/images/ub-schriftzug.jpg" alt="Universit&auml;tsbibliothek" width="190" height="14" /></a></div>
+</div>
+<!-- /kopf -->
+
+
+
+<!-- BEGIN /bsb/mobileOPAC/addMobileFunctionality.jsp -->
+
+
+
+
+
+
+<!-- END /bsb/mobileOPAC/addMobileFunctionality.jsp -->
+<!-- END of jsp/common/header.jsp -->
+
+
+		<div id="mainnav">
+			
+
+
+
+
+<!-- START jsp/navigation/mainNavi.jsp --> 
+<script type="text/javascript" src="/lib-opac/js/wz_tooltip.js"></script>
+
+
+
+<!-- Actual Tiles Context 755 -->
+
+<ul>
+
+
+		<li id="current"><div id="active"><span id="aktiv">Suche</span></div>
+		<ul>
+			 
+				
+				
+					<li>
+						<a href="/webOPACClient/search.do?methodToCall=switchSearchPage&amp;SearchType=1" title="Einfache Suche">Einfache Suche</a>
+					</li>
+				
+			
+			 
+				
+				
+					<li>
+						<a href="/webOPACClient/search.do?methodToCall=switchSearchPage&amp;SearchType=2" title="Erweiterte Suche">Erweiterte Suche</a>
+					</li>
+				
+			
+			
+      
+  		  
+		    
+		      <li>
+		        <a href="/webOPACClient/searchHistory.do?methodToCall=showHistory" title="Suchhistorie">Suchhistorie</a>
+		      </li>	
+		    
+		  
+		  
+		
+			
+				
+				
+							
+					
+						
+					
+				
+				
+			
+				
+					<li>
+						<a href="/webOPACClient/hitList.do?methodToCall=backToPrimaryHitList" title="Suchergebnis">Suchergebnis</a>
+					</li>
+				
+			
+			
+				<li id="current2">Detailanzeige</li>
+			
+			
+		</ul>
+	</li>
+
+
+
+	<li><a href="/webOPACClient/memorizelist.do?methodToCall=show" title="Merkliste">Merkliste</a></li>
+
+
+
+
+
+<li><a href="/webOPACClient/userAccount.do?methodToCall=show&amp;type=1" title="Konto">Konto</a></li>
+
+
+
+
+
+</ul>
+<!-- END of jsp/navigation/mainNavi.jsp --> 
+
+			
+
+
+
+
+<!-- START jsp/navigation/loginnavi.jsp --> 
+
+
+<div id="login">
+	
+		<a href="/webOPACClient/loginpage.do?methodToCall=showLogin" title="Anmelden">Anmelden</a>
+	
+	
+</div>
+<!-- END of jsp/navigation/loginnavi.jsp --> 
+		</div> 
+ 		<br class="cleaner" />
+ 		
+
+
+
+
+
+
+
+
+
+<!-- START jsp/navigation/bgnavi.jsp --> 
+<script language="javascript" type="text/javascript"
+ src="/webOPACClient/help/help.js">
+</script>
+
+<div id="bgmainnav">
+	<div id="nav2">
+		<ul>
+			
+			
+			
+			<li>
+			  <a href="#" onclick="return openHelp('/webOPACClient');"
+			     title="Hilfe">
+			   Hilfe</a>
+		  </li>
+  		
+    	    <li><a href="http://www.ub.tu-dortmund.de/literatursuche/anschaffungsvorschlag.html">Anschaffungsvorschlag</a></li>
+			
+            <li><a href="http://www.ub.tu-dortmund.de/literatursuche/dokumentlieferdienste.html">Fernleihe</a></li>
+		   
+            <li><a href="http://www.ub.tu-dortmund.de/neuerwerbungslisten/index.html">Neuerwerbungen&nbsp;<img src="/images/rss.gif" alt="rss"  class="flag" width="12" height="12"/></a></li>
+    	
+		</ul>
+	</div>  
+</div>
+<!-- END of jsp/navigation/bgnavi.jsp --> 
+
+		<br class="cleaner" />
+		
+		
+			
+
+
+
+
+<!-- START jsp/result/searchinfo.jsp --> 
+<div id="info1">
+	
+
+	
+	<strong class="c1">Ihre Suchanfrage</strong>
+	Titel-Stichwort = test
+	<span class="dbutton"><a href="/webOPACClient/search.do?methodToCall=start" title="Suchanfrage &auml;ndern">Suchanfrage &auml;ndern</a></span>
+	
+	
+	
+</div> 
+<!-- END of jsp/result/searchinfo.jsp --> 
+		
+		
+		<br class="cleaner" />
+		<div id="main"> 
+			<div id="SOWrap"> 
+				<div id="middle"> 
+					<div class="box">
+						
+
+
+
+
+<!-- START jsp/result/hit.jsp --> 
+
+
+
+<div class="box-header">
+	
+		<div class="box-right">
+			<a href="/webOPACClient/singleHit.do?methodToCall=showHit&amp;identifier=-1_S_IG.371.14496&amp;curPos=1&amp;tab=showExemplarActive">|&#171;</a>
+<a href="/webOPACClient/singleHit.do?methodToCall=showHit&amp;identifier=-1_S_IG.371.14496&amp;curPos=9&amp;tab=showExemplarActive">&#171;</a>
+<a href="/webOPACClient/singleHit.do?methodToCall=showHit&amp;identifier=-1_S_IG.371.14496&amp;curPos=11&amp;tab=showExemplarActive">&#187;</a>
+<a href="/webOPACClient/singleHit.do?methodToCall=showHit&amp;identifier=-1_S_IG.371.14496&amp;curPos=1023&amp;tab=showExemplarActive">&#187;|</a>
+
+		</div>
+	
+
+	
+  
+  
+
+	
+		<h2>Treffer 10/1023</h2>
+	
+	
+</div>
+<div class="box-container">
+	
+
+
+
+
+
+
+<!-- START jsp/result/teaser.jsp --> 
+<table class="data" style="width:100%">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+
+
+   
+   
+   
+   
+                
+   
+
+
+
+
+
+
+
+<span class="Z3988"
+   title="ctx_ver=Z39.88-2004&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Abook&amp;rft.genre=book&amp;rft.btitle=Built-in-self-test+and+digital+self-calibration+for+RF+SoCs&amp;rft.au=Bou-Sleiman%2C+Sleiman&amp;rft.aucorp=&amp;rft.edition=&amp;rft.place=New+York%2C+NY&amp;rft.pub=Springer&amp;rft.date=2012&amp;rft.tpages=1+online+resource+%28xvii%2C+89+p.%29&amp;rft.series=SpringerBriefs+in+electrical+and+computer+engineering&amp;rft.issn=&amp;rft.isbn=978-1-4419-9548-3-%28electronic-bk.%29">
+</span>
+
+
+
+
+<!--
+
+<span class="Z3988" title='ctx_ver=Z39.88-2004&amp;rft_val_fmt=info:ofi/fmt:kev:mtx:book&amp;rft.btitle=Built-in-self-test+and+digital+self-calibration+for+RF+SoCs&amp;rft.au=Bou-Sleiman%2C+Sleiman'></span>
+
+-->
+
+	  <script type="text/javascript">
+       function openInfoWin(URL,name,width,height,scrollbars,otherbars) {
+	  if( ! URL    ) { URL    = 'http://www.ub.uni-dortmund.de/FuerSie/zeitschriften.html' };
+	  if( ! width  ) { width  = screen.width*60/100 };
+	  if( ! height ) { height = screen.height*90/100 };
+	  if( ! scrollbars ) { scrollbars = 'yes' };
+	  if( ! otherbars  ) { otherbars  = 'no' };
+	  var Message = window.open(URL,name,"width="+width+",height="+height+",top=75,left=100,scrollbars="+scrollbars+",resizable=yes,menubar="+otherbars+",toolbar="+otherbars);
+	  Message.focus();
+       }
+      </script>
+
+
+<tr>
+	<td>
+	
+	
+    
+    
+    
+
+
+
+
+<script language="javascript" type="text/javascript">
+/* <![CDATA[ */
+        var urls662="[http://lib.myilibrary.com/detail.asp?id=335105]";
+        var urls2662="[]";
+
+		var testvar = urls2662;
+
+        urls662=urls662.replace("[","");
+        urls662=urls662.replace("]","");
+        urls662=urls662.replace(" ","");
+        urls2662=urls2662.replace("[","");
+        urls2662=urls2662.replace("]","");
+        urls2662=urls2662.replace(" ","");
+
+        var url662array=urls662.split(",");
+        var url2662array=urls2662.split(",");
+
+        if (urls662.indexOf("wiso-net.de") > -1 || urls2662.indexOf("wiso-net.de") > -1) {
+            url662array=urls662.split("|");
+            url2662array=urls2662.split("|");
+	    }
+
+        var volltext = 0;
+        var datenbank = 0;
+        var toc = 0;
+        var ezb = 0;
+        var volltexturl = "";
+        var datenbankurl ="";
+        var tocurl = "";
+        var ezburl = "";
+
+        if (testvar.indexOf("[]") > -1) {
+        	for (i in url662array) {
+            	if (volltext == 0 && url662array[i].indexOf("uni-regensburg.de/ezeit") > -1) {
+				ezb = 1;
+				ezburl = url662array[i];
+        		}
+        	}
+        }
+        if (testvar.indexOf("[]") > -1 && ezb == 0) {
+        	for (i in url662array) {
+                if (url662array[i].indexOf("wiso-net.de") > -1) {
+                	volltext = 1;
+                    volltexturl = url662array[i];
+                    break;
+            	}
+                if (url662array[i].indexOf("beck-online.beck.de") > -1) {
+                    volltext = 1;
+                    volltexturl = url662array[i];
+                    break;
+            	}
+                if (url662array[i].indexOf("dx.doi.org") > -1) {
+                    volltext = 1;
+                    volltexturl = url662array[i];
+                    break;
+            	}
+                if (url662array[i].indexOf("springerlink.com/openurl.asp") > -1) {
+                    volltext = 1;
+                    volltexturl = url662array[i];
+                    break;
+                }
+                if (url662array[i].indexOf("http://www.netLibrary.com") > -1) {
+                    volltext = 1;
+                    volltexturl = url662array[i];
+                    break;
+                }
+                if (url662array[i].indexOf("http://web.ebscohost.com/ehost") > -1) {
+                    volltext = 1;
+                    volltexturl = url662array[i];
+                    break;
+                }
+                if (url662array[i].indexOf("http://content.karger.com") > -1) {
+                    volltext = 1;
+                    volltexturl = url662array[i];
+                    break;
+                }
+                if (url662array[i].indexOf("http://www.rsc.org/publishing/ebooks") > -1) {
+                    volltext = 1;
+                    volltexturl = url662array[i];
+                    break;
+                }
+                if (url662array[i].indexOf("hdl.handle.net") > -1) {
+                    volltext = 1;
+                    volltexturl = url662array[i];
+                    break;
+            	}
+                if (url662array[i].indexOf("sourceoecd.org") > -1) {
+                    volltext = 1;
+                    volltexturl = url662array[i];
+                    break;
+            	}
+                if (url662array[i].indexOf("SourceOECD.org") > -1) {
+                    volltext = 1;
+                    volltexturl = url662array[i];
+                    break;
+            	}
+                if (url662array[i].indexOf("http://www.oecd-ilibrary.org") > -1) {
+                    volltext = 1;
+                    volltexturl = url662array[i];
+                    break;
+            	}
+                if (url662array[i].indexOf("reference-global.com") > -1) {
+                    volltext = 1;
+                    volltexturl = url662array[i];
+                    break;
+            	}
+
+                if (url662array[i].indexOf("openbook.galileocomputing.de") > -1) {
+                    volltext = 1;
+                    volltexturl = url662array[i];
+                    break;
+            	}
+
+                if (url662array[i].indexOf("http://lib.myilibrary.com") > -1) {
+                    volltext = 1;
+                    volltexturl = url662array[i];
+                    break;
+            	}
+            	
+                if (url662array[i].indexOf("ovidsp.ovid.com") > -1) {
+                    datenbank = 1;
+                    datenbankurl = url662array[i];
+                    break;
+            	}
+                if (url662array[i].indexOf("redi-bw.de") > -1) {
+                    datenbank = 1;
+                    datenbankurl = url662array[i];
+                    break;
+            	}
+            	
+            	if (toc == 0 && volltext == 0 && url662array[i].indexOf("digitool.hbz-nrw.de") > -1) {
+					toc = 1;
+					tocurl = url662array[i];
+                }
+
+            	if (toc == 0 && volltext == 0 && url662array[i].indexOf("d-nb.info") > -1) {
+					toc = 1;
+					tocurl = url662array[i];
+                }
+				                
+            	
+        	}
+        }
+        else {
+            if (ezb == 0){
+            	if (url2662array[0].indexOf("uni-regensburg.de/ezeit") > -1) {
+    				ezb = 1;
+    				ezburl = url2662array[0];
+            		}
+            	else {
+        		volltext = 1;
+            	volltexturl = url2662array[0];
+            	}
+            }
+        }
+
+        var volltext_img = "https://www.ub.uni-dortmund.de/images/volltext-de.gif";
+        var toc_img = "https://www.ub.uni-dortmund.de/images/inhalt-de.gif";
+        var ezb_img = "https://www.ub.uni-dortmund.de/images/ezb-de.gif";
+        var db_img = "https://www.ub.uni-dortmund.de/images/datenbank-de.gif";
+        var img ="<img class=\"imgright\" src=" + volltext_img + " />";
+
+        if (volltext == 1) {
+        	document.write("<a href=" + volltexturl + " target=\"_new\">" + "<img class=\"imgright\" src=" + volltext_img + " alt=\"Volltext\" height=\"35\" width=\"120\" />" + "</a>" + "<img class=\"imgright mobil-unsichtbar\" src=" + "http://api.qrserver.com/v1/create-qr-code/?size=50x50&data=" + volltexturl + " alt=\"QR-Code\" height=\"50\" width=\"50\" />");      
+	 	}
+        if (datenbank == 1) {
+        	document.write("<a href=" + datenbankurl + " target=\"_new\">" + "<img class=\"imgright\" src=" + db_img + " alt=\"Datenbank\" height=\"35\" width=\"120\" />" + "</a>");
+        }
+        if (volltext == 0 && ezb == 1) {
+            document.write("<a href=" + ezburl + " target=\"_new\">" + "<img class=\"imgright\" src=" + ezb_img + " alt=\"Volltext via EZB\" height=\"35\" width=\"120\"/>" + "</a>");
+        }
+        if (volltext == 0 && ezb == 0 && toc == 1) {
+            document.write("<a href=" + tocurl + " target=\"_new\">" +"<img class=\"imgright\" src=" + toc_img + " alt=\"Inhaltsverzeichnis\" height=\"35\" width=\"120\"/>"  + "</a>");
+        }
+/* ]]> */
+</script>
+
+
+
+	
+	
+  
+    <strong>Built-in-self-test and digital self-calibration for RF SoCs</strong><br />
+    
+      <br />
+    
+  
+  
+  
+  
+
+  
+  
+    <strong class="c2">Verfasser:</strong>
+    <a href='/webOPACClient/search.do?methodToCall=quickSearch&amp;Kateg=100&amp;Content=Bou-Sleiman%2C+Sleiman'>Bou-Sleiman, Sleiman</a><br />
+    
+    
+  
+  
+  
+    
+  
+  
+        
+   
+   
+     <strong class="c2">Herausgeber, Bearbeiter:</strong>
+     <a href='/webOPACClient/search.do?methodToCall=quickSearch&amp;Kateg=101&amp;Content=Ismail%2C+Mohammed'>Ismail, Mohammed</a><br />
+     
+    
+        
+        
+    
+   
+        
+  
+     
+
+	
+	
+	
+	
+	<strong class="c2">Verlagsort, Verlag, Erscheinungsjahr:</strong> New York, NY, Springer, 2012<br />
+	
+
+	
+	
+	
+
+	
+
+	
+
+	
+
+	
+        
+          <strong class="c2">Umfangsangabe:</strong>
+          1 online resource (xvii, 89 p.)<br />
+        
+
+      
+        
+                
+                        <strong class="c2">Serie:</strong>
+                        
+                        
+                                SpringerBriefs in electrical and computer engineering<br />
+                        
+                
+      
+      
+        
+		
+
+	
+		
+	
+        
+        	<strong class="c2">ISBN:</strong>
+            
+            	978-1-4419-9548-3-(electronic-bk.)
+            	,
+              
+            
+            	1-4419-9548-X-(electronic-bk.)
+            	,
+              
+            
+            	978-1-283-35105-8-(MyiLibrary)
+            	
+              <br/>
+            
+        
+		
+	
+        
+		
+		     
+	
+	
+	<br/>
+  	
+	  	
+		
+	
+	  	
+		
+	
+	  	
+		
+	
+	  	
+		
+	
+	
+
+
+   
+        
+        
+    
+   
+   <strong class="c2">Zitierlink:</strong> 
+   http://www.ub.tu-dortmund.de/katalog/titel/1382929<br/>
+       
+		
+		<p>&nbsp;</p>
+		
+		
+<!-- ADDTHIS BUTTON BEGIN -->
+<script type="text/javascript">
+var addthis_config = {
+data_track_linkback: false,
+ui_language: "de",
+ui_click: true,
+services_compact: 'favorites, email, twitter, delicious, digg, google, misterwong, myspace, studivz, more',
+ services_exclude: 'print'
+}
+var addthis_localize = {
+favorites: "Bookmark" };
+</script>
+
+<a href='http://www.addthis.com/bookmark.php'
+ class='addthis_button'
+ addthis:url='https://www.ub.tu-dortmund.de/katalog/titel/1382929'
+ addthis:title='UB Dortmund: Built-in-self-test and digital self-calibration for RF SoCs/Bou-Sleiman, Sleiman'>
+ <img src="https://s7.addthis.com/static/btn/v2/lg-bookmark-en.gif"
+ width="125" height="16" border="0" alt="Share" /></a>
+
+<script type="text/javascript" src='https://s7.addthis.com/js/250/addthis_widget.js#username=ubdo'></script>
+<!-- ADDTHIS BUTTON END -->
+		
+	    <p>&nbsp;</p>	
+	
+        <div>
+		
+					
+			
+				
+					
+					<a href="/webOPACClient/memorizeHitList.do?methodToCall=addToMemorizeList&amp;curPos=10&amp;forward=singlehit&amp;identifier=-1_S_IG.371.14496" title="in die Merkliste">in die Merkliste</a>
+				
+				
+			
+			
+		
+    
+
+		
+		
+		
+		
+		
+		
+
+		
+		</div>
+		
+	
+		<!-- Verfuegbarkeitsinfo bzw. Link zur Titelvormerkung -->
+		<br />
+
+		<div id="vormerkung">
+		
+
+
+
+
+<!-- START jsp/result/availabilityinfo2.jsp -->
+
+<script language="javascript" type="text/javascript">
+  m_id=document.getElementById("labelAvailability");
+  if(m_id != null)
+  {
+    m_id.innerHTML='Informationen externer Anbieter';
+    m_id.id="active1";
+
+    m_id=document.getElementById("tabAvailability");
+    m_id.id="current1";
+  }
+</script>
+
+
+
+        
+
+                
+                
+                
+
+                        
+                        
+                        
+                                
+                                
+                                
+                                	
+
+
+
+
+
+<!-- START jsp/result/availabilityaction.jsp --> 
+
+
+		
+	
+		
+	
+
+	
+
+	
+		
+	
+  
+	
+		
+		
+		&nbsp;
+	
+
+	
+
+	
+
+<!-- END of jsp/result/availabilityaction.jsp --> 
+
+                                
+                        
+                
+
+        
+<!-- END of jsp/result/availabilityinfo2.jsp -->
+                                
+
+		</div>
+		</td>
+
+
+
+	
+	
+	
+</tr>
+</table>
+
+
+	
+<!-- END of jsp/result/teaser.jsp --> 
+
+
+</div>
+<script language="javascript" type="text/javascript">
+ setHelp("trefferliste", "");
+</script>
+
+<!-- END of jsp/result/hit.jsp --> 
+					</div>
+					<br />
+					
+
+
+
+
+
+<!-- START jsp/result/singleHitTabNavi.jsp --> 
+<div id="tab">
+	<ul>
+	  
+	  
+	
+    
+    <li id="tabTitle">
+		  <div id="labelTitle">
+			   
+  			
+				  <a href="/webOPACClient/singleHit.do?methodToCall=activateTab&amp;tab=showTitleActive" title="mehr zum Titel">
+				    mehr zum Titel
+				  </a>
+			  
+			</div>
+		</li>
+    
+    
+		<li id="tabAvailability">
+		  <div id="labelAvailability">
+			  
+			  
+				  <a href="/webOPACClient/singleHit.do?methodToCall=activateTab&amp;tab=showAvailabilityActive" title="Informationen externer Anbieter">
+				    Informationen externer Anbieter
+				  </a>
+			  
+			</div>
+		</li>
+
+		
+       		
+	</ul>
+</div>
+<!-- END of jsp/result/singleHitTabNavi.jsp --> 
+
+					<div class="cleaner"></div>	
+					
+
+
+
+
+
+<!-- START jsp/result/exemplarinfo.jsp --> 
+
+<script language="javascript" type="text/javascript">
+  m_id=document.getElementById("labelExemplare");
+  if(m_id != null)
+  {
+    m_id.innerHTML='Exemplare';
+    m_id.id="active1";
+
+    m_id=document.getElementById("tabExemplare");
+    m_id.id="current1";
+  }
+</script>
+
+<div id="tab-content">
+
+ 
+
+
+  
+
+
+</div>
+<!-- END of jsp/result/exemplarinfo.jsp --> 
+				
+				</div>
+			</div>
+			<!-- SOWrap -->
+			
+				<div id="right">
+					
+
+
+
+
+
+
+
+
+
+
+
+<!-- START jsp/result/rechtsoben.jsp --> 
+
+
+
+
+<div class="box3">
+	<div class="box3-header">
+		<div class="box3-img"><img src="images/box3-right.gif" width="8" height="8" alt="" /></div>
+		<h2>weitere Optionen</h2>
+	</div>
+	<div class="box3-content">
+	<p><strong>Suchanfrage</strong><br />
+			<a href="/webOPACClient/search.do?methodToCall=start" title="Suchanfrage &auml;ndern">&auml;ndern</a>
+	</p>
+	
+	
+	
+		 
+			<p><strong>Ausgabe</strong><br />
+				
+					<a href="/webOPACClient/hitOutput.do?methodToCall=show&amp;caller=singlehit" title="Treffer ausgeben">Treffer ausgeben</a>
+				
+				
+		 </p>
+		
+	
+	
+			
+		
+	
+	
+
+	
+</div> <!-- box3-content --> 
+</div><!-- box3 -->
+
+<!-- END of jsp/result/rechtsoben.jsp --> 
+
+					<br class="space" />
+					<!-- filler /jsp/common/empty.jsp --> 
+					<br class="space" />
+					
+
+
+
+
+<!-- START jsp/common/news.jsp -->
+
+<!-- END of jsp/common/news.jsp --> 
+				</div>
+			
+			
+			
+			<!-- right -->
+			<br class="cleaner" />
+		</div>
+		
+
+
+
+
+
+
+
+
+<!-- START jsp/common/footer.jsp -->
+
+<div id="footer">
+  
+	
+	
+		&nbsp;
+	
+	
+  <div class="cleaner"></div>
+</div>
+<!-- END of jsp/common/footer.jsp -->
+ 
+	</div> 
+</body>
+<!-- END of jsp/result/HitLayout.jsp --> 
+<!-- START jsp/common/metaFooter.jsp -->
+</html>
+<!-- END of jsp/common/metaFooter.jsp -->

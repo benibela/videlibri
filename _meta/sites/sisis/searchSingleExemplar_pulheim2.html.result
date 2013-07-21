@@ -1,0 +1,6 @@
+book: {}
+
+
+row: integer: 0
+row: integer: 1
+book: object: {"Exemplar 1!": "222548X, Erdgeschoss, Zeitschrift, entliehen bis 29.07.2013 (gesamte Vormerkungen: 0)"}

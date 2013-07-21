@@ -1,0 +1,6 @@
+book: {}
+
+
+row: integer: 0
+row: integer: 1
+book: object: {"Exemplar 1!": "10/HD 220 S532(14), Beil.: 2 Audio-CDs + 1 CD-ROM, 004000887312, entliehen bis 05.08.2013 (gesamte Vormerkungen: 0), Lesesaal FH Amberg"}

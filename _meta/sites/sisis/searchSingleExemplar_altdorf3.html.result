@@ -1,0 +1,6 @@
+book: {}
+
+
+row: integer: 0
+row: integer: 1
+book: object: {"Exemplar 1!": "ALK1052468, 159.64, Kantonsbibliothek Uri, entliehen bis 30.07.2013 (gesamte Vormerkungen: 0)"}

@@ -1,0 +1,7 @@
+book: {}
+
+
+row: integer: 0
+row: integer: 1
+row: integer: 2
+book: object: {"Exemplar 1!": "Zentralbibliothek / Freihand, C 26423-Book/2 Nachdr, ausleihbar, 20027124", "Exemplar 2!": "Zentralbibliothek / Freihand, C 26423-Book/2 Nachdr+1, entliehen bis 30.07.2013 (gesamte Vormerkungen: 0), 20030301"}

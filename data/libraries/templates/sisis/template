@@ -137,6 +137,8 @@
 
 <action id="search-details">
   <page url="{$book._detail-url}&amp;tab=showTitleActive" templateFile="searchSingle"/>
+  <page url="{$book._detail-url}&amp;tab=showExemplarActive" templateFile="searchSingleExemplar"/>
+<!--  <page url="{$book._detail-url}&amp;tab=showAvailabilityActive" templateFile="searchSingleAvailability"/>-->
 </action>
 
 
