@@ -2,6 +2,7 @@ book: {}
 
 
 row: integer: 0
+needOrders: boolean: true
 row: integer: 1
 row: integer: 2
 row: integer: 3

@@ -3,14 +3,16 @@
   <DIV id="tab-content">
     <TABLE class="data">
     <TR><TH/></TR>
-    {row := 0}
+    {row := 0, needOrders := not($book.orderable > 0)}
     <TR>{row := $row + 1}
         <t:read var="book.Exemplar {$row}!" source="string-join(./td/(text()|a[. != 'Lageplan' and . != 'Wegweiser']|div/a/b)[normalize-space(.)], ', ')"/>
-        <a t:condition="contains(@href, 'availability.do') and contains(@href, 'katkey')">
-          <t:read var="book.orderTitle{$book.orderable}" source="$book(x'Exemplar {$row}!')"/>
-          <t:read var="book.order{$book.orderable}" source="@href"/>
-          {book.orderable := $book.orderable + 1}
-        </a>?
+        <t:if test="$needOrders">
+          <a t:condition="contains(@href, 'availability.do') and contains(@href, 'katkey')">
+            <t:read var="book.orderTitle{$book.orderable}" source="$book(x'Exemplar {$row}!')"/>
+            <t:read var="book.order{$book.orderable}" source="@href"/>
+            {book.orderable := $book.orderable + 1}
+          </a>?
+        </t:if>
     </TR>*
     </TABLE>
   </DIV>?
