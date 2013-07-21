@@ -79,6 +79,13 @@ PAGES=(${PAGES[@]} sisis/orderConfirmation_aachen.html sisis/orderConfirmation_p
 ADDTEMPLATE sisis/singleExtended 1
 PAGES=(${PAGES[@]} sisis/singleExtended_h.html  )
 
+ADDTEMPLATE sisis/searchSingleExemplar 15
+PAGES=(${PAGES[@]} sisis/searchSingleExemplar_aachen.html  sisis/searchSingleExemplar_altdorf.html  sisis/searchSingleExemplar_altdorf2.html  sisis/searchSingleExemplar_altdorf3.html   sisis/searchSingleExemplar_amberg.html   sisis/searchSingleExemplar_amberg2.html  sisis/searchSingleExemplar_amberg3.html   sisis/searchSingleExemplar_augsburg.html  sisis/searchSingleExemplar_basel.html  sisis/searchSingleExemplar_chemnitz.html   sisis/searchSingleExemplar_dortmund.html  sisis/searchSingleExemplar_dortmund2.html  sisis/searchSingleExemplar_dortmund3.html  sisis/searchSingleExemplar_pulheim.html  sisis/searchSingleExemplar_pulheim2.html )
+
+ADDTEMPLATE sisis/searchSingleAvailability 15
+
+PAGES=(${PAGES[@]} sisis/searchSingleAvailability_aachen.html sisis/searchSingleAvailability_altdorf.html sisis/searchSingleAvailability_altdorf2.html sisis/searchSingleAvailability_altdorf3.html sisis/searchSingleAvailability_amberg.html sisis/searchSingleAvailability_amberg2.html sisis/searchSingleAvailability_amberg3.html sisis/searchSingleAvailability_augsburg.html sisis/searchSingleAvailability_basel.html sisis/searchSingleAvailability_chemnitz.html sisis/searchSingleAvailability_dortmund.html sisis/searchSingleAvailability_dortmund2.html sisis/searchSingleAvailability_dortmund3.html sisis/searchSingleAvailability_pulheim.html sisis/searchSingleAvailability_pulheim2.html )
+
 
 #==============PICA================
 mkdir -p $OUTPATH/pica
