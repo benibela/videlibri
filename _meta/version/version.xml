@@ -1,5 +1,4 @@
-
-<!--  <stabil value="1117"/>-->
+<versions>
   <stable value="1515"/> 
   <debug value="0906"/> 
 </versions>
