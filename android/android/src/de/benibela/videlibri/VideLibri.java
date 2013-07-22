@@ -223,7 +223,7 @@ public class VideLibri extends  BookListActivity{
         int action = -1;
         switch (book.getStatus()) {
             case Normal:
-                Bridge.VLBookOperation(new Bridge.Book[]{book}, Bridge.BOOK_OPERATION_RENEW); //renew
+                VideLibriApp.renewBooks(new Bridge.Book[]{book});
                 if (detailsOpened) onBackPressed();
                 break;
             case Ordered: case Provided:

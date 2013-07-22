@@ -182,6 +182,15 @@ public class VideLibriApp extends Application implements Bridge.VideLibriContext
 
 
 
+    static public void renewBooks(Bridge.Book[] books){
+        for (Bridge.Book book: books)
+            if (book.account != null && !runningUpdates.contains(book.account))
+                runningUpdates.add(book.account);
+        if (!runningUpdates.isEmpty() && currentActivity instanceof VideLibri)
+            ((VideLibri)currentActivity).setLoading(true);
+        Bridge.VLBookOperation(books, Bridge.BOOK_OPERATION_RENEW); //renew
+    }
+
 
     static void newSearchActivity(){
         Intent intent;
