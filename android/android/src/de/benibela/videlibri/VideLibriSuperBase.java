@@ -60,13 +60,13 @@ public class VideLibriSuperBase {
                 if (VideLibriApp.runningUpdates.isEmpty())
                     VideLibriApp.updateAccount(null, false, false);
                 else
-                    Util.showMessage(context, "Es kann immer nur ein Aktualisierungs/Verlängerungsvorgang für alle Konten gestartet werden.");
+                    Util.showMessage("Es kann immer nur ein Aktualisierungs/Verlängerungsvorgang für alle Konten gestartet werden.");
                 return true;
             case R.id.renew:
                 if (VideLibriApp.runningUpdates.isEmpty())
                     VideLibriApp.updateAccount(null, false, true);
                 else
-                    Util.showMessage(context, "Es kann immer nur ein Aktualisierungs/Verlängerungsvorgang für alle Konten gestartet werden.");
+                    Util.showMessage("Es kann immer nur ein Aktualisierungs/Verlängerungsvorgang für alle Konten gestartet werden.");
                 return true;
             case R.id.renewlist:
                 context.startActivity(new Intent(context, RenewList.class));

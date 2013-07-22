@@ -60,7 +60,7 @@ public class VideLibriApp extends Application implements Bridge.VideLibriContext
                     VideLibriApp.displayAccount(null);
 
                     for (Bridge.PendingException ex : exceptions)
-                        Util.showMessage(currentActivity, ex.accountPrettyNames + ": " + ex.error);
+                        Util.showMessage(ex.accountPrettyNames + ": " + ex.error);
                 }
             }
         };
@@ -72,7 +72,7 @@ public class VideLibriApp extends Application implements Bridge.VideLibriContext
                 String message = status == 1
                         ? "Bibliothek wurde registriert."
                         : "Bibliotheksregistrierung fehlgeschlagen.";
-                Util.showMessage(currentActivity,
+                Util.showMessage(
                         message,
                         new MessageHandler() {
                             @Override
