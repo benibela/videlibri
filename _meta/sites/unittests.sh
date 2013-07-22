@@ -100,8 +100,8 @@ mkdir -p $OUTPATH/aDISWeb
 ADDTEMPLATE aDISWeb/accountOverview 4
 PAGES=(${PAGES[@]} aDISWeb/accountOverview_munich.html aDISWeb/accountOverview_nurnberg.html aDISWeb/accountOverview_nurnberg.fake.html aDISWeb/accountOverview_testhdm.html)
 
-ADDTEMPLATE aDISWeb/list 6
-PAGES=(${PAGES[@]} aDISWeb/list_munich.html aDISWeb/list_nurnberg.html aDISWeb/list_testhdm.html aDISWeb/list_provided_testhdm.html aDISWeb/list_requested_munich.html aDISWeb/list_requested_testhdm.html)
+ADDTEMPLATE aDISWeb/list 7
+PAGES=(${PAGES[@]} aDISWeb/list_munich.html aDISWeb/list_nurnberg.html aDISWeb/list_testhdm.html aDISWeb/list_testhdm2.html  aDISWeb/list_provided_testhdm.html aDISWeb/list_requested_munich.html aDISWeb/list_requested_testhdm.html)
 
 
 ADDTEMPLATE aDISWeb/search 5
