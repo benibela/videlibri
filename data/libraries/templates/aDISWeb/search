@@ -14,6 +14,9 @@
       <DIV class="inside">
         <DIV class="block">
         
+        
+        <span class="txtinsert">Trefferliste</span>
+        
         <div class="toolbar_div"><ul class="toolbar_ul"><li class="toolbar_li">
           <span>Vorwärts</span>
           {search-next-page-available := not(./input/@disabled),
