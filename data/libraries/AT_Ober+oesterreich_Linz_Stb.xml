@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <library>
-  <longName value="Stadtbibliothek Linz (alpha)"/>
+  <longName value="Stadtbibliothek Linz"/>
 
   <template value="libero5"/>
   <variable name="baseurl" value="https://stadtbibliothek.linz.at/libero/"/>
 
   <homepage value="http://www.linz.at/bildung/stadtbibliothek.asp"/>
   <testing-search value="ja" date="2013-07-05"/>
-  <testing-account value="?" date=""/>
-  <testing-renew value="?" date=""/>
+  <testing-account value="ja" date="2013-07-29"/>
+  <testing-renew value="ja" date="2013-07-29"/>
 </library>
