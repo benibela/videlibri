@@ -5,7 +5,7 @@
   <template value="libero5"/>
   <variable name="baseurl" value="http://webopac.moerfelden-walldorf.de/libero/"/>
 
-  <homepage value="http://www.moerfelden-walldorf.de/"/>
+  <homepage value="http://www.moerfelden-walldorf.de/default.asp?action=article&ID=313&KeyWords=stadtb%C3%BCcherei"/>
   <testing-search value="ja" date="2013-07-05"/>
   <testing-account value="?" date=""/>
   <testing-renew value="?" date=""/>

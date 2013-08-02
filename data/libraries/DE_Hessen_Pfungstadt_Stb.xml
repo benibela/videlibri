@@ -5,7 +5,7 @@
   <template value="libero5"/>
   <variable name="baseurl" value="http://buecherei.pfungstadt.de/libero/"/>
 
-  <homepage value="http://buecherei.pfungstadt.de/libero/WebOpac.cls"/>
+  <homepage value="http://www.pfungstadt.de/freizeit-tourismus/stadtbibliothek.html"/>
   <testing-search value="ja" date="2013-07-05"/>
   <testing-account value="?" date=""/>
   <testing-renew value="?" date=""/>
