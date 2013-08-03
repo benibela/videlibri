@@ -1,3 +1,4 @@
 <html>
   <a t:condition="contains(@href, 'MyLoans')">{bookListUrl := @href}</a>
+  <t:read var="delete-current-books"/>
 </html>
