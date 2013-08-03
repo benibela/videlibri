@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<library>
+  <longName value="Stadtbibliothek Lübeck"/>
+  
+  <template value="zones"/>  
+  <variable name="baseurl" value="http://katalog.stadtbibliothek.luebeck.de/alswww2.dll/"/>
+
+  <homepage value="http://stadtbibliothek.luebeck.de/"/>
+  <testing-search value="nein" date=""/>
+  <testing-account value="in 1.52" date="2013-08-03"/>
+  <testing-renew value="?" date=""/>
+</library>
