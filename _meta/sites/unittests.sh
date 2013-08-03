@@ -116,13 +116,13 @@ PAGES=(${PAGES[@]} aDISWeb/connected_furtwangen.html )
 ADDTEMPLATE aDISWeb/searchInputForm 1
 PAGES=(${PAGES[@]} aDISWeb/searchInputForm_mannheim-hsb.html )
 
-#==============BIBLIO-MONDE========
-mkdir -p $OUTPATH/biblioMonde
-ADDTEMPLATE biblioMonde/loggedIn 1
-PAGES=(${PAGES[@]} biblioMonde/loggedIn.html)
+#==============Zones========
+mkdir -p $OUTPATH/zones
+ADDTEMPLATE zones/loggedIn 1
+PAGES=(${PAGES[@]} zones/loggedIn.html)
 
-ADDTEMPLATE biblioMonde/list 1
-PAGES=(${PAGES[@]} biblioMonde/list.html)
+ADDTEMPLATE zones/list 1
+PAGES=(${PAGES[@]} zones/list.html)
 
 #=============DIGIBIB==============
 mkdir -p $OUTPATH/digibib
