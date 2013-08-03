@@ -116,6 +116,14 @@ PAGES=(${PAGES[@]} aDISWeb/connected_furtwangen.html )
 ADDTEMPLATE aDISWeb/searchInputForm 1
 PAGES=(${PAGES[@]} aDISWeb/searchInputForm_mannheim-hsb.html )
 
+#==============BIBLIO-MONDE========
+mkdir -p $OUTPATH/biblioMonde
+ADDTEMPLATE biblioMonde/loggedIn 1
+PAGES=(${PAGES[@]} biblioMonde/loggedIn.html)
+
+ADDTEMPLATE biblioMonde/list 1
+PAGES=(${PAGES[@]} biblioMonde/list.html)
+
 #=============DIGIBIB==============
 mkdir -p $OUTPATH/digibib
 
@@ -125,12 +133,30 @@ TEMPLATES=(${TEMPLATES[@]} $DISE $DISE $DIDE $DIDE $DIDE $DIDE $DIDE)
 PAGES=(${PAGES[@]} digibib/search.html digibib/search2.html digibib/details.html digibib/details2.html digibib/details3.html digibib/details4.html digibib/details5.html)  
 
 error=0
+prev_system=
 for ((i=0;i<${#TEMPLATES[@]};i++)); do
-  echo -e "Testing: ${TEMPLATES[i]} \t\t\twith\t\t $INPATH/${PAGES[i]}"
-  echo $TEMPLATEPARSER $TEMPLATEPARSERARGS $INPATH/${PAGES[i]} --extract-file=$TEMPLATEPATH/${TEMPLATES[i]} 
-  eval $TEMPLATEPARSER $TEMPLATEPARSERARGS $INPATH/${PAGES[i]} --extract-file=$TEMPLATEPATH/${TEMPLATES[i]}  > $OUTPATH/${PAGES[i]}.result
-  if diff -q $INPATH/${PAGES[i]}.result $OUTPATH/${PAGES[i]}.result; then tempasasas=42; else echo ERROR; error=1;     git diff --color-words $INPATH/${PAGES[i]}.result $OUTPATH/${PAGES[i]}.result; fi
+  [[ ${TEMPLATES[i]} =~ (.*/)?([^/]+)/[^/]+ ]]
+  system=${BASH_REMATCH[2]}
+  if [[ "$system" != "$prev_system" ]]; then
+    echo
+    echo -ne "$system: \t."
+    prev_system=$system
+  else echo -n .;  fi
+  
+  eval $TEMPLATEPARSER $TEMPLATEPARSERARGS $INPATH/${PAGES[i]} --extract-file=$TEMPLATEPATH/${TEMPLATES[i]}  > $OUTPATH/${PAGES[i]}.result 2> $OUTPATH/stderr
+  if diff -q $INPATH/${PAGES[i]}.result $OUTPATH/${PAGES[i]}.result; then tempasasas=42; else 
+    echo
+    echo -n ERROR: 
+    echo -e "when testing: ${TEMPLATES[i]} \t\t\twith\t\t $INPATH/${PAGES[i]}"
+    echo $TEMPLATEPARSER $TEMPLATEPARSERARGS $INPATH/${PAGES[i]} --extract-file=$TEMPLATEPATH/${TEMPLATES[i]} 
+    error=1;     
+    cat $OUTPATH/stderr
+    git diff --color-words $INPATH/${PAGES[i]}.result $OUTPATH/${PAGES[i]}.result; 
+  fi
 done;
+
+echo
+echo
 
 echo $error
 if [[ error -ne 0 ]]; then echo -----ERROR\!\!\!-----; fi
