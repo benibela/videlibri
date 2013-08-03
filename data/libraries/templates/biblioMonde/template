@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<actions>
+
+<meta>
+  <description>Template für das BiblioMonde-System</description>
+  <variable name="url"><description>Katalog-URL</description></variable>
+</meta>
+
+
+<action id="connect">
+  <page url="{$url}">
+    <template>
+      <a t:condition="matches(@href, '/APS_ACCOUNT|/APS_ZONES.*fn=Account')">{accountUrl := @href}</a>
+      <a t:condition="matches(@href, '/APS_QUICK_SEARCH|/APS_ZONES.*fn=QuickSearch')">{searchUrl := @href}</a>
+    </template>
+  </page>
+</action>
+
+<action id="search">
+
+
+</action>
+
+<action id="search-next-page"> 
+</action>
+
+
+<action id="search-details"> 
+</action>
+
+
+<action id="update-all">  
+  <page url="{$accountUrl}">
+    <template>
+      <form name="LoginForm">
+        {form := form(., {"BRWR": $username, "PIN": $password})}
+      </form>
+    </template>
+  </page>
+  
+  <page url="{$form}" templateFile="loggedIn"/>
+  
+  <page url="{$bookListUrl}" templateFile="list"/> 
+</action>
+
+</actions>

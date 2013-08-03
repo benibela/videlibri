@@ -1,0 +1,3 @@
+<html>
+  <a t:condition="contains(@href, 'MyLoans')">{bookListUrl := @href}</a>
+</html>

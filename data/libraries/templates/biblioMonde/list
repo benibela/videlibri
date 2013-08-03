@@ -1,0 +1,21 @@
+<html>
+  <DIV id="elScrollingBrowseList">
+    <DIV>
+      <t:loop>
+        <TABLE>
+          <TR>
+            <TD>
+              <A>{book := {"title": .}}</A>
+            </TD>
+            <TD>{$book.author}</TD>
+            <TD/>
+            <TD>{$book.id}</TD>
+            <TD>{$book.issuedate := parse-date(., "dd/mm/yyyy")}</TD>
+            <TD>{$book.duedate := parse-date(., "dd/mm/yyyy")}</TD>
+          </TR>
+        </TABLE>
+      </t:loop>
+    </DIV>
+  </DIV>
+  
+</html>
