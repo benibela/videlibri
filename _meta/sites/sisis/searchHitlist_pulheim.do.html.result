@@ -1,64 +1,64 @@
 book: {}
 
 
-nextPage: undefined: 
-nextPage: node: /webOPACClient/hitList.do?methodToCall=pos&identifier=-1_S_IG.2463.25696&curPos=51#-1
+nextPage: untyped: 
+nextPage: node(): /webOPACClient/hitList.do?methodToCall=pos&identifier=-1_S_IG.2463.25696&curPos=51#-1
 search-result-count: string: 115
 hasZ3988: boolean: false
-brs: sequence: node: Zeitschrift
-node: 
-node: 
-node: 
-book: object: {"orderable": 0, "_detail-url": "/webOPACClient/singleHit.do?methodToCall=showHit&curPos=41&identifier=-1_S_IG.2463.25696", "title": "Test/06/12", "author": "", "author": "Zeitschrift", "year": ""}
+brs: sequence*: node(): Zeitschrift
+node(): 
+node(): 
+node(): 
+book: object(): {"orderable": 0, "_detail-url": "/webOPACClient/singleHit.do?methodToCall=showHit&curPos=41&identifier=-1_S_IG.2463.25696", "title": "Test/06/12", "author": "", "author": "Zeitschrift", "year": ""}
 hasZ3988: boolean: false
-brs: sequence: node: Zeitschrift
-node: 
-node: 
-node: 
-book: object: {"orderable": 0, "_detail-url": "/webOPACClient/singleHit.do?methodToCall=showHit&curPos=42&identifier=-1_S_IG.2463.25696", "title": "Test/07/12", "author": "", "author": "Zeitschrift", "year": ""}
+brs: sequence*: node(): Zeitschrift
+node(): 
+node(): 
+node(): 
+book: object(): {"orderable": 0, "_detail-url": "/webOPACClient/singleHit.do?methodToCall=showHit&curPos=42&identifier=-1_S_IG.2463.25696", "title": "Test/07/12", "author": "", "author": "Zeitschrift", "year": ""}
 hasZ3988: boolean: false
-brs: sequence: node: Zeitschrift
-node: 
-node: 
-node: 
-book: object: {"orderable": 0, "_detail-url": "/webOPACClient/singleHit.do?methodToCall=showHit&curPos=43&identifier=-1_S_IG.2463.25696", "title": "Test/08/12", "author": "", "author": "Zeitschrift", "year": ""}
+brs: sequence*: node(): Zeitschrift
+node(): 
+node(): 
+node(): 
+book: object(): {"orderable": 0, "_detail-url": "/webOPACClient/singleHit.do?methodToCall=showHit&curPos=43&identifier=-1_S_IG.2463.25696", "title": "Test/08/12", "author": "", "author": "Zeitschrift", "year": ""}
 hasZ3988: boolean: false
-brs: sequence: node: Zeitschrift
-node: 
-node: 
-node: 
-book: object: {"orderable": 0, "_detail-url": "/webOPACClient/singleHit.do?methodToCall=showHit&curPos=44&identifier=-1_S_IG.2463.25696", "title": "Test/09/12", "author": "", "author": "Zeitschrift", "year": ""}
+brs: sequence*: node(): Zeitschrift
+node(): 
+node(): 
+node(): 
+book: object(): {"orderable": 0, "_detail-url": "/webOPACClient/singleHit.do?methodToCall=showHit&curPos=44&identifier=-1_S_IG.2463.25696", "title": "Test/09/12", "author": "", "author": "Zeitschrift", "year": ""}
 hasZ3988: boolean: false
-brs: sequence: node: Zeitschrift
-node: 
-node: 
-node: 
-book: object: {"orderable": 0, "_detail-url": "/webOPACClient/singleHit.do?methodToCall=showHit&curPos=45&identifier=-1_S_IG.2463.25696", "title": "Test/10/12", "author": "", "author": "Zeitschrift", "year": ""}
+brs: sequence*: node(): Zeitschrift
+node(): 
+node(): 
+node(): 
+book: object(): {"orderable": 0, "_detail-url": "/webOPACClient/singleHit.do?methodToCall=showHit&curPos=45&identifier=-1_S_IG.2463.25696", "title": "Test/10/12", "author": "", "author": "Zeitschrift", "year": ""}
 hasZ3988: boolean: false
-brs: sequence: node: Zeitschrift
-node: 
-node: 
-node: 
-book: object: {"orderable": 0, "_detail-url": "/webOPACClient/singleHit.do?methodToCall=showHit&curPos=46&identifier=-1_S_IG.2463.25696", "title": "Test/11/12", "author": "", "author": "Zeitschrift", "year": ""}
+brs: sequence*: node(): Zeitschrift
+node(): 
+node(): 
+node(): 
+book: object(): {"orderable": 0, "_detail-url": "/webOPACClient/singleHit.do?methodToCall=showHit&curPos=46&identifier=-1_S_IG.2463.25696", "title": "Test/11/12", "author": "", "author": "Zeitschrift", "year": ""}
 hasZ3988: boolean: false
-brs: sequence: node: Zeitschrift
-node: 
-node: 
-node: 
-book: object: {"orderable": 0, "_detail-url": "/webOPACClient/singleHit.do?methodToCall=showHit&curPos=47&identifier=-1_S_IG.2463.25696", "title": "Test/12/12", "author": "", "author": "Zeitschrift", "year": ""}
+brs: sequence*: node(): Zeitschrift
+node(): 
+node(): 
+node(): 
+book: object(): {"orderable": 0, "_detail-url": "/webOPACClient/singleHit.do?methodToCall=showHit&curPos=47&identifier=-1_S_IG.2463.25696", "title": "Test/12/12", "author": "", "author": "Zeitschrift", "year": ""}
 hasZ3988: boolean: false
-brs: sequence: node: Zeitschrift
-node: 
-node: 
-node: 
-book: object: {"orderable": 0, "_detail-url": "/webOPACClient/singleHit.do?methodToCall=showHit&curPos=48&identifier=-1_S_IG.2463.25696", "title": "Test/01/13", "author": "", "author": "Zeitschrift", "year": ""}
+brs: sequence*: node(): Zeitschrift
+node(): 
+node(): 
+node(): 
+book: object(): {"orderable": 0, "_detail-url": "/webOPACClient/singleHit.do?methodToCall=showHit&curPos=48&identifier=-1_S_IG.2463.25696", "title": "Test/01/13", "author": "", "author": "Zeitschrift", "year": ""}
 hasZ3988: boolean: false
-brs: sequence: node: bestellbar (Lesesaal)
-node: 
-node: 
-book: object: {"orderable": 0, "_detail-url": "/webOPACClient/singleHit.do?methodToCall=showHit&curPos=49&identifier=-1_S_IG.2463.25696", "title": "Test/02/13", "author": "", "author": "bestellbar (Lesesaal)", "author": "", "year": ""}
+brs: sequence*: node(): bestellbar (Lesesaal)
+node(): 
+node(): 
+book: object(): {"orderable": 0, "_detail-url": "/webOPACClient/singleHit.do?methodToCall=showHit&curPos=49&identifier=-1_S_IG.2463.25696", "title": "Test/02/13", "author": "", "author": "bestellbar (Lesesaal)", "author": "", "year": ""}
 hasZ3988: boolean: false
-brs: sequence: node: bestellbar (Lesesaal)
-node: 
-node: 
-book: object: {"orderable": 0, "_detail-url": "/webOPACClient/singleHit.do?methodToCall=showHit&curPos=50&identifier=-1_S_IG.2463.25696", "title": "Test/03/13", "author": "", "author": "bestellbar (Lesesaal)", "author": "", "year": ""}
+brs: sequence*: node(): bestellbar (Lesesaal)
+node(): 
+node(): 
+book: object(): {"orderable": 0, "_detail-url": "/webOPACClient/singleHit.do?methodToCall=showHit&curPos=50&identifier=-1_S_IG.2463.25696", "title": "Test/03/13", "author": "", "author": "bestellbar (Lesesaal)", "author": "", "year": ""}

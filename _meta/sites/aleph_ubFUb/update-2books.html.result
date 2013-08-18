@@ -2,6 +2,6 @@ book: {}
 
 
 noBooks: string: 
-delete-current-books(): undefined: 
-book: object: {"detailLink": "http://aleph-www.ub.fu-berlin.de:80/F/BDI3FB89A3CRKIHUJEQNGQ9M4FD2T3E74E9157IM18AMNKNXVE-32596?func=BOR-LOAN-EXP&doc_number=001234504&item_sequence=000010&index=0001&adm_library=FUB50", "author": "Sqrtzup, Abcde", "title": "Zum Bär der Nacht", "year": "1998", "duedate": "2011-01-30", "id": "123.456789221/S3451", "category": ""}
-book: object: {"detailLink": "http://aleph-www.ub.fu-berlin.de:80/F/BDI3FB89A3CRKIHUJEQNGQ9M4FD2T3E74E9157IM18AMNKNXVE-32598?func=BOR-LOAN-EXP&doc_number=00323454&item_sequence=000010&index=0002&adm_library=FUB50", "author": "Hagel, Korn", "title": "Schneeeroberung", "year": "2008", "duedate": "2011-01-31", "id": "969.12345/H678", "category": ""}
+delete-current-books(): untyped: 
+book: object(): {"detailLink": "http://aleph-www.ub.fu-berlin.de:80/F/BDI3FB89A3CRKIHUJEQNGQ9M4FD2T3E74E9157IM18AMNKNXVE-32596?func=BOR-LOAN-EXP&doc_number=001234504&item_sequence=000010&index=0001&adm_library=FUB50", "author": "Sqrtzup, Abcde", "title": "Zum Bär der Nacht", "year": "1998", "duedate": "2011-01-30", "id": "123.456789221/S3451", "category": ""}
+book: object(): {"detailLink": "http://aleph-www.ub.fu-berlin.de:80/F/BDI3FB89A3CRKIHUJEQNGQ9M4FD2T3E74E9157IM18AMNKNXVE-32598?func=BOR-LOAN-EXP&doc_number=00323454&item_sequence=000010&index=0002&adm_library=FUB50", "author": "Hagel, Korn", "title": "Schneeeroberung", "year": "2008", "duedate": "2011-01-31", "id": "969.12345/H678", "category": ""}

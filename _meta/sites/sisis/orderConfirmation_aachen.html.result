@@ -1,8 +1,8 @@
 book: {}
 
 
-issuePoints: sequence: node: 0
-issuePoints: sequence: node: 0
-node: 2
-confirm: object: {"method": "POST", "post": "methodToCall=reservation&CSId=34973N33S510eac3e35861e5a86b08c269f23b8a6a000a0ea&issuepoint=", "url": "/InfoGuideClient/reservation.do"}
-book: object: {"orderConfirmationOptionTitles": " Ausleihtheke", "orderConfirmationOptionTitles": " Ausleihtheke\\| INFORMATIONSZENTRUM", "orderConfirmation": "Wohin soll das Buch vorbestellt werden?"}
+issuePoints: sequence*: node(): 0
+issuePoints: sequence*: node(): 0
+node(): 2
+confirm: object(): {"method": "POST", "post": "methodToCall=reservation&CSId=34973N33S510eac3e35861e5a86b08c269f23b8a6a000a0ea&issuepoint=", "url": "/InfoGuideClient/reservation.do"}
+book: object(): {"orderConfirmationOptionTitles": " Ausleihtheke", "orderConfirmationOptionTitles": " Ausleihtheke\\| INFORMATIONSZENTRUM", "orderConfirmation": "Wohin soll das Buch vorbestellt werden?"}

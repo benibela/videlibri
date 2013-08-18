@@ -6,9 +6,9 @@ nextPage: string:
 startUrl: string: 
 bookCountLend: string: 0
 bookCountRequested: string: 1
-requestedUrl: node: http://sisis.bth.rwth-aachen.de:8080/InfoGuideClient/userAccount.do?methodToCall=showAccount&typ=6
+requestedUrl: node(): http://sisis.bth.rwth-aachen.de:8080/InfoGuideClient/userAccount.do?methodToCall=showAccount&typ=6
 bookCountOrdered: string: 0
-orderedUrl: node: http://sisis.bth.rwth-aachen.de:8080/InfoGuideClient/userAccount.do?methodToCall=showAccount&typ=7
+orderedUrl: node(): http://sisis.bth.rwth-aachen.de:8080/InfoGuideClient/userAccount.do?methodToCall=showAccount&typ=7
 bookCount: string: 0
 inOrdered: boolean: false
-delete-current-books(): undefined: 
+delete-current-books(): untyped: 

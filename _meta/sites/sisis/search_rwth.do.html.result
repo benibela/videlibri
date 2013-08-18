@@ -1,38 +1,38 @@
 book: {}
 
 
-nextPage: undefined: 
-nextPage: node: /InfoGuideClient/hitList.do?methodToCall=pos&identifier=-1_S_IG.805.4070&curPos=11#-1
+nextPage: untyped: 
+nextPage: node(): /InfoGuideClient/hitList.do?methodToCall=pos&identifier=-1_S_IG.805.4070&curPos=11#-1
 search-result-count: string: 1419
 hasZ3988: boolean: false
-book: object: {"orderable": 0, "_detail-url": "/InfoGuideClient/singleHit.do?methodToCall=showHit&curPos=1&identifier=-1_S_IG.805.4070", "title": "Handbuch zum Rosenzweig Picture-Frustration Test (PFT)", "author": " Rauchfleisch, Udo"}
-result: undefined: 
+book: object(): {"orderable": 0, "_detail-url": "/InfoGuideClient/singleHit.do?methodToCall=showHit&curPos=1&identifier=-1_S_IG.805.4070", "title": "Handbuch zum Rosenzweig Picture-Frustration Test (PFT)", "author": " Rauchfleisch, Udo"}
+result: untyped: 
 hasZ3988: boolean: false
-brs: node: 
-book: object: {"orderable": 0, "_detail-url": "/InfoGuideClient/singleHit.do?methodToCall=showHit&curPos=2&identifier=-1_S_IG.805.4070", "title": "Admission test series", "author": "", "author": "", "year": ""}
+brs: node(): 
+book: object(): {"orderable": 0, "_detail-url": "/InfoGuideClient/singleHit.do?methodToCall=showHit&curPos=2&identifier=-1_S_IG.805.4070", "title": "Admission test series", "author": "", "author": "", "year": ""}
 hasZ3988: boolean: false
-book: object: {"orderable": 0, "_detail-url": "/InfoGuideClient/singleHit.do?methodToCall=showHit&curPos=3&identifier=-1_S_IG.805.4070", "title": "Aachener Aphasie-Test", "author": " Huber, Walter"}
-result: undefined: 
+book: object(): {"orderable": 0, "_detail-url": "/InfoGuideClient/singleHit.do?methodToCall=showHit&curPos=3&identifier=-1_S_IG.805.4070", "title": "Aachener Aphasie-Test", "author": " Huber, Walter"}
+result: untyped: 
 hasZ3988: boolean: false
-temp: node:  Section 2, structure and written expression (1996). 
-book: object: {"orderable": 0, "_detail-url": "/InfoGuideClient/singleHit.do?methodToCall=showHit&curPos=4&identifier=-1_S_IG.805.4070", "title": "¬The Penguin practice book for the TOEFL test/Section 2, structure and written expression (1996)", "author": "", "subTitle": " Section 2, structure and written expression . ", "year": "1996"}
-result: undefined: 
+temp: node():  Section 2, structure and written expression (1996). 
+book: object(): {"orderable": 0, "_detail-url": "/InfoGuideClient/singleHit.do?methodToCall=showHit&curPos=4&identifier=-1_S_IG.805.4070", "title": "¬The Penguin practice book for the TOEFL test/Section 2, structure and written expression (1996)", "author": "", "subTitle": " Section 2, structure and written expression . ", "year": "1996"}
+result: untyped: 
 hasZ3988: boolean: false
-temp: node:  Section 3, reading comprehension (1996). 
-book: object: {"orderable": 0, "_detail-url": "/InfoGuideClient/singleHit.do?methodToCall=showHit&curPos=5&identifier=-1_S_IG.805.4070", "title": "¬The Penguin practice book for the TOEFL test/Section 3, reading comprehension (1996)", "author": "", "subTitle": " Section 3, reading comprehension . ", "year": "1996"}
-result: undefined: 
+temp: node():  Section 3, reading comprehension (1996). 
+book: object(): {"orderable": 0, "_detail-url": "/InfoGuideClient/singleHit.do?methodToCall=showHit&curPos=5&identifier=-1_S_IG.805.4070", "title": "¬The Penguin practice book for the TOEFL test/Section 3, reading comprehension (1996)", "author": "", "subTitle": " Section 3, reading comprehension . ", "year": "1996"}
+result: untyped: 
 hasZ3988: boolean: false
-brs: node: 
-book: object: {"orderable": 0, "_detail-url": "/InfoGuideClient/singleHit.do?methodToCall=showHit&curPos=6&identifier=-1_S_IG.805.4070", "title": "Test methods and design allowables for fibrous composites", "author": "", "author": "", "year": ""}
+brs: node(): 
+book: object(): {"orderable": 0, "_detail-url": "/InfoGuideClient/singleHit.do?methodToCall=showHit&curPos=6&identifier=-1_S_IG.805.4070", "title": "Test methods and design allowables for fibrous composites", "author": "", "author": "", "year": ""}
 hasZ3988: boolean: false
-book: object: {"orderable": 0, "_detail-url": "/InfoGuideClient/singleHit.do?methodToCall=showHit&curPos=7&identifier=-1_S_IG.805.4070", "title": "Agard engine disc cooperative test programme", "author": " Mom, A. J."}
-result: undefined: 
+book: object(): {"orderable": 0, "_detail-url": "/InfoGuideClient/singleHit.do?methodToCall=showHit&curPos=7&identifier=-1_S_IG.805.4070", "title": "Agard engine disc cooperative test programme", "author": " Mom, A. J."}
+result: untyped: 
 hasZ3988: boolean: false
-book: object: {"orderable": 0, "_detail-url": "/InfoGuideClient/singleHit.do?methodToCall=showHit&curPos=8&identifier=-1_S_IG.805.4070", "title": "AGARD flight test techniques series", "author": " NATO / Advisory Group for Aerospace Research and Development"}
-result: undefined: 
+book: object(): {"orderable": 0, "_detail-url": "/InfoGuideClient/singleHit.do?methodToCall=showHit&curPos=8&identifier=-1_S_IG.805.4070", "title": "AGARD flight test techniques series", "author": " NATO / Advisory Group for Aerospace Research and Development"}
+result: untyped: 
 hasZ3988: boolean: false
-book: object: {"orderable": 0, "_detail-url": "/InfoGuideClient/singleHit.do?methodToCall=showHit&curPos=9&identifier=-1_S_IG.805.4070", "title": "Detergency", "author": " Cutler, Warren Gale ¬[Hrsg.]"}
-result: undefined: 
+book: object(): {"orderable": 0, "_detail-url": "/InfoGuideClient/singleHit.do?methodToCall=showHit&curPos=9&identifier=-1_S_IG.805.4070", "title": "Detergency", "author": " Cutler, Warren Gale ¬[Hrsg.]"}
+result: untyped: 
 hasZ3988: boolean: false
-book: object: {"orderable": 0, "_detail-url": "/InfoGuideClient/singleHit.do?methodToCall=showHit&curPos=10&identifier=-1_S_IG.805.4070", "title": "Status report KfK contribution to the development of Demo relevant test blankets for NET ITER", "author": " Adelhelm, Christel"}
-result: undefined: 
+book: object(): {"orderable": 0, "_detail-url": "/InfoGuideClient/singleHit.do?methodToCall=showHit&curPos=10&identifier=-1_S_IG.805.4070", "title": "Status report KfK contribution to the development of Demo relevant test blankets for NET ITER", "author": " Adelhelm, Christel"}
+result: untyped: 

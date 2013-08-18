@@ -3,4 +3,4 @@ book: {}
 
 noBooks: string: 
 noBooks: string: true
-delete-current-books(): undefined: 
+delete-current-books(): untyped: 

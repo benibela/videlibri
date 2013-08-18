@@ -3,6 +3,6 @@ book: {}
 
 goBackPage: string: 
 orderedPage: string: 
-kontoPage: node: /fakeurl
+kontoPage: node(): /fakeurl
 providedPage: string: 
-requestedPage: node: /fakeurl2
+requestedPage: node(): /fakeurl2

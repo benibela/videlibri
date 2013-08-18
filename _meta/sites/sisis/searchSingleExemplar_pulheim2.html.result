@@ -4,4 +4,4 @@ book: {}
 row: integer: 0
 needOrders: boolean: true
 row: integer: 1
-book: object: {"Exemplar 1!": "222548X, Erdgeschoss, Zeitschrift, entliehen bis 29.07.2013 (gesamte Vormerkungen: 0)", "orderTitle": "222548X, Erdgeschoss, Zeitschrift, entliehen bis 29.07.2013 (gesamte Vormerkungen: 0)", "order": "/webOPACClient/availability.do?methodToCall=doVormerkung&mednr=222548X&katkey=158150&title=%C3%96ko-Test+-+2012-12&author=&context=null", "orderable": null}
+book: object(): {"Exemplar 1!": "222548X, Erdgeschoss, Zeitschrift, entliehen bis 29.07.2013 (gesamte Vormerkungen: 0)", "orderTitle": "222548X, Erdgeschoss, Zeitschrift, entliehen bis 29.07.2013 (gesamte Vormerkungen: 0)", "order": "/webOPACClient/availability.do?methodToCall=doVormerkung&mednr=222548X&katkey=158150&title=%C3%96ko-Test+-+2012-12&author=&context=null", "orderable": null}

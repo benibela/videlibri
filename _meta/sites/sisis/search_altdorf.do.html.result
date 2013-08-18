@@ -1,72 +1,72 @@
 book: {}
 
 
-nextPage: undefined: 
-nextPage: node: /webOPACClient.sisis/hitList.do?methodToCall=pos&identifier=-1_S_IG.127.14832&curPos=11#-1
+nextPage: untyped: 
+nextPage: node(): /webOPACClient.sisis/hitList.do?methodToCall=pos&identifier=-1_S_IG.127.14832&curPos=11#-1
 search-result-count: string: 33
 hasZ3988: boolean: false
-brs: sequence: node: Arnold, Florian
-node: 
-node: 
-book: object: {"orderable": 0, "_detail-url": "/webOPACClient.sisis/singleHit.do?methodToCall=showHit&curPos=1&identifier=-1_S_IG.127.14832", "title": "Heikle Mission am Gemsstock", "author": "", "author": "Arnold, Florian", "year": ""}
+brs: sequence*: node(): Arnold, Florian
+node(): 
+node(): 
+book: object(): {"orderable": 0, "_detail-url": "/webOPACClient.sisis/singleHit.do?methodToCall=showHit&curPos=1&identifier=-1_S_IG.127.14832", "title": "Heikle Mission am Gemsstock", "author": "", "author": "Arnold, Florian", "year": ""}
 hasZ3988: boolean: false
-brs: sequence: node: Aschwanden, Ralph
-node: 
-node: 
-book: object: {"orderable": 0, "_detail-url": "/webOPACClient.sisis/singleHit.do?methodToCall=showHit&curPos=2&identifier=-1_S_IG.127.14832", "title": "_Die Emotionen in Attinghausen gehen hoch", "author": "", "author": "Aschwanden, Ralph", "year": ""}
+brs: sequence*: node(): Aschwanden, Ralph
+node(): 
+node(): 
+book: object(): {"orderable": 0, "_detail-url": "/webOPACClient.sisis/singleHit.do?methodToCall=showHit&curPos=2&identifier=-1_S_IG.127.14832", "title": "_Die Emotionen in Attinghausen gehen hoch", "author": "", "author": "Aschwanden, Ralph", "year": ""}
 hasZ3988: boolean: false
-brs: sequence: node: Aschwanden, Ralph
-node: 
-node: 
-book: object: {"orderable": 0, "_detail-url": "/webOPACClient.sisis/singleHit.do?methodToCall=showHit&curPos=3&identifier=-1_S_IG.127.14832", "title": "_Die Urner Gastrobetriebe bestehen den Mystery-Test", "author": "", "author": "Aschwanden, Ralph", "year": ""}
+brs: sequence*: node(): Aschwanden, Ralph
+node(): 
+node(): 
+book: object(): {"orderable": 0, "_detail-url": "/webOPACClient.sisis/singleHit.do?methodToCall=showHit&curPos=3&identifier=-1_S_IG.127.14832", "title": "_Die Urner Gastrobetriebe bestehen den Mystery-Test", "author": "", "author": "Aschwanden, Ralph", "year": ""}
 hasZ3988: boolean: false
-brs: sequence: node: Benini, Francesco
-node: 2005
-node: UBg 7949
-node: 
-node: 
-book: object: {"orderable": 0, "_detail-url": "/webOPACClient.sisis/singleHit.do?methodToCall=showHit&curPos=4&identifier=-1_S_IG.127.14832", "title": "Innerrhoder Maturanden sind spitze", "author": "", "author": "Benini, Francesco", "year": "2005"}
+brs: sequence*: node(): Benini, Francesco
+node(): 2005
+node(): UBg 7949
+node(): 
+node(): 
+book: object(): {"orderable": 0, "_detail-url": "/webOPACClient.sisis/singleHit.do?methodToCall=showHit&curPos=4&identifier=-1_S_IG.127.14832", "title": "Innerrhoder Maturanden sind spitze", "author": "", "author": "Benini, Francesco", "year": "2005"}
 hasZ3988: boolean: false
-brs: sequence: node: Bernard, Emanuel
-node: [1967]
-node: UB 4911
-node: 
-node: 
-book: object: {"orderable": 0, "_detail-url": "/webOPACClient.sisis/singleHit.do?methodToCall=showHit&curPos=5&identifier=-1_S_IG.127.14832", "title": "Avistomat-Methode garantiert den Spracherfolg dank der natürlichen Sprachtechnik - Italienisch/Heft 1", "author": "", "author": "Bernard, Emanuel", "year": "[1967]"}
+brs: sequence*: node(): Bernard, Emanuel
+node(): [1967]
+node(): UB 4911
+node(): 
+node(): 
+book: object(): {"orderable": 0, "_detail-url": "/webOPACClient.sisis/singleHit.do?methodToCall=showHit&curPos=5&identifier=-1_S_IG.127.14832", "title": "Avistomat-Methode garantiert den Spracherfolg dank der natürlichen Sprachtechnik - Italienisch/Heft 1", "author": "", "author": "Bernard, Emanuel", "year": "[1967]"}
 hasZ3988: boolean: false
-brs: sequence: node: Bernard, Emanuel
-node: [1968]
-node: UB 4912
-node: 
-node: 
-book: object: {"orderable": 0, "_detail-url": "/webOPACClient.sisis/singleHit.do?methodToCall=showHit&curPos=6&identifier=-1_S_IG.127.14832", "title": "Avistomat-Methode garantiert den Spracherfolg dank der natürlichen Sprachtechnik - Italienisch/Heft 2", "author": "", "author": "Bernard, Emanuel", "year": "[1968]"}
+brs: sequence*: node(): Bernard, Emanuel
+node(): [1968]
+node(): UB 4912
+node(): 
+node(): 
+book: object(): {"orderable": 0, "_detail-url": "/webOPACClient.sisis/singleHit.do?methodToCall=showHit&curPos=6&identifier=-1_S_IG.127.14832", "title": "Avistomat-Methode garantiert den Spracherfolg dank der natürlichen Sprachtechnik - Italienisch/Heft 2", "author": "", "author": "Bernard, Emanuel", "year": "[1968]"}
 hasZ3988: boolean: false
-brs: sequence: node: Bolli, Thomas
-node: 2006
-node: UBg 8317
-node: 
-node: 
-book: object: {"orderable": 0, "_detail-url": "/webOPACClient.sisis/singleHit.do?methodToCall=showHit&curPos=7&identifier=-1_S_IG.127.14832", "title": "Im alten Sportwagen auf den Klausen hinaufbrausen", "author": "", "author": "Bolli, Thomas", "year": "2006"}
+brs: sequence*: node(): Bolli, Thomas
+node(): 2006
+node(): UBg 8317
+node(): 
+node(): 
+book: object(): {"orderable": 0, "_detail-url": "/webOPACClient.sisis/singleHit.do?methodToCall=showHit&curPos=7&identifier=-1_S_IG.127.14832", "title": "Im alten Sportwagen auf den Klausen hinaufbrausen", "author": "", "author": "Bolli, Thomas", "year": "2006"}
 hasZ3988: boolean: false
-brs: sequence: node: Bopp, Annette
-node: 2000
-node: 615(03)
-node: 
-node: 
-book: object: {"orderable": 0, "_detail-url": "/webOPACClient.sisis/singleHit.do?methodToCall=showHit&curPos=8&identifier=-1_S_IG.127.14832", "title": "Handbuch Medikamente", "author": "", "author": "Bopp, Annette", "year": "2000"}
+brs: sequence*: node(): Bopp, Annette
+node(): 2000
+node(): 615(03)
+node(): 
+node(): 
+book: object(): {"orderable": 0, "_detail-url": "/webOPACClient.sisis/singleHit.do?methodToCall=showHit&curPos=8&identifier=-1_S_IG.127.14832", "title": "Handbuch Medikamente", "author": "", "author": "Bopp, Annette", "year": "2000"}
 hasZ3988: boolean: false
-brs: sequence: node: Bricker, Elias
-node: 
-node: 
-book: object: {"orderable": 0, "_detail-url": "/webOPACClient.sisis/singleHit.do?methodToCall=showHit&curPos=9&identifier=-1_S_IG.127.14832", "title": "Test : Hier bekommen die Urner die besten Kebabs", "author": "", "author": "Bricker, Elias", "year": ""}
+brs: sequence*: node(): Bricker, Elias
+node(): 
+node(): 
+book: object(): {"orderable": 0, "_detail-url": "/webOPACClient.sisis/singleHit.do?methodToCall=showHit&curPos=9&identifier=-1_S_IG.127.14832", "title": "Test : Hier bekommen die Urner die besten Kebabs", "author": "", "author": "Bricker, Elias", "year": ""}
 hasZ3988: boolean: false
-brs: sequence: node: 2007
-node: 778
-node: 
-node: 
-brs: sequence: string: 
-node: 2007
-node: 778
-node: 
-node: 
-book: object: {"orderable": 0, "_detail-url": "/webOPACClient.sisis/singleHit.do?methodToCall=showHit&curPos=10&identifier=-1_S_IG.127.14832", "title": "Crash Test Dummies [DVD-Videoaufzeichnung]", "author": "", "author": "", "year": "2007"}
+brs: sequence*: node(): 2007
+node(): 778
+node(): 
+node(): 
+brs: sequence*: string: 
+node(): 2007
+node(): 778
+node(): 
+node(): 
+book: object(): {"orderable": 0, "_detail-url": "/webOPACClient.sisis/singleHit.do?methodToCall=showHit&curPos=10&identifier=-1_S_IG.127.14832", "title": "Crash Test Dummies [DVD-Videoaufzeichnung]", "author": "", "author": "", "year": "2007"}

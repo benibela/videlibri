@@ -1,7 +1,7 @@
 book: {}
 
 
-result: undefined: 
+result: untyped: 
 temp: string: Bestand:
 temp: string: ZDB-Signatur:
 temp: string: ZDB-Bemerkung:
@@ -11,4 +11,4 @@ temp: string: Ausgabeform:
 temp: string: Erscheinungsart:
 temp: string: ID:
 temp: string: MedienArt:
-book: object: {"Bestand:!": "1.1756 - 35.1757", "ZDB-Signatur:!": "Zf2304", "ZDB-Bemerkung:!": "Repr. 1979", "title": "Test", "Erscheinungsverlauf:!": "1.1756 - 35.1757; damit Ersch. eingest.", "location": "London", "Jahr, Ansetzung:!": "1756", "Ausgabeform:!": "Repr.: New York, NY : AMS Pr", "Erscheinungsart:!": "p ( =\n        Zeitschrift\n        \n        \n        \n        \n        \n        \n        \n        )", "ID:!": "HT007016928", "MedienArt:!": "a ( = Gedrucktes Werk )"}
+book: object(): {"Bestand:!": "1.1756 - 35.1757", "ZDB-Signatur:!": "Zf2304", "ZDB-Bemerkung:!": "Repr. 1979", "title": "Test", "Erscheinungsverlauf:!": "1.1756 - 35.1757; damit Ersch. eingest.", "location": "London", "Jahr, Ansetzung:!": "1756", "Ausgabeform:!": "Repr.: New York, NY : AMS Pr", "Erscheinungsart:!": "p ( =\n        Zeitschrift\n        \n        \n        \n        \n        \n        \n        \n        )", "ID:!": "HT007016928", "MedienArt:!": "a ( = Gedrucktes Werk )"}

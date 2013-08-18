@@ -2,29 +2,29 @@ book: {}
 
 
 templateError: string: true
-newExtendId: node: 111111234
-newLimit: node: 10.01.2011
-V: node: 1
+newExtendId: node(): 111111234
+newLimit: node(): 10.01.2011
+V: node(): 1
 status: string: Potsdamer Straße, Buchabholbereich
 templateError: boolean: false
-newExtendId: node: 145555567
-newLimit: node: 10.01.2011
-V: node: 1
+newExtendId: node(): 145555567
+newLimit: node(): 10.01.2011
+V: node(): 1
 status: string: Potsdamer Straße, Buchabholbereich
 templateError: boolean: false
-newExtendId: node: 147328083
-newLimit: node: 12.01.2011
-V: node: 1
+newExtendId: node(): 147328083
+newLimit: node(): 12.01.2011
+V: node(): 1
 status: string: Potsdamer Straße, Buchabholbereich
 templateError: boolean: false
-newExtendId: node: 148213492
-newLimit: node: 22.01.2011
-V: node: 1
+newExtendId: node(): 148213492
+newLimit: node(): 22.01.2011
+V: node(): 1
 status: string: Potsdamer Straße, Buchabholbereich
 templateError: boolean: false
-newExtendId: node: 115650431
-newLimit: node: 22.01.2011
-V: node: 1
+newExtendId: node(): 115650431
+newLimit: node(): 22.01.2011
+V: node(): 1
 status: string: Potsdamer Straße, Buchabholbereich
-book: object: {"status:curious": "1-mal verlängert, Potsdamer Straße, Buchabholbereich", "duedate": "2011-01-10", "status:curious": "1-mal verlängert, Potsdamer Straße, Buchabholbereich", "duedate": "2011-01-10", "status:curious": "1-mal verlängert, Potsdamer Straße, Buchabholbereich", "duedate": "2011-01-12", "status:curious": "1-mal verlängert, Potsdamer Straße, Buchabholbereich", "duedate": "2011-01-22", "status:curious": "1-mal verlängert, Potsdamer Straße, Buchabholbereich", "duedate": "2011-01-22"}
+book: object(): {"status:curious": "1-mal verlängert, Potsdamer Straße, Buchabholbereich", "duedate": "2011-01-10", "status:curious": "1-mal verlängert, Potsdamer Straße, Buchabholbereich", "duedate": "2011-01-10", "status:curious": "1-mal verlängert, Potsdamer Straße, Buchabholbereich", "duedate": "2011-01-12", "status:curious": "1-mal verlängert, Potsdamer Straße, Buchabholbereich", "duedate": "2011-01-22", "status:curious": "1-mal verlängert, Potsdamer Straße, Buchabholbereich", "duedate": "2011-01-22"}
 templateError: boolean: false

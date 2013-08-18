@@ -4,89 +4,89 @@ book: {}
 search-result-count: string: 28
 lastSearchedIndex: integer: 0
 search-next-page-available: boolean: false
-form: object: {"method": "POST", "post": "service=direct%2F1%2FPOOLM39PBSZPROD%40_44002500_2BD9D480%2F%24Form.form&sp=S0&Form0=focus%2CkeyCode%2Cstz%2Csource%2Cselected%2CrequestCount%2CscriptEnabled%2CscrollPos%2CscrDim%2CwinDim%2CimgDim%2C%24Textfield%2C%24FormConditional%2CtextButton%2C%24FormConditional%240%2CtextButton%240%2C%24FormConditional%241%2C%24FormConditional%242%2CtextButton%241%2C%24FormConditional%243%2CtextButton%242%2C%24FormConditional%244%2CtextButton%243%2CtextButton%244%2CtextButton%245%2CtextButton%246%2CtextButton%247%2CtextButton%248%2CtextButton%249%2C%24FormConditional%245%2CtextButton%2410%2C%24Toolbar%2CcellCheck%2CcellCheck%240%2CcellCheck%241%2CcellCheck%242%2CcellCheck%243%2CcellCheck%244%2CcellCheck%245%2CcellCheck%246%2CcellCheck%247%2CcellCheck%248%2CcellCheck%249%2CcellCheck%2410%2CcellCheck%2411%2CcellCheck%2412%2CcellCheck%2413%2CcellCheck%2414%2CcellCheck%2415%2CcellCheck%2416%2CcellCheck%2417%2CcellCheck%2418%2CcellCheck%2419%2CcellCheck%2420%2CcellCheck%2421%2CcellCheck%2422%2CcellCheck%2423%2CcellCheck%2424%2CcellCheck%2425%2CcellCheck%2426%2C%24Toolbar%240&focus=&keyCode=0&stz=&source=&selected=&requestCount=2&scriptEnabled=F&scrollPos=0&scrDim=&winDim=&imgDim=&%24FormConditional=T&%24FormConditional%240=T&%24FormConditional%241=F&%24FormConditional%242=T&%24FormConditional%243=T&%24FormConditional%244=F&%24FormConditional%245=T&%24Textfield=", "url": "/aDISWeb/app;jsessionid=2C10F71CD5A73C3C9717C7EB493EC2D8"}
+form: object(): {"method": "POST", "post": "service=direct%2F1%2FPOOLM39PBSZPROD%40_44002500_2BD9D480%2F%24Form.form&sp=S0&Form0=focus%2CkeyCode%2Cstz%2Csource%2Cselected%2CrequestCount%2CscriptEnabled%2CscrollPos%2CscrDim%2CwinDim%2CimgDim%2C%24Textfield%2C%24FormConditional%2CtextButton%2C%24FormConditional%240%2CtextButton%240%2C%24FormConditional%241%2C%24FormConditional%242%2CtextButton%241%2C%24FormConditional%243%2CtextButton%242%2C%24FormConditional%244%2CtextButton%243%2CtextButton%244%2CtextButton%245%2CtextButton%246%2CtextButton%247%2CtextButton%248%2CtextButton%249%2C%24FormConditional%245%2CtextButton%2410%2C%24Toolbar%2CcellCheck%2CcellCheck%240%2CcellCheck%241%2CcellCheck%242%2CcellCheck%243%2CcellCheck%244%2CcellCheck%245%2CcellCheck%246%2CcellCheck%247%2CcellCheck%248%2CcellCheck%249%2CcellCheck%2410%2CcellCheck%2411%2CcellCheck%2412%2CcellCheck%2413%2CcellCheck%2414%2CcellCheck%2415%2CcellCheck%2416%2CcellCheck%2417%2CcellCheck%2418%2CcellCheck%2419%2CcellCheck%2420%2CcellCheck%2421%2CcellCheck%2422%2CcellCheck%2423%2CcellCheck%2424%2CcellCheck%2425%2CcellCheck%2426%2C%24Toolbar%240&focus=&keyCode=0&stz=&source=&selected=&requestCount=2&scriptEnabled=F&scrollPos=0&scrDim=&winDim=&imgDim=&%24FormConditional=T&%24FormConditional%240=T&%24FormConditional%241=F&%24FormConditional%242=T&%24FormConditional%243=T&%24FormConditional%244=F&%24FormConditional%245=T&%24Textfield=", "url": "/aDISWeb/app;jsessionid=2C10F71CD5A73C3C9717C7EB493EC2D8"}
 firstIndex: double: 1
 lastIndex: double: 1
-book: object: {"title": "Qualitätssicherung durch Softwaretests : Vorgehensweisen und Werkzeuge zum Test von Java-Programmen ", "author": " von Stephan Kleuker. ", "publisher": " Springer Vieweg", "_searchId": "ZTEXT%20%20%20%20%20%20%20AK02167123", "_index": 1, "Volltext!": "Volltext ( http://dx.doi.org/10.1007/978-3-8348-2068-6 )", "year": "2013"}
+book: object(): {"title": "Qualitätssicherung durch Softwaretests : Vorgehensweisen und Werkzeuge zum Test von Java-Programmen ", "author": " von Stephan Kleuker. ", "publisher": " Springer Vieweg", "_searchId": "ZTEXT%20%20%20%20%20%20%20AK02167123", "_index": 1, "Volltext!": "Volltext ( http://dx.doi.org/10.1007/978-3-8348-2068-6 )", "year": "2013"}
 lastSearchedIndex: double: 1
 lastIndex: double: 2
-book: object: {"title": "Immobilien-Fachwissen im Test : 500 Fragen, 500 Antworten ", "author": " Erwin Sailer. ", "publisher": " Grabener", "_searchId": "ZTEXT%20%20%20%20%20%20%20AK00514319", "_index": 2, "year": "2010"}
+book: object(): {"title": "Immobilien-Fachwissen im Test : 500 Fragen, 500 Antworten ", "author": " Erwin Sailer. ", "publisher": " Grabener", "_searchId": "ZTEXT%20%20%20%20%20%20%20AK00514319", "_index": 2, "year": "2010"}
 lastSearchedIndex: double: 2
 lastIndex: double: 3
-book: object: {"title": "TOEFL iBT Internetbased Test  In: Barron's TOEFL iBT : internet-based test. - Buch. - (2010)", "author": "", "publisher": " (2010)", "_searchId": "ZTEXT%20%20%20%20%20%20%20AK10003817", "_index": 3, "year": "2010"}
+book: object(): {"title": "TOEFL iBT Internetbased Test  In: Barron's TOEFL iBT : internet-based test. - Buch. - (2010)", "author": "", "publisher": " (2010)", "_searchId": "ZTEXT%20%20%20%20%20%20%20AK10003817", "_index": 3, "year": "2010"}
 lastSearchedIndex: double: 3
 lastIndex: double: 4
-book: object: {"title": "Intangible Impairment : Qualitativer Impairment-Test für immaterielle Vermögenswerte ", "author": " von Arnt Wöhrmann. ", "publisher": " Gabler", "_searchId": "ZTEXT%20%20%20%20%20%20%20AK00322396", "_index": 4, "Volltext!": "Volltext ( http://dx.doi.org/10.1007/978-3-8349-8448-7 )", "year": "2009"}
+book: object(): {"title": "Intangible Impairment : Qualitativer Impairment-Test für immaterielle Vermögenswerte ", "author": " von Arnt Wöhrmann. ", "publisher": " Gabler", "_searchId": "ZTEXT%20%20%20%20%20%20%20AK00322396", "_index": 4, "Volltext!": "Volltext ( http://dx.doi.org/10.1007/978-3-8349-8448-7 )", "year": "2009"}
 lastSearchedIndex: double: 4
 lastIndex: double: 5
-book: object: {"title": "¬The¬ official guide to the TOEFL test : [find out all about the TOEFL Internet-based Test ; practice with hundreds of real TOEFL questions and essay topics ; read ETS raters' comments on actual responses ; CD-ROM with 2 full-length authentic TOEFL tests] ", "author": " ETS. ", "publisher": "Hill", "_searchId": "ZTEXT%20%20%20%20%20%20%20AK00312862", "_index": 5, "year": "2009"}
+book: object(): {"title": "¬The¬ official guide to the TOEFL test : [find out all about the TOEFL Internet-based Test ; practice with hundreds of real TOEFL questions and essay topics ; read ETS raters' comments on actual responses ; CD-ROM with 2 full-length authentic TOEFL tests] ", "author": " ETS. ", "publisher": "Hill", "_searchId": "ZTEXT%20%20%20%20%20%20%20AK00312862", "_index": 5, "year": "2009"}
 lastSearchedIndex: double: 5
 lastIndex: double: 6
-book: object: {"title": "Erstellung und Test eines Simulationsmodells von Wärmeabnehmern in einer KWKK-Anlage ", "author": " Sebastian Schramm. ", "publisher": "Verl.", "_searchId": "ZTEXT%20%20%20%20%20%20%20AK02068599", "_index": 6, "year": "2008"}
+book: object(): {"title": "Erstellung und Test eines Simulationsmodells von Wärmeabnehmern in einer KWKK-Anlage ", "author": " Sebastian Schramm. ", "publisher": "Verl.", "_searchId": "ZTEXT%20%20%20%20%20%20%20AK02068599", "_index": 6, "year": "2008"}
 lastSearchedIndex: double: 6
 lastIndex: double: 7
-book: object: {"title": "Wärmepumpen : Stand der Technik. Beiträge des Symposiums \"Wärmepumpen - Effizienz und Feldtest-Erfahrungen\" veranst. vom Test- und Weiterbildungszentrum Wärmepumpen und Kältetechnik - TWK GmbH am 5. Juni 2008 in Karlsruhe ", "author": " Johannes Reichelt (Hrsg.). ", "publisher": " Müller", "_searchId": "ZTEXT%20%20%20%20%20%20%20AK00308010", "_index": 7, "year": "2008"}
+book: object(): {"title": "Wärmepumpen : Stand der Technik. Beiträge des Symposiums \"Wärmepumpen - Effizienz und Feldtest-Erfahrungen\" veranst. vom Test- und Weiterbildungszentrum Wärmepumpen und Kältetechnik - TWK GmbH am 5. Juni 2008 in Karlsruhe ", "author": " Johannes Reichelt (Hrsg.). ", "publisher": " Müller", "_searchId": "ZTEXT%20%20%20%20%20%20%20AK00308010", "_index": 7, "year": "2008"}
 lastSearchedIndex: double: 7
 lastIndex: double: 8
-book: object: {"title": "Barron's Essential words for the TOEFL : [more than 500 need-to-know words with definitions and examples used in the sentences; practice exercises to build English word power with answer keys; valuable advice using a dictionary and a thesaurus to expand your English vocabulary; TOEFL iBT reading section practice test with anwer key and score conversion table] ", "author": " Steven J. Matthiesen. ", "publisher": " Barron's", "_searchId": "ZTEXT%20%20%20%20%20%20%20AK00611556", "_index": 8, "year": "2007"}
+book: object(): {"title": "Barron's Essential words for the TOEFL : [more than 500 need-to-know words with definitions and examples used in the sentences; practice exercises to build English word power with answer keys; valuable advice using a dictionary and a thesaurus to expand your English vocabulary; TOEFL iBT reading section practice test with anwer key and score conversion table] ", "author": " Steven J. Matthiesen. ", "publisher": " Barron's", "_searchId": "ZTEXT%20%20%20%20%20%20%20AK00611556", "_index": 8, "year": "2007"}
 lastSearchedIndex: double: 8
 lastIndex: double: 9
-book: object: {"title": "Barron's TOEFL iBT : internet-based test 2008 ", "author": " Pamela J. Sharpe. ", "publisher": " Barron's", "_searchId": "ZTEXT%20%20%20%20%20%20%20AK00616581", "_index": 9, "year": "2007"}
+book: object(): {"title": "Barron's TOEFL iBT : internet-based test 2008 ", "author": " Pamela J. Sharpe. ", "publisher": " Barron's", "_searchId": "ZTEXT%20%20%20%20%20%20%20AK00616581", "_index": 9, "year": "2007"}
 lastSearchedIndex: double: 9
 lastIndex: double: 10
-book: object: {"title": "Fundamentals of Pap Test Cytology ", "author": " by Rana S. Hoda, Syed A. Hoda. ", "publisher": " Humana Press", "_searchId": "ZTEXT%20%20%20%20%20%20%20AK00323748", "_index": 10, "Volltext!": "Volltext ( http://dx.doi.org/10.1007/978-1-59745-276-2 )", "year": "2007"}
+book: object(): {"title": "Fundamentals of Pap Test Cytology ", "author": " by Rana S. Hoda, Syed A. Hoda. ", "publisher": " Humana Press", "_searchId": "ZTEXT%20%20%20%20%20%20%20AK00323748", "_index": 10, "Volltext!": "Volltext ( http://dx.doi.org/10.1007/978-1-59745-276-2 )", "year": "2007"}
 lastSearchedIndex: double: 10
 lastIndex: double: 11
-book: object: {"title": "TestDaF : Musterprüfung 1 ", "author": " hrsg. vom TestDAF", "publisher": " Hueber", "_searchId": "ZTEXT%20%20%20%20%20%20%20AK15006051", "_index": 11, "year": "2005"}
+book: object(): {"title": "TestDaF : Musterprüfung 1 ", "author": " hrsg. vom TestDAF", "publisher": " Hueber", "_searchId": "ZTEXT%20%20%20%20%20%20%20AK15006051", "_index": 11, "year": "2005"}
 lastSearchedIndex: double: 11
 lastIndex: double: 12
-book: object: {"title": "Testtheorie : Inleiding in de theorie van de psychologische test en zijn toepassingen ", "author": " by P. J. D. Drenth, K. Sijtsma. ", "publisher": " Bohn Stafleu van Loghum", "_searchId": "ZTEXT%20%20%20%20%20%20%20AK00310298", "_index": 12, "Volltext!": "Volltext ( http://dx.doi.org/10.1007/978-90-313-6540-1 )", "year": "2005"}
+book: object(): {"title": "Testtheorie : Inleiding in de theorie van de psychologische test en zijn toepassingen ", "author": " by P. J. D. Drenth, K. Sijtsma. ", "publisher": " Bohn Stafleu van Loghum", "_searchId": "ZTEXT%20%20%20%20%20%20%20AK00310298", "_index": 12, "Volltext!": "Volltext ( http://dx.doi.org/10.1007/978-90-313-6540-1 )", "year": "2005"}
 lastSearchedIndex: double: 12
 lastIndex: double: 13
-book: object: {"title": "30 Minuten für eine bessere Unternehmensfitness : Mit Unternehmens-Test ", "author": " Jürgen Frey. ", "publisher": " GABAL Verlag", "_searchId": "ZTEXT%20%20%20%20%20%20%20AK00322609", "_index": 13, "Volltext!": "Volltext ( http://www.redi-bw.de/start/fhbib/WISO-eBooks/GABA,AGAB/978389749281380 )", "year": "2002"}
+book: object(): {"title": "30 Minuten für eine bessere Unternehmensfitness : Mit Unternehmens-Test ", "author": " Jürgen Frey. ", "publisher": " GABAL Verlag", "_searchId": "ZTEXT%20%20%20%20%20%20%20AK00322609", "_index": 13, "Volltext!": "Volltext ( http://www.redi-bw.de/start/fhbib/WISO-eBooks/GABA,AGAB/978389749281380 )", "year": "2002"}
 lastSearchedIndex: double: 13
 lastIndex: double: 14
-book: object: {"title": "Ergänzende Prüfverfahren zu den TP HGT : Raumbeständigkeitsprüfung, Bedampfungsversuch; Frostprüfungen, Dyn. E.-Modul, CIF-Test ", "author": " Arbeitskreis Prüfverfahren für Tragschichten mit hydraulischen Bindemitteln.... ", "publisher": " FGSV", "_searchId": "ZTEXT%20%20%20%20%20%20%20AK02071512", "_index": 14, "year": "2001"}
+book: object(): {"title": "Ergänzende Prüfverfahren zu den TP HGT : Raumbeständigkeitsprüfung, Bedampfungsversuch; Frostprüfungen, Dyn. E.-Modul, CIF-Test ", "author": " Arbeitskreis Prüfverfahren für Tragschichten mit hydraulischen Bindemitteln.... ", "publisher": " FGSV", "_searchId": "ZTEXT%20%20%20%20%20%20%20AK02071512", "_index": 14, "year": "2001"}
 lastSearchedIndex: double: 14
 lastIndex: double: 15
-book: object: {"title": "Brittle failure of rock materials : test results and constitutive models ", "author": " George E. Andreev. ", "publisher": " Balkema", "_searchId": "ZTEXT%20%20%20%20%20%20%20AK02068048", "_index": 15, "year": "1995"}
+book: object(): {"title": "Brittle failure of rock materials : test results and constitutive models ", "author": " George E. Andreev. ", "publisher": " Balkema", "_searchId": "ZTEXT%20%20%20%20%20%20%20AK02068048", "_index": 15, "year": "1995"}
 lastSearchedIndex: double: 15
 lastIndex: double: 16
-book: object: {"title": "Analysis and evaluation of pumping test data ", "author": " G. P. Kruseman; N. A. de Ridder. ", "publisher": " Internat. Inst. for Land Reclamation and Improvement", "_searchId": "ZTEXT%20%20%20%20%20%20%20AK02066101", "_index": 16, "year": "1994"}
+book: object(): {"title": "Analysis and evaluation of pumping test data ", "author": " G. P. Kruseman; N. A. de Ridder. ", "publisher": " Internat. Inst. for Land Reclamation and Improvement", "_searchId": "ZTEXT%20%20%20%20%20%20%20AK02066101", "_index": 16, "year": "1994"}
 lastSearchedIndex: double: 16
 lastIndex: double: 17
-book: object: {"title": "Öko-Test-Ratgeber Bauen und Renovieren ", "author": " [Red.: Jürgen Stellpflug; Thomas Schmitz", "publisher": " Rowohlt", "_searchId": "ZTEXT%20%20%20%20%20%20%20AK02069703", "_index": 17, "year": "1994"}
+book: object(): {"title": "Öko-Test-Ratgeber Bauen und Renovieren ", "author": " [Red.: Jürgen Stellpflug; Thomas Schmitz", "publisher": " Rowohlt", "_searchId": "ZTEXT%20%20%20%20%20%20%20AK02069703", "_index": 17, "year": "1994"}
 lastSearchedIndex: double: 17
 lastIndex: double: 18
-book: object: {"title": "Testaufgaben für die Überprüfung von Rechenprogrammen nach den Richtlinien für den Lärmschutz an Strassen : TEST-94 ", "author": " Bundesministerium für Verkehr, Abt. Strassenbau. ", "publisher": " Bundesministerium für Verkehr, Abt. Strassenbau", "_searchId": "ZTEXT%20%20%20%20%20%20%20AK02068519", "_index": 18, "year": "1994"}
+book: object(): {"title": "Testaufgaben für die Überprüfung von Rechenprogrammen nach den Richtlinien für den Lärmschutz an Strassen : TEST-94 ", "author": " Bundesministerium für Verkehr, Abt. Strassenbau. ", "publisher": " Bundesministerium für Verkehr, Abt. Strassenbau", "_searchId": "ZTEXT%20%20%20%20%20%20%20AK02068519", "_index": 18, "year": "1994"}
 lastSearchedIndex: double: 18
 lastIndex: double: 19
-book: object: {"title": "OECD full scale pavement test : report prepared by an OECD Scientific Expert Group, [Paris 1991]. - OECD", "author": "", "publisher": " OECD", "_searchId": "ZTEXT%20%20%20%20%20%20%20AK02067149", "_index": 19, "year": "1991"}
+book: object(): {"title": "OECD full scale pavement test : report prepared by an OECD Scientific Expert Group, [Paris 1991]. - OECD", "author": "", "publisher": " OECD", "_searchId": "ZTEXT%20%20%20%20%20%20%20AK02067149", "_index": 19, "year": "1991"}
 lastSearchedIndex: double: 19
 lastIndex: double: 20
-book: object: {"title": "Test-Intensivtraining : Bewerbungstests trainieren, Personalfragen durchschauen; für Abiturienten, Studenten, Berufsanfänger, Akademiker und Aufsteiger; Trainingsanleitung, Testbeispiele mit Auflösungen ", "author": " Horst H. Siewert u. Renate Siewert. ", "publisher": "Verl.", "_searchId": "ZTEXT%20%20%20%20%20%20%20AK01507983", "_index": 20, "year": "1988"}
+book: object(): {"title": "Test-Intensivtraining : Bewerbungstests trainieren, Personalfragen durchschauen; für Abiturienten, Studenten, Berufsanfänger, Akademiker und Aufsteiger; Trainingsanleitung, Testbeispiele mit Auflösungen ", "author": " Horst H. Siewert u. Renate Siewert. ", "publisher": "Verl.", "_searchId": "ZTEXT%20%20%20%20%20%20%20AK01507983", "_index": 20, "year": "1988"}
 lastSearchedIndex: double: 20
 lastIndex: double: 21
-book: object: {"title": "Versuchsergebnisse zur Festigkeit und Verformung von Beton bei mehraxialer Druckbeanspruchung ", "author": " Gerald Schickert; Helmut Winkler. Bundesanst. fuer Materialpruefung (BAM). ", "publisher": " Ernst", "_searchId": "ZTEXT%20%20%20%20%20%20%20AK00847662", "_index": 21, "year": "1977"}
+book: object(): {"title": "Versuchsergebnisse zur Festigkeit und Verformung von Beton bei mehraxialer Druckbeanspruchung ", "author": " Gerald Schickert; Helmut Winkler. Bundesanst. fuer Materialpruefung (BAM). ", "publisher": " Ernst", "_searchId": "ZTEXT%20%20%20%20%20%20%20AK00847662", "_index": 21, "year": "1977"}
 lastSearchedIndex: double: 21
 lastIndex: double: 22
-book: object: {"title": "Theory of the price index : Fisher's test approach and generalizations ", "author": " Wolfgang Eichhorn; Joachim Voeller. ", "publisher": " Springer", "_searchId": "ZTEXT%20%20%20%20%20%20%20AK01417921", "_index": 22, "year": "1976"}
+book: object(): {"title": "Theory of the price index : Fisher's test approach and generalizations ", "author": " Wolfgang Eichhorn; Joachim Voeller. ", "publisher": " Springer", "_searchId": "ZTEXT%20%20%20%20%20%20%20AK01417921", "_index": 22, "year": "1976"}
 lastSearchedIndex: double: 22
 lastIndex: double: 23
-book: object: {"title": "Untersuchung und Anwendung von Pumpversuchsdaten ", "author": " von Gideon P. Kruseman u. Nicolaas A. de Ridder. Übers. u. bearb. von August Wilhelm Uehlendahl. ", "publisher": " R. Müller", "_searchId": "ZTEXT%20%20%20%20%20%20%20AK02067485", "_index": 23, "year": "1973"}
+book: object(): {"title": "Untersuchung und Anwendung von Pumpversuchsdaten ", "author": " von Gideon P. Kruseman u. Nicolaas A. de Ridder. Übers. u. bearb. von August Wilhelm Uehlendahl. ", "publisher": " R. Müller", "_searchId": "ZTEXT%20%20%20%20%20%20%20AK02067485", "_index": 23, "year": "1973"}
 lastSearchedIndex: double: 23
 lastIndex: double: 24
-book: object: {"title": "¬The¬ measurement of soil properties in the triaxial test ", "author": " by Alan W. Bishop and D.J. Henkel. ", "publisher": " Edward Arnold", "_searchId": "ZTEXT%20%20%20%20%20%20%20AK02070294", "_index": 24, "year": "1964"}
+book: object(): {"title": "¬The¬ measurement of soil properties in the triaxial test ", "author": " by Alan W. Bishop and D.J. Henkel. ", "publisher": " Edward Arnold", "_searchId": "ZTEXT%20%20%20%20%20%20%20AK02070294", "_index": 24, "year": "1964"}
 lastSearchedIndex: double: 24
 lastIndex: double: 25
-book: object: {"title": "¬Der¬ AASHO-Road-Test : Zweck, Anlage u. Versuchsdurchführung ", "author": " [hrsg. vom Fachverband Zement e. V. Köln]. ", "publisher": "Verl.", "_searchId": "ZTEXT%20%20%20%20%20%20%20AK02063547", "_index": 25, "year": "1962"}
+book: object(): {"title": "¬Der¬ AASHO-Road-Test : Zweck, Anlage u. Versuchsdurchführung ", "author": " [hrsg. vom Fachverband Zement e. V. Köln]. ", "publisher": "Verl.", "_searchId": "ZTEXT%20%20%20%20%20%20%20AK02063547", "_index": 25, "year": "1962"}
 lastSearchedIndex: double: 25
 lastIndex: double: 26
-book: object: {"title": "Barron's TOEFL iBT : internet-based test ", "author": " Pamela J. Sharpe. ", "publisher": " Barron's", "_searchId": "ZTEXT%20%20%20%20%20%20%20AK01440730", "_index": 26, "year": ""}
+book: object(): {"title": "Barron's TOEFL iBT : internet-based test ", "author": " Pamela J. Sharpe. ", "publisher": " Barron's", "_searchId": "ZTEXT%20%20%20%20%20%20%20AK01440730", "_index": 26, "year": ""}
 lastSearchedIndex: double: 26
 lastIndex: double: 27
-book: object: {"title": "Barron's TOEFL iBT : internet-based test ", "author": " Pamela J. Sharpe. ", "publisher": " Barron's", "_searchId": "ZTEXT%20%20%20%20%20%20%20AK00590733", "_index": 27, "year": ""}
+book: object(): {"title": "Barron's TOEFL iBT : internet-based test ", "author": " Pamela J. Sharpe. ", "publisher": " Barron's", "_searchId": "ZTEXT%20%20%20%20%20%20%20AK00590733", "_index": 27, "year": ""}
 lastSearchedIndex: double: 27
 lastIndex: double: 28
-book: object: {"title": "Network Computing : Test, Trends, Technik für technische IT-Entscheider. - CMP-WEKA", "author": "", "publisher": "WEKA", "_searchId": "ZTEXT%20%20%20%20%20%20%20AK00877521", "_index": 28, "year": ""}
+book: object(): {"title": "Network Computing : Test, Trends, Technik für technische IT-Entscheider. - CMP-WEKA", "author": "", "publisher": "WEKA", "_searchId": "ZTEXT%20%20%20%20%20%20%20AK00877521", "_index": 28, "year": ""}
 lastSearchedIndex: double: 28

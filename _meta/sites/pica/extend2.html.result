@@ -1,5 +1,5 @@
 book: {}
 
 
-book: object: {"select(id)": "12/345:X YSZ 12345", "status": "borrowed byg (0 reminders);", "duedate": "2011-05-30"}
-book: object: {"select(id)": "12/435:X XYZ", "status": "borrowed by (0 reminders);", "duedate": "2011-05-30"}
+book: object(): {"select(id)": "12/345:X YSZ 12345", "status": "borrowed byg (0 reminders);", "duedate": "2011-05-30"}
+book: object(): {"select(id)": "12/435:X XYZ", "status": "borrowed by (0 reminders);", "duedate": "2011-05-30"}

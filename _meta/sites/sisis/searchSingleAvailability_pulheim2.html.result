@@ -1,4 +1,4 @@
 book: {}
 
 
-book: object: {"orderTitle": "vormerken", "order": "/webOPACClient/availability.do?methodToCall=doVormerkung&katkey=158150&title=%C3%96ko-Test+-+2012-12&author=&context=hitlist", "orderConfirmationOptionTitles": null, "orderable": null}
+book: object(): {"orderTitle": "vormerken", "order": "/webOPACClient/availability.do?methodToCall=doVormerkung&katkey=158150&title=%C3%96ko-Test+-+2012-12&author=&context=hitlist", "orderConfirmationOptionTitles": null, "orderable": null}

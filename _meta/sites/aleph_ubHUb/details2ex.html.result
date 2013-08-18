@@ -1,4 +1,4 @@
 book: {}
 
 
-book: object: {"issuedate": "2010-12-01", "duedate": "2010-12-24", "status:problematic": "Jetzt verlängern", "status:curious": null, "extendLink": "http://opac.hu-berlin.de:80/F/1B662PQEHGKRA92URUMFDJE3XDVMMVBK8DGPETMVLBQLAE197J-15082?func=BOR-LOAN-RENEW&doc_number=002065003&item_sequence=000020&adm_library=HUB50&ill_unit="}
+book: object(): {"issuedate": "2010-12-01", "duedate": "2010-12-24", "status:problematic": "Jetzt verlängern", "status:curious": null, "extendLink": "http://opac.hu-berlin.de:80/F/1B662PQEHGKRA92URUMFDJE3XDVMMVBK8DGPETMVLBQLAE197J-15082?func=BOR-LOAN-RENEW&doc_number=002065003&item_sequence=000020&adm_library=HUB50&ill_unit="}

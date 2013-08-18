@@ -1,8 +1,8 @@
 book: {}
 
 
-book: object: {"title": "Diamant", "author": "Brandhorst, Andreas", "id": "M01 996 012 6", "issuedate": "2013-08-03", "duedate": "2013-09-02"}
-book: object: {"title": "Ringwelt-Thron", "author": "Niven, Larry", "id": "M02 005 789 2", "issuedate": "2013-08-03", "duedate": "2013-09-02"}
-book: object: {"title": "Crashlander", "author": "Niven, Larry", "id": "M02 009 605 8", "issuedate": "2013-08-03", "duedate": "2013-09-02"}
-book: object: {"title": "Der letzte Pfad◉3.", "author": "McIntosh, Fiona", "id": "M02 109 506 4", "issuedate": "2013-08-03", "duedate": "2013-09-02"}
-book: object: {"title": "Seelenfänger", "author": "Brandhorst, Andreas", "id": "M02 165 961 3", "issuedate": "2013-08-03", "duedate": "2013-09-02"}
+book: object(): {"title": "Diamant", "author": "Brandhorst, Andreas", "id": "M01 996 012 6", "issuedate": "2013-08-03", "duedate": "2013-09-02"}
+book: object(): {"title": "Ringwelt-Thron", "author": "Niven, Larry", "id": "M02 005 789 2", "issuedate": "2013-08-03", "duedate": "2013-09-02"}
+book: object(): {"title": "Crashlander", "author": "Niven, Larry", "id": "M02 009 605 8", "issuedate": "2013-08-03", "duedate": "2013-09-02"}
+book: object(): {"title": "Der letzte Pfad◉3.", "author": "McIntosh, Fiona", "id": "M02 109 506 4", "issuedate": "2013-08-03", "duedate": "2013-09-02"}
+book: object(): {"title": "Seelenfänger", "author": "Brandhorst, Andreas", "id": "M02 165 961 3", "issuedate": "2013-08-03", "duedate": "2013-09-02"}

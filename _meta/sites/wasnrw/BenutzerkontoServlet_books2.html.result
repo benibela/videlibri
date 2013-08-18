@@ -2,4 +2,4 @@ book: {}
 
 
 charge: string: 0,00
-delete-current-books(): undefined: 
+delete-current-books(): untyped: 

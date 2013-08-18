@@ -4,4 +4,4 @@ book: {}
 row: integer: 0
 needOrders: boolean: true
 row: integer: 1
-book: object: {"Exemplar 1!": "NK125-3, bestellbar, Zentralbibliothek"}
+book: object(): {"Exemplar 1!": "NK125-3, bestellbar, Zentralbibliothek"}

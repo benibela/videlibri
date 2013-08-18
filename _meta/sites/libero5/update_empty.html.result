@@ -1,5 +1,5 @@
 book: {}
 
 
-delete-current-books(): undefined: 
+delete-current-books(): untyped: 
 bookTableBroken: boolean: false
