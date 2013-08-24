@@ -908,23 +908,23 @@ end;
 function xqFunctionDelete_Current_Books(const context: TXQEvaluationContext; const args: TXQVArray): IXQValue;
 begin
   requiredArgCount(args, 0);
-  context.staticContext.sender.OnDefineVariable(nil, 'delete-current-books()', xqvalueTrue);
+  context.staticContext.sender.VariableChangelog.add('delete-current-books()', xqvalueTrue);
   result := xqvalue();
 end;
 
 function xqFunctionRaise_Login(const context: TXQEvaluationContext; const args: TXQVArray): IXQValue;
 begin
   requiredArgCount(args, 0, 1);
-  if length(args) = 0 then context.staticContext.sender.OnDefineVariable(nil, 'raise-login()', xqvalue())
-  else context.staticContext.sender.OnDefineVariable(nil, 'raise-login()', args[0]);
+  if length(args) = 0 then context.staticContext.sender.VariableChangelog.add('raise-login()', xqvalue())
+  else context.staticContext.sender.VariableChangelog.add('raise-login()', args[0]);
   result := xqvalue();
 end;
 
 function xqFunctionRaise(const context: TXQEvaluationContext; const args: TXQVArray): IXQValue;
 begin
   requiredArgCount(args, 0, 1);
-  if length(args) = 0 then context.staticContext.sender.OnDefineVariable(nil, 'raise()', xqvalue())
-  else context.staticContext.sender.OnDefineVariable(nil, 'raise()', args[0]);
+  if length(args) = 0 then context.staticContext.sender.VariableChangelog.add('raise()', xqvalue())
+  else context.staticContext.sender.VariableChangelog.add('raise()', args[0]);
   result := xqvalue();
 end;
 
