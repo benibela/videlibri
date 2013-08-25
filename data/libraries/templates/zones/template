@@ -9,17 +9,45 @@
 
 
 <action id="connect">
-  <page url="{$baseurl}/APS_OPAC?Style={get('style', 'Portal2')}">
+  <s>style := get('style', 'Portal2')</s>
+  <page url="{$baseurl}/APS_OPAC?Style={$style}">
     <template>
       <a t:condition="matches(@href, '/APS_ACCOUNT|/APS_ZONES.*fn=Account')">{accountUrl := @href}</a>
-      <a t:condition="matches(@href, '/APS_QUICK_SEARCH|/APS_ZONES.*fn=QuickSearch')">{searchUrl := @href}</a>
     </template>
   </page>
 </action>
 
-<action id="search">
+<action id="search-connect">
+ <!-- <page url="{$baseurl}/APS_OPAC?Style={get('style', 'Portal2')}">
+    <template>
+      <a t:condition="matches(@href, '/APS_QUICK_SEARCH')">{searchUrl := replace(@href, "QUICK_SEARCH", "ADVANCED_SEARCH")}</a>
+    </template>
+  </page>-->
+  <s>style := get('style', 'Portal2')</s>
 
+  <page url="{$baseurl}/APS_ZONES?fn=advancedsearch&Style={$style}"> 
+    <template>
+      <FORM NAME="ExpertSearch">{search-start:=form(.)}</form>
+    </template>
+  </page>
+</action>
 
+<action id="search"> 
+  <variable name="search-keys">{"author": "au=", "title": "ti=", "keywords": "su=", "isbn": "sb=", "year": "dp="}</variable>
+  
+  <s>
+    i := 1,
+    request := uri-combine($search-start.url, 
+      (for $key in jn:keys($book) return if ($book($key) != "" and exists($search-keys($key))) then (
+              {x"q.form.t{$i}&#46;expr": $book($key), x"q.form.t{$i}&#46;term": $search-keys($key)},
+              (i := $i + 1)[2]
+            ) else () ) )
+  </s>
+  
+  <page url="{$request}" templateFile="searchList">
+  
+  </page>
+  
 </action>
 
 <action id="search-next-page"> 
@@ -42,6 +70,14 @@
   <page url="{$form}" templateFile="loggedIn"/>
   
   <page url="{$bookListUrl}" templateFile="list"/> 
+  
+  <s>requestId := 1</s>
+  
+  <loop test="not($bFoundBottom)">
+    <page url="{$baseurl}/{$obj}?Style={$style}&SubStyle=&Lang=GER&ResponseEncoding=utf-8&ResponseEncoding=utf-8&Method=FetchIncrementalBrowseDown&RequestId={$requestId}&" templateFile="listIncremental"/> 
+    <s>requestId := $requestId + 1</s>
+  </loop>
 </action>
-
+<!--http://katalog.stadtbibliothek.luebeck.de/alswww2.dll/Obj_577491377434134?
+dateReq=1377434653896-->
 </actions>

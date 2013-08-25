@@ -1,9 +1,6 @@
 <html>
-	<META NAME="ZonesObjName">{obj:=@CONTENT, bFoundBottom := false()}</META>
-  <t:read var="delete-current-books"/>
-		
-  <DIV id="elScrollingBrowseList">
-    <DIV>
+  <body>
+    {bFoundBottom := (./text())[1]/matches(., "bFoundBottom *= *1")}
       <t:loop>
         <TABLE>
           <TR>
@@ -18,7 +15,5 @@
           </TR>
         </TABLE>
       </t:loop>
-    </DIV>
-  </DIV>
-  
+  </body>
 </html>
