@@ -1,6 +1,9 @@
 <html>
 	<META NAME="ZonesObjName">{obj:=@CONTENT, bFoundBottom := false()}</META>
-  <t:read var="delete-current-books"/>
+
+  <a t:condition="contains(@href, 'BulkRenew')">{bulkRenew := @href}</a>?
+  
+  <t:read var="delete-current-books()"/>
 		
   <DIV id="elScrollingBrowseList">
     <DIV>
@@ -8,7 +11,7 @@
         <TABLE>
           <TR>
             <TD>
-              <A>{book := {"title": .}}</A>
+              <A>{book := {"title": ., "statusId": "normal"}}</A>
             </TD>
             <TD>{$book.author}</TD>
             <TD/>

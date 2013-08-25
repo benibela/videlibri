@@ -1,0 +1,20 @@
+<html>
+	<META NAME="ZonesObjName">{obj:=@CONTENT, bFoundBottom := false()}</META>
+
+  
+  <FORM ID="BulkRenewForm">{baseForm := form(.), options := {}}</FORM>
+    
+  <DIV id="elScrollingBrowseList">
+    <DIV>
+      <t:loop>
+        <TABLE>
+          <TR>
+            <TD>
+              <INPUT><t:if test="@VALUE = $renew-ids">{$options(@NAME) := @VALUE}</t:if></INPUT>
+            </TD>
+          </TR>
+        </TABLE>
+      </t:loop>
+    </DIV>
+  </DIV>
+</html>

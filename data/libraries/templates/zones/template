@@ -78,6 +78,19 @@
     <s>requestId := $requestId + 1</s>
   </loop>
 </action>
+
+<action id="renew-list">  
+  <s>renew-ids := for $book in $renew-books return x"item:IN={$book.id};AT={$book.author}/{$book.title}"</s>
+  
+  <page url="{$bulkRenew}" templateFile="bulkRenew"/>
+
+  <s>renewConfirm := form-combine($baseForm, $options)</s>  
+  <page url="{$renewConfirm}"/>
+  
+  <call action="update-all"/>  
+  
+</action>
+
 <!--http://katalog.stadtbibliothek.luebeck.de/alswww2.dll/Obj_577491377434134?
 dateReq=1377434653896-->
 </actions>

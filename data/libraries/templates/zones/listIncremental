@@ -5,7 +5,7 @@
         <TABLE>
           <TR>
             <TD>
-              <A>{book := {"title": .}}</A>
+              <A>{book := {"title": ., "statusId": "normal"}}</A>
             </TD>
             <TD>{$book.author}</TD>
             <TD/>
