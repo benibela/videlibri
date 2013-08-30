@@ -121,8 +121,15 @@ mkdir -p $OUTPATH/zones18
 ADDTEMPLATE zones18/loggedIn 1
 PAGES=(${PAGES[@]} zones18/loggedIn.html)
 
-ADDTEMPLATE zones18/list 1
-PAGES=(${PAGES[@]} zones18/list.html)
+ADDTEMPLATE zones18/list 2
+PAGES=(${PAGES[@]} zones18/list.html zones18/list10.html)
+
+ADDTEMPLATE zones18/listIncremental 1
+PAGES=(${PAGES[@]} zones18/listIncremental.html)
+
+#todo: set renew-books, or this test is pointless
+ADDTEMPLATE zones18/bulkRenew 1 
+PAGES=(${PAGES[@]} zones18/bulkRenew.html)
 
 #=============DIGIBIB==============
 mkdir -p $OUTPATH/digibib
