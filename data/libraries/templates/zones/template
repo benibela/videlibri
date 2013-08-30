@@ -47,10 +47,13 @@
   <page url="{$request}" templateFile="searchList">
   
   </page>
-  
+  <s>search-next-page-available := true()</s>
+  <s>requestId := 1</s>  
 </action>
 
 <action id="search-next-page"> 
+  <page url="{$baseurl}/{$obj}?Style={$style}&SubStyle=&Lang=GER&ResponseEncoding=utf-8&ResponseEncoding=utf-8&Method=FetchIncrementalBrowseDown&RequestId={$requestId}&" templateFile="searchListIncremental"/>
+  <s>requestId := $requestId + 1</s>
 </action>
 
 
