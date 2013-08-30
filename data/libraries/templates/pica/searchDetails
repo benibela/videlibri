@@ -74,10 +74,29 @@
   
   <strong>Leider keine Treffer.<t:s>book.title := x"??? (Keine Ergebnisse bei einer Suche nach {$book.id} im StaBiKat)", book.author := "???", book.stabikatFound := false()</t:s></strong>
   
+  <!-- for un-unique results -->
+  <table summary="hitlist">
+      
+    <tr valign="top">
+      <td></td> <!-- icon -->
+      <td></td> <!-- number -->
+      <td class="hit">
+        <a>{book.title := deep-text()}</a>
+        <br/>
+        {book.author := extract(text(), " */? *-? *([^-]*)", 1) ,
+                       (: replace(text(), "( *([-,.])? *\[?(ca[.] *)?[0-9]{4}( *- *)?([0-9]{4})?\]?)$", "") :)
+         book.year   := extract(text(),             "(\[?(ca[.] *)?[0-9]{4}( *- *)?([0-9]{4})?\]?)$", 1)
+        } 
+      </td>
+    </tr>
+    {book.stabikatFound := true()}
+  </table>
+      
+  
   </template:switch-prioritized>
   
   <img t:condition="contains(@src, 'permalink')">  <!-- permalink.gif, or permalink_du.gif, ... -->
-  {book.home-url:=if (contains(../@href, "://")) then ../@href else concat($base,"/",../@href)}
+  {book.home-url:=if (contains(../@href, "://")) then ../@href else concat(get("base", ""),"/",../@href)}
   </img>?
   
   
