@@ -117,12 +117,12 @@ ADDTEMPLATE aDISWeb/searchInputForm 1
 PAGES=(${PAGES[@]} aDISWeb/searchInputForm_mannheim-hsb.html )
 
 #==============Zones========
-mkdir -p $OUTPATH/zones
-ADDTEMPLATE zones/loggedIn 1
-PAGES=(${PAGES[@]} zones/loggedIn.html)
+mkdir -p $OUTPATH/zones18
+ADDTEMPLATE zones18/loggedIn 1
+PAGES=(${PAGES[@]} zones18/loggedIn.html)
 
-ADDTEMPLATE zones/list 1
-PAGES=(${PAGES[@]} zones/list.html)
+ADDTEMPLATE zones18/list 1
+PAGES=(${PAGES[@]} zones18/list.html)
 
 #=============DIGIBIB==============
 mkdir -p $OUTPATH/digibib

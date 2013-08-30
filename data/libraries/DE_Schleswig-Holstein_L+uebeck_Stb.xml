@@ -2,7 +2,7 @@
 <library>
   <longName value="Stadtbibliothek Lübeck"/>
   
-  <template value="zones"/>  
+  <template value="zones18"/>  
   <variable name="baseurl" value="http://katalog.stadtbibliothek.luebeck.de/alswww2.dll/"/>
 
   <homepage value="http://stadtbibliothek.luebeck.de/"/>
