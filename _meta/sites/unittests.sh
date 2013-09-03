@@ -90,8 +90,11 @@ PAGES=(${PAGES[@]} sisis/searchSingleAvailability_aachen.html sisis/searchSingle
 #==============PICA================
 mkdir -p $OUTPATH/pica
 
-TEMPLATES=(${TEMPLATES[@]} pica/update pica/update pica/extend)
-PAGES=(${PAGES[@]} pica/update3.html pica/update_abholen.html pica/extend2.html)
+ADDTEMPLATE pica/update 3
+PAGES=(${PAGES[@]} pica/update3.html pica/update_abholen.html pica/update_luebeck.html)
+
+ADDTEMPLATE pica/extend 1
+PAGES=(${PAGES[@]} pica/extend2.html)
 
 #=============ADISWEB==============
 mkdir -p $OUTPATH/aDISWeb

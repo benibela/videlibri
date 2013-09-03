@@ -26,7 +26,7 @@
       <td></td>
       <td></td>
       <td></td>
-      <td><!--expiry-->Leihfristende</td>
+      <td><!--expiry--><template:match-text regex="Leihfristende|zurückzugeben vor dem"/></td>
       <td></td>
       <td></td>
       <td></td>
