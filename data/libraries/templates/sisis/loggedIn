@@ -78,8 +78,13 @@
          <template:switch>
            <td>bestellt<br/>
               <t:s>book.status := ./text()[1],
-                   book.issuedate := parse-date(filter(., '\d{2}\.\d{2}\.\d{4}', 0), 'dd.mm.yyyy'), 
+                   book.issuedate := parse-date(filter(., '\d{2}\.\d{2}\.\d{4}', 0), 'dd.mm.yyyy|'), 
                    book.statusId := "ordered"</t:s>
+           </td>
+           <td>abholbar<br/>
+              <t:s>book.status := ./text()[1],
+                   book.issuedate := parse-date(filter(., '\d{2}\.\d{2}\.\d{4}', 0), 'dd.mm.yyyy|'), 
+                   book.statusId := "provided"</t:s>
            </td>
            <td>
              {book.issuedate:=parse-date(filter(., '(\d{2}\.\d{2}\.\d{4}) *-', 1), 'dd.mm.yyyy'),
