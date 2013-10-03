@@ -97,6 +97,7 @@
   </page> 
 </action>
 
+<!--
 <action id="renew-list">
   <loop var="b" list="$book-list">
     <page url="{$b._renewUrl}">
@@ -104,7 +105,7 @@
   </loop>
   <call action="update-all"/>
 </action>
-
+-->
 
 
 
