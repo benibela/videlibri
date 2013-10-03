@@ -11,7 +11,7 @@
 
 
 <template:if test="$noBooks!='true'">
-  <table border=0 cellspacing=2> 
+  <table> 
    <tr> 
     <th>Autor</th> 
     <th>Titel</th> 
@@ -27,19 +27,14 @@
     <td><template:read var="book.title" source="."/></td> 
     <td><template:read var="book.year" source="."/></td> 
     <td><template:read var="book.duedate" source="parse-date(.,'dd/mm/[yy]yy')"/></td> 
-    <td><!--ignore: Limittime--></td> 
-    <td><!--ignore: Gebühr--></td>
-    <td><!--ignore: Standort--></td>      
+    <td>{$book.libraryBranch}</td>      
     <td><template:read var="book.id" source="."/>
         <template:read var="book.category" source="." regex="[a-zA-Z]*"/></td> 
-    <td><!--ignore: Id 2--></td> 
-    <td><!--ignore: Beschreibung--></td> 
-    <!--<template:read var="book-end()"/>-->
     </tr> 
   </template:loop>
   </table> 
-  <template:if test="empty($book)">
-  Seitenlesefehler: Erwartete ausgeliehene Bücher, aber keine gefunden!
+  <template:if test="empty(get('book', ()))">
+  {vl:raise("Seitenlesefehler: Erwartete ausgeliehene Bücher, aber keine gefunden!")}
   </template:if>
   </template:if>
 </body> 
