@@ -118,6 +118,13 @@
   
 </action>
 
+
+<action id="cancel-single">
+  <page url="{$book._cancel-url}" templateFile="cancelConfirm"/>
+  <page url="{$cancel-form}">
+  </page>
+</action>
+
 <!--http://katalog.stadtbibliothek.luebeck.de/alswww2.dll/Obj_577491377434134?
 dateReq=1377434653896-->
 </actions>

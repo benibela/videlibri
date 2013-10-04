@@ -16,6 +16,7 @@
                   <TR><TD>Status</TD><TD><t:s>$tempbook.status := ., $tempbook.statusId := "ordered"</t:s></TD></TR>
                   <TR><TD>Signatur</TD><TD>{$tempbook.id}</TD></TR>
                   <TR><TD>Warteliste</TD><TD>{x := $tempbook.statusId, $tempbook.status := concat($tempbook.status, " (Warteliste: ", ., ")"), $tempbook.statusId := $x}</TD></TR>
+                  <TR><TD></TD><TD><A t:condition="contains(@href, 'Cancel')">{$tempbook._cancel-url := @href}</A></TD></TR>
                 </t:switch></t:loop>
               </TABLE>
             </TD>

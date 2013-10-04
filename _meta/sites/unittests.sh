@@ -139,6 +139,9 @@ PAGES=(${PAGES[@]} zones18/searchDetails.html zones18/searchDetailsCollection.ht
 ADDTEMPLATE zones18/listOrders 6
 PAGES=(${PAGES[@]} zones18/orderList1.html zones18/orderList1unterwegs.html zones18/orderList2.html zones18/orderList2canceled.html zones18/orderList3+canceled.html zones18/orderList3+canceled_real.html )
 
+ADDTEMPLATE zones18/cancelConfirm 1
+PAGES=(${PAGES[@]} zones18/cancelConfirm.html)
+
 
 #=============DIGIBIB==============
 mkdir -p $OUTPATH/digibib

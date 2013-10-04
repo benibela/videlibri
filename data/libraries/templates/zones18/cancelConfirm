@@ -1,0 +1,6 @@
+<html>
+  <form>
+    <INPUT name="Method" value="Cancel"/>
+    {cancel-form := form(.)}
+  </form>
+</html>
