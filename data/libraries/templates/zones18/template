@@ -58,10 +58,10 @@
 
 
 <action id="search-details"> 
+  <page url="{$book.home-url}" templateFile="searchDetails"/>
 </action>
 
-
-<action id="update-all">  
+<action id="internal-login">
   <page url="{$accountUrl}">
     <template>
       <form name="LoginForm">
@@ -71,7 +71,28 @@
   </page>
   
   <page url="{$form}" templateFile="loggedIn"/>
+</action>
+
+<!--
+
+
+<action id="order-confirm-single"> 
+  <call action="internal-login"/>
   
+  <page url="{$book._order-url}" templateFile="orderConfirm"/> 
+</action>
+
+<action id="order-single"> 
+  <s>form := uri-combine($confirm-form, {"MakeResTypeDef.Reservation.RecipientLocn": $optionValues[$book.choosenConfirmation  * 1]})</s>
+  <page url="{$form}"/>
+</action> 
+
+-->
+
+<action id="update-all">  
+  <s>ordersListUrl := ()</s>
+  <call action="internal-login"/>
+    
   <page url="{$bookListUrl}" templateFile="list"/> 
   
   <s>requestId := 1</s>
@@ -80,6 +101,9 @@
     <page url="{$baseurl}/{$obj}?Style={$style}&SubStyle=&Lang=GER&ResponseEncoding=utf-8&ResponseEncoding=utf-8&Method=FetchIncrementalBrowseDown&RequestId={$requestId}&" templateFile="listIncremental"/> 
     <s>requestId := $requestId + 1</s>
   </loop>
+
+ 
+  <page url="{$ordersListUrl}" templateFile="listOrders"/> 
 </action>
 
 <action id="renew-list">  

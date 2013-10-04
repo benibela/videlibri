@@ -130,9 +130,15 @@ PAGES=(${PAGES[@]} zones18/list.html zones18/list10.html)
 ADDTEMPLATE zones18/listIncremental 1
 PAGES=(${PAGES[@]} zones18/listIncremental.html)
 
-#todo: set renew-books, or this test is pointless
-ADDTEMPLATE zones18/bulkRenew 1 
-PAGES=(${PAGES[@]} zones18/bulkRenew.html)
+ADDTEMPLATE zones18/bulkRenew 2 
+PAGES=(${PAGES[@]} zones18/bulkRenew.html zones18/bulkRenew2.html)
+
+ADDTEMPLATE zones18/searchDetails 3
+PAGES=(${PAGES[@]} zones18/searchDetails.html zones18/searchDetailsCollection.html zones18/searchDetailsSubTitle.html)
+
+ADDTEMPLATE zones18/listOrders 6
+PAGES=(${PAGES[@]} zones18/orderList1.html zones18/orderList1unterwegs.html zones18/orderList2.html zones18/orderList2canceled.html zones18/orderList3+canceled.html zones18/orderList3+canceled_real.html )
+
 
 #=============DIGIBIB==============
 mkdir -p $OUTPATH/digibib

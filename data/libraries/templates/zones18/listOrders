@@ -1,0 +1,28 @@
+<DIV id="elScrollingBrowseList">
+  <DIV>
+    <t:loop>
+      <DIV class="inRoundBox1">
+        {tempbook := {}}
+        <TABLE>
+          <TR>
+            <TD>
+              <TABLE>
+                <t:loop><t:switch>
+                  <TR><TD>Verfasser</TD><TD>{$tempbook.author}</TD></TR>
+                  <TR><TD>Titel</TD><TD>{$tempbook.title}</TD></TR>
+                  <TR><TD>Vorgemerkt am</TD><TD>{$tempbook.issueDate := parse-date(., "dd/mm/yyyy")}</TD></TR>
+                  <TR><TD>Status</TD><TD>Bei der Suche<t:s>$tempbook.status := ., $tempbook.statusId := "ordered"</t:s></TD></TR>
+                  <TR><TD>Status</TD><TD>Gelöscht<t:s>$tempbook.status := ., $tempbook.statusId := "deleted"</t:s></TD></TR>
+                  <TR><TD>Status</TD><TD><t:s>$tempbook.status := ., $tempbook.statusId := "ordered"</t:s></TD></TR>
+                  <TR><TD>Signatur</TD><TD>{$tempbook.id}</TD></TR>
+                  <TR><TD>Warteliste</TD><TD>{x := $tempbook.statusId, $tempbook.status := concat($tempbook.status, " (Warteliste: ", ., ")"), $tempbook.statusId := $x}</TD></TR>
+                </t:switch></t:loop>
+              </TABLE>
+            </TD>
+          </TR>
+        </TABLE>
+        <t:if test="$tempbook.statusId != 'deleted'">{book := $tempbook}</t:if>
+      </DIV>
+    </t:loop>
+  </DIV>
+</DIV>

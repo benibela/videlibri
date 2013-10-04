@@ -14,11 +14,11 @@
                   <TD>
                     <TABLE>
                       <t:loop><t:switch>
-                      <TR> <TD>Titel</TD><TD>:</TD><TD/><TD/><TD>{book.title := .}</TD>  </TR>
+                      <TR> <TD>Titel</TD><TD>:</TD><TD/><TD/><TD>{book.title := ., book.home-url := a/@href}</TD>  </TR>
                       <TR> <TD>Verfasser</TD><TD>:</TD><TD/><TD/><TD>{book.author := .}</TD> </TR>
                       <TR> <TD>Verlag</TD><TD>:</TD><TD/><TD/><TD>{book.publisher := .}</TD> </TR>
                       <TR> <TD>Signatur</TD><TD>:</TD><TD/><TD/><TD>{book.id := .}</TD> </TR>
-                      <TR> <TD>Jahr</TD><TD>:</TD><TD/><TD/><TD>{book.year := extract(., "^[0-9]+")}</TD> </TR> <!-- also language -->
+                      <TR> <TD>Jahr</TD><TD>:</TD><TD/><TD/><TD>{book.year := extract(., "^ *[0-9]+")}</TD> </TR> <!-- also language -->
                       </t:switch></t:loop>
                     </TABLE>
                   </TD>

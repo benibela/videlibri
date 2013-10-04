@@ -1,0 +1,42 @@
+<DIV id="elScrollingBrowseList">
+  <DIV>
+    <TABLE border="0">
+      <TR>
+        <TD>
+          <TABLE border="0" class="inRecordHeader">
+            <TR>
+              <TD>
+                <TABLE border="0">
+                  <t:loop>
+                    <t:switch>
+                      <TR><TD>{.}</TD><TD/><TD/><TD>{.}</TD></TR>
+                    </t:switch>
+                  </t:loop>
+                </TABLE>
+              </TD>
+            </TR>
+          </TABLE>
+        </TD>
+      </TR>
+    </TABLE>
+  </DIV>
+  <DIV>
+    <TABLE border="0">
+      <TR>
+        <TD>
+          <TABLE>
+            <t:loop>
+              <TR>
+                <TD>
+                  <B>{.}</B>
+                </TD>
+                <TD class="darkLink">{.}</TD>
+              </TR>
+            </t:loop>
+          </TABLE>
+        </TD>
+      </TR>
+    </TABLE>
+  </DIV>
+  <DIV id="stock_content_ZB">{.}</DIV>?
+</DIV>
