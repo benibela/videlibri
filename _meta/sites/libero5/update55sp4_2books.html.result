@@ -4,7 +4,7 @@ book: {}
 delete-current-books(): untyped: 
 bookTableBroken: boolean: false
 bookTableBroken: boolean: true
-noExtendingPossible: string: true
+noExtendingPossible: boolean: true
 noExtendingPossible: boolean: false
 bookTableBroken: boolean: false
 temporaryStatusDetails: node(): 017602601 - 1. Verlängerung   für Benutzer #9000491; Verlängerung des Mediums nicht erlaubt bis: 16 Sep 2010.
