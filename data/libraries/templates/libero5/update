@@ -12,7 +12,7 @@
    <fieldset id="issued_items">
      
      <table>
-       <template:read source="'true'" var="noExtendingPossible"/>
+       <template:read source="true()" var="noExtendingPossible"/>
        <thead><tr><th  class="barcode" abbr="bc" ></th>
                   <th  abbr="tit" ></th>
                   <th  class="author" abbr="aut" ></th>
