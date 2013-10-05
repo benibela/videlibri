@@ -52,7 +52,7 @@
 </action>
 
 <action id="search-next-page"> 
-  <page url="{$baseurl}/{$obj}?Style={$style}&SubStyle=&Lang=GER&ResponseEncoding=utf-8&ResponseEncoding=utf-8&Method=FetchIncrementalBrowseDown&RequestId={$requestId}&" templateFile="searchListIncremental"/>
+  <page url="{$baseurl}/{$obj}?Style={$style}&SubStyle=&Lang=GER&ResponseEncoding=utf-8&ResponseEncoding=utf-8&Method=FetchIncrementalBrowseDown&RequestId={$requestId}&" templateFile="searchList"/>
   <s>requestId := $requestId + 1</s>
 </action>
 
@@ -93,12 +93,13 @@
   <s>ordersListUrl := ()</s>
   <call action="internal-login"/>
     
+  <s>requestId := 0</s>
   <page url="{$bookListUrl}" templateFile="list"/> 
   
   <s>requestId := 1</s>
   
   <loop test="not($bFoundBottom)">
-    <page url="{$baseurl}/{$obj}?Style={$style}&SubStyle=&Lang=GER&ResponseEncoding=utf-8&ResponseEncoding=utf-8&Method=FetchIncrementalBrowseDown&RequestId={$requestId}&" templateFile="listIncremental"/> 
+    <page url="{$baseurl}/{$obj}?Style={$style}&SubStyle=&Lang=GER&ResponseEncoding=utf-8&ResponseEncoding=utf-8&Method=FetchIncrementalBrowseDown&RequestId={$requestId}&" templateFile="list"/> 
     <s>requestId := $requestId + 1</s>
   </loop>
 

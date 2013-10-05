@@ -1,12 +1,18 @@
 <html>
-	<META NAME="ZonesObjName">{obj:=@CONTENT, bFoundBottom := false()}</META>
-
-  <a t:condition="contains(@href, 'BulkRenew')">{bulkRenew := @href}</a>?
-  
-  <t:read var="delete-current-books()"/>
+<t:if >
+  <head t:test="$requestId eq 0">
+	  <META NAME="ZonesObjName">{obj:=@CONTENT, bFoundBottom := false()}</META>
+  </head> 
+</t:if>
+<body>
+  <t:if test="$requestId eq 0">  
+    <a t:condition="contains(@href, 'BulkRenew')">{bulkRenew := @href}</a>?
+    <t:read var="delete-current-books()"/>
+  </t:if>
+  <t:else>{bFoundBottom := (./text())[1]/matches(., "bFoundBottom *= *1")}</t:else>
 		
-  <DIV id="elScrollingBrowseList">
-    <DIV>
+  <DIV id="elScrollingBrowseList" t:ignore-self-test="$requestId ne 0">
+    <DIV t:ignore-self-test="$requestId ne 0">
       <t:loop>
         <TABLE>
           <TR>
@@ -23,5 +29,5 @@
       </t:loop>
     </DIV>
   </DIV>
-  
+</body>
 </html>

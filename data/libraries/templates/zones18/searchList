@@ -1,35 +1,47 @@
 <html>
+<head t:test="$requestId eq 0">
 <META NAME="ZonesObjName">{obj:=@CONTENT, bFoundBottom := false()}</META>
+</head>
+<body>
+<t:if test="$requestId eq 0">
+<B>Total:<t:s>search-result-count := extract(., "[0-9]+")</t:s></B>
+</t:if>
+<t:else>
+    {search-next-page-available := not( (./text())[1]/matches(., "bFoundBottom *= *1") )}
+</t:else>
 
-<DIV id="elScrollingBrowseList">
-  <DIV>
-    <t:loop>
-      <DIV>
-        <TABLE>
-          <TR>
-            <TD>
+    
+      <DIV id="elScrollingBrowseList" t:ignore-self-test="$requestId ne 0">
+        <DIV t:ignore-self-test="$requestId ne 0">
+          <t:loop>
+            <DIV>
               <TABLE>
-              {book := {}}
                 <TR>
                   <TD>
                     <TABLE>
-                      <t:loop><t:switch>
-                      <TR> <TD>Titel</TD><TD>:</TD><TD/><TD/><TD>{book.title := ., book.home-url := a/@href}</TD>  </TR>
-                      <TR> <TD>Verfasser</TD><TD>:</TD><TD/><TD/><TD>{book.author := .}</TD> </TR>
-                      <TR> <TD>Verlag</TD><TD>:</TD><TD/><TD/><TD>{book.publisher := .}</TD> </TR>
-                      <TR> <TD>Signatur</TD><TD>:</TD><TD/><TD/><TD>{book.id := .}</TD> </TR>
-                      <TR> <TD>Jahr</TD><TD>:</TD><TD/><TD/><TD>{book.year := extract(., "^ *[0-9]+")}</TD> </TR> <!-- also language -->
-                      </t:switch></t:loop>
+                    {book := {}}
+                      <TR>
+                        <TD>
+                          <TABLE>
+                            <t:loop><t:switch>
+                            <TR> <TD>Titel</TD><TD>:</TD><TD/><TD/><TD>{book.title := ., book.home-url := a/@href}</TD>  </TR>
+                            <TR> <TD>Verfasser</TD><TD>:</TD><TD/><TD/><TD>{book.author := .}</TD> </TR>
+                            <TR> <TD>Verlag</TD><TD>:</TD><TD/><TD/><TD>{book.publisher := .}</TD> </TR>
+                            <TR> <TD>Signatur</TD><TD>:</TD><TD/><TD/><TD>{book.id := .}</TD> </TR>
+                            <TR> <TD>Jahr</TD><TD>:</TD><TD/><TD/><TD>{book.year := extract(., "^ *[0-9]+")}</TD> </TR> <!-- also language -->
+                            </t:switch></t:loop>
+                          </TABLE>
+                        </TD>
+                      </TR>
                     </TABLE>
                   </TD>
                 </TR>
               </TABLE>
-            </TD>
-          </TR>
-        </TABLE>
+            </DIV>
+          </t:loop>
+        </DIV>
       </DIV>
-    </t:loop>
-  </DIV>
-</DIV>
+
+</body>
 
 </HTML>

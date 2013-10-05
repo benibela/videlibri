@@ -124,10 +124,10 @@ mkdir -p $OUTPATH/zones18
 ADDTEMPLATE zones18/loggedIn 1
 PAGES=(${PAGES[@]} zones18/loggedIn.html)
 
-ADDTEMPLATE zones18/list 2
+ADDTEMPLATE 'zones18/list{requestId:=0}' 2
 PAGES=(${PAGES[@]} zones18/list.html zones18/list10.html)
 
-ADDTEMPLATE zones18/listIncremental 1
+ADDTEMPLATE 'zones18/list{requestId:=1}' 1
 PAGES=(${PAGES[@]} zones18/listIncremental.html)
 
 ADDTEMPLATE zones18/bulkRenew 2 
@@ -162,12 +162,19 @@ for ((i=0;i<${#TEMPLATES[@]};i++)); do
     prev_system=$system
   else echo -n .;  fi
   
-  eval $TEMPLATEPARSER $TEMPLATEPARSERARGS $INPATH/${PAGES[i]} --extract-file=$TEMPLATEPATH/${TEMPLATES[i]}  > $OUTPATH/${PAGES[i]}.result 2> $OUTPATH/stderr
+  TFILE="$TEMPLATEPATH/${TEMPLATES[i]}"
+  EXTRA=
+  if [[ $TFILE =~ (.+)[{](.+)[}] ]]; then
+    TFILE=${BASH_REMATCH[1]}
+    EXTRA="-e ${BASH_REMATCH[2]}"
+  fi
+  
+  eval $TEMPLATEPARSER  $EXTRA $TEMPLATEPARSERARGS $INPATH/${PAGES[i]} --extract-file=$TFILE  > $OUTPATH/${PAGES[i]}.result 2> $OUTPATH/stderr
   if diff -q $INPATH/${PAGES[i]}.result $OUTPATH/${PAGES[i]}.result; then tempasasas=42; else 
     echo
     echo -n ERROR: 
     echo -e "when testing: ${TEMPLATES[i]} \t\t\twith\t\t $INPATH/${PAGES[i]}"
-    echo $TEMPLATEPARSER $TEMPLATEPARSERARGS $INPATH/${PAGES[i]} --extract-file=$TEMPLATEPATH/${TEMPLATES[i]} 
+    echo $TEMPLATEPARSER  $EXTRA $TEMPLATEPARSERARGS $INPATH/${PAGES[i]} --extract-file=$TFILE
     error=1;     
     cat $OUTPATH/stderr
     git diff --color-words $INPATH/${PAGES[i]}.result $OUTPATH/${PAGES[i]}.result; 
