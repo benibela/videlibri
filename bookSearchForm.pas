@@ -78,6 +78,8 @@ type
     procedure searchAuthorExit(Sender: TObject);
     procedure searcherAccessOrderComplete(sender: TObject; book: TBook);
     procedure searcherAccessOrderConfirm(sender: TObject; book: TBook);
+    procedure searcherAccessPendingMessageCompleted(Sender: TObject);
+    procedure searcherAccessTakePendingMessage(sender: TObject; book: TBook; pendingMessage: TPendingMessage);
     procedure searchTitleChange(Sender: TObject);
     procedure startSearchClick(Sender: TObject);
     procedure displayInternalPropertiesChange(Sender: TObject);
@@ -542,6 +544,35 @@ begin
     if (question = '') or confirm(question) then searcherAccess.orderConfirmedAsync(book);
 end;
 
+procedure TbookSearchFrm.searcherAccessPendingMessageCompleted(Sender: TObject);
+begin
+  screen.Cursor:=crDefault;
+end;
+
+procedure TbookSearchFrm.searcherAccessTakePendingMessage(sender: TObject; book: TBook; pendingMessage: TPendingMessage);
+var
+  question: String;
+  v: AnsiString;
+  i: Integer;
+begin
+  screen.Cursor:=crDefault;
+  case pendingMessage.kind of
+    pmkChoose: begin
+      question := pendingMessage.caption + ' (Nummer eingeben)';
+      for i := 0 to high(pendingMessage.options) do
+        question += LineEnding + IntToStr(i+1) +':'  + pendingMessage.options[i];
+      v := '1';
+      if not InputQuery('VideLibri', question, v) then v := '0';
+      screen.Cursor:=crHourGlass;
+
+      searcherAccess.completePendingMessage(book, pendingMessage, StrToIntDef(v, 0) - 1);
+    end;
+    pmkConfirm: begin
+      searcherAccess.completePendingMessage(book, pendingMessage, ifthen(confirm(pendingMessage.caption), 1, 0));
+    end;
+  end;
+end;
+
 procedure TbookSearchFrm.searcherAccessSearchComplete(sender: TObject; firstPage, nextPageAvailable: boolean);
 begin
   if sender <> searcherAccess then exit;
@@ -718,6 +749,8 @@ begin
   result.OnDetailsComplete:=@searcherAccessDetailsComplete;
   result.OnOrderComplete:=@searcherAccessOrderComplete;
   result.OnOrderConfirm:=@searcherAccessOrderConfirm;
+  result.OnTakePendingMessage:=@searcherAccessTakePendingMessage;
+  result.OnPendingMessageCompleted:=@searcherAccessPendingMessageCompleted;
   result.OnImageComplete:=@searcherAccessImageComplete;
   result.OnException:=@searcherAccessException;
   result.OnConnected:=@searcherAccessConnected;

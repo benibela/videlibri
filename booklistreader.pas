@@ -110,6 +110,13 @@ type
     constructor create(s:string;more_details:string='');
   end;
 
+  TPendingMessageKind = (pmkChoose, pmkConfirm);
+  TPendingMessage = class
+    kind: TPendingMessageKind;
+    callback, caption: string;
+    options, optionValues: TStringArray;
+  end;
+
   { TBookListReader }
 
   TBookListReader = class(TMultipageTemplateReader)
@@ -123,6 +130,7 @@ type
   public
     bookAccessSection: ^TRTLCriticalSection;
     books: TBookList;
+    pendingMessage: TPendingMessage;
     constructor create(atemplate:TMultiPageTemplate);
     destructor destroy();override;
 
@@ -817,6 +825,19 @@ begin
     raise EBookListReader.create('not implemented yet');
   end else if (variable='raise()') or (variable = 'raise-login()') then begin
     raise EBookListReader.create(LineEnding + LineEnding + value.toString);
+  end else if (variable='message()') then begin
+     if pendingMessage <> nil then pendingMessage.free;
+     pendingMessage := TPendingMessage.Create;
+     case value.getProperty('kind').toString of
+       'choose': pendingMessage.kind := pmkChoose;
+       'confirm': pendingMessage.kind := pmkConfirm;
+     end;
+     pendingMessage.callback:=value.getProperty('callback').toString;
+     pendingMessage.caption:=value.getProperty('caption').toString;
+     for temp2 in value.getProperty('options') do
+       arrayAdd(pendingMessage.options, temp2.toString);
+     for temp2 in value.getProperty('option-values') do
+       arrayAdd(pendingMessage.optionValues, temp2.toString);
   end else if variable = 'book' then begin
     if not (value is TXQValueObject) then raise EBookListReader.Create('Buch ohne Eigenschaften');
     temp2 := value.clone;
@@ -928,6 +949,34 @@ begin
   result := xqvalue();
 end;
 
+function xqFunctionChoose(const context: TXQEvaluationContext; const args: TXQVArray): IXQValue;
+var
+  temp: TXQValueObject;
+begin
+  requiredArgCount(args, 4, 4);
+  temp := TXQValueObject.create();
+  temp.setMutable('kind', 'choose');
+  temp.setMutable('callback', args[0].toString);
+  temp.setMutable('caption', args[1].toString);
+  temp.setMutable('options', args[2]);
+  temp.setMutable('option-values', args[3]);
+  context.staticContext.sender.VariableChangelog.add('message()', temp);
+  result := xqvalue();
+end;
+
+function xqFunctionConfirm(const context: TXQEvaluationContext; const args: TXQVArray): IXQValue;
+var
+  temp: TXQValueObject;
+begin
+  requiredArgCount(args, 2, 2);
+  temp := TXQValueObject.create();
+  temp.setMutable('kind', 'confirm');
+  temp.setMutable('callback', args[0].toString);
+  temp.setMutable('caption', args[1].toString);
+  context.staticContext.sender.VariableChangelog.add('message()', temp);
+  result := xqvalue();
+end;
+
 var vl: TXQNativeModule;
 initialization
   XMlNamespaceVideLibri := TNamespace.create(XMLNamespaceURL_VideLibri, 'videlibri');
@@ -936,6 +985,8 @@ initialization
   vl.registerFunction('delete-current-books', @xqFunctionDelete_Current_Books, []);
   vl.registerFunction('raise', @xqFunctionRaise, []);
   vl.registerFunction('raise-login', @xqFunctionRaise_Login, []);
+  vl.registerFunction('choose', @xqFunctionChoose, []);
+  vl.registerFunction('confirm', @xqFunctionConfirm, []);
   TXQueryEngine.registerNativeModule(vl);
 end.
 

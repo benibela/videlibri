@@ -11,18 +11,21 @@ type
 
 TBookNotifyEvent=procedure (sender: TObject; book: TBook) of object;
 TPageCompleteNotifyEvent=procedure (sender: TObject; firstPage, nextPageAvailable: boolean) of object;
+TPendingMessageEvent=procedure (sender: TObject; book: TBook; pendingMessage: TPendingMessage) of object;
 TLibrarySearcherAccess = class;
 
 { TLibrarySearcherAccess }
 
-TSearcherMessageTyp=(smtFree, smtConnect, smtSearch, smtSearchNext, smtDetails, smtImage, smtOrder, smtOrderConfirmed, smtDisconnect);
+TSearcherMessageTyp=(smtFree, smtConnect, smtSearch, smtSearchNext, smtDetails, smtImage, smtOrder, smtOrderConfirmed, smtCompletePendingMessage, smtDisconnect);
 
 { TSearcherMessage }
 
 TSearcherMessage = class
   typ: TSearcherMessageTyp;
   book: tbook;
-  constructor create(t:TSearcherMessageTyp; b:TBook=nil);
+  pendingMessage: TPendingMessage;
+  messageResult: integer;
+  constructor create(t:TSearcherMessageTyp; b:TBook=nil; apendingMessage: TPendingMessage = nil; mesresult: integer = 0);
 end;
 
 { TSearcherThread }
@@ -38,9 +41,11 @@ private
   notifyEvent: TNotifyEvent;
   bookNotifyEvent: TBookNotifyEvent;
   pageCompleteEvent: TPageCompleteNotifyEvent;
+  pendingMessageEvent: TPendingMessageEvent;
   connectedEvent: TNotifyEvent;
   changedBook: tbook;
   firstPageForSync, nextPageAvailableForSync: boolean;
+  pendingMessage: TPendingMessage;
 
   performingAction: boolean;
 
@@ -49,10 +54,12 @@ private
   procedure callNotifyEventSynchronized;
   procedure callBookEventSynchronized;
   procedure callPageCompleteEventSynchronized;
+  procedure callPendingMessageEventSynchronized;
 
   procedure callNotifyEvent(event: TNotifyEvent);
   procedure callBookEvent(event: TBookNotifyEvent; book: tbook);
   procedure callPageCompleteEvent(event: TPageCompleteNotifyEvent; firstPage, nextPageAvailable: boolean);
+  procedure callPendingMessageEvent(event: TPendingMessageEvent; book: TBook; pendingMes: TPendingMessage);
 
   procedure execute;override;
 public
@@ -66,10 +73,11 @@ private
   FOnException: TNotifyEvent;
   fthread: TSearcherThread;
   ftemplate: TMultiPageTemplate;
-  FOnConnected: TNotifyEvent;
+  FOnConnected, FOnPendingMessageCompleted: TNotifyEvent;
   FOnDetailsComplete, FOnOrderComplete, FOnOrderConfirm: TBookNotifyEvent;
   FOnImageComplete: TBookNotifyEvent;
   FOnSearchPageComplete: TPageCompleteNotifyEvent;
+  FOnTakePendingMessage: TPendingMessageEvent;
 
   function operationActive: boolean;
   procedure removeOldMessageOf(typ: TSearcherMessageTyp);
@@ -95,6 +103,7 @@ public
   procedure imageAsyncSave(book: TBook);   //book is not updated only once
   procedure orderAsync(account: TCustomAccountAccess; book: TBook);
   procedure orderConfirmedAsync(book: TBook);
+  procedure completePendingMessage(book: TBook; pm: TPendingMessage; result: integer);
   procedure disconnectAsync;
 
   property OnException: TNotifyEvent read FOnException write FOnException;
@@ -103,6 +112,8 @@ public
   property OnDetailsComplete: TBookNotifyEvent read FOnDetailsComplete write FOnDetailsComplete;
   property OnOrderComplete: TBookNotifyEvent read FOnOrderComplete write FOnOrderComplete;
   property OnOrderConfirm: TBookNotifyEvent read FOnOrderConfirm write FOnOrderConfirm;
+  property OnTakePendingMessage: TPendingMessageEvent read FOnTakePendingMessage write FOnTakePendingMessage;
+  property OnPendingMessageCompleted: TNotifyEvent read FOnPendingMessageCompleted write FOnPendingMessageCompleted;
   property OnImageComplete: TBookNotifyEvent read FOnImageComplete write FOnImageComplete;
   property searcher: TLibrarySearcher read GetSearcher;
 end;
@@ -324,6 +335,12 @@ begin
   fthread.messages.storeMessage(TSearcherMessage.Create(smtOrderConfirmed,book));
 end;
 
+procedure TLibrarySearcherAccess.completePendingMessage(book: TBook; pm: TPendingMessage; result: integer);
+begin
+  if not assigned(fthread) then exit;
+  fthread.messages.storeMessage(TSearcherMessage.Create(smtCompletePendingMessage,book, pm, result));
+end;
+
 procedure TLibrarySearcherAccess.disconnectAsync;
 begin
   if not assigned(fthread) then exit;
@@ -373,6 +390,17 @@ begin
   end;
 end;
 
+procedure TSearcherThread.callPendingMessageEventSynchronized;
+begin
+  if self<>access.fthread then exit;
+  try
+    pendingMessageEvent(access,changedBook,pendingMessage);
+  finally
+    changedBook := nil;
+    pendingMessage := nil;
+  end;
+end;
+
 
 procedure TSearcherThread.callNotifyEvent(event: TNotifyEvent);
 begin
@@ -401,6 +429,18 @@ begin
   firstPageForSync:=firstPage;
   nextPageAvailableForSync:=nextPageAvailable;
   desktopSynchronized(@callPageCompleteEventSynchronized);
+end;
+
+procedure TSearcherThread.callPendingMessageEvent(event: TPendingMessageEvent; book: TBook; pendingMes: TPendingMessage);
+begin
+  if event=nil then exit;
+  if logging then log('Pending message: '+strFromPtr(changedBook)+' '+pendingMes.caption);
+  while changedBook<>nil do sleep(5);
+  if logging then log('wait complete');
+  pendingMessageEvent:=event;
+  changedBook:=book;
+  pendingMessage:=pendingMes;
+  desktopSynchronized(@callPendingMessageEventSynchronized);
 end;
 
 
@@ -495,7 +535,11 @@ begin
             try
               if (mes.typ = smtOrderConfirmed) or not searcher.orderNeedsConfirmation(book) then begin
                 Searcher.orderSingle(book);
-                callBookEvent(access.FOnOrderComplete, book);
+                if Searcher.bookListReader.pendingMessage <> nil then begin
+                  callPendingMessageEvent(access.FOnTakePendingMessage, book, Searcher.bookListReader.pendingMessage);
+                  Searcher.bookListReader.pendingMessage := nil;
+                 end else
+                  callBookEvent(access.FOnOrderComplete, book);
               end else begin
                 Searcher.orderConfirmSingle(book);
                 callBookEvent(access.FOnOrderConfirm, book);
@@ -503,6 +547,24 @@ begin
             finally
               TCustomAccountAccess(book.owner).isThreadRunning:=false;
             end;
+          end;
+          if logging then log('end order');
+        end;
+        smtCompletePendingMessage: begin
+          if logging then log('Searcher thread: message smtCompletePendingMessage: '+book.toSimpleString());
+          if (book <> nil) and (book.owner <> nil) then TCustomAccountAccess(book.owner).isThreadRunning:=true;
+          try
+            if book <> nil then Searcher.bookListReader.selectBook(book);
+            Searcher.completePendingMessage(mes.pendingMessage, mes.messageResult);
+            if Searcher.bookListReader.pendingMessage <> nil then begin
+              callPendingMessageEvent(access.FOnTakePendingMessage, book, Searcher.bookListReader.pendingMessage);
+              Searcher.bookListReader.pendingMessage := nil;
+            end else if book.getPropertyAdditional('_ordered', '') = 'true' then begin
+              book.setProperty('_ordered', '');
+              callBookEvent(access.FOnOrderComplete, book);
+            end else callNotifyEvent(access.FOnPendingMessageCompleted);
+          finally
+            if (book <> nil) and (book.owner <> nil) then TCustomAccountAccess(book.owner).isThreadRunning:=false;
           end;
           if logging then log('end order');
         end
@@ -547,10 +609,12 @@ end;
 
 { TSearcherMessage }
 
-constructor TSearcherMessage.create(t: TSearcherMessageTyp; b: TBook);
+constructor TSearcherMessage.create(t: TSearcherMessageTyp; b: TBook; apendingMessage: TPendingMessage = nil; mesresult: integer = 0 );
 begin
   typ:=t;
   book:=b;
+  self.pendingMessage := apendingMessage;
+  messageResult := mesresult;
 end;
 
 end.

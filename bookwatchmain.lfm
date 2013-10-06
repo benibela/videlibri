@@ -1158,7 +1158,7 @@ object mainForm: TmainForm
       OnClick = displayDetailsMIClick
     end
     object extendTheseBooks: TMenuItem
-      Caption = 'Mindestens alle ausgewähten Medien verlängern'
+      Caption = 'Mindestens alle ausgewählten Medien verlängern'
       OnClick = MenuItem11Click
     end
     object extendAdjacentBooks: TMenuItem

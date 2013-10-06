@@ -48,6 +48,7 @@ public
   function orderNeedsConfirmation(book: TBook): boolean;
   procedure orderConfirmSingle(book: tbook);
   procedure orderSingle(book: tbook);
+  procedure completePendingMessage(pm: TPendingMessage; idx: integer);
   procedure disconnect;
 
   property Location: string read flocation write setLocation;
@@ -239,6 +240,19 @@ begin
   bookListReader.selectBook(book);
   if book.owner is TTemplateAccountAccess then TTemplateAccountAccess(book.owner).setVariables(bookListReader.parser);
   bookListReader.callAction('order-single');
+  FLastAccessTime:=GetTickCount;
+end;
+
+procedure TLibrarySearcher.completePendingMessage(pm: TPendingMessage; idx: integer);
+begin
+  case pm.kind of
+    pmkConfirm: bookListReader.parser.variableChangeLog.add('confirm-result', idx > 0);
+    pmkChoose:
+      if (idx >= 0) or (idx <= high(pm.optionValues)) then bookListReader.parser.variableChangeLog.add('choose-result', pm.optionValues[idx])
+      else bookListReader.parser.variableChangeLog.add('choose-result', idx + 1 {xpath uses 1-based indices});
+  end;
+  bookListReader.callAction(pm.callback);
+  pm.free;
   FLastAccessTime:=GetTickCount;
 end;
 
