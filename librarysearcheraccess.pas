@@ -559,8 +559,7 @@ begin
             if Searcher.bookListReader.pendingMessage <> nil then begin
               callPendingMessageEvent(access.FOnTakePendingMessage, book, Searcher.bookListReader.pendingMessage);
               Searcher.bookListReader.pendingMessage := nil;
-            end else if book.getPropertyAdditional('_ordered', '') = 'true' then begin
-              book.setProperty('_ordered', '');
+            end else if book.status = bsOrdered then begin
               callBookEvent(access.FOnOrderComplete, book);
             end else callNotifyEvent(access.FOnPendingMessageCompleted);
           finally
