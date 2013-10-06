@@ -20,6 +20,20 @@ Für die Katalogsuche werden nur die folgenden Aktionen im Templates verwendet: 
   Ansonsten verhält sie sich genau wie die <code>search</code>-Aktion. Insbesondere muss <code>search-next-page-available</code> wieder auf <code>true()</code> gesetzt werden, wenn es noch weitere Seiten gibt.</li>
 <li><code>search-details</code>: Diese Aktion wird aufgerufen, wenn der Benutzer ein Buch auswählt. Die Variable <code>book</code> ist auf das ausgewählte Buch gesetzt und die Eigenschaften können verändert werden, um die Details zu übermitteln. (wie in update-single)<br>Alle Eigenschaften die auf <code>!</code> enden, werden in der Detailliste angezeigt, alle anderen nicht. (dies könnte in Zukunft zu, "alle Eigenschaften, die nicht mit <code>_</code> beginnen werden angezeigt", geändert werden) <br> Es gibt die folgenden weiteren, speziellen Eigenschaften: <code>book.digibib-url</code>, <code>book.home-url</code>, <code>book.amazon</code>, die jeweils Links zu dem Buch in der Digibib, dem Büchereikatalog oder Amazon speichern.</li>
 
+<h1>4b. Bestellungen</h1>
+
+<p>
+In den <code>search</code>, <code>search-details</code>-Aktionen können folgende Buch-Eigenschaften für die Bestellung gesetzt werden:
+
+<ul><li><code>book.orderable</code>: Ob das Buch überhaupt bestellt werden kann</li>
+    <li><code>book.orderTitle</code>: Titel für die Bestellung (z.B.: bestellen, oder vormerken)</li>
+</ul>
+
+<p>
+Für eine Bestellung wird dann die Aktion <code>order-single</code> aufgerufen.<br>
+Mittels den Funktionen <code>vl:confirm("callback-action", "Frage")</code> und <code>vl:confirm("callback-action", "Frage", ("Auswahlliste", ...), ("Werte für die Elemente der Liste", ...))</code> kann dem Benutzer dann eine Frage gestellt werden. Für die Antwort wird dann die Aktion <code>"callback-action"</code> (kann ein beliebiger Name sein) aufgerufen, bei die Variablen <code>$confirm-result</code> bzw. code>$choose-result</code> auf das Dialog-Ergebnis gesetzt sind.<br>
+Sobald die Eigenschaft <code>book.statusId</code> auf "ordered" gesetzt wird, wird das Buch zur Medienliste des Kontos hinzugefügt.
+
 
 <!---
 Work in progress:
