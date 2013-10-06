@@ -1,56 +1,59 @@
-<DIV id="elScrollingBrowseList">
-  <DIV>
-    <TABLE >
-      <TR>
-        <TD>
-          <TABLE  class="inRecordHeader">
-            <TR>
-              <TD>
-                <TABLE >
-                  <t:loop>
-                    <t:switch>
-                      <TR><TD>Titel</TD><TD/><TD/><TD>{$book.title}</TD></TR>
-                      <TR><TD>Verfasser</TD><TD/><TD/><TD>{$book.author}</TD></TR>
-                      <TR><TD>Signatur</TD><TD/><TD/><TD>{$book.id}</TD></TR>
-                      <TR><TD>Jahr</TD><TD/><TD/><TD>{book.year := extract(., "^ *[0-9]+")}</TD></TR>
-                      <TR><TD>{$temp}</TD><TD/><TD/><TD>{$book(concat($temp, "!")) := .}</TD></TR>
-                    </t:switch>
-                  </t:loop>
-                </TABLE>
-              </TD>
-            </TR>
-          </TABLE>
-        </TD>
-      </TR>
-    </TABLE>
+<body>
+  <A>Vormerkung<t:s>book.orderable := true(), book._order-url := @href</t:s></a>?
+  <DIV id="elScrollingBrowseList">
+    <DIV>
+      <TABLE >
+        <TR>
+          <TD>
+            <TABLE  class="inRecordHeader">
+              <TR>
+                <TD>
+                  <TABLE >
+                    <t:loop>
+                      <t:switch>
+                        <TR><TD>Titel</TD><TD/><TD/><TD>{$book.title}</TD></TR>
+                        <TR><TD>Verfasser</TD><TD/><TD/><TD>{$book.author}</TD></TR>
+                        <TR><TD>Signatur</TD><TD/><TD/><TD>{$book.id}</TD></TR>
+                        <TR><TD>Jahr</TD><TD/><TD/><TD>{book.year := extract(., "^ *[0-9]+")}</TD></TR>
+                        <TR><TD>{$temp}</TD><TD/><TD/><TD>{$book(concat($temp, "!")) := .}</TD></TR>
+                      </t:switch>
+                    </t:loop>
+                  </TABLE>
+                </TD>
+              </TR>
+            </TABLE>
+          </TD>
+        </TR>
+      </TABLE>
+    </DIV>
+    <DIV>
+      <TABLE >
+        <TR>
+          <TD>
+            <TABLE>
+              <t:loop>
+                <t:switch>
+                  <TR><TD>Titel</TD><TD/><TD>{$book.title}</TD></TR>
+                  <TR><TD>Person</TD><TD/><TD>{$book.author}</TD></TR>
+                  <TR><TD>Erschienen</TD><TD/><TD>{
+                    book.year := extract(., "[0-9]+ *$"),
+                    if (contains(., ":")) then (
+                      book.location := substring-before(., ":"),
+                      book.publisher := translate(substring-after(., ":"), "0123456789", "")
+                    ) else ()
+                  }</TD></TR>
+                  <TR><TD>ISBN</TD><TD/><TD>{book.isbn := if (contains(., ":")) then substring-before(., ":") else .}</TD></TR>
+                  <TR><TD>Signatur</TD><TD/><TD>{$book.id}</TD></TR>
+                  <TR><TD>{$temp}</TD><TD/><TD>{$book(concat($temp, "!")) := .}</TD></TR>
+                </t:switch>
+              </t:loop>
+            </TABLE>
+          </TD>
+        </TR>
+      </TABLE>
+    </DIV>
+    <DIV>Bestand<t:s>i := 0</t:s></DIV>?
+    <DIV t:condition="starts-with(@id, 'stock_content')">{$book(concat("Exemplar ", $i := $i + 1, "!")) := .}</DIV>*
+  
   </DIV>
-  <DIV>
-    <TABLE >
-      <TR>
-        <TD>
-          <TABLE>
-            <t:loop>
-              <t:switch>
-                <TR><TD>Titel</TD><TD/><TD>{$book.title}</TD></TR>
-                <TR><TD>Person</TD><TD/><TD>{$book.author}</TD></TR>
-                <TR><TD>Erschienen</TD><TD/><TD>{
-                  book.year := extract(., "[0-9]+ *$"),
-                  if (contains(., ":")) then (
-                    book.location := substring-before(., ":"),
-                    book.publisher := translate(substring-after(., ":"), "0123456789", "")
-                  ) else ()
-                }</TD></TR>
-                <TR><TD>ISBN</TD><TD/><TD>{book.isbn := if (contains(., ":")) then substring-before(., ":") else .}</TD></TR>
-                <TR><TD>Signatur</TD><TD/><TD>{$book.id}</TD></TR>
-                <TR><TD>{$temp}</TD><TD/><TD>{$book(concat($temp, "!")) := .}</TD></TR>
-              </t:switch>
-            </t:loop>
-          </TABLE>
-        </TD>
-      </TR>
-    </TABLE>
-  </DIV>
-  <DIV>Bestand<t:s>i := 0</t:s></DIV>?
-  <DIV t:condition="starts-with(@id, 'stock_content')">{$book(concat("Exemplar ", $i := $i + 1, "!")) := .}</DIV>*
-
-</DIV>
+</body>

@@ -142,6 +142,9 @@ PAGES=(${PAGES[@]} zones18/orderList1.html zones18/orderList1unterwegs.html zone
 ADDTEMPLATE zones18/cancelConfirm 1
 PAGES=(${PAGES[@]} zones18/cancelConfirm.html)
 
+ADDTEMPLATE zones18/orderConfirmation{vl:choose} 1
+PAGES=(${PAGES[@]} zones18/orderConfirm.html)
+
 
 #=============DIGIBIB==============
 mkdir -p $OUTPATH/digibib
@@ -167,6 +170,9 @@ for ((i=0;i<${#TEMPLATES[@]};i++)); do
   if [[ $TFILE =~ (.+)[{](.+)[}] ]]; then
     TFILE=${BASH_REMATCH[1]}
     EXTRA="-e ${BASH_REMATCH[2]}"
+    if [[ $EXTRA =~ vl:choose ]]; then
+      EXTRA="-e \"declare function vl:choose(\\\$a,\\\$b,\\\$c,\\\$d) { message-choose :=  join((\\\$a,\\\$b,\\\$c,\\\$d))}\""
+    fi
   fi
   
   eval $TEMPLATEPARSER  $EXTRA $TEMPLATEPARSERARGS $INPATH/${PAGES[i]} --extract-file=$TFILE  > $OUTPATH/${PAGES[i]}.result 2> $OUTPATH/stderr

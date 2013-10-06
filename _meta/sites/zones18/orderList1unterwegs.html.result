@@ -1,6 +1,8 @@
 book: {}
 
 
+obj: node(): Obj_314151380873501
+bFoundBottom: boolean: false
 x: string: ordered
 tempbook: object(): {"title": "Grundlagen, Durchführung, Deutung und Auswertung◉[Textbd.].", "issueDate": "2013-10-03", "status": "Unterwegs", "statusId": "ordered", "id": "(S) Psy 870/72", "status": "Unterwegs (Warteliste: 1 von 1)", "statusId": "ordered", "_cancel-url": "Obj_314151380873501?Style=Portal2&SubStyle=&Lang=GER&ResponseEncoding=utf-8&Method=PreCancel&Item=103871&ConfirmCancel=1&ItemHandle=103871&Finished=Obj_314151380873501%3FStyle%3DPortal2%26SubStyle%3D%26Lang%3DGER%26ResponseEncoding%3Dutf-8%3FMethod%3DCloneList%26amp;Item%3D103871%26amp;BrowseAsHloc%3D11&BrowseList=Obj_314151380873501%3FStyle%3DPortal2%26SubStyle%3D%26Lang%3DGER%26ResponseEncoding%3Dutf-8&BrowseListItem=103871&BrowseAsHloc=11"}
 book: object(): {"title": "Grundlagen, Durchführung, Deutung und Auswertung◉[Textbd.].", "issueDate": "2013-10-03", "status": "Unterwegs", "statusId": "ordered", "id": "(S) Psy 870/72", "status": "Unterwegs (Warteliste: 1 von 1)", "statusId": "ordered", "_cancel-url": "Obj_314151380873501?Style=Portal2&SubStyle=&Lang=GER&ResponseEncoding=utf-8&Method=PreCancel&Item=103871&ConfirmCancel=1&ItemHandle=103871&Finished=Obj_314151380873501%3FStyle%3DPortal2%26SubStyle%3D%26Lang%3DGER%26ResponseEncoding%3Dutf-8%3FMethod%3DCloneList%26amp;Item%3D103871%26amp;BrowseAsHloc%3D11&BrowseList=Obj_314151380873501%3FStyle%3DPortal2%26SubStyle%3D%26Lang%3DGER%26ResponseEncoding%3Dutf-8&BrowseListItem=103871&BrowseAsHloc=11"}

@@ -12,7 +12,7 @@
   <s>style := get('style', 'Portal2')</s>
   <page url="{$baseurl}/APS_OPAC?Style={$style}">
     <template>
-      <a t:condition="matches(@href, '/APS_ACCOUNT|/APS_ZONES.*fn=Account')">{accountUrl := @href}</a>
+      <a t:condition="matches(@href, 'APS_ACCOUNT|/APS_ZONES.*fn=Account')">{accountUrl := @href}</a>
     </template>
   </page>
 </action>
@@ -27,6 +27,7 @@
 
   <page url="{$baseurl}/APS_ZONES?fn=advancedsearch&Style={$style}"> 
     <template>
+      <a t:condition="matches(@href, 'APS_ACCOUNT|/APS_ZONES.*fn=Account')">{accountUrl := @href}</a>
       <FORM NAME="ExpertSearch">{search-start:=form(.)}</form>
     </template>
   </page>
@@ -37,6 +38,7 @@
   
   <s>
     i := 1,
+    requestId := 0,
     request := uri-combine($search-start.url, 
       (for $key in jn:keys($book) return if ($book($key) != "" and exists($search-keys($key))) then (
               {x"q.form.t{$i}&#46;expr": $book($key), x"q.form.t{$i}&#46;term": $search-keys($key)},
@@ -73,21 +75,24 @@
   <page url="{$form}" templateFile="loggedIn"/>
 </action>
 
-<!--
 
 
-<action id="order-confirm-single"> 
-  <call action="internal-login"/>
-  
-  <page url="{$book._order-url}" templateFile="orderConfirm"/> 
-</action>
 
 <action id="order-single"> 
-  <s>form := uri-combine($confirm-form, {"MakeResTypeDef.Reservation.RecipientLocn": $optionValues[$book.choosenConfirmation  * 1]})</s>
-  <page url="{$form}"/>
+  <call action="internal-login"/>
+  
+  <page url="{$book._order-url}" templateFile="orderConfirmation"/> 
 </action> 
 
--->
+<action id="internal-order-confirmed">
+  <s>form := form-combine($confirm-form, {"MakeResTypeDef.Reservation.RecipientLocn": $choose-result, "Confirm": 1})</s>
+  <page url="{$form}" test="$choose-result ne -1">
+    <template>
+      <td>Die Vormerkung wurde erfolgreich durchgeführt.<t:s>book._ordered := true()</t:s></td>
+    </template>
+  </page>
+</action>
+
 
 <action id="update-all">  
   <s>ordersListUrl := ()</s>
@@ -105,6 +110,16 @@
 
  
   <page url="{$ordersListUrl}" templateFile="listOrders"/> 
+  <!--
+  <s>requestId := 1</s>
+  
+  <loop test="not($bFoundBottom)">
+    <page url="{$baseurl}/{$obj}?Style={$style}&SubStyle=&Lang=GER&ResponseEncoding=utf-8&ResponseEncoding=utf-8&Method=FetchIncrementalBrowseDown&RequestId={$requestId}&"> 
+    <template><body>{bFoundBottom := (./text())[1]/matches(., "bFoundBottom *= *1")}</body></template>
+    </page>
+    <s>requestId := $requestId + 1</s>
+  </loop>-->
+  
 </action>
 
 <action id="renew-list">  
@@ -122,8 +137,22 @@
 
 <action id="cancel-single">
   <page url="{$book._cancel-url}" templateFile="cancelConfirm"/>
-  <page url="{$cancel-form}">
+  <page url="{$cancel-form}"> 
+<!--    <template>
+      <head>
+       <META NAME="ZonesObjName">{obj:=@CONTENT, bFoundBottom := false()}</META>
+      </head> 
+    </template>-->
   </page>
+
+<!--  <s>requestId := 1</s>    
+  <loop test="not($bFoundBottom)">
+    <page url="{$baseurl}/{$obj}?Style={$style}&SubStyle=&Lang=GER&ResponseEncoding=utf-8&ResponseEncoding=utf-8&Method=FetchIncrementalBrowseDown&RequestId={$requestId}&"> 
+    <template><body>{bFoundBottom := (./text())[1]/matches(., "bFoundBottom *= *1")}</body></template>
+    </page>
+    <s>requestId := $requestId + 1</s>
+  </loop>-->
+  <call action="update-all"/>  <!-- cancel urls change after cancelling. strangely, the old urls still work in firefox. but in videlibri we need to get new urls -->
 </action>
 
 <!--http://katalog.stadtbibliothek.luebeck.de/alswww2.dll/Obj_577491377434134?
