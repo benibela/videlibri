@@ -18,6 +18,7 @@ DE_Berlin_Berlin_UbFU.xml
 DE_Berlin_Berlin_UbHU.xml
 DE_Berlin_Berlin_UbTU.xml
 DE_Baden-W+uertenberg_Biberach_Hs.xml
+CH_Bern_Biel_Stb.xml
 DE_Nordrhein-Westfalen_Bochum_Hsb.xml
 DE_Nordrhein-Westfalen_Bochum_UbRUB.xml
 DE_Nordrhein-Westfalen_Bonn_Stb.xml
@@ -66,6 +67,7 @@ DE_Niedersachsen_Hannover_HMTMH.xml
 DE_Niedersachsen_Hannover_KSF.xml
 DE_Niedersachsen_Hannover_Lkab.xml
 DE_Niedersachsen_Hannover_MHb.xml
+DE_Niedersachsen_Hannover_Stb.xml
 DE_Niedersachsen_Hannover_TiHo.xml
 DE_Niedersachsen_Hannover_UbTIB.xml
 DE_Niedersachsen_Hannover_Ub.xml
@@ -85,7 +87,10 @@ DE_Baden-W+uertenberg_Karlsruhe_Ph.xml
 DE_Baden-W+uertenberg_Kehl_HS.xml
 DE_Schleswig-Holstein_Kiel_Fhb.xml
 DE_Schleswig-Holstein_Kiel_SHLB.xml
+DE_Schleswig-Holstein_Kiel_Stb.xml
 DE_Schleswig-Holstein_Kiel_Ub.xml
+DE_Rheinland-Pfalz_Koblenz_Stb.xml
+DE_Nordrhein-Westfalen_K+oeln_Stb.xml
 DE_Baden-W+uertenberg_Konstanz_HS.xml
 DE_Baden-W+uertenberg_Konstanz_Ub.xml
 DE_Sachsen_Leipzig_Hgb.xml
