@@ -1,6 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?xml-stylesheet type="text/xsl" href="../changelog.xsl"?>
 <changelog program="VideLibri">
+  <build version="1600" date="2013-10-08">
+    <add>Unterstützung für Zones 1.8 (z.B.: Stadtbibliothek Lübeck).</add>
+    <change>Templates: Unterstützung fürs Rechnen mit arbitrary-precision Zahlen (bis zu 19327352832 Stellen Genauigkeit mal einem Exponenten von 10^-2147483648 bis 10^2147483647), und einige XPath/XQuery 3 Operatoren</change>
+    <change>Templates: markierte html-Elemente können beim Matching übersprungen werden</change>
+    <fix>Sisis (FHB Münster): Zeige abholbereite Bestellungen statt die Aktualisierung abzubrechen</fix>
+    <fix>Stabi Berlin: Zeige irgendein Exemplar an, wenn mehrere Medien mit derselben Signatur existieren, statt die Aktualisierung abzubrechen</fix>
+    <fix>ZHB Lübeck: Anpassung an nicht Standard-PICA Titel in Ausleihentabelle</fix>
+    <fix>HU Berlin: Anpassung an neue Ausleihentabelle; HU/FU/TU Berlin: Deaktivierung der primo-Verlängerung, so dass die Aleph-Verlängerung wieder funktioniert</fix>    
+  </build>
   <build version="1515" date="2013-07-22">
     <download url="http://videlibri.sourceforge.net/updates/videlibri-setup.exe" platform="WINDOWS" execute="&quot;$DOWNLOAD&quot;  /SP- /noicons &quot;/dir=$OLDPATH&quot; " restart="true"/>
     <download url="http://videlibri.sourceforge.net/updates/videlibri-linux32.deb" platform="LINUX32" execute=""/>
@@ -11,7 +20,7 @@
     <fix>libero: verwendet die Kontozugriffsurl statt der Suchkatalogurl, wenn eine angegeben ist</fix>
     <fix>sisis: Verlängerung geht wieder, korrekte Detailanzeige auch wenn kein Coverbild vorhanden, keine Ergebniswiederholungen, Vormerkungen/Bestellungen in mehr Katalogen (insbesondere UB Dortmund)</fix>
     <fix>BSZ aDIS: Markiert Medien als nicht verlängerbar, wenn maximale Verlängerungsanzahl erreicht wurde</fix>
-    <change>sisis: Zeigt Exemplarinformationen in Suchdetails an und parse die Verrfügbarkeitsseite</change>
+    <change>sisis: Zeigt Exemplarinformationen in Suchdetails an und parse die Verfügbarkeitsseite</change>
   </build>
 
   <build version="1510" date="2013-07-10">
