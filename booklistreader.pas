@@ -110,7 +110,7 @@ type
     constructor create(s:string;more_details:string='');
   end;
 
-  TPendingMessageKind = (pmkChoose, pmkConfirm);
+  TPendingMessageKind = (pmkConfirm, pmkChoose);
   TPendingMessage = class
     kind: TPendingMessageKind;
     callback, caption: string;

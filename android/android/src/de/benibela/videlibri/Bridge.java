@@ -175,6 +175,7 @@ public class Bridge {
     static public native void VLSearchDetails(SearcherAccess searcher, Book book);
     static public native void VLSearchOrder(SearcherAccess searcher, Book[] book);
     static public native void VLSearchOrderConfirmed(SearcherAccess searcher, Book[] book);
+    static public native void VLSearchCompletePendingMessage(SearcherAccess searcher, int result);
     static public native void VLSearchEnd(SearcherAccess searcher);
 
     static public native void VLSetOptions(Options options);
@@ -223,6 +224,9 @@ public class Bridge {
         public void orderConfirmed(Book book){
             VLSearchOrderConfirmed(this, new Book[]{book});
         }
+        public void completePendingMessage(int result){
+            VLSearchCompletePendingMessage(this, result);
+        }
         public void free(){
             display = null;
             connector = null;
@@ -235,6 +239,8 @@ public class Bridge {
         public void onSearchDetailsComplete(Book book) { if (display != null) display.onSearchDetailsComplete(book); }
         public void onOrderComplete(Book book) { if (display != null) display.onOrderComplete(book); }
         public void onOrderConfirm(Book book) { if (display != null) display.onOrderConfirm(book); }
+        public void onTakePendingMessage(int kind, String caption, String[] options) { if (display != null) display.onTakePendingMessage(kind, caption, options); }
+        public void onPendingMessageCompleted() { if (display != null) display.onPendingMessageCompleted(); }
         public void onException() { if (display != null) display.onException(); else if (connector != null) connector.onException();}
     }
 
@@ -249,6 +255,8 @@ public class Bridge {
         void onSearchDetailsComplete(Book book);
         void onOrderComplete(Book book);
         void onOrderConfirm(Book book);
+        void onTakePendingMessage(int kind, String caption, String[] options);
+        void onPendingMessageCompleted();
     }
 
     static class Library{

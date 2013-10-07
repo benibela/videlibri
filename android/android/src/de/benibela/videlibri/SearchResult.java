@@ -163,6 +163,43 @@ public class SearchResult extends BookListActivity implements Bridge.SearchResul
         });
     }
 
+    public void onTakePendingMessage(final int kind, final String caption, final String[] options){
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                setLoading(waitingForDetails != -1 || false);
+                switch (kind) {
+                    case 1: showMessageYesNo(caption, new MessageHandler() {
+                        @Override
+                        public void onDialogEnd(DialogInterface dialogInterface, int i) {
+                         setLoading(true);
+                            searcher.completePendingMessage( i == DialogInterface.BUTTON_POSITIVE ? 1 : 0 );
+                        }
+                    });
+                        break;
+                    case 2:
+                        Util.chooseDialog(SearchResult.this, caption, options,new MessageHandler() {
+                            @Override
+                            public void onDialogEnd(DialogInterface dialogInterface, int i) {
+                                setLoading(true);
+                                searcher.completePendingMessage( i );
+                            }
+                        });
+                }
+            }
+        });
+    }
+    public void onPendingMessageCompleted(){
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                setLoading(waitingForDetails != -1 || false);
+            }
+        });
+
+    }
+
+
     @Override
     public void onOrderComplete(final Bridge.Book book) {
         runOnUiThread(new Runnable() {
