@@ -26,10 +26,26 @@
   <s>style := get('style', 'Portal2')</s>
 
   <page url="{$baseurl}/APS_ZONES?fn=advancedsearch&Style={$style}"> 
-    <template>
+    <template><body>
       <a t:condition="matches(@href, 'APS_ACCOUNT|/APS_ZONES.*fn=Account')">{accountUrl := @href}</a>
-      <FORM NAME="ExpertSearch">{search-start:=form(.)}</form>
-    </template>
+      <FORM NAME="ExpertSearch">
+        {$search-start:=form(.),
+         $search-branches := (), 
+         $search-branch-values := ()}
+      <div class="inSearchLimits" >
+        <div class="floatingBox">
+          <table>
+            <tr>Stadtteilbibliothek</tr>
+            <tr><td>
+              <table>
+                <tr><input>{search-branches := ($search-branches, ..), search-branch-values := ($search-branch-values, @value)}</input></tr>*
+              </table>
+            </td></tr>
+          </table>
+        </div>
+      </div>?
+      </form>
+    </body></template>
   </page>
 </action>
 
@@ -43,7 +59,8 @@
       (for $key in jn:keys($book) return if ($book($key) != "" and exists($search-keys($key))) then (
               {x"q.form.t{$i}&#46;expr": $book($key), x"q.form.t{$i}&#46;term": $search-keys($key)},
               (i := $i + 1)[2]
-            ) else () ) )
+            ) else (),
+       if (exists(get("search-branch-values", ())[get("search-branch-id", 0)])) then {"q.limits.limit": $search-branch-values[$search-branch-id]} else () ) )
   </s>
   
   <page url="{$request}" templateFile="searchList">
