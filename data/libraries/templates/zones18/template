@@ -23,11 +23,11 @@
       <a t:condition="matches(@href, '/APS_QUICK_SEARCH')">{searchUrl := replace(@href, "QUICK_SEARCH", "ADVANCED_SEARCH")}</a>
     </template>
   </page>-->
-  <s>style := get('style', 'Portal2')</s>
+  <s>style := get('style', 'Portal2'), accountUrl := x"{$baseurl}/APS_ACCOUNT?fn=advancedsearch&Style={$style}&BrowseAsHloc=-2"</s>
 
   <page url="{$baseurl}/APS_ZONES?fn=advancedsearch&Style={$style}"> 
     <template><body>
-      <a t:condition="matches(@href, 'APS_ACCOUNT|/APS_ZONES.*fn=Account')">{accountUrl := @href}</a>
+<!--      <a t:condition="matches(@href, 'APS_ACCOUNT|/APS_ZONES.*fn=Account')">{accountUrl := @href}</a>-->
       <FORM NAME="ExpertSearch">
         {$search-start:=form(.),
          $search-branches := (), 
@@ -77,6 +77,7 @@
 
 
 <action id="search-details"> 
+  <if test="contains($book.home-url, '&View=ISBD&')"><s>$book.home-url:=replace($book.home-url, "&View=ISBD&", "&View=Annotated&")</s></if> <!-- needed for cologne -->
   <page url="{$book.home-url}" templateFile="searchDetails"/>
 </action>
 
