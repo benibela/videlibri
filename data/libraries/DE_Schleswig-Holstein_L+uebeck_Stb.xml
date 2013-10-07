@@ -6,7 +6,7 @@
   <variable name="baseurl" value="http://katalog.stadtbibliothek.luebeck.de/alswww2.dll/"/>
 
   <homepage value="http://stadtbibliothek.luebeck.de/"/>
-  <testing-search value="in 1.55" date="2013-09-03"/>
-  <testing-account value="in 1.55" date="2013-08-03"/>
+  <testing-search value="in 1.55" date="2013-10-07"/>
+  <testing-account value="in 1.55" date="2013-10-07"/>
   <testing-renew value="?" date=""/>
 </library>

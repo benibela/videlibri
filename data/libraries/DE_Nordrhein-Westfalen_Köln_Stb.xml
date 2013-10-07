@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<library>
+  <longName value="Stadtbibliothek Köln"/>
+  
+  <template value="zones18"/>  
+  <variable name="baseurl" value="https://katalog.stbib-koeln.de/alswww2.dll/"/>
+
+  <homepage value="http://www.stadt-koeln.de/5/stadtbibliothek/"/>
+  <testing-search value="?" date=""/>
+  <testing-account value="in 1.55" date="2013-10-07"/>
+  <testing-renew value="?" date=""/>
+</library>
