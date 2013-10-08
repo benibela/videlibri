@@ -344,8 +344,8 @@ var
   i: Integer;
 begin
   autoSearchContinueTimer.Enabled:=true;
-  searchLocation.ItemIndex := 1;
-  searchLocationSelect(searchLocation);
+ // searchLocation.ItemIndex := 1;
+ // searchLocationSelect(searchLocation);
   for i := 0 to searchSelectionList.Count - 1 do
     searchSelectionList.Checked[i] := false;
   searchSelectionList.Checked[0] := true;
