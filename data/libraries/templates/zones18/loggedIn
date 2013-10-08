@@ -1,4 +1,12 @@
 <html>
-  <a t:condition="contains(@href, 'MyLoans')">{bookListUrl := @href}</a>
-  <a t:condition="contains(@href, 'MyReservations')">{ordersListUrl := @href}</a>?
+  <t:switch-prioritized>
+  <body>
+    <a t:condition="contains(@href, 'MyLoans')">{bookListUrl := @href}</a>
+    <a t:condition="contains(@href, 'MyReservations')">{ordersListUrl := @href}</a>?
+  </body>
+   
+  <h2>Ihr Bibliothekskonto Login Fehler<t:s>vl:raise-login(normalize-space(concat(., ": ", //td[@class="advice"])))</t:s></h2>
+  <h2>MyZONE Login-FEHLER <t:s>vl:raise-login(normalize-space(concat(., ": ", //*[@class="advice"])))</t:s></h2>
+  <td class="advice">Bitte überprüfen und korrigieren Sie Ihre Angaben<t:s>vl:raise-login(concat("Ungültige Kontozugangsdaten: ", .))</t:s></td>
+  </t:switch-prioritized>
 </html>

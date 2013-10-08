@@ -9,12 +9,19 @@
 
 
 <action id="connect">
-  <s>style := get('style', 'Portal2')</s>
-  <page url="{$baseurl}/APS_OPAC?Style={$style}">
+  <s>style := get('style', 'Portal2'),
+     accountUrl := x"{$baseurl}/APS_ACCOUNT?Style={$style}&SubStyle=&Theme=&Lang=GER&ResponseEncoding=utf-8&Parent=APS_OPAC&BrowseAsHloc=11"
+(:     accountUrl := x"{$baseurl}/APS_ZONES?fn=MyLoans&Lang=GER" :)
+  </s>
+  
+<!--  <page url="{$baseurl}/APS_OPAC?Style={$style}">
     <template>
-      <a t:condition="matches(@href, 'APS_ACCOUNT|/APS_ZONES.*fn=Account')">{accountUrl := @href}</a>
+      <t:switch-prioritized>
+        <a t:condition="matches(@href, 'APS_ACCOUNT|/APS_ZONES.*fn=Account')">{accountUrl := @href}</a>
+        <h2>Das System ist gerade offline<t:s>vl:raise(.)</t:s></h2>
+      </t:switch-prioritized>
     </template>
-  </page>
+  </page>-->
 </action>
 
 <action id="search-connect">
@@ -84,9 +91,10 @@
 <action id="internal-login">
   <page url="{$accountUrl}">
     <template>
-      <form name="LoginForm">
-        {form := form(., {"BRWR": $username, "PIN": $password})}
-      </form>
+      <t:switch-prioritized>
+        <form name="LoginForm">  {form := form(., {"BRWR": $username, "PIN": $password})} </form>
+        <h2>Das System ist gerade offline<t:s>vl:raise(.)</t:s></h2>
+      </t:switch-prioritized>
     </template>
   </page>
   
