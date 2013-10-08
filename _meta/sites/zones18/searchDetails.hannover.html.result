@@ -1,0 +1,21 @@
+book: {}
+
+
+temp: node(): Notation
+temp: node(): Erscheinungsjahr
+temp: node(): Hauptsachtitel in Vorlageform/Mischform
+temp: node(): Zusätze zum Hauptsachtitel
+temp: node(): Verfasserangabe
+temp: node(): Ausgabezeichnung in Vorlageform
+temp: node(): Ort(e) des 1. Verlegers, Druckers usw.
+temp: node(): Name des 1. Verlegers, Druckers usw.
+temp: node(): Erscheinungsjahr(e)
+temp: node(): Umfangsangabe
+temp: node(): Illustrationsangabe/Technische Angaben zu Tonträgern
+temp: node(): Internationale Standardbuchnummer (ISBN)
+temp: node(): ID-Nummern des Datensatzes
+temp: node(): Überregionale ID-Nr.
+temp: node(): Lokale ID-Nr.
+temp: node(): Notation eines Klassifikationssystems
+temp: node(): Name der 1. Person in Ansetzungsform
+book: object(): {"orderable": true, "_order-url": "Obj_5759301381232264?Style=Portal2&SubStyle=&Lang=GER&ResponseEncoding=utf-8&Method=MakeReservation&Parent=Obj_5759301381232264&BrowseAsHloc=-2", "title": "Allergien", "Notation!": "MED 660", "Erscheinungsjahr!": "1998 \n\t\t\t\t\t\t\t\t\t\t\t - Auflage : 2\n\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\n\n\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\tErw. Sachliteratur", "Hauptsachtitel in Vorlageform/Mischform!": "Allergien", "Zusätze zum Hauptsachtitel!": "das Immunsystem auf Abwegen", "Verfasserangabe!": "Elke Brüser. Stiftung Warentest in Zusammenarbeit mit dem Verein für Kosumenteninformation, Österreich", "Ausgabezeichnung in Vorlageform!": "2., aktualisierte Neuaufl.", "Ort(e) des 1. Verlegers, Druckers usw.!": "Berlin", "Name des 1. Verlegers, Druckers usw.!": "Stiftung Warentest", "Erscheinungsjahr(e)!": "1998\n\n\t\t\t\t\n\n\t\t\t\t\t\n\n\t\t\t\t\t\t\n\n\n\n\t\t\t\t\t\n\n\t\t\t\t\t\n\n\t\t\t\t\t\n\t\t\t\t\t\n\t\t\t\t\t\t\n\t\t\t\t\t\t\n\t\t\t\t\t\n\n\t\t\t\t\t\n\t\t\t\t\t\n\t\t\t\t\t1998", "Umfangsangabe!": "319 S., Ill., graph. Darst.", "Illustrationsangabe/Technische Angaben zu Tonträgern!": "24 cm", "Internationale Standardbuchnummer (ISBN)!": "ISBN 3-931908-24-0 : DM 29.80", "ID-Nummern des Datensatzes!": "BIS 00362311", "Überregionale ID-Nr.!": "", "Lokale ID-Nr.!": "BIS 00362311", "Notation eines Klassifikationssystems!": "33\n\n\t\t\t\t\n\n\t\t\t\n\n\t\t\n\n\t\n\t\n\n\t\n\n\t\t\n\t\t\t\t\n\n\t\t\t\t\n\n\t\t\t\t\t\n\n\t\t\t\t\t\t\n\n\n\n\t\t\t\t\t\n\n\t\t\t\t\t\n\n\t\t\t\t\t\n\t\t\t\t\t\n\t\t\t\t\t\t\n\t\t\t\t\t\t\n\t\t\t\t\t\n\n\t\t\t\t\t\n\t\t\t\t\t\n\t\t\t\t\t\n\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\n\n\t\n\n\t\n\n\t\n\t\n\t\t\n    \n\t\t\n\t\t\t\n\n\t\t\t\t\n\n\t\t\t\t\t\n\n\t\t\t\t\t\n\n\t\t\t\t\t\n\n\t\t\t\t\t\n\t\t\t\t\t\n\t\t\t\t\t\t\n\t\t\t\t\t\t\n\t\t\t\t\t\n\n\t\t\t\t\t\n\t\t\t\t\t\n\t\t\t\t\tMED 660", "Name der 1. Person in Ansetzungsform!": "Brüser, Elke [Mitarb.]"}

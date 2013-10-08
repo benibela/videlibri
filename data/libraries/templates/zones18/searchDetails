@@ -1,10 +1,6 @@
 <body>
   <A>Vormerkung<t:s>book.orderable := true(), book._order-url := @href</t:s></a>?
-  <DIV id="elScrollingBrowseList">
-    <DIV>
-      <TABLE >
-        <TR>
-          <TD>
+ 
             <TABLE  class="inRecordHeader">
               <TR>
                 <TD>
@@ -22,11 +18,8 @@
                 </TD>
               </TR>
             </TABLE>
-          </TD>
-        </TR>
-      </TABLE>
-    </DIV>
-    <DIV>
+ 
+ 
       <TABLE >
         <TR>
           <TD>
@@ -35,6 +28,7 @@
                 <t:switch>
                   <TR><TD>Titel</TD><TD/><TD>{$book.title}</TD></TR>
                   <TR><TD>Person</TD><TD/><TD>{$book.author}</TD></TR>
+                  <TR><TD>Autor</TD><TD/><TD>{$book.author}</TD></TR>
                   <TR><TD>Erschienen</TD><TD/><TD>{
                     book.year := extract(., "[0-9]+ *$"),
                     if (contains(., ":")) then (
@@ -51,9 +45,9 @@
           </TD>
         </TR>
       </TABLE>
-    </DIV>
+ 
     <DIV>Bestand<t:s>i := 0</t:s></DIV>?
     <DIV t:condition="starts-with(@id, 'stock_content')">{$book(concat("Exemplar ", $i := $i + 1, "!")) := .}</DIV>*
   
-  </DIV>
+
 </body>
