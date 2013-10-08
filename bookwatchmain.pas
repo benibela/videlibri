@@ -30,6 +30,7 @@ type
   TmainForm = class(TForm)
     accountListMenuItem: TMenuItem;
     cancelTheseBooks: TMenuItem;
+    MenuItemTester: TMenuItem;
     MenuItem10: TMenuItem;
     extendMenuList1: TMenuItem;
     extendTheseBooks: TMenuItem;
@@ -124,6 +125,7 @@ type
     procedure MenuItem16Click(Sender: TObject);
     procedure MenuItem17Click(Sender: TObject);
     procedure MenuItem18Click(Sender: TObject);
+    procedure MenuItemTesterClick(Sender: TObject);
     procedure MenuItem23Click(Sender: TObject);
     procedure MenuItem24Click(Sender: TObject);
     procedure MenuItem25Click(Sender: TObject);
@@ -201,7 +203,7 @@ procedure sendMailReports();
 implementation
 
 { TmainForm }
-uses math,options,newaccountwizard_u,bbdebugtools,bibtexexport,booklistreader{$IFDEF WIN32},windows{$ENDIF},Clipbrd,bbutils,androidutils;
+uses math,options,newaccountwizard_u,bbdebugtools,bibtexexport,booklistreader{$IFDEF WIN32},windows{$ENDIF},Clipbrd,bbutils,androidutils,libraryaccesstester;
 
 function sendMailReportCompare(Item1, Item2: Pointer): Integer;
 var book1,book2: TBook;
@@ -437,6 +439,8 @@ begin
   {$endif}
 
   RefreshShellIntegration;
+
+  if debugMode then MenuItemTester.Visible:=true;
 
   updateThreadConfig.OnPartialUpdated:=@updateThreadConfigPartialUpdated;
     //image1.Picture.LoadFromFile(programPath+'images'+DirectorySeparator+IMAGE_FILES[0]+'.bmp');
@@ -760,6 +764,11 @@ end;
 procedure TmainForm.MenuItem18Click(Sender: TObject);
 begin
   applicationUpdate(false);
+end;
+
+procedure TmainForm.MenuItemTesterClick(Sender: TObject);
+begin
+  TlibraryTesterForm.Create(Application).show;
 end;
 
 procedure TmainForm.MenuItem23Click(Sender: TObject);

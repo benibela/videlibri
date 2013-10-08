@@ -226,6 +226,11 @@ object mainForm: TmainForm
         Caption = 'Auf &Updates prüfen'
         OnClick = MenuItem18Click
       end
+      object MenuItemTester: TMenuItem
+        Caption = 'Ausleih-Konto-Tester'
+        Visible = False
+        OnClick = MenuItemTesterClick
+      end
     end
     object helpMenu: TMenuItem
       Caption = '&Hilfe'
