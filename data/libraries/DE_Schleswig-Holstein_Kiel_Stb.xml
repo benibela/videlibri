@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <library>
-  <longName value="Stadtbücherei Kiel"/>
+  <longName value="Stadtbücherei Kiel (alpha)"/>
   
   <template value="zones18"/>  
   <variable name="baseurl" value="https://stadtbuecherei.kiel.de/alswww2.dll/"/>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <library>
-  <longName value="Stadtbibliothek Köln"/>
+  <longName value="Stadtbibliothek Köln (alpha)"/>
   
   <template value="zones18"/>  
   <variable name="baseurl" value="https://katalog.stbib-koeln.de/alswww2.dll/"/>

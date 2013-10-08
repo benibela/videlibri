@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <library>
-  <longName value="Stadtbibliothek Hannover"/>
+  <longName value="Stadtbibliothek Hannover (alpha)"/>
   
   <template value="zones18"/>  
   <variable name="baseurl" value="https://bibliothek.hannover-stadt.de/alswww3.dll/"/>
