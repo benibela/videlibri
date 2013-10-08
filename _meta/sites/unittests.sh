@@ -133,14 +133,21 @@ PAGES=(${PAGES[@]} zones18/listIncremental.html)
 ADDTEMPLATE zones18/bulkRenew 2 
 PAGES=(${PAGES[@]} zones18/bulkRenew.html zones18/bulkRenew2.html)
 
-ADDTEMPLATE zones18/searchDetails 3
-PAGES=(${PAGES[@]} zones18/searchDetails.html zones18/searchDetailsCollection.html zones18/searchDetailsSubTitle.html)
-
 ADDTEMPLATE zones18/listOrders 6
 PAGES=(${PAGES[@]} zones18/orderList1.html zones18/orderList1unterwegs.html zones18/orderList2.html zones18/orderList2canceled.html zones18/orderList3+canceled.html zones18/orderList3+canceled_real.html )
 
 ADDTEMPLATE zones18/cancelConfirm 1
 PAGES=(${PAGES[@]} zones18/cancelConfirm.html)
+
+ADDTEMPLATE 'zones18/searchList{requestId:=0}' 5
+PAGES=(${PAGES[@]} zones18/searchList.biel.html zones18/searchList.cologne.html zones18/searchList.hannover.html zones18/searchList.kiel.html zones18/searchList.koblenz.html)
+
+ADDTEMPLATE 'zones18/searchList{requestId:=1}' 5
+PAGES=(${PAGES[@]} zones18/searchListIncremental.biel.html zones18/searchListIncremental.cologne.html zones18/searchListIncremental.hannover.html zones18/searchListIncremental.kiel.html zones18/searchListIncremental.koblenz.html)
+
+ADDTEMPLATE zones18/searchDetails 7
+PAGES=(${PAGES[@]} zones18/searchDetails.html zones18/searchDetailsCollection.html zones18/searchDetailsSubTitle.html zones18/searchDetails.biel.html zones18/searchDetails.cologne.html zones18/searchDetails.hannover.html zones18/searchDetails.koblenz.html)
+
 
 ADDTEMPLATE zones18/orderConfirmation{vl:choose} 1
 PAGES=(${PAGES[@]} zones18/orderConfirm.html)
