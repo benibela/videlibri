@@ -1,0 +1,26 @@
+book: {}
+
+
+result: untyped: 
+temp: string: Erschienen ab
+temp: string: BESTAND
+temp: string: TITEL
+temp: string: WEITERER TITEL
+temp: string: WEITERER TITEL
+temp: string: WEITERER TITEL
+temp: string: WEITERER TITEL
+temp: string: INSTITUTION
+temp: string: UNTERTITEL
+temp: string: ORT
+temp: string: VERLAG
+temp: string: UMFANG
+temp: string: VOLLTEXT
+temp: string: VOLLTEXT
+temp: string: BESCHREIBUNG
+temp: string: URL ERLÄUTERUNG
+temp: string: MATERIAL
+temp: string: PARALLELTITEL
+temp: string: LOKALE URL
+temp: string: -
+temp: string: PERMALINK
+book: object(): {"Erschienen ab!": "30.2013 -", "BESTAND!": "30.2013 -", "TITEL!": "IEEE design & test", "WEITERER TITEL!": "Design & test", "WEITERER TITEL!": "Design and test", "WEITERER TITEL!": "D & T", "WEITERER TITEL!": "D and T", "INSTITUTION!": "Institute of Electrical and Electronics Engineers", "UNTERTITEL!": "D & T", "ORT!": "New York, NY", "VERLAG!": "IEEE", "UMFANG!": "Online-Ressource", "VOLLTEXT!": "http://ieeexplore.ieee.org/xpl/RecentIssue.jsp?punumber=6221038", "VOLLTEXT!": "http://www.bibliothek.uni-regensburg.de/ezeit/?2714080&bibid=UBR", "BESCHREIBUNG!": "http://ieeexplore.ieee.org/servlet/opac?punumber=6221038", "URL ERLÄUTERUNG!": "Interna: EZB", "MATERIAL!": "Elektronische Ressource", "PARALLELTITEL!": "Druckausg. --->: Institute of Electrical and Electronics Engineers: IEEE design & test", "LOKALE URL!": "http://www.hs-regensburg.de/fileadmin/media/einrichtungen/bibliothek/DBIS/ezb-readme_1.html?lang=de#IEEE", "-!": "Vorg. --->: Institute of Electrical and Electronics Engineers: IEEE design & test of computers", "PERMALINK!": "https://www.regensburger-katalog.de/query/10/BV040991131"}

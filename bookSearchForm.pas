@@ -932,8 +932,9 @@ begin
         tempStream:=TStringStream.Create(getProperty('image',book.additional));
         try
           ext := getProperty('image-content-type',book.additional);
-          if (ext = 'image/jpeg') or (ext = 'image/jpg') then ext := '.jpg'
-          else if ext = 'image/png' then ext := '.png'
+          if striContains(ext, 'image/jpeg') or striContains(ext, 'image/jpg') then ext := '.jpg'
+          else if striContains(ext, 'image/png') then ext := '.png'
+          else if striContains(ext, 'image/gif') then ext := '.gif'
           else ext := ExtractFileExt(getProperty('image-url',book.additional));
           image1.Picture.LoadFromStreamWithFileExt(tempStream, ext);
           Image1.width:=min(image1.Picture.Width, Image1.Picture.Width * image1.Height div max(1,image1.Picture.Height));

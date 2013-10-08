@@ -1,0 +1,2335 @@
+
+
+
+
+
+
+
+
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!-- START jsp/common/metaHeader.jsp -->
+
+
+
+<html xmlns="http://www.w3.org/1999/xhtml" 
+ xml:lang="de" 
+ lang="de"
+> 
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <meta http-equiv="pragma" content="no-cache" />
+  <meta http-equiv="expires" content="0" />
+  <meta http-equiv="cache-control" content="no-cache" />
+
+<!-- <link rel="shortcut icon" href="/InfoGuideClient.ubrsis/images/OCLC.ico" /> -->
+
+
+<script src="jsp/common/paperC_test.js" type="text/javascript" language="javascript"></script>
+<script src="jsp/common/jquery.js" type="text/javascript" language="javascript"></script>
+<script src="jsp/common/tooltipp.js" type="text/javascript" language="javascript"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+        
+            <link rel="stylesheet" href="/InfoGuideClient.ubrsis/jsp/common/infoguide.css"  type="text/css" />
+            <!--[if IE]>  <link rel="stylesheet" href="/InfoGuideClient.ubrsis/jsp/common/infoguide.css"  type="text/css" />  <![endif]-->
+            <!--[if IE 7]>
+            <style type="text/css">
+              #tab-content{margin-top:5px;}
+              select {height:auto;}
+              #searchfield input#f1 {width:10em;}
+            </style>
+            <![endif]-->
+        
+  
+  
+
+
+
+<!-- Favicon geaendert 19.10.09 DW / Le -->
+<link rel="SHORTCUT ICON" type="image/x-icon" href="/InfoGuideClient.ubrsis/images/favicon.ico">
+<link REL="ICON" type="image/ico" HREF="/InfoGuideClient.ubrsis/images/favicon.ico">
+<!-- Ende Favicon geaendert -->
+  
+  <!--[if IE 7]>
+    <style type="text/css">
+      #tab-content{margin-top:5px;}
+      select {height:auto;}
+      #searchfield input#f1 {width:10em;}
+    </style>
+  <![endif]-->
+  
+  <title>
+    
+      Regensburger Katalog
+    
+  </title>
+</head>
+<!-- END of jsp/common/metaHeader.jsp -->
+
+<!-- START jsp/result/HitLayout.jsp --> 
+
+
+
+<body>
+	<div id="pageContainer">
+		
+					
+			
+		
+			
+		
+		
+
+
+
+<!-- START jsp/common/header.jsp -->
+
+
+<!-- BEGIN /bsb/mobileOPAC/addMobileFunctionality.jsp -->
+
+
+
+
+
+
+<!-- END /bsb/mobileOPAC/addMobileFunctionality.jsp -->
+
+
+
+
+
+<table cellspacing="0" cellpadding="0" border="0" width="100% bgcolor="white">
+  <tr>
+   <td align="center">
+    <a href="http://www.bibliothek.uni-regensburg.de/katalog/bibliotheken.htm"  target="_blank"> 
+     
+     
+     
+
+ 	 <link rel="search" href="http://www.regensburger-katalog.de/ubr-www/SearchPlugin/Uni/RegensburgerKatalog-Uni.xml"  type="application/opensearchdescription+xml" title="Regensburger Katalog(Uni)" /> 
+      <span style="color:#A46674""><h1>Regensburger Katalog </h1></span></a><br></br>
+     
+        
+     
+   </td>
+   </td>
+  </tr>
+  </table>
+
+
+
+
+<!-- END of jsp/common/header.jsp -->
+
+
+		<div id="mainnav">
+			
+
+
+
+
+<!-- START jsp/navigation/mainNavi.jsp --> 
+
+
+<script src="jsp/common/wz_tooltip.js" language="JavaScript" type="text/javascript"> </script>
+<script language="JavaScript" type="text/javascript">
+<!--
+/* <[CDATA[ */
+
+$(document).ready(function() {
+  $("[tip]").hover(
+    function () {
+      $(this).removeAttr("title");
+      Tip( $(this).attr("tip"), WIDTH, -200 );
+    },
+    function () {
+      UnTip();
+    }
+  );
+})
+/* ]]> */
+//-->
+</script>
+
+
+
+<!-- Actual Tiles Context 755 -->
+
+<ul>
+
+
+	<li id="current"><div id="active">Suche</div>
+		<ul>
+
+
+
+
+
+			 
+				
+				
+					<li>
+						<a href="/InfoGuideClient.ubrsis/search.do?methodToCall=switchSearchPage&amp;SearchType=2" title="Neue Suche">Neue Suche</a>
+					</li>
+				
+			
+
+
+
+			 
+				
+				
+					<li>
+						<a href="/InfoGuideClient.ubrsis/search.do?methodToCall=switchSearchPage&amp;SearchType=3" title="Fachliche Suche">Fachliche Suche</a>
+					</li>
+				
+			
+      
+  		  
+		    
+		      <li>
+		        <a href="/InfoGuideClient.ubrsis/searchHistory.do?methodToCall=showHistory" title="Suchhistorie">Suchhistorie</a>
+		      </li>	
+		    
+		  
+		  
+		
+			
+				
+				
+							
+					
+						
+					
+				
+				
+			
+				
+					<li>
+						<a href="/InfoGuideClient.ubrsis/hitList.do?methodToCall=backToPrimaryHitList" title="Trefferliste">Trefferliste</a>
+					</li>
+				
+			
+			
+				<li id="current2">Detailanzeige</li>
+			
+			
+		</ul>
+	</li>
+
+
+
+	<li><a href="/InfoGuideClient.ubrsis/memorizelist.do?methodToCall=show" title="Kein Warenkorb, nur Literatursliste">Merkliste</a></li>
+
+
+
+
+
+<li><a href="/InfoGuideClient.ubrsis/userAccount.do?methodToCall=show&amp;type=1" title="Konto">Konto</a></li>
+
+
+
+
+
+
+	<li><a href="/InfoGuideClient.ubrsis/additional.do?methodToCall=show" title="weitere Angebote">weitere Angebote</a></li>
+
+
+
+</ul>
+<!-- END of jsp/navigation/mainNavi.jsp --> 
+
+			
+
+
+
+
+<!-- START jsp/navigation/loginnavi.jsp --> 
+
+<div id="login">
+	
+
+
+                
+                
+                
+		<a href="/InfoGuideClient.ubrsis/loginpage.do?methodToCall=showLogin" title="Anmelden"><span style="color:#A46674; font-size:4"><b><font size=4>Anmelden</font></b></span></a>
+                
+                
+                
+	
+
+
+	
+</div>
+<!-- END of jsp/navigation/loginnavi.jsp --> 
+
+		</div> 
+ 		<br class="cleaner" />
+ 		
+
+
+
+
+
+
+
+
+
+<!-- START jsp/navigation/bgnavi.jsp --> 
+<script language="javascript" type="text/javascript"
+ src="/InfoGuideClient.ubrsis/help/help.js">
+</script>
+
+<div id="bgmainnav">
+	<div id="nav2">
+		<ul>
+			
+			
+			
+				
+				
+					
+						
+						<li><a href="/InfoGuideClient.ubrsis/asklibrary.do?methodToCall=show" title="Anfragen/Fernleihe">Anfragen/Fernleihe</a></li>
+						
+					
+					
+						
+					
+					
+						
+					
+				
+			
+			
+			
+			<li>
+			  <a href="#" onclick="return openHelp('/InfoGuideClient.ubrsis');"
+			     title="Hilfe">
+			   Hilfe</a>
+		  </li>
+  		
+	    	
+		  	
+			   	<li><a href="/InfoGuideClient.ubrsis/actual.do?methodToCall=show" title="Aktuelles">Aktuelles</a></li>
+    		
+    	
+		</ul>
+	</div>  
+</div>
+<!-- END of jsp/navigation/bgnavi.jsp --> 
+
+		<br class="cleaner" />
+		
+		
+			
+
+
+
+
+<!-- START jsp/result/searchinfo.jsp --> 
+<div id="info1">
+	
+
+	
+	<strong class="c1">Ihre Suchanfrage</strong>
+	Titel(wörter) = test
+	
+	
+	
+</div> 
+<!-- END of jsp/result/searchinfo.jsp --> 
+
+		
+		
+		<br class="cleaner" />
+		<div id="main"> 
+			<div id="SOWrap"> 
+				<div id="middle"> 
+					<div class="box">
+						
+
+
+
+
+<!-- START jsp/result/hit.jsp --> 
+
+
+
+<div class="box-header">
+	
+		<div class="box-right">
+			|&#171;
+&#171;
+<a href="/InfoGuideClient.ubrsis/singleHit.do?methodToCall=showHit&amp;identifier=-1_FT_777623963&amp;curPos=2&amp;tab=showTitleActive">&#187;</a>
+<a href="/InfoGuideClient.ubrsis/singleHit.do?methodToCall=showHit&amp;identifier=-1_FT_777623963&amp;curPos=3407&amp;tab=showTitleActive">&#187;|</a>
+
+		</div>
+	
+
+	
+  
+  
+
+	
+		<h2>Regensburger Katalog (1/3407)</h2>
+	
+	
+</div>
+<div class="box-container">
+	<!-- START jsp/result/teaser.jsp --> 
+<table class="data" style="width:100%">
+
+<span class="Z3988"
+   title="ctx_ver=Z39.88-2004&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Abook&amp;rft.genre=book&amp;rft.btitle=IEEE+design+%26+test&amp;rft.au=&amp;rft.isbn=&amp;rft.aucorp=Institute+of+Electrical+and+Electronics+Engineers&amp;rft.place=New+York%2C+NY&amp;rft.pub=IEEE&amp;rft.date=&amp;rft.series=&amp;rft.tpages=&amp;rft.edition=&amp;rft_id=http%3A%2F%2Fwww.regensburger-katalog.de%2FInfoGuideClient.ubrsis%2Fstart.do%3FLogin%3Digubr%26Query%3D10%3D%22BV040991131%22">
+    </span>
+<!--Besitznachweis: FHM01|FAB01|FWS01|FHN01|FHR01|FHA01|FHO01|FHI01|BTW01|UBT01|TUM01|UBA01|HUBA1|UBM01|BTU01|GEM01|UBY01 -->
+                  <tr>
+	<td>
+
+<div style="float:right;">
+		    <a href="http://www.bibliothek.uni-regensburg.de/ezeit/?2714080&bibid=UBR" title='E-Journal der HS Regensburg - Zugriff nur im Hochschulnetz' tip='E-Journal der HS Regensburg - Zugriff nur im Hochschulnetz' target="_blank"><img src="/InfoGuideClient.ubrsis/images/linkbutton-ezb-de.gif" border="0"/></a><br/> 
+	<a href="http://ieeexplore.ieee.org/servlet/opac?punumber=6221038" title='Beschreibung anzeigen' target="_blank"><img src="/InfoGuideClient.ubrsis/images/linkbutton-beschreibung-de.gif" border="0"/></a><br/>
+            <div id="paperC" style="display:none"> 
+				<a class="paperC_link"  title='Volltext bei PaperC (gratis: lesen - kostenpflichtig: drucken und speichern, eigene Notizen und Lesezeichen anf&uuml;gen)' target=_blank ><img src="/InfoGuideClient.ubrsis/images/paperc_logo.gif" alt="paperC"></a>
+			</div>
+          </div>
+<strong>IEEE design &amp; test</strong><br />
+                                        D &amp; T<br /><br />
+  <strong class="c2">ORT, VERLAG:</strong> New York, NY, IEEE<br />
+		<font color="#FF0000">
+                     <strong class="c2">Hinweis:</strong>
+                     Campuslizenz f&uuml;r Hochschule f&uuml;r angewandte Wissenschaften<br />
+                     </font>
+                <br />
+    	<br />
+	<br>
+<div id="bibtip_id" style="display:none">
+    5212670</div>
+
+<div id="bibtip_shorttitle" style="display:none">
+    IEEE design &amp; test</div>
+
+<div style="display:none" id="bibtip_reclist"></div>
+
+<p>&nbsp;</p>
+		<a href="/InfoGuideClient.ubrsis/memorizeHitList.do?methodToCall=addToMemorizeList&amp;curPos=1&amp;forward=singlehit&amp;identifier=-1_FT_777623963" title="in die Merkliste">in die Merkliste</a>
+				</td>
+
+</tr>
+</table>
+
+<!--
+
+-->
+	
+<!-- END of jsp/result/teaser.jsp --> 
+
+</div>
+<script language="javascript" type="text/javascript">
+ setHelp("trefferliste", "");
+</script>
+
+<!-- END of jsp/result/hit.jsp --> 
+					</div>
+					<br />
+					
+
+
+
+
+
+<!-- START jsp/result/singleHitTabNavi.jsp --> 
+<div id="tab">
+	<ul>
+	  
+	
+     
+		<li id="tabExemplare">
+		  <div id="labelExemplare">
+		    
+				
+					<a href="/InfoGuideClient.ubrsis/singleHit.do?methodToCall=activateTab&amp;tab=showExemplarActive" title="Exemplare">
+					  Exemplare
+					</a>
+				
+		  </div>
+		</li>
+    
+		<li id="tabAvailability">
+		  <div id="labelAvailability">
+			  
+			  
+				  <a href="/InfoGuideClient.ubrsis/singleHit.do?methodToCall=activateTab&amp;tab=showAvailabilityActive" title="Bestellen und mehr!">
+				    Bestellen und mehr!
+				  </a>
+			  
+			</div>
+		</li>
+		<li id="tabTitle">
+		  <div id="labelTitle">
+			   
+  			
+				  <a href="/InfoGuideClient.ubrsis/singleHit.do?methodToCall=activateTab&amp;tab=showTitleActive" title="mehr zum Titel">
+				    mehr zum Titel
+				  </a>
+			  
+			</div>
+		</li>
+		
+       		
+	</ul>
+</div>
+<!-- END of jsp/result/singleHitTabNavi.jsp --> 
+
+					<div class="cleaner"></div>	
+					
+
+
+
+
+<!-- START jsp/result/titleinfo.jsp --> 
+
+<script language="javascript" type="text/javascript">
+  m_id=document.getElementById("labelTitle");
+  if(m_id != null)
+  {
+    m_id.innerHTML='mehr zum Titel';
+    m_id.id="active1";
+
+    m_id=document.getElementById("tabTitle");
+    m_id.id="current1";
+  }
+</script>
+
+
+
+
+
+ 
+
+
+
+
+
+<div id="tab-content">
+	<table class="fulltitle"   cellspacing="0" cellpadding="0" border="0">	
+            
+                        
+                                
+                                      
+                                      
+                                      
+                                               
+                                      
+               
+                                     
+                                        
+               
+               
+            
+                                
+                                      
+                                      
+                                      
+                                               
+                                      
+               
+                                     
+                                        
+               
+               
+            
+                                
+                                      
+                                      
+                                      
+                                               
+                                      
+               
+                                     
+                                        
+               
+               
+            
+                                
+                                      
+                                      
+                                      
+                                               
+                                      
+               
+                                     
+                                        
+               
+               
+            
+                                
+                                      
+                                      
+                                      
+                                               
+                                      
+               
+                                     
+                                        
+               
+               
+            
+                                
+                                      
+                                      
+                                      
+                                               
+                                      
+               
+                                     
+                                        
+               
+               
+            
+                                
+                                      
+                                      
+                                      
+                                               
+                                      
+               
+                                     
+                                        
+               
+               
+            
+                                
+                                      
+                                      
+                                      
+                                               
+                                      
+               
+                                     
+                                        
+               
+               
+            
+                                
+                                      
+                                      
+                                      
+                                               
+                                      
+               
+                                     
+                                        
+               
+               
+            
+                                
+                                      
+                                      
+                                      
+                                               
+                                      
+               
+                                     
+                                        
+               
+               
+            
+                                
+                                      
+                                      
+                                      
+                                               
+                                      
+               
+                                     
+                                        
+               
+               
+            
+                                
+                                      
+                                      
+                                      
+                                               
+                                      
+               
+                                     
+                                        
+               
+               
+            
+                                
+                                      
+                                      
+                                      
+                                               
+                                      
+               
+                                     
+                                        
+               
+               
+            
+                                
+                                      
+                                      
+                                      
+                                               
+                                      
+               
+                                     
+                                        
+               
+               
+            
+                                
+                                      
+                                      
+                                      
+                                               
+                                      
+               
+                                     
+                                        
+               
+               
+            
+                                
+                                      
+                                      
+                                      
+                                               
+                                      
+               
+                                     
+                                        
+               
+               
+            
+                                
+                                      
+                                      
+                                      
+                                               
+                                      
+               
+                                     
+                                        
+               
+               
+            
+                                
+                                      
+                                      
+                                      
+                                               
+                                      
+               
+                                     
+                                        
+               
+               
+            
+                                
+                                      
+                                      
+                                      
+                                               
+                                      
+               
+                                     
+                                        
+               
+               
+            
+                                
+                                      
+                                      
+                                      
+                                               
+                                      
+               
+                                     
+                                        
+               
+               
+            
+                                
+                                      
+                                      
+                                      
+                                               
+                                      
+               
+                                     
+                                        
+               
+               
+            
+                                
+                                      
+                                      
+                                      
+                                               
+                                      
+               
+                                     
+                                        
+               
+               
+            
+                                
+                                      
+                                      
+                                      
+                                               
+                                      
+               
+                                     
+                                        
+               
+               
+            
+                                
+                                      
+                                      
+                                      
+               
+                                     
+                                        
+               
+               
+            
+                                
+                                      
+                                      
+                                      
+               
+                                     
+                                        
+               
+               
+            
+                                
+                                      
+                                      
+                                      
+               
+                                     
+                                        
+               
+               
+            
+                                
+                                      
+                                      
+                                      
+               
+                                     
+                                        
+               
+               
+            
+                                
+                                      
+                                      
+                                      
+               
+                                     
+                                        
+               
+               
+            
+                                
+                                      
+                                      
+                                      
+               
+                                     
+                                        
+               
+               
+            
+                                
+                                      
+                                      
+                                      
+               
+                                     
+                                        
+               
+               
+            
+                                
+                                      
+                                      
+                                      
+               
+                                     
+                                        
+               
+               
+            
+                                
+                                      
+                                      
+                                      
+               
+                                     
+                                        
+               
+               
+            
+                                
+                                      
+                                      
+                                      
+               
+                                     
+                                        
+               
+               
+            
+                                
+                                      
+                                      
+                                      
+               
+                                     
+                                        
+               
+               
+            
+                                
+                                      
+                                      
+                                      
+               
+                                     
+                                        
+               
+               
+            
+                                
+                                      
+                                      
+                                      
+               
+                                     
+                                        
+               
+               
+            
+                                
+                                      
+                                      
+                                      
+               
+                                     
+                                        
+               
+               
+            
+                                
+                                      
+                                      
+                                      
+               
+                                     
+                                        
+               
+               
+            
+                                
+                                      
+                                      
+                                      
+               
+                                     
+                                        
+               
+               
+            
+                                
+                                      
+                                      
+                                      
+               
+                                     
+                                        
+               
+               
+            
+                                
+                                      
+                                      
+                                      
+               
+                                     
+                                        
+               
+               
+            
+                                
+                                      
+                                      
+                                      
+               
+                                     
+                                        
+               
+               
+            
+                                
+                                      
+                                      
+                                      
+               
+                                     
+                                        
+               
+               
+            
+                                
+                                      
+                                      
+                                      
+               
+                                     
+                                        
+               
+               
+            
+                                
+                                      
+                                      
+                                      
+               
+                                     
+                                        
+               
+               
+            
+                                
+                                      
+                                      
+                                      
+               
+                                     
+                                        
+               
+               
+            
+                                
+                                      
+                                      
+                                      
+               
+                                     
+                                        
+               
+               
+            
+                                
+                                      
+                                      
+                                      
+               
+                                     
+                                        
+               
+               
+            
+                                
+                                      
+                                      
+                                      
+               
+                                     
+                                        
+               
+               
+            
+                                
+                                      
+                                      
+                                      
+               
+                                     
+                                        
+               
+               
+            
+                                
+                                      
+                                      
+                                      
+               
+                                     
+                                        
+               
+               
+            
+                                
+                                      
+                                      
+                                      
+               
+                                     
+                                        
+               
+               
+            
+                                
+                                      
+                                      
+                                      
+               
+                                     
+                                        
+               
+               
+            
+                                
+                                      
+                                      
+                                      
+               
+                                     
+                                        
+               
+               
+            
+                                
+                                      
+                                      
+                                      
+               
+                                     
+                                        
+               
+               
+            
+                                
+                                      
+                                      
+                                      
+               
+                                     
+                                        
+               
+               
+            
+                                
+                                      
+                                      
+                                      
+               
+                                     
+                                        
+               
+               
+            
+                                
+                                      
+                                      
+                                      
+               
+                                     
+                                        
+               
+               
+            
+                                
+                                      
+                                      
+                                      
+               
+                                     
+                                        
+               
+               
+            
+                                
+                                      
+                                      
+                                      
+               
+                                     
+                                        
+               
+               
+            
+                                
+                                      
+                                      
+                                      
+               
+                                     
+                                        
+               
+               
+            
+                                
+                                      
+                                      
+                                      
+               
+                                     
+                                        
+               
+               
+            
+                                
+                                      
+                                      
+                                      
+                                               
+                                      
+               
+                                     
+                                        
+
+                                          
+                                          
+                                          
+                                          
+                                          
+                                          
+                                          
+                                          
+
+                                         <tr><th align="left" valign="top"><strong class="c2">Erschienen ab</strong></th>
+                                          <!-- Quicksearck als Link -->
+										  <td align="left" valign="top" colspan="2">
+                                          
+                                          <!-- Link und BV-Nummer als Link, sid anpassen! -->
+										  
+                                           
+                                               
+                                               
+                                               
+                                               
+                                               
+                                               
+											    
+                                                   30.2013 -
+												
+                                                
+                                           
+                                           </td></tr>
+
+
+                 
+                 
+
+
+                  
+               
+               
+            
+                                
+                                      
+                                      
+                                      
+               
+                                     
+                                        
+
+                                          
+                                          
+                                          
+                                          
+                                          
+                                          
+                                          
+                                          
+
+                                         <tr><th align="left" valign="top"><strong class="c2">BESTAND</strong></th>
+                                          <!-- Quicksearck als Link -->
+										  <td align="left" valign="top" colspan="2">
+                                          
+                                          <!-- Link und BV-Nummer als Link, sid anpassen! -->
+										  
+                                           
+                                               
+                                               
+                                               
+                                               
+                                               
+                                               
+											    
+                                                   30.2013 -
+												
+                                                
+                                           
+                                           </td></tr>
+
+
+                 
+                 
+
+
+                  
+               
+               
+            
+                                
+                                      
+                                      
+                                      
+               
+                                     
+                                        
+
+                                          
+                                          
+                                          
+                                          
+                                          
+                                          
+                                          
+                                          
+
+                                         <tr><th align="left" valign="top"><strong class="c2">TITEL</strong></th>
+                                          <!-- Quicksearck als Link -->
+										  <td align="left" valign="top" colspan="2">
+                                          
+                                          <!-- Link und BV-Nummer als Link, sid anpassen! -->
+										  
+                                           
+                                               
+                                               
+                                               
+                                               
+                                               
+                                               
+											    
+                                                   IEEE design &amp; test
+												
+                                                
+                                           
+                                           </td></tr>
+
+
+                 
+                 
+
+
+                  
+               
+               
+            
+                                
+                                      
+                                      
+                                      
+               
+                                     
+                                        
+
+                                          
+                                          
+                                          
+                                          
+                                          
+                                          
+                                          
+                                          
+
+                                         <tr><th align="left" valign="top"><strong class="c2">WEITERER TITEL</strong></th>
+                                          <!-- Quicksearck als Link -->
+										  <td align="left" valign="top" colspan="2">
+                                          
+                                          <!-- Link und BV-Nummer als Link, sid anpassen! -->
+										  
+                                           
+                                               
+                                               
+                                               
+                                               
+                                               
+                                               
+											    
+                                                   Design &amp; test
+												
+                                                
+                                           
+                                           </td></tr>
+
+
+                 
+                 
+
+
+                  
+               
+               
+            
+                                
+                                      
+                                      
+                                      
+               
+                                     
+                                        
+
+                                          
+                                          
+                                          
+                                          
+                                          
+                                          
+                                          
+                                          
+
+                                         <tr><th align="left" valign="top"><strong class="c2">WEITERER TITEL</strong></th>
+                                          <!-- Quicksearck als Link -->
+										  <td align="left" valign="top" colspan="2">
+                                          
+                                          <!-- Link und BV-Nummer als Link, sid anpassen! -->
+										  
+                                           
+                                               
+                                               
+                                               
+                                               
+                                               
+                                               
+											    
+                                                   Design and test
+												
+                                                
+                                           
+                                           </td></tr>
+
+
+                 
+                 
+
+
+                  
+               
+               
+            
+                                
+                                      
+                                      
+                                      
+               
+                                     
+                                        
+
+                                          
+                                          
+                                          
+                                          
+                                          
+                                          
+                                          
+                                          
+
+                                         <tr><th align="left" valign="top"><strong class="c2">WEITERER TITEL</strong></th>
+                                          <!-- Quicksearck als Link -->
+										  <td align="left" valign="top" colspan="2">
+                                          
+                                          <!-- Link und BV-Nummer als Link, sid anpassen! -->
+										  
+                                           
+                                               
+                                               
+                                               
+                                               
+                                               
+                                               
+											    
+                                                   D &amp; T
+												
+                                                
+                                           
+                                           </td></tr>
+
+
+                 
+                 
+
+
+                  
+               
+               
+            
+                                
+                                      
+                                      
+                                      
+               
+                                     
+                                        
+
+                                          
+                                          
+                                          
+                                          
+                                          
+                                          
+                                          
+                                          
+
+                                         <tr><th align="left" valign="top"><strong class="c2">WEITERER TITEL</strong></th>
+                                          <!-- Quicksearck als Link -->
+										  <td align="left" valign="top" colspan="2">
+                                          
+                                          <!-- Link und BV-Nummer als Link, sid anpassen! -->
+										  
+                                           
+                                               
+                                               
+                                               
+                                               
+                                               
+                                               
+											    
+                                                   D and T
+												
+                                                
+                                           
+                                           </td></tr>
+
+
+                 
+                 
+
+
+                  
+               
+               
+            
+                                
+                                      
+                                      
+                                      
+               
+                                     
+                                        
+
+                                          
+                                          
+                                          
+                                          
+                                          
+                                          
+                                          
+                                          
+
+                                         <tr><th align="left" valign="top"><strong class="c2">INSTITUTION</strong></th>
+                                          <!-- Quicksearck als Link -->
+										  <td align="left" valign="top" colspan="2">
+                                          
+										 
+					      
+                                               
+                                                  
+                                                  
+                                                  <a href="/InfoGuideClient.ubrsis/search.do?methodToCall=quickSearch&amp;Kateg=200&amp;Content=Institute+of+Electrical+and+Electronics+Engineers">Institute of Electrical and Electronics Engineers</a>
+                                                   
+                                             
+											 
+                                             
+                                             
+                                          
+                                          <!-- Link und BV-Nummer als Link, sid anpassen! -->
+										  
+                                           
+                                               
+                                               
+                                               
+                                               
+                                               
+                                               
+											    
+                                                
+                                           
+                                           </td></tr>
+
+
+                 
+                 
+
+
+                  
+               
+               
+            
+                                
+                                      
+                                      
+                                      
+               
+                                     
+                                        
+
+                                          
+                                          
+                                          
+                                          
+                                          
+                                          
+                                          
+                                          
+
+                                         <tr><th align="left" valign="top"><strong class="c2">UNTERTITEL</strong></th>
+                                          <!-- Quicksearck als Link -->
+										  <td align="left" valign="top" colspan="2">
+                                          
+                                          <!-- Link und BV-Nummer als Link, sid anpassen! -->
+										  
+                                           
+                                               
+                                               
+                                               
+                                               
+                                               
+                                               
+											    
+                                                   D &amp; T
+												
+                                                
+                                           
+                                           </td></tr>
+
+
+                 
+                 
+
+
+                  
+               
+               
+            
+                                
+                                      
+                                      
+                                      
+               
+                                     
+                                        
+
+                                          
+                                          
+                                          
+                                          
+                                          
+                                          
+                                          
+                                          
+
+                                         <tr><th align="left" valign="top"><strong class="c2">ORT</strong></th>
+                                          <!-- Quicksearck als Link -->
+										  <td align="left" valign="top" colspan="2">
+                                          
+                                          <!-- Link und BV-Nummer als Link, sid anpassen! -->
+										  
+                                           
+                                               
+                                               
+                                               
+                                               
+                                               
+                                               
+											    
+                                                   New York, NY
+												
+                                                
+                                           
+                                           </td></tr>
+
+
+                 
+                 
+
+
+                  
+               
+               
+            
+                                
+                                      
+                                      
+                                      
+               
+                                     
+                                        
+
+                                          
+                                          
+                                          
+                                          
+                                          
+                                          
+                                          
+                                          
+
+                                         <tr><th align="left" valign="top"><strong class="c2">VERLAG</strong></th>
+                                          <!-- Quicksearck als Link -->
+										  <td align="left" valign="top" colspan="2">
+                                          
+                                          <!-- Link und BV-Nummer als Link, sid anpassen! -->
+										  
+                                           
+                                               
+                                               
+                                               
+                                               
+                                               
+                                               
+											    
+                                                   IEEE
+												
+                                                
+                                           
+                                           </td></tr>
+
+
+                 
+                 
+
+
+                  
+               
+               
+            
+                                
+                                      
+                                      
+                                      
+               
+                                     
+                                        
+
+                                          
+                                          
+                                          
+                                          
+                                          
+                                          
+                                          
+                                          
+
+                                         <tr><th align="left" valign="top"><strong class="c2">UMFANG</strong></th>
+                                          <!-- Quicksearck als Link -->
+										  <td align="left" valign="top" colspan="2">
+                                          
+                                          <!-- Link und BV-Nummer als Link, sid anpassen! -->
+										  
+                                           
+                                               
+                                               
+                                               
+                                               
+                                               
+                                               
+											    
+                                                   Online-Ressource
+												
+                                                
+                                           
+                                           </td></tr>
+
+
+                 
+                 
+
+
+                  
+               
+               
+            
+                                
+                                      
+                                      
+                                      
+               
+                                     
+               
+                 
+                 
+                 
+                
+                 
+                 
+                     <tr><th align="left" valign="top"><strong class="c2">VOLLTEXT</strong></th>
+                
+                
+                     <!-- <a href="http://ieeexplore.ieee.org/xpl/RecentIssue.jsp?punumber=6221038" target=" ">hier klicken</a><br /> -->
+                     <td align="left" valign="top" colspan="2"><a href="http://ieeexplore.ieee.org/xpl/RecentIssue.jsp?punumber=6221038" target=" ">http://ieeexplore.ieee.org/xpl/RecentIssue.jsp?punumber=6221038</a></td></tr>
+                 
+                 
+                 
+                 
+                 
+                 
+                 
+                 
+                 
+               
+            
+                                
+                                      
+                                      
+                                      
+               
+                                     
+               
+                 
+                 
+                 
+                
+                 
+                 
+                     <tr><th align="left" valign="top"><strong class="c2">VOLLTEXT</strong></th>
+                
+                
+             
+ 
+ 
+ 
+		
+                    
+                     
+		
+
+
+
+		
+                     <!-- <a href="http://www.bibliothek.uni-regensburg.de/ezeit/?2714080&bibid=FHBR" target=" ">hier klicken</a><br /> -->
+                     <td align="left" valign="top" colspan="2"><a href="http://www.bibliothek.uni-regensburg.de/ezeit/?2714080&bibid=UBR" target=" ">http://www.bibliothek.uni-regensburg.de/ezeit/?2714080&amp;bibid=UBR</a></td></tr>
+                 
+                 
+                 
+                 
+                 
+                 
+                 
+                 
+                 
+               
+            
+                                
+                                      
+                                      
+                                      
+               
+                                     
+               
+                 
+                 
+                 
+                
+                 
+                 
+                 
+                 
+                    <tr><th align="left" valign="top"><strong class="c2">BESCHREIBUNG</strong></th>
+                     <!-- <a href="http://ieeexplore.ieee.org/servlet/opac?punumber=6221038" target=" ">hier klicken</a><br /> -->
+                     <td align="left" valign="top" colspan="2"><a href="http://ieeexplore.ieee.org/servlet/opac?punumber=6221038" target=" ">http://ieeexplore.ieee.org/servlet/opac?punumber=6221038</a></td></tr>
+                 
+                 
+                 
+                 
+                 
+                 
+                 
+               
+            
+                                
+                                      
+                                      
+                                      
+               
+                                     
+                                        
+
+                                          
+                                          
+                                          
+                                          
+                                          
+                                          
+                                          
+                                          
+
+                                         <tr><th align="left" valign="top"><strong class="c2">URL ERLÄUTERUNG</strong></th>
+                                          <!-- Quicksearck als Link -->
+										  <td align="left" valign="top" colspan="2">
+                                          
+                                          <!-- Link und BV-Nummer als Link, sid anpassen! -->
+										  
+                                           
+                                               
+                                               
+                                               
+                                               
+                                               
+                                               
+											    
+                                                   Interna: EZB
+												
+                                                
+                                           
+                                           </td></tr>
+
+
+                 
+                 
+
+
+                  
+               
+               
+            
+                                
+                                      
+                                      
+                                      
+                                               
+                                      
+               
+                                     
+                                        
+
+                                          
+                                          
+                                          
+                                          
+                                          
+                                          
+                                          
+                                          
+
+                                         <tr><th align="left" valign="top"><strong class="c2">MATERIAL</strong></th>
+                                          <!-- Quicksearck als Link -->
+										  <td align="left" valign="top" colspan="2">
+                                          
+                                          <!-- Link und BV-Nummer als Link, sid anpassen! -->
+										  
+                                           
+                                               
+                                               
+                                               
+                                               
+                                               
+                                               
+											    
+                                                   Elektronische Ressource
+												
+                                                
+                                           
+                                           </td></tr>
+
+
+                 
+                 
+
+
+                  
+               
+               
+            
+                                
+                                      
+                                      
+                                      
+               
+                                     
+                                        
+
+                                          
+                                          
+                                          
+                                          
+                                          
+                                          
+                                          
+                                          
+
+                                         <tr><th align="left" valign="top"><strong class="c2">PARALLELTITEL</strong></th>
+                                          <!-- Quicksearck als Link -->
+										  <td align="left" valign="top" colspan="2">
+                                          
+                                          <!-- Link und BV-Nummer als Link, sid anpassen! -->
+										  
+                                           
+                                               
+                                               
+                                               
+                                               
+                                               
+                                               
+											    
+                                                   Druckausg. ---&gt;: Institute of Electrical and Electronics Engineers: IEEE design &amp; test
+												
+                                                
+                                           
+                                           </td></tr>
+
+
+                 
+                 
+
+
+                  
+               
+               
+            
+                                
+                                      
+                                      
+                                      
+               
+                                     
+                                        
+
+                                          
+                                          
+                                          
+                                          
+                                          
+                                          
+                                          
+                                          
+
+                                         <tr><th align="left" valign="top"><strong class="c2">LOKALE URL</strong></th>
+                                          <!-- Quicksearck als Link -->
+										  <td align="left" valign="top" colspan="2">
+                                          
+                                          <!-- Link und BV-Nummer als Link, sid anpassen! -->
+										  
+                                           
+                                           <a href="http://www.hs-regensburg.de/fileadmin/media/einrichtungen/bibliothek/DBIS/ezb-readme_1.html?lang=de#IEEE" target="_">http://www.hs-regensburg.de/fileadmin/media/einrichtungen/bibliothek/DBIS/ezb-readme_1.html?lang=de#IEEE</a>
+
+                                                    
+										   
+                                           
+                                               
+                                               
+                                               
+                                               
+                                               
+                                               
+											    
+                                                
+                                           
+                                           </td></tr>
+
+
+                 
+                 
+
+
+                  
+               
+               
+            
+                                
+                                      
+                                      
+                                      
+               
+                                     
+                                        
+
+                                          
+                                          
+                                          
+                                          
+                                          
+                                          
+                                          
+                                          
+
+                                         <tr><th align="left" valign="top"><strong class="c2">-</strong></th>
+                                          <!-- Quicksearck als Link -->
+										  <td align="left" valign="top" colspan="2">
+                                          
+                                          <!-- Link und BV-Nummer als Link, sid anpassen! -->
+										  
+                                           
+                                               
+                                               
+                                               
+                                               
+                                               
+                                               
+											    
+                                                   Vorg. ---&gt;: Institute of Electrical and Electronics Engineers: IEEE design &amp; test of computers
+												
+                                                
+                                           
+                                           </td></tr>
+
+
+                 
+                 
+
+
+                  
+               
+               
+            
+
+ 
+        <tr><th align="left" valign="top">
+		
+			 
+             <strong class="c2">PERMALINK</strong></th>
+			 <td align="left" valign="top" colspan="2">
+              https://www.regensburger-katalog.de/query/10/BV040991131
+			  
+			
+			
+			
+                
+                
+                
+                
+                  
+                
+                
+       
+        <td align="right">
+                
+                <!-- AddThis Button BEGIN -->
+<a href="http://www.addthis.com/bookmark.php?v=250&amp;pub=xa-4a795315259ae726" onmouseover="return addthis_open(this, '', 'https://www.regensburger-katalog.de/query/10/BV040991131', 'Institute of Electrical and Electronics Engineers: IEEE design & test [Regensburger Katalog]')" onmouseout="addthis_close()" onclick="return addthis_sendto()"><img src="http://s7.addthis.com/static/btn/lg-bookmark-en.gif" width="125" height="16" alt="Bookmark and Share" style="border:0"/></a><script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js?pub=xa-4a795315259ae726"></script>
+
+                <!--  AddThis Button END -->       
+				</td>
+				</tr>
+
+
+          
+
+
+			
+	
+				
+			
+	</table>
+</div>
+<!-- END of jsp/result/titleinfo.jsp --> 
+				
+				</div>
+			</div>
+			<!-- SOWrap -->
+			
+				<div id="right">
+					
+
+
+
+
+
+
+
+
+
+
+
+<!-- START jsp/result/rechtsoben.jsp --> 
+
+
+
+
+<div class="box3">
+	<div class="box3-header">
+		<div class="box3-img"><img src="images/box3-right.gif" width="8" height="8" alt="" /></div>
+		<h2>weitere Optionen</h2>
+	</div>
+	<div class="box3-content">
+	<p><strong>Suchanfrage</strong><br />
+			<a href="/InfoGuideClient.ubrsis/search.do?methodToCall=start" title="Suchanfrage &auml;ndern">&auml;ndern</a>
+	</p>
+	
+	
+	
+		 
+			<p><strong>Ausgabe</strong><br />
+				
+					<a href="/InfoGuideClient.ubrsis/hitOutput.do?methodToCall=show&amp;caller=singlehit" title="Drucken/Speichern/E-Mail">Drucken/Speichern/E-Mail</a>
+				
+				
+		 </p>
+		
+	
+	
+			
+		 
+			<p><strong>Datenbank-Auswahl</strong><br />
+			Auswahl<br />
+				
+					<a href="/InfoGuideClient.ubrsis/search.do?methodToCall=dbExtension" title="bayernweit suchen (mit Fernleihe)">bayernweit suchen (mit Fernleihe)</a> |
+				
+					<a href="/InfoGuideClient.ubrsis/search.do?methodToCall=submit&amp;methodToCallParameter=databaseSelection" title="bayernweit suchen (mit Fernleihe)">Auswahl &auml;ndern</a> 
+			</p>
+		
+	
+			
+		
+			
+			
+			
+			
+		
+	
+
+	 
+		
+			
+  		<p>
+			<strong>Suchdienst</strong><br />
+			
+				<a href="/InfoGuideClient.ubrsis/loginpage.do?methodToCall=showLogin">Bitte erst anmelden!</a>
+			
+			
+			</p>
+			
+		
+	
+</div> <!-- box3-content --> 
+</div><!-- box3 -->
+
+<!-- END of jsp/result/rechtsoben.jsp --> 
+
+					<br class="space" />
+					<!-- filler /jsp/common/empty.jsp --> 
+					<br class="space" />
+					
+
+
+
+
+<!-- START jsp/common/news.jsp -->
+
+
+	<!-- START jsp/news+info/de_755_14.jsp -->
+		
+
+
+<div class="box3">
+   <div class="box3-header">
+      <div class="box3-img"><img src="images/box3-right.gif" width="8" height="8" alt="" /></div>
+      <h2><font color="#A46674"><b>Ausweis online beantragen</b></font></a></h2>
+   </div>
+   <p>
+     <div class="box3-content">
+        <p><b>Kein Student oder Mitarbeiter der Uni Regensburg?</b></p>
+        <p>Dann bitte den <a href="http://www.uni-regensburg.de/bibliothek/service/medien-nutzen-und-ausleihen/antrag-auf-einen-bibliotheksausweis-extern/index.html">Bibliotheksausweis online beantragen</a>.<p>
+     </div>
+   </p>
+</div>
+
+	<!-- END of jsp/news+info/de_755_14.jsp -->
+	<br class="space" />
+
+
+
+
+	<!-- START jsp/news+info/de_755_4.jsp -->
+		
+
+
+	<!-- END of jsp/news+info/de_755_4.jsp -->
+	<br class="space" />
+
+
+
+
+	<!-- START jsp/news+info/de_755_3.jsp -->
+		
+
+
+	<!-- END of jsp/news+info/de_755_3.jsp -->
+	<br class="space" />
+
+
+
+<!-- END of jsp/common/news.jsp --> 
+				</div>
+			
+			
+			
+			<!-- right -->
+			<br class="cleaner" />
+		</div>
+		
+
+
+
+
+
+
+
+
+<!-- START jsp/common/footer.jsp -->
+
+<div id="footer">
+
+  
+	
+	
+		&nbsp;
+	
+	
+  <div id="copyright">
+ 
+	
+	
+		
+			<p style="text-align:center;">
+			<a target="_" href="http://www.facebook.com/ubregensburg" title="werde Fan auf Facebook"><img src="/InfoGuideClient.ubrsis/images/SocialNetwork/facebook_small.jpeg" height="20" width="60" border="0"></a> &nbsp;
+			<a target="_" href="http://twitter.com/ubreg" title="folge uns auf Twitter"><img src="/InfoGuideClient.ubrsis/images/SocialNetwork/twitter_small.jpg" border="0"></a> &nbsp;
+			<a href="http://www.bibliothek.uni-regensburg.de" title="Homepage Universit&auml;tsbibliothek"><img src="/InfoGuideClient.ubrsis/images/SocialNetwork/UB.jpg" height="40" width="80" border="0"></a></p>
+		
+		
+		
+		
+	
+
+
+  </div>
+  <div class="cleaner"></div>
+</div>
+<!-- END of jsp/common/footer.jsp -->
+ 
+	</div> 
+</body>
+
+
+<script src="https://recommender.bibtip.de/js/bibtip_bvb_ubr.js" type="text/javascript" language="javascript"></script>
+
+
+<!-- END of jsp/result/HitLayout.jsp --> 
+<!-- START jsp/common/metaFooter.jsp -->
+</html>
+<!-- END of jsp/common/metaFooter.jsp -->

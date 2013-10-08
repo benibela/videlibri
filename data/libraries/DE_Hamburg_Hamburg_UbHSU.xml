@@ -4,7 +4,7 @@
   <shortName value="HSU Hamburg"/>
   
   <template value="pica"/>  
-  <variable name="server" value="https://hsu-bibliothek.de/"/>
+  <variable name="server" value="https://ub.hsu-hh.de/"/>
 
 
   <homepage value="http://www.hsu-bibliothek.de/"/>

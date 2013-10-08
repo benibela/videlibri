@@ -6,7 +6,7 @@
   <td>
     <strong>Signatur|Regalstandort</strong>{$book.id := text()}
   </td>?
-  <img alt="Buchcover">{book.image-url := @src}</img>?
+  <img alt="Buchcover">{book.image-url := resolve-uri(@src)}</img>?
 </div>?
 
 <div id="tab-content">
@@ -20,6 +20,18 @@
       <tr><td>^Jahr:</td><td>{$book.year}</td></tr>
       <tr><td>^ISBN:</td><td>{$book.isbn}</td></tr>
       <tr><td>{$temp := translate(normalize-space(.), ".", "")}</td><td><t:read var="book.{$temp}!" source="."/></td></tr>
+      </template:switch></template:loop>
+    </table>
+
+    <table class="fulltitle">
+      <template:loop><template:switch>
+      <tr><th>^Titel:</th><td>{$book.title}</td></tr>
+      <tr><th>^Autor|Verfasser</th><td>{$book.author}</td></tr>
+      <tr><th>^Ort:</th><td>{$book.location}</td></tr>
+      <tr><th>^Verlag:</th><td>{$book.publisher}</td></tr>
+      <tr><th>^Jahr:</th><td>{$book.year}</td></tr>
+      <tr><th>^ISBN:</th><td>{$book.isbn}</td></tr>
+      <tr><th>{$temp := translate(normalize-space(.), ".", "")}</th><td><t:read var="book.{$temp}!" source="."/></td></tr>
       </template:switch></template:loop>
     </table>
     

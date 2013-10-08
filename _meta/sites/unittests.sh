@@ -70,8 +70,8 @@ PAGES=(${PAGES[@]} sisis/userAccount.do_empty.html sisis/userAccount.do_singlebo
 ADDTEMPLATE sisis/searchList 17
 PAGES=(${PAGES[@]} sisis/search_rwth.do.html sisis/searchHitlist_rwth.do.html sisis/search_altdorf.do.html sisis/searchHitList_altdorf.do.html sisis/search_Z3988_haw-aw.do.html sisis/search_augsburg.do.html sisis/search_augsburg2.do.html sisis/search_basel.do.html sisis/search_chemnitz.do.html sisis/search_liestal.do.html sisis/search_tum.do.html sisis/search_pulheim.do.html sisis/searchHitlist_pulheim.do.html sisis/search_winterthur.do.html sisis/search_amberg1.html sisis/search_rwth1.html  sisis/search_last_fuerth.do.html)  
 
-ADDTEMPLATE sisis/searchSingle 2
-PAGES=(${PAGES[@]} sisis/searchSingle_basel.do.html sisis/searchSingle_aachen.do.html)
+ADDTEMPLATE sisis/searchSingle 3
+PAGES=(${PAGES[@]} sisis/searchSingle_basel.do.html sisis/searchSingle_aachen.do.html sisis/searchSingle_regensburg.html)
 
 ADDTEMPLATE sisis/orderConfirmation 2
 PAGES=(${PAGES[@]} sisis/orderConfirmation_aachen.html sisis/orderConfirmation_pulheim.html  )
