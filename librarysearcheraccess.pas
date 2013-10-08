@@ -79,11 +79,12 @@ private
   FOnSearchPageComplete: TPageCompleteNotifyEvent;
   FOnTakePendingMessage: TPendingMessageEvent;
 
-  function operationActive: boolean;
   procedure removeOldMessageOf(typ: TSearcherMessageTyp);
   function GetSearcher: TLibrarySearcher;
   procedure threadException();
 public
+  function operationActive: boolean;
+
   constructor create();
   destructor destroy; override;
 
