@@ -312,6 +312,16 @@ object bookSearchFrm: TbookSearchFrm
         Visible = False
       end
     end
+    object startAutoSearchButton: TButton
+      Left = 8
+      Height = 25
+      Top = 499
+      Width = 96
+      Caption = 'Auto-Suche'
+      OnClick = startAutoSearchButtonClick
+      TabOrder = 6
+      Visible = False
+    end
   end
   object bookListPanel: TPanel
     Left = 248
@@ -535,5 +545,12 @@ object bookSearchFrm: TbookSearchFrm
   object orderForAccountMenu: TPopupMenu
     left = 640
     top = 448
+  end
+  object autoSearchContinueTimer: TTimer
+    Enabled = False
+    Interval = 100
+    OnTimer = autoSearchContinueTimerTimer
+    left = 95
+    top = 516
   end
 end

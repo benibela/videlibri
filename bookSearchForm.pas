@@ -14,6 +14,7 @@ type
   { TbookSearchFrm }
 
   TbookSearchFrm = class(TForm)
+    startAutoSearchButton: TButton;
     searchAuthorHint: TLabel;
     searchTitleHint: TLabel;
     searchBranch: TComboBox;
@@ -58,8 +59,11 @@ type
     Splitter2: TSplitter;
     Splitter3: TSplitter;
     StatusBar1: TStatusBar;
+    autoSearchContinueTimer: TTimer;
+    procedure autoSearchContinueTimerTimer(Sender: TObject);
     procedure bookListSelect(sender: TObject; item: TTreeListItem);
     procedure bookListVScrollBarChange(Sender: TObject);
+    procedure startAutoSearchButtonClick(Sender: TObject);
     procedure detaillistClickAtRecordItem(sender: TObject; recorditem: TTreeListRecordItem);
     procedure detaillistCustomRecordItemDraw(sender: TObject; eventTyp_cdet: TCustomDrawEventTyp; recordItem: TTreeListRecordItem;
       var defaultDraw: Boolean);
@@ -98,6 +102,8 @@ type
     { private declarations }
     locations: TSearchableLocations;
     selectedLibrariesPerLocation: TStringList;
+    autoSearchPhase: (aspConnecting, aspConnected, aspSearching, aspSearched, aspSearchingDetails, aspSearchedDetails);
+    autoSearchDetailCount: integer;
     function makeSearcherAccess: TLibrarySearcherAccess;
   public
     { public declarations }
@@ -176,6 +182,10 @@ begin
 
 
   Image1.Width:=0;
+
+  if debugMode then begin
+    startAutoSearchButton.Visible := true;
+  end;
 end;
 
 procedure TbookSearchFrm.startSearchClick(Sender: TObject);
@@ -267,6 +277,56 @@ begin
   linkLabelAmazon.Enabled := getProperty('amazon-url', book.additional) <> '';
 end;
 
+procedure TbookSearchFrm.autoSearchContinueTimerTimer(Sender: TObject);
+var
+  i: Integer;
+begin
+//  if searcherAccess.operationActive then exit;
+  case autoSearchPhase of
+    aspConnected: begin
+      autoSearchPhase:=aspSearching;
+      startSearch.Click;
+      exit;
+    end;
+    aspSearched: begin
+      autoSearchDetailCount := min(3, bookList.VisibleRowCount);
+    end;
+    aspSearchedDetails: begin
+      autoSearchDetailCount -= 1;
+    end
+    else exit;
+  end;
+  if autoSearchDetailCount <= 0 then begin
+    if searchSelectionList.Checked[searchSelectionList.Count-1] then begin
+      if searchLocation.ItemIndex = searchLocation.Items.Count - 1 then begin
+        autoSearchContinueTimer.Enabled := false;
+        exit;
+      end;
+      searchLocation.ItemIndex := searchLocation.ItemIndex + 1;
+      searchLocationSelect(searchLocation);
+      for i := 0 to searchSelectionList.Count - 1 do
+        searchSelectionList.Checked[i] := false;
+      searchSelectionList.Checked[0] := true;
+
+    end else begin
+      for i := 0 to searchSelectionList.Count - 2 do
+        if searchSelectionList.Checked[i] then begin
+          searchSelectionList.Checked[i]  := false;
+          searchSelectionList.Checked[i + 1] := true;
+          break;
+        end;
+    end;
+    autoSearchPhase:=aspConnecting;
+    searchSelectionListClickCheck(searchSelectionList);
+    exit;
+  end;
+                                     ;
+//  if bookList.Selected = nil then bookList.Selected := ;
+autoSearchPhase:=aspSearchingDetails;
+  bookList.Selected := bookList.Items[bookList.Items.IndexOf(bookList.Selected)+1];
+
+end;
+
 procedure TbookSearchFrm.bookListVScrollBarChange(Sender: TObject);
 begin
   if nextPageAvailable
@@ -277,6 +337,19 @@ begin
     searcherAccess.searchNextAsync;
     StatusBar1.Panels[SB_PANEL_SEARCH_STATUS].Text:='Lade nächste Seite...';
   end;
+end;
+
+procedure TbookSearchFrm.startAutoSearchButtonClick(Sender: TObject);
+var
+  i: Integer;
+begin
+  autoSearchContinueTimer.Enabled:=true;
+  searchLocation.ItemIndex := 1;
+  searchLocationSelect(searchLocation);
+  for i := 0 to searchSelectionList.Count - 1 do
+    searchSelectionList.Checked[i] := false;
+  searchSelectionList.Checked[0] := true;
+  searchSelectionListClickCheck(searchSelectionList);
 end;
 
 procedure TbookSearchFrm.detaillistClickAtRecordItem(sender: TObject; recorditem: TTreeListRecordItem);
@@ -331,6 +404,7 @@ begin
   if sender <> newSearcherAccess then exit;
   update(homeBranch, newSearcherAccess.searcher.HomeBranches, homeBranchLabel);
   update(searchBranch, newSearcherAccess.searcher.SearchBranches, searchBranchLabel);
+  autoSearchPhase:=aspConnected;
 end;
 
 procedure TbookSearchFrm.displayImageChange(Sender: TObject);
@@ -594,12 +668,17 @@ begin
   if (bookList.TopItemVisualIndex + bookList.VisibleRowCount > bookList.Items.Count) and (nextPageAvailable) then begin
     searcherAccess.searchNextAsync;
     StatusBar1.Panels[SB_PANEL_SEARCH_STATUS].Text:='Lade nächste Seite...';
-  end else if nextPageAvailable then
-    StatusBar1.Panels[SB_PANEL_SEARCH_STATUS].Text:='Suche abgeschlossen (mehr Ergebnisse verfügbar)'
-  else
-    StatusBar1.Panels[SB_PANEL_SEARCH_STATUS].Text:='Suche abgeschlossen';
+  end else begin
+    if nextPageAvailable then
+      StatusBar1.Panels[SB_PANEL_SEARCH_STATUS].Text:='Suche abgeschlossen (mehr Ergebnisse verfügbar)'
+    else
+      StatusBar1.Panels[SB_PANEL_SEARCH_STATUS].Text:='Suche abgeschlossen';
+    autoSearchPhase:=aspSearched;
+  end;
 
   screen.Cursor:=crDefault;
+
+
 end;
 
 procedure TbookSearchFrm.searchTitleChange(Sender: TObject);
@@ -673,6 +752,7 @@ begin
   end else begin
     StatusBar1.Panels[SB_PANEL_SEARCH_STATUS].Text:='';
     screen.Cursor:=crDefault;
+    autoSearchPhase:=aspSearchedDetails;
   end;
 end;
 
@@ -688,6 +768,7 @@ begin
   if sender <> searcherAccess then exit;
   displayDetails();
   StatusBar1.Panels[SB_PANEL_SEARCH_STATUS].Text:='';
+  autoSearchPhase:=aspSearchedDetails;
   screen.Cursor:=crDefault;
 end;
 
@@ -782,6 +863,7 @@ begin
   result.searcher.setLocation(searchLocation.Text);
   result.connectAsync;
 end;
+
 
 function TbookSearchFrm.displayDetails(book: TBook): longint;
 var intern, empty, normal: TTreeListItems; //item lists

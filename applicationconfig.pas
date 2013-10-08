@@ -36,7 +36,7 @@ var programPath,userPath:string;
     nextLimitStr: string;
 
     appFullTitle:string='VideLibri';
-    versionNumber:integer=1515;
+    versionNumber:integer=1600;
     //=>versionNumber/1000
     newVersionInstalled: boolean=false;
 
@@ -59,6 +59,7 @@ var programPath,userPath:string;
     HistoryBackupInterval: longint;
     refreshAllAndIgnoreDate:boolean; //gibt an, dass alle Medien aktualisiert werden
                                      //sollen unabhängig vom letzten Aktualisierungdatum
+    debugMode: boolean;
 
   errorMessageList:TErrorArray = nil;
   //oldErrorMessageList:TErrorArray = nil;
@@ -478,6 +479,7 @@ uses bookwatchmain,internetaccess,controls,libraryaccess,math,FileUtil,bbutils,b
     commandLine.declareString('debug-html-template','Führt ein Template aus (benötigt Datei)','');
     commandLine.declareString('on','Datei für das Template von debug-single-template','');
     commandLine.declareString('user-path','Pfad für Benutzereinstellungen','');
+    commandLine.declareFlag('debug','Aktiviert einige debug-Funktionen');
 
     {if commandLine.readString('debug-html-template')<>'' then begin
       checkHTMLTemplate(commandLine.readString('debug-html-template'),commandLine.readString('on'));
@@ -629,6 +631,7 @@ uses bookwatchmain,internetaccess,controls,libraryaccess,math,FileUtil,bbutils,b
            updateAutostart(true,true);
     end;
     if not cancelStarting then begin
+      debugMode := commandLine.readFlag('debug');
       refreshAllAndIgnoreDate:=commandline.readFlag('refreshAll');
     
       colorLimited:=userConfig.ReadInteger('appearance','limited',integer(clYellow));
