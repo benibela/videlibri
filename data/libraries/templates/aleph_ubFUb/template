@@ -14,15 +14,19 @@
     
     <page test="not(starts-with($redirection, '#'))" url="{$redirection}"/>
     
+    
     <page url="https://identity.fu-berlin.de/idp-fub-ub/Authn/UserPassword">
       <post name="j_username" value="{$username}"/>
       <post name="j_password" value="{$password}"/>    
         
       <template>
+        <t:switch-prioritized>
         <form method="post"> {action:=@action}
           <input name="RelayState">{relay:=@value}</input>
           <input name="SAMLResponse">{saml:=@value}</input>
         </form>
+      <h2>Anmeldung fehlgeschlagen!<t:s>vl:raise-login(.)</t:s></h2>
+      </t:switch-prioritized>
       </template>
     </page>
     

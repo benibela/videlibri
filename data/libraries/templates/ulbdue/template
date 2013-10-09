@@ -31,12 +31,17 @@
   }</html></template>
   </page>
   
-  <page url="{$login}"><template><html>
-  <t:switch>
-    <form><td class="msg">{videlibri:raise-login(.)}</td></form>
-    <a>{redirect:=resolve-uri(@href)}</a>
-  </t:switch>
-  </html></template></page>
+  <page url="{$login}"><template>
+  <t:switch-prioritized>
+    <html>
+    <t:switch>
+      <form><td class="msg">{videlibri:raise-login(.)}</td></form>
+      <a>{redirect:=resolve-uri(@href)}</a>
+    </t:switch>
+    </html>
+    <div id="div-feedback"><t:s>vl:raise-login(.)</t:s></div>
+  </t:switch-prioritized>
+  </template></page>
   
   <page url="{$redirect}"></page>
     

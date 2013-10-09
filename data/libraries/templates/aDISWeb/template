@@ -34,6 +34,8 @@
         
         <h1>Bitte auch das Passwort angeben<t:s>vl:raise-login(.)</t:s></h1>
         <h1>Sie sind nicht mit Ihren Angaben registriert<t:s>vl:raise-login(.)</t:s></h1>
+        <li>Benutzernummer oder Passwort falsch?<t:s>vl:raise-login(.)</t:s></li>
+        <h1>Das System kann Sie derzeit nicht anmelden! Angaben sind fehlerhaft!<t:s>vl:raise-login(.)</t:s></h1>
       </template:switch-prioritized>
     </template>
   </page>  

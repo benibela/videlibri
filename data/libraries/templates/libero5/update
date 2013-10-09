@@ -93,13 +93,15 @@
 
 
 <form>
-Systemmeldung
-<template:read source="false()" var="bookTableBroken"/>
-<p>Ihre Anforderung konnte</p>
-<blockquote>
-<ul><template:read var="raise()" source="deep-text()"/></ul>
-</blockquote>
+  <template:meta default-text-matching="regex"/>
+  Systemmeldung|System Nachricht
+  <template:read source="false()" var="bookTableBroken"/>
+  <p>Ihre Anforderung konnte</p>
+  <blockquote>
+    <ul><template:read var="raise()" source="deep-text()"/></ul>
+  </blockquote>
 </form>
+
 </t:switch-prioritized>
 
 <template:if test="$bookTableBroken">

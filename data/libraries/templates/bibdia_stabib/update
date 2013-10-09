@@ -54,4 +54,6 @@
 <font color="black"><b>Sie haben keine Medien ausgeliehen.</b></font>
 </html>
 
+<FONT COLOR="red"><b>Ausweisnummer oder Passwort sind falsch.<t:s>vl:raise-login(,)</t:s></b></font>
+
 </t:switch-prioritized>
