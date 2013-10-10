@@ -1174,6 +1174,7 @@ end;
 
 destructor TLibrarySearcherAccessWrapper.destroy;
 begin
+  while operationActive do Sleep(10);
   tempBooks.free;
   j.deleteGlobalRef(jsearcher);
   inherited destroy;
