@@ -709,6 +709,7 @@ begin
   if d = 0 then j.SetObjectField(book, field, nil)
   else begin
     dateDecode(d, @args[0].i, @args[1].i, @args[2].i);
+    args[1].i -= 1;
     temp := j.newObject(gregorianCalenderClass, gregorianCalenderClassInit, @args);
     j.SetObjectField(book, field, temp);
     j.deleteLocalRef(temp);
