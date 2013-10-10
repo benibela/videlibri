@@ -2,6 +2,7 @@ package de.benibela.videlibri;
 
 
 import android.app.Activity;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Paint;
 import android.os.Bundle;
@@ -71,6 +72,11 @@ public class Search extends VideLibriBaseActivity implements Bridge.SearchConnec
                 if (searchers.isEmpty() || searchers.get(searchers.size()-1).connector != Search.this)
                     createSearcher();
                 searchers.get(searchers.size()-1).waitingForDisplay = true;
+
+                if ("debug".equals(getTextViewText(R.id.year))) {
+                    activateHiddenDebugMode();
+                    return;
+                }
 
                 Intent intent = new Intent(Search.this, SearchResult.class);
                 Bridge.Book book = new Bridge.Book();
@@ -167,10 +173,102 @@ public class Search extends VideLibriBaseActivity implements Bridge.SearchConnec
             public void run() {
                 setLoading(false);
                 //setTitle("Katalog ist nicht erreichbar");
-                Bridge.PendingException[] exceptions = Bridge.VLTakePendingExceptions();
-                for (Bridge.PendingException ex : exceptions)
-                    showMessage(ex.accountPrettyNames + ": " + ex.error);
-                VideLibriApp.errors.addAll(Arrays.asList(exceptions));
+                VideLibriApp.showPendingExceptions();
+            }
+        });
+    }
+
+
+
+
+    volatile int debugWaiting ;
+    public void activateHiddenDebugMode(){
+        showMessage("You have activated the secret debug mode", new MessageHandler() {
+            @Override
+            public void onDialogEnd(DialogInterface dialogInterface, int i) {
+                showMessageYesNo("Do you want to search ALL libraries? ", new MessageHandler() {
+                    @Override
+                    public void onDialogEnd(DialogInterface dialogInterface, int res) {
+                        if (res == DialogInterface.BUTTON_POSITIVE) {
+                            Bridge.Library[] libs = Bridge.getLibraries();
+                            boolean start = false;
+                            for (int i = 0; i < libs.length; i++) {
+                                if (start || libId.equals(libs[i].id)) {
+                                    Log.i("VIDELIBRI", "============================================================");
+                                    Log.i("VIDELIBRI", "Testing search: " + libs[i].namePretty);
+                                    Log.i("VIDELIBRI", "============================================================");
+
+                                    start = true;
+                                    final Bridge.SearcherAccess searcher = new Bridge.SearcherAccess(Search.this, libs[i].id);
+                                    debugWaiting = 0;
+                                    searcher.setDisplay(new Bridge.SearchResultDisplay() {
+                                        @Override
+                                        public void onSearchFirstPageComplete(Bridge.Book[] books) {
+                                            if (searcher.nextPageAvailable) searcher.nextPage();
+                                            else onSearchNextPageComplete(books);
+                                        }
+
+                                        @Override
+                                        public void onSearchNextPageComplete(Bridge.Book[] books) {
+                                            debugWaiting = 1;
+                                            searcher.free();
+                                        }
+
+                                        @Override
+                                        public void onSearchDetailsComplete(Bridge.Book book) {
+
+                                        }
+
+                                        @Override
+                                        public void onOrderComplete(Bridge.Book book) {
+
+                                        }
+
+                                        @Override
+                                        public void onOrderConfirm(Bridge.Book book) {
+
+                                        }
+
+                                        @Override
+                                        public void onTakePendingMessage(int kind, String caption, String[] options) {
+
+                                        }
+
+                                        @Override
+                                        public void onPendingMessageCompleted() {
+
+                                        }
+
+                                        @Override
+                                        public void onConnected(String[] homeBranches, String[] searchBranches) {
+
+                                        }
+
+                                        @Override
+                                        public void onException() {
+                                            debugWaiting = -1;
+                                        }
+                                    });
+                                    Bridge.Book book = new Bridge.Book();
+                                    book.title = getTextViewText(R.id.title);
+                                    book.author = getTextViewText(R.id.author);
+                                    searcher.start(book, -1, -1);
+
+                                    while (debugWaiting == 0)
+                                        try {
+                                            Thread.sleep(50);
+                                        } catch (InterruptedException e) {
+
+                                        }
+                                    if (debugWaiting == -1) {
+                                        Search.this.onException();
+                                        return;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                });
             }
         });
     }

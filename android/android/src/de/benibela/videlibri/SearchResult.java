@@ -323,4 +323,7 @@ public class SearchResult extends BookListActivity implements Bridge.SearchResul
     public void onConnected(String[] homeBranches, String[] searchBranches) {
 
     }
+
+
+
 }
