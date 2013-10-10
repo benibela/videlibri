@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?xml-stylesheet type="text/xsl" href="../changelog.xsl"?>
 <changelog program="VideLibri">
-  <build version="1600" date="2013-10-09">
+  <build version="1600" date="2013-10-10">
+    <download url="http://videlibri.sourceforge.net/updates/videlibri-setup.exe" platform="WINDOWS" execute="&quot;$DOWNLOAD&quot;  /SP- /noicons &quot;/dir=$OLDPATH&quot; " restart="true"/>
+    <download url="http://videlibri.sourceforge.net/updates/videlibri-linux32.deb" platform="LINUX32" execute=""/>
+    <download url="http://videlibri.sourceforge.net/updates/videlibri-linux64.deb" platform="LINUX64" execute=""/>
     <add level="major">Unterstützung für Zones 1.8 (z.B.: Stadtbibliothek Lübeck, Stadtbibliothek Köln, Stadtbücherei Kiel, Stadtbibliothek Hannover, Stadtbibliothek Koblenz).</add>
     <change>Templates: Unterstützung fürs Rechnen mit arbitrary-precision Zahlen (bis zu 19327352832 Stellen Genauigkeit mal einem Exponenten von 10^-2147483648 bis 10^2147483647)</change>
     <change>Templates: markierte html-Elemente können beim Matching übersprungen werden</change>
@@ -15,10 +18,6 @@
     <fix>Android: Korrigiert falsche Datumsberechnung, die einen Monat zu spät von gelb zu roter Schrift wechselte, bessere Feedbackfunktion </fix>
   </build>
   <build version="1515" date="2013-07-22">
-    <download url="http://videlibri.sourceforge.net/updates/videlibri-setup.exe" platform="WINDOWS" execute="&quot;$DOWNLOAD&quot;  /SP- /noicons &quot;/dir=$OLDPATH&quot; " restart="true"/>
-    <download url="http://videlibri.sourceforge.net/updates/videlibri-linux32.deb" platform="LINUX32" execute=""/>
-    <download url="http://videlibri.sourceforge.net/updates/videlibri-linux64.deb" platform="LINUX64" execute=""/>
-
     <fix>Android-Version: behebt Crashes (v.a. beim Suchergebnisanzeigen und manuellem Verlängern)</fix>
     <fix>Behebt Timeout, falls die neue Mediensuche zu lange geöffnet war</fix>
     <fix>libero: verwendet die Kontozugriffsurl statt der Suchkatalogurl, wenn eine angegeben ist</fix>

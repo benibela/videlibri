@@ -179,7 +179,7 @@ src)
   fileUpload videlibri-$VERSION.src.tar.gz "/VideLibri/VideLibri\ $VERSION/"
 ;;
 
-	videlibri_release)
+	release)
 		./manage.sh linux64
 		./manage.sh win32
 		./manage.sh linux32
