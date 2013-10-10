@@ -6,7 +6,7 @@
   <variable name="baseurl" value="https://www.stb.koblenz.de/opac/alswww2.dll/"/>
 
   <homepage value="http://www.koblenz.de/stadtleben_kultur/k42_bibliothekskatalog.html"/>
-  <testing-search value="?" date=""/>
-  <testing-account value="in 1.55" date="2013-10-07"/>
+  <testing-search value="ja" date="2013-10-07"/>
+  <testing-account value="?" date=""/>
   <testing-renew value="?" date=""/>
 </library>

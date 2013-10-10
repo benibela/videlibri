@@ -75,7 +75,7 @@ android)
 downloadTable) 
   URL=http://sourceforge.net/projects/videlibri/files/VideLibri/VideLibri%20$VERSION/
   PROJNAME=VideLibri
-  ~/hg/programs/internet/xidel/xidel $URL --extract-exclude=pname  --extract-kind=xquery  \
+  ~/hg/programs/internet/xidel/xidel $URL --extract-exclude=pname --dot-notation=on  --extract-kind=xquery  \
      -e "declare variable \$pname := '$PROJNAME'" \
      -e "declare variable \$url := '$URL'" \
      -e 'declare variable $lang := 2; 
@@ -97,7 +97,7 @@ downloadTable)
          <br/><br/>
          <table class="downloadTable">
          <tr><th>{("Operating System", "Betriebsystem")[$lang]}</th><th>{("Filename", "Dateiname")[$lang]}</th><th>{("Size", "Dateigröße")[$lang]}</th></tr>
-         { for $link in match(<TABLE id="files_list"><t:loop><TR class="file warn"><TH><A class="name">{{link := object(), link.verboseName := verboseName(.), link.a := .}}</A></TH><td/><td>{{link.size := .}}</td></TR></t:loop></TABLE>, /).link 
+         { for $link in match(<TABLE id="files_list"><t:loop><TR class="file"><TH><A class="name">{{link := object(), link.verboseName := verboseName(.), link.a := .}}</A></TH><td/><td>{{link.size := .}}</td></TR></t:loop></TABLE>, /).link 
            order by $link.verboseName descending 
            return <tr><td>{$link.verboseName}</td><td><a href="{$link.a/@href}">{$link.a/text()}</a></td><td>{$link.size/text()}</td></tr>}</table></div>'     --printed-node-format html > $VIDELIBRIBASE/_meta/sfsite/downloadTable.html
   cat $VIDELIBRIBASE/_meta/sfsite/downloadTable.html

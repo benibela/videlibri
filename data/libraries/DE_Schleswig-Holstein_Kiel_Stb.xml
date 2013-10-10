@@ -6,7 +6,7 @@
   <variable name="baseurl" value="https://stadtbuecherei.kiel.de/alswww2.dll/"/>
 
   <homepage value="http://www.kiel.de/kultur/stadtbuecherei/"/>
-  <testing-search value="?" date=""/>
-  <testing-account value="in 1.55" date="2013-10-07"/>
+  <testing-search value="ja" date="2013-10-07"/>
+  <testing-account value="?" date=""/>
   <testing-renew value="?" date=""/>
 </library>
