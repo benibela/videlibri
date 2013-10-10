@@ -59,7 +59,15 @@ win32)
 		;;
 
 android) 
-    cp android/android/bin/videlibri-release.apk /tmp/videlibri_$VERSION-release.apk
+    cd android
+    ANDROIDVERSION=$(xidel android/AndroidManifest.xml -e "/manifest/@*:versionCode")
+    if [[ "$ANDROIDVERSION" != "$INTVERSION" ]]; then echo Android version mismatch; exit; fi
+    ANDROIDVERSION=$(xidel android/AndroidManifest.xml -e "/manifest/@*:versionName")
+    if [[ "$ANDROIDVERSION" != "$VERSION" ]]; then echo Android version mismatch; exit; fi
+    
+    ./manage.sh clean
+    ./manage.sh build release
+    cp android/bin/videlibri-release.apk /tmp/videlibri_$VERSION-release.apk
     cd /tmp
 		fileUpload videlibri_$VERSION-release.apk "/VideLibri/VideLibri\ $VERSION/"
 ;;
@@ -175,6 +183,7 @@ src)
 		./manage.sh linux64
 		./manage.sh win32
 		./manage.sh linux32
+		./manage.sh android
 	  ./manage.sh changelog
 	  ./manage.sh src
 	  ./manage.sh downloadTable

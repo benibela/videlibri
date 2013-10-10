@@ -12,6 +12,7 @@
     <fix>Bibliothek der Helmut-Schmidt Universität: Neue Server-Adresse</fix>
     <fix>Universitätsbibliothek Regensburg: Korrigierte Exemplaranzeige</fix>
     <fix>Stadtbibliothek Filderstadt: Neue Server-Adresse</fix>
+    <fix>Android: Korrigiert falsche Datumsberechnung, die einen Monat zu spät von gelb zu roter Schrift wechselte, bessere Feedbackfunktion </fix>
   </build>
   <build version="1515" date="2013-07-22">
     <download url="http://videlibri.sourceforge.net/updates/videlibri-setup.exe" platform="WINDOWS" execute="&quot;$DOWNLOAD&quot;  /SP- /noicons &quot;/dir=$OLDPATH&quot; " restart="true"/>
