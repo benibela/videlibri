@@ -48,8 +48,6 @@ public class VideLibriApp extends Application implements Bridge.VideLibriContext
             @Override
             public void handleMessage(Message msg) {
                 VideLibriApp.runningUpdates.clear();
-                Bridge.PendingException[] exceptions = Bridge.VLTakePendingExceptions();
-                VideLibriApp.errors.addAll(Arrays.asList(exceptions));
 
                 if (currentActivity != null) {
                     NotificationService.showNotification(currentActivity);
@@ -58,10 +56,8 @@ public class VideLibriApp extends Application implements Bridge.VideLibriContext
                         ((VideLibri)currentActivity).setLoading(false);
 
                     VideLibriApp.displayAccount(null);
-
-                    for (Bridge.PendingException ex : exceptions)
-                        Util.showMessage(ex.accountPrettyNames + ": " + ex.error);
                 }
+                showPendingExceptions();
             }
         };
 
@@ -217,6 +213,27 @@ public class VideLibriApp extends Application implements Bridge.VideLibriContext
         //if (VideLibri.instance != null) VideLibri.instance.startActivity(intent);
         //else
         instance.startActivity(intent);
+    }
+
+
+    public static void showPendingExceptions(){
+        Bridge.PendingException[] exceptions = Bridge.VLTakePendingExceptions();
+        VideLibriApp.errors.addAll(Arrays.asList(exceptions));
+        if (currentActivity != null)
+            for (int i=0;i<exceptions.length;i++){
+                Bridge.PendingException ex = exceptions[i];
+                if (i != exceptions.length - 1) Util.showMessage(ex.accountPrettyNames + ": " + ex.error);
+                else Util.showMessageYesNo(ex.accountPrettyNames + ": " + ex.error + "\n\nWollen Sie den Entwickler über die Meldung benachrichtigen, damit das Template angepasst werden kann?", new MessageHandler() {
+                    @Override
+                    public void onDialogEnd(DialogInterface dialogInterface, int i) {
+                        if (i == DialogInterface.BUTTON_POSITIVE) {
+                            Intent intent = new Intent(currentActivity, Feedback.class);
+                            intent.putExtra("message", "Eine Fehlermeldung!!1!");
+                            currentActivity.startActivity(intent);
+                        }
+                    }
+                });
+            }
     }
 
     @Override

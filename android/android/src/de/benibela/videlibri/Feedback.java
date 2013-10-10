@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.EditText;
 import android.widget.TextView;
 import org.acra.ACRA;
 import org.apache.http.HttpResponse;
@@ -40,6 +41,9 @@ public class Feedback extends VideLibriBaseActivity {
         setTitle("VideLibri Feedback");
         if (!ACRA.getACRASharedPreferences().getBoolean(ACRA.PREF_ENABLE_SYSTEM_LOGS, true))
             ((TextView)findViewById(R.id.feedbackACRAHeader)).setText("Per ACRA für Fehlerberichte: ");
+
+        if (getIntent().getStringExtra("message") != null)
+            ((EditText)findViewById(R.id.text)).setText(getIntent().getStringExtra("message"));
 
         if (VideLibriApp.errors.size() > 0) {
             {

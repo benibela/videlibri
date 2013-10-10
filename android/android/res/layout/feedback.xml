@@ -15,28 +15,6 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content">
 
-    <TextView android:layout_width="fill_parent" android:layout_height="wrap_content"
-              android:text="Per E-Mail:" android:id="@+id/textView"
-              android:padding="@dimen/optionheaderpadding"
-              android:background="@color/optionHeaderBackgroundColor" android:textStyle="bold"/>
-    <TextView
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:text="benito@benibela.de"
-            android:id="@+id/textViewMail" android:padding="20sp"
-            android:gravity="center" android:clickable="true" android:textColor="#5830ff"/>
-
-
-    <TextView android:layout_width="fill_parent" android:layout_height="wrap_content"
-              android:text="Per Google Play Store:"
-              android:padding="@dimen/optionheaderpadding"
-              android:background="@color/optionHeaderBackgroundColor" android:textStyle="bold"/>
-    <TextView
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:text="https://play.google.com/store/apps/details?id=de.benibela.videlibri"
-              android:autoLink="email|web" android:padding="20sp"
-            android:gravity="center"/>
 
     <TextView android:layout_width="fill_parent" android:layout_height="wrap_content" android:text="Per Formular:"
               android:id="@+id/textView2" android:padding="@dimen/optionheaderpadding"
@@ -81,6 +59,33 @@
             android:layout_height="wrap_content"
             android:text="absenden "
             android:id="@+id/button"/>
+
+
+            <TextView android:layout_width="fill_parent" android:layout_height="wrap_content"
+                      android:text="Per E-Mail:" android:id="@+id/textView"
+                      android:padding="@dimen/optionheaderpadding"
+                      android:background="@color/optionHeaderBackgroundColor" android:textStyle="bold"/>
+            <TextView
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:text="benito@benibela.de"
+                    android:id="@+id/textViewMail" android:padding="20sp"
+                    android:gravity="center" android:clickable="true" android:textColor="#5830ff"/>
+
+
+            <TextView android:layout_width="fill_parent" android:layout_height="wrap_content"
+                      android:text="Per Google Play Store:"
+                      android:padding="@dimen/optionheaderpadding"
+                      android:background="@color/optionHeaderBackgroundColor" android:textStyle="bold"/>
+            <TextView
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:text="https://play.google.com/store/apps/details?id=de.benibela.videlibri"
+                    android:autoLink="email|web" android:padding="20sp"
+                    android:gravity="center"/>
+
+
+
             <TextView android:layout_width="fill_parent" android:layout_height="wrap_content" android:text="Per ACRA für Fehlerberichte (enthält debug log): "
                       android:id="@+id/feedbackACRAHeader" android:padding="@dimen/optionheaderpadding"
                       android:background="@color/optionHeaderBackgroundColor" android:textStyle="bold"/>

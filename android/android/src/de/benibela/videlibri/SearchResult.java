@@ -223,10 +223,7 @@ public class SearchResult extends BookListActivity implements Bridge.SearchResul
             public void run() {
                 setLoading(false);
                 setTitle("Suche fehlgeschlagen");
-                Bridge.PendingException[] exceptions = Bridge.VLTakePendingExceptions();
-                for (Bridge.PendingException ex : exceptions)
-                    showMessage(ex.accountPrettyNames + ": " + ex.error);
-                VideLibriApp.errors.addAll(Arrays.asList(exceptions));
+                VideLibriApp.showPendingExceptions();
             }
         });
     }
