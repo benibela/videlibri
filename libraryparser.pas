@@ -275,7 +275,7 @@ type
   end;
 
 implementation
-uses applicationconfig,bbdebugtools,FileUtil,LCLIntf,xquery,androidutils,simpleinternet;
+uses applicationconfig,bbdebugtools,FileUtil,LCLIntf,xquery,androidutils,simpleinternet,mockinternetaccess;
 function currencyStrToCurrency(s:string):Currency;
 begin
   s:=trim(s);
@@ -357,32 +357,7 @@ begin
   inherited destroy;
 end;
 
-type
-
-{ TInternetAccessNonSense }
-
- TInternetAccessNonSense = class(TInternetAccess)
-  constructor create; override;
-  function doTransfer(method: string; const url: TDecodedUrl; data: string): string; override;
-  function GetLastHTTPHeaders: TStringList; override;
-end;
-
-{ TInternetAccessNonSense }
-
-constructor TInternetAccessNonSense.create;
-begin
-
-end;
-
-function TInternetAccessNonSense.doTransfer(method: string; const url: TDecodedUrl; data: string): string;
-begin
-  result := '<html>Internet disabled</html>';
-end;
-
-function TInternetAccessNonSense.GetLastHTTPHeaders: TStringList;
-begin
-  result := additionalHeaders;
-end;
+type TInternetAccessNonSense = TMockInternetAccess;
 
 function TLibrary.homepageCatalogue: string;
 var
