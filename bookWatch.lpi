@@ -325,6 +325,7 @@
         <Filename Value="libraryaccesstester.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="libraryTesterForm"/>
+        <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="libraryaccesstester"/>
       </Unit30>
