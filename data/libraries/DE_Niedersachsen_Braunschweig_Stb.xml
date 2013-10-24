@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <library>
-  <longName value="Stadtbibliothek Braunschweig (alpha)"/>
+  <longName value="Stadtbibliothek Braunschweig"/>
   <shortName value="Stb Braunschweig"/> 
   
   <template value="sisis"/>  
@@ -8,6 +8,6 @@
   
   <homepage value="https://www.braunschweig.de/kultur_tourismus/bibliotheken_archive/stadtbibliothek/"/>
   <testing-search value="ja" date="2013-05-18"/>
-  <testing-account value="?" date=""/>
+  <testing-account value="ja" date="2013-10-25"/>
   <testing-renew value="?" date=""/>
 </library>
