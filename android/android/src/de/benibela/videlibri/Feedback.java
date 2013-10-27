@@ -49,14 +49,19 @@ public class Feedback extends VideLibriBaseActivity {
             {
                 final CheckBox errors = ((CheckBox) findViewById(R.id.feedbackIncludeErrors));
                 final CheckBox details = (CheckBox) findViewById(R.id.feedbackIncludeErrorDetails);
+                final CheckBox anonDetails = (CheckBox) findViewById(R.id.feedbackIncludeErrorAnonymousDetails);
                 errors.setVisibility(View.VISIBLE);
                 errors.setChecked(true);
                 details.setVisibility(View.VISIBLE);
+                anonDetails.setVisibility(View.VISIBLE);
+                anonDetails.setChecked(true);
                 errors.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                     @Override
                     public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
                         details.setEnabled(b);
                         details.setChecked(details.isChecked() && b);
+                        anonDetails.setEnabled(b);
+                        anonDetails.setChecked(b);
                     }
                 });
             }
@@ -64,14 +69,19 @@ public class Feedback extends VideLibriBaseActivity {
             {
                 final CheckBox errors = ((CheckBox) findViewById(R.id.feedbackACRAIncludeErrors));
                 final CheckBox details = (CheckBox) findViewById(R.id.feedbackACRAIncludeErrorDetails);
+                final CheckBox anonDetails = (CheckBox) findViewById(R.id.feedbackACRAIncludeErrorAnonymousDetails);
                 errors.setVisibility(View.VISIBLE);
                 errors.setChecked(true);
                 details.setVisibility(View.VISIBLE);
+                anonDetails.setVisibility(View.VISIBLE);
+                anonDetails.setChecked(true);
                 errors.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                     @Override
                     public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
                         details.setEnabled(b);
                         details.setChecked(details.isChecked() && b);
+                        anonDetails.setEnabled(b);
+                        anonDetails.setChecked(b);
                     }
                 });
             }
@@ -83,51 +93,64 @@ public class Feedback extends VideLibriBaseActivity {
                 String name = getTextViewText(R.id.name);
                 String mail = getTextViewText(R.id.mail);
                 String feedback = getTextViewText(R.id.text);
-                String sendData = "Name: "+name+"\n"+"Mail: "+mail+"\n"+feedback;
-                if (((CheckBox) findViewById(R.id.feedbackIncludeErrors)).isChecked()) {
-                    boolean details = ((CheckBox) findViewById(R.id.feedbackIncludeErrorDetails)).isChecked();
-                    sendData += "\nErrors: \n";
-                    for (Bridge.PendingException e: VideLibriApp.errors) {
-                        sendData += "Error: " + e.error+"\n";
-                        if (details) sendData += e.details +"\n\n\n";
-                    }
-                }
-                final String sendDataFinal = sendData;
-                final String version =  getVersion();
+                final String sendData = "Name: "+name+"\n"+"Mail: "+mail+"\n"+feedback;
+                final String version = getVersion()+" (android)";
+                final boolean includeErrors = ((CheckBox) findViewById(R.id.feedbackIncludeErrors)).isChecked();
+                final boolean details = includeErrors && ((CheckBox) findViewById(R.id.feedbackIncludeErrorDetails)).isChecked();
+                final boolean anonymousDetails = includeErrors && ((CheckBox) findViewById(R.id.feedbackIncludeErrorAnonymousDetails)).isChecked();
+                final ArrayList<Bridge.PendingException> errCache = VideLibriApp.errors;
+
                 (new Thread(new Runnable() {
                     @Override
                     public void run() {
-                        VideLibriHttpClient client =  new VideLibriHttpClient();
-                        HttpPost post = new HttpPost("http://www.benibela.de/autoFeedback.php");
-                        List<NameValuePair> data = new ArrayList<NameValuePair>(2);
-                        data.add(new BasicNameValuePair("app", "VideLibri"));
-                        data.add(new BasicNameValuePair("ver", version+" (android)"));
-                        data.add(new BasicNameValuePair("data", sendDataFinal));
-                        boolean ok = false;
-                        try {
-                            post.setEntity(new UrlEncodedFormEntity(data));
-                            HttpResponse response = client.execute(post);
-                            BufferedReader reader = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
-                            String line;
-                            String total = "";
-                            // Read response until the end
-                            while ((line = reader.readLine()) != null)
-                                total += line;
-                            ok = total.contains("PHPOK");
-                        } catch (UnsupportedEncodingException e) {
-                            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
-                        } catch (ClientProtocolException e) {
-                            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
-                        } catch (IOException e) {
-                            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+                        final int rep = errCache.size() == 0 ? 1 : errCache.size();
+                        int ok = 0;
+                        for (int i = 0; i < rep; i++) { //send each error separately to avoid running out of memory
+                            VideLibriHttpClient client =  new VideLibriHttpClient();
+                            HttpPost post = new HttpPost("http://www.benibela.de/autoFeedback.php");
+                            try {
+                                List<NameValuePair> data = new ArrayList<NameValuePair>(3 + (VideLibriApp.errors != null ? VideLibriApp.errors.size() * 3 : 0));
+                                data.add(new BasicNameValuePair("app", "VideLibri"));
+                                data.add(new BasicNameValuePair("ver", version));
+                                data.add(new BasicNameValuePair("data", sendData));
+                                if (i < errCache.size()) {
+                                    Bridge.PendingException e = errCache.get(i);
+                                    data.add(new BasicNameValuePair("error" + i, "Error: " + e.error+" bei " + e.library +  "\n"));
+                                    if (details) data.add(new BasicNameValuePair("errorDetails" + i, e.details));
+                                    else if (anonymousDetails) data.add(new BasicNameValuePair("errorAnonDetails" + i, e.anonymousDetails)); //including both will cause an outofmemory exception
+                                }
+
+                                post.setEntity(new UrlEncodedFormEntity(data));
+                                HttpResponse response = client.execute(post);
+                                BufferedReader reader = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
+                                String line;
+                                String total = "";
+                                // Read response until the end
+                                while ((line = reader.readLine()) != null)
+                                    total += line;
+                                if (total.contains("PHPOK")) ok += 1;
+                            } catch (UnsupportedEncodingException e) {
+                                e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+                            } catch (ClientProtocolException e) {
+                                e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+                            } catch (IOException e) {
+                                e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+                            }
+
+                            System.gc();
                         }
 
-                        final boolean fok = ok;
+                        final int fok = ok;
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                if (fok) {
-                                    showMessage("Feedback wurde erfolgreich abgeschickt.", new MessageHandler() {
+                                if (fok > 0 ) {
+                                    showMessage(
+                                            fok == rep ?
+                                                    "Feedback wurde erfolgreich abgeschickt." :
+                                                    "Feedback konnte nur teilweise übertragen werden."
+                                            ,
+                                            new MessageHandler() {
                                         @Override
                                         public void onDialogEnd(DialogInterface dialogInterface, int i) {
                                             if (VideLibriApp.currentActivity == Feedback.this) {
@@ -171,17 +194,18 @@ public class Feedback extends VideLibriBaseActivity {
         findViewById(R.id.acra).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String sendData = "";
                 if (((CheckBox) findViewById(R.id.feedbackACRAIncludeErrors)).isChecked()) {
                     boolean details = ((CheckBox) findViewById(R.id.feedbackACRAIncludeErrorDetails)).isChecked();
-                    sendData += "\nErrors: \n";
+                    boolean anonymousDetails = ((CheckBox) findViewById(R.id.feedbackACRAIncludeErrorAnonymousDetails)).isChecked();
+                    int i = 0;
                     for (Bridge.PendingException e: VideLibriApp.errors) {
-                        sendData += "Error: " + e.error+"\n";
-                        if (details) sendData += e.details +"\n\n\n";
+                        i+=1;
+                        ACRA.getErrorReporter().putCustomData("error"+i, "Error: " + e.error+" bei " + e.library +  "\n");
+                        if (details) ACRA.getErrorReporter().putCustomData("errorDetails"+i, e.details);
+                        else if (anonymousDetails) ACRA.getErrorReporter().putCustomData("errorAnonDetails"+i, e.anonymousDetails);
                     }
                 }
 
-                ACRA.getErrorReporter().putCustomData("errors", sendData);
 
                 ACRA.getErrorReporter().handleException(null);
                 finish();

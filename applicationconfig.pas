@@ -13,7 +13,7 @@ type TErrorArray=array of record
                      error: string;
                      details: array of record
                        account: TCustomAccountAccess;
-                       details: string;
+                       details, anonymouseDetails, libraryId, searchQuery: string;
                      end;
                    end;
   
@@ -74,13 +74,13 @@ var programPath,userPath:string;
   procedure finalizeApplicationConfig;
 
   procedure showErrorMessages();
-  procedure addErrorMessage(errorStr,errordetails:string;lib:TCustomAccountAccess=nil);
-  procedure createErrorMessageStr(exception:exception; out errorStr,errordetails:string;account:TCustomAccountAccess=nil);
-  procedure createAndAddException(exception:exception; account:TCustomAccountAccess=nil);
+  procedure addErrorMessage(errorStr,errordetails, anonymouseDetails, libraryId, searchQuery:string;lib:TCustomAccountAccess=nil);
+  procedure createErrorMessageStr(exception:exception; out errorStr,errordetails, anonymousDetails:string;account:TCustomAccountAccess=nil);
+
 
   function confirm(s: string): boolean;
 
-  procedure storeException(ex: exception; account:TCustomAccountAccess); //thread safe
+  procedure storeException(ex: exception; account:TCustomAccountAccess; libraryId, searchQuery: string); //thread safe
 
   //get the values the tna should have not the one it actually has
   //function getTNAHint():string;
@@ -152,7 +152,9 @@ uses bookwatchmain,internetaccess,controls,libraryaccess,math,FileUtil,bbutils,b
           mesDetails:='';
           for j:=0 to high(details) do begin
             if details[j].account<>nil then
-              mesDetails:=mesDetails+'Details für den Zugriff auf Konto '+details[j].account.prettyname+':'#13#10;
+              mesDetails:=mesDetails+'Details für den Zugriff auf Konto '+details[j].account.prettyname+' bei '+details[j].libraryId+':'#13#10
+             else
+              mesDetails:=mesDetails+'Details für die Suche nach '+details[j].searchQuery+' bei '+details[j].libraryId+':'#13#10;
             mesDetails+=details[j].details+#13#10#13#10;
           end;
           oldErrorMessageString:=oldErrorMessageString+'---Fehler---'#13#10+mes+#13#10'Details:'#13#10+mesdetails;
@@ -176,7 +178,7 @@ uses bookwatchmain,internetaccess,controls,libraryaccess,math,FileUtil,bbutils,b
     end;
   end;
 
-  procedure addErrorMessage(errorStr,errordetails:string;lib:TCustomAccountAccess=nil);
+  procedure addErrorMessage(errorStr,errordetails, anonymouseDetails, libraryId, searchQuery:string;lib:TCustomAccountAccess=nil);
   var i:integer;
   begin
     for i:=0 to high(errorMessageList) do
@@ -184,6 +186,9 @@ uses bookwatchmain,internetaccess,controls,libraryaccess,math,FileUtil,bbutils,b
         SetLength(errorMessageList[i].details,length(errorMessageList[i].details)+1);
         errorMessageList[i].details[high(errorMessageList[i].details)].account:=lib;
         errorMessageList[i].details[high(errorMessageList[i].details)].details:=errordetails;
+        errorMessageList[i].details[high(errorMessageList[i].details)].anonymouseDetails:=anonymouseDetails;
+        errorMessageList[i].details[high(errorMessageList[i].details)].libraryId:=libraryId;
+        errorMessageList[i].details[high(errorMessageList[i].details)].searchQuery:=searchQuery;
         exit;
       end;
     SetLength(errorMessageList,length(errorMessageList)+1);
@@ -191,42 +196,39 @@ uses bookwatchmain,internetaccess,controls,libraryaccess,math,FileUtil,bbutils,b
     setlength(errorMessageList[high(errorMessageList)].details,1);
     errorMessageList[high(errorMessageList)].details[0].account:=lib;
     errorMessageList[high(errorMessageList)].details[0].details:=errordetails;
+    errorMessageList[high(errorMessageList)].details[0].anonymouseDetails:=anonymouseDetails;
+    errorMessageList[high(errorMessageList)].details[0].libraryId:=libraryId;
+    errorMessageList[high(errorMessageList)].details[0].searchQuery:=searchQuery;
   end;
 
-  procedure createErrorMessageStr(exception: exception; out errorStr,
-    errordetails: string; account: TCustomAccountAccess);
+  procedure createErrorMessageStr(exception: exception; out errorStr, errordetails, anonymousDetails: string; account: TCustomAccountAccess);
   var i:integer;
   begin
+    errordetails:='';
+    anonymousDetails:='';
     if exception is EInternetException then begin
       errorstr:=exception.message+#13#10#13#10+'Bitte überprüfen Sie Ihre Internetverbindung.';
       errordetails:=EInternetException(exception).details;
      end else if exception is ELoginException then begin
       errorstr:=#13#10+exception.message;
-      errordetails:='';
      end else if exception is ELibraryException then begin
       errorstr:=#13#10+exception.message;
       errordetails:=ELibraryException(exception).details;
      end else if exception is EHTMLParseMatchingException then begin
        errorstr:=//'Es ist folgender Fehler aufgetreten:      '#13#10+
             exception.className()+': '+ exception.message+'     ';
-       errordetails:=EHTMLParseMatchingException(exception).partialMatches;
+       if EHTMLParseMatchingException(exception).sender is THtmlTemplateParser then begin
+         errordetails := THtmlTemplateParser(EHTMLParseMatchingException(exception).sender).debugMatchings(80);
+         anonymousDetails := THtmlTemplateParser(EHTMLParseMatchingException(exception).sender).debugMatchings(80, false, ['class', 'id', 'style']);
+       end;
      end else begin
       errorstr:=//'Es ist folgender Fehler aufgetreten:      '#13#10+
            exception.className()+': '+ exception.message+'     ';
-      errordetails:='';
      end;
     errordetails:=errordetails+#13#10'Detaillierte Informationen über die entsprechende Quellcodestelle:'#13#10+ BackTraceStrFunc(ExceptAddr);
     for i:=0 to ExceptFrameCount-1 do
       errordetails:=errordetails+#13#10+BackTraceStrFunc(ExceptFrames[i]);
     if logging then log('createErrorMessageStr: Exception: '+errorstr+#13#10'      Details: '+errordetails);
-  end;
-
-  procedure createAndAddException(exception: exception;
-    account: TCustomAccountAccess);
-  var errorStr,errordetails:string;
-  begin
-    createErrorMessageStr(exception,errorStr,errordetails,account);
-    addErrorMessage(errorStr,errorDetails,account);
   end;
 
 (*  function getTNAHint(): string;
@@ -245,13 +247,13 @@ uses bookwatchmain,internetaccess,controls,libraryaccess,math,FileUtil,bbutils,b
     result := MessageDlg(s, mtConfirmation ,[mbYes,mbNo],0) = mrYes;
   end;
 
-  procedure storeException(ex: exception; account:TCustomAccountAccess);
-  var  errorstr, errordetails: string;
+  procedure storeException(ex: exception; account:TCustomAccountAccess; libraryId, searchQuery: string);
+  var  errorstr, errordetails, anonymouseDetails: string;
   begin
-    createErrorMessageStr(ex,errorstr,errordetails,account);
+    createErrorMessageStr(ex,errorstr,errordetails,anonymouseDetails, account);
     system.EnterCriticalSection(exceptionStoring);
     try
-      addErrorMessage(errorstr,errordetails,account);
+      addErrorMessage(errorstr,errordetails,anonymouseDetails, libraryId, searchQuery, account);
     finally
       system.LeaveCriticalSection(exceptionStoring);
     end;

@@ -134,7 +134,7 @@ public class Bridge {
     }
 
     public static class PendingException{
-        String accountPrettyNames, error, details;
+        String accountPrettyNames, error, library, searchQuery, details, anonymousDetails;
     }
 
     public static class Options{

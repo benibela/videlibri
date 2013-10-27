@@ -218,22 +218,36 @@ public class VideLibriApp extends Application implements Bridge.VideLibriContext
 
     public static void showPendingExceptions(){
         Bridge.PendingException[] exceptions = Bridge.VLTakePendingExceptions();
-        VideLibriApp.errors.addAll(Arrays.asList(exceptions));
-        if (currentActivity != null)
+
+        if (currentActivity != null) {
+            if (VideLibriApp.errors.size() > 3) { //errors eat a lot of memory
+                while (VideLibriApp.errors.size() > 3)
+                    VideLibriApp.errors.remove(0);
+                System.gc();
+            }
+            VideLibriApp.errors.addAll(Arrays.asList(exceptions));
+
+            String queries = "";
             for (int i=0;i<exceptions.length;i++){
                 Bridge.PendingException ex = exceptions[i];
+                if (ex.searchQuery != null && !"".equals(ex.searchQuery))
+                    queries = queries + "gesucht wurde: " + ex.searchQuery+"\n";
                 if (i != exceptions.length - 1) Util.showMessage(ex.accountPrettyNames + ": " + ex.error);
-                else Util.showMessageYesNo(ex.accountPrettyNames + ": " + ex.error + "\n\nWollen Sie den Entwickler über die Meldung benachrichtigen, damit das Template angepasst werden kann?", new MessageHandler() {
-                    @Override
-                    public void onDialogEnd(DialogInterface dialogInterface, int i) {
-                        if (i == DialogInterface.BUTTON_POSITIVE) {
-                            Intent intent = new Intent(currentActivity, Feedback.class);
-                            intent.putExtra("message", "Eine Fehlermeldung!!1!");
-                            currentActivity.startActivity(intent);
+                else {
+                    final String message = "Eine Fehlermeldung!!1!\n"+queries+"Bitte auch Kontaktdaten angeben.";
+                    Util.showMessageYesNo(ex.accountPrettyNames + ": " + ex.error + "\n\nWollen Sie den Entwickler über die Meldung benachrichtigen, damit das Template angepasst werden kann?", new MessageHandler() {
+                        @Override
+                        public void onDialogEnd(DialogInterface dialogInterface, int i) {
+                            if (i == DialogInterface.BUTTON_POSITIVE) {
+                                Intent intent = new Intent(currentActivity, Feedback.class);
+                                intent.putExtra("message", message);
+                                currentActivity.startActivity(intent);
+                            }
                         }
-                    }
-                });
+                    });
+                }
             }
+        } else VideLibriApp.errors.addAll(Arrays.asList(exceptions));
     }
 
     @Override

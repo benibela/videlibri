@@ -197,10 +197,10 @@ save
     pconfig^.atLeastOneListUpdateSuccessful:=true;
   except
     on e: EInternetException do {$ifndef activeDebug}if not ignoreConnectionErrors then{$endif}
-      storeException(e,lib);
+      storeException(e,lib,lib.getLibrary().id,'');
     on e: exception do begin
       lib.broken:=currentDate;
-      storeException(e,lib);
+      storeException(e,lib,lib.getLibrary().id,'');
     end
     else if logging then log('Unverständliche Fehlermeldung');
   end;
@@ -301,7 +301,7 @@ procedure startSingleThread(account: TCustomAccountAccess;var config:TThreadConf
                             apartialList: TBookList; apartialListOperation: TBookListOperation);
 begin
   if account.isThreadRunning then begin
-    storeException(EBookListReader.create('Die Aktion konnte nicht durchgefürt werden, weil bereits eine Operation auf dem Konto durchgeführt wird. Bitte warten Sie, bis diese abgeschlossen ist.'), account);
+    storeException(EBookListReader.create('Die Aktion konnte nicht durchgefürt werden, weil bereits eine Operation auf dem Konto durchgeführt wird. Bitte warten Sie, bis diese abgeschlossen ist.'), account,account.getLibrary().id,'');
     exit;
   end;
   EnterCriticalSection(config.threadManagementSection);

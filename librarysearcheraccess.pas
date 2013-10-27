@@ -450,6 +450,7 @@ var mes: TSearcherMessage;
     image:string;
     book: tbook;
     i: Integer;
+    debugLastSearchQuery: String;
 begin
   while true do begin
     try
@@ -491,6 +492,10 @@ begin
             callNotifyEvent(access.FOnConnected);
           end;
           access.beginResultReading; Searcher.SearchResult.clear; access.endResultReading;
+          if Searcher.SearchOptions <> nil then
+            debugLastSearchQuery := Searcher.SearchOptions.title + '/'+Searcher.SearchOptions.author+'/'+
+                                    Searcher.SearchOptions.getPropertyAdditional('keywords') + '/' + Searcher.SearchOptions.isbn + '/' +
+                                    Searcher.SearchOptions.year + '@' + inttostr(Searcher.SearchBranch)+':'+inttostr(searcher.HomeBranch);
           searcher.search;
           callPageCompleteEvent(access.FOnSearchPageComplete, true, searcher.SearchNextPageAvailable);
         end;
@@ -573,7 +578,7 @@ begin
       FreeAndNil(mes);
     except
       on e: Exception do begin
-        storeException(e,nil);
+        storeException(e,nil,searcher.getLibraryIds,debugLastSearchQuery);
         FreeAndNil(mes);
         messages.removeAndFreeAll;
         desktopSynchronized(@access.threadException);

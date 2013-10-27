@@ -430,7 +430,7 @@ begin
     libraryManager.downloadAndInstallUserLibrary(url);
     ok := 1;
   except
-    on e:Exception do storeException(e, nil);
+    on e:Exception do storeException(e, nil, '', url);
   end;
   needJ.callStaticVoidMethod(bridgeClass, bridgeCallbackMethods.VLInstallationDone, @ok);
   if logging then bbdebugtools.log('TInstallLibraryThread (ended)');
@@ -919,12 +919,12 @@ var
   pendingExceptionClass: jclass;
   pendingExceptionClassInit: jmethodID;
   pendingExceptionFields: record
-    accountPrettyNamesS, errorS, detailsS: jfieldID;
+    accountPrettyNamesS, errorS, libraryS, searchQueryS, detailsS, anonymousDetailsS: jfieldID;
   end;
 
 
 var
-  details: String;
+  details, anonymousDetails, libs, queries: String;
   names: String;
   i: Integer;
   temp: jobject;
@@ -940,6 +940,9 @@ begin
       accountPrettyNamesS := j.getfield(pendingExceptionClass, 'accountPrettyNames', 'Ljava/lang/String;');
       errorS := j.getfield(pendingExceptionClass, 'error', 'Ljava/lang/String;');
       detailsS := j.getfield(pendingExceptionClass, 'details', 'Ljava/lang/String;');
+      libraryS := j.getfield(pendingExceptionClass, 'library', 'Ljava/lang/String;');
+      searchQueryS := j.getfield(pendingExceptionClass, 'searchQuery', 'Ljava/lang/String;');
+      anonymousDetailsS := j.getfield(pendingExceptionClass, 'anonymousDetails', 'Ljava/lang/String;');
     end;
 
     system.EnterCriticalSection(exceptionStoring);
@@ -949,16 +952,26 @@ begin
         temp := j.newObject(pendingExceptionClass, pendingExceptionClassInit);
         with pendingExceptionFields do begin
           details := '';
+          anonymousDetails := '';
           names := '';
+          libs := '';
           for k := 0 to high(errorMessageList[i].details) do begin
             details += errorMessageList[i].details[k].details+LineEnding+LineEnding;
+            anonymousDetails += errorMessageList[i].details[k].anonymouseDetails+LineEnding+LineEnding;
+            if not strContains(libs, errorMessageList[i].details[k].libraryId) then
+              libs += errorMessageList[i].details[k].libraryId + ' ';
+            if errorMessageList[i].details[k].searchQuery <> '' then
+              queries += errorMessageList[i].details[k].searchQuery + ' ';
             if names <> '' then names += ', ';
             if errorMessageList[i].details[k].account <> nil then
               names += errorMessageList[i].details[k].account.prettyName;
           end;
           j.SetStringField(temp, detailsS, details);
+          j.SetStringField(temp, anonymousDetailsS, anonymousDetails);
           j.SetStringField(temp, accountPrettyNamesS, names);
           j.SetStringField(temp, errorS, errorMessageList[i].error);
+          j.SetStringField(temp, libraryS, libs);
+          j.SetStringField(temp, searchQueryS, queries);
         end;
         j.SetObjectArrayElement(result, i, temp);
         j.deleteLocalRef(temp);

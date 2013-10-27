@@ -39,6 +39,7 @@ public
   
   procedure setLocation(s:string);
   function addLibrary(lib: tlibrary): boolean;
+  function getLibraryIds: string;
   procedure clear;
   
   procedure connect;
@@ -147,6 +148,15 @@ begin
   for j := 0 to lib.variables.Count-1 do
     bookListReader.parser.variableChangeLog.ValuesString[lib.variables.Names[j]] := lib.variables.ValueFromIndex[j];
   Result:=true;
+end;
+
+function TLibrarySearcher.getLibraryIds: string;
+var
+  i: Integer;
+begin
+  result := '';
+  for i := 0 to flibsToSearch.Count - 1 do
+    result := result + TLibrary(flibsToSearch[i]).id;
 end;
 
 procedure TLibrarySearcher.clear;
