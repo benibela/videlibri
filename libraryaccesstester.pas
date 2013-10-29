@@ -16,6 +16,8 @@ type
     Button2: TButton;
     Edit1: TEdit;
     Edit2: TEdit;
+    filter: TEdit;
+    Label1: TLabel;
     ListBox1: TListBox;
     Memo1: TMemo;
     Panel1: TPanel;
@@ -87,16 +89,18 @@ var
   Message: String;
 begin
   while ListBox1.ItemIndex < ListBox1.Items.Count - 1 do begin
-    try
-      button1.Click;
-      Message := 'PASS!';
-    except
-      on e: EBookListReader do begin
-        message := e.Message;;
+    if  (filter.Text = '') or (pos(filter.Text, libraryManager.getLibraryFromEnumeration(ListBox1.ItemIndex).template.name) > 0) then begin
+      try
+        button1.Click;
+        Message := 'PASS!';
+      except
+        on e: EBookListReader do begin
+          message := e.Message;;
+        end;
       end;
+      memo1.Lines.Add(ListBox1.Items[ListBox1.ItemIndex] +': '+ trim(Message));
+      Application.ProcessMessages;
     end;
-    memo1.Lines.Add(ListBox1.Items[ListBox1.ItemIndex] +': '+ trim(Message));
-    Application.ProcessMessages;
     ListBox1.ItemIndex:=ListBox1.ItemIndex+1;
   end;
 end;
