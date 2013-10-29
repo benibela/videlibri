@@ -181,6 +181,11 @@
   <call action="update-all"/>  <!-- cancel urls change after cancelling. strangely, the old urls still work in firefox. but in videlibri we need to get new urls -->
 </action>
 
+<action id="catalogue">  
+  <call action="connect"/>
+  <s>url:=x"{$baseurl}/APS_OPAC?Style=Portal2"</s>
+</action>
+
 <!--http://katalog.stadtbibliothek.luebeck.de/alswww2.dll/Obj_577491377434134?
 dateReq=1377434653896-->
 </actions>
