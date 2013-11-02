@@ -10,7 +10,8 @@
 
 <action id="connect">
   <s>style := get('style', 'Portal2'),
-     accountUrl := x"{$baseurl}/APS_ACCOUNT?Style={$style}&SubStyle=&Theme=&Lang=GER&ResponseEncoding=utf-8&Parent=APS_OPAC&BrowseAsHloc=11"
+     accountUrl := x"{$baseurl}/APS_ZONES?fn=MyZone"
+   (:  accountUrl := x"{$baseurl}/APS_ACCOUNT?Style={$style}&SubStyle=&Theme=&Lang=GER&ResponseEncoding=utf-8&Parent=APS_OPAC&BrowseAsHloc=11" :)
 (:     accountUrl := x"{$baseurl}/APS_ZONES?fn=MyLoans&Lang=GER" :)
   </s>
   
