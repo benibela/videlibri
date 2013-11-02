@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<library>
+  <longName value="Bücherhallen"/>
+  
+  <template value="zones18"/>  
+  <variable name="baseurl" value="https://www.buecherhallen.de/alswww2.dll/"/>
+
+  <homepage value="http://www.buecherhallen.de/"/>
+  <testing-search value="ja" date="2013-11-02"/>
+  <testing-account value="?" date=""/>
+  <testing-renew value="?" date=""/>
+</library>
