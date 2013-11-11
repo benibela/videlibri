@@ -3,6 +3,7 @@
 <changelog program="VideLibri">
 <!--
   <fix>Universitätsbibliothek Hohenheim (Stuttgart): geänderte Serverparameter  </fix>
+  <fix>Staatbibliothek München: Verwende wieder altes Server-Zertifikat  </fix>
 -->
   <build version="1610" date="2013-11-02">
     <download url="http://videlibri.sourceforge.net/updates/videlibri-setup.exe" platform="WINDOWS" execute="&quot;$DOWNLOAD&quot;  /SP- /noicons &quot;/dir=$OLDPATH&quot; " restart="true"/>
