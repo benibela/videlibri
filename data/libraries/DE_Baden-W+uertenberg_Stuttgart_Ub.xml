@@ -4,6 +4,7 @@
 
   <template value="aDISWeb"/>
   <variable name="server" value="hoh.ibs-bw.de"/>
+  <variable name="startparams" value="?service=direct/0/Home/$DirectLink&sp=S127.0.0.1:23022"/>
 
   <homepage value="https://ub.uni-hohenheim.de/recherche"/>
   <testing-search value="ja" date="2013-05-18"/>
