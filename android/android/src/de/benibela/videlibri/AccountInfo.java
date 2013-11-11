@@ -131,6 +131,11 @@ public class AccountInfo extends VideLibriBaseActivity {
             findViewById(R.id.completeAccountButton).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+                    if (libId == null || "".equals(libId)){
+                        showMessage("Keine Bibliothek ausgewählt");
+                        return;
+                    }
+
                     MessageHandler temp = new MessageHandler() {
                         @Override
                         public void onDialogEnd(DialogInterface dialogInterface, int i) {
