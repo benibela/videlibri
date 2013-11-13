@@ -4,7 +4,7 @@
   <shortName value="HSB Osnabrück"/>
   
   <template value="pica"/>  
-  <variable name="server" value="http://osopc4.ub.uni-osnabrueck.de:8080/"/>
+  <variable name="server" value="http://osopc4.ub.uni-osnabrueck.de:8080"/>
   <variable name="picadb" value="2"/>
 
 
