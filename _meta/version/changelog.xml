@@ -1,14 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?xml-stylesheet type="text/xsl" href="../changelog.xsl"?>
 <changelog program="VideLibri">
-<!--
-  <fix>Universitätsbibliothek Hohenheim (Stuttgart): geänderte Serverparameter  </fix>
-  <fix>Staatbibliothek München: Verwende wieder altes Server-Zertifikat  </fix>
--->
-  <build version="1610" date="2013-11-02">
+  <build version="1615" date="2013-11-14">
     <download url="http://videlibri.sourceforge.net/updates/videlibri-setup.exe" platform="WINDOWS" execute="&quot;$DOWNLOAD&quot;  /SP- /noicons &quot;/dir=$OLDPATH&quot; " restart="true"/>
     <download url="http://videlibri.sourceforge.net/updates/videlibri-linux32.deb" platform="LINUX32" execute=""/>
     <download url="http://videlibri.sourceforge.net/updates/videlibri-linux64.deb" platform="LINUX64" execute=""/>
+
+    <fix>Universitätsbibliothek Hohenheim (Stuttgart): geänderte Serverparameter  </fix>
+    <fix>Staatbibliothek München: Verwende wieder das alte Server-Zertifikat  </fix>
+    <fix>Hochschulbibliothek: Osnabrück: Entferne verbindungsblockierenden // aus URL</fix>
+    <fix>Libero: Verwende nur die jeweils vorhandenen Form-Parameter statt dieselben hardkodierte Parameter für alle Bibliotheken (behebt Fehlermeldung bei Stadtbibliothek Hanau)</fix>
+    <fix>Server-Zertifikat für SVK (Saarländischer Virtueller Katalog)</fix>
+  </build>
+  <build version="1610" date="2013-11-02">
     <fix>Android: Aktiviere Berechtigung für Autostart</fix>
     <fix>Android: Verbesserter Fehler-Feedback: Übertrage den Name der Bibliothek, anonymisierte Seitenstruktur</fix>
     <change>Markiere Stb Braunschweig als "getestet", nach User-Feedback</change>
