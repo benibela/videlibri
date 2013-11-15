@@ -7,6 +7,6 @@
   
   <homepage value="http://www.ulb.uni-muenster.de/bibliothek/"/>
   <testing-search value="ja" date="2013-05-18"/>
-  <testing-account value="?" date=""/>
-  <testing-renew value="?" date=""/>
+  <testing-account value="nein (da / in Benutzernummer)" date=""/>
+  <testing-renew value="nein" date=""/>
 </library>
