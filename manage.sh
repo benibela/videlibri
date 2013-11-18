@@ -61,9 +61,9 @@ win32)
 android) 
     cd android
     ANDROIDVERSION=$(xidel android/AndroidManifest.xml -e "/manifest/@*:versionCode")
-    if [[ "$ANDROIDVERSION" != "$INTVERSION" ]]; then echo Android version mismatch; exit; fi
+    if [[ "$ANDROIDVERSION" != "$INTVERSION" ]]; then echo Android version mismatch; read; exit; fi
     ANDROIDVERSION=$(xidel android/AndroidManifest.xml -e "/manifest/@*:versionName")
-    if [[ "$ANDROIDVERSION" != "$VERSION" ]]; then echo Android version mismatch; exit; fi
+    if [[ "$ANDROIDVERSION" != "$VERSION" ]]; then echo Android version mismatch; read; exit; fi
     
     ./manage.sh clean
     ./manage.sh build release
