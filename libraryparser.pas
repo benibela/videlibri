@@ -63,8 +63,8 @@ type
     
     function getTemplate(templateName: string):TMultiPageTemplate;
     function getCombinedTemplate(template: TMultiPageTemplate; templateName: string):TMultiPageTemplate;
-    function getAccount(libID,accountID: string):TCustomAccountAccess;overload;
-    function getAccount(mixID: string):TCustomAccountAccess;overload;
+    function getAccount(libID,accountID: string):TCustomAccountAccess;overload; //+-encoded library name, verbatim user number
+    function getAccount(mixID: string):TCustomAccountAccess;overload; //mixId: +-Encoded library name # +2-encoded user number
 
     function enumerateLocations: TStringArray;
     function enumeratePrettyLongNames(location: string): TStringArray;
@@ -214,7 +214,7 @@ type
 
     procedure changeUser(const s:string); virtual;
     function getUser(): string;virtual;
-    function getID():string; virtual;
+    function getPlusEncodedID():string; virtual;
 
     property charges: currency read getCharges;        //<0 means unknown
 
@@ -290,6 +290,42 @@ begin
                delete(temp,length(temp)-2,3);
                lastBookCharges:=strtoint(lastBookCharges);}
 end;
+
+function decodeSafeFileName(s: string): string;
+var
+  i: Integer;
+begin
+  if pos('+', s) = 0 then exit(s);
+  result := '';
+  i := 1;
+  while i <= length(s) do begin
+    if   (s[i] = '+') and (i + 2 <= length(s)) then begin
+      result += chr(strtoint('$'+copy(s,i+1,2)));
+      i += 2;
+    end else result += s[i];
+    i += 1;
+  end;
+end;
+
+function encodeToSafeFileName(s: string): string;
+const OK_SET = ['a'..'z','A'..'Z','_','-','0'..'9'];
+var
+  i: Integer;
+  ok: Boolean;
+begin
+  ok := true;
+  for i := 1 to length(s) do
+    if not (s[i] in OK_SET) then begin
+      ok := false;
+      break;
+    end;
+  if ok then exit(s);
+  result := '';
+  for i := 1 to length(s) do
+    if s[i] in OK_SET then result += s[i]
+    else result += '+' + IntToHex(ord(s[i]), 2);
+end;
+
 
 function TLibrary.readProperty(tagName: string; properties: TProperties):TParsingResult;
 var value:string;
@@ -520,10 +556,12 @@ begin
   result.init(basePath,accountID);
   if logging then log('TLibraryManager.getAccount('+libID+','+accountID+') ended');
 end;
+
 function TLibraryManager.getAccount(mixID: string): TCustomAccountAccess;
 var libID: string;
 begin
   libID:=strSplitGet('#', mixID);
+  mixID := decodeSafeFileName(mixID);
   result:=getAccount(libID,mixID);
 end;
 
@@ -932,13 +970,23 @@ begin
 end;
 
 procedure TCustomAccountAccess.init(apath,userID:string);
+var
+  filePrefix: String;
 begin
   self.path:=apath;
   self.user:=userID;
 
+  filePrefix := path+getPlusEncodedID();
+  if not FileExists(filePrefix+'.config') then
+    if FileExists(path + lib.id+'#'+user+'.config') then begin
+      RenameFile(path + lib.id+'#'+user+'.config', filePrefix + '.config');
+      RenameFile(path + lib.id+'#'+user+'.history.xml', filePrefix + '.history.xml');
+      RenameFile(path + lib.id+'#'+user+'.current.xml', filePrefix + '.current.xml');
+    end;
+
   //Datenladen/cachen
-  fbooks:=TBookLists.create(self,path+getID()+'.history',path+getID()+'.current');
-  config:=TIniFile.Create(path+getID()+'.config');
+  fbooks:=TBookLists.create(self,filePrefix+'.history',filePrefix+'.current');
+  config:=TIniFile.Create(filePrefix+'.config');
   pass:=config.ReadString('base','pass','');
   books.keepHistory:=config.ReadBool('base','keep-history',true);
   flastCheckDate:=config.ReadInteger('base','lastCheck',0);
@@ -972,7 +1020,7 @@ procedure TCustomAccountAccess.remove();
 begin
   books.remove();
   FreeAndNil(config);
-  DeleteFile(path+getID()+'.config');
+  DeleteFile(path+getPlusEncodedID()+'.config');
 end;
 
 {function TCustomAccountAccess.lastCheck():longint;
@@ -1084,17 +1132,17 @@ end;
 procedure TCustomAccountAccess.changeUser(const s:string);
 var oldID,newID:string;
 begin
-  oldID:=getID();
+  oldID:=getPlusEncodedID();
   books.Free;
   config.free;
   
   user:=s;
-  newID:=getID();
-   RenameFile(path+oldID+'.history.xml',path+newID+'.history.xml');
+  newID:=getPlusEncodedID();
+  RenameFile(path+oldID+'.history.xml',path+newID+'.history.xml');
   RenameFile(path+oldID+'.current.xml',path+newID+'.current.xml');
   RenameFile(path+oldID+'.config',path+newID+'.config');
-  fbooks:=TBookLists.create(self,path+getID()+'.history',path+getID()+'.current');
-  config:=TIniFile.Create(path+getID()+'.config');
+  fbooks:=TBookLists.create(self,path+newID+'.history',path+newID+'.current');
+  config:=TIniFile.Create(path+newID+'.config');
   //config.UpdateFile;
 end;
 
@@ -1103,9 +1151,9 @@ begin
   result:=user;
 end;
 
-function TCustomAccountAccess.getID():string;
+function TCustomAccountAccess.getPlusEncodedID():string;
 begin
-  result:=lib.id+'#'+user;
+  result:=lib.id+'#'+encodeToSafeFileName(user);
 end;
 
 { EWrongPasswordException }

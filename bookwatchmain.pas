@@ -257,7 +257,8 @@ begin
     tmpbl.clear;
     for k:=0 to accounts.Count-1 do
       for j:= 0 to high(accountsToSend) do
-        if strContains((accounts[k]).getID(), strTrim(accountsToSend[j])) then begin
+        if strContains((accounts[k]).getUser(), strTrim(accountsToSend[j])) or
+           strContains((accounts[k]).prettyName, strTrim(accountsToSend[j]))  then begin
           tmpbl.addList((accounts[k]).books.current);
           usedaccounts.add(accounts[k]);
         end;

@@ -57,10 +57,10 @@ begin
   deprecatedAccounts := false;
   for i:=0 to count-1 do begin
     Objects[i]:=libs.getAccount(Strings[i]);
-    if (Accounts[i].getID() <> Strings[i]) and (length(Strings[i]) > 4) and ((Strings[i])[4] = '#') then begin
-      if logging then log('Renamed account: '+Strings[i]+' => '+Accounts[i].getID());
+    if (Accounts[i].getPlusEncodedID() <> Strings[i]) and (length(Strings[i]) > 4) and ((Strings[i])[4] = '#') then begin
+      if logging then log('Renamed account: '+Strings[i]+' => '+Accounts[i].getPlusEncodedID());
       deprecatedAccounts := true;
-      Strings[i] := Accounts[i].getID();
+      Strings[i] := Accounts[i].getPlusEncodedID();
     end;
   end;
   if deprecatedAccounts then save;
@@ -106,7 +106,7 @@ begin
 
 
 
-  AddObject(result.getID(),result);
+  AddObject(result.getPlusEncodedID(),result);
   result.save();
   save;
 

@@ -35,7 +35,7 @@ object optionForm: ToptionForm
     Height = 483
     Top = 6
     Width = 612
-    PageIndex = 1
+    PageIndex = 0
     Anchors = [akTop, akLeft, akRight, akBottom]
     BorderSpacing.Around = 2
     OnChangeBounds = Notebook1ChangeBounds
@@ -47,7 +47,7 @@ object optionForm: ToptionForm
         AnchorSideTop.Side = asrCenter
         Left = 8
         Height = 15
-        Top = 346
+        Top = 342
         Width = 116
         BorderSpacing.Around = 10
         Caption = 'Passwort:              '
@@ -58,7 +58,7 @@ object optionForm: ToptionForm
         AnchorSideTop.Side = asrCenter
         Left = 8
         Height = 15
-        Top = 317
+        Top = 313
         Width = 94
         BorderSpacing.Around = 10
         BorderSpacing.InnerBorder = 10
@@ -70,7 +70,7 @@ object optionForm: ToptionForm
         AnchorSideTop.Side = asrCenter
         Left = 8
         Height = 15
-        Top = 288
+        Top = 284
         Width = 75
         BorderSpacing.InnerBorder = 10
         Caption = 'Kontoname:'
@@ -81,7 +81,7 @@ object optionForm: ToptionForm
         AnchorSideTop.Side = asrCenter
         Left = 8
         Height = 15
-        Top = 373
+        Top = 371
         Width = 72
         BorderSpacing.Around = 10
         Caption = 'Verlängern:'
@@ -92,7 +92,7 @@ object optionForm: ToptionForm
         AnchorSideTop.Side = asrCenter
         Left = 222
         Height = 15
-        Top = 373
+        Top = 371
         Width = 30
         Caption = 'also '
         ParentColor = False
@@ -104,7 +104,7 @@ object optionForm: ToptionForm
         AnchorSideTop.Side = asrCenter
         Left = 294
         Height = 15
-        Top = 373
+        Top = 371
         Width = 128
         BorderSpacing.Left = 5
         Caption = 'Tage vor Fristdatum'
@@ -204,7 +204,7 @@ object optionForm: ToptionForm
         AnchorSideBottom.Control = cmbAccountExtend
         Left = 134
         Height = 25
-        Top = 341
+        Top = 337
         Width = 468
         Anchors = [akLeft, akRight, akBottom]
         BorderSpacing.Left = 3
@@ -219,7 +219,7 @@ object optionForm: ToptionForm
         AnchorSideBottom.Control = edtAccountPass
         Left = 134
         Height = 25
-        Top = 312
+        Top = 308
         Width = 468
         Anchors = [akLeft, akRight, akBottom]
         BorderSpacing.Left = 3
@@ -235,7 +235,7 @@ object optionForm: ToptionForm
         AnchorSideBottom.Control = edtAccountUser
         Left = 134
         Height = 25
-        Top = 283
+        Top = 279
         Width = 468
         Anchors = [akLeft, akRight, akBottom]
         BorderSpacing.Left = 3
@@ -286,8 +286,8 @@ object optionForm: ToptionForm
         AnchorSideTop.Control = Label4
         AnchorSideTop.Side = asrCenter
         Left = 134
-        Height = 21
-        Top = 370
+        Height = 25
+        Top = 366
         Width = 468
         Anchors = [akLeft, akRight, akBottom]
         BorderSpacing.Left = 3

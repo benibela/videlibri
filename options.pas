@@ -675,7 +675,7 @@ begin
   end;
   if edtAccountUser.text<>item.SubItems[0] then begin
     lib.changeUser(edtAccountUser.text);
-    accounts.Strings[item.Index]:=lib.getID();
+    accounts.Strings[item.Index]:=lib.getPlusEncodedID();
     accounts.save;
     mainForm.refreshAccountGUIElements();
     mainForm.RefreshListView;
