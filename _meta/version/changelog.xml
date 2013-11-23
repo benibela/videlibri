@@ -1,11 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?xml-stylesheet type="text/xsl" href="../changelog.xsl"?>
 <changelog program="VideLibri">
-  <build version="1615" date="2013-11-14">
+  <build version="1620" date="2013-11-23">
     <download url="http://videlibri.sourceforge.net/updates/videlibri-setup.exe" platform="WINDOWS" execute="&quot;$DOWNLOAD&quot;  /SP- /noicons &quot;/dir=$OLDPATH&quot; " restart="true"/>
     <download url="http://videlibri.sourceforge.net/updates/videlibri-linux32.deb" platform="LINUX32" execute=""/>
     <download url="http://videlibri.sourceforge.net/updates/videlibri-linux64.deb" platform="LINUX64" execute=""/>
-
+    
+    <fix>zones (z.B.: Lübeck): Verwende die aktuelle Sitzung für Verlängerungen und Vormerken, anstatt zu versuchen, sich erneut im Katalog anzumelden (was fehlschlägt, weil die Sitzung nicht beendet wurde)</fix>
+    <change>Erlaube beliebige Sonderzeichen in Benutzernummern (behebt Crash bei der ULB Münster)</change>
+  </build>
+  <build version="1615" date="2013-11-14">
     <fix>Universitätsbibliothek Hohenheim (Stuttgart): geänderte Serverparameter  </fix>
     <fix>Staatbibliothek München: Verwende wieder das alte Server-Zertifikat  </fix>
     <fix>Hochschulbibliothek: Osnabrück: Entferne verbindungsblockierenden // aus URL</fix>
