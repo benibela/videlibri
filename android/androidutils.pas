@@ -583,7 +583,7 @@ begin
 
   if oldacc.getUser() <> username then begin
     oldacc.changeUser(username);
-    accounts.Strings[i] := oldacc.getID();
+    accounts.Strings[i] := oldacc.getPlusEncodedID();
     accounts.save;
   end else
     oldacc.save;
