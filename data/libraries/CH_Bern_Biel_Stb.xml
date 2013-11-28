@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<library>
+  <longName value="Stadtbibliothek Biel"/>
+  
+  <template value="zones18"/>  
+  <variable name="baseurl" value="http://zonesl.bibliobiel.ch/alswww2.dll/"/>
+
+  <homepage value="http://www.bibliobiel.ch/"/>
+  <testing-search value="ja" date="2013-10-07"/>
+  <testing-account value="?" date=""/>
+  <testing-renew value="?" date=""/>
+</library>
