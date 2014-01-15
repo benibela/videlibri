@@ -25,6 +25,11 @@
             <TD>{$book.issuedate := parse-date(., "dd/mm/yyyy")}</TD>
             <TD>{$book.duedate := parse-date(., "dd/mm/yyyy")}</TD>
           </TR>
+          <tr>
+            <td>{$book.status}
+                <b>Kann nicht verlängert werden<t:s>$book.statusId:="critical"</t:s></b>?
+            </td>
+          </tr>?
         </TABLE>
       </t:loop>
     </DIV>
