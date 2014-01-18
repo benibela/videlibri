@@ -96,6 +96,10 @@
         <form name="LoginForm">  {form := form(., {"BRWR": $username, "PIN": $password})} </form>
         <h2>Das System ist gerade offline<t:s>vl:raise(.)</t:s></h2>
         <a t:condition="contains(@href, 'MyLoans')">{form := $accountUrl}</a> <!-- are already logged in-->
+        <table>
+          <a t:condition="contains(@href, 'ShowExpandedAccount')">{form := $accountUrl}</a> <!-- are already logged in, but nothing lend-->
+          KEINE
+        </table>
       </t:switch-prioritized>
     </template>
   </page>
@@ -123,7 +127,7 @@
 
 
 <action id="update-all">  
-  <s>ordersListUrl := ()</s>
+  <s>ordersListUrl := (), bookListUrl := (), bFoundBottom := true()</s>
   <call action="internal-login"/>
     
   <s>requestId := 0</s>
