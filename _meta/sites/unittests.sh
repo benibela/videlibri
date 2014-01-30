@@ -139,8 +139,9 @@ PAGES=(${PAGES[@]} zones18/orderList1.html zones18/orderList1unterwegs.html zone
 ADDTEMPLATE zones18/cancelConfirm 1
 PAGES=(${PAGES[@]} zones18/cancelConfirm.html)
 
-ADDTEMPLATE 'zones18/searchList{requestId:=0}' 5
-PAGES=(${PAGES[@]} zones18/searchList.biel.html zones18/searchList.cologne.html zones18/searchList.hannover.html zones18/searchList.kiel.html zones18/searchList.koblenz.html)
+ADDTEMPLATE 'zones18/searchList{requestId:=0}' 6
+PAGES=(${PAGES[@]} zones18/searchList.biel.html zones18/searchList.cologne.html zones18/searchList.hannover.html zones18/searchList.kiel.html zones18/searchList.koblenz.html zones18/searchList_notfound.html)
+
 
 ADDTEMPLATE 'zones18/searchList{requestId:=1}' 5
 PAGES=(${PAGES[@]} zones18/searchListIncremental.biel.html zones18/searchListIncremental.cologne.html zones18/searchListIncremental.hannover.html zones18/searchListIncremental.kiel.html zones18/searchListIncremental.koblenz.html)
@@ -180,7 +181,11 @@ for ((i=0;i<${#TEMPLATES[@]};i++)); do
     if [[ $EXTRA =~ vl:choose ]]; then
       EXTRA="-e \"declare function vl:choose(\\\$a,\\\$b,\\\$c,\\\$d) { message-choose :=  join((\\\$a,\\\$b,\\\$c,\\\$d))}\""
     fi
+#    if [[ $EXTRA =~ vl:raise ]]; then
+#      EXTRA="-e \"declare function vl:raise(\\\$x) { raised := \\\$x }\""
+#    fi
   fi
+
   
   eval $TEMPLATEPARSER  $EXTRA $TEMPLATEPARSERARGS $INPATH/${PAGES[i]} --extract-file=$TFILE  > $OUTPATH/${PAGES[i]}.result 2> $OUTPATH/stderr
   if diff -q $INPATH/${PAGES[i]}.result $OUTPATH/${PAGES[i]}.result; then tempasasas=42; else 

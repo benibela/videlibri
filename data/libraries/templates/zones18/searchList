@@ -2,6 +2,8 @@
 <head t:test="$requestId eq 0">
 <META NAME="ZonesObjName">{obj:=@CONTENT, bFoundBottom := false()}</META>
 </head>
+<t:switch-prioritized>
+
 <body>
 <t:if test="$requestId eq 0">
 <B>Total:<t:s>search-result-count := extract(., "[0-9]+")</t:s></B>
@@ -43,4 +45,16 @@
 
 </body>
 
+
+
+<TABLE class="advanced-table">
+  <TR bgcolor="orange">Leider wurden keine passenden Titel zu Ihrer Anfrage gefunden<t:s>search-result-count:=0</t:s></TR>
+</TABLE>
+                            
+
+<TABLE class="advanced-table">
+  <TR bgcolor="orange">{vl:raise(.)}</TR>
+</TABLE>
+
+</t:switch-prioritized>
 </HTML>
