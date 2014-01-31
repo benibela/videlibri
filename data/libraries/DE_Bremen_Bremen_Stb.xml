@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <library>
-  <longName value="Stadtbibliothek Bremen (alpha)"/>
+  <longName value="Stadtbibliothek Bremen"/>
   <shortName value="Stb Bremen"/> 
   
   <template value="sisis"/>  
