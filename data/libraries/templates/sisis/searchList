@@ -34,9 +34,9 @@
                     
         <A t:condition="contains(@href, 'singleHit')">{book._detail-url:=@href, if (not($hasZ3988) or $book.title = "") then book.title := . else ()}</A>
         <t:if test="not($hasZ3988)">
-          {if (exists($book.title/following-sibling::comment()[contains(., "Autor")])) then (
+          {if (exists($book.title!following-sibling::comment()[contains(., "Autor")])) then (
               $book.year := normalize-space(text()),  (: special output in winterthur :)
-              $book.author := $book.title/following-sibling::br[2]/preceding-sibling::text()[1]  (: use preceding instead following to skip over comment :)
+              $book.author := $book.title!following-sibling::br[2]/preceding-sibling::text()[1]  (: use preceding instead following to skip over comment :)
             ) else book.author := normalize-space(text())
           }
           <strong class="c2">Band<t:s>
@@ -45,14 +45,14 @@
             book.year := extract($temp, "([0-9]{4})[. )]", 1)
           </t:s></strong>?
           <t:s>          
-          if ($book.author = "" and not($book.subTitle) and exists($book.title/following-sibling::br[1])) then (
-            brs := if ($book.title/following-sibling::comment()[contains(., "Zusatz HST")]) then   
+          if ($book.author = "" and not($book.subTitle) and exists($book.title!following-sibling::br[1])) then (
+            brs := if ($book.title!following-sibling::comment()[contains(., "Zusatz HST")]) then   
                            (: for chemnitz brs[1] would be additional title data:)
-                     ($book.title/following-sibling::comment()[contains(., "Zusatz HST")])[last()]/following-sibling::br/following-sibling::text()[1]
-                   else $book.title/following-sibling::br/following-sibling::text()[1], 
+                     ($book.title!following-sibling::comment()[contains(., "Zusatz HST")])[last()]/following-sibling::br/following-sibling::text()[1]
+                   else $book.title!following-sibling::br/following-sibling::text()[1], 
             if (matches($brs[1], "[0-9]{2,4}")) then brs := ("", $brs) else (),
             book.author := $brs[1],
-            if (($book.author = "von" or $book.author = "") and $brs[1]/following-sibling::a and ($brs[1]/following-sibling::a)[1] &lt;&lt; $brs[2]  ) then book.author := $brs[1]/following-sibling::a[1] 
+            if (($book.author = "von" or $book.author = "") and $brs[1]!following-sibling::a and ($brs[1]!following-sibling::a)[1] &lt;&lt; $brs[2]  ) then book.author := $brs[1]!following-sibling::a[1] 
             else if (matches($book.author, "^(ausleihbar|(entliehen|bestellbar).*)$")) then book.author := ""  (: pulheim :)
             else (),
             book.year := if (matches($brs[2], "[0-9]{2}")) then ($brs[2]) else ""
