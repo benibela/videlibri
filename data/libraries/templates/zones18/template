@@ -155,7 +155,9 @@
 </action>
 
 <action id="renew-list">  
-  <s>renew-ids := for $book in $renew-books return x"item:IN={$book.id};AT={$book.author}/{$book.title}"</s>
+  <s>renew-ids := for $book in $renew-books return ( x"item:IN={$book.id};AT={$book.author}/{$book.title}" ! 
+          (if (contains(., "'")) then (., substring-before(., "'")) else . )
+  )</s>
   
   <page url="{$bulkRenew}" templateFile="bulkRenew"/>
 
