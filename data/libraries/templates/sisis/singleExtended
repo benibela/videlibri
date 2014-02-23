@@ -3,6 +3,7 @@
   <table class="data">
     <tr> 
       <td>
+        {book := $b, book._select := $b}
         <strong class="c2">Titel:</strong>
         <strong><template:read var="newBookTitle" source="text()"/></strong>
         
