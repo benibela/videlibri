@@ -20,10 +20,10 @@
       <div class="box-header">
         <template:switch>
           <h2>Ausleihen
-             <t:s>bookCount := $bookCountLend, inOrdered := false()</t:s>
+             <t:s>bookCount := $bookCountLend, mode := 1</t:s>
              <t:if test="$nextPage = ''"><template:read var="delete-current-books()"/></t:if></h2>
-          <h2>Bestellungen<t:s>bookCount := $bookCountRequested</t:s></h2>
-          <h2>Vormerkungen<t:s>bookCount := $bookCountOrdered, inOrdered := true()</t:s></h2>
+          <h2>Bestellungen<t:s>bookCount := $bookCountRequested, mode := 2</t:s></h2>
+          <h2>Vormerkungen<t:s>bookCount := $bookCountOrdered, mode := 3</t:s></h2>
         </template:switch>
       </div>
     </div>
@@ -63,8 +63,8 @@
           </span>
           <a template:optional="true">
             {book.extendID := extract(@href, "actPos=([0-9]+)$", "1"),
-             book.statusId := if ($inOrdered) then "ordered" else "curious",
-             book.cancelable := $inOrdered,
+             book.statusId := if ($mode eq 3) then "ordered" else if ($mode eq 2) then "provided" else "curious",
+             book.cancelable := $mode eq 3,
              book._onPage := $url, book._onPageStart := $startUrl}          
           </a>
 <!--	  <template:if test="$previousspan">
