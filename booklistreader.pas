@@ -62,6 +62,7 @@ type
     //procedure assignOverride(book: TBook);  //every value set in book will be replace the one of self
 
     procedure setProperty(const name, value: string);
+    function getProperty(const name: string; const def: string = ''): string;
     function getPropertyAdditional(const name: string; const def: string = ''): string; inline;
   end;
   
@@ -331,6 +332,40 @@ begin
     '_firstexistsdate': firstExistsDate:=bbutils.dateParse(value, 'yyyy-mm-dd');
     '_lastexistsdate': lastExistsDate:=bbutils.dateParse(value, 'yyyy-mm-dd');
     else simplexmlparser.setProperty(name,value,additional);
+  end;
+end;
+
+function TBook.getProperty(const name: string; const def: string): string;
+begin
+  case lowercase(name) of
+    'category': result:=Category;
+    'librarybranch': result:=libraryBranch;
+    'id': result:=Id;
+    'author': result:=Author;
+    'title': result:=Title;
+    'year': result:=Year;
+    'isbn': result:=isbn;
+    'statusid':
+        case status of
+          bsCuriousInStr: result:='curious';
+          bsProblematicInStr: result:='critical';
+          bsOrdered: result:='ordered';
+          bsProvided: result:='provided';
+          bsNormal: result:='normal';
+          bsUnknown: result:='unknown';
+          else EBookListReader.create('Ungültiger Bücherstatus (getproperty): '+inttostr(ord(status)));
+        end;
+    'cancelable': case cancelable of
+      tUnknown: result := '?';
+      tFalse: result := 'false';
+      tTrue: result := 'true';
+    end;
+    'status': result := statusStr;
+    'issuedate': result := bbutils.dateTimeFormat('yyyy-mm-dd', issueDate);
+    'duedate': result := bbutils.dateTimeFormat('yyyy-mm-dd', dueDate);
+    '_firstexistsdate': result := bbutils.dateTimeFormat('yyyy-mm-dd', firstExistsDate);
+    '_lastexistsdate': result := bbutils.dateTimeFormat('yyyy-mm-dd', lastExistsDate);
+    else result := getPropertyAdditional(name, def);
   end;
 end;
 
@@ -788,11 +823,12 @@ procedure TBookListReader.parserVariableRead(variable: string; value: IXQValue);
 
 
 var
- i: Integer;
+ i,j : Integer;
  book: TXQValueObject;
  temp2: IXQValue;
  temp: TXQValue;
  s: string;
+ sl: TStringList;
 begin
   if logging then
     log('** Read variable: "'+variable+'" = "'+value.debugAsStringWithTypeAnnotation+'"');
@@ -842,9 +878,31 @@ begin
     if not (value is TXQValueObject) then raise EBookListReader.Create('Buch ohne Eigenschaften');
     temp2 := value.clone;
     book := temp2 as TXQValueObject;
-    if book.hasProperty('_existing', @temp) then begin
-      if not temp.toBoolean then raise EBookListReader.create('Das Buch hat einen _existing Marker, aber er sagt, das Buch existiere nicht : '+temp.debugAsStringWithTypeAnnotation());
-      if currentBook = nil then raise EBookListReader.Create('Das Template will ein existierendes Buch verändert, aber mir ist kein Buch bekannt.');
+    if book.hasProperty('_select', @temp) then begin
+      currentBook := nil;
+      case temp.kind of
+        pvkObject: begin
+          sl := TStringList.Create;
+          (temp as TXQValueObject).enumerateKeys(sl);
+          for i:=0 to books.Count-1 do begin
+            currentBook := books[i];
+            for j := 0 to sl.Count - 1 do begin
+              if (sl[j] = '_select') or (sl[j] = '_existing') then continue;
+              if books[i].getProperty(sl[j]) <> temp.getProperty(sl[j]).toString then begin //todo: optimize
+                currentBook := nil;
+                break;
+              end;
+            end;
+            if currentBook <> nil then break;
+          end;
+          sl.free;
+        end;
+      end;
+      //s := temp.toString;
+      if currentBook=nil then begin
+        if logging then for i:=0 to books.Count-1 do log('Book: "'+books[i].toLimitString() + '" <> "'+temp.debugAsStringWithTypeAnnotation()+'"');
+        raise EBookListReader.create('Template wants to select book '+temp.debugAsStringWithTypeAnnotation()+', but it doesn''t exist');
+      end;
     end else if book.hasProperty('select(id)', @temp) then begin
       s := temp.toString;
       currentBook := nil;
@@ -857,13 +915,16 @@ begin
       end;
     end else if book.hasProperty('select(new)', @temp) or book.hasProperty('select(current)', @temp) then
       raise EBookListReader.Create('Das Template hat die Bucheigenschaften select(new) oder select(current) gesetzt, aber in der neuesten Version, werden sie nicht länger benötigt)')
-    else begin
+    else if book.hasProperty('_existing', @temp) then begin
+      if not temp.toBoolean then raise EBookListReader.create('Das Buch hat einen _existing Marker, aber er sagt, das Buch existiere nicht : '+temp.debugAsStringWithTypeAnnotation());
+      if currentBook = nil then raise EBookListReader.Create('Das Template will ein existierendes Buch verändert, aber mir ist kein Buch bekannt.');
+    end else begin
       currentBook := defaultBook;
       currentBook.clear;
     end;
     for i:=0 to book.values.count-1 do begin
       s := book.values.getName(i);
-      if (s = '_existing') or (s = 'select(id)') or (s = 'select(current)') or (s = 'select(new)')  then continue;
+      if (s = '_existing') or (s = 'select(id)') or (s = 'select(current)') or (s = 'select(new)') or (s = '_select') then continue;
       setBookProperty(currentBook,s,book.values.get(i));
     end;
     currentBook.firstExistsDate:=trunc(now);
