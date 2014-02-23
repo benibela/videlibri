@@ -1,7 +1,10 @@
+b: {"id": 123}
+
+
 book: {}
 
 
 newBookTitle: node(): D K
 status_found: boolean: false
 status_found: boolean: true
-book: object(): {"status:problematic": "2. Verlängerung", "duedate": "2013-08-19"}
+book: object(): {"id": 123, "_select": {"id": 123}, "status:problematic": "2. Verlängerung", "duedate": "2013-08-19"}

@@ -76,7 +76,7 @@ PAGES=(${PAGES[@]} sisis/searchSingle_basel.do.html sisis/searchSingle_aachen.do
 ADDTEMPLATE sisis/orderConfirmation 2
 PAGES=(${PAGES[@]} sisis/orderConfirmation_aachen.html sisis/orderConfirmation_pulheim.html  )
 
-ADDTEMPLATE sisis/singleExtended 1
+ADDTEMPLATE 'sisis/singleExtended{b:={\"id\":123}}' 1
 PAGES=(${PAGES[@]} sisis/singleExtended_h.html  )
 
 ADDTEMPLATE sisis/searchSingleExemplar 15
@@ -175,7 +175,7 @@ for ((i=0;i<${#TEMPLATES[@]};i++)); do
   
   TFILE="$TEMPLATEPATH/${TEMPLATES[i]}"
   EXTRA=
-  if [[ $TFILE =~ (.+)[{](.+)[}] ]]; then
+  if [[ $TFILE =~ ([^{]+)[{](.+)[}] ]]; then
     TFILE=${BASH_REMATCH[1]}
     EXTRA="-e ${BASH_REMATCH[2]}"
     if [[ $EXTRA =~ vl:choose ]]; then
