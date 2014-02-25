@@ -3,4 +3,4 @@ book: {}
 
 noBooks: string: 
 delete-current-books(): untyped: 
-book: object(): {"detailLink": "http://opac.hu-berlin.de:80/F/NIU54D83D9YVQEDY7KU2V1DHLGUI46FIHYYH9YGHUSR9KKBE-18875?func=BOR-LOAN-EXP&doc_number=001234450&item_sequence=000010&index=0001&adm_library=HUB50", "author": "Name, Vorname, 1956-", "title": "Foobar title", "year": "2002", "duedate": "2013-12-16", "libraryBranch": "ZB Grimm-Zentrum", "id": "2002 B 1234", "category": ""}
+book: object(): {"category": "", "id": "2002 B 1234", "libraryBranch": "ZB Grimm-Zentrum", "duedate": "2013-12-16", "year": "2002", "title": "Foobar title", "author": "Name, Vorname, 1956-", "detailLink": "http://opac.hu-berlin.de:80/F/NIU54D83D9YVQEDY7KU2V1DHLGUI46FIHYYH9YGHUSR9KKBE-18875?func=BOR-LOAN-EXP&doc_number=001234450&item_sequence=000010&index=0001&adm_library=HUB50"}

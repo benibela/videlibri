@@ -9,14 +9,14 @@ node(): Nanc
 node(): bestellbar
 node(): 
 node(): 
-book: object(): {"orderable": 0, "_detail-url": "/webOPACClient/singleHit.do?methodToCall=showHit&curPos=21&identifier=-1_S_IG.12.6398", "title": "Fire Flight", "author": "", "author": "Nance, John J.", "year": "2006"}
+book: object(): {"year": "2006", "author": "Nance, John J.", "title": "Fire Flight", "_detail-url": "/webOPACClient/singleHit.do?methodToCall=showHit&curPos=21&identifier=-1_S_IG.12.6398", "orderable": 0}
 hasZ3988: boolean: false
 brs: sequence*: node(): Stone, Irving
 node(): Ston
 node(): 
 node(): 
 node(): 
-book: object(): {"orderable": 0, "_detail-url": "/webOPACClient/singleHit.do?methodToCall=showHit&curPos=22&identifier=-1_S_IG.12.6398", "title": "Michelangelo", "author": "", "author": "Stone, Irving", "year": ""}
+book: object(): {"year": "", "author": "Stone, Irving", "title": "Michelangelo", "_detail-url": "/webOPACClient/singleHit.do?methodToCall=showHit&curPos=22&identifier=-1_S_IG.12.6398", "orderable": 0}
 hasZ3988: boolean: false
 brs: sequence*: node(): Stone, Irving
 node(): 1963
@@ -24,4 +24,4 @@ node(): Ston
 node(): 
 node(): 
 node(): 
-book: object(): {"orderable": 0, "_detail-url": "/webOPACClient/singleHit.do?methodToCall=showHit&curPos=23&identifier=-1_S_IG.12.6398", "title": "Michelangelo", "author": "", "author": "Stone, Irving", "year": "1963"}
+book: object(): {"year": "1963", "author": "Stone, Irving", "title": "Michelangelo", "_detail-url": "/webOPACClient/singleHit.do?methodToCall=showHit&curPos=23&identifier=-1_S_IG.12.6398", "orderable": 0}

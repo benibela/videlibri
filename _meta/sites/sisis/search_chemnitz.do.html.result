@@ -9,66 +9,66 @@ brs: sequence*: node(): von
 node(): 
 node(): 
 node(): 
-book: object(): {"orderable": 0, "_detail-url": "/webOPACClient/singleHit.do?methodToCall=showHit&curPos=1&identifier=-1_S_IG.28.12121", "title": "Training plus Englisch, Gymnasium 5. Klasse", "author": "", "author": "von", "author": "Bollinger, Susan", "year": ""}
+book: object(): {"year": "", "author": "Bollinger, Susan", "title": "Training plus Englisch, Gymnasium 5. Klasse", "_detail-url": "/webOPACClient/singleHit.do?methodToCall=showHit&curPos=1&identifier=-1_S_IG.28.12121", "orderable": 0}
 hasZ3988: boolean: false
 brs: sequence*: node(): von
 node(): 
 node(): 
 node(): 
-book: object(): {"orderable": 0, "_detail-url": "/webOPACClient/singleHit.do?methodToCall=showHit&curPos=2&identifier=-1_S_IG.28.12121", "title": "Training plus Englisch, Gymnasium 6. Klasse", "author": "", "author": "von", "author": "Bollinger, Susan", "year": ""}
+book: object(): {"year": "", "author": "Bollinger, Susan", "title": "Training plus Englisch, Gymnasium 6. Klasse", "_detail-url": "/webOPACClient/singleHit.do?methodToCall=showHit&curPos=2&identifier=-1_S_IG.28.12121", "orderable": 0}
 hasZ3988: boolean: false
 brs: sequence*: node(): 
 node(): von Geist, Alexander
 node(): 
 node(): 
 node(): 
-book: object(): {"orderable": 0, "_detail-url": "/webOPACClient/singleHit.do?methodToCall=showHit&curPos=3&identifier=-1_S_IG.28.12121", "title": "Deutsch Gymnasium 5. Klasse", "author": "", "author": "", "year": ""}
+book: object(): {"year": "", "author": "", "title": "Deutsch Gymnasium 5. Klasse", "_detail-url": "/webOPACClient/singleHit.do?methodToCall=showHit&curPos=3&identifier=-1_S_IG.28.12121", "orderable": 0}
 hasZ3988: boolean: false
 brs: sequence*: node(): 
 node(): von Geist, Alexander
 node(): 
 node(): 
 node(): 
-book: object(): {"orderable": 0, "_detail-url": "/webOPACClient/singleHit.do?methodToCall=showHit&curPos=4&identifier=-1_S_IG.28.12121", "title": "Deutsch Gymnasium 6. Klasse", "author": "", "author": "", "year": ""}
+book: object(): {"year": "", "author": "", "title": "Deutsch Gymnasium 6. Klasse", "_detail-url": "/webOPACClient/singleHit.do?methodToCall=showHit&curPos=4&identifier=-1_S_IG.28.12121", "orderable": 0}
 hasZ3988: boolean: false
 brs: sequence*: node(): von
 node(): 
 node(): 
 node(): 
 node(): 
-book: object(): {"orderable": 0, "_detail-url": "/webOPACClient/singleHit.do?methodToCall=showHit&curPos=5&identifier=-1_S_IG.28.12121", "title": "Gemüse anbauen", "author": "", "author": "von", "author": "Mercer, Steve", "year": ""}
+book: object(): {"year": "", "author": "Mercer, Steve", "title": "Gemüse anbauen", "_detail-url": "/webOPACClient/singleHit.do?methodToCall=showHit&curPos=5&identifier=-1_S_IG.28.12121", "orderable": 0}
 hasZ3988: boolean: false
 brs: sequence*: node(): 
 node(): von Fricke, Uwe
 node(): 
 node(): 
 node(): 
-book: object(): {"orderable": 0, "_detail-url": "/webOPACClient/singleHit.do?methodToCall=showHit&curPos=6&identifier=-1_S_IG.28.12121", "title": "Mathe Gymnasium 5. Klasse", "author": "", "author": "", "year": ""}
+book: object(): {"year": "", "author": "", "title": "Mathe Gymnasium 5. Klasse", "_detail-url": "/webOPACClient/singleHit.do?methodToCall=showHit&curPos=6&identifier=-1_S_IG.28.12121", "orderable": 0}
 hasZ3988: boolean: false
 brs: sequence*: node(): 
 node(): von Fricke, Uwe
 node(): 
 node(): 
 node(): 
-book: object(): {"orderable": 0, "_detail-url": "/webOPACClient/singleHit.do?methodToCall=showHit&curPos=7&identifier=-1_S_IG.28.12121", "title": "Mathe Gymnasium 6. Klasse", "author": "", "author": "", "year": ""}
+book: object(): {"year": "", "author": "", "title": "Mathe Gymnasium 6. Klasse", "_detail-url": "/webOPACClient/singleHit.do?methodToCall=showHit&curPos=7&identifier=-1_S_IG.28.12121", "orderable": 0}
 hasZ3988: boolean: false
 brs: sequence*: node(): von
 node(): 
 node(): 
 node(): 
 node(): 
-book: object(): {"orderable": 0, "_detail-url": "/webOPACClient/singleHit.do?methodToCall=showHit&curPos=8&identifier=-1_S_IG.28.12121", "title": "Fotografieren", "author": "", "author": "von", "author": "Müller, Wenzel", "year": ""}
+book: object(): {"year": "", "author": "Müller, Wenzel", "title": "Fotografieren", "_detail-url": "/webOPACClient/singleHit.do?methodToCall=showHit&curPos=8&identifier=-1_S_IG.28.12121", "orderable": 0}
 hasZ3988: boolean: false
 brs: sequence*: node(): von
 node(): 
 node(): 
 node(): 
 node(): 
-book: object(): {"orderable": 0, "_detail-url": "/webOPACClient/singleHit.do?methodToCall=showHit&curPos=9&identifier=-1_S_IG.28.12121", "title": "Essstörungen", "author": "", "author": "von", "author": "Nolte, Anke", "year": ""}
+book: object(): {"year": "", "author": "Nolte, Anke", "title": "Essstörungen", "_detail-url": "/webOPACClient/singleHit.do?methodToCall=showHit&curPos=9&identifier=-1_S_IG.28.12121", "orderable": 0}
 hasZ3988: boolean: false
 brs: sequence*: node(): 
 node(): 
 node(): 
 node(): 
 node(): 
-book: object(): {"orderable": 0, "_detail-url": "/webOPACClient/singleHit.do?methodToCall=showHit&curPos=10&identifier=-1_S_IG.28.12121", "title": "Öko-Test Archiv .../2012 = 2007/12", "author": "", "author": "", "year": ""}
+book: object(): {"year": "", "author": "", "title": "Öko-Test Archiv .../2012 = 2007/12", "_detail-url": "/webOPACClient/singleHit.do?methodToCall=showHit&curPos=10&identifier=-1_S_IG.28.12121", "orderable": 0}

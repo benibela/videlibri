@@ -7,77 +7,77 @@ search-next-page-available: boolean: false
 form: object(): {"method": "POST", "post": "service=direct%2F1%2FPOOLM20PBSZPROD%40_44002500_2BD9D480%2F%24Form.form&sp=S0&Form0=focus%2CkeyCode%2Cstz%2Csource%2Cselected%2CrequestCount%2CscriptEnabled%2CscrollPos%2CscrDim%2CwinDim%2CimgDim%2C%24Textfield%2C%24FormConditional%2CtextButton%2C%24FormConditional%240%2CtextButton%240%2C%24FormConditional%241%2C%24FormConditional%242%2CtextButton%241%2C%24FormConditional%243%2CtextButton%242%2C%24FormConditional%244%2CtextButton%243%2CtextButton%244%2CtextButton%245%2CtextButton%246%2CtextButton%247%2CtextButton%248%2CtextButton%249%2C%24FormConditional%245%2CtextButton%2410%2C%24Toolbar%2CcellCheck%2CcellCheck%240%2CcellCheck%241%2CcellCheck%242%2CcellCheck%243%2CcellCheck%244%2CcellCheck%245%2CcellCheck%246%2CcellCheck%247%2CcellCheck%248%2CcellCheck%249%2CcellCheck%2410%2CcellCheck%2411%2CcellCheck%2412%2CcellCheck%2413%2CcellCheck%2414%2CcellCheck%2415%2CcellCheck%2416%2CcellCheck%2417%2CcellCheck%2418%2CcellCheck%2419%2CcellCheck%2420%2CcellCheck%2421%2CcellCheck%2422%2CcellCheck%2423%2C%24Toolbar%240&focus=&keyCode=0&stz=&source=&selected=&requestCount=4&scriptEnabled=F&scrollPos=0&scrDim=&winDim=&imgDim=&%24FormConditional=T&%24FormConditional%240=T&%24FormConditional%241=F&%24FormConditional%242=T&%24FormConditional%243=T&%24FormConditional%244=F&%24FormConditional%245=T&%24Textfield=", "url": "/aDISWeb/app;jsessionid=051F6E6F1EF2E0B6BD660108863E71A4"}
 firstIndex: double: 1
 lastIndex: double: 1
-book: object(): {"title": "Orchester-Probespiel - Fagott - Kontrafagott : Werkausschnitte (Klangbeispiele wichtiger Stellen) aus der Opern- und Konzertliteratur. - Deutsche Grammophon Gesellschaft mbH", "author": "", "publisher": " Deutsche Grammophon Gesellschaft mbH", "_searchId": "ZTEXT%20%20%20%20%20%20%20AK00752686", "_index": 1, "year": "1993"}
+book: object(): {"year": "1993", "title": "Orchester-Probespiel - Fagott - Kontrafagott : Werkausschnitte (Klangbeispiele wichtiger Stellen) aus der Opern- und Konzertliteratur. - Deutsche Grammophon Gesellschaft mbH", "author": "", "publisher": " Deutsche Grammophon Gesellschaft mbH", "_searchId": "ZTEXT%20%20%20%20%20%20%20AK00752686", "_index": 1}
 lastSearchedIndex: double: 1
 lastIndex: double: 2
-book: object(): {"title": "Orchester-Probespiel - Posaune : Sammlung wichtiger Passagen aus der Opern- und Konzertliteratur ", "author": " ... hrsg. von Armin Rosin u. Eberhard Pleyer. ", "publisher": " Peters", "_searchId": "ZTEXT%20%20%20%20%20%20%20AK01147643", "_index": 2, "year": "1993"}
+book: object(): {"year": "1993", "title": "Orchester-Probespiel - Posaune : Sammlung wichtiger Passagen aus der Opern- und Konzertliteratur ", "author": " ... hrsg. von Armin Rosin u. Eberhard Pleyer. ", "publisher": " Peters", "_searchId": "ZTEXT%20%20%20%20%20%20%20AK01147643", "_index": 2}
 lastSearchedIndex: double: 2
 lastIndex: double: 3
-book: object(): {"title": "Musik. - 9, Lehrerhandbuch. Lehrerhandbuch mit Übungstest und Informellem Test ", "author": " von Lisl Hammaleser ... ", "publisher": " Wolf", "_searchId": "ZTEXT%20%20%20%20%20%20%20AK01166352", "_index": 3, "year": "1992"}
+book: object(): {"year": "1992", "title": "Musik. - 9, Lehrerhandbuch. Lehrerhandbuch mit Übungstest und Informellem Test ", "author": " von Lisl Hammaleser ... ", "publisher": " Wolf", "_searchId": "ZTEXT%20%20%20%20%20%20%20AK01166352", "_index": 3}
 lastSearchedIndex: double: 3
 lastIndex: double: 4
-book: object(): {"title": "Orchester-Probespiel - Fagott (Kontrafagott) : Sammlung wichtiger Passagen aus der Opern- und Konzertliteratur ", "author": " ... hrsg. von Karl Kolbinger u. Alfred Rinderspacher. ", "publisher": " Peters", "_searchId": "ZTEXT%20%20%20%20%20%20%20AK01134000", "_index": 4, "year": "1992"}
+book: object(): {"year": "1992", "title": "Orchester-Probespiel - Fagott (Kontrafagott) : Sammlung wichtiger Passagen aus der Opern- und Konzertliteratur ", "author": " ... hrsg. von Karl Kolbinger u. Alfred Rinderspacher. ", "publisher": " Peters", "_searchId": "ZTEXT%20%20%20%20%20%20%20AK01134000", "_index": 4}
 lastSearchedIndex: double: 4
 lastIndex: double: 5
-book: object(): {"title": "Orchester-Probespiel - Horn : Sammlung wichtiger Passagen aus der Opern- und Konzertliteratur ", "author": " in Zs.", "publisher": " Peters", "_searchId": "ZTEXT%20%20%20%20%20%20%20AK01163511", "_index": 5, "year": "1992"}
+book: object(): {"year": "1992", "title": "Orchester-Probespiel - Horn : Sammlung wichtiger Passagen aus der Opern- und Konzertliteratur ", "author": " in Zs.", "publisher": " Peters", "_searchId": "ZTEXT%20%20%20%20%20%20%20AK01163511", "_index": 5}
 lastSearchedIndex: double: 5
 lastIndex: double: 6
-book: object(): {"title": "Orchester-Probespiel - Flöte (Piccoloflöte) : Sammlung wichtiger Passagen aus der Opern- und Konzertliteratur ", "author": " ... hrsg. von Christoph Dürichen u. Siegfried Kratsch. ", "publisher": " Peters", "_searchId": "ZTEXT%20%20%20%20%20%20%20AK01149653", "_index": 6, "year": "1991"}
+book: object(): {"year": "1991", "title": "Orchester-Probespiel - Flöte (Piccoloflöte) : Sammlung wichtiger Passagen aus der Opern- und Konzertliteratur ", "author": " ... hrsg. von Christoph Dürichen u. Siegfried Kratsch. ", "publisher": " Peters", "_searchId": "ZTEXT%20%20%20%20%20%20%20AK01149653", "_index": 6}
 lastSearchedIndex: double: 6
 lastIndex: double: 7
-book: object(): {"title": "Orchester-Probespiel - Klarinette : Sammlung wichtiger Passagen aus der Opern- und Konzertliteratur ", "author": " ... hrsg. von Heinz Hepp u. Albert Rohde. ", "publisher": " Peters", "_searchId": "ZTEXT%20%20%20%20%20%20%20AK00708618", "_index": 7, "year": "1991"}
+book: object(): {"year": "1991", "title": "Orchester-Probespiel - Klarinette : Sammlung wichtiger Passagen aus der Opern- und Konzertliteratur ", "author": " ... hrsg. von Heinz Hepp u. Albert Rohde. ", "publisher": " Peters", "_searchId": "ZTEXT%20%20%20%20%20%20%20AK00708618", "_index": 7}
 lastSearchedIndex: double: 7
 lastIndex: double: 8
-book: object(): {"title": "Orchester-Probespiel - Trompete : Sammlung wichtiger Passagen aus der Opern- und Konzertliteratur ", "author": " in Zs.", "publisher": " Peters", "_searchId": "ZTEXT%20%20%20%20%20%20%20AK00726498", "_index": 8, "year": "1991"}
+book: object(): {"year": "1991", "title": "Orchester-Probespiel - Trompete : Sammlung wichtiger Passagen aus der Opern- und Konzertliteratur ", "author": " in Zs.", "publisher": " Peters", "_searchId": "ZTEXT%20%20%20%20%20%20%20AK00726498", "_index": 8}
 lastSearchedIndex: double: 8
 lastIndex: double: 9
-book: object(): {"title": "Orchester-Probespiel Oboe : Sammlung wichtiger Passagen aus der Opern- und Konzertliteratur, excerpts from the operatic and concert repertoire ", "author": " ... hrsg. von Voijslav Miller u. Winfried Liebermann. ", "publisher": " Peters", "_searchId": "ZTEXT%20%20%20%20%20%20%20AK00758252", "_index": 9, "year": "1991"}
+book: object(): {"year": "1991", "title": "Orchester-Probespiel Oboe : Sammlung wichtiger Passagen aus der Opern- und Konzertliteratur, excerpts from the operatic and concert repertoire ", "author": " ... hrsg. von Voijslav Miller u. Winfried Liebermann. ", "publisher": " Peters", "_searchId": "ZTEXT%20%20%20%20%20%20%20AK00758252", "_index": 9}
 lastSearchedIndex: double: 9
 lastIndex: double: 10
-book: object(): {"title": "Zum Problem der Messung musikalischer Begabung : Erfahrungen mit d. Bentley-Test ", "author": " Klaus Finkel. ", "publisher": "Edition", "_searchId": "ZTEXT%20%20%20%20%20%20%20AK00121215", "_index": 10, "year": "1976"}
+book: object(): {"year": "1976", "title": "Zum Problem der Messung musikalischer Begabung : Erfahrungen mit d. Bentley-Test ", "author": " Klaus Finkel. ", "publisher": "Edition", "_searchId": "ZTEXT%20%20%20%20%20%20%20AK00121215", "_index": 10}
 lastSearchedIndex: double: 10
 lastIndex: double: 11
-book: object(): {"title": "Musical aptitude profile. - [2]. Test \"R\" Rhythm Imagery, Tonband.  - 1965 ", "author": " Edwin Gordon. ", "publisher": " Houghton Mifflin Company", "_searchId": "ZTEXT%20%20%20%20%20%20%20AK01165654", "_index": 11, "year": "1965"}
+book: object(): {"year": "1965", "title": "Musical aptitude profile. - [2]. Test \"R\" Rhythm Imagery, Tonband.  - 1965 ", "author": " Edwin Gordon. ", "publisher": " Houghton Mifflin Company", "_searchId": "ZTEXT%20%20%20%20%20%20%20AK01165654", "_index": 11}
 lastSearchedIndex: double: 11
 lastIndex: double: 12
-book: object(): {"title": "Musical aptitude profile. - [3]. Test \"S\" Musical Sensitivity, Tonband.  - 1965 ", "author": " Edwin Gordon. ", "publisher": " Houghton Mifflin Company", "_searchId": "ZTEXT%20%20%20%20%20%20%20AK01165663", "_index": 12, "year": "1965"}
+book: object(): {"year": "1965", "title": "Musical aptitude profile. - [3]. Test \"S\" Musical Sensitivity, Tonband.  - 1965 ", "author": " Edwin Gordon. ", "publisher": " Houghton Mifflin Company", "_searchId": "ZTEXT%20%20%20%20%20%20%20AK01165663", "_index": 12}
 lastSearchedIndex: double: 12
 lastIndex: double: 13
-book: object(): {"title": "Musical aptitude profile. - [4]. Test \"T\" Tonal Imagery, Tonband.  - 1965 ", "author": " Edwin Gordon. ", "publisher": " Houghton Mifflin Company", "_searchId": "ZTEXT%20%20%20%20%20%20%20AK01165670", "_index": 13, "year": "1965"}
+book: object(): {"year": "1965", "title": "Musical aptitude profile. - [4]. Test \"T\" Tonal Imagery, Tonband.  - 1965 ", "author": " Edwin Gordon. ", "publisher": " Houghton Mifflin Company", "_searchId": "ZTEXT%20%20%20%20%20%20%20AK01165670", "_index": 13}
 lastSearchedIndex: double: 13
 lastIndex: double: 14
-book: object(): {"title": "BSZ-Kurzleihe-Test", "author": "", "publisher": "Test", "_searchId": "ZTEXT%20%20%20%20%20%20%20AK20003790", "_index": 14, "year": ""}
+book: object(): {"year": "", "title": "BSZ-Kurzleihe-Test", "author": "", "publisher": "Test", "_searchId": "ZTEXT%20%20%20%20%20%20%20AK20003790", "_index": 14}
 lastSearchedIndex: double: 14
 lastIndex: double: 15
-book: object(): {"title": "BSZ-Kurzleihe-Test 2", "author": "", "publisher": "Test 2", "_searchId": "ZTEXT%20%20%20%20%20%20%20AK20003791", "_index": 15, "year": ""}
+book: object(): {"year": "", "title": "BSZ-Kurzleihe-Test 2", "author": "", "publisher": "Test 2", "_searchId": "ZTEXT%20%20%20%20%20%20%20AK20003791", "_index": 15}
 lastSearchedIndex: double: 15
 lastIndex: double: 16
-book: object(): {"title": "Matrizen-Test-Manual : ein Handbuch mit deutschen Normen ", "author": " von K. A. Heller, H. Kratzmeier und A. Lengfelder. ", "publisher": "Test GmbH", "_searchId": "ZTEXT%20%20%20%20%20%20%20AK01136056", "_index": 16, "year": ""}
+book: object(): {"year": "", "title": "Matrizen-Test-Manual : ein Handbuch mit deutschen Normen ", "author": " von K. A. Heller, H. Kratzmeier und A. Lengfelder. ", "publisher": "Test GmbH", "_searchId": "ZTEXT%20%20%20%20%20%20%20AK01136056", "_index": 16}
 lastSearchedIndex: double: 16
 lastIndex: double: 17
-book: object(): {"title": "Orchester-Probespiel - Harfe : Sammlung wichtiger Passagen aus der Opern- und Konzertliteratur ", "author": " in Zsarb. mit d. Dt. Orchestervereinigung e.V. (DOV) hrsg. von Ruth Konhäuser u. Helga Storck. ", "publisher": " Schott", "_searchId": "ZTEXT%20%20%20%20%20%20%20AK00757776", "_index": 17, "year": ""}
+book: object(): {"year": "", "title": "Orchester-Probespiel - Harfe : Sammlung wichtiger Passagen aus der Opern- und Konzertliteratur ", "author": " in Zsarb. mit d. Dt. Orchestervereinigung e.V. (DOV) hrsg. von Ruth Konhäuser u. Helga Storck. ", "publisher": " Schott", "_searchId": "ZTEXT%20%20%20%20%20%20%20AK00757776", "_index": 17}
 lastSearchedIndex: double: 17
 lastIndex: double: 18
-book: object(): {"title": "Orchester-Probespiel - Kontrabass : Sammlung wichtiger Passagen aus der Opern- und Konzertliteratur ", "author": " ... hrsg. von Fritz Massmann u. Gerd Reinke. ", "publisher": " Schott", "_searchId": "ZTEXT%20%20%20%20%20%20%20AK00793337", "_index": 18, "year": ""}
+book: object(): {"year": "", "title": "Orchester-Probespiel - Kontrabass : Sammlung wichtiger Passagen aus der Opern- und Konzertliteratur ", "author": " ... hrsg. von Fritz Massmann u. Gerd Reinke. ", "publisher": " Schott", "_searchId": "ZTEXT%20%20%20%20%20%20%20AK00793337", "_index": 18}
 lastSearchedIndex: double: 18
 lastIndex: double: 19
-book: object(): {"title": "Orchester-Probespiel - Pauke, Schlagzeug : Sammlung wichtiger Passagen aus der Opern- und Konzertliteratur ", "author": " ... hrsg. von Hermann Gschwendtner u. Hans Jochen Ulrich. ", "publisher": " Schott", "_searchId": "ZTEXT%20%20%20%20%20%20%20AK00793329", "_index": 19, "year": ""}
+book: object(): {"year": "", "title": "Orchester-Probespiel - Pauke, Schlagzeug : Sammlung wichtiger Passagen aus der Opern- und Konzertliteratur ", "author": " ... hrsg. von Hermann Gschwendtner u. Hans Jochen Ulrich. ", "publisher": " Schott", "_searchId": "ZTEXT%20%20%20%20%20%20%20AK00793329", "_index": 19}
 lastSearchedIndex: double: 19
 lastIndex: double: 20
-book: object(): {"title": "Orchester-Probespiel - Viola : Sammlung wichtiger Passagen aus der Opern- und Konzertliteratur ", "author": " in Zs.", "publisher": " Schott", "_searchId": "ZTEXT%20%20%20%20%20%20%20AK00741488", "_index": 20, "year": ""}
+book: object(): {"year": "", "title": "Orchester-Probespiel - Viola : Sammlung wichtiger Passagen aus der Opern- und Konzertliteratur ", "author": " in Zs.", "publisher": " Schott", "_searchId": "ZTEXT%20%20%20%20%20%20%20AK00741488", "_index": 20}
 lastSearchedIndex: double: 20
 lastIndex: double: 21
-book: object(): {"title": "Orchester-Probespiel - Violine : Sammlung wichtiger Passagen aus der Opern- und Konzertliteratur. - Schott", "author": "", "publisher": " Schott", "_searchId": "ZTEXT%20%20%20%20%20%20%20AK00757792", "_index": 21, "year": ""}
+book: object(): {"year": "", "title": "Orchester-Probespiel - Violine : Sammlung wichtiger Passagen aus der Opern- und Konzertliteratur. - Schott", "author": "", "publisher": " Schott", "_searchId": "ZTEXT%20%20%20%20%20%20%20AK00757792", "_index": 21}
 lastSearchedIndex: double: 21
 lastIndex: double: 22
-book: object(): {"title": "Orchester-Probespiel - Violoncello : Sammlung wichtiger Passagen aus der Opern- und Konzertliteratur ", "author": " in Zs.", "publisher": " Schott", "_searchId": "ZTEXT%20%20%20%20%20%20%20AK00666615", "_index": 22, "year": ""}
+book: object(): {"year": "", "title": "Orchester-Probespiel - Violoncello : Sammlung wichtiger Passagen aus der Opern- und Konzertliteratur ", "author": " in Zs.", "publisher": " Schott", "_searchId": "ZTEXT%20%20%20%20%20%20%20AK00666615", "_index": 22}
 lastSearchedIndex: double: 22
 lastIndex: double: 23
-book: object(): {"title": "Seashore-Test für musikalische Begabung ", "author": " hrsg. von Charles Butsch .... ", "publisher": " Huber", "_searchId": "ZTEXT%20%20%20%20%20%20%20AK00186431", "_index": 23, "year": ""}
+book: object(): {"year": "", "title": "Seashore-Test für musikalische Begabung ", "author": " hrsg. von Charles Butsch .... ", "publisher": " Huber", "_searchId": "ZTEXT%20%20%20%20%20%20%20AK00186431", "_index": 23}
 lastSearchedIndex: double: 23
 lastIndex: double: 24
-book: object(): {"title": "Test BSZ", "author": "", "publisher": "", "_searchId": "ZTEXT%20%20%20%20%20%20%20AK20004726", "_index": 24, "year": ""}
+book: object(): {"year": "", "title": "Test BSZ", "author": "", "publisher": "", "_searchId": "ZTEXT%20%20%20%20%20%20%20AK20004726", "_index": 24}
 lastSearchedIndex: double: 24
 lastIndex: double: 25
-book: object(): {"title": "Test BSZ ", "author": " Bálínt Bakfark", "publisher": "", "_searchId": "ZTEXT%20%20%20%20%20%20%20AK20004603", "_index": 25, "year": ""}
+book: object(): {"year": "", "title": "Test BSZ ", "author": " Bálínt Bakfark", "publisher": "", "_searchId": "ZTEXT%20%20%20%20%20%20%20AK20004603", "_index": 25}
 lastSearchedIndex: double: 25

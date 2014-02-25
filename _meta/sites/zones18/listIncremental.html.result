@@ -5,8 +5,8 @@ book: {}
 
 
 bFoundBottom: boolean: true
-book: object(): {"title": "Die Stunde des Tors◉2.", "statusId": "normal", "author": "Foster, Alan Dean", "id": "M01 158 885 3", "issuedate": "2013-08-17", "duedate": "2013-09-16", "status": ""}
-book: object(): {"title": "Der Tag der Dissonanz◉3.", "statusId": "normal", "author": "Foster, Alan Dean", "id": "M01 158 886 5", "issuedate": "2013-08-17", "duedate": "2013-09-16", "status": ""}
-book: object(): {"title": "Die Pfade des Wanderers◉5.", "statusId": "normal", "author": "Foster, Alan Dean", "id": "M01 158 888 9", "issuedate": "2013-08-17", "duedate": "2013-09-16", "status": ""}
-book: object(): {"title": "Die Welt der PTAVV", "statusId": "normal", "author": "Niven, Larry", "id": "M02 009 627 0", "issuedate": "2013-08-17", "duedate": "2013-09-16", "status": ""}
-book: object(): {"title": "Welten", "statusId": "normal", "author": "Banks, Iain", "id": "M02 059 646 6", "issuedate": "2013-08-17", "duedate": "2013-09-16", "status": ""}
+book: object(): {"status": "", "duedate": "2013-09-16", "issuedate": "2013-08-17", "id": "M01 158 885 3", "author": "Foster, Alan Dean", "title": "Die Stunde des Tors◉2.", "statusId": "normal"}
+book: object(): {"status": "", "duedate": "2013-09-16", "issuedate": "2013-08-17", "id": "M01 158 886 5", "author": "Foster, Alan Dean", "title": "Der Tag der Dissonanz◉3.", "statusId": "normal"}
+book: object(): {"status": "", "duedate": "2013-09-16", "issuedate": "2013-08-17", "id": "M01 158 888 9", "author": "Foster, Alan Dean", "title": "Die Pfade des Wanderers◉5.", "statusId": "normal"}
+book: object(): {"status": "", "duedate": "2013-09-16", "issuedate": "2013-08-17", "id": "M02 009 627 0", "author": "Niven, Larry", "title": "Die Welt der PTAVV", "statusId": "normal"}
+book: object(): {"status": "", "duedate": "2013-09-16", "issuedate": "2013-08-17", "id": "M02 059 646 6", "author": "Banks, Iain", "title": "Welten", "statusId": "normal"}

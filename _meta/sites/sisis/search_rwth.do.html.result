@@ -5,34 +5,34 @@ nextPage: untyped:
 nextPage: node(): /InfoGuideClient/hitList.do?methodToCall=pos&identifier=-1_S_IG.805.4070&curPos=11#-1
 search-result-count: string: 1419
 hasZ3988: boolean: false
-book: object(): {"orderable": 0, "_detail-url": "/InfoGuideClient/singleHit.do?methodToCall=showHit&curPos=1&identifier=-1_S_IG.805.4070", "title": "Handbuch zum Rosenzweig Picture-Frustration Test (PFT)", "author": " Rauchfleisch, Udo"}
+book: object(): {"author": " Rauchfleisch, Udo", "title": "Handbuch zum Rosenzweig Picture-Frustration Test (PFT)", "_detail-url": "/InfoGuideClient/singleHit.do?methodToCall=showHit&curPos=1&identifier=-1_S_IG.805.4070", "orderable": 0}
 result: untyped: 
 hasZ3988: boolean: false
 brs: node(): 
-book: object(): {"orderable": 0, "_detail-url": "/InfoGuideClient/singleHit.do?methodToCall=showHit&curPos=2&identifier=-1_S_IG.805.4070", "title": "Admission test series", "author": "", "author": "", "year": ""}
+book: object(): {"year": "", "author": "", "title": "Admission test series", "_detail-url": "/InfoGuideClient/singleHit.do?methodToCall=showHit&curPos=2&identifier=-1_S_IG.805.4070", "orderable": 0}
 hasZ3988: boolean: false
-book: object(): {"orderable": 0, "_detail-url": "/InfoGuideClient/singleHit.do?methodToCall=showHit&curPos=3&identifier=-1_S_IG.805.4070", "title": "Aachener Aphasie-Test", "author": " Huber, Walter"}
+book: object(): {"author": " Huber, Walter", "title": "Aachener Aphasie-Test", "_detail-url": "/InfoGuideClient/singleHit.do?methodToCall=showHit&curPos=3&identifier=-1_S_IG.805.4070", "orderable": 0}
 result: untyped: 
 hasZ3988: boolean: false
 temp: node():  Section 2, structure and written expression (1996). 
-book: object(): {"orderable": 0, "_detail-url": "/InfoGuideClient/singleHit.do?methodToCall=showHit&curPos=4&identifier=-1_S_IG.805.4070", "title": "¬The Penguin practice book for the TOEFL test/Section 2, structure and written expression (1996)", "author": "", "subTitle": " Section 2, structure and written expression . ", "year": "1996"}
+book: object(): {"year": "1996", "subTitle": " Section 2, structure and written expression . ", "author": "", "title": "¬The Penguin practice book for the TOEFL test/Section 2, structure and written expression (1996)", "_detail-url": "/InfoGuideClient/singleHit.do?methodToCall=showHit&curPos=4&identifier=-1_S_IG.805.4070", "orderable": 0}
 result: untyped: 
 hasZ3988: boolean: false
 temp: node():  Section 3, reading comprehension (1996). 
-book: object(): {"orderable": 0, "_detail-url": "/InfoGuideClient/singleHit.do?methodToCall=showHit&curPos=5&identifier=-1_S_IG.805.4070", "title": "¬The Penguin practice book for the TOEFL test/Section 3, reading comprehension (1996)", "author": "", "subTitle": " Section 3, reading comprehension . ", "year": "1996"}
+book: object(): {"year": "1996", "subTitle": " Section 3, reading comprehension . ", "author": "", "title": "¬The Penguin practice book for the TOEFL test/Section 3, reading comprehension (1996)", "_detail-url": "/InfoGuideClient/singleHit.do?methodToCall=showHit&curPos=5&identifier=-1_S_IG.805.4070", "orderable": 0}
 result: untyped: 
 hasZ3988: boolean: false
 brs: node(): 
-book: object(): {"orderable": 0, "_detail-url": "/InfoGuideClient/singleHit.do?methodToCall=showHit&curPos=6&identifier=-1_S_IG.805.4070", "title": "Test methods and design allowables for fibrous composites", "author": "", "author": "", "year": ""}
+book: object(): {"year": "", "author": "", "title": "Test methods and design allowables for fibrous composites", "_detail-url": "/InfoGuideClient/singleHit.do?methodToCall=showHit&curPos=6&identifier=-1_S_IG.805.4070", "orderable": 0}
 hasZ3988: boolean: false
-book: object(): {"orderable": 0, "_detail-url": "/InfoGuideClient/singleHit.do?methodToCall=showHit&curPos=7&identifier=-1_S_IG.805.4070", "title": "Agard engine disc cooperative test programme", "author": " Mom, A. J."}
+book: object(): {"author": " Mom, A. J.", "title": "Agard engine disc cooperative test programme", "_detail-url": "/InfoGuideClient/singleHit.do?methodToCall=showHit&curPos=7&identifier=-1_S_IG.805.4070", "orderable": 0}
 result: untyped: 
 hasZ3988: boolean: false
-book: object(): {"orderable": 0, "_detail-url": "/InfoGuideClient/singleHit.do?methodToCall=showHit&curPos=8&identifier=-1_S_IG.805.4070", "title": "AGARD flight test techniques series", "author": " NATO / Advisory Group for Aerospace Research and Development"}
+book: object(): {"author": " NATO / Advisory Group for Aerospace Research and Development", "title": "AGARD flight test techniques series", "_detail-url": "/InfoGuideClient/singleHit.do?methodToCall=showHit&curPos=8&identifier=-1_S_IG.805.4070", "orderable": 0}
 result: untyped: 
 hasZ3988: boolean: false
-book: object(): {"orderable": 0, "_detail-url": "/InfoGuideClient/singleHit.do?methodToCall=showHit&curPos=9&identifier=-1_S_IG.805.4070", "title": "Detergency", "author": " Cutler, Warren Gale ¬[Hrsg.]"}
+book: object(): {"author": " Cutler, Warren Gale ¬[Hrsg.]", "title": "Detergency", "_detail-url": "/InfoGuideClient/singleHit.do?methodToCall=showHit&curPos=9&identifier=-1_S_IG.805.4070", "orderable": 0}
 result: untyped: 
 hasZ3988: boolean: false
-book: object(): {"orderable": 0, "_detail-url": "/InfoGuideClient/singleHit.do?methodToCall=showHit&curPos=10&identifier=-1_S_IG.805.4070", "title": "Status report KfK contribution to the development of Demo relevant test blankets for NET ITER", "author": " Adelhelm, Christel"}
+book: object(): {"author": " Adelhelm, Christel", "title": "Status report KfK contribution to the development of Demo relevant test blankets for NET ITER", "_detail-url": "/InfoGuideClient/singleHit.do?methodToCall=showHit&curPos=10&identifier=-1_S_IG.805.4070", "orderable": 0}
 result: untyped: 

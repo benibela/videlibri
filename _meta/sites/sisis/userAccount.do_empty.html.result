@@ -10,5 +10,5 @@ requestedUrl: node(): http://sisis.bth.rwth-aachen.de:8080/InfoGuideClient/userA
 bookCountOrdered: string: 0
 orderedUrl: node(): http://sisis.bth.rwth-aachen.de:8080/InfoGuideClient/userAccount.do?methodToCall=showAccount&typ=7
 bookCount: string: 0
-inOrdered: boolean: false
+mode: integer: 1
 delete-current-books(): untyped: 

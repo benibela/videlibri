@@ -7,26 +7,26 @@ bookTableBroken: boolean: true
 noExtendingPossible: boolean: true
 bookTableBroken: boolean: false
 temporaryStatusDetails: node(): ¬Der¬ Geist des Jedi. Armee des Terrors
-book: object(): {"extendid": "", "id": "20258942", "title": "¬Der¬ Geist des Jedi. Armee des Terrors", "author": "Whitman, John", "duedate:d mmm yyyy": "14 Okt 2010", "status:curious": "bisher 0 mal verlängert", "status:problematic": "¬Der¬ Geist des Jedi. Armee des Terrors", "status:problematic": "Prinzipiell keine Verlängerung möglich"}
+book: object(): {"status:problematic": "Prinzipiell keine Verlängerung möglich", "status:curious": "bisher 0 mal verlängert", "duedate:d mmm yyyy": "14 Okt 2010", "author": "Whitman, John", "title": "¬Der¬ Geist des Jedi. Armee des Terrors", "id": "20258942", "extendid": ""}
 bookTableBroken: boolean: false
 temporaryStatusDetails: node(): ¬Die¬ sterbende Stadt
-book: object(): {"extendid": "", "id": "22349341", "title": "¬Die¬ sterbende Stadt", "author": "Anthony, Mark", "duedate:d mmm yyyy": "14 Okt 2010", "status:curious": "bisher 0 mal verlängert", "status:problematic": "¬Die¬ sterbende Stadt", "status:problematic": "Prinzipiell keine Verlängerung möglich"}
+book: object(): {"status:problematic": "Prinzipiell keine Verlängerung möglich", "status:curious": "bisher 0 mal verlängert", "duedate:d mmm yyyy": "14 Okt 2010", "author": "Anthony, Mark", "title": "¬Die¬ sterbende Stadt", "id": "22349341", "extendid": ""}
 bookTableBroken: boolean: false
 temporaryStatusDetails: node(): ¬Das¬ Schwert von Malachor
-book: object(): {"extendid": "", "id": "23348659", "title": "¬Das¬ Schwert von Malachor", "author": "Anthony, Mark", "duedate:d mmm yyyy": "14 Okt 2010", "status:curious": "bisher 0 mal verlängert", "status:problematic": "¬Das¬ Schwert von Malachor", "status:problematic": "Prinzipiell keine Verlängerung möglich"}
+book: object(): {"status:problematic": "Prinzipiell keine Verlängerung möglich", "status:curious": "bisher 0 mal verlängert", "duedate:d mmm yyyy": "14 Okt 2010", "author": "Anthony, Mark", "title": "¬Das¬ Schwert von Malachor", "id": "23348659", "extendid": ""}
 bookTableBroken: boolean: false
 temporaryStatusDetails: node(): ¬Das¬ Tor des Winters
-book: object(): {"extendid": "", "id": "24304000", "title": "¬Das¬ Tor des Winters", "author": "Anthony, Mark", "duedate:d mmm yyyy": "14 Okt 2010", "status:curious": "bisher 0 mal verlängert", "status:problematic": "¬Das¬ Tor des Winters", "status:problematic": "Prinzipiell keine Verlängerung möglich"}
+book: object(): {"status:problematic": "Prinzipiell keine Verlängerung möglich", "status:curious": "bisher 0 mal verlängert", "duedate:d mmm yyyy": "14 Okt 2010", "author": "Anthony, Mark", "title": "¬Das¬ Tor des Winters", "id": "24304000", "extendid": ""}
 bookTableBroken: boolean: false
 temporaryStatusDetails: node(): Der Runenbrecher
-book: object(): {"extendid": "", "id": "24335054", "title": "Der Runenbrecher", "author": "Anthony, Mark", "duedate:d mmm yyyy": "14 Okt 2010", "status:curious": "bisher 0 mal verlängert", "status:problematic": "Der Runenbrecher", "status:problematic": "Prinzipiell keine Verlängerung möglich"}
+book: object(): {"status:problematic": "Prinzipiell keine Verlängerung möglich", "status:curious": "bisher 0 mal verlängert", "duedate:d mmm yyyy": "14 Okt 2010", "author": "Anthony, Mark", "title": "Der Runenbrecher", "id": "24335054", "extendid": ""}
 bookTableBroken: boolean: false
 temporaryStatusDetails: node(): ¬Das¬ Blut der Wüste
-book: object(): {"extendid": "", "id": "25280210", "title": "¬Das¬ Blut der Wüste", "author": "Anthony, Mark", "duedate:d mmm yyyy": "14 Okt 2010", "status:curious": "bisher 0 mal verlängert", "status:problematic": "¬Das¬ Blut der Wüste", "status:problematic": "Prinzipiell keine Verlängerung möglich"}
+book: object(): {"status:problematic": "Prinzipiell keine Verlängerung möglich", "status:curious": "bisher 0 mal verlängert", "duedate:d mmm yyyy": "14 Okt 2010", "author": "Anthony, Mark", "title": "¬Das¬ Blut der Wüste", "id": "25280210", "extendid": ""}
 bookTableBroken: boolean: false
 temporaryStatusDetails: node(): ¬Die¬ letzte Schlacht
-book: object(): {"extendid": "", "id": "25361008", "title": "¬Die¬ letzte Schlacht", "author": "Anthony, Mark", "duedate:d mmm yyyy": "14 Okt 2010", "status:curious": "bisher 0 mal verlängert", "status:problematic": "¬Die¬ letzte Schlacht", "status:problematic": "Prinzipiell keine Verlängerung möglich"}
+book: object(): {"status:problematic": "Prinzipiell keine Verlängerung möglich", "status:curious": "bisher 0 mal verlängert", "duedate:d mmm yyyy": "14 Okt 2010", "author": "Anthony, Mark", "title": "¬Die¬ letzte Schlacht", "id": "25361008", "extendid": ""}
 bookTableBroken: boolean: false
 temporaryStatusDetails: node(): Schattenritter
-book: object(): {"extendid": "", "id": "26289548", "title": "Schattenritter", "author": "Clemens, James", "duedate:d mmm yyyy": "14 Okt 2010", "status:curious": "bisher 0 mal verlängert", "status:problematic": "Schattenritter", "status:problematic": "Prinzipiell keine Verlängerung möglich"}
+book: object(): {"status:problematic": "Prinzipiell keine Verlängerung möglich", "status:curious": "bisher 0 mal verlängert", "duedate:d mmm yyyy": "14 Okt 2010", "author": "Clemens, James", "title": "Schattenritter", "id": "26289548", "extendid": ""}
 mid: node(): 140602

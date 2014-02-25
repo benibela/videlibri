@@ -6,4 +6,4 @@ currentfield: string: title
 currentfield: string: Ort / Verlag, Jahr:!
 currentfield: string: year
 currentfield: string: Sonstiges:!
-book: object(): {"title": "Beltz-Test", "year": "Göttingen, Bern , Wien , Paris , Oxford , Prag , Toronto , Cambridge, Mass. , Amsterdam , Kopenhagen , Stockholm : Hogrefe", "Sonstiges:!": "Ungezählte Schriftenreihe"}
+book: object(): {"Sonstiges:!": "Ungezählte Schriftenreihe", "year": "Göttingen, Bern , Wien , Paris , Oxford , Prag , Toronto , Cambridge, Mass. , Amsterdam , Kopenhagen , Stockholm : Hogrefe", "title": "Beltz-Test"}

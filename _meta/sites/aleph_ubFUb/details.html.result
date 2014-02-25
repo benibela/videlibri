@@ -1,4 +1,4 @@
 book: {}
 
 
-book: object(): {"issuedate": "2011-02-05", "duedate": "2011-01-30", "status:problematic": "Jetzt verlängern", "status:curious": null, "extendLink": "http://aleph-www.ub.fu-berlin.de:80/F/BDI3FB89A3CRKIHUJEQNGQ9M4FD2T3E74E9157IM18AMNKNXVE-01446?func=BOR-LOAN-RENEW&doc_number=001234564&item_sequence=000010&adm_library=FUB50&ill_unit="}
+book: object(): {"extendLink": "http://aleph-www.ub.fu-berlin.de:80/F/BDI3FB89A3CRKIHUJEQNGQ9M4FD2T3E74E9157IM18AMNKNXVE-01446?func=BOR-LOAN-RENEW&doc_number=001234564&item_sequence=000010&adm_library=FUB50&ill_unit=", "status:curious": null, "status:problematic": "Jetzt verlängern", "duedate": "2011-01-30", "issuedate": "2011-02-05"}

@@ -3,4 +3,4 @@ book: {}
 
 noBooks: string: 
 delete-current-books(): untyped: 
-book: object(): {"detailLink": "http://katalog.ub.uni-duesseldorf.de/F/58US79HFSX7SBDT2X5CTNM2K4H7AK8LFPXPVBF5X4N8XP9LJII-01568?func=BOR-LOAN-EXP&doc_number=002223656&item_sequence=000010&index=0001&adm_library=DUE50", "author": "Gowers, Timothy", "title": "The Princeton companion to mathematics", "year": "2008", "duedate:dd/mm/yy": "13/09/10", "id": "mata410.g723", "category": "mata"}
+book: object(): {"category": "mata", "id": "mata410.g723", "duedate:dd/mm/yy": "13/09/10", "year": "2008", "title": "The Princeton companion to mathematics", "author": "Gowers, Timothy", "detailLink": "http://katalog.ub.uni-duesseldorf.de/F/58US79HFSX7SBDT2X5CTNM2K4H7AK8LFPXPVBF5X4N8XP9LJII-01568?func=BOR-LOAN-EXP&doc_number=002223656&item_sequence=000010&index=0001&adm_library=DUE50"}

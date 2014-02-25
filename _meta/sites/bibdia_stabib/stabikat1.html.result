@@ -12,4 +12,4 @@ propname: string:
 sigid: integer: 1
 propname: string: 
 propname: string: 
-book: object(): {"orderable": 0, "title": "Kina nu. ; Vad skulle Mao ha sagt? Ett reportage av Cecilia och Sven Lindqvist", "author": "Lindqvist, Cecilia", "author": "Lindqvist, Cecilia; Lindqvist, Sven", "Erschienen!": "Stockholm: Förl. A.B. Marieberg, 1980", "Umfang!": "72 S. 4\".", "isbn": "91-7588-022-9", "Signatur 1!": "4\" 493678 Verfügbarkeit anzeigen / bestellen", "Standort 2!": "Potsdamer Straße", "stabikatFound": true}
+book: object(): {"stabikatFound": true, "Standort 2!": "Potsdamer Straße", "Signatur 1!": "4\" 493678 Verfügbarkeit anzeigen / bestellen", "isbn": "91-7588-022-9", "Umfang!": "72 S. 4\".", "Erschienen!": "Stockholm: Förl. A.B. Marieberg, 1980", "author": "Lindqvist, Cecilia; Lindqvist, Sven", "title": "Kina nu. ; Vad skulle Mao ha sagt? Ett reportage av Cecilia och Sven Lindqvist", "orderable": 0}

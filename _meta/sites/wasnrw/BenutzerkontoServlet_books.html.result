@@ -4,10 +4,10 @@ book: {}
 charge: string: 0,00
 delete-current-books(): untyped: 
 tempcount: string: 3
-book: object(): {"id": "10056233", "category": "Z", "author": "Gerdom", "title": "Seele der Elben", "year": "", "status:problematic": "Nicht verlängerbar", "issuedate": "2011-12-29", "duedate": "2012-04-17"}
-book: object(): {"id": "10774594", "category": "Z", "author": "", "title": "Chimaere", "year": "", "status:problematic": "Nicht verlängerbar", "issuedate": "2011-12-29", "duedate": "2012-04-17"}
-book: object(): {"id": "29097879", "category": "Z", "author": "Banks", "title": "Sphären", "year": "", "status:problematic": "Nicht verlängerbar", "issuedate": "2011-12-29", "duedate": "2012-04-17"}
+book: object(): {"duedate": "2012-04-17", "issuedate": "2011-12-29", "status:problematic": "Nicht verlängerbar", "year": "", "title": "Seele der Elben", "author": "Gerdom", "category": "Z", "id": "10056233"}
+book: object(): {"duedate": "2012-04-17", "issuedate": "2011-12-29", "status:problematic": "Nicht verlängerbar", "year": "", "title": "Chimaere", "author": "", "category": "Z", "id": "10774594"}
+book: object(): {"duedate": "2012-04-17", "issuedate": "2011-12-29", "status:problematic": "Nicht verlängerbar", "year": "", "title": "Sphären", "author": "Banks", "category": "Z", "id": "29097879"}
 tempcount: string: 3
-book: object(): {"status": null, "id": "11161863", "category": "Z", "author": "Cook", "title": "Blutkind", "year": "", "issuedate": "2012-02-17", "duedate": "2012-05-10"}
-book: object(): {"status": null, "id": "11584829", "category": "fantasy", "author": "Strazzu", "title": "Tharkarun", "year": "", "issuedate": "2012-02-17", "duedate": "2012-05-10"}
-book: object(): {"status": null, "id": "12539576", "category": "Z", "author": "", "title": "Furcht des Weisen", "year": "", "issuedate": "2012-02-17", "duedate": "2012-05-10"}
+book: object(): {"duedate": "2012-05-10", "issuedate": "2012-02-17", "year": "", "title": "Blutkind", "author": "Cook", "category": "Z", "id": "11161863", "status": null}
+book: object(): {"duedate": "2012-05-10", "issuedate": "2012-02-17", "year": "", "title": "Tharkarun", "author": "Strazzu", "category": "fantasy", "id": "11584829", "status": null}
+book: object(): {"duedate": "2012-05-10", "issuedate": "2012-02-17", "year": "", "title": "Furcht des Weisen", "author": "", "category": "Z", "id": "12539576", "status": null}
