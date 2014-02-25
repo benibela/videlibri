@@ -1,7 +1,7 @@
 <html>
 
 <template:meta default-text-matching="regex"/>
-<t:s>curAuthor := (), sigid := 0, book.orderable := 0</t:s> <!-- extra variable to prevent contamination by previously set book.author -->
+<t:s>curAuthor := (), sigid := 0, if (get("singleResult", false())) then book:={} else (), book.orderable := 0</t:s> <!-- extra variable to prevent contamination by previously set book.author -->
 
 
 <table summary="Main layout">

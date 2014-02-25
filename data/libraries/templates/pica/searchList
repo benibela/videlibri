@@ -39,7 +39,7 @@
   
   <table>
     <tr><td height="18" class="tab1">Titeldaten</td></tr>
-    <table>{singleResult := true()}</table>
+    <table>{singleResult := true(), search-result-count := 1}</table>
   </table>
   
   <strong class="error">Es wurde nichts gefunden.</strong>
