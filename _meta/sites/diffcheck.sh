@@ -7,7 +7,7 @@ curfile=
 declare -a minus
  
  
-while read line; do
+while read -r line; do
   case ${line:0:1} in
     d) curfile=$line;
        minus=()
@@ -25,9 +25,11 @@ while read line; do
         #echo $minusidx
         #echo   ?? ${minus[$minusidx]#*{} ??
     #echo vs. ?? $line ??
+       tempa={${minus[$minusidx]#*{}
+       tempb={${line#*{}
        $XIDEL -q --xpath3 - <<EOF
-         let \$a := {${minus[$minusidx]#*{}
-         return let \$b := {${line#*{}
+         let \$a := ${tempa//\\\"/""}
+         return let \$b := ${tempb//\\\"/""}
          return let \$res := 
            (: (every \$k in \$a() satisfies deep-equal(\$a(\$k), \$b(\$k))  ) 
            and (every \$k in \$b() satisfies deep-equal(\$a(\$k), \$b(\$k))  )  :)
