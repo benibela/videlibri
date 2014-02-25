@@ -38,7 +38,6 @@
           <td headers="th1_4"><template:read source="." var="book.duedate:d mmm yyyy"/></td>
           <td headers="th1_5"><template:read source="concat('bisher ',., ' mal verlängert')" var="book.status:curious"/></td>
           <td headers="th1_7" template:optional="true">
-            <label template:optional="true"/>
             <input template:optional="true"><template:read var="book.extendid" source="@name"/></input>
           </td>
           <template:if test="$book.extendid=''">
