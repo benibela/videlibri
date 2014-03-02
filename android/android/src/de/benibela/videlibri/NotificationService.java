@@ -45,9 +45,10 @@ public class NotificationService extends Service implements Bridge.VideLibriCont
 
 
         NetworkInfo network = ((ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE)).getActiveNetworkInfo();
-        if (network != null && network.isConnected())
+        if (network != null && network.isConnected()){
             VideLibriApp.updateAccount(null, true, false);
-        else
+            showLater(this, 1000*60*60*24); //check every day
+        } else
             showLater(this, 1000*60*60); //wait 1 h
 
         showNotification(this);
@@ -74,6 +75,7 @@ public class NotificationService extends Service implements Bridge.VideLibriCont
     static private final int NOTIFICATION_ID = 8239238;
     static private String lastNotificationTitle = "";
     static private String lastNotificationText = "";
+    static private long lastNotificationTime = 0;
     /**
      * Show a notification while this service is running.
      * (partly from http://stackoverflow.com/questions/13902115/how-to-create-a-notification-with-notificationcompat-builder)
@@ -87,10 +89,12 @@ public class NotificationService extends Service implements Bridge.VideLibriCont
 
         if (notification == null) return;
 
-        if (lastNotificationTitle.equals(notification[0]) && lastNotificationText.equals(notification[1])) return;
+        if (lastNotificationTitle.equals(notification[0]) && lastNotificationText.equals(notification[1])
+            && System.currentTimeMillis() - lastNotificationTime < 1000*60*60*23) return;
 
         lastNotificationTitle = notification[0];
         lastNotificationText = notification[1];
+        lastNotificationTime = System.currentTimeMillis();
 
         NotificationCompat.Builder mBuilder =
                 new NotificationCompat.Builder(context)
