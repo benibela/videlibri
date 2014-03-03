@@ -2,18 +2,54 @@
 <!-- no wrapping form/fieldset, due to invalid /html closing tag in mannheim. 
     t:if makes it a valid xml file -->
   <template:meta default-text-matching="regex"/>
-  <t:switch><label>Titel</label>       <option>Titel</option>   </t:switch>   <input>{$nameTitle := @name}</input>
-  <t:switch><label>Person|Name</label> <option>Autor</option>   </t:switch>   <input>{$nameAuthor := @name}</input>
-  <t:switch><label>ISBN</label>        <option>ISSN</option>    </t:switch>   <input>{$nameIsbn := @name}</input>
-  <t:switch><label>Schlag</label>      <option>Schlag</option>  </t:switch>   <input>{$nameKeywords := @name}</input>
-  <label>[jJ]ahr</label>     <input>{$nameYear := @name}</input>
-  <t:s>
-    startSearch := form(//form, {
-      $nameTitle: $book.title,
-      $nameAuthor: $book.author,
-      $nameIsbn: $book.isbn,
-      $nameKeywords: $book.keywords,
-      $nameYear: $book.year
-    })
-  </t:s>
+  
+  {selections := true()}
+  
+  <fieldset id="OPACGP" t:optional="true"> <!-- münchen/nürnberg -->
+    <label>Titel</label>       <input>{$nameTitle := @name}</input>
+    <label>Person|Name</label> <input>{$nameAuthor := @name}</input>
+    <label>ISBN</label>        <input>{$nameIsbn := @name}</input>
+    <label>Schlag</label>      <input>{$nameKeywords := @name}</input>
+    <label>[jJ]ahr</label>     <input>{$nameYear := @name}</input>
+    
+    {
+      startSearch := form(//form, {
+        $nameTitle: $book.title,
+        $nameAuthor: $book.author,
+        $nameIsbn: $book.isbn,
+        $nameKeywords: $book.keywords,
+        $nameYear: $book.year
+      }),
+      selections := false()
+    }
+  </fieldset>
+  
+  <t:if test="$selections"> <!-- everything else (cannot use switch-prioritized due to broken html closing tag in mannheim) -->
+    {search-keys := {}, selects := (), inputs := () }
+    <select>{$selects := ($selects, @name)} <option>Titel<t:s>$search-keys.title := @value</t:s></option>   </select>   
+    <input>{$inputs := ($inputs, @name)}</input>
+    <select>{$selects := ($selects, @name)} <option>Person|Autor<t:s>$search-keys.author := @value</t:s></option>   </select>   
+    <input>{$inputs := ($inputs, @name)}</input>
+    <select>{$selects := ($selects, @name)} <option>ISBN|ISSN<t:s>$search-keys.isbn := @value</t:s></option>    </select>   
+    <input>{$inputs := ($inputs, @name)}</input>
+    <select>{$selects := ($selects, @name)} <option>Schlag<t:s>$search-keys.keywords := @value</t:s></option>  </select>   
+    <input>{$inputs := ($inputs, @name)}</input>
+    
+    
+    <label>[jJ]ahr</label>     <input>{$nameYear := @name}</input>
+
+    {
+      i := 1,
+      startSearch := form(//form, {|
+        { $nameYear: $book.year },
+        (
+          for $key in jn:keys($book) return if ($book($key) != "" and exists($search-keys($key))) then (
+                  {$selects[$i]: $search-keys($key), $inputs[$i]: $book($key)},
+                  (i := $i + 1)[2]
+                ) else ()
+        )
+      |})
+            
+    }
+  </t:if>
 </t:if>
