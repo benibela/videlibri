@@ -146,7 +146,7 @@ public class AccountInfo extends VideLibriBaseActivity {
                     };
                     if (libName.contains("(alpha)") && accountId.getText().length() > 0) {
                         showMessage(
-                                "Hinweis: Für diese Bibliothek wurden der Kontozugriff noch nicht getestet. Bitte berichten Sie, ob das Konto gleich angezeigt wird oder nicht.",
+                                "Hinweis: Bei dieser Bibliothek wurde nur die Suche ohne Kontozugriff getestet. Bitte berichten Sie, ob das Konto gleich angezeigt wird oder nicht.",
                                 temp);
                     } else temp.onDialogEnd(null, 0);
                 }

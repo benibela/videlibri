@@ -236,7 +236,7 @@ public class VideLibriApp extends Application implements Bridge.VideLibriContext
                     queries = queries + "gesucht wurde: " + ex.searchQuery+"\n";
                 if (i != exceptions.length - 1) Util.showMessage(ex.accountPrettyNames + ": " + ex.error);
                 else {
-                    final String message = "Eine Fehlermeldung!!1!\n"+queries+"Bitte auch Kontaktdaten angeben.";
+                    final String message = "Eine Fehlermeldung!!1!\n"+queries+"Bitte auch Kontaktdaten angeben, sonst kann ich keine Antwort/Lösung zurückschicken.";
                     Util.showMessageYesNo(ex.accountPrettyNames + ": " + ex.error + "\n\nWollen Sie den Entwickler über die Meldung benachrichtigen, damit das Template angepasst werden kann?", new MessageHandler() {
                         @Override
                         public void onDialogEnd(DialogInterface dialogInterface, int i) {
