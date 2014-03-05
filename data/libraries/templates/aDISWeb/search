@@ -63,6 +63,7 @@
  
 
   <h1>Ihre Suche erzielte keinen Treffer.<t:s>search-result-count :=  0</t:s></h1>
+  <h1>Ihre Suche im Verbund erzielte keinen Treffer.<t:s>search-result-count :=  0</t:s></h1>  
   
   <h1>Die Person wurde nicht gefunden<t:s>search-result-count :=  0</t:s></h1>  
 

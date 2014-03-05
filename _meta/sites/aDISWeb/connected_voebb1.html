@@ -1,0 +1,377 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="de" lang="de">
+<!-- solution for: conditional-comments block downloads  -->
+<!--[if IE]><![endif]--><head>
+	<style type="text/css">
+		@import url(css/aDISStandard.css);
+	</style>
+	<script src="js/aDISMain.js" type="text/javascript"></script>
+	<script src="js/fckeditor/fckeditor.js" type="text/javascript"></script>
+	<title> Wir bringen Medien in Bewegung </title><script type="text/javascript">
+	var text = '';
+	window.defaultStatus=text;
+</script>	<title>VOEBB</title>
+  <!--
+  (c) Software: aDIS/BMS und aDIS/Archiv by |a|S|tec| GmbH Berlin und Muenchen - www.astec.de
+  CSS-Anpassungen/Beratung Barrierefreiheit: ena Webstudio - www.ena-webstudio.com
+  Formulare, Tabellen, etc. werden automatisch durch aDIS generiert
+  Projekt: VOEBB, Deutsch - OPAC03
+  Letztes Update: 22.10.2011
+  //-->
+  <!-- Always force latest IE rendering engine (even in intranet) & Chrome Frame -->
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+  
+  <meta http-equiv="cache-control" content="no-cache" />
+  <meta http-equiv="content-type" content="text/html; charset=iso-8859-1" />
+  <meta http-equiv="content-style-type" content="text/css" />
+  <meta http-equiv="content-script-type" content="text/javascript" />
+  <meta http-equiv="content-language" content="de" />
+  <meta name="language" content="de" />
+  
+  <!-- Individuelles Meta -->
+  <meta name="description" content="Der Service der Öffentlichen Bibliotheken des Landes Berlin sowie der Zentral- und Landesbibliothek Berlin umfasst die Recherche im elektronischen Katalog mit einem Medienbestand von 2,7 Millionen Titeln und für eingetragene Bibliotheksnutzer die Bestellung von Medien, Kontoverwaltung, sowie zusätzliche Angebote, wie zum Beispiel der kostenlose Zugang zum Munziger Archiv oder die Online-Ausleihe digitaler Medien wie E-Books, E-Audios und E-Videos über www.voebb.de" />
+  
+  <!-- START: LAYOUT-Framework -->
+  <link rel="stylesheet" href="/aDISWeb_vob/css/framework.css" type="text/css" media="screen" />
+  <!--[if lte IE 7]><link rel="stylesheet" href="/aDISWeb_vob/css/framework_iefixes.css" type="text/css" media="screen" /><![endif]-->
+
+  <!-- START: aStec-Styles -->    
+  <link rel="stylesheet" href="/aDISWeb_vob/css/layout.css" type="text/css" media="screen" />
+  <!--[if lt IE 7]><link rel="stylesheet" href="/aDISWeb_vob/css/ieonly.css" type="text/css" media="screen" /><![endif]-->
+  <!--[if IE 7]><link rel="stylesheet" href="/aDISWeb_vob/css/ieonly7.css" type="text/css" media="screen" /><![endif]-->
+  <!--[if gte IE 8]><link rel="stylesheet" href="/aDISWeb_vob/css/ieonly8.css" type="text/css" media="screen" /><![endif]-->
+  <link rel="stylesheet" href="/aDISWeb_vob/css/print.css" type="text/css" media="print" />
+
+  <!-- Mobildarstellung -->
+  <meta name="viewport" content="width=device-width; initial-scale=1.0" />
+  <link rel="stylesheet" href="/aDISWeb_vob/css/media.css" type="text/css">
+  <!--[if lt IE 9]>
+	<script type="text/javascript" src="/aDISWeb_vob/js/css3-mediaqueries.js"></script>
+   <![endif]-->
+
+  <!-- Sonstiges -->
+  <link rel="shortcut icon" type="image/x-icon" href="/aDISWeb_vob/favicon.ico" />
+  <script type="text/javascript" src="/aDISWeb_vob/js/cookies.js"></script>
+  <script type="text/javascript" src="/aDISWeb_vob/js/efa_fontsize.js"></script>
+</head>
+<body class="zweier">
+<script type="text/javascript"><!--
+
+
+
+
+function startIdleTimer() {
+  if (typeof idleId != 'undefined')
+    clearTimeout(idleId)
+  idleId = window.setTimeout("to('"+ idleLink + "')", idleTime);
+  }			
+function to(link) {
+  location.href=link;
+  }
+
+
+
+
+					
+function setupHandlers()  {
+	document.onmousedown = docOnEvent;		
+	document.onkeydown = docOnEvent;	
+	document.onkeypress = docOnEvent;
+	document.onhelp = cancelF1;
+	
+	initFormElements();
+	initIframes();
+	initScrollPos();
+	}
+function getDimensions()  {
+	document.forms[0].scrDim.value = screen.width + ";" + screen.height;
+	if (window.innerWidth)
+		document.forms[0].winDim.value = window.innerWidth + ";" + window.innerHeight;
+	else
+		document.forms[0].winDim.value = document.body.offsetWidth + ";" + document.body.offsetHeight;
+	node = document.getElementById("img_content");
+	if (node != undefined)
+		document.forms[0].imgDim.value = node.offsetWidth + ";" + node.offsetHeight;
+	}
+
+
+
+
+window.onload = function (e)
+{
+
+  idleTime=599940000;
+  idleLink="/aDISWeb/app;jsessionid=1D583802EAD56311FB01EA3DA366E811?service=direct/1/POOLVX00@@@@@@@@_4B002E00_2BBB8200/$Timeout";
+  startIdleTimer();
+
+
+if (!e) var e = window.event;
+document.forms[0].scriptEnabled.value=true;
+if (self.specialOnLoad != undefined)
+	specialOnLoad(e);
+setupHandlers();
+getDimensions();
+
+}
+
+// --></script>
+<script type="text/javascript">
+// <![CDATA[
+  if (efa_fontSize) efa_fontSize.efaInit();
+// ]]>
+</script>
+
+<div class="aDISMaske"><form method="post" name="Form0" action="/aDISWeb/app;jsessionid=1D583802EAD56311FB01EA3DA366E811" onsubmit="return formOnSubmit();">
+<input type="hidden" name="service" value="direct/1/POOLVX00@@@@@@@@_4B002E00_2BBB8200/$Form.form"/>
+<input type="hidden" name="sp" value="S0"/>
+<input type="hidden" name="Form0" value="focus,keyCode,stz,source,selected,requestCount,scriptEnabled,scrollPos,scrDim,winDim,imgDim,$Toolbar,$Toolbar$0"/>
+<input type="hidden" name="focus" value=""/>
+<input type="hidden" name="keyCode" value="0"/>
+<input type="hidden" name="stz" value=""/>
+<input type="hidden" name="source" value=""/>
+<input type="hidden" name="selected" value=""/>
+<input type="hidden" name="requestCount" value="9"/>
+<input type="hidden" name="scriptEnabled" value="T"/>
+<input type="hidden" name="scrollPos" value="0"/>
+<input type="hidden" name="scrDim" value=""/>
+<input type="hidden" name="winDim" value=""/>
+<input type="hidden" name="imgDim" value=""/>
+				
+<div id="wrapper">
+  <div id="wrapper_inside">
+  
+    <div id="header" role="banner">
+      <div class="inside">     
+      
+          <ul id="sprunglinks">
+            <li><a class="sprung" href="#main">Zum Hauptinhalt</a></li>
+            <li><a class="sprung" href="#left">Zur Navigation</a></li>
+          </ul>
+                            
+          <p id="logo"><a href="/aDISWeb/app;jsessionid=1D583802EAD56311FB01EA3DA366E811?service=direct/1/POOLVX00@@@@@@@@_4B002E00_2BBB8200/$InternalLink.directlink&amp;sp=S%24%24GFNV_1&amp;sp=SStartseite%3DCW00&amp;requestCount=9" fld="$$GFNV_1" title="Zur Startseite"><img src="/aDISWeb_vob/images/voebb_logo.gif" height="90" width="64" alt="Verbund der &ouml;ffentlichen Bibliotheken Berlins" /></a>	<span class="outside">.</span></p>
+
+          <script type="text/javascript">
+          // <![CDATA[
+            if (efa_fontSize) document.write(efa_fontSize.allLinks);
+          // ]]>
+          </script>
+          
+          <div class="block" id="spruch"><span>Wir bringen Medien in Bewegung</span> </div>
+
+      </div>
+    </div>
+  
+    <div id="container">
+      <div id="container_inside">
+
+        <div id="left">
+          <div class="inside">
+
+            <h1 class="invisible">Navigation</h1>
+  
+            <div class="block" id="navbox">
+            <div id="R20"><span class="bnzeig"></span><span class="mmzeig">Sie sind nicht angemeldet.</span>
+</div>
+            </div>
+
+            <div class="mod_navigation block" id="unav" role="navigation"><div class="tree_div">
+<ul class="tree_ul">
+<li class="tree_leaf_li_sel">
+<strong><span class="tree_strong">Startseite</span></strong></li>
+<li class="tree_leaf_li">
+<a href="/aDISWeb/app;jsessionid=1D583802EAD56311FB01EA3DA366E811?service=direct/1/POOLVX00@@@@@@@@_4B002E00_2BBB8200/$Tree.treeNodes&amp;sp=SL1&amp;requestCount=9" class="tree_leaf_a"><span>Anmelden</span></a><span class="outside">.</span></li>
+<li class="tree_leaf_li">
+<span class="tree_disabled">Abmelden</span>
+<span class="outside">.</span></li>
+<li class="tree_leaf_li">
+<a href="/aDISWeb/app;jsessionid=1D583802EAD56311FB01EA3DA366E811?service=direct/1/POOLVX00@@@@@@@@_4B002E00_2BBB8200/$Tree.treeNodes&amp;sp=SAX&amp;requestCount=9" class="tree_leaf_a"><span>Aktuelles</span></a><span class="outside">.</span></li>
+<li class="tree_leaf_li">
+<a href="/aDISWeb/app;jsessionid=1D583802EAD56311FB01EA3DA366E811?service=direct/1/POOLVX00@@@@@@@@_4B002E00_2BBB8200/$Tree.treeNodes&amp;sp=SBK&amp;requestCount=9" class="tree_leaf_a"><span>Mein Konto</span></a><span class="outside">.</span></li>
+<li class="tree_branch_li">
+<a href="/aDISWeb/app;jsessionid=1D583802EAD56311FB01EA3DA366E811?service=direct/1/POOLVX00@@@@@@@@_4B002E00_2BBB8200/$Tree.treeNodes&amp;sp=SS1&amp;requestCount=9" class="tree_branch_a"><span>Suche</span></a><span class="outside">.</span></li>
+<li class="tree_branch_li">
+<a href="/aDISWeb/app;jsessionid=1D583802EAD56311FB01EA3DA366E811?service=direct/1/POOLVX00@@@@@@@@_4B002E00_2BBB8200/$Tree.treeNodes&amp;sp=SF1&amp;requestCount=9" class="tree_branch_a"><span>Fernleihe</span></a><span class="outside">.</span></li>
+<li class="tree_leaf_li">
+<a href="http://www.bibliothek-digital.de/berlin" class="tree_leaf_a"><span>VOeBB24</span></a><span class="outside">.</span></li>
+<li class="tree_leaf_li">
+<a href="http://www.munzinger.de/search/login?portalid=50158" target="&quot;_blank&quot;" class="tree_leaf_a"><span>Munzinger</span></a><span class="outside">.</span></li>
+<li class="tree_branch_li">
+<a href="/aDISWeb/app;jsessionid=1D583802EAD56311FB01EA3DA366E811?service=direct/1/POOLVX00@@@@@@@@_4B002E00_2BBB8200/$Tree.treeNodes&amp;sp=SK2&amp;requestCount=9" class="tree_branch_a"><span>Kontakt</span></a><span class="outside">.</span></li>
+<li class="tree_leaf_li">
+<a href="/aDISWeb/app;jsessionid=1D583802EAD56311FB01EA3DA366E811?service=direct/1/POOLVX00@@@@@@@@_4B002E00_2BBB8200/$Tree.treeNodes&amp;sp=SW1&amp;requestCount=9" class="tree_leaf_a"><span>Informationen</span></a><span class="outside">.</span></li>
+</ul></div>
+ </div>
+            
+            <!-- incl=includeBOEB.html -->            <p class="block" id="boeb">
+              <a href="http://service.berlin.de/stadtbibliotheken/" rel="external" onclick="window.open(this.href); return false;">Zu 
+              den Berliner &Ouml;ffentlichen Bibliotheken  <span class="invisible">(Link öffnet in neuem Fenster)</span>
+              </a>
+            </p>
+<!-- stop -->
+             
+          </div>
+        </div>
+  
+        <div id="main" role="main">
+          <div class="inside">
+          
+            <div class="block">
+              <div class="block" id="topleiste">  
+
+                 
+                
+                
+                
+                <div id="sprache"><span><a href="/aDISWeb/app;jsessionid=1D583802EAD56311FB01EA3DA366E811?service=direct/1/POOLVX00@@@@@@@@_4B002E00_2BBB8200/$NavPath.intlink.directlink&amp;sp=S%24%24SPDF_1&amp;sp=SEN&amp;requestCount=9" fld="$$SPDF_1" title=""><span lang="en" xml:lang="en">English</span></a>	<span class="outside">.</span></span></div>
+
+                
+                
+                
+
+                <div class="clear"></div>
+              </div><div class="toolbar_div">
+<ul class="toolbar_ul">
+<li class="toolbar_li">
+<input type="image" src="/aDISWeb/images/POOLVX00@@@@@@@@/gif/POOLVX00@@@@@@@@_53002400_228F8280.gif;jsessionid=1D583802EAD56311FB01EA3DA366E811" alt="Beenden der Recherche" id="Toolbar_0" name="$Toolbar_0" title="Beenden der Recherche" onmouseover="self.status='Beenden der Recherche';return true;" onmouseout="self.status='';" class="toolbar_img"/><label for="Toolbar_0"><span class="toolbar_txt">Beenden</span></label></li>
+<li class="toolbar_li">
+<input type="image" src="/aDISWeb/images/POOLVX00@@@@@@@@/gif/POOLVX00@@@@@@@@_53001D00_228F8280.gif;jsessionid=1D583802EAD56311FB01EA3DA366E811" alt="Allgemeine Hilfe" id="Toolbar_1" name="$Toolbar_1" title="Allgemeine Hilfe" onmouseover="self.status='Allgemeine Hilfe';return true;" onmouseout="self.status='';" class="toolbar_img"/><label for="Toolbar_1"><span class="toolbar_txt">Hilfe</span></label></li></ul><div style="clear:both"></div></div> <div class="fsgrp">
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              </div>
+              
+              <div class="fsgrp">
+              <div id="OPACLI" style="   width:99%; " class="aDISListe"><div class="html_div" style="width:99%; height:100%;"><div><!-- div nicht löschen auf startseite -->
+<h1>Willkommen beim Verbund der &Ouml;ffentlichen Bibliotheken Berlins - V&Ouml;BB</h1>
+
+<p id="teaser">
+  Bei uns recherchieren Sie in einem Medienbestand von 2,7 Millionen Titeln.
+</p>
+
+<p>
+  Als Besitzer eines g&uuml;ltigen Bibliotheksausweises der &Ouml;ffentlichen Bibliotheken Berlins <abbr title="beziehungsweise">bzw.</abbr> 
+  der Zentral- und Landesbibliothek Berlin k&ouml;nnen Sie dar&uuml;ber hinaus folgende Serviceangebote nutzen:
+</p> 
+
+<ul>
+<li><strong>Bestellung</strong> von Medien mit Abholung in einer <acronym title="Verbund der &Ouml;ffentlichen Bibliotheken Berlins">V&Ouml;BB</acronym>-Bibliothek Ihrer Wahl</li>  
+<li>Bestellung von Medien nach Hause</li>
+<li><strong>Kontoeinsicht</strong> und <strong>Verl&auml;ngerung der Leihfrist</strong> aller entliehenen Medien</li>
+<li>sowie <strong>zus&auml;tzliche Angebote</strong>, wie den kostenlosen Zugang zum <strong>Munzinger Archiv</strong>. Hier finden Sie Wissenswertes zu Zeitgeschehen, 
+L&auml;ndern, Personen, Gedenktagen, Sport, Film und Musik.</li>
+</ul>
+
+<p>
+Einen Bibliotheksausweis erhalten Sie in allen angeschlossenen 
+<acronym title="Verbund der &Ouml;ffentlichen Bibliotheken Berlins">V&Ouml;BB</acronym>-Bibliotheken.
+</p>
+
+<p>
+Weitere Informationen erhalten Sie unter dem Men&uuml;punkt "Hinweise zur Benutzung" oder &uuml;ber die Hilfefunktion auf jeder Seite.
+</p><br />
+
+
+<p><img class="imgli" alt="Rueckgabebildschirm" src="/aDISWeb_vob/img/rueck.gif" width="150" height="80" align="left" /></p><br /><br /><br />
+<p><h2>Neuer Service: Rückgaben außerhalb der Öffnungszeiten</h2></p>
+<p>Dank des <acronym title="Europäischen Fonds für Regionale Entwicklung ">EFRE</acronym>-geförderten <acronym title="Radiofrequenz-Identifikation">RFID</acronym>-Projekts <acronym title="Technologische Innovation in der Informationsversorgung">TENIVER</acronym> können Sie inzwischen in sieben Bibliotheken außerhalb der regulären Öffnungszeiten Ihre Medien des <acronym title="Verbund der &Ouml;ffentlichen Bibliotheken Berlins">V&Ouml;BB</acronym> zurückgeben.<br /> 
+Neu: seit dem 10.10.2013 auch in der Humboldt-Bibliothek in Reinickendorf.<br />
+Mehr unter <strong>"Aktuelles"</strong>.
+</p>
+<br /><br />
+
+
+<br />
+<p><img class="imgli" alt="Logo TENIVER" src="/aDISWeb_vob/img/teniver.gif" width="170" height="25" align="left" /></p><br />
+<p>Ab 2010 führen die Öffentlichen Bibliotheken Berlins und die Zentral- und Landesbibliothek die Selbstverbuchung ein.<br />
+Sie können dann an den Selbstverbuchungsgeräten Ihre Medien ausleihen und zurückgeben.<br /><br />
+<strong>Weitere Informationen</strong> zur Einführung der Selbstverbuchung im <acronym title="Radiofrequenz-Identifikation">RFID</acronym>-Projekt <acronym title="Technologische Innovation in der Informationsversorgung">TENIVER</acronym> erhalten Sie unter <strong>"Informationen/Projekte"</strong>.</p>
+<br /><br />
+
+<ul>
+<li><a href="/aDISWeb/app;jsessionid=1D583802EAD56311FB01EA3DA366E811?service=direct/1/POOLVX00@@@@@@@@_4B002E00_2BBB8200/BANW_HLLTXT_1&sp=SWI00001009&requestCount=9">Entgelte f&uuml;r Bestellungen und Transport von Medien im <acronym title="Verbund der &Ouml;ffentlichen Bibliotheken Berlins">V&Ouml;BB</acronym></a></li>
+<li><a href="/aDISWeb/app;jsessionid=1D583802EAD56311FB01EA3DA366E811?service=direct/1/POOLVX00@@@@@@@@_4B002E00_2BBB8200/BANW_HLLTXT_1&sp=SWI01000018&requestCount=9">Technische Informationen zur Nutzung der Webseite</a></li>
+<li><a href="/aDISWeb/app;jsessionid=1D583802EAD56311FB01EA3DA366E811?service=direct/1/POOLVX00@@@@@@@@_4B002E00_2BBB8200/BANW_HLLTXT_1&sp=SWI00001054&requestCount=9">Datenschutzerklärung</a></li>
+</ul>
+
+<p><strong class="zellgx">Zur Bedienung unserer Webseite benutzen Sie bitte nur die angebotenen Funktionsbuttons auf den Seiten. Bitte benutzen Sie nicht die Vor- oder Zurück-Taste Ihres Internet<span lang="en">-Browsers</span>.</strong></p><p><strong class="zellgx">Wir führen regelmäßig (14-täglich montags) Wartungsarbeiten an unserem System durch. Genaue Informationen dazu finden Sie unter "Aktuelles" - "Geplante Abschaltungen".</strong></p></div></div></div>
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              </div>
+
+              <div class="clear"></div> <div class="toolbar_div">
+<ul class="toolbar_ul">
+<li class="toolbar_li">
+<input type="image" src="/aDISWeb/images/POOLVX00@@@@@@@@/gif/POOLVX00@@@@@@@@_53002400_228F8280.gif;jsessionid=1D583802EAD56311FB01EA3DA366E811" alt="Beenden der Recherche" id="Toolbar$0_0" name="$Toolbar$0_0" title="Beenden der Recherche" onmouseover="self.status='Beenden der Recherche';return true;" onmouseout="self.status='';" class="toolbar_img"/><label for="Toolbar$0_0"><span class="toolbar_txt">Beenden</span></label></li>
+<li class="toolbar_li">
+<input type="image" src="/aDISWeb/images/POOLVX00@@@@@@@@/gif/POOLVX00@@@@@@@@_53001D00_228F8280.gif;jsessionid=1D583802EAD56311FB01EA3DA366E811" alt="Allgemeine Hilfe" id="Toolbar$0_1" name="$Toolbar$0_1" title="Allgemeine Hilfe" onmouseover="self.status='Allgemeine Hilfe';return true;" onmouseout="self.status='';" class="toolbar_img"/><label for="Toolbar$0_1"><span class="toolbar_txt">Hilfe</span></label></li></ul><div style="clear:both"></div></div> </div>
+            <div class="clear"></div>        
+      
+          </div>
+          <div id="clear"></div>
+        </div>
+        
+      </div><!-- /container_inside -->
+    </div><!-- /container -->
+
+    <div id="footer">
+      <div class="inside">
+      
+        <p class="block" id="goingup">
+          <a href="#wrapper">Seitenanfang</a>
+        </p>
+        <div class="clear"></div>
+
+      </div>
+    </div>
+    
+  </div><!-- /wrapper_inside -->
+</div><!-- /wrapper -->
+
+<script src="/aDISWeb_vob/js/yaml-focusfix.js" type="text/javascript"></script></form>
+</div></body>
+</html>
