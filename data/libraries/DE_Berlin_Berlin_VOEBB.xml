@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<library>
+  <longName value="Verbund der Öffentlichen Bibliotheken - VÖBB (alpha)"/>
+  <shortName value="VÖBB Berlin"/> 
+  
+  <template value="aDISWeb"/>
+  <variable name="server" value="www.voebb.de/#"/>
+  
+  <homepage value="http://www.voebb.de/"/>
+  <testing-search value="ja" date="2014-03-05"/>
+  <testing-account value="ja" date="2014-02-21"/>
+  <testing-renew value="?" date=""/>
+</library>

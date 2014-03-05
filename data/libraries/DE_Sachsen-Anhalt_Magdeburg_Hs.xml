@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<library>
+  <longName value="Hochschulbibliothek Magdeburg"/>
+  <shortName value="Hs Magdeburg"/>
+  
+  <template value="pica"/>  
+  <variable name="server" value="https://opac.uni-magdeburg.de/"/>
+  <variable name="picadb" value="3"/>
+
+  <homepage value="https://www.hs-magdeburg.de/hochschule/einrichtung/hochschulbibliothek"/>
+  <testing-search value="ja" date="2014-03-05"/>
+  <testing-account value="?" date=""/>
+  <testing-renew value="?" date=""/>
+</library>

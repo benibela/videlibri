@@ -17,6 +17,7 @@ DE_Berlin_Berlin_Stabi.xml
 DE_Berlin_Berlin_UbFU.xml
 DE_Berlin_Berlin_UbHU.xml
 DE_Berlin_Berlin_UbTU.xml
+DE_Berlin_Berlin_VOEBB.xml
 DE_Baden-W+uertenberg_Biberach_Hs.xml
 CH_Bern_Biel_Stb.xml
 DE_Nordrhein-Westfalen_Bochum_Hsb.xml
@@ -105,6 +106,7 @@ DE_Baden-W+uertenberg_Ludwigsburg_Hb.xml
 DE_Schleswig-Holstein_L+uebeck_Stb.xml
 DE_Schleswig-Holstein_L+uebeck_ZHb.xml
 DE_Niedersachsen_L+ueneburg_Ub.xml
+DE_Sachsen-Anhalt_Magdeburg_Hs.xml
 DE_Sachsen-Anhalt_Magdeburg_Ub.xml
 DE_Baden-W+uertenberg_Mannheim_DHs.xml
 DE_Baden-W+uertenberg_Mannheim_HS.xml
@@ -146,6 +148,7 @@ DE_Th+ueringen_Schmalkalden_Fhb.xml
 DE_Hessen_Schotten_Stb.xml
 DE_Bayern_Schweinfurt_Hb.xml
 DE_Nordrhein-Westfalen_Solingen_Stb.xml
+DE_Sachsen-Anhalt_Stendal_Hs.xml
 DE_Nordrhein-Westfalen_Stolberg_Stb.xml
 DE_Mecklenburg-Vorpommern_Stralsund_Hb.xml
 DE_Baden-W+uertenberg_Stuttgart_Abk.xml
