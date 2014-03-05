@@ -153,6 +153,8 @@ public class Options extends VideLibriBaseActivity{
         editor.putInt("notificationsServiceDelay", Util.strToIntDef((getEditTextText(R.id.notificationsServiceDelay)), 15));
         editor.commit();
 
+        NotificationService.startIfNecessary(this);
+
 
         VideLibriApp.setACRAlogcat(getCheckBoxChecked(R.id.loggingSend));
 

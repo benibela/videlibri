@@ -12,8 +12,6 @@ import android.util.Log;
 public class NotificationOnBootCompleted extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
-        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(context);
-        if (!sp.getBoolean("notifications", true)) return;
-        NotificationService.showLater(context, 1000 * 60 * sp.getInt("notificationsServiceDelay", 15)); //wait 15 min
+        NotificationService.startIfNecessary(context);
     }
 }

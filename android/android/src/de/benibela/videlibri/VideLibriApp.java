@@ -81,6 +81,8 @@ public class VideLibriApp extends Application implements Bridge.VideLibriContext
                     ((NewLibrary)currentActivity).setLoading(false);
             }
         };
+
+        NotificationService.startIfNecessary(this);
     }
 
     static void setACRAlogcat(boolean enabled) {

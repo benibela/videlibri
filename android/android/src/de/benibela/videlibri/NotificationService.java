@@ -39,6 +39,7 @@ public class NotificationService extends Service implements Bridge.VideLibriCont
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
+        pendingNotificationService = false;
         //Log.i("LocalService", "Received start id " + startId + ": " + intent);
         SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(this);
         if (!sp.getBoolean("notifications", true)) return START_NOT_STICKY;
@@ -112,12 +113,21 @@ public class NotificationService extends Service implements Bridge.VideLibriCont
 
 
     static final int SHOWNOW = 14355;
+    static boolean pendingNotificationService = false;
     static void showLater(Context context, int delayMs){
+        pendingNotificationService = true;
         PendingIntent intent = PendingIntent.getBroadcast(
                 context, SHOWNOW,
                 new Intent(context, NotificationShowNow.class),
                 PendingIntent.FLAG_UPDATE_CURRENT);
         ((AlarmManager) context.getSystemService(Context.ALARM_SERVICE)).set(AlarmManager.RTC, System.currentTimeMillis() + delayMs, intent);
+    }
+
+    static void startIfNecessary(Context context){
+        if (pendingNotificationService) return;
+        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(context);
+        if (!sp.getBoolean("notifications", true)) return;
+        showLater(context, 1000 * 60 * sp.getInt("notificationsServiceDelay", 15)); //wait 15 min
     }
 
     @Override
