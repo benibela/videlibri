@@ -1,6 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?xml-stylesheet type="text/xsl" href="../changelog.xsl"?>
 <changelog program="VideLibri">
+  <build version="1650" date="2013-03-07">
+    <download url="http://videlibri.sourceforge.net/updates/videlibri-setup.exe" platform="WINDOWS" execute="&quot;$DOWNLOAD&quot;  /SP- /noicons &quot;/dir=$OLDPATH&quot; " restart="true"/>
+    <download url="http://videlibri.sourceforge.net/updates/videlibri-linux32.deb" platform="LINUX32" execute=""/>
+    <download url="http://videlibri.sourceforge.net/updates/videlibri-linux64.deb" platform="LINUX64" execute=""/>
+    
+    <fix>zones (z.B.: Lübeck, Hannover): Zeigt keine Fehlermeldung an, wenn nichts ausgeliehen ist</fix>
+    <fix>zones: Zeigt an, welche Bücher verlängerbar sind</fix>
+    <fix>sisis (z.B.: Münster): Geändertes Verlängerungsverhalten, eventuell behebt Fehlermeldung bezüglich "singleExtended", bei der Verlängerung mehrerer Ausleihen </fix>
+    <fix>sisis: Eventuell behebt Anzeige von Vormerkungen als Ausleihen bei manchen Bibliothek</fix>
+    <fix>pica (z.B.: Magdeburg): Zeigt auch Suchergebnisse, die genau ein Ergebnis liefern, an</fix>
+    <fix>Android: Zuverlässigere Warnung vor Leihfristabläufen  </fix>
+    <fix>aDIS (z.B.: alle Bibliothek des BSZ in Baden-Württemberg): Suchen in nicht Standard-Katagorien (z.B.: Schlagwörter) verwenden das korrekte Feld.</fix>
+    <fix>Verl: Anpassung an neue libero-Version, ermöglicht wieder Verlängerungen</fix>
+    <fix>Stabi Berlin: Funktioniert nun auch mit Sonderzeichen im Passwort (insbesondere %, + und &amp;) oder der Id von Ausleihen (insbesondere &lt;)</fix>
+    <add>Hochschulbibliothek Magdeburg/Stendal</add>
+    <add>VÖBB Berlin</add>
+  </build>
   <build version="1620" date="2013-11-23">
     <download url="http://videlibri.sourceforge.net/updates/videlibri-setup.exe" platform="WINDOWS" execute="&quot;$DOWNLOAD&quot;  /SP- /noicons &quot;/dir=$OLDPATH&quot; " restart="true"/>
     <download url="http://videlibri.sourceforge.net/updates/videlibri-linux32.deb" platform="LINUX32" execute=""/>
