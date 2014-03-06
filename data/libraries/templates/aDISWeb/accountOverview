@@ -2,26 +2,26 @@
   {goBackPage := "", orderedPage:="", if (get("first-login", false())) then (videlibri:delete-current-books(), first-login := false()) else () }
   <t:switch>
   <td>Keine Ausleihen<t:s>kontoPage:=""</t:s></td>
-  <a>Ausleihen zeigen oder verlängern<t:s>kontoPage := @href</t:s></a>
-  <a>Ausleihe zeigen oder verlängern<t:s>kontoPage := @href</t:s></a>
+  <a>Ausleihen zeigen<!-- oder verlängern--><t:s>kontoPage := @href</t:s></a>
+  <a>Ausleihe zeigen<!-- oder verlängern--><t:s>kontoPage := @href</t:s></a>
   </t:switch>
 
   <t:switch>
   <td>Keine Bereitstellung<t:s>providedPage:=""</t:s></td>
-  <a>Bereitstellung zeigen oder löschen<t:s>providedPage := @href</t:s></a>
-  <a>Bereitstellungen zeigen oder löschen<t:s>providedPage := @href</t:s></a>
+  <a>Bereitstellung zeigen<!-- oder löschen--><t:s>providedPage := @href</t:s></a>
+  <a>Bereitstellungen zeigen<!-- oder löschen--><t:s>providedPage := @href</t:s></a>
   </t:switch>
   
   <t:switch t:optional="true">
   <td>Keine Bestellwünsche<t:s>orderedPage:=""</t:s></td>
-  <a>Bestellwunsch zeigen oder löschen<t:s>orderedPage := @href</t:s></a>
-  <a>Bestellwünsche zeigen oder löschen<t:s>orderedPage := @href</t:s></a>
+  <a>Bestellwunsch zeigen<!-- oder löschen--><t:s>orderedPage := @href</t:s></a>
+  <a>Bestellwünsche zeigen<!-- oder löschen--><t:s>orderedPage := @href</t:s></a>
   </t:switch>
 
   <t:switch>
   <td>Keine Vormerkung<t:s>requestedPage:=""</t:s></td>
-  <a>Vormerkung zeigen oder löschen<t:s>requestedPage := @href</t:s></a>
-  <a>Vormerkungen zeigen oder löschen<t:s>requestedPage := @href</t:s></a>
+  <a>Vormerkung zeigen<!-- oder löschen--><t:s>requestedPage := @href</t:s></a>
+  <a>Vormerkungen zeigen<!-- oder löschen--><t:s>requestedPage := @href</t:s></a>
   </t:switch>
   
   
