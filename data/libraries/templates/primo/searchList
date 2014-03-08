@@ -14,7 +14,7 @@
             <DIV class="EXLSummaryContainer">
               <DIV class="EXLSummaryFields">
                 <H2 class="EXLResultTitle">{book := {"title": .}}</H2>
-                <H3 class="EXLResultAuthor">{$book.author}</H3>
+                <H3 class="EXLResultAuthor">{$book.author}</H3>?
                 <P class="EXLResultAvailability">{$book.id}</P>
               </DIV>
             </DIV>
