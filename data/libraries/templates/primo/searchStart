@@ -1,5 +1,6 @@
   <t:switch-prioritized>
-    <form name="searchForm">
+    <form> 
+      <input value="Advanced" name="mode"/>
     {i := 1,
     selects := .//select[starts-with(@id, "exlidInput_scope")],
     form := form(., (

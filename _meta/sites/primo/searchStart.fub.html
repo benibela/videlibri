@@ -1,0 +1,1726 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!-- dynamic_layout.jsp begin -->
+<!-- taglibsIncludeAll.jspf begin -->
+<!-- taglibsIncludeAll.jspf end --><!-- begin resolveLocale.jsp -->
+<!-- taglibsIncludeAll.jspf begin -->
+<!-- taglibsIncludeAll.jspf end --><!-- locale=de_DE -->
+
+<!-- end resolveLocale.jsp -->
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="de_DE" lang="de_DE">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta http-equiv="Content-Style-Type" content="text/css" />
+	<meta http-equiv="Content-Script-Type" content="text/javascript" />
+	<meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;" />
+
+	<!-- Facebook tags -->
+	<meta property="og:title" content="" />
+	<meta property="og:image" content="http://primo.kobv.de:80/primo_library/libweb/images/primo_logo.png" />
+	<!-- End of Facebook tags -->
+
+	<!-- custom_brief_results_header_info.jsp begin -->
+
+<!-- taglibsIncludeAll.jspf begin -->
+<!-- taglibsIncludeAll.jspf end --><!-- custom_tile_variables.jsp begin -->
+<!-- taglibsIncludeAll.jspf begin -->
+<!-- taglibsIncludeAll.jspf end --><!-- custom_tile_variables.jsp end -->
+<!-- advancedCssAdder.jsp begin -->
+<!-- taglibsIncludeAll.jspf begin -->
+<!-- taglibsIncludeAll.jspf end --><!-- cssAdder.jsp begin -->
+<!-- taglibsIncludeAll.jspf begin -->
+<!-- taglibsIncludeAll.jspf end --><!--  css: ../static_htmls/fub/css/PrimoFUB.css dontadddefault: true -->
+<link rel="stylesheet" type="text/css" href="../css/../static_htmls/fub/css/PrimoFUB.css"/>
+		<link rel="stylesheet" media="screen and (max-width: 500px)" href="../css/../static_htmls/fub/css/PrimoFUBmobil.css" />		
+	<link rel="stylesheet" type="text/css" href="../locale/de_DE/css/Primo_Locale.css" />
+<!-- cssAdder.jsp end -->
+<!-- advancedCssAdder.jsp end -->
+<script type="text/javascript" src="../javascript/init.js"></script>
+<script type="text/javascript" src="../javascript/common.js"></script>
+<script type="text/javascript" src="../javascript/rtaAvailability.js"></script>
+<script type="text/javascript" src="../javascript/result_change.js"></script>
+<script type="text/javascript" src="../javascript/jquery/jquery-1.8.3.min.js"></script>
+<script type="text/javascript" src="../javascript/jquery.form.2.28.js"></script>
+<script type="text/javascript" src="../javascript/dynamic_layout.js"></script>
+<script type="text/javascript" src="../javascript/v3.js"></script>
+<script type="text/javascript" src="../javascript/results_tile.js"></script>
+<script type="text/javascript" src="../javascript/date.js"></script>
+<script type="text/javascript" src="../javascript/jquery.datePicker.js"></script>
+<script type="text/javascript">
+	Date.format = 'dd.mm.yyyy';
+	Date.monthNames = ['Januar', 'Februar', 'M&auml;rz', 'April', 'Mai', 'Juni', 'Juli', 'August','September', 'Oktober', 'November', 'Dezember'];
+
+	$.dpText = {
+		TEXT_PREV_YEAR		:	'Voriges Jahr',
+		TEXT_PREV_MONTH		:	'Vorheriger Monat',
+		TEXT_NEXT_YEAR		:	'N&auml;chstes Jahr',
+		TEXT_NEXT_MONTH		:	'N&auml;chster Monat',
+		TEXT_CLOSE			:	'Kalender schlie&szlig;en',
+		TEXT_CHOOSE_DATE	:	'Choose date',
+		TEXT_NEXT			:	'Vor',
+		TEXT_PREV			:	'Zur&uuml;ck',
+		HEADER_FORMAT		:	'mmmm yyyy'
+	};
+</script>
+<!--[if IE]><script type="text/javascript" src="../javascript/jquery.bgiframe.js"></script><![endif]-->
+
+<title>
+	Primo by Ex Libris - test</title>
+
+<script type="text/javascript">
+		addLoadEvent(function(){updateRTA();});
+	</script>
+<!-- custom_brief_results_header_info.jsp end -->
+<!-- begin javascriptTextIncludes.jsp -->
+<!-- taglibsIncludeAll.jspf begin -->
+<!-- taglibsIncludeAll.jspf end --><script type="text/javascript">
+
+var exlTabReloadMessage = 'Zu diesem Titel gibt es sehr viele Exemplare. Bitte gedulden Sie sich einen Moment. Die Seite wird geladen.';
+
+
+var exlTabReloadLinkText = 'Hier klicken.';
+
+
+var exlTabLoadErrorMessage = 'Fehler beim Laden des Tabs.';
+
+
+var exlDelayTabProcessingYourRequest = 'Ihre Anfrage wird bearbeitet...'; //Processing your request...
+
+
+var exlFdbReloadMessage = 'Your content seems like it is taking a long time to load. To return to the previous page,';
+
+
+var exlFdbReloadLinkText = 'hier klicken';
+
+
+var exlFdbNoInfoMessage = 'No Available Information';
+
+
+var exlFdbSubCategoryLabel = 'Unterkategorie';
+
+
+var exlTabSignInMessage = '{0} Bewertung schreiben';
+</script>
+<!-- end javascriptTextIncludes.jsp -->
+</head>
+<body class=" EXLCurrentLang_de_DE">
+	<!-- dynamic_recursion.jsp begin -->
+<!-- taglibsIncludeAll.jspf begin -->
+<!-- taglibsIncludeAll.jspf end --><div id="contentEXL" class="EXLCustomLayoutContainer EXLContent EXLBriefDisplay">
+<!-- dynamic_recursion.jsp begin -->
+<!-- taglibsIncludeAll.jspf begin -->
+<!-- taglibsIncludeAll.jspf end --><div id="exlidSkipToContent" class="EXLCustomLayoutTile EXLSkipToContent">
+<!-- begin ../tiles/skipToContentTile.jsp -->
+			<!-- taglibsIncludeAll.jspf begin -->
+<!-- taglibsIncludeAll.jspf end --><a href="#exlidResultsContainer">skip to main content</a>
+<!-- end ../tiles/skipToContentTile.jsp -->
+		</div>
+<!-- dynamic_recursion.jsp end -->
+<!-- dynamic_recursion.jsp begin -->
+<!-- taglibsIncludeAll.jspf begin -->
+<!-- taglibsIncludeAll.jspf end --><div id="exlidHeaderContainer" class="EXLCustomLayoutContainer EXLHeader">
+<!-- dynamic_recursion.jsp begin -->
+<!-- taglibsIncludeAll.jspf begin -->
+<!-- taglibsIncludeAll.jspf end --><div id="exlidHeaderTile" class="EXLCustomLayoutTile EXLLogo">
+<!-- begin ../tiles/headerTile.jsp -->
+			<!-- taglibsIncludeAll.jspf begin -->
+<!-- taglibsIncludeAll.jspf end --><!-- includeStaticHTML.jspf begin (/static_htmls/fub/header_de_DE.html) -->
+<!-- taglibsIncludeAll.jspf begin -->
+<!-- taglibsIncludeAll.jspf end --><!-- header_de_DE.html -->
+
+<!--[if IE]>
+<![endif]-->
+<!--[if IE 6]>
+<link type="text/css" href="../static_htmls/fub/css/ie6.css" rel="stylesheet" />
+<![endif]-->
+
+<!--[if IE 7]>
+<link type="text/css" href="../static_htmls/fub/css/ie7.css" rel="stylesheet" />
+<![endif]-->
+
+<!--[if IE 8]>
+<link type="text/css" href="../static_htmls/fub/css/ie8.css" rel="stylesheet" />
+<![endif]-->
+
+<!--[if IE 9]>
+<link type="text/css" href="../static_htmls/fub/css/ie9.css" rel="stylesheet" />
+<![endif]--> 
+
+<!--[if gte IE 8]>
+<![endif]-->
+<!--[if lt IE 9]>
+<![endif]-->
+<!--[if lte IE 7]>
+<![endif]-->
+<!--[if gt IE 6]>
+<![endif]-->
+
+
+
+<!--<link type="text/css" href="http://feedback.jhercher.de//widget/css.php" rel="stylesheet" />
+<script type="text/javascript" src="http://feedback.jhercher.de//widget/jquery.js"></script>
+<script type="text/javascript" src="http://feedback.jhercher.de//widget/js.php"></script>-->
+<link rel="search" type="application/opensearchdescription+xml" title="Primo FU Berlin" href="http://primo.kobv.de/primo_library/libweb/static_htmls/fub/openSearch.xml">
+
+<link rel="stylesheet" type="text/css" href="/primo_library/libweb/static_htmls/fub/js/shadowbox/shadowbox.css" />
+<script type="text/javascript" src="/primo_library/libweb/static_htmls/fub/js/shadowbox/shadowbox.js"></script>
+<script type="text/javascript">
+Shadowbox.init();
+/**
+Shadowbox.init({
+    handleOversize:     "drag"
+});
+**/
+</script>
+<!--<script src="../static_htmls/fub/js/plugins/hoverIntent.js" type="text/javascript"></script>
+<script src="../static_htmls/fub/js/plugins/superfish.js" type="text/javascript"></script>-->
+<script type="text/javascript" src="/primo_library/libweb/static_htmls/fub/js/libs/jquery-ui/js/jquery-ui-1.10.2.custom.min.js"></script>
+
+<div id="baseIdentity">
+<a title="Zur Startseite der Freien Universität Berlin" target="_blank" href="http://www.fu-berlin.de/"><img id="logo" src="../static_htmls/fub/images/cdElements/fu_logo.gif"/></a>
+
+<div class="identity_text">
+    <h2><a title="Zur Startseite des Bibliotheksportals Primo" class="active" href="search.do?&vid=FUB&">Bibliotheksportal Primo</a></h2>
+<!--<h2>Bibliotheksportal Primo</h2>-->
+  </div>
+
+</div> <!-- Base identity -->
+<div id="header">
+
+    <div id="topnav">
+      <ul><li id="FUB_home"><a title="Zur Primo Startseite" href="search.do?&vid=FUB">Startseite</a></li>
+	<li id="FUB_ub_home"><a title="Zur Universitätsbibliothek" href="http://www.ub.fu-berlin.de">Universitätsbibliothek</a></li>
+<!--	<li><a title="Bibliotheksdienste als Alphabetischer Index" href="http://www.ub.fu-berlin.de/bibliothek/az/">Services A-Z</a></li>-->
+	<li id="FUB_contact"><a title="Kontaktformular für Hilfe und Anregungen" href="http://www.ub.fu-berlin.de/kontakt/">Kontakt</a></li>
+<!--	<li><a title="Impressum gem. § 5 Telemediengesetz (TMG)" href="http://www.ub.fu-berlin.de/impressum/">Impressum</a></li>-->
+	<li id="FUB_faq">
+            <script type='text/javascript'>
+                $(document).ready(function() {
+                    var linkshadowbox = '<a rel="shadowbox;width='+shadowBoxWidthExt+';height='+shadowBoxHeight+'" title="Hilfe zu Primo" href="http://aleph-www.ub.fu-berlin.de/HilfePrimo/doku.php">Hilfe</a>';
+                $('#FUB_faq').html(linkshadowbox);
+            })
+            </script>
+        </li></ul>  </div><!-- #topnav -->
+
+ <div id="services">
+    <div id="languages" class="service_menue_box">
+        <span lang="de" title="Diese Seite ist die Deutschsprachige Version" class="lang_link_active">DE</span>
+        &nbsp;|&nbsp;<a lang="en" title="English version of this page" class="lang_link" onclick="switchLang('en_EN')">EN</a>
+    </div>
+
+    <div id="FUB_libraries" class="service_menue_box">
+      
+        <a title="FU-Bibliotheken" href="../static_htmls/fub/lightbox/bibliotheken.html" rel="shadowbox;width=990px;height=500px;" id="service_menue_link">Bibliotheken</a>
+      
+    </div>
+    <div id="FUB_searchtools" class="service_menue_box">
+      
+        <a title="Weitere Rechercheinstrumente" href="../static_htmls/fub/lightbox/recherchetools.html" rel="shadowbox;width=990px;height=500px;" id="service_menue_link">Weitere Rechercheinstrumente</a>
+      
+    </div>
+
+<!--    <div id="rss" class="service_menue_box">
+
+<a title="RSS" href="#"><img title="" src="" id="icon_print" alt="RSS-Feed"></a>
+    </div>
+      <div id="blog" class="service_menue_box">
+    <a title="Blog" target="_blank" href="#"><img title="" src="" id="icon_rss" alt="Blog"></a>  
+      </div>-->
+
+
+  </div>
+
+</div>
+<!--<div id="infobox"><p class="infotext">
+    <ul>
+        <li><a href="http://aleph-www.ub.fu-berlin.de/ddcSearchBox.html" rel="shadowbox;width=690;height=800">DDC-Suche</a></li>
+        <li><a href="http://aleph-www.ub.fu-berlin.de/rvkSearchBox.html?p=mytree.php3" rel="shadowbox;width=840;height=880">RVK-Suche</a></li>
+    </ul>
+</div>-->
+<!-- includeStaticHTML.jspf end (/static_htmls/fub/header_de_DE.html) --><!-- end ../tiles/headerTile.jsp -->
+		</div>
+<!-- dynamic_recursion.jsp end -->
+<!-- dynamic_recursion.jsp begin -->
+<!-- taglibsIncludeAll.jspf begin -->
+<!-- taglibsIncludeAll.jspf end --><div id="exlidUserAreaTile" class="EXLCustomLayoutTile EXLUserMenu">
+<!-- begin ../tiles/userAreaTile.jsp -->
+			<!-- taglibsIncludeAll.jspf begin -->
+<!-- taglibsIncludeAll.jspf end --><!-- setSearchForm.jspf begin -->
+<!-- taglibsIncludeAll.jspf begin -->
+<!-- taglibsIncludeAll.jspf end --><!-- setSearchForm.jspf end --><!-- this feedback unnecesary
+
+-->
+
+<input type="hidden" id="gatherpagestat" value="true"/>
+
+<!-- For Alma Services Page -->
+<input type="hidden" class="EXLTabBoomId" id="SignInStat" 
+		value="A=Primo_Local&I=FUB&S=A188A134A9CE189118D1D66CC1DC4045&IP=130.73.102.105&SRVR=vs36.kobv.de&P=sign-in&OP=click&M=&TYP=Page_View_4.3.0.130326&G=&O=%26%26%26%26FUB%26FU Berlin%26&O1=&O2=&O3=&O4=&O5=PRD.49FUB.FUB&O6=&O7=0&O8=&O9=&" />
+<input type="hidden" id="boombaseurl" value="http://beacon01.hosted.exlibrisgroup.com/boom/apache_pb.gif" />
+
+<input type="hidden" id="gatherpagestat" value="true"/>
+
+<!-- For Alma Services Page -->
+<input type="hidden" class="EXLTabBoomId" id="SignOutStat" 
+		value="A=Primo_Local&I=FUB&S=A188A134A9CE189118D1D66CC1DC4045&IP=130.73.102.105&SRVR=vs36.kobv.de&P=sign-out&OP=click&M=&TYP=Page_View_4.3.0.130326&G=&O=%26%26%26%26FUB%26FU Berlin%26&O1=&O2=&O3=&O4=&O5=PRD.49FUB.FUB&O6=&O7=0&O8=&O9=&" />
+<input type="hidden" id="boombaseurl" value="http://beacon01.hosted.exlibrisgroup.com/boom/apache_pb.gif" />
+
+<ul id="exlidUserAreaRibbon" class="EXLEShelfTileGuest">
+  <li id="exlidUserName" class="EXLUserName">
+  	<span class="EXLUserAreaStart"></span>
+  	<span class="EXLUserNameDisplay">
+  		Gast</span>
+  	<span class="EXLUserAreaStartRtl"></span>
+  </li>
+  <li id="exlidMyShelf" class="EXLMyShelf"><a href="basket.do?fn=display&amp;fromUserArea=true&amp;vid=FUB&amp;fromPreferences=false"><span class="EXLMyShelfStarSelected"></span>Favoriten</a></li>
+  <li id="exlidMyAccount" class="EXLMyAccount"><a href="myAccountMenu.do?vid=FUB">Mein Konto</a></li>
+<li id="exlidSignOut" class="EXLSignOut EXLLastItem">
+  			<a href="login.do?loginFn=signin&amp;vid=FUB&amp;targetURL=http%3a%2f%2fprimo.kobv.de%2fprimo_library%2flibweb%2faction%2fsearch.do%3fdscnt%3d0%26amp%3bindx%3d1%26amp%3bsearchButton.y%3d0%26amp%3bsearchButton.x%3d0%26amp%3bdstmp%3d1394281627952%26amp%3bvl(freeText0)%3dtest%26amp%3bfn%3dsearch%26amp%3bvid%3dFUB%26amp%3bct%3dAdvancedSearch%26amp%3bmode%3dAdvanced%26initializeIndex%3dtrue" onclick="boomCallToRum('SignInStat',false);">Anmelden</a>
+  			&nbsp; &nbsp;</li>
+	</ul>
+
+<!-- end ../tiles/userAreaTile.jsp -->
+		</div>
+<!-- dynamic_recursion.jsp end -->
+<!-- dynamic_recursion.jsp begin -->
+<!-- taglibsIncludeAll.jspf begin -->
+<!-- taglibsIncludeAll.jspf end --><div id="exlidMainMenuTile" class="EXLCustomLayoutTile EXLMainMenu">
+<!-- begin ../tiles/mainMenuTile.jsp -->
+			<!-- taglibsIncludeAll.jspf begin -->
+<!-- taglibsIncludeAll.jspf end --><script type="text/javascript">
+//<![CDATA[
+function loadSearchDbPage(){
+	var fn;
+	addLightBoxDivs();
+	fn='loadSearchDbPage';
+	var timestamp = new Date().getTime();
+	var url = "searchDB.do"+"?fn="+fn+"&ts="+timestamp;
+	var data;
+	$.ajax({
+	    url:url,
+		data:data,
+		global:false,
+		beforeSend: function(request){
+			setAjaxRequestHeader(request);
+		},
+		error: function(request,errorType,exceptionOcurred){
+			if (errorType=='timeout'){
+				notifyAjaxTimeout();
+			}else{
+				generalAjaxError();
+			}
+			document.getElementById('exliLoadingFdb').style.display='none';
+			document.getElementById('exliGreyOverlay').style.display='none';
+			document.getElementById('exliWhiteContent').style.display='none';
+			return false;
+		},
+		success: function(data){
+			if (isAjaxXmlRedirect(data)){
+				handleAjaxXmlRedirect(data);
+			}
+			var elm = $(data).find('searchDbXml');
+			var cdata = $(elm).text();
+			$('span[id=exliLoadingFdbSpan]').remove();
+			var n;
+			n = document.getElementById("exliWhiteContent");
+			var xmlText = cdata.replace(/\n\n/g, "\n").replace(/&lt;/g,"<").replace(/&gt;/g,">");
+			var newdiv = document.createElement("div");
+			newdiv.innerHTML = xmlText;
+			n.innerHTML='';
+			$(n).append(newdiv);
+		}
+	});
+}
+
+
+
+function addLightBoxDivs(){
+
+	var greyOutLine = document.getElementById('exliGreyOverlay');
+	if($('#exliGreyOverlay').size() == 0){
+		var greyOutLine = document.createElement("div");
+		$(greyOutLine).attr("id","exliGreyOverlay");
+		$(greyOutLine).attr("style","display: none;");
+	}
+
+	var greyOutLineIframe = document.createElement("iframe");
+	$(greyOutLineIframe).attr("src","javascript:false;");
+
+	var whiteContent = document.getElementById('exliWhiteContent');
+	if($('#exliWhiteContent').size() == 0){
+		var whiteContent = document.createElement("div");
+		$(whiteContent).attr("id","exliWhiteContent");
+		$(whiteContent).attr("style","display: none;");
+	}
+
+	var loadingFdb = document.getElementById('exliLoadingFdb');
+	if($('#exliLoadingFdb').size() == 0){
+		var loadingFdb = document.createElement("div");
+		$(loadingFdb).attr("id","exliLoadingFdb");
+		$(loadingFdb).attr("style","display: block;");
+		$(loadingFdb).attr("class","exliLoadingFdb");
+	}
+	var loadingFdbInnerHtml = '<span class="EXLHiddenCue" id="exliLoadingFdbSpan">'+
+	exlFdbReloadMessage+
+	'<a href="#" onclick="document.getElementById('+
+	"'exliLoadingFdb').style.display='none';document.getElementById('exliGreyOverlay').style.display='none';return false;"+
+	'">'+exlFdbReloadLinkText+'<\/a>.'+
+	"<script type='text/javascript'>"+
+	"setTimeout('$("+
+	'"#exliLoadingFdbSpan").removeClass("EXLHiddenCue").attr("style","display: block;");'+
+	"', 10000);<\/script>"+
+	'<\/span><iframe src="javascript:false;"><\/iframe>';
+	$(loadingFdb).html(loadingFdbInnerHtml);
+	$(greyOutLine).html(greyOutLineIframe);
+
+	$('body')[0].appendChild(greyOutLine);
+	$('body')[0].appendChild(whiteContent);
+	$('body')[0].appendChild(loadingFdb);
+	document.getElementById('exliLoadingFdb').style.display='block';
+	document.getElementById('exliLoadingFdbSpan').style.display='none';
+	document.getElementById('exliGreyOverlay').style.display='block';
+
+}
+
+
+
+// ]]>
+</script><script type="text/javascript" src="../javascript/searchDb.js"></script>
+<!--  include setSearchForm.jspf before -->
+<!-- setSearchForm.jspf begin -->
+<!-- taglibsIncludeAll.jspf begin -->
+<!-- taglibsIncludeAll.jspf end --><!-- setSearchForm.jspf end --><!--  include setSearchForm.jspf after   -->
+
+<div id="exlidMainMenuContainer" class="EXLMainMenuContainer EXLFirstItem">
+  <ul id="exlidMainMenuRibbon">
+<li id="exlidMainMenuItem1" class="EXLMainMenuItem">
+			<span><a title="Neue Suche"
+			   		href="/primo_library/libweb/action/search.do?menuitem=0&amp;fromTop=true&amp;fromPreferences=false&amp;fromEshelf=false&amp;vid=FUB"
+			   		class="selected EXLMainMenuSelected EXLMainMenuITEMlibrary_search"
+			   		target="_self">
+			 		  Neue Suche</a></span>
+			</li>
+		<li id="exlidMainMenuItem2" class="EXLMainMenuItem">
+			<span><a title="e zeitschriften"
+				   href="http://sfx.kobv.de/sfx_fub/azlist/FUB?embedded=ml&amp;lang=ger"
+				   class="EXLMainMenuITEMe-zeitschriften"
+				   target="_self">
+				   E-Zeitschriften</a></span>
+			</li>
+		<li id="exlidMainMenuItem3" class="EXLMainMenuItem">
+			<span><a title="&nbsp;&nbsp;hilfe&nbsp;&nbsp;"
+				   href="http://aleph-www.ub.fu-berlin.de/HilfePrimo/"
+				   class="EXLMainMenuITEM&nbsp;&nbsp;hilfe&nbsp;&nbsp;"
+				   target="_self">
+				   Hilfe</a></span>
+			</li>
+		<li id="exlidMainMenuItem4" class="EXLMainMenuItem EXLLastItem">
+		<span><a title="Hinweise zur Benutzung des Suchportals"
+		   href="helpHandler.do?helpId=search"
+		   class="EXLMainMenuITEMHelp"
+		   target="popup"
+		   onclick="openWindow(this.href, this.target, 'top=100,left=50,width=600,height=500,resizable=1,scrollbars=1'); return false;">
+		   help</a></span>
+	</li>
+  </ul>
+</div>
+<input type="hidden" id="gatherpagestat" value="true"/>
+
+<!-- For Alma Services Page -->
+<input type="hidden" class="EXLTabBoomId" id="FindDbStat" 
+		value="A=Primo_Local&I=FUB&S=A188A134A9CE189118D1D66CC1DC4045&IP=130.73.102.105&SRVR=vs36.kobv.de&P=find-database&OP=databaseClick&M=&TYP=Page_View_4.3.0.130326&G=&O=%26%26%26%26FUB%26FU Berlin%26&O1=&O2=&O3=&O4=&O5=PRD.49FUB.FUB&O6=&O7=0&O8=&O9=&" />
+<input type="hidden" id="boombaseurl" value="http://beacon01.hosted.exlibrisgroup.com/boom/apache_pb.gif" />
+
+<input type="hidden" id="gatherpagestat" value="true"/>
+
+<!-- For Alma Services Page -->
+<input type="hidden" class="EXLTabBoomId" id="CitationLinkerStat" 
+		value="A=Primo_Local&I=FUB&S=A188A134A9CE189118D1D66CC1DC4045&IP=130.73.102.105&SRVR=vs36.kobv.de&P=citation-linker&OP=citationLinkerClick&M=&TYP=Page_View_4.3.0.130326&G=&O=%26%26%26%26FUB%26FU Berlin%26&O1=&O2=&O3=&O4=&O5=PRD.49FUB.FUB&O6=&O7=0&O8=&O9=&" />
+<input type="hidden" id="boombaseurl" value="http://beacon01.hosted.exlibrisgroup.com/boom/apache_pb.gif" />
+
+<!--Languages menu-->
+ <div class="EXLLanguagesContainer">
+ <span class="EXLLanguagesLabel">Sprache:</span>
+  <div class="EXLLanguagesMenu">
+
+	<ul id="exlidLanguages" class="EXLLanguageMenuShow EXLLanguageMenuHide "><!--remove EXLLanguageMenuHide to show menu items-->
+		<li class="EXLLanguageLink EXLLanguageLinkHide"><a href="preferences.do?fn=change_lang&amp;vid=FUB&amp;prefLang=en_US&amp;prefBackUrl=http:%2F%2Fprimo.kobv.de%2Fprimo_library%2Flibweb%2Faction%2Fsearch.do?dscnt=0%26indx=1%26searchButton.y=0%26searchButton.x=0%26dstmp=1394281628307%26vl(freeText0)=test%26fn=search%26vid=FUB%26ct=AdvancedSearch%26mode=Advanced%26vid=FUB" class="EXLLanguageOptionLANGen_US" title="Benutzeroberfl&auml;chensprache &auml;ndern">English</a></li>
+				<li id="exlidSelectedLanguage" class="EXLLanguageLink">Deutsch<img src="../images/icon_arrow_sendTo.png" alt="Show More Options"/></li>
+				</ul>
+  </div>
+</div>
+<div id="flagForFindDbDeepLink" title="NotADeepLink"></div>
+<div id="savedSelectedMyAccountTab"></div>
+<div id="exlidLightbox">
+<script type="text/javascript">
+var str = window.location.href;
+var n = str.match(/openFdb=true/g);
+if (n != null){
+boomCallToRum('FindDbStat',false);
+var openMyDatabases = str.match(/openMyDatabases=true/g);
+ if(openMyDatabases != null){
+   openPrimoLightBox('searchDB','loadSearchDbPage','searchDbXml','IamDeepLinkToMyDatabases'); 
+ }else{
+   openPrimoLightBox('searchDB','loadSearchDbPage','searchDbXml','IamDeepLink');
+ }
+}
+</script>
+</div>
+<!-- end ../tiles/mainMenuTile.jsp -->
+		</div>
+<!-- dynamic_recursion.jsp end -->
+<!-- dynamic_recursion.jsp begin -->
+<!-- taglibsIncludeAll.jspf begin -->
+<!-- taglibsIncludeAll.jspf end --><div id="exlidSearchTileWrapper" class="EXLCustomLayoutTile EXLSearchWrapper">
+<!-- begin ../views/search/l_search_input.jsp -->
+			<!-- l_search_input.jsp begin -->
+<!-- taglibsIncludeAll.jspf begin -->
+<!-- taglibsIncludeAll.jspf end --><!-- jsp_mapping_retriever.jsp begin -->
+<!-- jsp_mapping_retriever.jsp end -->
+<!-- resolved jsp page for search tile: ../../tiles/advancedSearchTile.jsp -->
+<!-- taglibsIncludeAll.jspf begin -->
+<!-- taglibsIncludeAll.jspf end --><script type="text/javascript"> // <![CDATA[
+
+function removeChildren(elm){
+	if ( elm.hasChildNodes() )
+	{
+    		while ( elm.childNodes.length >= 1 )
+    		{
+        			elm.removeChild( elm.firstChild );
+    		}
+	}
+}
+
+
+function loopSelected(selObj, newObj, selectedElm)
+{
+
+	for (i=0; i<selObj.options.length; i++) {
+		var op = document.createElement('option');
+		op.text = selObj.options[i].text;
+		op.value = selObj.options[i].value;
+		op.id = selObj.options[i].id;
+		if (selectedElm == selObj.options[i].value ){
+			op.selected = 'selected';
+		}
+		try {
+  			newObj.add(op, newObj.options[i]); // firefox
+		} catch (ex) {
+  			newObj.add(op, i); // ie
+		}
+	}
+}
+
+
+function showSelected(selectedOption, id  ) {
+
+		var selOperatorObj = document.getElementById('exlidInput_precisionOperator_' +id);
+		var selOperatorIndex = selOperatorObj.selectedIndex;
+		var titleObj=document.getElementById('exlidInput_scope_title' +id);
+
+		var allObj =document.getElementById('exlidInput_scope_all' +id);
+		var orgObj = document.getElementById('exlidInput_scope_' +id);
+		var selectedElm =orgObj.options[orgObj.selectedIndex];
+
+		if ( selOperatorObj.options[selOperatorIndex].value =='begins_with'){
+			if (titleObj == null || titleObj == undefined ){
+				selectedOption.options[0].selected = 'selected';
+				alert('Der Operator "beginnt mit..." kann nur für die Titelsuche verwendet werden');
+				return false;
+			}
+			removeChildren(orgObj);
+			loopSelected(titleObj, orgObj, selectedElm.value);
+			var searchForm = document.getElementsByName('searchForm')[0];
+			var hiddenSrt = document.getElementById("str");
+			hiddenSrt.value = 'title';
+		} else{
+			removeChildren(orgObj);
+			loopSelected(allObj, orgObj, selectedElm.value);
+			var searchForm = document.getElementsByName('searchForm')[0];
+			var hiddenSrt = document.getElementById("str");
+			hiddenSrt.value = 'rank';
+		}
+
+}
+
+function unselect(id  ) {
+
+	 	 if (document.getElementById('begins_with'+id)) {
+			var orgObj = document.getElementById('exlidInput_scope_' +id);
+			removeChildren(orgObj);
+			var op = document.createElement('option');
+			op.text = 'Titel';
+			op.value = 'title';
+			op.id = 'scope_titleOnly'+id;
+			op.selected = 'selected';
+			try {
+  				orgObj.add(op, orgObj.options[0]); // firefox
+			} catch (ex) {
+  				orgObj.add(op, 0); // ie
+			}
+			var searchForm = document.getElementsByName('searchForm')[0];
+			var hiddenSrt = document.getElementById("str");
+			hiddenSrt.value = 'title';
+		}
+}
+
+function unselectAdvanceTitle(id){
+
+	if (document.getElementById('title'+id)) {
+		var orgObj = document.getElementById('exlidInput_scope_' +id);
+		removeChildren(orgObj);
+		var op = document.createElement('option');
+		op.text = 'Titel';
+		op.value = 'title';
+		op.id = 'scope_titleOnly'+id;
+		op.selected = 'selected';
+		try {
+			orgObj.add(op, orgObj.options[0]); // firefox
+		} catch (ex) {
+			orgObj.add(op, 0); // ie
+		}
+		var searchForm = document.getElementsByName('searchForm')[0];
+		var hiddenSrt = document.getElementById("str");
+		hiddenSrt.value = 'title';
+	}
+}
+
+
+//]]>
+</script><form name="searchForm" method="post" action="/primo_library/libweb/action/search.do?fn=go&amp;ct=search" class="EXLSearchForm" enctype="application/x-www-form-urlencoded; charset=utf-8" onsubmit="if(isRemoteSearch()){doPleaseWait();}if(window.manualFormSubmit){manualFormSubmit(this.id);return false;}" id="searchForm" target="_self"><div id="exlidAdvancedSearchTile" class="EXLAdvancedSearch">
+<div id="exlidAdvancedSearchRibbon">
+	<!-- search_hidden.jspf begin -->
+<!-- taglibsIncludeAll.jspf begin -->
+<!-- taglibsIncludeAll.jspf end --><!--
+		institution = FU Berlin
+		institution code = FUB
+	 -->
+	<input type="hidden" id="mode" name="mode" value="Advanced"/>
+	<input type="hidden" id="tab" name="tab" value="fub"/>
+	<input type="hidden" id="indx" name="indx" value="1"/>
+	<input type="hidden" id="dum" name="dum" value="true"/>
+	<input type="hidden" name="srt" value="rank" id="str"/>
+
+	<input type="hidden" id="vid" name="vid" value="FUB"/>
+	<input type="hidden" id="frbg" name="frbg" value=""/>
+	<!-- search_hidden.jspf end --><fieldset>
+    <legend class="EXLHiddenCue">Primo Advanced Search</legend>
+
+<input type="hidden" name="tb" value="t" id="tb" /><div class="EXLSearchTabsContainer">
+    <ul id="exlidSearchTabs" class="EXLTabs">
+		<li id="exlidTab0" class="EXLSearchTab EXLSearchTabSelected">
+				<span id="defaultScopefub" style='display:none'>FU Katalog + Primo</span> <a href="search.do?mode=Advanced&vid=FUB&vl(freeText0)=test&fn=search&tab=fub" class="EXLSearchTabTitle EXLSearchTabLABELlabel" onclick="getSearchField(this,'Advanced'); delay4Remote('local','true ','fub')"
+				   title="Primo: Bücher, Zeitschriften, 400 Mio Artikel und mehr">
+					<span>label</span>
+				</a>
+			</li>
+		<li id="exlidTab1" class="EXLSearchTab ">
+				<span id="defaultScopefub_remote" style='display:none'>Bitte wählen Sie ein Set aus</span> <a href="search.do?mode=Advanced&vid=FUB&vl(freeText0)=test&fn=search&tab=fub_remote" class="EXLSearchTabTitle EXLSearchTabLABELDatenbanken" onclick="getSearchField(this,'Advanced'); delay4Remote('local','true ','fub_remote')"
+				   title="Datenbanken: Bücher, Artikel und mehr aus externen Datenbanken ">
+					<span>Datenbanken</span>
+				</a>
+			</li>
+		<li id="exlidTab2" class="EXLSearchTab ">
+				<span id="defaultScopefub_local" style='display:none'>FU Katalog</span> <a href="search.do?mode=Advanced&vid=FUB&vl(freeText0)=test&fn=search&tab=fub_local" class="EXLSearchTabTitle EXLSearchTabLABELFU Katalog" onclick="getSearchField(this,'Advanced'); delay4Remote('local','true ','fub_local')"
+				   title="FU Katalog: Bücher, Zeitschriften in den FU-Bibliotheken und mehr">
+					<span>FU Katalog</span>
+				</a>
+			</li>
+		<li id="exlidTab3" class="EXLSearchTab ">
+				<span id="defaultScopefub_unibib" style='display:none'>Universitätsbibliographie der FU Berlin</span> <a href="search.do?mode=Advanced&vid=FUB&vl(freeText0)=test&fn=search&tab=fub_unibib" class="EXLSearchTabTitle EXLSearchTabLABELfub_unibib" onclick="getSearchField(this,'Advanced'); delay4Remote('local','true ','fub_unibib')"
+				   title="Search for: Bibliography of FU staff">
+					<span>fub_unibib</span>
+				</a>
+			</li>
+		<li id="exlidTab4" class="EXLSearchTab ">
+				<span id="defaultScopefub_edoc" style='display:none'>FUB Dokumentenserver</span> <a href="search.do?mode=Advanced&vid=FUB&vl(freeText0)=test&fn=search&tab=fub_edoc" class="EXLSearchTabTitle EXLSearchTabLABELFUB Dokumentenserver" onclick="getSearchField(this,'Advanced'); delay4Remote('local','true ','fub_edoc')"
+				   title="tooltip">
+					<span>FUB Dokumentenserver</span>
+				</a>
+			</li>
+		</ul>
+</div>
+<div class="EXLSearchFieldRibbon EXLSearchFieldRibbonPreFilters">
+		<div class="EXLSearchFieldRibbonFormFieldsGroup1">
+		<div class="EXLAdvancedSearchFormRow">
+			<!-- userText.tag begin -->
+<!-- userText.tag end --></div>
+		<div class="EXLAdvancedSearchFormRow">
+            <fieldset id="exlidAdvancedSearchFieldset0">
+				<legend class="EXLHiddenCue">Primo Advanced Search Query Term</legend>
+					<span class="EXLAdvancedSearchFormRowInlineInput">
+					<label class="EXLHide" for="exlidInput_scope_1">
+										Show Results with:
+										</label>
+										<!-- select.tag begin -->
+<!-- taglibsIncludeAll.jspf begin -->
+<!-- taglibsIncludeAll.jspf end --><select class="EXLSelectTag fixed" id="exlidInput_scope_1" name="vl(154559607UI0)"   >
+			<option value="any"  id="scope_any1"
+						selected="selected"class="EXLSelectedOption">
+							Alle Felder</option>
+				<option value="title"  id="scope_title1"
+						class="EXLSelectOption">
+							Titel</option>
+				<option value="creator"  id="scope_creator1"
+						class="EXLSelectOption">
+							Person/Organisation</option>
+				<option value="sub"  id="scope_sub1"
+						class="EXLSelectOption">
+							Schlagwort</option>
+				<option value="isbn"  id="scope_isbn1"
+						class="EXLSelectOption">
+							ISBN</option>
+				<option value="issn"  id="scope_issn1"
+						class="EXLSelectOption">
+							ISSN</option>
+				<option value="cdate"  id="scope_cdate1"
+						class="EXLSelectOption">
+							Erscheinungsjahr</option>
+				<option value="lsr16"  id="scope_lsr161"
+						class="EXLSelectOption">
+							Lok. Notation Jura</option>
+				<option value="lsr17"  id="scope_lsr171"
+						class="EXLSelectOption">
+							SW MeSH/CAB</option>
+				<option value="lsr18"  id="scope_lsr181"
+						class="EXLSelectOption">
+							DDC</option>
+				<option value="lsr19"  id="scope_lsr191"
+						class="EXLSelectOption">
+							RVK</option>
+				<option value="lsr21"  id="scope_lsr211"
+						class="EXLSelectOption">
+							Originalschrift: Alle Felder</option>
+				<option value="lsr10"  id="scope_lsr101"
+						class="EXLSelectOption">
+							Signatur</option>
+				</select>
+
+
+			<label class="EXLHide" for="exlidInput_scope_title1">Show Results with:</label>
+				  	<select class="EXLSelectTag fixed" id="exlidInput_scope_title1" name="vl(154559607UI0)"  style="display:none" >
+					<option  value="title"  id="scope_titleOnly1" selected="selected"
+
+						class="EXLSelectOption">
+						Titel</option>
+					</select>
+				<label class="EXLHide" for="exlidInput_scope_all1">Show Results with:</label>
+		<select class="EXLSelectTag fixed" id="exlidInput_scope_all1" name="vl(154559607UI0)" style="display:none">
+			<option  style="display:block"  value="any"  id="scope_anyall1"
+						selected="selected"class="EXLSelectedOption">
+							Alle Felder</option>
+				<option  style="display:block"  value="title"  id="scope_titleall1"
+						class="EXLSelectOption">
+							Titel</option>
+				<option  style="display:block"  value="creator"  id="scope_creatorall1"
+						class="EXLSelectOption">
+							Person/Organisation</option>
+				<option  style="display:block"  value="sub"  id="scope_suball1"
+						class="EXLSelectOption">
+							Schlagwort</option>
+				<option  style="display:block"  value="isbn"  id="scope_isbnall1"
+						class="EXLSelectOption">
+							ISBN</option>
+				<option  style="display:block"  value="issn"  id="scope_issnall1"
+						class="EXLSelectOption">
+							ISSN</option>
+				<option  style="display:block"  value="cdate"  id="scope_cdateall1"
+						class="EXLSelectOption">
+							Erscheinungsjahr</option>
+				<option  style="display:block"  value="lsr16"  id="scope_lsr16all1"
+						class="EXLSelectOption">
+							Lok. Notation Jura</option>
+				<option  style="display:block"  value="lsr17"  id="scope_lsr17all1"
+						class="EXLSelectOption">
+							SW MeSH/CAB</option>
+				<option  style="display:block"  value="lsr18"  id="scope_lsr18all1"
+						class="EXLSelectOption">
+							DDC</option>
+				<option  style="display:block"  value="lsr19"  id="scope_lsr19all1"
+						class="EXLSelectOption">
+							RVK</option>
+				<option  style="display:block"  value="lsr21"  id="scope_lsr21all1"
+						class="EXLSelectOption">
+							Originalschrift: Alle Felder</option>
+				<option  style="display:block"  value="lsr10"  id="scope_lsr10all1"
+						class="EXLSelectOption">
+							Signatur</option>
+				</select>
+		<!-- select.tag end --></span>
+        			<span class="EXLAdvancedSearchFormRowInlineInput">
+					<label class="EXLHide" for="exlidInput_precisionOperator_1">
+										Show Results with:
+										</label>
+										<!-- select.tag begin -->
+<!-- taglibsIncludeAll.jspf begin -->
+<!-- taglibsIncludeAll.jspf end --><select class="EXLSelectTag fixed" id="exlidInput_precisionOperator_1" 
+				onchange="showSelected(this, '1' ); return false;"
+			
+		  name="vl(1UIStartWith0)" >
+
+
+			<option value="contains"
+					selected="selected"class="EXLSelectedOption">
+						enthält</option>
+				<option value="exact"
+					class="EXLSelectOption">
+						ist exakt</option>
+				<option value="begins_with"
+					class="EXLSelectOption">
+						beginnt mit</option>
+				</select>
+		 <!-- select.tag end --></span>
+        			<span class="EXLAdvancedSearchFormRowInlineInput">
+					<label class="EXLHide" for="input_freeText0">
+											Input search text:
+										</label>
+										<input type="text" id="input_freeText0" name="vl(freeText0)" value="test"/>
+									</span>
+        			</fieldset>
+			</div>
+			<div class="EXLAdvancedSearchFormRow">
+            <fieldset id="exlidAdvancedSearchFieldset1">
+				<legend class="EXLHiddenCue">Primo Advanced Search Query Term</legend>
+					<span class="EXLAdvancedSearchFormRowInlineInput">
+					<label class="EXLHide" for="exlidInput_scope_2">
+										Show Results with:
+										</label>
+										<!-- select.tag begin -->
+<!-- taglibsIncludeAll.jspf begin -->
+<!-- taglibsIncludeAll.jspf end --><select class="EXLSelectTag fixed" id="exlidInput_scope_2" name="vl(154559625UI1)"   >
+			<option value="any"  id="scope_any2"
+						class="EXLSelectOption">
+							Alle Felder</option>
+				<option value="title"  id="scope_title2"
+						selected="selected"class="EXLSelectedOption">
+							Titel</option>
+				<option value="creator"  id="scope_creator2"
+						class="EXLSelectOption">
+							Person/Organisation</option>
+				<option value="sub"  id="scope_sub2"
+						class="EXLSelectOption">
+							Schlagwort</option>
+				<option value="isbn"  id="scope_isbn2"
+						class="EXLSelectOption">
+							ISBN</option>
+				<option value="issn"  id="scope_issn2"
+						class="EXLSelectOption">
+							ISSN</option>
+				<option value="cdate"  id="scope_cdate2"
+						class="EXLSelectOption">
+							Erscheinungsjahr</option>
+				<option value="lsr16"  id="scope_lsr162"
+						class="EXLSelectOption">
+							Lok. Notation Jura</option>
+				<option value="lsr17"  id="scope_lsr172"
+						class="EXLSelectOption">
+							SW MeSH/CAB</option>
+				<option value="lsr18"  id="scope_lsr182"
+						class="EXLSelectOption">
+							DDC</option>
+				<option value="lsr19"  id="scope_lsr192"
+						class="EXLSelectOption">
+							RVK</option>
+				<option value="lsr21"  id="scope_lsr212"
+						class="EXLSelectOption">
+							Originalschrift: Alle Felder</option>
+				</select>
+
+
+			<label class="EXLHide" for="exlidInput_scope_title2">Show Results with:</label>
+				  	<select class="EXLSelectTag fixed" id="exlidInput_scope_title2" name="vl(154559625UI1)"  style="display:none" >
+					<option  value="title"  id="scope_titleOnly2" selected="selected"
+
+						class="EXLSelectedOption">
+						Titel</option>
+					</select>
+				<label class="EXLHide" for="exlidInput_scope_all2">Show Results with:</label>
+		<select class="EXLSelectTag fixed" id="exlidInput_scope_all2" name="vl(154559625UI1)" style="display:none">
+			<option  style="display:block"  value="any"  id="scope_anyall2"
+						class="EXLSelectOption">
+							Alle Felder</option>
+				<option  style="display:block"  value="title"  id="scope_titleall2"
+						selected="selected"class="EXLSelectedOption">
+							Titel</option>
+				<option  style="display:block"  value="creator"  id="scope_creatorall2"
+						class="EXLSelectOption">
+							Person/Organisation</option>
+				<option  style="display:block"  value="sub"  id="scope_suball2"
+						class="EXLSelectOption">
+							Schlagwort</option>
+				<option  style="display:block"  value="isbn"  id="scope_isbnall2"
+						class="EXLSelectOption">
+							ISBN</option>
+				<option  style="display:block"  value="issn"  id="scope_issnall2"
+						class="EXLSelectOption">
+							ISSN</option>
+				<option  style="display:block"  value="cdate"  id="scope_cdateall2"
+						class="EXLSelectOption">
+							Erscheinungsjahr</option>
+				<option  style="display:block"  value="lsr16"  id="scope_lsr16all2"
+						class="EXLSelectOption">
+							Lok. Notation Jura</option>
+				<option  style="display:block"  value="lsr17"  id="scope_lsr17all2"
+						class="EXLSelectOption">
+							SW MeSH/CAB</option>
+				<option  style="display:block"  value="lsr18"  id="scope_lsr18all2"
+						class="EXLSelectOption">
+							DDC</option>
+				<option  style="display:block"  value="lsr19"  id="scope_lsr19all2"
+						class="EXLSelectOption">
+							RVK</option>
+				<option  style="display:block"  value="lsr21"  id="scope_lsr21all2"
+						class="EXLSelectOption">
+							Originalschrift: Alle Felder</option>
+				</select>
+		<input type="hidden" id="title2" name="title2" value="2" />
+					<!-- select.tag end --></span>
+        			<span class="EXLAdvancedSearchFormRowInlineInput">
+					<label class="EXLHide" for="exlidInput_precisionOperator_2">
+										Show Results with:
+										</label>
+										<!-- select.tag begin -->
+<!-- taglibsIncludeAll.jspf begin -->
+<!-- taglibsIncludeAll.jspf end --><select class="EXLSelectTag fixed" id="exlidInput_precisionOperator_2" 
+				onchange="showSelected(this, '2' ); return false;"
+			
+		  name="vl(1UIStartWith1)" >
+
+
+			<option value="contains"
+					selected="selected"class="EXLSelectedOption">
+						enthält</option>
+				<option value="exact"
+					class="EXLSelectOption">
+						ist exakt</option>
+				<option value="begins_with"
+					class="EXLSelectOption">
+						beginnt mit</option>
+				</select>
+		 <!-- select.tag end --></span>
+        			<span class="EXLAdvancedSearchFormRowInlineInput">
+					<label class="EXLHide" for="input_freeText1">
+											Input search text:
+										</label>
+										<input type="text" id="input_freeText1" name="vl(freeText1)" value=""/>
+									</span>
+        			</fieldset>
+			</div>
+			<div class="EXLAdvancedSearchFormRow">
+            <fieldset id="exlidAdvancedSearchFieldset2">
+				<legend class="EXLHiddenCue">Primo Advanced Search Query Term</legend>
+					<span class="EXLAdvancedSearchFormRowInlineInput">
+					<label class="EXLHide" for="exlidInput_scope_3">
+										Show Results with:
+										</label>
+										<!-- select.tag begin -->
+<!-- taglibsIncludeAll.jspf begin -->
+<!-- taglibsIncludeAll.jspf end --><select class="EXLSelectTag fixed" id="exlidInput_scope_3" name="vl(154559644UI2)"   >
+			<option value="any"  id="scope_any3"
+						class="EXLSelectOption">
+							Alle Felder</option>
+				<option value="title"  id="scope_title3"
+						class="EXLSelectOption">
+							Titel</option>
+				<option value="creator"  id="scope_creator3"
+						selected="selected"class="EXLSelectedOption">
+							Person/Organisation</option>
+				<option value="sub"  id="scope_sub3"
+						class="EXLSelectOption">
+							Schlagwort</option>
+				<option value="issn"  id="scope_issn3"
+						class="EXLSelectOption">
+							ISSN</option>
+				<option value="isbn"  id="scope_isbn3"
+						class="EXLSelectOption">
+							ISBN</option>
+				<option value="cdate"  id="scope_cdate3"
+						class="EXLSelectOption">
+							Erscheinungsjahr</option>
+				<option value="lsr16"  id="scope_lsr163"
+						class="EXLSelectOption">
+							Lok. Notation Jura</option>
+				<option value="lsr17"  id="scope_lsr173"
+						class="EXLSelectOption">
+							SW MeSH/CAB</option>
+				<option value="lsr18"  id="scope_lsr183"
+						class="EXLSelectOption">
+							DDC</option>
+				<option value="lsr19"  id="scope_lsr193"
+						class="EXLSelectOption">
+							RVK</option>
+				<option value="lsr21"  id="scope_lsr213"
+						class="EXLSelectOption">
+							Originalschrift: Alle Felder</option>
+				</select>
+
+
+			<label class="EXLHide" for="exlidInput_scope_title3">Show Results with:</label>
+				  	<select class="EXLSelectTag fixed" id="exlidInput_scope_title3" name="vl(154559644UI2)"  style="display:none" >
+					<option  value="title"  id="scope_titleOnly3" selected="selected"
+
+						class="EXLSelectOption">
+						Titel</option>
+					</select>
+				<label class="EXLHide" for="exlidInput_scope_all3">Show Results with:</label>
+		<select class="EXLSelectTag fixed" id="exlidInput_scope_all3" name="vl(154559644UI2)" style="display:none">
+			<option  style="display:block"  value="any"  id="scope_anyall3"
+						class="EXLSelectOption">
+							Alle Felder</option>
+				<option  style="display:block"  value="title"  id="scope_titleall3"
+						class="EXLSelectOption">
+							Titel</option>
+				<option  style="display:block"  value="creator"  id="scope_creatorall3"
+						selected="selected"class="EXLSelectedOption">
+							Person/Organisation</option>
+				<option  style="display:block"  value="sub"  id="scope_suball3"
+						class="EXLSelectOption">
+							Schlagwort</option>
+				<option  style="display:block"  value="issn"  id="scope_issnall3"
+						class="EXLSelectOption">
+							ISSN</option>
+				<option  style="display:block"  value="isbn"  id="scope_isbnall3"
+						class="EXLSelectOption">
+							ISBN</option>
+				<option  style="display:block"  value="cdate"  id="scope_cdateall3"
+						class="EXLSelectOption">
+							Erscheinungsjahr</option>
+				<option  style="display:block"  value="lsr16"  id="scope_lsr16all3"
+						class="EXLSelectOption">
+							Lok. Notation Jura</option>
+				<option  style="display:block"  value="lsr17"  id="scope_lsr17all3"
+						class="EXLSelectOption">
+							SW MeSH/CAB</option>
+				<option  style="display:block"  value="lsr18"  id="scope_lsr18all3"
+						class="EXLSelectOption">
+							DDC</option>
+				<option  style="display:block"  value="lsr19"  id="scope_lsr19all3"
+						class="EXLSelectOption">
+							RVK</option>
+				<option  style="display:block"  value="lsr21"  id="scope_lsr21all3"
+						class="EXLSelectOption">
+							Originalschrift: Alle Felder</option>
+				</select>
+		<!-- select.tag end --></span>
+        			<span class="EXLAdvancedSearchFormRowInlineInput">
+					<label class="EXLHide" for="exlidInput_precisionOperator_3">
+										Show Results with:
+										</label>
+										<!-- select.tag begin -->
+<!-- taglibsIncludeAll.jspf begin -->
+<!-- taglibsIncludeAll.jspf end --><select class="EXLSelectTag fixed" id="exlidInput_precisionOperator_3" 
+				onchange="showSelected(this, '3' ); return false;"
+			
+		  name="vl(1UIStartWith2)" >
+
+
+			<option value="contains"
+					selected="selected"class="EXLSelectedOption">
+						enthält</option>
+				<option value="exact"
+					class="EXLSelectOption">
+						ist exakt</option>
+				<option value="begins_with"
+					class="EXLSelectOption">
+						beginnt mit</option>
+				</select>
+		 <!-- select.tag end --></span>
+        			<span class="EXLAdvancedSearchFormRowInlineInput">
+					<label class="EXLHide" for="input_freeText2">
+											Input search text:
+										</label>
+										<input type="text" id="input_freeText2" name="vl(freeText2)" value=""/>
+									</span>
+        			</fieldset>
+			</div>
+			<div class="EXLAdvancedSearchFormRow">
+            <fieldset id="exlidAdvancedSearchFieldset3">
+				<legend class="EXLHiddenCue">Primo Advanced Search Query Term</legend>
+					<span class="EXLAdvancedSearchFormRowInlineInput">
+					</span>
+        			</fieldset>
+			</div>
+			<div class="EXLAdvancedSearchFormRow">
+            <fieldset id="exlidAdvancedSearchFieldset4">
+				<legend class="EXLHiddenCue">Primo Advanced Search Query Term</legend>
+					<span class="EXLAdvancedSearchFormRowInlineInput">
+					</span>
+        			</fieldset>
+			</div>
+			<div class="EXLAdvancedSearchFormRow">
+            <fieldset id="exlidAdvancedSearchFieldset5">
+				<legend class="EXLHiddenCue">Primo Advanced Search Query Term</legend>
+					<span class="EXLAdvancedSearchFormRowInlineInput">
+					</span>
+        			</fieldset>
+			</div>
+			<!--prefilters row-->
+
+			<div class="EXLAdvancedSearchFormRow EXLAdvancedSearchFormRowPrefilters">
+			<fieldset id="exlidAdvancedSearchFieldsetPreFilters">
+			<legend class="EXLHiddenCue">Primo Advanced Search prefilters</legend>
+			<span class="EXLAdvancedSearchFormRowInlineInput">
+				</span>
+			</fieldset>
+			</div>
+
+		</div>
+
+		<!-- start right column -->
+		<div class="EXLSearchFieldRibbonFormFieldsGroup2">
+			<div class="EXLAdvancedSearchFormRow">
+									<span class="EXLAdvancedSearchFormRowInlineInput">
+										<label for="exlidInput_publicationDate_">Erscheinungsjahr:</label>
+											<!-- select.tag begin -->
+<!-- taglibsIncludeAll.jspf begin -->
+<!-- taglibsIncludeAll.jspf end --><select class="EXLSelectTag fixed" id="exlidInput_publicationDate_" 
+		  name="vl(319866314UI3)" >
+
+
+			<option  style="display:block"  value="all_items"  id="publicationDate_all_items"
+						selected="selected"class="EXLSelectedOption">
+							irgendein Jahr</option>
+				<option  style="display:block"  value="1-YEAR"  id="publicationDate_1-YEAR"
+						class="EXLSelectOption">
+							laufendes und letztes Jahr</option>
+				<option  style="display:block"  value="2-YEAR"  id="publicationDate_2-YEAR"
+						class="EXLSelectOption">
+							in den letzten 2 Jahren</option>
+				<option  style="display:block"  value="5-YEAR"  id="publicationDate_5-YEAR"
+						class="EXLSelectOption">
+							in den letzten 5 Jahren</option>
+				<option  style="display:block"  value="10-YEAR"  id="publicationDate_10-YEAR"
+						class="EXLSelectOption">
+							in den letzten 10 Jahren</option>
+				<option  style="display:block"  value="20-YEAR"  id="publicationDate_20-YEAR"
+						class="EXLSelectOption">
+							in den letzten 20 Jahren</option>
+				</select>
+		 <!-- select.tag end --></span>
+								</div>
+							<div class="EXLAdvancedSearchFormRow">
+									<span class="EXLAdvancedSearchFormRowInlineInput">
+										<label for="exlidInput_mediaType_">Materialart:</label>
+											<!-- select.tag begin -->
+<!-- taglibsIncludeAll.jspf begin -->
+<!-- taglibsIncludeAll.jspf end --><select class="EXLSelectTag fixed" id="exlidInput_mediaType_" 
+		  name="vl(555753523UI4)" >
+
+
+			<option  style="display:block"  value="all_items"  id="mediaType_all_items"
+						class="EXLSelectedOption">
+							Alle</option>
+				<option  style="display:block"  value="books"  id="mediaType_books"
+						class="EXLSelectOption">
+							B&uuml;cher</option>
+				<option  style="display:block"  value="articles"  id="mediaType_articles"
+						class="EXLSelectOption">
+							Aufs&auml;tze</option>
+				<option  style="display:block"  value="journals"  id="mediaType_journals"
+						class="EXLSelectOption">
+							Zeitschriften</option>
+				<option  style="display:block"  value="audio_video"  id="mediaType_audio_video"
+						class="EXLSelectOption">
+							AV-Medien</option>
+				<option  style="display:block"  value="all_items"  id="mediaType_all_items"
+						class="EXLSelectedOption">
+							Alle</option>
+				<option  style="display:block"  value="all_items"  id="mediaType_all_items"
+						class="EXLSelectedOption">
+							Alle</option>
+				<option  style="display:block"  value="all_items"  id="mediaType_all_items"
+						class="EXLSelectedOption">
+							Alle</option>
+				<option  style="display:block"  value="all_items"  id="mediaType_all_items"
+						class="EXLSelectedOption">
+							Alle</option>
+				<option  style="display:block"  value="all_items"  id="mediaType_all_items"
+						class="EXLSelectedOption">
+							Alle</option>
+				<option  style="display:block"  value="all_items"  id="mediaType_all_items"
+						class="EXLSelectedOption">
+							Alle</option>
+				<option  style="display:block"  value="all_items"  id="mediaType_all_items"
+						class="EXLSelectedOption">
+							Alle</option>
+				<option  style="display:block"  value="all_items"  id="mediaType_all_items"
+						class="EXLSelectedOption">
+							Alle</option>
+				<option  style="display:block"  value="all_items"  id="mediaType_all_items"
+						class="EXLSelectedOption">
+							Alle</option>
+				<option  style="display:block"  value="all_items"  id="mediaType_all_items"
+						class="EXLSelectedOption">
+							Alle</option>
+				<option  style="display:block"  value="all_items"  id="mediaType_all_items"
+						class="EXLSelectedOption">
+							Alle</option>
+				<option  style="display:block"  value="all_items"  id="mediaType_all_items"
+						class="EXLSelectedOption">
+							Alle</option>
+				<option  style="display:block"  value="all_items"  id="mediaType_all_items"
+						class="EXLSelectedOption">
+							Alle</option>
+				<option  style="display:block"  value="all_items"  id="mediaType_all_items"
+						class="EXLSelectedOption">
+							Alle</option>
+				<option  style="display:block"  value="all_items"  id="mediaType_all_items"
+						class="EXLSelectedOption">
+							Alle</option>
+				<option  style="display:block"  value="all_items"  id="mediaType_all_items"
+						class="EXLSelectedOption">
+							Alle</option>
+				</select>
+		 <!-- select.tag end --></span>
+								</div>
+							<div class="EXLAdvancedSearchFormRow">
+									<span class="EXLAdvancedSearchFormRowInlineInput">
+										<label for="exlidInput_language_">Sprache:</label>
+											<!-- select.tag begin -->
+<!-- taglibsIncludeAll.jspf begin -->
+<!-- taglibsIncludeAll.jspf end --><select class="EXLSelectTag fixed" id="exlidInput_language_" 
+		  name="vl(554954771UI5)" >
+
+
+			<option  style="display:block"  value="all_items"  id="language_all_items"
+						selected="selected"class="EXLSelectedOption">
+							Alle Sprachen</option>
+				<option  style="display:block"  value="eng"  id="language_eng"
+						class="EXLSelectOption">
+							Englisch</option>
+				<option  style="display:block"  value="fre"  id="language_fre"
+						class="EXLSelectOption">
+							Französisch</option>
+				<option  style="display:block"  value="ger"  id="language_ger"
+						class="EXLSelectOption">
+							Deutsch</option>
+				</select>
+		 <!-- select.tag end --></span>
+								</div>
+							<!-- static closing parts of right column -->
+<div id="scopesListAdvancedSearch">
+                <!-- taglibsIncludeAll.jspf begin -->
+<!-- taglibsIncludeAll.jspf end --><div id="scopesListAdvanced" class="EXLAdvancedSearchFormRow">
+
+              <span class="EXLAdvancedSearchFormRowInlineInput">
+				<label for="exlidSearchIn">
+				Suchbereich:</label>
+				<select id="exlidSearchIn" class="EXLSearchInputScopesSelect" name="scp.scps" >
+					<option id="FUB_Blended_2" value="scope:(FUB),scope:(FUB_IMG_M),scope:(FUB_IMG_T),scope:(FUB_ML_KB),scope:(BGBM),scope:(MAN_NL_ALL),scope:(&#034;CHAR&#034;),scope:(FUB_IMG_P),scope:(FUB_IMG_W),scope:(FUB_SFX),primo_central_multiple_fe" class="EXLSelectedOption EXLSearchInputScopesOptionFUB_Blended_2" selected="selected">FU Katalog + Primo</option>
+                         <option id="FUB" value="scope:(FUB),scope:(FUB_IMG_M),scope:(FUB_IMG_T),scope:(FUB_ML_KB),scope:(BGBM),scope:(MFN),scope:(MAN_NL_ALL),scope:(&#034;CHAR&#034;),scope:(FUB_IMG_P),scope:(FUB_IMG_W),scope:(FUB_SFX)" class="EXLSelectOption EXLSearchInputScopesOptionFUB" >FU Katalog</option>
+                         <option id="Primo_Central" value="primo_central_multiple_fe" class="EXLSelectOption EXLSearchInputScopesOptionPrimo_Central" >Primo Central</option>
+                         <option id="FUB_EDOC" value="scope:(FUB_EDOC)" class="EXLSelectOption EXLSearchInputScopesOptionFUB_EDOC" >FUB Dokumentenserver</option>
+                         </select>
+                </span>
+              <div class="EXLAdvancedSearchFormRow">
+				<!-- userText.tag begin -->
+<!-- userText.tag end --></div>
+            </div>
+		</div>
+</div>
+</div><!-- end right column -->
+
+
+
+<div class="EXLSearchFieldRibbonFormSubmitSearch">
+            <input id="goButton" name="Submit" type="submit" value='Suche' class="submit"/>
+        </div>
+ 			<div class="EXLSearchFieldRibbonFormLinks">
+         <a href="search.do?mode=Basic&amp;ct=BasicSearch&amp;dscnt=0&amp;indx=1&amp;searchButton.y=0&amp;searchButton.x=0&amp;dstmp=1394281628539&amp;vl(freeText0)=test&amp;fn=search&amp;vid=FUB&amp;ct=AdvancedSearch" title="Zurück zur einfachen Suche">Einfache Suche</a>
+       </div>
+        </fieldset>
+</div>
+</div>
+</form><!-- l_search_input.jsp end -->
+<!-- end ../views/search/l_search_input.jsp -->
+		</div>
+<!-- dynamic_recursion.jsp end -->
+<!-- dynamic_recursion.jsp begin -->
+<!-- taglibsIncludeAll.jspf begin -->
+<!-- taglibsIncludeAll.jspf end --><div id="exlidHeaderSystemFeedback" class="EXLCustomLayoutTile EXLSystemFeedback">
+<!-- begin ../tiles/systemFeedbackTile.jsp -->
+			<!-- systemFeedbackTile.jsp begin -->
+<!-- taglibsIncludeAll.jspf begin -->
+<!-- taglibsIncludeAll.jspf end --><div id="exlidHeaderSystemFeedback" class="EXLSystemFeedback">
+		<strong> Ein unerwarteter Fehler ist aufgetreten.</strong>
+	</div>
+<!-- systemFeedbackTile.jsp end -->
+<!-- end ../tiles/systemFeedbackTile.jsp -->
+		</div>
+<!-- dynamic_recursion.jsp end -->
+</div>
+<!-- dynamic_recursion.jsp end -->
+<!-- dynamic_recursion.jsp begin -->
+<!-- taglibsIncludeAll.jspf begin -->
+<!-- taglibsIncludeAll.jspf end --><div id="exlidResultsContainer" class="EXLCustomLayoutContainer EXLResultsContainer">
+<!-- dynamic_recursion.jsp begin -->
+<!-- taglibsIncludeAll.jspf begin -->
+<!-- taglibsIncludeAll.jspf end --><div id="resultsTileNoId" class="EXLCustomLayoutContainer EXLResultsTile">
+<!-- dynamic_recursion.jsp begin -->
+<!-- taglibsIncludeAll.jspf begin -->
+<!-- taglibsIncludeAll.jspf end --><div id="resultsHeaderNoId" class="EXLCustomLayoutContainer EXLResultsHeader">
+<!-- dynamic_recursion.jsp begin -->
+<!-- taglibsIncludeAll.jspf begin -->
+<!-- taglibsIncludeAll.jspf end --><div id="resultsNumbersTile" class="EXLCustomLayoutTile EXLResultsNumbers">
+<!-- begin ../tiles/resultsHeaderNumbers.jsp -->
+			<!-- taglibsIncludeAll.jspf begin -->
+<!-- taglibsIncludeAll.jspf end --><div class="EXLResultsSortBy">
+		<span class="EXLResultsSortByLabel">sortiert nach:</span>
+		<span class="EXLResultsSortBySelected">
+			<a href="#" title="Sortieroptionen">
+				Relevanz</a>
+		</span>
+		<input type="hidden" name="searchForm.frbrSrt" value=""/>
+		<div class="EXLResultsSortByMenu">
+	        <ul class="EXLResultsSortByMenuShow EXLResultsSortByMenuHide"><!--remove EXLResultsSortByMenuHide to show menu items-->
+				<li class="EXLSortByLink EXLSortByLinkSelected">
+								Relevanz</li>
+						<li class="EXLSortByLink ">
+								<a href="search.do?srt=date&amp;srtChange=true&amp;dscnt=0&amp;indx=1&amp;searchButton.y=0&amp;searchButton.x=0&amp;dstmp=1394281628307&amp;vl(freeText0)=test&amp;fn=search&amp;vid=FUB&amp;ct=AdvancedSearch&amp;mode=Advanced" title="">
+							  				Jahr</a>
+						  			</li>
+						<li class="EXLSortByLink ">
+								<a href="search.do?srt=author&amp;srtChange=true&amp;dscnt=0&amp;indx=1&amp;searchButton.y=0&amp;searchButton.x=0&amp;dstmp=1394281628307&amp;vl(freeText0)=test&amp;fn=search&amp;vid=FUB&amp;ct=AdvancedSearch&amp;mode=Advanced" title="">
+							  				Person/Organisation</a>
+						  			</li>
+						<li class="EXLSortByLink ">
+								<a href="search.do?srt=title&amp;srtChange=true&amp;dscnt=0&amp;indx=1&amp;searchButton.y=0&amp;searchButton.x=0&amp;dstmp=1394281628307&amp;vl(freeText0)=test&amp;fn=search&amp;vid=FUB&amp;ct=AdvancedSearch&amp;mode=Advanced" title="">
+							  				Titel</a>
+						  			</li>
+						<li class="EXLSortByLink ">
+								<a href="search.do?srt=lso01&amp;srtChange=true&amp;dscnt=0&amp;indx=1&amp;searchButton.y=0&amp;searchButton.x=0&amp;dstmp=1394281628307&amp;vl(freeText0)=test&amp;fn=search&amp;vid=FUB&amp;ct=AdvancedSearch&amp;mode=Advanced" title="">
+							  				Mehrbändig</a>
+						  			</li>
+						<li class="EXLSortByLink ">
+								<a href="search.do?srt=lso02&amp;srtChange=true&amp;dscnt=0&amp;indx=1&amp;searchButton.y=0&amp;searchButton.x=0&amp;dstmp=1394281628307&amp;vl(freeText0)=test&amp;fn=search&amp;vid=FUB&amp;ct=AdvancedSearch&amp;mode=Advanced" title="">
+							  				Serien</a>
+						  			</li>
+						</ul>
+		</div>
+	</div>
+	<!-- end ../tiles/resultsHeaderNumbers.jsp -->
+		</div>
+<!-- dynamic_recursion.jsp end -->
+<!-- dynamic_recursion.jsp begin -->
+<!-- taglibsIncludeAll.jspf begin -->
+<!-- taglibsIncludeAll.jspf end --><div id="resultsNavNoId" class="EXLCustomLayoutTile EXLResultsNavigation">
+<!-- begin ../tiles/resultsHeaderNavigation.jsp -->
+			<!-- taglibsIncludeAll.jspf begin -->
+<!-- taglibsIncludeAll.jspf end --><!-- end ../tiles/resultsHeaderNavigation.jsp -->
+		</div>
+<!-- dynamic_recursion.jsp end -->
+</div>
+<!-- dynamic_recursion.jsp end -->
+<!-- dynamic_recursion.jsp begin -->
+<!-- taglibsIncludeAll.jspf begin -->
+<!-- taglibsIncludeAll.jspf end --><div id="refinementsNoId" class="EXLCustomLayoutTile ">
+<!-- begin ../tiles/resultsHeaderRefinements.jsp -->
+			<!-- taglibsIncludeAll.jspf begin -->
+<!-- taglibsIncludeAll.jspf end --><script type="text/javascript">
+// <![CDATA[
+		var imgLoadState = []; //for storing state of each row of results.
+		function thumbnailPop(row,img){
+			if (imgLoadState[row]!=1){ //if no image successfully loaded yet _in this row_, pop the image to the top.
+				imgLoadState[row] = 1;
+				var p = img.parentNode;
+				p.className = "popThumbnailToTop "+p.className;
+			}
+
+		}
+		function thumbnailHide(img){
+			var p = img.parentNode;
+			p.style.display = 'none';
+		}
+
+		var thumbnailQueries = [];
+		function addThumbnailQueryUrl(url){
+			thumbnailQueries[thumbnailQueries.length] = url;
+		}
+
+		function runThumbnailQueries(){
+			for (i = 0; i<thumbnailQueries.length;i++){
+			    var scriptElement = document.createElement("script");
+			    var url = thumbnailQueries[i];
+				l('thumbnail query: '+url);
+   				scriptElement.setAttribute("src",url);
+			    scriptElement.setAttribute("type", "text/javascript");
+   				// make the request to Google Book Search
+			    document.documentElement.firstChild.appendChild(scriptElement);
+			}
+		}
+
+		function getGBSCover(covers){
+			for (i in covers) {
+				var cover = covers[i];
+				if (cover){
+					return cover.thumbnail_url;
+				}
+			}
+			return undefined;
+		}
+
+		function displayDiv(divName){
+			elem = document.getElementById(divName);
+			if (elem.style.display=="block"){
+				elem.style.display="none"
+			}else{
+				elem.style.display="block"
+			}
+			return false;
+		}
+// ]]>
+</script><script type="text/javascript">
+	addLoadEvent(runThumbnailQueries);
+</script>
+<!-- end ../tiles/resultsHeaderRefinements.jsp -->
+		</div>
+<!-- dynamic_recursion.jsp end -->
+<!-- dynamic_recursion.jsp begin -->
+<!-- taglibsIncludeAll.jspf begin -->
+<!-- taglibsIncludeAll.jspf end --><div id="resultsListNoId" class="EXLCustomLayoutTile EXLResultsList">
+<!-- begin ../tiles/resultsTile.jsp -->
+			<!-- taglibsIncludeAll.jspf begin -->
+<!-- taglibsIncludeAll.jspf end --><script type="text/javascript" src="../javascript/primo_boomerang.js"></script>
+<table cellspacing="0" class="EXLResultsTable" id="exlidResultsTable" summary="description place holder">
+        <!--hidden table headers-->
+        <tr class="EXLHiddenCue">
+          <th class="EXLResultNumber">Result Number</th>
+          <th class="EXLThumbnail">Material Type</th>
+          <th class="EXLMyShelfStar">Add to My Shelf Action</th>
+          <th class="EXLSummary">Record Details and Options</th>
+        </tr>
+
+</table>
+
+
+<input type="hidden" id="gatherpagestat" value="true"/>
+
+<!-- For Alma Services Page -->
+<input type="hidden" class="EXLTabBoomId" id="searchStat" 
+		value="A=Primo_Local&I=FUB&S=A188A134A9CE189118D1D66CC1DC4045&IP=130.73.102.105&SRVR=vs36.kobv.de&P=search&OP=advancedSearch&M=&TYP=Page_View_4.3.0.130326&G=&O=%26%26%26%26FUB%26FU Berlin%26&O1=&O2=&O3=&O4=&O5=PRD.49FUB.FUB&O6=&O7=0&O8=&O9=&" />
+<input type="hidden" id="boombaseurl" value="http://beacon01.hosted.exlibrisgroup.com/boom/apache_pb.gif" />
+
+<script type="text/javascript">
+//<![CDATA[
+var exlPrefetchConfiguration = {
+	enabled : 'false',
+	bulkSize :'2',
+	repeat : 'true',
+	current : 0,
+	timeout: '20'
+}
+
+$('.EXLBriefResultsDisplayCoverImage img').error(function(){
+	thumbnailHide(this);
+}).load(function(){
+	var resultNumber = $(this).parents('.EXLResult').children('.EXLResultNumber');
+	thumbnailPop(resultNumber.text(),this);
+});
+
+<!-- PRM-17057 Call to PC and get data for the conditional tab  -->
+addLoadEvent(checkConditional);
+
+
+// ]]>
+</script>
+
+<!-- userText.tag begin -->
+<!-- userText.tag end --><input type="hidden" id="gatherpagestat" value="true"/>
+
+<!-- For Alma Services Page -->
+<input type="hidden" class="EXLTabBoomId" id="browseResultStat" 
+		value="A=Primo_Local&I=FUB&S=A188A134A9CE189118D1D66CC1DC4045&IP=130.73.102.105&SRVR=vs36.kobv.de&P=search&OP=browseRelated&M=&TYP=Page_View_4.3.0.130326&G=&O=%26%26%26%26FUB%26FU Berlin%26&O1=&O2=&O3=&O4=&O5=PRD.49FUB.FUB&O6=&O7=0&O8=&O9=&" />
+<input type="hidden" id="boombaseurl" value="http://beacon01.hosted.exlibrisgroup.com/boom/apache_pb.gif" />
+
+<!-- end ../tiles/resultsTile.jsp -->
+		</div>
+<!-- dynamic_recursion.jsp end -->
+<!-- dynamic_recursion.jsp begin -->
+<!-- taglibsIncludeAll.jspf begin -->
+<!-- taglibsIncludeAll.jspf end --><div id="resultsFooterNoId" class="EXLCustomLayoutContainer EXLResultsHeader EXLResultsFooter">
+<!-- dynamic_recursion.jsp begin -->
+<!-- taglibsIncludeAll.jspf begin -->
+<!-- taglibsIncludeAll.jspf end --><div id="resultsNumbersTileBottom" class="EXLCustomLayoutTile EXLResultsNumbers">
+<!-- begin ../tiles/resultsFooterNumbers.jsp -->
+			<!-- taglibsIncludeAll.jspf begin -->
+<!-- taglibsIncludeAll.jspf end --><!-- taglibsIncludeAll.jspf begin -->
+<!-- taglibsIncludeAll.jspf end --><div class="EXLResultsSortBy">
+		<span class="EXLResultsSortByLabel">sortiert nach:</span>
+		<span class="EXLResultsSortBySelected">
+			<a href="#" title="Sortieroptionen">
+				Relevanz</a>
+		</span>
+		<input type="hidden" name="searchForm.frbrSrt" value=""/>
+		<div class="EXLResultsSortByMenu">
+	        <ul class="EXLResultsSortByMenuShow EXLResultsSortByMenuHide"><!--remove EXLResultsSortByMenuHide to show menu items-->
+				<li class="EXLSortByLink EXLSortByLinkSelected">
+								Relevanz</li>
+						<li class="EXLSortByLink ">
+								<a href="search.do?srt=date&amp;srtChange=true&amp;dscnt=0&amp;indx=1&amp;searchButton.y=0&amp;searchButton.x=0&amp;dstmp=1394281628307&amp;vl(freeText0)=test&amp;fn=search&amp;vid=FUB&amp;ct=AdvancedSearch&amp;mode=Advanced" title="">
+							  				Jahr</a>
+						  			</li>
+						<li class="EXLSortByLink ">
+								<a href="search.do?srt=author&amp;srtChange=true&amp;dscnt=0&amp;indx=1&amp;searchButton.y=0&amp;searchButton.x=0&amp;dstmp=1394281628307&amp;vl(freeText0)=test&amp;fn=search&amp;vid=FUB&amp;ct=AdvancedSearch&amp;mode=Advanced" title="">
+							  				Person/Organisation</a>
+						  			</li>
+						<li class="EXLSortByLink ">
+								<a href="search.do?srt=title&amp;srtChange=true&amp;dscnt=0&amp;indx=1&amp;searchButton.y=0&amp;searchButton.x=0&amp;dstmp=1394281628307&amp;vl(freeText0)=test&amp;fn=search&amp;vid=FUB&amp;ct=AdvancedSearch&amp;mode=Advanced" title="">
+							  				Titel</a>
+						  			</li>
+						<li class="EXLSortByLink ">
+								<a href="search.do?srt=lso01&amp;srtChange=true&amp;dscnt=0&amp;indx=1&amp;searchButton.y=0&amp;searchButton.x=0&amp;dstmp=1394281628307&amp;vl(freeText0)=test&amp;fn=search&amp;vid=FUB&amp;ct=AdvancedSearch&amp;mode=Advanced" title="">
+							  				Mehrbändig</a>
+						  			</li>
+						<li class="EXLSortByLink ">
+								<a href="search.do?srt=lso02&amp;srtChange=true&amp;dscnt=0&amp;indx=1&amp;searchButton.y=0&amp;searchButton.x=0&amp;dstmp=1394281628307&amp;vl(freeText0)=test&amp;fn=search&amp;vid=FUB&amp;ct=AdvancedSearch&amp;mode=Advanced" title="">
+							  				Serien</a>
+						  			</li>
+						</ul>
+		</div>
+	</div>
+	<!-- end ../tiles/resultsFooterNumbers.jsp -->
+		</div>
+<!-- dynamic_recursion.jsp end -->
+<!-- dynamic_recursion.jsp begin -->
+<!-- taglibsIncludeAll.jspf begin -->
+<!-- taglibsIncludeAll.jspf end --><div id="resultsNavNoIdBottom" class="EXLCustomLayoutTile EXLResultsNavigation">
+<!-- begin ../tiles/resultsHeaderNavigation.jsp -->
+			<!-- taglibsIncludeAll.jspf begin -->
+<!-- taglibsIncludeAll.jspf end --><!-- end ../tiles/resultsHeaderNavigation.jsp -->
+		</div>
+<!-- dynamic_recursion.jsp end -->
+</div>
+<!-- dynamic_recursion.jsp end -->
+</div>
+<!-- dynamic_recursion.jsp end -->
+<!-- dynamic_recursion.jsp begin -->
+<!-- taglibsIncludeAll.jspf begin -->
+<!-- taglibsIncludeAll.jspf end --><div id="exlidFacetTile" class="EXLCustomLayoutTile EXLFacetTile">
+<!-- begin ../tiles/facetsTile.jsp -->
+			<!-- taglibsIncludeAll.jspf begin -->
+<!-- taglibsIncludeAll.jspf end --><!--RSS, Save Search and Add page to e-Shelf Links-->
+	<!--RSS, Save Search and Add page to e-Shelf Links-->
+
+<!--RSS, Save Search, Save to eShelf Links-->
+<div class="EXLFacetList">
+	<div class="EXLFacetContainer">
+		<div class="EXLFacetActionsV2">
+			<ul>
+				<li class="EXLFacetRSSAction">
+				<form method="post" name="rssForm" action="" >
+               				 <input type="hidden" name="sr" value="" />
+            				   <input type="hidden" name="ctx" value="" />
+           					   <input type="hidden" name="ver" value="" />
+         					   <a href="#" onClick="document.rssForm.submit();">rss </a>        
+         				</form>
+				</li>
+				<li class="EXLFacetSaveToEShelfAction EXLFacetSaveToEShelfActionOff">
+					<a onclick="reportAddPageToEshelfClick();" href="basket.do?fn=addPage" title="Zu den Favoriten hinzuf&uuml;gen">
+						Alle Treffer in Favoriten speichern</a>
+				</li>
+			</ul>
+		</div>
+	</div>
+</div>
+<h2 class="EXLFacetsTitle">Refine Search Results</h2>
+<div class="EXLFacetList EXLTopLevelFacetList">
+           <div class="EXLFacetContainer">
+               <h3>Meine Ergebnisse erweitern</h3>
+               <ol class="EXLFacetsList">
+				<li class="EXLFacet">
+					<input type="checkbox" name="pcAvailabiltyMode" value="on" onclick="location.replace('http://primo.kobv.de/primo_library/libweb/action/search.do?ct=facet&amp;pcAvailabiltyMode=true&amp;dscnt=0&amp;indx=1&amp;searchButton.y=0&amp;searchButton.x=0&amp;dstmp=1394281628307&amp;vl(freeText0)=test&amp;fn=search&amp;vid=FUB&amp;ct=AdvancedSearch&amp;mode=Advanced');" class="uncheckable" id="pcAvailabiltyMode" />
+								&nbsp;&nbsp;<label for="pcAvailabilityMode">Auch Treffer ohne Volltextzugriff anzeigen</label>
+				</li>
+		    </ol>
+           </div>
+       </div>
+  <a id="refine" name="refine"></a>
+<!-- suggestedSearchTile.jsp begin -->
+<!-- taglibsIncludeAll.jspf begin -->
+<!-- taglibsIncludeAll.jspf end --><!-- suggestedSearchTile.jsp end -->
+<!--end EXLFacetList-->
+<!-- end ../tiles/facetsTile.jsp -->
+		</div>
+<!-- dynamic_recursion.jsp end -->
+<!-- dynamic_recursion.jsp begin -->
+<!-- taglibsIncludeAll.jspf begin -->
+<!-- taglibsIncludeAll.jspf end --><div id="exlidIdeasBrief" class="EXLCustomLayoutTile EXLStaticHtmlIdeas">
+<!-- begin ../views/include/l_ideasbrief.jsp -->
+			<!-- l_ideasbrief.jsp begin -->
+<!-- taglibsIncludeAll.jspf begin -->
+<!-- taglibsIncludeAll.jspf end --><!-- jsp_mapping_retriever.jsp begin -->
+<!-- jsp_mapping_retriever.jsp end -->
+<!-- ideasbrief_tile.jsp begin -->
+<!-- taglibsIncludeAll.jspf begin -->
+<!-- taglibsIncludeAll.jspf end --><div>
+	<!-- includeStaticHTML.jspf begin (/static_htmls/fub/ideasbrief_de_DE.jsp) -->
+<!-- taglibsIncludeAll.jspf begin -->
+<!-- taglibsIncludeAll.jspf end --><!-- ()[test] --> 
+<!-- includeStaticHTML.jspf end (/static_htmls/fub/ideasbrief_de_DE.jsp) --></div>
+<!-- ideasbrief_tile.jsp end -->
+<!-- l_ideasbrief.jsp end -->
+<!-- end ../views/include/l_ideasbrief.jsp -->
+		</div>
+<!-- dynamic_recursion.jsp end -->
+</div>
+<!-- dynamic_recursion.jsp end -->
+<!-- dynamic_recursion.jsp begin -->
+<!-- taglibsIncludeAll.jspf begin -->
+<!-- taglibsIncludeAll.jspf end --><div id="footerEXL" class="EXLCustomLayoutTile EXLFooter EXLClearBoth EXLFooterTile">
+<!-- begin ../headings/footers/l_footer.jsp -->
+		<!-- l_footer.jsp begin -->
+<!-- taglibsIncludeAll.jspf begin -->
+<!-- taglibsIncludeAll.jspf end --><!-- jsp_mapping_retriever.jsp begin -->
+<!-- jsp_mapping_retriever.jsp end -->
+<!-- footer.jsp begin -->
+<!-- taglibsIncludeAll.jspf begin -->
+<!-- taglibsIncludeAll.jspf end --><!-- includeStaticHTML.jspf begin (/static_htmls/fub/footer_de_DE.html) -->
+<!-- taglibsIncludeAll.jspf begin -->
+<!-- taglibsIncludeAll.jspf end --><!--begin footer_de_DE-->
+&nbsp;&nbsp; <strong>Bibliotheksinformationen:</strong> <a target="_blank" href="http://www.ub.fu-berlin.de">Universit&auml;tsbibliothek</a> |
+<a target="_blank" href="http://www.ub.fu-berlin.de/fbb">Fachbibliotheken</a> | 
+<a target="_blank" href="http://www.ub.fu-berlin.de/fbb/sigel/">Bibliothekssigel</a>
+<br>
+<br>
+  <div class="EXLFooterLinksContainer">
+    <ul class="EXLFooterLinksList1">
+  </div>
+	<div id="baseContainerFooter">
+		<div class="extend_header">
+			<div class="shift_header">
+				<div class="left">
+					&nbsp;&nbsp; Universit&auml;tsbibliothek der Freien Universit&auml;t Berlin | <a href="mailto:primohilfe@ub.fu-berlin.de">Feedback/Fehlermeldung</a> | <a href="http://www.ub.fu-berlin.de/impressum/">Impressum</a> 
+				</div>
+
+				<div class="right">
+					<img title="Hosted by KOBV" src="../images/fub/hosted-by-kobv.gif">
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+
+<script type="text/javascript" src="../static_htmls/fub/js/deactivateUser.js"></script>
+
+
+
+<!--<script type="text/javascript" src="http://feedback.jhercher.de/widget/js.php"></script>-->
+
+<script> 
+//Suche-button ohne Text im IE7
+$('#goButton.submit').val('')
+
+</script>
+
+<!-- <script type="text/javascript" src="../static_htmls/fub/js/bestellwiwi.js"></script> -->
+<!--<script type="text/javascript" src="../static_htmls/fub/js/kaufvorschlag.js"></script>-->
+
+<script type="text/javascript" src="../static_htmls/fub/js/plugins/jquery.ba-replacetext.js"></script>
+<script type="text/javascript" src="../static_htmls/fub/js/libs/qtip/jquery.qtip-1.0.0-rc3.min.js"></script>
+<script type="text/javascript" src="../static_htmls/fub/js/FUBui.js"></script>
+<!-- <script type="text/javascript" src="../static_htmls/fub/js/digirequest.js"></script>> -->
+
+<!-- <script type="text/javascript" src="../static_htmls/fub/js/tooltips_eng.js"></script> -->
+<script type="text/javascript">
+//$('a[title]').qtip({ style: { name: 'cream', tip: true } })
+</script>
+
+<script type="text/javascript">
+           function stripEmptySnippets(){
+        $('p.EXLResultSnippet')
+    .filter(function() {
+        return $.trim($(this).text()) === '' && $(this).children().length == 0
+    })
+    .remove();
+}
+
+$(document).ready(function(){
+	setTimeout('stripEmptySnippets()',0); 
+});
+    
+    
+</script>
+<!--end footer-->
+
+<!-- includeStaticHTML.jspf end (/static_htmls/fub/footer_de_DE.html) --><!-- autoRefresh.jspf begin -->
+<!-- deferScript.tag begin -->
+<!-- deferScript.tag end --><div class="EXLFooterUpdateContainer">
+    <div class="EXLFooterAutoUpdate">
+      <form action="" method="post" name="update" id="update">
+		<input type="checkbox" id="allowRefresh_chkbx" checked="checked" onclick="updateAutoRefresh(this);"/>
+		<label for="allowRefresh_chkbx">Meine Ansicht automatisch aktualisieren<!-- Update my screen automatically --></label>
+
+		<input class="EXLHide" type="submit"/>
+      </form>
+    </div>
+  </div>
+
+<!-- autoRefresh.jspf end --><!-- footer.jsp end -->
+
+
+
+
+<!-- l_footer.jsp end -->
+<!-- end ../headings/footers/l_footer.jsp -->
+	</div>
+<!-- dynamic_recursion.jsp end -->
+</div>
+<!-- dynamic_recursion.jsp end -->
+<!-- pleaseWait.jsp begin -->
+<!-- taglibsIncludeAll.jspf begin -->
+<!-- taglibsIncludeAll.jspf end --><div id="exlidPleaseWaitContainer">
+  <div id="exlidPleaseWaitTile" class="EXLPleaseWait">
+    <div class="EXLPleaseWaitHeader">
+      <h1>Bitte warten, die Suche läuft!</h1>
+
+    </div>
+    <!--end EXLPleaseWaitHeader-->
+    <div class="EXLPleaseWaitList">
+      <ul>
+        <li class="EXLPleaseWaitListFirstItem"><span>Suche nach</span><strong id="exlidPleaseWaitSearchTerms"></strong></li>
+        <li><span>in</span><strong id="exlidPleaseWaitSearchScope">scope:(FUB),scope:(FUB_IMG_M),scope:(FUB_IMG_T),scope:(FUB_ML_KB),scope:(BGBM),scope:(MAN_NL_ALL),scope:("CHAR"),scope:(FUB_IMG_P),scope:(FUB_IMG_W),scope:(FUB_SFX),primo_central_multiple_fe</strong></li>
+        <li class="EXLPleaseWaitListLastItem"><span><a href="#" id="exlidPleaseWaitStopSearch" title="stop search and show me the result list">Bisherige Ergebnisse anzeigen</a></span></li>
+      </ul>
+    </div>
+    <!--end EXLPleaseWaitList-->
+    <div class="EXLPleaseWaitProgressBar">
+      <div class="EXLPleaseWaitProgressBarContainer">
+        <div id="exlidProgressBar" class="EXLPleaseWaitProgressBarFiller"></div>
+      </div>
+    </div>
+  </div>
+
+  <!--end exlidPleaseWaitTile-->
+</div>
+<!-- pleaseWait.jsp end -->
+<script type="text/javascript" src="../javascript/pleaseWait.js"></script>
+		<!-- deferredScripts.tag begin -->
+<!-- deferred comment:  -->
+				<script type="text/javascript">
+					
+//<![CDATA[
+function handleAutoRefreshResponse(){
+	if(checkReadyState(request)) //check to see if we have data.
+	{
+		//we don't really care about the response. it's fire and forget.
+	}else{
+	}
+}
+
+function updateAutoRefresh(checkbox){
+	var autoRefreshUrl = 'preferences.do?fn=allowRefresh&url=../static_htmls/blank.html&allowRefresh=';
+	if (checkbox.checked){
+		ajaxGet(autoRefreshUrl+'on',handleAutoRefreshResponse);
+	}else{
+		ajaxGet(autoRefreshUrl+'off',handleAutoRefreshResponse);
+	}
+}
+// ]]>
+</script><!-- deferredScripts.tag end -->
+
+
+
+
+</body>
+</html>
+<!-- dynamic_layout.jsp end -->

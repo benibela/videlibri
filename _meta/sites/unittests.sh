@@ -25,11 +25,6 @@ mkdir -p $OUTPATH/wasnrw
 TEMPLATES=(wasnrw/start wasnrw/KontoServlet wasnrw/KontoServlet wasnrw/KontoServlet)
 PAGES=(wasnrw/start.html wasnrw/BenutzerkontoServlet_books.html wasnrw/BenutzerkontoServlet_books2.html wasnrw/BenutzerkontoServlet_books3.html)
 
-#==============Primo========
-mkdir -p $OUTPATH/primo
-ADDTEMPLATE primo/searchList{'baseurl:=\"http://example.org/\"'} 5
-PAGES=(${PAGES[@]} primo/searchList.hub.html primo/searchList0.hub.html primo/searchListWait.hub.html primo/searchList.fub.html primo/searchList.tub.html)
-
 
 #=============ALEPH ULBD==============
 mkdir -p $OUTPATH/ulbdue
@@ -159,6 +154,14 @@ PAGES=(${PAGES[@]} zones18/searchDetails.html zones18/searchDetailsCollection.ht
 
 ADDTEMPLATE zones18/orderConfirmation{vl:choose} 1
 PAGES=(${PAGES[@]} zones18/orderConfirm.html)
+
+
+#==============Primo========
+mkdir -p $OUTPATH/primo
+ADDTEMPLATE primo/searchStart 3
+PAGES=(${PAGES[@]} primo/searchStart.fub.html primo/searchStart.hub.html  primo/searchStart.tub.html)
+ADDTEMPLATE primo/searchList  5
+PAGES=(${PAGES[@]} primo/searchList.hub.html primo/searchList0.hub.html primo/searchListWait.hub.html primo/searchList.fub.html primo/searchList.tub.html)
 
 
 #=============DIGIBIB==============

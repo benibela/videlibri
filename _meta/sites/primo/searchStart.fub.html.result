@@ -1,0 +1,150 @@
+book: {}
+
+
+i: integer: 1
+selects: sequence*: node(): Alle Felder
+				
+							Titel
+				
+							Person/Organisation
+				
+							Schlagwort
+				
+							ISBN
+				
+							ISSN
+				
+							Erscheinungsjahr
+				
+							Lok. Notation Jura
+				
+							SW MeSH/CAB
+				
+							DDC
+				
+							RVK
+				
+							Originalschrift: Alle Felder
+				
+							Signatur
+node(): Titel
+node(): Alle Felder
+				
+							Titel
+				
+							Person/Organisation
+				
+							Schlagwort
+				
+							ISBN
+				
+							ISSN
+				
+							Erscheinungsjahr
+				
+							Lok. Notation Jura
+				
+							SW MeSH/CAB
+				
+							DDC
+				
+							RVK
+				
+							Originalschrift: Alle Felder
+				
+							Signatur
+node(): Alle Felder
+				
+							Titel
+				
+							Person/Organisation
+				
+							Schlagwort
+				
+							ISBN
+				
+							ISSN
+				
+							Erscheinungsjahr
+				
+							Lok. Notation Jura
+				
+							SW MeSH/CAB
+				
+							DDC
+				
+							RVK
+				
+							Originalschrift: Alle Felder
+node(): Titel
+node(): Alle Felder
+				
+							Titel
+				
+							Person/Organisation
+				
+							Schlagwort
+				
+							ISBN
+				
+							ISSN
+				
+							Erscheinungsjahr
+				
+							Lok. Notation Jura
+				
+							SW MeSH/CAB
+				
+							DDC
+				
+							RVK
+				
+							Originalschrift: Alle Felder
+node(): Alle Felder
+				
+							Titel
+				
+							Person/Organisation
+				
+							Schlagwort
+				
+							ISSN
+				
+							ISBN
+				
+							Erscheinungsjahr
+				
+							Lok. Notation Jura
+				
+							SW MeSH/CAB
+				
+							DDC
+				
+							RVK
+				
+							Originalschrift: Alle Felder
+node(): Titel
+node(): Alle Felder
+				
+							Titel
+				
+							Person/Organisation
+				
+							Schlagwort
+				
+							ISSN
+				
+							ISBN
+				
+							Erscheinungsjahr
+				
+							Lok. Notation Jura
+				
+							SW MeSH/CAB
+				
+							DDC
+				
+							RVK
+				
+							Originalschrift: Alle Felder
+form: object(): {"method": "POST", "post": "mode=Advanced&tab=fub&indx=1&dum=true&srt=rank&vid=FUB&frbg=&tb=t&vl%28154559607UI0%29=any&vl%28154559607UI0%29=title&vl%28154559607UI0%29=any&vl%281UIStartWith0%29=contains&vl%28freeText0%29=test&vl%28154559625UI1%29=title&vl%28154559625UI1%29=title&vl%28154559625UI1%29=title&title2=2&vl%281UIStartWith1%29=contains&vl%28freeText1%29=&vl%28154559644UI2%29=creator&vl%28154559644UI2%29=title&vl%28154559644UI2%29=creator&vl%281UIStartWith2%29=contains&vl%28freeText2%29=&vl%28319866314UI3%29=all_items&vl%28555753523UI4%29=all_items&vl%28554954771UI5%29=all_items&scp.scps=scope%3A%28FUB%29%2Cscope%3A%28FUB_IMG_M%29%2Cscope%3A%28FUB_IMG_T%29%2Cscope%3A%28FUB_ML_KB%29%2Cscope%3A%28BGBM%29%2Cscope%3A%28MAN_NL_ALL%29%2Cscope%3A%28%22CHAR%22%29%2Cscope%3A%28FUB_IMG_P%29%2Cscope%3A%28FUB_IMG_W%29%2Cscope%3A%28FUB_SFX%29%2Cprimo_central_multiple_fe&Submit=Suche", "url": "/primo_library/libweb/action/search.do?fn=go&ct=search"}

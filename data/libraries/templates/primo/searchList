@@ -19,8 +19,8 @@
               </DIV>
             </DIV>
                 <UL class="EXLResultTabs">
-                  <LI class="EXLViewOnlineTab"><A><t:read var="book.Volltexte!" source="concat($baseurl, translate(@href, ' ', '+'))"/></A></LI>?
-                  <LI class="EXLDetailsTab"><A>{$book.home-url := concat($baseurl, translate(@href, ' ', '+'))}</A></LI>
+                  <LI class="EXLViewOnlineTab"><A><t:read var="book.Volltexte!" source="resolve-uri(translate(@href, ' ', '+'))"/></A></LI>?
+                  <LI class="EXLDetailsTab"><A>{$book.home-url := resolve-uri(translate(@href, ' ', '+'))}</A></LI>
                 </UL>
           </TD>
         </TR>
@@ -37,4 +37,5 @@
         {waiting := true()}
       </div>
     </div>
+  </div>
 </t:switch-prioritized>

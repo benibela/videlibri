@@ -13,6 +13,7 @@
     <fix>pica (z.B.: Magdeburg): Zeigt auch Suchergebnisse, die genau ein Ergebnis liefern, an</fix>
     <fix>Android: Zuverlässigere Warnung vor Leihfristabläufen  </fix>
     <fix>aDIS (z.B.: alle Bibliothek des BSZ in Baden-Württemberg): Suchen in nicht Standard-Katagorien (z.B.: Schlagwörter) verwenden das korrekte Feld.</fix>
+    <fix>primo (z.B.: HU Berlin): Zeige auch Medien ohne Autor in Suchergebnissen, Suche funktioniert auch bei mehreren Suchfeldern auf der Seite</fix>
     <fix>Verl: Anpassung an neue libero-Version, ermöglicht wieder Verlängerungen</fix>
     <fix>Stabi Berlin: Funktioniert nun auch mit Sonderzeichen im Passwort (insbesondere %, + und &amp;) oder der Id von Ausleihen (insbesondere &lt;)</fix>
     <add>Hochschulbibliothek Magdeburg/Stendal</add>
