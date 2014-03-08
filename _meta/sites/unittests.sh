@@ -19,10 +19,17 @@ function ADDTEMPLATE {
   done
 }
 
+
 #=============WAS==============
 mkdir -p $OUTPATH/wasnrw
 TEMPLATES=(wasnrw/start wasnrw/KontoServlet wasnrw/KontoServlet wasnrw/KontoServlet)
 PAGES=(wasnrw/start.html wasnrw/BenutzerkontoServlet_books.html wasnrw/BenutzerkontoServlet_books2.html wasnrw/BenutzerkontoServlet_books3.html)
+
+#==============Primo========
+mkdir -p $OUTPATH/primo
+ADDTEMPLATE primo/searchList{'baseurl:=\"http://example.org/\"'} 5
+PAGES=(${PAGES[@]} primo/searchList.hub.html primo/searchList0.hub.html primo/searchListWait.hub.html primo/searchList.fub.html primo/searchList.tub.html)
+
 
 #=============ALEPH ULBD==============
 mkdir -p $OUTPATH/ulbdue

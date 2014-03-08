@@ -1,0 +1,8 @@
+baseurl: http://example.org/
+
+
+book: {}
+
+
+search-result-count: string: 0
+waiting: boolean: false

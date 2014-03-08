@@ -1,0 +1,7 @@
+baseurl: http://example.org/
+
+
+book: {}
+
+
+waiting: boolean: true

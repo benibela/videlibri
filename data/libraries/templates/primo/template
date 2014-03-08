@@ -121,8 +121,9 @@
   
   <page url="{$redirect}" templateFile="searchStart"/>
 
-  <page url="{$form}" templateFile="searchList">
-  </page>
+  <page url="{$form}" templateFile="searchList"/>
+  
+  <page url="{$form}" test="$waiting" templateFile="searchList"/>
   
 </action>
 
