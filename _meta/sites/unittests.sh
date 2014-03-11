@@ -161,7 +161,7 @@ mkdir -p $OUTPATH/primo
 ADDTEMPLATE primo/searchStart 3
 PAGES=(${PAGES[@]} primo/searchStart.fub.html primo/searchStart.hub.html  primo/searchStart.tub.html)
 ADDTEMPLATE primo/searchList  5
-PAGES=(${PAGES[@]} primo/searchList.hub.html primo/searchList0.hub.html primo/searchListWait.hub.html primo/searchList.fub.html primo/searchList.tub.html)
+PAGES=(${PAGES[@]} primo/searchList.hub.html primo/searchList0.hub.html primo/searchList.fub.html primo/searchList.tub.html primo/searchList3.tub.html)
 
 
 #=============DIGIBIB==============

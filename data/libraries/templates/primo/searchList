@@ -1,12 +1,12 @@
-<t:switch-prioritized>
+<!--<t:switch-prioritized>-->
 
   <body>
     <DIV id="resultsNumbersTile">
       <H1><em>{search-result-count:=translate(., ".,", ""), waiting := false()  }</em></H1>
     </DIV>
-    <DIV class="EXLResultsNavigation" id="resultsNavNoId" t:test="$search-result-count ne '0'">
+    <DIV class="EXLResultsNavigation" id="resultsNavNoId"> <!-- t:test="$search-result-count ne '0'"> -->
       <A class="EXLBriefResultsPaginationLinkNext">{search-next:=translate(@href, " ", "+"), search-next-page-available:=true()}</A>
-    </DIV>
+    </DIV>?
     <TABLE id="exlidResultsTable" class="EXLResultsTable">
       <t:loop>
         <TR class="EXLResult">
@@ -27,7 +27,7 @@
       </t:loop>
     </TABLE>
   </body>
-  
+  <!--
   <div id="exlidPleaseWaitContainer">
     <div id="exlidPleaseWaitTile" class="EXLPleaseWait">
       <div class="EXLPleaseWaitHeader">
@@ -38,4 +38,4 @@
       </div>
     </div>
   </div>
-</t:switch-prioritized>
+</t:switch-prioritized>-->
