@@ -183,8 +183,8 @@ src)
 		./manage.sh linux64
 		./manage.sh win32
 		./manage.sh linux32
+	  ./manage.sh changelog		
 		./manage.sh android
-	  ./manage.sh changelog
 	  ./manage.sh src
 	  ./manage.sh downloadTable
 		thg commit
