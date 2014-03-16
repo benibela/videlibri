@@ -13,14 +13,14 @@
             android:orientation="vertical"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent" android:id="@+id/createGroup" android:longClickable="false">
-        <TextView android:layout_width="fill_parent" android:layout_height="wrap_content" android:text="Vollständige Metadaten von URL laden:"
+        <TextView android:layout_width="fill_parent" android:layout_height="wrap_content" android:text="@string/lay_newlib_caption_installlib"
                   android:id="@+id/textView"
                   android:padding="@dimen/optionheaderpadding" android:background="@color/optionHeaderBackgroundColor"
                   android:textStyle="bold" android:layout_marginTop="@dimen/optionheaderpadding"/>
         <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Adresse:"
+                android:text="@string/lay_newlib_label_adress"
                 android:id="@+id/textView2" android:layout_gravity="left|center_vertical"
                 android:padding="@dimen/defborder"/>
         <EditText
@@ -31,17 +31,17 @@
         <Button
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:text="installieren"
+                android:text="@string/install"
                 android:id="@+id/install"/>
     </LinearLayout>
-    <TextView android:layout_width="fill_parent" android:layout_height="wrap_content" android:text="Eigene Bibliothek :"
+    <TextView android:layout_width="fill_parent" android:layout_height="wrap_content" android:text="@string/lay_newlib_caption_ownlib"
               android:id="@+id/textView1"
               android:padding="@dimen/optionheaderpadding" android:background="@color/optionHeaderBackgroundColor"
               android:textStyle="bold" android:layout_marginTop="@dimen/optionheaderpadding"/>
     <TextView
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:text="Interne Id:"
+            android:text="@string/lay_newlib_label_id"
             android:id="@+id/textView4" android:padding="@dimen/defborder"/>
     <EditText
             android:layout_width="fill_parent"
@@ -50,17 +50,17 @@
     <TextView
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:text="Name:"
+            android:text="@string/lay_newlib_label_name"
             android:id="@+id/textView5" android:padding="@dimen/defborder"/>
     <EditText
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:text="meine neue Bib"
+            android:text="@string/lay_newlib_edit_newlib"
             android:id="@+id/name" android:singleLine="true" android:selectAllOnFocus="true"/>
     <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Zugrunde liegendes Template:"
+            android:text="@string/lay_newlib_label_template"
             android:id="@+id/textView3" android:layout_gravity="left|center_vertical"
             android:padding="@dimen/defborder"/>
     <Spinner
@@ -75,12 +75,12 @@
     <Button
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:text="erstellen"
+            android:text="@string/create"
             android:id="@+id/create"/>
     <Button
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:text="löschen"
+            android:text="@string/delete"
             android:id="@+id/deleteButton"/>
 
 </LinearLayout>

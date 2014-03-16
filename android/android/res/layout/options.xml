@@ -12,7 +12,7 @@
             <TextView
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
-                    android:text="Angezeigte Ausleihen:"
+                    android:text="@string/lay_options_caption_viewmode"
                     android:id="@+id/textView1" android:layout_gravity="left|center_vertical"
                     android:padding="@dimen/optionheaderpadding" android:background="@color/optionHeaderBackgroundColor"
                     android:textStyle="bold"/>
@@ -22,18 +22,18 @@
                 <RadioButton
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
-                        android:text="aktuelle Ausleihen"
+                        android:text="@string/lay_options_option_current"
                         android:id="@+id/radioButton1" android:checked="false"/>
                 <RadioButton
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
-                        android:text="alle Ausleihen, inklusive Historie"
+                        android:text="@string/lay_options_option_currenthistory"
                         android:id="@+id/radioButton2" android:checked="false"/>
             </RadioGroup>
             <TextView
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
-                    android:text="Konten, deren Medien angezeigt werden:"
+                    android:text="@string/lay_options_caption_accountview"
                     android:id="@+id/textView" android:layout_gravity="left|center_vertical"
                     android:gravity="left" android:padding="@dimen/optionheaderpadding"
                     android:background="@color/optionHeaderBackgroundColor" android:textStyle="bold"
@@ -46,7 +46,7 @@
             <TextView
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
-                    android:text="Konten ändern:"
+                    android:text="@string/lay_options_caption_accountchange"
                     android:id="@+id/textView2" android:layout_gravity="left|center_vertical"
                     android:padding="@dimen/optionheaderpadding" android:background="@color/optionHeaderBackgroundColor"
                     android:textStyle="bold" android:layout_marginTop="@dimen/optionheaderpadding"/>
@@ -58,17 +58,17 @@
             <Button
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
-                    android:text="Neues Konto registrieren"
+                    android:text="@string/lay_options_btn_newaccount"
                     android:id="@+id/newaccount"/>
             <TextView android:layout_width="fill_parent" android:layout_height="wrap_content"
-                      android:text="Benachrichtigungservice:" android:id="@+id/textView3"
+                      android:text="@string/lay_options_caption_notifications" android:id="@+id/textView3"
                       android:padding="@dimen/optionheaderpadding"
                       android:background="@color/optionHeaderBackgroundColor" android:textStyle="bold"
                       android:layout_marginTop="@dimen/optionheaderpadding"/>
             <CheckBox
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
-                    android:text="vor ablaufenden Medien warnen"
+                    android:text="@string/lay_options_option_warn"
                     android:id="@+id/notifications"/>
 
             <LinearLayout
@@ -83,7 +83,7 @@
                 <TextView
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
-                        android:text="Tage vor Fristablauf"
+                        android:text="@string/lay_options_warningtimedelay"
                         android:id="@+id/textView4" android:layout_gravity="center" android:padding="@dimen/defborder"
                         android:singleLine="false"/>
             </LinearLayout>
@@ -99,11 +99,11 @@
                 <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Minuten nach Systemstart"
+                        android:text="@string/lay_options_label_autocheckdelay"
                         android:id="@+id/textView5" android:layout_gravity="center" android:padding="@dimen/defborder"/>
             </LinearLayout>
             <TextView android:layout_width="fill_parent" android:layout_height="wrap_content"
-                      android:text="Eigene Bibliotheken:" android:id="@+id/textView7"
+                      android:text="@string/lay_options_caption_ownlibs"  android:id="@+id/textView7"
                       android:padding="@dimen/optionheaderpadding"
                       android:background="@color/optionHeaderBackgroundColor" android:textStyle="bold"
                       android:layout_marginTop="@dimen/optionheaderpadding"/>
@@ -115,10 +115,10 @@
             <Button
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
-                    android:text="Neue Bibliothek registrieren"
+                    android:text="@string/lay_options_btn_newlib"
                     android:id="@+id/newlib"/>
             <TextView android:layout_width="fill_parent" android:layout_height="wrap_content"
-                      android:text="Sonstige Einstellungen:" android:id="@+id/textView3"
+                      android:text="@string/lay_options_caption_misc" android:id="@+id/textView3"
                       android:padding="@dimen/optionheaderpadding"
                       android:background="@color/optionHeaderBackgroundColor" android:textStyle="bold"
                       android:layout_marginTop="@dimen/optionheaderpadding"/>
@@ -129,7 +129,7 @@
                 <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="alle"
+                        android:text="@string/lay_options_check1"
                         android:id="@+id/textView6" android:layout_gravity="center"
                         android:padding="@dimen/defborder"/>
                 <EditText
@@ -140,23 +140,23 @@
                 <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text=" Tage aktualisieren"
+                        android:text="@string/lay_options_check2"
                         android:id="@+id/textView5" android:layout_gravity="center" android:padding="@dimen/defborder"/>
             </LinearLayout>
             <CheckBox
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
-                    android:text="nur Titel der Ausleihen anzeigen"
+                    android:text="@string/lay_options_option_onlytitles"
                     android:id="@+id/noLendBookDetails" android:checked="false"/>
             <CheckBox
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
-                    android:text="aktiviere debug logging (kann auch Passwörter loggen)"
+                    android:text="@string/lay_options_option_debuglog"
                     android:id="@+id/logging" android:checked="false"/>
             <CheckBox
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
-                    android:text="Logdaten bei Fehlerberichten mitsenden"
+                    android:text="@string/lay_options_option_includelog"
                     android:id="@+id/loggingSend" android:checked="false"/>
         </LinearLayout>
 

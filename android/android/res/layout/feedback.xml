@@ -16,13 +16,13 @@
                 android:layout_height="wrap_content">
 
 
-    <TextView android:layout_width="fill_parent" android:layout_height="wrap_content" android:text="Per Formular:"
+    <TextView android:layout_width="fill_parent" android:layout_height="wrap_content" android:text="@string/lay_feedback_label_formular"
               android:id="@+id/textView2" android:padding="@dimen/optionheaderpadding"
               android:background="@color/optionHeaderBackgroundColor" android:textStyle="bold"/>
     <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Feedback:"
+            android:text="@string/lay_feedback_label_message"
             android:id="@+id/textView3" android:layout_gravity="left|center_vertical"
             android:padding="@dimen/defborder"/>
     <EditText
@@ -30,20 +30,20 @@
             android:layout_height="wrap_content"
             android:id="@+id/text" android:minLines="4" android:layout_weight="1"/>
     <CheckBox android:layout_width="fill_parent" android:layout_height="wrap_content"
-              android:text="Fehlermeldungen mitsenden" android:id="@+id/feedbackIncludeErrors" android:checked="false"
+              android:text="@string/lay_feedback_label_includeerrors" android:id="@+id/feedbackIncludeErrors" android:checked="false"
               android:visibility="gone"/>
     <CheckBox android:layout_width="fill_parent" android:layout_height="wrap_content"
-              android:text="Struktur der zuletzt aufgerufenen Katalogseiten anonymisiert mitsenden"
+              android:text="@string/lay_feedback_label_includepagesanonymized"
               android:id="@+id/feedbackIncludeErrorAnonymousDetails" android:checked="false" android:visibility="gone"/>
     <CheckBox android:layout_width="fill_parent" android:layout_height="wrap_content"
-              android:text="zuletzt aufgerufene Katalogseiten unverändert mitsenden"
+              android:text="@string/lay_feedback_label_includepagesfull"
               android:id="@+id/feedbackIncludeErrorDetails" android:checked="false" android:visibility="gone"/>
 
     <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/textView4" android:layout_gravity="left|center_vertical"
-            android:text="Ihr Name (optional):" android:padding="@dimen/defborder"/>
+            android:text="@string/lay_feedback_label_name" android:padding="@dimen/defborder"/>
     <EditText
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
@@ -51,7 +51,7 @@
     <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Ihre E-Mail (optional):"
+            android:text="@string/lay_feedback_label_mail"
             android:id="@+id/textView5" android:layout_gravity="left|center_vertical"
             android:padding="@dimen/defborder"/>
     <EditText
@@ -62,12 +62,12 @@
             <Button
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:text="absenden "
+            android:text="@string/lay_feedback_send"
             android:id="@+id/button"/>
 
 
             <TextView android:layout_width="fill_parent" android:layout_height="wrap_content"
-                      android:text="Per E-Mail:" android:id="@+id/textView"
+                      android:text="@string/lay_feedback_caption_mail" android:id="@+id/textView"
                       android:padding="@dimen/optionheaderpadding"
                       android:background="@color/optionHeaderBackgroundColor" android:textStyle="bold"/>
             <TextView
@@ -79,7 +79,7 @@
 
 
             <TextView android:layout_width="fill_parent" android:layout_height="wrap_content"
-                      android:text="Per Google Play Store:"
+                      android:text="@string/lay_feedback_caption_play"
                       android:padding="@dimen/optionheaderpadding"
                       android:background="@color/optionHeaderBackgroundColor" android:textStyle="bold"/>
             <TextView
@@ -91,28 +91,28 @@
 
 
 
-            <TextView android:layout_width="fill_parent" android:layout_height="wrap_content" android:text="Per ACRA für Fehlerberichte (enthält debug log): "
+            <TextView android:layout_width="fill_parent" android:layout_height="wrap_content" android:text="@string/lay_feedback_caption_acra"
                       android:id="@+id/feedbackACRAHeader" android:padding="@dimen/optionheaderpadding"
                       android:background="@color/optionHeaderBackgroundColor" android:textStyle="bold"/>
             <CheckBox
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
-                    android:text="Fehlermeldungen mitsenden"
+                    android:text="@string/lay_feedback_label_includeerrors"
                     android:id="@+id/feedbackACRAIncludeErrors" android:checked="false"
                     android:visibility="gone"/>
             <CheckBox
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
-                    android:text="Struktur der zuletzt aufgerufenen Katalogseiten anonymisiert mitsenden"
+                    android:text="@string/lay_feedback_label_includepagesanonymized"
                     android:id="@+id/feedbackACRAIncludeErrorAnonymousDetails" android:checked="false"
                     android:visibility="gone"/>
             <CheckBox
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
-                    android:text="zuletzt aufgerufene Katalogseiten unverändert mitsenden"
+                    android:text="@string/lay_feedback_label_includepagesfull"
                     android:id="@+id/feedbackACRAIncludeErrorDetails" android:checked="false"
                     android:visibility="gone"/>
-            <Button android:layout_width="fill_parent" android:layout_height="wrap_content" android:text="ACRA Fehlerbericht erstellen "
+            <Button android:layout_width="fill_parent" android:layout_height="wrap_content" android:text="@string/lay_feedback_acra"
                     android:id="@+id/acra"/>
         </LinearLayout>
 </ScrollView>

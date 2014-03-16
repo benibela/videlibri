@@ -16,18 +16,18 @@
             <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Bibliothek"
+                    android:text="@string/lay_search_lib"
                     android:id="@+id/textView4" android:layout_gravity="left|center_vertical" android:textStyle="bold"
                     android:padding="3sp"/>
             <TextView
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
-                    android:text="Bitte wählen Sie eine Bibliothek aus"
+                    android:text="@string/lay_search_libselect"
                     android:id="@+id/library" android:paddingLeft="30sp" android:clickable="true"/>
             <TextView
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
-                    android:text="Titel"
+                    android:text="@string/lay_search_title"
                     android:id="@+id/textView" android:textStyle="bold" android:padding="3sp"/>
             <EditText
                     android:layout_width="fill_parent"
@@ -36,7 +36,7 @@
             <TextView
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
-                    android:text="Autor"
+                    android:text="@string/lay_search_author"
                     android:id="@+id/textView1" android:textStyle="bold" android:padding="3sp"/>
             <EditText
                     android:layout_width="fill_parent"
@@ -45,7 +45,7 @@
             <TextView
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
-                    android:text="Schlagwörter"
+                    android:text="@string/lay_search_keywords"
                     android:id="@+id/textView2" android:textStyle="bold" android:padding="3sp"/>
             <EditText
                     android:layout_width="fill_parent"
@@ -54,7 +54,7 @@
             <TextView
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
-                    android:text="ISBN"
+                    android:text="@string/lay_search_isbn"
                     android:id="@+id/textView3" android:textStyle="bold" android:padding="3sp"/>
             <EditText
                     android:layout_width="fill_parent"
@@ -63,7 +63,7 @@
             <TextView
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
-                    android:text="Jahr"
+                    android:text="@string/lay_search_year"
                     android:id="@+id/textView4" android:padding="3sp"/>
             <EditText
                     android:layout_width="fill_parent"
@@ -76,7 +76,7 @@
                 <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Zweigstelle (für Suchfilter)"
+                        android:text="@string/lay_search_searchedbranch"
                         android:id="@+id/textView5"/>
                 <Spinner
                         android:layout_width="fill_parent"
@@ -90,7 +90,7 @@
                 <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Zweigstelle (für Bestellungsfilter)"
+                        android:text="@string/lay_search_orderbranch"
                         android:id="@+id/textView6"/>
                 <Spinner
                         android:layout_width="fill_parent"
@@ -102,6 +102,6 @@
     <Button
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:text="Suchen"
+            android:text="@string/lay_search_btn_search"
             android:id="@+id/button" android:layout_weight="0"/>
 </LinearLayout>

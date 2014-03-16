@@ -12,6 +12,6 @@
     <Button
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:text="verlängern"
+            android:text="@string/renew"
             android:id="@+id/button" android:visibility="gone" android:layout_weight="0"/>
 </LinearLayout>

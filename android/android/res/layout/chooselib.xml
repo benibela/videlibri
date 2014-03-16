@@ -8,7 +8,7 @@
     <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Wählen Sie die Bücherei:"
+            android:text="@string/lay_chooselib_choose"
             android:id="@+id/textView" android:layout_gravity="center_vertical|left" android:padding="5sp"/>
     <ExpandableListView
             android:layout_width="match_parent"

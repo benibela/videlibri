@@ -20,14 +20,14 @@
             <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Um die Ausleihenanzeige und Verlängerung verwenden zu könne, geben Sie hier ihre Kontodaten ein: (unnötig für Suche)"
+                    android:text="@string/lay_account_label1"
                     android:id="@+id/textView" android:layout_gravity="center" android:padding="3sp"
                     android:password="false" android:layout_marginBottom="6sp"/>
             <TextView
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
-                    android:text="Kontonummer:"
-                    android:id="@+id/textView1" android:padding="3sp"/>
+                    android:text="@string/lay_account_label_account"
+                    android:id="@+id/textView1" android:padding="3sp" android:singleLine="false"/>
             <EditText
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
@@ -35,7 +35,7 @@
             <TextView
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
-                    android:text="Passwort:"
+                    android:text="@string/lay_account_label_password"
                     android:id="@+id/textView2" android:padding="3sp"/>
             <EditText
                     android:layout_width="fill_parent"
@@ -48,7 +48,7 @@
                 <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Sollen die Ausleihen automatisch verlängert werden?"
+                        android:text="@string/lay_account_label_autorenew"
                         android:id="@+id/textView4" android:layout_weight="9" android:layout_margin="3sp"/>
                 <CheckBox
                         android:layout_width="wrap_content"
@@ -65,7 +65,7 @@
                 <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="und zwar"
+                        android:text="@string/lay_account_label_autorenew1"
                         android:id="@+id/textView7" android:layout_gravity="center"/>
                 <EditText
                         android:layout_width="60sp"
@@ -75,7 +75,7 @@
                 <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Tage vor Fristablauf"
+                        android:text="@string/lay_account_label_autorenew2"
                         android:id="@+id/textView6" android:layout_gravity="center" android:padding="3sp"/>
             </LinearLayout>
             <LinearLayout
@@ -85,7 +85,7 @@
                 <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Soll eine Historie aller Ausleihen gespeichert  werden?"
+                        android:text="@string/lay_account_label_history"
                         android:id="@+id/textView5" android:layout_gravity="left|center_vertical"
                         android:layout_weight="9" android:layout_margin="3sp"/>
                 <CheckBox
@@ -99,7 +99,7 @@
             <TextView
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
-                    android:text="Name des Kontos in VideLibri:"
+                    android:text="@string/lay_account_label_accountdisplayname"
                     android:id="@+id/textView3" android:padding="3sp"/>
             <EditText
                     android:layout_width="fill_parent"
@@ -114,12 +114,12 @@
         <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Konto registrieren"
+                android:text="@string/lay_account_create"
                 android:id="@+id/completeAccountButton" android:layout_gravity="center" android:layout_weight="1"/>
         <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="löschen!"
+                android:text="@string/lay_account_delete"
                 android:id="@+id/deleteButton" android:layout_gravity="center" android:layout_weight="0"/>
     </LinearLayout>
 </LinearLayout>
