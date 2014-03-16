@@ -6,4 +6,89 @@
     <string name="crash_dialog_text">VideLibri ist leider abgestürzt. Sie können einen Crash-Report senden, um zu helfen, den Fehler in der nächsten Version zu beseitigen.</string>
     <string name="crash_dialog_comment_prompt">Ihr Kommentar und Kontaktdaten für eine Antwort:</string>
     <string name="crash_dialog_ok_toast">Danke!</string>
+    <string name="about_version_date">Version: %1$1.3f vom %2$s</string>
+    <string name="version">Version</string>
+    <string name="homepage">Homepage</string>
+    <string name="source">Quellcode</string>
+    <string name="account_delete">Soll das Konto wirklich gelöscht werden?</string>
+    <string name="change">ändern</string>
+    <string name="error_nolibselected">Keine Bibliothek ausgewählt</string>
+    <string name="warning_alphalib">Hinweis: Bei dieser Bibliothek wurde nur die Suche ohne Kontozugriff getestet. Bitte
+        berichten Sie, ob das Konto gleich angezeigt wird oder nicht.
+    </string>
+    <string name="account_createinitial">Wählen Sie Ihre Bibliothek, um in ihrem Katalog zu suchen oder auf Ihr
+        Bibliothekskonto zuzugreifen:
+    </string>
+    <string name="about_create">Wählen Sie Ihre Bibliothek, um ein neues Konto zu registrieren:</string>
+    <string name="book_titleauthor">Titeldaten</string>
+    <string name="book_from">von</string>
+    <string name="book_duedate">Abgabefrist</string>
+    <string name="book_status_problematic">(nicht verlängerbar)</string>
+    <string name="book_status_ordered">(vorgemerkt)</string>
+    <string name="book_status_provided">(abholbereit)</string>
+    <string name="book_status">Bemerkung</string>
+    <string name="book_lenddate">Ausleihdatum</string>
+    <string name="book_lendat">Ausgeliehen in</string>
+    <string name="book_account">Konto</string>
+    <string name="book_category">Kategorie</string>
+    <string name="book_publisher">Verlag</string>
+    <string name="book_order">vormerken/bestellen</string>
+    <string name="book_renew">verlängern</string>
+    <string name="book_cancel">Bestellung abbrechen</string>
+    <string name="booklist_noselection">noch keine Auswahl</string>
+    <string name="booklist_loading">Ergebnisse werden geladen...</string>
+    <string name="booklist_from">von</string>
+    <string name="booklist_status_ordered">vorgemerkt</string>
+    <string name="booklist_status_provided">abholbereit</string>
+    <string name="feedback_feedbacktitle">VideLibri Feedback</string>
+    <string name="feedback_acraheader">Per ACRA für Fehlerberichte:</string>
+    <string name="feedback_send_ok">Feedback wurde erfolgreich abgeschickt.</string>
+    <string name="feedback_send_failed">Feedback konnte nur teilweise übertragen werden</string>
+    <string name="feedback_send_failedconnect">Übertragung fehlgeschlagen.</string>
+    <string name="error_nomailapp">Keine Mailapp gefunden.</string>
+    <string name="liblist_withaccounts">mit Konten</string>
+    <string name="renew_title_start">Auswahl zur Verlängerung</string>
+    <string name="renew_title_select">Verlängern: Auswahl</string>
+    <string name="renew_noselection">noch keine Auswahl</string>
+    <string name="renew_title_selectionDD">Verlängern: %1$d/%2$d</string>
+    <string name="renew_renewD">%d verlängern</string>
+    <string name="search_title">Katalog-Suche</string>
+    <string name="search_selectlib">Wählen Sie die Bibliothek, in der Sie suchen wollen:</string>
+    <string name="search_lost">Suchvorgang verschwunden</string>
+    <string name="search_loading">Suche läuft...</string>
+    <string name="search_resultcountD">%d Treffer</string>
+    <string name="search_orderedokS">Das Buch \"%s\" wurde ohne Fehler vorbestellt.</string>
+    <string name="search_failed">Suche fehlgeschlagen</string>
+    <string name="search_needaccount">Bestellungen benötigen ein registriertes Bibliothekskonto in VideLibri.</string>
+    <string name="search_orderTargetAccount">Für welches Konto soll es bestellt werden?</string>
+    <string name="search_chooseitem">Welches Exemplar wollen Sie vorbestellen?</string>
+    <string name="ok">OK</string>
+    <string name="no">Nein</string>
+    <string name="yes">Ja</string>
+    <string name="main_bookcountD">%d Ausleihen</string>
+    <string name="main_bookaccountcountDDD">%1$d Ausleihen: %2$d/%3$d Konten</string>
+    <string name="main_cancelconfirm">Soll die Bestellung abgebrochen werden?</string>
+    <string name="app_libregistered">Bibliothek wurde registriert.</string>
+    <string name="app_libregisterfailed">Bibliotheksregistrierung fehlgeschlagen.</string>
+    <string name="app_error_searchedfor">gesucht wurde:</string>
+    <string name="app_error_anerror">Eine Fehlermeldung!!1!</string>
+    <string name="app_error_needcontact">Bitte auch Kontaktdaten angeben, sonst kann ich keine Antwort/Lösung
+        zurückschicken.
+    </string>
+    <string name="app_error_report">Wollen Sie den Entwickler über die Meldung benachrichtigen?<!--, damit das Template
+        angepasst werden kann?-->
+    </string>
+    <string name="base_pendingrefreshrenew">Es kann immer nur ein Aktualisierungs/Verlängerungsvorgang für alle Konten
+        gestartet werden.
+    </string>
+    <string name="base_chooselibhomepage">Wählen Sie eine Bücherei um ihre Homepage zu öffnen:</string>
+    <string name="base_chooselibcat">Wählen Sie eine Bücherei um ihren Webkatalog zu öffnen:</string>
+    <string name="menu_renewlist">Manche verlängern</string>
+    <string name="menu_renewall">Alle verlängern</string>
+    <string name="menu_refreshall">Alle aktualisieren</string>
+    <string name="menu_homepages">Webseiten</string>
+    <string name="menu_cats">Katalogseiten</string>
+    <string name="menu_feedback">Feedback</string>
+    <string name="menu_about">Über Videlibri</string>
+    <string name="menu_misc">Sonstiges</string>
 </resources>

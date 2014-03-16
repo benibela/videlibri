@@ -38,7 +38,7 @@ public class About extends VideLibriBaseActivity {
         String version = parser.getAttributeValue(null, "version");
         if ("".equals(firstVersion)) firstVersion = version;
 
-        curDetails = new BookDetails.Details("Version:  "+(Util.strToIntDef(version, 0) / 1000.0)+ " vom "+parser.getAttributeValue(null, "date"), "");
+        curDetails = new BookDetails.Details(tr(R.string.about_version_date,  Util.strToIntDef(version, 0) / 1000.0, parser.getAttributeValue(null, "date")), "");
         details.add(curDetails);
         while (parser.next() != XmlPullParser.END_TAG) {
             if (parser.getEventType() != XmlPullParser.START_TAG)
@@ -98,12 +98,12 @@ public class About extends VideLibriBaseActivity {
 
 
         try {
-            details.add(0, new BookDetails.Details("Version", "VideLibri "+getPackageManager().getPackageInfo("de.benibela.videlibri", 0).versionName ));
+            details.add(0, new BookDetails.Details(tr(R.string.version), "VideLibri "+getPackageManager().getPackageInfo("de.benibela.videlibri", 0).versionName ));
         } catch (PackageManager.NameNotFoundException e) {
-            details.add(0, new BookDetails.Details("Version", "VideLibri "+(Util.strToIntDef(firstVersion, 0) / 1000.0)  + " ??"));
+            details.add(0, new BookDetails.Details(tr(R.string.version), "VideLibri "+(Util.strToIntDef(firstVersion, 0) / 1000.0)  + " ??"));
         }
-        details.add(1, new BookDetails.Details("Homepage", "http://videlibri.sourceforge.net"));
-        details.add(2, new BookDetails.Details("Quellcode", "http://sourceforge.net/p/videlibri/code/ci/trunks/tree/"));
+        details.add(1, new BookDetails.Details(tr(R.string.homepage), "http://videlibri.sourceforge.net"));
+        details.add(2, new BookDetails.Details(tr(R.string.source), "http://sourceforge.net/p/videlibri/code/ci/trunks/tree/"));
 
 
 

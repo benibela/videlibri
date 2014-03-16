@@ -1,5 +1,6 @@
 package de.benibela.videlibri;
 
+import android.content.res.Resources;
 import android.view.View;
 import android.widget.Button;
 import com.actionbarsherlock.app.SherlockFragment;
@@ -23,6 +24,9 @@ public class VideLibriBaseFragment extends SherlockFragment {
         if (v == null) return null;
         return (Button) (v.findViewById(id));
     }
+
+    public String tr(int id){ return Util.tr(getActivity(), id); }
+    public String tr(int id, Object... args){ return Util.tr(getActivity(), id, args); }
 
 
     public void showMessage(String message){ Util.showMessage(message, null); }

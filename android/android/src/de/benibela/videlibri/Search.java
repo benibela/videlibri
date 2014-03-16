@@ -94,7 +94,7 @@ public class Search extends VideLibriBaseActivity implements Bridge.SearchConnec
             }
         });
 
-        setTitle("Katalog-Suche");
+        setTitle(tr(R.string.search_title));
     }
 
     @Override
@@ -115,7 +115,7 @@ public class Search extends VideLibriBaseActivity implements Bridge.SearchConnec
     void changeSearchLib(){
         Intent intent = new Intent(this, LibraryList.class);
         intent.putExtra("defaultLibId", libId);
-        intent.putExtra("reason", "Wählen Sie die Bibliothek, in der Sie suchen wollen:");
+        intent.putExtra("reason", tr(R.string.search_selectlib));
         intent.putExtra("search", true);
         startActivityForResult(intent, REQUEST_CHOOSE_LIBRARY);
     }

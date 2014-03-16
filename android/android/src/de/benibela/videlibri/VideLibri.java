@@ -211,8 +211,8 @@ public class VideLibri extends  BookListActivity{
         bookCache = makeUpdatedBookCache(acc, bookCache);
         displayBookCache();
 
-        if (hiddenAccounts.size() == 0) setTitle(bookCache.size() + " Ausleihen");
-        else setTitle(bookCache.size() + " Ausleihen: "+(VideLibriApp.accounts.length-hiddenAccounts.size())+ "/"+VideLibriApp.accounts.length+" Konten");
+        if (hiddenAccounts.size() == 0) setTitle(tr(R.string.main_bookcountD, bookCache.size()));
+        else setTitle(tr(R.string.main_bookaccountcountDDD, bookCache.size(), (VideLibriApp.accounts.length-hiddenAccounts.size()), VideLibriApp.accounts.length));
 
     }
 
@@ -227,7 +227,7 @@ public class VideLibri extends  BookListActivity{
                 if (detailsOpened) onBackPressed();
                 break;
             case Ordered: case Provided:
-                showMessageYesNo("Soll die Bestellung abgebrochen werden?", new MessageHandler() {
+                showMessageYesNo(tr(R.string.main_cancelconfirm), new MessageHandler() {
                     @Override
                     public void onDialogEnd(DialogInterface dialogInterface, int i) {
                         if (i == DialogInterface.BUTTON_POSITIVE) {

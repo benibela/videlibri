@@ -38,7 +38,7 @@ public class BookListFragment extends VideLibriBaseFragment {
             //if (button == null) return;
             rl.button.setVisibility(View.VISIBLE);
             rl.button.setEnabled(false);
-            rl.button.setText("noch keine Auswahl");
+            rl.button.setText(tr(R.string.booklist_noselection));
             rl.button.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {

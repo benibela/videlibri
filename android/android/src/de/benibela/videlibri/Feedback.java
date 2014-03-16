@@ -38,9 +38,9 @@ public class Feedback extends VideLibriBaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);    //To change body of overridden methods use File | Settings | File Templates.
         setContentView(R.layout.feedback);
-        setTitle("VideLibri Feedback");
+        setTitle(tr(R.string.feedback_feedbacktitle));
         if (!ACRA.getACRASharedPreferences().getBoolean(ACRA.PREF_ENABLE_SYSTEM_LOGS, true))
-            ((TextView)findViewById(R.id.feedbackACRAHeader)).setText("Per ACRA für Fehlerberichte: ");
+            ((TextView)findViewById(R.id.feedbackACRAHeader)).setText(tr(R.string.feedback_acraheader));
 
         if (getIntent().getStringExtra("message") != null)
             ((EditText)findViewById(R.id.text)).setText(getIntent().getStringExtra("message"));
@@ -147,8 +147,8 @@ public class Feedback extends VideLibriBaseActivity {
                                 if (fok > 0 ) {
                                     showMessage(
                                             fok == rep ?
-                                                    "Feedback wurde erfolgreich abgeschickt." :
-                                                    "Feedback konnte nur teilweise übertragen werden."
+                                                    tr(R.string.feedback_send_ok) :
+                                                    tr(R.string.feedback_send_failed)
                                             ,
                                             new MessageHandler() {
                                         @Override
@@ -165,7 +165,7 @@ public class Feedback extends VideLibriBaseActivity {
                                         }
                                     });
                                 } else
-                                    showMessage("Übertragung fehlgeschlagen.");
+                                    showMessage(tr(R.string.feedback_send_failedconnect));
                             }
                         });
 
@@ -186,7 +186,7 @@ public class Feedback extends VideLibriBaseActivity {
                 try{
                     startActivity(emailIntent);
                 } catch (ActivityNotFoundException e) {
-                    showMessage("Keine Mailapp gefunden.");
+                    showMessage(tr(R.string.error_nomailapp));
                 }
             }
         });

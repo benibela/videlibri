@@ -73,7 +73,7 @@ public class NewLibrary extends VideLibriBaseActivity{
             //selectTemplate(details.templateId);
 
             findViewById(R.id.createGroup).setVisibility(View.GONE);
-            findButtonById(R.id.create).setText("ändern");
+            findButtonById(R.id.create).setText(R.string.change);
 
             setTextViewText(R.id.id, id);
             setTextViewText(R.id.name, details.prettyName);

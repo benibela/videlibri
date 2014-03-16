@@ -145,13 +145,13 @@ public class VideLibriBaseActivity extends SherlockActivity implements Bridge.Vi
     }
 
 
+    public String tr(int id){ return Util.tr(this, id); }
+    public String tr(int id, Object... args){ return Util.tr(this, id, args); }
 
 
     public void showMessage(String message){ Util.showMessage(message, null); }
     public void showMessage(String message, MessageHandler handler){ Util.showMessage(message, handler); }
     public void showMessageYesNo(String message, MessageHandler handler){ Util.showMessageYesNo(message, handler); }
-
-
 
     @Override
     public String userPath() {

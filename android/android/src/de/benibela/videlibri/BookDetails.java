@@ -22,6 +22,8 @@ import java.util.*;
 public class BookDetails extends VideLibriBaseFragment {
     Bridge.Book book;
 
+    static String trStatus = "", trDueDate = "";
+
     static class Details{
         String name, data;
         Details(String name, String data){
@@ -97,7 +99,7 @@ public class BookDetails extends VideLibriBaseFragment {
                     holder.text.setTypeface(Typeface.DEFAULT);
                     holder.text.setText(d.data);
                     holder.text.setPadding(toPx(30),toPx(1),toPx(10),toPx(2));
-                    if ("Bemerkung".equals(d.name) || "Abgabefrist".equals(d.name)){
+                    if (trStatus.equals(d.name) || trDueDate.equals(d.name)){
                         c = book.getStatusColor();
                         if (c == -1) c = defaultColor;
                     }
@@ -168,7 +170,7 @@ public class BookDetails extends VideLibriBaseFragment {
         details.clear();
         String titleData = book.title;
         if (book.author != null && !book.author.equals("")) {
-            if (!book.author.startsWith("von") && !book.author.startsWith("by")) titleData += "\n\n von " + book.author;
+            if (!book.author.startsWith("von") && !book.author.startsWith("by")) titleData += "\n\n" + tr(R.string.book_from) + " " + book.author;
             else titleData += "\n\n "+book.author;
         }
         String year = book.getProperty("year");
@@ -177,30 +179,33 @@ public class BookDetails extends VideLibriBaseFragment {
         if (id != null && !id.equals("")) titleData += "\n " + id;
 
         if (titleData != null && !"".equals(titleData))
-            details.add(new Details("Titeldaten", titleData));
+            details.add(new Details(tr(R.string.book_titleauthor), titleData));
+
+        trStatus = tr(R.string.book_status);
+        trDueDate = tr(R.string.book_duedate);
 
         if ((!searchedBook && !book.history) || book.dueDate != null)
-            details.add(new Details("Abgabefrist", book.dueDatePretty));
+            details.add(new Details(trDueDate, book.dueDatePretty));
 
         String status = book.getProperty("status");
         if (status == null) status = "";
         if ("".equals(status))
             switch (book.getStatus()){
-                case Problematic: status = "(nicht verlängerbar)"; break;
-                case Ordered: status = "(vorgemerkt)"; break;
-                case Provided: status = "(abholbereit)"; break;
+                case Problematic: status = tr(R.string.book_status_problematic); break;
+                case Ordered: status = tr(R.string.book_status_ordered); break;
+                case Provided: status = tr(R.string.book_status_provided); break;
             }
-        if (!"".equals(status)) details.add(new Details("Bemerkung", status));
+        if (!"".equals(status)) details.add(new Details(trStatus, status));
 
         if (book.issueDate != null)
-          details.add(new Details("Ausleihdatum", android.text.format.DateFormat.getDateFormat(getSherlockActivity()).format(book.issueDate.getTime())));
-        addIfExists("Ausgeliehen in", "libraryBranch");
-        if (book.account != null) details.add(new Details("Konto", book.account.prettyName));
+          details.add(new Details(tr(R.string.book_lenddate), android.text.format.DateFormat.getDateFormat(getSherlockActivity()).format(book.issueDate.getTime())));
+        addIfExists(tr(R.string.book_lendat) , "libraryBranch");
+        if (book.account != null) details.add(new Details(tr(R.string.book_account), book.account.prettyName));
 
         //addIfExists("ID", "id");
-        addIfExists("Kategorie", "category");
+        addIfExists(tr(R.string.book_category), "category");
         //addIfExists("Jahr", "year");
-        addIfExists("Verlag", "publisher");
+        addIfExists(tr(R.string.book_publisher), "publisher");
 
         final List<String> above = Arrays.asList("status", "id", "category", "year", "statusId", "libraryBranch", "publisher", "orderable", "cancelable");
 
@@ -219,15 +224,15 @@ public class BookDetails extends VideLibriBaseFragment {
         if (searchedBook) {
             if (book.isOrderable()) {
                 action = book.getProperty("orderTitle");
-                if (action == null || "".equals(action)) action = "vormerken/bestellen";
+                if (action == null || "".equals(action)) action = tr(R.string.book_order);
             }
         } else if (!book.history && !(getActivity() instanceof RenewList))
             switch (book.getStatus()) {
-                case Unknown: action = "verlängern"; break;
-                case Normal: action = "verlängern"; break;
+                case Unknown: action = tr(R.string.book_renew); break;
+                case Normal: action = tr(R.string.book_renew); break;
                 //case Problematic: break;
                 case Ordered:  case Provided:
-                    if (book.isCancelable()) action = "Bestellung abbrechen";
+                    if (book.isCancelable()) action = tr(R.string.book_cancel);
                     else action = null;
                 break;
             }

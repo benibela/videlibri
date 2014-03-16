@@ -14,7 +14,7 @@ public class RenewList extends BookListActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setTitle("Auswahl zur Verlängerung");
+        setTitle(tr(R.string.renew_title_start));
         selectedBooks = new ArrayList<Bridge.Book>();
     }
 
@@ -44,16 +44,16 @@ public class RenewList extends BookListActivity {
         if (!deleted)
             selectedBooks.add(bookCache.get(bookpos));
         if (selectedBooks.size() == 0) {
-            setTitle("Verlängern: Auswahl");
+            setTitle(tr(R.string.renew_title_select));
             if (button != null) {
                 button.setEnabled(false);
-                button.setText("noch keine Auswahl");
+                button.setText(tr(R.string.renew_noselection));
             }
         } else {
-            setTitle("Verlängern: " + selectedBooks.size() + "/"+bookCache.size());
+            setTitle(tr(R.string.renew_title_selectionDD, selectedBooks.size(), bookCache.size()));
             if (button != null) {
                 button.setEnabled(true);
-                button.setText(selectedBooks.size()+ " verlängern");
+                button.setText(tr(R.string.renew_renewD, selectedBooks.size()));
                 //button.setBackgroundDrawable(activity.getResources().getDrawable(android.R.drawable.butt)); //http://stackoverflow.com/questions/4384890/how-to-disable-an-android-button
             }
         }

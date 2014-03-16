@@ -60,26 +60,26 @@ public class VideLibriSuperBase {
                 if (VideLibriApp.runningUpdates.isEmpty())
                     VideLibriApp.updateAccount(null, false, false);
                 else
-                    Util.showMessage("Es kann immer nur ein Aktualisierungs/Verlängerungsvorgang für alle Konten gestartet werden.");
+                    Util.showMessage(Util.tr(R.string.base_pendingrefreshrenew));
                 return true;
             case R.id.renew:
                 if (VideLibriApp.runningUpdates.isEmpty())
                     VideLibriApp.updateAccount(null, false, true);
                 else
-                    Util.showMessage("Es kann immer nur ein Aktualisierungs/Verlängerungsvorgang für alle Konten gestartet werden.");
+                    Util.showMessage(Util.tr(R.string.base_pendingrefreshrenew));
                 return true;
             case R.id.renewlist:
                 context.startActivity(new Intent(context, RenewList.class));
                 return true;
             case R.id.libinfo:
                 intent = new Intent(context, LibraryList.class);
-                intent.putExtra("reason", "Wählen Sie eine Bücherei um ihre Homepage zu öffnen:");
+                intent.putExtra("reason", Util.tr(R.string.base_chooselibhomepage));
                 intent.putExtra("search", true);
                 context.startActivityForResult(intent, REQUESTED_LIBRARY_HOMEPAGE);
                 return true;
             case R.id.libcatalogue:
                 intent = new Intent(context, LibraryList.class);
-                intent.putExtra("reason", "Wählen Sie eine Bücherei um ihren Webkatalog zu öffnen:");
+                intent.putExtra("reason", Util.tr(R.string.base_chooselibcat));
                 intent.putExtra("search", true);
                 context.startActivityForResult(intent, REQUESTED_LIBRARY_CATALOGUE);
                 return true;
@@ -198,19 +198,19 @@ public class VideLibriSuperBase {
 
 
         if (VideLibriApp.accounts.length > 0) {
-            texts.add("Manche verlängern"); icons.add(context.getResources().getDrawable(android.R.drawable.ic_menu_week)); ids.add(R.id.renewlist);
-            texts.add("Alle verlängern"); icons.add(context.getResources().getDrawable(android.R.drawable.ic_menu_month)); ids.add(R.id.renew);
+            texts.add(Util.tr(R.string.menu_renewlist)); icons.add(context.getResources().getDrawable(android.R.drawable.ic_menu_week)); ids.add(R.id.renewlist);
+            texts.add(Util.tr(R.string.menu_renewall)); icons.add(context.getResources().getDrawable(android.R.drawable.ic_menu_month)); ids.add(R.id.renew);
             if (VideLibriApp.runningUpdates.isEmpty()) {
-                texts.add("Alle aktualisieren"); icons.add(context.getResources().getDrawable(android.R.drawable.ic_menu_rotate)); ids.add(R.id.refresh);
+                texts.add(Util.tr(R.string.menu_refreshall)); icons.add(context.getResources().getDrawable(android.R.drawable.ic_menu_rotate)); ids.add(R.id.refresh);
             }
         }
-        texts.add("Webseiten"); icons.add(context.getResources().getDrawable(android.R.drawable.ic_menu_info_details)); ids.add(R.id.libinfo);
-        texts.add("Katalogseiten"); icons.add(context.getResources().getDrawable(android.R.drawable.ic_menu_info_details)); ids.add(R.id.libcatalogue);
-        texts.add("Feedback"); icons.add(context.getResources().getDrawable(android.R.drawable.ic_menu_send)); ids.add(R.id.feedback);
-        texts.add("Über Videlibri"); icons.add(context.getResources().getDrawable(android.R.drawable.ic_menu_help)); ids.add(R.id.about);
+        texts.add(Util.tr(R.string.menu_homepages)); icons.add(context.getResources().getDrawable(android.R.drawable.ic_menu_info_details)); ids.add(R.id.libinfo);
+        texts.add(Util.tr(R.string.menu_cats)); icons.add(context.getResources().getDrawable(android.R.drawable.ic_menu_info_details)); ids.add(R.id.libcatalogue);
+        texts.add(Util.tr(R.string.menu_feedback)); icons.add(context.getResources().getDrawable(android.R.drawable.ic_menu_send)); ids.add(R.id.feedback);
+        texts.add(Util.tr(R.string.menu_about)); icons.add(context.getResources().getDrawable(android.R.drawable.ic_menu_help)); ids.add(R.id.about);
 
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
-        builder.setTitle("Sonstiges");
+        builder.setTitle(Util.tr(R.string.menu_misc));
         ListView view = new ListView(context);
         view.setAdapter(new SubMenuWithIconsAdapter(context, texts, icons, ids));
         view.setCacheColorHint(0);

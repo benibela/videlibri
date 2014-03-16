@@ -22,7 +22,7 @@ public class SearchResult extends BookListActivity implements Bridge.SearchResul
 
         searcher = Search.searchers.isEmpty() ? null : Search.searchers.get(Search.searchers.size()-1);
         if (searcher == null) {
-            setTitle("Suchvorgang verschwunden");
+            setTitle(tr(R.string.search_lost));
             return;
         }
         libId = searcher.libId;
@@ -31,7 +31,7 @@ public class SearchResult extends BookListActivity implements Bridge.SearchResul
         waitingForDetails = -1;
         nextDetailsRequested = -1;
         setLoading(true);
-        setTitle("Suche läuft...");
+        setTitle(tr(R.string.search_loading));
     }
 
     @Override
@@ -64,7 +64,7 @@ public class SearchResult extends BookListActivity implements Bridge.SearchResul
                 bookCache.clear();
                 for (Bridge.Book b : books) bookCache.add(b);
                 displayBookCache(searcher.totalResultCount);
-                setTitle(Math.max(searcher.totalResultCount, bookCache.size())+" Treffer");
+                setTitle(tr(R.string.search_resultcountD,  Math.max(searcher.totalResultCount, bookCache.size())));
                 setLoading(false || orderingAccount != null);
             }
         });
@@ -205,7 +205,7 @@ public class SearchResult extends BookListActivity implements Bridge.SearchResul
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                showMessage("Das Buch \""+book.title+"\" wurde ohne Fehler vorbestellt.");
+                showMessage(tr(R.string.search_orderedokS, book.title));
                 VideLibriApp.displayAccount(orderingAccount);
                 if (orderingAccount != null)
                     VideLibriApp.updateAccount(orderingAccount, false, false); //full update, so the book is only shown if it worked, and canceling work
@@ -222,7 +222,7 @@ public class SearchResult extends BookListActivity implements Bridge.SearchResul
             @Override
             public void run() {
                 setLoading(false);
-                setTitle("Suche fehlgeschlagen");
+                setTitle(tr(R.string.search_failed));
                 VideLibriApp.showPendingExceptions();
             }
         });
@@ -263,7 +263,7 @@ public class SearchResult extends BookListActivity implements Bridge.SearchResul
             if (acc.libId.equals(libId) && acc.name != null && !acc.name.equals(""))
                 matchingAccounts.add(acc);
         if (matchingAccounts.size() == 0) {
-            showMessage("Bestellungen benötigen ein registriertes Bibliothekskonto in VideLibri.");
+            showMessage(tr(R.string.search_needaccount));
             return;
         }
         if (matchingAccounts.size() > 1) {
@@ -271,7 +271,7 @@ public class SearchResult extends BookListActivity implements Bridge.SearchResul
             for (int i=0;i<matchingAccounts.size();i++)
                 temp[i] = matchingAccounts.get(i).prettyName;
 
-            Util.chooseDialog(this, "Für welches Konto soll es bestellt werden?", temp, new MessageHandler() {
+            Util.chooseDialog(this, tr(R.string.search_orderTargetAccount), temp, new MessageHandler() {
                 @Override
                 public void onDialogEnd(DialogInterface dialogInterface, int i) {
                     if (i >= 0 && i < matchingAccounts.size()) {
@@ -306,7 +306,7 @@ public class SearchResult extends BookListActivity implements Bridge.SearchResul
                 final String versions[] = new String[orders];
                 for (int i=0;i<orders;i++)
                     versions[i] = book.getProperty("orderTitle"+i);
-                Util.chooseDialog(this, "Welches Exemplar wollen Sie vorbestellen?", versions, new MessageHandler() {
+                Util.chooseDialog(this, tr(R.string.search_chooseitem), versions, new MessageHandler() {
                     @Override
                     public void onDialogEnd(DialogInterface dialogInterface, int i) {
                         if (i >= 0 && i < versions.length)

@@ -4,12 +4,15 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.res.Resources;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
 import java.util.ArrayList;
+import java.util.IllegalFormatException;
 import java.util.List;
+import java.util.MissingFormatArgumentException;
 
 /**
  * Created with IntelliJ IDEA.
@@ -23,9 +26,33 @@ interface MessageHandler{
 }
 public class Util {
     static int MessageHandlerCanceled = -123;
-    static public void showMessage(String message){showMessage(message, null, "OK", null, null);}
-    static public void showMessage(String message, final MessageHandler handler){showMessage(message, null, "OK", null, handler);}
-    static public void showMessageYesNo(String message, MessageHandler handler){ Util.showMessage(message, "Nein", null, "Ja", handler); }
+    static public String tr(int id){
+        if (VideLibriApp.currentActivity == null) return "?tr?";
+        else return tr(VideLibriApp.currentActivity, id);
+    }
+    static public String tr(Context context, int id){
+        try {
+            return context.getString(id);
+        } catch (Resources.NotFoundException e) {
+            return "missing translation: "+id;
+        }
+    }
+    static public String tr(Context context, int id, Object... args){
+        try {
+            return context.getString(id, args);
+        } catch (Resources.NotFoundException e) {
+            return "missing translation: "+id;
+        } catch (IllegalFormatException e) {
+            return context.getString(id);
+        /*} catch (MissingFormatArgumentException e) { child of    IllegalFormatException
+            return context.getString(id);
+        } */
+        }
+    }
+
+    static public void showMessage(String message){showMessage(message, null, tr(R.string.ok), null, null);}
+    static public void showMessage(String message, final MessageHandler handler){showMessage(message, null, tr(R.string.ok), null, handler);}
+    static public void showMessageYesNo(String message, MessageHandler handler){ Util.showMessage(message, tr(R.string.no), null, tr(R.string.yes), handler); }
     static public void showMessage(String message, String negative, String neutral, String positive, final MessageHandler handler){
         Context context = VideLibriApp.currentActivity;
         if (context == null) return;

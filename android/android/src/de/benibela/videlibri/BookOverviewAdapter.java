@@ -33,7 +33,7 @@ class BookOverviewAdapter extends ArrayAdapter<Bridge.Book> {
         defaultBackgroundColor = context.getResources().getColor(android.R.color.background_dark);
 
         placeHolder = new Bridge.Book();
-        placeHolder.author = "Ergebnisse werden geladen...";
+        placeHolder.author = context.getString(R.string.booklist_loading);
 
     }
 
@@ -70,7 +70,7 @@ class BookOverviewAdapter extends ArrayAdapter<Bridge.Book> {
         } else {
             String more = "";
             if (!book.author.trim().equals(""))
-                if (!book.author.startsWith("von") && !book.author.startsWith("by")) more = " von " + shortened(book.author);
+                if (!book.author.startsWith("von") && !book.author.startsWith("by")) more = view.getContext().getString(R.string.booklist_from) + " " + shortened(book.author);
                 else more = " " + shortened(book.author);
             String year = book.getProperty("year");
             if (year != null && !"".equals(year)) more += " ; " + year;
@@ -89,8 +89,8 @@ class BookOverviewAdapter extends ArrayAdapter<Bridge.Book> {
 
         if (book.account != null && !book.history ) { //lend book
             switch (book.getStatus()) {
-                case Provided:  holder.date.setText("abholbereit"); break;
-                case Ordered:  holder.date.setText("vorgemerkt"); break;
+                case Provided:  holder.date.setText(view.getContext().getString(R.string.booklist_status_provided)); break;
+                case Ordered:  holder.date.setText(view.getContext().getString(R.string.booklist_status_ordered)); break;
                 default: holder.date.setText(book.dueDatePretty); break;
             }
             int c = book.getStatusColor();

@@ -96,7 +96,7 @@ public class AccountInfo extends VideLibriBaseActivity {
             findViewById(R.id.deleteButton).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    showMessageYesNo("Soll das Konto wirklich gelöscht werden?", new MessageHandler() {
+                    showMessageYesNo(tr(R.string.account_delete), new MessageHandler() {
                         @Override
                         public void onDialogEnd(DialogInterface dialogInterface, int i) {
                             if (i == DialogInterface.BUTTON_POSITIVE) {
@@ -108,7 +108,7 @@ public class AccountInfo extends VideLibriBaseActivity {
                     });
                 }
             });
-            findButtonById(R.id.completeAccountButton).setText("ändern");
+            findButtonById(R.id.completeAccountButton).setText(tr(R.string.change));
             findViewById(R.id.completeAccountButton).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -132,7 +132,7 @@ public class AccountInfo extends VideLibriBaseActivity {
                 @Override
                 public void onClick(View view) {
                     if (libId == null || "".equals(libId)){
-                        showMessage("Keine Bibliothek ausgewählt");
+                        showMessage(tr(R.string.error_nolibselected));
                         return;
                     }
 
@@ -146,7 +146,7 @@ public class AccountInfo extends VideLibriBaseActivity {
                     };
                     if (libName.contains("(alpha)") && accountId.getText().length() > 0) {
                         showMessage(
-                                "Hinweis: Bei dieser Bibliothek wurde nur die Suche ohne Kontozugriff getestet. Bitte berichten Sie, ob das Konto gleich angezeigt wird oder nicht.",
+                                tr(R.string.warning_alphalib),
                                 temp);
                     } else temp.onDialogEnd(null, 0);
                 }
@@ -170,10 +170,10 @@ public class AccountInfo extends VideLibriBaseActivity {
             public void run() {
                 Intent intent = new Intent(AccountInfo.this, LibraryList.class);
                 if (mode == MODE_ACCOUNT_CREATION_INITIAL) {
-                    intent.putExtra("reason", "Wählen Sie Ihre Bibliothek, um in ihrem Katalog zu suchen oder auf Ihr Bibliothekskonto zuzugreifen: ");
+                    intent.putExtra("reason", tr(R.string.account_createinitial));
                     //        intent.putExtra("initial", true);
                 } else
-                    intent.putExtra("reason", "Wählen Sie Ihre Bibliothek, um ein neues Konto zu registrieren: ");
+                    intent.putExtra("reason", tr(R.string.about_create));
                 startActivityForResult(intent, REQUEST_LIBRARY_FOR_ACCOUNT_CREATION);
             }
         }, 200);
