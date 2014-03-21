@@ -31,7 +31,7 @@ andere server außer abderos: eris, metis, rhea, thetis
 http://www.digibib.net/opensearch?S.SEARCH_SBDUE=on&S.SEARCH_SBAA=on&VIEW=HBZ:OeffBibInNRW&QUERY_azTI=test&LOCATION=HBZ&
 
 -->
-  <page url="http://www.digibib.net/opensearch" templateFile="searchstart">
+  <page url="http://www.digibib.net/opensearch" templateFile="search">
     <post name="LOCATION" value="{$location}"/>
     <post name="VIEW" value="{$view}"/>
 
@@ -55,7 +55,7 @@ http://www.digibib.net/opensearch?S.SEARCH_SBDUE=on&S.SEARCH_SBAA=on&VIEW=HBZ:Oe
     
   </page>  
   
-  <page url="http://www.digibib.net/{$url}" templateFile="search"/>
+ <!-- <page url="http://www.digibib.net/{$url}" templateFile="search"/> -->
   
 <!--  <page url="http://www.digibib.net/Digibib?SID={$sid}&LOCATION={$location}&SERVICE=METASEARCH&SUBSERVICE=GETLIST&PREVREQID={$reqid}&STREAMING=TRUE&VIEW={$view}&FORMAT=List&START=1&COUNT=100&METAID={$metaid}" templateFile="search"/>-->
   
