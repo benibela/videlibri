@@ -1,12 +1,13 @@
 <!DOCTYPE html>
+
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-<meta name="description" content="Xidel is a command line tool to download html/xml pages and extract data from them using CSS 3 selectors, XPath 2 expressions or pattern-matching templates." />
-<meta name="author" content="Benito van der Zander" />
-<meta name="keywords" content="Xidel,  xpath, xpath 2, css, css 3, template, pattern matching, xml, html, download" />
-<link rel="stylesheet" type="text/css" href="all.css"/>
-<link rel="stylesheet" type="text/css" href="xidel.css"/>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="description" content="Xidel is a command line tool to download html/xml pages and extract data from them using CSS 3 selectors, XPath 2 expressions or pattern-matching templates.">
+<meta name="author" content="Benito van der Zander">
+<meta name="keywords" content="Xidel,  xpath, xpath 2, css, css 3, template, pattern matching, xml, html, download">
+<link rel="stylesheet" type="text/css" href="all.css">
+<link rel="stylesheet" type="text/css" href="xidel.css">
 <title>Xidel - HTML/XML data extraction tool </title></head>
 <body>
 <h1><a name="home">Xidel - HTML/XML data extraction tool</a></h1>
@@ -25,7 +26,7 @@
 <p>
 Xidel is a command line tool to download and extract data from html/xml pages.<br><br>
 
-<h2><div><a name="news">News</a></div></h2>
+</p><h2><div><a name="news">News</a></div></h2>
 <dl>
 <dt><b>2013-03-26</b>: New release</dt>
 <dd style="margin-top:8px; margin-bottom: 8px">The 0.7 release adds JSONiq support, grouping of command line options, new input/output formats, fixes html parsing/serialization, changes the syntax of extended strings and some other stuff</dd>
@@ -70,21 +71,21 @@ It supports:
 <ol class="examples">
 <li>
 Print all urls found by a google search.<br><br>
-  <code>xidel http://www.google.de/search?q=test --extract "//a/extract(@href, 'url[?]q=([^&]+)&', 1)[. != '']"</code>
+  <code>xidel http://www.google.de/search?q=test --extract "//a/extract(@href, 'url[?]q=([^&amp;]+)&amp;', 1)[. != '']"</code>
 </li>
 <li>
 Print the title of all pages found by a google search and download them: <br><br>
-  <code>xidel http://www.google.de/search?q=test --follow "//a/extract(@href, 'url[?]q=([^&]+)&', 1)[. != '']" --extract //title --download '{$host}/'</code>
+  <code>xidel http://www.google.de/search?q=test --follow "//a/extract(@href, 'url[?]q=([^&amp;]+)&amp;', 1)[. != '']" --extract //title --download '{$host}/'</code>
 </li>
 <li>
 Generally follow all links on a page and print the titles of the linked pages:<ul>
   <li>With XPath: <code>xidel http://example.org -f //a -e //title</code> </li>
   <li>With CSS: <code>xidel http://example.org -f "css('a')" --css title</code> </li>
-  <li>With Templates: <code>xidel http://example.org -f "&lt;a>{.}&lt;/a>*" -e "&lt;title>{.}&lt;/title>"</code> </li>
+  <li>With Templates: <code>xidel http://example.org -f "&lt;a&gt;{.}&lt;/a&gt;*" -e "&lt;title&gt;{.}&lt;/title&gt;"</code> </li>
 </ul></li>
 <li>Another template example: <br><br>
-   If you have an example.xml file like <code>&lt;x>&lt;foo>ood&lt;/foo>&lt;bar>IMPORTANT!&lt;/bar>&lt;/x></code><br>
-   You can read the imporant part like: <code>xidel example.xml -e "&lt;x>&lt;foo>ood&lt;/foo>&lt;bar>{.}&lt;/bar>&lt;/x>"</code><br>
+   If you have an example.xml file like <code>&lt;x&gt;&lt;foo&gt;ood&lt;/foo&gt;&lt;bar&gt;IMPORTANT!&lt;/bar&gt;&lt;/x&gt;</code><br>
+   You can read the imporant part like: <code>xidel example.xml -e "&lt;x&gt;&lt;foo&gt;ood&lt;/foo&gt;&lt;bar&gt;{.}&lt;/bar&gt;&lt;/x&gt;"</code><br>
    (and this will also check, if the part with the ood is there, and fail otherwise)
 </li>
 <li>Calculate something with XPath: <br><br>
@@ -92,18 +93,18 @@ Generally follow all links on a page and print the titles of the linked pages:<u
 </li>
 <li>Print all newest stackoverflow questions with title and url:<br><br>
 
-   <code>xidel http://stackoverflow.com -e "&lt;A class='question-hyperlink'>{title:=text(), url:=@href}&lt;/A>*"</code>
-<li>Print all reddit comments of an user, with html and url:<br><br>
-   <code>xidel "http://www.reddit.com/user/username/" --extract "&lt;t:loop>&lt;div class='usertext-body'>&lt;div>{outer-xml(.)}&lt;/div>&lt;/div>&lt;ul class='flat-list buttons'>&lt;a>&lt;t:s>link:=@href&lt;/t:s>permalink&lt;/a>&lt;/ul>&lt;/div>&lt;/div>&lt;/t:loop>" --follow "&lt;a rel='nofollow next'>{.}&lt;/a>?"</code>
+   <code>xidel http://stackoverflow.com -e "&lt;A class='question-hyperlink'&gt;{title:=text(), url:=@href}&lt;/A&gt;*"</code>
+</li><li>Print all reddit comments of an user, with html and url:<br><br>
+   <code>xidel "http://www.reddit.com/user/username/" --extract "&lt;t:loop&gt;&lt;div class='usertext-body'&gt;&lt;div&gt;{outer-xml(.)}&lt;/div&gt;&lt;/div&gt;&lt;ul class='flat-list buttons'&gt;&lt;a&gt;&lt;t:s&gt;link:=@href&lt;/t:s&gt;permalink&lt;/a&gt;&lt;/ul&gt;&lt;/div&gt;&lt;/div&gt;&lt;/t:loop&gt;" --follow "&lt;a rel='nofollow next'&gt;{.}&lt;/a&gt;?"</code>
 </li>
 <li>Check if your reddit letter is red:
 <ul><li>Webscraping, combining CSS, XPath, JSONiq and automatically form evaluation:<br><br>
     <code>xidel http://reddit.com -f "form(css('form.login-form')[1], {'user': '$your_username', 'passwd': '$your_password'})" -e "css('#mail')/@title"</code></li>
     <li>Using the Reddit API with JSONiq:<br><br>
-    <code>xidel --post "user=$your_username&passwd=$your_password&api_type=json" https://ssl.reddit.com/api/login --method GET 'http://www.reddit.com/api/me.json' -e 'jn:parse-json($raw)("data")("has_mail")'</code></li></ul>
-<li>Use XQuery, to create a html table of odd and even numbers: <br><br>
-   Windows: <code>xidel --xquery "&lt;table>{for $i in 1 to 1000 return &lt;tr>&lt;td>{$i}&lt;/td>&lt;td>{if ($i mod 2 = 0) then 'even' else 'odd'}&lt;/td>&lt;/tr>}&lt;/table>" --output-format xml </code><br>
-   Linux: <code>xidel --xquery '&lt;table>{for $i in 1 to 1000 return &lt;tr>&lt;td>{$i}&lt;/td>&lt;td>{if ($i mod 2 = 0) then "even" else "odd"}&lt;/td>&lt;/tr>}&lt;/table>' --output-format xml</code><br>
+    <code>xidel --post "user=$your_username&amp;passwd=$your_password&amp;api_type=json" https://ssl.reddit.com/api/login --method GET 'http://www.reddit.com/api/me.json' -e 'jn:parse-json($raw)("data")("has_mail")'</code></li></ul>
+</li><li>Use XQuery, to create a html table of odd and even numbers: <br><br>
+   Windows: <code>xidel --xquery "&lt;table&gt;{for $i in 1 to 1000 return &lt;tr&gt;&lt;td&gt;{$i}&lt;/td&gt;&lt;td&gt;{if ($i mod 2 = 0) then 'even' else 'odd'}&lt;/td&gt;&lt;/tr&gt;}&lt;/table&gt;" --output-format xml </code><br>
+   Linux: <code>xidel --xquery '&lt;table&gt;{for $i in 1 to 1000 return &lt;tr&gt;&lt;td&gt;{$i}&lt;/td&gt;&lt;td&gt;{if ($i mod 2 = 0) then "even" else "odd"}&lt;/td&gt;&lt;/tr&gt;}&lt;/table&gt;' --output-format xml</code><br>
    <span style="font-size:75%">(xidel itself supports ' and "-quotes on all platforms, but ' does not escape &lt;&gt; in Windows cmd, and " does not escape $ in the Linux shells)</span>  </li>
 <li>Export variables to bash<br><br>
     <code>eval $(xidel http://site -e 'title:=//title' -e 'links:=//a/@href' --output-format bash)</code><br><br>
@@ -121,7 +122,7 @@ You may also want to read the <a href="xidel_readme.txt">readme file of Xidel</a
 The following Xidel downloads are available on the <a href="http://sourceforge.net/projects/videlibri/files/Xidel/Xidel%200.7/">sourceforge download page</a>: <br><br>
 
 <table class="downloadTable">
-                        <tr><th>Operating System</th><th>Filename</th><th>Size</th></tr>
+                        <tbody><tr><th>Operating System</th><th>Filename</th><th>Size</th></tr>
                         <tr><td>Windows: 32 Bit</td><td><a href="http://sourceforge.net/projects/videlibri/files/Xidel/Xidel%200.7/xidel-0.7.win32.zip/download">
                         xidel-0.7.win32.zip</a></td><td>556.7 kB</td></tr><tr><td>Universal Linux: 64 Bit</td><td><a href="http://sourceforge.net/projects/videlibri/files/Xidel/Xidel%200.7/xidel-0.7.linux64.tar.gz/download">
                         xidel-0.7.linux64.tar.gz</a></td><td>1.5 MB</td></tr><tr><td>Universal Linux: 32 Bit</td><td><a href="http://sourceforge.net/projects/videlibri/files/Xidel/Xidel%200.7/xidel-0.7.linux32.tar.gz/download">
@@ -129,8 +130,8 @@ The following Xidel downloads are available on the <a href="http://sourceforge.n
                         xidel-0.7.src.tar.gz</a></td><td>1.1 MB</td></tr><tr><td>Debian: 64 Bit</td><td><a href="http://sourceforge.net/projects/videlibri/files/Xidel/Xidel%200.7/xidel_0.7-1_amd64.deb/download">
                         xidel_0.7-1_amd64.deb</a></td><td>1.5 MB</td></tr><tr><td>Debian: 32 Bit</td><td><a href="http://sourceforge.net/projects/videlibri/files/Xidel/Xidel%200.7/xidel_0.7-1_i386.deb/download">
                         xidel_0.7-1_i386.deb</a></td><td>1.2 MB</td></tr>
-                        <tr><td>Mac 10.8</td><td colspan="2"><a href="https://www.evernote.com/shard/s69/sh/ff1e78f3-a369-4855-b18f-6184ce789c45/f3511927d0fb356ce883835f2eb712e0">externally prebuilt 0.7 version</a> and compile instructions.</td></td></tr>
-                        </table>
+                        <tr><td>Mac 10.8</td><td colspan="2"><a href="https://www.evernote.com/shard/s69/sh/ff1e78f3-a369-4855-b18f-6184ce789c45/f3511927d0fb356ce883835f2eb712e0">externally prebuilt 0.7 version</a> and compile instructions.</td></tr>
+                        </tbody></table>
 
 
                         
@@ -146,7 +147,7 @@ because it consists of a single binary without any external dependencies, except
 However, for https connections on Linux openssl and libcrypto (or even openssl-dev?) are also required.
 <br><br>
 
-You can also test it <a href="/cgi-bin/xidelcgi">online on a webpage</a> or directly by sending a request to the cgi service like <a href="/cgi-bin/xidelcgi?data=&lt;html>&lt;title>foobar&lt;/title>&lt;/html>&extract=//title&raw=true" rel="nofollow"><code>http://videlibri.sourceforge.net/cgi-bin/xidelcgi?data=&lt;html>&lt;title>foobar&lt;/title>&lt;/html>&extract=//title&raw=true</code></a>.<br><br><br>
+You can also test it <a href="/cgi-bin/xidelcgi">online on a webpage</a> or directly by sending a request to the cgi service like <a href="/cgi-bin/xidelcgi?data=<html><title>foobar</title></html>&amp;extract=//title&amp;raw=true" rel="nofollow"><code>http://videlibri.sourceforge.net/cgi-bin/xidelcgi?data=&lt;html&gt;&lt;title&gt;foobar&lt;/title&gt;&lt;/html&gt;&amp;extract=//title&amp;raw=true</code></a>.<br><br><br>
 
 The source is stored in a <a href="https://sourceforge.net/p/videlibri/code/ci/tip/tree/">mercurial repository</a> together with the VideLibri source.<br><br>
 The  program is written in FreePascal/Lazarus, so you need these to compile it. <br><br>
@@ -163,18 +164,18 @@ It is also possible to compile it on Mac: There you need the newest version of t
 
 <p>There is also a Greasemonkey script to automatically generate templates by selecting the interesting values on a webpage. The script intercepts the selection and marks the elements as shown in the screenshots below: 
 <br>
-<center><a href="img/reddit.png"><img src="img/reddit_tiny.png" title="Selections that create a template to read the reddit frontpage (extracting title/author/time of each link)" alt="Selections that create a template to read the reddit frontpage (extracting title/author/time of each link)"/></a> 
-<a href="img/stackoverflow.png"><img src="img/stackoverflow_tiny.png" title="Selections that create a template to read the newest stackoverflow question. (votes/title/author are extracted for each of the questions) " alt="Selections that create a template to read the newest stackoverflow question. (votes/title/author are extracted for each of the questions) "/></a></center>
+<center><a href="img/reddit.png"><img src="img/reddit_tiny.png" title="Selections that create a template to read the reddit frontpage (extracting title/author/time of each link)" alt="Selections that create a template to read the reddit frontpage (extracting title/author/time of each link)"></a> 
+<a href="img/stackoverflow.png"><img src="img/stackoverflow_tiny.png" title="Selections that create a template to read the newest stackoverflow question. (votes/title/author are extracted for each of the questions) " alt="Selections that create a template to read the newest stackoverflow question. (votes/title/author are extracted for each of the questions) "></a></center>
 <br>
-<p>You can find the script in the mercurial repository or on <a href="http://userscripts.org/scripts/show/144991">userscripts.org</a> with a detailed description.
+</p><p>You can find the script in the mercurial repository or on <a href="http://userscripts.org/scripts/show/144991">userscripts.org</a> with a detailed description.
 
 <br><br><br><br>
 
 
 
-<h2><div><a id="contact">Contact</a></div></h2>
+</p><h2><div><a id="contact">Contact</a></div></h2>
 Autor: Benito van der Zander, <a href="benito_NOSPAM_benibela.de">benito_NOSPAM_benibela.de</a>, <a href="http://www.benibela.de/index_en.html">www.benibela.de</a><br>
-<div id="sf-logo"><a href="http://sourceforge.net/projects/videlibri"><img src="http://sflogo.sourceforge.net/sflogo.php?group_id=359854&amp;type=1" width="125" height="37" border="0" alt="SourceForge.net Logo" /></a></div>
+<div id="sf-logo"><a href="http://sourceforge.net/projects/videlibri"><img src="http://sflogo.sourceforge.net/sflogo.php?group_id=359854&amp;type=1" width="125" height="37" border="0" alt="SourceForge.net Logo"></a></div>
 
 <!-- Piwik -->
 <script type="text/javascript">
@@ -186,8 +187,9 @@ var piwikTracker = Piwik.getTracker(pkBaseURL + "piwik.php", 4);
 piwikTracker.trackPageView();
 piwikTracker.enableLinkTracking();
 } catch( err ) {}
-</script><noscript><p><img src="http://videlibri.sourceforge.net/piwik/piwik.php?idsite=4" style="border:0" alt="" /></p></noscript>
+</script><noscript><p><img src="http://videlibri.sourceforge.net/piwik/piwik.php?idsite=4" style="border:0" alt=""></p></noscript>
 <!-- End Piwik Tracking Code -->
 
 </body>
 </html>
+
