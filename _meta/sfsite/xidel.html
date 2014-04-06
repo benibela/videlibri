@@ -28,14 +28,16 @@ Xidel is a command line tool to download and extract data from html/xml pages.<b
 
 </p><h2><div><a name="news">News</a></div></h2>
 <dl>
+<dt><b>2014-03-24</b>: New release</dt>
+<dd style="margin-top:8px; margin-bottom: 8px">The 0.8 release improves the JSONiq support and our own JSON extensions, adds arbitrary precision arithmetic, a trivial subset of XPath/XQuery 3, new functions for resolving uri or html hrefs,  and more... </dd>
 <dt><b>2013-03-26</b>: New release</dt>
 <dd style="margin-top:8px; margin-bottom: 8px">The 0.7 release adds JSONiq support, grouping of command line options, new input/output formats, fixes html parsing/serialization, changes the syntax of extended strings and some other stuff</dd>
 <dt><b>2012-11-06</b>: New release</dt>
 <dd style="margin-top:8px; margin-bottom: 8px">The 0.6 release adds XQuery support, the <code>form</code> and <code>match</code> functions, improves the Windows command-line interface, merges the two old cgi services to a single one and fixes several interpreter bugs</dd>
 <dt><b>2012-09-05</b>: Initial release of Xidel</dt>
 <dd style="margin-top:8px; margin-bottom: 8px">First release of the VideLibri backend as stand-alone command-line tool</dd>
-<dt><b>2010-08-29</b>: Initial release</dt>
-<dd style="margin-top:8px; margin-bottom: 8px">Release of a tiny cli example to test the pattern matching and XPath expressions of the Pascal Internet Tools / VideLibri backend on local files</dd>
+<!--<dt><b>2010-08-29</b>: Initial release</dt>
+<dd style="margin-top:8px; margin-bottom: 8px">Release of a tiny cli example to test the pattern matching and XPath expressions of the Pascal Internet Tools / VideLibri backend on local files</dd>-->
 </dl> 
 <br>
 
@@ -50,6 +52,7 @@ It supports:
   <li>XQuery 1: to  create new documents from the extracted values</li> 
   <li>JSONiq: to  work with JSON apis</li> 
   <li>Templates: to extract several expressions in an easy way using a annotated version of the page for pattern-matching</li>
+  <li>A trivial subset of XPath/XQuery 3 (work in progress)</li>
 </ul></li>
 <li>Following:<ul>
   <li>HTTP Codes: Redirections like 30x are automatically followed, while keeping things like cookies </li>
@@ -89,7 +92,7 @@ Generally follow all links on a page and print the titles of the linked pages:<u
    (and this will also check, if the part with the ood is there, and fail otherwise)
 </li>
 <li>Calculate something with XPath: <br><br>
-  <code>xidel -e "(1 + 2 + 3) * 4 + 5 + 6 + 7"</code>
+  <code>xidel -e "(1 + 2 + 3) * 1000000000000 + 4 + 5 + 6 + 7.000000008"</code>
 </li>
 <li>Print all newest stackoverflow questions with title and url:<br><br>
 
@@ -100,14 +103,14 @@ Generally follow all links on a page and print the titles of the linked pages:<u
 <li>Check if your reddit letter is red:
 <ul><li>Webscraping, combining CSS, XPath, JSONiq and automatically form evaluation:<br><br>
     <code>xidel http://reddit.com -f "form(css('form.login-form')[1], {'user': '$your_username', 'passwd': '$your_password'})" -e "css('#mail')/@title"</code></li>
-    <li>Using the Reddit API with JSONiq:<br><br>
-    <code>xidel --post "user=$your_username&amp;passwd=$your_password&amp;api_type=json" https://ssl.reddit.com/api/login --method GET 'http://www.reddit.com/api/me.json' -e 'jn:parse-json($raw)("data")("has_mail")'</code></li></ul>
+    <li>Using the Reddit API:<br><br>
+    <code>xidel -d "user=$your_username&amp;passwd=$your_password&amp;api_type=json" https://ssl.reddit.com/api/login --method GET 'http://www.reddit.com/api/me.json' -e '($json).data.has_mail'</code></li></ul>
 </li><li>Use XQuery, to create a html table of odd and even numbers: <br><br>
    Windows: <code>xidel --xquery "&lt;table&gt;{for $i in 1 to 1000 return &lt;tr&gt;&lt;td&gt;{$i}&lt;/td&gt;&lt;td&gt;{if ($i mod 2 = 0) then 'even' else 'odd'}&lt;/td&gt;&lt;/tr&gt;}&lt;/table&gt;" --output-format xml </code><br>
    Linux: <code>xidel --xquery '&lt;table&gt;{for $i in 1 to 1000 return &lt;tr&gt;&lt;td&gt;{$i}&lt;/td&gt;&lt;td&gt;{if ($i mod 2 = 0) then "even" else "odd"}&lt;/td&gt;&lt;/tr&gt;}&lt;/table&gt;' --output-format xml</code><br>
    <span style="font-size:75%">(xidel itself supports ' and "-quotes on all platforms, but ' does not escape &lt;&gt; in Windows cmd, and " does not escape $ in the Linux shells)</span>  </li>
 <li>Export variables to bash<br><br>
-    <code>eval $(xidel http://site -e 'title:=//title' -e 'links:=//a/@href' --output-format bash)</code><br><br>
+    <code>eval "$(xidel http://site -e 'title:=//title' -e 'links:=//a/@href' --output-format bash)"</code><br><br>
     This sets the bash variable $title to the title of the page and $links becomes an array of all links there
 </li>
 </ol>
@@ -119,19 +122,19 @@ You may also want to read the <a href="xidel_readme.txt">readme file of Xidel</a
 
 <h2><div><a name="downloads">Downloads</a></div></h2>
 
-The following Xidel downloads are available on the <a href="http://sourceforge.net/projects/videlibri/files/Xidel/Xidel%200.7/">sourceforge download page</a>: <br><br>
+The following Xidel downloads are available on the <a href="http://sourceforge.net/projects/videlibri/files/Xidel/Xidel%200.8/">sourceforge download page</a>: <br><br>
 
 <table class="downloadTable">
-                        <tbody><tr><th>Operating System</th><th>Filename</th><th>Size</th></tr>
-                        <tr><td>Windows: 32 Bit</td><td><a href="http://sourceforge.net/projects/videlibri/files/Xidel/Xidel%200.7/xidel-0.7.win32.zip/download">
-                        xidel-0.7.win32.zip</a></td><td>556.7 kB</td></tr><tr><td>Universal Linux: 64 Bit</td><td><a href="http://sourceforge.net/projects/videlibri/files/Xidel/Xidel%200.7/xidel-0.7.linux64.tar.gz/download">
-                        xidel-0.7.linux64.tar.gz</a></td><td>1.5 MB</td></tr><tr><td>Universal Linux: 32 Bit</td><td><a href="http://sourceforge.net/projects/videlibri/files/Xidel/Xidel%200.7/xidel-0.7.linux32.tar.gz/download">
-                        xidel-0.7.linux32.tar.gz</a></td><td>1.2 MB</td></tr><tr><td>Source:</td><td><a href="http://sourceforge.net/projects/videlibri/files/Xidel/Xidel%200.7/xidel-0.7.src.tar.gz/download">
-                        xidel-0.7.src.tar.gz</a></td><td>1.1 MB</td></tr><tr><td>Debian: 64 Bit</td><td><a href="http://sourceforge.net/projects/videlibri/files/Xidel/Xidel%200.7/xidel_0.7-1_amd64.deb/download">
-                        xidel_0.7-1_amd64.deb</a></td><td>1.5 MB</td></tr><tr><td>Debian: 32 Bit</td><td><a href="http://sourceforge.net/projects/videlibri/files/Xidel/Xidel%200.7/xidel_0.7-1_i386.deb/download">
-                        xidel_0.7-1_i386.deb</a></td><td>1.2 MB</td></tr>
-                        <tr><td>Mac 10.8</td><td colspan="2"><a href="https://www.evernote.com/shard/s69/sh/ff1e78f3-a369-4855-b18f-6184ce789c45/f3511927d0fb356ce883835f2eb712e0">externally prebuilt 0.7 version</a> and compile instructions.</td></tr>
-                        </tbody></table>
+                           <tr><th>Operating System</th><th>Filename</th><th>Size</th></tr>
+                           <tr><td>Windows: 32 Bit</td><td><a href="http://sourceforge.net/projects/videlibri/files/Xidel/Xidel%200.8/xidel-0.8.win32.zip/download">
+                        xidel-0.8.win32.zip</a></td><td>602.5 kB</td></tr><tr><td>Universal Linux: 64 Bit</td><td><a href="http://sourceforge.net/projects/videlibri/files/Xidel/Xidel%200.8/xidel-0.8.linux64.tar.gz/download">
+                        xidel-0.8.linux64.tar.gz</a></td><td>1.5 MB</td></tr><tr><td>Universal Linux: 32 Bit</td><td><a href="http://sourceforge.net/projects/videlibri/files/Xidel/Xidel%200.8/xidel-0.8.linux32.tar.gz/download">
+                        xidel-0.8.linux32.tar.gz</a></td><td>1.2 MB</td></tr><tr><td>Source:</td><td><a href="http://sourceforge.net/projects/videlibri/files/Xidel/Xidel%200.8/xidel-0.8.src.tar.gz/download">
+                        xidel-0.8.src.tar.gz</a></td><td>1.3 MB</td></tr><tr><td>Debian: 64 Bit</td><td><a href="http://sourceforge.net/projects/videlibri/files/Xidel/Xidel%200.8/xidel_0.8-1_amd64.deb/download">
+                        xidel_0.8-1_amd64.deb</a></td><td>1.0 MB</td></tr><tr><td>Debian: 32 Bit</td><td><a href="http://sourceforge.net/projects/videlibri/files/Xidel/Xidel%200.8/xidel_0.8-1_i386.deb/download">
+                        xidel_0.8-1_i386.deb</a></td><td>794.3 kB</td></tr>
+                           <tr><td>Mac OSX 10.9</td><td colspan="2"><a href="https://www.evernote.com/shard/s69/sh/ff1e78f3-a369-4855-b18f-6184ce789c45/f3511927d0fb356ce883835f2eb712e0">externally prebuilt version</a> and compile instructions.</td></tr>
+                           </table>
 
 
                         
@@ -154,9 +157,9 @@ The  program is written in FreePascal/Lazarus, so you need these to compile it. 
 With the source from the repository, it should be possible to just open the project file xidel.lpi (in the programs/internet/xidel directory) in Lazarus and click on Run\Compile.<br>
 If that fails, because it complains about missing packages, you first need to register the packages  in Lazarus, by opening the components/pascal/internettools.lpk and components/pascal/import/utf8tools/utf8tools.lpk files and clicking the "Use/Install" button.<br><br>
 
-In the source tar ball, the paths are not fully correct (absolute instead relative) and a package file is missing. So before compiling the xidel.lpi, you need to open the "project options" dialog to add the "other unit file" paths to all subdirectories in the components/pascal directory and open the "project inspector" to remove the dependency on "internet tools" (alternatively, you can download the <a href="http://www.benibela.de/sources_en.html#internettools">internet tools package</a> from my homepage, but that should not be necessary, once the paths are set).<br> <br>
-<!--First open the internettools.lpk (in the components/pascal directory) in Lazarus, compile and install it there. On Linux that also requires the synapse library, if you do not have it already installed, you should add the components/pascal/import/synapse directory to the package search path.    Then open xidel.lpi (in the programs/internet/xidel directory),  select possibly your platform/OS in the project settings, and compile it.<br>-->
-It is also possible to compile it on Mac: There you need the newest version of the <a href="http://synapse.ararat.cz/doku.php/download">synapse library</a> (the version included in the Xidel source is not mac-compatible),  then you can compile it as described <a href="https://www.evernote.com/shard/s69/sh/ff1e78f3-a369-4855-b18f-6184ce789c45/f3511927d0fb356ce883835f2eb712e0">here</a>. There you can find a prebuilt mac version.
+<!--In the source tar ball, the paths are not fully correct (absolute instead relative) and a package file is missing. So before compiling the xidel.lpi, you need to open the "project options" dialog to add the "other unit file" paths to all subdirectories in the components/pascal directory and open the "project inspector" to remove the dependency on "internet tools" (alternatively, you can download the <a href="http://www.benibela.de/sources_en.html#internettools">internet tools package</a> from my homepage, but that should not be necessary, once the paths are set).<br> <br>
+-First open the internettools.lpk (in the components/pascal directory) in Lazarus, compile and install it there. On Linux that also requires the synapse library, if you do not have it already installed, you should add the components/pascal/import/synapse directory to the package search path.    Then open xidel.lpi (in the programs/internet/xidel directory),  select possibly your platform/OS in the project settings, and compile it.<br>-
+!--It is also possible to compile it on Mac: There you need the newest version of the <a href="http://synapse.ararat.cz/doku.php/download">synapse library</a> (the version included in the Xidel source is not mac-compatible),  then you can compile it as described <a href="https://www.evernote.com/shard/s69/sh/ff1e78f3-a369-4855-b18f-6184ce789c45/f3511927d0fb356ce883835f2eb712e0">here</a>. There you can find a prebuilt mac version.-->
 
 <br>
 
