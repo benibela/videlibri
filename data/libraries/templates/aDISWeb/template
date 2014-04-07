@@ -85,14 +85,7 @@
 </action>
 
 <action id="renew-list">
-  <page url="{$kontoPage}" templateFile="list">
-  <template>
-    <form>{
-      extendFormPost := form(., jn:object((.//input[@type = "submit" and contains(@value, "arkierte") and contains(@value, "ngern")])[1]/{string(@name): @value})),
-      extendFormPost.post := replace($extendFormPost.post, "[a-zA-Z0-9]+=on&amp;", "")
-    }</form>
-  </template>  
-  </page>
+  <page url="{$kontoPage}" templateFile="list"/>
 
   <variable name="book-list">string-join(for $book in $renew-books return x"{$book.extendid}=on", "&amp;")</variable> 
   <page url="{$extendFormPost}">
