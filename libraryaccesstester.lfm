@@ -1,18 +1,18 @@
 object libraryTesterForm: TlibraryTesterForm
   Left = 383
-  Height = 351
-  Top = 365
-  Width = 665
+  Height = 518
+  Top = 198
+  Width = 848
   Caption = 'libraryTesterForm'
-  ClientHeight = 351
-  ClientWidth = 665
+  ClientHeight = 518
+  ClientWidth = 848
   OnClose = FormClose
   OnCloseQuery = FormCloseQuery
   OnCreate = FormCreate
   LCLVersion = '1.1'
   object ListBox1: TListBox
     Left = 0
-    Height = 351
+    Height = 518
     Top = 0
     Width = 320
     Align = alLeft
@@ -23,19 +23,19 @@ object libraryTesterForm: TlibraryTesterForm
   end
   object Panel1: TPanel
     Left = 320
-    Height = 351
+    Height = 518
     Top = 0
-    Width = 345
+    Width = 528
     Align = alClient
     Caption = 'Panel1'
-    ClientHeight = 351
-    ClientWidth = 345
+    ClientHeight = 518
+    ClientWidth = 528
     TabOrder = 1
     object Edit1: TEdit
       Left = 16
       Height = 25
       Top = 24
-      Width = 313
+      Width = 496
       Anchors = [akTop, akLeft, akRight]
       TabOrder = 0
       Text = 'name'
@@ -44,7 +44,7 @@ object libraryTesterForm: TlibraryTesterForm
       Left = 16
       Height = 25
       Top = 56
-      Width = 313
+      Width = 496
       Anchors = [akTop, akLeft, akRight]
       TabOrder = 1
       Text = 'password'
@@ -60,9 +60,9 @@ object libraryTesterForm: TlibraryTesterForm
     end
     object Memo1: TMemo
       Left = 18
-      Height = 180
+      Height = 347
       Top = 160
-      Width = 310
+      Width = 493
       Anchors = [akTop, akLeft, akRight, akBottom]
       Lines.Strings = (
         'Memo1'
@@ -91,9 +91,18 @@ object libraryTesterForm: TlibraryTesterForm
       Left = 113
       Height = 25
       Top = 84
-      Width = 216
+      Width = 399
       Anchors = [akTop, akLeft, akRight]
       TabOrder = 5
+    end
+    object Button3: TButton
+      Left = 390
+      Height = 25
+      Top = 128
+      Width = 75
+      Caption = 'cat urls'
+      OnClick = Button3Click
+      TabOrder = 6
     end
   end
 end

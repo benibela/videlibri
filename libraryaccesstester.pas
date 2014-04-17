@@ -14,6 +14,7 @@ type
   TlibraryTesterForm = class(TForm)
     Button1: TButton;
     Button2: TButton;
+    Button3: TButton;
     Edit1: TEdit;
     Edit2: TEdit;
     filter: TEdit;
@@ -23,6 +24,7 @@ type
     Panel1: TPanel;
     procedure Button1Click(Sender: TObject);
     procedure Button2Click(Sender: TObject);
+    procedure Button3Click(Sender: TObject);
     procedure FormClose(Sender: TObject; var CloseAction: TCloseAction);
     procedure FormCloseQuery(Sender: TObject; var CanClose: boolean);
     procedure FormCreate(Sender: TObject);
@@ -103,6 +105,15 @@ begin
     end;
     ListBox1.ItemIndex:=ListBox1.ItemIndex+1;
   end;
+end;
+
+procedure TlibraryTesterForm.Button3Click(Sender: TObject);
+var
+  i: Integer;
+begin
+  memo1.Lines.Clear;
+  for i := 0 to libraryManager.count - 1 do
+    Memo1.Lines.Add(libraryManager[i].id+':§: '+libraryManager[i].prettyNameShort+':§: '+libraryManager[i].homepageCatalogue);
 end;
 
 procedure TlibraryTesterForm.FormClose(Sender: TObject; var CloseAction: TCloseAction);
