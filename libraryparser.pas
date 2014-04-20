@@ -251,6 +251,7 @@ type
 
 
     constructor create(alib: TLibrary);override;
+    procedure resetlib();
     procedure init(apath,userID:string);override;
     destructor destroy;override;
 
@@ -1199,6 +1200,14 @@ begin
     parser.variableChangeLog.ValuesString[lib.defaultVariables.Names[i]]:=lib.defaultVariables.ValueFromIndex[i];
   parser.variableChangeLog.ValuesString['username']:=user;
   parser.variableChangeLog.ValuesString['password']:=passWord;
+end;
+
+procedure TTemplateAccountAccess.resetlib;
+begin
+  //todo: fix memory leak
+  reader:=TBookListReader.create(lib.template);
+  reader.books:=books.bookLists[bltInCurrentDataUpdate];
+  FConnected:=false;
 end;
 
 

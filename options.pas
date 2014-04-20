@@ -898,12 +898,29 @@ end;
 
 
 procedure ToptionForm.templateDefineClick(Sender: TObject);
+var
+  oldTemplateIdx: Integer;
+  oldTemplate: TObject;
+  i: Integer;
+  j: Integer;
 begin
+  oldTemplateIdx := libraryManager.templates.IndexOf(templateName.Text);
+  if oldTemplateIdx >= 0 then oldTemplate := libraryManager.templates.Objects[oldTemplateIdx];
+
   if not DirectoryExists(userPath+'libraries/templates/'+templateName.Text) then
     ForceDirectories(userPath+'libraries/templates/'+templateName.Text+'');
   templatexml.Lines.SaveToFile(userPath+'libraries/templates/'+templateName.Text+'/template');
   if templateList.Items.IndexOf(templateName.Text) < 0 then
     templateList.Items.add(templateName.Text);
+
+  libraryManager.templates.Delete(oldTemplateIdx); //memory leak, but who cares (better than killing a template still used in a thread)
+  for i := 0 to libraryManager.count - 1 do
+    if libraryManager[i].template = oldTemplate then begin
+      libraryManager[i].template := libraryManager.getTemplate(templateName.Text);
+      for j := 0 to accounts.Count - 1 do
+        if (accounts[j].getLibrary() = libraryManager[i]) and (accounts[j] is TTemplateAccountAccess) and not accounts[j].isThreadRunning then
+          TTemplateAccountAccess(accounts[j]).resetlib();
+    end;
 end;
 
 procedure ToptionForm.Button2Click(Sender: TObject);
