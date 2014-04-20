@@ -156,6 +156,13 @@ downloadTable)
 		cd ../version/
 		rsync -av -e ssh version.xml changelog.xml "benibela,videlibri@web.sourceforge.net:/home/project-web/videlibri/htdocs/updates"
 		;;
+		
+	webscript)
+	  $VIDELIBRIBASE/_meta/sfsite
+	  cp /home/firefox/.mozilla/firefox/bpg2hcdr.default/gm_scripts/Webscraper/Webscraper.user.js script.user.js
+	  rsync -av -e ssh script.user.js "benibela,videlibri@web.sourceforge.net:/home/project-web/videlibri/htdocs/"
+	  ;;
+  
 
   help)
     /migration/migration/p/programming/htmlHelpWorkshop/HHC.EXE _meta/help/videlibri.hhp 
