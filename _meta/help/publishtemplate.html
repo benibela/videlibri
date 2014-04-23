@@ -1,0 +1,26 @@
+<html>
+<head>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<h1>Weitergabe eines VideLibri-Templates</h1>
+
+<p>Um ein VideLibri-Template weiterzugeben, reicht es das Template und die Metadateien einfach irgendwo zu speichern und dann eine html-Datei mit "Links" zu diesen beiden Dateien zu speichern. 
+
+<p>
+Konkret fügt man in die HTML-Datei (zum Beispiel der Bibliotheksstartseite oder eine HTML-Datei auf einer SD-Karte)  folgende unsichtbare Links ein:
+
+<pre style="font-family: monospace">
+  &lt;link rel="videlibri.description" href="LAND_STAAT_STADT_BIBLIOTHEK.xml"/>  &lt;!-- Pfad zur XML-Datei mit bibliothek-spezifischen Metadaten aus Schritt 1-->
+  &lt;link rel="videlibri.template" href="template"/>                            &lt;!-- Pfad zur Template-Datei aus Schritt 2-->
+</pre>
+
+<p>
+Nach Eingabe der URL lädt und installiert VideLibri dann automatisch das Template und die Metadaten in die nötigen Verzeichnisse. Im Template mit templateFile angegebene Seitentemplates werden ebenfalls korrekt installiert.
+
+
+<p>Ein Live-Beispiel findet sich unter <a href="http://videlibri.sourceforge.net/test/reddit/">http://videlibri.sourceforge.net/test/reddit/</a>. Eingabe dieser URL in VideLibri installiert eine "Bibliothek", die in Reddit-Benutzernamen sucht.
+
+
+</body>
