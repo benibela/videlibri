@@ -5,12 +5,12 @@
   <dt>Bibliographische Angaben</dt>
   <dd>
 
-      <a target="d6_amazon" t:optional="true">
+      <p class="coverimg" t:optional="true">
         <t:s>
-          book.amazon-url:=@href,
-          book.image-url:=img/@src
+          book.amazon-url:=a/@href,
+          book.image-url:=.//img/@src
         </t:s>
-      </a>
+      </p>
     
          
       <table class="datarows"><t:loop>
