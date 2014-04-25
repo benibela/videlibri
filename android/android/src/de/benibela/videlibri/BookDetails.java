@@ -119,6 +119,7 @@ public class BookDetails extends VideLibriBaseFragment {
 
         Drawable image;
         void updateImage(){
+            if (book == null) return;
             image = new BitmapDrawable(book.image);
             notifyDataSetChanged();
         }
@@ -257,18 +258,20 @@ public class BookDetails extends VideLibriBaseFragment {
 
     void updateImage(){
         setLoading(false);
-        ((BookDetailsAdapter) (((ListView) findViewById(R.id.bookdetailsview)).getAdapter())).updateImage();
+        ListView lv = (ListView) findViewById(R.id.bookdetailsview);
+        if (lv == null) return;
+        BookDetailsAdapter adapter = (BookDetailsAdapter) lv.getAdapter();
+        if (adapter == null) return;
+        adapter.updateImage();
     }
 
     //from http://stackoverflow.com/questions/5776851/load-image-from-url
     class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
-        ImageView bmImage;
         Bridge.Book book;
         BookDetails activity;
 
         public DownloadImageTask(BookDetails activity, Bridge.Book book) {
             this.book = book;
-            this.bmImage = bmImage;
             this.activity = activity;
         }
 
@@ -288,7 +291,7 @@ public class BookDetails extends VideLibriBaseFragment {
         protected void onPostExecute(Bitmap result) {
             if (result == null) return;
             book.image = result;
-            if (book == activity.book) activity.updateImage();
+            if (activity != null && book == activity.book) activity.updateImage();
         }
     }
 }
