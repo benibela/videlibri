@@ -162,6 +162,7 @@ type
     FEnabled: boolean;
     FTimeout: dword;
     function GetConnected: boolean;
+    function GetUpdated: boolean;
   protected
     fbooks: TBookLists;
     lib: TLibrary;
@@ -171,8 +172,8 @@ type
     FExtendType: TExtendType;
     FExtendDays,FLastCheckDate:integer;
 
-    FKeepHistory, FConnected: boolean;
-    FConnectingTime: dword;
+    FKeepHistory, FConnected, FUpdated: boolean;
+    FConnectingTime, FUpdateTime: dword;
     FCharges:Currency;
     function getCharges:currency;virtual;
   public
@@ -227,6 +228,7 @@ type
     property keepHistory: boolean read FKeepHistory write FKeepHistory;
     property enabled: boolean read FEnabled write FEnabled;
     property connected: boolean read GetConnected;
+    property updated: boolean read GetUpdated;
     property timeout: dword read FTimeout write FTimeout;
   end;
 
@@ -939,6 +941,11 @@ begin
   result:=FConnected and (GetTickCount - FConnectingTime < Timeout);
 end;
 
+function TCustomAccountAccess.GetUpdated: boolean;
+begin
+  result:=GetConnected and FUpdated and (GetTickCount - FUpdateTime < Timeout);
+end;
+
 function TCustomAccountAccess.getCharges: currency;
 begin
   result:=fcharges;
@@ -1244,6 +1251,8 @@ begin
   reader.callAction('update-all');
   lastTodayUpdate:=GetTickCount;
   FConnectingTime:=GetTickCount;
+  FUpdated:=true;
+  FUpdateTime:=FConnectingTime;
   if logging then log('Leave TTemplateAccountAccess.updateAll');
 end;
 
@@ -1255,6 +1264,8 @@ begin
   reader.selectBook(book);
   reader.callAction('update-single');
   FConnectingTime:=GetTickCount;
+  FUpdated:=true;
+  FUpdateTime:=FConnectingTime;
   if logging then
     log('leave TTemplateAccountAccess.updateSingle');
 
@@ -1288,6 +1299,7 @@ begin
     end;
   end;
   FConnectingTime:=GetTickCount;
+  FUpdateTime:=FConnectingTime; //treat renew like update, since renew usually reupdates
   if logging then
     log('leave TTemplateAccountAccess.extendAll');
 end;
@@ -1331,6 +1343,7 @@ begin
     reader.callAction('renew-all');
   end;
   FConnectingTime:=GetTickCount;
+  FUpdateTime:=FConnectingTime; //treat renew like update, since renew usually reupdates
   if logging then log('Leave TTemplateAccountAccess.extendList');
 end;
 {
@@ -1391,6 +1404,7 @@ begin
 
 
   FConnectingTime:=GetTickCount;
+  FUpdateTime:=FConnectingTime; //treat cancel like update, since renew usually reupdates
 
   if logging then log('Leave TTemplateAccountAccess.cancelList');
 end;
