@@ -4,7 +4,7 @@
   <shortName value="Stb Augsburg"/> 
   
   <template value="sisis"/>  
-  <variable name="server" value="https://stadtbuecherei1.augsburg.de/webOPACClient.stasis/"/>
+  <variable name="server" value="https://opac-stadtbuecherei.augsburg.de/webOPACClient.stasis/"/>
   
   <homepage value="http://www.stadtbuecherei.augsburg.de/"/>
   <testing-search value="ja" date="2013-05-17"/>

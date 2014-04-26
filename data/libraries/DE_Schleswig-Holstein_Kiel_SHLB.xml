@@ -5,7 +5,7 @@
   <template value="pica"/>  
   <variable name="server" value="https://lhopc4.ub.uni-kiel.de/"/>
   <variable name="picadb" value="3"/>
-  <variable name="searchKeysOverride" value="tnt;per;isb;erj;swo"/>
+  <!--<variable name="searchKeysOverride" value="tnt;per;isb;erj;swo"/>-->
 
 
   <homepage value="http://www.shlb.de/"/>

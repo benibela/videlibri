@@ -5,18 +5,19 @@
     <template:switch-prioritized>
       <zs:record>
         <zs:recordSchema>dc</zs:recordSchema>
-        <zs:recordData>{book := {}}
-          <record xmlns:dc="http://purl.org/dc/elements/1.1/">
+        <zs:recordData xmlns:dc="http://purl.org/dc/elements/1.1/">{book := {}}
+<!--          <record xmlns:dc="http://purl.org/dc/elements/1.1/">  or  <oai_dc:dc xsi:schemaLocation="http://www.openarchives.org/OAI/2.0/oai_dc/ http://www.openarchives.org/OAI/2.0/oai_dc.xsd">-->
           <template:switch>
             <dc:title>{$book.title := concat($book.title, " ", .)}</dc:title>
             <dc:creator>{$book.author := concat($book.author, " ", .)}</dc:creator>
+            <dc:contributor>{$book.author := concat($book.author, " ", .)}</dc:contributor>
             <dc:date>{$book.year}</dc:date>
             <dc:publisher>{$book.publisher}</dc:publisher>
             <dc:identifier>{$book.isbn}</dc:identifier>
             <dc:description>{$book.description := .}</dc:description>
 <!--            <t:if><t:s>temp:=name()</t:s><t:read var="book.{}</t:if>-->
           </template:switch>*
-        </record></zs:recordData>
+        <!--</record>--></zs:recordData>
       </zs:record>    
       
       <zs:record>

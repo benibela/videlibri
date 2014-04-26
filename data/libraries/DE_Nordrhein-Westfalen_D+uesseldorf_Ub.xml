@@ -22,6 +22,7 @@
   <variable name="location" value="DUEBIB"/>
   <variable name="view" value="DUEBIB:SGduebib"/>
   <!--<variable name="selectedLibraries" value="SERVICEGROUP1.SERVICE.SEARCH_ULBD"/>  selectedLibraries is overriden by searchid-templatename-->
+  <variable name="searchid-ulbdue|digibib" value="SERVICEGROUP1.SERVICE.SEARCH_ULBD"/>
   <variable name="searchid-primo|digibib" value="SERVICEGROUP1.SERVICE.SEARCH_ULBD"/>
 
    
