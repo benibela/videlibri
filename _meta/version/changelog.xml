@@ -1,11 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?xml-stylesheet type="text/xsl" href="../changelog.xsl"?>
 <changelog program="VideLibri">
-  <build version="1650" date="2014-03-11">
+  <build version="1655" date="2014-04-26">
     <download url="http://videlibri.sourceforge.net/updates/videlibri-setup.exe" platform="WINDOWS" execute="&quot;$DOWNLOAD&quot;  /SP- /noicons &quot;/dir=$OLDPATH&quot; " restart="true"/>
     <download url="http://videlibri.sourceforge.net/updates/videlibri-linux32.deb" platform="LINUX32" execute=""/>
     <download url="http://videlibri.sourceforge.net/updates/videlibri-linux64.deb" platform="LINUX64" execute=""/>
-    
+    <fix>Neue Serveradressen für Augsburg, Lübeck</fix>
+    <fix>Geänderte Systemdetails bei Digibib (Düsseldorf), SHLB Kiel, GBV SRU</fix>
+    <fix>libero/Aachen: Fehlermeldung bei 0 Suchtreffern </fix>
+    <change>latin1/utf-8 Erkennung trotz Content-type deaktiviert (behebt voebb Sonderzeichenproblem?) </change>
+    <fix>Separate Timeouts für Aktualisierung/Verbindungsaufbau (behebt vermutlich seltsame Variablenfehlermeldung beim Verlängern in adis/zones Bibliotheken)</fix>
+    <fix>zones: Warte eine Weile mit dem Aktualisieren nach einer Verlängerung, so dass der Server Zeit hatte, die Verlängerung zu bearbeiten</fix>
+    <fix>Kleinigkeiten</fix>
+  </build>
+  <build version="1650" date="2014-03-11">
     <fix>zones (z.B.: Lübeck, Hannover): Zeigt keine Fehlermeldung an, wenn nichts ausgeliehen ist</fix>
     <fix>zones: Zeigt an, welche Bücher verlängerbar sind</fix>
     <fix>sisis (z.B.: Münster): Geändertes Verlängerungsverhalten, eventuell behebt Fehlermeldung bezüglich "singleExtended", bei der Verlängerung mehrerer Ausleihen </fix>
