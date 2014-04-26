@@ -162,7 +162,19 @@
   <page url="{$bulkRenew}" templateFile="bulkRenew"/>
 
   <s>renewConfirm := form-combine($baseForm, $options)</s>  
-  <page url="{$renewConfirm}"/>
+  <page url="{$renewConfirm}">
+    <template><META NAME="ZonesObjName">{progressObj := @CONTENT}</META></template>
+  </page>
+  
+  <s>i := 0</s>
+  <loop test="$i < 10">
+    <page url="{$baseurl}/{$progressObj}?Style={$style}&SubStyle=&Lang=GER&ResponseEncoding=utf-8&Method=BGTasks&Frame=Progress&BrowseAsHloc=-2&random={random()}&">
+      <template><html>{
+        if ( //script[matches(., 'finishedHere *= *[(] *"0" *== *"1" *[)]')]) then sleep(1000) else $i := 1000 
+      }</html></template>
+    </page>
+    <s>$i := $i + 1</s>
+  </loop> 
   
   <call action="update-all"/>  
   
