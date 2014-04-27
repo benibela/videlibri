@@ -1,6 +1,7 @@
 #!/bin/bash
 
-export JAVA_HOME=/usr/lib/jvm/java-6-sun-1.6.0.26/jre 
+#export JAVA_HOME=/usr/lib/jvm/java-6-sun-1.6.0.26/jre 
+export JAVA_HOME=/usr/lib/jvm/java-7-oracle/jre 
 export SDK_HOME=/home/benito/opt/android-sdk-linux/platform-tools/
 
 case "$1" in

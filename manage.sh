@@ -61,6 +61,8 @@ win32)
 android) 
     cd android
     ANDROIDVERSION=$(xidel android/AndroidManifest.xml -e "/manifest/@*:versionCode")
+    if [[ "$ANDROIDVERSION" != "$INTVERSION" ]]; then echo Android version mismatch; read; fi
+    ANDROIDVERSION=$(xidel android/AndroidManifest.xml -e "/manifest/@*:versionCode")
     if [[ "$ANDROIDVERSION" != "$INTVERSION" ]]; then echo Android version mismatch; read; exit; fi
     ANDROIDVERSION=$(xidel android/AndroidManifest.xml -e "/manifest/@*:versionName")
     if [[ "$ANDROIDVERSION" != "$VERSION" ]]; then echo Android version mismatch; read; exit; fi
@@ -194,6 +196,7 @@ src)
 		./manage.sh android
 	  ./manage.sh src
 	  ./manage.sh downloadTable
+	  echo do not forget to close the commit window
 		thg commit
 	  ./manage.sh defaults
 		;;
