@@ -426,6 +426,7 @@ uses bookwatchmain,internetaccess,controls,libraryaccess,math,FileUtil,bbutils,b
       {$ENDIF}
       {$IFDEF UNIX}
       if correctAutostart then begin
+        ForceDirectoriesUTF8(GetUserDir+'.config/autostart');
         strSaveToFileUTF8(GetUserDir+'.config/autostart/videlibri.desktop',autostartCommand);
       end;
       {$ENDIF}
