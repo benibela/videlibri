@@ -4,19 +4,23 @@
   <username matches="^\d{8}$"/>
   <password matches="^\d{1,2}\.\d{1,2}\.\d{2,4}$"/>  
   
-  <longName value="Stadtbüchereien Düsseldorf"/>
+  <longName value="Stadtbüchereien Düsseldorf (alpha)"/>
   <shortName value="StB Düsseldorf"/>
-  <catalogue value="http://was.duesseldorf.de/WebOPAC/start?homegkz=111"/>
+ <!-- <catalogue value="http://was.duesseldorf.de/WebOPAC/start?homegkz=111"/>
   <template value="wasnrw"/>
   
   <variable name="server" value="was.duesseldorf.de/WebOPAC/"/>
 
 
-  <template value="digibib"/>
+  <template value="digibib"/>-->
+  
+  <template value="aDISWeb"/>
+  <variable name="server" value="opac-duesseldorf.itk-rheinland.de/"/>
+
   
   <variable name="location" value="DUEBIB"/>
   <variable name="view" value="DUEBIB:SGduebib"/>
-  <!--<variable name="selectedLibraries" value="SERVICEGROUP1.SERVICE.SEARCH_SBDUE"/>  selectedLibraries is overriden by searchid-templatename-->
+  <!-- -<variable name="selectedLibraries" value="SERVICEGROUP1.SERVICE.SEARCH_SBDUE"/>  selectedLibraries is overriden by searchid-templatename- -->
   <variable name="searchid-wasnrw|digibib" value="SERVICEGROUP1.SERVICE.SEARCH_SBDUE"/>
   
   
@@ -25,7 +29,7 @@
 
 
   <homepage value="http://www.duesseldorf.de/stadtbuechereien/index.shtml"/>
-  <testing-search value="in >= 1.655 (digibib)" date="2014-04-24"/>
-  <testing-account value="ja" date="2014-01-17"/>
-  <testing-renew value="ja" date="2014-01-17"/>
+  <testing-search value="ja" date="2014-05-10"/>
+  <testing-account value="?" date=""/>
+  <testing-renew value="?" date=""/>
 </library>

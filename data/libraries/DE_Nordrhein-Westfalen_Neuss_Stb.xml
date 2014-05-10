@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<library>  
+  <longName value="Stadtbüchereien Neuss (alpha)"/>
+  <shortName value="StB Neuss"/>
+  
+  <template value="aDISWeb"/>
+  <variable name="server" value="opac-neuss.itk-rheinland.de/"/>
+
+  <homepage value="http://www.stadtbibliothek-neuss.de"/>
+  <testing-search value="ja" date="2014-05-10"/>
+  <testing-account value="?" date=""/>
+  <testing-renew value="?" date=""/>
+</library>
