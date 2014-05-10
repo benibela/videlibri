@@ -1,21 +1,19 @@
 <html>
     <template:meta default-text-matching="regex"/>
     
-    <DIV id="right">
-      <DIV class="inside">
-        <DIV id="R30">
-          <DIV class="html_div">
-            <div id="R001">
-              <a><img>{book.image-url:=@src}</img></a>
-            </div>
-          </DIV>
-        </DIV>
+    <DIV id="R30">
+      <DIV class="html_div">
+        <div id="R001">
+          <img>{book.image-url:=resolve-uri(@src)}</img>
+        </div>
       </DIV>
     </DIV>?
 
+    <input type="submit" t:condition="contains(@value, 'Bestellen')">{book.orderable := true()}</input>?
+
     <a title="Trefferliste">{goback:=@href}</a><!--inside main in munich, outside in nürnberg-->
 
-    <input type="submit" value="Bestellen">{book.orderable := true()}</input>?
+    <input type="submit" t:test="not($book.orderable)" t:condition="contains(@value, 'Bestellen')">{book.orderable := true()}</input>?
         
       
 <!--    <DIV id="main">
