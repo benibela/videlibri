@@ -112,8 +112,8 @@ PAGES=(${PAGES[@]} aDISWeb/list_munich.html aDISWeb/list_nurnberg.html aDISWeb/l
 ADDTEMPLATE aDISWeb/search 7
 PAGES=(${PAGES[@]} aDISWeb/search_stuttgart_abk.do.html aDISWeb/search_no-result.aalen.html aDISWeb/search_no-result.voebb.html aDISWeb/search_single-page.biberach.html aDISWeb/search_go-back.freiburg.html aDISWeb/search_single-result_hdmtest.html aDISWeb/search_single-result_hdmtest2.html)
 
-ADDTEMPLATE aDISWeb/searchDetails 4
-PAGES=(${PAGES[@]} aDISWeb/searchDetails_albstadt.html aDISWeb/searchDetails_heilbronn.html aDISWeb/searchDetails_heilbronn2.html aDISWeb/searchDetails_single-result_hdmtest.html)
+ADDTEMPLATE aDISWeb/searchDetails 5
+PAGES=(${PAGES[@]} aDISWeb/searchDetails_albstadt.html aDISWeb/searchDetails_due.html aDISWeb/searchDetails_heilbronn.html aDISWeb/searchDetails_heilbronn2.html aDISWeb/searchDetails_single-result_hdmtest.html)
 
 ADDTEMPLATE aDISWeb/connected 3
 PAGES=(${PAGES[@]} aDISWeb/connected_furtwangen.html aDISWeb/connected_voebb1.html aDISWeb/connected_voebb2.html)
