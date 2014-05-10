@@ -1,0 +1,21 @@
+<t:switch-prioritized>
+  <div class="message">
+    <!-- Inhalt der Message-Box START -->
+      <div id="R01"><!--<div style="   width:99%;" class="aDISListe"><div class="html_div" style="width:99%; height:100%;"><p>Informationen zu Ihrem Bestellvorgang:</p></div> not always there--></div>
+    <div id="OPACLI"><!--<div class="html_div" style="width:99%; height:100%;"><p> Der Bestellwunsch ist erfolgt für: "stuttgarter-zeitung.de - ein Usability-Test nach der Relaunch-Phase (VV10)"</p></div>-->{
+      final-form:=form(//form),
+      if (contains(., "erfolgt")) then form := ()
+      else vl:raise(.)
+    }</div>
+  </div>
+
+  <div class="message">
+    <div id="R01">{
+      vl:raise(join(* except script))
+    }</div>
+  </div>
+
+  <form>
+  {form := form(., (.//input[@type = "submit" and contains(., "bestellen")])[1]/{string(@name): @value})}
+  </form>
+</t:switch-prioritized>
