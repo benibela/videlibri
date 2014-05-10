@@ -1,0 +1,7 @@
+
+
+book: {}
+
+
+final-form: object(): {"method": "POST", "post": "service=direct%2F1%2FPOOLIT07lxbib%40%40%40_4B00CD00_2D027600%2F%24Form.form&sp=S0&Form0=focus%2CkeyCode%2Cstz%2Csource%2Cselected%2CrequestCount%2CscriptEnabled%2CscrollPos%2CscrDim%2CwinDim%2CimgDim%2C%24FormConditional%2CtextButton&focus=&keyCode=0&stz=&source=&selected=&requestCount=9&scriptEnabled=T&scrollPos=0&scrDim=&winDim=&imgDim=&%24FormConditional=T", "url": "/aDISWeb/app;jsessionid=98BBC0D8BB0E280118F2720DCE1F0E68"}
+form: untyped: 

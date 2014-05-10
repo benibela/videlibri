@@ -218,27 +218,9 @@
     }
     </variable>  
 
-  <page url="{$form}">
-    <template>
-      <form>
-      {form := form(., (.//input[@type = "submit" and contains(., "bestellen")])[1]/{string(@name): @value})}
-      </form>
-    </template>
-  </page>
-
-  <page url="{$form}">
-    <template>
-      <form>
-        {form := form(.)}
-        
-        <div id="R01">Informationen zu Ihrem Bestellvorgang:</div>
-      
-        <div id="OPACLI" t:condition="contains(., 'erfolgt')"/>
-      </form>
-    </template>
-  </page>
-  
-  <page url="{$form}">
+  <page url="{$form}" templateFile="orderConfirmed"/>
+  <page url="{$form}" templateFile="orderConfirmed"/>
+  <page url="{$final-form}">
     <a title="Trefferliste">{goback:=@href}</a><!--inside main in munich, outside in nürnberg-->
   </page>
   

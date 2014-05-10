@@ -124,6 +124,12 @@ PAGES=(${PAGES[@]} aDISWeb/searchInputForm_mannheim-hsb.html )
 ADDTEMPLATE aDISWeb/orderConfirmation 2
 PAGES=(${PAGES[@]} aDISWeb/orderConfirmation_hdmtest.html aDISWeb/orderConfirmation_due.html )
 
+ADDTEMPLATE aDISWeb/orderConfirmed{vl:raise} 5
+PAGES=(${PAGES[@]} aDISWeb/orderConfirmed1_due.html aDISWeb/orderConfirmed2_due.html aDISWeb/orderConfirmed2_hdmtest.html aDISWeb/orderConfirmed_failed2_hdmtest.html aDISWeb/orderConfirmed_failed_hdmtest.html)
+
+
+
+
 
 #==============Zones========
 mkdir -p $OUTPATH/zones18
@@ -195,9 +201,9 @@ for ((i=0;i<${#TEMPLATES[@]};i++)); do
     if [[ $EXTRA =~ vl:choose ]]; then
       EXTRA="-e \"declare function vl:choose(\\\$a,\\\$b,\\\$c,\\\$d) { message-choose :=  join((\\\$a,\\\$b,\\\$c,\\\$d))}\""
     fi
-#    if [[ $EXTRA =~ vl:raise ]]; then
-#      EXTRA="-e \"declare function vl:raise(\\\$x) { raised := \\\$x }\""
-#    fi
+    if [[ $EXTRA =~ vl:raise ]]; then
+      EXTRA="-e \"declare function vl:raise(\\\$x) { raised := \\\$x }\""
+    fi
   fi
 
   

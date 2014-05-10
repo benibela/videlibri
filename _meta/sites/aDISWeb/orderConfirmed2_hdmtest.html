@@ -1,0 +1,176 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="de" lang="de">
+<!-- solution for: conditional-comments block downloads  -->
+<!--[if IE]><![endif]--><head>
+	<style type="text/css">
+		@import url(css/aDISStandard.css);
+	</style>
+	<script src="js/aDISMain.js" type="text/javascript"></script>
+	<script src="js/fckeditor/fckeditor.js" type="text/javascript"></script>
+	<title> aDIS/BMS </title><script type="text/javascript">
+	var text = '';
+	window.defaultStatus=text;
+</script> <!--
+  (c) Software: aDIS/BMS und aDIS/Archiv by |a|S|tec| GmbH Berlin und Muenchen - www.astec.de
+  HTML-/CSS-Anpassungen: ena Webstudio - www.ena-webstudio.com
+  HTML-/CSS-Framework basiert grob auf Contao (c) Leo Feyer www.contao.org
+  Formulare, Tabellen, etc. werden automatisch durch aDIS generiert
+  Projekt: BSZ, Deutsch - MSG01
+  Letztes Update: 25.06.2013
+  //-->
+
+  <meta http-equiv="content-language" content="de" />
+  <meta name="language" content="de" />  
+  <meta http-equiv="x-ua-compatible" content="ie=edge" />
+  <meta http-equiv="cache-control" content="no-cache" />
+  <meta http-equiv="content-type" content="text/html; charset=utf-8" />  
+  <meta name="viewport" content="width=device-width; initial-scale=1.0" />
+  <meta http-equiv="content-style-type" content="text/css" />
+  <meta http-equiv="content-script-type" content="text/javascript" />  
+    
+  <link rel="stylesheet" href="/aDISWeb_bsz/basis/css/framework.css" type="text/css" media="screen" />
+  <!--[if lte IE 7]><link rel="stylesheet" href="/aDISWeb_bsz/basis/css/framework_iefixes.css" type="text/css" media="screen" /><![endif]-->
+  <link rel="stylesheet" href="/aDISWeb_bsz/basis/css/layout.css" type="text/css" media="screen" />
+  
+  <!-- Individuell START -->
+  <!-- incl=includeCSS.html --> <link rel="stylesheet" type="text/css" media="screen, projection" href="/aDISWeb_bsz/m21/css/diff.css" />
+ <link rel="shortcut icon" type="image/x-icon" href="/aDISWeb_bsz/m21/images/favicon.ico" />
+<!-- stop -->
+  <!-- Individuell STOP -->  
+  
+  <!--[if lt IE 7]><link rel="stylesheet" href="/aDISWeb_bsz/basis/css/ieonly.css" type="text/css" media="screen" /><![endif]--> 
+  <!--[if IE 7]><link rel="stylesheet" href="/aDISWeb_bsz/basis/css/ieonly7.css" type="text/css" media="screen" /><![endif]--> 
+  <!--[if gte IE 8]><link rel="stylesheet" href="/aDISWeb_bsz/basis/css/ieonly8.css" type="text/css" media="screen" /><![endif]-->
+  <link rel="stylesheet" type="text/css" href="/aDISWeb_bsz/basis/css/print.css" media="print" />
+  <link rel="stylesheet" href="/aDISWeb_bsz/basis/css/media.css" type="text/css" />
+  <!--[if lt IE 9]><script type="text/javascript" src="/aDISWeb_bsz/basis/js/css3-mediaqueries.js"></script><![endif]--> 
+  
+  <!-- incl=includeMeta_de.html --><meta name="description" content="Bibliothekskatalog" />
+<!-- stop -->
+</head>
+<body class="einer msg01 deutsch">
+<script type="text/javascript"><!--
+
+
+
+
+function startIdleTimer() {
+  if (typeof idleId != 'undefined')
+    clearTimeout(idleId)
+  idleId = window.setTimeout("to('"+ idleLink + "')", idleTime);
+  }			
+function to(link) {
+  location.href=link;
+  }
+
+
+
+
+					
+function setupHandlers()  {
+	document.onmousedown = docOnEvent;		
+	document.onkeydown = docOnEvent;	
+	document.onkeypress = docOnEvent;
+	document.onhelp = cancelF1;
+	
+	initFormElements();
+	initIframes();
+	initScrollPos();
+	}
+function getDimensions()  {
+	document.forms[0].scrDim.value = screen.width + ";" + screen.height;
+	if (window.innerWidth)
+		document.forms[0].winDim.value = window.innerWidth + ";" + window.innerHeight;
+	else
+		document.forms[0].winDim.value = document.body.offsetWidth + ";" + document.body.offsetHeight;
+	node = document.getElementById("img_content");
+	if (node != undefined)
+		document.forms[0].imgDim.value = node.offsetWidth + ";" + node.offsetHeight;
+	}
+
+
+
+
+window.onload = function (e)
+{
+
+  idleTime=360000000;
+  idleLink="/aDISWeb/app;jsessionid=597733ACB42B9C1D04A137E0188CC421?service=direct/1/POOLM21PBSZTEST@_4B00CD00_2C2A4000/$Timeout";
+  startIdleTimer();
+
+
+if (!e) var e = window.event;
+document.forms[0].scriptEnabled.value=true;
+if (self.specialOnLoad != undefined)
+	specialOnLoad(e);
+setupHandlers();
+getDimensions();
+
+}
+
+// --></script>
+<div class="aDISMaske"><form method="post" name="Form0" action="/aDISWeb/app;jsessionid=597733ACB42B9C1D04A137E0188CC421" onsubmit="return formOnSubmit();">
+<input type="hidden" name="service" value="direct/1/POOLM21PBSZTEST@_4B00CD00_2C2A4000/$Form.form"/>
+<input type="hidden" name="sp" value="S0"/>
+<input type="hidden" name="Form0" value="focus,keyCode,stz,source,selected,requestCount,scriptEnabled,scrollPos,scrDim,winDim,imgDim,$FormConditional,textButton"/>
+<input type="hidden" name="focus" value=""/>
+<input type="hidden" name="keyCode" value="0"/>
+<input type="hidden" name="stz" value=""/>
+<input type="hidden" name="source" value=""/>
+<input type="hidden" name="selected" value=""/>
+<input type="hidden" name="requestCount" value="12"/>
+<input type="hidden" name="scriptEnabled" value="T"/>
+<input type="hidden" name="scrollPos" value="0"/>
+<input type="hidden" name="scrDim" value=""/>
+<input type="hidden" name="winDim" value=""/>
+<input type="hidden" name="imgDim" value=""/>
+<input type="hidden" name="$FormConditional" value="T"/>
+				
+<div id="wrapper">
+  <div id="wrapper_inside">
+  
+    <div id="header" role="banner">
+      <div class="inside"> 
+        <div class="block" id="spruch"><span>aDIS/BMS</span></div>
+        <!-- incl=includeLogo_de.html -->      <p id="logo">
+	<a href="http://www.hdm-stuttgart.de/bibliothek" title="Zur Homepage der Bibliothek" target="_blank">
+	<img src="/aDISWeb_bsz/m21/images/logo.gif" height="105" alt="Logo" /></a></p>
+<!-- stop --> 
+      </div>
+    </div>  
+    <div id="container">
+      <div id="container_inside">
+  
+        <div id="main" role="main">
+          <div class="inside">
+          
+            <div class="block">
+
+            <div class="message">
+            <!-- Inhalt der Message-Box START -->
+              <div id="R01"><div style="   width:99%;" class="aDISListe"><div class="html_div" style="width:99%; height:100%;"><p>Informationen zu Ihrem Bestellvorgang:</p></div></div>
+</div>
+              
+              
+              <div id="OPACLI" style="   width:99%; " class="aDISListe"><div class="html_div" style="width:99%; height:100%;"><p> Der Bestellwunsch ist erfolgt für: "stuttgarter-zeitung.de - ein Usability-Test nach der Relaunch-Phase (VV10)"</p></div></div><div id="R03" class="links"><input type="submit" name="textButton" value="OK" class="buttong" fld="$$GFBO_1" style="  margin-left:44%; "/>
+</div><br class="klar"/>
+            <!-- Inhalt der Message-Box ENDE -->  
+            </div>        
+                      
+            </div>
+            <div class="clear"></div>  
+                  
+      
+          </div>
+          <div id="clear"></div>
+        </div>
+        
+      </div>
+    </div>
+
+    
+  </div>
+</div></form>
+</div></body>
+</html>

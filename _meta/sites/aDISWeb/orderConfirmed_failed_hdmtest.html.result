@@ -1,0 +1,15 @@
+
+
+book: {}
+
+
+raised: node(): Bestellung nur in andere Bibliothek möglich
+        
+
+
+ 
+
+        
+          function specialOnLoad() {
+            document.Form0.messageButton.focus();
+            }
