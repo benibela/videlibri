@@ -1,0 +1,356 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="de" lang="de">
+<!-- solution for: conditional-comments block downloads  -->
+<!--[if IE]><![endif]--><head>
+	<style type="text/css">
+		@import url(css/aDISStandard.css);
+	</style>
+	<script src="js/aDISMain.js" type="text/javascript"></script>
+	<script src="js/fckeditor/fckeditor.js" type="text/javascript"></script>
+	<title> HDM Stuttgart                  </title><script type="text/javascript">
+	var text = '';
+	window.defaultStatus=text;
+</script> <!--
+  (c) Software: aDIS/BMS und aDIS/Archiv by |a|S|tec| GmbH Berlin und Muenchen - www.astec.de
+  HTML-/CSS-Anpassungen: ena Webstudio - www.ena-webstudio.com
+  HTML-/CSS-Framework basiert grob auf Contao (c) Leo Feyer www.contao.org
+  Formulare, Tabellen, etc. werden automatisch durch aDIS generiert
+  Projekt: BSZ, Deutsch - OPAC03
+  Letztes Update: 25.06.2013
+  //-->
+
+  <meta http-equiv="content-language" content="de" />
+  <meta name="language" content="de" />  
+  <meta http-equiv="x-ua-compatible" content="ie=edge" />
+  <meta http-equiv="cache-control" content="no-cache" />
+  <meta http-equiv="content-type" content="text/html; charset=utf-8" />  
+  <meta name="viewport" content="width=device-width; initial-scale=1.0" />
+  <meta http-equiv="content-style-type" content="text/css" />
+  <meta http-equiv="content-script-type" content="text/javascript" /> 
+    
+  <link rel="stylesheet" href="/aDISWeb_bsz/basis/css/framework.css" type="text/css" media="screen" />
+  <!--[if lte IE 7]><link rel="stylesheet" href="/aDISWeb_bsz/basis/css/framework_iefixes.css" type="text/css" media="screen" /><![endif]-->
+  <link rel="stylesheet" href="/aDISWeb_bsz/basis/css/layout.css" type="text/css" media="screen" />
+  
+  <!-- Individuell START -->
+  <!-- incl=includeCSS.html --> <link rel="stylesheet" type="text/css" media="screen, projection" href="/aDISWeb_bsz/m21/css/diff.css" />
+ <link rel="shortcut icon" type="image/x-icon" href="/aDISWeb_bsz/m21/images/favicon.ico" />
+<!-- stop -->
+  <!-- Individuell STOP -->  
+  
+  <!--[if lt IE 7]><link rel="stylesheet" href="/aDISWeb_bsz/basis/css/ieonly.css" type="text/css" media="screen" /><![endif]--> 
+  <!--[if IE 7]><link rel="stylesheet" href="/aDISWeb_bsz/basis/css/ieonly7.css" type="text/css" media="screen" /><![endif]--> 
+  <!--[if gte IE 8]><link rel="stylesheet" href="/aDISWeb_bsz/basis/css/ieonly8.css" type="text/css" media="screen" /><![endif]-->
+  <link rel="stylesheet" type="text/css" href="/aDISWeb_bsz/basis/css/print.css" media="print" />
+  <link rel="stylesheet" href="/aDISWeb_bsz/basis/css/media.css" type="text/css" />
+  <!--[if lt IE 9]><script type="text/javascript" src="/aDISWeb_bsz/basis/js/css3-mediaqueries.js"></script><![endif]--> 
+  
+  <!-- incl=includeMeta_de.html --><meta name="description" content="Bibliothekskatalog" />
+<!-- stop -->
+</head>
+<body class="zweier deutsch">
+<script type="text/javascript"><!--
+
+
+
+
+function startIdleTimer() {
+  if (typeof idleId != 'undefined')
+    clearTimeout(idleId)
+  idleId = window.setTimeout("to('"+ idleLink + "')", idleTime);
+  }			
+function to(link) {
+  location.href=link;
+  }
+
+
+
+
+					
+function setupHandlers()  {
+	document.onmousedown = docOnEvent;		
+	document.onkeydown = docOnEvent;	
+	document.onkeypress = docOnEvent;
+	document.onhelp = cancelF1;
+	
+	initFormElements();
+	initIframes();
+	initScrollPos();
+	}
+function getDimensions()  {
+	document.forms[0].scrDim.value = screen.width + ";" + screen.height;
+	if (window.innerWidth)
+		document.forms[0].winDim.value = window.innerWidth + ";" + window.innerHeight;
+	else
+		document.forms[0].winDim.value = document.body.offsetWidth + ";" + document.body.offsetHeight;
+	node = document.getElementById("img_content");
+	if (node != undefined)
+		document.forms[0].imgDim.value = node.offsetWidth + ";" + node.offsetHeight;
+	}
+
+
+
+
+window.onload = function (e)
+{
+
+  idleTime=360000000;
+  idleLink="/aDISWeb/app;jsessionid=56A83BE4B69EE2A962711B804B2D247A?service=direct/1/POOLM21PBSZTEST@_44275900_2C72C280/$Timeout";
+  startIdleTimer();
+
+
+if (!e) var e = window.event;
+document.forms[0].scriptEnabled.value=true;
+if (self.specialOnLoad != undefined)
+	specialOnLoad(e);
+setupHandlers();
+getDimensions();
+
+}
+
+// --></script>
+<div class="aDISMaske"><form method="post" name="Form0" action="/aDISWeb/app;jsessionid=56A83BE4B69EE2A962711B804B2D247A" onsubmit="return formOnSubmit();">
+<input type="hidden" name="service" value="direct/1/POOLM21PBSZTEST@_44275900_2C72C280/$Form.form"/>
+<input type="hidden" name="sp" value="S0"/>
+<input type="hidden" name="Form0" value="focus,keyCode,stz,source,selected,requestCount,scriptEnabled,scrollPos,scrDim,winDim,imgDim,$Toolbar,select,select$0,$Textfield,$FormConditional,textButton,$FormConditional$0,$FormConditional$1,textButton$0,$Toolbar$0"/>
+<input type="hidden" name="focus" value=""/>
+<input type="hidden" name="keyCode" value="0"/>
+<input type="hidden" name="stz" value=""/>
+<input type="hidden" name="source" value=""/>
+<input type="hidden" name="selected" value=""/>
+<input type="hidden" name="requestCount" value="7"/>
+<input type="hidden" name="scriptEnabled" value="T"/>
+<input type="hidden" name="scrollPos" value="0"/>
+<input type="hidden" name="scrDim" value=""/>
+<input type="hidden" name="winDim" value=""/>
+<input type="hidden" name="imgDim" value=""/>
+<input type="hidden" name="$FormConditional" value="T"/>
+<input type="hidden" name="$FormConditional$0" value="F"/>
+<input type="hidden" name="$FormConditional$1" value="T"/>
+				
+<div id="wrapper">
+  <div id="wrapper_inside">
+  
+    <div id="header" role="banner">
+      <div class="inside">     
+      
+          <ul id="sprunglinks">
+            <li><a class="sprung" href="#main">Zum Hauptinhalt</a></li>
+            <li><a class="sprung" href="#left">Zur Navigation</a></li>
+          </ul>              
+          
+          
+          
+  <!-- incl=includeLogo_de.html -->      <p id="logo">
+	<a href="http://www.hdm-stuttgart.de/bibliothek" title="Zur Homepage der Bibliothek" target="_blank">
+	<img src="/aDISWeb_bsz/m21/images/logo.gif" height="105" alt="Logo" /></a></p>
+<!-- stop --> 
+      </div>
+    </div>
+  
+    <div id="container">
+      <div id="container_inside">
+  
+        <div id="left">
+          <div class="inside">
+
+            <div id="settings">
+            <p>
+              
+            </p>
+          </div>
+
+            <h2 class="invisible">Navigation</h2>
+  
+            <div id="navbox" class="block">
+            <div id="R20"><span class="bnzeig">van der Zander, Benito: Sie sind angemeldet</span><span class="mmzeig"></span>
+</div>
+            </div> 
+
+            <div class="mod_navigation block" id="unav" role="navigation"> 
+  <!-- incl=includeNavigation_a.html --><!-- Platz fuer externe Navigation VOR aDIS-Navigation -->
+<div id="showNavi" class="buttonl">
+<script type="text/javascript">
+function showNavi(){
+	document.getElementById("showNavi").style.display="none";
+	document.getElementById("navi").style.display="block";
+}
+</script>
+<span><a href="javascript:showNavi();">Navigation einblenden</a></span>
+</div>
+<div id="navi">
+<!-- stop --> <div class="tree_div">
+<ul class="tree_ul">
+<li class="tree_leaf_li_sel">
+<strong><span class="tree_strong">Online-Katalog</span></strong></li>
+<li class="tree_branch_li">
+<a href="/aDISWeb/app;jsessionid=56A83BE4B69EE2A962711B804B2D247A?service=direct/1/POOLM21PBSZTEST@_44275900_2C72C280/$Tree.treeNodes&amp;sp=SF1&amp;requestCount=7" class="tree_branch_a"><span>Fernleihe</span></a><span class="outside">.</span></li>
+<li class="tree_leaf_li">
+<a href="/aDISWeb/app;jsessionid=56A83BE4B69EE2A962711B804B2D247A?service=direct/1/POOLM21PBSZTEST@_44275900_2C72C280/$Tree.treeNodes&amp;sp=SW1&amp;requestCount=7" class="tree_leaf_a"><span>Seminarapparate</span></a><span class="outside">.</span></li>
+<li class="tree_leaf_li">
+<a href="/aDISWeb/app;jsessionid=56A83BE4B69EE2A962711B804B2D247A?service=direct/1/POOLM21PBSZTEST@_44275900_2C72C280/$Tree.treeNodes&amp;sp=SW2&amp;requestCount=7" class="tree_leaf_a"><span>Neuerwerbungsliste</span></a><span class="outside">.</span></li>
+<li class="tree_leaf_li">
+<a href="javascript:win=window.open('http://www.hdm-stuttgart.de/bibliothek//digibib/');if(win)win.focus()" class="tree_leaf_a"><span>Die digitale Bibliothek</span></a><span class="outside">.</span></li>
+<li class="tree_leaf_li">
+<a href="javascript:win=window.open('https://www.hdm-stuttgart.de/bibliothek/wir_ueber_uns/anschaffungsvorschlag/');if(win)win.focus()" class="tree_leaf_a"><span>Anschaffungsvorschlag</span></a><span class="outside">.</span></li>
+<li class="tree_leaf_li">
+<a href="/aDISWeb/app;jsessionid=56A83BE4B69EE2A962711B804B2D247A?service=direct/1/POOLM21PBSZTEST@_44275900_2C72C280/$Tree.treeNodes&amp;sp=SL2&amp;requestCount=7" class="tree_leaf_a"><span>Abmelden</span></a><span class="outside">.</span></li>
+<li class="tree_leaf_li">
+<a href="/aDISWeb/app;jsessionid=56A83BE4B69EE2A962711B804B2D247A?service=direct/1/POOLM21PBSZTEST@_44275900_2C72C280/$Tree.treeNodes&amp;sp=SBK&amp;requestCount=7" class="tree_leaf_a"><span>Mein Konto</span></a><span class="outside">.</span></li>
+</ul></div>
+ <!-- incl=includeNavigation_b.html --><!-- Platz fuer externe Navigation NACH aDIS-Navigation -->
+</div> <!-- navi -->
+<!-- stop -->  
+            </div>
+             
+          </div>
+        </div>
+
+        <div id="main" role="main">
+          <div class="inside">
+          
+            <div class="block">
+             <h1>
+               
+              <span class="invisible">Aktuelle Seite:</span><span class="txtinsert">Bestellung vorbereiten</span> </h1>
+      
+              <div id="topleiste" class="block">  
+              
+              
+                       
+
+              <p id="breadcrumb"><!-- incl=includeBreadcrumb_de.html --><span class="invisible">Sie sind hier: </span> 
+<!-- stop --> <a href="/aDISWeb/app;jsessionid=56A83BE4B69EE2A962711B804B2D247A?service=direct/1/POOLM21PBSZTEST@_44275900_2C72C280/$InternalLink.directlink&amp;sp=S%24%24GFNV_1&amp;sp=SStartseite%3DCW00&amp;requestCount=7" fld="$$GFNV_1" title="">Online-Katalog</a>	<span class="outside">.</span> &gt; <span class="navicl"><a href="/aDISWeb/app;jsessionid=56A83BE4B69EE2A962711B804B2D247A?service=direct/1/POOLM21PBSZTEST@_44275900_2C72C280/navpath.intlink.directlink&amp;sp=S%24%24GFNV_1&amp;sp=SS6AK&amp;requestCount=7" fld="$$GFNV_1" title="Erweiterte Suche">Erweiterte Suche</a>	<span class="outside">.</span> > <a href="/aDISWeb/app;jsessionid=56A83BE4B69EE2A962711B804B2D247A?service=direct/1/POOLM21PBSZTEST@_44275900_2C72C280/navpath.intlink.directlink&amp;sp=S%24%24GFNV_2&amp;sp=SA%2FAK&amp;requestCount=7" fld="$$GFNV_2" title="Trefferliste">Trefferliste</a>	<span class="outside">.</span></span> &gt;<span class="txtinsert">Bestellung vorbereiten</span> </p>
+              </div><div class="toolbar_div">
+<ul class="toolbar_ul">
+<li class="toolbar_li">
+<input type="image" src="/aDISWeb/images/POOLM21PBSZTEST@/gif/POOLM21PBSZTEST@_57001500_283DA900.gif;jsessionid=56A83BE4B69EE2A962711B804B2D247A" alt="Zur&#252;ck zur vorherigen Seite" id="Toolbar_0" name="$Toolbar_0" title="Zur&#252;ck zur vorherigen Seite" onmouseover="self.status='Zur&#252;ck zur vorherigen Seite';return true;" onmouseout="self.status='';" class="toolbar_img"/><label for="Toolbar_0"><span class="toolbar_txt">Zur&#252;ck</span></label></li>
+<li class="toolbar_li">
+<input type="image" src="/aDISWeb/images/POOLM21PBSZTEST@/gif/POOLM21PBSZTEST@_57000B00_283DA900.gif;jsessionid=56A83BE4B69EE2A962711B804B2D247A" alt="Beenden der Recherche" id="Toolbar_1" name="$Toolbar_1" title="Beenden der Recherche" onmouseover="self.status='Beenden der Recherche';return true;" onmouseout="self.status='';" class="toolbar_img"/><label for="Toolbar_1"><span class="toolbar_txt">Beenden</span></label></li>
+<li class="toolbar_li">
+<input type="image" src="/aDISWeb/images/POOLM21PBSZTEST@/gif/POOLM21PBSZTEST@_57000500_283DA900.gif;jsessionid=56A83BE4B69EE2A962711B804B2D247A" alt="Hilfe zur Suchmaske" id="Toolbar_3" name="$Toolbar_3" title="Hilfe zur Suchmaske" onmouseover="self.status='Hilfe zur Suchmaske';return true;" onmouseout="self.status='';" class="toolbar_img"/><label for="Toolbar_3"><span class="toolbar_txt">Hilfe</span></label></li></ul><div style="clear:both"></div></div> <!-- incl=includeHinweis_de.html --><!-- <p class="hinweisbox">Derzeit keine Hinweise</p> --> 
+<!-- stop --> 
+
+              <div class="fsgrp">
+                
+                
+                  
+                
+                
+                 
+                <div id="R03"><div style="   width:88%; " class="aDISListe"><div class="html_div" style="width:99%; height:100%;"><p>Für die Bestellung bitte Ausgabeort und Benachrichtigungsart auswählen!</p><p><strong>Titel: Was kann Web-to-Print wirklich? : Software-Lösungen für Printbuyer und Dienstleister im Test</strong></p></div></div>
+</div><div id="R04"><div id="OPACLI" style="   width:88%; " class="aDISListe"></div>
+</div>
+                 
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+          
+                <fieldset id="OPACGP" class="grp" ><legend class="leg">Angaben für die Direktbestellung</legend>    
+<div id="F22">
+<label for="L#NAME_1"><span class="fbz-text" style="position:absolute;  left:2.2%; width:27.3%;overflow:hidden; max-width:27.3%;">Name</span>
+</label><span id="L#NAME_1" style="position:absolute;  left:49.9%; width:36.1%;">van der Zander, Benito</span>
+</div><br/><span style="line-height:12px;">&nbsp;</span><br/>
+<div id="F13">
+<label for="AUSGAB_1"><span class="fbz-text" style="position:absolute;  left:2.2%; width:53.1%;overflow:hidden; max-width:53.1%;">Ausgabeort</span>
+</label><select name="select" id="AUSGAB_1" style="position:absolute;  left:49.9%; width:18.6%;">
+<option value=""></option>
+<option value="Campus Nobelstrasse" selected="selected">Campus Nobelstrasse</option>
+<option value="Campus Wolframstrasse">Campus Wolframstrasse</option>
+</select>
+</div><br/><span style="line-height:12px;">&nbsp;</span><br/>
+<div id="F25">
+<label for="BENJN_1"><span class="fbz-text" style="position:absolute;  left:2.2%; width:53.1%;overflow:hidden; max-width:53.1%;">Benachrichtigung per E-Mail bei Bereitstellung ?</span>
+</label><select name="select$0" id="BENJN_1" style="position:absolute;  left:49.9%; width:18.6%;">
+<option value=""></option>
+<option value="Ja" selected="selected">Ja</option>
+<option value="Nein">Nein</option>
+</select>
+</div><br/><span style="line-height:12px;">&nbsp;</span><br/>
+<div id="F16"><span style="position:absolute;  left:2.2%; width:53.1%;"></span>
+</div>
+<br/><span style="line-height:12px;">&nbsp;</span><br/>
+<br class="klar"/></fieldset>
+                 
+                
+                
+                
+                <div id="R07" class="links"><input type="submit" name="textButton" value="Bestellen" class="buttong_l" fld="$$GFBO_3"/><input type="submit" name="textButton$0" value="Abbrechen" class="buttong_l" fld="$$GFBO_5"/>
+</div><br/><span style="line-height:12px;">&nbsp;</span><br/>
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                   
+              </div>
+            <br/>
+
+              <div class="clear"></div> <div class="toolbar_div">
+<ul class="toolbar_ul">
+<li class="toolbar_li">
+<input type="image" src="/aDISWeb/images/POOLM21PBSZTEST@/gif/POOLM21PBSZTEST@_57001500_283DA900.gif;jsessionid=56A83BE4B69EE2A962711B804B2D247A" alt="Zur&#252;ck zur vorherigen Seite" id="Toolbar$0_0" name="$Toolbar$0_0" title="Zur&#252;ck zur vorherigen Seite" onmouseover="self.status='Zur&#252;ck zur vorherigen Seite';return true;" onmouseout="self.status='';" class="toolbar_img"/><label for="Toolbar$0_0"><span class="toolbar_txt">Zur&#252;ck</span></label></li>
+<li class="toolbar_li">
+<input type="image" src="/aDISWeb/images/POOLM21PBSZTEST@/gif/POOLM21PBSZTEST@_57000B00_283DA900.gif;jsessionid=56A83BE4B69EE2A962711B804B2D247A" alt="Beenden der Recherche" id="Toolbar$0_1" name="$Toolbar$0_1" title="Beenden der Recherche" onmouseover="self.status='Beenden der Recherche';return true;" onmouseout="self.status='';" class="toolbar_img"/><label for="Toolbar$0_1"><span class="toolbar_txt">Beenden</span></label></li>
+<li class="toolbar_li">
+<input type="image" src="/aDISWeb/images/POOLM21PBSZTEST@/gif/POOLM21PBSZTEST@_57000500_283DA900.gif;jsessionid=56A83BE4B69EE2A962711B804B2D247A" alt="Hilfe zur Suchmaske" id="Toolbar$0_3" name="$Toolbar$0_3" title="Hilfe zur Suchmaske" onmouseover="self.status='Hilfe zur Suchmaske';return true;" onmouseout="self.status='';" class="toolbar_img"/><label for="Toolbar$0_3"><span class="toolbar_txt">Hilfe</span></label></li></ul><div style="clear:both"></div></div> </div>
+            <div class="clear"></div>     
+         
+          </div>
+          <div id="clear"></div>
+        </div>
+        
+      </div>
+    </div>
+
+    <div id="footer">
+      <div class="inside">
+
+        <div id="foot1">     
+          <p id="credits">
+  <!-- incl=includeFooter_de.html -->|a|S|tec| angewandte Systemtechnik GmbH - <a href="http://www.astec.de">Barrierefreie Bibliothekssoftware - OPAC</a><!-- stop -->
+          </p>
+        </div>
+      
+        <div id="foot2">
+          <div id="goingup"><a href="#wrapper">Seitenanfang</a></div>
+        </div> 
+                      
+        <div class="clear"></div>
+
+      </div>
+    </div>
+    
+  </div>
+</div>
+
+<script src="/aDISWeb_bsz/basis/js/yaml-focusfix.js" type="text/javascript"></script></form>
+</div></body>
+</html>

@@ -121,6 +121,10 @@ PAGES=(${PAGES[@]} aDISWeb/connected_furtwangen.html aDISWeb/connected_voebb1.ht
 ADDTEMPLATE aDISWeb/searchInputForm 1
 PAGES=(${PAGES[@]} aDISWeb/searchInputForm_mannheim-hsb.html )
 
+ADDTEMPLATE aDISWeb/orderConfirmation 2
+PAGES=(${PAGES[@]} aDISWeb/orderConfirmation_hdmtest.html aDISWeb/orderConfirmation_due.html )
+
+
 #==============Zones========
 mkdir -p $OUTPATH/zones18
 ADDTEMPLATE zones18/loggedIn 1

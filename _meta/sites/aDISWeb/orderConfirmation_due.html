@@ -1,0 +1,388 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="de" lang="de">
+<!-- solution for: conditional-comments block downloads  -->
+<!--[if IE]><![endif]--><head>
+	<style type="text/css">
+		@import url(css/aDISStandard.css);
+	</style>
+	<script src="js/aDISMain.js" type="text/javascript"></script>
+	<script src="js/fckeditor/fckeditor.js" type="text/javascript"></script>
+	<title> Stadtb&#252;chereien D&#252;sseldorf   </title><script type="text/javascript">
+	var text = '';
+	window.defaultStatus=text;
+</script> <!--
+  (c) Software: aDIS/BMS und aDIS/Archiv by |a|S|tec| GmbH Berlin und Muenchen - www.astec.de
+  HTML-/CSS-Anpassungen: ena Webstudio - www.ena-webstudio.com
+  HTML-/CSS-Framework basiert grob auf Contao (c) Leo Feyer www.contao.org
+  Formulare, Tabellen, etc. werden automatisch durch aDIS generiert
+  Projekt: D�sseldorf, Deutsch - OPAC03
+  Letztes Update: 06.12.2013
+  //-->
+
+  <meta http-equiv="content-language" content="de" />
+  <meta name="language" content="de" />  
+  <meta http-equiv="x-ua-compatible" content="ie=edge" />
+  <meta http-equiv="cache-control" content="no-cache" />
+  <meta http-equiv="content-type" content="text/html; charset=utf-8" />  
+  <meta name="viewport" content="width=device-width; initial-scale=1.0" />
+  <meta http-equiv="content-style-type" content="text/css" />
+  <meta http-equiv="content-script-type" content="text/javascript" /> 
+    
+  <link rel="stylesheet" href="/aDISWeb_duss/css/framework.css" type="text/css" media="screen" />
+  <!--[if lte IE 7]><link rel="stylesheet" href="/aDISWeb_duss/css/framework_iefixes.css" type="text/css" media="screen" /><![endif]-->
+  <link rel="stylesheet" href="/aDISWeb_duss/css/layout.css" type="text/css" media="screen" />
+  <link rel="shortcut icon" type="image/x-icon" href="/aDISWeb_duss/images/favicon.ico" />
+  
+  <!--[if lt IE 7]><link rel="stylesheet" href="/aDISWeb_duss/css/ieonly.css" type="text/css" media="screen" /><![endif]--> 
+  <!--[if IE 7]><link rel="stylesheet" href="/aDISWeb_duss/css/ieonly7.css" type="text/css" media="screen" /><![endif]--> 
+  <!--[if gte IE 8]><link rel="stylesheet" href="/aDISWeb_duss/css/ieonly8.css" type="text/css" media="screen" /><![endif]-->
+  <link rel="stylesheet" type="text/css" href="/aDISWeb_duss/css/print.css" media="print" />
+  <link rel="stylesheet" href="/aDISWeb_duss/css/media.css" type="text/css" />
+  <!--[if lt IE 9]><script type="text/javascript" src="/aDISWeb_duss/js/css3-mediaqueries.js"></script><![endif]--> 
+  
+  <meta name="description" content="Online-Bibliothekskatalog - OPAC - D�sseldorf" />
+</head>
+<body class="dreier deutsch opac03">
+<script type="text/javascript"><!--
+
+
+
+
+function startIdleTimer() {
+  if (typeof idleId != 'undefined')
+    clearTimeout(idleId)
+  idleId = window.setTimeout("to('"+ idleLink + "')", idleTime);
+  }			
+function to(link) {
+  location.href=link;
+  }
+
+
+
+
+
+function EventTarget() {
+	this.handlers = [];
+	}
+EventTarget.prototype = {
+	constructor : EventTarget,
+	addhandler: function (type, handler) {
+		if (typeof this.handlers[type] == "undefined")
+			this.handlers[type] = [];
+		this.handlers[type].push(handler);
+		},
+	fire : function (event) {
+		if (this.handlers[event.type] instanceof Array) {
+			var handlers = this.handlers[event.type];
+			for (var i = 0; i < handlers.length; i++)
+				handlers[i](event);
+			}
+		},
+	};
+var eventHandler = new EventTarget();
+function setupHandlers()  {
+	document.onmousedown = docOnEvent;		
+	document.onkeydown = docOnEvent;	
+	document.onkeypress = docOnEvent;
+	document.onhelp = cancelF1;
+	
+	initFormElements();
+	initIframes();
+	initScrollPos();
+	}
+function getDimensions()  {
+	document.forms[0].scrDim.value = screen.width + ";" + screen.height;
+	if (window.innerWidth)
+		document.forms[0].winDim.value = window.innerWidth + ";" + window.innerHeight;
+	else
+		document.forms[0].winDim.value = document.body.offsetWidth + ";" + document.body.offsetHeight;
+	node = document.getElementById("img_content");
+	if (node != undefined)
+		document.forms[0].imgDim.value = node.offsetWidth + ";" + node.offsetHeight;
+	}
+
+
+
+
+window.onload = function (e)
+{
+
+  idleTime=600000;
+  idleLink="/aDISWeb/app;jsessionid=4D14DF48660A9B60056693E931A898A4?service=direct/1/POOLIT07lxbib@@@_57000800_2DC98880/$Timeout";
+  startIdleTimer();
+
+
+if (!e) var e = window.event;
+document.forms[0].scriptEnabled.value=true;
+if (self.specialOnLoad != undefined)
+	specialOnLoad(e);
+setupHandlers();
+getDimensions();
+
+}
+
+// --></script>
+<div class="aDISMaske"><form method="post" name="Form0" action="/aDISWeb/app;jsessionid=4D14DF48660A9B60056693E931A898A4" onsubmit="return formOnSubmit();">
+<input type="hidden" name="service" value="direct/1/POOLIT07lxbib@@@_57000800_2DC98880/$Form.form"/>
+<input type="hidden" name="sp" value="S0"/>
+<input type="hidden" name="Form0" value="focus,keyCode,stz,source,selected,requestCount,scriptEnabled,scrollPos,scrDim,winDim,imgDim,$Toolbar,$Textfield,select,$FormConditional,textButton,$FormConditional$0,textButton$0,$Toolbar$0"/>
+<input type="hidden" name="focus" value=""/>
+<input type="hidden" name="keyCode" value="0"/>
+<input type="hidden" name="stz" value=""/>
+<input type="hidden" name="source" value=""/>
+<input type="hidden" name="selected" value=""/>
+<input type="hidden" name="requestCount" value="23"/>
+<input type="hidden" name="scriptEnabled" value="T"/>
+<input type="hidden" name="scrollPos" value="0"/>
+<input type="hidden" name="scrDim" value=""/>
+<input type="hidden" name="winDim" value=""/>
+<input type="hidden" name="imgDim" value=""/>
+<input type="hidden" name="$FormConditional" value="T"/>
+<input type="hidden" name="$FormConditional$0" value="T"/>
+				
+<div id="wrapper">
+  <div id="wrapper_inside">
+  
+    <div id="header" role="banner">
+      <div class="inside">     
+      
+          <ul id="sprunglinks">
+            <li><a class="sprung" href="#main">Zum Hauptinhalt</a></li>
+            <li><a class="sprung" href="#left">Zur Navigation</a></li>
+          </ul>              
+
+          <p id="logo"><a href="/aDISWeb/app;jsessionid=4D14DF48660A9B60056693E931A898A4?service=direct/1/POOLIT07lxbib@@@_57000800_2DC98880/$InternalLink.directlink&amp;sp=S%24%24GFNV_1&amp;sp=SStartseite%3DCW00&amp;requestCount=23" title="Zur Startseite des Bibliothekskataloges" fld="$$GFNV_1"><img src="/aDISWeb_duss/images/wappen202.gif" width="306" height="64" alt="Logo: Stadtb�chereien Landeshauptstadt D&uuml;sseldorf" title="Logo: Stadtb&uuml;chereien Landeshauptstadt D&uuml;sseldorf" /></a>	<span class="outside">.</span></p>
+
+          <!-- START Duesseldorf NAVIGATION - Header -->
+          <div id="tnav" class="mod_navigation block" role="navigation"> 
+            <ul>
+              <li class="tnav_home"><a href="http://www.duesseldorf.de/de/index.shtml">Startseite</a></li>
+              <li class="tnav_events"><a href="http://www.duesseldorf.de/top/thema010/events/index.shtml">Veranstaltungen</a></li>
+              <li class="tnav_contact"><a href="http://www.duesseldorf.de/infonav/kontakt/index.shtml">Kontakt</a></li>
+              <li class="tnav_map"><a href="http://stadtplan.duesseldorf.de/start.html">Stadtplan</a></li>
+              <li class="tnav_index"><a href="http://www.duesseldorf.de/infonav/uebersicht/index.shtml">&Uuml;bersicht</a></li>
+              <li class="tnav_legal"><a href="http://www.duesseldorf.de/infonav/impressum/index.shtml">Impressum</a></li>
+              <li class="tnav_guest"><a href="http://www.duesseldorf.de/gaestebuch/uebersicht.php">G&auml;stebuch</a></li>
+              <li class="tnav_help"><a href="http://www.duesseldorf.de/infonav/hilfe/index.shtml">Hilfe</a></li>
+            </ul>
+          </div>
+          <!-- STOP Duesseldorf NAVIGATION - Header -->
+            
+          <div id="settings">
+              
+          </div>
+          
+      </div>
+    </div>
+  
+    <div id="container">
+      <div id="container_inside">
+  
+        <div id="left">
+          <div class="inside">
+
+            <h2 class="invisible">Navigation</h2>
+
+            <!-- START Duesseldorf NAVIGATION - Left -->
+            <div id="snav" class="mod_navigation block" role="navigation">
+              <ul>
+                <li class="snav_edu"><a href="http://www.duesseldorf.de/top/thema090/index.shtml">Bildung &amp; Wissenschaft</a></li>
+                <li class="snav_lib"><a href="http://www.duesseldorf.de/stadtbuechereien/index.shtml">Stadtb&uuml;chereien D&uuml;sseldorf</a></li>
+              </ul>     
+            </div> 
+            <!-- STOP Duesseldorf NAVIGATION - Left -->
+
+            <div id="unav" class="mod_navigation block" role="navigation"> <div class="tree_div">
+<ul class="tree_ul">
+<li class="tree_leaf_li">
+<span class="tree_disabled">Anmelden</span>
+<span class="outside">.</span></li>
+<li class="tree_leaf_li">
+<a href="/aDISWeb/app;jsessionid=4D14DF48660A9B60056693E931A898A4?service=direct/1/POOLIT07lxbib@@@_57000800_2DC98880/$Tree.treeNodes&amp;sp=SL2&amp;requestCount=23" class="tree_leaf_a"><span>Abmelden</span></a><span class="outside">.</span></li>
+<li class="tree_leaf_li_sel">
+<strong><span class="tree_strong">Mein Konto</span></strong></li>
+<li class="tree_branch_li_exp">
+<a href="/aDISWeb/app;jsessionid=4D14DF48660A9B60056693E931A898A4?service=direct/1/POOLIT07lxbib@@@_57000800_2DC98880/$Tree.treeNodes&amp;sp=SBD&amp;requestCount=23" class="tree_branch_a"><span>Suche</span></a><div class="tree_divsub">
+<ul class="tree_ulsub">
+<li class="tree_leaf_li">
+<a href="/aDISWeb/app;jsessionid=4D14DF48660A9B60056693E931A898A4?service=direct/1/POOLIT07lxbib@@@_57000800_2DC98880/$Tree.treeNodes&amp;sp=SS1&amp;requestCount=23" class="tree_leaf_a"><span>Schnellsuche</span></a><span class="outside">.</span></li>
+<li class="tree_leaf_li">
+<a href="/aDISWeb/app;jsessionid=4D14DF48660A9B60056693E931A898A4?service=direct/1/POOLIT07lxbib@@@_57000800_2DC98880/$Tree.treeNodes&amp;sp=SS6&amp;requestCount=23" class="tree_leaf_a"><span>Erweiterte Suche</span></a><span class="outside">.</span></li>
+<li class="tree_leaf_li">
+<a href="/aDISWeb/app;jsessionid=4D14DF48660A9B60056693E931A898A4?service=direct/1/POOLIT07lxbib@@@_57000800_2DC98880/$Tree.treeNodes&amp;sp=SAP&amp;requestCount=23" class="tree_leaf_a"><span>Meine Suchen</span></a><span class="outside">.</span></li>
+</ul></div>
+</li>
+<li class="tree_leaf_li">
+<a href="http://www.duesseldorf.de/stadtbuechereien/kontakt/index.shtml" target="&quot;_blank&quot;" class="tree_leaf_a"><span>Kontakt</span></a><span class="outside">.</span></li>
+</ul></div>
+ </div>
+             
+          </div>
+        </div>
+
+        <div id="right">
+          <div class="inside">
+          
+            <div id="navbox" class="block">
+            <div id="R20"><span class="bnzeig">Van der Zander, Robin: Sie sind angemeldet</span><span class="mmzeig"></span>
+</div>
+            </div> 
+
+          </div>
+        </div>
+
+        <div id="main" role="main">
+          <div class="inside">
+          
+            <div class="block">
+
+             <div id="topleiste" class="block">  
+              <p id="breadcrumb"><span class="invisible">Pfad: </span><a href="/aDISWeb/app;jsessionid=4D14DF48660A9B60056693E931A898A4?service=direct/1/POOLIT07lxbib@@@_57000800_2DC98880/$InternalLink$0.directlink&amp;sp=S%24%24GFNV_1&amp;sp=SStartseite%3DCW00&amp;requestCount=23" title="" fld="$$GFNV_1">Online-Katalog</a>	<span class="outside">.</span> &gt; <span class="navicl"><a href="/aDISWeb/app;jsessionid=4D14DF48660A9B60056693E931A898A4?service=direct/1/POOLIT07lxbib@@@_57000800_2DC98880/navpath.intlink.directlink&amp;sp=S%24%24GFNV_1&amp;sp=SS6AK&amp;requestCount=23" title="Erweiterte Suche" fld="$$GFNV_1">Erweiterte Suche</a>	<span class="outside">.</span> > <a href="/aDISWeb/app;jsessionid=4D14DF48660A9B60056693E931A898A4?service=direct/1/POOLIT07lxbib@@@_57000800_2DC98880/navpath.intlink.directlink&amp;sp=S%24%24GFNV_2&amp;sp=SA%2FAK&amp;requestCount=23" title="Trefferliste" fld="$$GFNV_2">Trefferliste</a>	<span class="outside">.</span></span> &gt;<span class="txtinsert">Direktbestellung vorbereiten</span> </p>       
+             </div>
+
+              <h1><span class="invisible">Aktuelle Seite: </span> <span class="txtinsert">Direktbestellung vorbereiten</span> </h1> <div class="toolbar_div">
+<ul class="toolbar_ul">
+<li class="toolbar_li">
+<input type="image" src="/aDISWeb/images/POOLIT07lxbib@@@/gif/POOLIT07lxbib@@@_57002800_2D051900.gif;jsessionid=4D14DF48660A9B60056693E931A898A4" alt="Zur&#252;ck zur vorherigen Seite" id="Toolbar_0" name="$Toolbar_0" title="Zur&#252;ck zur vorherigen Seite" onmouseover="self.status='Zur&#252;ck zur vorherigen Seite';return true;" onmouseout="self.status='';" class="toolbar_img"/><label for="Toolbar_0"><span class="toolbar_txt">Zur&#252;ck</span></label></li>
+<li class="toolbar_li">
+<input type="image" src="/aDISWeb/images/POOLIT07lxbib@@@/gif/POOLIT07lxbib@@@_57001E00_2D051900.gif;jsessionid=4D14DF48660A9B60056693E931A898A4" alt="Beenden der Recherche" id="Toolbar_1" name="$Toolbar_1" title="Beenden der Recherche" onmouseover="self.status='Beenden der Recherche';return true;" onmouseout="self.status='';" class="toolbar_img"/><label for="Toolbar_1"><span class="toolbar_txt">Beenden</span></label></li>
+<li class="toolbar_li">
+<input type="image" src="/aDISWeb/images/POOLIT07lxbib@@@/gif/POOLIT07lxbib@@@_57001F00_2D051900.gif;jsessionid=4D14DF48660A9B60056693E931A898A4" alt="Hilfe zur Suchmaske" id="Toolbar_3" name="$Toolbar_3" title="Hilfe zur Suchmaske" onmouseover="self.status='Hilfe zur Suchmaske';return true;" onmouseout="self.status='';" class="toolbar_img"/><label for="Toolbar_3"><span class="toolbar_txt">Hilfe</span></label></li></ul><div style="clear:both"></div></div>
+<p class="hinweisbox">
+  Zur Bedienung unserer Webseite benutzen Sie bitte nur die angebotenen Funktionsbuttons auf den Seiten.<br /> 
+  Bitte benutzen Sie nicht die Vor- oder Zur&uuml;ck-Taste Ihres Internet-Browsers.
+</p>
+
+              <div class="fsgrp">
+              
+              
+                
+              
+              
+               
+              <div id="R03"><div style="   width:99%; " class="aDISListe"><div class="html_div" style="width:99%; height:100%;"><p><strong>Titel: Tactics for the TOEIC test : Listening and reading test introductory course. - Practice test B. Tactics for the TOE</strong></p></div></div>
+</div><div id="R04"><div id="OPACLI" style="   width:99%;" class="aDISListe"><div class="html_div" style="width:99%; height:100%;"><h2 class="marktx"> - Aufnahme eines Bestellwunsches - </h2></div></div>
+</div>
+               
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+
+              <fieldset id="OPACGP" class="grp" >
+<div id="F16">
+<label for="L#NAME_1"><span class="fbz-text" style="position:absolute;  left:1.9%; width:16.1%;overflow:hidden; max-width:16.1%;">Name</span>
+</label><span style="position:absolute;  left:49.1%; width:66.1%;" id="L#NAME_1">Van der Zander, Robin</span>
+</div><br/><span style="line-height:12px;">&nbsp;</span><br/>
+<div id="F20"><span style="position:absolute;  left:1.9%; width:28.2%;"></span>
+</div><br/><span style="line-height:12px;">&nbsp;</span><br/>
+<div id="F23">
+<label for="AUSGAB_1"><span class="fbz-text" style="position:absolute;  left:1.9%; width:46.7%;overflow:hidden; max-width:46.7%;">Ausgabeort</span>
+</label><select name="select" style="position:absolute;  left:49.1%; width:27.5%;" id="AUSGAB_1">
+<option value=""></option>
+<option value="Zentralbibliothek">Zentralbibliothek</option>
+<option value="B&#252;cherei Benrath">B&#252;cherei Benrath</option>
+<option value="B&#252;cherei Bilk">B&#252;cherei Bilk</option>
+<option value="B&#252;cherei Derendorf">B&#252;cherei Derendorf</option>
+<option value="B&#252;cherei Eller">B&#252;cherei Eller</option>
+<option value="B&#252;cherei Flingern">B&#252;cherei Flingern</option>
+<option value="B&#252;cherei Garath">B&#252;cherei Garath</option>
+<option value="B&#252;cherei Gerresheim">B&#252;cherei Gerresheim</option>
+<option value="B&#252;cherei Hassels">B&#252;cherei Hassels</option>
+<option value="B&#252;cherei Kaiserswerth">B&#252;cherei Kaiserswerth</option>
+<option value="B&#252;cherei Oberkassel">B&#252;cherei Oberkassel</option>
+<option value="B&#252;cherei Rath">B&#252;cherei Rath</option>
+<option value="B&#252;cherei Unterbach">B&#252;cherei Unterbach</option>
+<option value="B&#252;cherei Unterrath">B&#252;cherei Unterrath</option>
+<option value="B&#252;cherei Wersten">B&#252;cherei Wersten</option>
+<option value="Autob&#252;cherei">Autob&#252;cherei</option>
+</select>
+</div><br/><span style="line-height:12px;">&nbsp;</span><br/>
+<br class="klar"/></fieldset>
+              
+              
+              
+              
+              <div id="R07" class="links"><input type="submit" name="textButton" value="Bestellen" class="buttong_l" fld="$$GFBO_3"/><input type="submit" name="textButton$0" value="Abbrechen" class="buttong_l" fld="$$GFBO_5"/>
+</div><br class="klar"/>
+              
+              
+              
+              
+              
+              
+              
+             
+              
+                            
+              </div>
+              <div class="clear"></div>
+
+              <div class="toolbar-last"><div class="toolbar_div">
+<ul class="toolbar_ul">
+<li class="toolbar_li">
+<input type="image" src="/aDISWeb/images/POOLIT07lxbib@@@/gif/POOLIT07lxbib@@@_57002800_2D051900.gif;jsessionid=4D14DF48660A9B60056693E931A898A4" alt="Zur&#252;ck zur vorherigen Seite" id="Toolbar$0_0" name="$Toolbar$0_0" title="Zur&#252;ck zur vorherigen Seite" onmouseover="self.status='Zur&#252;ck zur vorherigen Seite';return true;" onmouseout="self.status='';" class="toolbar_img"/><label for="Toolbar$0_0"><span class="toolbar_txt">Zur&#252;ck</span></label></li>
+<li class="toolbar_li">
+<input type="image" src="/aDISWeb/images/POOLIT07lxbib@@@/gif/POOLIT07lxbib@@@_57001E00_2D051900.gif;jsessionid=4D14DF48660A9B60056693E931A898A4" alt="Beenden der Recherche" id="Toolbar$0_1" name="$Toolbar$0_1" title="Beenden der Recherche" onmouseover="self.status='Beenden der Recherche';return true;" onmouseout="self.status='';" class="toolbar_img"/><label for="Toolbar$0_1"><span class="toolbar_txt">Beenden</span></label></li>
+<li class="toolbar_li">
+<input type="image" src="/aDISWeb/images/POOLIT07lxbib@@@/gif/POOLIT07lxbib@@@_57001F00_2D051900.gif;jsessionid=4D14DF48660A9B60056693E931A898A4" alt="Hilfe zur Suchmaske" id="Toolbar$0_3" name="$Toolbar$0_3" title="Hilfe zur Suchmaske" onmouseover="self.status='Hilfe zur Suchmaske';return true;" onmouseout="self.status='';" class="toolbar_img"/><label for="Toolbar$0_3"><span class="toolbar_txt">Hilfe</span></label></li></ul><div style="clear:both"></div></div> </div> 
+                      
+            </div>
+            <div class="clear"></div>     
+         
+          </div>
+          <div id="clear"></div>
+        </div>
+        
+      </div>
+    </div>
+
+    <div id="footer">
+      <div class="inside">
+
+        <div id="foot1">     
+          <p id="credits">
+          |a|S|tec| angewandte Systemtechnik GmbH - <a href="http://www.astec.de">Barrierefreie Bibliothekssoftware - OPAC</a> - 
+          <a href="http://www.ena-webstudio.com" title="ena Webstudio - Webdesign Berlin">ena Webstudio</a>
+          </p>
+        </div>
+                      
+        <div class="block">
+        
+          <div id="foot2">
+          <div id="goingup"><a href="#wrapper">Seitenanfang</a></div>
+          </div> 
+
+          <div id="foot3">
+          
+          
+                   
+          </div> 
+          
+        </div>              
+        <div class="clear"></div>
+
+      </div>
+    </div>
+    
+  </div>
+</div>
+
+<script src="/aDISWeb_duss/js/yaml-focusfix.js" type="text/javascript"></script></form>
+</div></body>
+</html>

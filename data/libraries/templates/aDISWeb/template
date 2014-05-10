@@ -28,7 +28,7 @@
         <h1>Sie sind angemeldet.</h1>
         </form>
 
-        <a>Keine Ausleihen</a>
+        <td>Keine Ausleihen</td>
         <a>Ausleihen zeigen oder verlängern</a> <!-- seems we already are on the correct page, send request again (not tested with any library) -->
         <a>Ausleihe zeigen oder verlängern</a>
         
@@ -37,6 +37,9 @@
         <li>Benutzernummer oder Passwort falsch?<t:s>vl:raise-login(.)</t:s></li>
         <td id="notify">Benutzernummer oder Passwort falsch<t:s>vl:raise-login(.)</t:s></td> <!-- blb karlsruhe -->
         <h1>Das System kann Sie derzeit nicht anmelden! Angaben sind fehlerhaft!<t:s>vl:raise-login(.)</t:s></h1>
+        
+        
+
       </template:switch-prioritized>
     </template>
   </page>  
@@ -201,21 +204,7 @@
     <variable name="form">$loginFormPost</variable>
   </if>
 
-  <page url="{$form}">
-    <template>
-      <form>
-      {form := form(., {"select": "_DESTINATIONFILLER_", "select$0": "Nein"})}
-      
-      <DIV class="fsgrp">
-        <DIV id="OPACLI">
-          <STRONG>{book.orderConfirmation := x"Wohin soll das Buch ""{.}"" vorbestellt werden?"}</STRONG>
-        </DIV>
-
-        <select name="select">{book.orderConfirmationOptionTitles := ./option[. != ""], options := $book.orderConfirmationOptionTitles/@value}</select>    
-      </DIV>
-      </form>
-    </template>
-  </page>
+  <page url="{$form}" templateFile="orderConfirmation"/>
   
 </action>
 
