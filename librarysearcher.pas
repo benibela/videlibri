@@ -226,9 +226,21 @@ begin
 end;
 
 procedure TLibrarySearcher.details(book: tbook);
+var
+  i: Integer;
+  j: Integer;
 begin
   bookListReader.selectBook(book);
   bookListReader.callAction('search-details');
+  if book.isbn = '' then
+    for i := 0 to high(book.additional) do
+      if striEqual(book.additional[i].name, 'ISBN!') or striEqual(book.additional[i].name, 'ISSN!') then begin
+        book.isbn := book.additional[i].value;
+        for j := i+1 to high(book.additional) do
+          book.additional[j-1] := book.additional[j];
+        setlength(book.additional, length(book.additional)-1);
+        exit;
+      end;
   FLastAccessTime:=GetTickCount;
 end;
 

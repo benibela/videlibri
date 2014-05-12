@@ -936,7 +936,8 @@ begin
           else if striContains(ext, 'image/png') then ext := '.png'
           else if striContains(ext, 'image/gif') then ext := '.gif'
           else ext := ExtractFileExt(getProperty('image-url',book.additional));
-          image1.Picture.LoadFromStreamWithFileExt(tempStream, ext);
+          if (ext = '') or (ext = '.') then image1.Picture.LoadFromStream(tempStream)
+          else image1.Picture.LoadFromStreamWithFileExt(tempStream, ext);
           Image1.width:=min(image1.Picture.Width, Image1.Picture.Width * image1.Height div max(1,image1.Picture.Height));
         finally
           tempStream.free;

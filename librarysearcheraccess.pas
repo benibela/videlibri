@@ -523,6 +523,8 @@ begin
               if logging then log('image url: '+getProperty('image-url',book.additional));
               image:=searcher.bookListReader.internet.get(getProperty('image-url',book.additional));
             end else image:='';
+            if (image = '') and (book.isbn <> '') then
+              image:=searcher.bookListReader.internet.get('http://covers.openlibrary.org/b/isbn/'+book.getNormalizedISBN+'-M.jpg');
             if logging then log('got image: size: '+IntToStr(length(image)));
             access.beginBookReading;
             addProperty('image',image,book.additional);

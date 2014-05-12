@@ -57,6 +57,8 @@ type
     procedure assignNoReplaceAll(book: TBook); //every value not set will be replaced with the one from book (will not change key author/title/id/year)
     function clone: TBook;
 
+    function getNormalizedISBN: string;
+
     function toSimpleString():string;
     function toLimitString():string;
     //procedure assignOverride(book: TBook);  //every value set in book will be replace the one of self
@@ -291,6 +293,16 @@ function TBook.clone: TBook;
 begin
   result := TBook.create;
   result.assignNoReplaceAll(self);
+end;
+
+function TBook.getNormalizedISBN: string;
+begin
+  result := trim(isbn);
+  if length(result) < 5 then exit;
+  //e.g. isbn10: 3-680-08783-7
+  if result[2] = '-' then exit(copy(result, 1, 13));
+  //isbn13: 978-3-7657-2781-8
+  if result[4] = '-' then exit(copy(result, 1, 17));
 end;
 
 function TBook.toSimpleString():string;
