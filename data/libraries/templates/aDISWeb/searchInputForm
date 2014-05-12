@@ -32,7 +32,7 @@
     <input>{$inputs := ($inputs, @name)}</input>
     <select>{$selects := ($selects, @name)} <option>ISBN|ISSN<t:s>$search-keys.isbn := @value</t:s></option>    </select>   
     <input>{$inputs := ($inputs, @name)}</input>
-    <select>{$selects := ($selects, @name)} <option>Schlag<t:s>$search-keys.keywords := @value</t:s></option>  </select>   
+    <select>{$selects := ($selects, @name)} <option>Schlag|Thema<t:s>$search-keys.keywords := @value</t:s></option>  </select>   
     <input>{$inputs := ($inputs, @name)}</input>
     
     
