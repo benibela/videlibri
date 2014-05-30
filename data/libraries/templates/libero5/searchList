@@ -36,7 +36,8 @@
     <t:s>search-result-count := 0</t:s>
   </html>
   
-  <div class='SystemMessageCont'>Ihre Suche brachte keine Treffer!<t:s>search-result-count := 0</t:s> </div>
+  <div class='SystemMessageCont'>Ihre Suche brachte keine Treffer<t:s>search-result-count := 0</t:s> </div>
+  <div class='SystemMessageCont'>Zu Ihren Suchvorgaben gibt es keine Treffer<t:s>search-result-count := 0</t:s> </div>
   
   <div class='SysMsgHeading'>
   {vl:raise(concat(., ./following-sibling::blockquote))}
