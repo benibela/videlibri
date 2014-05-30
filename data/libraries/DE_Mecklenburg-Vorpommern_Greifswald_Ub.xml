@@ -4,7 +4,7 @@
   <shortName value="Ub Greifswald"/>
   
   <template value="pica"/>
-  <variable name="server" value="https://opac.ub.uni-greifswald.de/"/>
+  <variable name="server" value="https://lhgrw.gbv.de/"/>
   <variable name="picadb" value="1"/>
 
 
