@@ -222,7 +222,7 @@
 
 
 
-<action id="order-confirm-single">
+<action id="order-single">
   <variable name="targetIndex">$book._index * 1</variable> <call action="gotoindex"/>
 
   <page url="{$form.url}">
@@ -242,19 +242,22 @@
 </action>
 
 
-<action id="order-single">
+<action id="internal-order-confirmed">
     <variable name="form">
     {
       "url": $form.url,
       "method": $form.method,
-      "post": replace($form.post, "_DESTINATIONFILLER_", $options[$book.choosenConfirmation * 1])
+      "post": replace($form.post, "_DESTINATIONFILLER_", $choose-result)
     }
     </variable>  
 
   <page url="{$form}" templateFile="orderConfirmed"/>
   <page url="{$form}" templateFile="orderConfirmed"/>
   <page url="{$final-form}">
-    <a title="Trefferliste">{goback:=@href}</a><!--inside main in munich, outside in nürnberg-->
+    <template>
+    <t:s>book.statusId := "ordered"</t:s>
+<!-- geht ohne das???   <a title="Trefferliste">{goback:=@href}</a>--><!--inside main in munich, outside in nürnberg-->
+    </template>
   </page>
   
   <page url="{$goback}" templateFile="searchBasicForm"/>

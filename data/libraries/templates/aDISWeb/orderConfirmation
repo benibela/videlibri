@@ -3,10 +3,12 @@
   
   <DIV class="fsgrp">
     <DIV t:condition="@id=('OPACLI','R03')"> <!-- OPACLI is the old value, not used anymore anywhere?-->
-      <STRONG>{book.orderConfirmation := x"Wohin soll das Buch ""{.}"" vorbestellt werden?"}</STRONG>
+      <STRONG>{tempOrderConfirmation := x"Wohin soll das Buch ""{.}"" vorbestellt werden?"}</STRONG>
     </DIV>
 
-    <select name="select">{book.orderConfirmationOptionTitles := ./option[. != ""], options := $book.orderConfirmationOptionTitles/@value}</select>    
+    <select name="select">{tempOptions :=  ./option[. != ""],    
+    vl:choose("internal-order-confirmed", $tempOrderConfirmation, $tempOptions, $tempOptions/@value)
+    }</select>    
   </DIV>
 </form>
 
