@@ -33,7 +33,10 @@ cat > $tmp/$publishId.html <<EOF
 <link rel="videlibri.template" href="$templateIdNew/template"/>
 </head>
 <body>
-Neues Template f&uuml;r  die "$name"
+Neues Template f&uuml;r  die "$name"<br><br>
+
+<p>Installationshinweise für: <a href="/help/templateinstallation.html#android">Android</a> und <a href="/help/templateinstallation.html#desktop">Desktop</a>-Version.
+
 </body>
 </html>
 EOF

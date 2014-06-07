@@ -71,6 +71,10 @@
 			<param name="Name" value="5. Weitergabe des Templates">
 			<param name="Local" value="publishtemplate.html">
 			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="6. Installation eines Templates">
+			<param name="Local" value="templateinstallation.html">
+			</OBJECT>
 	</UL>
 	<LI> <OBJECT type="text/sitemap">
 		<param name="Name" value="Fragen und Antworten">
