@@ -13,13 +13,47 @@
 <action id="internal-login">
 
   <page url="{$loginForm}">
-    <template><form>{
-      loginFormPost := form(., {"$Textfield": $username, "$Textfield$0": $password})
-    }</form></template>
+    <template><t:switch-prioritized>
+      <form>{ loginFormPost := form(., {"$Textfield": $username, "$Textfield$0": $password}) }  
+            <input name="$Textfield"/> 
+      </form>
+      <form>{ loginFormPost := form(., {"j_username": $username, "j_password": $password}),
+              idpSystem := true() }  
+            <input name="j_username"/> 
+      </form>
+    </t:switch-prioritized></template>
   </page>
+  
+  <if test="get('idpSystem')">
+    <s>i := 1</s>
+    <!-- follow links till we reach the login page -->
+    <loop test="$i < 10">
+        <page url="{$loginFormPost}">
+          <template><t:switch-prioritized>  
+            <td id="notify">Benutzernummer oder Passwort falsch<t:s>vl:raise-login(.)</t:s></td> <!-- blb karlsruhe -->
+          
+            <!-- seems we already are on the correct page, send request again (not tested with any library) -->
+            <td>Keine Ausleihen<t:s>i:=1000</t:s></td>
+            <a>Ausleihen zeigen oder verlängern<t:s>i:=1000</t:s></a> 
+            <a>Ausleihe zeigen oder verlängern<t:s>i:=1000</t:s></a>
+          
+            <!-- we were logged out ? -->
+            <a>Mein Konto<t:s>loginFormPost := .</t:s></a>
+    
+            <!-- redirection -->
+            <form>{loginFormPost := form(.)}</form>
+            <a>{$loginFormPost}</a>
+            <meta http-equiv="refresh">{$loginFormPost}</meta>
+          </t:switch-prioritized></template>
+        </page>
+        <s>$i := $i + 1</s>
+    </loop>
+    
+  
+  </if>  
 
 
-  <page url="{$loginFormPost}">
+  <page test="not(get('idpSystem'))" url="{$loginFormPost}">
     <post name="textButton" value="Anmeldung abschicken"/>
     
     <template>
@@ -35,7 +69,6 @@
         <h1>Bitte auch das Passwort angeben<t:s>vl:raise-login(.)</t:s></h1>
         <h1>Sie sind nicht mit Ihren Angaben registriert<t:s>vl:raise-login(.)</t:s></h1>
         <li>Benutzernummer oder Passwort falsch?<t:s>vl:raise-login(.)</t:s></li>
-        <td id="notify">Benutzernummer oder Passwort falsch<t:s>vl:raise-login(.)</t:s></td> <!-- blb karlsruhe -->
         <h1>Das System kann Sie derzeit nicht anmelden! Angaben sind fehlerhaft!<t:s>vl:raise-login(.)</t:s></h1>
         
         
