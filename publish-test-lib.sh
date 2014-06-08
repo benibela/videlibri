@@ -16,7 +16,9 @@ eval $(xidel --output-format bash $libData -e 'name:=//longName/@value, template
 libDataNew=$(basename $libData | sed -e 's/[.]xml/New.xml/' )
 libDataIdNew=$( sed -e 's/[.]xml//' <<<"$libDataNew")
 if [[ "$3" = "--override" ]]; then templateIdNew=${templateId}
+message="Da dieses Template ein existierendes Template überschreibt, muss VideLibri nach der Installation neugestartet werden"
 else templateIdNew=${templateId}New
+message=
 fi
 templatePath=$(grep -oE '.*/' <<<$libData)templates
 
@@ -29,6 +31,7 @@ mkdir $tmp/newlibs
 cat > $tmp/$publishId.html <<EOF 
 <html>
 <head>
+<meta charset="utf-8"/>
 <link rel="videlibri.description" href="newlibs/$libDataNew"/>
 <link rel="videlibri.template" href="$templateIdNew/template"/>
 </head>
@@ -36,6 +39,8 @@ cat > $tmp/$publishId.html <<EOF
 Neues Template f&uuml;r  die "$name"<br><br>
 
 <p>Installationshinweise für: <a href="/help/templateinstallation.html#android">Android</a> und <a href="/help/templateinstallation.html#desktop">Desktop</a>-Version.
+
+<p>$message
 
 </body>
 </html>
