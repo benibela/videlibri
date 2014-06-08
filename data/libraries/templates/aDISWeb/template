@@ -230,6 +230,29 @@
     <template><form>{form:=form(., (.//input[@type = "submit" and contains(@value, "Bestellen")])[1]/{string(@name): @value})}</form></template>
   </page>
   
+  <page test="get('multiple-district-ordering', false())" url="{$form}">
+    <template>
+      <div id="R05"><div class="rTable_div"><table class="rTable_table">
+        <tbody>
+          {vl:choose("internal-order-continue", "Zu welchem Bezirk soll die Bestellung erfolgen?", tr/normalize-space(.), tr/td[1]/a/@href)}
+        </tbody>
+      </table></div></div>
+    </template>
+  </page>
+  
+  <if test="not(get('multiple-district-ordering', false()))">
+    <call action="internal-order-continue"/>
+  </if>
+</action>
+
+
+<action id="internal-order-continue">
+  <if test="get('multiple-district-ordering', false())"> 
+    <page url="{$choose-result}">
+      <template><form>{form:=form(., (.//input[@type = "submit" and contains(@value, "Bestellung")])[1])}</form></template>
+    </page>
+  </if>
+
   <if test="not(get('internal-loggedin', false()))">
     <variable name="loginForm">$form</variable>
     <call action="internal-login"/>
@@ -238,7 +261,6 @@
   </if>
 
   <page url="{$form}" templateFile="orderConfirmation"/>
-  
 </action>
 
 
