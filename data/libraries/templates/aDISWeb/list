@@ -10,6 +10,7 @@
     <span class="txtinsert">(Mein Konto */|Benutzerkonto) +Bestellwünsche<t:s>mode:="ordered"</t:s></span>
     <span class="txtinsert">(Mein Konto */|Benutzerkonto) +Vormerkungen<t:s>mode:="requested"</t:s></span>
     <span class="txtinsert">(Mein Konto */|Benutzerkonto) +Bereitstellungen<t:s>mode:="provided"</t:s></span>
+    <span class="txtinsert">(Mein Konto */|Benutzerkonto) +Magazinbestellungen<t:s>mode:="orderedMagazine"</t:s></span>
     <!-- nürnberg -->
     <span class="txtinsert">Benutzerkonto: Übersicht<t:s>invertedOrder := true()</t:s></span>
   </t:switch>
@@ -29,6 +30,7 @@
       <h2>Konto - Bestellwünsche<t:s>mode:="ordered"</t:s></h2>
       <h2>Konto - Vormerkungen<t:s>mode:="requested"</t:s></h2>
       <h2>Konto - Bereitstellungen<t:s>mode:="provided"</t:s></h2>
+      <h2>Konto - Magazinbestellungen<t:s>mode:="orderedMagazine"</t:s></h2>
     </t:switch></t:if>
   
     <t:if test="$mode = 'lend'">{
@@ -59,7 +61,7 @@
     <TD>{
       book := {"_mode": $mode},
       if ($mode = "lend") then book.extendid := encode-for-uri(input/@name)
-      else if ($mode = ("ordered", "requested", "provided")) then book.cancelid := encode-for-uri(input/@name)
+      else if ($mode = ("ordered", "requested", "provided","orderedMagazine")) then book.cancelid := encode-for-uri(input/@name)
       else (),
       if ($mode = "provided") then book.statusId := "provided"
       else ()      
@@ -83,7 +85,7 @@
         <t:if test="matches(., x'((nicht +verl.*ngerbar|Keine Verl.*gerung +m.*glich|Vormerkungen).*Stand +{string-join(reverse(tokenize(current-date(), '-')), '[.]')})|((Max. +)?Anzahl +der +Verl.*erreicht)','i')">
           {book.statusId := "critical"}
         </t:if>
-        <t:if test="$mode='ordered'">{book.statusId := "ordered"}</t:if>
+        <t:if test="$mode=('ordered', 'orderedMagazine')">{book.statusId := "ordered"}</t:if>
         <t:if test="$mode='requested'">{book.status := concat("vorgemerkt am ", $book.status), book.statusId := "ordered"}</t:if>
     </TD>
     </t:if>

@@ -1,9 +1,15 @@
 <html>
-  {goBackPage := "", orderedPage:="", if (get("first-login", false())) then (videlibri:delete-current-books(), first-login := false()) else () }
+  {goBackPage := "", orderedPage:="", orderedMagazinePage:="", if (get("first-login", false())) then (videlibri:delete-current-books(), first-login := false()) else () }
   <t:switch>
   <td>Keine Ausleihen<t:s>kontoPage:=""</t:s></td>
   <a>Ausleihen zeigen<!-- oder verlängern--><t:s>kontoPage := @href</t:s></a>
   <a>Ausleihe zeigen<!-- oder verlängern--><t:s>kontoPage := @href</t:s></a>
+  </t:switch>
+
+  <t:switch t:optional="true">
+  <td>Keine Bestellungen/Magazin<t:s>orderedMagazinePage:=""</t:s></td>
+  <a>Bestellung/Magazin zeigen<!-- oder löschen--><t:s>orderedMagazinePage := @href</t:s></a>
+  <a>Bestellungen/Magazin zeigen oder löschen . <!-- oder löschen--><t:s>orderedMagazinePage := @href</t:s></a>
   </t:switch>
 
 <!--  Keine Bestellungen/Magazin .  ? -->

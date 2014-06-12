@@ -103,6 +103,11 @@
     <page url="{$goBackPage}" templateFile="accountOverview"/>
   </if>
   
+  <if test="$orderedMagazinePage != ''">
+    <page url="{$orderedMagazinePage}" templateFile="list"/>
+    <page url="{$goBackPage}" templateFile="accountOverview"/>
+  </if>
+  
   <if test="$providedPage != ''">
     <page url="{$providedPage}" templateFile="list"/>
     <page url="{$goBackPage}" templateFile="accountOverview"/>
@@ -134,18 +139,20 @@
 
 
 <action id="cancel-single">
-  <page url="{$orderedPage}" test="$book._mode = 'ordered'">
+  <s>
+  page := switch ($book._mode)
+    case 'ordered' return $orderedPage
+    case 'requested' return $requestedPage
+    case 'orderedMagazine' return $orderedMagazinePage
+    default return "unknown page"
+  </s>
+  <page url="{$page}">
     <template><form>{
       cancelFormPost := form(., jn:object((.//input[@type = "submit" and contains(@value, "arkierte") and contains(@value, "schen")])[1]/{string(@name): @value})),
       cancelFormPost.post := replace($cancelFormPost.post, "[a-zA-Z0-9]+=on&", "")
     }</form></template>
   </page> 
-  <page url="{$requestedPage}" test="$book._mode = 'requested'">
-    <template><form>{
-      cancelFormPost := form(., jn:object((.//input[@type = "submit" and contains(@value, "arkierte") and contains(@value, "schen")])[1]/{string(@name): @value})),
-      cancelFormPost.post := replace($cancelFormPost.post, "[a-zA-Z0-9]+=on&", "")
-    }</form></template>
-  </page>
+
   
   <variable name="book-list">string-join((: for $book in $cancel-books return (only single, do not distinguish order/requested) :) x"{$book.cancelid}=on", "&amp;")</variable> 
   
