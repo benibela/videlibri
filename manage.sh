@@ -29,7 +29,7 @@ linux32)
 		lazCompileLinux32 bookWatch
     strip --strip-all videlibri
 
-		checkinstall --pkgarch=i386 --install=no --pkgname=videlibri --default  --pkgversion=$VERSION --nodoc --maintainer="Benito van der Zander \<benito@benibela.de\>" --requires="libgtk2.0-0" bash _meta/install_direct.sh 
+		sudo checkinstall --pkgarch=i386 --install=no --pkgname=videlibri --default  --pkgversion=$VERSION --nodoc --maintainer="Benito van der Zander \<benito@benibela.de\>" --reset-uids=yes --requires="libgtk2.0-0, libssl-dev" bash _meta/install_direct.sh 
 		
 		fileUpload videlibri_$VERSION-1_i386.deb "/VideLibri/VideLibri\ $VERSION/"
 		webUpload  videlibri_$VERSION-1_i386.deb /updates/videlibri-linux32.deb
@@ -40,7 +40,7 @@ linux64)
 		lazCompileLinux64 bookWatch
     strip --strip-all videlibri
 
-		checkinstall --install=no --pkgname=VideLibri --default  --pkgversion=$VERSION --nodoc --maintainer="Benito van der Zander \<benito@benibela.de\>" --requires="libgtk2.0-0" bash _meta/install_direct.sh 
+		sudo checkinstall --install=no --pkgname=VideLibri --default  --pkgversion=$VERSION --nodoc --maintainer="Benito van der Zander \<benito@benibela.de\>" --reset-uids=yes --requires="libgtk2.0-0, libssl-dev" bash _meta/install_direct.sh 
 		
 		fileUpload videlibri_$VERSION-1_amd64.deb "/VideLibri/VideLibri\ $VERSION/"
 		webUpload  videlibri_$VERSION-1_amd64.deb /updates/videlibri-linux64.deb

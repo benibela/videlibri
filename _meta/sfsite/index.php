@@ -275,7 +275,8 @@ Achtung: Falls das Posten der Antwort nicht funktioniert, verfällt die Nachrich
 Die Details stehen im Quellcode.
 </div>
 <h2><div><a id="contact">Kontakt</a></div></h2>
-Autor: Benito van der Zander, <a href="benito_NOSPAM_benibela.de">benito_NOSPAM_benibela.de</a>, <a href="http://www.benibela.de/index_en.html">www.benibela.de</a><br>
+Autor: Benito van der Zander, <a href="benito_NOSPAM_benibela.de">benito_NOSPAM_benibela.de</a>, <a href="http://www.benibela.de/index_en.html">www.benibela.de</a><br><br>
+<a href="datenschutz.html">Datenschutzerklärung</a>
 <div id="sf-logo"><a href="http://sourceforge.net/projects/videlibri"><img src="http://sflogo.sourceforge.net/sflogo.php?group_id=359854&amp;type=1" width="125" height="37" border="0" alt="SourceForge.net Logo" /></a></div>
 
 <!-- Piwik -->
