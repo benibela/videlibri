@@ -14,13 +14,9 @@
 
   <page url="{$loginForm}">
     <template><t:switch-prioritized>
-      <form>{ loginFormPost := form(., {"$Textfield": $username, "$Textfield$0": $password}) }  
-            <input name="$Textfield"/> 
-      </form>
-      <form>{ loginFormPost := form(., {"j_username": $username, "j_password": $password}),
-              idpSystem := true() }  
-            <input name="j_username"/> 
-      </form>
+      <input name="$Textfield">{ loginFormPost := form((ancestor::form, //form)[1], {"$Textfield": $username, "$Textfield$0": $password}) } <!-- Aalen has invalid html where the form is not an ancestor of the input-->  </input> 
+      <input name="j_username">{ loginFormPost := form((ancestor::form, //form)[1], {"j_username": $username, "j_password": $password}),
+              idpSystem := true() }</input> 
     </t:switch-prioritized></template>
   </page>
   
