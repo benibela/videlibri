@@ -4,7 +4,7 @@
   <shortName value="Fhb Erfurt"/>
   
   <template value="pica"/>
-  <variable name="server" value="https://opac.uni-erfurt.de/"/>	
+  <variable name="server" value="http://opac.uni-erfurt.de/"/>	
   <variable name="picadb" value="4"/>	
 
 
