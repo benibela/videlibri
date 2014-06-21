@@ -10,6 +10,6 @@
 
   <homepage value="http://www.fh-stralsund.de/fh_stralsund/powerslave,id,765,nodeid,.html"/>
   <testing-search value="ja" date="2013-04-26"/>
-  <testing-account value="?" date=""/>
+  <testing-account value="nein" date="2014-06-21, neue Loginseite, bräuchte Zugangsdaten"/>
   <testing-renew value="?" date=""/>
 </library>

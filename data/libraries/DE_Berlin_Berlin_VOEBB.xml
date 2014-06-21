@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <library>
-  <longName value="Verbund der Öffentlichen Bibliotheken - VÖBB (alpha)"/>
+  <longName value="Verbund der Öffentlichen Bibliotheken - VÖBB"/>
   <shortName value="VÖBB Berlin"/> 
   
   <template value="aDISWeb"/>
