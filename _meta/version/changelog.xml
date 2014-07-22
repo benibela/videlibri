@@ -9,7 +9,7 @@
     <fix>FH Erfurt: Verwende http statt https, da der Server nicht mehr über https erreichbar ist</fix>
     <fix>BLB Karlsruhe: Versuche Weiterleitungen beim Anmelden zu folgen</fix>
     <fix>Verwende den Zeichenerkennungfix von 1.655 auch in der Androidversion (voebb)</fix>
-  </download>
+  </build>
   <build version="1657" date="2014-05-13">
     <fix>Düsseldorf: Neues System/Serveradresse</fix> 
     <fix>adis: Vormerkungen funktionieren wieder</fix> 
