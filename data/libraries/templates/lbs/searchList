@@ -1,0 +1,56 @@
+<html>
+<head>
+<base>{base := @href}</base>
+</head>
+<body>
+{singleResult := false(), nextPage := ""}
+<template:switch-prioritized>
+  
+  <table>
+    <tr><td height="18" class="tab1">Kurzliste</td></tr>
+    <tr>
+      
+      <table summary="Result header">
+      <strong class="pages">{search-result-count := extract(., "[0-9]+$") * 1}</strong>?
+      <!--<a><img alt="vorherige Seite"/>{prevPage := @href}</a>-->
+      <a><img alt="nächste Seite"/>{nextPage :=  concat($base, "/", @href)}</a>
+      <t:if test="extract($nextPage, '[0-9]+$') <= 1">{nextPage := ""}</t:if> <!-- it's looping -->
+      </table>?
+      
+      <table summary="hitlist">
+      
+      <tr valign="top">
+        <td></td> <!-- icon -->
+        <td></td> <!-- number -->
+        <td class="hit">
+          <a>{book := {"title": deep-text(), "home-url": concat($base, "/", @href)}}</a>
+          <br/>
+          {book.author := extract(text(), " */? *-? *([^-]*)", 1) ,
+                         (: replace(text(), "( *([-,.])? *\[?(ca[.] *)?[0-9]{4}( *- *)?([0-9]{4})?\]?)$", "") :)
+           book.year   := extract(text(),             "(\[?(ca[.] *)?[0-9]{4}( *- *)?([0-9]{4})?\]?)$", 1)
+          } 
+        </td>
+      </tr>+
+      
+      </table>
+      
+    </tr>
+  </table>
+  
+  <table>
+    <tr><td height="18" class="tab1">Titeldaten</td></tr>
+    <table>{singleResult := true(), search-result-count := 1}</table>
+  </table>
+  
+  <strong class="error">Es wurde nichts gefunden.</strong>
+
+  <strong class="error">Nichts gefunden.</strong>
+  
+  <form method="POST" name="browslistform" class="form">    <!-- nicht gefunden, opac schlägt alternativen vor -->
+    <input type="submit" value="absenden" name="" class="button"/>
+    <input type="checkbox" name="SST" class="form"/>
+  </form>
+  
+</template:switch-prioritized>
+</body>
+</html>

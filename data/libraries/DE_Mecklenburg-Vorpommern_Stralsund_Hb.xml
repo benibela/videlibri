@@ -3,9 +3,10 @@
   <longName value="Hochschulbibliothek Stralsund (alpha)"/>
   <shortName value="Hb Stralsund"/>
   
-  <template value="pica"/>
-  <variable name="server" value="https://lhgrw.gbv.de/"/>	
+  <template value="lbs"/>
+  <variable name="server" value="https://lhgrw.gbv.de"/>	
   <variable name="picadb" value="2"/>
+  <!--<template value="pica"/>-->
 
 
   <homepage value="http://www.fh-stralsund.de/fh_stralsund/powerslave,id,765,nodeid,.html"/>
