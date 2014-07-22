@@ -31,6 +31,12 @@
       <h2>Konto - Vormerkungen<t:s>mode:="requested"</t:s></h2>
       <h2>Konto - Bereitstellungen<t:s>mode:="provided"</t:s></h2>
       <h2>Konto - Magazinbestellungen<t:s>mode:="orderedMagazine"</t:s></h2>
+
+      <p>Konto - Ausleihen<t:s>mode:="lend"</t:s></p>
+      <p>Konto - Bestellwünsche<t:s>mode:="ordered"</t:s></p>
+      <p>Konto - Vormerkungen<t:s>mode:="requested"</t:s></p>
+      <p>Konto - Bereitstellungen<t:s>mode:="provided"</t:s></p>
+      <p>Konto - Magazinbestellungen<t:s>mode:="orderedMagazine"</t:s></p>
     </t:switch></t:if>
   
     <t:if test="$mode = 'lend'">{
