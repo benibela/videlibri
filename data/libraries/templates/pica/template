@@ -32,11 +32,10 @@
     <post name="BOR_PW_ENC" value="{$pw_enc}"/>
   </page>-->
   <variable name="reservations"/>
-  <page url="{$loanServer}/USERINFO" templateFile="update"> 
-    <post name="ACT" value="UI_LOL"/>
-    <post name="BOR_U" value="{$username}"/>
-    <post name="BOR_PW" value="{$password}"/>
+  <page url="{$loanServer}/USERINFO">
+  <template><form t:condition="contains(@action, 'USERINFO')">{login:=form(., {"ACT": "UI_LOL", "BOR_U": $username, "BOR_PW": $password })}</form></template>
   </page>
+  <page url="{$login}" templateFile="update"/> 
   <page url="{$reservations}" templateFile="updateReservations"/> 
 </action>
 
