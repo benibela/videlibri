@@ -2,7 +2,7 @@
 
 <meta>
   <description>Template das PICA-System mit LBS zum Benutzerkontozugriff, üblicherweise von den GBV Bibliotheken verwendet</description>
-  <variable name="server"><description>Serveraddresse, inklusive Protokoll und Parameter (z.B.: http://katalog.uni-hildesheim.de/) </description></variable>
+  <variable name="server"><description>Serveraddresse, inklusive Protokoll und Parameter (z.B.: http://katalog.uni-hildesheim.de)  </description></variable>
   <variable name="picadb" default="1"><description>Datenbanknummer, wenn mehrere Datenbanken auf demselben Server liegen</description></variable>    
   <variable name="searchKeysOverride" default="tit;prs;isb;jah;slw"><description>Abkürzungen der Suchschlüssel bei Katalogsuchen</description></variable>
 </meta>
@@ -31,7 +31,10 @@
     <FORM class="topbox">
       <DIV class="tabbar">
         <DIV class="navlink">
-          <A>{follow2 := @href}</A>
+          <A><t:s>updateUrl := @href,vl:delete-current-books()</t:s>Entleihungen</A> <!-- todo: this is not called on second update -->
+        </DIV>
+        <DIV class="navlink">
+          <A>{reservationsUrl := @href}</A>
         </DIV>
       </DIV>
     </FORM>
@@ -49,64 +52,8 @@
   <call action="internal-login"/>
   
 
-  <page url="{$follow2}">
-    <template>
-
-<FORM name="loansForm" id="loansForm">{renew-form:=form(., {"renew": "Verlängern"}), vl:delete-current-books()}
-  <DIV class="bodydiv">
-    <TABLE class="resultset">
- 
-         
-          <TR>
-            <td class="rec_checkbox">
-              <input type="checkbox" name="volumeNumbersToRenew">{book:={"renewId": @value, "statusId": if (@disabled) then "critical" else "curious"}}</input>
-            </td>
-            <TD class="rec_title">
-              <DIV>
-                <TABLE class="titlelist">
-                  <TR>
-                    <TD class="rec_data">
-                      <SPAN class="titleLine">{
-                        book.title := extract(.,  "^[^/]*"),
-                        book.author:= extract(.,  "/([^(]*)", 1),
-                        book.year  := extract(.,  "/.*\((.*)\)", 1)
-                        }</SPAN>
-                    </TD>
-                  </TR>
-               <!-- </TABLE>
-                <TABLE class="titlelist"> ?? on the page, fails template-->
-                  <TR/>
-                  <TR>
-                    <TD class="rec_data"/>
-                    <TD class="rec_data">
-                      <SPAN>{book.duedate := parse-date(., 'd.m.yyyy')}</SPAN>
-                    </TD>
-                  </TR>
-                  <TR/>
-                  <TR>
-                    <TD class="rec_data"/>
-                    <TD class="rec_data">
-                      <SPAN>{book.id := .}</SPAN>
-                    </TD>
-                  </TR>
-                  <tr>{book.status := .}</tr>
-                  <tr>{book.status := concat($book.status, " ", .)}</tr>
-                  <SPAN class="error">{book.status := concat(., " ", $book.status)}</SPAN>?
-                </TABLE>
-                <SPAN class="error">{book.status := concat(., " ", $book.status)}</SPAN>?
-                <t:s>book.statusId := $book.statusId</t:s>
-              </DIV>
-            </TD>
-          </TR>+
-       
- 
-    </TABLE>
-  </DIV>
-</FORM>
-
-    </template>
-  </page>
-
+  <page url="{if (string-length($updateUrl) > 3) then $updateUrl else ()}" templateFile="list"/>
+  <page url="{if (string-length($reservationsUrl) > 3) then $reservationsUrl else ()}" templateFile="listOrders"/>
 </action>
 
 <action id="renew-list">  
@@ -117,6 +64,13 @@
   <call action="update-all"/>
 </action>
 
+<action id="cancel-list">  
+  <s>cancel := form-combine($cancel-form, for $book in $cancel-books return {"volumeReservationsToCancel": $book.cancelId})</s>
+  
+  <page url="{$cancel}"/>
+
+  <call action="update-all"/>
+</action>
 
 
 

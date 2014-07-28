@@ -1,0 +1,52 @@
+
+<FORM name="loansForm" id="loansForm">{renew-form:=form(., {"renew": "Verlängern"}),vl:delete-current-books()}
+  <DIV class="bodydiv">
+    <TABLE class="resultset">
+ 
+         
+          <TR>
+            <td class="rec_checkbox">
+              <input type="checkbox" name="volumeNumbersToRenew">{book:={"renewId": @value, "statusId": if (@disabled) then "critical" else "curious"}}</input>
+            </td>
+            <TD class="rec_title">
+              <DIV>
+                <TABLE class="titlelist">
+                  <TR>
+                    <TD class="rec_data">
+                      <SPAN class="titleLine">{
+                        book.title := extract(.,  "^[^/]*"),
+                        book.author:= extract(.,  "/([^(]*)", 1),
+                        book.year  := extract(.,  "/.*\((.*)\)", 1)
+                        }</SPAN>
+                    </TD>
+                  </TR>
+               <!-- </TABLE>
+                <TABLE class="titlelist"> ?? on the page, fails template-->
+                  <TR/>
+                  <TR>
+                    <TD class="rec_data"/>
+                    <TD class="rec_data">
+                      <SPAN>{book.duedate := parse-date(., 'd.m.yyyy')}</SPAN>
+                    </TD>
+                  </TR>
+                  <TR/>
+                  <TR>
+                    <TD class="rec_data"/>
+                    <TD class="rec_data">
+                      <SPAN>{book.id := .}</SPAN>
+                    </TD>
+                  </TR>
+                  <tr>{book.status := .}</tr>
+                  <tr>{book.status := concat($book.status, " ", .)}</tr>
+                  <SPAN class="error">{book.status := concat(., " ", $book.status)}</SPAN>?
+                </TABLE>
+                <SPAN class="error">{book.status := concat(., " ", $book.status)}</SPAN>?
+                <t:s>book.statusId := $book.statusId</t:s>
+              </DIV>
+            </TD>
+          </TR>+
+       
+ 
+    </TABLE>
+  </DIV>
+</FORM>
