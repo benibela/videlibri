@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <library>
-  <longName value="Hochschulbibliothek Stralsund (alpha)"/>
+  <longName value="Hochschulbibliothek Stralsund"/>
   <shortName value="Hb Stralsund"/>
   
   <template value="lbs"/>
@@ -11,6 +11,6 @@
 
   <homepage value="http://www.fh-stralsund.de/fh_stralsund/powerslave,id,765,nodeid,.html"/>
   <testing-search value="ja" date="2013-04-26"/>
-  <testing-account value="nein" date="2014-06-21, neue Loginseite, bräuchte Zugangsdaten"/>
+  <testing-account value="ja" date="2014-07-28"/>
   <testing-renew value="?" date=""/>
 </library>

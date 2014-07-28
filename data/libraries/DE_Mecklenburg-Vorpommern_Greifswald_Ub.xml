@@ -3,13 +3,13 @@
   <longName value="Universitätsbibliothek Greifswald (alpha)"/>
   <shortName value="Ub Greifswald"/>
   
-  <template value="pica"/>
-  <variable name="server" value="https://lhgrw.gbv.de/"/>
+  <template value="lbs"/>
+  <variable name="server" value="https://lhgrw.gbv.de"/>
   <variable name="picadb" value="1"/>
 
 
   <homepage value="http://www.ub.uni-greifswald.de"/>
   <testing-search value="ja" date="2013-04-26"/>
-  <testing-account value="nein" date="2014-06-21, neue Loginseite, bräuchte Zugangsdaten"/>
+  <testing-account value="?" date="?"/>
   <testing-renew value="?" date=""/>
 </library>
