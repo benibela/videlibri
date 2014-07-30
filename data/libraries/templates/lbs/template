@@ -26,8 +26,7 @@
 
   <page url="{$follow1}">
     <template>
-<BODY>
-  <DIV class="topbox">
+<t:switch-prioritized>
     <FORM class="topbox">
       <DIV class="tabbar">
         <DIV class="navlink">
@@ -38,8 +37,10 @@
         </DIV>
       </DIV>
     </FORM>
-  </DIV>
-</BODY>
+
+
+	<h2><font color="red">{vl:raise(.)}<!--Benutzernummer und/oder Passwort ist falsch.--></font></h2>
+</t:switch-prioritized>
 
     </template>
   </page>
