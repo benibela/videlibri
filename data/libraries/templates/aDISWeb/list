@@ -72,7 +72,10 @@
       if ($mode = "provided") then book.statusId := "provided"
       else ()      
     }</TD>
-    <t:if test="$mode='lend'"> <TD>{book.duedate := parse-date(., "dd.mm.yyyy")}</TD> </t:if>
+    <t:if test="$mode='lend'"> <TD>{
+      if (contains(., "-")) then (book.issuedate := parse-date(substring-before(., "-"), "dd.mm.yyyy"), book.duedate := parse-date(substring-after(., "-"), "dd.mm.yyyy"))
+      else book.duedate := parse-date(., "dd.mm.yyyy")
+    }</TD> </t:if>
     <t:if test="$hasTill"> <TD><!-- vormerkungs verfall --></TD> </t:if>
     <TD>{book.libraryBranch := .}</TD>
     <TD>{book.category := filter(text(), "^ *\[([^]]*)\]", 1),  
