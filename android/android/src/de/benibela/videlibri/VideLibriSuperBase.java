@@ -129,8 +129,7 @@ public class VideLibriSuperBase {
 
     public static boolean onActivityResult(Activity activity, int requestCode, int resultCode, Intent data) {
        if ((requestCode == REQUESTED_LIBRARY_CATALOGUE || requestCode == REQUESTED_LIBRARY_HOMEPAGE) && resultCode == LibraryList.RESULT_OK) {
-            String id = data.getStringExtra("libId");
-            Bridge.LibraryDetails details = Bridge.VLGetLibraryDetails(id);
+            Bridge.LibraryDetails details = Bridge.VLGetLibraryDetails(LibraryList.lastSelectedLibId);
             activity.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(
                     requestCode == REQUESTED_LIBRARY_HOMEPAGE ? details.homepageBase : details.homepageCatalogue
                     )));

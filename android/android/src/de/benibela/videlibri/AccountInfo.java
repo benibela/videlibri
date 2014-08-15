@@ -60,6 +60,12 @@ public class AccountInfo extends VideLibriBaseActivity {
         libShortName = getStringExtraSafe("libShortName");
         libId = getStringExtraSafe("libId");
 
+        if ("".equals(libId) && (System.currentTimeMillis() - LibraryList.lastSelectedTime) < LibraryList.SELECTION_REUSE_TIME) {
+            libName = LibraryList.lastSelectedLibName;
+            libShortName = LibraryList.lastSelectedLibShortName;
+            libId = LibraryList.lastSelectedLibId;
+        }
+
 
         if (mode != MODE_ACCOUNT_MODIFY || accountPrettyName.equals(accountId + " "+libShortName) )
             accountId.addTextChangedListener(new EmptyTextWatcher() {
@@ -119,7 +125,7 @@ public class AccountInfo extends VideLibriBaseActivity {
             });
         } else {
             lib.setPaintFlags(lib.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
-            if (libId.equals("")) updateLibrary();
+            if ("".equals(libId)) updateLibrary();
             lib.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -196,9 +202,9 @@ public class AccountInfo extends VideLibriBaseActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == REQUEST_LIBRARY_FOR_ACCOUNT_CREATION) {
             if (resultCode == LibraryList.RESULT_OK) {
-                libName = data.getStringExtra("libName");
-                libShortName = data.getStringExtra("libShortName");
-                libId = data.getStringExtra("libId");
+                libName = LibraryList.lastSelectedLibName;
+                libShortName = LibraryList.lastSelectedLibShortName;
+                libId = LibraryList.lastSelectedLibId;
                 lib.setText(libName);
                 accountPrettyName.setText(libShortName);
             } else if (libId.equals(""))

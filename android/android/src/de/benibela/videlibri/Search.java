@@ -52,8 +52,13 @@ public class Search extends VideLibriBaseActivity implements Bridge.SearchConnec
         lib.setText(libName);
         lib.setPaintFlags(lib.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
         if (libId == null || libId.equals("") || getIntent().getBooleanExtra("showLibList", false)) {
-            libId = "";
-            changeSearchLib();
+            if ((System.currentTimeMillis() - LibraryList.lastSelectedTime) < LibraryList.SELECTION_REUSE_TIME){
+                libId = LibraryList.lastSelectedLibId;
+                libName = LibraryList.lastSelectedLibName;
+            } else {
+                libId = "";
+                changeSearchLib();
+            }
         } else {
             setLoading(true);
             createSearcher();
@@ -143,8 +148,8 @@ public class Search extends VideLibriBaseActivity implements Bridge.SearchConnec
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == REQUEST_CHOOSE_LIBRARY) {
             if (resultCode == LibraryList.RESULT_OK){
-                libId = data.getStringExtra("libId");
-                libName = data.getStringExtra("libName");
+                libId = LibraryList.lastSelectedLibId;
+                libName = LibraryList.lastSelectedLibName;
                 ((TextView) findViewById(R.id.library)).setText(libName);
 
 

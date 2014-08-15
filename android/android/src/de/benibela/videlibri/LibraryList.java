@@ -13,6 +13,10 @@ import java.util.*;
 
 public class LibraryList extends VideLibriBaseActivity {
 
+    static String lastSelectedLibId, lastSelectedLibShortName, lastSelectedLibName; //result of the activity
+    static long lastSelectedTime = 0;                                               //(passing as intent did not work on every device (perhaps the caller is killed?)
+    static final long SELECTION_REUSE_TIME = 10*1000;
+
     void makeLibView(ExpandableListView lv){
         Bridge.Library[] libs = Bridge.getLibraries();
 
@@ -69,9 +73,10 @@ public class LibraryList extends VideLibriBaseActivity {
             public boolean onChildClick(ExpandableListView expandableListView, View view, int i, int i2, long l) {
                 //VideLibri.showMessage(NewAccountWizard.this, localLibs.get(i).get(i2).get("NAME"));
                 Intent result = new Intent();
-                result.putExtra("libName", localLibs.get(i).get(i2).get("NAME"));
-                result.putExtra("libShortName", localLibs.get(i).get(i2).get("SHORT"));
-                result.putExtra("libId", localLibs.get(i).get(i2).get("ID"));
+                lastSelectedLibId = localLibs.get(i).get(i2).get("ID");
+                lastSelectedLibShortName = localLibs.get(i).get(i2).get("SHORT");
+                lastSelectedLibName = localLibs.get(i).get(i2).get("NAME");
+                lastSelectedTime = System.currentTimeMillis();
 
                 setResult(RESULT_OK, result);
                 LibraryList.this.finish();
