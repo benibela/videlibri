@@ -42,8 +42,13 @@ type
     property variables: TStringList read defaultVariables;
     function homepageCatalogue: string;
     function location: string;
+    function state: string;
+    function country: string;
     function prettyLocation: string;
-    class function unprettyLocation(l: string): string;
+    function prettyState: string;
+    function prettyCountry: string;
+    class function pretty(const l: string): string;
+    class function unpretty(const l: string): string;
   end;
 
   { TLibraryManager }
@@ -67,13 +72,17 @@ type
     function getAccount(mixID: string):TCustomAccountAccess;overload; //mixId: +-Encoded library name # +2-encoded user number
 
     function enumerateLocations: TStringArray;
+    function enumerateLocations(prettyState: string): TStringArray;
+    function enumerateStates(prettyCountry: string): TStringArray;
+    function enumerateCountries(): TStringArray;
+    function enumerateCountryStates(): TStringArray;
     function enumeratePrettyLongNames(location: string): TStringArray;
     function enumeratePrettyLongNames: string;
     function enumeratePrettyShortNames: string;
     function getLibraryFromEnumeration(const pos:integer):TLibrary;inline;
     function getLibraryFromEnumeration(location: string; pos:integer):TLibrary;
     function getLibraryCountInEnumeration:integer;
-    
+
     procedure enumerateVariableValues(const varName: string; result: TStringList);
     procedure enumerateLibrariesWithValue(const varName, value: string; result: TList);
 
@@ -424,9 +433,34 @@ begin
   result := strSplit(id, '_')[2];
 end;
 
+function TLibrary.state: string;
+begin
+  result := strSplit(id, '_')[1];
+end;
+
+function TLibrary.country: string;
+begin
+  result := strSplit(id, '_')[0];
+end;
+
 function TLibrary.prettyLocation: string;
 begin
-  Result := location;
+  Result := pretty(location);
+end;
+
+function TLibrary.prettyState: string;
+begin
+  result := pretty(state);
+end;
+
+function TLibrary.prettyCountry: string;
+begin
+  result := pretty(country);
+end;
+
+class function TLibrary.pretty(const l: string): string;
+begin
+  Result := l;
   if pos('+', result) = 0 then exit;
   result := StringReplace(Result, '+ue', 'ü', [rfReplaceAll]);
   result := StringReplace(Result, '+oe', 'ö', [rfReplaceAll]);
@@ -434,7 +468,7 @@ begin
   result := StringReplace(Result, '+sz', 'ß', [rfReplaceAll]);
 end;
 
-class function TLibrary.unprettyLocation(l: string): string;
+class function TLibrary.unpretty(const l: string): string;
 begin
   Result := l;
   result := StringReplace(Result, 'ü', '+ue', [rfReplaceAll]);
@@ -583,12 +617,52 @@ begin
   sl.free;
 end;
 
+function TLibraryManager.enumerateLocations(prettyState: string): TStringArray;
+var
+  i: Integer;
+begin
+  if pos(' - ', prettyState) > 0 then prettyState := strSplit(prettyState, ' - ')[1];
+  for i := 0 to flibraries.Count-1 do
+    if (self[i].prettyState = prettyState) and not (arrayContains(result, self[i].prettyLocation)) then
+      arrayAdd(result, self[i].prettyLocation);
+  stableSort(result);
+end;
+
+function TLibraryManager.enumerateStates(prettyCountry: string): TStringArray;
+var
+  i: Integer;
+begin
+  for i := 0 to flibraries.Count-1 do
+    if (self[i].prettyCountry = prettyCountry) and not (arrayContains(result, self[i].prettyState)) then
+      arrayAdd(result, self[i].prettyState);
+  stableSort(result);
+end;
+
+function TLibraryManager.enumerateCountries: TStringArray;
+var
+  i: Integer;
+begin
+  for i := 0 to flibraries.Count-1 do
+    if not (arrayContains(result, self[i].prettyCountry)) then
+      arrayAdd(result, self[i].prettyCountry);
+end;
+
+function TLibraryManager.enumerateCountryStates: TStringArray;
+var
+  country: String;
+  state: String;
+begin
+  for country in enumerateCountries do
+    for state in enumerateStates(country) do
+      arrayAdd(result, country + ' - ' + state);
+end;
+
 function TLibraryManager.enumeratePrettyLongNames(location: string): TStringArray;
 var
   i: Integer;
 begin
   result := nil;
-  location := TLibrary.unprettyLocation(location);
+  location := TLibrary.unpretty(location);
   location:='_'+location+'_';
   for i:=0 to flibraries.count-1 do
     if strContains(TLibrary(libraries[i]).id, location) then
@@ -614,7 +688,7 @@ function TLibraryManager.getLibraryFromEnumeration(location: string; pos: intege
 var
   i: Integer;
 begin
-  location := TLibrary.unprettyLocation(location);
+  location := TLibrary.unpretty(location);
   location:='_'+location+'_';
   for i:=0 to flibraries.count-1 do
     if strContains(TLibrary(libraries[i]).id, location) then begin

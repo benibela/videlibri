@@ -44,21 +44,25 @@ end;
 
 constructor TLibraryListView.create(aowner: TComponent);
 var
-  locs: TStringArray;
-  libs: TStringArray;
   i, j: Integer;
+  state, loc: String;
+  libs: TStringArray;
 begin
   inherited;
   BeginUpdate;
-  locs := libraryManager.enumerateLocations;
-  for i := 0 to high(locs) do
-    if trim(locs[i]) <> '' then
-      with Items.Add(trim(locs[i])) do begin
-        libs := libraryManager.enumeratePrettyLongNames(locs[i]);
-        for j := 0 to high(libs) do
-          SubItems.Add(libs[j]).data.p:=libraryManager.getLibraryFromEnumeration(locs[i], j);
-        Collapse;
-      end;
+  for state in libraryManager.enumerateCountryStates() do begin
+    with Items.Add(state) do begin
+      for loc in libraryManager.enumerateLocations(state) do
+        if trim(loc) <> '' then
+           with SubItems.Add(loc) do begin
+             libs := libraryManager.enumeratePrettyLongNames(loc);
+             for j := 0 to high(libs) do
+               SubItems.Add(libs[j]).data.p:=libraryManager.getLibraryFromEnumeration(loc, j);
+             Collapse;
+           end;
+      Collapse;
+    end;
+  end;
   HeaderVisible:=false;
   OnItemCollapsed:=@LibraryListViewItemCollapsed;
   OnClick:=@LibraryListViewClick;

@@ -329,7 +329,6 @@ var i:integer;
     order: array[0..100] of longint;
     stream: TStringStream;
     po: TPOFile;
-    locations: TStringArray;
     libsAtLoc: TStringArray;
     tempItem2: TMenuItem;
     j: Integer;
