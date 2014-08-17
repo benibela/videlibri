@@ -332,6 +332,9 @@ var i:integer;
     libsAtLoc: TStringArray;
     tempItem2: TMenuItem;
     j: Integer;
+    tempItem3: TMenuItem;
+    state: String;
+    loc: String;
 begin
   if logging then log('FormCreate started');
 
@@ -369,17 +372,21 @@ begin
 
 
   tempItem:=TMenuItem.Create(libraryList);
-  locations := libraryManager.enumerateLocations;
-  for i := 0 to high(locations) do begin
+  for state in libraryManager.enumerateCountryStates() do begin
     tempItem := TMenuItem.Create(libraryList);
-    if locations[i] <> '-' then tempItem.Caption:=locations[i]
+    if state <> '-' then tempItem.Caption:=state
     else tempItem.Caption:='<eigene>';
-    libsAtLoc := libraryManager.enumeratePrettyLongNames(locations[i]);
-    for j := 0 to high(libsAtLoc) do begin
+    for loc in libraryManager.enumerateLocations(state) do begin
       tempItem2 := TMenuItem.Create(tempItem);
-      tempItem2.Caption:= libsAtLoc[j];
-      tempItem2.Tag:=j;
-      tempItem2.OnClick:=@LibraryHomepageClick;
+      tempItem2.Caption := loc;
+      libsAtLoc := libraryManager.enumeratePrettyLongNames(loc);
+      for j := 0 to high(libsAtLoc) do begin
+        tempItem3 := TMenuItem.Create(tempItem2);
+        tempItem3.Caption:= libsAtLoc[j];
+        tempItem3.Tag:=j;
+        tempItem3.OnClick:=@LibraryHomepageClick;
+        tempItem2.Add(tempItem3);
+      end;
       tempItem.Add(tempItem2);
     end;
     libraryList.Items.Add(tempItem);
