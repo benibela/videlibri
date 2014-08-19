@@ -47,6 +47,7 @@ type
     function prettyLocation: string;
     function prettyState: string;
     function prettyCountry: string;
+    function prettyCountryState: string;
     class function pretty(const l: string): string;
     class function unpretty(const l: string): string;
   end;
@@ -456,6 +457,11 @@ end;
 function TLibrary.prettyCountry: string;
 begin
   result := pretty(country);
+end;
+
+function TLibrary.prettyCountryState: string;
+begin
+  result := prettycountry + ' - ' + prettyState;
 end;
 
 class function TLibrary.pretty(const l: string): string;

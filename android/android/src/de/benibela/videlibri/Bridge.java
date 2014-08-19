@@ -260,7 +260,7 @@ public class Bridge {
     }
 
     static class Library{
-        String id, locationPretty, namePretty, nameShort;
+        String id, fullStatePretty, locationPretty, namePretty, nameShort;
         void putInIntent(Intent intent){
             intent.putExtra("libName", namePretty);
             intent.putExtra("libShortName", nameShort);
@@ -274,10 +274,21 @@ public class Bridge {
             result[i] = new Library();
             String[] temp = libs[i].split("\\|");
             result[i].id = temp[0];
-            result[i].locationPretty = temp[1];
-            result[i].namePretty = temp[2];
-            result[i].nameShort = temp[3];
+            result[i].fullStatePretty = temp[1];
+            result[i].locationPretty = temp[2];
+            result[i].namePretty = temp[3];
+            result[i].nameShort = temp[4];
         }
+        Arrays.sort(result, new Comparator<Library>() {
+            @Override
+            public int compare(Library library, Library library2) {
+                if (library.fullStatePretty.charAt(0) != library2.fullStatePretty.charAt(0)) {
+                    if (library.fullStatePretty.charAt(0) == 'D') return -1;
+                    else if (library2.fullStatePretty.charAt(0) == 'D') return 1;
+                }
+                return library.fullStatePretty.compareTo(library2.fullStatePretty);
+            }
+        });
         return result;
     }
 
