@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,6 +26,9 @@ public class LibraryList extends VideLibriBaseActivity {
     final List<List<String>> cities = new ArrayList<List<String>>();
     final List<List<List<Map<String, String>>>> localLibs = new ArrayList<List<List<Map<String, String>>>>();
 
+    ExpandableListView topLv;
+    int rowHeight = 20;
+
     void makeLibView(final ExpandableListView lv){
         Bridge.Library[] libs = Bridge.getLibraries();
 
@@ -34,18 +38,20 @@ public class LibraryList extends VideLibriBaseActivity {
         //final TreeMap<String, String> ids = new TreeMap<String, String>();
 
         int autoExpand = 0;
-        /*todo if (VideLibriApp.accounts != null && VideLibriApp.accounts.length > 0) {
-            ArrayList<String> used = new ArrayList<String>();
+        if (VideLibriApp.accounts != null && VideLibriApp.accounts.length > 0) {
             autoExpand = 1;
-            cities.add(new TreeMap<String, String>());
-            cities.get(cities.size()-1).put("NAME", tr(R.string.liblist_withaccounts));
-            localLibs.add(new ArrayList<Map<String, String>>());
+            ArrayList<String> used = new ArrayList<String>();
+            states.add(tr(R.string.liblist_withaccounts));
+            cities.add(new ArrayList<String>());
+            cities.get(0).add(tr(R.string.liblist_withaccounts));
+            localLibs.add(new ArrayList<List<Map<String,String>>>());
+            localLibs.get(0).add(new ArrayList<Map<String, String>>());
             for (Bridge.Account account: VideLibriApp.accounts) {
                 if (used.contains(account.libId)) continue;
                 used.add(account.libId);
 
                 TreeMap map = new TreeMap<String, String>();
-                localLibs.get(localLibs.size()-1).add(map);;
+                localLibs.get(0).get(localLibs.size()-1).add(map);
                 for (Bridge.Library lib: libs)
                     if (lib.id.equals(account.libId)) {
                         map.put("NAME", lib.namePretty);
@@ -54,7 +60,7 @@ public class LibraryList extends VideLibriBaseActivity {
                         break;
                     }
             }
-        }           */
+        }
 
         for (Bridge.Library lib : libs) {
             if (states.isEmpty() || !states.get(states.size()-1).equals(lib.fullStatePretty)) {
@@ -76,38 +82,42 @@ public class LibraryList extends VideLibriBaseActivity {
         }
 
         lv.setAdapter(new LibraryListAdapter());
-        /*lv.setOnGroupExpandListener(new ExpandableListView.OnGroupExpandListener() {
-            @Override
-            public void onGroupExpand(int i) {  lv.view
-                if (cities.get(i).size() == 1)
-                    ((ExpandableListView)(lv.getExpandableListAdapter().getChifld(i,0))).expandGroup(0);
-            }
-        });        */
-        //lv.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
-                                      //public boolean onChildClick(ExpandableListView expandableListView, View view, int i, int i2, long l) {
-       /*todo lv.setOnChildClickListener(new LibraryListAdapter.OnLeafClick() {
-            @Override
-            public boolean onLeafClick(ExpandableListView expandableListView, Map<String, String> leaf) {
-                //VideLibri.showMessage(NewAccountWizard.this, localLibs.get(i).get(i2).get("NAME"));
-                Intent result = new Intent();
-                lastSelectedLibId = leaf.get("ID");
-                lastSelectedLibShortName = leaf.get("SHORT");
-                lastSelectedLibName = leaf.get("NAME");
-                lastSelectedTime = System.currentTimeMillis();
 
-                setResult(RESULT_OK, result);
-                LibraryList.this.finish();
-                return true;
-            }
-        });
-                         */
         for (int i=0;i<autoExpand;i++)
             lv.expandGroup(i);
+
+      /*  lv.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
+            @Override
+            public boolean onChildClick(ExpandableListView expandableListView, View view, int i, int i2, long l) {
+                Log.i("VIDELIBRI 1st level child click", "::"+i+" "+i2+ " "+l);
+                return false;
+            }
+        });
+        lv.setOnGroupClickListener(new ExpandableListView.OnGroupClickListener() {
+            @Override
+            public boolean onGroupClick(ExpandableListView expandableListView, View view, int i, long l) {
+                Log.i("VIDELIBRI 1st level group click", "::"+i+" "+l);
+                return false;
+            }
+        });   */
+        /*lv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Log.i("VIDELIBRI 1st level click", "");
+            }
+        });*/
     }
 
     private void onLeafClick(int state, int city, int lib){
         Map<String, String> leaf = localLibs.get(state).get(city).get(lib);
-        showMessage(leaf.get("NAME"));
+        Intent result = new Intent();
+        lastSelectedLibId = leaf.get("ID");
+        lastSelectedLibShortName = leaf.get("SHORT");
+        lastSelectedLibName = leaf.get("NAME");
+        lastSelectedTime = System.currentTimeMillis();
+
+        setResult(RESULT_OK, result);
+        LibraryList.this.finish();
     }
 
     boolean searchMode;
@@ -123,7 +133,13 @@ public class LibraryList extends VideLibriBaseActivity {
         searchMode = getIntent().getBooleanExtra("search", false);
 
 
+        TypedValue typedValue = new TypedValue();
+        if (getTheme().resolveAttribute(android.R.attr.listPreferredItemHeight, typedValue, true))
+            if (typedValue.type == TypedValue.TYPE_DIMENSION)
+                rowHeight = (int) typedValue.getDimension(getResources().getDisplayMetrics());
+
         ExpandableListView lv = (ExpandableListView) findViewById(R.id.libListView);
+        topLv = lv;
         makeLibView(lv);
     }
 
@@ -177,13 +193,48 @@ public class LibraryList extends VideLibriBaseActivity {
         {
             if (cache.containsKey(groupPosition*10000 + childPosition))
                 return cache.get(groupPosition*10000 + childPosition);
-            LibraryListCityView l = new LibraryListCityView();
+            final LibraryListCityView l = new LibraryListCityView();
             l.setPadding((int)(60 * getResources().getDisplayMetrics().density), l.getPaddingTop(), l.getPaddingRight(), l.getPaddingBottom());
             //l.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.FILL_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
             //l.setFocusable(true);
             l.setDescendantFocusability(ListView.FOCUS_BLOCK_DESCENDANTS);
+            l.rows = 1;
+            l.setOnGroupExpandListener(new ExpandableListView.OnGroupExpandListener() {
+                @Override
+                public void onGroupExpand(int i) {
+                    l.rows += localLibs.get(groupPosition).get(childPosition).size() ;
+                }
+            });
+            l.setOnGroupCollapseListener(new ExpandableListView.OnGroupCollapseListener() {
+                @Override
+                public void onGroupCollapse(int i) {
+                    l.rows -= localLibs.get(groupPosition).get(childPosition).size();
+                }
+            });
 
-            l.setAdapter(new LibraryListCityAdapter(groupPosition,childPosition));
+            /*l.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
+                @Override
+                public boolean onChildClick(ExpandableListView expandableListView, View view, int i, int i2, long l) {
+                    Log.i("VIDELIBRI 2 level child click"+groupPosition + " "+childPosition, "::"+i+" "+i2+ " "+l);
+                    return false;
+                }
+            });
+            l.setOnGroupClickListener(new ExpandableListView.OnGroupClickListener() {
+                @Override
+                public boolean onGroupClick(ExpandableListView expandableListView, View view, int i, long l) {
+                    Log.i("VIDELIBRI 2  level group click"+groupPosition + " "+childPosition, "::"+i+" "+l);
+                    return false;
+                }
+            });        */
+            /*l.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Log.i("VIDELIBRI 2 level click"+groupPosition + " "+childPosition, "");
+                }
+            });      */
+
+
+            l.setAdapter(new LibraryListCityAdapter(l, groupPosition,childPosition));
             if (cities.get(groupPosition).size() == 1) l.expandGroup(0);
 
             l.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
@@ -223,7 +274,8 @@ public class LibraryList extends VideLibriBaseActivity {
 
     public class LibraryListCityView extends ExpandableListView
     {
-        int intGroupPosition, intChildPosition, intGroupid;
+        //int intGroupPosition, intChildPosition, intGroupid;
+        int rows;
         public LibraryListCityView()
         {
             super(LibraryList.this);
@@ -231,7 +283,7 @@ public class LibraryList extends VideLibriBaseActivity {
         protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec)
         {
             widthMeasureSpec = MeasureSpec.makeMeasureSpec(MeasureSpec.getSize(widthMeasureSpec), MeasureSpec.EXACTLY);
-            heightMeasureSpec = MeasureSpec.makeMeasureSpec(2000, MeasureSpec.AT_MOST); //what does this do?
+            heightMeasureSpec = MeasureSpec.makeMeasureSpec(rows * rowHeight, MeasureSpec.EXACTLY);
             super.onMeasure(widthMeasureSpec, heightMeasureSpec);
         }
 
@@ -249,19 +301,29 @@ public class LibraryList extends VideLibriBaseActivity {
     public class LibraryListCityAdapter extends LibraryListBaseAdapter
     {
         int state,city;
+        LibraryListCityView lv;
 
-        LibraryListCityAdapter (int a, int b) {
+        LibraryListCityAdapter (LibraryListCityView parent, int a, int b) {
+            lv = parent;
             state = a;
             city = b;
         }
 
         @Override
-        public View getChildView(int groupPosition, int childPosition,
+        public View getChildView(final int groupPosition, final int childPosition,
                                  boolean isLastChild, View convertView, ViewGroup parent)
         {
             //todo: use convertView (but do not want to mix groupView/childView up)
             View row = getLayoutInflater().inflate(R.layout.libraryinlistview , parent, false);
             ((TextView) row).setText(localLibs.get(state).get(city).get(childPosition).get("NAME"));
+            row.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    //Log.i("VideLibri tv 3rd level", groupPosition+ " "+childPosition);
+                    onLeafClick(state, city, childPosition);
+                }
+            });
+
             return row;
         }
 
@@ -279,11 +341,26 @@ public class LibraryList extends VideLibriBaseActivity {
         }
 
         @Override
-        public View getGroupView(int groupPosition, boolean isExpanded,
+        public View getGroupView(final int groupPosition, final boolean isExpanded,
                                  View convertView, ViewGroup parent)
         {
-            View row = getLayoutInflater().inflate(R.layout.librarycityinlistview, parent, false);
+            final View row = getLayoutInflater().inflate(R.layout.librarycityinlistview, parent, false);
             ((TextView) row).setText(cities.get(state).get(city));
+             row.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    //Log.i("VideLibri tv 2nd level", ""+groupPosition);
+                    if (isExpanded) lv.collapseGroup(groupPosition);
+                    else lv.expandGroup(groupPosition, true);
+                    row.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            topLv.requestLayout();
+                            topLv.invalidate();
+                        }
+                    }, 100);
+                }
+            });
             return row;
         }
 
