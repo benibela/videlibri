@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<library>
+  <longName value="Stadtbibliothek Stralsund"/>
+  <shortName value="Stb Stralsund"/>
+  
+  <template value="webopacoclc"/>
+  <variable name="baseurl" value="http://opac.stralsund.de/webopac"/>	
+  <!--<template value="pica"/>-->
+
+
+  <homepage value="http://stadtbibliothek.stralsund.de/"/>
+  <testing-search value="nein" date="2014-08-19"/>
+  <testing-account value="ja" date="2014-08-19"/>
+  <testing-renew value="?" date=""/>
+</library>

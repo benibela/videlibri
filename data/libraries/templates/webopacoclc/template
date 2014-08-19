@@ -1,0 +1,56 @@
+<actions>
+<action id="connect"></action>
+<action id="update-all">
+  <s>follow1 := ()</s>
+  <page url="{$baseurl}/index.asp?DB={get('DB', 'OPAC')}"/>
+  <page url="{$baseurl}/index.asp?kontofenster=start">
+    <template>
+<FORM id="webopac" name="webopac"><t:s>vl:delete-current-books()</t:s>{follow1 := form(., {"AUSWEIS": $username, "PWD": $password})}</FORM>
+
+    </template>
+  </page>
+
+  <page url="{$follow1}">
+    <template>
+
+  <DIV class="maindivkonto">
+    <DIV class="kontozeile_center">
+      <TABLE>
+        <tr><!-- Verfasser	Titel	Frist	Zweigstelle	 -->
+          <th>Frist</th>
+        </tr>
+        <t:loop>
+          <TR>
+            <TD>{$book := {"author": .}}</TD>
+            <TD>{$book.title}</TD>
+            <TD>{$book.duedate := parse-date(., 'd.m.yyyy')}</TD>
+            <td>{$book.libraryBranch}</td>
+            <td><a>{if (contains(@href, "vermsg")) then ($book.status := "nicht verlängerbar", $book.statusId := "critical")
+                    else ($book.statusId := "normal", $book.renew-link := resolve-uri(@href)) }</a></td>?
+          </TR>
+        </t:loop>
+      </TABLE>
+    </DIV>
+
+    <DIV class="kontozeile_center">
+      <TABLE>
+        <tr><th/></tr> <!--Verfasser	Titel		Zweigstelle	 -->
+        
+        <t:loop>
+          <TR>
+            <TD>{$book := {"author": ., "statusId": "ordered"}}</TD>
+            <TD>{$book.title}</TD>
+            <td>{$book.libraryBranch}</td>
+            <td>{if (contains(string(a/@href), "delvor")) then ($book.cancelable := true(), $book.cancel-link := resolve-uri(a/@href))
+                    else ($book.cancelable := false()) }</td>?
+          </TR>
+        </t:loop>
+      </TABLE>
+    </DIV>?
+  </DIV>
+
+    </template>
+  </page>
+
+</action>
+</actions>
