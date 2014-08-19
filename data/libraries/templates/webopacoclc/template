@@ -53,4 +53,123 @@
   </page>
 
 </action>
+
+<action id="renew-list">
+  <loop var="b" list="$renew-books">
+    <page url="{$b.renew-link}"><template><form>{form := form(., {"vorbdelbest": "Bestätigung"})}</form></template></page>
+    <page url="{$form}"/>
+  </loop>
+  <call action="update-all"/>
+</action>
+
+<action id="cancel-single">
+  <page url="{$book.cancel-link}"><template><form>{form := form(., {"verlaengern": "Verlängern"})}</form></template></page>
+  <page url="{$form}"/> <!-- this returns the full of update-all list again-->
+</action>
+
+
+
+
+
+
+<action id="search-connect">
+  <s>loggedIn := false()</s>
+  <page url="{$baseurl}/index.asp?DB={get('DB', 'OPAC')}">    
+    <template><form name="webopac">{profi := form(., {"link_profis.x": 10, "link_profis.y": 10})}</form></template>
+  </page>
+  <page url="{$profi}">    
+    <template><form name="webopac">{search := form(.)}</form></template>
+  </page>
+</action>
+
+<action id="search">
+    <s>   next-page := (),
+          search-keys := {"title": "titel", "author": "verfasser", "keyword": "stichwort", "isbn": "isbn", "year": "jahr_von"},
+          startSearch := form-combine($search, {|
+            { "jahr_bis": $book.year },
+            (
+              for $key in jn:keys($book) return if ($book($key) != "" and exists($search-keys($key))) then (
+                      {$search-keys($key): $book($key)}
+                    ) else ()
+            )
+          |})
+    </s>
+    <page url="{$startSearch}" templateFile="searchList"/>
+</action>
+
+<action id="search-next-page">
+  <page url="{$next-page}" templateFile="searchList"/>
+</action>
+
+
+<action id="search-details">
+  <s>temp := if (not(exists($next-page))) then () 
+             else if (contains($book._detailsBackScroll, "scrollAction=")) then $book._detailsBackScroll
+             else $book._detailsBackScroll || "?scrollAction=1"
+  </s>
+  <page url="{$temp}"/>
+  <page url="{$book._details}" templateFile="searchDetails"/>
+</action>
+
+<action id="order-single"> 
+  <s>url := $book._order-url</s>
+  <if test="not($loggedIn)">
+    <page url="{$url}">
+        <template>
+          <FORM><t:s>vl:delete-current-books()</t:s>{url := form(., {"AUSWEIS": $username, "PWD": $password})}</FORM>    
+        </template>
+    </page>
+  </if>
+  
+  <page url="{$url}"><!-- templateFile="orderConfirmation"/> -->
+    <template><form>{confirm-form := form(.)}
+      <div class="kontomeldung">{$message}</div>?
+      <SELECT NAME="VZST"  > 
+        {vl:choose("internal-order-confirmed", get("message", "ziel?"), option, option/@value)}
+      </SELECT>
+    </form></template>
+  </page>
+  
+  <s>$loggedIn := true()</s>
+</action> 
+
+<action id="internal-order-confirmed">
+  <if test="$choose-result ne -1">
+    <s>form := form-combine($confirm-form, {"VZST": $choose-result})</s>
+    <page url="{$form}">
+      <template><form>{form := form(., {"Vorbestellen": "Bestätigung"})}</form></template>
+    </page>
+    <page url="{$form}">
+      <template><div class="kontomeldung">Die Vorbestellung wurde für Sie durchgeführt!<t:s>book.statusId := "ordered"</t:s></div></template>
+    </page>
+  </if>
+</action>
+
+<!--
+<action id="order-single"> 
+  <call action="internal-login"/>
+  
+  <page url="{$book._order-url}" templateFile="orderConfirmation"/> 
+</action> 
+
+<action id="internal-order-confirmed">
+  <s>form := form-combine($confirm-form, {"MakeResTypeDef.Reservation.RecipientLocn": $choose-result, "Confirm": 1})</s>
+  <page url="{$form}" test="$choose-result ne -1">
+    <template>
+      <td>Die Vormerkung wurde erfolgreich durchgeführt.<t:s>book.statusId := "ordered"</t:s></td>
+    </template>
+  </page>
+</action>
+
+
+
+
+-->
+
+
+
+<action id="catalogue">
+  <variable name="url" value="{$baseurl}/index.asp?DB={get('DB', 'OPAC')}"/>
+</action>
+
 </actions>

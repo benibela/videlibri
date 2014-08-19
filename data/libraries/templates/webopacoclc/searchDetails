@@ -1,0 +1,24 @@
+<DIV id="Detail" class="detail">
+  <div class="detail_vorbest"><a>{book.orderable := true(), book._order-url := resolve-uri(@href)}</a></div>?
+  <DIV class="detailinhalt">
+    <div class="detail_cover"><img>{book.image-url:=resolve-uri(@src)}</img></div>?
+    <DIV class="detail_titel">{$book.title}</DIV>?
+    <DIV class="detailzeile">
+      <TABLE>
+        <t:loop>
+          <TR>
+            <TD class="detail_feld">{name:=normalize-space(.)}</TD>
+            <TD class="feldinhalt">{$book($name || "!") := .}</TD>
+          </TR>
+        </t:loop>
+      </TABLE>
+    </DIV>
+    <TABLE class="exemplartab">{$exemplarCount := 0}
+      <tr/>
+      <TR>
+        {exemplarCount := $exemplarCount + 1}
+        <t:read source="string-join(./td, ',  ')" var="book.Exemplar {$exemplarCount}!"/>
+      </TR>*
+    </TABLE>?
+  </DIV>
+</DIV>

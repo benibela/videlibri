@@ -1,0 +1,20 @@
+<DIV id="Result" class="result">
+  <div class="result_gefunden">Gefunden:<t:s>search-result-count := extract(., "[0-9 ]+$")</t:s></div>
+  <TABLE class="resulttab" t:test="$search-result-count > 0">
+    <TR><TH/></TR>
+    <TR>
+      <TD/>
+      <TD>
+        <A>{let $x := . return $book := {
+          "author": substring-before($x, ":"), 
+          "title": if (contains($x, ":")) then extract($x, "^[^:]+:(.*)-[0-9 ]+$", 1, "s") else substring-before($x, "-"), 
+          "year": extract($x, "[0-9 ]+$"),
+          "_detailsBackScroll": if (contains($url, "scrollAction")) then $url else $url || "?scrollAction=1",
+          "_details": resolve-uri(@href) }}</A>
+      </TD>
+    </TR>+
+  </TABLE>
+  <div class="result_nav">
+    <u/> <a>{search-next-page-available := true(), next-page := @href}</a>
+  </div>?
+</DIV>
