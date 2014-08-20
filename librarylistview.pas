@@ -22,7 +22,7 @@ public
 end;
 
 implementation
-uses bbutils;
+uses bbutils, strutils;
 
 { TLibraryListView }
 
@@ -37,6 +37,10 @@ begin
     if (Selected.data.obj = nil) and (Selected.SubItems.Count>0) and (Selected <> lastCollapsed) then begin
       Selected.Expand;
       Selected := Selected.SubItems[0];
+      if (selected.Parent.SubItems.Count = 1) and (Selected.data.obj = nil) then begin
+        Selected.Expand;
+        Selected := Selected.SubItems[0];
+      end;
     end;
     lastCollapsed := nil;
   end;
@@ -51,10 +55,10 @@ begin
   inherited;
   BeginUpdate;
   for state in libraryManager.enumerateCountryStates() do begin
-    with Items.Add(state) do begin
+    with Items.Add(IfThen(state = '- - -', 'selbst definierte', state)) do begin
       for loc in libraryManager.enumerateLocations(state) do
         if trim(loc) <> '' then
-           with SubItems.Add(loc) do begin
+           with SubItems.Add(IfThen(loc = '-', 'selbst definierte', loc)) do begin
              libs := libraryManager.enumeratePrettyLongNames(loc);
              for j := 0 to high(libs) do
                SubItems.Add(libs[j]).data.p:=libraryManager.getLibraryFromEnumeration(loc, j);
