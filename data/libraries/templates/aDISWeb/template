@@ -141,7 +141,7 @@
     case 'ordered' return $orderedPage
     case 'requested' return $requestedPage
     case 'orderedMagazine' return $orderedMagazinePage
-    default return "unknown page"
+    default return concat("unknown page ", $book._mode)
   </s>
   <page url="{$page}">
     <template><form>{
