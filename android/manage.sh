@@ -33,10 +33,10 @@ build)
     if /opt/lazarus/lazbuild $FORCE --compiler=/usr/local/bin/ppcross386_271 --os=android --ws=customdrawn --cpu=i386 videlibriandroid.lpi; then echo; else echo "FAILED!"; exit 1; fi
   fi
 
-  if [[ $BUILDMODE == "release" ]]; then
+  #if [[ $BUILDMODE == "release" ]]; then
      arm-linux-strip --strip-all android/libs/armeabi/liblclapp.so
     strip --strip-all android/libs/x86/liblclapp.so
-  fi
+  #fi
 
   cd android
   ant $BUILDMODE || (echo "FAILED!"; exit)

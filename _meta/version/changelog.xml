@@ -1,10 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?xml-stylesheet type="text/xsl" href="../changelog.xsl"?>
 <changelog program="VideLibri">
-  <build version="1659" date="2014-07-31">
+  <build version="1660" date="2014-08-20">
     <download url="http://videlibri.sourceforge.net/updates/videlibri-setup.exe" platform="WINDOWS" execute="&quot;$DOWNLOAD&quot;  /SP- /noicons &quot;/dir=$OLDPATH&quot; " restart="true"/>
     <download url="http://videlibri.sourceforge.net/updates/videlibri-linux32.deb" platform="LINUX32" execute=""/>
-    <download url="http://videlibri.sourceforge.net/updates/videlibri-linux64.deb" platform="LINUX64" execute=""/
+    <download url="http://videlibri.sourceforge.net/updates/videlibri-linux64.deb" platform="LINUX64" execute=""/>
+    <change>Neue Bibliothekliste (nach Bundesländern sortiert)</change>
+    <add>OCLC WebOPAC + Stadtbibliothek Stralsund</add>
+    <fix>Nürnberg: Ausleihdatum</fix>
+    <fix>sisis: Suche geht auch mit stärkere neuen Typeprüfung</fix>
+  </build>
+  <build version="1659" date="2014-07-31">
     <fix>Erfurt: Anpassung an Änderung der Loginseite</fix>
     <add>Stralsund/Greifswald: Unterstützung für neues System (LBS)</add>
     <fix>Nürnberg: Anpassung an geänderten Titel</fix>
