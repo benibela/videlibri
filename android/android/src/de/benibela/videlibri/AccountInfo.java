@@ -125,7 +125,6 @@ public class AccountInfo extends VideLibriBaseActivity {
             });
         } else {
             lib.setPaintFlags(lib.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
-            if ("".equals(libId)) updateLibrary();
             lib.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -163,6 +162,18 @@ public class AccountInfo extends VideLibriBaseActivity {
         lib.setText(libName);
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        if ("".equals(libId) && (System.currentTimeMillis() - LibraryList.lastSelectedTime) < LibraryList.SELECTION_REUSE_TIME) {
+            libName = LibraryList.lastSelectedLibName;
+            libShortName = LibraryList.lastSelectedLibShortName;
+            libId = LibraryList.lastSelectedLibId;
+        }
+        if ("".equals(libId)) updateLibrary();
+    }
+
     /*@Override
     public boolean onPrepareOptionsMenu(Menu menu) {
         boolean x = super.onPrepareOptionsMenu(menu);
@@ -182,7 +193,7 @@ public class AccountInfo extends VideLibriBaseActivity {
                     intent.putExtra("reason", tr(R.string.about_create));
                 startActivityForResult(intent, REQUEST_LIBRARY_FOR_ACCOUNT_CREATION);
             }
-        }, 200);
+        }, 300);
     }
 
     Bridge.Account inputToAccount(){
@@ -209,7 +220,7 @@ public class AccountInfo extends VideLibriBaseActivity {
                 accountPrettyName.setText(libShortName);
             } else if (libId.equals(""))
                 if (mode == MODE_ACCOUNT_CREATION_INITIAL && (VideLibriApp.accounts == null || VideLibriApp.accounts.length == 0))
-                    updateLibrary();
+                {}//    updateLibrary();
                 else
                     finish();
         }
