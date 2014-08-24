@@ -140,15 +140,13 @@
     <s>requestId := $requestId + 1</s>
   </loop>
 
- 
+  <s>requestId := 0</s>
   <page url="{$ordersListUrl}" templateFile="listOrders"/> 
-  <!--
-  <s>requestId := 1</s>
   
+  
+  <s>requestId := 1</s>  
   <loop test="not($bFoundBottom)">
-    <page url="{$baseurl}/{$obj}?Style={$style}&SubStyle=&Lang=GER&ResponseEncoding=utf-8&ResponseEncoding=utf-8&Method=FetchIncrementalBrowseDown&RequestId={$requestId}&"> 
-    <template><body>{bFoundBottom := (./text())[1]/matches(., "bFoundBottom *= *1")}</body></template>
-    </page>
+    <page url="{$baseurl}/{$obj}?Style={$style}&SubStyle=&Lang=GER&ResponseEncoding=utf-8&ResponseEncoding=utf-8&Method=FetchIncrementalBrowseDown&RequestId={$requestId}&" templateFile="listOrders"/>
     <s>requestId := $requestId + 1</s>
   </loop>-->
   
@@ -181,15 +179,33 @@
 </action>
 
 
-<action id="cancel-single">
-  <page url="{$book._cancel-url}" templateFile="cancelConfirm"/>
-  <page url="{$cancel-form}"> 
+<action id="cancel-list">
+  <s>$cancel-url := $cancel-books[1]._cancel-url</s>
+  <loop var="i" list="1 to count($cancel-books)">
+    <s>b := $cancel-books[$i], nb := $cancel-books[$i+1]</s>
+    <page url="{$cancel-url}" templateFile="cancelConfirm"/>
+    <page url="{$cancel-form}"> 
+      <template>
+        <t:if t:test="exists($nb)">
+              <DIV class="inRoundBox1">
+                <TABLE>
+                  <!--  <TR><TD>Verfasser</TD><TD t:condition="normalize-space(.) eq $nb.author"/></TR> some books have no author => there is no table row
+                    <TR><TD>Titel</TD><TD t:condition="normalize-space(.) eq $nb.title"/></TR>-->
+                    <TR><TD>Signatur</TD><TD t:condition="normalize-space(.) eq $nb.id"/></TR>
+                    <TR><TD></TD><TD><A t:condition="contains(@href, 'Cancel')">{$cancel-url := @href}</A></TD></TR>  
+                </TABLE>
+              </DIV>
+        </t:if>
+      </template>
+    </page>
+  </loop>
+  
 <!--    <template>
       <head>
        <META NAME="ZonesObjName">{obj:=@CONTENT, bFoundBottom := false()}</META>
       </head> 
     </template>-->
-  </page>
+ 
 
 <!--  <s>requestId := 1</s>    
   <loop test="not($bFoundBottom)">

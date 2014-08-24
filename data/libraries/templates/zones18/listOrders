@@ -1,33 +1,39 @@
-<head>
- <META NAME="ZonesObjName">{obj:=@CONTENT, bFoundBottom := false()}</META>
-</head> 
+<html>
+  <head t:test="$requestId eq 0">
+    <META NAME="ZonesObjName">{obj:=@CONTENT, bFoundBottom := false()}</META>
+  </head> 
 
-<DIV id="elScrollingBrowseList">
-  <DIV>
-    <t:loop>
-      <DIV class="inRoundBox1">
-        {tempbook := {}}
-        <TABLE>
-          <TR>
-            <TD>
-              <TABLE>
-                <t:loop><t:switch>
-                  <TR><TD>Verfasser</TD><TD>{$tempbook.author}</TD></TR>
-                  <TR><TD>Titel</TD><TD>{$tempbook.title}</TD></TR>
-                  <TR><TD>Vorgemerkt am</TD><TD>{$tempbook.issueDate := parse-date(., "dd/mm/yyyy")}</TD></TR>
-                  <TR><TD>Status</TD><TD>Bei der Suche<t:s>$tempbook.status := ., $tempbook.statusId := "ordered"</t:s></TD></TR>
-                  <TR><TD>Status</TD><TD>Gelöscht<t:s>$tempbook.status := ., $tempbook.statusId := "deleted"</t:s></TD></TR>
-                  <TR><TD>Status</TD><TD><t:s>$tempbook.status := ., $tempbook.statusId := "ordered"</t:s></TD></TR>
-                  <TR><TD>Signatur</TD><TD>{$tempbook.id}</TD></TR>
-                  <TR><TD>Warteliste</TD><TD>{x := $tempbook.statusId, $tempbook.status := concat($tempbook.status, " (Warteliste: ", ., ")"), $tempbook.statusId := $x}</TD></TR>
-                  <TR><TD></TD><TD><A t:condition="contains(@href, 'Cancel')">{$tempbook._cancel-url := @href}</A></TD></TR>
-                </t:switch></t:loop>
-              </TABLE>
-            </TD>
-          </TR>
-        </TABLE>
-        <t:if test="$tempbook.statusId != 'deleted'">{book := $tempbook}</t:if>
-      </DIV>
-    </t:loop>
+<body>
+  <t:if test="$requestId ne 0">{bFoundBottom := (./text())[1]/matches(., "bFoundBottom *= *1")}</t:if>
+
+  <DIV id="elScrollingBrowseList" t:ignore-self-test="$requestId ne 0">
+    <DIV  t:ignore-self-test="$requestId ne 0">
+      <t:loop>
+        <DIV class="inRoundBox1">
+          {tempbook := {}}
+          <TABLE>
+            <TR>
+              <TD>
+                <TABLE>
+                  <t:loop><t:switch>
+                    <TR><TD>Verfasser</TD><TD>{$tempbook.author}</TD></TR>
+                    <TR><TD>Titel</TD><TD>{$tempbook.title}</TD></TR>
+                    <TR><TD>Vorgemerkt am</TD><TD>{$tempbook.issueDate := parse-date(., "dd/mm/yyyy")}</TD></TR>
+                    <TR><TD>Status</TD><TD>Bei der Suche<t:s>$tempbook.status := ., $tempbook.statusId := "ordered"</t:s></TD></TR>
+                    <TR><TD>Status</TD><TD>Gelöscht<t:s>$tempbook.status := ., $tempbook.statusId := "deleted"</t:s></TD></TR>
+                    <TR><TD>Status</TD><TD><t:s>$tempbook.status := ., $tempbook.statusId := "ordered"</t:s></TD></TR>
+                    <TR><TD>Signatur</TD><TD>{$tempbook.id}</TD></TR>
+                    <TR><TD>Warteliste</TD><TD>{x := $tempbook.statusId, $tempbook.status := concat($tempbook.status, " (Warteliste: ", ., ")"), $tempbook.statusId := $x}</TD></TR>
+                    <TR><TD></TD><TD><A t:condition="contains(@href, 'Cancel')">{$tempbook._cancel-url := @href}</A></TD></TR>
+                  </t:switch></t:loop>
+                </TABLE>
+              </TD>
+            </TR>
+          </TABLE>
+          <t:if test="$tempbook.statusId != 'deleted'">{book := $tempbook}</t:if>
+        </DIV>
+      </t:loop>
+    </DIV>
   </DIV>
-</DIV>
+</body>
+</html>
