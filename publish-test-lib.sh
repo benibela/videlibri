@@ -60,8 +60,10 @@ xmlstarlet ed -L -u //id/@value -v "$libDataIdNew" $tmp/newlibs/$libDataNew
 #xmlstarlet ed -L -u //id -v "$libDataIdNew" $tmp/newlibs/$libDataNew
 if [[ "$3" = "--override" ]]; then
 INTVERSION=`grep 'versionNumber *: *integer' $VIDELIBRIBASE/applicationconfig.pas | grep -oE "[0-9]+" | head -1 `;
-xmlstarlet ed -L --insert "/actions" --type attr -n "max-version" -v "$INTVERSION" $tmp/$templateIdNew/template
-xmlstarlet ed -L --insert "/actions" --type attr -n "version-mismatch" -v "skip" $tmp/$templateIdNew/template
+#xmlstarlet cannot change template (invalid xml) ??
+#xmlstarlet ed -L --insert "/actions" --type attr -n "max-version" -v "$INTVERSION" $tmp/$templateIdNew/template
+#xmlstarlet ed -L --insert "/actions" --type attr -n "version-mismatch" -v "skip" $tmp/$templateIdNew/template
+sed "s/<actions/<actions max-version=\"$INTVERSION\" version-mismatch=\"skip\"/" -i  $tmp/$templateIdNew/template
 fi
 
 cd $tmp
