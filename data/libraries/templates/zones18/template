@@ -120,7 +120,7 @@
   <s>form := form-combine($confirm-form, {"MakeResTypeDef.Reservation.RecipientLocn": $choose-result, "Confirm": 1})</s>
   <page url="{$form}" test="$choose-result ne -1">
     <template>
-      <td>Die Vormerkung wurde erfolgreich durchgeführt.<t:s>book.statusId := "ordered"</t:s></td>
+      <td><t:meta text-matching="matches"/>Die Vormerkung wurde erfolgreich (durch|aus)geführt<t:s>book.statusId := "ordered"</t:s></td>
     </template>
   </page>
 </action>
