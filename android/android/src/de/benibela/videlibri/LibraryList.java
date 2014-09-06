@@ -86,7 +86,7 @@ public class LibraryList extends VideLibriBaseActivity {
         for (int i=0;i<autoExpand;i++)
             lv.expandGroup(i);
 
-      /*  lv.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
+        lv.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
             @Override
             public boolean onChildClick(ExpandableListView expandableListView, View view, int i, int i2, long l) {
                 Log.i("VIDELIBRI 1st level child click", "::"+i+" "+i2+ " "+l);
@@ -99,7 +99,7 @@ public class LibraryList extends VideLibriBaseActivity {
                 Log.i("VIDELIBRI 1st level group click", "::"+i+" "+l);
                 return false;
             }
-        });   */
+        });  // */
         /*lv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -194,10 +194,11 @@ public class LibraryList extends VideLibriBaseActivity {
             if (cache.containsKey(groupPosition*10000 + childPosition))
                 return cache.get(groupPosition*10000 + childPosition);
             final LibraryListCityView l = new LibraryListCityView();
+            l.setScrollContainer(false);
             l.setPadding((int)(60 * getResources().getDisplayMetrics().density), l.getPaddingTop(), l.getPaddingRight(), l.getPaddingBottom());
             //l.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.FILL_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
             //l.setFocusable(true);
-            l.setDescendantFocusability(ListView.FOCUS_BLOCK_DESCENDANTS);
+            //l.setDescendantFocusability(ListView.FOCUS_BLOCK_DESCENDANTS);
             l.rows = 1;
             l.setOnGroupExpandListener(new ExpandableListView.OnGroupExpandListener() {
                 @Override
@@ -212,7 +213,7 @@ public class LibraryList extends VideLibriBaseActivity {
                 }
             });
 
-            /*l.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
+            l.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
                 @Override
                 public boolean onChildClick(ExpandableListView expandableListView, View view, int i, int i2, long l) {
                     Log.i("VIDELIBRI 2 level child click"+groupPosition + " "+childPosition, "::"+i+" "+i2+ " "+l);
@@ -225,7 +226,7 @@ public class LibraryList extends VideLibriBaseActivity {
                     Log.i("VIDELIBRI 2  level group click"+groupPosition + " "+childPosition, "::"+i+" "+l);
                     return false;
                 }
-            });        */
+            });    //    */
             /*l.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -284,6 +285,7 @@ public class LibraryList extends VideLibriBaseActivity {
         {
             widthMeasureSpec = MeasureSpec.makeMeasureSpec(MeasureSpec.getSize(widthMeasureSpec), MeasureSpec.EXACTLY);
             heightMeasureSpec = MeasureSpec.makeMeasureSpec(rows * rowHeight, MeasureSpec.EXACTLY);
+            Log.i("VL", "rowheight: "+rowHeight+" rows: "+rows);
             super.onMeasure(widthMeasureSpec, heightMeasureSpec);
         }
 
@@ -349,9 +351,9 @@ public class LibraryList extends VideLibriBaseActivity {
              row.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    //Log.i("VideLibri tv 2nd level", ""+groupPosition);
-                    if (isExpanded) lv.collapseGroup(groupPosition);
-                    else lv.expandGroup(groupPosition, true);
+                    Log.i("VideLibri tv 2nd level", ""+groupPosition);
+                    if (lv.isGroupExpanded(groupPosition)) lv.collapseGroup(groupPosition);
+                    else lv.expandGroup(groupPosition/*, true needs api lvl 14*/);
                     row.postDelayed(new Runnable() {
                         @Override
                         public void run() {

@@ -7,5 +7,8 @@
           android:gravity="center_vertical"
           android:paddingLeft="?android:attr/expandableListPreferredChildPaddingLeft"
           android:singleLine="true"
-          android:textAppearance="?android:attr/textAppearanceListItem"
-        />
+          android:textAppearance="?android:attr/textAppearanceMedium"
+          android:clickable="true"
+        >                                      <!-- android:textAppearance="?android:attr/textAppearanceListItem"-->
+
+    </TextView >
