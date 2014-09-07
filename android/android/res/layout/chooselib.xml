@@ -10,10 +10,9 @@
             android:layout_height="wrap_content"
             android:text="@string/lay_chooselib_choose"
             android:id="@+id/textView" android:layout_gravity="center_vertical|left" android:padding="5sp"/>
-    <ExpandableListView
+    <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="fill_parent"
             android:id="@+id/libListView" android:layout_gravity="right|center_vertical"
-            android:descendantFocusability="blocksDescendants"
             />
 </LinearLayout>

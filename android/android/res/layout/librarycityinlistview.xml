@@ -5,10 +5,11 @@
           android:layout_width="fill_parent"
           android:layout_height="?android:attr/listPreferredItemHeight"
           android:gravity="center_vertical"
-          android:paddingLeft="?android:attr/expandableListPreferredChildPaddingLeft"
+          android:paddingLeft="60dip"
           android:singleLine="true"
           android:textAppearance="?android:attr/textAppearanceMedium"
-          android:clickable="true"
+          android:background="@android:drawable/list_selector_background"
+
         >                                      <!-- android:textAppearance="?android:attr/textAppearanceListItem"-->
 
     </TextView >
