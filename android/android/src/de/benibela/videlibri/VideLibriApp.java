@@ -97,7 +97,10 @@ public class VideLibriApp extends Application implements Bridge.VideLibriContext
                     newFields[p] = fields[i];
                     p+=1;
                 }
-            config.setCustomReportContent(Arrays.copyOf(newFields, p));
+
+            ReportField[] newFields2 = new ReportField[fields.length];
+            System.arraycopy(newFields, 0, newFields2, 0, p);
+            config.setCustomReportContent(newFields2);
         }
 
         SharedPreferences prefs = ACRA.getACRASharedPreferences();
