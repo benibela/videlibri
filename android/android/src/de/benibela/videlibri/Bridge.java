@@ -269,6 +269,7 @@ public class Bridge {
     }
     static Library[] getLibraries(){
         String libs[] =  VLGetLibraries();
+        ArrayList<Library> important = new ArrayList<Library>();
         Library[] result = new Library[libs.length];
         for (int i=0;i<libs.length;i++){
             result[i] = new Library();
@@ -278,6 +279,7 @@ public class Bridge {
             result[i].locationPretty = temp[2];
             result[i].namePretty = temp[3];
             result[i].nameShort = temp[4];
+            if (result[i].namePretty.contains("(Neu)")) important.add(result[i]);
         }
         Arrays.sort(result, new Comparator<Library>() {
             @Override
@@ -286,9 +288,17 @@ public class Bridge {
                     if (library.fullStatePretty.charAt(0) == 'D') return -1;
                     else if (library2.fullStatePretty.charAt(0) == 'D') return 1;
                 }
-                return library.fullStatePretty.compareTo(library2.fullStatePretty);
+                int r = library.fullStatePretty.compareTo(library2.fullStatePretty);
+                if (r != 0) return r;
+                r = library.locationPretty.compareTo(library2.locationPretty);
+                if (r != 0) return r;
+                return library.namePretty.compareTo(library2.namePretty);
             }
         });
+        if (important.size() > 0) {
+            important.addAll(Arrays.asList(result));
+            result = important.toArray(new Library[important.size()]);
+        }
         return result;
     }
 
