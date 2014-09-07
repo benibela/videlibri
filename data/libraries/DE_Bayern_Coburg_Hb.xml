@@ -1,7 +1,8 @@
-<?xml version="1.0" encoding="UTF-8"?>
+a<?xml version="1.0" encoding="UTF-8"?>
 <library>
   <longName value="Hochschulbibliothek Coburg (alpha)"/>
   <shortName value="Hb Coburg"/> 
+  <deprecatedName value="DE_Coburg_Coburg_Hb"/>
   
   <template value="sisis"/>  
   <variable name="server" value="https://recherche.bibkatalog.de/InfoGuideClient.fwssis/"/>
