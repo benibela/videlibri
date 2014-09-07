@@ -121,7 +121,7 @@ PAGES=(${PAGES[@]} aDISWeb/connected_furtwangen.html aDISWeb/connected_voebb1.ht
 ADDTEMPLATE aDISWeb/searchInputForm 1
 PAGES=(${PAGES[@]} aDISWeb/searchInputForm_mannheim-hsb.html )
 
-ADDTEMPLATE aDISWeb/orderConfirmation 2
+ADDTEMPLATE aDISWeb/orderConfirmation{vl:choose} 2
 PAGES=(${PAGES[@]} aDISWeb/orderConfirmation_hdmtest.html aDISWeb/orderConfirmation_due.html )
 
 ADDTEMPLATE aDISWeb/orderConfirmed{vl:raise} 5
@@ -145,7 +145,7 @@ PAGES=(${PAGES[@]} zones18/listIncremental.html)
 ADDTEMPLATE zones18/bulkRenew 2 
 PAGES=(${PAGES[@]} zones18/bulkRenew.html zones18/bulkRenew2.html)
 
-ADDTEMPLATE zones18/listOrders 6
+ADDTEMPLATE 'zones18/listOrders{requestId:=0}' 6
 PAGES=(${PAGES[@]} zones18/orderList1.html zones18/orderList1unterwegs.html zones18/orderList2.html zones18/orderList2canceled.html zones18/orderList3+canceled.html zones18/orderList3+canceled_real.html )
 
 ADDTEMPLATE zones18/cancelConfirm 1

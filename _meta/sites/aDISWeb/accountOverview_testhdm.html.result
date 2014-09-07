@@ -3,7 +3,9 @@ book: {}
 
 goBackPage: string: 
 orderedPage: string: 
+orderedMagazinePage: string: 
 kontoPage: node(): /aDISWeb/app;jsessionid=BAD103FCCA5E6C45BA21B0B0B50159DF?service=direct/1/POOLM21PBSZTEST@_4B004500_2C34CC00/Tabelle_ZLLW01.cellInternalLink.directlink&sp=SRGLINK_1&sp=SZA&requestCount=7
+orderedMagazinePage: string: 
 providedPage: node(): /aDISWeb/app;jsessionid=BAD103FCCA5E6C45BA21B0B0B50159DF?service=direct/1/POOLM21PBSZTEST@_4B004500_2C34CC00/Tabelle_ZLLW01.cellInternalLink.directlink&sp=SRGLINK_3&sp=SZS&requestCount=7
 orderedPage: string: 
 requestedPage: node(): /aDISWeb/app;jsessionid=BAD103FCCA5E6C45BA21B0B0B50159DF?service=direct/1/POOLM21PBSZTEST@_4B004500_2C34CC00/Tabelle_ZLLW01.cellInternalLink.directlink&sp=SRGLINK_5&sp=SZM&requestCount=7
