@@ -49,7 +49,7 @@ public class Search extends VideLibriBaseActivity implements Bridge.SearchConnec
         libName = getIntent().getStringExtra("libName");
 
         TextView lib = ((TextView) findViewById(R.id.library));
-        lib.setText(libName);
+        lib.setText(libName + " ("+tr(R.string.change)+")");
         lib.setPaintFlags(lib.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
         if (libId == null || libId.equals("") || getIntent().getBooleanExtra("showLibList", false)) {
             if ((System.currentTimeMillis() - LibraryList.lastSelectedTime) < LibraryList.SELECTION_REUSE_TIME){
