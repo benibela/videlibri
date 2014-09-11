@@ -1,0 +1,5 @@
+book: {}
+
+
+backButtonName: string: %24Toolbar_1
+gotDetails_GoBackPage: object(): {"post": "service=direct%2F1%2FPOOLNBGPNBGPROD%40_44006C00_29494980%2F%24Form.form&sp=S0&Form0=focus%2CkeyCode%2Cstz%2Csource%2Cselected%2CrequestCount%2CscriptEnabled%2CscrollPos%2CscrDim%2CwinDim%2CimgDim%2C%24FormConditional%2C%24FormConditional%240%2CtextButton%2C%24FormConditional%241%2CtextButton%240%2C%24Toolbar%2C%24Toolbar%240&focus=&keyCode=0&stz=&source=&selected=&requestCount=2&scriptEnabled=F&scrollPos=0&scrDim=&winDim=&imgDim=&%24FormConditional=F&%24FormConditional%240=T&%24FormConditional%241=T&%24Toolbar_1.x=0&%24Toolbar_1.y=0", "method": "POST", "url": "/aDISWeb/app;jsessionid=65EB1EBBEC7B97A9C290614504DAAD84"}
