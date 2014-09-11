@@ -69,7 +69,7 @@
 
   <html>  
     <form>
-      <span>Vollanzeige Katalog</span>
+      <span>Vollanzeige</span>
 
       <t:switch-prioritized>
         <input title="Zurück zur Trefferliste">{backButtonName := uri-encode(@name)}</input>
