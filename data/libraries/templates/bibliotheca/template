@@ -1,4 +1,11 @@
 <actions>
+
+<meta>
+  <description>Template für OCLC Bibliotheca WebOPACs</description>
+  <variable name="baseurl"><description>Serveraddresse, inklusive Protokoll, ohne trailing /</description></variable>
+  <variable name="DB" default=""><description>Datenbank</description></variable>
+</meta>
+
 <action id="connect"></action>
 <action id="update-all">
   <s>follow1 := ()</s>
