@@ -1,0 +1,27 @@
+<t:switch prioritized="true">
+  <body>
+    <table class="GridViewInnerBorder" t:condition="contains(@id, 'grdViewMediumCopies')">
+      <tr><th>{$i := 0}</th></tr>
+      <tr>{$book(x"Exemplar {$i := $i + 1}!") := join(td)}</tr>+
+    </table>
+    
+    <div t:condition="contains(@id, 'tpnlDetail')"><!-- class="DnnContainer">-->
+      <div>     
+         <span>{cat := .}</span>
+         <span>{
+           let $temp := extract($cat/@id, "_Lbl(.*)$", 1) 
+           return if (exists($search-reverse-keys($temp))) then $book($search-reverse-keys($temp)) := .
+                  else $book($cat||"!") := .}</span> 
+      </div>*
+    </div>
+    				
+  </body>
+
+  
+  <table t:condition="contains(@id, 'GrdVolumes')">
+  <td>
+    <a>{$book._volumeFirst := resolve-uri(@href), i := 1, $book("Band 1!") := .}</a>
+    <a>{$book(x"Band {$x := $x + 1}!") := .}</a>*
+  </td>
+  </table>
+</t:switch>  
