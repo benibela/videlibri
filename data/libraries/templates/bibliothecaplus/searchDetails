@@ -1,5 +1,18 @@
 <t:switch prioritized="true">
   <body>
+    <td class="standardPaddingCover">
+        <input type="image">{book.image-url := @src}</input>
+    </td>?
+
+
+    <div t:condition="contains(@id, 'DivAvailRegionDetail')">
+      <input type="image" t:condition="contains(@name, 'mediumImageAvailDetail')">{book.orderable := contains(@src, "false.png")}</input>
+      <div t:test="$book.orderable">
+           <input>{reserve-request := form((//form)[1], {"__EVENTTARGET":  @name})}</input>
+      </div>
+    </div>
+        
+  
     <table class="GridViewInnerBorder" t:condition="contains(@id, 'grdViewMediumCopies')">
       <tr><th>{$i := 0}</th></tr>
       <tr>{$book(x"Exemplar {$i := $i + 1}!") := join(td)}</tr>+

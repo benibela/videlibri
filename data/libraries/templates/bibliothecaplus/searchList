@@ -1,8 +1,12 @@
 <form>{form:=form(.)}
+<a id="dnn_dnnLOGIN_loginLink">{$loginlink := @href}</a>
 <DIV class="DnnModule-OPENSearchModule">
   <div t:condition="contains(@id, 'SearchResult_ResultArea')">
     <span t:condition="contains(@id, 'DataPager1')">
-      <input t:condition="contains(@name, NextButton)">{next-image := @name}</input>?
+      <input t:condition="contains(@name, 'PreviousButton')">{prev-page := form-combine($form, {(@name || ".x"): 5, (@name || ".y"): 5})}</input>?
+      <input t:condition="contains(@name, 'NextButton')">{
+        if ($current-page eq $last-visited-page) then (search-next-page-available := true()) else (), 
+        next-page := form-combine($form, {(@name || ".x"): 5, (@name || ".y"): 5})}</input>?
       <span t:condition="contains(@id, 'TotalItemsLabel')">{search-result-count := normalize-space(.)}</span>
     </span>
 
@@ -11,7 +15,7 @@
       <table><tr>
         <td    class="standardPaddingCover"/>
         <td  >
-          <a>{book := {"title": ., "_detailId": extract(@href, "dnn.*btn.*Value")}}</a>
+          <a>{book := {"title": ., "_detailId": extract(@href, "dnn.*btn.*Value"), "_page": $current-page}}</a>
           
           <span t:condition="contains(@id, 'LblSubTitleValue')">{book.title := x"{$book.title}: {.}"}</span>? 
           

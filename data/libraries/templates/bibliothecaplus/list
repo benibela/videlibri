@@ -1,0 +1,57 @@
+<html>
+  {culture := (//input[contains(@name, "Culture")], "de-DE")[1]/@value, vl:delete-current-books() }
+  <link t:condition="contains(@href, 'PatronAccountModule')">{extendableCheck := extract(resolve-uri(@href), "^.*PatronAccountModule/") || "PatronAccountService.asmx/IsCatalogueCopyExtendable"}</link>
+  
+  <form>
+    { $user-form := form(.),
+      $renew-button := (//input[ends-with(@name, "BtnExtendMediums")])[1]/{"__EVENTTARGET":  @name},
+      $cancel-ordered-button := (//input[ends-with(@name, "BtnCancelReservations")])[1]/{"__EVENTTARGET":  @name},
+      $cancel-provided-button := (//input[ends-with(@name, "BtnCancelReadyForPickup")])[1]/{"__EVENTTARGET":  @name}
+    }
+    
+    <TABLE name="grdViewLoans" class="GridViewInnerBorder"> <!-- also in @id -->
+      <t:switch prioritized="true">
+        <tr><th/></tr>
+        <tr class="GridViewInnerBorderNoData"/>
+      </t:switch>
+      <t:loop>
+        <TR>
+          <TD><INPUT>{book := {"_renewid": @name}}</INPUT></TD>
+          <TD/><!--<input type="image" src=".."/>-->
+          <TD>{book.title := .}</TD>
+          <TD>{book.author := .}</TD>
+          <TD>{book.category := .}</TD>
+          <TD>{book.duedate := parse-date(., 'd.m.yyyy')}</TD>
+          <div class="extendableRegion"><input t:condition="contains(@name, 'CopyId')">{book._copyId := @value, book.id := @value}</input></div>?
+        </TR>
+      </t:loop>
+    </TABLE>             
+  
+  
+    <table class="GridViewInnerBorder" t:condition="contains(@id, 'grdViewReservations')">
+      <t:switch prioritized="true">
+        <tr><th/></tr>
+        <tr class="GridViewInnerBorderNoData"/>
+      </t:switch>
+      <tr><td><input>{book := {"_cancelid": @name, "statusId": "ordered", "cancelable": true()}}</input></td>
+          <TD/><!--<input type="image" src=".."/>-->
+          <TD>{book.title := .}</TD>
+          <TD>{book.author := .}</TD>
+      </tr>*
+    </table>
+           
+    
+  	<table class="GridViewInnerBorder"  t:condition="contains(@id, 'grdViewReadyForPickups')">
+      <t:switch prioritized="true">
+        <tr><th/></tr>
+        <tr class="GridViewInnerBorderNoData"/>
+      </t:switch>
+      <tr><td><input>{book := {"_cancelid": @name, "statusId": "provided", "cancelable": true()}}</input></td>
+          <TD/><!--<input type="image" src=".."/>-->
+          <TD>{book.title := .}</TD>
+          <TD>{book.author := .}</TD>
+      </tr>* <!-- todo: correct columns???-->
+  	</table>
+    
+  </form>
+</html>

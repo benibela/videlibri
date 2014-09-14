@@ -2,7 +2,8 @@
 
 <meta>
   <description>Template für Bibliotheca Plus/OPEN</description>
-  <variable name="urlaccount"><description>Vollständige Seite für den Kontozugriff</description></variable>
+  <variable name="urlaccount"><description>Vollständige URL der Seite für den Kontozugriff</description></variable>
+  <variable name="urlsearch"><description>Vollständige URL der Seite für die erweiterte Suche</description></variable>
 <!--  <variable name="DB" default=""><description>Datenbank</description></variable>-->
 </meta>
 
@@ -10,70 +11,18 @@
 <action id="internal-login">
   <page url="{$urlaccount}">
     <template><form>{
-    test := (//input[contains(@name, "Username")])[1]/@name,
-    test2 := //input/@name,
       loginForm := form(., {"__EVENTTARGET": (//input[contains(@name, "cmdLogin")])[1]/@name, 
                            (//input[contains(@name, "Username")])[1]/@name: $username, 
                            (//input[contains(@name, "password")])[1]/@name: $password  })
     }</form></template>
   </page>
-
-  <page url="{$loginForm}"/>
 </action>
+
+
 <action id="update-all">
   <call action="internal-login"/>
-  <page url="{$urlaccount}"><template>
-      <html>
-        {culture := (//input[contains(@name, "Culture")], "de-DE")[1]/@value, vl:delete-current-books() }
-        <link t:condition="contains(@href, 'PatronAccountModule')">{extendableCheck := extract(resolve-uri(@href), "^.*PatronAccountModule/") || "PatronAccountService.asmx/IsCatalogueCopyExtendable"}</link>
-        <TABLE name="grdViewLoans" class="GridViewInnerBorder"> <!-- also in @id -->
-          <t:switch prioritized="true">
-            <tr><th/>{$renew-form := form((//form)[1])}</tr>
-            <tr class="GridViewInnerBorderNoData"/>
-          </t:switch>
-          <t:loop>
-            <TR>
-              <TD><INPUT>{book := {"_renewid": @name}}</INPUT></TD>
-              <TD/><!--<input type="image" src=".."/>-->
-              <TD>{book.title := .}</TD>
-              <TD>{book.author := .}</TD>
-              <TD>{book.category := .}</TD>
-              <TD>{book.duedate := parse-date(., 'd.m.yyyy')}</TD>
-              <div class="extendableRegion"><input t:condition="contains(@name, 'CopyId')">{book._copyId := @value, book.id := @value}</input></div>?
-            </TR>
-          </t:loop>
-        </TABLE>             
-
-
-        <table class="GridViewInnerBorder" t:condition="contains(@id, 'grdViewReservations')">
-          <t:switch prioritized="true">
-            <tr><th/></tr>
-            <tr class="GridViewInnerBorderNoData"/>
-          </t:switch>
-          <tr><td><input>{book := {"_cancelid": @name, "statusId": "ordered"}}</input></td>
-              <TD/><!--<input type="image" src=".."/>-->
-              <TD>{book.title := .}</TD>
-              <TD>{book.author := .}</TD>
-          </tr>+
-        </table>
-             
-        
-				<table class="GridViewInnerBorder"  t:condition="contains(@id, 'grdViewReadyForPickups')">
-          <t:switch prioritized="true">
-            <tr><th/></tr>
-            <tr class="GridViewInnerBorderNoData"/>
-          </t:switch>
-          <tr><td><input>{book := {"_cancelid": @name, "statusId": "provided"}}</input></td>
-              <TD/><!--<input type="image" src=".."/>-->
-              <TD>{book.title := .}</TD>
-              <TD>{book.author := .}</TD>
-          </tr>+ <!-- todo: correct columns???-->
-				</table>
-          
-      </html>
-    </template>
-  </page>
-
+  <page url="{$loginForm}">{$form := form(.)}</page>
+  <page url="{$urlaccount}" templateFile="list"/>
 </action>
 
 <action id="update-single"> <!--todo: parallize? -->
@@ -99,29 +48,51 @@
 </action>
 
 
-<!--
+
 <action id="renew-list">
-  <s>form := form-combine($renew-form, $renew-books ! {(.)._renewid: "on"} ) </s>
-  <page url="{$form}"/>
-  <call action="update-all"/>
-</action>
-<action id="renew-list">
-  <loop var="b" list="$renew-books">
-    <page url="{$b.renew-link}"><template><form>{form := form(., {"vorbdelbest": "Bestätigung"})}</form></template></page>
-    <page url="{$form}"/>
-  </loop>
+  <s>form := form-combine($user-form, ($renew-books  ! {(.)._renewid: "on"}, $renew-button) ) </s>
+  <page url="{$form}"> <!-- this returns all of update-all list again-->
+    <template><form>{confirm-form := form(., 
+      {'__EVENTTARGET': (.//input[contains(@name, 'ucLoansView')])[1]/extract(., "dnn.*ucLoansView"), 
+       "__EVENTARGUMENT": "CommitCatalogueCopiesExtensionEventArgs" } )}</form></template>
+  </page>
+  <page url="{$confirm-form}"/> <!-- this returns all of update-all list again-->
   <call action="update-all"/>
 </action>
 
-<action id="cancel-single">
-  <page url="{$book.cancel-link}"><template><form>{form := form(., {"verlaengern": "Verlängern"})}</form></template></page>
-  <page url="{$form}"/> <!-- this returns the full of update-all list again- ->
+<action id="cancel-list"> <!-- this is murks -->
+  <if test="$cancel-books[(.).statusId eq 'ordered']">
+    <s>form := form-combine($user-form, ($cancel-books[(.).statusId eq 'ordered'] ! {(.)._cancelid: "on"}, $cancel-ordered-button) ) </s>
+    <page url="{$form}" templateFile="list"/> <!-- this returns all of update-all list again, but we only need the user-form (other stuff is irrelevant?)-->
+  </if>
+  <if test="$cancel-books[(.).statusId eq 'provided']">
+    <s>form := form-combine($user-form, ($cancel-books[(.).statusId eq 'provided'] ! {(.)._cancelid: "on"}, $cancel-provided-button) ) </s>
+    <page url="{$form}"  templateFile="list"/> <!-- this returns all of update-all list again-->
+    <!--    <call action="update-all"/> does not do anything??-->
+  </if>
 </action>
 
 
 -->
 
 
+
+<action id="gotopage">
+  <loop test="$current-page > $target-page">
+    <s>$current-page := $current-page - 1</s>
+    <page url="{$prev-page}" templateFile="searchListHeaderOnly"/>
+  </loop>
+
+  <loop test="$current-page < $target-page and $target-page <= $last-visited-page">
+    <s>$current-page := $current-page + 1</s>
+    <page url="{$next-page}" templateFile="searchListHeaderOnly"/>
+  </loop>
+  
+  <loop test="$current-page < $target-page">
+    <s>$current-page := $current-page + 1, $last-visited-page := $current-page</s>
+    <page url="{$next-page}" templateFile="searchList"/>
+  </loop>  
+</action>
 
 <action id="search-connect">
   <s>loggedIn := false()</s>
@@ -141,7 +112,7 @@
       search-year-values := .//input[contains(@name, "Year")]
     }</form></template></page>
     
-    <s>   next-page := (), i := 1,
+    <s>   current-page := 1, last-visited-page := 1, next-page := (), i := 1,
           search-keys := {"title": "Title", "author": "Author", "keyword": "Keyword", "isbn": "ISBNandISSN"},
           search-reverse-keys := {"Publisher": "publisher", "ProductionYear": "year", "Author": "author", "IsbnTitle": "isbn"},
           startSearch := form-combine($search-form, {|
@@ -158,9 +129,17 @@
 </action>
 
 <action id="search-next-page">
-  <page url="{$next-page}" templateFile="searchList"/>
+  <s>$target-page := $last-visited-page + 1</s>
+  <call action="gotopage"/>
 </action>
 
+<action id="internal-gotobookpage">
+  <s>target-page := $book._page</s>
+  <call action="gotopage"/>
+  <s>combined-detail-form := form-combine($form, {'__EVENTTARGET': $book._detailId})</s>
+  <page url="{$combined-detail-form}" templateFile="searchDetails"/>
+  <page url="{$book._volumeFirst}" templateFile="searchDetails"/>
+</action>
 
 <action id="search-details">
   <!--<s>temp := if (not(exists($next-page))) then () 
@@ -168,65 +147,22 @@
              else $book._detailsBackScroll || "?scrollAction=1"
   </s>
   <page url="{$temp}"/>-->
-  <s>combined-form := form-combine($form, {'__EVENTTARGET': $book._detailId})</s>
-  <page url="{$combined-form}" templateFile="searchDetails"/>
-  <page url="{$book._volumeFirst}" templateFile="searchDetails"/>
+  <call action="internal-gotobookpage"/>
 </action>
-<!--
+
 <action id="order-single"> 
-  <s>url := $book._order-url</s>
-  <if test="not($loggedIn)">
-    <page url="{$url}">
-        <template>
-          <FORM><t:s>vl:delete-current-books()</t:s>{url := form(., {"AUSWEIS": $username, "PWD": $password})}</FORM>    
-        </template>
-    </page>
+  <if test="not(get('loggedIn', false()))">
+    <s>urlaccount := $loginlink, current-page := 1</s> <!-- need to use login form from search page, tp  -->
+    <call action="internal-login"/>
+    <page url="{$loginForm}" templateFile="searchListHeaderOnly"/>
+    <s>loggedIn := true()</s>
   </if>
-  
-  <page url="{$url}"><!-- templateFile="orderConfirmation"/> - ->
-    <template><form>{confirm-form := form(.)}
-      <div class="kontomeldung">{$message}</div>?
-      <SELECT NAME="VZST"  > 
-        {vl:choose("internal-order-confirmed", get("message", "ziel?"), option, option/@value)}
-      </SELECT>
-    </form></template>
-  </page>
-  
-  <s>$loggedIn := true()</s>
+  <call action="internal-gotobookpage"/>
+  <page urL="{$reserve-request}"><template>
+    <form>{$form := form(., //input[contains(@name, "btnSave")])}</form>
+  </template></page>
+ <page urL="{$form}"/>
 </action> 
-
-<action id="internal-order-confirmed">
-  <if test="$choose-result ne -1">
-    <s>form := form-combine($confirm-form, {"VZST": $choose-result})</s>
-    <page url="{$form}">
-      <template><form>{form := form(., {"Vorbestellen": "Bestätigung"})}</form></template>
-    </page>
-    <page url="{$form}">
-      <template><div class="kontomeldung">Die Vorbestellung wurde für Sie durchgeführt!<t:s>book.statusId := "ordered"</t:s></div></template>
-    </page>
-  </if>
-</action>
--->
-<!--
-<action id="order-single"> 
-  <call action="internal-login"/>
-  
-  <page url="{$book._order-url}" templateFile="orderConfirmation"/> 
-</action> 
-
-<action id="internal-order-confirmed">
-  <s>form := form-combine($confirm-form, {"MakeResTypeDef.Reservation.RecipientLocn": $choose-result, "Confirm": 1})</s>
-  <page url="{$form}" test="$choose-result ne -1">
-    <template>
-      <td>Die Vormerkung wurde erfolgreich durchgeführt.<t:s>book.statusId := "ordered"</t:s></td>
-    </template>
-  </page>
-</action>
-
-
-
-
--->
 
 
 
