@@ -21,7 +21,9 @@
 
 <action id="update-all">
   <call action="internal-login"/>
-  <page url="{$loginForm}">{$form := form(.)}</page>
+  <page url="{$loginForm}"><template><html>{
+    for $message in //div[contains(@id, "Login_UP")]//span[contains(@id, "lblMessage")] return vl:raise-login(normalize-space($message))
+  }</html></template></page>
   <page url="{$urlaccount}" templateFile="list"/>
 </action>
 
