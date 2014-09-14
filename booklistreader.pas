@@ -975,6 +975,14 @@ begin
   result.setMutable('title', book.title);
   result.setMutable('year', book.year);
   result.setMutable('isbn', book.isbn);
+  case book.status of //todo: merge with serialized!!
+    bsNormal: result.setMutable('statusId', 'normal');
+    bsUnknown: result.setMutable('statusId', 'unknown');
+    bsProblematicInStr: result.setMutable('statusId', 'critical');
+    bsCuriousInStr: result.setMutable('statusId', 'curious');
+    bsOrdered: result.setMutable('statusId', 'ordered');
+    bsProvided: result.setMutable('statusId', 'provided');
+  end;
   for i:=0 to high(book.additional) do
     result.setMutable(book.additional[i].name, book.additional[i].value);
   result.setMutable('_existing', xqvalueTrue);
