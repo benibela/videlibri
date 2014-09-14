@@ -3,13 +3,14 @@
   <longName value="Stadtbibliothek Stralsund (alpha)"/>
   <shortName value="Stb Stralsund"/>
   
-  <template value="webopacoclc"/>
-  <variable name="baseurl" value="http://opac.stralsund.de/webopac"/>	
+  <template value="bibliothecaplus"/>
+  <variable name="urlaccount" value="http://katalog.stralsund.de/de-de/konto.aspx"/>	
+  <variable name="urlsearch" value="http://katalog.stralsund.de/de-de/profisuche.aspx"/>
   <!--<template value="pica"/>-->
 
 
   <homepage value="http://stadtbibliothek.stralsund.de/"/>
-  <testing-search value="nein" date="2014-08-19"/>
-  <testing-account value="nein" date="2014-08-19"/>
+  <testing-search value="ja" date="2014-09-14"/>
+  <testing-account value="ja" date="2014-09-14"/>
   <testing-renew value="?" date=""/>
 </library>
