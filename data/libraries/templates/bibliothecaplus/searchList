@@ -1,3 +1,5 @@
+<t:switch prioritized="true">
+
 <form>{form:=form(.)}
 <a id="dnn_dnnLOGIN_loginLink">{$loginlink := @href}</a>
 <DIV class="DnnModule-OPENSearchModule">
@@ -55,3 +57,10 @@
 </DIV>
 -->
 </form>
+
+
+
+<div t:condition="contains(@id, 'dnn_ctr690_MainView_UcNormalView_DivSearchResultView') 
+                  and matches(., 'Ihre Suche erzielte keine Treffer|No results available')">{search-result-count := 0}</div>
+
+</t:switch>
