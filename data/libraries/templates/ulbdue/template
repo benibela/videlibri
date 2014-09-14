@@ -3,8 +3,9 @@
 
 
 <meta>
-  <description>Template für das Aleph-System, wie früher von der ULB Düsseldorf verwendet</description>
-  <variable name="server"><description>Serveraddresse</description></variable>
+  <description>Template für aleph 2005 (vor allem für die ULB Düsseldorf gedacht)</description>
+  <variable name="server"><description>Serveraddresse, ohne Protokoll mit trailing slash</description></variable>
+  <variable name="institute"><description>Institutsid des Katalogs</description></variable>
 </meta>
 
 <action id="connect">
@@ -17,9 +18,7 @@
       <post name="bor_verification" value="{$password}"/>
       <post name="bor_library" value="DUE50"/>
     </page>-->
-    
-  <variable name="institute" value="DUE50"/>
-  
+      
   <page url="https://{$server}/pds?func=load-login&calling_system=aleph&institute={$institute}">
   <template><html>{
     if (//form) then

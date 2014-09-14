@@ -11,7 +11,7 @@
   
   <template value="ulbdue"/>  
   <variable name="server" value="fichte.ub.uni-duesseldorf.de/"/>
-
+  <variable name="institute" value="DUE50"/>
 <!--  <template value="primo"/>  
   <variable name="loginServer" value="fichte.ub.uni-duesseldorf.de"/>  
   <variable name="server" value="katalog.ulb.hhu.de"/>    

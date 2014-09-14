@@ -2,8 +2,9 @@
 <actions>
 
 <meta>
-  <description>spezielles Template für aleph-System der TU-Berlin</description>
-  <variable name="server"><description>Serveraddresse</description></variable>
+  <description>Template für aleph 2007 mit PDS SSO Loginserver (vor allem für die TU-Berlin)</description>
+  <variable name="server"><description>Serveraddresse, ohne Protokoll mit trailing slash</description></variable>
+  <variable name="institute"><description>Institutsid des Katalogs</description></variable>
 </meta>
 
 <action id="connect">
@@ -23,7 +24,7 @@
       <post name="calling_system" value="aleph"/>
       <post name="bor_id" value="{$username}"/>
       <post name="bor_verification" value="{$password}"/>      
-      <post name="institute" value="TUK50"/>
+      <post name="institute" value="{$institute}"/>
       <post name="url" value="{$borInfoPage}"/>
       
       <template>

@@ -11,6 +11,7 @@
   <template value="aleph_ubTUb"/>
   
   <variable name="server" value="ublibsprod.ub.tu-berlin.de/"/>
+  <variable name="institute" value="TUK50"/>
 <!--  <variable name="loginserver" value="vs30.kobv.de:443/"/>-->
   
   <!--<variable name="Location" value="Düsseldorf"/>
