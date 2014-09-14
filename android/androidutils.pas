@@ -31,7 +31,9 @@ procedure androidAllThreadsDone();
 
 
 implementation
-uses bbutils, accountlist, applicationconfig, bbdebugtools, libraryAccess, simplehtmltreeparser;
+uses bbutils, accountlist, applicationconfig, bbdebugtools, libraryAccess, simplehtmltreeparser, math;
+
+threadvar skippedpaths: TStringArray;
 
 function testAssetVersion(const res: string): boolean;
   function readAttrib(pos: integer): string;
@@ -73,10 +75,17 @@ end;
 
 function userAssetFileAsString(name: string; var res: string): boolean;
 begin
+  if length(skippedpaths) > 0 then begin
+    if arrayContains(skippedpaths, copy(name, 1, max(strRpos('/', name), strRpos(DirectorySeparator, name)))) then
+      exit(false);
+  end;
   if not FileExists(userPath + name) then exit(false);
   res := strLoadFromFileUTF8(userPath + name);
   if not strEndsWith(name, 'template') then result := true
-  else result := testAssetVersion(res)
+  else begin
+    result := testAssetVersion(res);
+    if not result then arrayAdd(skippedpaths, copy(name, 1, max(strRpos('/', name), strRpos(DirectorySeparator, name))));
+  end;
 end;
 
 {$ifndef android}
