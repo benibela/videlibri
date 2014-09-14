@@ -15,7 +15,7 @@
     <change>Aleph: Serveraddresse ist nicht mehr hardcodiert</change>
     <change>statusId-Eigenschaft von Medien ist im Template lesbar</change> 
     <change>Coburg ist nun in Bayern</change> 
-    <change>WebopacOCÖC heißt nun Bibliotheca</change>
+    <change>WebopacOCLC heißt nun Bibliotheca</change>
     <fix>android: Neuimplementierung der Bibliotheksliste, behebt Crashes, nicht klickbare Zeilen und falsche Sortierung </fix>
   </build>
   <build version="1660" date="2014-08-20">
