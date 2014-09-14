@@ -1,0 +1,42 @@
+<t:switch prioritized="true">
+  <DIV class="maindivkonto">
+    <DIV class="kontozeile_center">
+      <TABLE>
+        <tr><!-- Verfasser	Titel	Frist	Zweigstelle	 -->
+          <th>Frist</th>
+        </tr>
+        <t:loop>
+          <TR>
+            <TD>{$book := {"author": .}}</TD>
+            <TD>{$book.title}</TD>
+            <TD>{$book.duedate := parse-date(., 'd.m.yyyy')}</TD>
+            <td>{$book.libraryBranch}</td>
+            <td><a>{if (contains(@href, "vermsg")) then ($book.status := "nicht verlängerbar", $book.statusId := "critical")
+                    else ($book.statusId := "normal", $book.renew-link := resolve-uri(@href)) }</a></td>?
+          </TR>
+        </t:loop>
+      </TABLE>
+    </DIV>
+
+    <DIV class="kontozeile_center">
+      <TABLE>
+        <tr><th/></tr> <!--Verfasser	Titel		Zweigstelle	 -->
+        
+        <t:loop>
+          <TR>
+            <TD>{$book := {"author": ., "statusId": "ordered"}}</TD>
+            <TD>{$book.title}</TD>
+            <td>{$book.libraryBranch}</td>
+            <td>{if (contains(string(a/@href), "delvor")) then ($book.cancelable := true(), $book.cancel-link := resolve-uri(a/@href))
+                    else ($book.cancelable := false()) }</td>?
+          </TR>
+        </t:loop>
+      </TABLE>
+    </DIV>?
+  </DIV>
+  
+  <div class="kontomeldung">
+ {vl:raise(.)}
+  </div>
+  
+</t:switch>
