@@ -1,10 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?xml-stylesheet type="text/xsl" href="../changelog.xsl"?>
 <changelog program="VideLibri">
-  <build version="1660" date="2014-08-20">
+  <build version="1666" date="2014-09-14">
     <download url="http://videlibri.sourceforge.net/updates/videlibri-setup.exe" platform="WINDOWS" execute="&quot;$DOWNLOAD&quot;  /SP- /noicons &quot;/dir=$OLDPATH&quot; " restart="true"/>
     <download url="http://videlibri.sourceforge.net/updates/videlibri-linux32.deb" platform="LINUX32" execute=""/>
     <download url="http://videlibri.sourceforge.net/updates/videlibri-linux64.deb" platform="LINUX64" execute=""/>
+    <add>Unterstützung für Bibliotheca+/OPEN</add>    
+    <fix>Stb Stralsund: von Bibliotheca zu Bibliotheca+</fix>
+    <add>Neustadt an der Weinstraße</add>
+    <fix>aDIS: Einzelsuchergebnisse</fix>
+    <fix>zones 1.8: Zeigt alle Vormerkungen an, nicht nur die der ersten Seite</fix>
+    <fix>Hannover Stb: Erkennung von korrekt ausgeführten Vormerkungen</fix>
+    <add>Templates können auf bestimmte VideLibri-Versionen begrenzt werden</add>
+    <change>Aleph: Serveraddresse ist nicht mehr hardcodiert</change>
+    <change>statusId-Eigenschaft von Medien ist im Template lesbar</change> 
+    <change>Coburg ist nun in Bayern</change> 
+    <change>WebopacOCÖC heißt nun Bibliotheca</change>
+    <fix>android: Neuimplementierung der Bibliotheksliste, behebt Crashes, nicht klickbare Zeilen und falsche Sortierung </fix>
+  </build>
+  <build version="1660" date="2014-08-20">
     <change>Neue Bibliothekliste (nach Bundesländern sortiert)</change>
     <add>OCLC WebOPAC + Stadtbibliothek Stralsund</add>
     <fix>Nürnberg: Ausleihdatum</fix>
