@@ -4,9 +4,9 @@
   <shortName value="Ub Kiel"/>
   
   <template value="pica"/>  
-  <variable name="server" value="https://lhopc4.ub.uni-kiel.de/"/>
+  <variable name="server" value="http://kiopc4.ub.uni-kiel.de:8080"/>
   <variable name="picadb" value="1"/>
-  <variable name="searchKeysOverride" value="tnt;per;isb;erj;swo"/>
+  <variable name="searchKeysOverride" value="tit;per;num;erj;sww"/>
 
 
   <homepage value="http://www.ub.uni-kiel.de/"/>

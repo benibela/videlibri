@@ -3,7 +3,7 @@
   <longName value="Schleswig-Holsteinische Landesbibliothek (alpha)"/>
   
   <template value="pica"/>  
-  <variable name="server" value="https://lhopc4.ub.uni-kiel.de/"/>
+  <variable name="server" value="http://kiopc4.ub.uni-kiel.de:8080"/>
   <variable name="picadb" value="3"/>
   <!--<variable name="searchKeysOverride" value="tnt;per;isb;erj;swo"/>-->
 
