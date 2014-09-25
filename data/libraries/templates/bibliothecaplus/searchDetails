@@ -37,4 +37,7 @@
     <a>{$book(x"Band {$x := $x + 1}!") := .}</a>*
   </td>
   </table>
+  
+  <span t:condition="contains(@id, 'LblVolumes') and (matches(., '^(Volumes|Bände)$')) and empty(ancestors::tr[1]/following::tr[1]//table)"/> <!-- accept pages without volumes, but still try to raise error, if nothing is on the page-->
+  
 </t:switch>  
