@@ -10,7 +10,7 @@
 </action>
 
 <action id="update-all">
-  <page url="https://ausleihe.staatsbibliothek-berlin.de/opac/user.S?LANG=de&FUNC=medk&DUM1=&BENUTZER={uri-encode($username)}&PASSWORD={xs:string(string-to-base64Binary($password))}" templateFile="update"/>
+  <page url="https://ausleihe.staatsbibliothek-berlin.de/opac/user.S?LANG=de&FUNC=medk&DUM1=&BENUTZER={uri-encode($username)}&PASS={xs:string(string-to-base64Binary($password))}" templateFile="update"/>
 <!--  <error templateFile="loginError"/>-->
 </action>
 
@@ -32,13 +32,13 @@
     <post name="LANG" value="de"/>
     <post name="FUNC" value="verl"/>
     <post name="BENUTZER" value="{$username}"/>
-    <post name="PASSWORD" value="{xs:string(string-to-base64Binary($password))}"/>
+    <post name="PASS" value="{xs:string(string-to-base64Binary($password))}"/>
     <post value="{$book-list}"/>
   </page>
   <page url="https://ausleihe.staatsbibliothek-berlin.de/opac/medk.S" templateFile="fastUpdate">
     <post name="LANG" value="de"/>
     <post name="BENUTZER" value="{$username}"/>
-    <post name="PASSWORD" value="{xs:string(string-to-base64Binary($password))}"/>
+    <post name="PASS" value="{xs:string(string-to-base64Binary($password))}"/>
   </page>
 </action>
 
