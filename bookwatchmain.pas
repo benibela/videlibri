@@ -1155,6 +1155,7 @@ begin
     criticalSessionUsed:=true;
   end;
   try
+  BookList.groupingProperty := userConfig.ReadString('appearance', 'groupingProperty','');
   BookList.BeginUpdate;
   BookList.items.clear;
   for i:=0 to viewMenu.Count-1 do begin
@@ -1164,10 +1165,10 @@ begin
     assert(viewMenu.Items[i].tag<=accounts.Count);
     account:=(accounts[viewMenu.Items[i].tag-1]);
     if currentList then begin
-      bookList.addBookList(account.books.current);
+      bookList.addBookList(account.books.current, viewMenu.Items[i].Caption);
       lastCheck:=min(lastCheck,account.books.current.lastCheck);
     end;
-    if oldList then bookList.addBookList(account.books.old);
+    if oldList then bookList.addBookList(account.books.old, viewMenu.Items[i].Caption);
   end;
   BookList.Sort;
 

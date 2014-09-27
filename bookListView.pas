@@ -23,12 +23,13 @@ uses
       eventTyp_cdet: TCustomDrawEventTyp; item: TTreeListItem; var defaultDraw: Boolean);
     procedure BookListViewItemsSortedEvent(Sender: TObject);
 
-    procedure addBook(book: tbook);
+    procedure addBook(book: tbook; const accountName: string);
     function getBook(i: integer): TBook;
  public
+   groupingProperty: string;
    constructor create(aowner: TComponent;showLendBooks: boolean);
    procedure clear;
-   procedure addBookList(list: TBookList);
+   procedure addBookList(list: TBookList; const accountName: string = '');
    property books[i:integer]: TBook read GetBook;
 
    function SelectedBook: TBooK;
@@ -50,10 +51,26 @@ implementation
 
 uses applicationconfig, bbutils, libraryParser, Graphics;
 //  ,windows {for the search only};
+
+
+
 { TBookListView }
 function dateToWeek(date: longint):longint; //week: monday - sunday
 begin
   Result:=(date-2) div 7;
+end;
+function dateToWeekPretty(date: longint): string;
+var
+  week: LongInt;
+begin
+  if date <= 0 then exit('Unbekannte Woche');
+  week := dateToWeek(date);
+  case week - dateToWeek(currentDate) of
+    -1: result := 'Letzte Woche';
+    0: result := 'Diese Woche';
+    1: result := 'Nächste Woche';
+    else result := 'Woche vom '+DateToStr(week * 7 + 2)+ ' zum '+DateToStr(week * 7+2+6);
+  end;
 end;
 
 procedure TBookListView.BookListViewItemsSortedEvent(Sender: TObject);
@@ -81,7 +98,9 @@ procedure TBookListView.BookListCompareItems(sender: TObject; i1,
   i2: TTreeListItem; var compare: longint);
 var book1,book2: TBook;
 begin
+  if i1.SubItems.Count > 0 then i1 := i1.SubItems[0];
   book1:=TBook(i1.data.obj);
+  if i2.SubItems.Count > 0 then i2 := i2.SubItems[0];
   book2:=TBook(i2.data.obj);
   if (book1=nil) then begin
     Compare:=1;
@@ -121,20 +140,22 @@ begin
     compare:=compareText(i1.Text,i2.Text);
 end;
 
-function getBookColor(book:TBook):TColor;
+type TBookColorState = (bcsOld, bcsOrdered, bcsOK, bcsProvided, bcsLimited, bcsTimeNear);
+
+function getBookColor(book:TBook):TBookColorState;
 begin
-  if book = nil then exit(colorTimeNear);
+  if book = nil then exit(bcsOld);
   if book.lend=false then
-    result:=colorOld
+    result:=bcsOld
   else if book.status = bsProvided then
-    result:=colorProvided
+    result:=bcsProvided
   else if book.status = bsOrdered then
-    result:=colorOrdered
+    result:=bcsOrdered
   else if book.dueDate<=redTime then
-    result:=colorTimeNear
+    result:=bcsTimeNear
   else if book.status in BOOK_NOT_EXTENDABLE then
-    result:=colorLimited
-  else result:=colorOK;
+    result:=bcsLimited
+  else result:=bcsOK;
 end;
 
 
@@ -142,13 +163,22 @@ procedure TBookListView.BookListCustomItemDraw(sender: TObject;
   eventTyp_cdet: TCustomDrawEventTyp; item: TTreeListItem; var defaultDraw: Boolean);
 var pa: array[0..2] of tpoint;
     i,x,y,ypos:longint;
+    colorState: TBookColorState;
 begin
   ypos:=TTreeListView(sender).DrawingYPos;
   case eventTyp_cdet of
     cdetPrePaint:
       if not item.SeemsSelected then begin
         canvas.Brush.Style:=bsSolid;
-        Canvas.brush.color:=StringToColor(item.RecordItemsText[BL_BOOK_EXTCOLUMNS_COLOR]);
+        colorState := TBookColorState(ord(item.RecordItemsText[BL_BOOK_EXTCOLUMNS_COLOR][1]) - ord('0'));
+        case colorState of
+          bcsOld: Canvas.brush.color:=colorOld;
+          bcsOrdered: Canvas.brush.color:=colorOrdered;
+          bcsOK: Canvas.brush.color:=colorOK;
+          bcsProvided: Canvas.brush.color:=colorProvided;
+          bcsLimited: Canvas.brush.color:=colorLimited;
+          else Canvas.brush.color:=colorTimeNear;
+        end;
         if Canvas.brush.color=clnone then
           Canvas.brush.color:=self.Color;;
       end;
@@ -181,9 +211,52 @@ begin
 end;
 
 
-procedure TBookListView.addBook(book: tbook);
+
+
+procedure TBookListView.addBook(book: tbook; const accountName: string);
+var
+  bookItem: TTreeListItem;
+  group: String;
+  i: Integer;
 begin
-  with items.Add do begin
+  group := '';
+  bookItem := nil;
+  case groupingProperty of
+    '':  bookItem := items.Add;
+    '_account':  group := accountName;
+    '_dueWeek':  group := dateToWeekPretty(book.dueDate);
+    '_status': begin
+      if not book.lend then group := 'abgegeben'
+      else begin
+        case book.status of
+          bsNormal, bsCuriousInStr: group := 'normal/verlängerbar';
+          bsUnknown: group := 'unbekannt';
+          bsProblematicInStr: group := 'nicht verlängerbar';
+          bsOrdered: group := 'vorgemerkt';
+          bsProvided: group := 'bereitgestellt';
+          else group := '???';
+          //bsIsSearchedDONTUSETHIS,bsEarMarkedDONTUSETHIS, bsMaxLimitReachedDONTUSETHIS,,bsCuriousInStr,bsAccountExpiredDONTUSETHIS,);
+        end;
+        if book.statusStr <> '' then group := group + ': '+book.statusStr;
+      end;
+    end;
+    '_issueWeek': group := dateToWeekPretty(book.issueDate);
+    else group := book.getProperty(groupingProperty);
+  end;
+  if groupingProperty <> '' then begin
+    for i := 0 to Items.Count - 1 do
+      if Items[i].Text = group then begin
+        bookItem := items[i].SubItems.Add();
+        break;
+      end;
+    if bookItem = nil then
+      with items.Add(group) do begin
+        bookItem := SubItems.Add();
+        RecordItemsText[BL_BOOK_EXTCOLUMNS_COLOR]:='0';
+      end;
+  end;
+
+  with bookItem do begin
     book.incReference;
 
     text:=book.id;
@@ -206,7 +279,9 @@ begin
 
 //    RecordItems.Add(book.year); ;
    // SubItems.add(book.otherInfo);
-    RecordItemsText[BL_BOOK_EXTCOLUMNS_COLOR]:=ColorToString(getBookColor(book));
+    RecordItemsText[BL_BOOK_EXTCOLUMNS_COLOR]:=chr(ord(getBookColor(book)) + ord('0'));
+    if (groupingProperty <> '') and (RecordItemsText[BL_BOOK_EXTCOLUMNS_COLOR] > Parent.RecordItemsText[BL_BOOK_EXTCOLUMNS_COLOR]) then
+      parent.RecordItemsText[BL_BOOK_EXTCOLUMNS_COLOR] := RecordItemsText[BL_BOOK_EXTCOLUMNS_COLOR];
 
     //else
     data.obj:=book;
@@ -289,11 +364,11 @@ begin
   lastAddBook:=nil;
 end;
 
-procedure TBookListView.addBookList(list: TBookList);
+procedure TBookListView.addBookList(list: TBookList; const accountName: string);
 var i:longint;
 begin
   for i:=0 to list.Count-1 do
-    addBook(list[i]);
+    addBook(list[i], accountName);
 end;
 
 function TBookListView.SelectedBook: TBooK;

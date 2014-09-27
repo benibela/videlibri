@@ -35,7 +35,7 @@ object optionForm: ToptionForm
     Height = 483
     Top = 6
     Width = 612
-    PageIndex = 5
+    PageIndex = 1
     Anchors = [akTop, akLeft, akRight, akBottom]
     BorderSpacing.Around = 2
     OnChangeBounds = Notebook1ChangeBounds
@@ -455,7 +455,7 @@ object optionForm: ToptionForm
         AnchorSideTop.Side = asrCenter
         Left = 12
         Height = 15
-        Top = 297
+        Top = 299
         Width = 83
         Caption = 'Symbolleiste:'
         ParentColor = False
@@ -511,7 +511,7 @@ object optionForm: ToptionForm
         AnchorSideTop.Control = ShapeProvided
         AnchorSideTop.Side = asrBottom
         Left = 104
-        Height = 21
+        Height = 25
         Top = 294
         Width = 158
         BorderSpacing.Around = 9
@@ -565,6 +565,43 @@ object optionForm: ToptionForm
         BorderSpacing.Around = 4
         Caption = 'Farbe für abholbereite (vorgemerkte) Medien:'
         ParentColor = False
+      end
+      object Label34: TLabel
+        AnchorSideTop.Control = groupingProperty
+        AnchorSideTop.Side = asrCenter
+        Left = 12
+        Height = 15
+        Top = 337
+        Width = 83
+        Caption = 'Gruppierung.'
+        ParentColor = False
+      end
+      object groupingProperty: TComboBox
+        AnchorSideTop.Control = symbols
+        AnchorSideTop.Side = asrBottom
+        Left = 104
+        Height = 25
+        Top = 332
+        Width = 158
+        BorderSpacing.Top = 13
+        ItemHeight = 0
+        Items.Strings = (
+          'Keine'
+          'Konto'
+          'Fristwoche'
+          'Fristdatum'
+          'Status'
+          'Ausleihwoche'
+          'Ausleihdatum'
+          'Ausleihbibliothek'
+          'ID'
+          'Kategorie'
+          'Titel'
+          'Verfasser'
+          'Jahr'
+        )
+        Style = csDropDownList
+        TabOrder = 4
       end
     end
     object pageInternet: TPage

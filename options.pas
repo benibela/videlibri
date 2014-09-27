@@ -16,6 +16,8 @@ type
 
   ToptionForm = class(TForm)
     accountList: TListView;
+    groupingProperty: TComboBox;
+    Label34: TLabel;
     libNameEdit: TEdit;
     Label33: TLabel;
     templateDefine: TButton;
@@ -208,6 +210,8 @@ implementation
 
 uses newAccountWizard_u, applicationconfig, simplehtmltreeparser, androidutils, multipagetemplate, bbutils, internetaccess, simpleinternet;
 
+const groupingPropertyMap: array[0..12] of string = ('', '_account', '_dueWeek', 'dueDate', '_status', '_issueWeek', 'issueDate', 'libraryBranch', 'id', 'category', 'title', 'author', 'year');
+
 { ToptionForm }
 
 procedure ToptionForm.addAccount(const account: TCustomAccountAccess);
@@ -316,6 +320,12 @@ begin
   ShapeProvided.brush.color:=colorProvided;
   timeNearMeaning.Text:=IntToStr(redTime-currentDate);
   symbols.ItemIndex:=userConfig.ReadInteger('appearance','symbols',0);
+  temp := userConfig.ReadString('appearance','groupingProperty', '');
+  for i := 0 to high(groupingPropertyMap) do
+    if groupingPropertyMap[i] = temp then begin
+      groupingProperty.ItemIndex := i;
+      break;
+    end;
 
   //Internetpage
   case userConfig.readInteger('access','internet-type',0) of
@@ -418,7 +428,9 @@ end;
 procedure ToptionForm.Button3Click(Sender: TObject);
 var
  i: Integer;
+ needRefreshListView: Boolean;
 begin
+  needRefreshListView := false;
   colorLimited:=ShapeLimited.brush.color;
   colorOK:=ShapeOK.brush.color;
   colorTimeNear:=ShapeTimeNear.brush.color;
@@ -436,6 +448,12 @@ begin
   if mainForm.ViewOld.Checked then mainform.BookList.BackGroundColor:=ShapeOld.brush.color
   else mainform.BookList.BackGroundColor:=ShapeOK.brush.color;
   userConfig.WriteInteger('appearance','symbols',symbols.ItemIndex);
+  if (groupingProperty.ItemIndex >= 0)
+     and (groupingProperty.ItemIndex < length(groupingPropertyMap))
+     and (groupingPropertyMap[groupingProperty.ItemIndex] <> userConfig.ReadString('appearance', 'groupingProperty', '')) then begin
+    userConfig.WriteString('appearance','groupingProperty', groupingPropertyMap[groupingProperty.ItemIndex]);
+    needRefreshListView := true;
+  end;
   mainForm.setSymbolAppearance(symbols.ItemIndex);
 
   //Internetpage
@@ -484,6 +502,7 @@ begin
   userConfig.WriteInteger('base','history-backup-interval',HistoryBackupInterval);
 
   mainForm.Refresh;
+  if needRefreshListView then mainform.RefreshListView;
   ModalResult:=mrOK;
   Close;
 end;
