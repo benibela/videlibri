@@ -1,0 +1,436 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html  xml:lang="de-DE" lang="de-DE" xmlns="http://www.w3.org/1999/xhtml">
+<head id="Head">
+<!--**********************************************************************************-->
+<!-- DotNetNuke - http://www.dotnetnuke.com                                          -->
+<!-- Copyright (c) 2002-2013                                                          -->
+<!-- by DotNetNuke Corporation                                                        -->
+<!--**********************************************************************************-->
+<title>
+	Stadtbibliothek Stralsund > Vorbestellung
+</title><meta content="text/html; charset=UTF-8" http-equiv="Content-Type" /><meta content="text/javascript" http-equiv="Content-Script-Type" /><meta content="text/css" http-equiv="Content-Style-Type" /><meta http-equiv="X-UA-Compatible" content="IE=edge" /><meta id="MetaCopyright" name="COPYRIGHT" content="Copyright 2011 by OCLC GmbH" /><meta id="MetaGenerator" name="GENERATOR" content="DotNetNuke " /><meta id="MetaAuthor" name="AUTHOR" content="Stadtbibliothek Stralsund" /><meta name="RESOURCE-TYPE" content="DOCUMENT" /><meta name="DISTRIBUTION" content="GLOBAL" /><meta id="MetaRobots" name="ROBOTS" content="INDEX, FOLLOW" /><meta name="REVISIT-AFTER" content="1 DAYS" /><meta name="RATING" content="GENERAL" /><meta http-equiv="PAGE-ENTER" content="RevealTrans(Duration=0,Transition=1)" /><style id="StylePlaceholder" type="text/css"></style><link href="/Portals/_default/default.css?cdv=60" type="text/css" rel="stylesheet"/><link href="/Portals/_default/admin.css?cdv=60" type="text/css" rel="stylesheet"/><link href="/Portals/_default/Skins/Nukeville.Morpheus/skin.css?cdv=60" type="text/css" rel="stylesheet"/><link href="/Portals/_default/Containers/Nukeville.Morpheus/container.css?cdv=60" type="text/css" rel="stylesheet"/><link href="/Portals/_default/Containers/Nukeville.Morpheus/Set3_7S.css?cdv=60" type="text/css" rel="stylesheet"/><link href="/Portals/1/portal.css?cdv=60" type="text/css" rel="stylesheet"/><script src="/Resources/Shared/Scripts/jquery/jquery.min.js?cdv=60" type="text/javascript"></script><script src="/Resources/Shared/Scripts/jquery/jquery-ui.min.js?cdv=60" type="text/javascript"></script><link id="PresetStyles" rel="stylesheet" type="text/css" href="/Portals/_default/Skins/Nukeville.Morpheus/GraphicPstv2.css" /><link href="http://localhost/de-de/vorbestellung.aspx" rel="canonical" /></head>
+<body id="Body" class="dnnEditState">
+    
+    <form method="post" action="/de-de/vorbestellung.aspx" onsubmit="javascript:return WebForm_OnSubmit();" id="Form" enctype="multipart/form-data">
+<div class="aspNetHidden">
+<input type="hidden" name="StylesheetManager_TSSM" id="StylesheetManager_TSSM" value="" />
+<input type="hidden" name="ScriptManager_TSM" id="ScriptManager_TSM" value="" />
+<input type="hidden" name="__EVENTTARGET" id="__EVENTTARGET" value="" />
+<input type="hidden" name="__EVENTARGUMENT" id="__EVENTARGUMENT" value="" />
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="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" />
+</div>
+
+<script type="text/javascript">
+//<![CDATA[
+var theForm = document.forms['Form'];
+if (!theForm) {
+    theForm = document.Form;
+}
+function __doPostBack(eventTarget, eventArgument) {
+    if (!theForm.onsubmit || (theForm.onsubmit() != false)) {
+        theForm.__EVENTTARGET.value = eventTarget;
+        theForm.__EVENTARGUMENT.value = eventArgument;
+        theForm.submit();
+    }
+}
+//]]>
+</script>
+
+
+<script src="/WebResource.axd?d=ghVvLLiJbKwQuky62SA5cx1VCiMbuwkoafYY5b0ZBKo6M9hGh51thgslrMKoTcMT6HWh-PbT1c_s9SX60&amp;t=635418424260000000" type="text/javascript"></script>
+
+
+<script type="text/javascript">
+//<![CDATA[
+var __cultureInfo = {"name":"de-DE","numberFormat":{"CurrencyDecimalDigits":2,"CurrencyDecimalSeparator":",","IsReadOnly":false,"CurrencyGroupSizes":[3],"NumberGroupSizes":[3],"PercentGroupSizes":[3],"CurrencyGroupSeparator":".","CurrencySymbol":"€","NaNSymbol":"n. def.","CurrencyNegativePattern":8,"NumberNegativePattern":1,"PercentPositivePattern":1,"PercentNegativePattern":1,"NegativeInfinitySymbol":"-unendlich","NegativeSign":"-","NumberDecimalDigits":2,"NumberDecimalSeparator":",","NumberGroupSeparator":".","CurrencyPositivePattern":3,"PositiveInfinitySymbol":"+unendlich","PositiveSign":"+","PercentDecimalDigits":2,"PercentDecimalSeparator":",","PercentGroupSeparator":".","PercentSymbol":"%","PerMilleSymbol":"‰","NativeDigits":["0","1","2","3","4","5","6","7","8","9"],"DigitSubstitution":1},"dateTimeFormat":{"AMDesignator":"","Calendar":{"MinSupportedDateTime":"\/Date(-62135596800000)\/","MaxSupportedDateTime":"\/Date(253402297199999)\/","AlgorithmType":1,"CalendarType":1,"Eras":[1],"TwoDigitYearMax":2029,"IsReadOnly":false},"DateSeparator":".","FirstDayOfWeek":1,"CalendarWeekRule":2,"FullDateTimePattern":"dddd, d. MMMM yyyy HH:mm:ss","LongDatePattern":"dddd, d. MMMM yyyy","LongTimePattern":"HH:mm:ss","MonthDayPattern":"dd MMMM","PMDesignator":"","RFC1123Pattern":"ddd, dd MMM yyyy HH\u0027:\u0027mm\u0027:\u0027ss \u0027GMT\u0027","ShortDatePattern":"dd.MM.yyyy","ShortTimePattern":"HH:mm","SortableDateTimePattern":"yyyy\u0027-\u0027MM\u0027-\u0027dd\u0027T\u0027HH\u0027:\u0027mm\u0027:\u0027ss","TimeSeparator":":","UniversalSortableDateTimePattern":"yyyy\u0027-\u0027MM\u0027-\u0027dd HH\u0027:\u0027mm\u0027:\u0027ss\u0027Z\u0027","YearMonthPattern":"MMMM yyyy","AbbreviatedDayNames":["So","Mo","Di","Mi","Do","Fr","Sa"],"ShortestDayNames":["So","Mo","Di","Mi","Do","Fr","Sa"],"DayNames":["Sonntag","Montag","Dienstag","Mittwoch","Donnerstag","Freitag","Samstag"],"AbbreviatedMonthNames":["Jan","Feb","Mrz","Apr","Mai","Jun","Jul","Aug","Sep","Okt","Nov","Dez",""],"MonthNames":["Januar","Februar","März","April","Mai","Juni","Juli","August","September","Oktober","November","Dezember",""],"IsReadOnly":false,"NativeCalendarName":"Gregorianischer Kalender","AbbreviatedMonthGenitiveNames":["Jan","Feb","Mrz","Apr","Mai","Jun","Jul","Aug","Sep","Okt","Nov","Dez",""],"MonthGenitiveNames":["Januar","Februar","März","April","Mai","Juni","Juli","August","September","Oktober","November","Dezember",""]},"eras":[1,"n. Chr.",null,0]};//]]>
+</script>
+
+<script src="/Telerik.Web.UI.WebResource.axd?_TSM_HiddenField_=ScriptManager_TSM&amp;compress=1&amp;_TSM_CombinedScripts_=%3b%3bSystem.Web.Extensions%2c+Version%3d4.0.0.0%2c+Culture%3dneutral%2c+PublicKeyToken%3d31bf3856ad364e35%3ade-DE%3af319b152-218f-4c14-829d-050a68bb1a61%3aea597d4b%3ab25378d2" type="text/javascript"></script>
+<script src="/js/dnn.js" type="text/javascript"></script>
+<script type="text/javascript">
+//<![CDATA[
+function WebForm_OnSubmit() {
+dnn.controls.submitComp.onsubmit();
+return true;
+}
+//]]>
+</script>
+
+<div class="aspNetHidden">
+
+	<input type="hidden" name="__VIEWSTATEGENERATOR" id="__VIEWSTATEGENERATOR" value="CA0B0334" />
+	<input type="hidden" name="__VIEWSTATEENCRYPTED" id="__VIEWSTATEENCRYPTED" value="" />
+	<input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="loY7nJ048IreyR9SC2ro3A9FiKZdQxUKOYw89xO8DXLRBpgDJiV5bInivhzwVUW3ZLxEAi87/0DTK7LzxHfTczdY8JQpHKMPphF0VPPoIXtdBN9K8bCw5r+tYYLDy1Zu8urO5OlR0eipX2D+9ZCG6m32mIu26zffn0QJsQCpb+IMMmsK1174oyrUeyO91IEUisNF0W/Hd3dA5Bzn2VJS4ieIzwOUNaZEoSXpRt5JCjhBAG12QU9IBRiLU0I2q20MfjLdg18gyQiQ3x6ko0QTWEMfhU4=" />
+</div>
+<script type="text/javascript">
+//<![CDATA[
+Sys.WebForms.PageRequestManager._initialize('ScriptManager', 'Form', [], [], [], 90, '');
+//]]>
+</script>
+
+        <script src="/js/dnn.controls.js?cdv=60" type="text/javascript"></script><script src="/js/dnn.modalpopup.js?cdv=60" type="text/javascript"></script><script src="/Resources/Shared/Scripts/jquery/jquery.hoverIntent.min.js?cdv=60" type="text/javascript"></script><script src="/js/dnn.controls.dnnmenu.js?cdv=60" type="text/javascript"></script><script src="/js/dnn.dom.positioning.js?cdv=60" type="text/javascript"></script><script src="/js/dnncore.js?cdv=60" type="text/javascript"></script><script src="/Resources/Shared/Scripts/dnn.jquery.js?cdv=60" type="text/javascript"></script>
+        
+        
+<!--[if lt IE 7]><script type="text/javascript">$('head').append('<link rel="stylesheet" id="nvie6css" href="/Portals/_default/Skins/Nukeville.Morpheus/ie6.css" type="text/css" />');</script><![endif]-->
+<script type="text/javascript">//<!--
+var _spath = "/Portals/_default/Skins/Nukeville.Morpheus/"; var _eontabid = "115"; var _eonportalid = "1"; var _aplpst = "Graphic";
+//--></script>
+<script type="text/javascript" src="/Portals/_default/Skins/Nukeville.Morpheus/inv.js"></script>
+
+
+
+<link rel="stylesheet" type="text/css" href="/DesktopModules/OCLC.OPEN.PL.DNN.BaseLibrary/StyleSheets/Common/jquery-ui.css" />
+<script src="/DesktopModules/OCLC.OPEN.PL.DNN.BaseLibrary/JavaScriptFrameworks/jQueryExtensions/jquery.cookie.js" type="text/javascript">
+</script>
+
+<script type="text/javascript">
+    var EU_LAW_INFO_COOKIE = 'EU_LAW_INFO';
+
+    $(document).ready(function () {
+        var divToHide = $("#CookieAcknowledgeInfo");
+        if (jQuery.cookie(EU_LAW_INFO_COOKIE)) {
+            divToHide.hide();
+        }
+        else {
+            divToHide.show();
+        }
+    });
+
+    function setlocalcookie() {
+     jQuery.cookie(EU_LAW_INFO_COOKIE, true, { expires: 3650, path : "/" });   
+     $("#CookieAcknowledgeInfo").hide();
+ }
+
+ function showCookieDetailsDialog() {
+     $("#CookieDetailsDialog").dialog(
+            {
+                modal: true,      
+                dialogClass: "no-close",
+                buttons: [
+                    {
+                        text: "OK",
+                        click: function () { $(this).dialog("close"); }
+                    }]
+            });
+                $("#CookieDetailsDialog").dialog({ width: '640px' });
+                $("#CookieDetailsDialog").dialog("option", "position", "center");
+ }
+</script>
+
+
+<div id="CookieAcknowledgeInfo" style="display: block;z-index:1001;padding:8px;height:32;width:100%;position:fixed;bottom:0;left:0;background:rgba(213,213,231,0.85);">
+    <div class="CookieAcknowledgeMessage" style="float:left">
+        <span id="dnn_cookielaw_CookieAcknowledgeMessage">Diese Seite verwendet Cookies.</span>
+    </div>
+<div class="CookieDetailsLink" style="float:left;margin-left:10px;margin-right:10px">
+        <a onclick="showCookieDetailsDialog()"  title="Details anzeigen" style="margin-left:10px;margin-right:10px">Details anzeigen</a>
+</div>
+
+<div class="CookieAcknowledgeImage" style="float:left">
+        <img id="dnn_cookielaw_CookieAcknowledgeImage" onclick="setlocalcookie()" src="../DesktopModules/OCLC.OPEN.PL.DNN.SkinObject.CookieLawInfo/Images/false.png" alt="&lt;Hier klicken>" style="height:20px;width:20px;" />
+</div>
+</div>
+
+<div id="CookieDetailsDialog" title="Cookies" style="display:none; min-width:640;min-height:480 ;">
+   <p style="font-size: larger">Verwendung von Cookies</p>
+<br>
+<p style="font-size: large">Cookies</p>
+
+<br>
+ <p>Diese Anwendung benötigt für ihren fehlerfreien Ablauf Cookies.<br>
+Cookies sind kleine Textdateien, die von einer Webseite oder einem Online-Dienst auf Ihrem Rechner gespeichert werden.
+<br><br>
+Nachfolgend erhalten Sie eine Auflistung der von OCLC verwendeten Cookies mit Angabe der Anwendung, einer Kurzbeschreibung und der Speicherdauer auf Ihrem Computer (sofern Sie diese nicht sperren oder löschen).
+</p> <br>
+        
+<table rules="all" style="border-width:1px;border-style:Solid;width:600px;">
+<tbody>
+    <tr>
+		<th align="left">Cookie</th>
+        <th align="left">Beschreibung</th>
+        <th align="left">Speicherdauer</th>
+	</tr>
+    <tr>
+		<td>OPAC Portal</td>
+        <td><a href="http://www.dnnsoftware.com/wiki/Page/DotNetNuke-Cookie-usage" target="_blank">Liste der verwendeten Cookies des Portals DotNetNuke &lt;Hier klicken&gt;</a></td>
+        <td>siehe Herstellerseite</td>
+	</tr>
+    <tr>
+		<td>EU_LAW_INFO</td>
+        <td>Der Cookie wird erstellt, sobald der Benutzer die Verwendung von Cookies in OPEN zur Kenntnis genommen hat</td>
+        <td>10 Jahre nach Erstellung</td>
+	</tr>
+    </tbody>
+</table>
+</div>
+
+
+<div class="eonChkW"><div class="eonChkW2"><div class="eonchksize eonchks"></div></div></div><div class="eonVst"><div class="eonVst2"><div class="eon_ConSet1"></div><div class="eon_ConSet2"></div><div class="eon_ConSet3"></div><div class="eon_ConSet4"></div></div></div><div class="eonPreL"><div><div class="preSub1"></div><div class="preSub2"></div><div class="preSub3"></div></div></div><div class="eonbkg" id="eonbkgdiv"><div class="eonbkg1"><div class="eonbkg2"><div class="eonbkg3"><div class="eonpad" id="eonpadiv"><div class="nvpgsac"><div class="resizediv"><div class="nvrez1"></div><div class="nvrez2"><div class="eonfontobj"><div class="eonbtnf1"></div><div class="eonbtnf2"></div><div class="eonbtnf3"></div></div><div class="eonresizesep"><div class="eonbtnsep"></div></div><div class="eonresizeobj"><div class="eonbtnr1"></div><div class="eonbtnr2"></div><div class="eonbtnr3"></div></div></div><div class="nvrez3"></div></div><div id="eonsec1a" class="nvbor1"><div class='nvbor2'><div class='nvbor3'></div></div><div class='nvbor4'><div class='nvbor5'><div class='nvbor6'><div class="LogoDiv" ><div class="LoginDiv"><div class="eonLanguage"><div class="language-object" >
+
+<span class="Language" title="English (United States)"><a href="http://katalog.stralsund.de/en-us/vorbestellung.aspx" ><img src="/images/Flags/en-US.gif" alt="en-US" /></a></span><span class="Language selected" title="Deutsch (Deutschland)" ><img src="/images/Flags/de-DE.gif" alt="de-DE" /></span>
+</div></div><div class="eonUser"><a id="dnn_dnnUSER_registerLink" title="Visit My Profile" class="USER_object nvt_il" href="http://katalog.stralsund.de/Konto/tabid/108/userId/1109/language/de-DE/Default.aspx">aaaaaaa</a>
+<!--close registerGroup--><a id="dnn_dnnLOGIN_loginLink" title="abmelden" class="LOGIN_object nvt_il" href="http://katalog.stralsund.de/Vorbestellung/tabid/115/ctl/Logoff/language/de-DE/Default.aspx">abmelden</a>
+<!--close loginGroup--></div><div class="eonCurDate"><span id="dnn_dnnCURRENTDATE_lblDate" class="DATE_object">Sonntag, 14. September 2014</span>
+</div></div><a id="dnn_dnnLOGO_hypLogo" title="Stadtbibliothek Stralsund" href="http://katalog.stralsund.de/de-de/einfachesuche.aspx"><img id="dnn_dnnLOGO_imgLogo" src="/Portals/1/Portal_Logo.jpg" alt="Stadtbibliothek Stralsund" style="border-width:0px;" /></a></div></div></div></div><div class='nvbor7'><div class='nvbor8'></div></div></div><div id="eonsec1nava" class="nvbor1"><div id="eonsec1bst" class="nvbor9"><div class="nvbor10"><div class="nvbor11"></div></div></div><div id="eonsec1bct" class="nvbor1"><div class='nvbor2'><div class='nvbor3'></div></div></div><div class='nvbor4'><div class='nvbor5'><div class='nvbor6'><div class="nv_navspc"></div><div class="nv_navwrp"><div id="dnn_CustomHeaderPaneTop" class="econCustomHP DNNEmptyPane"></div><div id="nv_nav_tm"><div class="nv_nav_o nvnav"><div class="nv_navt_bl"></div><div class="nv_navt_br"></div><div class="nv_navt_b"><div>
+	<ul class="" id="dnn_dnnNAV_ctldnnNAV">
+		<li id="dnn_dnnNAV_ctldnnNAVctr51"><a href="http://katalog.stralsund.de/de-de/aktuelles.aspx"><span>Aktuelles</span></a></li><li id="dnn_dnnNAV_ctldnnNAVctr60"><a href="http://katalog.stralsund.de/de-de/einfachesuche.aspx"><span>Einfache Suche</span></a></li><li id="dnn_dnnNAV_ctldnnNAVctr61"><a href="http://katalog.stralsund.de/de-de/profisuche.aspx"><span>Profisuche</span></a></li><li id="dnn_dnnNAV_ctldnnNAVctr55"><a href="http://www1.onleihe.de/nordverbund/frontend/welcome,0-0-0-101-0-0-0-0-0-0-0.html"><span>Online-Bibliothek</span></a><ul id="dnn_dnnNAV_ctldnnNAVsub55">
+			<li id="dnn_dnnNAV_ctldnnNAVctr83"><a href="http://www1.onleihe.de/nordverbund/frontend/welcome,0-0-0-101-0-0-0-0-0-0-0.html"><span>E-Medien</span></a></li><li id="dnn_dnnNAV_ctldnnNAVctr84"><a href="http://www.munzinger.de/search/go/document.jsp?id=00000015419&amp;preview=0"><span>Munzinger</span></a></li>
+		</ul></li><li id="dnn_dnnNAV_ctldnnNAVctr100"><a href="http://katalog.stralsund.de/de-de/kinder/suchwortschreiben.aspx"><span>Kinder</span></a><ul id="dnn_dnnNAV_ctldnnNAVsub100">
+			<li id="dnn_dnnNAV_ctldnnNAVctr104"><a href="http://katalog.stralsund.de/de-de/kinder/suchwortschreiben.aspx"><span>Suchwort schreiben</span></a></li><li id="dnn_dnnNAV_ctldnnNAVctr106"><a href="http://katalog.stralsund.de/de-de/kinder/antolinb%c3%bccher.aspx"><span>Antolin-Bücher</span></a></li>
+		</ul></li><li id="dnn_dnnNAV_ctldnnNAVctr101"><a href="http://katalog.stralsund.de/de-de/jugendliche.aspx"><span>Jugendliche</span></a></li><li id="dnn_dnnNAV_ctldnnNAVctr54"><a href="http://katalog.stralsund.de/de-de/veranstaltungen.aspx"><span>Veranstaltungen</span></a></li><li id="dnn_dnnNAV_ctldnnNAVctr108"><a href="http://katalog.stralsund.de/de-de/konto.aspx"><span>Konto</span></a></li>
+	</ul>
+</div></div></div><div class="nv_nav_o2 nvnav"><div class="nv_navb_bl"></div><div class="nv_navb_br"></div><div class="nv_navb_b"></div></div></div><div class="nv_navbts"></div><div id="dnn_CustomHeaderPane" class="econCustomHP DNNEmptyPane"></div><div class="eonCI_1 eonCPA_1"><div class="eonCB1 nvcoa1"><div class='nvcoa2'><div class='nvcoa3'></div></div><div class='nvcoa4'><div class='nvcoa5'><div class='nvcoa6'><div class="eonCB2 nvcob1"><div class='nvcob2'><div class='nvcob3'></div></div><div class='nvcob4'><div class='nvcob5'><div class='nvcob6'><div class="ImagePaneWrp"><div id="dnn_ImagePane" class="ImagePane DNNEmptyPane"></div></div></div></div></div><div class='nvcob7'><div class='nvcob8'></div></div></div></div></div></div><div class='nvcoa7'><div class='nvcoa8'></div></div></div></div></div></div></div></div></div><div id="eonsec1b" class="nvbor1"><div class='nvbor4'><div class='nvbor5'><div class='nvbor6'></div></div></div><div class='nvbor7'><div class='nvbor8'></div></div></div><div id="eonsec2" class='nvbor1'><div class='nvbor2'><div class='nvbor3'></div></div><div class='nvbor4'><div class='nvbor5'><div class='nvbor6'><div class="eonMain"><div class="breadDiv"><div class="searchDiv"><div class="searchDivC">
+
+<link rel="stylesheet" type="text/css" href="/DesktopModules/OCLC.OPEN.PL.DNN.BaseLibrary/StyleSheets/Common/jquery-ui.css" />
+<link rel="stylesheet" type="text/css" href="/DesktopModules/OCLC.OPEN.PL.DNN.BaseLibrary/StyleSheets/AutoCompletion/AutoCompletion.css" />
+
+<script type="text/javascript">
+	$(document).ready(function () {
+		swapValues = [];
+		$('#' + 'dnn_dnnSEARCH_txtSearch').each(function (i) {
+			swapValues[i] = 'Ihre Mediensuche ...';
+			var color = $(this).css("color");
+			if ($.trim($(this).val()) == "" || $(this).val() == swapValues[i]) {
+				$(this).val(swapValues[i]);
+				$(this).css("font-style", "italic");
+				$(this).css("color", color).css("opacity", 0.5);
+			}
+			$(this).focus(function () {
+				if ($(this).val() == swapValues[i]) {
+					$(this).val("");
+					$(this).css("font-style", "normal");
+					$(this).css("color", color).css("opacity", 1);
+				}
+			}).blur(function () {
+				if ($.trim($(this).val()) == "") {
+					$(this).val(swapValues[i]);
+					$(this).css("font-style", "italic");
+					$(this).css("color", color).css("opacity", 0.5);
+				}
+			});
+		});
+	});
+</script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        swapValues2 = [];
+        $('#' + 'dnn_dnnSEARCH_txtSearchNew').each(function (i) {
+        	swapValues2[i] = 'Ihre Mediensuche ...';
+        	var color = $(this).css("color");
+        	if ($.trim($(this).val()) == "" || $(this).val() == swapValues2[i]) {
+        		$(this).val(swapValues2[i]);
+        		$(this).css("font-style", "italic");
+        		$(this).css("color", color).css("opacity", 0.5);
+        	}
+            $(this).focus(function () {
+                if ($(this).val() == swapValues2[i]) {
+                    $(this).val("");
+                    $(this).css("font-style", "normal");
+                    $(this).css("color", color).css("opacity", 1);
+                }
+            }).blur(function () {
+                if ($.trim($(this).val()) == "") {
+                    $(this).val(swapValues2[i]);
+                    $(this).css("font-style", "italic");
+                    $(this).css("color", color).css("opacity", 0.5);
+                }
+            });
+        });
+    });
+</script>
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#' + 'dnn_dnnSEARCH_txtSearch').autocomplete({
+            source: function (request, response) {
+                $.ajax({
+                    type: "POST",
+                    url: "/DesktopModules/OCLC.OPEN.PL.DNN.CopConnector/Services/AutocompleteService.asmx/GetSuggestions",
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    data:
+                      "{" +
+                          "'prefixText': '" + request.term + "', " +
+                          "'count': '20', " +
+                          "'contextKey': 'CatchWordAutoComplete|1'" +
+                      "}",
+                    success: function (data) {
+                        response($.map(data.d, function (item) {
+                            return {
+                                label: item
+                            }
+                        }))
+                    }
+                });
+
+            },
+            minLength: 3
+        });
+    });
+  </script>
+
+  <script type="text/javascript">
+      $(document).ready(function () {
+          $('#' + 'dnn_dnnSEARCH_txtSearchNew').autocomplete({
+              source: function (request, response) {
+                  $.ajax({
+                      type: "POST",
+                      url: "/DesktopModules/OCLC.OPEN.PL.DNN.CopConnector/Services/AutocompleteService.asmx/GetSuggestions",
+                      contentType: "application/json; charset=utf-8",
+                      dataType: "json",
+                      data:
+                      "{" +
+                          "'prefixText': '" + request.term + "', " +
+                          "'count': '20', " +
+                          "'contextKey': 'CatchWordAutoComplete|1'" +
+                      "}",
+                      success: function (data) {
+                          response($.map(data.d, function (item) {
+                              return {
+                                  label: item
+                              }
+                          }))
+                      }
+                  });
+
+              },
+              minLength: 3
+          });
+      });
+  </script>
+
+
+<span id="dnn_dnnSEARCH_ClassicSearch">
+    
+    
+    <input name="dnn$dnnSEARCH$txtSearch" type="text" value="Ihre Mediensuche ..." maxlength="255" size="20" id="dnn_dnnSEARCH_txtSearch" class="NormalTextBox" onkeydown="return __dnn_KeyDown(&#39;13&#39;, &#39;javascript:__doPostBack(%27dnn$dnnSEARCH$cmdSearch%27,%27%27)&#39;, event);" />&nbsp;
+    <a id="dnn_dnnSEARCH_cmdSearch" class="SearchFeild" href="javascript:__doPostBack(&#39;dnn$dnnSEARCH$cmdSearch&#39;,&#39;&#39;)"><span class='SearchButton'> </span></a>
+</span>
+
+</div></div><div class="breadLeft"></div><div class="breadRight"></div><div class="breadMid"><div class="breadHome"><a id="dnn_dnnLOGObc_hypLogo" title="Stadtbibliothek Stralsund" href="http://katalog.stralsund.de/de-de/einfachesuche.aspx"><img id="dnn_dnnLOGObc_imgLogo" src="/Portals/1/Portal_Logo.jpg" alt="Stadtbibliothek Stralsund" style="border-width:0px;" /></a></div><span id="dnn_BREADCRUMB2_lblBreadCrumb"><a href="http://katalog.stralsund.de/de-de/vorbestellung.aspx" class="BREADCRUMBS_object nvt_bc">Vorbestellung</a></span>
+</div></div><div class="PanePad eonContent"><table class="nvpanellay" cellpadding="0" cellspacing="0"><tbody><tr><td class="nvpanell"><div id="nv_nav_vm"><div class="nv_nav_o nvnav"><div class="nv_navv_bt"></div><div class="nv_navv_b"><div>
+	<ul class="" id="dnn_dnnNAVV_ctldnnNAVV">
+		<li id="dnn_dnnNAVV_ctldnnNAVVctr51"><a href="http://katalog.stralsund.de/de-de/aktuelles.aspx"><span>Aktuelles</span></a></li><li id="dnn_dnnNAVV_ctldnnNAVVctr60"><a href="http://katalog.stralsund.de/de-de/einfachesuche.aspx"><span>Einfache Suche</span></a></li><li id="dnn_dnnNAVV_ctldnnNAVVctr61"><a href="http://katalog.stralsund.de/de-de/profisuche.aspx"><span>Profisuche</span></a></li><li id="dnn_dnnNAVV_ctldnnNAVVctr55"><a href="http://www1.onleihe.de/nordverbund/frontend/welcome,0-0-0-101-0-0-0-0-0-0-0.html"><span>Online-Bibliothek</span></a><ul id="dnn_dnnNAVV_ctldnnNAVVsub55">
+			<li id="dnn_dnnNAVV_ctldnnNAVVctr83"><a href="http://www1.onleihe.de/nordverbund/frontend/welcome,0-0-0-101-0-0-0-0-0-0-0.html"><span>E-Medien</span></a></li><li id="dnn_dnnNAVV_ctldnnNAVVctr84"><a href="http://www.munzinger.de/search/go/document.jsp?id=00000015419&amp;preview=0"><span>Munzinger</span></a></li>
+		</ul></li><li id="dnn_dnnNAVV_ctldnnNAVVctr100"><a href="http://katalog.stralsund.de/de-de/kinder/suchwortschreiben.aspx"><span>Kinder</span></a><ul id="dnn_dnnNAVV_ctldnnNAVVsub100">
+			<li id="dnn_dnnNAVV_ctldnnNAVVctr104"><a href="http://katalog.stralsund.de/de-de/kinder/suchwortschreiben.aspx"><span>Suchwort schreiben</span></a></li><li id="dnn_dnnNAVV_ctldnnNAVVctr106"><a href="http://katalog.stralsund.de/de-de/kinder/antolinb%c3%bccher.aspx"><span>Antolin-Bücher</span></a></li>
+		</ul></li><li id="dnn_dnnNAVV_ctldnnNAVVctr101"><a href="http://katalog.stralsund.de/de-de/jugendliche.aspx"><span>Jugendliche</span></a></li><li id="dnn_dnnNAVV_ctldnnNAVVctr54"><a href="http://katalog.stralsund.de/de-de/veranstaltungen.aspx"><span>Veranstaltungen</span></a></li><li id="dnn_dnnNAVV_ctldnnNAVVctr108"><a href="http://katalog.stralsund.de/de-de/konto.aspx"><span>Konto</span></a></li>
+	</ul>
+</div></div><div class="nv_navv_bb"></div></div></div><div id="dnn_PanelPane" class="PanelPane DNNEmptyPane"></div></td><td class="nvpanelr"><table class="nvpanelayout" cellpadding="0" cellspacing="0"><tbody><tr><td id="dnn_Pane_1" colspan="3" class="PanePad eon_cpane1c DNNEmptyPane" valign="top"></td>
+</tr><tr><td id="dnn_Pane_2_Left" class="PanePad eon_cpane2l DNNEmptyPane" valign="top"></td>
+<td id="dnn_Pane_2_Center" class="PanePad eon_cpane2c DNNEmptyPane" valign="top"></td>
+<td id="dnn_Pane_2_Right" class="PanePad eon_cpane2r DNNEmptyPane" valign="top"></td>
+</tr><tr><td id="dnn_ContentPane" colspan="3" class="PanePad eon_cpane3c" valign="top"></td>
+</tr></tbody></table><table class="nvpanelayout" cellpadding="0" cellspacing="0"><tbody><tr><td id="dnn_Pane_4_Left" class="PanePad eon_cpane4l DNNEmptyPane" valign="top"></td>
+<td id="dnn_Pane_4_Center" class="PanePad eon_cpane4c DNNEmptyPane" valign="top"></td>
+<td id="dnn_Pane_4_Right" class="PanePad eon_cpane4r DNNEmptyPane" valign="top"></td>
+</tr><tr><td id="dnn_Pane_5" colspan="5" class="PanePad eon_cpane5c DNNEmptyPane" valign="top"></td>
+</tr></tbody></table><table class="nvpanelayout" cellpadding="0" cellspacing="0"><tbody><tr><td id="dnn_Pane_6_Left" class="PanePad eon_cpane6l DNNEmptyPane" valign="top"></td>
+<td id="dnn_Pane_6_Center" class="PanePad eon_cpane6c DNNEmptyPane" valign="top"></td>
+<td id="dnn_Pane_6_Right" class="PanePad eon_cpane6r DNNEmptyPane" valign="top"></td>
+</tr><tr><td id="dnn_Pane_7" colspan="5" class="PanePad eon_cpane7c" valign="top"><div class="DnnModule DnnModule-OPENPreOrderModule DnnModule-699"><a name="699"></a>
+<div class="eon_ConSet3 eon_C37S">
+<div class="nvcon1 eonVstSet"><div class='nvcon2'><div class='nvcon3'>
+<div class='nvcon9'><div class="eonCHead"><div class="eonCIcon"></div><div class="eonCActions"></div><div class="eonCVisibility"><a onclick="if (__dnn_ContainerMaxMin_OnClick(this, &#39;dnn_ctr699_ModuleContent&#39;)) return false;" id="dnn_ctr699_dnnVISIBILITY_cmdVisibility" title="minimieren" href="javascript:__doPostBack(&#39;dnn$ctr699$dnnVISIBILITY$cmdVisibility&#39;,&#39;&#39;)"><img id="dnn_ctr699_dnnVISIBILITY_imgVisibility" title="minimieren" src="/Portals/_default/Containers/Nukeville.Morpheus/imx.png" alt="minimieren" /></a></div><span id="dnn_ctr699_dnnTITLE_titleLabel" class="eonCLTitle">OPEN.PreOrderModule</span>
+
+
+</div></div>
+</div></div><div class='nvcon4'><div class='nvcon5'><div class='nvcon6'>
+<div id="dnn_ctr699_ContentPane" class="eonCLContent"><!-- Start_Module_699 --><div id="dnn_ctr699_ModuleContent" class="DNNModuleContent ModOPENPreOrderModuleC">
+	
+
+<link rel="stylesheet" type="text/css" href="/DesktopModules/OCLC.OPEN.PL.DNN.BaseLibrary/StyleSheets/Common/OPENCommon.css" />
+<link rel="stylesheet" type="text/css" href="/DesktopModules/OCLC.OPEN.PL.DNN.BaseLibrary/StyleSheets/Common/jquery-ui.css" />
+<link rel="stylesheet" type="text/css" href="/DesktopModules/OCLC.OPEN.PL.DNN.BaseLibrary/StyleSheets/Tabs/DnnTab.css" />
+<link rel="stylesheet" type="text/css" href="/DesktopModules/OCLC.OPEN.PL.DNN.BaseLibrary/StyleSheets/GridViews/GridView.css" />
+<link rel="stylesheet" type="text/css" href="/DesktopModules/OCLC.OPEN.PL.DNN.BaseLibrary/StyleSheets/Common/PagingControls.css" />
+<link rel="stylesheet" type="text/css" href="/DesktopModules/OCLC.OPEN.PL.DNN.BaseLibrary/StyleSheets/AutoCompletion/AutoCompletion.css" />
+
+
+
+<div id="dnn_ctr699_View_UcNormalView_DivPreOrderView" style="width:100%;overflow:hidden">
+	<div class="spacingBottom" style="float:left;width:100%;clear:both">
+		<div style="float:left" class="standardPaddingLabel">
+			<a id="dnn_ctr699_View_UcNormalView_LblReturnToSender" title="Zurück zur Detailanzeige" class="boldText" href="javascript:__doPostBack(&#39;dnn$ctr699$View$UcNormalView$LblReturnToSender&#39;,&#39;&#39;)">Zurück zur Detailanzeige</a>
+		</div>
+		<div id="DivLbtnHelp" style="float:right">
+					<a id="dnn_ctr699_View_UcNormalView_LbtnHelp" title="Hilfe" href="javascript:__doPostBack(&#39;dnn$ctr699$View$UcNormalView$LbtnHelp&#39;,&#39;&#39;)">Hilfe</a>	
+	</div>
+	</div>
+	<div class="spacingBottom standardPaddingLabel" style="float:left;clear:both">
+        <span id="dnn_ctr699_View_UcNormalView_LblInfoMessage"></span>
+    </div>   
+    <div id="dnn_ctr699_View_UcNormalView_DivAvailableCopiesNotReservable" class="dnnFormMessage dnnFormInfo spacingBottom" style="float:left;clear:both;width:90%">
+				<span id="dnn_ctr699_View_UcNormalView_LblAvailableCopiesNotReservable">Es können nur entliehene Exemplare vorbestellt werden.</span>
+	</div>    
+    
+	<div class="spacingBottom standardPaddingLabel" style="float:left;clear:both">
+	<span id="dnn_ctr699_View_UcNormalView_LblReservationCheckResultValue">Ihre Vorbestellung wurde gespeichert.</span>
+	</div>
+    <div class="spacingBottom" style="float:left;clear:both">
+        
+              
+     </div>
+</div>
+
+
+
+</div><!-- End_Module_699 --></div>
+<div class="eonCFoot"><div class="eonCFoot2 eonCLBt">
+
+
+
+
+
+</div></div>
+</div></div></div>
+<div class='nvcon7'><div class='nvcon8'></div></div>
+</div></div>
+
+
+
+</div></td>
+</tr></tbody></table></td></tr></tbody></table></div></div></div></div></div><div class='nvbor7'><div class='nvbor8'></div></div></div><div id="eonsec3" class='nvbor1'><div class='nvbor2'><div class='nvbor3'></div></div><div class='nvbor4'><div class='nvbor5'><div class='nvbor6'><div class="PanePad"><table class="nvpanelayout" cellpadding="0" cellspacing="0"><tbody><tr><td id="dnn_Pane_8" colspan="3" class="PanePad eon_cpane8c DNNEmptyPane" valign="top"></td>
+</tr><tr><td id="dnn_Pane_9_Left" class="PanePad eon_cpane9l DNNEmptyPane" valign="top"></td>
+<td id="dnn_Pane_9_Center" class="PanePad eon_cpane9c DNNEmptyPane" valign="top"></td>
+<td id="dnn_Pane_9_Right" class="PanePad eon_cpane9r DNNEmptyPane" valign="top"></td>
+</tr><tr><td id="dnn_Pane_10" colspan="3" class="PanePad eon_cpane10c DNNEmptyPane" valign="top"></td>
+</tr></tbody></table><table class="nvpanelayout" cellpadding="0" cellspacing="0"><tbody><tr><td id="dnn_Pane_11_Left" class="PanePad eon_cpane11l DNNEmptyPane" valign="top"></td>
+<td id="dnn_Pane_11_Center" class="PanePad eon_cpane11c DNNEmptyPane" valign="top"></td>
+<td id="dnn_Pane_11_Right" class="PanePad eon_cpane11r DNNEmptyPane" valign="top"></td>
+</tr><tr><td id="dnn_Pane_12" colspan="3" class="PanePad eon_cpane12c DNNEmptyPane" valign="top"></td>
+</tr></tbody></table><table class="nvpanelayout" cellpadding="0" cellspacing="0"><tbody><tr><td id="dnn_Pane_13_Left" class="PanePad eon_cpane13l DNNEmptyPane" valign="top"></td>
+<td id="dnn_Pane_13_Center" class="PanePad eon_cpane13c DNNEmptyPane" valign="top"></td>
+<td id="dnn_Pane_13_Right" class="PanePad eon_cpane13r DNNEmptyPane" valign="top"></td>
+</tr><tr><td id="dnn_Pane_14" colspan="3" class="PanePad eon_cpane14c DNNEmptyPane" valign="top"></td>
+</tr></tbody></table></div></div></div></div><div class='nvbor7'><div class='nvbor8'></div></div></div><div id="eonsec4" class='nvbor1'><div class='nvbor2'><div class='nvbor3'></div></div><div class='nvbor4'><div class='nvbor5'><div class='nvbor6'><div class="footerDiv"><div id="dnn_FooterPane1" class="Mar14 DNNEmptyPane"></div><div class="nvftrbg"><div class="nvftr1"><div class='nvftr2'><div class='nvftr3'></div></div><div class='nvftr4'><div class='nvftr5'><div class='nvftr6'><div class="EonFooterL"><span id="dnn_dnnLINKS_lblLinks"><a class="EonFooterLs" href="http://katalog.stralsund.de/de-de/aktuelles.aspx">Aktuelles</a><span class="EonFooterLs">   |   </span><a class="EonFooterLs" href="http://katalog.stralsund.de/de-de/einfachesuche.aspx">Einfache Suche</a><span class="EonFooterLs">   |   </span><a class="EonFooterLs" href="http://katalog.stralsund.de/de-de/profisuche.aspx">Profisuche</a><span class="EonFooterLs">   |   </span><a class="EonFooterLs" href="http://www1.onleihe.de/nordverbund/frontend/welcome,0-0-0-101-0-0-0-0-0-0-0.html">Online-Bibliothek</a><span class="EonFooterLs">   |   </span><a class="EonFooterLs" href="http://katalog.stralsund.de/de-de/kinder/suchwortschreiben.aspx">Kinder</a><span class="EonFooterLs">   |   </span><a class="EonFooterLs" href="http://katalog.stralsund.de/de-de/jugendliche.aspx">Jugendliche</a><span class="EonFooterLs">   |   </span><a class="EonFooterLs" href="http://katalog.stralsund.de/de-de/veranstaltungen.aspx">Veranstaltungen</a><span class="EonFooterLs">   |   </span><a class="EonFooterLs" href="http://katalog.stralsund.de/de-de/konto.aspx">Konto</a></span>
+</div><div id="dnn_FooterPane2" class="FooterPane2 DNNEmptyPane"></div></div></div></div><div class='nvftr7'><div class='nvftr8'></div></div></div></div><div id="dnn_FooterPane3" class="Mar14 DNNEmptyPane"></div><div class="eonCopyright"><span id="dnn_dnnCOPYRIGHT_lblCopyright" class="FOOTER_objects">Copyright 2011 by OCLC GmbH</span>
+</div><div class="eonPrivacy" ><a id="dnn_dnnPRIVACY_hypPrivacy" class="FOOTER_objects" rel="nofollow" href="http://katalog.stralsund.de/Vorbestellung/tabid/115/ctl/Privacy/language/de-DE/Default.aspx">Datenschutzerklärung</a></div><div class="eonTerms"><a id="dnn_dnnTERMS_hypTerms" class="FOOTER_objects" rel="nofollow" href="http://katalog.stralsund.de/Vorbestellung/tabid/115/ctl/Terms/language/de-DE/Default.aspx">Nutzungsbedingungen</a></div><div class="eonMobileRedirect"></div><div>&nbsp;</div></div></div></div></div><div class='nvbor7'><div class='nvbor8'></div></div></div></div></div></div></div></div></div>
+<!--[if lt IE 7]><script type="text/javascript" src="/Portals/_default/Skins/Nukeville.Morpheus/ie6.js"></script><![endif]-->
+
+
+
+
+
+
+        <input name="ScrollTop" type="hidden" id="ScrollTop" value="114" />
+        <input name="__dnnVariable" type="hidden" id="__dnnVariable" autocomplete="off" value="`{`__scdoff`:`1`,`dnn_dnnNAV_ctldnnNAV_json`:`{nodes:[{id:\`51\`,key:\`51\`,txt:\`Aktuelles\`,ca:\`3\`,url:\`http://katalog.stralsund.de/de-de/aktuelles.aspx\`,cssIcon:\` \`,nodes:[]},{id:\`60\`,key:\`60\`,txt:\`Einfache Suche\`,ca:\`3\`,url:\`http://katalog.stralsund.de/de-de/einfachesuche.aspx\`,cssIcon:\` \`,nodes:[]},{id:\`61\`,key:\`61\`,txt:\`Profisuche\`,ca:\`3\`,url:\`http://katalog.stralsund.de/de-de/profisuche.aspx\`,cssIcon:\` \`,nodes:[]},{id:\`55\`,key:\`55\`,txt:\`Online-Bibliothek\`,ca:\`3\`,url:\`http://www1.onleihe.de/nordverbund/frontend/welcome,0-0-0-101-0-0-0-0-0-0-0.html\`,cssIcon:\` \`,nodes:[{id:\`83\`,key:\`83\`,txt:\`E-Medien\`,ca:\`3\`,url:\`http://www1.onleihe.de/nordverbund/frontend/welcome,0-0-0-101-0-0-0-0-0-0-0.html\`,nodes:[]},{id:\`84\`,key:\`84\`,txt:\`Munzinger\`,ca:\`3\`,url:\`http://www.munzinger.de/search/go/document.jsp?id=00000015419\u0026preview=0\`,nodes:[]}]},{id:\`100\`,key:\`100\`,txt:\`Kinder\`,ca:\`3\`,url:\`http://katalog.stralsund.de/de-de/kinder/suchwortschreiben.aspx\`,cssIcon:\` \`,nodes:[{id:\`104\`,key:\`104\`,txt:\`Suchwort schreiben\`,ca:\`3\`,url:\`http://katalog.stralsund.de/de-de/kinder/suchwortschreiben.aspx\`,nodes:[]},{id:\`106\`,key:\`106\`,txt:\`Antolin-Bücher\`,ca:\`3\`,url:\`http://katalog.stralsund.de/de-de/kinder/antolinbücher.aspx\`,nodes:[]}]},{id:\`101\`,key:\`101\`,txt:\`Jugendliche\`,ca:\`3\`,url:\`http://katalog.stralsund.de/de-de/jugendliche.aspx\`,cssIcon:\` \`,nodes:[]},{id:\`54\`,key:\`54\`,txt:\`Veranstaltungen\`,ca:\`3\`,url:\`http://katalog.stralsund.de/de-de/veranstaltungen.aspx\`,cssIcon:\` \`,nodes:[]},{id:\`108\`,key:\`108\`,txt:\`Konto\`,ca:\`3\`,url:\`http://katalog.stralsund.de/de-de/konto.aspx\`,cssIcon:\` \`,nodes:[]}]}`,`dnn_dnnNAV2_ctldnnNAV2_json`:`{nodes:[{id:\`51\`,key:\`51\`,txt:\`Aktuelles\`,ca:\`3\`,url:\`http://katalog.stralsund.de/de-de/aktuelles.aspx\`,cssIcon:\` \`,nodes:[]},{id:\`60\`,key:\`60\`,txt:\`Einfache Suche\`,ca:\`3\`,url:\`http://katalog.stralsund.de/de-de/einfachesuche.aspx\`,cssIcon:\` \`,nodes:[]},{id:\`61\`,key:\`61\`,txt:\`Profisuche\`,ca:\`3\`,url:\`http://katalog.stralsund.de/de-de/profisuche.aspx\`,cssIcon:\` \`,nodes:[]},{id:\`55\`,key:\`55\`,txt:\`Online-Bibliothek\`,ca:\`3\`,url:\`http://www1.onleihe.de/nordverbund/frontend/welcome,0-0-0-101-0-0-0-0-0-0-0.html\`,cssIcon:\` \`,nodes:[{id:\`83\`,key:\`83\`,txt:\`E-Medien\`,ca:\`3\`,url:\`http://www1.onleihe.de/nordverbund/frontend/welcome,0-0-0-101-0-0-0-0-0-0-0.html\`,nodes:[]},{id:\`84\`,key:\`84\`,txt:\`Munzinger\`,ca:\`3\`,url:\`http://www.munzinger.de/search/go/document.jsp?id=00000015419\u0026preview=0\`,nodes:[]}]},{id:\`100\`,key:\`100\`,txt:\`Kinder\`,ca:\`3\`,url:\`http://katalog.stralsund.de/de-de/kinder/suchwortschreiben.aspx\`,cssIcon:\` \`,nodes:[{id:\`104\`,key:\`104\`,txt:\`Suchwort schreiben\`,ca:\`3\`,url:\`http://katalog.stralsund.de/de-de/kinder/suchwortschreiben.aspx\`,nodes:[]},{id:\`106\`,key:\`106\`,txt:\`Antolin-Bücher\`,ca:\`3\`,url:\`http://katalog.stralsund.de/de-de/kinder/antolinbücher.aspx\`,nodes:[]}]},{id:\`101\`,key:\`101\`,txt:\`Jugendliche\`,ca:\`3\`,url:\`http://katalog.stralsund.de/de-de/jugendliche.aspx\`,cssIcon:\` \`,nodes:[]},{id:\`54\`,key:\`54\`,txt:\`Veranstaltungen\`,ca:\`3\`,url:\`http://katalog.stralsund.de/de-de/veranstaltungen.aspx\`,cssIcon:\` \`,nodes:[]},{id:\`108\`,key:\`108\`,txt:\`Konto\`,ca:\`3\`,url:\`http://katalog.stralsund.de/de-de/konto.aspx\`,cssIcon:\` \`,nodes:[]}]}`,`dnn_dnnNAV3_ctldnnNAV3_json`:`{nodes:[]}`,`dnn_dnnNAVV_ctldnnNAVV_json`:`{nodes:[{id:\`51\`,key:\`51\`,txt:\`Aktuelles\`,ca:\`3\`,url:\`http://katalog.stralsund.de/de-de/aktuelles.aspx\`,cssIcon:\` \`,nodes:[]},{id:\`60\`,key:\`60\`,txt:\`Einfache Suche\`,ca:\`3\`,url:\`http://katalog.stralsund.de/de-de/einfachesuche.aspx\`,cssIcon:\` \`,nodes:[]},{id:\`61\`,key:\`61\`,txt:\`Profisuche\`,ca:\`3\`,url:\`http://katalog.stralsund.de/de-de/profisuche.aspx\`,cssIcon:\` \`,nodes:[]},{id:\`55\`,key:\`55\`,txt:\`Online-Bibliothek\`,ca:\`3\`,url:\`http://www1.onleihe.de/nordverbund/frontend/welcome,0-0-0-101-0-0-0-0-0-0-0.html\`,cssIcon:\` \`,nodes:[{id:\`83\`,key:\`83\`,txt:\`E-Medien\`,ca:\`3\`,url:\`http://www1.onleihe.de/nordverbund/frontend/welcome,0-0-0-101-0-0-0-0-0-0-0.html\`,nodes:[]},{id:\`84\`,key:\`84\`,txt:\`Munzinger\`,ca:\`3\`,url:\`http://www.munzinger.de/search/go/document.jsp?id=00000015419\u0026preview=0\`,nodes:[]}]},{id:\`100\`,key:\`100\`,txt:\`Kinder\`,ca:\`3\`,url:\`http://katalog.stralsund.de/de-de/kinder/suchwortschreiben.aspx\`,cssIcon:\` \`,nodes:[{id:\`104\`,key:\`104\`,txt:\`Suchwort schreiben\`,ca:\`3\`,url:\`http://katalog.stralsund.de/de-de/kinder/suchwortschreiben.aspx\`,nodes:[]},{id:\`106\`,key:\`106\`,txt:\`Antolin-Bücher\`,ca:\`3\`,url:\`http://katalog.stralsund.de/de-de/kinder/antolinbücher.aspx\`,nodes:[]}]},{id:\`101\`,key:\`101\`,txt:\`Jugendliche\`,ca:\`3\`,url:\`http://katalog.stralsund.de/de-de/jugendliche.aspx\`,cssIcon:\` \`,nodes:[]},{id:\`54\`,key:\`54\`,txt:\`Veranstaltungen\`,ca:\`3\`,url:\`http://katalog.stralsund.de/de-de/veranstaltungen.aspx\`,cssIcon:\` \`,nodes:[]},{id:\`108\`,key:\`108\`,txt:\`Konto\`,ca:\`3\`,url:\`http://katalog.stralsund.de/de-de/konto.aspx\`,cssIcon:\` \`,nodes:[]}]}`,`containerid_dnn_ctr699_ModuleContent`:`699`,`cookieid_dnn_ctr699_ModuleContent`:`_Module699_Visible`,`min_icon_699`:`/Portals/_default/Containers/Nukeville.Morpheus/imx.png`,`max_icon_699`:`/Portals/_default/Containers/Nukeville.Morpheus/imi.png`,`max_text`:`maximieren`,`min_text`:`minimieren`,`dnn_dnnNAV_ctldnnNAV_p`:`{easeDir:\u00270\u0027,mbcss:\u0027nv_navt nv_navc\u0027,sysimgpath:\u0027/images/\u0027,postback:\u0027__doPostBack(\\\u0027dnn$dnnNAV$ctldnnNAV\\\u0027,\\\u0027[NODEID]~|~Click\\\u0027)\u0027,rmode:\u00272\u0027}`,`dnn_dnnNAVV_ctldnnNAVV_p`:`{sysimgpath:\u0027/images/\u0027,orient:\u00271\u0027,mbcss:\u0027nv_navv nv_navc\u0027,postback:\u0027__doPostBack(\\\u0027dnn$dnnNAVV$ctldnnNAVV\\\u0027,\\\u0027[NODEID]~|~Click\\\u0027)\u0027,rmode:\u00272\u0027,easeDir:\u00270\u0027}`,`__dnn_pageload`:`__dnn_setScrollTop();`}" />
+        
+    
+<script type="text/javascript" src="/Resources/Shared/scripts/initWidgets.js" ></script><script type="text/javascript">
+							window.setTimeout('window.location = "http://katalog.stralsund.de/de-de/einfachesuche.aspx?logoff=true"',1200000)
+						</script>
+						<script type="text/javascript">
+                            $(document).ready(function () {
+                               var evarg =  document.getElementById("__EVENTARGUMENT");
+                               evarg.value = "";
+                               var evtar =  document.getElementById("__EVENTTARGET");
+                               evtar.value = ""  
+                            });
+                        </script>
+                <script type="text/javascript">dnn.setVar('dnn_dnnNAV_ctldnnNAV_p', '{easeDir:\'0\',mbcss:\'nv_navt nv_navc\',sysimgpath:\'/images/\',postback:\'__doPostBack(\\\'dnn$dnnNAV$ctldnnNAV\\\',\\\'[NODEID]~|~Click\\\')\',rmode:\'2\'}');dnn.controls.initMenu($get('dnn_dnnNAV_ctldnnNAV'));</script><script type="text/javascript">dnn.setVar('dnn_dnnNAVV_ctldnnNAVV_p', '{sysimgpath:\'/images/\',orient:\'1\',mbcss:\'nv_navv nv_navc\',postback:\'__doPostBack(\\\'dnn$dnnNAVV$ctldnnNAVV\\\',\\\'[NODEID]~|~Click\\\')\',rmode:\'2\',easeDir:\'0\'}');dnn.controls.initMenu($get('dnn_dnnNAVV_ctldnnNAVV'));</script></form>
+    
+    
+</body>
+</html>

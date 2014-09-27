@@ -1,4 +1,4 @@
- a#!/bin/bash
+#!/bin/bash
 
 TEMPLATEPARSER="../../../xidel/xidel"
 TEMPLATEPARSERARGS="--dot-notation=on --extract=\"book:=object()\" --print-type-annotations  --extract-kind=template"
@@ -19,11 +19,11 @@ function ADDTEMPLATE {
   done
 }
 
-
 #=============WAS==============
 mkdir -p $OUTPATH/wasnrw
 TEMPLATES=(wasnrw/start wasnrw/KontoServlet wasnrw/KontoServlet wasnrw/KontoServlet)
 PAGES=(wasnrw/start.html wasnrw/BenutzerkontoServlet_books.html wasnrw/BenutzerkontoServlet_books2.html wasnrw/BenutzerkontoServlet_books3.html)
+
 
 
 #=============ALEPH ULBD==============
@@ -173,6 +173,33 @@ PAGES=(${PAGES[@]} primo/searchStart.fub.html primo/searchStart.hub.html  primo/
 ADDTEMPLATE primo/searchList  5
 PAGES=(${PAGES[@]} primo/searchList.hub.html primo/searchList0.hub.html primo/searchList.fub.html primo/searchList.tub.html primo/searchList3.tub.html)
 
+#=============Bibliothea==============
+mkdir -p $OUTPATH/bibliotheca
+ADDTEMPLATE bibliotheca/list 2
+PAGES=(${PAGES[@]} bibliotheca/list.stralsund.html bibliotheca/list.neustadt.html)
+
+ADDTEMPLATE bibliotheca/searchList 2
+PAGES=(${PAGES[@]} bibliotheca/searchList.stralsund.html bibliotheca/searchList.neustadt.html)
+
+ADDTEMPLATE bibliotheca/searchDetails 1
+PAGES=(${PAGES[@]} bibliotheca/searchDetails.neustadt.html)
+
+
+
+#=============Bibliothea+ OPEN==============
+mkdir -p $OUTPATH/bibliothecaplus
+ADDTEMPLATE bibliothecaplus/list{vl:delete-current-books} 1
+PAGES=(${PAGES[@]} bibliothecaplus/list.stralsund.html)
+
+ADDTEMPLATE bibliothecaplus/searchList'{\$last-visited-page:=0,\$current-page:=1,\$search-reverse-keys:=\(\)}' 2
+PAGES=(${PAGES[@]} bibliothecaplus/searchList.empty.html bibliothecaplus/searchList.html)
+
+ADDTEMPLATE bibliothecaplus/searchListHeaderOnly'{\$last-visited-page:=0,\$current-page:=1}' 1
+PAGES=(${PAGES[@]} bibliothecaplus/searchListHeaderOnly.html)
+
+ADDTEMPLATE bibliothecaplus/searchDetails'{\$search-reverse-keys:=\(\)}' 1
+PAGES=(${PAGES[@]} bibliothecaplus/searchDetails.html)
+
 
 #=============DIGIBIB==============
 mkdir -p $OUTPATH/digibib
@@ -198,6 +225,9 @@ for ((i=0;i<${#TEMPLATES[@]};i++)); do
   if [[ $TFILE =~ ([^{]+)[{](.+)[}] ]]; then
     TFILE=${BASH_REMATCH[1]}
     EXTRA="-e ${BASH_REMATCH[2]}"
+    if [[ $EXTRA =~ vl:delete-current-books ]]; then
+      EXTRA="-e \"declare function vl:delete-current-books() { books-deleted := true() }\""
+    fi
     if [[ $EXTRA =~ vl:choose ]]; then
       EXTRA="-e \"declare function vl:choose(\\\$a,\\\$b,\\\$c,\\\$d) { message-choose :=  join((\\\$a,\\\$b,\\\$c,\\\$d))}\""
     fi
