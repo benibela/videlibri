@@ -1,0 +1,167 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+	"http://www.w3.org/TR/2002/REC-xhtml1-20020801/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="de">
+<head>
+<title>Web-OPAC V2.7.0.4435</title>
+
+<link href="style.css.asp" rel="stylesheet" type="text/css"/>
+
+
+</head>
+ <body>
+
+<form action="index.asp" name="webopac" id="webopac" method="post"
+
+>
+
+
+
+<div class="maindiv">
+<div class="topmenu"><div id="link_default"><input type="submit" value="" name="default" id="default"/></div><div id="link_home"><input name="link_home" src="/read/PICS/home.gif" type="image" onmouseover="this.src='/read/PICS/home_.gif'" onmouseout="this.src='/read/PICS/home.gif'" alt="Startseite laden"/></div><div id="link_konto"><a href="index.asp?kontofenster=start" target="kontowin"><img src="/read/PICS/konto.gif" onmouseover="this.src='/read/PICS/konto_.gif'" onmouseout="this.src='/read/PICS/konto.gif'" alt="Benutzerkonto"/></a></div><div id="link_mail"><a href="mailto:stadtbibliothek@stralsund.de"><label class="invisible">E-Mail&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label></a></div><div id="link_info"><input name="link_info" src="/read/PICS/info.gif" type="image" onmouseover="this.src='/read/PICS/info_.gif'" onmouseout="this.src='/read/PICS/info.gif'" alt="Info"/></div><div id="link_suchtip"><input name="link_suchtip" src="/read/PICS/suchtip.gif" type="image" onmouseover="this.src='/read/PICS/suchtip_.gif'" onmouseout="this.src='/read/PICS/suchtip.gif'" alt="Suchtipps"/></div><div id="link_hilfe"><input name="link_hilfe" src="/read/PICS/hilfe.gif" type="image" onmouseover="this.src='/read/PICS/hilfe_.gif'" onmouseout="this.src='/read/PICS/hilfe.gif'" alt="Hilfe"/></div></div><div class="suchzeile"><div class="suchfeld"><div class="suchfeldinhalt"><div class="suchfeld_inhalt_titel"><label for="stichwort"><a class="stealth" title="Hilfe" href="index.asp?target=hilfe_stichw">Stichwort</a></label></div>
+<div class="suchfeld_inhalt_input"><input type="text" name="stichwort" id="stichwort" value="" size="36" maxlength="248"/></div>
+</div></div><div class="suchfeld"><div class="suchfeldinhalt"><div class="suchfeld_inhalt_titel"><label for="verfasser"><a class="stealth" title="Hilfe f&uuml;r Suchfeld Verfasser" href="index.asp?target=hilfe_verfhelp">Verfasser</a></label></div>
+<div class="suchfeld_inhalt_input"><input type="text" id="verfasser" name="verfasser" value="" size="36" maxlength="248"/>
+<br/>Nachname, Vorname</div>
+<div class="link_register"><input type="image" name="link_register_verfasser" src="/read/PICS/question.gif" onmouseover="this.src='/read/PICS/question_.gif'" onmouseout="this.src='/read/PICS/question.gif'" alt="Verfasserindex anzeigen"/></div></div></div><div class="suchfeld"><div class="suchfeldinhalt"><div class="suchfeld_inhalt_titel"><label for="titel"><a class="stealth" title="Hilfe f&uuml;r Suchfeld Titel" href="index.asp?target=hilfe_titelhelp">Titel</a></label></div>
+<div class="suchfeld_inhalt_input"><input type="text" id="titel" name="titel" value="testtraining" size="36" maxlength="248"/></div>
+</div></div></div><div class="suchzeile"><div class="suchfeld"><div class="suchfeldinhalt"><div class="suchfeld_inhalt_titel"><label for="schlag_a"><a class="stealth" title="Hilfe f&uuml;r Suchfeld Schlagwort" href="index.asp?target=hilfe_schlaghelp">Schlagwort</a></label></div>
+<div class="suchfeld_inhalt_input"><input type="text" name="schlag_a" id="schlag_a" value="" size="17" maxlength="248"/>&nbsp;<input type="text" name="schlag_b" id="schlag_b" value="" size="17" maxlength="248"/></div>
+<div class="link_register"><input type="image" name="link_register_schlag" src="/read/PICS/question.gif" onmouseover="this.src='/read/PICS/question_.gif'" onmouseout="this.src='/read/PICS/question.gif'" alt="Schlagwortindex anzeigen"/></div></div></div><div class="suchfeld"><div class="suchfeldinhalt"><div class="suchfeld_inhalt_titel"><label for="notation"><a class="stealth" title="Hilfe f&uuml;r Suchfeld Systematik" href="index.asp?target=hilfe_systhelp">Systematik</a></label></div>
+<div class="suchfeld_inhalt_input"><input type="text" name="notation" id="notation" value="" size="36" maxlength="248"/></div>
+<div class="link_register"><input type="image" name="link_register_systematik" src="/read/PICS/question.gif" onmouseover="this.src='/read/PICS/question_.gif'" onmouseout="this.src='/read/PICS/question.gif'" alt="Systematikindex anzeigen"/></div></div></div><div class="suchfeld"><div class="suchfeldinhalt"><div class="suchfeld_inhalt_titel"><label for="medigrp"><a class="stealth" title="Hilfe f&uuml;r Suchfeld Mediengruppe" href="index.asp?target=hilfe_medihelp">Mediengruppe</a></label></div>
+<div class="suchfeld_inhalt_input"><select id="medigrp" name="medigrp"><option value="">Alle&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</option>
+<option value="1">Belletristik</option>
+<option value="9">CD</option>
+<option value="7">CD-ROM</option>
+<option value="18">DVD</option>
+<option value="15">Diskette</option>
+<option value="Reader">E-Book Reader</option>
+<option value="XFLCB">FLL Belletristik</option>
+<option value="XFLCS">FLL Sachbuch</option>
+<option value="Fernl">Fernleihe</option>
+<option value="19">Fremdspr. Lit.</option>
+<option value="12">Hör-CD</option>
+<option value="6">Hörcassetten</option>
+<option value="2">Kinderliteratur</option>
+<option value="17">Landkarten</option>
+<option value="16">Loseblatt</option>
+<option value="5">MC</option>
+<option value="Mun">Munziger-Archiv</option>
+<option value="NN">NN</option>
+<option value="13">Noten</option>
+<option value="3">Sachliteratur</option>
+<option value="11">Spiele</option>
+<option value="14">Sprachkurse</option>
+<option value="BS">Stadtbildstelle</option>
+<option value="8">Video</option>
+<option value="4">Zeitschrift</option>
+<option value="eMed">eMedien</option>
+</select></div>
+</div></div></div><div class="suchzeile"><div class="suchfeld"><div class="suchfeldinhalt"><div class="suchfeld_inhalt_titel"><label for="jahr_von"><a title="Hilfe f&uuml;r Suchfeld Jahr" class="stealth" href="index.asp?target=hilfe_jahrhelp">Jahr&nbsp;(von&nbsp;bis)</a></label></div>
+<div class="suchfeld_inhalt_input"><input type="text" name="jahr_von" id="jahr_von" value="" size="17" maxlength="248"/>&nbsp;<input type="text" name="jahr_bis" id="jahr_bis" value="" size="17" maxlength="248"/></div></div></div><div class="suchfeld"><div class="suchfeldinhalt"><div class="suchfeld_inhalt_titel"><label for="isbn"><a class="stealth" title="Hilfe f&uuml;r Suchfeld ISBN" href="index.asp?target=hilfe_isbnhelp">ISBN</a></label></div>
+<div class="suchfeld_inhalt_input"><input type="text" name="isbn" id="isbn" value="" size="36" maxlength="248"/></div>
+</div></div><div class="suchfeld"><div class="suchfeldinhalt"><div class="suchfeld_inhalt_titel"><label for="zst"><a class="stealth" title="Hilfe f&uuml;r Suchfeld Zweigstelle" href="index.asp?target=hilfe_zwsthelp">Zweigstelle</a></label></div>
+<div class="suchfeld_inhalt_input"><select name="zst" id="zst"><option value="">Alle&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</option>
+<option value="DiB">Digitale Bibliothek</option><option value="H">Hauptstelle</option><option value="KIS">KISS</option><option value="KIB">Kinderbibliothek</option><option value="Ver">Verwaltungsbibliothe</option></select></div>
+</div></div></div>
+
+
+
+<script type="text/javascript">
+
+
+function verstecken(){
+
+}
+
+function sucheFertig(){
+	document.getElementById("warten").style.visibility = "hidden";
+	
+}
+
+
+
+</script>
+
+
+    
+	<div id="menu_mitte">
+	 
+	
+<script type="text/javascript">
+	function OpenPrintWindow()
+	{
+		
+		win1=window.open("print.asp?whichOne=FIRST","printWindow", "width=400,height=400,innerWidth=400,innerHeight=400,dependent,scrollbars");
+		
+	}
+	</script>
+
+<div class="menu_mitte_katalog">Katalog</div><div class="menu_mitte_katalog">Stadtbibliothek</div>
+
+	
+	<div class="menu_mitte_links_feld">
+	<input name="suche_starten" src="/read/PICS/b-suche.gif" type="image" onmouseover="this.src='/read/PICS/b-suche_.gif'" onmouseout="this.src='/read/PICS/b-suche.gif'" alt="Suche starten"  id="suche_starten" />
+	</div>
+
+
+
+
+	<div class="menu_mitte_links_feld">
+		<input name="reset" src="/read/PICS/reset.gif" type="image" onmouseover="this.src='/read/PICS/reset_.gif'" onmouseout="this.src='/read/PICS/reset.gif'" alt="Inhalt der Suchfelder löschen"/>
+	</div>
+
+    <div class="menu_mitte_rechts_feld"><input name="link_einfaches" src="/read/PICS/einfsuche.gif" type="image" onmouseover="this.src='/read/PICS/einfsuche_.gif'" onmouseout="this.src='/read/PICS/einfsuche.gif'" alt="Zur einfachen Suche wechseln"/></div><div class="menu_mitte_rechts_feld"><div id="link_drucken"><a href="javascript:OpenPrintWindow();"><img style="margin-top:-3px;" src="/read/PICS/print.gif" onmouseout="this.src='/read/PICS/print.gif'" onmouseover="this.src='/read/PICS/print_.gif'" alt="Drucken"/></a></div></div>
+	</div>
+
+    
+		    
+		        <div class="result" id="Result">
+			    
+
+<script type="text/javascript">
+
+function finished()
+{
+	
+				document.images[0].src = "/read/PICS/dummy.gif";	
+			 
+		/*document.images[1].src = "/read/PICS/dummy.gif";	*/
+}
+
+</script>
+<div class="result_titel"><h1>Suchergebnis - Übersicht</h1></div><div class="result_gefunden">Gefunden:&nbsp;17</div><div class="result_sort"><input type="hidden" name="QL_Nr" value=""/><select name="orderselect" onchange="document.webopac.submit();"><option value="">sortieren nach</option>
+<option selected="selected" value="1">Standardsortierung</option>
+<option value="2">Nach Erscheinungsjahr</option>
+<option value="3">Nach Mediengruppe</option>
+</select>&nbsp; </div><div class="clearleft"></div><div class="resultzeile">Sortierrichtung:&nbsp;aufsteigend&nbsp;&nbsp;<a href="index.asp?order=desc">absteigend</a></div><table cellpadding="2" cellspacing="0" class="resulttab"><tr><th class="tabbeschreibung">Trefferbild</th><th class="tabbeschreibung">Treffer Kurzanzeige</th></tr><tr class="result_trefferX"><td><a href="index.asp?detmediennr=0"><IMG SRC='/read/PICS/mBuchS.gif' ALT='Monographie' BORDER=FALSE ></a></td><td><!--MEDIENNR: 0203810 --><a href="index.asp?detmediennr=0 " title="Details öffnen">Hesse, Jürgen  ; Schrader, Hans Christian:<br/><b><b>Testtraining</b></b> 2000plus : Einstellungs- und Eignungstests erfolgreich bestehen / Hesse/Schrader<br/>
+(Berufsstrategie) - 2009</a></td></tr><tr class="result_treffer"><td><a href="index.asp?detmediennr=1"><IMG SRC='/read/PICS/mBuchS.gif' ALT='Monographie' BORDER=FALSE ></a></td><td><!--MEDIENNR: 0143985 --><a href="index.asp?detmediennr=1 " title="Details öffnen">Hesse, Jürgen ; Schrader, Christian:<br/><b><b>Testtraining</b></b> Banken und Versicherungen : Einstellungs- und Eignungstests erfolgreich bestehen / Jürgen Hesse ; Christian Schrader<br/>
+(Berufsstrategie) - 2007</a></td></tr><tr class="result_trefferX"><td><a href="index.asp?detmediennr=2"><IMG SRC='/read/PICS/mBuchS.gif' ALT='Monographie' BORDER=FALSE ></a></td><td><!--MEDIENNR: 0078413 --><a href="index.asp?detmediennr=2 " title="Details öffnen">Hesse, Jürgen ; Schrader, Hans Christian:<br/><b><b>Testtraining</b></b> Allgemeinwissen : Eignungs- und Einstellungstests sicher bestehen / Jürgen Hesse ; Hans Christian Schrader - aktualisi... - 2002</a></td></tr><tr class="result_treffer"><td><a href="index.asp?detmediennr=3"><IMG SRC='/read/PICS/mBuchS.gif' ALT='Monographie' BORDER=FALSE ></a></td><td><!--MEDIENNR: 0052049 --><a href="index.asp?detmediennr=3 " title="Details öffnen">Hesse, Jürgen ; Schrader, Hans Christian:<br/><b><b>Testtraining</b></b> Konzentrationsvermögen : Eignungs- und Einstellungstets sicher bestehen<br/>
+(Eichborn exakt) - 1999</a></td></tr><tr class="result_trefferX"><td><a href="index.asp?detmediennr=4"><IMG SRC='/read/PICS/mBuchS.gif' ALT='Monographie' BORDER=FALSE ></a></td><td><!--MEDIENNR: 0139672 --><a href="index.asp?detmediennr=4 " title="Details öffnen">Hesse, Jürgen ; Schrader, Hans Christian:<br/><b><b>Testtraining</b></b> Kreativität : Eignungs- und Einstellungstests sicher bestehen / Jürgen Hesse ; Hans Christian Schrader<br/>
+(Berufsstrategie exakt) - 2007</a></td></tr><tr class="result_treffer"><td><a href="index.asp?detmediennr=5"><IMG SRC='/read/PICS/mBuchS.gif' ALT='Monographie' BORDER=FALSE ></a></td><td><!--MEDIENNR: 0096755 --><a href="index.asp?detmediennr=5 " title="Details öffnen">Hesse, Jürgen ; Schrader, Hans Christian:<br/><b><b>Testtraining</b></b> Logik : Eignungs- und Einstellungstest sicher bestehen / Jürgen Hesse ; Hans Christian Schrader - 1999</a></td></tr><tr class="result_trefferX"><td><a href="index.asp?detmediennr=6"><IMG SRC='/read/PICS/mBuchS.gif' ALT='Monographie' BORDER=FALSE ></a></td><td><!--MEDIENNR: 0077964 --><a href="index.asp?detmediennr=6 " title="Details öffnen">Hesse, Jürgen ; Schrader, Hans Christian:<br/><b><b>Testtraining</b></b> Persönlichkeit : Eignungs- und Einstellungstests sicher bestehen / Jürgen Hesse ; Hans Christian Schrader - aktualisi... - 2002</a></td></tr><tr class="result_treffer"><td><a href="index.asp?detmediennr=7"><IMG SRC='/read/PICS/mBuchS.gif' ALT='Monographie' BORDER=FALSE ></a></td><td><!--MEDIENNR: 0306822 --><a href="index.asp?detmediennr=7 " title="Details öffnen">Hesse, Jürgen ; Schrader, Hans Christian:<br/><b><b>Testtraining</b></b> Polizei : Schutz- und Kriminalpolizei, Bundeswehr, Bundespolizei, Verfassungsschutz und Feuerwehr ; Einstellungs- und Eignungstests erfolgreich bestehen - 2014</a></td></tr><tr class="result_trefferX"><td><a href="index.asp?detmediennr=8"><IMG SRC='/read/PICS/mBuchS.gif' ALT='Monographie' BORDER=FALSE ></a></td><td><!--MEDIENNR: 0120197 --><a href="index.asp?detmediennr=8 " title="Details öffnen">Hesse, Jürgen ; Schrader, Hans Christian:<br/><b><b>Testtraining</b></b> Polizei und Feuerwehr : Kriminalpolizei, Bundeswehr, Bundesgrenzschutz ; Einstellungs- und Eignungstests...<br/>
+(Berufsstrategie) - 2005</a></td></tr><tr class="result_treffer"><td><a href="index.asp?detmediennr=9"><IMG SRC='/read/PICS/mBuchS.gif' ALT='Monographie' BORDER=FALSE ></a></td><td><!--MEDIENNR: 0053767 --><a href="index.asp?detmediennr=9 " title="Details öffnen">Hesse, Jürgen ; Schrader, Hans Christian:<br/><b><b>Testtraining</b></b> Rechnen und Mathematik : Eignungs- und Enstellungstests sicher bstehen<br/>
+(Eichborn exakt) - 1999</a></td></tr></table><div class="result_nav"><u>1</u>&nbsp; <a href="index.asp?scrollAction=2" title="2">2</a>&nbsp; </div><div class="resultzeile_center">&copy; 2001 - 2008 by <a href="http://www.bond-online.de" target="_blank">OCLC&nbsp;Bibliothekssysteme</a></div>
+			    </div>
+		        <div class="detail" id="Detail">
+
+
+
+<br/><br/><br/><br/>
+
+
+
+
+
+</div>
+
+</div>
+</form>
+</body>
+</html>
+
+
+

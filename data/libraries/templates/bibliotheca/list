@@ -1,16 +1,19 @@
 <t:switch prioritized="true">
   <DIV class="maindivkonto">
     <DIV class="kontozeile_center">
-      <TABLE>
+      <TABLE>{hasBranch := false()}
         <tr><!-- Verfasser	Titel	Frist	Zweigstelle	 -->
+          <th>Verfasser</th>
+          <th>Titel</th>
           <th>Frist</th>
+          <th>Zweigstelle<t:s>hasBranch := true()</t:s></th>?
         </tr>
         <t:loop>
           <TR>
             <TD>{$book := {"author": .}}</TD>
             <TD>{$book.title}</TD>
             <TD>{$book.duedate := parse-date(., 'd.m.yyyy')}</TD>
-            <td>{$book.libraryBranch}</td>
+            <td t:test="$hasBranch">{$book.libraryBranch}</td>
             <td><a>{if (contains(@href, "vermsg")) then ($book.status := "nicht verlängerbar", $book.statusId := "critical")
                     else ($book.statusId := "normal", $book.renew-link := resolve-uri(@href)) }</a></td>?
           </TR>

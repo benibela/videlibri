@@ -1,0 +1,236 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+	"http://www.w3.org/TR/2002/REC-xhtml1-20020801/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="de">
+<head>
+<meta http-equiv="Content-type" content="text/html;charset=iso-8859-1" />
+<title>Web-OPAC V2.80 / 6670</title>
+
+<link href="style.css.asp" rel="stylesheet" type="text/css"/>
+
+<meta http-equiv="refresh" content="180; URL=woload.asp"/>
+</head>
+ <body>
+
+<form action="index.asp" name="webopac" id="webopac" method="post"
+
+>
+
+
+
+<div class="maindiv">
+<div class="topmenu"><div id="link_default"><input type="submit" value="" name="default" id="default"/></div><div id="link_home"><a href="http://stadtbuecherei.neustadt.eu"><img src="/read/PICS/home.gif" onmouseover="this.src='/read/PICS/home_.gif'" onmouseout="this.src='/read/PICS/home.gif'" alt="Startseite laden"/></a></div><div id="link_konto"><a href="index.asp?kontofenster=start" target="kontowin"><img src="/read/PICS/konto.gif" onmouseover="this.src='/read/PICS/konto_.gif'" onmouseout="this.src='/read/PICS/konto.gif'" alt="Benutzerkonto"/></a></div><div id="link_mail"><a href="mailto:stadtbuecherei@stadt-nw.de"><label class="invisible">E-Mail&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label></a></div><div id="link_info"><input name="link_info" src="/read/PICS/info.gif" type="image" onmouseover="this.src='/read/PICS/info_.gif'" onmouseout="this.src='/read/PICS/info.gif'" alt="Info"/></div><div id="link_hilfe"><input name="link_hilfe" src="/read/PICS/hilfe.gif" type="image" onmouseover="this.src='/read/PICS/hilfe_.gif'" onmouseout="this.src='/read/PICS/hilfe.gif'" alt="Hilfe"/></div></div><div class="suchzeile"><div class="suchfeld"><div class="suchfeldinhalt"><div class="suchfeld_inhalt_titel"><label for="stichwort"><a class="stealth" title="Hilfe" href="index.asp?target=hilfe_stichw">Stichwort</a></label></div>
+<div class="suchfeld_inhalt_input"><input type="text" name="stichwort" id="stichwort" value="" size="25" maxlength="248"/></div>
+</div></div><div class="suchfeld"><div class="suchfeldinhalt"><div class="suchfeld_inhalt_titel"><label for="verfasser"><a class="stealth" title="Hilfe f&uuml;r Suchfeld Verfasser" href="index.asp?target=hilfe_verfhelp">Verfasser</a></label></div>
+<div class="suchfeld_inhalt_input"><input type="text" id="verfasser" name="verfasser" value="" size="25" maxlength="248"/>
+<br/>Nachname, Vorname</div>
+<div class="link_register"><input type="image" name="link_register_verfasser" src="/read/PICS/question.gif" onmouseover="this.src='/read/PICS/question_.gif'" onmouseout="this.src='/read/PICS/question.gif'" alt="Verfasserindex anzeigen"/></div></div></div><div class="suchfeld"><div class="suchfeldinhalt"><div class="suchfeld_inhalt_titel"><label for="status"><a class="stealth" title="Hilfe f&uuml;r Suchfeld Status" href="index.asp?target=hilfe_statushelp">Status</a></label></div>
+<div class="suchfeld_inhalt_input"><select name="status" id="status"><option value="">Alle&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</option>
+<option value="D">Vorschlagsliste</option>
+<option value="E">Entliehen</option>
+<option value="G">Gesperrt</option>
+<option value="I">Beim Buchbinder</option>
+<option value="O">Digitales Medium</option>
+<option value="P">Präsenzbestand</option>
+<option value="T">Transport</option>
+<option value="U">Im Umlauf</option>
+<option value="V">Verfügbar</option>
+<option value="Z">Zurückgelegt</option>
+<option value="t">Zum Transport</option>
+</select></div>
+</div></div></div><div class="suchzeile"><div class="suchfeld"><div class="suchfeldinhalt"><div class="suchfeld_inhalt_titel"><label for="schlag_a"><a class="stealth" title="Hilfe f&uuml;r Suchfeld Schlagwort" href="index.asp?target=hilfe_schlaghelp">Schlagwort</a></label></div>
+<div class="suchfeld_inhalt_input"><input type="text" name="schlag_a" id="schlag_a" value="" size="10" maxlength="248"/>&nbsp;<input type="text" name="schlag_b" id="schlag_b" value="" size="10" maxlength="248"/></div>
+<div class="link_register"><input type="image" name="link_register_schlag" src="/read/PICS/question.gif" onmouseover="this.src='/read/PICS/question_.gif'" onmouseout="this.src='/read/PICS/question.gif'" alt="Schlagwortindex anzeigen"/></div></div></div><div class="suchfeld"><div class="suchfeldinhalt"><div class="suchfeld_inhalt_titel"><label for="notation"><a class="stealth" title="Hilfe f&uuml;r Suchfeld Systematik" href="index.asp?target=hilfe_systhelp">Systematik</a></label></div>
+<div class="suchfeld_inhalt_input"><input type="text" name="notation" id="notation" value="" size="25" maxlength="248"/></div>
+<div class="link_register"><input type="image" name="link_register_systematik" src="/read/PICS/question.gif" onmouseover="this.src='/read/PICS/question_.gif'" onmouseout="this.src='/read/PICS/question.gif'" alt="Systematikindex anzeigen"/></div></div></div><div class="suchfeld"><div class="suchfeldinhalt"><div class="suchfeld_inhalt_titel"><label for="medigrp"><a class="stealth" title="Hilfe f&uuml;r Suchfeld Mediengruppe" href="index.asp?target=hilfe_medihelp">Mediengruppe</a></label></div>
+<div class="suchfeld_inhalt_input"><select id="medigrp" name="medigrp"><option value="">Alle&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</option>
+<option value="SL">Belletristik</option>
+<option value="SLBest">BelletristikBest</option>
+<option value="BRD">Blu-Ray Disks</option>
+<option value="BRDJ">Blu-Ray Disks für Ki</option>
+<option value="AVE">Cassetten für Erw.</option>
+<option value="AV">Cassetten für Kinder</option>
+<option value="ROME">CD ROM Erwachsene</option>
+<option value="ROMJ">CD ROM Jugendliche</option>
+<option value="CD">Compact Disks</option>
+<option value="CDJ">Compact Disks für Ki</option>
+<option value="DVD">DVD</option>
+<option value="DVDJ">DVD Jugendliche</option>
+<option value="E-A">eaudio</option>
+<option value="E-B">ebook</option>
+<option value="E-M">emusic</option>
+<option value="E-P">epaper</option>
+<option value="e-V">evideo</option>
+<option value="FL">Fernleihe</option>
+<option value="KJBest">Kinder/JugendBest</option>
+<option value="KJ">Kinder/Jugendlit.</option>
+<option value="LeSo">Lesesommer</option>
+<option value="MuCD">Musik CD</option>
+<option value="SA">Sachliteratur</option>
+<option value="SABest">SachliteraturBest</option>
+<option value="SP">Spiele</option>
+<option value="TK">Themenkiste</option>
+<option value="ZS">Zeitschriften</option>
+<option value="ZSJ">Zeitschriften Jugend</option>
+</select></div>
+</div></div></div><div class="suchzeile"><div class="suchfeld"><div class="suchfeldinhalt"><div class="suchfeld_inhalt_titel"><label for="jahr_von"><a title="Hilfe f&uuml;r Suchfeld Jahr" class="stealth" href="index.asp?target=hilfe_jahrhelp">Jahr&nbsp;(von&nbsp;bis)</a></label></div>
+<div class="suchfeld_inhalt_input"><input type="text" name="jahr_von" id="jahr_von" value="" size="10" maxlength="248"/>&nbsp;<input type="text" name="jahr_bis" id="jahr_bis" value="" size="10" maxlength="248"/></div></div></div><div class="suchfeld"><div class="suchfeldinhalt"><div class="suchfeld_inhalt_titel"><label for="isbn"><a class="stealth" title="Hilfe f&uuml;r Suchfeld ISBN" href="index.asp?target=hilfe_isbnhelp">ISBN</a></label></div>
+<div class="suchfeld_inhalt_input"><input type="text" name="isbn" id="isbn" value="" size="25" maxlength="248"/></div>
+</div></div><div class="suchfeld"><div class="suchfeldinhalt"><div class="suchfeld_inhalt_titel"><label for="ikr"><a title="Hilfe f&uuml;r Suchfeld Interessenkreis" class="stealth" href="index.asp?target=hilfe_ikahelp">Interessenkreis</a></label></div>
+<div class="suchfeld_inhalt_input"><input type="text" name="ikr" id="ikr" value="" size="25" maxlength="248"/></div>
+<div class="link_register"><input type="image" name="link_register_ikr" src="/read/PICS/question.gif" onmouseover="this.src='/read/PICS/question_.gif'" onmouseout="this.src='/read/PICS/question.gif'" alt=""/></div></div></div></div>
+
+
+
+<script type="text/javascript">
+
+
+function verstecken(){
+
+}
+
+function sucheFertig(){
+	document.getElementById("warten").style.visibility = "hidden";
+	
+}
+
+
+
+</script>
+
+
+    
+	<div id="menu_mitte">
+	 
+	
+<script type="text/javascript">
+	function OpenPrintWindow()
+	{
+		
+		win1=window.open("print.asp?whichOne=FIRST","printWindow", "width=400,height=400,innerWidth=400,innerHeight=400,dependent,scrollbars");
+		
+	}
+	</script>
+
+<div class="menu_mitte_katalog">Katalog</div><div class="menu_mitte_katalog">Stadtbücherei Neustadt</div>
+
+	
+	<div class="menu_mitte_links_feld">
+	<input name="suche_starten" src="/read/PICS/b-suche.gif" type="image" onmouseover="this.src='/read/PICS/b-suche_.gif'" onmouseout="this.src='/read/PICS/b-suche.gif'" alt="Suche starten"  id="suche_starten" />
+	</div>
+
+
+
+
+	<div class="menu_mitte_links_feld">
+		<input name="reset" src="/read/PICS/reset.gif" type="image" onmouseover="this.src='/read/PICS/reset_.gif'" onmouseout="this.src='/read/PICS/reset.gif'" alt="Inhalt der Suchfelder löschen"/>
+	</div>
+
+    <div class="menu_mitte_rechts_feld"><input name="link_einfaches" src="/read/PICS/einfsuche.gif" type="image" onmouseover="this.src='/read/PICS/einfsuche_.gif'" onmouseout="this.src='/read/PICS/einfsuche.gif'" alt="Zur einfachen Suche wechseln"/></div><div class="menu_mitte_rechts_feld"><div id="link_drucken"><a href="javascript:OpenPrintWindow();"><img style="margin-top:-3px;" src="/read/PICS/print.gif" onmouseout="this.src='/read/PICS/print.gif'" onmouseover="this.src='/read/PICS/print_.gif'" alt="Drucken"/></a></div></div>
+	</div>
+
+    
+		    
+		        <div class="result" id="Result">
+			    
+
+<script type="text/javascript">
+
+function finished()
+{
+	
+				document.images[0].src = "/read/PICS/dummy.gif";	
+			 
+		/*document.images[1].src = "/read/PICS/dummy.gif";	*/
+}
+
+</script>
+<div class="result_titel"><h1>Suchergebnis - Übersicht</h1></div><div class="result_gefunden">Gefunden:&nbsp;94</div><div class="result_sort"><select name="orderselect" onchange="document.webopac.submit();"><option value="">sortieren nach</option>
+<option selected="selected" value="1">Standardsortierung</option>
+<option value="2">Nach Erscheinungsjahr</option>
+<option value="3">Nach Mediengruppe</option>
+</select>&nbsp; </div><div class="result_sort"><a href="index.asp?target=einsch">Suchergebnis einschränken</a></div><div class="clearleft"></div><div class="resultzeile">Sortierrichtung:&nbsp;aufsteigend&nbsp;&nbsp;<a href="index.asp?order=desc">absteigend</a></div><table cellpadding="2" cellspacing="0" class="resulttab"><tr><th class="tabbeschreibung">Trefferbild</th><th class="tabbeschreibung">Treffer Kurzanzeige</th></tr><tr class="result_trefferX"><td><a href="index.asp?detmediennr=0"><IMG SRC='/read/PICS/mBuchS.gif' ALT='Monographie' BORDER=FALSE ></a></td><td><!--MEDIENNR: 7011793 --><a href="index.asp?detmediennr=0 " title="Details öffnen">Carofiglio, Gianrico:<br/>Reise in die Nacht : Roman / Gianrico Carofiglio - 2. Aufl.<br/>
+(Avvocato Guerrieri ; 1) - 2006</a></td></tr><tr class="result_treffer"><td><a href="index.asp?detmediennr=1"><IMG SRC='/read/PICS/mBuchS.gif' ALT='Monographie' BORDER=FALSE ></a></td><td><!--MEDIENNR: 7056404 --><a href="index.asp?detmediennr=1 " title="Details öffnen">Charbonneau, Joelle:<br/>Nur die Besten überleben : Roman / Joelle Charbonneau - 1. Aufl.<br/>
+(Die Auslese ; 1) - 2013</a></td></tr><tr class="result_trefferX"><td><a href="index.asp?detmediennr=2"><IMG SRC='/read/PICS/mBuchS.gif' ALT='Monographie' BORDER=FALSE ></a></td><td><!--MEDIENNR: 7063631 --><a href="index.asp?detmediennr=2 " title="Details öffnen">Clea:<br/>Veggie : französisch vegetarisch / Clea<br/>
+(<b><b>Test</b></b>) - 2014</a></td></tr><tr class="result_treffer"><td><a href="index.asp?detmediennr=3"><IMG SRC='/read/PICS/mBuchS.gif' ALT='Monographie' BORDER=FALSE ></a></td><td><!--MEDIENNR: 7012559 --><a href="index.asp?detmediennr=3 " title="Details öffnen">Cramm, Dagmar von:<br/>Familie in Form : schlank werden, schlank bleiben / Dagmar von Cramm<br/>
+(<b><b>Test</b></b>) - 2006</a></td></tr><tr class="result_trefferX"><td><a href="index.asp?detmediennr=4"><IMG SRC='/read/PICS/mBuchS.gif' ALT='Monographie' BORDER=FALSE ></a></td><td><!--MEDIENNR: 7029613 --><a href="index.asp?detmediennr=4 " title="Details öffnen">Cramm, Dagmar von:<br/>Von Markt und Metzger / Dagmar von Cramm<br/>
+(<b><b>Test</b></b>) - 2010</a></td></tr><tr class="result_treffer"><td><a href="index.asp?detmediennr=5"><IMG SRC='/read/PICS/mBuchS.gif' ALT='Monographie' BORDER=FALSE ></a></td><td><!--MEDIENNR: 7052183 --><a href="index.asp?detmediennr=5 " title="Details öffnen">Desserts<br/>
+(<b><b>Test</b></b> : Unsere besten R...) - 2013</a></td></tr><tr class="result_trefferX"><td><a href="index.asp?detmediennr=6"><IMG SRC='/read/PICS/mBuchS.gif' ALT='Monographie' BORDER=FALSE ></a></td><td><!--MEDIENNR: 7032137 --><a href="index.asp?detmediennr=6 " title="Details öffnen">Düweke, Peter:<br/>Gesunde Prostata : von Vorbeugung bis Heilung / Peter Düweke<br/>
+(<b><b>Test</b></b>) - 2011</a></td></tr><tr class="result_treffer"><td><a href="index.asp?detmediennr=7"><IMG SRC='/read/PICS/mBuchS.gif' ALT='Monographie' BORDER=FALSE ></a></td><td><!--MEDIENNR: 7054519 --><a href="index.asp?detmediennr=7 " title="Details öffnen">Eigner, Christian:<br/>Baupfusch : Erkennen, Reklamieren, Sanieren / Christian Eigner<br/>
+(<b><b>Test</b></b>) - 2013</a></td></tr><tr class="result_trefferX"><td><a href="index.asp?detmediennr=8"><IMG SRC='/read/PICS/mBuchS.gif' ALT='Monographie' BORDER=FALSE ></a></td><td><!--MEDIENNR: 7047938 --><a href="index.asp?detmediennr=8 " title="Details öffnen">Feibel, Thomas:<br/>iPhone und iPad für Einsteiger / Thomas Feibel<br/>
+(PC-Schule für S...)(<b><b>test</b></b>) - 2012</a></td></tr><tr class="result_treffer"><td><a href="index.asp?detmediennr=9"><IMG SRC='/read/PICS/mBuchS.gif' ALT='Monographie' BORDER=FALSE ></a></td><td><!--MEDIENNR: 7052184 --><a href="index.asp?detmediennr=9 " title="Details öffnen">Fisch und Meeresfrüchte<br/>
+(<b><b>Test</b></b> : Unsere besten R...) - 2013</a></td></tr></table><div class="result_nav"><a href="index.asp?scrollAction=1" title="1">1</a>&nbsp; <u>2</u>&nbsp; <a href="index.asp?scrollAction=3" title="3">3</a>&nbsp; <a href="index.asp?scrollAction=4" title="4">4</a>&nbsp; <a href="index.asp?scrollAction=5" title="5">5</a>&nbsp; <a href="index.asp?scrollAction=6" title="6">6</a>&nbsp; <a href="index.asp?scrollAction=7" title="7">7</a>&nbsp; <a href="index.asp?scrollAction=8" title="8">8</a>&nbsp; <a href="index.asp?scrollAction=9" title="9">9</a>&nbsp; <a href="index.asp?scrollAction=10" title="10">10</a>&nbsp; </div><div class="resultzeile_center">&copy; 2001 - 2012 by <a href="http://www.bond-online.de" target="_blank">OCLC&nbsp;Bibliothekssysteme</a></div>
+			    </div>
+		        <div class="detail" id="Detail"><!---Detailseite -
+// -->
+
+<script src="jquery-1.7.2.min.js" type="text/javascript"></script>
+
+
+<!-- Mediennr: 7063631-->
+<script type="text/javascript">
+
+
+
+function showUrl(url) {
+	location.href = url
+}
+
+
+function vorbestlinksetzen(sRef)
+{
+	var sNext;
+	var now;
+	var sType;
+	now = new Date();
+	var Check = true;
+	top.menubar.setGesendetX();
+	
+	return Check;
+	
+}
+
+function reslinksetzen(type)
+{
+	var sNext;
+	var now;
+	var sType;
+	now = new Date();
+	sNext = 'Emailvor.asp?MEDIENNR=7063631&amp;TYPE='+type;
+self.open(sNext,"Konto","toolbar=no,location=no,scrollbars=yes,resizable=yes");
+}
+
+
+function linksetzen(type)
+{
+	var sNext;
+	var now;
+	var sType;
+	now = new Date();
+	var Check = true;
+	
+	
+	if(Check == true){sNext = 'LOGIN.asp?MEDIENNR=7063631&amp;Time=13:17:50&amp;TYPE='+type;
+self.open(sNext,"Konto","toolbar=no,location=no,scrollbars=yes,resizable=yes");
+	}
+}
+
+
+</script>
+<div class="detailzeile"><div class="detailzeile_links"><h1>Detailanzeige</h1></div><div class="detail_vorbest"><a href="index.asp?kontofenster=true&amp;target=vorbest" target="kontowin"><img src="/read/PICS/vorbestell.gif" alt="Exemplar vorbestellen" onmouseover="this.src='/read/PICS/vorbestell_.gif'" onmouseout="this.src='/read/PICS/vorbestell.gif'"/></a></div><div class="detailzeile_rechts"><a href="index.asp?detmediennr=1"><img src="/read/PICS/last.gif" onmouseover="this.src='/read/PICS/last_.gif'" onmouseout="this.src='/read/PICS/last.gif'"  alt="Vorheriges Medium"/></a>&nbsp;<a href="index.asp?detmediennr=3"><img src="/read/PICS/next.gif" onmouseover="this.src='/read/PICS/next_.gif'" onmouseout="this.src='/read/PICS/next.gif'"  alt="Nächstes Medium"/></a></div></div><div class="detailzeile"></div><div class="detailinhalt"><div class="detailzeile"><div class="detail_cover"><a href="http://www.amazon.de/exec/obidos/ASIN/3868510974/bondonline-21"><img src="http://images-eu.amazon.com/images/P/3868510974.03.MZZZZZZZ.jpg" alt="No image found."/></a></div><div class="detail_titel">Veggie</div><div class="clearleft"></div></div>
+<div class="detailzeile">
+<table border="0" width="100%">
+<tr><th class="tabbeschreibung">Datenfeld</th><th class="tabbeschreibung">Datenfeld-Inhalt</th></tr>
+<tr><td class="detail_feld">Titelzusatz:</td><td class="feldinhalt">franz&#246;sisch vegetarisch</td></tr><tr><td class="detail_feld">Verfasserangaben:</td><td class="feldinhalt">Clea</td></tr><tr><td class="detail_feld">1. Verfasser:</td><td class="feldinhalt"><a href="index.asp?detsuche_verf=Clea" class="detail_link">Clea</a></td></tr><tr><td class="detail_feld">Impressum:</td><td class="feldinhalt">Berlin : Stiftung Waren<b>test</b>, 2014</td></tr><tr><td class="detail_feld">Umfang:</td><td class="feldinhalt">333 S. : Ill. (farb.)</td></tr><tr><td class="detail_feld">1. Reihe:</td><td class="feldinhalt"><a href="index.asp?detsucheG=GT;;Test" class="detail_link">Test</a></td></tr><tr><td class="detail_feld">ISBN:</td><td class="feldinhalt">978-3-86851-097-3</td></tr><tr><td class="detail_feld">bv-Nr:</td><td class="feldinhalt">7063631</td></tr><tr><td class="detail_feld">Annotation/<br/>Beschreibung:</td><td class="feldinhalt">500 vielfältige Rezepte französisch elegant, überraschend kreativ und ganz und gar unkompliziert. Für Vegetarier, Veganer und alle, die die fleischlose Küche lieben, hat Clea, der Star der französischen Foodblogger-Szene, ihre besten Rezepte zusammengetragen: vom kleinen Picknick für zwei über das große Gästebuffet bis zum Dessert gibt es Gerichte für alle Lebenslagen.</td></tr></table><br/></div><div class="detailzeile"><h2>Verwandte Themen</h2></div><div class="detailzeile"><table border="0" width="100%"><tr><th class="tabbeschreibung">Datenfeld</th><th class="tabbeschreibung">Datenfeld-Inhalt</th></tr><tr><td class="detail_feld">Schlagwörter:</td><td class="feldinhalt"><a href="index.asp?detsuche_Schlagwort=vegetarische+kost++kochbuch" class="detail_link">Vegetarische Kost / Kochbuch</a></td></tr><tr><td class="detail_feld">Systematik:</td><td class="feldinhalt"><a href="index.asp?detsuche_systematik=xeo+252" class="detail_link">Xeo 252</a></td></tr></table></div><br/><table class="exemplartab" cellpadding="2" cellspacing="0"><tr class="exemplarmenubar"><th class="tabHeaderExememplar">Buchungsnr.</th><th class="tabHeaderExememplar">Zweigstelle</th><th class="tabHeaderExememplar">Standort</th><th class="tabHeaderExememplar">Status</th><th class="tabHeaderExememplar">Signatur</th><th class="tabHeaderExememplar">Frist</th><th class="tabHeaderExememplar">Ausleihstatus</th><th></th></tr><tr class="tabExemplar" style="color:#FF0000;"><td>233948</td><td><a href="/read/.HTML" class="detail_link"></a></td><td></td><td>Entliehen</td><td>Xeo 252
+Clea</td><td>27.10.2014</td><td>4</td></tr></table><br/></div></div>
+
+</div>
+</form>
+</body>
+</html>
+
+
+
