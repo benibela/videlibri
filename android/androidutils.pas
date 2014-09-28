@@ -121,11 +121,11 @@ var assets: jobject = nil;
 //      internalIdMethod: jmethodID;
     end;
     bookFields: record
-      authorS, titleS, issueDateGC, dueDateGC, dueDatePrettyS, accountL, historyZ, statusI: jfieldID;
+      authorS, titleS, issueDateGC, dueDateGC, accountL, historyZ, statusI: jfieldID;
       setPropertyMethod, getPropertyMethod: jmethodID;
     end;
-    gregorianCalenderClass: jclass;
-    gregorianCalenderClassInit: jmethodID;
+    simpleDateClass: jclass;
+    simpleDateClassInit: jmethodID;
     searcherClass: jclass;
     searcherFields: record
       nativePtrJ, totalResultCountI, nextPageAvailableZ: jfieldID;
@@ -220,9 +220,8 @@ begin
     with bookFields do begin
       authorS := j.getfield(bookClass, 'author', 'Ljava/lang/String;');
       titleS := j.getfield(bookClass, 'title', 'Ljava/lang/String;');
-      issueDateGC := j.getfield(bookClass, 'issueDate', 'Ljava/util/GregorianCalendar;');
-      dueDateGC := j.getfield(bookClass, 'dueDate', 'Ljava/util/GregorianCalendar;');
-      dueDatePrettyS := j.getfield(bookClass, 'dueDatePretty', 'Ljava/lang/String;');
+      issueDateGC := j.getfield(bookClass, 'issueDate', 'Lde/benibela/videlibri/Bridge$SimpleDate;');
+      dueDateGC := j.getfield(bookClass, 'dueDate', 'Lde/benibela/videlibri/Bridge$SimpleDate;');
       accountL := j.getfield(bookClass, 'account', 'Lde/benibela/videlibri/Bridge$Account;');
       historyZ := j.getfield(bookClass, 'history', 'Z');
       setPropertyMethod := j.getmethod(bookClass, 'setProperty', '(Ljava/lang/String;Ljava/lang/String;)V');
@@ -231,8 +230,8 @@ begin
     end;
 
 
-    gregorianCalenderClass := j.newGlobalRefAndDelete(j.getclass('java/util/GregorianCalendar'));
-    gregorianCalenderClassInit := j.getmethod(gregorianCalenderClass, '<init>', '(III)V');
+    simpleDateClass := j.newGlobalRefAndDelete(j.getclass('de/benibela/videlibri/Bridge$SimpleDate'));
+    simpleDateClassInit := j.getmethod(simpleDateClass, '<init>', '(IIII)V');
 
     searcherClass := j.newGlobalRefAndDelete(j.getclass('de/benibela/videlibri/Bridge$SearcherAccess'));
     with searcherFields do begin
@@ -751,7 +750,7 @@ begin
 end;
 
 procedure TJBookSerializer.writeDateProp(n: string; d: integer);
-var args: array[0..2] of jvalue;
+var args: array[0..3] of jvalue;
     temp: jobject;
     field: jfieldID;
 begin
@@ -765,13 +764,11 @@ begin
   else begin
     dateDecode(d, @args[0].i, @args[1].i, @args[2].i);
     args[1].i -= 1;
-    temp := j.newObject(gregorianCalenderClass, gregorianCalenderClassInit, @args);
+    args[3].i := d;
+    temp := j.newObject(simpleDateClass, simpleDateClassInit, @args);
     j.SetObjectField(book, field, temp);
     j.deleteLocalRef(temp);
   end;
-
-  if bookFields.dueDateGC = bookFields.dueDateGC then
-    j.SetStringField(book, bookFields.dueDatePrettyS, DateToPrettyStr(d));
 end;
 
 function bookToJBook(book: TBook; includeDates: boolean = true; includeAllStrings: boolean = false): jobject;
@@ -862,6 +859,7 @@ var
   books: TBookList;
   i: Integer;
   book: jobject;
+  timeField: jfieldID;
 begin
   if logging then bbdebugtools.log('Java_de_benibela_VideLibri_Bridge_VLGetBooks started');
   try
@@ -896,6 +894,11 @@ begin
     finally
       system.LeaveCriticalsection(updateThreadConfig.libraryAccessSection)
     end;
+
+    timeField := j.getstaticfield(bridgeClass, 'currentPascalDate', 'I');
+    j.env^^.SetStaticIntField(j.env, bridgeClass, timeField, trunc(now));
+
+
   except
     on e: Exception do j.ThrowNew('de/benibela/videlibri/Bridge$InternalError', 'Interner Fehler: '+e.Message);
   end;

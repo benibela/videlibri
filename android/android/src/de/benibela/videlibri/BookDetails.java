@@ -186,7 +186,7 @@ public class BookDetails extends VideLibriBaseFragment {
         trDueDate = tr(R.string.book_duedate);
 
         if ((!searchedBook && !book.history) || book.dueDate != null)
-            details.add(new Details(trDueDate, book.dueDatePretty));
+            details.add(new Details(trDueDate, Util.formatDate(book.dueDate)));
 
         String status = book.getProperty("status");
         if (status == null) status = "";
@@ -199,7 +199,7 @@ public class BookDetails extends VideLibriBaseFragment {
         if (!"".equals(status)) details.add(new Details(trStatus, status));
 
         if (book.issueDate != null)
-          details.add(new Details(tr(R.string.book_lenddate), android.text.format.DateFormat.getDateFormat(getSherlockActivity()).format(book.issueDate.getTime())));
+          details.add(new Details(tr(R.string.book_lenddate), Util.formatDate(book.issueDate)));
         addIfExists(tr(R.string.book_lendat) , "libraryBranch");
         if (book.account != null) details.add(new Details(tr(R.string.book_account), book.account.prettyName));
 

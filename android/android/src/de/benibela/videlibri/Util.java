@@ -9,10 +9,8 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
-import java.util.ArrayList;
-import java.util.IllegalFormatException;
-import java.util.List;
-import java.util.MissingFormatArgumentException;
+import java.text.DateFormat;
+import java.util.*;
 
 /**
  * Created with IntelliJ IDEA.
@@ -116,5 +114,29 @@ public class Util {
         } catch (NumberFormatException e) {
             return i;
         }
+    }
+
+
+    private static DateFormat dateFormat;
+    public static String formatDate(Date date){
+        if (date == null) return "";
+        if (dateFormat != null) return dateFormat.format(date);
+        if (dateFormat == null && VideLibriApp.currentActivity != null)
+            dateFormat = android.text.format.DateFormat.getDateFormat(VideLibriApp.currentActivity);
+        if (dateFormat != null) return dateFormat.format(date);
+        return date.getYear()+"-"+date.getMonth()+"-"+date.getDay();
+    }
+
+    public static String formatDate(Bridge.SimpleDate date){
+        if (Bridge.currentPascalDate > 0 && VideLibriApp.currentActivity != null) {
+            switch (date.pascalDate - Bridge.currentPascalDate) {
+                case -2: return tr(R.string.daybeforeyesterday);
+                case -1: return tr(R.string.yesterday);
+                case 0: return tr(R.string.today);
+                case 1: return tr(R.string.tomorrow);
+                case 2: return tr(R.string.dayaftertomorrow);
+            }
+        }
+        return formatDate(date.getTime());
     }
 }

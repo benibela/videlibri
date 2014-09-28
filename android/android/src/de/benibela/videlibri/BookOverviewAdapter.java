@@ -91,7 +91,7 @@ class BookOverviewAdapter extends ArrayAdapter<Bridge.Book> {
             switch (book.getStatus()) {
                 case Provided:  holder.date.setText(view.getContext().getString(R.string.booklist_status_provided)); break;
                 case Ordered:  holder.date.setText(view.getContext().getString(R.string.booklist_status_ordered)); break;
-                default: holder.date.setText(book.dueDatePretty); break;
+                default: holder.date.setText(Util.formatDate(book.dueDate)); break;
             }
             int c = book.getStatusColor();
             if (c == -1) c = defaultColor;

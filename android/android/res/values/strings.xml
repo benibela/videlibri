@@ -153,5 +153,44 @@
     <string name="lay_search_year">Jahr</string>
     <string name="lay_search_searchedbranch">Zweigstelle (für Suchfilter)</string>
     <string name="lay_search_orderbranch">Zweigstelle (für Bestellungsfilter)</string>
-    <string name="lay_search_btn_search">Suchen</string>
+    <string name="lay_search_btn_search">Suchen</string><string name="lay_options_caption_displayoptions">Anzeigeeinstellungen:</string><string name="lay_options_label_sorting">Sortierung:</string><string name="lay_options_label_grouping">Gruppierung:</string>
+
+    <string name="daybeforeyesterday">vorgestern</string>
+    <string name="yesterday">gestern</string>
+    <string name="today">heute</string>
+    <string name="tomorrow">morgen</string>
+    <string name="dayaftertomorrow">übermorgen</string>
+
+
+    <string-array name="sortable_properties_tr">
+        <item>Keine</item>
+        <item>Konto</item>
+        <item>Fristwoche</item>
+        <item>Fristdatum</item>
+        <item>Status</item>
+        <item>Ausleihwoche</item>
+        <item>Ausleihdatum</item>
+        <item>Ausleihbibliothek</item>
+        <item>ID</item>
+        <item>Kategorie</item>
+        <item>Titel</item>
+        <item>Verfasser</item>
+        <item>Jahr</item>
+    </string-array>
+
+    <string-array name="sortable_properties">
+        <item></item>
+        <item>_account</item>
+        <item>_dueWeek</item>
+        <item>dueDate</item>
+        <item>_status</item>
+        <item>_issueWeek</item>
+        <item>issueDate</item>
+        <item>libraryBranch</item>
+        <item>id</item>
+        <item>category</item>
+        <item>title</item>
+        <item>author</item>
+        <item>year</item>
+    </string-array>
 </resources>

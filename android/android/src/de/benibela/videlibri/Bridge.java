@@ -45,6 +45,21 @@ public class Bridge {
         }
     }
 
+    static int currentPascalDate;
+    public static class SimpleDate {
+        private int year, month, day;
+        public int pascalDate;
+        SimpleDate (int year, int month, int day, int pascalDate){
+            this.year = year;
+            this.month = month;
+            this.day = day;
+            this.pascalDate = pascalDate;
+        }
+        Date getTime(){
+            return new Date(year - 1900, month, day);
+        }
+    }
+
     public static class Book implements Serializable{
 
         public static class Pair implements Serializable{   //android.os.Pair is not serializable
@@ -55,12 +70,12 @@ public class Bridge {
             }
         }
 
+
         Account account;
         String author = "";
         String title = "";
-        String dueDatePretty = "";
-        GregorianCalendar issueDate; //might be null
-        GregorianCalendar dueDate; //might be null
+        SimpleDate issueDate; //might be null
+        SimpleDate dueDate; //might be null
         boolean history;
         ArrayList<Pair> more = new ArrayList<Pair>();
         private int status;
@@ -75,7 +90,7 @@ public class Bridge {
         int getStatusColor(){
             int c = Color.GREEN;
             if (this.history) c = -1;
-            else if (dueDate != null && this.dueDate.getTimeInMillis() - Calendar.getInstance().getTimeInMillis() < 1000 * 60 * 60 * 24 * 3)
+            else if (dueDate != null && this.dueDate.pascalDate - currentPascalDate <= 3)
                 c = Color.RED;
             else switch (getStatus()){
                 case Normal: return Color.GREEN;

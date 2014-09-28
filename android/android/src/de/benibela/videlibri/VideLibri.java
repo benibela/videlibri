@@ -7,6 +7,7 @@ import android.content.res.AssetManager;
 import java.io.InputStream;
 import java.text.DateFormat;
 import java.text.Normalizer;
+import java.text.SimpleDateFormat;
 import java.util.*;
 import java.lang.*;
 import android.app.*;
@@ -79,10 +80,12 @@ public class VideLibri extends  BookListActivity{
     protected void onResume() {
         super.onResume();
 
-       /* if (accounts == null || accounts.length == 0) newAccountDialog(true);
-        else
-         */
-        noDetailsInOverview = PreferenceManager.getDefaultSharedPreferences(this).getBoolean("noLendBookDetails", false);
+        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(this);
+        noDetailsInOverview = sp.getBoolean("noLendBookDetails", false);
+        sortingKey = sp.getString("sorting", "dueDate");
+        groupingKey = sp.getString("sorting", "_dueWeek");
+
+
         if (displayHistoryActually != displayHistory
                 || !hiddenAccounts.equals(hiddenAccountsActually)
                 || noDetailsInOverviewActually != noDetailsInOverview
@@ -143,6 +146,52 @@ public class VideLibri extends  BookListActivity{
         super.onActivityResult(requestCode, resultCode, data);
     }
 
+    static private int dateToWeek(int pascalDate){
+        return (pascalDate - 2) / 7;
+    }
+    static public String getWeekString(Bridge.SimpleDate date){
+        if (date == null) return "Unbekanntes Abgabedatum";
+
+        int week = dateToWeek(date.pascalDate);
+        if (Bridge.currentPascalDate > 0)
+            switch (week - dateToWeek(Bridge.currentPascalDate)){
+                case -1: return "Letzte Woche";
+                case 0: return "Diese Woche";
+                case 1: return "Nächste Woche";
+            }
+        int delta = week * 7 + 2;
+        return "Woche vom "+Util.formatDate(new Date(date.getTime().getTime() - delta * 1000 * 60 * 60 * 24 ))+
+                " zum "+Util.formatDate(new Date(date.getTime().getTime() + (6 - delta) * 1000 * 60 * 60 * 24 ));
+    }
+    static public String getKeyValue(Bridge.Book b, String key){
+        if ("_dueWeek".equals(key)) {
+            return getWeekString(b.dueDate);
+        } else if ("_account".equals(key)) {
+            return b.account.prettyName;
+        } else if ("dueDate".equals(key)) {
+            return Util.formatDate(b.dueDate);
+        } else if ("_status".equals(key)) {
+            switch (b.getStatus()) {
+                case Unknown:
+                case Normal:
+                    return "Normal/verlängerbar";
+                case Problematic:
+                    return "Nicht verlängerbar";
+                case Ordered:
+                    return "Vorgemerkt/Bestellt";
+                case Provided:
+                    return "Abholbereit";
+                default: return "unbekannter Status";
+            }
+        } else if ("_issueWeek".equals(key)) {
+            return getWeekString(b.issueDate);
+        } else if ("issueDate".equals(key)) {
+            return Util.formatDate(b.issueDate);
+        } else if ("".equals(key)) {
+            return "";
+        } else return b.getProperty(key);
+    }
+
     static public ArrayList<Bridge.Book> makeUpdatedBookCache(Bridge.Account acc, ArrayList<Bridge.Book> oldBookCache){
         ArrayList<Bridge.Book> bookCache = new ArrayList<Bridge.Book>();
         if (acc == null) {
@@ -191,7 +240,9 @@ public class VideLibri extends  BookListActivity{
                 if (book.dueDate == null && book2.dueDate == null)
                     return 0;
 
-                return book.dueDate.compareTo(book2.dueDate);
+                if (book.dueDate.pascalDate < book2.dueDate.pascalDate) return -1;
+                else if (book.dueDate.pascalDate > book2.dueDate.pascalDate) return 1;
+                else return 0;
             }
         }
         );
