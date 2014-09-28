@@ -113,6 +113,14 @@ public class Bridge {
                 default: return StatusEnum.Unknown;
             }
         }
+        void setStatus(StatusEnum se) {
+            switch (se) {
+                case Normal: status = 1; break;
+                case Problematic: status = 2; break;
+                case Ordered: status = 3; break;
+                case Provided: status = 4; break;
+            }
+        }
 
         boolean isOrderable(){
             String orderable = getProperty("orderable");
@@ -132,6 +140,8 @@ public class Bridge {
             for (int i=more.size()-1;i>=0;i--)       //backward for simple overriding
                 if (more.get(i).first.equals(name))
                     return more.get(i).second;
+            if ("title".equals(name)) return title;
+            if ("author".equals(name)) return author;
             return "";
         }
 

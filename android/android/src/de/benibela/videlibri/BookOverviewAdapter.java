@@ -1,6 +1,8 @@
 package de.benibela.videlibri;
 
 import android.graphics.Color;
+import android.graphics.Typeface;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,21 +17,23 @@ import java.util.ArrayList;
 
 class BookOverviewAdapter extends ArrayAdapter<Bridge.Book> {
     private final BookListActivity context;
-    private final int defaultColor;
+    private final int defaultColor, defaultColorSecondary;
     private final int defaultBackgroundColor;
     private ArrayList<Bridge.Book> books;
     private Bridge.Book placeHolder;
     private int completeCount;
-    private final boolean noDetailsInOverview;
-    BookOverviewAdapter(BookListActivity context, ArrayList<Bridge.Book> books, int completeCount, boolean noDetailsInOverview){
+    private final boolean noDetailsInOverview, grouped;
+    BookOverviewAdapter(BookListActivity context, ArrayList<Bridge.Book> books, int completeCount, boolean noDetailsInOverview, boolean grouped){
         super(context, R.layout.bookoverview, books);
         this.context = context;
         this.books = books;
         this.completeCount = completeCount;
         if (this.completeCount == 0) this.completeCount = books.size();
         this.noDetailsInOverview = noDetailsInOverview;
+        this.grouped = grouped;
 
         defaultColor = context.getResources().getColor(android.R.color.primary_text_dark);
+        defaultColorSecondary = context.getResources().getColor(android.R.color.secondary_text_dark);
         defaultBackgroundColor = context.getResources().getColor(android.R.color.background_dark);
 
         placeHolder = new Bridge.Book();
@@ -62,21 +66,38 @@ class BookOverviewAdapter extends ArrayAdapter<Bridge.Book> {
         }
         ViewHolder holder = (ViewHolder) view.getTag();
         Bridge.Book book = getItem(position);
+        boolean isGroupingHeader = grouped && book.more == VideLibri.crazyHeaderHack;
         holder.caption.setText(shortened(book.title));
+        if (grouped) {
+            if (isGroupingHeader) {
+                holder.caption.setTypeface(holder.caption.getTypeface(), Typeface.BOLD);
+                holder.caption.setGravity(Gravity.CENTER_HORIZONTAL);
+                holder.caption.setTextColor(book.getStatusColor());
+            } else {
+                holder.caption.setTypeface(holder.caption.getTypeface(), Typeface.NORMAL);
+                holder.caption.setGravity(Gravity.NO_GRAVITY);
+                holder.caption.setTextColor(defaultColorSecondary);
+            }
+        }
+
         if (noDetailsInOverview) holder.more.setVisibility(View.GONE);
         else if (book == placeHolder) {
             context.onPlaceHolderShown(position);
             holder.more.setText(book.author); //not an author
         } else {
-            String more = "";
-            if (!book.author.trim().equals(""))
-                if (!book.author.startsWith("von") && !book.author.startsWith("by")) more = view.getContext().getString(R.string.booklist_from) + " " + shortened(book.author);
-                else more = " " + shortened(book.author);
-            String year = book.getProperty("year");
-            if (year != null && !"".equals(year)) more += " ; " + year;
-            String id = book.getProperty("id");
-            if (id != null && !"".equals(id)) more += " ; " + id;
-            holder.more.setText(more);
+            if  (grouped)
+                holder.more.setVisibility(isGroupingHeader ? View.GONE : View.VISIBLE);
+            if (!isGroupingHeader) {
+                String more = "";
+                if (!book.author.trim().equals(""))
+                    if (!book.author.startsWith("von") && !book.author.startsWith("by")) more = view.getContext().getString(R.string.booklist_from) + " " + shortened(book.author);
+                    else more = " " + shortened(book.author);
+                String year = book.getProperty("year");
+                if (year != null && !"".equals(year)) more += " ; " + year;
+                String id = book.getProperty("id");
+                if (id != null && !"".equals(id)) more += " ; " + id;
+                holder.more.setText(more);
+            }
         }
 
         if (context.selectedBooks != null) {
@@ -89,8 +110,8 @@ class BookOverviewAdapter extends ArrayAdapter<Bridge.Book> {
 
         if (book.account != null && !book.history ) { //lend book
             switch (book.getStatus()) {
-                case Provided:  holder.date.setText(view.getContext().getString(R.string.booklist_status_provided)); break;
-                case Ordered:  holder.date.setText(view.getContext().getString(R.string.booklist_status_ordered)); break;
+                case Provided:  holder.date.setText(view.getContext().getString(R.string.book_status_provided)); break;
+                case Ordered:  holder.date.setText(view.getContext().getString(R.string.book_status_ordered)); break;
                 default: holder.date.setText(Util.formatDate(book.dueDate)); break;
             }
             int c = book.getStatusColor();

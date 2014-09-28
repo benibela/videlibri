@@ -47,6 +47,7 @@ public class BookListActivity extends VideLibriBaseFragmentActivity{
 
     public ArrayList<Bridge.Book> bookCache = new ArrayList<Bridge.Book>();
     public boolean noDetailsInOverview = false;
+    public String sortingKey, groupingKey;
 
     public ArrayList<Bridge.Book> selectedBooks = null;
 
@@ -55,7 +56,7 @@ public class BookListActivity extends VideLibriBaseFragmentActivity{
     private boolean cacheShown = false;
     void displayBookCache(int partialSize){
         //Log.i("VL","Book count: "+partialSize);
-        BookOverviewAdapter sa = new BookOverviewAdapter(this, bookCache, partialSize, noDetailsInOverview);
+        BookOverviewAdapter sa = new BookOverviewAdapter(this, bookCache, partialSize, noDetailsInOverview, groupingKey != "");
         ListView bookListView = (ListView) findViewById(R.id.booklistview);
         if (bookListView == null && list() != null) bookListView = (ListView) (list().findViewById(R.id.booklistview));
         if (bookListView == null) return; //this might get executed before the fragment/view is loaded
@@ -63,8 +64,12 @@ public class BookListActivity extends VideLibriBaseFragmentActivity{
         bookListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                if (i < bookCache.size() && bookCache.get(i) != null)
-                    viewDetails(i);
+                if (i >= bookCache.size() || bookCache.get(i) == null) return;
+                if (groupingKey != "") {
+                    Bridge.Book book = bookCache.get(i);
+                    if (book.more == VideLibri.crazyHeaderHack) return; //grouping header
+                }
+                viewDetails(i);
             }
         });
         bookListView.setAdapter(sa);

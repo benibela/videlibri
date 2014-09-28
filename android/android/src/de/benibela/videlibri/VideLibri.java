@@ -83,13 +83,15 @@ public class VideLibri extends  BookListActivity{
         SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(this);
         noDetailsInOverview = sp.getBoolean("noLendBookDetails", false);
         sortingKey = sp.getString("sorting", "dueDate");
-        groupingKey = sp.getString("sorting", "_dueWeek");
+        groupingKey = sp.getString("grouping", "_dueWeek");
 
 
         if (displayHistoryActually != displayHistory
                 || !hiddenAccounts.equals(hiddenAccountsActually)
                 || noDetailsInOverviewActually != noDetailsInOverview
-                || displayForcedCounterActually != displayForcedCounter)
+                || displayForcedCounterActually != displayForcedCounter
+                || !groupingKey.equals(groupingKeyActually)
+                || !sortingKey.equals(sortingKeyActually))
             displayAccount(null);
         //setTitle("Ausleihen");  //does not work in onCreate (why? makes the title invisible) No. it just works sometimes?
 
@@ -131,6 +133,7 @@ public class VideLibri extends  BookListActivity{
     static public boolean displayHistory = false;
     private boolean displayHistoryActually = false;
     private boolean noDetailsInOverviewActually = false;
+    private String sortingKeyActually, groupingKeyActually;
     static public ArrayList<Bridge.Account> hiddenAccounts = new ArrayList<Bridge.Account>();
     private ArrayList<Bridge.Account> hiddenAccountsActually = new ArrayList<Bridge.Account>();
 
@@ -146,22 +149,24 @@ public class VideLibri extends  BookListActivity{
         super.onActivityResult(requestCode, resultCode, data);
     }
 
+
     static private int dateToWeek(int pascalDate){
         return (pascalDate - 2) / 7;
     }
     static public String getWeekString(Bridge.SimpleDate date){
-        if (date == null) return "Unbekanntes Abgabedatum";
+        if (date == null) return Util.tr(R.string.unknown_date);
 
         int week = dateToWeek(date.pascalDate);
         if (Bridge.currentPascalDate > 0)
             switch (week - dateToWeek(Bridge.currentPascalDate)){
-                case -1: return "Letzte Woche";
-                case 0: return "Diese Woche";
-                case 1: return "Nächste Woche";
+                case -1: return Util.tr(R.string.last_week);
+                case 0: return Util.tr(R.string.this_week);
+                case 1: return Util.tr(R.string.next_week);
             }
-        int delta = week * 7 + 2;
-        return "Woche vom "+Util.formatDate(new Date(date.getTime().getTime() - delta * 1000 * 60 * 60 * 24 ))+
-                " zum "+Util.formatDate(new Date(date.getTime().getTime() + (6 - delta) * 1000 * 60 * 60 * 24 ));
+        int delta =  date.pascalDate - 2 - week * 7;
+        return String.format(Util.tr(R.string.week_from_to),
+                Util.formatDate(new Date(date.getTime().getTime() - delta * 1000 * 60 * 60 * 24 )),
+                Util.formatDate(new Date(date.getTime().getTime() + (6 - delta) * 1000 * 60 * 60 * 24 )));
     }
     static public String getKeyValue(Bridge.Book b, String key){
         if ("_dueWeek".equals(key)) {
@@ -172,16 +177,11 @@ public class VideLibri extends  BookListActivity{
             return Util.formatDate(b.dueDate);
         } else if ("_status".equals(key)) {
             switch (b.getStatus()) {
-                case Unknown:
-                case Normal:
-                    return "Normal/verlängerbar";
-                case Problematic:
-                    return "Nicht verlängerbar";
-                case Ordered:
-                    return "Vorgemerkt/Bestellt";
-                case Provided:
-                    return "Abholbereit";
-                default: return "unbekannter Status";
+                case Unknown: case Normal: return Util.tr(R.string.book_status_normal);
+                case Problematic: return Util.tr(R.string.book_status_problematic);
+                case Ordered: return Util.tr(R.string.book_status_ordered);
+                case Provided: return Util.tr(R.string.book_status_provided);
+                default: return Util.tr(R.string.book_status_unknown);
             }
         } else if ("_issueWeek".equals(key)) {
             return getWeekString(b.issueDate);
@@ -191,16 +191,96 @@ public class VideLibri extends  BookListActivity{
             return "";
         } else return b.getProperty(key);
     }
+    static public int compareForStateMismatch(Bridge.Book book, Bridge.Book book2){
+        if (book.history != book2.history) {
+            if (book.history) return  1;
+            else return -1;
+        }
+        if ((book.getStatus() == Bridge.Book.StatusEnum.Ordered  || book.getStatus() == Bridge.Book.StatusEnum.Provided)
+                !=
+                (book2.getStatus() == Bridge.Book.StatusEnum.Ordered || book2.getStatus() == Bridge.Book.StatusEnum.Provided))
+            if ((book.getStatus() == Bridge.Book.StatusEnum.Ordered  || book.getStatus() == Bridge.Book.StatusEnum.Provided)) return 1;
+            else return -1;
 
-    static public ArrayList<Bridge.Book> makeUpdatedBookCache(Bridge.Account acc, ArrayList<Bridge.Book> oldBookCache){
+        return Util.compareNullFirst(book.dueDate, book2.dueDate);
+    }
+    static public int compareStatus(Bridge.Book.StatusEnum s1, Bridge.Book.StatusEnum s2) {
+        if (s1 == s2) return 0;
+        //order: ordered normal provided problematic
+        switch (s1) {
+            case Unknown:
+            case Normal:
+                switch (s2) {
+                    case Problematic: case Provided: return 1;
+                    default: return -1;
+                }
+            case Problematic:
+                return -1; //problematic is the highest
+            case Ordered:
+                return 1; //ordered the lowest
+            case Provided:
+                if (s2 == Bridge.Book.StatusEnum.Problematic) return 1;
+                return -1;
+        }
+        return 0;
+    }
+    static public int compareForKey(Bridge.Book book, Bridge.Book book2, String key){
+        if (book == null || book2 == null) return 0;
+        if ("_dueWeek".equals(key)) {
+            int temp = compareForStateMismatch(book, book2);
+            if (temp != 0 || book.dueDate == null) return temp;
+            return Util.compare(dateToWeek(book.dueDate.pascalDate), dateToWeek(book2.dueDate.pascalDate));
+        } else if ("_account".equals(key)) {
+            int temp = Util.compareNullFirst(book.account, book2.account);
+            if (temp != 0 || book.account == null) return 0;
+            temp = Util.compareNullFirst(book.account.prettyName, book2.account.prettyName);
+            if (temp != 0 || book.account.prettyName == null) return 0;
+            return book.account.prettyName.compareTo(book2.account.prettyName);
+        } else if ("dueDate".equals(key)) {
+            int temp = compareForStateMismatch(book, book2);
+            if (temp != 0) return temp;
+            return Util.compare(book.dueDate.pascalDate, book2.dueDate.pascalDate);
+        } else if ("_status".equals(key)) {
+            int temp = compareForStateMismatch(book, book2);
+            if (temp != 0) return temp;
+            return compareStatus(book.getStatus(), book2.getStatus());
+        } else if ("_issueWeek".equals(key)) {
+            int temp = compareForStateMismatch(book, book2);
+            if (temp != 0) return temp;
+            temp = Util.compareNullFirst(book.issueDate, book2.issueDate);
+            if (temp != 0 || book.issueDate == null) return temp;
+            return Util.compare(dateToWeek(book.issueDate.pascalDate), dateToWeek(book2.issueDate.pascalDate));
+        } else if ("issueDate".equals(key)) {
+            int temp = compareForStateMismatch(book, book2);
+            if (temp != 0) return temp;
+            temp = Util.compareNullFirst(book.issueDate, book2.issueDate);
+            if (temp != 0 || book.issueDate == null) return temp;
+            return Util.compare(book.issueDate.pascalDate, book2.issueDate.pascalDate);
+        } else if ("".equals(key)) {
+            return 0;
+        } else return book.getProperty(key).compareTo(book2.getProperty(key));
+    }
+
+    static final ArrayList<Bridge.Book.Pair> crazyHeaderHack = new ArrayList<Bridge.Book.Pair>();
+    static public ArrayList<Bridge.Book> makeUpdatedBookCache(Bridge.Account acc, ArrayList<Bridge.Book> oldBookCache,
+                                                              final String groupingKey, final String sortingKey,
+                                                              boolean renewableOnly){
+        //renewableOnly is not supported for acc != null
+
+        boolean addHistory = displayHistory && !renewableOnly;
         ArrayList<Bridge.Book> bookCache = new ArrayList<Bridge.Book>();
         if (acc == null) {
             for (Bridge.Account facc: VideLibriApp.accounts) {
                 if (hiddenAccounts.contains(facc))
                     continue;
                 Bridge.Book[] books = Bridge.VLGetBooks(facc, false);
-                for (Bridge.Book b: books) bookCache.add(b);
-                if (displayHistory){
+                if (!renewableOnly) {
+                    for (Bridge.Book b: books) bookCache.add(b);
+                } else
+                    for (Bridge.Book b: books)
+                        if (b.getStatus() == Bridge.Book.StatusEnum.Unknown || b.getStatus() == Bridge.Book.StatusEnum.Normal)
+                            bookCache.add(b);
+                if (addHistory){
                     books = Bridge.VLGetBooks(facc, true);
                     for (Bridge.Book b: books) bookCache.add(b);
                 }
@@ -208,11 +288,11 @@ public class VideLibri extends  BookListActivity{
         } else {
             boolean hidden = hiddenAccounts.contains(acc);
             for (Bridge.Book b: oldBookCache)
-                if (!acc.equals(b.account)) bookCache.add(b);
+                if (!acc.equals(b.account) && b.account != null) bookCache.add(b);
             if (!hidden) {
                 Bridge.Book[] books = Bridge.VLGetBooks(acc, false);
                 for (Bridge.Book b: books) bookCache.add(b);
-                if (displayHistory){
+                if (addHistory){
                     books = Bridge.VLGetBooks(acc, true);
                     for (Bridge.Book b: books) bookCache.add(b);
                 }
@@ -222,30 +302,38 @@ public class VideLibri extends  BookListActivity{
         Collections.sort(bookCache, new Comparator<Bridge.Book>() {
             @Override
             public int compare(Bridge.Book book, Bridge.Book book2) {
-                if (book == null || book2 == null) return 0;
-                if (book.history != book2.history) {
-                    if (book.history) return  1;
-                    else return -1;
-                }
-                if ((book.getStatus() == Bridge.Book.StatusEnum.Ordered  || book.getStatus() == Bridge.Book.StatusEnum.Provided)
-                        !=
-                        (book2.getStatus() == Bridge.Book.StatusEnum.Ordered || book2.getStatus() == Bridge.Book.StatusEnum.Provided))
-                    if ((book.getStatus() == Bridge.Book.StatusEnum.Ordered  || book.getStatus() == Bridge.Book.StatusEnum.Provided)) return 1;
-                    else return -1;
-
-                if ((book.dueDate == null) != (book2.dueDate == null))
-                    if (book.dueDate == null) return -1;
-                    else return 1;
-
-                if (book.dueDate == null && book2.dueDate == null)
-                    return 0;
-
-                if (book.dueDate.pascalDate < book2.dueDate.pascalDate) return -1;
-                else if (book.dueDate.pascalDate > book2.dueDate.pascalDate) return 1;
-                else return 0;
+                int temp = compareForKey(book, book2, groupingKey);
+                if (temp != 0) return temp;
+                return compareForKey(book, book2, sortingKey);
             }
         }
         );
+
+        if (!"".equals(groupingKey)) {
+            String lastGroup = "";
+            Bridge.Book groupHeader = null;
+            for (int i=0;i<bookCache.size();i++) {
+                Bridge.Book b = bookCache.get(i);
+                String newGroup = getKeyValue(b, groupingKey);
+                if (!newGroup.equals(lastGroup)) {
+                    groupHeader = new Bridge.Book();
+                    groupHeader.title = newGroup;
+                    groupHeader.more = crazyHeaderHack;
+                    groupHeader.history = true;
+                    groupHeader.setStatus(Bridge.Book.StatusEnum.Ordered);
+                    bookCache.add(i, groupHeader);
+                    lastGroup = newGroup;
+                    i++;
+                }
+                if (groupHeader != null) {
+                    if (!b.history) groupHeader.history = false;
+                    if (compareStatus(groupHeader.getStatus(), b.getStatus()) > 0)
+                        groupHeader.setStatus(b.getStatus());
+                    if (b.dueDate != null && (groupHeader.dueDate == null || groupHeader.dueDate.pascalDate > b.dueDate.pascalDate))
+                        groupHeader.dueDate = b.dueDate;
+                }
+            }
+        }
 
         return bookCache;
     }
@@ -254,12 +342,14 @@ public class VideLibri extends  BookListActivity{
     public void displayAccount(Bridge.Account acc){
         displayHistoryActually = displayHistory;
         noDetailsInOverviewActually = noDetailsInOverview;
+        groupingKeyActually = groupingKey;
+        sortingKeyActually = groupingKey;
         displayForcedCounterActually = displayForcedCounter;
         hiddenAccountsActually.clear();
         hiddenAccountsActually.addAll(hiddenAccounts);
 
 
-        bookCache = makeUpdatedBookCache(acc, bookCache);
+        bookCache = makeUpdatedBookCache(acc, bookCache, groupingKey, sortingKey, false);
         displayBookCache();
 
         if (hiddenAccounts.size() == 0) setTitle(tr(R.string.main_bookcountD, bookCache.size()));

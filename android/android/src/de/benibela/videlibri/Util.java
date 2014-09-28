@@ -128,6 +128,7 @@ public class Util {
     }
 
     public static String formatDate(Bridge.SimpleDate date){
+        if (date == null) return tr(R.string.unknown_date);
         if (Bridge.currentPascalDate > 0 && VideLibriApp.currentActivity != null) {
             switch (date.pascalDate - Bridge.currentPascalDate) {
                 case -2: return tr(R.string.daybeforeyesterday);
@@ -138,5 +139,19 @@ public class Util {
             }
         }
         return formatDate(date.getTime());
+    }
+
+    public static int compare(int a, int b) {
+        if (a < b) return -1;
+        else if (b < a) return 1;
+        else return 0;
+    }
+    public static int compare(boolean a, boolean b) {
+        if (a == b) return 0;
+        if (a) return 1;
+        return 1;
+    }
+    public static int compareNullFirst(Object a, Object b) {
+        return compare(a != null, b != null);
     }
 }

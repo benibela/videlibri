@@ -23,9 +23,11 @@
     <string name="book_titleauthor">Titeldaten</string>
     <string name="book_from">von</string>
     <string name="book_duedate">Abgabefrist</string>
-    <string name="book_status_problematic">(nicht verlängerbar)</string>
-    <string name="book_status_ordered">(vorgemerkt)</string>
-    <string name="book_status_provided">(abholbereit)</string>
+    <string name="book_status_unknown">unbekannter Status</string>
+    <string name="book_status_normal">normal/verlängerbar</string>
+    <string name="book_status_problematic">nicht verlängerbar</string>
+    <string name="book_status_ordered">vorgemerkt</string>
+    <string name="book_status_provided">abholbereit</string>
     <string name="book_status">Bemerkung</string>
     <string name="book_lenddate">Ausleihdatum</string>
     <string name="book_lendat">Ausgeliehen in</string>
@@ -38,8 +40,6 @@
     <string name="booklist_noselection">noch keine Auswahl</string>
     <string name="booklist_loading">Ergebnisse werden geladen...</string>
     <string name="booklist_from">von</string>
-    <string name="booklist_status_ordered">vorgemerkt</string>
-    <string name="booklist_status_provided">abholbereit</string>
     <string name="feedback_feedbacktitle">VideLibri Feedback</string>
     <string name="feedback_acraheader">Per ACRA für Fehlerberichte:</string>
     <string name="feedback_send_ok">Feedback wurde erfolgreich abgeschickt.</string>
@@ -161,6 +161,13 @@
     <string name="tomorrow">morgen</string>
     <string name="dayaftertomorrow">übermorgen</string>
 
+    <string name="last_week">Letzte Woche</string>
+    <string name="this_week">Diese Woche</string>
+    <string name="next_week">Nächste Woche</string>
+
+    <string name="week_from_to">Woche vom %1$s zum %2$s</string>
+
+    <string name="unknown_date">Unbekanntes Datum</string>
 
     <string-array name="sortable_properties_tr">
         <item>Keine</item>
@@ -193,4 +200,5 @@
         <item>author</item>
         <item>year</item>
     </string-array>
+
 </resources>

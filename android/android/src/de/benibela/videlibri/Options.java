@@ -90,6 +90,22 @@ public class Options extends VideLibriBaseActivity{
         if (!VideLibri.displayHistory) ((RadioButton) findViewById(R.id.radioButton1)).setChecked(true);
         else ((RadioButton) findViewById(R.id.radioButton2)).setChecked(true);
 
+
+        final String[] sortingKeys = getResources().getStringArray(R.array.sortable_properties);
+        String sorting = sp.getString("sorting", "dueDate"),
+                grouping = sp.getString("grouping", "_dueWeek");
+        for (int i = 0; i < sortingKeys.length; i++)
+            if (sorting.equals(sortingKeys[i])) {
+                ((Spinner)findViewById(R.id.sorting)).setSelection(i);
+                break;
+            }
+        for (int i = 0; i < sortingKeys.length; i++)
+            if (grouping.equals(sortingKeys[i])) {
+                ((Spinner)findViewById(R.id.grouping)).setSelection(i);
+                break;
+            }
+
+
         findButtonById(R.id.newaccount).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -151,6 +167,11 @@ public class Options extends VideLibriBaseActivity{
         editor.putBoolean("notifications", getCheckBoxChecked(R.id.notifications));
         editor.putBoolean("noLendBookDetails", getCheckBoxChecked(R.id.noLendBookDetails));
         editor.putInt("notificationsServiceDelay", Util.strToIntDef((getEditTextText(R.id.notificationsServiceDelay)), 15));
+        final String[] sortingKeys = getResources().getStringArray(R.array.sortable_properties);
+        int sortingPos = ((Spinner)findViewById(R.id.sorting)).getSelectedItemPosition();
+        if (sortingPos >= 0 && sortingPos < sortingKeys.length) editor.putString("sorting", sortingKeys[sortingPos]);
+        int groupingPos = ((Spinner)findViewById(R.id.grouping)).getSelectedItemPosition();
+        if (groupingPos >= 0 && groupingPos < sortingKeys.length) editor.putString("grouping", sortingKeys[groupingPos]);
         editor.commit();
 
         NotificationService.startIfNecessary(this);

@@ -1,7 +1,9 @@
 package de.benibela.videlibri;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
@@ -21,14 +23,11 @@ public class RenewList extends BookListActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        bookCache = new ArrayList<Bridge.Book> ();
-        noDetailsInOverview = PreferenceManager.getDefaultSharedPreferences(this).getBoolean("noLendBookDetails", false);
-        for (Bridge.Book book: VideLibri.makeUpdatedBookCache(null, new ArrayList<Bridge.Book>()))
-            if (!book.history) {
-                Bridge.Book.StatusEnum status = book.getStatus();
-                if (status == Bridge.Book.StatusEnum.Unknown || status == Bridge.Book.StatusEnum.Normal)
-                    bookCache.add(book);
-            }
+        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(this);
+        noDetailsInOverview = sp.getBoolean("noLendBookDetails", false);
+        sortingKey = sp.getString("sorting", "dueDate");
+        groupingKey = sp.getString("grouping", "_dueWeek");
+        bookCache = VideLibri.makeUpdatedBookCache(null, new ArrayList<Bridge.Book>(), groupingKey, sortingKey, true);
         displayBookCache();
     }
 
