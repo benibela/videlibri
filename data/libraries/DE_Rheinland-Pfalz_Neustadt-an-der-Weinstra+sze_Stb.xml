@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<library>
+  <longName value="Stadtbibliothek Neustadt"/>
+  <shortName value="Stb Neustadt"/>
+  
+  <template value="bibliotheca"/>
+  <variable name="baseurl" value="http://webopac.neustadt.eu/webopac"/>	
+  <variable name="DB" value="web_biblio"/>	
+  
+  <!--<template value="pica"/>-->
+
+
+  <homepage value="http://www.neustadt.eu/Kultur/Stadtb%C3%BCcherei"/>
+  <testing-search value="ja" date="2014-09-08"/>
+  <testing-account value="ja" date="2014-09-08"/>
+  <testing-renew value="?" date=""/>
+</library>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<library>
+  <longName value="Stadtbücherei Halle (Westf) (alpha)"/>
+  <shortName value="Stb Halle"/>
+  
+  <template value="bibliotheca"/>
+  <variable name="baseurl" value="http://www.bibliotheken-in-owl.de/webopac"/>	
+  <variable name="DB" value="halle"/>	
+  
+  <!--<template value="pica"/>-->
+
+
+  <homepage value="http://www.hallewestfalen.de/portal/seiten/stadtbuecherei-900000147-22700.html?naviID=900000172&brotID=900000172&rubrik=900000006"/>
+  <testing-search value="ja" date="2014-09-29"/>
+  <testing-account value="?" date=""/>
+  <testing-renew value="?" date=""/>
+</library>
