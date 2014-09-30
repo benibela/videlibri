@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<library>
+  <longName value="Stadtbibliothek Wolfsburg (alpha)"/>
+  <shortName value="Stb Wolfsburg"/>
+  
+  <template value="bibliotheca"/>
+  <variable name="baseurl" value="http://webopac.stadt.wolfsburg.de/webopac"/>	
+  <variable name="DB" value="web_biblio"/>	
+  
+  <!--<template value="pica"/>-->
+
+
+  <homepage value="http://www.wolfsburg.de/irj/portal/anonymous?NavigationTarget=imperiafully://de/townhall/49c0f8b2.xml/Rathaus/Rathaus/Kultur/Stadtbibliothek"/>
+  <testing-search value="ja" date="2014-09-30"/>
+  <testing-account value="?" date=""/>
+  <testing-renew value="?" date=""/>
+</library>

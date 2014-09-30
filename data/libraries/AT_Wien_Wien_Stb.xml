@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<library>
+  <longName value="Büchereien Wien (alpha)"/>
+  <shortName value="Stb Wien"/>
+  
+  <template value="bibliotheca"/>
+  <variable name="baseurl" value="https://katalog.buechereien.wien.at"/>	
+  <variable name="DB" value="BIB_SYS"/>	
+  
+  <!--<template value="pica"/>-->
+
+
+  <homepage value="http://www.buechereien.wien.at/"/>
+  <testing-search value="ja" date="2014-09-30"/>
+  <testing-account value="?" date=""/>
+  <testing-renew value="?" date=""/>
+</library>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<library>
+  <longName value="Stadtbücherei Steinfurt (alpha)"/>
+  <shortName value="Stb Steinfurt"/>
+  
+  <template value="bibliotheca"/>
+  <variable name="baseurl" value="http://topac30.citeq.de/opac80"/>	
+  <variable name="DB" value="biblio80"/>	
+  
+  <!--<template value="pica"/>-->
+
+
+  <homepage value="http://stadtbuecherei.steinfurt.de/"/>
+  <testing-search value="ja" date="2014-09-30"/>
+  <testing-account value="?" date=""/>
+  <testing-renew value="?" date=""/>
+</library>

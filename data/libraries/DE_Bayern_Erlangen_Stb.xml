@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<library>
+  <longName value="Stadtbibliothek Erlangen (alpha)"/>
+  <shortName value="Stb Erlangen"/>
+  
+  <template value="bibliotheca"/>
+  <variable name="baseurl" value="http://stadtbibliothek.erlangen.de/wwwopac"/>	
+  <variable name="DB" value="erl_buecherei"/>	
+  
+  <!--<template value="pica"/>-->
+
+
+  <homepage value="http://www.erlangen.de/bibliothek/"/>
+  <testing-search value="ja" date="2014-09-30"/>
+  <testing-account value="?" date=""/>
+  <testing-renew value="?" date=""/>
+</library>

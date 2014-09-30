@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<library>
+  <longName value="Stadtbibliothek Speyer (alpha)"/>
+  <shortName value="Stb Speyer"/>
+  
+  <template value="bibliotheca"/>
+  <variable name="baseurl" value="http://www.stadtbibliothek.speyer.de"/>	
+  <variable name="DB" value="web_biblio"/>	
+  
+  <!--<template value="pica"/>-->
+
+
+  <homepage value="http://www.speyer.de/sv_speyer/de/Bildung/Stadtbibliothek/"/>
+  <testing-search value="ja" date="2014-09-30"/>
+  <testing-account value="?" date=""/>
+  <testing-renew value="?" date=""/>
+</library>

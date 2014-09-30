@@ -46,6 +46,7 @@ DE_Niedersachsen_Emden_Ub.xml
 DE_Hessen_Erbach_Stb.xml
 DE_Th+ueringen_Erfurt_Fhb.xml
 DE_Th+ueringen_Erfurt_Ub.xml
+DE_Bayern_Erlangen_Stb.xml
 DE_Baden-W+uertenberg_Esslingen_HS.xml
 DE_Baden-W+uertenberg_Filderstadt_Stb.xml
 DE_Baden-W+uertenberg_Freiburg_HS.xml
@@ -64,6 +65,7 @@ DE_Sachsen-Anhalt_Halle_Ub.xml
 DE_Hamburg_Hamburg_Oebh.xml
 DE_Hamburg_Hamburg_UbHSU.xml
 DE_Hamburg_Hamburg_Ub.xml
+DE_Nordrhein-Westfalen_Hamm_Stb.xml
 DE_Hessen_Hanau_Stb.xml
 DE_Niedersachsen_Hannover_GWLB.xml
 DE_Niedersachsen_Hannover_HMTMH.xml
@@ -76,8 +78,10 @@ DE_Niedersachsen_Hannover_UbTIB.xml
 DE_Niedersachsen_Hannover_Ub.xml
 DE_Hessen_Hattersheim_Stb.xml
 DE_Baden-W+uertenberg_Heidelberg_Ph.xml
+DE_Baden-W+uertenberg_Heidelberg_Stb.xml
 DE_Baden-W+uertenberg_Heidenheim_HS.xml
 DE_Baden-W+uertenberg_Heilbronn_HS.xml
+DE_Baden-W+uertenberg_Heilbronn_Stb.xml
 DE_Niedersachsen_Hildesheim_Mkb.xml
 DE_Niedersachsen_Hildesheim_Stb.xml
 DE_Niedersachsen_Hildesheim_Ub.xml
@@ -137,6 +141,7 @@ DE_Niedersachsen_Osnabr+ueck_UbHs.xml
 DE_Niedersachsen_Osnabr+ueck_Ub.xml
 DE_Bayern_Passau_Ub.xml
 DE_Baden-W+uertenberg_Pforzheim_HS.xml
+DE_Baden-W+uertenberg_Pforzheim_Stb.xml
 DE_Hessen_Pfungstadt_Stb.xml
 DE_Brandenburg_Potsdam_Fh.xml
 DE_Nordrhein-Westfalen_Pulheim_Stb.xml
@@ -150,7 +155,10 @@ DE_Saarland_Saarbr+uecken_Ub.xml
 DE_Th+ueringen_Schmalkalden_Fhb.xml
 DE_Hessen_Schotten_Stb.xml
 DE_Bayern_Schweinfurt_Hb.xml
+DE_Baden-W+uertenberg_Singen_Stb.xml
 DE_Nordrhein-Westfalen_Solingen_Stb.xml
+DE_Rheinland-Pfalz_Speyer_Stb.xml
+DE_Nordrhein-Westfalen_Steinfurt_Stb.xml
 DE_Sachsen-Anhalt_Stendal_Hs.xml
 DE_Nordrhein-Westfalen_Stolberg_Stb.xml
 DE_Mecklenburg-Vorpommern_Stralsund_Hb.xml
@@ -176,9 +184,13 @@ DE_Baden-W+uertenberg_Villingen_Stb.xml
 DE_Th+ueringen_Weimar_Stb.xml
 DE_Th+ueringen_Weimar_Ub.xml
 DE_Baden-W+uertenberg_Weingarten_HS.xml
+DE_Baden-W+uertenberg_Weinheim_Stb.xml
+AT_Wien_Wien_Stb.xml
+DE_Hessen_Wiesbaden_Stb.xml
 DE_Niedersachsen_Wilhelmshaven_Ub.xml
 CH_Z+uerich_Winterthur_Vb.xml
 DE_Nordrhein-Westfalen_Witten_Ulb.xml
+DE_Niedersachsen_Wolfsburg_Stb.xml
 DE_Bayern_W+uerzburg_Hb.xml
 DE_Bayern_W+uerzburg_Hsb.xml
 DE_Nordrhein-Westfalen_Wuppertal_Stb.xml
