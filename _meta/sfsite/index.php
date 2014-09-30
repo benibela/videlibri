@@ -98,6 +98,7 @@ if (count($matches) == 0 || count(reset($matches)) == 0 || (reset(reset($matches
   <li><a href="#libraries">Unterstützte Büchereien</a></li>
   <li><a href="#screenshots">Screenshots</a></li>
   <li><a href="#downloads">Download</a></li>
+  <li><a href="#history">Geschichte</a></li>  
   <li><a href="#spinoffs">Spin-Offs</a></li>
   <li><a href="#contact">Kontakt</a></li>
   
@@ -256,7 +257,31 @@ Damit sollte es unter Windows/Linux/Mac mit gtk/qt/win32/cocoa-Interface laufen 
 <br>
 Das Selbst-Compilern einer Androidversion ist komplizierter und erfordert sowohl ein installiertes Android-SDK wie auch ein Android-NDK. Nach Anpassung der Pfade kann das <code>android/manage.sh</code>-Skript verwendet werden, um es automatisch zu compilern.
 </div>
-<br><br><br><br>
+<br><br>
+<h2><div><a name="history">Geschichte</a></div></h2>
+
+<ul>
+<li><b>2006</b>: Beginn der Entwicklung für die Stadtbüchereien Düsseldorf und der Universitäts/landesbibliothek Düsseldorf (die jedoch keinerlei Interesse daran hatten/haben).</li>
+<li><b>2007</b>: . Im Herbst Umstellung auf ein Templatesystem, bei dem der Benutzer beliebige Büchereien hinzufügen kann, indem er die Webseite  des Katalogs kopiert und </li>
+<li><b>2008</b>: Einreichung bei Jugend Forscht</li>
+<li><b>2010</b>: Unterstützung der Aachener Bibliotheken (System: Sisis)</li>
+<li><b>2011</b>: Unterstützung für den Campuskatalog Hamburg (System: PICA)</li>
+<li><b>2012</b>: Unterstützung für die Stadtbücherei München (System: aDISWeb)</li>
+<li><b>2013</b>: erster Androidport, Vormerkungsmöglichkeiten, Auflistung einiger Bibliotheken, deren Systeme bereits unterstützt wurden, und Unterstützung für Zones 1.8</li>
+<li><b>2014</b>: Unterstützung für Bibliotheca und Bibliotheca+/OPEN</li>
+
+
+Kurze Chronik: 
+
+2006: Entwicklung für die Düsseldorfer Bibliotheken und die Digibib (Systeme: aleph, libero und was von ibm)
+2007: Umstellung auf ein Templatesystem, bei dem beliebige Büchereien hinzugefügt werden können
+2010: Unterstützung der Aachener Bibliotheken (System: Sisis)
+2011: Unterstützung für die Berliner Bibliotheken und den Campuskatalog Hamburg (System: PICA)
+2012: Unterstützung für die Stadtbücherei München (System: aDISWeb)
+2013: erster Androidport, Vormerkungsmöglichkeiten, und Auflistung einiger Bibliotheken, deren Systeme bereits unterstützt werden; Unterstützung für Zones1.8
+</ul>
+
+<br><br>
 <h2><div><a name="spinoffs">Spin-offs</a></div></h2>
 <div class="content">
 Mit dem VideLibri-Framework ist es auch trivial andere Webseiten in lokale Programme umzuwandeln, und, da der Quellcode dieser Programme größtenteils mit VideLibri übereinstimmt, liegen sie im selben <a href="https://sourceforge.net/p/videlibri/code/ci/tip/tree/">Repository</a>:

@@ -1,10 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?xml-stylesheet type="text/xsl" href="../changelog.xsl"?>
 <changelog program="VideLibri">
-  <build version="1666" date="2014-09-14">
+  <build version="1670" date="2014-09-30">
     <download url="http://videlibri.sourceforge.net/updates/videlibri-setup.exe" platform="WINDOWS" execute="&quot;$DOWNLOAD&quot;  /SP- /noicons &quot;/dir=$OLDPATH&quot; " restart="true"/>
     <download url="http://videlibri.sourceforge.net/updates/videlibri-linux32.deb" platform="LINUX32" execute=""/>
     <download url="http://videlibri.sourceforge.net/updates/videlibri-linux64.deb" platform="LINUX64" execute=""/>
+    <add>Gruppierungs- und Sortierungsoptionen</add>
+    <add>Auflistung von ein paar Stadtbibliotheken, die mit dem bibliotheca Template suchbar sind: Halle (Westf), Trier, Villingen-Schwenningen, Wien, Heidelberg, Heilbronn, Pforzheim, Singen, Weinheim, Erlangen, Wiesbaden, Wolfsburg, Hamm, Steinfurt, Speyer</add>
+    <fix>android: Darstellung von Zeiten verwendet nun das korrekte Format</fix>
+    <fix>Bibliotheca+/OPEN Stralsund für Zeitschriften ohne Bände</fix>
+    <fix>Stabi Berlin Login</fix>
+    <fix>SRU ohne Suchergebnisse</fix>
+    <fix>android: Behebt Crashes bei ungültigen UTF-8 Zeichen und Zeichen > 0xffff</fix>
+    <fix>Kiel/Lübeck Unibibliothek hat neuen Server</fix>
+  </build>
+  <build version="1666" date="2014-09-14">
     <add>Unterstützung für Bibliotheca+/OPEN</add>    
     <fix>Stb Stralsund: von Bibliotheca zu Bibliotheca+</fix>
     <add>Neustadt an der Weinstraße</add>
