@@ -238,7 +238,7 @@ public class VideLibri extends  BookListActivity{
             return book.account.prettyName.compareTo(book2.account.prettyName);
         } else if ("dueDate".equals(key)) {
             int temp = compareForStateMismatch(book, book2);
-            if (temp != 0) return temp;
+            if (temp != 0 || book.dueDate == null) return temp;
             return Util.compare(book.dueDate.pascalDate, book2.dueDate.pascalDate);
         } else if ("_status".equals(key)) {
             int temp = compareForStateMismatch(book, book2);
