@@ -61,7 +61,17 @@ win32)
 android) 
     cd android
     ANDROIDVERSION=$(xidel android/AndroidManifest.xml -e "/manifest/@*:versionCode")
-    if [[ "$ANDROIDVERSION" != "$INTVERSION" ]]; then echo Android version mismatch; read; fi
+    if [[ "$ANDROIDVERSION" != "$INTVERSION" ]]; then 
+      echo Android version mismatch $ANDROIDVERSION != $INTVERSION; 
+      sed -Ee '0,/RE/s/android:versionCode *= *["][0-9]+["]/android:versionCode="'"$INTVERSION"'"/' -i android/AndroidManifest.xml
+      sed -Ee '0,/RE/s/android:versionName *= *["][0-9.]+["]/android:versionName="'"$VERSION"'"/' -i android/AndroidManifest.xml
+      head android/AndroidManifest.xml
+      #read; 
+    fi
+    ANDROIDVERSION=$(xidel android/AndroidManifest.xml -e "/manifest/@*:versionCode")
+    if [[ "$ANDROIDVERSION" != "$INTVERSION" ]]; then echo Android version mismatch "$ANDROIDVERSION" != "$INTVERSION"; read; vim android/AndroidManifest.xml; fi
+    ANDROIDVERSION=$(xidel android/AndroidManifest.xml -e "/manifest/@*:versionName")
+    if [[ "$ANDROIDVERSION" != "$VERSION" ]]; then echo Android version mismatch "$ANDROIDVERSION" != "$VERSION" ; read; vim android/AndroidManifest.xml; fi
     ANDROIDVERSION=$(xidel android/AndroidManifest.xml -e "/manifest/@*:versionCode")
     if [[ "$ANDROIDVERSION" != "$INTVERSION" ]]; then echo Android version mismatch; read; exit; fi
     ANDROIDVERSION=$(xidel android/AndroidManifest.xml -e "/manifest/@*:versionName")
