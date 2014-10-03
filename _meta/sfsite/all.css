@@ -32,6 +32,8 @@ h2 a {display: block; max-width: 45em; margin: auto; color: white}
 .bibsupport a { text-decoration: none; }
 .bibsupport a:hover { text-decoration: underline; }
 
+.systemsupport td{border-bottom: 1px solid #00EE00;}
+
 .content { max-width: 60em; margin-left: auto; margin-right: auto; border-right: 1px solid green; border-left: 1px solid green; padding: 2em }
 
 .content img {margin: 1em;}

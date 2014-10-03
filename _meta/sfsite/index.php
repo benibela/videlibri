@@ -220,22 +220,48 @@ Praktisch sollte man das Programm genau dann benutzen, wenn man jedes Jahr mehre
 </div>
 <h2><div><a name="libraries">Unterstützte Büchereien</a></div></h2>
 <div class="content">
-Prinzipiell unterstützt VideLibri sämtliche existierenden Bibliotheken, da jeder durch das zugrundeliegende Templatesystem beliebige Datenquellen hinzufügen kann.<br>
-Es liegen aber auch einige Templates standardmäßig bei, welche erfolgreich mit den folgenden Büchereien getestet wurden:<br><br>
+Prinzipiell unterstützt VideLibri sämtliche existierenden Bibliotheken, da jeder durch das zugrundeliegende Templatesystem beliebige Datenquellen hinzufügen kann, ohne etwas an VideLibri selbst zu ändern.<br>
+<!--Es liegen aber auch einige Templates standardmäßig bei, welche erfolgreich mit -->
+Es wurde mit den folgenden Büchereien explizit getestet:<br><br>
 
 <?php include 'supportTable.html'; ?>
 
 <br>
 
-? in der Tabelle heißt, dass mir dort keine Ausleihkarte oder verlängerbare Medien zur Verfügung standen, und ich die entsprechende Funktionalität dort nicht direkt testen konnte. Wenn es das gleiche System wie eine oben mit "ja" markierte Bibliothek verwendet, funktioniert es aber vermutlich trotzdem.
+? in der Tabelle heißt, dass mir dort keine Ausleihkarte oder verlängerbare Medien zur Verfügung standen, und ich die entsprechende Funktionalität dort nicht   testen konnte. <br><br><!--Wenn es das gleiche System wie eine oben mit "ja" markierte Bibliothek verwendet, funktioniert es aber vermutlich trotzdem.-->
+
+Ob man VideLibri out-of-the-box mit einer Bibliothek verwenden kann, ist jedoch nicht von dem Namen der Bibliothek abhängig, sondern von dem von der BIbliothek verwendeten Katalogsystem und den in VideLibri geladenen Templates. VideLibri liefert standardmäßig Templates für die folgenden Bibliothekssystem mit: <br><br>
+
+<table class="systemsupport">
+<thead>
+<tr><th>System</th><th>Suche</th><th>Kontoanzeige</th><th>Verlängern</th><th>Vormerkungen</th><th>Bemerkung</th><th>Seit</th></tr>
+</thead>
+<tr><td id="aDISWeb">aDIS/BMS</td>  <td>ja</td><td>ja</td><td>ja</td><td>ja</td>  <td></td><td>2012</td></tr>
+<tr><td id="aleph">Aleph</td>  <td>nein</td><td>ja</td><td>ja</td><td>nein</td>  <td>generalisiert schlecht, bisher waren für jede neue Bibliothek Anpassungen erforderlich</td><td>2006</td></tr>
+<tr><td id="bibliotheca">Bibliotheca</td>  <td>ja</td><td>ja</td><td>ja</td><td>ja</td>  <td>Bei abweichenden Spalten im Benutzerkonto (statt Autor/Titel/Abgabedatum) sind Anpassungen erforderlich</td><td>2014</td></tr>
+<tr><td id="bibliothecaplus">Bibliotheca+/OPEN</td>  <td>ja</td><td>ja</td><td>ja</td><td>ja</td>  <td>generalisiert schlecht, bisher nur bei einer Bibliothek funktionsfähig</td><td>2014</td></tr>
+<tr><td id="digibib">Digibib</td>  <td>ja</td><td></td><td></td><td></td>  <td>Suche über Metasuchmaschine</td><td>2008</td></tr>
+<tr><td id="libero5">Libero 5</td>  <td>ja</td><td>ja</td><td>ja</td><td>ja</td>  <td></td><td>2007</td></tr>
+<tr><td id="paia">PAIA</td>  <td></td><td>ja</td><td>ja</td><td>nein</td>  <td></td><td>2013</td></tr>
+<tr><td>PICA:</td></tr>
+<tr><td style="padding-left: 1em" id="pica">PICA Standard</td>  <td>ja</td><td>ja</td><td>ja</td><td>ja</td>  <td></td><td>2011</td></tr>
+<tr><td style="padding-left: 1em" id="bibdia_stabib">mit Bibdia</td>  <td>ja</td><td>ja</td><td>ja</td><td>nein</td>  <td>nur für eine Bibliothek</td><td>2011</td></tr>
+<tr><td style="padding-left: 1em" id="lbs">mit LBS</td>  <td>ja</td><td>ja</td><td>ja</td><td>ja</td>  <td>bisher nur wenig getestet</td><td>2014</td></tr>
+<tr><td id="primo">Primo</td>  <td>ja</td><td>nein</td><td>nein</td><td>nein</td>  <td></td><td>2013</td></tr>
+<tr><td id="sisis">SISIS-SunRise</td>  <td>ja</td><td>ja</td><td>ja</td><td>ja</td>  <td>Kontozugriff nur, wenn der Benutzer die Spracheinstellung auf "deutsch" gelassen hat</td><td>2010</td></tr>
+<tr><td id="sru">SRU</td>  <td>ja</td><td></td><td></td><td></td>  <td></td><td>2013</td></tr>
+<tr><td id="was">Websphere (WAS)</td>  <td>nein</td><td>ja</td><td>ja</td><td>nein</td>  <td>nur für eine Bibliothek</td><td>2006</td></tr>
+<tr><td id="zones18">Zones (nur 1.8)</td>  <td>ja</td><td>ja</td><td>ja</td><td>ja</td>  <td></td><td>2013</td></tr>
+</table>
+
 
 <br><br>
 
-Man kann es aber auch mit anderen Bibliotheken benutzen, wenn man dort eine Ausleihkarte hat. Wegen dem zugrundeliegenden Templatesystem ist es nicht einmal nötig VideLibri umzuprogrammieren. Um ein solches Template für eine neue Bibliothek hinzuzufügen, speichert man im wesentlichen jede Seite des WebOPACs ab, und markiert die Stellen, die Medieninformationen wie Autor/Titel enthalten, mit semantischen Annotationen. Wie genau  das funktioniert, ist ausführlich in der <a href="http://videlibri.sourceforge.net/help/neuebibliothek.html">Hilfe</a> beschrieben.  Programmierkenntnisse sind dabei nur erforderlich, wenn der Katalog irgendwelche Merkwürdigkeiten, wie beispielsweise ungültiges HTML oder einen komplizierten XSS-Schutz, aufweist, oder man das Template für mehrere unterschiedliche Bibliotheken verwenden will. Das  <a href="http://userscripts.org/scripts/show/434588">VideLibri-Greasemonkey-Skript</a> (<a href="http://videlibri.sourceforge.net/script.user.js">Installations-Mirror</a>) kann verwendet werden, um ein Kontozugriff-Template  automatisch  durch Markieren der Buchinformationen in Firefox zu erstellen. (siehe <a href="http://www.youtube.com/watch?v=PUrBJ6wOXvE">Video</a>, wie man das Skript verwenden kann)<br>
+Man kann es aber auch mit anderen Bibliotheken benutzen, wenn man dort eine Ausleihkarte hat. Wegen dem zugrundeliegenden Templatesystem ist es nicht einmal nötig VideLibri umzuprogrammieren. Um ein solches Template für eine neue Bibliothek hinzuzufügen, speichert man im wesentlichen jede Seite des WebOPACs ab, und markiert die Stellen, die Medieninformationen wie Autor/Titel enthalten, mit semantischen Annotationen. Wie genau  das funktioniert, ist ausführlich in der <a href="http://videlibri.sourceforge.net/help/neuebibliothek.html">Hilfe</a> beschrieben.  Programmierkenntnisse sind dabei nur erforderlich, wenn der Katalog irgendwelche Merkwürdigkeiten, wie beispielsweise ungültiges HTML oder einen komplizierten XSS-Schutz, aufweist, oder man das Template für mehrere unterschiedliche Bibliotheken verwenden will. Das  <a href="http://videlibri.sourceforge.net/script.user.js">VideLibri-Greasemonkey-Skript</a> <!--http://userscripts.org/scripts/show/434588(<a href="http://videlibri.sourceforge.net/script.user.js">Installations-Mirror</a>) --> kann verwendet werden, um ein Kontozugriff-Template  automatisch  durch Markieren der Buchinformationen in Firefox zu erstellen. (siehe <a href="http://www.youtube.com/watch?v=PUrBJ6wOXvE">Video</a>, wie man das Skript verwenden kann)<br>
 Zudem kann eine interessierte Bibliothek ein Videlibri-Template auf ihrem Server hinterlegen und mit den entsprechenden Linkmetatags verlinken. Dann reicht die Eingabe der Serveraddresse in Videlibri, um das Template automatisch herunterzuladen und zu installieren.<br>
-Verwendet die Bücherei ein aktuelles aleph/libero/sisis/pica/aDISWeb-System ist es nicht mal nötig ein Template zu schreiben, weil man dann einfach die Serveradresse in die xml-Dateien im data/libraries Verzeichnis eintragen kann. <br/><br/>
+<!--Verwendet die Bücherei ein aktuelles aleph/libero/sisis/pica/aDISWeb-System ist es nicht mal nötig ein Template zu schreiben, weil man dann einfach die Serveradresse in die xml-Dateien im data/libraries Verzeichnis eintragen kann.--> <br/><br/>
 
-Nichtsdestotrotz kann ich aber bei Anfragen einer Bibliothek oder eines Lesers auch direkte Unterstützung für den entsprechenden Katalog in VideLibri einbauen. Für eine vollständige Unterstützung benötigte ich allerdings auch gültige Kontozugangsdaten mit verlängerbaren Büchern. Ein Template für das bloße Anzeigen der Ausleihen kann ich in der Regel innerhalb eines Tages erstellt, ein Template für alle Funktionen inklusive Vormerkungen kann aber auch schon mal eine Woche dauern (und Testen, ob es keine Sonderfälle gibt noch länger). Auch bei Fragen zu den Templates können Sie mir gerne eine <a href="#contact">Mail</a> schreiben.
+Nichtsdestotrotz kann ich bei Anfragen einer Bibliothek oder eines Lesers auch direkte Unterstützung für den entsprechenden Katalog in VideLibri einbauen. Für eine vollständige Unterstützung benötigte ich einen Testzugang zu einem Konto mit verlängerbaren Büchern. Für ein beliebiges Bibliotheksystem, welches kein JavaScript benötigt, lässt sich ein Template für das bloße Anzeigen der Ausleihen in einigen Minuten erstellen. Ein Template für alle Funktionen inklusive Vormerkungen kann aber auch schon mal eine Woche dauern (und Testen, ob es keine Sonderfälle dauert, bis die Fälle bei jemanden auftreten). Auch bei Fragen zu den Templates können Sie mir gerne eine <a href="#contact">Mail</a> schreiben.
 
 </div>
 
@@ -249,7 +275,6 @@ Für Linux muss jeweils die passende Version heruntergeladen werden.
 
 <br><br> 
 
-Es gibt auch einen <a href="updates/changelog.xml">Changelog</a>, das alle Änderungen der letzten Version auflistet (und ein <a href="https://sourceforge.net/p/videlibri/code/ci/tip/log/">Repositorylog</a>, welches alle Entwicklungsschritte zeigt.).<br><br>
 
 Den gesamten Quellcode gibt es in einem <a href="https://sourceforge.net/p/videlibri/code/ci/tip/tree/">Mercurial-Repository</a>.<br>
 Das Programm ist in FreePascal/Lazarus geschrieben, und sollte sich einfach compilern lassen, indem man die bookWatch.lpi in Lazarus öffnet und in den Projekteinstellungen sein Betriebssystem auswählt. 
@@ -260,26 +285,22 @@ Das Selbst-Compilern einer Androidversion ist komplizierter und erfordert sowohl
 <br><br>
 <h2><div><a name="history">Geschichte</a></div></h2>
 
+Eine kurze Übersicht über die Entwicklung von VideLibri gibt folgende Liste:
+
+
 <ul>
-<li><b>2006</b>: Beginn der Entwicklung für die Stadtbüchereien Düsseldorf und der Universitäts/landesbibliothek Düsseldorf (die jedoch keinerlei Interesse daran hatten/haben).</li>
-<li><b>2007</b>: . Im Herbst Umstellung auf ein Templatesystem, bei dem der Benutzer beliebige Büchereien hinzufügen kann, indem er die Webseite  des Katalogs kopiert und </li>
-<li><b>2008</b>: Einreichung bei Jugend Forscht</li>
-<li><b>2010</b>: Unterstützung der Aachener Bibliotheken (System: Sisis)</li>
-<li><b>2011</b>: Unterstützung für den Campuskatalog Hamburg (System: PICA)</li>
-<li><b>2012</b>: Unterstützung für die Stadtbücherei München (System: aDISWeb)</li>
-<li><b>2013</b>: erster Androidport, Vormerkungsmöglichkeiten, Auflistung einiger Bibliotheken, deren Systeme bereits unterstützt wurden, und Unterstützung für Zones 1.8</li>
-<li><b>2014</b>: Unterstützung für Bibliotheca und Bibliotheca+/OPEN</li>
+<li><b>2006</b>: Beginn der Entwicklung für die Stadtbüchereien Düsseldorf und die Universitäts/landesbibliothek Düsseldorf<sup>die leider kein Interesse an einer App hatten</sup>.</li>
+<li><b>2007</b>: Erste Veröffentlichung; Unterstützung für die Fachhochschulbibliothek Düsseldorf<sup>dito</sup>;  später Umstellung auf ein Templatesystem, bei dem der Benutzer beliebige Büchereien hinzufügen kann, indem er die Webseiten des OPACs kopiert und entsprechend annotiert</li>
+<li><b>2008</b>: Unterstützung für Suchen über die Digibib, Einreichung bei Jugend Forscht</li>
+<li><b>2010</b>: Unterstützung für das SISIS-Sunrise-System, mit den Aachener Bibliotheken als Beispiel; vollständige Veröffentlichung des Quellcodes</li>
+<li><b>2011</b>: Unterstützung für PICA, mit dem Campuskatalog Hamburg als Beispiel sowie Auflistung der Berliner Bibliotheken</li>
+<li><b>2012</b>: Unterstützung für aDIS/BMS, mit der Stadtbücherei München als Beispiel</li>
+<li><b>2013</b>: erster Androidportierung, Vormerkungsmöglichkeiten, Auflistung einiger Bibliotheken für die unterstützten Systeme, und Unterstützung für Zones 1.8 und Primo</li>
+<li><b>2014</b>: Unterstützung für LBS, Bibliotheca und Bibliotheca+/OPEN.</li>
 
-
-Kurze Chronik: 
-
-2006: Entwicklung für die Düsseldorfer Bibliotheken und die Digibib (Systeme: aleph, libero und was von ibm)
-2007: Umstellung auf ein Templatesystem, bei dem beliebige Büchereien hinzugefügt werden können
-2010: Unterstützung der Aachener Bibliotheken (System: Sisis)
-2011: Unterstützung für die Berliner Bibliotheken und den Campuskatalog Hamburg (System: PICA)
-2012: Unterstützung für die Stadtbücherei München (System: aDISWeb)
-2013: erster Androidport, Vormerkungsmöglichkeiten, und Auflistung einiger Bibliotheken, deren Systeme bereits unterstützt werden; Unterstützung für Zones1.8
 </ul>
+
+Eine Übersicht, über alle veröffentlichten Versionen findet man im <a href="updates/changelog.xml">Changelog</a>. Alle Änderungen und Entwicklungsschritte findet man im <a href="https://sourceforge.net/p/videlibri/code/ci/tip/log/">Repositorylog</a>.
 
 <br><br>
 <h2><div><a name="spinoffs">Spin-offs</a></div></h2>
