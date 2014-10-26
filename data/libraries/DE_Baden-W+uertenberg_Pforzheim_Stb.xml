@@ -10,7 +10,7 @@
   <!--<template value="pica"/>-->
 
 
-  <homepage value="https://opac1.stadt-pforzheim.de"/>
+  <homepage value="http://stadtbibliothek.pforzheim.de/"/>
   <testing-search value="ja" date="2014-09-30"/>
   <testing-account value="?" date=""/>
   <testing-renew value="?" date=""/>

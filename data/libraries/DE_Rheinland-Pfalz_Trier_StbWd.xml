@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <library>
-  <longName value="Stadtbibliothek Weberbach (alpha)"/>
-  <shortName value="Stb Weberbach"/>
+  <longName value="Stadtbibliothek Palais Walderdorff (alpha)"/>
+  <shortName value="Stb Walderdorff"/>
   
   <template value="bibliotheca"/>
   <variable name="baseurl" value="https://opac.trier.de/webopac"/>	
