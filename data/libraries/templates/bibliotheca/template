@@ -51,7 +51,7 @@
 
 <action id="search">
     <s>   next-page := (),
-          search-keys := {"title": "titel", "author": "verfasser", "keyword": "stichwort", "isbn": "isbn", "year": "jahr_von"},
+          search-keys := {"title": "titel", "author": "verfasser", "keywords": "stichwort", "isbn": "isbn", "year": "jahr_von"},
           startSearch := form-combine($search, {|
             { "jahr_bis": $book.year },
             (
