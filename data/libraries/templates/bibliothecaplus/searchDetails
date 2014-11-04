@@ -1,15 +1,26 @@
 <t:switch prioritized="true">
   <body>
-    <td class="standardPaddingCover">
+    <div class="standardPaddingCover">
+        <input type="image">{book.image-url := @src}</input>
+    </div>?
+    <td class="standardPaddingCover" t:if="not($book.image-url)">
         <input type="image">{book.image-url := @src}</input>
     </td>?
 
 
+
     <div t:condition="contains(@id, 'DivAvailRegionDetail')">
-      <input type="image" t:condition="contains(@name, 'mediumImageAvailDetail')">{book.orderable := contains(@src, "false.png")}</input>
-      <div t:test="$book.orderable">
-           <input>{reserve-request := form((//form)[1], {"__EVENTTARGET":  @name})}</input>
-      </div>
+      <t:switch>
+        <input type="image" t:condition="contains(@name, 'mediumImageAvailDetail')">{book.orderable := contains(@src, "false.png")}</input>
+        <img t:condition="contains(@id, 'mediumImageAvailDetail')">{book.orderable := contains(@src, "false.png")}</img>
+        <img t:condition="contains(@id, 'mediumImageDigitalDetail')">{$book("Download !") := ../@href}</img>
+      </t:switch>
+
+      <input t:test="$book.orderable">{reserve-request := form((//form)[1], {"__EVENTTARGET":  @name})}</input>?
+    </div>
+
+    <div t:test="$book.orderable">
+       <a t:condition="contains(@id, 'BtnReserve')">{reserve-request := form((//form)[1], {"__EVENTTARGET":  translate(@id, "_", "$")})}</a>?
     </div>
         
   
@@ -18,7 +29,7 @@
       <tr>{$book(x"Exemplar {$i := $i + 1}!") := join(td)}</tr>+
     </table>
     
-    <div t:condition="contains(@id, 'tpnlDetail')"><!-- class="DnnContainer">-->
+    <div t:condition="contains(@id, 'tpnlDetail') or contains(@ id, 'CatalogueDetailView')"><!-- class="DnnContainer">-->
       <div>     
          <span>{cat := .}</span>
          <span>{

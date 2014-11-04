@@ -14,22 +14,41 @@
 
   
     <div t:condition="matches(@id, '(ComprehensiveItem|divMedium)$')">
-      <table><tr>
-        <td    class="standardPaddingCover"/>
-        <td  >
-          <a>{book := {"title": ., "_detailId": extract(@href, "dnn.*btn.*Value"), "_page": $current-page}}</a>
-          
-          <span t:condition="contains(@id, 'LblSubTitleValue')">{book.title := x"{$book.title}: {.}"}</span>? 
-          
-          <div>     
-             <span>{cat := .}</span>
-             <span>{
-               let $temp := extract($cat/@id, "_Lbl(.*)$", 1) 
-               return if (exists($search-reverse-keys($temp))) then $book($search-reverse-keys($temp)) := .
-                      else $book($cat||"!") := .}</span> 
-          </div>*
-        </td>
-      </tr></table>
+      <t:switch prioritized="true">
+        <div>
+          <div class="standardPaddingCover"/>
+          <div>
+            <a>{book := {"title": ., "_detailId": extract(@href, "dnn.*btn.*Value"), "_page": $current-page}}</a>
+            
+            <span t:condition="contains(@id, 'LblSubTitleValue')">{book.title := x"{$book.title}: {.}"}</span>? 
+            
+            <div>     
+               <span>{cat := .}</span>
+               <span>{
+                 let $temp := extract($cat/@id, "_Lbl(.*)$", 1) 
+                 return if (exists($search-reverse-keys($temp))) then $book($search-reverse-keys($temp)) := .
+                        else $book($cat||"!") := .}</span> 
+            </div>*
+          </div>
+        </div>
+              
+        <table><tr> <!-- old stralsund, nowhere used? -->
+          <td    class="standardPaddingCover"/>
+          <td  >
+            <a>{book := {"title": ., "_detailId": extract(@href, "dnn.*btn.*Value"), "_page": $current-page}}</a>
+            
+            <span t:condition="contains(@id, 'LblSubTitleValue')">{book.title := x"{$book.title}: {.}"}</span>? 
+            
+            <div>     
+               <span>{cat := .}</span>
+               <span>{
+                 let $temp := extract($cat/@id, "_Lbl(.*)$", 1) 
+                 return if (exists($search-reverse-keys($temp))) then $book($search-reverse-keys($temp)) := .
+                        else $book($cat||"!") := .}</span> 
+            </div>*
+          </td>
+        </tr></table>
+      </t:switch>
     </div>+ 
   </div>
 </DIV>
