@@ -270,7 +270,7 @@ begin
   case pm.kind of
     pmkConfirm: bookListReader.parser.variableChangeLog.add('confirm-result', idx > 0);
     pmkChoose:
-      if (idx >= 0) or (idx <= high(pm.optionValues)) then bookListReader.parser.variableChangeLog.add('choose-result', pm.optionValues[idx])
+      if (idx >= 0) and (idx <= high(pm.optionValues)) then bookListReader.parser.variableChangeLog.add('choose-result', pm.optionValues[idx])
       else bookListReader.parser.variableChangeLog.add('choose-result', idx + 1 {xpath uses 1-based indices});
   end;
   bookListReader.callAction(pm.callback);
