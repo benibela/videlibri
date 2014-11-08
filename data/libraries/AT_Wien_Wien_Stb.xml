@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <library>
-  <longName value="Büchereien Wien (alpha)"/>
+  <longName value="Büchereien Wien"/>
   <shortName value="Stb Wien"/>
-  
+    
   <template value="bibliotheca"/>
   <variable name="baseurl" value="https://katalog.buechereien.wien.at"/>	
   <variable name="DB" value="BIB_SYS"/>	
@@ -14,4 +14,6 @@
   <testing-search value="ja" date="2014-09-30"/>
   <testing-account value="?" date=""/>
   <testing-renew value="?" date=""/>
+
+  <table-comment value="(VideLibri ist kein Produkt der Büchereien Wien!)"/>
 </library>

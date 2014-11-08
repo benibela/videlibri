@@ -14,6 +14,8 @@ type
 TLibraryListView = class(TTreeListView)
   lastCollapsed: TTreeListItem;
   procedure LibraryListViewClick(sender: TObject);
+  procedure LibraryListViewCustomRecordItemDraw(sender: TObject; eventTyp_cdet: TCustomDrawEventTyp; recordItem: TTreeListRecordItem;
+    var defaultDraw: Boolean);
   procedure LibraryListViewItemCollapsed(sender: TObject; item: TTreeListItem);
 public
   constructor create(aowner: TComponent);
@@ -22,7 +24,7 @@ public
 end;
 
 implementation
-uses bbutils, strutils;
+uses bbutils, strutils, Graphics;
 
 { TLibraryListView }
 
@@ -44,6 +46,22 @@ begin
     end;
     lastCollapsed := nil;
   end;
+end;
+
+procedure TLibraryListView.LibraryListViewCustomRecordItemDraw(sender: TObject; eventTyp_cdet: TCustomDrawEventTyp;
+  recordItem: TTreeListRecordItem; var defaultDraw: Boolean);
+var
+  lib: TLibrary;
+  ts: TTextStyle;
+begin
+  if recordItem.Parent.data.p = nil then exit;
+  lib := TLibrary(recordItem.Parent.data.p);
+  if lib.tableComment = '' then exit;
+  if recordItem.Index <> 0 then exit;
+  canvas.Font.Color := clGray;
+  canvas.Font.Style := [fsItalic];
+  drawTextRect(lib.tableComment, canvas.TextWidth(recordItem.Text) + 15 * recordItem.Parent.Indent + 20, taLeftJustify, F_DrawingRecordItemRect, false);
+  recordItem.selectFont(canvas);
 end;
 
 constructor TLibraryListView.create(aowner: TComponent);
@@ -75,6 +93,7 @@ begin
   {$ifdef android}
   RowHeight:=RowHeight*2-10;
   {$endif}
+  OnCustomRecordItemDraw:=@LibraryListViewCustomRecordItemDraw;
 end;
 
 function TLibraryListView.selectedLibrary: TLibrary;

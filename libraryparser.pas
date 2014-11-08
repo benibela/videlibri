@@ -27,6 +27,7 @@ type
     homepageBase:string;
     prettyNameLong:string;
     prettyNameShort:string;
+    tableComment: string;
     id:string;
     deprecatedId: string;
     maxRenewCount: integer; //-1: if you can renew so frequently you want
@@ -48,6 +49,7 @@ type
     function prettyState: string;
     function prettyCountry: string;
     function prettyCountryState: string;
+    function prettyNameLongWithComment: string; inline;
     class function pretty(const l: string): string;
     class function unpretty(const l: string): string;
   end;
@@ -359,6 +361,7 @@ begin
   else if tagName='password' then passwordRegEx.Expression:=getProperty('matches',properties)
   else if tagName='maxrenewcount' then maxRenewCount:=StrToInt(value)
   else if tagName='deprecatedname' then deprecatedId:=value
+  else if tagName='table-comment' then tableComment:=value
   ;
   Result:=prContinue;
 end;
@@ -462,6 +465,12 @@ end;
 function TLibrary.prettyCountryState: string;
 begin
   result := prettycountry + ' - ' + prettyState;
+end;
+
+function TLibrary.prettyNameLongWithComment: string;
+begin
+  if tableComment = '' then exit(prettyNameLong);
+  result := prettyNameLong + LineEnding + tableComment;
 end;
 
 class function TLibrary.pretty(const l: string): string;
