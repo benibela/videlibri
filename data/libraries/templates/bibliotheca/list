@@ -1,5 +1,5 @@
 <t:switch prioritized="true">
-  <DIV class="maindivkonto">
+  <form>
     <DIV class="kontozeile_center">
       <TABLE>{hasBranch := false(), hasAuthor := false(), hasStatus := false(), hasId := false()}
          <tr><!-- Verfasser	Titel	Frist	Zweigstelle	 -->
@@ -47,7 +47,7 @@
         </t:loop>
       </TABLE>
     </DIV>?
-  </DIV>
+  </form>
   
   <div class="kontomeldung">
  {vl:raise(.)}

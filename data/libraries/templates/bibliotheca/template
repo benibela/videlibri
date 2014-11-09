@@ -12,8 +12,10 @@
   <page url="{$baseurl}/index.asp?DB={get('DB', 'OPAC')}"/>
   <page url="{$baseurl}/index.asp?kontofenster=start">
     <template>
-<FORM id="webopac" name="webopac"><t:s>vl:delete-current-books()</t:s>{follow1 := form(., {"AUSWEIS": $username, "PWD": $password})}</FORM>
-
+      <t:switch prioritized="true">
+        <FORM id="webopac" name="webopac"><t:s>vl:delete-current-books()</t:s>{follow1 := form(., {"AUSWEIS": $username, "PWD": $password})}<input name="AUSWEIS"/></FORM>
+        <DIV class="kontozeile_center">{follow1 := $url}<!--seems we are still logged in--></DIV> 
+      </t:switch>
     </template>
   </page>
 
