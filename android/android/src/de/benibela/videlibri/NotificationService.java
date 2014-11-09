@@ -52,7 +52,7 @@ public class NotificationService extends Service implements Bridge.VideLibriCont
         } else
             showLater(this, 1000*60*60); //wait 1 h
 
-        showNotification(this);
+        updateNotification(this);
 
         return START_NOT_STICKY;// START_STICKY;
     }
@@ -77,21 +77,38 @@ public class NotificationService extends Service implements Bridge.VideLibriCont
     static private String lastNotificationTitle = "";
     static private String lastNotificationText = "";
     static private long lastNotificationTime = 0;
+
+    static private String [] getNotifications(){
+        if (VideLibriApp.accounts == null) VideLibriApp.accounts = Bridge.VLGetAccounts();
+
+        if (VideLibriApp.accounts.length == 0) return null;
+
+        String [] notification = Bridge.VLGetNotifications();
+
+        if (notification == null) return null;
+
+        return notification;
+    }
+
+    static void cancelNotification(Context context) {
+        ((NotificationManager)context.getSystemService(NOTIFICATION_SERVICE)).cancel(NOTIFICATION_ID);
+        lastNotificationTime = 0;
+    }
+
     /**
      * Show a notification while this service is running.
      * (partly from http://stackoverflow.com/questions/13902115/how-to-create-a-notification-with-notificationcompat-builder)
      */
-    static void showNotification(Context context) {
-        if (VideLibriApp.accounts == null) VideLibriApp.accounts = Bridge.VLGetAccounts();
+    static void updateNotification(Context context) {
+        String[] notification = getNotifications();
 
-        if (VideLibriApp.accounts.length == 0) return;
-
-        String [] notification = Bridge.VLGetNotifications();
-
-        if (notification == null) return;
+        if (notification == null) {
+            cancelNotification(context);
+            return;
+        }
 
         if (lastNotificationTitle.equals(notification[0]) && lastNotificationText.equals(notification[1])
-            && System.currentTimeMillis() - lastNotificationTime < 1000*60*60*23) return;
+                && System.currentTimeMillis() - lastNotificationTime < 1000*60*60*23) return;
 
         lastNotificationTitle = notification[0];
         lastNotificationText = notification[1];
@@ -103,6 +120,7 @@ public class NotificationService extends Service implements Bridge.VideLibriCont
                         .setContentTitle(notification[0])
                         .setContentText(notification[1])
                         .setContentIntent(PendingIntent.getActivity(context, 0, new Intent(context, VideLibri.class), 0));
+        //we could setAutoCancel to remove it when the user clicks on it
 
         // Set the info for the views that show in the notification panel.
         //notification.setLatestEventInfo(this, getText(R.string.local_service_label),text, contentIntent);

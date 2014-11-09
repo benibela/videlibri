@@ -50,7 +50,7 @@ public class VideLibriApp extends Application implements Bridge.VideLibriContext
                 VideLibriApp.runningUpdates.clear();
 
                 if (currentActivity != null) {
-                    NotificationService.showNotification(currentActivity);
+                    NotificationService.updateNotification(currentActivity);
 
                     if (currentActivity instanceof VideLibri)
                         ((VideLibri)currentActivity).setLoading(false);
