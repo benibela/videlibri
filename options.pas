@@ -18,8 +18,12 @@ type
     accountList: TListView;
     groupingProperty: TComboBox;
     Label34: TLabel;
+    Label35: TLabel;
     libNameEdit: TEdit;
     Label33: TLabel;
+    Panel6: TPanel;
+    internetAccessW32: TRadioButton;
+    internetAccessSynapse: TRadioButton;
     templateDefine: TButton;
     Button11: TButton;
     templateName: TEdit;
@@ -155,6 +159,9 @@ type
     procedure btnAccountCreateClick(Sender: TObject);
     procedure accountdeleteClick(Sender: TObject);
     procedure Button11Click(Sender: TObject);
+    procedure internetAccessSynapseChange(Sender: TObject);
+    procedure internetAccessSynapseChangeBounds(Sender: TObject);
+    procedure internetAccessW32Change(Sender: TObject);
     procedure libAddClick(Sender: TObject);
     procedure libChangeClick(Sender: TObject);
     procedure libDeleteClick(Sender: TObject);
@@ -328,6 +335,13 @@ begin
     end;
 
   //Internetpage
+  {$IFNDEF WINDOWS}internetAccessW32.Enabled := false;{$endif}
+  case userConfig.readInteger('access','internet-backend',0) of
+    0: {$IFDEF WINDOWS}internetAccessW32.Checked := True{$ELSE}internetAccessSynapse.Checked := True{$endif};
+    1: internetAccessW32.Checked := True;
+    2: internetAccessSynapse.Checked := True;
+  end;
+
   case userConfig.readInteger('access','internet-type',0) of
     0: internetWindows.Checked:=true;
     1: internetDirect.Checked:=true;
@@ -457,6 +471,9 @@ begin
   mainForm.setSymbolAppearance(symbols.ItemIndex);
 
   //Internetpage
+  if internetAccessW32.Checked then userConfig.writeInteger('access','internet-backend',1)
+  else if internetAccessSynapse.Checked then userConfig.writeInteger('access','internet-backend', 2);
+
   if internetWindows.Checked then userConfig.writeInteger('access','internet-type',0)
   else if internetDirect.Checked then userConfig.writeInteger('access','internet-type',1)
   else if internetProxy.Checked then userConfig.writeInteger('access','internet-type',2);
@@ -471,7 +488,8 @@ begin
   else if homepageDefaultBrowser.Checked then userConfig.writeInteger('access','homepage-type',1);
   if autoUpdate.Checked then userConfig.WriteInteger('updates','auto-check',1)
   else userConfig.WriteInteger('updates','auto-check',0);
-  userConfig.WriteBool('access', 'checkCertificates', checkCertificates.Checked);
+  if not internetAccessSynapse.Checked then
+    userConfig.WriteBool('access', 'checkCertificates', checkCertificates.Checked);
 
   updateActiveInternetConfig;
 
@@ -778,6 +796,29 @@ begin
     RemoveDir(userPath+'libraries/templates/'+templateName.Text);
     if (templateList.Items.IndexOf(templateName.text) >= 0) and not DirectoryExists(assetPath+'libraries/templates/'+templateName.text) then
       templateList.Items.Delete(templateList.Items.IndexOf(templateName.text));
+  end;
+end;
+
+procedure ToptionForm.internetAccessSynapseChange(Sender: TObject);
+begin
+  if internetAccessSynapse.Checked then begin
+    internetWindows.Enabled := false;
+    checkCertificates.Enabled := false;
+    checkCertificates.Checked:=false;
+  end;
+end;
+
+procedure ToptionForm.internetAccessSynapseChangeBounds(Sender: TObject);
+begin
+
+end;
+
+procedure ToptionForm.internetAccessW32Change(Sender: TObject);
+begin
+  if internetAccessW32.Checked then begin
+    internetWindows.Enabled := true;
+    checkCertificates.Enabled := true;
+    checkCertificates.Checked:=userConfig.ReadBool('access', 'checkCertificates', true);
   end;
 end;
 

@@ -97,7 +97,7 @@ var programPath,userPath:string;
 implementation
 uses bookwatchmain,internetaccess,controls,libraryaccess,math,FileUtil,bbutils,bbdebugtools,LCLType,lclintf,LCLProc,
   {$IFDEF WIN32}
-  windows,w32internetaccess
+  windows,synapseinternetaccess,w32internetaccess
   {$ELSE}
   {$IFDEF ANDROID}
   androidinternetaccess
@@ -296,6 +296,22 @@ uses bookwatchmain,internetaccess,controls,libraryaccess,math,FileUtil,bbutils,b
   end;
   procedure updateActiveInternetConfig;
   begin
+    {$IFDEF WIN32}
+    defaultInternetAccessClass:=TW32InternetAccess;
+    {$ELSE}
+    {$IFDEF ANDROID}
+    defaultInternetAccessClass:=TAndroidInternetAccess;
+    {$ELSE}
+    defaultInternetAccessClass:=TSynapseInternetAccess;
+    {$ENDIF}
+    {$ENDIF}
+    case userConfig.readInteger('access','internet-backend',0) of
+      1: {$IFDEF WIN32} defaultInternetAccessClass:=TW32InternetAccess{$ENDIF};
+      2: defaultInternetAccessClass:=TSynapseInternetAccess;
+    end;
+
+
+
     //    defaultInternetConfiguration.userAgent:='Mozilla 3.0 (compatible; VideLibri ';//2:13/20
     //    defaultInternetConfiguration.userAgent:='Mozilla 3.0 (compatible; VideLibri '+IntToStr(versionNumber);//+' '+machineConfig.ReadString('debug','userAgentAdd','')+')';
     defaultInternetConfiguration.userAgent:='Mozilla 3.0 (compatible; VideLibri '+IntToStr(versionNumber)+' '+machineConfig.ReadString('debug','userAgentAdd','')+')';
@@ -645,15 +661,6 @@ uses bookwatchmain,internetaccess,controls,libraryaccess,math,FileUtil,bbutils,b
       colorOrdered:=userConfig.ReadInteger('appearance','ordered',integer(clAqua));
 
       updateActiveInternetConfig;
-      {$IFDEF WIN32}
-      defaultInternetAccessClass:=TW32InternetAccess;
-      {$ELSE}
-      {$IFDEF ANDROID}
-      defaultInternetAccessClass:=TAndroidInternetAccess;
-      {$ELSE}
-      defaultInternetAccessClass:=TSynapseInternetAccess;
-      {$ENDIF}
-      {$ENDIF}
 
       fillchar(updateThreadConfig,sizeof(updateThreadConfig),0);
       InitCriticalSection(updateThreadConfig.libraryAccessSection);
