@@ -27,6 +27,7 @@ uses
     function getBook(i: integer): TBook;
  public
    groupingProperty: string;
+   bookCount: integer;
    constructor create(aowner: TComponent;showLendBooks: boolean);
    procedure clear;
    procedure addBookList(list: TBookList; const accountName: string = '');
@@ -221,6 +222,7 @@ var
 begin
   group := '';
   bookItem := nil;
+  bookCount += 1;
   case groupingProperty of
     '':  bookItem := items.Add;
     '_account':  group := accountName;
@@ -359,8 +361,10 @@ var
   i: Integer;
 begin
   for i := 0 to items.count-1 do
-    TBook(Items[i].data.obj).decReference;
+    if TBook(Items[i].data.obj) <> nil then
+      TBook(Items[i].data.obj).decReference;
   Items.Clear;
+  bookCount:=0;
   lastAddBook:=nil;
 end;
 

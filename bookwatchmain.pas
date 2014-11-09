@@ -653,16 +653,9 @@ begin
 end;
 
 procedure TmainForm.BookListSelectItem(Sender: TObject; Item: TTreeListItem);
-var s:string;
 begin
-  s:=StatusBar1.Panels[SB_PANEL_COUNT].Text;
-  if strscan(pchar(s),'/')<>strrscan(pchar(s),'/') then begin
-    //Format: Medien: 3/4/5
-    delete(s,1,pos('/',s));
-  end else  //Format: Medien: 4/5
-    delete(s,1,pos(' ',s));
-  if BookList.SelCount=0 then setPanelText(StatusBar1.Panels[SB_PANEL_COUNT],'Medien: '+s)
-  else setPanelText(StatusBar1.Panels[SB_PANEL_COUNT],'Medien: '+IntToStr(BookList.SelCount)+'/'+s);
+  if BookList.SelCount=0 then setPanelText(StatusBar1.Panels[SB_PANEL_COUNT], format('Medien: %d', [BookList.bookCount]) )
+  else setPanelText(StatusBar1.Panels[SB_PANEL_COUNT], format('Medien: %d/%d', [BookList.selCount, BookList.bookCount]));
 end;
 
 procedure TmainForm.FormShow(Sender: TObject);
@@ -1157,7 +1150,7 @@ begin
   try
   BookList.groupingProperty := userConfig.ReadString('appearance', 'groupingProperty','');
   BookList.BeginUpdate;
-  BookList.items.clear;
+  BookList.clear;
   for i:=0 to viewMenu.Count-1 do begin
     if (viewMenu.Items[i].tag = -1) then continue;
     if not viewMenu.Items[i].Checked then continue;
@@ -1185,7 +1178,7 @@ begin
               FloatToStr(accounts[i].charges) +'€ ';
     setPanelText(StatusBar1.Panels[1],StatusBar1.Panels[1].text+')');
   end else setPanelText(StatusBar1.Panels[1],'');
-  setPanelText(StatusBar1.Panels[SB_PANEL_COUNT],'Medien: '+IntToStr(BookList.Items.Count));
+  setPanelText(StatusBar1.Panels[SB_PANEL_COUNT],'Medien: '+IntToStr(BookList.bookCount));
 
 
   if updateThreadConfig.updateThreadsRunning<=0 then begin
