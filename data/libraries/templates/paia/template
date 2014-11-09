@@ -3,11 +3,13 @@
 
 <meta>
   <description>Template für die standardisierte PAIA-API</description>
-  <variable name="server"><description>Serveraddresse</description></variable>
+  <variable name="baseurl"><description>Serverurl inkl. Protokol</description></variable>
+  <variable name="server"><description>Serveraddresse (veraltet)</description></variable>
 </meta>
 
 <action id="connect">
-  <page url="https://{$server}/auth/login?username={$username}&amp;password={$password}&amp;grant_type=password">
+  <s>baseurl := if (get("baseurl", ())) then get("baseurl", ()) else x"https://{$server}"</s>
+  <page url="{$baseurl}/auth/login?username={$username}&amp;password={$password}&amp;grant_type=password">
 <!--    <header>Content-Type: application/json</header>-->
     <template><t:s>
       xquery version "1.0";
@@ -24,7 +26,7 @@
 </action>
 
 <action id="update-all">
-  <page url="https://{$server}/core/{$patron_identifier}/items?access_token={$access_token}">
+  <page url="{$baseurl}/core/{$patron_identifier}/items?access_token={$access_token}">
     <template><t:s>
        answer := json($raw),
        if ($answer.error) then videlibri:raise(x"PAIA error on items: {$answer.code}: {$answer.error}: {$answer.error_description}") else (
@@ -56,7 +58,7 @@
           "item": $book.item,
           "edition": $book.edition
         } ]))</variable>-->
-  <page test="$allow_renew" url="https://{$server}/core/{$patron_identifier}/renew?access_token={$access_token}" >
+  <page test="$allow_renew" url="{$baseurl}/core/{$patron_identifier}/renew?access_token={$access_token}" >
     <header>Content-Type: application/json; charset=utf-8</header>
     <method>POST</method>
     <post>
