@@ -352,8 +352,13 @@ public class VideLibri extends  BookListActivity{
         bookCache = makeUpdatedBookCache(acc, bookCache, groupingKey, sortingKey, false);
         displayBookCache();
 
-        if (hiddenAccounts.size() == 0) setTitle(tr(R.string.main_bookcountD, bookCache.size()));
-        else setTitle(tr(R.string.main_bookaccountcountDDD, bookCache.size(), (VideLibriApp.accounts.length-hiddenAccounts.size()), VideLibriApp.accounts.length));
+
+        int realCount = 0;
+        for (Bridge.Book b: bookCache)
+            if (b.account != null)
+                realCount++;
+        if (hiddenAccounts.size() == 0) setTitle(tr(R.string.main_bookcountD, realCount));
+        else setTitle(tr(R.string.main_bookaccountcountDDD, realCount, (VideLibriApp.accounts.length-hiddenAccounts.size()), VideLibriApp.accounts.length));
 
     }
 
