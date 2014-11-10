@@ -360,6 +360,7 @@
       <CompilerMessages>
         <UseMsgFile Value="True"/>
       </CompilerMessages>
+      <CustomOptions Value="-dCOMPILE_SYNAPSE_INTERNETACCESS"/>
       <CompilerPath Value="$(CompPath)"/>
     </Other>
     <LCLWidgetType Value="gtk2"/>
