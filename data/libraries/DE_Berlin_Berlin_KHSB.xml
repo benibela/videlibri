@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<library>
+  <longName value="Bibliothek der Katholischen Hochschule für Sozialwesen"/>
+  <shortName value="KHS Berlin"/>
+  <template value="pica"/>
+  
+  <variable name="server" value="https://vzopc4.gbv.de"/>
+  <variable name="picadb" value="40"/>
+  <variable name="searchKeysOverride" value="tit;per;num;jah;slw"/>
+   
+  <homepage value="http://www.khsb-berlin.de/index.php?id=1348"/>
+  <testing-search value="ja" date="2013-04-26"/>
+  <testing-account value="?" date=""/>
+  <testing-renew value="?" date=""/>
+</library>

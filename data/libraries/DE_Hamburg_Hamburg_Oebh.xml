@@ -6,7 +6,7 @@
   <variable name="baseurl" value="https://www.buecherhallen.de/alswww2.dll/"/>
 
   <homepage value="http://www.buecherhallen.de/"/>
-  <testing-search value="nein" date="2014-09-29"/>
-  <testing-account value="?" date=""/>
+  <testing-search value="nein, da Systemupdate" date="2014-09-29"/>
+  <testing-account value="nein, benötige Zugangsdaten für Anpassung" date=""/>
   <testing-renew value="?" date=""/>
 </library>

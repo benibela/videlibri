@@ -11,7 +11,7 @@
 
 
   <homepage value="http://www.heidelberg.de/stadtbuecherei"/>
-  <testing-search value="ja" date="2014-09-30"/>
-  <testing-account value="?" date=""/>
+  <testing-search value="nein, da Systemumstellung." date="2014-11-10"/>
+  <testing-account value="nein, benötige Zugangsdaten für Anpassung" date=""/>
   <testing-renew value="?" date=""/>
 </library>
