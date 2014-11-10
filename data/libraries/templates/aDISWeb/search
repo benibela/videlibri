@@ -1,10 +1,11 @@
 <template:switch-prioritized>
   <html>
+    <template:meta default-text-matching="regex"/>
     <DIV id="right">
       <DIV class="inside">
           <DIV>
             <P>
-              <SPAN>Gesucht<t:s>search-result-count := filter(., "[0-9]+$"),  lastSearchedIndex := get("lastSearchedIndex", 0) (: for unittests :)</t:s></SPAN>
+              <SPAN>Gesucht|Treffer:<t:s>search-result-count := filter(., "[0-9]+$"),  lastSearchedIndex := get("lastSearchedIndex", 0) (: for unittests :)</t:s></SPAN>
             </P>
           </DIV>
       </DIV>
