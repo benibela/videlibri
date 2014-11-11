@@ -85,7 +85,7 @@
   <if test="not($loggedIn)">
     <page url="{$url}">
         <template>
-          <FORM><t:s>vl:delete-current-books()</t:s>{url := form(., {"AUSWEIS": $username, "PWD": $password})}</FORM>    
+          <FORM>{url := form(., {"AUSWEIS": $username, "PWD": $password})}</FORM>    
         </template>
     </page>
   </if>
@@ -93,27 +93,42 @@
   <page url="{$url}"><!-- templateFile="orderConfirmation"/> -->
     <template><form>{confirm-form := form(.)}
       <div class="kontomeldung">{$message}</div>?
-      <SELECT NAME="VZST"  > 
-        {vl:choose("internal-order-confirmed", get("message", "ziel?"), option, option/@value)}
-      </SELECT>
+      <t:switch prioritized="true">
+        <SELECT NAME="VZST"  > 
+          {vl:choose("internal-order-choosen", get("message", "ziel?"), option, option/@value)}
+        </SELECT>
+        <input type="submit" name="Vorbestellen" value="Bestätigung">
+          { vl:confirm("internal-order-confirmed", concat(get("message", "bestätigen?"), string-join(preceding::table[1]/tr/join(td), $line-ending) )  )}
+        </input>
+      </t:switch>
     </form></template>
   </page>
   
   <s>$loggedIn := true()</s>
 </action> 
 
-<action id="internal-order-confirmed">
+<action id="internal-order-choosen">
   <if test="$choose-result ne -1">
     <s>form := form-combine($confirm-form, {"VZST": $choose-result})</s>
     <page url="{$form}">
       <template><form>{form := form(., {"Vorbestellen": "Bestätigung"})}</form></template>
-    </page>
-    <page url="{$form}">
-      <template><div class="kontomeldung">Die Vorbestellung wurde für Sie durchgeführt!<t:s>book.statusId := "ordered"</t:s></div></template>
-    </page>
+    </page><!-- that is just like internal-order-confirmed. can we merge that?? -->
+    <call action="internal-order-complete"/>
   </if>
 </action>
 
+<action id="internal-order-confirmed">
+  <if test="$confirm-result">
+    <s>form := form-combine($confirm-form, {"Vorbestellen": "Bestätigung"})</s>
+    <call action="internal-order-complete"/>
+  </if>
+</action>
+
+<action id="internal-order-complete">
+  <page url="{$form}">
+    <template><div class="kontomeldung">Die Vorbestellung wurde für Sie durchgeführt!<t:s>book.statusId := "ordered"</t:s></div></template>
+  </page>
+</action>
 <!--
 <action id="order-single"> 
   <call action="internal-login"/>
