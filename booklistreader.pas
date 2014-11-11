@@ -1030,6 +1030,12 @@ begin
   result := xqvalue();
 end;
 
+//add function vl:choose(  callback action id,  caption,  option captions, option values )
+//
+//callback action is called with
+//   choose-result := -1                                        if canceled cancelation
+//   choose-result := index choosen by user                     if index outside value range
+//   choose-result := option-values[ index choosen by user ]    else
 function xqFunctionChoose(const context: TXQEvaluationContext; const args: TXQVArray): IXQValue;
 var
   temp: TXQValueObject;
@@ -1045,6 +1051,9 @@ begin
   result := xqvalue();
 end;
 
+//add function vl:confirm(  callback action id,  caption  )
+//
+//callback action is called with confirm-result := true/false
 function xqFunctionConfirm(const context: TXQEvaluationContext; const args: TXQVArray): IXQValue;
 var
   temp: TXQValueObject;
