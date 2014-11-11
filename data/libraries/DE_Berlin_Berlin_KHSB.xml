@@ -9,7 +9,7 @@
   <variable name="searchKeysOverride" value="tit;per;num;jah;slw"/>
    
   <homepage value="http://www.khsb-berlin.de/index.php?id=1348"/>
-  <testing-search value="ja" date="2013-04-26"/>
+  <testing-search value="ja" date="2014-11-10"/>
   <testing-account value="?" date=""/>
   <testing-renew value="?" date=""/>
 </library>
