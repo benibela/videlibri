@@ -1,0 +1,10 @@
+
+
+book: {}
+
+
+renew-form: object(): {"method": "POST", "post": "selection=ALL&sorting=NONE&renew=Verl%C3%A4ngern", "url": "/LBS_WEB/borrower/loans.htm"}
+books-deleted: boolean: true
+book: object(): {"statusId": "critical", "status": "Keine Verlängerung möglich Mahnungen: 0  Verlängerungen: 10 ", "id": "AB 123 C456 V9", "libraryBranch": "Theke", "duedate": "2015-02-20", "year": "1980", "author": " Haber, Anna ", "title": "Prioritätisierung nach der Lifo-Methode  ", "renewId": "31234"}
+book: object(): {"statusId": "critical", "status": "Keine Verlängerung möglich Mahnungen: 0  Verlängerungen: 10 ", "id": "AB 123 I456", "libraryBranch": "Theke", "duedate": "2015-04-20", "year": "1994", "author": " Haber, Martin ", "title": "Foobar ", "renewId": "37123"}
+book: object(): {"statusId": "critical", "status": "Keine Verlängerung möglich Mahnungen: 0  Verlängerungen: 10 ", "id": "AB 1234 C567", "libraryBranch": "Theke", "duedate": "2015-04-24", "year": "1991", "author": " Doralt, Werner ", "title": "Blabla : [dieser Band enthält die überarbeiteten auf der Jahrestagung der Deutschen Steuerjuristischen Gesellschaft e.V. am 12.4. und 12.3.1994 in XXXXXXXXX so und so ] ", "renewId": "37332"}

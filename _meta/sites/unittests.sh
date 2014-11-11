@@ -98,6 +98,10 @@ PAGES=(${PAGES[@]} pica/update3.html pica/update_abholen.html pica/update_luebec
 ADDTEMPLATE pica/extend 1
 PAGES=(${PAGES[@]} pica/extend2.html)
 
+#================LBS=============
+ADDTEMPLATE lbs/list{vl:delete-current-books} 1
+PAGES=(${PAGES[@]} lbs/loans.stralsund.html )
+
 #=============ADISWEB==============
 mkdir -p $OUTPATH/aDISWeb
 
