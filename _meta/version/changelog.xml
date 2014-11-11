@@ -1,10 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?xml-stylesheet type="text/xsl" href="../changelog.xsl"?>
 <changelog program="VideLibri">
-  <build version="1670" date="2014-09-30">
+  <build version="1675" date="2014-11-11">
     <download url="http://videlibri.sourceforge.net/updates/videlibri-setup.exe" platform="WINDOWS" execute="&quot;$DOWNLOAD&quot;  /SP- /noicons &quot;/dir=$OLDPATH&quot; " restart="true"/>
     <download url="http://videlibri.sourceforge.net/updates/videlibri-linux32.deb" platform="LINUX32" execute=""/>
     <download url="http://videlibri.sourceforge.net/updates/videlibri-linux64.deb" platform="LINUX64" execute=""/>
+    <fix>Bibliotheca: Suche nach Schlüsselwörtern, Systeme mit anderen Spalten in der Ausleihtabelle (Heidelberg), Vormerkungen ohne Zweigstellenauswahl</fix>
+    <fix>Bibliotheca+ (Stralsund Stb): Katalogsuche</fix>
+    <fix>Gruppenüberschriften werden nicht mehr als Ausleihen gezählt</fix>
+    <fix>android: Ablaufbenachrichtigungen werden entfernt, wenn sie nicht mehr nötig sind</fix>
+    <fix>aDIS BSZ-BW: Katalogsuche für die Bibliotheken in Baden-Würtenberg geht wieder</fix>
+    <fix>PICA LBS (Stralsund Hb): Kontozugriff bei geänderten Zeilenreihenfolgen </fix>
+    <add>Windows: Internetzugriff über Synapse</add>
+    <add>Bibliothek der Katholischen Hochschule für Sozialwesen Berlin</add>
+  </build>
+  <build version="1670" date="2014-09-30">
     <add>Gruppierungs- und Sortierungsoptionen</add>
     <add>Auflistung von ein paar Stadtbibliotheken, die mit dem bibliotheca Template suchbar sind: Halle (Westf), Trier, Villingen-Schwenningen, Wien, Heidelberg, Heilbronn, Pforzheim, Singen, Weinheim, Erlangen, Wiesbaden, Wolfsburg, Hamm, Steinfurt, Speyer</add>
     <fix>android: Darstellung von Zeiten verwendet nun das korrekte Format</fix>

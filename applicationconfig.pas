@@ -36,7 +36,7 @@ var programPath,userPath:string;
     nextLimitStr: string;
 
     appFullTitle:string='VideLibri';
-    versionNumber:integer=1670     ;
+    versionNumber:integer=1675     ;
     //=>versionNumber/1000
     newVersionInstalled: boolean=false;
 
@@ -305,10 +305,12 @@ uses bookwatchmain,internetaccess,controls,libraryaccess,math,FileUtil,bbutils,b
     defaultInternetAccessClass:=TSynapseInternetAccess;
     {$ENDIF}
     {$ENDIF}
+    {$IFNDEF ANDROID}
     case userConfig.readInteger('access','internet-backend',0) of
       1: {$IFDEF WIN32} defaultInternetAccessClass:=TW32InternetAccess{$ENDIF};
       2: defaultInternetAccessClass:=TSynapseInternetAccess;
     end;
+    {$ENDIF}
 
 
 

@@ -239,7 +239,7 @@ Ob man VideLibri out-of-the-box mit einer Bibliothek verwenden kann, ist jedoch 
 <tr><td id="aDISWeb">aDIS/BMS</td>  <td>ja</td><td>ja</td><td>ja</td><td>ja</td>  <td></td><td>2012</td></tr>
 <tr><td id="aleph">Aleph</td>  <td>nein</td><td>ja</td><td>ja</td><td>nein</td>  <td>generalisiert schlecht, bisher waren für jede neue Bibliothek Anpassungen erforderlich</td><td>2006</td></tr>
 <tr><td id="bibliotheca">Bibliotheca</td>  <td>ja</td><td>ja</td><td>ja</td><td>ja</td>  <td>Bei abweichenden Spalten im Benutzerkonto (statt Autor/Titel/Abgabedatum) sind Anpassungen erforderlich</td><td>2014</td></tr>
-<tr><td id="bibliothecaplus">Bibliotheca+/OPEN</td>  <td>ja</td><td>ja</td><td>ja</td><td>ja</td>  <td>generalisiert schlecht, bisher nur bei einer Bibliothek funktionsfähig</td><td>2014</td></tr>
+<tr><td id="bibliothecaplus">Bibliotheca+/OPEN</td>  <td>ja</td><td>ja</td><td>ja</td><td>ja</td>  <td>bisher nur für eine Bibliothek</td><td>2014</td></tr>
 <tr><td id="digibib">Digibib</td>  <td>ja</td><td></td><td></td><td></td>  <td>Suche über Metasuchmaschine</td><td>2008</td></tr>
 <tr><td id="libero5">Libero 5</td>  <td>ja</td><td>ja</td><td>ja</td><td>ja</td>  <td></td><td>2007</td></tr>
 <tr><td id="paia">PAIA</td>  <td></td><td>ja</td><td>ja</td><td>nein</td>  <td></td><td>2013</td></tr>
