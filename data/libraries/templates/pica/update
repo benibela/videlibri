@@ -65,18 +65,12 @@
       <td></td><td></td><td></td><td class="value-small">
         <template:switch value="$book.extendId">
           <template:if value="''">
-            <template:switch value="filter(., 'Abholregal|Vormerkung|bestellt')">
-              <template:if value="'Abholregal'">
-                {book.status := ., book.statusId := 'provided', book.cancelable := false()}
-              </template:if>
-              <template:if value="'Vormerkung'">
-                {book.status := ., book.statusId := 'ordered', book.cancelable := false()}
-              </template:if>
-              <template:if value="'bestellt'">
-                {book.status := ., book.statusId := 'ordered', book.cancelable := false()}
-              </template:if>
-              <template:read var="book.status:problematic" source="."/>
-            </template:switch>
+            {$book.status := normalize-space(.),
+             $book.statusId := 
+               if (matches($book.status, "(Abhol|Vormerk)regal" )) then ("provided",  book.cancelable := false())[1]
+               else if (matches($book.status, "Vormerkung|bestellt" )) then ("ordered",  book.cancelable := false())[1]
+               else "critical"
+             }
           </template:if>
           <template:read var="book.status:curious" source="."/>
         </template:switch>
