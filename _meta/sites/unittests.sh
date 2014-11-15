@@ -92,13 +92,14 @@ PAGES=(${PAGES[@]} sisis/searchSingleAvailability_aachen.html sisis/searchSingle
 #==============PICA================
 mkdir -p $OUTPATH/pica
 
-ADDTEMPLATE pica/update 3
-PAGES=(${PAGES[@]} pica/update3.html pica/update_abholen.html pica/update_luebeck.html)
+ADDTEMPLATE pica/update 4
+PAGES=(${PAGES[@]} pica/update3.html pica/update_abholen.html pica/update_luebeck.html pica/update_vormerk.khsb.html)
 
 ADDTEMPLATE pica/extend 1
 PAGES=(${PAGES[@]} pica/extend2.html)
 
 #================LBS=============
+mkdir -p $OUTPATH/lbs
 ADDTEMPLATE lbs/list{vl:delete-current-books} 1
 PAGES=(${PAGES[@]} lbs/loans.stralsund.html )
 
@@ -230,13 +231,13 @@ for ((i=0;i<${#TEMPLATES[@]};i++)); do
     TFILE=${BASH_REMATCH[1]}
     EXTRA="-e ${BASH_REMATCH[2]}"
     if [[ $EXTRA =~ vl:delete-current-books ]]; then
-      EXTRA="-e \"declare function vl:delete-current-books() { books-deleted := true() }\""
+      EXTRA="-e \"declare function vl:delete-current-books() { books-deleted := true() }; ()\""
     fi
     if [[ $EXTRA =~ vl:choose ]]; then
-      EXTRA="-e \"declare function vl:choose(\\\$a,\\\$b,\\\$c,\\\$d) { message-choose :=  join((\\\$a,\\\$b,\\\$c,\\\$d))}\""
+      EXTRA="-e \"declare function vl:choose(\\\$a,\\\$b,\\\$c,\\\$d) { message-choose :=  join((\\\$a,\\\$b,\\\$c,\\\$d))}; ()\""
     fi
     if [[ $EXTRA =~ vl:raise ]]; then
-      EXTRA="-e \"declare function vl:raise(\\\$x) { raised := \\\$x }\""
+      EXTRA="-e \"declare function vl:raise(\\\$x) { raised := \\\$x }; ()\""
     fi
   fi
 
