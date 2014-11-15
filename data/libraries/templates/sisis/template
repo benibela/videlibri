@@ -9,15 +9,15 @@
 </meta>
 
 <action id="catalogue">
-  <variable name="url" value="{$server}start.do{get('startparams','')}"/>
+  <variable name="url" value="{$server}/start.do{get('startparams','')}"/>
 </action>
 
 <action id="connect">
-  <page url="{$server}start.do{get('startparams','')}" templateFile="start"/>
+  <page url="{$server}/start.do{get('startparams','')}" templateFile="start"/>
 </action>
 
 <action id="login">
-  <page url="{$server}login.do;{$jsession}">
+  <page url="{$server}/login.do;{$jsession}">
     <post name="methodToCall" value="submit"/>
     <post name="CSId" value="{$CSId}"/>
     <post name="username" value="{$username}"/>
@@ -45,7 +45,7 @@
   <variable name="requestedUrl" value=""/>
   <variable name="orderedUrl" value=""/>
 
-  <variable name="startUrl">x'{$server}userAccount.do;jsession;?methodToCall=show&amp;typ=1'</variable>
+  <variable name="startUrl">x'{$server}/userAccount.do;jsession;?methodToCall=show&amp;typ=1'</variable>
   <page url="{$startUrl}"  templateFile="loggedIn"></page>
   <loop test="$nextPage != ''">
     <page url="{$nextPage}"  templateFile="loggedIn"></page>
@@ -72,7 +72,7 @@
     <page url="{$b._onPageStart}"/> <!-- only possible  -->
     <page test="$b._onPage != $b._onPageStart" url="{$b._onPage}"/> <!-- todo: test if this is needed as well -->
     
-    <page url="{$server}userAccount.do?methodToCall=renewalPossible&amp;actPos={$b.extendID}" templateFile="singleExtended"/>
+    <page url="{$server}/userAccount.do?methodToCall=renewalPossible&amp;actPos={$b.extendID}" templateFile="singleExtended"/>
   </loop>
 </action>
 
@@ -80,13 +80,13 @@
   <page url="{$book._onPageStart}"/>
   <page test="$book._onPage != $book._onPageStart" url="{$book._onPage}"/>
 
-  <page url="{$server}userAccount.do?methodToCall=cancelReservation&amp;actPos={$book.extendID}"/>
+  <page url="{$server}/userAccount.do?methodToCall=cancelReservation&amp;actPos={$book.extendID}"/>
 <!--  <template>      	 <span class="textgruen"><strong>Stornierung durchgeführt</strong></span></br></template>-->
 </action>
 
 
 <!--<action id="renew-all">
-  <page url="{$server}AusleiheVerlaengerungServlet;{$jsession}" templateFile="KontoServlet">
+  <page url="{$server}/AusleiheVerlaengerungServlet;{$jsession}" templateFile="KontoServlet">
     <post name="Kontoart" value="Ausleihkonto"/>
     <post name="Bibliothek" value="111"/>
     <post name="homegkz" value="111"/>
@@ -110,7 +110,7 @@
      if ($book.keywords != "") then ["902", ($book.keywords)] else ()),
   searchOptionCount := count($searchOptions),
   searchUrl :=  uri-combine( 
-    x"{$server}search.do?methodToCall=submit&CSId={$CSId}&methodToCallParameter=submitSearch", (
+    x"{$server}/search.do?methodToCall=submit&CSId={$CSId}&methodToCallParameter=submitSearch", (
     { "searchCategories[0]": $searchOptions[1](1), "searchString[0]": $searchOptions[1](2) },
     if ($searchOptionCount > 1 or $oldSearchOptionCount > 1) then 
       { "combinationOperator[1]": "AND", "searchCategories[1]": $searchOptions[2](1), "searchString[1]": $searchOptions[2](2) } else (),
