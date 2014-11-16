@@ -4,7 +4,7 @@
   <username matches="^\d{8}$"/>
   <password matches="^\d{1,2}\.\d{1,2}\.\d{2,4}$"/>  
   
-  <longName value="Stadtbüchereien Düsseldorf (alpha)"/>
+  <longName value="Stadtbüchereien Düsseldorf"/>
   <shortName value="StB Düsseldorf"/>
  <!-- <catalogue value="http://was.duesseldorf.de/WebOPAC/start?homegkz=111"/>
   <template value="wasnrw"/>
@@ -30,6 +30,6 @@
 
   <homepage value="http://www.duesseldorf.de/stadtbuechereien/index.shtml"/>
   <testing-search value="ja" date="2014-05-10"/>
-  <testing-account value="?" date=""/>
+  <testing-account value="ja" date="2014-11-12"/>
   <testing-renew value="?" date=""/>
 </library>
