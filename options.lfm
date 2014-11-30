@@ -35,7 +35,7 @@ object optionForm: ToptionForm
     Height = 483
     Top = 6
     Width = 612
-    PageIndex = 2
+    PageIndex = 5
     Anchors = [akTop, akLeft, akRight, akBottom]
     BorderSpacing.Around = 2
     OnChangeBounds = Notebook1ChangeBounds
@@ -883,6 +883,7 @@ object optionForm: ToptionForm
           Checked = True
           OnChange = internetAccessW32Change
           TabOrder = 0
+          TabStop = True
         end
         object internetAccessSynapse: TRadioButton
           Left = 0
@@ -934,19 +935,19 @@ object optionForm: ToptionForm
       end
       object Label17: TLabel
         Left = 16
-        Height = 16
+        Height = 15
         Top = 15
-        Width = 78
+        Width = 77
         Caption = 'Mail reports'
         ParentColor = False
       end
       object mailProgram: TEdit
         AnchorSideLeft.Control = Label18
         AnchorSideLeft.Side = asrBottom
-        Left = 155
+        Left = 154
         Height = 25
         Top = 41
-        Width = 449
+        Width = 450
         Anchors = [akTop, akLeft, akRight]
         BorderSpacing.Around = 5
         TabOrder = 2
@@ -956,9 +957,9 @@ object optionForm: ToptionForm
         AnchorSideTop.Control = mailProgram
         AnchorSideTop.Side = asrCenter
         Left = 31
-        Height = 16
-        Top = 45
-        Width = 119
+        Height = 15
+        Top = 46
+        Width = 118
         Caption = 'Sendmail program:'
         ParentColor = False
       end
@@ -995,9 +996,9 @@ object optionForm: ToptionForm
         AnchorSideTop.Control = mailreceiver
         AnchorSideTop.Side = asrCenter
         Left = 17
-        Height = 16
-        Top = 268
-        Width = 71
+        Height = 15
+        Top = 269
+        Width = 70
         Caption = 'Empfänger:'
         ParentColor = False
       end
@@ -1005,9 +1006,9 @@ object optionForm: ToptionForm
         AnchorSideTop.Control = mailaccounts
         AnchorSideTop.Side = asrCenter
         Left = 16
-        Height = 16
-        Top = 298
-        Width = 49
+        Height = 15
+        Top = 299
+        Width = 48
         Caption = 'Konten:'
         ParentColor = False
       end
@@ -1015,9 +1016,9 @@ object optionForm: ToptionForm
         AnchorSideTop.Control = mailinterval
         AnchorSideTop.Side = asrCenter
         Left = 16
-        Height = 16
-        Top = 328
-        Width = 52
+        Height = 15
+        Top = 329
+        Width = 51
         Caption = 'Interval:'
         ParentColor = False
       end
@@ -1027,10 +1028,10 @@ object optionForm: ToptionForm
         AnchorSideTop.Control = mailaccounts
         AnchorSideRight.Side = asrBottom
         AnchorSideBottom.Control = mailaccounts
-        Left = 99
+        Left = 98
         Height = 25
         Top = 264
-        Width = 505
+        Width = 506
         Anchors = [akLeft, akRight, akBottom]
         BorderSpacing.Around = 5
         TabOrder = 4
@@ -1040,10 +1041,10 @@ object optionForm: ToptionForm
         AnchorSideLeft.Side = asrBottom
         AnchorSideRight.Side = asrBottom
         AnchorSideBottom.Control = mailinterval
-        Left = 99
+        Left = 98
         Height = 25
         Top = 294
-        Width = 505
+        Width = 506
         Anchors = [akLeft, akRight, akBottom]
         BorderSpacing.Around = 5
         TabOrder = 5
@@ -1052,10 +1053,10 @@ object optionForm: ToptionForm
         AnchorSideLeft.Control = Label17
         AnchorSideLeft.Side = asrBottom
         AnchorSideBottom.Control = mailadd
-        Left = 99
+        Left = 98
         Height = 25
         Top = 324
-        Width = 505
+        Width = 506
         Anchors = [akLeft, akRight, akBottom]
         BorderSpacing.Around = 5
         TabOrder = 6

@@ -870,12 +870,14 @@ begin
   if not InputQuery('VideLibri', 'Geben Sie den Namen der Bibliothek ein', libname) then exit;
   system := '';
   systems := '';
-  for i := 0 to templateList.Items.Count - 1 do
-    if systems = '' then systems :=  templateList.Items[i]
-    else systems += ', '+templateList.Items[i];
+  for i := 0 to templateList.Items.Count - 1 do begin
+    if i <> 0 then systems += ', ';
+    if i mod 10 = 9 then systems += LineEnding;
+    systems += templateList.Items[i]
+  end;
 
   systemWrong:
-  if not InputQuery('VideLibri', 'Welches System verwendet die Bibliothek?'+LineEnding+'Die folgenden Systeme stehen zur Auswahl: '+systems, system) then
+  if not InputQuery('VideLibri', 'Welches System verwendet die Bibliothek?'+LineEnding+'Die folgenden Systeme stehen zur Auswahl: '+LineEnding+systems, system) then
     exit;
   if templateList.Items.IndexOf(system) < 0 then goto systemWrong;
 
@@ -884,7 +886,7 @@ begin
   result += '  <longName value="'+xmlStrEscape(libname)+'"/>'+LineEnding;
   result += '  <template value="'+xmlStrEscape(system)+'"/>'+LineEnding;
 
-  template := TMultiPageTemplate(libraryManager.templates.Objects[libraryManager.templates.IndexOf(system)]);
+  template := libraryManager.getTemplate(system);
   meta := nil;
   for i := 0 to high(template.baseActions.children) do
     if template.baseActions.children[i] is TTemplateActionMeta then
