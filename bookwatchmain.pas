@@ -275,7 +275,7 @@ begin
        else
         subject := 'Nächste Frist: '  + mailDate(tmpbl.nextLimitDate()) + ' | ' + subject;
 
-      week := dateToWeek(tmpbl.books[j].dueDate);
+      week := dateToWeek(tmpbl.books[0].dueDate);
       for j:=0 to tmpbl.Count-1 do begin
         if dateToWeek(tmpbl.books[j].dueDate) <> week then begin
           week := dateToWeek(tmpbl.books[j].dueDate);
