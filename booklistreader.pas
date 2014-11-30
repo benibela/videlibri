@@ -1078,6 +1078,8 @@ initialization
   vl.registerFunction('choose', @xqFunctionChoose, []);
   vl.registerFunction('confirm', @xqFunctionConfirm, []);
   TXQueryEngine.registerNativeModule(vl);
+finalization
+  vl.free
 end.
 
 

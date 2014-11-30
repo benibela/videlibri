@@ -553,13 +553,14 @@ begin
   for i := 0 to high(userlibs) do begin
     userlibs[i] := trim(userlibs[i]);
     if userlibs[i] = '' then continue;
+    newLib:=TLibrary.Create;
     try
-      newLib:=TLibrary.Create;
       newLib.loadFromString(assetFileAsString('libraries/'+userlibs[i]+'.xml'), 'libraries/'+userlibs[i]+'.xml');
       next := binarySearch(@flibraries.List^[0], @flibraries.List^[flibraries.Count-1], sizeof(pointer), @libraryLocationCompare, newLib, bsFirst, [bsGreater]);
       if next = nil then flibraries.Insert(0, newLib)
       else flibraries.Insert((next - @flibraries.List[0]) div sizeof(Pointer), newLib)
     except
+      newLib.free;
     end;
   end;
 end;
@@ -571,7 +572,12 @@ begin
   if i>=0 then Result:=TMultiPageTemplate(templates.Objects[i])
   else begin
     Result:=TMultiPageTemplate.Create();
-    result.loadTemplateWithCallback(@assetFileAsString, 'libraries/templates'+DirectorySeparator+templateName+DirectorySeparator,templateName);
+    try
+      result.loadTemplateWithCallback(@assetFileAsString, 'libraries/templates'+DirectorySeparator+templateName+DirectorySeparator,templateName);
+    except
+      result.free;
+      raise
+    end;
     templates.AddObject(templateName,Result);
   end;
 end;

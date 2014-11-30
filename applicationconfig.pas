@@ -176,6 +176,7 @@ uses bookwatchmain,internetaccess,controls,libraryaccess,math,FileUtil,bbutils,b
        else
         TshowErrorForm.showError(sl_title[i],sl_message[i],sl_messagedetails[i]);
     end;
+    sl_title.free; sl_message.free; sl_messagedetails.free
   end;
 
   procedure addErrorMessage(errorStr,errordetails, anonymouseDetails, libraryId, searchQuery:string;lib:TCustomAccountAccess=nil);

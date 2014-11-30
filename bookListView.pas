@@ -29,6 +29,7 @@ uses
    groupingProperty: string;
    bookCount: integer;
    constructor create(aowner: TComponent;showLendBooks: boolean);
+   destructor Destroy; override;
    procedure clear;
    procedure addBookList(list: TBookList; const accountName: string = '');
    property books[i:integer]: TBook read GetBook;
@@ -355,14 +356,22 @@ begin
 
 end;
 
+destructor TBookListView.Destroy;
+begin
+  clear;
+  inherited Destroy;
+end;
+
 
 procedure TBookListView.clear;
 var
   i: Integer;
 begin
   for i := 0 to items.count-1 do
-    if TBook(Items[i].data.obj) <> nil then
+    if TBook(Items[i].data.obj) <> nil then begin
       TBook(Items[i].data.obj).decReference;
+      Items[i].data.obj := nil;
+    end;
   Items.Clear;
   bookCount:=0;
   lastAddBook:=nil;
