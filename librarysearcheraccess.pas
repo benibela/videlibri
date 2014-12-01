@@ -150,8 +150,10 @@ var digibib: TMultiPageTemplate;
 begin
   with result do begin
     locations := TStringList.Create;
+    locations.OwnsObjects := true;
 
     searchTemplates := TStringList.Create;
+    searchTemplates.OwnsObjects := true;
     searchTemplates.text := assetFileAsString('libraries/search/search.list');
     for i := searchTemplates.count-1 downto 0 do begin
       searchTemplates[i] := trim(searchTemplates[i]);
@@ -162,6 +164,7 @@ begin
       TMultiPageTemplate(searchTemplates.Objects[i]).loadTemplateWithCallback(@assetFileAsString, StringReplace('libraries\search\templates\' +trim(searchTemplates[i])+'\','\',DirectorySeparator,[rfReplaceAll]),trim(searchTemplates[i]));
       if searchTemplates[i] <> 'digibib' then begin
         temp := TStringList.Create;
+        temp.OwnsObjects := true;
         temp.AddObject(searchTemplates[i], TSearchTarget.create(searchTemplates[i], nil, TMultiPageTemplate(searchTemplates.Objects[i])));
         locations.AddObject(searchTemplates[i], temp);
       end else digibib := TMultiPageTemplate(searchTemplates.Objects[i]);
@@ -175,12 +178,14 @@ begin
         if locations.IndexOf(loc) < 0 then
           locations.AddObject(loc, TStringList.Create);
         temp := TStringList(locations.Objects[locations.IndexOf(loc)]);
+        temp.OwnsObjects := true;
         temp.AddObject(libraryManager[i].prettyNameLong, TSearchTarget.create(libraryManager[i].prettyNameLong, libraryManager[i], libraryManager[i].template));
       end;
       if libraryManager[i].variables.IndexOfName('searchid-digibib') >= 0 then begin
         if locations.IndexOf(loc+' (digibib)') < 0 then
           locations.AddObject(loc+' (digibib)', TStringList.Create);
         temp := TStringList(locations.Objects[locations.IndexOf(loc+' (digibib)')]);
+        temp.OwnsObjects := true;
         temp.AddObject(libraryManager[i].prettyNameLong, TSearchTarget.create(libraryManager[i].prettyNameLong, libraryManager[i], digibib));
       end;
     end;

@@ -694,11 +694,7 @@ begin
   detaillist.free;
   searcherAccess.free;
   newSearcherAccess.free;
-  for i:=0 to locations.searchTemplates.Count - 1 do
-    locations.searchTemplates.Objects[i].Free;
   locations.searchTemplates.free;
-  for i:=0 to locations.locations.Count - 1 do
-    locations.locations.Objects[i].Free;
   locations.locations.Free;
   selectedLibrariesPerLocation.free;
 end;
