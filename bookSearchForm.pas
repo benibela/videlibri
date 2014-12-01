@@ -652,7 +652,7 @@ begin
   if sender <> searcherAccess then exit;
 
   bookList.BeginUpdate;
-  if firstPage then bookList.items.Clear;
+  if firstPage then bookList.Clear;
   self.nextPageAvailable := nextPageAvailable;;
 
   searcherAccess.beginResultReading;
