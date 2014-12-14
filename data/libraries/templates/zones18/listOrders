@@ -30,7 +30,7 @@
               </TD>
             </TR>
           </TABLE>
-          <t:if test="$tempbook.statusId != 'deleted'">{book := $tempbook}</t:if>
+          <t:if test="$tempbook.statusId != 'deleted'">{tempbook.cancelable := exists($tempbook._cancel-url), book := $tempbook}</t:if>
         </DIV>
       </t:loop>
     </DIV>

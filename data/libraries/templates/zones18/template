@@ -182,7 +182,9 @@
 <action id="cancel-list">
   <s>$cancel-url := $cancel-books[1]._cancel-url</s>
   <loop var="i" list="1 to count($cancel-books)">
-    <s>b := $cancel-books[$i], nb := $cancel-books[$i+1]</s>
+    <s>b := $cancel-books[$i], nb := $cancel-books[$i+1], 
+       if (not($cancel-url)) then vl:raise("Vormerkung nicht mehr löschbar") else ()
+    </s>
     <page url="{$cancel-url}" templateFile="cancelConfirm"/>
     <page url="{$cancel-form}"> 
       <template>
