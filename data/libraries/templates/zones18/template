@@ -2,7 +2,7 @@
 <actions>
 
 <meta>
-  <description>Template für das BiblioMonde-System</description>
+  <description>Template fÃ¼r das BiblioMonde-System Zones 1.8</description>
   <variable name="baseurl"><description>Katalog-URL (inklusive .dll/, ohne Parameter)</description></variable>
   <variable name="style" default="Portal2"><description>Katalog-Style</description></variable>
 </meta>
@@ -120,7 +120,7 @@
   <s>form := form-combine($confirm-form, {"MakeResTypeDef.Reservation.RecipientLocn": $choose-result, "Confirm": 1})</s>
   <page url="{$form}" test="$choose-result ne -1">
     <template>
-      <td><t:meta text-matching="matches"/>Die Vormerkung wurde erfolgreich (durch|aus)geführt<t:s>book.statusId := "ordered"</t:s></td>
+      <td><t:meta text-matching="matches"/>Die Vormerkung wurde erfolgreich (durch|aus)gefÃ¼hrt<t:s>book.statusId := "ordered"</t:s></td>
     </template>
   </page>
 </action>
@@ -183,7 +183,7 @@
   <s>$cancel-url := $cancel-books[1]._cancel-url</s>
   <loop var="i" list="1 to count($cancel-books)">
     <s>b := $cancel-books[$i], nb := $cancel-books[$i+1], 
-       if (not($cancel-url)) then vl:raise("Vormerkung nicht mehr löschbar") else ()
+       if (not($cancel-url)) then vl:raise("Vormerkung nicht mehr lÃ¶schbar") else ()
     </s>
     <page url="{$cancel-url}" templateFile="cancelConfirm"/>
     <page url="{$cancel-form}"> 
