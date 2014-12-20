@@ -95,8 +95,17 @@
   
   <page url="{$loginFormPost}" templateFile="accountOverview"/>
 
+  <s>nextSplitTable := false(), $splitIndex := 1, $splitCount := 0</s>
   <if test="$kontoPage != ''">
     <page url="{$kontoPage}" templateFile="list"/>
+    <loop test="$nextSplitTable">
+      <page url="{$nextSplitTable}" templateFile="list"/>
+      <if test="$splitIndex < $splitCount">
+        <s>$splitIndex := $splitIndex + 1</s>
+        <page url="{$goBackPage}" templateFile="accountOverview"/>
+        <page url="{$kontoPage}" templateFile="nextSplitTable"/>
+      </if>
+    </loop>
     <page url="{$goBackPage}" templateFile="accountOverview"/>
   </if>
   
@@ -123,13 +132,21 @@
 </action>
 
 <action id="renew-list">
-  <page url="{$kontoPage}" templateFile="list"/>
-
-  <variable name="book-list">string-join(for $book in $renew-books return x"{$book.extendid}=on", "&amp;")</variable> 
-  <page url="{$extendFormPost}">
-    <post value="{$book-list}"/>
-  </page>
-  
+  <if test="not($splitCount)">
+    <page url="{$kontoPage}" templateFile="list"/>
+    <variable name="book-list">string-join(for $book in $renew-books return x"{$book.extendid}=on", "&amp;")</variable> 
+    <page url="{$extendFormPost}"> <post value="{$book-list}"/> </page>    
+  </if>
+  <if test="$splitCount">
+    <s>$renew-splits := distinct-values($renew-books ! (.)._splitIndex), $splitIndex := $renew-splits[1]</s>
+    <loop var="splitIndex" list="$renew-splits">
+      <page url="{$kontoPage}" templateFile="list"/>
+      <page url="{$nextSplitTable}" templateFile="list"/>
+      <variable name="book-list">string-join(for $book in $renew-books[(.)._splitIndex = $splitIndex] return x"{$book.extendid}=on", "&amp;")</variable> 
+      <page url="{$extendFormPost}" templateFile="renewed"> <post value="{$book-list}"/> </page>    
+      <page url="{$goBackPage}" templateFile="accountOverview"/>
+    </loop>
+  </if>
   <call action="update-all"/>
 </action>
 

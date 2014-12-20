@@ -1,5 +1,6 @@
-  <DIV class="aDISMaske"><!-- this page shows the books, but not if they are renewable. need to click on a button for that -->
-  <template:meta default-text-matching="regex"/>  
+<DIV class="aDISMaske"><!-- this page shows the books, but not if they are renewable. need to click on a button for that -->
+<template:meta default-text-matching="regex"/>  
+ <t:switch prioritized="true">
   <FORM>
   {form := .}
   
@@ -66,7 +67,7 @@
     <TR>
     <TD>{
       book := {"_mode": $mode},
-      if ($mode = "lend") then book.extendid := encode-for-uri(input/@name)
+      if ($mode = "lend") then (book.extendid := encode-for-uri(input/@name), book._splitIndex := $splitIndex )
       else if ($mode = ("ordered", "requested", "provided","orderedMagazine")) then book.cancelid := encode-for-uri(input/@name)
       else (),
       if ($mode = "provided") then book.statusId := "provided"
@@ -108,4 +109,33 @@
 
 
   </form>
-  </div>
+  
+  
+   
+  <FORM>
+    {form := .}
+    
+    <span class="txtinsert">((Mein Konto */|Benutzerkonto) +Ausleihen)|Benutzerkonto:? Übersicht</span>
+
+    <t:switch-prioritized>
+      <input title="Zurück zur vorherigen Seite">{backButtonName := uri-encode(@name)}</input>
+      <input t:condition="contains(@title, 'zur vorherigen Seite')">{backButtonName := uri-encode(@name)}</input>
+    </t:switch-prioritized> 
+    {goBackPage := form($form),
+    goBackPage.post := x"{$goBackPage.post}&{$backButtonName}.x=0&{$backButtonName}.y=0"}
+
+    <div id="R06">
+     <div>
+      <div class="rTable_div">       
+       <table class="rTable_table">
+       <tr>
+         <th>Anzahl</th>
+         <th>Darstellung</th>
+       </tr>
+       <tr><td/><td>Keine Ausleihen in:|Ausleihen zeigen oder verlängern in:</td></tr>
+       {nextSplitTable := (.//a/@href)[$splitIndex], splitCount := count(.//a)}
+       </table>
+    </div></div></div>
+  </form>
+  </t:switch>
+</div>

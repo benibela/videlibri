@@ -1,0 +1,9 @@
+<FORM>
+  <t:switch-prioritized>
+    <input title="Zurück zur vorherigen Seite">{backButtonName := uri-encode(@name)}</input>
+    <input t:condition="contains(@title, 'zur vorherigen Seite')">{backButtonName := uri-encode(@name)}</input>
+  </t:switch-prioritized> 
+  {goBackPage := form(.),
+   goBackPage.post := x"{$goBackPage.post}&{$backButtonName}.x=0&{$backButtonName}.y=0"
+  }
+</form>

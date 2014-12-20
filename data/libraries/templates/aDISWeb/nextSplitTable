@@ -1,0 +1,19 @@
+<FORM>
+  <template:meta default-text-matching="regex"/>  
+  {form := .}
+  
+  <span class="txtinsert">((Mein Konto */|Benutzerkonto) +Ausleihen)|Benutzerkonto:? Übersicht</span>
+  
+  <div id="R06">
+   <div>
+    <div class="rTable_div">       
+     <table class="rTable_table">
+     <tr>
+       <th>Anzahl</th>
+       <th>Darstellung</th>
+     </tr>
+     <tr><td/><td>Keine Ausleihen in:|Ausleihen zeigen oder verlängern in:</td></tr>
+     {nextSplitTable := (.//a/@href)[$splitIndex]}
+     </table>
+  </div></div></div>
+</form>
