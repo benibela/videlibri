@@ -374,15 +374,17 @@ begin
   tempItem:=TMenuItem.Create(libraryList);
   for state in libraryManager.enumerateCountryStates() do begin
     tempItem := TMenuItem.Create(libraryList);
-    if state <> '-' then tempItem.Caption:=state
+    if (state <> '-') and (state <> '- - -') then tempItem.Caption:=state
     else tempItem.Caption:='<eigene>';
     for loc in libraryManager.enumerateLocations(state) do begin
       tempItem2 := TMenuItem.Create(tempItem);
-      tempItem2.Caption := loc;
+      if loc <> '-' then tempItem2.Caption := loc //if the name is '-' it is considered a separator and crashes
+      else tempItem2.Caption := '<alle>';
       libsAtLoc := libraryManager.enumeratePrettyLongNames(loc);
       for j := 0 to high(libsAtLoc) do begin
         tempItem3 := TMenuItem.Create(tempItem2);
-        tempItem3.Caption:= libsAtLoc[j];
+        if libsAtLoc[j] <> '-' then tempItem3.Caption:= libsAtLoc[j]
+        else tempItem3.Caption:= '<Bücherei>';
         tempItem3.Tag:=j;
         tempItem3.OnClick:=@LibraryHomepageClick;
         tempItem2.Add(tempItem3);
