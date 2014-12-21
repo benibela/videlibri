@@ -556,6 +556,7 @@ begin
     if BookList.Items[i].Selected and (BookList.Items[i].data.obj<>nil) and (tbook(BookList.Items[i].data.obj).status in [bsOrdered,bsProvided]) then
       books.add(TBook(BookList.Items[i].data.obj));
   cancelBooks(books);
+  books.free;
 end;
 
 procedure TmainForm.dailyCheckThreadTimer(Sender: TObject);
