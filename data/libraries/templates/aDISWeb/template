@@ -100,8 +100,8 @@
     <page url="{$kontoPage}" templateFile="list"/>
     <loop test="$nextSplitTable">
       <page url="{$nextSplitTable}" templateFile="list"/>
-      <if test="$splitIndex < $splitCount">
-        <s>$splitIndex := $splitIndex + 1</s>
+      <s>$splitIndex := $splitIndex + 1, $nextSplitTable := ()</s>
+      <if test="$splitIndex <= $splitCount">
         <page url="{$goBackPage}" templateFile="accountOverview"/>
         <page url="{$kontoPage}" templateFile="nextSplitTable"/>
       </if>
