@@ -25,6 +25,8 @@
         <zs:recordData>{book := {}}
           <record>
           <template:switch>
+            <controlfield tag="001">{$book.ppn}</controlfield>
+            <controlfield tag="008">{$book.year := substring(., 8, 4)}</controlfield>
             <datafield tag="100"><subfield code="a">{$book.author}</subfield></datafield>
             <datafield tag="245">
               <subfield code="a">{$book.title}</subfield>

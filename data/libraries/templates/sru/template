@@ -5,7 +5,9 @@
 <meta>
   <description>Template für die standardisierte SRU-API für Suche in Katalogen</description>
   <variable name="baseurl"><description>Url des Servers, inklusive Protokoll</description></variable>
-  <variable name="searchKeys" default="dc.title;dc.creator;dc.identifier;dc.date;dc.subject"><description>zu verwendende Suchschlüssel</description></variable>
+  <variable name="searchKeys" default="dc.title;dc.creator;dc.identifier;dc.date;dc.subject"><description>zu verwendende Suchschlüssel</description></variable>  
+  <variable name="recordSchema" default="dc"><description>zu verwendende Suchschlüssel</description></variable>
+  <!--<variable name="daiabaseurl"><description>Url für einen DAIA-Server für Bestandsanzeigen</description></variable>-->
 </meta>
 
 <action id="search-connect"></action>
@@ -39,6 +41,28 @@
 </action>
 
 <action id="search-details">
+  <if test="exists($book.ppn) and contains($baseurl, 'gbv.de')">
+    <page url="http://gso.gbv.de/DB=2.1/PPNSET?PPN={$book.ppn}&HILN=888#888">
+      <template>
+        <DIV class="holding_box" t:optional="true">{$libName:="??", $bestand := 0}
+          <DIV>
+            <t:switch>
+              <TABLE><TR><span class="libName">{
+                $libName := .                
+              }</span></TR></TABLE>
+              <table summary="holding info">
+               {$bestand := $bestand + 1,  $book(x"Exemplar {$bestand} in !") := $libName  }
+               <tr>
+                <td class="rec_lable_holding"><span class="left60">{$id}</span></td>
+                <td class="rec_title">{$book(x"Ex. {$bestand} {$id}!") := .}</td>
+               </tr>+
+              </table>
+            </t:switch>
+          </DIV>*
+        </DIV>
+      </template>
+    </page>
+  </if>
 </action>
 
 </actions>
