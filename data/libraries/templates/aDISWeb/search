@@ -82,4 +82,19 @@
       }    
     </form>
   </html>
+  
+  <body>  
+    <div id="main">
+      <div class="inside">
+        <div class="block">
+          <div class="message">
+            <div id="R01">
+              <h1>{vl:raise(.)}</h1>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+  
 </template:switch-prioritized>
