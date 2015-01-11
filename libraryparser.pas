@@ -175,6 +175,7 @@ type
     FTimeout: dword;
     function GetConnected: boolean;
     function GetUpdated: boolean;
+    procedure setPassword(AValue: string);
   protected
     fbooks: TBookLists;
     lib: TLibrary;
@@ -233,7 +234,7 @@ type
 
     property books: TBookLists read fbooks;
     property prettyName: string read FPrettyName write FPrettyName;
-    property passWord: string read pass write pass;
+    property passWord: string read pass write setPassword;
     property lastCheckDate: integer read FLastCheckDate;
     property extendDays: integer read FExtendDays write FExtendDays;
     property extendType: TExtendType read FExtendType write FExtendType;
@@ -1041,6 +1042,13 @@ begin
   result:=GetConnected and FUpdated and (GetTickCount - FUpdateTime < Timeout);
 end;
 
+procedure TCustomAccountAccess.setPassword(AValue: string);
+begin
+  if pass=AValue then Exit;
+  pass:=AValue;
+  fconnected := false;
+end;
+
 function TCustomAccountAccess.getCharges: currency;
 begin
   result:=fcharges;
@@ -1246,6 +1254,8 @@ begin
   RenameFile(path+oldID+'.config',path+newID+'.config');
   fbooks:=TBookLists.create(self,path+newID+'.history',path+newID+'.current');
   config:=TIniFile.Create(path+newID+'.config');
+
+  fconnected := false;
   //config.UpdateFile;
 end;
 
