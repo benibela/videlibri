@@ -1072,11 +1072,11 @@ initialization
   XMlNamespaceVideLibri := TNamespace.create(XMLNamespaceURL_VideLibri, 'videlibri');
   XMlNamespaceVideLibri_VL := TNamespace.create(XMLNamespaceURL_VideLibri, 'vl');
   vl := TXQNativeModule.Create(XMLNamespaceVideLibri);
-  vl.registerFunction('delete-current-books', @xqFunctionDelete_Current_Books, []);
-  vl.registerFunction('raise', @xqFunctionRaise, []);
-  vl.registerFunction('raise-login', @xqFunctionRaise_Login, []);
-  vl.registerFunction('choose', @xqFunctionChoose, []);
-  vl.registerFunction('confirm', @xqFunctionConfirm, []);
+  vl.registerFunction('delete-current-books', 0, 0, @xqFunctionDelete_Current_Books, []);
+  vl.registerFunction('raise', 0, 1, @xqFunctionRaise, []);
+  vl.registerFunction('raise-login', 0, 1, @xqFunctionRaise_Login, []);
+  vl.registerFunction('choose', 4, 4, @xqFunctionChoose, []);
+  vl.registerFunction('confirm', 2, 2, @xqFunctionConfirm, []);
   TXQueryEngine.registerNativeModule(vl);
 finalization
   vl.free
