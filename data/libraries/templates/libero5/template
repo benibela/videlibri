@@ -83,7 +83,7 @@
      f := $search-form,
      f.post := uri-combine($f.post, (
        if ($book.year != "") then 
-         if (contains(§book.year, "-")) then 
+         if (contains($book.year, "-")) then 
            {"YEARFROM": normalize-space(substring-before($book.year, "-")), "YEARTO": normalize-space(substring-after($book.year, "-"))} 
          else 
            {"YEARFROM": $book.year, "YEARTO": $book.year} 
