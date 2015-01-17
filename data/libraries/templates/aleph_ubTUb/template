@@ -18,8 +18,10 @@
         </head> 
       </template>
     </page>
-    <page url="{$borInfoPage}"/>
-    <page url="https://{$server}pds">
+    <page url="{$borInfoPage}">
+      <template><script>{redirectedPage:=filter(., "https?://[^'""]+")}</script></template>
+    </page>
+    <page url="{$redirectedPage}">
       <post name="func" value="login"/>
       <post name="calling_system" value="aleph"/>
       <post name="bor_id" value="{$username}"/>
