@@ -16,12 +16,13 @@
 
 
 <action id="update-single">
-  <page url="http://stabikat.de:8080/DB=1/CMD?ACT=SRCHA&IKT=54&SRT=YOP&TRM={uri-encode($book.id)}" templateFile="../pica/searchDetails"/>
+  <if test="$book.title eq ''">
+    <page url="http://stabikat.de:8080/DB=1/CMD?ACT=SRCHA&IKT=54&SRT=YOP&TRM={uri-encode($book.id)}" templateFile="../pica/searchDetails"/>
   
-  <page test="not($book.stabikatFound) and contains($book.id, '-')"   
+    <page test="not($book.stabikatFound) and contains($book.id, '-')"   
         url="http://stabikat.de:8080/DB=1/CMD?ACT=SRCHA&IKT=54&SRT=YOP&TRM={uri-encode($book.shortId)}" 
         templateFile="../pica/searchDetails"/>
-  
+  </if>
 </action>
 
 

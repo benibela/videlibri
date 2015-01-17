@@ -24,9 +24,13 @@
 {book:=object(), book.stabikatFound := false()}
 <input type="checkbox" template:optional="true"><template:read var="book.extendId" source="@name"/></input>
  <TD align="center"><template:read var="book.duedate" source="parse-date(.,'dd.mm.yyyy')"/></TD>
- <TD><template:read var="V" source="."/><t:s test="$V = ''">V:=0</t:s></TD>
+ <TD><template:read var="V" source="."/><t:s test="normalize-space($V) = ''">V:=0</t:s></TD>
  <TD></TD> 
- <TD>{book.id := translate(.,' ',''), book.shortId := filter($book.id, '[^-]*') }</TD>
+ <TD>{book.id := translate(extract(., "^[^/]+"),' ',''), 
+      book.shortId := filter($book.id, '[^-]*'),
+      book.title := substring-after(., ":"),
+      book.author := extract(., "/([^:]+)", 1)
+ }</TD>
 <!-- <TD></TD>-->
  <TD><template:read var="status" source="../td[last()]/deep-text()"/></TD>
  <template:if test="$book.extendId!=''">
