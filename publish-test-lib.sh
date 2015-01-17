@@ -36,11 +36,17 @@ cat > $tmp/$publishId.html <<EOF
 <link rel="videlibri.template" href="$templateIdNew/template"/>
 </head>
 <body>
-Neues Template f&uuml;r  die "$name"<br><br>
+Neues Template f&uuml;r  (die) "$name" <span style="font-size: 50%">vom $(LC_ALL=de_DE.utf-8 date)</span><br><br>
 
 <p>Installationshinweise für: <a href="/help/templateinstallation.html#android">Android</a> und <a href="/help/templateinstallation.html#desktop">Desktop</a>-Version.
 
+<p>Adresse des Templates, die zur Installation in VideLibri eingegeben werden muss: http://videlibri.sourceforge.net/test/$publishId.html
+
 <p>$message
+
+<p>
+
+<p style="font-size: 75%; margin-top: 2em">Quellcode des Templates anzeigen: <a href="newlibs/$libDataNew">Bibliotheksmetadata</a>, <a href="view-source:$templateIdNew/template">Template selbst</a>, <a href="$templateIdNew/">verwendete Patterns</a>.
 
 </body>
 </html>
