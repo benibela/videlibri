@@ -152,28 +152,31 @@
 
 
 
-<action id="cancel-single">
-  <s>
-  page := switch ($book._mode)
-    case 'ordered' return $orderedPage
-    case 'requested' return $requestedPage
-    case 'orderedMagazine' return $orderedMagazinePage
-    default return concat("unknown page ", $book._mode)
-  </s>
-  <page url="{$page}">
-    <template><form>{
-      cancelFormPost := form(., jn:object((.//input[@type = "submit" and contains(@value, "arkierte") and contains(@value, "schen")])[1]/{string(@name): @value})),
-      cancelFormPost.post := replace($cancelFormPost.post, "[a-zA-Z0-9]+=on&", "")
-    }</form></template>
-  </page> 
+<action id="cancel-list">
+  <loop var="mode" list="distinct-values($cancel-books ! (.)._mode)">
+    <s>
+    page := switch ($mode)
+      case 'ordered' return $orderedPage
+      case 'requested' return $requestedPage
+      case 'orderedMagazine' return $orderedMagazinePage
+      default return concat("unknown page ", $mode)
+    </s>
+    <page url="{$page}">
+      <template><form>{
+        cancelFormPost := form(., jn:object((.//input[@type = "submit" and contains(@value, "arkierte") and contains(@value, "schen")])[1]/{string(@name): @value})),
+        cancelFormPost.post := replace($cancelFormPost.post, "[a-zA-Z0-9]+=on&", "")
+      }</form></template>
+    </page> 
 
   
-  <variable name="book-list">string-join((: for $book in $cancel-books return (only single, do not distinguish order/requested) :) x"{$book.cancelid}=on", "&amp;")</variable> 
-  
-  <page url="{$cancelFormPost}">
-    <post value="{$book-list}"/>
-  </page>
-  
+    <variable name="book-list">string-join(for $book in $cancel-books[(.)._mode = $mode] return  x"{$book.cancelid}=on", "&amp;")</variable> 
+    
+    <page url="{$cancelFormPost}" templateFile="renewed">
+      <post value="{$book-list}"/>
+    </page>
+    
+    <page url="{$goBackPage}" templateFile="accountOverview"/>
+  </loop>
   
   <call action="update-all"/>
 </action>
@@ -209,7 +212,7 @@
   
   <page url="{$searchPage}" templateFile="searchInputForm"/>
 
-  <variable>lastSearchedIndex := 0, search-next-page-available := ()</variable>
+  <variable>lastSearchedIndex := 0, search-next-page-available := (), internal-loggedin := false()</variable>
 
   <page url="{$startSearch}" templateFile="search"/>
 

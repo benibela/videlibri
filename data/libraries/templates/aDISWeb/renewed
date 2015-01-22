@@ -1,4 +1,4 @@
-<FORM>
+<FORM><!-- this is also used for canceling!-->
   <t:switch-prioritized>
     <input title="Zurück zur vorherigen Seite">{backButtonName := uri-encode(@name)}</input>
     <input t:condition="contains(@title, 'zur vorherigen Seite')">{backButtonName := uri-encode(@name)}</input>
