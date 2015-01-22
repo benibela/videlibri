@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<library>
+  <longName value="Stadt- und Landesbibliothek Dortmund (alpha)"/>
+  <shortName value="StLB Dortmund"/>
+
+  <template value="aDISWeb"/>
+  <variable name="server" value="katalog.dortmund.de/"/>
+
+
+  <homepage value="http://www.dortmund.de/de/leben_in_dortmund/bildungwissenschaft/bibliothek/start_bibliothek/index.html"/>
+  <testing-search value="ja" date="2015-01-22"/>
+  <testing-account value="?" date=""/>
+  <testing-renew value="?" date=""/>
+</library>
