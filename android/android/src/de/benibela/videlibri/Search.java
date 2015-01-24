@@ -216,7 +216,6 @@ public class Search extends VideLibriBaseActivity implements Bridge.SearchConnec
                                         @Override
                                         public void onSearchNextPageComplete(Bridge.Book[] books) {
                                             debugWaiting = 1;
-                                            searcher.free();
                                         }
 
                                         @Override
@@ -269,6 +268,7 @@ public class Search extends VideLibriBaseActivity implements Bridge.SearchConnec
                                         Search.this.onException();
                                         return;
                                     }
+                                    searcher.free();
                                 }
                             }
                         }

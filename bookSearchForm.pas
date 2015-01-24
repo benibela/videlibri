@@ -157,8 +157,8 @@ begin
   bookList:=TBookListView.create(self,false);
   bookList.Parent:=bookListPanel;
   booklist.deserializeColumnOrder(userConfig.ReadString('BookSearcher','ListColumnOrder',''));
-  booklist.deserializeColumnVisibility(userConfig.ReadString('BookSearcher','ListColumnVisibility','--+++----'));
-  booklist.deserializeColumnWidths(userConfig.ReadString('BookSearcher','ListColumnWidths','10,10,200,200,50,'));
+  booklist.deserializeColumnVisibility(userConfig.ReadString('BookSearcher','ListColumnVisibility','--+++---+'));
+  booklist.deserializeColumnWidths(userConfig.ReadString('BookSearcher','ListColumnWidths','10,10,200,200,50,10,10,10,75'));
   booklist.OnSelect:=@bookListSelect;
   bookList.OnVScrollBarChange:=@bookListVScrollBarChange;
 

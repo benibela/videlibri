@@ -50,7 +50,13 @@
                       <A>Volltext<t:read var="book.Volltext!" source="x'Volltext ( {@href} )'"/></A>?
                     </TD>
                     <!-- td sometimes signature -->
-                    <TD><img/></td> <!--available-->
+                    <TD><img>{
+                      book.statusId := switch (extract(@src, "verfu_(.*)[.]gif", 1))
+                        case "ja" return "available"
+                        case "nein" return "lend"
+                        case "info" return "virtual"
+                        default return "unknown"
+                    }</img></td> 
                     <TD>{if ($lastIndex > $lastSearchedIndex) then (book.year := .,  lastSearchedIndex := $lastIndex) else ()}</TD>
                   </TR>*
                 </TABLE>

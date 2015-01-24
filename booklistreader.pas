@@ -9,7 +9,11 @@ uses
   
 type
   TBookList = class;
-  TBookStatus=(bsNormal,bsUnknown,bsIsSearchedDONTUSETHIS,bsEarMarkedDONTUSETHIS, bsMaxLimitReachedDONTUSETHIS,bsProblematicInStr,bsCuriousInStr,bsAccountExpiredDONTUSETHIS,bsOrdered,bsProvided);
+  TBookStatus=(
+    //self lend
+    bsNormal,bsUnknown,bsIsSearchedDONTUSETHIS,bsEarMarkedDONTUSETHIS, bsMaxLimitReachedDONTUSETHIS,bsProblematicInStr,bsCuriousInStr,bsAccountExpiredDONTUSETHIS,bsOrdered,bsProvided,
+    //availability
+    bsAvailable, bsLend, bsVirtual, bsPresentation, bsInterLoan);
   trilean = (tUnknown, tFalse, tTrue);
 
   { TBook }
@@ -157,24 +161,51 @@ var XMlNamespaceVideLibri, XMlNamespaceVideLibri_VL: INamespace;
 
 function BookStatusToStr(book: TBook;verbose:boolean=false): string;
 begin
-  if book.lend =false then
+  if book.lend  then begin
+    case book.Status of
+      bsNormal: if verbose then exit('normal verlängerbar') else exit('');
+      bsUnknown: exit('Ausleihstatus unbekannt');
+      bsIsSearchedDONTUSETHIS: exit('Ausleihstatus wird ermittelt... (sollte nicht vorkommen, bitte melden!)');
+  //    bsEarMarked:exit('vorgemerkt');
+  //    bsMaxLimitReached: exit('maximale Ausleihfrist erreicht');
+  //    bsAccountExpired: exit('Büchereikarte ist abgelaufen');
+      bsCuriousInStr: if verbose then exit('verlängerbar: '+book.statusStr) else exit(book.statusStr);
+      bsProblematicInStr: if verbose then exit('nicht verlängerbar: '+book.statusStr) else exit(book.statusStr);
+      bsOrdered: if book.statusStr <> '' then exit(book.statusStr) else exit('vorgemerkt');
+      bsProvided: if book.statusStr <> '' then exit(book.statusStr) else exit('zur Abholung bereit');
+      bsAvailable, bsLend, bsVirtual, bsPresentation, bsInterLoan: exit('nicht ausgeliehen')
+      else exit('Unbekannter Fehler, bei Ausleihstatusermittlung! Bitte melden!');
+    end;
     if verbose then exit('nicht ausgeliehen') else exit('');
-  case book.Status of
-    bsNormal: if verbose then exit('normal verlängerbar') else exit('');
-    bsUnknown: exit('Ausleihstatus unbekannt');
-    bsIsSearchedDONTUSETHIS: exit('Ausleihstatus wird ermittelt... (sollte nicht vorkommen, bitte melden!)');
-//    bsEarMarked:exit('vorgemerkt');
-//    bsMaxLimitReached: exit('maximale Ausleihfrist erreicht');
-//    bsAccountExpired: exit('Büchereikarte ist abgelaufen');
-    bsCuriousInStr: if verbose then exit('verlängerbar: '+book.statusStr) else exit(book.statusStr);
-    bsProblematicInStr: if verbose then exit('nicht verlängerbar: '+book.statusStr) else exit(book.statusStr);
-    bsOrdered: if book.statusStr <> '' then exit(book.statusStr) else exit('vorgemerkt');
-    bsProvided: if book.statusStr <> '' then exit(book.statusStr) else exit('zur Abholung bereit');
-    else exit('Unbekannter Fehler, bei Ausleihstatusermittlung! Bitte melden!');
-  end;
-
+  end else
+    case book.Status of
+      bsUnknown: exit('');
+      bsAvailable: exit('verfügbar');
+      bsLend: exit('ausgeliehen');
+      bsVirtual: exit('E-Book/sonstiges');
+      bsPresentation: exit('Präsenzbestand');
+      bsInterLoan: exit('fernleihbar');
+      else exit('???????');
+    end;
 end;
 
+function BookStatusToSerializationStr(status: TBookStatus): string;
+begin
+  case status of
+    bsNormal: exit('normal');
+    bsUnknown: exit('unknown');
+    bsProblematicInStr: exit('critical');
+    bsCuriousInStr: exit('curious');
+    bsOrdered: exit('ordered');
+    bsProvided: exit('provided');
+    bsAvailable: exit('available');
+    bsLend: exit('lend');
+    bsVirtual: exit('virtual');
+    bsPresentation: exit('presentation');
+    bsInterLoan: exit('interloan');
+    else exit('--invalid--'+inttostr(integer(status)));
+  end;
+end;
 
 { TBook }
 
@@ -220,15 +251,7 @@ begin
     str('category', category);
     str('status', statusStr);
     //str('otherInfo', otherInfo);
-    case status of
-      bsNormal: str('statusId', 'normal');
-      bsUnknown: str('statusId', 'unknown');
-      bsProblematicInStr: str('statusId', 'critical');
-      bsCuriousInStr: str('statusId', 'curious');
-      bsOrdered: str('statusId', 'ordered');
-      bsProvided: str('statusId', 'provided');
-      else str('statusId', '--invalid--'+inttostr(integer(status)));
-    end;
+    str('statusId', BookStatusToSerializationStr(status));
     case cancelable of
       tUnknown: str('cancelable', '?');
       tTrue: str('cancelable', 'true');
@@ -333,6 +356,11 @@ begin
           'provided': status:=bsProvided;
           'normal': status:=bsNormal;
           'unknown': status:=bsUnknown;
+          'available': status:=bsAvailable;
+          'lend': status:=bsLend;
+          'virtual': status:=bsVirtual;
+          'presentation': status:=bsPresentation;
+          'interloan': status:=bsInterLoan;
           else EBookListReader.create('Ungültiger Bücherstatus: '+value);
         end;
     'cancelable': if (value <> '') and (value <> '0') and not striEqual(value, 'false') and (value <> '?') then cancelable:=tTrue
@@ -357,16 +385,7 @@ begin
     'title': result:=Title;
     'year': result:=Year;
     'isbn': result:=isbn;
-    'statusid':
-        case status of
-          bsCuriousInStr: result:='curious';
-          bsProblematicInStr: result:='critical';
-          bsOrdered: result:='ordered';
-          bsProvided: result:='provided';
-          bsNormal: result:='normal';
-          bsUnknown: result:='unknown';
-          else EBookListReader.create('Ungültiger Bücherstatus (getproperty): '+inttostr(ord(status)));
-        end;
+    'statusid': result := BookStatusToSerializationStr(status);
     'cancelable': case cancelable of
       tUnknown: result := '?';
       tFalse: result := 'false';
@@ -975,14 +994,7 @@ begin
   result.setMutable('title', book.title);
   result.setMutable('year', book.year);
   result.setMutable('isbn', book.isbn);
-  case book.status of //todo: merge with serialized!!
-    bsNormal: result.setMutable('statusId', 'normal');
-    bsUnknown: result.setMutable('statusId', 'unknown');
-    bsProblematicInStr: result.setMutable('statusId', 'critical');
-    bsCuriousInStr: result.setMutable('statusId', 'curious');
-    bsOrdered: result.setMutable('statusId', 'ordered');
-    bsProvided: result.setMutable('statusId', 'provided');
-  end;
+  result.setMutable('statusId', BookStatusToSerializationStr(book.status));
   for i:=0 to high(book.additional) do
     result.setMutable(book.additional[i].name, book.additional[i].value);
   result.setMutable('_existing', xqvalueTrue);
@@ -1033,9 +1045,10 @@ end;
 //add function vl:choose(  callback action id,  caption,  option captions, option values )
 //
 //callback action is called with
-//   choose-result := -1                                        if canceled cancelation
+//   choose-result := 0                                         if canceled cancelation
 //   choose-result := index choosen by user                     if index outside value range
 //   choose-result := option-values[ index choosen by user ]    else
+// ATTENTION: auto type conversion makes every string 0 ! use $choose-result instance of xs:decimal
 function xqFunctionChoose(const context: TXQEvaluationContext; const args: TXQVArray): IXQValue;
 var
   temp: TXQValueObject;

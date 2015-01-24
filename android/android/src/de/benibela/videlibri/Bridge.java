@@ -90,19 +90,29 @@ public class Bridge {
         int getStatusColor(){
             int c = Color.GREEN;
             if (this.history) c = -1;
-            else if (dueDate != null && this.dueDate.pascalDate - currentPascalDate <= 3)
+            else if (account != null && dueDate != null && this.dueDate.pascalDate - currentPascalDate <= 3)
                 c = Color.RED;
             else switch (getStatus()){
+                //lend
                 case Normal: return Color.GREEN;
                 case Problematic: return Color.YELLOW;
                 case Ordered: return Color.CYAN;
                 case Provided: return Color.MAGENTA;
+                //search
+                case Available: return Color.GREEN;
+                case Lend: return Color.RED;
+                case Virtual: return Color.CYAN;
+                case Presentation: return Color.RED;
+                case InterLoan: return Color.RED;
+
+
                 default: return Color.RED; //should not occur
             }
             return c;
         }
 
-        enum StatusEnum { Unknown, Normal, Problematic, Ordered, Provided };
+        enum StatusEnum { Unknown, Normal, Problematic, Ordered, Provided,
+                          Available, Lend, Virtual, Presentation, InterLoan};
 
         StatusEnum getStatus() {
             switch (status) {
@@ -110,6 +120,11 @@ public class Bridge {
                 case 2: return StatusEnum.Problematic;
                 case 3: return StatusEnum.Ordered;
                 case 4: return StatusEnum.Provided;
+                case 100: return StatusEnum.Available;
+                case 101: return StatusEnum.Lend;
+                case 102: return StatusEnum.Virtual;
+                case 103: return StatusEnum.Presentation;
+                case 104: return StatusEnum.InterLoan;
                 default: return StatusEnum.Unknown;
             }
         }
@@ -119,6 +134,11 @@ public class Bridge {
                 case Problematic: status = 2; break;
                 case Ordered: status = 3; break;
                 case Provided: status = 4; break;
+                case Available: status = 100; break;
+                case Lend: status = 101; break;
+                case Virtual: status = 102; break;
+                case Presentation: status = 103; break;
+                case InterLoan: status = 104; break;
             }
         }
 

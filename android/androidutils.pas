@@ -774,17 +774,27 @@ end;
 function bookToJBook(book: TBook; includeDates: boolean = true; includeAllStrings: boolean = false): jobject;
 var temp: TJBookSerializer;
   i: Integer;
+  tempi: integer;
 begin
   temp.book := j.newObject(bookClass, bookClassInit);
   temp.includeDates := includeDates;
   book.serialize(@temp.writeProp,@temp.writeDateProp);
+  tempi := 0;
   case book.status of
-    bsNormal, bsCuriousInStr: j.SetIntField(temp.book, bookFields.statusI, 1);
-    bsProblematicInStr: j.SetIntField(temp.book, bookFields.statusI, 2);
-    bsOrdered: j.SetIntField(temp.book, bookFields.statusI, 3);
-    bsProvided: j.SetIntField(temp.book, bookFields.statusI, 4);
-    else j.SetIntField(temp.book, bookFields.statusI, 0);
+    bsNormal, bsCuriousInStr: tempi := 1;
+    bsProblematicInStr: tempi := 2;
+    bsOrdered: tempi := 3;
+    bsProvided: tempi := 4;
+
+    bsAvailable: tempi := 100;
+    bsLend: tempi := 101;
+    bsVirtual: tempi := 102;
+    bsPresentation: tempi := 103;
+    bsInterLoan: tempi := 104;
+
+    else ;
   end;
+  j.SetIntField(temp.book, bookFields.statusI, tempi);
   if includeAllStrings then
     for i := 0 to high(book.additional) do
       temp.writeProp(book.additional[i].name, book.additional[i].value);

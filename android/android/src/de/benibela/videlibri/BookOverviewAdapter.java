@@ -114,12 +114,22 @@ class BookOverviewAdapter extends ArrayAdapter<Bridge.Book> {
                 case Ordered:  holder.date.setText(view.getContext().getString(R.string.book_status_ordered)); break;
                 default: holder.date.setText(Util.formatDate(book.dueDate)); break;
             }
-            int c = book.getStatusColor();
-            if (c == -1) c = defaultColor;
-            //holder.caption.setTextColor(c);
-            //holder.more.setTextColor(c);
-            holder.date.setTextColor(c);
-        } else holder.date.setText("");
+        } else {
+            String s = "";
+            switch (book.getStatus()) {
+                case Available: s = "V"; break;
+                case Lend: s = "X"; break;
+                case Virtual: s = "?"; break;
+                case Presentation: s = "X"; break;
+                case InterLoan: s = "X"; break;
+            }
+            holder.date.setText(s);
+        }
+        int c = book.getStatusColor();
+        if (c == -1) c = defaultColor;
+        //holder.caption.setTextColor(c);
+        //holder.more.setTextColor(c);
+        holder.date.setTextColor(c);
         return view;
     }
 
