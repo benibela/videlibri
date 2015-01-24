@@ -358,6 +358,7 @@ end;
 
 destructor TBookListView.Destroy;
 begin
+  OnVScrollBarChange := nil;
   clear;
   inherited Destroy;
 end;
