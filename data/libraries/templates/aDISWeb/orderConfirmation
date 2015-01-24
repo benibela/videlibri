@@ -1,15 +1,30 @@
-<form>
-  {form := form(., {"select": "_DESTINATIONFILLER_", "select$0": "Nein"})}
+<t:switch prioritized="true">
+  <form>
+    <t:switch-prioritized>
+      <input title="Zurück zur vorherigen Seite">{backButtonName := uri-encode(@name)}</input>
+      <input t:condition="contains(@title, 'zur vorherigen Seite')">{backButtonName := uri-encode(@name)}</input>
+    </t:switch-prioritized> 
+    {form := form(., {"select": "_DESTINATIONFILLER_", "select$0": "Nein"}),
+     goBackPage := form(., x"{$backButtonName}.x=0&{$backButtonName}.y=0")
+    }
+    
+    <DIV class="fsgrp">
+      <DIV t:condition="@id=('OPACLI','R03')"> <!-- OPACLI is the old value, not used anymore anywhere?-->
+        <STRONG>{tempOrderConfirmation := x"Wohin soll das Buch ""{.}"" vorbestellt werden?"}</STRONG>
+      </DIV>
   
-  <DIV class="fsgrp">
-    <DIV t:condition="@id=('OPACLI','R03')"> <!-- OPACLI is the old value, not used anymore anywhere?-->
-      <STRONG>{tempOrderConfirmation := x"Wohin soll das Buch ""{.}"" vorbestellt werden?"}</STRONG>
+      <select name="select">{tempOptions :=  ./option[. != ""],    
+      vl:choose("internal-order-confirmed", $tempOrderConfirmation, $tempOptions, $tempOptions/@value)
+      }</select>    
     </DIV>
+  </form>
+  
+  <form><div class="message"><div id="R01">
+    <h1>{error:=.}</h1>
+  </div></div>{goBackPage:=.}</form>
+  
+  <input name="$Textfield">{ $internal-loggedin := false(), loginFormPost := form((ancestor::form, //form)[1], {"$Textfield": $username, "$Textfield$0": $password}) } <!-- Aalen has invalid html where the form is not an ancestor of the input-->  </input> 
+  <input name="j_username">{ $internal-loggedin := false(), loginFormPost := form((ancestor::form, //form)[1], {"j_username": $username, "j_password": $password}), idpSystem := true() }</input> 
 
-    <select name="select">{tempOptions :=  ./option[. != ""],    
-    vl:choose("internal-order-confirmed", $tempOrderConfirmation, $tempOptions, $tempOptions/@value)
-    }</select>    
-  </DIV>
-</form>
-
- 
+</t:switch>
+   

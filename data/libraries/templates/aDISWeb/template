@@ -10,16 +10,7 @@
 
 <action id="connect"></action>
 
-<action id="internal-login">
-
-  <page url="{$loginForm}">
-    <template><t:switch-prioritized>
-      <input name="$Textfield">{ loginFormPost := form((ancestor::form, //form)[1], {"$Textfield": $username, "$Textfield$0": $password}) } <!-- Aalen has invalid html where the form is not an ancestor of the input-->  </input> 
-      <input name="j_username">{ loginFormPost := form((ancestor::form, //form)[1], {"j_username": $username, "j_password": $password}),
-              idpSystem := true() }</input> 
-    </t:switch-prioritized></template>
-  </page>
-  
+<action id="internal-login"> 
   <if test="get('idpSystem')">
     <s>i := 1</s>
     <!-- follow links till we reach the login page -->
@@ -88,6 +79,13 @@
     </template:switch></template>
   </page>
 
+  <page url="{$loginForm}">
+    <template><t:switch-prioritized>
+      <input name="$Textfield">{ loginFormPost := form((ancestor::form, //form)[1], {"$Textfield": $username, "$Textfield$0": $password}) } <!-- Aalen has invalid html where the form is not an ancestor of the input-->  </input> 
+      <input name="j_username">{ loginFormPost := form((ancestor::form, //form)[1], {"j_username": $username, "j_password": $password}),
+              idpSystem := true() }</input> 
+    </t:switch-prioritized></template>
+  </page>
   <call action="internal-login"/>
   
   <variable name="first-login">true()</variable>
@@ -212,7 +210,7 @@
   
   <page url="{$searchPage}" templateFile="searchInputForm"/>
 
-  <variable>lastSearchedIndex := 0, search-next-page-available := (), internal-loggedin := false()</variable>
+  <variable>lastSearchedIndex := 0, search-next-page-available := ()</variable>
 
   <page url="{$startSearch}" templateFile="search"/>
 
@@ -272,48 +270,60 @@
     </page>
     <page test="get('multiple-district-ordering', false())" url="{$form}" templateFile="orderMultipleDistrict"/>
   </if>
+  <call action="internal-go-back-with-error"/>
+  
+  <if test="not(get('multiple-district-ordering', false()))">
+    <s>$choose-result := "ok"</s>
+    <call action="internal-order-continue"/>
+  </if>
+</action>
+
+<action id="internal-go-back-with-error">
   <if test="$error">
     <page url="{$goBackPage}">
       <template><a title="Trefferliste">{goBackPage:=@href, vl:raise($error)}</a></template>
     </page>
     <page url="{$goBackPage}" templateFile="searchBasicForm"/>
   </if>
-  
-  
-  <if test="not(get('multiple-district-ordering', false()))">
-    <s>$choose-result := 1</s>
-    <call action="internal-order-continue"/>
-  </if>
 </action>
 
-
-<action id="internal-order-continue">
+<action id="internal-go-back2">
   <if test="$choose-result instance of xs:decimal">
     <page url="{$goBackPage}">
       <template><a title="Trefferliste">{goBackPage:=@href}</a></template>
     </page>
     <page url="{$goBackPage}" templateFile="searchBasicForm"/>
   </if>
+</action>
+
+<action id="internal-order-continue">
+  <call action="internal-go-back2"/>
   <if test="$choose-result instance of xs:string">
     <if test="get('multiple-district-ordering', false())"> 
       <page url="{$choose-result}">
         <template><form>{form:=form(., (.//input[@type = "submit" and contains(@value, "Bestellung")])[1])}</form></template>
       </page>
     </if>
-  
+    
+    <s>internal-loggedin := true()</s>
+    <page url="{$form}" templateFile="orderConfirmation"/>    
     <if test="not(get('internal-loggedin', false()))">
-      <variable name="loginForm">$form</variable>
       <call action="internal-login"/>
       <variable name="internal-loggedin">true()</variable>
       <variable name="form">$loginFormPost</variable>
+      <page url="{$form}" templateFile="orderConfirmation"/>
     </if>
   
-    <page url="{$form}" templateFile="orderConfirmation"/>
+
+    <call action="internal-go-back-with-error"/>
   </if>
 </action>
 
 
 <action id="internal-order-confirmed">
+  <call action="internal-go-back2"/>
+
+  <if test="$choose-result instance of xs:string">
     <variable name="form">
     {
       "url": $form.url,
@@ -322,16 +332,17 @@
     }
     </variable>  
 
-  <page url="{$form}" templateFile="orderConfirmed"/>
-  <page url="{$form}" templateFile="orderConfirmed"/>
-  <page url="{$final-form}">
-    <template>
-    <t:s>book.statusId := "ordered"</t:s>
-<!-- geht ohne das???   <a title="Trefferliste">{goback:=@href}</a>--><!--inside main in munich, outside in nürnberg-->
-    </template>
-  </page>
-  
-  <page url="{$goback}" templateFile="searchBasicForm"/>
+    <page url="{$form}" templateFile="orderConfirmed"/>
+    <page url="{$form}" templateFile="orderConfirmed"/>
+    <page url="{$final-form}">
+      <template>
+      <t:s>book.statusId := "ordered"</t:s>
+  <!-- geht ohne das???   <a title="Trefferliste">{goback:=@href}</a>--><!--inside main in munich, outside in nürnberg-->
+      </template>
+    </page>
+    
+    <page url="{$goBackPage}" templateFile="searchBasicForm"/>
+  </if>
 </action>
 
 <action id="catalogue">
