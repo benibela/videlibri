@@ -340,8 +340,18 @@
   <!-- geht ohne das???   <a title="Trefferliste">{goback:=@href}</a>--><!--inside main in munich, outside in nürnberg-->
       </template>
     </page>
-    
+
+    <!-- works without this?? -->    
+    <page url="{$goBackPage}">
+      <template>
+        <t:switch prioritized="true">
+          <a title="Trefferliste">{goBackPage:=@href}</a>
+          <span class="toolbar_txt">Vollanzeige<!--we are already back. safety. case never observed--></span>
+        </t:switch>
+      </template>
+    </page>
     <page url="{$goBackPage}" templateFile="searchBasicForm"/>
+
   </if>
 </action>
 
