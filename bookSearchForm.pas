@@ -891,13 +891,13 @@ begin
   if book=nil then
     if bookList.Selected=nil then book:=displayedBook
     else book:=tbook(bookList.Selected.data.obj);
-  if (book=nil) or (searcherAccess = nil) then exit;
+  if (book=nil) then exit;
   intern:=nil;
   empty:=nil;
   normal:=nil;
   displayedBook:=book;
   Result:=0;
-  searcherAccess.beginBookReading;
+  if searcherAccess <> nil then searcherAccess.beginBookReading;
   try
     detaillist.BeginUpdate;
     detaillist.items.clear;
@@ -952,7 +952,7 @@ begin
     linkLabelBib.Enabled := getProperty('home-url', book.additional) <> '';
     linkLabelAmazon.Enabled := getProperty('amazon-url', book.additional) <> '';
   finally
-    searcherAccess.endBookReading;
+    if searcherAccess <> nil then searcherAccess.endBookReading;
   end;
 end;
 
