@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<library>
+  <longName value="Universitätsbibliothek Witten/Herdecke (alpha)"/>
+
+  <template value="sisis"/>
+  <variable name="server" value="http://webopac.stadt-witten.de:8080/webOPACClient/"/>
+
+  <homepage value="http://www.kulturforum-witten.de/bibliothek.html"/>
+  <testing-search value="ja" date="2015-01-25"/>
+  <testing-account value="?" date=""/>
+  <testing-renew value="?" date=""/>
+</library>

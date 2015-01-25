@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<library>
+  <longName value="Universitäts- und Landesbibliothek Bonn"/>
+  <shortName value="Ulb Bonn"/> 
+  
+  <template value="sisis"/>
+  <variable name="server" value="http://opac.ulb.uni-bonn.de:8080/webOPACClient/"/>   
+  
+  <homepage value="http://www.ulb.uni-bonn.de/"/>
+  <testing-search value="ja" date="2015-01-25"/>
+  <testing-account value="ja" date="2015-01-25"/>
+  <testing-renew value="?" date=""/>
+</library>
