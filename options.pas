@@ -217,7 +217,7 @@ implementation
 
 uses newAccountWizard_u, applicationconfig, simplehtmltreeparser, androidutils, multipagetemplate, bbutils, internetaccess, simpleinternet;
 
-const groupingPropertyMap: array[0..12] of string = ('', '_account', '_dueWeek', 'dueDate', '_status', '_issueWeek', 'issueDate', 'libraryBranch', 'id', 'category', 'title', 'author', 'year');
+
 
 { ToptionForm }
 
@@ -328,11 +328,11 @@ begin
   timeNearMeaning.Text:=IntToStr(redTime-currentDate);
   symbols.ItemIndex:=userConfig.ReadInteger('appearance','symbols',0);
   temp := userConfig.ReadString('appearance','groupingProperty', '');
-  for i := 0 to high(groupingPropertyMap) do
-    if groupingPropertyMap[i] = temp then begin
+  for i := 0 to high(groupingPropertyMap) do begin
+    if i <> 0 then groupingProperty.Items.add(groupingPropertyNames[i]);
+    if groupingPropertyMap[i] = temp then
       groupingProperty.ItemIndex := i;
-      break;
-    end;
+  end;
 
   //Internetpage
   {$IFNDEF WINDOWS}internetAccessW32.Enabled := false;{$endif}
@@ -466,6 +466,8 @@ begin
      and (groupingProperty.ItemIndex < length(groupingPropertyMap))
      and (groupingPropertyMap[groupingProperty.ItemIndex] <> userConfig.ReadString('appearance', 'groupingProperty', '')) then begin
     userConfig.WriteString('appearance','groupingProperty', groupingPropertyMap[groupingProperty.ItemIndex]);
+    if (groupingProperty.ItemIndex < mainForm.groupingItem.Count) then
+       mainForm.groupingItem.Items[groupingProperty.ItemIndex].Checked := true;;
     needRefreshListView := true;
   end;
   mainForm.setSymbolAppearance(symbols.ItemIndex);

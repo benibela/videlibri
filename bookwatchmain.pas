@@ -30,6 +30,8 @@ type
   TmainForm = class(TForm)
     accountListMenuItem: TMenuItem;
     cancelTheseBooks: TMenuItem;
+    groupingItem: TMenuItem;
+    MenuItem9: TMenuItem;
     MenuItemTester: TMenuItem;
     MenuItem10: TMenuItem;
     extendMenuList1: TMenuItem;
@@ -125,6 +127,7 @@ type
     procedure MenuItem16Click(Sender: TObject);
     procedure MenuItem17Click(Sender: TObject);
     procedure MenuItem18Click(Sender: TObject);
+    procedure MenuItem9Click(Sender: TObject);
     procedure MenuItemTesterClick(Sender: TObject);
     procedure MenuItem23Click(Sender: TObject);
     procedure MenuItem24Click(Sender: TObject);
@@ -199,6 +202,10 @@ var
 const SB_PANEL_COUNT=2;
 
 procedure sendMailReports();
+
+const
+  groupingPropertyNames: array[0..12] of string = ('Keine', 'Konto', 'Fristwoche', 'Fristdatum', 'Status', 'Ausleihwoche', 'Ausleihdatum', 'Ausleihbibliothek', 'ID', 'Kategorie', 'Titel', 'Verfasser', 'Jahr');
+  groupingPropertyMap: array[0..12] of string = ('', '_account', '_dueWeek', 'dueDate', '_status', '_issueWeek', 'issueDate', 'libraryBranch', 'id', 'category', 'title', 'author', 'year');
 
 implementation
 
@@ -335,6 +342,7 @@ var i:integer;
     tempItem3: TMenuItem;
     state: String;
     loc: String;
+    s: String;
 begin
   if logging then log('FormCreate started');
 
@@ -394,6 +402,17 @@ begin
     libraryList.Items.Add(tempItem);
   end;
 
+  s := userConfig.ReadString('appearance', 'groupingProperty','');
+  for i := 1 to high(groupingPropertyNames) do begin
+    tempItem := TMenuItem.Create(groupingItem);
+    tempItem.Caption := groupingPropertyNames[i];
+    tempItem.GroupIndex := 3;
+    tempItem.RadioItem:=true;
+    tempItem.Tag := i;
+    tempItem.OnClick := @MenuItem9Click;
+    if groupingPropertyMap[i] = s then tempItem.Checked := true;
+    groupingItem.add(tempItem);
+  end;
   libraryList.items[0].Visible:=false;//place holder
   {
   //TODO1: Bessere Statistik
@@ -767,6 +786,19 @@ end;
 procedure TmainForm.MenuItem18Click(Sender: TObject);
 begin
   applicationUpdate(false);
+end;
+
+procedure TmainForm.MenuItem9Click(Sender: TObject);
+var
+  i: PtrInt;
+begin
+  i := (sender as tcomponent).Tag;
+  if (i >= 0)
+     and (i < length(groupingPropertyMap))
+     and (groupingPropertyMap[i] <> userConfig.ReadString('appearance', 'groupingProperty', '')) then begin
+    userConfig.WriteString('appearance','groupingProperty', groupingPropertyMap[i]);
+    RefreshListView;
+  end;
 end;
 
 procedure TmainForm.MenuItemTesterClick(Sender: TObject);

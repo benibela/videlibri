@@ -1,7 +1,7 @@
 object mainForm: TmainForm
-  Left = 503
+  Left = 267
   Height = 655
-  Top = 25
+  Top = 87
   Width = 927
   Caption = 'Videlibri'
   ClientHeight = 651
@@ -178,6 +178,15 @@ object mainForm: TmainForm
         GroupIndex = 1
         RadioItem = True
         OnClick = ViewAllClick
+      end
+      object groupingItem: TMenuItem
+        Caption = 'Gruppierung'
+        object MenuItem9: TMenuItem
+          Caption = 'Keine'
+          GroupIndex = 3
+          RadioItem = True
+          OnClick = MenuItem9Click
+        end
       end
       object MenuItem2: TMenuItem
         Tag = -1
