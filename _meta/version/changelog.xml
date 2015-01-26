@@ -1,10 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?xml-stylesheet type="text/xsl" href="../changelog.xsl"?>
 <changelog program="VideLibri">
-  <build version="1675" date="2014-11-11">
+  <build version="1680" date="2015-01-26">
     <download url="http://videlibri.sourceforge.net/updates/videlibri-setup.exe" platform="WINDOWS" execute="&quot;$DOWNLOAD&quot;  /SP- /noicons &quot;/dir=$OLDPATH&quot; " restart="true"/>
     <download url="http://videlibri.sourceforge.net/updates/videlibri-linux32.deb" platform="LINUX32" execute=""/>
     <download url="http://videlibri.sourceforge.net/updates/videlibri-linux64.deb" platform="LINUX64" execute=""/>
+    <fix>aDIS: Probleme beim Bestellen/Abbrechen mehrerer Vormerkungen auf einmal </fix>
+    <fix>VOEBB: Anzeige der aufgesplitteten Kontotabelle bei mehr als 200 Ausleihen</fix>
+    <fix>UB FU/TU Berlin: Anpassung an geänderte Weiterleitungen nach Login</fix>
+    <fix>Stabi Berlin: Zeige die Titel/Autor-Informationen an, die neuerdings im Benutzerkonto stehen, statt sie im Katalog zu suchen</fix>
+    <fix>Verwende neue Kontonummer zum Login, wenn sie geändert wurde, statt bis zum nächsten Neustart die alte</fix>
+    <fix>pica: Zeige Vormerkungen mit Status "Vormerkregal" als Vormerkungen statt als Ausleihen</fix>
+    <add>GVK: Zeige Verfügbarkeitsstatus in Suchdetails, lese marcXML statt Dublin Core</add>
+    <add>aDIS: Zeige Verfügbarkeitsstatus in Suchübersicht</add>
+    <add>Stadt/Landesbibliothek Dortmund, Stadtbücherei Witten, Universitäts/Landesbibliothek Bonn</add>
+  </build>
+  <build version="1675" date="2014-11-11">
     <fix>Bibliotheca: Suche nach Schlüsselwörtern, Systeme mit anderen Spalten in der Ausleihtabelle (Heidelberg), Vormerkungen ohne Zweigstellenauswahl</fix>
     <fix>Bibliotheca+ (Stralsund Stb): Katalogsuche</fix>
     <fix>Gruppenüberschriften werden nicht mehr als Ausleihen gezählt</fix>
