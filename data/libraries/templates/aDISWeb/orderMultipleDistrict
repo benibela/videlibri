@@ -16,6 +16,10 @@
           <h1>Bitte auf "In" verzweigen und dann bestellen!</h1>
         </div></div>{inCollection:=.}</form>
         <form><div class="message"><div id="R01">
+          <h1>Bitte auf Band oder Heft verzweigen und dann bestellen!</h1>
+        </div></div>{subBookOnly:=.}</form>
+        
+        <form><div class="message"><div id="R01">
           <h1>{error:=.}</h1>
         </div></div>{goBackPage:=.}</form>
 </t:switch-prioritized>

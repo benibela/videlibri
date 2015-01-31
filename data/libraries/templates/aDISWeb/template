@@ -247,12 +247,16 @@
 <action id="order-single">
   <variable name="targetIndex">$book._index * 1</variable> <call action="gotoindex"/>
 
-  <page url="{$form.url}">
-    <post>{replace($form.post, "selected=", concat("selected=", $book._searchId))}</post>
+  <s>form := form-combine($form, concat("selected=", $book._searchId))</s>
+  <call action="internal-order-single"/>
+</action>
+
+<action id="internal-order-single">
+  <page url="{$form}">
     <template><form>{form:=form(., (.//input[@type = "submit" and contains(@value, "Bestellen")])[1]/{string(@name): @value})}</form></template>
   </page>
   
-  <s>inCollection:=false(), error := ()</s>
+  <s>inCollection:=false(), subBookOnly := false(), error := ()</s>
   
   <page test="get('multiple-district-ordering', false())" url="{$form}" templateFile="orderMultipleDistrict"/>
   
@@ -270,9 +274,25 @@
     </page>
     <page test="get('multiple-district-ordering', false())" url="{$form}" templateFile="orderMultipleDistrict"/>
   </if>
+  <if test="$subBookOnly"> 
+    <page url="{$subBookOnly}">
+      <template>
+        <form>
+          <t:switch-prioritized>
+            <input title="Zurück zur vorherigen Seite">{backButtonName := uri-encode(@name)}</input>
+            <input t:condition="contains(@title, 'zur vorherigen Seite')">{backButtonName := uri-encode(@name)}</input>
+          </t:switch-prioritized> 
+          {goBackPage := form(., x"{$backButtonName}.x=0&{$backButtonName}.y=0")}
+          <div id="R06"><div class="aDISListe"><table>
+            <tr><th>Band</th><td>{vl:choose("internal-order-volume", "Welcher Band soll bestellt werden?", a/substring(normalize-space(.), 1, 75), a/@href)}</td></tr> 
+          </table></div></div>
+        </form>
+      </template>            
+    </page>
+  </if>
   <call action="internal-go-back-with-error"/>
   
-  <if test="not(get('multiple-district-ordering', false()))">
+  <if test="not(get('multiple-district-ordering', false())) and not($subBookOnly)">
     <s>$choose-result := "ok"</s>
     <call action="internal-order-continue"/>
   </if>
@@ -293,6 +313,16 @@
       <template><a title="Trefferliste">{goBackPage:=@href}</a></template>
     </page>
     <page url="{$goBackPage}" templateFile="searchBasicForm"/>
+  </if>
+</action>
+ 
+<action id="internal-order-volume">
+  <if test="$choose-result instance of xs:decimal">
+    <page url="{$goBackPage}" templateFile="searchBasicForm"/>
+  </if>
+  <if test="$choose-result instance of xs:string">
+    <s>form := $choose-result</s>
+    <call action="internal-order-single"/>
   </if>
 </action>
 
