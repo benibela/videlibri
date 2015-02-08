@@ -88,8 +88,8 @@ downloadTable)
   URL=http://sourceforge.net/projects/videlibri/files/VideLibri/VideLibri%20$VERSION/
   PROJNAME=VideLibri
   ~/hg/programs/internet/xidel/xidel $URL --extract-exclude=pname,url --dot-notation=on  --extract-kind=xquery  \
-     -e "declare variable \$pname := '$PROJNAME'" \
-     -e "declare variable \$url := '$URL'" \
+     -e "declare variable \$pname := '$PROJNAME'; ()" \
+     -e "declare variable \$url := '$URL'; ()" \
      -e 'declare variable $lang := 2; 
          declare function verboseName($n){ concat ( 
            if (contains($n, "win") or contains($n, ".exe")) then "Windows: " 
