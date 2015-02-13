@@ -42,12 +42,9 @@
       i := 1,
       startSearch := form(//form, {|
         { $nameYear: $book.year },
-        (
-          for $key in jn:keys($book) return if ($book($key) != "" and exists($search-keys($key))) then (
-                  {$selects[$i]: $search-keys($key), $inputs[$i]: $book($key)},
-                  (i := $i + 1)[2]
-                ) else ()
-        )
+          for $key at $i in ("title", "author", "isbn", "keywords") where ($book($key) != "" and exists($search-keys($key))) 
+          return  {$selects[$i]: $search-keys($key), $inputs[$i]: $book($key)}
+        
       |})
             
     }
