@@ -210,11 +210,11 @@
   
   <page url="{$searchPage}" templateFile="searchInputForm"/>
 
-  <variable>lastSearchedIndex := 0, search-next-page-available := ()</variable>
+  <variable>lastSearchedIndex := 0, search-next-page-available := (), gotDetails_GoBackPage := ()</variable>
 
   <page url="{$startSearch}" templateFile="search"/>
 
-  <page test="exists(get('gotDetails_GoBackPage', ()))" url="{$gotDetails_GoBackPage}" templateFile="search"/>
+  <page test="exists($gotDetails_GoBackPage)" url="{$gotDetails_GoBackPage}" templateFile="search"/>
 </action>
 
 <action id="search-next-page">
