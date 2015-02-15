@@ -1,6 +1,6 @@
 <html>
 <!--shared with FU berlin-->
 <body>
-<a><t:s>redirectedPage:=filter(@href, "http[s]?://.+")</t:s></a>
+<a><t:s>redirectedPage:=extract(@href, "http[s]?://.+")</t:s></a>
 </body>
 </html>

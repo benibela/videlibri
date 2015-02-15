@@ -5,8 +5,8 @@
 <template:read var="templateError" source="false()"/>
 
 <template:switch>
-<!--alt<TD>Ausgeliehene Medien:<template:read var="delete-current-books()"/><template:read var="bookCount" source="filter(text(),'\d+')"/></TD>-->
-<TD>Entliehen<template:read var="delete-current-books()"/><template:read var="bookCount" source="filter(text(),'\d+')"/></TD><!--neu-->
+<!--alt<TD>Ausgeliehene Medien:<template:read var="delete-current-books()"/><template:read var="bookCount" source="extract(text(),'\d+')"/></TD>-->
+<TD>Entliehen<template:read var="delete-current-books()"/><template:read var="bookCount" source="extract(text(),'\d+')"/></TD><!--neu-->
 <TD>keine Medien entliehen<template:read var="delete-current-books()"/><template:read var="bookCount" source="'0'"/></TD><!--??-->
 <TD>Sie haben keine Medien entliehen<template:read var="delete-current-books()"/><template:read var="bookCount" source="'0'"/></TD><!--??-->
 <TD>Sie haben keine Medien ausgeliehen<template:read var="delete-current-books()"/><template:read var="bookCount" source="'0'"/></TD><!--??-->
@@ -27,7 +27,7 @@
  <TD><template:read var="V" source="."/><t:s test="normalize-space($V) = ''">V:=0</t:s></TD>
  <TD></TD> 
  <TD>{book.id := translate(extract(., "^[^/]+"),' ',''), 
-      book.shortId := filter($book.id, '[^-]*'),
+      book.shortId := extract($book.id, '[^-]*'),
       book.title := substring-after(., ":"),
       book.author := extract(., "/([^:]+)", 1)
  }</TD>

@@ -5,7 +5,7 @@
       <DIV class="inside">
           <DIV>
             <P>
-              <SPAN>(Gesucht|Treffer).*:<t:s>search-result-count := filter(., "[0-9]+$"),  lastSearchedIndex := get("lastSearchedIndex", 0) (: for unittests :)</t:s></SPAN>
+              <SPAN>(Gesucht|Treffer).*:<t:s>search-result-count := extract(., "[0-9]+$"),  lastSearchedIndex := get("lastSearchedIndex", 0) (: for unittests :)</t:s></SPAN>
             </P>
           </DIV>
       </DIV>
@@ -39,10 +39,10 @@
                       <A>{
                         if ($lastIndex > $lastSearchedIndex) then (
                            book := {
-                             "title": filter(., "^[^/]+"), 
-                             "author": filter(., "^[^/]+/([^-]+)", 1), 
-                             "publisher": filter(., "-([^-]+)$", 1),
-                             "_searchId": encode-for-uri(concat("ZTEXT       ", filter(@href, "\('(.*)'\)", 1))),
+                             "title": extract(., "^[^/]+"), 
+                             "author": extract(., "^[^/]+/([^-]+)", 1), 
+                             "publisher": extract(., "-([^-]+)$", 1),
+                             "_searchId": encode-for-uri(concat("ZTEXT       ", extract(@href, "\('(.*)'\)", 1))),
                              "_index": $lastIndex*1
                            }
                         ) else ()

@@ -40,7 +40,7 @@
     <page url="{replace($redirectedPage, '&pds_handle=GUEST', '')}" templateFile="redirection_b"/>
 
     <page url="{$redirectedPage}">
-      <template><script>{redirectedPage:=filter(., "https?://[^'""]+")}</script></template>
+      <template><script>{redirectedPage:=extract(., "https?://[^'""]+")}</script></template>
     </page>
 
     <page url="{$redirectedPage}" templateFile="../aleph_base/loggedIn2007">

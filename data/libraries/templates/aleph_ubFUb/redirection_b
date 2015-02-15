@@ -1,7 +1,7 @@
 <html> 
 <head> 
 <title>PDS Login</title> 
-<script><t:s>redirectedPage:=filter(., "https?://[^']+")</t:s></script>
+<script><t:s>redirectedPage:=extract(., "https?://[^']+")</t:s></script>
 </head> 
 </html> 
  

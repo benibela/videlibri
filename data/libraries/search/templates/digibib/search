@@ -2,8 +2,8 @@
   <head>{search-result-count:=0}</head>
   <body><t:loop>
     <div class="contentblock">
-      <a><t:s>library:=filter(@name,"(.*)_anchor",1)</t:s> </a>
-      <h3>{search-result-count:=$search-result-count + filter(.,"([0-9]+) *Treffer", 1)}</h3>
+      <a><t:s>library:=extract(@name,"(.*)_anchor",1)</t:s> </a>
+      <h3>{search-result-count:=$search-result-count + extract(.,"([0-9]+) *Treffer", 1)}</h3>
       <dl class="list"><t:loop>
         <dt>
           <t:s>
@@ -11,13 +11,13 @@
             book.id:=@id,
             book.digibib-url:=concat("http://www.digibib.net/",a/@href),
             book.title:=normalize-space(a/deep-text('')),
-            book.library:=filter(a/@href, "DB=([^=&]+)", 1)
+            book.library:=extract(a/@href, "DB=([^=&]+)", 1)
           </t:s>
         </dt>
         <dd>
           <t:s>
-            book.author:=normalize-space(filter(./deep-text(''),'(.*) *- *[0-9]*$', 1)),
-            book.year:=normalize-space(filter(./deep-text(''), '[0-9]*$'))
+            book.author:=normalize-space(extract(./deep-text(''),'(.*) *- *[0-9]*$', 1)),
+            book.year:=normalize-space(extract(./deep-text(''), '[0-9]*$'))
           </t:s>
         </dd>
       </t:loop></dl>

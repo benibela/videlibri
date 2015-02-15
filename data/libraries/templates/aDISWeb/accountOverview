@@ -33,7 +33,7 @@
   </t:switch>
   
   
-      <!--<t:s>kontoPage := filter(@href, "(.*)&amp;requestCount", 1),
-           requestCount := filter(@href, "requestCount=([0-9]+)", 1)
+      <!--<t:s>kontoPage := extract(@href, "(.*)&amp;requestCount", 1),
+           requestCount := extract(@href, "requestCount=([0-9]+)", 1)
       </t:s>-->
 </html>      

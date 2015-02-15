@@ -1,9 +1,9 @@
 <meta http-equiv="Refresh">
     <t:s>
-        url:=filter(@content,"URL=(.*)",1),
-        metaid:=filter($url, "METAID=([^&;]*)",1),
-        reqid:=filter($url, "REQID=([^&;]*)",1),
-        sid:=filter($url, "SID=([^&;]*)",1)
+        url:=extract(@content,"URL=(.*)",1),
+        metaid:=extract($url, "METAID=([^&;]*)",1),
+        reqid:=extract($url, "REQID=([^&;]*)",1),
+        sid:=extract($url, "SID=([^&;]*)",1)
     </t:s>
 </meta>
 <!--

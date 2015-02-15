@@ -12,12 +12,12 @@
   <template:loop><template:switch>
     <tr>
       <td><strong>^[ ]*Titel:</strong></td>
-      <td>{book.title := filter(deep-text(''), '[^/]+')}</td>
+      <td>{book.title := extract(deep-text(''), '[^/]+')}</td>
     </tr>
     
     <tr>
       <td><strong>Verfasser|Personen</strong></td>
-      <td>{curAuthor := ($curAuthor, filter(deep-text(''), '[^*]+') ),
+      <td>{curAuthor := ($curAuthor, extract(deep-text(''), '[^*]+') ),
            book.author := string-join($curAuthor, "; ")}</td>
     </tr>
     
@@ -65,7 +65,7 @@
     </tr>
     
     <tr>
-      <td><strong>{propname := filter(translate(normalize-space(.), ".", ""), "[^:]+")}</strong></td>
+      <td><strong>{propname := extract(translate(normalize-space(.), ".", ""), "[^:]+")}</strong></td>
       <td><t:if test="$propname != ''"><t:read var="book.{$propname}!" source="."/></t:if></td>
     </tr>
   </template:switch></template:loop>

@@ -19,7 +19,7 @@
       </template>
     </page>
     <page url="{$borInfoPage}">
-      <template><script>{redirectedPage:=filter(., "https?://[^'""]+")}</script></template>
+      <template><script>{redirectedPage:=extract(., "https?://[^'""]+")}</script></template>
     </page>
     <page url="{$redirectedPage}">
       <post name="func" value="login"/>

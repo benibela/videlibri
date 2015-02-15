@@ -2,7 +2,7 @@
 <html>
 <body>
 
-<a template:condition="filter(@href, 'LOGINTOKEN=') != ''">
+<a template:condition="extract(@href, 'LOGINTOKEN=') != ''">
   <template:read source="@href" var="loginToken" regex="LOGINTOKEN=[a-zA-Z0-9]+"/>
 </a>
   

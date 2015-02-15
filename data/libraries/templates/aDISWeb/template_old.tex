@@ -28,8 +28,8 @@
     <a>Ausleihen zeigen oder verlängern<t:s>kontoPage := @href</t:s></a>
     <a>Ausleihe zeigen oder verlängern<t:s>kontoPage := @href</t:s></a>
     </t:switch>
-      <!--<t:s>kontoPage := filter(@href, "(.*)&amp;requestCount", 1),
-           requestCount := filter(@href, "requestCount=([0-9]+)", 1)
+      <!--<t:s>kontoPage := extract(@href, "(.*)&amp;requestCount", 1),
+           requestCount := extract(@href, "requestCount=([0-9]+)", 1)
       </t:s>-->
     </template>
   </page>
@@ -77,11 +77,11 @@
            book.extendid := encode-for-uri(input/@name)
            }</TD>
       <TD>{book.duedate := parse-date(., "dd.mm.yyyy")}</TD>
-      <TD>{book.category := filter(text(), "\[(.*)\]", 1),  
-           book.title :=  if (contains(text(), "]")) then filter(text(), "(\] )(.*)", 2) else text()}<BR/>
+      <TD>{book.category := extract(text(), "\[(.*)\]", 1),  
+           book.title :=  if (contains(text(), "]")) then extract(text(), "(\] )(.*)", 2) else text()}<BR/>
           {preid := text()}<BR/>
           {book.id := concat($preid,":",text())}</TD>
-      <TD>{message := if (contains(., "- Stand")) then filter(deep-text("   "), "(.*)- Stand", 1) else deep-text("   ")}
+      <TD>{message := if (contains(., "- Stand")) then extract(deep-text("   "), "(.*)- Stand", 1) else deep-text("   ")}
           <t:if test="contains(., 'nicht verl')"><t:read source="$message" var="book.status:problematic"/></t:if>
           <t:else><t:read source="$message" var="book.status:curious"/></t:else>
       </TD>
