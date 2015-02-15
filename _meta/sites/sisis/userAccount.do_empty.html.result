@@ -12,3 +12,4 @@ orderedUrl: node(): http://sisis.bth.rwth-aachen.de:8080/InfoGuideClient/userAcc
 bookCount: string: 0
 mode: integer: 1
 delete-current-books(): untyped: 
+nextPage: untyped: 

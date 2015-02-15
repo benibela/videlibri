@@ -3,7 +3,9 @@
 book: {}
 
 
+backButtonName: string: %24Toolbar_0
 form: object(): {"method": "POST", "post": "service=direct%2F1%2FPOOLIT07lxbib%40%40%40_57000800_2DC98880%2F%24Form.form&sp=S0&Form0=focus%2CkeyCode%2Cstz%2Csource%2Cselected%2CrequestCount%2CscriptEnabled%2CscrollPos%2CscrDim%2CwinDim%2CimgDim%2C%24Toolbar%2C%24Textfield%2Cselect%2C%24FormConditional%2CtextButton%2C%24FormConditional%240%2CtextButton%240%2C%24Toolbar%240&focus=&keyCode=0&stz=&source=&selected=&requestCount=23&scriptEnabled=T&scrollPos=0&scrDim=&winDim=&imgDim=&%24FormConditional=T&%24FormConditional%240=T&select=_DESTINATIONFILLER_&select%240=Nein", "url": "/aDISWeb/app;jsessionid=4D14DF48660A9B60056693E931A898A4"}
+goBackPage: object(): {"method": "POST", "post": "service=direct%2F1%2FPOOLIT07lxbib%40%40%40_57000800_2DC98880%2F%24Form.form&sp=S0&Form0=focus%2CkeyCode%2Cstz%2Csource%2Cselected%2CrequestCount%2CscriptEnabled%2CscrollPos%2CscrDim%2CwinDim%2CimgDim%2C%24Toolbar%2C%24Textfield%2Cselect%2C%24FormConditional%2CtextButton%2C%24FormConditional%240%2CtextButton%240%2C%24Toolbar%240&focus=&keyCode=0&stz=&source=&selected=&requestCount=23&scriptEnabled=T&scrollPos=0&scrDim=&winDim=&imgDim=&%24FormConditional=T&%24FormConditional%240=T&select=&%24Toolbar_0.x=0&%24Toolbar_0.y=0", "url": "/aDISWeb/app;jsessionid=4D14DF48660A9B60056693E931A898A4"}
 tempOrderConfirmation: string: Wohin soll das Buch "Titel: Tactics for the TOEIC test : Listening and reading test introductory course. - Practice test B. Tactics for the TOE" vorbestellt werden?
 tempOptions: sequence*: node(): Zentralbibliothek
 node(): Bücherei Benrath
