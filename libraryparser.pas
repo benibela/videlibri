@@ -1415,7 +1415,7 @@ var
 begin
   result := TXQValueSequence.create(list.Count);
   for i:=0 to list.Count-1 do
-    result.addChild(reader.bookToPXP(list[i]));
+    result.add(reader.bookToPXP(list[i]));
 end;
 
 procedure TTemplateAccountAccess.extendList(booksToExtend: TBookList);

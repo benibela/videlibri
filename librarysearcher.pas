@@ -186,7 +186,7 @@ begin
       SetLength(fhomebranches, temp.getSequenceCount+1);
       fhomebranches[0] := '(Standard)';
       for i:=1 to temp.getSequenceCount do
-        fhomebranches[i] := temp.getChild(i).toString;
+        fhomebranches[i] := temp.get(i).toString;
     end;
 
     temp := bookListReader.parser.variableChangeLog.get('search-branches');
@@ -194,7 +194,7 @@ begin
       SetLength(fsearchBranches, temp.getSequenceCount+1);
       fsearchBranches[0] := '(Standard)';
       for i:=1 to temp.getSequenceCount do
-        fsearchBranches[i] := temp.getChild(i).toString;
+        fsearchBranches[i] := temp.get(i).toString;
     end;
   end;
   FConnected:=true;
