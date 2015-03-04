@@ -12,4 +12,6 @@
        <meta http-equiv="refresh">{connectPage:=extract(@content, "url=(.*)", 1)}</meta>
        <a title="Zur Startseite">{connectPage:=@href}</a>
        <a><t:s>connectPage:=@href</t:s>Neue Sitzung</a>
+       
+       <div id="inhalt"><h1/><strong>{vl:raise(.)}</strong></div> 
      </template:switch-prioritized>
