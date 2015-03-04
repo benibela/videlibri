@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <library>
-  <longName value="Campusbibliothek Beuth-Hochschule (alpha)"/>
+  <longName value="Campusbibliothek Beuth-Hochschule"/>
   <shortName value="BeuthHS Berlin"/> 
   
   <template value="sisis"/>  
@@ -8,6 +8,6 @@
   
   <homepage value="http://www.beuth-hochschule.de/bibliothek/"/>
   <testing-search value="ja" date="2013-05-18"/>
-  <testing-account value="?" date=""/>
+  <testing-account value="ja" date="2015-03-01"/>
   <testing-renew value="?" date=""/>
 </library>

@@ -7,7 +7,7 @@
   <variable name="server" value="katalog.dortmund.de/"/>
 
 
-  <homepage value="http://www.dortmund.de/de/leben_in_dortmund/bildungwissenschaft/bibliothek/start_bibliothek/index.html"/>
+  <homepage value="http://bibliothek.dortmund.de/"/>
   <testing-search value="ja" date="2015-01-22"/>
   <testing-account value="?" date=""/>
   <testing-renew value="?" date=""/>

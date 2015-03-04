@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <library>
-  <longName value="Universitätsbibliothek Witten/Herdecke (alpha)"/>
+  <longName value="Bibliothek Witten (alpha)"/>
 
   <template value="sisis"/>
   <variable name="server" value="http://webopac.stadt-witten.de:8080/webOPACClient/"/>
