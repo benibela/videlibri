@@ -27,7 +27,8 @@ public class RenewList extends BookListActivity {
         noDetailsInOverview = sp.getBoolean("noLendBookDetails", false);
         sortingKey = sp.getString("sorting", "dueDate");
         groupingKey = sp.getString("grouping", "_dueWeek");
-        bookCache = VideLibri.makeUpdatedBookCache(null, new ArrayList<Bridge.Book>(), groupingKey, sortingKey, true);
+        bookCache = VideLibri.makePrimaryBookCache(null, new ArrayList<Bridge.Book>(), true);
+        bookCache = VideLibri.filterToSecondaryBookCache(bookCache, groupingKey, sortingKey, "", null);
         displayBookCache();
     }
 

@@ -171,6 +171,12 @@ public class Bridge {
                     return true;
             return false;
         }
+
+        boolean matchesFilter(String filter, String key){
+            if (key != null && !"".equals(key)) return getProperty(key).toLowerCase().indexOf(filter) >= 0;
+            if (author.toLowerCase().indexOf(filter) >= 0 || title.toLowerCase().indexOf(filter) >= 0) return true;
+            return false;
+        }
     }
 
     public static class InternalError extends Exception {

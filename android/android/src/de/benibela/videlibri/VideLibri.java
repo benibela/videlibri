@@ -262,8 +262,7 @@ public class VideLibri extends  BookListActivity{
     }
 
     static final ArrayList<Bridge.Book.Pair> crazyHeaderHack = new ArrayList<Bridge.Book.Pair>();
-    static public ArrayList<Bridge.Book> makeUpdatedBookCache(Bridge.Account acc, ArrayList<Bridge.Book> oldBookCache,
-                                                              final String groupingKey, final String sortingKey,
+    static public ArrayList<Bridge.Book> makePrimaryBookCache(Bridge.Account acc, ArrayList<Bridge.Book> oldBookCache,
                                                               boolean renewableOnly){
         //renewableOnly is not supported for acc != null
 
@@ -298,6 +297,21 @@ public class VideLibri extends  BookListActivity{
                 }
             }
         }
+
+
+        return bookCache;
+    }
+    static public ArrayList<Bridge.Book> filterToSecondaryBookCache(ArrayList<Bridge.Book> oldBookCache,
+                                                                    final String groupingKey, final String sortingKey,
+                                                                    String filter, String filterKey){
+        ArrayList<Bridge.Book> bookCache = new ArrayList<Bridge.Book>();
+
+        if (filter != null && !"".equals(filter)) {
+            filter = filter.toLowerCase();
+            for (Bridge.Book book: oldBookCache)
+                if (book.matchesFilter(filter, filterKey))
+                    bookCache.add(book);
+        } else bookCache.addAll(oldBookCache);
 
         Collections.sort(bookCache, new Comparator<Bridge.Book>() {
             @Override
@@ -339,29 +353,41 @@ public class VideLibri extends  BookListActivity{
     }
 
 
+    public ArrayList<Bridge.Book> primaryBookCache = new ArrayList<Bridge.Book>();
     public void displayAccount(Bridge.Account acc){
         displayHistoryActually = displayHistory;
         noDetailsInOverviewActually = noDetailsInOverview;
         groupingKeyActually = groupingKey;
-        sortingKeyActually = groupingKey;
+        sortingKeyActually = sortingKey;
         displayForcedCounterActually = displayForcedCounter;
         hiddenAccountsActually.clear();
         hiddenAccountsActually.addAll(hiddenAccounts);
 
 
-        bookCache = makeUpdatedBookCache(acc, bookCache, groupingKey, sortingKey, false);
-        displayBookCache();
-
-
-        int realCount = 0;
-        for (Bridge.Book b: bookCache)
-            if (b.account != null)
-                realCount++;
-        if (hiddenAccounts.size() == 0) setTitle(tr(R.string.main_bookcountD, realCount));
-        else setTitle(tr(R.string.main_bookaccountcountDDD, realCount, (VideLibriApp.accounts.length-hiddenAccounts.size()), VideLibriApp.accounts.length));
-
+        primaryBookCache = makePrimaryBookCache(acc, bookCache, false);
+        refreshBookCache();
     }
 
+    String filterActually;
+    public void setFilter(String filter){
+        filterActually = filter;
+        refreshBookCache();
+    }
+
+
+    public void refreshBookCache(){
+        bookCache = filterToSecondaryBookCache(primaryBookCache, groupingKeyActually, sortingKeyActually, filterActually, null);
+
+        displayBookCache();
+
+        int realCount = 0, realCountPrimary = 0;
+        for (Bridge.Book b: primaryBookCache) if (b.account != null) realCountPrimary++;
+        if (primaryBookCache.size() == bookCache.size()) realCount = realCountPrimary;
+        else for (Bridge.Book b: bookCache) if (b.account != null) realCount++;
+        if (hiddenAccounts.size() > 0) setTitle(tr(R.string.main_bookaccountcountDDD, realCount, (VideLibriApp.accounts.length-hiddenAccounts.size()), VideLibriApp.accounts.length));
+        else if (realCountPrimary != realCount) setTitle(tr(R.string.main_bookcountDD, realCount, realCountPrimary));
+        else setTitle(tr(R.string.main_bookcountD, realCount));
+    }
 
 
     @Override

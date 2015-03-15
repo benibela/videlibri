@@ -1,13 +1,12 @@
 package de.benibela.videlibri;
 
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.ListView;
-import android.widget.TextView;
+import android.widget.*;
 
 import java.text.DateFormat;
 import java.util.ArrayList;
@@ -31,9 +30,10 @@ public class BookListFragment extends VideLibriBaseFragment {
         bookListView = (ListView) view.findViewById(R.id.booklistview);
         dateFormatDefault = android.text.format.DateFormat.getDateFormat(getSherlockActivity());
 
-        if (getActivity() instanceof RenewList) {
+        final android.support.v4.app.FragmentActivity act = getActivity();
+        if (act instanceof RenewList) {
             //if (l == null) return;
-            final RenewList rl = ((RenewList)getActivity());
+            final RenewList rl = ((RenewList)act);
             rl.button = (Button) view.findViewById(R.id.button);
             //if (button == null) return;
             rl.button.setVisibility(View.VISIBLE);
@@ -44,6 +44,27 @@ public class BookListFragment extends VideLibriBaseFragment {
                 public void onClick(View view) {
                     VideLibriApp.renewBooks((Bridge.Book[]) rl.selectedBooks.toArray(new Bridge.Book[0]));
                     rl.finish();
+                }
+            });
+        }
+        if (act instanceof VideLibri) {
+            //final VideLibri vl = (VideLibri) act;
+            view.findViewById(R.id.searchFilterPanel).setVisibility(View.VISIBLE);
+            EditText et = (EditText) view.findViewById(R.id.searchFilter);
+            et.addTextChangedListener(new TextWatcher() {
+                @Override
+                public void beforeTextChanged(CharSequence charSequence, int i, int i2, int i3) {
+
+                }
+
+                @Override
+                public void onTextChanged(CharSequence charSequence, int i, int i2, int i3) {
+
+                }
+
+                @Override
+                public void afterTextChanged(Editable editable) {
+                    ((VideLibri)act).setFilter(editable.toString());
                 }
             });
         }
