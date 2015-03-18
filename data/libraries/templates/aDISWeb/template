@@ -57,6 +57,7 @@
         <h1>Sie sind nicht mit Ihren Angaben registriert<t:s>vl:raise-login(.)</t:s></h1>
         <li>Benutzernummer oder Passwort falsch?<t:s>vl:raise-login(.)</t:s></li>
         <h1>Das System kann Sie derzeit nicht anmelden! Angaben sind fehlerhaft!<t:s>vl:raise-login(.)</t:s></h1>
+        <h1>Anmeldung fehlgeschlagen. Bitte überprüfen Sie Ihre Eingabe.<t:s>vl:raise-login(.)</t:s></h1>
         
          
         <span class="bnzeig" t:condition="contains(text(), 'Sie sind angemeldet')" /> <!-- sind schon angemeldet. (neuess, ordering!) -->
