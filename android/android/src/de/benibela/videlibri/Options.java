@@ -92,18 +92,13 @@ public class Options extends VideLibriBaseActivity{
 
 
         final String[] sortingKeys = getResources().getStringArray(R.array.sortable_properties);
+        final String[] filterKeys = getResources().getStringArray(R.array.filterable_properties);
         String sorting = sp.getString("sorting", "dueDate"),
-                grouping = sp.getString("grouping", "_dueWeek");
-        for (int i = 0; i < sortingKeys.length; i++)
-            if (sorting.equals(sortingKeys[i])) {
-                ((Spinner)findViewById(R.id.sorting)).setSelection(i);
-                break;
-            }
-        for (int i = 0; i < sortingKeys.length; i++)
-            if (grouping.equals(sortingKeys[i])) {
-                ((Spinner)findViewById(R.id.grouping)).setSelection(i);
-                break;
-            }
+                grouping = sp.getString("grouping", "_dueWeek"),
+                filtering = sp.getString("filtering", "");
+        setSpinnerSelection(R.id.sorting, sortingKeys, sorting);
+        setSpinnerSelection(R.id.grouping, sortingKeys, grouping);
+        setSpinnerSelection(R.id.searchFilter, filterKeys, filtering);
 
 
         findButtonById(R.id.newaccount).setOnClickListener(new View.OnClickListener() {
@@ -172,6 +167,9 @@ public class Options extends VideLibriBaseActivity{
         if (sortingPos >= 0 && sortingPos < sortingKeys.length) editor.putString("sorting", sortingKeys[sortingPos]);
         int groupingPos = ((Spinner)findViewById(R.id.grouping)).getSelectedItemPosition();
         if (groupingPos >= 0 && groupingPos < sortingKeys.length) editor.putString("grouping", sortingKeys[groupingPos]);
+        final String[] filterKeys = getResources().getStringArray(R.array.filterable_properties);
+        int filteringPos = ((Spinner)findViewById(R.id.searchFilter)).getSelectedItemPosition();
+        if (filteringPos >= 0 && filteringPos < filterKeys.length) editor.putString("filtering", filterKeys[filteringPos]);
         editor.commit();
 
         NotificationService.startIfNecessary(this);

@@ -84,6 +84,7 @@ public class VideLibri extends  BookListActivity{
         noDetailsInOverview = sp.getBoolean("noLendBookDetails", false);
         sortingKey = sp.getString("sorting", "dueDate");
         groupingKey = sp.getString("grouping", "_dueWeek");
+        filterKey = sp.getString("filtering", "");
 
 
         if (displayHistoryActually != displayHistory
@@ -91,8 +92,12 @@ public class VideLibri extends  BookListActivity{
                 || noDetailsInOverviewActually != noDetailsInOverview
                 || displayForcedCounterActually != displayForcedCounter
                 || !groupingKey.equals(groupingKeyActually)
-                || !sortingKey.equals(sortingKeyActually))
+                || !sortingKey.equals(sortingKeyActually)
+                || !filterKey.equals(filterKeyActually)
+                ) {
+            findViewById(R.id.searchFilterPanel).setVisibility( "__disabled".equals(filterKey) ? View.GONE : View.VISIBLE );
             displayAccount(null);
+        }
         //setTitle("Ausleihen");  //does not work in onCreate (why? makes the title invisible) No. it just works sometimes?
 
         if (VideLibriApp.accounts == null || VideLibriApp.accounts.length == 0){
@@ -133,7 +138,7 @@ public class VideLibri extends  BookListActivity{
     static public boolean displayHistory = false;
     private boolean displayHistoryActually = false;
     private boolean noDetailsInOverviewActually = false;
-    private String sortingKeyActually, groupingKeyActually;
+    private String sortingKeyActually, groupingKeyActually, filterActually, filterKeyActually, filterKey;
     static public ArrayList<Bridge.Account> hiddenAccounts = new ArrayList<Bridge.Account>();
     private ArrayList<Bridge.Account> hiddenAccountsActually = new ArrayList<Bridge.Account>();
 
@@ -306,7 +311,7 @@ public class VideLibri extends  BookListActivity{
                                                                     String filter, String filterKey){
         ArrayList<Bridge.Book> bookCache = new ArrayList<Bridge.Book>();
 
-        if (filter != null && !"".equals(filter)) {
+        if (filter != null && !"".equals(filter) && !"__disabled".equals(filterKey)) {
             filter = filter.toLowerCase();
             for (Bridge.Book book: oldBookCache)
                 if (book.matchesFilter(filter, filterKey))
@@ -359,6 +364,7 @@ public class VideLibri extends  BookListActivity{
         noDetailsInOverviewActually = noDetailsInOverview;
         groupingKeyActually = groupingKey;
         sortingKeyActually = sortingKey;
+        filterKeyActually = filterKey;
         displayForcedCounterActually = displayForcedCounter;
         hiddenAccountsActually.clear();
         hiddenAccountsActually.addAll(hiddenAccounts);
@@ -368,7 +374,7 @@ public class VideLibri extends  BookListActivity{
         refreshBookCache();
     }
 
-    String filterActually;
+
     public void setFilter(String filter){
         filterActually = filter;
         refreshBookCache();
@@ -376,7 +382,7 @@ public class VideLibri extends  BookListActivity{
 
 
     public void refreshBookCache(){
-        bookCache = filterToSecondaryBookCache(primaryBookCache, groupingKeyActually, sortingKeyActually, filterActually, null);
+        bookCache = filterToSecondaryBookCache(primaryBookCache, groupingKeyActually, sortingKeyActually, filterActually, filterKeyActually);
 
         displayBookCache();
 

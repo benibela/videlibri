@@ -9,10 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.app.Activity;
 import android.os.Bundle;
-import android.widget.Button;
-import android.widget.CheckBox;
-import android.widget.EditText;
-import android.widget.TextView;
+import android.widget.*;
 
 import com.actionbarsherlock.app.*;
 import com.actionbarsherlock.view.Menu;
@@ -142,6 +139,14 @@ public class VideLibriBaseActivity extends SherlockActivity implements Bridge.Vi
     public boolean getCheckBoxChecked(int id){
         CheckBox tv = (CheckBox) findViewById(id);
         return tv.isChecked();
+    }
+
+    public void setSpinnerSelection(int id, String[] items, String selection){
+        for (int i = 0; i < items.length; i++)
+            if (selection.equals(items[i])) {
+                ((Spinner)findViewById(id)).setSelection(i);
+                return;
+            }
     }
 
 

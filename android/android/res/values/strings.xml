@@ -168,7 +168,7 @@
 
     <string name="week_from_to">Woche vom %1$s zum %2$s</string>
 
-    <string name="unknown_date">Unbekanntes Datum</string>
+    <string name="unknown_date">Unbekanntes Datum</string><string name="lay_options_label_filtering">Filter:</string>
 
     <string-array name="sortable_properties_tr">
         <item>Keine</item>
@@ -194,6 +194,28 @@
         <item>_status</item>
         <item>_issueWeek</item>
         <item>issueDate</item>
+        <item>libraryBranch</item>
+        <item>id</item>
+        <item>category</item>
+        <item>title</item>
+        <item>author</item>
+        <item>year</item>
+    </string-array>
+
+    <string-array name="filterable_properties_tr">
+        <item>Keiner</item>
+        <item>Autor + Titel</item>
+        <item>Ausleihbibliothek</item>
+        <item>ID</item>
+        <item>Kategorie</item>
+        <item>Titel</item>
+        <item>Verfasser</item>
+        <item>Jahr</item>
+    </string-array>
+
+    <string-array name="filterable_properties">
+        <item>__disabled</item>
+        <item></item>
         <item>libraryBranch</item>
         <item>id</item>
         <item>category</item>
