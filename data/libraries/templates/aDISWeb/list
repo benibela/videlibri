@@ -91,7 +91,9 @@
          </t:if>
     </TD>
     <t:if test="$mode != 'provided'">
-    <TD>{book.status := deep-text("   ")}
+    <TD>{book.status := deep-text("   "),
+         book.renewCount := extract($book.status, "([0-9]+) *Verlängerung", 1)
+        }
         <t:if test="matches(., x'((nicht +verl.*ngerbar|Keine Verl.*gerung +m.*glich|Vormerkungen).*Stand +{string-join(reverse(tokenize(current-date(), '-')), '[.]')})|((Max. +)?Anzahl +der +Verl.*erreicht)','i')">
           {book.statusId := "critical"}
         </t:if>
