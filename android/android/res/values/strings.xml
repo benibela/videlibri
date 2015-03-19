@@ -168,7 +168,7 @@
 
     <string name="week_from_to">Woche vom %1$s zum %2$s</string>
 
-    <string name="unknown_date">Unbekanntes Datum</string><string name="lay_options_label_filtering">Filter:</string>
+    <string name="unknown_date">Unbekanntes Datum</string><string name="lay_options_label_filtering">Filter:</string><string name="lay_show_renewcount">Verlängerungsanzahl anzeigen</string>
 
     <string-array name="sortable_properties_tr">
         <item>Keine</item>
@@ -184,6 +184,7 @@
         <item>Titel</item>
         <item>Verfasser</item>
         <item>Jahr</item>
+        <item>Verlängerungsanzahl</item>
     </string-array>
 
     <string-array name="sortable_properties">
@@ -200,6 +201,7 @@
         <item>title</item>
         <item>author</item>
         <item>year</item>
+        <item>renewCount</item>
     </string-array>
 
     <string-array name="filterable_properties_tr">

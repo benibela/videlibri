@@ -13,6 +13,8 @@ import com.actionbarsherlock.app.SherlockFragmentActivity;
 
 import java.text.DateFormat;
 import java.util.ArrayList;
+import java.util.EnumSet;
+import java.util.Iterator;
 
 public class BookListActivity extends VideLibriBaseFragmentActivity{
 
@@ -46,7 +48,7 @@ public class BookListActivity extends VideLibriBaseFragmentActivity{
     }
 
     public ArrayList<Bridge.Book> bookCache = new ArrayList<Bridge.Book>();
-    public boolean noDetailsInOverview = false;
+    public EnumSet<BookOverviewAdapter.DisplayEnum> options = java.util.EnumSet.of(BookOverviewAdapter.DisplayEnum.Grouped, BookOverviewAdapter.DisplayEnum.ShowRenewCount);
     public String sortingKey, groupingKey;
 
     public ArrayList<Bridge.Book> selectedBooks = null;
@@ -54,9 +56,16 @@ public class BookListActivity extends VideLibriBaseFragmentActivity{
     public Button bookActionButton = null; //set from detail fragment
 
     private boolean cacheShown = false;
+
+    void setOption(BookOverviewAdapter.DisplayEnum option, boolean on){
+        if (on) options.add(option);
+        else options.remove(option);
+    }
+
     void displayBookCache(int partialSize){
         //Log.i("VL","Book count: "+partialSize);
-        BookOverviewAdapter sa = new BookOverviewAdapter(this, bookCache, partialSize, noDetailsInOverview, groupingKey != "");
+        setOption(BookOverviewAdapter.DisplayEnum.Grouped, !"".equals(groupingKey));
+        BookOverviewAdapter sa = new BookOverviewAdapter(this, bookCache, partialSize, options);
         ListView bookListView = (ListView) findViewById(R.id.booklistview);
         if (bookListView == null && list() != null) bookListView = (ListView) (list().findViewById(R.id.booklistview));
         if (bookListView == null) return; //this might get executed before the fragment/view is loaded

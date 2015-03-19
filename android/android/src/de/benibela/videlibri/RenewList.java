@@ -24,7 +24,8 @@ public class RenewList extends BookListActivity {
     protected void onResume() {
         super.onResume();
         SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(this);
-        noDetailsInOverview = sp.getBoolean("noLendBookDetails", false);
+        setOption(BookOverviewAdapter.DisplayEnum.NoDetails, sp.getBoolean("noLendBookDetails", false));
+        setOption(BookOverviewAdapter.DisplayEnum.ShowRenewCount, sp.getBoolean("showRenewCount", true));
         sortingKey = sp.getString("sorting", "dueDate");
         groupingKey = sp.getString("grouping", "_dueWeek");
         bookCache = VideLibri.makePrimaryBookCache(null, new ArrayList<Bridge.Book>(), true);

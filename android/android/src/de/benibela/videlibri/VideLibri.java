@@ -81,7 +81,8 @@ public class VideLibri extends  BookListActivity{
         super.onResume();
 
         SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(this);
-        noDetailsInOverview = sp.getBoolean("noLendBookDetails", false);
+        setOption(BookOverviewAdapter.DisplayEnum.NoDetails, sp.getBoolean("noLendBookDetails", false));
+        setOption(BookOverviewAdapter.DisplayEnum.ShowRenewCount, sp.getBoolean("showRenewCount", true));
         sortingKey = sp.getString("sorting", "dueDate");
         groupingKey = sp.getString("grouping", "_dueWeek");
         filterKey = sp.getString("filtering", "");
@@ -89,7 +90,8 @@ public class VideLibri extends  BookListActivity{
 
         if (displayHistoryActually != displayHistory
                 || !hiddenAccounts.equals(hiddenAccountsActually)
-                || noDetailsInOverviewActually != noDetailsInOverview
+                || noDetailsInOverviewActually != options.contains(BookOverviewAdapter.DisplayEnum.NoDetails)
+                || showRenewCountActually != options.contains(BookOverviewAdapter.DisplayEnum.ShowRenewCount)
                 || displayForcedCounterActually != displayForcedCounter
                 || !groupingKey.equals(groupingKeyActually)
                 || !sortingKey.equals(sortingKeyActually)
@@ -137,7 +139,7 @@ public class VideLibri extends  BookListActivity{
 
     static public boolean displayHistory = false;
     private boolean displayHistoryActually = false;
-    private boolean noDetailsInOverviewActually = false;
+    private boolean noDetailsInOverviewActually = false, showRenewCountActually = true;
     private String sortingKeyActually, groupingKeyActually, filterActually, filterKeyActually, filterKey;
     static public ArrayList<Bridge.Account> hiddenAccounts = new ArrayList<Bridge.Account>();
     private ArrayList<Bridge.Account> hiddenAccountsActually = new ArrayList<Bridge.Account>();
@@ -361,7 +363,8 @@ public class VideLibri extends  BookListActivity{
     public ArrayList<Bridge.Book> primaryBookCache = new ArrayList<Bridge.Book>();
     public void displayAccount(Bridge.Account acc){
         displayHistoryActually = displayHistory;
-        noDetailsInOverviewActually = noDetailsInOverview;
+        noDetailsInOverviewActually = options.contains(BookOverviewAdapter.DisplayEnum.NoDetails);
+        showRenewCountActually = options.contains(BookOverviewAdapter.DisplayEnum.ShowRenewCount);
         groupingKeyActually = groupingKey;
         sortingKeyActually = sortingKey;
         filterKeyActually = filterKey;

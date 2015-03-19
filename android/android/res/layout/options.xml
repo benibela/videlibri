@@ -85,6 +85,11 @@
                     android:layout_height="wrap_content"
                     android:text="@string/lay_options_option_onlytitles"
                     android:id="@+id/noLendBookDetails" android:checked="false"/>
+            <CheckBox
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/lay_show_renewcount"
+                    android:id="@+id/showRenewCount"/>
             <TextView
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"

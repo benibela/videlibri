@@ -44,6 +44,7 @@ public class Options extends VideLibriBaseActivity{
         SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(this);
         setCheckBoxChecked(R.id.notifications, sp.getBoolean("notifications", true));
         setCheckBoxChecked(R.id.noLendBookDetails, sp.getBoolean("noLendBookDetails", false));
+        setCheckBoxChecked(R.id.showRenewCount, sp.getBoolean("showRenewCount", true));
         setEditTextText(R.id.notificationsServiceDelay, ""+sp.getInt("notificationsServiceDelay", 15));
 
         SharedPreferences acraprefs = ACRA.getACRASharedPreferences();
@@ -161,6 +162,7 @@ public class Options extends VideLibriBaseActivity{
         SharedPreferences.Editor editor = sp.edit();
         editor.putBoolean("notifications", getCheckBoxChecked(R.id.notifications));
         editor.putBoolean("noLendBookDetails", getCheckBoxChecked(R.id.noLendBookDetails));
+        editor.putBoolean("showRenewCount", getCheckBoxChecked(R.id.showRenewCount));
         editor.putInt("notificationsServiceDelay", Util.strToIntDef((getEditTextText(R.id.notificationsServiceDelay)), 15));
         final String[] sortingKeys = getResources().getStringArray(R.array.sortable_properties);
         int sortingPos = ((Spinner)findViewById(R.id.sorting)).getSelectedItemPosition();

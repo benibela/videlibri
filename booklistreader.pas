@@ -37,6 +37,7 @@ type
     status: TBookStatus;
     cancelable: trilean;
     lend: boolean;
+    renewCount: integer;
 
     //*how to add a new property: define it, update: assignNoReplace, clear, serialize, setProperty
 
@@ -252,6 +253,7 @@ begin
     str('status', statusStr);
     //str('otherInfo', otherInfo);
     str('statusId', BookStatusToSerializationStr(status));
+    if renewCount <> 0 then str('renewCount', inttostr(renewCount));
     case cancelable of
       tUnknown: str('cancelable', '?');
       tTrue: str('cancelable', 'true');
@@ -298,6 +300,7 @@ begin
   if (firstExistsDate=0) or ((book.firstExistsDate<>0) and (book.firstExistsDate<firstExistsDate)) then
     firstExistsDate:=book.firstExistsDate;
   if cancelable = tUnknown then cancelable:=book.cancelable;
+  if renewCount = 0 then renewCount := book.renewCount;
   for i:=0 to high(book.additional) do
     if  simplexmlparser.getProperty(book.additional[i].name,additional)='' then
       addProperty(book.additional[i].name,book.additional[i].value,additional);
@@ -371,6 +374,7 @@ begin
     'duedate': dueDate:=bbutils.dateParse(value, 'yyyy-mm-dd');
     '_firstexistsdate': firstExistsDate:=bbutils.dateParse(value, 'yyyy-mm-dd');
     '_lastexistsdate': lastExistsDate:=bbutils.dateParse(value, 'yyyy-mm-dd');
+    'renewcount': renewCount := StrToIntDef(value, 0);
     else simplexmlparser.setProperty(name,value,additional);
   end;
 end;
@@ -396,6 +400,7 @@ begin
     'duedate': result := bbutils.dateTimeFormat('yyyy-mm-dd', dueDate);
     '_firstexistsdate': result := bbutils.dateTimeFormat('yyyy-mm-dd', firstExistsDate);
     '_lastexistsdate': result := bbutils.dateTimeFormat('yyyy-mm-dd', lastExistsDate);
+    'renewcount': result := inttostr(renewCount);
     else result := getPropertyAdditional(name, def);
   end;
 end;

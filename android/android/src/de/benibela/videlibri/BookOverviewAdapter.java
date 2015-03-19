@@ -14,6 +14,7 @@ import de.benibela.videlibri.R;
 import de.benibela.videlibri.VideLibri;
 
 import java.util.ArrayList;
+import java.util.EnumSet;
 
 class BookOverviewAdapter extends ArrayAdapter<Bridge.Book> {
     private final BookListActivity context;
@@ -22,15 +23,22 @@ class BookOverviewAdapter extends ArrayAdapter<Bridge.Book> {
     private ArrayList<Bridge.Book> books;
     private Bridge.Book placeHolder;
     private int completeCount;
-    private final boolean noDetailsInOverview, grouped;
-    BookOverviewAdapter(BookListActivity context, ArrayList<Bridge.Book> books, int completeCount, boolean noDetailsInOverview, boolean grouped){
+    private final EnumSet<DisplayEnum> options;
+
+    enum DisplayEnum {
+        NoDetails,
+        Grouped,
+        ShowRenewCount
+    };
+
+
+    BookOverviewAdapter(BookListActivity context, ArrayList<Bridge.Book> books, int completeCount, EnumSet<DisplayEnum> options){
         super(context, R.layout.bookoverview, books);
         this.context = context;
         this.books = books;
         this.completeCount = completeCount;
         if (this.completeCount == 0) this.completeCount = books.size();
-        this.noDetailsInOverview = noDetailsInOverview;
-        this.grouped = grouped;
+        this.options = options;
 
         defaultColor = context.getResources().getColor(android.R.color.primary_text_dark);
         defaultColorSecondary = context.getResources().getColor(android.R.color.secondary_text_dark);
@@ -66,9 +74,9 @@ class BookOverviewAdapter extends ArrayAdapter<Bridge.Book> {
         }
         ViewHolder holder = (ViewHolder) view.getTag();
         Bridge.Book book = getItem(position);
-        boolean isGroupingHeader = grouped && book.more == VideLibri.crazyHeaderHack;
+        boolean isGroupingHeader = options.contains(DisplayEnum.Grouped) && book.more == VideLibri.crazyHeaderHack;
         holder.caption.setText(shortened(book.title));
-        if (grouped) {
+        if (options.contains(DisplayEnum.Grouped)) {
             if (isGroupingHeader) {
                 holder.caption.setTypeface(holder.caption.getTypeface(), Typeface.BOLD);
                 holder.caption.setGravity(Gravity.CENTER_HORIZONTAL);
@@ -80,12 +88,12 @@ class BookOverviewAdapter extends ArrayAdapter<Bridge.Book> {
             }
         }
 
-        if (noDetailsInOverview) holder.more.setVisibility(View.GONE);
+        if (options.contains(DisplayEnum.NoDetails)) holder.more.setVisibility(View.GONE);
         else if (book == placeHolder) {
             context.onPlaceHolderShown(position);
             holder.more.setText(book.author); //not an author
         } else {
-            if  (grouped)
+            if  (options.contains(DisplayEnum.Grouped))
                 holder.more.setVisibility(isGroupingHeader ? View.GONE : View.VISIBLE);
             if (!isGroupingHeader) {
                 String more = "";
@@ -112,7 +120,12 @@ class BookOverviewAdapter extends ArrayAdapter<Bridge.Book> {
             switch (book.getStatus()) {
                 case Provided:  holder.date.setText(view.getContext().getString(R.string.book_status_provided)); break;
                 case Ordered:  holder.date.setText(view.getContext().getString(R.string.book_status_ordered)); break;
-                default: holder.date.setText(Util.formatDate(book.dueDate)); break;
+                default:
+                    String t = Util.formatDate(book.dueDate);
+                    String renewCount = book.getProperty("renewCount");
+                    if (!"".equals(renewCount) && !"0".equals(renewCount)) t = renewCount + "V " + t;
+                    holder.date.setText(t);
+                    break;
             }
         } else {
             String s = "";
