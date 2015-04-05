@@ -3,7 +3,7 @@
   <longName value="Stadtbücherei Gießen (alpha)"/>
 
   <template value="libero5"/>
-  <variable name="baseurl" value="https://www.stadtbibliothek.giessen.de/libero/"/>
+  <variable name="baseurl" value="http://www.stadtbibliothek.giessen.de/libero/"/>
 
   <homepage value="http://www.stadtbibliothek.giessen.de/"/>
   <testing-search value="ja" date="2013-07-05"/>

@@ -3,7 +3,7 @@
   <longName value="Universitäts- und Landesbibliothek Münster (alpha)"/>
   
   <template value="sisis"/>  
-  <variable name="server" value="https://superfix.uni-muenster.de/Katalog/"/>
+  <variable name="server" value="https://katalogix.uni-muenster.de/Katalog/"/>
   
   <homepage value="http://www.ulb.uni-muenster.de/bibliothek/"/>
   <testing-search value="ja" date="2013-05-18"/>
