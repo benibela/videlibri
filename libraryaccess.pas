@@ -301,7 +301,7 @@ procedure startSingleThread(account: TCustomAccountAccess;var config:TThreadConf
                             apartialList: TBookList; apartialListOperation: TBookListOperation);
 begin
   if account.isThreadRunning then begin
-    storeException(EBookListReader.create('Die Aktion konnte nicht durchgefürt werden, weil bereits eine Operation auf dem Konto durchgeführt wird. Bitte warten Sie, bis diese abgeschlossen ist.'), account,account.getLibrary().id,'');
+    storeException(EBookListReader.create('Die Aktion konnte nicht durchgefürt werden, weil bereits eine Aktion, z.B.: Aktualisierung oder Verlängerung, auf dem Konto durchgeführt wird. Bitte warten Sie, bis diese abgeschlossen ist. (um mehrere Medien zu verlängern, können diese alle auf einmal markiert werden)'), account,account.getLibrary().id,'');
     exit;
   end;
   EnterCriticalSection(config.threadManagementSection);
@@ -618,4 +618,4 @@ end;
 
 
 end.
-
+
