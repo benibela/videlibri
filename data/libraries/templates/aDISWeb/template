@@ -158,6 +158,7 @@
       case 'ordered' return $orderedPage
       case 'requested' return $requestedPage
       case 'orderedMagazine' return $orderedMagazinePage
+      case 'provided' return $providedPage
       default return concat("unknown page ", $mode, "NEU AKTUALISIEREN")
     </s>
     <page url="{$page}">
