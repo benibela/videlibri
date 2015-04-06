@@ -5,14 +5,13 @@
     <download url="http://videlibri.sourceforge.net/updates/videlibri-setup.exe" platform="WINDOWS" execute="&quot;$DOWNLOAD&quot;  /SP- /noicons &quot;/dir=$OLDPATH&quot; " restart="true"/>
     <download url="http://videlibri.sourceforge.net/updates/videlibri-linux32.deb" platform="LINUX32" execute=""/>
     <download url="http://videlibri.sourceforge.net/updates/videlibri-linux64.deb" platform="LINUX64" execute=""/>
-    <fix>HSB Magdeburg/Stendal, Stb Gießen, ULBD Düsseldorf, Münster: Anpassung an neue Katalog-URL</fix>
+    <fix>Hochschulbibliothek Magdeburg/Stendal, Stb Gießen, ULB Düsseldorf, Münster: Anpassung an neue Katalog-URL</fix>
     <change>Die Android-Version ist nun kompiliert mit FreePascal 3.1.1 (r30435) und Lazarus 1.5 (r48633) statt FreePascal 2.7.1 und Lazarus 1.1, wodurch es unter Android 4.4 x86 nicht mehr crashen sollte.</change>
     <change>Die Desktop-Version verwendet nun Lazarus 1.5 (und unverändert FreePascal 2.6).</change>
     <change>Update zu einer neuen Version der Regulären-Ausdruck-Library, da die bisherige keine alten ARM Systeme unterstützt hat.</change>
     <fix>aDIS/VOEBB: Abbrechen von bereitgestellten Medien, Erkennung von falschen Passwörtern,  Suche nach Schlüsselwörtern und Vormerken von Medien mit mehreren Bänden.  </fix>
     <fix>sisis: Sollte den Weiter-Links auch erkennen, wenn ein anderes Symbol als &#171; verwendet wird, statt dann in einer Endlosschleife zu landen. </fix>
     <fix>Dortmund/Witten: Name der Bibliothek</fix>
-    <fix>aDIS: Abbrechen von bereitgestellten Medien</fix>
     <add>Suchleiste zum Filtern von ausgeliehen Medien</add>
     <add>aDIS: Anzeige der bisherigen Zahl der Verlängerungen</add>
   </build>
