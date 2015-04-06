@@ -24,19 +24,23 @@ build)
   if $BUILDARM; then
     FORCE=""
     if [[ ! -f android/libs/armeabi/liblclapp.so ]]; then FORCE=-B; fi
-    if /opt/lazarus/lazbuild $FORCE --os=android --ws=customdrawn --cpu=arm videlibriandroid.lpi; then echo; else echo "FAILED!"; exit 1; fi
+    if /opt/lazarus/lazbuild $FORCE --os=android --ws=customdrawn --compiler=/usr/local/lib/fpc/3.1.1/ppcrossarm --cpu=arm videlibriandroid.lpi; then echo; else echo "FAILED!"; exit 1; fi
   fi
 
   if $BUILDX86; then
     FORCE=""
     if [[ ! -f android/libs/x86/liblclapp.so ]]; then FORCE=-B; fi
-    if /opt/lazarus/lazbuild $FORCE --compiler=/usr/local/bin/ppcross386_271 --os=android --ws=customdrawn --cpu=i386 videlibriandroid.lpi; then echo; else echo "FAILED!"; exit 1; fi
+    if /opt/lazarus/lazbuild $FORCE --compiler=/usr/local/lib/fpc/3.1.1/ppcross386 --os=android --ws=customdrawn --cpu=i386 videlibriandroid.lpi; then echo; else echo "FAILED!"; exit 1; fi
   fi
 
-  #if [[ $BUILDMODE == "release" ]]; then
-     arm-linux-strip --strip-all android/libs/armeabi/liblclapp.so
+  if [[ $BUILDMODE == "release" ]] || [[ $STRIP == "true" ]]; then
+    if [[ $BUILDMODE == "release" ]]; then
+      cp android/libs/armeabi/liblclapp.so liblclapp.unstripped.arm.so
+      cp android/libs/x86/liblclapp.so liblclapp.unstripped.x86.so
+    fi
+    arm-linux-strip --strip-all android/libs/armeabi/liblclapp.so
     strip --strip-all android/libs/x86/liblclapp.so
-  #fi
+  fi
 
   cd android
   ant $BUILDMODE || (echo "FAILED!"; exit)

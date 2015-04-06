@@ -36,7 +36,7 @@ var programPath,userPath:string;
     nextLimitStr: string;
 
     appFullTitle:string='VideLibri';
-    versionNumber:integer=1680     ;
+    versionNumber:integer=1690     ;
     //=>versionNumber/1000
     newVersionInstalled: boolean=false;
 
@@ -746,4 +746,4 @@ uses bookwatchmain,internetaccess,controls,libraryaccess,math,FileUtil,bbutils,b
    end;
 
 end.
-
+
