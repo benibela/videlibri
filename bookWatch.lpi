@@ -1,4 +1,4 @@
-<?xml version="1.0"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <CONFIG>
   <ProjectOptions>
     <Version Value="9"/>
@@ -18,15 +18,9 @@
       <Language Value="0403"/>
       <CharSet Value="04E2"/>
     </VersionInfo>
-    <MacroValues Count="1">
-      <Macro1 Name="LCLWidgetType" Value="gtk2"/>
-    </MacroValues>
     <BuildModes Count="3">
       <Item1 Name="default" Default="True"/>
       <Item2 Name="win32release">
-        <MacroValues Count="1">
-          <Macro1 Name="LCLWidgetType" Value="win32"/>
-        </MacroValues>
         <CompilerOptions>
           <Version Value="11"/>
           <Target>
@@ -63,19 +57,9 @@
               </Win32>
             </Options>
           </Linking>
-          <Other>
-            <CompilerMessages>
-              <UseMsgFile Value="True"/>
-            </CompilerMessages>
-            <CompilerPath Value="$(CompPath)"/>
-          </Other>
-          <LCLWidgetType Value="win32"/>
         </CompilerOptions>
       </Item2>
       <Item3 Name="linux64release">
-        <MacroValues Count="1">
-          <Macro1 Name="LCLWidgetType" Value="gtk2"/>
-        </MacroValues>
         <CompilerOptions>
           <Version Value="11"/>
           <Target>
@@ -110,13 +94,6 @@
               </Win32>
             </Options>
           </Linking>
-          <Other>
-            <CompilerMessages>
-              <UseMsgFile Value="True"/>
-            </CompilerMessages>
-            <CompilerPath Value="$(CompPath)"/>
-          </Other>
-          <LCLWidgetType Value="gtk2"/>
         </CompilerOptions>
       </Item3>
     </BuildModes>
@@ -130,7 +107,7 @@
       <local>
         <FormatVersion Value="1"/>
         <CommandLineParams Value="--log"/>
-        <LaunchingApplication PathPlusParams="\usr\X11R6\bin\xterm -T 'Lazarus Run Output' -e $(LazarusDir)\tools\runwait.sh $(TargetCmdLine)"/>
+        <LaunchingApplication PathPlusParams="--user-path \tmp\vl12345\ --log --http-log-path \tmp"/>
       </local>
     </RunParams>
     <RequiredPackages Count="3">
@@ -145,11 +122,10 @@
         <PackageName Value="LCL"/>
       </Item3>
     </RequiredPackages>
-    <Units Count="31">
+    <Units Count="32">
       <Unit0>
         <Filename Value="bookWatch.lpr"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="bookWatch"/>
       </Unit0>
       <Unit1>
         <Filename Value="bookwatchmain.pas"/>
@@ -178,7 +154,6 @@
         <ComponentName Value="newAccountWizard"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <UnitName Value="newAccountWizard_u"/>
       </Unit4>
       <Unit5>
         <Filename Value="errordialog.pas"/>
@@ -186,7 +161,6 @@
         <ComponentName Value="showErrorForm"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <UnitName Value="errorDialog"/>
       </Unit5>
       <Unit6>
         <Filename Value="applicationconfig.pas"/>
@@ -204,12 +178,10 @@
       <Unit8>
         <Filename Value="..\..\..\components\pascal\data\diagram.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="diagram"/>
       </Unit8>
       <Unit9>
         <Filename Value="tnaaccess.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="tnaAccess"/>
       </Unit9>
       <Unit10>
         <Filename Value="libraryaccess.pas"/>
@@ -232,14 +204,12 @@
       <Unit13>
         <Filename Value="..\..\..\components\pascal\internet\autoupdate.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="autoupdate"/>
       </Unit13>
       <Unit14>
         <Filename Value="..\..\..\components\lazarus\dialogs\progressdialog.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="ProgressBarDialog"/>
         <ResourceBaseClass Value="Form"/>
-        <UnitName Value="progressdialog"/>
       </Unit14>
       <Unit15>
         <Filename Value="..\..\..\components\pascal\data\obfuscate.inc"/>
@@ -261,7 +231,6 @@
       <Unit18>
         <Filename Value="..\..\..\components\pascal\html\simplexmlparser.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="simplexmlparser"/>
       </Unit18>
       <Unit19>
         <Filename Value="booklistreader.pas"/>
@@ -294,7 +263,6 @@
       <Unit24>
         <Filename Value="..\..\..\components\pascal\data\automenumanager.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="autoMenuManager"/>
       </Unit24>
       <Unit25>
         <Filename Value="messagesystem.pas"/>
@@ -329,6 +297,10 @@
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="libraryaccesstester"/>
       </Unit30>
+      <Unit31>
+        <Filename Value="libraryparser.pass"/>
+        <IsPartOfProject Value="True"/>
+      </Unit31>
     </Units>
   </ProjectOptions>
   <CompilerOptions>
@@ -357,13 +329,8 @@
       </Options>
     </Linking>
     <Other>
-      <CompilerMessages>
-        <UseMsgFile Value="True"/>
-      </CompilerMessages>
       <CustomOptions Value="-dCOMPILE_SYNAPSE_INTERNETACCESS"/>
-      <CompilerPath Value="$(CompPath)"/>
     </Other>
-    <LCLWidgetType Value="gtk2"/>
   </CompilerOptions>
   <Debugging>
     <Exceptions Count="2">
