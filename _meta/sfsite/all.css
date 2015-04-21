@@ -13,11 +13,12 @@ h2 a {display: block; max-width: 45em; margin: auto; color: white}
   margin-bottom: 2em;
   padding: 3px;
   display: block; 
-  padding: 1em;
+  padding: 0em
 }
 
 #navigation li{
-  display: inline;
+  display: inline-block;
+  background-color:#DFDF80;
   border-right: 1px solid blue;
   margin: 0;
   padding-top: 1em;
@@ -43,3 +44,5 @@ th { background-color: #E0FFE0; }
 table i { font-size: 70% } 
 
 .desktop {  }
+
+table.downloadTable td { padding: 3px 12px 3px 12px }

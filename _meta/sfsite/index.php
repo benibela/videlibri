@@ -4,6 +4,8 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 <meta http-equiv="content-language" content="de"/>
 <link rel="stylesheet" type="text/css" href="all.css"/>
+<meta name=viewport content="width=device-width, initial-scale=1">
+
 <title>VideLibri - Die Bibliotheks-App</title></head>
 
 <?php
@@ -102,7 +104,7 @@ if (count($matches) == 0 || count(reset($matches)) == 0 || (reset(reset($matches
   <li><a href="#spinoffs">Spin-Offs</a></li>
   <li><a href="#contact">Kontakt</a></li>
   
-  <li style="right: 1em; position:absolute; margin-top: -1em"><a class="enlink" href="index_en.html">English Version</a></li>
+  <li style="float: right"><a class="enlink" href="index_en.html">English Version</a></li>
 </ul>
 
 <div class="content" style="border:none;">
@@ -321,7 +323,7 @@ Achtung: Falls das Posten der Antwort nicht funktioniert, verfällt die Nachrich
 Die Details stehen im Quellcode.
 </div>
 <h2><div><a id="contact">Kontakt</a></div></h2>
-Autor: Benito van der Zander, <a href="benito_NOSPAM_benibela.de">benito_NOSPAM_benibela.de</a>, <a href="http://www.benibela.de/index_en.html">www.benibela.de</a><br><br>
+Autor: Benito van der Zander, <a href="benito_NOSPAM_benibela.de">benito_NOSPAM_benibela.de</a>,<br> <a href="http://www.benibela.de/index_en.html">www.benibela.de</a><br><br>
 <a href="datenschutz.html">Datenschutzerklärung</a>
 <div id="sf-logo"><a href="http://sourceforge.net/projects/videlibri"><img src="http://sflogo.sourceforge.net/sflogo.php?group_id=359854&amp;type=1" width="125" height="37" border="0" alt="SourceForge.net Logo" /></a></div>
 

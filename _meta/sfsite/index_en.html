@@ -3,6 +3,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 <link rel="stylesheet" type="text/css" href="all.css"/>
+<meta name=viewport content="width=device-width, initial-scale=1">
 <title>VideLibri - Manages your lend books</title></head>
 <body>
 <h1><a name="home">VideLibri - Manages your lend books</a></h1>
@@ -16,18 +17,20 @@
   <li><a href="#downloads">Download</a></li>
   <li><a href="#contact">Kontakt</a></li>-->
   
-  <li style="right: 1em; position:absolute; margin-top: -1em"><a href="index.php">Deutsche Version</a></li>
+  <li style="float:right"><a href="index.php">Deutsche Version</a></li>
 </ul>
 
-VideLibri is a extension of the usual library web catalogues, running locally on desktop computers or Android mobiles. Its main function is to automatically renew the lend books and warn the user of an ending loan period, but it also has several other features.
+VideLibri is an extension of the usual library web catalogs, running locally on desktop computers or Android smartphones. Its main function is to automatically renew the lend books and warn the user of an ending loan period, but it also has several other features.
 <br><br>
-It works by parsing the web page of the library, so it does not support all libraries.<br>
+It works by parsing the web page of the library, so it does not work with all libraries out of the box. However, new libraries can be added easily by creating a corresponding template, which can be generated automatically for most libraries. <br>
 
-Currently it has only been tested with German/Swiss libraries (but with over 100 of them, see the <a href="index.html">German page</a> for more information) and I have not translated the program into English, so far. If you are interested in a translation, you can send me a mail. <br><br>
+Currently it has only been tested with German/Swiss/Austrian libraries (but with around 200 of them, see the <a href="index.html">German page</a> for more information) and so far there is no English translation. If you would like to have a translation, you can send me a mail. <br><br>
 
-It is not difficult to extend it with new libraries due to the simple templates it used. Especially if your library uses a system of libero, aleph or sisis, because in these cases you only have to change the server URL.
 <br>
-The template language is described on my <a href="http://benibela.de/documentation/internettools/extendedhtmlparser.THtmlTemplateParser.html">homepage</a>, and the currently existing templates are stored in the directory data/libraries/templates. In case you write your own template, you can test it with a single page <a href="cgi-bin/htmlparserExampleCGI">online</a> or with the example programs in directory components/pascal/data/example of the VideLibri source.
+The syntax of a template pattern is described on my <a href="http://benibela.de/documentation/internettools/extendedhtmlparser.THtmlTemplateParser.html">homepage</a> and the currently existing templates are stored in the directory data/libraries/templates. If you write your own template, you can test a pattern for a single page <a href="cgi-bin/htmlparserExampleCGI">online</a> or with the example programs in directory components/pascal/data/example of the VideLibri source. There is an automatic template generator as  <a href="http://videlibri.sourceforge.net/script.user.js">Greasemonkey-Script</a> for Firefox. <br><br>
+
+There are built-in templates for aDIS/BMS, Bibliotheca, Bibliotheca+, Libero, PICA, Primo, SISIS, SRU, Websphere and Zones, so if your library uses on of these systems, it is not even necessarily to create a completely new template, merely the URL of the library system needs to be entered. Although some templates expect a German system and would need to be translated first.
+
 
 <br><br>
 
