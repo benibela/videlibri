@@ -126,23 +126,28 @@ downloadTable)
      echo  '
       <table class="bibsupport">
       <thead>
-       <tr><th>Name der Bücherei</th><th>Suche funktioniert<br><i>(zuletzt getestet)</i></th><th>Ausleihenanzeige funktioniert<br><i>(zuletzt getestet)</i></th><!--<th>Verlängerung funktioniert<br><i>(zuletzt getestet)</i></th>--><th>Büchereisystem</th></tr>
+       <tr><th>Name der Bücherei</th><th class="supportsearch">Suche funktioniert<br><i>(zuletzt getestet)</i></th><th class="supportaccount">Ausleihenanzeige funktioniert<br><i>(zuletzt getestet)</i></th><!--<th>Verlängerung funktioniert<br><i>(zuletzt getestet)</i></th>--><th class="supporttablesystem">Büchereisystem</th></tr>
       </thead>' > $TABLE
 
     xidel \
       --extract-exclude "city,newcity" \
       --printed-node-format html \
       --xquery 'declare function state($element){
+        let $value := normalize-space($element/@value),
+            $class := if (starts-with($value, "ja")) then "supported" 
+                      else if (starts-with($value, "nein")) then "unsupported" 
+                      else "unknown"
+        return
         if (exists($element/@date) and $element/@date != "") then (
-          <td>{string($element/@value)} <i>({string($element/@date)})</i></td>
+          <td class="{$class}"><span>{$value} <i>({string($element/@date)})</i></span></td>
         ) else (
-          <td>{string($element/@value)}</td>
+          <td class="{$class}"><span>{$value}</span></td>
         )
       }' \
       --xquery 'declare function row($element, $homepage){
         $element / <tr><td><a href="{$homepage/@value}" rel="nofollow">{ let $name := ($homepage/@name, .//longName/@value)[1] return if (contains($name, "(alpha)")) then substring-before($name, "(alpha") else data($name)}</a>{if (.//table-comment) then (<br/>, <i> { data(.//table-comment/@value) } </i> ) else () } </td>
         {state(.//testing-search), state(.//testing-account)(:, state(.//testing-renew):)}
-        <td>{string(.//template/@value) ! if (matches(., "aleph|ulbdue")) then <a href="#aleph">{.}</a> else <a href="#{.}">{.}</a> }</td></tr> 
+        <td class="supporttablesystem">{string(.//template/@value) ! if (matches(., "aleph|ulbdue")) then <a href="#aleph">{.}</a> else <a href="#{.}">{.}</a> }</td></tr> 
       }' \
       -e 'city:=("nimbo")' \
       $LIBS  \
