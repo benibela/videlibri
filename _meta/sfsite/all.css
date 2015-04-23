@@ -37,7 +37,7 @@ h2 a {display: block; max-width: 45em; margin: auto; color: white}
 
 .content { max-width: 60em; margin-left: auto; margin-right: auto; border-right: 1px solid green; border-left: 1px solid green; padding: 2em }
 
-.content img {margin: 1em;}
+.content img {margin: 1em; max-width: 100% }
 
 th { background-color: #E0FFE0; }
 
@@ -45,4 +45,4 @@ table i { font-size: 70% }
 
 .desktop {  }
 
-table.downloadTable td { padding: 3px 12px 3px 12px }
+table.downloadTable td { padding: 3px 12px 3px 12px}

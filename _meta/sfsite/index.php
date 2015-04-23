@@ -4,7 +4,8 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 <meta http-equiv="content-language" content="de"/>
 <link rel="stylesheet" type="text/css" href="all.css"/>
-<meta name=viewport content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" media="only screen and (max-width: 480px)" href="mobile.css" />
 
 <title>VideLibri - Die Bibliotheks-App</title></head>
 
@@ -97,7 +98,7 @@ if (count($matches) == 0 || count(reset($matches)) == 0 || (reset(reset($matches
 <ul id="navigation">
   <li style="border-left: 1px solid blue;"><a href="#home">Start</a></li>
   <li><a href="#features">Features</a></li>
-  <li><a href="#libraries">Unterstützte Büchereien</a></li>
+  <li><a href="#libraries">Getestete Büchereien</a></li>
   <li><a href="#screenshots">Screenshots</a></li>
   <li><a href="#downloads">Download</a></li>
   <li><a href="#history">Geschichte</a></li>  
@@ -212,7 +213,7 @@ Praktisch sollte man das Programm genau dann benutzen, wenn man jedes Jahr mehre
 
 <div>
 <img src="http://sourceforge.net/p/videlibri/screenshot/android.png" title="VideLibri 1.5 unter Android" alt="VideLibri 1.5 unter Android"/>
-<div style="display: inline-block">
+<div style="display: inline-block; max-width: 100%">
 <img src="http://sourceforge.net/p/videlibri/screenshot/android-search-list.png" title="VideLibri 1.5 unter Android (Liste der Suchergebnisse)" alt="VideLibri 1.5 unter Android (Liste der Suchergebnisse)"/>
 <img src="http://sourceforge.net/p/videlibri/screenshot/android-search-result.png" title="VideLibri 1.5 unter Android (Details eines Suchergebnisses)" alt="VideLibri 1.5 unter Android (Details eines Suchergebnis)"/>
 </div>
@@ -220,7 +221,7 @@ Praktisch sollte man das Programm genau dann benutzen, wenn man jedes Jahr mehre
 
 </center>
 </div>
-<h2><div><a name="libraries">Unterstützte Büchereien</a></div></h2>
+<h2><div><a name="libraries">Getestete Büchereien</a></div></h2>
 <div class="content">
 Prinzipiell unterstützt VideLibri sämtliche existierenden Bibliotheken, da jeder durch das zugrundeliegende Templatesystem beliebige Datenquellen hinzufügen kann, ohne etwas an VideLibri selbst zu ändern.<br>
 <!--Es liegen aber auch einige Templates standardmäßig bei, welche erfolgreich mit -->

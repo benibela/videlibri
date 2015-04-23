@@ -1,0 +1,28 @@
+.content { padding: 0.5em }
+.content img { margin: 0 }
+.f1list { padding: 1em }
+
+
+table.downloadTable  { max-width: 100% }
+table.downloadTable tr { display: block }
+table.downloadTable th { display: inline-block }
+table.downloadTable td { display: inline-block }
+
+
+table.bibsupport tr { display: block }
+table.bibsupport th { display: inline-block }
+table.bibsupport td { display: inline-block }
+
+.bibsupport .supporttablesystem {display: none}
+.bibsupport td span {display: none}
+.bibsupport th:nth-child(2) {display: none}
+.bibsupport th:nth-child(3) {display: none}
+.bibsupport td.supported:nth-child(2):before { content: "Suche"; color: #007700 }
+.bibsupport td.supported:nth-child(3):before { content: "Konto"; color: #007700 }
+.bibsupport td.unknown:nth-child(2):before { content: "(Suche?)"; color: #666600 }
+.bibsupport td.unknown:nth-child(3):before { content: "(Konto?)"; color: #666600 }
+.city { margin-top: 1em }
+
+table.systemsupport tr { display: block }
+table.systemsupport th { display: inline-block }
+table.systemsupport td { display: inline-block }
