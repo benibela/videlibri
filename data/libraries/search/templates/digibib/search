@@ -9,7 +9,7 @@
           <t:s>
             book := object(),
             book.id:=@id,
-            book.digibib-url:=concat("http://www.digibib.net/",a/@href),
+            book.digibib-url:=x"http://www.digibib.net/{a/@href}",
             book.title:=normalize-space(a/deep-text('')),
             book.library:=extract(a/@href, "DB=([^=&]+)", 1)
           </t:s>

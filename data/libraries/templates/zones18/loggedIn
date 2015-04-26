@@ -1,6 +1,6 @@
 <html>
   <t:switch-prioritized>  
-  <h2>Ihr Bibliothekskonto Login Fehler<t:s>vl:raise-login(normalize-space(concat(., ": ", //td[@class="advice"])))</t:s></h2>
+  <h2>Ihr Bibliothekskonto Login Fehler<t:s>vl:raise-login(normalize-space(x"{.}: {//td[@class="advice"]}"))</t:s></h2>
   <h2>MyZONE Login-FEHLER <t:s>vl:raise-login(normalize-space(concat(., ": ", //*[@class="advice"])))</t:s></h2>
   <td class="advice">Bitte überprüfen und korrigieren Sie Ihre Angaben<t:s>vl:raise-login(concat("Ungültige Kontozugangsdaten: ", .))</t:s></td>
   <td class="advice">Die Anmeldung konnte nicht stattfinden<t:s>vl:raise-login(concat("Ungültige Kontozugangsdaten: ", .))</t:s></td>
