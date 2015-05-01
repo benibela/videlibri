@@ -2,13 +2,15 @@
 
 <html>
 <head>
+<title>Xidel - HTML/XML data extraction tool </title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <meta name="description" content="Xidel is a command line tool to download html/xml pages and extract data from them using CSS 3 selectors, XPath 2 expressions or pattern-matching templates.">
 <meta name="author" content="Benito van der Zander">
 <meta name="keywords" content="Xidel,  xpath, xpath 2, css, css 3, template, pattern matching, xml, html, download">
 <link rel="stylesheet" type="text/css" href="all.css">
 <link rel="stylesheet" type="text/css" href="xidel.css">
-<title>Xidel - HTML/XML data extraction tool </title></head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
 <body>
 <h1><a name="home">Xidel - HTML/XML data extraction tool</a></h1>
 
@@ -24,16 +26,16 @@
 </ul>
 
 <p>
-Xidel is a command line tool to download and extract data from html/xml pages.<br><br>
+Xidel is a command line tool to download and extract data from HTML/XML pages.<br><br>
 
 </p><h2><div><a name="news">News</a></div></h2>
 <dl>
 <dt><b>2014-08-13</b>: Minor release</dt>
 <dd style="margin-top:8px; margin-bottom: 8px">The 0.8.4 versions extends some standard XQuery expressions with pattern matching, adds options to set HTTP headers and read environment variables, and fixes some bugs... </dd>
 <dt><b>2014-03-24</b>: New release</dt>
-<dd style="margin-top:8px; margin-bottom: 8px">The 0.8 release improves the JSONiq support and our own JSON extensions, adds arbitrary precision arithmetic, a trivial subset of XPath/XQuery 3, new functions for resolving uri or html hrefs,  and more... </dd>
+<dd style="margin-top:8px; margin-bottom: 8px">The 0.8 release improves the JSONiq support and our own JSON extensions, adds arbitrary precision arithmetic, a trivial subset of XPath/XQuery 3, new functions for resolving uri or HTML hrefs,  and more... </dd>
 <dt><b>2013-03-26</b>: New release</dt>
-<dd style="margin-top:8px; margin-bottom: 8px">The 0.7 release adds JSONiq support, grouping of command line options, new input/output formats, fixes html parsing/serialization, changes the syntax of extended strings and some other stuff</dd>
+<dd style="margin-top:8px; margin-bottom: 8px">The 0.7 release adds JSONiq support, grouping of command line options, new input/output formats, fixes HTML parsing/serialization, changes the syntax of extended strings and some other stuff</dd>
 <dt><b>2012-11-06</b>: New release</dt>
 <dd style="margin-top:8px; margin-bottom: 8px">The 0.6 release adds XQuery support, the <code>form</code> and <code>match</code> functions, improves the Windows command-line interface, merges the two old cgi services to a single one and fixes several interpreter bugs</dd>
 <dt><b>2012-09-05</b>: Initial release of Xidel</dt>
@@ -54,7 +56,7 @@ It supports:
   <li>XQuery 1: to  create new documents from the extracted values</li> 
   <li>JSONiq: to  work with JSON apis</li> 
   <li>Templates: to extract several expressions in an easy way using a annotated version of the page for pattern-matching</li>
-  <li>A trivial subset of XPath/XQuery 3 (work in progress)</li>
+  <li>XPath/XQuery 3: newer version of XPath/XQuery (work in progress)</li>
 </ul></li>
 <li>Following:<ul>
   <li>HTTP Codes: Redirections like 30x are automatically followed, while keeping things like cookies </li>
@@ -62,9 +64,9 @@ It supports:
 </ul></li>
 <li>Output formats:<ul>
   <li>Adhoc: just prints the data in a human readable format</li>
-  <li>XML: encodes the data in xml  </li>
-  <li>HTML: encodes the data in html  </li>
-  <li>JSON: encodes the data in a json </li>
+  <li>XML: encodes the data as XML  </li>
+  <li>HTML: encodes the data as HTML  </li>
+  <li>JSON: encodes the data as JSON </li>
   <li>bash/cmd: exports the data as shell variables  </li>
 </ul></li>
 <li>Connections: HTTP / HTTPS as well as local files or stdin</li>
@@ -91,15 +93,15 @@ Generally follow all links on a page and print the titles of the linked pages:<u
 <li>Another template example: <br><br>
    If you have an example.xml file like <code>&lt;x&gt;&lt;foo&gt;ood&lt;/foo&gt;&lt;bar&gt;IMPORTANT!&lt;/bar&gt;&lt;/x&gt;</code><br>
    You can read the imporant part like: <code>xidel example.xml -e "&lt;x&gt;&lt;foo&gt;ood&lt;/foo&gt;&lt;bar&gt;{.}&lt;/bar&gt;&lt;/x&gt;"</code><br>
-   (and this will also check, if the part with the ood is there, and fail otherwise)
+   (and this will also check, if the element containing "ood" is there, and fail otherwise)
 </li>
 <li>Calculate something with XPath: <br><br>
   <code>xidel -e "(1 + 2 + 3) * 1000000000000 + 4 + 5 + 6 + 7.000000008"</code>
 </li>
-<li>Print all newest stackoverflow questions with title and url:<br><br>
+<li>Print all newest Stackoverflow questions with title and url:<br><br>
 
    <code>xidel http://stackoverflow.com -e "&lt;A class='question-hyperlink'&gt;{title:=text(), url:=@href}&lt;/A&gt;*"</code>
-</li><li>Print all reddit comments of an user, with html and url:<br><br>
+</li><li>Print all reddit comments of an user, with HTML and URL:<br><br>
    <code>xidel "http://www.reddit.com/user/username/" --extract "&lt;t:loop&gt;&lt;div class='usertext-body'&gt;&lt;div&gt;{outer-xml(.)}&lt;/div&gt;&lt;/div&gt;&lt;ul class='flat-list buttons'&gt;&lt;a&gt;&lt;t:s&gt;link:=@href&lt;/t:s&gt;permalink&lt;/a&gt;&lt;/ul&gt;&lt;/div&gt;&lt;/div&gt;&lt;/t:loop&gt;" --follow "&lt;a rel='nofollow next'&gt;{.}&lt;/a&gt;?"</code>
 </li>
 <li>Check if your reddit letter is red:
@@ -107,18 +109,34 @@ Generally follow all links on a page and print the titles of the linked pages:<u
     <code>xidel http://reddit.com -f "form(css('form.login-form')[1], {'user': '$your_username', 'passwd': '$your_password'})" -e "css('#mail')/@title"</code></li>
     <li>Using the Reddit API:<br><br>
     <code>xidel -d "user=$your_username&amp;passwd=$your_password&amp;api_type=json" https://ssl.reddit.com/api/login --method GET 'http://www.reddit.com/api/me.json' -e '($json).data.has_mail'</code></li></ul>
-</li><li>Use XQuery, to create a html table of odd and even numbers: <br><br>
+</li><li>Use XQuery, to create a HTML table of odd and even numbers: <br><br>
    Windows: <code>xidel --xquery "&lt;table&gt;{for $i in 1 to 1000 return &lt;tr&gt;&lt;td&gt;{$i}&lt;/td&gt;&lt;td&gt;{if ($i mod 2 = 0) then 'even' else 'odd'}&lt;/td&gt;&lt;/tr&gt;}&lt;/table&gt;" --output-format xml </code><br>
    Linux: <code>xidel --xquery '&lt;table&gt;{for $i in 1 to 1000 return &lt;tr&gt;&lt;td&gt;{$i}&lt;/td&gt;&lt;td&gt;{if ($i mod 2 = 0) then "even" else "odd"}&lt;/td&gt;&lt;/tr&gt;}&lt;/table&gt;' --output-format xml</code><br>
-   <span style="font-size:75%">(xidel itself supports ' and "-quotes on all platforms, but ' does not escape &lt;&gt; in Windows cmd, and " does not escape $ in the Linux shells)</span>  </li>
+   <span style="font-size:75%">(Xidel itself supports ' and "-quotes on all platforms, but ' does not escape &lt;&gt; in Windows' cmd, and " does not escape $ in the Linux shells)</span>  </li>
 <li>Export variables to bash<br><br>
     <code>eval "$(xidel http://site -e 'title:=//title' -e 'links:=//a/@href' --output-format bash)"</code><br><br>
-    This sets the bash variable $title to the title of the page and $links becomes an array of all links there
+    This sets the bash variable $title to the title of the page and $links becomes an array of all links there.
+</li>
+<li>Reading JSON:<br><br>
+    <ul>
+      <li>Read the 10th array element: <code>xidel file.json -e '$json(10)'</code> </li>
+      <li>Read all array elements: <code>xidel file.json -e '$json()'</code> </li>
+      <li>Read property foo and then bar with JSONiq notation: <code>xidel file.json -e '$json("foo")("bar")'</code> </li>
+      <li>Read property foo and then bar with dot notation: <code>xidel file.json -e '($json).foo.bar'</code> </li>
+      <li>Read property foo and then bar with XPath like notation: <code>xidel file.json -e '$json/foo/bar'</code> </li>
+      <li>Mixed example: <code>xidel file.json -e '$json("abc")()().xyz/(u,v)' </code><br>
+      &nbsp;&nbsp;&nbsp; This would read all the numbers from e.g. <code>{"abc": [[{"xyz": {"u": 1, "v": 2}}], [{"xyz": {"u": 3}}, {"xyz": {"u": 4}} ]]}</code>.
+      </li>
+    </ul>   
+</li>
+<li>Convert table rows and columns to a CSV-like format: <br><br>
+    <code>xidel http://site -e '//tr / join(td, ",")'</code><br><br>
+    <code>join((...))</code> can generally be used to output some values in a single line. The function name is an abbreviation for the XPath function <code>string-join</code>. In the example <code>tr / join</code> calls <code>join</code> for every row.
 </li>
 </ol>
 
 <br>
-You may also want to read the <a href="xidel_readme.txt">readme file of Xidel</a>, the documentation of my <a href="http://benibela.de/documentation/internettools/extendedhtmlparser.THtmlTemplateParser.html">template language</a> and <a href="http://www.benibela.de/documentation/internettools/xquery.TXQueryEngine.html"> XPath 2/XQuery library</a>. Or look at <a href="http://www.benibela.de/documentation/internettools/internettoolsxqts.html">its results</a> on the XQuery Testsuite (<a href="http://www.benibela.de/documentation/internettools/internettoolsxqts_path.html">XPath 2 only</a>), skipping tests testing for the rejection of invalid input. 
+You may also want to read the <a href="xidel_readme.txt">readme file of Xidel</a>, the documentation of my <a href="http://benibela.de/documentation/internettools/extendedhtmlparser.THtmlTemplateParser.html">template language</a> and <a href="http://www.benibela.de/documentation/internettools/xquery.TXQueryEngine.html"> XPath 2/XQuery library</a>. Or look at <a href="http://www.benibela.de/documentation/internettools/xqts.html">its results</a> on the XQuery Testsuite. 
 
 
 
