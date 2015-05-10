@@ -121,9 +121,9 @@ Generally follow all links on a page and print the titles of the linked pages:<u
     <ul>
       <li>Read the 10th array element: <code>xidel file.json -e '$json(10)'</code> </li>
       <li>Read all array elements: <code>xidel file.json -e '$json()'</code> </li>
-      <li>Read property foo and then bar with JSONiq notation: <code>xidel file.json -e '$json("foo")("bar")'</code> </li>
-      <li>Read property foo and then bar with dot notation: <code>xidel file.json -e '($json).foo.bar'</code> </li>
-      <li>Read property foo and then bar with XPath like notation: <code>xidel file.json -e '$json/foo/bar'</code> </li>
+      <li>Read property "foo" and then "bar" with JSONiq notation: <code>xidel file.json -e '$json("foo")("bar")'</code> </li>
+      <li>Read property "foo" and then "bar" with dot notation: <code>xidel file.json -e '($json).foo.bar'</code> </li>
+      <li>Read property "foo" and then "bar" with XPath-like notation: <code>xidel file.json -e '$json/foo/bar'</code> </li>
       <li>Mixed example: <code>xidel file.json -e '$json("abc")()().xyz/(u,v)' </code><br>
       &nbsp;&nbsp;&nbsp; This would read all the numbers from e.g. <code>{"abc": [[{"xyz": {"u": 1, "v": 2}}], [{"xyz": {"u": 3}}, {"xyz": {"u": 4}} ]]}</code>.
       </li>
