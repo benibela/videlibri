@@ -125,7 +125,8 @@ Generally follow all links on a page and print the titles of the linked pages:<u
       <li>Read property "foo" and then "bar" with dot notation: <code>xidel file.json -e '($json).foo.bar'</code> </li>
       <li>Read property "foo" and then "bar" with XPath-like notation: <code>xidel file.json -e '$json/foo/bar'</code> </li>
       <li>Mixed example: <code>xidel file.json -e '$json("abc")()().xyz/(u,v)' </code><br>
-      &nbsp;&nbsp;&nbsp; This would read all the numbers from e.g. <code>{"abc": [[{"xyz": {"u": 1, "v": 2}}], [{"xyz": {"u": 3}}, {"xyz": {"u": 4}} ]]}</code>.
+      <div style="padding-left: 2em; padding-top: 8px">This would read all the numbers from e.g. <code>{"abc": [[{"xyz": {"u": 1, "v": 2}}], [{"xyz": {"u": 3}}, {"xyz": {"u": 4}} ]]}</code>.<br/>
+      All selectors are sequence-transparent, i.e. you can use the same selector to read something from one value as to read it from several values. Arrays are converted to sequences with <code>()</code></div>
       </li>
     </ul>   
 </li>
@@ -201,6 +202,7 @@ Afterwards you can  call Xidel with the templates and it will output the element
 
 </p><h2><div><a id="contact">Contact</a></div></h2>
 Autor: Benito van der Zander, <a href="benito_NOSPAM_benibela.de">benito_NOSPAM_benibela.de</a>, <a href="http://www.benibela.de/index_en.html">www.benibela.de</a><br>
+<span style="font-size:80%">(Please do not ask me how to scrape your website. Ask how to do something with Xidel instead. I know Xidel, I do not know your website. The point of the tool is to make it easy for anyone to parse any webpage. Scraping every webpage myself does not scale well.)</span>
 <div id="sf-logo"><a href="http://sourceforge.net/projects/videlibri"><img src="http://sflogo.sourceforge.net/sflogo.php?group_id=359854&amp;type=1" width="125" height="37" border="0" alt="SourceForge.net Logo"></a></div>
 
 <!-- Piwik -->
