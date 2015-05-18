@@ -145,7 +145,17 @@ type
     function bookToPXP(book:TBook): TXQValueObject;
     procedure selectBook(book:TBook);
   end;
-  
+
+  { TXQVideLibriStaticContext }
+
+  TXQVideLibriStaticContext = class(TXQStaticContext)
+  private
+    bookListReader: TBookListReader;
+  public
+    constructor Create(abookListReader: TBookListReader);
+    function clone: TXQStaticContext; override;
+  end;
+
 const BOOK_NOT_EXTENDABLE=[bsProblematicInStr,bsEarMarkedDONTUSETHIS,bsMaxLimitReachedDONTUSETHIS,bsAccountExpiredDONTUSETHIS];
       BOOK_EXTENDABLE=[bsNormal,bsCuriousInStr];
       BOOK_NOT_LEND=[bsOrdered, bsProvided];
@@ -206,6 +216,19 @@ begin
     bsInterLoan: exit('interloan');
     else exit('--invalid--'+inttostr(integer(status)));
   end;
+end;
+
+{ TXQVideLibriStaticContext }
+
+constructor TXQVideLibriStaticContext.Create(abookListReader: TBookListReader);
+begin
+  bookListReader := abookListReader;
+end;
+
+function TXQVideLibriStaticContext.clone: TXQStaticContext;
+begin
+  Result:=TXQVideLibriStaticContext.Create(bookListReader);
+  result.assign(self);
 end;
 
 { TBook }
@@ -975,12 +998,18 @@ begin
 end;
 
 constructor TBookListReader.create(atemplate:TMultiPageTemplate);
+var
+  temp: TXQVideLibriStaticContext;
 begin
   inherited create(atemplate, nil);
   defaultBook:=TBook.create;
   if logging then onLog:=@logall;
   parser.QueryEngine.GlobalNamespaces.add(XMlNamespaceVideLibri);
   parser.QueryEngine.GlobalNamespaces.add(XMlNamespaceVideLibri_VL);
+  temp := TXQVideLibriStaticContext.create(self);
+  temp.assign(parser.QueryEngine.StaticContext);
+  parser.QueryEngine.StaticContext.free;
+  parser.QueryEngine.StaticContext := temp;
 end;
 
 destructor TBookListReader.destroy();
@@ -1053,7 +1082,7 @@ end;
 //   choose-result := 0                                         if canceled cancelation
 //   choose-result := index choosen by user                     if index outside value range
 //   choose-result := option-values[ index choosen by user ]    else
-// ATTENTION: auto type conversion makes every string 0 ! use $choose-result instance of xs:decimal
+// ATTENTION: Only eq can be used to test for 0, not =. Or use value instance of xs:decimal
 function xqFunctionChoose(const context: TXQEvaluationContext; const args: TXQVArray): IXQValue;
 var
   temp: TXQValueObject;
@@ -1085,6 +1114,29 @@ begin
   result := xqvalue();
 end;
 
+//add function vl:confirm(  callback action id,  caption  )
+//
+//callback action is called with confirm-result := true/false
+function xqFunctionSelectBook(const context: TXQEvaluationContext; const args: TXQVArray): IXQValue;
+var
+  temp: TXQValueObject;
+  reader: TBookListReader;
+  query: IXQValue;
+  book: TBook;
+begin
+  requiredArgCount(args, 1, 1);
+
+  query := args[0];
+
+  reader := (context.staticContext as TXQVideLibriStaticContext).bookListReader;
+  book := reader.books.findBook(query.getProperty('id').toString, query.getProperty('author').toString, query.getProperty('title').toString, query.getProperty('year').toString);
+  if book = nil then
+    raise EBookListReader.create('Das Template wollte dieses Buch auswählen, aber es wurde nicht gefunden: ' + query.jsonSerialize(tnsText) +
+                                  LineEnding + 'Vielleicht ist es schon abgegeben?');
+  result := reader.bookToPXP(book);
+end;
+
+
 var vl: TXQNativeModule;
 initialization
   XMlNamespaceVideLibri := TNamespace.create(XMLNamespaceURL_VideLibri, 'videlibri');
@@ -1095,9 +1147,10 @@ initialization
   vl.registerFunction('raise-login', 0, 1, @xqFunctionRaise_Login, []);
   vl.registerFunction('choose', 4, 4, @xqFunctionChoose, []);
   vl.registerFunction('confirm', 2, 2, @xqFunctionConfirm, []);
+  vl.registerFunction('select-book', 1, 1, @xqFunctionSelectBook, []);
   TXQueryEngine.registerNativeModule(vl);
 finalization
   vl.free
 end.
 
-
+
