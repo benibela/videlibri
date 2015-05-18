@@ -44,7 +44,8 @@
   
   <s>requestedUrl := "",
      orderedUrl := "",
-     startUrl := x'{$server}/userAccount.do;jsession;?methodToCall=show&amp;typ=1'
+     startUrl := x'{$server}/userAccount.do;jsession;?methodToCall=show&amp;typ=1',
+     minRenewedId := 999999999
   </s>
   
   <page url="{$startUrl}"  templateFile="loggedIn"></page>
