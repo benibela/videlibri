@@ -42,10 +42,11 @@
 <action id="update-all">
   <call action="login"/>
   
-  <variable name="requestedUrl" value=""/>
-  <variable name="orderedUrl" value=""/>
-
-  <variable name="startUrl">x'{$server}/userAccount.do;jsession;?methodToCall=show&amp;typ=1'</variable>
+  <s>requestedUrl := "",
+     orderedUrl := "",
+     startUrl := x'{$server}/userAccount.do;jsession;?methodToCall=show&amp;typ=1'
+  </s>
+  
   <page url="{$startUrl}"  templateFile="loggedIn"></page>
   <loop test="$nextPage != ''">
     <page url="{$nextPage}"  templateFile="loggedIn"></page>
