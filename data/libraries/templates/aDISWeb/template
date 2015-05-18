@@ -17,7 +17,7 @@
     <loop test="$i < 10">
         <page url="{$loginFormPost}">
           <template><t:switch-prioritized>  
-            <td id="notify">Benutzernummer oder Passwort falsch<t:s>vl:raise-login(.)</t:s></td> <!-- blb karlsruhe -->
+            <div class="notify">Benutzernummer oder Passwort falsch<t:s>vl:raise-login(.)</t:s></div> <!-- blb karlsruhe -->
           
             <!-- seems we already are on the correct page, send request again (not tested with any library) -->
             <td>Keine Ausleihen<t:s>i:=1000</t:s></td>
