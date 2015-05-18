@@ -70,12 +70,17 @@
 
 <action id="renew-list">
   <s>list := for $book in $renew-books order by $book.extendID descending return $book</s>
+  <if test="$list[1].extendID ge $minRenewedId">
+    <call action="update-all"/>
+    <s>list := for $book in $list ! vl:select-book(.) order by $book.extendID descending return $book</s>
+  </if>
   <loop var="b" list="$list">
     <page url="{$b._onPageStart}"/> <!-- only possible  -->
     <page test="$b._onPage != $b._onPageStart" url="{$b._onPage}"/> <!-- todo: test if this is needed as well -->
     
     <page url="{$server}/userAccount.do?methodToCall=renewalPossible&amp;actPos={$b.extendID}" templateFile="singleExtended"/>
   </loop>
+  <s>minRenewedId := $list[count($list)].extendID</s>
 </action>
 
 <action id="cancel-single">
