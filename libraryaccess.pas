@@ -111,6 +111,7 @@ begin
   end;
 
   try
+  try
     if lib=nil then
       raise ELibraryException.create('Interner Fehler'#13#10'Aufruf von TUpdateLibThread.execute für einen nicht existierenden Account');
     with request do begin
@@ -214,8 +215,10 @@ begin
     end
     else if logging then log('Unverständliche Fehlermeldung');
   end;
-  if assigned(request.partialList) then request.partialList.Free;
-  request.Free;
+  finally
+    if assigned(request.partialList) then request.partialList.Free;
+    request.Free;
+  end;
   if logging then log('TUpdateLibThread.processRequest ended');
 end;
 
