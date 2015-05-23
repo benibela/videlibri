@@ -24,7 +24,7 @@
           <TD>{$book.author}</TD>
           <TD>{$book.year}</TD>
           <TD/>
-          <TD>{$book.status := ., if (contains($book.status, "Anzahl Exemplare: 0")) then book.statusId := "critical" else () }</TD>
+          <TD>{$book.status := .(:, if (contains($book.status, "Anzahl Exemplare: 0")) then book.statusId := "critical" else ():) }</TD>
         </TR>
       </t:loop>
     </TABLE>
