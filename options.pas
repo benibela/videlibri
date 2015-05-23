@@ -215,7 +215,7 @@ var
 
 implementation
 
-uses newAccountWizard_u, applicationconfig, simplehtmltreeparser, androidutils, multipagetemplate, bbutils, internetaccess, simpleinternet;
+uses newAccountWizard_u, applicationconfig, simplehtmltreeparser, androidutils, multipagetemplate, bbutils, internetaccess, simpleinternet,math;
 
 
 
@@ -407,12 +407,23 @@ begin
       until FindNext(searchResult) <> 0;
     end;
   end;
+  count := 1;
+  for i := 0 to templateList.Items.count-1 do begin
+    temp := templateList.Items[i];
+    if striContains(temp, 'user') then
+      count := max(count, StrToIntDef(strAfter(temp, 'user'), 0) + 1);
+  end;
+  templateName.Text := 'user' + IntToStr(count);
 
+  count := 1;
   list := libraryManager.getUserLibraries();
-  for i := 0 to list.count - 1 do
+  for i := 0 to list.count - 1 do begin
     addUserLibrary(tlibrary(list[i]));
-
-  //Notebook1.ShowTabs:=false ;
+    temp := tlibrary(list[i]).id;
+    if striContains(temp, 'user') then
+      count := max(count, StrToIntDef(strAfter(temp, 'user'), 0) + 1);
+  end;
+  libNameEdit.Text := 'user' + IntToStr(count);
 
   updateActiveInternetConfig;
 end;
