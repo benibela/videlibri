@@ -309,7 +309,7 @@ end;
 procedure TBook.assignNoReplace(book: TBook);
 var i:longint;
 begin
-  if book=nil then exit;
+  if (book=nil) or (book = self) then exit;
   if category='' then category:=book.category;
   if libraryBranch='' then libraryBranch:=book.libraryBranch;
   if isbn='' then isbn:=book.isbn;
@@ -326,7 +326,7 @@ begin
   if renewCount = 0 then renewCount := book.renewCount;
   for i:=0 to high(book.additional) do
     if  simplexmlparser.getProperty(book.additional[i].name,additional)='' then
-      addProperty(book.additional[i].name,book.additional[i].value,additional);
+      simplexmlparser.setProperty(book.additional[i].name,book.additional[i].value,additional); //todo optimize. do *not* use addProperty
 end;
 
 procedure TBook.assignNoReplaceAll(book: TBook);
