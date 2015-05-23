@@ -4,7 +4,7 @@
     {i := 0,
     selects := .//select[starts-with(@id, "exlidInput_scope")],
     form := form(., (
-      (for $key in jn:keys($book) return if ($book($key) != "" and exists($search-keys($key))) then (
+      (for $key in jn:keys($book) return if (boolean($book($key)) and exists($search-keys($key))) then (
         {x"vl(freeText{$i})": $book($key), string($selects[contains(@id, $i + 1 (: different numbering! :) )]/@name): $search-keys($key)},
         (i := $i + 1)[2]
       ) else () )

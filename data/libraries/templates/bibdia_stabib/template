@@ -52,11 +52,11 @@ Changes:
 <action id="search">
   <variable name="searchOptions">
   encode-for-uri( string-join(
-    (if ($book.title != "")    then concat("xtit ", $book.title)    else (),
-     if ($book.author != "")   then concat("xprs ", $book.author)   else (),
-     if ($book.isbn != "")     then concat("xisb ", $book.isbn)     else (),
-     if ($book.year != "")     then concat("xjah ", $book.year)     else (),
-     if ($book.keywords != "") then concat("xslw ", $book.keywords) else ()), " UND "))
+    (if ($book.title)    then concat("xtit ", $book.title)    else (),
+     if ($book.author)   then concat("xprs ", $book.author)   else (),
+     if ($book.isbn)     then concat("xisb ", $book.isbn)     else (),
+     if ($book.year)     then concat("xjah ", $book.year)     else (),
+     if ($book.keywords) then concat("xslw ", $book.keywords) else ()), " UND "))
   </variable>
 
 

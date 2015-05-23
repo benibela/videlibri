@@ -96,11 +96,11 @@
   
   <variable name="searchOptions">
   encode-for-uri( string-join(
-    (if ($book.title != "")    then concat($searchKeys[1], " ", $book.title)    else (),
-     if ($book.author != "")   then concat($searchKeys[2], " ", $book.author)   else (),
-     if ($book.isbn != "")     then concat($searchKeys[3], " ", $book.isbn)     else (),
-     if ($book.year != "")     then concat($searchKeys[4], " ", $book.year)     else (),
-     if ($book.keywords != "") then concat($searchKeys[5], " ", $book.keywords) else ()), "&amp;"))
+    (if ($book.title)    then concat($searchKeys[1], " ", $book.title)    else (),
+     if ($book.author)   then concat($searchKeys[2], " ", $book.author)   else (),
+     if ($book.isbn)     then concat($searchKeys[3], " ", $book.isbn)     else (),
+     if ($book.year)     then concat($searchKeys[4], " ", $book.year)     else (),
+     if ($book.keywords) then concat($searchKeys[5], " ", $book.keywords) else ()), "&amp;"))
   </variable>
 
 

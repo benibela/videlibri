@@ -64,7 +64,7 @@
     i := 1,
     requestId := 0,
     request := uri-combine($search-start.url, 
-      (for $key in jn:keys($book) return if ($book($key) != "" and exists($search-keys($key))) then (
+      (for $key in jn:keys($book) return if (boolean($book($key)) and exists($search-keys($key))) then (
               {x"q.form.t{$i}&#46;expr": $book($key), x"q.form.t{$i}&#46;term": $search-keys($key)},
               (i := $i + 1)[2]
             ) else (),

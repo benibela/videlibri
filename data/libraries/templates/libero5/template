@@ -82,14 +82,14 @@
      i := 1, 
      f := $search-form,
      f.post := uri-combine($f.post, (
-       if ($book.year != "") then 
+       if (boolean($book.year)) then 
          if (contains($book.year, "-")) then 
            {"YEARFROM": normalize-space(substring-before($book.year, "-")), "YEARTO": normalize-space(substring-after($book.year, "-"))} 
          else 
            {"YEARFROM": $book.year, "YEARTO": $book.year} 
        else (),
-       if (get("search-branch-values", ())[get("search-branch-id", 0)] != "") then {"LIMLOC": $search-branch-values[$search-branch-id]} else (),
-       for $key in jn:keys($book) return if ($book($key) != "" and exists($search-keys($key))) then (
+       if (get("search-branch-values", ())[get("search-branch-id", 0)]) then {"LIMLOC": $search-branch-values[$search-branch-id]} else (),
+       for $key in jn:keys($book) return if (boolean($book($key)) and exists($search-keys($key))) then (
          {x"TERM_{$i}": $book($key), x"USE_{$i}": $search-keys($key)},
          (i := $i + 1)[2]
        ) else ()
@@ -135,7 +135,7 @@
 
 
 <action id="order-single"> 
-  <if test="$book.orderConfirmation != ''">
+  <if test="boolean($book.orderConfirmation)">
     <s>confirm.post := uri-combine($confirm.post, {"BRANCH": $issuePoints[$book.choosenConfirmation*1]})</s>
   </if>
   <page url="{$confirm}">

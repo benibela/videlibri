@@ -57,7 +57,7 @@
           startSearch := form-combine($search, {|
             { "jahr_bis": $book.year },
             (
-              for $key in jn:keys($book) return if ($book($key) != "" and exists($search-keys($key))) then (
+              for $key in jn:keys($book) return if (boolean($book($key)) and exists($search-keys($key))) then (
                       {$search-keys($key): $book($key)}
                     ) else ()
             )

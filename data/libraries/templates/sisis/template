@@ -110,11 +110,11 @@
   <s>
   oldSearchOptionCount := get("searchOptionCount", 0),
   searchOptions := 
-    (if ($book.title != "")    then ["331", ($book.title)]    else (),
-     if ($book.author != "")   then ["100", ($book.author)]   else (),
-     if ($book.isbn != "")     then ["540", ($book.isbn)]     else (),
-     if ($book.year != "")     then ["425", ($book.year)]     else (),
-     if ($book.keywords != "") then ["902", ($book.keywords)] else ()),
+    (if ($book.title)    then ["331", ($book.title)]    else (),
+     if ($book.author)   then ["100", ($book.author)]   else (),
+     if ($book.isbn)     then ["540", ($book.isbn)]     else (),
+     if ($book.year)     then ["425", ($book.year)]     else (),
+     if ($book.keywords) then ["902", ($book.keywords)] else ()),
   searchOptionCount := count($searchOptions),
   searchUrl :=  uri-combine( 
     x"{$server}/search.do?methodToCall=submit&CSId={$CSId}&methodToCallParameter=submitSearch", (
@@ -164,13 +164,13 @@
   
   <s>url := $book(concat('order', $book.choosenOrder)), 
      post := $book(concat('orderPost', $book.choosenOrder)),
-     if ($post != "") then url := {"url": $url, "post": $post, "method": "POST"} else ()
+     if ($post) then url := {"url": $url, "post": $post, "method": "POST"} else ()
     </s>
   <page url="{$url}"  templateFile="orderConfirmation"/>
 </action>
 
 <action id="order-single"> 
-  <if test="$book.orderConfirmation != ''">
+  <if test="$book.orderConfirmation">
     <variable name="confirm">
     {
       "url": $confirm.url,

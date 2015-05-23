@@ -42,7 +42,7 @@
       i := 1,
       startSearch := form(//form, {|
         { $nameYear: $book.year },
-          for $key at $i in ("title", "author", "isbn", "keywords") where ($book($key) != "" and exists($search-keys($key))) 
+          for $key at $i in ("title", "author", "isbn", "keywords") where (boolean($book($key)) and exists($search-keys($key))) 
           return  {$selects[$i]: $search-keys($key), $inputs[$i]: $book($key)}
         
       |})

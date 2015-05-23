@@ -50,7 +50,7 @@
 </action>
 
 <action id="update-all">
-  <page url="{$bookPage}" templateFile="update" test="$bookpage != ''"/>
+  <page url="{$bookPage}" templateFile="update"/>
 </action>
 
 <action id="update-single">

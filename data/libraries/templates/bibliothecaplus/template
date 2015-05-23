@@ -120,7 +120,7 @@
           startSearch := form-combine($search-form, {|
             $search-year-values ! { @name: $book.year },
             (
-              for $key in jn:keys($book) return if ($book($key) != "" and exists($search-keys($key)) and $i le count($search-fields) ) then (
+              for $key in jn:keys($book) return if (boolean($book($key)) and exists($search-keys($key)) and $i le count($search-fields) ) then (
                       {($search-fields[$i]/@name) : $search-keys($key), ($search-values[$i]/@name) :  $book($key)},
                       ($i := $i + 1)[0]
                     ) else ()
