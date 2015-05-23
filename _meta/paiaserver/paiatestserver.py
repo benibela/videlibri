@@ -8,6 +8,7 @@ import BaseHTTPServer
 import SimplePAIAServer
 import json
 import datetime
+import time
 
 Status = SimplePAIAServer.SimplePAIAHandler.Status
 
@@ -29,8 +30,11 @@ class PAIATestHandler(SimplePAIAServer.SimplePAIAHandler):
         #no books, pass [{"status": 3, "canrenew": true, "about": "test book 1", "duedate": "2014-11-12", "label": "b1r"}, {"status": 3, "canrenew": true, "about": "test book 2", "duedate": "2014-12-03", "label": "b2r"}, {"status": 3, "canrenew": false, "about": "test book 3", "duedate": "2014-12-03", "label": "b3"}, {"status": 3, "canrenew": false, "about": "test book 4", "duedate": "2014-12-05", "label": "b4"}] on the command line
       }
     }
+    def simulate_lag(self):
+        time.sleep(4)
 
     def do_auth_login(self):
+        self.simulate_lag()
         username = self.query_vars["username"][0]
         password = self.query_vars["password"][0]
         if not (username in self.data): 
@@ -43,11 +47,13 @@ class PAIATestHandler(SimplePAIAServer.SimplePAIAHandler):
         return r;
         
     def do_core_items(self, patron):
+        self.simulate_lag()
         if patron != "stdin":
             return {"doc": self.data[patron]["books"]};
         return {"doc": json.loads(raw_input("Need PAIA JSON for user books: "))};
 
     def do_core_renew(self, patron, data):       
+        self.simulate_lag()
         books = self.data[patron]["books"]
         if (isinstance(data["doc"], dict)): renewItems = [ data["doc"]["item"] ]
         else: renewItems = [ book["item"] for book in data["doc"] ]
