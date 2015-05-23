@@ -7,6 +7,7 @@ __all__ = ["PAIATestHandler"]
 import BaseHTTPServer
 import SimplePAIAServer
 import json
+import datetime
 
 Status = SimplePAIAServer.SimplePAIAHandler.Status
 
@@ -17,10 +18,10 @@ class PAIATestHandler(SimplePAIAServer.SimplePAIAHandler):
       "test": {
         "password": "12345",
         "books": [
-          {"label": "b1r", "about": "test book 1", "duedate": "2014-11-12", "status": Status.HELD, "canrenew": True},
-          {"label": "b2r", "about": "test book 2", "duedate": "2014-12-03", "status": Status.HELD, "canrenew": True},
-          {"label": "b3", "about": "test book 3", "duedate": "2014-12-03", "status": Status.HELD, "canrenew": False},
-          {"label": "b4", "about": "test book 4", "duedate": "2014-12-05", "status": Status.HELD, "canrenew": False},
+          {"label": "b1r", "about": "test book 1", "duedate": "2014-11-12", "status": Status.HELD, "canrenew": True, "item": "intid1"},
+          {"label": "b2r", "about": "test book 2", "duedate": "2014-12-03", "status": Status.HELD, "canrenew": True, "item": "intid2"},
+          {"label": "b3", "about": "test book 3", "duedate": "2014-12-03", "status": Status.HELD, "canrenew": False, "item": "intid3"},
+          {"label": "b4", "about": "test book 4", "duedate": "2014-12-05", "status": Status.HELD, "canrenew": False, "item": "intid4"},
         ]
       },
       "stdin": {
@@ -45,8 +46,18 @@ class PAIATestHandler(SimplePAIAServer.SimplePAIAHandler):
         if patron != "stdin":
             return {"doc": self.data[patron]["books"]};
         return {"doc": json.loads(raw_input("Need PAIA JSON for user books: "))};
-#    def do_core_renew(self, patron):
-#        return {"doc": self.data[patron].books};
+
+    def do_core_renew(self, patron, data):       
+        books = self.data[patron]["books"]
+        if (isinstance(data["doc"], dict)): renewItems = [ data["doc"]["item"] ]
+        else: renewItems = [ book["item"] for book in data["doc"] ]
+        renewItemPos = [i for i in range(0,len(books)) if books[i]["item"] in renewItems]
+        if False in [books[i]["canrenew"] for i in renewItemPos ]:
+            return self.paia_error("?", "renewing not allowed")
+        newDate = str((datetime.datetime.now()).date()+datetime.timedelta(days=7));
+        for i in renewItemPos:
+            books[i]["duedate"] = newDate
+        return {"doc": [ books[i] for i in renewItemPos ]};
 
 
 def test(HandlerClass = PAIATestHandler,

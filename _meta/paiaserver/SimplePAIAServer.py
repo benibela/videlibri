@@ -50,15 +50,18 @@ class SimplePAIAHandler(BaseHTTPServer.BaseHTTPRequestHandler):
     def do_HEAD(self):
         self.docommon()
 
-    def do_POST(self):
-        ctype, pdict = cgi.parse_header(self.headers['content-type'])
-        if ctype == 'multipart/form-data':
-            postVars = cgi.parse_multipart(self.rfile, pdict)
-        elif ctype == 'application/x-www-form-urlencoded':
-            length = int(self.headers['content-length'])
-            postVars = urlparse.parse_qs(self.rfile.read(length), keep_blank_values=1)
-        else:
-            postVars = {}     
+    def do_POST(self): 
+        postVars = {}     
+        print(self.path)
+        if not("?" in self.path):
+            ctype, pdict = cgi.parse_header(self.headers['content-type'])
+            if ctype == 'multipart/form-data':
+                postVars = cgi.parse_multipart(self.rfile, pdict)
+            elif ctype == 'application/x-www-form-urlencoded':
+                length = int(self.headers['content-length'])
+                postVars = urlparse.parse_qs(self.rfile.read(length), keep_blank_values=1)
+        print(postVars)
+         
         self.docommon(postVars)
 
     def docommon(self, postVars = {}):
@@ -93,10 +96,13 @@ class SimplePAIAHandler(BaseHTTPServer.BaseHTTPRequestHandler):
             self.send_response(200)
             self.send_header("Content-type", "application/json")
             self.end_headers()
-            r = {
-              'items': self.do_core_items,
-              'renew': self.do_core_renew,
-            }[words[2]](words[1])
+            if words[2] == "items": r = self.do_core_items(words[1])
+            elif words[2] == "renew": 
+                length = int(self.headers['content-length'])
+                r = self.do_core_renew(words[1], json.loads(self.rfile.read(length)))
+            else: 
+                self.send_error(500, "invalid action")
+                return None
             self.send_json(r)
             return
        
@@ -120,7 +126,7 @@ class SimplePAIAHandler(BaseHTTPServer.BaseHTTPRequestHandler):
         return self.paia_error("?", "not implemented");
     def do_core_items(self, patron):
         return self.paia_error("?", "not implemented");
-    def do_core_renew(self, patron):
+    def do_core_renew(self, patron, data):
         return self.paia_error("?", "not implemented");
 
 
