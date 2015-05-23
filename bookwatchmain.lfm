@@ -1172,7 +1172,7 @@ object mainForm: TmainForm
       OnClick = displayDetailsMIClick
     end
     object extendTheseBooks: TMenuItem
-      Caption = 'Mindestens alle ausgewählten Medien verlängern'
+      Caption = 'Ausgewählte Medien verlängern'
       OnClick = MenuItem11Click
     end
     object extendAdjacentBooks: TMenuItem
@@ -1180,7 +1180,7 @@ object mainForm: TmainForm
       OnClick = extendAdjacentBooksClick
     end
     object cancelTheseBooks: TMenuItem
-      Caption = 'ausgewählte Vormerkungen/Bestellungen abbrechen'
+      Caption = 'Ausgewählte Vormerkungen/Bestellungen abbrechen'
       Enabled = False
       OnClick = cancelTheseBooksClick
     end

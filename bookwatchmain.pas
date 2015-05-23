@@ -527,9 +527,9 @@ begin
         else if (TBook(BookList.Items[i].data.obj).status in [bsOrdered,bsProvided]) and (TBook(BookList.Items[i].data.obj).cancelable <> tFalse) then cancelableBooks += 1;
       end;
   end;
-  extendTheseBooks.Enabled:=(bookCount>=1) and (extendableBooks >= 1);
+  extendTheseBooks.Enabled:=(bookCount>=1) and (extendableBooks = bookCount);
   extendAdjacentBooks.Enabled:=bookCount=1;
-  cancelTheseBooks.Enabled:=(bookCount>=1) and (cancelableBooks >= 1);
+  cancelTheseBooks.Enabled:=(bookCount>=1) and (cancelableBooks = bookCount);
   displayDetailsMI.Enabled:=bookCount=1;
   searchDetailsMI.Enabled:=bookCount=1;
   removeSelectedMI.Enabled:=bookCount>0;
