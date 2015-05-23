@@ -23,7 +23,7 @@ type
     threadManagementSection: TRTLCriticalSection;
     updateThreadsRunning:integer; //all threads
     listUpdateThreadsRunning: integer; //count of threads which are updating the list of books (and have not started updating singely)
-    atLeastOneListUpdateSuccessful: boolean;
+    successfulListUpdateDate: longint;
     OnPartialUpdated: TNotifyEvent;
   end;
 var updateThreadConfig: TThreadConfig;
@@ -139,7 +139,7 @@ begin
           if logging then log('TUpdateLibThread.execute marker 3.5');
           EnterCriticalSection(pconfig^.threadManagementSection);
           pconfig^.listUpdateThreadsRunning-=1;
-          pconfig^.atLeastOneListUpdateSuccessful:=true;
+          pconfig^.successfulListUpdateDate:=currentDate;
           LeaveCriticalSection(pconfig^.threadManagementSection);
           if logging then log('TUpdateLibThread.execute marker 3.6');
           if assigned(pconfig^.OnPartialUpdated) then pconfig^.OnPartialUpdated(lib);
@@ -204,7 +204,7 @@ begin
       lib.save();
 
       if logging then log('TUpdateLibThread.execute ended marker 9');
-      pconfig^.atLeastOneListUpdateSuccessful:=true;
+      pconfig^.successfulListUpdateDate:=currentDate;
     end;
   except
     on e: EInternetException do {$ifndef activeDebug}if not request.ignoreConnectionErrors then{$endif}
@@ -344,14 +344,12 @@ begin
 
   {$ifdef android}EnterCriticalSection(updateThreadConfig.threadManagementSection);{$endif}
 
-  if (updateThreadConfig.updateThreadsRunning<=0) then
+  if (updateThreadConfig.updateThreadsRunning<=0) then begin
     updateGlobalAccountDates();
-  if (updateThreadConfig.updateThreadsRunning<=0) or (updateThreadConfig.listUpdateThreadsRunning<=0) then begin
-    if (updateThreadConfig.atLeastOneListUpdateSuccessful) then begin
-      updateThreadConfig.atLeastOneListUpdateSuccessful:=updateThreadConfig.updateThreadsRunning>0;
-      accountsRefreshedToday:=true;
+    accountsRefreshedDate := updateThreadConfig.successfulListUpdateDate;
+    if accountsRefreshedDate = currentDate then begin
       if (mainForm <> nil) and (mainform.visible) then
-        mainform.RefreshListView;
+         mainform.RefreshListView;
       applicationUpdate(true);
       sendMailReports();
     end;
@@ -411,7 +409,8 @@ begin
     updateThreadConfig.listUpdateThreadsRunning:=threadstostart;
     LeaveCriticalSection(updateThreadConfig.threadManagementSection);
 
-    updateThreadConfig.atLeastOneListUpdateSuccessful:=false;
+    if threadsToStart = accounts.count then
+      updateThreadConfig.successfulListUpdateDate:=0;
     if (mainform<>nil) and (mainForm.Visible) then
       mainform.StatusBar1.Panels[0].text:=TRY_BOOK_UPDATE;
 
@@ -434,7 +433,7 @@ end;
 //Bücher aktualisieren
 procedure defaultAccountsRefresh;
 begin
-  if accountsRefreshedToday then exit;
+  if accountsRefreshedDate = currentDate then exit;
   if logging then log('defaultAccountsRefresh started');
   case userConfig.ReadInteger('base','startup-connection',1) of
     1: updateAccountBookData(nil,true,true,false);
