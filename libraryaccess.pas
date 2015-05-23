@@ -89,6 +89,7 @@ type
 
     requests: TFPList;
 
+    function queueRequest(request: TBookProcessingRequest): boolean;
     procedure processRequest(request: TBookProcessingRequest);
     procedure execute;override;
     //procedure exceptionRaised(raisedException:Exception);
@@ -97,6 +98,29 @@ type
     constructor Create(alib: TCustomAccountAccess;var config:TThreadConfig; someRequests: TFPList);
     constructor Create(alib: TCustomAccountAccess;var config:TThreadConfig; request: TBookProcessingRequest);
   end;
+
+function TUpdateLibThread.queueRequest(request: TBookProcessingRequest): boolean;
+//must synchronized with threadManagementSection
+var
+  lastRequest: TBookProcessingRequest;
+begin
+  result := true;
+  if requests.Count > 0 then begin
+    lastRequest := TObject(requests.Last) as TBookProcessingRequest;
+    if (lastRequest.ignoreConnectionErrors = request.ignoreConnectionErrors)
+       and (lastRequest.checkDate = request.checkDate)
+       and (lastRequest.useExtendOverride = request.useExtendOverride)
+       and (lastRequest.ExtendOverride = request.ExtendOverride)
+
+       and (lastRequest.partialList = nil)
+       and (lastRequest.partialListOperation = nil) then begin
+         request.free; //no point in updating twice, it will do the same
+         result := false;
+         exit;
+       end;
+  end;
+  requests.Add(request);
+end;
 
 procedure TUpdateLibThread.processRequest(request: TBookProcessingRequest);
 var booksToExtendCount,booksExtendableCount: longint;
@@ -237,21 +261,17 @@ var
   request: TBookProcessingRequest;
 begin
   if logging then log('TUpdateLibThread.execute started');
-  while true do begin
-    EnterCriticalsection(pconfig^.threadManagementSection);
-    if requests.Count > 0 then begin
-      request := TObject(requests.First) as TBookProcessingRequest;
-      requests.Delete(0);
-    end else begin
-      request := nil;
-      FreeAndNil(requests);
-      break;
-    end;
+  EnterCriticalsection(pconfig^.threadManagementSection);
+  while requests.Count > 0 do begin
+    request := TObject(requests.First) as TBookProcessingRequest;
     LeaveCriticalsection(pconfig^.threadManagementSection);
 
     processRequest(request);
-  end;
 
+    EnterCriticalsection(pconfig^.threadManagementSection);
+    requests.Delete(0);
+  end;
+  FreeAndNil(requests);
   if not listUpdateComplete then
     pconfig^.listUpdateThreadsRunning-=1;
   pconfig^.updateThreadsRunning-=1;
@@ -308,14 +328,12 @@ begin
   Create(alib, config, somerequests);
 end;
 
-procedure performAccountAction(account: TCustomAccountAccess;var config:TThreadConfig;
+function performAccountAction(account: TCustomAccountAccess;var config:TThreadConfig;
                             aIgnoreConnectionErrors, ACheckDate: boolean;
                             AUseExtendOverride: Boolean; AExtendOverride: TExtendType;
-                            apartialList: TBookList; apartialListOperation: TBookListOperation);
+                            apartialList: TBookList; apartialListOperation: TBookListOperation): boolean;
 var
   request: TBookProcessingRequest;
-  oldThread: TUpdateLibThread;
-  useExisting: Boolean;
 begin
   request := TBookProcessingRequest.Create;
   with request do begin
@@ -328,13 +346,13 @@ begin
   end;
 
   EnterCriticalSection(config.threadManagementSection);
-  useExisting := false;
   if (account.thread <> nil) and  ((account.thread as TUpdateLibThread).requests <> nil) then
-    (account.thread as TUpdateLibThread).requests.Add(request)
+    result := (account.thread as TUpdateLibThread).queueRequest(request)
   else begin
     config.updateThreadsRunning+=1;
     config.listUpdateThreadsRunning+=1;
     account.thread := TUpdateLibThread.Create(account,config,request);
+    result := true;
   end;
   LeaveCriticalSection(config.threadManagementSection);
 end;
@@ -375,65 +393,30 @@ end;
 //Aufruf des Aktualisierungsthread
 function updateAccountBookData(account: TCustomAccountAccess;ignoreConnErrors,checkDate,extendAlways: boolean): boolean;
 var i: longint;
-  threadsToStart: Integer;
-  request: TBookProcessingRequest;
 begin
   if logging then log('updateAccountBookData started');
 
   result := false;
 
-  if (account=nil) and (updateThreadConfig.updateThreadsRunning>0) then exit;
-  if (account<>nil) and (account.thread <> nil) then exit;
+  if account=nil then begin
+    if updateThreadConfig.updateThreadsRunning = 0 then
+      updateThreadConfig.successfulListUpdateDate:=0;
 
-  if (account=nil)and(accounts.count=1) then
-    account:=(accounts[0]);
-    
+    for i:=0 to accounts.count-1 do
+      if accounts[i].enabled then
+        result := result or updateAccountBookData(account, ignoreConnErrors, checkDate, extendAlways);
+    exit;
+  end;
+
   if refreshAllAndIgnoreDate then begin
     ignoreConnErrors:=false;
     checkDate:=false;
   end;
 
-//  threadConfig.baseWindow:=handle;
-  if account<>nil then begin
-    if ignoreConnErrors and (account.broken = currentDate) then
-      exit;
-    if (mainform<>nil) and (mainForm.Visible) then
-      mainform.StatusBar1.Panels[0].text:=TRY_BOOK_UPDATE;
-    performAccountAction(account,updateThreadConfig,ignoreConnErrors,checkDate,extendAlways,etAlways,nil,nil);
-  end else begin
-    //(synchronized) set count of threads
-    threadsToStart := accounts.count;
-    for i:=0 to accounts.count-1 do begin
-      account := (accounts[i]);
-      if (not account.enabled) or (ignoreConnErrors and (account.broken = currentDate)) then
-        threadsToStart-=1;
-    end;
-
-    if threadsToStart = 0 then exit;
-
-    EnterCriticalSection(updateThreadConfig.threadManagementSection);
-    updateThreadConfig.updateThreadsRunning:=threadsToStart;
-    updateThreadConfig.listUpdateThreadsRunning:=threadstostart;
-    LeaveCriticalSection(updateThreadConfig.threadManagementSection);
-
-    updateThreadConfig.successfulListUpdateDate:=0; //we know that no threads are running atm
-    if (mainform<>nil) and (mainForm.Visible) then
-      mainform.StatusBar1.Panels[0].text:=TRY_BOOK_UPDATE;
-
-    //actually start threads
-    for i:=0 to accounts.count-1 do begin
-      account := (accounts[i]);
-      if (not account.enabled) or (ignoreConnErrors and (account.broken = currentDate)) then
-        continue;
-      request := TBookProcessingRequest.Create;
-      request.ignoreConnectionErrors := ignoreConnErrors;
-      request.checkDate := checkDate;
-      request.UseExtendOverride := extendAlways;
-      request.ExtendOverride:= etAlways;
-      account.thread:=TUpdateLibThread.create(account,updateThreadConfig, request);
-    end;
-  end;
-  result := true;
+  if ignoreConnErrors and (account.broken = currentDate) then exit;
+  if (mainform<>nil) and (mainForm.Visible) then
+    mainform.StatusBar1.Panels[0].text:=TRY_BOOK_UPDATE;
+  result := performAccountAction(account,updateThreadConfig,ignoreConnErrors,checkDate,extendAlways,etAlways,nil,nil);
 end;
 //Bücher aktualisieren
 procedure defaultAccountsRefresh;
