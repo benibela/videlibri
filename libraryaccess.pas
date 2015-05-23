@@ -87,7 +87,6 @@ type
     listUpdateComplete: boolean;
     messageShown: boolean;
 
-    requestSection: TRTLCriticalSection;
     requests: TFPList;
 
     procedure processRequest(request: TBookProcessingRequest);
@@ -239,28 +238,26 @@ var
 begin
   if logging then log('TUpdateLibThread.execute started');
   while true do begin
-    EnterCriticalsection(requestSection);
+    EnterCriticalsection(pconfig^.threadManagementSection);
     if requests.Count > 0 then begin
       request := TObject(requests.First) as TBookProcessingRequest;
       requests.Delete(0);
     end else begin
       request := nil;
       FreeAndNil(requests);
+      break;
     end;
-    LeaveCriticalsection(requestSection);
+    LeaveCriticalsection(pconfig^.threadManagementSection);
 
-    if request = nil then break;
     processRequest(request);
   end;
 
-  EnterCriticalSection(pconfig^.threadManagementSection);
   if not listUpdateComplete then
     pconfig^.listUpdateThreadsRunning-=1;
   pconfig^.updateThreadsRunning-=1;
   lib.thread:=Nil;
   LeaveCriticalSection(pconfig^.threadManagementSection);
 
-  DoneCriticalsection(requestSection);
 
   {$ifdef android}
   if Assigned(OnTerminate) then begin //normal onterminate does not work without event loop as it is called by synchronize
@@ -294,8 +291,6 @@ begin
   lib:=alib;
   pconfig:=@config;
   requests := someRequests;
-
-  InitCriticalSection(requestSection);
 
   OnTerminate:=TNotifyEvent(procedureToMethod(TProcedure(@ThreadDone)));
   FreeOnTerminate:=true;
@@ -334,19 +329,9 @@ begin
 
   EnterCriticalSection(config.threadManagementSection);
   useExisting := false;
-  if account.thread <> nil then begin
-    oldThread := account.thread as TUpdateLibThread;
-    if logging then log('performAccountAction  '+strFromPtr(oldThread) + ' '+strFromPtr(oldThread.requests));
-    if oldThread.requests <> nil then begin
-      EnterCriticalsection(oldThread.requestSection);
-      if oldThread.requests <> nil then begin
-        useExisting := true;
-        oldThread.requests.Add(request);
-      end;
-      LeaveCriticalsection(oldThread.requestSection);
-    end;
-  end;
-  if not useExisting then begin
+  if (account.thread <> nil) and  ((account.thread as TUpdateLibThread).requests <> nil) then
+    (account.thread as TUpdateLibThread).requests.Add(request)
+  else begin
     config.updateThreadsRunning+=1;
     config.listUpdateThreadsRunning+=1;
     account.thread := TUpdateLibThread.Create(account,config,request);
@@ -431,8 +416,7 @@ begin
     updateThreadConfig.listUpdateThreadsRunning:=threadstostart;
     LeaveCriticalSection(updateThreadConfig.threadManagementSection);
 
-    if threadsToStart = accounts.count then
-      updateThreadConfig.successfulListUpdateDate:=0;
+    updateThreadConfig.successfulListUpdateDate:=0; //we know that no threads are running atm
     if (mainform<>nil) and (mainForm.Visible) then
       mainform.StatusBar1.Panels[0].text:=TRY_BOOK_UPDATE;
 
