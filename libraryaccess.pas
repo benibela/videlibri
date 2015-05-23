@@ -404,7 +404,7 @@ begin
 
     for i:=0 to accounts.count-1 do
       if accounts[i].enabled then
-        result := result or updateAccountBookData(account, ignoreConnErrors, checkDate, extendAlways);
+        result := result or updateAccountBookData(accounts[i], ignoreConnErrors, checkDate, extendAlways);
     exit;
   end;
 
