@@ -3,7 +3,7 @@
   <longName value="Universitätsbibliothek Würzburg (alpha)"/>
   
   <template value="sisis"/>  
-  <variable name="server" value="http://katalog.bibliothek.uni-wuerzburg.de/InfoGuideClient.ubwsis/"/>
+  <variable name="server" value="https://katalog.bibliothek.uni-wuerzburg.de/TouchPoint/"/>
 
   <homepage value="http://www.bibliothek.uni-wuerzburg.de/"/>
   <testing-search value="ja" date="2013-05-18"/>

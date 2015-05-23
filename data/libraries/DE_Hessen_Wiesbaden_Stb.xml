@@ -4,8 +4,8 @@
   <shortName value="Stb Wiesbaden"/>
   
   <template value="bibliotheca"/>
-  <variable name="baseurl" value="https://bond.wiesbaden.de/webopac"/>	
-  <variable name="DB" value="w_bond"/>	
+  <variable name="baseurl" value="https://bond.wiesbaden.de/"/>	
+  <variable name="DB" value="web_biblio"/>	
   
   <!--<template value="pica"/>-->
 
