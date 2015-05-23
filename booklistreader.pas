@@ -190,7 +190,7 @@ begin
     if verbose then exit('nicht ausgeliehen') else exit('');
   end else
     case book.Status of
-      bsNormal, bsUnknown: exit('');
+      bsNormal, bsUnknown, bsCuriousInStr: exit(book.statusStr);
       bsAvailable: exit('verfügbar');
       bsLend: exit('ausgeliehen');
       bsVirtual: exit('E-Book/sonstiges');
