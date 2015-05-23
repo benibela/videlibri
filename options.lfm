@@ -14,7 +14,7 @@ object optionForm: ToptionForm
   OnResize = FormResize
   OnShow = FormShow
   Position = poScreenCenter
-  LCLVersion = '1.1'
+  LCLVersion = '1.5'
   object Bevel1: TBevel
     AnchorSideLeft.Control = Panel2
     AnchorSideLeft.Side = asrBottom
@@ -35,7 +35,7 @@ object optionForm: ToptionForm
     Height = 483
     Top = 6
     Width = 612
-    PageIndex = 1
+    PageIndex = 0
     Anchors = [akTop, akLeft, akRight, akBottom]
     BorderSpacing.Around = 2
     OnChangeBounds = Notebook1ChangeBounds

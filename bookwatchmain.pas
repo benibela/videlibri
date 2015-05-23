@@ -580,11 +580,11 @@ end;
 
 procedure TmainForm.dailyCheckThreadTimer(Sender: TObject);
 //this will be called every 24h to ensure that videlibri also works if you
-//never turn your computer of
+//never turn your computer off
 begin
   if alertAboutBooksThatMustBeReturned then show
   else begin
-    accountsRefreshedToday:=false;
+    accountsRefreshedDate:=0;
     repeatedCheckTimer.Enabled:=true;
   end;
 end;
@@ -932,7 +932,7 @@ procedure TmainForm.repeatedCheckTimerTimer(Sender: TObject);
 //could actually established
 var internet: TInternetAccess;
 begin
-  if accountsRefreshedToday then begin
+  if accountsRefreshedDate = currentDate then begin
     repeatedCheckTimer.Enabled:=false;
     exit;
   end;
@@ -1398,4 +1398,4 @@ end;
 
 initialization
   {$I bookwatchmain.lrs}
-end.
+end.

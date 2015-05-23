@@ -191,9 +191,7 @@ type
     function getCharges:currency;virtual;
   public
 //    nextLimit,nextNotExtendableLimit:longint;
-    isThreadRunning: boolean; //set to true before the thread is called
-                              //set to false after the last change is done
-                              //read whenever you want
+    thread: TThread;
     broken: longint;          //Iff equal currentDate, disable auto checking (only accessed by thread/thread-creator)
     constructor create(alib: TLibrary);virtual;
     destructor destroy;override;
@@ -1060,7 +1058,7 @@ begin
   fbooks:=nil;
   currentDate:=longint(trunc(date));
   config:=nil;
-  isThreadRunning:=false;
+  thread:=nil;
   lib:=alib;
   fcharges:=-1;
   FEnabled:=true;
@@ -1638,4 +1636,4 @@ begin
   inherited create(mes+' (dieser Fehler dürfte niemals auftreten)');
 end;
 
-end.
+end.

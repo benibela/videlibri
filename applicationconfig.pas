@@ -27,7 +27,7 @@ var programPath,userPath:string;
     libraryManager: TLibraryManager=nil;
 
     cancelStarting,startToTNA:boolean;
-    accountsRefreshedToday: boolean=false; //set to true if the account information has been updated in the last 24h
+    accountsRefreshedDate: longint=0; //set to currentDate
 
     currentDate:longint;
     lastCheck: integer;

@@ -983,7 +983,7 @@ begin
       if libraryManager[i].template = oldTemplate then begin
         libraryManager[i].template := libraryManager.getTemplate(templateName.Text);
         for j := 0 to accounts.Count - 1 do
-          if (accounts[j].getLibrary() = libraryManager[i]) and (accounts[j] is TTemplateAccountAccess) and not accounts[j].isThreadRunning then
+          if (accounts[j].getLibrary() = libraryManager[i]) and (accounts[j] is TTemplateAccountAccess) and (accounts[j].thread = nil) then
             TTemplateAccountAccess(accounts[j]).resetlib();
       end;
   end;
@@ -1051,4 +1051,4 @@ initialization
   {$I options.lrs}
 
 end.
-
+

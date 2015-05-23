@@ -442,7 +442,7 @@ begin
   acc := accounts[0];
   for i:=1 to accounts.Count-1 do
     if accounts.Strings[i] = saveToDefaultAccountID then acc := accounts[i];
-  if acc.isThreadRunning then begin ShowMessage('Während dem Aktualisieren können keine weiteren Medien gespeichert werden.'); exit; end;
+  //if acc.isThreadRunning then begin ShowMessage('Während dem Aktualisieren können keine weiteren Medien gespeichert werden.'); exit; end;
 
   temp := cloneDisplayedBook;
 
@@ -455,31 +455,37 @@ begin
     if (old.author = temp.author) or (old.title = temp.title) or
        striBeginsWith(temp.author,old.author) or striBeginsWith(temp.title, old.title) then
      if confirm('Das Medium existiert bereits als "'+old.toSimpleString()+'", soll es mit "'+temp.toSimpleString()+'" überschrieben werden?') then begin
+       EnterCriticalsection(updateThreadConfig.libraryAccessSection);
        old.author:=temp.author; //don't copy id
        old.title:=temp.title;
        old.year:=temp.year;
        old.isbn:=temp.isbn;
        old.assignNoReplace(temp);
        acc.save();
+       LeaveCriticalsection(updateThreadConfig.libraryAccessSection);
        mainForm.RefreshListView;
        exit;
      end;
     if researchedBook <> nil then
      if confirm('Soll das markierte Medium "'+old.toSimpleString()+'" mit "'+temp.toSimpleString()+'" überschrieben werden?') then begin
+       EnterCriticalsection(updateThreadConfig.libraryAccessSection);
        old.author:=temp.author; //don't copy id
        old.title:=temp.title;
        old.year:=temp.year;
        old.isbn:=temp.isbn;
        old.assignNoReplace(temp);
        acc.save();
+       LeaveCriticalsection(updateThreadConfig.libraryAccessSection);
        mainForm.RefreshListView;
        researchedBook := nil;
        exit;
      end;
   end;
 
+  EnterCriticalsection(updateThreadConfig.libraryAccessSection);
   acc.books.old.add(temp);
   acc.save();
+  LeaveCriticalsection(updateThreadConfig.libraryAccessSection);
   mainForm.RefreshListView;
   researchedBook := nil;
 end;
@@ -499,7 +505,7 @@ begin
   acc := accounts[0];
   for i:=1 to accounts.Count-1 do
    if accounts.Strings[i] = orderForDefaultAccountID then acc := accounts[i];
-  if acc.isThreadRunning then begin ShowMessage('Während dem Aktualisieren/Verlängern/Vormerken können keine weiteren Medien vorgemerkt werden.'); exit; end;
+  //if acc.isThreadRunning then begin ShowMessage('Während dem Aktualisieren/Verlängern/Vormerken können keine weiteren Medien vorgemerkt werden.'); exit; end;
 
   searcherAccess.beginBookReading;
   try
@@ -1135,4 +1141,4 @@ initialization
   {$I bookSearchForm.lrs}
 end.
 
-
+

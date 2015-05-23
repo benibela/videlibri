@@ -104,6 +104,8 @@ var booksToExtendCount,booksExtendableCount: longint;
     realBooksToExtend: TBookList;
     i:longint;
     wasConnected: Boolean;
+    repBook: TBook;
+    newPartialBookList: TBookList;
 begin
   if logging then begin
     log('TUpdateLibThread.processRequest(@lib='+inttostr(IntPtr(Pointer(lib)))+') started');
@@ -189,8 +191,17 @@ begin
 
       //other, special operation
       if (partialList <> nil) and (Assigned(partialListOperation)) then begin
-        partialList.mergeMissingInformation(lib.books.currentUpdate);
-        partialList.mergeMissingInformation(lib.books.current);
+        newPartialBookList := TBookList.create();
+        for i := 0 to partialList.Count - 1 do begin
+          repBook := lib.books.currentUpdate.findBook(partialList[i]);
+          if not (repBook.status in BOOK_NOT_LEND) then
+            if repBook.dueDate > partialList[i].dueDate then continue; //was already renewed
+          //if repBook = nil then repBook := lib.books.current.findBook(partialList[i]); ??
+          newPartialBookList.add(repBook);
+        end;
+
+        partialList.free;
+        partialList := newPartialBookList;
         partialListOperation(partialList);
       end;
 
@@ -246,8 +257,8 @@ begin
   if not listUpdateComplete then
     pconfig^.listUpdateThreadsRunning-=1;
   pconfig^.updateThreadsRunning-=1;
+  lib.thread:=Nil;
   LeaveCriticalSection(pconfig^.threadManagementSection);
-  lib.isThreadRunning:=false;
 
   DoneCriticalsection(requestSection);
 
@@ -299,26 +310,18 @@ var
 begin
   somerequests := TFPList.Create;
   somerequests.Add(request);
-  TUpdateLibThread.Create(alib, config, somerequests);
+  Create(alib, config, somerequests);
 end;
 
-procedure startSingleThread(account: TCustomAccountAccess;var config:TThreadConfig;
+procedure performAccountAction(account: TCustomAccountAccess;var config:TThreadConfig;
                             aIgnoreConnectionErrors, ACheckDate: boolean;
                             AUseExtendOverride: Boolean; AExtendOverride: TExtendType;
                             apartialList: TBookList; apartialListOperation: TBookListOperation);
 var
   request: TBookProcessingRequest;
+  oldThread: TUpdateLibThread;
+  useExisting: Boolean;
 begin
-  if account.isThreadRunning then begin
-    storeException(EBookListReader.create('Die Aktion konnte nicht durchgefürt werden, weil bereits eine Aktion, z.B.: Aktualisierung oder Verlängerung, auf dem Konto durchgeführt wird. Bitte warten Sie, bis diese abgeschlossen ist. (um mehrere Medien zu verlängern, können diese alle auf einmal markiert werden)'), account,account.getLibrary().id,'');
-    exit;
-  end;
-  EnterCriticalSection(config.threadManagementSection);
-  config.updateThreadsRunning+=1;
-  config.listUpdateThreadsRunning+=1;
-  LeaveCriticalSection(config.threadManagementSection);
-
-  account.isThreadRunning:=true;
   request := TBookProcessingRequest.Create;
   with request do begin
     ignoreConnectionErrors:=aIgnoreConnectionErrors;
@@ -329,7 +332,26 @@ begin
     partialListOperation := apartialListOperation;
   end;
 
-  TUpdateLibThread.Create(account,config,request);
+  EnterCriticalSection(config.threadManagementSection);
+  useExisting := false;
+  if account.thread <> nil then begin
+    oldThread := account.thread as TUpdateLibThread;
+    if logging then log('performAccountAction  '+strFromPtr(oldThread) + ' '+strFromPtr(oldThread.requests));
+    if oldThread.requests <> nil then begin
+      EnterCriticalsection(oldThread.requestSection);
+      if oldThread.requests <> nil then begin
+        useExisting := true;
+        oldThread.requests.Add(request);
+      end;
+      LeaveCriticalsection(oldThread.requestSection);
+    end;
+  end;
+  if not useExisting then begin
+    config.updateThreadsRunning+=1;
+    config.listUpdateThreadsRunning+=1;
+    account.thread := TUpdateLibThread.Create(account,config,request);
+  end;
+  LeaveCriticalSection(config.threadManagementSection);
 end;
 
 procedure ThreadDone(pself: TObject; sender:TObject);
@@ -376,7 +398,7 @@ begin
   result := false;
 
   if (account=nil) and (updateThreadConfig.updateThreadsRunning>0) then exit;
-  if (account<>nil) and (account.isThreadRunning) then exit;
+  if (account<>nil) and (account.thread <> nil) then exit;
 
   if (account=nil)and(accounts.count=1) then
     account:=(accounts[0]);
@@ -392,7 +414,7 @@ begin
       exit;
     if (mainform<>nil) and (mainForm.Visible) then
       mainform.StatusBar1.Panels[0].text:=TRY_BOOK_UPDATE;
-    startSingleThread(account,updateThreadConfig,ignoreConnErrors,checkDate,extendAlways,etAlways,nil,nil);
+    performAccountAction(account,updateThreadConfig,ignoreConnErrors,checkDate,extendAlways,etAlways,nil,nil);
   end else begin
     //(synchronized) set count of threads
     threadsToStart := accounts.count;
@@ -419,13 +441,12 @@ begin
       account := (accounts[i]);
       if (not account.enabled) or (ignoreConnErrors and (account.broken = currentDate)) then
         continue;
-      account.isThreadRunning:=true;
       request := TBookProcessingRequest.Create;
       request.ignoreConnectionErrors := ignoreConnErrors;
       request.checkDate := checkDate;
       request.UseExtendOverride := extendAlways;
       request.ExtendOverride:= etAlways;
-      TUpdateLibThread.create(account,updateThreadConfig, request);
+      account.thread:=TUpdateLibThread.create(account,updateThreadConfig, request);
     end;
   end;
   result := true;
@@ -496,7 +517,7 @@ begin
       end;
     if current <> nil then begin
       TMethod(method).Data:=accounts.Objects[i];
-      startSingleThread( accounts[i], updateThreadConfig, false, false, true, etNever, current, method);
+      performAccountAction( accounts[i], updateThreadConfig, false, false, true, etNever, current, method);
     end;
   end;
   {showErrorMessages();

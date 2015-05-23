@@ -544,40 +544,30 @@ begin
           if logging then log('Searcher thread: message smtOrder: '+book.toSimpleString());
           if (book = nil) or (book.owner = nil) then log('Invalid book')
           else begin
-            TCustomAccountAccess(book.owner).isThreadRunning:=true;
-            try
-              if (mes.typ = smtOrderConfirmed) or not searcher.orderNeedsConfirmation(book) then begin
-                Searcher.orderSingle(book);
-                if Searcher.bookListReader.pendingMessage <> nil then begin
-                  callPendingMessageEvent(access.FOnTakePendingMessage, book, Searcher.bookListReader.pendingMessage);
-                  Searcher.bookListReader.pendingMessage := nil;
-                 end else
-                  callBookEvent(access.FOnOrderComplete, book);
-              end else begin
-                Searcher.orderConfirmSingle(book);
-                callBookEvent(access.FOnOrderConfirm, book);
-              end;
-            finally
-              TCustomAccountAccess(book.owner).isThreadRunning:=false;
+            if (mes.typ = smtOrderConfirmed) or not searcher.orderNeedsConfirmation(book) then begin
+              Searcher.orderSingle(book);
+              if Searcher.bookListReader.pendingMessage <> nil then begin
+                callPendingMessageEvent(access.FOnTakePendingMessage, book, Searcher.bookListReader.pendingMessage);
+                Searcher.bookListReader.pendingMessage := nil;
+               end else
+                callBookEvent(access.FOnOrderComplete, book);
+            end else begin
+              Searcher.orderConfirmSingle(book);
+              callBookEvent(access.FOnOrderConfirm, book);
             end;
           end;
           if logging then log('end order');
         end;
         smtCompletePendingMessage: begin
           if logging then log('Searcher thread: message smtCompletePendingMessage: '+book.toSimpleString());
-          if (book <> nil) and (book.owner <> nil) then TCustomAccountAccess(book.owner).isThreadRunning:=true;
-          try
-            if book <> nil then Searcher.bookListReader.selectBook(book);
-            Searcher.completePendingMessage(mes.pendingMessage, mes.messageResult);
-            if Searcher.bookListReader.pendingMessage <> nil then begin
-              callPendingMessageEvent(access.FOnTakePendingMessage, book, Searcher.bookListReader.pendingMessage);
-              Searcher.bookListReader.pendingMessage := nil;
-            end else if book.status = bsOrdered then begin
-              callBookEvent(access.FOnOrderComplete, book);
-            end else callNotifyEvent(access.FOnPendingMessageCompleted);
-          finally
-            if (book <> nil) and (book.owner <> nil) then TCustomAccountAccess(book.owner).isThreadRunning:=false;
-          end;
+          if book <> nil then Searcher.bookListReader.selectBook(book);
+          Searcher.completePendingMessage(mes.pendingMessage, mes.messageResult);
+          if Searcher.bookListReader.pendingMessage <> nil then begin
+            callPendingMessageEvent(access.FOnTakePendingMessage, book, Searcher.bookListReader.pendingMessage);
+            Searcher.bookListReader.pendingMessage := nil;
+          end else if book.status = bsOrdered then begin
+            callBookEvent(access.FOnOrderComplete, book);
+          end else callNotifyEvent(access.FOnPendingMessageCompleted);
           if logging then log('end order');
         end
         else if logging then log('Searcher thread: unknown type');
@@ -630,4 +620,4 @@ begin
 end;
 
 end.
-
+

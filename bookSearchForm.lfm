@@ -13,7 +13,7 @@ object bookSearchFrm: TbookSearchFrm
   OnDeactivate = FormDeactivate
   OnDestroy = FormDestroy
   OnKeyUp = FormKeyUp
-  LCLVersion = '1.1'
+  LCLVersion = '1.5'
   object optionPanel: TPanel
     Left = 0
     Height = 565
