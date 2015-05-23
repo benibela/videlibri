@@ -57,16 +57,10 @@ public class VideLibriSuperBase {
                 context.startActivity(intent);
                 return true;
             case R.id.refresh:
-                if (VideLibriApp.runningUpdates.isEmpty())
-                    VideLibriApp.updateAccount(null, false, false);
-                else
-                    Util.showMessage(Util.tr(R.string.base_pendingrefreshrenew));
+                VideLibriApp.updateAccount(null, false, false);
                 return true;
             case R.id.renew:
-                if (VideLibriApp.runningUpdates.isEmpty())
-                    VideLibriApp.updateAccount(null, false, true);
-                else
-                    Util.showMessage(Util.tr(R.string.base_pendingrefreshrenew));
+                VideLibriApp.updateAccount(null, false, true);
                 return true;
             case R.id.renewlist:
                 context.startActivity(new Intent(context, RenewList.class));

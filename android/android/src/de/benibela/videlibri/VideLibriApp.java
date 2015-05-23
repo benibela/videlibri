@@ -162,12 +162,12 @@ public class VideLibriApp extends Application implements Bridge.VideLibriContext
                 updateAccount(a, autoUpdate, forceExtend);
             return;
         }
-        if (runningUpdates.contains(acc)) return;
         if ((acc.name == null || acc.name.equals("")) && (acc.pass == null || acc.pass.equals("")))
             return; //search only account
         if (Bridge.VLUpdateAccount(acc, autoUpdate, forceExtend)) {
             if (currentActivity instanceof VideLibri) ((VideLibri)currentActivity).setLoading(true);
-            runningUpdates.add(acc);
+            if (!runningUpdates.contains(acc))
+                runningUpdates.add(acc);
         }
        /* final Bridge.Account facc = acc;
         Thread t = new Thread(new Runnable() {
