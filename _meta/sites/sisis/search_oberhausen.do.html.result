@@ -1,0 +1,136 @@
+book: {}
+
+
+nextPage: untyped: 
+nextPage: node(): /webOPACClient.sisis/hitList.do?methodToCall=pos&identifier=-1_S_IG.15.19941&curPos=11#-1
+search-result-count: string: 500
+hasZ3988: boolean: false
+brs: sequence*: node(): 2005
+node(): H-Wirtschaft          HKQ5/TEST
+node(): 
+node(): 
+node(): 
+brs: sequence*: string: 
+node(): 2005
+node(): H-Wirtschaft          HKQ5/TEST
+node(): 
+node(): 
+node(): 
+book: object(): {"year": "2005", "author": "", "title": "/2006.", "_detail-url": "/webOPACClient.sisis/singleHit.do?methodToCall=showHit&curPos=1&identifier=-1_S_IG.15.19941", "orderable": 0}
+hasZ3988: boolean: false
+brs: sequence*: node(): 2013
+node(): Z/Öko-Test.2013 ; 01
+node(): 
+node(): 
+node(): 
+brs: sequence*: string: 
+node(): 2013
+node(): Z/Öko-Test.2013 ; 01
+node(): 
+node(): 
+node(): 
+book: object(): {"year": "2013", "author": "", "title": "Öko-Test/01", "_detail-url": "/webOPACClient.sisis/singleHit.do?methodToCall=showHit&curPos=2&identifier=-1_S_IG.15.19941", "orderable": 0}
+hasZ3988: boolean: false
+brs: sequence*: node(): 2014
+node(): Z/Öko-Test.2014 ; 01
+node(): 
+node(): 
+node(): 
+brs: sequence*: string: 
+node(): 2014
+node(): Z/Öko-Test.2014 ; 01
+node(): 
+node(): 
+node(): 
+book: object(): {"year": "2014", "author": "", "title": "Öko-Test/01", "_detail-url": "/webOPACClient.sisis/singleHit.do?methodToCall=showHit&curPos=3&identifier=-1_S_IG.15.19941", "orderable": 0}
+hasZ3988: boolean: false
+brs: sequence*: node(): 2015
+node(): Z/Öko-Test.2015 ; 01
+node(): 
+node(): 
+node(): 
+brs: sequence*: string: 
+node(): 2015
+node(): Z/Öko-Test.2015 ; 01
+node(): 
+node(): 
+node(): 
+book: object(): {"year": "2015", "author": "", "title": "Öko-Test/01", "_detail-url": "/webOPACClient.sisis/singleHit.do?methodToCall=showHit&curPos=4&identifier=-1_S_IG.15.19941", "orderable": 0}
+hasZ3988: boolean: false
+brs: sequence*: node(): 2015
+node(): Z/Öko-Test.2015 ; 01
+node(): 
+node(): 
+node(): 
+brs: sequence*: string: 
+node(): 2015
+node(): Z/Öko-Test.2015 ; 01
+node(): 
+node(): 
+node(): 
+book: object(): {"year": "2015", "author": "", "title": "Öko-Test/01", "_detail-url": "/webOPACClient.sisis/singleHit.do?methodToCall=showHit&curPos=5&identifier=-1_S_IG.15.19941", "orderable": 0}
+hasZ3988: boolean: false
+brs: sequence*: node(): 2013
+node(): Z/Öko-Test.2013 ; 02
+node(): 
+node(): 
+node(): 
+brs: sequence*: string: 
+node(): 2013
+node(): Z/Öko-Test.2013 ; 02
+node(): 
+node(): 
+node(): 
+book: object(): {"year": "2013", "author": "", "title": "Öko-Test/02", "_detail-url": "/webOPACClient.sisis/singleHit.do?methodToCall=showHit&curPos=6&identifier=-1_S_IG.15.19941", "orderable": 0}
+hasZ3988: boolean: false
+brs: sequence*: node(): 2014
+node(): Z/Öko-Test.2014 ; 02
+node(): 
+node(): 
+node(): 
+brs: sequence*: string: 
+node(): 2014
+node(): Z/Öko-Test.2014 ; 02
+node(): 
+node(): 
+node(): 
+book: object(): {"year": "2014", "author": "", "title": "Öko-Test/02", "_detail-url": "/webOPACClient.sisis/singleHit.do?methodToCall=showHit&curPos=7&identifier=-1_S_IG.15.19941", "orderable": 0}
+hasZ3988: boolean: false
+brs: sequence*: node(): 2014
+node(): Z/Öko-Test.2014 ; 02
+node(): 
+node(): 
+node(): 
+brs: sequence*: string: 
+node(): 2014
+node(): Z/Öko-Test.2014 ; 02
+node(): 
+node(): 
+node(): 
+book: object(): {"year": "2014", "author": "", "title": "Öko-Test/02", "_detail-url": "/webOPACClient.sisis/singleHit.do?methodToCall=showHit&curPos=8&identifier=-1_S_IG.15.19941", "orderable": 0}
+hasZ3988: boolean: false
+brs: sequence*: node(): 2015
+node(): Z/Öko-Test.2015 ; 02
+node(): 
+node(): 
+node(): 
+brs: sequence*: string: 
+node(): 2015
+node(): Z/Öko-Test.2015 ; 02
+node(): 
+node(): 
+node(): 
+book: object(): {"year": "2015", "author": "", "title": "Öko-Test/02", "_detail-url": "/webOPACClient.sisis/singleHit.do?methodToCall=showHit&curPos=9&identifier=-1_S_IG.15.19941", "orderable": 0}
+hasZ3988: boolean: false
+brs: sequence*: node(): 2013
+node(): Z/Öko-Test.2013 ; 03
+node(): 
+node(): 
+node(): 
+brs: sequence*: string: 
+node(): 2013
+node(): Z/Öko-Test.2013 ; 03
+node(): 
+node(): 
+node(): 
+book: object(): {"year": "2013", "author": "", "title": "Öko-Test/03", "_detail-url": "/webOPACClient.sisis/singleHit.do?methodToCall=showHit&curPos=10&identifier=-1_S_IG.15.19941", "orderable": 0}

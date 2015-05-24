@@ -9,13 +9,11 @@
 </p>
 
 <template:if test="$noBooks!='true'">
-  <div> 
    <tr> 
     <th>Autor</th> 
     <th>Titel</th> 
     <template:read var="delete-current-books()"/>
    </tr> 
-  </div>
 
  <template:loop>
    <tr> 
