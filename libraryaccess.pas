@@ -214,11 +214,19 @@ begin
 
       //other, special operation
       if (partialList <> nil) and (Assigned(partialListOperation)) then begin
+        if logging then log('Updating book list: '+IntToStr(partialList.Count));
         newPartialBookList := TBookList.create();
         for i := 0 to partialList.Count - 1 do begin
           repBook := lib.books.currentUpdate.findBook(partialList[i]);
+          if repBook = nil then begin
+            if logging then log('Not found: '+partialList[i].toSimpleString());
+            Continue;
+          end;
           if not (repBook.status in BOOK_NOT_LEND) then
-            if repBook.dueDate > partialList[i].dueDate then continue; //was already renewed
+            if repBook.dueDate > partialList[i].dueDate then begin
+              if logging then log('Skipping: '+partialList[i].toLimitString() + ' because ' + repBook.toLimitString()) ;
+              continue; //was already renewed
+            end;
           //if repBook = nil then repBook := lib.books.current.findBook(partialList[i]); ??
           newPartialBookList.add(repBook);
         end;
