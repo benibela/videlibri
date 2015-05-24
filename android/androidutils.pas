@@ -126,6 +126,9 @@ var assets: jobject = nil;
     end;
     simpleDateClass: jclass;
     simpleDateClassInit: jmethodID;
+    simpleDateFields: record
+      pascalDateI: jfieldID;
+    end;
     searcherClass: jclass;
     searcherFields: record
       nativePtrJ, totalResultCountI, nextPageAvailableZ: jfieldID;
@@ -232,6 +235,7 @@ begin
 
     simpleDateClass := j.newGlobalRefAndDelete(j.getclass('de/benibela/videlibri/Bridge$SimpleDate'));
     simpleDateClassInit := j.getmethod(simpleDateClass, '<init>', '(IIII)V');
+    simpleDateFields.pascalDateI := j.getfield(simpleDateClass, 'pascalDate', 'I');
 
     searcherClass := j.newGlobalRefAndDelete(j.getclass('de/benibela/videlibri/Bridge$SearcherAccess'));
     with searcherFields do begin
@@ -802,6 +806,13 @@ begin
 end;
 
 function jbookToBook(jbook: jobject): TBook;
+  function jSimpleDateToPascalDate(jsimpledate: jobject): integer;
+  begin
+    if jsimpledate = nil then exit(0);
+    result := j.getIntField(jsimpledate, simpleDateFields.pascalDateI);
+    j.deleteLocalRef(jsimpledate);
+  end;
+
 var
   more: jobject;
   get: jmethodID;
@@ -819,6 +830,8 @@ begin
   with bookFields do begin
     result.author := j.getStringField(jbook, authorS);
     result.title := j.getStringField(jbook, titleS);
+    result.dueDate := jSimpleDateToPascalDate(j.getObjectField(jbook, dueDateGC));
+    result.issueDate := jSimpleDateToPascalDate(j.getObjectField(jbook, issueDateGC));
     more := j.getObjectField(jbook, j.getfield(bookClass, 'more', 'Ljava/util/ArrayList;'));
 
     size := j.callIntMethodChecked(more, j.getmethod('java/util/ArrayList', 'size', '()I'));
