@@ -5,7 +5,12 @@
       <DIV class="inside">
           <DIV>
             <P>
-              <SPAN>(Gesucht|Treffer).*:<t:s>search-result-count := extract(., "[0-9]+$"),  lastSearchedIndex := get("lastSearchedIndex", 0) (: for unittests :)</t:s></SPAN>
+              <SPAN>(Gesucht|Treffer).*:<t:s>
+                let $temp := extract(., "(([0-9]+)[^0-9]+([0-9]+)[^0-9]+)?([0-9]+)$", (2,4)) return ( 
+                  $firstIndex := number($temp[1]),
+                  (:$lastIndex := $temp[2],:)
+                  $search-result-count := xs:integer($temp[2])),  
+                lastSearchedIndex := get("lastSearchedIndex", 0) (: for unittests :)</t:s></SPAN>
             </P>
           </DIV>
       </DIV>
@@ -30,7 +35,7 @@
             <DIV>
               <DIV class="rTable_div">
                 <TABLE class="rTable_table"> 
-                 {firstIndex := tbody/tr[1]/td[1] * 1}
+                 <!--{firstIndex := tbody/tr[1]/td[1] * 1}-->
                   <thead/>
                   <TR>
                     <TD>{lastIndex := . * 1}</TD>
