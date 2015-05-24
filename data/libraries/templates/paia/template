@@ -31,7 +31,7 @@
        answer := json($raw),
        if ($answer.error) then videlibri:raise(x"PAIA error on items: {$answer.code}: {$answer.error}: {$answer.error_description}") else (
          videlibri:delete-current-books(),
-         for $doc in jn:members($answer.doc)[(.).status = 3] return
+         for $doc in jn:members($answer.doc)[(.).status &lt; 5] return
            book := {
              "id": $doc.label,
              "title": $doc.about,
