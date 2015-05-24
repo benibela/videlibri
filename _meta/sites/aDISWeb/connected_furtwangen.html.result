@@ -1,5 +1,5 @@
 book: {}
 
 
-searchPage: string: /home/benito/hg/programs/internet/VideLibri/_meta/sites//aDISWeb/connected_furtwangen.html
+searchPage: string: file:///home/benito/hg/programs/internet/VideLibri/_meta/sites//aDISWeb/connected_furtwangen.html
 connected: boolean: true

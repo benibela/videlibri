@@ -3,5 +3,5 @@
 book: {}
 
 
-confirm-form: object(): {"method": "GET", "url": "/home/benito/hg/programs/internet/VideLibri/_meta/sites//zones18/Obj_775891379629192?Style=Portal2&SubStyle=&Lang=GER&ResponseEncoding=utf-8&Method=Start&ConfirmReservationCharge=%E2%82%AC%201%2C00&ConfirmRacCardCharge=%E2%82%AC%200%2C00&Confirm=0&BrowseAsHloc=11"}
+confirm-form: object(): {"method": "GET", "url": "file:///home/benito/hg/programs/internet/VideLibri/_meta/sites//zones18/Obj_775891379629192?Style=Portal2&SubStyle=&Lang=GER&ResponseEncoding=utf-8&Method=Start&ConfirmReservationCharge=%E2%82%AC%201%2C00&ConfirmRacCardCharge=%E2%82%AC%200%2C00&Confirm=0&BrowseAsHloc=11"}
 message-choose: string: internal-order-confirmed Wohin soll das Buch geliefert werden? Zentralbibliothek Kücknitz Marli-Brandenbaum Moisling Travemünde 1 6 3 8 10

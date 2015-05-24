@@ -1,4 +1,4 @@
 book: {}
 
 
-cancel-form: object(): {"method": "POST", "post": "Style=Portal2&SubStyle=&Lang=GER&ResponseEncoding=utf-8&Method=Cancel&Item=271613&BrowseAsHloc=-2", "url": "/home/benito/hg/programs/internet/VideLibri/_meta/sites//zones18/Obj_776481379630456"}
+cancel-form: object(): {"method": "POST", "post": "Style=Portal2&SubStyle=&Lang=GER&ResponseEncoding=utf-8&Method=Cancel&Item=271613&BrowseAsHloc=-2", "url": "file:///home/benito/hg/programs/internet/VideLibri/_meta/sites//zones18/Obj_776481379630456"}

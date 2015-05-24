@@ -13,5 +13,5 @@ bookCount: string: 2
 mode: integer: 1
 delete-current-books(): untyped: 
 book: object(): {"duedate": "2011-01-05", "issuedate": "2010-08-19", "status:problematic": "Dieses Medium wurde bereits 5 mal verlängert.", "id": "BP1357  ", "author": "Delfs, Hans", "title": "Introduction to cryptography"}
-book: object(): {"duedate": "2011-01-10", "issuedate": "2010-12-09", "_onPageStart": "", "_onPage": "/home/benito/hg/programs/internet/VideLibri/_meta/sites//sisis/userAccount.do_2books.html", "status:curious": "Eine Verlängerung ist möglich.", "extendID": "1", "id": "(1)003187  ", "author": "Demtröder, Wolfgang", "title": "Experimentalphysik/2"}
+book: object(): {"duedate": "2011-01-10", "issuedate": "2010-12-09", "_onPageStart": "", "_onPage": "file:///home/benito/hg/programs/internet/VideLibri/_meta/sites//sisis/userAccount.do_2books.html", "status:curious": "Eine Verlängerung ist möglich.", "extendID": "1", "id": "(1)003187  ", "author": "Demtröder, Wolfgang", "title": "Experimentalphysik/2"}
 nextPage: untyped: 

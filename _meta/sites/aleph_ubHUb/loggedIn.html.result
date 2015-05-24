@@ -1,4 +1,4 @@
 book: {}
 
 
-bookpage: string: http://opac.hu-berlin.de:80/F/1B662PQEHGKRA92URUMFDJE3XDVMMVBK8DGPETMVLBQLAE197J-47978?func=bor-loan
+bookpage: string: http://opac.hu-berlin.de:80/F/1B662PQEHGKRA92URUMFDJE3XDVMMVBK8DGPETMVLBQLAE197J-47978?func=bor-loan&adm_library=HUB50

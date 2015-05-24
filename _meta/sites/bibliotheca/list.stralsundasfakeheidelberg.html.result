@@ -8,14 +8,14 @@ hasId: boolean: false
 hasStatus: boolean: true
 hasId: boolean: true
 hasBranch: boolean: true
-book: object(): {"renew-link": "file:///home/benito/hg/programs/internet/VideLibri/_meta/sites//home/benito/hg/programs/internet/VideLibri/_meta/sites//bibliotheca/index.asp?kontofenster=true&target=verl_1", "statusId": "curious", "libraryBranch": "Kinderbibliothek", "id": "id1", "duedate": "2014-07-21", "title": "Nils Olgerson", "status": "?????"}
+book: object(): {"renew-link": "file:///home/benito/hg/programs/internet/VideLibri/_meta/sites//bibliotheca/index.asp?kontofenster=true&target=verl_1", "statusId": "curious", "libraryBranch": "Kinderbibliothek", "id": "id1", "duedate": "2014-07-21", "title": "Nils Olgerson", "status": "?????"}
 book: object(): {"statusId": "critical", "libraryBranch": "Kinderbibliothek", "id": "id2", "duedate": "2014-07-21", "title": "Buchserie; 5", "status": "?????"}
-book: object(): {"renew-link": "file:///home/benito/hg/programs/internet/VideLibri/_meta/sites//home/benito/hg/programs/internet/VideLibri/_meta/sites//bibliotheca/index.asp?kontofenster=true&target=verl_7", "statusId": "curious", "libraryBranch": "Kinderbibliothek", "id": "id3", "duedate": "2014-07-21", "title": "Trullo Karacho und Lila...", "status": "?????"}
-book: object(): {"renew-link": "file:///home/benito/hg/programs/internet/VideLibri/_meta/sites//home/benito/hg/programs/internet/VideLibri/_meta/sites//bibliotheca/index.asp?kontofenster=true&target=verl_8", "statusId": "curious", "libraryBranch": "Hauptstelle", "id": "id4", "duedate": "2014-09-21", "title": "XYS", "status": "?????"}
+book: object(): {"renew-link": "file:///home/benito/hg/programs/internet/VideLibri/_meta/sites//bibliotheca/index.asp?kontofenster=true&target=verl_7", "statusId": "curious", "libraryBranch": "Kinderbibliothek", "id": "id3", "duedate": "2014-07-21", "title": "Trullo Karacho und Lila...", "status": "?????"}
+book: object(): {"renew-link": "file:///home/benito/hg/programs/internet/VideLibri/_meta/sites//bibliotheca/index.asp?kontofenster=true&target=verl_8", "statusId": "curious", "libraryBranch": "Hauptstelle", "id": "id4", "duedate": "2014-09-21", "title": "XYS", "status": "?????"}
 hasAuthor: boolean: false
 hasStatus: boolean: false
 hasBranch: boolean: false
 hasStatus: boolean: true
 hasBranch: boolean: true
-book: object(): {"cancel-link": "file:///home/benito/hg/programs/internet/VideLibri/_meta/sites//home/benito/hg/programs/internet/VideLibri/_meta/sites//bibliotheca/index.asp?kontofenster=true&target=delvor_12345", "cancelable": true, "libraryBranch": "Kinderbibliothek", "title": "Die XXXXXXXX", "statusId": "ordered"}
+book: object(): {"cancel-link": "file:///home/benito/hg/programs/internet/VideLibri/_meta/sites//bibliotheca/index.asp?kontofenster=true&target=delvor_12345", "cancelable": true, "libraryBranch": "Kinderbibliothek", "title": "Die XXXXXXXX", "statusId": "ordered"}
 book: object(): {"cancelable": false, "libraryBranch": "Hauptstelle", "title": "Dhana", "statusId": "ordered"}
