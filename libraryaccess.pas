@@ -103,21 +103,34 @@ function TUpdateLibThread.queueRequest(request: TBookProcessingRequest): boolean
 //must synchronized with threadManagementSection
 var
   lastRequest: TBookProcessingRequest;
+  i: Integer;
+const alreadyProcessedRequests = 1; //the first one is the currently processed
 begin
   result := true;
-  if requests.Count > 0 then begin
+  if requests.Count > alreadyProcessedRequests then begin
     lastRequest := TObject(requests.Last) as TBookProcessingRequest;
     if (lastRequest.ignoreConnectionErrors = request.ignoreConnectionErrors)
        and (lastRequest.checkDate = request.checkDate)
        and (lastRequest.useExtendOverride = request.useExtendOverride)
-       and (lastRequest.ExtendOverride = request.ExtendOverride)
-
-       and (lastRequest.partialList = nil)
-       and (lastRequest.partialListOperation = nil) then begin
-         request.free; //no point in updating twice, it will do the same
-         result := false;
-         exit;
-       end;
+       and (lastRequest.ExtendOverride = request.ExtendOverride) then begin
+      if (lastRequest.partialList = nil) and (lastRequest.partialListOperation = nil) then begin
+        request.free; //no point in updating twice, it will do the same
+        result := false;
+        exit;
+      end;
+      if (lastRequest.partialListOperation = request.partialListOperation) then begin
+        for i := 0 to request.partialList.Count - 1 do begin
+          if lastRequest.partialList.IndexOf(request.partialList[i]) >= 0 then begin
+            if logging then log('TUpdateLibThread.queueRequest: Skipping ' + request.partialList[i].toSimpleString());
+            continue;
+          end;
+          lastRequest.partialList.add(request.partialList[i]);
+        end;
+        request.partialList.free;
+        request.free;
+        exit;
+      end;
+    end;
   end;
   requests.Add(request);
 end;

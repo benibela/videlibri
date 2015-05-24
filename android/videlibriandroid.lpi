@@ -1,4 +1,4 @@
-<?xml version="1.0"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <CONFIG>
   <ProjectOptions>
     <Version Value="9"/>
@@ -17,9 +17,6 @@
     <VersionInfo>
       <StringTable ProductVersion=""/>
     </VersionInfo>
-    <MacroValues Count="1">
-      <Macro1 Name="LCLWidgetType" Value="nogui"/>
-    </MacroValues>
     <BuildModes Count="1">
       <Item1 Name="default" Default="True"/>
     </BuildModes>
@@ -58,7 +55,6 @@
         <ComponentName Value="newAccountWizard"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <UnitName Value="newAccountWizard_u"/>
       </Unit2>
       <Unit3>
         <Filename Value="..\..\..\..\components\lazarus\internet\sendBackError\sendBackError.pas"/>
@@ -123,9 +119,7 @@
     </Linking>
     <Other>
       <CustomOptions Value="-dANDROID -Xd -gl"/>
-      <CompilerPath Value="$(CompPath)"/>
     </Other>
-    <LCLWidgetType Value="nogui"/>
   </CompilerOptions>
   <Debugging>
     <Exceptions Count="3">
