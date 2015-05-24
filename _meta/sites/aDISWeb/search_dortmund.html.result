@@ -1,0 +1,74 @@
+book: {}
+
+
+search-result-count: string: 1597
+lastSearchedIndex: integer: 0
+search-next-page-available: boolean: true
+form: object(): {"method": "POST", "post": "service=direct%2F1%2FPOOLDO02asbisop%40_44274D00_2C0BED80%2F%24Form.form&sp=S0&Form0=focus%2CkeyCode%2Cstz%2Csource%2Cselected%2CrequestCount%2CscriptEnabled%2CscrollPos%2CscrDim%2CwinDim%2CimgDim%2C%24Textfield%2C%24FormConditional%2CtextButton%2C%24FormConditional%240%2CtextButton%240%2C%24FormConditional%241%2C%24FormConditional%242%2CtextButton%241%2C%24FormConditional%243%2CtextButton%242%2C%24FormConditional%244%2CtextButton%243%2CtextButton%244%2CtextButton%245%2CtextButton%246%2CtextButton%247%2C%24FormConditional%245%2CtextButton%248%2C%24Toolbar%2CcellCheck%2CcellCheck%240%2CcellCheck%241%2CcellCheck%242%2CcellCheck%243%2CcellCheck%244%2CcellCheck%245%2CcellCheck%246%2CcellCheck%247%2CcellCheck%248%2CcellCheck%249%2CcellCheck%2410%2CcellCheck%2411%2CcellCheck%2412%2CcellCheck%2413%2CcellCheck%2414%2CcellCheck%2415%2CcellCheck%2416%2CcellCheck%2417%2CcellCheck%2418%2CcellCheck%2419%2CcellCheck%2420%2C%24Toolbar%240&focus=&keyCode=0&stz=&source=&selected=&requestCount=2&scriptEnabled=T&scrollPos=0&scrDim=&winDim=&imgDim=&%24FormConditional=T&%24FormConditional%240=T&%24FormConditional%241=F&%24FormConditional%242=T&%24FormConditional%243=T&%24FormConditional%244=T&%24FormConditional%245=T&%24Textfield=", "url": "file:///aDISWeb/app;jsessionid=91687E1F676BF4908F94576F572EF0A3"}
+firstIndex: double: 23
+lastIndex: double: 23
+book: object(): {"year": "2015", "statusId": "available", "title": "Mein großes Trainingsbuch Deutsch - 1. Klasse : der komplette Lernstoff ", "author": " von Kathrin Glasschröder und Ursula Lassert. ", "publisher": " Klett", "_searchId": "ZTEXT%20%20%20%20%20%20%20AK01026010", "_index": 23}
+lastSearchedIndex: double: 23
+lastIndex: double: 24
+book: object(): {"year": "2015", "statusId": "available", "title": "Mein großes Trainingsbuch Deutsch - 2. Klasse : der komplette Lernstoff ", "author": " von Kathrin Glasschröder und Ursula Lassert. ", "publisher": " Klett", "_searchId": "ZTEXT%20%20%20%20%20%20%20AK01026012", "_index": 24}
+lastSearchedIndex: double: 24
+lastIndex: double: 25
+book: object(): {"year": "2015", "statusId": "available", "title": "Mein großes Trainingsbuch Mathe - 1. Klasse : der komplette Lernstoff ", "author": " Renate Teifke ; Holger Geßner ; Anke Kaufmann. ", "publisher": " Klett", "_searchId": "ZTEXT%20%20%20%20%20%20%20AK01025264", "_index": 25}
+lastSearchedIndex: double: 25
+lastIndex: double: 26
+book: object(): {"year": "2015", "statusId": "available", "title": "Mein großes Trainingsbuch Mathe - 2. Klasse : der komplette Lernstoff ", "author": " von Anke Kaufmann und Holger Geßner. ", "publisher": " Klett", "_searchId": "ZTEXT%20%20%20%20%20%20%20AK01025266", "_index": 26}
+lastSearchedIndex: double: 26
+lastIndex: double: 27
+book: object(): {"year": "2015", "statusId": "lend", "title": "Motorrad-Katalog. - 46. 2015.. 927 Modelle : Daten, Tests, Adressen, Zubehör", "author": "", "publisher": " 46. 2015.. 927 Modelle : Daten, Tests, Adressen, Zubehör", "_searchId": "ZTEXT%20%20%20%20%20%20%20AK01026130", "_index": 27}
+lastSearchedIndex: double: 27
+lastIndex: double: 28
+book: object(): {"year": "2015", "statusId": "available", "title": "Oh! My Goddess. - 47.. ¬Der¬ letzte Test ", "author": " Kosuke Fujishima", "publisher": " 47.. ¬Der¬ letzte Test / Kosuke Fujishima", "_searchId": "ZTEXT%20%20%20%20%20%20%20AK01025130", "_index": 28}
+lastSearchedIndex: double: 28
+lastIndex: double: 29
+book: object(): {"year": "2015", "statusId": "available", "title": "Regenwald : Leben im Dschungel ", "author": " [Lektorat Elinor Greenwood ... Übers. Cornelia  Panzacchi ; Eva Sixt]. ", "publisher": " Dorling Kindersley", "_searchId": "ZTEXT%20%20%20%20%20%20%20AK01025137", "_index": 29}
+lastSearchedIndex: double: 29
+lastIndex: double: 30
+book: object(): {"year": "2015", "statusId": "lend", "title": "Sehr gut vegetarisch grillen ", "author": " Torsten Mertz. ", "publisher": " Stiftung Warentest", "_searchId": "ZTEXT%20%20%20%20%20%20%20AK01027481", "_index": 30}
+lastSearchedIndex: double: 30
+lastIndex: double: 31
+book: object(): {"year": "2015", "statusId": "lend", "title": "Smoothies für alle Jahreszeiten ", "author": " Astrid Büscher. ", "publisher": " Stiftung Warentest", "_searchId": "ZTEXT%20%20%20%20%20%20%20AK01026113", "_index": 31}
+lastSearchedIndex: double: 31
+lastIndex: double: 32
+book: object(): {"year": "2015", "statusId": "lend", "title": "Windows Phone für Einsteiger ", "author": " Andreas Erle. ", "publisher": " Stiftung Warentest", "_searchId": "ZTEXT%20%20%20%20%20%20%20AK01026615", "_index": 32}
+lastSearchedIndex: double: 32
+lastIndex: double: 33
+book: object(): {"year": "2015", "statusId": "available", "title": "Zur Orientierung : Basiswissen Deutschland ; [Niveaustufe A2", "author": "B1] ; [für Orientierungskurse nach dem BAMF", "publisher": " Hueber", "_searchId": "ZTEXT%20%20%20%20%20%20%20AK02718110", "_index": 33}
+lastSearchedIndex: double: 33
+lastIndex: double: 34
+book: object(): {"year": "2014", "statusId": "available", "title": "Öko-Test ", "author": " Ratgeber Kosmetik und Wellness : Öko", "publisher": " (2014), H. N1496 : Weniger ist mehr", "_searchId": "ZTEXT%20%20%20%20%20%20%20AK02676368", "_index": 34}
+lastSearchedIndex: double: 34
+lastIndex: double: 35
+book: object(): {"year": "2014", "statusId": "lend", "title": "Öko-Test ", "author": " Ratgeber Kosmetik und Wellness : Öko", "publisher": " (2014), H. N1496 : Weniger ist mehr", "_searchId": "ZTEXT%20%20%20%20%20%20%20AK02676487", "_index": 35}
+lastSearchedIndex: double: 35
+lastIndex: double: 36
+book: object(): {"year": "2014", "statusId": "available", "title": "Öko-Test ", "author": " Ratgeber Essen und trinken  : Öko", "publisher": " (2014), H. N1495 : Leidenschaft für Lebensmittel", "_searchId": "ZTEXT%20%20%20%20%20%20%20AK02666676", "_index": 36}
+lastSearchedIndex: double: 36
+lastIndex: double: 37
+book: object(): {"year": "2014", "statusId": "available", "title": "Öko-Test ", "author": " Ratgeber Essen und trinken : Öko", "publisher": " (2014), H. N1495 : Leidenschaft für Lebensmittel", "_searchId": "ZTEXT%20%20%20%20%20%20%20AK02666666", "_index": 37}
+lastSearchedIndex: double: 37
+lastIndex: double: 38
+book: object(): {"year": "2014", "statusId": "available", "title": "Öko-Test ", "author": " Ratgeber Bauen und Wohnen : richtig gut leben. ", "publisher": " (2014), H. N1494 : Zukunft bauen", "_searchId": "ZTEXT%20%20%20%20%20%20%20AK02676919", "_index": 38}
+lastSearchedIndex: double: 38
+lastIndex: double: 39
+book: object(): {"year": "2014", "statusId": "available", "title": "Öko-Test ", "author": " Ratgeber Bauen und Wohnen : richtig gut leben. ", "publisher": " (2014), H. N1494 : Zukunft bauen", "_searchId": "ZTEXT%20%20%20%20%20%20%20AK02666678", "_index": 39}
+lastSearchedIndex: double: 39
+lastIndex: double: 40
+book: object(): {"year": "2014", "statusId": "available", "title": "[Test <Berlin>] Test. - (2014), H. SH Juni : Spezial \"Digitalkameras\"", "author": "", "publisher": " (2014), H. SH Juni : Spezial \"Digitalkameras\"", "_searchId": "ZTEXT%20%20%20%20%20%20%20AK02671570", "_index": 40}
+lastSearchedIndex: double: 40
+lastIndex: double: 41
+book: object(): {"year": "2014", "statusId": "lend", "title": "Test. - (2014), H. SH : Spezial Digitalkameras 2014", "author": "", "publisher": " (2014), H. SH : Spezial Digitalkameras 2014", "_searchId": "ZTEXT%20%20%20%20%20%20%20AK02669857", "_index": 41}
+lastSearchedIndex: double: 41
+lastIndex: double: 42
+book: object(): {"year": "2014", "statusId": "lend", "title": "¬Das¬ 1x1 des Zeitmanagement : Zeiteinteilung, Selbstbestimmung, Lebensbalance ", "author": " Lothar J. Seiwert ; Christian Baumann [Sonst.]. ", "publisher": " Argon", "_searchId": "ZTEXT%20%20%20%20%20%20%20AK01022777", "_index": 42}
+lastSearchedIndex: double: 42
+lastIndex: double: 43
+book: object(): {"year": "2014", "statusId": "lend", "title": "Abnehmen mit Smoothies : natürlich schlank mit den Power-Drinks ", "author": " Chantal", "publisher": " Gräfe und Unzer", "_searchId": "ZTEXT%20%20%20%20%20%20%20AK01012619", "_index": 43}
+lastSearchedIndex: double: 43
+lastIndex: double: 44
+book: object(): {"year": "2014", "statusId": "available", "title": "Arthrose : beweglich bleiben ", "author": " Thomas Heim. ", "publisher": " Stiftung Warentest", "_searchId": "ZTEXT%20%20%20%20%20%20%20AK01014614", "_index": 44}
+lastSearchedIndex: double: 44

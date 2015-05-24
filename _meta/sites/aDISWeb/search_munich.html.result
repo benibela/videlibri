@@ -1,0 +1,74 @@
+book: {}
+
+
+search-result-count: string: 3207
+lastSearchedIndex: integer: 0
+search-next-page-available: boolean: true
+form: object(): {"method": "POST", "post": "service=direct%2F1%2FPOOLSTPM%40%40%40%40%40%40%40%40_44007C00_2F85D200%2F%24Form.form&sp=S0&Form0=focus%2CkeyCode%2Cstz%2Csource%2Cselected%2CrequestCount%2CscriptEnabled%2CscrollPos%2CscrDim%2CwinDim%2CimgDim%2C%24FormConditional%2CtextButton%2C%24FormConditional%240%2CtextButton%240%2C%24FormConditional%241%2CtextButton%241%2C%24FormConditional%242%2CtextButton%242%2C%24FormConditional%243%2CtextButton%243%2C%24FormConditional%244%2CtextButton%244%2C%24FormConditional%245%2C%24Toolbar%2CcellCheck%2CcellCheck%240%2CcellCheck%241%2CcellCheck%242%2CcellCheck%243%2CcellCheck%244%2CcellCheck%245%2CcellCheck%246%2CcellCheck%247%2CcellCheck%248%2CcellCheck%249%2CcellCheck%2410%2CcellCheck%2411%2CcellCheck%2412%2CcellCheck%2413%2CcellCheck%2414%2CcellCheck%2415%2CcellCheck%2416%2CcellCheck%2417%2CcellCheck%2418%2CcellCheck%2419%2CcellCheck%2420%2C%24Toolbar%240&focus=&keyCode=0&stz=&source=&selected=&requestCount=1&scriptEnabled=T&scrollPos=0&scrDim=&winDim=&imgDim=&%24FormConditional=T&%24FormConditional%240=T&%24FormConditional%241=T&%24FormConditional%242=T&%24FormConditional%243=T&%24FormConditional%244=T&%24FormConditional%245=F", "url": "file:///aDISWeb/app;jsessionid=7578E58079C0029870C4A6D3F1F5944D"}
+firstIndex: double: 1
+lastIndex: double: 1
+book: object(): {"year": "2015", "statusId": "lend", "title": "Einfach glücklich : Das Geheimnis einer erfüllten Partnerschaft und starken Beziehung ", "author": " Guy Bodenmann ; Caroline Fux. ", "publisher": " Stiftung Warentest", "_searchId": "ZTEXT%20%20%20%20%20%20%20AK04033590", "_index": 1}
+lastSearchedIndex: double: 1
+lastIndex: double: 2
+book: object(): {"year": "2015", "statusId": "available", "title": "[Öko-Test ", "author": " Ratgeber] Öko", "publisher": " (2015), H. 1505 : Bauen und Wohnen  N1505", "_searchId": "ZTEXT%20%20%20%20%20%20%20AK04033395", "_index": 2}
+lastSearchedIndex: double: 2
+lastIndex: double: 3
+book: object(): {"year": "2015", "statusId": "virtual", "title": "Das Prinzip : Roman ", "author": " Jérôme Ferrari ; Christian Ruzicska [Sonst.] ; Paul Sourzac [Sonst.]. ", "publisher": " SECESSION VERLAG FÜR LITERATUR GmbH", "_searchId": "ZTEXT%20%20%20%20%20%20%20AK04032975", "_index": 3}
+lastSearchedIndex: double: 3
+lastIndex: double: 4
+book: object(): {"year": "2015", "statusId": "virtual", "title": "Die Männertest-AG : Roman ", "author": " Nina Kresswitz. ", "publisher": " Bastei Lübbe", "_searchId": "ZTEXT%20%20%20%20%20%20%20AK04032873", "_index": 4}
+lastSearchedIndex: double: 4
+lastIndex: double: 5
+book: object(): {"year": "2015", "statusId": "virtual", "title": "Herzfinsternis : Roman ", "author": " Shari Low ; Barbara Ritterbach [Sonst.]. ", "publisher": " Bastei Lübbe", "_searchId": "ZTEXT%20%20%20%20%20%20%20AK04032871", "_index": 5}
+lastSearchedIndex: double: 5
+lastIndex: double: 6
+book: object(): {"year": "2015", "statusId": "virtual", "title": "Packeis : Roman ", "author": " Clive Cussler ; Paul Kemprecos ; Michael Kubiak [Sonst.]. ", "publisher": "Verlag <München>", "_searchId": "ZTEXT%20%20%20%20%20%20%20AK04032830", "_index": 6}
+lastSearchedIndex: double: 6
+lastIndex: double: 7
+book: object(): {"year": "2015", "statusId": "virtual", "title": "Business Spotlight Audio - English for specific purposes : business sklills: negotiating effectively ; careers: mental health at work. - Spotlight Verlag", "author": "", "publisher": " Spotlight Verlag", "_searchId": "ZTEXT%20%20%20%20%20%20%20AK04032305", "_index": 7}
+lastSearchedIndex: double: 7
+lastIndex: double: 8
+book: object(): {"year": "2015", "statusId": "virtual", "title": "Spotlight Audio - Best of Britain : top travel tips ; recipes: the language of preparing food ; Australia: what happened to the economy?. - Spotlight Verlag", "author": "", "publisher": " Spotlight Verlag", "_searchId": "ZTEXT%20%20%20%20%20%20%20AK04032304", "_index": 8}
+lastSearchedIndex: double: 8
+lastIndex: double: 9
+book: object(): {"year": "2014", "statusId": "virtual", "title": "Business Spotlight Audio - Speaking clearly : language test: are you good at translating? ; intercultural communication: working with Brazilians. - Spotlight Verlag", "author": "", "publisher": " Spotlight Verlag", "_searchId": "ZTEXT%20%20%20%20%20%20%20AK04032286", "_index": 9}
+lastSearchedIndex: double: 9
+lastIndex: double: 10
+book: object(): {"year": "2009", "statusId": "virtual", "title": "Fool : Roman ", "author": " Christopher (Schriftsteller Moore ; Ingwersen 1957", "publisher": "Verlag", "_searchId": "ZTEXT%20%20%20%20%20%20%20AK04032220", "_index": 10}
+lastSearchedIndex: double: 10
+lastIndex: double: 11
+book: object(): {"year": "2015", "statusId": "virtual", "title": "Der Marshmallow-Test : Willensstärke, Belohnungsaufschub und die Entwicklung der Persönlichkeit ", "author": " Walter Mischel ; Thorsten Schmidt [Sonst.]. ", "publisher": " Siedler", "_searchId": "ZTEXT%20%20%20%20%20%20%20AK04032159", "_index": 11}
+lastSearchedIndex: double: 11
+lastIndex: double: 12
+book: object(): {"year": "2015", "statusId": "virtual", "title": "Teufelstor : Roman ", "author": " Clive Cussler ; Graham Brown ; Michael Kubiak [Sonst.]. ", "publisher": "Verlag <München>", "_searchId": "ZTEXT%20%20%20%20%20%20%20AK04031808", "_index": 12}
+lastSearchedIndex: double: 12
+lastIndex: double: 13
+book: object(): {"year": "2014", "statusId": "virtual", "title": "Tarnfahrt : Roman ", "author": " Clive Cussler ; Jack Du Brul ; Michael Kubiak [Sonst.]. ", "publisher": "Verlag <München>", "_searchId": "ZTEXT%20%20%20%20%20%20%20AK04031807", "_index": 13}
+lastSearchedIndex: double: 13
+lastIndex: double: 14
+book: object(): {"year": "2015", "statusId": "virtual", "title": "Schwanger : mein Kind & ich ", "author": " Kirsten Khaschei. ", "publisher": " Stiftung Warentest", "_searchId": "ZTEXT%20%20%20%20%20%20%20AK04031710", "_index": 14}
+lastSearchedIndex: double: 14
+lastIndex: double: 15
+book: object(): {"year": "2015", "statusId": "virtual", "title": "c't Android [2015] : mehr Spaß mit Smartphones und Tablets. - Heise", "author": "", "publisher": " Heise", "_searchId": "ZTEXT%20%20%20%20%20%20%20AK04031527", "_index": 15}
+lastSearchedIndex: double: 15
+lastIndex: double: 16
+book: object(): {"year": "2014", "statusId": "virtual", "title": "Grammatik 5.", "author": "6. Klasse : Wissen, Üben, Testen / Birgit Kölmel. ", "publisher": " Dudenverlag", "_searchId": "ZTEXT%20%20%20%20%20%20%20AK04031517", "_index": 16}
+lastSearchedIndex: double: 16
+lastIndex: double: 17
+book: object(): {"year": "2015", "statusId": "lend", "title": "Kindheit ist keine Krankheit : Warum wir unsere Kinder nicht mit Tests und Therapien zu Patienten machen dürfen ", "author": " Regine Hauch ; Michael Hauch. ", "publisher": "Verl.", "_searchId": "ZTEXT%20%20%20%20%20%20%20AK04029655", "_index": 17}
+lastSearchedIndex: double: 17
+lastIndex: double: 18
+book: object(): {"year": "2015", "statusId": "available", "title": "[Öko-Test ", "author": " Spezial] Öko", "publisher": " (2015), H. 1504 : Gesund und Fit T1504", "_searchId": "ZTEXT%20%20%20%20%20%20%20AK04029546", "_index": 18}
+lastSearchedIndex: double: 18
+lastIndex: double: 19
+book: object(): {"year": "", "statusId": "virtual", "title": "Go Ahead : Realschule Bayern ; Schulaufgabentrainer für Schülerinnen und Schüler fit für jeden Test ; Neue Ausg.: mit Hörverständnisübungen auf CD, mit Sprechfertigungsübungen, mit Lösungen und hilfreichen Lerntipps. - Cornelsen", "author": "", "publisher": " Cornelsen", "_searchId": "ZTEXT%20%20%20%20%20%20%20AK04029022", "_index": 19}
+lastSearchedIndex: double: 19
+lastIndex: double: 20
+book: object(): {"year": "2015", "statusId": "lend", "title": "Dein Weg zum Prüfungserfolg : angstfrei durchs Studium: Auswahlverfahren, Referate, Prüfungen, Bewerbungen ", "author": " Gabriele Bensberg. ", "publisher": " Springer", "_searchId": "ZTEXT%20%20%20%20%20%20%20AK04028579", "_index": 20}
+lastSearchedIndex: double: 20
+lastIndex: double: 21
+book: object(): {"year": "2015", "statusId": "lend", "title": "Grammatik im Griff - Englisch, 9.", "author": "10. Klasse : Mein Übungsbuch für Gymnasium und Realschule. Mit Online", "publisher": " Klett", "_searchId": "ZTEXT%20%20%20%20%20%20%20AK04027585", "_index": 21}
+lastSearchedIndex: double: 21
+lastIndex: double: 22
+book: object(): {"year": "2014", "statusId": "available", "title": "Go Ahead : Realschule Bayern ; Schulaufgabentrainer für Schülerinnen und Schüler fit für jeden Test ; Neue Ausg.: mit Hörverständnisübungen auf CD, mit Sprechfertigungsübungen, mit Lösungen und hilfreichen Lerntipps. - Bd. 10. 10. Jahrgangsstufe ", "author": " [Erarb. von John Eastwood, Renate Heiemeier, Sylvia Kettler ... Ill.: Monika Groß]. ", "publisher": " 1. Aufl., 4. Dr.", "_searchId": "ZTEXT%20%20%20%20%20%20%20AK04027390", "_index": 22}
+lastSearchedIndex: double: 22

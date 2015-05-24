@@ -1,0 +1,365 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="de" lang="de">
+<!-- solution for: conditional-comments block downloads  -->
+<!--[if IE]><![endif]--><head>
+	<style type="text/css">
+		@import url(css/aDISStandard.css);
+	</style>
+	<script src="js/aDISMain.js" type="text/javascript"></script>
+	<script src="js/fckeditor/fckeditor.js" type="text/javascript"></script>
+	<title> Stadtbibliothek im Bildungscampus N&#252;rnberg </title><script type="text/javascript">
+	var text = '';
+	window.defaultStatus=text;
+</script>
+<!--
+(c) Software: aDIS/BMS und aDIS/Archiv by |a|S|tec| GmbH Berlin und Muenchen - www.astec.de
+HTML-/CSS-Anpassungen: ena Webstudio - www.ena-webstudio.com
+HTML-/CSS-Framework basiert grob auf Contao &copy; Leo Feyer www.contao.org
+Projekt: Nuernberg, OPAC02
+Letztes Update: 14.12.2011
+//-->
+
+  <meta http-equiv="x-ua-compatible" content="ie=edge" />
+  <meta http-equiv="cache-control" content="no-cache" />
+  <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+  <meta http-equiv="content-style-type" content="text/css" />
+  <meta http-equiv="content-script-type" content="text/javascript" />
+  <meta http-equiv="content-language" content="de" />
+  <meta name="language" content="de" />
+  <meta name="description" content="Die lteste Stadtbibliothek Deutschlands informiert ber ihre Zweigstellen und ber aktuelle Termine und Veranstaltungen." />
+  <link rel="shortcut icon" type="image/x-icon" href="/aDISWeb_nbg/images/favicon.ico" />
+    
+  <script type="text/javascript" src="/aDISWeb_nbg/js/cookies.js"></script>
+  <script type="text/javascript" src="/aDISWeb_nbg/js/efa_fontsize.js"></script>  
+  
+  <link rel="stylesheet" href="/aDISWeb_nbg/css/framework.css" type="text/css" media="screen" />
+  <!--[if lte IE 7]><link rel="stylesheet" href="/aDISWeb_nbg/css/framework_iefixes.css" type="text/css" media="screen" /><![endif]-->
+
+  <link rel="stylesheet" href="/aDISWeb_nbg/css/layout.css" type="text/css" media="screen" />
+  <!--[if lt IE 7]><link rel="stylesheet" href="/aDISWeb_nbg/css/ieonly.css" type="text/css" media="screen" /><![endif]--> 
+  <!--[if IE 7]><link rel="stylesheet" href="/aDISWeb_nbg/css/ieonly7.css" type="text/css" media="screen" /><![endif]--> 
+  <!--[if gte IE 8]><link rel="stylesheet" href="/aDISWeb_nbg/css/ieonly8.css" type="text/css" media="screen" /><![endif]-->
+  <link rel="stylesheet" type="text/css" href="/aDISWeb_nbg/css/print.css" media="print" /> <link rel="stylesheet" href="/aDISWeb_nbg/css/diff.css" type="text/css" media="screen" />
+
+  <!-- Mobildarstellung -->
+  <meta name="viewport" content="width=device-width; initial-scale=1.0" />
+  <link rel="stylesheet" href="/aDISWeb_nbg/css/media.css" type="text/css" />
+  <!--[if lt IE 9]>
+	<script type="text/javascript" src="/aDISWeb_nbg/js/css3-mediaqueries.js"></script>
+   <![endif]--> 
+</head>
+<body id="top" class="dreier">
+<script type="text/javascript"><!--
+
+
+
+
+function startIdleTimer() {
+  if (typeof idleId != 'undefined')
+    clearTimeout(idleId)
+  idleId = window.setTimeout("to('"+ idleLink + "')", idleTime);
+  }			
+function to(link) {
+  location.href=link;
+  }
+
+
+
+
+					
+function setupHandlers()  {
+	document.onmousedown = docOnEvent;		
+	document.onkeydown = docOnEvent;	
+	document.onkeypress = docOnEvent;
+	document.onhelp = cancelF1;
+	
+	initFormElements();
+	initIframes();
+	initScrollPos();
+	}
+function getDimensions()  {
+	document.forms[0].scrDim.value = screen.width + ";" + screen.height;
+	if (window.innerWidth)
+		document.forms[0].winDim.value = window.innerWidth + ";" + window.innerHeight;
+	else
+		document.forms[0].winDim.value = document.body.offsetWidth + ";" + document.body.offsetHeight;
+	node = document.getElementById("img_content");
+	if (node != undefined)
+		document.forms[0].imgDim.value = node.offsetWidth + ";" + node.offsetHeight;
+	}
+
+
+
+
+window.onload = function (e)
+{
+
+  idleTime=900000;
+  idleLink="/aDISWeb/app;jsessionid=8CAD90B79CC5CCE254D5F3BBAE7053D0?service=direct/1/POOLNBGPNBGPROD@_44006200_2EF22A00/$Timeout";
+  startIdleTimer();
+
+
+if (!e) var e = window.event;
+document.forms[0].scriptEnabled.value=true;
+if (self.specialOnLoad != undefined)
+	specialOnLoad(e);
+setupHandlers();
+getDimensions();
+
+}
+
+// --></script>
+<div class="aDISMaske"><form method="post" name="Form0" action="/aDISWeb/app;jsessionid=8CAD90B79CC5CCE254D5F3BBAE7053D0" onsubmit="return formOnSubmit();">
+<input type="hidden" name="service" value="direct/1/POOLNBGPNBGPROD@_44006200_2EF22A00/$Form.form"/>
+<input type="hidden" name="sp" value="S0"/>
+<input type="hidden" name="Form0" value="focus,keyCode,stz,source,selected,requestCount,scriptEnabled,scrollPos,scrDim,winDim,imgDim,$FormConditional,textButton,$FormConditional$0,textButton$0,$FormConditional$1,$FormConditional$2,textButton$1,$FormConditional$3,textButton$2,$FormConditional$4,textButton$3,$FormConditional$5,textButton$4,$FormConditional$6,textButton$5,textButton$6,textButton$7,textButton$8,textButton$9,textButton$10,textButton$11,$FormConditional$7,textButton$12,$Toolbar,cellCheck,cellCheck$0,cellCheck$1,cellCheck$2,cellCheck$3,cellCheck$4,cellCheck$5,cellCheck$6,cellCheck$7,cellCheck$8,cellCheck$9,cellCheck$10,cellCheck$11,cellCheck$12,cellCheck$13,cellCheck$14,cellCheck$15,cellCheck$16,cellCheck$17,cellCheck$18,cellCheck$19,cellCheck$20,$Toolbar$0"/>
+<input type="hidden" name="focus" value=""/>
+<input type="hidden" name="keyCode" value="0"/>
+<input type="hidden" name="stz" value=""/>
+<input type="hidden" name="source" value=""/>
+<input type="hidden" name="selected" value=""/>
+<input type="hidden" name="requestCount" value="2"/>
+<input type="hidden" name="scriptEnabled" value="T"/>
+<input type="hidden" name="scrollPos" value="0"/>
+<input type="hidden" name="scrDim" value=""/>
+<input type="hidden" name="winDim" value=""/>
+<input type="hidden" name="imgDim" value=""/>
+<input type="hidden" name="$FormConditional" value="T"/>
+<input type="hidden" name="$FormConditional$0" value="T"/>
+<input type="hidden" name="$FormConditional$1" value="F"/>
+<input type="hidden" name="$FormConditional$2" value="T"/>
+<input type="hidden" name="$FormConditional$3" value="T"/>
+<input type="hidden" name="$FormConditional$4" value="T"/>
+<input type="hidden" name="$FormConditional$5" value="T"/>
+<input type="hidden" name="$FormConditional$6" value="T"/>
+<input type="hidden" name="$FormConditional$7" value="T"/>
+				 <script type="text/javascript">
+  // <![CDATA[
+    if (efa_fontSize) efa_fontSize.efaInit();
+  // ]]>
+  </script>
+
+<div id="wrapper">
+  <div id="wrapper_inside">
+  
+    <div id="header" role="banner">
+      <div class="inside">     
+      
+        <ul id="sprunglinks">
+          <li><a class="sprung" href="#main">Zum Hauptinhalt</a></li>
+          <li><a class="sprung" href="#left">Zur Navigation</a></li>
+          <li><a class="sprung" href="#right">Zu weiteren Bedienelementen</a></li>
+        </ul>
+                            
+        <p id="logo"><a href="/aDISWeb/app;jsessionid=8CAD90B79CC5CCE254D5F3BBAE7053D0?service=direct/1/POOLNBGPNBGPROD@_44006200_2EF22A00/$InternalLink.directlink&amp;sp=S%24%24GFNV_1&amp;sp=SStartseite%3DCW00&amp;requestCount=2" fld="$$GFNV_1" title="Zur Startseite"><img src="/aDISWeb_nbg/images/logo.png" width="180" height="40"  alt="Stadtbibliothek Nuernberg" /></a>	<span class="outside">.</span></p>
+       
+        <script type="text/javascript">
+          // <![CDATA[
+            if (efa_fontSize) document.write(efa_fontSize.allLinks);
+          // ]]>
+        </script>
+          
+        <div class="block" id="spruch"><span>Stadtbibliothek im Bildungscampus N&#252;rnberg</span></div>
+          
+      </div>
+    </div>
+  
+    <div id="container">
+      <div id="container_inside">
+
+        <div id="left">
+          <div class="inside">
+
+            <div class="block" id="navbox">
+            <div id="R20"><span class="bnzeig"></span><span class="mmzeig">Sie sind nicht angemeldet.</span> </div> 
+            </div>
+
+            <h1 class="invisible">Navigation</h1>
+            <div class="mod_navigation block" id="unav" role="navigation"><div class="tree_div">
+<ul class="tree_ul">
+<li class="tree_leaf_li">
+<span class="tree_disabled">Abmelden</span>
+<span class="outside">.</span></li>
+<li class="tree_leaf_li">
+<a href="/aDISWeb/app;jsessionid=8CAD90B79CC5CCE254D5F3BBAE7053D0?service=direct/1/POOLNBGPNBGPROD@_44006200_2EF22A00/$Tree.treeNodes&amp;sp=SL1&amp;requestCount=2" class="tree_leaf_a"><span>Anmelden</span></a><span class="outside">.</span></li>
+<li class="tree_leaf_li_sel">
+<strong><span class="tree_strong">Startseite / Schnellsuche</span></strong></li>
+<li class="tree_leaf_li">
+<a href="/aDISWeb/app;jsessionid=8CAD90B79CC5CCE254D5F3BBAE7053D0?service=direct/1/POOLNBGPNBGPROD@_44006200_2EF22A00/$Tree.treeNodes&amp;sp=SS6&amp;requestCount=2" class="tree_leaf_a"><span>Erweiterte Suche</span></a><span class="outside">.</span></li>
+<li class="tree_leaf_li">
+<a href="/aDISWeb/app;jsessionid=8CAD90B79CC5CCE254D5F3BBAE7053D0?service=direct/1/POOLNBGPNBGPROD@_44006200_2EF22A00/$Tree.treeNodes&amp;sp=SBK&amp;requestCount=2" class="tree_leaf_a"><span>Benutzerkonto</span></a><span class="outside">.</span></li>
+<li class="tree_leaf_li">
+<a href="/aDISWeb/app;jsessionid=8CAD90B79CC5CCE254D5F3BBAE7053D0?service=direct/1/POOLNBGPNBGPROD@_44006200_2EF22A00/$Tree.treeNodes&amp;sp=SAP&amp;requestCount=2" class="tree_leaf_a"><span>Meine Suchen</span></a><span class="outside">.</span></li>
+<li class="tree_leaf_li">
+<a href="/aDISWeb/app;jsessionid=8CAD90B79CC5CCE254D5F3BBAE7053D0?service=direct/1/POOLNBGPNBGPROD@_44006200_2EF22A00/$Tree.treeNodes&amp;sp=SAT&amp;requestCount=2" class="tree_leaf_a"><span>Medienlisten</span></a><span class="outside">.</span></li>
+<li class="tree_leaf_li">
+<a href="/aDISWeb/app;jsessionid=8CAD90B79CC5CCE254D5F3BBAE7053D0?service=direct/1/POOLNBGPNBGPROD@_44006200_2EF22A00/$Tree.treeNodes&amp;sp=SK2&amp;requestCount=2" class="tree_leaf_a"><span>Bibliotheksadressen</span></a><span class="outside">.</span></li>
+<li class="tree_leaf_li">
+<a href="/aDISWeb/app;jsessionid=8CAD90B79CC5CCE254D5F3BBAE7053D0?service=direct/1/POOLNBGPNBGPROD@_44006200_2EF22A00/$Tree.treeNodes&amp;sp=SKV&amp;requestCount=2" class="tree_leaf_a"><span>Kontakt</span></a><span class="outside">.</span></li>
+<li class="tree_leaf_li">
+<a href="https://online-service.nuernberg.de/cipac/catalog/toc" class="tree_leaf_a"><span>Link zum CIPAC</span></a><span class="outside">.</span></li>
+<li class="tree_leaf_li">
+<a href="http://www.onleihe.de/nuernberg" class="tree_leaf_a"><span>Link zur Onleihe</span></a><span class="outside">.</span></li>
+</ul></div>
+ </div>
+            <div class="clear"></div>
+             
+          </div>
+        </div>
+
+        <div id="right">
+          <div class="inside">
+
+            <h1 class="invisible">Weitere Bedienelemente</h1>
+            <p class="sprung"><a href="#main">Zum Hauptinhalt</a></p>
+            
+            <div class="block">            
+              <div id="R06">
+      <p><span style="   width:80%;">Gesucht wurde mit: "Freie Suche = test", Treffer: 23-44 von 1393</span> </p>
+    </div><div id="R05">
+      <h3>Andere Sortierung einstellen:</h3>
+     <p><input type="submit" name="textButton" value="Titel" class="buttong" fld="$$GFBO_1"/><input type="submit" name="textButton$0" value="Verfasser" class="buttong" fld="$$GFBO_2"/><input type="submit" name="textButton$1" value="Jahr aufw&#228;rts" class="buttong" fld="$$GFBO_4"/> </p>
+
+      <h3>Weitere Aktionen:</h3>
+       <p><input type="submit" name="textButton$2" value="Suche verfeinern" class="buttong" fld="$$GFBO_7"/> </p>
+       <p><input type="submit" name="textButton$3" value="Meine Suche speichern" class="buttong" fld="$$GFBO_6"/> </p>
+       <p><input type="submit" name="textButton$4" value="Benutzerkonto" class="buttong" fld="$$GFBO_13"/> </p>
+
+    </div><div id="R12">
+    <div id="OPACLI" style="   width:69%;" class="aDISListe"><div class="html_div" style="width:99%; height:100%;"></div> </div>
+  </div>
+              
+              
+            </div>
+            
+            <div class="block">
+               <div id="R08">
+      <h3>Treffer einschr&#228;nken nach:</h3>     
+    </div><div class="cbtree_div">
+<ul class="cbtree_ul">
+<li class="cbtree_branch_li">
+<input type="submit" name="SELT_tree_2_0" value="Medienart" class="cbtree_branch_a"/><span class="outside">.</span></li>
+<li class="cbtree_branch_li">
+<input type="submit" name="SELT_tree_2_1" value="Textsprache" class="cbtree_branch_a"/><span class="outside">.</span></li>
+<li class="cbtree_branch_li">
+<input type="submit" name="SELT_tree_2_2" value="Originalsprache" class="cbtree_branch_a"/><span class="outside">.</span></li>
+<li class="cbtree_branch_li">
+<input type="submit" name="SELT_tree_2_3" value="Notation" class="cbtree_branch_a"/><span class="outside">.</span></li>
+<li class="cbtree_branch_li">
+<input type="submit" name="SELT_tree_2_4" value="Erscheinungsjahr" class="cbtree_branch_a"/><span class="outside">.</span></li>
+<li class="cbtree_branch_li">
+<input type="submit" name="SELT_tree_2_5" value="Schlagw&#246;rter" class="cbtree_branch_a"/><span class="outside">.</span></li>
+<li class="cbtree_branch_li">
+<input type="submit" name="SELT_tree_2_6" value="Zielgruppe" class="cbtree_branch_a"/><span class="outside">.</span></li>
+</ul></div>
+ <div id="R09"><input type="submit" name="textButton$5" value="Einschr&#228;nken" class="wichtig" fld="$$GFBO_12"/> </div><br/><span style="line-height:12px;">&nbsp;</span><br/>
+               <div id="R11">
+      <div class="aktion custom">
+        <h3>Export nach:</h3><p class="buttong"><input type="submit" name="textButton$6" value="BibTeX" class="buttong"/><input type="submit" name="textButton$7" value="Citavi" class="buttong"/><input type="submit" name="textButton$8" value="EndNote" class="buttong"/><input type="submit" name="textButton$9" value="ProCite" class="buttong"/><input type="submit" name="textButton$10" value="Reference Manager" class="buttong"/><input type="submit" name="textButton$11" value="RefWorks" class="buttong"/></p> </div>
+  </div>
+            </div> 
+
+          </div>
+        </div>
+  
+        <div id="main" role="main">
+          <div class="inside">
+          
+            <div class="block">
+            
+              <div class="block" id="topleiste">  
+                <!-- Breadcrumb -->
+                <p id="breadcrumb"> <span class="navicl"><a href="/aDISWeb/app;jsessionid=8CAD90B79CC5CCE254D5F3BBAE7053D0?service=direct/1/POOLNBGPNBGPROD@_44006200_2EF22A00/navpath.intlink.directlink&amp;sp=S%24%24GFNV_1&amp;sp=SD%2F00&amp;requestCount=2" fld="$$GFNV_1" title="Startseite">Startseite</a>	<span class="outside">.</span> > <a href="/aDISWeb/app;jsessionid=8CAD90B79CC5CCE254D5F3BBAE7053D0?service=direct/1/POOLNBGPNBGPROD@_44006200_2EF22A00/navpath.intlink.directlink&amp;sp=S%24%24GFNV_2&amp;sp=SS1AK&amp;requestCount=2" fld="$$GFNV_2" title="Schnellsuche">Schnellsuche</a>	<span class="outside">.</span></span> &gt;<span class="txtinsert">Trefferliste sortiert nach Jahr abw&#228;rts</span> </p>
+
+                <p id="druckversion"><input type="submit" name="textButton$12" value="Druckversion" fld="$$GFBO_88"/> </p>    
+                <div class="clear"></div>
+              </div>
+                           
+              <h1><span class="invisible">Aktuelle Seite:</span> <span class="txtinsert">Trefferliste sortiert nach Jahr abw&#228;rts</span></h1> <div class="toolbar_div">
+<ul class="toolbar_ul">
+<li class="toolbar_li">
+<input type="image" src="/aDISWeb/images/POOLNBGPNBGPROD@_44003A00_22937700.gif;jsessionid=8CAD90B79CC5CCE254D5F3BBAE7053D0" alt="Zur&#252;ck zur Suche" id="Toolbar_0" name="$Toolbar_0" title="Zur&#252;ck zur Suche" onmouseover="self.status='Zur&#252;ck zur Suche';return true;" onmouseout="self.status='';" class="toolbar_img"/><label for="Toolbar_0"><span class="toolbar_txt">Zur&#252;ck</span></label></li>
+<li class="toolbar_li">
+<input type="image" src="/aDISWeb/images/POOLNBGPNBGPROD@_44003200_22937700.gif;jsessionid=8CAD90B79CC5CCE254D5F3BBAE7053D0" alt="Zur Vollanzeige des Treffers" id="Toolbar_1" name="$Toolbar_1" title="Zur Vollanzeige des Treffers" onmouseover="self.status='Zur Vollanzeige des Treffers';return true;" onmouseout="self.status='';" class="toolbar_img"/><label for="Toolbar_1"><span class="toolbar_txt">Vollanzeige</span></label></li>
+<li class="toolbar_li">
+<input type="image" src="/aDISWeb/images/POOLNBGPNBGPROD@_44002F00_22937700.gif;jsessionid=8CAD90B79CC5CCE254D5F3BBAE7053D0" alt="Zur&#252;ck zur Suche" id="Toolbar_2" name="$Toolbar_2" title="Zur&#252;ck zur Suche" onmouseover="self.status='Zur&#252;ck zur Suche';return true;" onmouseout="self.status='';" class="toolbar_img"/><label for="Toolbar_2"><span class="toolbar_txt">Neue Suche</span></label></li>
+<li class="toolbar_li">
+<input type="image" src="/aDISWeb/images/POOLNBGPNBGPROD@_44002700_291B2500.gif;jsessionid=8CAD90B79CC5CCE254D5F3BBAE7053D0" alt="An den Anfang bl&#228;ttern" id="Toolbar_3" name="$Toolbar_3" title="An den Anfang bl&#228;ttern" onmouseover="self.status='An den Anfang bl&#228;ttern';return true;" onmouseout="self.status='';" class="toolbar_img"/><label for="Toolbar_3"><span class="toolbar_txt">Anfang</span></label></li>
+<li class="toolbar_li">
+<input type="image" src="/aDISWeb/images/POOLNBGPNBGPROD@_44002A00_291B2500.gif;jsessionid=8CAD90B79CC5CCE254D5F3BBAE7053D0" alt="R&#252;ckw&#228;rts bl&#228;ttern " id="Toolbar_4" name="$Toolbar_4" title="R&#252;ckw&#228;rts bl&#228;ttern " onmouseover="self.status='R&#252;ckw&#228;rts bl&#228;ttern ';return true;" onmouseout="self.status='';" class="toolbar_img"/><label for="Toolbar_4"><span class="toolbar_txt">R&#252;ckw&#228;rts</span></label></li>
+<li class="toolbar_li">
+<input type="image" src="/aDISWeb/images/POOLNBGPNBGPROD@_44002C00_291B2500.gif;jsessionid=8CAD90B79CC5CCE254D5F3BBAE7053D0" alt="Vorw&#228;rts bl&#228;ttern" id="Toolbar_5" name="$Toolbar_5" title="Vorw&#228;rts bl&#228;ttern" onmouseover="self.status='Vorw&#228;rts bl&#228;ttern';return true;" onmouseout="self.status='';" class="toolbar_img"/><label for="Toolbar_5"><span class="toolbar_txt">Vorw&#228;rts</span></label></li>
+<li class="toolbar_li">
+<input type="image" src="/aDISWeb/images/POOLNBGPNBGPROD@_44002800_291B2500.gif;jsessionid=8CAD90B79CC5CCE254D5F3BBAE7053D0" alt="Ans Ende bl&#228;ttern" id="Toolbar_6" name="$Toolbar_6" title="Ans Ende bl&#228;ttern" onmouseover="self.status='Ans Ende bl&#228;ttern';return true;" onmouseout="self.status='';" class="toolbar_img"/><label for="Toolbar_6"><span class="toolbar_txt">Ende</span></label></li>
+<li class="toolbar_li">
+<input type="image" src="/aDISWeb/images/POOLNBGPNBGPROD@_44002B00_22937700.gif;jsessionid=8CAD90B79CC5CCE254D5F3BBAE7053D0" alt="Beenden der Recherche" id="Toolbar_7" name="$Toolbar_7" title="Beenden der Recherche" onmouseover="self.status='Beenden der Recherche';return true;" onmouseout="self.status='';" class="toolbar_img"/><label for="Toolbar_7"><span class="toolbar_txt">Beenden</span></label></li>
+<li class="toolbar_li">
+<input type="image" src="/aDISWeb/images/POOLNBGPNBGPROD@_44002500_22937700.gif;jsessionid=8CAD90B79CC5CCE254D5F3BBAE7053D0" alt="Hilfe zur Trefferliste" id="Toolbar_8" name="$Toolbar_8" title="Hilfe zur Trefferliste" onmouseover="self.status='Hilfe zur Trefferliste';return true;" onmouseout="self.status='';" class="toolbar_img"/><label for="Toolbar_8"><span class="toolbar_txt">Hilfe</span></label></li></ul><div style="clear:both"></div></div> <div class="fsgrp">
+                <div id="R07"><div class="rTable_div"><table class="rTable_table" colDisable="[true, true, true, true, true, true, true]" colNumeric="[true, false, false, false, false, false, false, false]" width="100%">	<colgroup><col width="8%"></col><col width="4%"></col><col width="6%"></col><col width="72%"></col><col width="4%"></col><col width="6%"></col>	</colgroup>	<thead class="rTable_thead">
+			<tr><th scope="col" class="rTable_th"></th><th scope="col" class="rTable_th"><span class="invisible">Markieren</span></th><th scope="col" class="rTable_th">Art</th><th scope="col" class="rTable_th">Titel / Verfasserangabe. - Auflage - Verlag</th><th scope="col" class="rTable_th"><span class="invisible">Verf&uuml;gbar</span></th><th scope="col" class="rTable_th">Jahr</th>	</tr>	
+		</thead>
+		<tbody><tr class="rTable_tr_even">	&#09;<td class="rTable_td_num">23</td>	&#09;<td class="rTable_td_check"><input type="checkbox" name="cellCheck" fld="###CHK_1"/></td>	&#09;<td class="rTable_td_img"><img src="/aDISWeb/images/POOLNBGPNBGPROD@_53007F00_25F99500.gif" border="0" title="Buch" alt="Buch"/></td>	&#09;<td class="rTable_td_text"><a href="javascript:htmlOnLink('AK06809101')">Hieronymus Frosch : Faszinierende Experimente f&uuml;r Kinder/ Andreas H. Schmachtl ; Heike Schettler ; Sonja Stuchtey / <strong>Schmachtl, Andreas H., Schettler, Heike, Stuchtey, Sonja, Schmachtl, Andreas H.</strong>. - Arena</a></td>	&#09;<td class="rTable_td_text"><span> <img class='icon' height='16' width='16' src='/aDISWeb/icons/verfu_ja.gif' alt='ist verf&#0252;gbar' title='ist verf&#0252;gbar' /></span></td>	&#09;<td class="rTable_td_text">2015</td></tr><tr class="rTable_tr_odd">	&#09;<td class="rTable_td_num">24</td>	&#09;<td class="rTable_td_check"><input type="checkbox" name="cellCheck$0" fld="###CHK_2"/></td>	&#09;<td class="rTable_td_img"><img src="/aDISWeb/images/POOLNBGPNBGPROD@_53007F00_25F99500.gif" border="0" title="Band" alt="Band"/></td>	&#09;<td class="rTable_td_text"><a href="javascript:htmlOnLink('AK06812907')">Mein Lerntrainer. - 2. Klasse. Mathe und Deutsch : der gesamte Lernstoff f&uuml;r die Klasse 2 ; Test nach jedem Thema ; direkte Selbstkontrolle ohne Bl&auml;tter / <strong>[Text: Friedrich Guggolz... Ill.: Thomas Grandy...]</strong>. - 1., Aufl.. - Ravensburger Buchverl.</a></td>	&#09;<td class="rTable_td_text"><span> <img class='icon' height='16' width='16' src='/aDISWeb/icons/verfu_nein.gif' alt='ist zur Zeit nicht verf&#0252;gbar' title='ist zur Zeit nicht verf&#0252;gbar' /></span></td>	&#09;<td class="rTable_td_text">2015</td></tr><tr class="rTable_tr_even">	&#09;<td class="rTable_td_num">25</td>	&#09;<td class="rTable_td_check"><input type="checkbox" name="cellCheck$1" fld="###CHK_3"/></td>	&#09;<td class="rTable_td_img"><img src="/aDISWeb/images/POOLNBGPNBGPROD@_53007F00_25F99500.gif" border="0" title="Band" alt="Band"/></td>	&#09;<td class="rTable_td_text"><a href="javascript:htmlOnLink('AK06812784')">Mein Lerntrainer. - 4. Klasse. Mathe und Deutsch : der gesamte Lernstoff f&uuml;r die Klasse 4 ; Test nach jedem Thema ; direkte Selbstkontrolle / <strong>[Text: Friedrich Guggolz... Ill.: Stefan Lohr...]</strong>. - 1., Aufl.. - Ravensburger Buchverl.</a></td>	&#09;<td class="rTable_td_text"><span> <img class='icon' height='16' width='16' src='/aDISWeb/icons/verfu_ja.gif' alt='ist verf&#0252;gbar' title='ist verf&#0252;gbar' /></span></td>	&#09;<td class="rTable_td_text">2015</td></tr><tr class="rTable_tr_odd">	&#09;<td class="rTable_td_num">26</td>	&#09;<td class="rTable_td_check"><input type="checkbox" name="cellCheck$2" fld="###CHK_4"/></td>	&#09;<td class="rTable_td_img"><img src="/aDISWeb/images/POOLNBGPNBGPROD@_53007F00_25F99500.gif" border="0" title="Band" alt="Band"/></td>	&#09;<td class="rTable_td_text"><a href="javascript:htmlOnLink('AK06811247')">Neue Experimente mit freier Energie / <strong>Ulrich E. Stempel</strong>. - Franzis</a></td>	&#09;<td class="rTable_td_text"><span> <img class='icon' height='16' width='16' src='/aDISWeb/icons/verfu_nein.gif' alt='ist zur Zeit nicht verf&#0252;gbar' title='ist zur Zeit nicht verf&#0252;gbar' /></span></td>	&#09;<td class="rTable_td_text">2015</td></tr><tr class="rTable_tr_even">	&#09;<td class="rTable_td_num">27</td>	&#09;<td class="rTable_td_check"><input type="checkbox" name="cellCheck$3" fld="###CHK_5"/></td>	&#09;<td class="rTable_td_img"><img src="/aDISWeb/images/POOLNBGPNBGPROD@_53007F00_25F99500.gif" border="0" title="Band" alt="Band"/></td>	&#09;<td class="rTable_td_text"><a href="javascript:htmlOnLink('AK06809746')">Oh! My goddess. - 47. &#172;Der&#172; letzte Test / <strong>Kosuke Fujishima</strong>. - 1. Aufl.</a></td>	&#09;<td class="rTable_td_text"><span> <img class='icon' height='16' width='16' src='/aDISWeb/icons/verfu_ja.gif' alt='ist verf&#0252;gbar' title='ist verf&#0252;gbar' /></span></td>	&#09;<td class="rTable_td_text">2015</td></tr><tr class="rTable_tr_odd">	&#09;<td class="rTable_td_num">28</td>	&#09;<td class="rTable_td_check"><input type="checkbox" name="cellCheck$4" fld="###CHK_6"/></td>	&#09;<td class="rTable_td_img"><img src="/aDISWeb/images/POOLNBGPNBGPROD@_53008700_229E0300.gif" border="0" title="DVD-Video/-Audio" alt="DVD-Video/-Audio"/></td>	&#09;<td class="rTable_td_text"><a href="javascript:htmlOnLink('AK06811163')">Pioneer [DVD] / <strong>ein Film von Erik Skjoldbj&aelig;rg. Aksel Hennie ; Wes Bentley ; Stephen Lang ...</strong>. - Lighthouse Home Entertainment</a></td>	&#09;<td class="rTable_td_text"><span> <img class='icon' height='16' width='16' src='/aDISWeb/icons/verfu_nein.gif' alt='ist zur Zeit nicht verf&#0252;gbar' title='ist zur Zeit nicht verf&#0252;gbar' /></span></td>	&#09;<td class="rTable_td_text">2015</td></tr><tr class="rTable_tr_even">	&#09;<td class="rTable_td_num">29</td>	&#09;<td class="rTable_td_check"><input type="checkbox" name="cellCheck$5" fld="###CHK_7"/></td>	&#09;<td class="rTable_td_img"><img src="/aDISWeb/images/POOLNBGPNBGPROD@_53008100_229E0300.gif" border="0" title="Blu-ray Disc" alt="Blu-ray Disc"/></td>	&#09;<td class="rTable_td_text"><a href="javascript:htmlOnLink('AK06811186')">Pioneer [DVD] : Blu-ray Disc / <strong>ein Film von Erik Skjoldbj&aelig;rg. Aksel Hennie ; Wes Bentley ; Stephen Lang ...</strong>. - Lighthouse Home Entertainment</a></td>	&#09;<td class="rTable_td_text"><span> <img class='icon' height='16' width='16' src='/aDISWeb/icons/verfu_nein.gif' alt='ist zur Zeit nicht verf&#0252;gbar' title='ist zur Zeit nicht verf&#0252;gbar' /></span></td>	&#09;<td class="rTable_td_text">2015</td></tr><tr class="rTable_tr_odd">	&#09;<td class="rTable_td_num">30</td>	&#09;<td class="rTable_td_check"><input type="checkbox" name="cellCheck$6" fld="###CHK_8"/></td>	&#09;<td class="rTable_td_img"><img src="/aDISWeb/images/POOLNBGPNBGPROD@_53007F00_25F99500.gif" border="0" title="Band" alt="Band"/></td>	&#09;<td class="rTable_td_text"><a href="javascript:htmlOnLink('AK06813378')">Schwanger : mein Kind &amp; ich / <strong>Kirsten Khaschei</strong>. - 2., komplett &uuml;berab. Aufl.. - Stiftung Warentest</a></td>	&#09;<td class="rTable_td_text"><span> <img class='icon' height='16' width='16' src='/aDISWeb/icons/verfu_nein.gif' alt='ist zur Zeit nicht verf&#0252;gbar' title='ist zur Zeit nicht verf&#0252;gbar' /></span></td>	&#09;<td class="rTable_td_text">2015</td></tr><tr class="rTable_tr_even">	&#09;<td class="rTable_td_num">31</td>	&#09;<td class="rTable_td_check"><input type="checkbox" name="cellCheck$7" fld="###CHK_9"/></td>	&#09;<td class="rTable_td_img"><img src="/aDISWeb/images/POOLNBGPNBGPROD@_53008700_229E0300.gif" border="0" title="DVD-Video/-Audio" alt="DVD-Video/-Audio"/></td>	&#09;<td class="rTable_td_text"><a href="javascript:htmlOnLink('AK06815459')">Still Alice [DVD] : mein Leben ohne Gestern / <strong>Lisa Genova. Richard Glatzer [Regie]</strong>. - WVG Medien</a></td>	&#09;<td class="rTable_td_text"><span> <img class='icon' height='16' width='16' src='/aDISWeb/icons/verfu_nein.gif' alt='ist zur Zeit nicht verf&#0252;gbar' title='ist zur Zeit nicht verf&#0252;gbar' /></span></td>	&#09;<td class="rTable_td_text">2015</td></tr><tr class="rTable_tr_odd">	&#09;<td class="rTable_td_num">32</td>	&#09;<td class="rTable_td_check"><input type="checkbox" name="cellCheck$8" fld="###CHK_10"/></td>	&#09;<td class="rTable_td_img"><img src="/aDISWeb/images/POOLNBGPNBGPROD@_5300A600_229E0300.gif" border="0" title="CD-ROM" alt="CD-ROM"/></td>	&#09;<td class="rTable_td_text"><a href="javascript:htmlOnLink('AK06805357')">Test, Finanztest [Computerdatei] : alle Ausgaben der Jahrg&auml;nge ... auf CD-ROM. - 2014. Archiv-CD-ROM / <strong>Stiftung Warentest</strong></a></td>	&#09;<td class="rTable_td_text"><span> <img class='icon' height='16' width='16' src='/aDISWeb/icons/verfu_nein.gif' alt='ist zur Zeit nicht verf&#0252;gbar' title='ist zur Zeit nicht verf&#0252;gbar' /></span></td>	&#09;<td class="rTable_td_text">2015</td></tr><tr class="rTable_tr_even">	&#09;<td class="rTable_td_num">33</td>	&#09;<td class="rTable_td_check"><input type="checkbox" name="cellCheck$9" fld="###CHK_11"/></td>	&#09;<td class="rTable_td_img"><img src="/aDISWeb/images/POOLNBGPNBGPROD@_53007F00_25F99500.gif" border="0" title="Buch" alt="Buch"/></td>	&#09;<td class="rTable_td_text"><a href="javascript:htmlOnLink('AK06813656')">Training m&uuml;ndliche Tests Englisch 7-8 : Situationen ein&uuml;ben - Techniken anwenden - Lerninhalte beherrschen (7. und 8. Klasse) / <strong>Julia Umschaden</strong>. - 1. Aufl.. - Auer Verl.</a></td>	&#09;<td class="rTable_td_text"><span> <img class='icon' height='16' width='16' src='/aDISWeb/icons/verfu_nein.gif' alt='ist zur Zeit nicht verf&#0252;gbar' title='ist zur Zeit nicht verf&#0252;gbar' /></span></td>	&#09;<td class="rTable_td_text">2015</td></tr><tr class="rTable_tr_odd">	&#09;<td class="rTable_td_num">34</td>	&#09;<td class="rTable_td_check"><input type="checkbox" name="cellCheck$10" fld="###CHK_12"/></td>	&#09;<td class="rTable_td_img"><img src="/aDISWeb/images/POOLNBGPNBGPROD@_5300A400_229E0300.gif" border="0" title="Zeitschriftenheft" alt="Zeitschriftenheft"/></td>	&#09;<td class="rTable_td_text"><a href="javascript:htmlOnLink('AK06795029')">&Ouml;ko-Test / Ratgeber. - (2014), H. N 1496 : Kosmetik und Wellness</a></td>	&#09;<td class="rTable_td_text"><span> <img class='icon' height='16' width='16' src='/aDISWeb/icons/verfu_ja.gif' alt='ist verf&#0252;gbar' title='ist verf&#0252;gbar' /></span></td>	&#09;<td class="rTable_td_text">2014</td></tr><tr class="rTable_tr_even">	&#09;<td class="rTable_td_num">35</td>	&#09;<td class="rTable_td_check"><input type="checkbox" name="cellCheck$11" fld="###CHK_13"/></td>	&#09;<td class="rTable_td_img"><img src="/aDISWeb/images/POOLNBGPNBGPROD@_5300A400_229E0300.gif" border="0" title="Zeitschriftenheft" alt="Zeitschriftenheft"/></td>	&#09;<td class="rTable_td_text"><a href="javascript:htmlOnLink('AK06795028')">&Ouml;ko-Test / Ratgeber. - (2014), H. N 1495 : Essen und Trinken</a></td>	&#09;<td class="rTable_td_text"><span> <img class='icon' height='16' width='16' src='/aDISWeb/icons/verfu_ja.gif' alt='ist verf&#0252;gbar' title='ist verf&#0252;gbar' /></span></td>	&#09;<td class="rTable_td_text">2014</td></tr><tr class="rTable_tr_odd">	&#09;<td class="rTable_td_num">36</td>	&#09;<td class="rTable_td_check"><input type="checkbox" name="cellCheck$12" fld="###CHK_14"/></td>	&#09;<td class="rTable_td_img"><img src="/aDISWeb/images/POOLNBGPNBGPROD@_5300A400_229E0300.gif" border="0" title="Zeitschriftenheft" alt="Zeitschriftenheft"/></td>	&#09;<td class="rTable_td_text"><a href="javascript:htmlOnLink('AK06795027')">&Ouml;ko-Test / Ratgeber. - (2014), H. N 1409 : Kinder und Familie</a></td>	&#09;<td class="rTable_td_text"><span> <img class='icon' height='16' width='16' src='/aDISWeb/icons/verfu_ja.gif' alt='ist verf&#0252;gbar' title='ist verf&#0252;gbar' /></span></td>	&#09;<td class="rTable_td_text">2014</td></tr><tr class="rTable_tr_even">	&#09;<td class="rTable_td_num">37</td>	&#09;<td class="rTable_td_check"><input type="checkbox" name="cellCheck$13" fld="###CHK_15"/></td>	&#09;<td class="rTable_td_img"><img src="/aDISWeb/images/POOLNBGPNBGPROD@_5300A400_229E0300.gif" border="0" title="Zeitschriftenheft" alt="Zeitschriftenheft"/></td>	&#09;<td class="rTable_td_text"><a href="javascript:htmlOnLink('AK06758832')">&#172;Der&#172; gro&szlig;e &Ouml;KO-TEST Einkaufsratgeber - Jahrbuch. - (2015), H. J1410 : Mehr als 1250 Produkte im Test</a></td>	&#09;<td class="rTable_td_text"><span> <img class='icon' height='16' width='16' src='/aDISWeb/icons/verfu_nein.gif' alt='ist zur Zeit nicht verf&#0252;gbar' title='ist zur Zeit nicht verf&#0252;gbar' /></span></td>	&#09;<td class="rTable_td_text">2014</td></tr><tr class="rTable_tr_odd">	&#09;<td class="rTable_td_num">38</td>	&#09;<td class="rTable_td_check"><input type="checkbox" name="cellCheck$14" fld="###CHK_16"/></td>	&#09;<td class="rTable_td_img"><img src="/aDISWeb/images/POOLNBGPNBGPROD@_5300A400_229E0300.gif" border="0" title="Zeitschriftenheft" alt="Zeitschriftenheft"/></td>	&#09;<td class="rTable_td_text"><a href="javascript:htmlOnLink('AK06767921')">&Ouml;ko-Test Jahrbuch : der gro&szlig;e Einkaufsratgeber. - (2014), H. J1401 : Jahrbuch Kinder und Familie f&uuml;r 2014</a></td>	&#09;<td class="rTable_td_text"><span> <img class='icon' height='16' width='16' src='/aDISWeb/icons/verfu_ja.gif' alt='ist verf&#0252;gbar' title='ist verf&#0252;gbar' /></span></td>	&#09;<td class="rTable_td_text">2014</td></tr><tr class="rTable_tr_even">	&#09;<td class="rTable_td_num">39</td>	&#09;<td class="rTable_td_check"><input type="checkbox" name="cellCheck$15" fld="###CHK_17"/></td>	&#09;<td class="rTable_td_img"><img src="/aDISWeb/images/POOLNBGPNBGPROD@_5300A400_229E0300.gif" border="0" title="Zeitschriftenheft" alt="Zeitschriftenheft"/></td>	&#09;<td class="rTable_td_text"><a href="javascript:htmlOnLink('AK06767798')">Test / Spezial. - (2014), H. 14002 : Digitalkameras</a></td>	&#09;<td class="rTable_td_text"><span> <img class='icon' height='16' width='16' src='/aDISWeb/icons/verfu_ja.gif' alt='ist verf&#0252;gbar' title='ist verf&#0252;gbar' /></span></td>	&#09;<td class="rTable_td_text">2014</td></tr><tr class="rTable_tr_odd">	&#09;<td class="rTable_td_num">40</td>	&#09;<td class="rTable_td_check"><input type="checkbox" name="cellCheck$16" fld="###CHK_18"/></td>	&#09;<td class="rTable_td_img"><img src="/aDISWeb/images/POOLNBGPNBGPROD@_5300A400_229E0300.gif" border="0" title="Zeitschriftenheft" alt="Zeitschriftenheft"/></td>	&#09;<td class="rTable_td_text"><a href="javascript:htmlOnLink('AK06795927')">&Ouml;ko-Test : richtig gut leben. - (2014), H. 12</a></td>	&#09;<td class="rTable_td_text"><span> <img class='icon' height='16' width='16' src='/aDISWeb/icons/verfu_ja.gif' alt='ist verf&#0252;gbar' title='ist verf&#0252;gbar' /></span></td>	&#09;<td class="rTable_td_text">2014</td></tr><tr class="rTable_tr_even">	&#09;<td class="rTable_td_num">41</td>	&#09;<td class="rTable_td_check"><input type="checkbox" name="cellCheck$17" fld="###CHK_19"/></td>	&#09;<td class="rTable_td_img"><img src="/aDISWeb/images/POOLNBGPNBGPROD@_5300A400_229E0300.gif" border="0" title="Zeitschriftenheft" alt="Zeitschriftenheft"/></td>	&#09;<td class="rTable_td_text"><a href="javascript:htmlOnLink('AK06795779')">Test : Zeitschrift der Stiftung Warentest. - (2014), H. 12</a></td>	&#09;<td class="rTable_td_text"><span> <img class='icon' height='16' width='16' src='/aDISWeb/icons/verfu_ja.gif' alt='ist verf&#0252;gbar' title='ist verf&#0252;gbar' /></span></td>	&#09;<td class="rTable_td_text">2014</td></tr><tr class="rTable_tr_odd">	&#09;<td class="rTable_td_num">42</td>	&#09;<td class="rTable_td_check"><input type="checkbox" name="cellCheck$18" fld="###CHK_20"/></td>	&#09;<td class="rTable_td_img"><img src="/aDISWeb/images/POOLNBGPNBGPROD@_5300A400_229E0300.gif" border="0" title="Zeitschriftenheft" alt="Zeitschriftenheft"/></td>	&#09;<td class="rTable_td_text"><a href="javascript:htmlOnLink('AK06793114')">&Ouml;ko-Test : richtig gut leben. - (2014), H. 11</a></td>	&#09;<td class="rTable_td_text"><span> <img class='icon' height='16' width='16' src='/aDISWeb/icons/verfu_ja.gif' alt='ist verf&#0252;gbar' title='ist verf&#0252;gbar' /></span></td>	&#09;<td class="rTable_td_text">2014</td></tr><tr class="rTable_tr_even">	&#09;<td class="rTable_td_num">43</td>	&#09;<td class="rTable_td_check"><input type="checkbox" name="cellCheck$19" fld="###CHK_21"/></td>	&#09;<td class="rTable_td_img"><img src="/aDISWeb/images/POOLNBGPNBGPROD@_5300A400_229E0300.gif" border="0" title="Zeitschriftenheft" alt="Zeitschriftenheft"/></td>	&#09;<td class="rTable_td_text"><a href="javascript:htmlOnLink('AK06793022')">Test : Zeitschrift der Stiftung Warentest. - (2014), H. 11</a></td>	&#09;<td class="rTable_td_text"><span> <img class='icon' height='16' width='16' src='/aDISWeb/icons/verfu_ja.gif' alt='ist verf&#0252;gbar' title='ist verf&#0252;gbar' /></span></td>	&#09;<td class="rTable_td_text">2014</td></tr><tr class="rTable_tr_odd">	&#09;<td class="rTable_td_num">44</td>	&#09;<td class="rTable_td_check"><input type="checkbox" name="cellCheck$20" fld="###CHK_22"/></td>	&#09;<td class="rTable_td_img"><img src="/aDISWeb/images/POOLNBGPNBGPROD@_5300A400_229E0300.gif" border="0" title="Zeitschriftenheft" alt="Zeitschriftenheft"/></td>	&#09;<td class="rTable_td_text"><a href="javascript:htmlOnLink('AK06790711')">&Ouml;ko-Test : richtig gut leben. - (2014), H. 10</a></td>	&#09;<td class="rTable_td_text"><span> <img class='icon' height='16' width='16' src='/aDISWeb/icons/verfu_ja.gif' alt='ist verf&#0252;gbar' title='ist verf&#0252;gbar' /></span></td>	&#09;<td class="rTable_td_text">2014</td></tr>	</tbody></table>
+</div> </div>
+                
+                
+                
+              </div>
+              
+              <div class="clear"></div> <div class="toolbar_div">
+<ul class="toolbar_ul">
+<li class="toolbar_li">
+<input type="image" src="/aDISWeb/images/POOLNBGPNBGPROD@_44003A00_22937700.gif;jsessionid=8CAD90B79CC5CCE254D5F3BBAE7053D0" alt="Zur&#252;ck zur Suche" id="Toolbar$0_0" name="$Toolbar$0_0" title="Zur&#252;ck zur Suche" onmouseover="self.status='Zur&#252;ck zur Suche';return true;" onmouseout="self.status='';" class="toolbar_img"/><label for="Toolbar$0_0"><span class="toolbar_txt">Zur&#252;ck</span></label></li>
+<li class="toolbar_li">
+<input type="image" src="/aDISWeb/images/POOLNBGPNBGPROD@_44003200_22937700.gif;jsessionid=8CAD90B79CC5CCE254D5F3BBAE7053D0" alt="Zur Vollanzeige des Treffers" id="Toolbar$0_1" name="$Toolbar$0_1" title="Zur Vollanzeige des Treffers" onmouseover="self.status='Zur Vollanzeige des Treffers';return true;" onmouseout="self.status='';" class="toolbar_img"/><label for="Toolbar$0_1"><span class="toolbar_txt">Vollanzeige</span></label></li>
+<li class="toolbar_li">
+<input type="image" src="/aDISWeb/images/POOLNBGPNBGPROD@_44002F00_22937700.gif;jsessionid=8CAD90B79CC5CCE254D5F3BBAE7053D0" alt="Zur&#252;ck zur Suche" id="Toolbar$0_2" name="$Toolbar$0_2" title="Zur&#252;ck zur Suche" onmouseover="self.status='Zur&#252;ck zur Suche';return true;" onmouseout="self.status='';" class="toolbar_img"/><label for="Toolbar$0_2"><span class="toolbar_txt">Neue Suche</span></label></li>
+<li class="toolbar_li">
+<input type="image" src="/aDISWeb/images/POOLNBGPNBGPROD@_44002700_291B2500.gif;jsessionid=8CAD90B79CC5CCE254D5F3BBAE7053D0" alt="An den Anfang bl&#228;ttern" id="Toolbar$0_3" name="$Toolbar$0_3" title="An den Anfang bl&#228;ttern" onmouseover="self.status='An den Anfang bl&#228;ttern';return true;" onmouseout="self.status='';" class="toolbar_img"/><label for="Toolbar$0_3"><span class="toolbar_txt">Anfang</span></label></li>
+<li class="toolbar_li">
+<input type="image" src="/aDISWeb/images/POOLNBGPNBGPROD@_44002A00_291B2500.gif;jsessionid=8CAD90B79CC5CCE254D5F3BBAE7053D0" alt="R&#252;ckw&#228;rts bl&#228;ttern " id="Toolbar$0_4" name="$Toolbar$0_4" title="R&#252;ckw&#228;rts bl&#228;ttern " onmouseover="self.status='R&#252;ckw&#228;rts bl&#228;ttern ';return true;" onmouseout="self.status='';" class="toolbar_img"/><label for="Toolbar$0_4"><span class="toolbar_txt">R&#252;ckw&#228;rts</span></label></li>
+<li class="toolbar_li">
+<input type="image" src="/aDISWeb/images/POOLNBGPNBGPROD@_44002C00_291B2500.gif;jsessionid=8CAD90B79CC5CCE254D5F3BBAE7053D0" alt="Vorw&#228;rts bl&#228;ttern" id="Toolbar$0_5" name="$Toolbar$0_5" title="Vorw&#228;rts bl&#228;ttern" onmouseover="self.status='Vorw&#228;rts bl&#228;ttern';return true;" onmouseout="self.status='';" class="toolbar_img"/><label for="Toolbar$0_5"><span class="toolbar_txt">Vorw&#228;rts</span></label></li>
+<li class="toolbar_li">
+<input type="image" src="/aDISWeb/images/POOLNBGPNBGPROD@_44002800_291B2500.gif;jsessionid=8CAD90B79CC5CCE254D5F3BBAE7053D0" alt="Ans Ende bl&#228;ttern" id="Toolbar$0_6" name="$Toolbar$0_6" title="Ans Ende bl&#228;ttern" onmouseover="self.status='Ans Ende bl&#228;ttern';return true;" onmouseout="self.status='';" class="toolbar_img"/><label for="Toolbar$0_6"><span class="toolbar_txt">Ende</span></label></li>
+<li class="toolbar_li">
+<input type="image" src="/aDISWeb/images/POOLNBGPNBGPROD@_44002B00_22937700.gif;jsessionid=8CAD90B79CC5CCE254D5F3BBAE7053D0" alt="Beenden der Recherche" id="Toolbar$0_7" name="$Toolbar$0_7" title="Beenden der Recherche" onmouseover="self.status='Beenden der Recherche';return true;" onmouseout="self.status='';" class="toolbar_img"/><label for="Toolbar$0_7"><span class="toolbar_txt">Beenden</span></label></li>
+<li class="toolbar_li">
+<input type="image" src="/aDISWeb/images/POOLNBGPNBGPROD@_44002500_22937700.gif;jsessionid=8CAD90B79CC5CCE254D5F3BBAE7053D0" alt="Hilfe zur Trefferliste" id="Toolbar$0_8" name="$Toolbar$0_8" title="Hilfe zur Trefferliste" onmouseover="self.status='Hilfe zur Trefferliste';return true;" onmouseout="self.status='';" class="toolbar_img"/><label for="Toolbar$0_8"><span class="toolbar_txt">Hilfe</span></label></li></ul><div style="clear:both"></div></div> </div>
+            <div class="clear"></div>
+      
+          </div>
+          <div id="clear"></div>
+          
+        </div>
+        
+      </div>
+    </div>
+
+    <div id="footer">
+      <div class="inside">
+      
+        <p class="block" id="goingup">
+          <a href="#wrapper">Seitenanfang</a>
+        </p>
+             
+        <p id="copyright">
+          &copy; Stadtbibliothek N&uuml;rnberg
+        </p>
+        <div class="clear"></div> 
+          
+        <p id="credits">
+          <a href="http://www.astec.de">Barrierefreie Bibliothekssoftware - OPAC der |a|S|tec| GmbH</a> und 
+          <a href="http://www.ena-webstudio.com">ena Webdesign Berlin</a>
+        </p>      
+        <div class="clear"></div>
+
+      </div>
+    </div>
+    
+  </div>
+</div>
+
+<script src="/aDISWeb_nbg/js/yaml-focusfix.js" type="text/javascript"></script></form>
+</div></body>
+</html>

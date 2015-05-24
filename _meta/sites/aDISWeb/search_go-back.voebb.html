@@ -1,0 +1,416 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="de" lang="de">
+<!-- solution for: conditional-comments block downloads  -->
+<!--[if IE]><![endif]--><head>
+	<style type="text/css">
+		@import url(css/aDISStandard.css);
+	</style>
+	<script src="js/aDISMain.js" type="text/javascript"></script>
+	<script src="js/fckeditor/fckeditor.js" type="text/javascript"></script>
+	<title> Wir bringen Medien in Bewegung </title><script type="text/javascript">
+	var text = '';
+	window.defaultStatus=text;
+</script>	<title>VOEBB</title>
+  <!--
+  (c) Software: aDIS/BMS und aDIS/Archiv by |a|S|tec| GmbH Berlin und Muenchen - www.astec.de
+  CSS-Anpassungen/Beratung Barrierefreiheit: ena Webstudio - www.ena-webstudio.com
+  Formulare, Tabellen, etc. werden automatisch durch aDIS generiert
+  Projekt: VOEBB, Verbund, Deutsch - OPAC02
+  Letztes Update: 22.10.2011
+  //-->
+  <!-- Always force latest IE rendering engine (even in intranet) & Chrome Frame -->
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+  
+  <meta http-equiv="cache-control" content="no-cache" />
+ <meta http-equiv="content-type" content="text/html; charset=utf-8" />  
+  <meta http-equiv="content-style-type" content="text/css" />
+  <meta http-equiv="content-script-type" content="text/javascript" />
+  <meta http-equiv="content-language" content="de" />
+  <meta name="language" content="de" />
+  
+  <!-- Individuelles Meta -->
+  <meta name="description" content="Recherche in 2,7 Millionen Titeln der �ffentlichen Bibliotheken des Landes Berlin, Bestellung, Kontoverwaltung, Online-Ausleihe von E-Books, E-Audios und E-Videos" />
+  
+  <!-- START: LAYOUT-Framework -->
+  <link rel="stylesheet" href="/aDISWeb_vob/css/framework.css" type="text/css" media="screen" />
+  <!--[if lte IE 7]><link rel="stylesheet" href="/aDISWeb_vob/css/framework_iefixes.css" type="text/css" media="screen" /><![endif]-->
+
+  <!-- START: aStec-Styles -->    
+  <link rel="stylesheet" href="/aDISWeb_vob/css/layout.css" type="text/css" media="screen" />
+  <!--[if lt IE 7]><link rel="stylesheet" href="/aDISWeb_vob/css/ieonly.css" type="text/css" media="screen" /><![endif]-->
+  <!--[if IE 7]><link rel="stylesheet" href="/aDISWeb_vob/css/ieonly7.css" type="text/css" media="screen" /><![endif]-->
+  <!--[if gte IE 8]><link rel="stylesheet" href="/aDISWeb_vob/css/ieonly8.css" type="text/css" media="screen" /><![endif]-->
+  <link rel="stylesheet" href="/aDISWeb_vob/css/print.css" type="text/css" media="print" /> 
+
+  <!-- Mobildarstellung -->
+  <meta name="viewport" content="width=device-width; initial-scale=1.0" />
+  <link rel="stylesheet" href="/aDISWeb_vob/css/media.css" type="text/css">
+  <!--[if lt IE 9]>
+	<script type="text/javascript" src="/aDISWeb_vob/js/css3-mediaqueries.js"></script>
+   <![endif]-->
+
+  <!-- Sonstiges -->
+  <link rel="shortcut icon" type="image/x-icon" href="/aDISWeb_vob/favicon.ico" />
+  <script type="text/javascript" src="/aDISWeb_vob/js/cookies.js"></script>
+  <script type="text/javascript" src="/aDISWeb_vob/js/efa_fontsize.js"></script>
+</head>
+<body class="dreier">
+<script type="text/javascript"><!--
+
+
+
+
+function startIdleTimer() {
+  if (typeof idleId != 'undefined')
+    clearTimeout(idleId)
+  idleId = window.setTimeout("to('"+ idleLink + "')", idleTime);
+  }			
+function to(link) {
+  location.href=link;
+  }
+
+
+
+
+
+function EventTarget() {
+	this.handlers = [];
+	}
+EventTarget.prototype = {
+	constructor : EventTarget,
+	addhandler: function (type, handler) {
+		if (typeof this.handlers[type] == "undefined")
+			this.handlers[type] = [];
+		this.handlers[type].push(handler);
+		},
+	fire : function (event) {
+		if (this.handlers[event.type] instanceof Array) {
+			var handlers = this.handlers[event.type];
+			for (var i = 0; i < handlers.length; i++)
+				handlers[i](event);
+			}
+		},
+	};
+var eventHandler = new EventTarget();
+function setupHandlers()  {
+	document.onmousedown = docOnEvent;		
+	document.onkeydown = docOnEvent;	
+	document.onkeypress = docOnEvent;
+	document.onhelp = cancelF1;
+	
+	initFormElements();
+	initIframes();
+	initScrollPos();
+	}
+function getDimensions()  {
+	document.forms[0].scrDim.value = screen.width + ";" + screen.height;
+	if (window.innerWidth)
+		document.forms[0].winDim.value = window.innerWidth + ";" + window.innerHeight;
+	else
+		document.forms[0].winDim.value = document.body.offsetWidth + ";" + document.body.offsetHeight;
+	node = document.getElementById("img_content");
+	if (node != undefined)
+		document.forms[0].imgDim.value = node.offsetWidth + ";" + node.offsetHeight;
+	}
+
+
+
+
+window.onload = function (e)
+{
+
+  idleTime=599940000;
+  idleLink="/aDISWeb/app;jsessionid=DAA418AB9EABFC0A0FD8F8AAF5D13D36?service=direct/1/POOLVX00vb@@@@@@_44274D00_2F19B700/$Timeout";
+  startIdleTimer();
+
+
+if (!e) var e = window.event;
+document.forms[0].scriptEnabled.value=true;
+if (self.specialOnLoad != undefined)
+	specialOnLoad(e);
+setupHandlers();
+getDimensions();
+
+}
+
+// --></script>
+<script type="text/javascript">
+// <![CDATA[
+  if (efa_fontSize) efa_fontSize.efaInit();
+// ]]>
+</script>
+
+<div class="aDISMaske"><form method="post" name="Form0" action="/aDISWeb/app;jsessionid=DAA418AB9EABFC0A0FD8F8AAF5D13D36" onsubmit="return formOnSubmit();">
+<input type="hidden" name="service" value="direct/1/POOLVX00vb@@@@@@_44274D00_2F19B700/$Form.form"/>
+<input type="hidden" name="sp" value="S0"/>
+<input type="hidden" name="Form0" value="focus,keyCode,stz,source,selected,requestCount,scriptEnabled,scrollPos,scrDim,winDim,imgDim,$Textfield,$FormConditional,textButton,$FormConditional$0,textButton$0,$FormConditional$1,textButton$1,$FormConditional$2,textButton$2,$FormConditional$3,textButton$3,$FormConditional$4,$FormConditional$5,textButton$4,$FormConditional$6,textButton$5,$FormConditional$7,textButton$6,$FormConditional$8,textButton$7,textButton$8,textButton$9,textButton$10,textButton$11,textButton$12,textButton$13,$FormConditional$9,textButton$14,$Toolbar,cellCheck,cellCheck$0,cellCheck$1,cellCheck$2,cellCheck$3,cellCheck$4,cellCheck$5,cellCheck$6,cellCheck$7,cellCheck$8,cellCheck$9,cellCheck$10,cellCheck$11,cellCheck$12,cellCheck$13,cellCheck$14,cellCheck$15,cellCheck$16,cellCheck$17,cellCheck$18,cellCheck$19,cellCheck$20,$Toolbar$0"/>
+<input type="hidden" name="focus" value=""/>
+<input type="hidden" name="keyCode" value="0"/>
+<input type="hidden" name="stz" value=""/>
+<input type="hidden" name="source" value=""/>
+<input type="hidden" name="selected" value=""/>
+<input type="hidden" name="requestCount" value="5"/>
+<input type="hidden" name="scriptEnabled" value="F"/>
+<input type="hidden" name="scrollPos" value="0"/>
+<input type="hidden" name="scrDim" value=""/>
+<input type="hidden" name="winDim" value=""/>
+<input type="hidden" name="imgDim" value=""/>
+<input type="hidden" name="$FormConditional" value="T"/>
+<input type="hidden" name="$FormConditional$0" value="T"/>
+<input type="hidden" name="$FormConditional$1" value="T"/>
+<input type="hidden" name="$FormConditional$2" value="T"/>
+<input type="hidden" name="$FormConditional$3" value="T"/>
+<input type="hidden" name="$FormConditional$4" value="F"/>
+<input type="hidden" name="$FormConditional$5" value="T"/>
+<input type="hidden" name="$FormConditional$6" value="T"/>
+<input type="hidden" name="$FormConditional$7" value="T"/>
+<input type="hidden" name="$FormConditional$8" value="F"/>
+<input type="hidden" name="$FormConditional$9" value="T"/>
+				
+<div id="wrapper">
+  <div id="wrapper_inside">
+  
+    <div id="header" role="banner">
+      <div class="inside">     
+      
+          <ul id="sprunglinks">
+            <li><a class="sprung" href="#main">Zum Hauptinhalt</a></li>
+            <li><a class="sprung" href="#left">Zur Navigation</a></li>
+            <li><a class="sprung" href="#right">Zu weiteren Bedienelementen</a></li>
+          </ul>
+                            
+          <p id="logo"><a href="/aDISWeb/app;jsessionid=DAA418AB9EABFC0A0FD8F8AAF5D13D36?service=direct/1/POOLVX00vb@@@@@@_44274D00_2F19B700/$InternalLink.directlink&amp;sp=S%24%24GFNV_1&amp;sp=SStartseite%3DCW00&amp;requestCount=5" fld="$$GFNV_1" title="Zur Startseite"><img src="/aDISWeb_vob/images/voebb_logo.gif" height="90" width="64" alt="Verbund der &ouml;ffentlichen Bibliotheken Berlins" /></a>	<span class="outside">.</span></p>
+       
+          <script type="text/javascript">
+          // <![CDATA[
+            if (efa_fontSize) document.write(efa_fontSize.allLinks);
+          // ]]>
+          </script>
+          
+          <div class="block" id="spruch"><span>Wir bringen Medien in Bewegung</span> </div>
+
+      </div>
+    </div>
+  
+    <div id="container">
+      <div id="container_inside">
+
+        <div id="left">
+          <div class="inside">
+
+            <h1 class="invisible">Navigation</h1>
+   
+            <div class="block" id="navbox">
+            <div id="R20"><span class="bnzeig"></span><span class="mmzeig">Sie sind nicht angemeldet.</span> </div> 
+            </div>
+
+            <div class="mod_navigation block" id="unav" role="navigation"><div class="tree_div">
+<ul class="tree_ul">
+<li class="tree_leaf_li">
+<a href="/aDISWeb/app;jsessionid=DAA418AB9EABFC0A0FD8F8AAF5D13D36?service=direct/1/POOLVX00vb@@@@@@_44274D00_2F19B700/$Tree.treeNodes&amp;sp=SH&amp;requestCount=5" class="tree_leaf_a"><span>Startseite</span></a><span class="outside">.</span></li>
+<li class="tree_leaf_li">
+<a href="/aDISWeb/app;jsessionid=DAA418AB9EABFC0A0FD8F8AAF5D13D36?service=direct/1/POOLVX00vb@@@@@@_44274D00_2F19B700/$Tree.treeNodes&amp;sp=SL1&amp;requestCount=5" class="tree_leaf_a"><span>Anmelden</span></a><span class="outside">.</span></li>
+<li class="tree_leaf_li">
+<span class="tree_disabled">Abmelden</span>
+<span class="outside">.</span></li>
+<li class="tree_leaf_li">
+<a href="/aDISWeb/app;jsessionid=DAA418AB9EABFC0A0FD8F8AAF5D13D36?service=direct/1/POOLVX00vb@@@@@@_44274D00_2F19B700/$Tree.treeNodes&amp;sp=SAX&amp;requestCount=5" class="tree_leaf_a"><span>Aktuelles</span></a><span class="outside">.</span></li>
+<li class="tree_leaf_li">
+<a href="/aDISWeb/app;jsessionid=DAA418AB9EABFC0A0FD8F8AAF5D13D36?service=direct/1/POOLVX00vb@@@@@@_44274D00_2F19B700/$Tree.treeNodes&amp;sp=SBK&amp;requestCount=5" class="tree_leaf_a"><span>Mein Konto</span></a><span class="outside">.</span></li>
+<li class="tree_branch_li_exp">
+<a href="/aDISWeb/app;jsessionid=DAA418AB9EABFC0A0FD8F8AAF5D13D36?service=direct/1/POOLVX00vb@@@@@@_44274D00_2F19B700/$Tree.treeNodes&amp;sp=SS1&amp;requestCount=5" class="tree_branch_a"><span>Suche</span></a><div class="tree_divsub">
+<ul class="tree_ulsub">
+<li class="tree_leaf_li">
+<a href="/aDISWeb/app;jsessionid=DAA418AB9EABFC0A0FD8F8AAF5D13D36?service=direct/1/POOLVX00vb@@@@@@_44274D00_2F19B700/$Tree.treeNodes&amp;sp=SS1&amp;requestCount=5" class="tree_leaf_a"><span>Schnellsuche</span></a><span class="outside">.</span></li>
+<li class="tree_leaf_li">
+<a href="/aDISWeb/app;jsessionid=DAA418AB9EABFC0A0FD8F8AAF5D13D36?service=direct/1/POOLVX00vb@@@@@@_44274D00_2F19B700/$Tree.treeNodes&amp;sp=SS2&amp;requestCount=5" class="tree_leaf_a"><span>Standardsuche</span></a><span class="outside">.</span></li>
+<li class="tree_leaf_li_sel">
+<strong><span class="tree_strong">Erweiterte Suche</span></strong></li>
+<li class="tree_leaf_li">
+<a href="/aDISWeb/app;jsessionid=DAA418AB9EABFC0A0FD8F8AAF5D13D36?service=direct/1/POOLVX00vb@@@@@@_44274D00_2F19B700/$Tree.treeNodes&amp;sp=SS3&amp;requestCount=5" class="tree_leaf_a"><span>Musiksuche</span></a><span class="outside">.</span></li>
+<li class="tree_leaf_li">
+<a href="/aDISWeb/app;jsessionid=DAA418AB9EABFC0A0FD8F8AAF5D13D36?service=direct/1/POOLVX00vb@@@@@@_44274D00_2F19B700/$Tree.treeNodes&amp;sp=SS4&amp;requestCount=5" class="tree_leaf_a"><span>Zeitschriftensuche</span></a><span class="outside">.</span></li>
+<li class="tree_leaf_li">
+<a href="/aDISWeb/app;jsessionid=DAA418AB9EABFC0A0FD8F8AAF5D13D36?service=direct/1/POOLVX00vb@@@@@@_44274D00_2F19B700/$Tree.treeNodes&amp;sp=SS5&amp;requestCount=5" class="tree_leaf_a"><span>Suche in Kommentaren</span></a><span class="outside">.</span></li>
+<li class="tree_leaf_li">
+<a href="/aDISWeb/app;jsessionid=DAA418AB9EABFC0A0FD8F8AAF5D13D36?service=direct/1/POOLVX00vb@@@@@@_44274D00_2F19B700/$Tree.treeNodes&amp;sp=SAP&amp;requestCount=5" class="tree_leaf_a"><span>Meine Suchen</span></a><span class="outside">.</span></li>
+<li class="tree_leaf_li">
+<a href="/aDISWeb/app;jsessionid=DAA418AB9EABFC0A0FD8F8AAF5D13D36?service=direct/1/POOLVX00vb@@@@@@_44274D00_2F19B700/$Tree.treeNodes&amp;sp=SAT&amp;requestCount=5" class="tree_leaf_a"><span>Thementipps</span></a><span class="outside">.</span></li>
+</ul></div>
+</li>
+<li class="tree_branch_li">
+<a href="/aDISWeb/app;jsessionid=DAA418AB9EABFC0A0FD8F8AAF5D13D36?service=direct/1/POOLVX00vb@@@@@@_44274D00_2F19B700/$Tree.treeNodes&amp;sp=SF1&amp;requestCount=5" class="tree_branch_a"><span>Fernleihe</span></a><span class="outside">.</span></li>
+<li class="tree_leaf_li">
+<a href="http://www.bibliothek-digital.de/berlin" class="tree_leaf_a"><span>VOeBB24</span></a><span class="outside">.</span></li>
+<li class="tree_leaf_li">
+<a href="http://www.munzinger.de/search/login?portalid=50158" target="&quot;_blank&quot;" class="tree_leaf_a"><span>Munzinger</span></a><span class="outside">.</span></li>
+<li class="tree_leaf_li">
+<a href="/aDISWeb/app;jsessionid=DAA418AB9EABFC0A0FD8F8AAF5D13D36?service=direct/1/POOLVX00vb@@@@@@_44274D00_2F19B700/$Tree.treeNodes&amp;sp=SF3&amp;requestCount=5" class="tree_leaf_a"><span>Aufs&#228;tze im GBV</span></a><span class="outside">.</span></li>
+<li class="tree_branch_li">
+<a href="/aDISWeb/app;jsessionid=DAA418AB9EABFC0A0FD8F8AAF5D13D36?service=direct/1/POOLVX00vb@@@@@@_44274D00_2F19B700/$Tree.treeNodes&amp;sp=SK2&amp;requestCount=5" class="tree_branch_a"><span>Kontakt</span></a><span class="outside">.</span></li>
+<li class="tree_leaf_li">
+<a href="/aDISWeb/app;jsessionid=DAA418AB9EABFC0A0FD8F8AAF5D13D36?service=direct/1/POOLVX00vb@@@@@@_44274D00_2F19B700/$Tree.treeNodes&amp;sp=SW1&amp;requestCount=5" class="tree_leaf_a"><span>Informationen</span></a><span class="outside">.</span></li>
+</ul></div>
+ </div>
+            
+            <!-- incl=includeBOEB.html -->            <p class="block" id="boeb">
+              <a href="http://service.berlin.de/stadtbibliotheken/" rel="external" onclick="window.open(this.href); return false;">Zu 
+              den Berliner &Ouml;ffentlichen Bibliotheken  <span class="invisible">(Link �ffnet in neuem Fenster)</span>
+              </a>
+            </p>
+<!-- stop -->
+             
+          </div>
+        </div>
+
+        <div id="right">
+          <div class="inside">
+
+            <h1 class="invisible">Weitere Bedienelemente</h1>
+            <p class="sprung"><a href="#main">Zum Hauptinhalt</a></p>
+            
+            <div class="block">            
+              <div id="R06">
+      <p><span style="   width:80%;">Gesucht wurde mit: "Titelwort= test" im Verbund, Treffer: 1-22 von 1719</span> </p>
+    </div><div id="R14">
+      <div class="treffer_anzeigen">
+        <fieldset>
+        <legend>Treffer-Direktwahl</legend>
+        <label for="SLSTRZ_1">Treffer-Nr.</label><input type="text" name="$Textfield" fld="SLSTRZ_1" onkeypress="checkNumeric(event,this);" id="SLSTRZ_1" class="text" maxlength="10"/> <input class="buttong"  type="submit" name="Submit" value="OK" /> 
+        <div class="clear"></div>
+        <br class="klar"/></fieldset>
+      </div>
+    </div><div id="R05">
+      <h3>Andere Sortierung einstellen:</h3>
+     <p><input type="submit" name="textButton" value="Titel" class="buttong" fld="$$GFBO_1"/><input type="submit" name="textButton$0" value="Verfasser" class="buttong" fld="$$GFBO_2"/><input type="submit" name="textButton$1" value="Jahr abw&#228;rts" class="buttong" fld="$$GFBO_3"/><input type="submit" name="textButton$2" value="Jahr aufw&#228;rts" class="buttong" fld="$$GFBO_4"/><input type="submit" name="textButton$3" value="Medienart" class="buttong" fld="$$GFBO_13"/> </p>
+
+      <h3>Weitere Aktionen:</h3>
+       <p><input type="submit" name="textButton$4" value="Suche verfeinern" class="buttong" fld="$$GFBO_7"/> </p>
+       <p><input type="submit" name="textButton$5" value="Meine Suche speichern" class="buttong" fld="$$GFBO_6"/> </p>
+       <p><input type="submit" name="textButton$6" value="Benutzerkonto" class="buttong" fld="$$GFBO_14"/> </p>
+
+    </div><div id="R12">
+    <div id="OPACLI" style="   width:69%;" class="aDISListe"><div class="html_div" style="width:99%; height:100%;"></div> </div>
+  </div>
+              
+              
+              
+              
+            </div>
+            
+            <div class="block">
+               <div id="R08">
+      <h3>Treffer einschr&#228;nken nach:</h3>     
+    </div><div class="cbtree_div">
+<ul class="cbtree_ul">
+<li class="cbtree_branch_li">
+<input type="submit" name="SELT_tree_2_0" value="Medienart" class="cbtree_branch_a"/><span class="outside">.</span></li>
+<li class="cbtree_branch_li">
+<input type="submit" name="SELT_tree_2_1" value="Jahr" class="cbtree_branch_a"/><span class="outside">.</span></li>
+<li class="cbtree_branch_li">
+<input type="submit" name="SELT_tree_2_2" value="Schlagwort" class="cbtree_branch_a"/><span class="outside">.</span></li>
+<li class="cbtree_branch_li">
+<input type="submit" name="SELT_tree_2_3" value="Sprache" class="cbtree_branch_a"/><span class="outside">.</span></li>
+</ul></div>
+ <div id="R09"> </div><br/><span style="line-height:12px;">&nbsp;</span><br/>
+            </div> 
+            <div class="block">
+              <div id="R11">
+      <h2>Export nach:</h2><p class="buttong"><input type="submit" name="textButton$7" value="BibTeX" class="buttong"/><input type="submit" name="textButton$8" value="Citavi" class="buttong"/><input type="submit" name="textButton$9" value="EndNote" class="buttong"/><input type="submit" name="textButton$10" value="ProCite" class="buttong"/><input type="submit" name="textButton$11" value="Reference Manager" class="buttong"/><input type="submit" name="textButton$12" value="RefWorks" class="buttong"/><input type="submit" name="textButton$13" value="Zotero" class="buttong"/></p> </div>
+              
+              
+            </div> 
+
+          </div>
+        </div>
+  
+        <div id="main" role="main">
+          <div class="inside">
+          
+            <div class="block">
+              <div class="block" id="topleiste">  
+			          <p id="breadcrumb"><span class="invisible">Vorige Seiten: </span> <span class="navicl"><a href="/aDISWeb/app;jsessionid=DAA418AB9EABFC0A0FD8F8AAF5D13D36?service=direct/1/POOLVX00vb@@@@@@_44274D00_2F19B700/navpath.intlink.directlink&amp;sp=S%24%24GFNV_1&amp;sp=SD%2F00&amp;requestCount=5" fld="$$GFNV_1" title="Startseite">Startseite</a>	<span class="outside">.</span> > <a href="/aDISWeb/app;jsessionid=DAA418AB9EABFC0A0FD8F8AAF5D13D36?service=direct/1/POOLVX00vb@@@@@@_44274D00_2F19B700/navpath.intlink.directlink&amp;sp=S%24%24GFNV_2&amp;sp=SS6AK&amp;requestCount=5" fld="$$GFNV_2" title="Erweiterte Suche">Erweiterte Suche</a>	<span class="outside">.</span></span> &gt;<span class="txtinsert">Trefferliste</span> </p>
+
+                
+                <p id="druckversion"><input type="submit" name="textButton$14" value="Druckversion" fld="$$GFBO_88"/> </p>
+                <div class="clear"></div>
+              </div>
+                           
+              <h1><span class="invisible">Aktuelle Seite:</span> <span class="txtinsert">Trefferliste</span></h1> <div class="toolbar_div">
+<ul class="toolbar_ul">
+<li class="toolbar_li">
+<input type="image" src="/aDISWeb/images/POOLVX00vb@@@@@@/gif/POOLVX00vb@@@@@@_53010E00_25522680.gif;jsessionid=DAA418AB9EABFC0A0FD8F8AAF5D13D36" alt="Zur&#252;ck zur Suche" id="Toolbar_0" name="$Toolbar_0" title="Zur&#252;ck zur Suche" onmouseover="self.status='Zur&#252;ck zur Suche';return true;" onmouseout="self.status='';" class="toolbar_img"/><label for="Toolbar_0"><span class="toolbar_txt">Zur&#252;ck</span></label></li>
+<li class="toolbar_li">
+<input type="image" src="/aDISWeb/images/POOLVX00vb@@@@@@/gif/POOLVX00vb@@@@@@_53002800_228F8280.gif;jsessionid=DAA418AB9EABFC0A0FD8F8AAF5D13D36" alt="Zur Vollanzeige des Treffers" id="Toolbar_1" name="$Toolbar_1" title="Zur Vollanzeige des Treffers" onmouseover="self.status='Zur Vollanzeige des Treffers';return true;" onmouseout="self.status='';" class="toolbar_img"/><label for="Toolbar_1"><span class="toolbar_txt">Vollanzeige</span></label></li>
+<li class="toolbar_li">
+<input type="image" src="/aDISWeb/images/POOLVX00vb@@@@@@/gif/POOLVX00vb@@@@@@_53011E00_228F8280.gif;jsessionid=DAA418AB9EABFC0A0FD8F8AAF5D13D36" alt="Zur&#252;ck zur Suche" id="Toolbar_2" name="$Toolbar_2" title="Zur&#252;ck zur Suche" onmouseover="self.status='Zur&#252;ck zur Suche';return true;" onmouseout="self.status='';" class="toolbar_img"/><label for="Toolbar_2"><span class="toolbar_txt">Neue Suche</span></label></li>
+<li class="toolbar_li">
+<input type="image" src="/aDISWeb/images/POOLVX00vb@@@@@@/gif/POOLVX00vb@@@@@@_53005801_2904BB80.gif;jsessionid=DAA418AB9EABFC0A0FD8F8AAF5D13D36" alt="An den Anfang bl&#228;ttern" id="Toolbar_3" name="$Toolbar_3" disabled="disabled" title="An den Anfang bl&#228;ttern" onmouseover="self.status='An den Anfang bl&#228;ttern';return true;" onmouseout="self.status='';" class="toolbar_img_dis"/><label for="Toolbar_3"><span class="toolbar_txt_dis">Anfang</span></label></li>
+<li class="toolbar_li">
+<input type="image" src="/aDISWeb/images/POOLVX00vb@@@@@@/gif/POOLVX00vb@@@@@@_53005901_2904BB80.gif;jsessionid=DAA418AB9EABFC0A0FD8F8AAF5D13D36" alt="R&#252;ckw&#228;rts bl&#228;ttern" id="Toolbar_4" name="$Toolbar_4" disabled="disabled" title="R&#252;ckw&#228;rts bl&#228;ttern" onmouseover="self.status='R&#252;ckw&#228;rts bl&#228;ttern';return true;" onmouseout="self.status='';" class="toolbar_img_dis"/><label for="Toolbar_4"><span class="toolbar_txt_dis">R&#252;ckw&#228;rts</span></label></li>
+<li class="toolbar_li">
+<input type="image" src="/aDISWeb/images/POOLVX00vb@@@@@@/gif/POOLVX00vb@@@@@@_53005100_2904BB80.gif;jsessionid=DAA418AB9EABFC0A0FD8F8AAF5D13D36" alt="Vorw&#228;rts bl&#228;ttern" id="Toolbar_5" name="$Toolbar_5" title="Vorw&#228;rts bl&#228;ttern" onmouseover="self.status='Vorw&#228;rts bl&#228;ttern';return true;" onmouseout="self.status='';" class="toolbar_img"/><label for="Toolbar_5"><span class="toolbar_txt">Vorw&#228;rts</span></label></li>
+<li class="toolbar_li">
+<input type="image" src="/aDISWeb/images/POOLVX00vb@@@@@@/gif/POOLVX00vb@@@@@@_53005600_2904BB80.gif;jsessionid=DAA418AB9EABFC0A0FD8F8AAF5D13D36" alt="Ans Ende bl&#228;ttern" id="Toolbar_6" name="$Toolbar_6" title="Ans Ende bl&#228;ttern" onmouseover="self.status='Ans Ende bl&#228;ttern';return true;" onmouseout="self.status='';" class="toolbar_img"/><label for="Toolbar_6"><span class="toolbar_txt">Ende</span></label></li>
+<li class="toolbar_li">
+<input type="image" src="/aDISWeb/images/POOLVX00vb@@@@@@/gif/POOLVX00vb@@@@@@_53002400_228F8280.gif;jsessionid=DAA418AB9EABFC0A0FD8F8AAF5D13D36" alt="Beenden der Recherche" id="Toolbar_7" name="$Toolbar_7" title="Beenden der Recherche" onmouseover="self.status='Beenden der Recherche';return true;" onmouseout="self.status='';" class="toolbar_img"/><label for="Toolbar_7"><span class="toolbar_txt">Beenden</span></label></li>
+<li class="toolbar_li">
+<input type="image" src="/aDISWeb/images/POOLVX00vb@@@@@@/gif/POOLVX00vb@@@@@@_53001D00_228F8280.gif;jsessionid=DAA418AB9EABFC0A0FD8F8AAF5D13D36" alt="Hilfe zur Trefferliste" id="Toolbar_8" name="$Toolbar_8" title="Hilfe zur Trefferliste" onmouseover="self.status='Hilfe zur Trefferliste';return true;" onmouseout="self.status='';" class="toolbar_img"/><label for="Toolbar_8"><span class="toolbar_txt">Hilfe</span></label></li></ul><div style="clear:both"></div></div> <div class="fsgrp">
+                 <div id="R07"><div class="rTable_div"><table class="rTable_table" width="100%">	<colgroup><col width="4%"></col><col width="6%"></col><col width="77%"></col><col width="4%"></col><col width="6%"></col>	</colgroup>	<thead class="rTable_thead">
+			<tr><th scope="col" class="rTable_th"><span class="invisible">Markieren</span></th><th scope="col" class="rTable_th">Art</th><th scope="col" class="rTable_th">Titel / Verfasserangabe. - Auflage - Verlag</th><th scope="col" class="rTable_th"><span class="invisible">Verfügbar</span></th><th scope="col" class="rTable_th">Jahr</th>	</tr>	
+		</thead>
+		<tbody><tr class="rTable_tr_even"><td class="rTable_td_check"><label for="cellCheck" class="invisible">Markieren</label><input type="checkbox" name="cellCheck" fld="###CHK_1" id="cellCheck" checked="checked"/></td><td class="rTable_td_img"><img src="/aDISWeb/images/POOLVX00vb@@@@@@/gif/POOLVX00vb@@@@@@_53007F00_25F99500.gif" border="0" title="Buch" alt="Buch"/></td><td class="rTable_td_text"><a href="javascript:htmlOnLink('AK33759023')">Von-Staabs-Test</a></td><td class="rTable_td_text"><span> <img class='icon' height='16' width='16' src='/aDISWeb/icons/verfu_ja.gif' alt='ist verf&#0252;gbar' title='ist verf&#0252;gbar' /></span></td><td class="rTable_td_text"></td></tr><tr class="rTable_tr_odd"><td class="rTable_td_check"><label for="cellCheck_0" class="invisible">Markieren</label><input type="checkbox" name="cellCheck$0" fld="###CHK_2" id="cellCheck_0"/></td><td class="rTable_td_img"><img src="/aDISWeb/images/POOLVX00vb@@@@@@/gif/POOLVX00vb@@@@@@_53007F00_25F99500.gif" border="0" title="Buch" alt="Buch"/></td><td class="rTable_td_text"><a href="javascript:htmlOnLink('AK33702497')">Organisation Test Grundstuecksdatenbank U-D-S</a></td><td class="rTable_td_text"><span> <img class='icon' height='16' width='16' src='/aDISWeb/icons/verfu_ja.gif' alt='ist verf&#0252;gbar' title='ist verf&#0252;gbar' /></span></td><td class="rTable_td_text"></td></tr><tr class="rTable_tr_even"><td class="rTable_td_check"><label for="cellCheck_1" class="invisible">Markieren</label><input type="checkbox" name="cellCheck$1" fld="###CHK_3" id="cellCheck_1"/></td><td class="rTable_td_img"><img src="/aDISWeb/images/POOLVX00vb@@@@@@/gif/POOLVX00vb@@@@@@_53007F00_25F99500.gif" border="0" title="Buch" alt="Buch"/></td><td class="rTable_td_text"><a href="javascript:htmlOnLink('AK33702496')">Organisation Test Grundstuecksdatenbank I-M-S-V-S</a></td><td class="rTable_td_text"><span> <img class='icon' height='16' width='16' src='/aDISWeb/icons/verfu_ja.gif' alt='ist verf&#0252;gbar' title='ist verf&#0252;gbar' /></span></td><td class="rTable_td_text"></td></tr><tr class="rTable_tr_odd"><td class="rTable_td_check"><label for="cellCheck_2" class="invisible">Markieren</label><input type="checkbox" name="cellCheck$2" fld="###CHK_4" id="cellCheck_2"/></td><td class="rTable_td_img"><img src="/aDISWeb/images/POOLVX00vb@@@@@@/gif/POOLVX00vb@@@@@@_53007F00_25F99500.gif" border="0" title="Buch" alt="Buch"/></td><td class="rTable_td_text"><a href="javascript:htmlOnLink('AK33702495')">Organisation Test Grundstuecksdatenbank Adabas</a></td><td class="rTable_td_text"><span> <img class='icon' height='16' width='16' src='/aDISWeb/icons/verfu_ja.gif' alt='ist verf&#0252;gbar' title='ist verf&#0252;gbar' /></span></td><td class="rTable_td_text"></td></tr><tr class="rTable_tr_even"><td class="rTable_td_check"><label for="cellCheck_3" class="invisible">Markieren</label><input type="checkbox" name="cellCheck$3" fld="###CHK_5" id="cellCheck_3"/></td><td class="rTable_td_img"><img src="/aDISWeb/images/POOLVX00vb@@@@@@/gif/POOLVX00vb@@@@@@_53007F00_25F99500.gif" border="0" title="Buch" alt="Buch"/></td><td class="rTable_td_text"><a href="javascript:htmlOnLink('AK33673059')">Berlin-Test</a></td><td class="rTable_td_text"><span> <img class='icon' height='16' width='16' src='/aDISWeb/icons/verfu_ja.gif' alt='ist verf&#0252;gbar' title='ist verf&#0252;gbar' /></span></td><td class="rTable_td_text"></td></tr><tr class="rTable_tr_odd"><td class="rTable_td_check"><label for="cellCheck_4" class="invisible">Markieren</label><input type="checkbox" name="cellCheck$4" fld="###CHK_6" id="cellCheck_4"/></td><td class="rTable_td_img"><img src="/aDISWeb/images/POOLVX00vb@@@@@@/gif/POOLVX00vb@@@@@@_53007F00_25F99500.gif" border="0" title="Buch" alt="Buch"/></td><td class="rTable_td_text"><a href="javascript:htmlOnLink('AK33664748')">Statistical models for test equating, scaling, and linking / <strong>Alina A. von Davier ed. With a foreword by Paul W. Holland</strong>. - Springer</a></td><td class="rTable_td_text"><span> <img class='icon' height='16' width='16' src='/aDISWeb/icons/verfu_ja.gif' alt='ist verf&#0252;gbar' title='ist verf&#0252;gbar' /></span></td><td class="rTable_td_text">2011</td></tr><tr class="rTable_tr_even"><td class="rTable_td_check"><label for="cellCheck_5" class="invisible">Markieren</label><input type="checkbox" name="cellCheck$5" fld="###CHK_7" id="cellCheck_5"/></td><td class="rTable_td_img"><img src="/aDISWeb/images/POOLVX00vb@@@@@@/gif/POOLVX00vb@@@@@@_53007F00_25F99500.gif" border="0" title="Band" alt="Band"/></td><td class="rTable_td_text"><a href="javascript:htmlOnLink('AK33657188')">Öffentliche Kommunikationsbereitschaft : ein Test zentraler Bestandteile d. Theorie d. Schweigespirale / <strong>Dieter Fuchs ; Jürgen Gerhards ; Friedhelm Neidhardt</strong>. - Wissenschaftszentrum Berlin für Sozialforschung &lt;WZB&gt;</a></td><td class="rTable_td_text"><span> <img class='icon' height='16' width='16' src='/aDISWeb/icons/verfu_ja.gif' alt='ist verf&#0252;gbar' title='ist verf&#0252;gbar' /></span></td><td class="rTable_td_text">1991</td></tr><tr class="rTable_tr_odd"><td class="rTable_td_check"><label for="cellCheck_6" class="invisible">Markieren</label><input type="checkbox" name="cellCheck$6" fld="###CHK_8" id="cellCheck_6"/></td><td class="rTable_td_img"><img src="/aDISWeb/images/POOLVX00vb@@@@@@/gif/POOLVX00vb@@@@@@_53007F00_25F99500.gif" border="0" title="Buch" alt="Buch"/></td><td class="rTable_td_text"><a href="javascript:htmlOnLink('AK33572707')">Bunte-Staedte-Test</a></td><td class="rTable_td_text"><span> <img class='icon' height='16' width='16' src='/aDISWeb/icons/verfu_ja.gif' alt='ist verf&#0252;gbar' title='ist verf&#0252;gbar' /></span></td><td class="rTable_td_text"></td></tr><tr class="rTable_tr_even"><td class="rTable_td_check"><label for="cellCheck_7" class="invisible">Markieren</label><input type="checkbox" name="cellCheck$7" fld="###CHK_9" id="cellCheck_7"/></td><td class="rTable_td_img"><img src="/aDISWeb/images/POOLVX00vb@@@@@@/gif/POOLVX00vb@@@@@@_5300B800_229E0300.gif" border="0" title="Beitrag" alt="Beitrag"/></td><td class="rTable_td_text"><a href="javascript:htmlOnLink('AK33406978')">Kommunen und Bundesländer im WEB-Test : ein Ansatz zur Evaluation öffentlicher Internet-Angebote / <strong>Kai Masser</strong> <br> In: Aktuelle Tendenzen und Ansätze zur Verwaltungsmodernisierung : Dokumentation einer Fortbildungsveranstaltung an der Deutschen Hochschule für Verwaltungswissenschaften in Speyer mit der Stadt Arnsberg - (1998)</a></td><td class="rTable_td_text"><span> <img class='icon' height='16' width='16' src='/aDISWeb/icons/verfu_info.gif' alt='siehe Vollanzeige' title='siehe Vollanzeige' /></span></td><td class="rTable_td_text">1998</td></tr><tr class="rTable_tr_odd"><td class="rTable_td_check"><label for="cellCheck_8" class="invisible">Markieren</label><input type="checkbox" name="cellCheck$8" fld="###CHK_10" id="cellCheck_8"/></td><td class="rTable_td_img"><img src="/aDISWeb/images/POOLVX00vb@@@@@@/gif/POOLVX00vb@@@@@@_5300B800_229E0300.gif" border="0" title="Beitrag" alt="Beitrag"/></td><td class="rTable_td_text"><a href="javascript:htmlOnLink('AK33406969')">¬Der¬ aktuelle Stand der Verwaltungsmodernisierung auf dem Prüfstand : ein Test mit der Stadt Arnsberg / <strong>Kai Masser</strong> <br> In: Aktuelle Tendenzen und Ansätze zur Verwaltungsmodernisierung : Dokumentation einer Fortbildungsveranstaltung an der Deutschen Hochschule für Verwaltungswissenschaften in Speyer mit der Stadt Arnsberg - (1998)</a></td><td class="rTable_td_text"><span> <img class='icon' height='16' width='16' src='/aDISWeb/icons/verfu_info.gif' alt='siehe Vollanzeige' title='siehe Vollanzeige' /></span></td><td class="rTable_td_text">1998</td></tr><tr class="rTable_tr_even"><td class="rTable_td_check"><label for="cellCheck_9" class="invisible">Markieren</label><input type="checkbox" name="cellCheck$9" fld="###CHK_11" id="cellCheck_9"/></td><td class="rTable_td_img"><img src="/aDISWeb/images/POOLVX00vb@@@@@@/gif/POOLVX00vb@@@@@@_53007F00_25F99500.gif" border="0" title="Band" alt="Band"/></td><td class="rTable_td_text"><a href="javascript:htmlOnLink('AK33403502')">VEP - Verkehrsentwicklungsplan Landeshauptstadt Düsseldorf. - 3. Test-Szenarien und Entwurf des Zielkonzeptes / <strong>[Red.: Andreas Demny ...]</strong></a></td><td class="rTable_td_text"><span> <img class='icon' height='16' width='16' src='/aDISWeb/icons/verfu_ja.gif' alt='ist verf&#0252;gbar' title='ist verf&#0252;gbar' /></span></td><td class="rTable_td_text">2006</td></tr><tr class="rTable_tr_odd"><td class="rTable_td_check"><label for="cellCheck_10" class="invisible">Markieren</label><input type="checkbox" name="cellCheck$10" fld="###CHK_12" id="cellCheck_10"/></td><td class="rTable_td_img"><img src="/aDISWeb/images/POOLVX00vb@@@@@@/gif/POOLVX00vb@@@@@@_53007F00_25F99500.gif" border="0" title="Band" alt="Band"/></td><td class="rTable_td_text"><a href="javascript:htmlOnLink('AK33398308')">Organisation and performance of an international ringtest for the validation of the enchytraeid reproduction test : Research report 296 64 906 / <strong>by Jörg Römbke and Thomas Moser. Umweltbundesamt</strong></a></td><td class="rTable_td_text"><span> <img class='icon' height='16' width='16' src='/aDISWeb/icons/verfu_ja.gif' alt='ist verf&#0252;gbar' title='ist verf&#0252;gbar' /></span></td><td class="rTable_td_text">1999</td></tr><tr class="rTable_tr_even"><td class="rTable_td_check"><label for="cellCheck_11" class="invisible">Markieren</label><input type="checkbox" name="cellCheck$11" fld="###CHK_13" id="cellCheck_11"/></td><td class="rTable_td_img"><img src="/aDISWeb/images/POOLVX00vb@@@@@@/gif/POOLVX00vb@@@@@@_53007F00_25F99500.gif" border="0" title="Band" alt="Band"/></td><td class="rTable_td_text"><a href="javascript:htmlOnLink('AK33389354')">Im Spannungsfeld von Modularisierung und Europäisierung : die deutsche duale Berufsausbildung im Test ; ein deutsch-englischer Leistungsvergleich. - 1. Aufl.. - Hampp</a></td><td class="rTable_td_text"><span> <img class='icon' height='16' width='16' src='/aDISWeb/icons/verfu_ja.gif' alt='ist verf&#0252;gbar' title='ist verf&#0252;gbar' /></span></td><td class="rTable_td_text">2003</td></tr><tr class="rTable_tr_odd"><td class="rTable_td_check"><label for="cellCheck_12" class="invisible">Markieren</label><input type="checkbox" name="cellCheck$12" fld="###CHK_14" id="cellCheck_12"/></td><td class="rTable_td_img"><img src="/aDISWeb/images/POOLVX00vb@@@@@@/gif/POOLVX00vb@@@@@@_53007F00_25F99500.gif" border="0" title="Band" alt="Band"/></td><td class="rTable_td_text"><a href="javascript:htmlOnLink('AK33387477')">Straßenoberbauversuch der OECD im Maßstab 1:1 : übersetzt mit Genehmigung des Direktors für Information der OECD vom 9.1.1981 ; Bericht einer Arbeitsgruppe des Straßenforschungsprogrammes der OECD, Paris, 1991 / <strong>Bundesministerium für Verkehr, Innovation und Technologie</strong>. - Bundesministerium für wirtschaftliche Angelegenheiten, Bundesstraßenverwaltung</a></td><td class="rTable_td_text"><span> <img class='icon' height='16' width='16' src='/aDISWeb/icons/verfu_ja.gif' alt='ist verf&#0252;gbar' title='ist verf&#0252;gbar' /></span></td><td class="rTable_td_text">1993</td></tr><tr class="rTable_tr_even"><td class="rTable_td_check"><label for="cellCheck_13" class="invisible">Markieren</label><input type="checkbox" name="cellCheck$13" fld="###CHK_15" id="cellCheck_13"/></td><td class="rTable_td_img"><img src="/aDISWeb/images/POOLVX00vb@@@@@@/gif/POOLVX00vb@@@@@@_53007F00_25F99500.gif" border="0" title="Band" alt="Band"/></td><td class="rTable_td_text"><a href="javascript:htmlOnLink('AK33383486')">Proceedings of the International Workshop on a Protozoan Test Protocol with Tetrahymena in Aquatic Toxicity Testing : Forschungsbericht 106 99 999/03 / <strong>by Wilfried Pauli and Sandra Berger. Umweltbundesamt</strong></a></td><td class="rTable_td_text"><span> <img class='icon' height='16' width='16' src='/aDISWeb/icons/verfu_ja.gif' alt='ist verf&#0252;gbar' title='ist verf&#0252;gbar' /></span></td><td class="rTable_td_text">1996</td></tr><tr class="rTable_tr_odd"><td class="rTable_td_check"><label for="cellCheck_14" class="invisible">Markieren</label><input type="checkbox" name="cellCheck$14" fld="###CHK_16" id="cellCheck_14"/></td><td class="rTable_td_img"><img src="/aDISWeb/images/POOLVX00vb@@@@@@/gif/POOLVX00vb@@@@@@_53007F00_25F99500.gif" border="0" title="Band" alt="Band"/></td><td class="rTable_td_text"><a href="javascript:htmlOnLink('AK33381377')">¬Das¬ Konzept der Einfachsteuer im empirischen Test / <strong>Stefan Anton ; Mathias Brehe ; Hans-Georg Petersen. Universität Potsdam, Wirtschafts- und Sozialwissenschaftliche Fakultät</strong></a></td><td class="rTable_td_text"><span> <img class='icon' height='16' width='16' src='/aDISWeb/icons/verfu_ja.gif' alt='ist verf&#0252;gbar' title='ist verf&#0252;gbar' /></span></td><td class="rTable_td_text">2002</td></tr><tr class="rTable_tr_even"><td class="rTable_td_check"><label for="cellCheck_15" class="invisible">Markieren</label><input type="checkbox" name="cellCheck$15" fld="###CHK_17" id="cellCheck_15"/></td><td class="rTable_td_img"><img src="/aDISWeb/images/POOLVX00vb@@@@@@/gif/POOLVX00vb@@@@@@_53007F00_25F99500.gif" border="0" title="Band" alt="Band"/></td><td class="rTable_td_text"><a href="javascript:htmlOnLink('AK33379028')">Ökologische Kriterien in Test- und Kennzeichnungsverfahren für Waren und Dienstleistungen : Darstellung und Vergleich / <strong>von Beate Günther. Hrsg.: Institut für Ökologische Zukunftsperspektiven, Gemeinnützige GmbH</strong>. - Inst. f. Ökolog. Zukunftsperspektiven</a></td><td class="rTable_td_text"><span> <img class='icon' height='16' width='16' src='/aDISWeb/icons/verfu_ja.gif' alt='ist verf&#0252;gbar' title='ist verf&#0252;gbar' /></span></td><td class="rTable_td_text">1989</td></tr><tr class="rTable_tr_odd"><td class="rTable_td_check"><label for="cellCheck_16" class="invisible">Markieren</label><input type="checkbox" name="cellCheck$16" fld="###CHK_18" id="cellCheck_16"/></td><td class="rTable_td_img"><img src="/aDISWeb/images/POOLVX00vb@@@@@@/gif/POOLVX00vb@@@@@@_53007F00_25F99500.gif" border="0" title="Band" alt="Band"/></td><td class="rTable_td_text"><a href="javascript:htmlOnLink('AK33364481')">Zur Anwendung von Mittelwertvergleichen als statistische Test- und Entscheidungsverfahren in der Grundstücksbewertung / <strong>vorgelegt von Hans Otto Sprengnetter</strong>. - Inst. für Städtebau, Bodenordnung und Kulturtechnik</a></td><td class="rTable_td_text"><span> <img class='icon' height='16' width='16' src='/aDISWeb/icons/verfu_ja.gif' alt='ist verf&#0252;gbar' title='ist verf&#0252;gbar' /></span></td><td class="rTable_td_text">1980</td></tr><tr class="rTable_tr_even"><td class="rTable_td_check"><label for="cellCheck_17" class="invisible">Markieren</label><input type="checkbox" name="cellCheck$17" fld="###CHK_19" id="cellCheck_17"/></td><td class="rTable_td_img"><img src="/aDISWeb/images/POOLVX00vb@@@@@@/gif/POOLVX00vb@@@@@@_5300A400_229E0300.gif" border="0" title="Zeitschriftenheft" alt="Zeitschriftenheft"/></td><td class="rTable_td_text"><a href="javascript:htmlOnLink('AK33364012')">Merian : die Lust am Reisen. - 54 (2001) : Paris : Eiffelturm, Paris paradox, Pomp, Schoko-Parfait, Oper, St.-Germain, Hotels im Test, Bohème, Frauen, Centre Pompidou, Vorstädte / <strong>[Red. dieses Heftes: Andreas Weber]</strong>. - Jahreszeiten-Verl.</a></td><td class="rTable_td_text"><span> <img class='icon' height='16' width='16' src='/aDISWeb/icons/verfu_ja.gif' alt='ist verf&#0252;gbar' title='ist verf&#0252;gbar' /></span></td><td class="rTable_td_text">2001</td></tr><tr class="rTable_tr_odd"><td class="rTable_td_check"><label for="cellCheck_18" class="invisible">Markieren</label><input type="checkbox" name="cellCheck$18" fld="###CHK_20" id="cellCheck_18"/></td><td class="rTable_td_img"><img src="/aDISWeb/images/POOLVX00vb@@@@@@/gif/POOLVX00vb@@@@@@_53007F00_25F99500.gif" border="0" title="Band" alt="Band"/></td><td class="rTable_td_text"><a href="javascript:htmlOnLink('AK33360470')">Continuous Biotests for water monitoring of the river Rhine : summary, recommendations, description of test methods / <strong>prep. by the Federal Government/Federal States Project Group &#034;Wirkungstest Rhein&#034;</strong>. - Umweltbundesamt</a></td><td class="rTable_td_text"><span> <img class='icon' height='16' width='16' src='/aDISWeb/icons/verfu_ja.gif' alt='ist verf&#0252;gbar' title='ist verf&#0252;gbar' /></span></td><td class="rTable_td_text">1994</td></tr><tr class="rTable_tr_even"><td class="rTable_td_check"><label for="cellCheck_19" class="invisible">Markieren</label><input type="checkbox" name="cellCheck$19" fld="###CHK_21" id="cellCheck_19"/></td><td class="rTable_td_img"><img src="/aDISWeb/images/POOLVX00vb@@@@@@/gif/POOLVX00vb@@@@@@_53007F00_25F99500.gif" border="0" title="Band" alt="Band"/></td><td class="rTable_td_text"><a href="javascript:htmlOnLink('AK33355264')">Wie gut ist Ihr Vermieter? : Vermieter im Test ; Ergebnisse einer Mieterbefragung / <strong>im Auftrag des Berliner Mietervereins e.V. [Bearb. durch Institut für Soziale Stadtentwicklung e.V. Bearb.: A. Hentschel]</strong></a></td><td class="rTable_td_text"><span> <img class='icon' height='16' width='16' src='/aDISWeb/icons/verfu_ja.gif' alt='ist verf&#0252;gbar' title='ist verf&#0252;gbar' /></span></td><td class="rTable_td_text">2000</td></tr><tr class="rTable_tr_odd"><td class="rTable_td_check"><label for="cellCheck_20" class="invisible">Markieren</label><input type="checkbox" name="cellCheck$20" fld="###CHK_22" id="cellCheck_20"/></td><td class="rTable_td_img"><img src="/aDISWeb/images/POOLVX00vb@@@@@@/gif/POOLVX00vb@@@@@@_5300B300_229E0300.gif" border="0" title="Mehrb&#228;ndiges Werk" alt="Mehrb&#228;ndiges Werk"/></td><td class="rTable_td_text"><a href="javascript:htmlOnLink('AK33340684')">Examens-Test im öffentlichen Recht / <strong>Elmar Giemulla ...</strong>. - Heymann</a></td><td class="rTable_td_text"><span> <img class='icon' height='16' width='16' src='/aDISWeb/icons/verfu_info.gif' alt='siehe Vollanzeige' title='siehe Vollanzeige' /></span></td><td class="rTable_td_text"></td></tr>	</tbody></table>
+</div> </div>
+                 
+                 
+                 
+                 
+              </div>
+              
+              <div class="clear"></div> <div class="toolbar_div">
+<ul class="toolbar_ul">
+<li class="toolbar_li">
+<input type="image" src="/aDISWeb/images/POOLVX00vb@@@@@@/gif/POOLVX00vb@@@@@@_53010E00_25522680.gif;jsessionid=DAA418AB9EABFC0A0FD8F8AAF5D13D36" alt="Zur&#252;ck zur Suche" id="Toolbar$0_0" name="$Toolbar$0_0" title="Zur&#252;ck zur Suche" onmouseover="self.status='Zur&#252;ck zur Suche';return true;" onmouseout="self.status='';" class="toolbar_img"/><label for="Toolbar$0_0"><span class="toolbar_txt">Zur&#252;ck</span></label></li>
+<li class="toolbar_li">
+<input type="image" src="/aDISWeb/images/POOLVX00vb@@@@@@/gif/POOLVX00vb@@@@@@_53002800_228F8280.gif;jsessionid=DAA418AB9EABFC0A0FD8F8AAF5D13D36" alt="Zur Vollanzeige des Treffers" id="Toolbar$0_1" name="$Toolbar$0_1" title="Zur Vollanzeige des Treffers" onmouseover="self.status='Zur Vollanzeige des Treffers';return true;" onmouseout="self.status='';" class="toolbar_img"/><label for="Toolbar$0_1"><span class="toolbar_txt">Vollanzeige</span></label></li>
+<li class="toolbar_li">
+<input type="image" src="/aDISWeb/images/POOLVX00vb@@@@@@/gif/POOLVX00vb@@@@@@_53011E00_228F8280.gif;jsessionid=DAA418AB9EABFC0A0FD8F8AAF5D13D36" alt="Zur&#252;ck zur Suche" id="Toolbar$0_2" name="$Toolbar$0_2" title="Zur&#252;ck zur Suche" onmouseover="self.status='Zur&#252;ck zur Suche';return true;" onmouseout="self.status='';" class="toolbar_img"/><label for="Toolbar$0_2"><span class="toolbar_txt">Neue Suche</span></label></li>
+<li class="toolbar_li">
+<input type="image" src="/aDISWeb/images/POOLVX00vb@@@@@@/gif/POOLVX00vb@@@@@@_53005801_2904BB80.gif;jsessionid=DAA418AB9EABFC0A0FD8F8AAF5D13D36" alt="An den Anfang bl&#228;ttern" id="Toolbar$0_3" name="$Toolbar$0_3" disabled="disabled" title="An den Anfang bl&#228;ttern" onmouseover="self.status='An den Anfang bl&#228;ttern';return true;" onmouseout="self.status='';" class="toolbar_img_dis"/><label for="Toolbar$0_3"><span class="toolbar_txt_dis">Anfang</span></label></li>
+<li class="toolbar_li">
+<input type="image" src="/aDISWeb/images/POOLVX00vb@@@@@@/gif/POOLVX00vb@@@@@@_53005901_2904BB80.gif;jsessionid=DAA418AB9EABFC0A0FD8F8AAF5D13D36" alt="R&#252;ckw&#228;rts bl&#228;ttern" id="Toolbar$0_4" name="$Toolbar$0_4" disabled="disabled" title="R&#252;ckw&#228;rts bl&#228;ttern" onmouseover="self.status='R&#252;ckw&#228;rts bl&#228;ttern';return true;" onmouseout="self.status='';" class="toolbar_img_dis"/><label for="Toolbar$0_4"><span class="toolbar_txt_dis">R&#252;ckw&#228;rts</span></label></li>
+<li class="toolbar_li">
+<input type="image" src="/aDISWeb/images/POOLVX00vb@@@@@@/gif/POOLVX00vb@@@@@@_53005100_2904BB80.gif;jsessionid=DAA418AB9EABFC0A0FD8F8AAF5D13D36" alt="Vorw&#228;rts bl&#228;ttern" id="Toolbar$0_5" name="$Toolbar$0_5" title="Vorw&#228;rts bl&#228;ttern" onmouseover="self.status='Vorw&#228;rts bl&#228;ttern';return true;" onmouseout="self.status='';" class="toolbar_img"/><label for="Toolbar$0_5"><span class="toolbar_txt">Vorw&#228;rts</span></label></li>
+<li class="toolbar_li">
+<input type="image" src="/aDISWeb/images/POOLVX00vb@@@@@@/gif/POOLVX00vb@@@@@@_53005600_2904BB80.gif;jsessionid=DAA418AB9EABFC0A0FD8F8AAF5D13D36" alt="Ans Ende bl&#228;ttern" id="Toolbar$0_6" name="$Toolbar$0_6" title="Ans Ende bl&#228;ttern" onmouseover="self.status='Ans Ende bl&#228;ttern';return true;" onmouseout="self.status='';" class="toolbar_img"/><label for="Toolbar$0_6"><span class="toolbar_txt">Ende</span></label></li>
+<li class="toolbar_li">
+<input type="image" src="/aDISWeb/images/POOLVX00vb@@@@@@/gif/POOLVX00vb@@@@@@_53002400_228F8280.gif;jsessionid=DAA418AB9EABFC0A0FD8F8AAF5D13D36" alt="Beenden der Recherche" id="Toolbar$0_7" name="$Toolbar$0_7" title="Beenden der Recherche" onmouseover="self.status='Beenden der Recherche';return true;" onmouseout="self.status='';" class="toolbar_img"/><label for="Toolbar$0_7"><span class="toolbar_txt">Beenden</span></label></li>
+<li class="toolbar_li">
+<input type="image" src="/aDISWeb/images/POOLVX00vb@@@@@@/gif/POOLVX00vb@@@@@@_53001D00_228F8280.gif;jsessionid=DAA418AB9EABFC0A0FD8F8AAF5D13D36" alt="Hilfe zur Trefferliste" id="Toolbar$0_8" name="$Toolbar$0_8" title="Hilfe zur Trefferliste" onmouseover="self.status='Hilfe zur Trefferliste';return true;" onmouseout="self.status='';" class="toolbar_img"/><label for="Toolbar$0_8"><span class="toolbar_txt">Hilfe</span></label></li></ul><div style="clear:both"></div></div> </div>
+            <div class="clear"></div>
+      
+          </div>
+          <div id="clear"></div>
+        </div>
+        
+      </div><!-- /container_inside -->
+    </div><!-- /container -->
+
+    <div id="footer">
+      <div class="inside">
+      
+        <p class="block" id="goingup">
+          <a href="#wrapper">Seitenanfang</a>
+        </p>
+        <div class="clear"></div>
+
+      </div>
+    </div>
+    
+  </div><!-- /wrapper_inside -->
+</div><!-- /wrapper -->
+
+<script src="/aDISWeb_vob/js/yaml-focusfix.js" type="text/javascript"></script></form>
+</div></body>
+</html>

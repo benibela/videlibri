@@ -1,0 +1,367 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="de" lang="de">
+<!-- solution for: conditional-comments block downloads  -->
+<!--[if IE]><![endif]--><head>
+	<style type="text/css">
+		@import url(css/aDISStandard.css);
+	</style>
+	<script src="js/aDISMain.js" type="text/javascript"></script>
+	<script src="js/fckeditor/fckeditor.js" type="text/javascript"></script>
+	<title> Bibliothekskatalog             </title><script type="text/javascript">
+	var text = '';
+	window.defaultStatus=text;
+</script> <!--
+  (c) Software: aDIS/BMS und aDIS/Archiv by |a|S|tec| GmbH Berlin und Muenchen - www.astec.de
+  HTML-/CSS-Anpassungen: ena Webstudio - www.ena-webstudio.com
+  HTML-/CSS-Framework basiert grob auf Contao (c) Leo Feyer www.contao.org
+  Formulare, Tabellen, etc. werden automatisch durch aDIS generiert
+  Projekt: BSZ M02, Deutsch - OPAC02
+  Letztes Update: 27.09.2012
+  //-->
+  
+  <meta http-equiv="x-ua-compatible" content="ie=edge" />
+  <meta http-equiv="cache-control" content="no-cache" />
+  <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+  <meta http-equiv="content-style-type" content="text/css" />
+  <meta http-equiv="content-script-type" content="text/javascript" />
+  <meta http-equiv="content-language" content="de" />
+  <meta name="language" content="de" />
+  <!-- incl=includeMeta_de.html -->  <meta name="description" content="Bibliothekskatalog" />
+  <link rel="shortcut icon" type="image/x-icon" href="/aDISWeb_bsz/m20/images/favicon.ico" />
+<!-- stop -->
+  <!-- incl=includeCSS.html -->  <link rel="stylesheet" href="/aDISWeb_bsz/basis/css/framework.css" type="text/css" media="screen" />
+  <!--[if lte IE 7]><link rel="stylesheet" href="/aDISWeb_bsz/basis/css/framework_iefixes.css" type="text/css" media="screen" /><![endif]-->
+
+  <link rel="stylesheet" href="/aDISWeb_bsz/basis/css/layout.css" type="text/css" media="screen" />
+
+  <!-- START: individuelles Differenz-Stylesheet -->   
+  <link rel="stylesheet" type="text/css" media="screen, projection" href="/aDISWeb_bsz/m20/css/diff.css" />
+  <!-- STOP: individuelles Differenz-Stylesheet -->
+ 
+  <!--[if lt IE 7]><link rel="stylesheet" href="/aDISWeb_bsz/basis/css/ieonly.css" type="text/css" media="screen" /><![endif]--> 
+  <!--[if IE 7]><link rel="stylesheet" href="/aDISWeb_bsz/basis/css/ieonly7.css" type="text/css" media="screen" /><![endif]--> 
+  <!--[if gte IE 8]><link rel="stylesheet" href="/aDISWeb_bsz/basis/css/ieonly8.css" type="text/css" media="screen" /><![endif]-->
+  <link rel="stylesheet" type="text/css" href="/aDISWeb_bsz/basis/css/print.css" media="print" />
+
+  <!-- Mobildarstellung -->
+  <meta name="viewport" content="width=device-width; initial-scale=1.0" />
+  <link rel="stylesheet" href="/aDISWeb_bsz/basis/css/media.css" type="text/css" />
+  <!--[if lt IE 9]>
+	<script type="text/javascript" src="/aDISWeb_bsz/basis/js/css3-mediaqueries.js"></script>
+   <![endif]--> 
+<!-- stop --> 
+</head>
+<body class="dreier deutsch">
+<script type="text/javascript"><!--
+
+
+
+
+function startIdleTimer() {
+  if (typeof idleId != 'undefined')
+    clearTimeout(idleId)
+  idleId = window.setTimeout("to('"+ idleLink + "')", idleTime);
+  }			
+function to(link) {
+  location.href=link;
+  }
+
+
+
+
+					
+function setupHandlers()  {
+	document.onmousedown = docOnEvent;		
+	document.onkeydown = docOnEvent;	
+	document.onkeypress = docOnEvent;
+	document.onhelp = cancelF1;
+	
+	initFormElements();
+	initIframes();
+	initScrollPos();
+	}
+function getDimensions()  {
+	document.forms[0].scrDim.value = screen.width + ";" + screen.height;
+	if (window.innerWidth)
+		document.forms[0].winDim.value = window.innerWidth + ";" + window.innerHeight;
+	else
+		document.forms[0].winDim.value = document.body.offsetWidth + ";" + document.body.offsetHeight;
+	node = document.getElementById("img_content");
+	if (node != undefined)
+		document.forms[0].imgDim.value = node.offsetWidth + ";" + node.offsetHeight;
+	}
+
+
+
+
+window.onload = function (e)
+{
+
+  idleTime=600000;
+  idleLink="/aDISWeb/app;jsessionid=051F6E6F1EF2E0B6BD660108863E71A4?service=direct/1/POOLM20PBSZPROD@_44002500_2BD9D480/$Timeout";
+  startIdleTimer();
+
+
+if (!e) var e = window.event;
+document.forms[0].scriptEnabled.value=true;
+if (self.specialOnLoad != undefined)
+	specialOnLoad(e);
+setupHandlers();
+getDimensions();
+
+}
+
+// --></script>
+<div class="aDISMaske"><form method="post" name="Form0" action="/aDISWeb/app;jsessionid=051F6E6F1EF2E0B6BD660108863E71A4" onsubmit="return formOnSubmit();">
+<input type="hidden" name="service" value="direct/1/POOLM20PBSZPROD@_44002500_2BD9D480/$Form.form"/>
+<input type="hidden" name="sp" value="S0"/>
+<input type="hidden" name="Form0" value="focus,keyCode,stz,source,selected,requestCount,scriptEnabled,scrollPos,scrDim,winDim,imgDim,$Textfield,$FormConditional,textButton,$FormConditional$0,textButton$0,$FormConditional$1,$FormConditional$2,textButton$1,$FormConditional$3,textButton$2,$FormConditional$4,textButton$3,textButton$4,textButton$5,textButton$6,textButton$7,textButton$8,textButton$9,$FormConditional$5,textButton$10,$Toolbar,cellCheck,cellCheck$0,cellCheck$1,cellCheck$2,cellCheck$3,cellCheck$4,cellCheck$5,cellCheck$6,cellCheck$7,cellCheck$8,cellCheck$9,cellCheck$10,cellCheck$11,cellCheck$12,cellCheck$13,cellCheck$14,cellCheck$15,cellCheck$16,cellCheck$17,cellCheck$18,cellCheck$19,cellCheck$20,cellCheck$21,cellCheck$22,cellCheck$23,$Toolbar$0"/>
+<input type="hidden" name="focus" value=""/>
+<input type="hidden" name="keyCode" value="0"/>
+<input type="hidden" name="stz" value=""/>
+<input type="hidden" name="source" value=""/>
+<input type="hidden" name="selected" value=""/>
+<input type="hidden" name="requestCount" value="4"/>
+<input type="hidden" name="scriptEnabled" value="F"/>
+<input type="hidden" name="scrollPos" value="0"/>
+<input type="hidden" name="scrDim" value=""/>
+<input type="hidden" name="winDim" value=""/>
+<input type="hidden" name="imgDim" value=""/>
+<input type="hidden" name="$FormConditional" value="T"/>
+<input type="hidden" name="$FormConditional$0" value="T"/>
+<input type="hidden" name="$FormConditional$1" value="F"/>
+<input type="hidden" name="$FormConditional$2" value="T"/>
+<input type="hidden" name="$FormConditional$3" value="T"/>
+<input type="hidden" name="$FormConditional$4" value="F"/>
+<input type="hidden" name="$FormConditional$5" value="T"/>
+				
+<div id="wrapper">
+  <div id="wrapper_inside">
+  
+    <div id="header" role="banner">
+      <div class="inside">     
+      
+          <ul id="sprunglinks">
+            <li><a class="sprung" href="#main">Zum Hauptinhalt</a></li>
+            <li><a class="sprung" href="#left">Zum Navigationsmen&uuml;</a></li>
+            <li><a class="sprung" href="#right">Zu den weiteren Bedienelementen</a></li>
+          </ul>
+  <!-- incl=includeLogo_de.html --><p id="logo">
+<a href="http://www.mh-freiburg.de/bibliothek" title="Zur Homepage der Bibliothek">
+<img src="/aDISWeb_bsz/m20/images/logo.png" height="105" alt="Logo" /></a>
+</p>
+<!-- stop --> 
+      </div>
+    </div>
+  
+    <div id="container">
+      <div id="container_inside">
+
+        <div id="left">
+          <div class="inside">
+
+            <h2 class="invisible">Navigation</h2>
+  <!-- incl=includeNavigation1.html -->            <div id="settings">
+              <p>
+                
+              </p>
+            </div>
+   <!-- stop -->
+            <div id="navbox" class="block">
+            <div id="R20"><span class="bnzeig"></span><span class="mmzeig">Sie sind nicht angemeldet.</span> </div> 
+            </div>
+            
+            <div class="mod_navigation block" id="unav" role="navigation"> 
+  <!-- incl=includeNavigation2_a.html --><!-- Platz fuer externe Navigation VOR aDIS-Navigation -->
+<!-- stop --><div class="tree_div">
+<ul class="tree_ul">
+<li class="tree_branch_li_exp">
+<a href="/aDISWeb/app;jsessionid=051F6E6F1EF2E0B6BD660108863E71A4?service=direct/1/POOLM20PBSZPROD@_44002500_2BD9D480/$Tree.treeNodes&amp;sp=SBD&amp;requestCount=4" class="tree_branch_a"><span>Online-Katalog</span></a><div class="tree_divsub">
+<ul class="tree_ulsub">
+<li class="tree_leaf_li">
+<a href="/aDISWeb/app;jsessionid=051F6E6F1EF2E0B6BD660108863E71A4?service=direct/1/POOLM20PBSZPROD@_44002500_2BD9D480/$Tree.treeNodes&amp;sp=SS1&amp;requestCount=4" class="tree_leaf_a"><span>Einfache Suche</span></a><span class="outside">.</span></li>
+<li class="tree_leaf_li_sel">
+<strong><span class="tree_strong">Erweiterte Suche</span></strong></li>
+<li class="tree_leaf_li">
+<a href="/aDISWeb/app;jsessionid=051F6E6F1EF2E0B6BD660108863E71A4?service=direct/1/POOLM20PBSZPROD@_44002500_2BD9D480/$Tree.treeNodes&amp;sp=SAP&amp;requestCount=4" class="tree_leaf_a"><span>Meine Suchen</span></a><span class="outside">.</span></li>
+</ul></div>
+</li>
+<li class="tree_leaf_li">
+<a href="/aDISWeb/app;jsessionid=051F6E6F1EF2E0B6BD660108863E71A4?service=direct/1/POOLM20PBSZPROD@_44002500_2BD9D480/$Tree.treeNodes&amp;sp=SW1&amp;requestCount=4" class="tree_leaf_a"><span>Semesterapparate</span></a><span class="outside">.</span></li>
+<li class="tree_leaf_li">
+<a href="/aDISWeb/app;jsessionid=051F6E6F1EF2E0B6BD660108863E71A4?service=direct/1/POOLM20PBSZPROD@_44002500_2BD9D480/$Tree.treeNodes&amp;sp=SW2&amp;requestCount=4" class="tree_leaf_a"><span>Neuerwerbungsliste</span></a><span class="outside">.</span></li>
+<li class="tree_leaf_li">
+<a href="/aDISWeb/app;jsessionid=051F6E6F1EF2E0B6BD660108863E71A4?service=direct/1/POOLM20PBSZPROD@_44002500_2BD9D480/$Tree.treeNodes&amp;sp=SBK&amp;requestCount=4" class="tree_leaf_a"><span>Mein Konto</span></a><span class="outside">.</span></li>
+<li class="tree_leaf_li">
+<span class="tree_disabled">Abmelden</span>
+<span class="outside">.</span></li>
+</ul></div>
+ <!-- incl=includeNavigation2_b.html --><!-- Platz fuer externe Navigation NACH aDIS-Navigation -->
+<!-- stop -->  
+            </div>  
+               
+          </div>
+        </div>
+
+        <div id="right">
+          <div class="inside">
+
+            <h2 class="invisible">Weitere Bedienelemente</h2>
+            <p class="sprung"><a href="#main">Zum Hauptinhalt</a></p>
+
+        <div class="fsgrp">
+           <div id="R06">
+      <p><span style="   width:80%;">Gesucht wurde mit: "Titel= test", Treffer: 1-25 von 25</span> </p>
+    </div><div id="R14">
+      <div class="treffer_anzeigen">
+        <fieldset>
+        <legend>Treffer-Direktwahl</legend>
+        <label for="SLSTRZ_1">Treffer-Nr.</label><input type="text" name="$Textfield" fld="SLSTRZ_1" onkeypress="checkNumeric(event,this);" class="text" maxlength="10" id="SLSTRZ_1"/> <input class="buttong"  type="submit" name="Submit" value="OK" /> 
+        <div class="clear"></div>
+        <br class="klar"/></fieldset>
+      </div>
+    </div><div id="R05">
+      <h3>Sortierung &#228;ndern:</h3>
+     <p><input type="submit" name="textButton" value="Titel" class="buttong" fld="$$GFBO_1"/><input type="submit" name="textButton$0" value="Verfasser" class="buttong" fld="$$GFBO_2"/><input type="submit" name="textButton$1" value="Jahr aufw&#228;rts" class="buttong" fld="$$GFBO_4"/> </p>
+
+      <h3>Weitere Aktionen:</h3>
+       <p><input type="submit" name="textButton$2" value="Meine Suche speichern" class="buttong" fld="$$GFBO_6"/> </p>
+
+    </div><div id="R12">
+    <div id="OPACLI" style="   width:69%;" class="aDISListe"><div class="html_div" style="width:99%; height:100%;"></div> </div>
+  </div>
+           
+           
+           
+        </div>
+
+         <div class="block">
+           <div id="R08">
+      <h3>Treffer einschr&#228;nken nach:</h3>     
+    </div><div class="cbtree_div">
+<ul class="cbtree_ul">
+<li class="cbtree_branch_li">
+<input type="submit" name="SELT_tree_2_0" value="Erscheinungsjahr" class="cbtree_branch_a"/><span class="outside">.</span></li>
+<li class="cbtree_branch_li">
+<input type="submit" name="SELT_tree_2_1" value="Schlagw&#246;rter" class="cbtree_branch_a"/><span class="outside">.</span></li>
+<li class="cbtree_branch_li">
+<input type="submit" name="SELT_tree_2_2" value="Sprache" class="cbtree_branch_a"/><span class="outside">.</span></li>
+<li class="cbtree_branch_li">
+<input type="submit" name="SELT_tree_2_3" value="Medientyp" class="cbtree_branch_a"/><span class="outside">.</span></li>
+<li class="cbtree_branch_li">
+<input type="submit" name="SELT_tree_2_4" value="in Bibliothek" class="cbtree_branch_a"/><span class="outside">.</span></li>
+</ul></div>
+ <div id="R09"> </div>
+         </div> 
+         
+         <div class="block">
+           <div id="R11">
+      <div class="aktion custom">
+        <h3>Export nach:</h3><p class="buttong"><input type="submit" name="textButton$3" value="BibTeX" class="buttong"/><input type="submit" name="textButton$4" value="Citavi" class="buttong"/><input type="submit" name="textButton$5" value="EndNote" class="buttong"/><input type="submit" name="textButton$6" value="ProCite" class="buttong"/><input type="submit" name="textButton$7" value="Reference Manager" class="buttong"/><input type="submit" name="textButton$8" value="RefWorks" class="buttong"/><input type="submit" name="textButton$9" value="Zotero" class="buttong"/></p> </div>
+  </div>
+           
+           
+         </div> 
+
+              
+          </div>
+        </div>
+  
+        <div id="main" role="main">
+          <div class="inside">
+          
+            <div class="block">
+       
+               
+              <h1><span class="invisible">Aktuelle Seite: </span> <span class="txtinsert">Trefferliste sortiert nach Jahr abw&#228;rts</span> </h1>  
+
+      
+              <div class="block" id="topleiste">  
+                <p id="druckversion"><input type="submit" name="textButton$10" value="Druckversion" fld="$$GFBO_88"/> </p>   
+                
+                <p id="breadcrumb"><!-- incl=includeBreadcrumb_de.html --><span class="invisible">Sie sind hier: </span> 
+<!-- stop --><a href="/aDISWeb/app;jsessionid=051F6E6F1EF2E0B6BD660108863E71A4?service=direct/1/POOLM20PBSZPROD@_44002500_2BD9D480/$InternalLink.directlink&amp;sp=S%24%24GFNV_1&amp;sp=SStartseite%3DCW00&amp;requestCount=4" title="" fld="$$GFNV_1">Online-Katalog</a>	<span class="outside">.</span> &gt; <span class="navicl"><a href="/aDISWeb/app;jsessionid=051F6E6F1EF2E0B6BD660108863E71A4?service=direct/1/POOLM20PBSZPROD@_44002500_2BD9D480/navpath.intlink.directlink&amp;sp=S%24%24GFNV_1&amp;sp=SS6AK&amp;requestCount=4" title="Erweiterte Suche" fld="$$GFNV_1">Erweiterte Suche</a>	<span class="outside">.</span></span> &gt;<span class="txtinsert">Trefferliste sortiert nach Jahr abw&#228;rts</span> </p>
+              </div> <div class="toolbar_div">
+<ul class="toolbar_ul">
+<li class="toolbar_li">
+<input type="image" src="/aDISWeb/images/POOLM20PBSZPROD@/gif/POOLM20PBSZPROD@_57001500_26630D00.gif;jsessionid=051F6E6F1EF2E0B6BD660108863E71A4" alt="Zur&#252;ck zur Suche" id="Toolbar_0" name="$Toolbar_0" title="Zur&#252;ck zur Suche" onmouseover="self.status='Zur&#252;ck zur Suche';return true;" onmouseout="self.status='';" class="toolbar_img"/><label for="Toolbar_0"><span class="toolbar_txt">Zur&#252;ck</span></label></li>
+<li class="toolbar_li">
+<input type="image" src="/aDISWeb/images/POOLM20PBSZPROD@/gif/POOLM20PBSZPROD@_57001200_28498680.gif;jsessionid=051F6E6F1EF2E0B6BD660108863E71A4" alt="Zur Vollanzeige des Treffers" id="Toolbar_1" name="$Toolbar_1" title="Zur Vollanzeige des Treffers" onmouseover="self.status='Zur Vollanzeige des Treffers';return true;" onmouseout="self.status='';" class="toolbar_img"/><label for="Toolbar_1"><span class="toolbar_txt">Vollanzeige</span></label></li>
+<li class="toolbar_li">
+<input type="image" src="/aDISWeb/images/POOLM20PBSZPROD@/gif/POOLM20PBSZPROD@_57000F00_28498680.gif;jsessionid=051F6E6F1EF2E0B6BD660108863E71A4" alt="Zur&#252;ck zur Suche" id="Toolbar_2" name="$Toolbar_2" title="Zur&#252;ck zur Suche" onmouseover="self.status='Zur&#252;ck zur Suche';return true;" onmouseout="self.status='';" class="toolbar_img"/><label for="Toolbar_2"><span class="toolbar_txt">Neue Suche</span></label></li>
+<li class="toolbar_li">
+<input type="image" src="/aDISWeb/images/POOLM20PBSZPROD@/gif/POOLM20PBSZPROD@_57000701_29F74F80.gif;jsessionid=051F6E6F1EF2E0B6BD660108863E71A4" alt="An den Anfang bl&#228;ttern" id="Toolbar_3" name="$Toolbar_3" disabled="disabled" title="An den Anfang bl&#228;ttern" onmouseover="self.status='An den Anfang bl&#228;ttern';return true;" onmouseout="self.status='';" class="toolbar_img_dis"/><label for="Toolbar_3"><span class="toolbar_txt_dis">Anfang</span></label></li>
+<li class="toolbar_li">
+<input type="image" src="/aDISWeb/images/POOLM20PBSZPROD@/gif/POOLM20PBSZPROD@_57000A01_29F74F80.gif;jsessionid=051F6E6F1EF2E0B6BD660108863E71A4" alt="R&#252;ckw&#228;rts bl&#228;ttern " id="Toolbar_4" name="$Toolbar_4" disabled="disabled" title="R&#252;ckw&#228;rts bl&#228;ttern " onmouseover="self.status='R&#252;ckw&#228;rts bl&#228;ttern ';return true;" onmouseout="self.status='';" class="toolbar_img_dis"/><label for="Toolbar_4"><span class="toolbar_txt_dis">R&#252;ckw&#228;rts</span></label></li>
+<li class="toolbar_li">
+<input type="image" src="/aDISWeb/images/POOLM20PBSZPROD@/gif/POOLM20PBSZPROD@_57000C01_29F74F80.gif;jsessionid=051F6E6F1EF2E0B6BD660108863E71A4" alt="Vorw&#228;rts bl&#228;ttern" id="Toolbar_5" name="$Toolbar_5" disabled="disabled" title="Vorw&#228;rts bl&#228;ttern" onmouseover="self.status='Vorw&#228;rts bl&#228;ttern';return true;" onmouseout="self.status='';" class="toolbar_img_dis"/><label for="Toolbar_5"><span class="toolbar_txt_dis">Vorw&#228;rts</span></label></li>
+<li class="toolbar_li">
+<input type="image" src="/aDISWeb/images/POOLM20PBSZPROD@/gif/POOLM20PBSZPROD@_57000801_29F74F80.gif;jsessionid=051F6E6F1EF2E0B6BD660108863E71A4" alt="Ans Ende bl&#228;ttern" id="Toolbar_6" name="$Toolbar_6" disabled="disabled" title="Ans Ende bl&#228;ttern" onmouseover="self.status='Ans Ende bl&#228;ttern';return true;" onmouseout="self.status='';" class="toolbar_img_dis"/><label for="Toolbar_6"><span class="toolbar_txt_dis">Ende</span></label></li>
+<li class="toolbar_li">
+<input type="image" src="/aDISWeb/images/POOLM20PBSZPROD@/gif/POOLM20PBSZPROD@_57000B00_28498680.gif;jsessionid=051F6E6F1EF2E0B6BD660108863E71A4" alt="Beenden der Recherche" id="Toolbar_7" name="$Toolbar_7" title="Beenden der Recherche" onmouseover="self.status='Beenden der Recherche';return true;" onmouseout="self.status='';" class="toolbar_img"/><label for="Toolbar_7"><span class="toolbar_txt">Beenden</span></label></li>
+<li class="toolbar_li">
+<input type="image" src="/aDISWeb/images/POOLM20PBSZPROD@/gif/POOLM20PBSZPROD@_57000500_28498680.gif;jsessionid=051F6E6F1EF2E0B6BD660108863E71A4" alt="Hilfe zur Trefferliste" id="Toolbar_8" name="$Toolbar_8" title="Hilfe zur Trefferliste" onmouseover="self.status='Hilfe zur Trefferliste';return true;" onmouseout="self.status='';" class="toolbar_img"/><label for="Toolbar_8"><span class="toolbar_txt">Hilfe</span></label></li></ul><div style="clear:both"></div></div> <div class="fsgrp">            
+                <div id="R07"><div class="rTable_div"><table colDisable="[true, true, true, true, true, true, true]" class="rTable_table" colNumeric="[true, false, false, false, false, false, false]" width="100%">	<colgroup><col width="08%"></col><col width="04%"></col><col width="06%"></col><col width="55%"></col><col width="13%"></col><col width="06%"></col><col width="06%"></col>	</colgroup>	<thead class="rTable_thead">
+			<tr><th scope="col" class="rTable_th"></th><th scope="col" class="rTable_th"></th><th scope="col" class="rTable_th">Art</th><th scope="col" class="rTable_th">Titel / Verfasserangabe. - Auflage - Verlag</th><th scope="col" class="rTable_th">Signatur</th><th scope="col" class="rTable_th"><span class="invisible">Verfügbar?</span></th><th scope="col" class="rTable_th">Jahr</th>	</tr>	
+		</thead>
+		<tbody><tr class="rTable_tr_even">	&#09;<td class="rTable_td_num">1</td>	&#09;<td class="rTable_td_check"><label for="cellCheck" class="invisible">Markieren</label><input type="checkbox" name="cellCheck" fld="###CHK_1" id="cellCheck"/></td>	&#09;<td class="rTable_td_img"><img src="/aDISWeb/images/POOLM20PBSZPROD@/gif/POOLM20PBSZPROD@_53008100_229E0300.gif" border="0" title="CD" alt="CD"/></td>	&#09;<td class="rTable_td_text"><a href="javascript:top.htmlOnLink('AK00752686')">Orchester-Probespiel - Fagott - Kontrafagott : Werkausschnitte (Klangbeispiele wichtiger Stellen) aus der Opern- und Konzertliteratur. - Deutsche Grammophon Gesellschaft mbH</a></td>	&#09;<td class="rTable_td_text">CD 1692</td>	&#09;<td class="rTable_td_text"><span> <img class='icon' height='16' width='16' src='/aDISWeb/icons/verfu_ja.gif' alt='ist verf&#0252;gbar' title='ist verf&#0252;gbar' /></td>	&#09;<td class="rTable_td_text">1993</td></tr><tr class="rTable_tr_odd">	&#09;<td class="rTable_td_num">2</td>	&#09;<td class="rTable_td_check"><label for="cellCheck_0" class="invisible">Markieren</label><input type="checkbox" name="cellCheck$0" fld="###CHK_2" id="cellCheck_0"/></td>	&#09;<td class="rTable_td_img"><img src="/aDISWeb/images/POOLM20PBSZPROD@/gif/POOLM20PBSZPROD@_53009900_229E0300.gif" border="0" title="Noten" alt="Noten"/></td>	&#09;<td class="rTable_td_text"><a href="javascript:top.htmlOnLink('AK01147643')">Orchester-Probespiel - Posaune : Sammlung wichtiger Passagen aus der Opern- und Konzertliteratur / <strong>... hrsg. von Armin Rosin u. Eberhard Pleyer</strong>. - Peters</a></td>	&#09;<td class="rTable_td_text">12.6 Orch</td>	&#09;<td class="rTable_td_text"><span> <img class='icon' height='16' width='16' src='/aDISWeb/icons/verfu_ja.gif' alt='ist verf&#0252;gbar' title='ist verf&#0252;gbar' /></td>	&#09;<td class="rTable_td_text">1993</td></tr><tr class="rTable_tr_even">	&#09;<td class="rTable_td_num">3</td>	&#09;<td class="rTable_td_check"><label for="cellCheck_1" class="invisible">Markieren</label><input type="checkbox" name="cellCheck$1" fld="###CHK_3" id="cellCheck_1"/></td>	&#09;<td class="rTable_td_img"><img src="/aDISWeb/images/POOLM20PBSZPROD@/gif/POOLM20PBSZPROD@_53007F00_25F99500.gif" border="0" title="Band" alt="Band"/></td>	&#09;<td class="rTable_td_text"><a href="javascript:top.htmlOnLink('AK01166352')">Musik. - 9, Lehrerhandbuch. Lehrerhandbuch mit Übungstest und Informellem Test / <strong>von Lisl Hammaleser ..</strong>. - 1. Aufl.. - Wolf</a></td>	&#09;<td class="rTable_td_text">Sbh 403 Musi 9,Lehr</td>	&#09;<td class="rTable_td_text"><span> <img class='icon' height='16' width='16' src='/aDISWeb/icons/verfu_ja.gif' alt='ist verf&#0252;gbar' title='ist verf&#0252;gbar' /></td>	&#09;<td class="rTable_td_text">1992</td></tr><tr class="rTable_tr_odd">	&#09;<td class="rTable_td_num">4</td>	&#09;<td class="rTable_td_check"><label for="cellCheck_2" class="invisible">Markieren</label><input type="checkbox" name="cellCheck$2" fld="###CHK_4" id="cellCheck_2"/></td>	&#09;<td class="rTable_td_img"><img src="/aDISWeb/images/POOLM20PBSZPROD@/gif/POOLM20PBSZPROD@_53009900_229E0300.gif" border="0" title="Noten" alt="Noten"/></td>	&#09;<td class="rTable_td_text"><a href="javascript:top.htmlOnLink('AK01134000')">Orchester-Probespiel - Fagott (Kontrafagott) : Sammlung wichtiger Passagen aus der Opern- und Konzertliteratur / <strong>... hrsg. von Karl Kolbinger u. Alfred Rinderspacher</strong>. - Peters</a></td>	&#09;<td class="rTable_td_text">12.3 Orch</td>	&#09;<td class="rTable_td_text"><span> <img class='icon' height='16' width='16' src='/aDISWeb/icons/verfu_ja.gif' alt='ist verf&#0252;gbar' title='ist verf&#0252;gbar' /></td>	&#09;<td class="rTable_td_text">1992</td></tr><tr class="rTable_tr_even">	&#09;<td class="rTable_td_num">5</td>	&#09;<td class="rTable_td_check"><label for="cellCheck_3" class="invisible">Markieren</label><input type="checkbox" name="cellCheck$3" fld="###CHK_5" id="cellCheck_3"/></td>	&#09;<td class="rTable_td_img"><img src="/aDISWeb/images/POOLM20PBSZPROD@/gif/POOLM20PBSZPROD@_53009900_229E0300.gif" border="0" title="Noten" alt="Noten"/></td>	&#09;<td class="rTable_td_text"><a href="javascript:top.htmlOnLink('AK01163511')">Orchester-Probespiel - Horn : Sammlung wichtiger Passagen aus der Opern- und Konzertliteratur / <strong>in Zs.-Arbeit mit d. Dt. Orchestervereinigung (DOV) hrsg. von Johannes Ritzkowsky ...</strong>. - Peters</a></td>	&#09;<td class="rTable_td_text">12.4 Orch</td>	&#09;<td class="rTable_td_text"><span> <img class='icon' height='16' width='16' src='/aDISWeb/icons/verfu_ja.gif' alt='ist verf&#0252;gbar' title='ist verf&#0252;gbar' /></td>	&#09;<td class="rTable_td_text">1992</td></tr><tr class="rTable_tr_odd">	&#09;<td class="rTable_td_num">6</td>	&#09;<td class="rTable_td_check"><label for="cellCheck_4" class="invisible">Markieren</label><input type="checkbox" name="cellCheck$4" fld="###CHK_6" id="cellCheck_4"/></td>	&#09;<td class="rTable_td_img"><img src="/aDISWeb/images/POOLM20PBSZPROD@/gif/POOLM20PBSZPROD@_53009900_229E0300.gif" border="0" title="Noten" alt="Noten"/></td>	&#09;<td class="rTable_td_text"><a href="javascript:top.htmlOnLink('AK01149653')">Orchester-Probespiel - Flöte (Piccoloflöte) : Sammlung wichtiger Passagen aus der Opern- und Konzertliteratur / <strong>... hrsg. von Christoph Dürichen u. Siegfried Kratsch</strong>. - Peters</a></td>	&#09;<td class="rTable_td_text">11.1 Orch</td>	&#09;<td class="rTable_td_text"><span> <img class='icon' height='16' width='16' src='/aDISWeb/icons/verfu_ja.gif' alt='ist verf&#0252;gbar' title='ist verf&#0252;gbar' /></td>	&#09;<td class="rTable_td_text">1991</td></tr><tr class="rTable_tr_even">	&#09;<td class="rTable_td_num">7</td>	&#09;<td class="rTable_td_check"><label for="cellCheck_5" class="invisible">Markieren</label><input type="checkbox" name="cellCheck$5" fld="###CHK_7" id="cellCheck_5"/></td>	&#09;<td class="rTable_td_img"><img src="/aDISWeb/images/POOLM20PBSZPROD@/gif/POOLM20PBSZPROD@_53009900_229E0300.gif" border="0" title="Noten" alt="Noten"/></td>	&#09;<td class="rTable_td_text"><a href="javascript:top.htmlOnLink('AK00708618')">Orchester-Probespiel - Klarinette : Sammlung wichtiger Passagen aus der Opern- und Konzertliteratur / <strong>... hrsg. von Heinz Hepp u. Albert Rohde</strong>. - Peters</a></td>	&#09;<td class="rTable_td_text">12.2 Orch</td>	&#09;<td class="rTable_td_text"><span> <img class='icon' height='16' width='16' src='/aDISWeb/icons/verfu_ja.gif' alt='ist verf&#0252;gbar' title='ist verf&#0252;gbar' /></td>	&#09;<td class="rTable_td_text">1991</td></tr><tr class="rTable_tr_odd">	&#09;<td class="rTable_td_num">8</td>	&#09;<td class="rTable_td_check"><label for="cellCheck_6" class="invisible">Markieren</label><input type="checkbox" name="cellCheck$6" fld="###CHK_8" id="cellCheck_6"/></td>	&#09;<td class="rTable_td_img"><img src="/aDISWeb/images/POOLM20PBSZPROD@/gif/POOLM20PBSZPROD@_53009900_229E0300.gif" border="0" title="Noten" alt="Noten"/></td>	&#09;<td class="rTable_td_text"><a href="javascript:top.htmlOnLink('AK00726498')">Orchester-Probespiel - Trompete : Sammlung wichtiger Passagen aus der Opern- und Konzertliteratur / <strong>in Zs.-Arbeit mit d. Dt. Orchestervereinigung (DOV) hrsg. von Joachim Pliquett u. Hansfred Lösch</strong>. - Peters</a></td>	&#09;<td class="rTable_td_text">12.5 Orch</td>	&#09;<td class="rTable_td_text"><span> <img class='icon' height='16' width='16' src='/aDISWeb/icons/verfu_ja.gif' alt='ist verf&#0252;gbar' title='ist verf&#0252;gbar' /></td>	&#09;<td class="rTable_td_text">1991</td></tr><tr class="rTable_tr_even">	&#09;<td class="rTable_td_num">9</td>	&#09;<td class="rTable_td_check"><label for="cellCheck_7" class="invisible">Markieren</label><input type="checkbox" name="cellCheck$7" fld="###CHK_9" id="cellCheck_7"/></td>	&#09;<td class="rTable_td_img"><img src="/aDISWeb/images/POOLM20PBSZPROD@/gif/POOLM20PBSZPROD@_53009900_229E0300.gif" border="0" title="Noten" alt="Noten"/></td>	&#09;<td class="rTable_td_text"><a href="javascript:top.htmlOnLink('AK00758252')">Orchester-Probespiel Oboe : Sammlung wichtiger Passagen aus der Opern- und Konzertliteratur, excerpts from the operatic and concert repertoire / <strong>... hrsg. von Voijslav Miller u. Winfried Liebermann</strong>. - Peters</a></td>	&#09;<td class="rTable_td_text">12.1 Orch</td>	&#09;<td class="rTable_td_text"><span> <img class='icon' height='16' width='16' src='/aDISWeb/icons/verfu_ja.gif' alt='ist verf&#0252;gbar' title='ist verf&#0252;gbar' /></td>	&#09;<td class="rTable_td_text">1991</td></tr><tr class="rTable_tr_odd">	&#09;<td class="rTable_td_num">10</td>	&#09;<td class="rTable_td_check"><label for="cellCheck_8" class="invisible">Markieren</label><input type="checkbox" name="cellCheck$8" fld="###CHK_10" id="cellCheck_8"/></td>	&#09;<td class="rTable_td_img"><img src="/aDISWeb/images/POOLM20PBSZPROD@/gif/POOLM20PBSZPROD@_53007F00_25F99500.gif" border="0" title="Band" alt="Band"/></td>	&#09;<td class="rTable_td_text"><a href="javascript:top.htmlOnLink('AK00121215')">Zum Problem der Messung musikalischer Begabung : Erfahrungen mit d. Bentley-Test / <strong>Klaus Finkel</strong>. - Eres-Edition</a></td>	&#09;<td class="rTable_td_text">Sbh 22 Fink</td>	&#09;<td class="rTable_td_text"><span> <img class='icon' height='16' width='16' src='/aDISWeb/icons/verfu_ja.gif' alt='ist verf&#0252;gbar' title='ist verf&#0252;gbar' /></td>	&#09;<td class="rTable_td_text">1976</td></tr><tr class="rTable_tr_even">	&#09;<td class="rTable_td_num">11</td>	&#09;<td class="rTable_td_check"><label for="cellCheck_9" class="invisible">Markieren</label><input type="checkbox" name="cellCheck$9" fld="###CHK_11" id="cellCheck_9"/></td>	&#09;<td class="rTable_td_img"><img src="/aDISWeb/images/POOLM20PBSZPROD@/gif/POOLM20PBSZPROD@_53007F00_25F99500.gif" border="0" title="Band" alt="Band"/></td>	&#09;<td class="rTable_td_text"><a href="javascript:top.htmlOnLink('AK01165654')">Musical aptitude profile. - [2]. Test &#034;R&#034; Rhythm Imagery, Tonband. &nbsp;- 1965 / <strong>Edwin Gordon</strong>. - Houghton Mifflin Company</a></td>	&#09;<td class="rTable_td_text">CD 1811</td>	&#09;<td class="rTable_td_text"><span> <img class='icon' height='16' width='16' src='/aDISWeb/icons/verfu_ja.gif' alt='ist verf&#0252;gbar' title='ist verf&#0252;gbar' /></td>	&#09;<td class="rTable_td_text">1965</td></tr><tr class="rTable_tr_odd">	&#09;<td class="rTable_td_num">12</td>	&#09;<td class="rTable_td_check"><label for="cellCheck_10" class="invisible">Markieren</label><input type="checkbox" name="cellCheck$10" fld="###CHK_12" id="cellCheck_10"/></td>	&#09;<td class="rTable_td_img"><img src="/aDISWeb/images/POOLM20PBSZPROD@/gif/POOLM20PBSZPROD@_53007F00_25F99500.gif" border="0" title="Band" alt="Band"/></td>	&#09;<td class="rTable_td_text"><a href="javascript:top.htmlOnLink('AK01165663')">Musical aptitude profile. - [3]. Test &#034;S&#034; Musical Sensitivity, Tonband. &nbsp;- 1965 / <strong>Edwin Gordon</strong>. - Houghton Mifflin Company</a></td>	&#09;<td class="rTable_td_text">CD 1810</td>	&#09;<td class="rTable_td_text"><span> <img class='icon' height='16' width='16' src='/aDISWeb/icons/verfu_ja.gif' alt='ist verf&#0252;gbar' title='ist verf&#0252;gbar' /></td>	&#09;<td class="rTable_td_text">1965</td></tr><tr class="rTable_tr_even">	&#09;<td class="rTable_td_num">13</td>	&#09;<td class="rTable_td_check"><label for="cellCheck_11" class="invisible">Markieren</label><input type="checkbox" name="cellCheck$11" fld="###CHK_13" id="cellCheck_11"/></td>	&#09;<td class="rTable_td_img"><img src="/aDISWeb/images/POOLM20PBSZPROD@/gif/POOLM20PBSZPROD@_53007F00_25F99500.gif" border="0" title="Band" alt="Band"/></td>	&#09;<td class="rTable_td_text"><a href="javascript:top.htmlOnLink('AK01165670')">Musical aptitude profile. - [4]. Test &#034;T&#034; Tonal Imagery, Tonband. &nbsp;- 1965 / <strong>Edwin Gordon</strong>. - Houghton Mifflin Company</a></td>	&#09;<td class="rTable_td_text">CD 1809</td>	&#09;<td class="rTable_td_text"><span> <img class='icon' height='16' width='16' src='/aDISWeb/icons/verfu_ja.gif' alt='ist verf&#0252;gbar' title='ist verf&#0252;gbar' /></td>	&#09;<td class="rTable_td_text">1965</td></tr><tr class="rTable_tr_odd">	&#09;<td class="rTable_td_num">14</td>	&#09;<td class="rTable_td_check"><label for="cellCheck_12" class="invisible">Markieren</label><input type="checkbox" name="cellCheck$12" fld="###CHK_14" id="cellCheck_12"/></td>	&#09;<td class="rTable_td_img"><img src="/aDISWeb/images/POOLM20PBSZPROD@/gif/POOLM20PBSZPROD@_53007F00_25F99500.gif" border="0" title="Buch" alt="Buch"/></td>	&#09;<td class="rTable_td_text"><a href="javascript:top.htmlOnLink('AK20003790')">BSZ-Kurzleihe-Test</a></td>	&#09;<td class="rTable_td_text">TVID</td>	&#09;<td class="rTable_td_text"><span> <img class='icon' height='16' width='16' src='/aDISWeb/icons/verfu_ja.gif' alt='ist verf&#0252;gbar' title='ist verf&#0252;gbar' /></td>	&#09;<td class="rTable_td_text"></td></tr><tr class="rTable_tr_even">	&#09;<td class="rTable_td_num">15</td>	&#09;<td class="rTable_td_check"><label for="cellCheck_13" class="invisible">Markieren</label><input type="checkbox" name="cellCheck$13" fld="###CHK_15" id="cellCheck_13"/></td>	&#09;<td class="rTable_td_img"><img src="/aDISWeb/images/POOLM20PBSZPROD@/gif/POOLM20PBSZPROD@_53007F00_25F99500.gif" border="0" title="Buch" alt="Buch"/></td>	&#09;<td class="rTable_td_text"><a href="javascript:top.htmlOnLink('AK20003791')">BSZ-Kurzleihe-Test 2</a></td>	&#09;<td class="rTable_td_text">TVID D</td>	&#09;<td class="rTable_td_text"><span> <img class='icon' height='16' width='16' src='/aDISWeb/icons/verfu_ja.gif' alt='ist verf&#0252;gbar' title='ist verf&#0252;gbar' /></td>	&#09;<td class="rTable_td_text"></td></tr><tr class="rTable_tr_odd">	&#09;<td class="rTable_td_num">16</td>	&#09;<td class="rTable_td_check"><label for="cellCheck_14" class="invisible">Markieren</label><input type="checkbox" name="cellCheck$14" fld="###CHK_16" id="cellCheck_14"/></td>	&#09;<td class="rTable_td_img"><img src="/aDISWeb/images/POOLM20PBSZPROD@/gif/POOLM20PBSZPROD@_5300B300_229E0300.gif" border="0" title="Mehrb&#228;ndiges Werk" alt="Mehrb&#228;ndiges Werk"/></td>	&#09;<td class="rTable_td_text"><a href="javascript:top.htmlOnLink('AK01136056')">Matrizen-Test-Manual : ein Handbuch mit deutschen Normen / <strong>von K. A. Heller, H. Kratzmeier und A. Lengfelder</strong>. - Beltz-Test GmbH</a></td>	&#09;<td class="rTable_td_text"></td>	&#09;<td class="rTable_td_text"><span> <img class='icon' height='16' width='16' src='/aDISWeb/icons/verfu_info.gif' alt='siehe Vollanzeige' title='siehe Vollanzeige' /></td>	&#09;<td class="rTable_td_text"></td></tr><tr class="rTable_tr_even">	&#09;<td class="rTable_td_num">17</td>	&#09;<td class="rTable_td_check"><label for="cellCheck_15" class="invisible">Markieren</label><input type="checkbox" name="cellCheck$15" fld="###CHK_17" id="cellCheck_15"/></td>	&#09;<td class="rTable_td_img"><img src="/aDISWeb/images/POOLM20PBSZPROD@/gif/POOLM20PBSZPROD@_53009600_229E0300.gif" border="0" title="Medienkombination" alt="Medienkombination"/></td>	&#09;<td class="rTable_td_text"><a href="javascript:top.htmlOnLink('AK00757776')">Orchester-Probespiel - Harfe : Sammlung wichtiger Passagen aus der Opern- und Konzertliteratur / <strong>in Zsarb. mit d. Dt. Orchestervereinigung e.V. (DOV) hrsg. von Ruth Konhäuser u. Helga Storck</strong>. - Schott</a></td>	&#09;<td class="rTable_td_text"></td>	&#09;<td class="rTable_td_text"><span> <img class='icon' height='16' width='16' src='/aDISWeb/icons/verfu_info.gif' alt='siehe Vollanzeige' title='siehe Vollanzeige' /></td>	&#09;<td class="rTable_td_text"></td></tr><tr class="rTable_tr_odd">	&#09;<td class="rTable_td_num">18</td>	&#09;<td class="rTable_td_check"><label for="cellCheck_16" class="invisible">Markieren</label><input type="checkbox" name="cellCheck$16" fld="###CHK_18" id="cellCheck_16"/></td>	&#09;<td class="rTable_td_img"><img src="/aDISWeb/images/POOLM20PBSZPROD@/gif/POOLM20PBSZPROD@_53009600_229E0300.gif" border="0" title="Medienkombination" alt="Medienkombination"/></td>	&#09;<td class="rTable_td_text"><a href="javascript:top.htmlOnLink('AK00793337')">Orchester-Probespiel - Kontrabass : Sammlung wichtiger Passagen aus der Opern- und Konzertliteratur / <strong>... hrsg. von Fritz Massmann u. Gerd Reinke</strong>. - Schott</a></td>	&#09;<td class="rTable_td_text"></td>	&#09;<td class="rTable_td_text"><span> <img class='icon' height='16' width='16' src='/aDISWeb/icons/verfu_info.gif' alt='siehe Vollanzeige' title='siehe Vollanzeige' /></td>	&#09;<td class="rTable_td_text"></td></tr><tr class="rTable_tr_even">	&#09;<td class="rTable_td_num">19</td>	&#09;<td class="rTable_td_check"><label for="cellCheck_17" class="invisible">Markieren</label><input type="checkbox" name="cellCheck$17" fld="###CHK_19" id="cellCheck_17"/></td>	&#09;<td class="rTable_td_img"><img src="/aDISWeb/images/POOLM20PBSZPROD@/gif/POOLM20PBSZPROD@_53009600_229E0300.gif" border="0" title="Medienkombination" alt="Medienkombination"/></td>	&#09;<td class="rTable_td_text"><a href="javascript:top.htmlOnLink('AK00793329')">Orchester-Probespiel - Pauke, Schlagzeug : Sammlung wichtiger Passagen aus der Opern- und Konzertliteratur / <strong>... hrsg. von Hermann Gschwendtner u. Hans Jochen Ulrich</strong>. - Schott</a></td>	&#09;<td class="rTable_td_text"></td>	&#09;<td class="rTable_td_text"><span> <img class='icon' height='16' width='16' src='/aDISWeb/icons/verfu_info.gif' alt='siehe Vollanzeige' title='siehe Vollanzeige' /></td>	&#09;<td class="rTable_td_text"></td></tr><tr class="rTable_tr_odd">	&#09;<td class="rTable_td_num">20</td>	&#09;<td class="rTable_td_check"><label for="cellCheck_18" class="invisible">Markieren</label><input type="checkbox" name="cellCheck$18" fld="###CHK_20" id="cellCheck_18"/></td>	&#09;<td class="rTable_td_img"><img src="/aDISWeb/images/POOLM20PBSZPROD@/gif/POOLM20PBSZPROD@_53009900_229E0300.gif" border="0" title="Noten" alt="Noten"/></td>	&#09;<td class="rTable_td_text"><a href="javascript:top.htmlOnLink('AK00741488')">Orchester-Probespiel - Viola : Sammlung wichtiger Passagen aus der Opern- und Konzertliteratur / <strong>in Zs.-Arbeit mit d. Dt. Orchestervereinigung (DOV) hrsg. von Kurt Jenisch ...</strong>. - Schott</a></td>	&#09;<td class="rTable_td_text"></td>	&#09;<td class="rTable_td_text"><span> <img class='icon' height='16' width='16' src='/aDISWeb/icons/verfu_info.gif' alt='siehe Vollanzeige' title='siehe Vollanzeige' /></td>	&#09;<td class="rTable_td_text"></td></tr><tr class="rTable_tr_even">	&#09;<td class="rTable_td_num">21</td>	&#09;<td class="rTable_td_check"><label for="cellCheck_19" class="invisible">Markieren</label><input type="checkbox" name="cellCheck$19" fld="###CHK_21" id="cellCheck_19"/></td>	&#09;<td class="rTable_td_img"><img src="/aDISWeb/images/POOLM20PBSZPROD@/gif/POOLM20PBSZPROD@_53009600_229E0300.gif" border="0" title="Medienkombination" alt="Medienkombination"/></td>	&#09;<td class="rTable_td_text"><a href="javascript:top.htmlOnLink('AK00757792')">Orchester-Probespiel - Violine : Sammlung wichtiger Passagen aus der Opern- und Konzertliteratur. - Schott</a></td>	&#09;<td class="rTable_td_text"></td>	&#09;<td class="rTable_td_text"><span> <img class='icon' height='16' width='16' src='/aDISWeb/icons/verfu_info.gif' alt='siehe Vollanzeige' title='siehe Vollanzeige' /></td>	&#09;<td class="rTable_td_text"></td></tr><tr class="rTable_tr_odd">	&#09;<td class="rTable_td_num">22</td>	&#09;<td class="rTable_td_check"><label for="cellCheck_20" class="invisible">Markieren</label><input type="checkbox" name="cellCheck$20" fld="###CHK_22" id="cellCheck_20"/></td>	&#09;<td class="rTable_td_img"><img src="/aDISWeb/images/POOLM20PBSZPROD@/gif/POOLM20PBSZPROD@_53009600_229E0300.gif" border="0" title="Medienkombination" alt="Medienkombination"/></td>	&#09;<td class="rTable_td_text"><a href="javascript:top.htmlOnLink('AK00666615')">Orchester-Probespiel - Violoncello : Sammlung wichtiger Passagen aus der Opern- und Konzertliteratur / <strong>in Zs.-Arbeit mit d. Dt. Orchestervereinigung (DOV) hrsg. von Rolf Becker ...</strong>. - Schott</a></td>	&#09;<td class="rTable_td_text"></td>	&#09;<td class="rTable_td_text"><span> <img class='icon' height='16' width='16' src='/aDISWeb/icons/verfu_info.gif' alt='siehe Vollanzeige' title='siehe Vollanzeige' /></td>	&#09;<td class="rTable_td_text"></td></tr><tr class="rTable_tr_even">	&#09;<td class="rTable_td_num">23</td>	&#09;<td class="rTable_td_check"><label for="cellCheck_21" class="invisible">Markieren</label><input type="checkbox" name="cellCheck$21" fld="###CHK_23" id="cellCheck_21"/></td>	&#09;<td class="rTable_td_img"><img src="/aDISWeb/images/POOLM20PBSZPROD@/gif/POOLM20PBSZPROD@_53009600_229E0300.gif" border="0" title="Medienkombination" alt="Medienkombination"/></td>	&#09;<td class="rTable_td_text"><a href="javascript:top.htmlOnLink('AK00186431')">Seashore-Test für musikalische Begabung / <strong>hrsg. von Charles Butsch ...</strong>. - Huber</a></td>	&#09;<td class="rTable_td_text"></td>	&#09;<td class="rTable_td_text"><span> <img class='icon' height='16' width='16' src='/aDISWeb/icons/verfu_info.gif' alt='siehe Vollanzeige' title='siehe Vollanzeige' /></td>	&#09;<td class="rTable_td_text"></td></tr><tr class="rTable_tr_odd">	&#09;<td class="rTable_td_num">24</td>	&#09;<td class="rTable_td_check"><label for="cellCheck_22" class="invisible">Markieren</label><input type="checkbox" name="cellCheck$22" fld="###CHK_24" id="cellCheck_22"/></td>	&#09;<td class="rTable_td_img"><img src="/aDISWeb/images/POOLM20PBSZPROD@/gif/POOLM20PBSZPROD@_53007F00_25F99500.gif" border="0" title="Buch" alt="Buch"/></td>	&#09;<td class="rTable_td_text"><a href="javascript:top.htmlOnLink('AK20004726')">Test BSZ</a></td>	&#09;<td class="rTable_td_text">Sbh 312</td>	&#09;<td class="rTable_td_text"><span> <img class='icon' height='16' width='16' src='/aDISWeb/icons/verfu_ja.gif' alt='ist verf&#0252;gbar' title='ist verf&#0252;gbar' /></td>	&#09;<td class="rTable_td_text"></td></tr><tr class="rTable_tr_even">	&#09;<td class="rTable_td_num">25</td>	&#09;<td class="rTable_td_check"><label for="cellCheck_23" class="invisible">Markieren</label><input type="checkbox" name="cellCheck$23" fld="###CHK_25" id="cellCheck_23"/></td>	&#09;<td class="rTable_td_img"><img src="/aDISWeb/images/POOLM20PBSZPROD@/gif/POOLM20PBSZPROD@_53007F00_25F99500.gif" border="0" title="Buch" alt="Buch"/></td>	&#09;<td class="rTable_td_text"><a href="javascript:top.htmlOnLink('AK20004603')">Test BSZ / <strong>Bálínt Bakfark</strong></a></td>	&#09;<td class="rTable_td_text"></td>	&#09;<td class="rTable_td_text"><span> <img class='icon' height='16' width='16' src='/aDISWeb/icons/verfu_ja.gif' alt='ist verf&#0252;gbar' title='ist verf&#0252;gbar' /></td>	&#09;<td class="rTable_td_text"></td></tr>	</tbody></table>
+</div> </div>
+                
+                
+                
+                
+              </div>
+            
+
+              <div class="clear"></div> <div class="toolbar_div">
+<ul class="toolbar_ul">
+<li class="toolbar_li">
+<input type="image" src="/aDISWeb/images/POOLM20PBSZPROD@/gif/POOLM20PBSZPROD@_57001500_26630D00.gif;jsessionid=051F6E6F1EF2E0B6BD660108863E71A4" alt="Zur&#252;ck zur Suche" id="Toolbar$0_0" name="$Toolbar$0_0" title="Zur&#252;ck zur Suche" onmouseover="self.status='Zur&#252;ck zur Suche';return true;" onmouseout="self.status='';" class="toolbar_img"/><label for="Toolbar$0_0"><span class="toolbar_txt">Zur&#252;ck</span></label></li>
+<li class="toolbar_li">
+<input type="image" src="/aDISWeb/images/POOLM20PBSZPROD@/gif/POOLM20PBSZPROD@_57001200_28498680.gif;jsessionid=051F6E6F1EF2E0B6BD660108863E71A4" alt="Zur Vollanzeige des Treffers" id="Toolbar$0_1" name="$Toolbar$0_1" title="Zur Vollanzeige des Treffers" onmouseover="self.status='Zur Vollanzeige des Treffers';return true;" onmouseout="self.status='';" class="toolbar_img"/><label for="Toolbar$0_1"><span class="toolbar_txt">Vollanzeige</span></label></li>
+<li class="toolbar_li">
+<input type="image" src="/aDISWeb/images/POOLM20PBSZPROD@/gif/POOLM20PBSZPROD@_57000F00_28498680.gif;jsessionid=051F6E6F1EF2E0B6BD660108863E71A4" alt="Zur&#252;ck zur Suche" id="Toolbar$0_2" name="$Toolbar$0_2" title="Zur&#252;ck zur Suche" onmouseover="self.status='Zur&#252;ck zur Suche';return true;" onmouseout="self.status='';" class="toolbar_img"/><label for="Toolbar$0_2"><span class="toolbar_txt">Neue Suche</span></label></li>
+<li class="toolbar_li">
+<input type="image" src="/aDISWeb/images/POOLM20PBSZPROD@/gif/POOLM20PBSZPROD@_57000701_29F74F80.gif;jsessionid=051F6E6F1EF2E0B6BD660108863E71A4" alt="An den Anfang bl&#228;ttern" id="Toolbar$0_3" name="$Toolbar$0_3" disabled="disabled" title="An den Anfang bl&#228;ttern" onmouseover="self.status='An den Anfang bl&#228;ttern';return true;" onmouseout="self.status='';" class="toolbar_img_dis"/><label for="Toolbar$0_3"><span class="toolbar_txt_dis">Anfang</span></label></li>
+<li class="toolbar_li">
+<input type="image" src="/aDISWeb/images/POOLM20PBSZPROD@/gif/POOLM20PBSZPROD@_57000A01_29F74F80.gif;jsessionid=051F6E6F1EF2E0B6BD660108863E71A4" alt="R&#252;ckw&#228;rts bl&#228;ttern " id="Toolbar$0_4" name="$Toolbar$0_4" disabled="disabled" title="R&#252;ckw&#228;rts bl&#228;ttern " onmouseover="self.status='R&#252;ckw&#228;rts bl&#228;ttern ';return true;" onmouseout="self.status='';" class="toolbar_img_dis"/><label for="Toolbar$0_4"><span class="toolbar_txt_dis">R&#252;ckw&#228;rts</span></label></li>
+<li class="toolbar_li">
+<input type="image" src="/aDISWeb/images/POOLM20PBSZPROD@/gif/POOLM20PBSZPROD@_57000C01_29F74F80.gif;jsessionid=051F6E6F1EF2E0B6BD660108863E71A4" alt="Vorw&#228;rts bl&#228;ttern" id="Toolbar$0_5" name="$Toolbar$0_5" disabled="disabled" title="Vorw&#228;rts bl&#228;ttern" onmouseover="self.status='Vorw&#228;rts bl&#228;ttern';return true;" onmouseout="self.status='';" class="toolbar_img_dis"/><label for="Toolbar$0_5"><span class="toolbar_txt_dis">Vorw&#228;rts</span></label></li>
+<li class="toolbar_li">
+<input type="image" src="/aDISWeb/images/POOLM20PBSZPROD@/gif/POOLM20PBSZPROD@_57000801_29F74F80.gif;jsessionid=051F6E6F1EF2E0B6BD660108863E71A4" alt="Ans Ende bl&#228;ttern" id="Toolbar$0_6" name="$Toolbar$0_6" disabled="disabled" title="Ans Ende bl&#228;ttern" onmouseover="self.status='Ans Ende bl&#228;ttern';return true;" onmouseout="self.status='';" class="toolbar_img_dis"/><label for="Toolbar$0_6"><span class="toolbar_txt_dis">Ende</span></label></li>
+<li class="toolbar_li">
+<input type="image" src="/aDISWeb/images/POOLM20PBSZPROD@/gif/POOLM20PBSZPROD@_57000B00_28498680.gif;jsessionid=051F6E6F1EF2E0B6BD660108863E71A4" alt="Beenden der Recherche" id="Toolbar$0_7" name="$Toolbar$0_7" title="Beenden der Recherche" onmouseover="self.status='Beenden der Recherche';return true;" onmouseout="self.status='';" class="toolbar_img"/><label for="Toolbar$0_7"><span class="toolbar_txt">Beenden</span></label></li>
+<li class="toolbar_li">
+<input type="image" src="/aDISWeb/images/POOLM20PBSZPROD@/gif/POOLM20PBSZPROD@_57000500_28498680.gif;jsessionid=051F6E6F1EF2E0B6BD660108863E71A4" alt="Hilfe zur Trefferliste" id="Toolbar$0_8" name="$Toolbar$0_8" title="Hilfe zur Trefferliste" onmouseover="self.status='Hilfe zur Trefferliste';return true;" onmouseout="self.status='';" class="toolbar_img"/><label for="Toolbar$0_8"><span class="toolbar_txt">Hilfe</span></label></li></ul><div style="clear:both"></div></div> </div>
+            <div class="clear"></div>
+      
+          </div>
+          <div id="clear"></div>
+        </div>
+        
+      </div><!-- /container_inside -->
+    </div><!-- /container -->
+
+    <div id="footer">
+      <div class="inside">
+
+        <div id="foot1">  
+  <!-- incl=includeFooter_de.html -->|a|S|tec| angewandte Systemtechnik GmbH - <a href="http://www.astec.de">Barrierefreie Bibliothekssoftware - OPAC</a><!-- stop -->
+        </div>
+      
+        <div id="foot2">
+          <div id="goingup"><a href="#wrapper">Seitenanfang</a></div>
+        </div> 
+                      
+        <div class="clear"></div>
+
+      </div>
+    </div>
+    
+  </div><!-- /wrapper_inside -->
+</div><!-- /wrapper -->
+
+<script src="/aDISWeb_bsz/basis/js/yaml-focusfix.js" type="text/javascript"></script></form>
+</div></body>
+</html>

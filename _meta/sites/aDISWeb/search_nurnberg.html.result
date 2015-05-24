@@ -1,0 +1,74 @@
+book: {}
+
+
+search-result-count: string: 1393
+lastSearchedIndex: integer: 0
+search-next-page-available: boolean: true
+form: object(): {"method": "POST", "post": "service=direct%2F1%2FPOOLNBGPNBGPROD%40_44006200_2EF22A00%2F%24Form.form&sp=S0&Form0=focus%2CkeyCode%2Cstz%2Csource%2Cselected%2CrequestCount%2CscriptEnabled%2CscrollPos%2CscrDim%2CwinDim%2CimgDim%2C%24FormConditional%2CtextButton%2C%24FormConditional%240%2CtextButton%240%2C%24FormConditional%241%2C%24FormConditional%242%2CtextButton%241%2C%24FormConditional%243%2CtextButton%242%2C%24FormConditional%244%2CtextButton%243%2C%24FormConditional%245%2CtextButton%244%2C%24FormConditional%246%2CtextButton%245%2CtextButton%246%2CtextButton%247%2CtextButton%248%2CtextButton%249%2CtextButton%2410%2CtextButton%2411%2C%24FormConditional%247%2CtextButton%2412%2C%24Toolbar%2CcellCheck%2CcellCheck%240%2CcellCheck%241%2CcellCheck%242%2CcellCheck%243%2CcellCheck%244%2CcellCheck%245%2CcellCheck%246%2CcellCheck%247%2CcellCheck%248%2CcellCheck%249%2CcellCheck%2410%2CcellCheck%2411%2CcellCheck%2412%2CcellCheck%2413%2CcellCheck%2414%2CcellCheck%2415%2CcellCheck%2416%2CcellCheck%2417%2CcellCheck%2418%2CcellCheck%2419%2CcellCheck%2420%2C%24Toolbar%240&focus=&keyCode=0&stz=&source=&selected=&requestCount=2&scriptEnabled=T&scrollPos=0&scrDim=&winDim=&imgDim=&%24FormConditional=T&%24FormConditional%240=T&%24FormConditional%241=F&%24FormConditional%242=T&%24FormConditional%243=T&%24FormConditional%244=T&%24FormConditional%245=T&%24FormConditional%246=T&%24FormConditional%247=T", "url": "file:///aDISWeb/app;jsessionid=8CAD90B79CC5CCE254D5F3BBAE7053D0"}
+firstIndex: double: 23
+lastIndex: double: 23
+book: object(): {"year": "2015", "statusId": "available", "title": "Hieronymus Frosch : Faszinierende Experimente für Kinder", "author": " Andreas H. Schmachtl ; Heike Schettler ; Sonja Stuchtey / Schmachtl, Andreas H., Schettler, Heike, Stuchtey, Sonja, Schmachtl, Andreas H.. ", "publisher": " Arena", "_searchId": "ZTEXT%20%20%20%20%20%20%20AK06809101", "_index": 23}
+lastSearchedIndex: double: 23
+lastIndex: double: 24
+book: object(): {"year": "2015", "statusId": "lend", "title": "Mein Lerntrainer. - 2. Klasse. Mathe und Deutsch : der gesamte Lernstoff für die Klasse 2 ; Test nach jedem Thema ; direkte Selbstkontrolle ohne Blätter ", "author": " [Text: Friedrich Guggolz... Ill.: Thomas Grandy...]. ", "publisher": " Ravensburger Buchverl.", "_searchId": "ZTEXT%20%20%20%20%20%20%20AK06812907", "_index": 24}
+lastSearchedIndex: double: 24
+lastIndex: double: 25
+book: object(): {"year": "2015", "statusId": "available", "title": "Mein Lerntrainer. - 4. Klasse. Mathe und Deutsch : der gesamte Lernstoff für die Klasse 4 ; Test nach jedem Thema ; direkte Selbstkontrolle ", "author": " [Text: Friedrich Guggolz... Ill.: Stefan Lohr...]. ", "publisher": " Ravensburger Buchverl.", "_searchId": "ZTEXT%20%20%20%20%20%20%20AK06812784", "_index": 25}
+lastSearchedIndex: double: 25
+lastIndex: double: 26
+book: object(): {"year": "2015", "statusId": "lend", "title": "Neue Experimente mit freier Energie ", "author": " Ulrich E. Stempel. ", "publisher": " Franzis", "_searchId": "ZTEXT%20%20%20%20%20%20%20AK06811247", "_index": 26}
+lastSearchedIndex: double: 26
+lastIndex: double: 27
+book: object(): {"year": "2015", "statusId": "available", "title": "Oh! My goddess. - 47. ¬Der¬ letzte Test ", "author": " Kosuke Fujishima. ", "publisher": " 1. Aufl.", "_searchId": "ZTEXT%20%20%20%20%20%20%20AK06809746", "_index": 27}
+lastSearchedIndex: double: 27
+lastIndex: double: 28
+book: object(): {"year": "2015", "statusId": "lend", "title": "Pioneer [DVD] ", "author": " ein Film von Erik Skjoldbjærg. Aksel Hennie ; Wes Bentley ; Stephen Lang .... ", "publisher": " Lighthouse Home Entertainment", "_searchId": "ZTEXT%20%20%20%20%20%20%20AK06811163", "_index": 28}
+lastSearchedIndex: double: 28
+lastIndex: double: 29
+book: object(): {"year": "2015", "statusId": "lend", "title": "Pioneer [DVD] : Blu-ray Disc ", "author": " ein Film von Erik Skjoldbjærg. Aksel Hennie ; Wes Bentley ; Stephen Lang .... ", "publisher": " Lighthouse Home Entertainment", "_searchId": "ZTEXT%20%20%20%20%20%20%20AK06811186", "_index": 29}
+lastSearchedIndex: double: 29
+lastIndex: double: 30
+book: object(): {"year": "2015", "statusId": "lend", "title": "Schwanger : mein Kind & ich ", "author": " Kirsten Khaschei. ", "publisher": " Stiftung Warentest", "_searchId": "ZTEXT%20%20%20%20%20%20%20AK06813378", "_index": 30}
+lastSearchedIndex: double: 30
+lastIndex: double: 31
+book: object(): {"year": "2015", "statusId": "lend", "title": "Still Alice [DVD] : mein Leben ohne Gestern ", "author": " Lisa Genova. Richard Glatzer [Regie]. ", "publisher": " WVG Medien", "_searchId": "ZTEXT%20%20%20%20%20%20%20AK06815459", "_index": 31}
+lastSearchedIndex: double: 31
+lastIndex: double: 32
+book: object(): {"year": "2015", "statusId": "lend", "title": "Test, Finanztest [Computerdatei] : alle Ausgaben der Jahrgänge ... auf CD-ROM. - 2014. Archiv-CD-ROM ", "author": " Stiftung Warentest", "publisher": "ROM / Stiftung Warentest", "_searchId": "ZTEXT%20%20%20%20%20%20%20AK06805357", "_index": 32}
+lastSearchedIndex: double: 32
+lastIndex: double: 33
+book: object(): {"year": "2015", "statusId": "lend", "title": "Training mündliche Tests Englisch 7-8 : Situationen einüben - Techniken anwenden - Lerninhalte beherrschen (7. und 8. Klasse) ", "author": " Julia Umschaden. ", "publisher": " Auer Verl.", "_searchId": "ZTEXT%20%20%20%20%20%20%20AK06813656", "_index": 33}
+lastSearchedIndex: double: 33
+lastIndex: double: 34
+book: object(): {"year": "2014", "statusId": "available", "title": "Öko-Test ", "author": " Ratgeber. ", "publisher": " (2014), H. N 1496 : Kosmetik und Wellness", "_searchId": "ZTEXT%20%20%20%20%20%20%20AK06795029", "_index": 34}
+lastSearchedIndex: double: 34
+lastIndex: double: 35
+book: object(): {"year": "2014", "statusId": "available", "title": "Öko-Test ", "author": " Ratgeber. ", "publisher": " (2014), H. N 1495 : Essen und Trinken", "_searchId": "ZTEXT%20%20%20%20%20%20%20AK06795028", "_index": 35}
+lastSearchedIndex: double: 35
+lastIndex: double: 36
+book: object(): {"year": "2014", "statusId": "available", "title": "Öko-Test ", "author": " Ratgeber. ", "publisher": " (2014), H. N 1409 : Kinder und Familie", "_searchId": "ZTEXT%20%20%20%20%20%20%20AK06795027", "_index": 36}
+lastSearchedIndex: double: 36
+lastIndex: double: 37
+book: object(): {"year": "2014", "statusId": "lend", "title": "¬Der¬ große ÖKO-TEST Einkaufsratgeber - Jahrbuch. - (2015), H. J1410 : Mehr als 1250 Produkte im Test", "author": "", "publisher": " (2015), H. J1410 : Mehr als 1250 Produkte im Test", "_searchId": "ZTEXT%20%20%20%20%20%20%20AK06758832", "_index": 37}
+lastSearchedIndex: double: 37
+lastIndex: double: 38
+book: object(): {"year": "2014", "statusId": "available", "title": "Öko-Test Jahrbuch : der große Einkaufsratgeber. - (2014), H. J1401 : Jahrbuch Kinder und Familie für 2014", "author": "", "publisher": " (2014), H. J1401 : Jahrbuch Kinder und Familie für 2014", "_searchId": "ZTEXT%20%20%20%20%20%20%20AK06767921", "_index": 38}
+lastSearchedIndex: double: 38
+lastIndex: double: 39
+book: object(): {"year": "2014", "statusId": "available", "title": "Test ", "author": " Spezial. ", "publisher": " (2014), H. 14002 : Digitalkameras", "_searchId": "ZTEXT%20%20%20%20%20%20%20AK06767798", "_index": 39}
+lastSearchedIndex: double: 39
+lastIndex: double: 40
+book: object(): {"year": "2014", "statusId": "available", "title": "Öko-Test : richtig gut leben. - (2014), H. 12", "author": "", "publisher": " (2014), H. 12", "_searchId": "ZTEXT%20%20%20%20%20%20%20AK06795927", "_index": 40}
+lastSearchedIndex: double: 40
+lastIndex: double: 41
+book: object(): {"year": "2014", "statusId": "available", "title": "Test : Zeitschrift der Stiftung Warentest. - (2014), H. 12", "author": "", "publisher": " (2014), H. 12", "_searchId": "ZTEXT%20%20%20%20%20%20%20AK06795779", "_index": 41}
+lastSearchedIndex: double: 41
+lastIndex: double: 42
+book: object(): {"year": "2014", "statusId": "available", "title": "Öko-Test : richtig gut leben. - (2014), H. 11", "author": "", "publisher": " (2014), H. 11", "_searchId": "ZTEXT%20%20%20%20%20%20%20AK06793114", "_index": 42}
+lastSearchedIndex: double: 42
+lastIndex: double: 43
+book: object(): {"year": "2014", "statusId": "available", "title": "Test : Zeitschrift der Stiftung Warentest. - (2014), H. 11", "author": "", "publisher": " (2014), H. 11", "_searchId": "ZTEXT%20%20%20%20%20%20%20AK06793022", "_index": 43}
+lastSearchedIndex: double: 43
+lastIndex: double: 44
+book: object(): {"year": "2014", "statusId": "available", "title": "Öko-Test : richtig gut leben. - (2014), H. 10", "author": "", "publisher": " (2014), H. 10", "_searchId": "ZTEXT%20%20%20%20%20%20%20AK06790711", "_index": 44}
+lastSearchedIndex: double: 44
