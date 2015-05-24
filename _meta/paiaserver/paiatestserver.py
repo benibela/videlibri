@@ -23,6 +23,14 @@ class PAIATestHandler(SimplePAIAServer.SimplePAIAHandler):
           {"label": "b2r", "about": "test book 2", "duedate": "2014-12-03", "status": Status.HELD, "canrenew": True, "item": "intid2"},
           {"label": "b3", "about": "test book 3", "duedate": "2014-12-03", "status": Status.HELD, "canrenew": False, "item": "intid3"},
           {"label": "b4", "about": "test book 4", "duedate": "2014-12-05", "status": Status.HELD, "canrenew": False, "item": "intid4"},
+          {"label": "b5r", "about": "test book 5", "duedate": "2020-12-03", "status": Status.HELD, "canrenew": True, "item": "intid5"},
+          {"label": "b6", "about": "test book 6", "duedate": "2020-12-05", "status": Status.HELD, "canrenew": False, "item": "intid6"},
+          {"label": "b7r", "about": "test book 7", "duedate": "2020-12-05", "status": Status.HELD, "canrenew": True, "item": "intid7"},
+          {"label": "o1", "about": "order 1", "status": Status.ORDERED, "cancancel": False, "item": "into1"},
+          {"label": "o2c", "about": "order 2", "status": Status.ORDERED, "cancancel": True, "item": "into2"},
+          {"label": "p3c", "about": "provided 3", "status": Status.PROVIDED, "cancancel": True, "item": "into3"},
+          {"label": "p4", "about": "provided 4", "status": Status.PROVIDED, "cancancel": False, "item": "into4"},
+          {"label": "o5c", "about": "order 5", "status": Status.ORDERED, "cancancel": True, "item": "into5"},
         ]
       },
       "stdin": {
