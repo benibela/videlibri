@@ -45,7 +45,7 @@
   <s>requestedUrl := "",
      orderedUrl := "",
      startUrl := x'{$server}/userAccount.do;jsession;?methodToCall=show&amp;typ=1',
-     minRenewedId := 999999999,
+     minRenewedId := $minCancelId := 999999999,
      nextPage := ""
   </s>
   
@@ -81,16 +81,25 @@
     
     <page url="{$server}/userAccount.do?methodToCall=renewalPossible&amp;actPos={$b.extendID}" templateFile="singleExtended"/>
   </loop>
-  <s>minRenewedId := min(($minRenewedId, $list[count($list)].extendID))</s>
+  <s>minRenewedId := min(($minRenewedId, xs:integer($list[count($list)].extendID)))</s>
 </action>
 
-<action id="cancel-single">
-  <page url="{$book._onPageStart}"/>
-  <page test="$book._onPage != $book._onPageStart" url="{$book._onPage}"/>
-
-  <page url="{$server}/userAccount.do?methodToCall=cancelReservation&amp;actPos={$book.extendID}"/>
-<!--  <template>      	 <span class="textgruen"><strong>Stornierung durchgeführt</strong></span></br></template>-->
+<action id="cancel-list">
+  <s>list := for $book in $cancel-books order by $book.extendID descending return $book</s>
+  <if test="$list[1].extendID ge $minCancelId">
+    <call action="update-all"/>
+    <s>list := for $book in $list ! vl:select-book(.) order by $book.extendID descending return $book</s>
+  </if>
+  <loop var="b" list="$list">
+    <page url="{$b._onPageStart}"/> <!-- only possible  -->
+    <page test="$b._onPage != $b._onPageStart" url="{$b._onPage}"/> <!-- todo: test if this is needed as well -->
+    
+    <page url="{$server}/userAccount.do?methodToCall=cancelReservation&amp;actPos={$b.extendID}"/>
+    <!--  <template>      	 <span class="textgruen"><strong>Stornierung durchgeführt</strong></span></br></template>-->
+  </loop>
+  <s>minCancelId := min(($minRenewedId, xs:integer($list[count($list)].extendID)))</s>
 </action>
+
 
 
 <!--<action id="renew-all">

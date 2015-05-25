@@ -21,7 +21,7 @@
     </form>
     
     <form t:condition="contains(@action, 'reservation.do') or contains(@action, 'order.do') ">
-      <span>{book.orderConfirmation := .}</span>
+      <span>{book.orderConfirmation := join(../(span|input/@value))}</span>
       {confirm := form(.)}
     </form>
     
