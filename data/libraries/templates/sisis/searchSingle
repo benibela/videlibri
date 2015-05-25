@@ -13,7 +13,7 @@
   <template:switch-prioritized>
     <table class="data2">
       <template:loop><template:switch>
-      <tr><td>^Titel:</td><td>{$book.title}</td></tr>
+      <tr><td>^(Titel|Title):</td><td>{$book.title}</td></tr>
       <tr><td>^Autor|Verfasser</td><td>{$book.author}</td></tr>
       <tr><td>^Ort:</td><td>{$book.location}</td></tr>
       <tr><td>^Verlag:</td><td>{$book.publisher}</td></tr>
@@ -25,7 +25,7 @@
 
     <table class="fulltitle">
       <template:loop><template:switch>
-      <tr><th>^Titel:</th><td>{$book.title}</td></tr>
+      <tr><th>^(Titel|Title):</th><td>{$book.title}</td></tr>
       <tr><th>^Autor|Verfasser</th><td>{$book.author}</td></tr>
       <tr><th>^Ort:</th><td>{$book.location}</td></tr>
       <tr><th>^Verlag:</th><td>{$book.publisher}</td></tr>
@@ -39,7 +39,7 @@
     <td>
     <template:loop><template:switch>
       <strong>^Titelzusatz<t:s>$book.title:= concat($book.title, " ", (./following-sibling::*[1] | ./following-sibling::text())[normalize-space(.)][1])</t:s></strong>
-      <strong>^Titel<t:s>$book.title:=       (./following-sibling::*[1] | ./following-sibling::text())[normalize-space(.)][1]</t:s></strong>
+      <strong>^(Titel|Title)<t:s>$book.title:=       (./following-sibling::*[1] | ./following-sibling::text())[normalize-space(.)][1]</t:s></strong>
       <strong>^Autor|^Verfasser<t:s>$book.author:=      (./following-sibling::*[1] | ./following-sibling::text())[normalize-space(.)][1]</t:s></strong>
       <strong>^Ort<t:s>$book.location:=      (./following-sibling::*[1] | ./following-sibling::text())[normalize-space(.)][1]</t:s></strong>
       <strong>^Verlag<t:s>$book.publisher:=  (./following-sibling::*[1] | ./following-sibling::text())[normalize-space(.)][1]</t:s></strong>
