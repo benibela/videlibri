@@ -1136,6 +1136,23 @@ begin
   result := reader.bookToPXP(book);
 end;
 
+//function vl:log-immediately(  data )
+//
+//Prints data to the log immediately. Log output remains during template rollback!
+function xqFunctionLogImmediately(const context: TXQEvaluationContext; const args: TXQVArray): IXQValue;
+var
+  temp: TXQValueObject;
+  reader: TBookListReader;
+  query: IXQValue;
+  book: TBook;
+begin
+  requiredArgCount(args, 1, 1);
+
+  if logging then log(args[0].debugAsStringWithTypeAnnotation());
+
+  result := args[0];
+end;
+
 
 var vl: TXQNativeModule;
 initialization
@@ -1148,6 +1165,7 @@ initialization
   vl.registerFunction('choose', 4, 4, @xqFunctionChoose, []);
   vl.registerFunction('confirm', 2, 2, @xqFunctionConfirm, []);
   vl.registerFunction('select-book', 1, 1, @xqFunctionSelectBook, []);
+  vl.registerFunction('log-immediately', 1, 1, @xqFunctionLogImmediately, []);
   TXQueryEngine.registerNativeModule(vl);
 finalization
   vl.free
