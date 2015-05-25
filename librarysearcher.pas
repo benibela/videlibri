@@ -175,26 +175,35 @@ begin
     selectedLibraries+=TLibrary(flibsToSearch[i]).variables.values['searchid-'+template.Name]+template.findVariableValue('after-id');
   bookListReader.parser.variableChangeLog.ValuesString['selectedLibraries']:=selectedLibraries;
 
+  assert(Assigned(bookListReader.bookAccessSection));
+  EnterCriticalSection(bookListReader.bookAccessSection^);
   SetLength(fhomebranches, 0);
   SetLength(fsearchBranches, 0);
+  LeaveCriticalSection(bookListReader.bookAccessSection^);
+
   connectAction := bookListReader.findAction('search-connect');
   if connectAction <> nil then begin
     bookListReader.callAction(connectAction);
 
-    temp := bookListReader.parser.variableChangeLog.get('home-branches');
-    if temp.getSequenceCount > 0 then begin
-      SetLength(fhomebranches, temp.getSequenceCount+1);
-      fhomebranches[0] := '(Standard)';
-      for i:=1 to temp.getSequenceCount do
-        fhomebranches[i] := temp.get(i).toString;
-    end;
+    EnterCriticalSection(bookListReader.bookAccessSection^);
+    try
+      temp := bookListReader.parser.variableChangeLog.get('home-branches');
+      if temp.getSequenceCount > 0 then begin
+        SetLength(fhomebranches, temp.getSequenceCount+1);
+        fhomebranches[0] := '(Standard)';
+        for i:=1 to temp.getSequenceCount do
+          fhomebranches[i] := temp.get(i).toString;
+      end;
 
-    temp := bookListReader.parser.variableChangeLog.get('search-branches');
-    if temp.getSequenceCount > 0 then begin
-      SetLength(fsearchBranches, temp.getSequenceCount+1);
-      fsearchBranches[0] := '(Standard)';
-      for i:=1 to temp.getSequenceCount do
-        fsearchBranches[i] := temp.get(i).toString;
+      temp := bookListReader.parser.variableChangeLog.get('search-branches');
+      if temp.getSequenceCount > 0 then begin
+        SetLength(fsearchBranches, temp.getSequenceCount+1);
+        fsearchBranches[0] := '(Standard)';
+        for i:=1 to temp.getSequenceCount do
+          fsearchBranches[i] := temp.get(i).toString;
+      end;
+    finally
+      LeaveCriticalSection(bookListReader.bookAccessSection^);
     end;
   end;
   FConnected:=true;
@@ -281,4 +290,4 @@ begin
 end;
 
 end.
-
+

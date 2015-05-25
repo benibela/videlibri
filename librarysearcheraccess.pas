@@ -88,9 +88,9 @@ public
   constructor create();
   destructor destroy; override;
 
-  procedure beginBookReading;
+  procedure beginBookReading; //to access any searched book
   procedure endBookReading;
-  procedure beginResultReading;
+  procedure beginResultReading; //before accessing searcher
   procedure endResultReading;
 
 
@@ -482,18 +482,14 @@ begin
       case mes.typ of
         smtConnect: begin
           if logging then log('Searcher thread: message typ smtConnect');
-          access.beginResultReading;
           searcher.connect;
-          access.endResultReading;
           callNotifyEvent(access.FOnConnected);
         end;
         smtSearch: begin
           if logging then log('Searcher thread: message typ smtSearch');
           if not searcher.Connected then begin //handles timeouts
             if logging then log('Searcher thread: timeout reconnect');
-            access.beginResultReading;
             searcher.connect;
-            access.endResultReading;
             callNotifyEvent(access.FOnConnected);
           end;
           access.beginResultReading; Searcher.SearchResult.clear; access.endResultReading;
