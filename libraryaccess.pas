@@ -144,7 +144,7 @@ var booksToExtendCount,booksExtendableCount: longint;
     newPartialBookList: TBookList;
 begin
   if logging then begin
-    log('TUpdateLibThread.processRequest(@lib='+inttostr(IntPtr(Pointer(lib)))+') started');
+    log('TUpdateLibThread.processRequest(@lib='+strFromPtr(pointer(lib))+') started');
     log('Library is: '+lib.prettyName);
   end;
 
