@@ -224,6 +224,8 @@ begin
 
   searcherAccess.prepareNewSearchWithoutDisconnect;
 
+  //thread pending now, no need to use any locking
+
   if homeBranch.ItemIndex >= 0 then searcherAccess.searcher.HomeBranch:=homeBranch.ItemIndex;
   if searchBranch.ItemIndex >= 0 then searcherAccess.searcher.SearchBranch:=searchBranch.ItemIndex;
 
@@ -402,8 +404,13 @@ procedure TbookSearchFrm.searcherAccessConnected(Sender: TObject);
 
 begin
   if sender <> newSearcherAccess then exit;
-  update(homeBranch, newSearcherAccess.searcher.HomeBranches, homeBranchLabel);
-  update(searchBranch, newSearcherAccess.searcher.SearchBranches, searchBranchLabel);
+  newSearcherAccess.beginResultReading;
+  try
+    update(homeBranch, newSearcherAccess.searcher.HomeBranches, homeBranchLabel);
+    update(searchBranch, newSearcherAccess.searcher.SearchBranches, searchBranchLabel);
+  finally
+    newSearcherAccess.endResultReading;
+  end;
   autoSearchPhase:=aspConnected;
 end;
 
