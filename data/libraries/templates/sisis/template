@@ -81,7 +81,7 @@
     
     <page url="{$server}/userAccount.do?methodToCall=renewalPossible&amp;actPos={$b.extendID}" templateFile="singleExtended"/>
   </loop>
-  <s>minRenewedId := $list[count($list)].extendID</s>
+  <s>minRenewedId := min(($minRenewedId, $list[count($list)].extendID))</s>
 </action>
 
 <action id="cancel-single">
