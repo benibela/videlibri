@@ -1,10 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?xml-stylesheet type="text/xsl" href="../changelog.xsl"?>
 <changelog program="VideLibri">
-  <build version="1690" date="2015-04-06">
+  <build version="1700" date="2015-05-25">
     <download url="http://videlibri.sourceforge.net/updates/videlibri-setup.exe" platform="WINDOWS" execute="&quot;$DOWNLOAD&quot;  /SP- /noicons &quot;/dir=$OLDPATH&quot; " restart="true"/>
     <download url="http://videlibri.sourceforge.net/updates/videlibri-linux32.deb" platform="LINUX32" execute=""/>
     <download url="http://videlibri.sourceforge.net/updates/videlibri-linux64.deb" platform="LINUX64" execute=""/>
+    <change>Einfacheres Verlängern: Mehrere Verlängerungen können gleichzeitig begonnen werden =&gt; es muss nicht mehr darauf gewartet werden, dass die vorherige abgeschlossen ist</change>
+    <fix>sisis: Verlängerungen/Abbrechnungen können in beliebiger Reihenfolge getätigt werden</fix>
+    <fix>sisis (FH münster): Unsinnige Meldung bei Vormerkung auf einer Seite mit Javascript-Datumsauswahl und fehlender Titel in Einzelsuchergebnissen, wenn im Katalog "Title" statt "Titel" steht</fix>
+    <fix>Wiesbaden: Neue Serveradresse</fix>
+    <fix>Veraltete Adressen für Informationswebpages bei mehreren Bibliotheken</fix>
+    <fix>Unbegrenzt und exponentiell wachsender Speicherverbrauch, wenn Medien verlängert wurden, bei denen eine Eigenschaft leer war</fix>
+    <add>Eigene Templates können Informationen über bereits gelesene Medien erhalten</add>
+    <fix>Desktop version: In der gruppierten Anzeige konnten keine Aktionen getätigt werden</fix>
+    <fix>Desktop version: Dead-lock bei der Suche, falls die Bibliothekswebseite nicht erreichbar war </fix>
+    <fix>Der HTML-Parser kommt nicht mehr durcheinander, wenn ungültige schließende DIV-Tags in Tabellen auftreten (für Oberhausen) </fix>
+  </build>
+  <build version="1690" date="2015-04-06">
     <fix>Hochschulbibliothek Magdeburg/Stendal, Stb Gießen, ULB Düsseldorf, Münster: Anpassung an neue Katalog-URL</fix>
     <change>Die Android-Version ist nun kompiliert mit FreePascal 3.1.1 (r30435) und Lazarus 1.5 (r48633) statt FreePascal 2.7.1 und Lazarus 1.1, wodurch es unter Android 4.4 x86 nicht mehr crashen sollte.</change>
     <change>Die Desktop-Version verwendet nun Lazarus 1.5 (und unverändert FreePascal 2.6).</change>
