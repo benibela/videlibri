@@ -509,30 +509,29 @@ begin
 end;
 
 procedure TmainForm.bookPopupMenuPopup(Sender: TObject);
-var bookCount,i: longint;
+var i: longint;
   extendableBooks: Integer;
   cancelableBooks: Integer;
+  books: TBookList;
+
 begin
 {  extendThisBooks.Enabled:=(ListView1.SelCount=1) and
                   (PBook(ListView1.Selected.Data))^.lib.getLibrary().canModifySingleBooks;}
-  if BookList.selCount=0 then bookCount:=0
-  else begin
-    bookCount:=BookList.selcount;
-    extendableBooks := 0;
-    cancelableBooks := 0;
-    for i:=0 to BookList.Items.Count-1 do
-      if BookList.Items[i].Selected then begin
-        if (BookList.Items[i].data.obj=nil) then bookCount:=0
-        else if TBook(BookList.Items[i].data.obj).status in BOOK_EXTENDABLE then extendableBooks += 1
-        else if (TBook(BookList.Items[i].data.obj).status in [bsOrdered,bsProvided]) and (TBook(BookList.Items[i].data.obj).cancelable <> tFalse) then cancelableBooks += 1;
-      end;
-  end;
-  extendTheseBooks.Enabled:=(bookCount>=1) and (extendableBooks = bookCount);
-  extendAdjacentBooks.Enabled:=bookCount=1;
-  cancelTheseBooks.Enabled:=(bookCount>=1) and (cancelableBooks = bookCount);
-  displayDetailsMI.Enabled:=bookCount=1;
-  searchDetailsMI.Enabled:=bookCount=1;
-  removeSelectedMI.Enabled:=bookCount>0;
+  books := BookList.SelectedBooks;
+  extendableBooks := 0;
+  cancelableBooks := 0;
+  for i:=0 to books.Count-1 do
+    with books[i] do begin
+      if status in BOOK_EXTENDABLE then extendableBooks += 1
+      else if (status in [bsOrdered,bsProvided]) and (cancelable <> tFalse) then cancelableBooks += 1;
+    end;
+  extendTheseBooks.Enabled:=(books.Count>=1) and (extendableBooks = books.Count);
+  extendAdjacentBooks.Enabled:=books.Count=1;
+  cancelTheseBooks.Enabled:=(books.Count>=1) and (cancelableBooks = books.Count);
+  displayDetailsMI.Enabled:=books.Count=1;
+  searchDetailsMI.Enabled:=books.Count=1;
+  removeSelectedMI.Enabled:=books.Count>0;
+  books.free;
 end;
 
 procedure TmainForm.BookListDblClick(Sender: TObject);
@@ -569,11 +568,10 @@ procedure TmainForm.cancelTheseBooksClick(Sender: TObject);
 var i:integer;
     books:TBookList;
 begin
-  books:=TBookList.Create;
-  books.Capacity:=BookList.selCount;
-  for i:=0 to BookList.Items.Count-1 do
-    if BookList.Items[i].Selected and (BookList.Items[i].data.obj<>nil) and (tbook(BookList.Items[i].data.obj).status in [bsOrdered,bsProvided]) then
-      books.add(TBook(BookList.Items[i].data.obj));
+  books:=BookList.SelectedBooks;
+  for i := books.Count - 1 downto 0 do
+    if not (books[i].status in [bsOrdered,bsProvided]) then
+      books.delete(i);
   cancelBooks(books);
   books.free;
 end;
@@ -694,12 +692,12 @@ procedure TmainForm.MenuItem11Click(Sender: TObject);
 var i:integer;
     books:TBookList;
 begin
-  books:=TBookList.Create;
-  books.Capacity:=BookList.selCount;
-  for i:=0 to BookList.Items.Count-1 do
-    if BookList.Items[i].Selected and (BookList.Items[i].data.obj<>nil) then
-      books.add(TBook(BookList.Items[i].data.obj));
+  books:=BookList.SelectedBooks;
+  for i := books.Count - 1 downto 0 do
+    if not (books[i].status in BOOK_EXTENDABLE) then
+      books.delete(i);
   extendBooks(books);
+  books.free;
 end;
 
 procedure showCHM(filename:string;contextID:longint; tocname:string);
@@ -853,12 +851,16 @@ end;
 procedure TmainForm.MenuItem31Click(Sender: TObject);
 var t: string;
  i: Integer;
+ books: TBookList;
 begin
-  for i:=0 to BookList.Items.count-1 do
-    if ((BookList.selCount = 0) or (BookList.Items[i].Selected)) and ((BookList.Items[i].data.obj <> nil) and (BookList.books[i].owner<>nil)) then begin
-      t += (BookList.books[i].owner as TCustomAccountAccess).prettyName + ':  ' + BookList.books[i].toLimitString() + LineEnding;
-    end;
+  books := BookList.SelectedBooks;
+  t := '';
+  for i:=0 to Books.count-1 do
+    if (books[i].owner<>nil) then
+      t += (books[i].owner as TCustomAccountAccess).prettyName + ':  ' + books[i].toLimitString() + LineEnding;
+
   clipboard.astext := t;
+  books.free;
 end;
 
 procedure TmainForm.newAccountWizardClosed(Sender: TObject; var CloseAction: TCloseAction);
@@ -875,37 +877,29 @@ end;
 procedure TmainForm.removeSelectedMIClick(Sender: TObject);
 var i:longint;
     accountsToSave: tlist;
-    book: TBook;
-    count: Integer;
+    books: TBookList;
 begin
   if updateThreadConfig.updateThreadsRunning>0 then begin
     ShowMessage('Diese Aktion kann nicht durchgeführt werden, solange Medien aktualisiert werden.') ;
     exit;
   end;
-  for i:=0 to BookList.Items.count-1 do
-    if (BookList.Items[i].Selected) then
-      if BookList.Items[i].data.obj=nil then begin
-        ShowMessage('Es ist momentan ein Eintrag markiert, bei dem es sich nicht um ein Buch handelt'#13#10'Bitte demarkieren Sie ihn.');
-        exit;
-      end else if tbook(BookList.Items[i].data.obj).lend then begin
-        ShowMessage('Es sind momentan ausgeliehene Medien markiert, es können aber nur abgegebene Medien aus der History gelöscht werden'#13#10'Bitte demarkieren Sie sie.');
-        exit;
-      end;
-  count := 0;
-  for i:=0 to BookList.Items.count-1 do
-    if (BookList.Items[i].Selected) then count+=1;
-  if count = 0 then exit;
+  books := BookList.SelectedBooks;
+  try
+  for i:=0 to books.Count-1 do
+    if books[i].lend then begin
+      ShowMessage('Es sind momentan ausgeliehene Medien markiert, es können aber nur abgegebene Medien aus der History gelöscht werden'#13#10'Bitte demarkieren Sie sie.');
+      exit;
+    end;
+  if books.count = 0 then exit;
   if MessageDlg('Löschen',
-                  'Sind Sie sicher, dass Sie ' + IntToStr(count) + ' Medium/Medien löschen wollen?',
+                  'Sind Sie sicher, dass Sie ' + IntToStr(books.count) + ' Medium/Medien löschen wollen?',
                   mtConfirmation ,[mbYes,mbNo],0)<>mrYes then exit;
 
   accountsToSave:=tlist.Create;
   try
-    for i:=0 to BookList.Items.count-1 do
-      if (BookList.Items[i].Selected) then begin
-        book:=tbook(BookList.Items[i].data.obj);
-        if accountsToSave.IndexOf(book.owner)<0 then accountsToSave.Add(book.owner);
-        if TCustomAccountAccess(book.owner).books.old.Remove(book) < 0 then begin
+    for i:=0 to books.count-1 do begin
+        if accountsToSave.IndexOf(books[i].owner)<0 then accountsToSave.Add(books[i].owner);
+        if TCustomAccountAccess(books[i].owner).books.old.Remove(books[i]) < 0 then begin
           ShowMessage('Das markierte Buch war nicht vorhanden.'#13#10'Das ist eigentlich unmöglich, am besten starten Sie das Programm neu.');
           exit;
         end;
@@ -915,6 +909,9 @@ begin
   RefreshListView;
   finally
     accountsToSave.Free;
+  end;
+  finally
+    books.free;
   end;
 end;
 

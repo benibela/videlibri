@@ -35,6 +35,7 @@ uses
    property books[i:integer]: TBook read GetBook;
 
    function SelectedBook: TBooK;
+   function SelectedBooks: TBookList;
  end;
 
 const BL_BOOK_COLUMNS_AUTHOR=2;
@@ -391,8 +392,27 @@ begin
   Result := tbook(Selected.data.obj);
 end;
 
+function TBookListView.SelectedBooks: TBookList;
+  procedure visit(list: TTreeListItems);
+  var
+    item: TTreeListItem;
+    i: Integer;
+  begin
+    for i:=0 to list.Count-1 do begin
+      item := list[i];
+      if item.Selected and (item.data.obj<>nil) then
+        result.add(item.data.obj as TBook);
+      visit(item.SubItems);
+    end;
+  end;
+begin
+  result := TBookList.create();
+  result.Capacity:=selCount;
+  visit(items);
+end;
+
 end.
 45076
 8->killfocus
 20->ERASEBKGND
-66592=$10420->
+66592=$10420->
