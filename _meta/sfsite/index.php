@@ -6,6 +6,7 @@
 <link rel="stylesheet" type="text/css" href="all.css"/>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" media="only screen and (max-width: 480px)" href="mobile.css" />
+<link rel="canonical" href="http://www.videlibri.de"/>
 
 <title>VideLibri - Die Bibliotheks-App</title></head>
 
