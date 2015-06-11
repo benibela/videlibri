@@ -24,6 +24,12 @@ hg)
   webUpload version.xml changelog.xml /updates/
 ;;
 
+mirror)
+  SF_PROJECT= 
+  mirroredProject videlibri
+  syncHg _hg.standalone.filemap
+;;
+
 linux32)
 		find ~/hg -name "*.ppu" | grep -v /lib/ | xargs rm
 		lazCompileLinux32 bookWatch
