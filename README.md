@@ -16,6 +16,6 @@ To facilitate the extension with user-defined, custom libraries VideLibri implem
 - A dialect of XPath/XQuery/JSONiq that is Turing-complete and thus can calculate arbitrary, unexpected things
 - CSS 3 Selectors for trivial selection task
 
-The source of these interpreters has been moved to a [separate repository](../internettools) for clarity.
+The source of these interpreters has been moved to a separate repository ( benibela/internettools ) for clarity.
 
-A spin-off [command line tool](../xidel) has been developed to use these languages for tasks unrelated to libraries.
+A spin-off command line tool ( benibela/xidel ) has been developed to use these languages for tasks unrelated to libraries.
