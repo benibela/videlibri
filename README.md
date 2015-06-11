@@ -2,6 +2,7 @@ VideLibri
 =============
 VideLibri is the oldest app to access the web catalogs of German-speaking libraries.
 It has all the usual features of their OPACs, e.g. viewing your account, searching books or ordering other items. It also renews all due books automatically and can do other things only a locally running app can do, like keeping a history of all ever lend books.
+
 So far VideLibri has successfully been tested with 200 libraries.
 It is platform-independent and currently [provides binaries](http://www.videlibri.de) for (Desktop) Windows, Linux and Android. At the moment its GUI is entirely in German as no support for any non-German-speaking library has been requested, but a translation can be made if wished for.
 
