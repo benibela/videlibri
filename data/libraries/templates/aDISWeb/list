@@ -77,7 +77,10 @@
       if (contains(., "-")) then (book.issuedate := parse-date(substring-before(., "-"), "dd.mm.yyyy"), book.duedate := parse-date(substring-after(., "-"), "dd.mm.yyyy"))
       else book.duedate := parse-date(., "dd.mm.yyyy")
     }</TD> </t:if>
-    <t:if test="$hasTill"> <TD><!-- vormerkungs verfall --></TD> </t:if>
+    <t:if test="$hasTill"> <TD>{
+      if (contains(., ".")) then book.duedate := parse-date(., "dd.mm.yyyy") 
+      else ()}
+      <!-- vormerkungs verfall --></TD> </t:if>
     <TD>{book.libraryBranch := .}</TD>
     <TD>{book.category := extract(text(), "^ *\[([^]]*)\]", 1),  
          book.title :=  if (starts-with(text(), "[")) then extract(text(), "(\] )(.*)", 2) else text(),
