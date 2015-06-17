@@ -1,101 +1,99 @@
-book: {}
-
-
-nextPage: untyped: 
-nextPage: node(): /InfoGuideClient/hitList.do?methodToCall=pos&identifier=-1_FT_982427123&curPos=11#-1
-search-result-count: string: 73
-hasZ3988: boolean: false
-brs: sequence*: node(): 
-node(): 2013
-node(): 2. Obergeschoss/Kantonsbibliothek
-node(): Medizin
-node(): Signatur: 613.8
-node(): entliehen (gesamte Vormerkungen: 0)
-node(): 
-book: object(): {"year": "2013", "author": "Nolte, Anke", "title": "Essstörungen", "_detail-url": "/InfoGuideClient/singleHit.do?methodToCall=showHit&curPos=1&identifier=-1_FT_982427123", "orderable": 0}
-hasZ3988: boolean: false
-brs: sequence*: node(): 
-node(): 2013
-node(): 2. Obergeschoss/Kantonsbibliothek
-node(): Medizin
-node(): Signatur: 616.02
-node(): entliehen (gesamte Vormerkungen: 0)
-node(): 
-book: object(): {"year": "2013", "author": "Bannasch, Lutz", "title": "Lieber gesund & glücklich", "_detail-url": "/InfoGuideClient/singleHit.do?methodToCall=showHit&curPos=2&identifier=-1_FT_982427123", "orderable": 0}
-hasZ3988: boolean: false
-brs: sequence*: node(): 
-node(): 2012
-node(): 2. Obergeschoss/Kantonsbibliothek
-node(): Medizin
-node(): Signatur: 616.85
-node(): 
-book: object(): {"year": "2012", "author": "Ronson, Jon", "title": "¬Die Psychopathen sind unter uns", "_detail-url": "/InfoGuideClient/singleHit.do?methodToCall=showHit&curPos=3&identifier=-1_FT_982427123", "orderable": 0}
-hasZ3988: boolean: false
-brs: sequence*: node(): 
-node(): 2012
-node(): 2. Obergeschoss/Kantonsbibliothek
-node(): Botanik + Garten
-node(): Signatur: 635
-node(): 
-book: object(): {"year": "2012", "author": "Kullmann, Folko", "title": "¬Der Garten-Coach", "_detail-url": "/InfoGuideClient/singleHit.do?methodToCall=showHit&curPos=4&identifier=-1_FT_982427123", "orderable": 0}
-hasZ3988: boolean: false
-brs: sequence*: node(): 2012
-node(): 2. Obergeschoss/Kantonsbibliothek
-node(): Sprache + Literatur
-node(): Signatur: 806.0(07)
-node(): 
-brs: sequence*: string: 
-node(): 2012
-node(): 2. Obergeschoss/Kantonsbibliothek
-node(): Sprache + Literatur
-node(): Signatur: 806.0(07)
-node(): 
-book: object(): {"year": "2012", "author": "", "title": "Español Sprachkurs 2 [DVD-ROM, Compact Disc]", "_detail-url": "/InfoGuideClient/singleHit.do?methodToCall=showHit&curPos=5&identifier=-1_FT_982427123", "orderable": 0}
-hasZ3988: boolean: false
-brs: sequence*: node(): 2012
-node(): 2. Obergeschoss/Kantonsbibliothek
-node(): Naturwissenschaften
-node(): Signatur: 51
-node(): entliehen (gesamte Vormerkungen: 0)
-node(): 
-brs: sequence*: string: 
-node(): 2012
-node(): 2. Obergeschoss/Kantonsbibliothek
-node(): Naturwissenschaften
-node(): Signatur: 51
-node(): entliehen (gesamte Vormerkungen: 0)
-node(): 
-book: object(): {"year": "2012", "author": "", "title": "Mathematik 5", "_detail-url": "/InfoGuideClient/singleHit.do?methodToCall=showHit&curPos=6&identifier=-1_FT_982427123", "orderable": 0}
-hasZ3988: boolean: false
-brs: sequence*: node(): 
-node(): 2012
-node(): 2. Obergeschoss/Kantonsbibliothek
-node(): Medizin
-node(): Signatur: 616-006
-node(): 
-book: object(): {"year": "2012", "author": "Bopp, Annette", "title": "Medikamente im Test Krebs", "_detail-url": "/InfoGuideClient/singleHit.do?methodToCall=showHit&curPos=7&identifier=-1_FT_982427123", "orderable": 0}
-hasZ3988: boolean: false
-brs: sequence*: node(): 
-node(): 2012
-node(): 2. Obergeschoss/Kantonsbibliothek
-node(): Technik + Verkehr
-node(): Signatur: 620.93
-node(): entliehen (gesamte Vormerkungen: 0)
-node(): 
-book: object(): {"year": "2012", "author": "Oberzig, Klaus", "title": "Solarwärme", "_detail-url": "/InfoGuideClient/singleHit.do?methodToCall=showHit&curPos=8&identifier=-1_FT_982427123", "orderable": 0}
-hasZ3988: boolean: false
-brs: sequence*: node(): 
-node(): 2012
-node(): 2. Obergeschoss/Kantonsbibliothek
-node(): Psychologie
-node(): Signatur: 159.14
-node(): 
-book: object(): {"year": "2012", "author": "Spitzbart, Michael", "title": "Erschöpfung und Depression: Wenn die Hormone verrücktspielen", "_detail-url": "/InfoGuideClient/singleHit.do?methodToCall=showHit&curPos=9&identifier=-1_FT_982427123", "orderable": 0}
-hasZ3988: boolean: false
-brs: sequence*: node(): 
-node(): 2012
-node(): 1. Obergeschoss/Kantonsbibliothek
-node(): Für Eltern
-node(): Signatur: 618.3
-node(): 
-book: object(): {"year": "2012", "author": "Heckscher, Melissa", "title": "Schwanger, na und?", "_detail-url": "/InfoGuideClient/singleHit.do?methodToCall=showHit&curPos=10&identifier=-1_FT_982427123", "orderable": 0}
+book := {}
+nextPage := ()
+nextPage := text{"/InfoGuideClient/hitList.do?methodToCall=pos&amp;identifier=-1_FT_982427123&amp;curPos=11#-1"}
+search-result-count := "73"
+hasZ3988 := false()
+brs := (text{""}, 
+text{"2013"}, 
+text{"2. Obergeschoss/Kantonsbibliothek"}, 
+text{"Medizin"}, 
+text{"Signatur: 613.8"}, 
+text{"entliehen (gesamte Vormerkungen: 0)"}, 
+text{""})
+book := {"year": "2013", "author": "Nolte, Anke", "title": "Essstörungen", "_detail-url": "/InfoGuideClient/singleHit.do?methodToCall=showHit&curPos=1&identifier=-1_FT_982427123", "orderable": 0}
+hasZ3988 := false()
+brs := (text{""}, 
+text{"2013"}, 
+text{"2. Obergeschoss/Kantonsbibliothek"}, 
+text{"Medizin"}, 
+text{"Signatur: 616.02"}, 
+text{"entliehen (gesamte Vormerkungen: 0)"}, 
+text{""})
+book := {"year": "2013", "author": "Bannasch, Lutz", "title": "Lieber gesund & glücklich", "_detail-url": "/InfoGuideClient/singleHit.do?methodToCall=showHit&curPos=2&identifier=-1_FT_982427123", "orderable": 0}
+hasZ3988 := false()
+brs := (text{""}, 
+text{"2012"}, 
+text{"2. Obergeschoss/Kantonsbibliothek"}, 
+text{"Medizin"}, 
+text{"Signatur: 616.85"}, 
+text{""})
+book := {"year": "2012", "author": "Ronson, Jon", "title": "¬Die Psychopathen sind unter uns", "_detail-url": "/InfoGuideClient/singleHit.do?methodToCall=showHit&curPos=3&identifier=-1_FT_982427123", "orderable": 0}
+hasZ3988 := false()
+brs := (text{""}, 
+text{"2012"}, 
+text{"2. Obergeschoss/Kantonsbibliothek"}, 
+text{"Botanik + Garten"}, 
+text{"Signatur: 635"}, 
+text{""})
+book := {"year": "2012", "author": "Kullmann, Folko", "title": "¬Der Garten-Coach", "_detail-url": "/InfoGuideClient/singleHit.do?methodToCall=showHit&curPos=4&identifier=-1_FT_982427123", "orderable": 0}
+hasZ3988 := false()
+brs := (text{"2012"}, 
+text{"2. Obergeschoss/Kantonsbibliothek"}, 
+text{"Sprache + Literatur"}, 
+text{"Signatur: 806.0(07)"}, 
+text{""})
+brs := ("", 
+text{"2012"}, 
+text{"2. Obergeschoss/Kantonsbibliothek"}, 
+text{"Sprache + Literatur"}, 
+text{"Signatur: 806.0(07)"}, 
+text{""})
+book := {"year": "2012", "author": "", "title": "Español Sprachkurs 2 [DVD-ROM, Compact Disc]", "_detail-url": "/InfoGuideClient/singleHit.do?methodToCall=showHit&curPos=5&identifier=-1_FT_982427123", "orderable": 0}
+hasZ3988 := false()
+brs := (text{"2012"}, 
+text{"2. Obergeschoss/Kantonsbibliothek"}, 
+text{"Naturwissenschaften"}, 
+text{"Signatur: 51"}, 
+text{"entliehen (gesamte Vormerkungen: 0)"}, 
+text{""})
+brs := ("", 
+text{"2012"}, 
+text{"2. Obergeschoss/Kantonsbibliothek"}, 
+text{"Naturwissenschaften"}, 
+text{"Signatur: 51"}, 
+text{"entliehen (gesamte Vormerkungen: 0)"}, 
+text{""})
+book := {"year": "2012", "author": "", "title": "Mathematik 5", "_detail-url": "/InfoGuideClient/singleHit.do?methodToCall=showHit&curPos=6&identifier=-1_FT_982427123", "orderable": 0}
+hasZ3988 := false()
+brs := (text{""}, 
+text{"2012"}, 
+text{"2. Obergeschoss/Kantonsbibliothek"}, 
+text{"Medizin"}, 
+text{"Signatur: 616-006"}, 
+text{""})
+book := {"year": "2012", "author": "Bopp, Annette", "title": "Medikamente im Test Krebs", "_detail-url": "/InfoGuideClient/singleHit.do?methodToCall=showHit&curPos=7&identifier=-1_FT_982427123", "orderable": 0}
+hasZ3988 := false()
+brs := (text{""}, 
+text{"2012"}, 
+text{"2. Obergeschoss/Kantonsbibliothek"}, 
+text{"Technik + Verkehr"}, 
+text{"Signatur: 620.93"}, 
+text{"entliehen (gesamte Vormerkungen: 0)"}, 
+text{""})
+book := {"year": "2012", "author": "Oberzig, Klaus", "title": "Solarwärme", "_detail-url": "/InfoGuideClient/singleHit.do?methodToCall=showHit&curPos=8&identifier=-1_FT_982427123", "orderable": 0}
+hasZ3988 := false()
+brs := (text{""}, 
+text{"2012"}, 
+text{"2. Obergeschoss/Kantonsbibliothek"}, 
+text{"Psychologie"}, 
+text{"Signatur: 159.14"}, 
+text{""})
+book := {"year": "2012", "author": "Spitzbart, Michael", "title": "Erschöpfung und Depression: Wenn die Hormone verrücktspielen", "_detail-url": "/InfoGuideClient/singleHit.do?methodToCall=showHit&curPos=9&identifier=-1_FT_982427123", "orderable": 0}
+hasZ3988 := false()
+brs := (text{""}, 
+text{"2012"}, 
+text{"1. Obergeschoss/Kantonsbibliothek"}, 
+text{"Für Eltern"}, 
+text{"Signatur: 618.3"}, 
+text{""})
+book := {"year": "2012", "author": "Heckscher, Melissa", "title": "Schwanger, na und?", "_detail-url": "/InfoGuideClient/singleHit.do?methodToCall=showHit&curPos=10&identifier=-1_FT_982427123", "orderable": 0}

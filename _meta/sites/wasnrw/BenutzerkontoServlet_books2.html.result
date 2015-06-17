@@ -1,5 +1,3 @@
-book: {}
-
-
-charge: string: 0,00
-delete-current-books(): untyped: 
+book := {}
+charge := "0,00"
+delete-current-books() := ()

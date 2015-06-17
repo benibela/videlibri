@@ -1,29 +1,27 @@
-book: {}
-
-
-jsession: string: jsessionid=ED6A67CF21CC1E7CD571F5D0C5FBBA32
-CSId: node(): 168N9Sac154c4614770f96bba9b035c057808040f455fe
-home-branches: sequence*: node(): FHWS-Bib Würzburg (863)
-node(): FHWS-Bib Schweinfurt (862)
-node(): Hochschule Aschaffenburg (1043)
-node(): Hofbibl. Aschaffenburg (128)
-node(): Hochschule Coburg (858)
-home-branch-values: sequence*: node(): 0
-node(): 2
-node(): 3
-node(): 4
-node(): 5
-search-branches: sequence*: node(): alle
-node(): FH-Bibl. Würzburg (863)
-node(): FH-Bibl. Schweinfurt (862)
-node(): Hochschule Aschaffenburg (1043)
-node(): Hofbibl. Aschaffenburg (128)
-node(): FH-Bibl. Coburg (858)
-search-branch-values: sequence*: node(): 
-node(): 32
-node(): 33
-node(): 34
-node(): 35
-node(): 36
-search-branch-name: node(): searchRestrictionValue1[0]
-search-branch-extended-options: node(): 
+book := {}
+jsession := "jsessionid=ED6A67CF21CC1E7CD571F5D0C5FBBA32"
+CSId := text{"168N9Sac154c4614770f96bba9b035c057808040f455fe"}
+home-branches := (text{"FHWS-Bib Würzburg (863)"}, 
+text{"FHWS-Bib Schweinfurt (862)"}, 
+text{"Hochschule Aschaffenburg (1043)"}, 
+text{"Hofbibl. Aschaffenburg (128)"}, 
+text{"Hochschule Coburg (858)"})
+home-branch-values := (text{"0"}, 
+text{"2"}, 
+text{"3"}, 
+text{"4"}, 
+text{"5"})
+search-branches := (text{"alle"}, 
+text{"FH-Bibl. Würzburg (863)"}, 
+text{"FH-Bibl. Schweinfurt (862)"}, 
+text{"Hochschule Aschaffenburg (1043)"}, 
+text{"Hofbibl. Aschaffenburg (128)"}, 
+text{"FH-Bibl. Coburg (858)"})
+search-branch-values := (text{""}, 
+text{"32"}, 
+text{"33"}, 
+text{"34"}, 
+text{"35"}, 
+text{"36"})
+search-branch-name := text{"searchRestrictionValue1[0]"}
+search-branch-extended-options := text{""}

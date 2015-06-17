@@ -1,27 +1,25 @@
-book: {}
-
-
-nextPage: untyped: 
-hasZ3988: boolean: false
-brs: sequence*: node(): Nance, John J.
-node(): 2006
-node(): Nanc
-node(): bestellbar
-node(): 
-node(): 
-book: object(): {"year": "2006", "author": "Nance, John J.", "title": "Fire Flight", "_detail-url": "/webOPACClient/singleHit.do?methodToCall=showHit&curPos=21&identifier=-1_S_IG.12.6398", "orderable": 0}
-hasZ3988: boolean: false
-brs: sequence*: node(): Stone, Irving
-node(): Ston
-node(): 
-node(): 
-node(): 
-book: object(): {"year": "", "author": "Stone, Irving", "title": "Michelangelo", "_detail-url": "/webOPACClient/singleHit.do?methodToCall=showHit&curPos=22&identifier=-1_S_IG.12.6398", "orderable": 0}
-hasZ3988: boolean: false
-brs: sequence*: node(): Stone, Irving
-node(): 1963
-node(): Ston
-node(): 
-node(): 
-node(): 
-book: object(): {"year": "1963", "author": "Stone, Irving", "title": "Michelangelo", "_detail-url": "/webOPACClient/singleHit.do?methodToCall=showHit&curPos=23&identifier=-1_S_IG.12.6398", "orderable": 0}
+book := {}
+nextPage := ()
+hasZ3988 := false()
+brs := (text{"Nance, John J."}, 
+text{"2006"}, 
+text{"Nanc"}, 
+text{"bestellbar"}, 
+text{""}, 
+text{""})
+book := {"year": "2006", "author": "Nance, John J.", "title": "Fire Flight", "_detail-url": "/webOPACClient/singleHit.do?methodToCall=showHit&curPos=21&identifier=-1_S_IG.12.6398", "orderable": 0}
+hasZ3988 := false()
+brs := (text{"Stone, Irving"}, 
+text{"Ston"}, 
+text{""}, 
+text{""}, 
+text{""})
+book := {"year": "", "author": "Stone, Irving", "title": "Michelangelo", "_detail-url": "/webOPACClient/singleHit.do?methodToCall=showHit&curPos=22&identifier=-1_S_IG.12.6398", "orderable": 0}
+hasZ3988 := false()
+brs := (text{"Stone, Irving"}, 
+text{"1963"}, 
+text{"Ston"}, 
+text{""}, 
+text{""}, 
+text{""})
+book := {"year": "1963", "author": "Stone, Irving", "title": "Michelangelo", "_detail-url": "/webOPACClient/singleHit.do?methodToCall=showHit&curPos=23&identifier=-1_S_IG.12.6398", "orderable": 0}

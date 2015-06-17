@@ -1,16 +1,14 @@
-book: {}
-
-
-bookCount: string: 
-nextPage: string: 
-startUrl: string: 
-bookCountLend: string: 1
-bookCountRequested: string: 0
-requestedUrl: node(): /InfoGuideClient/userAccount.do?methodToCall=showAccount&typ=6
-bookCountOrdered: string: 0
-orderedUrl: node(): /InfoGuideClient/userAccount.do?methodToCall=showAccount&typ=7
-bookCount: string: 1
-mode: integer: 1
-delete-current-books(): untyped: 
-book: object(): {"duedate": "2010-09-17", "issuedate": "2010-08-19", "status:problematic": "Eine Verlängerung ist noch nicht möglich.", "id": "BP1357  ", "author": "Delfs, Hans", "title": "Introduction to cryptography"}
-nextPage: untyped: 
+book := {}
+bookCount := ""
+nextPage := ""
+startUrl := ""
+bookCountLend := "1"
+bookCountRequested := "0"
+requestedUrl := text{"/InfoGuideClient/userAccount.do?methodToCall=showAccount&amp;typ=6"}
+bookCountOrdered := "0"
+orderedUrl := text{"/InfoGuideClient/userAccount.do?methodToCall=showAccount&amp;typ=7"}
+bookCount := "1"
+mode := 1
+delete-current-books() := ()
+book := {"duedate": "2010-09-17", "issuedate": "2010-08-19", "status:problematic": "Eine Verlängerung ist noch nicht möglich.", "id": "BP1357  ", "author": "Delfs, Hans", "title": "Introduction to cryptography"}
+nextPage := ()

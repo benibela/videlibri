@@ -1,11 +1,9 @@
-book: {}
-
-
-noBooks: string: 
-delete-current-books(): untyped: 
-book: object(): {"category": "", "id": "123.4556/B344", "duedate": "2011-05-13", "year": "2000", "title": "IVAN", "author": "B, M", "detailLink": "http://aleph-www.ub.fu-berlin.de:80/F/YQBPU3RWE71YQQ9PTI1A38NHAX2I5DLCLVKMMMDCYEMTR5S9F-15753?func=BOR-LOAN-EXP&doc_number=00&item_sequence=000010&index=0001&adm_library=FUB50"}
-book: object(): {"category": "", "id": "123.456/C566", "duedate": "2011-05-13", "year": "2008", "title": "Vieta", "author": "C,J M", "detailLink": "http://aleph-www.ub.fu-berlin.de:80/F/YQBPU3RWE71YQQ9PTI1A38NHAX2I5DLCLVKMMMDCYEMTR5S9F-15755?func=BOR-LOAN-EXP&doc_number=00&item_sequence=000010&index=0002&adm_library=FUB50"}
-book: object(): {"category": "MA", "id": "MA2004/ 1234", "duedate": "2011-07-27", "year": "2004", "title": "EU", "author": "Groß-Sack, K.", "detailLink": "http://aleph-www.ub.fu-berlin.de:80/F/YQBPU3RWE71YQQ9PTI1A38NHAX2I5DLCLVKMMMDCYEMTR5S9F-15757?func=BOR-LOAN-EXP&doc_number=002&item_sequence=000010&index=0003&adm_library=FUB50"}
-book: object(): {"category": "MA", "id": "MA2005/ 123", "duedate": "2011-07-27", "year": "1990", "title": "Brückenbauen", "author": "P, Phi", "detailLink": "http://aleph-www.ub.fu-berlin.de:80/F/YQBPU3RWE71YQQ9PTI1A38NHAX2I5DLCLVKMMMDCYEMTR5S9F-15759?func=BOR-LOAN-EXP&doc_number=002&item_sequence=000010&index=0004&adm_library=FUB50"}
-book: object(): {"category": "MA", "id": "MA2005/ 123", "duedate": "2011-07-27", "year": "2005", "title": "EU", "author": "Zeder, Erik", "detailLink": "http://aleph-www.ub.fu-berlin.de:80/F/YQBPU3RWE71YQQ9PTI1A38NHAX2I5DLCLVKMMMDCYEMTR5S9F-15761?func=BOR-LOAN-EXP&doc_number=002163746&item_sequence=000010&index=0005&adm_library=FUB50"}
-book: object(): {"category": "MA", "id": "MA2001/ 123", "duedate": "2011-07-27", "year": "2001", "title": "EU dritte", "author": "Ferrero, Fuchs", "detailLink": "http://aleph-www.ub.fu-berlin.de:80/F/YQBPU3RWE71YQQ9PTI1A38NHAX2I5DLCLVKMMMDCYEMTR5S9F-15763?func=BOR-LOAN-EXP&doc_number=002779901&item_sequence=000010&index=0006&adm_library=FUB50"}
+book := {}
+noBooks := ""
+delete-current-books() := ()
+book := {"category": "", "id": "123.4556/B344", "duedate": "2011-05-13", "year": "2000", "title": "IVAN", "author": "B, M", "detailLink": "http://aleph-www.ub.fu-berlin.de:80/F/YQBPU3RWE71YQQ9PTI1A38NHAX2I5DLCLVKMMMDCYEMTR5S9F-15753?func=BOR-LOAN-EXP&doc_number=00&item_sequence=000010&index=0001&adm_library=FUB50"}
+book := {"category": "", "id": "123.456/C566", "duedate": "2011-05-13", "year": "2008", "title": "Vieta", "author": "C,J M", "detailLink": "http://aleph-www.ub.fu-berlin.de:80/F/YQBPU3RWE71YQQ9PTI1A38NHAX2I5DLCLVKMMMDCYEMTR5S9F-15755?func=BOR-LOAN-EXP&doc_number=00&item_sequence=000010&index=0002&adm_library=FUB50"}
+book := {"category": "MA", "id": "MA2004/ 1234", "duedate": "2011-07-27", "year": "2004", "title": "EU", "author": "Groß-Sack, K.", "detailLink": "http://aleph-www.ub.fu-berlin.de:80/F/YQBPU3RWE71YQQ9PTI1A38NHAX2I5DLCLVKMMMDCYEMTR5S9F-15757?func=BOR-LOAN-EXP&doc_number=002&item_sequence=000010&index=0003&adm_library=FUB50"}
+book := {"category": "MA", "id": "MA2005/ 123", "duedate": "2011-07-27", "year": "1990", "title": "Brückenbauen", "author": "P, Phi", "detailLink": "http://aleph-www.ub.fu-berlin.de:80/F/YQBPU3RWE71YQQ9PTI1A38NHAX2I5DLCLVKMMMDCYEMTR5S9F-15759?func=BOR-LOAN-EXP&doc_number=002&item_sequence=000010&index=0004&adm_library=FUB50"}
+book := {"category": "MA", "id": "MA2005/ 123", "duedate": "2011-07-27", "year": "2005", "title": "EU", "author": "Zeder, Erik", "detailLink": "http://aleph-www.ub.fu-berlin.de:80/F/YQBPU3RWE71YQQ9PTI1A38NHAX2I5DLCLVKMMMDCYEMTR5S9F-15761?func=BOR-LOAN-EXP&doc_number=002163746&item_sequence=000010&index=0005&adm_library=FUB50"}
+book := {"category": "MA", "id": "MA2001/ 123", "duedate": "2011-07-27", "year": "2001", "title": "EU dritte", "author": "Ferrero, Fuchs", "detailLink": "http://aleph-www.ub.fu-berlin.de:80/F/YQBPU3RWE71YQQ9PTI1A38NHAX2I5DLCLVKMMMDCYEMTR5S9F-15763?func=BOR-LOAN-EXP&doc_number=002779901&item_sequence=000010&index=0006&adm_library=FUB50"}

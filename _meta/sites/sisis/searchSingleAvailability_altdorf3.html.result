@@ -1,4 +1,2 @@
-book: {}
-
-
-book: object(): {"orderable": null, "orderConfirmationOptionTitles": null, "order": "/webOPACClient.sisis/availability.do?methodToCall=doVormerkung&katkey=187705&title=_Das+Anti-Burnout-Buch+f%C3%BCr+M%C3%BCtter&author=Engelbrecht%2C+Sigrid&context=hitlist", "orderTitle": "vormerken"}
+book := {}
+book := {"orderable": null, "orderConfirmationOptionTitles": null, "order": "/webOPACClient.sisis/availability.do?methodToCall=doVormerkung&katkey=187705&title=_Das+Anti-Burnout-Buch+f%C3%BCr+M%C3%BCtter&author=Engelbrecht%2C+Sigrid&context=hitlist", "orderTitle": "vormerken"}

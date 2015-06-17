@@ -1,32 +1,30 @@
-book: {}
-
-
-firstIndex: double: 1
-search-result-count: integer: 8
-lastSearchedIndex: integer: 0
-search-next-page-available: boolean: false
-form: object(): {"method": "POST", "post": "service=direct%2F1%2FPOOLM40PBSZPROD%40_44002500_2BD9D480%2F%24Form.form&sp=S0&Form0=focus%2CkeyCode%2Cstz%2Csource%2Cselected%2CrequestCount%2CscriptEnabled%2CscrollPos%2CscrDim%2CwinDim%2CimgDim%2C%24Textfield%2C%24FormConditional%2CtextButton%2C%24FormConditional%240%2CtextButton%240%2C%24FormConditional%241%2C%24FormConditional%242%2CtextButton%241%2C%24FormConditional%243%2CtextButton%242%2C%24FormConditional%244%2CtextButton%243%2CtextButton%244%2CtextButton%245%2CtextButton%246%2CtextButton%247%2CtextButton%248%2CtextButton%249%2C%24FormConditional%245%2CtextButton%2410%2C%24Toolbar%2CcellCheck%2CcellCheck%240%2CcellCheck%241%2CcellCheck%242%2CcellCheck%243%2CcellCheck%244%2CcellCheck%245%2CcellCheck%246%2C%24Toolbar%240&focus=&keyCode=0&stz=&source=&selected=&requestCount=2&scriptEnabled=F&scrollPos=0&scrDim=&winDim=&imgDim=&%24FormConditional=T&%24FormConditional%240=T&%24FormConditional%241=F&%24FormConditional%242=T&%24FormConditional%243=T&%24FormConditional%244=F&%24FormConditional%245=T&%24Textfield=", "url": "file:///aDISWeb/app;jsessionid=95132A0337F33A21552B1148363B95A4"}
-lastIndex: double: 1
-book: object(): {"year": "2004", "statusId": "available", "title": "Test Methods for Pressure Seinsitive Adhesive Tapes ", "author": " Glen R. Anderson. ", "publisher": " Pressure Sensitive Tape Council", "_searchId": "ZTEXT%20%20%20%20%20%20%20AK02104501", "_index": 1}
-lastSearchedIndex: double: 1
-lastIndex: double: 2
-book: object(): {"year": "2001", "statusId": "available", "title": "¬The¬ Photographic Activity Test : What is it and how is it useful; Capstone Research Project ", "author": " Kathrine Kilde", "publisher": "", "_searchId": "ZTEXT%20%20%20%20%20%20%20AK02087973", "_index": 2}
-lastSearchedIndex: double: 2
-lastIndex: double: 3
-book: object(): {"year": "2001", "statusId": "available", "title": "Testmethoden zur Untersuchung des Stabilitätsverhaltens von Tintenstrahlmaterialien : Diplomarbeit ", "author": " Barbara Vogt. ", "publisher": " Fachhochschule", "_searchId": "ZTEXT%20%20%20%20%20%20%20AK02088066", "_index": 3}
-lastSearchedIndex: double: 3
-lastIndex: double: 4
-book: object(): {"year": "1999", "statusId": "available", "title": "Mike Kelley : \"Framed and frame (Miniature reproduction \"Chinatown Wishing Well\" built by Mike Kelley after \"Miniature Reproduction 'Seven Star Cavern' built by Prof. H. K. Lu\")\"; \"Test room containing multiple stimuli known to elicit curiosity and manipulatory responses\"; [16.10.1999 - 16.01.2000] ", "author": " Magasin. ", "publisher": " Magasin", "_searchId": "ZTEXT%20%20%20%20%20%20%20AK01476564", "_index": 4}
-lastSearchedIndex: double: 4
-lastIndex: double: 5
-book: object(): {"year": "1982", "statusId": "available", "title": "Books, Documentary Materials and Works of Art : Selected Test Methods ", "author": " George Martin Cunha. ", "publisher": " Tappi Press", "_searchId": "ZTEXT%20%20%20%20%20%20%20AK02104495", "_index": 5}
-lastSearchedIndex: double: 5
-lastIndex: double: 6
-book: object(): {"year": "1974", "statusId": "available", "title": "¬Der¬ Frieling-Test : ein Farbtest z. Charakter- u. Schicksalsdiagnostik ", "author": " von Heinrich Frieling u. Elmar Th. Schmidt. ", "publisher": " Musterschmidt", "_searchId": "ZTEXT%20%20%20%20%20%20%20AK00571247", "_index": 6}
-lastSearchedIndex: double: 6
-lastIndex: double: 7
-book: object(): {"year": "1969", "statusId": "available", "title": "Fake : the story of Elmyr de Hory, the greatest test art forger of our time ", "author": " by Clifford Irving. ", "publisher": "Hill", "_searchId": "ZTEXT%20%20%20%20%20%20%20AK02090907", "_index": 7}
-lastSearchedIndex: double: 7
-lastIndex: double: 8
-book: object(): {"year": "", "statusId": "available", "title": "Test BSZ", "author": "", "publisher": "", "_searchId": "ZTEXT%20%20%20%20%20%20%20AK32000016", "_index": 8}
-lastSearchedIndex: double: 8
+book := {}
+firstIndex := xs:double("1")
+search-result-count := 8
+lastSearchedIndex := 0
+search-next-page-available := false()
+form := {"method": "POST", "post": "service=direct%2F1%2FPOOLM40PBSZPROD%40_44002500_2BD9D480%2F%24Form.form&sp=S0&Form0=focus%2CkeyCode%2Cstz%2Csource%2Cselected%2CrequestCount%2CscriptEnabled%2CscrollPos%2CscrDim%2CwinDim%2CimgDim%2C%24Textfield%2C%24FormConditional%2CtextButton%2C%24FormConditional%240%2CtextButton%240%2C%24FormConditional%241%2C%24FormConditional%242%2CtextButton%241%2C%24FormConditional%243%2CtextButton%242%2C%24FormConditional%244%2CtextButton%243%2CtextButton%244%2CtextButton%245%2CtextButton%246%2CtextButton%247%2CtextButton%248%2CtextButton%249%2C%24FormConditional%245%2CtextButton%2410%2C%24Toolbar%2CcellCheck%2CcellCheck%240%2CcellCheck%241%2CcellCheck%242%2CcellCheck%243%2CcellCheck%244%2CcellCheck%245%2CcellCheck%246%2C%24Toolbar%240&focus=&keyCode=0&stz=&source=&selected=&requestCount=2&scriptEnabled=F&scrollPos=0&scrDim=&winDim=&imgDim=&%24FormConditional=T&%24FormConditional%240=T&%24FormConditional%241=F&%24FormConditional%242=T&%24FormConditional%243=T&%24FormConditional%244=F&%24FormConditional%245=T&%24Textfield=", "url": "file:///aDISWeb/app;jsessionid=95132A0337F33A21552B1148363B95A4"}
+lastIndex := xs:double("1")
+book := {"year": "2004", "statusId": "available", "title": "Test Methods for Pressure Seinsitive Adhesive Tapes ", "author": " Glen R. Anderson. ", "publisher": " Pressure Sensitive Tape Council", "_searchId": "ZTEXT%20%20%20%20%20%20%20AK02104501", "_index": 1}
+lastSearchedIndex := xs:double("1")
+lastIndex := xs:double("2")
+book := {"year": "2001", "statusId": "available", "title": "¬The¬ Photographic Activity Test : What is it and how is it useful; Capstone Research Project ", "author": " Kathrine Kilde", "publisher": "", "_searchId": "ZTEXT%20%20%20%20%20%20%20AK02087973", "_index": 2}
+lastSearchedIndex := xs:double("2")
+lastIndex := xs:double("3")
+book := {"year": "2001", "statusId": "available", "title": "Testmethoden zur Untersuchung des Stabilitätsverhaltens von Tintenstrahlmaterialien : Diplomarbeit ", "author": " Barbara Vogt. ", "publisher": " Fachhochschule", "_searchId": "ZTEXT%20%20%20%20%20%20%20AK02088066", "_index": 3}
+lastSearchedIndex := xs:double("3")
+lastIndex := xs:double("4")
+book := {"year": "1999", "statusId": "available", "title": "Mike Kelley : \"Framed and frame (Miniature reproduction \"Chinatown Wishing Well\" built by Mike Kelley after \"Miniature Reproduction 'Seven Star Cavern' built by Prof. H. K. Lu\")\"; \"Test room containing multiple stimuli known to elicit curiosity and manipulatory responses\"; [16.10.1999 - 16.01.2000] ", "author": " Magasin. ", "publisher": " Magasin", "_searchId": "ZTEXT%20%20%20%20%20%20%20AK01476564", "_index": 4}
+lastSearchedIndex := xs:double("4")
+lastIndex := xs:double("5")
+book := {"year": "1982", "statusId": "available", "title": "Books, Documentary Materials and Works of Art : Selected Test Methods ", "author": " George Martin Cunha. ", "publisher": " Tappi Press", "_searchId": "ZTEXT%20%20%20%20%20%20%20AK02104495", "_index": 5}
+lastSearchedIndex := xs:double("5")
+lastIndex := xs:double("6")
+book := {"year": "1974", "statusId": "available", "title": "¬Der¬ Frieling-Test : ein Farbtest z. Charakter- u. Schicksalsdiagnostik ", "author": " von Heinrich Frieling u. Elmar Th. Schmidt. ", "publisher": " Musterschmidt", "_searchId": "ZTEXT%20%20%20%20%20%20%20AK00571247", "_index": 6}
+lastSearchedIndex := xs:double("6")
+lastIndex := xs:double("7")
+book := {"year": "1969", "statusId": "available", "title": "Fake : the story of Elmyr de Hory, the greatest test art forger of our time ", "author": " by Clifford Irving. ", "publisher": "Hill", "_searchId": "ZTEXT%20%20%20%20%20%20%20AK02090907", "_index": 7}
+lastSearchedIndex := xs:double("7")
+lastIndex := xs:double("8")
+book := {"year": "", "statusId": "available", "title": "Test BSZ", "author": "", "publisher": "", "_searchId": "ZTEXT%20%20%20%20%20%20%20AK32000016", "_index": 8}
+lastSearchedIndex := xs:double("8")

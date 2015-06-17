@@ -1,15 +1,13 @@
-book: {}
-
-
-delete-current-books(): untyped: 
-bookTableBroken: boolean: false
-bookTableBroken: boolean: true
-noExtendingPossible: boolean: true
-noExtendingPossible: boolean: false
-bookTableBroken: boolean: false
-temporaryStatusDetails: node(): 017602601 - 1. Verlängerung   für Benutzer #9000491; Verlängerung des Mediums nicht erlaubt bis: 16 Sep 2010.
-book: object(): {"status:problematic": "017602601 - 1. Verlängerung   für Benutzer #9000491; Verlängerung des Mediums nicht erlaubt bis: 16 Sep 2010.", "status:curious": "bisher 0 mal verlängert", "duedate:d mmm yyyy": "11 Okt 2010", "author": "Walerowski, Peter", "title": "ZOPE : [Grundlagen, Praxis, Referenz ; Entwicklung von dynamischen Webanwendungen ; aktuell zu Zope 2.6, 2.7 und 3.0 ; mit kompletter API-Referenz]", "id": "017602601", "extendid": ""}
-bookTableBroken: boolean: false
-temporaryStatusDetails: node(): 019965801 - 1. Verlängerung   für Benutzer #9000491; Verlängerung des Mediums nicht erlaubt bis: 16 Sep 2010.
-book: object(): {"status:problematic": "019965801 - 1. Verlängerung   für Benutzer #9000491; Verlängerung des Mediums nicht erlaubt bis: 16 Sep 2010.", "status:curious": "bisher 0 mal verlängert", "duedate:d mmm yyyy": "11 Okt 2010", "author": "Imhorst, Christian", "title": "¬Die¬ Anarchie der Hacker : Richard Stallman und die Freie-Software-Bewegung", "id": "019965801", "extendid": ""}
-mid: node(): 16642
+book := {}
+delete-current-books() := ()
+bookTableBroken := false()
+bookTableBroken := true()
+noExtendingPossible := true()
+noExtendingPossible := false()
+bookTableBroken := false()
+temporaryStatusDetails := text{"017602601 - 1. Verlängerung   für Benutzer #9000491; Verlängerung des Mediums nicht erlaubt bis: 16 Sep 2010."}
+book := {"status:problematic": "017602601 - 1. Verlängerung   für Benutzer #9000491; Verlängerung des Mediums nicht erlaubt bis: 16 Sep 2010.", "status:curious": "bisher 0 mal verlängert", "duedate:d mmm yyyy": "11 Okt 2010", "author": "Walerowski, Peter", "title": "ZOPE : [Grundlagen, Praxis, Referenz ; Entwicklung von dynamischen Webanwendungen ; aktuell zu Zope 2.6, 2.7 und 3.0 ; mit kompletter API-Referenz]", "id": "017602601", "extendid": ""}
+bookTableBroken := false()
+temporaryStatusDetails := text{"019965801 - 1. Verlängerung   für Benutzer #9000491; Verlängerung des Mediums nicht erlaubt bis: 16 Sep 2010."}
+book := {"status:problematic": "019965801 - 1. Verlängerung   für Benutzer #9000491; Verlängerung des Mediums nicht erlaubt bis: 16 Sep 2010.", "status:curious": "bisher 0 mal verlängert", "duedate:d mmm yyyy": "11 Okt 2010", "author": "Imhorst, Christian", "title": "¬Die¬ Anarchie der Hacker : Richard Stallman und die Freie-Software-Bewegung", "id": "019965801", "extendid": ""}
+mid := text{"16642"}

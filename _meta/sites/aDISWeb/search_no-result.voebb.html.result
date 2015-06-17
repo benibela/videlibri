@@ -1,4 +1,2 @@
-book: {}
-
-
-search-result-count: integer: 0
+book := {}
+search-result-count := 0

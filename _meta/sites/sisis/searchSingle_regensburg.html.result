@@ -1,26 +1,24 @@
-book: {}
-
-
-result: untyped: 
-temp: string: Erschienen ab
-temp: string: BESTAND
-temp: string: TITEL
-temp: string: WEITERER TITEL
-temp: string: WEITERER TITEL
-temp: string: WEITERER TITEL
-temp: string: WEITERER TITEL
-temp: string: INSTITUTION
-temp: string: UNTERTITEL
-temp: string: ORT
-temp: string: VERLAG
-temp: string: UMFANG
-temp: string: VOLLTEXT
-temp: string: VOLLTEXT
-temp: string: BESCHREIBUNG
-temp: string: URL ERLÄUTERUNG
-temp: string: MATERIAL
-temp: string: PARALLELTITEL
-temp: string: LOKALE URL
-temp: string: -
-temp: string: PERMALINK
-book: object(): {"PERMALINK!": "https://www.regensburger-katalog.de/query/10/BV040991131", "-!": "Vorg. --->: Institute of Electrical and Electronics Engineers: IEEE design & test of computers", "LOKALE URL!": "http://www.hs-regensburg.de/fileadmin/media/einrichtungen/bibliothek/DBIS/ezb-readme_1.html?lang=de#IEEE", "PARALLELTITEL!": "Druckausg. --->: Institute of Electrical and Electronics Engineers: IEEE design & test", "MATERIAL!": "Elektronische Ressource", "URL ERLÄUTERUNG!": "Interna: EZB", "BESCHREIBUNG!": "http://ieeexplore.ieee.org/servlet/opac?punumber=6221038", "VOLLTEXT!": "http://www.bibliothek.uni-regensburg.de/ezeit/?2714080&bibid=UBR", "UMFANG!": "Online-Ressource", "VERLAG!": "IEEE", "ORT!": "New York, NY", "UNTERTITEL!": "D & T", "INSTITUTION!": "Institute of Electrical and Electronics Engineers", "WEITERER TITEL!": "D and T", "TITEL!": "IEEE design & test", "BESTAND!": "30.2013 -", "Erschienen ab!": "30.2013 -"}
+book := {}
+result := ()
+temp := "Erschienen ab"
+temp := "BESTAND"
+temp := "TITEL"
+temp := "WEITERER TITEL"
+temp := "WEITERER TITEL"
+temp := "WEITERER TITEL"
+temp := "WEITERER TITEL"
+temp := "INSTITUTION"
+temp := "UNTERTITEL"
+temp := "ORT"
+temp := "VERLAG"
+temp := "UMFANG"
+temp := "VOLLTEXT"
+temp := "VOLLTEXT"
+temp := "BESCHREIBUNG"
+temp := "URL ERLÄUTERUNG"
+temp := "MATERIAL"
+temp := "PARALLELTITEL"
+temp := "LOKALE URL"
+temp := "-"
+temp := "PERMALINK"
+book := {"PERMALINK!": "https://www.regensburger-katalog.de/query/10/BV040991131", "-!": "Vorg. --->: Institute of Electrical and Electronics Engineers: IEEE design & test of computers", "LOKALE URL!": "http://www.hs-regensburg.de/fileadmin/media/einrichtungen/bibliothek/DBIS/ezb-readme_1.html?lang=de#IEEE", "PARALLELTITEL!": "Druckausg. --->: Institute of Electrical and Electronics Engineers: IEEE design & test", "MATERIAL!": "Elektronische Ressource", "URL ERLÄUTERUNG!": "Interna: EZB", "BESCHREIBUNG!": "http://ieeexplore.ieee.org/servlet/opac?punumber=6221038", "VOLLTEXT!": "http://www.bibliothek.uni-regensburg.de/ezeit/?2714080&bibid=UBR", "UMFANG!": "Online-Ressource", "VERLAG!": "IEEE", "ORT!": "New York, NY", "UNTERTITEL!": "D & T", "INSTITUTION!": "Institute of Electrical and Electronics Engineers", "WEITERER TITEL!": "D and T", "TITEL!": "IEEE design & test", "BESTAND!": "30.2013 -", "Erschienen ab!": "30.2013 -"}

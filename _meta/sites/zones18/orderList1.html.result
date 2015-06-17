@@ -1,11 +1,7 @@
-requestId: 0
-
-
-book: {}
-
-
-obj: node(): Obj_776351379630410
-bFoundBottom: boolean: false
-x: string: ordered
-tempbook: object(): {"cancelable": true, "_cancel-url": "Obj_776351379630410?Style=Portal2&SubStyle=&Lang=GER&ResponseEncoding=utf-8&Method=PreCancel&Item=271601&ConfirmCancel=1&ItemHandle=271601&Finished=Obj_776351379630410%3FStyle%3DPortal2%26SubStyle%3D%26Lang%3DGER%26ResponseEncoding%3Dutf-8%3FMethod%3DCloneList%26amp;Item%3D271601%26amp;BrowseAsHloc%3D-2&BrowseList=Obj_776351379630410%3FStyle%3DPortal2%26SubStyle%3D%26Lang%3DGER%26ResponseEncoding%3Dutf-8&BrowseListItem=271601&BrowseAsHloc=-2", "statusId": "ordered", "status": "Bei der Suche (Warteliste: 1 von 1)", "id": "(B) NIV 35/3:2 •/SciFi", "issueDate": "2013-09-20", "title": "Ringwelt-Ingenieure", "author": "Niven, Larry"}
-book: object(): {"cancelable": true, "_cancel-url": "Obj_776351379630410?Style=Portal2&SubStyle=&Lang=GER&ResponseEncoding=utf-8&Method=PreCancel&Item=271601&ConfirmCancel=1&ItemHandle=271601&Finished=Obj_776351379630410%3FStyle%3DPortal2%26SubStyle%3D%26Lang%3DGER%26ResponseEncoding%3Dutf-8%3FMethod%3DCloneList%26amp;Item%3D271601%26amp;BrowseAsHloc%3D-2&BrowseList=Obj_776351379630410%3FStyle%3DPortal2%26SubStyle%3D%26Lang%3DGER%26ResponseEncoding%3Dutf-8&BrowseListItem=271601&BrowseAsHloc=-2", "statusId": "ordered", "status": "Bei der Suche (Warteliste: 1 von 1)", "id": "(B) NIV 35/3:2 •/SciFi", "issueDate": "2013-09-20", "title": "Ringwelt-Ingenieure", "author": "Niven, Larry"}
+requestId := 0
+book := {}
+obj := text{"Obj_776351379630410"}
+bFoundBottom := false()
+x := "ordered"
+tempbook := {"cancelable": true, "_cancel-url": "Obj_776351379630410?Style=Portal2&SubStyle=&Lang=GER&ResponseEncoding=utf-8&Method=PreCancel&Item=271601&ConfirmCancel=1&ItemHandle=271601&Finished=Obj_776351379630410%3FStyle%3DPortal2%26SubStyle%3D%26Lang%3DGER%26ResponseEncoding%3Dutf-8%3FMethod%3DCloneList%26amp;Item%3D271601%26amp;BrowseAsHloc%3D-2&BrowseList=Obj_776351379630410%3FStyle%3DPortal2%26SubStyle%3D%26Lang%3DGER%26ResponseEncoding%3Dutf-8&BrowseListItem=271601&BrowseAsHloc=-2", "statusId": "ordered", "status": "Bei der Suche (Warteliste: 1 von 1)", "id": "(B) NIV 35/3:2 •/SciFi", "issueDate": "2013-09-20", "title": "Ringwelt-Ingenieure", "author": "Niven, Larry"}
+book := {"cancelable": true, "_cancel-url": "Obj_776351379630410?Style=Portal2&SubStyle=&Lang=GER&ResponseEncoding=utf-8&Method=PreCancel&Item=271601&ConfirmCancel=1&ItemHandle=271601&Finished=Obj_776351379630410%3FStyle%3DPortal2%26SubStyle%3D%26Lang%3DGER%26ResponseEncoding%3Dutf-8%3FMethod%3DCloneList%26amp;Item%3D271601%26amp;BrowseAsHloc%3D-2&BrowseList=Obj_776351379630410%3FStyle%3DPortal2%26SubStyle%3D%26Lang%3DGER%26ResponseEncoding%3Dutf-8&BrowseListItem=271601&BrowseAsHloc=-2", "statusId": "ordered", "status": "Bei der Suche (Warteliste: 1 von 1)", "id": "(B) NIV 35/3:2 •/SciFi", "issueDate": "2013-09-20", "title": "Ringwelt-Ingenieure", "author": "Niven, Larry"}

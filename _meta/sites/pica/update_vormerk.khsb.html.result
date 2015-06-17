@@ -1,8 +1,6 @@
-book: {}
-
-
-reservations: node(): /loan/DB=40/USERINFO?ACT=UI_LOR&BOR_U=8001770&BOR_PW_ENC=MONg3C25I%2FTUQ91PqQZPDtRD3U%2BpBk8O4qEvrrpMhLw%3D
-delete-current-books(): untyped: 
-book: object(): {"duedate:dd-mm-yyyy": "10-12-2014", "status:curious": "ausgeliehen, 0 Mahnung(en)", "id": "LS:A 2000/1", "author": "Oli", "title": "Souveraen freie Reden halten: die Power der Memo-Rhetorik ", "extendId": "KHSB060062"}
-book: object(): {"duedate:dd-mm-yyyy": "10-12-2014", "statusId": "critical", "status": "ausgeliehen, 0 Mahnung(en)", "id": "LS:A 2000/3", "author": "", "title": "Praesentation und Moderation: Arbeitsbuch fuer die Fort- und We", "extendId": ""}
-book: object(): {"statusId": "provided", "cancelable": false, "status": "Vormerkregal (KHSB-2)", "id": "LS:A 2000/9", "author": "", "title": "Den Ton treffen: Kompetenz fuer Gespraechsleitung ; Rundgesprae", "extendId": ""}
+book := {}
+reservations := text{"/loan/DB=40/USERINFO?ACT=UI_LOR&amp;BOR_U=8001770&amp;BOR_PW_ENC=MONg3C25I%2FTUQ91PqQZPDtRD3U%2BpBk8O4qEvrrpMhLw%3D"}
+delete-current-books() := ()
+book := {"duedate:dd-mm-yyyy": "10-12-2014", "status:curious": "ausgeliehen, 0 Mahnung(en)", "id": "LS:A 2000/1", "author": "Oli", "title": "Souveraen freie Reden halten: die Power der Memo-Rhetorik ", "extendId": "KHSB060062"}
+book := {"duedate:dd-mm-yyyy": "10-12-2014", "statusId": "critical", "status": "ausgeliehen, 0 Mahnung(en)", "id": "LS:A 2000/3", "author": "", "title": "Praesentation und Moderation: Arbeitsbuch fuer die Fort- und We", "extendId": ""}
+book := {"statusId": "provided", "cancelable": false, "status": "Vormerkregal (KHSB-2)", "id": "LS:A 2000/9", "author": "", "title": "Den Ton treffen: Kompetenz fuer Gespraechsleitung ; Rundgesprae", "extendId": ""}

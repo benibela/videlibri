@@ -1,10 +1,6 @@
-requestId: 0
-
-
-book: {}
-
-
-obj: node(): Obj_776481379630456
-bFoundBottom: boolean: false
-tempbook: object(): {"statusId": "deleted", "status": "Gelöscht", "issueDate": "2013-09-20", "title": "Hüter der Ringwelt", "author": "Niven, Larry"}
-tempbook: object(): {"id": "(B) NIV 35/3:2 •/SciFi", "statusId": "deleted", "status": "Gelöscht", "issueDate": "2013-09-20", "title": "Ringwelt-Ingenieure", "author": "Niven, Larry"}
+requestId := 0
+book := {}
+obj := text{"Obj_776481379630456"}
+bFoundBottom := false()
+tempbook := {"statusId": "deleted", "status": "Gelöscht", "issueDate": "2013-09-20", "title": "Hüter der Ringwelt", "author": "Niven, Larry"}
+tempbook := {"id": "(B) NIV 35/3:2 •/SciFi", "statusId": "deleted", "status": "Gelöscht", "issueDate": "2013-09-20", "title": "Ringwelt-Ingenieure", "author": "Niven, Larry"}

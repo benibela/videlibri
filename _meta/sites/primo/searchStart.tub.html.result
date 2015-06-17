@@ -1,8 +1,6 @@
-book: {}
-
-
-i: integer: 0
-selects: sequence*: node(): Anywhere
+book := {}
+i := 0
+selects := (text{"Anywhere
 
 Title
 
@@ -22,9 +20,9 @@ Subj. class. (local)
 
 TOC/Textbook coll.
 
-Creation Date
-node(): Title
-node(): Anywhere
+Creation Date"}, 
+text{"Title"}, 
+text{"Anywhere
 
 Title
 
@@ -44,8 +42,8 @@ Subj. class. (local)
 
 TOC/Textbook coll.
 
-Creation Date
-node(): Anywhere
+Creation Date"}, 
+text{"Anywhere
 
 Title
 
@@ -65,9 +63,9 @@ Subj. class. (local)
 
 TOC/Textbook coll.
 
-Creation Date
-node(): Title
-node(): Anywhere
+Creation Date"}, 
+text{"Title"}, 
+text{"Anywhere
 
 Title
 
@@ -87,8 +85,8 @@ Subj. class. (local)
 
 TOC/Textbook coll.
 
-Creation Date
-node(): Anywhere
+Creation Date"}, 
+text{"Anywhere
 
 Title
 
@@ -108,9 +106,9 @@ Subj. class. (local)
 
 TOC/Textbook coll.
 
-Creation Date
-node(): Title
-node(): Anywhere
+Creation Date"}, 
+text{"Title"}, 
+text{"Anywhere
 
 Title
 
@@ -130,5 +128,5 @@ Subj. class. (local)
 
 TOC/Textbook coll.
 
-Creation Date
-form: object(): {"method": "POST", "post": "mode=Advanced&tab=tub_bestand&indx=1&dum=true&srt=rank&vid=TUB&frbg=&tb=t&vl%28121519066UI0%29=any&vl%28121519066UI0%29=title&vl%28121519066UI0%29=any&vl%281UIStartWith0%29=contains&vl%28freeText0%29=&vl%28121519103UI1%29=any&vl%28121519103UI1%29=title&vl%28121519103UI1%29=any&vl%281UIStartWith1%29=contains&vl%28freeText1%29=&vl%28121519049UI2%29=any&vl%28121519049UI2%29=title&vl%28121519049UI2%29=any&vl%281UIStartWith2%29=contains&vl%28freeText2%29=&vl%28D113170059UI3%29=all_items&vl%28D113170057UI4%29=all_items&vl%28550270534UI5%29=all_items&scp.scps=scope%3A%28TUB%29%2Cscope%3A%28tub_aleph%29%2Cscope%3A%28TUB_MA%29%2Cscope%3A%28TUB_DBIS%29%2Cscope%3A%28TUB_OPUS%29%2Cscope%3A%28TUB_siam%29&Submit=Search", "url": "file:///primo_library/libweb/action/search.do?fn=go&ct=search"}
+Creation Date"})
+form := {"method": "POST", "post": "mode=Advanced&tab=tub_bestand&indx=1&dum=true&srt=rank&vid=TUB&frbg=&tb=t&vl%28121519066UI0%29=any&vl%28121519066UI0%29=title&vl%28121519066UI0%29=any&vl%281UIStartWith0%29=contains&vl%28freeText0%29=&vl%28121519103UI1%29=any&vl%28121519103UI1%29=title&vl%28121519103UI1%29=any&vl%281UIStartWith1%29=contains&vl%28freeText1%29=&vl%28121519049UI2%29=any&vl%28121519049UI2%29=title&vl%28121519049UI2%29=any&vl%281UIStartWith2%29=contains&vl%28freeText2%29=&vl%28D113170059UI3%29=all_items&vl%28D113170057UI4%29=all_items&vl%28550270534UI5%29=all_items&scp.scps=scope%3A%28TUB%29%2Cscope%3A%28tub_aleph%29%2Cscope%3A%28TUB_MA%29%2Cscope%3A%28TUB_DBIS%29%2Cscope%3A%28TUB_OPUS%29%2Cscope%3A%28TUB_siam%29&Submit=Search", "url": "file:///primo_library/libweb/action/search.do?fn=go&ct=search"}

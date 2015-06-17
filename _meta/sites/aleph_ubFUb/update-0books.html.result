@@ -1,6 +1,4 @@
-book: {}
-
-
-noBooks: string: 
-noBooks: string: true
-delete-current-books(): untyped: 
+book := {}
+noBooks := ""
+noBooks := "true"
+delete-current-books() := ()

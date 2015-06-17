@@ -1,74 +1,72 @@
-book: {}
-
-
-nextPage: untyped: 
-nextPage: node(): /webOPACClient.sisis/hitList.do?methodToCall=pos&identifier=-1_S_IG.127.14832&curPos=21#-1
-search-result-count: string: 33
-hasZ3988: boolean: false
-brs: sequence*: node(): Dunkel, Daniel
-node(): 1996
-node(): UBg 4349
-node(): 
-node(): 
-book: object(): {"year": "1996", "author": "Dunkel, Daniel", "title": "_Der gerupfte Bürger", "_detail-url": "/webOPACClient.sisis/singleHit.do?methodToCall=showHit&curPos=11&identifier=-1_S_IG.127.14832", "orderable": 0}
-hasZ3988: boolean: false
-brs: sequence*: node(): 
-node(): 
-book: object(): {"year": "", "author": "", "title": "Energiesparen mit dem Blick aufs Ganze", "_detail-url": "/webOPACClient.sisis/singleHit.do?methodToCall=showHit&curPos=12&identifier=-1_S_IG.127.14832", "orderable": 0}
-hasZ3988: boolean: false
-brs: sequence*: node(): Engelbrecht, Sigrid
-node(): 2011
-node(): 159.64
-node(): entliehen (gesamte Vormerkungen: 0)
-node(): 
-book: object(): {"year": "2011", "author": "Engelbrecht, Sigrid", "title": "_Das Anti-Burnout-Buch für Frauen", "_detail-url": "/webOPACClient.sisis/singleHit.do?methodToCall=showHit&curPos=13&identifier=-1_S_IG.127.14832", "orderable": 0}
-hasZ3988: boolean: false
-brs: sequence*: node(): Engelbrecht, Sigrid
-node(): 2012
-node(): 159.64
-node(): 
-node(): 
-book: object(): {"year": "2012", "author": "Engelbrecht, Sigrid", "title": "_Das Anti-Burnout-Buch für Mütter", "_detail-url": "/webOPACClient.sisis/singleHit.do?methodToCall=showHit&curPos=14&identifier=-1_S_IG.127.14832", "orderable": 0}
-hasZ3988: boolean: false
-brs: sequence*: node(): Gabathuler, Ursula
-node(): 2000
-node(): UBg 6026
-node(): 
-node(): 
-book: object(): {"year": "2000", "author": "Gabathuler, Ursula", "title": "Hier ist Rasten ein Genuss", "_detail-url": "/webOPACClient.sisis/singleHit.do?methodToCall=showHit&curPos=15&identifier=-1_S_IG.127.14832", "orderable": 0}
-hasZ3988: boolean: false
-brs: sequence*: node(): Gisler, Hans
-node(): 
-node(): 
-book: object(): {"year": "", "author": "Gisler, Hans", "title": "Mobiler Hochwasserschutz der Ruag im Test", "_detail-url": "/webOPACClient.sisis/singleHit.do?methodToCall=showHit&curPos=16&identifier=-1_S_IG.127.14832", "orderable": 0}
-hasZ3988: boolean: false
-brs: sequence*: node(): 
-node(): 
-book: object(): {"year": "", "author": "", "title": "_Eine grosse Anerkennung", "_detail-url": "/webOPACClient.sisis/singleHit.do?methodToCall=showHit&curPos=17&identifier=-1_S_IG.127.14832", "orderable": 0}
-hasZ3988: boolean: false
-brs: sequence*: node(): 1956
-node(): E 4689
-node(): 
-node(): 
-brs: sequence*: string: 
-node(): 1956
-node(): E 4689
-node(): 
-node(): 
-book: object(): {"year": "1956", "author": "", "title": "_Der grosse Herder - Nachschlagewerk für Wissen und Leben", "_detail-url": "/webOPACClient.sisis/singleHit.do?methodToCall=showHit&curPos=18&identifier=-1_S_IG.127.14832", "orderable": 0}
-hasZ3988: boolean: false
-brs: sequence*: node(): 1956
-node(): E 7018
-node(): 
-node(): 
-brs: sequence*: string: 
-node(): 1956
-node(): E 7018
-node(): 
-node(): 
-book: object(): {"year": "1956", "author": "", "title": "_Der grosse Herder - Nachschlagewerk für Wissen und Leben/Band 9", "_detail-url": "/webOPACClient.sisis/singleHit.do?methodToCall=showHit&curPos=19&identifier=-1_S_IG.127.14832", "orderable": 0}
-hasZ3988: boolean: false
-brs: sequence*: node(): Hanhart, Urs
-node(): 
-node(): 
-book: object(): {"year": "", "author": "Hanhart, Urs", "title": "Geglückter Test für Gigathletin Trix Z'graggen", "_detail-url": "/webOPACClient.sisis/singleHit.do?methodToCall=showHit&curPos=20&identifier=-1_S_IG.127.14832", "orderable": 0}
+book := {}
+nextPage := ()
+nextPage := text{"/webOPACClient.sisis/hitList.do?methodToCall=pos&amp;identifier=-1_S_IG.127.14832&amp;curPos=21#-1"}
+search-result-count := "33"
+hasZ3988 := false()
+brs := (text{"Dunkel, Daniel"}, 
+text{"1996"}, 
+text{"UBg 4349"}, 
+text{""}, 
+text{""})
+book := {"year": "1996", "author": "Dunkel, Daniel", "title": "_Der gerupfte Bürger", "_detail-url": "/webOPACClient.sisis/singleHit.do?methodToCall=showHit&curPos=11&identifier=-1_S_IG.127.14832", "orderable": 0}
+hasZ3988 := false()
+brs := (text{""}, 
+text{""})
+book := {"year": "", "author": "", "title": "Energiesparen mit dem Blick aufs Ganze", "_detail-url": "/webOPACClient.sisis/singleHit.do?methodToCall=showHit&curPos=12&identifier=-1_S_IG.127.14832", "orderable": 0}
+hasZ3988 := false()
+brs := (text{"Engelbrecht, Sigrid"}, 
+text{"2011"}, 
+text{"159.64"}, 
+text{"entliehen (gesamte Vormerkungen: 0)"}, 
+text{""})
+book := {"year": "2011", "author": "Engelbrecht, Sigrid", "title": "_Das Anti-Burnout-Buch für Frauen", "_detail-url": "/webOPACClient.sisis/singleHit.do?methodToCall=showHit&curPos=13&identifier=-1_S_IG.127.14832", "orderable": 0}
+hasZ3988 := false()
+brs := (text{"Engelbrecht, Sigrid"}, 
+text{"2012"}, 
+text{"159.64"}, 
+text{""}, 
+text{""})
+book := {"year": "2012", "author": "Engelbrecht, Sigrid", "title": "_Das Anti-Burnout-Buch für Mütter", "_detail-url": "/webOPACClient.sisis/singleHit.do?methodToCall=showHit&curPos=14&identifier=-1_S_IG.127.14832", "orderable": 0}
+hasZ3988 := false()
+brs := (text{"Gabathuler, Ursula"}, 
+text{"2000"}, 
+text{"UBg 6026"}, 
+text{""}, 
+text{""})
+book := {"year": "2000", "author": "Gabathuler, Ursula", "title": "Hier ist Rasten ein Genuss", "_detail-url": "/webOPACClient.sisis/singleHit.do?methodToCall=showHit&curPos=15&identifier=-1_S_IG.127.14832", "orderable": 0}
+hasZ3988 := false()
+brs := (text{"Gisler, Hans"}, 
+text{""}, 
+text{""})
+book := {"year": "", "author": "Gisler, Hans", "title": "Mobiler Hochwasserschutz der Ruag im Test", "_detail-url": "/webOPACClient.sisis/singleHit.do?methodToCall=showHit&curPos=16&identifier=-1_S_IG.127.14832", "orderable": 0}
+hasZ3988 := false()
+brs := (text{""}, 
+text{""})
+book := {"year": "", "author": "", "title": "_Eine grosse Anerkennung", "_detail-url": "/webOPACClient.sisis/singleHit.do?methodToCall=showHit&curPos=17&identifier=-1_S_IG.127.14832", "orderable": 0}
+hasZ3988 := false()
+brs := (text{"1956"}, 
+text{"E 4689"}, 
+text{""}, 
+text{""})
+brs := ("", 
+text{"1956"}, 
+text{"E 4689"}, 
+text{""}, 
+text{""})
+book := {"year": "1956", "author": "", "title": "_Der grosse Herder - Nachschlagewerk für Wissen und Leben", "_detail-url": "/webOPACClient.sisis/singleHit.do?methodToCall=showHit&curPos=18&identifier=-1_S_IG.127.14832", "orderable": 0}
+hasZ3988 := false()
+brs := (text{"1956"}, 
+text{"E 7018"}, 
+text{""}, 
+text{""})
+brs := ("", 
+text{"1956"}, 
+text{"E 7018"}, 
+text{""}, 
+text{""})
+book := {"year": "1956", "author": "", "title": "_Der grosse Herder - Nachschlagewerk für Wissen und Leben/Band 9", "_detail-url": "/webOPACClient.sisis/singleHit.do?methodToCall=showHit&curPos=19&identifier=-1_S_IG.127.14832", "orderable": 0}
+hasZ3988 := false()
+brs := (text{"Hanhart, Urs"}, 
+text{""}, 
+text{""})
+book := {"year": "", "author": "Hanhart, Urs", "title": "Geglückter Test für Gigathletin Trix Z'graggen", "_detail-url": "/webOPACClient.sisis/singleHit.do?methodToCall=showHit&curPos=20&identifier=-1_S_IG.127.14832", "orderable": 0}

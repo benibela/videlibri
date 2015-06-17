@@ -1,95 +1,93 @@
-book: {}
-
-
-nextPage: untyped: 
-nextPage: node(): /InfoGuideClient.sisis/hitList.do?methodToCall=pos&identifier=-1_S_IG.1273.27359&curPos=21#-1
-search-result-count: string: 133
-hasZ3988: boolean: false
-brs: sequence*: node(): Online-Dokument
-node(): 
-node(): 
-node(): 
-node(): 
-book: object(): {"year": "", "author": "Online-Dokument", "title": "Kindlers Literatur Lexikon: Wellek, René / Warren, Austin - Theory of Literature", "_detail-url": "/InfoGuideClient.sisis/singleHit.do?methodToCall=showHit&curPos=11&identifier=-1_S_IG.1273.27359", "orderable": 0}
-hasZ3988: boolean: false
-brs: sequence*: node(): 1994
-node(): Kommunikation & Information: 301.14
-node(): 
-node(): 
-node(): 
-brs: sequence*: string: 
-node(): 1994
-node(): Kommunikation & Information: 301.14
-node(): 
-node(): 
-node(): 
-book: object(): {"year": "1994", "author": "", "title": "Medien und Gewalt.", "_detail-url": "/InfoGuideClient.sisis/singleHit.do?methodToCall=showHit&curPos=12&identifier=-1_S_IG.1273.27359", "orderable": 0}
-hasZ3988: boolean: false
-brs: sequence*: node(): 2010
-node(): Natur & Technik: Fahrschule
-node(): 
-node(): 
-node(): 
-brs: sequence*: string: 
-node(): 2010
-node(): Natur & Technik: Fahrschule
-node(): 
-node(): 
-node(): 
-book: object(): {"year": "2010", "author": "", "title": "3D-Fahrschule 2010 [CD-ROM]", "_detail-url": "/InfoGuideClient.sisis/singleHit.do?methodToCall=showHit&curPos=13&identifier=-1_S_IG.1273.27359", "orderable": 0}
-hasZ3988: boolean: false
-brs: sequence*: node(): Adorno, Theodor W.
-node(): 1972
-node(): Magazin: 10 ADOR
-node(): 
-node(): 
-node(): 
-book: object(): {"year": "1972", "author": "Adorno, Theodor W.", "title": "Aesthetische Theorie", "_detail-url": "/InfoGuideClient.sisis/singleHit.do?methodToCall=showHit&curPos=14&identifier=-1_S_IG.1273.27359", "orderable": 0}
-hasZ3988: boolean: false
-brs: sequence*: node(): Ahrends, Günter
-node(): 1980
-node(): Romane & Interpretationen: 820.73
-node(): 
-node(): 
-node(): 
-book: object(): {"year": "1980", "author": "Ahrends, Günter", "title": "¬Die amerikanische Kurzgeschichte", "_detail-url": "/InfoGuideClient.sisis/singleHit.do?methodToCall=showHit&curPos=15&identifier=-1_S_IG.1273.27359", "orderable": 0}
-hasZ3988: boolean: false
-brs: sequence*: node(): Ahrendt, Lilli
-node(): 2007
-node(): KInd & Erziehung: Baby / Kleinkind
-node(): entliehen (gesamte Vormerkungen: 0)
-node(): 
-node(): 
-book: object(): {"year": "2007", "author": "Ahrendt, Lilli", "title": "Säuglingsschwimmen und kindliche Entwicklung", "_detail-url": "/InfoGuideClient.sisis/singleHit.do?methodToCall=showHit&curPos=16&identifier=-1_S_IG.1273.27359", "orderable": 0}
-hasZ3988: boolean: false
-brs: sequence*: node(): Allgoewer, Elisabeth
-node(): Online-Dokument
-node(): 
-node(): 
-node(): 
-node(): 
-book: object(): {"year": "", "author": "Allgoewer, Elisabeth", "title": "Kindlers Literatur Lexikon: Hicks, John Richard - Value and Capital", "_detail-url": "/InfoGuideClient.sisis/singleHit.do?methodToCall=showHit&curPos=17&identifier=-1_S_IG.1273.27359", "orderable": 0}
-hasZ3988: boolean: false
-brs: sequence*: node(): Arens, Thomas
-node(): 2004
-node(): Kunst & Film: Instrumentenkurse
-node(): 
-node(): 
-node(): 
-book: object(): {"year": "2004", "author": "Arens, Thomas", "title": "Erste Übungen für Drumset-Anfänger [Noten]", "_detail-url": "/InfoGuideClient.sisis/singleHit.do?methodToCall=showHit&curPos=18&identifier=-1_S_IG.1273.27359", "orderable": 0}
-hasZ3988: boolean: false
-brs: sequence*: node(): Bachmann, Heinz
-node(): 2007
-node(): Natur & Technik: 516
-node(): entliehen (gesamte Vormerkungen: 0)
-node(): 
-node(): 
-book: object(): {"year": "2007", "author": "Bachmann, Heinz", "title": "Vektorgeometrie", "_detail-url": "/InfoGuideClient.sisis/singleHit.do?methodToCall=showHit&curPos=19&identifier=-1_S_IG.1273.27359", "orderable": 0}
-hasZ3988: boolean: false
-brs: sequence*: node(): Beck-Neckermann, Johannes
-node(): 2002
-node(): Kind & Erziehung: Musik und Tanz
-node(): 
-node(): 
-node(): 
-book: object(): {"year": "2002", "author": "Beck-Neckermann, Johannes", "title": "Handbuch der musikalischen Früherziehung", "_detail-url": "/InfoGuideClient.sisis/singleHit.do?methodToCall=showHit&curPos=20&identifier=-1_S_IG.1273.27359", "orderable": 0}
+book := {}
+nextPage := ()
+nextPage := text{"/InfoGuideClient.sisis/hitList.do?methodToCall=pos&amp;identifier=-1_S_IG.1273.27359&amp;curPos=21#-1"}
+search-result-count := "133"
+hasZ3988 := false()
+brs := (text{"Online-Dokument"}, 
+text{""}, 
+text{""}, 
+text{""}, 
+text{""})
+book := {"year": "", "author": "Online-Dokument", "title": "Kindlers Literatur Lexikon: Wellek, René / Warren, Austin - Theory of Literature", "_detail-url": "/InfoGuideClient.sisis/singleHit.do?methodToCall=showHit&curPos=11&identifier=-1_S_IG.1273.27359", "orderable": 0}
+hasZ3988 := false()
+brs := (text{"1994"}, 
+text{"Kommunikation &amp; Information: 301.14"}, 
+text{""}, 
+text{""}, 
+text{""})
+brs := ("", 
+text{"1994"}, 
+text{"Kommunikation &amp; Information: 301.14"}, 
+text{""}, 
+text{""}, 
+text{""})
+book := {"year": "1994", "author": "", "title": "Medien und Gewalt.", "_detail-url": "/InfoGuideClient.sisis/singleHit.do?methodToCall=showHit&curPos=12&identifier=-1_S_IG.1273.27359", "orderable": 0}
+hasZ3988 := false()
+brs := (text{"2010"}, 
+text{"Natur &amp; Technik: Fahrschule"}, 
+text{""}, 
+text{""}, 
+text{""})
+brs := ("", 
+text{"2010"}, 
+text{"Natur &amp; Technik: Fahrschule"}, 
+text{""}, 
+text{""}, 
+text{""})
+book := {"year": "2010", "author": "", "title": "3D-Fahrschule 2010 [CD-ROM]", "_detail-url": "/InfoGuideClient.sisis/singleHit.do?methodToCall=showHit&curPos=13&identifier=-1_S_IG.1273.27359", "orderable": 0}
+hasZ3988 := false()
+brs := (text{"Adorno, Theodor W."}, 
+text{"1972"}, 
+text{"Magazin: 10 ADOR"}, 
+text{""}, 
+text{""}, 
+text{""})
+book := {"year": "1972", "author": "Adorno, Theodor W.", "title": "Aesthetische Theorie", "_detail-url": "/InfoGuideClient.sisis/singleHit.do?methodToCall=showHit&curPos=14&identifier=-1_S_IG.1273.27359", "orderable": 0}
+hasZ3988 := false()
+brs := (text{"Ahrends, Günter"}, 
+text{"1980"}, 
+text{"Romane &amp; Interpretationen: 820.73"}, 
+text{""}, 
+text{""}, 
+text{""})
+book := {"year": "1980", "author": "Ahrends, Günter", "title": "¬Die amerikanische Kurzgeschichte", "_detail-url": "/InfoGuideClient.sisis/singleHit.do?methodToCall=showHit&curPos=15&identifier=-1_S_IG.1273.27359", "orderable": 0}
+hasZ3988 := false()
+brs := (text{"Ahrendt, Lilli"}, 
+text{"2007"}, 
+text{"KInd &amp; Erziehung: Baby / Kleinkind"}, 
+text{"entliehen (gesamte Vormerkungen: 0)"}, 
+text{""}, 
+text{""})
+book := {"year": "2007", "author": "Ahrendt, Lilli", "title": "Säuglingsschwimmen und kindliche Entwicklung", "_detail-url": "/InfoGuideClient.sisis/singleHit.do?methodToCall=showHit&curPos=16&identifier=-1_S_IG.1273.27359", "orderable": 0}
+hasZ3988 := false()
+brs := (text{"Allgoewer, Elisabeth"}, 
+text{"Online-Dokument"}, 
+text{""}, 
+text{""}, 
+text{""}, 
+text{""})
+book := {"year": "", "author": "Allgoewer, Elisabeth", "title": "Kindlers Literatur Lexikon: Hicks, John Richard - Value and Capital", "_detail-url": "/InfoGuideClient.sisis/singleHit.do?methodToCall=showHit&curPos=17&identifier=-1_S_IG.1273.27359", "orderable": 0}
+hasZ3988 := false()
+brs := (text{"Arens, Thomas"}, 
+text{"2004"}, 
+text{"Kunst &amp; Film: Instrumentenkurse"}, 
+text{""}, 
+text{""}, 
+text{""})
+book := {"year": "2004", "author": "Arens, Thomas", "title": "Erste Übungen für Drumset-Anfänger [Noten]", "_detail-url": "/InfoGuideClient.sisis/singleHit.do?methodToCall=showHit&curPos=18&identifier=-1_S_IG.1273.27359", "orderable": 0}
+hasZ3988 := false()
+brs := (text{"Bachmann, Heinz"}, 
+text{"2007"}, 
+text{"Natur &amp; Technik: 516"}, 
+text{"entliehen (gesamte Vormerkungen: 0)"}, 
+text{""}, 
+text{""})
+book := {"year": "2007", "author": "Bachmann, Heinz", "title": "Vektorgeometrie", "_detail-url": "/InfoGuideClient.sisis/singleHit.do?methodToCall=showHit&curPos=19&identifier=-1_S_IG.1273.27359", "orderable": 0}
+hasZ3988 := false()
+brs := (text{"Beck-Neckermann, Johannes"}, 
+text{"2002"}, 
+text{"Kind &amp; Erziehung: Musik und Tanz"}, 
+text{""}, 
+text{""}, 
+text{""})
+book := {"year": "2002", "author": "Beck-Neckermann, Johannes", "title": "Handbuch der musikalischen Früherziehung", "_detail-url": "/InfoGuideClient.sisis/singleHit.do?methodToCall=showHit&curPos=20&identifier=-1_S_IG.1273.27359", "orderable": 0}

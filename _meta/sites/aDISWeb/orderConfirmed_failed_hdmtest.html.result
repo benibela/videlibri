@@ -1,6 +1,2 @@
-
-
-book: {}
-
-
-raised: string: Bestellung nur in andere Bibliothek möglich 
+book := {}
+raised := "Bestellung nur in andere Bibliothek möglich "

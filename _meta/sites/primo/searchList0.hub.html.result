@@ -1,5 +1,3 @@
-book: {}
-
-
-search-result-count: string: 0
-waiting: boolean: false
+book := {}
+search-result-count := "0"
+waiting := false()

@@ -1,18 +1,16 @@
-book: {}
-
-
-goback: node(): /aDISWeb/app;jsessionid=F5F7FD6F65C94C2EAD25E250BA53BC03?service=direct/1/POOLM21PBSZTEST@_44002700_2C34CC00/navpath.intlink.directlink&sp=S%24%24GFNV_2&sp=SA%2FAK&requestCount=3
-name: string: Medienart
-name: string: Signatur
-name: string: Umfang / Seiten
-name: string: Sprache
-name: string: Land
-name: string: ISBN
-name: string: Nummer
-name: string: Bibliographischer Zusammenhang
-name: string: Schriftenreihe
-name: string:  
-name: string: Schlagwörter
-name: string: Systematik
-name: string: Volltext
-book: object(): {"Volltext!": "Zum Online-Dokument ( http://dx.doi.org/10.1007/978-3-8348-8114-4 )", "Systematik!": "ST 252 Web-Programmierung, allgemein", "Schlagwörter!": "JavaScript HTML XSL Cascading Style Sheets jQuery Web-Seite Objektorientierte Programmierung PHP JavaScript HTML XSL Cascading Style Sheets jQuery Projektplanung Software engineering Engineering", " !": "Elektronischer Volltext - Campuslizenz - Zugriff von ausserhalb der Hochschule über ihren Intranetaccount https://inhouse.hdm-stuttgart.de/intranet", "Schriftenreihe!": "(SpringerLink) (Bücher)", "Bibliographischer Zusammenhang!": "Buchausg. u.d.T.: Webprojekte realisieren nach neuesten OOP-Kriterien : ein Workshop über die Kooperation von PHP/XSL/JavaScript / Peter Stender [Druckschrift]", "Nummer!": "10.1007/978-3-8348-8114-4  (Digital Object Identifier (DOI)) 978-3-8348-8114-4  (Sprin) 339785047  (SWB-Katalog Nr.)", "ISBN!": "978-3-8348-8114-4", "Land!": "Deutschland", "Sprache!": "Deutsch", "Umfang / Seiten!": "Online-Ressource (XVI, 223S. 45 Abb, digital)", "publisher": " Vieweg+Teubner", "location": "Wiesbaden ", "year": "2011", "title": "Webprojekte realisieren nach neuesten OOP-Kriterien : Ein Workshop über die Kooperation von PHP/XSL/JavaScript ", "author": "Stender, Peter", "Signatur!": "eBook Springer eBook Springer (NO)", "Medienart!": "[E-Book]", "orderable": true}
+book := {}
+goback := text{"/aDISWeb/app;jsessionid=F5F7FD6F65C94C2EAD25E250BA53BC03?service=direct/1/POOLM21PBSZTEST@_44002700_2C34CC00/navpath.intlink.directlink&amp;sp=S%24%24GFNV_2&amp;sp=SA%2FAK&amp;requestCount=3"}
+name := "Medienart"
+name := "Signatur"
+name := "Umfang / Seiten"
+name := "Sprache"
+name := "Land"
+name := "ISBN"
+name := "Nummer"
+name := "Bibliographischer Zusammenhang"
+name := "Schriftenreihe"
+name := " "
+name := "Schlagwörter"
+name := "Systematik"
+name := "Volltext"
+book := {"Volltext!": "Zum Online-Dokument ( http://dx.doi.org/10.1007/978-3-8348-8114-4 )", "Systematik!": "ST 252 Web-Programmierung, allgemein", "Schlagwörter!": "JavaScript HTML XSL Cascading Style Sheets jQuery Web-Seite Objektorientierte Programmierung PHP JavaScript HTML XSL Cascading Style Sheets jQuery Projektplanung Software engineering Engineering", " !": "Elektronischer Volltext - Campuslizenz - Zugriff von ausserhalb der Hochschule über ihren Intranetaccount https://inhouse.hdm-stuttgart.de/intranet", "Schriftenreihe!": "(SpringerLink) (Bücher)", "Bibliographischer Zusammenhang!": "Buchausg. u.d.T.: Webprojekte realisieren nach neuesten OOP-Kriterien : ein Workshop über die Kooperation von PHP/XSL/JavaScript / Peter Stender [Druckschrift]", "Nummer!": "10.1007/978-3-8348-8114-4  (Digital Object Identifier (DOI)) 978-3-8348-8114-4  (Sprin) 339785047  (SWB-Katalog Nr.)", "ISBN!": "978-3-8348-8114-4", "Land!": "Deutschland", "Sprache!": "Deutsch", "Umfang / Seiten!": "Online-Ressource (XVI, 223S. 45 Abb, digital)", "publisher": " Vieweg+Teubner", "location": "Wiesbaden ", "year": "2011", "title": "Webprojekte realisieren nach neuesten OOP-Kriterien : Ein Workshop über die Kooperation von PHP/XSL/JavaScript ", "author": "Stender, Peter", "Signatur!": "eBook Springer eBook Springer (NO)", "Medienart!": "[E-Book]", "orderable": true}

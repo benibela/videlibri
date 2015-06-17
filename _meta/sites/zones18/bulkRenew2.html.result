@@ -1,18 +1,16 @@
-book: {}
-
-
-obj: node(): Obj_389641380909543
-bFoundBottom: boolean: false
-baseForm: object(): {"method": "POST", "post": "Method=SelectiveBulkRenew&BrowseAsHloc=-2&Style=Portal2&SubStyle=&Lang=GER&ResponseEncoding=utf-8&radioButton=on&DueInXDays=0&DueOnBox=", "url": "file:///home/benito/hg/programs/internet/VideLibri/_meta/sites//zones18/Obj_389641380909543"}
-options: object(): {}
-tempId: node(): item:IN=M01 425 475 2;AT=McCaffrey, Anne/Acorna - Die Fahrt zu den Sternen◉2.
-tempId: node(): item:IN=M01 454 828 1;AT=McCaffrey, Anne/Acornas Welt◉4.
-tempId: node(): item:IN=M01 492 543 7;AT=McCaffrey, Anne/Acorna - Acornas Heimkehr◉3.
-tempId: node(): item:IN=M02 009 601 0;AT=Niven, Larry/Der kaelteste Ort
-tempId: node(): item:IN=M02 009 602 2;AT=Niven, Larry/Hüter der Ringwelt
-tempId: node(): item:IN=M01 923 717 2;AT=Butcher, Jim/Wolfsjagd
-tempId: node(): item:IN=M02 106 402 8;AT=Butcher, Jim/Storm front
-tempId: node(): item:IN=M01 976 835 5;AT=Butcher, Jim/Grabesruhe
-tempId: node(): item:IN=M02 039 833 4;AT=Butcher, Jim/Bluthunger
-tempId: node(): item:IN=M02 074 155 5;AT=Butcher, Jim/Summer knight
-tempId: node(): item:IN=M02 097 075 5;AT=Sanderson, Brandon/Sturmklänge
+book := {}
+obj := text{"Obj_389641380909543"}
+bFoundBottom := false()
+baseForm := {"method": "POST", "post": "Method=SelectiveBulkRenew&BrowseAsHloc=-2&Style=Portal2&SubStyle=&Lang=GER&ResponseEncoding=utf-8&radioButton=on&DueInXDays=0&DueOnBox=", "url": "file:///home/benito/hg/programs/internet/VideLibri/_meta/sites//zones18/Obj_389641380909543"}
+options := {}
+tempId := text{"item:IN=M01 425 475 2;AT=McCaffrey, Anne/Acorna - Die Fahrt zu den Sternen◉2."}
+tempId := text{"item:IN=M01 454 828 1;AT=McCaffrey, Anne/Acornas Welt◉4."}
+tempId := text{"item:IN=M01 492 543 7;AT=McCaffrey, Anne/Acorna - Acornas Heimkehr◉3."}
+tempId := text{"item:IN=M02 009 601 0;AT=Niven, Larry/Der kaelteste Ort"}
+tempId := text{"item:IN=M02 009 602 2;AT=Niven, Larry/Hüter der Ringwelt"}
+tempId := text{"item:IN=M01 923 717 2;AT=Butcher, Jim/Wolfsjagd"}
+tempId := text{"item:IN=M02 106 402 8;AT=Butcher, Jim/Storm front"}
+tempId := text{"item:IN=M01 976 835 5;AT=Butcher, Jim/Grabesruhe"}
+tempId := text{"item:IN=M02 039 833 4;AT=Butcher, Jim/Bluthunger"}
+tempId := text{"item:IN=M02 074 155 5;AT=Butcher, Jim/Summer knight"}
+tempId := text{"item:IN=M02 097 075 5;AT=Sanderson, Brandon/Sturmklänge"}

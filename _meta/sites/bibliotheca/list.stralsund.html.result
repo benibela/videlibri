@@ -1,28 +1,26 @@
-book: {}
-
-
-hasBranch: boolean: false
-hasAuthor: boolean: false
-hasStatus: boolean: false
-hasId: boolean: false
-hasAuthor: boolean: true
-hasBranch: boolean: true
-book: object(): {"renew-link": "file:///home/benito/hg/programs/internet/VideLibri/_meta/sites//bibliotheca/index.asp?kontofenster=true&target=verl_1", "statusId": "curious", "libraryBranch": "Kinderbibliothek", "duedate": "2014-07-21", "title": "Nils Olgerson", "author": "AAA, Huber..."}
-book: object(): {"statusId": "critical", "status": "nicht verlängerbar", "libraryBranch": "Kinderbibliothek", "duedate": "2014-07-21", "title": "Buchserie; 5", "author": "Banks, Ian"}
-book: object(): {"renew-link": "file:///home/benito/hg/programs/internet/VideLibri/_meta/sites//bibliotheca/index.asp?kontofenster=true&target=verl_7", "statusId": "curious", "libraryBranch": "Kinderbibliothek", "duedate": "2014-07-21", "title": "Trullo Karacho und Lila...", "author": "A, E"}
-book: object(): {"renew-link": "file:///home/benito/hg/programs/internet/VideLibri/_meta/sites//bibliotheca/index.asp?kontofenster=true&target=verl_8", "statusId": "curious", "libraryBranch": "Hauptstelle", "duedate": "2014-09-21", "title": "XYS", "author": "G, S"}
-book: object(): {"renew-link": "file:///home/benito/hg/programs/internet/VideLibri/_meta/sites//bibliotheca/index.asp?kontofenster=true&target=verl_9", "statusId": "curious", "libraryBranch": "Kinderbibliothek", "duedate": "2014-09-18", "title": "Sendung mit der Maus", "author": "G, J"}
-book: object(): {"renew-link": "file:///home/benito/hg/programs/internet/VideLibri/_meta/sites//bibliotheca/index.asp?kontofenster=true&target=verl_36", "statusId": "curious", "libraryBranch": "Kinderbibliothek", "duedate": "2014-09-25", "title": "Titel...; Untertitel...; Bd. 123", "author": ""}
-book: object(): {"renew-link": "file:///home/benito/hg/programs/internet/VideLibri/_meta/sites//bibliotheca/index.asp?kontofenster=true&target=verl_37", "statusId": "curious", "libraryBranch": "Kinderbibliothek", "duedate": "2014-09-25", "title": "Titel...; Untertitel...; Bd. 100", "author": ""}
-book: object(): {"renew-link": "file:///home/benito/hg/programs/internet/VideLibri/_meta/sites//bibliotheca/index.asp?kontofenster=true&target=verl_38", "statusId": "curious", "libraryBranch": "Kinderbibliothek", "duedate": "2014-09-25", "title": "Tikz", "author": ""}
-hasAuthor: boolean: false
-hasStatus: boolean: false
-hasBranch: boolean: false
-hasAuthor: boolean: true
-hasBranch: boolean: true
-book: object(): {"cancel-link": "file:///home/benito/hg/programs/internet/VideLibri/_meta/sites//bibliotheca/index.asp?kontofenster=true&target=delvor_12345", "cancelable": true, "libraryBranch": "Kinderbibliothek", "title": "Die XXXXXXXX", "author": "Danac, Erich", "statusId": "ordered"}
-book: object(): {"cancelable": false, "libraryBranch": "Hauptstelle", "title": "Dhana", "author": "Pierce, Tamora", "statusId": "ordered"}
-book: object(): {"cancelable": false, "libraryBranch": "Hauptstelle", "title": "abcdef", "author": "X, Y", "statusId": "ordered"}
-book: object(): {"cancel-link": "file:///home/benito/hg/programs/internet/VideLibri/_meta/sites//bibliotheca/index.asp?kontofenster=true&target=delvor_9931399", "cancelable": true, "libraryBranch": "Hauptstelle", "title": "Abcdefghi", "author": "E, H", "statusId": "ordered"}
-book: object(): {"cancel-link": "file:///home/benito/hg/programs/internet/VideLibri/_meta/sites//bibliotheca/index.asp?kontofenster=true&target=delvor_9999129", "cancelable": true, "libraryBranch": "Hauptstelle", "title": "Goldstück", "author": "Foo, bar", "statusId": "ordered"}
-book: object(): {"cancel-link": "file:///home/benito/hg/programs/internet/VideLibri/_meta/sites//bibliotheca/index.asp?kontofenster=true&target=delvor_9999985", "cancelable": true, "libraryBranch": "Hauptstelle", "title": "reddit personalfinance", "author": "Autor, Vorname ...", "statusId": "ordered"}
+book := {}
+hasBranch := false()
+hasAuthor := false()
+hasStatus := false()
+hasId := false()
+hasAuthor := true()
+hasBranch := true()
+book := {"renew-link": "file:///home/benito/hg/programs/internet/VideLibri/_meta/sites//bibliotheca/index.asp?kontofenster=true&target=verl_1", "statusId": "curious", "libraryBranch": "Kinderbibliothek", "duedate": "2014-07-21", "title": "Nils Olgerson", "author": "AAA, Huber..."}
+book := {"statusId": "critical", "status": "nicht verlängerbar", "libraryBranch": "Kinderbibliothek", "duedate": "2014-07-21", "title": "Buchserie; 5", "author": "Banks, Ian"}
+book := {"renew-link": "file:///home/benito/hg/programs/internet/VideLibri/_meta/sites//bibliotheca/index.asp?kontofenster=true&target=verl_7", "statusId": "curious", "libraryBranch": "Kinderbibliothek", "duedate": "2014-07-21", "title": "Trullo Karacho und Lila...", "author": "A, E"}
+book := {"renew-link": "file:///home/benito/hg/programs/internet/VideLibri/_meta/sites//bibliotheca/index.asp?kontofenster=true&target=verl_8", "statusId": "curious", "libraryBranch": "Hauptstelle", "duedate": "2014-09-21", "title": "XYS", "author": "G, S"}
+book := {"renew-link": "file:///home/benito/hg/programs/internet/VideLibri/_meta/sites//bibliotheca/index.asp?kontofenster=true&target=verl_9", "statusId": "curious", "libraryBranch": "Kinderbibliothek", "duedate": "2014-09-18", "title": "Sendung mit der Maus", "author": "G, J"}
+book := {"renew-link": "file:///home/benito/hg/programs/internet/VideLibri/_meta/sites//bibliotheca/index.asp?kontofenster=true&target=verl_36", "statusId": "curious", "libraryBranch": "Kinderbibliothek", "duedate": "2014-09-25", "title": "Titel...; Untertitel...; Bd. 123", "author": ""}
+book := {"renew-link": "file:///home/benito/hg/programs/internet/VideLibri/_meta/sites//bibliotheca/index.asp?kontofenster=true&target=verl_37", "statusId": "curious", "libraryBranch": "Kinderbibliothek", "duedate": "2014-09-25", "title": "Titel...; Untertitel...; Bd. 100", "author": ""}
+book := {"renew-link": "file:///home/benito/hg/programs/internet/VideLibri/_meta/sites//bibliotheca/index.asp?kontofenster=true&target=verl_38", "statusId": "curious", "libraryBranch": "Kinderbibliothek", "duedate": "2014-09-25", "title": "Tikz", "author": ""}
+hasAuthor := false()
+hasStatus := false()
+hasBranch := false()
+hasAuthor := true()
+hasBranch := true()
+book := {"cancel-link": "file:///home/benito/hg/programs/internet/VideLibri/_meta/sites//bibliotheca/index.asp?kontofenster=true&target=delvor_12345", "cancelable": true, "libraryBranch": "Kinderbibliothek", "title": "Die XXXXXXXX", "author": "Danac, Erich", "statusId": "ordered"}
+book := {"cancelable": false, "libraryBranch": "Hauptstelle", "title": "Dhana", "author": "Pierce, Tamora", "statusId": "ordered"}
+book := {"cancelable": false, "libraryBranch": "Hauptstelle", "title": "abcdef", "author": "X, Y", "statusId": "ordered"}
+book := {"cancel-link": "file:///home/benito/hg/programs/internet/VideLibri/_meta/sites//bibliotheca/index.asp?kontofenster=true&target=delvor_9931399", "cancelable": true, "libraryBranch": "Hauptstelle", "title": "Abcdefghi", "author": "E, H", "statusId": "ordered"}
+book := {"cancel-link": "file:///home/benito/hg/programs/internet/VideLibri/_meta/sites//bibliotheca/index.asp?kontofenster=true&target=delvor_9999129", "cancelable": true, "libraryBranch": "Hauptstelle", "title": "Goldstück", "author": "Foo, bar", "statusId": "ordered"}
+book := {"cancel-link": "file:///home/benito/hg/programs/internet/VideLibri/_meta/sites//bibliotheca/index.asp?kontofenster=true&target=delvor_9999985", "cancelable": true, "libraryBranch": "Hauptstelle", "title": "reddit personalfinance", "author": "Autor, Vorname ...", "statusId": "ordered"}

@@ -1,6 +1,4 @@
-book: {}
-
-
-noBooks: string: 
-delete-current-books(): untyped: 
-book: object(): {"category": "", "id": "", "duedate:dd/mm/yy": "10/01/11", "year": "XXXX", "title": "Biografie", "author": "Nachname, Vorname", "detailLink": "http://ublibsprod.ub.tu-berlin.de:80/F/7HMCUQRX1MFHBXB1L8J3VJFH9IQLBPNKVRGCNVN3CL2DYSXLLC-45743?func=BOR-LOAN-EXP&doc_number=001948802&item_sequence=000010&index=0001&adm_library=TUK50"}
+book := {}
+noBooks := ""
+delete-current-books() := ()
+book := {"category": "", "id": "", "duedate:dd/mm/yy": "10/01/11", "year": "XXXX", "title": "Biografie", "author": "Nachname, Vorname", "detailLink": "http://ublibsprod.ub.tu-berlin.de:80/F/7HMCUQRX1MFHBXB1L8J3VJFH9IQLBPNKVRGCNVN3CL2DYSXLLC-45743?func=BOR-LOAN-EXP&doc_number=001948802&item_sequence=000010&index=0001&adm_library=TUK50"}

@@ -1,5 +1,3 @@
-book: {}
-
-
-row: integer: 0
-needOrders: boolean: true
+book := {}
+row := 0
+needOrders := true()

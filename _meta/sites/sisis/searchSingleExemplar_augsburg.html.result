@@ -1,7 +1,5 @@
-book: {}
-
-
-row: integer: 0
-needOrders: boolean: true
-row: integer: 1
-book: object(): {"Exemplar 1!": "TEMP2376, eBook, eAusleihe, andere Zweigstelle (frei)"}
+book := {}
+row := 0
+needOrders := true()
+row := 1
+book := {"Exemplar 1!": "TEMP2376, eBook, eAusleihe, andere Zweigstelle (frei)"}

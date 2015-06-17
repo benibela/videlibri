@@ -1,11 +1,9 @@
-book: {}
-
-
-templateError: boolean: false
-delete-current-books(): untyped: 
-bookCount: string: 1
-templateError: string: true
-V: node():  
-status: string: abholbereit Potsdamer Straße, Ausleihe außer Haus
-book: object(): {"status:problematic": "abholbereit Potsdamer Straße, Ausleihe außer Haus,  -mal verlängert", "author": "", "title": "", "shortId": "3A12345", "id": "3A12345", "duedate": "2013-05-04", "stabikatFound": false}
-templateError: boolean: false
+book := {}
+templateError := false()
+delete-current-books() := ()
+bookCount := "1"
+templateError := "true"
+V := text{" "}
+status := "abholbereit Potsdamer Straße, Ausleihe außer Haus"
+book := {"status:problematic": "abholbereit Potsdamer Straße, Ausleihe außer Haus,  -mal verlängert", "author": "", "title": "", "shortId": "3A12345", "id": "3A12345", "duedate": "2013-05-04", "stabikatFound": false}
+templateError := false()

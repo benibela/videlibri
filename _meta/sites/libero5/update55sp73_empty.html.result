@@ -1,5 +1,3 @@
-book: {}
-
-
-delete-current-books(): untyped: 
-bookTableBroken: boolean: false
+book := {}
+delete-current-books() := ()
+bookTableBroken := false()

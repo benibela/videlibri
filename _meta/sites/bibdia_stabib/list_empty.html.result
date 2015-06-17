@@ -1,6 +1,4 @@
-book: {}
-
-
-templateError: boolean: false
-delete-current-books(): untyped: 
-bookCount: string: 0
+book := {}
+templateError := false()
+delete-current-books() := ()
+bookCount := "0"

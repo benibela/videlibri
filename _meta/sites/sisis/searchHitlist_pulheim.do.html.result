@@ -1,64 +1,62 @@
-book: {}
-
-
-nextPage: untyped: 
-nextPage: node(): /webOPACClient/hitList.do?methodToCall=pos&identifier=-1_S_IG.2463.25696&curPos=51#-1
-search-result-count: string: 115
-hasZ3988: boolean: false
-brs: sequence*: node(): Zeitschrift
-node(): 
-node(): 
-node(): 
-book: object(): {"year": "", "author": "Zeitschrift", "title": "Test/06/12", "_detail-url": "/webOPACClient/singleHit.do?methodToCall=showHit&curPos=41&identifier=-1_S_IG.2463.25696", "orderable": 0}
-hasZ3988: boolean: false
-brs: sequence*: node(): Zeitschrift
-node(): 
-node(): 
-node(): 
-book: object(): {"year": "", "author": "Zeitschrift", "title": "Test/07/12", "_detail-url": "/webOPACClient/singleHit.do?methodToCall=showHit&curPos=42&identifier=-1_S_IG.2463.25696", "orderable": 0}
-hasZ3988: boolean: false
-brs: sequence*: node(): Zeitschrift
-node(): 
-node(): 
-node(): 
-book: object(): {"year": "", "author": "Zeitschrift", "title": "Test/08/12", "_detail-url": "/webOPACClient/singleHit.do?methodToCall=showHit&curPos=43&identifier=-1_S_IG.2463.25696", "orderable": 0}
-hasZ3988: boolean: false
-brs: sequence*: node(): Zeitschrift
-node(): 
-node(): 
-node(): 
-book: object(): {"year": "", "author": "Zeitschrift", "title": "Test/09/12", "_detail-url": "/webOPACClient/singleHit.do?methodToCall=showHit&curPos=44&identifier=-1_S_IG.2463.25696", "orderable": 0}
-hasZ3988: boolean: false
-brs: sequence*: node(): Zeitschrift
-node(): 
-node(): 
-node(): 
-book: object(): {"year": "", "author": "Zeitschrift", "title": "Test/10/12", "_detail-url": "/webOPACClient/singleHit.do?methodToCall=showHit&curPos=45&identifier=-1_S_IG.2463.25696", "orderable": 0}
-hasZ3988: boolean: false
-brs: sequence*: node(): Zeitschrift
-node(): 
-node(): 
-node(): 
-book: object(): {"year": "", "author": "Zeitschrift", "title": "Test/11/12", "_detail-url": "/webOPACClient/singleHit.do?methodToCall=showHit&curPos=46&identifier=-1_S_IG.2463.25696", "orderable": 0}
-hasZ3988: boolean: false
-brs: sequence*: node(): Zeitschrift
-node(): 
-node(): 
-node(): 
-book: object(): {"year": "", "author": "Zeitschrift", "title": "Test/12/12", "_detail-url": "/webOPACClient/singleHit.do?methodToCall=showHit&curPos=47&identifier=-1_S_IG.2463.25696", "orderable": 0}
-hasZ3988: boolean: false
-brs: sequence*: node(): Zeitschrift
-node(): 
-node(): 
-node(): 
-book: object(): {"year": "", "author": "Zeitschrift", "title": "Test/01/13", "_detail-url": "/webOPACClient/singleHit.do?methodToCall=showHit&curPos=48&identifier=-1_S_IG.2463.25696", "orderable": 0}
-hasZ3988: boolean: false
-brs: sequence*: node(): bestellbar (Lesesaal)
-node(): 
-node(): 
-book: object(): {"year": "", "author": "", "title": "Test/02/13", "_detail-url": "/webOPACClient/singleHit.do?methodToCall=showHit&curPos=49&identifier=-1_S_IG.2463.25696", "orderable": 0}
-hasZ3988: boolean: false
-brs: sequence*: node(): bestellbar (Lesesaal)
-node(): 
-node(): 
-book: object(): {"year": "", "author": "", "title": "Test/03/13", "_detail-url": "/webOPACClient/singleHit.do?methodToCall=showHit&curPos=50&identifier=-1_S_IG.2463.25696", "orderable": 0}
+book := {}
+nextPage := ()
+nextPage := text{"/webOPACClient/hitList.do?methodToCall=pos&amp;identifier=-1_S_IG.2463.25696&amp;curPos=51#-1"}
+search-result-count := "115"
+hasZ3988 := false()
+brs := (text{"Zeitschrift"}, 
+text{""}, 
+text{""}, 
+text{""})
+book := {"year": "", "author": "Zeitschrift", "title": "Test/06/12", "_detail-url": "/webOPACClient/singleHit.do?methodToCall=showHit&curPos=41&identifier=-1_S_IG.2463.25696", "orderable": 0}
+hasZ3988 := false()
+brs := (text{"Zeitschrift"}, 
+text{""}, 
+text{""}, 
+text{""})
+book := {"year": "", "author": "Zeitschrift", "title": "Test/07/12", "_detail-url": "/webOPACClient/singleHit.do?methodToCall=showHit&curPos=42&identifier=-1_S_IG.2463.25696", "orderable": 0}
+hasZ3988 := false()
+brs := (text{"Zeitschrift"}, 
+text{""}, 
+text{""}, 
+text{""})
+book := {"year": "", "author": "Zeitschrift", "title": "Test/08/12", "_detail-url": "/webOPACClient/singleHit.do?methodToCall=showHit&curPos=43&identifier=-1_S_IG.2463.25696", "orderable": 0}
+hasZ3988 := false()
+brs := (text{"Zeitschrift"}, 
+text{""}, 
+text{""}, 
+text{""})
+book := {"year": "", "author": "Zeitschrift", "title": "Test/09/12", "_detail-url": "/webOPACClient/singleHit.do?methodToCall=showHit&curPos=44&identifier=-1_S_IG.2463.25696", "orderable": 0}
+hasZ3988 := false()
+brs := (text{"Zeitschrift"}, 
+text{""}, 
+text{""}, 
+text{""})
+book := {"year": "", "author": "Zeitschrift", "title": "Test/10/12", "_detail-url": "/webOPACClient/singleHit.do?methodToCall=showHit&curPos=45&identifier=-1_S_IG.2463.25696", "orderable": 0}
+hasZ3988 := false()
+brs := (text{"Zeitschrift"}, 
+text{""}, 
+text{""}, 
+text{""})
+book := {"year": "", "author": "Zeitschrift", "title": "Test/11/12", "_detail-url": "/webOPACClient/singleHit.do?methodToCall=showHit&curPos=46&identifier=-1_S_IG.2463.25696", "orderable": 0}
+hasZ3988 := false()
+brs := (text{"Zeitschrift"}, 
+text{""}, 
+text{""}, 
+text{""})
+book := {"year": "", "author": "Zeitschrift", "title": "Test/12/12", "_detail-url": "/webOPACClient/singleHit.do?methodToCall=showHit&curPos=47&identifier=-1_S_IG.2463.25696", "orderable": 0}
+hasZ3988 := false()
+brs := (text{"Zeitschrift"}, 
+text{""}, 
+text{""}, 
+text{""})
+book := {"year": "", "author": "Zeitschrift", "title": "Test/01/13", "_detail-url": "/webOPACClient/singleHit.do?methodToCall=showHit&curPos=48&identifier=-1_S_IG.2463.25696", "orderable": 0}
+hasZ3988 := false()
+brs := (text{"bestellbar (Lesesaal)"}, 
+text{""}, 
+text{""})
+book := {"year": "", "author": "", "title": "Test/02/13", "_detail-url": "/webOPACClient/singleHit.do?methodToCall=showHit&curPos=49&identifier=-1_S_IG.2463.25696", "orderable": 0}
+hasZ3988 := false()
+brs := (text{"bestellbar (Lesesaal)"}, 
+text{""}, 
+text{""})
+book := {"year": "", "author": "", "title": "Test/03/13", "_detail-url": "/webOPACClient/singleHit.do?methodToCall=showHit&curPos=50&identifier=-1_S_IG.2463.25696", "orderable": 0}

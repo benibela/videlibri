@@ -1,9 +1,7 @@
-book: {}
-
-
-currentfield: string: Titel:!
-currentfield: string: title
-currentfield: string: Ort / Verlag, Jahr:!
-currentfield: string: year
-currentfield: string: Sonstiges:!
-book: object(): {"Sonstiges:!": "Ungezählte Schriftenreihe", "year": "Göttingen, Bern , Wien , Paris , Oxford , Prag , Toronto , Cambridge, Mass. , Amsterdam , Kopenhagen , Stockholm : Hogrefe", "title": "Beltz-Test"}
+book := {}
+currentfield := "Titel:!"
+currentfield := "title"
+currentfield := "Ort / Verlag, Jahr:!"
+currentfield := "year"
+currentfield := "Sonstiges:!"
+book := {"Sonstiges:!": "Ungezählte Schriftenreihe", "year": "Göttingen, Bern , Wien , Paris , Oxford , Prag , Toronto , Cambridge, Mass. , Amsterdam , Kopenhagen , Stockholm : Hogrefe", "title": "Beltz-Test"}

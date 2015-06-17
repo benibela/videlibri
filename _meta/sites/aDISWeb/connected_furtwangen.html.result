@@ -1,5 +1,3 @@
-book: {}
-
-
-searchPage: string: file:///home/benito/hg/programs/internet/VideLibri/_meta/sites//aDISWeb/connected_furtwangen.html
-connected: boolean: true
+book := {}
+searchPage := "file:///home/benito/hg/programs/internet/VideLibri/_meta/sites//aDISWeb/connected_furtwangen.html"
+connected := true()

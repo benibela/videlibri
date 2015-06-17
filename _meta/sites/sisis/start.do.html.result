@@ -1,31 +1,29 @@
-book: {}
-
-
-jsession: string: jsessionid=9096233F65EDF6AF6D356BEB9E7BF4C3
-CSId: node(): 47894N10S9f2865c2959d62208fcfa3e74688ba6c5cf6e68f
-home-branches: sequence*: node(): Zentralbibliothek
-node(): Lehrbuchsammlung
-node(): Medizinische Bibliothek
-home-branch-values: sequence*: node(): 0
-node(): 1
-node(): 2
-search-branches: sequence*: node(): Alle Zweigstellen
-node(): Zentralbibliothek
-node(): Lehrbuchsammlung
-node(): Medizinische Bibliothek
-node(): Chemie-Bibliothek
-node(): EONERC
-node(): GTE der Medizin
-node(): HUMTEC
-node(): Dez. 8.0
-search-branch-values: sequence*: node(): 
-node(): 0
-node(): 1
-node(): 2
-node(): 3
-node(): 16
-node(): 17
-node(): 21
-node(): 80
-search-branch-name: node(): selectedSearchBranchlib
-search-branch-extended-options: untyped: 
+book := {}
+jsession := "jsessionid=9096233F65EDF6AF6D356BEB9E7BF4C3"
+CSId := text{"47894N10S9f2865c2959d62208fcfa3e74688ba6c5cf6e68f"}
+home-branches := (text{"Zentralbibliothek"}, 
+text{"Lehrbuchsammlung"}, 
+text{"Medizinische Bibliothek"})
+home-branch-values := (text{"0"}, 
+text{"1"}, 
+text{"2"})
+search-branches := (text{"Alle Zweigstellen"}, 
+text{"Zentralbibliothek"}, 
+text{"Lehrbuchsammlung"}, 
+text{"Medizinische Bibliothek"}, 
+text{"Chemie-Bibliothek"}, 
+text{"EONERC"}, 
+text{"GTE der Medizin"}, 
+text{"HUMTEC"}, 
+text{"Dez. 8.0"})
+search-branch-values := (text{""}, 
+text{"0"}, 
+text{"1"}, 
+text{"2"}, 
+text{"3"}, 
+text{"16"}, 
+text{"17"}, 
+text{"21"}, 
+text{"80"})
+search-branch-name := text{"selectedSearchBranchlib"}
+search-branch-extended-options := ()

@@ -1,9 +1,7 @@
-book: {}
-
-
-goBackPage: string: 
-orderedPage: string: 
-orderedMagazinePage: string: 
-kontoPage: string: 
-providedPage: string: 
-requestedPage: string: 
+book := {}
+goBackPage := ""
+orderedPage := ""
+orderedMagazinePage := ""
+kontoPage := ""
+providedPage := ""
+requestedPage := ""

@@ -1,18 +1,16 @@
-book: {}
-
-
-curAuthor: untyped: 
-sigid: integer: 0
-curAuthor: sequence*: string: Heckel, Waldemar 
-propname: string: Erschienen
-propname: string: Umfang
-propname: string: Anmerkung
-propname: string: Schlagwörter
-propname: string: Sachgebiete
-propname: string: Mehr zum Thema
-propname: string: Mehr zum Titel
-propname: string: 
-sigid: integer: 1
-propname: string: 
-propname: string: 
-book: object(): {"stabikatFound": true, "Ausleihstatus 1!": "", "Standort 2!": "Potsdamer Straße", "Signatur 1!": "1 A 743781 Verfügbarkeit anzeigen / bestellen", "Mehr zum Titel!": "Inhaltsverzeichnis", "Mehr zum Thema!": "Klassifikation der Library of Congress: DF234Dewey Dezimal-Klassifikation: 938/.07092 BRegensburger Verbund-Klassifikation: NH 6450", "Sachgebiete!": "15.27 ; Griechische Welt <Alte Geschichte>", "Schlagwörter!": "*Alexander <Makedonien, König, III.>  / Biographie*Alexander -- the Great -- 356-323 B.C / Generals -- Biography", "isbn": "1-405-13082-2, 978-1-405-13082-0*(pbk)", "Anmerkung!": "Literaturverz. S. [311] - 348", "Umfang!": "XIX, 366 S. : Ill., Kt.", "Erschienen!": "Malden, Mass. [u.a.] : Wiley-Blackwell, 2009", "author": "Heckel, Waldemar ", "title": "Alexander the Great : a new history ", "orderable": 0}
+book := {}
+curAuthor := ()
+sigid := 0
+curAuthor := "Heckel, Waldemar "
+propname := "Erschienen"
+propname := "Umfang"
+propname := "Anmerkung"
+propname := "Schlagwörter"
+propname := "Sachgebiete"
+propname := "Mehr zum Thema"
+propname := "Mehr zum Titel"
+propname := ""
+sigid := 1
+propname := ""
+propname := ""
+book := {"stabikatFound": true, "Ausleihstatus 1!": "", "Standort 2!": "Potsdamer Straße", "Signatur 1!": "1 A 743781 Verfügbarkeit anzeigen / bestellen", "Mehr zum Titel!": "Inhaltsverzeichnis", "Mehr zum Thema!": "Klassifikation der Library of Congress: DF234Dewey Dezimal-Klassifikation: 938/.07092 BRegensburger Verbund-Klassifikation: NH 6450", "Sachgebiete!": "15.27 ; Griechische Welt <Alte Geschichte>", "Schlagwörter!": "*Alexander <Makedonien, König, III.>  / Biographie*Alexander -- the Great -- 356-323 B.C / Generals -- Biography", "isbn": "1-405-13082-2, 978-1-405-13082-0*(pbk)", "Anmerkung!": "Literaturverz. S. [311] - 348", "Umfang!": "XIX, 366 S. : Ill., Kt.", "Erschienen!": "Malden, Mass. [u.a.] : Wiley-Blackwell, 2009", "author": "Heckel, Waldemar ", "title": "Alexander the Great : a new history ", "orderable": 0}

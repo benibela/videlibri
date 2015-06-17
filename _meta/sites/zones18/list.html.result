@@ -1,15 +1,11 @@
-requestId: 0
-
-
-book: {}
-
-
-obj: node(): Obj_201471375532632
-bFoundBottom: boolean: false
-bulkRenew: node(): Obj_201471375532632?Style=Portal2&SubStyle=&Lang=GER&ResponseEncoding=utf-8&Method=BulkRenew&BulkRenew=1&BrowseAsHloc=-2
-delete-current-books(): untyped: 
-book: object(): {"status": "", "duedate": "2013-09-02", "issuedate": "2013-08-03", "id": "M01 996 012 6", "author": "Brandhorst, Andreas", "title": "Diamant", "statusId": "normal"}
-book: object(): {"status": "", "duedate": "2013-09-02", "issuedate": "2013-08-03", "id": "M02 005 789 2", "author": "Niven, Larry", "title": "Ringwelt-Thron", "statusId": "normal"}
-book: object(): {"status": "", "duedate": "2013-09-02", "issuedate": "2013-08-03", "id": "M02 009 605 8", "author": "Niven, Larry", "title": "Crashlander", "statusId": "normal"}
-book: object(): {"status": "", "duedate": "2013-09-02", "issuedate": "2013-08-03", "id": "M02 109 506 4", "author": "McIntosh, Fiona", "title": "Der letzte Pfad◉3.", "statusId": "normal"}
-book: object(): {"status": "", "duedate": "2013-09-02", "issuedate": "2013-08-03", "id": "M02 165 961 3", "author": "Brandhorst, Andreas", "title": "Seelenfänger", "statusId": "normal"}
+requestId := 0
+book := {}
+obj := text{"Obj_201471375532632"}
+bFoundBottom := false()
+bulkRenew := text{"Obj_201471375532632?Style=Portal2&amp;SubStyle=&amp;Lang=GER&amp;ResponseEncoding=utf-8&amp;Method=BulkRenew&amp;BulkRenew=1&amp;BrowseAsHloc=-2"}
+delete-current-books() := ()
+book := {"status": "", "duedate": "2013-09-02", "issuedate": "2013-08-03", "id": "M01 996 012 6", "author": "Brandhorst, Andreas", "title": "Diamant", "statusId": "normal"}
+book := {"status": "", "duedate": "2013-09-02", "issuedate": "2013-08-03", "id": "M02 005 789 2", "author": "Niven, Larry", "title": "Ringwelt-Thron", "statusId": "normal"}
+book := {"status": "", "duedate": "2013-09-02", "issuedate": "2013-08-03", "id": "M02 009 605 8", "author": "Niven, Larry", "title": "Crashlander", "statusId": "normal"}
+book := {"status": "", "duedate": "2013-09-02", "issuedate": "2013-08-03", "id": "M02 109 506 4", "author": "McIntosh, Fiona", "title": "Der letzte Pfad◉3.", "statusId": "normal"}
+book := {"status": "", "duedate": "2013-09-02", "issuedate": "2013-08-03", "id": "M02 165 961 3", "author": "Brandhorst, Andreas", "title": "Seelenfänger", "statusId": "normal"}

@@ -1,8 +1,6 @@
-book: {}
-
-
-loginToken: string: LOGINTOKEN=MHVPOTIEBL
-token: node(): cuvQ8j0Xfw7414
-tokenx: node(): cuvQ8j0Xfw7414
-data: node(): DUE
-version: node(): 2
+book := {}
+loginToken := "LOGINTOKEN=MHVPOTIEBL"
+token := text{"cuvQ8j0Xfw7414"}
+tokenx := text{"cuvQ8j0Xfw7414"}
+data := text{"DUE"}
+version := text{"2"}

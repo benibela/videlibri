@@ -1,5 +1,3 @@
-book: {}
-
-
-delete-current-books(): untyped: 
-bookListUrl: node(): APS_ZONES?fn=MyLoans&Lang=GER&Parent=Obj_201391375532601%3FStyle%3DPortal2%26SubStyle%3D%26Lang%3DGER%26ResponseEncoding%3Dutf-8
+book := {}
+delete-current-books() := ()
+bookListUrl := text{"APS_ZONES?fn=MyLoans&amp;Lang=GER&amp;Parent=Obj_201391375532601%3FStyle%3DPortal2%26SubStyle%3D%26Lang%3DGER%26ResponseEncoding%3Dutf-8"}

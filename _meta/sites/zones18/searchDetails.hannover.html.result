@@ -1,21 +1,19 @@
-book: {}
-
-
-temp: node(): Notation
-temp: node(): Erscheinungsjahr
-temp: node(): Hauptsachtitel in Vorlageform/Mischform
-temp: node(): Zusätze zum Hauptsachtitel
-temp: node(): Verfasserangabe
-temp: node(): Ausgabezeichnung in Vorlageform
-temp: node(): Ort(e) des 1. Verlegers, Druckers usw.
-temp: node(): Name des 1. Verlegers, Druckers usw.
-temp: node(): Erscheinungsjahr(e)
-temp: node(): Umfangsangabe
-temp: node(): Illustrationsangabe/Technische Angaben zu Tonträgern
-temp: node(): Internationale Standardbuchnummer (ISBN)
-temp: node(): ID-Nummern des Datensatzes
-temp: node(): Überregionale ID-Nr.
-temp: node(): Lokale ID-Nr.
-temp: node(): Notation eines Klassifikationssystems
-temp: node(): Name der 1. Person in Ansetzungsform
-book: object(): {"Name der 1. Person in Ansetzungsform!": "Brüser, Elke [Mitarb.]", "Notation eines Klassifikationssystems!": "33\n\n\t\t\t\t\n\n\t\t\t\n\n\t\t\n\n\t\n\t\n\n\t\n\n\t\t\n\t\t\t\t\n\n\t\t\t\t\n\n\t\t\t\t\t\n\n\t\t\t\t\t\t\n\n\n\n\t\t\t\t\t\n\n\t\t\t\t\t\n\n\t\t\t\t\t\n\t\t\t\t\t\n\t\t\t\t\t\t\n\t\t\t\t\t\t\n\t\t\t\t\t\n\n\t\t\t\t\t\n\t\t\t\t\t\n\t\t\t\t\t\n\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\n\n\t\n\n\t\n\n\t\n\t\n\t\t\n    \n\t\t\n\t\t\t\n\n\t\t\t\t\n\n\t\t\t\t\t\n\n\t\t\t\t\t\n\n\t\t\t\t\t\n\n\t\t\t\t\t\n\t\t\t\t\t\n\t\t\t\t\t\t\n\t\t\t\t\t\t\n\t\t\t\t\t\n\n\t\t\t\t\t\n\t\t\t\t\t\n\t\t\t\t\tMED 660", "Lokale ID-Nr.!": "BIS 00362311", "Überregionale ID-Nr.!": "", "ID-Nummern des Datensatzes!": "BIS 00362311", "Internationale Standardbuchnummer (ISBN)!": "ISBN 3-931908-24-0 : DM 29.80", "Illustrationsangabe/Technische Angaben zu Tonträgern!": "24 cm", "Umfangsangabe!": "319 S., Ill., graph. Darst.", "Erscheinungsjahr(e)!": "1998\n\n\t\t\t\t\n\n\t\t\t\t\t\n\n\t\t\t\t\t\t\n\n\n\n\t\t\t\t\t\n\n\t\t\t\t\t\n\n\t\t\t\t\t\n\t\t\t\t\t\n\t\t\t\t\t\t\n\t\t\t\t\t\t\n\t\t\t\t\t\n\n\t\t\t\t\t\n\t\t\t\t\t\n\t\t\t\t\t1998", "Name des 1. Verlegers, Druckers usw.!": "Stiftung Warentest", "Ort(e) des 1. Verlegers, Druckers usw.!": "Berlin", "Ausgabezeichnung in Vorlageform!": "2., aktualisierte Neuaufl.", "Verfasserangabe!": "Elke Brüser. Stiftung Warentest in Zusammenarbeit mit dem Verein für Kosumenteninformation, Österreich", "Zusätze zum Hauptsachtitel!": "das Immunsystem auf Abwegen", "Hauptsachtitel in Vorlageform/Mischform!": "Allergien", "Erscheinungsjahr!": "1998 \n\t\t\t\t\t\t\t\t\t\t\t - Auflage : 2\n\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\n\n\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\tErw. Sachliteratur", "Notation!": "MED 660", "title": "Allergien", "_order-url": "Obj_5759301381232264?Style=Portal2&SubStyle=&Lang=GER&ResponseEncoding=utf-8&Method=MakeReservation&Parent=Obj_5759301381232264&BrowseAsHloc=-2", "orderable": true}
+book := {}
+temp := text{"Notation"}
+temp := text{"Erscheinungsjahr"}
+temp := text{"Hauptsachtitel in Vorlageform/Mischform"}
+temp := text{"Zusätze zum Hauptsachtitel"}
+temp := text{"Verfasserangabe"}
+temp := text{"Ausgabezeichnung in Vorlageform"}
+temp := text{"Ort(e) des 1. Verlegers, Druckers usw."}
+temp := text{"Name des 1. Verlegers, Druckers usw."}
+temp := text{"Erscheinungsjahr(e)"}
+temp := text{"Umfangsangabe"}
+temp := text{"Illustrationsangabe/Technische Angaben zu Tonträgern"}
+temp := text{"Internationale Standardbuchnummer (ISBN)"}
+temp := text{"ID-Nummern des Datensatzes"}
+temp := text{"Überregionale ID-Nr."}
+temp := text{"Lokale ID-Nr."}
+temp := text{"Notation eines Klassifikationssystems"}
+temp := text{"Name der 1. Person in Ansetzungsform"}
+book := {"Name der 1. Person in Ansetzungsform!": "Brüser, Elke [Mitarb.]", "Notation eines Klassifikationssystems!": "33\n\n\t\t\t\t\n\n\t\t\t\n\n\t\t\n\n\t\n\t\n\n\t\n\n\t\t\n\t\t\t\t\n\n\t\t\t\t\n\n\t\t\t\t\t\n\n\t\t\t\t\t\t\n\n\n\n\t\t\t\t\t\n\n\t\t\t\t\t\n\n\t\t\t\t\t\n\t\t\t\t\t\n\t\t\t\t\t\t\n\t\t\t\t\t\t\n\t\t\t\t\t\n\n\t\t\t\t\t\n\t\t\t\t\t\n\t\t\t\t\t\n\t\t\t\t\n\t\t\t\n\t\t\t\n\t\t\n\n\t\n\n\t\n\n\t\n\t\n\t\t\n    \n\t\t\n\t\t\t\n\n\t\t\t\t\n\n\t\t\t\t\t\n\n\t\t\t\t\t\n\n\t\t\t\t\t\n\n\t\t\t\t\t\n\t\t\t\t\t\n\t\t\t\t\t\t\n\t\t\t\t\t\t\n\t\t\t\t\t\n\n\t\t\t\t\t\n\t\t\t\t\t\n\t\t\t\t\tMED 660", "Lokale ID-Nr.!": "BIS 00362311", "Überregionale ID-Nr.!": "", "ID-Nummern des Datensatzes!": "BIS 00362311", "Internationale Standardbuchnummer (ISBN)!": "ISBN 3-931908-24-0 : DM 29.80", "Illustrationsangabe/Technische Angaben zu Tonträgern!": "24 cm", "Umfangsangabe!": "319 S., Ill., graph. Darst.", "Erscheinungsjahr(e)!": "1998\n\n\t\t\t\t\n\n\t\t\t\t\t\n\n\t\t\t\t\t\t\n\n\n\n\t\t\t\t\t\n\n\t\t\t\t\t\n\n\t\t\t\t\t\n\t\t\t\t\t\n\t\t\t\t\t\t\n\t\t\t\t\t\t\n\t\t\t\t\t\n\n\t\t\t\t\t\n\t\t\t\t\t\n\t\t\t\t\t1998", "Name des 1. Verlegers, Druckers usw.!": "Stiftung Warentest", "Ort(e) des 1. Verlegers, Druckers usw.!": "Berlin", "Ausgabezeichnung in Vorlageform!": "2., aktualisierte Neuaufl.", "Verfasserangabe!": "Elke Brüser. Stiftung Warentest in Zusammenarbeit mit dem Verein für Kosumenteninformation, Österreich", "Zusätze zum Hauptsachtitel!": "das Immunsystem auf Abwegen", "Hauptsachtitel in Vorlageform/Mischform!": "Allergien", "Erscheinungsjahr!": "1998 \n\t\t\t\t\t\t\t\t\t\t\t - Auflage : 2\n\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\n\n\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\tErw. Sachliteratur", "Notation!": "MED 660", "title": "Allergien", "_order-url": "Obj_5759301381232264?Style=Portal2&SubStyle=&Lang=GER&ResponseEncoding=utf-8&Method=MakeReservation&Parent=Obj_5759301381232264&BrowseAsHloc=-2", "orderable": true}
