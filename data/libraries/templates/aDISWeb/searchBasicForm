@@ -5,7 +5,7 @@
       <DIV>
         <P>
           <SPAN>(Gesucht|Treffer).*:<t:s>
-            let $temp := extract(., "([0-9]+)[^0-9]+([0-9]+)[^0-9]+([0-9]+)$", (1,2)) ! xs:integer(.) return ( 
+            let $temp := extract(., "(([0-9]+)[^0-9]+([0-9]+)[^0-9]+)?([0-9]+)$", (2,3)) ! number() return ( 
               $firstIndex := $temp[1],
               $lastIndex := $temp[2](:,
               $search-result-count := $temp[3]:))</t:s></SPAN>
