@@ -2,7 +2,7 @@
 
 <html>
 <head>
-<title>Xidel - HTML/XML data extraction tool </title>
+<title>Xidel - HTML/XML/JSON data extraction tool </title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <meta name="description" content="Xidel is a command line tool to download html/xml pages and extract data from them using CSS 3 selectors, XPath 2 expressions or pattern-matching templates.">
 <meta name="author" content="Benito van der Zander">
@@ -13,7 +13,7 @@
 <link rel="canonical" href="http://www.videlibri.de/xidel.html"/>
 </head>
 <body>
-<h1><a name="home">Xidel - HTML/XML data extraction tool</a></h1>
+<h1><a name="home">Xidel - HTML/XML/JSON data extraction tool</a></h1>
 
 <ul id="navigation">
   <li style="border-left: 1px solid blue;"><a href="#home">Start</a></li>
@@ -27,10 +27,12 @@
 </ul>
 
 <p>
-Xidel is a command line tool to download and extract data from HTML/XML pages.<br><br>
+Xidel is a command line tool to download and extract data from HTML/XML pages as well as JSON APIs .<br><br>
 
 </p><h2><div><a name="news">News</a></div></h2>
 <dl>
+<dt><b>2015-06-28</b>: New release</dt>
+<dd style="margin-top:8px; margin-bottom: 8px">The 0.9 release adds support for most of the XPath/XQuery 3.0 syntax like anonymous and higher order functions, supports multipart HTTP requests for file uploads, changes the default output format, adds an (experimental) function for page modifications, fixes a large number of bugs mostly related to command line parsing and XPath/XQuery standard compatibility, and more...  </dd>
 <dt><b>2014-08-13</b>: Minor release</dt>
 <dd style="margin-top:8px; margin-bottom: 8px">The 0.8.4 versions extends some standard XQuery expressions with pattern matching, adds options to set HTTP headers and read environment variables, and fixes some bugs... </dd>
 <dt><b>2014-03-24</b>: New release</dt>
@@ -62,6 +64,7 @@ It supports:
 <li>Following:<ul>
   <li>HTTP Codes: Redirections like 30x are automatically followed, while keeping things like cookies </li>
   <li>Links: It can follow all links on a page as well as some extracted values </li>
+  <li>Forms: It can fill in arbitrary data and submit the form </li>
 </ul></li>
 <li>Output formats:<ul>
   <li>Adhoc: just prints the data in a human readable format</li>
@@ -71,7 +74,7 @@ It supports:
   <li>bash/cmd: exports the data as shell variables  </li>
 </ul></li>
 <li>Connections: HTTP / HTTPS as well as local files or stdin</li>
-<li>Systems: Windows (using wininet), Linux (using synapse+openssl), Mac (with newest synapse) </li>
+<li>Systems: Windows (using wininet), Linux (using synapse+openssl), Mac (synapse) </li>
 </ul>
 
 <h2><div><a name="examples">Examples</a></div></h2>
@@ -96,7 +99,7 @@ Generally follow all links on a page and print the titles of the linked pages:<u
    You can read the imporant part like: <code>xidel example.xml -e "&lt;x&gt;&lt;foo&gt;ood&lt;/foo&gt;&lt;bar&gt;{.}&lt;/bar&gt;&lt;/x&gt;"</code><br>
    (and this will also check, if the element containing "ood" is there, and fail otherwise)
 </li>
-<li>Calculate something with XPath: <br><br>
+<li>Calculate something with XPath using arbitrary precision arithmetics: <br><br>
   <code>xidel -e "(1 + 2 + 3) * 1000000000000 + 4 + 5 + 6 + 7.000000008"</code>
 </li>
 <li>Print all newest Stackoverflow questions with title and url:<br><br>
@@ -134,6 +137,23 @@ Generally follow all links on a page and print the titles of the linked pages:<u
 <li>Convert table rows and columns to a CSV-like format: <br><br>
     <code>xidel http://site -e '//tr / join(td, ",")'</code><br><br>
     <code>join((...))</code> can generally be used to output some values in a single line. The function name is an abbreviation for the XPath function <code>string-join</code>. In the example <code>tr / join</code> calls <code>join</code> for every row.
+</li>
+<li>Modify/Transform an HTML file, e.g. to mark all links as bold: <br><br>
+    Windows: <code><pre>xidel --html your-file.html --xquery "transform(/, function($e) { 
+   $e / if (name() = 'a') then 
+           &lt;a style='{join((@style, 'font-weight: bold'), '; ')}'>{@* except @style, node()}&lt;/a> 
+        else .
+})" > your-output-file.html </pre></code>
+    Linux: <code><pre>xidel --html your-file.html --xquery 'transform(/, function($e) { 
+   $e / if (name() = "a") then 
+           &lt;a style="{join((@style, "font-weight: bold"), "; ")}">{@* except @style, node()}&lt;/a> 
+        else .
+})' > your-output-file.html</pre></code><br>
+ This example combines three important syntaxes:
+ <ul><li><code>transform(/, function($e) {  .. }</code>: This applies an anonymous function to every element in the HTML document, whereby that element is stored in variable <code>$e</code> and is replaced by the return value of the function.</li>
+     <li><code>&lt;a>{@* except @style, node()}&lt;/a> </code>: This creates a new <code>a</code>-element that has the same children, descendants and attributes as the current element, but removes the <code>style</code>-attribute.</li>
+     <li><code>style="{join((@style, "font-weight: bold"), "; ")}"</code>: This creates a new <code>style</code>-attribute by appending <code>"font-weight: bold"</code> to the old value of the attribute. A separating <code>"; "</code> is inserted, if (and only if) that attribute already existed.
+ </ul>
 </li>
 </ol>
 
