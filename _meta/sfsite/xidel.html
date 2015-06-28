@@ -10,7 +10,7 @@
 <link rel="stylesheet" type="text/css" href="all.css">
 <link rel="stylesheet" type="text/css" href="xidel.css">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="canonical" href="http://www.videlibri.de/xidel.html"/>
+<link rel="canonical" href="http://www.videlibri.de/xidel.html">
 </head>
 <body>
 <h1><a name="home">Xidel - HTML/XML/JSON data extraction tool</a></h1>
@@ -129,7 +129,7 @@ Generally follow all links on a page and print the titles of the linked pages:<u
       <li>Read property "foo" and then "bar" with dot notation: <code>xidel file.json -e '($json).foo.bar'</code> </li>
       <li>Read property "foo" and then "bar" with XPath-like notation: <code>xidel file.json -e '$json/foo/bar'</code> </li>
       <li>Mixed example: <code>xidel file.json -e '$json("abc")()().xyz/(u,v)' </code><br>
-      <div style="padding-left: 2em; padding-top: 8px">This would read all the numbers from e.g. <code>{"abc": [[{"xyz": {"u": 1, "v": 2}}], [{"xyz": {"u": 3}}, {"xyz": {"u": 4}} ]]}</code>.<br/>
+      <div style="padding-left: 2em; padding-top: 8px">This would read all the numbers from e.g. <code>{"abc": [[{"xyz": {"u": 1, "v": 2}}], [{"xyz": {"u": 3}}, {"xyz": {"u": 4}} ]]}</code>.<br>
       All selectors are sequence-transparent, i.e. you can use the same selector to read something from one value as to read it from several values. Arrays are converted to sequences with <code>()</code></div>
       </li>
     </ul>   
@@ -141,18 +141,18 @@ Generally follow all links on a page and print the titles of the linked pages:<u
 <li>Modify/Transform an HTML file, e.g. to mark all links as bold: <br><br>
     Windows: <code><pre>xidel --html your-file.html --xquery "transform(/, function($e) { 
    $e / if (name() = 'a') then 
-           &lt;a style='{join((@style, 'font-weight: bold'), '; ')}'>{@* except @style, node()}&lt;/a> 
+           &lt;a style='{join((@style, 'font-weight: bold'), '; ')}'&gt;{@* except @style, node()}&lt;/a&gt; 
         else .
-})" > your-output-file.html </pre></code>
+})" &gt; your-output-file.html </pre></code>
     Linux: <code><pre>xidel --html your-file.html --xquery 'transform(/, function($e) { 
    $e / if (name() = "a") then 
-           &lt;a style="{join((@style, "font-weight: bold"), "; ")}">{@* except @style, node()}&lt;/a> 
+           &lt;a style="{join((@style, "font-weight: bold"), "; ")}"&gt;{@* except @style, node()}&lt;/a&gt; 
         else .
-})' > your-output-file.html</pre></code><br>
+})' &gt; your-output-file.html</pre></code><br>
  This example combines three important syntaxes:
  <ul><li><code>transform(/, function($e) {  .. }</code>: This applies an anonymous function to every element in the HTML document, whereby that element is stored in variable <code>$e</code> and is replaced by the return value of the function.</li>
-     <li><code>&lt;a>{@* except @style, node()}&lt;/a> </code>: This creates a new <code>a</code>-element that has the same children, descendants and attributes as the current element, but removes the <code>style</code>-attribute.</li>
-     <li><code>style="{join((@style, "font-weight: bold"), "; ")}"</code>: This creates a new <code>style</code>-attribute by appending <code>"font-weight: bold"</code> to the old value of the attribute. A separating <code>"; "</code> is inserted, if (and only if) that attribute already existed.
+     <li><code>&lt;a&gt;{@* except @style, node()}&lt;/a&gt; </code>: This creates a new <code>a</code>-element that has the same children, descendants and attributes as the current element, but removes the <code>style</code>-attribute.</li>
+     <li><code>style="{join((@style, "font-weight: bold"), "; ")}"</code>: This creates a new <code>style</code>-attribute by appending <code>"font-weight: bold"</code> to the old value of the attribute. A separating <code>"; "</code> is inserted, if (and only if) that attribute already existed.</li>
  </ul>
 </li>
 </ol>
@@ -167,7 +167,7 @@ You may also want to read the <a href="xidel_readme.txt">readme file of Xidel</a
 The following Xidel downloads are available on the <a href="http://sourceforge.net/projects/videlibri/files/Xidel/Xidel%200.8/">sourceforge download page</a>: <br><br>
 
 <table class="downloadTable">
-                           <tr><th>Operating System</th><th>Filename</th><th>Size</th></tr>
+                           <tbody><tr><th>Operating System</th><th>Filename</th><th>Size</th></tr>
                            <tr><td>Windows: 32 Bit</td><td><a href="http://sourceforge.net/projects/videlibri/files/Xidel/Xidel%200.8.4/xidel-0.8.4.win32.zip/download">
                         xidel-0.8.4.win32.zip</a></td><td>609.9 kB</td></tr><tr><td>Universal Linux: 64 Bit</td><td><a href="http://sourceforge.net/projects/videlibri/files/Xidel/Xidel%200.8.4/xidel-0.8.4.linux64.tar.gz/download">
                         xidel-0.8.4.linux64.tar.gz</a></td><td>1.5 MB</td></tr><tr><td>Universal Linux: 32 Bit</td><td><a href="http://sourceforge.net/projects/videlibri/files/Xidel/Xidel%200.8.4/xidel-0.8.4.linux32.tar.gz/download">
@@ -176,7 +176,7 @@ The following Xidel downloads are available on the <a href="http://sourceforge.n
                         xidel_0.8.4-1_amd64.deb</a></td><td>1.0 MB</td></tr><tr><td>Debian: 32 Bit</td><td><a href="http://sourceforge.net/projects/videlibri/files/Xidel/Xidel%200.8.4/xidel_0.8.4-1_i386.deb/download">
                         xidel_0.8.4-1_i386.deb</a></td><td>799.8 kB</td></tr>
                            <tr><td>Mac 10.8</td><td colspan="2"><a href="https://www.evernote.com/shard/s69/sh/ff1e78f3-a369-4855-b18f-6184ce789c45/f3511927d0fb356ce883835f2eb712e0">externally prebuilt version</a> and compile instructions.</td></tr>
-                           </table>
+                           </tbody></table>
 
 
                         
@@ -241,4 +241,5 @@ piwikTracker.enableLinkTracking();
 
 </body>
 </html>
+
 
