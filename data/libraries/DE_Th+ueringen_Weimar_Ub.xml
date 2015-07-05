@@ -3,8 +3,8 @@
   <longName value="Universitätsbibliothek Weimar (alpha)"/>
   <shortName value="Ub Weimar"/>
   
-  <template value="pica"/>  
-  <variable name="server" value="http://opac.ub.uni-weimar.de/"/>
+  <template value="lbs"/>  
+  <variable name="server" value="https://opac.lbs-weimar.gbv.de"/>
 
 
 

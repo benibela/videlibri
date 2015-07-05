@@ -4,7 +4,7 @@
   <shortName value="Stb Heidelberg"/>
   
   <template value="bibliotheca"/>
-  <variable name="baseurl" value="http://ww3.heidelberg.de/wwwopac"/>	
+  <variable name="baseurl" value="https://ww2.heidelberg.de/wwwopac"/>	
   <variable name="DB" value="w_biblio"/>	
   
   <!--<template value="pica"/>-->

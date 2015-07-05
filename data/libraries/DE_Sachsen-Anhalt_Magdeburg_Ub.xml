@@ -4,7 +4,7 @@
   <shortName value="Ub Magdeburg"/>
   
   <template value="pica"/>  
-  <variable name="server" value="https://opac.uni-magdeburg.de/"/>
+  <variable name="server" value="https://opac.lbs-magdeburg.gbv.de/"/>
 
 
   <homepage value="http://www.ub.ovgu.de/"/>

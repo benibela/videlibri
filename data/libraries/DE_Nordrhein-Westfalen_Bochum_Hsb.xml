@@ -7,6 +7,6 @@
 
   <homepage value="http://www.hochschule-bochum.de/bib.html"/>
   <testing-search value="ja" date="2013-07-05"/>
-  <testing-account value="?" date=""/>
-  <testing-renew value="?" date=""/>
+  <testing-account value="ja" date="2015-07-01"/>
+  <testing-renew value="ja" date="2015-07-01"/>
 </library>
