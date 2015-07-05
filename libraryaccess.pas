@@ -392,6 +392,7 @@ begin
 
   if (updateThreadConfig.updateThreadsRunning<=0) then begin
     updateGlobalAccountDates();
+    libraryManager.reloadPendingTemplates();
     accountsRefreshedDate := updateThreadConfig.successfulListUpdateDate;
     if accountsRefreshedDate = currentDate then begin
       if (mainForm <> nil) and (mainform.visible) then

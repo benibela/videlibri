@@ -988,16 +988,7 @@ begin
   if templateList.Items.IndexOf(templateName.Text) < 0 then
     templateList.Items.add(templateName.Text);
 
-  if oldTemplateIdx >= 0 then begin
-    libraryManager.templates.Delete(oldTemplateIdx); //memory leak, but who cares (better than killing a template still used in a thread)
-    for i := 0 to libraryManager.count - 1 do
-      if libraryManager[i].template = oldTemplate then begin
-        libraryManager[i].template := libraryManager.getTemplate(templateName.Text);
-        for j := 0 to accounts.Count - 1 do
-          if (accounts[j].getLibrary() = libraryManager[i]) and (accounts[j] is TTemplateAccountAccess) and (accounts[j].thread = nil) then
-            TTemplateAccountAccess(accounts[j]).resetlib();
-      end;
-  end;
+  libraryManager.reloadTemplate(templateName.Text);
 end;
 
 procedure ToptionForm.Button2Click(Sender: TObject);

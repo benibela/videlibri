@@ -95,9 +95,15 @@ type
     function setUserLibrary(trueid, data: string): TLibrary;
     function downloadAndInstallUserLibrary(url: string): TLibrary;
     procedure deleteUserLibrary(trueid: string);
+    procedure reloadTemplate(templateId: string);
+    procedure reloadPendingTemplates(); //only call this synchronized thrugh updateThreadConfig.threadManagementSection
 
     property libraries[i: integer]: TLibrary read getLibraryFromEnumeration; default;
     property count: integer read getLibraryCountInEnumeration;
+  private
+    pendingReplacementsOld, pendingReplacementsNew: array of TMultiPageTemplate;
+    procedure replaceTemplate(old, new: TMultiPageTemplate);
+
   end;
 
   TVariables=array of record
@@ -289,7 +295,7 @@ type
   end;
 
 implementation
-uses applicationconfig,bbdebugtools,FileUtil,LCLIntf,xquery,androidutils,simpleinternet,mockinternetaccess;
+uses applicationconfig,bbdebugtools,FileUtil,LCLIntf,xquery,androidutils,simpleinternet,mockinternetaccess,libraryAccess;
 function currencyStrToCurrency(s:string):Currency;
 begin
   s:=trim(s);
@@ -837,6 +843,8 @@ begin
     for temp in process(template, '//@templateFile') do
       if not strContains(temp.toString, '..') then
         strSaveToFileUTF8(userPath+'libraries/templates/'+templateId+'/'+temp.toString, retrieve(strResolveURI(temp.toString, templateUrl)));
+
+    libraryManager.reloadTemplate(templateId);
   end;
 
 
@@ -853,6 +861,76 @@ begin
     if Trim(temp[i])=trueid then
       arrayDelete(temp, i);
   userConfig.WriteString('base', 'user-libraries', strJoin(temp, ','));
+end;
+
+procedure TLibraryManager.reloadTemplate(templateId: string);
+var
+  i: Integer;
+  lib: TLibrary;
+  oldIdx: Integer;
+  newTemplate: TMultiPageTemplate;
+  inUse: Boolean;
+  oldTemplate: TMultiPageTemplate;
+begin
+  oldIdx := templates.IndexOf(templateId);
+  {for i := 0 to templates.Count - 1 do
+    if (templates[i] = templateId)  then begin
+      if oldIdx = -1 then begin
+        oldIdx:=i;
+        break;
+      end;
+    end;}
+  if oldIdx = -1 then exit;
+  oldTemplate := TMultiPageTemplate(templates.Objects[oldIdx]);
+  templates.Delete(oldIdx);
+  newTemplate := getTemplate(templateId);
+
+  inUse := false;
+  for i := 0 to accounts.Count - 1 do begin
+    if (accounts[i].getLibrary().template = oldTemplate) and (accounts[i] is TTemplateAccountAccess) and (accounts[i].thread <> nil) then
+      inUse:=true;
+  end;
+  if not inUse then replaceTemplate(oldTemplate, newTemplate)
+  else begin
+    if logging then log('Prepare pending template reload');
+    EnterCriticalSection(updateThreadConfig.threadManagementSection);
+    setlength(pendingReplacementsOld, length(pendingReplacementsOld)+1);
+    pendingReplacementsOld[high(pendingReplacementsOld)] := oldTemplate;
+    setlength(pendingReplacementsNew, length(pendingReplacementsNew)+1);
+    pendingReplacementsNew[high(pendingReplacementsNew)] := newTemplate;
+    LeaveCriticalSection(updateThreadConfig.threadManagementSection);
+  end;
+end;
+
+procedure TLibraryManager.reloadPendingTemplates;
+var
+  i: Integer;
+begin
+  for i := 0 to high(pendingReplacementsOld) do
+    replaceTemplate(pendingReplacementsOld[i], pendingReplacementsNew[i]);
+  SetLength(pendingReplacementsOld,0);
+  SetLength(pendingReplacementsNew,0);
+end;
+
+procedure TLibraryManager.replaceTemplate(old, new: TMultiPageTemplate);
+var
+  i: Integer;
+  j: Integer;
+  lib: TLibrary;
+begin
+  if logging then log('Replacing template: '+new.name);
+
+  for i := 0 to count - 1 do begin
+    lib := getLibraryFromEnumeration(i);
+    if lib.template = old then begin
+      lib.template := new;
+      for j := 0 to accounts.Count - 1 do
+        if (accounts[j].getLibrary() = lib) and (accounts[j] is TTemplateAccountAccess) and (accounts[j].thread = nil) then
+          TTemplateAccountAccess(accounts[j]).resetlib();
+    end;
+  end;
+
+  if logging then log('End replacing');
 end;
 
 
