@@ -40,7 +40,7 @@ Neues Template f&uuml;r  (die) "$name" <span style="font-size: 50%">vom $(LC_ALL
 
 <p>Installationshinweise für: <a href="/help/templateinstallation.html#android">Android</a> und <a href="/help/templateinstallation.html#desktop">Desktop</a>-Version.
 
-<p>Adresse des Templates, die zur Installation in VideLibri eingegeben werden muss: http://videlibri.sourceforge.net/test/$publishId.html
+<p>Adresse des Templates, die zur Installation in VideLibri eingegeben werden muss: http://www.videlibri.de/test/$publishId.html
 
 <p>$message
 
