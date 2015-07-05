@@ -9,20 +9,28 @@
 </meta>
 
 <action id="connect">
-  <variable name="baseurl">get("loginBaseurl", $baseurl)</variable>
+  <s>$baseurl := get("loginBaseurl", $baseurl),
+     $update-page := ()</s>
+</action>
+
+<action id="internal-connect">
   <page url="{$baseurl}WebOpac.cls" templateFile="start"/>
   <page url="{$baseurl}WebOpac.cls?VERSION=2&amp;ACTION=MEMBERSERV&amp;RSN=0&amp;DATA={$data}&amp;TOKEN={$token}&amp;Z=1&amp;NewBreadCrumb=1&amp;{$logintoken}">
-    <template><form><input name="usernum"/><t:s>update-form := form(., {"usernum": $username, "password": $password, "btnlogin": "LOGIN"})</t:s></form></template>
+    <template><form><input name="usernum"/><t:s>update-page := form(., {"usernum": $username, "password": $password, "btnlogin": "LOGIN"})</t:s></form></template>
   </page>
 </action>
 
 <action id="update-all">
-  <page url="{$update-form}" templateFile="update"/>
+  <if test="not($update-page)"><call action="internal-connect"/></if>
+  <s>$new-update-page := ()</s>
+  <page url="{$update-page}" templateFile="update"/>
+  <s>$update-page := $new-update-page</s> <!-- Pattern assigns to $new-update-page instead $update-page as some libraries might not have that link. todo: check all libs, and remove $new-update-page if possible-->
 </action>
 
 <action id="renew-list">
-  <variable name="book-list">string-join(for $book in $renew-books return x"{$book.extendid}=1", "&amp;")</variable>
-  
+  <s>$update-page := (),
+     $book-list := string-join(for $book in $renew-books return x"{$book.extendid}=1", "&amp;")
+  </s>
   <page url="{$baseurl}WebOpac.cls">
     <post name="MGWCHD" value="0"/>
     <post name="TOKEN" value="{$token}"/>
@@ -34,6 +42,7 @@
     <post name="bno" value="{$username}"/>
     <post name="mid" value="{$mid}"/>
     <post value="{$book-list}"/>
+    <template><body><a t:condition="contains(@href, 'MEMSTAT')">{$update-page := @href}</a>?</body></template>
   </page>
   <call action="update-all"/>
 </action>

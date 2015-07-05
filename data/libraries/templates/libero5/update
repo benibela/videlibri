@@ -2,6 +2,8 @@
 <html>
 <t:switch-prioritized>
 <body>
+ <a t:condition="contains(@href, 'MEMSTAT')">{$new-update-page := @href}</a>?
+
  <fieldset><div class='MemStatMembCapt'>
     <template:read var="delete-current-books()"/>
     <template:read source="false()" var="bookTableBroken"/>
