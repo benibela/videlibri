@@ -95,9 +95,9 @@
 
 <form>
   <template:meta default-text-matching="regex"/>
-  Systemmeldung|System Nachricht
+  Systemmeldung|System Nachricht|Exception Message
   <template:read source="false()" var="bookTableBroken"/>
-  <p>Ihre Anforderung konnte</p>
+  <p>Ihre Anforderung konnte|Your process</p>
   <blockquote>
     <ul><template:read var="raise()" source="deep-text()"/></ul>
   </blockquote>

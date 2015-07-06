@@ -1,0 +1,3 @@
+book := {}
+bookTableBroken := false()
+raise() := "Invalid user number."

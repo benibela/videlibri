@@ -61,6 +61,10 @@ mkdir -p $OUTPATH/libero5
 TEMPLATES=(${TEMPLATES[@]} libero5/start libero5/update libero5/update libero5/update libero5/update)
 PAGES=(${PAGES[@]} libero5/start.html libero5/update_empty.html libero5/update55sp73_empty.html libero5/update55sp4_2books.html libero5/update55sp73_books.html)
 
+ADDTEMPLATE  libero5/update{vl:raise} 1
+PAGES=(${PAGES[@]} libero5/update.login.faileden.html)
+
+
 #=============SISIS==============
 mkdir -p $OUTPATH/sisis
 

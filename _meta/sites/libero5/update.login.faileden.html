@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:fb="http://www.facebook.com/2008/fbml" xmlns:addthis="http://www.addthis.com/help/api-spec" xmlns:og="http://opengraphprotocol.org/schema/"  lang="en" xml:lang="en">
+<head>
+<link href="javascripts/jqueryui/ui-lightness-1.10.3.css" rel="stylesheet"/>
+<script src="javascripts/jquery/jquery-1.11.0.min.js"></script>
+<script src="javascripts/jquery/jquery-migrate-1.2.1.min.js"></script>
+<script src="javascripts/jqueryui/jquery-ui-1.10.3.min.js"></script>
+<meta http-equiv="content-type" content="text/html;charset=UTF-8" />
+<meta name="author" content="Insight Informatics" />
+<meta name="keywords" content="WebOpac" />
+<meta name="description" content="LIBERO OPAC" />
+<script>document.timeoutAction = 'window.location.href="//medienkatalog.hanau.de/libero/WebOpac.cls?VERSION=2&amp;ACTION=EXITWEBOPAC&amp;DATA=HAN&amp;TOKEN=C3R8IIEwe52335&amp;MGWCHD=0"';
+document.timeoutID=setTimeout(document.timeoutAction,300000);document.timeoutTime=300000;</script>
+<title>LIBERO WebOPAC System Notification (W656)</title>
+<link rel="SHORTCUT ICON" href="//medienkatalog.hanau.de/libero/Styles/hanau/images/logo.ico"/>
+<link rel='stylesheet' type='text/css' media='screen' href='//medienkatalog.hanau.de/libero/Styles/hanau/screen/page_layout.css'/>
+<link rel='stylesheet' type='text/css' media='screen' href='//medienkatalog.hanau.de/libero/Styles/hanau/screen/libero.css'/>
+<link rel='stylesheet' type='text/css' media='print' href='//medienkatalog.hanau.de/libero/Styles/hanau/print/libero.css'/>
+<link rel='stylesheet' type='text/css' media='screen' href='//medienkatalog.hanau.de/libero/Styles/hanau/screen/MEMLOGIN.css'/>
+<link rel='stylesheet' type='text/css' media='all' href='//medienkatalog.hanau.de/libero/Styles/hanau/screen/display/SYSMESSAGES.css'/>
+<!--[if IE]>
+<link rel="Stylesheet" type="text/css" href="//medienkatalog.hanau.de/libero/Styles/hanau/screen/ie.css">
+<![endif]-->
+<!--[if lte IE 6]>
+<link rel="Stylesheet" type="text/css" href="//medienkatalog.hanau.de/libero/Styles/hanau/screen/ie6.css">
+<![endif]-->
+<script type='text/javascript' src='//medienkatalog.hanau.de/libero/javascripts/PageLoad.js'></script>
+<script type='text/javascript'><!--
+ 
+function default_focus(eo) { 
+	try { 
+		var e = eo.target;
+		if (!e) e = window.event.srcElement;
+		if (e.readOnly==true) return;
+		if (e.value=='.' || e.value=='YYYY')
+		{
+			e.value=''; 
+			default_value[e.tabIndex] = '';
+		}
+		if (e.value=='.'|| e.value=='YYYY')
+			default_value[e.tabIndex] = e.value;
+		focus_colour(eo);
+	} catch (err) {
+		//alert('Error on focus: ' + err);
+	} 
+	return true; 
+} 
+function default_blur(eo) { 
+	try { 
+		var e = eo.target;
+		if (!e) e = window.event.srcElement; 
+		if (e.readOnly==true) return;
+		if (e.value=='') {
+			e.value=default_value[e.tabIndex];
+		if (e.value!='.' && e.value!='YYYY') 
+				e.value = '';
+		}
+		blur_colour(eo);
+	} catch (err) {
+		//alert('Error on blur: ' + err);
+	} 
+	return true; 
+} 
+
+--></script>
+</head>
+<body class="mainbody" onload="page_load('');image_load();">
+<div id='PageShortCuts'>Shortcuts
+<ul class='shortcuts'><li><a accesskey='0' href='#PageTop'>Top of page (Alt+0)</a></li>
+<li><a accesskey='9' href='#PageContent'>Page content (Alt+9)</a></li>
+<li><a accesskey='8' href='#PageMenu'>Page menu (Alt+8)</a></li>
+</ul>
+</div>
+<noscript><div id='NoJsMsg'>Your browser does not support javascript, some WebOpac functionallity will not be available.</div></noscript>
+<div id="header_container">
+<div id="page_title">
+<a tabindex='0' name='PageTop' href="//medienkatalog.hanau.de/libero/WebOpac.cls?VERSION=2&amp;ACTION=DEFAULTPAGE&amp;RSN=&amp;DATA=HAN&amp;TOKEN=C3R8IIEwe52335&amp;Z=1&amp;NewBreadCrumb=1" title="Stadtbibliothek Hanau"><img src='//medienkatalog.hanau.de/libero/Styles/hanau/images/logo_1.png' alt='Stadtbibliothek Hanau' longdesc='default.htm' height='60' width='120'/></a><span class='href_sep'> . </span><span class='hide'><a href='default.htm'>Default</a></span><span class='href_sep'> . </span>
+</div>
+</div> <!-- -->
+<div id='page_container'>
+
+<div id="left_column">
+<a class='hide' name='PageMenu'>PageMenu</a><span class='URLHack'>-</span>
+<span class='MainMenuHeading'>Main Menu</span><span class='URLHack'>-</span>
+<ul class="Menulist" id='MainMenuList' title='Menu'>
+<li class="MenuItem"><a tabindex='502' target="_blank" href="https://medienkatalog.hanau.de/libero/WebOpac.cls?VERSION=2&amp;ACTION=MEMBERSERV&amp;RSN=&amp;DATA=HAN&amp;TOKEN=C3R8IIEwe52335&amp;Z=1&amp;NewBreadCrumb=1&amp;LOGINTOKEN=UMJEKIMQJT" title="Medienkonto Opens in new window.">Medienkonto</a><span class='href_sep'> . </span></li>
+<li class="MenuItem"><a tabindex='503' href="https://medienkatalog.hanau.de/libero/WebOpac.cls?VERSION=2&amp;ACTION=SIGNUPAGREE&amp;RSN=&amp;DATA=HAN&amp;TOKEN=C3R8IIEwe52335&amp;Z=1&amp;NewBreadCrumb=1" title="Antrag auf einen Leseausweis">Antrag auf einen Leseausweis</a><span class='href_sep'> . </span></li>
+<li class="MenuItem"><a tabindex='504' href="//medienkatalog.hanau.de/libero/WebOpac.cls?VERSION=2&amp;ACTION=DBSEL&amp;RSN=&amp;DATA=HAN&amp;TOKEN=C3R8IIEwe52335&amp;Z=1&amp;NewBreadCrumb=1" title="Katalog wählen">Katalog wählen</a><span class='href_sep'> . </span></li>
+<li class="MenuItem"><a tabindex='505' href="//medienkatalog.hanau.de/libero/WebOpac.cls?VERSION=2&amp;ACTION=TERMCLOUD&amp;RSN=&amp;DATA=HAN&amp;TOKEN=C3R8IIEwe52335&amp;Z=1&amp;NewBreadCrumb=1" title="Beliebteste Suchbegriffe">Beliebteste Suchbegriffe</a><span class='href_sep'> . </span></li>
+<li class="MenuItem"><a tabindex='519' href="https://medienkatalog.hanau.de/libero/WebopacOpenURL.cls?ACTION=NEWDISPITEMS&amp;SID=LIBERO:HAN" target="_blank" title='Neuerwerbungen - Opens in new window.'>Neuerwerbungen</a><span class='href_sep'> . </span></li>
+<li id='searchMenu'><span>Search Menu</span>
+<ul title='Search Menu'>
+<li class="MenuItem"><a tabindex='506' href="//medienkatalog.hanau.de/libero/WebOpac.cls?VERSION=2&amp;ACTION=SEARCHS&amp;RSN=&amp;DATA=HAN&amp;TOKEN=C3R8IIEwe52335&amp;Z=1&amp;NewBreadCrumb=1" title="Einfache Suche">Einfache Suche</a><span class='href_sep'> . </span></li>
+<li class="MenuItem"><a tabindex='507' href="//medienkatalog.hanau.de/libero/WebOpac.cls?VERSION=2&amp;ACTION=SEARCHA&amp;RSN=&amp;DATA=HAN&amp;TOKEN=C3R8IIEwe52335&amp;Z=1&amp;NewBreadCrumb=1" title="Erweiterte Suche">Erweiterte Suche</a><span class='href_sep'> . </span></li>
+<li class="MenuItem"><a tabindex='508' href="//medienkatalog.hanau.de/libero/WebOpac.cls?VERSION=2&amp;ACTION=SEARCHCL&amp;RSN=&amp;DATA=HAN&amp;TOKEN=C3R8IIEwe52335&amp;Z=1&amp;NewBreadCrumb=1" title="Clear Search Sets">Clear Search Sets</a><span class='href_sep'> . </span></li>
+<li class="MenuItem"><a tabindex='509' href="//medienkatalog.hanau.de/libero/WebOpac.cls?VERSION=2&amp;ACTION=REFINESCREEN&amp;RSN=&amp;DATA=HAN&amp;TOKEN=C3R8IIEwe52335&amp;Z=1&amp;NewBreadCrumb=1" title="Refine Search Results">Refine Search Results</a><span class='href_sep'> . </span></li>
+</ul>
+</li>
+<li id='bottomMenu'><span>Bottom Menu</span>
+<ul title='Bottom Menu'>
+<li class="MenuItem"><a title='Help - Opens in new window.' href="/libero/WebOPAChelp/liberoweb/InhalteWebOPACHilfe.htm" target="_blank">Help</a></li>
+<li class="MenuItem"><a tabindex='510' href="https://medienkatalog.hanau.de/libero/WebOpac.cls?VERSION=2&amp;ACTION=SIGNON&amp;RSN=&amp;DATA=HAN&amp;TOKEN=C3R8IIEwe52335&amp;Z=1&amp;NewBreadCrumb=1" title="Administration">Administration</a><span class='href_sep'> . </span></li>
+<li class="MenuItem"><a tabindex='511' href="https://medienkatalog.hanau.de/libero/WebOpac.cls?VERSION=2&amp;ACTION=LBCIRC&amp;RSN=&amp;DATA=HAN&amp;TOKEN=C3R8IIEwe52335&amp;Z=1&amp;NewBreadCrumb=1" title="Ausleihe">Ausleihe</a><span class='href_sep'> . </span></li>
+</ul>
+</li>
+<li id='languagesMenu'><span>Languages</span>
+<ul title='Languages'>
+<li class="MenuItem"><a tabindex='512' href="//medienkatalog.hanau.de/libero/WebOpac.cls?VERSION=2&amp;ACTION=LANGEN&amp;RSN=0&amp;DATA=HAN&amp;TOKEN=C3R8IIEwe52335&amp;Z=1" title="English">English</a><span class='href_sep'> . </span></li>
+<li class="MenuItem"><a tabindex='513' href="//medienkatalog.hanau.de/libero/WebOpac.cls?VERSION=2&amp;ACTION=LANGDE&amp;RSN=0&amp;DATA=HAN&amp;TOKEN=C3R8IIEwe52335&amp;Z=1" title="German">German</a><span class='href_sep'> . </span></li>
+<li class="MenuItem"><a tabindex='514' href="//medienkatalog.hanau.de/libero/WebOpac.cls?VERSION=2&amp;ACTION=LANGFR&amp;RSN=0&amp;DATA=HAN&amp;TOKEN=C3R8IIEwe52335&amp;Z=1" title="French">French</a><span class='href_sep'> . </span></li>
+</ul>
+</li>
+<li id='newItemsMenu'><span>New Items Menu</span>
+<ul title='New Items Menu'>
+<li class="MenuItem"><a tabindex='519' href="http://www.stadtbibliothek-hanau.de/" target="_blank" title='Stadtbibliothek Hanau - Opens in new window.'>Stadtbibliothek Hanau</a><span class='href_sep'> . </span></li>
+<li class="MenuItem"><a tabindex='519' href="http://he-18.datenbank-bildungsmedien.net/" target="_blank" title='Medienzentrum Hanau - Opens in new window.'>Medienzentrum Hanau</a><span class='href_sep'> . </span></li>
+<li class="MenuItem"><a tabindex='519' href="http://www.portal.hebis.de/servlet/Top/searchadvanced" target="_blank" title='Hessisches Bibliotheks und Informationssystem - Opens in new window.'>Hessisches Bibliotheks und Informationssystem</a><span class='href_sep'> . </span></li>
+<li class="MenuItem"><a tabindex='519' href="http://www.bibliothekenrheinmain.de/" target="_blank" title='Bibliotheken Rhein-Main - Opens in new window.'>Bibliotheken Rhein-Main</a><span class='href_sep'> . </span></li>
+<li class="MenuItem"><a tabindex='519' href="http://www.bibliotheken-main-kinzig.de/" target="_blank" title='Bibliotheken Main-Kinzig - Opens in new window.'>Bibliotheken Main-Kinzig</a><span class='href_sep'> . </span></li>
+<li class="MenuItem"><a tabindex='519' href="http://www.onleiheverbundhessen.de/" target="_blank" title='OnleiheVerbundhessen - Opens in new window.'>OnleiheVerbundhessen</a><span class='href_sep'> . </span></li>
+<li class="MenuItem"><a tabindex='519' href="http://www.munzinger.de/" target="_blank" title='Lizenzierte Datenbanken: Munzinger, Duden, Naxos Music-Library, Naxos Music Library Jazz - Opens in new window.'>Lizenzierte Datenbanken: Munzinger, Duden, Naxos Music-Library, Naxos Music Library Jazz</a><span class='href_sep'> . </span></li>
+<li class="MenuItem"><a tabindex='519' href="http://www.hoerbuecherei-vor-ort.de/" target="_blank" title='Hörbücherei vor Ort - Opens in new window.'>Hörbücherei vor Ort</a><span class='href_sep'> . </span></li>
+</ul>
+</li>
+<li class='MnuVers'>&#169; LIBERO v6.3.1sp2</li>
+</ul>
+
+
+<!-- -->
+<!-- -->
+
+
+</div><!-- -->
+<div id="right_column">
+<div id='BreadCrumbs'>
+<span class='label'>You are here</span>: <span class='BreadCrumbSep'>&gt; </span><span class='BreadCrumb'><a tabindex='601' class='aBreadCrumb' href="/libero/WebOpac.cls?ACTION=MEMBERSERV&amp;DATA=HAN&amp;LOGINTOKEN=RIOGMOIPMG&amp;NewBreadCrumb=1&amp;RSN=0&amp;TOKEN=C3R8IIEwe52335&amp;TOKENX=C3R8IIEwe52335&amp;VERSION=2&amp;Z=1&amp;CRUMB=1">Login Verification</a></span>
+<span class='BreadCrumbSep'> </span><span class='BreadCrumb'>System Notification</span>
+</div>
+<div class='PageHeading'><h1>System Notification</h1></div>
+<form name="display" method='post' onsubmit='filterInput();' action="//medienkatalog.hanau.de/libero/WebOpac.cls">
+<a class='hide' name='PageContent'>Page content</a>
+<br/><br/><div class='SysMsgHeading'>
+<span class='SystemMessage'>Exception Message</span><br/>
+<br/>
+<p><span><strong>Your process could not be completed for the following reasons:</strong></span></p></div><p>&nbsp;</p>
+<blockquote>
+  <blockquote>
+    <blockquote>
+      <blockquote>
+<ul class='SysMsgList'>
+<li class='Detail11'><div class='SystemMessageDetail1'>Invalid user number.</div></li>
+</ul>
+      </blockquote>
+    </blockquote>
+  </blockquote>
+</blockquote>
+<div>
+<input type="hidden" name="MGWCHD" value='0'/>
+<input type="hidden" name="TOKEN" value='C3R8IIEwe52335'/>
+<input type='hidden' name="TOKENX" value='C3R8IIEwe52335'/>
+<input type="hidden" name="DATA" value='HAN'/>
+<input type='hidden' name='usercode' value=""/>
+<input type='hidden' name='VERSION' value='2'/>
+<input type='hidden' name="ACTION" value="MEMBERSERV"/>
+</div>
+<div align='center'><input tabindex='1' class='HitButton' type='submit' name='back' value='Back'/></div>
+
+<div id='ErrorHelpfile'>
+</div>
+<input type="hidden" name="as_sfid" value="AAAAAAX+K20FrmYrH8t3ai+fWiXNpgbkNKjaIWjWJ5OuT/jKxyOTsGWZIGur/eAhFz7I6aPrrO7hNrizaaqU4jK3tiad05ywxe5gIK7MuxrMGVLBZQ==" /><input type="hidden" name="as_fid" value="2wSbWltlJiryijAcOE90" /></form></div>
+</div>
+<div id='footer_container'>
+<span class='href_sep'> . </span><span class='href_sep'> . </span><a class='LiberoPower' title='LIBERO' href='http://www.libero.com.au'>Powered by LIBERO &#169; 2013</a><span class='href_sep'> . </span>&nbsp;
+</div> <!-- --> 
+<script type='text/javascript'>window.focus();</script>
+</body></html>
