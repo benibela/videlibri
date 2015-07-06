@@ -216,6 +216,7 @@ src)
 	  ./manage.sh changelog		
 		./manage.sh android
 	  ./manage.sh src
+	  sleep 10 #sf is slow to show the downloads
 	  ./manage.sh downloadTable
 	  echo do not forget to close the commit window
 		thg commit

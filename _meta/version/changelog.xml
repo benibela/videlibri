@@ -1,10 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?xml-stylesheet type="text/xsl" href="../changelog.xsl"?>
 <changelog program="VideLibri">
-  <build version="1700" date="2015-05-25">
+  <build version="1710" date="2015-07-07">
     <download url="http://videlibri.sourceforge.net/updates/videlibri-setup.exe" platform="WINDOWS" execute="&quot;$DOWNLOAD&quot;  /SP- /noicons &quot;/dir=$OLDPATH&quot; " restart="true"/>
     <download url="http://videlibri.sourceforge.net/updates/videlibri-linux32.deb" platform="LINUX32" execute=""/>
     <download url="http://videlibri.sourceforge.net/updates/videlibri-linux64.deb" platform="LINUX64" execute=""/>
+    <fix>Geänderte Serveradressen für: Universitätsbibliotheken Weimar/Magdeburg/Bochum, Hochschulbibliothek Bochum, Stadtbücherei Gießen/Heidelberg</fix>
+    <change>Templates können ersetzt werden, ohne die App neuzustarten</change>
+    <fix>Geänderte gepinnte Serverzertifikate für Braunschweig/Berlin/München/Koblenz</fix>
+    <fix>aDIS: Ungültige String->Int-Konversion-Meldung bei Einzelsuchergebnis </fix>
+    <fix>libero: Verwendung eines abgelaufenen Loginlinks nach Verlängerung oder bei erneuter Aktualisierung</fix>
+    <change>aDIS: Zeige Ablaufdatum von Bestellungen</change>
+    <change>Umzug auf eine eigenen Domain: www.videlibri.de</change>
+  </build>
+  <build version="1700" date="2015-05-25">
     <change>Einfacheres Verlängern: Mehrere Verlängerungen können gleichzeitig begonnen werden =&gt; es muss nicht mehr darauf gewartet werden, dass die vorherige abgeschlossen ist</change>
     <fix>sisis: Verlängerungen/Abbrechnungen können in beliebiger Reihenfolge getätigt werden</fix>
     <fix>sisis (FH münster): Unsinnige Meldung bei Vormerkung auf einer Seite mit Javascript-Datumsauswahl und fehlender Titel in Einzelsuchergebnissen, wenn im Katalog "Title" statt "Titel" steht</fix>
