@@ -278,22 +278,7 @@
     </page>
     <page test="get('multiple-district-ordering', false())" url="{$form}" templateFile="orderMultipleDistrict"/>
   </if>
-  <if test="$subBookOnly"> 
-    <page url="{$subBookOnly}">
-      <template>
-        <form>
-          <t:switch-prioritized>
-            <input title="Zurück zur vorherigen Seite">{backButtonName := uri-encode(@name)}</input>
-            <input t:condition="contains(@title, 'zur vorherigen Seite')">{backButtonName := uri-encode(@name)}</input>
-          </t:switch-prioritized> 
-          {goBackPage := form(., x"{$backButtonName}.x=0&{$backButtonName}.y=0")}
-          <div id="R06"><div class="aDISListe"><table>
-            <tr><th>Band</th><td>{vl:choose("internal-order-volume", "Welcher Band soll bestellt werden?", a/substring(normalize-space(.), 1, 75), a/@href)}</td></tr> 
-          </table></div></div>
-        </form>
-      </template>            
-    </page>
-  </if>
+  <call action="internal-order-check-volume"/>
   <call action="internal-go-back-with-error"/>
   
   <if test="not(get('multiple-district-ordering', false())) and not($subBookOnly)">
@@ -319,6 +304,28 @@
     <page url="{$goBackPage}" templateFile="searchBasicForm"/>
   </if>
 </action>
+
+<!-- when $subBookOnly is set, go to that page and ask which volume -->
+<action id="internal-order-check-volume">
+  <if test="$subBookOnly"> 
+    <page url="{$subBookOnly}">
+      <template>
+        <form>
+          <t:switch-prioritized>
+            <input title="Zurück zur vorherigen Seite">{backButtonName := uri-encode(@name)}</input>
+            <input t:condition="contains(@title, 'zur vorherigen Seite')">{backButtonName := uri-encode(@name)}</input>
+          </t:switch-prioritized> 
+          {goBackPage := form(., x"{$backButtonName}.x=0&{$backButtonName}.y=0")}
+          <div id="R06"><div class="aDISListe"><table>
+            <tr><th>Band</th><td>{vl:choose("internal-order-volume", "Welcher Band soll bestellt werden?", a/substring(normalize-space(.), 1, 75), a/@href)}</td></tr> 
+          </table></div></div>
+        </form>
+      </template>            
+    </page>
+  </if>
+</action>
+
+
  
 <action id="internal-order-volume">
   <if test="$choose-result instance of xs:decimal">
@@ -339,9 +346,10 @@
       </page>
     </if>
     
-    <s>internal-loggedin := true()</s>
+    <s>internal-loggedin := true(), subBookOnly := false()</s>
     <page url="{$form}" templateFile="orderConfirmation"/>    
-    <if test="not(get('internal-loggedin', false()))">
+    <call action="internal-order-check-volume"/>
+    <if test="not(get('internal-loggedin', false())) and not($subBookOnly)">
       <call action="internal-login"/>
       <variable name="internal-loggedin">true()</variable>
       <variable name="form">$loginFormPost</variable>

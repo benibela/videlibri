@@ -18,10 +18,18 @@
       }</select>    
     </DIV>
   </form>
+
+  <form><div class="message"><div id="R01">
+    <!--<h1>Bitte auf Band oder Heft verzweigen und dann bestellen!</h1>-->
+    <h1>Bitte auf den gewünschten Bestand oder Band verzweigen</h1>   
+  </div></div>{subBookOnly:=.}</form>
+
   
   <form><div class="message"><div id="R01">
     <h1>{error:=.}</h1>
   </div></div>{goBackPage:=.}</form>
+  
+  
   
   <input name="$Textfield">{ $internal-loggedin := false(), loginFormPost := form((ancestor::form, //form)[1], {"$Textfield": $username, "$Textfield$0": $password}) } <!-- Aalen has invalid html where the form is not an ancestor of the input-->  </input> 
   <input name="j_username">{ $internal-loggedin := false(), loginFormPost := form((ancestor::form, //form)[1], {"j_username": $username, "j_password": $password}), idpSystem := true() }</input> 
