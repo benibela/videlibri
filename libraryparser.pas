@@ -840,7 +840,7 @@ begin
       ForceDirectories(userPath+'libraries/templates/'+templateId);
     strSaveToFileUTF8(userPath+'libraries/templates/'+templateId+'/template', template);
 
-    for temp in process(template, '//@templateFile') do
+    for temp in process(template, '(//@templateFile,//pattern/@href)') do
       if not strContains(temp.toString, '..') then
         strSaveToFileUTF8(userPath+'libraries/templates/'+templateId+'/'+temp.toString, retrieve(strResolveURI(temp.toString, templateUrl)));
 
