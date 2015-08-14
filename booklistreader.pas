@@ -134,7 +134,7 @@ type
     procedure parserVariableRead(variable: string; value: IXQValue);
     procedure logall(sender: TMultipageTemplateReader; logged: string; debugLevel: integer=0);
   protected
-    procedure processPage(page, cururl, contenttype: string); override;
+    procedure applyPattern(pattern, name: string); override;
   public
     bookAccessSection: ^TRTLCriticalSection;
     books: TBookList;
@@ -817,7 +817,7 @@ begin
   log(logged);
 end;
 
-procedure TBookListReader.processPage(page, cururl, contenttype: string);
+procedure TBookListReader.applyPattern(pattern, name: string);
 var
   varlog: TXQVariableChangeLog;
   j: Integer;

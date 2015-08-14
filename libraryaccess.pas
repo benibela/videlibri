@@ -19,7 +19,7 @@ type TBookListOperation = procedure (list: TBookList) of object;
 type
   TThreadConfig=record
     //oneThreadSuccessful: boolean;//write only true
-    libraryAccessSection: TRTLCriticalSection;
+    libraryAccessSection: TRTLCriticalSection; //this protects reads/writes to VideLibri's book (lists). It does NOT protect read/writes to the variable log of the reader (because standalone queries in the multipage template are unprotected. todo: either remove protection on patterns or add to all queries)
     threadManagementSection: TRTLCriticalSection;
     updateThreadsRunning:integer; //all threads
     listUpdateThreadsRunning: integer; //count of threads which are updating the list of books (and have not started updating singely)
