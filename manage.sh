@@ -1,7 +1,8 @@
 #/bin/bash
 
 
-source ../../../manageUtils.sh
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+source $DIR/../../../manageUtils.sh
 
 sfProject videlibri
 
@@ -25,9 +26,10 @@ hg)
 ;;
 
 mirror)
+  pushhg
   SF_PROJECT= 
   mirroredProject videlibri
-  syncHg _hg.standalone.filemap
+  syncHg $VIDELIBRIBASE/_hg.standalone.filemap
 ;;
 
 linux32)
