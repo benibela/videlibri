@@ -153,6 +153,10 @@
 </action>
 
 <action id="renew-list">  
+  <if test="not(get('bulkRenew', ()))">
+    <s>vl:raise("Keinen Verlängerungslink gefunden. Vermutlich ist das Konto gesperrt, z.B.: wegen der Jahresgebühr der Bibliothek.")</s>
+  </if>
+
   <s>renew-ids := for $book in $renew-books return ( x"item:IN={$book.id};AT={$book.author}/{$book.title}" ! 
           (if (contains(., "'")) then (., substring-before(., "'")) else . )
   )</s>
