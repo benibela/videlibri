@@ -135,6 +135,8 @@ type
     procedure logall(sender: TMultipageTemplateReader; logged: string; debugLevel: integer=0);
   protected
     procedure applyPattern(pattern, name: string); override;
+    function evaluateQuery(const query: IXQuery): IXQValue; override;
+    procedure setVariable(name: string; value: IXQValue; namespace: string=''); override;
   public
     bookAccessSection: ^TRTLCriticalSection;
     books: TBookList;
@@ -830,6 +832,35 @@ begin
     varlog := parser.VariableChangeLogCondensed;
     for j:=0 to varlog.count-1 do
       parserVariableRead(varlog.getName(j), varlog.get(j));
+  finally
+    if bookAccessSection<>nil then LeaveCriticalsection(bookAccessSection^);
+  end;
+end;
+
+function TBookListReader.evaluateQuery(const query: IXQuery): IXQValue;
+var
+  oldCount: Integer;
+  i: Integer;
+  varlog: TXQVariableChangeLog;
+begin
+  if bookAccessSection<>nil then EnterCriticalsection(bookAccessSection^);
+  try
+    varlog := parser.variableChangeLog;
+    oldCount := varlog.count;
+    Result:=inherited evaluateQuery(query);
+    for i := oldCount to parser.variableChangeLog.count - 1 do
+      parserVariableRead(varlog.getName(i), varlog.get(i));
+  finally
+    if bookAccessSection<>nil then LeaveCriticalsection(bookAccessSection^);
+  end;
+end;
+
+procedure TBookListReader.setVariable(name: string; value: IXQValue; namespace: string);
+begin
+  if bookAccessSection<>nil then EnterCriticalsection(bookAccessSection^);
+  try
+    inherited setVariable(name, value, namespace);
+    //parserVariableRead(name, value);
   finally
     if bookAccessSection<>nil then LeaveCriticalsection(bookAccessSection^);
   end;
