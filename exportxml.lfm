@@ -1,0 +1,165 @@
+object XMLExportFrm: TXMLExportFrm
+  Left = 391
+  Height = 402
+  Top = 281
+  Width = 567
+  Caption = 'XML Import/Export'
+  ClientHeight = 402
+  ClientWidth = 567
+  OnCreate = FormCreate
+  OnShow = FormShow
+  LCLVersion = '1.5'
+  object TreeListView1: TTreeListView
+    AnchorSideTop.Control = Edit1
+    AnchorSideTop.Side = asrBottom
+    AnchorSideBottom.Side = asrBottom
+    Left = 9
+    Height = 274
+    Hint = 'Constant example tree'
+    Top = 78
+    Width = 546
+    Options = [tlvoToolTips, tlvoRightMouseSelects, tlvoStriped]
+    Columns = <    
+      item
+        Alignment = taLeftJustify
+        Text = 'Konto'
+        Width = 150
+        Visible = True
+      end    
+      item
+        Alignment = taLeftJustify
+        Text = 'Ausleihen'
+        Width = 100
+        Visible = True
+      end    
+      item
+        Alignment = taLeftJustify
+        Text = 'Historie der Ausleihen'
+        Width = 100
+        Visible = True
+      end    
+      item
+        Alignment = taLeftJustify
+        Text = 'Konfiguration'
+        Width = 100
+        Visible = True
+      end    
+      item
+        Alignment = taLeftJustify
+        Text = 'Passwort'
+        Width = 100
+        Visible = True
+      end>
+    RowHeight = 16
+    HorizontalLineMode = lmNone
+    HorizontalLineColor = clWindowFrame
+    VerticalLineMode = lmDot
+    VerticalLineColor = clWindowFrame
+    RootLineMode = lmDot
+    RootLineColor = clWindowFrame
+    ColorSearchMark = clAqua
+    ColorSearchMarkField = 16744320
+    ExpandMode = emExpandByClick
+    HotTrackFont.Color = clBlue
+    HotTrackFont.Style = [fsUnderline]
+    Font.Color = clWindowText
+    SelectedFont.Color = clHighlightText
+    SelectedHotTrackFont.Color = clHighlightText
+    SelectedHotTrackFont.Style = [fsBold, fsUnderline]
+    StripedOddColor = clWindow
+    StripedEvenColor = 14745599
+    SelectBackColor = clHighlight
+    ButtonColor = clWindow
+    BackGroundColor = clWindow
+    Scrollbars = ssBoth
+    HeaderVisible = True
+    OnCustomRecordItemDraw = TreeListView1CustomRecordItemDraw
+    OnClickAtRecordItem = TreeListView1ClickAtRecordItem
+    TabOrder = 0
+    Anchors = [akTop, akLeft, akRight, akBottom]
+  end
+  object Label1: TLabel
+    AnchorSideTop.Control = Edit1
+    AnchorSideTop.Side = asrCenter
+    Left = 9
+    Height = 15
+    Top = 53
+    Width = 71
+    Caption = 'XML Datei: '
+    ParentColor = False
+  end
+  object Edit1: TEdit
+    AnchorSideRight.Control = Button1
+    Left = 88
+    Height = 25
+    Top = 48
+    Width = 351
+    Anchors = [akTop, akLeft, akRight]
+    BorderSpacing.Around = 5
+    TabOrder = 1
+    Text = 'videlibri.xml'
+  end
+  object Button1: TButton
+    AnchorSideTop.Control = Edit1
+    AnchorSideTop.Side = asrCenter
+    Left = 444
+    Height = 23
+    Top = 49
+    Width = 111
+    Anchors = [akTop, akRight]
+    AutoSize = True
+    Caption = 'Datei auswählen'
+    OnClick = Button1Click
+    TabOrder = 2
+  end
+  object Button2: TButton
+    Left = 9
+    Height = 25
+    Top = 360
+    Width = 167
+    Anchors = [akLeft, akBottom]
+    Caption = 'Import durchführen'
+    OnClick = Button2Click
+    TabOrder = 3
+  end
+  object Button3: TButton
+    Left = 464
+    Height = 25
+    Top = 360
+    Width = 91
+    Anchors = [akRight, akBottom]
+    Cancel = True
+    Caption = 'Schließen'
+    OnClick = Button3Click
+    TabOrder = 4
+  end
+  object SpeedButton1: TSpeedButton
+    Left = 144
+    Height = 30
+    Top = 8
+    Width = 128
+    Caption = 'Export'
+    GroupIndex = 10
+    OnClick = SpeedButton1Click
+  end
+  object SpeedButton2: TSpeedButton
+    Left = 9
+    Height = 32
+    Top = 8
+    Width = 128
+    Caption = 'Import'
+    Down = True
+    GroupIndex = 10
+    OnClick = SpeedButton2Click
+    ParentFont = False
+  end
+  object OpenDialog1: TOpenDialog
+    Options = [ofFileMustExist, ofEnableSizing, ofViewDetail]
+    left = 466
+    top = 57
+  end
+  object SaveDialog1: TSaveDialog
+    left = 504
+    top = 57
+  end
+end

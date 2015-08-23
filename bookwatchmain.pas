@@ -17,7 +17,7 @@ uses
   Buttons, libraryParser, internetAccess, ComCtrls, Menus, lmessages, ExtCtrls,
   errorDialog, statistik_u, libraryAccess, sendBackError, Translations,
   progressDialog, bookListView, TreeListView, bookSearchForm, LCLType, lclproc,
-  LCLIntf, process, applicationconfig;
+  LCLIntf, process, applicationconfig,exportxml;
 
 const //automaticExtend=true;
       colorSelected=clHighlight;
@@ -31,6 +31,7 @@ type
     accountListMenuItem: TMenuItem;
     cancelTheseBooks: TMenuItem;
     groupingItem: TMenuItem;
+    MenuItem1: TMenuItem;
     MenuItem9: TMenuItem;
     MenuItemTester: TMenuItem;
     MenuItem10: TMenuItem;
@@ -127,6 +128,7 @@ type
     procedure MenuItem16Click(Sender: TObject);
     procedure MenuItem17Click(Sender: TObject);
     procedure MenuItem18Click(Sender: TObject);
+    procedure MenuItem1Click(Sender: TObject);
     procedure MenuItem9Click(Sender: TObject);
     procedure MenuItemTesterClick(Sender: TObject);
     procedure MenuItem23Click(Sender: TObject);
@@ -784,6 +786,17 @@ end;
 procedure TmainForm.MenuItem18Click(Sender: TObject);
 begin
   applicationUpdate(false);
+end;
+
+procedure TmainForm.MenuItem1Click(Sender: TObject);
+var XMLExportForm:TXMLExportFrm;
+begin
+  XMLExportForm:=TXMLExportFrm.Create(nil);
+  try
+    XMLExportForm.ShowModal;
+  finally
+    XMLExportForm.free;
+  end;
 end;
 
 procedure TmainForm.MenuItem9Click(Sender: TObject);

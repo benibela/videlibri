@@ -110,19 +110,22 @@
         <LaunchingApplication PathPlusParams="--user-path \tmp\vl12345\ --log --http-log-path \tmp"/>
       </local>
     </RunParams>
-    <RequiredPackages Count="3">
+    <RequiredPackages Count="4">
       <Item1>
-        <PackageName Value="internettools"/>
+        <PackageName Value="treelistviewpackage"/>
       </Item1>
       <Item2>
-        <PackageName Value="LCLBase"/>
-        <MinVersion Major="1" Release="1" Valid="True"/>
+        <PackageName Value="internettools"/>
       </Item2>
       <Item3>
-        <PackageName Value="LCL"/>
+        <PackageName Value="LCLBase"/>
+        <MinVersion Major="1" Release="1" Valid="True"/>
       </Item3>
+      <Item4>
+        <PackageName Value="LCL"/>
+      </Item4>
     </RequiredPackages>
-    <Units Count="32">
+    <Units Count="33">
       <Unit0>
         <Filename Value="bookWatch.lpr"/>
         <IsPartOfProject Value="True"/>
@@ -154,6 +157,7 @@
         <ComponentName Value="newAccountWizard"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
+        <UnitName Value="newAccountWizard_u"/>
       </Unit4>
       <Unit5>
         <Filename Value="errordialog.pas"/>
@@ -204,12 +208,15 @@
       <Unit13>
         <Filename Value="..\..\..\components\pascal\internet\autoupdate.pas"/>
         <IsPartOfProject Value="True"/>
+        <UnitName Value="autoupdate"/>
       </Unit13>
       <Unit14>
         <Filename Value="..\..\..\components\lazarus\dialogs\progressdialog.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="ProgressBarDialog"/>
+        <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
+        <UnitName Value="progressdialog"/>
       </Unit14>
       <Unit15>
         <Filename Value="..\..\..\components\pascal\data\obfuscate.inc"/>
@@ -301,6 +308,14 @@
         <Filename Value="libraryparser.pass"/>
         <IsPartOfProject Value="True"/>
       </Unit31>
+      <Unit32>
+        <Filename Value="exportxml.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="XMLExportFrm"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Form"/>
+        <UnitName Value="exportxml"/>
+      </Unit32>
     </Units>
   </ProjectOptions>
   <CompilerOptions>

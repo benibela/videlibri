@@ -8,12 +8,10 @@ uses
   {$ENDIF}
   Interfaces, // this includes the LCL widgetset
   Forms,menus,Graphics
-  { add your units here }, sysutils, bookWatchMain, libraryParser, options,
-  newAccountWizard_u, errorDialog, applicationConfig, statistik_u, diagram,
-  libraryAccess, sendBackError, internetAccess, autoupdate, progressDialog, bbdebugtools, bibtexexport, simplexmlparser,
-  booklistreader, librarySearcher, bookListView, bookSearchForm,
-  librarySearcherAccess, autoMenuManager, LCLIntf, messagesystem, multipagetemplate, accountlist, libraryListView, androidutils, 
-libraryaccesstester;
+  { add your units here }, sysutils, bookWatchMain, libraryParser, options, newAccountWizard_u, errorDialog, applicationConfig, statistik_u,
+  diagram, libraryAccess, sendBackError, internetAccess, autoupdate, progressDialog, bbdebugtools, bibtexexport, simplexmlparser,
+  booklistreader, librarySearcher, bookListView, bookSearchForm, librarySearcherAccess, autoMenuManager, treelistviewpackage, LCLIntf,
+  messagesystem, multipagetemplate, accountlist, libraryListView, androidutils, libraryaccesstester, exportxml;
 
 {$IFDEF WINDOWS}{$R manifest.rc}{$R icons.res}{$ENDIF}
 
@@ -40,4 +38,4 @@ begin
   end;
   finalizeApplicationConfig;
 end.
-
+

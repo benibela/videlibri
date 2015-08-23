@@ -60,6 +60,7 @@ type
     procedure clear;
     procedure assignNoReplace(book: TBook); //every value not set will be replaced with the one from book (will not change key author/title/id/year)
     procedure assignNoReplaceAll(book: TBook); //every value not set will be replaced with the one from book (will not change key author/title/id/year)
+    procedure assignMerge(book: TBook); //more resonable assign that assumes both books have all information, but one is newer
     function clone: TBook;
 
     function getNormalizedISBN: string;
@@ -166,7 +167,7 @@ function BookStatusToStr(book: TBook;verbose:boolean=false): string; //returns u
 
 
 implementation
-uses bbdebugtools, simplehtmlparser, applicationconfig, xquery_json//<- enable JSON
+uses math, bbdebugtools, simplehtmlparser, applicationconfig, xquery_json//<- enable JSON
   ;
 
 const XMLNamespaceURL_VideLibri = 'http://www.benibela.de/2013/videlibri/';
@@ -338,6 +339,16 @@ begin
   if title = '' then title:=book.title;
   if year = '' then year:=book.year;
   if id = '' then id:=book.id;
+end;
+
+procedure TBook.assignMerge(book: TBook);
+begin
+  assignNoReplaceAll(book);
+
+  if (issueDate <> 0) and (book.issueDate <> 0) then  issueDate:=min(issueDate, book.issueDate);
+  dueDate:=max(dueDate, book.dueDate);
+  lastExistsDate:=max(lastExistsDate, book.lastExistsDate);
+  if (firstExistsDate <> 0) and (book.firstExistsDate <> 0) then firstExistsDate:=min(firstExistsDate, book.firstExistsDate);
 end;
 
 function TBook.clone: TBook;

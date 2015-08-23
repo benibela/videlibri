@@ -4,7 +4,7 @@ unit libraryParser;
 interface
 
 uses
-  Classes, SysUtils, simplehtmlparser, extendedhtmlparser, simplexmlparser, inifiles,internetaccess,dRegExpr,booklistreader,multipagetemplate,bbutils;
+  Classes, SysUtils, simplehtmlparser, extendedhtmlparser, simplexmlparser, inifiles,internetaccess,dRegExpr,booklistreader,multipagetemplate,bbutils,simplehtmltreeparser;
 
 
 type
@@ -150,11 +150,13 @@ type
     property old: TBookList read getBooksOld;
   end;
 
-  ELibraryException=class(Exception)
+  EVidelibriException = class(Exception) end;
+  ELibraryException=class(EVidelibriException)
     details:string;
     constructor create;
     constructor create(s:string;more_details:string='');
   end;
+  EImportException = class(EVidelibriException) end;
 
   { ENeverEver }
 
@@ -195,6 +197,7 @@ type
     FConnectingTime, FUpdateTime: dword;
     FCharges:Currency;
     function getCharges:currency;virtual;
+    procedure initFromConfig;
   public
 //    nextLimit,nextNotExtendableLimit:longint;
     thread: TThread;
@@ -294,8 +297,18 @@ type
     //function needSingleBookCheck():boolean;virtual;
   end;
 
+  TExportImportFlag = (eifCurrent, eifHistory, eifConfig, eifPassword);
+  TExportImportFlags = set of TExportImportFlag;
+  TExportImportFlagsArray = array of TExportImportFlags;
+
+  procedure exportAccounts(const fn: string; accounts: array of TCustomAccountAccess; flags: array of TExportImportFlags );
+  procedure importAccountsPrepare(const fn: string; out parser: TTreeParser; out accounts: TStringArray; out flags: TExportImportFlagsArray);
+  //frees the parser
+  procedure importAccounts(const fn: string; parser: TTreeParser; impAccounts: TStringArray; flags: TExportImportFlagsArray);
+
+
 implementation
-uses applicationconfig,bbdebugtools,FileUtil,LCLIntf,xquery,androidutils,simpleinternet,mockinternetaccess,libraryAccess;
+uses applicationconfig,bbdebugtools,FileUtil,LCLIntf,xquery,androidutils,simpleinternet,mockinternetaccess,libraryAccess,strutils;
 function currencyStrToCurrency(s:string):Currency;
 begin
   s:=trim(s);
@@ -344,6 +357,241 @@ begin
   for i := 1 to length(s) do
     if s[i] in OK_SET then result += s[i]
     else result += '+' + IntToHex(ord(s[i]), 2);
+end;
+
+procedure exportAccounts(const fn: string; accounts: array of TCustomAccountAccess; flags: array of TExportImportFlags);
+var
+  f: TFileStream;
+  tempsl: TStringList;
+  i: Integer;
+  j: Integer;
+  procedure wln(const s: string);
+  var
+    le: String;
+  begin
+    if s = '' then exit;
+    f.WriteBuffer(s[1], length(s));
+    le := LineEnding;
+    f.WriteBuffer(le[1], length(le));
+  end;
+  procedure dumpBooks(const bookFile, mode: string);
+  var
+    books: RawByteString;
+    startpos: LongInt;
+    endpos: LongInt;
+  begin
+    if FileExists(bookFile) then
+      books := strLoadFromFileUTF8(bookFile);
+    startpos := strIndexOf(books, '<books');
+    if startpos > 0 then begin
+      startpos := strIndexOf(books, '>', startpos) + 1;
+      endpos := strRpos('<', books); //exclusive
+      if endpos > startpos then begin
+        wln('     <books mode="'+xmlStrEscape(mode)+'">');
+        f.WriteBuffer(books[startpos], endpos - startpos);
+        wln('     </books>');
+      end;
+    end;
+  end;
+
+begin
+  f:=TFileStream.Create(fn,fmOpenWrite or fmCreate);
+  tempsl := TStringList.Create;
+  tempsl.DelimitedText := '=';
+  tempsl.StrictDelimiter := true;
+  try
+    wln('<?xml version="1.0" encoding="UTF-8"?>');
+    wln('<videlibri-dump>');
+    for i := 0 to high(accounts) do with accounts[i] do begin
+      wln('  <account name="'+xmlStrEscape(prettyName, true)+'" '+IfThen(eifConfig in flags[i],'id="'+xmlStrEscape(accounts[i].getPlusEncodedID(), true)+'"','')+'>');
+      if eifConfig in flags[i] then begin
+        wln('    <config><base>');
+        config.ReadSectionValues('base', tempsl);
+        for j := 0 to tempsl.count - 1 do
+          if (eifPassword in flags[i]) or (tempsl.Names[j] <> 'pass') then
+            wln('       <v n="'+xmlStrEscape(tempsl.Names[j], true)+'">'+xmlStrEscape(tempsl.ValueFromIndex[j])+'</v>');
+        wln('     </base></config>');
+      end;
+      if eifCurrent in flags[i] then dumpBooks(books.bookListCurFileName + '.xml', 'current');
+      if eifHistory in flags[i] then dumpBooks(books.bookListOldFileName + '.xml', 'history');
+      wln('  </account>');
+    end;
+    wln('</videlibri-dump>');
+  finally
+    f.Free;
+  end;
+end;
+
+procedure importAccountsPrepare(const fn: string; out parser: TTreeParser; out accounts: TStringArray; out
+  flags: TExportImportFlagsArray);
+var
+  xq: TXQueryEngine;
+  xv: IXQValue;
+  tempv: xquery.IXQValue;
+  i: Integer;
+  hasConfig: IXQuery;
+  hasPass: IXQuery;
+  hasCurrent: IXQuery;
+  hasHistory: IXQuery;
+  node: TTreeNode;
+begin
+  parser := TTreeParser.Create;
+  try
+    parser.parseTreeFromFile(fn);
+    xq := TXQueryEngine.create;
+    try
+      tempv := xq.evaluateXPath3('/videlibri-dump/account', parser.getLastTree);
+      hasConfig := xq.parseXPath3('./config/base');
+      hasPass := xq.parseXPath3('./config/base/v[@n="pass"]');
+      hasCurrent := xq.parseXPath3('./books[@mode="current"]');
+      hasHistory := xq.parseXPath3('./books[@mode="history"]');
+      SetLength(accounts, tempv.Count);
+      SetLength(flags, tempv.Count);
+      for i := 0 to high(accounts) do begin
+        xv := tempv.get(i+1);
+        node := xv.toNode;
+        accounts[i] := node.getAttribute('name');
+        flags[i] := [];
+        if hasConfig.evaluate(node).toBooleanEffective then Include(flags[i], eifConfig);
+        if hasCurrent.evaluate(node).toBooleanEffective then Include(flags[i], eifCurrent);
+        if hasHistory.evaluate(node).toBooleanEffective then Include(flags[i], eifHistory);
+        if hasPass.evaluate(node).toBooleanEffective then Include(flags[i], eifPassword);
+      end;
+    finally
+      xq.free;
+    end;
+  except
+    parser.free;
+    parser := nil;
+    raise;
+  end;
+end;
+
+procedure importAccounts(const fn: string; parser: TTreeParser; impAccounts: TStringArray; flags: TExportImportFlagsArray);
+var getHistory, getCurrent: IXQuery;
+  procedure importBooklist(parent: TTreeNode; list: TBookList; current: boolean);
+  var xbook: IXQValue;
+    book: TBook;
+    node: TTreeNode;
+    fbook: TBook;
+    data: xquery.IXQValue;
+  begin
+    if current then data := getCurrent.evaluate(parent)
+    else data := getHistory.evaluate(parent);
+
+    for xbook in data do begin
+      book := TBook.create;
+      node := xbook.toNode.getFirstChild();
+      while node <> nil do begin
+        if (node.typ = tetOpen) and (node.value = 'v') then
+          book.setProperty(node.getAttribute('n'), node.deepNodeText());
+        node := node.getNextSibling();
+      end;
+      fbook := list.findBook(book);
+      if fbook = nil then list.add(book)
+      else begin
+        fbook.assignMerge(book);
+        book.free;
+      end;
+    end;
+
+  end;
+
+var realAccounts: array of TCustomAccountAccess;
+    accountNodes: array of TTreeNode;
+  i, j: Integer;
+  xq: TXQueryEngine;
+  getAccoutNode: IXQuery;
+  id: String;
+  getConfig: IXQuery;
+  config: TTreeNode;
+  xv: IXQValue;
+  name: String;
+begin
+  xq := TXQueryEngine.create;
+  try
+    SetLength(realAccounts, length(impAccounts));
+    SetLength(accountNodes, length(impAccounts));
+    getAccoutNode := xq.parseXPath3('/videlibri-dump/account[@name=$name]');
+    getConfig := xq.parseXPath3('./config/base/v');
+    getCurrent := xq.parseXPath3('./books[@mode="current"]/book');
+    getHistory := xq.parseXPath3('./books[@mode="history"]/book');
+    for i := 0 to high(impAccounts) do begin
+      if flags[i] = [] then continue;
+      xq.VariableChangelog.Clear; xq.VariableChangelog.add('name', impAccounts[i]);
+      accountNodes[i] := getAccoutNode.evaluate(parser.getLastTree).toNode;
+      if accountNodes[i] = nil then raise EImportException.Create('Could not find account: '+impAccounts[i]+' in import file');
+      id := accountNodes[i].getAttribute('id');
+      if id <> '' then
+        for j := 0 to accounts.Count - 1 do
+          if accounts[j].getPlusEncodedID() = id then begin
+            realAccounts[i] := accounts[j];
+            break;
+          end;
+      if realAccounts[i] = nil then
+        for j := 0 to accounts.Count - 1 do
+          if accounts[j].prettyName = impAccounts[i] then begin
+            realAccounts[i] := accounts[j];
+            break;
+          end;
+
+
+      if (realAccounts[i] <> nil) and (realAccounts[i].thread <> nil) then
+        raise EImportException.Create('Cannot import account ' + impAccounts[i] + ': It is busy talking with the library server.');
+    end;
+    for i := 0 to high(impAccounts) do begin
+      if flags[i] = [] then continue;
+      if (realAccounts[i] = nil) then
+        if (accountNodes[i].getAttribute('id') = '') then
+          raise EImportException.Create('Cannot import account: '+impAccounts[i]+LineEnding+'Account is currently not registered, and import files contains no configuration data.')
+         else if not (eifConfig in flags[i]) then
+          raise EImportException.Create('Cannot import account: '+impAccounts[i]+LineEnding+'Account is currently not registered, and you disabled configuration import.')
+    end;
+
+
+    for i := 0 to high(impAccounts) do
+      if (flags[i] <> []) and (realAccounts[i] = nil) then begin
+        realAccounts[i] := libraryManager.getAccount((accountNodes[i].getAttribute('id')));
+        realAccounts[i].prettyName := impAccounts[i];
+        accounts.add(realAccounts[i]);
+      end;
+
+    for i := 0 to high(impAccounts) do begin
+      if flags[i] = [] then continue;
+      if eifConfig in flags[i] then begin
+        for xv in getConfig.evaluate(accountNodes[i]) do begin
+          config := xv.toNode;
+          name := config.getAttribute('n');
+          if (name <> 'pass') or (eifPassword in flags[i]) then
+            realAccounts[i].config.WriteString('base', name, config.deepNodeText());
+        end;
+        realAccounts[i].config.UpdateFile;
+        realAccounts[i].initFromConfig;
+      end;
+
+      if eifHistory in flags[i] then importBookList(accountNodes[i], realAccounts[i].books.old, false);
+      if eifCurrent in flags[i] then begin
+        with realAccounts[i].books do begin
+          importBookList(accountNodes[i], currentUpdate, true);
+          //remove current books that are in old. Thus preventing duplicates in old when current is updated
+          //todo: better check the imported old than our old
+          current.removeAllFrom(currentUpdate);
+          for j := current.Count - 1 downto 0 do
+            if old.findBook(current[j]) <> nil then
+              current.delete(j);
+          current.addList(currentUpdate);
+          currentUpdate.clear;
+        end;
+      end;
+
+      realAccounts[i].books.updateSharedDates();
+      realAccounts[i].save();
+    end;
+
+  finally
+    xq.free;
+    parser.free;
+  end;
 end;
 
 
@@ -1130,6 +1378,20 @@ begin
   result:=fcharges;
 end;
 
+procedure TCustomAccountAccess.initFromConfig;
+begin
+//Datenladen/cachen
+  pass:=config.ReadString('base','pass','');
+  books.keepHistory:=config.ReadBool('base','keep-history',true);
+  flastCheckDate:=config.ReadInteger('base','lastCheck',0);
+  keepHistory:=config.readBool('base','keep-history',true);
+  prettyName:=config.readString('base','prettyName', user);
+  extendDays:=config.readInteger('base','extend-days',7);
+  extendType:=TExtendType(config.readInteger('base','extend',0));
+  fcharges:=currency(config.readInteger('base','charge',-100))/100;;
+  FEnabled:=config.ReadBool('base','enabled',true);
+end;
+
 constructor TCustomAccountAccess.create(alib:TLibrary);
 begin
   FConnected:=false;
@@ -1171,18 +1433,9 @@ begin
       RenameFile(path + lib.id+'#'+user+'.current.xml', filePrefix + '.current.xml');
     end;
 
-  //Datenladen/cachen
   fbooks:=TBookLists.create(self,filePrefix+'.history',filePrefix+'.current');
   config:=TIniFile.Create(filePrefix+'.config');
-  pass:=config.ReadString('base','pass','');
-  books.keepHistory:=config.ReadBool('base','keep-history',true);
-  flastCheckDate:=config.ReadInteger('base','lastCheck',0);
-  keepHistory:=config.readBool('base','keep-history',true);
-  prettyName:=config.readString('base','prettyName',userID);
-  extendDays:=config.readInteger('base','extend-days',7);
-  extendType:=TExtendType(config.readInteger('base','extend',0));
-  fcharges:=currency(config.readInteger('base','charge',-100))/100;;
-  FEnabled:=config.ReadBool('base','enabled',true);
+  initFromConfig;
 end;
 
 procedure TCustomAccountAccess.save();

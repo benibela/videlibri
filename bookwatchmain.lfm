@@ -149,6 +149,10 @@ object mainForm: TmainForm
         Caption = 'BibTeX-Export...'
         OnClick = MenuItem24Click
       end
+      object MenuItem1: TMenuItem
+        Caption = 'XML-Export...'
+        OnClick = MenuItem1Click
+      end
       object MenuItem3: TMenuItem
         Caption = 'Programm beenden'
         OnClick = MenuItem3Click

@@ -27,6 +27,7 @@ public
   destructor Destroy; override;
 
   function add(const libID: string; prettyName, aname, pass: string; extendType: TExtendType; extendDays:integer; history: boolean):TCustomAccountAccess;
+  procedure add(account: TCustomAccountAccess);
 end;
 implementation
 
@@ -106,15 +107,19 @@ begin
 
 
 
-  AddObject(result.getPlusEncodedID(),result);
-  result.save();
-  save;
 
-  if assigned(OnAccountAdd) then OnAccountAdd(result);
 {  if MessageDlg('Daten laden?',
                 'Das Konto '+lib.getPrettyName()+' wurde erstellt.'#13#10'Sollen jetzt die Mediendaten heruntergeladen werden?',
                 mtConfirmation ,[mbYes,mbNo],0)=mrYes then
     mainForm.updateLibrary(lib,false,false);}
+end;
+
+procedure TAccountList.add(account: TCustomAccountAccess);
+begin
+  AddObject(account.getPlusEncodedID(),account);
+  account.save();
+  save;
+  if assigned(OnAccountAdd) then OnAccountAdd(account);
 end;
 
 end.
