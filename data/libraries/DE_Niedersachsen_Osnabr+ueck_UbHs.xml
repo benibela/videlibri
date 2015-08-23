@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <library>
-  <longName value="Bibliothek der Hochschule Osnabrück (alpha)"/>
+  <longName value="Bibliothek der Hochschule Osnabrück"/>
   <shortName value="HSB Osnabrück"/>
   
   <template value="pica"/>  
@@ -10,6 +10,6 @@
 
   <homepage value="http://www.ub.uni-osnabrueck.de/"/>
   <testing-search value="ja" date="2013-04-26"/>
-  <testing-account value="?" date=""/>
+  <testing-account value="ja" date="2015-08-11"/>
   <testing-renew value="?" date=""/>
 </library>
