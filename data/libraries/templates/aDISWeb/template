@@ -79,6 +79,7 @@
     <template><template:switch>
       <a><span>Benutzerkonto</span>{loginForm:=@href}</a>
       <a><span>Mein Konto</span>{loginForm:=@href}</a>
+      <a><span>Anmeldung<!--Mein Konto--></span>{loginForm:=@href}</a>
     </template:switch></template>
   </page>
 
