@@ -228,4 +228,23 @@
         <item>year</item>
     </string-array>
 
+
+
+    <string name="import_">Importieren</string>
+    <string name="import_load">Importdatei laden</string>
+    <string name="import_accounts">Importiere diese Konten</string>
+    <string name="import_properties">mit jeweils diesen Daten</string>
+    <string name="import_file">Import aus dieser Datei:</string>
+    <string name="import_done">Import abgeschlossen</string>
+    <string name="import_not_while_update_runs">Ein Import kann nicht durchgeführt werden, während eine Aktualisierung, Verlängerung oder ähnliches durchgeführt wird.</string>
+
+    <string name="export">Exportieren</string>
+    <string name="export_accounts">Exportiere diese Konten</string>
+    <string name="export_properties">mit jeweils diesen Daten</string>
+    <string name="export_file">in diese Datei</string>
+    <string name="export_done">Export abgeschlossen</string>
+
+    <string name="history">Ausleihenhistorie</string>
+    <string name="configuration">Konfiguration</string>
+    <string name="passwords">Passwörter</string>
 </resources>
