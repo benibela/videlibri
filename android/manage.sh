@@ -73,26 +73,45 @@ clean-java)
 ;;
 
 brokenServers)
-   PASSWORD=password
-   KEYSTORE=android/res/raw/keystore.bks 
-   SERVERLIST=../data/libraries/brokenServers.list
-   RESSERVERLIST=android/res/values/brokenServers.xml
-   TMPFILE=__vl__certificate.pem
-   KEYTOOL=keytool
+   export PASSWORD=password
+   export KEYSTORE=android/res/raw/keystore.bks 
+   export SERVERLIST=../data/libraries/brokenServers.list
+   export RESSERVERLIST=android/res/values/brokenServers.xml
+   export TMPFILE=__vl__certificate.pem
+   export KEYTOOL=keytool
    #/usr/lib/jvm/java-6-sun/jre/bin/keytool
-   BOUNCYCASTLE=/usr/share/java/bcprov-1.46.jar
+   export BOUNCYCASTLE=/usr/share/java/bcprov-1.46.jar
+   FINGERPRINTFILE=keystore.bks.fingerprints
+   TEMPKEYSTORE=__vl__keystore.bks 
+
 
    echo '<?xml version="1.0" encoding="utf-8"?>' > $RESSERVERLIST
    echo "<resources>" >> $RESSERVERLIST
    echo '<string-array name="broken_servers">' >> $RESSERVERLIST
    
    rm $KEYSTORE
+   rm $FINGERPRINTFILE
    i=0
    while read server; do
-     if [[ -n "$server" ]]; then
+     if [[ -n "$server" ]]; then      
+       echo
+       echo
+       echo =====================================================================
+       echo ==========================$server==========================
+       echo =====================================================================
        echo "<item>CN=$server</item>" >> $RESSERVERLIST
        echo something | openssl s_client -connect $server:443 > $TMPFILE
+       
+       cp $KEYSTORE $TEMPKEYSTORE
        yes | $KEYTOOL       -import       -v       -trustcacerts       -alias $i       -file <(openssl x509 -in $TMPFILE)       -keystore $KEYSTORE       -storetype BKS       -provider org.bouncycastle.jce.provider.BouncyCastleProvider       -providerpath $BOUNCYCASTLE       -storepass $PASSWORD
+       
+       echo -en "$server\t" >> $FINGERPRINTFILE
+       if diff -q $KEYSTORE $TEMPKEYSTORE; then
+         echo FAIL >> $FINGERPRINTFILE
+       else
+         keytool -list -keystore $KEYSTORE -provider org.bouncycastle.jce.provider.BouncyCastleProvider -providerpath $BOUNCYCASTLE -storetype BKS -storepass $PASSWORD  | grep -E "trusted|fingerprint" | while read line1; do read line2; echo "$line1: $line2"; done | sort -n | tail -1  | sed -Ee 's/,[^:]+,//' >> $FINGERPRINTFILE
+       fi
+       
        ((i=i+1))
      fi
    done <  $SERVERLIST
@@ -112,8 +131,10 @@ brokenServers)
    echo 
    echo
    echo
+   rm $TEMPKEYSTORE
 
-   keytool -list -keystore $KEYSTORE -provider org.bouncycastle.jce.provider.BouncyCastleProvider -providerpath $BOUNCYCASTLE -storetype BKS -storepass $PASSWORD  | grep -E "trusted|fingerprint" | while read line1; do read line2; echo "$line1: $line2"; done | sort -n | paste ../data/libraries/brokenServers.list - | sed -Ee 's/, *[A-Za-z]{3} *[0-9]+, *[0-9]{4},//' | tee keystore.bks.fingerprints
+   #keytool -list -keystore $KEYSTORE -provider org.bouncycastle.jce.provider.BouncyCastleProvider -providerpath $BOUNCYCASTLE -storetype BKS -storepass $PASSWORD  | grep -E "trusted|fingerprint" | while read line1; do read line2; echo "$line1: $line2"; done | sort -n | paste ../data/libraries/brokenServers.list - | sed -Ee 's/, *[A-Za-z]{3} *[0-9]+, *[0-9]{4},//' | tee keystore.bks.fingerprints
+   cat $FINGERPRINTFILE
 
    
    rm $TMPFILE
