@@ -304,7 +304,7 @@ type
   procedure exportAccounts(const fn: string; accounts: array of TCustomAccountAccess; flags: array of TExportImportFlags );
   procedure importAccountsPrepare(const fn: string; out parser: TTreeParser; out accounts: TStringArray; out flags: TExportImportFlagsArray);
   //frees the parser
-  procedure importAccounts(const fn: string; parser: TTreeParser; impAccounts: TStringArray; flags: TExportImportFlagsArray);
+  procedure importAccounts(parser: TTreeParser; impAccounts: TStringArray; flags: TExportImportFlagsArray);
 
 
 implementation
@@ -380,21 +380,27 @@ var
     startpos: LongInt;
     endpos: LongInt;
   begin
-    if FileExists(bookFile) then
-      books := strLoadFromFileUTF8(bookFile);
-    startpos := strIndexOf(books, '<books');
-    if startpos > 0 then begin
-      startpos := strIndexOf(books, '>', startpos) + 1;
-      endpos := strRpos('<', books); //exclusive
-      if endpos > startpos then begin
-        wln('     <books mode="'+xmlStrEscape(mode)+'">');
-        f.WriteBuffer(books[startpos], endpos - startpos);
-        wln('     </books>');
+    EnterCriticalSection(updateThreadConfig.libraryFileAccess);
+    try
+      if FileExists(bookFile) then
+        books := strLoadFromFileUTF8(bookFile);
+      startpos := strIndexOf(books, '<books');
+      if startpos > 0 then begin
+        startpos := strIndexOf(books, '>', startpos) + 1;
+        endpos := strRpos('<', books); //exclusive
+        if endpos > startpos then begin
+          wln('     <books mode="'+xmlStrEscape(mode)+'">');
+          f.WriteBuffer(books[startpos], endpos - startpos);
+          wln('     </books>');
+        end;
       end;
+    finally
+      LeaveCriticalSection(updateThreadConfig.libraryFileAccess);
     end;
   end;
 
 begin
+  ForceDirectories(ExtractFileDir(fn));
   f:=TFileStream.Create(fn,fmOpenWrite or fmCreate);
   tempsl := TStringList.Create;
   tempsl.DelimitedText := '=';
@@ -467,7 +473,7 @@ begin
   end;
 end;
 
-procedure importAccounts(const fn: string; parser: TTreeParser; impAccounts: TStringArray; flags: TExportImportFlagsArray);
+procedure importAccounts(parser: TTreeParser; impAccounts: TStringArray; flags: TExportImportFlagsArray);
 var getHistory, getCurrent: IXQuery;
   procedure importBooklist(parent: TTreeNode; list: TBookList; current: boolean);
   var xbook: IXQValue;

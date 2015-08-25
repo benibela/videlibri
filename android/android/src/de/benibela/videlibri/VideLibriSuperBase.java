@@ -65,6 +65,16 @@ public class VideLibriSuperBase {
             case R.id.renewlist:
                 context.startActivity(new Intent(context, RenewList.class));
                 return true;
+            case R.id.import_:
+                intent = new Intent(context, ImportExport.class);
+                intent.putExtra("mode", ImportExport.MODE_IMPORT);
+                context.startActivity(intent);
+                return true;
+            case R.id.export:
+                intent = new Intent(context, ImportExport.class);
+                intent.putExtra("mode", ImportExport.MODE_EXPORT);
+                context.startActivity(intent);
+                return true;
             case R.id.libinfo:
                 intent = new Intent(context, LibraryList.class);
                 intent.putExtra("reason", Util.tr(R.string.base_chooselibhomepage));
@@ -197,6 +207,8 @@ public class VideLibriSuperBase {
                 texts.add(Util.tr(R.string.menu_refreshall)); icons.add(context.getResources().getDrawable(android.R.drawable.ic_menu_rotate)); ids.add(R.id.refresh);
             }
         }
+        texts.add(Util.tr(R.string.menu_import)); icons.add(context.getResources().getDrawable(android.R.drawable.ic_menu_add)); ids.add(R.id.import_);
+        texts.add(Util.tr(R.string.menu_export)); icons.add(context.getResources().getDrawable(android.R.drawable.ic_menu_save)); ids.add(R.id.export);
         texts.add(Util.tr(R.string.menu_homepages)); icons.add(context.getResources().getDrawable(android.R.drawable.ic_menu_info_details)); ids.add(R.id.libinfo);
         texts.add(Util.tr(R.string.menu_cats)); icons.add(context.getResources().getDrawable(android.R.drawable.ic_menu_info_details)); ids.add(R.id.libcatalogue);
         texts.add(Util.tr(R.string.menu_feedback)); icons.add(context.getResources().getDrawable(android.R.drawable.ic_menu_send)); ids.add(R.id.feedback);

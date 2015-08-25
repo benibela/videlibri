@@ -87,6 +87,8 @@
     <string name="menu_renewlist">Manche verlängern</string>
     <string name="menu_renewall">Alle verlängern</string>
     <string name="menu_refreshall">Alle aktualisieren</string>
+    <string name="menu_import">Import</string>
+    <string name="menu_export">Export</string>
     <string name="menu_homepages">Webseiten</string>
     <string name="menu_cats">Katalogseiten</string>
     <string name="menu_feedback">Feedback</string>

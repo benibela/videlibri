@@ -21,6 +21,7 @@ type
     //oneThreadSuccessful: boolean;//write only true
     libraryAccessSection: TRTLCriticalSection; //this protects reads/writes to VideLibri's book (lists). It does NOT protect read/writes to the variable log of the reader (because standalone queries in the multipage template are unprotected. todo: either remove protection on patterns or add to all queries)
     threadManagementSection: TRTLCriticalSection;
+    libraryFileAccess: TRTLCriticalSection; //access to the book list files (update vs. export). todo: do not block threads of multiple accounts
     updateThreadsRunning:integer; //all threads
     listUpdateThreadsRunning: integer; //count of threads which are updating the list of books (and have not started updating singely)
     successfulListUpdateDate: longint;
@@ -252,11 +253,19 @@ begin
 
       if logging then log('TUpdateLibThread.execute ended marker 5');
       EnterCriticalSection(pconfig^.libraryAccessSection);
-      lib.books.merge(true);
-      LeaveCriticalSection(pconfig^.libraryAccessSection);
+      try
+        lib.books.merge(true);
+      finally
+        LeaveCriticalSection(pconfig^.libraryAccessSection);
+      end;
       if logging then log('TUpdateLibThread.execute ended marker 8');
 
-      lib.save();
+      EnterCriticalSection(pconfig^.libraryFileAccess);
+      try
+        lib.save();
+      finally
+        EnterCriticalSection(pconfig^.libraryFileAccess);
+      end;
 
       if logging then log('TUpdateLibThread.execute ended marker 9');
       pconfig^.successfulListUpdateDate:=currentDate;

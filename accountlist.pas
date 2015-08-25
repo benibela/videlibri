@@ -105,7 +105,7 @@ begin
   result.extendType:=extendType;// TExtendType( cmbAccountExtend.ItemIndex));
   result.extendDays:=extendDays;// StrToInt(edtAccountExtendDays.Text));
 
-
+  add(result);
 
 
 {  if MessageDlg('Daten laden?',

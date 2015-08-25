@@ -668,6 +668,7 @@ uses bookwatchmain,internetaccess,controls,libraryaccess,math,FileUtil,bbutils,b
       fillchar(updateThreadConfig,sizeof(updateThreadConfig),0);
       InitCriticalSection(updateThreadConfig.libraryAccessSection);
       InitCriticalSection(updateThreadConfig.threadManagementSection);
+      InitCriticalSection(updateThreadConfig.libraryFileAccess);
       InitCriticalSection(exceptionStoring);
     end;
     commandLine.free;
@@ -687,6 +688,7 @@ uses bookwatchmain,internetaccess,controls,libraryaccess,math,FileUtil,bbutils,b
     if not cancelStarting then begin
       system.DoneCriticalsection(updateThreadConfig.libraryAccessSection);
       system.DoneCriticalsection(updateThreadConfig.threadManagementSection);
+      system.DoneCriticalsection(updateThreadConfig.libraryFileAccess);
       system.DoneCriticalsection(exceptionStoring);
     end;
 

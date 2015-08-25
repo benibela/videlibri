@@ -179,7 +179,7 @@ public class Bridge {
         }
     }
 
-    public static class InternalError extends Exception {
+    public static class InternalError extends RuntimeException {
         public InternalError() {}
         public InternalError(String msg) { super(msg); }
     }
@@ -369,6 +369,21 @@ public class Bridge {
     static public void VLDeleteAccount(Account acc){}*/
     //static public Book[] VLGetBooks(Account acc, boolean history){return  new Book[0];}
     //static public void VLUpdateAccount(Account acc){}
+
+
+    public static class ImportExportData {
+        public static final int CURRENT  = 0x01;
+        public static final int HISTORY  = 0x02;
+        public static final int CONFIG   = 0x04;
+        public static final int PASSWORD = 0x08;
+        
+        String accountsToImport[];
+        int flags;
+        long nativePtr; //this is a very large object which must be destroyed with a call to  VLImportAccounts
+    }
+    public static native void VLExportAccounts(String filename, Account accountsToExport[], int flags);
+    public static native ImportExportData VLImportAccountsPrepare(String filename);
+    public static native void VLImportAccounts(ImportExportData data);
 
 
     //called from VideLibri

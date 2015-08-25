@@ -144,7 +144,7 @@ begin
         flags[high(flags)] := flag;
       end;
       try
-        libraryParser.importAccounts(edit1.Text,  importParser, choosenAccountNames, flags);
+        libraryParser.importAccounts(importParser, choosenAccountNames, flags);
       finally
         importParser := nil;
       end;

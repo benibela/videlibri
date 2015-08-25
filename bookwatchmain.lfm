@@ -150,7 +150,7 @@ object mainForm: TmainForm
         OnClick = MenuItem24Click
       end
       object MenuItem1: TMenuItem
-        Caption = 'XML-Export...'
+        Caption = 'XML-Import/Export...'
         OnClick = MenuItem1Click
       end
       object MenuItem3: TMenuItem
