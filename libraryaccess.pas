@@ -264,7 +264,7 @@ begin
       try
         lib.save();
       finally
-        EnterCriticalSection(pconfig^.libraryFileAccess);
+        LeaveCriticalsection(pconfig^.libraryFileAccess);
       end;
 
       if logging then log('TUpdateLibThread.execute ended marker 9');
