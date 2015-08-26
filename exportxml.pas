@@ -79,7 +79,7 @@ begin
     MODE_EXPORT: begin
       SaveDialog1.FileName := edit1.Text;
       if SaveDialog1.Execute then
-        Edit1.Text := OpenDialog1.FileName;
+        Edit1.Text := SaveDialog1.FileName;
     end;
     MODE_IMPORT: begin
       OpenDialog1.FileName := edit1.Text;
