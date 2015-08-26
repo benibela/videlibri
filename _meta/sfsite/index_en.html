@@ -11,6 +11,8 @@
 
 <ul id="navigation">
   <li style="border-left: 1px solid blue;"><a href="#home">Start</a></li>
+  <li><a href="#screenshots">Screenshots</a></li>
+  <li><a href="#downloads">Downloads</a></li>
   <li><a href="#spinoffs">Spin-offs</a></li>
 <!--  <li><a href="#features">Features</a></li>
   <li><a href="#libraries">Unterstützte Büchereien</a></li>
@@ -21,9 +23,9 @@
   <li style="float:right"><a href="index.php">Deutsche Version</a></li>
 </ul>
 
-VideLibri is an extension of the usual library web catalogs, running locally on desktop computers or Android smartphones. Its main function is to automatically renew the lend books and warn the user of an ending loan period, but it also has several other features.
+VideLibri is an extension of the usual library web catalogs, running locally on desktop computers or Android smartphones. Its main function is to automatically renew the lend books and warn the user of an ending loan period, but it also has several other features, including everything the normal OPAC can do.
 <br><br>
-It works by parsing the web page of the library, so it does not work with all libraries out of the box. However, new libraries can be added easily by creating a corresponding template, which can be generated automatically for most libraries. <br>
+It works by parsing the web page of the library, so it does not work with all libraries out of the box. However, new libraries can be added easily by creating a corresponding pattern matching templates, which can be generated automatically for most libraries. <br>
 
 Currently it has only been tested with German/Swiss/Austrian libraries (but with around 200 of them, see the <a href="index.html">German page</a> for more information) and so far there is no English translation. If you would like to have a translation, you can send me a mail. <br><br>
 
@@ -42,22 +44,48 @@ Ein altes Foto von der Büchertabelle:<br>
 <img src="https://sourceforge.net/dbimage.php?id=280445"/>
 	-->
 
-<h2><a name="downloads">Downloads</a></h2>
 
-On the <a href="https://sourceforge.net/projects/videlibri/files/">sourceforge download page</a> you can download the Windows and Linux version of VideLibri. (Attention: Currently only a German version is available; but you can write me a mail, if you need a translation. When I uploaded VideLibri here, I did not expect that anyone outside of Germany would download it -- although many did. )<br><br>
+
+
+<h2><div><a name="screenshots">Screenshots</a></div></h2>
+<div class="content">
+<center>
+<img src="http://sourceforge.net/dbimage.php?id=280463" title="Summary about all lend books. Yellow/green shows which books are renewable." alt="Summary about all lend books. Yellow/green shows which books are renewable."/>
+
+<img src="http://sourceforge.net/dbimage.php?id=280465" title="VideLibri's statistics showing how many books my family has lend." alt="VideLibri's statistics showing how many books my family has lend."/>
+
+
+<img src="http://sourceforge.net/dbimage.php?id=306557" title="Standard search mode" alt="Standard search mode"/>
+
+<div>
+<img src="http://sourceforge.net/p/videlibri/screenshot/android.png" title="VideLibri 1.5 on Android" alt="VideLibri 1.5 on Android"/>
+<div style="display: inline-block; max-width: 100%">
+<img src="http://sourceforge.net/p/videlibri/screenshot/android-search-list.png" title="VideLibri 1.5 on Android (List of search results)" alt="VideLibri 1.5 on Android (List of search results)"/>
+<img src="http://sourceforge.net/p/videlibri/screenshot/android-search-result.png" title="VideLibri 1.5 on Android (Details of a search result)" alt="VideLibri 1.5 on Android (Details of a search result)"/>
+</div>
+</div>
+
+</center>
+</div>
+
+
+<h2><div><a name="downloads">Downloads</a></div></h2>
+
+On the <a href="https://sourceforge.net/projects/videlibri/files/">sourceforge download page</a> you can download the Windows and Linux version of VideLibri. (Attention: Currently only a German version is available; but you can write me a mail, if you need a translation.)<br><br>
 
 
 The source is stored in a <a href="https://sourceforge.net/p/videlibri/code/ci/tip/tree/">mercurial repository</a>.<br>
 Since the  program is written in FreePascal/Lazarus, it should be very easy to compile it. Just open the bookWatch.lpi in Lazarus and select your platform/OS in the project settings.
 You can compile and run it on Windows/Linux/Mac with the gtk/qt/win32/cocoa interfaces (yes, all of them. Lazarus supports a lot of interfaces).
 <br>
+  
+
 <br><br><br><br>
 <h2><a name="spinoffs">Spin-offs</a></h2>
 Using the framework written for VideLibri it is trivial to convert other websites in local running programs. Since the share 90% of the source with VideLibri, I keep them in the same public <a href="https://sourceforge.net/p/videlibri/code/ci/tip/tree/">repository</a>:
 <h3><a name="xibel">Xidel</a></h3>
 Xidel is just the VideLibri core with anything about libraries and books removed, and can be used to extract data from arbitrary webpages.<br>
 See more on the <a href="xidel.html">Xidel page</a>.
-
 
 
 <h3><a name="sourceforgeresponder">SourceForgeResponder</a></h3>

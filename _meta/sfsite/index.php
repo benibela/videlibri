@@ -1,3 +1,9 @@
+<?php
+  if ($_SERVER['HTTP_HOST'] === 'code.videlibri.de') {
+    header('Location: http://sourceforge.net/p/videlibri/code/commit_browser', true, 307);
+    die();
+  };
+?>
 <!DOCTYPE html>
 <html lang="de">	
 <head>
