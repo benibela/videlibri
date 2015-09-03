@@ -106,8 +106,8 @@
     <RunParams>
       <local>
         <FormatVersion Value="1"/>
-        <CommandLineParams Value="--log"/>
-        <LaunchingApplication PathPlusParams="--user-path \tmp\vl12345\ --log --http-log-path \tmp"/>
+        <CommandLineParams Value="--log --debug"/>
+        <LaunchingApplication PathPlusParams="--user-path \tmp\vl12345\ --log --http-log-path \tmp --debug"/>
       </local>
     </RunParams>
     <RequiredPackages Count="4">
