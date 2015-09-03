@@ -101,6 +101,10 @@ brokenServers)
        echo =====================================================================
        echo "<item>CN=$server</item>" >> $RESSERVERLIST
        echo something | openssl s_client -connect $server:443 > $TMPFILE
+       if grep -qv "BEGIN CERTIFICATE" $TMPFILE; then 
+         #openssl fails to negotiate protocol version for some servers. only tls1 prints certificate data
+         echo something | openssl s_client -connect $server:443 -tls1 > $TMPFILE 
+       fi
        
        cp $KEYSTORE $TEMPKEYSTORE
        yes | $KEYTOOL       -import       -v       -trustcacerts       -alias $i       -file <(openssl x509 -in $TMPFILE)       -keystore $KEYSTORE       -storetype BKS       -provider org.bouncycastle.jce.provider.BouncyCastleProvider       -providerpath $BOUNCYCASTLE       -storepass $PASSWORD
