@@ -71,8 +71,11 @@
 
 <action id="update-all">
   <variable name="connected">false()</variable>
-  <page url="https://{$server}/aDISWeb/app{get('startparams', '')}" templateFile="connected"/>
-
+  <try>
+    <page url="https://{$server}/aDISWeb/app{get('startparams', '')}" templateFile="connected"/>
+    <catch errors="http:503"><s>vl:raise("Der Bibliothekskatalog ist momentan temporär nicht erreichbar. Vermutlich werden Wartungsarbeiten durchgeführt (insbesondere bei den VÖBB)")</s></catch>
+  </try>
+  
   <if test="$connected"><variable name="connectPage">$searchPage</variable></if>
 
   <page url="{$connectPage}">
