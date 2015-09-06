@@ -540,10 +540,6 @@ begin
        (account.books.current[i].status in BOOK_EXTENDABLE) then
        books.add(account.books.current[i]);
   extendBooks(books);
-
-  showErrorMessages();
-  if (mainform<>nil) and (mainform.visible) then
-    mainform.RefreshListView;
 end;
 
 procedure extendBooks(books: TBookList);

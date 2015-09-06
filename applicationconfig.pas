@@ -534,11 +534,6 @@ uses bookwatchmain,internetaccess,controls,libraryaccess,math,FileUtil,bbutils,b
       defaultInternetConfiguration.logToPath:=IncludeTrailingPathDelimiter(defaultInternetConfiguration.logToPath);
     if logging then log('Started with internet logging enabled');
 
-    //Überprüft die Farbeinstellung des Monitors
-    if ScreenInfo.ColorDepth=8 then
-      Application.MessageBox(pchar('VideLibri funktioniert im 256-Farbenmodus nur unvollständig.'#13#10+
-                   'Am besten ändern Sie Ihre Monitoreinstellungen.'),'Videlibri',MB_ICONWARNING);
-
     //Pfade auslesen und überprüfen
     programPath:=ExtractFilePath(ParamStr(0));
     if not (programPath[length(programPath)] in ['/','\']) then programPath:=programPath+DirectorySeparator;
