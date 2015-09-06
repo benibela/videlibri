@@ -67,7 +67,7 @@
           </Target>
           <SearchPaths>
             <IncludeFiles Value="../../../components/pascal/data;../../../components/pascal/import/synapse"/>
-            <OtherUnitFiles Value="../../../components/pascal/import/synapse;../../../components/lazarus/dialogs;../../../components/lazarus/internet/sendBackError;../../../components/pascal/internet;../../../components/pascal/data"/>
+            <OtherUnitFiles Value="../../../components/pascal/import/synapse;../../../components/lazarus/dialogs;../../../components/lazarus/internet/sendBackError;../../../components/pascal/internet;../../../components/pascal/data;android"/>
             <SrcPath Value="../../../components/pascal/system;$(LazarusDir)/lcl;../../../components/lazarus/internet;$(LazarusDir)/lcl/interfaces/$(LCLWidgetType)"/>
           </SearchPaths>
           <Parsing>
@@ -125,7 +125,7 @@
         <PackageName Value="LCL"/>
       </Item4>
     </RequiredPackages>
-    <Units Count="33">
+    <Units Count="34">
       <Unit0>
         <Filename Value="bookWatch.lpr"/>
         <IsPartOfProject Value="True"/>
@@ -208,7 +208,6 @@
       <Unit13>
         <Filename Value="..\..\..\components\pascal\internet\autoupdate.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="autoupdate"/>
       </Unit13>
       <Unit14>
         <Filename Value="..\..\..\components\lazarus\dialogs\progressdialog.pas"/>
@@ -316,6 +315,11 @@
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="exportxml"/>
       </Unit32>
+      <Unit33>
+        <Filename Value="applicationdesktopconfig.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="applicationdesktopconfig"/>
+      </Unit33>
     </Units>
   </ProjectOptions>
   <CompilerOptions>

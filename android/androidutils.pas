@@ -5,7 +5,7 @@ unit androidutils;
 interface
 
 uses
-Classes, SysUtils,  IniFiles{$ifdef android}, jni, bbjniutils, libraryParser, LCLProc, booklistreader, librarySearcherAccess, androidinternetaccess, multipagetemplate{$endif};
+Classes, SysUtils,  IniFiles,applicationconfig{$ifdef android}, jni, bbjniutils, libraryParser, LCLProc, booklistreader, librarySearcherAccess, androidinternetaccess, multipagetemplate{$endif};
 
 //procedure deleteLocalRef(jobj: pointer);
 
@@ -23,7 +23,9 @@ function loaded: integer;
 procedure uninit;
 
 {$ifdef android}
-procedure androidAllThreadsDone();
+type TCallbackHolderAndroid = class (TCallbackHolder)
+  class procedure allThreadsDone(); override; static;
+end;
 {$endif}
 
 
@@ -31,7 +33,7 @@ procedure androidAllThreadsDone();
 
 
 implementation
-uses bbutils, accountlist, applicationconfig, bbdebugtools, libraryAccess, simplehtmltreeparser, math;
+uses bbutils, accountlist, bbdebugtools, libraryAccess, simplehtmltreeparser, math;
 
 threadvar skippedpaths: TStringArray;
 
@@ -187,12 +189,14 @@ begin
   end;
 end;
 
-procedure androidAllThreadsDone;
+
+class procedure TCallbackHolderAndroid.allThreadsDone;
 begin
   if logging then bbdebugtools.log('androidAllThreadsDone started');
   needJ.callStaticVoidMethod(bridgeClass, bridgeCallbackMethods.VLAllThreadsDone);
   if logging then bbdebugtools.log('androidAllThreadsDone ended');
 end;
+
 
 
 procedure Java_de_benibela_VideLibri_Bridge_VLInit(env:PJNIEnv; this:jobject; videlibri: jobject); cdecl;
@@ -263,6 +267,8 @@ begin
     importExportDataFields.nativePtrJ := j.getfield(importExportDataClass, 'nativePtr', 'J');
     importExportDataFields.flagsI := j.getfield(importExportDataClass, 'flags', 'I');
     importExportDataFields.accountsToImportAL := j.getfield(importExportDataClass, 'accountsToImport', '[Ljava/lang/String;');
+
+    callbacks := TCallbackHolderAndroid;
 
     beginAssetRead;
     initApplicationConfig;

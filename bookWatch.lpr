@@ -11,7 +11,8 @@ uses
   { add your units here }, sysutils, bookWatchMain, libraryParser, options, newAccountWizard_u, errorDialog, applicationConfig, statistik_u,
   diagram, libraryAccess, sendBackError, internetAccess, autoupdate, progressDialog, bbdebugtools, bibtexexport, simplexmlparser,
   booklistreader, librarySearcher, bookListView, bookSearchForm, librarySearcherAccess, autoMenuManager, treelistviewpackage, LCLIntf,
-  messagesystem, multipagetemplate, accountlist, libraryListView, androidutils, libraryaccesstester, exportxml;
+  messagesystem, multipagetemplate, accountlist, libraryListView, androidutils, libraryaccesstester, exportxml, applicationdesktopconfig,
+  LCLType;
 
 {$IFDEF WINDOWS}{$R manifest.rc}{$R icons.res}{$ENDIF}
 
@@ -25,7 +26,15 @@ begin
   Application.Initialize;
   Application.Title:='VideLibri';
   application.Name:='VideLibri';
-  initApplicationConfig;
+  try
+    initApplicationConfig;
+  except
+    on e: Exception do begin
+      Application.MessageBox(pchar(e.Message), 'Videlibri Fehler', MB_ICONERROR);
+      if logging then log('init exception: '+e.Message);
+      cancelStarting:=true;
+    end;
+  end;
   mainForm:=nil;
   if not cancelStarting then begin
       Application.CreateForm(TmainForm, mainForm);

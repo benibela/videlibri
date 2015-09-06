@@ -48,21 +48,15 @@ procedure cancelBooks(books: TBookList);
 procedure findBooksThatMustBeReturned(out booksOverdue, booksSoonNotExtendable, booksSoon: TList; out minDateOverdue, minDateSoonNotExtendable, minDateSoon: integer);
 //benachrichtigt den Benutzer über fällige Medien und fragt nach dem Öffnen des
 //Hauptformulars deswegen (->true wenn es geöffnet werden soll)
-function alertAboutBooksThatMustBeReturned:boolean;
 
 
 type PThreadConfig=^TThreadConfig;
 //procedure updateBooksDirectBlocking(const lib: TCustomAccountAccess; const pconfig: PThreadConfig; const ignoreConnectionErrors, checkDate, forceExtend: boolean);
 
 implementation
-uses applicationconfig,internetaccess,bookwatchmain,bbdebugtools,androidutils,{$ifdef android}bbjniutils,{$endif}
-     forms; //for messages
+uses applicationconfig,internetaccess,bbdebugtools,androidutils{$ifdef android},bbjniutils{$endif};
 const TRY_BOOK_UPDATE='Versuche Mediendaten zu aktualisieren...';
-{$IFDEF WIN32}
-const MB_SYSTEMMODAL = $1000;
-{$ELSE}
-const MB_SYSTEMMODAL=0;
-{$ENDIF}
+
 
 type TBookProcessingRequest = class
   ignoreConnectionErrors, checkDate, useExtendOverride: boolean;
@@ -403,14 +397,7 @@ begin
     updateGlobalAccountDates();
     libraryManager.reloadPendingTemplates();
     accountsRefreshedDate := updateThreadConfig.successfulListUpdateDate;
-    if accountsRefreshedDate = currentDate then begin
-      if (mainForm <> nil) and (mainform.visible) then
-         mainform.RefreshListView;
-      applicationUpdate(true);
-      sendMailReports();
-    end;
-    if mainForm <> nil then mainform.delayedCall.Enabled:=true; //show error messages
-    {$ifdef android}androidAllThreadsDone();{$endif}
+    callbacks.allThreadsDone();
   end;
 
   {$ifdef android}
@@ -446,8 +433,7 @@ begin
   end;
 
   if ignoreConnErrors and (account.broken = currentDate) then exit;
-  if (mainform<>nil) and (mainForm.Visible) then
-    mainform.StatusBar1.Panels[0].text:=TRY_BOOK_UPDATE;
+  callbacks.statusChange(TRY_BOOK_UPDATE);
   result := performAccountAction(account,updateThreadConfig,ignoreConnErrors,checkDate,extendAlways,etAlways,nil,nil);
 end;
 //Bücher aktualisieren
@@ -598,60 +584,7 @@ begin
       end;
 end;
 
-function alertAboutBooksThatMustBeReturned: boolean;
-  function strJoin(l: tlist): string;
-  var sl: TStringList;
-    i: Integer;
-  begin
-    sl := TStringList.Create;
-    for i := 0 to l.Count - 1 do sl.Add(tbook(l[i]).toSimpleString());
-    result := #9 + bbutils.strJoin(sl, LineEnding + #9, -10)+LineEnding;
-    sl.free;
-  end;
-var alert:string;
-    booksOverdue, booksSoonNotExtendable, booksSoon: TList;
-    minDateSoon: Integer;
-    minDateSoonNotExtendable: Integer;
-    minDateOverdue: Integer;
-begin
-  if logging then log('alertAboutBooksThatMustBeReturned started');
-  result:=false;
 
-  findBooksThatMustBeReturned(booksOverdue, booksSoonNotExtendable, booksSoon,
-                              minDateOverdue, minDateSoonNotExtendable, minDateSoon);
-
-  if ((lastWarnDate + WarnInterval <= currentDate) and (booksOverdue.Count + booksSoonNotExtendable.Count + booksSoon.Count > 0))
-     or (booksOverdue.Count > 0) then begin
-    alert:='';
-    if booksOverdue.Count > 0 then begin
-      alert+=Format('Die folgenden Medien (%d) sind überfällig und sollten schon bis %s abgegeben worden sein:'#13,
-                    [booksOverdue.Count, DateToPrettyGrammarStr('zum ','',minDateOverdue)]);
-      alert+=strJoin(booksOverdue) + LineEnding;
-    end;
-    if booksSoonNotExtendable.Count > 0 then begin
-      alert+=Format('Die folgenden Medien (%d) sind nicht verlängerbar und sollten bis %s abgegeben werden:'#13,
-                   [booksSoonNotExtendable.Count, DateToPrettyGrammarStr('zum ','',minDateSoonNotExtendable)]);
-      alert+=strJoin(booksSoonNotExtendable) + LineEnding;
-    end;
-    if booksSoon.Count > 0 then begin
-      alert+=Format('Die folgenden Medien (%d) sind bald bis %s fällig:'#13, [booksSoon.Count, DateToPrettyGrammarStr('zum ','',minDateSoon)]);
-      alert+=strJoin(booksSoon) + LineEnding;
-      alert+='VideLibri wird versuchen, diese Bücher automatisch zu verlängern'#13#13;
-    end;
-    alert+='Soll die Gesamt-Übersicht geöffnet werden?';
-    if Application.MessageBox(pchar(alert),'Videlibri',MB_YESNO or MB_ICONWARNING or MB_SYSTEMMODAL)=IDYES then
-      result:=true;
-  end;
-
-  booksSoon.Free;
-  booksSoonNotExtendable.free;
-  booksOverdue.Free;
-
-  lastWarnDate:=currentDate;
-  userConfig.WriteInteger('base','last-warn-date',currentDate);
-
-  if logging then log('alertAboutBooksThatMustBeReturned ended');
-end;
 
 
 

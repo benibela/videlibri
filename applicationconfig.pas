@@ -5,8 +5,8 @@ unit applicationconfig;
 interface
 
 uses
-  Classes, SysUtils,Graphics,forms,libraryparser,{$ifdef win32}registry,{$endif}inifiles,rcmdline,errordialog,autoupdate,progressDialog,extendedhtmlparser,
-ExtCtrls ,Dialogs,LMessages,accountlist, androidutils
+  Classes, SysUtils, libraryparser,{$ifdef win32}registry,{$endif}inifiles,rcmdline,autoupdate,extendedhtmlparser,
+accountlist
 ;
 
 type TErrorArray=array of record
@@ -18,8 +18,16 @@ type TErrorArray=array of record
                    end;
   
 const VIDELIBRI_MUTEX_NAME='VideLibriStarted';
-      LM_SHOW_VIDELIBRI = LM_USER + $4224;
-  
+
+type TCallbackHolder = class
+  class procedure updateAutostart(enabled, askBeforeChange: boolean); virtual; static;
+  class procedure applicationUpdate(auto:boolean); virtual; static;
+  class procedure statusChange(const message: string); virtual; static;
+  class procedure allThreadsDone(); virtual; static;
+  class procedure postInitApplication(); virtual; static;
+end;
+TCallbackHolderClass = class of TCallbackHolder;
+
 var programPath,userPath:string;
     machineConfig,userConfig: TIniFile;
 
@@ -46,12 +54,6 @@ var programPath,userPath:string;
     
     needApplicationRestart: boolean; //Soll das Programm nach Beenden neugestartet werden
 
-    //cached
-    colorLimited:tcolor;
-    colorTimeNear:tcolor;
-    colorOrdered, colorProvided:tcolor;
-    colorOK:tcolor;
-    colorOld:tcolor;
     //TODO: customize colors in search panel colorSearchTextNotFound: tcolor=$6060FF;    //colorSearchTextFound: tcolor=clWindow;
     redTime: integer;
     RefreshInterval, WarnInterval: integer;
@@ -61,24 +63,17 @@ var programPath,userPath:string;
                                      //sollen unabhängig vom letzten Aktualisierungdatum
     debugMode: boolean;
 
-  errorMessageList:TErrorArray = nil;
-  //oldErrorMessageList:TErrorArray = nil;
-  oldErrorMessageString:string;
+    errorMessageList:TErrorArray = nil;
+    //oldErrorMessageList:TErrorArray = nil;
+    oldErrorMessageString:string;
 
-  procedure applicationUpdate(auto:boolean);
-  procedure updateAutostart(enabled, askBeforeChange:boolean);
-
-
+    callbacks: TCallbackHolderClass = TCallbackHolder;
 
   procedure initApplicationConfig;
   procedure finalizeApplicationConfig;
 
-  procedure showErrorMessages();
   procedure addErrorMessage(errorStr,errordetails, anonymouseDetails, libraryId, searchQuery:string;lib:TCustomAccountAccess=nil);
   procedure createErrorMessageStr(exception:exception; out errorStr,errordetails, anonymousDetails:string;account:TCustomAccountAccess=nil);
-
-
-  function confirm(s: string): boolean;
 
   procedure storeException(ex: exception; account:TCustomAccountAccess; libraryId, searchQuery: string); //thread safe
 
@@ -92,10 +87,8 @@ var programPath,userPath:string;
   function DateToSimpleStr(const date: tdatetime):string;
   function DateToPrettyStr(const date: tdatetime):string;
   function DateToPrettyGrammarStr(preDate,preName:string;const date: tdatetime):string;
-
-  procedure openInternetPage(url: string; myOptions: string='');
 implementation
-uses bookwatchmain,internetaccess,controls,libraryaccess,math,FileUtil,bbutils,bbdebugtools,LCLType,lclintf,LCLProc,
+uses internetaccess,libraryaccess,math,FileUtil,bbutils,bbdebugtools,androidutils,
   {$IFDEF WIN32}
   windows,synapseinternetaccess,w32internetaccess
   {$ELSE}
@@ -106,78 +99,6 @@ uses bookwatchmain,internetaccess,controls,libraryaccess,math,FileUtil,bbutils,b
   {$ENDIF}
   {$ENDIF}
   ;
-  procedure errorCallback(sender:TObject; var Done: Boolean);
-  begin
-    //messagebeep(0);
-    Application.OnIdle:=nil;
-    showErrorMessages();
-    done:=true;
-  end;
-  procedure showErrorMessages();
-  var i,j:integer;
-      title,mes,mesDetails: string;
-      accountException: boolean;
-      sl_title, sl_message, sl_messagedetails: tstringlist;
-      //met: TMethod;
-  begin
-    if logging then log('showErrorMessages called: '+IntToStr(length(errorMessageList))) ;
-    system.EnterCriticalSection(exceptionStoring);
-    sl_title := TStringList.Create; sl_message := TStringList.Create; sl_messagedetails := TStringList.Create;
-    try
-      for i:=0 to high(errorMessageList) do begin
-        if oldErrorMessageString='' then
-          oldErrorMessageString:=#13#10#13#10#13#10'====Fehlerinformationen über alle vorhin aufgetretenden Fehler===='#13#10;
-        with errorMessageList[i] do begin
-          accountException:=true;
-          for j:=0 to high(details) do
-            if details[j].account=nil then accountException:=false;
-        
-          if accountException then begin
-            mes:=' ist leider folgender Fehler aufgetreten: '#13#10+error;
-            case length(details) of
-              0: mes:=' kein Konto (dieser Fehler macht keinen Sinn) '+mes;
-              1: mes:=' das Konto '+details[0].account.prettyName+mes;
-              else begin
-                mes:=details[high(details)-1].account.prettyName+' und '+details[high(details)].account.prettyName+mes;
-                for j:=0 to high(details)-2 do
-                  mes:=details[j].account.prettyName+', '+mes;
-                mes:=' die Konten '+mes;
-              end;
-            end;
-            mes:='Beim Zugriff auf'+mes;
-          end else begin
-            mes:='Es ist folgender Fehler aufgetreten: '#13#10+error;
-          end;
-
-          mesDetails:='';
-          for j:=0 to high(details) do begin
-            if details[j].account<>nil then
-              mesDetails:=mesDetails+'Details für den Zugriff auf Konto '+details[j].account.prettyname+' bei '+details[j].libraryId+':'#13#10
-             else
-              mesDetails:=mesDetails+'Details für die Suche nach '+details[j].searchQuery+' bei '+details[j].libraryId+':'#13#10;
-            mesDetails+=details[j].details+#13#10#13#10;
-          end;
-          oldErrorMessageString:=oldErrorMessageString+'---Fehler---'#13#10+mes+#13#10'Details:'#13#10+mesdetails;
-          if accountException then  title:='Fehler beim Aktualisieren der Bücherdaten'
-          else title:='Fehler';
-          sl_title.Add(title);
-          sl_message.add(mes);
-          sl_messagedetails.add(mesDetails);
-          //Application.MessageBox(pchar(error),pchar('Fehler bei Zugriff auf '+lib.prettyName),MB_APPLMODAL or MB_ICONERROR or MB_OK);
-        end;
-      end;
-      setlength(errorMessageList,0);
-    finally
-      system.LeaveCriticalSection(exceptionStoring);
-    end;
-    for i:=0 to sl_title.Count-1 do begin
-      if mainForm.Visible then
-        TshowErrorForm.showError(sl_title[i],sl_message[i],sl_messagedetails[i],@mainForm.MenuItem16Click)
-       else
-        TshowErrorForm.showError(sl_title[i],sl_message[i],sl_messagedetails[i]);
-    end;
-    sl_title.free; sl_message.free; sl_messagedetails.free
-  end;
 
   procedure addErrorMessage(errorStr,errordetails, anonymouseDetails, libraryId, searchQuery:string;lib:TCustomAccountAccess=nil);
   var i:integer;
@@ -243,10 +164,6 @@ uses bookwatchmain,internetaccess,controls,libraryaccess,math,FileUtil,bbutils,b
      result:='
   end;        *)
 
-  function confirm(s: string): boolean;
-  begin
-    result := MessageDlg(s, mtConfirmation ,[mbYes,mbNo],0) = mrYes;
-  end;
 
   procedure storeException(ex: exception; account:TCustomAccountAccess; libraryId, searchQuery: string);
   var  errorstr, errordetails, anonymouseDetails: string;
@@ -292,8 +209,7 @@ uses bookwatchmain,internetaccess,controls,libraryaccess,math,FileUtil,bbutils,b
     nextLimitStr:=DateToPrettyStr(nextLimit);
     if nextLimit<>nextNotExtendableLimit then
       nextLimitStr:=nextLimitStr+' (verlängerbar)';
-    if (mainform<>nil) and mainForm.Visible then
-      mainform.StatusBar1.Panels[0].text:='Älteste angezeigte Daten sind '+dateToPrettyGrammarStr('vom ','von ',lastCheck)
+    callbacks.statusChange('Älteste angezeigte Daten sind '+dateToPrettyGrammarStr('vom ','von ',lastCheck));
   end;
   procedure updateActiveInternetConfig;
   begin
@@ -345,134 +261,7 @@ uses bookwatchmain,internetaccess,controls,libraryaccess,math,FileUtil,bbutils,b
     defaultInternetConfiguration.proxySOCKSPort:=userConfig.ReadString('access','socksProxyPort','1080');
     defaultInternetConfiguration.checkSSLCertificates:=userConfig.ReadBool('access', 'checkCertificates', true);
   end;
-
-  procedure applicationUpdate(auto:boolean);
-  var  updater: TAutoUpdater;
-       temp:string;
-
-  begin
-    {$ifdef android}exit;{$endif}
-    if auto and ((userConfig.ReadInteger('updates','auto-check',1) = 0)
-                 or (currentDate-userConfig.ReadInteger('updates','lastcheck',0)<userConfig.ReadInteger('updates','interval',3))) then
-      exit;
-    if logging then log('applicationUpdate really started');
-    //updater:=TAutoUpdater.create(versionNumber,programpath,'http://www.benibela.de/updates/videlibri/version.xml'
-    //                                                      ,'http://www.benibela.de/updates/videlibri/changelog.xml');
-    //updater:=TAutoUpdater.create(versionNumber,programpath,'http://videlibri.hg.sourceforge.net/hgweb/videlibri/videlibri/raw-file/tip/programs/internet/VideLibri/_meta/version/version.xml'
-    //                                                      ,'http://videlibri.hg.sourceforge.net/hgweb/videlibri/videlibri/raw-file/tip/programs/internet/VideLibri/_meta/version/changelog.xml');
-    updater:=TAutoUpdater.create(versionNumber,programpath,'http://videlibri.sourceforge.net/updates/version.xml'
-                                                          ,'http://videlibri.sourceforge.net/updates/changelog.xml');
-
-    if updater.existsUpdate then begin
-      if { (not auto) or} (Application.MessageBox(pchar('Es gibt ein Update auf die Version '+floattostr(updater.newestVersion/1000)+':'#13#10#13#10+
-                                              updater.listChanges+#13#10+
-                                              'Soll es jetzt heruntergeladen (und wenn möglich installiert) werden?'),'Videlibri Update', mb_yesno)=idyes) then begin
-
-        assert(mainForm<>nil);
-                                                //TODO:   update
-                                                //Videlibri install win32 command: /SP- /silent /noicons "/dir=$OLDPATH;"
-        Screen.cursor:=crHourglass;
-        temp:=mainForm.StatusBar1.Panels[0].Text;
-
-        mainForm.StatusBar1.Panels[0].Text:='Bitte warten, Update wird heruntergeladen...';
-        updater.downloadUpdate();
-
-        if (updater.installerCmd<>'') and (updater.canRunInstaller) then begin
-          mainForm.StatusBar1.Panels[0].Text:='Bitte warten, Update wird installiert...';
-          updater.installUpdate();
-        end else ShowMessage('Update kann nicht automatisch installiert werden.'#13#10'Das Update wurde in der Datei '+updater.downloadedFileName+' gespeichert');
-
-        Screen.cursor:=crDefault;
-        mainForm.StatusBar1.Panels[0].Text:=temp;
-
-        if updater.needRestart then begin
-          mainForm.close;
-          //TODO: update else PostMessage(tna.messageWindow,WM_CLOSE,0,0);
-        end else if not auto then
-          Application.MessageBox('Update abgeschlossen','Videlibri Update', mb_ok);
-      end;
-    end else if not auto then
-      Application.MessageBox(pchar('Kein Update gefunden'#13#10'Die Version '+floattostr(updater.newestVersion/1000)+' ist die aktuelle.'),'Videlibri Update', mb_ok);
-    updater.free;
-    userConfig.WriteInteger('updates','lastcheck',currentDate);
-    if logging then log('applicationUpdate ended');
-  end;
-
-  procedure updateAutostart(enabled, askBeforeChange: boolean);
-  var {$IFDEF WIN32}reg:TRegistry;{$ENDIF}
-      autostartInvalid, correctAutostart: boolean;
-      autostartCommand:string;
-  begin
-    if enabled then begin
-      autostartInvalid:=false;
-      correctAutostart:=false;
-      {$IFDEF WIN32}
-      reg:=TRegistry.create;
-      reg.RootKey:=HKEY_CURRENT_USER;
-      reg.OpenKey('\Software\Microsoft\Windows\CurrentVersion\Run',true);
-      //MessageBox(0,pchar(ParamStr(0)),'',0);
-      autostartCommand:=lowercase('"'+ParamStr(0)+'" /autostart');
-      autostartInvalid:=lowercase(reg.ReadString('VideLibriAutostart')) <> autostartCommand;
-      {$ENDIF}
-      {$IFDEF UNIX}
-      {$IFNDEF ANDROID}
-      autostartCommand:='[Desktop Entry]'+LineEnding+
-        'Type=Application'+LineEnding+
-        'Exec='+ParamStrUTF8(0)+' --autostart'+LineEnding+
-        'Hidden=false'+LineEnding+
-        'X-GNOME-Autostart-enabled=true'+LineEnding+
-        'Name=videlibri'+LineEnding+
-        'Comment=Bücherverwaltungsprogramm'+ LineEnding+
-        'Icon='+assetPath+'yellow48.png';
-      if not FileExistsUTF8(GetUserDir+'.config/autostart/videlibri.desktop') then
-        autostartInvalid:=true
-       else
-        autostartInvalid:=strLoadFromFileUTF8(GetUserDir+'.config/autostart/videlibri.desktop')<>autostartCommand;
-      {$ELSE}
-      {$ENDIF}
-      {$ENDIF}
-
-      if autostartInvalid then
-        if not askBeforeChange then correctAutostart:=true
-        else correctAutostart:=Application.MessageBox('Der Autostarteintrag ist ungültig'#13#10+
-                        'Wenn er nicht geändert wird, können die Medien wahrscheinlich nicht automatisch verlängert werden.'#13#10+
-                        'Soll er nun geändert werden?','VideLibri',MB_YESNO) = IDYES;
-
-
-      {$IFDEF WIN32}
-      if correctAutostart then reg.WriteString('VideLibriAutostart','"'+ParamStr(0)+'" /autostart');
-      reg.free;
-      {$ENDIF}
-      {$IFDEF UNIX}
-      if correctAutostart then begin
-        ForceDirectoriesUTF8(GetUserDir+'.config/autostart');
-        strSaveToFileUTF8(GetUserDir+'.config/autostart/videlibri.desktop',autostartCommand);
-      end;
-      {$ENDIF}
-    end else begin
-      //ignore ask here
-      {$IFDEF WIN32}
-      reg:=TRegistry.create;
-      reg.RootKey:=HKEY_CURRENT_USER;
-      reg.OpenKey('\Software\Microsoft\Windows\CurrentVersion\Run',true);
-      reg.DeleteValue('VideLibriAutostart');
-      reg.free;
-      {$ENDIF}
-      {$IFDEF UNIX}
-      DeleteFileUTF8(GetUserDir+'.config/autostart/videlibri.desktop');
-      {$ENDIF}
-    end;
-  end;
-
-  //normal exception handling doesn't seem to work properly when lcl is not loaded
-  //(update: since dec 2009/linux transition, lcl is always loaded)
-  procedure raiseInitializationError(s: string);
-  begin
-    Application.MessageBox(pchar(s), 'Videlibri Fehler', MB_ICONERROR);
-    cancelStarting:=true;
-    if logging then log('raiseInitializationError: '+s);
-    raise exception.Create(s);
-  end;
+  type EInitializationError = class(Exception);
 
   procedure initApplicationConfig;
   var i:integer;
@@ -544,14 +333,14 @@ uses bookwatchmain,internetaccess,controls,libraryaccess,math,FileUtil,bbutils,b
 
     {$ifndef android}
     if not DirectoryExists(programPath) then
-      raiseInitializationError('Programmpfad "'+programPath+'" wurde nicht gefunden');
+      raise EInitializationError.create('Programmpfad "'+programPath+'" wurde nicht gefunden');
     if not DirectoryExists(assetPath) then begin
       {$ifdef UNIX}
       if DirectoryExists('/usr/share/videlibri/data/') then
         assetPath:='/usr/share/videlibri/data/'
        else
       {$endif}
-      raiseInitializationError('Datenpfad "'+assetPath+'" wurde nicht gefunden');
+      raise EInitializationError.Create('Datenpfad "'+assetPath+'" wurde nicht gefunden');
     end;
     if logging and (not FileExists(assetPath+'machine.config')) then
       log('machine.config will be created');
@@ -586,9 +375,9 @@ uses bookwatchmain,internetaccess,controls,libraryaccess,math,FileUtil,bbutils,b
         ForceDirectory(userPath);
         if logging then log('user path: '+userPath+' should be created');
         if not DirectoryExists(userPath) then
-          raiseInitializationError('Benutzerpfad "'+userPath+'" wurde nicht gefunden und konnte nicht erzeugt werden');
+          raise EInitializationError.Create('Benutzerpfad "'+userPath+'" wurde nicht gefunden und konnte nicht erzeugt werden');
        except
-         raiseInitializationError('Benutzerpfad "'+userPath+'" wurde nicht gefunden und konnte nicht erzeugt werden');
+         raise EInitializationError.Create('Benutzerpfad "'+userPath+'" wurde nicht gefunden und konnte nicht erzeugt werden');
        end;
     end;
 
@@ -619,8 +408,7 @@ uses bookwatchmain,internetaccess,controls,libraryaccess,math,FileUtil,bbutils,b
 
     if commandLine.readInt('debug-addr-info')<>0 then begin
       cancelStarting:=true;
-      Application.MessageBox(pchar(string(BackTraceStrFunc(pointer(commandLine.readInt('debug-addr-info'))))),'Point',0);
-      raise exception.create(BackTraceStrFunc(pointer(commandLine.readInt('debug-addr-info'))));
+      raise EInitializationError.create(BackTraceStrFunc(pointer(commandLine.readInt('debug-addr-info'))));
     end;
 
     if commandLine.readInt('updated-to')<>0 then
@@ -645,18 +433,11 @@ uses bookwatchmain,internetaccess,controls,libraryaccess,math,FileUtil,bbutils,b
       //TODO: Check autostart registry value (for later starts)
       if (not userConfig.SectionExists('autostart')) or
          (userConfig.ReadInteger('autostart','type',1)<>2) then
-           updateAutostart(true,true);
+           callbacks.updateAutostart(true,true);
     end;
     if not cancelStarting then begin
       debugMode := commandLine.readFlag('debug');
       refreshAllAndIgnoreDate:=commandline.readFlag('refreshAll');
-    
-      colorLimited:=userConfig.ReadInteger('appearance','limited',integer(clYellow));
-      colorTimeNear:=userConfig.ReadInteger('appearance','timeNear',integer(clRed));
-      colorOK:=userConfig.ReadInteger('appearance','default',integer((clGreen+clLime) div 2));
-      colorOld:=userConfig.ReadInteger('appearance','history',integer(clSilver));
-      colorProvided:=userConfig.ReadInteger('appearance','provided',integer(clFuchsia));
-      colorOrdered:=userConfig.ReadInteger('appearance','ordered',integer(clAqua));
 
       updateActiveInternetConfig;
 
@@ -665,6 +446,8 @@ uses bookwatchmain,internetaccess,controls,libraryaccess,math,FileUtil,bbutils,b
       InitCriticalSection(updateThreadConfig.threadManagementSection);
       InitCriticalSection(updateThreadConfig.libraryFileAccess);
       InitCriticalSection(exceptionStoring);
+
+      callbacks.postInitApplication();
     end;
     commandLine.free;
   end;
@@ -733,14 +516,12 @@ uses bookwatchmain,internetaccess,controls,libraryaccess,math,FileUtil,bbutils,b
     end;
   end;
 
-  procedure openInternetPage(url: string; myOptions: string);
-  begin
-    (*if (userConfig.ReadInteger('access','homepage-type',1)=0) and (FileExists(programPath+'simpleBrowser.exe')) then
-       //TODO: WinExec(pchar(programPath+'simpleBrowser /site="'+url+'" '+myOptions),SW_SHOWNORMAL)
-     else if Application.MainForm<>nil then
-       //TODO: shellexecute(Application.MainForm.Handle,'open',pchar('"'+url+'"'),'','',SW_SHOWNORMAL);*)
-    OpenURL(url)
-   end;
+
+   class procedure TCallbackHolder.updateAutostart(enabled, askBeforeChange: boolean); begin end;
+   class procedure TCallbackHolder.applicationUpdate(auto: boolean); begin end;
+   class procedure TCallbackHolder.statusChange(const message: string); begin end;
+   class procedure TCallbackHolder.allThreadsDone; begin end;
+   class procedure TCallbackHolder.postInitApplication; begin end;
 
 end.
 

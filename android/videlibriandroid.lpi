@@ -35,53 +35,32 @@
         <PackageName Value="LCL"/>
       </Item1>
     </RequiredPackages>
-    <Units Count="8">
+    <Units Count="5">
       <Unit0>
         <Filename Value="videlibriandroid.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="videlibriandroid"/>
       </Unit0>
       <Unit1>
-        <Filename Value="..\bookwatchmain.pas"/>
-        <IsPartOfProject Value="True"/>
-        <ComponentName Value="mainForm"/>
-        <HasResources Value="True"/>
-        <ResourceBaseClass Value="Form"/>
-        <UnitName Value="bookWatchMain"/>
-      </Unit1>
-      <Unit2>
-        <Filename Value="..\newaccountwizard_u.pas"/>
-        <IsPartOfProject Value="True"/>
-        <ComponentName Value="newAccountWizard"/>
-        <HasResources Value="True"/>
-        <ResourceBaseClass Value="Form"/>
-      </Unit2>
-      <Unit3>
-        <Filename Value="..\..\..\..\components\lazarus\internet\sendBackError\sendBackError.pas"/>
-        <IsPartOfProject Value="True"/>
-        <HasResources Value="True"/>
-        <UnitName Value="sendBackError"/>
-      </Unit3>
-      <Unit4>
         <Filename Value="..\applicationconfig.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="applicationconfig"/>
-      </Unit4>
-      <Unit5>
+      </Unit1>
+      <Unit2>
         <Filename Value="..\..\..\..\components\pascal\system\bbjniutils.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="bbjniutils"/>
-      </Unit5>
-      <Unit6>
+      </Unit2>
+      <Unit3>
         <Filename Value="androidutils.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="androidutils"/>
-      </Unit6>
-      <Unit7>
+      </Unit3>
+      <Unit4>
         <Filename Value="..\libraryaccess.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="libraryAccess"/>
-      </Unit7>
+      </Unit4>
     </Units>
   </ProjectOptions>
   <CompilerOptions>
@@ -89,7 +68,7 @@
     <PathDelim Value="\"/>
     <SearchPaths>
       <IncludeFiles Value="$(ProjOutDir)"/>
-      <OtherUnitFiles Value="\home\benito\hg\components\pascal\data\;\home\benito\hg\programs\contests\euler\;\home\benito\hg\components\pascal\internet\;\home\benito\hg\components\lazarus\dialogs\;\home\benito\hg\components\pascal\system\;\home\benito\hg\components\pascal\import\regexpr\source\;..;..\..\..\..\components\lazarus\internet\sendBackError;\opt\lazarus\lcl\interfaces\customdrawn\android\"/>
+      <OtherUnitFiles Value="\home\benito\hg\components\pascal\data\;\home\benito\hg\programs\contests\euler\;\home\benito\hg\components\pascal\internet\;\home\benito\hg\components\lazarus\dialogs\;\home\benito\hg\components\pascal\system\;\home\benito\hg\components\pascal\import\regexpr\source\;..;\opt\lazarus\lcl\interfaces\customdrawn\android\"/>
       <UnitOutputDirectory Value="lib\$(TargetCPU)-$(TargetOS)"/>
       <SrcPath Value="\home\benito\hg\components\pascal\import\synapse\;..\..\import\synapse"/>
     </SearchPaths>
