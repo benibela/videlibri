@@ -17,7 +17,7 @@ uses
   Buttons, libraryParser, internetAccess, ComCtrls, Menus, lmessages, ExtCtrls,
   errorDialog, statistik_u, libraryAccess, sendBackError, Translations,
   progressDialog, bookListView, TreeListView, bookSearchForm, LCLType, lclproc,
-  LCLIntf, process, applicationconfig,exportxml;
+  LCLIntf, process, applicationconfig,exportxml,applicationdesktopconfig;
 
 const //automaticExtend=true;
       colorSelected=clHighlight;
@@ -785,7 +785,7 @@ end;
 
 procedure TmainForm.MenuItem18Click(Sender: TObject);
 begin
-  applicationUpdate(false);
+  callbacks. applicationUpdate(false);
 end;
 
 procedure TmainForm.MenuItem1Click(Sender: TObject);
@@ -1091,7 +1091,7 @@ begin
     //if lib.bestHomepageHeight>0 then extraParams:=extraParams+' /pageheight='+InttoStr(lib.bestHomepageHeight);
   end;
 //  ShowMessage(TMenuItem(sender).Caption);
-  openInternetPage(baseURL,'/title="'+title+'" /configfile="'+userPath+'browserconfig.ini" /windowsection='+id+' '+extraParams);
+  OpenURL(baseURL);//,'/title="'+title+'" /configfile="'+userPath+'browserconfig.ini" /windowsection='+id+' '+extraParams);
   //ShowMessage(programPath+'simpleBrowser /title="'+TMenuItem(sender).Caption+'" /site="'+baseURL+'" /configfile="'+userPath+'browerconfig.ini" /windowsection='+id);
 end;
 

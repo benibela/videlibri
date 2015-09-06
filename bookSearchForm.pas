@@ -131,7 +131,7 @@ const SB_PANEL_FOUND_COUNT=1;
       SB_PANEL_SEARCH_STATUS=0;
 implementation
 
-uses applicationconfig,libraryParser,simplexmlparser,bbdebugtools,bookWatchMain,bbutils,LCLType,libraryAccess;
+uses applicationconfig,applicationdesktopconfig, libraryParser,simplexmlparser,bbdebugtools,bookWatchMain,bbutils,LCLType,libraryAccess,LCLIntf;
 
 { TbookSearchFrm }
 //TODO: fehler bei keinem ergebnis
@@ -364,7 +364,7 @@ begin
     if i < 0 then i := pos('https://', recordItem.Text);
     temp := strCopyFrom(recorditem.Text, i);
     if strContains(temp, ' ') then delete(temp, strIndexOf(temp, ' '), length(temp));
-    openInternetPage(temp);
+    openURL(temp);
   end;
 end;
 
@@ -743,7 +743,7 @@ begin
     exit;
   end;
   if logging then log('Open page: '+site);
-  openInternetPage(site);
+  OpenURL(site);
 end;
 
 procedure TbookSearchFrm.optionPanelClick(Sender: TObject);

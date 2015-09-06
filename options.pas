@@ -215,7 +215,7 @@ var
 
 implementation
 
-uses newAccountWizard_u, applicationconfig, simplehtmltreeparser, androidutils, multipagetemplate, bbutils, internetaccess, simpleinternet,math;
+uses newAccountWizard_u, applicationconfig, applicationdesktopconfig, simplehtmltreeparser, androidutils, multipagetemplate, bbutils, internetaccess, simpleinternet,math;
 
 
 
@@ -518,7 +518,7 @@ begin
 
   //Autostart/Zeitenpage
   userConfig.WriteBool('autostart','minimized',CheckBox1.Checked);
-  updateAutostart(autostartAlways.Checked or autostartDepends.Checked,false);
+  callbacks.updateAutostart(autostartAlways.Checked or autostartDepends.Checked,false);
   if autostartAlways.Checked then userConfig.writeInteger('autostart','type',0)
   else if autostartDepends.Checked then userConfig.writeInteger('autostart','type',1)
   else if autostartNever.Checked then userConfig.writeInteger('autostart','type',2)

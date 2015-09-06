@@ -76,7 +76,7 @@ var
   newAccountWizard: TnewAccountWizard;
 
 implementation
-uses applicationconfig,libraryaccess,internetAccess,LCLProc,bbdebugtools;
+uses applicationconfig,applicationdesktopconfig, libraryaccess,internetAccess,LCLProc,bbdebugtools;
 { TnewAccountWizard }
 
 
@@ -378,4 +378,4 @@ initialization
 
 end.
 
-
+

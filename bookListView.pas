@@ -52,7 +52,7 @@ const BL_BOOK_COLUMNS_AUTHOR=2;
 function dateToWeek(date: longint):longint; //week: monday - sunday
 implementation
 
-uses applicationconfig, bbutils, libraryParser, Graphics;
+uses applicationdesktopconfig, applicationconfig,  bbutils, libraryParser, Graphics;
 //  ,windows {for the search only};
 
 
