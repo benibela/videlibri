@@ -13,6 +13,7 @@
 </action>
 
 <action id="connect">
+  <s>touchpoint := contains($server, "touchpoint")</s>
   <page url="{$server}/start.do{get('startparams','')}" templateFile="start"/>
 </action>
 
@@ -44,7 +45,7 @@
   
   <s>requestedUrl := "",
      orderedUrl := "",
-     startUrl := x'{$server}/userAccount.do;jsession;?methodToCall=show&amp;typ=1',
+     startUrl := x'{$server}/userAccount.do;jsession;?methodToCall={if ($touchpoint) then "start" else "show&amp;typ=1"}',
      minRenewedId := $minCancelId := 999999999,
      nextPage := ""
   </s>
@@ -135,7 +136,7 @@
       { "combinationOperator[2]": "AND", "searchCategories[2]": $searchOptions[3](1), "searchString[2]": $searchOptions[3](2) } else (),
     {"submitSearch": "Suchen", "callingPage": "searchParameters"},
     if (exists(get("home-branches", ())[get("home-branch-id", 0)])) then  
-      {"selectedViewBranchlib": $home-branch-values[$home-branch-id]} else (),
+      {$home-branch-name: $home-branch-values[$home-branch-id]} else (),
     if (exists(get("search-branches", ())[get("search-branch-id", 0)])) then   
       ($search-branch-extended-options, {$search-branch-name: $search-branch-values[$search-branch-id]}) else ()
     )

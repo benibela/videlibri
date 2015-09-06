@@ -1,14 +1,20 @@
 <html>
 <body>
-  <div id="mainnav">
-     <a template:condition="contains(@href, 'userAccount.do')"><template:read source="@href" var="jsession" regex="jsessionid=[0-9a-zA-Z_-]*"/></a> <!-- jsession can be empty?-->
-  </div>
-  <input type="hidden" name="CSId">
-     <template:read source="@value" var="CSId"/>
-  </input>
-  <select id="selectedViewBranchlib">{home-branches := option, home-branch-values := option/@value}</select>?
-  <select id="selectedSearchBranchlib">{search-branches := option, search-branch-values := option/@value, search-branch-name := @name, search-branch-extended-options := ()}</select>?
-  <select id="Suche in Zweigstelle">{search-branches := option, search-branch-values := option/@value, search-branch-name := @name, search-branch-extended-options := ./preceding-sibling::input[1]}</select>?
+  <a template:condition="contains(@href, 'userAccount.do')">{jsession:=extract(@href,"jsessionid=[0-9a-zA-Z_-]*")}</a> <!-- jsession can be empty?-->
+  <input type="hidden" name="CSId">{$CSId:=@value}</input>
+  { (id("selectedViewBranchlib"), id("selectedBranchView"))[1] ! ( 
+      home-branches := option, 
+      home-branch-values := option/@value,
+      home-branch-name := @name
+    ), 
+    (//select[@id=("selectedSearchBranchlib", "Suche in Zweigstelle", "searchRestrictionValue1_0")])[1] ! (
+      search-branches := option, 
+      search-branch-values := option/@value, 
+      search-branch-name := @name, 
+      search-branch-extended-options := if (@id = "Suche in Zweigstelle") then ./preceding-sibling::input[1] else ()      
+    )
+  } 
+  <!--  both id lists:  sisis: firsts, touchpoint: last -->
 </body>
 </html>
   

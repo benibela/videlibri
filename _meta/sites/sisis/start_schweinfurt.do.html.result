@@ -11,6 +11,7 @@ text{"2"},
 text{"3"}, 
 text{"4"}, 
 text{"5"})
+home-branch-name := text{"selectedViewBranchlib"}
 search-branches := (text{"alle"}, 
 text{"FH-Bibl. Würzburg (863)"}, 
 text{"FH-Bibl. Schweinfurt (862)"}, 

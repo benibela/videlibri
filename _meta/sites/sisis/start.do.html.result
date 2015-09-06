@@ -7,6 +7,7 @@ text{"Medizinische Bibliothek"})
 home-branch-values := (text{"0"}, 
 text{"1"}, 
 text{"2"})
+home-branch-name := text{"selectedViewBranchlib"}
 search-branches := (text{"Alle Zweigstellen"}, 
 text{"Zentralbibliothek"}, 
 text{"Lehrbuchsammlung"}, 
