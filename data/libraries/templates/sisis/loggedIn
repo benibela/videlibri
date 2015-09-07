@@ -65,13 +65,17 @@
         </t:else>
         {book := object()}
         <td>
-          <strong><template:read source="." var="book.title"/></strong><br/>
+          <t:switch> 
+            <strong>{$book.title}</strong>
+            <b>{$book.title}</b>
+          </t:switch>
+          <br/>
           <!-- <template:read source="true()" var="spanmissing"/>
          <template:read source="false()" var="previousspan"/>-->
           <template:read source="text()" var="book.author"/><br/>
           <template:read source="text()" var="book.id" regex="^[^/]*"/><br/>
           <a template:optional="true">
-            <template:read source="@href" var="book.extendID" regex="actPos=([0-9]+)$" submatch="1"/>
+            {$book.actionURI := resolve-html(.)}
             <span>
               <template:read source="." var="book.status:curious"/>
             <!--  <template:read source="@class != 'textgruen'" var="spanmissing"/>-->
@@ -84,7 +88,7 @@
             <template:read source="true()" var="previousspan"/>-->
           </span>
           <a template:optional="true">
-            {book.extendID := extract(@href, "actPos=([0-9]+)$", "1"),
+            {book.actionURI := resolve-html(.),
              book.statusId := if ($mode eq 3) then "ordered" else if ($mode eq 2) then "provided" else "curious",
              book.cancelable := $mode eq 3,
              book._onPage := $url, book._onPageStart := $startUrl}          
@@ -97,27 +101,28 @@
            </template:if>-->
          </td>
       <!--   <template:if test="$spanmissing"><broken/></template:if>-->
-         <template:switch>
-           <td>bestellt<br/>
-              <t:s>book.status := ./text()[1],
-                   book.issuedate := parse-date(extract(., '\d{2}\.\d{2}\.\d{4}', 0), 'dd.mm.yyyy|'), 
-                   book.statusId := "ordered",
-                   book.cancelable := boolean($book.extendID) </t:s>
-           </td>
-           <td>abholbar<br/>
-              <t:s>book.status := ./text()[1],
-                   book.issuedate := parse-date(extract(., '\d{2}\.\d{2}\.\d{4}', 0), 'dd.mm.yyyy|'), 
-                   book.statusId := "provided",
-                   book.cancelable := boolean($book.extendID)</t:s>
-           </td>
-           <td>
-             { let $dates := extract(., '((\d{2}\.\d{2}\.\d{4}) *-)? *(\d{2}\.\d{2}\.\d{4})', (1,3)) 
+         <template:switch>        
+           <td>{
+             switch ($mode)
+               case 3 return  ( (:  bestellt | ... br Vormerkung :)
+                 book.status := ./text()[1],
+                 book.issuedate := parse-date(extract(., '\d{2}\.\d{2}\.\d{4}', 0), 'dd.mm.yyyy|'), 
+                 book.statusId := "ordered",
+                 book.cancelable := boolean($book.actionURI)
+               )
+               case 2 return (
+                 book.status := ./text()[1],
+                 book.issuedate := parse-date(extract(., '\d{2}\.\d{2}\.\d{4}', 0), 'dd.mm.yyyy|'), 
+                 book.statusId := "provided",
+                 book.cancelable := boolean($book.actionURI)
+               )
+               default return 
+               let $dates := extract(., '((\d{2}\.\d{2}\.\d{4}) *-)? *(\d{2}\.\d{2}\.\d{4})', (1,3)) 
                return (
                  if ($dates[1]) then book.issuedate:=parse-date($dates[1], 'dd.mm.yyyy') else (),
                  book.duedate:=parse-date($dates[2], 'dd.mm.yyyy')
                )
-             }
-           </td>
+           }</td>
          </template:switch>
        </tr>
               

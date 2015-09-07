@@ -1,26 +1,30 @@
 <html>
 <body>
-  <table class="data">
-    <tr> 
-      <td>
-        {book := $b, book._select := $b}
-        <strong class="c2">Titel:</strong>
-        <strong><template:read var="newBookTitle" source="text()"/></strong>
-        
-        <t:s>status_found:=false()</t:s>
-        <strong class="c2" template:optional=true>Status:<t:s>status_found:=true()</t:s></strong>
-        <t:if test="$status_found"><strong>
-          <template:read source="text()" var="book.status:problematic"/>
-        </strong></t:if>
-        
-        <strong class="c2">neues Leihfristende:
-          <template:read var="book.duedate" source="parse-date(string-join(./following-sibling::node(), ''),'dd.mm.yyyy')"/>
-        </strong>
-        <template:if test="$newBookTitle!=$book.title">
-          <broken/>
-        </template:if>
-      </td>
-    </tr>       
-  </table>
+  <t:switch prioritized="true">
+    <table class="data">
+      <tr> 
+        <td>
+          {book := $b, book._select := $b}
+          <strong class="c2">Titel:</strong>
+          <strong><template:read var="newBookTitle" source="text()"/></strong>
+          
+          <t:s>status_found:=false()</t:s>
+          <strong class="c2" template:optional=true>Status:<t:s>status_found:=true()</t:s></strong>
+          <t:if test="$status_found"><strong>
+            <template:read source="text()" var="book.status:problematic"/>
+          </strong></t:if>
+          
+          <strong class="c2">neues Leihfristende:
+            <template:read var="book.duedate" source="parse-date(string-join(./following-sibling::node(), ''),'dd.mm.yyyy')"/>
+          </strong>
+          <template:if test="$newBookTitle!=$book.title">
+            <broken/>
+          </template:if>
+        </td>
+      </tr>       
+    </table>
+    
+    <div class="message-confirm">Medium erfolgreich verlängert!<t:s>need-update:=true()</t:s></div>
+  </t:switch>
 </body>
 </html>
