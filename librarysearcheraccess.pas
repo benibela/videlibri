@@ -140,7 +140,7 @@ type
 function getSearchableLocations: TSearchableLocations;
 implementation
 
-uses applicationconfig, bbdebugtools, androidutils {$ifdef android}, bbjniutils{$endif};
+uses applicationconfig, bbdebugtools, internetaccess, androidutils {$ifdef android}, bbjniutils{$endif};
 
 function getSearchableLocations: TSearchableLocations;
 var digibib: TMultiPageTemplate;
@@ -520,12 +520,16 @@ begin
         smtImage: begin
           if logging then log('Searcher thread: message typ smtImage: image-searched: '+getproperty('image-searched',book.additional)+'  image-url: '+getProperty('image-url',book.additional));
           if (getproperty('image-searched',book.additional)<>'true') then begin
-            if (getProperty('image-url',book.additional)<>'') then begin
-              if logging then log('image url: '+getProperty('image-url',book.additional));
-              image:=searcher.bookListReader.internet.get(getProperty('image-url',book.additional));
-            end else image:='';
-            if (image = '') and (book.isbn <> '') then
-              image:=searcher.bookListReader.internet.get('http://covers.openlibrary.org/b/isbn/'+book.getNormalizedISBN+'-M.jpg');
+            try
+              if (getProperty('image-url',book.additional)<>'') then begin
+                if logging then log('image url: '+getProperty('image-url',book.additional));
+                image:=searcher.bookListReader.internet.get(getProperty('image-url',book.additional));
+              end else image:='';
+              if (image = '') and (book.isbn <> '') then
+                image:=searcher.bookListReader.internet.get('http://covers.openlibrary.org/b/isbn/'+book.getNormalizedISBN+'-M.jpg');
+            except
+              on e: EInternetException do image := '';
+            end;
             if logging then log('got image: size: '+IntToStr(length(image)));
             access.beginBookReading;
             addProperty('image',image,book.additional);
