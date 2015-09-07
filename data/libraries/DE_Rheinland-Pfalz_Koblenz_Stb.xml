@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <library>
-  <longName value="Stadtbibliothek Koblenz (alpha)"/>
+  <longName value="Stadtbibliothek Koblenz"/>
   
   <template value="zones18"/>  
   <variable name="baseurl" value="https://www.stb.koblenz.de/opac/alswww2.dll/"/>
