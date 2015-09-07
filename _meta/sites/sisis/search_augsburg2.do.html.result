@@ -28,7 +28,7 @@ hasZ3988 := false()
 brs := (text{"Sbh2"}, 
 text{""}, 
 text{""})
-book := {"year": "", "author": "Sbh2", "title": "Ästhetische Theorie und musikpädagogische Theoriebildung : Sitzungsbericht der Wissenschaftlichen Sozietät Musikpädagogik", "_detail-url": "/webOPACClient.stasis/singleHit.do?methodToCall=showHit&curPos=3&identifier=-1_S_IG.49.27050", "orderable": 0}
+book := {"author": "Sbh2", "title": "Ästhetische Theorie und musikpädagogische Theoriebildung : Sitzungsbericht der Wissenschaftlichen Sozietät Musikpädagogik", "_detail-url": "/webOPACClient.stasis/singleHit.do?methodToCall=showHit&curPos=3&identifier=-1_S_IG.49.27050", "orderable": 0}
 hasZ3988 := false()
 brs := (text{"2001"}, 
 text{"eBook"}, 

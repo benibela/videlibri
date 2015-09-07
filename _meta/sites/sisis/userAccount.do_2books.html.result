@@ -2,6 +2,7 @@ book := {}
 bookCount := ""
 nextPage := ""
 startUrl := ""
+touchpoint := false()
 bookCountLend := "2"
 bookCountRequested := "0"
 requestedUrl := text{"/InfoGuideClient/userAccount.do?methodToCall=showAccount&amp;typ=6"}

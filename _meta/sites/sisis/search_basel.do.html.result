@@ -8,7 +8,7 @@ text{""},
 text{""}, 
 text{""}, 
 text{""})
-book := {"year": "", "author": "Online-Dokument", "title": "Kindlers Literatur Lexikon: Wellek, René / Warren, Austin - Theory of Literature", "_detail-url": "/InfoGuideClient.sisis/singleHit.do?methodToCall=showHit&curPos=11&identifier=-1_S_IG.1273.27359", "orderable": 0}
+book := {"author": "Online-Dokument", "title": "Kindlers Literatur Lexikon: Wellek, René / Warren, Austin - Theory of Literature", "_detail-url": "/InfoGuideClient.sisis/singleHit.do?methodToCall=showHit&curPos=11&identifier=-1_S_IG.1273.27359", "orderable": 0}
 hasZ3988 := false()
 brs := (text{"1994"}, 
 text{"Kommunikation &amp; Information: 301.14"}, 
@@ -66,7 +66,7 @@ text{""},
 text{""}, 
 text{""}, 
 text{""})
-book := {"year": "", "author": "Allgoewer, Elisabeth", "title": "Kindlers Literatur Lexikon: Hicks, John Richard - Value and Capital", "_detail-url": "/InfoGuideClient.sisis/singleHit.do?methodToCall=showHit&curPos=17&identifier=-1_S_IG.1273.27359", "orderable": 0}
+book := {"author": "Allgoewer, Elisabeth", "title": "Kindlers Literatur Lexikon: Hicks, John Richard - Value and Capital", "_detail-url": "/InfoGuideClient.sisis/singleHit.do?methodToCall=showHit&curPos=17&identifier=-1_S_IG.1273.27359", "orderable": 0}
 hasZ3988 := false()
 brs := (text{"Arens, Thomas"}, 
 text{"2004"}, 

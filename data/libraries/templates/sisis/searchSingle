@@ -9,7 +9,7 @@
   <img alt="Buchcover">{book.image-url := resolve-uri(@src)}</img>?
 </div>?
 
-<div id="tab-content">
+<div t:condition="@id=('tab-content', 'detailsTabs-titleinfo')">
   <template:switch-prioritized>
     <table class="data2">
       <template:loop><template:switch>
@@ -23,7 +23,7 @@
       </template:switch></template:loop>
     </table>
 
-    <table class="fulltitle">
+    <table t:condition="@class=('fulltitle','titleinfo')">
       <template:loop><template:switch>
       <tr><th>^(Titel|Title):</th><td>{$book.title}</td></tr>
       <tr><th>^Autor|Verfasser</th><td>{$book.author}</td></tr>

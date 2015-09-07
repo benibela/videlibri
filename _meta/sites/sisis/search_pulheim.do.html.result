@@ -7,55 +7,55 @@ brs := (text{"Zeitschrift"},
 text{""}, 
 text{""}, 
 text{""})
-book := {"year": "", "author": "Zeitschrift", "title": "Öko-Test/07/12", "_detail-url": "/webOPACClient/singleHit.do?methodToCall=showHit&curPos=1&identifier=-1_S_IG.505.23157", "orderable": 0}
+book := {"author": "Zeitschrift", "title": "Öko-Test/07/12", "_detail-url": "/webOPACClient/singleHit.do?methodToCall=showHit&curPos=1&identifier=-1_S_IG.505.23157", "orderable": 0}
 hasZ3988 := false()
 brs := (text{"Zeitschrift"}, 
 text{""}, 
 text{""}, 
 text{""})
-book := {"year": "", "author": "Zeitschrift", "title": "Öko-Test/08/12", "_detail-url": "/webOPACClient/singleHit.do?methodToCall=showHit&curPos=2&identifier=-1_S_IG.505.23157", "orderable": 0}
+book := {"author": "Zeitschrift", "title": "Öko-Test/08/12", "_detail-url": "/webOPACClient/singleHit.do?methodToCall=showHit&curPos=2&identifier=-1_S_IG.505.23157", "orderable": 0}
 hasZ3988 := false()
 brs := (text{"Zeitschrift"}, 
 text{""}, 
 text{""}, 
 text{""})
-book := {"year": "", "author": "Zeitschrift", "title": "Öko-Test/09/12", "_detail-url": "/webOPACClient/singleHit.do?methodToCall=showHit&curPos=3&identifier=-1_S_IG.505.23157", "orderable": 0}
+book := {"author": "Zeitschrift", "title": "Öko-Test/09/12", "_detail-url": "/webOPACClient/singleHit.do?methodToCall=showHit&curPos=3&identifier=-1_S_IG.505.23157", "orderable": 0}
 hasZ3988 := false()
 brs := (text{"Zeitschrift"}, 
 text{""}, 
 text{""}, 
 text{""})
-book := {"year": "", "author": "Zeitschrift", "title": "Öko-Test/10/12", "_detail-url": "/webOPACClient/singleHit.do?methodToCall=showHit&curPos=4&identifier=-1_S_IG.505.23157", "orderable": 0}
+book := {"author": "Zeitschrift", "title": "Öko-Test/10/12", "_detail-url": "/webOPACClient/singleHit.do?methodToCall=showHit&curPos=4&identifier=-1_S_IG.505.23157", "orderable": 0}
 hasZ3988 := false()
 brs := (text{"Zeitschrift"}, 
 text{""}, 
 text{""}, 
 text{""})
-book := {"year": "", "author": "Zeitschrift", "title": "Öko-Test/11/12", "_detail-url": "/webOPACClient/singleHit.do?methodToCall=showHit&curPos=5&identifier=-1_S_IG.505.23157", "orderable": 0}
+book := {"author": "Zeitschrift", "title": "Öko-Test/11/12", "_detail-url": "/webOPACClient/singleHit.do?methodToCall=showHit&curPos=5&identifier=-1_S_IG.505.23157", "orderable": 0}
 hasZ3988 := false()
 brs := (text{"Zeitschrift"}, 
 text{""}, 
 text{""}, 
 text{""})
-book := {"year": "", "author": "Zeitschrift", "title": "Öko-Test/12/12", "_detail-url": "/webOPACClient/singleHit.do?methodToCall=showHit&curPos=6&identifier=-1_S_IG.505.23157", "orderable": 0}
+book := {"author": "Zeitschrift", "title": "Öko-Test/12/12", "_detail-url": "/webOPACClient/singleHit.do?methodToCall=showHit&curPos=6&identifier=-1_S_IG.505.23157", "orderable": 0}
 hasZ3988 := false()
 brs := (text{"Zeitschrift"}, 
 text{""}, 
 text{""}, 
 text{""})
-book := {"year": "", "author": "Zeitschrift", "title": "Öko-Test/01/13", "_detail-url": "/webOPACClient/singleHit.do?methodToCall=showHit&curPos=7&identifier=-1_S_IG.505.23157", "orderable": 0}
+book := {"author": "Zeitschrift", "title": "Öko-Test/01/13", "_detail-url": "/webOPACClient/singleHit.do?methodToCall=showHit&curPos=7&identifier=-1_S_IG.505.23157", "orderable": 0}
 hasZ3988 := false()
 brs := (text{"entliehen (gesamte Vormerkungen: 0)"}, 
 text{""}, 
 text{""})
-book := {"year": "", "author": "", "title": "Öko-Test/02/13", "_detail-url": "/webOPACClient/singleHit.do?methodToCall=showHit&curPos=8&identifier=-1_S_IG.505.23157", "orderable": 0}
+book := {"author": "", "title": "Öko-Test/02/13", "_detail-url": "/webOPACClient/singleHit.do?methodToCall=showHit&curPos=8&identifier=-1_S_IG.505.23157", "orderable": 0}
 hasZ3988 := false()
 brs := (text{"entliehen (gesamte Vormerkungen: 0)"}, 
 text{""}, 
 text{""})
-book := {"year": "", "author": "", "title": "Öko-Test/03/13", "_detail-url": "/webOPACClient/singleHit.do?methodToCall=showHit&curPos=9&identifier=-1_S_IG.505.23157", "orderable": 0}
+book := {"author": "", "title": "Öko-Test/03/13", "_detail-url": "/webOPACClient/singleHit.do?methodToCall=showHit&curPos=9&identifier=-1_S_IG.505.23157", "orderable": 0}
 hasZ3988 := false()
 brs := (text{"entliehen (gesamte Vormerkungen: 0)"}, 
 text{""}, 
 text{""})
-book := {"year": "", "author": "", "title": "Öko-Test/04/13", "_detail-url": "/webOPACClient/singleHit.do?methodToCall=showHit&curPos=10&identifier=-1_S_IG.505.23157", "orderable": 0}
+book := {"author": "", "title": "Öko-Test/04/13", "_detail-url": "/webOPACClient/singleHit.do?methodToCall=showHit&curPos=10&identifier=-1_S_IG.505.23157", "orderable": 0}

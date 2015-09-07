@@ -10,9 +10,9 @@ text{""},
 text{""})
 book := {"year": "1996", "author": "Dunkel, Daniel", "title": "_Der gerupfte Bürger", "_detail-url": "/webOPACClient.sisis/singleHit.do?methodToCall=showHit&curPos=11&identifier=-1_S_IG.127.14832", "orderable": 0}
 hasZ3988 := false()
+book := {"author": "", "title": "Energiesparen mit dem Blick aufs Ganze", "_detail-url": "/webOPACClient.sisis/singleHit.do?methodToCall=showHit&curPos=12&identifier=-1_S_IG.127.14832", "orderable": 0}
 brs := (text{""}, 
 text{""})
-book := {"year": "", "author": "", "title": "Energiesparen mit dem Blick aufs Ganze", "_detail-url": "/webOPACClient.sisis/singleHit.do?methodToCall=showHit&curPos=12&identifier=-1_S_IG.127.14832", "orderable": 0}
 hasZ3988 := false()
 brs := (text{"Engelbrecht, Sigrid"}, 
 text{"2011"}, 
@@ -38,11 +38,11 @@ hasZ3988 := false()
 brs := (text{"Gisler, Hans"}, 
 text{""}, 
 text{""})
-book := {"year": "", "author": "Gisler, Hans", "title": "Mobiler Hochwasserschutz der Ruag im Test", "_detail-url": "/webOPACClient.sisis/singleHit.do?methodToCall=showHit&curPos=16&identifier=-1_S_IG.127.14832", "orderable": 0}
+book := {"author": "Gisler, Hans", "title": "Mobiler Hochwasserschutz der Ruag im Test", "_detail-url": "/webOPACClient.sisis/singleHit.do?methodToCall=showHit&curPos=16&identifier=-1_S_IG.127.14832", "orderable": 0}
 hasZ3988 := false()
+book := {"author": "", "title": "_Eine grosse Anerkennung", "_detail-url": "/webOPACClient.sisis/singleHit.do?methodToCall=showHit&curPos=17&identifier=-1_S_IG.127.14832", "orderable": 0}
 brs := (text{""}, 
 text{""})
-book := {"year": "", "author": "", "title": "_Eine grosse Anerkennung", "_detail-url": "/webOPACClient.sisis/singleHit.do?methodToCall=showHit&curPos=17&identifier=-1_S_IG.127.14832", "orderable": 0}
 hasZ3988 := false()
 brs := (text{"1956"}, 
 text{"E 4689"}, 
@@ -69,4 +69,4 @@ hasZ3988 := false()
 brs := (text{"Hanhart, Urs"}, 
 text{""}, 
 text{""})
-book := {"year": "", "author": "Hanhart, Urs", "title": "Geglückter Test für Gigathletin Trix Z'graggen", "_detail-url": "/webOPACClient.sisis/singleHit.do?methodToCall=showHit&curPos=20&identifier=-1_S_IG.127.14832", "orderable": 0}
+book := {"author": "Hanhart, Urs", "title": "Geglückter Test für Gigathletin Trix Z'graggen", "_detail-url": "/webOPACClient.sisis/singleHit.do?methodToCall=showHit&curPos=20&identifier=-1_S_IG.127.14832", "orderable": 0}

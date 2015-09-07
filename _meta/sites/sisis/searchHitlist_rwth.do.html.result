@@ -6,8 +6,8 @@ hasZ3988 := false()
 book := {"author": " Babin, Edith H.", "title": "TOEFL, test of English as a foreign language", "_detail-url": "/InfoGuideClient/singleHit.do?methodToCall=showHit&curPos=11&identifier=-1_S_IG.92.25225", "orderable": 0}
 result := ()
 hasZ3988 := false()
+book := {"author": "", "title": "AASHO road test", "_detail-url": "/InfoGuideClient/singleHit.do?methodToCall=showHit&curPos=12&identifier=-1_S_IG.92.25225", "orderable": 0}
 brs := text{""}
-book := {"year": "", "author": "", "title": "AASHO road test", "_detail-url": "/InfoGuideClient/singleHit.do?methodToCall=showHit&curPos=12&identifier=-1_S_IG.92.25225", "orderable": 0}
 hasZ3988 := false()
 book := {"author": " Gear, Jolene", "title": "Cambridge preparation for the TOEFL Test", "_detail-url": "/InfoGuideClient/singleHit.do?methodToCall=showHit&curPos=13&identifier=-1_S_IG.92.25225", "orderable": 0}
 result := ()
@@ -26,8 +26,8 @@ hasZ3988 := false()
 book := {"author": " NATO / Advisory Group for Aerospace Research and Development", "title": "AGARD flight test instrumentation series", "_detail-url": "/InfoGuideClient/singleHit.do?methodToCall=showHit&curPos=17&identifier=-1_S_IG.92.25225", "orderable": 0}
 result := ()
 hasZ3988 := false()
+book := {"author": "", "title": "¬A selection of experimental test cases for the validation of CFD codes", "_detail-url": "/InfoGuideClient/singleHit.do?methodToCall=showHit&curPos=18&identifier=-1_S_IG.92.25225", "orderable": 0}
 brs := text{""}
-book := {"year": "", "author": "", "title": "¬A selection of experimental test cases for the validation of CFD codes", "_detail-url": "/InfoGuideClient/singleHit.do?methodToCall=showHit&curPos=18&identifier=-1_S_IG.92.25225", "orderable": 0}
 hasZ3988 := false()
 temp := text{" 1 (1994). "}
 book := {"year": "1994", "subTitle": " 1 . ", "author": "", "title": "¬A selection of experimental test cases for the validation of CFD codes/1 (1994)", "_detail-url": "/InfoGuideClient/singleHit.do?methodToCall=showHit&curPos=19&identifier=-1_S_IG.92.25225", "orderable": 0}

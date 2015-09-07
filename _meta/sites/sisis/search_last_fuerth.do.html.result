@@ -14,7 +14,7 @@ text{"Ston"},
 text{""}, 
 text{""}, 
 text{""})
-book := {"year": "", "author": "Stone, Irving", "title": "Michelangelo", "_detail-url": "/webOPACClient/singleHit.do?methodToCall=showHit&curPos=22&identifier=-1_S_IG.12.6398", "orderable": 0}
+book := {"author": "Stone, Irving", "title": "Michelangelo", "_detail-url": "/webOPACClient/singleHit.do?methodToCall=showHit&curPos=22&identifier=-1_S_IG.12.6398", "orderable": 0}
 hasZ3988 := false()
 brs := (text{"Stone, Irving"}, 
 text{"1963"}, 

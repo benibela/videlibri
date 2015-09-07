@@ -6,17 +6,17 @@ hasZ3988 := false()
 brs := (text{"Arnold, Florian"}, 
 text{""}, 
 text{""})
-book := {"year": "", "author": "Arnold, Florian", "title": "Heikle Mission am Gemsstock", "_detail-url": "/webOPACClient.sisis/singleHit.do?methodToCall=showHit&curPos=1&identifier=-1_S_IG.127.14832", "orderable": 0}
+book := {"author": "Arnold, Florian", "title": "Heikle Mission am Gemsstock", "_detail-url": "/webOPACClient.sisis/singleHit.do?methodToCall=showHit&curPos=1&identifier=-1_S_IG.127.14832", "orderable": 0}
 hasZ3988 := false()
 brs := (text{"Aschwanden, Ralph"}, 
 text{""}, 
 text{""})
-book := {"year": "", "author": "Aschwanden, Ralph", "title": "_Die Emotionen in Attinghausen gehen hoch", "_detail-url": "/webOPACClient.sisis/singleHit.do?methodToCall=showHit&curPos=2&identifier=-1_S_IG.127.14832", "orderable": 0}
+book := {"author": "Aschwanden, Ralph", "title": "_Die Emotionen in Attinghausen gehen hoch", "_detail-url": "/webOPACClient.sisis/singleHit.do?methodToCall=showHit&curPos=2&identifier=-1_S_IG.127.14832", "orderable": 0}
 hasZ3988 := false()
 brs := (text{"Aschwanden, Ralph"}, 
 text{""}, 
 text{""})
-book := {"year": "", "author": "Aschwanden, Ralph", "title": "_Die Urner Gastrobetriebe bestehen den Mystery-Test", "_detail-url": "/webOPACClient.sisis/singleHit.do?methodToCall=showHit&curPos=3&identifier=-1_S_IG.127.14832", "orderable": 0}
+book := {"author": "Aschwanden, Ralph", "title": "_Die Urner Gastrobetriebe bestehen den Mystery-Test", "_detail-url": "/webOPACClient.sisis/singleHit.do?methodToCall=showHit&curPos=3&identifier=-1_S_IG.127.14832", "orderable": 0}
 hasZ3988 := false()
 brs := (text{"Benini, Francesco"}, 
 text{"2005"}, 
@@ -56,7 +56,7 @@ hasZ3988 := false()
 brs := (text{"Bricker, Elias"}, 
 text{""}, 
 text{""})
-book := {"year": "", "author": "Bricker, Elias", "title": "Test : Hier bekommen die Urner die besten Kebabs", "_detail-url": "/webOPACClient.sisis/singleHit.do?methodToCall=showHit&curPos=9&identifier=-1_S_IG.127.14832", "orderable": 0}
+book := {"author": "Bricker, Elias", "title": "Test : Hier bekommen die Urner die besten Kebabs", "_detail-url": "/webOPACClient.sisis/singleHit.do?methodToCall=showHit&curPos=9&identifier=-1_S_IG.127.14832", "orderable": 0}
 hasZ3988 := false()
 brs := (text{"2007"}, 
 text{"778"}, 

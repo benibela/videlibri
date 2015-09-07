@@ -121,11 +121,11 @@
   <s>
   oldSearchOptionCount := get("searchOptionCount", 0),
   searchOptions := 
-    (if ($book.title)    then ["331", ($book.title)]    else (),
+    (if ($book.title)    then [if ($touchpoint) then "200" else "331", ($book.title)]    else (),
      if ($book.author)   then ["100", ($book.author)]   else (),
-     if ($book.isbn)     then ["540", ($book.isbn)]     else (),
-     if ($book.year)     then ["425", ($book.year)]     else (),
-     if ($book.keywords) then ["902", ($book.keywords)] else ()),
+     if ($book.isbn)     then [if ($touchpoint) then "490" else "540", ($book.isbn)]     else (),
+     if ($book.year)     then [if ($touchpoint) then "280" else "425", ($book.year)]     else (),
+     if ($book.keywords) then [if ($touchpoint) then "50" else "902", ($book.keywords)] else ()),
   searchOptionCount := count($searchOptions),
   searchUrl :=  uri-combine( 
     x"{$server}/search.do?methodToCall=submit&CSId={$CSId}&methodToCallParameter=submitSearch", (
@@ -144,10 +144,10 @@
   </s>
 
 
-  <variable name="nextPage" value=""/>
-  <variable name="singleBookResult" value=""/>
+  <s>$nextPage:=$singleBookResult:=speedPage:=""</s>
   
   <page url="{$searchUrl}" templateFile="searchList"/>
+  <page url="{$speedPage}" templateFile="searchList"/>
 
   <page test="$singleBookResult != ''"  url="{$singleBookResult}" templateFile="searchSingle"/>
   

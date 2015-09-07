@@ -6,8 +6,8 @@ hasZ3988 := false()
 book := {"author": " Rauchfleisch, Udo", "title": "Handbuch zum Rosenzweig Picture-Frustration Test (PFT)", "_detail-url": "/InfoGuideClient/singleHit.do?methodToCall=showHit&curPos=1&identifier=-1_S_IG.805.4070", "orderable": 0}
 result := ()
 hasZ3988 := false()
+book := {"author": "", "title": "Admission test series", "_detail-url": "/InfoGuideClient/singleHit.do?methodToCall=showHit&curPos=2&identifier=-1_S_IG.805.4070", "orderable": 0}
 brs := text{""}
-book := {"year": "", "author": "", "title": "Admission test series", "_detail-url": "/InfoGuideClient/singleHit.do?methodToCall=showHit&curPos=2&identifier=-1_S_IG.805.4070", "orderable": 0}
 hasZ3988 := false()
 book := {"author": " Huber, Walter", "title": "Aachener Aphasie-Test", "_detail-url": "/InfoGuideClient/singleHit.do?methodToCall=showHit&curPos=3&identifier=-1_S_IG.805.4070", "orderable": 0}
 result := ()
@@ -20,8 +20,8 @@ temp := text{" Section 3, reading comprehension (1996). "}
 book := {"year": "1996", "subTitle": " Section 3, reading comprehension . ", "author": "", "title": "¬The Penguin practice book for the TOEFL test/Section 3, reading comprehension (1996)", "_detail-url": "/InfoGuideClient/singleHit.do?methodToCall=showHit&curPos=5&identifier=-1_S_IG.805.4070", "orderable": 0}
 result := ()
 hasZ3988 := false()
+book := {"author": "", "title": "Test methods and design allowables for fibrous composites", "_detail-url": "/InfoGuideClient/singleHit.do?methodToCall=showHit&curPos=6&identifier=-1_S_IG.805.4070", "orderable": 0}
 brs := text{""}
-book := {"year": "", "author": "", "title": "Test methods and design allowables for fibrous composites", "_detail-url": "/InfoGuideClient/singleHit.do?methodToCall=showHit&curPos=6&identifier=-1_S_IG.805.4070", "orderable": 0}
 hasZ3988 := false()
 book := {"author": " Mom, A. J.", "title": "Agard engine disc cooperative test programme", "_detail-url": "/InfoGuideClient/singleHit.do?methodToCall=showHit&curPos=7&identifier=-1_S_IG.805.4070", "orderable": 0}
 result := ()

@@ -2,6 +2,7 @@ book := {}
 bookCount := ""
 nextPage := ""
 startUrl := ""
+touchpoint := false()
 bookCountLend := "1"
 bookCountRequested := "0"
 requestedUrl := text{"http://sisis.bth.rwth-aachen.de:8080/InfoGuideClient/userAccount.do?methodToCall=showAccount&amp;typ=6"}
