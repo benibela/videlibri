@@ -11,5 +11,5 @@ orderedUrl := text{"http://sisis.bth.rwth-aachen.de:8080/InfoGuideClient/userAcc
 bookCount := "1"
 mode := 1
 delete-current-books() := ()
-book := {"duedate": "2010-09-17", "issuedate": "2010-08-19", "status:problematic": "Eine Verlängerung ist noch nicht möglich.", "id": "BP1357  ", "author": "Delfs, Hans", "title": "Introduction to cryptography"}
+book := {"duedate": "2010-09-17", "issuedate": "2010-08-19", "statusId": "critical", "status": "", "status:problematic": "Eine Verlängerung ist noch nicht möglich.", "id": "BP1357  ", "author": "Delfs, Hans", "title": "Introduction to cryptography"}
 nextPage := ()

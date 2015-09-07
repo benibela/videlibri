@@ -93,6 +93,9 @@
              book.cancelable := $mode eq 3,
              book._onPage := $url, book._onPageStart := $startUrl}          
           </a>
+          <t:if test="not($book.actionURI) and not(book.status)">
+            {$book.status := (br[last()]/following-sibling::text())[last()], $book.statusId := "critical"}
+          </t:if>
 <!--	  <template:if test="$previousspan">
 	    <span template:optional="true">
               <template:read source="concat(x"$book.status:problematic ", text())" var="book.status:problematic"/>
