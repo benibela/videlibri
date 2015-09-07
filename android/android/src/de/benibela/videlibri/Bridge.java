@@ -106,7 +106,7 @@ public class Bridge {
                 case InterLoan: return Color.RED;
 
 
-                default: return Color.RED; //should not occur
+                default: return Color.YELLOW; //Template did not set status. Assume not renewable
             }
             return c;
         }
