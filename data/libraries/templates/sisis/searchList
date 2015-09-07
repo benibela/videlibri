@@ -84,11 +84,14 @@
   </DIV>
 
   <div id="main">
-    <a>Titeldaten|mehr zum Titel<t:s>singleBookResult:=@href, search-result-count:=1</t:s></a>
-    <div id="tab-content"> 
+    <a>Titeldaten|mehr zum Titel<t:s>
+      singleBookResult:= if (starts-with(@href, "#")) then $url else @href, 
+      search-result-count:=1</t:s></a>
+    <div t:condition="@id=('tab-content', 'detailsTabs-titleinfo')">
       <template:switch>
         <table class="data"/>
         <table class="data2"/>
+        <table t:condition="@class=('fulltitle','titleinfo')"/>
       </template:switch>
     </div>
   </div>

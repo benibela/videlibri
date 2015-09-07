@@ -33,6 +33,7 @@
       <t:switch>
       <div class="error"><t:read var="raise-login()" source="."/></div>
       <span class="error"><t:read var="raise-login()" source="."/></span>
+      <div class="message-warning"><t:read var="raise-login()" source="."/></div>
       </t:switch>
     </form>
     </body>
@@ -148,7 +149,7 @@
   <s>$nextPage:=$singleBookResult:=speedPage:=""</s>
   
   <page url="{$searchUrl}" templateFile="searchList"/>
-  <page url="{$speedPage}" templateFile="searchList"/>
+  <page test="$speedPage != ''" url="{$speedPage}" templateFile="searchList"/>
 
   <page test="$singleBookResult != ''"  url="{$singleBookResult}" templateFile="searchSingle"/>
   
