@@ -456,6 +456,7 @@ var mes: TSearcherMessage;
     book: tbook;
     i: Integer;
     debugLastSearchQuery: String;
+    oldUrl: String;
 begin
   while true do begin
     try
@@ -520,6 +521,7 @@ begin
         smtImage: begin
           if logging then log('Searcher thread: message typ smtImage: image-searched: '+getproperty('image-searched',book.additional)+'  image-url: '+getProperty('image-url',book.additional));
           if (getproperty('image-searched',book.additional)<>'true') then begin
+            oldUrl := searcher.bookListReader.internet.lastUrl;
             try
               if (getProperty('image-url',book.additional)<>'') then begin
                 if logging then log('image url: '+getProperty('image-url',book.additional));
@@ -530,6 +532,7 @@ begin
             except
               on e: EInternetException do image := '';
             end;
+            searcher.bookListReader.internet.lastUrl := oldUrl;
             if logging then log('got image: size: '+IntToStr(length(image)));
             access.beginBookReading;
             addProperty('image',image,book.additional);
