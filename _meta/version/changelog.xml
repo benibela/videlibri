@@ -1,6 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?xml-stylesheet type="text/xsl" href="../changelog.xsl"?>
 <changelog program="VideLibri">
+  <build version="1805" date="2015-09-08">
+    <download url="http://videlibri.sourceforge.net/updates/videlibri-setup.exe" platform="WINDOWS" execute="&quot;$DOWNLOAD&quot;  /SP- /noicons &quot;/dir=$OLDPATH&quot; " restart="true"/>
+    <download url="http://videlibri.sourceforge.net/updates/videlibri-linux32.deb" platform="LINUX32" execute=""/>
+    <download url="http://videlibri.sourceforge.net/updates/videlibri-linux64.deb" platform="LINUX64" execute=""/>
+    <fix>Stadtbibliothek Chemnitz: Wiederherstellung der grundlegenden Funktionen mit dem neuen System (Touchpoint)</fix>
+    <fix>Desktopversion: Zeige keine Fehlermeldung, wenn das Titelbild nicht gefunden werden konnte</fix>
+    <change>Android: Versuche die virtuelle Tastatur beim Starten zu verbergen</change>
+    <change>Deaktivere Log-Berechtigung auf neuen Geräten</change>
+    <change>Verbesserte Trennung zwischen Android und Desktopversion.</change>
+    <change>Geänderte Errorcodes für das Abfangen von http-Fehlermeldungen in benutzerdefinierten Templates (http:*)</change>
+    <change>Wiederhole fehlgeschlagene HTTP-Anfragen</change>
+    <change>Linux Desktopversion: Verwende TLS 1, wenn OpenSSL die HTTPS-Version nicht erkennen kann. Behebt Verbindungsfehler zu mehreren Bibliotheken.</change>
+    <fix>Koblenz/Dresden/Saarland: Liefere wieder die nicht-verifizierbaren HTTPS-Zertifikate mit</fix>
+  </build>
   <build version="1800" date="2015-08-25">
     <download url="http://videlibri.sourceforge.net/updates/videlibri-setup.exe" platform="WINDOWS" execute="&quot;$DOWNLOAD&quot;  /SP- /noicons &quot;/dir=$OLDPATH&quot; " restart="true"/>
     <download url="http://videlibri.sourceforge.net/updates/videlibri-linux32.deb" platform="LINUX32" execute=""/>

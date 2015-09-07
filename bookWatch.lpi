@@ -57,6 +57,9 @@
               </Win32>
             </Options>
           </Linking>
+          <Other>
+            <CustomOptions Value="-dCOMPILE_SYNAPSE_INTERNETACCESS"/>
+          </Other>
         </CompilerOptions>
       </Item2>
       <Item3 Name="linux64release">

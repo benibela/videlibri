@@ -5,9 +5,13 @@ unit applicationconfig;
 interface
 
 uses
-  Classes, SysUtils, libraryparser,{$ifdef win32}registry,{$endif}inifiles,rcmdline,autoupdate,extendedhtmlparser,
-accountlist
-;
+  Classes, SysUtils, libraryparser,inifiles,rcmdline,autoupdate,extendedhtmlparser,
+accountlist{$IFNDEF ANDROID}, LMessages{$endif};
+
+{$IFNDEF ANDROID}
+const
+   LM_SHOW_VIDELIBRI = LM_USER + $4224;
+{$ENDIF}
 
 type TErrorArray=array of record
                      error: string;
@@ -44,7 +48,7 @@ var programPath,userPath:string;
     nextLimitStr: string;
 
     appFullTitle:string='VideLibri';
-    versionNumber:integer=1800     ;
+    versionNumber:integer=1805     ;
     //=>versionNumber/1000
     newVersionInstalled: boolean=false;
 
