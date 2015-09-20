@@ -1,0 +1,25 @@
+touchpoint := true
+book := {}
+bookCount := ""
+nextPage := ""
+startUrl := ""
+touchpoint := true()
+bookCountLend := "20"
+bookCountRequested := "0"
+requestedUrl := text{"/TouchPoint/userAccount.do?methodToCall=showAccount&amp;accountTyp=ordered"}
+bookCountOrdered := "0"
+orderedUrl := text{"/TouchPoint/userAccount.do?methodToCall=showAccount&amp;accountTyp=requested"}
+bookCount := "20"
+mode := 1
+books-deleted := true()
+book := {"duedate": "2015-10-19", "statusId": "critical", "status": "Eine Verlängerung ist noch nicht möglich.", "id": "B0559651 ", "author": "Scheib, Asta", "title": "Schwere Reiter"}
+book := {"duedate": "2015-10-19", "statusId": "critical", "status": "Eine Verlängerung ist noch nicht möglich.", "id": "B1200884 ", "author": "Cornwell, Bernard", "title": "Sharpes Trafalgar"}
+book := {"duedate": "2015-10-19", "statusId": "critical", "status": "Eine Verlängerung ist noch nicht möglich.", "id": "A9349511 ", "author": "Simonds, Merilyn", "title": "¬Das alte Land"}
+book := {"duedate": "2015-10-19", "statusId": "critical", "status": "Eine Verlängerung ist noch nicht möglich.", "id": "B0191360 ", "author": "Kern, Claudia", "title": "¬Die Nonne und der Tod"}
+book := {"duedate": "2015-10-19", "statusId": "critical", "status": "Eine Verlängerung ist noch nicht möglich.", "id": "B0827144 ", "author": "Fischer, Julius", "title": "¬Die schönsten Wanderwege der Wanderhure"}
+book := {"duedate": "2015-10-20", "statusId": "critical", "status": "Eine Verlängerung ist noch nicht möglich.", "id": "B1089030 ", "author": "Schröder, Ursula", "title": "Frau Rosenberg legt los"}
+book := {"duedate": "2015-10-20", "statusId": "critical", "status": "Eine Verlängerung ist noch nicht möglich.", "id": "B0654158 ", "author": "Mallery, Susan", "title": "Küssen ist die beste Medizin"}
+book := {"duedate": "2015-10-20", "statusId": "critical", "status": "Eine Verlängerung ist noch nicht möglich.", "id": "A3773703 ", "author": "Fackler, Irene", "title": "Ostereier"}
+book := {"duedate": "2015-10-20", "statusId": "critical", "status": "Eine Verlängerung ist noch nicht möglich.", "id": "B1200862 ", "author": "Cornwell, Bernard", "title": "Sharpes Rivalen"}
+book := {"duedate": "2015-10-20", "statusId": "critical", "status": "Eine Verlängerung ist noch nicht möglich.", "id": "B0284782 ", "author": "Burrows, Robyn Lee", "title": "Wind über dem Fluss"}
+nextPage := ()

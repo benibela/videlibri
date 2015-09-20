@@ -1,0 +1,25 @@
+touchpoint := true
+book := {}
+bookCount := ""
+nextPage := ""
+startUrl := ""
+touchpoint := true()
+bookCountLend := "20"
+bookCountRequested := "0"
+requestedUrl := text{"/TouchPoint/userAccount.do?methodToCall=showAccount&amp;accountTyp=ordered"}
+bookCountOrdered := "0"
+orderedUrl := text{"/TouchPoint/userAccount.do?methodToCall=showAccount&amp;accountTyp=requested"}
+bookCount := "20"
+mode := 1
+books-deleted := true()
+book := {"duedate": "2015-09-17", "_onPageStart": "", "_onPage": "file:///home/benito/hg/programs/internet/VideLibri/_meta/sites//sisis/touchpoint/userAccount_1-10lend_chem.html", "cancelable": false, "statusId": "curious", "actionURI": "file:///TouchPoint/renewal.do?methodToCall=renewal&pos=0", "id": "A9034165 ", "author": "Kipp, Angelika", "title": "Lustige Frühlings-Minis"}
+book := {"duedate": "2015-09-17", "_onPageStart": "", "_onPage": "file:///home/benito/hg/programs/internet/VideLibri/_meta/sites//sisis/touchpoint/userAccount_1-10lend_chem.html", "cancelable": false, "statusId": "curious", "actionURI": "file:///TouchPoint/renewal.do?methodToCall=renewal&pos=1", "id": "A3766447 ", "author": "Altmeyer, Maria-Regina", "title": "Österlich geschmückt"}
+book := {"duedate": "2015-10-16", "statusId": "critical", "status": "Eine Verlängerung ist noch nicht möglich.", "id": "A9560074 ", "author": "Birkholz, Peter", "title": "Reparaturen zu Hause"}
+book := {"duedate": "2015-10-19", "statusId": "critical", "status": "Eine Verlängerung ist noch nicht möglich.", "id": "B0650122 ", "author": "Rexrodt von Fircks, Annette", "title": "... und flüstere mir vom Leben"}
+book := {"duedate": "2015-10-19", "statusId": "critical", "status": "Eine Verlängerung ist noch nicht möglich.", "id": "B0358537 ", "author": "Bowden, Oliver", "title": "Assassin's Creed/[2]"}
+book := {"duedate": "2015-10-19", "statusId": "critical", "status": "Eine Verlängerung ist noch nicht möglich.", "id": "B0781201 ", "author": "Hohner, Sigi", "title": "Betthupferl"}
+book := {"duedate": "2015-10-19", "statusId": "critical", "status": "Eine Verlängerung ist noch nicht möglich.", "id": "A9350238 ", "author": "Fforde, Katie", "title": "Geschenke aus dem Paradies"}
+book := {"duedate": "2015-10-19", "statusId": "critical", "status": "Eine Verlängerung ist noch nicht möglich.", "id": "A7518120 ", "author": "Scarrow, Simon", "title": "Gladiator"}
+book := {"duedate": "2015-10-19", "statusId": "critical", "status": "Eine Verlängerung ist noch nicht möglich.", "id": "B0955836 ", "author": "Adlon, Hedda", "title": "Hotel Adlon"}
+book := {"duedate": "2015-10-19", "statusId": "critical", "status": "Eine Verlängerung ist noch nicht möglich.", "id": "B0778007 ", "author": "Rasheed, Leila", "title": "Rückkehr nach Somerton Court"}
+nextPage := text{"/TouchPoint/userAccount.do?methodToCall=pos&amp;accountTyp=loaned&amp;anzPos=11"}

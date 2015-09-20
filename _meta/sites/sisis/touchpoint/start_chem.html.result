@@ -1,0 +1,42 @@
+book := {}
+jsession := "jsessionid=C3C3691A41AAB484766778B53B49B437"
+CSId := text{"1009N15Sa94087993b6a515d6985663decca27f398ac58fc"}
+home-branches := (text{"Zentralbibl."}, 
+text{"ZwB Einsiedel"}, 
+text{"StB Yorck"}, 
+text{"StB Vita-Center"}, 
+text{"ChemnetzBib"}, 
+text{"E-Learning"})
+home-branch-values := (text{"0"}, 
+text{"19"}, 
+text{"21"}, 
+text{"22"}, 
+text{"23"}, 
+text{"26"})
+home-branch-name := text{"selectedBranchView"}
+search-branches := (text{"alle"}, 
+text{"Zentralbibl."}, 
+text{"ZwB Einsiedel"}, 
+text{"StB Yorck"}, 
+text{"StB Vita-Center"}, 
+text{"ChemnetzBib"}, 
+text{"E-Learning"}, 
+text{"Umweltbibliothek"}, 
+text{"Kunstsammlungen"}, 
+text{"Neue Sächs. Galerie"}, 
+text{"Industrieschule"}, 
+text{"Stadtarchiv"})
+search-branch-values := (text{""}, 
+text{"46"}, 
+text{"47"}, 
+text{"48"}, 
+text{"56"}, 
+text{"55"}, 
+text{"54"}, 
+text{"53"}, 
+text{"52"}, 
+text{"51"}, 
+text{"50"}, 
+text{"49"})
+search-branch-name := text{"searchRestrictionValue1[0]"}
+search-branch-extended-options := ()

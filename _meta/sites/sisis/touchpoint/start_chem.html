@@ -1,0 +1,1523 @@
+
+
+
+
+
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+
+<!--START of /WEB-INF/tags/metaHeader.tag-->
+
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="de" xml:lang="de"><head>
+
+
+<!--START of /default/common/commonHeader.jsp-->
+
+
+<meta content="text/html; charset=UTF-8" http-equiv="Content-Type"/><meta content="no-cache" http-equiv="Pragma"/><meta content="0" http-equiv="Expires"/><meta content="no-cache" http-equiv="Cache-Control"/><link href="/TouchPoint/default/common/touchpoint.css" type="text/css" rel="stylesheet"/><link href="default/images/OCLC.ico" rel="shortcut icon"/><link href="js/jquery/jquery.all.css" rel="stylesheet"/><link href="default/common/alerts.css" rel="stylesheet"/><script type="text/javascript" src="js/jquery/jquery-1.4.2_min.js"></script><script type="text/javascript" src="js/jquery/jquery-ui-1.7.2.js"></script><script type="text/javascript" src="js/jquery/extensions/jquery.bgiframe.js"></script><script type="text/javascript" src="js/jquery/extensions/jquery.autocomplete.js"></script><script type="text/javascript" src="js/jquery/extensions/jquery.support.css-detection.js"></script><script type="text/javascript" src="js/jquery.ajaxq-0.0.1.js"></script><script type="text/javascript" src="default/common/dickerfisch/optional/jq.cleanCSSanim.js"></script><script type="text/javascript" src="default/common/dickerfisch/jq_dickerfisch_menue.js"></script><script type="text/javascript" src="js/jquery/extensions/jquery.touchpoint.js"></script><script type="text/javascript" src="js/tp.utils.js"></script><script type="text/javascript" src="js/jstorage.js"></script><script type="text/javascript" src="js/common.js"></script><script type="text/javascript" src="js/spin.min.js"></script><link href="default/common/sbc.css" rel="stylesheet"/><script type="text/javascript">/* <![CDATA[ */
+if (!(typeof globalSettings == "object" && globalSettings instanceof Map)) globalSettings = new Map();
+globalSettings.add({
+"imagePath": "/TouchPoint/default/images"
+});
+if (!(typeof i18n == "object" && i18n instanceof Map)) i18n = new Map();
+i18n.add({
+"common.header.loading.icon.alt": "Laden",
+"search.searchfield.suggestion.hits": "Treffer"
+});
+/* ]]> */</script><title>der neue OPAC der Stadtbibliothek Chemnitz</title><script type="text/javascript">
+
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+     (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+       m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+         })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-38648965-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+
+<!--END of /default/common/commonHeader.jsp-->
+
+
+</head><body>
+  
+
+
+<!--START of default/search/Layout.jsp-->
+
+
+
+    
+    
+    
+    
+    
+    
+    
+    
+    <div id="pageContainer">
+      
+      <div id="branding">
+        
+
+
+
+
+
+
+
+
+
+
+<!--START of /default/common/header.jsp-->
+
+
+
+<a href="#main" class="skiplink">Springe zum Inhalt... (mit Enter-Taste)</a>
+<a href="#nav" class="skiplink">Springe zur Navigation... (mit Enter-Taste)</a>
+
+<span id="logo">
+  <a href="/TouchPoint/search.do;jsessionid=C3C3691A41AAB484766778B53B49B437?methodToCall=start" tabindex="-1" title="Home"><img src="/TouchPoint/default/images/SBC.png" alt="OPAC der Stadtbibliothek Chemnitz" title="OPAC der Stadtbibliothek Chemnitz" /></a>
+</span>
+
+ 
+<div id="ajaxAutoCompletion">solr</div>  
+
+<div id="ajaxUrlSolrAutoCompletion">SolrQueryCompletionProxy</div>
+<div id="ajaxUrlFastAutoCompletion">QueryCompletionProxy</div>
+
+
+  <div id="ajaxAutoCompletionDatabases" style="display:none">
+	
+		2
+	
+  </div>
+
+
+
+
+
+
+<!--END of /default/common/header.jsp-->
+
+
+
+
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!--START of /default/navigation/headNavi.jsp-->
+
+
+
+ 
+ 
+ 
+ 
+ 
+ <div id="nav2" class="floatcon">
+  <ul class="language">
+   <li>
+    
+     <div id="language">
+      
+
+      <dl class="dropdown-language">
+       <dt>
+        <a href="#">  <span class="label">Sprache:</span> <span class="link">deutsch</span>
+         <img src="/TouchPoint/default/images/arrow-down-language.gif" width="9" height="6" alt="" /> </a>
+       </dt>
+       <dd>
+        <ul class="language-wrapper">
+         
+          <li>
+           
+           <a href="/TouchPoint/search.do;jsessionid=C3C3691A41AAB484766778B53B49B437?methodToCall=selectLanguage&amp;Language=de" onclick="return switchLanguage(this.href);"><span class="value">deutsch</span></a>
+          </li>
+         
+          <li>
+           
+           <a href="/TouchPoint/search.do;jsessionid=C3C3691A41AAB484766778B53B49B437?methodToCall=selectLanguage&amp;Language=en" onclick="return switchLanguage(this.href);"><span class="value">english</span></a>
+          </li>
+         
+          <li>
+           
+           <a href="/TouchPoint/search.do;jsessionid=C3C3691A41AAB484766778B53B49B437?methodToCall=selectLanguage&amp;Language=fr" onclick="return switchLanguage(this.href);"><span class="value">français</span></a>
+          </li>
+         
+        </ul>
+       </dd>
+      </dl>
+     </div>
+    
+   </li>
+  </ul>
+  <ul>
+   <!-- home is a suggestion for SwissBib -->
+   <!-- <li>
+    <a href="/TouchPoint/search.do;jsessionid=C3C3691A41AAB484766778B53B49B437?methodToCall=start" title="Home">Home</a>
+    </li> -->
+   
+     <li><a href="/TouchPoint/actual.do;jsessionid=C3C3691A41AAB484766778B53B49B437?methodToCall=show" title="Neuerwerbungen">Neuerwerbungen</a></li>
+   
+   <!-- <li>
+    <a href="/TouchPoint/help.do;jsessionid=C3C3691A41AAB484766778B53B49B437?helpContext=advancedsearch&amp;helpSubContext=&amp;helpApplicationContext=\#" target="tphelpwindow" title="Hilfe">Hilfe</a>
+	    </li> -->
+
+   
+    <li>
+     <a href="/TouchPoint/information.do;jsessionid=C3C3691A41AAB484766778B53B49B437?methodToCall=show" title="Fernleihe">Fernleihe</a>
+    </li>
+   
+   
+
+  </ul>
+  
+  <div id="timer"><span>&nbsp;</span></div>
+
+ </div>
+
+ <script type="text/javascript">
+    $(document).ready(function() {
+      $(".dropdown-language dt a").click(function() {
+        $(".dropdown-language dd ul").toggle();
+      });
+
+      $(".dropdown-language dd ul li a").click(function() {
+        $(".dropdown-language dd ul").hide();
+      });
+    });
+
+    function switchLanguage(url) {
+
+      var location = window.location.href;
+      var myLocation;
+      if (location.substring(location.length - 1, location.length) == "#") {
+        myLocation = location.substr(0, location.length - 1);
+      } else {
+        myLocation = location;
+      }
+      if (myLocation.indexOf("loginpage.do") != -1
+          || myLocation.indexOf("userData.do") != -1
+          || myLocation.indexOf("login.do") != -1) {
+        $.post(url);
+        $.post(myLocation, function() {
+          window.location.reload();
+        });
+        return false;
+      }
+    }
+  </script>
+  
+
+
+
+
+
+<script type="text/javascript" language="javascript">
+
+
+
+var timeout=(10 * 60 * 1000)  + new Date().getTime();
+timeout=timeout - 5000;
+var mesg="Diese Sitzung läuft in %VAR% Sek. ab!";
+var toFront=false;
+
+if(mesg.length <= 0 || mesg.indexOf("???") >= 0)
+  mesg="Diese Sitzung läuft in %VAR% Sek. ab!";
+
+ticker(); 
+
+function ticker()
+{
+  var timeoutID;
+  var s; 
+  var t=timeout - new Date().getTime();
+  t=(t<0)?0:Math.round(t/1000);
+  s=""+ ((t>60)?"":t.toFixed(0));
+  if(t <= 60)
+  {
+    if(toFront == false)
+    {
+      toFront=true;
+      window.focus();
+    }
+    var msg = mesg.replace("%VAR%", s);
+    document.getElementById("timer").innerHTML = msg;
+  }
+  if(t <= 0)
+  {
+    window.clearTimeout(timeoutID);
+    window.location.replace("/TouchPoint/default/common/timeout.jsp;jsessionid=C3C3691A41AAB484766778B53B49B437");
+  } 
+  else
+    timeoutID = window.setTimeout("ticker()",(t>60) ? 6000 : 1000);
+}
+</script>
+
+
+ 
+
+  
+
+
+<!--END of /default/navigation/headNavi.jsp-->
+
+
+
+
+      </div>
+      
+
+
+
+
+
+
+
+
+
+
+<!--START of /default/navigation/mainNavi.jsp-->
+
+
+
+
+ 
+
+
+
+
+<!-- Actual Tiles Context 751 -->
+<!-- Actual View Context sunrise -->
+<script type="text/javascript">
+$(document).ready(function() {
+  //Funktion starten, wenn DOM-ready  (warte 250ms bevor sich das menu schließt, wenn maus weg ist)
+  var samp = new DickerFisch('#nav',{NavTimeout: 250,Fit2ViewportClass:'leftover',LimitLinks:0, FitIfViewportSmaller:1111, FirstLevelLayoutHorizontal:true});
+});
+</script>
+<div id="nav">
+  <ul>
+    <li class="parentNav">
+    <a href="/TouchPoint/search.do;jsessionid=C3C3691A41AAB484766778B53B49B437?methodToCall=start" class="daddy"><strong>Suche</strong></a>
+    <ul id="mainnavigation_searchoptions"><!-- 2nd level search -->
+      
+        <li><span class="sbh">. </span>
+          <a href="/TouchPoint/search.do;jsessionid=C3C3691A41AAB484766778B53B49B437?methodToCall=switchSearchPage&amp;SearchType=1&amp;emptyFields=true">Einfache Suche</a>
+        </li>
+      
+      
+        <li><span class="sbh">. </span> 
+          <a href="/TouchPoint/search.do;jsessionid=C3C3691A41AAB484766778B53B49B437?methodToCall=switchSearchPage&amp;SearchType=2&amp;emptyFields=true">Erweiterte Suche</a>
+        </li>
+      
+      
+      
+    </ul><!-- End 2nd level search-->
+    </li>
+
+
+    <li><span class="sbh">. </span>
+      <a href="/TouchPoint/memorizelist.do;jsessionid=C3C3691A41AAB484766778B53B49B437?methodToCall=show" class="empty"><strong>Merkliste</strong></a>
+    </li>
+
+
+    <li><span class="sbh">. </span>
+
+    <a href="/TouchPoint/information.do;jsessionid=C3C3691A41AAB484766778B53B49B437?methodToCall=show" class="empty" title="Fernleihe"><strong>Fernleihe</strong></a>
+    </li>
+
+
+    <li class="parentNav"><span class="sbh">. </span>
+      
+      
+        
+        
+          
+            
+          
+        
+        
+          
+            
+          
+        
+        <a href="/TouchPoint/userAccount.do;jsessionid=C3C3691A41AAB484766778B53B49B437?methodToCall=start" class="daddy"><strong>Konto / Verlängern</strong></a>
+      
+      
+      <ul><!-- 2nd level  myaccount--> 
+        
+        
+          
+            
+              <li><span class="sbh">. </span><a href="/TouchPoint/userAccount.do;jsessionid=C3C3691A41AAB484766778B53B49B437?methodToCall=start">Konto / Verlängern</a></li>
+            
+          
+          
+            
+              <li><span class="sbh">. </span><a href="/TouchPoint/userData.do;jsessionid=C3C3691A41AAB484766778B53B49B437?methodToCall=show">Kundendaten</a></li>
+            
+          
+		
+         
+		
+          <li><span class="sbh">. </span><a href="/TouchPoint/account.do;jsessionid=C3C3691A41AAB484766778B53B49B437?methodToCall=show">Sucheinstellungen</a></li> 
+        
+        
+		<li><span class="sbh">. </span><a href="/TouchPoint/userAlerts.do;jsessionid=C3C3691A41AAB484766778B53B49B437?methodToCall=showAlerts">Suchdienste</a></li>
+		
+				
+      </ul><!-- End 2nd level myaccount-->
+    </li>
+    
+    
+  </ul> 
+  <!-- Login / Logout -->
+  
+    
+      <span id="account"><a href="/TouchPoint/loginpage.do;jsessionid=C3C3691A41AAB484766778B53B49B437?methodToCall=showLogin" style="background-color:transparent;">Anmelden</a></span>
+    
+    
+  
+  <!-- End Login / Logout -->  
+  <div class="cleanNav">&nbsp;</div>
+</div>
+
+
+
+<!--END of /default/navigation/mainNavi.jsp-->
+
+
+
+
+      
+        <div id="div-search">&nbsp;</div>
+      
+      
+      <!-- filler /default/common/empty.jsp -->
+      <div id="main" class="mainwithrightside"> 
+        <div id="SOWrap">
+          <div id="middle">
+            <form id="AdvancedSearchForm" method="get" action="/TouchPoint/search.do;jsessionid=C3C3691A41AAB484766778B53B49B437">
+              <input type="hidden" name="methodToCall" value="submitButtonCall" />
+              <input type="hidden" name="CSId" value="1009N15Sa94087993b6a515d6985663decca27f398ac58fc" />
+              <input type="hidden" name="methodToCallParameter" value="submitSearch" />
+              <input type="hidden" name="refine" value="false" />
+              
+
+
+
+
+
+
+
+
+
+
+
+
+<!--START of /default/search/advancedSearch.jsp-->
+
+
+
+
+
+<img src="http://dbspixel.hbz-nrw.de/count?id=AD059&page=2" width="1" height="1"> 
+<div class="box" style="border: 0;">
+  
+  <div style="height: 0; width: 0;">
+    <input type="submit" name="submitButtonCall_submitSearch" tabindex="-1" value="Suchen" style="height: 1px; width: 1px; color: #fff; border: 0; text-decoration: none; background-color: #fff;" />
+  </div>
+  <div class="box-container">
+    
+    
+    
+   
+    <fieldset id="search-adv">
+      <legend class="hide-content">Sucheingabe</legend>
+      <table summary="Sucheingabe" class="formular search-request">
+        <tbody>
+          
+          
+            
+            <tr>
+              
+                
+                
+                  <td colspan="2">
+                
+              
+              
+              <label class="hide-content" for="searchCategories_0">Suchkategorie(1)</label>
+              <select name="searchCategories[0]" size="1" onchange="advancedSearch.checkIndexField(0,[]); advancedSearch.updateAutoCompletion(0);" id="searchCategories_0"><option value="-1" selected="selected">Alle Felder</option>
+                  
+                
+                  
+                    
+                    <option value="200">Titel</option>
+                  
+                
+                  
+                    
+                    <option value="773">Verlag</option>
+                  
+                
+                  
+                    
+                    <option value="100">Verfasser</option>
+                  
+                
+                  
+                    
+                    <option value="490">ISBN/ISSN/ISMN</option>
+                  
+                
+                  
+                    
+                    <option value="7">Medientyp</option>
+                  
+                
+                  
+                    
+                    <option value="280">Jahr</option>
+                  
+                
+                  
+                    
+                    <option value="8500">Interesse</option>
+                  
+                
+                  
+                    
+                    <option value="8501">Regalstandort</option>
+                  
+                
+                  
+                    
+                    <option value="50">Klassifikation</option></select>
+              </td>
+              <td style="width:65%">
+                <label class="hide-content" for="searchString_0">Suchbegriff(1)</label>
+                <input type="text" name="searchString[0]" value="" id="searchString_0" class="adv_addQueryCompletion_0" />
+              </td>
+              
+              
+            </tr>
+          
+            
+            <tr>
+              
+                
+                  <td style="width: 15%">
+                    <label class="hide-content" for="combinationOperator_1">Suchkombination(2)</label>
+                    <select name="combinationOperator[1]" size="1" id="combinationOperator_1"><option value="AND" selected="selected">und</option>
+                      
+                        <option value="OR">oder</option>
+                      
+                        <option value="NOT">und nicht</option></select>
+                  </td>
+                  <td style="width: 20%"> 
+                
+                
+              
+              
+              <label class="hide-content" for="searchCategories_1">Suchkategorie(2)</label>
+              <select name="searchCategories[1]" size="1" onchange="advancedSearch.checkIndexField(1,[]); advancedSearch.updateAutoCompletion(1);" id="searchCategories_1"><option value="-1">Alle Felder</option>
+                  
+                
+                  
+                    
+                    <option value="200" selected="selected">Titel</option>
+                  
+                
+                  
+                    
+                    <option value="773">Verlag</option>
+                  
+                
+                  
+                    
+                    <option value="100">Verfasser</option>
+                  
+                
+                  
+                    
+                    <option value="490">ISBN/ISSN/ISMN</option>
+                  
+                
+                  
+                    
+                    <option value="7">Medientyp</option>
+                  
+                
+                  
+                    
+                    <option value="280">Jahr</option>
+                  
+                
+                  
+                    
+                    <option value="8500">Interesse</option>
+                  
+                
+                  
+                    
+                    <option value="8501">Regalstandort</option>
+                  
+                
+                  
+                    
+                    <option value="50">Klassifikation</option></select>
+              </td>
+              <td style="width:65%">
+                <label class="hide-content" for="searchString_1">Suchbegriff(2)</label>
+                <input type="text" name="searchString[1]" value="" id="searchString_1" class="adv_addQueryCompletion_1" />
+              </td>
+              
+              
+            </tr>
+          
+            
+            <tr>
+              
+                
+                  <td style="width: 15%">
+                    <label class="hide-content" for="combinationOperator_2">Suchkombination(3)</label>
+                    <select name="combinationOperator[2]" size="1" id="combinationOperator_2"><option value="AND" selected="selected">und</option>
+                      
+                        <option value="OR">oder</option>
+                      
+                        <option value="NOT">und nicht</option></select>
+                  </td>
+                  <td style="width: 20%"> 
+                
+                
+              
+              
+              <label class="hide-content" for="searchCategories_2">Suchkategorie(3)</label>
+              <select name="searchCategories[2]" size="1" onchange="advancedSearch.checkIndexField(2,[]); advancedSearch.updateAutoCompletion(2);" id="searchCategories_2"><option value="-1">Alle Felder</option>
+                  
+                
+                  
+                    
+                    <option value="200">Titel</option>
+                  
+                
+                  
+                    
+                    <option value="773" selected="selected">Verlag</option>
+                  
+                
+                  
+                    
+                    <option value="100">Verfasser</option>
+                  
+                
+                  
+                    
+                    <option value="490">ISBN/ISSN/ISMN</option>
+                  
+                
+                  
+                    
+                    <option value="7">Medientyp</option>
+                  
+                
+                  
+                    
+                    <option value="280">Jahr</option>
+                  
+                
+                  
+                    
+                    <option value="8500">Interesse</option>
+                  
+                
+                  
+                    
+                    <option value="8501">Regalstandort</option>
+                  
+                
+                  
+                    
+                    <option value="50">Klassifikation</option></select>
+              </td>
+              <td style="width:65%">
+                <label class="hide-content" for="searchString_2">Suchbegriff(3)</label>
+                <input type="text" name="searchString[2]" value="" id="searchString_2" class="adv_addQueryCompletion_2" />
+              </td>
+              
+              
+            </tr>
+          
+            
+            <tr>
+              
+                
+                  <td style="width: 15%">
+                    <label class="hide-content" for="combinationOperator_3">Suchkombination(4)</label>
+                    <select name="combinationOperator[3]" size="1" id="combinationOperator_3"><option value="AND" selected="selected">und</option>
+                      
+                        <option value="OR">oder</option>
+                      
+                        <option value="NOT">und nicht</option></select>
+                  </td>
+                  <td style="width: 20%"> 
+                
+                
+              
+              
+              <label class="hide-content" for="searchCategories_3">Suchkategorie(4)</label>
+              <select name="searchCategories[3]" size="1" onchange="advancedSearch.checkIndexField(3,[]); advancedSearch.updateAutoCompletion(3);" id="searchCategories_3"><option value="-1">Alle Felder</option>
+                  
+                
+                  
+                    
+                    <option value="200">Titel</option>
+                  
+                
+                  
+                    
+                    <option value="773">Verlag</option>
+                  
+                
+                  
+                    
+                    <option value="100" selected="selected">Verfasser</option>
+                  
+                
+                  
+                    
+                    <option value="490">ISBN/ISSN/ISMN</option>
+                  
+                
+                  
+                    
+                    <option value="7">Medientyp</option>
+                  
+                
+                  
+                    
+                    <option value="280">Jahr</option>
+                  
+                
+                  
+                    
+                    <option value="8500">Interesse</option>
+                  
+                
+                  
+                    
+                    <option value="8501">Regalstandort</option>
+                  
+                
+                  
+                    
+                    <option value="50">Klassifikation</option></select>
+              </td>
+              <td style="width:65%">
+                <label class="hide-content" for="searchString_3">Suchbegriff(4)</label>
+                <input type="text" name="searchString[3]" value="" id="searchString_3" class="adv_addQueryCompletion_3" />
+              </td>
+              
+              
+            </tr>
+          
+          
+          <tr>
+            <td colspan="3" class="alignright">
+              <input type="button" name="submitButtonCall_clearSearchFields" value="Zurücksetzen" id="clearSearchFields" class="dbutton" />
+              
+                <input type="submit" name="submitButtonCall_submitSearch" value="Suchen" id="submitSearch" class="dbuttonb" />&nbsp;&nbsp;
+              
+            </td>
+            
+          </tr>
+        </tbody>
+      </table>
+    </fieldset>
+  </div>
+</div>
+
+
+
+<!--END of /default/search/advancedSearch.jsp-->
+
+
+
+
+              
+              <ul class="accordion-group">
+                
+
+
+
+
+
+
+
+
+
+
+
+
+<!--START of /default/search/searchparameter.jsp-->
+
+
+
+  
+     
+  
+    
+      <li class="accordion collapsed">
+    
+    
+  
+     
+      <h2 class="accordion-header"><a href="#"><span class="arrow">Suche eingrenzen<!-- search.searchparameternavi.searchparameter--></span></a></h2>
+      <div class="statistic">
+        <div class="statisticurl">/TouchPoint/statistic.do</div>
+        <div class="statisticdata">accordionname=searchparameter&amp;statisticcontext=searchpage&amp;action=accordion</div>
+      </div>
+      <div class="accordion-body  accordion-body-content">
+      <fieldset id="search-parameter-fieldset">
+      <legend class="hide-content">Sucheingrenzungen</legend>
+      <table class="formular">
+        <tbody> 
+          
+            <tr>
+              <td colspan="4" style="vertical-align: middle;">
+                <ul>
+                  <li>
+                    <input type="radio" name="linguistic" value="false" checked="checked" class="radio" />genaue Suche
+                  </li>
+                  <li>
+                    <input type="radio" name="linguistic" value="true" class="radio" />auch ähnliche Begriffe finden
+                  </li>
+                </ul>
+              </td>
+            </tr>
+          
+          
+
+
+
+
+
+
+
+
+
+
+
+
+<!--START of /sunrise/search/branchView.jsp-->
+
+
+
+  
+    <tr>
+      <td colspan="2">
+        <label for="selectedBranchView">Aktuelle Zweigstelle</label>
+        <br />
+        <select name="selectedBranchView" size="1" id="selectedBranchView"><option value="0" selected="selected">Zentralbibl.</option>
+          
+            <option value="19">ZwB Einsiedel</option>
+          
+            <option value="21">StB Yorck</option>
+          
+            <option value="22">StB Vita-Center</option>
+          
+            <option value="23">ChemnetzBib</option>
+          
+            <option value="26">E-Learning</option></select>
+      </td>
+    </tr>
+  
+
+
+
+<!--END of /sunrise/search/branchView.jsp-->
+
+
+
+
+          
+
+
+
+
+
+
+
+
+
+
+
+
+<!--START of /default/search/searchrestrictions.jsp-->
+
+
+
+
+  
+    <tr>
+    
+    
+      <td width="50%" colspan="2">
+      
+        
+        
+        <label for="searchRestrictionValue1_0">Suche in Zweigstelle</label><br/>
+        <select name="searchRestrictionValue1[0]" size="1" id="searchRestrictionValue1_0"><option value="">alle</option>
+          
+            <option value="46">Zentralbibl.</option>
+          
+            <option value="47">ZwB Einsiedel</option>
+          
+            <option value="48">StB Yorck</option>
+          
+            <option value="56">StB Vita-Center</option>
+          
+            <option value="55">ChemnetzBib</option>
+          
+            <option value="54">E-Learning</option>
+          
+            <option value="53">Umweltbibliothek</option>
+          
+            <option value="52">Kunstsammlungen</option>
+          
+            <option value="51">Neue Sächs. Galerie</option>
+          
+            <option value="50">Industrieschule</option>
+          
+            <option value="49">Stadtarchiv</option></select>
+        <input type="hidden" name="searchRestrictionID[0]" value="7" />
+        
+        
+      </td>
+    
+    
+    
+    
+    
+    
+    
+  
+    
+    
+    
+      <td width="50%" colspan="2">
+      
+        
+        
+        <label for="searchRestrictionValue1_1">Medientyp</label><br/>
+        <select name="searchRestrictionValue1[1]" size="1" id="searchRestrictionValue1_1"><option value="">alle</option>
+          
+            <option value="20">Buch</option>
+          
+            <option value="21">DVD</option>
+          
+            <option value="22">CD</option>
+          
+            <option value="23">Blu-ray</option>
+          
+            <option value="24">MP3</option>
+          
+            <option value="25">CD-ROM</option>
+          
+            <option value="26">DVD-ROM</option>
+          
+            <option value="27">Medienkombination (Sprachkurse u.ä.)</option>
+          
+            <option value="28">Zeitung/Zeitschrift</option>
+          
+            <option value="29">Noten</option>
+          
+            <option value="30">Spiel</option>
+          
+            <option value="31">Nintendo DS-Spiel</option>
+          
+            <option value="32">Wii-Spiel</option>
+          
+            <option value="33">Playstation-Spiel</option>
+          
+            <option value="34">Elektronische Medien</option>
+          
+            <option value="35">Ebook-Reader</option>
+          
+            <option value="36">LP</option></select>
+        <input type="hidden" name="searchRestrictionID[1]" value="2" />
+        
+        
+      </td>
+    
+    
+    
+    
+    
+    
+    </tr>
+  
+    <tr>
+    
+    
+    
+      <td width="25%" colspan="1">
+        <label for="searchRestrictionValue1_2">Jahr von</label><br/>
+        <input type="text" name="searchRestrictionValue1[2]" size="5" value="" id="searchRestrictionValue1_2" />
+        <input type="hidden" name="searchRestrictionID[2]" value="5" />
+      </td>
+      <td width="25%" colspan="1">
+        <label for="searchRestrictionValue2[2]">Jahr  bis</label><br/>
+        <input type="text" name="searchRestrictionValue2[2]" size="5" value="" id="searchRestrictionValue2_2" />
+      </td>
+    
+    
+    
+    
+    <td width="50%" colspan="2">&nbsp;</td>
+    </tr>
+  
+
+
+
+
+<!--END of /default/search/searchrestrictions.jsp-->
+
+
+
+
+        </tbody>
+      </table>
+      </fieldset>
+      </div>
+    </li>
+  
+
+
+
+<!--END of /default/search/searchparameter.jsp-->
+
+
+
+
+                
+
+
+
+
+
+
+
+
+
+
+
+
+<!--START of /default/search/searchpreferences.jsp-->
+
+
+
+  
+    
+      <li class="accordion collapsed">
+    
+    
+  
+
+  <h2 class="accordion-header"><a href="#"><span class="arrow">Sucheinstellungen<!-- search.searchparameternavi.searchpreferences--></span></a></h2> 
+  <div class="statistic">
+    <div class="statisticurl">/TouchPoint/statistic.do</div>
+    <div class="statisticdata">accordionname=searchpreferences&amp;statisticcontext=searchpage&amp;action=accordion</div>
+  </div>
+  <div class="accordion-body  accordion-body-content">
+    <fieldset> 
+      <legend class="hide-content">Sucheinstellungen</legend>
+      
+      
+      <table class="formular"> 
+        <tbody>
+          <tr>
+            <td style="width: 50%;">
+              <label for="numberOfHits"><abbr title="maximale">max.</abbr> Trefferanzahl</label><br/>
+              <select name="numberOfHits" size="1" id="numberOfHits"><option value="5">5</option>
+                <option value="10" selected="selected">10</option>
+                <option value="25">25</option>
+                <option value="50">50</option>
+                <option value="100">100</option></select>
+            </td>
+            <td style="width: 50%;">
+              <label for="rememberList">Eintrag in Merkliste</label><br/>
+              <select name="rememberList" size="1" id="rememberList"><option value="-1" selected="selected">Temporäre Merkliste</option></select>
+            </td>
+          </tr>
+          
+          <tr>
+            <td style="width: 50%;">
+              <label for="timeOut"><span lang="en" xml:lang="en">Timeout</span> (sek.)</label><br/>
+              <select name="timeOut" size="1" id="timeOut"><option value="10" selected="selected">10</option>
+                <option value="20">20</option>
+                <option value="30">30</option>
+                <option value="60">60</option>
+                <option value="120">120</option></select>
+            </td>
+             
+            <td style="width: 50%;">
+              <label for="considerSearchRestriction">Sucheinschränkungen</label><br/>
+              <select name="considerSearchRestriction" size="1" id="considerSearchRestriction"><option value="1" selected="selected">überspringe Datenbank</option>
+                <option value="2">überspringe Sucheinschränkung</option></select>
+            </td>
+            
+          </tr>
+          
+        </tbody>
+      </table>
+    </fieldset>
+  </div>
+</li>
+
+
+
+<!--END of /default/search/searchpreferences.jsp-->
+
+
+
+
+                 
+                  
+
+
+
+
+
+
+
+
+
+
+
+<!--START of /default/search/databaseSelection.jsp-->
+
+
+
+
+
+
+
+  
+    
+      <li class="accordion collapsed">
+    
+    
+  
+
+  <h2 class="accordion-header"><a href="#"><span class="arrow">Datenbank-Auswahl<!-- search.searchparameternavi.dbselection--></span></a></h2> 
+  <div class="statistic">
+    <div class="statisticurl">/TouchPoint/statistic.do</div>
+    <div class="statisticdata">accordionname=dbselection&amp;statisticcontext=searchpage&amp;action=accordion</div>
+  </div>
+  <div class="accordion-body accordion-body-content dbselection floatcon">
+    
+    
+    
+    
+    
+    
+    <div class="dbselection-left"> 
+      <fieldset>
+        <legend class="hide-content">Datenbanken</legend>
+        <a name="databaseSelection"></a>
+        <h3>Datenbanken</h3>
+        
+        <ul class="separated buttons">
+          <li><input type="submit" name="submitButtonCall_selectAllDatabases" value="alle" id="selectAllDatabases" class="linkbutton" /></li>
+          <li><input type="submit" name="submitButtonCall_deselectAllDatabases" value="keine" id="deselectAllDatabases" class="linkbutton" /></li>
+        </ul>
+        
+        <ul class="dbtree" style="margin-left: 0;">
+           
+            <li>
+            
+            
+           
+            
+            
+            
+              
+                
+                  <input type="checkbox" name="dbSelection[0]" value="2" checked="checked" id="DB_2" class="selectDatabase" title="Stadtbibliothek Chemnitz" />
+                
+                
+              
+                
+              
+                
+                  
+                  <a href="/TouchPoint/search.do;jsessionid=C3C3691A41AAB484766778B53B49B437?methodToCall=showDatabaseDescription&amp;id=2" target="_blank"><img src="/TouchPoint/default/images/info.gif;jsessionid=C3C3691A41AAB484766778B53B49B437" height="13" width="13" class="external" alt="Datenbankbeschreibung für Stadtbibliothek Chemnitz" /></a>
+                
+              
+              
+              
+                
+                
+                  <label for="DB_2"></label>
+                  <a target="_blank" href='http://opac2.stadtbibliothek-chemnitz.de/' class="external" title="Aufruf von Stadtbibliothek Chemnitz">Stadtbibliothek Chemnitz</a>
+                  <div class="statistic">
+                    <div class="statisticurl">/TouchPoint/statistic.do</div>
+                    <div class="statisticdata">statisticcontext=searchpage&amp;action=openurl&amp;url=http://opac2.stadtbibliothek-chemnitz.de/&amp;target=2</div>
+                  </div>
+                
+                
+                
+              
+              
+            
+           
+            </li>
+            
+            
+           
+            <li>
+            
+            
+           
+            
+            
+            
+              
+                
+                  <input type="checkbox" name="dbSelection[1]" value="5" id="DB_5" class="selectDatabase" title="Südwestdeutscher Bibliotheksverbund" />
+                
+                
+              
+                
+              
+                
+                  
+                  <a href="/TouchPoint/search.do;jsessionid=C3C3691A41AAB484766778B53B49B437?methodToCall=showDatabaseDescription&amp;id=5" target="_blank"><img src="/TouchPoint/default/images/info.gif;jsessionid=C3C3691A41AAB484766778B53B49B437" height="13" width="13" class="external" alt="Datenbankbeschreibung für Südwestdeutscher Bibliotheksverbund" /></a>
+                
+              
+              
+              
+                
+                
+                
+                  Südwestdeutscher Bibliotheksverbund
+                
+                
+              
+              
+            
+           
+            </li>
+            
+            
+           
+            <li>
+            
+            
+           
+            
+            
+            
+              
+                
+                  <input type="checkbox" name="dbSelection[2]" value="6" id="DB_6" class="selectDatabase" title="Bibliotheksverbund Bayern und Berlin-Brandenburg" />
+                
+                
+              
+                
+              
+                
+                  
+                  <a href="/TouchPoint/search.do;jsessionid=C3C3691A41AAB484766778B53B49B437?methodToCall=showDatabaseDescription&amp;id=6" target="_blank"><img src="/TouchPoint/default/images/info.gif;jsessionid=C3C3691A41AAB484766778B53B49B437" height="13" width="13" class="external" alt="Datenbankbeschreibung für Bibliotheksverbund Bayern und Berlin-Brandenburg" /></a>
+                
+              
+              
+              
+                
+                
+                
+                  Bibliotheksverbund Bayern und Berlin-Brandenburg
+                
+                
+              
+              
+            
+           
+            </li>
+            
+            
+          
+        </ul>
+        
+        
+      </fieldset>
+    </div><!-- END dbselection-left -->
+    
+    <div class="dbselection-right"> 
+      <h3>Datenbank-Auswahllisten</h3>
+      <ul class="dbtree">
+        
+          <li>    
+          
+        
+          
+            <div><strong>Standard Datenbanken</strong></div>
+              
+          
+        
+          <ul>    
+          
+        
+          <li>    
+          
+        
+              
+          
+            <div>Standarddatenbankauswahlliste</div>
+            <div><input type="submit" name="submitButtonCall_selectDatabaseCollection_3" value="übernehmen" class="linkbutton" /></div>
+          
+        
+          </li>    
+          
+        
+          </ul>    
+          
+        
+          </li>    
+          
+        
+        
+        
+      </ul>
+    </div><!-- END dbselection-right -->
+  </div>
+</li>
+
+
+
+<!--END of /default/search/databaseSelection.jsp-->
+
+
+
+
+                 
+              </ul>
+            </form>
+            <script type="text/javascript">/* <![CDATA[ */
+             (function(){
+               var form = document.forms["AdvancedSearchForm"],
+                 focusControl = null,
+                 doWithForm = jQuery.doSearchFormAction;
+               if (typeof doWithForm == "function")
+                 doWithForm(form, focusControl);
+             })();
+             /* ]]> */
+            </script>
+          </div><!-- middle -->
+        </div><!-- SOWrap -->
+        
+          <div id="right">
+            
+
+
+
+
+
+
+
+
+
+
+<!--START of /default/common/welcome.jsp-->
+
+
+
+  
+  
+  
+    
+      
+        
+      
+    
+  
+  
+  
+
+
+<!--END of /default/common/welcome.jsp-->
+
+
+
+  <br class="space" /> 
+  <br class="space" /> 
+
+            
+
+
+
+
+
+
+
+
+
+
+
+<!--START of /default/common/news.jsp-->
+
+
+
+
+
+  
+    
+
+
+<!--START of ../../sunrise/news+info/de_751_1.jsp-->
+
+
+
+      <b>Stadtteilbibliothek auswählen</b>
+<ul>
+  <li><a href="http://opac2.stadtbibliothek-chemnitz.de/TouchPoint/start.do?View=tp21&BaseURL=this" target="_blank">   Yorck</a></li>
+  <li><a href="http://opac2.stadtbibliothek-chemnitz.de/TouchPoint/start.do?View=tp22&BaseURL=this" target="_blank">   Vita</a></li>
+  <li><a href="http://opac2.stadtbibliothek-chemnitz.de/TouchPoint/start.do?View=tp19&BaseURL=this" target="_blank">   Einsiedel</a></li>
+</ul>
+<br>
+<b><a href="http://www.stadtbibliothek-chemnitz.de/aktuell/newsblog/article/neue-benutzungs-und-entgeltordnung-ab-15012015.html" target="_blank">Neue Benutzungs- und Entgeltordnung ab 15.01.2015</a></b><p>
+<br><br>
+<p><a href="http://www.stadtbibliothek-chemnitz.de/service-auskunft/fragen-sie-ihre-bibliothek-kritik-anregungen.html" target="_blank">Ihre Meinung zum neuen OPAC</a><br></p> 
+    
+
+
+<!--END of ../../sunrise/news+info/de_751_1.jsp-->
+
+
+
+  
+  
+
+
+
+
+<!--END of /default/common/news.jsp-->
+
+
+
+
+          </div><!-- right -->
+        
+        <br class="cleaner"/>
+      </div><!-- End main -->
+      
+
+
+
+
+
+
+
+
+
+
+<!--START of /default/common/footer.jsp-->
+
+
+
+  
+  
+  <div id="footer" class="floatcon">
+    
+	
+      
+      
+         
+      
+    
+    
+    <div id="copyright">
+      <span class="nowrap">Copyright © 2011. Alle Rechte vorbehalten.</span>
+      <img height="19" width="54" alt="OCLC" title="OCLC" src="/TouchPoint/default/images/OCLC.jpg"/>
+    </div>
+  </div>
+
+
+
+<!--END of /default/common/footer.jsp-->
+
+
+
+ 
+    </div>
+    <script src="js/search/layout.js" type="text/javascript"><!--  --></script>
+  
+
+
+<!--END of default/search/Layout.jsp-->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!--START of /default/common/commonActions.jsp-->
+
+
+
+  
+  
+  
+  
+    
+      
+    
+  
+  
+  
+     
+
+
+
+
+<!--END of /default/common/commonActions.jsp-->
+
+
+
+</body></html>
+
+
+<!--END of /WEB-INF/tags/metaHeader.tag-->
+
+
+
+

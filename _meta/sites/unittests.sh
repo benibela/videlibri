@@ -67,20 +67,24 @@ PAGES=(${PAGES[@]} libero5/update.login.faileden.html)
 
 #=============SISIS==============
 mkdir -p $OUTPATH/sisis
+mkdir -p $OUTPATH/sisis/touchpoint
 
-
-ADDTEMPLATE sisis/start 2
-PAGES=(${PAGES[@]} sisis/start.do.html sisis/start_schweinfurt.do.html)
+ADDTEMPLATE sisis/start 3
+PAGES=(${PAGES[@]} sisis/start.do.html sisis/start_schweinfurt.do.html sisis/touchpoint/start_chem.html )
 
 ADDTEMPLATE sisis/loggedIn 4
-PAGES=(${PAGES[@]} sisis/userAccount.do_empty.html sisis/userAccount.do_singlebook.html sisis/userAccount.do_singlebook2.html sisis/userAccount.do_2books.html)
+PAGES=(${PAGES[@]} sisis/userAccount.do_empty.html sisis/userAccount.do_singlebook.html sisis/userAccount.do_singlebook2.html sisis/userAccount.do_2books.html )
+
+ADDTEMPLATE "sisis/loggedIn{touchpoint:=true\(\)}" 4
+PAGES=(${PAGES[@]}   sisis/touchpoint/userAccount_0provided_chem.html sisis/touchpoint/userAccount_0requests_chem.html sisis/touchpoint/userAccount_1-10lend_chem.html sisis/touchpoint/userAccount_11-20lend_chem.html)
+
 
 #search
-ADDTEMPLATE sisis/searchList 18
-PAGES=(${PAGES[@]} sisis/search_rwth.do.html sisis/searchHitlist_rwth.do.html sisis/search_altdorf.do.html sisis/searchHitList_altdorf.do.html sisis/search_Z3988_haw-aw.do.html sisis/search_augsburg.do.html sisis/search_augsburg2.do.html sisis/search_basel.do.html sisis/search_chemnitz.do.html sisis/search_liestal.do.html sisis/search_tum.do.html sisis/search_pulheim.do.html sisis/searchHitlist_pulheim.do.html sisis/search_winterthur.do.html sisis/search_amberg1.html sisis/search_rwth1.html  sisis/search_last_fuerth.do.html sisis/search_oberhausen.do.html)   
+ADDTEMPLATE sisis/searchList 20
+PAGES=(${PAGES[@]} sisis/search_rwth.do.html sisis/searchHitlist_rwth.do.html sisis/search_altdorf.do.html sisis/searchHitList_altdorf.do.html sisis/search_Z3988_haw-aw.do.html sisis/search_augsburg.do.html sisis/search_augsburg2.do.html sisis/search_basel.do.html sisis/search_chemnitz.do.html sisis/search_liestal.do.html sisis/search_tum.do.html sisis/search_pulheim.do.html sisis/searchHitlist_pulheim.do.html sisis/search_winterthur.do.html sisis/search_amberg1.html sisis/search_rwth1.html  sisis/search_last_fuerth.do.html sisis/search_oberhausen.do.html sisis/touchpoint/searchList_1stp_chem.html sisis/touchpoint/searchList_2ndp_chem.html  )
 
-ADDTEMPLATE sisis/searchSingle 3
-PAGES=(${PAGES[@]} sisis/searchSingle_basel.do.html sisis/searchSingle_aachen.do.html sisis/searchSingle_regensburg.html)
+ADDTEMPLATE sisis/searchSingle 4
+PAGES=(${PAGES[@]} sisis/searchSingle_basel.do.html sisis/searchSingle_aachen.do.html sisis/searchSingle_regensburg.html sisis/touchpoint/searchHit_chem.html)
 
 ADDTEMPLATE sisis/orderConfirmation 2
 PAGES=(${PAGES[@]} sisis/orderConfirmation_aachen.html sisis/orderConfirmation_pulheim.html  )
@@ -107,7 +111,7 @@ PAGES=(${PAGES[@]} pica/extend2.html)
 
 #================LBS=============
 mkdir -p $OUTPATH/lbs
-ADDTEMPLATE lbs/list{vl:delete-current-books} 1
+ADDTEMPLATE lbs/list 1
 PAGES=(${PAGES[@]} lbs/loans.stralsund.html )
 
 #=============ADISWEB==============
@@ -203,7 +207,7 @@ PAGES=(${PAGES[@]} bibliotheca/searchDetails.neustadt.html)
 
 #=============Bibliothea+ OPEN==============
 mkdir -p $OUTPATH/bibliothecaplus
-ADDTEMPLATE bibliothecaplus/list{vl:delete-current-books} 1
+ADDTEMPLATE bibliothecaplus/list 1
 PAGES=(${PAGES[@]} bibliothecaplus/list.stralsund.html)
 
 ADDTEMPLATE bibliothecaplus/searchList'{\$last-visited-page:=0,\$current-page:=1,\$search-reverse-keys:=\(\)}' 2
@@ -241,9 +245,6 @@ for ((i=0;i<${#TEMPLATES[@]};i++)); do
   if [[ $TFILE =~ ([^{]+)[{](.+)[}] ]]; then
     TFILE=${BASH_REMATCH[1]}
     EXTRA="-e ${BASH_REMATCH[2]}"
-    if [[ $EXTRA =~ vl:delete-current-books ]]; then
-      EXTRA="-e \"declare function vl:delete-current-books() { books-deleted := true() }; ()\""
-    fi
     if [[ $EXTRA =~ vl:choose ]]; then
       EXTRA="-e \"declare function vl:choose(\\\$a,\\\$b,\\\$c,\\\$d) { message-choose :=  join((\\\$a,\\\$b,\\\$c,\\\$d))}; ()\""
     fi
@@ -251,9 +252,10 @@ for ((i=0;i<${#TEMPLATES[@]};i++)); do
       EXTRA="-e \"declare function vl:raise(\\\$x) { raised := \\\$x }; ()\""
     fi
   fi
+  FUNCTIONS="-e \"declare function vl:delete-current-books() { books-deleted := true() }; ()\""
 
   
-  eval $TEMPLATEPARSER  $EXTRA $TEMPLATEPARSERARGS $INPATH/${PAGES[i]} --extract-file=$TFILE  > $OUTPATH/${PAGES[i]}.result 2> $OUTPATH/stderr
+  eval $TEMPLATEPARSER $FUNCTIONS $EXTRA $TEMPLATEPARSERARGS $INPATH/${PAGES[i]} --extract-file=$TFILE  > $OUTPATH/${PAGES[i]}.result 2> $OUTPATH/stderr
   if diff -q $INPATH/${PAGES[i]}.result $OUTPATH/${PAGES[i]}.result; then tempasasas=42; else 
     echo
     echo -n ERROR: 
