@@ -1,0 +1,7 @@
+<table class="data">
+  {$i:=0,$book.orderConfirmationOptionTitles := .//tr[td], $book.orderable := exists(.//tr//a)}
+  <tr><td/>{$book(x"orderUrl{$i:=$i+1}") := .//a/@href}</tr>*
+</table>
+ 
+
+

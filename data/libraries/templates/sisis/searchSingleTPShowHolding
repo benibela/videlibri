@@ -1,0 +1,4 @@
+<table class="data">
+  {$i := 0}
+  <tr><td/>{$book(x"Exemplar {$i := $i + 1}!") := .}</tr>*
+</table> 
