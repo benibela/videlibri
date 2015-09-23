@@ -24,7 +24,7 @@
     <post name="username" value="{$username}"/>
     <post name="password" value="{$password}"/>
     
-    <template>
+    <template><t:switch prioritized="true">
     <body>
     <a t:optional="true">deutsch<t:if test="/html/@lang != 'de'">
         <t:read var="raise()" source="concat('VideLibri funktioniert nur, wenn die Sprache des Webkatalogs auf deutsch gesetzt ist.', $line-ending, 'Die Einstellung kann auf der normalen Katalogseite unter Konto / Sucheinstellungen / Sprache geändert werden.', $line-ending, $line-ending, $line-ending, 'VideLibri only works, if the language of the library web catalog is set to German. ', $line-ending, ' You can change the language setting on the normal web page on the  Account / Search preferences / Language page.')"/>
@@ -37,6 +37,8 @@
       </t:switch>
     </form>
     </body>
+    <table class="data" id="holdings_"></table> <!-- touch point sends us to the last AJAX request -->
+    </t:switch>
     </template>
   </page>
 </action>
@@ -182,35 +184,41 @@
     <call action="login"/>
     <variable name="loggedIn">true()</variable>
   </if>
-  
-  <s>url := $book(concat('order', $book.choosenOrder)), 
+  <s>confirm := "",
+     url := $book(concat('order', $book.choosenOrder)), 
      post := $book(concat('orderPost', $book.choosenOrder)),
      if ($post) then url := {"url": $url, "post": $post, "method": "POST"} else ()
     </s>
   <page url="{$url}"  templateFile="orderConfirmation"/>
 </action>
 
-<action id="order-single"> 
+<action id="order-single">  
+  <s>hj := $book.orderConfirmation</s>
   <if test="$book.orderConfirmation">
     <variable name="confirm">
     {
       "url": $confirm.url,
       "method": $confirm.method,
-      "post": replace($confirm.post, "issuepoint=", concat("issuepoint=", get("issuePoints", ())[$book.choosenConfirmation * 1] ))
+      "post": replace(replace($confirm.post, "issuepoint=", concat("issuepoint=", get("issuePoints", ())[$book.choosenConfirmation * 1] )) (: old sisis :),
+                 "location=", concat("location=", get("locations", ())[$book.choosenConfirmation * 1] )) (: touchpoint :), 
+              )
     }
     </variable>  
-    <page url="{$confirm}">
-      <template>
-        <form t:condition="contains(@action, 'acknowledge.do') ">
-         <!-- ok -->
-<!--    <template>          Das Medium wurde für Sie vorgemerkt
-    und ist voraussichtlich bis |  Das Medium wurde für Sie an 2. Stelle vorgemerkt.  
-    
-     Ausgabeort: Zentralbibliothek    </template>-->
-        </form>      
-      </template>
-    </page>
   </if>
+  <page url="{$confirm}">
+    <template>
+      <t:switch prioritized="true">
+      <form t:condition="contains(@action, 'acknowledge.do') ">
+       <!-- ok -->
+<!--    <template>          Das Medium wurde für Sie vorgemerkt
+  und ist voraussichtlich bis |  Das Medium wurde für Sie an 2. Stelle vorgemerkt.  
+  
+   Ausgabeort: Zentralbibliothek    </template>-->
+      </form>   
+      <div class="message-confirm"/>
+      </t:switch>   
+    </template>
+  </page>
 </action>
 
 </actions> 

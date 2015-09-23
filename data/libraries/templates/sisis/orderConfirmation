@@ -1,5 +1,5 @@
 <html>
-  <t:switch-prioritized>
+  <t:switch prioritized="true">
     <form t:condition="contains(@action, 'reservation.do') or contains(@action, 'order.do') ">
         <table class="formular">
           <tr><td> 
@@ -20,6 +20,22 @@
       }
     </form>
     
+    <form t:condition="contains(@action, 'requestItem.do') "> <!-- touchpoint -->
+        <table class="formular">
+          <select name="location">{
+            locations := option/@value, $book.orderConfirmationOptionTitles := join(option, "\|")
+          }</select>
+        </table>
+
+      {if (contains($book.orderConfirmationOptionTitles, "\|") ) then (
+        confirm := form(., {"location": ""}),
+        book.orderConfirmation := "Wohin soll das Buch vorbestellt werden?"
+       ) else (
+        confirm := form(.),
+        book.orderConfirmation := "")
+      }
+    </form>
+
     <form t:condition="contains(@action, 'reservation.do') or contains(@action, 'order.do') ">
       <span>{book.orderConfirmation := join(../(span|input/@value))}</span>
       {confirm := form(.)}
@@ -28,6 +44,6 @@
     <form t:condition="contains(@action, 'acknowledge.do') ">
      <!-- ok -->
     </form>
-  </t:switch-prioritized>
+  </t:switch>
 </html>
     
