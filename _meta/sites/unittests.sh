@@ -86,7 +86,7 @@ PAGES=(${PAGES[@]} sisis/search_rwth.do.html sisis/searchHitlist_rwth.do.html si
 ADDTEMPLATE sisis/searchSingle 4
 PAGES=(${PAGES[@]} sisis/searchSingle_basel.do.html sisis/searchSingle_aachen.do.html sisis/searchSingle_regensburg.html sisis/touchpoint/searchHit_chem.html)
 
-ADDTEMPLATE sisis/orderConfirmation 2
+ADDTEMPLATE sisis/orderConfirmation{vl:confirm} 2
 PAGES=(${PAGES[@]} sisis/orderConfirmation_aachen.html sisis/orderConfirmation_pulheim.html  )
 
 ADDTEMPLATE 'sisis/singleExtended{b:={\"id\":123}}' 1
@@ -140,7 +140,7 @@ PAGES=(${PAGES[@]} aDISWeb/connected_furtwangen.html aDISWeb/connected_voebb1.ht
 ADDTEMPLATE aDISWeb/searchInputForm 1
 PAGES=(${PAGES[@]} aDISWeb/searchInputForm_mannheim-hsb.html )
 
-ADDTEMPLATE aDISWeb/orderConfirmation{vl:choose} 2
+ADDTEMPLATE aDISWeb/orderConfirmation 2
 PAGES=(${PAGES[@]} aDISWeb/orderConfirmation_hdmtest.html aDISWeb/orderConfirmation_due.html )
 
 ADDTEMPLATE aDISWeb/orderConfirmed{vl:raise} 5
@@ -181,7 +181,7 @@ ADDTEMPLATE zones18/searchDetails 7
 PAGES=(${PAGES[@]} zones18/searchDetails.html zones18/searchDetailsCollection.html zones18/searchDetailsSubTitle.html zones18/searchDetails.biel.html zones18/searchDetails.cologne.html zones18/searchDetails.hannover.html zones18/searchDetails.koblenz.html)
 
 
-ADDTEMPLATE zones18/orderConfirmation{vl:choose} 1
+ADDTEMPLATE zones18/orderConfirmation 1
 PAGES=(${PAGES[@]} zones18/orderConfirm.html)
 
 
@@ -245,14 +245,14 @@ for ((i=0;i<${#TEMPLATES[@]};i++)); do
   if [[ $TFILE =~ ([^{]+)[{](.+)[}] ]]; then
     TFILE=${BASH_REMATCH[1]}
     EXTRA="-e ${BASH_REMATCH[2]}"
-    if [[ $EXTRA =~ vl:choose ]]; then
-      EXTRA="-e \"declare function vl:choose(\\\$a,\\\$b,\\\$c,\\\$d) { message-choose :=  join((\\\$a,\\\$b,\\\$c,\\\$d))}; ()\""
+    if [[ $EXTRA =~ vl:confirm ]]; then
+      EXTRA="-e \"declare function vl:confirm(\\\$a,\\\$b) { message-confirm :=  join((\\\$a,\\\$b))};()\""
     fi
     if [[ $EXTRA =~ vl:raise ]]; then
       EXTRA="-e \"declare function vl:raise(\\\$x) { raised := \\\$x }; ()\""
     fi
   fi
-  FUNCTIONS="-e \"declare function vl:delete-current-books() { books-deleted := true() }; ()\""
+  FUNCTIONS="-e \"declare function vl:delete-current-books() { books-deleted := true() }; declare function vl:choose(\\\$a,\\\$b,\\\$c,\\\$d) { message-choose :=  join((\\\$a,\\\$b,\\\$c,\\\$d))}; ()\""
 
   
   eval $TEMPLATEPARSER $FUNCTIONS $EXTRA $TEMPLATEPARSERARGS $INPATH/${PAGES[i]} --extract-file=$TFILE  > $OUTPATH/${PAGES[i]}.result 2> $OUTPATH/stderr

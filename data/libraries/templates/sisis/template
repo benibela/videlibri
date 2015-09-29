@@ -179,46 +179,51 @@
 
 
 
-<action id="order-confirm-single"> 
+<action id="order-single"> 
   <if test="not(get('loggedIn', false()))"> 
     <call action="login"/>
     <variable name="loggedIn">true()</variable>
   </if>
-  <s>confirm := "",
+  <s>confirm := "", finish-order-now := false(), choose-result:=1,
      url := $book(concat('order', $book.choosenOrder)), 
      post := $book(concat('orderPost', $book.choosenOrder)),
      if ($post) then url := {"url": $url, "post": $post, "method": "POST"} else ()
     </s>
   <page url="{$url}"  templateFile="orderConfirmation"/>
+  <call test="$finish-order-now" action="internal-order"/>
 </action>
 
-<action id="order-single">  
-  <s>hj := $book.orderConfirmation</s>
-  <if test="$book.orderConfirmation">
-    <variable name="confirm">
-    {
-      "url": $confirm.url,
-      "method": $confirm.method,
-      "post": replace(replace($confirm.post, "issuepoint=", concat("issuepoint=", get("issuePoints", ())[$book.choosenConfirmation * 1] )) (: old sisis :),
-                 "location=", concat("location=", get("locations", ())[$book.choosenConfirmation * 1] )) (: touchpoint :), 
-              )
-    }
-    </variable>  
+<action id="internal-order-confirmed">  
+  <call test="$confirm-result" action="internal-order"/>  
+</action>
+
+<action id="internal-order">
+  <if test="$choose-result ne 0">
+    <if test="not($choose-result instance of xs:decimal)">
+      <variable name="confirm">
+      {
+        "url": $confirm.url,
+        "method": $confirm.method,
+        "post": replace(replace($confirm.post, "issuepoint=", concat("issuepoint=", $choose-result )) (: old sisis :),
+                   "location=", concat("location=", $choose-result)) (: touchpoint :)
+      }
+      </variable>  
+    </if>
+    <page url="{$confirm}">
+      <template>
+        <t:switch prioritized="true">
+        <form t:condition="contains(@action, 'acknowledge.do') ">
+         <!-- ok -->
+  <!--    <template>          Das Medium wurde für Sie vorgemerkt
+    und ist voraussichtlich bis |  Das Medium wurde für Sie an 2. Stelle vorgemerkt.  
+    
+     Ausgabeort: Zentralbibliothek    </template>-->
+        </form>   
+        <div class="message-confirm"/>
+        </t:switch>   
+      </template>
+    </page>
   </if>
-  <page url="{$confirm}">
-    <template>
-      <t:switch prioritized="true">
-      <form t:condition="contains(@action, 'acknowledge.do') ">
-       <!-- ok -->
-<!--    <template>          Das Medium wurde für Sie vorgemerkt
-  und ist voraussichtlich bis |  Das Medium wurde für Sie an 2. Stelle vorgemerkt.  
-  
-   Ausgabeort: Zentralbibliothek    </template>-->
-      </form>   
-      <div class="message-confirm"/>
-      </t:switch>   
-    </template>
-  </page>
 </action>
 
 </actions> 
