@@ -73,7 +73,7 @@
           <!-- <template:read source="true()" var="spanmissing"/>
          <template:read source="false()" var="previousspan"/>-->
           <template:read source="text()" var="book.author"/><br/>
-          <template:read source="text()" var="book.id" regex="^[^/]*"/><br/>
+          <template:read source="text()" var="book.id" regex="^[^/]*"/>
           <a template:optional="true">
             {$book.actionURI := resolve-html(.)}
             <span>
