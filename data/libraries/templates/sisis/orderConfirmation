@@ -1,6 +1,7 @@
 <html>
   <t:switch prioritized="true">
     <form t:condition="contains(@action, 'reservation.do') or contains(@action, 'order.do') ">
+        {titles := (), issuePoints := ()}
         <table class="formular">
           <tr><td> 
               <input name="issuepoint" class="radio">{
