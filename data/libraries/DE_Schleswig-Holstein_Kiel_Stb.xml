@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <library>
-  <longName value="Stadtbücherei Kiel (alpha)"/>
+  <longName value="Stadtbücherei Kiel"/>
   
   <template value="zones18"/>  
   <variable name="baseurl" value="https://stadtbuecherei.kiel.de/alswww2.dll/"/>
 
   <homepage value="http://www.kiel.de/kultur/stadtbuecherei/"/>
   <testing-search value="ja" date="2013-10-07"/>
-  <testing-account value="?" date=""/>
+  <testing-account value="ja" date="2015-10-10"/>
   <testing-renew value="?" date=""/>
 </library>
