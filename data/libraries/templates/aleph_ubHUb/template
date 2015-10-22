@@ -6,7 +6,7 @@
 </meta>
 
 <action id="connect">
-    <page url="https://opac.hu-berlin.de:443/F/" templateFile="redirection">
+    <page url="https://{$server}/F/" templateFile="redirection">
       <post name="func" value="login-session"/>
       <post name="login_source" value=""/>
       <post name="bor_id" value="{$username}"/>
