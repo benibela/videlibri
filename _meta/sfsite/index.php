@@ -306,8 +306,8 @@ Eine kurze Übersicht über die Entwicklung von VideLibri gibt folgende Liste:
 <li><b>2011</b>: Unterstützung für PICA, mit dem Campuskatalog Hamburg als Beispiel sowie Auflistung der Berliner Bibliotheken</li>
 <li><b>2012</b>: Unterstützung für aDIS/BMS, mit der Stadtbücherei München als Beispiel</li>
 <li><b>2013</b>: erster Androidportierung, Vormerkungsmöglichkeiten, Auflistung einiger Bibliotheken für die unterstützten Systeme, und Unterstützung für Zones 1.8 und Primo</li>
-<li><b>2014</b>: Unterstützung für LBS, Bibliotheca und Bibliotheca+/OPEN.</li>
-
+<li><b>2014</b>: Unterstützung für LBS, Bibliotheca und Bibliotheca+/OPEN. Präsentation von <a href="http://www.balisage.net/Proceedings/vol13/html/Zander01/BalisageVol13-Zander01.html">VideLibri's HTML Matching</a> auf der Balisage-Konferenz, was mit einem "Student Support Award" ausgezeichnet wurde.</a></li>
+<li><b>2015</b>: Unterstützung für marcXML</li>
 </ul>
 
 Eine Übersicht, über alle veröffentlichten Versionen findet man im <a href="updates/changelog.xml">Changelog</a>. Alle Änderungen und Entwicklungsschritte findet man im <a href="https://sourceforge.net/p/videlibri/code/ci/tip/log/">Repositorylog</a>.
