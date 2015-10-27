@@ -1641,12 +1641,18 @@ begin
 end;
 
 procedure TTemplateAccountAccess.setVariables(parser: THtmlTemplateParser);
+  procedure setVar(const name, value: string);
+  begin
+    if not parser.variableChangeLog.hasVariable(name, nil) then
+      parser.variableChangeLog.ValuesString[name] := value;
+  end;
+
 var i:longint;
 begin
   for i:=0 to lib.defaultVariables.count-1 do
-    parser.variableChangeLog.ValuesString[lib.defaultVariables.Names[i]]:=lib.defaultVariables.ValueFromIndex[i];
-  parser.variableChangeLog.ValuesString['username']:=user;
-  parser.variableChangeLog.ValuesString['password']:=passWord;
+    setVar(lib.defaultVariables.Names[i], lib.defaultVariables.ValueFromIndex[i]);
+  setVar('username', user);
+  setVar('password', passWord);
 end;
 
 procedure TTemplateAccountAccess.resetlib;
