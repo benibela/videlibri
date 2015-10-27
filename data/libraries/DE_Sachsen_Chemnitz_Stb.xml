@@ -4,7 +4,7 @@
   <shortName value="Stb Chemnitz"/> 
   
   <template value="sisis"/>  
-  <variable name="server" value="http://opac2.stadtbibliothek-chemnitz.de/TouchPoint/"/>
+  <variable name="server" value="https://opac2.stadtbibliothek-chemnitz.de/TouchPoint_touchpoint/"/>
   <variable name="startparams" value=""/>
   
   <homepage value="http://www.stadtbibliothek-chemnitz.de/"/>

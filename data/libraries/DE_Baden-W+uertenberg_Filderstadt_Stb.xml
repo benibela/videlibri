@@ -3,8 +3,7 @@
   <longName value="Stadtbibliothek Filderstadt  (alpha)"/>
 
   <template value="libero5"/>
-  <variable name="baseurl" value="http://opac.filderstadt.de/libero/"/>
-  <variable name="loginBaseurl" value="https://service.filderstadt.de/opac/libero/"/>
+  <variable name="baseurl" value="https://service.filderstadt.de/libero/"/>
 
   <homepage value="http://www.filderstadt.de/servlet/PB/menu/1002829/1002829.html"/>
   <testing-search value="ja" date="2013-07-05"/>
