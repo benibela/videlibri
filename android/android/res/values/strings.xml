@@ -246,5 +246,5 @@
 
     <string name="history">Ausleihenhistorie</string>
     <string name="configuration">Konfiguration</string>
-    <string name="passwords">Passwörter</string>
+    <string name="passwords">Passwörter</string><string name="lay_booklist_searchfilter_hint">(Offlinesuche in den eigenen Medien)</string>
 </resources>
