@@ -326,7 +326,8 @@ begin
   if (firstExistsDate=0) or ((book.firstExistsDate<>0) and (book.firstExistsDate<firstExistsDate)) then
     firstExistsDate:=book.firstExistsDate;
   if cancelable = tUnknown then cancelable:=book.cancelable;
-  if renewCount = 0 then renewCount := book.renewCount;
+  //if renewCount = 0 then
+  renewCount := book.renewCount;
   for i:=0 to high(book.additional) do
     if  simplexmlparser.getProperty(book.additional[i].name,additional)='' then
       simplexmlparser.setProperty(book.additional[i].name,book.additional[i].value,additional); //todo optimize. do *not* use addProperty
