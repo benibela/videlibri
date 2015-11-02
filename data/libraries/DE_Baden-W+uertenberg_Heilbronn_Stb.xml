@@ -4,7 +4,7 @@
   <shortName value="Stb Heilbronn"/>
   
   <template value="bibliotheca"/>
-  <variable name="baseurl" value="http://www.bibliotheken.bw-online.de/wwwopac-heilbronn"/>	
+  <variable name="baseurl" value="https://web-opac.kivbf.de/heilbronn"/>	
   <variable name="DB" value="Heilbronn"/>	
   
   <!--<template value="pica"/>-->

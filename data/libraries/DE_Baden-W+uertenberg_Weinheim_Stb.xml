@@ -4,7 +4,7 @@
   <shortName value="Stb Weinheim"/>
   
   <template value="bibliotheca"/>
-  <variable name="baseurl" value="http://www.bibliotheken.bw-online.de/wwwopac-weinheim"/>	
+  <variable name="baseurl" value="https://web-opac.kivbf.de/weinheim"/>	
   <variable name="DB" value="Weinheim"/>	
   
   <!--<template value="pica"/>-->
