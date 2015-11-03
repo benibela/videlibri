@@ -252,6 +252,7 @@ begin
   _referenceCount:=1;
   status:=bsUnknown;
   cancelable:=tUnknown;
+  renewCount := -1;
 end;
 
 function TBook.equalToKey(compareTo: TBook): boolean;
@@ -279,7 +280,7 @@ begin
     str('status', statusStr);
     //str('otherInfo', otherInfo);
     str('statusId', BookStatusToSerializationStr(status));
-    if renewCount <> 0 then str('renewCount', inttostr(renewCount));
+    if renewCount > 0 then str('renewCount', inttostr(renewCount));
     case cancelable of
       tUnknown: str('cancelable', '?');
       tTrue: str('cancelable', 'true');
@@ -326,8 +327,7 @@ begin
   if (firstExistsDate=0) or ((book.firstExistsDate<>0) and (book.firstExistsDate<firstExistsDate)) then
     firstExistsDate:=book.firstExistsDate;
   if cancelable = tUnknown then cancelable:=book.cancelable;
-  //if renewCount = 0 then
-  renewCount := book.renewCount;
+  if renewCount = -1 then renewCount := book.renewCount;
   for i:=0 to high(book.additional) do
     if  simplexmlparser.getProperty(book.additional[i].name,additional)='' then
       simplexmlparser.setProperty(book.additional[i].name,book.additional[i].value,additional); //todo optimize. do *not* use addProperty
@@ -348,7 +348,10 @@ begin
 
   if (issueDate <> 0) and (book.issueDate <> 0) then  issueDate:=min(issueDate, book.issueDate);
   dueDate:=max(dueDate, book.dueDate);
-  lastExistsDate:=max(lastExistsDate, book.lastExistsDate);
+  if book.lastExistsDate > lastExistsDate then begin
+    lastExistsDate:= book.lastExistsDate;
+    renewCount := book.renewCount;
+  end;
   if (firstExistsDate <> 0) and (book.firstExistsDate <> 0) then firstExistsDate:=min(firstExistsDate, book.firstExistsDate);
 end;
 
@@ -411,7 +414,7 @@ begin
     'duedate': dueDate:=bbutils.dateParse(value, 'yyyy-mm-dd');
     '_firstexistsdate': firstExistsDate:=bbutils.dateParse(value, 'yyyy-mm-dd');
     '_lastexistsdate': lastExistsDate:=bbutils.dateParse(value, 'yyyy-mm-dd');
-    'renewcount': renewCount := StrToIntDef(value, 0);
+    'renewcount': renewCount := StrToIntDef(value, -1);
     else simplexmlparser.setProperty(name,value,additional);
   end;
 end;
@@ -437,7 +440,7 @@ begin
     'duedate': result := bbutils.dateTimeFormat('yyyy-mm-dd', dueDate);
     '_firstexistsdate': result := bbutils.dateTimeFormat('yyyy-mm-dd', firstExistsDate);
     '_lastexistsdate': result := bbutils.dateTimeFormat('yyyy-mm-dd', lastExistsDate);
-    'renewcount': result := inttostr(renewCount);
+    'renewcount': result := inttostr(max(renewCount, 0));
     else result := getPropertyAdditional(name, def);
   end;
 end;

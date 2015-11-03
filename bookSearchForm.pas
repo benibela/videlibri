@@ -928,6 +928,7 @@ begin
       propAdd('Ausleihstatus!', BookStatusToStr(book,true));
       propAdd('Erstes Vorkommen',DateToPrettyStr(book.firstExistsDate));
       propAdd('Letztes Vorkommen',DateToPrettyStr(book.lastExistsDate));
+      if book.renewCount > 0 then propAdd('Anzahl Verlängerungen!', IntToStr(book.renewCount));
     end;
     for i:=0 to high(book.additional) do
       propAdd(book.additional[i].name,book.additional[i].value);
