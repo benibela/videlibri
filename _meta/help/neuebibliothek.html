@@ -4,35 +4,225 @@
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
+<div class="main">
 <h1>Neue Büchereien einfügen</h1>
-<p>Es ist in VideLibri auch möglich bisher vollkommen unbekannte Büchereien einzubinden, wenn man die nötigen Kenntnisse über den Aufbau ihrer Internetseiten hat. Das Einfügen erfolgt dann in 3 Schritten, die hier auf jeweils einer eigenen Seite beschrieben werden:<br>
-Benutzt eine Bücherei das gleiche System, wie eine bereits bekannte, ist nur Schritt 1 nötig.
+<p>Es ist in VideLibri auch möglich bisher vollkommen unbekannte Büchereien einzubinden. Tatsächlich war die 2008-Version von VideLibri so konzipiert, dass es überhaupt keine mitgelieferten Bibliotheken geben sollte und jeder Benutzer seine eigene Bibliothek einbindet. Dafür wurde eine besonders einfache Programmiersprache entwickelt, sowie ein Webseiten-Änderungs-Erkennungsystem (Pattern-Matching), dass alle sich ändernden Daten von einer Webseite auslesen kann, ohne dass dafür irgendwelche Programmierung erforderlich wäre. <br>
 
-<p>Alle Schritte lassen sich auch voll automatisch durch ein <a href="http://videlibri.sourceforge.net/script.user.js">GreaseMonkey-Skript</a> (<a href="https://www.youtube.com/watch?v=PUrBJ6wOXvE">Tutorial-Video</a>) ausführen.
+<p>VideLibri benötigt die folgenden Informationen über eine neue Bibliothek, die in unterschiedliche XML-Dateien eingetragen werden. Benutzt eine Bücherei das gleiche System, wie eine bereits bekannte, ist ausschließlich der erste Punkt nötig:
+<br>
+
 
 <table>
 <tr>
-<td><a href="bibliothek.html">1. Büchereibeschreibung</a></td><td>In diesem Schritt müssen allgemeine Informationen über die Bücherei eingegeben werden, beispielsweise ihr Name.</td>
+<td><a href="bibliothek.html">Büchereibeschreibung</a></td><td>Allgemeine Informationen über die Bücherei, beispielsweise ihr Name oder die Hauptadresse ihrer Webseite. </td>
 </tr>
 <tr>
-<td><a href="templates.html">2. Template anlegen</a></td><td>Hier werden die Reihenfolgen und Adressen der aufzurufenden Seiten eingetragen.</td>
+<td><a href="templates.html">Ein Katalog-Template</a></td><td>Hier werden die (relativen) Adressen aller Webseiten des Bibliothekkatalogs eingetragen und die Reihenfolge, in der die Seiten aufgerufen werden</td>
 </tr>
 <tr>
-<td><a href="seiten.html">3. Einzelseiten-Templates anlegen</a></td><td>Im letzten Schritt muss der Aufbau der einzelnen Seiten beschrieben werden. </td>
+<td><a href="seiten.html">Mehrere Einzelseiten-Patterns</a></td><td>Für jede Seite wird ein Pattern benötigt, welches der Struktur der Seite entspricht. </td>
 </tr>
 <tr>
 </tr>
 </table>
+<p>Alle Punkte lassen sich auch voll automatisch durch ein <a href="http://www.videlibri.de/script.user.js">GreaseMonkey-Skript</a> (<a href="https://www.youtube.com/watch?v=PUrBJ6wOXvE">Tutorial-Video</a>) erledigen (was jedoch nicht immer zuverlässig läuft).
 <br><br>
-Üblicherweise erfolgen Schritt 2 und 3 in parallel, also man fügt die Adresse einer neuen Unterseite des Büchereikatalogs ein und erstellt dann gleich das Einzelseiten-Template, bevor man mit der nächsten Unterseite fortfährt.
-<br><br>
-Am besten ist es, parallel zu dieser Hilfe auch die existierenden Büchereibeschreibungen unter data/libraries/ zu lesen, zumal es in den meisten Fällen möglich ist, die Dateien einer alten Bücherei zu kopieren und nur leicht zu verändern.<br><br>
+Ein ganz einfaches Beispiel wäre eine Bibliothek von Musterstadt, die nach einem Login Titel und Autor aller Ausleihen in einer Tabelle anzeigt. <br>
+Man beginnt mit dem Katalog-Template und kopiert das folgende, beinahe leere Skelett für ein Kontozugriffstemplate (siehe unten, wo man es am Ende abspeichert):
 
-Für ein Templates, das die Suche in einem Katalog ermöglichen soll, gibt es noch einige <a href="searchtemplates.html">spezielle Anmerkungen</a><br><br>
+<pre><code>
+  &lt;actions>
+    &lt;action id="connect"/>
+    
+    &lt;action id="update-all">
+      &lt;s>vl:delete-current-books()&lt;/s>
+    &lt;/action>
+  &lt;/actions> 
+</code></pre>
 
-Falls Sie ein Template erstellen wollen, dass durch Eingabe einer URL in VideLibri installiert werden kann, entweder weil Sie für eine Bibliothek arbeiten und Ihren Lesern ein VideLibri-Template zur Verfügung stellen wollen; oder ein nicht-gerootetes Android-Gerät verwenden, gibt es dazu hier zusätzliche <a href="publishtemplate.html">Informationen</a>. <br><br>
+Um das Template mit dem Katalog von Musterstadt zu verbinden, trägt man zuerst die Adresse http://opac.musterstadt.de/ im Template als <code>page</code>-Element ein und bekommt:
 
-Der Benutzer kann das veröffentlichte Template dann in VideLibri <a href="templateinstallation.html">installieren</a>.
+<pre><code>
+  &lt;actions>
+    &lt;action id="connect"/>
+    
+    &lt;action id="update-all">
+      &lt;s>vl:delete-current-books()&lt;/s>
+      &lt;page url="http://opac.musterstadt.de/">
+      &lt;/page>
+    &lt;/action>
+  &lt;/actions> 
+</code></pre>
+
+
+Öffnet man die Musterstadt-Seite auf, stößt man auf ein Loginformular. Im Quellcode der Seite findet man dann ein <code>form</code>-Element wie: 
+
+<pre><code>
+        &lt;form action="/login" id="loginfrm" method="POST">
+          ...
+          Benutzername: &lt;input name="user" value=""> &lt;br>&lt;br>
+          Passwort: &lt;input name="passcode" value=""> &lt;br>&lt;br>
+          &lt;input type="submit"/>
+          &lt;input name="sessionkey" value="1312kpad1341242" type="hidden"> 
+          ...
+        &lt;/form>
+</code></pre>
+
+Man sieht zwei wichtige <code>input</code>-Elemente: <code>user</code> und <code>passcode</code> für Kontonummer und Passwort. 
+Nun löscht man alles überflüssige (d.h. alles außer dem <code>form</code>-Element) und merkt sich den Namen der input-Felder. Man erhält:
+
+<pre><code>
+        &lt;form  id="loginfrm">
+      
+        &lt;/form>
+</code></pre>
+
+Nun kommt der komplizierteste Teil: Man verbindet die Namen der beiden <code>input</code>-Felder mit dem Namen/Passwort von VideLibri und teilt VideLibri mit, dass es ein Formular ausfüllen soll. Dies ist bei jedem Katalog dasselbe, nur die Namen der <code>input</code>-Felder ändern sich, weil VideLibri alles andere automatisch erkennt:
+
+<pre><code>
+        &lt;form  id="loginfrm">
+          {$login := form(., {"user": $username, "passcode": $password})}
+        &lt;/form>
+</code></pre>
+
+Das ganze kopiert man nun ins Template von oben, damit VideLibri weiß, zu welcher Webseite es gehört. Umgeben von einem <code>pattern</code>-Element, damit es vom Rest des Templates unterschieden werden kann:
+
+<pre><code>
+  &lt;actions>
+    &lt;action id="connect"/>
+    
+    &lt;action id="update-all">
+      &lt;s>vl:delete-current-books()&lt;/s>
+      &lt;page url="http://opac.musterstadt.de/">
+        &lt;pattern>
+          &lt;form  id="loginfrm">
+            {$login := form(., {"user": $username, "passcode": $password})}
+          &lt;/form>
+        &lt;/pattern>
+      &lt;/page>
+    &lt;/action>
+  &lt;/actions> 
+</code></pre>
+
+Nun fügt man die nächste Seite in das Template ein, auf der es die Ausleihen geben sollte. Die Adresse dieser Seite ändert sich dynamisch und man kennt sie jetzt nicht, aber VideLibri findet die Seite automatisch und man kann als Adresse einfach <code>{$login}</code> nehmen. (weil die vorhin eingefügte Zeile mit <code>{$login :=</code> angefangen hat, so dass die Adresse in der <code>$login</code> Variable gespeichert wurde)
+
+<pre><code>
+  &lt;actions>
+    &lt;action id="connect"/>
+    
+    &lt;action id="update-all">
+      &lt;page url="http://opac.musterstadt.de/">
+        &lt;pattern>
+          &lt;form  id="loginfrm">
+            {$login := form(., {"user": $username, "passcode": $password})}
+          &lt;/form>
+        &lt;/pattern>
+      &lt;/page>
+      &lt;page url="{$login}">
+      &lt;/page>
+    &lt;/action>
+  &lt;/actions> 
+</code></pre>
+
+Man geht wieder zur Bibliothekswebseite nach dem Login, wo es die Tabelle aller Ausleihen gibt. Im Quellcode der Seite sieht man zum Beispiel:
+
+<pre><code>
+        &lt;table class="ausleih-table" id="ausleihen">
+          &lt;thead>
+            &lt;tr>&lt;th>Titel&lt;/th>&lt;th>Autor&lt;/th>&lt;/tr>
+          &lt;/thead>
+          &lt;tbody>
+            &lt;tr style=".." class="item">&lt;td>Ein Buchtitel...&lt;/td>&lt;td>von Musterautor&lt;/td>&lt;/tr> 
+            &lt;tr style=".." class="item foo even">&lt;td>Ein zweites Buch&lt;/td>&lt;td>von Musterautor&lt;/td>&lt;/tr> 
+            &lt;tr style=".." class="item foo">&lt;td>Ein drittes Buch&lt;/td>&lt;td>von jemand anderem&lt;/td>&lt;/tr> 
+            ...
+          &lt;/tbody>    
+        &lt;/table>
+</code></pre>
+
+Zuerst löscht man wieder alles überflüssige, unter anderem auch alle Bücher nach dem ersten und erhält:
+
+<pre><code>
+        &lt;table id="ausleihen">
+          &lt;tr>&lt;td>Ein Buchtitel...&lt;/td>&lt;td>von Musterautor&lt;/td>&lt;/tr> 
+        &lt;/table>
+</code></pre>
+
+Dort markiert man dann Titel und Autor als <code>{$book.title}</code> und <code>{$book.author}</code>:
+
+<pre><code>
+        &lt;table id="ausleihen">
+          &lt;tr>&lt;td>{$book.title}&lt;/td>&lt;td>{$book.author}&lt;/td>&lt;/tr> 
+        &lt;/table>
+</code></pre>
+
+Dann fügt man <code>{$book:={}}</code> am Anfang ein, um VideLibri mitzuteilen, wo das Buch beginnt. Sowie <code>*</code> am Ende, um zu markieren, dass es beliebig viele Bücher geben kann:
+
+<pre><code>
+        &lt;table id="ausleihen">
+          &lt;tr>{$book:={}}&lt;td>{$book.title}&lt;/td>&lt;td>{$book.author}&lt;/td>&lt;/tr>* 
+        &lt;/table>
+</code></pre>
+
+Das kopiert man nun wieder ins Template als Pattern:
+
+<pre><code>
+  &lt;actions>
+    &lt;action id="connect"/>
+    
+    &lt;action id="update-all">
+      &lt;s>vl:delete-current-books()&lt;/s>
+      &lt;page url="http://opac.musterstadt.de/">
+        &lt;pattern>
+          &lt;form  id="loginfrm">
+            {$login := form(., {"user": $username, "passcode": $password})}
+          &lt;/form>
+        &lt;/pattern>
+      &lt;/page>
+      &lt;page url="{$login}">
+        &lt;pattern>
+          &lt;table id="ausleihen">
+            &lt;tr>{$book:={}}&lt;td>{$book.title}&lt;/td>&lt;td>{$book.author}&lt;/td>&lt;/tr>* 
+          &lt;/table>
+        &lt;/pattern>
+      &lt;/page>
+    &lt;/action>
+  &lt;/actions> 
+</code></pre>
+
+Schon ist das Template zum Kontoanzeigen fertig.<br><br>
+
+Damit VideLibri es verwenden kann, muss man dem Template noch einen Namen geben und es noch irgendwo eintragen/abspeichern, wo es gefunden werden kann. In der Desktopversion geht es ganz einfach in den Einstellungen unter Büchereien. Man kopiert das Template in das unterste große Feld, trägt den Namen daneben ein (Standardname ist "user1") und klickt auf "definieren". In der Androidversion ist der Bildschirm zu klein für ein solches Feld und daher muss das Template in einer Datei /data/data/de.benibela.videlibri/files/libraries/templates/TEMPLATENAME/template gespeichert werden (was ein gerootetes Gerät voraussetzt) und die App neugestartet werden. Alternativ kann man ein installierbares Template erstellen und auf irgendeinem Server speichern, was in beiden Versionen direkt von diesem Server heruntergeladen werden. (siehe unten)
+
+<p>Als nächstes muss die Büchereibeschreibung erstellt werden, die VideLibri mitteilt, dass es eine Bücherei Musterstadt gibt und es dafür das erstellte Template verwenden soll. Wenn das Template richtig installiert wurde, reicht es das Template in den Einstellungen auszuwählen (unter "Neue Bibliothek registrieren/hinzufügen") und den Namen der Bibliothek einzugeben. Alternativ kann man die Büchereibeschreibung direkt in eine Datei packen. Dabei sind der Name der Bibliothek und der Name des Templates wichtig:
+
+<pre><code>
+&lt;?xml version="1.0" encoding="UTF-8"?>
+&lt;library>
+  &lt;longName value="Bibliothek von Musterstadt"/>
+  &lt;template value="mein-neues-template"/>
+&lt;/library>
+</code></pre>
+
+In der Desktopversion kopiert man es in das mittlere große Feld auf der Büchereien-Seite und klickt "Bibliothek speichern". In der Androidversion speichert man es unter <code>/data/data/de.benibela.videlibri/files/libraries/-_-_-_IRGENDWAS.xml</code> und editiert die Datei /data/data/de.benibela.videlibri/files/user.config, so dass <code>user-libraries=-_-_-_IRGENDWAS.xml</code> in der zweiten Zeile steht.<br><br><br><br>
+ 
+Falls Sie ein Template erstellen wollen, dass durch Eingabe einer URL in VideLibri installiert werden kann, entweder weil Sie für eine Bibliothek arbeiten und Ihren Lesern ein VideLibri-Template zur Verfügung stellen wollen; oder ein nicht-gerootetes Android-Gerät verwenden, gibt es dazu hier zusätzliche <a href="publishtemplate.html">Informationen</a>. Ein solches Template dann in VideLibris Einstellungen <a href="templateinstallation.html">installiert</a> werden. <br><br>
+
+Für ein Templates, das die Suche in einem Katalog ermöglichen soll, gibt es Information von den Links ganz oben noch einige <a href="searchtemplates.html">spezielle Anmerkungen</a><br><br>
+
+
+<!--
+
+Dann muss man irgendwo <code>{$book:={}}</code> eintragen, damit 
+
+
+<code>$login := form(., {"user": $username, "passcode": $password})</code>
+
+Daraus kann man direkt ein  <code>"user=deinekontonummer&amp;passcode=deinpasswort"</code>. <code>{"user": $username, "passcode": $password}</code>
+-->
+
+Als Beispiel kann man auch die existierenden Büchereibeschreibungen unter data/libraries/ und Templates unter data/libraries/templates zu lesen. Diese Ordner finden sich bei der Desktopversion im Programmverzeichnis oder <a href="https://sourceforge.net/p/videlibri/code/ci/default/tree/programs/internet/VideLibri/data/libraries/">online im Quellcode</a> von VideLibri. Die vorhandenen Templates sind jedoch weitaus komplizierter als benutzerdefinierte Templates zu sein brauchen, weil alle neuen Templates mit mehreren unterschiedlichen Bibliotheken funktionieren sollen, während die alten Templates teilweise noch veraltete Template-Syntax von 2008 verwenden.<br><br>
 
 <!--Außerdem gibt es zusätzlich noch <a href="faq.html">Fragen und Antworten</a>-->
+</div>
 </body>
