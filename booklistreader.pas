@@ -58,9 +58,10 @@ type
     procedure serialize(str: TSerializeStringProperty; date: TSerializeDateProperty);
 
     procedure clear;
-    procedure assignNoReplace(book: TBook); //every value not set will be replaced with the one from book (will not change key author/title/id/year)
-    procedure assignNoReplaceAll(book: TBook); //every value not set will be replaced with the one from book (will not change key author/title/id/year)
-    procedure assignMerge(book: TBook); //more resonable assign that assumes both books have all information, but one is newer
+    procedure assign(book: TBook);        //assigns everything except key fields
+    procedure assignAll(book: TBook);     //assigns everything
+    procedure assignIfNewer(book: TBook); //assigns from the newer book, also take min of issue/exist date
+    procedure mergePersistentFields(book: TBook);
     function clone: TBook;
 
     function getNormalizedISBN: string;
@@ -93,7 +94,7 @@ type
     procedure assign(alist: TBookList);
     procedure addList(alist: TBookList);
 
-    procedure mergeMissingInformation(const old: TBookList);
+    procedure mergePersistentFields(const old: TBookList);
     //procedure overrideOldInformation(const old: TBookList);
     procedure removeAllFrom(booksToRemove: TBookList); //key comparison, not pointer
     procedure removeAllExcept(booksToKeep: TBookList); //key comparison, not pointer
@@ -310,55 +311,55 @@ begin
   SetLength(Additional,0);
 end;
 
-procedure TBook.assignNoReplace(book: TBook);
-var i:longint;
+procedure TBook.assign(book: TBook);
 begin
   if (book=nil) or (book = self) then exit;
-  if category='' then category:=book.category;
-  if libraryBranch='' then libraryBranch:=book.libraryBranch;
-  if isbn='' then isbn:=book.isbn;
-  if statusStr='' then statusStr:=book.statusStr;
-  //if otherInfo='' then otherInfo:=book.otherInfo;
-  if issueDate=0 then issueDate:=book.issueDate;
-  if dueDate=0 then dueDate:=book.dueDate;
-  if status=bsUnknown then status:=book.status;
-  if charges=0 then charges:=book.charges;
-  if lastExistsDate=0 then lastExistsDate:=book.lastExistsDate;
+  category:=book.category;
+  libraryBranch:=book.libraryBranch;
+  isbn:=book.isbn;
+  statusStr:=book.statusStr;
+  issueDate:=book.issueDate;
+  dueDate:=book.dueDate;
+  status:=book.status;
+  charges:=book.charges;
+  lastExistsDate:=book.lastExistsDate;
   if (firstExistsDate=0) or ((book.firstExistsDate<>0) and (book.firstExistsDate<firstExistsDate)) then
     firstExistsDate:=book.firstExistsDate;
-  if cancelable = tUnknown then cancelable:=book.cancelable;
-  if renewCount = -1 then renewCount := book.renewCount;
-  for i:=0 to high(book.additional) do
-    if  simplexmlparser.getProperty(book.additional[i].name,additional)='' then
-      simplexmlparser.setProperty(book.additional[i].name,book.additional[i].value,additional); //todo optimize. do *not* use addProperty
+  cancelable:=book.cancelable;
+  renewCount := book.renewCount;
+  additional := book.additional;
+  SetLength(additional, length(additional));
 end;
 
-procedure TBook.assignNoReplaceAll(book: TBook);
+procedure TBook.assignAll(book: TBook);
 begin
-  assignNoReplace(book);
-  if author = '' then author:=book.author;
-  if title = '' then title:=book.title;
-  if year = '' then year:=book.year;
-  if id = '' then id:=book.id;
+  if (book=nil) or (book = self) then exit;
+  assign(book);
+  author:=book.author;
+  title:=book.title;
+  year:=book.year;
+  id:=book.id;
 end;
 
-procedure TBook.assignMerge(book: TBook);
+procedure TBook.assignIfNewer(book: TBook);
 begin
-  assignNoReplaceAll(book);
-
   if (issueDate <> 0) and (book.issueDate <> 0) then  issueDate:=min(issueDate, book.issueDate);
-  dueDate:=max(dueDate, book.dueDate);
-  if book.lastExistsDate > lastExistsDate then begin
-    lastExistsDate:= book.lastExistsDate;
-    renewCount := book.renewCount;
+  if (firstExistsDate <> 0) and (book.firstExistsDate <> 0) then firstExistsDate:=min(firstExistsDate, book.firstExistsDate);
+  if book.lastExistsDate > lastExistsDate then assign(book)
+  else if book.lastExistsDate = lastExistsDate then begin
+    dueDate:=max(dueDate, book.dueDate);
   end;
+end;
+
+procedure TBook.mergePersistentFields(book: TBook);
+begin
   if (firstExistsDate <> 0) and (book.firstExistsDate <> 0) then firstExistsDate:=min(firstExistsDate, book.firstExistsDate);
 end;
 
 function TBook.clone: TBook;
 begin
   result := TBook.create;
-  result.assignNoReplaceAll(self);
+  result.assignAll(self);
 end;
 
 function TBook.getNormalizedISBN: string;
@@ -555,12 +556,12 @@ begin
     alist[i].incReference;
 end;
 
-procedure TBookList.mergeMissingInformation(const old: TBookList);
+procedure TBookList.mergePersistentFields(const old: TBookList);
 var i:longint;
 begin
   //TODO: Optimize to O(n log n)
   for i:=0 to count-1 do
-    books[i].assignNoReplace(old.findBook(books[i]));
+    books[i].mergePersistentFields(old.findBook(books[i]));
 end;
 
 {procedure TBookList.overrideOldInformation(const old: TBookList);
@@ -1037,7 +1038,7 @@ begin
     if currentBook = defaultBook then  begin
       books
         .add(currentBook.Id,currentBook.Title,currentBook.Author,currentBook.Year)
-           .assignNoReplace(currentBook);
+           .assign(currentBook);
     end;
     temp2:=nil;
   end;
@@ -1160,7 +1161,7 @@ begin
   result := xqvalue();
 end;
 
-//add function vl:confirm(  callback action id,  caption  )
+//add function vl:select-book(  query  )
 //
 //callback action is called with confirm-result := true/false
 function xqFunctionSelectBook(const context: TXQEvaluationContext; const args: TXQVArray): IXQValue;

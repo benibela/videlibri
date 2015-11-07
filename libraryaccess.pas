@@ -164,7 +164,7 @@ begin
         if lib.needSingleBookCheck() then begin
           if logging then log('TUpdateLibThread.execute marker 3.1');
           EnterCriticalSection(pconfig^.libraryAccessSection);
-          lib.books.merge(false);
+          lib.books.mergePersistentToCurrentUpdate;
           LeaveCriticalSection(pconfig^.libraryAccessSection);
           if logging then log('TUpdateLibThread.execute marker 3.4');
 
@@ -248,7 +248,8 @@ begin
       if logging then log('TUpdateLibThread.execute ended marker 5');
       EnterCriticalSection(pconfig^.libraryAccessSection);
       try
-        lib.books.merge(true);
+        lib.books.mergePersistentToCurrentUpdate;
+        lib.books.completeUpdate();
       finally
         LeaveCriticalSection(pconfig^.libraryAccessSection);
       end;

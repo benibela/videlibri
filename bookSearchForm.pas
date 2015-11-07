@@ -467,7 +467,7 @@ begin
        old.title:=temp.title;
        old.year:=temp.year;
        old.isbn:=temp.isbn;
-       old.assignNoReplace(temp);
+       old.assign(temp);
        acc.save();
        LeaveCriticalsection(updateThreadConfig.libraryAccessSection);
        mainForm.RefreshListView;
@@ -480,7 +480,7 @@ begin
        old.title:=temp.title;
        old.year:=temp.year;
        old.isbn:=temp.isbn;
-       old.assignNoReplace(temp);
+       old.assign(temp);
        acc.save();
        LeaveCriticalsection(updateThreadConfig.libraryAccessSection);
        mainForm.RefreshListView;

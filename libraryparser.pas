@@ -109,7 +109,7 @@ type
   TVariables=array of record
     name,value:string;
   end;
-  TBookListType=(bltInOldData,bltInOldAdd,bltInCurrentFile,bltInCurrentDataUpdate);
+  TBookListType=(bltInOldData,bltInCurrentFile,bltInCurrentDataUpdate);
 
   TBookOutputType=(botAll,botCurrent,botOld,botCurrentUpdate);
 
@@ -138,12 +138,9 @@ type
     //Call always from the MainThread
     constructor create(const AOwnerLib:TCustomAccountAccess; const oldFile,curFile: string);
     destructor destroy;override;
-    
-    //immer: übernimmt alte Daten aus currentFile (vor allem firstExistsDate)
-    //finalchange = true:  ersetzt currentFile durch currentUpdate und fügt
-    //                     die entfernten Bücher in bltInOldData ein
-    //finalchange = false:
-    procedure merge(finalChange: boolean);
+
+    procedure mergePersistentToCurrentUpdate;
+    procedure completeUpdate(); //replaces currentFile with currentupdate and moves old books to old
     
     property currentUpdate: TBookList read getBooksCurrentUpdate;
     property current: TBookList read getBooksCurrentFile;
@@ -496,7 +493,7 @@ var getHistory, getCurrent: IXQuery;
       fbook := list.findBook(book);
       if fbook = nil then list.add(book)
       else begin
-        fbook.assignMerge(book);
+        fbook.assignIfNewer(book);
         book.free;
       end;
     end;
@@ -1307,35 +1304,37 @@ begin
   inherited;
 end;
 
-
-procedure TBookLists.merge(finalChange: boolean);
+procedure TBookLists.mergePersistentToCurrentUpdate;
 begin
-  //Current book list REPLACE
-  if logging then
-    if finalChange then log('TBookLists.merge(true) started')
-    else log('TBookLists.merge(false) started');
-
-  bookLists[bltInCurrentDataUpdate].mergeMissingInformation(bookLists[bltInCurrentFile]);
-  if finalChange then begin
-    if keepHistory then begin
-      bookLists[bltInOldAdd].Assign(bookLists[bltInCurrentFile]);
-      bookLists[bltInOldAdd].removeAllFrom(bookLists[bltInCurrentDataUpdate]);
-      bookLists[bltInOldAdd].lendList:=false;
-      bookLists[bltInOldData].AddList(bookLists[bltInOldAdd]);
-      bookLists[bltInOldAdd].clear;
-    end;
-    
-    bookLists[bltInCurrentFile].Assign(bookLists[bltInCurrentDataUpdate]);
-    //bookLists[bltInCurrentDataUpdate].clear;
-    
-    updateSharedDates();
-    ownerLib.flastCheckDate:=currentDate;
-  end;
-
-  if logging then
-    log('TBookLists.merge ended')
+  bookLists[bltInCurrentDataUpdate].mergePersistentFields(bookLists[bltInCurrentFile]);
 end;
 
+procedure TBookLists.completeUpdate;
+var
+  tempList: TBookList;
+begin
+  if logging then log('TBookLists.completeUpdate started');
+
+  if keepHistory then begin
+    tempList := TBookList.create();
+    try
+      tempList.Assign(bookLists[bltInCurrentFile]);
+      tempList.removeAllFrom(bookLists[bltInCurrentDataUpdate]);
+      tempList.lendList:=false;
+      bookLists[bltInOldData].AddList(tempList);
+    finally
+      tempList.free;
+    end;
+  end;
+
+  bookLists[bltInCurrentFile].Assign(bookLists[bltInCurrentDataUpdate]);
+  //bookLists[bltInCurrentDataUpdate].clear;
+
+  updateSharedDates();
+  ownerLib.flastCheckDate:=currentDate;
+
+   if logging then log('TBookLists.completeUpdate started')
+end;
 
 //==============================================================================
 //                            TCustomAccountAccess
