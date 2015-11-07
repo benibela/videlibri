@@ -1651,8 +1651,8 @@ var i:longint;
 begin
   for i:=0 to lib.defaultVariables.count-1 do
     setVar(lib.defaultVariables.Names[i], lib.defaultVariables.ValueFromIndex[i]);
-  setVar('username', user);
-  setVar('password', passWord);
+  parser.variableChangeLog.ValuesString['username'] := user;       //force account variables, since a missing password change is really annoying
+  parser.variableChangeLog.ValuesString['password'] := passWord;
 end;
 
 procedure TTemplateAccountAccess.resetlib;
@@ -1898,6 +1898,8 @@ begin
     exit;
   end;
   lastTodayUpdate:=0;
+  reader.parser.variableChangeLog.clear;
+  Reader.parser.oldVariableChangeLog.clear;
   setVariables();
   reader.callAction('connect');
   fconnected:=true;
