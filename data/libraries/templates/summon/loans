@@ -1,0 +1,17 @@
+<FORM id="show_loans" name="show_loans"><t:meta  text-matching="matches"/>{vl:delete-current-books()}        
+  <UL class="recordSet">
+    <t:loop>
+      <LI class="result">
+        <a>{$book := {"title": .}}</a>
+        <TABLE><t:loop><t:switch>
+          <TR><th>Author:|Autor:</th><TD>{$book.author}</TD></TR>
+          <TR><th>shelf mark:|Signatur:</th><TD>{$book.id}</TD></TR>
+          <TR><th>Issue Point:|Ausgabeort:</th><TD>{$book.libraryBranch}</TD></TR>
+          <TR><th>Issue Date:|Ausgabedatum:</th><TD>{$book.issueDate := parse-date(., "dd.mm.yyyy")}</TD></TR>
+        </t:switch></t:loop></TABLE>
+        <p id="renewDate"><t:s>$book.dueDate := parse-date(extract(., "[0-9].*$"), "dd.mm.yyyy")</t:s></p>
+        <div t:condition="@class = ('info', 'error')">{book.status := .}</div>?
+      </LI>
+    </t:loop>
+  </UL>
+</FORM>

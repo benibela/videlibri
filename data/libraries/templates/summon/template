@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<actions>
+
+<meta>
+  <description>Template für das BiblioMonde-System Zones 1.8</description>
+  <variable name="baseurl"><description>Katalog-URL</description></variable>
+</meta>
+
+
+<action id="connect">
+  <page url="{$baseurl}/MyResearch/Home"/>
+  <pattern><form id="loginForm">{loginForm := form(.), max-password-length := (.//input[@name="password"]/@maxlength, 100)[1] }</form></pattern>
+</action>
+
+<action id="update-all">    
+  <s>login := request-combine($loginForm, {'username': $username, 'password': substring($password, 1, $max-password-length), 'processLogin': 'Log+In'})</s>
+  <page url="{$login}"/>
+  <pattern><t:switch prioritized="true"><a class="logout"></a>
+    <div class="error">Ungültige Loginangaben -- Bitte versuchen Sie es erneut.<t:s>vl:raise(.)</t:s></div>
+    </t:switch>
+  </pattern>
+  
+  <page url="{$baseurl}/MyResearch/Home"/>
+  <pattern href="loans"/>
+</action>
+
+
+<action id="search-connect">
+</action>
+
+<action id="search"> 
+  <variable name="search-keys">{"author": "PersonFunction", "title": "Title", "keywords": "SubjectTerms", "isbn": "ISBN", "year": "PublicationYear"}</variable>
+  
+  <s>
+    i := 0,
+    request := uri-combine(x"{$baseurl}/Summon/Search?join=AND&amp;bool0%5B%5D=AND", 
+      (for $key in jn:keys($book) return if (boolean($book($key)) and exists($search-keys($key))) then (
+              {x"lookfor{$i}[]": $book($key), x"type{$i}[]": $search-keys($key)},
+              (i := $i + 1)[2]
+            ) else () ) )
+  </s>
+  
+  <page url="{$request}" templateFile="searchList"/>
+  <s>search-next-page-available := exists($next-page)</s>
+</action>
+
+<action id="search-next-page"> 
+  <page url="{$next-page}" templateFile="searchList"/>
+  <s>search-next-page-available := exists($next-page)</s>
+</action>
+
+
+<action id="search-details"> 
+  <page url="{$book.home-url}" templateFile="searchDetails"/>
+</action>
+
+<action id="internal-login">
+</action>
+<!--
+
+
+
+<action id="order-single"> 
+  <call action="internal-login"/>
+  
+  <page url="{$book._order-url}" templateFile="orderConfirmation"/> 
+</action> 	
+
+<action id="internal-order-confirmed">
+  <s>form := form-combine($confirm-form, {"MakeResTypeDef.Reservation.RecipientLocn": $choose-result, "Confirm": 1})</s>
+  <page url="{$form}" test="$choose-result ne 0">
+    <template>
+      <td><t:meta text-matching="matches"/>Die Vormerkung wurde erfolgreich (durch|aus)geführt<t:s>book.statusId := "ordered"</t:s></td>
+    </template>
+  </page>
+</action>
+
+
+
+
+<action id="renew-list">  
+  <if test="not(get('bulkRenew', ()))">
+    <s>vl:raise("Keinen Verlängerungslink gefunden. Vermutlich ist das Konto gesperrt, z.B.: wegen der Jahresgebühr der Bibliothek.")</s>
+  </if>
+
+  <s>renew-ids := for $book in $renew-books return ( x"item:IN={$book.id};AT={$book.author}/{$book.title}" ! 
+          (if (contains(., "'")) then (., substring-before(., "'")) else . )
+  )</s>
+  
+  <page url="{$bulkRenew}" templateFile="bulkRenew"/>
+
+  <s>renewConfirm := form-combine($baseForm, $options)</s>  
+  <page url="{$renewConfirm}">
+    <template><META NAME="ZonesObjName">{progressObj := @CONTENT}</META></template>
+  </page>
+  
+  <s>i := 0</s>
+  <loop test="$i < 10">
+    <page url="{$baseurl}/{$progressObj}?Style={$style}&SubStyle=&Lang=GER&ResponseEncoding=utf-8&Method=BGTasks&Frame=Progress&BrowseAsHloc=-2&random={random()}&">
+      <template><html>{
+        if ( //script[matches(., 'finishedHere *= *[(] *"0" *== *"1" *[)]')]) then sleep(1000) else $i := 1000 
+      }</html></template>
+    </page>
+    <s>$i := $i + 1</s>
+  </loop> 
+  
+  <call action="update-all"/>  
+  
+</action>
+
+
+<action id="cancel-list">
+  <s>$cancel-url := $cancel-books[1]._cancel-url</s>
+  <loop var="i" list="1 to count($cancel-books)">
+    <s>b := $cancel-books[$i], nb := $cancel-books[$i+1], 
+       if (not($cancel-url)) then vl:raise("Vormerkung nicht mehr löschbar") else ()
+    </s>
+    <page url="{$cancel-url}" templateFile="cancelConfirm"/>
+    <page url="{$cancel-form}"> 
+    
+    </page>
+  </loop>
+    
+  <call action="update-all"/>   
+</action>
+
+<action id="catalogue">  
+  <call action="connect"/>
+  <s>url:=x"{$baseurl}/APS_OPAC?Style=Portal2"</s>
+</action>
+
+<!--http://katalog.stadtbibliothek.luebeck.de/alswww2.dll/Obj_577491377434134?
+dateReq=1377434653896-->
+</actions>

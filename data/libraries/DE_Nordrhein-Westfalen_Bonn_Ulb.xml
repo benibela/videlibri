@@ -3,8 +3,8 @@
   <longName value="Universitäts- und Landesbibliothek Bonn"/>
   <shortName value="Ulb Bonn"/> 
   
-  <template value="sisis"/>
-  <variable name="server" value="http://opac.ulb.uni-bonn.de:8080/webOPACClient/"/>   
+  <template value="summon"/>
+  <variable name="baseurl" value="https://bonnus.ulb.uni-bonn.de/"/>   
   
   <homepage value="http://www.ulb.uni-bonn.de/"/>
   <testing-search value="ja" date="2015-01-25"/>

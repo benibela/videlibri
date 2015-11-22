@@ -1,0 +1,19 @@
+<DIV id="record" class="record recordId sourceSummon">
+  <DIV>
+    <TABLE class="citation">
+      <t:loop>
+        <TR>
+          <TH>{$option}</TH>
+          <TD>{switch (@class) 
+            case "recordAuthor" return $book.author := .
+            case "recordSecAuthor" return $book.author := $book.author || ", " || .
+          (:  case "recordLanguage" return $book.language := .:)
+            default return $book(translate($option, ":", "") || "!") := if (.//a[starts-with(@href, "http")]) then x"{.} ( {.//a/@href} )" else join(.//text())
+          }</TD>
+        </TR>
+      </t:loop>
+    </TABLE>
+  </DIV>
+  
+  <img class="recordcover">{$book.image-url := resolve-html(.)}</img>?
+</DIV>
