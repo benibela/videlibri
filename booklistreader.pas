@@ -333,7 +333,7 @@ end;
 
 procedure TBook.assignAll(book: TBook);
 begin
-  if (book=nil) or (book = self) then exit;
+  if (book=nil) or (book = self) or (self = nil) then exit;
   assign(book);
   author:=book.author;
   title:=book.title;
@@ -343,6 +343,7 @@ end;
 
 procedure TBook.assignIfNewer(book: TBook);
 begin
+  if (book=nil) or (book = self) or (self = nil) then exit;
   if (issueDate <> 0) and (book.issueDate <> 0) then  issueDate:=min(issueDate, book.issueDate);
   if (firstExistsDate <> 0) and (book.firstExistsDate <> 0) then firstExistsDate:=min(firstExistsDate, book.firstExistsDate);
   if book.lastExistsDate > lastExistsDate then assign(book)
@@ -353,6 +354,7 @@ end;
 
 procedure TBook.mergePersistentFields(book: TBook);
 begin
+  if (book=nil) or (book = self) or (self = nil) then exit;
   if (firstExistsDate <> 0) and (book.firstExistsDate <> 0) then firstExistsDate:=min(firstExistsDate, book.firstExistsDate);
 end;
 
@@ -1077,7 +1079,7 @@ begin
   result.setMutable('isbn', book.isbn);
   result.setMutable('statusId', BookStatusToSerializationStr(book.status));
   for i:=0 to high(book.additional) do
-    result.setMutable(book.additional[i].name, book.additional[i].value);
+    result.setMutable(book.additional[i].name, book.additional[i].value );
   result.setMutable('_existing', xqvalueTrue);
 end;
 
