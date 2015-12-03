@@ -74,11 +74,14 @@
     </template>
   </page>
 </action>
-
+-->
 
 
 
 <action id="renew-list">  
+    <s>vl:raise("Verlängerungen sind noch nicht implementiert.")</s>
+</action>
+<!--
   <if test="not(get('bulkRenew', ()))">
     <s>vl:raise("Keinen Verlängerungslink gefunden. Vermutlich ist das Konto gesperrt, z.B.: wegen der Jahresgebühr der Bibliothek.")</s>
   </if>
