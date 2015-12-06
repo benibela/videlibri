@@ -1,4 +1,6 @@
-<FORM id="show_loans" name="show_loans"><t:meta  text-matching="matches"/>{vl:delete-current-books()}        
+<FORM t:condition="@id = ('show_loans', 'renewals')">
+  <t:meta  text-matching="matches"/>
+  {vl:delete-current-books(), $renew-form := form(.)}
   <UL class="recordSet">
     <t:loop>
       <LI class="result">
@@ -10,7 +12,9 @@
           <TR><th>Issue Date:|Ausgabedatum:</th><TD>{$book.issueDate := parse-date(., "dd.mm.yyyy")}</TD></TR>
         </t:switch></t:loop></TABLE>
         <p id="renewDate"><t:s>$book.dueDate := parse-date(extract(., "[0-9].*$"), "dd.mm.yyyy")</t:s></p>
-        <div t:condition="@class = ('info', 'error')">{book.status := .}</div>?
+        <div t:condition="@class = ('info', 'error','success')">{book.status := .}</div>?
+        <button class="renew_button">{book.renew-id := @value}</button>?
+        <t:s>book.statusId := if ($book.renew-id) then "curious" else "critical"</t:s>
       </LI>
     </t:loop>
   </UL>

@@ -78,8 +78,10 @@
 
 
 
-<action id="renew-list">  
-    <s>vl:raise("Verlängerungen sind noch nicht implementiert.")</s>
+<action id="renew-single">  
+  <s>form := request-combine($renew-form, {"renewSingleItem[]": $book.renew-id})</s>
+  <page url="{$form}"/>
+  <pattern href="loans"/>
 </action>
 <!--
   <if test="not(get('bulkRenew', ()))">
