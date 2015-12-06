@@ -1,20 +1,23 @@
-<FORM t:condition="@id = ('show_loans', 'renewals')">
+<FORM t:condition="@id = ('show_loans', 'renewals', 'cancelHold')">
   <t:meta  text-matching="matches"/>
-  {vl:delete-current-books(), $renew-form := form(.)}
+  {if (@id != 'cancelHold') then (lendings := true(), vl:delete-current-books(), $renew-form := form(.)) else (lendings := false()) }
   <UL class="recordSet">
     <t:loop>
       <LI class="result">
-        <a>{$book := {"title": .}}</a>
+        {$book := {"title": (a,p)[1]}}
         <TABLE><t:loop><t:switch>
           <TR><th>Author:|Autor:</th><TD>{$book.author}</TD></TR>
-          <TR><th>shelf mark:|Signatur:</th><TD>{$book.id}</TD></TR>
-          <TR><th>Issue Point:|Ausgabeort:</th><TD>{$book.libraryBranch}</TD></TR>
-          <TR><th>Issue Date:|Ausgabedatum:</th><TD>{$book.issueDate := parse-date(., "dd.mm.yyyy")}</TD></TR>
+          <TR><th>shelf mark:|Signatur:|Mediennummer:|Media Number:</th><TD>{$book.id}</TD></TR>
+          <TR><th>Issue Point:|Ausgabeort:|Pickup Library:</th><TD>{$book.libraryBranch}</TD></TR>
+          <TR><th>Issue Date:|Ausgabedatum:|Erstellt:|Created:</th><TD>{$book.issueDate := parse-date(., "dd.mm.yyyy")}</TD></TR>
         </t:switch></t:loop></TABLE>
-        <p id="renewDate"><t:s>$book.dueDate := parse-date(extract(., "[0-9].*$"), "dd.mm.yyyy")</t:s></p>
+        <p id="renewDate" t:test="$lendings"><t:s>$book.dueDate := parse-date(extract(., "[0-9].*$"), "dd.mm.yyyy")</t:s></p>
         <div t:condition="@class = ('info', 'error','success')">{book.status := .}</div>?
         <button class="renew_button">{book.renew-id := @value}</button>?
-        <t:s>book.statusId := if ($book.renew-id) then "curious" else "critical"</t:s>
+        <t:s>book.statusId := 
+          if ($lendings) then 
+            if ($book.renew-id) then "curious" else "critical" 
+          else "ordered"</t:s>
       </LI>
     </t:loop>
   </UL>

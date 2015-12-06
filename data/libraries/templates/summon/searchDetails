@@ -1,3 +1,4 @@
+<body>
 <DIV id="record" class="record recordId sourceSummon">
   <DIV>
     <TABLE class="citation">
@@ -17,3 +18,19 @@
   
   <img class="recordcover">{$book.image-url := resolve-html(.)}</img>?
 </DIV>
+
+<div class="recordsubcontent">
+  <table class="citation"> {temp := ""}
+    <t:loop>
+    <tr><th></th>
+      {if (@id = "exeStatus") then (
+        $book("Exemplar!") := join(($temp, td/a)),
+        $book._order-url := resolve-html(td/a),
+        $book.orderable := true()
+       ) else $temp := join(($temp,th,td)) }
+    </tr>
+    </t:Loop>
+  </table>?
+</div>
+  
+</body>

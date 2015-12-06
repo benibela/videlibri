@@ -12,20 +12,26 @@
   <pattern><form id="loginForm">{loginForm := form(.), max-password-length := (.//input[@name="password"]/@maxlength, 100)[1] }</form></pattern>
 </action>
 
-<action id="update-all">    
+<action id="internal-login">
   <s>login := request-combine($loginForm, {'username': $username, 'password': substring($password, 1, $max-password-length), 'processLogin': 'Log+In'})</s>
   <page url="{$login}"/>
   <pattern><t:switch prioritized="true"><a class="logout"></a>
     <div class="error">Ungültige Loginangaben -- Bitte versuchen Sie es erneut.<t:s>vl:raise(.)</t:s></div>
     </t:switch>
   </pattern>
-  
-  <page url="{$baseurl}/MyResearch/Home"/>
+</action>
+
+<action id="update-all">    
+  <call action="internal-login"/>
+  <page url="{$baseurl}/MyResearch/CheckedOut"/>
+  <pattern href="loans"/>
+  <page url="{$baseurl}/MyResearch/Holds"/>
   <pattern href="loans"/>
 </action>
 
 
 <action id="search-connect">
+  <call action="connect"/>
 </action>
 
 <action id="search"> 
@@ -52,28 +58,11 @@
 
 <action id="search-details"> 
   <page url="{$book.home-url}" templateFile="searchDetails"/>
-</action>
-
-<action id="internal-login">
-</action>
+</action> 
 <!--
 
 
 
-<action id="order-single"> 
-  <call action="internal-login"/>
-  
-  <page url="{$book._order-url}" templateFile="orderConfirmation"/> 
-</action> 	
-
-<action id="internal-order-confirmed">
-  <s>form := form-combine($confirm-form, {"MakeResTypeDef.Reservation.RecipientLocn": $choose-result, "Confirm": 1})</s>
-  <page url="{$form}" test="$choose-result ne 0">
-    <template>
-      <td><t:meta text-matching="matches"/>Die Vormerkung wurde erfolgreich (durch|aus)geführt<t:s>book.statusId := "ordered"</t:s></td>
-    </template>
-  </page>
-</action>
 -->
 
 
@@ -83,57 +72,33 @@
   <page url="{$form}"/>
   <pattern href="loans"/>
 </action>
-<!--
-  <if test="not(get('bulkRenew', ()))">
-    <s>vl:raise("Keinen Verlängerungslink gefunden. Vermutlich ist das Konto gesperrt, z.B.: wegen der Jahresgebühr der Bibliothek.")</s>
+ 
+
+<action id="order-single"> 
+  <call action="internal-login"/>  
+  <page url="{$book._order-url}"/>
+  <pattern>
+	<form name="orderSISIS">
+		{form := form(.), issuePoints := (), issuePointsTitles := ()}
+		<t:loop>
+		<input name="issuePoint">{ $issuePoints[] := @value, $issuePointsTitles[] := ./following-sibling::text()[1] }</input>
+		</t:loop> 
+		{vl:choose("internal-order-confirmed", (.//br/following-sibling::text(),.//b/text()[1])[last()], $issuePointsTitles, ())}
+	</form>  
+  </pattern>
+</action> 	
+
+<action id="internal-order-confirmed">
+  <if test="$choose-result gt 0">
+    <s>form := request-combine($form, {"issuePoint": $issuePoints[$choose-result], "submit": "Bestellen"})</s>
+    <page url="{$form}"/>
+    
   </if>
-
-  <s>renew-ids := for $book in $renew-books return ( x"item:IN={$book.id};AT={$book.author}/{$book.title}" ! 
-          (if (contains(., "'")) then (., substring-before(., "'")) else . )
-  )</s>
-  
-  <page url="{$bulkRenew}" templateFile="bulkRenew"/>
-
-  <s>renewConfirm := form-combine($baseForm, $options)</s>  
-  <page url="{$renewConfirm}">
-    <template><META NAME="ZonesObjName">{progressObj := @CONTENT}</META></template>
-  </page>
-  
-  <s>i := 0</s>
-  <loop test="$i < 10">
-    <page url="{$baseurl}/{$progressObj}?Style={$style}&SubStyle=&Lang=GER&ResponseEncoding=utf-8&Method=BGTasks&Frame=Progress&BrowseAsHloc=-2&random={random()}&">
-      <template><html>{
-        if ( //script[matches(., 'finishedHere *= *[(] *"0" *== *"1" *[)]')]) then sleep(1000) else $i := 1000 
-      }</html></template>
-    </page>
-    <s>$i := $i + 1</s>
-  </loop> 
-  
-  <call action="update-all"/>  
-  
 </action>
-
-
-<action id="cancel-list">
-  <s>$cancel-url := $cancel-books[1]._cancel-url</s>
-  <loop var="i" list="1 to count($cancel-books)">
-    <s>b := $cancel-books[$i], nb := $cancel-books[$i+1], 
-       if (not($cancel-url)) then vl:raise("Vormerkung nicht mehr löschbar") else ()
-    </s>
-    <page url="{$cancel-url}" templateFile="cancelConfirm"/>
-    <page url="{$cancel-form}"> 
-    
-    </page>
-  </loop>
-    
-  <call action="update-all"/>   
-</action>
-
+ 
 <action id="catalogue">  
-  <call action="connect"/>
-  <s>url:=x"{$baseurl}/APS_OPAC?Style=Portal2"</s>
+  <s>url:=x"{$baseurl}/MyResearch/Home"</s>
 </action>
 
-<!--http://katalog.stadtbibliothek.luebeck.de/alswww2.dll/Obj_577491377434134?
-dateReq=1377434653896-->
+
 </actions>
