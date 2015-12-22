@@ -1,3 +1,4 @@
+<t:switch prioritized="true">
 <FORM t:condition="@id = ('show_loans', 'renewals', 'cancelHold')">
   <t:meta  text-matching="matches"/>
   {if (@id != 'cancelHold') then (lendings := true(), vl:delete-current-books(), $renew-form := form(.)) else (lendings := false()) }
@@ -22,3 +23,11 @@
     </t:loop>
   </UL>
 </FORM>
+
+
+
+<span id="noCheckedOut">{vl:delete-current-books()}</span>
+<span id="noRecall"></span>
+
+                
+</t:switch>
