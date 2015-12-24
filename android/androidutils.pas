@@ -135,7 +135,7 @@ var assets: jobject = nil;
     searcherFields: record
       nativePtrJ, totalResultCountI, nextPageAvailableZ: jfieldID;
     end;
-    searcherResultInterface: jclass;
+    //searcherResultInterface: jclass;
     searcherOnConnected, searcherOnSearchFirstPageComplete, searcherOnSearchNextPageComplete, searcherOnSearchDetailsComplete, searcherOnOrderComplete, searcherOnOrderConfirm,  searcherOnTakePendingMessage, searcherOnPendingMessageCompleted, searcherOnException: jmethodID;
     importExportDataClass: jclass;
     importExportDataClassInit: jmethodID;
@@ -328,8 +328,6 @@ function Java_de_benibela_VideLibri_Bridge_VLGetTemplateDetails(env:PJNIEnv; thi
 var
   i: Integer;
   detailClass: jclass;
-  namesArray: jobject;
-  valuesArray: jobject;
   template: TMultiPageTemplate;
   meta: TTemplateActionMeta;
   names: jobject;
@@ -434,8 +432,6 @@ var
   lib: TLibrary;
   i: Integer;
   detailClass: jclass;
-  namesArray: jobject;
-  valuesArray: jobject;
   names: jobject;
   values: jobject;
   libid: String;
@@ -840,8 +836,6 @@ var
   size: jint;
   i: Integer;
   jaccount: jobject;
-  accountId: String;
-  accountIndex: Integer;
 begin
   result := TBook.create;
   with bookFields do begin
@@ -984,8 +978,6 @@ end;
 function Java_de_benibela_VideLibri_Bridge_VLBookOperation(env:PJNIEnv; this:jobject; jbooks: jobject; operation: jint): jobject; cdecl;
 var
   acc: TCustomAccountAccess;
-  autoupdate: boolean;
-  forceExtend: boolean;
   books: TBookList;
   book: TBook;
   i: Integer;
@@ -1053,6 +1045,7 @@ begin
           anonymousDetails := '';
           names := '';
           libs := '';
+          queries := '';
           for k := 0 to high(errorMessageList[i].details) do begin
             details += errorMessageList[i].details[k].details+LineEnding+LineEnding;
             anonymousDetails += errorMessageList[i].details[k].anonymouseDetails+LineEnding+LineEnding;
@@ -1308,7 +1301,6 @@ var
   lib: TLibrary;
   more: jobject;
   libId: String;
-  temp: jobject;
 begin
   if logging then log('Bridge_VLSearchConnect started');
   try
@@ -1352,8 +1344,6 @@ end;
 procedure Java_de_benibela_VideLibri_Bridge_VLSearchStart(env:PJNIEnv; this:jobject; searcher: jobject; query: jobject; homeBranch, searchBranch: integer); cdecl;
 var
   searcherAccess: TLibrarySearcherAccessWrapper;
-  tempAccount: jobject;
-  more: jobject;
   temp: jobject;
 begin
   if logging then log('Bridge_VLSearchStart started');
@@ -1419,8 +1409,6 @@ end;
 procedure Java_de_benibela_VideLibri_Bridge_VLSearchOrder(env:PJNIEnv; this:jobject; searcher: jobject; jbooks: jobject); cdecl;
 var
   sa: TLibrarySearcherAccessWrapper;
-  accountId: String;
-  accountIndex: Integer;
   book: TBook;
   i: Integer;
 
@@ -1445,8 +1433,6 @@ end;
 procedure Java_de_benibela_VideLibri_Bridge_VLSearchOrderConfirmed(env:PJNIEnv; this:jobject; searcher: jobject; jbooks: jobject); cdecl;
 var
   sa: TLibrarySearcherAccessWrapper;
-  accountId: String;
-  accountIndex: Integer;
   book: TBook;
   i: Integer;
 
@@ -1468,9 +1454,6 @@ end;
 procedure Java_de_benibela_VideLibri_Bridge_VLSearchCompletePendingMessage(env:PJNIEnv; this:jobject; searcher: jobject; res: jint); cdecl;
 var
   sa: TLibrarySearcherAccessWrapper;
-  accountId: String;
-  accountIndex: Integer;
-  book: TBook;
   i: Integer;
 
 begin
@@ -1548,9 +1531,6 @@ begin
 end;
 
 function Java_de_benibela_VideLibri_Bridge_VLSetOptions(env:PJNIEnv; this:jobject; options: jobject): jobject; cdecl;
-var
-  lib: TLibrary;
-  i: Integer;
 begin
   if logging then bbdebugtools.log('de.benibela.VideLibri.Bride.VLSetOptions (started)');
   //bbdebugtools.log(strFromPtr(libraryManager));
