@@ -2,8 +2,11 @@
 <library>
   <longName value="Hochschulbibliothek der HTW (alpha)"/>
 
-  <template value="libero5"/>
-  <variable name="baseurl" value="http://bsv2.bib.htw-dresden.de/libero/"/>
+  <template value="primo"/>
+  <variable name="baseurl" value="http://primo.bib.htw-dresden.de/primo_library/libweb/action/"/>
+  <variable name="server" value="primo.bib.htw-dresden.de"/>
+  <variable name="institute" value="49HTWINST"/>
+  <variable name="loginServer" value="htw-shib.hosted.exlibrisgroup.com"/>
 
   <homepage value="http://www.htw-dresden.de/bibliothek/"/>
   <testing-search value="ja" date="2013-07-05"/>
