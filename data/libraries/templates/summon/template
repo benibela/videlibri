@@ -16,7 +16,10 @@
   <s>login := request-combine($loginForm, {'username': $username, 'password': substring($password, 1, $max-password-length), 'processLogin': 'Log+In'})</s>
   <page url="{$login}"/>
   <pattern><t:switch prioritized="true"><a class="logout"></a>
-    <div class="error">Ungültige Loginangaben -- Bitte versuchen Sie es erneut.<t:s>vl:raise(.)</t:s></div>
+    <div id="loginMaskForm">
+      <div class="error"><t:s>vl:raise(.)</t:s></div>
+      <form name="loginForm" id="loginForm"/>
+    </div>
     </t:switch>
   </pattern>
 </action>
