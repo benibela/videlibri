@@ -17,8 +17,7 @@
       
       <TABLE class="data">
         <TR>
-        <TD/>
-        <TD>
+        <TD t:condition="@style or @class"> <!-- condition to skip image column -->
         {book := {"orderable": 0}, hasZ3988 := false()}
         <!--{book := {"orderable": .//a[contains(., 'vormerk') or contains(., 'bestell')]}, 
          if ($book.orderable) then (book.order0 := $book.orderable/@href, book.orderTitle :=  $book.orderable) else (), 
