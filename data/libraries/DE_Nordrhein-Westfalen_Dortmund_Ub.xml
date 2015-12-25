@@ -3,8 +3,8 @@
   <longName value="Universitätsbibliothek Dortmund"/>
   <shortName value="Ub Dortmund"/> 
   
-  <template value="sisis"/>  
-  <variable name="server" value="https://www.ub.tu-dortmund.de/webOPACClient/"/>
+  <template value="paia"/>  
+  <variable name="baseurl" value="https://api.ub.tu-dortmund.de/paia/"/>
   
   <homepage value="http://www.ub.tu-dortmund.de/"/>
   <testing-search value="ja" date="2013-05-18"/>
