@@ -11,7 +11,7 @@ unit libraryAccess;
 
 interface
 uses
-  Classes, SysUtils,libraryParser,booklistreader, LCLType, strutils, bbutils;
+  Classes, SysUtils,libraryParser,booklistreader, LCLType, bbutils;
 
 type TBookListOperation = procedure (list: TBookList) of object;
 
