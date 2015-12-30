@@ -63,9 +63,9 @@
                     $book.year := $split[2]
                   ) else ()),
                 if (($book.author = "von" or $book.author = "") 
-                     and typeswitch ($brs[1]) case node() return $brs[1]/following-sibling::a and ($brs[1]/following-sibling::a)[1] &lt;&lt; $brs[2]  
+                     and (typeswitch ($brs[1]) case node() return $brs[1]/following-sibling::a and ($brs[1]/following-sibling::a)[1] &lt;&lt; $brs[2]  
                                               default return false()
-                     ) then book.author := $brs[1]/following-sibling::a[1] 
+                     )) then book.author := $brs[1]/following-sibling::a[1] 
                 else if (matches($book.author, "^(ausleihbar|(entliehen|bestellbar).*)$")) then book.author := ""  (: pulheim :)
                 else (),
                 if (matches($brs[2], "[0-9]{2}")) then book.year := $brs[2] else ()
