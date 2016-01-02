@@ -82,7 +82,7 @@
       else ()}
       <!-- vormerkungs verfall --></TD> </t:if>
     <TD>{book.libraryBranch := .}</TD>
-    <TD>{book.category := extract(text(), "^ *\[([^]]*)\]", 1),  
+    <TD>{book.category := extract(text(), "^ *\[([^\]]*)\]", 1),  
          book.title :=  if (starts-with(text(), "[")) then extract(text(), "(\] )(.*)", 2) else text(),
          if (contains($book.title, "/")) then (
            $book.author := substring-after($book.title, "/"),
