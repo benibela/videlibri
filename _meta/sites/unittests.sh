@@ -1,7 +1,7 @@
 #!/bin/bash
 
 TEMPLATEPARSER="../../../xidel/xidel"
-TEMPLATEPARSERARGS="--dot-notation=on --extract=\"book:=object()\" --print-type-annotations  --extract-kind=template --xmlns:vl videlibri --xmlns:videlibri videlibri"
+TEMPLATEPARSERARGS="--dot-notation=on --extract=\"book:=object()\" --print-type-annotations  --extract-kind=xml-pattern --xmlns:vl videlibri --xmlns:videlibri videlibri"
 TEMPLATEPATH=../../data/libraries/templates
 INPATH=./
 OUTPATH=/tmp/
