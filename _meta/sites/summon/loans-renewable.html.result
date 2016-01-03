@@ -1,0 +1,7 @@
+book := {}
+lendings := true()
+books-deleted := true()
+renew-form := {"method": "POST", "post": "show=ALL&renewAllIDS%5B%5D=2012%2F5908&renewAllIDS%5B%5D=2012%2F5637", "url": "file:///home/benito/hg/programs/internet/VideLibri/_meta/sites//summon/loans-renewable.html"}
+book := {"statusId": "curious", "renew-id": "2012/5908", "status": "Eine Verlängerung ist möglich", "dueDate": "2015-12-10", "issueDate": "2015-11-12", "libraryBranch": "Hauptbibliothek Adenauerallee / Leihstelle Adenauerallee", "id": "2012/5908", "author": "Ford, Richard", "title": null}
+book := {"statusId": "curious", "renew-id": "2012/5637", "status": "Eine Verlängerung ist möglich", "dueDate": "2015-12-10", "issueDate": "2015-11-12", "libraryBranch": "Hauptbibliothek Adenauerallee / Leihstelle Adenauerallee", "id": "2012/5637", "author": "Balbier, Uta A.", "title": null}
+book := {"statusId": "critical", "status": "Eine Verlängerung ist nicht mehr möglich", "dueDate": "2015-12-10", "issueDate": "2015-11-12", "libraryBranch": "Hauptbibliothek Adenauerallee / Leihstelle Adenauerallee", "id": "2012/5893", "author": "Traber, Habakuk", "title": null}

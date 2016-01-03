@@ -1,0 +1,22 @@
+book := {}
+option := text{"Band:"}
+option := text{"Autor:"}
+option := text{"Format:"}
+option := text{"Sprache:"}
+option := text{"Erscheinungsdaten:"}
+option := text{"Umfang:"}
+option := text{"ISBN:"}
+option := text{"ULB Notation:"}
+option := text{"RVK Notation:"}
+option := text{"Fach:"}
+option := text{"Schriftenreihe:"}
+option := text{"Schlagwortfolge:"}
+option := text{"Schlagwort(e):"}
+option := text{"Links:"}
+option := text{"HBZ-ID:"}
+option := text{"Datenbank:"}
+option := text{"Tags:"}
+temp := ""
+temp := " Bibliothek: Abt. Nussallee /ZB MED Bonn / Freihandmagazin"
+temp := " Bibliothek: Abt. Nussallee /ZB MED Bonn / Freihandmagazin Signatur: 2005/27246"
+book := {"orderable": true, "_order-url": null, "Exemplar!": " Bibliothek: Abt. Nussallee /ZB MED Bonn / Freihandmagazin Signatur: 2005/27246", "image-url": "file:///Cover/Show?size=medium&isn=3540238050&contenttype=Book", "Tags!": "  Tag hinzufügen   Keine Tags, Fügen Sie den ersten Tag hinzu! ", "Datenbank!": "Katalog der ULB Bonn", "HBZ-ID!": "HT014313509\t\t\t\t» weitere Bestände in NRW ( http://193.30.112.134/F/?func=find-c&ccl_term=IDN=HT014313509 )", "Links!": "Inhaltsbeschreibung ( http://digitool.hbz-nrw.de:1801/webclient/DeliveryManager?pid=1504959&custom_att_2=simple_viewer )", "Schlagwort(e)!": "  Betriebssystem    Computer Science    LINUX  ", "Schlagwortfolge!": " Betriebssystem  LINUX  ", "Schriftenreihe!": " eXamen.press ", "Fach!": "Computer Science", "RVK Notation!": " ST 260", "ULB Notation!": "INF G ( /Summon/Search?join=AND&bool0%5B%5D=AND&lookfor0%5B%5D=INF+G&type0%5B%5D=ClassificationCodes_ULB http://www.ulb.uni-bonn.de/literatursuche/Systematische%20Suche%20der%20ULB )", "ISBN!": "3-540-23805-0 978-3-540-23805-8 ", "Umfang!": "XV, 290 S. : graph. Darst.", "Erscheinungsdaten!": "Berlin [u.a.]\t\t\t\t\t\t\t\t : Springer\t\t\t\t\t\t\t\t, 2006 ", "Sprache!": "German", "Format!": " Buch ", "author": "Achilles, Albrecht", "Band!": "eXamen.press"}

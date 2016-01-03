@@ -1,0 +1,3 @@
+book := {}
+search-result-count := 0
+next-page := ()

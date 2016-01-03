@@ -219,6 +219,19 @@ PAGES=(${PAGES[@]} bibliothecaplus/searchListHeaderOnly.html)
 ADDTEMPLATE bibliothecaplus/searchDetails'{\$search-reverse-keys:=\(\)}' 1
 PAGES=(${PAGES[@]} bibliothecaplus/searchDetails.html)
 
+#=============SUMMON==============
+mkdir -p $OUTPATH/summon
+ADDTEMPLATE summon/loans 5
+PAGES=(${PAGES[@]} summon/loans-none.html summon/loans-orders.html summon/loans-orders-none.html summon/loans-renewable.html summon/loans-renewconfirmed.html )
+
+ADDTEMPLATE summon/searchList 2
+PAGES=(${PAGES[@]} summon/searchList0.html summon/searchList.html)
+
+ADDTEMPLATE summon/searchDetails 3
+PAGES=(${PAGES[@]} summon/searchDetails.html summon/searchDetails_multiex.html summon/searchDetails_orderable.html)
+
+
+
 
 #=============DIGIBIB==============
 mkdir -p $OUTPATH/digibib

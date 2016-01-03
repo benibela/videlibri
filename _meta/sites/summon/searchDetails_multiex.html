@@ -1,0 +1,693 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+  <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<meta name="Generator" content="VuFind 2.0"/>    <title></title>            <link href="/themes/ulb_blueprint/css/blueprint/screen.css" media="screen, projection" rel="stylesheet" type="text/css"/>
+<link href="/themes/ulb_blueprint/css/blueprint/print.css" media="print" rel="stylesheet" type="text/css"/>
+<!--[if lt IE 8]> <link href="/themes/ulb_blueprint/css/blueprint/ie.css" media="screen, projection" rel="stylesheet" type="text/css" /><![endif]-->
+<link href="/themes/ulb_blueprint/css/jquery-ui/css/smoothness/jquery-ui.css" media="all" rel="stylesheet" type="text/css"/>
+<link href="/themes/ulb_blueprint/css/styles.css" media="screen, projection" rel="stylesheet" type="text/css"/>
+<link href="/themes/ulb_blueprint/css/print.css" media="print" rel="stylesheet" type="text/css"/>
+<!--[if lt IE 8]> <link href="/themes/ulb_blueprint/css/ie.css" media="screen, projection" rel="stylesheet" type="text/css" /><![endif]-->
+<link href="/themes/ulb_blueprint/css/jquery.qtip.min.css" media="all" rel="stylesheet" type="text/css"/>
+<link href="/themes/ulb_blueprint/css/rvk-visual.css" media="all" rel="stylesheet" type="text/css"/>
+<link href="/themes/ulb_blueprint/images/vufind-favicon.ico" rel="shortcut icon" type="image/x-icon"/>
+<link href="/Search/OpenSearch?method=describe" rel="search" type="application/opensearchdescription+xml" title="Library Catalog Search"/>
+<!--[if IE 8]> <link href="/themes/ulb_blueprint/css/ie8-tab.css" media="screen, projection" rel="stylesheet" type="text/css" /><![endif]-->            <script type="text/javascript">path='';</script>
+<script type="text/javascript" src="/themes/ulb_blueprint/js/jquery.min.js"></script>
+<script type="text/javascript" src="/themes/ulb_blueprint/js/jquery.form.js"></script>
+<script type="text/javascript" src="/themes/ulb_blueprint/js/jquery.metadata.js"></script>
+<script type="text/javascript" src="/themes/ulb_blueprint/js/jquery.validate.min.js"></script>
+<script type="text/javascript" src="/themes/ulb_blueprint/js/jquery-ui/js/jquery-ui.js"></script>
+<script type="text/javascript" src="/themes/ulb_blueprint/js/lightbox.js"></script>
+<script type="text/javascript" src="/themes/ulb_blueprint/js/common.js"></script>
+<script type="text/javascript" src="/themes/ulb_blueprint/js/jquery.qtip.min.js"></script>
+<script type="text/javascript" src="/themes/ulb_blueprint/js/rvk-visual.js"></script>
+<script type="text/javascript" src="/themes/ulb_blueprint/js/record.js"></script>
+<script type="text/javascript" src="/themes/ulb_blueprint/js/check_save_statuses.js"></script>
+<script type="text/javascript" src="/themes/ulb_blueprint/js/preview.js"></script>
+<script type="text/javascript" src="/themes/ulb_blueprint/js/jquery.cookie.js"></script>
+<script type="text/javascript" src="/themes/ulb_blueprint/js/cart.js"></script>
+<script type="text/javascript">var vufindString={};vufindString.bulk_noitems_advice="No items were selected. Please click on a checkbox next to an item and try again.";vufindString.confirmEmpty="Are you sure you want to empty your Book Bag?";vufindString.viewBookBag="View Book Bag";vufindString.addBookBag="Add to Book Bag";vufindString.removeBookBag="Remove from Book Bag";vufindString.itemsAddBag="item(s) added to your Book Bag";vufindString.itemsInBag="item(s) are either already in your Book Bag or could not be added";vufindString.bookbagMax="100";vufindString.bookbagFull="Your Book Bag is Full";vufindString.bookbagStatusFull="Full";</script>
+<script type="text/javascript" src="/themes/ulb_blueprint/js/jquery.tabSlideOut.v2.0.js"></script>
+<script type="text/javascript" src="/themes/ulb_blueprint/js/feedback.js"></script><script type="text/javascript">$(document).ready(function(){if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent))
+{}
+else
+{$('[title!=""]').qtip({position:{my:'bottom center',at:'top center',target:'event',adjust:{x:0}},style:{classes:'qtip-cluetip',},hide:{event:'click mouseleave'}});}
+$("a").click(function(){if(!$(this).prop('target')&&!$(this).prop('onclick')&&$(this).prop('href').slice(-1)!="#"&&$(this).prop('id')!="advsearchHelp"&&$(this).prop('id')!="filterHelp"&&$(this).prop('id')!="faqHelp"&&$(this).prop('class')!="searchHelp"&&$(this).prop('class')!="export exportMenu"&&$(this).prop('class')!="closePopupSub"&&$(this).prop('class')!="closePopup"&&$(this).prop('class')!="exportMenuListLink")
+if(/iPhone|iPad|iPod/i.test(navigator.userAgent)){}
+else
+$(".loader").show();});$("input").click(function(){if($(this).prop('type')=="checkbox"&&$(this).prop('name')=="filter[]"&&$(this).prop('id')!="usedFilterAdv")
+$(".loader").show();if($(this).prop('type')=="submit"&&$(this).prop('name')!="add")
+$(".loader").show();if($(this).prop('id')=="langForm_mylang")
+$(".loader").show();if($(this).prop('id')=="feedbackSendSubmit")
+$(".loader").hide();});$("select").change(function(){if($(this).prop('id')=="branchForm_mybranch"||$(this).prop('id')=="sort_options_1")
+$(".loader").show();});$(".loader").bind("ajaxSend",function(){$(this).show();}).bind("ajaxStop",function(){$(this).hide();}).bind("ajaxError",function(){$(this).hide();});$(".loader").hide();})</script>
+  </head>
+  <body>
+        <div class="loader"></div>
+            <div class="container">
+      <div class="header">
+        <div id="vpnWarning"><span id="uniUser">Are you a member of Bonn University? Yes: </span>Then connect to the University network via VPN client in order to access the licensed contents. <span id="nouniUser">No: </span>You can then access licensed contents using the Service Pcs within the ULB Bonn.</div>	
+	<!-- ar20151022  -->
+    <div id="headerTop">    
+				
+   <div id="headerNav">
+	<ul>
+    	<li>
+		    
+			<form method="post" name="langForm" action="" id="langForm">
+										<input class="flag flag-de" id="langForm_mylang" name="mylang" type="submit" value="de"/>
+										<input class="flag flag-en" id="langForm_mylang" name="mylang" type="submit" value="en"/>
+							</form> |
+		        </li>
+            <li><a href="../Help/Home?topic=index" target="_blank">Help</a> |</li>
+            <li><a href="http://www.ulb.uni-bonn.de/literatursuche/neuerwerbungen" target="_blank">New Items</a> |</li>
+            <li><a href="http://www.digibib.net/jumpto?LOCATION=005&&D_SUBSERVICE=ILL" target="_blank">Interlibrary loan service</a></li>
+            <li id="weitereSuchLinks"><script pagespeed_no_defer="" type="text/javascript">(function(){var g=encodeURIComponent,h=window,k=document,l="width",m="documentElement",n="height",p="length",q=this,r=function(b,d){var a=b.split("."),c=q;a[0]in c||!c.execScript||c.execScript("var "+a[0]);for(var e;a[p]&&(e=a.shift());)a[p]||void 0===d?c[e]?c=c[e]:c=c[e]={}:c[e]=d};var t=function(b){var d=b[p];if(0<d){for(var a=Array(d),c=0;c<d;c++)a[c]=b[c];return a}return[]};var u=function(b){var d=h;if(d.addEventListener)d.addEventListener("load",b,!1);else if(d.attachEvent)d.attachEvent("onload",b);else{var a=d.onload;d.onload=function(){b.call(this);a&&a.call(this)}}};var v,w=function(b,d,a,c,e){this.f=b;this.h=d;this.i=a;this.c=e;this.e={height:h.innerHeight||k[m].clientHeight||k.body.clientHeight,width:h.innerWidth||k[m].clientWidth||k.body.clientWidth};this.g=c;this.b={};this.a=[];this.d={}},x=function(b,d){var a,c,e=d.getAttribute("pagespeed_url_hash");if(a=e)if(a=!(e in b.d))if(0>=d.offsetWidth&&0>=d.offsetHeight)a=!1;else{c=d.getBoundingClientRect();var f=k.body;a=c.top+("pageYOffset"in h?h.pageYOffset:(k[m]||f.parentNode||f).scrollTop);c=c.left+("pageXOffset"in
+h?h.pageXOffset:(k[m]||f.parentNode||f).scrollLeft);f=a.toString()+","+c;b.b.hasOwnProperty(f)?a=!1:(b.b[f]=!0,a=a<=b.e[n]&&c<=b.e[l])}a&&(b.a.push(e),b.d[e]=!0)};w.prototype.checkImageForCriticality=function(b){b.getBoundingClientRect&&x(this,b)};r("pagespeed.CriticalImages.checkImageForCriticality",function(b){v.checkImageForCriticality(b)});r("pagespeed.CriticalImages.checkCriticalImages",function(){y(v)});var y=function(b){b.b={};for(var d=["IMG","INPUT"],a=[],c=0;c<d[p];++c)a=a.concat(t(k.getElementsByTagName(d[c])));if(0!=a[p]&&a[0].getBoundingClientRect){for(c=0;d=a[c];++c)x(b,d);a="oh="+b.i;b.c&&(a+="&n="+b.c);if(d=0!=b.a[p])for(a+="&ci="+g(b.a[0]),c=1;c<b.a[p];++c){var e=","+g(b.a[c]);131072>=a[p]+e[p]&&(a+=e)}b.g&&(e="&rd="+g(JSON.stringify(z())),131072>=a[p]+e[p]&&(a+=e),d=!0);A=a;if(d){c=b.f;b=b.h;var f;if(h.XMLHttpRequest)f=new XMLHttpRequest;else if(h.ActiveXObject)try{f=new ActiveXObject("Msxml2.XMLHTTP")}catch(s){try{f=new ActiveXObject("Microsoft.XMLHTTP")}catch(B){}}f&&(f.open("POST",c+(-1==c.indexOf("?")?"?":"&")+"url="+g(b)),f.setRequestHeader("Content-Type","application/x-www-form-urlencoded"),f.send(a))}}},z=function(){var b={},d=k.getElementsByTagName("IMG");if(0==d[p])return{};var a=d[0];if(!("naturalWidth"in a&&"naturalHeight"in a))return{};for(var c=0;a=d[c];++c){var e=a.getAttribute("pagespeed_url_hash");e&&(!(e in b)&&0<a[l]&&0<a[n]&&0<a.naturalWidth&&0<a.naturalHeight||e in b&&a[l]>=b[a.src].k&&a[n]>=b[a.src].j)&&(b[e]={rw:a[l],rh:a[n],ow:a.naturalWidth,oh:a.naturalHeight})}return b},A="";r("pagespeed.CriticalImages.getBeaconData",function(){return A});r("pagespeed.CriticalImages.Run",function(b,d,a,c,e,f){var s=new w(b,d,a,e,f);v=s;c&&u(function(){h.setTimeout(function(){y(s)},0)})});})();pagespeed.CriticalImages.Run('/ngx_pagespeed_beacon','https://bonnus.ulb.uni-bonn.de/SummonRecord/FETCH-bonn_catalog_34959732','q9UknjHyEp',true,false,'s2SdUTu15O8');</script><img src="/themes/ulb_blueprint/images/ulbimages/display.png" pagespeed_url_hash="3158115922" onload="pagespeed.CriticalImages.checkImageForCriticality(this);"/><a href="">Further Searchtools</a>
+            	<ul>
+       	        	<li><a href="http://dispatch.opac.d-nb.de/DB=1.1/" target="_blank">Journals - ZDB</a></li>
+                    <li><a href="http://rzblx1.uni-regensburg.de/ezeit/search.phtml?bibid=ULBB&colors=7&lang=de" target="_blank">eJournals - EZB</a></li>
+                    <li><a href="http://rzblx10.uni-regensburg.de/dbinfo/fachliste.php?lett=l" target="_blank">Databases - DBIS</a></li>
+                    <li><a href="http://www.digibib.net/jumpto?LOCATION=005&D_SERVICE=TEMPLATE&&D_SUBSERVICE=SEARCH" target="_blank">Metasearch - DigiBib</a></li>
+                </ul>
+			</li>
+        </ul>
+    </div> 
+	</div>
+    
+
+<a id="unilogo" href="http://www.uni-bonn.de"><img src="/themes/ulb_blueprint/images/logo_uni.png" pagespeed_url_hash="3080595202" onload="pagespeed.CriticalImages.checkImageForCriticality(this);"/></a>
+<a id="logo" href="http://www.ulb.uni-bonn.de"><img src="/themes/ulb_blueprint/images/logo_ulb_web.png" pagespeed_url_hash="1911678554" onload="pagespeed.CriticalImages.checkImageForCriticality(this);"/></a>
+<a id="portallogo" href="/ "><img src="/themes/ulb_blueprint/images/logo_portal.png" pagespeed_url_hash="2527732064" onload="pagespeed.CriticalImages.checkImageForCriticality(this);"/></a>
+
+ 
+	<div id="headerBottom">
+     <!-- mw20130204 ZWEIGSTELLE START -->
+	<form method="post" name="branchForm" action="" id="branchForm">	
+		<label for="branchForm_mybranch">Branch:</label>
+		<select id="branchForm_mybranch" name="mybranch" class="jumpMenu">
+			<option value="0">Hauptbibliothek</option>
+			<option value="1">Abt. MNL / ZB MED Bonn</option>
+			<option value="70">FB Mathematik</option>
+		</select>
+		<noscript><input type="submit" value="Ok"/></noscript>
+	</form>
+	<!-- mw20130204 ZWEIGSTELLE ENDE  --> 
+    
+    	            
+			<div id="logoutOptions" class="hide">
+				<a class="account" href="/MyResearch/Home">Your Account</a> | 
+                <a class="logout" href="/MyResearch/Logout">Log Out</a>
+			</div>
+			<div id="loginOptions">
+									<a title="tooltip_Login" class="login" href="/MyResearch/Home">My account</a>
+							</div>
+	    
+
+		
+   
+    
+    	
+ 	<!-- ar20151022 nach oben verschoben -->
+	
+
+<div class="clear"></div>
+      </div>
+                  <div class="searchbox">
+        <div class="searchform">
+      <form method="get" action="/Summon/Search" name="searchForm" id="searchForm" class="search">
+      <label for="searchForm_lookfor" class="offscreen">Your search terms</label>
+      <input id="searchForm_lookfor" type="text" name="lookfor" placeholder="Enter your search terms ..." size="40" value="" class="autocomplete searcher:Summon typeSelector:searchForm_type"/>
+      <a title="Hilfe zur Einfachen Suche" href="/Help/Home?topic=index#simpleSearch" target="_blank"><img class="helpicon" src="/themes/ulb_blueprint/images/ulbimages/icon-help.png" pagespeed_url_hash="3126685217" onload="pagespeed.CriticalImages.checkImageForCriticality(this);"/></a>
+      <label for="searchForm_type" class="offscreen">Search Type</label>
+            <select id="searchForm_type" name="type">
+              <option value="AllFields">All Fields</option>
+              <option value="PersonFunction">Name (Author, Editor, ...)</option>
+              <option value="Title">Title</option>
+              <option value="LCCallNumUNI">shelf mark</option>
+              <option value="ISBN">ISBN</option>
+              <option value="ISSN">ISSN</option>
+              <option value="SubjectTerms">Subject</option>
+              <option value="Publisher">Publisher</option>
+            </select>
+            <input type="submit" name="submit" value="start search"/>
+      
+            
+              <a href="/Summon/Advanced" class="small">Advanced Search</a>
+      
+
+
+      
+                  <input type="hidden" name="limit" value="20"/><input type="hidden" name="sort" value="relevance"/>    </form>
+    <script type="text/javascript">$("#searchForm_lookfor").focus()</script>
+  </div>
+      </div>
+                          <div class="feedbacktab"><div class="slideOutForm" id="slideOut">
+  <div class="slide-out-div">
+    <div class="handle">
+      <div id="feedbackTabBox"></div>
+      <div id="feedbackTabText">Feedback</div>
+    </div>
+    <div id="contact_form">
+  <form method="post" action="/Feedback/Email">
+    <p class="feedbackHeader">Send us your feedback!</p>
+    <label for="name">
+      Name</label>
+    <label class="error" for="name">
+      Please enable JavaScript.</label><br/>
+    <input type="text" id="name" size="30" class="text-input {required:true,messages:{required:&#039;This field is required&#039;}}"/><br/>
+    <label for="email">
+      Email</label><br/>
+    <input type="email" id="email" required size="30" class="text-input {required:true,email:true,messages:{required:&#039;This field is required&#039;,email:&#039;Email address is invalid&#039;}}"/><br/>
+    <label for="subject">
+      Subject</label><br/>
+    <input type="text" id="subject" size="30" class="text-input {required:true,messages:{required:&#039;This field is required&#039;}}"/><br/>
+    <label for="comments">
+      Comments</label><br/>
+    <textarea id="comments" class="{required:true,messages:{required:&#039;This field is required&#039;}}"></textarea><br/>
+    <input type="submit" id="feedbackSendSubmit" class="button" value="Send"/>
+    <input type="hidden" id="formSuccess" value="Form Submitted!"/>
+    <input type="hidden" id="feedbackSuccess" value="Thank you for your feedback."/>
+    <input type="hidden" id="feedbackFailure" value="An error has occurred"/>
+  </form>
+</div>
+  </div>
+</div></div>
+                  <div class="breadcrumbs">
+        <div class="breadcrumbinner">
+          <a href="/">Home</a> <span>&gt;</span>
+          <a href="/Summon/Search?lookfor=lehrbuch&amp;type=AllFields&amp;page=2">Back to Search Results</a>        </div>
+      </div>
+      
+      <div class="main">
+        <div id="viewDetail" class="span-18">
+  <div class="toolbar">
+  <ul>
+          <li><a href="/SummonRecord/FETCH-bonn_catalog_34959732/Cite" class="citeRecord cite controllerSummonrecord" id="citeRecord" title="Cite this">Cite this</a></li>
+    <!-- //mw20130507 Keine SMS    <li><a href="/SummonRecord/FETCH-bonn_catalog_34959732/SMS" class="smsRecord sms controllerSummonrecord" id="smsRecord" title="Text this">Text this</a></li> 
+     ?> -->
+    <li><a href="/SummonRecord/FETCH-bonn_catalog_34959732/Email" class="mailRecord mail controllerSummonrecord" id="mailRecord" title="Email this">Email this</a></li>
+        <li>
+      <a href="/SummonRecord/FETCH-bonn_catalog_34959732/Export" class="export exportMenu">Export Record</a>
+      <ul class="menu offscreen" id="exportMenu">
+              <li> <!-- //mw20150105 Muss gekennzeichnet werden für LOADER (exportMenuListLink)--><a class="exportMenuListLink" href="/SummonRecord/FETCH-bonn_catalog_34959732/Export?style=BibTeX">Export to  BibTeX</a></li>
+              <li> <!-- //mw20150105 Muss gekennzeichnet werden für LOADER (exportMenuListLink)--><a class="exportMenuListLink" href="/SummonRecord/FETCH-bonn_catalog_34959732/Export?style=EndNote">Export to  EndNote</a></li>
+              <li> <!-- //mw20150105 Muss gekennzeichnet werden für LOADER (exportMenuListLink)--><a class="exportMenuListLink" target="EndNoteWebMain" href="/SummonRecord/FETCH-bonn_catalog_34959732/Export?style=EndNoteWeb">Export to  EndNoteWeb</a></li>
+              <li> <!-- //mw20150105 Muss gekennzeichnet werden für LOADER (exportMenuListLink)--><a class="exportMenuListLink" target="RefWorksMain" href="/SummonRecord/FETCH-bonn_catalog_34959732/Export?style=RefWorks">Export to  RefWorks</a></li>
+              <li> <!-- //mw20150105 Muss gekennzeichnet werden für LOADER (exportMenuListLink)--><a class="exportMenuListLink" href="/SummonRecord/FETCH-bonn_catalog_34959732/Export?style=Text">Export to  Text</a></li>
+              <li> <!-- //mw20150105 Muss gekennzeichnet werden für LOADER (exportMenuListLink)--><a class="exportMenuListLink" href="/SummonRecord/FETCH-bonn_catalog_34959732/Export?style=RIS">Export to  RIS</a></li>
+              <li> <!-- //mw20150105 Muss gekennzeichnet werden für LOADER (exportMenuListLink)--><a class="exportMenuListLink" href="/SummonRecord/FETCH-bonn_catalog_34959732/Export?style=CSV">Export to  CSV</a></li>
+            </ul>
+    </li>
+        <li id="saveLink"><a href="/SummonRecord/FETCH-bonn_catalog_34959732/Save" class="saveRecord fav controllerSummonrecord" id="saveRecord" title="Add to Favorites">Add to Favorites</a></li>
+              <li><a id="recordCart" class="bookbagAdd offscreen" href="#">Add to Book Bag</a></li>
+      </ul>
+      <div class="cartSummary">
+      <form method="post" name="addForm" action="/Cart/Home">
+        <input id="cartId" type="hidden" name="ids[]" value="Summon|FETCH-bonn_catalog_34959732"/>
+        <noscript>
+                      <input type="submit" class="button bookbagAdd" name="add" value="Add to Book Bag"/>
+                  </noscript>
+      </form>
+    </div>
+    
+    
+          <div id="cartSummary" class="cartSummary">
+        <a id="cartItems" title="View Book Bag" class="bookbag" href="/Cart/Home"><strong><span>0</span></strong> items </a>
+        <a id="viewCart" title="View Book Bag" class="viewCart bookbag offscreen" href="/Cart/Home"><strong><span id="cartSize">0</span></strong> items<span id="cartStatus">&nbsp;</span></a>
+      </div>           
+    
+          <div class="resultscroller">
+        <a class="prev" href="/SummonRecord/FETCH-bonn_catalog_28286722">Prev</a>        23 of 517166        <a class="next" href="/SummonRecord/FETCH-bonn_catalog_30482142">Next</a>      </div>
+    
+  <div class="clear"></div>
+</div>
+
+  <div class="record recordId sourceSummon" id="record">
+    <input type="hidden" value="FETCH-bonn_catalog_34959732" class="hiddenId" id="record_id"/>
+        
+    <script type="application/javascript">var rvkVisual=RvkVisual.newInstance('rvklink');rvkVisual.displayHierarchy=true;rvkVisual.toggleEnabled=true;rvkVisual.getNotationLink=function(notation)
+{var rvkTags=new Array();var rvkTagsRead=document.getElementsByClassName('rvklink');for(var i=0;i<rvkTagsRead.length;i++)
+{rvkTags.push(rvkTagsRead[i].innerHTML);}
+if(rvkTags.indexOf(notation)>-1)
+{return location.origin+"/Summon/Search?join=AND&bool0%5B%5D=AND&lookfor0%5B%5D="+encodeURIComponent(notation)+"&type0%5B%5D=ClassificationCodes_RVK";}
+else
+{return"http://rvk.uni-regensburg.de/rvko_simple/mynot.php?nt_in="+encodeURIComponent(notation);}}
+rvkVisual.htmlToggleOff="<img title='Open to see the hierachical structure of the classification codes.' src='/themes/ulb_blueprint/images/ulbimages/display.png'>";rvkVisual.htmlToggleOn="<img title='disable informationen' src='/themes/ulb_blueprint/images/ulbimages/close.png'>";rvkVisual.htmlListItemPrefix="<ul><li title='This link shows a description of the hierarchical structure of the classification code.'>";rvkVisual.tooltip_searchIcon="Start a search with these terms.";function rvk_visual_prepareLinks(){RvkVisual.prepareLinks();}
+if(window.addEventListener){window.addEventListener("load",rvk_visual_prepareLinks,false);}
+else if(window.attachEvent){window.attachEvent("onload",rvk_visual_prepareLinks);}</script>
+    <link href="rvk-visual.css" rel="stylesheet" type="text/css"/>
+
+    <style rel="stylesheet">.rvk-visual-toggle{display:inline-block;margin-left:.2em}</style>
+
+
+<div class="span-13"> 
+
+	<span id="deletedExe"></span>
+
+  	  
+  <h1>Lehrbuch Anatomie</h1>
+  	  <h2>204 Tabellen ; [mit dem Plus im Web] </h2>
+      <h4>Herbert Lippert</h4>      
+    
+  
+    <table cellpadding="2" cellspacing="0" border="0" class="citation" summary="Bibliographic Details">
+
+        
+        
+            <tr valign="top">
+      <th>Main Author: </th>
+      <td class="recordAuthor"><a href="/Summon/Search?lookfor=%22Lippert%2C+Herbert%22&amp;type=Author">Lippert, Herbert</a>
+      </td>
+    </tr>
+    
+    
+    
+          <tr valign="top">
+        <th>Format: </th>
+        <td class="recordFormat">    <span class="iconlabel book">Book</span>
+</td>
+      </tr>
+    
+          <tr valign="top">
+        <th>Language: </th> 
+        <td class="recordLanguage">German				   			
+        </td>
+      </tr>
+    
+    
+    
+    
+
+
+	
+	
+		
+		
+		
+
+		<tr valign="top">
+		<th>Edition: </th>
+		<td class="recordEdition">
+			8., neu bearb. Aufl.					</td>
+	</tr>
+	
+
+
+	
+	
+	
+	
+	
+	
+	
+		<tr valign="top">
+		<th>Detailed title references: </th>
+		<td id="titleHint">
+			
+																		<a href='/Summon/Search?lookfor=%22HT017109279%22&amp;type=Notes' target='new' class='fulltext startsearch' title='Weitere Informationen zur elektronischen Ausgabe in bonnus, dem hbz Verbundkatalog oder der ZDB aufrufen.'>Online-Ausg.: Lippert, Herbert: Lehrbuch Anatomie</a><br>																														</td>
+	</tr>
+	
+	
+				<tr valign="top">
+		<th>Data of publication: </th>
+		<td>
+							München								 : Elsevier, Urban &amp; Fischer								, 2011				<br>
+												  
+			
+			
+		</td>
+	</tr>
+	
+	
+	
+	
+			<tr valign="top">
+			<th>Extent:</th>
+			<td>
+													862 S. : zahlr. Ill., graph. Darst.																					 + Zugang zu zusätzlichem Internetmaterial über Code																																																			</td>
+
+		</tr>
+	
+			<tr valign="top">
+			<th>ISBN: </th>
+			<td>
+									978-3-437-42365-9<br>
+									3-437-42365-7<br>
+															</td>
+		</tr>
+	
+	
+	
+			
+	
+	
+    
+
+	
+	    	    	    <tr valign="top">
+	      			      		<th>Classification ULB: </th>
+			<td class="recordClasCode">		    <a href='/Summon/Search?join=AND&bool0%5B%5D=AND&lookfor0%5B%5D=MED+B&type0%5B%5D=ClassificationCodes_ULB' class='fulltext startsearch' title='Starten Sie eine Suche mit dieser Notation im Bestand der ULB bis 2010.' ?>MED B</a> <a target='new' title='Rufen Sie die Systematik auf und starten Sie eine systematische Suche über den Bestand der ULB bis 2010. Sie können in der Systematik blättern oder relevante Notationen über Suchbegriffe finden.' href='http://www.ulb.uni-bonn.de/literatursuche/Systematische%20Suche%20der%20ULB'><img id='classUlbInfo' src='/themes/ulb_blueprint/images/ulbimages/info-icon.png' pagespeed_url_hash="2697672428" onload="pagespeed.CriticalImages.checkImageForCriticality(this);"/></a><br/>		  	      </td>
+			  	    	  
+	      	    </tr>
+	    
+	    
+	    	    <tr valign="top">
+	      <th>Classification RVK: </th>
+	     <td> <div class='rvklink'>WW 1452</div></td>
+	    </tr>
+	    	  
+
+	    
+	    
+	    	
+
+	    	    <tr valign="top">
+	      <th>Discipline: </th>
+	      <td class="recordDiscipline">Anatomy &amp; Physiology<br/>Zoology<br/></td>
+	    </tr>
+	    	    
+
+	    
+	    	    	    	
+        
+
+            <tr valign="top">
+      <th>Subject heading strings: </th>
+      <td class="recordSubjects">
+        
+
+        <a title='Suche nach Schlagwort(en): <br>Anatomie' href='/Summon/Search?lookfor=%22Anatomie%22+&amp;type=SubjectTerms
+'>Anatomie</a> &rArr; <a title='Suche nach Schlagwort(en): <br>Anatomie<br>Lehrbuch' href='/Summon/Search?lookfor=%22Anatomie%22+%22Lehrbuch%22+&amp;type=SubjectTerms
+'>Lehrbuch</a><br>                                                                              	<!--<img title='Suchen Sie ggf. kombiniert mit mehreren Schlagwörtern der Schlagwortkette. Starten Sie die Suche mit einem Schlagwort entsprechend der Position in der Kette. Das 1. Schlagwort ermöglicht eine Schlagwortsuche ausschliesslich mit mit diesem einen Schlagwort, das 2. Schlagwort ermöglicht eine kombinierte Schlagwortsuche über das 1. UND 2. Schlagwort, das 3. Schlagwort ...' id='recordSubjectHelp' src='/themes/ulb_blueprint/images/ulbimages/icon-help.png'/>-->
+
+
+ 
+            
+      </td>
+    </tr>
+        
+            <tr valign="top">
+      <th>Subjects: </th>
+      <td class="recordSubjects">
+                <div class="subjectLine">
+                                            	                	<a href="/Summon/Search?lookfor=Lehrbuch&amp;type=SubjectTerms
+" class="subjectHeading">Lehrbuch</a>
+                              </div>
+                <div class="subjectLine">
+                                            	                	<a href="/Summon/Search?lookfor=Anatomie&amp;type=SubjectTerms
+" class="subjectHeading">Anatomie</a>
+                              </div>
+                      </td>
+    </tr>
+    
+    
+        
+    
+			<tr valign="top">
+		<th>Links: </th>
+		<td>
+																		<a href="http://digitool.hbz-nrw.de:1801/webclient/DeliveryManager?pid=4643403&amp;custom_att_2=simple_viewer" class="fulltext" target="new">Description of contents</a><br>
+																											<a href="http://digitool.hbz-nrw.de:1801/webclient/DeliveryManager?pid=4643402&amp;custom_att_2=simple_viewer" class="fulltext" target="new">Description of contents</a><br>
+																											<a href="http://deposit.d-nb.de/cgi-bin/dokserv?id=3805514&amp;prov=M&amp;dok_var=1&amp;dok_ext=htm" class="fulltext" target="new">Description of contents</a><br>
+														</td>
+	</tr>
+	
+	
+					<tr valign="top">
+						<th>HBZ-ID: </th>
+			<td>
+							HT016864884				&raquo; <a target="_blank" href="http://193.30.112.134/F/?func=find-c&ccl_term=IDN=HT016864884">further libraries in North Rhine-Westphalia</a><br/>
+						</td>
+			</tr>
+				
+          <tr valign="top">
+        <th>Database: </th>
+        <td class="recordLanguage">ULB Bonn Catalog<br/></td>
+      </tr>
+    
+    	
+    
+        <tr valign="top">
+      <th>Tags: </th>
+      <td class="recordTags">
+        <span style="float:right;">
+          <a href="/SummonRecord/FETCH-bonn_catalog_34959732/AddTag" class="tool add tagRecord controllerSummonrecord" title="Add Tag" id="tagRecord">Add Tag</a>
+        </span>
+        <div id="tagList">
+                      No Tags, Be the first to tag this record!
+                  </div>
+      </td>
+    </tr>
+  </table>
+  </div>
+
+
+
+
+
+<div class="span-4 last">
+          <a href="/Cover/Show?size=large&amp;isn=3437423657&amp;contenttype=Book">      <img alt="Cover Image" class="recordcover" src="/Cover/Show?size=medium&amp;isn=3437423657&amp;contenttype=Book" pagespeed_url_hash="2669212546" onload="pagespeed.CriticalImages.checkImageForCriticality(this);"/>
+    </a>  
+    <div class="savedLists info hide" id="savedLists">
+    <strong>Saved in:</strong>
+  </div>
+
+  <div class="googlePreviewDiv__full,partial,noview"><a title="Preview from Google Books" class="hide previewGBS ISBN3437423657" target="_blank"><img src="https://www.google.com/intl/en/googlebooks/images/gbs_preview_button1.png" alt="Preview" pagespeed_url_hash="783511264" onload="pagespeed.CriticalImages.checkImageForCriticality(this);"/></a></div><div class="hathiPreviewDiv__pd,world"><a title="Preview from HathiTrust" class="hide previewHT ISBN3437423657" target="_blank"><img src="/themes/ulb_blueprint/images/preview_ht.gif" alt="Preview" pagespeed_url_hash="2418504516" onload="pagespeed.CriticalImages.checkImageForCriticality(this);"/></a></div><span class="previewBibkeys ISBN3437423657"></span></div>
+
+
+
+<div class="clear"></div>
+<img src="http://dbspixel.hbz‐nrw.de/count?id=AL005&amp;page=32" width="1" height="1"/> 
+  </div>
+
+    <div id="tabnav">
+    <ul>
+                  <li class="active">
+        <!-- mw20130312 START <a href="/SummonRecord/FETCH-bonn_catalog_34959732/SISISHoldings#tabnav">Holdings</a> -->
+	<a href="/SummonRecord/FETCH-bonn_catalog_34959732/SISISHoldings#tabnav">Holdings 
+		        </a>
+        <!-- mw20130312 ENDE -->
+      </li>
+                  <li>
+        <!-- mw20130312 START <a href="/SummonRecord/FETCH-bonn_catalog_34959732/Description#tabnav">Description</a> -->
+	<a href="/SummonRecord/FETCH-bonn_catalog_34959732/Description#tabnav">Description 
+		        </a>
+        <!-- mw20130312 ENDE -->
+      </li>
+                  <li>
+        <!-- mw20130312 START <a href="/SummonRecord/FETCH-bonn_catalog_34959732/UserComments#tabnav">Comments</a> -->
+	<a href="/SummonRecord/FETCH-bonn_catalog_34959732/UserComments#tabnav">Comments 
+		        </a>
+        <!-- mw20130312 ENDE -->
+      </li>
+                  <li>
+        <!-- mw20130312 START <a href="/SummonRecord/FETCH-bonn_catalog_34959732/Details#tabnav">Staff View</a> -->
+	<a href="/SummonRecord/FETCH-bonn_catalog_34959732/Details#tabnav">Staff View 
+		        </a>
+        <!-- mw20130312 ENDE -->
+      </li>
+          </ul>
+    <div class="clear"></div>
+  </div>
+  
+
+  <div class="recordsubcontent">
+    
+
+	
+<!-- ar20150710 <h1>Exemplare Uni Bonn</h1>-->
+<table class="citation">
+
+			
+
+				<tr><th>Bibliothek: </th>
+            	<td><a href="http://sam.ulb.uni-bonn.de/bibliotheken-a-z/bibliothek.php?action=1.txt" target="_blank">
+						Abt. Nussallee /ZB MED Bonn / Lehrbuchsammlung											</a>
+                </td>
+            </tr>
+			<tr><th>Signatur: </th>
+            	<td>Med Ba 12</td>
+            </tr>
+			<tr id="exeStatus">
+            	<th>Status: </th>
+				<td>
+									andere Zweigstelle (frei)<br>	
+								</td>
+            </tr>										
+			
+				<tr><th>Bibliothek: </th>
+            	<td><a href="http://sam.ulb.uni-bonn.de/bibliotheken-a-z/bibliothek.php?action=1.txt" target="_blank">
+						Abt. Nussallee /ZB MED Bonn / Lehrbuchsammlung											</a>
+                </td>
+            </tr>
+			<tr><th>Signatur: </th>
+            	<td>Med Ba 12</td>
+            </tr>
+			<tr id="exeStatus">
+            	<th>Status: </th>
+				<td>
+									andere Zweigstelle (entl.)<br>	
+								</td>
+            </tr>										
+			
+				<tr><th>Bibliothek: </th>
+            	<td><a href="http://sam.ulb.uni-bonn.de/bibliotheken-a-z/bibliothek.php?action=1.txt" target="_blank">
+						Abt. Nussallee /ZB MED Bonn / Lehrbuchsammlung											</a>
+                </td>
+            </tr>
+			<tr><th>Signatur: </th>
+            	<td>Med Ba 12</td>
+            </tr>
+			<tr id="exeStatus">
+            	<th>Status: </th>
+				<td>
+									andere Zweigstelle (frei)<br>	
+								</td>
+            </tr>										
+			
+				<tr><th>Bibliothek: </th>
+            	<td><a href="http://sam.ulb.uni-bonn.de/bibliotheken-a-z/bibliothek.php?action=1.txt" target="_blank">
+						Abt. Nussallee /ZB MED Bonn / Lehrbuchsammlung											</a>
+                </td>
+            </tr>
+			<tr><th>Signatur: </th>
+            	<td>Med Ba 12</td>
+            </tr>
+			<tr id="exeStatus">
+            	<th>Status: </th>
+				<td>
+									andere Zweigstelle (entl.)<br>	
+								</td>
+            </tr>										
+			
+				<tr><th>Bibliothek: </th>
+            	<td><a href="http://sam.ulb.uni-bonn.de/bibliotheken-a-z/bibliothek.php?action=1.txt" target="_blank">
+						Abt. Nussallee /ZB MED Bonn / Lehrbuchsammlung											</a>
+                </td>
+            </tr>
+			<tr><th>Signatur: </th>
+            	<td>Med Ba 12</td>
+            </tr>
+			<tr id="exeStatus">
+            	<th>Status: </th>
+				<td>
+									andere Zweigstelle (entl.)<br>	
+								</td>
+            </tr>										
+			
+				<tr><th>Bibliothek: </th>
+            	<td><a href="http://sam.ulb.uni-bonn.de/bibliotheken-a-z/bibliothek.php?action=1.txt" target="_blank">
+						Abt. Nussallee /ZB MED Bonn / Freihandmagazin											</a>
+                </td>
+            </tr>
+			<tr><th>Signatur: </th>
+            	<td>4' 2011/5200</td>
+            </tr>
+			<tr id="exeStatus">
+            	<th>Status: </th>
+				<td>
+									andere Zweigstelle (entl.)<br>	
+								</td>
+            </tr>										
+			
+	</table>
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+  <span class="Z3988" title="ctx_ver=Z39.88-2004&amp;ctx_enc=info%3Aofi%2Fenc%3AUTF-8&amp;rfr_id=info:sid/summon.serialssolutions.com&amp;rft_val_fmt=info:ofi/fmt:kev:mtx:book&amp;rft.genre=book&amp;rft.title=Lehrbuch+Anatomie&amp;rft.au=Lippert%2C+Herbert&amp;rft.date=2011&amp;rft.pub=Elsevier%2C+Urban+%26+Fischer&amp;rft.isbn=3437423657&amp;rft.externalDocID=3495973"></span>
+</div>
+
+<div class="span-5 last">
+  </div>
+
+<div class="clear"></div>
+      </div>
+      <div class="footer">
+        <!-- ar20150522
+<div class="span-5"><p><strong>Search Options</strong></p>
+  <ul>
+    <li><a href="/Search/History">Search History</a></li>
+    <!-- mw201305014 START <li><a href="/Summon/Advanced">Advanced Search</a></li> -->
+   <!-- <li><a href="/Summon/Advanced">Advanced Search</a></li> 
+    <!-- mw201305014 ENDE -->
+<!--  </ul>
+</div>
+-->
+<!-- mw201305014
+<div class="span-5"><p><strong>Find More</strong></p>
+  <ul>
+    <li><a href="/Browse/Home">Browse the Catalog</a></li>
+    <li><a href="/Alphabrowse/Home">Browse Alphabetically</a></li>
+    <li><a href="/Search/Reserves">Course Reserves</a></li>
+    <li><a href="/Search/NewItem">New Items</a></li>
+  </ul>
+</div>
+-->
+<!-- ar20150522 ergaenzt -->
+
+<div class="span-5 last"><p><strong>News</strong></p>
+<!--<p class="small"></p>-->  
+<ul>
+    <li><a target="_blank" href="http://www.ulb.uni-bonn.de/literatursuche/neuerwerbungen">New Items</a></li>
+    <li><a target="_blank" href="http://www.ulb.uni-bonn.de/anschaffungsvorschlag">Acquisition request</a></li>
+    <li><a target="_blank" href="http://www.ulb.uni-bonn.de/aktuelles-ulb">newsULB</a></li>
+    <li><a target="_blank" href="http://facebook.com/ulbbonn">ULB at Facebook</a></li>
+    <li><a target="_blank" href="http://twitter.com/ulbbonn">ULB at Twitter</a></li>
+    <li><a target="_blank" href="http://www.ulb.uni-bonn.de/rss-feed">ULB by RSS Feed</a></li>
+  </ul>
+</div>
+<div class="span-5 last"><p><strong>Need Help?</strong></p>
+  <ul>
+    <li><a target="_blank" href="/Help/Home?topic=index">Search Tips</a></li>
+    <li><a target="_blank" href="/Help/Home?topic=faq">FAQ</a></li>
+    <li><a target="_blank" href="http://www.ulb.uni-bonn.de/bonnusblog">bonnusBlog - der Blog zum Suchportal der Universität Bonn</a></li>
+    <li><a target="_blank" href="http://www.ulb.uni-bonn.de/nutzung-service/information-beratung/elektronische-informationsdienste/eauskunft-1">Ask a Librarian</a></li>
+    <li><a target="_blank" href="http://www.ulb.uni-bonn.de/nutzung-service/information-beratung/information-vor-ort">local help</a></li>
+  </ul>
+</div>
+<div class="span-5 last"><p><strong>Search</strong></p>
+  <ul>
+	<li><a href="/Summon/Advanced">Advanced Search</a></li> 
+    <li><a href="/Search/History">Search History</a></li>
+    <li><a target="_blank" href="http://www.ulb.uni-bonn.de/literatursuche/ulb-systematik">ULB Search of Classification</a></li>
+  </ul>
+</div>
+<!-- ar20140506 ergaenzt -->
+<div class="span-5 last"><p><strong>Further Searchtools</strong></p>
+  <ul>
+    <li><a target="_blank" href="http://dispatch.opac.d-nb.de/DB=1.1/">Journals - ZDB</a></li>
+    <li><a target="_blank" href="http://rzblx1.uni-regensburg.de/ezeit/search.phtml?bibid=ULBB&colors=7&lang=de">eJournals - EZB</a></li>
+    <li><a target="_blank" href="http://rzblx10.uni-regensburg.de/dbinfo/fachliste.php?lett=l">Databases - DBIS</a></li>
+    <li><a target="_blank" href="http://www.digibib.net/jumpto?LOCATION=005&D_SERVICE=TEMPLATE&&D_SUBSERVICE=SEARCH">Metasearch - DigiBib</a></li>
+  </ul>
+</div>
+<!-- ar20150522 ergaenzt -->
+<div class="span-5 last"><p><strong>Interlibrary loan service</strong></p>
+<p class="small">InterlibraryHintHead:</p>
+  <ul>
+    <li><a target="_blank" href="http://www.digibib.net/jumpto?LOCATION=005&&D_SUBSERVICE=ILL_MONO">Document Delivery - Books</a></li>
+    <li><a target="_blank" href="http://www.digibib.net/jumpto?LOCATION=005&&D_SUBSERVICE=ILL_ARTICLE">Document Delivery - Article</a></li>
+    <li><a target="_blank" href="http://www.ulb.uni-bonn.de/nutzung-service/fernleihe-direktlieferdienste/faq">FAQ Document Delivery</a></li>
+  </ul>
+</div>
+<div class="clear"></div>
+<!-- Piwik ar20150527 -->
+<script type="text/javascript">var _paq=_paq||[];_paq.push(["trackPageView"]);_paq.push(["enableLinkTracking"]);(function(){var u=(("https:"==document.location.protocol)?"https":"http")+"://cms-webstat2.rhrz.uni-bonn.de/";_paq.push(["setTrackerUrl",u+"piwik.php"]);_paq.push(["setSiteId","38"]);var d=document,g=d.createElement("script"),s=d.getElementsByTagName("script")[0];g.type="text/javascript";g.defer=true;g.async=true;g.src=u+"piwik.js";s.parentNode.insertBefore(g,s);})();</script>
+<!-- End Piwik Code -->
+        <p id=poweredBy>Powered by Summon™ from Serials Solutions, a division of ProQuest.@131.220.74.2</p> <!-- ar20130708 ID eingefuegt, um per CSS berabreiten zu koennen -->
+      </div>
+    </div>
+      </body>
+</html>

@@ -1,0 +1,163 @@
+book := {}
+search-result-count := text{"14924"}
+result := text{"1						
+			Datensatz auswählen
+
+
+			
+		  		    
+		  		  		      Hochschulschriften"}
+book := {"year": "2004", "author": "Aoieong, Raymond Taiman", "title": "Capturing quality costs of construction processes using the construction process cost model (CPCM)", "home-url": "file:///SummonRecord/FETCH-proquest_dll_8138017710"}
+result := text{"2						
+			Datensatz auswählen
+
+
+			
+		  		    
+		  		  		      Zeitschriftenaufsatz"}
+book := {"year": "2011", "author": "Mary A Vera-Colina, Guillermo Rodríguez-Medina, Zuray Melgarejo-Molina", "title": "Financial planning and access to financing in small and mediumsized companies in the Venezuelan manufacturing sector", "home-url": "file:///SummonRecord/FETCH-LOGICAL-d761-d62e9358958a6736c4b5273243872d2450e88e3b63a6ebd9de62ee565d0893613"}
+result := text{"3						
+			Datensatz auswählen
+
+
+			
+		  		    
+		  		  		      Buch"}
+book := {"year": "1980", "author": "Brown, Jennifer H", "title": "Strangers in Blood: Fur Trade Company Families in Indian Country", "home-url": "file:///SummonRecord/FETCH-LOGICAL-a57326-da825719d52250015b18ebdda33c60b570385ea08a853b32626e7cb733e56f80"}
+result := text{"4						
+			Datensatz auswählen
+
+
+			
+		  		    
+		  		  		      Buch"}
+book := {"year": "2012", "author": "Lennon Yao-Chung Chang", "title": "Cybercrime in the Greater China Region", "home-url": "file:///SummonRecord/FETCH-LOGICAL-b2150-eb02b2b992afc3cc1db8ece38c08020565699f62467ae6422acfbbf299f37ceb0"}
+result := text{"5						
+			Datensatz auswählen
+
+
+			
+		  		    
+		  		  		      Buch"}
+book := {"year": "2008", "author": "Percy, Larry", "title": "Strategic Integrated Marketing Communication: Theory and Practice", "home-url": "file:///SummonRecord/FETCH-LOGICAL-a18600-dbcd4d28ebf0dea5936ef5fcab8e8264f5563258541e32c86ce780aa966a9ac40"}
+result := text{"6						
+			Datensatz auswählen
+
+
+			
+		  		    
+		  		  		      Zeitungsartikel"}
+book := {"year": "2003", "author": "Alestron", "title": "Standard for ERP to Put into Operation", "home-url": "file:///SummonRecord/FETCH-gale_businessinsightsgauss_1085440260"}
+result := text{"7						
+			Datensatz auswählen
+
+
+			
+		  		    
+		  		  		      Hochschulschriften"}
+book := {"year": "2015", "author": "Sierra, Isabel K", "title": "Virtualizing the LIU Campus", "home-url": "file:///SummonRecord/FETCH-proquest_dll_38005485610"}
+result := text{"8						
+			Datensatz auswählen
+
+
+			
+		  		    
+		  		  		      Zeitschriftenaufsatz"}
+book := {"year": "2010", "author": "ADAMS, F. Gerard, TRAN, Anh Lee", "title": "Vietnam: from transitional state to Asian tiger?", "home-url": "file:///SummonRecord/FETCH-parliamentarylibraryaustralia_primary_library_jrnart_8EAX60"}
+result := text{"9						
+			Datensatz auswählen
+
+
+			
+		  		    
+		  		  		      Hochschulschriften"}
+book := {"year": "2011", "author": "Taussig, Markus D", "title": "Essays on Firm Strategy and Performance in Emerging Economies", "home-url": "file:///SummonRecord/FETCH-LOGICAL-h661-d73ad1c5a26fd154c4bba1e9fbdf710cb83e185293fe0e4ded22da77d52d00fe0"}
+result := text{"10						
+			Datensatz auswählen
+
+
+			
+		  		    
+		  		  		      Buch"}
+book := {"year": "1991", "author": "McCarthy, J. Thomas, 1937", "title": "McCarthy's desk encyclopedia of intellectual property", "home-url": "file:///SummonRecord/FETCH-LOGICAL-317290-590e48556d2c26f91e3f1dbd97f1ef36077b123eec5fdc4c87db24b6ce17d6fc0"}
+result := text{"11						
+			Datensatz auswählen
+
+
+			
+		  		    
+		  		  		      Hochschulschriften"}
+book := {"year": "2009", "author": "Hsu, Hsiu-Yen", "title": "Organizational learning culture's influence on job satisfaction, organizational commitment, and turnover intention among R&D professionals in Taiwan during an economic downturn", "home-url": "file:///SummonRecord/FETCH-LOGICAL-h451-fb0d91a8b02517a231548f0d93ad4748e80ca9842438a6e7339427c44e44b52f0"}
+result := text{"12						
+			Datensatz auswählen
+
+
+			
+		  		    
+		  		  		      Zeitschriftenaufsatz"}
+book := {"year": "2006", "author": "Michael A Hannah", "title": "North Carolina's Next State and Local Tax Frontier: Forced Combination", "home-url": "file:///SummonRecord/FETCH-proquest_dll_9584767410"}
+result := text{"13						
+			Datensatz auswählen
+
+
+			
+		  		    
+		  		  		      Bericht"}
+book := {"year": "2013", "author": "MPH Mittelst Pharma Holding AG", "title": "MPH Mittelst Pharma Holding AG - Annual Report, 2013", "home-url": "file:///SummonRecord/FETCH-proquest_dll_37206162210"}
+result := text{"14						
+			Datensatz auswählen
+
+
+			
+		  		    
+		  		  		      Hochschulschriften"}
+book := {"year": "1987", "author": "RAMDAS, GANGA PERSAUD", "title": "THE IMPACT OF THE DOMESTIC INTERNATIONAL SALES TAX LAW ON INVESTMENT BEHAVIOR OF U.S. MANUFACTURING CORPORATIONS (UNITED STATES)", "home-url": "file:///SummonRecord/FETCH-proquest_dll_7530110410"}
+result := text{"15						
+			Datensatz auswählen
+
+
+			
+		  		    
+		  		  		      Buch"}
+book := {"year": "2002", "author": "International Council for Research and Innovation in Building and Construction Staff, Uwakweh, Ben Obinero, Minkarah, Issam A", "title": "Conference Proceedings for the 10th Syposium Construction Innovation and Global Competitiveness", "home-url": "file:///SummonRecord/FETCH-ebrary_primary_101447930"}
+result := text{"16						
+			Datensatz auswählen
+
+
+			
+		  		    
+		  		  		      Zeitschriftenaufsatz"}
+book := {"year": "1981", "author": "Lemon K W", "title": "tax and business: top hat pension plans", "home-url": "file:///SummonRecord/FETCH-proquest_dll_3865890810"}
+result := text{"17						
+			Datensatz auswählen
+
+
+			
+		  		    
+		  		  		      Bericht"}
+book := {"year": "2011", "author": "Thai Storage Battery Public Co., Ltd", "title": "Thai Storage Battery Public Co., Ltd. - Annual Report, 2011", "home-url": "file:///SummonRecord/FETCH-proquest_dll_29942400310"}
+result := text{"18						
+			Datensatz auswählen
+
+
+			
+		  		    
+		  		  		      Bericht"}
+book := {"year": "2010", "author": "Thai Storage Battery Public Co., Ltd", "title": "Thai Storage Battery Public Co., Ltd. - Annual Report, 2010", "home-url": "file:///SummonRecord/FETCH-proquest_dll_29188731810"}
+result := text{"19						
+			Datensatz auswählen
+
+
+			
+		  		    
+		  		  		      Zeitschriftenaufsatz"}
+book := {"year": "1985", "author": "Wally Rhines", "title": "Artificial intelligence: Out of the lab and into business", "home-url": "file:///SummonRecord/FETCH-proquest_dll_660562703"}
+result := text{"20						
+			Datensatz auswählen
+
+
+			
+		  		    
+		  		  		      Magazinartikel"}
+book := {"year": "1948", "author": "Victor Z Brink", "title": "Utilization of unassigned time", "home-url": "file:///SummonRecord/FETCH-proquest_dll_847732700"}
+next-page := "file:///Summon/Search?join=AND&amp;bool0%5B%5D=AND&amp;lookfor0%5B%5D=test&amp;type0%5B%5D=PersonFunction&amp;page=2"
