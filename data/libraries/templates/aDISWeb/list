@@ -11,7 +11,7 @@
     <span class="txtinsert">(Mein Konto */|Benutzerkonto) +Bestellwünsche<t:s>mode:="ordered"</t:s></span>
     <span class="txtinsert">(Mein Konto */|Benutzerkonto) +Vormerkungen<t:s>mode:="requested"</t:s></span>
     <span class="txtinsert">(Mein Konto */|Benutzerkonto) +Bereitstellungen<t:s>mode:="provided"</t:s></span>
-    <span class="txtinsert">(Mein Konto */|Benutzerkonto) +Magazinbestellungen<t:s>mode:="orderedMagazine"</t:s></span>
+    <span class="txtinsert">(Mein Konto */|Benutzerkonto) +(Magazin)?[bB]estellungen<t:s>mode:="orderedMagazine"</t:s></span>
     <!-- nürnberg -->
     <span class="txtinsert">Benutzerkonto: Übersicht<t:s>invertedOrder := true()</t:s></span>
   </t:switch>

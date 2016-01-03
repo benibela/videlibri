@@ -121,8 +121,8 @@ mkdir -p $OUTPATH/aDISWeb
 ADDTEMPLATE aDISWeb/accountOverview 4
 PAGES=(${PAGES[@]} aDISWeb/accountOverview_munich.html aDISWeb/accountOverview_nurnberg.html aDISWeb/accountOverview_nurnberg.fake.html aDISWeb/accountOverview_testhdm.html)
 
-ADDTEMPLATE aDISWeb/list{splitIndex:=0} 7
-PAGES=(${PAGES[@]} aDISWeb/list_munich.html aDISWeb/list_nurnberg.html aDISWeb/list_testhdm.html aDISWeb/list_testhdm2.html  aDISWeb/list_provided_testhdm.html aDISWeb/list_requested_munich.html aDISWeb/list_requested_testhdm.html)
+ADDTEMPLATE aDISWeb/list{splitIndex:=0} 8
+PAGES=(${PAGES[@]} aDISWeb/list_munich.html aDISWeb/list_nurnberg.html aDISWeb/list_testhdm.html aDISWeb/list_testhdm2.html  aDISWeb/list_provided_testhdm.html aDISWeb/list_requested_munich.html aDISWeb/list_requested_testhdm.html aDISWeb/list_orders_munich.html)
 
 
 ADDTEMPLATE aDISWeb/search 13
@@ -227,10 +227,12 @@ DISE=../search/templates/digibib/search
 DIDE=../search/templates/digibib/details
 TEMPLATES=(${TEMPLATES[@]} $DISE $DISE $DIDE $DIDE $DIDE $DIDE $DIDE $DIDE)
 PAGES=(${PAGES[@]} digibib/search.html digibib/search2.html digibib/details.html digibib/details2.html digibib/details3.html digibib/details4.html digibib/details5.html digibib/details6new.html)  
-
+#echo $OUTPATH/stderr
+#echo > $OUTPATH/stderr
 error=0
 prev_system=
 for ((i=0;i<${#TEMPLATES[@]};i++)); do
+  #echo '#####>-----------------------RESET--------------------<#####'  > $OUTPATH/stderr
   [[ ${TEMPLATES[i]} =~ (.*/)?([^/]+)/[^/]+ ]]
   system=${BASH_REMATCH[2]}
   if [[ ! "$system" =~ $FILTER ]]; then     continue; fi
@@ -254,7 +256,7 @@ for ((i=0;i<${#TEMPLATES[@]};i++)); do
   fi
   FUNCTIONS="-e \"declare function vl:delete-current-books() { books-deleted := true() }; declare function vl:choose(\\\$a,\\\$b,\\\$c,\\\$d) { message-choose :=  join((\\\$a,\\\$b,\\\$c,\\\$d))}; ()\""
 
-  
+  #echo $TEMPLATEPARSER $FUNCTIONS $EXTRA $TEMPLATEPARSERARGS $INPATH/${PAGES[i]} --extract-file=$TFILE  
   eval $TEMPLATEPARSER $FUNCTIONS $EXTRA $TEMPLATEPARSERARGS $INPATH/${PAGES[i]} --extract-file=$TFILE  > $OUTPATH/${PAGES[i]}.result 2> $OUTPATH/stderr
   if diff -q $INPATH/${PAGES[i]}.result $OUTPATH/${PAGES[i]}.result; then tempasasas=42; else 
     echo

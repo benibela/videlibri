@@ -1,0 +1,1213 @@
+<html xmlns="http://www.w3.org/1999/xhtml" lang="de" lang="de">
+ 
+ <!-- solution for: conditional-comments block downloads  -->
+ 
+ <!--[if IE]><![endif]-->
+ 
+ <head>
+  
+  <style type="text/css">
+   
+   @import url(css/aDISStandard.css);
+   </style>
+  
+  <script src="js/aDISMain.js" type="text/javascript">
+   </script>
+  
+  <script src="js/fckeditor/fckeditor.js" type="text/javascript">
+   </script>
+  
+  <title>
+    MSB-Katalog                    
+   </title>
+  
+  <script type="text/javascript">
+   
+   var text = '';
+   window.defaultStatus=text;
+   </script>
+  
+  <!--
+  (c) Software: aDIS/BMS und aDIS/Archiv by |a|S|tec| GmbH Berlin und Muenchen -
+  www.astec.de
+  HTML-/CSS-Anpassungen: ena Webstudio - www.ena-webstudio.com
+  HTML-/CSS-Framework basiert grob auf Contao (c) Leo Feyer www.contao.org
+  Projekt: Stadtbibliothek Muenchen, OPAC03
+  Letztes Update: 11.05.2015
+  //-->
+  
+  
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+   </meta>
+  
+  <meta http-equiv="cache-control" content="no-cache">
+   </meta>
+  
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+   </meta>
+  
+  <meta http-equiv="content-style-type" content="text/css">
+   </meta>
+  
+  <meta http-equiv="content-script-type" content="text/javascript">
+   </meta>
+  
+  <meta http-equiv="content-language" content="de">
+   </meta>
+  
+  <meta name="language" content="de">
+   </meta>
+  
+  <link rel="shortcut icon" type="image/x-icon"
+  href="/aDISWeb_stbm/images/favicon.ico">
+   </link>
+  
+  
+  <script type="text/javascript" src="/aDISWeb_stbm/js/cookies.js">
+   </script>
+  
+  <script type="text/javascript" src="/aDISWeb_stbm/js/efa_fontsize.js">
+   </script>
+    
+  
+  <link rel="stylesheet" href="/aDISWeb_stbm/css/framework.css" type="text/css"
+  media="screen">
+   </link>
+  
+  <!--[if lte IE 7]><link rel="stylesheet"
+  href="/aDISWeb_stbm/css/framework_iefixes.css" type="text/css" media="screen"
+  /><![endif]-->
+  
+  
+  <link rel="stylesheet" href="/aDISWeb_stbm/css/layout.css" type="text/css"
+  media="screen">
+   </link>
+  
+  <!--[if lt IE 7]><link rel="stylesheet" href="/aDISWeb_stbm/css/ieonly.css"
+  type="text/css" media="screen" /><![endif]-->
+   
+  <!--[if IE 7]><link rel="stylesheet" href="/aDISWeb_stbm/css/ieonly7.css"
+  type="text/css" media="screen" /><![endif]-->
+   
+  <!--[if gte IE 8]><link rel="stylesheet" href="/aDISWeb_stbm/css/ieonly8.css"
+  type="text/css" media="screen" /><![endif]-->
+  
+  <link rel="stylesheet" type="text/css" href="/aDISWeb_stbm/css/print.css"
+  media="print">
+   </link>
+  
+  <!-- Mobildarstellung -->
+  
+  <meta name="viewport" content="width=device-width; initial-scale=1.0">
+   </meta>
+  
+  <link rel="stylesheet" href="/aDISWeb_stbm/css/media.css" type="text/css">
+   </link>
+  
+  <!--[if lt IE 9]>
+  	<script type="text/javascript"
+  src="/aDISWeb_stbm/js/css3-mediaqueries.js"></script>
+     <![endif]-->
+   
+  </head>
+ 
+ 
+ <body id="top" class="zweier">
+  
+  <script type="text/javascript">
+   <!--
+   
+   
+   
+   
+   function EventTarget() {
+   this.handlers = [];
+   }
+   EventTarget.prototype = {
+   constructor : EventTarget,
+   addhandler: function (type, handler) {
+   if (typeof this.handlers[type] == "undefined")
+   this.handlers[type] = [];
+   this.handlers[type].push(handler);
+   },
+   fire : function (event) {
+   if (this.handlers[event.type] instanceof Array) {
+   var handlers = this.handlers[event.type];
+   for (var i = 0; i < handlers.length; i++)
+   handlers[i](event);
+   }
+   }
+   };
+   var eventHandler = new EventTarget();
+   
+   function setupHandlers()  {
+   document.onmousedown = docOnEvent;		
+   document.onkeydown = docOnEvent;	
+   document.onkeypress = docOnEvent;
+   document.onhelp = cancelF1;
+   
+   initFormElements();
+   initIframes();
+   initScrollPos();
+   }
+   function getDimensions()  {
+   document.forms[0].scrDim.value = screen.width + ";" + screen.height;
+   if (window.innerWidth)
+   document.forms[0].winDim.value = window.innerWidth + ";" +
+   window.innerHeight;
+   else
+   document.forms[0].winDim.value = document.body.offsetWidth + ";" +
+   document.body.offsetHeight;
+   node = document.getElementById("img_content");
+   if (node != undefined)
+   document.forms[0].imgDim.value = node.offsetWidth + ";" + node.offsetHeight;
+   }
+   
+   
+   
+   
+   window.onload = function (e)
+   {
+   
+   if (!e) var e = window.event;
+   document.forms[0].scriptEnabled.value=true;
+   if (self.specialOnLoad != undefined)
+   specialOnLoad(e);
+   setupHandlers();
+   getDimensions();
+   
+   
+   
+   }
+   
+   // -->
+   </script>
+  
+  
+  <div class="aDISMaske">
+                                                                               
+   <form method="post" name="Form0"
+   action="/aDISWeb/app;jsessionid=6Fxxxxxxx8E941DE6"
+   onsubmit="return formOnSubmit();">
+    
+    <input type="hidden" name="service"
+    value="direct/1/POOLSTPM@@@@@@@@x/$Form.form">
+     </input>
+    
+    <input type="hidden" name="sp" value="S0">
+     </input>
+    
+    <input type="hidden" name="Form0"
+    value="focus,keyCode,stz,source,selected,requestCount,scriptEnabled,scrollPo
+    s,scrDim,winDim,imgDim,$FormConditional,textButton,$Toolbar,$FormConditional
+    $0,textButton$0,$FormConditional$1,$FormConditional$2,$FormConditional$3,$Fo
+    rmConditional$4,$FormConditional$5,cellCheck,$FormConditional$6,textButton$1
+    ,$FormConditional$7,$FormConditional$8,$FormConditional$9,$FormConditional$1
+    0,$FormConditional$11,$Toolbar$0">
+     </input>
+    
+    <input type="hidden" name="focus" value="">
+     </input>
+    
+    <input type="hidden" name="keyCode" value="0">
+     </input>
+    
+    <input type="hidden" name="stz" value="">
+     </input>
+    
+    <input type="hidden" name="source" value="">
+     </input>
+    
+    <input type="hidden" name="selected" value="">
+     </input>
+    
+    <input type="hidden" name="requestCount" value="6">
+     </input>
+    
+    <input type="hidden" name="scriptEnabled" value="F">
+     </input>
+    
+    <input type="hidden" name="scrollPos" value="0">
+     </input>
+    
+    <input type="hidden" name="scrDim" value="">
+     </input>
+    
+    <input type="hidden" name="winDim" value="">
+     </input>
+    
+    <input type="hidden" name="imgDim" value="">
+     </input>
+    
+    <input type="hidden" name="$FormConditional" value="T">
+     </input>
+    
+    <input type="hidden" name="$FormConditional$0" value="T">
+     </input>
+    
+    <input type="hidden" name="$FormConditional$1" value="F">
+     </input>
+    
+    <input type="hidden" name="$FormConditional$2" value="F">
+     </input>
+    
+    <input type="hidden" name="$FormConditional$3" value="F">
+     </input>
+    
+    <input type="hidden" name="$FormConditional$4" value="F">
+     </input>
+    
+    <input type="hidden" name="$FormConditional$5" value="F">
+     </input>
+    
+    <input type="hidden" name="$FormConditional$6" value="T">
+     </input>
+    
+    <input type="hidden" name="$FormConditional$7" value="F">
+     </input>
+    
+    <input type="hidden" name="$FormConditional$8" value="F">
+     </input>
+    
+    <input type="hidden" name="$FormConditional$9" value="F">
+     </input>
+    
+    <input type="hidden" name="$FormConditional$10" value="F">
+     </input>
+    
+    <input type="hidden" name="$FormConditional$11" value="F">
+     </input>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <script type="text/javascript">
+     
+     // <![CDATA[
+     if (efa_fontSize) efa_fontSize.efaInit();
+     // ]]>
+     </script>
+    
+    
+    <div id="wrapper">
+     
+     <div id="wrapper_inside">
+      
+      
+      <div id="header" role="banner">
+       
+       <div class="inside">
+        
+        
+        <ul id="sprunglinks">
+         
+         <li>
+          <a class="sprung" href="#main">
+           Zum Hauptinhalt
+           </a>
+          </li>
+         
+         <li>
+          <a class="sprung" href="#hnav">
+           Zur Navigation - 1. Ebene
+           </a>
+          </li>
+          
+         <li>
+          <a class="sprung" href="#left">
+           Zur Navigation - Unterebenen
+           </a>
+          </li>
+         
+         </ul>
+        
+        
+        <p id="logo">
+         <a href="http://www.muenchner-stadtbibliothek.de/" title="Zur
+         Startseite Bibliothek">
+          <img src="/aDISWeb_stbm/images/logo.png" width="281" height="40"
+          alt="Logo der Stadtbibliothek München">
+           </img>
+          </a>
+         </p>
+        
+        <p id="logo2">
+         <img src="/aDISWeb_stbm/images/logo2.png" width="323" height="56"
+         alt="Online-Katalog">
+          </img>
+         </p>
+        
+        
+        <script type="text/javascript">
+         
+         // <![CDATA[
+         if (efa_fontSize) document.write(efa_fontSize.allLinks);
+         // ]]>
+         </script>
+        
+        
+        </div>
+       
+       </div>
+      
+      
+      <div id="container">
+          
+       <div id="container_inside">
+        
+        
+        <h1 class="invisible">
+         Navigation - 1. Ebene
+         </h1>
+        
+        <div class="mod_navigation block" id="hnav" role="navigation">
+          
+         <div class="tree_div">
+          
+          <ul class="tree_ul">
+           
+           <li class="tree_leaf_li">
+            
+            <a
+            href="/aDISWeb/app;jsessionid=6Fxxxxxxx8E941DE6?servi
+            ce=direct/1/POOLSTPM@@@@@@@@_4Bxxx2FF73300/$Tree.treeNodes&sp=SS
+            0&requestCount=6" class="tree_leaf_a">
+             <span>
+              Bibliothek
+              </span>
+             </a>
+            <span class="outside">
+             .
+             </span>
+            </li>
+           
+           <li class="tree_leaf_li">
+            
+            <a
+            href="/aDISWeb/app;jsessionid=6Fxxxxxxx8E941DE6?servi
+            ce=direct/1/POOLSTPM@@@@@@@@xxxx/$Tree.treeNodes&sp=SA
+            D&requestCount=6" class="tree_leaf_a">
+             <span>
+              Literaturarchiv
+              </span>
+             </a>
+            <span class="outside">
+             .
+             </span>
+            </li>
+           
+           <li class="tree_leaf_li">
+            
+            <a href="http://www.muenchner-stadtbibliothek.de"
+            class="tree_leaf_a">
+             <span>
+              MSB online
+              </span>
+             </a>
+            <span class="outside">
+             .
+             </span>
+            </li>
+           
+           <li class="tree_leaf_li">
+            
+            <a
+            href="/aDISWeb/app;jsessionid=6Fxxxxxxx8E941DE6?servi
+            ce=direct/1/POOLSTPM@@@@@@@@xxx/$Tree.treeNodes&sp=SK
+            V&requestCount=6" class="tree_leaf_a">
+             <span>
+              Kontakt
+              </span>
+             </a>
+            <span class="outside">
+             .
+             </span>
+            </li>
+           
+           </ul>
+          </div>
+         
+         
+         </div>
+        
+        
+        <div class="block" id="topleiste">
+                             
+         <!--aDIS Drucksschalter-->
+         
+         
+         <p id="druckversion">
+          
+          
+          
+          <input type="submit" name="textButton" value="Druckversion"
+          fld="$$GFBO_88">
+           </input>
+          
+          
+          
+          
+          </p>
+         
+         
+         <p class="block" id="breadcrumb">
+          Sie sind hier: 
+          <a
+          href="/aDISWeb/app;jsessionid=6Fxxxxxxx8E941DE6?service
+          =direct/1/POOLSTPM@@@@@@@@xxx/$InternalLink.directlink&
+          sp=S%24%24GFNV_1&sp=SStartseite+Bibliothek%3DCW00&requestCount=6"
+          fld="$$GFNV_1" title="">
+           
+           
+           
+           Startseite Bibliothek
+           
+           </a>
+          	
+          <span class="outside">
+           .
+           </span>
+          
+          >
+          <span class="navicl">
+           
+           
+           
+           
+           
+           <a
+           href="/aDISWeb/app;jsessionid=6Fxxxxxxx8E941DE6?servic
+           e=direct/1/POOLSTPM@@@@@@@@xxx/navpath.intlink.directl
+           ink&sp=S%24%24GFNV_1&sp=SBKAU&requestCount=6" fld="$$GFNV_1"
+           title="Benutzerkonto Anmeldung">
+            
+            Benutzerkonto Anmeldung
+            
+            </a>
+           	
+           <span class="outside">
+            .
+            </span>
+           
+           
+           
+           
+           
+           
+           
+           > 
+           
+           
+           
+           
+           
+           <a
+           href="/aDISWeb/app;jsessionid=6Fxxxxxxx8E941DE6?servic
+           e=direct/1/POOLSTPM@@@@@@@@xxx/navpath.intlink.directl
+           ink&sp=S%24%24GFNV_2&sp=SAAAU&requestCount=6" fld="$$GFNV_2"
+           title="Benutzerkonto Übersicht">
+            
+            Benutzerkonto Übersicht
+            
+            </a>
+           	
+           <span class="outside">
+            .
+            </span>
+           
+           
+           
+           
+           
+           </span>
+           >
+          
+          <span class="txtinsert">
+           
+           Benutzerkonto Bestellungen
+           </span>
+          
+          </p>
+          
+         </div>
+        
+        
+        <div id="left">
+         
+         <div class="inside">
+          
+          
+          <div class="block" id="navbox">
+           
+           <div id="R20">
+            
+            <span class="bnzeig">
+             
+             XXX, yyyy: Sie sind angemeldet
+             </span>
+            
+            
+            
+            <span class="mmzeig">
+             
+             
+             </span>
+            
+            </div>
+           
+           
+           </div>
+          
+          
+          <h1 class="invisible">
+           Navigation - Unterebenen
+           </h1>
+          
+          <div class="mod_navigation block" id="unav" role="navigation">
+            
+           <div class="tree_div">
+            
+            <ul class="tree_ul">
+             
+             <li class="tree_leaf_li">
+              
+              <span class="tree_disabled">
+               Anmelden / Login
+               </span>
+              
+              <span class="outside">
+               .
+               </span>
+              </li>
+             
+             <li class="tree_leaf_li">
+              
+              <a
+              href="/aDISWeb/app;jsessionid=6Fxxxxxxx8E941DE6?ser
+              vice=direct/1/POOLSTPM@@@@@@@@xxx/$Tree$0.treeNodes
+              &sp=SL2&requestCount=6" class="tree_leaf_a">
+               <span>
+                Abmelden / Logout
+                </span>
+               </a>
+              <span class="outside">
+               .
+               </span>
+              </li>
+             
+             <li class="tree_leaf_li_sel">
+              
+              <strong>
+               <span class="tree_strong">
+                Benutzerkonto
+                </span>
+               </strong>
+              </li>
+             
+             <li class="tree_leaf_li">
+              
+              <a
+              href="/aDISWeb/app;jsessionid=6Fxxxxxxx8E941DE6?ser
+              vice=direct/1/POOLSTPM@@@@@@@@xxx/$Tree$0.treeNodes
+              &sp=SS1&requestCount=6" class="tree_leaf_a">
+               <span>
+                Einfache Suche
+                </span>
+               </a>
+              <span class="outside">
+               .
+               </span>
+              </li>
+             
+             <li class="tree_leaf_li">
+              
+              <a
+              href="/aDISWeb/app;jsessionid=6Fxxxxxxx8E941DE6?ser
+              vice=direct/1/POOLSTPM@@@@@@@@xxx/$Tree$0.treeNodes
+              &sp=SS6&requestCount=6" class="tree_leaf_a">
+               <span>
+                Erweiterte Suche
+                </span>
+               </a>
+              <span class="outside">
+               .
+               </span>
+              </li>
+             
+             <li class="tree_leaf_li">
+              
+              <a
+              href="/aDISWeb/app;jsessionid=6Fxxxxxxx8E941DE6?ser
+              vice=direct/1/POOLSTPM@@@@@@@@xxx/$Tree$0.treeNodes
+              &sp=SWI&requestCount=6" class="tree_leaf_a">
+               <span>
+                Medienlisten
+                </span>
+               </a>
+              <span class="outside">
+               .
+               </span>
+              </li>
+             
+             <li class="tree_leaf_li">
+              
+              <a
+              href="/aDISWeb/app;jsessionid=6Fxxxxxxx8E941DE6?ser
+              vice=direct/1/POOLSTPM@@@@@@@@xxx/$Tree$0.treeNodes
+              &sp=SAP&requestCount=6" class="tree_leaf_a">
+               <span>
+                Meine Suchprofile
+                </span>
+               </a>
+              <span class="outside">
+               .
+               </span>
+              </li>
+             
+             <li class="tree_leaf_li">
+              
+              <a href="http://www.munzinger.de/search/login?portalid=52372"
+              target=""_blank"" class="tree_leaf_a">
+               <span>
+                Munzinger
+                </span>
+               </a>
+              <span class="outside">
+               .
+               </span>
+              </li>
+             
+             <li class="tree_leaf_li">
+              
+              <a
+              href="http://www.muenchner-stadtbibliothek.de/footer/impressum/"
+              target=""_blank"" class="tree_leaf_a">
+               <span>
+                Impressum
+                </span>
+               </a>
+              <span class="outside">
+               .
+               </span>
+              </li>
+             
+             <li class="tree_leaf_li">
+              
+              <a
+              href="http://www.muenchner-stadtbibliothek.de/footer/datenschutz/"
+              target=""_blank"" class="tree_leaf_a">
+               <span>
+                Datenschutz
+                </span>
+               </a>
+              <span class="outside">
+               .
+               </span>
+              </li>
+             
+             </ul>
+            </div>
+           
+           
+           </div>
+          
+          
+          <div class="clear">
+           </div>
+          
+          
+          </div>
+         
+         </div>
+        
+        <div id="main" role="main">
+         
+         <div class="inside">
+          
+          <div class="block">
+           
+           
+           <h1>
+            <span class="invisible">
+             Aktuelle Seite: 
+             </span>
+             
+            <span class="txtinsert">
+             
+             Benutzerkonto Bestellungen
+             </span>
+            
+            </h1>
+           
+           <div class="toolbar_div">
+            
+            <ul class="toolbar_ul">
+             
+             <li class="toolbar_li">
+              
+              <input type="image"
+              src="/aDISWeb/images/POOLSTPM@@@@@@@@/gif/POOLSTPM@@@@@@@@_4400690
+              0_23D52500.gif;jsessionid=6Fxxxxxxx8E941DE6"
+              alt="Zurück zur vorherigen Seite" id="Toolbar_0"
+              name="$Toolbar_0" title="Zurück zur vorherigen Seite"
+              onmouseover="self.status='Zurück zur vorherigen Seite';return
+              true;" onmouseout="self.status='';" class="toolbar_img">
+               </input>
+              <label for="Toolbar_0">
+               <span class="toolbar_txt">
+                Zurück
+                </span>
+               </label>
+              </li>
+             
+             <li class="toolbar_li">
+              
+              <input type="image"
+              src="/aDISWeb/images/POOLSTPM@@@@@@@@/gif/POOLSTPM@@@@@@@@_44005F0
+              0_23D7C800.gif;jsessionid=6Fxxxxxxx8E941DE6"
+              alt="Beenden der Recherche" id="Toolbar_2" name="$Toolbar_2"
+              title="Beenden der Recherche" onmouseover="self.status='Beenden
+              der Recherche';return true;" onmouseout="self.status='';"
+              class="toolbar_img">
+               </input>
+              <label for="Toolbar_2">
+               <span class="toolbar_txt">
+                Beenden
+                </span>
+               </label>
+              </li>
+             
+             <li class="toolbar_li">
+              
+              <input type="image"
+              src="/aDISWeb/images/POOLSTPM@@@@@@@@/gif/POOLSTPM@@@@@@@@_4400590
+              0_23D52500.gif;jsessionid=6Fxxxxxxx8E941DE6"
+              alt="Hilfe zur Vollanzeige" id="Toolbar_3" name="$Toolbar_3"
+              title="Hilfe zur Vollanzeige" onmouseover="self.status='Hilfe zur
+              Vollanzeige';return true;" onmouseout="self.status='';"
+              class="toolbar_img">
+               </input>
+              <label for="Toolbar_3">
+               <span class="toolbar_txt">
+                Hilfe
+                </span>
+               </label>
+              </li>
+             </ul>
+            <div style="clear:both">
+             </div>
+            </div>
+            
+           <div class="fsgrp">
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            <div id="OPACLI" style="   width:99%;" class="aDISListe">
+             <div class="html_div" style="width:99%; height:100%;">
+              <p>
+               Ihre Bestellungen aus dem Magazin: Die Bibliothek wird Ihnen
+               umgehend ein Exemplar am gewählten Ausgabeort bereitstellen.
+               <br>
+                </br>
+               Außenmagazinbestellungen oder Bestellungen mit Transporten
+               können nicht am gleichen Tag bereitgestellt werden.
+               </p>
+              <p>
+               Konto - Bestellungen / Magazin für XXX, yyy
+               </p>
+              <p>
+               Bestellungen auf Medien aus dem Magazin der Zentralbibliothek.
+               </p>
+              </div>
+             </div>
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            <div id="R04">
+             
+             <p>
+              
+              
+              
+              <input type="submit" name="textButton$0" value="Markierte Titel
+              löschen" class="buttong_l" fld="$$GFBO_2">
+               </input>
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              <br class="klar">
+               </br>
+              
+              </p>
+             
+             </div>
+            
+            <div id="R05">
+             <div style="   width:99%; ">
+              	
+              <div class="rTable_div">
+               
+               <table class="rTable_table" width="100%">
+                
+                <colgroup>
+                 
+                 <col width="04%">
+                  </col>
+                 <col width="14%">
+                  </col>
+                 <col width="19%">
+                  </col>
+                 <col width="34%">
+                  </col>
+                 <col width="29%">
+                  </col>
+                 	
+                 </colgroup>
+                
+                <thead class="rTable_thead">
+                 
+                 <tr>
+                  
+                  <th scope="col" class="rTable_th">
+                   </th>
+                  <th scope="col" class="rTable_th">
+                   Bis
+                   </th>
+                  <th scope="col" class="rTable_th">
+                   Ausgabeort
+                   </th>
+                  <th scope="col" class="rTable_th">
+                   Titel
+                   </th>
+                  <th scope="col" class="rTable_th">
+                   Hinweis
+                   </th>
+                  	
+                  </tr>
+                 	
+                 </thead>
+                
+                <tbody>
+                 
+                 
+                 <tr class="rTable_tr_even">
+                  
+                  
+                  <td class="rTable_td_check">
+                   
+                   
+                   <label for="cellCheck" class="invisible">
+                    Markieren
+                    </label>
+                   <input type="checkbox" name="cellCheck" fld="###CHK_1"
+                   id="cellCheck">
+                    </input>
+                   
+                   
+                   </td>
+                  
+                  
+                  <td class="rTable_td_text">
+                   
+                   
+                   22.03.2015
+                   
+                   </td>
+                  
+                  
+                  <td class="rTable_td_text">
+                   
+                   
+                   Foobar
+                   
+                   </td>
+                  
+                  
+                  <td class="rTable_td_text">
+                   
+                   
+                   Titel!
+                   <br/>
+                   123
+                   <br/>
+                   123456
+                   
+                   </td>
+                  
+                  
+                  <td class="rTable_td_text">
+                   
+                   
+                   Bestellt am 02.01.2015 12:34 Uhr
+                   
+                   </td>
+                  
+                  
+                  </tr>
+                 
+                 </tbody>
+                
+                </table>
+               	
+               </div>
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              </div>
+             
+             
+             
+             <object
+             data="/aDISWeb/app;jsessionid=6Fxxxxxxx8E941DE6?serv
+             ice=aDISPrint/POOLSTPM@@@@@@@@xxx/$Plugin"
+             id="$Plugin" height="0" type="application/x-aStec-aDISPrint"
+             width="0">
+              </object>
+             
+             </div>
+            
+            <div id="R06">
+             
+             
+             
+             <input type="submit" name="textButton$1" value="Markierte Titel
+             löschen" class="buttong_l" fld="$$GFBO_12">
+              </input>
+             
+             
+             
+             
+             
+             
+             
+             
+             
+             
+             
+             
+             
+             
+             <br class="klar">
+              </br>
+             
+             </div>
+            <br>
+             </br>
+            <span style="line-height:12px;">
+              
+             </span>
+            <br>
+             </br>
+            
+            
+            
+            </div>
+           
+           <div class="clear">
+            </div>
+           
+           <br>
+            </br>
+           
+           <div class="toolbar_div">
+            
+            <ul class="toolbar_ul">
+             
+             <li class="toolbar_li">
+              
+              <input type="image"
+              src="/aDISWeb/images/POOLSTPM@@@@@@@@/gif/POOLSTPM@@@@@@@@_4400690
+              0_23D52500.gif;jsessionid=6Fxxxxxxx8E941DE6"
+              alt="Zurück zur vorherigen Seite" id="Toolbar$0_0"
+              name="$Toolbar$0_0" title="Zurück zur vorherigen Seite"
+              onmouseover="self.status='Zurück zur vorherigen Seite';return
+              true;" onmouseout="self.status='';" class="toolbar_img">
+               </input>
+              <label for="Toolbar$0_0">
+               <span class="toolbar_txt">
+                Zurück
+                </span>
+               </label>
+              </li>
+             
+             <li class="toolbar_li">
+              
+              <input type="image"
+              src="/aDISWeb/images/POOLSTPM@@@@@@@@/gif/POOLSTPM@@@@@@@@_44005F0
+              0_23D7C800.gif;jsessionid=6Fxxxxxxx8E941DE6"
+              alt="Beenden der Recherche" id="Toolbar$0_2" name="$Toolbar$0_2"
+              title="Beenden der Recherche" onmouseover="self.status='Beenden
+              der Recherche';return true;" onmouseout="self.status='';"
+              class="toolbar_img">
+               </input>
+              <label for="Toolbar$0_2">
+               <span class="toolbar_txt">
+                Beenden
+                </span>
+               </label>
+              </li>
+             
+             <li class="toolbar_li">
+              
+              <input type="image"
+              src="/aDISWeb/images/POOLSTPM@@@@@@@@/gif/POOLSTPM@@@@@@@@_4400590
+              0_23D52500.gif;jsessionid=6Fxxxxxxx8E941DE6"
+              alt="Hilfe zur Vollanzeige" id="Toolbar$0_3" name="$Toolbar$0_3"
+              title="Hilfe zur Vollanzeige" onmouseover="self.status='Hilfe zur
+              Vollanzeige';return true;" onmouseout="self.status='';"
+              class="toolbar_img">
+               </input>
+              <label for="Toolbar$0_3">
+               <span class="toolbar_txt">
+                Hilfe
+                </span>
+               </label>
+              </li>
+             </ul>
+            <div style="clear:both">
+             </div>
+            </div>
+            
+           <div class="clear">
+            </div>
+           
+           
+           </div>
+          
+          </div>
+         
+         <div id="clear">
+          </div>
+         
+         
+         </div>
+        
+        
+        </div>
+       
+       </div>
+      
+      
+      <div id="footer">
+       
+       <div class="inside">
+        
+        
+        <p id="foot1">
+         
+         © Münchner Stadtbibliothek
+         </p>
+        
+        
+        <p class="block" id="goingup">
+         
+         <a href="#wrapper" class="sprung">
+          nach oben
+          </a>
+         
+         </p>
+        
+        <div class="clear">
+         </div>
+        
+        
+        <p id="credits">
+         
+         <a href="http://www.astec.de">
+          Barrierefreie Bibliothekssoftware - OPAC von |a|S|tec| GmbH
+          </a>
+          | 
+         <a href="http://www.ena-webstudio.com">
+          ena Webdesign - Berlin
+          </a>
+         
+         </p>
+        
+        
+        </div>
+       
+       </div>
+      
+      
+      </div>
+     
+     </div>
+    
+    
+    <script src="/aDISWeb_stbm/js/yaml-focusfix.js" type="text/javascript">
+     </script>
+     
+    </form>                                                                    
+<!--template end-->
+   
+   </div>
+  
+  </body>
+ 
+ </html>
