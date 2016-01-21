@@ -61,7 +61,7 @@ mkdir -p $OUTPATH/libero5
 TEMPLATES=(${TEMPLATES[@]} libero5/start libero5/update libero5/update libero5/update libero5/update)
 PAGES=(${PAGES[@]} libero5/start.html libero5/update_empty.html libero5/update55sp73_empty.html libero5/update55sp4_2books.html libero5/update55sp73_books.html)
 
-ADDTEMPLATE  libero5/update{vl:raise} 1
+ADDTEMPLATE  libero5/update 1
 PAGES=(${PAGES[@]} libero5/update.login.faileden.html)
 
 
@@ -143,7 +143,7 @@ PAGES=(${PAGES[@]} aDISWeb/searchInputForm_mannheim-hsb.html )
 ADDTEMPLATE aDISWeb/orderConfirmation 2
 PAGES=(${PAGES[@]} aDISWeb/orderConfirmation_hdmtest.html aDISWeb/orderConfirmation_due.html )
 
-ADDTEMPLATE aDISWeb/orderConfirmed{vl:raise} 5
+ADDTEMPLATE aDISWeb/orderConfirmed 5
 PAGES=(${PAGES[@]} aDISWeb/orderConfirmed1_due.html aDISWeb/orderConfirmed2_due.html aDISWeb/orderConfirmed2_hdmtest.html aDISWeb/orderConfirmed_failed2_hdmtest.html aDISWeb/orderConfirmed_failed_hdmtest.html)
 
 
@@ -263,11 +263,13 @@ for ((i=0;i<${#TEMPLATES[@]};i++)); do
     if [[ $EXTRA =~ vl:confirm ]]; then
       EXTRA="-e \"declare function vl:confirm(\\\$a,\\\$b) { message-confirm :=  join((\\\$a,\\\$b))};()\""
     fi
-    if [[ $EXTRA =~ vl:raise ]]; then
-      EXTRA="-e \"declare function vl:raise(\\\$x) { raised := \\\$x }; ()\""
-    fi
   fi
-  FUNCTIONS="-e \"declare function vl:delete-current-books() { books-deleted := true() }; declare function vl:choose(\\\$a,\\\$b,\\\$c,\\\$d) { message-choose :=  join((\\\$a,\\\$b,\\\$c,\\\$d))}; ()\""
+  FUNCTIONS="-e \"
+    declare function vl:delete-current-books() { books-deleted := true() }; 
+    declare function vl:choose(\\\$a,\\\$b,\\\$c,\\\$d) { message-choose :=  join((\\\$a,\\\$b,\\\$c,\\\$d))};
+    declare function vl:raise(\\\$x) { raised := \\\$x }; 
+    declare function vl:raise-login(\\\$x) { raised := \\\$x }; 
+    ()\""
 
   #echo $TEMPLATEPARSER $FUNCTIONS $EXTRA $TEMPLATEPARSERARGS $INPATH/${PAGES[i]} --extract-file=$TFILE  
   eval $TEMPLATEPARSER $FUNCTIONS $EXTRA $TEMPLATEPARSERARGS $INPATH/${PAGES[i]} --extract-file=$TFILE  > $OUTPATH/${PAGES[i]}.result 2> $OUTPATH/stderr
