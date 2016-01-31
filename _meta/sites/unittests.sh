@@ -207,8 +207,8 @@ PAGES=(${PAGES[@]} bibliotheca/searchDetails.neustadt.html)
 
 #=============Bibliothea+ OPEN==============
 mkdir -p $OUTPATH/bibliothecaplus
-ADDTEMPLATE bibliothecaplus/list 2
-PAGES=(${PAGES[@]} bibliothecaplus/list.stralsund.html bibliothecaplus/list.darmstadt.html)
+ADDTEMPLATE bibliothecaplus/list 3
+PAGES=(${PAGES[@]} bibliothecaplus/list.stralsund.html bibliothecaplus/list.darmstadt.html  bibliothecaplus/list.with-orders.darmstadt.html)
 
 ADDTEMPLATE bibliothecaplus/searchList'{\$last-visited-page:=0,\$current-page:=1,\$search-reverse-keys:=\(\)}' 2
 PAGES=(${PAGES[@]} bibliothecaplus/searchList.empty.html bibliothecaplus/searchList.html)
@@ -216,8 +216,8 @@ PAGES=(${PAGES[@]} bibliothecaplus/searchList.empty.html bibliothecaplus/searchL
 ADDTEMPLATE bibliothecaplus/searchListHeaderOnly'{\$last-visited-page:=0,\$current-page:=1}' 1
 PAGES=(${PAGES[@]} bibliothecaplus/searchListHeaderOnly.html)
 
-ADDTEMPLATE bibliothecaplus/searchDetails'{\$search-reverse-keys:=\(\)}' 1
-PAGES=(${PAGES[@]} bibliothecaplus/searchDetails.html)
+ADDTEMPLATE bibliothecaplus/searchDetails'{\$search-reverse-keys:=\(\)}' 2
+PAGES=(${PAGES[@]} bibliothecaplus/searchDetails.html  bibliothecaplus/searchDetails.darmstadt.html)
 
 #=============SUMMON==============
 mkdir -p $OUTPATH/summon

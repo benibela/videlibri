@@ -1,0 +1,13 @@
+search-reverse-keys := book := {}
+reserve-request := ()
+i := 0
+i := 1
+reserve-request := ()
+cat := text{"Verfasserangabe:"}
+cat := text{"Jahr:"}
+cat := text{"Verlag:"}
+cat := text{"ISBN:"}
+cat := text{"2. ISBN:"}
+cat := text{"Beschreibung:"}
+cat := text{"Mediengruppe:"}
+book := {"Mediengruppe:!": "Buch Sachliteratur", "Beschreibung:!": "1. Aufl., 207 S. : zahlr. Ill. (farb.)", "2. ISBN:!": "3-517-08985-0", "ISBN:!": "978-3-517-08985-0", "Verlag:!": "München, Südwest", "Jahr:!": "2015", "Verfasserangabe:!": "Annette Eiden", "Exemplar 1!": "Hauptstelle Kinder- und Jugendmedien Elternbibliothek\nVer 11\nEide Verfügbar   0 12964345 Buch Sachliteratur   ", "orderable": false, "image-url": "http://open-stadtbibliothek.darmstadt.de/Portals/0/cover/978-3-517-08985-0.jpg"}

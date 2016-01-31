@@ -1,0 +1,443 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html  xml:lang="de-DE" lang="de-DE" xmlns="http://www.w3.org/1999/xhtml">
+<head id="Head">
+<!--*********************************************-->
+<!-- DNN Platform - http://www.dnnsoftware.com   -->
+<!-- Copyright (c) 2002-2014, by DNN Corporation -->
+<!--*********************************************-->
+<meta http-equiv="X-UA-Compatible" content="IE=edge" /><title>
+	Stadtbibliothek Darmstadt > Vorbestellung
+</title><meta id="MetaCopyright" name="COPYRIGHT" content="Copyright 2011 by OCLC GmbH" /><meta id="MetaGenerator" name="GENERATOR" content="DotNetNuke " /><meta id="MetaRobots" name="ROBOTS" content="INDEX, FOLLOW" />
+        <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
+        <meta content="text/javascript" http-equiv="Content-Script-Type" />
+        <meta content="text/css" http-equiv="Content-Style-Type" />
+        <meta name="RESOURCE-TYPE" content="DOCUMENT" />
+        <meta name="REVISIT-AFTER" content="1 DAYS" />
+        <meta name="RATING" content="GENERAL" />
+    <link href="/Portals/_default/default.css?cdv=321" media="all" type="text/css" rel="stylesheet"/><link href="/Portals/_default/Skins/Nukeville.Morpheus/skin.css?cdv=321" media="all" type="text/css" rel="stylesheet"/><link href="/Portals/_default/Containers/Nukeville.Morpheus/container.css?cdv=321" media="all" type="text/css" rel="stylesheet"/><link href="/Portals/_default/Containers/Nukeville.Morpheus/Set2_8S.css?cdv=321" media="all" type="text/css" rel="stylesheet"/><link href="/Portals/0/portal.css?cdv=321" media="all" type="text/css" rel="stylesheet"/><script src="/Resources/libraries/jQuery/01_09_01/jquery.js?cdv=321" type="text/javascript"></script><script src="/Resources/libraries/jQuery-Migrate/01_02_01/jquery-migrate.js?cdv=321" type="text/javascript"></script><script src="/Resources/libraries/jQuery-UI/01_10_03/jquery-ui.js?cdv=321" type="text/javascript"></script><link id="PresetStyles" rel="stylesheet" type="text/css" href="/Portals/_default/Skins/Nukeville.Morpheus/basicPstv2.css" /><link rel='SHORTCUT ICON' href='/Portals/0/favicon.ico' type='image/x-icon' /></head>
+<body id="Body" style="background-image: url(&#39;/Portals/0/Banner_eAusleihe_600x73px.jpg&#39;)" class="dnnEditState">
+    
+    <form method="post" action="/Vorbestellung.aspx" onsubmit="javascript:return WebForm_OnSubmit();" id="Form" enctype="multipart/form-data">
+<div class="aspNetHidden">
+<input type="hidden" name="StylesheetManager_TSSM" id="StylesheetManager_TSSM" value="" />
+<input type="hidden" name="ScriptManager_TSM" id="ScriptManager_TSM" value="" />
+<input type="hidden" name="__EVENTTARGET" id="__EVENTTARGET" value="" />
+<input type="hidden" name="__EVENTARGUMENT" id="__EVENTARGUMENT" value="" />
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="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" />
+</div>
+
+<script type="text/javascript">
+//<![CDATA[
+var theForm = document.forms['Form'];
+if (!theForm) {
+    theForm = document.Form;
+}
+function __doPostBack(eventTarget, eventArgument) {
+    if (!theForm.onsubmit || (theForm.onsubmit() != false)) {
+        theForm.__EVENTTARGET.value = eventTarget;
+        theForm.__EVENTARGUMENT.value = eventArgument;
+        theForm.submit();
+    }
+}
+//]]>
+</script>
+
+
+<script src="/WebResource.axd?d=7_fHYsg0e0EzHJBxzPMH4RH9KC5MvKHYxLMXlO1w2G387CvxxufUjzcpNp16BZTbvGPm0gSrrfopntza0&amp;t=635803038500000000" type="text/javascript"></script>
+
+
+<script type="text/javascript">
+//<![CDATA[
+var __cultureInfo = {"name":"de-DE","numberFormat":{"CurrencyDecimalDigits":2,"CurrencyDecimalSeparator":",","IsReadOnly":false,"CurrencyGroupSizes":[3],"NumberGroupSizes":[3],"PercentGroupSizes":[3],"CurrencyGroupSeparator":".","CurrencySymbol":"€","NaNSymbol":"n. def.","CurrencyNegativePattern":8,"NumberNegativePattern":1,"PercentPositivePattern":1,"PercentNegativePattern":1,"NegativeInfinitySymbol":"-unendlich","NegativeSign":"-","NumberDecimalDigits":2,"NumberDecimalSeparator":",","NumberGroupSeparator":".","CurrencyPositivePattern":3,"PositiveInfinitySymbol":"+unendlich","PositiveSign":"+","PercentDecimalDigits":2,"PercentDecimalSeparator":",","PercentGroupSeparator":".","PercentSymbol":"%","PerMilleSymbol":"‰","NativeDigits":["0","1","2","3","4","5","6","7","8","9"],"DigitSubstitution":1},"dateTimeFormat":{"AMDesignator":"","Calendar":{"MinSupportedDateTime":"\/Date(-62135596800000)\/","MaxSupportedDateTime":"\/Date(253402297199999)\/","AlgorithmType":1,"CalendarType":1,"Eras":[1],"TwoDigitYearMax":2029,"IsReadOnly":false},"DateSeparator":".","FirstDayOfWeek":1,"CalendarWeekRule":2,"FullDateTimePattern":"dddd, d. MMMM yyyy HH:mm:ss","LongDatePattern":"dddd, d. MMMM yyyy","LongTimePattern":"HH:mm:ss","MonthDayPattern":"dd MMMM","PMDesignator":"","RFC1123Pattern":"ddd, dd MMM yyyy HH\u0027:\u0027mm\u0027:\u0027ss \u0027GMT\u0027","ShortDatePattern":"dd.MM.yyyy","ShortTimePattern":"HH:mm","SortableDateTimePattern":"yyyy\u0027-\u0027MM\u0027-\u0027dd\u0027T\u0027HH\u0027:\u0027mm\u0027:\u0027ss","TimeSeparator":":","UniversalSortableDateTimePattern":"yyyy\u0027-\u0027MM\u0027-\u0027dd HH\u0027:\u0027mm\u0027:\u0027ss\u0027Z\u0027","YearMonthPattern":"MMMM yyyy","AbbreviatedDayNames":["So","Mo","Di","Mi","Do","Fr","Sa"],"ShortestDayNames":["So","Mo","Di","Mi","Do","Fr","Sa"],"DayNames":["Sonntag","Montag","Dienstag","Mittwoch","Donnerstag","Freitag","Samstag"],"AbbreviatedMonthNames":["Jan","Feb","Mrz","Apr","Mai","Jun","Jul","Aug","Sep","Okt","Nov","Dez",""],"MonthNames":["Januar","Februar","März","April","Mai","Juni","Juli","August","September","Oktober","November","Dezember",""],"IsReadOnly":false,"NativeCalendarName":"Gregorianischer Kalender","AbbreviatedMonthGenitiveNames":["Jan","Feb","Mrz","Apr","Mai","Jun","Jul","Aug","Sep","Okt","Nov","Dez",""],"MonthGenitiveNames":["Januar","Februar","März","April","Mai","Juni","Juli","August","September","Oktober","November","Dezember",""]},"eras":[1,"n. Chr.",null,0]};//]]>
+</script>
+
+<script src="/Telerik.Web.UI.WebResource.axd?_TSM_HiddenField_=ScriptManager_TSM&amp;compress=1&amp;_TSM_CombinedScripts_=%3b%3bSystem.Web.Extensions%2c+Version%3d4.0.0.0%2c+Culture%3dneutral%2c+PublicKeyToken%3d31bf3856ad364e35%3ade-DE%3ad28568d3-e53e-4706-928f-3765912b66ca%3aea597d4b%3ab25378d2" type="text/javascript"></script>
+<script src="/js/dnn.js" type="text/javascript"></script>
+<script type="text/javascript">
+//<![CDATA[
+function WebForm_OnSubmit() {
+dnn.controls.submitComp.onsubmit();
+return true;
+}
+//]]>
+</script>
+
+<div class="aspNetHidden">
+
+	<input type="hidden" name="__VIEWSTATEGENERATOR" id="__VIEWSTATEGENERATOR" value="CA0B0334" />
+	<input type="hidden" name="__VIEWSTATEENCRYPTED" id="__VIEWSTATEENCRYPTED" value="" />
+	<input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="br0c6pcE1pcqw8tScBKB83t4fj5jbIiUJMSEGDISAXPkQZcxcm7812De40y2DVNAac4lxAreKtKXRMcaI6793ADXH4GuyhdunjF6BP87VAUOmq9ARps7uJQEj5xQyHSCQf+2mh3fOcwN4pox2OZfvlIIhFVdd47zt20NIVXBIyo09kXXp33DZKv4pGfP9T3/5HVvK5+YQcInu0mPRoAKTnj4F/ITkg7U7X89bPK2hz25+QyprDDyPNY+B8KwyVzb0Ljm2NCLdMDhM2aH" />
+</div><script src="/js/dnn.js?cdv=321" type="text/javascript"></script><script src="/js/dnn.controls.js?cdv=321" type="text/javascript"></script><script src="/Resources/Shared/Scripts/jquery/jquery.hoverIntent.min.js?cdv=321" type="text/javascript"></script><script src="/js/dnncore.js?cdv=321" type="text/javascript"></script><script src="/js/dnn.controls.dnnmenu.js?cdv=321" type="text/javascript"></script><script src="/Resources/Shared/Scripts/dnn.jquery.js?cdv=321" type="text/javascript"></script><script src="/js/dnn.dom.positioning.js?cdv=321" type="text/javascript"></script><script type="text/javascript">
+//<![CDATA[
+Sys.WebForms.PageRequestManager._initialize('ScriptManager', 'Form', [], [], [], 90, '');
+//]]>
+</script>
+
+        
+        
+        
+<!--[if lt IE 7]><script type="text/javascript">$('head').append('<link rel="stylesheet" id="nvie6css" href="/Portals/_default/Skins/Nukeville.Morpheus/ie6.css" type="text/css" />');</script><![endif]-->
+<script type="text/javascript">//<!--
+var _spath = "/Portals/_default/Skins/Nukeville.Morpheus/"; var _eontabid = "49"; var _eonportalid = "0"; var _aplpst = "basic";
+//--></script>
+<script type="text/javascript" src="/Portals/_default/Skins/Nukeville.Morpheus/inv.js"></script>
+
+
+
+<link rel="stylesheet" type="text/css" href="/DesktopModules/OCLC.OPEN.PL.DNN.BaseLibrary/StyleSheets/Common/jquery-ui.css?4.2.0.0" />
+<script src="/DesktopModules/OCLC.OPEN.PL.DNN.BaseLibrary/JavaScriptFrameworks/jQueryExtensions/jquery.cookie.js?4.2.0.0" type="text/javascript">
+</script>
+
+<script type="text/javascript">
+    var EU_LAW_INFO_COOKIE = 'EU_LAW_INFO';
+
+    $(document).ready(function () {
+        var divToHide = $("#CookieAcknowledgeInfo");
+        if (jQuery.cookie(EU_LAW_INFO_COOKIE)) {
+            divToHide.hide();
+        }
+        else {
+            divToHide.show();
+        }
+    });
+
+    function setlocalcookie() {
+     jQuery.cookie(EU_LAW_INFO_COOKIE, true, { expires: 3650, path : "/" });   
+     $("#CookieAcknowledgeInfo").hide();
+ }
+
+ function showCookieDetailsDialog() {
+     $("#CookieDetailsDialog").dialog(
+            {
+                modal: true,      
+                dialogClass: "no-close",
+                buttons: [
+                    {
+                        text: "OK",
+                        click: function () { $(this).dialog("close"); }
+                    }]
+            });
+                $("#CookieDetailsDialog").dialog({ width: '640px' });
+                $("#CookieDetailsDialog").dialog("option", "position", "center");
+ }
+</script>
+
+
+<div id="CookieAcknowledgeInfo" style="display: block;z-index:1001;padding:8px;height:32;width:100%;position:fixed;bottom:0;left:0;background:rgba(213,213,231,0.85);">
+    <div class="CookieAcknowledgeMessage" style="float:left">
+        <span id="dnn_cookielaw_CookieAcknowledgeMessage">Diese Seite verwendet Cookies.</span>
+    </div>
+<div class="CookieDetailsLink" style="float:left;margin-left:10px;margin-right:10px">
+        <a onclick="showCookieDetailsDialog()"  title="Details anzeigen" style="margin-left:10px;margin-right:10px">Details anzeigen</a>
+</div>
+
+<div class="CookieAcknowledgeImage" style="float:left">
+        <img id="dnn_cookielaw_CookieAcknowledgeImage" onclick="setlocalcookie()" src="DesktopModules/OCLC.OPEN.PL.DNN.SkinObject.CookieLawInfo/Images/false.png" alt="&lt;Hier klicken>" style="height:20px;width:20px;" />
+</div>
+</div>
+
+<div id="CookieDetailsDialog" title="Cookies" style="display:none; min-width:640;min-height:480 ;">
+   <p style="font-size: larger">Verwendung von Cookies</p>
+<br>
+<p style="font-size: large">Cookies</p>
+
+<br>
+ <p>Diese Anwendung benötigt für ihren fehlerfreien Ablauf Cookies.<br>
+Cookies sind kleine Textdateien, die von einer Webseite oder einem Online-Dienst auf Ihrem Rechner gespeichert werden.
+<br><br>
+Nachfolgend erhalten Sie eine Auflistung der von OCLC verwendeten Cookies mit Angabe der Anwendung, einer Kurzbeschreibung und der Speicherdauer auf Ihrem Computer (sofern Sie diese nicht sperren oder löschen).
+</p> <br>
+        
+<table rules="all" style="border-width:1px;border-style:Solid;width:600px;">
+<tbody>
+    <tr>
+		<th align="left">Cookie</th>
+        <th align="left">Beschreibung</th>
+        <th align="left">Speicherdauer</th>
+	</tr>
+    <tr>
+		<td>OPAC Portal</td>
+        <td><a href="http://www.dnnsoftware.com/wiki/Page/DotNetNuke-Cookie-usage" target="_blank">Liste der verwendeten Cookies des Portals DotNetNuke &lt;Hier klicken&gt;</a></td>
+        <td>siehe Herstellerseite</td>
+	</tr>
+    <tr>
+		<td>EU_LAW_INFO</td>
+        <td>Der Cookie wird erstellt, sobald der Benutzer die Verwendung von Cookies in OPEN zur Kenntnis genommen hat</td>
+        <td>10 Jahre nach Erstellung</td>
+	</tr>
+    </tbody>
+</table>
+</div>
+
+
+<div class="eonChkW"><div class="eonChkW2"><div class="eonchksize eonchks"></div></div></div><div class="eonVst"><div class="eonVst2"><div class="eon_ConSet1"></div><div class="eon_ConSet2"></div><div class="eon_ConSet3"></div><div class="eon_ConSet4"></div></div></div><div class="eonPreL"><div><div class="preSub1"></div><div class="preSub2"></div><div class="preSub3"></div></div></div><div class="eonbkg" id="eonbkgdiv"><div class="eonbkg1"><div class="eonbkg2"><div class="eonbkg3"><div class="eonpad" id="eonpadiv"><div class="nvpgsac"><div class="resizediv"><div class="nvrez1"></div><div class="nvrez2"><div class="eonfontobj"><div class="eonbtnf1"></div><div class="eonbtnf2"></div><div class="eonbtnf3"></div></div><div class="eonresizesep"><div class="eonbtnsep"></div></div><div class="eonresizeobj"><div class="eonbtnr1"></div><div class="eonbtnr2"></div><div class="eonbtnr3"></div></div></div><div class="nvrez3"></div></div><div id="eonsec1a" class="nvbor1"><div class='nvbor2'><div class='nvbor3'></div></div><div class='nvbor4'><div class='nvbor5'><div class='nvbor6'><div class="LogoDiv" ><div class="LoginDiv"><div class="eonLanguage"><div class="language-object" >
+
+
+</div></div><div class="eonUser"><a id="dnn_dnnUSER_registerLink" title="Profil anzeigen" class="USER_object nvt_il" rel="nofollow" href="http://open-stadtbibliothek.darmstadt.de/MeinKonto/tabid/48/userId/9765/Default.aspx">Videlibri Test</a>
+<a id="dnn_dnnLOGIN_loginLink" title="abmelden" class="LOGIN_object nvt_il" rel="nofollow" href="http://open-stadtbibliothek.darmstadt.de/Vorbestellung/tabid/49/ctl/Logoff/Default.aspx">abmelden</a>
+</div><div class="eonCurDate"><span id="dnn_dnnCURRENTDATE_lblDate" class="DATE_object">Donnerstag, 21. Januar 2016</span>
+</div></div><a id="dnn_dnnLOGO_hypLogo" title="Stadtbibliothek Darmstadt" href="http://open-stadtbibliothek.darmstadt.de/Mediensuche/EinfacheSuche.aspx"><img id="dnn_dnnLOGO_imgLogo" src="/Portals/0/OPEN_Logo.JPG" alt="Stadtbibliothek Darmstadt" /></a></div></div></div></div><div class='nvbor7'><div class='nvbor8'></div></div></div><div id="eonsec1nava" class="nvbor1"><div id="eonsec1bst" class="nvbor9"><div class="nvbor10"><div class="nvbor11"></div></div></div><div id="eonsec1bct" class="nvbor1"><div class='nvbor2'><div class='nvbor3'></div></div></div><div class='nvbor4'><div class='nvbor5'><div class='nvbor6'><div class="nv_navspc"></div><div class="nv_navwrp"><div id="dnn_CustomHeaderPaneTop" class="econCustomHP DNNEmptyPane"></div><div id="nv_nav_tm"><div class="nv_nav_o nvnav"><div class="nv_navt_bl"></div><div class="nv_navt_br"></div><div class="nv_navt_b"><div>
+	<ul class="" id="dnn_dnnNAV_ctldnnNAV">
+		<li id="dnn_dnnNAV_ctldnnNAVctr42"><a href="http://open-stadtbibliothek.darmstadt.de/Mediensuche/EinfacheSuche.aspx"><span>Mediensuche</span></a><ul id="dnn_dnnNAV_ctldnnNAVsub42">
+			<li id="dnn_dnnNAV_ctldnnNAVctr50"><a href="http://open-stadtbibliothek.darmstadt.de/Mediensuche/EinfacheSuche.aspx"><span>Einfache Suche</span></a></li><li id="dnn_dnnNAV_ctldnnNAVctr51"><a href="http://open-stadtbibliothek.darmstadt.de/Mediensuche/ErweiterteSuche.aspx"><span>Erweiterte Suche</span></a></li>
+		</ul></li><li id="dnn_dnnNAV_ctldnnNAVctr48"><a href="http://open-stadtbibliothek.darmstadt.de/MeinKonto.aspx"><span>Mein Konto</span></a></li><li id="dnn_dnnNAV_ctldnnNAVctr141"><a href="http://open-stadtbibliothek.darmstadt.de/Medientipps/Neuerwerbungen.aspx"><span>Medientipps</span></a><ul id="dnn_dnnNAV_ctldnnNAVsub141">
+			<li id="dnn_dnnNAV_ctldnnNAVctr143"><a href="http://open-stadtbibliothek.darmstadt.de/Medientipps/Neuerwerbungen.aspx"><span>Neuerwerbungen</span></a></li><li id="dnn_dnnNAV_ctldnnNAVctr182"><a href="http://open-stadtbibliothek.darmstadt.de/Medientipps/Themenlisten.aspx"><span>Themenlisten</span></a></li><li id="dnn_dnnNAV_ctldnnNAVctr191"><a href="http://open-stadtbibliothek.darmstadt.de/Medientipps/DeutschalsZweitsprachef%c3%bcrKinder.aspx"><span>Deutsch als Zweitsprache für Kinder</span></a></li><li id="dnn_dnnNAV_ctldnnNAVctr176"><a href="http://open-stadtbibliothek.darmstadt.de/Permalink.aspx?searchhash=OCLC_72f1c1179ed2afa8ec8195cba7178348460678ae"><span>Spiegel Bestseller Belletristik</span></a></li><li id="dnn_dnnNAV_ctldnnNAVctr148"><a href="http://open-stadtbibliothek.darmstadt.de/Permalink.aspx?searchhash=OCLC_786e1675dab1cafaad4cc6cebc716810eca42a4e"><span>Spiegel-Bestseller Sachbuch</span></a></li><li id="dnn_dnnNAV_ctldnnNAVctr144"><a href="http://open-stadtbibliothek.darmstadt.de/Permalink.aspx?searchhash=OCLC_689ed026543b33b43cd60c8779c872fd52929bb1"><span>Zeitschriften A - Z</span></a></li><li id="dnn_dnnNAV_ctldnnNAVctr145"><a href="http://open-stadtbibliothek.darmstadt.de/Medientipps/ZeitschriftennachThemen.aspx"><span>Zeitschriften nach Themen</span></a></li>
+		</ul></li><li id="dnn_dnnNAV_ctldnnNAVctr46"><a href="http://open-stadtbibliothek.darmstadt.de/Kontaktamp;Impressum.aspx"><span>Kontakt &amp; Impressum</span></a><ul id="dnn_dnnNAV_ctldnnNAVsub46">
+			<li id="dnn_dnnNAV_ctldnnNAVctr76"><a href="http://open-stadtbibliothek.darmstadt.de/Kontaktamp;Impressum/SchreibenSieuns.aspx"><span>Schreiben Sie uns</span></a></li><li id="dnn_dnnNAV_ctldnnNAVctr75"><a href="http://open-stadtbibliothek.darmstadt.de/Kontaktamp;Impressum/SofindenSieuns.aspx"><span>So finden Sie uns</span></a></li>
+		</ul></li><li id="dnn_dnnNAV_ctldnnNAVctr189"><a href="http://open-stadtbibliothek.darmstadt.de/Download.aspx"><span>Download</span></a></li><li id="dnn_dnnNAV_ctldnnNAVctr177"><a href="http://www.stadtbibliothek.darmstadt.de"><span>Webseite Stadtbibliothek</span></a></li>
+	</ul>
+</div></div></div><div class="nv_nav_o2 nvnav"><div class="nv_navb_bl"></div><div class="nv_navb_br"></div><div class="nv_navb_b"></div></div></div><div class="nv_navbts"></div><div id="dnn_CustomHeaderPane" class="econCustomHP DNNEmptyPane"></div><div class="eonCI_1 eonCPA_1"><div class="eonCB1 nvcoa1"><div class='nvcoa2'><div class='nvcoa3'></div></div><div class='nvcoa4'><div class='nvcoa5'><div class='nvcoa6'><div class="eonCB2 nvcob1"><div class='nvcob2'><div class='nvcob3'></div></div><div class='nvcob4'><div class='nvcob5'><div class='nvcob6'><div class="ImagePaneWrp"><div id="dnn_ImagePane" class="ImagePane DNNEmptyPane"></div></div></div></div></div><div class='nvcob7'><div class='nvcob8'></div></div></div></div></div></div><div class='nvcoa7'><div class='nvcoa8'></div></div></div></div></div></div></div></div></div><div id="eonsec1b" class="nvbor1"><div class='nvbor4'><div class='nvbor5'><div class='nvbor6'></div></div></div><div class='nvbor7'><div class='nvbor8'></div></div></div><div id="eonsec2" class='nvbor1'><div class='nvbor2'><div class='nvbor3'></div></div><div class='nvbor4'><div class='nvbor5'><div class='nvbor6'><div class="eonMain"><div class="breadDiv"><div class="searchDiv"><div class="searchDivC">
+
+<link rel="stylesheet" type="text/css" href="/DesktopModules/OCLC.OPEN.PL.DNN.BaseLibrary/StyleSheets/Common/jquery-ui.css?4.2.0.0" />
+<link rel="stylesheet" type="text/css" href="/DesktopModules/OCLC.OPEN.PL.DNN.BaseLibrary/StyleSheets/AutoCompletion/AutoCompletion.css?4.2.0.0" />
+
+<script type="text/javascript">
+	$(document).ready(function () {
+		swapValues = [];
+		$('#' + 'dnn_dnnSEARCH_txtSearch').each(function (i) {
+			swapValues[i] = 'Ihre Mediensuche ...';
+			var color = $(this).css("color");
+			if ($.trim($(this).val()) == "" || $(this).val() == swapValues[i]) {
+				$(this).val(swapValues[i]);
+				$(this).css("font-style", "italic");
+				$(this).css("color", color).css("opacity", 0.5);
+			}
+			$(this).focus(function () {
+				if ($(this).val() == swapValues[i]) {
+					$(this).val("");
+					$(this).css("font-style", "normal");
+					$(this).css("color", color).css("opacity", 1);
+				}
+			}).blur(function () {
+				if ($.trim($(this).val()) == "") {
+					$(this).val(swapValues[i]);
+					$(this).css("font-style", "italic");
+					$(this).css("color", color).css("opacity", 0.5);
+				}
+			});
+		});
+	});
+</script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        swapValues2 = [];
+        $('#' + 'dnn_dnnSEARCH_txtSearchNew').each(function (i) {
+        	swapValues2[i] = 'Ihre Mediensuche ...';
+        	var color = $(this).css("color");
+        	if ($.trim($(this).val()) == "" || $(this).val() == swapValues2[i]) {
+        		$(this).val(swapValues2[i]);
+        		$(this).css("font-style", "italic");
+        		$(this).css("color", color).css("opacity", 0.5);
+        	}
+            $(this).focus(function () {
+                if ($(this).val() == swapValues2[i]) {
+                    $(this).val("");
+                    $(this).css("font-style", "normal");
+                    $(this).css("color", color).css("opacity", 1);
+                }
+            }).blur(function () {
+                if ($.trim($(this).val()) == "") {
+                    $(this).val(swapValues2[i]);
+                    $(this).css("font-style", "italic");
+                    $(this).css("color", color).css("opacity", 0.5);
+                }
+            });
+        });
+    });
+</script>
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#' + 'dnn_dnnSEARCH_txtSearch').autocomplete({
+            source: function (request, response) {
+                $.ajax({
+                    type: "POST",
+                    url: "/DesktopModules/OCLC.OPEN.PL.DNN.CopConnector/Services/AutocompleteService.asmx/GetSuggestions",
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    data:
+                      "{" +
+                          "'prefixText': '" + request.term + "', " +
+                          "'count': '20', " +
+                          "'contextKey': 'CatchWordAutoComplete|0'" +
+                      "}",
+                    success: function (data) {
+                        response($.map(data.d, function (item) {
+                            return {
+                                label: item
+                            }
+                        }))
+                    }
+                });
+
+            },
+            minLength: 3
+        });
+    });
+  </script>
+
+  <script type="text/javascript">
+      $(document).ready(function () {
+          $('#' + 'dnn_dnnSEARCH_txtSearchNew').autocomplete({
+              source: function (request, response) {
+                  $.ajax({
+                      type: "POST",
+                      url: "/DesktopModules/OCLC.OPEN.PL.DNN.CopConnector/Services/AutocompleteService.asmx/GetSuggestions",
+                      contentType: "application/json; charset=utf-8",
+                      dataType: "json",
+                      data:
+                      "{" +
+                          "'prefixText': '" + request.term + "', " +
+                          "'count': '20', " +
+                          "'contextKey': 'CatchWordAutoComplete|0'" +
+                      "}",
+                      success: function (data) {
+                          response($.map(data.d, function (item) {
+                              return {
+                                  label: item
+                              }
+                          }))
+                      }
+                  });
+
+              },
+              minLength: 3
+          });
+      });
+  </script>
+
+
+<span id="dnn_dnnSEARCH_ClassicSearch">
+    
+    
+    <input name="dnn$dnnSEARCH$txtSearch" type="text" maxlength="255" size="20" id="dnn_dnnSEARCH_txtSearch" class="NormalTextBox" onkeydown="return __dnn_KeyDown(&#39;13&#39;, &#39;javascript:__doPostBack(%27dnn$dnnSEARCH$cmdSearch%27,%27%27)&#39;, event);" />&nbsp;
+    <a id="dnn_dnnSEARCH_cmdSearch" class="SearchFeild" href="javascript:__doPostBack(&#39;dnn$dnnSEARCH$cmdSearch&#39;,&#39;&#39;)"><span class='SearchButton'> </span></a>
+</span>
+
+</div></div><div class="breadLeft"></div><div class="breadRight"></div><div class="breadMid"><div class="breadHome"><a id="dnn_dnnLOGObc_hypLogo" title="Stadtbibliothek Darmstadt" href="http://open-stadtbibliothek.darmstadt.de/Mediensuche/EinfacheSuche.aspx"><img id="dnn_dnnLOGObc_imgLogo" src="/Portals/0/OPEN_Logo.JPG" alt="Stadtbibliothek Darmstadt" /></a></div><span id="dnn_BREADCRUMB2_lblBreadCrumb"><a href="http://open-stadtbibliothek.darmstadt.de/Vorbestellung.aspx" class="BREADCRUMBS_object nvt_bc">Vorbestellung</a></span>
+</div></div><div class="PanePad eonContent"><table class="nvpanellay" cellpadding="0" cellspacing="0"><tbody><tr><td class="nvpanell"><div id="nv_nav_vm"><div class="nv_nav_o nvnav"><div class="nv_navv_bt"></div><div class="nv_navv_b"><div>
+	<ul class="" id="dnn_dnnNAVV_ctldnnNAVV">
+		<li id="dnn_dnnNAVV_ctldnnNAVVctr42"><a href="http://open-stadtbibliothek.darmstadt.de/Mediensuche/EinfacheSuche.aspx"><span>Mediensuche</span></a><ul id="dnn_dnnNAVV_ctldnnNAVVsub42">
+			<li id="dnn_dnnNAVV_ctldnnNAVVctr50"><a href="http://open-stadtbibliothek.darmstadt.de/Mediensuche/EinfacheSuche.aspx"><span>Einfache Suche</span></a></li><li id="dnn_dnnNAVV_ctldnnNAVVctr51"><a href="http://open-stadtbibliothek.darmstadt.de/Mediensuche/ErweiterteSuche.aspx"><span>Erweiterte Suche</span></a></li>
+		</ul></li><li id="dnn_dnnNAVV_ctldnnNAVVctr48"><a href="http://open-stadtbibliothek.darmstadt.de/MeinKonto.aspx"><span>Mein Konto</span></a></li><li id="dnn_dnnNAVV_ctldnnNAVVctr141"><a href="http://open-stadtbibliothek.darmstadt.de/Medientipps/Neuerwerbungen.aspx"><span>Medientipps</span></a><ul id="dnn_dnnNAVV_ctldnnNAVVsub141">
+			<li id="dnn_dnnNAVV_ctldnnNAVVctr143"><a href="http://open-stadtbibliothek.darmstadt.de/Medientipps/Neuerwerbungen.aspx"><span>Neuerwerbungen</span></a></li><li id="dnn_dnnNAVV_ctldnnNAVVctr182"><a href="http://open-stadtbibliothek.darmstadt.de/Medientipps/Themenlisten.aspx"><span>Themenlisten</span></a></li><li id="dnn_dnnNAVV_ctldnnNAVVctr191"><a href="http://open-stadtbibliothek.darmstadt.de/Medientipps/DeutschalsZweitsprachef%c3%bcrKinder.aspx"><span>Deutsch als Zweitsprache für Kinder</span></a></li><li id="dnn_dnnNAVV_ctldnnNAVVctr176"><a href="http://open-stadtbibliothek.darmstadt.de/Permalink.aspx?searchhash=OCLC_72f1c1179ed2afa8ec8195cba7178348460678ae"><span>Spiegel Bestseller Belletristik</span></a></li><li id="dnn_dnnNAVV_ctldnnNAVVctr148"><a href="http://open-stadtbibliothek.darmstadt.de/Permalink.aspx?searchhash=OCLC_786e1675dab1cafaad4cc6cebc716810eca42a4e"><span>Spiegel-Bestseller Sachbuch</span></a></li><li id="dnn_dnnNAVV_ctldnnNAVVctr144"><a href="http://open-stadtbibliothek.darmstadt.de/Permalink.aspx?searchhash=OCLC_689ed026543b33b43cd60c8779c872fd52929bb1"><span>Zeitschriften A - Z</span></a></li><li id="dnn_dnnNAVV_ctldnnNAVVctr145"><a href="http://open-stadtbibliothek.darmstadt.de/Medientipps/ZeitschriftennachThemen.aspx"><span>Zeitschriften nach Themen</span></a></li>
+		</ul></li><li id="dnn_dnnNAVV_ctldnnNAVVctr46"><a href="http://open-stadtbibliothek.darmstadt.de/Kontaktamp;Impressum.aspx"><span>Kontakt &amp; Impressum</span></a><ul id="dnn_dnnNAVV_ctldnnNAVVsub46">
+			<li id="dnn_dnnNAVV_ctldnnNAVVctr76"><a href="http://open-stadtbibliothek.darmstadt.de/Kontaktamp;Impressum/SchreibenSieuns.aspx"><span>Schreiben Sie uns</span></a></li><li id="dnn_dnnNAVV_ctldnnNAVVctr75"><a href="http://open-stadtbibliothek.darmstadt.de/Kontaktamp;Impressum/SofindenSieuns.aspx"><span>So finden Sie uns</span></a></li>
+		</ul></li><li id="dnn_dnnNAVV_ctldnnNAVVctr189"><a href="http://open-stadtbibliothek.darmstadt.de/Download.aspx"><span>Download</span></a></li><li id="dnn_dnnNAVV_ctldnnNAVVctr177"><a href="http://www.stadtbibliothek.darmstadt.de"><span>Webseite Stadtbibliothek</span></a></li>
+	</ul>
+</div></div><div class="nv_navv_bb"></div></div></div><div id="dnn_PanelPane" class="PanelPane DNNEmptyPane"></div></td><td class="nvpanelr"><table class="nvpanelayout" cellpadding="0" cellspacing="0"><tbody><tr><td id="dnn_Pane_1" colspan="3" class="PanePad eon_cpane1c DNNEmptyPane" valign="top"></td>
+</tr><tr><td id="dnn_Pane_2_Left" class="PanePad eon_cpane2l DNNEmptyPane" valign="top"></td>
+<td id="dnn_Pane_2_Center" class="PanePad eon_cpane2c DNNEmptyPane" valign="top"></td>
+<td id="dnn_Pane_2_Right" class="PanePad eon_cpane2r DNNEmptyPane" valign="top"></td>
+</tr><tr><td id="dnn_ContentPane" colspan="3" class="PanePad eon_cpane3c" valign="top"><div class="DnnModule DnnModule-OPENPreOrderModule DnnModule-376"><a name="376"></a>
+<div class="eon_ConSet2 eon_C28S">
+<div class="nvcon1 eonVstSet"><div class='nvcon2'><div class='nvcon3'>
+<div class='nvcon9'><div class="eonCHead"><div class="eonCIcon"></div><div class="eonCActions"></div><div class="eonCVisibility"><a onclick="if (__dnn_ContainerMaxMin_OnClick(this, &#39;dnn_ctr376_ModuleContent&#39;)) return false;" id="dnn_ctr376_dnnVISIBILITY_cmdVisibility" title="minimieren" href="javascript:__doPostBack(&#39;dnn$ctr376$dnnVISIBILITY$cmdVisibility&#39;,&#39;&#39;)"><img id="dnn_ctr376_dnnVISIBILITY_imgVisibility" title="minimieren" src="/Portals/_default/Containers/Nukeville.Morpheus/imx.png" alt="minimieren" /></a></div><span id="dnn_ctr376_dnnTITLE_titleLabel" class="eonCDTitle">Vorbestellung</span>
+
+
+</div></div>
+</div></div><div class='nvcon4'><div class='nvcon5'><div class='nvcon6'>
+<div id="dnn_ctr376_ContentPane" class="eonCDContent"><!-- Start_Module_376 --><div id="dnn_ctr376_ModuleContent" class="DNNModuleContent ModOPENPreOrderModuleC">
+	
+
+<link rel="stylesheet" type="text/css" href="/DesktopModules/OCLC.OPEN.PL.DNN.BaseLibrary/StyleSheets/Common/OPENCommon.css?4.2.0.0" />
+<link rel="stylesheet" type="text/css" href="/DesktopModules/OCLC.OPEN.PL.DNN.BaseLibrary/StyleSheets/Common/jquery-ui.css?4.2.0.0" />
+<link rel="stylesheet" type="text/css" href="/DesktopModules/OCLC.OPEN.PL.DNN.BaseLibrary/StyleSheets/Tabs/DnnTab.css?4.2.0.0" />
+<link rel="stylesheet" type="text/css" href="/DesktopModules/OCLC.OPEN.PL.DNN.BaseLibrary/StyleSheets/GridViews/GridView.css?4.2.0.0" />
+<link rel="stylesheet" type="text/css" href="/DesktopModules/OCLC.OPEN.PL.DNN.BaseLibrary/StyleSheets/Common/PagingControls.css?4.2.0.0" />
+<link rel="stylesheet" type="text/css" href="/DesktopModules/OCLC.OPEN.PL.DNN.BaseLibrary/StyleSheets/AutoCompletion/AutoCompletion.css?4.2.0.0" />
+
+
+<script src="/DesktopModules/OCLC.OPEN.PL.DNN.BaseLibrary/JavaScriptFrameworks/OPEN/open.js?4.2.0.0" type="text/javascript"></script>
+
+
+
+<div id="dnn_ctr376_View_UcNormalView_DivPreOrderView" style="width:100%;overflow:hidden">
+	<div class="spacingBottom" style="float:left;width:100%;clear:both">
+		<div style="float:left" class="standardPaddingLabel">
+			<a id="dnn_ctr376_View_UcNormalView_LblReturnToSender" title="Zurück zur Detailanzeige" class="boldText" href="javascript:__doPostBack(&#39;dnn$ctr376$View$UcNormalView$LblReturnToSender&#39;,&#39;&#39;)">Zurück zur Detailanzeige</a>
+		</div>
+		<div id="DivLbtnHelp" style="float:right">
+		    <a id="dnn_ctr376_View_UcNormalView_LbtnHelp" title="Zur Hilfe" href="javascript:__doPostBack(&#39;dnn$ctr376$View$UcNormalView$LbtnHelp&#39;,&#39;&#39;)">Zur Hilfe</a>	
+	</div>
+	</div>
+	<div class="spacingBottom standardPaddingLabel" style="float:left;clear:both">
+        <span id="dnn_ctr376_View_UcNormalView_LblInfoMessage"></span>
+    </div>   
+    
+	<div class="spacingBottom standardPaddingLabel" style="float:left;clear:both">
+	<span id="dnn_ctr376_View_UcNormalView_LblReservationCheckResultValue">Ihre Vorbestellung wurde gespeichert.</span>
+	</div>
+    <div class="spacingBottom" style="float:left;clear:both">
+        
+              
+     </div>
+</div>
+
+
+
+</div><!-- End_Module_376 --></div>
+<div class="eonCFoot"><div class="eonCFoot2 eonCDBt">
+
+
+
+
+
+</div></div>
+</div></div></div>
+<div class='nvcon7'><div class='nvcon8'></div></div>
+</div></div>
+
+
+
+</div></td>
+</tr></tbody></table><table class="nvpanelayout" cellpadding="0" cellspacing="0"><tbody><tr><td id="dnn_Pane_4_Left" class="PanePad eon_cpane4l DNNEmptyPane" valign="top"></td>
+<td id="dnn_Pane_4_Center" class="PanePad eon_cpane4c DNNEmptyPane" valign="top"></td>
+<td id="dnn_Pane_4_Right" class="PanePad eon_cpane4r DNNEmptyPane" valign="top"></td>
+</tr><tr><td id="dnn_Pane_5" colspan="5" class="PanePad eon_cpane5c DNNEmptyPane" valign="top"></td>
+</tr></tbody></table><table class="nvpanelayout" cellpadding="0" cellspacing="0"><tbody><tr><td id="dnn_Pane_6_Left" class="PanePad eon_cpane6l DNNEmptyPane" valign="top"></td>
+<td id="dnn_Pane_6_Center" class="PanePad eon_cpane6c DNNEmptyPane" valign="top"></td>
+<td id="dnn_Pane_6_Right" class="PanePad eon_cpane6r DNNEmptyPane" valign="top"></td>
+</tr><tr><td id="dnn_Pane_7" colspan="5" class="PanePad eon_cpane7c DNNEmptyPane" valign="top"></td>
+</tr></tbody></table></td></tr></tbody></table></div></div></div></div></div><div class='nvbor7'><div class='nvbor8'></div></div></div><div id="eonsec3" class='nvbor1'><div class='nvbor2'><div class='nvbor3'></div></div><div class='nvbor4'><div class='nvbor5'><div class='nvbor6'><div class="PanePad"><table class="nvpanelayout" cellpadding="0" cellspacing="0"><tbody><tr><td id="dnn_Pane_8" colspan="3" class="PanePad eon_cpane8c DNNEmptyPane" valign="top"></td>
+</tr><tr><td id="dnn_Pane_9_Left" class="PanePad eon_cpane9l DNNEmptyPane" valign="top"></td>
+<td id="dnn_Pane_9_Center" class="PanePad eon_cpane9c DNNEmptyPane" valign="top"></td>
+<td id="dnn_Pane_9_Right" class="PanePad eon_cpane9r DNNEmptyPane" valign="top"></td>
+</tr><tr><td id="dnn_Pane_10" colspan="3" class="PanePad eon_cpane10c DNNEmptyPane" valign="top"></td>
+</tr></tbody></table><table class="nvpanelayout" cellpadding="0" cellspacing="0"><tbody><tr><td id="dnn_Pane_11_Left" class="PanePad eon_cpane11l DNNEmptyPane" valign="top"></td>
+<td id="dnn_Pane_11_Center" class="PanePad eon_cpane11c DNNEmptyPane" valign="top"></td>
+<td id="dnn_Pane_11_Right" class="PanePad eon_cpane11r DNNEmptyPane" valign="top"></td>
+</tr><tr><td id="dnn_Pane_12" colspan="3" class="PanePad eon_cpane12c DNNEmptyPane" valign="top"></td>
+</tr></tbody></table><table class="nvpanelayout" cellpadding="0" cellspacing="0"><tbody><tr><td id="dnn_Pane_13_Left" class="PanePad eon_cpane13l DNNEmptyPane" valign="top"></td>
+<td id="dnn_Pane_13_Center" class="PanePad eon_cpane13c DNNEmptyPane" valign="top"></td>
+<td id="dnn_Pane_13_Right" class="PanePad eon_cpane13r DNNEmptyPane" valign="top"></td>
+</tr><tr><td id="dnn_Pane_14" colspan="3" class="PanePad eon_cpane14c DNNEmptyPane" valign="top"></td>
+</tr></tbody></table></div></div></div></div><div class='nvbor7'><div class='nvbor8'></div></div></div><div id="eonsec4" class='nvbor1'><div class='nvbor2'><div class='nvbor3'></div></div><div class='nvbor4'><div class='nvbor5'><div class='nvbor6'><div class="footerDiv"><div id="dnn_FooterPane1" class="Mar14 DNNEmptyPane"></div><div class="nvftrbg"><div class="nvftr1"><div class='nvftr2'><div class='nvftr3'></div></div><div class='nvftr4'><div class='nvftr5'><div class='nvftr6'><div class="EonFooterL"><span id="dnn_dnnLINKS_lblLinks"><a class="EonFooterLs" href="http://open-stadtbibliothek.darmstadt.de/Mediensuche/EinfacheSuche.aspx">Mediensuche</a><span class="EonFooterLs">   |   </span><a class="EonFooterLs" href="http://open-stadtbibliothek.darmstadt.de/MeinKonto.aspx">Mein Konto</a><span class="EonFooterLs">   |   </span><a class="EonFooterLs" href="http://open-stadtbibliothek.darmstadt.de/Medientipps/Neuerwerbungen.aspx">Medientipps</a><span class="EonFooterLs">   |   </span><a class="EonFooterLs" href="http://open-stadtbibliothek.darmstadt.de/Kontaktamp;Impressum.aspx">Kontakt &amp; Impressum</a><span class="EonFooterLs">   |   </span><a class="EonFooterLs" href="http://open-stadtbibliothek.darmstadt.de/Download.aspx">Download</a><span class="EonFooterLs">   |   </span><a class="EonFooterLs" href="http://www.stadtbibliothek.darmstadt.de">Webseite Stadtbibliothek</a></span>
+</div><div id="dnn_FooterPane2" class="FooterPane2 DNNEmptyPane"></div></div></div></div><div class='nvftr7'><div class='nvftr8'></div></div></div></div><div id="dnn_FooterPane3" class="Mar14 DNNEmptyPane"></div><div class="eonCopyright"><span id="dnn_dnnCOPYRIGHT_lblCopyright" class="FOOTER_objects">Copyright 2011 by OCLC GmbH</span>
+</div><div class="eonPrivacy" ><a id="dnn_dnnPRIVACY_hypPrivacy" class="FOOTER_objects" rel="nofollow" href="http://open-stadtbibliothek.darmstadt.de/privacy.aspx">Datenschutzerklärung</a></div><div class="eonTerms"><a id="dnn_dnnTERMS_hypTerms" class="FOOTER_objects" rel="nofollow" href="http://open-stadtbibliothek.darmstadt.de/terms.aspx">Nutzungsbedingungen</a></div><div class="eonMobileRedirect"><a id="dnn_dnnLTM_lnkPortal" class="SkinObject DNNMobileLink" href="http://open-stadtbibliothek.darmstadt.de/mobile?nomo=0">Mobile Website anzeigen</a></div><div>&nbsp;</div></div></div></div></div><div class='nvbor7'><div class='nvbor8'></div></div></div></div></div></div></div></div></div>
+<!--[if lt IE 7]><script type="text/javascript" src="/Portals/_default/Skins/Nukeville.Morpheus/ie6.js"></script><![endif]-->
+
+
+
+
+
+
+
+        <input name="ScrollTop" type="hidden" id="ScrollTop" />
+        <input name="__dnnVariable" type="hidden" id="__dnnVariable" autocomplete="off" value="`{`__scdoff`:`1`,`dnn_dnnNAV_ctldnnNAV_json`:`{nodes:[{id:\`42\`,key:\`42\`,txt:\`Mediensuche\`,ca:\`3\`,url:\`http://open-stadtbibliothek.darmstadt.de/Mediensuche/EinfacheSuche.aspx\`,cssIcon:\` \`,nodes:[{id:\`50\`,key:\`50\`,txt:\`Einfache Suche\`,ca:\`3\`,url:\`http://open-stadtbibliothek.darmstadt.de/Mediensuche/EinfacheSuche.aspx\`,nodes:[]},{id:\`51\`,key:\`51\`,txt:\`Erweiterte Suche\`,ca:\`3\`,url:\`http://open-stadtbibliothek.darmstadt.de/Mediensuche/ErweiterteSuche.aspx\`,nodes:[]}]},{id:\`48\`,key:\`48\`,txt:\`Mein Konto\`,ca:\`3\`,url:\`http://open-stadtbibliothek.darmstadt.de/MeinKonto.aspx\`,cssIcon:\` \`,nodes:[]},{id:\`141\`,key:\`141\`,txt:\`Medientipps\`,ca:\`3\`,url:\`http://open-stadtbibliothek.darmstadt.de/Medientipps/Neuerwerbungen.aspx\`,cssIcon:\` \`,nodes:[{id:\`143\`,key:\`143\`,txt:\`Neuerwerbungen\`,ca:\`3\`,url:\`http://open-stadtbibliothek.darmstadt.de/Medientipps/Neuerwerbungen.aspx\`,nodes:[]},{id:\`182\`,key:\`182\`,txt:\`Themenlisten\`,ca:\`3\`,url:\`http://open-stadtbibliothek.darmstadt.de/Medientipps/Themenlisten.aspx\`,nodes:[]},{id:\`191\`,key:\`191\`,txt:\`Deutsch als Zweitsprache für Kinder\`,ca:\`3\`,url:\`http://open-stadtbibliothek.darmstadt.de/Medientipps/DeutschalsZweitsprachefürKinder.aspx\`,nodes:[]},{id:\`176\`,key:\`176\`,txt:\`Spiegel Bestseller Belletristik\`,ca:\`3\`,url:\`http://open-stadtbibliothek.darmstadt.de/Permalink.aspx?searchhash=OCLC_72f1c1179ed2afa8ec8195cba7178348460678ae\`,nodes:[]},{id:\`148\`,key:\`148\`,txt:\`Spiegel-Bestseller Sachbuch\`,ca:\`3\`,url:\`http://open-stadtbibliothek.darmstadt.de/Permalink.aspx?searchhash=OCLC_786e1675dab1cafaad4cc6cebc716810eca42a4e\`,nodes:[]},{id:\`144\`,key:\`144\`,txt:\`Zeitschriften A - Z\`,ca:\`3\`,url:\`http://open-stadtbibliothek.darmstadt.de/Permalink.aspx?searchhash=OCLC_689ed026543b33b43cd60c8779c872fd52929bb1\`,nodes:[]},{id:\`145\`,key:\`145\`,txt:\`Zeitschriften nach Themen\`,ca:\`3\`,url:\`http://open-stadtbibliothek.darmstadt.de/Medientipps/ZeitschriftennachThemen.aspx\`,nodes:[]}]},{id:\`46\`,key:\`46\`,txt:\`Kontakt \u0026amp; Impressum\`,ca:\`3\`,url:\`http://open-stadtbibliothek.darmstadt.de/Kontaktamp;Impressum.aspx\`,cssIcon:\` \`,nodes:[{id:\`76\`,key:\`76\`,txt:\`Schreiben Sie uns\`,ca:\`3\`,url:\`http://open-stadtbibliothek.darmstadt.de/Kontaktamp;Impressum/SchreibenSieuns.aspx\`,nodes:[]},{id:\`75\`,key:\`75\`,txt:\`So finden Sie uns\`,ca:\`3\`,url:\`http://open-stadtbibliothek.darmstadt.de/Kontaktamp;Impressum/SofindenSieuns.aspx\`,nodes:[]}]},{id:\`189\`,key:\`189\`,txt:\`Download\`,ca:\`3\`,url:\`http://open-stadtbibliothek.darmstadt.de/Download.aspx\`,cssIcon:\` \`,nodes:[]},{id:\`177\`,key:\`177\`,txt:\`Webseite Stadtbibliothek\`,ca:\`3\`,url:\`http://www.stadtbibliothek.darmstadt.de\`,cssIcon:\` \`,nodes:[]}]}`,`dnn_dnnNAV2_ctldnnNAV2_json`:`{nodes:[{id:\`42\`,key:\`42\`,txt:\`Mediensuche\`,ca:\`3\`,url:\`http://open-stadtbibliothek.darmstadt.de/Mediensuche/EinfacheSuche.aspx\`,cssIcon:\` \`,nodes:[{id:\`50\`,key:\`50\`,txt:\`Einfache Suche\`,ca:\`3\`,url:\`http://open-stadtbibliothek.darmstadt.de/Mediensuche/EinfacheSuche.aspx\`,nodes:[]},{id:\`51\`,key:\`51\`,txt:\`Erweiterte Suche\`,ca:\`3\`,url:\`http://open-stadtbibliothek.darmstadt.de/Mediensuche/ErweiterteSuche.aspx\`,nodes:[]}]},{id:\`48\`,key:\`48\`,txt:\`Mein Konto\`,ca:\`3\`,url:\`http://open-stadtbibliothek.darmstadt.de/MeinKonto.aspx\`,cssIcon:\` \`,nodes:[]},{id:\`141\`,key:\`141\`,txt:\`Medientipps\`,ca:\`3\`,url:\`http://open-stadtbibliothek.darmstadt.de/Medientipps/Neuerwerbungen.aspx\`,cssIcon:\` \`,nodes:[{id:\`143\`,key:\`143\`,txt:\`Neuerwerbungen\`,ca:\`3\`,url:\`http://open-stadtbibliothek.darmstadt.de/Medientipps/Neuerwerbungen.aspx\`,nodes:[]},{id:\`182\`,key:\`182\`,txt:\`Themenlisten\`,ca:\`3\`,url:\`http://open-stadtbibliothek.darmstadt.de/Medientipps/Themenlisten.aspx\`,nodes:[]},{id:\`191\`,key:\`191\`,txt:\`Deutsch als Zweitsprache für Kinder\`,ca:\`3\`,url:\`http://open-stadtbibliothek.darmstadt.de/Medientipps/DeutschalsZweitsprachefürKinder.aspx\`,nodes:[]},{id:\`176\`,key:\`176\`,txt:\`Spiegel Bestseller Belletristik\`,ca:\`3\`,url:\`http://open-stadtbibliothek.darmstadt.de/Permalink.aspx?searchhash=OCLC_72f1c1179ed2afa8ec8195cba7178348460678ae\`,nodes:[]},{id:\`148\`,key:\`148\`,txt:\`Spiegel-Bestseller Sachbuch\`,ca:\`3\`,url:\`http://open-stadtbibliothek.darmstadt.de/Permalink.aspx?searchhash=OCLC_786e1675dab1cafaad4cc6cebc716810eca42a4e\`,nodes:[]},{id:\`144\`,key:\`144\`,txt:\`Zeitschriften A - Z\`,ca:\`3\`,url:\`http://open-stadtbibliothek.darmstadt.de/Permalink.aspx?searchhash=OCLC_689ed026543b33b43cd60c8779c872fd52929bb1\`,nodes:[]},{id:\`145\`,key:\`145\`,txt:\`Zeitschriften nach Themen\`,ca:\`3\`,url:\`http://open-stadtbibliothek.darmstadt.de/Medientipps/ZeitschriftennachThemen.aspx\`,nodes:[]}]},{id:\`46\`,key:\`46\`,txt:\`Kontakt \u0026amp; Impressum\`,ca:\`3\`,url:\`http://open-stadtbibliothek.darmstadt.de/Kontaktamp;Impressum.aspx\`,cssIcon:\` \`,nodes:[{id:\`76\`,key:\`76\`,txt:\`Schreiben Sie uns\`,ca:\`3\`,url:\`http://open-stadtbibliothek.darmstadt.de/Kontaktamp;Impressum/SchreibenSieuns.aspx\`,nodes:[]},{id:\`75\`,key:\`75\`,txt:\`So finden Sie uns\`,ca:\`3\`,url:\`http://open-stadtbibliothek.darmstadt.de/Kontaktamp;Impressum/SofindenSieuns.aspx\`,nodes:[]}]},{id:\`189\`,key:\`189\`,txt:\`Download\`,ca:\`3\`,url:\`http://open-stadtbibliothek.darmstadt.de/Download.aspx\`,cssIcon:\` \`,nodes:[]},{id:\`177\`,key:\`177\`,txt:\`Webseite Stadtbibliothek\`,ca:\`3\`,url:\`http://www.stadtbibliothek.darmstadt.de\`,cssIcon:\` \`,nodes:[]}]}`,`dnn_dnnNAV3_ctldnnNAV3_json`:`{nodes:[]}`,`dnn_dnnNAVV_ctldnnNAVV_json`:`{nodes:[{id:\`42\`,key:\`42\`,txt:\`Mediensuche\`,ca:\`3\`,url:\`http://open-stadtbibliothek.darmstadt.de/Mediensuche/EinfacheSuche.aspx\`,cssIcon:\` \`,nodes:[{id:\`50\`,key:\`50\`,txt:\`Einfache Suche\`,ca:\`3\`,url:\`http://open-stadtbibliothek.darmstadt.de/Mediensuche/EinfacheSuche.aspx\`,nodes:[]},{id:\`51\`,key:\`51\`,txt:\`Erweiterte Suche\`,ca:\`3\`,url:\`http://open-stadtbibliothek.darmstadt.de/Mediensuche/ErweiterteSuche.aspx\`,nodes:[]}]},{id:\`48\`,key:\`48\`,txt:\`Mein Konto\`,ca:\`3\`,url:\`http://open-stadtbibliothek.darmstadt.de/MeinKonto.aspx\`,cssIcon:\` \`,nodes:[]},{id:\`141\`,key:\`141\`,txt:\`Medientipps\`,ca:\`3\`,url:\`http://open-stadtbibliothek.darmstadt.de/Medientipps/Neuerwerbungen.aspx\`,cssIcon:\` \`,nodes:[{id:\`143\`,key:\`143\`,txt:\`Neuerwerbungen\`,ca:\`3\`,url:\`http://open-stadtbibliothek.darmstadt.de/Medientipps/Neuerwerbungen.aspx\`,nodes:[]},{id:\`182\`,key:\`182\`,txt:\`Themenlisten\`,ca:\`3\`,url:\`http://open-stadtbibliothek.darmstadt.de/Medientipps/Themenlisten.aspx\`,nodes:[]},{id:\`191\`,key:\`191\`,txt:\`Deutsch als Zweitsprache für Kinder\`,ca:\`3\`,url:\`http://open-stadtbibliothek.darmstadt.de/Medientipps/DeutschalsZweitsprachefürKinder.aspx\`,nodes:[]},{id:\`176\`,key:\`176\`,txt:\`Spiegel Bestseller Belletristik\`,ca:\`3\`,url:\`http://open-stadtbibliothek.darmstadt.de/Permalink.aspx?searchhash=OCLC_72f1c1179ed2afa8ec8195cba7178348460678ae\`,nodes:[]},{id:\`148\`,key:\`148\`,txt:\`Spiegel-Bestseller Sachbuch\`,ca:\`3\`,url:\`http://open-stadtbibliothek.darmstadt.de/Permalink.aspx?searchhash=OCLC_786e1675dab1cafaad4cc6cebc716810eca42a4e\`,nodes:[]},{id:\`144\`,key:\`144\`,txt:\`Zeitschriften A - Z\`,ca:\`3\`,url:\`http://open-stadtbibliothek.darmstadt.de/Permalink.aspx?searchhash=OCLC_689ed026543b33b43cd60c8779c872fd52929bb1\`,nodes:[]},{id:\`145\`,key:\`145\`,txt:\`Zeitschriften nach Themen\`,ca:\`3\`,url:\`http://open-stadtbibliothek.darmstadt.de/Medientipps/ZeitschriftennachThemen.aspx\`,nodes:[]}]},{id:\`46\`,key:\`46\`,txt:\`Kontakt \u0026amp; Impressum\`,ca:\`3\`,url:\`http://open-stadtbibliothek.darmstadt.de/Kontaktamp;Impressum.aspx\`,cssIcon:\` \`,nodes:[{id:\`76\`,key:\`76\`,txt:\`Schreiben Sie uns\`,ca:\`3\`,url:\`http://open-stadtbibliothek.darmstadt.de/Kontaktamp;Impressum/SchreibenSieuns.aspx\`,nodes:[]},{id:\`75\`,key:\`75\`,txt:\`So finden Sie uns\`,ca:\`3\`,url:\`http://open-stadtbibliothek.darmstadt.de/Kontaktamp;Impressum/SofindenSieuns.aspx\`,nodes:[]}]},{id:\`189\`,key:\`189\`,txt:\`Download\`,ca:\`3\`,url:\`http://open-stadtbibliothek.darmstadt.de/Download.aspx\`,cssIcon:\` \`,nodes:[]},{id:\`177\`,key:\`177\`,txt:\`Webseite Stadtbibliothek\`,ca:\`3\`,url:\`http://www.stadtbibliothek.darmstadt.de\`,cssIcon:\` \`,nodes:[]}]}`,`containerid_dnn_ctr376_ModuleContent`:`376`,`cookieid_dnn_ctr376_ModuleContent`:`_Module376_Visible`,`min_icon_376`:`/Portals/_default/Containers/Nukeville.Morpheus/imx.png`,`max_icon_376`:`/Portals/_default/Containers/Nukeville.Morpheus/imi.png`,`max_text`:`maximieren`,`min_text`:`minimieren`}" />
+        
+    
+<script type="text/javascript" src="/Resources/Shared/scripts/initWidgets.js" ></script><script type="text/javascript">
+							$(document).ready(function () {
+							   var evarg =  document.getElementById("__EVENTARGUMENT");
+							   evarg.value = "";
+							   var evtar =  document.getElementById("__EVENTTARGET");
+							   evtar.value = ""  
+							});
+						</script>
+				<script type="text/javascript">dnn.setVar('dnn_dnnNAV_ctldnnNAV_p', '{postback:\'__doPostBack(\\\'dnn$dnnNAV$ctldnnNAV\\\',\\\'[NODEID]~|~Click\\\')\',sysimgpath:\'/images/\',mbcss:\'nv_navt nv_navc\',rmode:\'2\',easeDir:\'0\'}');dnn.controls.initMenu($get('dnn_dnnNAV_ctldnnNAV'));</script><script type="text/javascript">dnn.setVar('dnn_dnnNAVV_ctldnnNAVV_p', '{postback:\'__doPostBack(\\\'dnn$dnnNAVV$ctldnnNAVV\\\',\\\'[NODEID]~|~Click\\\')\',mbcss:\'nv_navv nv_navc\',rmode:\'2\',sysimgpath:\'/images/\',orient:\'1\',easeDir:\'0\'}');dnn.controls.initMenu($get('dnn_dnnNAVV_ctldnnNAVV'));</script></form>
+    
+    
+</body>
+</html>
