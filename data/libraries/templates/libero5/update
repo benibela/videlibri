@@ -7,6 +7,7 @@
  <fieldset><div class='MemStatMembCapt'>
     <template:read var="delete-current-books()"/>
     <template:read source="false()" var="bookTableBroken"/>
+    {hasShelfMark := false()}
  </div></fieldset>
 
  <form name="MEMISSIT" template:optional="true">
@@ -18,6 +19,7 @@
        <thead><tr><th  class="barcode" abbr="bc" ></th>
                   <th  abbr="tit" ></th>
                   <th  class="author" abbr="aut" ></th>
+                  <th  class="callNumber" abbr="cn">{$hasShelfMark := true()}</th>?
                   <th  class="dueDate" abbr="due" ></th>
                   <th  class="numRenewals" abbr="num" ></th>
                   <th  class="renew" abbr="ren"  template:optional="true">
@@ -37,10 +39,11 @@
             <template:read source="text()" var="temporaryStatusDetails"/>
           </td>
           <td headers="th1_3"><template:read source="." var="book.author"/></td>
-          <td headers="th1_4"><template:read source="." var="book.duedate:d mmm yyyy"/></td>
-          <td headers="th1_5"><template:read source="concat('bisher ',., ' mal verlängert')" var="book.status:curious"/></td>
-          <td headers="th1_7" template:optional="true">
-            <input template:optional="true"><template:read var="book.extendid" source="@name"/></input>
+          <td t:test="$hasShelfMark"/>
+          <td><template:read source="." var="book.duedate:d mmm yyyy"/></td>
+          <td><template:read source="concat('bisher ',., ' mal verlängert')" var="book.status:curious"/></td>
+          <td template:optional="true" t:condition="input">
+            <input><template:read var="book.extendid" source="@name"/></input>
           </td>
           <template:if test="$book.extendid=''">
             <template:read var="book.status:problematic" source="$temporaryStatusDetails"/>
