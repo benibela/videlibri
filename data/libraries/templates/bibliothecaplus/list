@@ -6,12 +6,13 @@
     { $user-form := form(.),
       $renew-button := (//input[ends-with(@name, "BtnExtendMediums")])[1]/{"__EVENTTARGET":  @name},
       $cancel-ordered-button := (//input[ends-with(@name, "BtnCancelReservations")])[1]/{"__EVENTTARGET":  @name},
-      $cancel-provided-button := (//input[ends-with(@name, "BtnCancelReadyForPickup")])[1]/{"__EVENTTARGET":  @name}
+      $cancel-provided-button := (//input[ends-with(@name, "BtnCancelReadyForPickup")])[1]/{"__EVENTTARGET":  @name},
+      $hasBranches := false()
     }
     
     <TABLE name="grdViewLoans" class="GridViewInnerBorder"> <!-- also in @id -->
       <t:switch prioritized="true">
-        <tr><th/></tr>
+        <tr><th/><a t:condition="contains(@href, 'Sort$Branch')">{$hasBranches := true}</a>?</tr>
         <tr class="GridViewInnerBorderNoData"/>
       </t:switch>
       <t:loop>
@@ -21,6 +22,7 @@
           <TD>{book.title := .}</TD>
           <TD>{book.author := .}</TD>
           <TD>{book.category := .}</TD>
+          <TD t:test="$hasBranches">{book.libraryBranch := .}</TD>
           <TD>{book.duedate := parse-date(., 'd.m.yyyy')}</TD>
           <div class="extendableRegion"><input t:condition="contains(@name, 'CopyId')">{book._copyId := @value, book.id := @value}</input></div>?
         </TR>
