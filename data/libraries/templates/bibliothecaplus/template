@@ -157,11 +157,13 @@
     <s>urlaccount := $loginlink, current-page := 1</s> <!-- need to use login form from search page, tp  -->
     <call action="internal-login"/>
     <page url="{$loginForm}" templateFile="searchListHeaderOnly"/>
+<!--    <s>temp := if (matches($loginlink, "returnurl=")) then uri-decode(extract($loginlink, "returnurl=(.*)", 1)) else $loginForm</s>-->
+    <page url="{$loginForm}" templateFile="searchListHeaderOnly"/>
     <s>loggedIn := true()</s>
   </if>
   <call action="internal-gotobookpage"/>
   <page urL="{$reserve-request}"><template>
-    <form>{$form := form(., //input[contains(@name, "btnSave")])}</form>
+    <form>{$form := form(., //input[matches(@name, "btnSave|btnConfirm", "i")])}</form>
   </template></page>
  <page urL="{$form}"/>
 </action> 

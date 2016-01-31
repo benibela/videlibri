@@ -1,4 +1,5 @@
-<form>{form:=form(.)}
+<t:switch prioritized="true">
+<form>{form:=form(.), loginForm := ()}
 <DIV class="DnnModule-OPENSearchModule">
   <div t:condition="contains(@id, 'SearchResult_ResultArea')">
     <span t:condition="contains(@id, 'DataPager1')">
@@ -11,3 +12,9 @@
   </div>
 </DIV>
 </form>
+
+<head t:condition="contains(join((comment(), script)), 'location.replace')">
+  {loginForm := extract(join((comment(), script)), 'https?://[^"'']+')}
+</head> <!-- strange redirect in comment-->
+
+</t:switch>
