@@ -115,7 +115,7 @@
     }</form></template></page>
     
     <s>   current-page := 1, last-visited-page := 1, next-page := (), i := 1,
-          search-keys := {"title": "Title", "author": "Author", "keyword": "Keyword", "isbn": "ISBNandISSN"},
+          search-keys := {"title": "Title", "author": "Author", "keywords": "Keyword", "isbn": "ISBNandISSN"},
           search-reverse-keys := {"Publisher": "publisher", "ProductionYear": "year", "Author": "author", "IsbnTitle": "isbn"},
           startSearch := form-combine($search-form, {|
             $search-year-values ! { @name: $book.year },
