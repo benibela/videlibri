@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<library>
+  <longName value="Stadtbibliothek Darmstadt"/>
+  <shortName value="Stb Darmstadt"/>
+  
+  <template value="bibliothecaplus"/>
+  <variable name="urlaccount" value="https://open-stadtbibliothek.darmstadt.de/MeinKonto.aspx"/>	
+  <variable name="urlsearch" value="http://open-stadtbibliothek.darmstadt.de/Mediensuche/ErweiterteSuche.aspx"/>
+  <!--<template value="pica"/>-->
+
+
+  <homepage value="http://stadtbibliothek.darmstadt.de/"/>
+  <testing-search value="ja" date="2014-09-14"/>
+  <testing-account value="ja" date="2014-09-14"/>
+  <testing-renew value="?" date=""/>
+</library>
