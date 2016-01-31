@@ -7,7 +7,8 @@
       $renew-button := (//input[ends-with(@name, "BtnExtendMediums")])[1]/{"__EVENTTARGET":  @name},
       $cancel-ordered-button := (//input[ends-with(@name, "BtnCancelReservations")])[1]/{"__EVENTTARGET":  @name},
       $cancel-provided-button := (//input[ends-with(@name, "BtnCancelReadyForPickup")])[1]/{"__EVENTTARGET":  @name},
-      $hasBranches := false()
+      $hasBranches := false(),
+      $portalId := (extract($raw, 'eonportalid *= *[''"]([0-9]+)[''"]', 1)[.], 1)[1]
     }
     
     <TABLE name="grdViewLoans" class="GridViewInnerBorder"> <!-- also in @id -->

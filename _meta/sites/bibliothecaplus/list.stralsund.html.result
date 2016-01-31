@@ -7,6 +7,7 @@ renew-button := {"__EVENTTARGET": "dnn$ctr707$View$UcNormalView$tpnlLoans$ucLoan
 cancel-ordered-button := {"__EVENTTARGET": "dnn$ctr707$View$UcNormalView$tpnlReservations$ucReservationsView$BtnCancelReservations"}
 cancel-provided-button := ()
 hasBranches := false()
+portalId := "1"
 book := {"id": "0122334400", "_copyId": "0122334400", "duedate": "2014-12-13", "category": "Kinderliteratur", "author": " ", "title": "Tantau", "_renewid": "dnn$ctr707$View$UcNormalView$tpnlLoans$ucLoansView$grdViewLoans$ctl02$chkSelect"}
 book := {"id": "0123451001", "_copyId": "0123451001", "duedate": "2014-10-09", "category": "Kinderliteratur", "author": "u, K", "title": "Geschichte", "_renewid": "dnn$ctr707$View$UcNormalView$tpnlLoans$ucLoansView$grdViewLoans$ctl03$chkSelect"}
 book := {"id": "0123456661", "_copyId": "0123456661", "duedate": "2014-10-09", "category": "Kinderliteratur", "author": "A, Hans", "title": "D", "_renewid": "dnn$ctr707$View$UcNormalView$tpnlLoans$ucLoansView$grdViewLoans$ctl04$chkSelect"}

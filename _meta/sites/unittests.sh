@@ -207,8 +207,8 @@ PAGES=(${PAGES[@]} bibliotheca/searchDetails.neustadt.html)
 
 #=============Bibliothea+ OPEN==============
 mkdir -p $OUTPATH/bibliothecaplus
-ADDTEMPLATE bibliothecaplus/list 1
-PAGES=(${PAGES[@]} bibliothecaplus/list.stralsund.html)
+ADDTEMPLATE bibliothecaplus/list 2
+PAGES=(${PAGES[@]} bibliothecaplus/list.stralsund.html bibliothecaplus/list.darmstadt.html)
 
 ADDTEMPLATE bibliothecaplus/searchList'{\$last-visited-page:=0,\$current-page:=1,\$search-reverse-keys:=\(\)}' 2
 PAGES=(${PAGES[@]} bibliothecaplus/searchList.empty.html bibliothecaplus/searchList.html)
