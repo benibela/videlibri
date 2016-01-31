@@ -22,6 +22,17 @@ function ADDTEMPLATE {
   done
 }
 
+function test {
+  system=$1; shift
+  TEMP=$system/$1; shift
+  for page in "$@"; do 
+    TEMPLATES=(${TEMPLATES[@]} $TEMP) 
+    PAGES=(${PAGES[@]} "$system/$page")
+  done
+ 
+}
+
+
 #=============WAS==============
 mkdir -p $OUTPATH/wasnrw
 TEMPLATES=(wasnrw/start wasnrw/KontoServlet wasnrw/KontoServlet wasnrw/KontoServlet)
@@ -207,17 +218,11 @@ PAGES=(${PAGES[@]} bibliotheca/searchDetails.neustadt.html)
 
 #=============Bibliothea+ OPEN==============
 mkdir -p $OUTPATH/bibliothecaplus
-ADDTEMPLATE bibliothecaplus/list 3
-PAGES=(${PAGES[@]} bibliothecaplus/list.stralsund.html bibliothecaplus/list.darmstadt.html  bibliothecaplus/list.with-orders.darmstadt.html)
 
-ADDTEMPLATE bibliothecaplus/searchList'{\$last-visited-page:=0,\$current-page:=1,\$search-reverse-keys:=\(\)}' 2
-PAGES=(${PAGES[@]} bibliothecaplus/searchList.empty.html bibliothecaplus/searchList.html)
-
-ADDTEMPLATE bibliothecaplus/searchListHeaderOnly'{\$last-visited-page:=0,\$current-page:=1}' 1
-PAGES=(${PAGES[@]} bibliothecaplus/searchListHeaderOnly.html)
-
-ADDTEMPLATE bibliothecaplus/searchDetails'{\$search-reverse-keys:=\(\)}' 2
-PAGES=(${PAGES[@]} bibliothecaplus/searchDetails.html  bibliothecaplus/searchDetails.darmstadt.html)
+test bibliothecaplus list list.stralsund.html list.darmstadt.html list.with-orders.darmstadt.html
+test bibliothecaplus searchList'{\$last-visited-page:=0,\$current-page:=1,\$search-reverse-keys:=\(\)}' searchList.empty.html searchList.html
+test bibliothecaplus searchListHeaderOnly'{\$last-visited-page:=0,\$current-page:=1}' searchListHeaderOnly.html
+test bibliothecaplus searchDetails'{\$search-reverse-keys:=\(\)}' searchDetails.html searchDetails.darmstadt.html
 
 #=============SUMMON==============
 mkdir -p $OUTPATH/summon
