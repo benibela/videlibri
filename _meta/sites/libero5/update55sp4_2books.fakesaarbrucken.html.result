@@ -5,6 +5,7 @@ bookTableBroken := false()
 hasShelfMark := false()
 bookTableBroken := true()
 noExtendingPossible := true()
+hasShelfMark := true()
 noExtendingPossible := false()
 bookTableBroken := false()
 temporaryStatusDetails := text{"017602601 - 1. Verlängerung   für Benutzer #9000491; Verlängerung des Mediums nicht erlaubt bis: 16 Sep 2010."}

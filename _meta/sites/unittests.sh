@@ -69,11 +69,8 @@ PAGES=(${PAGES[@]} bibdia_stabib/list.html bibdia_stabib/list_abhol.html bibdia_
 #=============LIBERO==============
 mkdir -p $OUTPATH/libero5
 
-TEMPLATES=(${TEMPLATES[@]} libero5/start libero5/update libero5/update libero5/update libero5/update)
-PAGES=(${PAGES[@]} libero5/start.html libero5/update_empty.html libero5/update55sp73_empty.html libero5/update55sp4_2books.html libero5/update55sp73_books.html)
-
-ADDTEMPLATE  libero5/update 1
-PAGES=(${PAGES[@]} libero5/update.login.faileden.html)
+test libero5 start start.html
+test libero5 update update_empty.html update55sp73_empty.html update55sp4_2books.html update55sp73_books.html update.login.faileden.html update55sp4_2books.fakesaarbrucken.html
 
 
 #=============SISIS==============
