@@ -1,33 +1,32 @@
 <t:switch prioritized="true">
-  <body>
-    <div class="standardPaddingCover">
-        <input type="image">{book.image-url := @src}</input>
-    </div>?
-    <td class="standardPaddingCover" t:if="not($book.image-url)">
-        <input type="image">{book.image-url := @src}</input>
-    </td>?
-
-
-
-    <div t:condition="contains(@id, 'DivAvailRegionDetail')">
-      <t:switch>
-        <input type="image" t:condition="contains(@name, 'mediumImageAvailDetail')">{book.orderable := contains(@src, "false.png")}</input>
-        <img t:condition="contains(@id, 'mediumImageAvailDetail')">{book.orderable := contains(@src, "false.png")}</img>
-        <img t:condition="contains(@id, 'mediumImageDigitalDetail')">{$book("Download !") := ../@href}</img>
-      </t:switch>
-
-      <input t:test="$book.orderable">{reserve-request := form((//form)[1], {"__EVENTTARGET":  @name})}</input>?
-    </div>
-
-    <div t:test="$book.orderable">
-       <a t:condition="contains(@id, 'BtnReserve')">{reserve-request := form((//form)[1], {"__EVENTTARGET":  translate(@id, "_", "$")})}</a>?
-    </div>
-        
+  <html> {reserve-request:=()}
+    <head> 
+      <meta property="og:image" content="{$book.image-url}"/>?
+    </head>
+    <body>
+      <div class="standardPaddingCover" t:if="not($book.image-url)">
+          <input type="image">{book.image-url := @src}</input>
+      </div>?
+      <td class="standardPaddingCover" t:if="not($book.image-url)">
+          <input type="image">{book.image-url := @src}</input>
+      </td>?
   
-    <table class="GridViewInnerBorder" t:condition="contains(@id, 'grdViewMediumCopies')">
-      <tr><th>{$i := 0}</th></tr>
-      <tr>{$book(x"Exemplar {$i := $i + 1}!") := join(td)}</tr>+
-    </table>
+  
+  
+      <div t:condition="contains(@id, 'DivAvailRegionDetail')">
+        <t:switch>
+          <input type="image" t:condition="contains(@name, 'mediumImageAvailDetail')">{book.orderable := contains(@src, "false.png")}</input>
+          <img t:condition="contains(@id, 'mediumImageAvailDetail')">{book.orderable := contains(@src, "false.png")}</img>
+          <img t:condition="contains(@id, 'mediumImageDigitalDetail')">{$book("Download !") := ../@href}</img>
+        </t:switch>
+  
+        <input t:test="$book.orderable">{reserve-request := form((//form)[1], {"__EVENTTARGET":  @name})}</input>?
+      </div>
+  
+      <div t:test="$book.orderable">
+         <a t:condition="contains(@id, 'BtnReserve')">{reserve-request := form((//form)[1], {"__EVENTTARGET":  translate(@id, "_", "$")})}</a>?
+      </div>
+          
     
       <table class="GridViewInnerBorder" t:condition="contains(@id, 'grdViewMediumCopies')">
         <tr><th>{$i := 0}</th></tr>
