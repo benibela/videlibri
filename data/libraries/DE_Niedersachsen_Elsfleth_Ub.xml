@@ -4,7 +4,7 @@
   <shortName value="HS Elsfleth"/>
   
   <template value="pica"/>
-  <variable name="server" value="http://lhemd.gbv.de/"/>	
+  <variable name="server" value="https://lhemd.gbv.de/"/>	
   <variable name="picadb" value="5"/>	
 
 
