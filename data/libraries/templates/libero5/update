@@ -63,7 +63,7 @@
  
  
  <form name="MEMSLFRES" template:optional="true">
-   {cancelForm := form(.)}
+   {cancelForm := form(.), hasShelfMark:=false()}
    <fieldset id="reserved_items_flds">     
      <table>
        
@@ -71,6 +71,7 @@
                   <th class="barcode" abbr="bc" ></th>
                   <th abbr="tit" ></th>
                   <th class="author" abbr="aut" ></th>
+                  <th class="callNumber" abbr="cno">{$hasShelfMark := true()}</th>?
                   <th class="reserveDate" abbr="date" ></th>
                   <th class="delete" abbr="del" ></th>
               </tr></thead>
@@ -79,10 +80,11 @@
        <tr>
           {book := {"statusId": "ordered"}}
           <td headers='th7_2'>{$book.id}</td>
-          <td headers='th7_3'>{$book.title}</td>
-          <td headers='th7_4'>{$book.author}</td>
-          <td headers='th7_5'>{$book.issueDate := parse-date(., "d mmm yyyy")}</td>
-          <td headers='th7_6'><input type="checkbox">{book.cancelId := uri-combine(., ())}</input>?</td>
+          <td>{$book.title}</td>
+          <td>{$book.author}</td>
+          <td t:test="$hasShelfMark"/>
+          <td>{$book.issueDate := parse-date(., "d mmm yyyy")}</td>
+          <td><input type="checkbox">{book.cancelId := uri-combine(., ())}</input>?</td>
        </tr>
        <!--<template:read var="book-end()"/>-->
        </template:loop>

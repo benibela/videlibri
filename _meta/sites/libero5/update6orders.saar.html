@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:fb="http://www.facebook.com/2008/fbml" xmlns:addthis="http://www.addthis.com/help/api-spec" xmlns:og="http://opengraphprotocol.org/schema/"  lang="de" xml:lang="de">
+<head>
+<link href="javascripts/jqueryui/ui-lightness-1.10.3.css" rel="stylesheet"/>
+<script src="javascripts/jquery/jquery-1.11.0.min.js"></script>
+<script src="javascripts/jquery/jquery-migrate-1.2.1.min.js"></script>
+<script src="javascripts/jqueryui/jquery-ui-1.10.3.min.js"></script>
+<meta http-equiv="content-type" content="text/html;charset=UTF-8" />
+<meta name="author" content="Insight Informatics" />
+<meta name="keywords" content="WebOpac" />
+<meta name="description" content="LIBERO OPAC" />
+<script>document.timeoutAction = 'window.location.href="http://opac.saarbruecken.de/libero/WebOpac.cls?VERSION=2&amp;ACTION=EXITWEBOPAC&amp;DATA=SAR&amp;TOKEN=DBDWmhc8sk4064&amp;MGWCHD=0"';
+document.timeoutID=setTimeout(document.timeoutAction,180000);document.timeoutTime=180000;</script>
+<title>LIBERO WebOPAC Benutzerkonto (W603)</title>
+<link rel="SHORTCUT ICON" href="http://opac.saarbruecken.de/libero/Styles/default/images/logo.ico"/>
+<link rel='stylesheet' type='text/css' media='screen' href='http://opac.saarbruecken.de/libero/Styles/default/screen/page_layout.css'/>
+<link rel='stylesheet' type='text/css' media='screen' href='http://opac.saarbruecken.de/libero/Styles/default/screen/libero.css'/>
+<link rel='stylesheet' type='text/css' media='all' href='http://opac.saarbruecken.de/libero/Styles/default/all/libero.css'/>
+<link rel='stylesheet' type='text/css' media='print' href='http://opac.saarbruecken.de/libero/Styles/default/print/libero.css'/>
+<link rel='stylesheet' type='text/css' media='screen' href='http://opac.saarbruecken.de/libero/Styles/default/screen/members/MEMSTAT.css'/>
+<link rel='stylesheet' type='text/css' media='all' href='http://opac.saarbruecken.de/libero/Styles/default/screen/display/SYSMESSAGES.css'/>
+<!--[if IE]>
+<link rel="Stylesheet" type="text/css" href="http://opac.saarbruecken.de/libero/Styles/default/screen/ie.css">
+<![endif]-->
+<!--[if lte IE 6]>
+<link rel="Stylesheet" type="text/css" href="http://opac.saarbruecken.de/libero/Styles/default/screen/ie6.css">
+<![endif]-->
+<script type='text/javascript' src='http://opac.saarbruecken.de/libero/javascripts/PageLoad.js'></script>
+<script type='text/javascript'><!--
+ 
+function default_focus(eo) { 
+	try { 
+		var e = eo.target;
+		if (!e) e = window.event.srcElement;
+		if (e.readOnly==true) return;
+		if (e.value=='.' || e.value=='JJJJ')
+		{
+			e.value=''; 
+			default_value[e.tabIndex] = '';
+		}
+		if (e.value=='.'|| e.value=='JJJJ')
+			default_value[e.tabIndex] = e.value;
+		focus_colour(eo);
+	} catch (err) {
+		//alert('Error on focus: ' + err);
+	} 
+	return true; 
+} 
+function default_blur(eo) { 
+	try { 
+		var e = eo.target;
+		if (!e) e = window.event.srcElement; 
+		if (e.readOnly==true) return;
+		if (e.value=='') {
+			e.value=default_value[e.tabIndex];
+		if (e.value!='.' && e.value!='JJJJ') 
+				e.value = '';
+		}
+		blur_colour(eo);
+	} catch (err) {
+		//alert('Error on blur: ' + err);
+	} 
+	return true; 
+} 
+
+--></script>
+</head>
+<body class="mainbody" onload="page_load('');image_load();">
+<div id='PageShortCuts'>Shortcuts
+<ul class='shortcuts'><li><a accesskey='0' href='#PageTop'>Top of page (Alt+0)</a></li>
+<li><a accesskey='9' href='#PageContent'>Page content (Alt+9)</a></li>
+<li><a accesskey='8' href='#PageMenu'>Page menu (Alt+8)</a></li>
+</ul>
+</div>
+<div id='wait_image' style="width:100%;height:100%;"><img src='http://opac.saarbruecken.de/libero/Styles/default/images/loading_animation.gif' alt='Please wait while page loads.' border='0'/></div>
+<script type='text/javascript'><!--
+var ld=(document.all);
+var ns4=document.layers;
+var ns6=document.getElementById;
+var ns8=!document.all;
+var ie4=document.all;
+function page_load()
+{
+  if (ns4) { ld=document.wait_image; }
+  else if (ns6 && ns8)
+   {   ld=document.getElementById("wait_image").style; }
+  else if (ie4)
+    {  ld=document.all.wait_image.style; }
+}
+function image_load() {
+	if(ns4){ld.visibility="hidden";}
+else if ((ns6 && ns8)|| ie4) ld.display="none";
+}
+--></script>
+<noscript><div id='NoJsMsg'>Your browser does not support javascript, some WebOpac functionallity will not be available.</div></noscript>
+<div id="header_container">
+<div id="page_title">
+<a tabindex='0' name='PageTop' href="http://opac.saarbruecken.de/libero/WebOpac.cls?VERSION=2&amp;ACTION=DEFAULTPAGE&amp;RSN=&amp;DATA=SAR&amp;TOKEN=DBDWmhc8sk4064&amp;Z=1&amp;NewBreadCrumb=1" title="LiberoBanner"><img src='http://opac.saarbruecken.de/libero/Styles/default/images/logo_1.jpg' alt='LiberoBanner' longdesc='default.htm' height='60' width='120'/></a><span class='href_sep'> . </span><span class='hide'><a href='default.htm'>Default</a></span><span class='href_sep'> . </span>
+</div>
+</div> <!-- Close header_container -->
+<div id='page_container'>
+<div id="left_column">
+<a class='hide' name='PageMenu'>PageMenu</a>
+<ul class="Menulist" id='MainMenuList' title='Menu'>
+<li class="MenuItem"><a tabindex='501' href="http://opac.saarbruecken.de/libero/WebOpac.cls?VERSION=2&amp;ACTION=EXITWEBOPAC&amp;RSN=&amp;DATA=SAR&amp;TOKEN=DBDWmhc8sk4064&amp;Z=1&amp;NewBreadCrumb=1&amp;xin=00008332213&amp;CHK=6296" title="LOGOUT">LOGOUT</a></li>
+<li class="MenuItem"><a tabindex='501' href="http://opac.saarbruecken.de/libero/WebOpac.cls?VERSION=2&amp;ACTION=SEARCHS&amp;RSN=&amp;DATA=SAR&amp;TOKEN=DBDWmhc8sk4064&amp;Z=1&amp;NewBreadCrumb=1&amp;xin=00008332213&amp;CHK=6793" title="Katalogsuche">Katalogsuche</a></li>
+<li class="MenuItem"><a tabindex='501' href="http://opac.saarbruecken.de/libero/WebOpac.cls?VERSION=2&amp;ACTION=MEMDISP&amp;RSN=&amp;DATA=SAR&amp;TOKEN=DBDWmhc8sk4064&amp;Z=1&amp;NewBreadCrumb=1&amp;xin=00008332213&amp;CHK=4915" title="Benutzerdetails">Benutzerdetails</a></li>
+<li class="MenuItem"><a tabindex='503' href="http://opac.saarbruecken.de/libero/WebOpac.cls?VERSION=2&amp;ACTION=MEMSTAT&amp;RSN=&amp;DATA=SAR&amp;TOKEN=DBDWmhc8sk4064&amp;Z=1&amp;NewBreadCrumb=1&amp;xin=00008332213&amp;CHK=7655" title="Benutzerkonto-Abfrage">Benutzerkonto-Abfrage</a></li>
+<li class="MenuItem"><a tabindex='504' href="http://opac.saarbruecken.de/libero/WebOpac.cls?VERSION=2&amp;ACTION=MEMPASS&amp;RSN=&amp;DATA=SAR&amp;TOKEN=DBDWmhc8sk4064&amp;Z=1&amp;NewBreadCrumb=1&amp;xin=00008332213&amp;CHK=8584" title="Kennwort ändern">Kennwort ändern</a></li>
+<li class="MenuItem"><a tabindex='505' href="http://opac.saarbruecken.de/libero/WebOpac.cls?VERSION=2&amp;ACTION=MEMSCP&amp;RSN=&amp;DATA=SAR&amp;TOKEN=DBDWmhc8sk4064&amp;Z=1&amp;NewBreadCrumb=1&amp;xin=00008332213&amp;CHK=8867" title="PIN für Selbstverbuchung">PIN für Selbstverbuchung</a></li>
+<li class="MenuItem"><a tabindex='506' href="http://opac.saarbruecken.de/libero/WebOpac.cls?VERSION=2&amp;ACTION=MEMSCD&amp;RSN=&amp;DATA=SAR&amp;TOKEN=DBDWmhc8sk4064&amp;Z=1&amp;NewBreadCrumb=1&amp;xin=00008332213&amp;CHK=6891" title="Konto sperren">Konto sperren</a></li>
+<li class="MenuItem"><a tabindex='515' title='Hilfe - Wird in neuem Fenster geöffnet.' href="/libero/WebOPAChelp/de_memb/index.htm" target="_blank">Hilfe</a></li>
+<li class='MnuVers'>&#169; LIBERO v6.3.1sp5</li>
+</ul>
+</div> <!-- Close left_column -->
+<div id="right_column">
+<a class='hide' name='PageContent'>Page content</a>
+<div id='subheader_container'>
+<div class="MembersMessage">Verwenden Sie zur Navigation bitte immer die Menüoptionen auf der linken Seite des Bildschirms, jede andere Navigationsart beendet diese Sitzung.<br/>Um die Benutzerdienste zu verlassen, verwenden Sie bitte unbedingt die Option <b>LOGOUT</b>.</div>
+</div> <!-- Close subheader_container -->
+<div id='BreadCrumbs'>
+<span class='label'>Sie befinden sich hier</span>: <span class='BreadCrumbSep'> </span><span class='BreadCrumb'>Benutzerkonto</span>
+</div>
+<div class='PageHeading'><h1>Benutzerkonto</h1></div>
+<fieldset id='memb_header'>
+<legend>Benutzerinformation</legend>
+<div class='MemStatMembCapt'>Benutzerdetails für 00008332213</div>
+<div class='MemStatMembDet'>Ablaufdatum der Benutzerkarte: &nbsp; 15 Sep 2016</div>
+<div class='MemStatMembDet'>Ihre letzte Ausleihe erfolgte am:&nbsp;10 Feb 2016</div>
+</fieldset><form name="MEMISSIT" method='post' onsubmit='filterInput();' action="http://opac.saarbruecken.de/libero/WebOpac.cls">
+<div>
+<input type="hidden" name="MGWCHD" value='0'/>
+<input type="hidden" name="TOKEN" value='DBDWmhc8sk4064'/>
+<input type='hidden' name="TOKENX" value='DBDWmhc8sk4064'/>
+<input type="hidden" name="DATA" value='SAR'/>
+<input type='hidden' name='usercode' value=""/>
+<input type='hidden' name='VERSION' value='2'/>
+</div>
+<fieldset id='issued_items'>
+<legend class='MemStatLoanCapt'>Ausgeliehene Medien
+<br>Insgesamt: 1</legend>
+
+<table summary="Ausgeliehene Medien">
+	<caption>Ausgeliehene Medien<br>Insgesamt: 1</caption>
+	<colgroup>
+		<col class="barcode" />
+		<col class="titleVolRef" />
+		<col class="author" />
+		<col class="callNumber" />
+		<col class="dueDate" />
+		<col class="numRenewals" />
+		<col class="renew" />
+	</colgroup>
+	<thead>
+		<tr>
+			<th scope="col" id="th1_1" class="barcode" abbr="bc"><span>Barcode</span></th>
+			<th scope="col" id="th1_2" class="titleVolRef" abbr="tit"><span>Titel / Bandreferenz / Zusätzliche Informationen</span></th>
+			<th scope="col" id="th1_3" class="author" abbr="aut"><span>Verfasser</span></th>
+			<th scope="col" id="th1_4" class="callNumber" abbr="cn"><span>Regalstandort</span></th>
+			<th scope="col" id="th1_5" class="dueDate" abbr="due"><span>Fällig Datum/Uhrzeit</span></th>
+			<th scope="col" id="th1_6" class="numRenewals" abbr="num"><span>Anz. Verlängerungen</span></th>
+<th scope="col" id="th1_8" class="renew" abbr="ren"><span>Verlängern<br><button id='renewCheck' value='true' class='HitButton'>Alle wählen</button></span></th>
+<script>$('#renewCheck').bind('click',function(e){e.preventDefault();if($('#renewCheck').attr("value")=='true'){$('#renewCheck').html('Alle abwählen');$('[headers="th1_8"]').find('[type="checkbox"]').each(function(){$(this).attr("checked",true)});$('#renewCheck').attr("value",false);}else{$('#renewCheck').html('Alle wählen');$('[headers="th1_8"]').find('[type="checkbox"]').each(function(){$(this).attr("checked",false)});$('#renewCheck').attr("value",true);}})</script>
+		</tr>
+	</thead>
+<tbody>
+<tr class='oddRow'>
+<th rowspan='1' scope='row' class='barcode' headers='th1_1'>6696096046</th>
+<td headers='th1_2'>Mysteriös: geheimnisvollen Phänomenen auf der Spur<br/><br/><span class='ItemNotesLeader'><strong>Exemplarinformation</strong></span><br/> 6696096046 - 1. Verlängerung   für Benutzer #00008332213; Verlängerung des Mediums nicht erlaubt bis:  2 Mär 2016.</td>
+<td headers='th1_3'>Pfendtner, Ingrid</td>
+<td headers='th1_4'>Uax 1 Pfend</th>
+<td headers='th1_5'>  9 Mär 2016</td>
+<td headers='th1_6'>0</td>
+<td headers='th1_8' title='3|6696096046  1. Verlängerung   für Benutzer #00008332213|?* Barcode 6696096046 ?? Verlängerung des Mediums nicht erlaubt bis:  2 Mär 2016'> &nbsp; </td>
+</tr>
+</tbody>
+</table>
+<input type="hidden" name="bno" value='00008332213'/><input type="hidden" name="mid" value='67873'/><input type="hidden" name="ACTION" value="MEMSLFISS"/><input tabindex='1' type="submit" class='HitButton' id='btnSubmitIssued' name="SubmitIssued" value='Senden'/> 
+<input tabindex='2' id='btnReset' class='HitButton' type="reset" value='Zurücksetzen'/>
+</fieldset> <!-- end issued_items -->
+</form>
+<form name="MEMSLFRES" method='post' onsubmit='filterInput();' action="http://opac.saarbruecken.de/libero/WebOpac.cls">
+<fieldset id='reserved_items_flds'>
+<legend class='MemStatReCapt'>Vorgemerkte Medien</legend>
+
+<table border='1' summary="Vorgemerkte Medien">
+	<caption>Vorgemerkte Medien</caption>
+	<colgroup>
+		<col class="pos" />
+		<col class="barcode" />
+		<col class="title" />
+		<col class="author" />
+		<col class="callNumber" />
+		<col class="reserveDate" />
+		<col class="delete" />
+	</colgroup>
+	<thead>
+		<tr>
+			<th scope="col" id="th7_1" class="pos" abbr="pos"><span>Nr.</span></th>
+			<th scope="col" id="th7_2" class="barcode" abbr="bc"><span>Barcode</span></th>
+			<th scope="col" id="th7_3" class="title" abbr="tit"><span>Titel / Bandangabe</span></th>
+			<th scope="col" id="th7_4" class="author" abbr="aut"><span>Verfasser</span></th>
+			<th scope="col" id="th7_5" class="callNumber" abbr="cno"><span>Regalstandort</span></th>
+			<th scope="col" id="th7_6" class="reserveDate" abbr="date"><span>Vormerkdatum</span></th>
+			<th scope="col" id="th7_7" class="delete" abbr="del"><span>Löschen</span></th>
+		</tr>
+	</thead>
+	<tbody>
+<tr class='oddRow'>
+<td headers='th7_1'>1</td>
+<td headers='th7_2'></td>
+<td headers='th7_3'>Agatha Raisin und die Tote im Feld</td>
+<td headers='th7_4'>Beaton, Marion Chesney</td>
+<td headers='th7_5'>1 Beato</td>
+<td headers='th7_6'>10 Feb 2016</td>
+<td headers='th7_7'><input tabindex='3' type="checkbox" value='456015' id='RES456015RES' name='RES456015RES'/><label id='lblRES456015RES' for='RES456015RES' class='hide'> </label></td>
+</tr>
+	</tbody>
+</table>
+<div>
+<input type="hidden" name="MGWCHD" value='0'/>
+<input type="hidden" name="TOKEN" value='DBDWmhc8sk4064'/>
+<input type='hidden' name="TOKENX" value='DBDWmhc8sk4064'/>
+<input type="hidden" name="DATA" value='SAR'/>
+<input type='hidden' name='usercode' value=""/>
+<input type='hidden' name='VERSION' value='2'/>
+<input type='hidden' name="bno" value="00008332213"/>
+<input type='hidden' name="mid" value="67873"/>
+</div>
+<input type="hidden" name="ACTION" value="MEMSLFRES"/>
+<input tabindex='4' type="submit" class='HitButton' id='btnsubmitButtonName' name="submitButtonName" value='Senden'/> <input tabindex='5' id='btnsubmitButtonNameReset' class='HitButton' type="reset" value='Zurücksetzen'/>
+</fieldset>
+</form>
+<fieldset id='accountstatus_fields'>
+<legend>Gebührenstatus</legend>
+
+<table border='1' summary="Gebührenstatus">
+	<caption>Gebührenstatus</caption>
+	<colgroup>
+		<col class="date" />
+		<col class="time" />
+		<col class="code" />
+		<col class="reference" />
+		<col class="title" />
+		<col class="amount" />
+		<col class="paid" />
+		<col class="outstanding" />
+	</colgroup>
+	<thead>
+		<tr>
+			<th scope="col" id="th14_1" class="date" abbr="bc"><span>Datum</span></th>
+			<th scope="col" id="th14_2" class="time" abbr="tit"><span>Zeit</span></th>
+			<th scope="col" id="th14_3" class="code" abbr="aut"><span>Code</span></th>
+			<th scope="col" id="th14_4" class="reference" abbr="due"><span>Referenz</span></th>
+			<th scope="col" id="th14_5" class="title" abbr="num"><span>Titel/Beschreibung</span></th>
+			<th scope="col" id="th14_6" class="amount" abbr="ret"><span>Betrag</span></th>
+			<th scope="col" id="th14_7" class="paid" abbr="ren"><span>Bereits bezahlt</span></th>
+			<th scope="col" id="th14_8" class="outstanding" abbr="ren"><span>Noch zu bezahlen</span></th>
+		</tr>
+	</thead>
+	<tbody>
+<tr class='TotalsRow oddRow'>
+<td headers='th14_1' colspan='5'>Noch zu bezahlender Gesamtbetrag: &nbsp;</td>
+<td headers='th14_6'>   0,00</td>
+<td headers='th14_7'>   0,00</td>
+<td headers='th14_8'>   0,00</td>
+</tr></tbody>
+</table>
+</fieldset>
+</div> <!-- Close right_column --> 
+</div> <!-- Close page_container --> 
+<div id='footer_container'>
+<span class='href_sep'> . </span>Bei weiteren Fragen zu den Funktionen dieser Seite wenden Sie sich bitte an Ihre Bibliothek.<br />
+<span class='href_sep'> . </span><a tabindex='1501' class='FooterEmail' href="http://opac.saarbruecken.de/libero/WebOpac.cls?VERSION=2&amp;ACTION=EMAILFORM&amp;RSN=456015&amp;DATA=SAR&amp;TOKEN=DBDWmhc8sk4064&amp;Z=1&amp;xin=00008332213&amp;CHK=5139" title="Diese Seite per E-Mail versenden">Diese Seite per E-Mail versenden</a><span class='href_sep'> . </span><a class='LiberoPower' title='LIBERO' href='http://www.libero.com.au'>Powered by LIBERO &#169; 2013</a><span class='href_sep'> . </span>&nbsp;
+</div> <!-- Close footer_container --> 
+<script type='text/javascript'>window.focus();</script>
+</body></html>

@@ -70,7 +70,7 @@ PAGES=(${PAGES[@]} bibdia_stabib/list.html bibdia_stabib/list_abhol.html bibdia_
 mkdir -p $OUTPATH/libero5
 
 test libero5 start start.html
-test libero5 update update_empty.html update55sp73_empty.html update55sp4_2books.html update55sp73_books.html update.login.faileden.html update55sp4_2books.fakesaarbrucken.html
+test libero5 update update_empty.html update55sp73_empty.html update55sp4_2books.html update55sp73_books.html update.login.faileden.html update55sp4_2books.fakesaarbrucken.html update6orders.saar.html
 
 
 #=============SISIS==============
