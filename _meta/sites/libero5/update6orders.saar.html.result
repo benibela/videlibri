@@ -1,7 +1,7 @@
 book := {}
+bookTableBroken := false()
 new-update-page := text{"http://opac.saarbruecken.de/libero/WebOpac.cls?VERSION=2&amp;ACTION=MEMSTAT&amp;RSN=&amp;DATA=SAR&amp;TOKEN=DBDWmhc8sk4064&amp;Z=1&amp;NewBreadCrumb=1&amp;xin=00008332213&amp;CHK=7655"}
 delete-current-books() := ()
-bookTableBroken := false()
 hasShelfMark := false()
 bookTableBroken := true()
 noExtendingPossible := true()

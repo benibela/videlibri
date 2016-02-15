@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <html>
+<t:s>$bookTableBroken:=false()</t:s>
 <t:switch-prioritized>
 <body>
  <a t:condition="contains(@href, 'MEMSTAT')">{$new-update-page := @href}</a>?
 
  <fieldset><div class='MemStatMembCapt'>
     <template:read var="delete-current-books()"/>
-    <template:read source="false()" var="bookTableBroken"/>
     {hasShelfMark := false()}
  </div></fieldset>
 
@@ -101,12 +101,13 @@
 <form>
   <template:meta default-text-matching="regex"/>
   Systemmeldung|System Nachricht|Exception Message
-  <template:read source="false()" var="bookTableBroken"/>
   <p>Ihre Anforderung konnte|Your process</p>
   <blockquote>
     <ul><template:read var="raise()" source="deep-text()"/></ul>
   </blockquote>
 </form>
+
+<head><title>Log out redirect</title>{$session-lost := true}</head>
 
 </t:switch-prioritized>
 

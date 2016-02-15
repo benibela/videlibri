@@ -1,7 +1,7 @@
 book := {}
+bookTableBroken := false()
 new-update-page := text{"http://katalog.bibl.fh-duesseldorf.de/libero/WebOpac.cls?VERSION=2&amp;ACTION=MEMSTAT&amp;RSN=0&amp;DATA=DUE&amp;TOKEN=zabOpUzwHQ3373&amp;Z=1&amp;NewBreadCrumb=1&amp;xin=9000491&amp;CHK=7545"}
 delete-current-books() := ()
-bookTableBroken := false()
 hasShelfMark := false()
 bookTableBroken := true()
 noExtendingPossible := true()

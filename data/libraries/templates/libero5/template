@@ -22,9 +22,13 @@
 
 <action id="update-all">
   <if test="not($update-page)"><call action="internal-connect"/></if>
-  <s>$new-update-page := ()</s>
-  <page url="{$update-page}" templateFile="update"/>
+  <s>$new-update-page := (), $session-lost := false()</s>
+  <page url="{$update-page}" templateFile="update"/>  
   <s>$update-page := $new-update-page</s> <!-- Pattern assigns to $new-update-page instead $update-page as some libraries might not have that link. todo: check all libs, and remove $new-update-page if possible-->
+  <if test="$session-lost">
+    <call action="internal-connect"/>
+    <page url="{$update-page}" templateFile="update"/>
+  </if>
 </action>
 
 <action id="renew-list">
