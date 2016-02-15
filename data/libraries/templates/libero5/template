@@ -52,8 +52,11 @@
 </action>
 
 <action id="cancel-list">
-  <variable name="book-list">string-join(for $book in $cancel-books return $book.cancelId, "&amp;")</variable>
-  <s>f := $cancelForm, f.post := concat($f.post, "&amp;", $book-list)</s>
+  <s>$update-page := (), 
+     $book-list := string-join(for $book in $cancel-books return $book.cancelId, "&amp;"),
+     $f := $cancelForm, 
+     $f.post := concat($f.post, "&amp;", $book-list)
+   </s>
   <page url="{$f}">
   <template>
     <b>Löschen der Benutzervormerkung wird bearbeitet</b>
