@@ -117,6 +117,9 @@ PAGES=(${PAGES[@]} pica/update3.html pica/update_abholen.html pica/update_luebec
 ADDTEMPLATE pica/extend 1
 PAGES=(${PAGES[@]} pica/extend2.html)
 
+test pica searchDetails searchDetails.html
+
+
 #================LBS=============
 mkdir -p $OUTPATH/lbs
 ADDTEMPLATE lbs/list 1
