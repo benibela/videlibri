@@ -1,6 +1,13 @@
 <template:switch-prioritized>
   <html>
     <template:meta default-text-matching="regex"/>
+    { declare function local:img-to-status($img){
+        switch (extract($img/@src, "verfu_(.*)[.]gif", 1))
+          case "ja" return "available"
+          case "nein" return "lend"
+          case "info" return "virtual"
+          default return "unknown"
+      };()  }
     <DIV id="right">
       <DIV class="inside">
           <DIV>
@@ -33,39 +40,64 @@
         
           <DIV class="fsgrp">
             <DIV>
-              <DIV class="rTable_div">
-                <TABLE class="rTable_table"> 
-                 <!--{firstIndex := tbody/tr[1]/td[1] * 1}-->
-                  <thead/>
-                  <TR>
-                    <TD>{lastIndex := . * 1}</TD>
-                    <TD/><TD/> <!-id, checkbox, kind--> 
-                    <TD>
-                      <A>{
-                        if ($lastIndex > $lastSearchedIndex) then (
-                           book := {
-                             "title": extract(., "^[^/]+"), 
-                             "author": extract(., "^[^/]+/([^-]+)", 1), 
-                             "publisher": extract(., "-([^-]+)$", 1),
-                             "_searchId": encode-for-uri(concat("ZTEXT       ", extract(@href, "\('(.*)'\)", 1))),
-                             "_index": $lastIndex*1
-                           }
-                        ) else ()
-                      }</A>
-                      <A>Volltext<t:read var="book.Volltext!" source="x'Volltext ( {@href} )'"/></A>?
-                    </TD>
-                    <!-- td sometimes signature -->
-                    <TD><img>{
-                      book.statusId := switch (extract(@src, "verfu_(.*)[.]gif", 1))
-                        case "ja" return "available"
-                        case "nein" return "lend"
-                        case "info" return "virtual"
-                        default return "unknown"
-                    }</img></td> 
-                    <TD>{if ($lastIndex > $lastSearchedIndex) then (book.year := .,  lastSearchedIndex := $lastIndex) else ()}</TD>
-                  </TR>*
-                </TABLE>
-              </DIV>
+              <t:switch>
+                <DIV class="rTable_div">
+                  <TABLE class="rTable_table"> 
+                   <!--{firstIndex := tbody/tr[1]/td[1] * 1}-->
+                    <thead/>
+                    <TR>
+                      <TD>{lastIndex := if (. castable as xs:integer) then xs:integer(.) else get("lastIndex", 1) }</TD>
+                      <t:if test="$lastIndex > $lastSearchedIndex">
+                        <TD/><TD/> <!-id, checkbox, kind--> 
+                        <TD>
+                          <A>{
+                            
+                               book := {
+                                 "title": extract(., "^[^/]+"), 
+                                 "author": extract(., "^[^/]+/([^-]+)", 1), 
+                                 "publisher": extract(., "-([^-]+)$", 1),
+                                 "_searchId": encode-for-uri(concat("ZTEXT       ", extract(@href, "\('(.*)'\)", 1))),
+                                 "_index": $lastIndex
+                               }
+ 
+                          }</A>
+                          <A>Volltext<t:read var="book.Volltext!" source="x'Volltext ( {@href} )'"/></A>?
+                        </TD>
+                        <!-- td sometimes signature -->
+                        <TD><img>{book.statusId := local:img-to-status(.) }</img></td> 
+                        <TD>{book.year := ., lastSearchedIndex := $lastIndex}</TD>
+                      </t:if>
+                    </TR>*
+                  </TABLE>
+                </DIV>
+                
+                <div class="rList_wrapper"> <ul class="rList">
+                  <li class="rList_li_even">
+                  <!--<span class="rList_cover"/>-->
+                  
+                
+                  <span class="rList_titel">{$title := .}</span>
+                  <span class="rList_num">{lastIndex := xs:integer(.)}</span>
+                  <t:if test="$lastIndex > $lastSearchedIndex">
+                    <span class="rlist_icon"><img>{book := {
+                      "title": $title,
+                      "_searchId": encode-for-uri(concat("ZTEXT       ", extract($title//a/@href, "\('(.*)'\)", 1))),
+                      "_index": $lastIndex,
+                      "statusId" : local:img-to-status(.)
+                    }}</img></span>
+                    
+                    <span class="rList_medium">
+                    {let $temp := tokenize(., "-")!normalize-space() return (
+                      $book.author := $temp[1],
+                      if ($temp[last()] castable as xs:integer) then (
+                        $book.year := $temp[last()],
+                        $book.publisher := $temp[last() - 1 ]
+                      ) else $book.publisher := $temp[last()]
+                    )}
+                    </span>
+                  </t:if> 
+                </li>+</ul></div>
+              </t:switch>
             </DIV>
           </DIV>
         </DIV>
@@ -81,7 +113,7 @@
 
   <html>  
     <form>
-      <span>Vollanzeige</span>
+      <span class="txtinsert">Vollanzeige</span>
 
       <t:switch-prioritized>
         <input title="Zurück zur Trefferliste">{backButtonName := uri-encode(@name)}</input>
