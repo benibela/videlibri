@@ -429,7 +429,6 @@ end;
 
 procedure Java_de_benibela_VideLibri_Bridge_VLSetLibraryDetails(env:PJNIEnv; this:jobject; id: jstring; details: jobject); cdecl;
 var
-  lib: TLibrary;
   i: Integer;
   detailClass: jclass;
   names: jobject;
@@ -977,7 +976,6 @@ end;
 
 function Java_de_benibela_VideLibri_Bridge_VLBookOperation(env:PJNIEnv; this:jobject; jbooks: jobject; operation: jint): jobject; cdecl;
 var
-  acc: TCustomAccountAccess;
   books: TBookList;
   book: TBook;
   i: Integer;
@@ -1299,7 +1297,6 @@ procedure Java_de_benibela_VideLibri_Bridge_VLSearchConnect(env:PJNIEnv; this:jo
 var
   searcherAccess: TLibrarySearcherAccessWrapper;
   lib: TLibrary;
-  more: jobject;
   libId: String;
 begin
   if logging then log('Bridge_VLSearchConnect started');
@@ -1454,8 +1451,6 @@ end;
 procedure Java_de_benibela_VideLibri_Bridge_VLSearchCompletePendingMessage(env:PJNIEnv; this:jobject; searcher: jobject; res: jint); cdecl;
 var
   sa: TLibrarySearcherAccessWrapper;
-  i: Integer;
-
 begin
   if logging then log('Bridge_VLSearchOrderConfirmed started');
   try
@@ -1500,7 +1495,6 @@ end;
 
 function Java_de_benibela_VideLibri_Bridge_VLGetOptions(env:PJNIEnv; this:jobject): jobject; cdecl;
 var
-  lib: TLibrary;
   i: Integer;
   userlibs: TList;
   temp, temp2: jobject;
@@ -1533,6 +1527,7 @@ end;
 function Java_de_benibela_VideLibri_Bridge_VLSetOptions(env:PJNIEnv; this:jobject; options: jobject): jobject; cdecl;
 begin
   if logging then bbdebugtools.log('de.benibela.VideLibri.Bride.VLSetOptions (started)');
+  result := nil;
   //bbdebugtools.log(strFromPtr(libraryManager));
   //bbdebugtools.log(IntToStr(libraryManager.count));
   try
@@ -1579,6 +1574,7 @@ var accs: array of TCustomAccountAccess;
     i: Integer;
 begin
   if logging then bbdebugtools.log('de.benibela.VideLibri.Bride.VLExportAccounts (started)');
+  result := nil;
   try
     setlength(accs, j.getArrayLength(accounts));
     if length(accs) > 0 then begin
@@ -1642,6 +1638,7 @@ var
   i: Integer;
 begin
   if logging then bbdebugtools.log('de.benibela.VideLibri.Bride.VLImportAccounts (started)');
+  result := nil;
   try
     parser := TTreeParser(PtrInt(j.getLongField(data, importExportDataFields.nativePtrJ)));
     jaccounts := j.getObjectField(data, importExportDataFields.accountsToImportAL);
