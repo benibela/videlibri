@@ -136,7 +136,7 @@ ADDTEMPLATE aDISWeb/list{splitIndex:=0} 8
 PAGES=(${PAGES[@]} aDISWeb/list_munich.html aDISWeb/list_nurnberg.html aDISWeb/list_testhdm.html aDISWeb/list_testhdm2.html  aDISWeb/list_provided_testhdm.html aDISWeb/list_requested_munich.html aDISWeb/list_requested_testhdm.html aDISWeb/list_orders_munich.html)
 
 
-test aDISWeb search search_stuttgart_abk.do.html search_no-result.aalen.html search_no-result.voebb.html search_single-page.biberach.html search_go-back.freiburg.html search_single-result_hdmtest.html search_single-result_hdmtest2.html search_single-result_nuernberg.html search_nurnberg.html search_munich.html search_dortmund.html  search_due.html search_go-back.voebb.html  search_new.voebb.html
+test aDISWeb search search_stuttgart_abk.do.html search_no-result.aalen.html search_no-result.voebb.html search_single-page.biberach.html search_go-back.freiburg.html search_single-result_hdmtest.html search_single-result_hdmtest2.html search_single-result_nuernberg.html search_nurnberg.html search_munich.html search_dortmund.html  search_due.html search_go-back.voebb.html  search_new.voebb.html search_new5.voebb.html
 
 ADDTEMPLATE aDISWeb/searchBasicForm 4
 PAGES=(${PAGES[@]}  aDISWeb/search_go-back.voebb..html aDISWeb/search_due..html  aDISWeb/search_go-back.freiburg..html aDISWeb/search_go-back.single-result.voebb.html )

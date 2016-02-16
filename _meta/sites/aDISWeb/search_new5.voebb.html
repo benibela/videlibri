@@ -1,0 +1,451 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="de" lang="de">
+<!-- solution for: conditional-comments block downloads  -->
+<!--[if IE]><![endif]--><head>
+	<style type="text/css">
+		@import url(css/aDISStandard.css);
+	</style>
+	<script src="js/aDISMain.js" type="text/javascript"></script>
+	<script src="js/fckeditor/fckeditor.js" type="text/javascript"></script>
+	<title> Wir bringen Medien in Bewegung </title><script type="text/javascript">
+	var text = '';
+	window.defaultStatus=text;
+</script>	<title>VOEBB</title>
+  <!--
+  (c) Software: aDIS/BMS und aDIS/Archiv by |a|S|tec| GmbH Berlin und Muenchen - www.astec.de
+  CSS-Anpassungen/Beratung Barrierefreiheit: ena Webstudio - www.ena-webstudio.com
+  Formulare, Tabellen, etc. werden automatisch durch aDIS generiert
+  Projekt: VOEBB, Verbund, Deutsch - OPAC02
+  Letztes Update: 22.10.2015
+  //-->
+  <!-- Always force latest IE rendering engine (even in intranet) & Chrome Frame -->
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+  
+  <meta http-equiv="cache-control" content="no-cache" />
+ <meta http-equiv="content-type" content="text/html; charset=utf-8" />  
+  <meta http-equiv="content-style-type" content="text/css" />
+  <meta http-equiv="content-script-type" content="text/javascript" />
+  <meta http-equiv="content-language" content="de" />
+  <meta name="language" content="de" />
+  
+  <!-- Individuelles Meta -->
+  <meta name="description" content="Recherche in 2,7 Millionen Titeln der �ffentlichen Bibliotheken des Landes Berlin, Bestellung, Kontoverwaltung, Online-Ausleihe von E-Books, E-Audios und E-Videos" />
+  
+  <!-- START: LAYOUT-Framework -->
+  <link rel="stylesheet" href="/aDISWeb_vob/css/framework.css" type="text/css" media="screen" />
+  <!--[if lte IE 7]><link rel="stylesheet" href="/aDISWeb_vob/css/framework_iefixes.css" type="text/css" media="screen" /><![endif]-->
+
+  <!-- START: aStec-Styles -->    
+  <link rel="stylesheet" href="/aDISWeb_vob/css/layout.css" type="text/css" media="screen" />
+  <!--[if lt IE 7]><link rel="stylesheet" href="/aDISWeb_vob/css/ieonly.css" type="text/css" media="screen" /><![endif]-->
+  <!--[if IE 7]><link rel="stylesheet" href="/aDISWeb_vob/css/ieonly7.css" type="text/css" media="screen" /><![endif]-->
+  <!--[if gte IE 8]><link rel="stylesheet" href="/aDISWeb_vob/css/ieonly8.css" type="text/css" media="screen" /><![endif]-->
+  <link rel="stylesheet" href="/aDISWeb_vob/css/print.css" type="text/css" media="print" /> 
+
+  <!-- Mobildarstellung -->
+  <meta name="viewport" content="width=device-width; initial-scale=1.0" />
+  <link rel="stylesheet" href="/aDISWeb_vob/css/media.css" type="text/css">
+  <!--[if lt IE 9]>
+	<script type="text/javascript" src="/aDISWeb_vob/js/css3-mediaqueries.js"></script>
+   <![endif]-->
+
+  <!-- Sonstiges -->
+  <link rel="shortcut icon" type="image/x-icon" href="/aDISWeb_vob/favicon.ico" />
+  <script type="text/javascript" src="/aDISWeb_vob/js/cookies.js"></script>
+  <script type="text/javascript" src="/aDISWeb_vob/js/efa_fontsize.js"></script>
+</head>
+<body class="dreier">
+<script type="text/javascript" src="/aDISWeb/app?service=asset&amp;sp=S%2Fde%2Fastec%2FaDISWeb%2Fcomponents%2FaDISAjax.min.js"></script>
+<script type="text/javascript"><!--
+
+
+
+
+function startIdleTimer() {
+  if (typeof idleId != 'undefined')
+    clearTimeout(idleId)
+  idleId = window.setTimeout("to('"+ idleLink + "')", idleTime);
+  }			
+function to(link) {
+  location.href=link;
+  }
+
+
+
+
+
+function EventTarget() {
+	this.handlers = [];
+	}
+EventTarget.prototype = {
+	constructor : EventTarget,
+	addhandler: function (type, handler) {
+		if (typeof this.handlers[type] == "undefined")
+			this.handlers[type] = [];
+		this.handlers[type].push(handler);
+		},
+	fire : function (event) {
+		if (this.handlers[event.type] instanceof Array) {
+			var handlers = this.handlers[event.type];
+			for (var i = 0; i < handlers.length; i++)
+				handlers[i](event);
+			}
+		}
+	};
+var eventHandler = new EventTarget();
+
+function setupHandlers()  {
+	document.onmousedown = docOnEvent;		
+	document.onkeydown = docOnEvent;	
+	document.onkeypress = docOnEvent;
+	document.onhelp = cancelF1;
+	
+	initFormElements();
+	initIframes();
+	initScrollPos();
+	}
+function getDimensions()  {
+	document.forms[0].scrDim.value = screen.width + ";" + screen.height;
+	if (window.innerWidth)
+		document.forms[0].winDim.value = window.innerWidth + ";" + window.innerHeight;
+	else
+		document.forms[0].winDim.value = document.body.offsetWidth + ";" + document.body.offsetHeight;
+	node = document.getElementById("img_content");
+	if (node != undefined)
+		document.forms[0].imgDim.value = node.offsetWidth + ";" + node.offsetHeight;
+	}
+
+
+
+
+
+aDISAjax.URL = "/aDISWeb/app;jsessionid=2A06DAB8406BC48A2704BA04A31E8114?service=aDISAjax/POOLVX00vb@@@@@@_44274D00_311E8300/$AjaxScript";
+
+
+ 
+RButton.add("lrb_0_11","AK14842728","lcont_0","BM3600","");
+ 
+RButton.add("lrb_2_11","AK14184259","lcont_2","BM3600","");
+ 
+RButton.add("lrb_3_11","AK14181318","lcont_3","BM3600","");
+ 
+RButton.add("lrb_4_11","AK14176134","lcont_4","BM3600","");
+ 
+RButton.add("lrb_6_11","AK14104429","lcont_6","BM3600","");
+ 
+RButton.add("lrb_7_11","AK14077020","lcont_7","BM3600","");
+ 
+RButton.add("lrb_9_11","AK14055420","lcont_9","BM3600","");
+ 
+RButton.add("lrb_10_11","AK14000714","lcont_10","BM3600","");
+ 
+RButton.add("lrb_13_11","AK13987533","lcont_13","BM3600","");
+ 
+RButton.add("lrb_14_11","AK13985216","lcont_14","BM3600","");
+ 
+RButton.add("lrb_15_11","AK13970608","lcont_15","BM3600","");
+ 
+RButton.add("lrb_16_11","AK13934650","lcont_16","BM3600","");
+ 
+RButton.add("lrb_17_11","AK13928631","lcont_17","BM3600","");
+ 
+RButton.add("lrb_19_11","AK13896324","lcont_19","BM3600","");
+ 
+RButton.add("lrb_20_11","AK13723302","lcont_20","BM3600","");
+ 
+RButton.add("lrb_21_11","AK13713385","lcont_21","BM3600","");
+
+
+aDIS.onLoad = function (e)
+{
+
+  idleTime=599940000;
+  idleLink="/aDISWeb/app;jsessionid=2A06DAB8406BC48A2704BA04A31E8114?service=direct/1/POOLVX00vb@@@@@@_44274D00_311E8300/$Timeout";
+  startIdleTimer();
+
+
+if (!e) var e = window.event;
+document.forms[0].scriptEnabled.value=true;
+if (self.specialOnLoad != undefined)
+	specialOnLoad(e);
+setupHandlers();
+getDimensions();
+
+
+
+}
+
+aDIS.addListener('load', window, aDIS.onLoad);
+
+
+// --></script>
+<script type="text/javascript">
+// <![CDATA[
+  if (efa_fontSize) efa_fontSize.efaInit();
+// ]]>
+</script>
+
+<div class="aDISMaske"><form method="post" name="Form0" action="/aDISWeb/app;jsessionid=2A06DAB8406BC48A2704BA04A31E8114" onsubmit="return formOnSubmit();">
+<input type="hidden" name="service" value="direct/1/POOLVX00vb@@@@@@_44274D00_311E8300/$Form.form"/>
+<input type="hidden" name="sp" value="S0"/>
+<input type="hidden" name="Form0" value="focus,keyCode,stz,source,selected,requestCount,scriptEnabled,scrollPos,scrDim,winDim,imgDim,$Textfield,$FormConditional,textButton,$FormConditional$0,textButton$0,$FormConditional$1,textButton$1,$FormConditional$2,textButton$2,$FormConditional$3,textButton$3,$FormConditional$4,$FormConditional$5,textButton$4,$FormConditional$6,textButton$5,$FormConditional$7,textButton$6,textButton$7,textButton$8,textButton$9,textButton$10,textButton$11,textButton$12,textButton$13,$Toolbar,cellCheck,cellCheck$0,cellCheck$1,cellCheck$2,cellCheck$3,cellCheck$4,cellCheck$5,cellCheck$6,cellCheck$7,cellCheck$8,cellCheck$9,cellCheck$10,cellCheck$11,cellCheck$12,cellCheck$13,cellCheck$14,cellCheck$15,cellCheck$16,cellCheck$17,cellCheck$18,cellCheck$19,cellCheck$20,$Toolbar$0"/>
+<input type="hidden" name="focus" value=""/>
+<input type="hidden" name="keyCode" value="0"/>
+<input type="hidden" name="stz" value=""/>
+<input type="hidden" name="source" value=""/>
+<input type="hidden" name="selected" value=""/>
+<input type="hidden" name="requestCount" value="7"/>
+<input type="hidden" name="scriptEnabled" value="T"/>
+<input type="hidden" name="scrollPos" value="0"/>
+<input type="hidden" name="scrDim" value=""/>
+<input type="hidden" name="winDim" value=""/>
+<input type="hidden" name="imgDim" value=""/>
+<input type="hidden" name="$FormConditional" value="T"/>
+<input type="hidden" name="$FormConditional$0" value="T"/>
+<input type="hidden" name="$FormConditional$1" value="T"/>
+<input type="hidden" name="$FormConditional$2" value="T"/>
+<input type="hidden" name="$FormConditional$3" value="T"/>
+<input type="hidden" name="$FormConditional$4" value="F"/>
+<input type="hidden" name="$FormConditional$5" value="T"/>
+<input type="hidden" name="$FormConditional$6" value="T"/>
+<input type="hidden" name="$FormConditional$7" value="T"/>
+				
+<div id="wrapper">
+  <div id="wrapper_inside">
+  
+    <div id="header" role="banner">
+      <div class="inside">     
+      
+          <ul id="sprunglinks">
+            <li><a class="sprung" href="#main">Zum Hauptinhalt</a></li>
+            <li><a class="sprung" href="#left">Zur Navigation</a></li>
+            <li><a class="sprung" href="#right">Zu weiteren Bedienelementen</a></li>
+          </ul>
+                            
+          <p id="logo"><a href="/aDISWeb/app;jsessionid=2A06DAB8406BC48A2704BA04A31E8114?service=direct/1/POOLVX00vb@@@@@@_44274D00_311E8300/$InternalLink.directlink&amp;sp=S%24%24GFNV_1&amp;sp=SStartseite%3DCW00&amp;requestCount=7" fld="$$GFNV_1" title="Zur Startseite"><img src="/aDISWeb_vob/images/voebb_logo.gif" height="90" width="64" alt="Verbund der &ouml;ffentlichen Bibliotheken Berlins" /></a>	<span class="outside">.</span></p>
+       
+          <script type="text/javascript">
+          // <![CDATA[
+            if (efa_fontSize) document.write(efa_fontSize.allLinks);
+          // ]]>
+          </script>
+          
+          <div class="block" id="spruch"><span>Wir bringen Medien in Bewegung</span> </div>
+
+      </div>
+    </div>
+  
+    <div id="container">
+      <div id="container_inside">
+
+        <div id="left">
+          <div class="inside">
+
+            <h1 class="invisible">Navigation</h1>
+   
+            <div class="block" id="navbox">
+            <div id="R20"><span class="bnzeig"></span><span class="mmzeig">Sie sind nicht angemeldet.</span> </div> 
+            </div>
+
+            <div class="mod_navigation block" id="unav" role="navigation"><div class="tree_div">
+<ul class="tree_ul">
+<li class="tree_leaf_li">
+<a href="/aDISWeb/app;jsessionid=2A06DAB8406BC48A2704BA04A31E8114?service=direct/1/POOLVX00vb@@@@@@_44274D00_311E8300/$Tree.treeNodes&amp;sp=SH&amp;requestCount=7" class="tree_leaf_a"><span>Startseite</span></a><span class="outside">.</span></li>
+<li class="tree_leaf_li">
+<a href="/aDISWeb/app;jsessionid=2A06DAB8406BC48A2704BA04A31E8114?service=direct/1/POOLVX00vb@@@@@@_44274D00_311E8300/$Tree.treeNodes&amp;sp=SL1&amp;requestCount=7" class="tree_leaf_a"><span>Anmelden</span></a><span class="outside">.</span></li>
+<li class="tree_leaf_li">
+<span class="tree_disabled">Abmelden</span>
+<span class="outside">.</span></li>
+<li class="tree_leaf_li">
+<a href="/aDISWeb/app;jsessionid=2A06DAB8406BC48A2704BA04A31E8114?service=direct/1/POOLVX00vb@@@@@@_44274D00_311E8300/$Tree.treeNodes&amp;sp=SAX&amp;requestCount=7" class="tree_leaf_a"><span>Aktuelles</span></a><span class="outside">.</span></li>
+<li class="tree_leaf_li">
+<a href="/aDISWeb/app;jsessionid=2A06DAB8406BC48A2704BA04A31E8114?service=direct/1/POOLVX00vb@@@@@@_44274D00_311E8300/$Tree.treeNodes&amp;sp=SBK&amp;requestCount=7" class="tree_leaf_a"><span>Mein Konto</span></a><span class="outside">.</span></li>
+<li class="tree_branch_li_exp">
+<a href="/aDISWeb/app;jsessionid=2A06DAB8406BC48A2704BA04A31E8114?service=direct/1/POOLVX00vb@@@@@@_44274D00_311E8300/$Tree.treeNodes&amp;sp=SS1&amp;requestCount=7" class="tree_branch_a"><span>Suche</span></a><div class="tree_divsub">
+<ul class="tree_ulsub">
+<li class="tree_leaf_li">
+<a href="/aDISWeb/app;jsessionid=2A06DAB8406BC48A2704BA04A31E8114?service=direct/1/POOLVX00vb@@@@@@_44274D00_311E8300/$Tree.treeNodes&amp;sp=SS1&amp;requestCount=7" class="tree_leaf_a"><span>Schnellsuche</span></a><span class="outside">.</span></li>
+<li class="tree_leaf_li_sel">
+<strong><span class="tree_strong">Erweiterte Suche</span></strong></li>
+<li class="tree_leaf_li">
+<a href="/aDISWeb/app;jsessionid=2A06DAB8406BC48A2704BA04A31E8114?service=direct/1/POOLVX00vb@@@@@@_44274D00_311E8300/$Tree.treeNodes&amp;sp=SS5&amp;requestCount=7" class="tree_leaf_a"><span>Suche in Kommentaren</span></a><span class="outside">.</span></li>
+<li class="tree_leaf_li">
+<a href="/aDISWeb/app;jsessionid=2A06DAB8406BC48A2704BA04A31E8114?service=direct/1/POOLVX00vb@@@@@@_44274D00_311E8300/$Tree.treeNodes&amp;sp=SAP&amp;requestCount=7" class="tree_leaf_a"><span>Meine Suchen</span></a><span class="outside">.</span></li>
+<li class="tree_leaf_li">
+<a href="/aDISWeb/app;jsessionid=2A06DAB8406BC48A2704BA04A31E8114?service=direct/1/POOLVX00vb@@@@@@_44274D00_311E8300/$Tree.treeNodes&amp;sp=SAT&amp;requestCount=7" class="tree_leaf_a"><span>Thementipps</span></a><span class="outside">.</span></li>
+</ul></div>
+</li>
+<li class="tree_branch_li">
+<a href="/aDISWeb/app;jsessionid=2A06DAB8406BC48A2704BA04A31E8114?service=direct/1/POOLVX00vb@@@@@@_44274D00_311E8300/$Tree.treeNodes&amp;sp=SF1&amp;requestCount=7" class="tree_branch_a"><span>Fernleihe</span></a><span class="outside">.</span></li>
+<li class="tree_leaf_li">
+<a href="http://www.bibliothek-digital.de/berlin" class="tree_leaf_a"><span>VOeBB24</span></a><span class="outside">.</span></li>
+<li class="tree_leaf_li">
+<a href="http://www.munzinger.de/search/login?portalid=50158" target="&quot;_blank&quot;" class="tree_leaf_a"><span>Munzinger</span></a><span class="outside">.</span></li>
+<li class="tree_leaf_li">
+<a href="/aDISWeb/app;jsessionid=2A06DAB8406BC48A2704BA04A31E8114?service=direct/1/POOLVX00vb@@@@@@_44274D00_311E8300/$Tree.treeNodes&amp;sp=SF3&amp;requestCount=7" class="tree_leaf_a"><span>Aufs&#228;tze im GBV</span></a><span class="outside">.</span></li>
+<li class="tree_branch_li">
+<a href="/aDISWeb/app;jsessionid=2A06DAB8406BC48A2704BA04A31E8114?service=direct/1/POOLVX00vb@@@@@@_44274D00_311E8300/$Tree.treeNodes&amp;sp=SK2&amp;requestCount=7" class="tree_branch_a"><span>Kontakt</span></a><span class="outside">.</span></li>
+<li class="tree_leaf_li">
+<a href="/aDISWeb/app;jsessionid=2A06DAB8406BC48A2704BA04A31E8114?service=direct/1/POOLVX00vb@@@@@@_44274D00_311E8300/$Tree.treeNodes&amp;sp=SW1&amp;requestCount=7" class="tree_leaf_a"><span>Informationen</span></a><span class="outside">.</span></li>
+</ul></div>
+ </div>
+            
+            <!-- incl=includeBOEB.html -->            <p class="block" id="boeb">
+              <a href="http://service.berlin.de/stadtbibliotheken/" rel="external" onclick="window.open(this.href); return false;">Zu 
+              den Berliner &Ouml;ffentlichen Bibliotheken  <span class="invisible">(Link �ffnet in neuem Fenster)</span>
+              </a>
+            </p>
+<!-- stop -->
+             
+          </div>
+        </div>
+
+        <div id="right">
+          <div class="inside">
+
+            <h1 class="invisible">Weitere Bedienelemente</h1>
+            <p class="sprung"><a href="#main">Zum Hauptinhalt</a></p>
+            
+            <div class="block">            
+              <div id="R06">
+      <p><span style="   width:80%;">Gesucht wurde mit: "Titelwort= tes" im Verbund, Treffer: 45-66 von 231</span> </p>
+    </div><div id="R14">
+      <div class="treffer_anzeigen">
+        <fieldset>
+        <legend>Treffer-Direktwahl</legend>
+        <label for="SLSTRZ_1">Treffer-Nr.</label><input type="text" name="$Textfield" fld="SLSTRZ_1" onkeypress="checkNumeric(event,this);" id="SLSTRZ_1" class="text" maxlength="10"/> <input class="buttong"  type="submit" name="Submit" value="OK" /> 
+        <div class="clear"></div>
+        <br class="klar"/></fieldset>
+      </div>
+    </div><div id="R05">
+      <h3>Andere Sortierung einstellen:</h3>
+     <p><input type="submit" name="textButton" value="Titel" class="buttong" fld="$$GFBO_1"/><input type="submit" name="textButton$0" value="Verfasser" class="buttong" fld="$$GFBO_2"/><input type="submit" name="textButton$1" value="Jahr abw&#228;rts" class="buttong" fld="$$GFBO_3"/><input type="submit" name="textButton$2" value="Jahr aufw&#228;rts" class="buttong" fld="$$GFBO_4"/><input type="submit" name="textButton$3" value="Medienart" class="buttong" fld="$$GFBO_13"/> </p>
+
+      <h3>Weitere Aktionen:</h3>
+       <p><input type="submit" name="textButton$4" value="Suche verfeinern" class="buttong" fld="$$GFBO_7"/> </p>
+       <p><input type="submit" name="textButton$5" value="Meine Suche speichern" class="buttong" fld="$$GFBO_6"/> </p>
+
+    </div><div id="R12">
+    <div id="OPACLI" style="   width:69%;" class="aDISListe"><div class="html_div" style="width:99%; height:100%;"><span class="Z3988" title="ctx_ver=Z39.88-2004&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Abook&amp;rft.genre=book&amp;rft.au=Leo+Monosson+[Gsg].+-+Duophon.+-+2008&amp;rft.btitle=Leo+Monosson+...+singt+seine+Filmschlager&amp;rft.pub=Duophon&amp;rft.language=ger"></span><span class="Z3988" title="ctx_ver=Z39.88-2004&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Ajournal&amp;rft.genre=article&amp;rft.au=Sacha+Guitry+[Regie%2C+Drehbuch%2C+Darst.]+&amp;rft.au=Marcel+Rischmann+[Prod.]+&amp;rft.au=Fédote+Bourgasoff+[Kamera]+&amp;rft.au=Geneviève+Guitry+[Darst.]+&amp;rft.au=Aimé+Clariond+[Darst.]+&amp;rft.au=Marguerite+Moreno+[Darst.]+&amp;rft.au=Henry+Verdun+[Komp.]+&amp;rft.au=Paul+Durand+[Komp.].+-+2007&amp;rft.atitle=Donne-moi+tes+yeux&amp;rft.language=ger"></span><span class="Z3988" title="ctx_ver=Z39.88-2004&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Abook&amp;rft.genre=book&amp;rft.au=Volker+Schlöndorff+[Regie].+Eberhard+Junkersdorf+[Prod.].+Igor+Luther+[Kamera].+Ute+Lemper+[Gesang].+Michael+Nyman+[Dirigent%2C+Interpret].+Michael+Nyman+Band+[Interpret].+-+Decca.+-+1993&amp;rft.btitle=Songbook&amp;rft.pub=Decca&amp;rft.language=ger"></span><span class="Z3988" title="ctx_ver=Z39.88-2004&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Abook&amp;rft.genre=book&amp;rft.au=Marie-Claude+Vallejo+&amp;rft.au=Mireille+Fronty.+Aus+dem+Franz.+von+Maria+Rosaria+DiPalo.+-+1.+Aufl..+-+Herder.+-+2007&amp;rft.btitle=Patchwork-Mama&amp;rft.isbn=978-3-451-05824-0&amp;rft.pub=Herder&amp;rft.edition=1.+Aufl.&amp;rft.language=ger"></span><span class="Z3988" title="ctx_ver=Z39.88-2004&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Abook&amp;rft.genre=book&amp;rft.au=Gonzales.+-+Kitty-Yo.+-+2003&amp;rft.btitle=%22Z%22&amp;rft.pub=Kitty-Yo&amp;rft.language=ger"></span><span class="Z3988" title="ctx_ver=Z39.88-2004&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Abook&amp;rft.genre=book&amp;rft.au=Demetrakou&amp;rft.btitle=Lexikon+tes+neas+hellenikes+glosses&amp;rft.pub=Demetrakou&amp;rft.language=ger"></span><span class="Z3988" title="ctx_ver=Z39.88-2004&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Abook&amp;rft.genre=book&amp;rft.au=Antonis+Kalfas.+Mit+einem+Nachw.+von+Elias+Kefalas.+Aus+dem+Griech.+von+Sophia+Georgallidis+und+Niki+Eideneier.+-+1.+Aufl..+-+Romiosini.+-+2006&amp;rft.btitle=All+diese+Jahre+voll+Nebel&amp;rft.isbn=978-3-929889-79-6&amp;rft.pub=Romiosini&amp;rft.edition=1.+Aufl.&amp;rft.language=ger"></span><span class="Z3988" title="ctx_ver=Z39.88-2004&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Abook&amp;rft.genre=book&amp;rft.au=Constantin+J.+Vamvacas.+Aus+dem+Griech.++von+Mark+Michalski.+Mit+einem+Geleitw.+von+Alfred+Stückelberger.+-+Artemis+und+Winkler.+-+2006&amp;rft.btitle=Die+Geburt+der+Philosophie&amp;rft.isbn=978-3-538-07236-7&amp;rft.pub=Artemis+und+Winkler&amp;rft.language=ger"></span><span class="Z3988" title="ctx_ver=Z39.88-2004&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Ajournal&amp;rft.genre=article&amp;rft.au=1726&amp;rft.atitle=Sr.+Königl.+Majestät+in+Preussen+u.+Allergnädigst+renovirtes+und+geschärf+tes+Edict%2C+betreffend+das+Verbotfremder+Calender&amp;rft.language=ger"></span><span class="Z3988" title="ctx_ver=Z39.88-2004&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Abook&amp;rft.genre=book&amp;rft.au=2006&amp;rft.btitle=¬Le¬+tour+%3A+the+best+in+French+alternative+music+%3A+[CD].+-+3.&amp;rft.language=ger"></span><span class="Z3988" title="ctx_ver=Z39.88-2004&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Abook&amp;rft.genre=book&amp;rft.au=Arthur+de+Pins+[Sonst.]+&amp;rft.au=Luis+Briceno+[Sonst.]+&amp;rft.au=Patrick+Volve+[Sonst.]+&amp;rft.au=Mathieu+Agnus+[Sonst.]+&amp;rft.au=Olivier+Lefou+[Sonst.]+&amp;rft.au=Christophe+le+Borgne+[Sonst.]+&amp;rft.au=Anne-Laure+Bizot+[Sonst.]+&amp;rft.au=Amélie+Graux+[Sonst.]+&amp;rft.au=Elena+Tesei+[Sonst.]+&amp;rft.au=Arnaud+Delord+[Sonst.]+&amp;rft.au=Daniel+Klein+[Sonst.]+&amp;rft.au=Jocelyne+Auzende+[Sonst.].+Kids+from+Nolgoehue.+CNC.+-+2004&amp;rft.btitle=Metronomic+%26+Co.+%3A+courts-métrages+d'animation+%3B+[DVD+Video].+-+1.&amp;rft.language=ger"></span><span class="Z3988" title="ctx_ver=Z39.88-2004&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Ajournal&amp;rft.genre=journal&amp;rft.btitle=Ephemeris+archaiologike&amp;rft.atitle=Ephemeris+archaiologike&amp;rft.language=ger"></span><span class="Z3988" title="ctx_ver=Z39.88-2004&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Ajournal&amp;rft.genre=journal&amp;rft.au=[s.n.]&amp;rft.btitle=Archaiologike+ephemeris&amp;rft.atitle=Archaiologike+ephemeris&amp;rft.pub=[s.n.]&amp;rft.language=ger"></span><span class="Z3988" title="ctx_ver=Z39.88-2004&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Abook&amp;rft.genre=book&amp;rft.au='edel'records.+-+2005&amp;rft.btitle=Prima+Carezza+-+Salon+music+at+Schumann's+Bar&amp;rft.pub='edel'records&amp;rft.language=ger"></span><span class="Z3988" title="ctx_ver=Z39.88-2004&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Abook&amp;rft.genre=book&amp;rft.au=[Dimitris+Triadafillu+&amp;rft.au=Sandra+Triadafillu].+-+2.+Aufl..+-+Triadafillu.+-+2001&amp;rft.btitle=Basiko+lexilogio+tes+hellenikes%2C+anglikes+kai+germanikes+glossas&amp;rft.isbn=3-932718-00-3&amp;rft.pub=Triadafillu&amp;rft.edition=2.+Aufl.&amp;rft.language=ger"></span><span class="Z3988" title="ctx_ver=Z39.88-2004&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Abook&amp;rft.genre=book&amp;rft.au='edel'records.+-+2005&amp;rft.btitle=Prima+Carezza+-+Salon+music+at+Schumann's+Bar&amp;rft.pub='edel'records&amp;rft.language=ger"></span><span class="Z3988" title="ctx_ver=Z39.88-2004&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Abook&amp;rft.genre=book&amp;rft.au=1958&amp;rft.btitle=Tes+-+Tirn&amp;rft.language=ger"></span><span class="Z3988" title="ctx_ver=Z39.88-2004&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Abook&amp;rft.genre=book&amp;rft.au=[Interpr.]%3A+Charles+Aznavour.+-+R.+David%2C+H.+Heinrichs+[u.a.].+-+2004&amp;rft.btitle=Me+que+me+que&amp;rft.pub=R.+David%2C+H.+Heinrichs+[u.a.]&amp;rft.language=ger"></span><span class="Z3988" title="ctx_ver=Z39.88-2004&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Ajournal&amp;rft.genre=journal&amp;rft.au=Ekdoseis+Do¯rikos&amp;rft.btitle=Ta+biblia+tes+theias+Lenas&amp;rft.atitle=Ta+biblia+tes+theias+Lenas&amp;rft.pub=Ekdoseis+Do¯rikos&amp;rft.language=ger"></span><span class="Z3988" title="ctx_ver=Z39.88-2004&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Abook&amp;rft.genre=book&amp;rft.au=Edith+Piaf.+-+Piano%2C+chant%2C+grilles+guitare.+-+Nuova+Carisch.+-+2004&amp;rft.btitle=Les+plus+belles+chansons+de+Edith+Piaf&amp;rft.isbn=88-507-0547-6&amp;rft.pub=Nuova+Carisch&amp;rft.edition=Piano%2C+chant%2C+grilles+guitare&amp;rft.language=ger"></span><span class="Z3988" title="ctx_ver=Z39.88-2004&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Abook&amp;rft.genre=book&amp;rft.au=Athena+A+Lazakidu+&amp;rft.au=Iordanes+E.+Euangelu+&amp;rft.au=Christina+N.+Eliude..+-+Logos-Verl..+-+2004&amp;rft.btitle=E+plerophorike+sto+choro+tes+ygeias&amp;rft.isbn=3-8325-0241-6&amp;rft.pub=Logos-Verl.&amp;rft.language=ger"></span><span class="Z3988" title="ctx_ver=Z39.88-2004&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Abook&amp;rft.genre=book&amp;rft.au=Lucienne+Boyer.+-+Naxos+Deutschland.+-+2004&amp;rft.btitle=Parlez-moi+d'amour&amp;rft.pub=Naxos+Deutschland&amp;rft.language=ger"></span></div> </div>
+  </div>
+              
+              
+              
+              
+            </div>
+            
+            <div class="block">
+               <div id="R08">
+      <h3>Treffer einschr&#228;nken nach:</h3>     
+    </div><div class="cbtree_div">
+<ul class="cbtree_ul">
+<li class="cbtree_branch_li">
+<input type="submit" name="SELT_tree_2_0" value="Medienart" class="cbtree_branch_a"/><span class="outside">.</span></li>
+<li class="cbtree_branch_li">
+<input type="submit" name="SELT_tree_2_1" value="Jahr" class="cbtree_branch_a"/><span class="outside">.</span></li>
+<li class="cbtree_branch_li">
+<input type="submit" name="SELT_tree_2_2" value="Schlagwort" class="cbtree_branch_a"/><span class="outside">.</span></li>
+<li class="cbtree_branch_li">
+<input type="submit" name="SELT_tree_2_3" value="Sprache" class="cbtree_branch_a"/><span class="outside">.</span></li>
+</ul></div>
+ <div id="R09"><input type="submit" name="textButton$6" value="Einschr&#228;nken" class="wichtig" fld="$$GFBO_12"/> </div><br/><span style="line-height:12px;">&nbsp;</span><br/>
+            </div> 
+            <div class="block">
+              <div id="R11">
+      <h2>Export nach:</h2><p class="buttong"><input type="submit" name="textButton$7" value="BibTeX" class="buttong"/><input type="submit" name="textButton$8" value="Citavi" class="buttong"/><input type="submit" name="textButton$9" value="EndNote" class="buttong"/><input type="submit" name="textButton$10" value="ProCite" class="buttong"/><input type="submit" name="textButton$11" value="RefWorks" class="buttong"/><input type="submit" name="textButton$12" value="Reference Manager" class="buttong"/><input type="submit" name="textButton$13" value="Zotero" class="buttong"/></p> </div>
+              
+              
+            </div> 
+
+          </div>
+        </div>
+  
+        <div id="main" role="main">
+          <div class="inside">
+          
+            <div class="block">
+              <div class="block" id="topleiste">  
+			          <p id="breadcrumb"><span class="invisible">Vorige Seiten: </span> <span class="navicl"><a href="/aDISWeb/app;jsessionid=2A06DAB8406BC48A2704BA04A31E8114?service=direct/1/POOLVX00vb@@@@@@_44274D00_311E8300/navpath.intlink.directlink&amp;sp=S%24%24GFNV_1&amp;sp=SD%2F00&amp;requestCount=7" fld="$$GFNV_1" title="Startseite">Startseite</a>	<span class="outside">.</span> > <a href="/aDISWeb/app;jsessionid=2A06DAB8406BC48A2704BA04A31E8114?service=direct/1/POOLVX00vb@@@@@@_44274D00_311E8300/navpath.intlink.directlink&amp;sp=S%24%24GFNV_2&amp;sp=SS6AK&amp;requestCount=7" fld="$$GFNV_2" title="Erweiterte Suche">Erweiterte Suche</a>	<span class="outside">.</span></span> &gt;<span class="txtinsert">Trefferliste</span> </p>
+
+                
+                
+                
+                
+                <div class="clear"></div>
+              </div>
+                           
+              <h1><span class="invisible">Aktuelle Seite:</span> <span class="txtinsert">Trefferliste</span></h1> <div class="toolbar_div">
+<ul class="toolbar_ul">
+<li class="toolbar_li">
+<input type="image" src="/aDISWeb/images/POOLVX00vb@@@@@@/gif/POOLVX00vb@@@@@@_53010E00_25522680.gif;jsessionid=2A06DAB8406BC48A2704BA04A31E8114" alt="Zur&#252;ck zur Suche" id="Toolbar_0" name="$Toolbar_0" title="Zur&#252;ck zur Suche" onmouseover="self.status='Zur&#252;ck zur Suche';return true;" onmouseout="self.status='';" class="toolbar_img"/><label for="Toolbar_0"><span class="toolbar_txt">Zur&#252;ck</span></label></li>
+<li class="toolbar_li">
+<input type="image" src="/aDISWeb/images/POOLVX00vb@@@@@@/gif/POOLVX00vb@@@@@@_53002800_228F8280.gif;jsessionid=2A06DAB8406BC48A2704BA04A31E8114" alt="Zur Vollanzeige des Treffers" id="Toolbar_1" name="$Toolbar_1" title="Zur Vollanzeige des Treffers" onmouseover="self.status='Zur Vollanzeige des Treffers';return true;" onmouseout="self.status='';" class="toolbar_img"/><label for="Toolbar_1"><span class="toolbar_txt">Vollanzeige</span></label></li>
+<li class="toolbar_li">
+<input type="image" src="/aDISWeb/images/POOLVX00vb@@@@@@/gif/POOLVX00vb@@@@@@_53011E00_228F8280.gif;jsessionid=2A06DAB8406BC48A2704BA04A31E8114" alt="Zur&#252;ck zur Suche" id="Toolbar_2" name="$Toolbar_2" title="Zur&#252;ck zur Suche" onmouseover="self.status='Zur&#252;ck zur Suche';return true;" onmouseout="self.status='';" class="toolbar_img"/><label for="Toolbar_2"><span class="toolbar_txt">Neue Suche</span></label></li>
+<li class="toolbar_li">
+<input type="image" src="/aDISWeb/images/POOLVX00vb@@@@@@/gif/POOLVX00vb@@@@@@_53005800_2904BB80.gif;jsessionid=2A06DAB8406BC48A2704BA04A31E8114" alt="An den Anfang bl&#228;ttern" id="Toolbar_3" name="$Toolbar_3" title="An den Anfang bl&#228;ttern" onmouseover="self.status='An den Anfang bl&#228;ttern';return true;" onmouseout="self.status='';" class="toolbar_img"/><label for="Toolbar_3"><span class="toolbar_txt">Anfang</span></label></li>
+<li class="toolbar_li">
+<input type="image" src="/aDISWeb/images/POOLVX00vb@@@@@@/gif/POOLVX00vb@@@@@@_53005900_2904BB80.gif;jsessionid=2A06DAB8406BC48A2704BA04A31E8114" alt="R&#252;ckw&#228;rts bl&#228;ttern" id="Toolbar_4" name="$Toolbar_4" title="R&#252;ckw&#228;rts bl&#228;ttern" onmouseover="self.status='R&#252;ckw&#228;rts bl&#228;ttern';return true;" onmouseout="self.status='';" class="toolbar_img"/><label for="Toolbar_4"><span class="toolbar_txt">R&#252;ckw&#228;rts</span></label></li>
+<li class="toolbar_li">
+<input type="image" src="/aDISWeb/images/POOLVX00vb@@@@@@/gif/POOLVX00vb@@@@@@_53005100_2904BB80.gif;jsessionid=2A06DAB8406BC48A2704BA04A31E8114" alt="Vorw&#228;rts bl&#228;ttern" id="Toolbar_5" name="$Toolbar_5" title="Vorw&#228;rts bl&#228;ttern" onmouseover="self.status='Vorw&#228;rts bl&#228;ttern';return true;" onmouseout="self.status='';" class="toolbar_img"/><label for="Toolbar_5"><span class="toolbar_txt">Vorw&#228;rts</span></label></li>
+<li class="toolbar_li">
+<input type="image" src="/aDISWeb/images/POOLVX00vb@@@@@@/gif/POOLVX00vb@@@@@@_53005600_2904BB80.gif;jsessionid=2A06DAB8406BC48A2704BA04A31E8114" alt="Ans Ende bl&#228;ttern" id="Toolbar_6" name="$Toolbar_6" title="Ans Ende bl&#228;ttern" onmouseover="self.status='Ans Ende bl&#228;ttern';return true;" onmouseout="self.status='';" class="toolbar_img"/><label for="Toolbar_6"><span class="toolbar_txt">Ende</span></label></li>
+<li class="toolbar_li">
+<input type="image" src="/aDISWeb/images/POOLVX00vb@@@@@@/gif/POOLVX00vb@@@@@@_53002400_228F8280.gif;jsessionid=2A06DAB8406BC48A2704BA04A31E8114" alt="Beenden der Recherche" id="Toolbar_7" name="$Toolbar_7" title="Beenden der Recherche" onmouseover="self.status='Beenden der Recherche';return true;" onmouseout="self.status='';" class="toolbar_img"/><label for="Toolbar_7"><span class="toolbar_txt">Beenden</span></label></li>
+<li class="toolbar_li">
+<input type="image" src="/aDISWeb/images/POOLVX00vb@@@@@@/gif/POOLVX00vb@@@@@@_53001D00_228F8280.gif;jsessionid=2A06DAB8406BC48A2704BA04A31E8114" alt="Hilfe zur Trefferliste" id="Toolbar_8" name="$Toolbar_8" title="Hilfe zur Trefferliste" onmouseover="self.status='Hilfe zur Trefferliste';return true;" onmouseout="self.status='';" class="toolbar_img"/><label for="Toolbar_8"><span class="toolbar_txt">Hilfe</span></label></li></ul><div style="clear:both"></div></div> <div class="fsgrp">
+                 <div id="R07">	<div class="rList_wrapper"><ul class="rList"><li class="rList_li_even"><span class="rList_cover"></span>	<span class="rList_titel"><a href="javascript:htmlOnLink('AK14842728')"><span class="tltit"><img class='icon' height='16' width='16' src='/aDISWeb/icons/cd_a.gif' alt='CD' title='CD' /> Leo Monosson ... singt seine Filmschlager : historische Aufnahmen von 1929 - 1932 ; Liebe für eine Nacht ; [CD]</span></a></span>	<span class="rList_num">45</span>	<span class="rList_check"><label for="cellCheck" class="invisible">Markieren</label><input type="checkbox" name="cellCheck" fld="###CHK_1" id="cellCheck"/></span>	<span class="rlist_icon"><span><img class='icon' height='16' width='16' src='/aDISWeb/icons/verfu_ja.gif' alt='ist verf&#0252;gbar' title='ist verf&#0252;gbar' /></span></span>	<div class="rList_inside_wrap1"><span class="rList_medium">Leo Monosson [Gsg]. - Duophon. - 2008</span>	<span class="rList_name"></span>	<span class="rList_in"></span>	</div><div class="rList_inside_wrap2"><span class="rList_signa"></span>		</div><div class="rList_buttons"><span class="rList_button but-details"><button value="Standort" id="lrb_0_11" class="rbutton button-inactive" onclick="return RButton.evhandler(this)" aria-controls="lcont_0" type="button"><span class="rlabel">Standort</span></button></span>	<span class="rList_button but-werktit"></span>	</div><div aria-hidden="true" id="lcont_0" class="rList_panel content-inactive" aria-expanded="false"></div></li><li class="rList_li_odd"><span class="rList_cover"></span>	<span class="rList_titel"><a href="javascript:htmlOnLink('AK14841914')"><span class="tltit"><img class='icon' height='16' width='16' src='/aDISWeb/icons/dvd_a.gif' alt='DVD' title='DVD' /> Donne-moi tes yeux : [DVD-Video]</span></a></span>	<span class="rList_num">46</span>	<span class="rList_check"><label for="cellCheck_0" class="invisible">Markieren</label><input type="checkbox" name="cellCheck$0" fld="###CHK_2" id="cellCheck_0"/></span>	<span class="rlist_icon"><span><img class='icon' height='16' width='16' src='/aDISWeb/icons/verfu_info.gif' alt='Verfügbarkeit siehe Vollanzeige' title='Verfügbarkeit siehe Vollanzeige' /></span></span>	<div class="rList_inside_wrap1"><span class="rList_medium">Sacha Guitry [Regie, Drehbuch, Darst.] ; Marcel Rischmann [Prod.] ; Fédote Bourgasoff [Kamera] ; Geneviève Guitry [Darst.] ; Aimé Clariond [Darst.] ; Marguerite Moreno [Darst.] ; Henry Verdun [Komp.] ; Paul Durand [Komp.]. - 2007</span>	<span class="rList_name">In: Sacha Guitry : [DVD-Video] - (2007)</span>	<span class="rList_in"></span>	</div><div class="rList_inside_wrap2"><span class="rList_signa"></span>		</div><div class="rList_buttons"><span class="rList_button but-details"></span>	<span class="rList_button but-werktit"></span>	</div><div aria-hidden="true" id="lcont_1" class="rList_panel content-inactive" aria-expanded="false"></div></li><li class="rList_li_even"><span class="rList_cover"></span>	<span class="rList_titel"><a href="javascript:htmlOnLink('AK14184259')"><span class="tltit"><img class='icon' height='16' width='16' src='/aDISWeb/icons/video_a.gif' alt='Video' title='Video' /> Songbook : [Video]</span></a></span>	<span class="rList_num">47</span>	<span class="rList_check"><label for="cellCheck_1" class="invisible">Markieren</label><input type="checkbox" name="cellCheck$1" fld="###CHK_3" id="cellCheck_1"/></span>	<span class="rlist_icon"><span><img class='icon' height='16' width='16' src='/aDISWeb/icons/verfu_ja.gif' alt='ist verf&#0252;gbar' title='ist verf&#0252;gbar' /></span></span>	<div class="rList_inside_wrap1"><span class="rList_medium">Volker Schlöndorff [Regie]. Eberhard Junkersdorf [Prod.]. Igor Luther [Kamera]. Ute Lemper [Gesang]. Michael Nyman [Dirigent, Interpret]. Michael Nyman Band [Interpret]. - Decca. - 1993</span>	<span class="rList_name"></span>	<span class="rList_in"></span>	</div><div class="rList_inside_wrap2"><span class="rList_signa"></span>		</div><div class="rList_buttons"><span class="rList_button but-details"><button value="Standort" id="lrb_2_11" class="rbutton button-inactive" onclick="return RButton.evhandler(this)" aria-controls="lcont_2" type="button"><span class="rlabel">Standort</span></button></span>	<span class="rList_button but-werktit"></span>	</div><div aria-hidden="true" id="lcont_2" class="rList_panel content-inactive" aria-expanded="false"></div></li><li class="rList_li_odd"><span class="rList_cover"></span>	<span class="rList_titel"><a href="javascript:htmlOnLink('AK14181318')"><span class="tltit"><img class='icon' height='16' width='16' src='/aDISWeb/icons/buch_rot_a.gif' alt='Band' title='Band' /> Patchwork-Mama : neue Familie, neues Glück</span></a></span>	<span class="rList_num">48</span>	<span class="rList_check"><label for="cellCheck_2" class="invisible">Markieren</label><input type="checkbox" name="cellCheck$2" fld="###CHK_4" id="cellCheck_2"/></span>	<span class="rlist_icon"><span><img class='icon' height='16' width='16' src='/aDISWeb/icons/verfu_ja.gif' alt='ist verf&#0252;gbar' title='ist verf&#0252;gbar' /></span></span>	<div class="rList_inside_wrap1"><span class="rList_medium">Marie-Claude Vallejo ; Mireille Fronty. Aus dem Franz. von Maria Rosaria DiPalo. - 1. Aufl.. - Herder. - 2007</span>	<span class="rList_name"></span>	<span class="rList_in"></span>	</div><div class="rList_inside_wrap2"><span class="rList_signa"></span>		</div><div class="rList_buttons"><span class="rList_button but-details"><button value="Standort" id="lrb_3_11" class="rbutton button-inactive" onclick="return RButton.evhandler(this)" aria-controls="lcont_3" type="button"><span class="rlabel">Standort</span></button></span>	<span class="rList_button but-werktit"></span>	</div><div aria-hidden="true" id="lcont_3" class="rList_panel content-inactive" aria-expanded="false"></div></li><li class="rList_li_even"><span class="rList_cover"></span>	<span class="rList_titel"><a href="javascript:htmlOnLink('AK14176134')"><span class="tltit"><img class='icon' height='16' width='16' src='/aDISWeb/icons/cd_a.gif' alt='CD' title='CD' /> "Z" : [CD]</span></a></span>	<span class="rList_num">49</span>	<span class="rList_check"><label for="cellCheck_3" class="invisible">Markieren</label><input type="checkbox" name="cellCheck$3" fld="###CHK_5" id="cellCheck_3"/></span>	<span class="rlist_icon"><span><img class='icon' height='16' width='16' src='/aDISWeb/icons/verfu_nein.gif' alt='ist zurzeit nicht verf&#0252;gbar' title='ist zurzeit nicht verf&#0252;gbar' /></span></span>	<div class="rList_inside_wrap1"><span class="rList_medium">Gonzales. - Kitty-Yo. - 2003</span>	<span class="rList_name"></span>	<span class="rList_in"></span>	</div><div class="rList_inside_wrap2"><span class="rList_signa"></span>		</div><div class="rList_buttons"><span class="rList_button but-details"><button value="Standort" id="lrb_4_11" class="rbutton button-inactive" onclick="return RButton.evhandler(this)" aria-controls="lcont_4" type="button"><span class="rlabel">Standort</span></button></span>	<span class="rList_button but-werktit"></span>	</div><div aria-hidden="true" id="lcont_4" class="rList_panel content-inactive" aria-expanded="false"></div></li><li class="rList_li_odd"><span class="rList_cover"></span>	<span class="rList_titel"><a href="javascript:htmlOnLink('AK14112417')"><span class="tltit"><img class='icon' height='16' width='16' src='/aDISWeb/icons/serie_a.gif' alt='Mehrteiliges Werk' title='Mehrteiliges Werk' /> Lexikon tes neas hellenikes glosses : orthographikon kai ermeneytikon ; ekdosis deutera ephyxemene</span></a></span>	<span class="rList_num">50</span>	<span class="rList_check"><label for="cellCheck_4" class="invisible">Markieren</label><input type="checkbox" name="cellCheck$4" fld="###CHK_6" id="cellCheck_4"/></span>	<span class="rlist_icon"><span><img class='icon' height='16' width='16' src='/aDISWeb/icons/verfu_info.gif' alt='Verfügbarkeit siehe Vollanzeige' title='Verfügbarkeit siehe Vollanzeige' /></span></span>	<div class="rList_inside_wrap1"><span class="rList_medium">Demetrakou</span>	<span class="rList_name"></span>	<span class="rList_in"></span>	</div><div class="rList_inside_wrap2"><span class="rList_signa"></span>		</div><div class="rList_buttons"><span class="rList_button but-details"></span>	<span class="rList_button but-werktit"></span>	</div><div aria-hidden="true" id="lcont_5" class="rList_panel content-inactive" aria-expanded="false"></div></li><li class="rList_li_even"><span class="rList_cover"></span>	<span class="rList_titel"><a href="javascript:htmlOnLink('AK14104429')"><span class="tltit"><img class='icon' height='16' width='16' src='/aDISWeb/icons/buch_rot_a.gif' alt='Buch' title='Buch' /> All diese Jahre voll Nebel : Gedichte griechisch-deutsch</span></a></span>	<span class="rList_num">51</span>	<span class="rList_check"><label for="cellCheck_5" class="invisible">Markieren</label><input type="checkbox" name="cellCheck$5" fld="###CHK_7" id="cellCheck_5"/></span>	<span class="rlist_icon"><span><img class='icon' height='16' width='16' src='/aDISWeb/icons/verfu_ja.gif' alt='ist verf&#0252;gbar' title='ist verf&#0252;gbar' /></span></span>	<div class="rList_inside_wrap1"><span class="rList_medium">Antonis Kalfas. Mit einem Nachw. von Elias Kefalas. Aus dem Griech. von Sophia Georgallidis und Niki Eideneier. - 1. Aufl.. - Romiosini. - 2006</span>	<span class="rList_name"></span>	<span class="rList_in"></span>	</div><div class="rList_inside_wrap2"><span class="rList_signa"></span>		</div><div class="rList_buttons"><span class="rList_button but-details"><button value="Standort" id="lrb_6_11" class="rbutton button-inactive" onclick="return RButton.evhandler(this)" aria-controls="lcont_6" type="button"><span class="rlabel">Standort</span></button></span>	<span class="rList_button but-werktit"></span>	</div><div aria-hidden="true" id="lcont_6" class="rList_panel content-inactive" aria-expanded="false"></div></li><li class="rList_li_odd"><span class="rList_cover"></span>	<span class="rList_titel"><a href="javascript:htmlOnLink('AK14077020')"><span class="tltit"><img class='icon' height='16' width='16' src='/aDISWeb/icons/buch_rot_a.gif' alt='Buch' title='Buch' /> ¬Die¬ Geburt der Philosophie : der vorsokratische Geist als Begründer von Philosophie und Naturwissenschaften</span></a></span>	<span class="rList_num">52</span>	<span class="rList_check"><label for="cellCheck_6" class="invisible">Markieren</label><input type="checkbox" name="cellCheck$6" fld="###CHK_8" id="cellCheck_6"/></span>	<span class="rlist_icon"><span><img class='icon' height='16' width='16' src='/aDISWeb/icons/verfu_ja.gif' alt='ist verf&#0252;gbar' title='ist verf&#0252;gbar' /></span></span>	<div class="rList_inside_wrap1"><span class="rList_medium">Constantin J. Vamvacas. Aus dem Griech.  von Mark Michalski. Mit einem Geleitw. von Alfred Stückelberger. - Artemis und Winkler. - 2006</span>	<span class="rList_name"></span>	<span class="rList_in"></span>	</div><div class="rList_inside_wrap2"><span class="rList_signa"></span>		</div><div class="rList_buttons"><span class="rList_button but-details"><button value="Standort" id="lrb_7_11" class="rbutton button-inactive" onclick="return RButton.evhandler(this)" aria-controls="lcont_7" type="button"><span class="rlabel">Standort</span></button></span>	<span class="rList_button but-werktit"></span>	</div><div aria-hidden="true" id="lcont_7" class="rList_panel content-inactive" aria-expanded="false"></div></li><li class="rList_li_even"><span class="rList_cover"></span>	<span class="rList_titel"><a href="javascript:htmlOnLink('AK14070323')"><span class="tltit"><img class='icon' height='16' width='16' src='/aDISWeb/icons/buch_rot_a.gif' alt='Beitrag' title='Beitrag' /> Sr. Königl. Majestät in Preussen u. Allergnädigst renovirtes und geschärf tes Edict, betreffend das Verbotfremder Calender</span></a></span>	<span class="rList_num">53</span>	<span class="rList_check"><label for="cellCheck_7" class="invisible">Markieren</label><input type="checkbox" name="cellCheck$7" fld="###CHK_9" id="cellCheck_7"/></span>	<span class="rlist_icon"><span><img class='icon' height='16' width='16' src='/aDISWeb/icons/verfu_info.gif' alt='Verfügbarkeit siehe Vollanzeige' title='Verfügbarkeit siehe Vollanzeige' /></span></span>	<div class="rList_inside_wrap1"><span class="rList_medium">1726</span>	<span class="rList_name">In: Historisch- und geographischer Calender - 1726 - (1723), [2]Bl.</span>	<span class="rList_in"></span>	</div><div class="rList_inside_wrap2"><span class="rList_signa"></span>		</div><div class="rList_buttons"><span class="rList_button but-details"></span>	<span class="rList_button but-werktit"></span>	</div><div aria-hidden="true" id="lcont_8" class="rList_panel content-inactive" aria-expanded="false"></div></li><li class="rList_li_odd"><span class="rList_cover"></span>	<span class="rList_titel"><a href="javascript:htmlOnLink('AK14055420')"><span class="tltit"><img class='icon' height='16' width='16' src='/aDISWeb/icons/cd_a.gif' alt='CD' title='CD' /> ¬Le¬ tour : the best in French alternative music : [CD]. - 3.</span></a></span>	<span class="rList_num">54</span>	<span class="rList_check"><label for="cellCheck_8" class="invisible">Markieren</label><input type="checkbox" name="cellCheck$8" fld="###CHK_10" id="cellCheck_8"/></span>	<span class="rlist_icon"><span><img class='icon' height='16' width='16' src='/aDISWeb/icons/verfu_ja.gif' alt='ist verf&#0252;gbar' title='ist verf&#0252;gbar' /></span></span>	<div class="rList_inside_wrap1"><span class="rList_medium">2006</span>	<span class="rList_name"></span>	<span class="rList_in"></span>	</div><div class="rList_inside_wrap2"><span class="rList_signa"></span>		</div><div class="rList_buttons"><span class="rList_button but-details"><button value="Standort" id="lrb_9_11" class="rbutton button-inactive" onclick="return RButton.evhandler(this)" aria-controls="lcont_9" type="button"><span class="rlabel">Standort</span></button></span>	<span class="rList_button but-werktit"></span>	</div><div aria-hidden="true" id="lcont_9" class="rList_panel content-inactive" aria-expanded="false"></div></li><li class="rList_li_even"><span class="rList_cover"></span>	<span class="rList_titel"><a href="javascript:htmlOnLink('AK14000714')"><span class="tltit"><img class='icon' height='16' width='16' src='/aDISWeb/icons/dvd_a.gif' alt='DVD' title='DVD' /> Metronomic & Co. : courts-métrages d'animation ; [DVD Video]. - 1.</span></a></span>	<span class="rList_num">55</span>	<span class="rList_check"><label for="cellCheck_9" class="invisible">Markieren</label><input type="checkbox" name="cellCheck$9" fld="###CHK_11" id="cellCheck_9"/></span>	<span class="rlist_icon"><span><img class='icon' height='16' width='16' src='/aDISWeb/icons/verfu_ja.gif' alt='ist verf&#0252;gbar' title='ist verf&#0252;gbar' /></span></span>	<div class="rList_inside_wrap1"><span class="rList_medium">Arthur de Pins [Sonst.] ; Luis Briceno [Sonst.] ; Patrick Volve [Sonst.] ; Mathieu Agnus [Sonst.] ; Olivier Lefou [Sonst.] ; Christophe le Borgne [Sonst.] ; Anne-Laure Bizot [Sonst.] ; Amélie Graux [Sonst.] ; Elena Tesei [Sonst.] ; Arnaud Delord [Sonst.] ; Daniel Klein [Sonst.] ; Jocelyne Auzende [Sonst.]. Kids from Nolgoehue. CNC. - 2004</span>	<span class="rList_name"></span>	<span class="rList_in"></span>	</div><div class="rList_inside_wrap2"><span class="rList_signa"></span>		</div><div class="rList_buttons"><span class="rList_button but-details"><button value="Standort" id="lrb_10_11" class="rbutton button-inactive" onclick="return RButton.evhandler(this)" aria-controls="lcont_10" type="button"><span class="rlabel">Standort</span></button></span>	<span class="rList_button but-werktit"></span>	</div><div aria-hidden="true" id="lcont_10" class="rList_panel content-inactive" aria-expanded="false"></div></li><li class="rList_li_odd"><span class="rList_cover"></span>	<span class="rList_titel"><a href="javascript:htmlOnLink('AK13991159')"><span class="tltit"><img class='icon' height='16' width='16' src='/aDISWeb/icons/zeitschrift_a.gif' alt='Zeitschrift' title='Zeitschrift' /> Ephemeris archaiologike : periodikon tes en Athenais Archaiologikes Hetaireias</span></a></span>	<span class="rList_num">56</span>	<span class="rList_check"><label for="cellCheck_10" class="invisible">Markieren</label><input type="checkbox" name="cellCheck$10" fld="###CHK_12" id="cellCheck_10"/></span>	<span class="rlist_icon"><span><img class='icon' height='16' width='16' src='/aDISWeb/icons/verfu_info.gif' alt='Verfügbarkeit siehe Vollanzeige' title='Verfügbarkeit siehe Vollanzeige' /></span></span>	<div class="rList_inside_wrap1"><span class="rList_medium"></span>	<span class="rList_name"></span>	<span class="rList_in"></span>	</div><div class="rList_inside_wrap2"><span class="rList_signa"></span>		</div><div class="rList_buttons"><span class="rList_button but-details"></span>	<span class="rList_button but-werktit"></span>	</div><div aria-hidden="true" id="lcont_11" class="rList_panel content-inactive" aria-expanded="false"></div></li><li class="rList_li_even"><span class="rList_cover"></span>	<span class="rList_titel"><a href="javascript:htmlOnLink('AK13991158')"><span class="tltit"><img class='icon' height='16' width='16' src='/aDISWeb/icons/zeitschrift_a.gif' alt='Zeitschrift' title='Zeitschrift' /> Archaiologike ephemeris : periodikon tes en Athenais Archaiologikes Hetaireias</span></a></span>	<span class="rList_num">57</span>	<span class="rList_check"><label for="cellCheck_11" class="invisible">Markieren</label><input type="checkbox" name="cellCheck$11" fld="###CHK_13" id="cellCheck_11"/></span>	<span class="rlist_icon"><span><img class='icon' height='16' width='16' src='/aDISWeb/icons/verfu_info.gif' alt='Verfügbarkeit siehe Vollanzeige' title='Verfügbarkeit siehe Vollanzeige' /></span></span>	<div class="rList_inside_wrap1"><span class="rList_medium">[s.n.]</span>	<span class="rList_name"></span>	<span class="rList_in"></span>	</div><div class="rList_inside_wrap2"><span class="rList_signa"></span>		</div><div class="rList_buttons"><span class="rList_button but-details"></span>	<span class="rList_button but-werktit"></span>	</div><div aria-hidden="true" id="lcont_12" class="rList_panel content-inactive" aria-expanded="false"></div></li><li class="rList_li_odd"><span class="rList_cover"></span>	<span class="rList_titel"><a href="javascript:htmlOnLink('AK13987533')"><span class="tltit"><img class='icon' height='16' width='16' src='/aDISWeb/icons/buch_rot_a.gif' alt='Buch' title='Buch' /> Prima Carezza - Salon music at Schumann's Bar : [Beiheft]</span></a></span>	<span class="rList_num">58</span>	<span class="rList_check"><label for="cellCheck_12" class="invisible">Markieren</label><input type="checkbox" name="cellCheck$12" fld="###CHK_14" id="cellCheck_12"/></span>	<span class="rlist_icon"><span><img class='icon' height='16' width='16' src='/aDISWeb/icons/verfu_ja.gif' alt='ist verf&#0252;gbar' title='ist verf&#0252;gbar' /></span></span>	<div class="rList_inside_wrap1"><span class="rList_medium">'edel'records. - 2005</span>	<span class="rList_name"></span>	<span class="rList_in"></span>	</div><div class="rList_inside_wrap2"><span class="rList_signa"></span>		</div><div class="rList_buttons"><span class="rList_button but-details"><button value="Standort" id="lrb_13_11" class="rbutton button-inactive" onclick="return RButton.evhandler(this)" aria-controls="lcont_13" type="button"><span class="rlabel">Standort</span></button></span>	<span class="rList_button but-werktit"></span>	</div><div aria-hidden="true" id="lcont_13" class="rList_panel content-inactive" aria-expanded="false"></div></li><li class="rList_li_even"><span class="rList_cover"></span>	<span class="rList_titel"><a href="javascript:htmlOnLink('AK13985216')"><span class="tltit"><img class='icon' height='16' width='16' src='/aDISWeb/icons/buch_rot_a.gif' alt='Buch' title='Buch' /> Basiko lexilogio tes hellenikes, anglikes kai germanikes glossas</span></a></span>	<span class="rList_num">59</span>	<span class="rList_check"><label for="cellCheck_13" class="invisible">Markieren</label><input type="checkbox" name="cellCheck$13" fld="###CHK_15" id="cellCheck_13"/></span>	<span class="rlist_icon"><span><img class='icon' height='16' width='16' src='/aDISWeb/icons/verfu_ja.gif' alt='ist verf&#0252;gbar' title='ist verf&#0252;gbar' /></span></span>	<div class="rList_inside_wrap1"><span class="rList_medium">[Dimitris Triadafillu ; Sandra Triadafillu]. - 2. Aufl.. - Triadafillu. - 2001</span>	<span class="rList_name"></span>	<span class="rList_in"></span>	</div><div class="rList_inside_wrap2"><span class="rList_signa"></span>		</div><div class="rList_buttons"><span class="rList_button but-details"><button value="Standort" id="lrb_14_11" class="rbutton button-inactive" onclick="return RButton.evhandler(this)" aria-controls="lcont_14" type="button"><span class="rlabel">Standort</span></button></span>	<span class="rList_button but-werktit"></span>	</div><div aria-hidden="true" id="lcont_14" class="rList_panel content-inactive" aria-expanded="false"></div></li><li class="rList_li_odd"><span class="rList_cover"></span>	<span class="rList_titel"><a href="javascript:htmlOnLink('AK13970608')"><span class="tltit"><img class='icon' height='16' width='16' src='/aDISWeb/icons/cd_a.gif' alt='CD' title='CD' /> Prima Carezza - Salon music at Schumann's Bar : [CD]</span></a></span>	<span class="rList_num">60</span>	<span class="rList_check"><label for="cellCheck_14" class="invisible">Markieren</label><input type="checkbox" name="cellCheck$14" fld="###CHK_16" id="cellCheck_14"/></span>	<span class="rlist_icon"><span><img class='icon' height='16' width='16' src='/aDISWeb/icons/verfu_ja.gif' alt='ist verf&#0252;gbar' title='ist verf&#0252;gbar' /></span></span>	<div class="rList_inside_wrap1"><span class="rList_medium">'edel'records. - 2005</span>	<span class="rList_name"></span>	<span class="rList_in"></span>	</div><div class="rList_inside_wrap2"><span class="rList_signa"></span>		</div><div class="rList_buttons"><span class="rList_button but-details"><button value="Standort" id="lrb_15_11" class="rbutton button-inactive" onclick="return RButton.evhandler(this)" aria-controls="lcont_15" type="button"><span class="rlabel">Standort</span></button></span>	<span class="rList_button but-werktit"></span>	</div><div aria-hidden="true" id="lcont_15" class="rList_panel content-inactive" aria-expanded="false"></div></li><li class="rList_li_even"><span class="rList_cover"></span>	<span class="rList_titel"><a href="javascript:htmlOnLink('AK13934650')"><span class="tltit"><img class='icon' height='16' width='16' src='/aDISWeb/icons/buch_rot_a.gif' alt='Band' title='Band' /> Enciclopedia universal ilustrada europeo-americana : etimologias sanscrito, hebreo, griego, latin, árabe, lenguas indigenas americanas, etc. ; versiones de la mayoria de las voces en frances, italiano, inglés, alemán, portugués, catalán, esperanto. - 61. Tes - Tirn</span></a></span>	<span class="rList_num">61</span>	<span class="rList_check"><label for="cellCheck_15" class="invisible">Markieren</label><input type="checkbox" name="cellCheck$15" fld="###CHK_17" id="cellCheck_15"/></span>	<span class="rlist_icon"><span><img class='icon' height='16' width='16' src='/aDISWeb/icons/verfu_ja.gif' alt='ist verf&#0252;gbar' title='ist verf&#0252;gbar' /></span></span>	<div class="rList_inside_wrap1"><span class="rList_medium">1958</span>	<span class="rList_name"></span>	<span class="rList_in"></span>	</div><div class="rList_inside_wrap2"><span class="rList_signa"></span>		</div><div class="rList_buttons"><span class="rList_button but-details"><button value="Standort" id="lrb_16_11" class="rbutton button-inactive" onclick="return RButton.evhandler(this)" aria-controls="lcont_16" type="button"><span class="rlabel">Standort</span></button></span>	<span class="rList_button but-werktit"></span>	</div><div aria-hidden="true" id="lcont_16" class="rList_panel content-inactive" aria-expanded="false"></div></li><li class="rList_li_odd"><span class="rList_cover"></span>	<span class="rList_titel"><a href="javascript:htmlOnLink('AK13928631')"><span class="tltit"><img class='icon' height='16' width='16' src='/aDISWeb/icons/cd_a.gif' alt='CD' title='CD' /> Me que me que : [CD]</span></a></span>	<span class="rList_num">62</span>	<span class="rList_check"><label for="cellCheck_16" class="invisible">Markieren</label><input type="checkbox" name="cellCheck$16" fld="###CHK_18" id="cellCheck_16"/></span>	<span class="rlist_icon"><span><img class='icon' height='16' width='16' src='/aDISWeb/icons/verfu_ja.gif' alt='ist verf&#0252;gbar' title='ist verf&#0252;gbar' /></span></span>	<div class="rList_inside_wrap1"><span class="rList_medium">[Interpr.]: Charles Aznavour. - R. David, H. Heinrichs [u.a.]. - 2004</span>	<span class="rList_name"></span>	<span class="rList_in"></span>	</div><div class="rList_inside_wrap2"><span class="rList_signa"></span>		</div><div class="rList_buttons"><span class="rList_button but-details"><button value="Standort" id="lrb_17_11" class="rbutton button-inactive" onclick="return RButton.evhandler(this)" aria-controls="lcont_17" type="button"><span class="rlabel">Standort</span></button></span>	<span class="rList_button but-werktit"></span>	</div><div aria-hidden="true" id="lcont_17" class="rList_panel content-inactive" aria-expanded="false"></div></li><li class="rList_li_even"><span class="rList_cover"></span>	<span class="rList_titel"><a href="javascript:htmlOnLink('AK13914812')"><span class="tltit"><img class='icon' height='16' width='16' src='/aDISWeb/icons/serie_a.gif' alt='Serie/Reihe' title='Serie/Reihe' /> Ta biblia tes theias Lenas</span></a></span>	<span class="rList_num">63</span>	<span class="rList_check"><label for="cellCheck_17" class="invisible">Markieren</label><input type="checkbox" name="cellCheck$17" fld="###CHK_19" id="cellCheck_17"/></span>	<span class="rlist_icon"><span><img class='icon' height='16' width='16' src='/aDISWeb/icons/verfu_info.gif' alt='Verfügbarkeit siehe Vollanzeige' title='Verfügbarkeit siehe Vollanzeige' /></span></span>	<div class="rList_inside_wrap1"><span class="rList_medium">Ekdoseis Do¯rikos</span>	<span class="rList_name"></span>	<span class="rList_in"></span>	</div><div class="rList_inside_wrap2"><span class="rList_signa"></span>		</div><div class="rList_buttons"><span class="rList_button but-details"></span>	<span class="rList_button but-werktit"></span>	</div><div aria-hidden="true" id="lcont_18" class="rList_panel content-inactive" aria-expanded="false"></div></li><li class="rList_li_odd"><span class="rList_cover"></span>	<span class="rList_titel"><a href="javascript:htmlOnLink('AK13896324')"><span class="tltit"><img class='icon' height='16' width='16' src='/aDISWeb/icons/noten_a.gif' alt='Noten' title='Noten' /> ¬Les¬ plus belles chansons de Edith Piaf : [Noten] [Partitur]</span></a></span>	<span class="rList_num">64</span>	<span class="rList_check"><label for="cellCheck_18" class="invisible">Markieren</label><input type="checkbox" name="cellCheck$18" fld="###CHK_20" id="cellCheck_18"/></span>	<span class="rlist_icon"><span><img class='icon' height='16' width='16' src='/aDISWeb/icons/verfu_ja.gif' alt='ist verf&#0252;gbar' title='ist verf&#0252;gbar' /></span></span>	<div class="rList_inside_wrap1"><span class="rList_medium">Edith Piaf. - Piano, chant, grilles guitare. - Nuova Carisch. - 2004</span>	<span class="rList_name"></span>	<span class="rList_in"></span>	</div><div class="rList_inside_wrap2"><span class="rList_signa"></span>		</div><div class="rList_buttons"><span class="rList_button but-details"><button value="Standort" id="lrb_19_11" class="rbutton button-inactive" onclick="return RButton.evhandler(this)" aria-controls="lcont_19" type="button"><span class="rlabel">Standort</span></button></span>	<span class="rList_button but-werktit"></span>	</div><div aria-hidden="true" id="lcont_19" class="rList_panel content-inactive" aria-expanded="false"></div></li><li class="rList_li_even"><span class="rList_cover"></span>	<span class="rList_titel"><a href="javascript:htmlOnLink('AK13723302')"><span class="tltit"><img class='icon' height='16' width='16' src='/aDISWeb/icons/buch_rot_a.gif' alt='Buch' title='Buch' /> E plerophorike sto choro tes ygeias : basikes engoies & epharmues</span></a></span>	<span class="rList_num">65</span>	<span class="rList_check"><label for="cellCheck_19" class="invisible">Markieren</label><input type="checkbox" name="cellCheck$19" fld="###CHK_21" id="cellCheck_19"/></span>	<span class="rlist_icon"><span><img class='icon' height='16' width='16' src='/aDISWeb/icons/verfu_ja.gif' alt='ist verf&#0252;gbar' title='ist verf&#0252;gbar' /></span></span>	<div class="rList_inside_wrap1"><span class="rList_medium">Athena A Lazakidu ; Iordanes E. Euangelu ;Christina N. Eliude.. - Logos-Verl.. - 2004</span>	<span class="rList_name"></span>	<span class="rList_in"></span>	</div><div class="rList_inside_wrap2"><span class="rList_signa"></span>		</div><div class="rList_buttons"><span class="rList_button but-details"><button value="Standort" id="lrb_20_11" class="rbutton button-inactive" onclick="return RButton.evhandler(this)" aria-controls="lcont_20" type="button"><span class="rlabel">Standort</span></button></span>	<span class="rList_button but-werktit"></span>	</div><div aria-hidden="true" id="lcont_20" class="rList_panel content-inactive" aria-expanded="false"></div></li><li class="rList_li_odd"><span class="rList_cover"></span>	<span class="rList_titel"><a href="javascript:htmlOnLink('AK13713385')"><span class="tltit"><img class='icon' height='16' width='16' src='/aDISWeb/icons/cd_a.gif' alt='CD' title='CD' /> Parlez-moi d'amour : original recordings 1926 - 1933 ; [CD]</span></a></span>	<span class="rList_num">66</span>	<span class="rList_check"><label for="cellCheck_20" class="invisible">Markieren</label><input type="checkbox" name="cellCheck$20" fld="###CHK_22" id="cellCheck_20"/></span>	<span class="rlist_icon"><span><img class='icon' height='16' width='16' src='/aDISWeb/icons/verfu_ja.gif' alt='ist verf&#0252;gbar' title='ist verf&#0252;gbar' /></span></span>	<div class="rList_inside_wrap1"><span class="rList_medium">Lucienne Boyer. - Naxos Deutschland. - 2004</span>	<span class="rList_name"></span>	<span class="rList_in"></span>	</div><div class="rList_inside_wrap2"><span class="rList_signa"></span>		</div><div class="rList_buttons"><span class="rList_button but-details"><button value="Standort" id="lrb_21_11" class="rbutton button-inactive" onclick="return RButton.evhandler(this)" aria-controls="lcont_21" type="button"><span class="rlabel">Standort</span></button></span>	<span class="rList_button but-werktit"></span>	</div><div aria-hidden="true" id="lcont_21" class="rList_panel content-inactive" aria-expanded="false"></div></li></ul>
+</div> </div>
+                 
+                 
+                 
+                 
+              </div>
+              
+              <div class="clear"></div> <div class="toolbar_div">
+<ul class="toolbar_ul">
+<li class="toolbar_li">
+<input type="image" src="/aDISWeb/images/POOLVX00vb@@@@@@/gif/POOLVX00vb@@@@@@_53010E00_25522680.gif;jsessionid=2A06DAB8406BC48A2704BA04A31E8114" alt="Zur&#252;ck zur Suche" id="Toolbar$0_0" name="$Toolbar$0_0" title="Zur&#252;ck zur Suche" onmouseover="self.status='Zur&#252;ck zur Suche';return true;" onmouseout="self.status='';" class="toolbar_img"/><label for="Toolbar$0_0"><span class="toolbar_txt">Zur&#252;ck</span></label></li>
+<li class="toolbar_li">
+<input type="image" src="/aDISWeb/images/POOLVX00vb@@@@@@/gif/POOLVX00vb@@@@@@_53002800_228F8280.gif;jsessionid=2A06DAB8406BC48A2704BA04A31E8114" alt="Zur Vollanzeige des Treffers" id="Toolbar$0_1" name="$Toolbar$0_1" title="Zur Vollanzeige des Treffers" onmouseover="self.status='Zur Vollanzeige des Treffers';return true;" onmouseout="self.status='';" class="toolbar_img"/><label for="Toolbar$0_1"><span class="toolbar_txt">Vollanzeige</span></label></li>
+<li class="toolbar_li">
+<input type="image" src="/aDISWeb/images/POOLVX00vb@@@@@@/gif/POOLVX00vb@@@@@@_53011E00_228F8280.gif;jsessionid=2A06DAB8406BC48A2704BA04A31E8114" alt="Zur&#252;ck zur Suche" id="Toolbar$0_2" name="$Toolbar$0_2" title="Zur&#252;ck zur Suche" onmouseover="self.status='Zur&#252;ck zur Suche';return true;" onmouseout="self.status='';" class="toolbar_img"/><label for="Toolbar$0_2"><span class="toolbar_txt">Neue Suche</span></label></li>
+<li class="toolbar_li">
+<input type="image" src="/aDISWeb/images/POOLVX00vb@@@@@@/gif/POOLVX00vb@@@@@@_53005800_2904BB80.gif;jsessionid=2A06DAB8406BC48A2704BA04A31E8114" alt="An den Anfang bl&#228;ttern" id="Toolbar$0_3" name="$Toolbar$0_3" title="An den Anfang bl&#228;ttern" onmouseover="self.status='An den Anfang bl&#228;ttern';return true;" onmouseout="self.status='';" class="toolbar_img"/><label for="Toolbar$0_3"><span class="toolbar_txt">Anfang</span></label></li>
+<li class="toolbar_li">
+<input type="image" src="/aDISWeb/images/POOLVX00vb@@@@@@/gif/POOLVX00vb@@@@@@_53005900_2904BB80.gif;jsessionid=2A06DAB8406BC48A2704BA04A31E8114" alt="R&#252;ckw&#228;rts bl&#228;ttern" id="Toolbar$0_4" name="$Toolbar$0_4" title="R&#252;ckw&#228;rts bl&#228;ttern" onmouseover="self.status='R&#252;ckw&#228;rts bl&#228;ttern';return true;" onmouseout="self.status='';" class="toolbar_img"/><label for="Toolbar$0_4"><span class="toolbar_txt">R&#252;ckw&#228;rts</span></label></li>
+<li class="toolbar_li">
+<input type="image" src="/aDISWeb/images/POOLVX00vb@@@@@@/gif/POOLVX00vb@@@@@@_53005100_2904BB80.gif;jsessionid=2A06DAB8406BC48A2704BA04A31E8114" alt="Vorw&#228;rts bl&#228;ttern" id="Toolbar$0_5" name="$Toolbar$0_5" title="Vorw&#228;rts bl&#228;ttern" onmouseover="self.status='Vorw&#228;rts bl&#228;ttern';return true;" onmouseout="self.status='';" class="toolbar_img"/><label for="Toolbar$0_5"><span class="toolbar_txt">Vorw&#228;rts</span></label></li>
+<li class="toolbar_li">
+<input type="image" src="/aDISWeb/images/POOLVX00vb@@@@@@/gif/POOLVX00vb@@@@@@_53005600_2904BB80.gif;jsessionid=2A06DAB8406BC48A2704BA04A31E8114" alt="Ans Ende bl&#228;ttern" id="Toolbar$0_6" name="$Toolbar$0_6" title="Ans Ende bl&#228;ttern" onmouseover="self.status='Ans Ende bl&#228;ttern';return true;" onmouseout="self.status='';" class="toolbar_img"/><label for="Toolbar$0_6"><span class="toolbar_txt">Ende</span></label></li>
+<li class="toolbar_li">
+<input type="image" src="/aDISWeb/images/POOLVX00vb@@@@@@/gif/POOLVX00vb@@@@@@_53002400_228F8280.gif;jsessionid=2A06DAB8406BC48A2704BA04A31E8114" alt="Beenden der Recherche" id="Toolbar$0_7" name="$Toolbar$0_7" title="Beenden der Recherche" onmouseover="self.status='Beenden der Recherche';return true;" onmouseout="self.status='';" class="toolbar_img"/><label for="Toolbar$0_7"><span class="toolbar_txt">Beenden</span></label></li>
+<li class="toolbar_li">
+<input type="image" src="/aDISWeb/images/POOLVX00vb@@@@@@/gif/POOLVX00vb@@@@@@_53001D00_228F8280.gif;jsessionid=2A06DAB8406BC48A2704BA04A31E8114" alt="Hilfe zur Trefferliste" id="Toolbar$0_8" name="$Toolbar$0_8" title="Hilfe zur Trefferliste" onmouseover="self.status='Hilfe zur Trefferliste';return true;" onmouseout="self.status='';" class="toolbar_img"/><label for="Toolbar$0_8"><span class="toolbar_txt">Hilfe</span></label></li></ul><div style="clear:both"></div></div> </div>
+            <div class="clear"></div>
+      
+          </div>
+          <div id="clear"></div>
+        </div>
+        
+      </div><!-- /container_inside -->
+    </div><!-- /container -->
+
+    <div id="footer">
+      <div class="inside">
+      
+        <p class="block" id="goingup">
+          <a href="#wrapper">Seitenanfang</a>
+        </p>
+        <div class="clear"></div>
+
+      </div>
+    </div>
+    
+  </div><!-- /wrapper_inside -->
+</div><!-- /wrapper -->
+
+<script src="/aDISWeb_vob/js/yaml-focusfix.js" type="text/javascript"></script></form>
+</div></body>
+</html>

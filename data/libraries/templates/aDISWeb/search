@@ -84,16 +84,19 @@
                       "_searchId": encode-for-uri(concat("ZTEXT       ", extract($title//a/@href, "\('(.*)'\)", 1))),
                       "_index": $lastIndex,
                       "statusId" : local:img-to-status(.)
-                    }}</img></span>
+                    }, lastSearchedIndex := $lastIndex}</img></span>
                     
                     <span class="rList_medium">
-                    {let $temp := tokenize(., "-")!normalize-space() return (
-                      $book.author := $temp[1],
-                      if ($temp[last()] castable as xs:integer) then (
-                        $book.year := $temp[last()],
-                        $book.publisher := $temp[last() - 1 ]
-                      ) else $book.publisher := $temp[last()]
-                    )}
+                    {let $temp := tokenize(., "-")!normalize-space(),
+                         $year := $temp[last()][. castable as xs:integer],
+                         $autpubcount := count($temp) - (if (exists($year)) then (1, $book.year := $year)[1] else 0)
+                     return switch ($autpubcount) 
+                       case 0 return ()
+                       case 1 return $book.author := $temp[1]
+                       default return (
+                         $book.author := $temp[1],
+                         $book.publisher := $temp[$autpubcount]
+                       )}
                     </span>
                   </t:if> 
                 </li>+</ul></div>
