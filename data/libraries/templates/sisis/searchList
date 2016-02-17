@@ -105,4 +105,8 @@
     
   </form>
   
+  <div class="alert message-error">{vl:raise(.)}</div> <!-- for debugging -->
+  
+  
+  
 </template:switch-prioritized>
