@@ -1,10 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?xml-stylesheet type="text/xsl" href="../changelog.xsl"?>
 <changelog program="VideLibri">
-  <build version="1820" date="2015-12-25">
+  <build version="1830" date="2016-02-17">
     <download url="http://videlibri.sourceforge.net/updates/videlibri-setup.exe" platform="WINDOWS" execute="&quot;$DOWNLOAD&quot;  /SP- /noicons &quot;/dir=$OLDPATH&quot; " restart="true"/>
     <download url="http://videlibri.sourceforge.net/updates/videlibri-linux32.deb" platform="LINUX32" execute=""/>
     <download url="http://videlibri.sourceforge.net/updates/videlibri-linux64.deb" platform="LINUX64" execute=""/>
+    <fix>Dortmund: Kontoverwaltung mit PAIA und Suche mit Digibib</fix>
+<fix>Kiel, Koblenz, Hannover: Neues HTTPS Zertifikat</fix>
+<fix>voebb: Suche an neues Layout angepasst</fix>
+<fix>libero: Anpassung an libero 6 (für Saarbrücken ?)</fix>
+<fix>München: Zeigt auch Konten mit Magazinbestellungen an</fix>
+<change>Templates: Verwendet eine andere Library für reguläre Ausdrücke (FLRE) (was im Best Case nichts ändert und im Worst Case zu zufälligen Abstürzen führt). Über hundert kleine Änderungen für verbesserte XPath-Standardkompatibilität</change>
+<add>Darmstadt hinzugefügt</add>
+  </build>
+  <build version="1820" date="2015-12-25">
     <add>Summon für Bonn</add>
     <change>Das Interface zwischen VideLibri und installierten Templates wurde geändert, so dass VideLibri die Bücher vom Template 1 zu 1 übernimmt und nicht versucht, die Bücher mit den VideLibri bisher bekannten Büchern zu mergen/mischen. </change>
     <fix>Verschiedene Anpassungen an geänderte Systeme: Linz, Münster, Bonn, HTW Dresden</fix>
