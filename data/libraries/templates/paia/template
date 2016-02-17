@@ -9,21 +9,24 @@
 
 <action id="connect">
   <s>baseurl := if (get("baseurl", ())) then get("baseurl", ()) else x"https://{$server}"</s>
-  <page url="{$baseurl}/auth/login?username={$username}&amp;password={$password}&amp;grant_type=password">
-<!--    <header>Content-Type: application/json</header>-->
-    <header>Accept: application/json,*/*</header>
-    <template><t:s>
-      xquery version "1.0";
-      let $answer := json($raw) return
-      (
-        access_token := encode-for-uri($answer.access_token),
-        patron_identifier := encode-for-uri(if ($answer.patron) then $answer.patron else $username),
-        scope := if ($answer.scope) then $answer.scope else "read_items write_items",
-        allow_renew := contains(x" {$scope} ", " write_items "),
-        if (not(contains(x" {$scope} ", " read_items "))) then ( error(QName("VL:1"), "No access" ) ) else ()        
-      )
-    </t:s></template>
-  </page>
+  <try>
+    <page url="{$baseurl}/auth/login?username={$username}&amp;password={$password}&amp;grant_type=password">
+  <!--    <header>Content-Type: application/json</header>-->
+      <header>Accept: application/json,*/*</header>
+      <template><t:s>
+        xquery version "1.0";
+        let $answer := json($raw) return
+        (
+          access_token := encode-for-uri($answer.access_token),
+          patron_identifier := encode-for-uri(if ($answer.patron) then $answer.patron else $username),
+          scope := if ($answer.scope) then $answer.scope else "read_items write_items",
+          allow_renew := contains(x" {$scope} ", " write_items "),
+          if (not(contains(x" {$scope} ", " read_items "))) then ( error(QName("VL:1"), "No access" ) ) else ()        
+        )
+      </t:s></template>
+    </page>
+    <catch errors="http:403"><s>vl:raise-login("HTTP Code 403. Vermutlich ungültige Kontonummer oder Passwort.")</s></catch>
+  </try>
 </action>
 
 <action id="update-all">
