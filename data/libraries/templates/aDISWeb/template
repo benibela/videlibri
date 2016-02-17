@@ -5,6 +5,7 @@
   <description>Template des aDISWeb-Systems, üblicherweise in Bayern verwendet</description>
   <variable name="server"><description>reiner Servername, (z.B.: ssl.muenchen.de) </description></variable>
   <variable name="startparams" default=""><description>Parameter in der URL nach aDISWeb/app für Server, auf denen mehrere Bibliothekssysteme laufen</description></variable>    
+  <variable name="multiple-district-ordering" default=""><description>Spezielle Option für VOEBB (oder ähnliche Verbünde). Für Einzelbibliotheken leerlassen</description></variable>    
 </meta>
 
 
