@@ -59,6 +59,7 @@ win32)
 		lazCompileWin32 bookWatch
 		strip --strip-all $VIDELIBRIBASE/videlibri.exe
 		cd $VIDELIBRIBASE  #innosetup does not understand absolute linux paths
+		sed _meta/installer/videlibri.iss -i -Ee "s/^( *AppVer(Name|sion)=[^0-9]*)[^\r]*(\r)?\$/\1$VERSION\3/"
 		wine ~/.wine/drive_c/programs/programming/InnoSetup/Compil32.exe _meta/installer/videlibri.iss
 
 		cd $VIDELIBRIBASE/Output
