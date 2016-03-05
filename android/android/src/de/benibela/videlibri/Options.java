@@ -158,11 +158,14 @@ public class Options extends VideLibriBaseActivity{
         options.logging = getCheckBoxChecked(R.id.logging);
         Bridge.VLSetOptions(options);
 
+        VideLibri.displayHistory = ((RadioButton) findViewById(R.id.radioButton2)).isChecked();
+
         SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(this);
         SharedPreferences.Editor editor = sp.edit();
         editor.putBoolean("notifications", getCheckBoxChecked(R.id.notifications));
         editor.putBoolean("noLendBookDetails", getCheckBoxChecked(R.id.noLendBookDetails));
         editor.putBoolean("showRenewCount", getCheckBoxChecked(R.id.showRenewCount));
+        editor.putBoolean("displayHistory", VideLibri.displayHistory);
         editor.putInt("notificationsServiceDelay", Util.strToIntDef((getEditTextText(R.id.notificationsServiceDelay)), 15));
         final String[] sortingKeys = getResources().getStringArray(R.array.sortable_properties);
         int sortingPos = ((Spinner)findViewById(R.id.sorting)).getSelectedItemPosition();
@@ -179,6 +182,5 @@ public class Options extends VideLibriBaseActivity{
 
         VideLibriApp.setACRAlogcat(getCheckBoxChecked(R.id.loggingSend));
 
-        VideLibri.displayHistory = ((RadioButton) findViewById(R.id.radioButton2)).isChecked();
     }
 }

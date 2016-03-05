@@ -86,6 +86,7 @@ public class VideLibri extends  BookListActivity{
         sortingKey = sp.getString("sorting", "dueDate");
         groupingKey = sp.getString("grouping", "_dueWeek");
         filterKey = sp.getString("filtering", "");
+        displayHistory = sp.getBoolean("displayHistory", false);
 
 
         if (displayHistoryActually != displayHistory
