@@ -210,11 +210,6 @@ object mainForm: TmainForm
     object extraMenu: TMenuItem
       Caption = 'E&xtras'
       Visible = False
-      object MenuItem23: TMenuItem
-        Caption = '&Freischalten...'
-        Visible = False
-        OnClick = MenuItem23Click
-      end
       object MenuItem8: TMenuItem
         Caption = 'Ausleihensuche'
         ShortCut = 16454
@@ -240,7 +235,7 @@ object mainForm: TmainForm
         OnClick = MenuItem18Click
       end
       object MenuItemTester: TMenuItem
-        Caption = 'Ausleih-Konto-Tester'
+        Caption = 'Tester'
         Visible = False
         OnClick = MenuItemTesterClick
       end

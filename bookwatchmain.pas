@@ -56,7 +56,6 @@ type
     MenuItem20: TMenuItem;
     MenuItem21: TMenuItem;
     MenuItem22: TMenuItem;
-    MenuItem23: TMenuItem;
     MenuItem24: TMenuItem;
     MenuItem25: TMenuItem;
     MenuItem26: TMenuItem;
@@ -131,7 +130,6 @@ type
     procedure MenuItem1Click(Sender: TObject);
     procedure MenuItem9Click(Sender: TObject);
     procedure MenuItemTesterClick(Sender: TObject);
-    procedure MenuItem23Click(Sender: TObject);
     procedure MenuItem24Click(Sender: TObject);
     procedure MenuItem25Click(Sender: TObject);
     procedure MenuItem26Click(Sender: TObject);
@@ -815,10 +813,6 @@ end;
 procedure TmainForm.MenuItemTesterClick(Sender: TObject);
 begin
   TlibraryTesterForm.Create(Application).show;
-end;
-
-procedure TmainForm.MenuItem23Click(Sender: TObject);
-begin
 end;
 
 procedure TmainForm.MenuItem24Click(Sender: TObject);
