@@ -1,0 +1,13 @@
+search-reverse-keys := book := {}
+reserve-request := ()
+i := 0
+i := 1
+reserve-request := ()
+cat := text{"Jahr:"}
+cat := text{"E-Medium:"}
+cat := text{"Systematik:"}
+cat := text{"Beschreibung:"}
+cat := text{"Schlagwörter:"}
+cat := text{"Sprache:"}
+cat := text{"Mediengruppe:"}
+book := {"Mediengruppe:!": "eBook", "Sprache:!": "ger", "Schlagwörter:!": "Digitale Fotografie", "Beschreibung:!": "19 S. graph. Darst.", "Systematik:!": "Wcr 7", "E-Medium:!": "Titel nur digital verfügbar; zum Downloaden bitte hier klicken! (http://www.onleihe-rlp.de/rlp/frontend/mediaInfo,0-0-352829424-100-0-0-0-0-0-0-0.html)", "Jahr:!": "2009", "Exemplar 1!": "Onleihe Onleihe Digitales Medium 0     "}

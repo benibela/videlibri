@@ -21,7 +21,7 @@
         </t:switch>
   
         <input t:test="$book.orderable">{reserve-request := form((//form)[1], {"__EVENTTARGET":  @name})}</input>?
-      </div>
+      </div>?
   
       <div t:test="$book.orderable">
          <a t:condition="contains(@id, 'BtnReserve')">{reserve-request := form((//form)[1], {"__EVENTTARGET":  translate(@id, "_", "$")})}</a>?
@@ -37,10 +37,13 @@
       <div t:condition="contains(@id, 'tpnlDetail') or contains(@ id, 'CatalogueDetailView')"><!-- class="DnnContainer">-->
         <div>     
            <span>{cat := .}</span>
-           <span>{
-             let $temp := extract($cat/@id, "_Lbl(.*)$", 1) 
-             return if (exists($search-reverse-keys($temp))) then $book($search-reverse-keys($temp)) := .
-                    else $book($cat||"!") := .}</span> 
+           <t:switch>
+             <span>{
+               let $temp := extract($cat/@id, "_Lbl(.*)$", 1) 
+               return if (exists($search-reverse-keys($temp))) then $book($search-reverse-keys($temp)) := .
+                      else $book($cat||"!") := .}</span> 
+              <a>{$book($cat||"!") := . || (if (contains(@href, "http")) then x" ({@href})" else "")}</a>
+           </t:switch>
         </div>*
       </div>
       				
