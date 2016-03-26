@@ -3,9 +3,10 @@
   <longName value="Stadtbibliothek Palais Walderdorff (alpha)"/>
   <shortName value="Stb Walderdorff"/>
   
-  <template value="bibliotheca"/>
-  <variable name="baseurl" value="https://opac.trier.de/webopac"/>	
-  <variable name="DB" value="palais"/>	
+  <template value="bibliothecaplus"/>
+  <variable name="urlaccount" value="https://opac.trier.de/Mein-Konto"/>	
+  <variable name="urlsearch" value="https://opac.trier.de/Mediensuche/Erweiterte-Suche"/>	
+ 
   
   <!--<template value="pica"/>-->
 
