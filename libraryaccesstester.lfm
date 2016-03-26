@@ -1,108 +1,296 @@
 object libraryTesterForm: TlibraryTesterForm
-  Left = 383
-  Height = 518
-  Top = 198
-  Width = 848
+  Left = 157
+  Height = 689
+  Top = 105
+  Width = 1182
   Caption = 'libraryTesterForm'
-  ClientHeight = 518
-  ClientWidth = 848
+  ClientHeight = 689
+  ClientWidth = 1182
   OnClose = FormClose
   OnCloseQuery = FormCloseQuery
   OnCreate = FormCreate
-  LCLVersion = '1.1'
-  object ListBox1: TListBox
+  LCLVersion = '1.5'
+  object PageControl1: TPageControl
     Left = 0
-    Height = 518
+    Height = 689
     Top = 0
-    Width = 320
-    Align = alLeft
-    ItemHeight = 0
-    ScrollWidth = 316
-    TabOrder = 0
-    TopIndex = -1
-  end
-  object Panel1: TPanel
-    Left = 320
-    Height = 518
-    Top = 0
-    Width = 528
+    Width = 1182
+    ActivePage = TabSheet2
     Align = alClient
-    Caption = 'Panel1'
-    ClientHeight = 518
-    ClientWidth = 528
-    TabOrder = 1
-    object Edit1: TEdit
-      Left = 16
-      Height = 25
-      Top = 24
-      Width = 496
-      Anchors = [akTop, akLeft, akRight]
-      TabOrder = 0
-      Text = 'name'
+    TabIndex = 0
+    TabOrder = 0
+    object TabSheet2: TTabSheet
+      Caption = 'Multi-Tester'
+      ClientHeight = 664
+      ClientWidth = 1180
+      object TreeListView1: TTreeListView
+        Left = 0
+        Height = 631
+        Hint = 'Constant example tree'
+        Top = 0
+        Width = 1180
+        Options = [tlvoMultiSelect, tlvoToolTips, tlvoRightMouseSelects, tlvoStriped, tlvoSorted]
+        Columns = <        
+          item
+            Alignment = taLeftJustify
+            Text = 'Land'
+            Width = 100
+            Visible = True
+          end        
+          item
+            Alignment = taLeftJustify
+            Text = 'BIb'
+            Width = 250
+            Visible = True
+          end        
+          item
+            Alignment = taLeftJustify
+            Text = 'Suche'
+            Width = 250
+            Visible = True
+          end        
+          item
+            Alignment = taLeftJustify
+            Text = 'Konto'
+            Width = 250
+            Visible = True
+          end>
+        RowHeight = 16
+        HorizontalLineMode = lmNone
+        HorizontalLineColor = clWindowFrame
+        VerticalLineMode = lmDot
+        VerticalLineColor = clWindowFrame
+        RootLineMode = lmDot
+        RootLineColor = clWindowFrame
+        ColorSearchMark = clAqua
+        ColorSearchMarkField = 16744320
+        ExpandMode = emExpandByClick
+        HotTrackFont.Color = clBlue
+        HotTrackFont.Style = [fsUnderline]
+        Font.Color = clWindowText
+        SelectedFont.Color = clHighlightText
+        SelectedHotTrackFont.Color = clHighlightText
+        SelectedHotTrackFont.Style = [fsBold, fsUnderline]
+        StripedOddColor = clWindow
+        StripedEvenColor = 14745599
+        SelectBackColor = clHighlight
+        ButtonColor = clWindow
+        BackGroundColor = clWindow
+        Scrollbars = ssBoth
+        HeaderVisible = True
+        OnCustomRecordItemDraw = TreeListView1CustomRecordItemDraw
+        TabOrder = 0
+        Align = alClient
+      end
+      object Panel2: TPanel
+        Left = 0
+        Height = 33
+        Top = 631
+        Width = 1180
+        Align = alBottom
+        ClientHeight = 33
+        ClientWidth = 1180
+        TabOrder = 1
+        object Button4: TButton
+          Left = 1078
+          Height = 25
+          Top = 0
+          Width = 91
+          Anchors = [akTop, akRight]
+          Caption = 'Test'
+          OnClick = Button4Click
+          TabOrder = 0
+        end
+        object editTitle: TEdit
+          Left = 48
+          Height = 25
+          Top = 5
+          Width = 80
+          TabOrder = 1
+          Text = 'test'
+        end
+        object EditAutor: TEdit
+          Left = 184
+          Height = 25
+          Top = 5
+          Width = 80
+          TabOrder = 2
+        end
+        object EditUser: TEdit
+          Left = 432
+          Height = 25
+          Top = 5
+          Width = 80
+          TabOrder = 3
+          Text = 'user'
+        end
+        object Label2: TLabel
+          Left = 8
+          Height = 15
+          Top = 9
+          Width = 28
+          Caption = 'titel:'
+          ParentColor = False
+        end
+        object Label3: TLabel
+          Left = 140
+          Height = 15
+          Top = 11
+          Width = 37
+          Caption = 'autor:'
+          ParentColor = False
+        end
+        object editPass: TEdit
+          Left = 520
+          Height = 25
+          Top = 5
+          Width = 80
+          TabOrder = 4
+          Text = 'pass'
+        end
+        object CheckBox1: TCheckBox
+          Left = 840
+          Height = 18
+          Top = 5
+          Width = 62
+          Anchors = [akTop, akRight]
+          Caption = 'all libs'
+          Checked = True
+          State = cbChecked
+          TabOrder = 5
+        end
+        object Button5: TButton
+          Left = 721
+          Height = 25
+          Top = 0
+          Width = 75
+          Caption = 'copy selected'
+          OnClick = Button5Click
+          TabOrder = 6
+        end
+        object CheckBox2: TCheckBox
+          Left = 920
+          Height = 18
+          Top = 5
+          Width = 57
+          Anchors = [akTop, akRight]
+          Caption = 'Suche'
+          Checked = True
+          State = cbChecked
+          TabOrder = 7
+        end
+        object CheckBox3: TCheckBox
+          Left = 984
+          Height = 18
+          Top = 5
+          Width = 58
+          Anchors = [akTop, akRight]
+          Caption = 'Konto'
+          Checked = True
+          State = cbChecked
+          TabOrder = 8
+        end
+      end
     end
-    object Edit2: TEdit
-      Left = 16
-      Height = 25
-      Top = 56
-      Width = 496
-      Anchors = [akTop, akLeft, akRight]
-      TabOrder = 1
-      Text = 'password'
-    end
-    object Button1: TButton
-      Left = 32
-      Height = 25
-      Top = 128
-      Width = 75
-      Caption = 'test'
-      OnClick = Button1Click
-      TabOrder = 2
-    end
-    object Memo1: TMemo
-      Left = 18
-      Height = 347
-      Top = 160
-      Width = 493
-      Anchors = [akTop, akLeft, akRight, akBottom]
-      Lines.Strings = (
-        'Memo1'
-      )
-      ScrollBars = ssAutoBoth
-      TabOrder = 3
-    end
-    object Button2: TButton
-      Left = 112
-      Height = 25
-      Top = 128
-      Width = 131
-      Caption = 'all failure test'
-      OnClick = Button2Click
-      TabOrder = 4
-    end
-    object Label1: TLabel
-      Left = 17
-      Height = 15
-      Top = 93
-      Width = 83
-      Caption = 'system filter:'
-      ParentColor = False
-    end
-    object filter: TEdit
-      Left = 113
-      Height = 25
-      Top = 84
-      Width = 399
-      Anchors = [akTop, akLeft, akRight]
-      TabOrder = 5
-    end
-    object Button3: TButton
-      Left = 390
-      Height = 25
-      Top = 128
-      Width = 75
-      Caption = 'cat urls'
-      OnClick = Button3Click
-      TabOrder = 6
+    object TabSheet1: TTabSheet
+      Caption = 'Alter Konto-Tester'
+      ClientHeight = 664
+      ClientWidth = 1180
+      object Panel1: TPanel
+        Left = 320
+        Height = 493
+        Top = 0
+        Width = 526
+        Align = alClient
+        Caption = 'Panel1'
+        ClientHeight = 493
+        ClientWidth = 526
+        TabOrder = 0
+        object Edit1: TEdit
+          Left = 16
+          Height = 25
+          Top = 24
+          Width = 494
+          Anchors = [akTop, akLeft, akRight]
+          TabOrder = 0
+          Text = 'name'
+        end
+        object Edit2: TEdit
+          Left = 16
+          Height = 25
+          Top = 56
+          Width = 494
+          Anchors = [akTop, akLeft, akRight]
+          TabOrder = 1
+          Text = 'password'
+        end
+        object Button1: TButton
+          Left = 32
+          Height = 25
+          Top = 128
+          Width = 75
+          Caption = 'test'
+          OnClick = Button1Click
+          TabOrder = 2
+        end
+        object Memo1: TMemo
+          Left = 18
+          Height = 322
+          Top = 160
+          Width = 491
+          Anchors = [akTop, akLeft, akRight, akBottom]
+          Lines.Strings = (
+            'Memo1'
+          )
+          ScrollBars = ssAutoBoth
+          TabOrder = 3
+        end
+        object Button2: TButton
+          Left = 112
+          Height = 25
+          Top = 128
+          Width = 131
+          Caption = 'all failure test'
+          OnClick = Button2Click
+          TabOrder = 4
+        end
+        object Label1: TLabel
+          Left = 17
+          Height = 15
+          Top = 93
+          Width = 83
+          Caption = 'system filter:'
+          ParentColor = False
+        end
+        object filter: TEdit
+          Left = 113
+          Height = 25
+          Top = 84
+          Width = 397
+          Anchors = [akTop, akLeft, akRight]
+          TabOrder = 5
+        end
+        object Button3: TButton
+          Left = 390
+          Height = 25
+          Top = 128
+          Width = 75
+          Caption = 'cat urls'
+          OnClick = Button3Click
+          TabOrder = 6
+        end
+      end
+      object ListBox1: TListBox
+        Left = 0
+        Height = 493
+        Top = 0
+        Width = 320
+        Align = alLeft
+        ItemHeight = 0
+        ScrollWidth = 316
+        TabOrder = 1
+        TopIndex = -1
+      end
     end
   end
 end
