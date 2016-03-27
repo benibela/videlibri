@@ -119,6 +119,8 @@ type
     constructor create;
     constructor create(s:string;more_details:string='');
   end;
+  ELoginException=class(EBookListReader)
+  end;
 
   TPendingMessageKind = (pmkConfirm, pmkChoose);
   TPendingMessage = class
@@ -967,9 +969,9 @@ begin
   end else if variable='book-select()' then begin
     //reset
     raise EBookListReader.create('not implemented yet');
-  end else if (variable='raise()') or (variable = 'raise-login()') then begin
-    raise EBookListReader.create(LineEnding + LineEnding + value.toString);
-  end else if (variable='message()') then begin
+  end else if (variable='raise()') then raise EBookListReader.create(LineEnding + LineEnding + value.toString)
+  else if (variable = 'raise-login()') then raise ELoginException.create(LineEnding + LineEnding + value.toString)
+  else if (variable='message()') then begin
      if pendingMessage <> nil then pendingMessage.free;
      pendingMessage := TPendingMessage.Create;
      case value.getProperty('kind').toString of

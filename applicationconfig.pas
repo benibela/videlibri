@@ -135,9 +135,9 @@ uses internetaccess,libraryaccess,math,FileUtil,bbutils,bbdebugtools,androidutil
     if exception is EInternetException then begin
       errorstr:=exception.message+#13#10#13#10+'Bitte überprüfen Sie Ihre Internetverbindung.';
       errordetails:=EInternetException(exception).details;
-     end else if exception is ELoginException then begin
+     end {else if exception is ELoginException then begin
       errorstr:=#13#10+exception.message;
-     end else if exception is ELibraryException then begin
+     end }else if exception is ELibraryException then begin
       errorstr:=#13#10+exception.message;
       errordetails:=ELibraryException(exception).details;
      end else if exception is EHTMLParseMatchingException then begin

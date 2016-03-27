@@ -163,13 +163,6 @@ type
 
   { EWrongPasswordException }
 
-  { ELoginException }
-
-  ELoginException=class(ELibraryException)
-    constructor create();
-    constructor create(mes:string);
-  end;
-
   TExtendType=(etAlways,etAllDepends,etSingleDepends,etNever);
 
   { TCustomAccountAccess }
@@ -1603,19 +1596,6 @@ begin
   result:=lib.id+'#'+encodeToSafeFileName(user);
 end;
 
-{ EWrongPasswordException }
-
-constructor ELoginException.create();
-begin
-  create('');
-end;
-
-constructor ELoginException.create(mes: string);
-begin
-  if mes='' then mes:='Leider ist entweder der eingegebene Kontoname oder das Passwort ungültig.'#13#10#13#10'Über den Button Einstellungen können Sie Ihre Passworte überprüfen'#13#10+
-                   'Tip: Bei der STB ist das Passwort das Geburtsdatum mit Punkten, bei FHB und UB (anfänglich) dieses Datum ohne Punkte.';
-  Message:=mes;
-end;
 
 
 { TTemplateAccountAccess }
