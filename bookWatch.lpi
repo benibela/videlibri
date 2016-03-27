@@ -128,7 +128,7 @@
         <PackageName Value="LCL"/>
       </Item4>
     </RequiredPackages>
-    <Units Count="34">
+    <Units Count="35">
       <Unit0>
         <Filename Value="bookWatch.lpr"/>
         <IsPartOfProject Value="True"/>
@@ -323,6 +323,13 @@
         <IsPartOfProject Value="True"/>
         <UnitName Value="applicationdesktopconfig"/>
       </Unit33>
+      <Unit34>
+        <Filename Value="debuglogviewer.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="DebugLogForm"/>
+        <ResourceBaseClass Value="Form"/>
+        <UnitName Value="debuglogviewer"/>
+      </Unit34>
     </Units>
   </ProjectOptions>
   <CompilerOptions>
