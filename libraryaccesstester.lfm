@@ -54,6 +54,12 @@ object libraryTesterForm: TlibraryTesterForm
             Text = 'Konto'
             Width = 250
             Visible = True
+          end        
+          item
+            Alignment = taLeftJustify
+            Text = 'Homepage'
+            Width = 50
+            Visible = True
           end>
         RowHeight = 16
         HorizontalLineMode = lmNone
@@ -149,7 +155,7 @@ object libraryTesterForm: TlibraryTesterForm
           Text = 'pass'
         end
         object CheckBox1: TCheckBox
-          Left = 840
+          Left = 829
           Height = 18
           Top = 5
           Width = 62
@@ -160,16 +166,16 @@ object libraryTesterForm: TlibraryTesterForm
           TabOrder = 5
         end
         object Button5: TButton
-          Left = 721
+          Left = 704
           Height = 25
-          Top = 0
+          Top = -2
           Width = 75
           Caption = 'copy selected'
           OnClick = Button5Click
           TabOrder = 6
         end
         object CheckBox2: TCheckBox
-          Left = 920
+          Left = 909
           Height = 18
           Top = 5
           Width = 57
@@ -180,7 +186,7 @@ object libraryTesterForm: TlibraryTesterForm
           TabOrder = 7
         end
         object CheckBox3: TCheckBox
-          Left = 984
+          Left = 968
           Height = 18
           Top = 5
           Width = 58
@@ -199,6 +205,25 @@ object libraryTesterForm: TlibraryTesterForm
           TabOrder = 9
           Value = 30
         end
+        object CheckBox4: TCheckBox
+          Left = 1032
+          Height = 18
+          Top = 5
+          Width = 45
+          Caption = 'web'
+          Checked = True
+          State = cbChecked
+          TabOrder = 10
+        end
+      end
+      object SpinEdit2: TSpinEdit
+        Left = 784
+        Height = 25
+        Top = 671
+        Width = 50
+        MaxValue = 1000
+        TabOrder = 2
+        Value = 50
       end
     end
     object TabSheet1: TTabSheet

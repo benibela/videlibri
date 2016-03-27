@@ -21,6 +21,7 @@ type
     CheckBox1: TCheckBox;
     CheckBox2: TCheckBox;
     CheckBox3: TCheckBox;
+    CheckBox4: TCheckBox;
     Edit1: TEdit;
     Edit2: TEdit;
     editTitle: TEdit;
@@ -37,6 +38,7 @@ type
     Panel1: TPanel;
     Panel2: TPanel;
     SpinEdit1: TSpinEdit;
+    SpinEdit2: TSpinEdit;
     TabSheet1: TTabSheet;
     TabSheet2: TTabSheet;
     TreeListView1: TTreeListView;
@@ -64,8 +66,8 @@ implementation
 uses booklistreader, applicationconfig, internetaccess, bbutils, Clipbrd, librarySearcher,math;
 { TlibraryTesterForm }
 
-var activeThreads: integer;
-
+var activeThreads, pendingThreads: integer;
+const pendingLimit: integer = 50;
 type
 
 { TTemplateAccountAccessTester }
@@ -83,12 +85,15 @@ type TTestThread = class(TThread)
   row: TTreeListItem;
   fakeUser, fakePwd: string;
   title,author: string;
-  resultSearch, resultAccount: string;
-  search, account: boolean;
+  resultSearch, resultAccount, resultHomepage: string;
+  search, account, homepage: boolean;
   searchCount: integer;
-  constructor Create(arow: TTreeListItem; dosearch, doaccount: boolean; asearchCount: integer; atitle,anauthor, afakeUser, afakePwd: string);
+
+  pending: boolean;
+  constructor Create(arow: TTreeListItem; dosearch, doaccount, dohomepage: boolean; asearchCount: integer; atitle,anauthor, afakeUser, afakePwd: string);
   procedure Execute; override;
   procedure showResult;
+  procedure checkPending;
 end;
 
 { TTemplateAccountAccessTester }
@@ -161,10 +166,11 @@ procedure TlibraryTesterForm.Button4Click(Sender: TObject);
 var
   i: Integer;
 begin
+  pendingLimit := SpinEdit2.Value;
   for i := 0 to TreeListView1.Items.Count - 1 do
     if CheckBox1.Checked or TreeListView1.Items[i].Selected then
-      TTestThread.Create(TreeListView1.Items[i],CheckBox2.Checked,CheckBox3.Checked, SpinEdit1.Value, editTitle.Text, EditAutor.Text, EditUser.Text,editPass.text);
-  caption := 'Active Threads: ' + IntToStr(activeThreads);;
+      TTestThread.Create(TreeListView1.Items[i],CheckBox2.Checked,CheckBox3.Checked, CheckBox4.Checked, SpinEdit1.Value, editTitle.Text, EditAutor.Text, EditUser.Text,editPass.text);
+  Caption := 'Active Threads: ' + IntToStr(activeThreads) + ' Pending Threads: ' + IntToStr(pendingThreads);
 end;
 
 procedure TlibraryTesterForm.Button5Click(Sender: TObject);
@@ -175,7 +181,7 @@ begin
   tocp := '';
   for i := 0 to TreeListView1.Items.Count - 1 do
     if TreeListView1.Items[i].Selected then
-      tocp += TreeListView1.Items[i].RecordItemsText[0] + ' ' +TreeListView1.Items[i].RecordItemsText[1] + #9#9 + TreeListView1.Items[i].RecordItemsText[2] +#9' '+TreeListView1.Items[i].RecordItemsText[3] + LineEnding;
+      tocp += TreeListView1.Items[i].RecordItemsText[0] + ' ' +TreeListView1.Items[i].RecordItemsText[1] + #9#9 + TreeListView1.Items[i].RecordItemsText[2] +#9' '+TreeListView1.Items[i].RecordItemsText[3] + #9' '+TreeListView1.Items[i].RecordItemsText[4] + LineEnding;
   Clipboard.AsText := tocp;
 end;
 
@@ -228,22 +234,28 @@ begin
   lib := thelib;
 end;
 
-constructor TTestThread.Create(arow: TTreeListItem; dosearch, doaccount: boolean; asearchCount: integer; atitle, anauthor, afakeUser, afakePwd: string);
+constructor TTestThread.Create(arow: TTreeListItem; dosearch, doaccount, dohomepage: boolean; asearchCount: integer; atitle, anauthor,
+  afakeUser, afakePwd: string);
 begin
   inherited Create(false);
   row := arow;
   lib := TTestData(arow.data.obj).lib;
   resultSearch := row.RecordItemsText[2];
   resultAccount := row.RecordItemsText[3];
+  resultHomepage := row.RecordItemsText[4];
   fakeUser := afakeUser;
   fakePwd := afakePwd;
   resultAccount := '';
   search := dosearch;
   account := doaccount;
+  homepage := dohomepage;
   title := atitle;
   author := anauthor;
   searchCount := asearchCount;
-  inc(activeThreads);
+
+  pending := activeThreads > pendingLimit;
+  if pending then inc(pendingThreads)
+  else inc(activeThreads);
 end;
 
 procedure TTestThread.Execute;
@@ -253,6 +265,12 @@ var t: TTemplateAccountAccessTester;
   searcher: TLibrarySearcher;
   critSection: TRTLCriticalSection;
 begin
+  while pending do begin
+    sleep(50);
+    ReadBarrier;
+    if activeThreads < pendingLimit then //sychronize is heavy. if we synchronize all the ckecking, the active thread cannot use synchronize to quit
+      Synchronize(@checkPending);
+  end;
   if account then begin
     internet := internetaccess.defaultInternetAccessClass.create();
     t := TTemplateAccountAccessTester.create(lib);
@@ -267,6 +285,8 @@ begin
       for i := 0 to t.books.currentUpdate.Count-1do
         resultAccount += t.books.currentUpdate[i].toLimitString();
     except
+      on e: ELoginException do
+        resultAccount := '0-'+e.ClassName +': '+ e.Message;
       on e: EBookListReader do
         resultAccount := '1-'+e.ClassName +': '+ e.Message;
       on e: Exception do
@@ -305,15 +325,38 @@ begin
     searcher.free;
     DoneCriticalsection(critSection);
   end;
+  if homepage then begin
+    try
+      internetaccess.defaultInternetAccessClass.create().get(lib.homepageBase);
+      resultHomepage := 'ok';
+    except
+      on e: EInternetException do
+        resultHomepage := '2- '+ e.Message + ' '+e.details;
+    end
+  end;
   Synchronize(@showResult);
 end;
 
 procedure TTestThread.showResult;
 begin
-  row.RecordItemsText[2] := resultSearch;
-  row.RecordItemsText[3] := resultAccount;
+  if search then
+    row.RecordItemsText[2] := resultSearch;
+  if account then
+    row.RecordItemsText[3] := resultAccount;
+  if homepage then
+    row.RecordItemsText[4] := resultHomepage;
   dec(activeThreads);
-  (row.TreeListView.Owner as tform).Caption := 'Active Threads: ' + IntToStr(activeThreads);
+  (row.TreeListView.Owner as tform).Caption := 'Active Threads: ' + IntToStr(activeThreads) + ' Pending Threads: ' + IntToStr(pendingThreads);
+end;
+
+procedure TTestThread.checkPending;
+begin
+  if activeThreads < pendingLimit then begin
+    dec(pendingThreads);
+    inc(activeThreads);
+    pending := false;
+    (row.TreeListView.Owner as tform).Caption := 'Active Threads: ' + IntToStr(activeThreads) + ' Pending Threads: ' + IntToStr(pendingThreads);
+  end;
 end;
 
 initialization
