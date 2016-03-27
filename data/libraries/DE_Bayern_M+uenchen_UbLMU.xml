@@ -3,8 +3,8 @@
   <longName value="Universitätsbibliothek der LMU (alpha)"/>
   
   <template value="sisis"/>  
-  <variable name="server" value="https://opacplus.ub.uni-muenchen.de/InfoGuideClient.ubmsis/"/>
-  <variable name="startparams" value="?Login=igubm"/>
+  <variable name="server" value="https://opac.ub.uni-muenchen.de/TouchPoint/"/>
+  <variable name="startparams" value="?View=sunrise"/>
   
   <homepage value="http://www.ub.uni-muenchen.de/"/>
   <testing-search value="ja" date="2013-05-18"/>

@@ -4,7 +4,7 @@
   <shortName value="Stb Baden"/> 
   
   <template value="sisis"/>  
-  <variable name="server" value="http://62.2.168.69/webOPACClient.baden/"/>
+  <variable name="server" value="http://opac.baden.ch/webOPACClient.baden/"/>
   
   <homepage value="http://www.baden.ch/xml_1/internet/de/application/d1/d59/f60.cfm"/>
   <testing-search value="ja" date="2013-05-17"/>
