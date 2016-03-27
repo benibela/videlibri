@@ -1,5 +1,7 @@
 <html><head></head><body>
 
+<t:switch prioritized="true">
+
 <div class="contentblock">
 <dl>
   <dt>Bibliographische Angaben</dt>
@@ -40,6 +42,13 @@
    
 </dl>
 </div>
+
+         <div class="contentpadding">
+           <p class="warning">{vl:raise("Digibib-System: " || .)}</p>  
+         </div>
+
+</t:switch>
+
 </body>
 </html>
     
