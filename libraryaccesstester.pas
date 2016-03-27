@@ -5,7 +5,8 @@ unit libraryaccesstester;
 interface
 
 uses
-  Classes, SysUtils, FileUtil, LResources, Forms, Controls, Graphics, Dialogs, StdCtrls, ExtCtrls, ComCtrls, TreeListView, libraryParser;
+  Classes, SysUtils, FileUtil, LResources, Forms, Controls, Graphics, Dialogs, StdCtrls, ExtCtrls, ComCtrls, Spin, TreeListView,
+  libraryParser;
 
 type
 
@@ -35,6 +36,7 @@ type
     PageControl1: TPageControl;
     Panel1: TPanel;
     Panel2: TPanel;
+    SpinEdit1: TSpinEdit;
     TabSheet1: TTabSheet;
     TabSheet2: TTabSheet;
     TreeListView1: TTreeListView;
@@ -83,7 +85,8 @@ type TTestThread = class(TThread)
   title,author: string;
   resultSearch, resultAccount: string;
   search, account: boolean;
-  constructor Create(arow: TTreeListItem; dosearch, doaccount: boolean; atitle,anauthor, afakeUser, afakePwd: string);
+  searchCount: integer;
+  constructor Create(arow: TTreeListItem; dosearch, doaccount: boolean; asearchCount: integer; atitle,anauthor, afakeUser, afakePwd: string);
   procedure Execute; override;
   procedure showResult;
 end;
@@ -160,7 +163,8 @@ var
 begin
   for i := 0 to TreeListView1.Items.Count - 1 do
     if CheckBox1.Checked or TreeListView1.Items[i].Selected then
-      TTestThread.Create(TreeListView1.Items[i],CheckBox2.Checked,CheckBox3.Checked, editTitle.Text, EditAutor.Text, EditUser.Text,editPass.text);
+      TTestThread.Create(TreeListView1.Items[i],CheckBox2.Checked,CheckBox3.Checked, SpinEdit1.Value, editTitle.Text, EditAutor.Text, EditUser.Text,editPass.text);
+  caption := 'Active Threads: ' + IntToStr(activeThreads);;
 end;
 
 procedure TlibraryTesterForm.Button5Click(Sender: TObject);
@@ -224,7 +228,7 @@ begin
   lib := thelib;
 end;
 
-constructor TTestThread.Create(arow: TTreeListItem; dosearch, doaccount: boolean; atitle, anauthor, afakeUser, afakePwd: string);
+constructor TTestThread.Create(arow: TTreeListItem; dosearch, doaccount: boolean; asearchCount: integer; atitle, anauthor, afakeUser, afakePwd: string);
 begin
   inherited Create(false);
   row := arow;
@@ -238,6 +242,7 @@ begin
   account := doaccount;
   title := atitle;
   author := anauthor;
+  searchCount := asearchCount;
   inc(activeThreads);
 end;
 
@@ -285,7 +290,7 @@ begin
       if searcher.SearchNextPageAvailable then
         searcher.searchNext;
       resultSearch := inttostr(searcher.SearchResult.Count) + '/'+ inttostr(searcher.SearchResultCount) +': ';
-      for i := 0 to min(3, searcher.SearchResult.Count - 1) do begin
+      for i := 0 to min(searchCount, searcher.SearchResult.Count - 1) do begin
         searcher.details(searcher.SearchResult[i]);
         if i <> 0 then resultSearch += ', ';
         resultSearch += searcher.SearchResult[i].toSimpleString();
@@ -308,7 +313,7 @@ begin
   row.RecordItemsText[2] := resultSearch;
   row.RecordItemsText[3] := resultAccount;
   dec(activeThreads);
-  (row.TreeListView.Owner as tform).Caption := 'Aktive Threads: ' + IntToStr(activeThreads);
+  (row.TreeListView.Owner as tform).Caption := 'Active Threads: ' + IntToStr(activeThreads);
 end;
 
 initialization

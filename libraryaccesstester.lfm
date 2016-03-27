@@ -190,6 +190,15 @@ object libraryTesterForm: TlibraryTesterForm
           State = cbChecked
           TabOrder = 8
         end
+        object SpinEdit1: TSpinEdit
+          Left = 280
+          Height = 25
+          Top = 5
+          Width = 50
+          MaxValue = 1000
+          TabOrder = 9
+          Value = 30
+        end
       end
     end
     object TabSheet1: TTabSheet
