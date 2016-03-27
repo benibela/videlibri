@@ -5,7 +5,7 @@ unit applicationconfig;
 interface
 
 uses
-  Classes, SysUtils, libraryparser,inifiles,rcmdline,autoupdate,extendedhtmlparser,
+  Classes, SysUtils, libraryparser,inifiles,rcmdline,{$IFNDEF ANDROID}autoupdate,{$ENDIF}extendedhtmlparser,
 accountlist{$IFNDEF ANDROID}, LMessages{$endif};
 
 {$IFNDEF ANDROID}
