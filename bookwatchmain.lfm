@@ -234,6 +234,10 @@ object mainForm: TmainForm
         Caption = 'Auf &Updates prüfen'
         OnClick = MenuItem18Click
       end
+      object MenuItemDebugLog: TMenuItem
+        Caption = 'Debug-Log'
+        OnClick = MenuItemDebugLogClick
+      end
       object MenuItemTester: TMenuItem
         Caption = 'Tester'
         Visible = False
@@ -1172,7 +1176,7 @@ object mainForm: TmainForm
     end
     object extendTheseBooks: TMenuItem
       Caption = 'Ausgewählte Medien verlängern'
-      OnClick = MenuItem11Click
+      OnClick = MenuItemRenewClick
     end
     object extendAdjacentBooks: TMenuItem
       Caption = 'Alle Medien dieses Kontos verlängern'

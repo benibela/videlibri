@@ -1,0 +1,27 @@
+object DebugLogForm: TDebugLogForm
+  Left = 287
+  Height = 411
+  Top = 207
+  Width = 433
+  Caption = 'DebugLogForm'
+  ClientHeight = 411
+  ClientWidth = 433
+  OnShow = FormShow
+  LCLVersion = '1.5'
+  object Memo1: TMemo
+    Left = 0
+    Height = 411
+    Top = 0
+    Width = 433
+    Align = alClient
+    ReadOnly = True
+    ScrollBars = ssAutoBoth
+    TabOrder = 0
+    WordWrap = False
+  end
+  object Timer1: TTimer
+    OnTimer = Timer1Timer
+    left = 201
+    top = 66
+  end
+end

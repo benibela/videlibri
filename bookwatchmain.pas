@@ -32,6 +32,7 @@ type
     cancelTheseBooks: TMenuItem;
     groupingItem: TMenuItem;
     MenuItem1: TMenuItem;
+    MenuItemDebugLog: TMenuItem;
     MenuItem9: TMenuItem;
     MenuItemTester: TMenuItem;
     MenuItem10: TMenuItem;
@@ -121,7 +122,8 @@ type
     procedure BookListSelectItem(Sender: TObject; Item: TTreeListItem);
     procedure FormShow(Sender: TObject);
     procedure FormWindowStateChange(Sender: TObject);
-    procedure MenuItem11Click(Sender: TObject);
+    procedure MenuItemDebugLogClick(Sender: TObject);
+    procedure MenuItemRenewClick(Sender: TObject);
     procedure MenuItem14Click(Sender: TObject);
     procedure MenuItem15Click(Sender: TObject);
     procedure MenuItem16Click(Sender: TObject);
@@ -210,7 +212,7 @@ const
 implementation
 
 { TmainForm }
-uses math,options,newaccountwizard_u,bbdebugtools,bibtexexport,booklistreader{$IFDEF WIN32},windows{$ENDIF},Clipbrd,bbutils,androidutils,libraryaccesstester;
+uses math,options,debuglogviewer, newaccountwizard_u,bbdebugtools,bibtexexport,booklistreader{$IFDEF WIN32},windows{$ENDIF},Clipbrd,bbutils,androidutils,libraryaccesstester;
 
 function sendMailReportCompare(Item1, Item2: Pointer): Integer;
 var book1,book2: TBook;
@@ -688,7 +690,12 @@ begin
   else lastState := WindowState;
 end;
 
-procedure TmainForm.MenuItem11Click(Sender: TObject);
+procedure TmainForm.MenuItemDebugLogClick(Sender: TObject);
+begin
+  TDebugLogForm.Create(Application).show;
+end;
+
+procedure TmainForm.MenuItemRenewClick(Sender: TObject);
 var i:integer;
     books:TBookList;
 begin
