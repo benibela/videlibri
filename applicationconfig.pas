@@ -274,6 +274,12 @@ uses internetaccess,libraryaccess,math,FileUtil,bbutils,bbdebugtools,androidutil
       commandLine:TCommandLineReader;
       //checkOne: boolean;
   begin
+    {$IFDEF FPC_HAS_CPSTRING}
+    //from lazarus
+    SetMultiByteConversionCodePage(CP_UTF8);
+    SetMultiByteRTLFileSystemCodePage(CP_UTF8);
+    {$ENDIF}
+
     currentDate:=trunc(now);
 
 //    if currentDate>39264 then
