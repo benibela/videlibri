@@ -5,7 +5,7 @@
   <template value="libero5"/>
   <variable name="baseurl" value="http://webopac.stadtbuecherei-hattersheim.de/libero/"/>
 
-  <homepage value="http://www.kulturforum.de/einrichtungen_stadtbuecherei.asp"/>
+  <homepage value="http://www.stadtbuecherei-hattersheim.de"/>
   <testing-search value="ja" date="2013-07-05"/>
   <testing-account value="?" date=""/>
   <testing-renew value="?" date=""/>
