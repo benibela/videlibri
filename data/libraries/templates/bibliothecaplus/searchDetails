@@ -4,13 +4,8 @@
       <meta property="og:image" content="{$book.image-url}"/>?
     </head>
     <body>
-      <div class="standardPaddingCover" t:if="not($book.image-url)">
-          <input type="image">{book.image-url := @src}</input>
-      </div>?
-      <td class="standardPaddingCover" t:if="not($book.image-url)">
-          <input type="image">{book.image-url := @src}</input>
-      </td>?
-  
+      {$book.image-url[] := css(".standardPaddingCover")//(img,input[type="image"])!(@src, tokenize(@sources, "[|]")[contains(.,"://")]) }
+
   
   
       <div t:condition="contains(@id, 'DivAvailRegionDetail')">
