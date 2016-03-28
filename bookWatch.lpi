@@ -168,6 +168,7 @@
         <ComponentName Value="showErrorForm"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
+        <UnitName Value="errorDialog"/>
       </Unit5>
       <Unit6>
         <Filename Value="applicationconfig.pas"/>
@@ -327,6 +328,7 @@
         <Filename Value="debuglogviewer.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="DebugLogForm"/>
+        <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="debuglogviewer"/>
       </Unit34>

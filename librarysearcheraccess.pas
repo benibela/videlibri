@@ -452,11 +452,12 @@ end;
 
 procedure TSearcherThread.execute;
 var mes: TSearcherMessage;
-    image:string;
+    temp, image:string;
     book: tbook;
     i: Integer;
     debugLastSearchQuery: String;
     oldUrl: String;
+    images: TStringArray;
 begin
   while true do begin
     try
@@ -522,20 +523,28 @@ begin
           if logging then log('Searcher thread: message typ smtImage: image-searched: '+getproperty('image-searched',book.additional)+'  image-url: '+getProperty('image-url',book.additional));
           if (getproperty('image-searched',book.additional)<>'true') then begin
             oldUrl := searcher.bookListReader.internet.lastUrl;
-            try
-              if (getProperty('image-url',book.additional)<>'') then begin
-                if logging then log('image url: '+getProperty('image-url',book.additional));
-                image:=searcher.bookListReader.internet.get(getProperty('image-url',book.additional));
-              end else image:='';
-              if (image = '') and (book.isbn <> '') then
-                image:=searcher.bookListReader.internet.get('http://covers.openlibrary.org/b/isbn/'+book.getNormalizedISBN+'-M.jpg');
-            except
-              on e: EInternetException do image := '';
+
+            images := strSplit(getProperty('image-url',book.additional), LineEnding);
+            if book.isbn <> '' then begin
+              arrayAdd(images, 'http://covers.openlibrary.org/b/isbn/'+book.getNormalizedISBN(false,false)+'-M.jpg');
+              arrayAdd(images, 'http://vlb.de/GetBlob.aspx?strIsbn='+book.getNormalizedISBN(true,true)+'&size=S');
+            end;
+            if logging then log('image candidate urls: '+strJoin(images, LineEnding));
+            for temp in images do begin
+              image := strTrimAndNormalize(temp);
+              if image = '' then continue;
+              try
+                image:=searcher.bookListReader.internet.get(temp);
+              except
+                on e: EInternetException do image := '';
+              end;
+              if image <> '' then break;
             end;
             searcher.bookListReader.internet.lastUrl := oldUrl;
             if logging then log('got image: size: '+IntToStr(length(image)));
             access.beginBookReading;
             addProperty('image',image,book.additional);
+            addProperty('image-real-url', strTrimAndNormalize(temp), book.additional);
             addProperty('image-content-type', searcher.bookListReader.internet.getLastContentType,book.additional);
             addProperty('image-searched','true',book.additional);
             access.endBookReading;

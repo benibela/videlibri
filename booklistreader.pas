@@ -64,7 +64,7 @@ type
     procedure mergePersistentFields(book: TBook);
     function clone: TBook;
 
-    function getNormalizedISBN: string;
+    function getNormalizedISBN(const removeSeps, convertTo13: boolean): string;
 
     function toSimpleString():string;
     function toLimitString():string;
@@ -366,14 +366,35 @@ begin
   result.assignAll(self);
 end;
 
-function TBook.getNormalizedISBN: string;
+function TBook.getNormalizedISBN(const removeSeps, convertTo13: boolean): string;
+var
+  check: Integer;
+  multiplier: Integer;
+  i: Integer;
 begin
   result := trim(isbn);
-  if length(result) < 5 then exit;
-  //e.g. isbn10: 3-680-08783-7
-  if result[2] = '-' then exit(copy(result, 1, 13));
-  //isbn13: 978-3-7657-2781-8
-  if result[4] = '-' then exit(copy(result, 1, 17));
+  if length(result) >= 5 then begin
+    //e.g. isbn10: 3-680-08783-7
+    if result[2] = '-' then begin
+      result := copy(result, 1, 13);
+      if convertTo13 then begin
+        result := '978-' + result;
+        check := 0;
+        multiplier := 1;
+        for i := 1 to length(result) - 1 do
+          if result[i] in ['0'..'9'] then begin
+            check += multiplier * (ord(result[i]) - ord('0'));
+            multiplier := (multiplier + 2) and 3;
+          end;
+        result[length(result)] := chr(ord('0') + (10 - check mod 10) mod 10);
+      end;
+    end;
+    //isbn13: 978-3-7657-2781-8
+    if result[4] in ['-', ' '] then result := copy(result, 1, 17);
+  end;
+
+  if removeSeps then
+    Result := StringReplace(StringReplace(result, '-', '', [rfReplaceAll]), ' ', '', [rfReplaceAll]);
 end;
 
 function TBook.toSimpleString():string;
@@ -887,14 +908,22 @@ begin
 end;
 
 procedure TBookListReader.setBookProperty(book: TBook; variable: string; value:IXQValue);
-  function strconv():string;
-  begin
-    result:=strTrimAndNormalize(value.toString);
-  end;
+function strconv():string;
+begin
+  result:=strTrimAndNormalize(value.toString);
+end;
+function strconvlist(sep: string):string;
+var  x: IXQValue;
+begin
+  result := '';
+  for x in value do
+    if result = '' then result += strTrimAndNormalize(x.toString)
+    else result += sep + strTrimAndNormalize(x.toString);
+end;
 
 var
   basevariable, temp: String;
-  x: IXQValue;
+
 begin
   basevariable := variable;
   variable := LowerCase(variable);
@@ -913,14 +942,16 @@ begin
     book.dueDate:=dateParse(strconv(),strcopyfrom(variable,pos(':',variable)+1))
   else if striEqual(variable, 'limitdate') or strlibeginswith(@variable[1],length(variable),'limitdate') then
     raise EBookListReader.create('The template is using the limitdate property which is deprecated. It should now be called duedate')
-  else if striEqual(variable, 'orderConfirmationOptionTitles') and (value.getSequenceCount > 1) then begin
-    temp := '';
-    for x in value do
-      if temp = '' then temp := strTrimAndNormalize(x.toString)
-      else temp += '\|' + strTrimAndNormalize(x.toString);
-    book.setProperty('orderConfirmationOptionTitles', temp);
-  end else
-    book.setProperty(basevariable, strconv()); //preserve case
+  else begin
+    if value.getSequenceCount > 1 then begin
+      case variable of
+        'orderconfirmationoptiontitles': temp := strconvlist('\|');
+        'image-url': temp := strconvlist(LineEnding);
+        else temp := strconv();
+      end;
+    end else temp := strconv();
+    book.setProperty(basevariable, temp); //preserve case
+  end;
 end;
 
 procedure TBookListReader.parserVariableRead(variable: string; value: IXQValue);
