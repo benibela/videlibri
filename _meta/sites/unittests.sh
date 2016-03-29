@@ -174,25 +174,12 @@ PAGES=(${PAGES[@]} zones18/listIncremental.html)
 ADDTEMPLATE zones18/bulkRenew 2 
 PAGES=(${PAGES[@]} zones18/bulkRenew.html zones18/bulkRenew2.html)
 
-ADDTEMPLATE 'zones18/listOrders{requestId:=0}' 6
-PAGES=(${PAGES[@]} zones18/orderList1.html zones18/orderList1unterwegs.html zones18/orderList2.html zones18/orderList2canceled.html zones18/orderList3+canceled.html zones18/orderList3+canceled_real.html )
-
-ADDTEMPLATE zones18/cancelConfirm 1
-PAGES=(${PAGES[@]} zones18/cancelConfirm.html)
-
-ADDTEMPLATE 'zones18/searchList{requestId:=0}' 6
-PAGES=(${PAGES[@]} zones18/searchList.biel.html zones18/searchList.cologne.html zones18/searchList.hannover.html zones18/searchList.kiel.html zones18/searchList.koblenz.html zones18/searchList_notfound.html)
-
-
-ADDTEMPLATE 'zones18/searchList{requestId:=1}' 5
-PAGES=(${PAGES[@]} zones18/searchListIncremental.biel.html zones18/searchListIncremental.cologne.html zones18/searchListIncremental.hannover.html zones18/searchListIncremental.kiel.html zones18/searchListIncremental.koblenz.html)
-
-ADDTEMPLATE zones18/searchDetails 7
-PAGES=(${PAGES[@]} zones18/searchDetails.html zones18/searchDetailsCollection.html zones18/searchDetailsSubTitle.html zones18/searchDetails.biel.html zones18/searchDetails.cologne.html zones18/searchDetails.hannover.html zones18/searchDetails.koblenz.html)
-
-
-ADDTEMPLATE zones18/orderConfirmation 1
-PAGES=(${PAGES[@]} zones18/orderConfirm.html)
+test zones18 'listOrders{requestId:=0}' orderList1.html orderList1unterwegs.html orderList2.html orderList2canceled.html orderList3+canceled.html orderList3+canceled_real.html 
+test zones18 cancelConfirm cancelConfirm.html
+test zones18 'searchList{requestId:=0}' searchList.biel.html searchList.cologne.html searchList.hannover.html searchList.kiel.html searchList.koblenz.html searchList_notfound.html
+test zones18 'searchList{requestId:=1}' searchListIncremental.biel.html searchListIncremental.cologne.html searchListIncremental.hannover.html searchListIncremental.kiel.html searchListIncremental.koblenz.html
+test zones18 searchDetails searchDetails.html searchDetailsCollection.html searchDetailsSubTitle.html searchDetails.biel.html searchDetails.cologne.html searchDetails.hannover.html searchDetails.koblenz.html searchDetails.koblenz2.html 
+test zones18 orderConfirmation orderConfirm.html
 
 
 #==============Primo========

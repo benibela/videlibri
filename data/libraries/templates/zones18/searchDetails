@@ -37,6 +37,7 @@
                     ) else ()
                   }</TD></TR>
                   <TR><TD>ISBN</TD><TD/><TD>{book.isbn := if (contains(., ":")) then substring-before(., ":") else .}</TD></TR>
+                  <TR><TD>EAN</TD><TD/><TD>{$book(if (not($book.isbn)) then "isbn" else "EAN!") := if (contains(., ":")) then substring-before(., ":") else .}</TD></TR>
                   <TR><TD>Signatur</TD><TD/><TD>{$book.id}</TD></TR>
                   <TR><TD>{$temp}</TD><TD/><TD>{$book(concat($temp, "!")) := .}</TD></TR>
                 </t:switch>
