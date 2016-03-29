@@ -211,11 +211,14 @@ public class BookDetails extends VideLibriBaseFragment {
         final List<String> above = Arrays.asList("status", "id", "category", "year", "statusId", "libraryBranch", "publisher", "orderable", "cancelable", "renewCount");
 
         for (int i=0;i<book.more.size();i++)
-            if ( book.more.get(i).second != null && !"".equals(book.more.get(i).second) && (
-                    (!searchedBook && !above.contains(book.more.get(i).first))
-                    || (searchedBook && book.more.get(i).first.endsWith("!"))
-            ))
-                details.add(new Details(book.more.get(i).first, book.more.get(i).second));
+            if ( book.more.get(i).second != null && !"".equals(book.more.get(i).second)) {
+                if  (!searchedBook && !above.contains(book.more.get(i).first)
+                    || (searchedBook && book.more.get(i).first.endsWith("!")))
+                    details.add(new Details(book.more.get(i).first, book.more.get(i).second));
+                else if ("isbn".equals(book.more.get(i).first))
+                    details.add(new Details("ISBN", book.more.get(i).second));
+            }
+
 
         lv.setAdapter(new BookDetailsAdapter(getSherlockActivity(), details, book));
 
