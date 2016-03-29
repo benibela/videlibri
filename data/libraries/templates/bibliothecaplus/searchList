@@ -24,10 +24,11 @@
             
             <div>     
                <span>{cat := .}</span>
-               <span>{
+               {
                  let $temp := extract($cat/@id, "_Lbl(.*)$", 1) 
-                 return if (exists($search-reverse-keys($temp))) then $book($search-reverse-keys($temp)) := .
-                        else $book($cat||"!") := .}</span> 
+                 return 
+                   $book(if (exists($search-reverse-keys($temp))) then $search-reverse-keys($temp) else $cat||"!") := substring-after(., ":")
+               }
             </div>*
           </div>
         </div>
