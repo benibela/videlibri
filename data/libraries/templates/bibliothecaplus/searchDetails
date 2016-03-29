@@ -37,7 +37,7 @@
                let $temp := extract($cat/@id, "_Lbl(.*)$", 1) 
                return if (exists($search-reverse-keys($temp))) then $book($search-reverse-keys($temp)) := .
                       else $book($cat||"!") := .}</span> 
-              <a>{$book($cat||"!") := . || (if (contains(@href, "http")) then x" ({@href})" else "")}</a>
+              <a>{$book($cat||"!") := . || (if (contains(@href, "http")) then x" ( {@href} )" else "")}</a>
            </t:switch>
         </div>*
       </div>
