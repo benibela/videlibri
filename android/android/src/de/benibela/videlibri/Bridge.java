@@ -177,6 +177,29 @@ public class Bridge {
             if (author.toLowerCase().indexOf(filter) >= 0 || title.toLowerCase().indexOf(filter) >= 0) return true;
             return false;
         }
+
+        String getNormalizedISBN(boolean removeSeps, boolean convertTo13) {
+            String isbn = getProperty("isbn").trim();
+            if (isbn.length() >= 5) {
+                if (isbn.charAt(1) == '-') {
+                    isbn = isbn.substring(0,13);
+                    if (convertTo13) {
+                        isbn = "978-" + isbn;
+                        int check = 0, multiplier = 1;
+                        for (int i=0;i<isbn.length() - 1; i++)
+                            if (isbn.charAt(i) >= '0' && isbn.charAt(i) <= 9) {
+                                check += multiplier * (int)(isbn.charAt(i) - '0');
+                                multiplier = (multiplier + 2) & 3;
+                            }
+                        isbn = isbn.substring(0, 12) + (10 - check % 10) % 10;
+                    }
+                }
+                if (isbn.charAt(3) == '-' || isbn.charAt(3) == ' ') isbn = isbn.substring(0, 17);
+            }
+            if (removeSeps)
+                isbn = isbn.replaceAll("[- ]", "");
+            return isbn;
+        }
     }
 
     public static class InternalError extends RuntimeException {

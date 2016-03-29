@@ -219,7 +219,11 @@ public class BookDetails extends VideLibriBaseFragment {
 
         lv.setAdapter(new BookDetailsAdapter(getSherlockActivity(), details, book));
 
-        setLoading(searchedBook && (!book.hasProperty("__details") || (book.image == null && book.hasProperty("image-url"))));
+        boolean needToLoadImage = book.more != null && (book.hasProperty("image-url") || book.hasProperty("isbn")) && book.image == null;
+        if (needToLoadImage)
+            new DownloadImageTask(this, book).execute(book.getProperty("image-url"));
+
+        setLoading(searchedBook && (!book.hasProperty("__details") || needToLoadImage ));
 
         String action = null;
         if (searchedBook) {
@@ -251,9 +255,6 @@ public class BookDetails extends VideLibriBaseFragment {
                 ((BookListActivity) getSherlockActivity()).bookActionButton = actionButton;
         } else actionButton.setVisibility(View.GONE);
 
-        if (book.more != null && book.hasProperty("image-url") && book.image == null)
-            new DownloadImageTask(this, book).execute(book.getProperty("image-url"));
-
     }
 
     void updateImage(){
@@ -275,17 +276,28 @@ public class BookDetails extends VideLibriBaseFragment {
             this.activity = activity;
         }
 
-        protected Bitmap doInBackground(String... urls) {
-            String urldisplay = urls[0];
-            Bitmap mIcon11 = null;
-            try {
-                InputStream in = new java.net.URL(urldisplay).openStream();
-                mIcon11 = BitmapFactory.decodeStream(in);
-            } catch (Throwable e) { //need to catch OutOfMemoryError and broken images exceptions
-                //Log.e("Error", e.getMessage());
-                e.printStackTrace();
+        protected Bitmap doInBackground(String... imageUrlProp) {
+            String[] urls = imageUrlProp[0].split("[\r\n]]");
+            Bitmap cover = null;
+            for (int i=0;i<urls.length + 2 && cover == null;i++) {
+                try {
+                    String url;
+                    if (i < urls.length) url = urls[i].trim();
+                    else if (i == urls.length)
+                        url = "http://covers.openlibrary.org/b/isbn/"+book.getNormalizedISBN(false,false)+"-M.jpg?default=false";
+                    else
+                        url = "http://vlb.de/GetBlob.aspx?strIsbn="+book.getNormalizedISBN(true,true)+"&size=M";
+
+                    if ("".equals(url)) continue;
+
+                    InputStream in = new java.net.URL(url).openStream();
+                    cover = BitmapFactory.decodeStream(in);
+                } catch (Throwable e) { //need to catch OutOfMemoryError and broken images exceptions
+                    //Log.e("Error", e.getMessage());
+                    e.printStackTrace();
+                }
             }
-            return mIcon11;
+            return cover;
         }
 
         protected void onPostExecute(Bitmap result) {
