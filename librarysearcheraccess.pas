@@ -526,8 +526,8 @@ begin
 
             images := strSplit(getProperty('image-url',book.additional), LineEnding);
             if book.isbn <> '' then begin
-              arrayAdd(images, 'http://covers.openlibrary.org/b/isbn/'+book.getNormalizedISBN(false,false)+'-M.jpg');
-              arrayAdd(images, 'http://vlb.de/GetBlob.aspx?strIsbn='+book.getNormalizedISBN(true,true)+'&size=S');
+              arrayAdd(images, 'http://covers.openlibrary.org/b/isbn/'+book.getNormalizedISBN(false,false)+'-M.jpg?default=false');
+              arrayAdd(images, 'http://vlb.de/GetBlob.aspx?strIsbn='+book.getNormalizedISBN(true,true)+'&size=M');
             end;
             if logging then log('image candidate urls: '+strJoin(images, LineEnding));
             for temp in images do begin
