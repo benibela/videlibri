@@ -33,6 +33,7 @@ build)
     if /opt/lazarus/lazbuild $FORCE --compiler=/usr/local/lib/fpc/3.1.1/ppcross386 --os=android --ws=customdrawn --cpu=i386 videlibriandroid.lpi; then echo; else echo "FAILED!"; exit 1; fi
   fi
 
+  STRIP=true
   if [[ $BUILDMODE == "release" ]] || [[ $STRIP == "true" ]]; then
     if [[ $BUILDMODE == "release" ]]; then
       cp android/libs/armeabi/liblclapp.so liblclapp.unstripped.arm.so
@@ -42,13 +43,17 @@ build)
     strip --strip-all android/libs/x86/liblclapp.so
   fi
 
+  ./manage.sh build-java $BUILDMODE
+;;
+
+build-java)
   cd android
+  BUILDMODE="$2"
   ant $BUILDMODE || (echo "FAILED!"; exit)
 
   $SDK_HOME/adb uninstall de.benibela.videlibri || (echo "FAILED!"; exit)
   $SDK_HOME/adb install bin/videlibri-$BUILDMODE.apk || (echo "FAILED!"; exit)
 ;;
-
 
 install)
   if [[ $2 == "release" ]]; then BUILDMODE=release
