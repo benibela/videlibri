@@ -3,6 +3,9 @@
 #export JAVA_HOME=/usr/lib/jvm/java-6-sun-1.6.0.26/jre 
 export JAVA_HOME=/usr/lib/jvm/java-7-oracle/jre 
 export SDK_HOME=/home/benito/opt/android-sdk-linux/platform-tools/
+FPC_DIRECTORY=/usr/local/lib/fpc/3.0.0
+FPC_ARM=$FPC_DIRECTORY/ppcrossarm
+FPC_386=$FPC_DIRECTORY/ppcross386
 
 case "$1" in
 build)
@@ -24,13 +27,13 @@ build)
   if $BUILDARM; then
     FORCE=""
     if [[ ! -f android/libs/armeabi/liblclapp.so ]]; then FORCE=-B; fi
-    if /opt/lazarus/lazbuild $FORCE --os=android --ws=customdrawn --compiler=/usr/local/lib/fpc/3.1.1/ppcrossarm --cpu=arm videlibriandroid.lpi; then echo; else echo "FAILED!"; exit 1; fi
+    if /opt/lazarus/lazbuild $FORCE --os=android --ws=customdrawn --compiler=$FPC_ARM --cpu=arm videlibriandroid.lpi; then echo; else echo "FAILED!"; exit 1; fi
   fi
 
   if $BUILDX86; then
     FORCE=""
     if [[ ! -f android/libs/x86/liblclapp.so ]]; then FORCE=-B; fi
-    if /opt/lazarus/lazbuild $FORCE --compiler=/usr/local/lib/fpc/3.1.1/ppcross386 --os=android --ws=customdrawn --cpu=i386 videlibriandroid.lpi; then echo; else echo "FAILED!"; exit 1; fi
+    if /opt/lazarus/lazbuild $FORCE --compiler=$FPC_386 --os=android --ws=customdrawn --cpu=i386 videlibriandroid.lpi; then echo; else echo "FAILED!"; exit 1; fi
   fi
 
   STRIP=true
