@@ -91,6 +91,10 @@ public class VideLibriSuperBase {
                 intent = new Intent(context, Feedback.class);
                 context.startActivity(intent);
                 return true;
+            case R.id.debuglog:
+                intent = new Intent(context, DebugLogViewer.class);
+                context.startActivity(intent);
+                return true;
             case R.id.about:
                 intent = new Intent(context, About.class);
                 context.startActivity(intent);
@@ -212,6 +216,7 @@ public class VideLibriSuperBase {
         texts.add(Util.tr(R.string.menu_homepages)); icons.add(context.getResources().getDrawable(android.R.drawable.ic_menu_info_details)); ids.add(R.id.libinfo);
         texts.add(Util.tr(R.string.menu_cats)); icons.add(context.getResources().getDrawable(android.R.drawable.ic_menu_info_details)); ids.add(R.id.libcatalogue);
         texts.add(Util.tr(R.string.menu_feedback)); icons.add(context.getResources().getDrawable(android.R.drawable.ic_menu_send)); ids.add(R.id.feedback);
+        texts.add(Util.tr(R.string.menu_debuglog)); icons.add(context.getResources().getDrawable(android.R.drawable.ic_menu_recent_history)); ids.add(R.id.debuglog);
         texts.add(Util.tr(R.string.menu_about)); icons.add(context.getResources().getDrawable(android.R.drawable.ic_menu_help)); ids.add(R.id.about);
 
         AlertDialog.Builder builder = new AlertDialog.Builder(context);

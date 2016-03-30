@@ -247,4 +247,8 @@
     <string name="history">Ausleihenhistorie</string>
     <string name="configuration">Konfiguration</string>
     <string name="passwords">Passwörter</string><string name="lay_booklist_searchfilter_hint">(Offlinesuche in den eigenen Medien)</string>
+    <string name="menu_debuglog">Debug-Log</string>
+    <string name="debuglog_disabled">Debug-Log ist deaktiviert. Es muss in den Einstellugen aktiviert werden, damit hier
+        etwas sinnvolles angezeigt werden kann.
+    </string>
 </resources>
