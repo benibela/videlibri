@@ -298,7 +298,7 @@ type
 
 
 implementation
-uses applicationconfig,bbdebugtools,FileUtil,LCLIntf,xquery,androidutils,simpleinternet,mockinternetaccess,libraryAccess,strutils;
+uses applicationconfig,bbdebugtools,FileUtil,LCLIntf,LazFileUtils, xquery,androidutils,simpleinternet,mockinternetaccess,libraryAccess,strutils;
 function currencyStrToCurrency(s:string):Currency;
 begin
   s:=trim(s);
@@ -1029,7 +1029,7 @@ var
   next: Pointer;
 begin
   if not DirectoryExists(userPath+'libraries') then
-    ForceDirectory(userPath+'libraries');
+    ForceDirectories(userPath+'libraries');
   strSaveToFileUTF8(userPath+'libraries/'+trueid+'.xml', data);
 
   userlibs := strSplit(userConfig.ReadString('base', 'user-libraries', ''), ',');

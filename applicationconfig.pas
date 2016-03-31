@@ -382,7 +382,7 @@ uses internetaccess,libraryaccess,math,FileUtil,bbutils,bbdebugtools,androidutil
     if not DirectoryExists(userPath) then begin
       try
         if logging then log('user path: '+userPath+' doesn''t exists');
-        ForceDirectory(userPath);
+        ForceDirectories(userPath);
         if logging then log('user path: '+userPath+' should be created');
         if not DirectoryExists(userPath) then
           raise EInitializationError.Create('Benutzerpfad "'+userPath+'" wurde nicht gefunden und konnte nicht erzeugt werden');

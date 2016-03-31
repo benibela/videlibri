@@ -152,7 +152,6 @@
         <ComponentName Value="optionForm"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <UnitName Value="options"/>
       </Unit3>
       <Unit4>
         <Filename Value="newaccountwizard_u.pas"/>
@@ -173,7 +172,6 @@
       <Unit6>
         <Filename Value="applicationconfig.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="applicationconfig"/>
       </Unit6>
       <Unit7>
         <Filename Value="statistik_u.pas"/>
@@ -181,7 +179,6 @@
         <ComponentName Value="statistikForm"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <UnitName Value="statistik_u"/>
       </Unit7>
       <Unit8>
         <Filename Value="..\..\..\components\pascal\data\diagram.pas"/>
@@ -202,12 +199,10 @@
         <ComponentName Value="sendBackErrorForm"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <UnitName Value="sendBackError"/>
       </Unit11>
       <Unit12>
         <Filename Value="..\..\..\components\pascal\internet\internetaccess.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="internetaccess"/>
       </Unit12>
       <Unit13>
         <Filename Value="..\..\..\components\pascal\internet\autoupdate.pas"/>
@@ -219,7 +214,6 @@
         <ComponentName Value="ProgressBarDialog"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <UnitName Value="progressdialog"/>
       </Unit14>
       <Unit15>
         <Filename Value="..\..\..\components\pascal\data\obfuscate.inc"/>
@@ -228,7 +222,6 @@
       <Unit16>
         <Filename Value="..\..\..\components\pascal\system\bbdebugtools.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="bbdebugtools"/>
       </Unit16>
       <Unit17>
         <Filename Value="bibtexexport.pas"/>
@@ -236,7 +229,6 @@
         <ComponentName Value="BibTexExportFrm"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <UnitName Value="bibtexexport"/>
       </Unit17>
       <Unit18>
         <Filename Value="..\..\..\components\pascal\html\simplexmlparser.pas"/>
@@ -245,7 +237,6 @@
       <Unit19>
         <Filename Value="booklistreader.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="booklistreader"/>
       </Unit19>
       <Unit20>
         <Filename Value="librarysearcher.pas"/>
@@ -255,7 +246,6 @@
       <Unit21>
         <Filename Value="bookListView.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="bookListView"/>
       </Unit21>
       <Unit22>
         <Filename Value="bookSearchForm.pas"/>
@@ -263,7 +253,6 @@
         <ComponentName Value="bookSearchFrm"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <UnitName Value="bookSearchForm"/>
       </Unit22>
       <Unit23>
         <Filename Value="librarysearcheraccess.pas"/>
@@ -277,17 +266,14 @@
       <Unit25>
         <Filename Value="messagesystem.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="messagesystem"/>
       </Unit25>
       <Unit26>
         <Filename Value="..\..\..\components\pascal\internet\multipagetemplate.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="multipagetemplate"/>
       </Unit26>
       <Unit27>
         <Filename Value="accountlist.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="accountlist"/>
       </Unit27>
       <Unit28>
         <Filename Value="librarylistview.pas"/>
@@ -297,7 +283,6 @@
       <Unit29>
         <Filename Value="android\androidutils.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="androidutils"/>
       </Unit29>
       <Unit30>
         <Filename Value="libraryaccesstester.pas"/>
@@ -305,7 +290,6 @@
         <ComponentName Value="libraryTesterForm"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <UnitName Value="libraryaccesstester"/>
       </Unit30>
       <Unit31>
         <Filename Value="libraryparser.pass"/>
@@ -317,12 +301,10 @@
         <ComponentName Value="XMLExportFrm"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <UnitName Value="exportxml"/>
       </Unit32>
       <Unit33>
         <Filename Value="applicationdesktopconfig.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="applicationdesktopconfig"/>
       </Unit33>
       <Unit34>
         <Filename Value="debuglogviewer.pas"/>
@@ -330,7 +312,6 @@
         <ComponentName Value="DebugLogForm"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <UnitName Value="debuglogviewer"/>
       </Unit34>
     </Units>
   </ProjectOptions>
