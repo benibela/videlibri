@@ -90,7 +90,7 @@ public class Bridge {
         int getStatusColor(){
             int c = Color.GREEN;
             if (this.history) c = -1;
-            else if (account != null && dueDate != null && this.dueDate.pascalDate - currentPascalDate <= 3)
+            else if ((account != null || more == VideLibri.crazyHeaderHack)  && dueDate != null && this.dueDate.pascalDate - currentPascalDate <= 3)
                 c = Color.RED;
             else switch (getStatus()){
                 //lend
