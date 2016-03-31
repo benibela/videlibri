@@ -313,6 +313,7 @@ public class BookDetails extends VideLibriBaseFragment {
         }
 
         protected void onPostExecute(Bitmap result) {
+            setLoading((book.account == null) && !book.hasProperty("__details") ); //cover might finish (usually failing) before details have been loaded
             if (result == null) return;
             book.image = result;
             if (activity != null && book == activity.book) activity.updateImage();
