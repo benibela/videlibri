@@ -51,39 +51,6 @@ public class DebugLogViewer extends VideLibriBaseActivity {
         }
         catch (IOException e) {}
 
-        /*
-        D/SherlockFragmentActivity( 1833): [onPreparePanel] returning true
-I/VideLibri( 1833): 2016-03-30:11:46:45:726 (3087219496):  ** Read variable: "raise()" = "string: Systemmeldung
-I/VideLibri( 1833):
-I/VideLibri( 1833): Ihre Anforderung konnte aus den folgenden Gründen nicht durchgeführt werden: Fehler
-I/VideLibri( 1833): Sie haben vergessen einen Suchbegriff einzugeben."
-I/VideLibri( 1833): 2016-03-30:11:46:45:849 (3087219496):  createErrorMessageStr: Exception: EBookListReader:
-I/VideLibri( 1833):
-I/VideLibri( 1833): Systemmeldung
-I/VideLibri( 1833):
-I/VideLibri( 1833): Ihre Anforderung konnte aus den folgenden Gründen nicht durchgeführt werden: Fehler
-I/VideLibri( 1833): Sie haben vergessen einen Suchbegriff einzugeben.
-I/VideLibri( 1833):       Details:
-I/VideLibri( 1833): Detaillierte Informationen über die entsprechende Quellcodestelle:
-I/VideLibri( 1833):   $A87B4C9C
-I/VideLibri( 1833):   $A87B3F08
-I/VideLibri( 1833):   $A87B7FF4
-I/VideLibri( 1833):   $A87BB090
-I/VideLibri( 1833):   $A87BA524
-I/VideLibri( 1833):   $A87BB090
-I/VideLibri( 1833):   $A87BAA68
-I/VideLibri( 1833):   $A87BCA94
-I/VideLibri( 1833):   $A87BCA00
-I/VideLibri( 1833):   $A88BCEC8
-I/VideLibri( 1833):   $A88BB370
-I/VideLibri( 1833):   $A85032FC
-I/VideLibri( 1833): 2016-03-30:11:46:45:852 (3087219496):  TLibrarySearcherAccess.threadException called
-I/VideLibri( 1833): 2016-03-30:11:46:45:857 (3087219496):  Searcher thread: wait for message
-
-
-I/VideLibri( 1833): 2016-03-30:11:46:43:495 (3087219496):  ** Read variable: "f" = "
-         */
-
         lv.setAdapter(new BookDetails.BookDetailsAdapter(this, details, new Bridge.Book()));
     }
 }
