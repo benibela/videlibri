@@ -10,6 +10,7 @@ import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.util.Linkify;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -34,6 +35,7 @@ public class BookDetails extends VideLibriBaseFragment {
             if (data == null) this.data = "";
         }
     }
+    static BitmapFactory.Options bitmapOpts = new BitmapFactory.Options();
 
     static class BookDetailsAdapter extends BaseAdapter{
         private final Activity context;
@@ -45,6 +47,8 @@ public class BookDetails extends VideLibriBaseFragment {
         final float scale;
         int toPx(float sp) { return (int) (sp * scale + 0.5f); }
 
+
+
         BookDetailsAdapter(Activity context, ArrayList<Details> details, Bridge.Book book){
             super();
             this.context = context;
@@ -54,7 +58,11 @@ public class BookDetails extends VideLibriBaseFragment {
 
             this.defaultColor = context.getResources().getColor(android.R.color.primary_text_dark);
 
-            this.scale = context.getResources().getDisplayMetrics().scaledDensity;
+            DisplayMetrics dm = context.getResources().getDisplayMetrics();
+            this.scale = dm.scaledDensity;
+            bitmapOpts.inDensity = DisplayMetrics.DENSITY_LOW;
+            bitmapOpts.inTargetDensity = dm.densityDpi;
+            bitmapOpts.inScaled = true;
         }
 
         static class ViewHolder {
@@ -274,6 +282,7 @@ public class BookDetails extends VideLibriBaseFragment {
         Bridge.Book book;
         BookDetails activity;
 
+
         public DownloadImageTask(BookDetails activity, Bridge.Book book) {
             this.book = book;
             this.activity = activity;
@@ -294,7 +303,7 @@ public class BookDetails extends VideLibriBaseFragment {
                     if ("".equals(url)) continue;
 
                     InputStream in = new java.net.URL(url).openStream();
-                    cover = BitmapFactory.decodeStream(in);
+                    cover = BitmapFactory.decodeStream(in, null, bitmapOpts);
                 } catch (Throwable e) { //need to catch OutOfMemoryError and broken images exceptions
                     //Log.e("Error", e.getMessage());
                     e.printStackTrace();
