@@ -78,10 +78,13 @@ public class NotificationService extends Service implements Bridge.VideLibriCont
     static private String lastNotificationText = "";
     static private long lastNotificationTime = 0;
 
-    static private String [] getNotifications(){
+    static private String [] getNotifications(Context context){
         if (VideLibriApp.accounts == null) VideLibriApp.accounts = Bridge.VLGetAccounts();
 
-        if (VideLibriApp.accounts.length == 0) return null;
+        if (VideLibriApp.accounts.length == 0) return new String[] {
+                Util.tr(context, R.string.notificationNoAccountsTitle),
+                Util.tr(context, R.string.notificationNoAccounts)
+        };
 
         String [] notification = Bridge.VLGetNotifications();
 
@@ -100,9 +103,9 @@ public class NotificationService extends Service implements Bridge.VideLibriCont
      * (partly from http://stackoverflow.com/questions/13902115/how-to-create-a-notification-with-notificationcompat-builder)
      */
     static void updateNotification(Context context) {
-        String[] notification = getNotifications();
+        String[] notification = getNotifications(context);
 
-        if (notification == null) {
+        if (notification == null || notification.length < 2) {
             cancelNotification(context);
             return;
         }
