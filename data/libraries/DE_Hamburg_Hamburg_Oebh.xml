@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <library>
-  <longName value="Bücherhallen"/>
+  <longName value="Bücherhallen (nach Systemwechsel kaputt)"/>
   
   <template value="zones18"/>  
   <variable name="baseurl" value="https://www.buecherhallen.de/alswww2.dll/"/>
