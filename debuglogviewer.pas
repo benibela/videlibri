@@ -31,6 +31,7 @@ begin
     logging:=true;
     log('Debug logging started');
   end;
+  Timer1Timer(sender);
 end;
 
 var oldFileSize: integer;

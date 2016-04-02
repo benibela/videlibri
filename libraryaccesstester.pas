@@ -181,7 +181,9 @@ begin
   tocp := '';
   for i := 0 to TreeListView1.Items.Count - 1 do
     if TreeListView1.Items[i].Selected then
-      tocp += TreeListView1.Items[i].RecordItemsText[0] + ' ' +TreeListView1.Items[i].RecordItemsText[1] + #9#9 + TreeListView1.Items[i].RecordItemsText[2] +#9' '+TreeListView1.Items[i].RecordItemsText[3] + #9' '+TreeListView1.Items[i].RecordItemsText[4] + LineEnding;
+      tocp += TreeListView1.Items[i].RecordItemsText[0] + ' ' +TreeListView1.Items[i].RecordItemsText[1] + LineEnding
+              + TTestData(TreeListView1.Items[i].data.obj).lib.homepageCatalogue + LineEnding
+              + TreeListView1.Items[i].RecordItemsText[2] +#9' '+TreeListView1.Items[i].RecordItemsText[3] + #9' '+TreeListView1.Items[i].RecordItemsText[4] + LineEnding;
   Clipboard.AsText := tocp;
 end;
 

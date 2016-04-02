@@ -1,18 +1,18 @@
 object DebugLogForm: TDebugLogForm
   Left = 287
-  Height = 411
+  Height = 635
   Top = 207
-  Width = 433
-  Caption = 'DebugLogForm'
-  ClientHeight = 411
-  ClientWidth = 433
+  Width = 875
+  Caption = 'Debug Log'
+  ClientHeight = 635
+  ClientWidth = 875
   OnShow = FormShow
-  LCLVersion = '1.5'
+  LCLVersion = '1.7'
   object Memo1: TMemo
     Left = 0
-    Height = 411
+    Height = 635
     Top = 0
-    Width = 433
+    Width = 875
     Align = alClient
     ReadOnly = True
     ScrollBars = ssAutoBoth
