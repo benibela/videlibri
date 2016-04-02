@@ -86,14 +86,24 @@
       <a><span>Anmeldung<!--Mein Konto--></span>{loginForm:=@href}</a>
     </template:switch></template>
   </page>
-
-  <page url="{$loginForm}">
-    <template><t:switch-prioritized>
-      <input name="$Textfield">{ loginFormPost := form((ancestor::form, //form)[1], {"$Textfield": $username, "$Textfield$0": $password}) } <!-- Aalen has invalid html where the form is not an ancestor of the input-->  </input> 
-      <input name="j_username">{ loginFormPost := form((ancestor::form, //form)[1], {"j_username": $username, "j_password": $password}),
-              idpSystem := true() }</input> 
-    </t:switch-prioritized></template>
-  </page>
+  
+  <loop test="exists($loginForm)">
+    <s>lf := $loginForm, loginForm := ()</s>
+    <page url="{$lf}">
+      <template><t:switch prioritized="true">
+        <input name="$Textfield">{ loginFormPost := form((ancestor::form, //form)[1], {"$Textfield": $username, "$Textfield$0": $password}) } <!-- Aalen has invalid html where the form is not an ancestor of the input-->  </input> 
+        <input name="j_username">{ loginFormPost := form((ancestor::form, //form)[1], {"j_username": $username, "j_password": $password}),
+                idpSystem := true() }</input> 
+        <form><div class="message">Sind Sie Angehörige/r unserer Hochschule?
+          <t:s> if (starts-with($username, "E")) then loginForm := form(ancestor::form[1], (.//input)[2])
+            else if (starts-with($username, "I")) then (loginForm := form(ancestor::form[1], (.//input)[1]), idpSystem := true() )
+            else vl:raise("Diese Bibliothek unterscheidet zwischen internen und externen Benutzern. In VideLibri muss dafür vor der Kontonummer jeweils der Buchstabe I oder E eingefügt werden. ")
+          </t:s>
+        </div></form>
+        <form><div class="message">vl:raise(.)</div></form>
+      </t:switch></template>
+    </page>
+  </loop>
   <call action="internal-login"/>
   
   <variable name="first-login">true()</variable>
