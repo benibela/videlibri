@@ -39,22 +39,18 @@
       <Unit0>
         <Filename Value="videlibriandroid.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="videlibriandroid"/>
       </Unit0>
       <Unit1>
         <Filename Value="..\applicationconfig.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="applicationconfig"/>
       </Unit1>
       <Unit2>
         <Filename Value="..\..\..\..\components\pascal\system\bbjniutils.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="bbjniutils"/>
       </Unit2>
       <Unit3>
         <Filename Value="androidutils.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="androidutils"/>
       </Unit3>
       <Unit4>
         <Filename Value="..\libraryaccess.pas"/>
