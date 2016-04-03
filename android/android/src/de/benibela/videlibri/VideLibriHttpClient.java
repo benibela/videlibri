@@ -1,12 +1,15 @@
 package de.benibela.videlibri;
 
 import android.util.Log;
+import org.apache.http.Header;
 import org.apache.http.HttpVersion;
+import org.apache.http.client.*;
 import org.apache.http.conn.ClientConnectionManager;
 import org.apache.http.conn.scheme.PlainSocketFactory;
 import org.apache.http.conn.scheme.Scheme;
 import org.apache.http.conn.scheme.SchemeRegistry;
 import org.apache.http.conn.scheme.SocketFactory;
+import org.apache.http.cookie.*;
 import org.apache.http.impl.client.DefaultHttpClient;
 
 import javax.net.ssl.SSLContext;
@@ -15,13 +18,15 @@ import javax.net.ssl.TrustManagerFactory;
 import javax.net.ssl.X509TrustManager;
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.Socket;
-import java.net.UnknownHostException;
+import java.net.*;
+import java.net.CookieStore;
 import java.security.*;
 import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
+import java.util.List;
 
 import org.apache.http.conn.ssl.SSLSocketFactory;
 import org.apache.http.impl.conn.SingleClientConnManager;
@@ -225,8 +230,9 @@ class SSLSocketFactoryWithAdditionalLazyKeyStore extends SSLSocketFactory {
 
 //also based on http://blog.antoine.li/2010/10/22/android-trusting-ssl-certificates/
 public class VideLibriHttpClient extends DefaultHttpClient {
-    public VideLibriHttpClient(){
+     public VideLibriHttpClient(){
         super();
+        setCookieStore(cookies);
     }
 
     @Override
@@ -261,6 +267,30 @@ public class VideLibriHttpClient extends DefaultHttpClient {
             throw new RuntimeException(e);
         }
     }
+
+    static org.apache.http.client.CookieStore cookies = (new org.apache.http.client.CookieStore(){
+
+
+        @Override
+        public void addCookie(Cookie cookie) {
+
+        }
+
+        @Override
+        public List<Cookie> getCookies() {
+            return new ArrayList<Cookie>();
+        }
+
+        @Override
+        public boolean clearExpired(Date date) {
+            return false;
+        }
+
+        @Override
+        public void clear() {
+
+        }
+    });
 
 
     static String[] BrokenServers = new String[0];
