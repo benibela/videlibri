@@ -1,7 +1,7 @@
 object DebugLogForm: TDebugLogForm
   Left = 287
   Height = 635
-  Top = 207
+  Top = 206
   Width = 875
   Caption = 'Debug Log'
   ClientHeight = 635

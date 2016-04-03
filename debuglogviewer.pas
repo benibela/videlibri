@@ -39,11 +39,14 @@ var oldFileSize: integer;
 procedure TDebugLogForm.Timer1Timer(Sender: TObject);
 var
   temp: TStringList;
+  tempstream: TFileStream;
 begin
   if FileSize(logFileName) <> oldFileSize then begin
     oldFileSize := FileSize(logFilename);
     temp := TStringList.Create;
-    temp.LoadFromFile(logFileName);
+    tempstream:=TFileStream.Create(logFileName,fmOpenRead or fmShareDenyNone);
+    temp.LoadFromStream(tempstream);
+    tempstream.free;
     memo1.Lines.BeginUpdate;
     while temp.Count > memo1.lines.Count do
       memo1.Lines.add(temp[memo1.Lines.Count]);
