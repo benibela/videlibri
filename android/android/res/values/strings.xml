@@ -251,8 +251,6 @@
     <string name="debuglog_disabled">Debug-Log ist deaktiviert. Es muss in den Einstellugen aktiviert werden, damit hier
         etwas sinnvolles angezeigt werden kann.
     </string>
-    <string name="notificationNoAccounts">Es sind keine Konten in VideLibri registriert. Somit können keine
-        Ausleihwarnungen angezeigt werden.
-    </string>
-    <string name="notificationNoAccountsTitle">VideLibri</string>
+    <string name="notificationNoAccounts">Ohne registrierte Konten können keine Ausleihwarnungen angezeigt werden.</string>
+    <string name="notificationNoAccountsTitle">VideLibri: Keine Konten</string>
 </resources>
