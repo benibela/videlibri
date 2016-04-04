@@ -1,10 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?xml-stylesheet type="text/xsl" href="../changelog.xsl"?>
 <changelog program="VideLibri">
-  <build version="1830" date="2016-02-17">
+  <build version="1836" date="2016-04-04">
     <download url="http://videlibri.sourceforge.net/updates/videlibri-setup.exe" platform="WINDOWS" execute="&quot;$DOWNLOAD&quot;  /SP- /noicons &quot;/dir=$OLDPATH&quot; " restart="true"/>
     <download url="http://videlibri.sourceforge.net/updates/videlibri-linux32.deb" platform="LINUX32" execute=""/>
     <download url="http://videlibri.sourceforge.net/updates/videlibri-linux64.deb" platform="LINUX64" execute=""/>
+    <fix>Behebt Crash unter Android wegen einer uninitialisierten Variable</fix>
+  </build>
+  <build version="1835" date="2016-04-03">
+    <change>Vereinheitliche HTTP Header, Cookies und Weiterleitungen zwischen den Platformen</change>
+    <change>VideLibri ist nun mit FreePascal 3.0.0 und Lazarus 1.6 kompiliert</change>
+    <add>Das Debug-Log lässt sich in der App ansehen</add>
+    <change>aDIS: Optionen für interne/externe Benutzer</change>
+    <fix>Gruppenüberschriften mit roten Elementen werden nun rot gezeichnet</fix>
+    <change>Verbesserte Coverimages</change>
+    <fix>Neue URLS für Baden/München/Trier</fix>
+  </build>
+  <build version="1830" date="2016-02-17">
     <fix>Dortmund: Kontoverwaltung mit PAIA und Suche mit Digibib</fix>
 <fix>Kiel, Koblenz, Hannover: Neues HTTPS Zertifikat</fix>
 <fix>voebb: Suche an neues Layout angepasst</fix>
