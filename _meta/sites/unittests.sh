@@ -63,7 +63,7 @@ PAGES=(${PAGES[@]} aleph_ubFUb/details.html aleph_ubFUb/update-2books.html aleph
 
 #============BIBDIA StaBib===============
 mkdir -p $OUTPATH/bibdia_stabib
-TEMPLATES=(${TEMPLATES[@]} bibdia_stabib/update bibdia_stabib/update bibdia_stabib/fastUpdate bibdia_stabib/update bibdia_stabib/update pica/searchDetails pica/searchDetails pica/searchDetails) 
+TEMPLATES=(${TEMPLATES[@]} bibdia_stabib/update bibdia_stabib/update bibdia_stabib/fastUpdate bibdia_stabib/update bibdia_stabib/update 'pica/searchDetails{\(\)/\(base:=\"\"\)}' 'pica/searchDetails{\(\)/\(base:=\"\"\)}' 'pica/searchDetails{\(\)/\(base:=\"\"\)}') 
 PAGES=(${PAGES[@]} bibdia_stabib/list.html bibdia_stabib/list_abhol.html bibdia_stabib/list_f.html bibdia_stabib/list_empty.html bibdia_stabib/list_new.html bibdia_stabib/stabikat1.html bibdia_stabib/stabikat2.html bibdia_stabib/stabikat3.html)
 
 #=============LIBERO==============
@@ -117,7 +117,7 @@ PAGES=(${PAGES[@]} pica/update3.html pica/update_abholen.html pica/update_luebec
 ADDTEMPLATE pica/extend 1
 PAGES=(${PAGES[@]} pica/extend2.html)
 
-test pica searchDetails searchDetails.html
+test pica 'searchDetails{\(\)/\(base:=\"\"\)}' searchDetails.html
 
 
 #================LBS=============
@@ -150,7 +150,7 @@ PAGES=(${PAGES[@]} aDISWeb/connected_furtwangen.html aDISWeb/connected_voebb1.ht
 ADDTEMPLATE aDISWeb/searchInputForm 1
 PAGES=(${PAGES[@]} aDISWeb/searchInputForm_mannheim-hsb.html )
 
-ADDTEMPLATE aDISWeb/orderConfirmation 2
+ADDTEMPLATE 'aDISWeb/orderConfirmation{\(\)/\(username:=\$password:=\"\"\)}' 2
 PAGES=(${PAGES[@]} aDISWeb/orderConfirmation_hdmtest.html aDISWeb/orderConfirmation_due.html )
 
 ADDTEMPLATE aDISWeb/orderConfirmed 5
@@ -184,7 +184,7 @@ test zones18 orderConfirmation orderConfirm.html
 
 #==============Primo========
 mkdir -p $OUTPATH/primo
-ADDTEMPLATE primo/searchStart 3
+ADDTEMPLATE 'primo/searchStart{\(\)/\(search-keys:=\"\"\)}' 3
 PAGES=(${PAGES[@]} primo/searchStart.fub.html primo/searchStart.hub.html  primo/searchStart.tub.html)
 ADDTEMPLATE primo/searchList  5
 PAGES=(${PAGES[@]} primo/searchList.hub.html primo/searchList0.hub.html primo/searchList.fub.html primo/searchList.tub.html primo/searchList3.tub.html)
@@ -237,7 +237,7 @@ error=0
 prev_system=
 for ((i=0;i<${#TEMPLATES[@]};i++)); do
   #echo '#####>-----------------------RESET--------------------<#####'  > $OUTPATH/stderr
-  [[ ${TEMPLATES[i]} =~ (.*/)?([^/]+)/[^/]+ ]]
+  [[ ${TEMPLATES[i]} =~ ([^{]*/)?([^/{]+)/[^/]+ ]]
   system=${BASH_REMATCH[2]}
   if [[ ! "$system" =~ $FILTER ]]; then     continue; fi
   if [[ "$system" != "$prev_system" ]]; then
