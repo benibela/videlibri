@@ -1622,7 +1622,7 @@ end;
 procedure TTemplateAccountAccess.setVariables(parser: THtmlTemplateParser);
   procedure setVar(const name, value: string);
   begin
-    if not parser.variableChangeLog.hasVariable(name, nil) then
+    if not parser.variableChangeLog.hasVariable(name) then
       parser.variableChangeLog.ValuesString[name] := value;
   end;
 
