@@ -1082,6 +1082,7 @@ end;
 constructor TBookListReader.create(atemplate:TMultiPageTemplate);
 var
   temp: TXQVideLibriStaticContext;
+  tempc: TXQEvaluationContext;
 begin
   inherited create(atemplate, nil);
   defaultBook:=TBook.create;
@@ -1092,6 +1093,9 @@ begin
   temp.assign(parser.QueryEngine.StaticContext);
   parser.QueryEngine.StaticContext.free;
   parser.QueryEngine.StaticContext := temp;
+  tempc := parser.QueryContext;
+  tempc.staticContext := temp;
+  parser.QueryContext := tempc;
 end;
 
 destructor TBookListReader.destroy();
