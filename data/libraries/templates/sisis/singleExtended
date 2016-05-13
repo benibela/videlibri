@@ -15,7 +15,10 @@
           </strong></t:if>
           
           <strong class="c2">neues Leihfristende:
-            <template:read var="book.duedate" source="parse-date(string-join(./following-sibling::node(), ''),'dd.mm.yyyy')"/>
+            <t:s>let $date := string-join(./following-sibling::node(), '')
+                 return if (matches($date, "\d+")) then $book.duedate := parse-date($date,'dd.mm.yyyy')
+                 else vl:raise("VERLÄNGERUNGSDATUM KANN NICHT GELESEN WERDEN: " || outer-html(..))
+            </t:s>
           </strong>
           <template:if test="$newBookTitle!=$book.title">
             <broken/>
