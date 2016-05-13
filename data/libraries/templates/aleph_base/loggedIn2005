@@ -5,7 +5,7 @@
  <tr> 
   <td class=td1> Ausleihen</td>
   <td class=td1> 
-    <a><t:read var="bookpage" source="@href" regex="https?://.*bor-loan[^'&quot;]*"/></a>
+    <a><t:read var="bookPage" source="@href" regex="https?://.*bor-loan[^'&quot;]*"/></a>
   </td>
  </tr>
 </table> 
