@@ -117,6 +117,7 @@
 
 <action id="search-connect">
   <call action="connect"/>
+  <s>$home-branches := $search-branches := (), $home-branch-id := $search-branch-id := 0</s>
 </action>
 
 
@@ -139,9 +140,9 @@
     if ($searchOptionCount > 2 or $oldSearchOptionCount > 2) then
       { "combinationOperator[2]": "AND", "searchCategories[2]": $searchOptions[3](1), "searchString[2]": $searchOptions[3](2) } else (),
     {"submitSearch": "Suchen", "callingPage": "searchParameters"},
-    if (exists(get("home-branches", ())[get("home-branch-id", 0)])) then  
+    if (exists($home-branches[$home-branch-id])) then  
       {$home-branch-name: $home-branch-values[$home-branch-id]} else (),
-    if (exists(get("search-branches", ())[get("search-branch-id", 0)])) then   
+    if (exists($search-branches[$search-branch-id])) then   
       ($search-branch-extended-options, {$search-branch-name: $search-branch-values[$search-branch-id]}) else ()
     )
   )

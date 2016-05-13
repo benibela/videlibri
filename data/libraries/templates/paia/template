@@ -8,7 +8,7 @@
 </meta>
 
 <action id="connect">
-  <s>baseurl := if (get("baseurl", ())) then get("baseurl", ()) else x"https://{$server}"</s>
+  <s>baseurl := if (get("baseurl", ())) then get("baseurl", ()) else x"https://{get('server')}"</s>
   <try>
     <page url="{$baseurl}/auth/login?username={$username}&amp;password={$password}&amp;grant_type=password">
   <!--    <header>Content-Type: application/json</header>-->
