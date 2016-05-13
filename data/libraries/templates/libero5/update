@@ -16,13 +16,13 @@
      
      <table>
        <template:read source="true()" var="noExtendingPossible"/>
-       <thead><tr><th  class="barcode" abbr="bc" ></th>
-                  <th  abbr="tit" ></th>
-                  <th  class="author" abbr="aut" ></th>
-                  <th  class="callNumber" abbr="cn">{$hasShelfMark := true()}</th>?
-                  <th  class="dueDate" abbr="due" ></th>
-                  <th  class="numRenewals" abbr="num" ></th>
-                  <th  class="renew" abbr="ren"  template:optional="true">
+       <thead><tr><th  class="barcode"  ></th>
+                  <th   ></th> <!-- class: titleVolRef -->
+                  <th  class="author"   ></th>
+                  <th  class="callNumber"  >{$hasShelfMark := true()}</th>?
+                  <th  class="dueDate"   ></th>
+                  <th  class="numRenewals"  ></th>
+                  <th  class="renew"   template:optional="true">
                     <template:read source="false()" var="noExtendingPossible"/>
                   </th></tr></thead>
                   
