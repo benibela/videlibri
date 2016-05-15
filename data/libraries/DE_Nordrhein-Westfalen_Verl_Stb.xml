@@ -3,10 +3,10 @@
   <longName value="Bibliothek Verl"/>
 
   <template value="libero5"/>
-  <variable name="baseurl" value="http://katalog.bibliothek.verl.de/libero/"/>
+  <variable name="baseurl" value="https://katalog.bibliothek.verl.de/libero/"/>
 
-  <homepage value="http://bibliothek.verl.de/wDeutsch/"/>
-  <testing-search value="ja" date="2013-07-05"/>
-  <testing-account value="?" date=""/>
-  <testing-renew value="?" date=""/>
+  <homepage value="http://bibliothek.verl.de/"/>
+  <testing-search value="ja" date="2016-05-15"/>
+  <testing-account value="ja" date="2016-05-15"/>
+  <testing-renew value="ja" date="2016-05-15"/>
 </library>
