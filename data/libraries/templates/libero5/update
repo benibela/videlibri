@@ -62,39 +62,38 @@
  </form>
  
  
- <form name="MEMSLFRES" template:optional="true">
-   {cancelForm := form(.), hasShelfMark:=false()}
-   <fieldset id="reserved_items_flds">     
+   <fieldset id="reserved_items_flds" template:optional="true">
+     {cancelForm := form(ancestor::form[1]), hasShelfMark:=false(), hasDelete := false()}
      <table>
        
        <thead><tr> 
-                  <th class="barcode" abbr="bc" ></th>
-                  <th abbr="tit" ></th>
-                  <th class="author" abbr="aut" ></th>
-                  <th class="callNumber" abbr="cno">{$hasShelfMark := true()}</th>?
-                  <th class="reserveDate" abbr="date" ></th>
-                  <th class="delete" abbr="del" ></th>
-              </tr></thead>
+          <th class="barcode"></th>
+          <th></th>
+          <th class="author"></th>
+          <th class="callNumber">{$hasShelfMark := true()}</th>?
+          <th class="reserveDate"></th>
+          <th class="delete">{$hasDelete := true()}</th>?
+      </tr></thead>
                   
        <template:loop>
        <tr>
-          {book := {"statusId": "ordered"}}
+          {book := {"statusId": "ordered", "cancelable": false()}}
           <td headers='th7_2'>{$book.id}</td>
           <td>{$book.title}</td>
           <td>{$book.author}</td>
           <td t:test="$hasShelfMark"/>
           <td>{$book.issueDate := parse-date(., "d mmm yyyy")}</td>
-          <td><input type="checkbox">{book.cancelId := uri-combine(., ())}</input>?</td>
+          <td t:test="$hasDelete"><input type="checkbox">{
+            book.cancelId := uri-combine(., ()),
+            book.cancelable := true()
+          }</input></td>
        </tr>
-       <!--<template:read var="book-end()"/>-->
+
        </template:loop>
      </table>
 
-     <input type="hidden" name="mid">
-       <template:read var="mid" source="@value"/>
-     </input>
+     <input type="hidden" name="mid">{$mid:=@value}</input>?
   </fieldset>
- </form> 
 </body>
 
 

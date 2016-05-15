@@ -46,6 +46,7 @@
     <post name="bno" value="{$username}"/>
     <post name="mid" value="{$mid}"/>
     <post value="{$book-list}"/>
+<!--    <post name="SubmitIssued" value="Senden"/>-->
     <template><body><a t:condition="contains(@href, 'MEMSTAT')">{$update-page := @href}</a>?</body></template>
   </page>
   <call action="update-all"/>
@@ -125,7 +126,12 @@
 </action>
 
 <action id="order-confirm-single"> 
-  <page url="{$book._order-url}">
+  <s>$order := if ($book._order-url) then $book._order-url
+               else if ($book._order-id and get("order-form")) then
+                 request-combine(get("order-form"), {$book._order-id: 1})
+               else ()
+   </s>
+  <page url="{$order}">
     <template><form>{f := form(., {"usernum": $username, "password": $password})}</form></template>
   </page>
   <page url="{$f}">  
@@ -133,8 +139,10 @@
      <t:switch>
       <form>
         {issuePoints := (), confirm := form(.)}
-        <select name='BRANCH'>
-          {book.orderConfirmationOptionTitles := option, issuePoints := $book.orderConfirmationOptionTitles/@value}
+        <select t:condition="@name=('BRANCH','PICKUPBR')">
+          {order-branch-name := @name,
+           book.orderConfirmationOptionTitles := option, 
+           issuePoints := $book.orderConfirmationOptionTitles/@value}
         </select>
         
         {if (count($issuePoints) > 1 ) then book.orderConfirmation := "Wohin soll das Buch vorbestellt werden?"
@@ -152,11 +160,12 @@
 
 <action id="order-single"> 
   <if test="boolean($book.orderConfirmation)">
-    <s>confirm.post := uri-combine($confirm.post, {"BRANCH": $issuePoints[$book.choosenConfirmation*1]})</s>
+    <s>confirm.post := uri-combine($confirm.post, {$order-branch-name: $issuePoints[$book.choosenConfirmation*1]})</s>
   </if>
   <page url="{$confirm}">
   <template><t:switch>    
     <b>Ihre Vormerkung wurde vorgenommen</b>
+    <div>Ihre Vormerkung wurde vorgenommen</div>
     <ul class="SysMsgList">
       <b>Für diesen Titel konnte keine Vormerkung eingetragen werden</b>
       <t:s>vl:raise(.)</t:s>

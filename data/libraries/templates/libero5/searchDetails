@@ -17,11 +17,14 @@
       </DIV>
 
       <DIV class="ItemInfoCont">
-        {id := 1}
+        {id := 1,$first-input := ()}
         <TABLE><TBODY>
-        <TR><t:read source="." var="book.Exemplar {$id}!"/>{id := $id+1}</TR>*
+        <TR><t:read source="." var="book.Exemplar {$id}!"/>{id := $id+1, if ($book._order-id) then () else $book._order-id := .//input/@name}</TR>*
         </TBODY></TABLE>
         <a title="Reserve Title">{book._order-url := @href, book.orderable := true()}</a>?
+        <div class='SubmitIssuesReserves' t:test="not($book.orderable)">
+        {$order-form := form(ancestor::form[1], (.//input)), book.orderable := true()}
+        </div>
       </DIV>
    </t:switch></t:loop>
   </DIV>
