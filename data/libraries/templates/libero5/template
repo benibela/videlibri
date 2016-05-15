@@ -67,6 +67,7 @@
 </action>
 
 <action id="search-connect">
+  <s>$search-branch-values := (), $search-branch-id := 0</s>,
   <page url="{$baseurl}WebOpac.cls">
   <template>
     <t:switch-prioritized>
@@ -105,7 +106,7 @@
          else 
            {"YEARFROM": $book.year, "YEARTO": $book.year} 
        else (),
-       if (get("search-branch-values", ())[get("search-branch-id", 0)]) then {"LIMLOC": $search-branch-values[$search-branch-id]} else (),
+       if ($search-branch-values[$search-branch-id]) then {"LIMLOC": $search-branch-values[$search-branch-id]} else (),
        for $key in jn:keys($book) return if (boolean($book($key)) and exists($search-keys($key))) then (
          {x"TERM_{$i}": $book($key), x"USE_{$i}": $search-keys($key)},
          (i := $i + 1)[2]

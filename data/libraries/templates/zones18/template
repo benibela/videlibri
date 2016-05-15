@@ -31,7 +31,11 @@
       <a t:condition="matches(@href, '/APS_QUICK_SEARCH')">{searchUrl := replace(@href, "QUICK_SEARCH", "ADVANCED_SEARCH")}</a>
     </template>
   </page>-->
-  <s>style := get('style', 'Portal2'), accountUrl := x"{$baseurl}/APS_ACCOUNT?fn=advancedsearch&Style={$style}&BrowseAsHloc=-2"</s>
+  <s>style := get('style', 'Portal2'), 
+     accountUrl := x"{$baseurl}/APS_ACCOUNT?fn=advancedsearch&Style={$style}&BrowseAsHloc=-2",
+     $search-branch-values := (),
+     $search-branch-id := 0
+     </s>
 
   <page url="{$baseurl}/APS_ZONES?fn=advancedsearch&Style={$style}"> 
     <template><body>
@@ -68,7 +72,7 @@
               {x"q.form.t{$i}&#46;expr": $book($key), x"q.form.t{$i}&#46;term": $search-keys($key)},
               (i := $i + 1)[2]
             ) else (),
-       if (exists(get("search-branch-values", ())[get("search-branch-id", 0)])) then {"q.limits.limit": $search-branch-values[$search-branch-id]} else () ) )
+       if (exists($search-branch-values[$search-branch-id])) then {"q.limits.limit": $search-branch-values[$search-branch-id]} else () ) )
   </s>
   
   <page url="{$request}" templateFile="searchList">

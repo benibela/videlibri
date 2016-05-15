@@ -237,9 +237,9 @@
 </action>
 
 <action id="search-next-page">
-  <variable name="targetIndex">$lastSearchedIndex + 1</variable>
+  <variable name="targetIndex">$lastSearchedIndex + 1, $goback := get('goback', ())</variable>
   <choose>
-    <when test="get('goback', ()) and $firstIndex &lt;= $targetIndex and $targetIndex &lt;= $lastIndex">
+    <when test="$goback and $firstIndex &lt;= $targetIndex and $targetIndex &lt;= $lastIndex">
       <page url="{$goback}" templateFile="search"/>
     </when>
     <otherwise>
