@@ -77,3 +77,5 @@ ls
 webUpload * /test/
 webUpload newlibs/* /test/newlibs/
 webUpload $templateIdNew/* /test/$templateIdNew/
+
+echo here you go: http://www.videlibri.de/test/$publishId.html
