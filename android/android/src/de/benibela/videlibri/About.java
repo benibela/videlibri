@@ -102,9 +102,9 @@ public class About extends VideLibriBaseActivity {
         } catch (PackageManager.NameNotFoundException e) {
             details.add(0, new BookDetails.Details(tr(R.string.version), "VideLibri "+(Util.strToIntDef(firstVersion, 0) / 1000.0)  + " ??"));
         }
-        details.add(1, new BookDetails.Details(tr(R.string.homepage), "http://videlibri.sourceforge.net"));
+        details.add(1, new BookDetails.Details(tr(R.string.homepage), "http://www.videlibri.de"));
         details.add(2, new BookDetails.Details(tr(R.string.source), "http://sourceforge.net/p/videlibri/code/ci/trunks/tree/"));
-
+        details.add(3, new BookDetails.Details("Covers", "http://www.openlibrary.org ; http://www.buchhandel.de"));
 
 
         lv.setAdapter(new BookDetails.BookDetailsAdapter(this, details, new Bridge.Book()));

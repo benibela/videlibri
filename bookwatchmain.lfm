@@ -15,7 +15,7 @@ object mainForm: TmainForm
   OnShow = FormShow
   OnWindowStateChange = FormWindowStateChange
   Position = poScreenCenter
-  LCLVersion = '1.5'
+  LCLVersion = '1.7'
   object StatusBar1: TStatusBar
     Left = 0
     Height = 19
