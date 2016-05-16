@@ -1,2 +1,2 @@
 book := {}
-bookpage := "http://opac.hu-berlin.de:80/F/1B662PQEHGKRA92URUMFDJE3XDVMMVBK8DGPETMVLBQLAE197J-47978?func=bor-loan&amp;adm_library=HUB50"
+bookPage := "http://opac.hu-berlin.de:80/F/1B662PQEHGKRA92URUMFDJE3XDVMMVBK8DGPETMVLBQLAE197J-47978?func=bor-loan&amp;adm_library=HUB50"
