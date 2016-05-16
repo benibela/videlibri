@@ -3,6 +3,7 @@ program bookWatch;
 {$mode objfpc}{$H+}
 
 uses
+  //heaptrc,
   {$IFNDEF WIN32}
   cthreads,
   {$ENDIF}
