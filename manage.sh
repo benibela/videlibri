@@ -118,9 +118,15 @@ downloadTable)
          <br/><br/>
          <table class="downloadTable">
          <tr><th>{("Operating System", "Betriebsystem")[$lang]}</th><th>{("Filename", "Dateiname")[$lang]}</th><th>{("Size", "Dateigröße")[$lang]}</th></tr>
-         { for $link in match(<TABLE id="files_list"><t:loop><TR class="file"><TH><A class="name">{{link := object(), link.verboseName := verboseName(.), link.a := .}}</A></TH><td/><td>{{link.size := .}}</td></TR></t:loop></TABLE>, /).link 
+         { for $link in match(<TABLE id="files_list"><t:loop><TR class="file">
+           <TH>{{link := {{"verboseName": verboseName(.),
+                           "name": data(.),
+                           "href": if (a/@href) then a/@href else $url || . || "/download" 
+                         }} }}</TH>
+           <td/><td>{{link.size := .}}</td></TR></t:loop></TABLE>, /).link 
            order by $link.verboseName descending 
-           return <tr><td>{$link.verboseName}</td><td><a href="{$link.a/@href}">{$link.a/text()}</a></td><td>{$link.size/text()}</td></tr>}</table></div>'     --printed-node-format html > $VIDELIBRIBASE/_meta/sfsite/downloadTable.html
+           return <tr><td>{$link.verboseName}</td><td>
+           <a href="{$link.href}">{$link.name}</a></td><td>{$link.size/text()}</td></tr>}</table></div>'     --printed-node-format html > $VIDELIBRIBASE/_meta/sfsite/downloadTable.html
   cat $VIDELIBRIBASE/_meta/sfsite/downloadTable.html
   webUpload $VIDELIBRIBASE/_meta/sfsite/downloadTable.html /
 
