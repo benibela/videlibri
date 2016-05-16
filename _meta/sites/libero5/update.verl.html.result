@@ -1,0 +1,18 @@
+book := {}
+bookTableBroken := false()
+new-update-page := text{"https://katalog.bibliothek.verl.de/libero/WebOpac.cls?VERSION=2&amp;ACTION=MEMSTAT&amp;RSN=&amp;DATA=VER&amp;TOKEN=dncpYFWPX01849&amp;Z=1&amp;NewBreadCrumb=1&amp;xin=0165525&amp;CHK=4327"}
+delete-current-books() := ()
+hasShelfMark := false()
+bookTableBroken := true()
+noExtendingPossible := true()
+hasShelfMark := true()
+noExtendingPossible := false()
+bookTableBroken := false()
+temporaryStatusDetails := text{"Am liebsten eine Katze"}
+book := {"extendid": "REN2132013", "status:curious": "bisher 1 mal verlängert", "duedate:d mmm yyyy": "13 Jun 2016", "author": "", "title": "Am liebsten eine Katze", "id": "2132013"}
+mid := text{"16079"}
+cancelForm := ()
+hasShelfMark := false()
+hasDelete := false()
+hasShelfMark := true()
+book := {"issueDate": "2016-05-15", "author": "Birmelin, Immanuel", "title": "Mein Wellensittich", "id": "1780116", "statusId": "ordered", "cancelable": false}

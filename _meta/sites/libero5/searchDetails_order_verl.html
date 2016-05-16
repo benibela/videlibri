@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" prefix="fb: http://www.facebook.com/2008/fbml# addthis: http://www.addthis.com/help/api-spec# og: http://opengraphprotocol.org/schema/"  lang="de" xml:lang="de">
+<head>
+<link href="javascripts/jqueryui/ui-lightness-1.10.3.css" rel="stylesheet"/>
+<script src="javascripts/jquery/jquery-1.11.0.min.js"></script>
+<script src="javascripts/jquery/jquery-migrate-1.2.1.min.js"></script>
+<script src="javascripts/jqueryui/jquery-ui-1.10.3.min.js"></script>
+<meta http-equiv="content-type" content="text/html;charset=UTF-8" />
+<meta name="author" content="Insight Informatics" />
+<meta name="keywords" content="WebOpac" />
+<meta name="description" content="LIBERO OPAC" />
+<script>document.timeoutAction = 'window.location.href="https://katalog.bibliothek.verl.de/libero/WebOpac.cls?VERSION=2&amp;ACTION=OPACTIMEOUT&amp;DATA=VER&amp;TOKEN=NbgzqQOXPq4818&amp;MGWCHD=0"';
+document.timeoutID=setTimeout(document.timeoutAction,600000);document.timeoutTime=600000;</script>
+<meta property='og:title' content='Mein Wellensittich' />
+<meta property='og:url' content='https://katalog.bibliothek.verl.de/libero/WebopacOpenURL.cls?ACTION=DISPLAY&amp;sid=LIBERO:VER&amp;RSN=79792' />
+<meta property='og:image' content='image' />
+<meta property='og:type' content='website' />
+<meta property='og:description' content='Item found at Gemeindebücherei Verl' />
+<title>LIBERO WebOPAC Katalogdatenanzeige (W561)</title>
+<link rel="SHORTCUT ICON" href="https://katalog.bibliothek.verl.de/libero/Styles/verl/images/logo.ico"/>
+<link rel='stylesheet' type='text/css' media='screen' href='https://katalog.bibliothek.verl.de/libero/Styles/verl/screen/page_layout.css'/>
+<link rel='stylesheet' type='text/css' media='screen' href='https://katalog.bibliothek.verl.de/libero/Styles/verl/screen/libero.css'/>
+<link rel='stylesheet' type='text/css' media='all' href='https://katalog.bibliothek.verl.de/libero/Styles/verl/all/libero.css'/>
+<link rel='stylesheet' type='text/css' media='print' href='https://katalog.bibliothek.verl.de/libero/Styles/verl/print/libero.css'/>
+<link rel='stylesheet' type='text/css' media='screen' href='https://katalog.bibliothek.verl.de/libero/Styles/verl/screen/display/DISPLAY.css'/>
+<link rel='stylesheet' type='text/css' media='all' href='https://katalog.bibliothek.verl.de/libero/Styles/verl/screen/display/SYSMESSAGES.css'/>
+<!--[if IE]>
+<link rel="Stylesheet" type="text/css" href="https://katalog.bibliothek.verl.de/libero/Styles/verl/screen/ie.css">
+<![endif]-->
+<!--[if lte IE 6]>
+<link rel="Stylesheet" type="text/css" href="https://katalog.bibliothek.verl.de/libero/Styles/verl/screen/ie6.css">
+<![endif]-->
+<script type='text/javascript' src='https://katalog.bibliothek.verl.de/libero/javascripts/PageLoad.js'></script>
+<script type='text/javascript'><!--
+ 
+function default_focus(eo) { 
+	try { 
+		var e = eo.target;
+		if (!e) e = window.event.srcElement;
+		if (e.readOnly==true) return;
+		if (e.value=='.' || e.value=='JJJJ')
+		{
+			e.value=''; 
+			default_value[e.tabIndex] = '';
+		}
+		if (e.value=='.'|| e.value=='JJJJ')
+			default_value[e.tabIndex] = e.value;
+		focus_colour(eo);
+	} catch (err) {
+		//alert('Error on focus: ' + err);
+	} 
+	return true; 
+} 
+function default_blur(eo) { 
+	try { 
+		var e = eo.target;
+		if (!e) e = window.event.srcElement; 
+		if (e.readOnly==true) return;
+		if (e.value=='') {
+			e.value=default_value[e.tabIndex];
+		if (e.value!='.' && e.value!='JJJJ') 
+				e.value = '';
+		}
+		blur_colour(eo);
+	} catch (err) {
+		//alert('Error on blur: ' + err);
+	} 
+	return true; 
+} 
+
+--></script>
+</head>
+<body class="mainbody" onload="page_load('');image_load();">
+<div id='PageShortCuts'>Shortcuts
+<ul class='shortcuts'><li><a accesskey='0' href='#PageTop'>Top of page (Alt+0)</a></li>
+<li><a accesskey='9' href='#PageContent'>Page content (Alt+9)</a></li>
+<li><a accesskey='8' href='#PageMenu'>Page menu (Alt+8)</a></li>
+</ul>
+</div>
+<div id='wait_image' style="width:100%;height:100%;"><img src='https://katalog.bibliothek.verl.de/libero/Styles/verl/images/loading_animation.gif' alt='Bitte warten Sie, bis die Seite geladen ist.' border='0'/></div>
+<script type='text/javascript'><!--
+var ld=(document.all);
+var ns4=document.layers;
+var ns6=document.getElementById;
+var ns8=!document.all;
+var ie4=document.all;
+function page_load()
+{
+  if (ns4) { ld=document.wait_image; }
+  else if (ns6 && ns8)
+   {   ld=document.getElementById("wait_image").style; }
+  else if (ie4)
+    {  ld=document.all.wait_image.style; }
+}
+function image_load() {
+	if(ns4){ld.visibility="hidden";}
+else if ((ns6 && ns8)|| ie4) ld.display="none";
+}
+--></script>
+<noscript><div id='NoJsMsg'>Your browser does not support javascript, some WebOpac functionallity will not be available.</div></noscript>
+<div id="header_container">
+<div id="page_title">
+<a tabindex='0' name='PageTop' href="https://katalog.bibliothek.verl.de/libero/WebOpac.cls?VERSION=2&amp;ACTION=DEFAULTPAGE&amp;RSN=&amp;DATA=VER&amp;TOKEN=NbgzqQOXPq4818&amp;Z=1&amp;NewBreadCrumb=1" title="Bibliothek Verl - Bestandsverzeichnis"><img src='https://katalog.bibliothek.verl.de/libero/Styles/verl/images/logo_1.jpg' alt='Bibliothek Verl - Bestandsverzeichnis' height='60' width='120'/></a><span class='href_sep'> . </span><span class='hide'><a href='default.htm'>Default</a></span><span class='href_sep'> . </span>
+</div>
+</div> <!-- Close header_container -->
+<div id='page_container'>
+
+<div id="left_column">
+<a class='hide' name='PageMenu'>PageMenu</a><span class='URLHack'>-</span>
+<span class='MainMenuHeading'>Hauptmenü</span><span class='URLHack'>-</span>
+<ul class="Menulist" id='MainMenuList' title='Menü'>
+<li class="MenuItem"><a tabindex='502' target="_blank" href="https://katalog.bibliothek.verl.de/libero/WebOpac.cls?VERSION=2&amp;ACTION=MEMBERSERV&amp;RSN=&amp;DATA=VER&amp;TOKEN=NbgzqQOXPq4818&amp;Z=1&amp;NewBreadCrumb=1&amp;LOGINTOKEN=SMFRMKJJJP" title="Benutzerkonto Wird in neuem Fenster geöffnet.">Benutzerkonto</a><span class='href_sep'> . </span></li>
+<li class="MenuItem"><a tabindex='503' href="https://katalog.bibliothek.verl.de/libero/WebOpac.cls?VERSION=2&amp;ACTION=EXITWEBOPAC&amp;RSN=&amp;DATA=VER&amp;TOKEN=NbgzqQOXPq4818&amp;Z=1&amp;NewBreadCrumb=1" title="Member Logout">Member Logout</a><span class='href_sep'> . </span></li>
+<li class="MenuItem"><a tabindex='504' href="https://katalog.bibliothek.verl.de/libero/WebOpac.cls?VERSION=2&amp;ACTION=SIGNOX&amp;RSN=&amp;DATA=VER&amp;TOKEN=NbgzqQOXPq4818&amp;Z=1&amp;NewBreadCrumb=1" title="WebOPAC verlassen">WebOPAC verlassen</a><span class='href_sep'> . </span></li>
+<li id='searchMenu'><span>Search Menu</span>
+<ul title='Search Menu'>
+<li class="MenuItem"><a tabindex='505' href="https://katalog.bibliothek.verl.de/libero/WebOpac.cls?VERSION=2&amp;ACTION=SEARCHS&amp;RSN=&amp;DATA=VER&amp;TOKEN=NbgzqQOXPq4818&amp;Z=1&amp;NewBreadCrumb=1" title="Einfache Suche">Einfache Suche</a><span class='href_sep'> . </span></li>
+<li class="MenuItem"><a tabindex='506' href="https://katalog.bibliothek.verl.de/libero/WebOpac.cls?VERSION=2&amp;ACTION=SEARCHA&amp;RSN=&amp;DATA=VER&amp;TOKEN=NbgzqQOXPq4818&amp;Z=1&amp;NewBreadCrumb=1" title="Erweiterte Suche">Erweiterte Suche</a><span class='href_sep'> . </span></li>
+<li class="MenuItem"><a tabindex='507' href="https://katalog.bibliothek.verl.de/libero/WebOpac.cls?VERSION=2&amp;ACTION=SEARCHCL&amp;RSN=&amp;DATA=VER&amp;TOKEN=NbgzqQOXPq4818&amp;Z=1&amp;NewBreadCrumb=1" title="Suchhistorie löschen">Suchhistorie löschen</a><span class='href_sep'> . </span></li>
+<li class="MenuItem"><a tabindex='508' href="https://katalog.bibliothek.verl.de/libero/WebOpac.cls?VERSION=2&amp;ACTION=REFINESCREEN&amp;RSN=&amp;DATA=VER&amp;TOKEN=NbgzqQOXPq4818&amp;Z=1&amp;NewBreadCrumb=1" title="Suchergebnisse verfeinern">Suchergebnisse verfeinern</a><span class='href_sep'> . </span></li>
+<li class="MenuItem"><a tabindex='509' href="https://katalog.bibliothek.verl.de/libero/WebOpac.cls?VERSION=2&amp;ACTION=SHOWHISTORY&amp;RSN=&amp;DATA=VER&amp;TOKEN=NbgzqQOXPq4818&amp;Z=1&amp;NewBreadCrumb=1" title="Suchhistorie">Suchhistorie</a><span class='href_sep'> . </span></li>
+</ul>
+</li>
+<li id='bottomMenu'><span>Bottom Menu</span>
+<ul title='Bottom Menu'>
+</ul>
+</li>
+<li id='languagesMenu'><span>Languages</span>
+<ul title='Languages'>
+<li class="MenuItem"><a tabindex='510' href="https://katalog.bibliothek.verl.de/libero/WebOpac.cls?VERSION=2&amp;ACTION=LANGEN&amp;RSN=79792&amp;DATA=VER&amp;TOKEN=NbgzqQOXPq4818&amp;Z=1" title="Englisch">Englisch</a><span class='href_sep'> . </span></li>
+<li class="MenuItem"><a tabindex='511' href="https://katalog.bibliothek.verl.de/libero/WebOpac.cls?VERSION=2&amp;ACTION=LANGDE&amp;RSN=79792&amp;DATA=VER&amp;TOKEN=NbgzqQOXPq4818&amp;Z=1" title="Deutsch">Deutsch</a><span class='href_sep'> . </span></li>
+</ul>
+</li>
+<li id='newItemsMenu'><span>New Items Menu</span>
+<ul title='New Items Menu'>
+<li class="MenuItem"><a tabindex='512' href="https://katalog.bibliothek.verl.de/libero/WebOpac.cls?VERSION=2&amp;ACTION=NEWITEMS&amp;RSN=79792&amp;DATA=VER&amp;TOKEN=NbgzqQOXPq4818&amp;Z=1&amp;NewBreadCrumb=1" title="Neuerwerbungsliste">Neuerwerbungsliste</a><span class='href_sep'> . </span></li>
+</ul>
+</li>
+<li id='linksMenu'><span>Weitere Informationen</span>
+<ul title='Weitere Informationen'>
+<li class="MenuItem"><a tabindex='519' href="https://www.digibib.net?LOCATION=Ver1" target="_blank" title='Digitale Bibliothek - Wird in neuem Fenster geöffnet.'>Digitale Bibliothek</a><span class='href_sep'> . </span></li>
+<li class="MenuItem"><a tabindex='519' href="http://bibliothek.verl.de/wDeutsch/" target="_blank" title='Homepage der Bibliothek Verl - Wird in neuem Fenster geöffnet.'>Homepage der Bibliothek Verl</a><span class='href_sep'> . </span></li>
+<li class="MenuItem"><a tabindex='519' href="http://www.owl-eausleihe.de" target="_blank" title='owl-eAusleihe (eBooks, eAudio...) - Wird in neuem Fenster geöffnet.'>owl-eAusleihe (eBooks, eAudio...)</a><span class='href_sep'> . </span></li>
+<li class="MenuItem"><a tabindex='519' href="http://www.munzinger.de/search/templates/magazin.jsp?portalid=56111" target="_blank" title='Personen- & Ländersuche - Wird in neuem Fenster geöffnet.'>Personen- & Ländersuche</a><span class='href_sep'> . </span></li>
+</ul>
+</li>
+<li class='MnuVers'>&#169; LIBERO v6.3.2sp3</li>
+</ul>
+
+
+<!-- Start feed output -->
+<!-- End feed output -->
+
+
+</div><!-- Close left_column -->
+<div id="right_column">
+<a class='hide' name='PageContent'>Page content</a>
+<div id='subheader_container'>
+</div> <!-- Close subheader_container -->
+<div id='BreadCrumbs'>
+<span class='label'><span class='logonSalutation'>Testerin SommerLeseClub - </span>Sie befinden sich hier</span>: <span class='BreadCrumbSep'>&gt; </span><span class='BreadCrumb'><a tabindex='601' class='aBreadCrumb' href="/libero/WebOpac.cls?RSN=0&amp;SELECTCSS=verl&amp;TOKEN=NbgzqQOXPq4818&amp;TOKENX=NbgzqQOXPq4818&amp;TOKENZ=NbgzqQOXPq4818&amp;VERSION=2&amp;amp;ACTION=OPACTIMEOUT&amp;amp;DATA=VER&amp;amp;MGWCHD=0&amp;amp;TOKEN=NbgzqQOXPq4818&amp;bno=0165525&amp;skin=verl/&amp;usernum=0165525&amp;ACTION=SEARCHS&amp;CRUMB=1">Einfaches Suchen</a></span>
+<span class='BreadCrumbSep'>&gt; </span><span class='BreadCrumb'><a tabindex='602' class='aBreadCrumb' href="/libero/WebOpac.cls?ACTION=MEMRESA&amp;DATA=VER&amp;MGWCHD=0&amp;RSN=0&amp;SELECTCSS=verl&amp;TOKEN=NbgzqQOXPq4818&amp;TOKENX=NbgzqQOXPq4818&amp;TOKENZ=NbgzqQOXPq4818&amp;VERSION=2&amp;bno=0165525&amp;skin=verl/&amp;usercode=&amp;usernum=0165525&amp;CRUMB=1">Abholzweigstelle für die Vormerkung auswählen</a></span>
+<span class='BreadCrumbSep'> </span><span class='BreadCrumb'>Katalogdatenanzeige</span>
+</div>
+<div class='PageHeading'><h1>Katalogdatenanzeige</h1></div>
+<!--FORM STARTS HERE-->
+<form name="display" method='post' onsubmit='filterInput();' action="https://katalog.bibliothek.verl.de/libero/WebOpac.cls">
+<div>
+<input type="hidden" name="MGWCHD" value='0'/>
+<input type="hidden" name="TOKEN" value='NbgzqQOXPq4818'/>
+<input type='hidden' name="TOKENX" value='NbgzqQOXPq4818'/>
+<input type="hidden" name="DATA" value='VER'/>
+<input type='hidden' name='usercode' value=""/>
+<input type='hidden' name='VERSION' value='2'/>
+</div>
+<div class='navLinks'>
+<a tabindex='2' class='previous' href="https://katalog.bibliothek.verl.de/libero/WebOpac.cls?VERSION=2&amp;ACTION=DISPLAY&amp;RSN=60170&amp;DATA=VER&amp;TOKEN=NbgzqQOXPq4818&amp;Z=1">Vorheriger Titel</a><span class='href_sep'> . </span> 
+<a tabindex='3' class='next' href="https://katalog.bibliothek.verl.de/libero/WebOpac.cls?VERSION=2&amp;ACTION=DISPLAY&amp;RSN=1455&amp;DATA=VER&amp;TOKEN=NbgzqQOXPq4818&amp;Z=1">Nächster Titel</a><span class='href_sep'> . </span> 
+</div>
+<div class='DisplayRecord'>
+<div class='TitleHeader'>
+<h2><a name='Top79792'>Mein Wellensittich</a></h2>
+<div class='TitleDetails'>
+<link rel='stylesheet' type='text/css' href='javascripts/jquery.fancybox/jquery.fancybox-1.3.1.css' media='screen' />
+<script type='text/javascript' src='javascripts/jquery.fancybox/jquery.fancybox-1.3.1.js'></script>
+<script type='text/javascript'>
+var fb_origWidth, fb_origHeight;
+function fitToSize() {
+   $('#fancybox-frame').contents().find('img').css('max-width', '100%');
+   $('#fancybox-frame').contents().find('img').css('max-height', '100%');
+	var imageHeight = $('#fancybox-frame').contents().find('img').height();
+	var frameHeight = $('#fancybox-frame').height();
+	var verticalCenterOffset = Math.max(0, (frameHeight - imageHeight) / 2);
+	$('#fancybox-frame').contents().find('body').css('marginTop', verticalCenterOffset+'px');
+};
+   function addPageSizing(title, currentArray, currentIndex, currentOpts) {
+       return '<div><a href="'+currentOpts.href+'" target="_blank">Open Original</a>'+
+'</div><div style="float: left;">'+
+           (title && title.length ? '<b>' + title + '</b>' : '' ) + 
+           '</div><div style="float: right;">Image ' +
+           (currentIndex + 1) + ' of ' + currentArray.length + '</div>';
+   };
+   function fixIEMargins() {
+ try {
+		var x = document.getElementById('fancybox-frame');
+		var y = (x.contentWindow || x.contentDocument);
+	if (y.document) {
+		y = y.document;
+       $(y).contents().find('body').css('marginTop','0px');
+       $(y).contents().find('body').css('marginLeft','0px');
+       $(y).contents().find('body').css('marginRight','0px');
+       $(y).contents().find('body').css('marginBottom','0px');
+       $(y).contents().find('body').css('text-align','center');
+   	fb_origWidth = $(y).contents().find('img').width();
+   	fb_origHeight = $(y).contents().find('img').height();
+       fitToSize();}} catch(e) {return;}
+   };
+</script>
+<script type='text/javascript' src='javascripts/timeago.pack.js'></script><link rel='stylesheet' type='text/css' href='javascripts/commentbox.css' media='screen' /><script type='text/javascript' src='javascripts/commentbox.js'></script><script type='text/javascript'>
+$(document).ready(function() {
+         $('a[rel=PageImage]').fancybox({
+		'titleFormat'		: addPageSizing,
+       'titlePosition'     : 'inside',     
+       'type'              : 'iframe',     
+		'commentShow'       : false,		
+       'autoScale'         : false,        
+       'height'            : '80%',        
+       'width'             : '60%',        
+       'onComplete'        : fixIEMargins, 
+'centerOnScroll': true
+   });
+});
+</script>
+<div class='AmazonImage nobackground' id='AImage' style='display: block'><img alt='Mein Wellensittich' title='Mein Wellensittich' class='img3' src='Cover.cls?type=cover&isbn=9783833801877&size=200'/></div></div>
+<div class='TitleOptions'>
+<li class='WikiAuthorDiv'> &nbsp;<span class='href_sep'> . </span><a tabindex='5' title="Wikipedia Birmelin, Immanuel - Wird in neuem Fenster geöffnet" target='_blank' href='http://de.wikipedia.org/wiki/Immanuel_Birmelin'>http://de.wikipedia.org/wiki/Hauptseite</a><span class='href_sep'> . </span></li><ul class='CatNavList'>
+<li> &nbsp; &nbsp;<a tabindex='6' href='#ItemInfo79792'>Exemplarinformationen<span class='URLHack'> Katalogdatensatz79792</span></a> <span class='href_sep'> . </span></li>
+<li> &nbsp; &nbsp;<a tabindex='7' href='#CatInfo79792'>Kataloginformation<span class='URLHack'> Katalogdatensatz79792</span></a> <span class='href_sep'> . </span></li>
+<li class='ReviewsRatingsDiv'> &nbsp; &nbsp;<a tabindex='8' href='#aReviews'>Besprechungen<span class='URLHack'> Katalogdatensatz79792</span></a> <span class='href_sep'> . </span></li>
+</ul>
+<div class='resolvergroup'></div>
+<a class='qrlink' href='https://katalog.bibliothek.verl.de/libero/WebopacOpenURL.cls?ACTION=DISPLAY&RSN=79792&DATA=VER'><img src='https://chart.googleapis.com/chart?chs=100x100&chld=L|0&cht=qr&chl=https%3A//katalog.bibliothek.verl.de/libero/WebopacOpenURL.cls%3FACTION%3DDISPLAY%26RSN%3D79792%26DATA%3DVER' /></a><span class='href_sep'> . </span> 
+</div>
+<div style='clear:both'></div>
+</div>
+
+<div class='ItemInfoCont'><table>
+    <caption><a name='ItemInfo79792'>Exemplarinformationen</a></caption>
+    <colgroup>
+     <col class="shelf" />
+      <col class="collection" />
+       <col class="status" />
+      <col class="dueDate" />
+        <col class="res" />
+    </colgroup>
+    <thead>
+        <tr>
+        <th id='th1_79792_2' class="shelf">Regalstandort</th>
+        <th id='th1_79792_3' class="collection">Literaturabteilung</th>
+        <th id='th1_79792_6' class="status">Status</th>
+        <th id='th1_79792_7' class="dueDate">Fällig am</th>
+        <th id='th1_79792_8' class="res">vormerken</th>
+        </tr>
+    </thead>
+    <tbody>
+<tr class='oddRow'>
+<td headers='th1_79792_2'><span class='bmShelf'>Xbp 41 Birm Tiere halten</span><br></td>
+<td headers='th1_79792_3'>Sachbuchbereich</td>
+<td headers='th1_79792_6'><span class='href_sep'> . </span><a tabindex='9' title='Ausgeliehen'>Ausgeliehen</a><span class='href_sep'> . </span></td>
+<td headers='th1_79792_7'>27 Mai 2016</td>
+<td headers='th1_79792_8'><input tabindex='11' id='BCRE1780116' type="checkbox" value="1" name='BCRE1780116'/><label class='HiddenLabel' id='lblBCRE1780116' for='BCRE1780116'>Select this item</label></td>
+</tr>
+    </tbody>
+</table>
+<div class='DLoadTitleBlock'>
+</div> <!-- close DLoadTitleArea -->
+<div class='BibFulldItmButinp SubmitIssuesReserves'><input  tabindex='12' class='BibFulldItmButinp2 HitButton' type='submit' name='ACTION' value='Vormerkung senden'/></div>
+<span class='href_sep'> . </span><a tabindex='13' class='ToPageTop' href='#Top79792'><span class='URLHack'>Katalogdatensatz79792 ItemInfo </span>Datensatzanfang</a><span class='href_sep'> . </span>
+ <a tabindex='14' class='ToPageTop' href='#PageTop'><span class='URLHack'>Katalogdatensatz79792 ItemInfo </span>Seitenanfang</a><span class='href_sep'> . </span>
+</div> <!-- close ItemInfoCont -->
+
+<div class='CatInfoCont'><table>
+    <caption><a name='CatInfo79792'>Kataloginformation</a></caption>
+    <colgroup>
+        <col class="fieldNames" />
+        <col class="details" />
+    </colgroup>
+    <thead>
+        <tr>
+            <th id="th2_79792_1" class="fieldNames"><span>Feldname</span></th>
+            <th id="th2_79792_2" class="details"><span>Details</span></th>
+        </tr>
+    </thead>
+    <tbody>
+<tr>
+<th class='alignLeft' id='th3_79792_2' headers='th2_79792_1' rowspan='1'>Verfasser</th>
+<td headers='th3_79792_2' colspan='2'><span class='RelatedLink'><a tabindex='15' href="https://katalog.bibliothek.verl.de/libero/WebOpac.cls?TERM='BIRMELIN*IMMANUEL'&KEY=kb&TYPE=A&ACTION=RELATE&VERSION=2&TOKEN=NbgzqQOXPq4818&DATA=VER">Birmelin, Immanuel</a></span>  </td>
+</tr>
+<tr>
+<th class='alignLeft' id='th3_79792_3' headers='th2_79792_1' rowspan='1'>T i t e l</th>
+<td headers='th3_79792_3' colspan='2'>Mein <span class='HLTerm'>Wellensittich</span>  </td>
+</tr>
+<tr>
+<th class='alignLeft' id='th3_79792_4' headers='th2_79792_1' rowspan='1'>Weitere Pers.</th>
+<td headers='th3_79792_4' colspan='2'><span class='RelatedLink'><a tabindex='16' href="https://katalog.bibliothek.verl.de/libero/WebOpac.cls?TERM='IMMANUEL*BIRMELIN'&KEY=kb&TYPE=A&ACTION=RELATE&VERSION=2&TOKEN=NbgzqQOXPq4818&DATA=VER">Immanuel Birmelin</a></span>  </td>
+</tr>
+<tr>
+<th class='alignLeft' id='th3_79792_5' headers='th2_79792_1' rowspan='1'>Auflage</th>
+<td headers='th3_79792_5' colspan='2'>1. Aufl.  </td>
+</tr>
+<tr>
+<th class='alignLeft' id='th3_79792_6' headers='th2_79792_1' rowspan='1'>Verlagsort</th>
+<td headers='th3_79792_6' colspan='2'>München  </td>
+</tr>
+<tr>
+<th class='alignLeft' id='th3_79792_7' headers='th2_79792_1' rowspan='1'>Verlag</th>
+<td headers='th3_79792_7' colspan='2'>Gräfe und Unzer  </td>
+</tr>
+<tr>
+<th class='alignLeft' id='th3_79792_8' headers='th2_79792_1' rowspan='1'>Erscheinungsjahr</th>
+<td headers='th3_79792_8' colspan='2'>2008  </td>
+</tr>
+<tr>
+<th class='alignLeft' id='th3_79792_9' headers='th2_79792_1' rowspan='1'>Umfang</th>
+<td headers='th3_79792_9' colspan='2'>144 S.  </td>
+</tr>
+<tr>
+<th class='alignLeft' id='th3_79792_10' headers='th2_79792_1' rowspan='1'>Illustration</th>
+<td headers='th3_79792_10' colspan='2'>zahlr. Ill. (farb.)  </td>
+</tr>
+<tr>
+<th class='alignLeft' id='th3_79792_11' headers='th2_79792_1' rowspan='1'>Format</th>
+<td headers='th3_79792_11' colspan='2'>24 cm  </td>
+</tr>
+<tr>
+<th class='alignLeft' id='th3_79792_12' headers='th2_79792_1' rowspan='1'>Beilagen</th>
+<td headers='th3_79792_12' colspan='2'>Poster  </td>
+</tr>
+<tr>
+<th class='alignLeft' id='th3_79792_13' headers='th2_79792_1' rowspan='1'>Reihe</th>
+<td headers='th3_79792_13' colspan='2'><span class='RelatedLink'><a tabindex='17' href="https://katalog.bibliothek.verl.de/libero/WebOpac.cls?TERM='MEIN*HEIMTIER'&KEY=sr&TYPE=G&ACTION=RELATE&VERSION=2&TOKEN=NbgzqQOXPq4818&DATA=VER">Mein Heimtier</a></span>  </td>
+</tr>
+<tr>
+<th class='alignLeft' id='th3_79792_14' headers='th2_79792_1' rowspan='1'>ISBN</th>
+<td headers='th3_79792_14' colspan='2'>ISBN 978-3-8338-0187-7 kt. : EUR 12.90  </td>
+</tr>
+<tr>
+<th class='alignLeft' id='th3_79792_15' headers='th2_79792_1' rowspan='1'>Kurzinfo</th>
+<td headers='th3_79792_15' colspan='2'>Handbuch für die Halter von Wellensittichen mit zahlreichen Farbfotos, Tipps und Tabellen.  </td>
+</tr>
+<tr>
+<th class='alignLeft' id='th3_79792_16' headers='th2_79792_1' rowspan='2'>SW</th>
+<td headers='th3_79792_16' colspan='2'><span class='RelatedLink'><a tabindex='18' href="https://katalog.bibliothek.verl.de/libero/WebOpac.cls?TERM='WELLENSITTICH'&KEY=ks&TYPE=S&ACTION=RELATE&VERSION=2&TOKEN=NbgzqQOXPq4818&DATA=VER"><span class='HLTerm'>Wellensittich</span></a></span>  </td>
+</tr>
+<tr>
+<td headers='th3_79792_16' colspan='2'><span class='RelatedLink'><a tabindex='19' href="https://katalog.bibliothek.verl.de/libero/WebOpac.cls?TERM='11RATGEBER'&KEY=ks&TYPE=S&ACTION=RELATE&VERSION=2&TOKEN=NbgzqQOXPq4818&DATA=VER">11¤Ratgeber</a></span>  </td>
+</tr>
+<tr><th class='alignLeft' headers='th2_79792_1' id='th4_79792_1'><span class='BibRelWorkHeading'>LINKS ZU 'VERWANDTEN WERKEN'</span></th><td colspan="2" headers='th4_79792_1'>
+<br/><span class='RelatedHeading'> Schlagwörter:</span><ul class='BibentRelsub'>
+<li><span class='RelatedLink'><a tabindex='20' class='DisplayBtnsXtra' href="https://katalog.bibliothek.verl.de/libero/WebOpac.cls?VERSION=2&amp;ACTION=RELATE&amp;RSN=79792&amp;DATA=VER&amp;TOKEN=NbgzqQOXPq4818&amp;Z=1&amp;TERM='11RATGEBER'&amp;KEY=ku&amp;TYPE=SK" title="11¤RATGEBER">11¤RATGEBER</a></span><span class='href_sep'> . </span></li>
+<li><span class='RelatedLink'><a tabindex='21' class='DisplayBtnsXtra' href="https://katalog.bibliothek.verl.de/libero/WebOpac.cls?VERSION=2&amp;ACTION=RELATE&amp;RSN=79792&amp;DATA=VER&amp;TOKEN=NbgzqQOXPq4818&amp;Z=1&amp;TERM='WELLENSITTICH'&amp;KEY=ku&amp;TYPE=SK" title="Wellensittich"><span class='HLTerm'>Wellensittich</span></a></span><span class='href_sep'> . </span></li>
+</ul>
+<br/><span class='RelatedHeading'> Verfasser:</span><ul class='BibentRelaut'>
+<li><span class='RelatedLink'><a tabindex='22' class='DisplayBtnsXtra' href="https://katalog.bibliothek.verl.de/libero/WebOpac.cls?VERSION=2&amp;ACTION=RELATE&amp;RSN=79792&amp;DATA=VER&amp;TOKEN=NbgzqQOXPq4818&amp;Z=1&amp;TERM='BIRMELIN*IMMANUEL'&amp;KEY=ku&amp;TYPE=A" title="Birmelin, Immanuel">Birmelin, Immanuel</a></span><span class='href_sep'> . </span></li>
+<li><span class='RelatedLink'><a tabindex='23' class='DisplayBtnsXtra' href="https://katalog.bibliothek.verl.de/libero/WebOpac.cls?VERSION=2&amp;ACTION=RELATE&amp;RSN=79792&amp;DATA=VER&amp;TOKEN=NbgzqQOXPq4818&amp;Z=1&amp;TERM='IMMANUEL*BIRMELIN'&amp;KEY=ku&amp;TYPE=A" title="Immanuel Birmelin">Immanuel Birmelin</a></span><span class='href_sep'> . </span></li>
+</ul>
+<br/><span class='RelatedHeading'> Reihen:</span><ul class='BibentRelser'>
+<li><span class='RelatedLink'><a tabindex='24' class='DisplayBtnsXtra' href="https://katalog.bibliothek.verl.de/libero/WebOpac.cls?VERSION=2&amp;ACTION=RELATE&amp;RSN=79792&amp;DATA=VER&amp;TOKEN=NbgzqQOXPq4818&amp;Z=1&amp;TERM='Mein*Heimtier'&amp;KEY=ku&amp;TYPE=G" title="Mein Heimtier">Mein Heimtier</a></span><span class='href_sep'> . </span></li>
+</ul>
+</td></tr>
+    </tbody>
+</table>
+<div class='BibFulldBotBut ButtonsContainer'>
+<span class='href_sep'> . </span>
+<div class='BibFulldBotButTag'><a tabindex='25' class='DisplayBtnsXtra' href="https://katalog.bibliothek.verl.de/libero/WebOpac.cls?VERSION=2&amp;ACTION=TAG&amp;RSN=79792&amp;DATA=VER&amp;TOKEN=NbgzqQOXPq4818&amp;Z=1" title="Tag Display">Kategorien-Anzeige<span class='URLHack'> Katalogdatensatz79792</span></a></div><span class='href_sep'> . </span>
+<div class='BibFulldBotButRelw'><a tabindex='26' class='DisplayBtnsXtra' href="https://katalog.bibliothek.verl.de/libero/WebOpac.cls?VERSION=2&amp;ACTION=RELSHO&amp;RSN=79792&amp;DATA=VER&amp;TOKEN=NbgzqQOXPq4818&amp;Z=1" title="Related Works">Verwandte Werke<span class='URLHack'> Katalogdatensatz79792</span></a></div><span class='href_sep'> . </span>
+<div class='BibFulldBotButBask'><a tabindex='27' class='DisplayBtnsXtra' href="https://katalog.bibliothek.verl.de/libero/WebOpac.cls?VERSION=2&amp;ACTION=SAVE&amp;RSN=79792&amp;DATA=VER&amp;TOKEN=NbgzqQOXPq4818&amp;Z=1" title="Add Title to Basket">Titel zur Titelsammlung hinzufügen<span class='URLHack'> Katalogdatensatz79792</span></a></div><span class='href_sep'> . </span>
+</div>
+<a tabindex='28' class='ToPageTop' href='#Top79792'><span class='URLHack'>Kataloginformation79792 </span>Datensatzanfang</a><span class='href_sep'> . </span>
+ <a tabindex='29' class='ToPageTop' href='#PageTop'><span class='URLHack'>Kataloginformation79792 </span>Seitenanfang</a><span class='href_sep'> . </span>
+</div>
+<div class='RecommendedTitles'>
+
+<div class='RecommendCont'><table>
+	<caption><a name='RecommendTit79792'>Unsere Bestleiher</a></caption>
+	<colgroup>
+		<col class="recordCount" />
+		<col class="author" />
+		<col class="title" />
+	</colgroup>
+	<thead>
+		<tr>
+			<th id="thtop79792_1" class="recordCount"><span>#</span></th>
+			<th id="thtop79792_2" class="author"><span>Verfasser</span></th>
+			<th id="thtop79792_3" class="title"><span>Titel</span></th>
+		</tr>
+	</thead>
+	<tbody>
+<tr class='oddRow'>
+<td headers='thtop79792_1'>1</td><td headers='thtop79792_2'>&nbsp;</td><td headers='thtop79792_3'><span class='href_sep'> . </span><a tabindex='30' href="https://katalog.bibliothek.verl.de/libero/WebOpac.cls?VERSION=2&amp;ACTION=DISPLAY&amp;RSN=391955&amp;DATA=VER&amp;TOKEN=NbgzqQOXPq4818&amp;Z=1">¬Das¬ Buch zu E-Books<span class='URLHack'> 1</span></a></td></tr>
+<tr class='evenRow'>
+<td headers='thtop79792_1'>2</td><td headers='thtop79792_2'>&nbsp;</td><td headers='thtop79792_3'><span class='href_sep'> . </span><a tabindex='31' href="https://katalog.bibliothek.verl.de/libero/WebOpac.cls?VERSION=2&amp;ACTION=DISPLAY&amp;RSN=394035&amp;DATA=VER&amp;TOKEN=NbgzqQOXPq4818&amp;Z=1">Deutsche Marine: alle Schiffsklassen der Gegenwart<span class='URLHack'> 2</span></a></td></tr>
+<tr class='oddRow'>
+<td headers='thtop79792_1'>3</td><td headers='thtop79792_2'>&nbsp;</td><td headers='thtop79792_3'><span class='href_sep'> . </span><a tabindex='32' href="https://katalog.bibliothek.verl.de/libero/WebOpac.cls?VERSION=2&amp;ACTION=DISPLAY&amp;RSN=395527&amp;DATA=VER&amp;TOKEN=NbgzqQOXPq4818&amp;Z=1">¬Die¬ 100 schönsten Radtouren in Bayern, die Sie geradelt sein sollten<span class='URLHack'> 3</span></a></td></tr>
+<tr class='evenRow'>
+<td headers='thtop79792_1'>4</td><td headers='thtop79792_2'>&nbsp;</td><td headers='thtop79792_3'><span class='href_sep'> . </span><a tabindex='33' href="https://katalog.bibliothek.verl.de/libero/WebOpac.cls?VERSION=2&amp;ACTION=DISPLAY&amp;RSN=395796&amp;DATA=VER&amp;TOKEN=NbgzqQOXPq4818&amp;Z=1">Easy charts 4: Noten, Texte, Akkorde ; die grössten Hits für Klavier spielerisch leicht gesetzt<span class='URLHack'> 4</span></a></td></tr>
+<tr class='oddRow'>
+<td headers='thtop79792_1'>5</td><td headers='thtop79792_2'><span class='href_sep'> . </span><a tabindex='34' href="https://katalog.bibliothek.verl.de/libero/WebOpac.cls?VERSION=&amp;TERM=Borgmann, Gabriele&amp;KEY=ku&amp;TYPE=A&amp;ACTION=RELATE&amp;RSN=392751&amp;DATA=VER&amp;TOKEN=NbgzqQOXPq4818&amp;Z=1">Borgmann, Gabriele<span class='URLHack'> 5</span></a></td><td headers='thtop79792_3'><span class='href_sep'> . </span><a tabindex='35' href="https://katalog.bibliothek.verl.de/libero/WebOpac.cls?VERSION=2&amp;ACTION=DISPLAY&amp;RSN=392751&amp;DATA=VER&amp;TOKEN=NbgzqQOXPq4818&amp;Z=1">Business-Texte: von der E-Mail bis zum Geschäftsbericht ; das Handbuch für die Unternehmenskommunikation<span class='URLHack'> 5</span></a></td></tr>
+<tr class='evenRow'>
+<td headers='thtop79792_1'>6</td><td headers='thtop79792_2'><span class='href_sep'> . </span><a tabindex='36' href="https://katalog.bibliothek.verl.de/libero/WebOpac.cls?VERSION=&amp;TERM=Kronzek, Allen Zola&amp;KEY=ku&amp;TYPE=A&amp;ACTION=RELATE&amp;RSN=41186&amp;DATA=VER&amp;TOKEN=NbgzqQOXPq4818&amp;Z=1">Kronzek, Allen Zola<span class='URLHack'> 6</span></a></td><td headers='thtop79792_3'><span class='href_sep'> . </span><a tabindex='37' href="https://katalog.bibliothek.verl.de/libero/WebOpac.cls?VERSION=2&amp;ACTION=DISPLAY&amp;RSN=41186&amp;DATA=VER&amp;TOKEN=NbgzqQOXPq4818&amp;Z=1">¬Das¬ Zauberer-Handbuch: die magische Welt der Joanne K. Rowling von A bis Z<span class='URLHack'> 6</span></a></td></tr>
+<tr class='oddRow'>
+<td headers='thtop79792_1'>7</td><td headers='thtop79792_2'>&nbsp;</td><td headers='thtop79792_3'><span class='href_sep'> . </span><a tabindex='38' href="https://katalog.bibliothek.verl.de/libero/WebOpac.cls?VERSION=2&amp;ACTION=DISPLAY&amp;RSN=75700&amp;DATA=VER&amp;TOKEN=NbgzqQOXPq4818&amp;Z=1">Schlank im Schlaf - das Kochbuch<span class='URLHack'> 7</span></a></td></tr>
+<tr class='evenRow'>
+<td headers='thtop79792_1'>8</td><td headers='thtop79792_2'><span class='href_sep'> . </span><a tabindex='39' href="https://katalog.bibliothek.verl.de/libero/WebOpac.cls?VERSION=&amp;TERM=Hildmann, Attila&amp;KEY=ku&amp;TYPE=A&amp;ACTION=RELATE&amp;RSN=378339&amp;DATA=VER&amp;TOKEN=NbgzqQOXPq4818&amp;Z=1">Hildmann, Attila<span class='URLHack'> 8</span></a></td><td headers='thtop79792_3'><span class='href_sep'> . </span><a tabindex='40' href="https://katalog.bibliothek.verl.de/libero/WebOpac.cls?VERSION=2&amp;ACTION=DISPLAY&amp;RSN=378339&amp;DATA=VER&amp;TOKEN=NbgzqQOXPq4818&amp;Z=1">Vegan for fun: junge vegetarische Küche<span class='URLHack'> 8</span></a></td></tr>
+<tr class='oddRow'>
+<td headers='thtop79792_1'>9</td><td headers='thtop79792_2'>&nbsp;</td><td headers='thtop79792_3'><span class='href_sep'> . </span><a tabindex='41' href="https://katalog.bibliothek.verl.de/libero/WebOpac.cls?VERSION=2&amp;ACTION=DISPLAY&amp;RSN=395873&amp;DATA=VER&amp;TOKEN=NbgzqQOXPq4818&amp;Z=1">Buchführung (1) Grundlagen<span class='URLHack'> 9</span></a></td></tr>
+<tr class='evenRow'>
+<td headers='thtop79792_1'>10</td><td headers='thtop79792_2'>&nbsp;</td><td headers='thtop79792_3'><span class='href_sep'> . </span><a tabindex='42' href="https://katalog.bibliothek.verl.de/libero/WebOpac.cls?VERSION=2&amp;ACTION=DISPLAY&amp;RSN=398898&amp;DATA=VER&amp;TOKEN=NbgzqQOXPq4818&amp;Z=1">Abitur 2015, Englisch, Leistungskurs, Gymnasium, Gesamtschule, Nordrhein-Westfalen, 2007 - 2014: Prüfungsaufgaben mit Lösungen<span class='URLHack'> 10</span></a></td></tr>
+	</tbody>
+</table>
+<span class='href_sep'> . </span></div>
+</div>
+<div class='ReviewRatingsCont'>
+<h3><a name='aReviews'>Besprechungen</a></h3>
+<br/>Dieser Titel wurde noch nicht bewertet. &nbsp;&nbsp;&nbsp;<a tabindex='43' href="https://katalog.bibliothek.verl.de/libero/WebOpac.cls?VERSION=2&amp;ACTION=ADDREVIEW&amp;RSN=79792&amp;DATA=VER&amp;TOKEN=NbgzqQOXPq4818&amp;Z=1">Neue Besprechung und/oder Bewertung hinzufügen<span class='URLHack'>79792</span></a> 
+<div class="inline-rating">
+<ul class="star-rating">
+<li class="current-rating" style="width:0%;"></li>
+<li><a class='one-stars' href="https://katalog.bibliothek.verl.de/libero/WebOpac.cls?VERSION=2&amp;ACTION=ADDREVIEW&amp;RSN=79792&amp;DATA=VER&amp;TOKEN=NbgzqQOXPq4818&amp;Z=1&amp;Rating=1">1 <span class='URLHack'>79792</span></a><span class='href_sep'>-</span></li>
+<li><a class='two-stars' href="https://katalog.bibliothek.verl.de/libero/WebOpac.cls?VERSION=2&amp;ACTION=ADDREVIEW&amp;RSN=79792&amp;DATA=VER&amp;TOKEN=NbgzqQOXPq4818&amp;Z=1&amp;Rating=2">2 <span class='URLHack'>79792</span></a><span class='href_sep'>-</span></li>
+<li><a class='three-stars' href="https://katalog.bibliothek.verl.de/libero/WebOpac.cls?VERSION=2&amp;ACTION=ADDREVIEW&amp;RSN=79792&amp;DATA=VER&amp;TOKEN=NbgzqQOXPq4818&amp;Z=1&amp;Rating=3">3 <span class='URLHack'>79792</span></a><span class='href_sep'>-</span></li>
+<li><a class='four-stars' href="https://katalog.bibliothek.verl.de/libero/WebOpac.cls?VERSION=2&amp;ACTION=ADDREVIEW&amp;RSN=79792&amp;DATA=VER&amp;TOKEN=NbgzqQOXPq4818&amp;Z=1&amp;Rating=4">4 <span class='URLHack'>79792</span></a><span class='href_sep'>-</span></li>
+<li><a class='five-stars' href="https://katalog.bibliothek.verl.de/libero/WebOpac.cls?VERSION=2&amp;ACTION=ADDREVIEW&amp;RSN=79792&amp;DATA=VER&amp;TOKEN=NbgzqQOXPq4818&amp;Z=1&amp;Rating=5">5 <span class='URLHack'>79792</span></a><span class='href_sep'>-</span></li>
+</ul></div>
+</div>
+</div>
+<div id='Helpfile'>
+<b>Vollanzeige Katalogdaten</b>&nbsp; <br />
+<br />
+Auf diesem Bildschirm erhalten Sie Katalog- und Exemplarinformationen zum ausgew&auml;hlten Titel.<br />
+<br />
+Im Bereich <b>Kataloginformation</b> werden die bibliographischen Details angezeigt. Per Klick auf Hyperlink-Begriffe wie Schlagw&ouml;rter, Autoren, Reihen,
+K&ouml;rperschaften und Klassifikationen k&ouml;nnen Sie sich weitere Titel des gew&auml;hlten Begriffes anzeigen lassen.<br />
+<br />
+Der Bereich <b>Exemplarinformationen</b> enth&auml;lt zum einen Angaben &uuml;ber den Standort und die Verf&uuml;gbarkeit der Exemplare. Zum anderen haben Sie die M&ouml;glichkeit,
+ausgeliehene Exemplare vorzumerken oder Exemplare aus dem Magazin zu bestellen.
+</div>
+</form> <!--FORM ENDS HERE-->
+</div> <!-- Close right_column --> 
+</div> <!-- Close page_container --> 
+<div id='footer_container'>
+<span class='href_sep'> . </span>Bei weiteren Fragen zu den Funktionen dieser Seite wenden Sie sich bitte an das Team der Bibliothek Verl.<br />
+<span class='href_sep'> . </span><a tabindex='1503' class='FooterEmail' href="https://katalog.bibliothek.verl.de/libero/WebOpac.cls?VERSION=2&amp;ACTION=EMAILFORM&amp;RSN=79792&amp;DATA=VER&amp;TOKEN=NbgzqQOXPq4818&amp;Z=1&amp;xin=0165525&amp;CHK=994&amp;FRMPG=Public" title="Diese Seite per E-Mail versenden">Diese Seite per E-Mail versenden</a><span class='href_sep'> . </span><a class='LiberoPower' title='LIBERO' href='http://www.libero.com.au'>Powered by LIBERO &#169; 2016</a><span class='href_sep'> . </span>&nbsp;
+</div> <!-- Close footer_container --> 
+<span class='href_sep'> . </span><a tabindex='1503' class='FooterEmail' href="https://katalog.bibliothek.verl.de/libero/WebOpac.cls?VERSION=2&amp;ACTION=EMAILFORM&amp;RSN=79792&amp;DATA=VER&amp;TOKEN=NbgzqQOXPq4818&amp;Z=1&amp;xin=0165525&amp;CHK=994&amp;FRMPG=Public" title="Diese Seite per E-Mail versenden">Diese Seite per E-Mail versenden</a><!--FORM STARTS HERE-->
+<form name="tagsearch" method='post' onsubmit='filterInput();' action="https://katalog.bibliothek.verl.de/libero/WebOpac.cls">
+<div>
+<input type="hidden" name="MGWCHD" value='0'/>
+<input type="hidden" name="TOKEN" value='NbgzqQOXPq4818'/>
+<input type='hidden' name="TOKENX" value='NbgzqQOXPq4818'/>
+<input type="hidden" name="DATA" value='VER'/>
+<input type='hidden' name='usercode' value=""/>
+<input type='hidden' name='VERSION' value='2'/>
+<input type='hidden' name="bno" value="0165525"/>
+<input type='hidden' name="TAGSEARCH" value="MEMBER"/>
+<input type='hidden' name="xin" value="0165525"/>
+</div>
+<input type='hidden' name='TagSearch' value='1'/>
+<input type='hidden' name='USE_1' value='ku'/>
+<fieldset id='tagSearch_fields'>
+<legend>Schnellsuche</legend><div>
+<label for='SearchTag' id='lbltagSearch'>Suche nach</label> 
+<input type='text' tabindex='2000' size='10' name='TERM_1' id='SearchTag' value='.'/> 
+<input type='submit' tabindex='2001' name='ACTION' id='btnTagSearchSubmit' class='HitButton' value='Katalog'/> 
+<input type='hidden' name='ACTION' value='Katalog'/>
+</div></fieldset>
+</form>
+ <!--FORM ENDS HERE-->
+</body></html>

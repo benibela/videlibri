@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" prefix="fb: http://www.facebook.com/2008/fbml# addthis: http://www.addthis.com/help/api-spec# og: http://opengraphprotocol.org/schema/"  lang="de" xml:lang="de">
+<head>
+<link href="javascripts/jqueryui/ui-lightness-1.10.3.css" rel="stylesheet"/>
+<script src="javascripts/jquery/jquery-1.11.0.min.js"></script>
+<script src="javascripts/jquery/jquery-migrate-1.2.1.min.js"></script>
+<script src="javascripts/jqueryui/jquery-ui-1.10.3.min.js"></script>
+<meta http-equiv="content-type" content="text/html;charset=UTF-8" />
+<meta name="author" content="Insight Informatics" />
+<meta name="keywords" content="WebOpac" />
+<meta name="description" content="LIBERO OPAC" />
+<script>document.timeoutAction = 'window.location.href="https://katalog.bibliothek.verl.de/libero/WebOpac.cls?VERSION=2&amp;ACTION=EXITWEBOPAC&amp;DATA=VER&amp;TOKEN=dncpYFWPX01849&amp;MGWCHD=0"';
+document.timeoutID=setTimeout(document.timeoutAction,600000);document.timeoutTime=600000;</script>
+<title>LIBERO WebOPAC Benutzerkonto (W603)</title>
+<link rel="SHORTCUT ICON" href="https://katalog.bibliothek.verl.de/libero/Styles/verl/images/logo.ico"/>
+<link rel='stylesheet' type='text/css' media='screen' href='https://katalog.bibliothek.verl.de/libero/Styles/verl/screen/page_layout.css'/>
+<link rel='stylesheet' type='text/css' media='screen' href='https://katalog.bibliothek.verl.de/libero/Styles/verl/screen/libero.css'/>
+<link rel='stylesheet' type='text/css' media='all' href='https://katalog.bibliothek.verl.de/libero/Styles/verl/all/libero.css'/>
+<link rel='stylesheet' type='text/css' media='print' href='https://katalog.bibliothek.verl.de/libero/Styles/verl/print/libero.css'/>
+<link rel='stylesheet' type='text/css' media='screen' href='https://katalog.bibliothek.verl.de/libero/Styles/verl/screen/members/MEMSTAT.css'/>
+<link rel='stylesheet' type='text/css' media='all' href='https://katalog.bibliothek.verl.de/libero/Styles/verl/screen/display/SYSMESSAGES.css'/>
+<!--[if IE]>
+<link rel="Stylesheet" type="text/css" href="https://katalog.bibliothek.verl.de/libero/Styles/verl/screen/ie.css">
+<![endif]-->
+<!--[if lte IE 6]>
+<link rel="Stylesheet" type="text/css" href="https://katalog.bibliothek.verl.de/libero/Styles/verl/screen/ie6.css">
+<![endif]-->
+<script type='text/javascript' src='https://katalog.bibliothek.verl.de/libero/javascripts/PageLoad.js'></script>
+<script type='text/javascript'><!--
+ 
+function default_focus(eo) { 
+	try { 
+		var e = eo.target;
+		if (!e) e = window.event.srcElement;
+		if (e.readOnly==true) return;
+		if (e.value=='.' || e.value=='JJJJ')
+		{
+			e.value=''; 
+			default_value[e.tabIndex] = '';
+		}
+		if (e.value=='.'|| e.value=='JJJJ')
+			default_value[e.tabIndex] = e.value;
+		focus_colour(eo);
+	} catch (err) {
+		//alert('Error on focus: ' + err);
+	} 
+	return true; 
+} 
+function default_blur(eo) { 
+	try { 
+		var e = eo.target;
+		if (!e) e = window.event.srcElement; 
+		if (e.readOnly==true) return;
+		if (e.value=='') {
+			e.value=default_value[e.tabIndex];
+		if (e.value!='.' && e.value!='JJJJ') 
+				e.value = '';
+		}
+		blur_colour(eo);
+	} catch (err) {
+		//alert('Error on blur: ' + err);
+	} 
+	return true; 
+} 
+
+--></script>
+</head>
+<body class="mainbody" onload="page_load('');image_load();">
+<div id='PageShortCuts'>Shortcuts
+<ul class='shortcuts'><li><a accesskey='0' href='#PageTop'>Top of page (Alt+0)</a></li>
+<li><a accesskey='9' href='#PageContent'>Page content (Alt+9)</a></li>
+<li><a accesskey='8' href='#PageMenu'>Page menu (Alt+8)</a></li>
+</ul>
+</div>
+<div id='wait_image' style="width:100%;height:100%;"><img src='https://katalog.bibliothek.verl.de/libero/Styles/verl/images/loading_animation.gif' alt='Bitte warten Sie, bis die Seite geladen ist.' border='0'/></div>
+<script type='text/javascript'><!--
+var ld=(document.all);
+var ns4=document.layers;
+var ns6=document.getElementById;
+var ns8=!document.all;
+var ie4=document.all;
+function page_load()
+{
+  if (ns4) { ld=document.wait_image; }
+  else if (ns6 && ns8)
+   {   ld=document.getElementById("wait_image").style; }
+  else if (ie4)
+    {  ld=document.all.wait_image.style; }
+}
+function image_load() {
+	if(ns4){ld.visibility="hidden";}
+else if ((ns6 && ns8)|| ie4) ld.display="none";
+}
+--></script>
+<noscript><div id='NoJsMsg'>Your browser does not support javascript, some WebOpac functionallity will not be available.</div></noscript>
+<div id="header_container">
+<div id="page_title">
+<a tabindex='0' name='PageTop' href="https://katalog.bibliothek.verl.de/libero/WebOpac.cls?VERSION=2&amp;ACTION=DEFAULTPAGE&amp;RSN=&amp;DATA=VER&amp;TOKEN=dncpYFWPX01849&amp;Z=1&amp;NewBreadCrumb=1" title="Bibliothek Verl - Bestandsverzeichnis"><img src='https://katalog.bibliothek.verl.de/libero/Styles/verl/images/logo_1.jpg' alt='Bibliothek Verl - Bestandsverzeichnis' height='60' width='120'/></a><span class='href_sep'> . </span><span class='hide'><a href='default.htm'>Default</a></span><span class='href_sep'> . </span>
+</div>
+</div> <!-- Close header_container -->
+<div id='page_container'>
+<div id="left_column">
+<a class='hide' name='PageMenu'>PageMenu</a>
+<ul class="Menulist" id='MainMenuList' title='Menü'>
+<li class="MenuItem"><a tabindex='501' href="https://katalog.bibliothek.verl.de/libero/WebOpac.cls?VERSION=2&amp;ACTION=EXITWEBOPAC&amp;RSN=&amp;DATA=VER&amp;TOKEN=dncpYFWPX01849&amp;Z=1&amp;NewBreadCrumb=1&amp;xin=0165525&amp;CHK=4358" title="LOGOUT">LOGOUT</a></li>
+<li class="MenuItem"><a tabindex='501' href="https://katalog.bibliothek.verl.de/libero/WebOpac.cls?VERSION=2&amp;ACTION=SEARCHS&amp;RSN=&amp;DATA=VER&amp;TOKEN=dncpYFWPX01849&amp;Z=1&amp;NewBreadCrumb=1&amp;xin=0165525&amp;CHK=986" title="Search Catalogue">Search Catalogue</a></li>
+<li class="MenuItem"><a tabindex='503' href="https://katalog.bibliothek.verl.de/libero/WebOpac.cls?VERSION=2&amp;ACTION=MEMSTAT&amp;RSN=&amp;DATA=VER&amp;TOKEN=dncpYFWPX01849&amp;Z=1&amp;NewBreadCrumb=1&amp;xin=0165525&amp;CHK=4327" title="Benutzerkonto-Abfrage">Benutzerkonto-Abfrage</a></li>
+<li class="MenuItem"><a tabindex='504' href="https://katalog.bibliothek.verl.de/libero/WebOpac.cls?VERSION=2&amp;ACTION=MEMPASS&amp;RSN=&amp;DATA=VER&amp;TOKEN=dncpYFWPX01849&amp;Z=1&amp;NewBreadCrumb=1&amp;xin=0165525&amp;CHK=1237" title="Kennwort ändern">Kennwort ändern</a></li>
+<li class="MenuItem"><a tabindex='509' href="https://katalog.bibliothek.verl.de/libero/WebOpac.cls?VERSION=2&amp;ACTION=MEMFULLRESHIS&amp;RSN=&amp;DATA=VER&amp;TOKEN=dncpYFWPX01849&amp;Z=1&amp;NewBreadCrumb=1&amp;xin=0165525&amp;CHK=2661" title="Vormerkungshistorie">Vormerkungshistorie</a></li>
+<li class="MenuItem"><a tabindex='512' href="https://katalog.bibliothek.verl.de/libero/WebOpac.cls?VERSION=2&amp;ACTION=MEMBERBREM&amp;RSN=&amp;DATA=VER&amp;TOKEN=dncpYFWPX01849&amp;Z=1&amp;NewBreadCrumb=1&amp;xin=0165525&amp;CHK=9300" title="E-Mails der Zweigstellen">E-Mails der Zweigstellen</a></li>
+<li class="MenuItem"><a tabindex='513' href="https://katalog.bibliothek.verl.de/libero/WebOpac.cls?VERSION=2&amp;ACTION=MEMREVIEWS&amp;RSN=&amp;DATA=VER&amp;TOKEN=dncpYFWPX01849&amp;Z=1&amp;NewBreadCrumb=1&amp;xin=0165525&amp;CHK=8162" title="Besprechungen verwalten">Besprechungen verwalten</a></li>
+<li class='MnuVers'>&#169; LIBERO v6.3.2sp3</li>
+</ul>
+</div> <!-- Close left_column -->
+<div id="right_column">
+<a class='hide' name='PageContent'>Page content</a>
+<div id='subheader_container'>
+<div class="MembersMessage">Verwenden Sie zur Navigation bitte immer die Menüoptionen auf der linken Seite des Bildschirms, jede andere Navigationsart beendet diese Sitzung.<br/>Um die Benutzerdienste zu verlassen, verwenden Sie bitte unbedingt die Option <b>LOGOUT</b>.</div>
+</div> <!-- Close subheader_container -->
+<div id='BreadCrumbs'>
+<span class='label'>Sie befinden sich hier</span>: <span class='BreadCrumbSep'> </span><span class='BreadCrumb'>Benutzerkonto</span>
+</div>
+<div class='PageHeading'><h1>Benutzerkonto</h1></div>
+<fieldset id='memb_header'>
+<legend>Benutzerinformation</legend>
+<div class='MemStatMembCapt'>Benutzerdetails für 0165525</div>
+<div class='MemStatMembDet'>Ablaufdatum der Benutzerkarte: &nbsp;  9 Mai 2017</div>
+<div class='MemStatMembDet'>Ihre letzte Ausleihe erfolgte am:&nbsp;14 Mai 2016</div>
+</fieldset><form name="MEMISSIT" method='post' onsubmit='filterInput();' action="https://katalog.bibliothek.verl.de/libero/WebOpac.cls">
+<div>
+<input type="hidden" name="MGWCHD" value='0'/>
+<input type="hidden" name="TOKEN" value='dncpYFWPX01849'/>
+<input type='hidden' name="TOKENX" value='dncpYFWPX01849'/>
+<input type="hidden" name="DATA" value='VER'/>
+<input type='hidden' name='usercode' value=""/>
+<input type='hidden' name='VERSION' value='2'/>
+</div>
+<fieldset id='issued_items'>
+<legend class='MemStatLoanCapt'>Ausgeliehene Medien
+<br>Gesamtanzahl Ausleihen: 1</legend>
+
+<table>
+	<caption>Ausgeliehene Medien<br>Gesamtanzahl Ausleihen: 1</caption>
+	<colgroup>
+		<col class="barcode" />
+		<col class="titleVolRef" />
+		<col class="author" />
+		<col class="callNumber" />
+		<col class="dueDate" />
+		<col class="numRenewals" />
+		<col class="renew" />
+	</colgroup>
+	<thead>
+		<tr>
+			<th scope="col" id="th1_1" class="barcode"><span>Barcode</span></th>
+			<th scope="col" id="th1_2" class="titleVolRef"><span>Titel / Bandreferenz / Zusätzliche Informationen</span></th>
+			<th scope="col" id="th1_3" class="author"><span>Verfasser</span></th>
+			<th scope="col" id="th1_4" class="callNumber"><span>Regalstandort</span></th>
+			<th scope="col" id="th1_5" class="dueDate"><span>Fällig Datum/Uhrzeit</span></th>
+			<th scope="col" id="th1_6" class="numRenewals"><span>Anz. Verlängerungen</span></th>
+<th scope="col" id="th1_8" class="renew"><span>Verlängern<br><button id='renewCheck' value='true' class='HitButton'>Alle wählen</button></span></th>
+<script>$('#renewCheck').bind('click',function(e){e.preventDefault();if($('#renewCheck').attr("value")=='true'){$('#renewCheck').html('Alle abwählen');$('[headers="th1_8"]').find('[type="checkbox"]').each(function(){$(this).attr("checked",true)});$('#renewCheck').attr("value",false);}else{$('#renewCheck').html('Alle wählen');$('[headers="th1_8"]').find('[type="checkbox"]').each(function(){$(this).attr("checked",false)});$('#renewCheck').attr("value",true);}})</script>
+		</tr>
+	</thead>
+<tbody>
+<tr class='oddRow'>
+<th rowspan='1' scope='row' class='barcode' headers='th1_1'>2132013</th>
+<td headers='th1_2'>Am liebsten eine Katze</td>
+<td headers='th1_3'></td>
+<td headers='th1_4'>Familie 6-9 J.</th>
+<td headers='th1_5'> 13 Jun 2016</td>
+<td headers='th1_6'>1</td>
+<td headers='th1_8'><input tabindex='1' type="checkbox" value='1' id='REN2132013' name='REN2132013'/><label class='HiddenLabel' for='REN2132013' id='lblREN2132013'>Select this item</label></td>
+</tr>
+</tbody>
+</table>
+<input type="hidden" name="bno" value='0165525'/><input type="hidden" name="mid" value='16079'/><input type="hidden" name="ACTION" value="MEMSLFISS"/><input tabindex='2' type="submit" class='HitButton' id='btnSubmitIssued' name="SubmitIssued" value='Senden'/> 
+<input tabindex='3' id='btnReset' class='HitButton' type="reset" value='Zurücksetzen'/>
+</fieldset> <!-- end issued_items -->
+</form>
+<fieldset id='reserved_items_flds'>
+<legend class='MemStatReCapt'>Vorgemerkte Medien</legend>
+
+<table>
+	<caption>Vorgemerkte Medien</caption>
+	<colgroup>
+		<col class="pos" />
+		<col class="barcode" />
+		<col class="title" />
+		<col class="author" />
+		<col class="callNumber" />
+		<col class="reserveDate" />
+	</colgroup>
+	<thead>
+		<tr>
+			<th scope="col" id="th7_1" class="pos"><span>Nr.</span></th>
+			<th scope="col" id="th7_2" class="barcode"><span>Barcode</span></th>
+			<th scope="col" id="th7_3" class="title"><span>Titel / Bandangabe</span></th>
+			<th scope="col" id="th7_4" class="author"><span>Verfasser</span></th>
+			<th scope="col" id="th7_5" class="callNumber"><span>Regalstandort</span></th>
+			<th scope="col" id="th7_6" class="reserveDate"><span>Vormerkdatum</span></th>
+		</tr>
+	</thead>
+	<tbody>
+<tr class='oddRow'>
+<td headers='th7_1'>1</td>
+<td headers='th7_2'>1780116</td>
+<td headers='th7_3'>Mein Wellensittich</td>
+<td headers='th7_4'>Birmelin, Immanuel</td>
+<td headers='th7_5'>Xbp 41 Birm Tiere halten</td>
+<td headers='th7_6'>15 Mai 2016</td>
+</tr>
+	</tbody>
+</table>
+</fieldset>
+<fieldset id='accountstatus_fields'>
+<legend>Gebührenstatus</legend>
+
+<table>
+	<caption>Gebührenstatus</caption>
+	<colgroup>
+		<col class="date" />
+		<col class="time" />
+		<col class="code" />
+		<col class="reference" />
+		<col class="title" />
+		<col class="amount" />
+		<col class="paid" />
+		<col class="outstanding" />
+	</colgroup>
+	<thead>
+		<tr>
+			<th scope="col" id="th14_1" class="date"><span>Datum</span></th>
+			<th scope="col" id="th14_2" class="time"><span>Zeit</span></th>
+			<th scope="col" id="th14_3" class="code"><span>Code</span></th>
+			<th scope="col" id="th14_4" class="reference"><span>Referenz</span></th>
+			<th scope="col" id="th14_5" class="title"><span>Titel/Beschreibung</span></th>
+			<th scope="col" id="th14_6" class="amount"><span>Betrag</span></th>
+			<th scope="col" id="th14_7" class="paid"><span>Bereits bezahlt</span></th>
+			<th scope="col" id="th14_8" class="outstanding"><span>Noch zu bezahlen</span></th>
+		</tr>
+	</thead>
+	<tbody>
+<tr class='oddRow'>
+<td headers='th14_1'>29 Jun 2007</td>
+<td headers='th14_2'>9:03 am</td>
+<td headers='th14_3'>MN</td>
+<td headers='th14_4'></td>
+<td headers='th14_5'>Gebühr für die Mahnstufe Nr. 1</td>
+<td headers='th14_6'>   1,50</td>
+<td headers='th14_7'>   0,00</td>
+<td headers='th14_8'>   1,50</td>
+</tr>
+<tr class='evenRow'>
+<td headers='th14_1'>29 Jun 2007</td>
+<td headers='th14_2'>9:46 am</td>
+<td headers='th14_3'>F</td>
+<td headers='th14_4'>1015645</td>
+<td headers='th14_5'>Juma. Ein Straßenkind aus Tansania/1015645 15 Überfäll. Tage, Fäll.am: 14 Jun 2007</td>
+<td headers='th14_6'>   1,00</td>
+<td headers='th14_7'>   0,00</td>
+<td headers='th14_8'>   1,00</td>
+</tr>
+<tr class='oddRow'>
+<td headers='th14_1'>29 Jun 2007</td>
+<td headers='th14_2'>9:46 am</td>
+<td headers='th14_3'>F</td>
+<td headers='th14_4'>1134087</td>
+<td headers='th14_5'>Schön und traurig und alles zugleich/1134087 15 Überfäll. Tage, Fäll.am: 14 Jun 2007</td>
+<td headers='th14_6'>   1,00</td>
+<td headers='th14_7'>   0,00</td>
+<td headers='th14_8'>   1,00</td>
+</tr>
+<tr class='evenRow'>
+<td headers='th14_1'>21 Okt 2008</td>
+<td headers='th14_2'>5:55 pm</td>
+<td headers='th14_3'>F</td>
+<td headers='th14_4'></td>
+<td headers='th14_5'></td>
+<td headers='th14_6'>   0,50</td>
+<td headers='th14_7'>   0,00</td>
+<td headers='th14_8'>   0,50</td>
+</tr>
+<tr class='oddRow'>
+<td headers='th14_1'>25 Mai 2010</td>
+<td headers='th14_2'>2:39 pm</td>
+<td headers='th14_3'>R</td>
+<td headers='th14_4'>Vormerkgebühr</td>
+<td headers='th14_5'>Mein Terrarium</td>
+<td headers='th14_6'>   0,50</td>
+<td headers='th14_7'>   0,00</td>
+<td headers='th14_8'>   0,50</td>
+</tr>
+<tr class='evenRow'>
+<td headers='th14_1'>22 Mär 2012</td>
+<td headers='th14_2'>7:32 pm</td>
+<td headers='th14_3'>T</td>
+<td headers='th14_4'></td>
+<td headers='th14_5'></td>
+<td headers='th14_6'>   1,00</td>
+<td headers='th14_7'>   0,00</td>
+<td headers='th14_8'>   1,00</td>
+</tr>
+<tr class='oddRow'>
+<td headers='th14_1'>22 Mär 2012</td>
+<td headers='th14_2'>7:32 pm</td>
+<td headers='th14_3'>T</td>
+<td headers='th14_4'></td>
+<td headers='th14_5'></td>
+<td headers='th14_6'>   1,50</td>
+<td headers='th14_7'>   0,00</td>
+<td headers='th14_8'>   1,50</td>
+</tr>
+<tr class='evenRow'>
+<td headers='th14_1'>30 Mär 2012</td>
+<td headers='th14_2'>3:52 pm</td>
+<td headers='th14_3'>I</td>
+<td headers='th14_4'></td>
+<td headers='th14_5'></td>
+<td headers='th14_6'>   1,00</td>
+<td headers='th14_7'>   0,00</td>
+<td headers='th14_8'>   1,00</td>
+</tr>
+<tr class='oddRow'>
+<td headers='th14_1'>30 Mär 2012</td>
+<td headers='th14_2'>3:52 pm</td>
+<td headers='th14_3'>T</td>
+<td headers='th14_4'></td>
+<td headers='th14_5'></td>
+<td headers='th14_6'>   1,50</td>
+<td headers='th14_7'>   0,00</td>
+<td headers='th14_8'>   1,50</td>
+</tr>
+<tr class='evenRow'>
+<td headers='th14_1'>16 Jan 2014</td>
+<td headers='th14_2'>1:36 pm</td>
+<td headers='th14_3'>R</td>
+<td headers='th14_4'>Vormerkgebühr</td>
+<td headers='th14_5'>Gestürmte Festung Europa</td>
+<td headers='th14_6'>   0,50</td>
+<td headers='th14_7'>   0,00</td>
+<td headers='th14_8'>   0,50</td>
+</tr>
+<tr class='oddRow'>
+<td headers='th14_1'>28 Apr 2015</td>
+<td headers='th14_2'>2:03 pm</td>
+<td headers='th14_3'>AU</td>
+<td headers='th14_4'></td>
+<td headers='th14_5'></td>
+<td headers='th14_6'>   0,05</td>
+<td headers='th14_7'>   0,00</td>
+<td headers='th14_8'>   0,05</td>
+</tr>
+<tr class='evenRow'>
+<td headers='th14_1'>28 Apr 2015</td>
+<td headers='th14_2'>2:03 pm</td>
+<td headers='th14_3'>Vo</td>
+<td headers='th14_4'></td>
+<td headers='th14_5'></td>
+<td headers='th14_6'>   0,50</td>
+<td headers='th14_7'>   0,00</td>
+<td headers='th14_8'>   0,50</td>
+</tr>
+<tr class='oddRow'>
+<td headers='th14_1'>28 Apr 2015</td>
+<td headers='th14_2'>2:04 pm</td>
+<td headers='th14_3'>K</td>
+<td headers='th14_4'></td>
+<td headers='th14_5'></td>
+<td headers='th14_6'>   3,00</td>
+<td headers='th14_7'>   0,00</td>
+<td headers='th14_8'>   3,00</td>
+</tr>
+<tr class='TotalsRow evenRow'>
+<td headers='th14_1' colspan='5'>Noch zu bezahlender Gesamtbetrag: &nbsp;</td>
+<td headers='th14_6'>  13,55</td>
+<td headers='th14_7'>   0,00</td>
+<td headers='th14_8'>  13,55</td>
+</tr></tbody>
+</table>
+</fieldset>
+</div> <!-- Close right_column --> 
+</div> <!-- Close page_container --> 
+<div id='footer_container'>
+<span class='href_sep'> . </span>Bei weiteren Fragen zu den Funktionen dieser Seite wenden Sie sich bitte an das Team der Bibliothek Verl.<br />
+<span class='href_sep'> . </span><a tabindex='1501' class='FooterEmail' href="https://katalog.bibliothek.verl.de/libero/WebOpac.cls?VERSION=2&amp;ACTION=EMAILFORM&amp;RSN=0&amp;DATA=VER&amp;TOKEN=dncpYFWPX01849&amp;Z=1&amp;xin=0165525&amp;CHK=7226" title="Diese Seite per E-Mail versenden">Diese Seite per E-Mail versenden</a><span class='href_sep'> . </span><a class='LiberoPower' title='LIBERO' href='http://www.libero.com.au'>Powered by LIBERO &#169; 2016</a><span class='href_sep'> . </span>&nbsp;
+</div> <!-- Close footer_container --> 
+<script type='text/javascript'>window.focus();</script>
+</body></html>

@@ -1,0 +1,16 @@
+book := {}
+currentfield := "Medientyp"
+currentfield := "Vorliegende Sprache"
+currentfield := "1 Person"
+currentfield := "2 Person"
+currentfield := "Zusatz zum Titel"
+currentfield := "Verfasserangabe"
+currentfield := "Verlagsort"
+currentfield := "Verlag"
+currentfield := "Umfang"
+currentfield := "Spezifische Materialbenennung"
+currentfield := "DDC"
+currentfield := "Subject Headings"
+currentfield := "1 Schlagwortkettte"
+currentfield := "Internetseite / Link"
+book := {"Internetseite / Link!": "Resolving-System ( http://dx.doi.org/10.1007/978-3-658-00035-6 )", "1 Schlagwortkettte!": "Online-Marketing .", "Subject Headings!": "‡aEconomics", "DDC!": "658.8 23 4", "Spezifische Materialbenennung!": "Online-Ressource", "isbn": "ISBN 978-3-658-00035-6", "Umfang!": "XV, 224 S. 170 Abb", "year": "2013", "Verlag!": "Springer Fachmedien Wiesbaden", "Verlagsort!": "Wiesbaden", "Verfasserangabe!": "von Michael Ceyp, Juhn-Petter Scupin", "Zusatz zum Titel!": "Konzepte, Maßnahmen und Praxisbeispiele", "title": "Erfolgreiches Social Media Marketing", "2 Person!": "Scupin, Juhn-Petter .", "1 Person!": "Ceyp, Michael .", "Vorliegende Sprache!": "ger", "Medientyp!": "E"}

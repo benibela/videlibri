@@ -1,0 +1,310 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="de" xml:lang="de">
+<head>
+<meta http-equiv="content-type" content="text/html;charset=UTF-8"/>
+<meta name="author" content="Insight Informatics"/>
+<meta name="keywords" content="WebOpac"/>
+<meta name="description" content="Libero OPAC"/>
+<title>LIBERO WebOPAC Katalogdatenanzeige (W561)</title>
+<link rel="SHORTCUT ICON" href="http://opac.hs-bochum.de/libero/styles/default/images/logo.ico"/>
+<link rel='stylesheet' type='text/css' media='screen' href='http://opac.hs-bochum.de/libero/styles/default/screen/page_layout.css'/>
+<link rel='stylesheet' type='text/css' media='screen' href='http://opac.hs-bochum.de/libero/styles/default/screen/libero.css'/>
+<link rel='stylesheet' type='text/css' media='all' href='http://opac.hs-bochum.de/libero/styles/default/all/libero.css'/>
+<link rel='stylesheet' type='text/css' media='screen' href='http://opac.hs-bochum.de/libero/styles/default/screen/display/DISPLAY.css'/>
+<link rel='stylesheet' type='text/css' media='all' href='http://opac.hs-bochum.de/libero/styles/default/screen/display/SYSMESSAGES.css'/>
+<!--[if IE]>
+<link rel="Stylesheet" type="text/css" href="http://opac.hs-bochum.de/libero/styles/default/screen/ie.css">
+<![endif]-->
+<!--[if lte IE 6]>
+<link rel="Stylesheet" type="text/css" href="http://opac.hs-bochum.de/libero/styles/default/screen/ie6.css">
+<![endif]-->
+<script type='text/javascript' src='http://opac.hs-bochum.de/libero/javascripts/PageLoad.js'></script>
+<script type='text/javascript'><!--
+ 
+function default_focus(eo) { 
+	try { 
+		var e = eo.target;
+		if (!e) e = window.event.srcElement;
+		if (e.readOnly==true) return;
+		if (e.value=='.' || e.value=='JJJJ')
+		{
+			e.value=''; 
+			default_value[e.tabIndex] = '';
+		}
+		if (e.value=='.'|| e.value=='JJJJ')
+			default_value[e.tabIndex] = e.value;
+		focus_colour(eo);
+	} catch (err) {
+		//alert('Error on focus: ' + err);
+	} 
+	return true; 
+} 
+function default_blur(eo) { 
+	try { 
+		var e = eo.target;
+		if (!e) e = window.event.srcElement; 
+		if (e.readOnly==true) return;
+		if (e.value=='') {
+			e.value=default_value[e.tabIndex];
+		if (e.value!='.' && e.value!='JJJJ') 
+				e.value = '';
+		}
+		blur_colour(eo);
+	} catch (err) {
+		//alert('Error on blur: ' + err);
+	} 
+	return true; 
+} 
+
+--></script>
+</head>
+<body class="mainbody" onload="page_load('');image_load();">
+<div id='PageShortCuts'>Shortcuts
+<ul class='shortcuts'><li><a accesskey='0' href='#PageTop'>Top of page (Alt+0)</a></li>
+<li><a accesskey='9' href='#PageContent'>Page content (Alt+9)</a></li>
+<li><a accesskey='8' href='#PageMenu'>Page menu (Alt+8)</a></li>
+</ul>
+</div>
+<div id='wait_image' style="width:100%;height:100%;"><img src='http://opac.hs-bochum.de/libero/styles/default/images/loading_animation.gif' alt='Please wait while page loads.' border='0'/></div>
+<script type='text/javascript'>
+var ld=(document.all);
+var ns4=document.layers;
+var ns6=document.getElementById&&!document.all;
+var ie4=document.all;
+if (ns4) ld=document.wait_image;
+else if (ns6)
+ld=document.getElementById("wait_image").style;
+else if (ie4)
+ld=document.all.wait_image.style;
+function image_load() {
+	if(ns4){ld.visibility="hidden";}
+else if (ns6||ie4) ld.display="none";
+}
+</script>
+<noscript><div id='NoJsMsg'>Your browser does not support javascript, some WebOpac functionallity will not be available.</div></noscript>
+<div id="header_container">
+<div id="page_title">
+<a tabindex='0' name='PageTop' href="http://opac.hs-bochum.de/libero/WebOpac.cls?VERSION=2&amp;ACTION=DEFAULTPAGE&amp;RSN=0&amp;DATA=BOC&amp;TOKEN=IKwqxFt5DW3968&amp;Z=1&amp;NewBreadCrumb=1"><img src='http://opac.hs-bochum.de/libero/styles/default/images/logo_1.jpg' alt='' longdesc='default.htm' height='60' width='120'/></a><span class='href_sep'> . </span><span class='hide'><a href='default.htm'>D</a></span><span class='href_sep'> . </span>
+</div>
+</div> <!-- Close header_container -->
+<div id='page_container'>
+
+<div id="left_column">
+<a class='hide' name='PageMenu'>PageMenu</a><span class='URLHack'>-</span>
+<span class='MainMenuHeading'>Main Menu</span><span class='URLHack'>-</span>
+<ul class="Menulist" id='MainMenuList' title='Menu'>
+<li id='main menü'><span>mainmenü</span>
+<ul title='mainmenü'>
+<li class="MenuItem"><a tabindex='502' href="http://opac.hs-bochum.de/libero/WebOpac.cls?VERSION=2&amp;ACTION=SHOWHISTORY&amp;RSN=0&amp;DATA=BOC&amp;TOKEN=IKwqxFt5DW3968&amp;Z=1&amp;NewBreadCrumb=1" title="Suchhistorie">Suchhistorie</a><span class='href_sep'> . </span></li>
+<li class="MenuItem"><a tabindex='503' href="http://opac.hs-bochum.de/libero/WebOpac.cls?VERSION=2&amp;ACTION=SEARCHCL&amp;RSN=0&amp;DATA=BOC&amp;TOKEN=IKwqxFt5DW3968&amp;Z=1&amp;NewBreadCrumb=1" title="Suchhistorie löschen">Suchhistorie löschen</a><span class='href_sep'> . </span></li>
+<li class="MenuItem"><a tabindex='504' target="_blank" href="http://opac.hs-bochum.de/libero/WebOpac.cls?VERSION=2&amp;ACTION=MEMBERSERV&amp;RSN=0&amp;DATA=BOC&amp;TOKEN=IKwqxFt5DW3968&amp;Z=1&amp;NewBreadCrumb=1&amp;LOGINTOKEN=GEHCLILRIO" title="Benutzungskonto Wird in neuem Fenster geöffnet.">Benutzungskonto</a><span class='href_sep'> . </span></li>
+</ul>
+</li>
+<li id='searchMenu'><span>Search Menu</span>
+<ul title='Search Menu'>
+<li class="MenuItem"><a tabindex='505' href="http://opac.hs-bochum.de/libero/WebOpac.cls?VERSION=2&amp;ACTION=SEARCHS&amp;RSN=0&amp;DATA=BOC&amp;TOKEN=IKwqxFt5DW3968&amp;Z=1&amp;NewBreadCrumb=1" title="Einfache Suche">Einfache Suche</a><span class='href_sep'> . </span></li>
+<li class="MenuItem"><a tabindex='506' href="http://opac.hs-bochum.de/libero/WebOpac.cls?VERSION=2&amp;ACTION=SEARCHA&amp;RSN=0&amp;DATA=BOC&amp;TOKEN=IKwqxFt5DW3968&amp;Z=1&amp;NewBreadCrumb=1" title="Erweiterte Suche">Erweiterte Suche</a><span class='href_sep'> . </span></li>
+<li class="MenuItem"><a tabindex='507' href="http://opac.hs-bochum.de/libero/WebOpac.cls?VERSION=2&amp;ACTION=NEWITEMS&amp;RSN=0&amp;DATA=BOC&amp;TOKEN=IKwqxFt5DW3968&amp;Z=1&amp;NewBreadCrumb=1" title="Neuerwerbungsliste">Neuerwerbungsliste</a><span class='href_sep'> . </span></li>
+<li class="MenuItem"><a tabindex='519' href="http://www.hochschule-bochum.de/fileadmin/media/bibliothek/Allgemeines/Aufstellungssystematik.pdf" target="_blank" title='Systematik - Wird in neuem Fenster geöffnet.'>Systematik</a><span class='href_sep'> . </span></li>
+</ul>
+</li>
+<li id='bottomMenu'><span>Bottom Menu</span>
+<ul title='Bottom Menu'>
+</ul>
+</li>
+<li id='languagesMenu'><span>Languages</span>
+<ul title='Languages'>
+<li class="MenuItem"><a tabindex='508' href="http://opac.hs-bochum.de/libero/WebOpac.cls?VERSION=2&amp;ACTION=LANGEN&amp;RSN=145937&amp;DATA=BOC&amp;TOKEN=IKwqxFt5DW3968&amp;Z=1" title="Englisch">Englisch</a><span class='href_sep'> . </span></li>
+<li class="MenuItem"><a tabindex='509' href="http://opac.hs-bochum.de/libero/WebOpac.cls?VERSION=2&amp;ACTION=LANGDE&amp;RSN=145937&amp;DATA=BOC&amp;TOKEN=IKwqxFt5DW3968&amp;Z=1" title="Deutsch">Deutsch</a><span class='href_sep'> . </span></li>
+</ul>
+</li>
+<li id='howDoIMenu'><span></span>
+<ul title=''>
+<li class="MenuItem"><a tabindex='519' href="http://www.hochschule-bochum.de/bib/literatursuche/hilfe/hilfe-katalog.html" target="_blank" title='Hilfe zum Katalog - Wird in neuem Fenster geöffnet.'>Hilfe zum Katalog</a><span class='href_sep'> . </span></li>
+<li class="MenuItem"><a tabindex='519' href="http://www.hochschule-bochum.de/bib/literatursuche/hilfe/hilfe-benutzungskonto.html" target="_blank" title='Hilfe zum Benutzungskonto - Wird in neuem Fenster geöffnet.'>Hilfe zum Benutzungskonto</a><span class='href_sep'> . </span></li>
+</ul>
+</li>
+<li id='newItemsMenu'><span>New Items Menu</span>
+<ul title='New Items Menu'>
+</ul>
+</li>
+<li id='exit menu'><span>Katalog der Hochschule Bochum</span>
+<ul title='Katalog der Hochschule Bochum'>
+<li class="MenuItem"><a tabindex='510' href="http://opac.hs-bochum.de/libero/WebOpac.cls?VERSION=2&amp;ACTION=SIGNOX&amp;RSN=145937&amp;DATA=BOC&amp;TOKEN=IKwqxFt5DW3968&amp;Z=1&amp;NewBreadCrumb=1" title="Katalog verlassen">Katalog verlassen</a><span class='href_sep'> . </span></li>
+</ul>
+</li>
+<li class='MnuVers'>&#169; LIBERO v5.5.sp4</li>
+</ul>
+
+
+<!-- Start feed output -->
+<!-- End feed output -->
+
+
+</div><!-- Close left_column -->
+<div id="right_column">
+<a class='hide' name='PageContent'>Page content</a>
+<div id='subheader_container'>
+</div> <!-- Close subheader_container -->
+<div id='BreadCrumbs'>
+<span class='label'>Sie befinden sich hier</span>: <span class='BreadCrumbSep'> > </span><span class='BreadCrumb'><a tabindex='601' class='aBreadCrumb' href="../libero/WebOpac.cls?ACTION=SEARCHA&amp;DATA=BOC&amp;NewBreadCrumb=1&amp;RSN=0&amp;TOKEN=IKwqxFt5DW3968&amp;VERSION=2&amp;Z=1&amp;CRUMB=1">Erweitertes Suchen</a></span>
+<span class='BreadCrumbSep'> > </span><span class='BreadCrumb'><a tabindex='602' class='aBreadCrumb' href="../libero/WebOpac.cls?ACTION=SEARCH&amp;ADVSEARCH=1&amp;AdvanceSearch=1&amp;BROWSE1=BROWSE INDEX&amp;BROWSE2=BROWSE INDEX&amp;BROWSE3=BROWSE INDEX&amp;BROWSE4=BROWSE INDEX&amp;BROWSE5=BROWSE INDEX&amp;DATA=BOC&amp;LIMGMD=&amp;LIMLOC=&amp;LIMSP=&amp;MGWCHD=0&amp;PREFER=5&amp;PSIZE=20&amp;SMODE=1&amp;TERM_1=morgen&amp;TERM_2=&amp;TERM_3=&amp;TERM_4=&amp;TERM_5=&amp;TOKEN=IKwqxFt5DW3968&amp;TOKENX=IKwqxFt5DW3968&amp;TYPE_1=AND&amp;TYPE_2=AND&amp;TYPE_3=AND&amp;TYPE_4=AND&amp;TYPE_5=AND&amp;USE_1=kb&amp;USE_2=k&amp;USE_3=ke&amp;USE_4=i&amp;USE_5=d&amp;VERSION=2&amp;YEARFROM=&amp;YEARTO=&amp;number=7&amp;oterm=morgen&amp;sb=b&amp;sortterm=MORGENROTH GERHARD&amp;startterm=MORGEN&amp;usercode=&amp;xsb=kb&amp;y=0&amp;CRUMB=1">Indexliste der Begriffe</a></span>
+<span class='BreadCrumbSep'> > </span><span class='BreadCrumb'><a tabindex='603' class='aBreadCrumb' href="../libero/WebOpac.cls?ACTION=SEARCH&amp;ADVSEARCH=1&amp;AdvanceSearch=1&amp;BROWSE1=BROWSE INDEX&amp;BROWSE2=BROWSE INDEX&amp;BROWSE3=BROWSE INDEX&amp;BROWSE4=BROWSE INDEX&amp;BROWSE5=BROWSE INDEX&amp;DATA=BOC&amp;LIMGMD=&amp;LIMLOC=&amp;MGWCHD=0&amp;PREFER=5&amp;PSIZE=20&amp;SMODE=1&amp;TERM_1=michael&amp;TERM_2=&amp;TERM_3=&amp;TERM_4=&amp;TERM_5=&amp;TOKEN=IKwqxFt5DW3968&amp;TOKENX=IKwqxFt5DW3968&amp;TYPE_1=AND&amp;TYPE_2=AND&amp;TYPE_3=AND&amp;TYPE_4=AND&amp;TYPE_5=AND&amp;USE_1=kb&amp;USE_2=k&amp;USE_3=ke&amp;USE_4=i&amp;USE_5=d&amp;VERSION=2&amp;YEARFROM=&amp;YEARTO=&amp;usercode=&amp;CRUMB=1">Suchergebnisse</a></span>
+<span class='BreadCrumbSep'> > </span><span class='BreadCrumb'>Katalogdatenanzeige</span>
+</div>
+<div class='PageHeading'><h1>Katalogdatenanzeige</h1></div>
+<!--FORM STARTS HERE-->
+<form name="display" method='post' onsubmit='filterInput();' action="http://opac.hs-bochum.de/libero/WebOpac.cls">
+<div>
+<input type="hidden" name="MGWCHD" value='0'/>
+<input type="hidden" name="TOKEN" value='IKwqxFt5DW3968'/>
+<input type='hidden' name="TOKENX" value='IKwqxFt5DW3968'/>
+<input type="hidden" name="DATA" value='BOC'/>
+<input type='hidden' name='usercode' value=""/>
+<input type='hidden' name='VERSION' value='2'/>
+</div>
+<div class='navLinks'>
+<a tabindex='2' class='previous' href="http://opac.hs-bochum.de/libero/WebOpac.cls?VERSION=2&amp;ACTION=DISPLAY&amp;RSN=145922&amp;DATA=BOC&amp;TOKEN=IKwqxFt5DW3968&amp;Z=1">Vorheriger Titel</a><span class='href_sep'> . </span> 
+<a tabindex='3' class='next' href="http://opac.hs-bochum.de/libero/WebOpac.cls?VERSION=2&amp;ACTION=DISPLAY&amp;RSN=145966&amp;DATA=BOC&amp;TOKEN=IKwqxFt5DW3968&amp;Z=1">Nächster Titel</a><span class='href_sep'> . </span> 
+</div>
+<div class='DisplayRecord'>
+<div class='TitleHeader'>
+<h2><a name='Top145937'>Erfolgreiches Social Media Marketing : Konzepte, Maßnahmen und Praxisbeispiele</a></h2>
+<div class='AmazonImage'><a tabindex='4' href="http://opac.hs-bochum.de/libero/WebOpac.cls?VERSION=2&amp;ACTION=ShowAmazon&amp;RSN=145937&amp;DATA=BOC&amp;TOKEN=IKwqxFt5DW3968&amp;Z=1&amp;ISBN=365800035X"><img alt="Additional information for title Erfolgreiches Social Media Marketing : Konzepte, Maßnahmen und Praxisbeispiele" src='http://images.amazon.com/images/P/365800035X.01.MZZZZZZZ.jpg' height='80' width='50' title="Erfolgreiches Social Media Marketing : Konzepte, Maßnahmen und Praxisbeispiele" longdesc='default.htm'/></a><span class='href_sep'> . </span></div>
+<div class='TitleOptions'>
+<ul class='CatNavList'>
+<li> &nbsp; &nbsp;<a tabindex='5' href='#CatInfo145937'>Kataloginformation<span class='URLHack'> Catalogue Record 145937</span></a> <span class='href_sep'> . </span></li>
+</ul>
+<div class='resolvergroup'></div>
+</div>
+</div>
+<div class='DLoadTitleBlock'>
+<div class='BibFulldItmButBar DLoadTitleArea1'><a class='DisplayBtns' tabindex='6' href="http://opac.hs-bochum.de/libero/WebOpac.cls?RSN=145937&amp;ACTION=DOWN1&amp;TOKEN=IKwqxFt5DW3968&amp;DATA=BOC" title='Titelinformationen herunterladen'>Titelinformationen herunterladen<span class='URLHack'> Catalogue Record 145937</span></a></div><span class='href_sep'> . </span>
+</div> <!-- close DLoadTitleArea -->
+
+<div class='CatInfoCont'><table border='1' summary="Kataloginformation">
+	<caption><a name='CatInfo145937'>Kataloginformation</a></caption>
+	<colgroup>
+		<col class="fieldNames" />
+		<col class="details" />
+	</colgroup>
+	<thead>
+		<tr>
+			<th id="th2_145937_1" class="fieldNames" abbr="fields"><span>Feldname</span></th>
+			<th id="th2_145937_2" class="details" abbr="dets"><span>Details</span></th>
+		</tr>
+	</thead>
+	<tbody>
+<tr>
+<th class='alignLeft' id='th3_145937_2' headers='th2_145937_1' rowspan='1'>Medientyp</th>
+<td headers='th3_145937_2'> E</td>
+</tr>
+<tr>
+<th class='alignLeft' id='th3_145937_3' headers='th2_145937_1' rowspan='1'>Vorliegende Sprache</th>
+<td headers='th3_145937_3'> ger</td>
+</tr>
+<tr>
+<th class='alignLeft' id='th3_145937_4' headers='th2_145937_1' rowspan='1'>1. Person</th>
+<td headers='th3_145937_4'> <span class='RelatedLink'><a tabindex='7' href="http://opac.hs-bochum.de/libero/WebOpac.cls?TERM='CEYP*MICHAEL'&amp;KEY=ku&amp;TYPE=A&amp;ACTION=RELATE&amp;VERSION=2&amp;TOKEN=IKwqxFt5DW3968&amp;DATA=BOC">Ceyp, <span class='HLTerm'>Michael</span></a></span><span class='href_sep'> . </span></td>
+</tr>
+<tr>
+<th class='alignLeft' id='th3_145937_5' headers='th2_145937_1' rowspan='1'>2. Person</th>
+<td headers='th3_145937_5'> <span class='RelatedLink'><a tabindex='8' href="http://opac.hs-bochum.de/libero/WebOpac.cls?TERM='SCUPIN*JUHN*PETTER'&amp;KEY=ku&amp;TYPE=A&amp;ACTION=RELATE&amp;VERSION=2&amp;TOKEN=IKwqxFt5DW3968&amp;DATA=BOC">Scupin, Juhn-Petter</a></span><span class='href_sep'> . </span></td>
+</tr>
+<tr>
+<th class='alignLeft' id='th3_145937_6' headers='th2_145937_1' rowspan='2'>T I T E L</th>
+<td headers='th3_145937_6'> Erfolgreiches Social Media Marketing</td>
+</tr>
+<tr>
+<td headers='th3_145937_6'> Elektronische Ressource</td>
+</tr>
+<tr>
+<th class='alignLeft' id='th3_145937_8' headers='th2_145937_1' rowspan='1'>Zusatz zum Titel</th>
+<td headers='th3_145937_8'> Konzepte, Maßnahmen und Praxisbeispiele</td>
+</tr>
+<tr>
+<th class='alignLeft' id='th3_145937_9' headers='th2_145937_1' rowspan='1'>Verfasserangabe</th>
+<td headers='th3_145937_9'> von <span class='HLTerm'>Michael</span> Ceyp, Juhn-Petter Scupin</td>
+</tr>
+<tr>
+<th class='alignLeft' id='th3_145937_10' headers='th2_145937_1' rowspan='1'>Verlagsort</th>
+<td headers='th3_145937_10'> Wiesbaden</td>
+</tr>
+<tr>
+<th class='alignLeft' id='th3_145937_11' headers='th2_145937_1' rowspan='1'>Verlag</th>
+<td headers='th3_145937_11'> Springer Fachmedien Wiesbaden</td>
+</tr>
+<tr>
+<th class='alignLeft' id='th3_145937_12' headers='th2_145937_1' rowspan='1'>Erscheinungsjahr</th>
+<td headers='th3_145937_12'> 2013</td>
+</tr>
+<tr>
+<th class='alignLeft' id='th3_145937_13' headers='th2_145937_1' rowspan='1'>Umfang</th>
+<td headers='th3_145937_13'> XV, 224 S. 170 Abb</td>
+</tr>
+<tr>
+<th class='alignLeft' id='th3_145937_14' headers='th2_145937_1' rowspan='1'>ISBN</th>
+<td headers='th3_145937_14'> ISBN 978-3-658-00035-6</td>
+</tr>
+<tr>
+<th class='alignLeft' id='th3_145937_15' headers='th2_145937_1' rowspan='1'>Spezifische Materialbenennung</th>
+<td headers='th3_145937_15'>  Online-Ressource</td>
+</tr>
+<tr>
+<th class='alignLeft' id='th3_145937_16' headers='th2_145937_1' rowspan='1'>DDC</th>
+<td headers='th3_145937_16'>  658.8 23 4</td>
+</tr>
+<tr>
+<th class='alignLeft' id='th3_145937_17' headers='th2_145937_1' rowspan='3'>Subject Headings</th>
+<td headers='th3_145937_17'> ‡aEconomics</td>
+</tr>
+<tr>
+<td headers='th3_145937_17'> ‡aMarketing</td>
+</tr>
+<tr>
+<td headers='th3_145937_17'> ‡aMass media</td>
+</tr>
+<tr>
+<th class='alignLeft' id='th3_145937_20' headers='th2_145937_1' rowspan='3'>1. Schlagwortkettte</th>
+<td headers='th3_145937_20'> <span class='RelatedLink'><a tabindex='9' href="http://opac.hs-bochum.de/libero/WebOpac.cls?TERM='ONLINE*MARKETING'&amp;KEY=ku&amp;TYPE=S&amp;ACTION=RELATE&amp;VERSION=2&amp;TOKEN=IKwqxFt5DW3968&amp;DATA=BOC">Online-Marketing</a></span><span class='href_sep'> . </span></td>
+</tr>
+<tr>
+<td headers='th3_145937_20'> <span class='RelatedLink'><a tabindex='10' href="http://opac.hs-bochum.de/libero/WebOpac.cls?TERM='WORLD*WIDE*WEB*2*0'&amp;KEY=ku&amp;TYPE=S&amp;ACTION=RELATE&amp;VERSION=2&amp;TOKEN=IKwqxFt5DW3968&amp;DATA=BOC">World Wide Web 2.0</a></span><span class='href_sep'> . </span></td>
+</tr>
+<tr>
+<td headers='th3_145937_20'> <span class='RelatedLink'><a tabindex='11' href="http://opac.hs-bochum.de/libero/WebOpac.cls?TERM='SOZIALES*NETZWERK'&amp;KEY=ku&amp;TYPE=S&amp;ACTION=RELATE&amp;VERSION=2&amp;TOKEN=IKwqxFt5DW3968&amp;DATA=BOC">Soziales Netzwerk</a></span><span class='href_sep'> . </span></td>
+</tr>
+<tr>
+<th class='alignLeft' headers='th2_145937_1' id='th4_145937_1'>Internetseite / Link   </td>
+<td headers='th2_145937_2'><a tabindex='12' href=http://dx.doi.org/10.1007/978-3-658-00035-6>Resolving-System</a></td>
+</tr>
+	</tbody>
+</table>
+<div class='BibFulldBotBut ButtonsContainer'>
+<span class='href_sep'> . </span>
+<div class='BibFulldBotButRelw'><a tabindex='13' class='DisplayBtnsXtra' href="http://opac.hs-bochum.de/libero/WebOpac.cls?VERSION=2&amp;ACTION=RELSHO&amp;RSN=145937&amp;DATA=BOC&amp;TOKEN=IKwqxFt5DW3968&amp;Z=1" title="Related Works">Verwandte Werke<span class='URLHack'> Catalogue Record 145937</span></a></div><span class='href_sep'> . </span>
+<div class='BibFulldBotButBask'><a tabindex='14' class='DisplayBtnsXtra' href="http://opac.hs-bochum.de/libero/WebOpac.cls?VERSION=2&amp;ACTION=SAVE&amp;RSN=145937&amp;DATA=BOC&amp;TOKEN=IKwqxFt5DW3968&amp;Z=1" title="Add Title to Basket">Titel zur Titelsammlung hinzufügen<span class='URLHack'> Catalogue Record 145937</span></a></div><span class='href_sep'> . </span>
+</div>
+<a tabindex='15' class='ToPageTop' href='#Top145937'><span class='URLHack'>Catalogue Information 145937 </span>Datensatzanfang</a><span class='href_sep'> . </span>
+ <a tabindex='16' class='ToPageTop' href='#PageTop'><span class='URLHack'>Catalogue Information 145937 </span>Seitenanfang</a><span class='href_sep'> . </span>
+</div>
+</div>
+<div id='Helpfile'>
+<b>Vollanzeige Katalogdaten</b>&nbsp; <br />
+<br />
+Auf diesem Bildschirm erhalten Sie Katalog- und Exemplarinformationen zum ausgew&auml;hlten Titel.<br />
+<br />
+Im Bereich <b>Kataloginformation</b> werden die bibliographischen Details angezeigt. Per Klick auf Hyperlink-Begriffe wie Schlagw&ouml;rter, Autoren, Reihen,
+K&ouml;rperschaften und Klassifikationen k&ouml;nnen Sie sich weitere Titel des gew&auml;hlten Begriffes anzeigen lassen.<br />
+<br />
+Der Bereich <b>Exemplarinformationen</b> enth&auml;lt zum einen Angaben &uuml;ber den Standort und die Verf&uuml;gbarkeit der Exemplare. Zum anderen haben Sie die M&ouml;glichkeit,
+ausgeliehene Exemplare vorzumerken oder Exemplare aus dem Magazin zu bestellen.
+</div>
+</form> <!--FORM ENDS HERE-->
+</div> <!-- Close right_column --> 
+</div> <!-- Close page_container --> 
+<div id='footer_container'>
+<span class='href_sep'> . </span>Bei weiteren Fragen zu den Funktionen dieser Seite wenden Sie sich bitte an Ihre Bibliothek.<br />
+&nbsp;&nbsp;&nbsp;<span class='href_sep'> . </span><a tabindex='1504' class='FooterEmail' href="http://opac.hs-bochum.de/libero/WebOpac.cls?VERSION=2&amp;ACTION=EMAILFORM&amp;RSN=145937&amp;DATA=BOC&amp;TOKEN=IKwqxFt5DW3968&amp;Z=1" title="Diese Seite per E-Mail versenden">Diese Seite per E-Mail versenden</a>&nbsp;&nbsp;&nbsp;<span class='href_sep'> . </span><a class='LiberoPower' title='LIBERO' href='http://www.libero.com.au'>Powered by LIBERO &#169; 2013</a><span class='href_sep'> . </span>&nbsp;
+</div> <!-- Close footer_container --> 
+</body></html>
