@@ -1,10 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?xml-stylesheet type="text/xsl" href="../changelog.xsl"?>
 <changelog program="VideLibri">
-  <build version="1836" date="2016-04-04">
+  <build version="1840" date="2016-05-16">
     <download url="http://videlibri.sourceforge.net/updates/videlibri-setup.exe" platform="WINDOWS" execute="&quot;$DOWNLOAD&quot;  /SP- /noicons &quot;/dir=$OLDPATH&quot; " restart="true"/>
     <download url="http://videlibri.sourceforge.net/updates/videlibri-linux32.deb" platform="LINUX32" execute=""/>
     <download url="http://videlibri.sourceforge.net/updates/videlibri-linux64.deb" platform="LINUX64" execute=""/>
+    <change>Variablennamen in benutzerdefinierten Templates beachten nun Scopes und die Groß/Kleinschreibung. Wer zum Beispiel bisher $Book verwendet, muss es in $book ändern. </change>
+    <change>Es können nun alle XPath/XQuery 3.0 Ausdrücke verwendet werden.</change>
+    <fix>Anpassung an Systemänderungen in Verl und Pulheim</fix>
+  </build>
+  <build version="1836" date="2016-04-04">
     <fix>Behebt Crash unter Android wegen einer uninitialisierten Variable</fix>
   </build>
   <build version="1835" date="2016-04-03">
