@@ -14,7 +14,7 @@ object optionForm: ToptionForm
   OnResize = FormResize
   OnShow = FormShow
   Position = poScreenCenter
-  LCLVersion = '1.5'
+  LCLVersion = '1.7'
   object Bevel1: TBevel
     AnchorSideLeft.Control = Panel2
     AnchorSideLeft.Side = asrBottom
@@ -35,7 +35,7 @@ object optionForm: ToptionForm
     Height = 483
     Top = 6
     Width = 612
-    PageIndex = 0
+    PageIndex = 4
     Anchors = [akTop, akLeft, akRight, akBottom]
     BorderSpacing.Around = 2
     OnChangeBounds = Notebook1ChangeBounds
@@ -365,7 +365,7 @@ object optionForm: ToptionForm
         AnchorSideTop.Control = timeNearMeaningLabelLeft
         AnchorSideTop.Side = asrBottom
         Left = 12
-        Height = 33
+        Height = 30
         Top = 71
         Width = 327
         BorderSpacing.Top = 4
@@ -380,7 +380,7 @@ object optionForm: ToptionForm
         AnchorSideTop.Side = asrBottom
         Left = 44
         Height = 17
-        Top = 108
+        Top = 105
         Width = 176
         BorderSpacing.Around = 4
         OnMouseUp = Shape1MouseUp
@@ -390,7 +390,7 @@ object optionForm: ToptionForm
         AnchorSideTop.Side = asrBottom
         Left = 12
         Height = 15
-        Top = 129
+        Top = 126
         Width = 205
         BorderSpacing.Around = 4
         Caption = 'Farbe für  verlängerbare Medien:'
@@ -401,7 +401,7 @@ object optionForm: ToptionForm
         AnchorSideTop.Side = asrBottom
         Left = 44
         Height = 17
-        Top = 148
+        Top = 145
         Width = 176
         BorderSpacing.Around = 4
         OnMouseUp = Shape1MouseUp
@@ -411,7 +411,7 @@ object optionForm: ToptionForm
         AnchorSideTop.Side = asrBottom
         Left = 44
         Height = 17
-        Top = 188
+        Top = 185
         Width = 176
         OnMouseUp = Shape1MouseUp
       end
@@ -420,7 +420,7 @@ object optionForm: ToptionForm
         AnchorSideTop.Side = asrBottom
         Left = 12
         Height = 15
-        Top = 169
+        Top = 166
         Width = 191
         BorderSpacing.Around = 4
         Caption = 'Farbe für abgegebene Medien: '
@@ -455,7 +455,7 @@ object optionForm: ToptionForm
         AnchorSideTop.Side = asrCenter
         Left = 12
         Height = 15
-        Top = 299
+        Top = 296
         Width = 83
         Caption = 'Symbolleiste:'
         ParentColor = False
@@ -512,7 +512,7 @@ object optionForm: ToptionForm
         AnchorSideTop.Side = asrBottom
         Left = 104
         Height = 25
-        Top = 294
+        Top = 291
         Width = 158
         BorderSpacing.Around = 9
         ItemHeight = 0
@@ -529,7 +529,7 @@ object optionForm: ToptionForm
         AnchorSideTop.Side = asrBottom
         Left = 44
         Height = 17
-        Top = 228
+        Top = 225
         Width = 176
         BorderSpacing.Around = 4
         OnMouseUp = Shape1MouseUp
@@ -539,7 +539,7 @@ object optionForm: ToptionForm
         AnchorSideTop.Side = asrBottom
         Left = 44
         Height = 17
-        Top = 268
+        Top = 265
         Width = 176
         BorderSpacing.Around = 4
         OnMouseUp = Shape1MouseUp
@@ -549,7 +549,7 @@ object optionForm: ToptionForm
         AnchorSideTop.Side = asrBottom
         Left = 12
         Height = 15
-        Top = 209
+        Top = 206
         Width = 194
         BorderSpacing.Around = 4
         Caption = 'Farbe für vorgemerkte Medien:'
@@ -560,7 +560,7 @@ object optionForm: ToptionForm
         AnchorSideTop.Side = asrBottom
         Left = 12
         Height = 15
-        Top = 249
+        Top = 246
         Width = 285
         BorderSpacing.Around = 4
         Caption = 'Farbe für abholbereite (vorgemerkte) Medien:'
@@ -571,7 +571,7 @@ object optionForm: ToptionForm
         AnchorSideTop.Side = asrCenter
         Left = 12
         Height = 15
-        Top = 337
+        Top = 334
         Width = 83
         Caption = 'Gruppierung.'
         ParentColor = False
@@ -581,7 +581,7 @@ object optionForm: ToptionForm
         AnchorSideTop.Side = asrBottom
         Left = 104
         Height = 25
-        Top = 332
+        Top = 329
         Width = 158
         BorderSpacing.Top = 13
         ItemHeight = 0
@@ -1131,11 +1131,11 @@ object optionForm: ToptionForm
         ParentColor = False
       end
       object Label9: TLabel
-        AnchorSideTop.Control = edtHistoryBackupInterval
+        AnchorSideTop.Control = cbCopyAccountLimits
         AnchorSideTop.Side = asrBottom
         Left = 12
         Height = 15
-        Top = 277
+        Top = 298
         Width = 133
         BorderSpacing.Top = 7
         Caption = 'Automatisch starten:'
@@ -1180,7 +1180,7 @@ object optionForm: ToptionForm
         AnchorSideTop.Side = asrBottom
         Left = 36
         Height = 18
-        Top = 350
+        Top = 371
         Width = 131
         BorderSpacing.Around = 4
         Caption = 'minimiert starten'
@@ -1258,7 +1258,7 @@ object optionForm: ToptionForm
         AnchorSideBottom.Control = CheckBox1
         Left = 20
         Height = 54
-        Top = 292
+        Top = 313
         Width = 384
         AutoSize = True
         BevelOuter = bvNone
@@ -1358,6 +1358,16 @@ object optionForm: ToptionForm
         Width = 76
         Caption = 'wöchentlich'
         ParentColor = False
+      end
+      object cbCopyAccountLimits: TCheckBox
+        AnchorSideTop.Control = edtHistoryBackupInterval
+        AnchorSideTop.Side = asrBottom
+        Left = 12
+        Height = 18
+        Top = 273
+        Width = 381
+        Caption = 'Konto und Fristdaten mit in die Zwischenablage kopieren'
+        TabOrder = 7
       end
     end
     object pageLibs: TPage

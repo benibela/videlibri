@@ -861,12 +861,17 @@ procedure TmainForm.MenuItem31Click(Sender: TObject);
 var t: string;
  i: Integer;
  books: TBookList;
+ copyLimits: Boolean;
 begin
   books := BookList.SelectedBooks;
+  copyLimits := userConfig.ReadBool('user','copy-limit',false);
   t := '';
   for i:=0 to Books.count-1 do
     if (books[i].owner<>nil) then
-      t += (books[i].owner as TCustomAccountAccess).prettyName + ':  ' + books[i].toLimitString() + LineEnding;
+      if copyLimits then
+        t += (books[i].owner as TCustomAccountAccess).prettyName + ':  ' + books[i].toLimitString() + LineEnding
+       else
+         t += books[i].author + ': ' + books[i].title + LineEnding;
 
   clipboard.astext := t;
   books.free;

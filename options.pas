@@ -16,6 +16,7 @@ type
 
   ToptionForm = class(TForm)
     accountList: TListView;
+    cbCopyAccountLimits: TCheckBox;
     groupingProperty: TComboBox;
     Label34: TLabel;
     Label35: TLabel;
@@ -372,7 +373,7 @@ begin
   end;
 
 
-  //Autostartpage
+  //Autostartpage / Behavior
   TrackBar1.Position:=RefreshInterval;
   trackbar2.Position:=WarnInterval;
   TrackBar1Change(nil);
@@ -384,6 +385,7 @@ begin
   end;
   CheckBox1.Checked:=userConfig.ReadBool('autostart','minimized',true);
   edtHistoryBackupInterval.text:=IntToStr(HistoryBackupInterval);
+  cbCopyAccountLimits.Checked := userConfig.ReadBool('user','copy-limit',false);
 
   //Libpage
   for i := 0 to libraryManager.templates.Count - 1 do
@@ -531,6 +533,7 @@ begin
 
   HistoryBackupInterval:=StrToInt(edtHistoryBackupInterval.Text);
   userConfig.WriteInteger('base','history-backup-interval',HistoryBackupInterval);
+  userConfig.WriteBool('user','copy-limit',cbCopyAccountLimits.Checked);
 
   mainForm.Refresh;
   if needRefreshListView then mainform.RefreshListView;
