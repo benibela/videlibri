@@ -70,8 +70,8 @@ end;
 implementation
 uses internetAccess, LCLIntf;
 
-{ TLibrarySearcher }
-
+resourcestring
+  rsDefault = 'Standard';
 
 function TLibrarySearcher.GetConnected: boolean;
 begin
@@ -190,7 +190,7 @@ begin
       temp := bookListReader.parser.variableChangeLog.get('home-branches');
       if temp.getSequenceCount > 0 then begin
         SetLength(fhomebranches, temp.getSequenceCount+1);
-        fhomebranches[0] := '(Standard)';
+        fhomebranches[0] := '(' + rsDefault + ')';
         for i:=1 to temp.getSequenceCount do
           fhomebranches[i] := temp.get(i).toString;
       end;
@@ -198,7 +198,7 @@ begin
       temp := bookListReader.parser.variableChangeLog.get('search-branches');
       if temp.getSequenceCount > 0 then begin
         SetLength(fsearchBranches, temp.getSequenceCount+1);
-        fsearchBranches[0] := '(Standard)';
+        fsearchBranches[0] :='(' + rsDefault + ')';
         for i:=1 to temp.getSequenceCount do
           fsearchBranches[i] := temp.get(i).toString;
       end;

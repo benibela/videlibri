@@ -31,7 +31,7 @@ begin
     initApplicationConfig;
   except
     on e: Exception do begin
-      Application.MessageBox(pchar(e.Message), 'Videlibri Fehler', MB_ICONERROR);
+      Application.MessageBox(pchar(e.Message), pchar('Videlibri ' +rsError), MB_ICONERROR);
       if logging then log('init exception: '+e.Message);
       cancelStarting:=true;
     end;

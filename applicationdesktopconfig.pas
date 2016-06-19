@@ -29,9 +29,54 @@ end;
 
   procedure showErrorMessages();
 
+resourcestring
+  rsRenewOptions = 'immer, wenn möglich%salle, wenn nötig%seinzeln, wenn nötig%sniemals';
+  rsRenewOptionsNoSingle = 'immer, wenn möglich%simmer, wenn nötig%sniemals';
+  rsYes = 'ja';
+  rsNo = 'nein';
+  rsAlways = 'immer';
+  rsNever = 'niemals';
+  rsError = 'Fehler';
+  rsBy = 'von';
+  rsAnd = 'und';
+  rsDetails = 'Details';
+  rsBookPropertyLimitWeek = 'Fristwoche';
+  rsBookPropertyIssueWeek = 'Ausleihwoche';
+  rsBookPropertyLocationLend = 'Ausleihbibliothek';
+  rsBookPropertyLocationSearch = 'Ort';
+  rsBookPropertyStatus = 'Ausleihstatus';
+
+
 implementation
 
 uses bookWatchMain,booklistreader,libraryAccess, bbutils,bbdebugtools,forms,LCLType,Dialogs, Controls, errorDialog, autoupdate, FileUtil, androidutils;
+
+resourcestring
+  rsUpdateBeingInstalled = 'Bitte warten, Update wird installiert...';
+  rsUpdateSaved = 'Update kann nicht automatisch installiert werden.%sDas Update wurde in der Datei %s gespeichert, die gleich im Explorer'
+    +' geöffnet wird.';
+  rsUpdateComplete = 'Update abgeschlossen';
+  rsUpdateNone = 'Kein Update gefunden%sDie Version %s ist die aktuelle.';
+  rsUpdateDownloading = 'Bitte warten, Update wird heruntergeladen...';
+  rsUpdateFound = 'Es gibt ein Update auf die Version %s:%s%s%sSoll es jetzt heruntergeladen (und wenn möglich installiert) werden?';
+  rsAutostartInvalidCorrect = 'Der Autostarteintrag ist ungültig%sWenn er nicht geändert wird, können die Medien wahrscheinlich nicht '
+    +'automatisch verlängert werden.%sSoll er nun geändert werden?';
+  rsAutostartCommentTitle = 'Bücherverwaltungsprogramm';
+  rsAlertOverdue = 'Die folgenden Medien (%d) sind überfällig und sollten schon bis %s abgegeben worden sein:';
+  rsAlertNonRenewable = 'Die folgenden Medien (%d) sind nicht verlängerbar und sollten bis %s abgegeben werden:';
+  rsAlertRenewable = 'Die folgenden Medien (%d) sind bald bis %s fällig:';
+  rsAlertWillRenew = 'VideLibri wird versuchen, diese Bücher automatisch zu verlängern';
+  rsAlertOpenFull = 'Soll die Gesamt-Übersicht geöffnet werden?';
+  rsErrorGeneral = 'Es ist folgender Fehler aufgetreten:';
+  rsErrorOnAccounts = 'Beim Zugriff auf%s ist leider folgender Fehler aufgetreten: ';
+  rsErrorDetailsAccount = '%sDetails für den Zugriff auf Konto %s bei %s:';
+  rsErrorDetailsSearch = '%sDetails für die Suche nach %s bei %s:';
+  rsErrorAccountTitle = 'Fehler beim Aktualisieren der Bücherdaten';
+  rsErrorHeader = 'Fehlerinformationen über alle vorhin aufgetretenden Fehler';
+  rsErrorNoAccountError = ' kein Konto (dieser Fehler macht keinen Sinn)';
+  rsErrorSingleAccount = ' das Konto %s';
+  rsErrorAccounts = ' die Konten %s und %s';
+
 
 function alertAboutBooksThatMustBeReturned: boolean;
   function strJoin(l: tlist): string;
@@ -64,22 +109,22 @@ begin
      or (booksOverdue.Count > 0) then begin
     alert:='';
     if booksOverdue.Count > 0 then begin
-      alert+=Format('Die folgenden Medien (%d) sind überfällig und sollten schon bis %s abgegeben worden sein:'#13,
-                    [booksOverdue.Count, DateToPrettyGrammarStr('zum ','',minDateOverdue)]);
-      alert+=strJoin(booksOverdue) + LineEnding;
+      alert+=Format(rsAlertOverdue,
+                    [booksOverdue.Count, DateToPrettyStrGrammarFuture(minDateOverdue)]);
+      alert+=LineEnding +strJoin(booksOverdue) + LineEnding;
     end;
     if booksSoonNotExtendable.Count > 0 then begin
-      alert+=Format('Die folgenden Medien (%d) sind nicht verlängerbar und sollten bis %s abgegeben werden:'#13,
-                   [booksSoonNotExtendable.Count, DateToPrettyGrammarStr('zum ','',minDateSoonNotExtendable)]);
-      alert+=strJoin(booksSoonNotExtendable) + LineEnding;
+      alert+=Format(rsAlertNonRenewable,
+                   [booksSoonNotExtendable.Count, DateToPrettyStrGrammarFuture(minDateSoonNotExtendable)]);
+      alert+=LineEnding +strJoin(booksSoonNotExtendable) + LineEnding;
     end;
     if booksSoon.Count > 0 then begin
-      alert+=Format('Die folgenden Medien (%d) sind bald bis %s fällig:'#13, [booksSoon.Count, DateToPrettyGrammarStr('zum ','',minDateSoon)]);
-      alert+=strJoin(booksSoon) + LineEnding;
-      alert+='VideLibri wird versuchen, diese Bücher automatisch zu verlängern'#13#13;
+      alert+=Format(rsAlertRenewable, [booksSoon.Count, DateToPrettyStrGrammarFuture(minDateSoon)]);
+      alert+=LineEnding + strJoin(booksSoon) + LineEnding;
+      alert+=rsAlertWillRenew + LineEnding+ LineEnding;
     end;
-    alert+='Soll die Gesamt-Übersicht geöffnet werden?';
-    if Application.MessageBox(pchar(alert),'Videlibri',MB_YESNO or MB_ICONWARNING or MB_SYSTEMMODAL)=IDYES then
+    alert+=rsAlertOpenFull;
+    if Application.MessageBox(pchar(alert),'VideLibri',MB_YESNO or MB_ICONWARNING or MB_SYSTEMMODAL)=IDYES then
       result:=true;
   end;
 
@@ -113,40 +158,38 @@ begin
   try
     for i:=0 to high(errorMessageList) do begin
       if oldErrorMessageString='' then
-        oldErrorMessageString:=#13#10#13#10#13#10'====Fehlerinformationen über alle vorhin aufgetretenden Fehler===='#13#10;
+        oldErrorMessageString:=#13#10#13#10#13#10'====' +  rsErrorHeader + '===='#13#10;
       with errorMessageList[i] do begin
         accountException:=true;
         for j:=0 to high(details) do
           if details[j].account=nil then accountException:=false;
 
         if accountException then begin
-          mes:=' ist leider folgender Fehler aufgetreten: '#13#10+error;
+          mes:='';
           case length(details) of
-            0: mes:=' kein Konto (dieser Fehler macht keinen Sinn) '+mes;
-            1: mes:=' das Konto '+details[0].account.prettyName+mes;
+            0: mes:=rsErrorNoAccountError;
+            1: mes:=Format(rsErrorSingleAccount, [details[0].account.prettyName]);
             else begin
-              mes:=details[high(details)-1].account.prettyName+' und '+details[high(details)].account.prettyName+mes;
               for j:=0 to high(details)-2 do
                 mes:=details[j].account.prettyName+', '+mes;
-              mes:=' die Konten '+mes;
+              mes:=Format(rsErrorAccounts, [mes + details[high(details)-1].account.prettyName, details[high(details)].account.prettyName]);
             end;
           end;
-          mes:='Beim Zugriff auf'+mes;
-        end else begin
-          mes:='Es ist folgender Fehler aufgetreten: '#13#10+error;
-        end;
+          mes:=Format(rsErrorOnAccounts, [mes]);
+        end else mes := rsErrorGeneral;
+        mes += LineEnding + error;
 
         mesDetails:='';
         for j:=0 to high(details) do begin
           if details[j].account<>nil then
-            mesDetails:=mesDetails+'Details für den Zugriff auf Konto '+details[j].account.prettyname+' bei '+details[j].libraryId+':'#13#10
+            mesDetails:=Format(rsErrorDetailsAccount, [mesDetails, details[j].account.prettyname, details[j].libraryId]) + LineEnding
            else
-            mesDetails:=mesDetails+'Details für die Suche nach '+details[j].searchQuery+' bei '+details[j].libraryId+':'#13#10;
+            mesDetails:=Format(rsErrorDetailsSearch, [mesDetails, details[j].searchQuery, details[j].libraryId]) + LineEnding;
           mesDetails+=details[j].details+#13#10#13#10;
         end;
-        oldErrorMessageString:=oldErrorMessageString+'---Fehler---'#13#10+mes+#13#10'Details:'#13#10+mesdetails;
-        if accountException then  title:='Fehler beim Aktualisieren der Bücherdaten'
-        else title:='Fehler';
+        if accountException then  title:=rsErrorAccountTitle
+        else title:=rsError;;
+        oldErrorMessageString:=oldErrorMessageString+'---'+title+'---'#13#10+mes+#13#10+rsDetails+':'#13#10+mesdetails;
         sl_title.Add(title);
         sl_message.add(mes);
         sl_messagedetails.add(mesDetails);
@@ -174,7 +217,7 @@ end;
 
 procedure raiseInitializationError(s: string);
 begin
-  Application.MessageBox(pchar(s), 'Videlibri Fehler', MB_ICONERROR);
+  Application.MessageBox(pchar(s), pchar('VideLibri ' + rsError), MB_ICONERROR);
   cancelStarting:=true;
   if logging then log('raiseInitializationError: '+s);
   raise exception.Create(s);
@@ -196,6 +239,7 @@ begin
     autostartCommand:=lowercase('"'+ParamStr(0)+'" /autostart');
     autostartInvalid:=lowercase(reg.ReadString('VideLibriAutostart')) <> autostartCommand;
     {$ENDIF}
+
     {$IFDEF UNIX}
     {$IFNDEF ANDROID}
     autostartCommand:='[Desktop Entry]'+LineEnding+
@@ -204,7 +248,7 @@ begin
       'Hidden=false'+LineEnding+
       'X-GNOME-Autostart-enabled=true'+LineEnding+
       'Name=videlibri'+LineEnding+
-      'Comment=Bücherverwaltungsprogramm'+ LineEnding+
+      'Comment='+ rsAutostartCommentTitle + LineEnding+
       'Icon='+assetPath+'yellow48.png';
     if not FileExistsUTF8(GetUserDir+'.config/autostart/videlibri.desktop') then
       autostartInvalid:=true
@@ -216,9 +260,7 @@ begin
 
     if autostartInvalid then
       if not askBeforeChange then correctAutostart:=true
-      else correctAutostart:=Application.MessageBox('Der Autostarteintrag ist ungültig'#13#10+
-                      'Wenn er nicht geändert wird, können die Medien wahrscheinlich nicht automatisch verlängert werden.'#13#10+
-                      'Soll er nun geändert werden?','VideLibri',MB_YESNO) = IDYES;
+      else correctAutostart:=Application.MessageBox(pchar(Format(rsAutostartInvalidCorrect, [#13#10, #13#10])), 'VideLibri', MB_YESNO) = IDYES;
 
 
     {$IFDEF WIN32}
@@ -265,9 +307,8 @@ begin
                                                           ,'http://www.videlibri.de/updates/changelog.xml');
 
     if updater.existsUpdate then begin
-      if { (not auto) or} (Application.MessageBox(pchar('Es gibt ein Update auf die Version '+floattostr(updater.newestVersion/1000)+':'#13#10#13#10+
-                                              updater.listChanges+#13#10+
-                                              'Soll es jetzt heruntergeladen (und wenn möglich installiert) werden?'),'Videlibri Update', mb_yesno)=idyes) then begin
+      if { (not auto) or} (Application.MessageBox(pchar(Format(rsUpdateFound, [floattostr(updater.newestVersion/1000), #13#10#13#10,
+        updater.listChanges, #13#10])), 'Videlibri Update', mb_yesno)=idyes) then begin
 
         assert(mainForm<>nil);
                                                 //TODO:   update
@@ -275,14 +316,14 @@ begin
         Screen.cursor:=crHourglass;
         temp:=mainForm.StatusBar1.Panels[0].Text;
 
-        mainForm.StatusBar1.Panels[0].Text:='Bitte warten, Update wird heruntergeladen...';
+        mainForm.StatusBar1.Panels[0].Text:=rsUpdateDownloading;
         updater.downloadUpdate();
 
         if (updater.installerCmd<>'') and (updater.canRunInstaller) then begin
-          mainForm.StatusBar1.Panels[0].Text:='Bitte warten, Update wird installiert...';
+          mainForm.StatusBar1.Panels[0].Text:=rsUpdateBeingInstalled;
           updater.installUpdate();
         end else begin
-          ShowMessage('Update kann nicht automatisch installiert werden.'#13#10'Das Update wurde in der Datei '+updater.downloadedFileName+' gespeichert, die gleich im Explorer geöffnet wird.');
+          ShowMessage(Format(rsUpdateSaved, [LineEnding, updater.downloadedFileName]));
           updater.openFileBrowser;
         end;
 
@@ -293,15 +334,15 @@ begin
           mainForm.close;
           //TODO: update else PostMessage(tna.messageWindow,WM_CLOSE,0,0);
         end else if not auto then
-          Application.MessageBox('Update abgeschlossen','Videlibri Update', mb_ok);
+          Application.MessageBox(pchar(rsUpdateComplete), 'Videlibri Update', mb_ok);
       end;
     end else if not auto then
-      Application.MessageBox(pchar('Kein Update gefunden'#13#10'Die Version '+floattostr(updater.newestVersion/1000)+' ist die aktuelle.'),'Videlibri Update', mb_ok);
+      Application.MessageBox(pchar(Format(rsUpdateNone, [LineEnding, floattostr(updater.newestVersion/1000)])), 'Videlibri Update', mb_ok);
     updater.free;
     userConfig.WriteInteger('updates','lastcheck',currentDate);
   except
     on e: exception do
-      ShowMessage('Fehler: '+ e.Message);
+      ShowMessage(rsError +': '+ e.Message);
   end;
   if logging then log('applicationUpdate ended');
 end;

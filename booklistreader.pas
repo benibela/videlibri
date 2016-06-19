@@ -173,6 +173,15 @@ implementation
 uses math, bbdebugtools, simplehtmlparser, applicationconfig, xquery_json//<- enable JSON
   ;
 
+resourcestring
+  rsBookStatusInvalid = 'Ungültiger Bücherstatus: %s';
+  rsBookStatusAvailable = 'verfügbar';
+  rsBookStatusLend = 'ausgeliehen';
+  rsBookStatusVirtual = 'E-Book/sonstiges';
+  rsBookStatusPresentation = 'Präsenzbestand';
+  rsBookStatusInterloan = 'fernleihbar';
+
+
 const XMLNamespaceURL_VideLibri = 'http://www.benibela.de/2013/videlibri/';
 var XMlNamespaceVideLibri, XMlNamespaceVideLibri_VL: INamespace;
 
@@ -180,28 +189,28 @@ function BookStatusToStr(book: TBook;verbose:boolean=false): string;
 begin
   if book.lend  then begin
     case book.Status of
-      bsNormal: if verbose then exit('normal verlängerbar') else exit('');
-      bsUnknown: exit('Ausleihstatus unbekannt');
-      bsIsSearchedDONTUSETHIS: exit('Ausleihstatus wird ermittelt... (sollte nicht vorkommen, bitte melden!)');
+      bsNormal: if verbose then exit(rsBookStatusNormalRenewable) else exit('');
+  //    bsUnknown: exit('Ausleihstatus unbekannt');
+  //    bsIsSearchedDONTUSETHIS: exit('Ausleihstatus wird ermittelt... (sollte nicht vorkommen, bitte melden!)');
   //    bsEarMarked:exit('vorgemerkt');
   //    bsMaxLimitReached: exit('maximale Ausleihfrist erreicht');
   //    bsAccountExpired: exit('Büchereikarte ist abgelaufen');
-      bsCuriousInStr: if verbose then exit('verlängerbar: '+book.statusStr) else exit(book.statusStr);
-      bsProblematicInStr: if verbose then exit('nicht verlängerbar: '+book.statusStr) else exit(book.statusStr);
-      bsOrdered: if book.statusStr <> '' then exit(book.statusStr) else exit('vorgemerkt');
-      bsProvided: if book.statusStr <> '' then exit(book.statusStr) else exit('zur Abholung bereit');
-      bsAvailable, bsLend, bsVirtual, bsPresentation, bsInterLoan: exit('nicht ausgeliehen')
-      else exit('Unbekannter Fehler, bei Ausleihstatusermittlung! Bitte melden!');
+      bsCuriousInStr: if verbose then exit(rsRenewable + ': '+book.statusStr) else exit(book.statusStr);
+      bsProblematicInStr: if verbose then exit(rsBookStatusNonRenewable + ': '+book.statusStr) else exit(book.statusStr);
+      bsOrdered: if book.statusStr <> '' then exit(book.statusStr) else exit(rsBookStatusOrdered);
+      bsProvided: if book.statusStr <> '' then exit(book.statusStr) else exit(rsBookStatusProvided);
+      bsAvailable, bsLend, bsVirtual, bsPresentation, bsInterLoan: exit(rsBookStatusNotLend)
+      else exit(format(rsBookStatusInvalid, [inttostr(ord(book.status))]));
     end;
-    if verbose then exit('nicht ausgeliehen') else exit('');
+    if verbose then exit(rsBookStatusNotLend) else exit('');
   end else
     case book.Status of
       bsNormal, bsUnknown, bsCuriousInStr: exit(book.statusStr);
-      bsAvailable: exit('verfügbar');
-      bsLend: exit('ausgeliehen');
-      bsVirtual: exit('E-Book/sonstiges');
-      bsPresentation: exit('Präsenzbestand');
-      bsInterLoan: exit('fernleihbar');
+      bsAvailable: exit(rsBookStatusAvailable);
+      bsLend: exit(rsBookStatusLend);
+      bsVirtual: exit(rsBookStatusVirtual);
+      bsPresentation: exit(rsBookStatusPresentation);
+      bsInterLoan: exit(rsBookStatusInterloan);
       else exit('???????');
     end;
 end;
@@ -430,7 +439,7 @@ begin
           'virtual': status:=bsVirtual;
           'presentation': status:=bsPresentation;
           'interloan': status:=bsInterLoan;
-          else EBookListReader.create('Ungültiger Bücherstatus: '+value);
+          else EBookListReader.create(Format(rsBookStatusInvalid, [value]));
         end;
     'cancelable': if (value <> '') and (value <> '0') and not striEqual(value, 'false') and (value <> '?') then cancelable:=tTrue
                  else if value = '?' then cancelable:=tUnknown
@@ -1217,8 +1226,8 @@ begin
   reader := (context.staticContext as TXQVideLibriStaticContext).bookListReader;
   book := reader.books.findBook(query.getProperty('id').toString, query.getProperty('author').toString, query.getProperty('title').toString, query.getProperty('year').toString);
   if book = nil then
-    raise EBookListReader.create('Das Template wollte dieses Buch auswählen, aber es wurde nicht gefunden: ' + query.jsonSerialize(tnsText) +
-                                  LineEnding + 'Vielleicht ist es schon abgegeben?');
+    raise EBookListReader.create('Failed to find book: ' + query.jsonSerialize(tnsText) +
+                                  LineEnding + 'Perhaps it was returned?');
   result := reader.bookToPXP(book);
 end;
 

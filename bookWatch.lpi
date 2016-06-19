@@ -187,6 +187,7 @@
       <Unit9>
         <Filename Value="tnaaccess.pas"/>
         <IsPartOfProject Value="True"/>
+        <UnitName Value="tnaAccess"/>
       </Unit9>
       <Unit10>
         <Filename Value="libraryaccess.pas"/>

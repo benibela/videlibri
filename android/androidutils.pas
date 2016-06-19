@@ -12,7 +12,7 @@ Classes, SysUtils,  IniFiles,applicationconfig{$ifdef android}, jni, bbjniutils,
 var assetPath: string;
 
 procedure beginAssetRead;
-function assetFileAsString(name: string): string;
+function assetFileAsString(name: rawbytestring): RawByteString;
 procedure endAssetRead;
 
 function iniFileFromString(data: string): TIniFile;
@@ -36,6 +36,18 @@ implementation
 uses bbutils, accountlist, bbdebugtools, libraryAccess, simplehtmltreeparser, math;
 
 threadvar skippedpaths: TStringArray;
+
+resourcestring
+  rsAlertTitleOverdueOne = '1 überfälliges Buch!';
+  rsAlertTitleOverdueMany = '%d überfällige Bücher!';
+  rsAlertTextOverdueOne = '1 Buch seit %1:s';
+  rsAlertTextOverdueMany = '%d Bücher seit %1:s';
+  rsAlertTitleSoonOne = '1 fälliges Buch';
+  rsAlertTitleSoonMany = '%d fällige Bücher';
+  rsAlertTextDueOne = '1 Buch fällig bis %1:s';
+  rsAlertTextDueMany = '%d Bücher fällig bis %1:s';
+  rsAlertTextRenewableDueOne = '1 verlängerbares Buch fällig bis %1:s';
+  rsAlertTextRenewableDueMany = '%d verlängerbares Bücher fällig bis %1:s';
 
 function testAssetVersion(const res: string): boolean;
   function readAttrib(pos: integer): string;
@@ -75,7 +87,7 @@ begin
   if skip and (maxVersion <> -1) and (maxVersion < versionNumber) then result := false; //ABORT!
 end;
 
-function userAssetFileAsString(name: string; var res: string): boolean;
+function userAssetFileAsString(name: rawbytestring; var res: RawByteString): boolean;
 begin
   if length(skippedpaths) > 0 then begin
     if arrayContains(skippedpaths, copy(name, 1, max(strRpos('/', name), strRpos(DirectorySeparator, name)))) then
@@ -91,7 +103,7 @@ begin
 end;
 
 {$ifndef android}
-function assetFileAsString(name: string): string;
+function assetFileAsString(name: rawbytestring): RawByteString;
 begin
   if userAssetFileAsString(name, result) then exit;
   result := strLoadFromFileUTF8(assetPath + name);
@@ -142,7 +154,7 @@ var assets: jobject = nil;
     importExportDataFields: record
       accountsToImportAL, flagsI, nativePtrJ: jfieldID;
     end;
-function assetFileAsString(name: string): string;
+function assetFileAsString(name: rawbytestring): RawByteString;
 begin
   if userAssetFileAsString(name, result) then exit;
   beginAssetRead;
@@ -1076,16 +1088,12 @@ begin
 end;
 
 function Java_de_benibela_VideLibri_Bridge_VLGetNotifications(env:PJNIEnv; this:jobject): jobject;
-    function grammar(number: integer): string;
-    begin
-      if number = 1 then exit('1 Buch')
-      else exit(IntToStr(number)+' Bücher');
-    end;
-    function grammar(number: integer; adjective:string): string;
-    begin
-      if number = 1 then exit('1 '+adjective+'s Buch')
-      else exit(IntToStr(number)+' '+adjective+' Bücher');
-    end;
+  function plural(count: integer; sing, plur: string): string;
+  begin
+    if count = 1 then result := sing
+    else result := plur;
+  end;
+
 var title, text: string;
   booksOverdue: TList;
   booksSoonNotExtendable: TList;
@@ -1107,21 +1115,18 @@ begin
     if ((lastWarnDate + WarnInterval <= currentDate) and (booksOverdue.Count + booksSoonNotExtendable.Count + booksSoon.Count > 0))
        or (booksOverdue.Count > 0) then begin
       if booksOverdue.Count > 0 then begin
-        title := grammar(booksOverdue.Count, 'überfällige')+' ! ';
-        text := format('%s seit %s' + LineEnding,
-                      [grammar(booksOverdue.Count), DateToPrettyGrammarStr('dem ','',minDateOverdue)]);
+        title := format(plural(booksOverdue.Count, rsAlertTitleOverdueOne, rsAlertTitleOverdueMany), [booksOverdue.Count]) + ' ';
+        text :=  format(plural(booksOverdue.Count, rsAlertTextOverdueOne,  rsAlertTextOverdueMany), [booksOverdue.Count, DateToPrettyStrGrammarDateItself(minDateOverdue)])
       end;
       if (booksSoonNotExtendable.Count > 0) or (booksSoon.Count > 0) then begin
-        title += grammar(booksSoonNotExtendable.Count+booksSoon.Count, 'fällige');
+        title += format(plural(booksSoonNotExtendable.Count+booksSoon.Count, rsAlertTitleSoonOne, rsAlertTitleSoonMany), [booksSoonNotExtendable.Count+booksSoon.Count]);
         if booksSoonNotExtendable.Count > 0 then begin
           if text <> '' then text += '; ';
-          text += format('%s bis %s',
-                        [grammar(booksSoonNotExtendable.Count), DateToPrettyGrammarStr('zum ','',minDateSoonNotExtendable)]);
+          text +=  format(plural(booksSoonNotExtendable.Count, rsAlertTextDueOne,  rsAlertTextDueMany), [booksSoonNotExtendable.Count, DateToPrettyStrGrammarFuture(minDateSoonNotExtendable)])
         end;
         if booksSoon.Count > 0 then begin
           if text <> '' then text += '; ';
-          text += format('%s bis %s',
-                       [grammar(booksSoon.Count, 'verlängerbare'), DateToPrettyGrammarStr('zum ','',minDateSoon)]);
+          text +=  format(plural(booksSoon.Count, rsAlertTextRenewableDueOne,  rsAlertTextRenewableDueMany), [booksSoon.Count, DateToPrettyStrGrammarFuture(minDateSoon)])
         end;
       end;
     end;

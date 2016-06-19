@@ -214,9 +214,40 @@ type
 var
   optionForm: ToptionForm;
 
+ResourceString
+  rsDisabled = '!DEAKTIVIERT!';
+  rsBeforeDue = '%s Tage vor Frist';
+
+
+
+
 implementation
 
 uses newAccountWizard_u, applicationconfig, applicationdesktopconfig, simplehtmltreeparser, androidutils, multipagetemplate, bbutils, internetaccess, simpleinternet,math;
+
+ResourceString
+  rsAccountDeletion = 'Kontolöschung';
+  rsAccountDeletionConfirm = 'Soll auf diesem Computer das Konto %s - %s wirklich gelöscht werden?    %sDadurch werden auch alle '
+    +'gespeicherten Bücherdaten dieses Kontos gelöscht   ';
+  rsTemplateDelete = 'Soll das System "%s" wirklich gelöscht werden?';
+  rsInstallLibTemplate = 'Geben Sie die Adresse des von der Bibliothek zur Verfügung gestellten Templates ein:';
+  rsTemplateInstalled = 'Template installiert';
+  rsTemplateNotFound = 'Template nicht gefunden: %s';
+  rsHasTheLibOwnTemplate = 'Stellt die Bibliothek ein eigenes VideLibri-Template zur Verfügung?';
+  rsLibNamePrompt = 'Geben Sie den Namen der Bibliothek ein';
+  rsLibSystemPrompt = 'Welches System verwendet die Bibliothek?%sDie folgenden Systeme stehen zur Auswahl: %s';
+  rsVariablePromptOptional = 'Es kann ein Wert für die optionale Variable "%s" gesetzt werden. (%s)';
+  rsVariablePrompt = 'Das Template benötigt einen Wert für die Variable "%s". (%s)';
+  rsLibConfirmSave = 'Bibliotheksdaten erstellt. Um sie zu speichern, klicken Sie auf "Bibliothek speichern"';
+  rsLibDeleteConfirm = 'Wollen Sie die Bücherei %s löschen?';
+  rsAccountChange = 'Kontoänderung';
+  rsAccountSaveConfirm = 'Die Kontodaten für das momentan markierte Konto wurden geändert.    %sSollen sie gespeichert werden?';
+  rsDidYouMeanThisAccount = 'Meinen sie dieses Konto: %s    Kontoname: %s%s    Kontonummer: %s';
+  rsAutoRenewing = 'Automatische Aktualisierung:';
+  rsAutoRenewAlways = '%sbei jedem Start';
+  rsAutoRenewDaily = '%smaximal einmal pro Tag';
+  rsAutoRenewInterval = '%smaximal alle %s Tage';
+  rsWarning = 'Anzeige einer Warnung:';
 
 
 
@@ -229,15 +260,15 @@ begin
     SubItems.add(account.getUser());
     SubItems.add(account.passWord);
     if account.keepHistory then
-      SubItems.add('ja')
+      SubItems.add(rsYes)
      else
-      SubItems.add('nein');
+      SubItems.add(rsNo);
     if not account.enabled then
-      SubItems.add('!DEAKTIVIERT!')
+      SubItems.add(rsDisabled)
      else case account.extendType of
-      etAlways: SubItems.add('immer');
-      etAllDepends,etSingleDepends: SubItems.add(IntToStr(account.extendDays)+' Tage vor Frist');
-      etNever: SubItems.add('niemals');
+      etAlways: SubItems.add(rsAlways);
+      etAllDepends, etSingleDepends: SubItems.add(Format(rsBeforeDue, [IntToStr(account.extendDays)]));
+      etNever: SubItems.add(rsNever);
     end;
     subItems.Add(account.getLibrary().prettyNameShort);
     data:=account;
@@ -283,13 +314,14 @@ begin
       if edtAccountUser.Text=currentLib.getUser() then begin
         newLibIndex:=i;
         break;
-      end else if prompt and (MessageDlg('Nachfrage','Meinen sie dieses Konto: '#13#10'    Kontoname: '+currentLib.prettyName+#13#10'    Kontonummer: '+currentLib.getUser(),
+      end else if prompt and (MessageDlg('VideLibri', Format(rsDidYouMeanThisAccount, [#13#10, currentLib.prettyName, #13#10,
+        currentLib.getUser()]),
                 mtConfirmation ,[mbYes,mbNo],0)=mrYes) then begin
         newLibIndex:=i;
         break;
       end;
     end else if (edtAccountUser.Text=currentLib.getUser()) and prompt and
-                (MessageDlg('Nachfrage','Meinen sie dieses Konto: '#13#10'    Kontoname: '+currentLib.prettyName+#13#10'    Kontonummer: '+currentLib.getUser(),
+                (MessageDlg('VideLibri', Format(rsDidYouMeanThisAccount, [#13#10, currentLib.prettyName, #13#10, currentLib.getUser()]),
                 mtConfirmation ,[mbYes,mbNo],0)=mrYes) then begin
       newLibIndex:=i;
       break;
@@ -650,22 +682,28 @@ begin
 end;
 
 procedure ToptionForm.TrackBar1Change(Sender: TObject);
+var
+  s: String;
 begin
   lblRefreshTIming.Left:=TrackBar1.left+15+(TrackBar1.width-15)*(TrackBar1.Position-TrackBar1.min) div (TrackBar1.Max-TrackBar1.min)-lblRefreshTIming.Width div 2;
+  s := rsAutoRenewing + LineEnding;
   case TrackBar1.Position of
-    0: lblRefreshTIming.Caption:='Automatische Aktualisierung:'#13#10'bei jedem Start';
-    1: lblRefreshTIming.Caption:='Automatische Aktualisierung:'#13#10'maximal einmal pro Tag';
-    else lblRefreshTIming.Caption:='Automatische Aktualisierung:'#13#10'maximal alle '+IntToStr(TrackBar1.Position)+' Tage';
+    0: lblRefreshTIming.Caption:=Format(rsAutoRenewAlways, [s]);
+    1: lblRefreshTIming.Caption:=Format(rsAutoRenewDaily, [s]);
+    else lblRefreshTIming.Caption:=Format(rsAutoRenewInterval, [s, IntToStr(TrackBar1.Position)]);
   end;
 end;
 
 procedure ToptionForm.TrackBar2Change(Sender: TObject);
+var
+  s: String;
 begin
  lblShowWarning.Left:=TrackBar2.left+15+(TrackBar2.width-15)*(TrackBar2.Position-TrackBar2.min) div (TrackBar2.Max-TrackBar2.min)-lblShowWarning.Width div 2;
+ s := rsWarning + LineEnding;
  case TrackBar2.Position of
-   0: lblShowWarning.Caption:='Anzeige einer Warnung:'#13#10'bei jedem Start';
-   1: lblShowWarning.Caption:='Anzeige einer Warnung:'#13#10'maximal einmal pro Tag';
-   else lblShowWarning.Caption:='Anzeige einer Warnung:'#13#10'maximal alle '+IntToStr(TrackBar2.Position)+' Tage';
+   0: lblShowWarning.Caption:=Format(rsAutoRenewAlways, [s]);
+   1: lblShowWarning.Caption:=Format(rsAutoRenewDaily, [s]);
+   else lblShowWarning.Caption:=Format(rsAutoRenewInterval, [s, IntToStr(TrackBar2.Position)]);
  end;
 
 end;
@@ -682,10 +720,10 @@ begin
   ckbAccountHistory.Checked:=item.SubItems[2]='ja';
   ckbAccountDisabled.Checked:=not currentSelectedAccount.enabled;
   if currentSelectedAccount.getLibrary().canModifySingleBooks then begin
-    cmbAccountExtend.items.Text:='immer, wenn möglich'#13#10'alle, wenn nötig'#13#10'einzeln, wenn nötig'#13#10'niemals';
+    cmbAccountExtend.items.Text:=Format(rsRenewOptions, [#13#10, #13#10, #13#10]);
     cmbAccountExtend.ItemIndex:=longint(TCustomAccountAccess(item.data).extendType);
   end else begin
-    cmbAccountExtend.items.Text:='immer, wenn möglich'#13#10'immer, wenn nötig'#13#10'niemals';
+    cmbAccountExtend.items.Text:=Format(rsRenewOptionsNoSingle, [#13#10, #13#10]);
     case currentSelectedAccount.extendType of
       etAlways: cmbAccountExtend.ItemIndex:=0;
       etAllDepends,etSingleDepends: cmbAccountExtend.ItemIndex:=1;
@@ -720,11 +758,11 @@ begin
   lib.extendType:=currentSelectedExtendType;
   lib.extendDays:=StrToInt(edtAccountExtendDays.Text);
   lib.enabled:=not ckbAccountDisabled.Checked;
-  if not lib.enabled then accountList.selected.SubItems[3]:='!DEAKTIVIERT!'
+  if not lib.enabled then accountList.selected.SubItems[3]:=rsDisabled
   else case currentSelectedExtendType of
-    etAlways: accountList.selected.SubItems[3]:='immer';
-    etAllDepends,etSingleDepends: accountList.selected.SubItems[3]:=IntToStr(currentSelectedAccount.extendDays)+' Tage vor Frist';
-    etNever: accountList.selected.SubItems[3]:='niemals';
+    etAlways: accountList.selected.SubItems[3]:=rsAlways;
+    etAllDepends, etSingleDepends: accountList.selected.SubItems[3]:=Format(rsBeforeDue, [IntToStr(currentSelectedAccount.extendDays)]);
+    etNever: accountList.selected.SubItems[3]:=rsNever;
   end;
   if edtAccountUser.text<>item.SubItems[0] then begin
     lib.changeUser(edtAccountUser.text);
@@ -737,9 +775,9 @@ begin
   item.SubItems[0]:=edtAccountUser.Text;
   item.SubItems[1]:=edtAccountPass.Text;
   if ckbAccountHistory.Checked then
-    item.SubItems[2]:='ja'
+    item.SubItems[2]:=rsYes
    else
-    item.SubItems[2]:='nein';
+    item.SubItems[2]:=rsNo;
 end;
 
 procedure ToptionForm.btnAccountCreateClick(Sender: TObject);
@@ -794,7 +832,7 @@ var selLib: TCustomAccountAccess;
 begin
   selLib:=backSelect(true);
   if selLib=nil then exit;
-  if MessageDlg('Konto löschung','Soll auf diesem Computer das Konto '+edtAccountPrettyName.text+' - '+edtAccountUser.text+' wirklich gelöscht werden?    '#13#10'Dadurch werden auch alle gespeicherten Bücherdaten dieses Kontos gelöscht   ',
+  if MessageDlg(rsAccountDeletion, Format(rsAccountDeletionConfirm, [edtAccountPrettyName.text, edtAccountUser.text, #13#10]),
                 mtConfirmation ,[mbYes,mbNo],0)=mrYes then begin
     accounts.Delete(accountList.Selected.Index);
     accounts.save;
@@ -807,7 +845,7 @@ end;
 
 procedure ToptionForm.Button11Click(Sender: TObject);
 begin
-  if confirm(format('Soll das System "%s" wirklich gelöscht werden?', [templateName.Text])) then begin
+  if confirm(format(rsTemplateDelete, [templateName.Text])) then begin
     DeleteFile(userPath+'libraries/templates/'+templateName.Text+'/template');
     RemoveDir(userPath+'libraries/templates/'+templateName.Text);
     if (templateList.Items.IndexOf(templateName.text) >= 0) and not DirectoryExists(assetPath+'libraries/templates/'+templateName.text) then
@@ -845,7 +883,7 @@ procedure ToptionForm.libAddClick(Sender: TObject);
     url: String;
   begin
     url := '';
-    if not InputQuery('VideLibri', 'Geben Sie die Adresse des von der Bibliothek zur Verfügung gestellten Templates ein:', url) then exit;
+    if not InputQuery('VideLibri', rsInstallLibTemplate, url) then exit;
     try
 
       lib := libraryManager.downloadAndInstallUserLibrary(url);
@@ -855,11 +893,11 @@ procedure ToptionForm.libAddClick(Sender: TObject);
           templateList.Items.add(lib.template.name);;
       end;
 
-      ShowMessage('Template installiert')
+      ShowMessage(rsTemplateInstalled)
     except on e: EInternetException do
-      ShowMessage('Template nicht gefunden: '+e.Message);
+      ShowMessage(Format(rsTemplateNotFound, [e.Message]));
     on e: ELibraryException do
-      ShowMessage('Template nicht gefunden: '+e.Message);
+      ShowMessage(Format(rsTemplateNotFound, [e.Message]));
     end;
   end;
 
@@ -877,13 +915,13 @@ var
 
 label systemWrong;
 begin
-  if confirm('Stellt die Bibliothek ein eigenes VideLibri-Template zur Verfügung?') then begin
+  if confirm(rsHasTheLibOwnTemplate) then begin
     downloadAndInstallTemplate;
     exit;
   end;
 
   libname := '';
-  if not InputQuery('VideLibri', 'Geben Sie den Namen der Bibliothek ein', libname) then exit;
+  if not InputQuery('VideLibri', rsLibNamePrompt, libname) then exit;
   system := '';
   systems := '';
   for i := 0 to templateList.Items.Count - 1 do begin
@@ -893,7 +931,7 @@ begin
   end;
 
   systemWrong:
-  if not InputQuery('VideLibri', 'Welches System verwendet die Bibliothek?'+LineEnding+'Die folgenden Systeme stehen zur Auswahl: '+LineEnding+systems, system) then
+  if not InputQuery('VideLibri', Format(rsLibSystemPrompt, [LineEnding, LineEnding+systems]), system) then
     exit;
   if templateList.Items.IndexOf(system) < 0 then goto systemWrong;
 
@@ -912,13 +950,13 @@ begin
     for i := 0 to high(meta.variables) do begin
       vari := meta.variables[i].def;
       if meta.variables[i].hasDef then begin
-        desc := format('Es kann ein Wert für die optionale Variable "%s" gesetzt werden. (%s)', [meta.variables[i].name, meta.variables[i].description]);
+        desc := format(rsVariablePromptOptional, [meta.variables[i].name, meta.variables[i].description]);
         if not InputQuery('VideLibri', desc, vari) then exit;
         if vari <> meta.variables[i].def then
           result += '  <variable name="'+xmlStrEscape(meta.variables[i].name)+'" value="'+xmlStrEscape(vari)+'"/>'+LineEnding;
       end
       else begin
-        desc := format('Das Template benötigt einen Wert für die Variable "%s". (%s)', [meta.variables[i].name, meta.variables[i].description]);
+        desc := format(rsVariablePrompt, [meta.variables[i].name, meta.variables[i].description]);
         if not InputQuery('VideLibri', desc, vari) then exit;
         result += '  <variable name="'+xmlStrEscape(meta.variables[i].name)+'" value="'+xmlStrEscape(vari)+'"/>'+LineEnding;
       end;
@@ -928,7 +966,7 @@ begin
 
   result += '</library>' + LineEnding;
 
-  ShowMessage('Bibliotheksdaten erstellt. Um sie zu speichern, klicken Sie auf "Bibliothek speichern"');
+  ShowMessage(rsLibConfirmSave);
 
   libxml.text := result;
 end;
@@ -950,7 +988,7 @@ var
   trueId: String;
   i: Integer;
 begin
-  if not confirm('Wollen Sie die Bücherei '+libNameEdit.Text+' löschen?') then exit;
+  if not confirm(Format(rsLibDeleteConfirm, [libNameEdit.Text])) then exit;
   if (libList.Selected <> nil) and (libList.Selected.Caption = libNameEdit.Text) then trueid := TLibrary(libList.Selected.Data).id
   else trueId := '-_-_-_'+trim(libNameEdit.text);
   libraryManager.deleteUserLibrary(trueid);
@@ -1005,7 +1043,7 @@ begin
          (currentSelectedExtendType<>TCustomAccountAccess(accountList.Selected.Data).extendType) or (
            (currentSelectedExtendType in [etAllDepends,etSingleDepends]) and
            (StrToInt(edtAccountExtendDays.text)<>TCustomAccountAccess(accountList.Selected.Data).extendDays))) then
-       if MessageDlg('Kontoänderung','Die Kontodaten für das momentan markierte Konto wurden geändert.    '#13#10'Sollen sie gespeichert werden?',
+       if MessageDlg(rsAccountChange, Format(rsAccountSaveConfirm, [#13#10]),
           mtConfirmation,mbYesNo,0)=mrYes then
         btnAccountChange.Click;
   end;

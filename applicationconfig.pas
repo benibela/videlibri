@@ -90,9 +90,24 @@ var programPath,userPath:string;
 
   function DateToSimpleStr(const date: tdatetime):string;
   function DateToPrettyStr(const date: tdatetime):string;
-  function DateToPrettyGrammarStr(preDate,preName:string;const date: tdatetime):string;
+  function DateToPrettyStrGrammarPast(const date: tdatetime): string;
+  function DateToPrettyStrGrammarDateItself(const date: tdatetime): string;
+  function DateToPrettyStrGrammarFuture(const date: tdatetime): string;
+
+resourcestring
+  rsRenewable = 'verlängerbar';
+  rsLastRenewDate = 'Älteste angezeigte Daten sind %s';
+  rsBookStatusNotLend = 'abgegeben';
+  rsBookStatusNormalRenewable = 'normal/verlängerbar';
+  rsBookStatusUnknown = 'unbekannt';
+  rsBookStatusNonRenewable = 'nicht verlängerbar';
+  rsBookStatusOrdered = 'vorgemerkt';
+  rsBookStatusProvided = 'bereitgestellt'; // 'zur Abholung bereit'
+  rsNeverLend = 'nie';
+  rsLendHistory = 'erledigt';
+  rsUnknown = 'unbekannt';
 implementation
-uses internetaccess,libraryaccess,math,FileUtil,bbutils,bbdebugtools,androidutils,
+uses internetaccess,libraryaccess,math,FileUtil,bbutils,bbdebugtools,androidutils ,
   {$IFDEF WIN32}
   windows,synapseinternetaccess,w32internetaccess
   {$ELSE}
@@ -103,6 +118,38 @@ uses internetaccess,libraryaccess,math,FileUtil,bbutils,bbdebugtools,androidutil
   {$ENDIF}
   {$ENDIF}
   ;
+
+resourcestring
+  rsParamAutostart = 'Gibt an, ob das Programm automatisch gestartet wurde.';
+  rsParamAlwaysStart = 'Startet das Program auch, wenn es schon läuft.';
+  rsParamMinimize = 'Gibt an, ob das Programm minimiert gestartet werden soll.';
+  rsParamUpdateComplete = 'Das Programm wurde auf Version ($1) aktualisiert (ACHTUNG: veraltet)';
+  rsParamDebugAddress = 'Wandelt in der Debugversion eine Adresse in eine Funktionszeile um';
+  rsParamLog = 'Zeichnet alle Aktionen auf';
+  rsParamHttpLogPath = 'Pfad wo alle heruntergeladenen Dateien gespeichert werden sollen';
+  rsParamRefresh = 'Aktualisiert alle Medien';
+  rsParamTemplate = 'Führt ein Template aus (benötigt Datei)';
+  rsParamPattern = 'Datei für das Template von debug-single-template';
+  rsParamConfig = 'Pfad für Benutzereinstellungen';
+  rsParamDebug = 'Aktiviert einige debug-Funktionen';
+  rsProgramPathNotFound = 'Programmpfad "%s" wurde nicht gefunden';
+  rsConfigPathNotFound = 'Datenpfad "%s" wurde nicht gefunden';
+  rsProgramPathNotFoundAndInvalid = 'Benutzerpfad "%s" wurde nicht gefunden und konnte nicht erzeugt werden';
+  rsNeverDate = 'nie';
+  rsDateGrammarRelativeDateFuture = '%s';
+  rsDateGrammarAbsoluteDateFuture = 'zum %s';
+  rsDateGrammarRelativeDateItself = '%s';
+  rsDateGrammarAbsoluteDateItself = 'dem %s';
+  rsDateGrammarRelativeDatePast = 'von %s';
+  rsDateGrammarAbsoluteDatePast = 'vom %s';
+  rsBeforeYesterday = 'vorgestern';
+  rsYesterday = 'gestern';
+  rsToday = 'heute';
+  rsTomorrow = 'morgen';
+  rsAfterTomorrow = 'übermorgen';
+  rsErrorCheckInternet = 'Bitte überprüfen Sie Ihre Internetverbindung.';
+  rsErrorBacktrace = 'Detaillierte Informationen über die entsprechende Quellcodestelle:';
+
 
   procedure addErrorMessage(errorStr,errordetails, anonymouseDetails, libraryId, searchQuery:string;lib:TCustomAccountAccess=nil);
   var i:integer;
@@ -133,7 +180,8 @@ uses internetaccess,libraryaccess,math,FileUtil,bbutils,bbdebugtools,androidutil
     errordetails:='';
     anonymousDetails:='';
     if exception is EInternetException then begin
-      errorstr:=exception.message+#13#10#13#10+'Bitte überprüfen Sie Ihre Internetverbindung.';
+      errorstr:=exception.message+LineEnding;
+      errorStr += rsErrorCheckInternet;
       errordetails:=EInternetException(exception).details;
      end {else if exception is ELoginException then begin
       errorstr:=#13#10+exception.message;
@@ -151,7 +199,7 @@ uses internetaccess,libraryaccess,math,FileUtil,bbutils,bbdebugtools,androidutil
       errorstr:=//'Es ist folgender Fehler aufgetreten:      '#13#10+
            exception.className()+': '+ exception.message+'     ';
      end;
-    errordetails:=errordetails+#13#10'Detaillierte Informationen über die entsprechende Quellcodestelle:'#13#10+ BackTraceStrFunc(ExceptAddr);
+    errordetails:=errordetails+#13#10  +rsErrorBacktrace+ #13#10+ BackTraceStrFunc(ExceptAddr);
     for i:=0 to ExceptFrameCount-1 do
       errordetails:=errordetails+#13#10+BackTraceStrFunc(ExceptFrames[i]);
     if logging then log('createErrorMessageStr: Exception: '+errorstr+#13#10'      Details: '+errordetails);
@@ -212,8 +260,8 @@ uses internetaccess,libraryaccess,math,FileUtil,bbutils,bbdebugtools,androidutil
     end;
     nextLimitStr:=DateToPrettyStr(nextLimit);
     if nextLimit<>nextNotExtendableLimit then
-      nextLimitStr:=nextLimitStr+' (verlängerbar)';
-    callbacks.statusChange('Älteste angezeigte Daten sind '+dateToPrettyGrammarStr('vom ','von ',lastCheck));
+      nextLimitStr:=nextLimitStr+ ' (' + rsRenewable + ')';
+    callbacks.statusChange(Format(rsLastRenewDate, [DateToPrettyStrGrammarPast(lastCheck)]));
   end;
   procedure updateActiveInternetConfig;
   begin
@@ -289,24 +337,18 @@ uses internetaccess,libraryaccess,math,FileUtil,bbutils,bbdebugtools,androidutil
 
     //Kommandozeile lesen
     commandLine:=TCommandLineReader.create;
-    commandLine.declareFlag('autostart','Gibt an, ob das Programm automatisch gestartet wurde.');
-    commandLine.declareFlag('start-always','Startet das Program auch, wenn es schon läuft.');
-    commandLine.declareFlag('minimize','Gibt an, ob das Programm minimiert gestartet werden soll.');
-    commandLine.declareInt('updated-to','Das Programm wurde auf Version ($1) aktualisiert (ACHTUNG: veraltet)',0);
-    commandLine.declareInt('debug-addr-info','Wandelt in der Debugversion eine Adresse in eine Funktionszeile um',0);
-    commandLine.declareFlag('log','Zeichnet alle Aktionen auf',false);
-    commandLine.declareString               ('http-log-path','Pfad wo alle heruntergeladenen Dateien gespeichert werden sollen','');
-    commandLine.declareFlag('refreshAll','Aktualisiert alle Medien',false);
-    commandLine.declareString('debug-html-template','Führt ein Template aus (benötigt Datei)','');
-    commandLine.declareString('on','Datei für das Template von debug-single-template','');
-    commandLine.declareString('user-path','Pfad für Benutzereinstellungen','');
-    commandLine.declareFlag('debug','Aktiviert einige debug-Funktionen');
-
-    {if commandLine.readString('debug-html-template')<>'' then begin
-      checkHTMLTemplate(commandLine.readString('debug-html-template'),commandLine.readString('on'));
-      cancelStarting:=true;
-      exit;
-    end; ??}
+    commandLine.declareFlag('autostart', rsParamAutostart);
+    commandLine.declareFlag('start-always', rsParamAlwaysStart);
+    commandLine.declareFlag('minimize', rsParamMinimize);
+    commandLine.declareInt('updated-to', rsParamUpdateComplete, 0);
+    commandLine.declareInt('debug-addr-info', rsParamDebugAddress, 0);
+    commandLine.declareFlag('log', rsParamLog, false);
+    commandLine.declareString               ('http-log-path', rsParamHttpLogPath, '');
+    commandLine.declareFlag('refreshAll', rsParamRefresh, false);
+    commandLine.declareString('debug-html-template', rsParamTemplate, '');
+    commandLine.declareString('on', rsParamPattern, '');
+    commandLine.declareString('user-path', rsParamConfig, '');
+    commandLine.declareFlag('debug', rsParamDebug);
 
     //Überprüft, ob das Programm schon gestart ist, und wenn ja, öffnet dieses
     {$IFDEF WIN32}
@@ -343,14 +385,14 @@ uses internetaccess,libraryaccess,math,FileUtil,bbutils,bbdebugtools,androidutil
 
     {$ifndef android}
     if not DirectoryExists(programPath) then
-      raise EInitializationError.create('Programmpfad "'+programPath+'" wurde nicht gefunden');
+      raise EInitializationError.create(Format(rsProgramPathNotFound, [programPath]));
     if not DirectoryExists(assetPath) then begin
       {$ifdef UNIX}
       if DirectoryExists('/usr/share/videlibri/data/') then
         assetPath:='/usr/share/videlibri/data/'
        else
       {$endif}
-      raise EInitializationError.Create('Datenpfad "'+assetPath+'" wurde nicht gefunden');
+      raise EInitializationError.Create(Format(rsConfigPathNotFound, [assetPath]));
     end;
     if logging and (not FileExists(assetPath+'machine.config')) then
       log('machine.config will be created');
@@ -385,9 +427,9 @@ uses internetaccess,libraryaccess,math,FileUtil,bbutils,bbdebugtools,androidutil
         ForceDirectories(userPath);
         if logging then log('user path: '+userPath+' should be created');
         if not DirectoryExists(userPath) then
-          raise EInitializationError.Create('Benutzerpfad "'+userPath+'" wurde nicht gefunden und konnte nicht erzeugt werden');
+          raise EInitializationError.Create(Format(rsProgramPathNotFoundAndInvalid, [userPath]));
        except
-         raise EInitializationError.Create('Benutzerpfad "'+userPath+'" wurde nicht gefunden und konnte nicht erzeugt werden');
+         raise EInitializationError.Create(Format(rsProgramPathNotFoundAndInvalid, [userPath]));
        end;
     end;
 
@@ -406,14 +448,14 @@ uses internetaccess,libraryaccess,math,FileUtil,bbutils,bbdebugtools,androidutil
     libraryManager:=TLibraryManager.create();
     libraryManager.init(userPath);
     if libraryManager.enumeratePrettyLongNames()='' then
-      raise EXCEPTION.Create('Keine Büchereitemplates im Verzeichnis '+assetPath+' vorhanden');
+      raise EXCEPTION.Create('No templates in '+assetPath);
 
     accounts:=TAccountList.create(userPath+'account.list', libraryManager);
     accounts.load;
 
     nextLimitStr:=DateToPrettyStr(nextLimit);
     if nextLimit<>nextNotExtendableLimit then
-      nextLimitStr:=nextLimitStr+' (verlängerbar)';
+      nextLimitStr:=nextLimitStr+' ('+rsRenewable+')';
 
 
     if commandLine.readInt('debug-addr-info')<>0 then begin
@@ -499,30 +541,45 @@ uses internetaccess,libraryaccess,math,FileUtil,bbutils,bbdebugtools,androidutil
 
   function DateToPrettyStr(const date: tdatetime):string;
   begin
-    if date=-2 then result:='nie'
-    else if date=0 then result:='unbekannt'
+    if date=-2 then result:=rsNeverDate
+    else if date=0 then result:=rsUnknown
     else case trunc(date-currentDate) of
-      -2: result:='vorgestern';
-      -1: result:='gestern';
-      0: result:='heute';
-      1: result:='morgen';
-      2: result:='übermorgen';
+      -2: result:=rsBeforeYesterday;
+      -1: result:=rsYesterday;
+      0: result:=rsToday;
+      1: result:=rsTomorrow;
+      2: result:=rsAfterTomorrow;
       else result:=DateToSimpleStr(date);
     end;
   end;
 
-  function DateToPrettyGrammarStr(preDate,preName: string; const date: tdatetime
-    ): string;
+
+
+  function DateToPrettyStrGrammarPast(const date: tdatetime): string;
   begin
-    if date=-2 then result:='nie'
-    else if date=0 then result:='unbekannt'
+    if date=-2 then result:=rsNeverDate
+    else if date=0 then result:=rsUnknown
     else case trunc(date-currentDate) of
-      -2: result:=preName+'vorgestern';
-      -1: result:=preName+'gestern';
-      0: result:=preName+'heute';
-      1: result:=preName+'morgen';
-      2: result:=preName+'übermorgen';
-      else result:=preDate+DateToSimpleStr(date);
+      -2..2: result := Format(rsDateGrammarRelativeDatePast, [DateToPrettyStr(date)]); //von
+      else result:=Format(rsDateGrammarAbsoluteDatePast, [DateToSimpleStr(date)]);     //vom
+    end;
+  end;
+  function DateToPrettyStrGrammarDateItself(const date: tdatetime): string;
+  begin
+    if date=-2 then result:=rsNeverDate
+    else if date=0 then result:=rsUnknown
+    else case trunc(date-currentDate) of
+      -2..2: result:=Format(rsDateGrammarRelativeDateItself, [DateToPrettyStr(date)]); //""
+      else   result:=Format(rsDateGrammarAbsoluteDateItself, [DateToSimpleStr(date)]); //dem
+    end;
+  end;
+  function DateToPrettyStrGrammarFuture(const date: tdatetime): string;
+  begin
+    if date=-2 then result:=rsNeverDate
+    else if date=0 then result:=rsUnknown
+    else case trunc(date-currentDate) of
+      -2..2: result:=Format(rsDateGrammarRelativeDateFuture, [DateToPrettyStr(date)]); //""
+      else   result:=Format(rsDateGrammarAbsoluteDateFuture, [DateToSimpleStr(date)]); //zum
     end;
   end;
 

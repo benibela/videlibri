@@ -131,11 +131,40 @@ const SB_PANEL_FOUND_COUNT=1;
       SB_PANEL_SEARCH_STATUS=0;
 implementation
 
-uses applicationconfig,applicationdesktopconfig, libraryParser,simplexmlparser,bbdebugtools,bookWatchMain,bbutils,LCLType,libraryAccess,LCLIntf;
+uses applicationconfig,applicationdesktopconfig, libraryParser,simplexmlparser,bbdebugtools,bookWatchMain,bbutils,LCLType,libraryAccess,LCLIntf,strutils;
 
 { TbookSearchFrm }
 //TODO: fehler bei keinem ergebnis
-
+resourcestring
+  rsPropertyName = 'Eigenschaftsname';
+  rsValue = 'Wert';
+  rsWait = 'Warte...';
+  rsSearching = 'Suche Medien...';
+  rsBytesHidden = '<%s Bytes ausgeblendet>';
+  rsPropertiesNormal = 'normale Eigenschaften';
+  rsPropertiesInternal = 'interne Eigenschaften';
+  rsPropertiesEmpty = 'leere Eigenschaften';
+  rsBookPropertyPublisher = 'Verlag';
+  rsBookPropertyFirstTime = 'Erstes Vorkommen';
+  rsBookPropertyLastTime = 'Letztes Vorkommen';
+  rsBookPropertyRenewCount = 'Anzahl Verlängerungen';
+  rsRequestOrder = 'Vormerken/Bestellen';
+  rsSearchingDetails = 'Suche Details für dieses Medium...';
+  rsLoadingNextPage = 'Lade nächste Seite...';
+  rsSearchComplete = 'Suche abgeschlossen';
+  rsNoSelection = 'Kein Medium ausgewählt';
+  rsNoLinkKnown = 'Leider kann ich das ausgewählte Medium nicht in dieser Seite öffnen, da ich den nötigen Link nicht kenne';
+  rsSearchingCover = 'Suche Titelbild...';
+  rsSearchPartiallyComplete = 'Suche abgeschlossen (mehr Ergebnisse verfügbar)';
+  rsExistsOverrideConfirm = 'Das Medium existiert bereits als "%s", soll es mit "%s" überschrieben werden?';
+  rsOverrideConfirm = 'Soll das markierte Medium "%s" mit "%s" überschrieben werden?';
+  rsChooseOrder = 'Es gibt mehrere vormerkbare/Bestellbare Exemplare. Welches wollen Sie? (Nummer eingeben)%s';
+  rsOrderComplete = 'Das Buch "%s" wurde ohne Fehler vorgemerkt.';
+  rsNumberNeeded = ' (Nummer eingeben)';
+  rsCount = '%s Treffer';
+  rsCountSelected = '%D / %D Treffer';
+  rsFor = 'für';
+  rsIn = 'in';
 
 
 procedure TbookSearchFrm.FormCreate(Sender: TObject);
@@ -169,11 +198,11 @@ begin
   detaillist.align:=alClient;
   detaillist.columns.Clear;
   with detaillist.columns.Add do begin
-    text:='Eigenschaftsname';
+    text:=rsPropertyName;
     width:=170;
   end;
   with detaillist.columns.Add do begin
-    text:='Wert';
+    text:=rsValue;
     width:=200;
   end;
   detaillist.OnCustomRecordItemDraw:=@detaillistCustomRecordItemDraw;
@@ -220,7 +249,7 @@ begin
 
   screen.Cursor:=crHourGlass;
 
-  StatusBar1.Panels[SB_PANEL_SEARCH_STATUS].Text:='Warte...';
+  StatusBar1.Panels[SB_PANEL_SEARCH_STATUS].Text:=rsWait;
 
   searcherAccess.prepareNewSearchWithoutDisconnect;
 
@@ -238,7 +267,7 @@ begin
 
   searcherAccess.searchAsync;
 
-  StatusBar1.Panels[SB_PANEL_SEARCH_STATUS].Text:='Suche Medien...';
+  StatusBar1.Panels[SB_PANEL_SEARCH_STATUS].Text:=rsSearching;
 
   addCbHistory(searchAuthor);
   addCbHistory(searchTitle );
@@ -255,7 +284,7 @@ end;
 procedure TbookSearchFrm.bookListSelect(sender: TObject; item: TTreeListItem);
   procedure propAdd(n,v: string);
   begin
-    if length(v)>1000 then v:='<'+IntToStr(length(v))+' Bytes ausgeblendet>';
+    if length(v)>1000 then v:=Format(rsBytesHidden, [IntToStr(length(v))]);
     if (n<>'')and(n[length(n)]='!')and(v<>'') then
       detaillist.items.add((copy(n,1,length(n)-1))).RecordItems.Add((v))
      else if displayInternalProperties.Checked then
@@ -271,7 +300,7 @@ begin
   if displayDetails() < 1 then begin
     searcherAccess.detailsAsyncSave(book);
     Screen.Cursor:=crHourGlass;
-    StatusBar1.Panels[SB_PANEL_SEARCH_STATUS].Text:='Suche Details für dieses Medium...';
+    StatusBar1.Panels[SB_PANEL_SEARCH_STATUS].Text:=rsSearchingDetails;
   end;
 end;
 
@@ -333,7 +362,7 @@ begin
      then begin
     nextPageAvailable := false;
     searcherAccess.searchNextAsync;
-    StatusBar1.Panels[SB_PANEL_SEARCH_STATUS].Text:='Lade nächste Seite...';
+    StatusBar1.Panels[SB_PANEL_SEARCH_STATUS].Text:=rsLoadingNextPage;
   end;
 end;
 
@@ -457,7 +486,7 @@ begin
     old := mainForm.BookList.SelectedBook;
     if (old.author = temp.author) or (old.title = temp.title) or
        striBeginsWith(temp.author,old.author) or striBeginsWith(temp.title, old.title) then
-     if confirm('Das Medium existiert bereits als "'+old.toSimpleString()+'", soll es mit "'+temp.toSimpleString()+'" überschrieben werden?') then begin
+     if confirm(Format(rsExistsOverrideConfirm, [old.toSimpleString(), temp.toSimpleString()])) then begin
        EnterCriticalsection(updateThreadConfig.libraryAccessSection);
        old.author:=temp.author; //don't copy id
        old.title:=temp.title;
@@ -470,7 +499,7 @@ begin
        exit;
      end;
     if researchedBook <> nil then
-     if confirm('Soll das markierte Medium "'+old.toSimpleString()+'" mit "'+temp.toSimpleString()+'" überschrieben werden?') then begin
+     if confirm(Format(rsOverrideConfirm, [old.toSimpleString(), temp.toSimpleString()])) then begin
        EnterCriticalsection(updateThreadConfig.libraryAccessSection);
        old.author:=temp.author; //don't copy id
        old.title:=temp.title;
@@ -513,7 +542,7 @@ begin
   searcherAccess.beginBookReading;
   try
     if StrToIntDef(displayedBook.getPropertyAdditional('orderable'), 1) > 1 then begin
-      s := 'Es gibt mehrere vormerkbare/Bestellbare Exemplare. Welches wollen Sie? (Nummer eingeben)'+LineEnding;
+      s := Format(rsChooseOrder, [LineEnding]);
       for i :=  0 to StrToIntDef(displayedBook.getPropertyAdditional('orderable'), 1) - 1 do
        s += inttostr(i+1)+': '+ displayedBook.getPropertyAdditional('orderTitle'+inttostr(i))+LineEnding;
       v := '1';
@@ -588,7 +617,7 @@ begin
 
 
   if mainForm <> nil then mainForm.RefreshListView;
-  ShowMessage(format('Das Buch "%s" wurde ohne Fehler vorgemerkt.', [book.toSimpleString()])  );
+  ShowMessage(format(rsOrderComplete, [book.toSimpleString()])  );
   screen.Cursor:=crDefault;
 end;
 
@@ -609,7 +638,7 @@ begin
 
   question := StringReplace(question, '\n', LineEnding, [rfReplaceAll]);
   if orderConfirmationOptionTitles <> '' then begin
-    question += ' (Nummer eingeben)';
+    question += rsNumberNeeded;
     temp := strSplit(orderConfirmationOptionTitles, '\|');
     for i := 0 to high(temp) do
       question += LineEnding + IntToStr(i+1) +':'  + temp[i];
@@ -641,7 +670,7 @@ begin
   screen.Cursor:=crDefault;
   case pendingMessage.kind of
     pmkChoose: begin
-      question := pendingMessage.caption + ' (Nummer eingeben)';
+      question := pendingMessage.caption + rsNumberNeeded;
       for i := 0 to high(pendingMessage.options) do
         question += LineEnding + IntToStr(i+1) +':'  + pendingMessage.options[i];
       v := '1';
@@ -667,21 +696,22 @@ begin
   searcherAccess.beginResultReading;
   bookList.addBookList(searcherAccess.searcher.SearchResult);
   if (bookList.Items.Count = searcherAccess.searcher.SearchResultCount) or (searcherAccess.searcher.SearchResultCount = 0) then
-    StatusBar1.Panels[SB_PANEL_FOUND_COUNT].text:=IntToStr(bookList.Items.Count)+' Treffer'
+    StatusBar1.Panels[SB_PANEL_FOUND_COUNT].text:=Format(rsCount, [IntToStr(bookList.Items.Count)])
   else
-    StatusBar1.Panels[SB_PANEL_FOUND_COUNT].text:=Format('%D / %D Treffer', [bookList.Items.Count, searcherAccess.searcher.SearchResultCount]);
+    StatusBar1.Panels[SB_PANEL_FOUND_COUNT].text:=Format(rsCountSelected, [bookList.Items.Count, searcherAccess.searcher.SearchResultCount]
+      );
   searcherAccess.endResultReading;
 
   bookList.endupdate;
 
   if (bookList.TopItemVisualIndex + bookList.VisibleRowCount > bookList.Items.Count) and (nextPageAvailable) then begin
     searcherAccess.searchNextAsync;
-    StatusBar1.Panels[SB_PANEL_SEARCH_STATUS].Text:='Lade nächste Seite...';
+    StatusBar1.Panels[SB_PANEL_SEARCH_STATUS].Text:=rsLoadingNextPage;
   end else begin
     if nextPageAvailable then
-      StatusBar1.Panels[SB_PANEL_SEARCH_STATUS].Text:='Suche abgeschlossen (mehr Ergebnisse verfügbar)'
+      StatusBar1.Panels[SB_PANEL_SEARCH_STATUS].Text:=rsSearchPartiallyComplete
     else
-      StatusBar1.Panels[SB_PANEL_SEARCH_STATUS].Text:='Suche abgeschlossen';
+      StatusBar1.Panels[SB_PANEL_SEARCH_STATUS].Text:=rsSearchComplete;
     autoSearchPhase:=aspSearched;
   end;
 
@@ -716,7 +746,7 @@ procedure TbookSearchFrm.linkLabelDigibibClick(Sender: TObject);
 var site: string;
 begin
   if displayedBook=nil then begin
-    ShowMessage('Kein Medium ausgewählt');
+    ShowMessage(rsNoSelection);
     exit;
   end;
 
@@ -739,7 +769,7 @@ begin
   end;
   
   if site='' then begin
-    ShowMessage('Leider kann ich das ausgewählte Medium nicht in dieser Seite öffnen, da ich den nötigen Link nicht kenne');
+    ShowMessage(rsNoLinkKnown);
     exit;
   end;
   if logging then log('Open page: '+site);
@@ -757,7 +787,7 @@ begin
   if sender <> searcherAccess then exit;
   if (displayDetails() < 2) and (displayImage.Checked) then begin
     searcherAccess.imageAsyncSave(displayedBook);
-    StatusBar1.Panels[SB_PANEL_SEARCH_STATUS].Text:='Suche Titelbild...';
+    StatusBar1.Panels[SB_PANEL_SEARCH_STATUS].Text:=rsSearchingCover;
   end else begin
     StatusBar1.Panels[SB_PANEL_SEARCH_STATUS].Text:='';
     screen.Cursor:=crDefault;
@@ -878,25 +908,30 @@ function TbookSearchFrm.displayDetails(book: TBook): longint;
 var intern, empty, normal: TTreeListItems; //item lists
   procedure propAdd(n,v: string);
   begin
-    if length(v)>1000 then v:='<'+IntToStr(length(v))+' Bytes ausgeblendet>';
+    if length(v)>1000 then v:=Format(rsBytesHidden, [IntToStr(length(v))]);
     if not displayInternalProperties.Checked then begin
       if (n<>'')and(n[length(n)]='!')and(v<>'') then
         detaillist.items.add((copy(n,1,length(n)-1))).RecordItems.Add((v))
     end else begin
       if (n<>'')and(n[length(n)]='!')and(v<>'') then begin
-        if normal=nil then normal:=detaillist.Items.Add('normale Eigenschaften').SubItems;
+        if normal=nil then normal:=detaillist.Items.Add(rsPropertiesNormal).SubItems;
         normal.add((copy(n,1,length(n)-1))).RecordItems.Add((v))
       end else if (n<>'') and (n[length(n)]<>'!') then begin
-        if intern=nil then intern:=detaillist.Items.Add('interne Eigenschaften').SubItems;
+        if intern=nil then intern:=detaillist.Items.Add(rsPropertiesInternal).SubItems;
         intern.add((n)).RecordItems.Add((v));
       end else begin
-        if empty=nil then empty:=detaillist.Items.Add('leere Eigenschaften').SubItems;
+        if empty=nil then empty:=detaillist.Items.Add(rsPropertiesEmpty).SubItems;
         empty.add((n)).RecordItems.Add((v))
       end;
 
 
     end;
   end;
+  procedure propAddForce(n,v: string);
+  begin
+    propAdd(n+'!',v);
+  end;
+
 var i:longint;
     tempStream: TStringStream;
     ext: String;
@@ -914,21 +949,21 @@ begin
   try
     detaillist.BeginUpdate;
     detaillist.items.clear;
-    propAdd('Id!',book.id);
-    propAdd('Kategorie!',book.category);
-    propAdd('Autor!',book.author);
-    propAdd('Titel!',book.title);
-    propAdd('Jahr!',book.year);
-    propAdd('ISBN!',book.isbn);
-    if getProperty('publisher', book.additional) <> '' then propAdd('Verlag!', getProperty('publisher', book.additional));
-    if getProperty('location', book.additional) <> '' then propAdd('Ort!', getProperty('location', book.additional));
+    propAddForce(rsBookPropertyID,book.id);
+    propAddForce(rsBookPropertyCategory,book.category);
+    propAddForce(rsBookPropertyAuthor,book.author);
+    propAddForce(rsBookPropertyTitle,book.title);
+    propAddForce(rsBookPropertyYear,book.year);
+    propAddForce(rsBookPropertyISBN,book.isbn);
+    if getProperty('publisher', book.additional) <> '' then propAddForce(rsBookPropertyPublisher, getProperty('publisher', book.additional));
+    if getProperty('location', book.additional) <> '' then propAddForce(ifthen(book.lend, rsBookPropertyLocationLend, rsBookPropertyLocationSearch), getProperty('location', book.additional));
     if book.owner<>nil then begin
-      propAdd('Ausleihdatum!', DateToPrettyStr(book.issueDate));
-      propAdd('Fristdatum!', DateToPrettyStr(book.dueDate));
-      propAdd('Ausleihstatus!', BookStatusToStr(book,true));
-      propAdd('Erstes Vorkommen',DateToPrettyStr(book.firstExistsDate));
-      propAdd('Letztes Vorkommen',DateToPrettyStr(book.lastExistsDate));
-      if book.renewCount > 0 then propAdd('Anzahl Verlängerungen!', IntToStr(book.renewCount));
+      propAddForce(rsBookPropertyIssueDate, DateToPrettyStr(book.issueDate));
+      propAddForce(rsBookPropertyLimitDate, DateToPrettyStr(book.dueDate));
+      propAddForce(rsBookPropertyStatus, BookStatusToStr(book,true));
+      propAdd(rsBookPropertyFirstTime, DateToPrettyStr(book.firstExistsDate));
+      propAdd(rsBookPropertyLastTime, DateToPrettyStr(book.lastExistsDate));
+      if book.renewCount > 0 then propAddForce(rsBookPropertyRenewCount, IntToStr(book.renewCount));
     end;
     for i:=0 to high(book.additional) do
       propAdd(book.additional[i].name,book.additional[i].value);
@@ -962,7 +997,7 @@ begin
     else result:=2;
 
     LabelOrder.Enabled:=(getProperty( 'orderable', book.additional) <> '') and (getProperty('orderable', book.additional) <> '0') and (getProperty('orderable', book.additional) <> 'false');
-    LabelOrder.Caption := book.getPropertyAdditional('orderTitle', 'Vormerken/Bestellen');
+    LabelOrder.Caption := book.getPropertyAdditional('orderTitle', rsRequestOrder);
 
     linkLabelDigibib.Enabled := getProperty('digibib-url', book.additional) <> '';
     linkLabelBib.Enabled := getProperty('home-url', book.additional) <> '';
@@ -1099,10 +1134,10 @@ begin
   loadComboBoxItems(searchISBN);
   saveToDefaultAccountID := userConfig.ReadString('BookSearcher','default-save-to', '');
   if accounts.IndexOf(saveToDefaultAccountID) >= 0 then
-    LabelSaveTo.Caption := 'in \/ '+ accounts[accounts.IndexOf(saveToDefaultAccountID)].prettyName;
+    LabelSaveTo.Caption := rsIn + ' \/ '+ accounts[accounts.IndexOf(saveToDefaultAccountID)].prettyName;
   orderForDefaultAccountID := userConfig.ReadString('BookSearcher','default-order-for', '');
   if accounts.IndexOf(orderForDefaultAccountID) >= 0 then
-    LabelOrderFor.Caption := 'für \/ '+ accounts[accounts.IndexOf(orderForDefaultAccountID)].prettyName;
+    LabelOrderFor.Caption := rsFor + ' \/ '+ accounts[accounts.IndexOf(orderForDefaultAccountID)].prettyName;
 end;
 
 procedure TbookSearchFrm.saveDefaults;
@@ -1135,7 +1170,7 @@ begin
   if tmenuitem(sender).Tag > accounts.count then tmenuitem(sender).Tag := accounts.count;
   saveToDefaultAccountID := accounts.Strings[tmenuitem(sender).Tag-1];
 
-  LabelSaveTo.Caption := 'in \/ '+ TMenuItem(sender).Caption;
+  LabelSaveTo.Caption := rsIn + ' \/ '+ TMenuItem(sender).Caption;
 
   tmenuitem(sender).Checked:=true;
 end;
@@ -1148,7 +1183,7 @@ begin
   if tmenuitem(sender).Tag > accounts.count then tmenuitem(sender).Tag := accounts.count;
 
   orderForDefaultAccountID := accounts.Strings[tmenuitem(sender).Tag-1];
-  LabelOrderFor.Caption := 'für \/ '+ TMenuItem(sender).Caption;
+  LabelOrderFor.Caption := rsFor + ' \/ '+ TMenuItem(sender).Caption;
 
   tmenuitem(sender).Checked:=true;
 end;

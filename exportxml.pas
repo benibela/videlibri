@@ -63,6 +63,16 @@ const COLUMN_CURRENT = 1;
       MODE_EXPORT = 0;
       MODE_IMPORT = 1;
 
+resourcestring
+  rsExportComplete = 'Export abgeschlossen';
+  rsImportBlocked = 'Ein Import kann nicht durchgeführt werden, während eine Bibliotheksaktion im Hintergrund läuft. (z.B.: '
+    +'AKtualisierung/Verlängerung)';
+  rsImportComplete = 'Import abgeschlossen';
+  rsExportDo = 'Export durchführen';
+  rsImportDo = 'Import durchführen';
+  rsAllAccounts = 'Alle Konten';
+
+
 procedure TXMLExportFrm.FormCreate(Sender: TObject);
 begin
   currentMode := MODE_IMPORT;
@@ -123,7 +133,7 @@ begin
         flags[high(flags)] := flag;
       end;
       exportAccounts(edit1.Text, choosenAccounts, flags);
-      ShowMessage('Export abgeschlossen');
+      ShowMessage(rsExportComplete);
       close;
     end;
     MODE_IMPORT: begin
@@ -132,7 +142,7 @@ begin
         exit;
       end;
       if updateThreadConfig.updateThreadsRunning > 0 then begin
-        ShowMessage('Ein Import kann nicht durchgeführt werden, während eine Bibliotheksaktion im Hintergrund läuft. (z.B.: AKtualisierung/Verlängerung)');
+        ShowMessage(rsImportBlocked);
         exit
       end;
       for i := 1 to TreeListView1.Items.Count - 1 do begin
@@ -148,7 +158,7 @@ begin
       finally
         importParser := nil;
       end;
-      ShowMessage('Import abgeschlossen');
+      ShowMessage(rsImportComplete);
       if (mainForm <> nil) then mainForm.RefreshListView;
       close;
     end;
@@ -163,14 +173,14 @@ end;
 procedure TXMLExportFrm.SpeedButton1Click(Sender: TObject);
 begin
   currentMode := MODE_EXPORT;
-  button2.Caption := 'Export durchführen';
+  button2.Caption := rsExportDo;
   viewCurrentAccounts;
 end;
 
 procedure TXMLExportFrm.SpeedButton2Click(Sender: TObject);
 begin
   currentMode := MODE_IMPORT;
-  button2.Caption := 'Import durchführen';
+  button2.Caption := rsImportDo;
   viewCurrentAccounts;
 end;
 
@@ -339,12 +349,12 @@ begin
   TreeListView1.Items.Clear;
   case currentMode of
     MODE_EXPORT: begin
-      TreeListView1.Items.Add(['Alle Konten',CHECKBOX_CHECKED,CHECKBOX_CHECKED,CHECKBOX_CHECKED,CHECKBOX_UNCHECKED]);
+      TreeListView1.Items.Add([rsAllAccounts, CHECKBOX_CHECKED, CHECKBOX_CHECKED, CHECKBOX_CHECKED, CHECKBOX_UNCHECKED]);
       for i := 0 to accounts.Count - 1 do
         TreeListView1.Items.Add([accounts[i].prettyName,CHECKBOX_CHECKED,CHECKBOX_CHECKED,CHECKBOX_CHECKED,CHECKBOX_UNCHECKED]);
     end;
     MODE_IMPORT: begin
-      TreeListView1.Items.Add(['Alle Konten',CHECKBOX_CHECKED,CHECKBOX_CHECKED,CHECKBOX_CHECKED,CHECKBOX_CHECKED]);
+      TreeListView1.Items.Add([rsAllAccounts,CHECKBOX_CHECKED,CHECKBOX_CHECKED,CHECKBOX_CHECKED,CHECKBOX_CHECKED]);
       for i := 0 to high(importAccounts) do begin
         with TreeListView1.Items.Add(importAccounts[i]) do begin
           RecordItemsText[COLUMN_CURRENT]  := IfThen(eifCurrent in importFlags[i], CHECKBOX_CHECKED, CHECKBOX_HIDDEN);

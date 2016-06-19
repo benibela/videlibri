@@ -50,6 +50,25 @@ const BL_BOOK_COLUMNS_AUTHOR=2;
       BL_BOOK_EXTCOLUMNS_WEEK_SEPARATOR=11;
 
 function dateToWeek(date: longint):longint; //week: monday - sunday
+
+resourcestring
+  rsBookPropertyNone = 'Keine';
+  rsBookPropertyID = 'ID';
+  rsBookPropertyCategory = 'Kategorie';
+  rsBookPropertyAuthor = 'Verfasser';
+  rsBookPropertyTitle = 'Titel';
+  rsBookPropertyYear = 'Jahr';
+  rsBookPropertyIssueDate = 'Ausleihe';
+  rsBookPropertyLimitDate = 'Frist';
+  rsBookPropertyAccount = 'Konto';
+  rsBookPropertyStatusComment = 'Bemerkung';
+  rsBookPropertyISBN = 'ISBN';
+  rsWeekUnknown = 'Unbekannte Woche';
+  rsWeekLast = 'Letzte Woche';
+  rsWeekThis = 'Diese Woche';
+  rsWeekNext = 'Nächste Woche';
+  rsWeekDates = 'Woche vom %s zum %s';
+
 implementation
 
 uses applicationdesktopconfig, applicationconfig,  bbutils, libraryParser, Graphics;
@@ -66,13 +85,13 @@ function dateToWeekPretty(date: longint): string;
 var
   week: LongInt;
 begin
-  if date <= 0 then exit('Unbekannte Woche');
+  if date <= 0 then exit(rsWeekUnknown);
   week := dateToWeek(date);
   case week - dateToWeek(currentDate) of
-    -1: result := 'Letzte Woche';
-    0: result := 'Diese Woche';
-    1: result := 'Nächste Woche';
-    else result := 'Woche vom '+DateToStr(week * 7 + 2)+ ' zum '+DateToStr(week * 7+2+6);
+    -1: result := rsWeekLast;
+    0: result := rsWeekThis;
+    1: result := rsWeekNext;
+    else result := Format(rsWeekDates, [DateToStr(week * 7 + 2), DateToStr(week * 7+2+6)]);
   end;
 end;
 
@@ -230,14 +249,14 @@ begin
     '_account':  group := accountName;
     '_dueWeek':  group := dateToWeekPretty(book.dueDate);
     '_status': begin
-      if not book.lend then group := 'abgegeben'
+      if not book.lend then group := rsBookStatusNotLend
       else begin
         case book.status of
-          bsNormal, bsCuriousInStr: group := 'normal/verlängerbar';
-          bsUnknown: group := 'unbekannt';
-          bsProblematicInStr: group := 'nicht verlängerbar';
-          bsOrdered: group := 'vorgemerkt';
-          bsProvided: group := 'bereitgestellt';
+          bsNormal, bsCuriousInStr: group := rsBookStatusNormalRenewable;
+          bsUnknown: group := rsBookStatusUnknown;
+          bsProblematicInStr: group := rsBookStatusNonRenewable;
+          bsOrdered: group := rsBookStatusOrdered;
+          bsProvided: group := rsBookStatusProvided;
           else group := '???';
           //bsIsSearchedDONTUSETHIS,bsEarMarkedDONTUSETHIS, bsMaxLimitReachedDONTUSETHIS,,bsCuriousInStr,bsAccountExpiredDONTUSETHIS,);
         end;
@@ -272,12 +291,12 @@ begin
     else if book.issueDate = 0 then RecordItemsText[BL_BOOK_COLUMNS_ISSUE_ID] := book.libraryBranch
     else RecordItemsText[BL_BOOK_COLUMNS_ISSUE_ID] := DateToPrettyStr(book.issueDate) + ' in ' + book.libraryBranch;
     if book.lend = false then begin
-      if book.dueDate = -2 then RecordItemsText[BL_BOOK_COLUMNS_LIMIT_ID] := 'nie'
-      else RecordItemsText[BL_BOOK_COLUMNS_LIMIT_ID] := 'erledigt'
+      if book.dueDate = -2 then RecordItemsText[BL_BOOK_COLUMNS_LIMIT_ID] := rsNeverLend
+      else RecordItemsText[BL_BOOK_COLUMNS_LIMIT_ID] := rsLendHistory
     end else
      RecordItemsText[BL_BOOK_COLUMNS_LIMIT_ID] := DateToPrettyStr(book.dueDate);
     if book.owner<>nil then RecordItemsText[BL_BOOK_COLUMNS_ACCOUNT] := (book.owner as TCustomAccountAccess).prettyName
-    else RecordItemsText[BL_BOOK_COLUMNS_ACCOUNT] := 'unbekannt';
+    else RecordItemsText[BL_BOOK_COLUMNS_ACCOUNT] := rsunknown;
     RecordItemsText[BL_BOOK_COLUMNS_STATUS]:=BookStatusToStr(book);//Abgegeben nach '+DateToSimpleStr(book.lastExistsDate))
     RecordItemsText[BL_BOOK_COLUMNS_ISBN] := book.isbn;
 
@@ -312,45 +331,45 @@ begin
   Options:=Options+[tlvoColumnsDragable];
   Columns.Clear;
   with Columns.Add do begin
-    Text:='ID';
+    Text:= rsBookPropertyID;
     Width:=80;
   end;
   with Columns.Add do begin
-    Text:='Kategorie';
+    Text:=rsBookPropertyCategory;
     Width:=50;
   end;
   with Columns.Add do begin
-    Text:='Verfasser';
+    Text:=rsBookPropertyAuthor;
     Width:=120;
   end;
   with Columns.Add do begin
-    Text:='Titel';
+    Text:=rsBookPropertyTitle;
     Width:=150;
   end;
   with Columns.Add do begin
-    Text:='Jahr';
+    Text:=rsBookPropertyYear;
     Width:=30;
   end;
   with Columns.Add do begin
-    Text:='Ausleihe';
+    Text:=rsBookPropertyIssueDate;
     Width:=70;
     Alignment:=taCenter;
   end;
   with Columns.Add do begin
-    Text:='Frist';
+    Text:=rsBookPropertyLimitDate;
     Width:=70;
     Alignment:=taCenter;
   end;
   with Columns.Add do begin
-    Text:='Konto';
+    Text:=rsBookPropertyAccount;
     Width:=80;
   end;
   with Columns.Add do begin
-    Text:='Bemerkung';
+    Text:=rsBookPropertyStatusComment;
     Width:=250;
   end;
   with Columns.Add do begin
-    Text:='ISBN';
+    Text:=rsBookPropertyISBN;
     Width:=80;
     Visible:=false;
   end;

@@ -299,6 +299,12 @@ type
 
 implementation
 uses applicationconfig,bbdebugtools,FileUtil,LCLIntf,LazFileUtils, xquery,androidutils,simpleinternet,mockinternetaccess,libraryAccess,strutils;
+
+resourcestring
+  rsNoTemplateLinkFound = 'Der Link verweist auf kein VideLibri-Template (kein videlibri.description link rel vorhanden)';
+  rsLibraryNotFound = 'Bücherei nicht gefunden: %s:%s';
+
+
 function currencyStrToCurrency(s:string):Currency;
 begin
   s:=trim(s);
@@ -966,7 +972,7 @@ begin
         exit(TLibrary(libraries[i]));
       pos -= 1;
     end;
-  raise ELibraryException.Create('Bücherei nicht gefunden: '+location+':'+IntToStr(pos));
+  raise ELibraryException.Create(Format(rsLibraryNotFound, [location, IntToStr(pos)]));
 end;
 
 function TLibraryManager.getLibraryFromEnumeration(const pos:integer):TLibrary;
@@ -1065,7 +1071,7 @@ begin
   page := retrieve(url);
   temp := process(page, '<link rel="videlibri.description" href="{.}"/>');
   if temp.isUndefined then begin
-    raise ELibraryException.create('Der Link verweist auf kein VideLibri-Template (kein videlibri.description link rel vorhanden)');
+    raise ELibraryException.create(rsNoTemplateLinkFound);
     exit(nil);
   end;
   description := retrieve(strResolveURI(temp.toString, url));

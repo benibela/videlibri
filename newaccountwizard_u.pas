@@ -80,6 +80,29 @@ uses applicationconfig,applicationdesktopconfig, libraryaccess,internetAccess,LC
 { TnewAccountWizard }
 
 
+resourcestring
+  rsName = 'Name';
+  rsValue = 'Value';
+  rsLibrary = 'Bibliothek:';
+  rsAccountnumber = 'Kartennummer:';
+  rsPassword = 'Passwort:';
+  rsPrettyName = 'angezeigter Name:';
+  rsRenewing = 'Verlängerung:';
+  rsHistory = 'History:';
+  rsNoLibChosen = 'Keine Bücherei ausgewählt!';
+  rsRenewAlways = 'immer, wenn möglich';
+  rsRenewAllTogether = 'immer alle Medien %s Tage vor Ende der Leihfrist';
+  rsRenewSingle = 'immer einzeln %s Tage vor Ende der Leihfrist';
+  rsBtnNext = '&Weiter >';
+  rsNoLibChosen2 = 'Es muss eine Bücherei ausgewählt werden.';
+  rsFinishedRefreshConfirm = 'Das Konto %s wurde erstellt.%sSollen jetzt die Mediendaten heruntergeladen werden?';
+  rsConnectionFailedTryAgain = 'Internetverbindung fehlgeschlagen, bitte versuchen Sie es später noch einmal.';
+  rsAnotherAccountConfirm = 'Wollen Sie noch ein anderes Konto registrieren?';
+  rsAccountGuessInvalid = 'Die eingegebe Kontonummer ist wahrscheinlich ungültig ';
+  rsPasswordGuessInvalid = 'Das eingegeben %s ist wahrscheinlich ungültig';
+  rsBtnCreate = '&Erstellen >';
+
+
 procedure TnewAccountWizard.FormCreate(Sender: TObject);
 begin
   identificarionInvalid.Caption:='';
@@ -87,15 +110,15 @@ begin
   finalPage.Parent:=StringGrid1;
   finalPage.Align:=alClient;
   finalPage.Columns.Clear;
-  with finalPage.Columns.Add() do begin Width:=175; Text:= 'Name';end;
-  with finalPage.Columns.Add() do begin Width:=300; Text:= 'Value';end;
+  with finalPage.Columns.Add() do begin Width:=175; Text:= rsName; end;
+  with finalPage.Columns.Add() do begin Width:=300; Text:= rsValue; end;
 //  with finalPage.Columns.Add() do begin Width:=300; Text:= 'Value';end;
-  finalPage.Items.Add('Bibliothek:');
-  finalPage.Items.Add('Kartennummer:');
-  finalPage.Items.Add('Passwort:');
-  finalPage.Items.Add('angezeigter Name:');
-  finalPage.Items.Add('Verlängerung:');
-  finalPage.Items.Add('History:');
+  finalPage.Items.Add(rsLibrary);
+  finalPage.Items.Add(rsAccountnumber);
+  finalPage.Items.Add(rsPassword);
+  finalPage.Items.Add(rsPrettyName);
+  finalPage.Items.Add(rsRenewing);
+  finalPage.Items.Add(rsHistory);
   finalPage.HeaderVisible:=false;
   finalPage.Scrollbars:=ssAutoHorizontal;
   finalPage.VerticalLineMode:=lmNone;
@@ -143,7 +166,6 @@ procedure TnewAccountWizard.libsSelect(sender: TObject; item: TTreeListItem);
 var
   selectedLibrary: TLibrary;
 begin
-  debugln('clicked re: '+item.Text);
   selectedLibrary:=libs.selectedLibrary;
   if selectedLibrary = nil then exit;
 
@@ -158,9 +180,9 @@ begin
     extendTypeRG.ItemIndex:=0;
   end else begin
     if selectedLibrary.canModifySingleBooks then
-      extendTypeRG.Items.text:='immer, wenn möglich'#13#10'alle, wenn nötig     '#13#10'einzeln, wenn nötig    '#13#10'niemals'
+      extendTypeRG.Items.text:=format(rsRenewOptions,[LineEnding,LineEnding,LineEnding])
      else
-      extendTypeRG.Items.Text:='immer, wenn möglich'#13#10'immer, wenn nötig    '#13#10'niemals                       ';
+      extendTypeRG.Items.Text:=format(rsRenewOptionsNoSingle,[LineEnding,LineEnding]) ;
     application.ProcessMessages;
     if selectedLibrary.maxRenewCount=-1 then extendTypeRG.ItemIndex:=0
     else if selectedLibrary.canModifySingleBooks then extendTypeRG.ItemIndex:=2
@@ -177,7 +199,7 @@ procedure TnewAccountWizard.Notebook1PageChanged(Sender: TObject);
 begin
   if Notebook1.ActivePageComponent=lastPage then begin
     if libs.selectedLibrary = nil then begin
-      finalPage.Items[0].RecordItemsText[1]:='Keine Bücherei ausgewählt!';
+      finalPage.Items[0].RecordItemsText[1]:=rsNoLibChosen;
       exit;
     end;
     finalPage.Items[0].RecordItemsText[1]:=libs.selectedLibrary.prettyNameLong ;//libraryList.Items[libraryList.ItemIndex];
@@ -185,20 +207,20 @@ begin
     finalPage.Items[2].RecordItemsText[1]:=accountPass.text;
     finalPage.Items[3].RecordItemsText[1]:=accountPrettyName.text;
     case TExtendType(extendTypeRG.tag) of
-      etAlways: finalPage.Items[4].RecordItemsText[1]:='immer, wenn möglich';
+      etAlways: finalPage.Items[4].RecordItemsText[1]:=rsRenewAlways;
       etAllDepends:
         {if libraryList.ItemIndex=0 then StringGrid1.Cells[1,4]:='immer '+extendDaysEdit.text+' Tage vor Ende der Leihfrist'
-        else }finalPage.Items[4].RecordItemsText[1]:='immer alle Medien '+extendDaysEdit.text+' Tage vor Ende der Leihfrist';
-      etSingleDepends: finalPage.Items[4].RecordItemsText[1]:='immer einzeln '+extendDaysEdit.text+' Tage vor Ende der Leihfrist';
-      etNever: finalPage.Items[4].RecordItemsText[1]:='niemals';
+        else }finalPage.Items[4].RecordItemsText[1]:=Format(rsRenewAllTogether, [extendDaysEdit.text]);
+      etSingleDepends: finalPage.Items[4].RecordItemsText[1]:=Format(rsRenewSingle, [extendDaysEdit.text]);
+      etNever: finalPage.Items[4].RecordItemsText[1]:=rsNever;
     end;
     if saveHistory.Checked then
-      finalPage.Items[5].RecordItemsText[1]:='ja'
+      finalPage.Items[5].RecordItemsText[1]:=rsYes
      else
-      finalPage.Items[5].RecordItemsText[1]:='nein' ;
-    nextbtn.Caption:='&Erstellen >';
+      finalPage.Items[5].RecordItemsText[1]:=rsNo ;
+    nextbtn.Caption:=rsBtnCreate;
     finalPage.Repaint;
-  end else nextbtn.Caption:='&Weiter >';
+  end else nextbtn.Caption:=rsBtnNext;
   //fix lcl bug 14877
   Panel2.ReAlign;
   extendTypeRG.ReAlign;
@@ -293,30 +315,30 @@ var newLib:TCustomAccountAccess;
 begin
   selectedLibrary:=libs.selectedLibrary;
   if selectedLibrary = nil then begin
-    ShowMessage('Es muss eine Bücherei ausgewählt werden.');
+    ShowMessage(rsNoLibChosen2);
     exit;
   end;
 
   if Notebook1.PageIndex=Notebook1.PageCount-1 then begin
     newLib:=accounts.add(selectedLibrary.id,accountPrettyName.text,accountName.text,accountPass.text,
                         TExtendType(extendTypeRG.Tag),strtoint(extendDaysEdit.text),saveHistory.checked);
-    if MessageDlg('Daten laden?',
-                  'Das Konto '+accountPrettyName.text+' wurde erstellt.'#13#10'Sollen jetzt die Mediendaten heruntergeladen werden?',
+    if MessageDlg('VideLibri',
+                  Format(rsFinishedRefreshConfirm, [accountPrettyName.text, #13#10]),
                   mtConfirmation ,[mbYes,mbNo],0)=mrYes then
       try
         updateAccountBookData(newLib,false,false,false);
       except
         on EInternetException do
           if length(errorMessageList)=0 then
-            showmessage('Internetverbindung fehlgeschlagen, bitte versuchen Sie es später noch einmal.')
+            showmessage(rsConnectionFailedTryAgain)
            else
             showErrorMessages;
         on Exception do
           showErrorMessages();
       end;
 
-    if MessageDlg('Noch ein Konto',
-                  'Wollen Sie noch ein anderes Konto registrieren?',
+    if MessageDlg('VideLibri',
+                  rsAnotherAccountConfirm,
                   mtConfirmation ,[mbYes,mbNo],0)=mrYes then begin
       Notebook1.PageIndex:=0;
       accountName.text:='';
@@ -357,9 +379,9 @@ begin
   identificarionInvalid.Caption:='';
   if (selectedLibrary<>nil) and (selectedLibrary.template<>nil) then
     if (accountPass.Text<>'') and (not selectedLibrary.usernameRegEx.Exec(accountName.Text)) then
-      identificarionInvalid.Caption:='Die eingegebe Kontonummer ist wahrscheinlich ungültig '
+      identificarionInvalid.Caption:=rsAccountGuessInvalid
     else if (accountPass.Text<>'') and (not selectedLibrary.passwordRegEx.Exec(accountPass.Text)) then
-      identificarionInvalid.Caption:='Das eingegeben '+copy(passLabel.Caption,1,length(passLabel.Caption)-1)+' ist wahrscheinlich ungültig';
+      identificarionInvalid.Caption:=Format(rsPasswordGuessInvalid, [copy(passLabel.Caption, 1, length(passLabel.Caption)-1)]);
 end;
 
 procedure TnewAccountWizard.Button3Click(Sender: TObject);

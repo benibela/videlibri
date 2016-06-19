@@ -36,6 +36,8 @@ var
 
 implementation
 
+uses applicationdesktopconfig;
+
 { TshowErrorForm }
 
 class procedure TshowErrorForm.showError(title,error: string;detailStr: string='';sendError:TNotifyEvent=nil);
@@ -64,13 +66,13 @@ end;
 
 procedure TshowErrorForm.Button2Click(Sender: TObject);
 begin
-  if button2.caption='Details \/\/' then begin
+  if button2.caption= rsDetails + ' \/\/' then begin
     height:=height+150;
     details.height:=clientheight-5-details.top;
-    button2.caption:='Details /\/\';
+    button2.caption:=rsDetails + ' /\/\';
   end else begin
     height:=height-150;
-    button2.caption:='Details \/\/';
+    button2.caption:=rsDetails + ' \/\/';
   end;
 end;
 
@@ -94,11 +96,11 @@ begin
   details.top:=button1.top+36;
   height:=button1.top+button1.height+5;
   details.height:=clientheight-5-details.top;
-  button2.caption:='Details \/\/';
+  button2.caption:=rsDetails + ' \/\/';
 end;
 
 initialization
   {$I errordialog.lrs}
 
 end.
-
+

@@ -26,6 +26,9 @@ end;
 implementation
 uses bbutils, strutils, Graphics;
 
+resourcestring
+  rsCustom = 'selbst definierte';
+
 { TLibraryListView }
 
 procedure TLibraryListView.LibraryListViewItemCollapsed(sender: TObject; item: TTreeListItem);
@@ -73,10 +76,10 @@ begin
   inherited;
   BeginUpdate;
   for state in libraryManager.enumerateCountryStates() do begin
-    with Items.Add(IfThen(state = '- - -', 'selbst definierte', state)) do begin
+    with Items.Add(IfThen(state = '- - -', rsCustom, state)) do begin
       for loc in libraryManager.enumerateLocations(state) do
         if trim(loc) <> '' then
-           with SubItems.Add(IfThen(loc = '-', 'selbst definierte', loc)) do begin
+           with SubItems.Add(IfThen(loc = '-', rsCustom, loc)) do begin
              libs := libraryManager.enumeratePrettyLongNames(loc);
              for j := 0 to high(libs) do
                SubItems.Add(libs[j]).data.p:=libraryManager.getLibraryFromEnumeration(loc, j);

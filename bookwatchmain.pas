@@ -197,6 +197,11 @@ type
     procedure showMainwindow;
   end;
 
+const
+  groupingPropertyNames: array[0..12] of string = (rsBookPropertyNone, rsBookPropertyAccount, rsBookPropertyLimitWeek,
+    rsBookPropertyLimitDate, rsBookPropertyStatusComment, rsBookPropertyIssueWeek, rsBookPropertyIssueDate, rsBookPropertyLocationLend,
+    rsBookPropertyID, rsBookPropertyCategory, rsBookPropertyTitle, rsBookPropertyAuthor, rsBookPropertyYear);
+  groupingPropertyMap: array[0..12] of string = ('', '_account', '_dueWeek', 'dueDate', '_status', '_issueWeek', 'issueDate', 'libraryBranch', 'id', 'category', 'title', 'author', 'year');
 
 
 var
@@ -205,14 +210,45 @@ const SB_PANEL_COUNT=2;
 
 procedure sendMailReports();
 
-const
-  groupingPropertyNames: array[0..12] of string = ('Keine', 'Konto', 'Fristwoche', 'Fristdatum', 'Status', 'Ausleihwoche', 'Ausleihdatum', 'Ausleihbibliothek', 'ID', 'Kategorie', 'Titel', 'Verfasser', 'Jahr');
-  groupingPropertyMap: array[0..12] of string = ('', '_account', '_dueWeek', 'dueDate', '_status', '_issueWeek', 'issueDate', 'libraryBranch', 'id', 'category', 'title', 'author', 'year');
 
 implementation
 
 { TmainForm }
 uses math,options,debuglogviewer, newaccountwizard_u,bbdebugtools,bibtexexport,booklistreader{$IFDEF WIN32},windows{$ENDIF},Clipbrd,bbutils,androidutils,libraryaccesstester;
+
+resourcestring
+  rsSearchBarTitle = 'Ausleihensuche:';
+  rsSearchBarNext = '&Vorwärts';
+  rsSearchBarPrev = '&Rückwärts';
+  rsSearchBarAll = 'alle Felder';
+  rsSearchBarAuthorTitle = 'Verfasser/Titel';
+  rsUpdateComplete = 'Das Update wurde installiert.%sDie installierte Version ist nun Videlibri %s';
+  rsBookCount = 'Medien: %d';
+  rsCharged = 'Offene Gebühren: %s';
+  rsAccountDisabled = 'dieses Konto ist deaktiviert und der Ausleihstatus ist folgedessen unbekannt';
+  rsTNAMenuLimit = '  Nächste Abgabefrist: %s';
+  rsTNAHintLimitCheck = '  **Nächste Abgabefrist: %s**%s  Letzte Aktualisierung: %s';
+  rsBookCountSelected = 'Medien: %d/%d';
+  rsMenuHelpWindows = 'Fensterbeschreibung';
+  rsMenuFAQ = 'Fragen und Antworten';
+  rsAbout = 'Verwendete Fremdkomponenten: %s'+
+            'Verwendete Entwicklungswerkzeuge: %s'+
+            'Thanks to: %s'+
+            'Die angezeigten Daten stammen von den jeweiligen Bibliotheken, %s. ';
+  rsBlockedDuringRefresh = 'Diese Aktion kann nicht durchgeführt werden, solange Medien aktualisiert werden.';
+  rsNeedAccountForRenewing = 'Sie müssen ein Konto angeben, um VideLibri für Verlängerungen benutzen zu können.%sWollen Sie eines eingeben?';
+  rsCannotDeleteLend = 'Es sind momentan ausgeliehene Medien markiert, es können aber nur abgegebene Medien aus der History gelöscht '
+    +'werden%sBitte demarkieren Sie sie.';
+  rsDelete = 'Löschen';
+  rsDeleteConfirm = 'Sind Sie sicher, dass Sie %s Medium/Medien löschen wollen?';
+  rsSelectedBookMissing = 'Das markierte Buch war nicht vorhanden.%sDas ist eigentlich unmöglich, am besten starten Sie das Programm neu.';
+  rsLastRefreshLong = 'Die angezeigten Daten der Konten wurden zu folgenden Zeitpunkten%sdas letztemal aktualisiert:';
+  rsMailReportDate = 'Daten von: ';
+  rsMailReportTitle = 'Videlibri Bücherreport vom %s';
+  rsMailReportEmpty = 'Keine Bücher registriert';
+  rsMailReportSubectNotRenewable = 'Nächste Frist: %s(NICHT verlängerbar) | %s';
+  rsMailReportSubject = 'Nächste Frist: %s | %s';
+
 
 function sendMailReportCompare(Item1, Item2: Pointer): Integer;
 var book1,book2: TBook;
@@ -274,15 +310,16 @@ begin
 
     tmpbl.Sort(@sendMailReportCompare);
 
-    subject:= 'Videlibri Bücherreport vom '+DateToSimpleStr(currentDate);
-    report := 'Videlibri Bücherreport vom '+DateToSimpleStr(currentDate)+#13#10#13#10;
+    subject:= Format(rsMailReportTitle, [DateToSimpleStr(currentDate)]);
+    report := subject + #13#10#13#10;
     if tmpbl.count = 0 then begin
-      report += 'Keine Bücher registriert'#13#10;
+      report += rsMailReportEmpty;
+      report += #13#10;
     end else begin
       if (tmpbl.nextLimitDate(false) <= tmpbl.nextLimitDate()) or (tmpbl.nextLimitDate(false) < currentDate + 3) then
-        subject := 'Nächste Frist: '  + mailDate(tmpbl.nextLimitDate()) + '(NICHT verlängerbar)' + ' | ' + subject
+        subject := Format(rsMailReportSubectNotRenewable, [mailDate(tmpbl.nextLimitDate()), subject])
        else
-        subject := 'Nächste Frist: '  + mailDate(tmpbl.nextLimitDate()) + ' | ' + subject;
+        subject := Format(rsMailReportSubject, [mailDate(tmpbl.nextLimitDate()), subject]);
 
       week := dateToWeek(tmpbl.books[0].dueDate);
       for j:=0 to tmpbl.Count-1 do begin
@@ -296,11 +333,11 @@ begin
       end;
     end;
 
-    report += #13#10'Daten von: ';
+    report += #13#10 + rsMailReportDate;
     for j:=0 to usedaccounts.Count-1 do
       with TCustomAccountAccess(usedaccounts[j]) do begin
         report+=#13#10'        '+prettyName+': '+DateToPrettyStr(lastCheckDate);
-        if not enabled then report+=' (DEAKTIVIERT!)';
+        if not enabled then report+='('+rsDisabled+')';
       end;
 
     report+=#13#10#13#10+'.'+#13#10#13#10;
@@ -443,11 +480,11 @@ begin
   BookList.createUserColumnVisibilityPopupMenu();
   {$ifndef android}
   BookList.createSearchBar();
-  BookList.SearchBar.Caption:='Ausleihensuche:';
-  BookList.SearchBar.SearchForwardText:='&Vorwärts';
-  BookList.SearchBar.SearchBackwardText:='&Rückwärts';
-  BookList.SearchBar.SearchLocations[0]:='alle Felder';
-  BookList.SearchBar.SearchLocations.InsertObject(0,'Verfasser/Titel',tobject(1 shl BL_BOOK_COLUMNS_AUTHOR or 1 shl BL_BOOK_COLUMNS_TITLE));
+  BookList.SearchBar.Caption:=rsSearchBarTitle;
+  BookList.SearchBar.SearchForwardText:=rsSearchBarNext;
+  BookList.SearchBar.SearchBackwardText:=rsSearchBarPrev;
+  BookList.SearchBar.SearchLocations[0]:=rsSearchBarAll;
+  BookList.SearchBar.SearchLocations.InsertObject(0, rsSearchBarAuthorTitle, tobject(1 shl BL_BOOK_COLUMNS_AUTHOR or 1 shl BL_BOOK_COLUMNS_TITLE));
   {$endif}
   //TODO Iconoptimize
   //TODO Öffnungszeiten
@@ -619,7 +656,7 @@ begin
   {$endif}
   setPanelText(StatusBar1.Panels[3],{'Datum: '+}DateToSimpleStr(currentDate));
   if newVersionInstalled then
-    ShowMessage('Das Update wurde installiert.'#13#10'Die installierte Version ist nun Videlibri '+FloatToStr(versionNumber/1000));
+    ShowMessage(Format(rsUpdateComplete, [#13#10, FloatToStr(versionNumber/1000)]));
   onshow:=nil;
   OnActivate:=nil;
   windowstate:=twindowstate(userConfig.ReadInteger('window','state',integer(windowstate)));
@@ -676,8 +713,8 @@ end;
 
 procedure TmainForm.BookListSelectItem(Sender: TObject; Item: TTreeListItem);
 begin
-  if BookList.SelCount=0 then setPanelText(StatusBar1.Panels[SB_PANEL_COUNT], format('Medien: %d', [BookList.bookCount]) )
-  else setPanelText(StatusBar1.Panels[SB_PANEL_COUNT], format('Medien: %d/%d', [BookList.selCount, BookList.bookCount]));
+  if BookList.SelCount=0 then setPanelText(StatusBar1.Panels[SB_PANEL_COUNT], format(rsBookCount, [BookList.bookCount]) )
+  else setPanelText(StatusBar1.Panels[SB_PANEL_COUNT], format(rsBookCountSelected, [BookList.selCount, BookList.bookCount]));
 end;
 
 procedure TmainForm.FormShow(Sender: TObject);
@@ -744,12 +781,12 @@ end;
 
 procedure TmainForm.MenuItem14Click(Sender: TObject);
 begin
-  showCHM('videlibri.chm',1000, 'Fensterbeschreibung');
+  showCHM('videlibri.chm', 1000, rsMenuHelpWindows);
 end;
 
 procedure TmainForm.MenuItem15Click(Sender: TObject);
 begin
-  showCHM('videlibri.chm',1001, 'Fragen und Antworten');
+  showCHM('videlibri.chm', 1001, rsMenuFAQ);
 end;
 
 procedure TmainForm.MenuItem16Click(Sender: TObject);
@@ -766,10 +803,10 @@ var  openAboutDialog: tpopenAboutDialog;
 var infotext: string;
 begin
   infotext:=
-  'Verwendete Fremdkomponenten:'#13#10'  LCL'#13#10'  FreePascal Runtime'#13#10'  TRegExpr von Andrey V. Sorokin'#13#10'  FLRE von Benjamin Rosseaux'#13#10#13#10+
-  'Verwendete Entwicklungswerkzeuge:'#13#10'  Lazarus'#13#10'  FreePascal'#13#10'  GIMP'#13#10'  HTML Help Workshop'#13#10'  The Regex Coach'#13#10#13#10+
-  'Danke an: Leonid Sokolov, Martin Kim Dung-Pham, Michael Volkmann'#13#10#13#10+
-  'Die angezeigten Daten stammen von den jeweiligen Bibliotheken, dem HBZ, Amazon, openlibrary.org und buchhandel.de. ';
+  Format(rsAbout, ['LCL'#13#10'  FreePascal Runtime'#13#10'  TRegExpr ' +rsBy+ ' Andrey V. Sorokin'#13#10'  FLRE ' +rsBy+ ' Benjamin Rosseaux',
+                   'Lazarus'#13#10'  FreePascal'#13#10'  GIMP'#13#10'  HTML Help Workshop'#13#10'  The Regex Coach',
+                   'Leonid Sokolov, Martin Kim Dung-Pham, Michael Volkmann',
+                   'HBZ, Amazon, openlibrary.org ' +rsAnd+ ' buchhandel.de']);
   {$IFDEF WIN32}
   lib:=LoadLibrary('bbabout.dll');
   openAboutDialog:=tpopenAboutDialog(GetProcAddress(lib,'openAboutDialog'));
@@ -880,8 +917,7 @@ end;
 procedure TmainForm.newAccountWizardClosed(Sender: TObject; var CloseAction: TCloseAction);
 begin
   if accounts.count = 0 then
-    if Application.MessageBox('Sie müssen ein Konto angeben, um VideLibri für Verlängerungen benutzen zu können.'#13#10+
-                              'Wollen Sie eines eingeben?','Videlibri',MB_YESNO or MB_ICONQUESTION)=mrYes then begin
+    if Application.MessageBox(pchar(Format(rsNeedAccountForRenewing, [#13#10])), 'Videlibri', MB_YESNO or MB_ICONQUESTION)=mrYes then begin
       CloseAction:=caNone;
       exit;
   end;
@@ -894,19 +930,19 @@ var i:longint;
     books: TBookList;
 begin
   if updateThreadConfig.updateThreadsRunning>0 then begin
-    ShowMessage('Diese Aktion kann nicht durchgeführt werden, solange Medien aktualisiert werden.') ;
+    ShowMessage(rsBlockedDuringRefresh) ;
     exit;
   end;
   books := BookList.SelectedBooks;
   try
   for i:=0 to books.Count-1 do
     if books[i].lend then begin
-      ShowMessage('Es sind momentan ausgeliehene Medien markiert, es können aber nur abgegebene Medien aus der History gelöscht werden'#13#10'Bitte demarkieren Sie sie.');
+      ShowMessage(Format(rsCannotDeleteLend, [#13#10]));
       exit;
     end;
   if books.count = 0 then exit;
-  if MessageDlg('Löschen',
-                  'Sind Sie sicher, dass Sie ' + IntToStr(books.count) + ' Medium/Medien löschen wollen?',
+  if MessageDlg(rsDelete,
+                  Format(rsDeleteConfirm, [IntToStr(books.count)]),
                   mtConfirmation ,[mbYes,mbNo],0)<>mrYes then exit;
 
   accountsToSave:=tlist.Create;
@@ -914,7 +950,7 @@ begin
     for i:=0 to books.count-1 do begin
         if accountsToSave.IndexOf(books[i].owner)<0 then accountsToSave.Add(books[i].owner);
         if TCustomAccountAccess(books[i].owner).books.old.Remove(books[i]) < 0 then begin
-          ShowMessage('Das markierte Buch war nicht vorhanden.'#13#10'Das ist eigentlich unmöglich, am besten starten Sie das Programm neu.');
+          ShowMessage(Format(rsSelectedBookMissing, [#13#10]));
           exit;
         end;
       end;
@@ -1107,11 +1143,11 @@ begin
     if pos.x<=statusbar1.panels.items[i].Width then begin
       case i of
         0: begin
-             s:='Die angezeigten Daten der Konten wurden zu folgenden Zeitpunkten'#13#10'das letztemal aktualisiert:';
+             s:=Format(rsLastRefreshLong, [#13#10]);
              for j:=0 to accounts.count-1 do
                with (accounts[j]) do begin
                  s:=s+#13#10'        '+prettyName+': '+DateToPrettyStr(lastCheckDate);
-                 if not enabled then s+=' (DEAKTIVIERT!)';
+                 if not enabled then s+=' ('+rsDisabled+')';
                end;
              ShowMessage(s);
            end;
@@ -1216,7 +1252,7 @@ begin
     maxcharges:=maxcharges+(accounts[i]).charges;
 
   if maxcharges>0 then begin
-    StatusBar1.Panels[1].text:='Offene Gebühren: '+floattostr(maxcharges)+'€ (';
+    StatusBar1.Panels[1].text:=Format(rsCharged, [floattostr(maxcharges) + '€ (']);
     for i:=0 to accounts.Count-1 do
         if accounts[i].charges>0 then
            StatusBar1.Panels[1].text:=StatusBar1.Panels[1].text+
@@ -1224,11 +1260,11 @@ begin
               FloatToStr(accounts[i].charges) +'€ ';
     setPanelText(StatusBar1.Panels[1],StatusBar1.Panels[1].text+')');
   end else setPanelText(StatusBar1.Panels[1],'');
-  setPanelText(StatusBar1.Panels[SB_PANEL_COUNT],'Medien: '+IntToStr(BookList.bookCount));
+  setPanelText(StatusBar1.Panels[SB_PANEL_COUNT], format(rsBookCount, [BookList.bookCount]));
 
 
   if updateThreadConfig.updateThreadsRunning<=0 then begin
-    setPanelText(StatusBar1.Panels[0],'Älteste angezeigte Daten sind '+DateToPrettyGrammarStr('vom ','von ',lastCheck));
+    setPanelText(StatusBar1.Panels[0], Format(rsLastRenewDate, [DateToPrettyStrGrammarPast(lastCheck)]));
 
   end;
 
@@ -1247,7 +1283,7 @@ begin
       text:='ACHTUNG';
       RecordItems.Add('');
       RecordItems.Add('VideLibri');
-      RecordItems.Add('dieses Konto ist deaktiviert und der Ausleihstatus ist folgedessen unbekannt');
+      RecordItems.Add(rsAccountDisabled);
       RecordItems.Add('');
       RecordItems.Add('');
       RecordItems.Add('');
@@ -1276,8 +1312,8 @@ procedure TmainForm.refreshShellIntegration;
 var
   iconStream: TStringStream;
 begin
-  MenuItem29.Caption:='  Nächste Abgabefrist: '+nextLimitStr;
-  TrayIcon1.Hint:='Videlibri'#13#10'  **Nächste Abgabefrist: '+nextLimitStr+'**'#13#10'  Letzte Aktualisierung: '+DateToPrettyStr(lastCheck);
+  MenuItem29.Caption:=Format(rsTNAMenuLimit, [nextLimitStr]);
+  TrayIcon1.Hint:='Videlibri'#13#10+Format(rsTNAHintLimitCheck, [nextLimitStr, #13#10, DateToPrettyStr(lastCheck)]);
   iconStream := TStringStream.Create(assetFileAsString(getTNAIconBaseFileName()));
   TrayIcon1.Icon.LoadFromStream(iconStream);
   icon.LoadFromStream(iconStream);
