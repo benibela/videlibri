@@ -11,13 +11,13 @@ object newAccountWizard: TnewAccountWizard
   OnCreate = FormCreate
   OnShow = FormShow
   Position = poScreenCenter
-  LCLVersion = '1.1'
+  LCLVersion = '1.7'
   object Notebook1: TNotebook
     Left = 0
     Height = 311
     Top = 0
     Width = 520
-    PageIndex = 1
+    PageIndex = 0
     Align = alClient
     TabOrder = 0
     TabStop = True
@@ -25,7 +25,7 @@ object newAccountWizard: TnewAccountWizard
       Color = clBtnFace
       object Label1ChooseLib: TLabel
         Left = 20
-        Height = 87
+        Height = 75
         Top = 7
         Width = 473
         Anchors = [akTop, akLeft, akRight]
@@ -39,8 +39,8 @@ object newAccountWizard: TnewAccountWizard
         AnchorSideBottom.Control = Page1
         AnchorSideBottom.Side = asrBottom
         Left = 19
-        Height = 197
-        Top = 104
+        Height = 209
+        Top = 92
         Width = 486
         Anchors = [akTop, akLeft, akRight, akBottom]
         BorderSpacing.Around = 10
@@ -341,10 +341,10 @@ object newAccountWizard: TnewAccountWizard
     end
     object nextbtn: TButton
       AnchorSideRight.Control = cancelBtn
-      Left = 348
+      Left = 346
       Height = 27
       Top = 3
-      Width = 71
+      Width = 73
       Anchors = [akTop, akRight, akBottom]
       AutoSize = True
       BorderSpacing.Right = 10
@@ -357,10 +357,10 @@ object newAccountWizard: TnewAccountWizard
     end
     object back: TButton
       AnchorSideRight.Control = nextbtn
-      Left = 271
+      Left = 268
       Height = 27
       Top = 3
-      Width = 75
+      Width = 76
       Anchors = [akTop, akRight, akBottom]
       AutoSize = True
       BorderSpacing.InnerBorder = 4
@@ -375,4 +375,4 @@ object newAccountWizard: TnewAccountWizard
     left = 456
     top = 32
   end
-end
+end

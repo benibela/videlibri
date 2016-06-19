@@ -301,7 +301,7 @@ implementation
 uses applicationconfig,bbdebugtools,FileUtil,LCLIntf,LazFileUtils, xquery,androidutils,simpleinternet,mockinternetaccess,libraryAccess,strutils;
 
 resourcestring
-  rsNoTemplateLinkFound = 'Der Link verweist auf kein VideLibri-Template (kein videlibri.description link rel vorhanden)';
+  rsNoTemplateLinkFound = 'Der Link verweist auf kein VideLibri-Template (es gibt kein Element < link rel="videlibri.description" auf der Seite)';
   rsLibraryNotFound = 'Bücherei nicht gefunden: %s:%s';
 
 
@@ -1069,7 +1069,11 @@ var
   templateId: String;
 begin
   page := retrieve(url);
-  temp := process(page, '<link rel="videlibri.description" href="{.}"/>');
+  temp := xqvalue();
+  try
+    temp := process(page, '<link rel="videlibri.description" href="{.}"/>');
+  except
+  end;
   if temp.isUndefined then begin
     raise ELibraryException.create(rsNoTemplateLinkFound);
     exit(nil);
