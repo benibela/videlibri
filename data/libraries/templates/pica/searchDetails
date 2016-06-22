@@ -28,7 +28,7 @@
 
     <tr>
       <td><strong>PPN:</strong></td>
-      <td><a>{$book.home-url := if (contains(@href, "://")) then @href else concat($base,"/",@href)}</a></td>
+      <td><a>{$book.home-url := if (contains(@href, "://")) then @href else concat(get("base"),"/",@href)}</a></td>
     </tr>
     
     <tr>

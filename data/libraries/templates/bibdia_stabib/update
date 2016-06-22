@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <t:switch-prioritized>
 <html>
-
-<template:read var="templateError" source="false()"/>
+{
+  templateError := false(),
+  base := base-uri() (: for searchDetails :)
+}
 
 <template:switch>
 <!--alt<TD>Ausgeliehene Medien:<template:read var="delete-current-books()"/><template:read var="bookCount" source="extract(text(),'\d+')"/></TD>-->
