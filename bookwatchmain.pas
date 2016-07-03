@@ -32,6 +32,7 @@ type
     cancelTheseBooks: TMenuItem;
     groupingItem: TMenuItem;
     MenuItem1: TMenuItem;
+    MenuItem11: TMenuItem;
     MenuItemDebugLog: TMenuItem;
     MenuItem9: TMenuItem;
     MenuItemTester: TMenuItem;
@@ -105,7 +106,6 @@ type
     procedure accountAddedChanged(acc: TCustomAccountAccess);
     procedure accountsChanged(Sender: TObject);
     procedure androidActivationTimerTimer(Sender: TObject);
-    procedure BookListDblClick(Sender: TObject);
     procedure bookPopupMenuPopup(Sender: TObject);
     procedure BookListUserSortItemsEvent(sender: TObject;
       var sortColumn: longint; var invertSorting: boolean);
@@ -122,6 +122,7 @@ type
     procedure BookListSelectItem(Sender: TObject; Item: TTreeListItem);
     procedure FormShow(Sender: TObject);
     procedure FormWindowStateChange(Sender: TObject);
+    procedure MenuItem11Click(Sender: TObject);
     procedure MenuItemDebugLogClick(Sender: TObject);
     procedure MenuItemRenewClick(Sender: TObject);
     procedure MenuItem14Click(Sender: TObject);
@@ -181,8 +182,14 @@ type
     searcherForm: TbookSearchFrm;
 
     BookList: TBookListView;
+    booklistClickShift: TShiftState;
+    booklistClickX: Integer;
+    historyEditable, historyEditableAutostart: Boolean;
 
 
+    procedure BookListDblClick(Sender: TObject);
+    procedure BookListEditingDone(Sender: TObject);
+    procedure BookListMouseDown(Sender: TObject; Button: TMouseButton; Shift: TShiftState; X, Y: Integer);
     procedure setPanelText(panel: TStatusPanel; atext: string);
     procedure ThreadDone(Sender: TObject);
     procedure RefreshListView; //Zentrale Anzeige Funktion!
@@ -248,6 +255,8 @@ resourcestring
   rsMailReportEmpty = 'Keine Bücher registriert';
   rsMailReportSubectNotRenewable = 'Nächste Frist: %s(NICHT verlängerbar) | %s';
   rsMailReportSubject = 'Nächste Frist: %s | %s';
+  rsEditHistoryConfirm = 'Sollen die Eigenschaften dieses Buches editiert werden?';
+  rsEditHistoryNoHistory = 'Nur abgebenen Bücher können editiert werden.';
 
 
 function sendMailReportCompare(Item1, Item2: Pointer): Integer;
@@ -472,6 +481,7 @@ begin
   BookList.SortColumn:=BL_BOOK_COLUMNS_LIMIT_ID;
   BookList.OnUserSortItemsEvent:=@BookListUserSortItemsEvent;
   BookList.OnDblClick:=@BookListDblClick;
+  booklist.OnMouseDown:=@BookListMouseDown;
  // BookList.TabOrder:=0;
 
   BookList.deserializeColumnOrder(userConfig.ReadString('BookList','ColumnOrder',''));
@@ -574,8 +584,49 @@ begin
 end;
 
 procedure TmainForm.BookListDblClick(Sender: TObject);
+var
+  recordItem: TTreeListRecordItem;
+  col: LongInt;
 begin
-  if BookList.selCount=1 then displayDetailsMIClick(displayDetailsMI);
+  if BookList.selCount<>1 then exit;
+  if (ssShift in booklistClickShift) or (historyEditableAutostart) then begin
+    if booklist.SelectedBook = nil then exit;
+    if booklist.SelectedBook.lend then begin
+      ShowMessage(rsEditHistoryNoHistory);
+      exit;
+    end;
+    recordItem := booklist.Selected.GetRecordItemAtPos(BookList, booklistClickX);
+    col := recordItem.Index;
+    case col of
+      BL_BOOK_COLUMNS_ISSUE_ID,BL_BOOK_COLUMNS_LIMIT_ID, BL_BOOK_COLUMNS_ACCOUNT: exit;
+    end;
+    if historyEditable or confirm(rsEditHistoryConfirm) then historyEditable := true
+    else exit;
+    historyEditableAutostart := true;
+    booklist.OnEditingDone:=@BookListEditingDone;
+    BookList.startEditing(recordItem);
+  end else
+    displayDetailsMIClick(displayDetailsMI);
+end;
+
+procedure TmainForm.BookListEditingDone(Sender: TObject);
+var
+  item: TTreeListRecordItem;
+begin
+  if (BookList.feditedRecordItem = nil) or (booklist.feditor = nil) then exit;
+  if BookList.feditedRecordItem.Text = booklist.feditor.text then exit;
+  if BookList.feditedRecordItem.Parent <> BookList.Selected then exit;
+  item := BookList.feditedRecordItem;
+  EnterCriticalSection(updateThreadConfig.libraryAccessSection);
+  EnterCriticalSection(updateThreadConfig.libraryFileAccess);
+  try
+    booklist.SelectedBook.setProperty(BookListColumnToProperty[item.Index], booklist.feditor.Text);
+    item.text := booklist.feditor.Text;
+    (booklist.SelectedBook.owner as TCustomAccountAccess).save();
+  finally
+    LeaveCriticalSection(updateThreadConfig.libraryFileAccess);
+    LeaveCriticalSection(updateThreadConfig.libraryAccessSection);
+  end;
 end;
 
 procedure TmainForm.androidActivationTimerTimer(Sender: TObject);
@@ -725,6 +776,13 @@ procedure TmainForm.FormWindowStateChange(Sender: TObject);
 begin
   if WindowState=wsMinimized then hide
   else lastState := WindowState;
+end;
+
+procedure TmainForm.MenuItem11Click(Sender: TObject);
+begin
+  if (BookList.SelectedBook = nil) or (booklist.selCount > 1) then exit;
+  historyEditable := true; historyEditableAutostart := true;
+  BookListDblClick(booklist);
 end;
 
 procedure TmainForm.MenuItemDebugLogClick(Sender: TObject);
@@ -900,6 +958,10 @@ var t: string;
  books: TBookList;
  copyLimits: Boolean;
 begin
+  if (booklist.feditor <> nil) and (booklist.feditedRecordItem <> nil) then begin
+    booklist.feditor.CopyToClipboard;
+    exit;
+  end;
   books := BookList.SelectedBooks;
   copyLimits := userConfig.ReadBool('user','copy-limit',false);
   t := '';
@@ -968,6 +1030,7 @@ end;
 procedure TmainForm.displayDetailsMIClick(Sender: TObject);
 begin
   if (BookList.Selected = nil) or (BookList.Selected.data.obj=nil) then exit;
+  historyEditableAutostart := false;
   if searcherForm=nil then begin searcherForm:=TbookSearchFrm.Create(nil); searcherForm.loadDefaults; refreshAccountGUIElements(); end;
   searcherForm.selectBookToReSearch(tbook(BookList.Selected.data.obj));
   if TComponent(sender).tag<>1 then searcherForm.startSearch.Click;
@@ -1209,6 +1272,12 @@ begin
     panel.Width:=textWidth+10;
     FormResize(self); //update scrollbar panel width
   end;
+end;
+
+procedure TmainForm.BookListMouseDown(Sender: TObject; Button: TMouseButton; Shift: TShiftState; X, Y: Integer);
+begin
+  booklistClickShift := shift;
+  booklistClickX := X;
 end;
 
 procedure TmainForm.RefreshListView;

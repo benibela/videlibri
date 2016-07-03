@@ -5,13 +5,24 @@ unit bookListView;
 interface
 
 uses
-  Classes, SysUtils, booklistreader, TreeListView, forms, Controls,FPCanvas;
+  Classes, SysUtils, booklistreader, TreeListView, forms, Controls,StdCtrls, FPCanvas;
 
  type
 
- { TBookListView }
+ TEditableListView = class(TTreeListView)
+   feditor: TEdit;
+   feditedRecordItem: TTreeListRecordItem;
 
- TBookListView = class(TTreeListView)
+   //OnEditingDone: TNotifyEvent;
+   property OnEditingDone; //lcl has it
+
+   procedure startEditing(item: TTreeListRecordItem);
+
+   procedure editorExit(Sender: TObject);
+   procedure editorKeyUp(Sender: TObject; var Key: Word; Shift: TShiftState);
+ end;
+
+ TBookListView = class(TEditableListView)
 
  private
     fshowlendbooks: boolean;
@@ -48,6 +59,16 @@ const BL_BOOK_COLUMNS_AUTHOR=2;
       BL_BOOK_COLUMNS_ISBN=9;
       BL_BOOK_EXTCOLUMNS_COLOR=10;
       BL_BOOK_EXTCOLUMNS_WEEK_SEPARATOR=11;
+
+const BookListColumnToProperty: array[0..11] of string = (
+      'id', 'category', 'author', 'title',
+      'year',
+      'issuedate',
+      'duedate',
+      '?account',
+      'status',
+      'isbn',
+      '?','?');
 
 function dateToWeek(date: longint):longint; //week: monday - sunday
 
@@ -92,6 +113,53 @@ begin
     0: result := rsWeekThis;
     1: result := rsWeekNext;
     else result := Format(rsWeekDates, [DateToStr(week * 7 + 2), DateToStr(week * 7+2+6)]);
+  end;
+end;
+
+procedure TEditableListView.startEditing(item: TTreeListRecordItem);
+var
+  parentItem: TTreeListItem;
+  column: LongInt;
+begin
+  feditedRecordItem := item;
+  column := item.Index;
+  parentItem := item.Parent;
+
+  if feditor = nil then begin
+    feditor := TEdit.Create(self);
+    feditor.Height := RowHeight;
+    feditor.Parent := self;
+    feditor.BorderStyle := bsNone;
+    feditor.OnExit:=@editorExit;
+    feditor.AutoSize := false;
+    feditor.OnKeyUp:=@editorKeyUp;
+  end;
+  feditor.BoundsRect := parentItem.getBounds(column);
+  feditor.text := parentItem.RecordItemsText[column];
+  if feditor.Height <> RowHeight then
+    feditor.top := feditor.top - (feditor.Height - RowHeight) div 2;
+  feditor.Visible := true;
+  feditor.SetFocus;
+end;
+
+procedure TEditableListView.editorExit(Sender: TObject);
+begin
+  if (feditedRecordItem = nil) or (feditor = nil) then exit;
+  //feditedRecordItem.Text := feditor.text; better to it in event handler
+  if assigned(OnEditingDone) then OnEditingDone(self);
+  feditedRecordItem := nil;
+  feditor.Visible := false;
+end;
+
+procedure TEditableListView.editorKeyUp(Sender: TObject; var Key: Word; Shift: TShiftState);
+begin
+  if feditedRecordItem = nil then exit;
+  case key of
+    13, 10: editorExit(feditor);
+    $1B: begin
+      feditor.Text := feditedRecordItem.Text;
+      editorExit(feditor);
+    end;
   end;
 end;
 

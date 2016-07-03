@@ -1191,6 +1191,10 @@ object mainForm: TmainForm
       Caption = 'Markierte Medien aus der History löschen'
       OnClick = removeSelectedMIClick
     end
+    object MenuItem11: TMenuItem
+      Caption = 'Markiertes Medium in der History editieren'
+      OnClick = MenuItem11Click
+    end
   end
   object TrayIcon1: TTrayIcon
     PopUpMenu = trayIconPopupMenu
