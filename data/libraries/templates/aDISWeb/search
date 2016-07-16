@@ -16,13 +16,7 @@
              $search-result-count := xs:integer($temp[2]))
         ),
       lastSearchedIndex := get("lastSearchedIndex", 0) (: for unittests :)
-    }
-    
-    <DIV id="main">
-      <DIV class="inside">
-        <DIV class="block">
-        
-        
+    } 
         <span class="txtinsert">Trefferliste</span>
         
         <div class="toolbar_div"><ul class="toolbar_ul"><li class="toolbar_li">
@@ -33,74 +27,71 @@
           }
         </li></ul></div>
         
-          <DIV class="fsgrp">
-            <DIV>
-              <t:switch>
-                <DIV class="rTable_div">
-                  <TABLE class="rTable_table"> 
-                   <!--{firstIndex := tbody/tr[1]/td[1] * 1}-->
-                    <thead/>
-                    <TR>
-                      <TD>{lastIndex := if (. castable as xs:integer) then xs:integer(.) else get("lastIndex", 1) }</TD>
-                      <t:if test="$lastIndex > $lastSearchedIndex">
-                        <TD/><TD/> <!-id, checkbox, kind--> 
-                        <TD>
-                          <A>{
-                            
-                               book := {
-                                 "title": extract(., "^[^/]+"), 
-                                 "author": extract(., "^[^/]+/([^-]+)", 1), 
-                                 "publisher": extract(., "-([^-]+)$", 1),
-                                 "_searchId": encode-for-uri(concat("ZTEXT       ", extract(@href, "\('(.*)'\)", 1))),
-                                 "_index": $lastIndex
-                               }
  
-                          }</A>
-                          <A>Volltext<t:read var="book.Volltext!" source="x'Volltext ( {@href} )'"/></A>?
-                        </TD>
-                        <!-- td sometimes signature -->
-                        <TD><img>{book.statusId := local:img-to-status(.) }</img></td> 
-                        <TD>{book.year := ., lastSearchedIndex := $lastIndex}</TD>
-                      </t:if>
-                    </TR>*
-                  </TABLE>
-                </DIV>
-                
-                <div class="rList_wrapper"> <ul class="rList">
-                  <li class="rList_li_even">
-                  <!--<span class="rList_cover"/>-->
-                  
-                
-                  <span class="rList_titel">{$title := .}</span>
-                  <span class="rList_num">{lastIndex := xs:integer(.)}</span>
+        <DIV id="R07">
+          <t:switch>
+            <DIV class="rTable_div">
+              <TABLE class="rTable_table"> 
+               <!--{firstIndex := tbody/tr[1]/td[1] * 1}-->
+                <thead/>
+                <TR>
+                  <TD>{lastIndex := if (. castable as xs:integer) then xs:integer(.) else get("lastIndex", 1) }</TD>
                   <t:if test="$lastIndex > $lastSearchedIndex">
-                    <span class="rlist_icon"><img>{book := {
-                      "title": $title,
-                      "_searchId": encode-for-uri(concat("ZTEXT       ", extract($title//a/@href, "\('(.*)'\)", 1))),
-                      "_index": $lastIndex,
-                      "statusId" : local:img-to-status(.)
-                    }, lastSearchedIndex := $lastIndex}</img></span>
-                    
-                    <span class="rList_medium">
-                    {let $temp := tokenize(., "-")!normalize-space(),
-                         $year := $temp[last()][. castable as xs:integer],
-                         $autpubcount := count($temp) - (if (exists($year)) then (1, $book.year := $year)[1] else 0)
-                     return switch ($autpubcount) 
-                       case 0 return ()
-                       case 1 return $book.author := $temp[1]
-                       default return (
-                         $book.author := $temp[1],
-                         $book.publisher := $temp[$autpubcount]
-                       )}
-                    </span>
-                  </t:if> 
-                </li>+</ul></div>
-              </t:switch>
+                    <TD/><TD/> <!-id, checkbox, kind--> 
+                    <TD>
+                      <A>{
+                        
+                           book := {
+                             "title": extract(., "^[^/]+"), 
+                             "author": extract(., "^[^/]+/([^-]+)", 1), 
+                             "publisher": extract(., "-([^-]+)$", 1),
+                             "_searchId": encode-for-uri(concat("ZTEXT       ", extract(@href, "\('(.*)'\)", 1))),
+                             "_index": $lastIndex
+                           }
+
+                      }</A>
+                      <A>Volltext<t:read var="book.Volltext!" source="x'Volltext ( {@href} )'"/></A>?
+                    </TD>
+                    <!-- td sometimes signature -->
+                    <TD><img>{book.statusId := local:img-to-status(.) }</img></td> 
+                    <TD>{book.year := ., lastSearchedIndex := $lastIndex}</TD>
+                  </t:if>
+                </TR>*
+              </TABLE>
             </DIV>
-          </DIV>
-        </DIV>
+            
+            <div class="rList_wrapper"> <ul class="rList">
+              <li>
+              <!--<span class="rList_cover"/>-->
+              
+            
+              <span class="rList_titel">{$title := .}</span>
+              <span class="rList_num">{lastIndex := xs:integer(.)}</span>
+              <t:if test="$lastIndex > $lastSearchedIndex">
+                <span class="rlist_icon"><img>{book := {
+                  "title": $title,
+                  "_searchId": encode-for-uri(concat("ZTEXT       ", extract($title//a/@href, "\('(.*)'\)", 1))),
+                  "_index": $lastIndex,
+                  "statusId" : local:img-to-status(.)
+                }, lastSearchedIndex := $lastIndex}</img></span>
+                
+                <span class="rList_medium">
+                {let $temp := tokenize(., "-")!normalize-space(),
+                     $year := $temp[last()][. castable as xs:integer],
+                     $autpubcount := count($temp) - (if (exists($year)) then (1, $book.year := $year)[1] else 0)
+                 return switch ($autpubcount) 
+                   case 0 return ()
+                   case 1 return $book.author := $temp[1]
+                   default return (
+                     $book.author := $temp[1],
+                     $book.publisher := $temp[$autpubcount]
+                   )}
+                </span>
+              </t:if> 
+            </li>+</ul></div>
+          </t:switch>
       </DIV>
-    </DIV>   
+       
   </html>
 
   <h1>Ihre Suche erzielte keinen Treffer<t:s>search-result-count :=  0</t:s></h1>
