@@ -1,5 +1,4 @@
 book := {}
-result := ()
 firstIndex := xs:double("45")
 search-result-count := 231
 lastSearchedIndex := 0
