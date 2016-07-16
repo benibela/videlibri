@@ -2,7 +2,7 @@
   <html>
     <template:meta default-text-matching="regex"/>
     { declare function local:img-to-status($img){
-        switch (extract($img/@src, "verfu_(.*)[.]gif", 1))
+        switch (extract($img/@src, "verfu_(.*)[.](gif|png)", 1))
           case "ja" return "available"
           case "nein" return "lend"
           case "info" return "virtual"
@@ -65,17 +65,18 @@
               <!--<span class="rList_cover"/>-->
               
             
-              <span class="rList_titel">{$title := .}</span>
-              <span class="rList_num">{lastIndex := xs:integer(.)}</span>
+              <div class="rList_titel">{$title := .}</div>
+              <DIV class="rList_jahr">{$globyear := .}</DIV>?
+              <DIV class="rList_num">{lastIndex := xs:integer(.)}</DIV>
               <t:if test="$lastIndex > $lastSearchedIndex">
-                <span class="rlist_icon"><img>{book := {
+                {book := {
                   "title": $title,
                   "_searchId": encode-for-uri(concat("ZTEXT       ", extract($title//a/@href, "\('(.*)'\)", 1))),
                   "_index": $lastIndex,
-                  "statusId" : local:img-to-status(.)
-                }, lastSearchedIndex := $lastIndex}</img></span>
+                  "year": $globyear 
+                }, lastSearchedIndex := $lastIndex}
                 
-                <span class="rList_medium">
+                <DIV class="rList_name">
                 {let $temp := tokenize(., "-")!normalize-space(),
                      $year := $temp[last()][. castable as xs:integer],
                      $autpubcount := count($temp) - (if (exists($year)) then (1, $book.year := $year)[1] else 0)
@@ -86,7 +87,9 @@
                      $book.author := $temp[1],
                      $book.publisher := $temp[$autpubcount]
                    )}
-                </span>
+                </DIV>
+                
+                <div class="rList_availability"><img>{book.statusId := local:img-to-status(.)}</img></div>?
               </t:if> 
             </li>+</ul></div>
           </t:switch>
