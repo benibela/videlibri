@@ -1,0 +1,448 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="de" lang="de"><head>
+	<style type="text/css">
+		@import url(css/aDISStandard.css);
+	</style>
+	<script src="js/aDISMain.min.js" type="text/javascript"></script>
+	<script src="js/fckeditor/fckeditor.js" type="text/javascript"></script>
+	<title> Wir bringen Medien in Bewegung </title><script type="text/javascript">
+	var text = '';
+	window.defaultStatus=text;
+</script>
+<!--
+(c) Software: aDIS/BMS und aDIS/Archiv by |a|S|tec| GmbH Berlin und Muenchen - www.astec.de
+HTML-/CSS: Formulare, Tabellen, Inhalte, etc. werden automatisiert durch aDIS/BMS und aDIS/Archiv generiert
+HTML-/CSS: Framework basiert lose auf Contao 2 (c) Leo Feyer www.contao.org
+HTML-/CSS: Anpassungen im aDIS-Rahmen durch ena Webstudio - www.ena-webstudio.com
+Projekt: VOEBB, OPAC02, de
+Letztes Update: 07.07.2016 - 11:11
+//-->
+<meta http-equiv="x-ua-compatible" content="ie=edge" />
+<meta http-equiv="cache-control" content="no-cache" />
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<meta http-equiv="content-style-type" content="text/css" />
+<meta http-equiv="content-script-type" content="text/javascript" />
+<meta http-equiv="content-language" content="de" />
+<meta name="language" content="de" />
+<meta name="viewport" content="width=device-width; initial-scale=1.0" />
+<meta name="description" content="Recherche in 2,7 Millionen Titeln der �ffentlichen Bibliotheken des Landes Berlin, Bestellung, Kontoverwaltung, Online-Ausleihe von E-Books, E-Audios und E-Videos" />
+<link rel="stylesheet" href="/aDISWeb_kopac/css/kopac_style.css" type="text/css" />
+<link rel="stylesheet" href="/aDISWeb_vob/css/kopac_diff.css" type="text/css" />
+<link rel="shortcut icon" type="image/x-icon" href="/aDISWeb_vob/images/favicon.ico" />
+<script type="text/javascript" src="/aDISWeb_vob/js/cookies.js"></script>
+<script type="text/javascript" src="/aDISWeb_vob/js/efa_fontsize.js"></script>
+</head>
+<body class="dreier deutsch">
+<script type="text/javascript"><!--
+
+
+
+
+function startIdleTimer() {
+  if (typeof idleId != 'undefined')
+    clearTimeout(idleId)
+  idleId = window.setTimeout("to('"+ idleLink + "')", idleTime);
+  }			
+function to(link) {
+  location.href=link;
+  }
+
+
+
+
+
+function EventTarget() {
+	this.handlers = [];
+	}
+EventTarget.prototype = {
+	constructor : EventTarget,
+	addhandler: function (type, handler) {
+		if (typeof this.handlers[type] == "undefined")
+			this.handlers[type] = [];
+		this.handlers[type].push(handler);
+		},
+	fire : function (event) {
+		if (this.handlers[event.type] instanceof Array) {
+			var handlers = this.handlers[event.type];
+			for (var i = 0; i < handlers.length; i++)
+				handlers[i](event);
+			}
+		}
+	};
+var eventHandler = new EventTarget();
+
+function setupHandlers()  {
+	document.onmousedown = docOnEvent;		
+	document.onkeydown = docOnEvent;	
+	document.onkeypress = docOnEvent;
+	document.onhelp = cancelF1;
+	
+	initFormElements();
+	initIframes();
+	initScrollPos();
+	}
+function getDimensions()  {
+	document.forms[0].scrDim.value = screen.width + ";" + screen.height;
+	if (window.innerWidth)
+		document.forms[0].winDim.value = window.innerWidth + ";" + window.innerHeight;
+	else
+		document.forms[0].winDim.value = document.body.offsetWidth + ";" + document.body.offsetHeight;
+	node = document.getElementById("img_content");
+	if (node != undefined)
+		document.forms[0].imgDim.value = node.offsetWidth + ";" + node.offsetHeight;
+	}
+
+
+
+
+
+	window.onpopstate = function (e) {
+	  if(e.state != null && e.state.action){
+	  var button = document.getElementById("Toolbar_0");
+      	if(button) button.click();
+      }
+    }
+    if(history.pushState && history.state == null){
+		history.pushState({ action : 1 }, "", null);
+		history.pushState({ action : 2 }, "", null);
+	}
+
+
+
+
+
+
+aDIS.onLoad = function (e)
+{
+
+  idleTime=360000000;
+  idleLink="/aDISWeb/app;jsessionid=107ACEDC3E19BC9705B4568E80F2238D?service=direct/1/POOLVX00vb@@@@@@_44033D00_31DEFE00/$Timeout";
+  startIdleTimer();
+
+
+if (!e) var e = window.event;
+document.forms[0].scriptEnabled.value=true;
+if (self.specialOnLoad != undefined)
+	specialOnLoad(e);
+setupHandlers();
+getDimensions();
+
+
+
+}
+
+aDIS.addListener('load', window, aDIS.onLoad);
+
+
+// --></script>
+<div class="aDISMaske"><form method="post" name="Form0" action="/aDISWeb/app;jsessionid=107ACEDC3E19BC9705B4568E80F2238D" onsubmit="return formOnSubmit();">
+<input type="hidden" name="service" value="direct/1/POOLVX00vb@@@@@@_44033D00_31DEFE00/$Form.form"/>
+<input type="hidden" name="sp" value="S0"/>
+<input type="hidden" name="Form0" value="focus,keyCode,stz,source,selected,requestCount,scriptEnabled,scrollPos,scrDim,winDim,imgDim,$Textfield,$FormConditional,textButton,$FormConditional$0,$FormConditional$1,textButton$0,$FormConditional$2,textButton$1,textButton$2,textButton$3,textButton$4,textButton$5,textButton$6,textButton$7,textButton$8,$FormConditional$3,textButton$9,$Toolbar,$Toolbar$0"/>
+<input type="hidden" name="focus" value=""/>
+<input type="hidden" name="keyCode" value="0"/>
+<input type="hidden" name="stz" value=""/>
+<input type="hidden" name="source" value=""/>
+<input type="hidden" name="selected" value=""/>
+<input type="hidden" name="requestCount" value="3"/>
+<input type="hidden" name="scriptEnabled" value="T"/>
+<input type="hidden" name="scrollPos" value="0"/>
+<input type="hidden" name="scrDim" value=""/>
+<input type="hidden" name="winDim" value=""/>
+<input type="hidden" name="imgDim" value=""/>
+<input type="hidden" name="$FormConditional" value="T"/>
+<input type="hidden" name="$FormConditional$0" value="F"/>
+<input type="hidden" name="$FormConditional$1" value="T"/>
+<input type="hidden" name="$FormConditional$2" value="T"/>
+<input type="hidden" name="$FormConditional$3" value="T"/>
+				
+<script type="text/javascript">
+// <![CDATA[
+  if (efa_fontSize) efa_fontSize.efaInit();
+// ]]>
+</script>
+
+<div id="wrapper">
+  <div id="wrapper_inside">
+
+    <div id="header" role="banner">
+      <div class="inside">
+
+          <ul id="sprunglinks">
+            <li><a class="sprung" href="#main">Zum Hauptinhalt</a></li>
+            <li><a class="sprung" href="#left">Zur Navigation</a></li>
+            <li><a class="sprung" href="#right">Zu weiteren Bedienelementen</a></li>
+          </ul>
+
+          <p id="logo"><a href="/aDISWeb/app;jsessionid=107ACEDC3E19BC9705B4568E80F2238D?service=direct/1/POOLVX00vb@@@@@@_44033D00_31DEFE00/$InternalLink.directlink&amp;sp=S%24%24GFNV_1&amp;sp=SStartseite%3DCW00&amp;requestCount=3" fld="$$GFNV_1" title="Zur Startseite"><img src="/aDISWeb_vob/images/voebb_logo.gif" height="90" width="64" alt="Verbund der &ouml;ffentlichen Bibliotheken Berlins" /></a>	<span class="outside">.</span></p>
+
+         <script type="text/javascript">
+          // <![CDATA[
+            if (efa_fontSize) document.write(efa_fontSize.allLinks);
+          // ]]>
+          </script>
+
+          <div class="block" id="spruch"><span>Wir bringen Medien in Bewegung</span> </div>
+
+      </div>
+    </div>
+
+    <div id="container">
+      <div id="container_inside">
+
+        <div id="left">
+          <div class="inside">
+
+            <h1 class="invisible">Navigation</h1>
+
+            <div class="block" id="navbox">
+            <div id="R20"><span class="bnzeig"></span><span class="mmzeig">Sie sind nicht angemeldet.</span>
+</div>
+            </div>
+
+            <div class="mod_navigation block" id="unav" role="navigation"><div class="tree_div">
+<ul class="tree_ul">
+<li class="tree_leaf_li">
+<a href="/aDISWeb/app;jsessionid=107ACEDC3E19BC9705B4568E80F2238D?service=direct/1/POOLVX00vb@@@@@@_44033D00_31DEFE00/$Tree.treeNodes&amp;sp=SH&amp;requestCount=3" class="tree_leaf_a"><span>Startseite</span></a><span class="outside">.</span></li>
+<li class="tree_leaf_li">
+<a href="/aDISWeb/app;jsessionid=107ACEDC3E19BC9705B4568E80F2238D?service=direct/1/POOLVX00vb@@@@@@_44033D00_31DEFE00/$Tree.treeNodes&amp;sp=SL1&amp;requestCount=3" class="tree_leaf_a"><span>Anmelden</span></a><span class="outside">.</span></li>
+<li class="tree_leaf_li">
+<span class="tree_disabled">Abmelden</span>
+<span class="outside">.</span></li>
+<li class="tree_leaf_li">
+<a href="/aDISWeb/app;jsessionid=107ACEDC3E19BC9705B4568E80F2238D?service=direct/1/POOLVX00vb@@@@@@_44033D00_31DEFE00/$Tree.treeNodes&amp;sp=SAX&amp;requestCount=3" class="tree_leaf_a"><span>Aktuelles</span></a><span class="outside">.</span></li>
+<li class="tree_leaf_li">
+<a href="/aDISWeb/app;jsessionid=107ACEDC3E19BC9705B4568E80F2238D?service=direct/1/POOLVX00vb@@@@@@_44033D00_31DEFE00/$Tree.treeNodes&amp;sp=SBK&amp;requestCount=3" class="tree_leaf_a"><span>Mein Konto</span></a><span class="outside">.</span></li>
+<li class="tree_branch_li_exp">
+<a href="/aDISWeb/app;jsessionid=107ACEDC3E19BC9705B4568E80F2238D?service=direct/1/POOLVX00vb@@@@@@_44033D00_31DEFE00/$Tree.treeNodes&amp;sp=SS1&amp;requestCount=3" class="tree_branch_a"><span>Suche</span></a><div class="tree_divsub">
+<ul class="tree_ulsub">
+<li class="tree_leaf_li_sel">
+<strong><span class="tree_strong">Schnellsuche</span></strong></li>
+<li class="tree_leaf_li">
+<a href="/aDISWeb/app;jsessionid=107ACEDC3E19BC9705B4568E80F2238D?service=direct/1/POOLVX00vb@@@@@@_44033D00_31DEFE00/$Tree.treeNodes&amp;sp=SS6&amp;requestCount=3" class="tree_leaf_a"><span>Erweiterte Suche</span></a><span class="outside">.</span></li>
+<li class="tree_leaf_li">
+<a href="/aDISWeb/app;jsessionid=107ACEDC3E19BC9705B4568E80F2238D?service=direct/1/POOLVX00vb@@@@@@_44033D00_31DEFE00/$Tree.treeNodes&amp;sp=SS5&amp;requestCount=3" class="tree_leaf_a"><span>Suche in Kommentaren</span></a><span class="outside">.</span></li>
+<li class="tree_leaf_li">
+<a href="/aDISWeb/app;jsessionid=107ACEDC3E19BC9705B4568E80F2238D?service=direct/1/POOLVX00vb@@@@@@_44033D00_31DEFE00/$Tree.treeNodes&amp;sp=SAP&amp;requestCount=3" class="tree_leaf_a"><span>Meine Suchen</span></a><span class="outside">.</span></li>
+<li class="tree_leaf_li">
+<a href="/aDISWeb/app;jsessionid=107ACEDC3E19BC9705B4568E80F2238D?service=direct/1/POOLVX00vb@@@@@@_44033D00_31DEFE00/$Tree.treeNodes&amp;sp=SAT&amp;requestCount=3" class="tree_leaf_a"><span>Thementipps</span></a><span class="outside">.</span></li>
+</ul></div>
+</li>
+<li class="tree_branch_li">
+<a href="/aDISWeb/app;jsessionid=107ACEDC3E19BC9705B4568E80F2238D?service=direct/1/POOLVX00vb@@@@@@_44033D00_31DEFE00/$Tree.treeNodes&amp;sp=SF1&amp;requestCount=3" class="tree_branch_a"><span>Fernleihe</span></a><span class="outside">.</span></li>
+<li class="tree_leaf_li">
+<a href="/aDISWeb/app;jsessionid=107ACEDC3E19BC9705B4568E80F2238D?service=direct/1/POOLVX00vb@@@@@@_44033D00_31DEFE00/$Tree.treeNodes&amp;sp=SW2&amp;requestCount=3" class="tree_leaf_a"><span>Digitale Angebote</span></a><span class="outside">.</span></li>
+<li class="tree_leaf_li">
+<a href="/aDISWeb/app;jsessionid=107ACEDC3E19BC9705B4568E80F2238D?service=direct/1/POOLVX00vb@@@@@@_44033D00_31DEFE00/$Tree.treeNodes&amp;sp=SF3&amp;requestCount=3" class="tree_leaf_a"><span>Aufs&#228;tze im GBV</span></a><span class="outside">.</span></li>
+<li class="tree_branch_li">
+<a href="/aDISWeb/app;jsessionid=107ACEDC3E19BC9705B4568E80F2238D?service=direct/1/POOLVX00vb@@@@@@_44033D00_31DEFE00/$Tree.treeNodes&amp;sp=SK2&amp;requestCount=3" class="tree_branch_a"><span>Kontakt</span></a><span class="outside">.</span></li>
+<li class="tree_leaf_li">
+<a href="/aDISWeb/app;jsessionid=107ACEDC3E19BC9705B4568E80F2238D?service=direct/1/POOLVX00vb@@@@@@_44033D00_31DEFE00/$Tree.treeNodes&amp;sp=SW1&amp;requestCount=3" class="tree_leaf_a"><span>Informationen</span></a><span class="outside">.</span></li>
+</ul></div>
+ </div>
+
+            <!-- incl=includeBOEB.html -->            <p class="block" id="boeb">
+              <a href="http://service.berlin.de/stadtbibliotheken/" rel="external" onclick="window.open(this.href); return false;">Zu 
+              den Berliner &Ouml;ffentlichen Bibliotheken  <span class="invisible">(Link �ffnet in neuem Fenster)</span>
+              </a>
+            </p>
+<!-- stop -->
+
+          </div>
+        </div>
+
+        <div id="right">
+          <div class="inside">
+
+            <h1 class="invisible">Weitere Bedienelemente</h1>
+            <p class="sprung"><a href="#main">Zum Hauptinhalt</a></p>
+
+            <div class="block">
+              
+              
+              
+              <div id="R03"><p><span style="   width:89%;">Gesucht wurde mit: "Freie Suche = hausmaus" im Verbund. Treffer: 2 von 408</span></p>
+</div><div id="R14">
+    <div class="treffer_anzeigen">
+      <fieldset>
+      <legend>Treffer-Direktwahl</legend>
+      <label for="ZISTRZ_1">Treffer-Nr.</label><input type="text" name="$Textfield" fld="ZISTRZ_1" onkeypress="checkNumeric(event,this);" id="ZISTRZ_1" class="text" maxlength="10"/> <input class="buttong"  type="submit" name="Submit" value="OK" /> 
+      <div class="clear"></div>
+      <br class="klar"/></fieldset>
+    </div>
+</div><div id="R12">
+    <h2 class="invisible">Wichtige Aktionen:</h2>
+  <div class="aktion custom">
+   <p><input type="submit" name="textButton" value="Verf&#252;gbarkeit / Bestellen" class="wichtig" fld="$$GFBO_8"/> </p></div>
+</div><div id="R30">  
+  <h2 class="invisible">Medieninfos:</h2>
+  <div class="medieninfos"><div class="html_div" style="width:100%; height:100%;"><div class="aDISListe">
+<div ID=R001 style="margin-top:10px;" class="clearfix">
+<div style=" width:97%; float:left; overflow:hidden;"><img src="/aDISWeb/app;jsessionid=107ACEDC3E19BC9705B4568E80F2238D?service=aDISAsset/POOLVX00vb@@@@@@_44033D00_31DEFE00/ZLA2_SPALTR_1&sp=S%24OTJPG_1&sp=S63160502&sp=Stext%2Fjavascript" height="202"><br/> <br/></div>
+</div>
+<div ID=R002 style="margin-top:10px;" class="clearfix">
+<div style=" width:97%; float:left; overflow:hidden;"><img src='/aDISWeb_vob/images/0Sterne.gif' border='0' alt='Null Sterne' title='ohne Bewertung'/><br /> ohne Bewertung</div>
+</div>
+<div ID=R003 style="margin-top:10px;" class="clearfix">
+<div style=" width:97%; float:left; overflow:hidden;"><div class="aktion"><a href="/aDISWeb/app;jsessionid=107ACEDC3E19BC9705B4568E80F2238D?service=direct/1/POOLVX00vb@@@@@@_44033D00_31DEFE00/ZLA2_SPALTR_1&sp=S*AZISTRZ%3D%2527AB%2527&requestCount=3">Medium bewerten</a></div>
+</div>
+<div ID=R004 style="margin-top:10px;" class="clearfix">
+<div style=" width:97%; float:left; overflow:hidden;"></div> </div>
+</div>
+<div ID=R005 style="margin-top:10px;" class="clearfix">
+<div style=" width:97%; float:left; overflow:hidden;"><div class="aktion"><a href="/aDISWeb/app;jsessionid=107ACEDC3E19BC9705B4568E80F2238D?service=direct/1/POOLVX00vb@@@@@@_44033D00_31DEFE00/ZLA2_SPALTR_1&sp=S*AZISTRZ%3D%2527AN%2527&requestCount=3">Medium kommentieren</a></div>
+</div>
+<div ID=R006 style="margin-top:10px;" class="clearfix">
+<div style=" width:97%; float:left; overflow:hidden;"></div> </div>
+</div>
+<div ID=R007 style="margin-top:10px;" class="clearfix">
+<div style=" width:97%; float:left; overflow:hidden;"><h3>Weitere Infos bei <br/><a href="https://www.buchhandel.de/buch/9783737351591?MVB-Kennnummer=bhde5262731" target="_blank">buchhandel.de</a></h3><br/></div>
+</div>
+</tbody></table></div></div> <div id="OPACLI" class="aDISListe"> </div>
+    <br/><span style="line-height:12px;">&nbsp;</span><br/>
+  </div>
+</div><div id="R04">
+  <h3>Darstellung &#228;ndern:</h3>
+  <div class="aktion custom">
+    <p> <input type="submit" name="textButton$0" value="Anzeige im Zitierformat" class="buttong" fld="$$GFBO_7"/> </p>
+  </div>
+</div>
+              <div id="R10">
+    <h2 class="invisible">Wichtige Aktionen:</h2>
+  <div class="aktion custom">
+   <p><input type="submit" name="textButton$1" value="Verf&#252;gbarkeit / Bestellen" class="wichtig" fld="$$GFBO_10"/> </p></div>
+</div>
+            </div>
+
+            <div class="block">
+               
+               
+               
+            </div>
+            <div class="block">
+              <div id="R11">
+    <h2>Export nach:</h2><p class="buttong"><input type="submit" name="textButton$2" value="BibTeX" class="buttong"/><input type="submit" name="textButton$3" value="Citavi" class="buttong"/><input type="submit" name="textButton$4" value="EndNote" class="buttong"/><input type="submit" name="textButton$5" value="ProCite" class="buttong"/><input type="submit" name="textButton$6" value="RefWorks" class="buttong"/><input type="submit" name="textButton$7" value="Reference Manager" class="buttong"/><input type="submit" name="textButton$8" value="Zotero" class="buttong"/></p>
+</div>
+              
+              
+            </div>
+
+          </div>
+        </div>
+
+        <div id="main" role="main">
+          <div class="inside">
+
+            <div class="block">
+              <div class="block" id="topleiste">
+			          <p id="breadcrumb"><span class="invisible">Vorige Seiten: </span><span class="navicl"><a href="/aDISWeb/app;jsessionid=107ACEDC3E19BC9705B4568E80F2238D?service=direct/1/POOLVX00vb@@@@@@_44033D00_31DEFE00/navpath.intlink.directlink&amp;sp=S%24%24GFNV_1&amp;sp=SD%2F00&amp;requestCount=3" fld="$$GFNV_1" title="Startseite">Startseite</a>	<span class="outside">.</span> > <a href="/aDISWeb/app;jsessionid=107ACEDC3E19BC9705B4568E80F2238D?service=direct/1/POOLVX00vb@@@@@@_44033D00_31DEFE00/navpath.intlink.directlink&amp;sp=S%24%24GFNV_2&amp;sp=SS1AK&amp;requestCount=3" fld="$$GFNV_2" title="Schnellsuche">Schnellsuche</a>	<span class="outside">.</span> > <a href="/aDISWeb/app;jsessionid=107ACEDC3E19BC9705B4568E80F2238D?service=direct/1/POOLVX00vb@@@@@@_44033D00_31DEFE00/navpath.intlink.directlink&amp;sp=S%24%24GFNV_3&amp;sp=SA%2FAK&amp;requestCount=3" fld="$$GFNV_3" title="Trefferliste">Trefferliste</a>	<span class="outside">.</span></span> &gt;<span class="txtinsert">Vollanzeige Katalog</span> </p>
+
+
+                <p id="druckversion"><input type="submit" name="textButton$9" value="Druckversion" fld="$$GFBO_88"/> </p>
+                <div class="clear"></div>
+              </div>
+
+              <h1><span class="invisible">Aktuelle Seite:</span> <span class="txtinsert">Vollanzeige Katalog</span></h1><div class="toolbar_div">
+<ul class="toolbar_ul">
+<li class="toolbar_li">
+<input type="image" src="/aDISWeb/images/POOLVX00vb@@@@@@/gif/POOLVX00vb@@@@@@_53010E00_31758600.gif;jsessionid=107ACEDC3E19BC9705B4568E80F2238D" alt="Zur&#252;ck zur vorherigen Seite" id="Toolbar_0" name="$Toolbar_0" title="Zur&#252;ck zur vorherigen Seite" onmouseover="self.status='Zur&#252;ck zur vorherigen Seite';return true;" onmouseout="self.status='';" class="toolbar_img"/><label for="Toolbar_0"><span class="toolbar_txt">Zur&#252;ck</span></label></li>
+<li class="toolbar_li">
+<input type="image" src="/aDISWeb/images/POOLVX00vb@@@@@@/gif/POOLVX00vb@@@@@@_53007B00_31169A00.gif;jsessionid=107ACEDC3E19BC9705B4568E80F2238D" alt="Zur&#252;ck zur Trefferliste" id="Toolbar_1" name="$Toolbar_1" title="Zur&#252;ck zur Trefferliste" onmouseover="self.status='Zur&#252;ck zur Trefferliste';return true;" onmouseout="self.status='';" class="toolbar_img"/><label for="Toolbar_1"><span class="toolbar_txt">Trefferliste</span></label></li>
+<li class="toolbar_li">
+<input type="image" src="/aDISWeb/images/POOLVX00vb@@@@@@/gif/POOLVX00vb@@@@@@_53011E00_31169A00.gif;jsessionid=107ACEDC3E19BC9705B4568E80F2238D" alt="Zur&#252;ck zur Suche" id="Toolbar_2" name="$Toolbar_2" title="Zur&#252;ck zur Suche" onmouseover="self.status='Zur&#252;ck zur Suche';return true;" onmouseout="self.status='';" class="toolbar_img"/><label for="Toolbar_2"><span class="toolbar_txt">Neue Suche</span></label></li>
+<li class="toolbar_li">
+<input type="image" src="/aDISWeb/images/POOLVX00vb@@@@@@/gif/POOLVX00vb@@@@@@_53005801_31169A00.gif;jsessionid=107ACEDC3E19BC9705B4568E80F2238D" alt="An den Anfang bl&#228;ttern" id="Toolbar_3" name="$Toolbar_3" disabled="disabled" title="An den Anfang bl&#228;ttern" onmouseover="self.status='An den Anfang bl&#228;ttern';return true;" onmouseout="self.status='';" class="toolbar_img_dis"/><label for="Toolbar_3"><span class="toolbar_txt_dis">Anfang</span></label></li>
+<li class="toolbar_li">
+<input type="image" src="/aDISWeb/images/POOLVX00vb@@@@@@/gif/POOLVX00vb@@@@@@_53005900_31169A00.gif;jsessionid=107ACEDC3E19BC9705B4568E80F2238D" alt="R&#252;ckw&#228;rts bl&#228;ttern" id="Toolbar_4" name="$Toolbar_4" title="R&#252;ckw&#228;rts bl&#228;ttern" onmouseover="self.status='R&#252;ckw&#228;rts bl&#228;ttern';return true;" onmouseout="self.status='';" class="toolbar_img"/><label for="Toolbar_4"><span class="toolbar_txt">R&#252;ckw&#228;rts</span></label></li>
+<li class="toolbar_li">
+<input type="image" src="/aDISWeb/images/POOLVX00vb@@@@@@/gif/POOLVX00vb@@@@@@_53005100_31169A00.gif;jsessionid=107ACEDC3E19BC9705B4568E80F2238D" alt="Vorw&#228;rts bl&#228;ttern" id="Toolbar_5" name="$Toolbar_5" title="Vorw&#228;rts bl&#228;ttern" onmouseover="self.status='Vorw&#228;rts bl&#228;ttern';return true;" onmouseout="self.status='';" class="toolbar_img"/><label for="Toolbar_5"><span class="toolbar_txt">Vorw&#228;rts</span></label></li>
+<li class="toolbar_li">
+<input type="image" src="/aDISWeb/images/POOLVX00vb@@@@@@/gif/POOLVX00vb@@@@@@_53005600_31169A00.gif;jsessionid=107ACEDC3E19BC9705B4568E80F2238D" alt="Ans Ende bl&#228;ttern" id="Toolbar_6" name="$Toolbar_6" title="Ans Ende bl&#228;ttern" onmouseover="self.status='Ans Ende bl&#228;ttern';return true;" onmouseout="self.status='';" class="toolbar_img"/><label for="Toolbar_6"><span class="toolbar_txt">Ende</span></label></li>
+<li class="toolbar_li">
+<input type="image" src="/aDISWeb/images/POOLVX00vb@@@@@@/gif/POOLVX00vb@@@@@@_53002400_31169A00.gif;jsessionid=107ACEDC3E19BC9705B4568E80F2238D" alt="Beenden der Recherche" id="Toolbar_8" name="$Toolbar_8" title="Beenden der Recherche" onmouseover="self.status='Beenden der Recherche';return true;" onmouseout="self.status='';" class="toolbar_img"/><label for="Toolbar_8"><span class="toolbar_txt">Beenden</span></label></li>
+<li class="toolbar_li">
+<input type="image" src="/aDISWeb/images/POOLVX00vb@@@@@@/gif/POOLVX00vb@@@@@@_53001D00_31169A00.gif;jsessionid=107ACEDC3E19BC9705B4568E80F2238D" alt="Hilfe zur Vollanzeige" id="Toolbar_9" name="$Toolbar_9" title="Hilfe zur Vollanzeige" onmouseover="self.status='Hilfe zur Vollanzeige';return true;" onmouseout="self.status='';" class="toolbar_img"/><label for="Toolbar_9"><span class="toolbar_txt">Hilfe</span></label></li></ul><div style="clear:both"></div></div> <div class="fsgrp">
+                 
+                 
+                 <div id="R06">
+  <div class="aDISListe"><div class="html_div" style="width:100%; height:100%;"><div class="aDISListe">
+<table class="gi" summary="Auflistung der Kategorien des ausgew�hlten Treffers" width="100%"><colgroup><col align="left" valign=top width="25%"/>
+<col align="left" valign=top width="75%"/>
+</colgroup><thead><tr><th colspan="2" class="thseite">Katalogangaben</th></tr></thead><tbody><tr><th scope="row" class="spaltelinks">Medienart</th><td class="spalterechts"><img class='icon' height='16' width='16' src='/aDISWeb/icons/buch_rot_a.png' alt='Buch' title='Buch' /> [Buch]</td></tr>
+<tr><th scope="row" class="spaltelinks">Art/Inhalt</th><td class="spalterechts">Bilderbuch</td></tr>
+<tr><th scope="row" class="spaltelinks">Titel </td><td class="spalterechts">Kleiner Elliot große Stadt / Michael Curato ; aus dem Amerikanischen von Stephanie Menge </td></tr>
+<tr><th scope="row" class="spaltelinks">Werk </th><td class="spalterechts">&nbsp;</td></tr>
+<tr><th scope="row" class="spaltelinks">Weitere Titel</th><td class="spalterechts">Little Elliot big city </td></tr>
+<tr><th scope="row" class="spaltelinks">Person</th><td class="spalterechts"><a href="/aDISWeb/app;jsessionid=107ACEDC3E19BC9705B4568E80F2238D?service=direct/1/POOLVX00vb@@@@@@_44033D00_31DEFE00/ZLA2_HTMLGL_1&sp=SPE12832359&requestCount=3">Curato, Mike </a><br/><a href="/aDISWeb/app;jsessionid=107ACEDC3E19BC9705B4568E80F2238D?service=direct/1/POOLVX00vb@@@@@@_44033D00_31DEFE00/ZLA2_HTMLGL_1&sp=SPE08049649&requestCount=3">Menge, Stephanie [Übersetzer/in] </a></td></tr>
+<tr><th scope="row" class="spaltelinks">Veröffentlichung </th><td class="spalterechts">Ort: Frankfurt am Main; Verlag: Sauerländer; Datum: 2016 </td></tr>
+<tr><th scope="row" class="spaltelinks">Umfang / Seiten </th><td class="spalterechts">circa 40 ungezählte Seiten : Illustrationen ; 29 cm </td></tr>
+<tr><th scope="row" class="spaltelinks">Sprache</th><td class="spalterechts">Deutsch </td></tr>
+<tr><th scope="row" class="spaltelinks">Sprache Original</th><td class="spalterechts">Englisch </td></tr>
+<tr><th scope="row" class="spaltelinks">Land</th><td class="spalterechts">Deutschland Hessen </td></tr>
+<tr><th scope="row" class="spaltelinks">ISBN</th><td class="spalterechts">978-3-7373-5159-1 <br/>3-7373-5159-7 </td></tr>
+<tr><th scope="row" class="spaltelinks">Schlagwortkette </td><td class="spalterechts"><a href="/aDISWeb/app;jsessionid=107ACEDC3E19BC9705B4568E80F2238D?service=direct/1/POOLVX00vb@@@@@@_44033D00_31DEFE00/ZLA2_HTMLGL_1&sp=SSE00919992&requestCount=3">Elefanten ; Minderwuchs ; Freundschaft ; Hausmaus</a></td></tr>
+<tr><th scope="row" class="spaltelinks">Verbundsystematik </th><td class="spalterechts"><a href="/aDISWeb/app;jsessionid=107ACEDC3E19BC9705B4568E80F2238D?service=direct/1/POOLVX00vb@@@@@@_44033D00_31DEFE00/ZLA2_HTMLGL_1&sp=SSY16037722&requestCount=3">1.2 Bilderbücher für Kinder ab 3 J.</a></td></tr>
+<tr><th scope="row" class="spaltelinks">Inhalt </th><td class="spalterechts">Elliot, ein kleiner gepunkteter Elefant lebt in einer Stadt in einer schönen Wohnung. Doch alles ist zu groß für den kleinen Elliot und er wird oft übersehen. Erst als er die noch kleinere, hungrige Maus trifft und ihr dabei hilft, etwas zu Essen zu bekommen, wendet sich das Blatt. Ab 3.</td></tr>
+<tr><th scope="row" class="spaltelinks">Inhaltsverzeichnis </td><td class="spalterechts"><a href="http://d-nb.info/1078034710/04" target="_blank">Link zum Inhaltsverzeichnis</a></td></tr>
+<tr><th scope="row" class="spaltelinks">Inhaltstext </th><td class="spalterechts"><a href="http://deposit.d-nb.de/cgi-bin/dokserv?id=31fd4a6ced7d461985f649cdcd4a50f4&prov=M&dok_var=1&dok_ext=htm" target="_blank">Link zum Inhaltstext</a></td></tr>
+<tr><th scope="row" class="spaltelinks" COLSPAN=02><span class='spalteueber'>Exemplarangaben</span></td></tr>
+<tr><th scope="row" class="spaltelinks">In Bibliothek </th><td class="spalterechts">Reinickendorf <br/> * Reinickendorf: Ju.bibl. Humboldt-Bibliothek <br/> * Reinickendorf: Fahrbibliothek Reinickendorf <br/>Pankow <br/> * Pankow: Wolfdietrich Schnurre Bibliothek <br/>Lichtenberg <br/> * Lichtenberg: Bodo - Uhse - Bibliothek <br/>Neukoelln <br/> * Neukoelln: Helene - Nathan - Bibliothek <br/>Marzahn - Hellersdorf <br/> * Marzahn - Hellersdorf: Mark Twain Bibliothek <br/> * Marzahn - Hellersdorf: Bibl. Kaulsdorf - Nord <br/>Steglitz - Zehlendorf <br/> * Steglitz - Zehlendorf: Ingeborg Drewitz Bibliothek <br/> * Steglitz - Zehlendorf: Gottfried Benn Bibliothek <br/> * Steglitz - Zehlendorf: Fahrbibliothek <br/>ZLB <br/> * ZLB: Kinder- und Jugendbibliothek mit Lernzentrum </td></tr>
+</tbody></table></div></div> </div>
+</div>
+                 
+                 <div id="R07"><div id="OPACLI"  class=" class="txtmsk"></div>
+</div><div id="R08">	<div class="rTable_div"><table class="rTable_table" colCase="[, , , , , ]" colDisable="[true, true, true, true, true, true]" width="100%">	<colgroup>	</colgroup>	<thead class="rTable_thead">
+				<tr>	</tr>	
+			</thead>
+			<tbody>	</tbody></table>	</div></div>
+                 
+              </div>
+
+              <div class="clear"></div><div class="toolbar_div">
+<ul class="toolbar_ul">
+<li class="toolbar_li">
+<input type="image" src="/aDISWeb/images/POOLVX00vb@@@@@@/gif/POOLVX00vb@@@@@@_53010E00_31758600.gif;jsessionid=107ACEDC3E19BC9705B4568E80F2238D" alt="Zur&#252;ck zur vorherigen Seite" id="Toolbar$0_0" name="$Toolbar$0_0" title="Zur&#252;ck zur vorherigen Seite" onmouseover="self.status='Zur&#252;ck zur vorherigen Seite';return true;" onmouseout="self.status='';" class="toolbar_img"/><label for="Toolbar$0_0"><span class="toolbar_txt">Zur&#252;ck</span></label></li>
+<li class="toolbar_li">
+<input type="image" src="/aDISWeb/images/POOLVX00vb@@@@@@/gif/POOLVX00vb@@@@@@_53007B00_31169A00.gif;jsessionid=107ACEDC3E19BC9705B4568E80F2238D" alt="Zur&#252;ck zur Trefferliste" id="Toolbar$0_1" name="$Toolbar$0_1" title="Zur&#252;ck zur Trefferliste" onmouseover="self.status='Zur&#252;ck zur Trefferliste';return true;" onmouseout="self.status='';" class="toolbar_img"/><label for="Toolbar$0_1"><span class="toolbar_txt">Trefferliste</span></label></li>
+<li class="toolbar_li">
+<input type="image" src="/aDISWeb/images/POOLVX00vb@@@@@@/gif/POOLVX00vb@@@@@@_53011E00_31169A00.gif;jsessionid=107ACEDC3E19BC9705B4568E80F2238D" alt="Zur&#252;ck zur Suche" id="Toolbar$0_2" name="$Toolbar$0_2" title="Zur&#252;ck zur Suche" onmouseover="self.status='Zur&#252;ck zur Suche';return true;" onmouseout="self.status='';" class="toolbar_img"/><label for="Toolbar$0_2"><span class="toolbar_txt">Neue Suche</span></label></li>
+<li class="toolbar_li">
+<input type="image" src="/aDISWeb/images/POOLVX00vb@@@@@@/gif/POOLVX00vb@@@@@@_53005801_31169A00.gif;jsessionid=107ACEDC3E19BC9705B4568E80F2238D" alt="An den Anfang bl&#228;ttern" id="Toolbar$0_3" name="$Toolbar$0_3" disabled="disabled" title="An den Anfang bl&#228;ttern" onmouseover="self.status='An den Anfang bl&#228;ttern';return true;" onmouseout="self.status='';" class="toolbar_img_dis"/><label for="Toolbar$0_3"><span class="toolbar_txt_dis">Anfang</span></label></li>
+<li class="toolbar_li">
+<input type="image" src="/aDISWeb/images/POOLVX00vb@@@@@@/gif/POOLVX00vb@@@@@@_53005900_31169A00.gif;jsessionid=107ACEDC3E19BC9705B4568E80F2238D" alt="R&#252;ckw&#228;rts bl&#228;ttern" id="Toolbar$0_4" name="$Toolbar$0_4" title="R&#252;ckw&#228;rts bl&#228;ttern" onmouseover="self.status='R&#252;ckw&#228;rts bl&#228;ttern';return true;" onmouseout="self.status='';" class="toolbar_img"/><label for="Toolbar$0_4"><span class="toolbar_txt">R&#252;ckw&#228;rts</span></label></li>
+<li class="toolbar_li">
+<input type="image" src="/aDISWeb/images/POOLVX00vb@@@@@@/gif/POOLVX00vb@@@@@@_53005100_31169A00.gif;jsessionid=107ACEDC3E19BC9705B4568E80F2238D" alt="Vorw&#228;rts bl&#228;ttern" id="Toolbar$0_5" name="$Toolbar$0_5" title="Vorw&#228;rts bl&#228;ttern" onmouseover="self.status='Vorw&#228;rts bl&#228;ttern';return true;" onmouseout="self.status='';" class="toolbar_img"/><label for="Toolbar$0_5"><span class="toolbar_txt">Vorw&#228;rts</span></label></li>
+<li class="toolbar_li">
+<input type="image" src="/aDISWeb/images/POOLVX00vb@@@@@@/gif/POOLVX00vb@@@@@@_53005600_31169A00.gif;jsessionid=107ACEDC3E19BC9705B4568E80F2238D" alt="Ans Ende bl&#228;ttern" id="Toolbar$0_6" name="$Toolbar$0_6" title="Ans Ende bl&#228;ttern" onmouseover="self.status='Ans Ende bl&#228;ttern';return true;" onmouseout="self.status='';" class="toolbar_img"/><label for="Toolbar$0_6"><span class="toolbar_txt">Ende</span></label></li>
+<li class="toolbar_li">
+<input type="image" src="/aDISWeb/images/POOLVX00vb@@@@@@/gif/POOLVX00vb@@@@@@_53002400_31169A00.gif;jsessionid=107ACEDC3E19BC9705B4568E80F2238D" alt="Beenden der Recherche" id="Toolbar$0_8" name="$Toolbar$0_8" title="Beenden der Recherche" onmouseover="self.status='Beenden der Recherche';return true;" onmouseout="self.status='';" class="toolbar_img"/><label for="Toolbar$0_8"><span class="toolbar_txt">Beenden</span></label></li>
+<li class="toolbar_li">
+<input type="image" src="/aDISWeb/images/POOLVX00vb@@@@@@/gif/POOLVX00vb@@@@@@_53001D00_31169A00.gif;jsessionid=107ACEDC3E19BC9705B4568E80F2238D" alt="Hilfe zur Vollanzeige" id="Toolbar$0_9" name="$Toolbar$0_9" title="Hilfe zur Vollanzeige" onmouseover="self.status='Hilfe zur Vollanzeige';return true;" onmouseout="self.status='';" class="toolbar_img"/><label for="Toolbar$0_9"><span class="toolbar_txt">Hilfe</span></label></li></ul><div style="clear:both"></div></div> </div>
+            <div class="clear"></div>
+
+          </div>
+          <div id="clear"></div>
+        </div>
+
+      </div><!-- /container_inside -->
+    </div><!-- /container -->
+
+    <div id="footer">
+      <div class="inside">
+
+        <p class="block" id="goingup">
+          <a href="#wrapper">Seitenanfang</a>
+        </p>
+        <div class="clear"></div>
+
+      </div>
+    </div>
+
+  </div><!-- /wrapper_inside -->
+</div><!-- /wrapper -->
+
+<script src="/aDISWeb_kopac/js/yaml-focusfix.js" type="text/javascript"></script></form>
+</div></body>
+</html>

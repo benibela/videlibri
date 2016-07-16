@@ -4,14 +4,20 @@
     <DIV id="R30">
       <DIV class="html_div">
         <div id="R001">
-          <img>{book.image-url:=resolve-uri(@src)}</img>
+          <img t:condition="not(matches(@src,'/[0-9]Sterne.gif'))">{book.image-url:=resolve-uri(@src)}</img>
         </div>
       </DIV>
     </DIV>?
 
     <input type="submit" t:condition="contains(@value, 'Bestellen')">{book.orderable := true()}</input>?
 
-    <a title="Trefferliste">{goback:=@href}</a><!--inside main in munich, outside in nürnberg-->
+    <t:switch-prioritized>
+      <input title="Zurück zur Trefferliste">{backButtonName := uri-encode(@name)}</input>
+      <input t:condition="contains(@title, 'zur Trefferliste')">{backButtonName := uri-encode(@name)}</input>
+    </t:switch-prioritized> 
+    
+    {goback := form(//form, x"{$backButtonName}.x=0&{$backButtonName}.y=0")
+    }    
 
     <input type="submit" t:test="not($book.orderable)" t:condition="contains(@value, 'Bestellen')">{book.orderable := true()}</input>?
         
