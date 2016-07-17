@@ -13,7 +13,7 @@ object bookSearchFrm: TbookSearchFrm
   OnDeactivate = FormDeactivate
   OnDestroy = FormDestroy
   OnKeyUp = FormKeyUp
-  LCLVersion = '1.5'
+  LCLVersion = '1.7'
   object optionPanel: TPanel
     Left = 0
     Height = 565
@@ -29,7 +29,7 @@ object bookSearchFrm: TbookSearchFrm
       Left = 14
       Height = 15
       Top = 8
-      Width = 56
+      Width = 59
       Caption = 'Suche in:'
       ParentColor = False
     end
@@ -83,7 +83,7 @@ object bookSearchFrm: TbookSearchFrm
       Left = 8
       Height = 18
       Top = 543
-      Width = 192
+      Width = 200
       Anchors = [akLeft, akBottom]
       Caption = 'alle Eigenschaften auflisten'
       OnChange = displayInternalPropertiesChange
@@ -93,7 +93,7 @@ object bookSearchFrm: TbookSearchFrm
       Left = 8
       Height = 18
       Top = 523
-      Width = 104
+      Width = 108
       Anchors = [akLeft, akBottom]
       Caption = 'Bild anzeigen'
       Checked = True
@@ -122,7 +122,7 @@ object bookSearchFrm: TbookSearchFrm
         Left = 17
         Height = 15
         Top = 6
-        Width = 29
+        Width = 32
         Caption = 'Titel'
         Font.Style = [fsBold]
         ParentColor = False
@@ -149,7 +149,7 @@ object bookSearchFrm: TbookSearchFrm
         Left = 14
         Height = 15
         Top = 56
-        Width = 38
+        Width = 40
         Caption = 'Autor'
         Font.Style = [fsBold]
         ParentColor = False
@@ -175,7 +175,7 @@ object bookSearchFrm: TbookSearchFrm
         Left = 14
         Height = 15
         Top = 106
-        Width = 85
+        Width = 89
         Caption = 'Schlagwörter:'
         ParentColor = False
       end
@@ -197,7 +197,7 @@ object bookSearchFrm: TbookSearchFrm
         Left = 14
         Height = 15
         Top = 156
-        Width = 32
+        Width = 35
         Caption = 'ISBN:'
         ParentColor = False
       end
@@ -242,7 +242,7 @@ object bookSearchFrm: TbookSearchFrm
         Left = 14
         Height = 15
         Top = 256
-        Width = 173
+        Width = 181
         Caption = 'Zweigstelle (für Suchfilter): '
         ParentColor = False
       end
@@ -267,7 +267,7 @@ object bookSearchFrm: TbookSearchFrm
         Left = 14
         Height = 15
         Top = 306
-        Width = 188
+        Width = 201
         Caption = 'Zweigstelle (für Bestellungen):'
         ParentColor = False
       end
@@ -286,10 +286,10 @@ object bookSearchFrm: TbookSearchFrm
       object searchAuthorHint: TLabel
         AnchorSideTop.Control = Label8
         AnchorSideTop.Side = asrCenter
-        Left = 6
+        Left = -7
         Height = 15
         Top = 56
-        Width = 223
+        Width = 236
         Anchors = [akTop, akRight]
         Caption = '"Nachname" oder "Name, Vorname"'
         Color = 11400696
@@ -300,10 +300,10 @@ object bookSearchFrm: TbookSearchFrm
       object searchTitleHint: TLabel
         AnchorSideTop.Control = Label7
         AnchorSideTop.Side = asrCenter
-        Left = 6
+        Left = -6
         Height = 15
         Top = 6
-        Width = 231
+        Width = 243
         Anchors = [akTop, akRight]
         Caption = '* am Ende sucht alle mögliche Enden'
         Color = 11400696
@@ -387,7 +387,7 @@ object bookSearchFrm: TbookSearchFrm
         Left = 0
         Height = 15
         Top = 0
-        Width = 102
+        Width = 97
         Alignment = taCenter
         Caption = 'Speichern'
         Font.Color = clBlue
@@ -400,10 +400,10 @@ object bookSearchFrm: TbookSearchFrm
       end
       object LabelSaveTo: TLabel
         Cursor = crHandPoint
-        Left = 102
+        Left = 97
         Height = 15
         Top = 0
-        Width = 96
+        Width = 94
         Caption = 'in \/'
         Font.Color = clBlue
         Font.Style = [fsItalic]
@@ -414,10 +414,10 @@ object bookSearchFrm: TbookSearchFrm
       end
       object LabelOrder: TLabel
         Cursor = crHandPoint
-        Left = 198
+        Left = 191
         Height = 15
         Top = 0
-        Width = 170
+        Width = 178
         Caption = 'Vormerken/Bestellen'
         Font.Color = clBlue
         Font.Style = [fsBold]
@@ -427,10 +427,10 @@ object bookSearchFrm: TbookSearchFrm
       end
       object LabelOrderFor: TLabel
         Cursor = crHandPoint
-        Left = 368
+        Left = 369
         Height = 15
         Top = 0
-        Width = 98
+        Width = 97
         Caption = 'für \/'
         Font.Color = clBlue
         Font.Style = [fsItalic]
@@ -451,17 +451,17 @@ object bookSearchFrm: TbookSearchFrm
         Left = 0
         Height = 15
         Top = 15
-        Width = 102
+        Width = 97
         Alignment = taRightJustify
         Caption = 'Mehr:'
         ParentColor = False
       end
       object linkLabelDigibib: TLabel
         Cursor = crHandPoint
-        Left = 102
+        Left = 97
         Height = 15
         Top = 15
-        Width = 96
+        Width = 94
         Alignment = taCenter
         Caption = 'digibib.net'
         Font.Color = clBlue
@@ -472,10 +472,10 @@ object bookSearchFrm: TbookSearchFrm
       end
       object linkLabelBib: TLabel
         Cursor = crHandPoint
-        Left = 198
+        Left = 191
         Height = 15
         Top = 15
-        Width = 170
+        Width = 178
         Alignment = taCenter
         Caption = 'Bücherei'
         Font.Color = clBlue
@@ -486,10 +486,10 @@ object bookSearchFrm: TbookSearchFrm
       end
       object linkLabelAmazon: TLabel
         Cursor = crHandPoint
-        Left = 368
+        Left = 369
         Height = 15
         Top = 15
-        Width = 98
+        Width = 97
         Alignment = taCenter
         Caption = 'amazon.de'
         Font.Color = clBlue
@@ -552,5 +552,17 @@ object bookSearchFrm: TbookSearchFrm
     OnTimer = autoSearchContinueTimerTimer
     left = 95
     top = 516
+  end
+  object PopupMenu1: TPopupMenu
+    left = 552
+    top = 357
+    object menuCopyValue: TMenuItem
+      Caption = 'Wert kopieren'
+      OnClick = menuCopyValueClick
+    end
+    object menuCopyRow: TMenuItem
+      Caption = 'Zeile kopieren'
+      OnClick = menuCopyRowClick
+    end
   end
 end

@@ -14,6 +14,9 @@ type
   { TbookSearchFrm }
 
   TbookSearchFrm = class(TForm)
+    menuCopyValue: TMenuItem;
+    menuCopyRow: TMenuItem;
+    PopupMenu1: TPopupMenu;
     startAutoSearchButton: TButton;
     searchAuthorHint: TLabel;
     searchTitleHint: TLabel;
@@ -63,6 +66,8 @@ type
     procedure autoSearchContinueTimerTimer(Sender: TObject);
     procedure bookListSelect(sender: TObject; item: TTreeListItem);
     procedure bookListVScrollBarChange(Sender: TObject);
+    procedure menuCopyRowClick(Sender: TObject);
+    procedure menuCopyValueClick(Sender: TObject);
     procedure startAutoSearchButtonClick(Sender: TObject);
     procedure detaillistClickAtRecordItem(sender: TObject; recorditem: TTreeListRecordItem);
     procedure detaillistCustomRecordItemDraw(sender: TObject; eventTyp_cdet: TCustomDrawEventTyp; recordItem: TTreeListRecordItem;
@@ -109,11 +114,13 @@ type
     { public declarations }
     bookList: TBookListView;
     detaillist: TTreeListView;
+    detaillistLastClickedRecordItem: TTreeListRecordItem;
     searcherAccess: TLibrarySearcherAccess;
     newSearcherAccess: TLibrarySearcherAccess;
     nextPageAvailable: boolean;
     displayedBook: TBook;
     researchedBook: TBook;
+    procedure detaillistMouseDown(Sender: TObject; Button: TMouseButton; Shift: TShiftState; X, Y: Integer);
     function displayDetails(book: TBook=nil): longint; //0: no details, 1: detail, no image, 2: everything
     function cloneDisplayedBook: TBook;
     procedure selectBookToReSearch(book: TBook);
@@ -131,7 +138,7 @@ const SB_PANEL_FOUND_COUNT=1;
       SB_PANEL_SEARCH_STATUS=0;
 implementation
 
-uses applicationconfig,applicationdesktopconfig, libraryParser,simplexmlparser,bbdebugtools,bookWatchMain,bbutils,LCLType,libraryAccess,LCLIntf,strutils;
+uses applicationconfig,applicationdesktopconfig, libraryParser,simplexmlparser,bbdebugtools,bookWatchMain,bbutils,LCLType,libraryAccess,LCLIntf,strutils,Clipbrd;
 
 { TbookSearchFrm }
 //TODO: fehler bei keinem ergebnis
@@ -197,6 +204,7 @@ begin
   detaillist.Parent:=detailPanel;
   detaillist.align:=alClient;
   detaillist.columns.Clear;
+  detaillist.PopupMenu := PopupMenu1;
   with detaillist.columns.Add do begin
     text:=rsPropertyName;
     width:=170;
@@ -208,6 +216,7 @@ begin
   detaillist.OnCustomRecordItemDraw:=@detaillistCustomRecordItemDraw;
   detaillist.OnClickAtRecordItem:=@detaillistClickAtRecordItem;
   detaillist.OnMouseMove:=@detaillistMouseMove;
+  detaillist.OnMouseDown:=@detaillistMouseDown;
 
 
   Image1.Width:=0;
@@ -364,6 +373,18 @@ begin
     searcherAccess.searchNextAsync;
     StatusBar1.Panels[SB_PANEL_SEARCH_STATUS].Text:=rsLoadingNextPage;
   end;
+end;
+
+procedure TbookSearchFrm.menuCopyRowClick(Sender: TObject);
+begin
+  if detaillist.Selected = nil then exit;
+  Clipboard.AsText := detaillist.Selected.Text + ': '+ detaillist.Selected.RecordItemsText[1];
+end;
+
+procedure TbookSearchFrm.menuCopyValueClick(Sender: TObject);
+begin
+  if detaillistLastClickedRecordItem = nil then exit;
+  Clipboard.AsText := detaillistLastClickedRecordItem.Text;
 end;
 
 procedure TbookSearchFrm.startAutoSearchButtonClick(Sender: TObject);
@@ -1011,6 +1032,11 @@ begin
   finally
     if searcherAccess <> nil then searcherAccess.endBookReading;
   end;
+end;
+
+procedure TbookSearchFrm.detaillistMouseDown(Sender: TObject; Button: TMouseButton; Shift: TShiftState; X, Y: Integer);
+begin
+  detaillistLastClickedRecordItem := detaillist.GetRecordItemAtPos(x,y);
 end;
 
 function TbookSearchFrm.cloneDisplayedBook: TBook;
