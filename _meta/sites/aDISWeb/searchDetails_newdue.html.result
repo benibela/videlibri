@@ -7,4 +7,4 @@ name := "Heft"
 name := "Erscheint am"
 exemplarCount := 0
 exemplarCount := 1
-book := {"Exemplar 1!": "Zentralbibliothek,  ......,  Ybq Bergst,  Präsenz (nicht entleihbar),  Verfügbar", "Erscheint am!": "15.04.2016", "Heft!": "(2016), Heft 5", "Zeitschrift!": "Bergsteiger : Bergwandern, Klettersteige, Alpinismus", "Medienart!": "[Zeitschriftenheft]"}
+book := {"Exemplar 1!": "Zentralbibliothek,  ......,  Ybq Bergst,  Präsenz (nicht entleihbar),  Verfügbar", "Erscheint am!": "15.04.2016", "Heft!": "(2016), Heft 5", "Zeitschrift!": "Bergsteiger : Bergwandern, Klettersteige, Alpinismus", "Medienart!": "[Zeitschriftenheft]", "orderable": true}

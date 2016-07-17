@@ -9,17 +9,16 @@
       </DIV>
     </DIV>?
 
-    <input type="submit" t:condition="contains(@value, 'Bestellen')">{book.orderable := true()}</input>?
-
     <t:switch-prioritized>
       <input title="Zurück zur Trefferliste">{backButtonName := uri-encode(@name)}</input>
       <input t:condition="contains(@title, 'zur Trefferliste')">{backButtonName := uri-encode(@name)}</input>
     </t:switch-prioritized> 
     
-    {goback := form(//form, x"{$backButtonName}.x=0&{$backButtonName}.y=0")
+    {goback := form(//form, x"{$backButtonName}.x=0&{$backButtonName}.y=0"),
+     if (//input[@type="submit" and contains(@value, 'Bestellen')]) then book.orderable := true() else ()
     }    
 
-    <input type="submit" t:test="not($book.orderable)" t:condition="contains(@value, 'Bestellen')">{book.orderable := true()}</input>?
+ 
         
       
 <!--    <DIV id="main">
