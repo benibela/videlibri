@@ -19,7 +19,7 @@
       <tr><td>^Verlag:</td><td>{$book.publisher}</td></tr>
       <tr><td>^Jahr:</td><td>{$book.year}</td></tr>
       <tr><td>^ISBN:</td><td>{$book.isbn}</td></tr>
-      <tr><td>{$temp := translate(normalize-space(.), ".", "")}</td><td><t:read var="book.{$temp}!" source="."/></td></tr>
+      <tr><td>{$temp}</td><td>{$book($temp||"!") := .}</td></tr>
       </template:switch></template:loop>
     </table>
 
@@ -31,7 +31,7 @@
       <tr><th>^Verlag:</th><td>{$book.publisher}</td></tr>
       <tr><th>^Jahr:</th><td>{$book.year}</td></tr>
       <tr><th>^ISBN:</th><td>{$book.isbn}</td></tr>
-      <tr><th>{$temp := translate(normalize-space(.), ".", "")}</th><td><t:read var="book.{$temp}!" source="."/></td></tr>
+      <tr><th>{$temp}</th><td>{$book($temp||"!") := .}</td></tr>
       </template:switch></template:loop>
     </table>
     
@@ -45,8 +45,7 @@
       <strong>^Verlag<t:s>$book.publisher:=  (./following-sibling::*[1] | ./following-sibling::text())[normalize-space(.)][1]</t:s></strong>
       <strong>^Jahr<t:s>$book.year:=         (./following-sibling::*[1] | ./following-sibling::text())[normalize-space(.)][1]</t:s></strong>
       <strong>ISBN<t:s>$book.isbn:=         (./following-sibling::*[1] | ./following-sibling::text())[normalize-space(.)][1]</t:s></strong>
-      <strong>{$temp := translate(normalize-space(.), ".", "")}
-              <t:read var="book.{$temp}!" source="(./following-sibling::*[1] | ./following-sibling::text())[normalize-space(.)][1]/(if (exists(@href) and contains(@href, '://')) then x'{.} ( {@href} )' else .) "/></strong>
+      <strong>{$book(. || "!") := (./following-sibling::*[1] | ./following-sibling::text())[normalize-space(.)][1]/(if (exists(@href) and contains(@href, '://')) then x'{.} ( {@href} )' else .)}</strong>
     </template:switch></template:loop>
     </td>
     </table>

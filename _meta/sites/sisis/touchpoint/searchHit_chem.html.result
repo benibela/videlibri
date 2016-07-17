@@ -1,8 +1,8 @@
 book := {}
 result := ()
-temp := "Erscheinungsjahr:"
-temp := "Serie/ Reihe:"
-temp := "Regalstandort:"
-temp := "Klassifikation:"
-temp := "Umfang:"
+temp := text{"Erscheinungsjahr:"}
+temp := text{"Serie/ Reihe:"}
+temp := text{"Regalstandort:"}
+temp := text{"Klassifikation:"}
+temp := text{"Umfang:"}
 book := {"Umfang:!": "206 S. :  Ill.", "Klassifikation:!": "O 310 O 710", "Regalstandort:!": "O 310 Bop", "isbn": "9783937880822", "Serie/ Reihe:!": "Test", "Erscheinungsjahr:!": "2008", "location": "Berlin", "publisher": "Stiftung Warentest", "author": "Bopp, Annette", "title": "Medikamente bei Krebs"}

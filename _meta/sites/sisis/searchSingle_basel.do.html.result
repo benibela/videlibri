@@ -1,15 +1,3 @@
 book := {}
 result := ()
-temp := "Untertitel:"
-temp := "Urheberangabe:"
-temp := "Umfang:"
-temp := "Reihe/Serie:"
-temp := "Sach-Schlagwort:"
-temp := "DK-Notation:"
-temp := "Sprache:"
-temp := "Altersgruppe:"
-temp := "Medienart:"
-temp := "Medienart:"
-temp := "Grundsignatur:"
-temp := "Kurzbesprechung:"
 book := {"Kurzbesprechung:!": "Grundlagen von Virtuellen Maschinen und Marktübersicht zu aktuellen Virtualisierungsprodukten von Microsoft und VMware; mit Praxisworkshops.", "Grundsignatur:!": "Kommunikation & Information: 681.34", "Medienart:!": "Buch", "Altersgruppe:!": "Erwachsene", "Sprache:!": "deutsch", "DK-Notation:!": "681.34", "Sach-Schlagwort:!": "Virtualisierung", "Reihe/Serie:!": "Addison-Wesley ; 2535. Net.com", "Umfang:!": "773 S. : zahlr. Ill., graph. Darst. + 1 DVD-ROM", "year": "2008", "isbn": "978-3-8273-2535-8", "publisher": "Addison-Wesley", "location": "München [etc.]", "Urheberangabe:!": "Sven Ahnert", "Untertitel:!": "für Entwicklung, Schulung, Test und Produktion : [sofort nachvollziehbare Praxisworkshops : VMware Server, Player, Workstation, Infrastructure 3 : Microsoft Virtual Server, Virtual PC]", "title": "Virtuelle Maschinen mit VMware und Microsoft", "author": "Ahnert, Sven", "image-url": "http://ecx.images-amazon.com/images/I/31T8FII3NuL._SL160_.jpg", "id": "Kommunikation & Information: 681.34"}
