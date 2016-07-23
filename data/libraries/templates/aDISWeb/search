@@ -17,7 +17,7 @@
         ),
       lastSearchedIndex := get("lastSearchedIndex", 0) (: for unittests :)
     } 
-        <span class="txtinsert">Trefferliste</span>
+        <span class="txtinsert" t:test="empty(get('gotDetails_GoBackPage',()))">Trefferliste</span>
         
         <div class="toolbar_div"><ul class="toolbar_ul"><li class="toolbar_li">
           <span>Vorwärts</span>
