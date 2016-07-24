@@ -346,13 +346,19 @@
     </Other>
   </CompilerOptions>
   <Debugging>
-    <Exceptions Count="2">
+    <Exceptions Count="4">
       <Item1>
         <Name Value="EInterfaceCriti"/>
       </Item1>
       <Item2>
         <Name Value="EFOpenError"/>
       </Item2>
+      <Item3>
+        <Name Value="EBookListReader"/>
+      </Item3>
+      <Item4>
+        <Name Value="EInternetException"/>
+      </Item4>
     </Exceptions>
   </Debugging>
 </CONFIG>
