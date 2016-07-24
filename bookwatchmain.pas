@@ -861,9 +861,9 @@ var  openAboutDialog: tpopenAboutDialog;
 var infotext: string;
 begin
   infotext:=
-  Format(rsAbout, ['LCL'#13#10'  FreePascal Runtime'#13#10'  TRegExpr ' +rsBy+ ' Andrey V. Sorokin'#13#10'  FLRE ' +rsBy+ ' Benjamin Rosseaux',
-                   'Lazarus'#13#10'  FreePascal'#13#10'  GIMP'#13#10'  HTML Help Workshop'#13#10'  The Regex Coach',
-                   'Leonid Sokolov, Martin Kim Dung-Pham, Michael Volkmann',
+  Format(rsAbout, ['LCL'#13#10'  FreePascal Runtime'#13#10'  TRegExpr ' +rsBy+ ' Andrey V. Sorokin'#13#10'  FLRE ' +rsBy+ ' Benjamin Rosseaux' + LineEnding,
+                   'Lazarus'#13#10'  FreePascal'#13#10'  GIMP'#13#10'  HTML Help Workshop'#13#10'  The Regex Coach'+ LineEnding,
+                   'Leonid Sokolov, Martin Kim Dung-Pham, Michael Volkmann'+ LineEnding,
                    'HBZ, Amazon, openlibrary.org ' +rsAnd+ ' buchhandel.de']);
   {$IFDEF WIN32}
   lib:=LoadLibrary('bbabout.dll');
