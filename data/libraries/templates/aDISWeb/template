@@ -302,20 +302,28 @@
   </if>
 </action>
 
+<action id="internal-get-go-back-step">
+    <page url="{$goBackPage}">
+      <template>
+        <t:switch prioritized="true">
+          <a title="Trefferliste">{goBackPage:=@href}</a>
+          <input t:condition="contains(@title, 'zur Trefferliste')">{goBackPage:= (let $temp := uri-encode(@name) return form(//form, x"{$temp}.x=0&{temp}.y=0"))}</input>
+        </t:switch>
+      </template>
+    </page>
+</action>
+
 <action id="internal-go-back-with-error">
   <if test="$error">
-    <page url="{$goBackPage}">
-      <template><a title="Trefferliste">{goBackPage:=@href, vl:raise($error)}</a></template>
-    </page>
+    <call action="internal-get-go-back-step"/>
+    <s>vl:raise($error)</s>
     <page url="{$goBackPage}" templateFile="searchBasicForm"/>
   </if>
 </action>
 
 <action id="internal-go-back2">
   <if test="$choose-result instance of xs:decimal">
-    <page url="{$goBackPage}">
-      <template><a title="Trefferliste">{goBackPage:=@href}</a></template>
-    </page>
+    <call action="internal-get-go-back-step"/>
     <page url="{$goBackPage}" templateFile="searchBasicForm"/>
   </if>
 </action>
@@ -403,6 +411,7 @@
       <template>
         <t:switch prioritized="true">
           <a title="Trefferliste">{goBackPage:=@href}</a>
+          <input t:condition="contains(@title, 'zur Trefferliste')">{goBackPage:= (let $temp := uri-encode(@name) return form(//form, x"{$temp}.x=0&{temp}.y=0"))}</input>
           <span class="toolbar_txt">Vollanzeige<!--we are already back. safety. case never observed--></span>
         </t:switch>
       </template>
