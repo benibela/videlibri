@@ -274,58 +274,67 @@ begin
       Synchronize(@checkPending);
   end;
   if account then begin
-    internet := internetaccess.defaultInternetAccessClass.create();
-    t := TTemplateAccountAccessTester.create(lib);
-    t.init('', fakeUser);
-    t.passWord:=fakePwd;
-
-
     try
-      t.connect(internet);
-      t.updateAll;
-      resultAccount := '';
-      for i := 0 to t.books.currentUpdate.Count-1do
-        resultAccount += t.books.currentUpdate[i].toLimitString();
+      internet := internetaccess.defaultInternetAccessClass.create();
+      t := TTemplateAccountAccessTester.create(lib);
+      t.init('', fakeUser);
+      t.passWord:=fakePwd;
+
+
+      try
+        t.connect(internet);
+        t.updateAll;
+        resultAccount := '';
+        for i := 0 to t.books.currentUpdate.Count-1do
+          resultAccount += t.books.currentUpdate[i].toLimitString();
+      except
+        on e: ELoginException do
+          resultAccount := '0-'+e.ClassName +': '+ e.Message;
+        on e: EBookListReader do
+          resultAccount := '1-'+e.ClassName +': '+ e.Message;
+        on e: Exception do
+          resultAccount := '2-' + e.ClassName +': '+ e.Message;
+      end;
+
+      t.free;
     except
-      on e: ELoginException do
-        resultAccount := '0-'+e.ClassName +': '+ e.Message;
-      on e: EBookListReader do
-        resultAccount := '1-'+e.ClassName +': '+ e.Message;
-      on e: Exception do
-        resultAccount := '2-' + e.ClassName +': '+ e.Message;
+      on e: exception do
+        resultAccount := '2-UNHANDLED EXCEPTION: '+e.Message;
     end;
-
-
-    t.free;
   end;
   if search then begin
-    InitCriticalSection(critSection);
-    searcher := TLibrarySearcher.create(lib.template);
-    Searcher.bookListReader.bookAccessSection:=@critSection;
-    searcher.addLibrary(lib);
-
     try
-      searcher.SearchOptions.title := title;
-      searcher.SearchOptions.author := author;
-      searcher.connect;
-      searcher.search;
-      if searcher.SearchNextPageAvailable then
-        searcher.searchNext;
-      resultSearch := inttostr(searcher.SearchResult.Count) + '/'+ inttostr(searcher.SearchResultCount) +': ';
-      for i := 0 to min(searchCount, searcher.SearchResult.Count - 1) do begin
-        searcher.details(searcher.SearchResult[i]);
-        if i <> 0 then resultSearch += ', ';
-        resultSearch += searcher.SearchResult[i].toSimpleString();
+      InitCriticalSection(critSection);
+      searcher := TLibrarySearcher.create(lib.template);
+      Searcher.bookListReader.bookAccessSection:=@critSection;
+      searcher.addLibrary(lib);
+
+      try
+        searcher.SearchOptions.title := title;
+        searcher.SearchOptions.author := author;
+        searcher.connect;
+        searcher.search;
+        if searcher.SearchNextPageAvailable then
+          searcher.searchNext;
+        resultSearch := inttostr(searcher.SearchResult.Count) + '/'+ inttostr(searcher.SearchResultCount) +': ';
+        for i := 0 to min(searchCount, searcher.SearchResult.Count - 1) do begin
+          searcher.details(searcher.SearchResult[i]);
+          if i <> 0 then resultSearch += ', ';
+          resultSearch += searcher.SearchResult[i].toSimpleString();
+        end;
+        if searcher.SearchResultCount = 0 then resultSearch := '1-' + resultSearch;
+      except
+        on e: EBookListReader do
+          resultSearch := '1-'+e.ClassName +': '+ e.Message;
+        on e: Exception do
+          resultSearch := '2-' + e.ClassName +': '+ e.Message;
       end;
-      if searcher.SearchResultCount = 0 then resultSearch := '1-' + resultSearch;
+      searcher.free;
+      DoneCriticalsection(critSection);
     except
-      on e: EBookListReader do
-        resultSearch := '1-'+e.ClassName +': '+ e.Message;
-      on e: Exception do
-        resultSearch := '2-' + e.ClassName +': '+ e.Message;
+      on e: exception do
+        resultSearch := '2-UNHANDLED EXCEPTION: '+e.Message;
     end;
-    searcher.free;
-    DoneCriticalsection(critSection);
   end;
   if homepage then begin
     try
