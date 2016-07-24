@@ -64,33 +64,39 @@
               <li>
               <!--<span class="rList_cover"/>-->
               
-            
-              <div class="rList_titel">{$title := .}</div>
-              <DIV class="rList_jahr">{$globyear := .}</DIV>?
-              <DIV class="rList_num">{lastIndex := xs:integer(.)}</DIV>
-              <t:if test="$lastIndex > $lastSearchedIndex">
-                {book := {
-                  "title": $title,
-                  "_searchId": encode-for-uri(concat("ZTEXT       ", extract($title//a/@href, "\('(.*)'\)", 1))),
-                  "_index": $lastIndex,
-                  "year": $globyear 
-                }, lastSearchedIndex := $lastIndex}
-                
-                <DIV class="rList_name">
-                {let $temp := tokenize(., "-")!normalize-space(),
-                     $year := $temp[last()][. castable as xs:integer],
-                     $autpubcount := count($temp) - (if (exists($year)) then (1, $book.year := $year)[1] else 0)
-                 return switch ($autpubcount) 
-                   case 0 return ()
-                   case 1 return $book.author := $temp[1]
-                   default return (
-                     $book.author := $temp[1],
-                     $book.publisher := $temp[$autpubcount]
-                   )}
-                </DIV>
-                
-                <div class="rList_availability"><img>{book.statusId := local:img-to-status(.)}</img></div>?
-              </t:if> 
+              {
+                let $props := .//div[contains(@class, "rList_")]
+                return (
+                  lastIndex := xs:integer($props[contains(@class, "rList_num")]),
+                  if ($lastIndex > $lastSearchedIndex) then (
+                    lastSearchedIndex := $lastIndex,
+                    let $title := $props[contains(@class, "rList_titel")][1],
+                        $year  := $props[contains(@class, "rList_jahr")][1],
+                        $name  := $props[contains(@class, "rList_name")][1],
+                        $ava   := $props[contains(@class, "rList_availability")]//img[1]
+                    return (book := {
+                        "title": $title,
+                        "_searchId": encode-for-uri(concat("ZTEXT       ", extract($title//a/@href, "\('(.*)'\)", 1))),
+                        "_index": $lastIndex
+                      }, 
+                      $year ! ($book.year := .),
+                      $name ! (
+                        let $temp := tokenize(., "-")!normalize-space(),
+                                             $year := $temp[last()][. castable as xs:integer],
+                                             $autpubcount := count($temp) - (if (exists($year)) then (1, $book.year := $year)[1] else 0)
+                                         return switch ($autpubcount) 
+                                           case 0 return ()
+                                           case 1 return $book.author := $temp[1]
+                                           default return (
+                                             $book.author := $temp[1],
+                                             $book.publisher := $temp[$autpubcount]
+                                           )
+                      ),
+                    $ava ! ($book.statusId := local:img-to-status(.))
+                    ) 
+                  ) else ()
+                )
+              } 
             </li>+</ul></div>
           </t:switch>
       </DIV>
