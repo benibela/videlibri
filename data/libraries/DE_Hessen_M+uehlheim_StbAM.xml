@@ -5,7 +5,7 @@
   <template value="libero5"/>
   <variable name="baseurl" value="https://webopac.muehlheim.de/libero/"/>
 
-  <homepage value="https://www.muehlheim.de/buecherei.html"/>
+  <homepage value="https://www.muehlheim.de/buecherei-informationen"/>
   <testing-search value="nein" date="2015-04-05"/>
   <testing-account value="?" date=""/>
   <testing-renew value="?" date=""/>

@@ -3,9 +3,9 @@
   <longName value="Stadtbüchereien Hamm (alpha)"/>
   <shortName value="Stb Hamm"/>
   
-  <template value="bibliotheca"/>
-  <variable name="baseurl" value="http://opac.hamm.de/opac30"/>	
-  <variable name="DB" value="biblio20"/>	
+  <template value="bibliothecaplus"/>
+  <variable name="urlaccount" value="http://katalog.hamm.de/IhrBenutzerkonto.aspx"/>	
+  <variable name="urlsearch" value="http://katalog.hamm.de/Mediensuche/ErweiterteSuche.aspx"/>	
   
   <!--<template value="pica"/>-->
 

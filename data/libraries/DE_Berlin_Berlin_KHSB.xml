@@ -8,7 +8,7 @@
   <variable name="picadb" value="40"/>
   <variable name="searchKeysOverride" value="tit;per;num;jah;slw"/>
    
-  <homepage value="http://www.khsb-berlin.de/index.php?id=1348"/>
+  <homepage value="http://www.khsb-berlin.de/bibliothek/"/>
   <testing-search value="ja" date="2014-11-10"/>
   <testing-account value="ja" date="2014-11-16"/>
   <testing-renew value="?" date=""/>
