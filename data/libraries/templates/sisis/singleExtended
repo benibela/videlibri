@@ -6,7 +6,11 @@
         <td>
           {book := $b, book._select := $b}
           <strong class="c2">Titel:</strong>
-          <strong><template:read var="newBookTitle" source="text()"/></strong>
+          <strong>{let $newBookTitle:=text() return
+            if ($newBookTitle!=$book.title) then 
+              vl:raise(x'Es wurde {$newBookTitle} verlängert, obwohl {$book.title} verlängert werden sollte.')
+            else ()
+          }</strong>
           
           <t:s>status_found:=false()</t:s>
           <strong class="c2" template:optional=true>Status:<t:s>status_found:=true()</t:s></strong>
@@ -20,9 +24,7 @@
                  else vl:raise("VERLÄNGERUNGSDATUM KANN NICHT GELESEN WERDEN: " || outer-html(..))
             </t:s>
           </strong>
-          <template:if test="$newBookTitle!=$book.title">
-            <broken/>
-          </template:if>
+
         </td>
       </tr>       
     </table>

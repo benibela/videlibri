@@ -1,6 +1,6 @@
 b := {"id": 123}
 book := {}
-newBookTitle := text{"D K"}
+result := ()
 status_found := false()
 status_found := true()
 book := {"duedate": "2013-08-19", "status:problematic": "2. Verlängerung", "_select": {"id": 123}, "id": 123}
