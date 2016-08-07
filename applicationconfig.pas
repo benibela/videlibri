@@ -32,6 +32,7 @@ type TCallbackHolder = class
 end;
 TCallbackHolderClass = class of TCallbackHolder;
 
+
 var programPath,userPath:string;
     machineConfig,userConfig: TIniFile;
 
@@ -584,11 +585,11 @@ resourcestring
   end;
 
 
-   class procedure TCallbackHolder.updateAutostart(enabled, askBeforeChange: boolean); begin end;
-   class procedure TCallbackHolder.applicationUpdate(auto: boolean); begin end;
-   class procedure TCallbackHolder.statusChange(const message: string); begin end;
-   class procedure TCallbackHolder.allThreadsDone; begin end;
-   class procedure TCallbackHolder.postInitApplication; begin end;
+class procedure TCallbackHolder.updateAutostart(enabled, askBeforeChange: boolean); begin end;
+class procedure TCallbackHolder.applicationUpdate(auto: boolean); begin end;
+class procedure TCallbackHolder.statusChange(const message: string); begin end;
+class procedure TCallbackHolder.allThreadsDone; begin end;
+class procedure TCallbackHolder.postInitApplication; begin end;
 
 end.
 

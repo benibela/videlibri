@@ -31,8 +31,19 @@ public
 end;
 implementation
 
-uses bbdebugtools, applicationconfig;
+uses bbutils, bbdebugtools, applicationconfig;
 { TAccountList }
+
+procedure stringsSaveSafeCallback(stream: TStream; data: pointer);
+begin
+  stream.Size := 0;
+  tstrings(data).SaveToStream(stream);
+end;
+
+procedure stringsSaveSafe(sl: TStrings; fn: string);
+begin
+  fileSaveSafe(fn, @stringsSaveSafeCallback, sl  );
+end;
 
 function TAccountList.get(i: integer): TCustomAccountAccess;
 begin
@@ -52,7 +63,7 @@ var
 begin
   if not FileExists(fileName) then begin
     if logging then log('Creating file: '+filename+ '  (written lines: '+inttostr(count)+')');
-    SaveToFile(fileName);
+    stringsSaveSafe(self, fileName);
   end;
   LoadFromFile(fileName);
   deprecatedAccounts := false;
@@ -70,7 +81,7 @@ end;
 procedure TAccountList.save;
 begin
   if logging then log('Save account list');
-  SaveToFile(fileName);
+  stringsSaveSafe(self, fileName);
 end;
 
 destructor TAccountList.Destroy;
@@ -123,4 +134,5 @@ begin
 end;
 
 end.
+
 

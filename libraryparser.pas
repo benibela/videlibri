@@ -4,7 +4,7 @@ unit libraryParser;
 interface
 
 uses
-  Classes, SysUtils, simplehtmlparser, extendedhtmlparser, simplexmlparser, inifiles,internetaccess,regexpr,booklistreader,multipagetemplate,bbutils,simplehtmltreeparser;
+  Classes, SysUtils, simplehtmlparser, extendedhtmlparser, simplexmlparser, inifilessafe,internetaccess,regexpr,booklistreader,multipagetemplate,bbutils,simplehtmltreeparser;
 
 
 type
@@ -178,7 +178,7 @@ type
     fbooks: TBookLists;
     lib: TLibrary;
     internet: TInternetAccess;
-    config: TIniFile;
+    config: TSafeIniFile;
     path,user,pass,FPrettyName:string;
     FExtendType: TExtendType;
     FExtendDays,FLastCheckDate:integer;
@@ -1442,7 +1442,7 @@ begin
     end;
 
   fbooks:=TBookLists.create(self,filePrefix+'.history',filePrefix+'.current');
-  config:=TIniFile.Create(filePrefix+'.config');
+  config:=TSafeIniFile.Create(filePrefix+'.config');
   initFromConfig;
 end;
 
@@ -1590,7 +1590,7 @@ begin
   RenameFile(path+oldID+'.current.xml',path+newID+'.current.xml');
   RenameFile(path+oldID+'.config',path+newID+'.config');
   fbooks:=TBookLists.create(self,path+newID+'.history',path+newID+'.current');
-  config:=TIniFile.Create(path+newID+'.config');
+  config:=TSafeIniFile.Create(path+newID+'.config');
 
   fconnected := false;
   //config.UpdateFile;

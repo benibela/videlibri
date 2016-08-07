@@ -790,50 +790,50 @@ type
 { TBookListSerializer }
 
 TBookListSerializer = object
-  text:TextFile;
+  stream: tstream;
   procedure writeProp(n,v:string);
   procedure writeDateProp(n: string; d: integer);
+  procedure writeString(const s: string);
 end;
 
 procedure TBookListSerializer.writeProp(n, v: string);
 begin
-  writeln(text, '<v n="',xmlStrEscape(n,true),'">',xmlStrEscape(v),'</v>');
+  writeString('<v n="'+xmlStrEscape(n,true)+'">'+xmlStrEscape(v)+'</v>');
 end;
 
 procedure TBookListSerializer.writeDateProp(n: string; d: integer);
 begin
-  writeProp(n, dateTimeFormat('yyyy-mm-dd', d));
+  writeString(dateTimeFormat('yyyy-mm-dd', d));
+end;
+
+procedure TBookListSerializer.writeString(const s: string);
+begin
+  if length(s) = 0 then exit;
+  stream.WriteBuffer(s[1], length(s));
+end;
+
+procedure booklistSave(stream: TStream; data: pointer);
+var temp: TBookListSerializer;
+  i: Integer;
+begin
+  with TBookList(data) do begin
+    temp.stream := stream;
+    temp.writeString('<?xml version="1.0" encoding="UTF-8"?>');
+    temp.writeString('<books>');
+    for i := 0 to count-1 do begin
+      temp.writeString('<book>');
+      books[i].serialize(@temp.writeProp, @temp.writeDateProp);
+      temp.writeString('</book>');
+    end;
+    temp.writeString('</books>');
+  end;
 end;
 
 procedure TBookList.save(fileName: string);
-var temp: TBookListSerializer;
-    i:integer;
 begin
   if logging then
     log('TBookList.save('+fileName+') started');
-  AssignFile(temp.text,fileName+'.xml');
-  Rewrite(temp.text);
-  writeln(temp.text, '<?xml version="1.0" encoding="UTF-8"?>');
-  writeln(temp.text, '<books>');
-  for i := 0 to count-1 do begin
-    writeln(temp.text, '<book>');
-    books[i].serialize(@temp.writeProp, @temp.writeDateProp);
-    writeln(temp.text, '</book>');
-  end;
-  writeln(temp.text, '</books>');
-
-  {
-  if (saveAction<>saReplace) and not FileExists(fileName) then saveAction:=saReplace;
-  if saveAction=saReplace then rewrite(text)
-  else Append(text);
-  for i:=0 to count-1 do
-    with books[i] do begin
-      if not (status in [bsProblematicInStr,bsCuriousInStr]) then statusStr:='';
-      writeln(text,id+#0+category+#0+author+#0+title+#0+statusStr+#0+otherInfo+#0+
-                   IntToStr(issueDate)+#0+IntToStr(dueDate)+#0+
-                   IntToStr(lastExistsDate)+#0+inttostr(integer(status))+#0+year+#0+IntToStr(firstExistsDate)+#0+isbn+#0)
-    end;                                            }
-  CloseFile(temp.text);
+  fileSaveSafe(fileName+'.xml', @booklistSave, self);
   if logging then
     log('TBookList.save('+fileName+') ended')
 end;
