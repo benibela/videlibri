@@ -794,16 +794,17 @@ TBookListSerializer = object
   procedure writeProp(n,v:string);
   procedure writeDateProp(n: string; d: integer);
   procedure writeString(const s: string);
+  procedure writeLn(const s: string);
 end;
 
 procedure TBookListSerializer.writeProp(n, v: string);
 begin
-  writeString('<v n="'+xmlStrEscape(n,true)+'">'+xmlStrEscape(v)+'</v>');
+  writeLn(#9'<v n="'+xmlStrEscape(n,true)+'">'+xmlStrEscape(v)+'</v>');
 end;
 
 procedure TBookListSerializer.writeDateProp(n: string; d: integer);
 begin
-  writeString(dateTimeFormat('yyyy-mm-dd', d));
+  writeProp(n, dateTimeFormat('yyyy-mm-dd', d));
 end;
 
 procedure TBookListSerializer.writeString(const s: string);
@@ -812,20 +813,25 @@ begin
   stream.WriteBuffer(s[1], length(s));
 end;
 
+procedure TBookListSerializer.writeLn(const s: string);
+begin
+  writeString(s + LineEnding);
+end;
+
 procedure booklistSave(stream: TStream; data: pointer);
 var temp: TBookListSerializer;
   i: Integer;
 begin
   with TBookList(data) do begin
     temp.stream := stream;
-    temp.writeString('<?xml version="1.0" encoding="UTF-8"?>');
-    temp.writeString('<books>');
+    temp.writeLn('<?xml version="1.0" encoding="UTF-8"?>');
+    temp.writeLn('<books>');
     for i := 0 to count-1 do begin
-      temp.writeString('<book>');
+      temp.writeLn('<book>');
       books[i].serialize(@temp.writeProp, @temp.writeDateProp);
-      temp.writeString('</book>');
+      temp.writeLn('</book>');
     end;
-    temp.writeString('</books>');
+    temp.writeLn('</books>');
   end;
 end;
 
