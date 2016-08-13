@@ -202,7 +202,7 @@ type
 
     //==============Access functions================
     //At first connect must be called
-    function connect(AInternet:TInternetAccess=nil):boolean; virtual;abstract;
+    function connect(AInternet:TInternetAccess):boolean; virtual;abstract;
     //After disconnect you mustn't call any one except connect
     procedure disconnect(); virtual;
     
@@ -271,7 +271,7 @@ type
     procedure changeUser(const s:string); override;
 
     //==============Access functions================
-    function connect(AInternet:TInternetAccess=nil):boolean; override;
+    function connect(AInternet:TInternetAccess):boolean; override;
     procedure disconnect(); override;
 
     function needSingleBookCheck():boolean;override;
@@ -1484,28 +1484,28 @@ end;
 procedure TCustomAccountAccess.updateAll();
 begin
   if not connected then
-    if not connect then
+    if not connect(internet) then
       raise ELibraryException.Create('Zugriff auf die Bücherei fehlgeschlagen'#13#10#13#10'Bitte überprüfen Sie Ihre Internetverbindung');
 end;
 
 procedure TCustomAccountAccess.updateSingle(book: TBook);
 begin
   if not connected then
-    if not connect then
+    if not connect(internet) then
       raise ELibraryException.Create('Zugriff auf die Bücherei fehlgeschlagen'#13#10#13#10'Bitte überprüfen Sie Ihre Internetverbindung');
 end;
 
 procedure TCustomAccountAccess.extendAll();
 begin
   if not connected then
-    if not connect then
+    if not connect(internet) then
       raise ELibraryException.Create('Zugriff auf die Bücherei fehlgeschlagen'#13#10#13#10'Bitte überprüfen Sie Ihre Internetverbindung');
 end;
 
 procedure TCustomAccountAccess.extendList(bookList: TBookList);
 begin
   if not connected then
-    if not connect then
+    if not connect(internet) then
       raise ELibraryException.Create('Zugriff auf die Bücherei fehlgeschlagen'#13#10#13#10'Bitte überprüfen Sie Ihre Internetverbindung');
 end;
 
@@ -1526,14 +1526,14 @@ end;}
 procedure TCustomAccountAccess.cancelSingle(book: TBook);
 begin
   if not connected then
-    if not connect then
+    if not connect(internet) then
       raise ELibraryException.Create('Zugriff auf die Bücherei fehlgeschlagen'#13#10#13#10'Bitte überprüfen Sie Ihre Internetverbindung');
 end;
 
 procedure TCustomAccountAccess.cancelList(booklist: TBookList);
 begin
   if not connected then
-    if not connect then
+    if not connect(internet) then
       raise ELibraryException.Create('Zugriff auf die Bücherei fehlgeschlagen'#13#10#13#10'Bitte überprüfen Sie Ihre Internetverbindung');
 end;
 
@@ -1560,7 +1560,7 @@ procedure TCustomAccountAccess.updateAllSingly;
 var i:integer;
 begin
   if not connected then
-    if not connect then
+    if not connect(internet) then
       raise ELibraryException.Create('Zugriff auf die Bücherei fehlgeschlagen'#13#10#13#10'Bitte überprüfen Sie Ihre Internetverbindung');
   for i:=0 to books.bookLists[bltInCurrentDataUpdate].count-1 do
     updateSingle(books.bookLists[bltInCurrentDataUpdate][i]);
