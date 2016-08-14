@@ -6,7 +6,7 @@
   <variable name="server" value="bsz.ibs-bw.de"/>
   <variable name="startparams" value="?service=direct/0/Home/$DirectLink&sp=S127.0.0.1:23332"/>
 
-  <homepage value="http://www.hit-karlsruhe.de/hfm-ka/hfm/04-hochschule/09-bibliothek.htm"/>
+  <homepage value="http://www.hfm-karlsruhe.de/hfm/04-Hochschule/09-bibliothek.htm"/>
   <testing-search value="ja" date="2013-05-18"/>
   <testing-account value="?" date=""/>
   <testing-renew value="?" date=""/>
