@@ -1,0 +1,614 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="de" lang="de"><head>
+	<style type="text/css">
+		@import url(css/aDISStandard.css);
+	</style>
+	<script src="js/aDISMain.min.js" type="text/javascript"></script>
+	<script src="js/fckeditor/fckeditor.js" type="text/javascript"></script>
+	<title> Wir bringen Medien in Bewegung </title><script type="text/javascript">
+	var text = '';
+	window.defaultStatus=text;
+</script>
+<!--
+(c) Software: aDIS/BMS und aDIS/Archiv by |a|S|tec| GmbH Berlin und Muenchen - www.astec.de
+HTML-/CSS: Formulare, Tabellen, Inhalte, etc. werden automatisiert durch aDIS/BMS und aDIS/Archiv generiert
+HTML-/CSS: Framework basiert lose auf Contao 2 (c) Leo Feyer www.contao.org
+HTML-/CSS: Anpassungen im aDIS-Rahmen durch ena Webstudio - www.ena-webstudio.com
+Projekt: VOEBB, OPAC03, de
+Letztes Update: 07.07.2016 - 11:10
+//-->
+<meta http-equiv="x-ua-compatible" content="ie=edge" />
+<meta http-equiv="cache-control" content="no-cache" />
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<meta http-equiv="content-style-type" content="text/css" />
+<meta http-equiv="content-script-type" content="text/javascript" />
+<meta http-equiv="content-language" content="de" />
+<meta name="language" content="de" />
+<meta name="viewport" content="width=device-width; initial-scale=1.0" />
+<meta name="description" content="Recherche in 2,7 Millionen Titeln der �ffentlichen Bibliotheken des Landes Berlin, Bestellung, Kontoverwaltung, Online-Ausleihe von E-Books, E-Audios und E-Videos" />
+<link rel="stylesheet" href="/aDISWeb_kopac/css/kopac_style.css" type="text/css" />
+<link rel="stylesheet" href="/aDISWeb_vob/css/kopac_diff.css" type="text/css" />
+<link rel="shortcut icon" type="image/x-icon" href="/aDISWeb_vob/images/favicon.ico" />
+<script type="text/javascript" src="/aDISWeb_vob/js/cookies.js"></script>
+<script type="text/javascript" src="/aDISWeb_vob/js/efa_fontsize.js"></script>
+</head>
+<body class="zweier deutsch">
+<script type="text/javascript"><!--
+
+
+
+
+function startIdleTimer() {
+  if (typeof idleId != 'undefined')
+    clearTimeout(idleId)
+  idleId = window.setTimeout("to('"+ idleLink + "')", idleTime);
+  }			
+function to(link) {
+  location.href=link;
+  }
+
+
+
+
+
+function EventTarget() {
+	this.handlers = [];
+	}
+EventTarget.prototype = {
+	constructor : EventTarget,
+	addhandler: function (type, handler) {
+		if (typeof this.handlers[type] == "undefined")
+			this.handlers[type] = [];
+		this.handlers[type].push(handler);
+		},
+	fire : function (event) {
+		if (this.handlers[event.type] instanceof Array) {
+			var handlers = this.handlers[event.type];
+			for (var i = 0; i < handlers.length; i++)
+				handlers[i](event);
+			}
+		}
+	};
+var eventHandler = new EventTarget();
+
+function setupHandlers()  {
+	document.onmousedown = docOnEvent;		
+	document.onkeydown = docOnEvent;	
+	document.onkeypress = docOnEvent;
+	document.onhelp = cancelF1;
+	
+	initFormElements();
+	initIframes();
+	initScrollPos();
+	}
+function getDimensions()  {
+	document.forms[0].scrDim.value = screen.width + ";" + screen.height;
+	if (window.innerWidth)
+		document.forms[0].winDim.value = window.innerWidth + ";" + window.innerHeight;
+	else
+		document.forms[0].winDim.value = document.body.offsetWidth + ";" + document.body.offsetHeight;
+	node = document.getElementById("img_content");
+	if (node != undefined)
+		document.forms[0].imgDim.value = node.offsetWidth + ";" + node.offsetHeight;
+	}
+
+
+
+
+
+	window.onpopstate = function (e) {
+	  if(e.state != null && e.state.action){
+	  var button = document.getElementById("Toolbar_0");
+      	if(button) button.click();
+      }
+    }
+    if(history.pushState && history.state == null){
+		history.pushState({ action : 1 }, "", null);
+		history.pushState({ action : 2 }, "", null);
+	}
+
+
+
+
+
+
+aDIS.onLoad = function (e)
+{
+
+  idleTime=360000000;
+  idleLink="/aDISWeb/app;jsessionid=D6EE5F76541DA2F4BA349C2015561BCC?service=direct/1/POOLVX00vb@@@@@@_44271600_31DEFE00/$Timeout";
+  startIdleTimer();
+
+
+if (!e) var e = window.event;
+document.forms[0].scriptEnabled.value=true;
+if (self.specialOnLoad != undefined)
+	specialOnLoad(e);
+setupHandlers();
+getDimensions();
+
+
+
+
+  var UserAgent = navigator.userAgent.toLowerCase();
+  if (UserAgent.search(/(iphone|ipod|ipad|opera mini|fennec|palm|blackberry|android|symbian|series60)/) == -1)
+    document.Form0.$Textfield.focus();
+
+}
+
+aDIS.addListener('load', window, aDIS.onLoad);
+
+
+// --></script>
+<div class="aDISMaske"><form method="post" name="Form0" action="/aDISWeb/app;jsessionid=D6EE5F76541DA2F4BA349C2015561BCC" onsubmit="return formOnSubmit();">
+<input type="hidden" name="service" value="direct/1/POOLVX00vb@@@@@@_44271600_31DEFE00/$Form.form"/>
+<input type="hidden" name="sp" value="S0"/>
+<input type="hidden" name="Form0" value="focus,keyCode,stz,source,selected,requestCount,scriptEnabled,scrollPos,scrDim,winDim,imgDim,$Toolbar,$Textfield,select,select$0,$Textfield$0,$FormConditional,textButton,$FormConditional$0,$FormConditional$1,textButton$0,select$1,$FormConditional$2,textButton$1,$Toolbar$0"/>
+<input type="hidden" name="focus" value=""/>
+<input type="hidden" name="keyCode" value="0"/>
+<input type="hidden" name="stz" value=""/>
+<input type="hidden" name="source" value=""/>
+<input type="hidden" name="selected" value=""/>
+<input type="hidden" name="requestCount" value="12"/>
+<input type="hidden" name="scriptEnabled" value="T"/>
+<input type="hidden" name="scrollPos" value="0"/>
+<input type="hidden" name="scrDim" value=""/>
+<input type="hidden" name="winDim" value=""/>
+<input type="hidden" name="imgDim" value=""/>
+<input type="hidden" name="$FormConditional" value="T"/>
+<input type="hidden" name="$FormConditional$0" value="F"/>
+<input type="hidden" name="$FormConditional$1" value="T"/>
+<input type="hidden" name="$FormConditional$2" value="T"/>
+				
+<script type="text/javascript">
+// <![CDATA[
+  if (efa_fontSize) efa_fontSize.efaInit();
+// ]]>
+</script>
+
+<div id="wrapper">
+  <div id="wrapper_inside">
+
+    <div id="header" role="banner">
+      <div class="inside">
+
+          <ul id="sprunglinks">
+            <li><a class="sprung" href="#main">Zum Hauptinhalt</a></li>
+            <li><a class="sprung" href="#left">Zur Navigation</a></li>
+          </ul>
+
+          <p id="logo"><a href="/aDISWeb/app;jsessionid=D6EE5F76541DA2F4BA349C2015561BCC?service=direct/1/POOLVX00vb@@@@@@_44271600_31DEFE00/$InternalLink.directlink&amp;sp=S%24%24GFNV_1&amp;sp=SStartseite%3DCW00&amp;requestCount=12" fld="$$GFNV_1" title="Zur Startseite"><img src="/aDISWeb_vob/images/voebb_logo.gif" height="90" width="64" alt="Verbund der &ouml;ffentlichen Bibliotheken Berlins" /></a>	<span class="outside">.</span></p>
+
+         <script type="text/javascript">
+          // <![CDATA[
+            if (efa_fontSize) document.write(efa_fontSize.allLinks);
+          // ]]>
+          </script>
+
+          <div class="block" id="spruch"><span>Wir bringen Medien in Bewegung</span> </div>
+
+      </div>
+    </div>
+
+    <div id="container">
+      <div id="container_inside">
+
+        <div id="left">
+          <div class="inside">
+
+            <h1 class="invisible">Navigation</h1>
+
+            <div class="block" id="navbox">
+            <div id="R20"><span class="bnzeig">Sie sind angemeldet</span><span class="mmzeig"></span>
+</div>
+            </div>
+
+            <div class="mod_navigation block" id="unav" role="navigation"><div class="tree_div">
+<ul class="tree_ul">
+<li class="tree_leaf_li">
+<a href="/aDISWeb/app;jsessionid=D6EE5F76541DA2F4BA349C2015561BCC?service=direct/1/POOLVX00vb@@@@@@_44271600_31DEFE00/$Tree.treeNodes&amp;sp=SH&amp;requestCount=12" class="tree_leaf_a"><span>Startseite</span></a><span class="outside">.</span></li>
+<li class="tree_leaf_li">
+<span class="tree_disabled">Anmelden</span>
+<span class="outside">.</span></li>
+<li class="tree_leaf_li">
+<a href="/aDISWeb/app;jsessionid=D6EE5F76541DA2F4BA349C2015561BCC?service=direct/1/POOLVX00vb@@@@@@_44271600_31DEFE00/$Tree.treeNodes&amp;sp=SL2&amp;requestCount=12" class="tree_leaf_a"><span>Abmelden</span></a><span class="outside">.</span></li>
+<li class="tree_leaf_li">
+<a href="/aDISWeb/app;jsessionid=D6EE5F76541DA2F4BA349C2015561BCC?service=direct/1/POOLVX00vb@@@@@@_44271600_31DEFE00/$Tree.treeNodes&amp;sp=SAX&amp;requestCount=12" class="tree_leaf_a"><span>Aktuelles</span></a><span class="outside">.</span></li>
+<li class="tree_leaf_li">
+<a href="/aDISWeb/app;jsessionid=D6EE5F76541DA2F4BA349C2015561BCC?service=direct/1/POOLVX00vb@@@@@@_44271600_31DEFE00/$Tree.treeNodes&amp;sp=SBK&amp;requestCount=12" class="tree_leaf_a"><span>Mein Konto</span></a><span class="outside">.</span></li>
+<li class="tree_branch_li_exp">
+<a href="/aDISWeb/app;jsessionid=D6EE5F76541DA2F4BA349C2015561BCC?service=direct/1/POOLVX00vb@@@@@@_44271600_31DEFE00/$Tree.treeNodes&amp;sp=SS1&amp;requestCount=12" class="tree_branch_a"><span>Suche</span></a><div class="tree_divsub">
+<ul class="tree_ulsub">
+<li class="tree_leaf_li">
+<a href="/aDISWeb/app;jsessionid=D6EE5F76541DA2F4BA349C2015561BCC?service=direct/1/POOLVX00vb@@@@@@_44271600_31DEFE00/$Tree.treeNodes&amp;sp=SS1&amp;requestCount=12" class="tree_leaf_a"><span>Schnellsuche</span></a><span class="outside">.</span></li>
+<li class="tree_leaf_li_sel">
+<strong><span class="tree_strong">Erweiterte Suche</span></strong></li>
+<li class="tree_leaf_li">
+<a href="/aDISWeb/app;jsessionid=D6EE5F76541DA2F4BA349C2015561BCC?service=direct/1/POOLVX00vb@@@@@@_44271600_31DEFE00/$Tree.treeNodes&amp;sp=SS5&amp;requestCount=12" class="tree_leaf_a"><span>Suche in Kommentaren</span></a><span class="outside">.</span></li>
+<li class="tree_leaf_li">
+<a href="/aDISWeb/app;jsessionid=D6EE5F76541DA2F4BA349C2015561BCC?service=direct/1/POOLVX00vb@@@@@@_44271600_31DEFE00/$Tree.treeNodes&amp;sp=SAP&amp;requestCount=12" class="tree_leaf_a"><span>Meine Suchen</span></a><span class="outside">.</span></li>
+<li class="tree_leaf_li">
+<a href="/aDISWeb/app;jsessionid=D6EE5F76541DA2F4BA349C2015561BCC?service=direct/1/POOLVX00vb@@@@@@_44271600_31DEFE00/$Tree.treeNodes&amp;sp=SAT&amp;requestCount=12" class="tree_leaf_a"><span>Thementipps</span></a><span class="outside">.</span></li>
+</ul></div>
+</li>
+<li class="tree_branch_li">
+<a href="/aDISWeb/app;jsessionid=D6EE5F76541DA2F4BA349C2015561BCC?service=direct/1/POOLVX00vb@@@@@@_44271600_31DEFE00/$Tree.treeNodes&amp;sp=SF1&amp;requestCount=12" class="tree_branch_a"><span>Fernleihe</span></a><span class="outside">.</span></li>
+<li class="tree_leaf_li">
+<a href="/aDISWeb/app;jsessionid=D6EE5F76541DA2F4BA349C2015561BCC?service=direct/1/POOLVX00vb@@@@@@_44271600_31DEFE00/$Tree.treeNodes&amp;sp=SW2&amp;requestCount=12" class="tree_leaf_a"><span>Digitale Angebote</span></a><span class="outside">.</span></li>
+<li class="tree_leaf_li">
+<a href="/aDISWeb/app;jsessionid=D6EE5F76541DA2F4BA349C2015561BCC?service=direct/1/POOLVX00vb@@@@@@_44271600_31DEFE00/$Tree.treeNodes&amp;sp=SF3&amp;requestCount=12" class="tree_leaf_a"><span>Aufs&#228;tze im GBV</span></a><span class="outside">.</span></li>
+<li class="tree_branch_li">
+<a href="/aDISWeb/app;jsessionid=D6EE5F76541DA2F4BA349C2015561BCC?service=direct/1/POOLVX00vb@@@@@@_44271600_31DEFE00/$Tree.treeNodes&amp;sp=SK2&amp;requestCount=12" class="tree_branch_a"><span>Kontakt</span></a><span class="outside">.</span></li>
+<li class="tree_leaf_li">
+<a href="/aDISWeb/app;jsessionid=D6EE5F76541DA2F4BA349C2015561BCC?service=direct/1/POOLVX00vb@@@@@@_44271600_31DEFE00/$Tree.treeNodes&amp;sp=SW1&amp;requestCount=12" class="tree_leaf_a"><span>Informationen</span></a><span class="outside">.</span></li>
+</ul></div>
+ </div>
+
+            <!-- incl=includeBOEB.html -->            <p class="block" id="boeb">
+              <a href="http://service.berlin.de/stadtbibliotheken/" rel="external" onclick="window.open(this.href); return false;">Zu 
+              den Berliner &Ouml;ffentlichen Bibliotheken  <span class="invisible">(Link �ffnet in neuem Fenster)</span>
+              </a>
+            </p>
+<!-- stop -->
+
+          </div>
+        </div>
+
+        <div id="main" role="main">
+          <div class="inside">
+
+            <div class="block">
+              <div class="block" id="topleiste">
+
+                <p id="breadcrumb"><span class="invisible">Vorige Seiten: </span><span class="navicl"><a href="/aDISWeb/app;jsessionid=D6EE5F76541DA2F4BA349C2015561BCC?service=direct/1/POOLVX00vb@@@@@@_44271600_31DEFE00/navpath.intlink.directlink&amp;sp=S%24%24GFNV_1&amp;sp=SS6AK&amp;requestCount=12" fld="$$GFNV_1" title="Erweiterte Suche">Erweiterte Suche</a>	<span class="outside">.</span> > <a href="/aDISWeb/app;jsessionid=D6EE5F76541DA2F4BA349C2015561BCC?service=direct/1/POOLVX00vb@@@@@@_44271600_31DEFE00/navpath.intlink.directlink&amp;sp=S%24%24GFNV_2&amp;sp=SA%2FAK&amp;requestCount=12" fld="$$GFNV_2" title="Trefferliste">Trefferliste</a>	<span class="outside">.</span> > <a href="/aDISWeb/app;jsessionid=D6EE5F76541DA2F4BA349C2015561BCC?service=direct/1/POOLVX00vb@@@@@@_44271600_31DEFE00/navpath.intlink.directlink&amp;sp=S%24%24GFNV_3&amp;sp=SVMAK&amp;requestCount=12" fld="$$GFNV_3" title="Verf&#252;gbarkeit / Bestellen">Verf&#252;gbarkeit / Bestellen</a>	<span class="outside">.</span> > <a href="/aDISWeb/app;jsessionid=D6EE5F76541DA2F4BA349C2015561BCC?service=direct/1/POOLVX00vb@@@@@@_44271600_31DEFE00/navpath.intlink.directlink&amp;sp=S%24%24GFNV_4&amp;sp=SI3AK&amp;requestCount=12" fld="$$GFNV_4" title="Anmeldung / Bestellen">Anmeldung / Bestellen</a>	<span class="outside">.</span></span> </p>
+
+                
+
+               <!--aDIS Drucksschalter-->
+                
+                
+                
+
+                <div class="clear"></div>
+              </div>
+
+              <h1><span class="invisible">Aktuelle Seite: </span> <span class="txtinsert">Direktbestellung vorbereiten</span> </h1><div class="toolbar_div">
+<ul class="toolbar_ul">
+<li class="toolbar_li">
+<input type="image" src="/aDISWeb/images/POOLVX00vb@@@@@@/gif/POOLVX00vb@@@@@@_53010E00_31758600.gif;jsessionid=D6EE5F76541DA2F4BA349C2015561BCC" alt="Zur&#252;ck zur vorherigen Seite" id="Toolbar_0" name="$Toolbar_0" title="Zur&#252;ck zur vorherigen Seite" onmouseover="self.status='Zur&#252;ck zur vorherigen Seite';return true;" onmouseout="self.status='';" class="toolbar_img"/><label for="Toolbar_0"><span class="toolbar_txt">Zur&#252;ck</span></label></li>
+<li class="toolbar_li">
+<input type="image" src="/aDISWeb/images/POOLVX00vb@@@@@@/gif/POOLVX00vb@@@@@@_53002400_31169A00.gif;jsessionid=D6EE5F76541DA2F4BA349C2015561BCC" alt="Beenden der Recherche" id="Toolbar_1" name="$Toolbar_1" title="Beenden der Recherche" onmouseover="self.status='Beenden der Recherche';return true;" onmouseout="self.status='';" class="toolbar_img"/><label for="Toolbar_1"><span class="toolbar_txt">Beenden</span></label></li>
+<li class="toolbar_li">
+<input type="image" src="/aDISWeb/images/POOLVX00vb@@@@@@/gif/POOLVX00vb@@@@@@_53001D00_31169A00.gif;jsessionid=D6EE5F76541DA2F4BA349C2015561BCC" alt="Hilfe zur Suchmaske" id="Toolbar_3" name="$Toolbar_3" title="Hilfe zur Suchmaske" onmouseover="self.status='Hilfe zur Suchmaske';return true;" onmouseout="self.status='';" class="toolbar_img"/><label for="Toolbar_3"><span class="toolbar_txt">Hilfe</span></label></li></ul><div style="clear:both"></div></div> <div class="fsgrp">
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              </div>
+
+              <div class="fsgrp">
+              <div id="OPACLI" style="  margin-left:2%; width:99%; " class="aDISListe"><div class="html_div" style="width:99%; height:100%;"><p>Ausgabeort und Benachrichtigungsart nicht vergessen. Die Benachrichtigung ist entgeltfrei. Bitte beachten Sie die anfallenden Kosten - siehe Link Entgeltregelung.</p><p><strong>Titel: Games played through agents in the laboratory - a test of Prat & Rustichini's model</strong></p></div></div>
+              <div id="R04"><span class="zellgq">Sie bestellen  im Bezirk ZLB</span>
+</div><fieldset id="FSET01" class="grp" ><legend class="leg">Angaben für die Direktbestellung</legend>    
+<div id="F30">
+<label for="L#NAME_1"><span class="fbz-text" style="position:absolute;  left:1.2%; width:31.2%;overflow:hidden; max-width:31.2%;">Benutzername</span>
+</label><input type="text" name="$Textfield" fld="L#NAME_1" onkeypress="checkNumeric(event,this);" value="Zander, Benito van der" disabled="disabled" id="L#NAME_1" style="position:absolute;  left:39.6%; width:58.1%;"/>
+</div><br/><span style="line-height:12px;">&nbsp;</span><br/>
+<div id="F36">
+<label for="AUSGAB_1"><span class="fbz-text" style="position:absolute;  left:1.2%; width:14.9%;overflow:hidden; max-width:14.9%;">Ausgabeort</span>
+</label><select name="select" firstFocus="true" id="AUSGAB_1" style="position:absolute;  left:39.6%; width:58.1%;" onChange="javascript:setfld('u')">
+<option value=" - Ausgabeort bestimmen - "> - Ausgabeort bestimmen - </option>
+<option value="Besitzende Bibliothek">Besitzende Bibliothek</option>
+<option value="Lieferung nach Hause">Lieferung nach Hause</option>
+<option value="Charlottenburg-Wilmersdorf: Adolf-Reichwein-Bibliothek">Charlottenburg-Wilmersdorf: Adolf-Reichwein-Bibliothek</option>
+<option value="Charlottenburg-Wilmersdorf: Adolf-Reichwein-Kinderbibliothek">Charlottenburg-Wilmersdorf: Adolf-Reichwein-Kinderbibliothek</option>
+<option value="Charlottenburg-Wilmersdorf: Dietrich-Bonhoeffer-Bibliothek">Charlottenburg-Wilmersdorf: Dietrich-Bonhoeffer-Bibliothek</option>
+<option value="Charlottenburg-Wilmersdorf: Eberhard-Alexander-Burgh-Bibliothek">Charlottenburg-Wilmersdorf: Eberhard-Alexander-Burgh-Bibliothek</option>
+<option value="Charlottenburg-Wilmersdorf: Heinrich-Schulz-Bibliothek mit Musikabteilung">Charlottenburg-Wilmersdorf: Heinrich-Schulz-Bibliothek mit Musikabteilung</option>
+<option value="Charlottenburg-Wilmersdorf: Ingeborg-Bachmann-Bibliothek">Charlottenburg-Wilmersdorf: Ingeborg-Bachmann-Bibliothek</option>
+<option value="Charlottenburg-Wilmersdorf: Johanna-Moosdorf-Bibliothek">Charlottenburg-Wilmersdorf: Johanna-Moosdorf-Bibliothek</option>
+<option value="Charlottenburg-Wilmersdorf: Stadtteilbibliothek Halemweg">Charlottenburg-Wilmersdorf: Stadtteilbibliothek Halemweg</option>
+<option value="Friedrichshain - Kreuzberg: Bibliothek Adalbertstr.">Friedrichshain - Kreuzberg: Bibliothek Adalbertstr.</option>
+<option value="Friedrichshain - Kreuzberg: Bibliothek Dudenstr.">Friedrichshain - Kreuzberg: Bibliothek Dudenstr.</option>
+<option value="Friedrichshain - Kreuzberg: Bibliothek Frankfurter Allee 14a">Friedrichshain - Kreuzberg: Bibliothek Frankfurter Allee 14a</option>
+<option value="Friedrichshain - Kreuzberg: Bibliothek Glogauerstr.">Friedrichshain - Kreuzberg: Bibliothek Glogauerstr.</option>
+<option value="Friedrichshain - Kreuzberg: Schulbibliothek Bl&#252;cherstr. (nicht &#246;ffentlich)">Friedrichshain - Kreuzberg: Schulbibliothek Bl&#252;cherstr. (nicht &#246;ffentlich)</option>
+<option value="Lichtenberg: Anna - Seghers - Bibliothek">Lichtenberg: Anna - Seghers - Bibliothek</option>
+<option value="Lichtenberg: Anton - Saefkow - Bibliothek">Lichtenberg: Anton - Saefkow - Bibliothek</option>
+<option value="Lichtenberg: Bodo - Uhse - Bibliothek">Lichtenberg: Bodo - Uhse - Bibliothek</option>
+<option value="Lichtenberg: Egon - Erwin - Kisch - Bibliothek">Lichtenberg: Egon - Erwin - Kisch - Bibliothek</option>
+<option value="Marzahn - Hellersdorf: Bibl. Kaulsdorf - Nord">Marzahn - Hellersdorf: Bibl. Kaulsdorf - Nord</option>
+<option value="Marzahn - Hellersdorf: Bibl. Mahlsdorf">Marzahn - Hellersdorf: Bibl. Mahlsdorf</option>
+<option value="Marzahn - Hellersdorf: Ehm Welk Bibliothek">Marzahn - Hellersdorf: Ehm Welk Bibliothek</option>
+<option value="Marzahn - Hellersdorf: Erich Weinert Bibliothek">Marzahn - Hellersdorf: Erich Weinert Bibliothek</option>
+<option value="Marzahn - Hellersdorf: Heinrich von Kleist Bibliothek">Marzahn - Hellersdorf: Heinrich von Kleist Bibliothek</option>
+<option value="Marzahn - Hellersdorf: Mark Twain Bibliothek">Marzahn - Hellersdorf: Mark Twain Bibliothek</option>
+<option value="Marzahn - Hellersdorf: Musikbibliothek">Marzahn - Hellersdorf: Musikbibliothek</option>
+<option value="Mitte: Bibliothek Tiergarten S&#252;d">Mitte: Bibliothek Tiergarten S&#252;d</option>
+<option value="Mitte: Bibliothek am Luisenbad">Mitte: Bibliothek am Luisenbad</option>
+<option value="Mitte: Bruno - L&#246;sche - Bibliothek">Mitte: Bruno - L&#246;sche - Bibliothek</option>
+<option value="Mitte: Hansabibliothek">Mitte: Hansabibliothek</option>
+<option value="Mitte: Kurt - Tucholsky - Bibliothek">Mitte: Kurt - Tucholsky - Bibliothek</option>
+<option value="Mitte: Philipp - Schaeffer - Bibliothek">Mitte: Philipp - Schaeffer - Bibliothek</option>
+<option value="Mitte: Schiller - Bibliothek mit @hugo Jugendmedienetage">Mitte: Schiller - Bibliothek mit @hugo Jugendmedienetage</option>
+<option value="Neukoelln: Bibliothek Britz S&#252;d">Neukoelln: Bibliothek Britz S&#252;d</option>
+<option value="Neukoelln: Bibliothek Rudow">Neukoelln: Bibliothek Rudow</option>
+<option value="Neukoelln: Bibliothek im Gemeinschaftshaus">Neukoelln: Bibliothek im Gemeinschaftshaus</option>
+<option value="Neukoelln: Helene - Nathan - Bibliothek">Neukoelln: Helene - Nathan - Bibliothek</option>
+<option value="Neukoelln: Museum Neuk&#246;lln (kein Ausgabeort)">Neukoelln: Museum Neuk&#246;lln (kein Ausgabeort)</option>
+<option value="Pankow: Bettina von Arnim Bibliothek">Pankow: Bettina von Arnim Bibliothek</option>
+<option value="Pankow: Bibliothek Buch">Pankow: Bibliothek Buch</option>
+<option value="Pankow: Bibliothek Karow">Pankow: Bibliothek Karow</option>
+<option value="Pankow: Bibliothek am Wasserturm">Pankow: Bibliothek am Wasserturm</option>
+<option value="Pankow: Heinrich B&#246;ll Bibliothek">Pankow: Heinrich B&#246;ll Bibliothek</option>
+<option value="Pankow: Janusz Korczak Bibliothek">Pankow: Janusz Korczak Bibliothek</option>
+<option value="Pankow: Kurt Tucholsky Bibliothek">Pankow: Kurt Tucholsky Bibliothek</option>
+<option value="Pankow: Museumsarchiv Pankow (kein Ausgabeort)">Pankow: Museumsarchiv Pankow (kein Ausgabeort)</option>
+<option value="Pankow: Wolfdietrich Schnurre Bibliothek">Pankow: Wolfdietrich Schnurre Bibliothek</option>
+<option value="Reinickendorf: Bibl. Frohnau">Reinickendorf: Bibl. Frohnau</option>
+<option value="Reinickendorf: Bibl. M&#228;rkisches Viertel">Reinickendorf: Bibl. M&#228;rkisches Viertel</option>
+<option value="Reinickendorf: Bibl. Reinickendorf - West">Reinickendorf: Bibl. Reinickendorf - West</option>
+<option value="Reinickendorf: Bibliothek am Sch&#228;fersee  Stadtteilbibliothek Reinickendorf - Ost">Reinickendorf: Bibliothek am Sch&#228;fersee  Stadtteilbibliothek Reinickendorf - Ost</option>
+<option value="Reinickendorf: Fahrbibliothek Reinickendorf">Reinickendorf: Fahrbibliothek Reinickendorf</option>
+<option value="Reinickendorf: Humboldt-Bibliothek">Reinickendorf: Humboldt-Bibliothek</option>
+<option value="Reinickendorf: Humboldtschule (nicht &#246;ffentlich)">Reinickendorf: Humboldtschule (nicht &#246;ffentlich)</option>
+<option value="Reinickendorf: Ju.bibl. Humboldt-Bibliothek">Reinickendorf: Ju.bibl. Humboldt-Bibliothek</option>
+<option value="Reinickendorf: Kleiner B&#252;cherbus">Reinickendorf: Kleiner B&#252;cherbus</option>
+<option value="Spandau: Fahrbibliothek Spandau">Spandau: Fahrbibliothek Spandau</option>
+<option value="Spandau: Hauptbibliothek Spandau">Spandau: Hauptbibliothek Spandau</option>
+<option value="Spandau: Hauptjugendbibliothek Spandau">Spandau: Hauptjugendbibliothek Spandau</option>
+<option value="Spandau: Schulbibliothek Carlo Schmid (nicht oeffentlich)">Spandau: Schulbibliothek Carlo Schmid (nicht oeffentlich)</option>
+<option value="Spandau: Stadtteilbibliothek Falkenhagener Feld">Spandau: Stadtteilbibliothek Falkenhagener Feld</option>
+<option value="Spandau: Stadtteilbibliothek Haselhorst">Spandau: Stadtteilbibliothek Haselhorst</option>
+<option value="Spandau: Stadtteilbibliothek Heerstrasse">Spandau: Stadtteilbibliothek Heerstrasse</option>
+<option value="Spandau: Stadtteilbibliothek Kladow">Spandau: Stadtteilbibliothek Kladow</option>
+<option value="Steglitz - Zehlendorf: Fahrbibliothek">Steglitz - Zehlendorf: Fahrbibliothek</option>
+<option value="Steglitz - Zehlendorf: Gottfried Benn Bibliothek">Steglitz - Zehlendorf: Gottfried Benn Bibliothek</option>
+<option value="Steglitz - Zehlendorf: Ingeborg Drewitz Bibliothek">Steglitz - Zehlendorf: Ingeborg Drewitz Bibliothek</option>
+<option value="Steglitz - Zehlendorf: Stadtteilbibliothek Lankwitz">Steglitz - Zehlendorf: Stadtteilbibliothek Lankwitz</option>
+<option value="Tempelhof-Schoeneberg: Bezirkszentralbibliothek Tempelhof-Sch&#246;neberg">Tempelhof-Schoeneberg: Bezirkszentralbibliothek Tempelhof-Sch&#246;neberg</option>
+<option value="Tempelhof-Schoeneberg: Mittelpunktbibliothek Sch&#246;neberg">Tempelhof-Schoeneberg: Mittelpunktbibliothek Sch&#246;neberg</option>
+<option value="Tempelhof-Schoeneberg: Stadtteilbibliothek Lichtenrade">Tempelhof-Schoeneberg: Stadtteilbibliothek Lichtenrade</option>
+<option value="Tempelhof-Schoeneberg: Thomas-Dehler-Bibliothek">Tempelhof-Schoeneberg: Thomas-Dehler-Bibliothek</option>
+<option value="Treptow - Koepenick: Altglienicke Stadtteilbibliothek">Treptow - Koepenick: Altglienicke Stadtteilbibliothek</option>
+<option value="Treptow - Koepenick: Fahrbibliothek">Treptow - Koepenick: Fahrbibliothek</option>
+<option value="Treptow - Koepenick: Johannes Bobrowski Bibliothek">Treptow - Koepenick: Johannes Bobrowski Bibliothek</option>
+<option value="Treptow - Koepenick: Manfred-Bofinger-Bibliothek">Treptow - Koepenick: Manfred-Bofinger-Bibliothek</option>
+<option value="Treptow - Koepenick: Mittelpunktbibliothek K&#246;penick">Treptow - Koepenick: Mittelpunktbibliothek K&#246;penick</option>
+<option value="Treptow - Koepenick: Mittelpunktbibliothek Treptow">Treptow - Koepenick: Mittelpunktbibliothek Treptow</option>
+<option value="Treptow - Koepenick: Stefan Heym Bibliothek">Treptow - Koepenick: Stefan Heym Bibliothek</option>
+<option value="ZLB: Amerika-Gedenkbibliothek (AGB)">ZLB: Amerika-Gedenkbibliothek (AGB)</option>
+<option value="ZLB: Au&#223;enmagazin Amerika-Gedenkbibliothek">ZLB: Au&#223;enmagazin Amerika-Gedenkbibliothek</option>
+<option value="ZLB: Au&#223;enmagazin Berliner Stadtbibliothek">ZLB: Au&#223;enmagazin Berliner Stadtbibliothek</option>
+<option value="ZLB: Berlin-Studien">ZLB: Berlin-Studien</option>
+<option value="ZLB: Berliner Stadtbibliothek  (BStB)">ZLB: Berliner Stadtbibliothek  (BStB)</option>
+<option value="ZLB: Historische Sammlungen">ZLB: Historische Sammlungen</option>
+<option value="ZLB: Kinder- und Jugendbibliothek mit Lernzentrum">ZLB: Kinder- und Jugendbibliothek mit Lernzentrum</option>
+</select>
+</div><br/><span style="line-height:12px;">&nbsp;</span><br/>
+<div id="F14">
+<label for="BENJN_1"><span class="fbz-text" style="position:absolute;  left:1.2%; width:76.2%;overflow:hidden; max-width:76.2%;">Benachrichtigung per Brief, E-Mail oder SMS bei Bereitstellung ?</span>
+</label><select name="select$0" id="BENJN_1" style="position:absolute;  left:82.8%; width:15.6%;">
+<option value=""></option>
+<option value="Ja">Ja</option>
+<option value="Nein" selected="selected">Nein</option>
+</select>
+</div><br/><span style="line-height:12px;">&nbsp;</span><br/>
+<div id="F18"><span style="position:absolute;  left:1.2%; width:76.2%;"></span>
+</div><br/><span style="line-height:12px;">&nbsp;</span><br/>
+<div id="F29">
+<p><span style="position:absolute;  left:1.2%; width:47.8%; align=right;">Aufnahme einer Magazinbestellung</span></p><input type="submit" name="textButton" value="Weiter zur Bestellung" class="buttong" fld="$$GFBO_3" style="position:absolute;  left:51.5%; "/>
+</div><br/><span style="line-height:12px;">&nbsp;</span><br/>
+<div id="F30">
+<p><span style="position:absolute;  left:1.2%; width:47.8%; align=right;"></span></p>
+</div><br/><span style="line-height:12px;">&nbsp;</span><br/>
+<br class="klar"/></fieldset><div id="R06" class="rechts"><input type="submit" name="textButton$0" value="Abbrechen" fld="$$GFBO_5" style=" class="/>
+</div><br/><span style="line-height:12px;">&nbsp;</span><br/>
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+
+              <fieldset id="OPACGP" class="grp" ><legend class="leg">Sie können sich Informationen zum Ausgabeort anzeigen lassen</legend>    
+<div id="F23">
+<label for="AUSGAZ_1"><span class="fbz-text" style="position:absolute;  left:1.2%; width:11.9%;overflow:hidden; max-width:11.9%;">Bibliothek</span>
+</label><select name="select$1" id="AUSGAZ_1" style="position:absolute;  left:33.1%; width:65.3%;">
+<option value=""></option>
+<option value="Charlottenburg-Wilmersdorf: Adolf-Reichwein-Bibliothek">Charlottenburg-Wilmersdorf: Adolf-Reichwein-Bibliothek</option>
+<option value="Charlottenburg-Wilmersdorf: Adolf-Reichwein-Kinderbibliothek">Charlottenburg-Wilmersdorf: Adolf-Reichwein-Kinderbibliothek</option>
+<option value="Charlottenburg-Wilmersdorf: Dietrich-Bonhoeffer-Bibliothek">Charlottenburg-Wilmersdorf: Dietrich-Bonhoeffer-Bibliothek</option>
+<option value="Charlottenburg-Wilmersdorf: Eberhard-Alexander-Burgh-Bibliothek">Charlottenburg-Wilmersdorf: Eberhard-Alexander-Burgh-Bibliothek</option>
+<option value="Charlottenburg-Wilmersdorf: Heinrich-Schulz-Bibliothek mit Musikabteilung">Charlottenburg-Wilmersdorf: Heinrich-Schulz-Bibliothek mit Musikabteilung</option>
+<option value="Charlottenburg-Wilmersdorf: Ingeborg-Bachmann-Bibliothek">Charlottenburg-Wilmersdorf: Ingeborg-Bachmann-Bibliothek</option>
+<option value="Charlottenburg-Wilmersdorf: Johanna-Moosdorf-Bibliothek">Charlottenburg-Wilmersdorf: Johanna-Moosdorf-Bibliothek</option>
+<option value="Charlottenburg-Wilmersdorf: Stadtteilbibliothek Halemweg">Charlottenburg-Wilmersdorf: Stadtteilbibliothek Halemweg</option>
+<option value="Friedrichshain - Kreuzberg: Bibliothek Adalbertstr.">Friedrichshain - Kreuzberg: Bibliothek Adalbertstr.</option>
+<option value="Friedrichshain - Kreuzberg: Bibliothek Dudenstr.">Friedrichshain - Kreuzberg: Bibliothek Dudenstr.</option>
+<option value="Friedrichshain - Kreuzberg: Bibliothek Frankfurter Allee 14a">Friedrichshain - Kreuzberg: Bibliothek Frankfurter Allee 14a</option>
+<option value="Friedrichshain - Kreuzberg: Bibliothek Glogauerstr.">Friedrichshain - Kreuzberg: Bibliothek Glogauerstr.</option>
+<option value="Friedrichshain - Kreuzberg: Schulbibliothek Bl&#252;cherstr. (nicht &#246;ffentlich)">Friedrichshain - Kreuzberg: Schulbibliothek Bl&#252;cherstr. (nicht &#246;ffentlich)</option>
+<option value="Lichtenberg: Anna - Seghers - Bibliothek">Lichtenberg: Anna - Seghers - Bibliothek</option>
+<option value="Lichtenberg: Anton - Saefkow - Bibliothek">Lichtenberg: Anton - Saefkow - Bibliothek</option>
+<option value="Lichtenberg: Bodo - Uhse - Bibliothek">Lichtenberg: Bodo - Uhse - Bibliothek</option>
+<option value="Lichtenberg: Egon - Erwin - Kisch - Bibliothek">Lichtenberg: Egon - Erwin - Kisch - Bibliothek</option>
+<option value="Marzahn - Hellersdorf: Bibl. Kaulsdorf - Nord">Marzahn - Hellersdorf: Bibl. Kaulsdorf - Nord</option>
+<option value="Marzahn - Hellersdorf: Bibl. Mahlsdorf">Marzahn - Hellersdorf: Bibl. Mahlsdorf</option>
+<option value="Marzahn - Hellersdorf: Ehm Welk Bibliothek">Marzahn - Hellersdorf: Ehm Welk Bibliothek</option>
+<option value="Marzahn - Hellersdorf: Erich Weinert Bibliothek">Marzahn - Hellersdorf: Erich Weinert Bibliothek</option>
+<option value="Marzahn - Hellersdorf: Heinrich von Kleist Bibliothek">Marzahn - Hellersdorf: Heinrich von Kleist Bibliothek</option>
+<option value="Marzahn - Hellersdorf: Mark Twain Bibliothek">Marzahn - Hellersdorf: Mark Twain Bibliothek</option>
+<option value="Marzahn - Hellersdorf: Musikbibliothek">Marzahn - Hellersdorf: Musikbibliothek</option>
+<option value="Mitte: Bibliothek Tiergarten S&#252;d">Mitte: Bibliothek Tiergarten S&#252;d</option>
+<option value="Mitte: Bibliothek am Luisenbad">Mitte: Bibliothek am Luisenbad</option>
+<option value="Mitte: Bruno - L&#246;sche - Bibliothek">Mitte: Bruno - L&#246;sche - Bibliothek</option>
+<option value="Mitte: Hansabibliothek">Mitte: Hansabibliothek</option>
+<option value="Mitte: Kurt - Tucholsky - Bibliothek">Mitte: Kurt - Tucholsky - Bibliothek</option>
+<option value="Mitte: Philipp - Schaeffer - Bibliothek">Mitte: Philipp - Schaeffer - Bibliothek</option>
+<option value="Mitte: Schiller - Bibliothek mit @hugo Jugendmedienetage">Mitte: Schiller - Bibliothek mit @hugo Jugendmedienetage</option>
+<option value="Neukoelln: Bibliothek Britz S&#252;d">Neukoelln: Bibliothek Britz S&#252;d</option>
+<option value="Neukoelln: Bibliothek Rudow">Neukoelln: Bibliothek Rudow</option>
+<option value="Neukoelln: Bibliothek im Gemeinschaftshaus">Neukoelln: Bibliothek im Gemeinschaftshaus</option>
+<option value="Neukoelln: Helene - Nathan - Bibliothek">Neukoelln: Helene - Nathan - Bibliothek</option>
+<option value="Neukoelln: Museum Neuk&#246;lln (kein Ausgabeort)">Neukoelln: Museum Neuk&#246;lln (kein Ausgabeort)</option>
+<option value="Pankow: Bettina von Arnim Bibliothek">Pankow: Bettina von Arnim Bibliothek</option>
+<option value="Pankow: Bibliothek Buch">Pankow: Bibliothek Buch</option>
+<option value="Pankow: Bibliothek Karow">Pankow: Bibliothek Karow</option>
+<option value="Pankow: Bibliothek am Wasserturm">Pankow: Bibliothek am Wasserturm</option>
+<option value="Pankow: Heinrich B&#246;ll Bibliothek">Pankow: Heinrich B&#246;ll Bibliothek</option>
+<option value="Pankow: Janusz Korczak Bibliothek">Pankow: Janusz Korczak Bibliothek</option>
+<option value="Pankow: Kurt Tucholsky Bibliothek">Pankow: Kurt Tucholsky Bibliothek</option>
+<option value="Pankow: Museumsarchiv Pankow (kein Ausgabeort)">Pankow: Museumsarchiv Pankow (kein Ausgabeort)</option>
+<option value="Pankow: Wolfdietrich Schnurre Bibliothek">Pankow: Wolfdietrich Schnurre Bibliothek</option>
+<option value="Reinickendorf: Bibl. Frohnau">Reinickendorf: Bibl. Frohnau</option>
+<option value="Reinickendorf: Bibl. M&#228;rkisches Viertel">Reinickendorf: Bibl. M&#228;rkisches Viertel</option>
+<option value="Reinickendorf: Bibl. Reinickendorf - West">Reinickendorf: Bibl. Reinickendorf - West</option>
+<option value="Reinickendorf: Bibliothek am Sch&#228;fersee  Stadtteilbibliothek Reinickendorf - Ost">Reinickendorf: Bibliothek am Sch&#228;fersee  Stadtteilbibliothek Reinickendorf - Ost</option>
+<option value="Reinickendorf: Fahrbibliothek Reinickendorf">Reinickendorf: Fahrbibliothek Reinickendorf</option>
+<option value="Reinickendorf: Humboldt-Bibliothek">Reinickendorf: Humboldt-Bibliothek</option>
+<option value="Reinickendorf: Humboldtschule (nicht &#246;ffentlich)">Reinickendorf: Humboldtschule (nicht &#246;ffentlich)</option>
+<option value="Reinickendorf: Ju.bibl. Humboldt-Bibliothek">Reinickendorf: Ju.bibl. Humboldt-Bibliothek</option>
+<option value="Reinickendorf: Kleiner B&#252;cherbus">Reinickendorf: Kleiner B&#252;cherbus</option>
+<option value="Spandau: Fahrbibliothek Spandau">Spandau: Fahrbibliothek Spandau</option>
+<option value="Spandau: Hauptbibliothek Spandau">Spandau: Hauptbibliothek Spandau</option>
+<option value="Spandau: Hauptjugendbibliothek Spandau">Spandau: Hauptjugendbibliothek Spandau</option>
+<option value="Spandau: Schulbibliothek Carlo Schmid (nicht oeffentlich)">Spandau: Schulbibliothek Carlo Schmid (nicht oeffentlich)</option>
+<option value="Spandau: Stadtteilbibliothek Falkenhagener Feld">Spandau: Stadtteilbibliothek Falkenhagener Feld</option>
+<option value="Spandau: Stadtteilbibliothek Haselhorst">Spandau: Stadtteilbibliothek Haselhorst</option>
+<option value="Spandau: Stadtteilbibliothek Heerstrasse">Spandau: Stadtteilbibliothek Heerstrasse</option>
+<option value="Spandau: Stadtteilbibliothek Kladow">Spandau: Stadtteilbibliothek Kladow</option>
+<option value="Steglitz - Zehlendorf: Fahrbibliothek">Steglitz - Zehlendorf: Fahrbibliothek</option>
+<option value="Steglitz - Zehlendorf: Gottfried Benn Bibliothek">Steglitz - Zehlendorf: Gottfried Benn Bibliothek</option>
+<option value="Steglitz - Zehlendorf: Ingeborg Drewitz Bibliothek">Steglitz - Zehlendorf: Ingeborg Drewitz Bibliothek</option>
+<option value="Steglitz - Zehlendorf: Stadtteilbibliothek Lankwitz">Steglitz - Zehlendorf: Stadtteilbibliothek Lankwitz</option>
+<option value="Tempelhof-Schoeneberg: Bezirkszentralbibliothek Tempelhof-Sch&#246;neberg">Tempelhof-Schoeneberg: Bezirkszentralbibliothek Tempelhof-Sch&#246;neberg</option>
+<option value="Tempelhof-Schoeneberg: Mittelpunktbibliothek Sch&#246;neberg">Tempelhof-Schoeneberg: Mittelpunktbibliothek Sch&#246;neberg</option>
+<option value="Tempelhof-Schoeneberg: Stadtteilbibliothek Lichtenrade">Tempelhof-Schoeneberg: Stadtteilbibliothek Lichtenrade</option>
+<option value="Tempelhof-Schoeneberg: Thomas-Dehler-Bibliothek">Tempelhof-Schoeneberg: Thomas-Dehler-Bibliothek</option>
+<option value="Treptow - Koepenick: Altglienicke Stadtteilbibliothek">Treptow - Koepenick: Altglienicke Stadtteilbibliothek</option>
+<option value="Treptow - Koepenick: Fahrbibliothek">Treptow - Koepenick: Fahrbibliothek</option>
+<option value="Treptow - Koepenick: Johannes Bobrowski Bibliothek">Treptow - Koepenick: Johannes Bobrowski Bibliothek</option>
+<option value="Treptow - Koepenick: Manfred-Bofinger-Bibliothek">Treptow - Koepenick: Manfred-Bofinger-Bibliothek</option>
+<option value="Treptow - Koepenick: Mittelpunktbibliothek K&#246;penick">Treptow - Koepenick: Mittelpunktbibliothek K&#246;penick</option>
+<option value="Treptow - Koepenick: Mittelpunktbibliothek Treptow">Treptow - Koepenick: Mittelpunktbibliothek Treptow</option>
+<option value="Treptow - Koepenick: Stefan Heym Bibliothek">Treptow - Koepenick: Stefan Heym Bibliothek</option>
+<option value="ZLB: Amerika-Gedenkbibliothek (AGB)">ZLB: Amerika-Gedenkbibliothek (AGB)</option>
+<option value="ZLB: Au&#223;enmagazin Amerika-Gedenkbibliothek">ZLB: Au&#223;enmagazin Amerika-Gedenkbibliothek</option>
+<option value="ZLB: Au&#223;enmagazin Berliner Stadtbibliothek">ZLB: Au&#223;enmagazin Berliner Stadtbibliothek</option>
+<option value="ZLB: Berlin-Studien">ZLB: Berlin-Studien</option>
+<option value="ZLB: Berliner Stadtbibliothek  (BStB)">ZLB: Berliner Stadtbibliothek  (BStB)</option>
+<option value="ZLB: Historische Sammlungen">ZLB: Historische Sammlungen</option>
+<option value="ZLB: Kinder- und Jugendbibliothek mit Lernzentrum">ZLB: Kinder- und Jugendbibliothek mit Lernzentrum</option>
+</select>
+</div><br/><span style="line-height:12px;">&nbsp;</span><br/>
+<div id="F21"><input type="submit" name="textButton$1" value="Informationen anzeigen" class="buttong_l" fld="$$GFBO_7" style="position:absolute;  left:1.2%; "/>
+</div><br/><span style="line-height:12px;">&nbsp;</span><br/>
+<div id="F27">
+<script type='text/javascript' style="position:absolute;  left:96.8%; width:1.0%;">
+var fnms = document.Form0.getElementsByTagName('INPUT');
+for (i = 0; i < fnms.length; i++) {
+  var atr= fnms[i].getAttribute('fld');
+  if(atr == "ODERHC_1")
+    ci = i;
+}
+function setfld(f){
+  if (f=="u") {
+    if (fnms[ci].checked)
+      fnms[ci].checked=false;
+  }
+  if (f=="0") {
+    document.Form0.select.selectedIndex=0;
+  }
+}       
+</script>
+</div><br/><span style="line-height:12px;">&nbsp;</span><br/>
+<br class="klar"/></fieldset>
+              
+
+              
+              
+
+              
+              
+              
+              
+              
+
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              </div>
+
+              <div class="clear"></div><div class="toolbar_div">
+<ul class="toolbar_ul">
+<li class="toolbar_li">
+<input type="image" src="/aDISWeb/images/POOLVX00vb@@@@@@/gif/POOLVX00vb@@@@@@_53010E00_31758600.gif;jsessionid=D6EE5F76541DA2F4BA349C2015561BCC" alt="Zur&#252;ck zur vorherigen Seite" id="Toolbar$0_0" name="$Toolbar$0_0" title="Zur&#252;ck zur vorherigen Seite" onmouseover="self.status='Zur&#252;ck zur vorherigen Seite';return true;" onmouseout="self.status='';" class="toolbar_img"/><label for="Toolbar$0_0"><span class="toolbar_txt">Zur&#252;ck</span></label></li>
+<li class="toolbar_li">
+<input type="image" src="/aDISWeb/images/POOLVX00vb@@@@@@/gif/POOLVX00vb@@@@@@_53002400_31169A00.gif;jsessionid=D6EE5F76541DA2F4BA349C2015561BCC" alt="Beenden der Recherche" id="Toolbar$0_1" name="$Toolbar$0_1" title="Beenden der Recherche" onmouseover="self.status='Beenden der Recherche';return true;" onmouseout="self.status='';" class="toolbar_img"/><label for="Toolbar$0_1"><span class="toolbar_txt">Beenden</span></label></li>
+<li class="toolbar_li">
+<input type="image" src="/aDISWeb/images/POOLVX00vb@@@@@@/gif/POOLVX00vb@@@@@@_53001D00_31169A00.gif;jsessionid=D6EE5F76541DA2F4BA349C2015561BCC" alt="Hilfe zur Suchmaske" id="Toolbar$0_3" name="$Toolbar$0_3" title="Hilfe zur Suchmaske" onmouseover="self.status='Hilfe zur Suchmaske';return true;" onmouseout="self.status='';" class="toolbar_img"/><label for="Toolbar$0_3"><span class="toolbar_txt">Hilfe</span></label></li></ul><div style="clear:both"></div></div> </div>
+            <div class="clear"></div>
+
+          </div>
+          <div id="clear"></div>
+        </div>
+
+      </div><!-- /container_inside -->
+    </div><!-- /container -->
+
+    <div id="footer">
+      <div class="inside">
+
+        <p class="block" id="goingup">
+          <a href="#wrapper">Seitenanfang</a>
+        </p>
+        <div class="clear"></div>
+
+      </div>
+    </div>
+
+  </div><!-- /wrapper_inside -->
+</div><!-- /wrapper -->
+
+<script src="/aDISWeb_kopac/js/yaml-focusfix.js" type="text/javascript"></script></form>
+</div></body>
+</html>

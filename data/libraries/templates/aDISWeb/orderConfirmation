@@ -4,7 +4,11 @@
       <input title="Zurück zur vorherigen Seite">{backButtonName := uri-encode(@name)}</input>
       <input t:condition="contains(@title, 'zur vorherigen Seite')">{backButtonName := uri-encode(@name)}</input>
     </t:switch-prioritized> 
-    {form := form(., {"select": "_DESTINATIONFILLER_", "select$0": "Nein"}),
+    {form := form(., (
+      {"select": "_DESTINATIONFILLER_"},
+      (.//select[@name = "select$0"])[1]/{@name: "Nein"}, (: benachrichtigung :)
+      (.//input[@type = "submit"])[1]
+      )),
      goBackPage := form(., x"{$backButtonName}.x=0&{$backButtonName}.y=0")
     }
     
