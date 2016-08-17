@@ -268,7 +268,7 @@ var t: TTemplateAccountAccessTester;
   critSection: TRTLCriticalSection;
 begin
   while pending do begin
-    sleep(50);
+    sleep(500);
     ReadBarrier;
     if activeThreads < pendingLimit then //sychronize is heavy. if we synchronize all the ckecking, the active thread cannot use synchronize to quit
       Synchronize(@checkPending);

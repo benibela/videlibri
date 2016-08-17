@@ -134,7 +134,7 @@ object libraryTesterForm: TlibraryTesterForm
           Left = 8
           Height = 15
           Top = 9
-          Width = 28
+          Width = 30
           Caption = 'titel:'
           ParentColor = False
         end
@@ -142,7 +142,7 @@ object libraryTesterForm: TlibraryTesterForm
           Left = 140
           Height = 15
           Top = 11
-          Width = 37
+          Width = 38
           Caption = 'autor:'
           ParentColor = False
         end
@@ -155,10 +155,10 @@ object libraryTesterForm: TlibraryTesterForm
           Text = 'pass'
         end
         object CheckBox1: TCheckBox
-          Left = 829
+          Left = 828
           Height = 18
           Top = 5
-          Width = 62
+          Width = 63
           Anchors = [akTop, akRight]
           Caption = 'all libs'
           Checked = True
@@ -175,10 +175,10 @@ object libraryTesterForm: TlibraryTesterForm
           TabOrder = 6
         end
         object CheckBox2: TCheckBox
-          Left = 909
+          Left = 907
           Height = 18
           Top = 5
-          Width = 57
+          Width = 59
           Anchors = [akTop, akRight]
           Caption = 'Suche'
           Checked = True
@@ -186,10 +186,10 @@ object libraryTesterForm: TlibraryTesterForm
           TabOrder = 7
         end
         object CheckBox3: TCheckBox
-          Left = 968
+          Left = 969
           Height = 18
           Top = 5
-          Width = 58
+          Width = 57
           Anchors = [akTop, akRight]
           Caption = 'Konto'
           Checked = True
@@ -209,7 +209,7 @@ object libraryTesterForm: TlibraryTesterForm
           Left = 1032
           Height = 18
           Top = 5
-          Width = 45
+          Width = 47
           Caption = 'web'
           Checked = True
           State = cbChecked
