@@ -5,7 +5,7 @@ unit applicationconfig;
 interface
 
 uses
-  Classes, SysUtils, libraryparser,inifiles,rcmdline,{$IFNDEF ANDROID}autoupdate,{$ENDIF}extendedhtmlparser,
+  Classes, SysUtils, libraryparser,inifiles, inifilessafe, rcmdline, {$IFNDEF ANDROID}autoupdate,{$ENDIF}extendedhtmlparser,
 accountlist{$IFNDEF ANDROID}, LMessages{$endif};
 
 {$IFNDEF ANDROID}
@@ -34,7 +34,8 @@ TCallbackHolderClass = class of TCallbackHolder;
 
 
 var programPath,userPath:string;
-    machineConfig,userConfig: TIniFile;
+    machineConfig: TIniFile;
+    userConfig: TSafeIniFile;
 
     accounts: TAccountList;
     libraryManager: TLibraryManager=nil;
@@ -49,7 +50,7 @@ var programPath,userPath:string;
     nextLimitStr: string;
 
     appFullTitle:string='VideLibri';
-    versionNumber:integer=1845;
+    versionNumber:integer=1847;
     //=>versionNumber/1000
     newVersionInstalled: boolean=false;
 
@@ -401,13 +402,7 @@ resourcestring
 
     //Globale Einstellungen lesen
     machineConfig:=iniFileFromString(assetFileAsString('machine.config'));
-    if machineConfig.ReadInteger('version','number',versionNumber)<versionNumber then begin
-      machineConfig.writeInteger('version','number',versionNumber);
-      newVersionInstalled:=true;
-    end;
-    versionNumber:=machineConfig.ReadInteger('version','number',versionNumber);
-    
-    if logging then log('DATA-Version ist nun bekannt: '+inttostr(versionNumber));
+
 
     //Userpfad auslesen und überprüfen
     if commandLine.existsProperty('user-path') then
@@ -438,7 +433,15 @@ resourcestring
       log('user.config will be created');
 
     //Userdaten lesen
-    userConfig:=TIniFile.Create(userPath + 'user.config');
+    userConfig:=TSafeIniFile.Create(userPath + 'user.config');
+
+    if userConfig.ReadInteger('updates','lastVersion',0)<versionNumber then begin
+      userConfig.writeInteger('updates','lastVersion',versionNumber);
+      newVersionInstalled:=true;
+    end;
+    versionNumber:=userConfig.ReadInteger('updates','lastVersion',versionNumber);
+    if logging then log('DATA-Version ist nun bekannt: '+inttostr(versionNumber));
+
     RefreshInterval:=userConfig.ReadInteger('access','refresh-interval',1);
     WarnInterval:=userConfig.ReadInteger('base','warn-interval',0);
     lastWarnDate:=userConfig.ReadInteger('base','last-warn-date',0);
