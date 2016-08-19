@@ -23,7 +23,7 @@
 
 <template:loop>
 <TR>
-{book:=object(), book.stabikatFound := false()}
+{book:=object()}
 <input type="checkbox" template:optional="true"><template:read var="book.extendId" source="@name"/></input>
  <TD align="center"><template:read var="book.duedate" source="parse-date(.,'dd.mm.yyyy')"/></TD>
  <TD><template:read var="V" source="."/><t:s test="normalize-space($V) = ''">V:=0</t:s></TD>

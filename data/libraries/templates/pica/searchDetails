@@ -69,10 +69,10 @@
       <td><t:if test="$propname != ''"><t:read var="book.{$propname}!" source="."/></t:if></td>
     </tr>
   </template:switch></template:loop>
-  {book.stabikatFound := true()}
   </table>
   
-  <strong>Leider keine Treffer.<t:s>book.title := x"??? (Keine Ergebnisse bei einer Suche nach {$book.id} im StaBiKat)", book.author := "???", book.stabikatFound := false()</t:s></strong>
+  <strong>Leider keine Treffer.</strong>
+  <font t:condition="contains(@style, 'red')">Leider keine Treffer.</font>
   
   <!-- for un-unique results -->
   <table summary="hitlist">
@@ -89,7 +89,6 @@
         } 
       </td>
     </tr>
-    {book.stabikatFound := true()}
   </table>
       
   
