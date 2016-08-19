@@ -60,6 +60,12 @@ object libraryTesterForm: TlibraryTesterForm
             Text = 'Homepage'
             Width = 50
             Visible = True
+          end        
+          item
+            Alignment = taLeftJustify
+            Text = 'System'
+            Width = 30
+            Visible = True
           end>
         RowHeight = 16
         HorizontalLineMode = lmNone

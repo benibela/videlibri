@@ -209,6 +209,7 @@ begin
     lib := libraryManager.getLibraryFromEnumeration(i);
     ListBox1.Items.Add(lib.prettyNameLong);
     TreeListView1.Items.Add([lib.prettyCountryState, lib.prettyNameLong]).data.obj := TTestData.create(lib);
+    TreeListView1.Items[TreeListView1.Items.Count-1].RecordItemsText[5] := lib.template.name;
   end;
   TreeListView1.EndUpdate;
   TreeListView1.RowHeight := TreeListView1.RowHeight + 5;
