@@ -514,6 +514,7 @@ begin
   try
     SetLength(realAccounts, length(impAccounts));
     SetLength(accountNodes, length(impAccounts));
+    xq.VariableChangelog.Clear; xq.VariableChangelog.add('name', '');
     getAccoutNode := xq.parseXPath3('/videlibri-dump/account[@name=$name]');
     getConfig := xq.parseXPath3('./config/base/v');
     getCurrent := xq.parseXPath3('./books[@mode="current"]/book');
