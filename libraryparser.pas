@@ -898,6 +898,7 @@ function TLibraryManager.enumerateLocations(prettyState: string): TStringArray;
 var
   i: Integer;
 begin
+  result := nil;
   if pos(' - ', prettyState) > 0 then prettyState := strSplit(prettyState, ' - ')[1];
   for i := 0 to flibraries.Count-1 do
     if (self[i].prettyState = prettyState) and not (arrayContains(result, self[i].prettyLocation)) then
@@ -909,6 +910,7 @@ function TLibraryManager.enumerateStates(prettyCountry: string): TStringArray;
 var
   i: Integer;
 begin
+  result := nil;
   for i := 0 to flibraries.Count-1 do
     if (self[i].prettyCountry = prettyCountry) and not (arrayContains(result, self[i].prettyState)) then
       arrayAdd(result, self[i].prettyState);
@@ -919,6 +921,7 @@ function TLibraryManager.enumerateCountries: TStringArray;
 var
   i: Integer;
 begin
+  result := nil;
   for i := 0 to flibraries.Count-1 do
     if not (arrayContains(result, self[i].prettyCountry)) then
       arrayAdd(result, self[i].prettyCountry);
@@ -929,6 +932,7 @@ var
   country: String;
   state: String;
 begin
+  result := nil;
   for country in enumerateCountries do
     for state in enumerateStates(country) do
       arrayAdd(result, country + ' - ' + state);
@@ -1121,7 +1125,6 @@ end;
 procedure TLibraryManager.reloadTemplate(templateId: string);
 var
   i: Integer;
-  lib: TLibrary;
   oldIdx: Integer;
   newTemplate: TMultiPageTemplate;
   inUse: Boolean;
@@ -1491,6 +1494,7 @@ end;
 
 procedure TCustomAccountAccess.updateSingle(book: TBook);
 begin
+  ignore(book);
   if not connected then
     if not connect(internet) then
       raise ELibraryException.Create('Zugriff auf die Bücherei fehlgeschlagen'#13#10#13#10'Bitte überprüfen Sie Ihre Internetverbindung');
@@ -1505,6 +1509,7 @@ end;
 
 procedure TCustomAccountAccess.extendList(bookList: TBookList);
 begin
+  ignore(bookList);
   if not connected then
     if not connect(internet) then
       raise ELibraryException.Create('Zugriff auf die Bücherei fehlgeschlagen'#13#10#13#10'Bitte überprüfen Sie Ihre Internetverbindung');
@@ -1526,6 +1531,7 @@ end;}
 
 procedure TCustomAccountAccess.cancelSingle(book: TBook);
 begin
+  ignore(book);
   if not connected then
     if not connect(internet) then
       raise ELibraryException.Create('Zugriff auf die Bücherei fehlgeschlagen'#13#10#13#10'Bitte überprüfen Sie Ihre Internetverbindung');
@@ -1533,6 +1539,7 @@ end;
 
 procedure TCustomAccountAccess.cancelList(booklist: TBookList);
 begin
+  ignore(booklist);
   if not connected then
     if not connect(internet) then
       raise ELibraryException.Create('Zugriff auf die Bücherei fehlgeschlagen'#13#10#13#10'Bitte überprüfen Sie Ihre Internetverbindung');
@@ -1750,11 +1757,9 @@ begin
 end;
 
 procedure TTemplateAccountAccess.extendList(booksToExtend: TBookList);
-var bookListStr:string;
-    i:longint;
+var i:longint;
     extendAction: TTemplateAction;
     book:TBook;
-    extendBookList: TXQValueSequence;
 begin
   if booksToExtend.Count=0 then exit;
   if logging then log('Enter TTemplateAccountAccess.extendList');
