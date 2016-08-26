@@ -149,9 +149,9 @@ public class Util {
     public static int compare(boolean a, boolean b) {
         if (a == b) return 0;
         if (a) return 1;
-        return 1;
+        return -1;
     }
-    public static int compareNullFirst(Object a, Object b) {
+    public static int   compareNullFirst(Object a, Object b) {
         return compare(a != null, b != null);
     }
 }
