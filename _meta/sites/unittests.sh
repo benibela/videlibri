@@ -154,7 +154,7 @@ PAGES=(${PAGES[@]} aDISWeb/orderConfirmation_hdmtest.html aDISWeb/orderConfirmat
 ADDTEMPLATE aDISWeb/orderConfirmed 5
 PAGES=(${PAGES[@]} aDISWeb/orderConfirmed1_due.html aDISWeb/orderConfirmed2_due.html aDISWeb/orderConfirmed2_hdmtest.html aDISWeb/orderConfirmed_failed2_hdmtest.html aDISWeb/orderConfirmed_failed_hdmtest.html)
 
-
+test aDISWeb orderMultipleDistrict orderTimeout.html orderInCollection.html 
 
 
 

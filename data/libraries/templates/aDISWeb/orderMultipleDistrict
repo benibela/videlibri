@@ -22,4 +22,9 @@
         <form><div class="message"><div id="R01">
           <h1>{error:=.}</h1>
         </div></div>{goBackPage:=.}</form>
+        
+        <div id="inhalt">
+         Aus Sicherheitsgründen wurde Ihre Verbindung beendet.<t:s>vl:raise(./(text(), p[1], p[2]))</t:s>
+         </div>
+
 </t:switch-prioritized>

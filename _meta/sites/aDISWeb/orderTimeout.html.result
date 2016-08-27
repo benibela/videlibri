@@ -1,0 +1,7 @@
+book := {}
+raised := (text{""}, 
+text{"Wir haben seit einiger Zeit keine Meldung mehr von Ihnen erhalten."}, 
+text{""}, 
+text{"Aus Sicherheitsgründen wurde Ihre Verbindung beendet."}, 
+text{""}, 
+text{""})

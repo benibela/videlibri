@@ -1,0 +1,34 @@
+book := {}
+inCollection := text{'.
+
+
+          
+
+
+
+
+ 
+
+      
+      
+    
+      
+  
+        
+          
+          
+            
+
+
+    
+        
+        Bitte auf "In" verzweigen und dann bestellen!
+        
+
+
+ 
+
+        
+          function specialOnLoad() {
+            document.Form0.messageButton.focus();
+            }'}
