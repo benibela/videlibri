@@ -2,7 +2,6 @@
 <library>
   <longName value="Stadtbibliothek im Bildungscampus Nürnberg"/>
   <shortName value="StB Nürnberg"/>
-  <catalogue value="https://online-service2.nuernberg.de/aDISWeb"/>
 
   <template value="aDISWeb"/>
   <variable name="server" value="online-service2.nuernberg.de"/>
