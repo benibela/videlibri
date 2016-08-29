@@ -225,6 +225,10 @@ object mainForm: TmainForm
         Caption = '&Statistik...'
         OnClick = MenuItem6Click
       end
+      object menuDuplicateChecker: TMenuItem
+        Caption = 'Duplikate-Finder...'
+        OnClick = menuDuplicateCheckerClick
+      end
       object MenuItem5: TMenuItem
         Caption = '&Einstellungen...'
         ShortCut = 16453

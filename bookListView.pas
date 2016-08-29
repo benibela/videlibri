@@ -34,7 +34,6 @@ uses
       eventTyp_cdet: TCustomDrawEventTyp; item: TTreeListItem; var defaultDraw: Boolean);
     procedure BookListViewItemsSortedEvent(Sender: TObject);
 
-    procedure addBook(book: tbook; const accountName: string);
     function getBook(i: integer): TBook;
  public
    groupingProperty: string;
@@ -43,6 +42,8 @@ uses
    destructor Destroy; override;
    procedure clear;
    procedure addBookList(list: TBookList; const accountName: string = '');
+   procedure addBook(book: tbook; const accountName: string);
+   procedure fillBookItem(item: TTreeListItem; book: TBook);
    property books[i:integer]: TBook read GetBook;
 
    function SelectedBook: TBooK;
@@ -59,6 +60,7 @@ const BL_BOOK_COLUMNS_AUTHOR=2;
       BL_BOOK_COLUMNS_ISBN=9;
       BL_BOOK_EXTCOLUMNS_COLOR=10;
       BL_BOOK_EXTCOLUMNS_WEEK_SEPARATOR=11;
+      //don't add more without checking duplicate remover
 
 const BookListColumnToProperty: array[0..11] of string = (
       'id', 'category', 'author', 'title',
@@ -347,7 +349,12 @@ begin
       end;
   end;
 
-  with bookItem do begin
+  fillBookItem(bookItem, book);
+end;
+
+procedure TBookListView.fillBookItem(item: TTreeListItem; book: TBook);
+begin
+  with item do begin
     book.incReference;
 
     text:=book.id;

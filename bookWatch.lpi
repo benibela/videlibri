@@ -128,7 +128,7 @@
         <PackageName Value="LCL"/>
       </Item4>
     </RequiredPackages>
-    <Units Count="36">
+    <Units Count="37">
       <Unit0>
         <Filename Value="bookWatch.lpr"/>
         <IsPartOfProject Value="True"/>
@@ -318,6 +318,13 @@
         <Filename Value="inifilessafe.pas"/>
         <IsPartOfProject Value="True"/>
       </Unit35>
+      <Unit36>
+        <Filename Value="duplicateremover.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="duplicateForm"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Form"/>
+      </Unit36>
     </Units>
   </ProjectOptions>
   <CompilerOptions>

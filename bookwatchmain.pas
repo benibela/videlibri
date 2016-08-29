@@ -33,6 +33,7 @@ type
     groupingItem: TMenuItem;
     MenuItem1: TMenuItem;
     MenuItem11: TMenuItem;
+    menuDuplicateChecker: TMenuItem;
     MenuItemDebugLog: TMenuItem;
     MenuItem9: TMenuItem;
     MenuItemTester: TMenuItem;
@@ -122,6 +123,7 @@ type
     procedure BookListSelectItem(Sender: TObject; Item: TTreeListItem);
     procedure FormShow(Sender: TObject);
     procedure FormWindowStateChange(Sender: TObject);
+    procedure menuDuplicateCheckerClick(Sender: TObject);
     procedure MenuItem11Click(Sender: TObject);
     procedure MenuItemDebugLogClick(Sender: TObject);
     procedure MenuItemRenewClick(Sender: TObject);
@@ -221,7 +223,7 @@ procedure sendMailReports();
 implementation
 
 { TmainForm }
-uses math,options,debuglogviewer, newaccountwizard_u,bbdebugtools,bibtexexport,booklistreader{$IFDEF WIN32},windows{$ENDIF},Clipbrd,bbutils,androidutils,libraryaccesstester;
+uses math,options,debuglogviewer, newaccountwizard_u,bbdebugtools,bibtexexport,booklistreader{$IFDEF WIN32},windows{$ENDIF},Clipbrd,bbutils,androidutils,libraryaccesstester,duplicateremover;
 
 resourcestring
   rsSearchBarTitle = 'Ausleihensuche:';
@@ -750,9 +752,11 @@ begin
   if windowstate<>wsMinimized then
     userConfig.writeinteger('window','state',integer(windowstate));
 
-  userConfig.WriteString('BookList','ColumnOrder',BookList.serializeColumnOrder);
-  userConfig.WriteString('BookList','ColumnWidths',BookList.serializeColumnWidths);
-  userConfig.WriteString('BookList','ColumnVisibility',BookList.serializeColumnVisibility);
+  if BookList <> nil then begin
+    userConfig.WriteString('BookList','ColumnOrder',BookList.serializeColumnOrder);
+    userConfig.WriteString('BookList','ColumnWidths',BookList.serializeColumnWidths);
+    userConfig.WriteString('BookList','ColumnVisibility',BookList.serializeColumnVisibility);
+  end;
 
   if ViewAll.Checked then userconfig.WriteInteger('BookList', 'Mode', 1)
   else userconfig.WriteInteger('BookList', 'Mode', 0);
@@ -776,6 +780,15 @@ procedure TmainForm.FormWindowStateChange(Sender: TObject);
 begin
   if WindowState=wsMinimized then hide
   else lastState := WindowState;
+end;
+
+procedure TmainForm.menuDuplicateCheckerClick(Sender: TObject);
+var form: TduplicateForm;
+begin
+  form := TduplicateForm.Create(nil);
+  form.ShowModal;
+  form.free;
+  RefreshListView;
 end;
 
 procedure TmainForm.MenuItem11Click(Sender: TObject);

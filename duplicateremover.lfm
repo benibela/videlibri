@@ -1,0 +1,109 @@
+object duplicateForm: TduplicateForm
+  Left = 330
+  Height = 573
+  Top = 121
+  Width = 783
+  Caption = 'Historie-Duplikate-Finder'
+  ClientHeight = 573
+  ClientWidth = 783
+  OnCreate = FormCreate
+  LCLVersion = '1.7'
+  object Panel2: TPanel
+    Left = 0
+    Height = 77
+    Top = 496
+    Width = 783
+    Align = alBottom
+    BevelOuter = bvNone
+    ClientHeight = 77
+    ClientWidth = 783
+    TabOrder = 0
+    object Button1: TButton
+      AnchorSideLeft.Control = cbTimeConstraint
+      AnchorSideLeft.Side = asrBottom
+      Left = 314
+      Height = 25
+      Top = 24
+      Width = 136
+      BorderSpacing.Left = 30
+      Caption = 'Duplikate löschen'
+      OnClick = Button1Click
+      TabOrder = 0
+    end
+    object Button2: TButton
+      Left = 696
+      Height = 25
+      Top = 24
+      Width = 75
+      Anchors = [akTop, akRight]
+      Cancel = True
+      Caption = 'Schließen'
+      OnClick = Button2Click
+      TabOrder = 1
+    end
+    object cbAccounts: TComboBox
+      AnchorSideLeft.Control = cbTimeConstraint
+      Left = 84
+      Height = 21
+      Top = 13
+      Width = 200
+      ItemHeight = 0
+      ItemIndex = 1
+      Items.Strings = (
+        'alle Konten'
+        'individuelle Konten'
+      )
+      OnSelect = cbAccountsSelect
+      Style = csDropDownList
+      TabOrder = 2
+      Text = 'individuelle Konten'
+    end
+    object cbTimeConstraint: TComboBox
+      AnchorSideLeft.Control = Label2
+      AnchorSideLeft.Side = asrBottom
+      Left = 84
+      Height = 21
+      Top = 40
+      Width = 200
+      BorderSpacing.Left = 15
+      ItemHeight = 0
+      ItemIndex = 0
+      Items.Strings = (
+        'keine Einschränkung'
+        'zeitlich überlappend'
+        'identisches Ausleihdatum'
+      )
+      OnChange = cbAccountsSelect
+      Style = csDropDownList
+      TabOrder = 3
+      Text = 'keine Einschränkung'
+    end
+    object Label1: TLabel
+      AnchorSideTop.Control = cbAccounts
+      AnchorSideTop.Side = asrCenter
+      Left = 8
+      Height = 15
+      Top = 16
+      Width = 49
+      Caption = 'Konten:'
+      ParentColor = False
+    end
+    object Label2: TLabel
+      AnchorSideTop.Control = cbTimeConstraint
+      AnchorSideTop.Side = asrCenter
+      Left = 9
+      Height = 15
+      Top = 43
+      Width = 60
+      Caption = 'Zeitlimit:'
+      ParentColor = False
+    end
+    object lbCount: TLabel
+      Left = 462
+      Height = 1
+      Top = 30
+      Width = 1
+      ParentColor = False
+    end
+  end
+end
