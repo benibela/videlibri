@@ -1,0 +1,129 @@
+<html>
+<head>
+<meta name="MS-HKWD" content="BibTeX">
+<meta name="MS-HKWD" content="Export">
+<link rel="stylesheet" href="style.css">
+<title>XQuery-Suche</title>
+</head>
+<body>
+<h1>XQuery-Suche</h1>
+Über das Menü "Extras\XQuery Suche..." kann man dieses Fenster öffnen.
+<br><!--<img src="bibtexexport.gif" style="margin:1em">--><br>
+
+In diesem Fenster kann man beliebig komplizierte Suchabfragen an die eigene Ausleihenhistorie stellen, die beim Klick auf "suchen" ausgeführt werden. Wie der Titel sagt, werden diese Abfragen in <a href="https://de.wikipedia.org/wiki/XQuery">XQuery</a> formuliert, was zu viele Möglichkeiten bietet, um sie alle hier zu beschreiben, deshalb werden im Folgenden nur einige mögliche Beispielabfragen aufgelistet. Zusätzlich zu XQuery sollte man wissen, dass VideLibri  eine Variable <code>$books</code> bereitstellt, die alle Bücher enthält. Die für ein Buch vorhandenen Eigenschaften sind auf der Hilfeseite zum <a href="seiten.html">Auslesen von Bücher-enthaltenen Webseiten</a> beschrieben.
+
+
+<p>Suche alle jemals ausgeliehenen Bücher eines bestimmten Autors (z.B.: von Meyer):
+
+<pre>
+for $book in $books 
+where $book.author = "Meyer"
+return $book
+</pre> 
+
+<p>Suche alle Bücher über ein bestimmtes Thema (z.B.: über Schatten), sortiert nach Autor:
+
+<pre>
+for $book in $books 
+where contains($book.title, "schatten")
+order by $book.author
+return $book
+</pre>
+
+<p>Sortiere alle Bücher nach der Länge des Titels:
+
+<pre>
+for $book in $books
+order by string-length($book.title)
+return $book
+</pre>
+
+<p>Ermittel die Zahl aller jemals ausgeliehenen Bücher:
+
+<pre>
+count($books)</pre>
+
+<p>Finde alle Autoren, von denen mehr als ein Buch ausgeliehen worden ist:
+
+<pre>
+for $book in $books 
+group by $author := $book.author
+where count($book) > 1
+return $author
+</pre>
+
+<p>Finde alle Bücher, die mehrmals ausgeliehen worden sind:
+
+<pre>
+for $book in $books 
+group by $temp := $book.author || ":" || $book.title
+where count($book) > 1
+return $book
+</pre>
+
+<p>Finde alle Bücher, die mehrmals ausgeliehen worden sind, aber zeige jedes Buch nur einmal an:
+
+<pre>
+for $book in $books 
+group by $author := $book.author || ":" || $book.title
+where count($book) > 1
+return $book[1]
+</pre>
+
+<p>Ermittle für jeden Autor, wie viele Bücher von ihm ausgeliehen worden sind:
+
+<pre>
+for $book in $books 
+group by $author := $book.author
+order by count($book)
+return {"author": $author, "title":  count($book)}
+</pre>
+
+<p>Finde alle Bücher, bei denen der Autorname mindestens 3 Vokale und der Titel 17 Konsonenten enthält:
+
+<pre>
+for $book in $books
+where matches($book.author, "([aeiou].*){3}", "i") and matches(replace($book.title,"[^a-z]","","i"), "([^aeiou].*){17}", "i")
+return $book
+</pre>
+
+
+<p>Berechne die Summe aller Zahlen von 1 bis 100: (in der Androidversion muss xquery version "3.0"; vorangestellt werden, wenn $books nicht im Ausdruck vorkommt)
+
+<pre>
+sum(1 to 100)
+</pre>
+
+<p>Suche alle Primzahlen unter 100:
+
+<pre>
+for $i in 2 to 100
+where empty((2 to $i - 1)[$i mod . = 0])
+return $i
+</pre>
+
+<p>Ermittle das aktuelle Datum und Uhrzeit:
+
+<pre>
+current-date(), current-time()
+</pre>
+
+<p>Verschlüssele einen Text mittels Cäsarchiffre:
+
+<pre>
+let $a := x:cps("a") return string-join( x:cps(x:cps("dertext") ! ((. - $a + 3) mod 26 + $a) ) )
+</pre>
+
+<p>Entschlüssele einen Text mittels Cäsarchiffre:
+
+<pre>
+let $a := x:cps("a") return string-join( x:cps(x:cps("ghuwhaw") ! ((. - $a + 23) mod 26 + $a) ) )
+</pre>
+
+<p>Erstelle 100 virtuelle Bücher, 1 vom Verfasser 1, 4 von 2, 9 von 3, ..:
+
+<pre>
+(1 to 100) ! {"author": ., "title": . * .}
+</pre>
+
+</body>
