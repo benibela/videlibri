@@ -1,0 +1,68 @@
+object xqueryfrm: Txqueryfrm
+  Left = 361
+  Height = 540
+  Top = 56
+  Width = 805
+  Caption = 'XQuery-Abfrage'
+  ClientHeight = 540
+  ClientWidth = 805
+  OnClose = FormClose
+  OnCreate = FormCreate
+  LCLVersion = '1.7'
+  object Panel1: TPanel
+    Left = 0
+    Height = 113
+    Top = 427
+    Width = 805
+    Align = alBottom
+    ClientHeight = 113
+    ClientWidth = 805
+    TabOrder = 0
+    object Button1: TButton
+      Left = 717
+      Height = 25
+      Top = 73
+      Width = 75
+      Anchors = [akRight, akBottom]
+      Cancel = True
+      Caption = 'Schließen'
+      OnClick = Button1Click
+      TabOrder = 0
+    end
+    object Memo1: TMemo
+      Left = 8
+      Height = 90
+      Top = 8
+      Width = 603
+      Anchors = [akTop, akLeft, akRight, akBottom]
+      Lines.Strings = (
+        'for $book in $books '
+        'where starts-with($book.author, "a") '
+        'order by $book.author'
+        'return $book'
+      )
+      TabOrder = 1
+    end
+    object Button2: TButton
+      Left = 619
+      Height = 25
+      Top = 72
+      Width = 90
+      Anchors = [akRight, akBottom]
+      Caption = 'suchen'
+      Default = True
+      OnClick = Button2Click
+      TabOrder = 2
+    end
+  end
+  object Splitter1: TSplitter
+    Cursor = crVSplit
+    Left = 0
+    Height = 5
+    Top = 422
+    Width = 805
+    Align = alBottom
+    Beveled = True
+    ResizeAnchor = akBottom
+  end
+end
