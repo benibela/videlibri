@@ -255,6 +255,8 @@ public class Bridge {
     static public native void VLSetOptions(Options options);
     static public native Options VLGetOptions();
 
+    static public native Book[] VLXQuery(String query);
+
     static public native void VLFinalize();
 
 

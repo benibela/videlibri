@@ -34,6 +34,7 @@ type
     MenuItem1: TMenuItem;
     MenuItem11: TMenuItem;
     menuDuplicateChecker: TMenuItem;
+    menuXquery: TMenuItem;
     MenuItemDebugLog: TMenuItem;
     MenuItem9: TMenuItem;
     MenuItemTester: TMenuItem;
@@ -142,6 +143,7 @@ type
     procedure MenuItem28Click(Sender: TObject);
     procedure MenuItem30Click(Sender: TObject);
     procedure MenuItem31Click(Sender: TObject);
+    procedure menuXqueryClick(Sender: TObject);
     procedure newAccountWizardClosed(Sender: TObject; var CloseAction: TCloseAction);
     procedure removeSelectedMIClick(Sender: TObject);
     procedure displayDetailsMIClick(Sender: TObject);
@@ -223,7 +225,7 @@ procedure sendMailReports();
 implementation
 
 { TmainForm }
-uses math,options,debuglogviewer, newaccountwizard_u,bbdebugtools,bibtexexport,booklistreader{$IFDEF WIN32},windows{$ENDIF},Clipbrd,bbutils,androidutils,libraryaccesstester,duplicateremover;
+uses math,options,debuglogviewer, newaccountwizard_u,bbdebugtools,bibtexexport,booklistreader{$IFDEF WIN32},windows{$ENDIF},Clipbrd,bbutils,androidutils,libraryaccesstester,duplicateremover,xqueryform;
 
 resourcestring
   rsSearchBarTitle = 'Ausleihensuche:';
@@ -987,6 +989,13 @@ begin
 
   clipboard.astext := t;
   books.free;
+end;
+
+procedure TmainForm.menuXqueryClick(Sender: TObject);
+var form: Txqueryfrm;
+begin
+  form := Txqueryfrm.Create(nil);
+  form.Show;
 end;
 
 procedure TmainForm.newAccountWizardClosed(Sender: TObject; var CloseAction: TCloseAction);

@@ -105,6 +105,7 @@ var
 begin
   listview := TBookListView.create(self,true);
   listview.Align := alClient;
+  listview.Options := listview.Options + [tlvoSorted];
   listview.Parent := self;
   listview.OnCustomRecordItemPositioning:=@itemPositioning;
   listview.OnCustomRecordItemDraw:=@listviewCustomRecordItemDraw;

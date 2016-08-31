@@ -11,7 +11,7 @@ unit libraryAccess;
 
 interface
 uses
-  Classes, SysUtils,libraryParser,booklistreader, LCLType, bbutils;
+  Classes, SysUtils,libraryParser,booklistreader, LCLType, bbutils,xquery;
 
 type TBookListOperation = procedure (list: TBookList) of object;
 
@@ -43,6 +43,7 @@ procedure extendBooks(lastLimit:longint; account: TCustomAccountAccess=nil);
 //procedure orderBooks(books: TBookList);
 procedure cancelBooks(books: TBookList);
 
+function queryHistory(reader:TBookListReader;q:string):ixqvalue;
 //--Userkommunikation--
 
 procedure findBooksThatMustBeReturned(out booksOverdue, booksSoonNotExtendable, booksSoon: TList; out minDateOverdue, minDateSoonNotExtendable, minDateSoon: integer);
@@ -545,6 +546,33 @@ begin
 end;
 
 
+function queryHistory(reader: TBookListReader; q: string): ixqvalue;
+var
+  list: TXQVList;
+
+  procedure addBook(b: TBook);
+  var
+    obj: TXQValueObject;
+  begin
+    obj := reader.bookToPXP(b);
+    obj.setMutable('_accountPtr', xqvalue(PtrInt(b.owner)));
+    list.add(obj);
+  end;
+
+var
+  i, j: Integer;
+begin
+  list:=TXQVList.create();
+  for i := 0 to accounts.Count-1 do
+  begin
+    for j := 0 to accounts[i].books.old.count-1 do
+      addBook(accounts[i].books.old[j]);
+    for j := 0 to accounts[i].books.current.count-1 do
+      addBook(accounts[i].books.current[j]);
+  end;
+  reader.parser.variableChangeLog.add('books', TXQValueSequence.create(list));
+  result:=reader.parser.QueryEngine.evaluateXQuery3(q);
+end;
 
 procedure findBooksThatMustBeReturned(out booksOverdue, booksSoonNotExtendable, booksSoon: TList; out minDateOverdue, minDateSoonNotExtendable,
   minDateSoon: integer);

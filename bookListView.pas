@@ -194,6 +194,10 @@ begin
   book1:=TBook(i1.data.obj);
   if i2.SubItems.Count > 0 then i2 := i2.SubItems[0];
   book2:=TBook(i2.data.obj);
+  if (book1 = nil) and (book2 = nil) then begin
+    compare := striCompareClever(i1.RecordItemsText[SortColumn], i2.RecordItemsText[SortColumn]);
+    exit;
+  end;
   if (book1=nil) then begin
     Compare:=1;
     exit;
@@ -256,13 +260,16 @@ procedure TBookListView.BookListCustomItemDraw(sender: TObject;
 var pa: array[0..2] of tpoint;
     i,x,y,ypos:longint;
     colorState: TBookColorState;
+    temp: String;
 begin
   ypos:=TTreeListView(sender).DrawingYPos;
   case eventTyp_cdet of
     cdetPrePaint:
       if not item.SeemsSelected then begin
         canvas.Brush.Style:=bsSolid;
-        colorState := TBookColorState(ord(item.RecordItemsText[BL_BOOK_EXTCOLUMNS_COLOR][1]) - ord('0'));
+        temp := item.RecordItemsText[BL_BOOK_EXTCOLUMNS_COLOR];
+        if temp <> '' then colorState := TBookColorState(ord(temp[1]) - ord('0'))
+        else colorState := bcsOld;
         case colorState of
           bcsOld: Canvas.brush.color:=colorOld;
           bcsOrdered: Canvas.brush.color:=colorOrdered;

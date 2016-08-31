@@ -5,7 +5,8 @@ unit androidutils;
 interface
 
 uses
-Classes, SysUtils,  IniFiles,applicationconfig{$ifdef android}, jni, bbjniutils, libraryParser, LCLProc, booklistreader, librarySearcherAccess, androidinternetaccess, multipagetemplate{$endif};
+Classes, SysUtils, IniFiles, applicationconfig, jni, bbjniutils, libraryParser, LCLProc, booklistreader, librarySearcherAccess,
+androidinternetaccess, multipagetemplate, xquery;
 
 //procedure deleteLocalRef(jobj: pointer);
 
@@ -1662,10 +1663,86 @@ begin
 end;
 
 
+function Java_de_benibela_VideLibri_Bridge_VLXQuery(env:PJNIEnv; this:jobject; query: jobject): jobject; cdecl;
+var r: TBookListReader;
+  b, list:ixqvalue;
+  book: TBook;
+  p: TXQProperty;
+  newelement, accs: jobject;
+  pos, accountId, i: integer;
+  accs2: array of jobject;
+  i64: Int64;
+begin
+  if logging then bbdebugtools.log('de.benibela.VideLibri.Bride.VLXQuery (started)');
+  r:=TBookListReader.create(nil);
+  book := TBook.create;
+  EnterCriticalsection(updateThreadConfig.libraryAccessSection);
+  try
+    try
+      list := queryHistory(r,j.jStringToStringAndDelete(query));
+      result := j.newObjectArray(list.getSequenceCount, bookClass,nil);
+      accs := Java_de_benibela_VideLibri_Bridge_VLGetAccounts(env,this);
+      SetLength(accs2, accounts.Count);
+      pos := 0;
+      for b in list do begin
+        case b.kind of
+          pvkObject: begin
+            book.clear;
+            book.owner:=nil;
+            for p in b.getPropertyEnumerator do
+              case p.Name of
+                '_accountPtr': begin
+                  i64 := p.value.toInt64;
+                  accountId := -1;
+                  for i := 0 to accounts.Count - 1 do
+                    if i64 = PtrInt(accounts[i]) then begin
+                      accountId := i;
+                      break;
+                    end;
+                end;//book.owner := tobject(p.Value.toInt64);
+                'statusId': if p.Value.toString = 'history' then book.lend := false
+                else begin
+                  book.lend := true;
+                  book.setProperty(p.Name, p.Value.toString);
+                end
+                else book.setProperty(p.Name, p.Value.toString);
+              end;
+            newelement := bookToJBook(book);
+            if accountId <> -1 then begin
+              if accs2[accountId] = nil then accs2[accountId] := j.getObjectArrayElement(accs, accountId);
+              j.SetObjectField(newelement, bookFields.accountL, accs2[accountId]);
+            end;
+            j.SetBooleanField(newelement, bookFields.historyZ, not book.lend);
+          end;
+          else begin
+            newelement:=j.newObject(bookClass, bookClassInit);;
+            j.SetStringField(newelement, bookFields.titleS, b.toString);
+          end;
+        end;
+        j.setObjectArrayElement(Result, pos, newelement);
+        j.deleteLocalRef(newelement);
+        inc(pos);
+      end;
+    finally
+      book.free;
+      LeaveCriticalsection(updateThreadConfig.libraryAccessSection);
+      r.free;
+    end;
+  except
+    on e: Exception do begin
+      newelement:=j.newObject(bookClass, bookClassInit);;
+      j.SetStringField(newelement, bookFields.titleS, e.Message);
+      result := j.newObjectArray(1, bookClass, newelement);
+    end;
+  end;
+  if logging then bbdebugtools.log('de.benibela.VideLibri.Bride.VLXQuery (ended)');
+end;
 
 
 
-const nativeMethods: array[1..30] of JNINativeMethod=
+
+
+const nativeMethods: array[1..31] of JNINativeMethod=
   ((name:'VLInit';          signature:'(Lde/benibela/videlibri/Bridge$VideLibriContext;)V';                   fnPtr:@Java_de_benibela_VideLibri_Bridge_VLInit)
    ,(name:'VLFinalize';      signature:'()V';                   fnPtr:@Java_de_benibela_VideLibri_Bridge_VLFInit)
 
@@ -1704,6 +1781,7 @@ const nativeMethods: array[1..30] of JNINativeMethod=
    ,(name:'VLImportAccountsPrepare'; signature: '(Ljava/lang/String;)Lde/benibela/videlibri/Bridge$ImportExportData;'; fnPtr: @Java_de_benibela_VideLibri_Bridge_VLImportAccountsPrepare)
    ,(name:'VLImportAccounts'; signature: '(Lde/benibela/videlibri/Bridge$ImportExportData;)V'; fnPtr: @Java_de_benibela_VideLibri_Bridge_VLImportAccounts)
 
+   ,(name:'VLXQuery'; signature: '(Ljava/lang/String;)[Lde/benibela/videlibri/Bridge$Book;'; fnPtr: @Java_de_benibela_VideLibri_Bridge_VLXQuery)
    );
 
 

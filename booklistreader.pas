@@ -1120,6 +1120,10 @@ begin
 end;
 
 function TBookListReader.bookToPXP(book: TBook): TXQValueObject;
+  function xqvalueDate(const i: integer): IXQValue;
+  begin
+    result := TXQValueDateTime.create(baseSchema.date, i);
+  end;
 var
   i: Integer;
 begin
@@ -1129,10 +1133,14 @@ begin
   result.setMutable('title', book.title);
   result.setMutable('year', book.year);
   result.setMutable('isbn', book.isbn);
-  result.setMutable('statusId', BookStatusToSerializationStr(book.status));
+  if book.lend then result.setMutable('statusId', BookStatusToSerializationStr(book.status))
+  else result.setMutable('statusId', 'history');
   for i:=0 to high(book.additional) do
     result.setMutable(book.additional[i].name, book.additional[i].value );
   result.setMutable('_existing', xqvalueTrue);
+  if book.dueDate <> 0 then result.setMutable('dueDate', xqvalueDate(book.dueDate));
+  if book.issueDate <> 0 then result.setMutable('issueDate', xqvalueDate(book.issueDate));
+  //see queryHistory;
 end;
 
 procedure TBookListReader.selectBook(book: TBook);

@@ -386,7 +386,13 @@ public class VideLibri extends  BookListActivity{
 
 
     public void refreshBookCache(){
-        bookCache = filterToSecondaryBookCache(primaryBookCache, groupingKeyActually, sortingKeyActually, filterActually, filterKeyActually);
+        boolean xquery = filterActually != null && (filterActually.startsWith("xquery version") || filterActually.startsWith("for $") || filterActually.contains("$book"));
+        if (!xquery)
+            bookCache = filterToSecondaryBookCache(primaryBookCache, groupingKeyActually, sortingKeyActually, filterActually, filterKeyActually);
+        else {
+            bookCache = new ArrayList<Bridge.Book>();
+            for (Bridge.Book b: Bridge.VLXQuery(filterActually)) bookCache.add(b);
+        }
 
         displayBookCache();
 

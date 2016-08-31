@@ -221,6 +221,10 @@ object mainForm: TmainForm
         ShortCut = 49222
         OnClick = MenuItem25Click
       end
+      object menuXquery: TMenuItem
+        Caption = 'XQuery-Suche...'
+        OnClick = menuXqueryClick
+      end
       object MenuItem6: TMenuItem
         Caption = '&Statistik...'
         OnClick = MenuItem6Click
