@@ -30,6 +30,22 @@ order by $book.author
 return $book
 </pre>
 
+<p>Suche alle jemals ausgeliehenen Bücher von bestimmten Autoren (z.B.: von Meyer und Pratchett):
+
+<pre>
+for $book in $books 
+where $book.author = ("Meyer", "Pratchett")
+return $book
+</pre> 
+
+
+<p>Suche alle jemals ausgeliehenen Bücher von bestimmten Autoren (z.B.: von Meyer und Pratchett) (Kurzversion, ohne Sortiermöglichkeit und beliebige Vornamen):
+
+<pre>
+$books[matches(author, "Meyer|Pratchett")]
+</pre> 
+
+
 <p>Sortiere alle Bücher nach der Länge des Titels:
 
 <pre>
