@@ -10,7 +10,7 @@
 Über das Menü "Extras\XQuery Suche..." kann man dieses Fenster öffnen.
 <br><!--<img src="bibtexexport.gif" style="margin:1em">--><br>
 
-In diesem Fenster kann man beliebig komplizierte Suchabfragen an die eigene Ausleihenhistorie stellen, die beim Klick auf "suchen" ausgeführt werden. Wie der Titel sagt, werden diese Abfragen in <a href="https://de.wikipedia.org/wiki/XQuery">XQuery</a> formuliert, was zu viele Möglichkeiten bietet, um sie alle hier zu beschreiben, deshalb werden im Folgenden nur einige mögliche Beispielabfragen aufgelistet. Zusätzlich zu XQuery sollte man wissen, dass VideLibri  eine Variable <code>$books</code> bereitstellt, die alle Bücher enthält. Die für ein Buch vorhandenen Eigenschaften sind auf der Hilfeseite zum <a href="seiten.html">Auslesen von Bücher-enthaltenen Webseiten</a> beschrieben.
+In diesem Fenster kann man beliebig komplizierte Suchabfragen an die eigene Ausleihenhistorie stellen. Dazu gibt man die Anfrage im Dialog in das untere Eingabefeld ein und klickt auf "suchen". Wie der Titel sagt, werden diese Abfragen in <a href="https://de.wikipedia.org/wiki/XQuery">XQuery</a> formuliert, was zu viele Möglichkeiten bietet, um sie hier alle zu beschreiben, deshalb werden im Folgenden nur einige mögliche Beispielabfragen aufgelistet. Zusätzlich zu XQuery sollte man wissen, dass VideLibri  eine Variable <code>$books</code> bereitstellt, die alle Bücher enthält. Die für jedes Buch jeweils vorhandenen Eigenschaften sind auf der Hilfeseite zum <a href="seiten.html">Auslesen von Bücher-enthaltenen Webseiten</a> beschrieben.
 
 
 <p>Suche alle jemals ausgeliehenen Bücher eines bestimmten Autors (z.B.: von Meyer):
@@ -30,7 +30,7 @@ order by $book.author
 return $book
 </pre>
 
-<p>Suche alle jemals ausgeliehenen Bücher von bestimmten Autoren (z.B.: von Meyer und Pratchett):
+<p>Suche alle jemals ausgeliehenen Bücher von mehreren bestimmten Autoren (z.B.: von Meyer und Pratchett):
 
 <pre>
 for $book in $books 
@@ -39,7 +39,7 @@ return $book
 </pre> 
 
 
-<p>Suche alle jemals ausgeliehenen Bücher von bestimmten Autoren (z.B.: von Meyer und Pratchett) (Kurzversion, ohne Sortiermöglichkeit und beliebige Vornamen):
+<p>Suche alle jemals ausgeliehenen Bücher von mehreren bestimmten Autoren (z.B.: von Meyer und Pratchett) (Kurzversion, ohne Sortiermöglichkeit und beliebige Vornamen):
 
 <pre>
 $books[matches(author, "Meyer|Pratchett")]
@@ -95,7 +95,16 @@ order by count($book)
 return {"author": $author, "title":  count($book)}
 </pre>
 
-<p>Finde alle Bücher, bei denen der Autorname mindestens 3 Vokale und der Titel 17 Konsonenten enthält:
+<p>Finde alle Bücher, deren Titel aus mindestens 5 Wörtern besteht:
+
+<pre>
+for $book in $books
+where matches($book.title, "(\w+(\W+|$)){5}")
+return $book
+</pre>
+
+
+<p>Finde alle Bücher, bei denen der Autorname mindestens 3 Vokale und der Titel mindestens 17 Konsonenten enthält:
 
 <pre>
 for $book in $books
@@ -118,11 +127,47 @@ where empty((2 to $i - 1)[$i mod . = 0])
 return $i
 </pre>
 
+<p>Finde alle Bücher, deren Titellänge eine Primzahl ist:
+
+<pre>
+let $primes := (for $i in 2 to 200
+  where empty((2 to $i - 1)[$i mod . = 0])
+  return $i)
+return $books[string-length(title) = $primes]
+</pre>
+
+<p>Finde alle Bücher, deren Titellänge eine Primzahl ist, wobei nur Buchstaben (oder Zahlen, etc.) gezählt werden und Sonderzeichen (z.B.: !) ignoriert werden:
+
+<pre>
+let $primes := (for $i in 2 to 200
+  where empty((2 to $i - 1)[$i mod . = 0])
+  return $i)
+return $books[string-length(replace(title, "\W", "")) = $primes]
+</pre>
+
+
 <p>Ermittle das aktuelle Datum und Uhrzeit:
 
 <pre>
 current-date(), current-time()
 </pre>
+
+<p>Finde alle Bücher, deren Titel den aktuellen Monatsnamen enthält:
+
+<pre>
+let $month := format-date(current-date(), "[Mn]", "de", (), ())
+return $books[contains(title, $month)]
+</pre>
+
+<p>Finde alle Bücher, deren Titel <i>irgendeinen</i> Monatsnamen enthält:
+
+<pre>
+let $months := (1 to 12) ! format-date(xs:date("2010-"||format-integer(.,"00")||"-01"), "[Mn]", "de", (), ())
+return $books[some $month in $months satisfies contains(title, $month)]
+</pre>
+
+(Übung für den Leser: was muss man daraus löschen, um nur eine Liste der Monate auszugeben?)
+
 
 <p>Verschlüssele einen Text mittels Cäsarchiffre:
 
@@ -142,4 +187,14 @@ let $a := x:cps("a") return string-join( x:cps(x:cps("ghuwhaw") ! ((. - $a + 23)
 (1 to 100) ! {"author": ., "title": . * .}
 </pre>
 
+<p>Erstelle 1000 zufällige Bücher, indem  vorhandenen Autornamen und Titelwörter zufällig zusammengemixt werden:
+
+<pre>
+let $names := $books!tokenize(author, "\W+")[.]
+let $titles := $books!tokenize(title, "\W+")[.]
+return (random-seed(), (1 to 1000) ! {
+  "author": let $temp := random(count($names))+1 return $names[$temp], 
+  "title": join((1 to (random(7)+1))!(let $temp := random(count($titles))+1 return $titles[$temp]))})
+</pre>
+ 
 </body>
