@@ -52,6 +52,7 @@ build)
 build-java)
   cd android
   BUILDMODE="$2"
+  if [[ -z "$BUILDMODE" ]]; then BUILDMODE=debug; fi
   ant $BUILDMODE || (echo "FAILED!"; exit)
 
   $SDK_HOME/adb uninstall de.benibela.videlibri || (echo "FAILED!"; exit)
