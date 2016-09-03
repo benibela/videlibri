@@ -3,7 +3,7 @@
   <longName value="Bibliothek des Landeskirchenamts Hannovers"/>
   
   <template value="pica"/>  
-  <variable name="server" value="https://opac.tib.uni-hannover.de/"/>
+  <variable name="server" value="https://opac.tib.eu/"/>
   <variable name="picadb" value="10.1"/>
 
 

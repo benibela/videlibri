@@ -28,7 +28,7 @@
   <variable name="searchid-digibib" value="SERVICEGROUP1.SERVICE.SEARCH_SBDUE"/>
 
 
-  <homepage value="http://www.duesseldorf.de/stadtbuechereien/index.shtml"/>
+  <homepage value="https://www.duesseldorf.de/stadtbuechereien.html"/>
   <testing-search value="ja" date="2014-05-10"/>
   <testing-account value="ja" date="2014-11-12"/>
   <testing-renew value="?" date=""/>

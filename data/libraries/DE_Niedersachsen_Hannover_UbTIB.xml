@@ -4,7 +4,7 @@
   <shortName value="TIB/UB Hannover"/>
   
   <template value="pica"/>  
-  <variable name="server" value="https://opac.tib.uni-hannover.de/"/>
+  <variable name="server" value="https://opac.tib.eu/"/>
 
 
   <homepage value="http://www.tib.uni-hannover.de/"/>
