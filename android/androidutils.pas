@@ -1689,11 +1689,11 @@ begin
           pvkObject: begin
             book.clear;
             book.owner:=nil;
+            accountId := -1;
             for p in b.getPropertyEnumerator do
               case p.Name of
                 '_accountPtr': begin
                   i64 := p.value.toInt64;
-                  accountId := -1;
                   for i := 0 to accounts.Count - 1 do
                     if i64 = PtrInt(accounts[i]) then begin
                       accountId := i;
