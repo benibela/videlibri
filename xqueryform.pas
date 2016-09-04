@@ -58,7 +58,7 @@ begin
           book.owner:=nil;
           for p in b.getPropertyEnumerator do
             case p.Name of
-              '_accountPtr': book.owner := tobject(p.Value.toInt64);
+              '_accountPtr': book.owner := tobject(PtrInt(p.Value.toInt64));
               'statusId': if p.Value.toString = 'history' then book.lend := false
               else begin
                 book.lend := true;
