@@ -27,13 +27,13 @@ build)
   if $BUILDARM; then
     FORCE=""
     if [[ ! -f android/libs/armeabi/liblclapp.so ]]; then FORCE=-B; fi
-    if /opt/lazarus/lazbuild $FORCE --os=android --ws=customdrawn --compiler=$FPC_ARM --cpu=arm videlibriandroid.lpi; then echo; else echo "FAILED!"; exit 1; fi
+    if /opt/lazarus/lazbuild $FORCE --os=android --ws=nogui --compiler=$FPC_ARM --cpu=arm videlibriandroid.lpi; then echo; else echo "FAILED!"; exit 1; fi
   fi
 
   if $BUILDX86; then
     FORCE=""
     if [[ ! -f android/libs/x86/liblclapp.so ]]; then FORCE=-B; fi
-    if /opt/lazarus/lazbuild $FORCE --compiler=$FPC_386 --os=android --ws=customdrawn --cpu=i386 videlibriandroid.lpi; then echo; else echo "FAILED!"; exit 1; fi
+    if /opt/lazarus/lazbuild $FORCE --compiler=$FPC_386 --os=android --ws=nogui --cpu=i386 videlibriandroid.lpi; then echo; else echo "FAILED!"; exit 1; fi
   fi
 
   STRIP=true
