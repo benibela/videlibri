@@ -41,6 +41,9 @@ build)
     if [[ $BUILDMODE == "release" ]]; then
       cp android/libs/armeabi/liblclapp.so liblclapp.unstripped.arm.so
       cp android/libs/x86/liblclapp.so liblclapp.unstripped.x86.so
+    else
+      cp android/libs/armeabi/liblclapp.so liblclapp.unstripped.debug.arm.so
+      cp android/libs/x86/liblclapp.so liblclapp.unstripped.debug.x86.so
     fi
     arm-linux-strip --strip-all android/libs/armeabi/liblclapp.so
     strip --strip-all android/libs/x86/liblclapp.so

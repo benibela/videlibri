@@ -1,10 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?xml-stylesheet type="text/xsl" href="../changelog.xsl"?>
 <changelog program="VideLibri">
-  <build version="1847" date="2016-08-17">
+  <build version="1850" date="2016-09-05">
     <download url="http://videlibri.sourceforge.net/updates/videlibri-setup.exe" platform="WINDOWS" execute="&quot;$DOWNLOAD&quot;  /SP- /noicons &quot;/dir=$OLDPATH&quot; " restart="true"/>
     <download url="http://videlibri.sourceforge.net/updates/videlibri-linux32.deb" platform="LINUX32" execute=""/>
     <download url="http://videlibri.sourceforge.net/updates/videlibri-linux64.deb" platform="LINUX64" execute=""/>
+    <add>XQuery-Suche in den eigenen Ausleihen (zum Beispiel Eingabe ($books/author) für eine Liste aller Autoren, von denen mal etwas ausgeliehen worden war; oder (for $author in distinct-values($books/author) order by $author return $author) für eine sortierte Liste dieser Autoren ohne Duplikate ) </add>
+    <add>Duplikate-Entferner (Desktopversion)</add>
+    <fix>sisis (Stadtbücherei Wuppertal/Bremen): Keine Warnmeldung mehr, wenn der Titel in der Bestätigungsmeldung einer Verlängerung eines Mediums leicht von dem in der Ausleihenliste angezeigten Titel abweicht </fix>
+    <fix>Universitätsbibliotheken Aachen und Hannover: Neue Serveradressen</fix>
+    <fix>Behebt inkonsiste Sortierung, von Medien mit oder ohne eine bestimmte Eigenschaft, und daraus folgenden Absturz</fix>
+    <fix>Behebt Absturz beim Import/Export</fix>
+    <fix>Staatsbibliothek Berlin: Ignoriere Fehler bei der Mediensuche für die 2014-Kontoansicht ohne Titelanzeige</fix>
+  </build>
+  <build version="1847" date="2016-08-17">
     <fix>Behebt möglichen Verlust von Einstellungen beim Appneustart</fix>
     <fix>aDIS: Ablehnung von Vormerkungen wegen fehlendem Vormerkende </fix>
     <fix>Verschiedene geänderte Bibliothekswebseiten</fix>
