@@ -197,4 +197,16 @@ return (random-seed(), (1 to 1000) ! {
   "title": join((1 to (random(7)+1))!(let $temp := random(count($titles))+1 return $titles[$temp]))})
 </pre>
  
+<p>Berechne die Fakultäten von 1 bis 100: "eins", "zwei", "sechs" bis "dreiundneunzig Sesvigintillionen..." </p>
+ 
+<pre>
+(1 to 100) ! (x:product(1 to .)) ! format-integer(., "w", "de")
+</pre>
+ <!--
+<p>Berechne fizzbuzz, die Zahlen von 1 bis 100 und Vielfache von drei durch fizz und Vielfache von 5 durch buzz ersetzt:</p>
+ 
+<pre>
+for $i in 1 to 100 return (("fizz"[$i mod 3=0] || "buzz"[$i mod 5=0])[.],$i)[1]
+</pre>-->
+
 </body>
