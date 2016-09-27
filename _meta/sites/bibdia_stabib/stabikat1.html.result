@@ -8,6 +8,6 @@ propname := "Erschienen"
 propname := "Umfang"
 propname := ""
 sigid := 1
+book := {"Standort 2!": "Potsdamer Straße", "Signatur 1!": "4\" 493678 Verfügbarkeit anzeigen / bestellen", "isbn": "91-7588-022-9", "Umfang!": "72 S. 4\".", "Erschienen!": "Stockholm: Förl. A.B. Marieberg, 1980", "author": "Lindqvist, Cecilia; Lindqvist, Sven", "title": "Kina nu. ; Vad skulle Mao ha sagt? Ett reportage av Cecilia och Sven Lindqvist", "orderable": 0}
 propname := ""
 propname := ""
-book := {"stabikatFound": true, "Standort 2!": "Potsdamer Straße", "Signatur 1!": "4\" 493678 Verfügbarkeit anzeigen / bestellen", "isbn": "91-7588-022-9", "Umfang!": "72 S. 4\".", "Erschienen!": "Stockholm: Förl. A.B. Marieberg, 1980", "author": "Lindqvist, Cecilia; Lindqvist, Sven", "title": "Kina nu. ; Vad skulle Mao ha sagt? Ett reportage av Cecilia och Sven Lindqvist", "orderable": 0}

@@ -6,5 +6,5 @@ bookCount := "1"
 templateError := "true"
 V := text{" "}
 status := "abholbereit Potsdamer Straße, Ausleihe außer Haus"
-book := {"status:problematic": "abholbereit Potsdamer Straße, Ausleihe außer Haus,  -mal verlängert", "author": "", "title": "", "shortId": "3A12345", "id": "3A12345", "duedate": "2013-05-04", "stabikatFound": false}
+book := {"status:problematic": "abholbereit Potsdamer Straße, Ausleihe außer Haus,  -mal verlängert", "author": "", "title": "", "shortId": "3A12345", "id": "3A12345", "duedate": "2013-05-04"}
 templateError := false()
