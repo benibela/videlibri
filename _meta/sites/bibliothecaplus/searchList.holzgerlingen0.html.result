@@ -1,0 +1,4 @@
+last-visited-page := 0
+current-page := 1
+search-reverse-keys := book := {}
+search-result-count := 0

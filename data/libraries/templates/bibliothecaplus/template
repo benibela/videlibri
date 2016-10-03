@@ -138,7 +138,7 @@
 <action id="internal-gotobookpage">
   <s>target-page := $book._page</s>
   <call action="gotopage"/>
-  <s>combined-detail-form := form-combine($form, {'__EVENTTARGET': $book._detailId})</s>
+  <s>combined-detail-form := if (starts-with($book._detailId, "http")) then $book._detailId else form-combine($form, {'__EVENTTARGET': $book._detailId})</s>
   <page url="{$combined-detail-form}" templateFile="searchDetails"/>
   <page url="{$book._volumeFirst}" templateFile="searchDetails"/>
 </action>

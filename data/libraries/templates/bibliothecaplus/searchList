@@ -4,13 +4,21 @@
 <a id="dnn_dnnLOGIN_loginLink">{$loginlink := @href}</a>
 <DIV class="DnnModule-OPENSearchModule">
   <div t:condition="contains(@id, 'SearchResult_ResultArea')">
-    <span t:condition="contains(@id, 'DataPager1')">
-      <input t:condition="contains(@name, 'PreviousButton')">{prev-page := form-combine($form, {(@name || ".x"): 5, (@name || ".y"): 5})}</input>?
-      <input t:condition="contains(@name, 'NextButton')">{
-        if ($current-page eq $last-visited-page) then (search-next-page-available := true()) else (), 
-        next-page := form-combine($form, {(@name || ".x"): 5, (@name || ".y"): 5})}</input>?
-      <span t:condition="contains(@id, 'TotalItemsLabel')">{search-result-count := normalize-space(.)}</span>
-    </span>
+    <t:switch prioritized="true">
+      <span t:condition="contains(@id, 'DataPager1')">
+        <input t:condition="contains(@name, 'PreviousButton')">{prev-page := form-combine($form, {(@name || ".x"): 5, (@name || ".y"): 5})}</input>?
+        <input t:condition="contains(@name, 'NextButton')">{
+          if ($current-page eq $last-visited-page) then (search-next-page-available := true()) else (), 
+          next-page := form-combine($form, {(@name || ".x"): 5, (@name || ".y"): 5})}</input>?
+        <span t:condition="contains(@id, 'TotalItemsLabel')">{search-result-count := normalize-space(.)}</span>
+      </span>
+      <div>
+        <a t:condition="ends-with(@id, 'searchResultPagerTop_aPrevious')">{$prev-page := resolve-html(.)}</a>?
+        <a t:condition="ends-with(@id, 'searchResultPagerTop_aNext')">{
+          if ($current-page eq $last-visited-page) then (search-next-page-available := true()) else (), next-page := resolve-html(.)}</a>?
+        <span t:condition="contains(@id, 'TotalItemsLabel')">{search-result-count := normalize-space(.)}</span>
+      </div>
+    </t:switch>
 
   
     <div t:condition="matches(@id, '(ComprehensiveItem|divMedium)$')">
@@ -18,7 +26,10 @@
         <div>
           <div class="standardPaddingCover"/>
           <div>
-            <a>{book := {"title": ., "_detailId": extract(@href, "dnn.*btn.*Value"), "_page": $current-page}}</a>
+            <a>{book := {"title": ., 
+                         "_detailId": let $temp := extract(@href, "dnn.*btn.*Value") 
+                                      return if ($temp) then $temp else @href, 
+                         "_page": $current-page}}</a>
             
             <span t:condition="contains(@id, 'LblSubTitleValue')">{book.title := x"{$book.title}: {.}"}</span>? 
             
@@ -80,7 +91,7 @@
 
 
 
-<div t:condition="contains(@id, 'dnn_ctr690_MainView_UcNormalView_DivSearchResultView') 
+<div t:condition="ends-with(@id, 'DivSearchResultView')
                   and matches(., 'Ihre Suche erzielte keine Treffer|No results available')">{search-result-count := 0}</div>
 
 </t:switch>
