@@ -4,6 +4,7 @@
   
   <template value="sisis"/>  
   <variable name="server" value="https://katalog.bibliothek.uni-wuerzburg.de/TouchPoint/"/>
+  <variable name="startparams" value="?View=sunrise&Language=de"/>
 
   <homepage value="http://www.bibliothek.uni-wuerzburg.de/"/>
   <testing-search value="ja" date="2013-05-18"/>

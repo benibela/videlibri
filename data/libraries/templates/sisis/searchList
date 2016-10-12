@@ -1,7 +1,7 @@
 <template:meta default-text-matching="regex"/>
 <template:switch-prioritized>
    <DIV t:condition="matches(@id, 'hitlist|speed_result_list_')">
-    <DIV class="box">
+    <DIV t:condition="@class=('box', 'trefferbox')">
       {nextPage := ()}
       <DIV class="box-header">
         <DIV t:condition="tokenize(@class, ' ') = ('box-right','pagination')">
