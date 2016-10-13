@@ -443,6 +443,7 @@ public class Bridge {
         {
             Log.i("Videlibri", "Trying to load liblclapp.so");
             System.loadLibrary("lclapp");
+            Log.i("Videlibri", "Initializing Windows VM and Pascal layer");
             VLInit(context);
         }
         catch(UnsatisfiedLinkError ule)
