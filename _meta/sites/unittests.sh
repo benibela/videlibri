@@ -204,9 +204,9 @@ PAGES=(${PAGES[@]} bibliotheca/searchDetails.neustadt.html)
 mkdir -p $OUTPATH/bibliothecaplus
 
 test bibliothecaplus list list.stralsund.html list.darmstadt.html list.with-orders.darmstadt.html
-test bibliothecaplus searchList'{\$last-visited-page:=0,\$current-page:=1,\$search-reverse-keys:=\(\)}' searchList.empty.html searchList.html searchList.darmstadt.html
+test bibliothecaplus searchList'{\$last-visited-page:=0,\$current-page:=1,\$search-reverse-keys:=\(\)}' searchList.empty.html searchList.html searchList.darmstadt.html searchList.holzgerlingen.html searchList.holzgerlingen0.html
 test bibliothecaplus searchListHeaderOnly'{\$last-visited-page:=0,\$current-page:=1}' searchListHeaderOnly.html
-test bibliothecaplus searchDetails'{\$search-reverse-keys:=\(\)}' searchDetails.html searchDetails.darmstadt.html searchDetails.trier.html
+test bibliothecaplus searchDetails'{\$search-reverse-keys:=\(\)}' searchDetails.html searchDetails.darmstadt.html searchDetails.holzgerlingen.html searchDetails.trier.html
 
 #=============SUMMON==============
 mkdir -p $OUTPATH/summon

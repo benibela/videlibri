@@ -27,8 +27,8 @@
             <Filename Value="videlibri"/>
           </Target>
           <SearchPaths>
-            <IncludeFiles Value="../../../components/pascal/data;../../../components/pascal/import/synapse"/>
-            <OtherUnitFiles Value="../../../components/pascal/import/synapse;../../../components/lazarus/dialogs;../../../components/lazarus/internet/sendBackError;../../../components/pascal/internet;../../../components/pascal/data;android"/>
+            <IncludeFiles Value="../../../components/pascal/import/synapse"/>
+            <OtherUnitFiles Value="../../../components/pascal/import/synapse;../../../components/lazarus/dialogs;../../../components/lazarus/internet/sendBackError;../../../components/pascal/data;android"/>
             <SrcPath Value="../../../components/pascal/system;$(LazarusDir)/lcl;../../../components/lazarus/internet;$(LazarusDir)/lcl/interfaces/$(LCLWidgetType)"/>
           </SearchPaths>
           <Parsing>
@@ -69,8 +69,8 @@
             <Filename Value="videlibri"/>
           </Target>
           <SearchPaths>
-            <IncludeFiles Value="../../../components/pascal/data;../../../components/pascal/import/synapse"/>
-            <OtherUnitFiles Value="../../../components/pascal/import/synapse;../../../components/lazarus/dialogs;../../../components/lazarus/internet/sendBackError;../../../components/pascal/internet;../../../components/pascal/data;android"/>
+            <IncludeFiles Value="../../../components/pascal/import/synapse"/>
+            <OtherUnitFiles Value="../../../components/pascal/import/synapse;../../../components/lazarus/dialogs;../../../components/lazarus/internet/sendBackError;../../../components/pascal/data;android"/>
             <SrcPath Value="../../../components/pascal/system;$(LazarusDir)/lcl;../../../components/lazarus/internet;$(LazarusDir)/lcl/interfaces/$(LCLWidgetType)"/>
           </SearchPaths>
           <Parsing>
@@ -128,7 +128,7 @@
         <PackageName Value="LCL"/>
       </Item4>
     </RequiredPackages>
-    <Units Count="38">
+    <Units Count="35">
       <Unit0>
         <Filename Value="bookWatch.lpr"/>
         <IsPartOfProject Value="True"/>
@@ -202,136 +202,124 @@
         <ResourceBaseClass Value="Form"/>
       </Unit11>
       <Unit12>
-        <Filename Value="..\..\..\components\pascal\internet\internetaccess.pas"/>
-        <IsPartOfProject Value="True"/>
-      </Unit12>
-      <Unit13>
-        <Filename Value="..\..\..\components\pascal\internet\autoupdate.pas"/>
-        <IsPartOfProject Value="True"/>
-      </Unit13>
-      <Unit14>
         <Filename Value="..\..\..\components\lazarus\dialogs\progressdialog.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="ProgressBarDialog"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-      </Unit14>
-      <Unit15>
-        <Filename Value="..\..\..\components\pascal\data\obfuscate.inc"/>
-        <IsPartOfProject Value="True"/>
-      </Unit15>
-      <Unit16>
+      </Unit12>
+      <Unit13>
         <Filename Value="..\..\..\components\pascal\system\bbdebugtools.pas"/>
         <IsPartOfProject Value="True"/>
-      </Unit16>
-      <Unit17>
+      </Unit13>
+      <Unit14>
         <Filename Value="bibtexexport.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="BibTexExportFrm"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-      </Unit17>
-      <Unit18>
+      </Unit14>
+      <Unit15>
         <Filename Value="..\..\..\components\pascal\html\simplexmlparser.pas"/>
         <IsPartOfProject Value="True"/>
-      </Unit18>
-      <Unit19>
+      </Unit15>
+      <Unit16>
         <Filename Value="booklistreader.pas"/>
         <IsPartOfProject Value="True"/>
-      </Unit19>
-      <Unit20>
+      </Unit16>
+      <Unit17>
         <Filename Value="librarysearcher.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="librarySearcher"/>
-      </Unit20>
-      <Unit21>
+      </Unit17>
+      <Unit18>
         <Filename Value="bookListView.pas"/>
         <IsPartOfProject Value="True"/>
-      </Unit21>
-      <Unit22>
+      </Unit18>
+      <Unit19>
         <Filename Value="bookSearchForm.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="bookSearchFrm"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-      </Unit22>
-      <Unit23>
+      </Unit19>
+      <Unit20>
         <Filename Value="librarysearcheraccess.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="librarySearcherAccess"/>
-      </Unit23>
-      <Unit24>
+      </Unit20>
+      <Unit21>
         <Filename Value="..\..\..\components\pascal\data\automenumanager.pas"/>
         <IsPartOfProject Value="True"/>
-      </Unit24>
-      <Unit25>
+      </Unit21>
+      <Unit22>
         <Filename Value="messagesystem.pas"/>
         <IsPartOfProject Value="True"/>
-      </Unit25>
-      <Unit26>
-        <Filename Value="..\..\..\components\pascal\internet\multipagetemplate.pas"/>
-        <IsPartOfProject Value="True"/>
-      </Unit26>
-      <Unit27>
+      </Unit22>
+      <Unit23>
         <Filename Value="accountlist.pas"/>
         <IsPartOfProject Value="True"/>
-      </Unit27>
-      <Unit28>
+      </Unit23>
+      <Unit24>
         <Filename Value="librarylistview.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="libraryListView"/>
-      </Unit28>
-      <Unit29>
+      </Unit24>
+      <Unit25>
         <Filename Value="android\androidutils.pas"/>
         <IsPartOfProject Value="True"/>
-      </Unit29>
-      <Unit30>
+      </Unit25>
+      <Unit26>
         <Filename Value="libraryaccesstester.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="libraryTesterForm"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-      </Unit30>
-      <Unit31>
+      </Unit26>
+      <Unit27>
         <Filename Value="libraryparser.pass"/>
         <IsPartOfProject Value="True"/>
-      </Unit31>
-      <Unit32>
+      </Unit27>
+      <Unit28>
         <Filename Value="exportxml.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="XMLExportFrm"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-      </Unit32>
-      <Unit33>
+      </Unit28>
+      <Unit29>
         <Filename Value="applicationdesktopconfig.pas"/>
         <IsPartOfProject Value="True"/>
-      </Unit33>
-      <Unit34>
+      </Unit29>
+      <Unit30>
         <Filename Value="debuglogviewer.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="DebugLogForm"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-      </Unit34>
-      <Unit35>
+      </Unit30>
+      <Unit31>
         <Filename Value="inifilessafe.pas"/>
         <IsPartOfProject Value="True"/>
-      </Unit35>
-      <Unit36>
+      </Unit31>
+      <Unit32>
         <Filename Value="duplicateremover.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="duplicateForm"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-      </Unit36>
-      <Unit37>
+      </Unit32>
+      <Unit33>
         <Filename Value="xqueryform.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="xqueryfrm"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-      </Unit37>
+      </Unit33>
+      <Unit34>
+        <Filename Value="..\..\..\components\pascal\data\bbutils.pas"/>
+        <IsPartOfProject Value="True"/>
+      </Unit34>
     </Units>
   </ProjectOptions>
   <CompilerOptions>
@@ -340,8 +328,8 @@
       <Filename Value="videlibri"/>
     </Target>
     <SearchPaths>
-      <IncludeFiles Value="../../../components/pascal/data;../../../components/pascal/import/synapse"/>
-      <OtherUnitFiles Value="../../../components/pascal/import/synapse;../../../components/lazarus/dialogs;../../../components/lazarus/internet/sendBackError;../../../components/pascal/internet;../../../components/pascal/data;android"/>
+      <IncludeFiles Value="../../../components/pascal/import/synapse"/>
+      <OtherUnitFiles Value="../../../components/pascal/import/synapse;../../../components/lazarus/dialogs;../../../components/lazarus/internet/sendBackError;../../../components/pascal/data;android"/>
       <SrcPath Value="../../../components/pascal/system;$(LazarusDir)/lcl;../../../components/lazarus/internet;$(LazarusDir)/lcl/interfaces/$(LCLWidgetType)"/>
     </SearchPaths>
     <Parsing>

@@ -3,7 +3,7 @@
 #export JAVA_HOME=/usr/lib/jvm/java-6-sun-1.6.0.26/jre 
 export JAVA_HOME=/usr/lib/jvm/java-7-oracle/jre 
 export SDK_HOME=/home/benito/opt/android-sdk-linux/platform-tools/
-FPC_DIRECTORY=/usr/local/lib/fpc/3.0.0
+FPC_DIRECTORY=/usr/local/lib/fpc/3.1.1
 FPC_ARM=$FPC_DIRECTORY/ppcrossarm
 FPC_386=$FPC_DIRECTORY/ppcross386
 

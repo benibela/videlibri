@@ -18,6 +18,8 @@ Towards this goal VideLibri implements several different query languages that ar
 - A dialect of XPath/XQuery/JSONiq that is Turing-complete and thus can calculate arbitrary, unexpected things, e.g. emulating JavaScript-only pages.
 - CSS 3 Selectors for trivial selection task
 
+It cannot be emphasized enough that these are not programming languages for developers, rather they are query languages simple enough that any end user can use them. Thus you can also enter XQuery statements directly in the GUI of VideLibri to run queries over the sequence of lend `$books` to answer important questions like "How many books of author X have I lend?" or "Which book have I lend the most often, of all the books that have a title whose length is divisible by 7?"
+
 The source of these interpreters has been moved to a separate repository ( internettools ) for clarity.
 
 A spin-off command line tool ( see repository xidel ) has been developed to let you use these languages for tasks unrelated to libraries. 

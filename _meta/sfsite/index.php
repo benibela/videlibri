@@ -109,7 +109,7 @@ if (count($matches) == 0 || count(reset($matches)) == 0 || (reset(reset($matches
   <li><a href="#screenshots">Screenshots</a></li>
   <li><a href="#downloads">Download</a></li>
   <li><a href="#history">Geschichte</a></li>  
-  <li><a href="#spinoffs">Spin-Offs</a></li>
+  <li><a href="#xidel">Spin-Off</a></li>
   <li><a href="#contact">Kontakt</a></li>
   
   <li style="float: right"><a class="enlink" href="index_en.html">English Version</a></li>
@@ -158,15 +158,18 @@ VideLibri ist nach der Installation sehr viel einfacher zu benutzen, als die mei
 <li><h3>Mobile Android-Version</h3>
 VideLibri läuft als App nativ auf Androidsystemen und bietet so eine bessere und bequemere Integration in das System als Webkataloge. 
 </li>
+<li><h3>Vollständige XQuery Unterstützung</h3>
+Mittels der Datenbankabfragesprache XQuery lassen sich <a href="/help/xquerysearch.html">beliebige komplizierte Suchen</a> über die eigene Ausleihhistorie ausführen, um beispielsweise folgende Frage zu beantworten: "Von allen Büchern, deren Titellänge eine Primzahl ist, welches habe ich am häufigsten ausgeliehen?"
+</li>
 <li><h3>Mehr Details</h3>
-Viele Bibliotheken zeigen in ihrem Online-Katalog keine Details an. So fehlt bei den Stadtbüchereien Düsseldorfs normalerweise der Autor; während die Berliner Staatsbibliothek weder Autor noch Titel anzeigt und stattdessen lediglich die Inventarnummer nennt. VideLibri dagegen kann diese Informationen anzeigen, im Falle der Stabi wird automatisch im Katalog gesucht, für andere Büchereien kann man manuell die Digibib-Suche starten<sup class="desktop">D</sup> und bekommt dann sogar ein Titelbild<sup class="desktop">D</sup> angezeigt. 
+Viele Bibliotheken zeigen in ihrem Online-Katalog keine Details an. So fehlt bei den Stadtbüchereien Düsseldorfs normalerweise der Autor; während die Berliner Staatsbibliothek weder Autor noch Titel anzeigt und stattdessen lediglich die Inventarnummer nennt. VideLibri dagegen kann diese Informationen anzeigen, im Falle der Stabi wird automatisch im Katalog gesucht, für andere Büchereien kann man manuell die Digibib-Suche starten<sup class="desktop">D</sup> und bekommt dann sogar ein Titelbild angezeigt. 
 </li>
 
 <li><h3>E-Mailbenachrichtigung<sup class="desktop">D</sup></h3> 
 VideLibri kann einen E-Mailbericht über alle Medien versenden, in dem fällige und nicht fällige Bücher aufgelistet sind.
 
 <li><h3>Open-Source</h3>
-Jeder kann VideLibri genauso ändern, wie er es haben will, und auch beliebige neue Büchereien hinzufügen.
+Jeder kann VideLibri genauso ändern, wie er es haben will, und beliebige Features hinzufügen. Dies darf nicht mit dem Hinzufügen neuer Bibliotheken verwechselt werden, denn dies ist orthogonal. Bei vielen Systemen reicht es die richtige Webkatalog URL in der GUI einzugeben. Es gibt im kompilierten Quellcode von VideLibri keine Bibliotheksspezifischen Funktionen, sondern die Bibliothekssysteme werden mittels Pattern-Matching halbautomatisch von VideLibri gelernt und mittels XQuery-Skripten für Sonderfälle angepasst.
 </li>
 </ul>
 
@@ -186,18 +189,18 @@ Einige andere Features sind:
     * Links zu den Homepages und Katalogen der einzelnen Büchereien 
 -->
 <ul>
-<li>Abgabezeiten in unterschiedlichen Wochen werden markiert<sup class="desktop">D</sup></li>
+<li>Abgabezeiten in unterschiedlichen Wochen werden markiert</li>
 <li>Es kann nach beliebigen Medien gesucht werden</li>
 <li>Vormerkungen und Bestellungen im Katalog</li>
 <li>VideLibri wird (je nach Einstellung) bei jedem Systemstart minimiert in der Symbolleiste gestartet</li>
 <li>Es gibt eine Statistik über alle ausgeliehenen Medien<sup class="desktop">D</sup></li>
 <li>BibTeX-Export für die Erstellung von Literaturverzeichnissen<sup class="desktop">D</sup></li>
-<li>Vollständige XQuery-Unterstützung für neue Templates</li>
+<li>XML-Import/Export zur Synchronisation von mehreren Geräten</li>
 <li>Automatisches Update<sup class="desktop">D</sup></li>
 <li>Speicherung von gesuchten Medien in der Kontohistorie, was zur Literaturverwaltung oder als Merkliste verwendet werden kann.<sup class="desktop">D</sup></li>
 </ul>
 
-Nicht alle Features funktionieren mit allen Bibliotheken. Mit <sup class="desktop">D</sup>-markiere Features sind nur in der Desktopversion enthalten, und fehlen in der Androidversion.<br/><br/>
+Generell werden nur Bibliotheken gelistet, die ein System verwenden, bei dem sowohl die Katalog-Suche als auch alle Kontofunktionen funktioniert hat. Da die meisten Bibliotheken jedoch keine Testkonten zur Verfügung gestellt haben, konnte der Kontozugriff nur bei wenigen Bibliotheken direkt getestet werden. Mit <sup class="desktop">D</sup>-markiere Features sind nur in der Desktopversion enthalten, und fehlen in der Androidversion.<br/><br/>
 
 Es gibt allerdings auch ein paar Nachteile im Vergleich zu den online Web-Katalogen:
 <ul>
@@ -314,22 +317,13 @@ Eine kurze Übersicht über die Entwicklung von VideLibri gibt folgende Liste:
 Eine Übersicht, über alle veröffentlichten Versionen findet man im <a href="updates/changelog.xml">Changelog</a>. Alle Änderungen und Entwicklungsschritte findet man im <a href="https://sourceforge.net/p/videlibri/code/ci/tip/log/">Repositorylog</a>.
 
 <br><br>
-<h2><div><a name="spinoffs">Spin-offs</a></div></h2>
+<h2><div><a name="xidel">Xidel</a></div></h2>
 <div class="content">
-Mit dem VideLibri-Framework ist es auch trivial andere Webseiten in lokale Programme umzuwandeln, und, da der Quellcode dieser Programme größtenteils mit VideLibri übereinstimmt, liegen sie im selben <a href="https://sourceforge.net/p/videlibri/code/ci/tip/tree/">Repository</a>:
-<h3><a name="xibel">Xidel</a></h3>
-Xidel ist VideLibri ohne libri, also ohne irgendwas, das mit Bibliotheken und Büchern zu tun, und nützlich, um Internetseiten abzufragen.<br>
-Es hat sogar eine eigene <a href="xidel.html">Xidel-Seite</a>.
-<h3>SourceForgeResponder</h3>
-Der SFR ist ein Dämon, der jede an localhost geschickte E-Mail in eine Antwort auf der SourceForge-Seite umwandelt und alle Antworten in einem Ideatorrent als Mail verschickt.<br>
-Er lässt ziemlich einfach zu verwenden:
-<ol>
-<li>Zuerst muss er im Hintergrund mit übergebenen Benutzernamen/Passwort gestartet werden</li>
-<li>Dann kann auf jede SourceForge-Benachrichtigungsmail geantwortet werden, indem eine E-Mail an localhost geschickt wird, welche die SF-Mail vollständig zitiert.</li>
-<li>Der Dämon wird diese Mail dann automatisch in einen Post auf der SF-Seite umwandeln (das dauert allerdings 5 Sekunden, während der er momentan keine neuen Mails empfangen kann)</li>
-</ol>
-Achtung: Falls das Posten der Antwort nicht funktioniert, verfällt die Nachricht ohne irgendwelche Hinweise außer den Fehlermeldungen auf stdout. Das ist aber eigentlich kein Problem, da SourceForge sowieso auf jeden Beitrag eine Benachrichtungsmail verschickt, an derem Ausbleiben man den Fehler erkennen kann.<br>
-Die Details stehen im Quellcode.
+<p>Xidel ist ein Spin-Off von VideLibri ohne "libri", also was von VideLibri übrigbleibt, wenn man alle Funktionen bezüglich Bibliotheken und Büchern entfernt. 
+Dies ist für jede Webseite nützlich, da durch das Ziel, dass VideLibri ohne Umprogrammierung mit sämtlichen existierenden Bibliothekssystemen arbeiten können soll, ein einzigartiges Framework zum automatischen Webseitenabfragen entstanden ist. 
+
+<p>Xidel wird auf seiner eigenen <a href="xidel.html">Xidel-Seite</a> genauer beschrieben. Da Xidel und VideLibri größtenteils denselben Quellcode haben, liegen sie im selben <a href="https://sourceforge.net/p/videlibri/code/ci/tip/tree/">Repository</a>.
+
 </div>
 <h2><div><a id="contact">Kontakt</a></div></h2>
 Autor: Benito van der Zander, <a href="benito_NOSPAM_benibela.de">benito_NOSPAM_benibela.de</a>,<br> <a href="http://www.benibela.de/index_en.html">www.benibela.de</a><br><br>

@@ -17,10 +17,13 @@
     <VersionInfo>
       <StringTable ProductVersion=""/>
     </VersionInfo>
+    <MacroValues Count="1">
+      <Macro1 Name="LCLWidgetType" Value="nogui"/>
+    </MacroValues>
     <BuildModes Count="1">
       <Item1 Name="default" Default="True"/>
       <SharedMatrixOptions Count="1">
-        <Item1 ID="071774379680" Type="IDEMacro" MacroName="LCLWidgetType" Value="nogui"/>
+        <Item1 ID="071774379680" Modes="default" Type="IDEMacro" MacroName="LCLWidgetType" Value="nogui"/>
       </SharedMatrixOptions>
     </BuildModes>
     <PublishOptions>
@@ -82,7 +85,7 @@
       </Item1>
     </BuildMacros>
     <CodeGeneration>
-      <TargetCPU Value="i386"/>
+      <TargetCPU Value="arm"/>
       <TargetOS Value="android"/>
     </CodeGeneration>
     <Linking>
