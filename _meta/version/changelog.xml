@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?xml-stylesheet type="text/xsl" href="../changelog.xsl"?>
 <changelog program="VideLibri">
-  <build version="1850" date="2016-09-05">
+  <build version="1852" date="2016-10-14">
     <download url="http://videlibri.sourceforge.net/updates/videlibri-setup.exe" platform="WINDOWS" execute="&quot;$DOWNLOAD&quot;  /SP- /noicons &quot;/dir=$OLDPATH&quot; " restart="true"/>
     <download url="http://videlibri.sourceforge.net/updates/videlibri-linux32.deb" platform="LINUX32" execute=""/>
     <download url="http://videlibri.sourceforge.net/updates/videlibri-linux64.deb" platform="LINUX64" execute=""/>
-    <fix>Die Androidversion ist nun mit FreePascal 3.1.1 (fpc r34557) kompiliert, da Apps, welche mit fpc 3.0 erstellt wurden (d.h. VideLibri seit Version 1.835), unter Android <= 4.0 nicht starten und Android 6 von fpc 3.0 nicht unterstützt wird.
+    <fix>Die Androidversion ist nun mit FreePascal 3.1.1 (fpc r34557) kompiliert, da Apps, welche mit fpc 3.0 erstellt wurden (d.h. VideLibri seit Version 1.835), unter Android &lt;= 4.0 nicht starten und Android 6 von fpc 3.0 nicht unterstützt wird.
 Die Desktopversion ist weiterhin mit fpc 3.0 kompiliert, da fpc 3.1.1 beim optimierten Kompilieren von größeren Desktop-Programmen einfach abstürzt.
     </fix>
     <fix>Universitätsbibliothek Würzburg und Stadtbibliothek Holzgerlingen: Anpassung an Katalog-Änderungen </fix>

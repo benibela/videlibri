@@ -177,8 +177,18 @@ downloadTable)
   
 	changelog)
 		sed -e 's/<stable  *value="[0-9]*"/<stable value="'$INTVERSION'"/'  -i $VIDELIBRIBASE/_meta/version/version.xml;
-		vim $VIDELIBRIBASE/_meta/version/version.xml
-		vim $VIDELIBRIBASE/_meta/version/changelog.xml
+    function xmledit(){
+      fn=$1
+      vim $fn
+      until xmllint  $fn > /dev/null; do
+        echo ------------Invalid XML---------------
+        read
+        vim $fn
+        echo editing done
+      done
+    }
+		xmledit $VIDELIBRIBASE/_meta/version/version.xml
+		xmledit $VIDELIBRIBASE/_meta/version/changelog.xml
 		./manage.sh web
 		;;
 		
