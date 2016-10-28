@@ -1162,26 +1162,25 @@ begin
   details:=more_details;
 end;
 
-function xqFunctionDelete_Current_Books(const context: TXQEvaluationContext; const args: TXQVArray): IXQValue;
+function xqFunctionDelete_Current_Books(const context: TXQEvaluationContext; argc: SizeInt; argv: PIXQValue): IXQValue;
 begin
-  requiredArgCount(args, 0);
   context.staticContext.sender.VariableChangelog.add('delete-current-books()', xqvalueTrue);
   result := xqvalue();
 end;
 
-function xqFunctionRaise_Login(const context: TXQEvaluationContext; const args: TXQVArray): IXQValue;
+function xqFunctionRaise_Login(const context: TXQEvaluationContext; argc: SizeInt; argv: PIXQValue): IXQValue;
 begin
-  requiredArgCount(args, 0, 1);
-  if length(args) = 0 then context.staticContext.sender.VariableChangelog.add('raise-login()', xqvalue())
-  else context.staticContext.sender.VariableChangelog.add('raise-login()', args[0]);
+  requiredArgCount(argc, 0, 1);
+  if argc = 0 then context.staticContext.sender.VariableChangelog.add('raise-login()', xqvalue())
+  else context.staticContext.sender.VariableChangelog.add('raise-login()', argv[0]);
   result := xqvalue();
 end;
 
-function xqFunctionRaise(const context: TXQEvaluationContext; const args: TXQVArray): IXQValue;
+function xqFunctionRaise(const context: TXQEvaluationContext; argc: SizeInt; argv: PIXQValue): IXQValue;
 begin
-  requiredArgCount(args, 0, 1);
-  if length(args) = 0 then context.staticContext.sender.VariableChangelog.add('raise()', xqvalue())
-  else context.staticContext.sender.VariableChangelog.add('raise()', args[0]);
+  requiredArgCount(argc, 0, 1);
+  if argc = 0 then context.staticContext.sender.VariableChangelog.add('raise()', xqvalue())
+  else context.staticContext.sender.VariableChangelog.add('raise()', argv[0]);
   result := xqvalue();
 end;
 
@@ -1192,17 +1191,17 @@ end;
 //   choose-result := index choosen by user                     if index outside value range
 //   choose-result := option-values[ index choosen by user ]    else
 // ATTENTION: Only eq can be used to test for 0, not =. Or use value instance of xs:decimal
-function xqFunctionChoose(const context: TXQEvaluationContext; const args: TXQVArray): IXQValue;
+function xqFunctionChoose(const context: TXQEvaluationContext; argc: SizeInt; argv: PIXQValue): IXQValue;
 var
   temp: TXQValueObject;
 begin
-  requiredArgCount(args, 4, 4);
+  requiredArgCount(argc, 4, 4);
   temp := TXQValueObject.create();
   temp.setMutable('kind', 'choose');
-  temp.setMutable('callback', args[0].toString);
-  temp.setMutable('caption', args[1].toString);
-  temp.setMutable('options', args[2]);
-  temp.setMutable('option-values', args[3]);
+  temp.setMutable('callback', argv[0].toString);
+  temp.setMutable('caption', argv[1].toString);
+  temp.setMutable('options', argv[2]);
+  temp.setMutable('option-values', argv[3]);
   context.staticContext.sender.VariableChangelog.add('message()', temp);
   result := xqvalue();
 end;
@@ -1210,15 +1209,15 @@ end;
 //add function vl:confirm(  callback action id,  caption  )
 //
 //callback action is called with confirm-result := true/false
-function xqFunctionConfirm(const context: TXQEvaluationContext; const args: TXQVArray): IXQValue;
+function xqFunctionConfirm(const context: TXQEvaluationContext; argc: SizeInt; argv: PIXQValue): IXQValue;
 var
   temp: TXQValueObject;
 begin
-  requiredArgCount(args, 2, 2);
+  requiredArgCount(argc, 2, 2);
   temp := TXQValueObject.create();
   temp.setMutable('kind', 'confirm');
-  temp.setMutable('callback', args[0].toString);
-  temp.setMutable('caption', args[1].toString);
+  temp.setMutable('callback', argv[0].toString);
+  temp.setMutable('caption', argv[1].toString);
   context.staticContext.sender.VariableChangelog.add('message()', temp);
   result := xqvalue();
 end;
@@ -1226,16 +1225,16 @@ end;
 //add function vl:select-book(  query  )
 //
 //callback action is called with confirm-result := true/false
-function xqFunctionSelectBook(const context: TXQEvaluationContext; const args: TXQVArray): IXQValue;
+function xqFunctionSelectBook(const context: TXQEvaluationContext; argc: SizeInt; argv: PIXQValue): IXQValue;
 var
   temp: TXQValueObject;
   reader: TBookListReader;
   query: IXQValue;
   book: TBook;
 begin
-  requiredArgCount(args, 1, 1);
+  requiredArgCount(argc, 1, 1);
 
-  query := args[0];
+  query := argv[0];
 
   reader := (context.staticContext as TXQVideLibriStaticContext).bookListReader;
   book := reader.books.findBook(query.getProperty('id').toString, query.getProperty('author').toString, query.getProperty('title').toString, query.getProperty('year').toString);
@@ -1248,18 +1247,18 @@ end;
 //function vl:log-immediately(  data )
 //
 //Prints data to the log immediately. Log output remains during template rollback!
-function xqFunctionLogImmediately(const context: TXQEvaluationContext; const args: TXQVArray): IXQValue;
+function xqFunctionLogImmediately(const context: TXQEvaluationContext; argc: SizeInt; argv: PIXQValue): IXQValue;
 var
   temp: TXQValueObject;
   reader: TBookListReader;
   query: IXQValue;
   book: TBook;
 begin
-  requiredArgCount(args, 1, 1);
+  requiredArgCount(argc, 1, 1);
 
-  if logging then log(args[0].debugAsStringWithTypeAnnotation());
+  if logging then log(argv[0].debugAsStringWithTypeAnnotation());
 
-  result := args[0];
+  result := argv[0];
 end;
 
 
