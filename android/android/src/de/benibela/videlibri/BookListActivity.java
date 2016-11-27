@@ -9,7 +9,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.*;
-import com.actionbarsherlock.app.SherlockFragmentActivity;
 
 import java.text.DateFormat;
 import java.util.ArrayList;

@@ -168,7 +168,7 @@ public class BookDetails extends VideLibriBaseFragment {
         Log.i("VL", ""+getSherlockActivity());
         Log.i("VL", ""+getView());       */
 
-        if (getSherlockActivity() == null || getView() == null || newBook == null) return;
+        if (getActivity() == null || getView() == null || newBook == null) return;
 
         boolean searchedBook = book.account == null;
 
@@ -228,7 +228,7 @@ public class BookDetails extends VideLibriBaseFragment {
             }
 
 
-        lv.setAdapter(new BookDetailsAdapter(getSherlockActivity(), details, book));
+        lv.setAdapter(new BookDetailsAdapter(getActivity(), details, book));
 
         boolean needToLoadImage = book.more != null && (book.hasProperty("image-url") || book.hasProperty("isbn")) && book.image == null;
         if (needToLoadImage)
@@ -258,12 +258,12 @@ public class BookDetails extends VideLibriBaseFragment {
             actionButton.setVisibility(View.VISIBLE);
             actionButton.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View view){
-                    if (getSherlockActivity() instanceof BookListActivity)
-                        ((BookListActivity) getSherlockActivity()).onBookActionButtonClicked(book);
+                    if (getActivity() instanceof BookListActivity)
+                        ((BookListActivity) getActivity()).onBookActionButtonClicked(book);
                 }
             });
-            if (getSherlockActivity() instanceof BookListActivity)
-                ((BookListActivity) getSherlockActivity()).bookActionButton = actionButton;
+            if (getActivity() instanceof BookListActivity)
+                ((BookListActivity) getActivity()).bookActionButton = actionButton;
         } else actionButton.setVisibility(View.GONE);
 
     }

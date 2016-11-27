@@ -3,14 +3,15 @@ package de.benibela.videlibri;
 import android.content.res.Resources;
 import android.view.View;
 import android.widget.Button;
-import com.actionbarsherlock.app.SherlockFragment;
 
-public class VideLibriBaseFragment extends SherlockFragment {
+import android.support.v4.app.Fragment;
+
+public class VideLibriBaseFragment extends Fragment {
     boolean loading;
     void setLoading(boolean loading){
         this.loading = loading;
-        if (getSherlockActivity() instanceof VideLibriBaseFragmentActivity)
-            ((VideLibriBaseFragmentActivity) getSherlockActivity()).setLoading(loading);
+        if (getActivity() instanceof VideLibriBaseFragmentActivity)
+            ((VideLibriBaseFragmentActivity) getActivity()).setLoading(loading);
     }
 
 

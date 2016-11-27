@@ -6,17 +6,18 @@ import android.content.Intent;
 import android.net.Uri;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.app.Activity;
 import android.os.Bundle;
 import android.widget.*;
 
-import com.actionbarsherlock.app.*;
-import com.actionbarsherlock.view.Menu;
-import com.actionbarsherlock.view.MenuItem;
-import com.actionbarsherlock.view.MenuInflater;
+import android.support.v7.app.AppCompatActivity;
 
-public class VideLibriBaseActivity extends SherlockActivity implements Bridge.VideLibriContext {
+ 
+
+public class VideLibriBaseActivity extends AppCompatActivity implements Bridge.VideLibriContext {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,7 +36,7 @@ public class VideLibriBaseActivity extends SherlockActivity implements Bridge.Vi
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        VideLibriSuperBase.onCreateOptionsMenu(getSherlock(), menu);
+        VideLibriSuperBase.onCreateOptionsMenu(this, menu);
         loadingItem = menu.findItem(R.id.loading);
         return super.onCreateOptionsMenu(menu);
     }

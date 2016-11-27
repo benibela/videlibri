@@ -28,7 +28,7 @@ public class BookListFragment extends VideLibriBaseFragment {
         View view = inflater.inflate(R.layout.booklist, container, false);
 
         bookListView = (ListView) view.findViewById(R.id.booklistview);
-        dateFormatDefault = android.text.format.DateFormat.getDateFormat(getSherlockActivity());
+        dateFormatDefault = android.text.format.DateFormat.getDateFormat(getActivity());
 
         final android.support.v4.app.FragmentActivity act = getActivity();
         if (act instanceof RenewList) {

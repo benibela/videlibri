@@ -12,17 +12,18 @@ import android.net.Uri;
 import android.util.Log;
 import android.util.Pair;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.*;
-import com.actionbarsherlock.ActionBarSherlock;
-import com.actionbarsherlock.view.Menu;
-import com.actionbarsherlock.view.MenuInflater;
-import com.actionbarsherlock.view.MenuItem;
+
 
 import java.util.ArrayList;
 import java.util.List;
 
+import android.support.v7.app.AppCompatActivity;
 /**
  * Created with IntelliJ IDEA.
  * User: benito
@@ -106,8 +107,10 @@ public class VideLibriSuperBase {
     }
 
 
-    static public void onCreateOptionsMenu(ActionBarSherlock sherlock, Menu menu){
-        MenuInflater inflater = sherlock.getMenuInflater();
+      static public void onCreateOptionsMenu(Activity activity, Menu menu){
+        //if (!(activity instanceof AppCompatActivity)) return;
+        //MenuInflater inflater = ((AppCompatActivity)activity).getSupportMenuInflater();
+        MenuInflater inflater = activity.getMenuInflater();
         inflater.inflate(R.menu.videlibrimenu, menu);
         MenuItem loadingItem = menu.findItem(R.id.loading);
 
@@ -115,11 +118,12 @@ public class VideLibriSuperBase {
             Log.w("VideLibri", "failed to find loading item");
             return;
         }
-
+/*
         View refreshView;
-        LayoutInflater linflater = (LayoutInflater)sherlock.getActionBar().getThemedContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        LayoutInflater linflater = (LayoutInflater)activity.getActionBar().getThemedContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         refreshView = linflater.inflate(R.layout.actionbar_loading, null);;
-        loadingItem.setActionView(refreshView);
+        //loadingItem.setActionView(refreshView);
+        MenuItemCompat.setActionView(loadingItem, refreshView);todosherlock*/
     }
 
     static public void onPrepareOptionsMenu(Menu menu) {

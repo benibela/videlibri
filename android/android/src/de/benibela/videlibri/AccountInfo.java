@@ -11,7 +11,6 @@ import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.*;
-import com.actionbarsherlock.view.Menu;
 
 import java.util.*;
 import java.util.concurrent.RunnableFuture;

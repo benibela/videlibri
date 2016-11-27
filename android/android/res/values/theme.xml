@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <style name="Theme.VideLibri" parent="Theme.Sherlock">
+    <style name="Theme.VideLibri" parent="Theme.AppCompat">
 
     </style>
         <!-- Action bar styles (from Theme.Holo) -->

@@ -12,7 +12,9 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.TextView;
-import com.actionbarsherlock.view.Menu;
+import android.view.Menu;
+import android.view.MenuItem;
+
 
 import java.util.ArrayList;
 import java.util.Arrays;

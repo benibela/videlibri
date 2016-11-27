@@ -2,11 +2,11 @@ package de.benibela.videlibri;
 
 import android.content.Intent;
 import android.os.Bundle;
-import com.actionbarsherlock.app.SherlockFragmentActivity;
-import com.actionbarsherlock.view.Menu;
-import com.actionbarsherlock.view.MenuItem;
+import android.support.v7.app.AppCompatActivity;
+import android.view.Menu;
+import android.view.MenuItem;
 
-public class VideLibriBaseFragmentActivity extends SherlockFragmentActivity implements Bridge.VideLibriContext{
+public class VideLibriBaseFragmentActivity extends AppCompatActivity implements Bridge.VideLibriContext{
     boolean loading;
     MenuItem loadingItem;
 
@@ -43,7 +43,7 @@ public class VideLibriBaseFragmentActivity extends SherlockFragmentActivity impl
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        VideLibriSuperBase.onCreateOptionsMenu(getSherlock(), menu);
+        VideLibriSuperBase.onCreateOptionsMenu(this, menu);
         loadingItem = menu.findItem(R.id.loading);
         if (loadingItem != null) loadingItem.setVisible(loading);
         return super.onCreateOptionsMenu(menu);
