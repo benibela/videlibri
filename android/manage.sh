@@ -1,7 +1,8 @@
 #!/bin/bash
 
 #export JAVA_HOME=/usr/lib/jvm/java-6-sun-1.6.0.26/jre 
-export JAVA_HOME=/usr/lib/jvm/java-7-oracle/jre 
+#export JAVA_HOME=/usr/lib/jvm/java-7-oracle/jre 
+export JAVA_HOME=/usr/lib/jvm/java-8-oracle/jre 
 export SDK_HOME=/home/benito/opt/android-sdk-linux/platform-tools/
 FPC_DIRECTORY=/usr/local/lib/fpc/3.1.1
 FPC_ARM=$FPC_DIRECTORY/ppcrossarm
@@ -59,7 +60,7 @@ build-java)
   ant $BUILDMODE || (echo "FAILED!"; exit)
 
   $SDK_HOME/adb uninstall de.benibela.videlibri || (echo "FAILED!"; exit)
-  $SDK_HOME/adb install bin/videlibri-$BUILDMODE.apk || (echo "FAILED!"; exit)
+  $SDK_HOME/adb install build/outputs/apk/android-$BUILDMODE.apk || (echo "FAILED!"; exit)
 ;;
 
 install)
@@ -68,7 +69,7 @@ install)
 
   cd android
   $SDK_HOME/adb uninstall de.benibela.videlibri || (echo "FAILED!"; exit)
-  $SDK_HOME/adb install bin/videlibri-$BUILDMODE.apk || (echo "FAILED!"; exit)
+  $SDK_HOME/adb install build/outputs/apk/android-$BUILDMODE.apk || (echo "FAILED!"; exit)
   
 ;;
 
