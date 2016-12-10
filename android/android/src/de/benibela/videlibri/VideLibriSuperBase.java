@@ -54,7 +54,7 @@ public class VideLibriSuperBase {
     static public boolean onOptionsItemSelected(Activity context, MenuItem item) {
         return onOptionsItemIdSelected(context, item.getItemId());
     }
-    static public boolean onOptionsItemIdSelected(Activity context, int id) {
+    static public boolean onOptionsItemIdSelected(final Activity context, int id) {
         // Handle item selection
         Intent intent;
         switch (id) {
@@ -77,7 +77,16 @@ public class VideLibriSuperBase {
                 VideLibriApp.updateAccount(null, false, false);
                 return true;
             case R.id.renew:
-                VideLibriApp.updateAccount(null, false, true);
+                Util.showMessageYesNo(Util.tr(R.string.base_renewallconfirm), new MessageHandler() {
+                    @Override
+                    public void onDialogEnd(DialogInterface dialogInterface, int i) {
+                        if (i == DialogInterface.BUTTON_POSITIVE) {
+                            VideLibriApp.updateAccount(null, false, true);
+                            if (VideLibriApp.currentActivity instanceof RenewList)
+                                context.onBackPressed();
+                        }
+                    }
+                });
                 return true;
             case R.id.renewlist:
                 context.startActivity(new Intent(context, RenewList.class));
@@ -134,7 +143,7 @@ public class VideLibriSuperBase {
             Log.w("VideLibri", "failed to find loading item");
             return;
         }
-        MenuItemCompat.setActionView (loadingItem, R.layout.actionbar_loading);
+        MenuItemCompat.setActionView(loadingItem, R.layout.actionbar_loading);
     }
 
     static public void onPrepareOptionsMenu(Menu menu) {

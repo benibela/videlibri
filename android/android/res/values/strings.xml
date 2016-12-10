@@ -84,6 +84,7 @@
     </string>
     <string name="base_chooselibhomepage">Wählen Sie eine Bücherei um ihre Homepage zu öffnen:</string>
     <string name="base_chooselibcat">Wählen Sie eine Bücherei um ihren Webkatalog zu öffnen:</string>
+    <string name="base_renewallconfirm">Sollen alle Medien verlängert werden?</string>
     <string name="menu_renewlist">Manche verlängern</string>
     <string name="menu_renewall">Alle verlängern</string>
     <string name="menu_refreshall">Alle aktualisieren</string>
