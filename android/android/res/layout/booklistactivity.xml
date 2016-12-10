@@ -2,7 +2,13 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:layout_width="fill_parent"
               android:layout_height="fill_parent"
+              android:orientation="vertical">
+    <include layout="@layout/actionbar"/>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="fill_parent"
+              android:layout_height="fill_parent"
               android:orientation="horizontal" >
+
 
     <fragment
             android:id="@+id/list"
@@ -20,4 +26,5 @@
         <!-- Preview: layout=@layout/details -->
     </fragment>
 
-</LinearLayout> 
+</LinearLayout>
+</LinearLayout>

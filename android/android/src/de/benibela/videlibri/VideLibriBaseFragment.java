@@ -6,7 +6,7 @@ import android.widget.Button;
 
 import android.support.v4.app.Fragment;
 
-public class VideLibriBaseFragment extends Fragment {
+public class VideLibriBaseFragment extends android.support.v4.app.Fragment {
     boolean loading;
     void setLoading(boolean loading){
         this.loading = loading;

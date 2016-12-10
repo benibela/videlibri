@@ -2,6 +2,7 @@ package de.benibela.videlibri;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.LayoutRes;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -19,8 +20,13 @@ public class VideLibriBaseFragmentActivity extends AppCompatActivity implements 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getSupportActionBar().setHomeButtonEnabled(true);
         Bridge.initialize(this);
+    }
+
+    @Override
+    public void setContentView(@LayoutRes int layoutResID) {
+        super.setContentView(layoutResID);
+        VideLibriSuperBase.initActionBar(this);
     }
 
     @Override

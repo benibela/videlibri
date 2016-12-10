@@ -79,7 +79,7 @@ public class About extends VideLibriBaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);    //To change body of overridden methods use File | Settings | File Templates.
-        setContentView(R.layout.bookdetails);
+        setContentView(R.layout.bookdetails_withactionbar);
         ListView lv = (ListView) findViewById(R.id.bookdetailsview);
 
         details = new ArrayList<BookDetails.Details>();

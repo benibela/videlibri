@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
     <!--<item android:id="@+id/accounts"
           android:title="Ausleihen"
           android:icon="@android:drawable/ic_menu_view"
@@ -8,20 +8,40 @@
     <item android:id="@+id/search"
           android:title="Suche"
           android:icon="@android:drawable/ic_menu_search"
-          android:showAsAction="ifRoom"/>
-    <item android:id="@+id/renewlist" android:title="Verlängern" android:icon="@android:drawable/ic_menu_week"/>
-    <item android:id="@+id/options"
-          android:title="Einstellungen"
-          android:icon="@android:drawable/ic_menu_preferences"
-            />
-    <item android:id="@+id/others"
+          app:showAsAction="always"/>
+    />
+<!--    <item android:id="@+id/others"
           android:title="Sonstiges"
-          android:icon="@android:drawable/ic_menu_more"></item>
+          android:icon="@android:drawable/ic_menu_more"></item>-->
 
 
 
     <item android:id="@+id/loading"
-          android:title=""
+          android:title="lade"
           android:visible="false"
-          android:showAsAction="always"/>
+          app:showAsAction="always"/>
+
+
+    <item android:title="more"
+            android:id="@+id/mainMenu"
+            android:icon="@android:drawable/ic_menu_more"
+            app:showAsAction="always">
+        <menu>
+            <item android:id="@+id/options"
+                  android:title="Einstellungen"
+                  android:icon="@android:drawable/ic_menu_preferences"
+                  />
+
+    <item android:id="@+id/refresh" android:title="@string/menu_refreshall" android:icon="@android:drawable/ic_menu_rotate"/>
+    <item android:id="@+id/renewlist" android:title="@string/menu_renewlist" android:icon="@android:drawable/ic_menu_week"/>
+    <item android:id="@+id/renew" android:title="@string/menu_renewall" android:icon="@android:drawable/ic_menu_month"/>
+    <item android:id="@+id/import_" android:title="@string/menu_import" android:icon="@android:drawable/ic_menu_add"/>
+    <item android:id="@+id/export" android:title="@string/menu_export" android:icon="@android:drawable/ic_menu_save"/>
+    <item android:id="@+id/libinfo" android:title="@string/menu_homepages" android:icon="@android:drawable/ic_menu_info_details"/>
+    <item android:id="@+id/libcatalogue" android:title="@string/menu_cats" android:icon="@android:drawable/ic_menu_info_details"/>
+    <item android:id="@+id/feedback" android:title="@string/menu_feedback" android:icon="@android:drawable/ic_menu_send"/>
+    <item android:id="@+id/debuglog" android:title="@string/menu_debuglog" android:icon="@android:drawable/ic_menu_recent_history"/>
+    <item android:id="@+id/about" android:title="@string/menu_about" android:icon="@android:drawable/ic_menu_help"/>
+
+            </menu></item>
 </menu>

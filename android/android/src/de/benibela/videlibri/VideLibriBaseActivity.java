@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
+import android.support.annotation.LayoutRes;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -22,8 +23,13 @@ public class VideLibriBaseActivity extends AppCompatActivity implements Bridge.V
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);    //To change body of overridden methods use File | Settings | File Templates.
-        getSupportActionBar().setHomeButtonEnabled(true);
         Bridge.initialize(this);
+    }
+
+    @Override
+    public void setContentView(@LayoutRes int layoutResID) {
+        super.setContentView(layoutResID);
+        VideLibriSuperBase.initActionBar(this);
     }
 
     @Override
