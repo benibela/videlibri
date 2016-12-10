@@ -146,16 +146,19 @@ public class VideLibriSuperBase {
         MenuItemCompat.setActionView(loadingItem, R.layout.actionbar_loading);
     }
 
+    static private void setMenuItemVisibility(Menu menu, int id, boolean show) {
+        MenuItem item = menu.findItem(id);
+        if (item == null) return;
+        item.setVisible(show);
+    }
+
     static public void onPrepareOptionsMenu(Menu menu) {
         if (VideLibriApp.instance != null) {
-          //  menu.findItem(R.id.accounts).setEnabled(VideLibriApp.accounts.length > 0);
-            /*
-            menu.findItem(R.id.refresh).setEnabled(!VideLibriApp.runningUpdates empty);
-
-            menu.findItem(R.id.refresh).setEnabled(VideLibriApp.accounts.length > 0);
-            menu.findItem(R.id.renew).setEnabled(VideLibriApp.accounts.length > 0);
-            menu.findItem(R.id.renewlist).setEnabled(VideLibriApp.accounts.length > 0);   */
-            //menu.findItem(R.id.options).setEnabled(VideLibriApp.accounts.length > 0);
+            boolean hasAccounts = VideLibriApp.accounts.length > 0;
+            setMenuItemVisibility(menu, R.id.renew, hasAccounts);
+            setMenuItemVisibility(menu, R.id.renewlist, hasAccounts);
+            setMenuItemVisibility(menu, R.id.refresh, VideLibriApp.runningUpdates.isEmpty() && hasAccounts);
+            setMenuItemVisibility(menu, R.id.export, hasAccounts);
         }
     }
 
