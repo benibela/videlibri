@@ -54,11 +54,16 @@ build)
 ;;
 
 build-java)
-  cd android
   BUILDMODE="$2"
   if [[ -z "$BUILDMODE" ]]; then BUILDMODE=debug; fi
-  ant $BUILDMODE || (echo "FAILED!"; exit)
-
+  case "$BUILDMODE" in
+  debug) GRADLEMODE=assembleDebug;;
+  release) ???;;
+  esac
+  
+  ./gradlew $GRADLEMODE || (echo "FAILED!"; exit)
+  
+  cd android
   $SDK_HOME/adb uninstall de.benibela.videlibri || (echo "FAILED!"; exit)
   $SDK_HOME/adb install build/outputs/apk/android-$BUILDMODE.apk || (echo "FAILED!"; exit)
 ;;
@@ -76,13 +81,11 @@ install)
 clean)
   rm android/libs/armeabi/liblclapp.so; 
   rm android/libs/x86/liblclapp.so; 
-  cd android
-  ant clean
+  ./gradlew clean
 ;;
 
 clean-java)
-  cd android
-  ant clean
+  ./gradlew clean
 ;;
 
 brokenServers)
