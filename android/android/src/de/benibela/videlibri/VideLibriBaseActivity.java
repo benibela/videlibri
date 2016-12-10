@@ -44,6 +44,7 @@ public class VideLibriBaseActivity extends AppCompatActivity implements Bridge.V
     public boolean onCreateOptionsMenu(Menu menu) {
         VideLibriSuperBase.onCreateOptionsMenu(this, menu);
         loadingItem = menu.findItem(R.id.loading);
+        //if (loadingItem != null) loadingItem.setVisible(loading);
         return super.onCreateOptionsMenu(menu);
     }
 
