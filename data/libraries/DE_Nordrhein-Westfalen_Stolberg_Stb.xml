@@ -5,7 +5,7 @@
   <template value="libero5"/>
   <variable name="baseurl" value="http://webopac.stolberg.de/libero/"/>
 
-  <homepage value="http://www.stolberg.de/city_info/webaccessibility/index.cfm?waid=599&amp;item_id=0&amp;region_id=75&amp;design_id=1384&amp;modul_id=13&amp;record_id=3064&amp;fsize=1&amp;contrast=0&amp;search=b%C3%BCcherei"/>
+  <homepage value="http://www.stolberg.de/city_info/webaccessibility/index.cfm?item_id=867158&waid=699"/>
   <testing-search value="ja" date="2013-07-05"/>
   <testing-account value="?" date=""/>
   <testing-renew value="?" date=""/>
