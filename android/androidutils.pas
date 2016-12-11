@@ -1178,6 +1178,10 @@ procedure TLibrarySearcherAccessWrapper.OnConnectedImpl(sender: TObject);
 var args: array[0..1] of jvalue;
 begin
   needJ;
+  if searcher = nil then begin
+    if logging then log('No searcher');
+    exit;
+  end;
   args[0].l := j.arrayToJArray(searcher.HomeBranches) ;
   args[1].l := j.arrayToJArray(searcher.SearchBranches);
   j.callVoidMethod(jsearcher, searcherOnConnected, @args);
@@ -1192,6 +1196,11 @@ var
   temp: jobject;
 begin
   needJ;
+  if searcher = nil then begin
+    if logging then log('No searcher');
+    exit;
+  end;
+
   j.SetIntField(jsearcher, searcherFields.totalResultCountI, searcher.SearchResultCount);
   j.SetBooleanField(jsearcher, searcherFields.nextPageAvailableZ, nextPageAvailable);
   books := j.newObjectArray(searcher.SearchResult.Count, bookClass, nil);
@@ -1355,6 +1364,10 @@ begin
       searcherAccess := unwrapSearcher(searcher);
 
       searcherAccess.prepareNewSearchWithoutDisconnect;
+      if searcherAccess.searcher = nil then begin
+        if logging then log('No searcher');
+        exit;
+      end;
 
       searcherAccess.searcher.SearchOptions.author:= j.getStringField(query, authorS);
       searcherAccess.searcher.SearchOptions.title:= j.getStringField(query, titleS);

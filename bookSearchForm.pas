@@ -262,6 +262,8 @@ begin
 
   searcherAccess.prepareNewSearchWithoutDisconnect;
 
+  if searcherAccess.searcher = nil then exit;
+
   //thread pending now, no need to use any locking
 
   if homeBranch.ItemIndex >= 0 then searcherAccess.searcher.HomeBranch:=homeBranch.ItemIndex;
@@ -450,6 +452,7 @@ procedure TbookSearchFrm.searcherAccessConnected(Sender: TObject);
 
 begin
   if sender <> newSearcherAccess then exit;
+  if newSearcherAccess.searcher = nil then exit;
   newSearcherAccess.beginResultReading;
   try
     update(homeBranch, newSearcherAccess.searcher.HomeBranches, homeBranchLabel);
@@ -709,6 +712,7 @@ end;
 procedure TbookSearchFrm.searcherAccessSearchComplete(sender: TObject; firstPage, nextPageAvailable: boolean);
 begin
   if sender <> searcherAccess then exit;
+  if searcherAccess.searcher = nil then exit;
 
   bookList.BeginUpdate;
   if firstPage then bookList.Clear;

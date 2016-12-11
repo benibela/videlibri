@@ -252,6 +252,7 @@ end;
 
 function TLibrarySearcherAccess.operationActive: boolean;
 begin
+  ReadWriteBarrier;
   result:=assigned(fthread) and (fthread.messages.existsMessage or fthread.performingAction);
 end;
 
@@ -273,6 +274,7 @@ begin
     if assigned(fthread) then fthread.messages.storeMessage(TSearcherMessage.Create(smtFree));
     ftemplate := template;
     fthread:=TSearcherThread.Create(ftemplate,self);
+    while fthread.Searcher = nil do begin sleep(25); ReadWriteBarrier; end; //wait for thread start
   end;
 end;
 
@@ -459,6 +461,8 @@ var mes: TSearcherMessage;
     oldUrl: String;
     images: TStringArray;
 begin
+  Searcher:=TLibrarySearcher.create(access.ftemplate);
+  Searcher.bookListReader.bookAccessSection:=@fbookAccessSection;
   while true do begin
     try
       performingAction:=false;
@@ -595,13 +599,12 @@ begin
     end;
   end;
   performingAction:=false;
+  FreeAndNil(Searcher);
 end;
 
 constructor TSearcherThread.create(template: TMultiPageTemplate; aaccess: TLibrarySearcherAccess);
 begin
   InitCriticalSection(fbookAccessSection);
-  Searcher:=TLibrarySearcher.create(template);
-  Searcher.bookListReader.bookAccessSection:=@fbookAccessSection;
   self.access:=aaccess;
   messages:=TMessageSystem.create;
   changedBook:=nil;
@@ -611,13 +614,19 @@ end;
 
 destructor TSearcherThread.destroy;
 begin
-  FreeAndNil(Searcher);
-  while messages.existsMessage do messages.retrieveLatestMessageOrNil.free;
-  messages.free;
-  DoneCriticalsection(fbookAccessSection);
-  {$ifdef android}
-  jvmref^^.DetachCurrentThread(jvmref);
-  {$endif}
+  if logging then log('TSearcherThread.destroy started');
+  try
+    while messages.existsMessage do messages.retrieveLatestMessageOrNil.free;
+    messages.free;
+    DoneCriticalsection(fbookAccessSection);
+    {$ifdef android}
+    jvmref^^.DetachCurrentThread(jvmref);
+    {$endif}
+  except
+    on e: Exception do
+      if logging then log('exception: ' + e.Message);
+  end;
+  if logging then log('TSearcherThread.destroy ended');
   inherited destroy;
 end;
 
