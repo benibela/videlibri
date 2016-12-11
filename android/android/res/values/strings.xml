@@ -13,8 +13,8 @@
     <string name="account_delete">Soll das Konto wirklich gelöscht werden?</string>
     <string name="change">ändern</string>
     <string name="error_nolibselected">Keine Bibliothek ausgewählt</string>
-    <string name="warning_alphalib">Hinweis: Bei dieser Bibliothek wurde nur die Suche ohne Kontozugriff getestet. Bitte
-        berichten Sie, ob das Konto gleich angezeigt wird oder nicht.
+    <string name="warning_alphalib">Hinweis: Bei dieser Bibliothek wurde nur die Suche ohne Kontozugriff getestet, da die Bibliothek kein Testkonto bereitgestellt hat.
+        Bitte geben Sie Feedback, ob das Konto gleich angezeigt wird oder nicht.
     </string>
     <string name="account_createinitial">Wählen Sie Ihre Bibliothek, um in ihrem Katalog zu suchen oder auf Ihr
         Bibliothekskonto zuzugreifen:
