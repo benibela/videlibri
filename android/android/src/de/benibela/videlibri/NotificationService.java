@@ -153,6 +153,6 @@ public class NotificationService extends Service implements Bridge.VideLibriCont
 
     @Override
     public String userPath() {
-        return VideLibriSuperBase.userPath(this);
+        return VideLibriApp.userPath(this);
     }
 }

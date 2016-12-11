@@ -23,7 +23,7 @@
 
 
     <item android:title="more"
-            android:id="@+id/mainMenu"
+            android:id="@+id/more"
             android:icon="@drawable/ic_menu_moreoverflow_normal_holo_dark"
             app:showAsAction="always">
         <menu>

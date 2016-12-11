@@ -2,6 +2,7 @@ package de.benibela.videlibri;
 
 import android.app.Activity;
 import android.app.Application;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -257,9 +258,13 @@ public class VideLibriApp extends Application implements Bridge.VideLibriContext
         } else VideLibriApp.errors.addAll(Arrays.asList(exceptions));
     }
 
+    public static String userPath(Context context) {
+        return context.getFilesDir().getAbsolutePath();
+    }
+
     @Override
     public String userPath() {
-        return VideLibriSuperBase.userPath(this);
+        return userPath(this);
     }
 
     public static void displayAccount(Bridge.Account account) {
