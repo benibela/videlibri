@@ -67,7 +67,7 @@
               {
                 let $props := .//div[contains(@class, "rList_")]
                 return (
-                  lastIndex := xs:integer($props[contains(@class, "rList_num")]),
+                  lastIndex := xs:integer($props[contains(@class, "rList_num") or contains(@class, "r_list_name" (:ulm only:) )][matches(., "^[0-9]+\s*$")][1] ),
                   if ($lastIndex > $lastSearchedIndex) then (
                     lastSearchedIndex := $lastIndex,
                     let $title := $props[contains(@class, "rList_titel")][1],

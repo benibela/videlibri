@@ -1,0 +1,435 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="de" lang="de">
+<!-- solution for: conditional-comments block downloads  -->
+<!--[if IE]><![endif]--><head>
+	<style type="text/css">
+		@import url(css/aDISStandard.css);
+	</style>
+	<script src="js/aDISMain.min.js" type="text/javascript"></script>
+	<script src="js/fckeditor/fckeditor.js" type="text/javascript"></script>
+	<title> Bibliothekskatalog der Universit&#228;t Ulm </title> <title>Ulm Universit&#228;tsbibliothek</title>
+
+  <!--
+  (c) Software: aDIS/BMS und aDIS/Archiv by |a|S|tec| GmbH Berlin und Muenchen - www.astec.de
+  HTML-/CSS-Anpassungen: ena Webstudio - www.ena-webstudio.com
+  HTML-/CSS-Framework basiert grob auf Contao (c) Leo Feyer www.contao.org
+  Formulare, Tabellen, etc. werden automatisch durch aDIS generiert
+  Projekt: Ulm, Deutsch - OPAC02
+  Letztes Update: 30.07.2016
+  //-->
+  
+  <meta http-equiv="x-ua-compatible" content="ie=edge" />
+  <meta http-equiv="cache-control" content="no-cache" />
+  <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+  <meta http-equiv="content-style-type" content="text/css" />
+  <meta http-equiv="content-script-type" content="text/javascript" />
+  <meta http-equiv="content-language" content="de" />
+  <meta name="language" content="de" />
+  <meta name="description" content="Online-Universit&#228;tsbibliothek der Uni Ulm" />
+  
+  <link rel="shortcut icon" type="image/x-icon" href="/aDISWeb_ulm/images/favicon.ico" />
+  <link rel="stylesheet" href="/aDISWeb_kopac/css/kopac_style.css" type="text/css" />
+  <link rel="stylesheet" type="text/css" href="/aDISWeb_ulm/css/kopac_diff.css" />
+</head>
+<body class="dreier">
+<script type="text/javascript"><!--
+
+
+
+
+function startIdleTimer() {
+  if (typeof idleId != 'undefined')
+    clearTimeout(idleId)
+  idleId = window.setTimeout("to('"+ idleLink + "')", idleTime);
+  }			
+function to(link) {
+  location.href=link;
+  }
+
+
+
+
+
+function EventTarget() {
+	this.handlers = [];
+	}
+EventTarget.prototype = {
+	constructor : EventTarget,
+	addhandler: function (type, handler) {
+		if (typeof this.handlers[type] == "undefined")
+			this.handlers[type] = [];
+		this.handlers[type].push(handler);
+		},
+	fire : function (event) {
+		if (this.handlers[event.type] instanceof Array) {
+			var handlers = this.handlers[event.type];
+			for (var i = 0; i < handlers.length; i++)
+				handlers[i](event);
+			}
+		}
+	};
+var eventHandler = new EventTarget();
+
+function setupHandlers()  {
+	document.onmousedown = docOnEvent;		
+	document.onkeydown = docOnEvent;	
+	document.onkeypress = docOnEvent;
+	document.onhelp = cancelF1;
+	
+	initFormElements();
+	initIframes();
+	initScrollPos();
+	}
+function getDimensions()  {
+	document.forms[0].scrDim.value = screen.width + ";" + screen.height;
+	if (window.innerWidth)
+		document.forms[0].winDim.value = window.innerWidth + ";" + window.innerHeight;
+	else
+		document.forms[0].winDim.value = document.body.offsetWidth + ";" + document.body.offsetHeight;
+	node = document.getElementById("img_content");
+	if (node != undefined)
+		document.forms[0].imgDim.value = node.offsetWidth + ";" + node.offsetHeight;
+	}
+
+
+
+
+
+	window.onpopstate = function (e) {
+	  if(e.state != null && e.state.action){
+	  var button = document.getElementById("Toolbar_0");
+      	if(button) button.click();
+      }
+    }
+    if(history.pushState && history.state == null){
+		history.pushState({ action : 1 }, "", null);
+		history.pushState({ action : 2 }, "", null);
+	}
+
+
+
+
+
+aDISAjax.URL = "/aDISWeb/app;jsessionid=6245679E1C0DCD7A495B9C5F41F50B8A?service=aDISAjax/POOLM00Qulmprod@_44003100_32939B80/$AjaxScript";
+
+
+ 
+RButton.add("lrb_0_11","AK00221365","lcont_0","BM3600","");
+ 
+RButton.add("lrb_1_11","AK00024953","lcont_1","BM3600","");
+ 
+RButton.add("lrb_2_11","AK00282776","lcont_2","BM3600","");
+ 
+RButton.add("lrb_3_11","AK00343094","lcont_3","BM3600","");
+ 
+RButton.add("lrb_4_11","AK00371096","lcont_4","BM3600","");
+ 
+RButton.add("lrb_5_11","AK00149228","lcont_5","BM3600","");
+ 
+RButton.add("lrb_6_11","AK00311394","lcont_6","BM3600","");
+ 
+RButton.add("lrb_7_11","AK00251106","lcont_7","BM3600","");
+ 
+RButton.add("lrb_8_11","AK00251102","lcont_8","BM3600","");
+ 
+RButton.add("lrb_9_11","AK00411267","lcont_9","BM3600","");
+ 
+RButton.add("lrb_10_11","AK00190080","lcont_10","BM3600","");
+ 
+RButton.add("lrb_11_11","AK00461437","lcont_11","BM3600","");
+ 
+RButton.add("lrb_12_11","AK00406991","lcont_12","BM3600","");
+ 
+RButton.add("lrb_13_11","AK00399818","lcont_13","BM3600","");
+ 
+RButton.add("lrb_14_11","AK00030774","lcont_14","BM3600","");
+ 
+RButton.add("lrb_15_11","AK00441914","lcont_15","BM3600","");
+
+
+
+
+aDIS.onLoad = function (e)
+{
+
+  idleTime=360000000;
+  idleLink="/aDISWeb/app;jsessionid=6245679E1C0DCD7A495B9C5F41F50B8A?service=direct/1/POOLM00Qulmprod@_44003100_32939B80/$Timeout";
+  startIdleTimer();
+
+
+if (!e) var e = window.event;
+document.forms[0].scriptEnabled.value=true;
+if (self.specialOnLoad != undefined)
+	specialOnLoad(e);
+setupHandlers();
+getDimensions();
+
+
+
+}
+
+aDIS.addListener('load', window, aDIS.onLoad);
+
+
+// --></script>
+<div class="aDISMaske"><form method="post" name="Form0" action="/aDISWeb/app;jsessionid=6245679E1C0DCD7A495B9C5F41F50B8A" onsubmit="return formOnSubmit();">
+<input type="hidden" name="service" value="direct/1/POOLM00Qulmprod@_44003100_32939B80/$Form.form"/>
+<input type="hidden" name="sp" value="S0"/>
+<input type="hidden" name="Form0" value="focus,keyCode,stz,source,selected,requestCount,scriptEnabled,scrollPos,scrDim,winDim,imgDim,$Textfield,$FormConditional,textButton,$FormConditional$0,textButton$0,$FormConditional$1,textButton$1,$FormConditional$2,textButton$2,$FormConditional$3,textButton$3,$FormConditional$4,textButton$4,textButton$5,textButton$6,textButton$7,textButton$8,textButton$9,textButton$10,$FormConditional$5,textButton$11,$Toolbar,cellCheck,cellCheck$0,cellCheck$1,cellCheck$2,cellCheck$3,cellCheck$4,cellCheck$5,cellCheck$6,cellCheck$7,cellCheck$8,cellCheck$9,cellCheck$10,cellCheck$11,cellCheck$12,cellCheck$13,cellCheck$14,$Toolbar$0"/>
+<input type="hidden" name="focus" value=""/>
+<input type="hidden" name="keyCode" value="0"/>
+<input type="hidden" name="stz" value=""/>
+<input type="hidden" name="source" value=""/>
+<input type="hidden" name="selected" value=""/>
+<input type="hidden" name="requestCount" value="2"/>
+<input type="hidden" name="scriptEnabled" value="T"/>
+<input type="hidden" name="scrollPos" value="0"/>
+<input type="hidden" name="scrDim" value=""/>
+<input type="hidden" name="winDim" value=""/>
+<input type="hidden" name="imgDim" value=""/>
+<input type="hidden" name="$FormConditional" value="T"/>
+<input type="hidden" name="$FormConditional$0" value="T"/>
+<input type="hidden" name="$FormConditional$1" value="T"/>
+<input type="hidden" name="$FormConditional$2" value="T"/>
+<input type="hidden" name="$FormConditional$3" value="T"/>
+<input type="hidden" name="$FormConditional$4" value="F"/>
+<input type="hidden" name="$FormConditional$5" value="T"/>
+				
+<div id="wrapper">
+  <div id="wrapper_inside">
+  
+    <div id="header" role="banner">
+      <div class="inside">     
+      
+          <ul id="sprunglinks">
+            <li><a class="sprung" href="#main">Zum Hauptinhalt</a></li>
+            <li><a class="sprung" href="#left">Zur Navigation</a></li>
+            <li><a class="sprung" href="#right">Zu weiteren Bedienelementen</a></li>
+          </ul>
+                            
+          <p id="logo"><a href="/aDISWeb/app;jsessionid=6245679E1C0DCD7A495B9C5F41F50B8A?service=direct/1/POOLM00Qulmprod@_44003100_32939B80/$InternalLink.directlink&amp;sp=S%24%24GFNV_1&amp;sp=SStartseite%3DCW00&amp;requestCount=2" title="Zur OPAC-Startseite" fld="$$GFNV_1"><img src="/aDISWeb_ulm/images/logo.gif" width="180" height="105" alt="Logo der Universit&#228;tsbibliothek Ulm" /></a>	<span class="outside">.</span></p>
+
+      </div>
+    </div>
+  
+    <div id="container">
+      <div id="container_inside">
+
+        <div id="left">
+          <div class="inside">
+
+            <div id="settings">
+              <p>
+                
+              </p>
+            </div>
+
+            <h2 class="invisible">Navigation</h2>
+   
+            <div id="navbox" class="block">
+            <div id="R20"><span class="bnzeig"></span><span class="mmzeig">Sie sind nicht angemeldet.</span> </div> 
+            </div>
+
+            <div class="mod_navigation block" id="unav" role="navigation"><div class="tree_div">
+<ul class="tree_ul">
+<li class="tree_leaf_li">
+<a href="/aDISWeb/app;jsessionid=6245679E1C0DCD7A495B9C5F41F50B8A?service=direct/1/POOLM00Qulmprod@_44003100_32939B80/$Tree.treeNodes&amp;sp=SL1&amp;requestCount=2" class="tree_leaf_a"><span>Anmelden</span></a><span class="outside">.</span></li>
+<li class="tree_leaf_li">
+<span class="tree_disabled">Abmelden</span>
+<span class="outside">.</span></li>
+<li class="tree_leaf_li">
+<a href="/aDISWeb/app;jsessionid=6245679E1C0DCD7A495B9C5F41F50B8A?service=direct/1/POOLM00Qulmprod@_44003100_32939B80/$Tree.treeNodes&amp;sp=SBK&amp;requestCount=2" class="tree_leaf_a"><span>Mein Konto</span></a><span class="outside">.</span></li>
+<li class="tree_branch_li_exp">
+<a href="/aDISWeb/app;jsessionid=6245679E1C0DCD7A495B9C5F41F50B8A?service=direct/1/POOLM00Qulmprod@_44003100_32939B80/$Tree.treeNodes&amp;sp=SBD&amp;requestCount=2" class="tree_branch_a"><span>Online-Katalog</span></a><div class="tree_divsub">
+<ul class="tree_ulsub">
+<li class="tree_leaf_li">
+<a href="/aDISWeb/app;jsessionid=6245679E1C0DCD7A495B9C5F41F50B8A?service=direct/1/POOLM00Qulmprod@_44003100_32939B80/$Tree.treeNodes&amp;sp=SS1&amp;requestCount=2" class="tree_leaf_a"><span>Einfache Suche</span></a><span class="outside">.</span></li>
+<li class="tree_leaf_li_sel">
+<strong><span class="tree_strong">Erweiterte Suche</span></strong></li>
+<li class="tree_leaf_li">
+<a href="/aDISWeb/app;jsessionid=6245679E1C0DCD7A495B9C5F41F50B8A?service=direct/1/POOLM00Qulmprod@_44003100_32939B80/$Tree.treeNodes&amp;sp=SAP&amp;requestCount=2" class="tree_leaf_a"><span>Meine Suchen</span></a><span class="outside">.</span></li>
+<li class="tree_leaf_li">
+<a href="/aDISWeb/app;jsessionid=6245679E1C0DCD7A495B9C5F41F50B8A?service=direct/1/POOLM00Qulmprod@_44003100_32939B80/$Tree.treeNodes&amp;sp=SS5&amp;requestCount=2" class="tree_leaf_a"><span>Meine Notizen</span></a><span class="outside">.</span></li>
+</ul></div>
+</li>
+<li class="tree_leaf_li">
+<a href="/aDISWeb/app;jsessionid=6245679E1C0DCD7A495B9C5F41F50B8A?service=direct/1/POOLM00Qulmprod@_44003100_32939B80/$Tree.treeNodes&amp;sp=SSY&amp;requestCount=2" class="tree_leaf_a"><span>Aufstellungssystematik</span></a><span class="outside">.</span></li>
+<li class="tree_leaf_li">
+<a href="http://search.ebscohost.com/login.aspx?authtype=ip,shib&amp;custid=s1175959&amp;groupid=main&amp;profile=eds" class="tree_leaf_a"><span>Globale Ressourcen</span></a><span class="outside">.</span></li>
+<li class="tree_branch_li">
+<a href="/aDISWeb/app;jsessionid=6245679E1C0DCD7A495B9C5F41F50B8A?service=direct/1/POOLM00Qulmprod@_44003100_32939B80/$Tree.treeNodes&amp;sp=SF1&amp;requestCount=2" class="tree_branch_a"><span>Fernleihe</span></a><span class="outside">.</span></li>
+<li class="tree_leaf_li">
+<a href="/aDISWeb/app;jsessionid=6245679E1C0DCD7A495B9C5F41F50B8A?service=direct/1/POOLM00Qulmprod@_44003100_32939B80/$Tree.treeNodes&amp;sp=SW1&amp;requestCount=2" class="tree_leaf_a"><span>Semesterapparate</span></a><span class="outside">.</span></li>
+<li class="tree_leaf_li">
+<a href="/aDISWeb/app;jsessionid=6245679E1C0DCD7A495B9C5F41F50B8A?service=direct/1/POOLM00Qulmprod@_44003100_32939B80/$Tree.treeNodes&amp;sp=SW2&amp;requestCount=2" class="tree_leaf_a"><span>Neuerwerbungsliste</span></a><span class="outside">.</span></li>
+<li class="tree_leaf_li">
+<a href="http://www.uni-ulm.de/index.php?id=2726" class="tree_leaf_a"><span>Kaufwunsch</span></a><span class="outside">.</span></li>
+</ul></div>
+ </div>
+             
+          </div>
+        </div>
+
+        <div id="right">
+          <div class="inside">
+
+            <h2 class="invisible">Weitere Bedienelemente</h2>
+            <p class="sprung"><a href="#main">Zum Hauptinhalt</a></p>
+
+              <div class="fsgrp">
+                <div id="R06">
+      <p><span style="   width:80%;">Gesucht wurde mit: "= (unsinn)", Treffer:  1-16 von 16</span> </p>
+    </div><div id="R14">
+      <div class="treffer_anzeigen">
+        <fieldset>
+        <legend>Treffer-Direktwahl</legend>
+        <label for="SLSTRZ_1">Treffer-Nr.</label><input type="text" name="$Textfield" fld="SLSTRZ_1" onkeypress="checkNumeric(event,this);" id="SLSTRZ_1" maxlength="10" class="text"/> <input class="buttong"  type="submit" name="Submit" value="OK" /> 
+        <div class="clear"></div>
+        <br class="klar"/></fieldset>
+      </div>
+    </div><div id="R05">
+      <h2>Sortierung &#228;ndern:</h2>
+     <p><input type="submit" name="textButton" value="Titel" class="buttong" fld="$$GFBO_1"/><input type="submit" name="textButton$0" value="Verfasser" class="buttong" fld="$$GFBO_2"/><input type="submit" name="textButton$1" value="Jahr abw&#228;rts" class="buttong" fld="$$GFBO_3"/><input type="submit" name="textButton$2" value="Jahr aufw&#228;rts" class="buttong" fld="$$GFBO_4"/> </p>
+
+      <h2>Weitere Aktionen:</h2>
+       <p><input type="submit" name="textButton$3" value="Meine Suche speichern" class="buttong" fld="$$GFBO_6"/> </p>
+
+    </div><div id="R12">
+    <div id="OPACLI" style="   width:69%;" class="aDISListe"> </div>
+  </div>
+                
+                
+                
+                
+              </div>
+              
+              <div class="block">
+                <div id="R08">
+      <h3>Treffer einschr&#228;nken nach:</h3>     
+    </div><div class="cbtree_div">
+<ul class="cbtree_ul">
+<li class="cbtree_branch_li">
+<input type="submit" name="SELT_tree_2_0" value="Erscheinungsjahr" class="cbtree_branch_a"/><span class="outside">.</span></li>
+<li class="cbtree_branch_li">
+<input type="submit" name="SELT_tree_2_1" value="Schlagwort" class="cbtree_branch_a"/><span class="outside">.</span></li>
+<li class="cbtree_branch_li">
+<input type="submit" name="SELT_tree_2_2" value="Sprache" class="cbtree_branch_a"/><span class="outside">.</span></li>
+<li class="cbtree_branch_li">
+<input type="submit" name="SELT_tree_2_3" value="Medientyp" class="cbtree_branch_a"/><span class="outside">.</span></li>
+<li class="cbtree_branch_li">
+<input type="submit" name="SELT_tree_2_4" value="Standort" class="cbtree_branch_a"/><span class="outside">.</span></li>
+</ul></div>
+ <div id="R09"> </div>
+                
+                
+              </div> 
+
+              <div class="fsgrp">
+                 <div id="R11">
+      <div class="aktion custom">
+        <h2>Export nach:</h2><p class="buttong"><input type="submit" name="textButton$4" value="BibTeX" class="buttong"/><input type="submit" name="textButton$5" value="Citavi" class="buttong"/><input type="submit" name="textButton$6" value="EndNote" class="buttong"/><input type="submit" name="textButton$7" value="ProCite" class="buttong"/><input type="submit" name="textButton$8" value="RefWorks" class="buttong"/><input type="submit" name="textButton$9" value="Reference Manager" class="buttong"/><input type="submit" name="textButton$10" value="Zotero" class="buttong"/></p> </div>
+  </div>
+                 
+                 
+                 
+              </div>
+              
+          </div>
+        </div>
+  
+        <div id="main" role="main">
+          <div class="inside">
+          
+            <div class="block">
+       
+               
+              <h1><span class="invisible">Aktuelle Seite:</span> <span class="txtinsert">Trefferliste sortiert nach Jahr abw&#228;rts</span> </h1>     
+
+      
+              <div class="block" id="topleiste">  
+                <p id="druckversion"><input type="submit" name="textButton$11" value="Druckversion" fld="$$GFBO_88"/> </p>   
+                
+                <p id="breadcrumb"><span class="invisible">Pfad: </span> <a href="http://www.uni-ulm.de/einrichtungen/kiz/bibliothek.html">Bibliothek</a>  &gt; <a href="/aDISWeb/app;jsessionid=6245679E1C0DCD7A495B9C5F41F50B8A?service=direct/1/POOLM00Qulmprod@_44003100_32939B80/$InternalLink$0.directlink&amp;sp=S%24%24GFNV_1&amp;sp=SStartseite%3DCW00&amp;requestCount=2" title="" fld="$$GFNV_1">Onlinekatalog</a>	<span class="outside">.</span> &gt; <span class="navicl"><a href="/aDISWeb/app;jsessionid=6245679E1C0DCD7A495B9C5F41F50B8A?service=direct/1/POOLM00Qulmprod@_44003100_32939B80/navpath.intlink.directlink&amp;sp=S%24%24GFNV_1&amp;sp=SS6AK&amp;requestCount=2" title="Erweiterte Suche" class="navicl" fld="$$GFNV_1">Erweiterte Suche</a>	<span class="outside">.</span></span> &gt;<span class="txtinsert">Trefferliste sortiert nach Jahr abw&#228;rts</span> </p>
+              </div> <div class="toolbar_div">
+<ul class="toolbar_ul">
+<li class="toolbar_li">
+<input type="image" src="/aDISWeb/images/POOLM00Qulmprod@/gif/POOLM00Qulmprod@_53010E00_31758600.gif;jsessionid=6245679E1C0DCD7A495B9C5F41F50B8A" alt="Zur&#252;ck zur Suche" id="Toolbar_0" name="$Toolbar_0" title="Zur&#252;ck zur Suche" onmouseover="self.status='Zur&#252;ck zur Suche';return true;" onmouseout="self.status='';" class="toolbar_img"/><label for="Toolbar_0"><span class="toolbar_txt">Zur&#252;ck</span></label></li>
+<li class="toolbar_li">
+<input type="image" src="/aDISWeb/images/POOLM00Qulmprod@/gif/POOLM00Qulmprod@_53002800_31169A00.gif;jsessionid=6245679E1C0DCD7A495B9C5F41F50B8A" alt="Zur Vollanzeige des Treffers" id="Toolbar_1" name="$Toolbar_1" title="Zur Vollanzeige des Treffers" onmouseover="self.status='Zur Vollanzeige des Treffers';return true;" onmouseout="self.status='';" class="toolbar_img"/><label for="Toolbar_1"><span class="toolbar_txt">Vollanzeige</span></label></li>
+<li class="toolbar_li">
+<input type="image" src="/aDISWeb/images/POOLM00Qulmprod@/gif/POOLM00Qulmprod@_53011E00_31169A00.gif;jsessionid=6245679E1C0DCD7A495B9C5F41F50B8A" alt="Zur&#252;ck zur Suche" id="Toolbar_2" name="$Toolbar_2" title="Zur&#252;ck zur Suche" onmouseover="self.status='Zur&#252;ck zur Suche';return true;" onmouseout="self.status='';" class="toolbar_img"/><label for="Toolbar_2"><span class="toolbar_txt">Neue Suche</span></label></li>
+<li class="toolbar_li">
+<input type="image" src="/aDISWeb/images/POOLM00Qulmprod@/gif/POOLM00Qulmprod@_53005801_31169A00.gif;jsessionid=6245679E1C0DCD7A495B9C5F41F50B8A" alt="An den Anfang bl&#228;ttern" id="Toolbar_3" name="$Toolbar_3" disabled="disabled" title="An den Anfang bl&#228;ttern" onmouseover="self.status='An den Anfang bl&#228;ttern';return true;" onmouseout="self.status='';" class="toolbar_img_dis"/><label for="Toolbar_3"><span class="toolbar_txt_dis">Anfang</span></label></li>
+<li class="toolbar_li">
+<input type="image" src="/aDISWeb/images/POOLM00Qulmprod@/gif/POOLM00Qulmprod@_53005901_31169A00.gif;jsessionid=6245679E1C0DCD7A495B9C5F41F50B8A" alt="R&#252;ckw&#228;rts bl&#228;ttern" id="Toolbar_4" name="$Toolbar_4" disabled="disabled" title="R&#252;ckw&#228;rts bl&#228;ttern" onmouseover="self.status='R&#252;ckw&#228;rts bl&#228;ttern';return true;" onmouseout="self.status='';" class="toolbar_img_dis"/><label for="Toolbar_4"><span class="toolbar_txt_dis">R&#252;ckw&#228;rts</span></label></li>
+<li class="toolbar_li">
+<input type="image" src="/aDISWeb/images/POOLM00Qulmprod@/gif/POOLM00Qulmprod@_53005101_31169A00.gif;jsessionid=6245679E1C0DCD7A495B9C5F41F50B8A" alt="Vorw&#228;rts bl&#228;ttern" id="Toolbar_5" name="$Toolbar_5" disabled="disabled" title="Vorw&#228;rts bl&#228;ttern" onmouseover="self.status='Vorw&#228;rts bl&#228;ttern';return true;" onmouseout="self.status='';" class="toolbar_img_dis"/><label for="Toolbar_5"><span class="toolbar_txt_dis">Vorw&#228;rts</span></label></li>
+<li class="toolbar_li">
+<input type="image" src="/aDISWeb/images/POOLM00Qulmprod@/gif/POOLM00Qulmprod@_53005601_31169A00.gif;jsessionid=6245679E1C0DCD7A495B9C5F41F50B8A" alt="Ans Ende bl&#228;ttern" id="Toolbar_6" name="$Toolbar_6" disabled="disabled" title="Ans Ende bl&#228;ttern" onmouseover="self.status='Ans Ende bl&#228;ttern';return true;" onmouseout="self.status='';" class="toolbar_img_dis"/><label for="Toolbar_6"><span class="toolbar_txt_dis">Ende</span></label></li>
+<li class="toolbar_li">
+<input type="image" src="/aDISWeb/images/POOLM00Qulmprod@/gif/POOLM00Qulmprod@_53002400_31169A00.gif;jsessionid=6245679E1C0DCD7A495B9C5F41F50B8A" alt="Beenden der Recherche" id="Toolbar_7" name="$Toolbar_7" title="Beenden der Recherche" onmouseover="self.status='Beenden der Recherche';return true;" onmouseout="self.status='';" class="toolbar_img"/><label for="Toolbar_7"><span class="toolbar_txt">Beenden</span></label></li>
+<li class="toolbar_li">
+<input type="image" src="/aDISWeb/images/POOLM00Qulmprod@/gif/POOLM00Qulmprod@_53001D00_31169A00.gif;jsessionid=6245679E1C0DCD7A495B9C5F41F50B8A" alt="Hilfe zur Trefferliste" id="Toolbar_8" name="$Toolbar_8" title="Hilfe zur Trefferliste" onmouseover="self.status='Hilfe zur Trefferliste';return true;" onmouseout="self.status='';" class="toolbar_img"/><label for="Toolbar_8"><span class="toolbar_txt">Hilfe</span></label></li></ul><div style="clear:both"></div></div> <div class="fsgrp">         
+                <div id="R07">	<div class="rList_wrapper"><ul class="rList"><li class="rList_li rList_li_even rList_cover_inactive"><div class="rList_grid_wrapper"><div class="rList_grid"><div style="width: 03%;" class="rList_col rList_medium"><img class='icon' height='16' width='16' src='/aDISWeb/icons/buch_rot_a.gif' alt='Buch' title='Buch' /></div>		<div style="width: 90%;" class="rList_col rList_titel"><a href="javascript:htmlOnLink('AK00221365')">Sinn und Unsinn kernspintomographischer Untersuchungen der weiblichen Brustorgane</a></div>		<div style="width: 04%;" class="rList_col rList_jahr">2002</div>	</div>	<div class="rList_grid"><div style="width: 03%;" class="rList_col r_list_name">1</div>		<div style="width: 02%;" class="rList_col rList_num"><label for="cellCheck" class="invisible">Markieren</label><input type="checkbox" name="cellCheck" fld="###CHK_1" id="cellCheck"/></div>		<div style="width: 70%;" class="rList_col r_list_name">von Petra Buyer</div>		<div style="width: 20%;" class="rList_col rList_exlink">&nbsp;</div>	</div>	<div class="rList_grid"><div style="width: 25%;" class="rList_col rList_availability"><span><img class='icon'  src='/aDISWeb/icons/verfu_ja.gif' alt='ist verf&#0252;gbar' title='ist verf&#0252;gbar' /><em>ist verf&#0252;gbar</em></span></div>		<div style="width: 20%;" class="rList_col rList_button but_werktitel">&nbsp;</div>		<div style="width: 50%;" class="rList_col rList_button but_standort"><button id="lrb_0_11" type="button" aria-controls="lcont_0" value="Standort" class="rbutton button-inactive" onclick="return RButton.evhandler(this)"><span class="rlabel">Standort</span></button></div>	</div></div>	<div aria-hidden="true" aria-expanded="false" id="lcont_0" class="rList_panel content-inactive"></div></li><li class="rList_li rList_li_odd rList_cover_inactive"><div class="rList_grid_wrapper"><div class="rList_grid"><div style="width: 03%;" class="rList_col rList_medium"><img class='icon' height='16' width='16' src='/aDISWeb/icons/buch_rot_a.gif' alt='Band' title='Band' /></div>		<div style="width: 90%;" class="rList_col rList_titel"><a href="javascript:htmlOnLink('AK00024953')">Sinn - Unsinn</a></div>		<div style="width: 04%;" class="rList_col rList_jahr">1998</div>	</div>	<div class="rList_grid"><div style="width: 03%;" class="rList_col r_list_name">2</div>		<div style="width: 02%;" class="rList_col rList_num"><label for="cellCheck_0" class="invisible">Markieren</label><input type="checkbox" name="cellCheck$0" fld="###CHK_2" id="cellCheck_0"/></div>		<div style="width: 70%;" class="rList_col r_list_name">[Hrsg.: Siegfried Reusch ... in Zusammenarbeit mit den Fachschaften Philosophie der Universitäten Stuttgart und Ulm]. - Omega-Verl. Reusch</div>		<div style="width: 20%;" class="rList_col rList_exlink">&nbsp;</div>	</div>	<div class="rList_grid"><div style="width: 25%;" class="rList_col rList_availability"><span><img class='icon'  src='/aDISWeb/icons/verfu_ja.gif' alt='ist verf&#0252;gbar' title='ist verf&#0252;gbar' /><em>ist verf&#0252;gbar</em></span></div>		<div style="width: 20%;" class="rList_col rList_button but_werktitel">&nbsp;</div>		<div style="width: 50%;" class="rList_col rList_button but_standort"><button id="lrb_1_11" type="button" aria-controls="lcont_1" value="Standort" class="rbutton button-inactive" onclick="return RButton.evhandler(this)"><span class="rlabel">Standort</span></button></div>	</div></div>	<div aria-hidden="true" aria-expanded="false" id="lcont_1" class="rList_panel content-inactive"></div></li><li class="rList_li rList_li_even rList_cover_inactive"><div class="rList_grid_wrapper"><div class="rList_grid"><div style="width: 03%;" class="rList_col rList_medium"><img class='icon' height='16' width='16' src='/aDISWeb/icons/buch_rot_a.gif' alt='Band' title='Band' /></div>		<div style="width: 90%;" class="rList_col rList_titel"><a href="javascript:htmlOnLink('AK00282776')">Sinn und Unsinn in der Psychotherapieforschung : eine kritische Auseinandersetzung mit Aussagen und Forschungsmethoden</a></div>		<div style="width: 04%;" class="rList_col rList_jahr">1998</div>	</div>	<div class="rList_grid"><div style="width: 03%;" class="rList_col r_list_name">3</div>		<div style="width: 02%;" class="rList_col rList_num"><label for="cellCheck_1" class="invisible">Markieren</label><input type="checkbox" name="cellCheck$1" fld="###CHK_3" id="cellCheck_1"/></div>		<div style="width: 70%;" class="rList_col r_list_name">Markus Fäh ... (Hg.). - Psychosozial-Verl.</div>		<div style="width: 20%;" class="rList_col rList_exlink">&nbsp;</div>	</div>	<div class="rList_grid"><div style="width: 25%;" class="rList_col rList_availability"><span><img class='icon'  src='/aDISWeb/icons/verfu_ja.gif' alt='ist verf&#0252;gbar' title='ist verf&#0252;gbar' /><em>ist verf&#0252;gbar</em></span></div>		<div style="width: 20%;" class="rList_col rList_button but_werktitel">&nbsp;</div>		<div style="width: 50%;" class="rList_col rList_button but_standort"><button id="lrb_2_11" type="button" aria-controls="lcont_2" value="Standort" class="rbutton button-inactive" onclick="return RButton.evhandler(this)"><span class="rlabel">Standort</span></button></div>	</div></div>	<div aria-hidden="true" aria-expanded="false" id="lcont_2" class="rList_panel content-inactive"></div></li><li class="rList_li rList_li_odd rList_cover_inactive"><div class="rList_grid_wrapper"><div class="rList_grid"><div style="width: 03%;" class="rList_col rList_medium"><img class='icon' height='16' width='16' src='/aDISWeb/icons/buch_rot_a.gif' alt='Band' title='Band' /></div>		<div style="width: 90%;" class="rList_col rList_titel"><a href="javascript:htmlOnLink('AK00343094')">Sinn, Unsinn, Sein : philosophische Studien über Psychoanalyse, Dekonstruktion und Genealogie</a></div>		<div style="width: 04%;" class="rList_col rList_jahr">1992</div>	</div>	<div class="rList_grid"><div style="width: 03%;" class="rList_col r_list_name">4</div>		<div style="width: 02%;" class="rList_col rList_num"><label for="cellCheck_2" class="invisible">Markieren</label><input type="checkbox" name="cellCheck$2" fld="###CHK_4" id="cellCheck_2"/></div>		<div style="width: 70%;" class="rList_col r_list_name">Siegfried Gerlich. - Dt. Erstausg.. - Passagen-Verl.</div>		<div style="width: 20%;" class="rList_col rList_exlink">&nbsp;</div>	</div>	<div class="rList_grid"><div style="width: 25%;" class="rList_col rList_availability"><span><img class='icon'  src='/aDISWeb/icons/verfu_ja.gif' alt='ist verf&#0252;gbar' title='ist verf&#0252;gbar' /><em>ist verf&#0252;gbar</em></span></div>		<div style="width: 20%;" class="rList_col rList_button but_werktitel">&nbsp;</div>		<div style="width: 50%;" class="rList_col rList_button but_standort"><button id="lrb_3_11" type="button" aria-controls="lcont_3" value="Standort" class="rbutton button-inactive" onclick="return RButton.evhandler(this)"><span class="rlabel">Standort</span></button></div>	</div></div>	<div aria-hidden="true" aria-expanded="false" id="lcont_3" class="rList_panel content-inactive"></div></li><li class="rList_li rList_li_even rList_cover_inactive"><div class="rList_grid_wrapper"><div class="rList_grid"><div style="width: 03%;" class="rList_col rList_medium"><img class='icon' height='16' width='16' src='/aDISWeb/icons/buch_rot_a.gif' alt='Band' title='Band' /></div>		<div style="width: 90%;" class="rList_col rList_titel"><a href="javascript:htmlOnLink('AK00371096')">Zur Frage der Ätiologie von Adenokarzinomen der Nase bei Beschäftigten aus der Holzwirtschaft : Sinn und Unsinn von Reanalysen</a></div>		<div style="width: 04%;" class="rList_col rList_jahr">1992</div>	</div>	<div class="rList_grid"><div style="width: 03%;" class="rList_col r_list_name">5</div>		<div style="width: 02%;" class="rList_col rList_num"><label for="cellCheck_3" class="invisible">Markieren</label><input type="checkbox" name="cellCheck$3" fld="###CHK_5" id="cellCheck_3"/></div>		<div style="width: 70%;" class="rList_col r_list_name">Wolf, J. .... - Gentner</div>		<div style="width: 20%;" class="rList_col rList_exlink">&nbsp;</div>	</div>	<div class="rList_grid"><div style="width: 25%;" class="rList_col rList_availability"><span><img class='icon'  src='/aDISWeb/icons/verfu_ja.gif' alt='ist verf&#0252;gbar' title='ist verf&#0252;gbar' /><em>ist verf&#0252;gbar</em></span></div>		<div style="width: 20%;" class="rList_col rList_button but_werktitel">&nbsp;</div>		<div style="width: 50%;" class="rList_col rList_button but_standort"><button id="lrb_4_11" type="button" aria-controls="lcont_4" value="Standort" class="rbutton button-inactive" onclick="return RButton.evhandler(this)"><span class="rlabel">Standort</span></button></div>	</div></div>	<div aria-hidden="true" aria-expanded="false" id="lcont_4" class="rList_panel content-inactive"></div></li><li class="rList_li rList_li_odd rList_cover_inactive"><div class="rList_grid_wrapper"><div class="rList_grid"><div style="width: 03%;" class="rList_col rList_medium"><img class='icon' height='16' width='16' src='/aDISWeb/icons/buch_rot_a.gif' alt='Buch' title='Buch' /></div>		<div style="width: 90%;" class="rList_col rList_titel"><a href="javascript:htmlOnLink('AK00149228')">Prüfungsfragen medizynischer Unsinn : mit kommentierten Antworten</a></div>		<div style="width: 04%;" class="rList_col rList_jahr">1991</div>	</div>	<div class="rList_grid"><div style="width: 03%;" class="rList_col r_list_name">6</div>		<div style="width: 02%;" class="rList_col rList_num"><label for="cellCheck_4" class="invisible">Markieren</label><input type="checkbox" name="cellCheck$4" fld="###CHK_6" id="cellCheck_4"/></div>		<div style="width: 70%;" class="rList_col r_list_name">Michael Eisner; Meinolf Suttorp. - 3., neu gestaltete, radikal erfrischte Aufl.. - Jungjohann</div>		<div style="width: 20%;" class="rList_col rList_exlink">&nbsp;</div>	</div>	<div class="rList_grid"><div style="width: 25%;" class="rList_col rList_availability"><span><img class='icon'  src='/aDISWeb/icons/verfu_ja.gif' alt='ist verf&#0252;gbar' title='ist verf&#0252;gbar' /><em>ist verf&#0252;gbar</em></span></div>		<div style="width: 20%;" class="rList_col rList_button but_werktitel">&nbsp;</div>		<div style="width: 50%;" class="rList_col rList_button but_standort"><button id="lrb_5_11" type="button" aria-controls="lcont_5" value="Standort" class="rbutton button-inactive" onclick="return RButton.evhandler(this)"><span class="rlabel">Standort</span></button></div>	</div></div>	<div aria-hidden="true" aria-expanded="false" id="lcont_5" class="rList_panel content-inactive"></div></li><li class="rList_li rList_li_even rList_cover_inactive"><div class="rList_grid_wrapper"><div class="rList_grid"><div style="width: 03%;" class="rList_col rList_medium"><img class='icon' height='16' width='16' src='/aDISWeb/icons/buch_rot_a.gif' alt='Buch' title='Buch' /></div>		<div style="width: 90%;" class="rList_col rList_titel"><a href="javascript:htmlOnLink('AK00311394')">Bioäquivalenz und Arzneimittelsicherheit : Sinn und Unsinn der Arzneimittelsubstitution; Symposium der Medizinisch-Pharmazeutischen Studiengesellschaft e.V. (MPS) am 6. November 1986 in Bonn</a></div>		<div style="width: 04%;" class="rList_col rList_jahr">1987</div>	</div>	<div class="rList_grid"><div style="width: 03%;" class="rList_col r_list_name">7</div>		<div style="width: 02%;" class="rList_col rList_num"><label for="cellCheck_5" class="invisible">Markieren</label><input type="checkbox" name="cellCheck$5" fld="###CHK_7" id="cellCheck_5"/></div>		<div style="width: 70%;" class="rList_col r_list_name">hrsg. von E. Weber ... Mit Beitr. von R. Braun .... - MPS, Referat Presse- u. Öffentlichkeitsarbeit</div>		<div style="width: 20%;" class="rList_col rList_exlink">&nbsp;</div>	</div>	<div class="rList_grid"><div style="width: 25%;" class="rList_col rList_availability"><span><img class='icon'  src='/aDISWeb/icons/verfu_ja.gif' alt='ist verf&#0252;gbar' title='ist verf&#0252;gbar' /><em>ist verf&#0252;gbar</em></span></div>		<div style="width: 20%;" class="rList_col rList_button but_werktitel">&nbsp;</div>		<div style="width: 50%;" class="rList_col rList_button but_standort"><button id="lrb_6_11" type="button" aria-controls="lcont_6" value="Standort" class="rbutton button-inactive" onclick="return RButton.evhandler(this)"><span class="rlabel">Standort</span></button></div>	</div></div>	<div aria-hidden="true" aria-expanded="false" id="lcont_6" class="rList_panel content-inactive"></div></li><li class="rList_li rList_li_odd rList_cover_inactive"><div class="rList_grid_wrapper"><div class="rList_grid"><div style="width: 03%;" class="rList_col rList_medium"><img class='icon' height='16' width='16' src='/aDISWeb/icons/buch_rot_a.gif' alt='Buch' title='Buch' /></div>		<div style="width: 90%;" class="rList_col rList_titel"><a href="javascript:htmlOnLink('AK00251106')">Wundinfektion und Antibiotika : Sinn und Unsinn einer Antibiotikaprophylaxe bei verschiedenen Traumata</a></div>		<div style="width: 04%;" class="rList_col rList_jahr">1985</div>	</div>	<div class="rList_grid"><div style="width: 03%;" class="rList_col r_list_name">8</div>		<div style="width: 02%;" class="rList_col rList_num"><label for="cellCheck_6" class="invisible">Markieren</label><input type="checkbox" name="cellCheck$6" fld="###CHK_8" id="cellCheck_6"/></div>		<div style="width: 70%;" class="rList_col r_list_name">vorgelegt von Thomas Wolfgang Ernst Jung</div>		<div style="width: 20%;" class="rList_col rList_exlink">&nbsp;</div>	</div>	<div class="rList_grid"><div style="width: 25%;" class="rList_col rList_availability"><span><img class='icon'  src='/aDISWeb/icons/verfu_ja.gif' alt='ist verf&#0252;gbar' title='ist verf&#0252;gbar' /><em>ist verf&#0252;gbar</em></span></div>		<div style="width: 20%;" class="rList_col rList_button but_werktitel">&nbsp;</div>		<div style="width: 50%;" class="rList_col rList_button but_standort"><button id="lrb_7_11" type="button" aria-controls="lcont_7" value="Standort" class="rbutton button-inactive" onclick="return RButton.evhandler(this)"><span class="rlabel">Standort</span></button></div>	</div></div>	<div aria-hidden="true" aria-expanded="false" id="lcont_7" class="rList_panel content-inactive"></div></li><li class="rList_li rList_li_even rList_cover_inactive"><div class="rList_grid_wrapper"><div class="rList_grid"><div style="width: 03%;" class="rList_col rList_medium"><img class='icon' height='16' width='16' src='/aDISWeb/icons/mikrofiche_a.gif' alt='Sonstige Mikroform' title='Sonstige Mikroform' /></div>		<div style="width: 90%;" class="rList_col rList_titel"><a href="javascript:htmlOnLink('AK00251102')">Wundinfektion und Antibiotika : Sinn und Unsinn einer Antibiotikaprophylaxe bei verschiedenen Traumata</a></div>		<div style="width: 04%;" class="rList_col rList_jahr">1985</div>	</div>	<div class="rList_grid"><div style="width: 03%;" class="rList_col r_list_name">9</div>		<div style="width: 02%;" class="rList_col rList_num"><label for="cellCheck_7" class="invisible">Markieren</label><input type="checkbox" name="cellCheck$7" fld="###CHK_9" id="cellCheck_7"/></div>		<div style="width: 70%;" class="rList_col r_list_name">vorgelegt von Thomas Wolfgang Ernst Jung</div>		<div style="width: 20%;" class="rList_col rList_exlink">&nbsp;</div>	</div>	<div class="rList_grid"><div style="width: 25%;" class="rList_col rList_availability"><span><img class='icon'  src='/aDISWeb/icons/verfu_ja.gif' alt='ist verf&#0252;gbar' title='ist verf&#0252;gbar' /><em>ist verf&#0252;gbar</em></span></div>		<div style="width: 20%;" class="rList_col rList_button but_werktitel">&nbsp;</div>		<div style="width: 50%;" class="rList_col rList_button but_standort"><button id="lrb_8_11" type="button" aria-controls="lcont_8" value="Standort" class="rbutton button-inactive" onclick="return RButton.evhandler(this)"><span class="rlabel">Standort</span></button></div>	</div></div>	<div aria-hidden="true" aria-expanded="false" id="lcont_8" class="rList_panel content-inactive"></div></li><li class="rList_li rList_li_odd rList_cover_inactive"><div class="rList_grid_wrapper"><div class="rList_grid"><div style="width: 03%;" class="rList_col rList_medium"><img class='icon' height='16' width='16' src='/aDISWeb/icons/buch_rot_a.gif' alt='Buch' title='Buch' /></div>		<div style="width: 90%;" class="rList_col rList_titel"><a href="javascript:htmlOnLink('AK00411267')">Inflation der Therapieformen : Gruppen- und Einzeltherapien in der sozialpaedagogischen u. klinischen Praxis ; Sinn u. Unsinn d. Psycho-Industrie</a></div>		<div style="width: 04%;" class="rList_col rList_jahr">1979</div>	</div>	<div class="rList_grid"><div style="width: 03%;" class="rList_col r_list_name">10</div>		<div style="width: 02%;" class="rList_col rList_num"><label for="cellCheck_8" class="invisible">Markieren</label><input type="checkbox" name="cellCheck$8" fld="###CHK_10" id="cellCheck_8"/></div>		<div style="width: 70%;" class="rList_col r_list_name">Herbert Nagel ... (Hg.). - Originalausg.</div>		<div style="width: 20%;" class="rList_col rList_exlink">&nbsp;</div>	</div>	<div class="rList_grid"><div style="width: 25%;" class="rList_col rList_availability"><span><img class='icon'  src='/aDISWeb/icons/verfu_nein.gif' alt='ist zur Zeit nicht verf&#0252;gbar' title='ist zur Zeit nicht verf&#0252;gbar' /><em>ist nicht verf&#0252;gbar</em></span></div>		<div style="width: 20%;" class="rList_col rList_button but_werktitel">&nbsp;</div>		<div style="width: 50%;" class="rList_col rList_button but_standort"><button id="lrb_9_11" type="button" aria-controls="lcont_9" value="Standort" class="rbutton button-inactive" onclick="return RButton.evhandler(this)"><span class="rlabel">Standort</span></button></div>	</div></div>	<div aria-hidden="true" aria-expanded="false" id="lcont_9" class="rList_panel content-inactive"></div></li><li class="rList_li rList_li_even rList_cover_inactive"><div class="rList_grid_wrapper"><div class="rList_grid"><div style="width: 03%;" class="rList_col rList_medium"><img class='icon' height='16' width='16' src='/aDISWeb/icons/buch_rot_a.gif' alt='Buch' title='Buch' /></div>		<div style="width: 90%;" class="rList_col rList_titel"><a href="javascript:htmlOnLink('AK00190080')">Hochschulprüfungen - Sinn oder Unsinn? : Sozialgeschichte und Ideologiekritik der akademischen Initiationskultur</a></div>		<div style="width: 04%;" class="rList_col rList_jahr">1976</div>	</div>	<div class="rList_grid"><div style="width: 03%;" class="rList_col r_list_name">11</div>		<div style="width: 02%;" class="rList_col rList_num"><label for="cellCheck_9" class="invisible">Markieren</label><input type="checkbox" name="cellCheck$9" fld="###CHK_11" id="cellCheck_9"/></div>		<div style="width: 70%;" class="rList_col r_list_name">Hans-Werner Prahl. - Kösel</div>		<div style="width: 20%;" class="rList_col rList_exlink">&nbsp;</div>	</div>	<div class="rList_grid"><div style="width: 25%;" class="rList_col rList_availability"><span><img class='icon'  src='/aDISWeb/icons/verfu_ja.gif' alt='ist verf&#0252;gbar' title='ist verf&#0252;gbar' /><em>ist verf&#0252;gbar</em></span></div>		<div style="width: 20%;" class="rList_col rList_button but_werktitel">&nbsp;</div>		<div style="width: 50%;" class="rList_col rList_button but_standort"><button id="lrb_10_11" type="button" aria-controls="lcont_10" value="Standort" class="rbutton button-inactive" onclick="return RButton.evhandler(this)"><span class="rlabel">Standort</span></button></div>	</div></div>	<div aria-hidden="true" aria-expanded="false" id="lcont_10" class="rList_panel content-inactive"></div></li><li class="rList_li rList_li_odd rList_cover_inactive"><div class="rList_grid_wrapper"><div class="rList_grid"><div style="width: 03%;" class="rList_col rList_medium"><img class='icon' height='16' width='16' src='/aDISWeb/icons/buch_rot_a.gif' alt='Band' title='Band' /></div>		<div style="width: 90%;" class="rList_col rList_titel"><a href="javascript:htmlOnLink('AK00461437')">Sinn und Unsinn des Leistungsprinzips : ein Symposion [1973 ...München]</a></div>		<div style="width: 04%;" class="rList_col rList_jahr">1974</div>	</div>	<div class="rList_grid"><div style="width: 03%;" class="rList_col r_list_name">12</div>		<div style="width: 02%;" class="rList_col rList_num"><label for="cellCheck_10" class="invisible">Markieren</label><input type="checkbox" name="cellCheck$10" fld="###CHK_12" id="cellCheck_10"/></div>		<div style="width: 70%;" class="rList_col r_list_name">mit Beitr. von Arnold Gehlen .... - 2. Aufl.. - dtv</div>		<div style="width: 20%;" class="rList_col rList_exlink">&nbsp;</div>	</div>	<div class="rList_grid"><div style="width: 25%;" class="rList_col rList_availability"><span><img class='icon'  src='/aDISWeb/icons/verfu_ja.gif' alt='ist verf&#0252;gbar' title='ist verf&#0252;gbar' /><em>ist verf&#0252;gbar</em></span></div>		<div style="width: 20%;" class="rList_col rList_button but_werktitel">&nbsp;</div>		<div style="width: 50%;" class="rList_col rList_button but_standort"><button id="lrb_11_11" type="button" aria-controls="lcont_11" value="Standort" class="rbutton button-inactive" onclick="return RButton.evhandler(this)"><span class="rlabel">Standort</span></button></div>	</div></div>	<div aria-hidden="true" aria-expanded="false" id="lcont_11" class="rList_panel content-inactive"></div></li><li class="rList_li rList_li_even rList_cover_inactive"><div class="rList_grid_wrapper"><div class="rList_grid"><div style="width: 03%;" class="rList_col rList_medium"><img class='icon' height='16' width='16' src='/aDISWeb/icons/buch_rot_a.gif' alt='Band' title='Band' /></div>		<div style="width: 90%;" class="rList_col rList_titel"><a href="javascript:htmlOnLink('AK00406991')">Vom Sinn und Unsinn der Hausaufgaben : empirische Untersuchungen über ihre Durchführung und ihren Nutzen; aus der Arbeit des Deutschen Instituts für Internationale Pädagogische Forschung</a></div>		<div style="width: 04%;" class="rList_col rList_jahr">1970</div>	</div>	<div class="rList_grid"><div style="width: 03%;" class="rList_col r_list_name">13</div>		<div style="width: 02%;" class="rList_col rList_num"><label for="cellCheck_11" class="invisible">Markieren</label><input type="checkbox" name="cellCheck$11" fld="###CHK_13" id="cellCheck_11"/></div>		<div style="width: 70%;" class="rList_col r_list_name">Bernhard Wittmann. - 2., durchges. u. erg. Aufl.. - Luchterhand</div>		<div style="width: 20%;" class="rList_col rList_exlink">&nbsp;</div>	</div>	<div class="rList_grid"><div style="width: 25%;" class="rList_col rList_availability"><span><img class='icon'  src='/aDISWeb/icons/verfu_ja.gif' alt='ist verf&#0252;gbar' title='ist verf&#0252;gbar' /><em>ist verf&#0252;gbar</em></span></div>		<div style="width: 20%;" class="rList_col rList_button but_werktitel">&nbsp;</div>		<div style="width: 50%;" class="rList_col rList_button but_standort"><button id="lrb_12_11" type="button" aria-controls="lcont_12" value="Standort" class="rbutton button-inactive" onclick="return RButton.evhandler(this)"><span class="rlabel">Standort</span></button></div>	</div></div>	<div aria-hidden="true" aria-expanded="false" id="lcont_12" class="rList_panel content-inactive"></div></li><li class="rList_li rList_li_odd rList_cover_inactive"><div class="rList_grid_wrapper"><div class="rList_grid"><div style="width: 03%;" class="rList_col rList_medium"><img class='icon' height='16' width='16' src='/aDISWeb/icons/buch_rot_a.gif' alt='Band' title='Band' /></div>		<div style="width: 90%;" class="rList_col rList_titel"><a href="javascript:htmlOnLink('AK00399818')">Herr Je das Nichts ist bodenlos : Unsinn in Poesie und Prosa</a></div>		<div style="width: 04%;" class="rList_col rList_jahr">1968</div>	</div>	<div class="rList_grid"><div style="width: 03%;" class="rList_col r_list_name">14</div>		<div style="width: 02%;" class="rList_col rList_num"><label for="cellCheck_12" class="invisible">Markieren</label><input type="checkbox" name="cellCheck$12" fld="###CHK_14" id="cellCheck_12"/></div>		<div style="width: 70%;" class="rList_col r_list_name">hrsg. von Wilhelm Höck. [Zeichn. von H. P. Willberg]. - Ehrenwirth</div>		<div style="width: 20%;" class="rList_col rList_exlink">&nbsp;</div>	</div>	<div class="rList_grid"><div style="width: 25%;" class="rList_col rList_availability"><span><img class='icon'  src='/aDISWeb/icons/verfu_ja.gif' alt='ist verf&#0252;gbar' title='ist verf&#0252;gbar' /><em>ist verf&#0252;gbar</em></span></div>		<div style="width: 20%;" class="rList_col rList_button but_werktitel">&nbsp;</div>		<div style="width: 50%;" class="rList_col rList_button but_standort"><button id="lrb_13_11" type="button" aria-controls="lcont_13" value="Standort" class="rbutton button-inactive" onclick="return RButton.evhandler(this)"><span class="rlabel">Standort</span></button></div>	</div></div>	<div aria-hidden="true" aria-expanded="false" id="lcont_13" class="rList_panel content-inactive"></div></li><li class="rList_li rList_li_even rList_cover_inactive"><div class="rList_grid_wrapper"><div class="rList_grid"><div style="width: 03%;" class="rList_col rList_medium"><img class='icon' height='16' width='16' src='/aDISWeb/icons/buch_rot_a.gif' alt='Band' title='Band' /></div>		<div style="width: 90%;" class="rList_col rList_titel"><a href="javascript:htmlOnLink('AK00030774')">Vom Sinn und Unsinn der Hausaufgaben : empirische Untersuchungen über ihre Durchführung und ihren Nutzen; aus der Arbeit des Deutschen Institutes für Internationale Pädagogische Forschung</a></div>		<div style="width: 04%;" class="rList_col rList_jahr">1964</div>	</div>	<div class="rList_grid"><div style="width: 03%;" class="rList_col r_list_name">15</div>		<div style="width: 02%;" class="rList_col rList_num"><label for="cellCheck_13" class="invisible">Markieren</label><input type="checkbox" name="cellCheck$13" fld="###CHK_15" id="cellCheck_13"/></div>		<div style="width: 70%;" class="rList_col r_list_name">Bernhard Wittmann. - Luchterhand</div>		<div style="width: 20%;" class="rList_col rList_exlink">&nbsp;</div>	</div>	<div class="rList_grid"><div style="width: 25%;" class="rList_col rList_availability"><span><img class='icon'  src='/aDISWeb/icons/verfu_ja.gif' alt='ist verf&#0252;gbar' title='ist verf&#0252;gbar' /><em>ist verf&#0252;gbar</em></span></div>		<div style="width: 20%;" class="rList_col rList_button but_werktitel">&nbsp;</div>		<div style="width: 50%;" class="rList_col rList_button but_standort"><button id="lrb_14_11" type="button" aria-controls="lcont_14" value="Standort" class="rbutton button-inactive" onclick="return RButton.evhandler(this)"><span class="rlabel">Standort</span></button></div>	</div></div>	<div aria-hidden="true" aria-expanded="false" id="lcont_14" class="rList_panel content-inactive"></div></li><li class="rList_li rList_li_odd rList_cover_inactive"><div class="rList_grid_wrapper"><div class="rList_grid"><div style="width: 03%;" class="rList_col rList_medium"><img class='icon' height='16' width='16' src='/aDISWeb/icons/buch_rot_a.gif' alt='Buch' title='Buch' /></div>		<div style="width: 90%;" class="rList_col rList_titel"><a href="javascript:htmlOnLink('AK00441914')">Sinn und Unsinn : Eine Studie</a></div>		<div style="width: 04%;" class="rList_col rList_jahr">1933</div>	</div>	<div class="rList_grid"><div style="width: 03%;" class="rList_col r_list_name">16</div>		<div style="width: 02%;" class="rList_col rList_num"><label for="cellCheck_14" class="invisible">Markieren</label><input type="checkbox" name="cellCheck$14" fld="###CHK_16" id="cellCheck_14"/></div>		<div style="width: 70%;" class="rList_col r_list_name">Walter Blumenfeld. - Reinhardt</div>		<div style="width: 20%;" class="rList_col rList_exlink">&nbsp;</div>	</div>	<div class="rList_grid"><div style="width: 25%;" class="rList_col rList_availability"><span><img class='icon'  src='/aDISWeb/icons/verfu_ja.gif' alt='ist verf&#0252;gbar' title='ist verf&#0252;gbar' /><em>ist verf&#0252;gbar</em></span></div>		<div style="width: 20%;" class="rList_col rList_button but_werktitel">&nbsp;</div>		<div style="width: 50%;" class="rList_col rList_button but_standort"><button id="lrb_15_11" type="button" aria-controls="lcont_15" value="Standort" class="rbutton button-inactive" onclick="return RButton.evhandler(this)"><span class="rlabel">Standort</span></button></div>	</div></div>	<div aria-hidden="true" aria-expanded="false" id="lcont_15" class="rList_panel content-inactive"></div></li></ul>	</div> </div>
+                
+                
+                
+                
+                
+              </div>
+            
+
+              <div class="clear"></div> <div class="toolbar_div">
+<ul class="toolbar_ul">
+<li class="toolbar_li">
+<input type="image" src="/aDISWeb/images/POOLM00Qulmprod@/gif/POOLM00Qulmprod@_53010E00_31758600.gif;jsessionid=6245679E1C0DCD7A495B9C5F41F50B8A" alt="Zur&#252;ck zur Suche" id="Toolbar$0_0" name="$Toolbar$0_0" title="Zur&#252;ck zur Suche" onmouseover="self.status='Zur&#252;ck zur Suche';return true;" onmouseout="self.status='';" class="toolbar_img"/><label for="Toolbar$0_0"><span class="toolbar_txt">Zur&#252;ck</span></label></li>
+<li class="toolbar_li">
+<input type="image" src="/aDISWeb/images/POOLM00Qulmprod@/gif/POOLM00Qulmprod@_53002800_31169A00.gif;jsessionid=6245679E1C0DCD7A495B9C5F41F50B8A" alt="Zur Vollanzeige des Treffers" id="Toolbar$0_1" name="$Toolbar$0_1" title="Zur Vollanzeige des Treffers" onmouseover="self.status='Zur Vollanzeige des Treffers';return true;" onmouseout="self.status='';" class="toolbar_img"/><label for="Toolbar$0_1"><span class="toolbar_txt">Vollanzeige</span></label></li>
+<li class="toolbar_li">
+<input type="image" src="/aDISWeb/images/POOLM00Qulmprod@/gif/POOLM00Qulmprod@_53011E00_31169A00.gif;jsessionid=6245679E1C0DCD7A495B9C5F41F50B8A" alt="Zur&#252;ck zur Suche" id="Toolbar$0_2" name="$Toolbar$0_2" title="Zur&#252;ck zur Suche" onmouseover="self.status='Zur&#252;ck zur Suche';return true;" onmouseout="self.status='';" class="toolbar_img"/><label for="Toolbar$0_2"><span class="toolbar_txt">Neue Suche</span></label></li>
+<li class="toolbar_li">
+<input type="image" src="/aDISWeb/images/POOLM00Qulmprod@/gif/POOLM00Qulmprod@_53005801_31169A00.gif;jsessionid=6245679E1C0DCD7A495B9C5F41F50B8A" alt="An den Anfang bl&#228;ttern" id="Toolbar$0_3" name="$Toolbar$0_3" disabled="disabled" title="An den Anfang bl&#228;ttern" onmouseover="self.status='An den Anfang bl&#228;ttern';return true;" onmouseout="self.status='';" class="toolbar_img_dis"/><label for="Toolbar$0_3"><span class="toolbar_txt_dis">Anfang</span></label></li>
+<li class="toolbar_li">
+<input type="image" src="/aDISWeb/images/POOLM00Qulmprod@/gif/POOLM00Qulmprod@_53005901_31169A00.gif;jsessionid=6245679E1C0DCD7A495B9C5F41F50B8A" alt="R&#252;ckw&#228;rts bl&#228;ttern" id="Toolbar$0_4" name="$Toolbar$0_4" disabled="disabled" title="R&#252;ckw&#228;rts bl&#228;ttern" onmouseover="self.status='R&#252;ckw&#228;rts bl&#228;ttern';return true;" onmouseout="self.status='';" class="toolbar_img_dis"/><label for="Toolbar$0_4"><span class="toolbar_txt_dis">R&#252;ckw&#228;rts</span></label></li>
+<li class="toolbar_li">
+<input type="image" src="/aDISWeb/images/POOLM00Qulmprod@/gif/POOLM00Qulmprod@_53005101_31169A00.gif;jsessionid=6245679E1C0DCD7A495B9C5F41F50B8A" alt="Vorw&#228;rts bl&#228;ttern" id="Toolbar$0_5" name="$Toolbar$0_5" disabled="disabled" title="Vorw&#228;rts bl&#228;ttern" onmouseover="self.status='Vorw&#228;rts bl&#228;ttern';return true;" onmouseout="self.status='';" class="toolbar_img_dis"/><label for="Toolbar$0_5"><span class="toolbar_txt_dis">Vorw&#228;rts</span></label></li>
+<li class="toolbar_li">
+<input type="image" src="/aDISWeb/images/POOLM00Qulmprod@/gif/POOLM00Qulmprod@_53005601_31169A00.gif;jsessionid=6245679E1C0DCD7A495B9C5F41F50B8A" alt="Ans Ende bl&#228;ttern" id="Toolbar$0_6" name="$Toolbar$0_6" disabled="disabled" title="Ans Ende bl&#228;ttern" onmouseover="self.status='Ans Ende bl&#228;ttern';return true;" onmouseout="self.status='';" class="toolbar_img_dis"/><label for="Toolbar$0_6"><span class="toolbar_txt_dis">Ende</span></label></li>
+<li class="toolbar_li">
+<input type="image" src="/aDISWeb/images/POOLM00Qulmprod@/gif/POOLM00Qulmprod@_53002400_31169A00.gif;jsessionid=6245679E1C0DCD7A495B9C5F41F50B8A" alt="Beenden der Recherche" id="Toolbar$0_7" name="$Toolbar$0_7" title="Beenden der Recherche" onmouseover="self.status='Beenden der Recherche';return true;" onmouseout="self.status='';" class="toolbar_img"/><label for="Toolbar$0_7"><span class="toolbar_txt">Beenden</span></label></li>
+<li class="toolbar_li">
+<input type="image" src="/aDISWeb/images/POOLM00Qulmprod@/gif/POOLM00Qulmprod@_53001D00_31169A00.gif;jsessionid=6245679E1C0DCD7A495B9C5F41F50B8A" alt="Hilfe zur Trefferliste" id="Toolbar$0_8" name="$Toolbar$0_8" title="Hilfe zur Trefferliste" onmouseover="self.status='Hilfe zur Trefferliste';return true;" onmouseout="self.status='';" class="toolbar_img"/><label for="Toolbar$0_8"><span class="toolbar_txt">Hilfe</span></label></li></ul><div style="clear:both"></div></div> </div>
+            <div class="clear"></div>
+      
+          </div>
+          <div id="clear"></div>
+        </div>
+        
+      </div><!-- /container_inside -->
+    </div><!-- /container -->
+
+    <div id="footer">
+      <div class="inside">
+
+        <div id="foot1">     
+          <p id="credits">
+            <a href="http://www.astec.de">Barrierefreie Bibliothekssoftware - OPAC der |a|S|tec| GmbH</a> und 
+            <a href="http://www.ena-webstudio.com" title="Webdesign aus Berlin und Brandenburg">ena Webstudio</a>
+          </p>
+        </div>
+      
+        <div id="foot2">
+          <div id="goingup"><a href="#wrapper">Seitenanfang</a></div>
+        </div> 
+                      
+        <div class="clear"></div>
+
+      </div>
+    </div>
+    
+  </div><!-- /wrapper_inside -->
+</div><!-- /wrapper -->
+
+<script src="/aDISWeb_kopac/js/yaml-focusfix.js" type="text/javascript"></script></form>
+</div></body>
+</html>
