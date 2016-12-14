@@ -73,6 +73,7 @@
                     let $title := $props[contains(@class, "rList_titel")][1],
                         $year  := $props[contains(@class, "rList_jahr")][1],
                         $name  := $props[contains(@class, "rList_name")][1],
+                        $name  := if ($name) then $name else $props[contains(@class, "r_list_name")][last()], (:ulm only:)
                         $ava   := $props[contains(@class, "rList_availability")]//img[1]
                     return (book := {
                         "title": $title,
@@ -81,7 +82,7 @@
                       }, 
                       $year ! ($book.year := .),
                       $name ! (
-                        let $temp := tokenize(., "-")!normalize-space(),
+                        let $temp := tokenize(., " - ")!normalize-space(),
                                              $year := $temp[last()][. castable as xs:integer],
                                              $autpubcount := count($temp) - (if (exists($year)) then (1, $book.year := $year)[1] else 0)
                                          return switch ($autpubcount) 
