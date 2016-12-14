@@ -14,7 +14,7 @@
   <!--    <header>Content-Type: application/json</header>-->
       <header>Accept: application/json,*/*</header>
       <template><t:s>
-        xquery version "1.0";
+        xquery version "3.0-videlibri";
         let $answer := json($raw) return
         (
           access_token := encode-for-uri($answer.access_token),
