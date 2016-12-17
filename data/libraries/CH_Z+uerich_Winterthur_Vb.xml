@@ -3,7 +3,8 @@
   <longName value="Winterthurer Bibliotheken (alpha)"/>
   
   <template value="sisis"/>  
-  <variable name="server" value="https://katalog.winterthur.ch/webOPACClient.sisis/"/>
+  <variable name="server" value="https://katalog.winterthur.ch/TouchPoint_touchpoint/"/>
+  <variable name="startparams" value="?View=sunrise&Language=de"/>
   
   <homepage value="http://bibliotheken.winterthur.ch/stadtbibliothek/"/>
   <testing-search value="ja" date="2013-05-18"/>
