@@ -18,62 +18,42 @@
 </action>
 
 <action id="update-all">
-  <variable name="server">get("server", "primo.kobv.de")</variable>
-  <variable name="loginServer">get("loginServer", $server)</variable>
-  <variable name="primoView">get("primoView", "FUB_MOBILE")</variable>
+  <variable name="request">$login-url-2</variable>
   
-
-  <page url="https://{$loginServer}/pds?func=load-login">
-  <template><html>{
-    if (//form) then
-      login := form(., {"bor_id": $username, "bor_verification": $password, "institute": $institute, "calling_system": "primo"})
-     else (
-      redirect :=  resolve-uri((//a/@href)[1]),
-      login := ()
-     )
-  }</html></template>
-  </page>
-  
-  <page url="{$login}"><template><html>
-  <t:switch>
-    <form><td class="msg">{videlibri:raise-login(.)}</td></form>
-    <a>{redirect:=resolve-uri(@href)}</a>
-  </t:switch>
-  </html></template></page>
-  
-  <page url="{$redirect}"></page>
-  
-  <page url="http://{$server}/primo_library/libweb/action/myAccountMenu.do?vid={$primoView}">
-  <template><a>{redirect:=resolve-uri(@href)}</a></template>
-  </page>
-  
-
-  <page url="{$redirect}">
-  <template>
-    <DIV class="EXLMyAccountContainer" id="exlidMyAccountContainer">
-      <DIV class="EXLMyAccountMainContainer">
-        {videlibri:delete-current-books()}
-        <TABLE class="EXLMyAccountTable">
-          <t:loop>
-            <TR>
-              <TD/><!--number-->
-              <TD>{book:={"title": ., "detailUrl": resolve-uri(./a/@href)}}</TD>
-              <TD>{book.author := .}</TD>
-              <TD>{book.dueDate := parse-date(., "dd.mm.yyyy")}</TD>
-              <TD/><!-- Uhrzeit -->
-              <TD/><!-- Gebühr -->
-              <TD/><!-- Bibliothek -->
-              <TD>
-              {if (./a) then (book.statusId := "curious", book._renewUrl := resolve-uri(./a/@href))
-               else (book.status := ., book.statusId := "critical")}
-              </TD>
-            </Tr>
-          </t:loop>
-        </TABLE>
+  <s>i := 1</s>
+  <!-- follow links till we reach the login page -->
+  <loop test="$i < 10">  
+    <page url="{$request}"/>
+    <pattern><t:switch prioritized="true">
+      <div class="EXLPRMLoginCardContentError">{vl:raise(.)}</div>
+      <form>
+        <input name="username"/>
+        {request := form(., {"username": $username, "password": $password} )}
+      </form>
+      <form>
+        <input name="j_username"/>
+        {request := form(., {"j_username": $username, "j_password": $password} )}
+      </form>
+      <DIV class="EXLMyAccountContainer" id="exlidMyAccountContainer"> <DIV class="EXLMyAccountMainContainer"/> 
+        {i := 10000}<!--logged in-->
       </DIV>
-    </DIV>
-  </template>
-  </page>
+      <a t:condition="contains(@href, 'myAccountMenu.do')">{$request}</a>
+      <meta http-equiv="refresh">{$request}</meta>    
+      <form>{$request := form(.)}</form>
+      <a>{$request}</a>
+    </t:switch></pattern>
+    <s>$i := $i + 1</s>    
+  </loop>
+    
+  <if test="$i < 100">
+  <s>vl:raise("Zuviele Weiterleitungen")</s>
+  </if>
+    
+  <s>videlibri:delete-current-books()</s>
+  <pattern href="list"/>
+
+  <page url="{$orderPage}"/>
+  <pattern href="list"/>
   
 <!--  <error templateFile="loginError"/>-->
 </action>
@@ -89,7 +69,7 @@
         <TABLE class="EXLMyAccountTableDetails">
           <TR><TH>Year:|Jahr:</TH><TD>{book.year:=.}</TD></TR>
           <TR><TH>Call number:|Signatur:</TH><TD>{book.id:=.}</TD></TR>
-          <TR t:optional="true"><TH>Loan date:|Ausleihdatum:</TH><TD>{book.issueData:=parse-date(., "dd.mm.yyyy")}</TD></TR>
+          <TR t:optional="true"><TH>Loan date:|Ausleihdatum:</TH><TD>{book.issueData:=parse-date(., "dd.mm.yyyy|dd/mm/yyyy")}</TD></TR>
         </TABLE>
       </DIV>
     </DIV>

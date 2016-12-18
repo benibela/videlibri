@@ -88,8 +88,8 @@ PAGES=(${PAGES[@]}   sisis/touchpoint/userAccount_0provided_chem.html sisis/touc
 
 
 #search
-ADDTEMPLATE sisis/searchList 20
-PAGES=(${PAGES[@]} sisis/search_rwth.do.html sisis/searchHitlist_rwth.do.html sisis/search_altdorf.do.html sisis/searchHitList_altdorf.do.html sisis/search_Z3988_haw-aw.do.html sisis/search_augsburg.do.html sisis/search_augsburg2.do.html sisis/search_basel.do.html sisis/search_chemnitz.do.html sisis/search_liestal.do.html sisis/search_tum.do.html sisis/search_pulheim.do.html sisis/searchHitlist_pulheim.do.html sisis/search_winterthur.do.html sisis/search_amberg1.html sisis/search_rwth1.html  sisis/search_last_fuerth.do.html sisis/search_oberhausen.do.html sisis/touchpoint/searchList_1stp_chem.html sisis/touchpoint/searchList_2ndp_chem.html  )
+ADDTEMPLATE sisis/searchList 22
+PAGES=(${PAGES[@]} sisis/search_rwth.do.html sisis/searchHitlist_rwth.do.html sisis/search_altdorf.do.html sisis/searchHitList_altdorf.do.html sisis/search_Z3988_haw-aw.do.html sisis/search_augsburg.do.html sisis/search_augsburg2.do.html sisis/search_basel.do.html sisis/search_chemnitz.do.html sisis/search_liestal.do.html sisis/search_tum.do.html sisis/search_pulheim.do.html sisis/searchHitlist_pulheim.do.html sisis/search_winterthur.do.html sisis/search_amberg1.html sisis/search_rwth1.html  sisis/search_last_fuerth.do.html sisis/search_oberhausen.do.html sisis/touchpoint/searchList_1stp_chem.html sisis/touchpoint/searchList_2ndp_chem.html sisis/touchpoint/searchList_winterthur.html sisis/touchpoint/searchList_speedHit_winterthur.html  )
 
 ADDTEMPLATE sisis/searchSingle 4
 PAGES=(${PAGES[@]} sisis/searchSingle_basel.do.html sisis/searchSingle_aachen.do.html sisis/searchSingle_regensburg.html sisis/touchpoint/searchHit_chem.html)
@@ -186,6 +186,8 @@ ADDTEMPLATE 'primo/searchStart{\(\)/\(search-keys:=\"\"\)}' 3
 PAGES=(${PAGES[@]} primo/searchStart.fub.html primo/searchStart.hub.html  primo/searchStart.tub.html)
 ADDTEMPLATE primo/searchList  5
 PAGES=(${PAGES[@]} primo/searchList.hub.html primo/searchList0.hub.html primo/searchList.fub.html primo/searchList.tub.html primo/searchList3.tub.html)
+
+test primo list list.tub.html list.orders.tub.html
 
 #=============Bibliothea==============
 mkdir -p $OUTPATH/bibliotheca

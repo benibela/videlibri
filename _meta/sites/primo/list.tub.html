@@ -1,0 +1,1303 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!-- my_account_layout.jsp begin -->
+<!-- taglibsIncludeAll.jspf begin -->
+<!-- taglibsIncludeAll.jspf end --><!-- begin resolveLocale.jsp -->
+<!-- taglibsIncludeAll.jspf begin -->
+<!-- taglibsIncludeAll.jspf end --><!-- locale=de_DE -->
+
+<!-- end resolveLocale.jsp -->
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="de-DE" lang="de-DE">
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="Content-Style-Type" content="text/css" />
+<meta http-equiv="Content-Script-Type" content="text/javascript" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=320; initial-scale=1.0; maximum-scale=3.0; user-scalable=1;" />
+<!-- rssHeader.tag begin -->
+<!--  -->
+<!-- rssHeader.tag end -->
+<link rel="stylesheet" type="text/css" href="../wro/my_shelf_wro.css" />
+<!-- cssAdder.jsp begin -->
+<!-- taglibsIncludeAll.jspf begin -->
+<!-- taglibsIncludeAll.jspf end --><!-- This is just for dev mode - it preserves old css behaviour to allow the customers to understand the css hierarchy  -->
+<link rel="stylesheet" type="text/css" href="../wro/primo_library_wro_TUB_de_DE.css?"/>
+	<script type="text/javascript" src="../wro/primo_library_wro_TUB_de_DE.js"></script>
+<link rel="apple-touch-icon" href="../images/favicon.png" />
+
+
+<!-- cssAdder.jsp end -->
+<!--  link rel="stylesheet" type="text/css" href="../css/Primo_default.css" / -->
+<script type="text/javascript" src="../wro/primo_library_web.js"></script>
+<script type="text/javascript" src="../wro/jsencrypt.js"></script>
+<script type="text/javascript" src="../javascript/primo_boomerang.js"></script>
+<title>Wissensportal (UB der TU Berlin)</title>
+<!-- begin javascriptTextIncludes.jsp -->
+<!-- taglibsIncludeAll.jspf begin -->
+<!-- taglibsIncludeAll.jspf end --><script type="text/javascript">
+
+var exlTabReloadMessage = 'Dieser Ladevorgang dauert sehr lange. Versuchen Sie die Seite neu zu laden.';
+
+
+var exlTabReloadLinkText = 'hier klicken';
+
+
+var exlTabLoadErrorMessage = 'Fehler beim Laden des Tabs.';
+
+
+var exlDelayTabProcessingYourRequest = 'Ihre Anfrage wird bearbeitet...'; //Processing your request...
+
+
+var exlFdbReloadMessage = 'Ihr Inhalt scheint längere Zeit zum Laden zu benötigen. Um zur vorherigen Seite zurückzukehren,';
+
+
+var exlFdbReloadLinkText = 'hier klicken';
+
+
+var exlFdbNoInfoMessage = 'Keine Informationen verfügbar.';
+
+
+var exlFdbSubCategoryLabel = 'Unterkategorie';
+
+
+var exlTabSignInMessage = '{0} Bewertung schreiben';
+
+
+var facetsTitleLabel = 'Ergebnisse einschränken';
+
+
+var updatingMessage = 'wird aktualisiert…';
+
+</script>
+<!-- end javascriptTextIncludes.jsp -->
+</head>
+<body class="MyAccount EXLCurrentLang_de_DE">
+<div id="exlidSkipToContent" class="EXLSkipToContent">
+  <!-- taglibsIncludeAll.jspf begin -->
+<!-- taglibsIncludeAll.jspf end --><a id="exliidSkipToMainContent" href="#exlidResultsContainer">skip to main content</a></div>
+ <div id="exlidHeaderContainer" class="EXLHeader EXLClearFix">
+  <div id="exlidHeaderTile" class="EXLLogo">
+   <!-- taglibsIncludeAll.jspf begin -->
+<!-- taglibsIncludeAll.jspf end --><!-- includeStaticHTML.jspf begin (/uploaded_files/TUB/header_de_DE.html) -->
+<!-- taglibsIncludeAll.jspf begin -->
+<!-- taglibsIncludeAll.jspf end --><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/> 
+<link type="image/x-icon" rel="shortcut icon" href="//portal.ub.tu-berlin.de/favicon.ico">
+
+<!-- test usw de_DE -->
+<script type="text/javascript">
+if(window.location.href.match('redirectTo=myAccount')) {
+   window.location.href = '/primo_library/libweb/action/myAccountMenu.do?vid=TUB';
+}
+var myprot = window.location.protocol;                                          
+var myhost = window.location.hostname;                                          
+var myport = window.location.port;                                              
+
+function myTimeOut() {
+  // alert('Test-Timeout! usw');
+  // return;
+  var myprot=window.location.protocol;
+  var myhost=window.location.hostname;
+  var myport=window.location.port;
+  if (myport!='') myport=':'+myport;
+  var myurl=myprot+'//'+myhost+myport;
+  var starturl=myurl+'/primo_library/libweb/action/search.do?vid=TUB';
+
+  if(window.location != starturl) {
+     // Abmelden + Laden der Startseite
+     // Gast muss nicht komplett abgemeldet werden
+     var myname=$(".EXLUserNameDisplay").text().replace(/\s/g,'');
+     var logoutUrl=myurl;
+     if(myname=='Gast') {
+        logoutUrl=starturl;
+     } else {
+        logoutUrl += '/primo_library/libweb/action/logout.do?loginFn=signout&vid=TUB&targetURL='+escape(starturl);
+     }
+     window.location.href=logoutUrl;
+  } else {
+     // Verhindern des Session-Timeouts
+     window.setTimeout("myTimeOut()",(Minuten*60*1000));
+     $.get(starturl,"",function(data) { ; });
+  }
+}
+
+var Minuten=25;
+window.setTimeout("myTimeOut()",(Minuten*60*1000));
+</script>
+<!-- ende test usw -->
+
+<meta name="AUTHOR" content="UB der TB-Berlin" />
+<meta name="DESCRIPTION" content="Wissensportal primo der Technischen Universitaet Berlin Rechercheportal" />
+<meta name="keywords" content="Universitaetsbibliothek der Technischen Universitaet Berlin, UB der TU Berlin, TUB, TU, UB, Primo, Recherche, Wissensportal, Technische Universitaet, Hochschule" />
+
+<script type="text/javascript">
+if(window.name != 'popup') {
+   if(window.name != 'desktop' && window.name != 'mobile') {
+      if(screen.width > 501) {
+         if(window.location.hash.substr(1)=='m') {
+            ismobile=true;
+            window.name='mobile';
+         }
+         else {
+            ismobile=false;
+            window.name='desktop';
+         }
+      }
+      else {
+         if(window.location.hash.substr(1)=='d') {
+            ismobile=false;
+            $("link[href='../uploaded_files/TUB/mobile.css']").remove();
+            window.name='desktop';
+         }
+         else {
+            ismobile=true;
+            window.name='mobile';
+         }
+      }
+   }
+}
+
+if(window.name=='mobile') ismobile=true;
+if(window.name=='desktop') ismobile=false;
+if(window.name=='popup') ismobile=false;
+
+/* Login-Maske schlank ohne JQuery */
+if(location.href.match(/login.do/) || location.href.match(/loginpage.do/)) {
+   document.write('<style type="text/css">');
+   document.write('.EXLFooterTile { display:none !important; }');
+   document.write('#exlidHeaderContainer { display:none !important; }');
+   if(location.href.match(/redirectTo.*myAccount/)) {
+      document.write('.EXLPRMLoginButtonCancel { display:none !important; }');
+   }
+/*
+   if(ismobile) {
+      document.write('.EXLPRMDualLoginColumnCard { margin-left:-322px;margin-top:-100px; }');
+      document.write('.EXLPRMLoginColumnCard { margin-left:-373px;margin-top:-100px; }');
+   }
+*/
+   document.write('</style>');
+   ismobile=true;
+}
+</script>
+
+<div id="header">
+<div id="logos">
+
+<script type="text/javascript">
+if(!ismobile) {
+  $('#logos').load('../uploaded_files/TUB/header_de_DE_desktop.html');
+}
+
+</script>
+</div>
+
+<noscript>
+  <meta http-equiv="refresh" content="0; URL=http://www2.ub.tu-berlin.de/primohilfe/konto/js_deak.html">
+  <meta name="AUTHOR" content="UB der TB-Berlin" />
+  <meta name="DESCRIPTION" content="Wissensportal primo der Technischen Universitaet Berlin Rechercheportal" />
+  <meta name="keywords" content="Universittsbibliothek der Technischen Universitt Berlin, UB der TU Berlin, TUB, TU, UB, Primo, Recherche, Wissensportal, Technische Universitt, Hochschule" />
+  <br><font size="2" face="Arial" color="#C50E1F" style="position:absolute; left:230px; top:107px"><b><blink>Um die volle Funktionalit&auml;t nutzen zu k&ouml;nnen, aktivieren Sie bitte JavaScript.</b></blink></font>
+</noscript>
+
+<div id="katalog" class="ub_mannheim_katalogleiste">
+        <div>
+
+            <div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- eof filename: tub/header.html -->
+<!-- includeStaticHTML.jspf end (/uploaded_files/TUB/header_de_DE.html) --></div>
+  <div id="exlidUserAreaTile" class="EXLUserMenu">
+   <!-- taglibsIncludeAll.jspf begin -->
+<!-- taglibsIncludeAll.jspf end --><!-- setSearchForm.jspf begin -->
+<!-- taglibsIncludeAll.jspf begin -->
+<!-- taglibsIncludeAll.jspf end --><!-- setSearchForm.jspf end --><!-- this feedback unnecesary
+
+-->
+
+<input type="hidden" class="gatherpagestat" value="false" />
+
+<input type="hidden" class="gatherpagestat" value="false" />
+
+<ul id="exlidUserAreaRibbon" class="EXLEShelfTileLoggedIn">
+  <li id="exlidUserName" class="EXLUserName">
+  	<span class="EXLUserAreaStart"></span>
+  	<span class="EXLUserNameDisplay">
+  		++ Lesesaalbestellung ZB,</span>
+  	<span class="EXLUserAreaStartRtl"></span>
+  </li>
+  <li id="exlidMyShelf" class="EXLMyShelf"><a href="basket.do?fn=display&amp;fromUserArea=true&amp;vid=TUB&amp;fromPreferences=false&amp;fromLink=gotoeShelfUI"><span class="EXLMyShelfStarSelected"></span>Mein Bereich</a></li>
+  <li id="exlidMyAccount" class="EXLMyAccount"><a href="myAccountMenu.do?vid=TUB&amp;fromLink=gotoMyAccountUI">Mein Konto</a></li>
+  
+<li id="exlidSignOut" class="EXLSignOut EXLLastItem "><a href="logout.do?loginFn=signout&amp;vid=TUB&amp;targetURL=https%3a%2f%2ftu-berlin.hosted.exlibrisgroup.com%2fprimo_library%2flibweb%2faction%2fsearch.do%3fvid%3dTUB" onclick="boomCallToRum('SignOutStat',false);">Abmelden</a></li>
+	<li id="exlidSignIn" class="EXLSignOut EXLLastItem EXLHidden">
+	  			<a href="" onclick="boomCallToRum('SignInStatUserArea',false);addResolutionParam(this);">Anmelden</a>
+  				&nbsp; </li>	  			  		
+
+</ul>
+
+</div>
+  <div id="exlidMainMenuTile" class="EXLMainMenu">
+   <!-- taglibsIncludeAll.jspf begin -->
+<!-- taglibsIncludeAll.jspf end --><script type="text/javascript">
+//<![CDATA[
+function loadSearchDbPage(){
+	var fn;
+	addLightBoxDivs();
+	fn='loadSearchDbPage';
+	var timestamp = new Date().getTime();
+	var url = "searchDB.do"+"?fn="+fn+"&ts="+timestamp;
+	var data;
+	$.ajax({
+	    url:url,
+		data:data,
+		global:false,
+		beforeSend: function(request){
+			setAjaxRequestHeader(request);
+		},
+		error: function(request,errorType,exceptionOcurred){
+			if (errorType=='timeout'){
+				notifyAjaxTimeout();
+			}else{
+				generalAjaxError();
+			}
+			document.getElementById('exliLoadingFdb').style.display='none';
+			document.getElementById('exliGreyOverlay').style.display='none';
+			document.getElementById('exliWhiteContent').style.display='none';
+			return false;
+		},
+		success: function(data){
+			if (isAjaxXmlRedirect(data)){
+				handleAjaxXmlRedirect(data);
+			}
+			var elm = $(data).find('searchDbXml');
+			var cdata = $(elm).text();
+			$('span[id=exliLoadingFdbSpan]').remove();
+			var n;
+			n = document.getElementById("exliWhiteContent");
+			var xmlText = cdata.replace(/\n\n/g, "\n").replace(/&lt;/g,"<").replace(/&gt;/g,">");
+			var newdiv = document.createElement("div");
+			newdiv.innerHTML = xmlText;
+			n.innerHTML='';
+			$(n).append(newdiv);
+		}
+	});
+}
+
+
+
+
+
+
+// ]]>
+</script>
+<noscript>This feature requires javascript</noscript><!--  include setSearchForm.jspf before -->
+<!-- setSearchForm.jspf begin -->
+<!-- taglibsIncludeAll.jspf begin -->
+<!-- taglibsIncludeAll.jspf end --><!-- setSearchForm.jspf end --><!--  include setSearchForm.jspf after   -->
+
+<div id="exlidMainMenuContainer" class="EXLMainMenuContainer EXLFirstItem">
+  <ul id="exlidMainMenuRibbon">
+<li id="exlidMainMenuItem1" class="EXLMainMenuItem">
+			<span><a title="neue Suche starten"
+			   		href="/primo_library/libweb/action/search.do?menuitem=0&amp;fromTop=true&amp;fromPreferences=false&amp;fromEshelf=false&amp;vid=TUB"
+			   		class="selected EXLMainMenuSelected EXLMainMenuITEMlibrary_search"
+			   		target="_self">
+			 		  Neue Suche</a></span>
+			</li>
+		<li id="exlidMainMenuItem3" class="EXLMainMenuItem">
+			<span>
+						<!-- Alma A-Z should be opened in the current window -->
+								<a title="A to Z"
+								   	href="dlSearch.do?institution=TUB&amp;vid=TUB&amp;query=facet_atoz%2cexact%2cA&amp;indx=1&amp;bulkSize=30&amp;dym=false&amp;loc=local%2cscope%3a(AZTUB)&amp;fn=goAlmaAz&amp;sortField=stitle&amp;almaAzSearch=true&amp;azSearch=true&amp;selectedAzAlmaLetter=A"
+								 	class=" EXLMainMenuITEMATOZ">
+								   	A-Z</a>
+								</span>
+			</li>
+		<li id="exlidMainMenuItem4" class="EXLMainMenuItem">
+			<span><a title="hilfe tub"
+				   href="http://www2.ub.tu-berlin.de/primohilfe/index.html"
+				   class="EXLMainMenuITEMhilfe_tub"
+				   target="_self">
+				   hilfe_tub</a></span>
+			</li>
+		<li id="exlidMainMenuItem5" class="EXLMainMenuItem EXLLastItem">
+		<span><a title="Hinweise zur Benutzung"
+		   href="helpHandler.do?helpId=search"
+		   class="EXLMainMenuITEMHelp"
+		   target="popup"
+		   onclick="boomCallToRum('help',false); openWindow(this.href, this.target, 'top=100,left=50,width=600,height=500,resizable=1,scrollbars=1'); return false;">
+		   Hilfe</a></span>
+	</li>
+  </ul>
+</div>
+<input type="hidden" class="gatherpagestat" value="false" />
+
+<input type="hidden" class="gatherpagestat" value="false" />
+
+<input type="hidden" class="gatherpagestat" value="true" />
+
+<input type="hidden" class="EXLTabBoomId" id="gotoAZ" 
+		value="A=Primo_Local&amp;I=TUB&amp;S=844DCE56517C81F80AB84D85B75859E0&amp;G=&amp;IP=10.16.120.116&amp;SRVR=fe0301.prod.pmt.dc03.hosted.exlibrisgroup.com&amp;P=general&amp;OP=gotoAZ&amp;TYP=Page_View_4.9.7.0&amp;O=%26%26%26%26TUB%26TU Berlin%26%26&amp;O1=&amp;O2=&amp;O3=&amp;O4=&amp;O5=49TUB.TUB.PPRD&amp;O6=&amp;O7=1&amp;O8=&amp;O9=TUB&amp;O10=&amp;O12=0&amp;O18=&amp;O23=Primo&amp;" />
+
+		
+<input type="hidden" class="boombaseurl" value="https://beacon-eu.hosted.exlibrisgroup.com/boom/apache_pb.gif" />
+
+<input type="hidden" class="gatherpagestat" value="true" />
+
+<input type="hidden" class="EXLTabBoomId" id="help" 
+		value="A=Primo_Local&amp;I=TUB&amp;S=844DCE56517C81F80AB84D85B75859E0&amp;G=&amp;IP=10.16.120.116&amp;SRVR=fe0301.prod.pmt.dc03.hosted.exlibrisgroup.com&amp;P=general&amp;OP=help&amp;TYP=Page_View_4.9.7.0&amp;O=%26%26%26%26TUB%26TU Berlin%26%26&amp;O1=&amp;O2=&amp;O3=&amp;O4=&amp;O5=49TUB.TUB.PPRD&amp;O6=&amp;O7=1&amp;O8=&amp;O9=TUB&amp;O10=&amp;O12=0&amp;O18=&amp;O23=Primo&amp;" />
+
+		
+<input type="hidden" class="boombaseurl" value="https://beacon-eu.hosted.exlibrisgroup.com/boom/apache_pb.gif" />
+
+<!--Languages menu-->
+ <div class="EXLLanguagesContainer">
+ <span class="EXLLanguagesLabel">Sprache:</span>
+  <div class="EXLLanguagesMenu">
+	<ul id="exlidLanguages" class="EXLLanguageMenuShow EXLLanguageMenuHide "><!--remove EXLLanguageMenuHide to show menu items-->
+		<li class="EXLLanguageLink EXLLanguageLinkHide"><a href="preferences.do?fn=change_lang&amp;vid=TUB&amp;prefLang=en_US&amp;prefBackUrl=https:%2F%2Ftu-berlin.hosted.exlibrisgroup.com:443%2Fprimo_library%2Flibweb%2Faction%2FmyAccountMenu.do?vid=TUB%26fromLink=gotoMyAccountUI%26dscnt=0%26dstmp=1482084364588%26vid=TUB" class="EXLLanguageOptionLANGen_US" title="Benutzeroberfl&auml;chensprache &auml;ndern">Englisch</a></li>
+				<li id="exlidSelectedLanguage" class="EXLLanguageLink"><a href="#">Deutsch<img src="../images/icon_arrow_sendTo.png" alt="Show More Options"/></a></li>
+				</ul>
+  </div>
+</div>
+<div id="flagForFindDbDeepLink" title="NotADeepLink"></div>
+<div id="savedSelectedMyAccountTab"></div>
+<div id="exlidLightbox">
+<script type="text/javascript">
+var str = window.location.href;
+var n = str.match(/openFdb=true/g);
+if (n != null){
+boomCallToRum('FindDbStat',false);
+var openMyDatabases = str.match(/openMyDatabases=true/g);
+ if(openMyDatabases != null){
+   openPrimoLightBox('searchDB','loadSearchDbPage','searchDbXml','IamDeepLinkToMyDatabases'); 
+ }else{
+   openPrimoLightBox('searchDB','loadSearchDbPage','searchDbXml','IamDeepLink');
+ }
+}
+</script>
+<noscript>This feature required javascript</noscript>
+</div>
+</div>
+  <div id="exlidSearchTileWrapper" class="EXLCustomLayoutTile EXLSearchWrapper">
+   <!-- l_search_input.jsp begin -->
+<!-- taglibsIncludeAll.jspf begin -->
+<!-- taglibsIncludeAll.jspf end --><!-- jsp_mapping_retriever.jsp begin -->
+<!-- jsp_mapping_retriever.jsp end -->
+<!-- resolved jsp page for search tile: /tiles/searchTile.jsp -->
+<!-- taglibsIncludeAll.jspf begin -->
+<!-- taglibsIncludeAll.jspf end --><script type="text/javascript">
+//<![CDATA[
+function loadSearchDbPage(){
+	var fn;
+	addLightBoxDivs();
+	fn='loadSearchDbPage';
+	var timestamp = new Date().getTime();
+	var url = "searchDB.do"+"?fn="+fn+"&ts="+timestamp;
+	var data;
+	$.ajax({
+	    url:url,
+		data:data,
+		global:false,
+		beforeSend: function(request){
+			setAjaxRequestHeader(request);
+		},
+		error: function(request,errorType,exceptionOcurred){
+			if (errorType=='timeout'){
+				notifyAjaxTimeout();
+			}else{
+				generalAjaxError();
+			}
+			document.getElementById('exliLoadingFdb').style.display='none';
+			document.getElementById('exliGreyOverlay').style.display='none';
+			document.getElementById('exliWhiteContent').style.display='none';
+			return false;
+		},
+		success: function(data){
+			if (isAjaxXmlRedirect(data)){
+				handleAjaxXmlRedirect(data);
+			}
+			var elm = $(data).find('searchDbXml');
+			var cdata = $(elm).text();
+			$('span[id=exliLoadingFdbSpan]').remove();
+			var n;
+			n = document.getElementById("exliWhiteContent");
+			var xmlText = cdata.replace(/\n\n/g, "\n").replace(/&lt;/g,"<").replace(/&gt;/g,">");
+			var newdiv = document.createElement("div");
+			newdiv.innerHTML = xmlText;
+			n.innerHTML='';
+			$(n).append(newdiv);
+		}
+	});
+}
+
+
+
+
+
+
+// ]]>
+</script>
+<noscript>This feature requires javascript</noscript><!-- searchTile.jsp begin -->
+<form name="searchForm" method="get" action="/primo_library/libweb/action/search.do?fn=search&amp;ct=search" class="EXLSearchForm" enctype="application/x-www-form-urlencoded; charset=utf-8" onsubmit="if(isRemoteSearch()){doPleaseWait();};if(window.manualFormSubmit){manualFormSubmit(this.id);return false;}" id="searchForm" target="_self"><input id="fn" type="hidden" value="search" name="fn" />
+<input id="ct" type="hidden" value="search" name="ct" />
+<input id="initialSearch" type="hidden" value="true" name="initialSearch" />
+
+<input id="autoCompleteEnabled"   type="hidden" value='false' />
+<input id="autoCompleteUrl"       type="hidden" value='http://primo-instant-eu.hosted.exlibrisgroup.com:1997/solr/ac' />
+<input id="autoCompleteScope"     type="hidden" value='5fe752fa-9587-4b01-99de-d1b208e386be' />
+<input id="autoCompleteScopesMap" type="hidden" value='{"TUB_ALMA":"L","TUB_ALL":"B","TUB_MA":"L","TUB_DBIS":"L","TUB_OPUS":"L","TUB_PC_NL":"C","TUB-Semesterapparate":"L","TUB_LOCAL":"L"}' />
+<input id="autoCompleteEnabledMap" type="hidden" value='{"TUB_ebooks":false,"Primo_Central":false,"default_scope":false,"TUB_ALL":false,"TUB_DBIS":false,"TUB_OPUS":false,"TUB_LOCAL":false,"TUB_ALMA":false,"TUB_ML_KatBe":false,"TUB_PC":false,"TUB_MA":false,"Blended":false,"TUB_PC_NL":false,"TUB-Semesterapparate":false}' />
+<input id="instCode" type="hidden" value='TUB' />
+<input id="pcToken" type="hidden" value='0' />
+<!-- taglibsIncludeAll.jspf begin -->
+<!-- taglibsIncludeAll.jspf end --><!-- searchTileBasic.jsp begin -->
+<div id="exlidSearchTile" class="EXLSearch">
+<div id="exlidSearchRibbon">
+<!-- search_hidden.jspf begin -->
+<!-- taglibsIncludeAll.jspf begin -->
+<!-- taglibsIncludeAll.jspf end --><!--
+		institution = TU Berlin
+		institution code = TUB
+	 -->
+	<input type="hidden" id="mode" name="mode" value="Basic"/>
+	<input type="hidden" id="tab" name="tab" value="tub_bestand"/>
+	<input type="hidden" id="indx" name="indx" value="1"/>
+	<input type="hidden" id="dum" name="dum" value="true"/>
+	<input type="hidden" name="srt" value="rank" id="str"/>
+
+	<input type="hidden" id="vid" name="vid" value="TUB"/>
+	<input type="hidden" id="frbg" name="frbg" value=""/>
+	<!-- search_hidden.jspf end --><fieldset>
+    <legend class="EXLHiddenCue">Primo Search</legend>
+
+<div class="EXLSearchTabsContainer">
+
+
+<input type="hidden" name="tb" value="t" id="tb" /><ul id="exlidSearchTabs" class="EXLTabs">
+		<li id="exlidTab0" class="EXLSearchTab EXLSearchTabSelected">
+				<span id="defaultScopetub_bestand" style='display:none'>- TU/UdK-Bestand</span> <a href="search.do?mode=Basic&amp;vid=TUB&amp;tab=tub_bestand&amp;" class="EXLSearchTabTitle EXLSearchTabLABELTU/UdK-Bestand" target="_self" onclick="getSearchField(this,'Basic'); delay4Remote('local','true ','tub_bestand')"
+				   title="Suche nach Medien der TU und UdK Berlin">
+					<span>TU/UdK-Bestand</span>
+				</a>
+			</li>
+		<li id="exlidTab1" class="EXLSearchTab ">
+				<span id="defaultScopetub_all" style='display:none'>Artikel+TU/UdK-Bestand</span> <a href="search.do?mode=Basic&amp;vid=TUB&amp;tab=tub_all&amp;" class="EXLSearchTabTitle EXLSearchTabLABELArtikel+TU/UdK-Bestand" target="_self" onclick="getSearchField(this,'Basic'); delay4Remote('local','true ','tub_all')"
+				   title="Online-Ressourcen wie Artikel und E-Books aus internationalen Quellen plus TU- und UdK-Bestand">
+					<span>Artikel+TU/UdK-Bestand</span>
+				</a>
+			</li>
+		<li id="exlidTab2" class="EXLSearchTab ">
+				<span id="defaultScopetub_course_reserve" style='display:none'>TUB Semesterapparate</span> <a href="search.do?mode=Basic&amp;vid=TUB&amp;tab=tub_course_reserve&amp;" class="EXLSearchTabTitle EXLSearchTabLABELTU-Semesterapparate" target="_self" onclick="getSearchField(this,'Basic'); delay4Remote('local','true ','tub_course_reserve')"
+				   title="Semesterapparate der TU">
+					<span>TU-Semesterapparate</span>
+				</a>
+			</li>
+		</ul>
+
+</div>
+<div class="EXLSearchFieldRibbon EXLSearchFieldRibbonFormSearchForMaximized">
+      <div class="EXLSearchFieldRibbonFormFields">
+        <div class="EXLSearchFieldRibbonFormSearchFor">
+          <label for="search_field" class="EXLHide">Search For:</label>
+          <input name="vl(freeText0)" class="EXLSearchFieldMaximized"
+			value='' id="search_field" type="text" accesskey="s" />
+										
+        </div>
+        <div class="EXLSearchFieldRibbonFormSearchClear">
+        	<a class="EXLClearSearchBoxButton EXLClearSimpleSearchBoxButton" id="exlidClearSearchBox" title="Clear Search Term" href="#">
+				<span class="EXLHiddenCue">Clear Search Box</span><span class="EXLClearSimpleSearchBoxButtonClose">
+				</span>
+			</a>	
+        </div>
+
+
+<!-- taglibsIncludeAll.jspf begin -->
+<!-- taglibsIncludeAll.jspf end --><div id="scopesList">
+<div class="EXLSearchFieldRibbonFormSelectedCollection EXLDynamicSelectOnlyOneScope">
+	 <span class="EXLSearchFieldRibbonFormSelectedCollectionLabel">
+			<a id="showMoreOptions" href="#" title="Selected search target">
+			<input class="EXLSelectedScopeId" type="hidden" value="TUB_LOCAL" />
+			<span class="EXLHiddenCue">Search in:</span>
+			<span class="EXLSearchFieldStrippedText">
+	             - TU/UdK-Bestand
+					&nbsp;</span>
+			  <span class="EXLHiddenCue">Or hit Enter to replace search target</span>
+			</a>
+		</span>
+		</div>
+
+<div class="EXLSearchFieldRibbonFormCollectionsList" style="display:none" ><span class="EXLHiddenCue">Or select another collection:</span>
+     <div id="scopesListContainer" class="EXLDynamicSelectBodyRadio">
+     <div class="EXLDynamicSelectBodyRadioFirst"   id="TUB_LOCAL-Div" >
+			<a href="#" class="EXLDynamicSelectBodyRadioFirst">
+			  <span class="EXLHiddenCue">Search in:</span>
+			  <span class="EXLSearchFieldStrippedText">
+	              <input name="scp.scps" type="radio" checked="checked"  id="exlidDynamicSelectBodyRadio0" value="scope:(TUB_SC_ALMA),scope:(TUB_MA),scope:(TUB_DBIS),scope:(TUB_OPUS),scope:(TUB_siam)"/>
+	              <label for="exlidDynamicSelectBodyRadio0">
+	                   - TU/UdK-Bestand
+						&nbsp;</label>
+			</span>
+			  </a>
+            </div>
+		</div>
+
+</div>
+  </div>
+  </div>
+<!-- end  search field ribbon -->
+      <div class="EXLSearchFieldRibbonFormSubmitSearch">
+		<input id="goButton" type="submit" value="Suche" class="submit" accesskey="g"/>
+      </div>
+
+    </div>
+    </fieldset>
+<div class="EXLSearchFieldRibbonAdvancedSearchLink">
+	<a class="" title="Gehe zu Erweiterte Suche" href="search.do?mode=Advanced&amp;ct=AdvancedSearch&amp;" id="advancedSearchBtn">Erweiterte Suche</a>
+</div>
+
+</div>
+<div id="exlidSearchBanner">
+<a
+	           href="search.do"
+	           target="_popup">
+	          <img src="../images/banner.png" alt="rss" />
+	        </a>
+</div>
+<!--end exlidSearchBanner-->
+</div>
+<!-- searchTileBasic.jsp end --><!-- taglibsIncludeAll.jspf begin -->
+<!-- taglibsIncludeAll.jspf end --><script type="text/javascript"> // <![CDATA[
+
+function removeChildren(elm){
+	if ( elm.hasChildNodes() )
+	{
+    		while ( elm.childNodes.length >= 1 )
+    		{
+        			elm.removeChild( elm.firstChild );
+    		}
+	}
+}
+
+
+function loopSelected(selObj, newObj, selectedElm)
+{
+
+	for (i=0; i<selObj.options.length; i++) {
+		var op = document.createElement('option');
+		op.text = selObj.options[i].text;
+		op.value = selObj.options[i].value;
+		op.id = selObj.options[i].id;
+		if (selectedElm == selObj.options[i].value ){
+			op.selected = 'selected';
+		}
+		try {
+  			newObj.add(op, newObj.options[i]); // firefox
+		} catch (ex) {
+  			newObj.add(op, i); // ie
+		}
+	}
+}
+
+
+function showSelected(selectedOption, id  ) {
+
+		var selOperatorObj = document.getElementById('exlidInput_precisionOperator_' +id);
+		var selOperatorIndex = selOperatorObj.selectedIndex;
+		var titleObj=document.getElementById('exlidInput_scope_title' +id);
+
+		var allObj =document.getElementById('exlidInput_scope_all' +id);
+		var orgObj = document.getElementById('exlidInput_scope_' +id);
+		var selectedElm =orgObj.options[orgObj.selectedIndex];
+
+		if ( selOperatorObj.options[selOperatorIndex].value =='begins_with'){
+			if (titleObj == null || titleObj == undefined ){
+				selectedOption.options[0].selected = 'selected';
+				alert('starts_with kann nur innerhalb einer Titelsuche verwendet werden.');
+				return false;
+			}
+			removeChildren(orgObj);
+			loopSelected(titleObj, orgObj, selectedElm.value);
+			var searchForm = document.getElementsByName('searchForm')[0];
+			var hiddenSrt = document.getElementById("str");
+			hiddenSrt.value = 'title';
+		} else{
+			removeChildren(orgObj);
+			loopSelected(allObj, orgObj, selectedElm.value);
+			var searchForm = document.getElementsByName('searchForm')[0];
+			var hiddenSrt = document.getElementById("str");
+			hiddenSrt.value = 'rank';
+		}
+
+}
+
+function unselect(id  ) {
+
+	 	 if (document.getElementById('begins_with'+id)) {
+			var orgObj = document.getElementById('exlidInput_scope_' +id);
+			removeChildren(orgObj);
+			var op = document.createElement('option');
+			op.text = 'Im Titel';
+			op.value = 'title';
+			op.id = 'scope_titleOnly'+id;
+			op.selected = 'selected';
+			try {
+  				orgObj.add(op, orgObj.options[0]); // firefox
+			} catch (ex) {
+  				orgObj.add(op, 0); // ie
+			}
+			var searchForm = document.getElementsByName('searchForm')[0];
+			var hiddenSrt = document.getElementById("str");
+			hiddenSrt.value = 'title';
+		}
+}
+
+function unselectAdvanceTitle(id){
+
+	if (document.getElementById('title'+id)) {
+		var orgObj = document.getElementById('exlidInput_scope_' +id);
+		removeChildren(orgObj);
+		var op = document.createElement('option');
+		op.text = 'Titel';
+		op.value = 'title';
+		op.id = 'scope_titleOnly'+id;
+		op.selected = 'selected';
+		try {
+			orgObj.add(op, orgObj.options[0]); // firefox
+		} catch (ex) {
+			orgObj.add(op, 0); // ie
+		}
+		var searchForm = document.getElementsByName('searchForm')[0];
+		var hiddenSrt = document.getElementById("str");
+		hiddenSrt.value = 'title';
+	}
+}
+
+
+//]]>
+</script>
+<noscript>This feature requires javascript</noscript><!-- searchLimitsTile.jsp begin -->
+<div id="exlidHeaderSearchLimits">
+      <fieldset>
+      <legend class="EXLHiddenCue"><!-- userText.tag begin -->
+<!-- userText.tag end --></legend>      
+      <span class="EXLHeaderSearchLimitsFields">
+		<span class="EXLHeaderSearchLimitsFieldsTitle">
+		<!-- userText.tag begin -->
+<!-- userText.tag end --></span>
+
+		<span class="EXLHiddenCue"><!-- userText.tag begin -->
+Typ der Ressource<!-- userText.tag end --></span>
+				<!-- select.tag begin -->
+<!-- taglibsIncludeAll.jspf begin -->
+<!-- taglibsIncludeAll.jspf end --><label class="EXLHide" for="exlidInput_mediaType_1">criteria input</label>
+		 <select class="EXLSelectTag blue EXLSimpleSearchSelect" id="exlidInput_mediaType_1" 
+		  name="vl(265608450UI1)" >
+
+
+			<option  style="display:block"  value="all_items"  id="mediaType_all_items1"
+						selected="selected"class="EXLSelectedOption">
+							Alle</option>
+				<option  style="display:block"  value="books"  id="mediaType_books1"
+						class="EXLSelectOption">
+							Bücher (Print)</option>
+				<option  style="display:block"  value="ebooks"  id="mediaType_ebooks1"
+						class="EXLSelectOption">
+							E-Books</option>
+				<option  style="display:block"  value="journals"  id="mediaType_journals1"
+						class="EXLSelectOption">
+							Zeitschriften (Print)</option>
+				<option  style="display:block"  value="ejournals"  id="mediaType_ejournals1"
+						class="EXLSelectOption">
+							E-Journals</option>
+				<option  style="display:block"  value="articles"  id="mediaType_articles1"
+						class="EXLSelectOption">
+							Artikel</option>
+				<option  style="display:block"  value="databases"  id="mediaType_databases1"
+						class="EXLSelectOption">
+							Datenbanken</option>
+				</select>
+		 <!-- select.tag end --><span class="EXLHide">
+				<span class="EXLHide">Ergebnisse anzeigen mit: </span>
+				</span>
+				<!-- select.tag begin -->
+<!-- taglibsIncludeAll.jspf begin -->
+<!-- taglibsIncludeAll.jspf end --><label class="EXLHide" for="exlidInput_precisionOperator_1">criteria input</label>
+		 <select class="EXLSelectTag blue EXLSimpleSearchSelect" id="exlidInput_precisionOperator_1" 
+				onchange="showSelected(this, '1' ); return false;"
+			
+		  name="vl(1UIStartWith0)" >
+
+
+			<option value="contains"
+					selected="selected"class="EXLSelectedOption">
+						enthält</option>
+				<option value="exact"
+					class="EXLSelectOption">
+						enthält die Wortgruppe</option>
+				<option value="begins_with"
+					class="EXLSelectOption">
+						beginnt mit</option>
+				</select>
+		 <!-- select.tag end --><span class="EXLHide">
+				<span class="EXLHide">Ergebnisse anzeigen mit: </span>
+				<!-- userText.tag begin -->
+Index<!-- userText.tag end --></span>
+				<!-- select.tag begin -->
+<!-- taglibsIncludeAll.jspf begin -->
+<!-- taglibsIncludeAll.jspf end --><label class="EXLHide" for="exlidInput_scope_1">criteria input</label>
+		<select class="EXLSelectTag blue EXLSimpleSearchSelect" id="exlidInput_scope_1" name="vl(265609607UI0)"   >
+			<option value="any"  id="scope_any1"
+						selected="selected"class="EXLSelectedOption">
+							alle Felder</option>
+				<option value="title"  id="scope_title1"
+						class="EXLSelectOption">
+							Im Titel</option>
+				<option value="creator"  id="scope_creator1"
+						class="EXLSelectOption">
+							Person / Institution</option>
+				<option value="sub"  id="scope_sub1"
+						class="EXLSelectOption">
+							Schlagwort</option>
+				<option value="isbn"  id="scope_isbn1"
+						class="EXLSelectOption">
+							ISBN</option>
+				<option value="issn"  id="scope_issn1"
+						class="EXLSelectOption">
+							ISSN</option>
+				<option value="lsr30"  id="scope_lsr301"
+						class="EXLSelectOption">
+							Sachgruppe (RVK)</option>
+				<option value="lsr31"  id="scope_lsr311"
+						class="EXLSelectOption">
+							Sachgruppe (lokal)</option>
+				<option value="lsr34"  id="scope_lsr341"
+						class="EXLSelectOption">
+							Verlag</option>
+				<option value="lsr35"  id="scope_lsr351"
+						class="EXLSelectOption">
+							Erscheinungsort</option>
+				<option value="cdate"  id="scope_cdate1"
+						class="EXLSelectOption">
+							Erscheinungsjahr</option>
+				</select>
+
+
+			<label class="EXLHide" for="exlidInput_scope_title1">Show Results with:</label>
+				  	<select class="EXLSelectTag blue EXLSimpleSearchSelect" id="exlidInput_scope_title1" name="vl(265609607UI0)"  style="display:none" >
+					<option  value="title"  id="scope_titleOnly1" selected="selected"
+
+						class="EXLSelectOption">
+						Im Titel</option>
+					</select>
+				<label class="EXLHide" for="exlidInput_scope_all1">Show Results with:</label>
+		<select class="EXLSelectTag blue EXLSimpleSearchSelect" id="exlidInput_scope_all1" name="vl(265609607UI0)" style="display:none">
+			<option  style="display:block"  value="any"  id="scope_anyall1"
+						selected="selected"class="EXLSelectedOption">
+							alle Felder</option>
+				<option  style="display:block"  value="title"  id="scope_titleall1"
+						class="EXLSelectOption">
+							Im Titel</option>
+				<option  style="display:block"  value="creator"  id="scope_creatorall1"
+						class="EXLSelectOption">
+							Person / Institution</option>
+				<option  style="display:block"  value="sub"  id="scope_suball1"
+						class="EXLSelectOption">
+							Schlagwort</option>
+				<option  style="display:block"  value="isbn"  id="scope_isbnall1"
+						class="EXLSelectOption">
+							ISBN</option>
+				<option  style="display:block"  value="issn"  id="scope_issnall1"
+						class="EXLSelectOption">
+							ISSN</option>
+				<option  style="display:block"  value="lsr30"  id="scope_lsr30all1"
+						class="EXLSelectOption">
+							Sachgruppe (RVK)</option>
+				<option  style="display:block"  value="lsr31"  id="scope_lsr31all1"
+						class="EXLSelectOption">
+							Sachgruppe (lokal)</option>
+				<option  style="display:block"  value="lsr34"  id="scope_lsr34all1"
+						class="EXLSelectOption">
+							Verlag</option>
+				<option  style="display:block"  value="lsr35"  id="scope_lsr35all1"
+						class="EXLSelectOption">
+							Erscheinungsort</option>
+				<option  style="display:block"  value="cdate"  id="scope_cdateall1"
+						class="EXLSelectOption">
+							Erscheinungsjahr</option>
+				</select>
+		<!-- select.tag end --><!-- userText.tag begin -->
+<!-- userText.tag end --><input name="Submit" type="submit" value="Apply Search Limits"/>
+
+      <input name="Reset" type="reset" value="Clear Limits"/>
+      </span>
+      </fieldset>
+</div>
+<!-- searchLimitsTile.jsp end -->
+</form><!-- searchTile.jsp end -->
+<!-- l_search_input.jsp end --></div>
+
+ </div>
+ <!-- add your tiles here -->
+<!--begin My Account Tabs-->
+
+<input id="dbSetNumForTabShow" type="hidden" value="0"/>
+
+<div class="EXLMyAccountTabsRibbon">
+  <div>
+    <ul class="EXLMyAccountTabs">
+	  <li id="exlidEshelfTab" class="EXLMyAccountTab  EXLMyAccountFirstTab  EXLMyAccountFirstSelectedTab"><a href="basket.do?fn=display&amp;fromUserArea=true&amp;vid=TUB&amp;fromPreferences=false&amp;fromLink=gotoeShelfUI" title="Korb">Korb</a></li>
+      <li id="exlidQuereisTab" class="EXLMyAccountTab "><a href="query.do?fn=display&amp;vid=TUB" title="Suchverlauf">Suchverlauf</a></li>
+      <li id="exlidMyAccountTab" class="EXLMyAccountTab EXLMyAccountSelectedTab EXLMyAccountLastTab"><a href="myAccountMenu.do?vid=TUB&amp;fromLink=gotoMyAccountUI" title="Mein Konto">Mein Konto</a></li>
+      </ul>
+  </div>
+</div>
+ <!--begin my account menu-->
+<!--  we are here activity pane - /views/myaccount/loansListActivityPane.jsp -->
+<!--  myAccountMenuPane.jsp begin -->
+<!--begin my account menu-->
+<!-- taglibsIncludeAll.jspf begin -->
+<!-- taglibsIncludeAll.jspf end --><input type="hidden" name="dateFormat" id="dateFormat" value="dd.MM.yyyy" />
+
+<div id="exlidMyAccountContainer" class="EXLMyAccountContainer">
+<!--  begin menu div -->
+<div id="exlidMyAccountMainMenuTile" class="EXLMyAccountMainMenuTile">
+  <div id="exlidMyAccountMainMenuContainer" class="EXLMyAccountMainMenuContainer">
+  <ol>
+  	<li >
+				<span class="EXLMyAccountMainMenuBullet EXLMyAccountMainMenuBulletSelected"></span>
+				<span class="EXLMyAccountMainMenuTitle"> 
+					<a href="/primo_library/libweb/action/myAccountMenu.do?activity=loans&amp;command=list&amp;fromLink=menu.myaccount.loans" id="exlidMyAccountMenu1-1"
+					title="Ausleihen">
+					Ausleihen</a>
+				</span> 
+				<span class="EXLMyAccountMainMenuCounter">
+					(7)</span>
+			</li>	  	
+	  	<li >
+				<span class="EXLMyAccountMainMenuBullet "></span>
+				<span class="EXLMyAccountMainMenuTitle"> 
+					<a href="/primo_library/libweb/action/myAccountMenu.do?activity=requests&amp;fromLink=menu.myaccount.requests" id="exlidMyAccountMenu1-2"
+					title="Bestellungen">
+					Bestellungen</a>
+				</span> 
+				<span class="EXLMyAccountMainMenuCounter">
+					(4)</span>
+			</li>	  	
+	  	<li >
+				<span class="EXLMyAccountMainMenuBullet "></span>
+				<span class="EXLMyAccountMainMenuTitle"> 
+					<a href="/primo_library/libweb/action/myAccountMenu.do?activity=fees&amp;fromLink=menu.myaccount.fines" id="exlidMyAccountMenu1-3"
+					title="Gebühren">
+					Gebühren</a>
+				</span> 
+				<span class="EXLMyAccountMainMenuCounter">
+					&nbsp;</span>
+			</li>	  	
+	  	<li >
+				<span class="EXLMyAccountMainMenuBullet "></span>
+				<span class="EXLMyAccountMainMenuTitle"> 
+					<a href="/primo_library/libweb/action/myAccountMenu.do?activity=messages&amp;fromLink=menu.myaccount.blocks" id="exlidMyAccountMenu1-4"
+					title="Sperren & Nachrichten">
+					Sperren & Nachrichten</a>
+				</span> 
+				<span class="EXLMyAccountMainMenuCounter">
+					</span>
+			</li>	  	
+	  	<li >
+				<span class="EXLMyAccountMainMenuBullet "></span>
+				<span class="EXLMyAccountMainMenuTitle"> 
+					<a href="/primo_library/libweb/action/myAccountMenu.do?vid=TUB&amp;activity=personalSettings&amp;fromLink=menu.myaccount.personal_settings" id="exlidMyAccountMenu1-5"
+					title="Persönliche Einstellungen">
+					Persönliche Einstellungen</a>
+				</span> 
+				<span class="EXLMyAccountMainMenuCounter">
+					</span>
+			</li>	  	
+	  	</ol>
+  </div>
+</div>
+<!-- loansListActivityPane.jsp begin  -->
+<!-- begin my account form -->
+<!-- taglibsIncludeAll.jspf begin -->
+<!-- taglibsIncludeAll.jspf end --><!-- begin my account table -->
+  <div id="exlidMyAccountMainContainer1" class="EXLMyAccountMainContainer">
+  <div id="exlidMyAccountMainHeader" class="EXLMyAccountMainHeader">
+    <div class="EXLMyAccountMainHeaderTitle">
+		<div class="EXLMyAccountMainHeaderContent">
+			<span class="EXLMyAccountMainHeaderContentSelected">Zurück zur Liste der Ausleihen</span>
+				</div>
+		</div>
+		</div>
+	<input type="hidden" name="pagingUtil.startPos" id="pagingUtil.startPos" value="1"/>
+	<input type="hidden" name="titleInd" id="titleInd" value="2"/>
+	<input type="hidden" name="dateInd" id="dateInd" value="4"/>
+	
+  <table cellspacing="0"  summary="summary place holder" class="EXLMyAccountTable" id="LoansTable">
+			<caption align="top" class="EXLCaptionSystemFeedback" style="display: none" id="EXLMyAccountFeedbacMsg">			
+				Bitte wählen Sie einen/mehrere Titel aus, indem Sie die Checkbox aktivieren!</caption>
+			<thead>
+	<tr>
+			<td></td>
+			<td></td>	
+			<td colspan="5">
+					<a href="/primo_library/libweb/action/myAccountLoan.do?command=loansRenewAll&type=active&column=8&pagingActivated=true&partialResult=false" class="EXLLoansRenewButton" id="renewAllButton">							
+						<b>Alle verlängern</b>
+					</a>
+					<a id="renew_selecte_loans_button" href="javascript:clickSelecetCheckbox('LoansTable','renewButton');" >
+						<b>Markierte Auswahl verlängern</b>
+					</a>
+			</td>
+		</tr>
+	<tr>
+		<th scope="col" class="EXLMyAccountTableCounter">	      
+			#</th>
+		<th scope="col" class="EXLMyAccountTable">	      
+			&nbsp;</th>
+		<th scope="col" class="EXLMyAccountTableTitle">	      
+			<a href="/primo_library/libweb/action/myAccountLoan.do?command=list&type=active&column=2&pagingActivated=true&partialResult=false" class="EXLLocationsButton" id="sortCol">					
+					<noscript>
+						<a href="/primo_library/libweb/action/myAccountLoan.do?command=list&type=active&column=2&pagingActivated=true&partialResult=false&noScript=true" class="EXLLocationsButton" id="sortCol">					
+					</noscript>				
+			Titel</a>
+					<noscript></a></noscript>
+			</th>
+		<th scope="col" class="EXLMyAccountTableAuthor">	      
+			AutorIn</th>
+		<th scope="col" class="EXLMyAccountTableDueDate">	      
+			<a href="/primo_library/libweb/action/myAccountLoan.do?command=list&type=active&column=4&pagingActivated=true&partialResult=false" class="EXLLocationsButton" id="sortCol">					
+					<noscript>
+						<a href="/primo_library/libweb/action/myAccountLoan.do?command=list&type=active&column=4&pagingActivated=true&partialResult=false&noScript=true" class="EXLLocationsButton" id="sortCol">					
+					</noscript>				
+			Fällig am</a>
+					<noscript></a></noscript>
+			</th>
+		<th scope="col" class="EXLMyAccountTableSub Location">	      
+			Bibliothek, Signatur oder <br> Fernleih-Nr.</th>
+		<th scope="col" class="EXLMyAccountTableActions">	      
+			Status</th>
+		</tr>
+    </thead>
+		<!-- taglibsIncludeAll.jspf begin -->
+<!-- taglibsIncludeAll.jspf end --><input type="hidden" name="renewedLoansStatus" id="renewedLoansStatus" value="{}"/>
+<input type="hidden" name="renewedLoansDueDates" id="renewedLoansDueDates" value="{}"/>
+<input type="hidden" name="renewedLoansDueHours" id="renewedLoansDueHours" value="{}"/>
+<input type="hidden" name="pagingActivated" id="pagingActivated" value="true"/>
+<input type="hidden" name="partialResult" id="partialResult" value="false"/>
+
+<input type="hidden" name="renewMsg" id="renewMsg" value="" />
+
+<tbody>
+
+<tr>
+	<td class="MyAccount_Loans_0 MyAccount_Loans_" id="6047792480002884">
+		01</td>
+		<td class="MyAccount_Loans_1 MyAccount_Loans_select" id="select6047792480002884">
+		<input  type="checkbox" title="Verlängerbar" value="6047792480002884" id="RENEW_BUTTON_LOANID_6047792480002884" class="radio" name="renewLoanId"/>
+				</td>
+		<td class="MyAccount_Loans_2 MyAccount_Loans_title" id="title6047792480002884">
+		<a class="" href="/primo_library/libweb/action/myAccountLoan.do?command=details&amp;loanID=6047792480002884&amp;type=active&pagingActivated=true&partialResult=false" title="title-01" id="link-6047792480002884"  style="display:">Aircraft Seat Fire Blocking Layers: Effectiveness and benefirs under various scenarios</a>
+				<noscript>
+				</noscript>
+			</td>
+		<td class="MyAccount_Loans_3 MyAccount_Loans_author" id="author6047792480002884">
+		</td>
+		<td class="MyAccount_Loans_4 MyAccount_Loans_dueDate" id="dueDate6047792480002884">
+		01.12.2016</td>
+		<td class="MyAccount_Loans_5 MyAccount_Loans_location" id="location6047792480002884">
+		TU Zentralbibliothek 9QG276</td>
+		<td class="MyAccount_Loans_6 MyAccount_Loans_renewal" id="renewal6047792480002884">
+		<a class="EXLHide" href="/primo_library/libweb/action/myAccountLoan.do?command=renew&amp;loanID=6047792480002884&amp;type=active&pagingActivated=true&partialResult=false" title="renewal-01" id="renewButton-6047792480002884"  style="display:none;">Verlängerbar</a>
+				Verlängerbar<noscript>
+				<a href="/primo_library/libweb/action/myAccountLoan.do?command=renew&amp;loanID=6047792480002884&amp;type=active&noScript=true&pagingActivated=true&partialResult=false" title="renewal-01" id="renewButton-6047792480002884">Verlängerbar</a>
+				</noscript>
+			</td>
+		</tr>
+	
+	
+<tr class="EXLMyAccountTableRowBgColor">
+	<td class="MyAccount_Loans_0 MyAccount_Loans_" id="6048575690002884">
+		02</td>
+		<td class="MyAccount_Loans_1 MyAccount_Loans_select" id="select6048575690002884">
+		<input  type="checkbox" title="Verlängerbar" value="6048575690002884" id="RENEW_BUTTON_LOANID_6048575690002884" class="radio" name="renewLoanId"/>
+				</td>
+		<td class="MyAccount_Loans_2 MyAccount_Loans_title" id="title6048575690002884">
+		<a class="" href="/primo_library/libweb/action/myAccountLoan.do?command=details&amp;loanID=6048575690002884&amp;type=active&pagingActivated=true&partialResult=false" title="title-02" id="link-6048575690002884"  style="display:">Videoanalyse depressiver Verhaltensaspekte</a>
+				<noscript>
+				</noscript>
+			</td>
+		<td class="MyAccount_Loans_3 MyAccount_Loans_author" id="author6048575690002884">
+		Ulrich, Gerald</td>
+		<td class="MyAccount_Loans_4 MyAccount_Loans_dueDate" id="dueDate6048575690002884">
+		16.12.2016</td>
+		<td class="MyAccount_Loans_5 MyAccount_Loans_location" id="location6048575690002884">
+		TU Zentralbibliothek 8RP2403</td>
+		<td class="MyAccount_Loans_6 MyAccount_Loans_renewal" id="renewal6048575690002884">
+		<a class="EXLHide" href="/primo_library/libweb/action/myAccountLoan.do?command=renew&amp;loanID=6048575690002884&amp;type=active&pagingActivated=true&partialResult=false" title="renewal-02" id="renewButton-6048575690002884"  style="display:none;">Verlängerbar</a>
+				Verlängerbar<noscript>
+				<a href="/primo_library/libweb/action/myAccountLoan.do?command=renew&amp;loanID=6048575690002884&amp;type=active&noScript=true&pagingActivated=true&partialResult=false" title="renewal-02" id="renewButton-6048575690002884">Verlängerbar</a>
+				</noscript>
+			</td>
+		</tr>
+	
+	
+<tr>
+	<td class="MyAccount_Loans_0 MyAccount_Loans_" id="6085635360002884">
+		03</td>
+		<td class="MyAccount_Loans_1 MyAccount_Loans_select" id="select6085635360002884">
+		<input  type="checkbox" title="Verlängerbar" value="6085635360002884" id="RENEW_BUTTON_LOANID_6085635360002884" class="radio" name="renewLoanId"/>
+				</td>
+		<td class="MyAccount_Loans_2 MyAccount_Loans_title" id="title6085635360002884">
+		<a class="" href="/primo_library/libweb/action/myAccountLoan.do?command=details&amp;loanID=6085635360002884&amp;type=active&pagingActivated=true&partialResult=false" title="title-03" id="link-6085635360002884"  style="display:">Integrierte Optoelektronik : Wellenleiteroptik, Photonik, Halbleiter /</a>
+				<noscript>
+				</noscript>
+			</td>
+		<td class="MyAccount_Loans_3 MyAccount_Loans_author" id="author6085635360002884">
+		Ebeling, Karl Joachim</td>
+		<td class="MyAccount_Loans_4 MyAccount_Loans_dueDate" id="dueDate6085635360002884">
+		21.12.2016</td>
+		<td class="MyAccount_Loans_5 MyAccount_Loans_location" id="location6085635360002884">
+		TU Zentralbibliothek 8Ad9906</td>
+		<td class="MyAccount_Loans_6 MyAccount_Loans_renewal" id="renewal6085635360002884">
+		<a class="EXLHide" href="/primo_library/libweb/action/myAccountLoan.do?command=renew&amp;loanID=6085635360002884&amp;type=active&pagingActivated=true&partialResult=false" title="renewal-03" id="renewButton-6085635360002884"  style="display:none;">Verlängerbar</a>
+				Verlängerbar<noscript>
+				<a href="/primo_library/libweb/action/myAccountLoan.do?command=renew&amp;loanID=6085635360002884&amp;type=active&noScript=true&pagingActivated=true&partialResult=false" title="renewal-03" id="renewButton-6085635360002884">Verlängerbar</a>
+				</noscript>
+			</td>
+		</tr>
+	
+	
+<tr class="EXLMyAccountTableRowBgColor">
+	<td class="MyAccount_Loans_0 MyAccount_Loans_" id="6085641150002884">
+		04</td>
+		<td class="MyAccount_Loans_1 MyAccount_Loans_select" id="select6085641150002884">
+		<input  type="checkbox" title="Verlängerbar" value="6085641150002884" id="RENEW_BUTTON_LOANID_6085641150002884" class="radio" name="renewLoanId"/>
+				</td>
+		<td class="MyAccount_Loans_2 MyAccount_Loans_title" id="title6085641150002884">
+		<a class="" href="/primo_library/libweb/action/myAccountLoan.do?command=details&amp;loanID=6085641150002884&amp;type=active&pagingActivated=true&partialResult=false" title="title-04" id="link-6085641150002884"  style="display:">Habitat, architecture and rural society in the Gilân Plain (Northern Iran) /</a>
+				<noscript>
+				</noscript>
+			</td>
+		<td class="MyAccount_Loans_3 MyAccount_Loans_author" id="author6085641150002884">
+		Bromberger, Christian</td>
+		<td class="MyAccount_Loans_4 MyAccount_Loans_dueDate" id="dueDate6085641150002884">
+		21.12.2016</td>
+		<td class="MyAccount_Loans_5 MyAccount_Loans_location" id="location6085641150002884">
+		TU Zentralbibliothek 8Qn9374</td>
+		<td class="MyAccount_Loans_6 MyAccount_Loans_renewal" id="renewal6085641150002884">
+		<a class="EXLHide" href="/primo_library/libweb/action/myAccountLoan.do?command=renew&amp;loanID=6085641150002884&amp;type=active&pagingActivated=true&partialResult=false" title="renewal-04" id="renewButton-6085641150002884"  style="display:none;">Verlängerbar</a>
+				Verlängerbar<noscript>
+				<a href="/primo_library/libweb/action/myAccountLoan.do?command=renew&amp;loanID=6085641150002884&amp;type=active&noScript=true&pagingActivated=true&partialResult=false" title="renewal-04" id="renewButton-6085641150002884">Verlängerbar</a>
+				</noscript>
+			</td>
+		</tr>
+	
+	
+<tr>
+	<td class="MyAccount_Loans_0 MyAccount_Loans_" id="6085648000002884">
+		05</td>
+		<td class="MyAccount_Loans_1 MyAccount_Loans_select" id="select6085648000002884">
+		<input  type="checkbox" title="Verlängerbar" value="6085648000002884" id="RENEW_BUTTON_LOANID_6085648000002884" class="radio" name="renewLoanId"/>
+				</td>
+		<td class="MyAccount_Loans_2 MyAccount_Loans_title" id="title6085648000002884">
+		<a class="" href="/primo_library/libweb/action/myAccountLoan.do?command=details&amp;loanID=6085648000002884&amp;type=active&pagingActivated=true&partialResult=false" title="title-05" id="link-6085648000002884"  style="display:">Power in buildings : an artist&#039;s view of contemporary architecture /</a>
+				<noscript>
+				</noscript>
+			</td>
+		<td class="MyAccount_Loans_3 MyAccount_Loans_author" id="author6085648000002884">
+		Ferriss, Hugh</td>
+		<td class="MyAccount_Loans_4 MyAccount_Loans_dueDate" id="dueDate6085648000002884">
+		21.12.2016</td>
+		<td class="MyAccount_Loans_5 MyAccount_Loans_location" id="location6085648000002884">
+		TU Zentralbibliothek 4B4250</td>
+		<td class="MyAccount_Loans_6 MyAccount_Loans_renewal" id="renewal6085648000002884">
+		<a class="EXLHide" href="/primo_library/libweb/action/myAccountLoan.do?command=renew&amp;loanID=6085648000002884&amp;type=active&pagingActivated=true&partialResult=false" title="renewal-05" id="renewButton-6085648000002884"  style="display:none;">Verlängerbar</a>
+				Verlängerbar<noscript>
+				<a href="/primo_library/libweb/action/myAccountLoan.do?command=renew&amp;loanID=6085648000002884&amp;type=active&noScript=true&pagingActivated=true&partialResult=false" title="renewal-05" id="renewButton-6085648000002884">Verlängerbar</a>
+				</noscript>
+			</td>
+		</tr>
+	
+	
+<tr class="EXLMyAccountTableRowBgColor">
+	<td class="MyAccount_Loans_0 MyAccount_Loans_" id="6048320150002884">
+		06</td>
+		<td class="MyAccount_Loans_1 MyAccount_Loans_select" id="select6048320150002884">
+		<input  type="checkbox" title="Verlängerbar" value="6048320150002884" id="RENEW_BUTTON_LOANID_6048320150002884" class="radio" name="renewLoanId"/>
+				</td>
+		<td class="MyAccount_Loans_2 MyAccount_Loans_title" id="title6048320150002884">
+		<a class="" href="/primo_library/libweb/action/myAccountLoan.do?command=details&amp;loanID=6048320150002884&amp;type=active&pagingActivated=true&partialResult=false" title="title-06" id="link-6048320150002884"  style="display:">Die &#034;räumliche Syntax&#034;</a>
+				<noscript>
+				</noscript>
+			</td>
+		<td class="MyAccount_Loans_3 MyAccount_Loans_author" id="author6048320150002884">
+		Maier, Otto</td>
+		<td class="MyAccount_Loans_4 MyAccount_Loans_dueDate" id="dueDate6048320150002884">
+		23.12.2016</td>
+		<td class="MyAccount_Loans_5 MyAccount_Loans_location" id="location6048320150002884">
+		TU Zentralbibliothek 8VD9671</td>
+		<td class="MyAccount_Loans_6 MyAccount_Loans_renewal" id="renewal6048320150002884">
+		<a class="EXLHide" href="/primo_library/libweb/action/myAccountLoan.do?command=renew&amp;loanID=6048320150002884&amp;type=active&pagingActivated=true&partialResult=false" title="renewal-06" id="renewButton-6048320150002884"  style="display:none;">Verlängerbar</a>
+				Verlängerbar<noscript>
+				<a href="/primo_library/libweb/action/myAccountLoan.do?command=renew&amp;loanID=6048320150002884&amp;type=active&noScript=true&pagingActivated=true&partialResult=false" title="renewal-06" id="renewButton-6048320150002884">Verlängerbar</a>
+				</noscript>
+			</td>
+		</tr>
+	
+	
+<tr>
+	<td class="MyAccount_Loans_0 MyAccount_Loans_" id="6085630810002884">
+		07</td>
+		<td class="MyAccount_Loans_1 MyAccount_Loans_select" id="select6085630810002884">
+		<input  type="checkbox" title="Verlängerbar" value="6085630810002884" id="RENEW_BUTTON_LOANID_6085630810002884" class="radio" name="renewLoanId"/>
+				</td>
+		<td class="MyAccount_Loans_2 MyAccount_Loans_title" id="title6085630810002884">
+		<a class="" href="/primo_library/libweb/action/myAccountLoan.do?command=details&amp;loanID=6085630810002884&amp;type=active&pagingActivated=true&partialResult=false" title="title-07" id="link-6085630810002884"  style="display:">Organisation, Macht, Subjekt : zur Genealogie des modernen Managements /</a>
+				<noscript>
+				</noscript>
+			</td>
+		<td class="MyAccount_Loans_3 MyAccount_Loans_author" id="author6085630810002884">
+		Richter, Nancy</td>
+		<td class="MyAccount_Loans_4 MyAccount_Loans_dueDate" id="dueDate6085630810002884">
+		11.01.2017</td>
+		<td class="MyAccount_Loans_5 MyAccount_Loans_location" id="location6085630810002884">
+		TU Zentralbibliothek QP340 104</td>
+		<td class="MyAccount_Loans_6 MyAccount_Loans_renewal" id="renewal6085630810002884">
+		<a class="EXLHide" href="/primo_library/libweb/action/myAccountLoan.do?command=renew&amp;loanID=6085630810002884&amp;type=active&pagingActivated=true&partialResult=false" title="renewal-07" id="renewButton-6085630810002884"  style="display:none;">Verlängerbar</a>
+				Verlängerbar<noscript>
+				<a href="/primo_library/libweb/action/myAccountLoan.do?command=renew&amp;loanID=6085630810002884&amp;type=active&noScript=true&pagingActivated=true&partialResult=false" title="renewal-07" id="renewButton-6085630810002884">Verlängerbar</a>
+				</noscript>
+			</td>
+		</tr>
+	
+	
+</tbody>	
+<tfoot>	
+
+</tfoot>
+</table>
+</div>
+
+<!-- end my account table -->
+<!-- loansListActivityPane.jsp end -->
+</div>
+
+
+
+<!--end my account menu-->
+<!--  myAccountMenuPane.jsp end --><div class="EXLFooterTile">
+	<!-- l_footer.jsp begin -->
+<!-- taglibsIncludeAll.jspf begin -->
+<!-- taglibsIncludeAll.jspf end --><!-- jsp_mapping_retriever.jsp begin -->
+<!-- jsp_mapping_retriever.jsp end -->
+<!-- footer.jsp begin -->
+<!-- taglibsIncludeAll.jspf begin -->
+<!-- taglibsIncludeAll.jspf end --><!-- includeStaticHTML.jspf begin (/uploaded_files/TUB/footer_de_DE.html) -->
+<!-- taglibsIncludeAll.jspf begin -->
+<!-- taglibsIncludeAll.jspf end --><!--begin footer -->
+
+<table class="tubfooter" id="mytubfooter">
+<tr>
+  <td class="tubfooter">Bibliotheksinformationen: <a href="http://www.ub.tu-berlin.de/bibliothek-benutzen/ausleihen-bestellen/ausleihen-verlaengern-und-abgeben/" target="_blank">Ausleihe</a></td>
+  <td class="tubfooter"><a href="http://www.ub.tu-berlin.de/" target="_blank">UB-Home</a></td>
+  <td class="tubfooter"><a href="http://www.ub.tu-berlin.de/bibliothek-benutzen/ausleihen-bestellen/abholzeiten/" target="_blank">Abholzeiten</a></td>
+  <td class="tubfooter"><a href="http://bibinfo.kobv.de/" target="_blank">KOBV-Bibliothekenf&uuml;hrer</a></td>
+  <td class="tubfooter"><a href="http://www.ub.tu-berlin.de/literatur-suchen/" target="_blank">Weitere Suchm&ouml;glichkeiten</a></td>
+  <td class="tubfooter"><span id="toptop"><a href=#totop>nach oben</a></span></td>
+</tr>
+<tr>
+  <td class="tubfooter"><a href="http://www.tu-berlin.de/servicemenue/impressum/" target="_blank">Impressum / Haftungsausschluss</a></td>
+  <td class="tubfooter"><a href="http://www.ub.tu-berlin.de/zielgruppennavigation/a-z/" target="_blank">UB A-Z</a></td>
+  <td class="tubfooter"><a href="http://www.ub.tu-berlin.de/ueber-uns/kontakt/" target="_blank">UB-Kontakt</a></td>
+  <td class="tubfooter"><a href="http://www.ub.tu-berlin.de/footer/datenschutz/" target="_blank">Datenschutzerkl&auml;rung</a></td>
+  <td class="tubfooter"><a href="http://www.ub.tu-berlin.de/bibliothek-benutzen/ausleihen-bestellen/fernleihe-und-lieferdienste/" target="_blank">Fernleihe und Lieferdienste</a></td>
+  <td class="tubfooter" colspan="2" id="myUpdateContainer">
+  &nbsp;
+  </td>
+</tr>
+</table>
+<!--
+<p><br>&nbsp;&copy; Universitätsbibliothek der TU-Berlin&nbsp;|&nbsp;&copy; Software: ExLibris Primo</p>
+-->
+<div id="tubhilfeid"></div>
+<div id="tubpixel" style="position: fixed; bottom: 1px; right:1px">
+<img src="//portal.ub.tu-berlin.de/pix/tub-de.gif" width="1" height="1" border="0"></div>
+<!--end footer-->
+  
+<!-- alle TU-spezifischen Anpassungen -->
+<script type="text/javascript">
+if(ismobile) {
+   if(document.createStyleSheet) {
+      document.createStyleSheet("../uploaded_files/TUB/mobile.css");
+      document.createStyleSheet("../uploaded_files/TUB/PrimoTUB_mobile.4.0.css");
+   }
+   else {
+      $('head').append( $('<link rel="stylesheet" type="text/css">').attr('href', '../uploaded_files/TUB/mobile.css') );
+      $('head').append( $('<link rel="stylesheet" type="text/css">').attr('href', '../uploaded_files/TUB/PrimoTUB_mobile.4.0.css') );
+   }
+}
+else {
+   if(document.createStyleSheet) {
+      document.createStyleSheet("../uploaded_files/TUB/PrimoTUB_desktop.4.0.css");
+   }
+   else {
+      $('head').append( $('<link rel="stylesheet" type="text/css">').attr('href', '../uploaded_files/TUB/PrimoTUB_desktop.4.0.css') );
+   }
+   //$.getScript('//www2.ub.tu-berlin.de/bibtip/js/primo_ub_tu_b.rp.js');
+   $("#tubhilfeid").load("../uploaded_files/TUB/hilfe-de.html");
+}
+
+</script>
+<script type="text/javascript" src="../uploaded_files/TUB/jquery.lscache.js"></script>
+<script type="text/javascript" src="../uploaded_files/TUB/tustuff-de.js?x"></script>
+<script type="text/javascript" src="../uploaded_files/TUB/jquery.getParams.js"></script>
+<!-- jQuery Tooltips -->
+<link rel="stylesheet" type="text/css" href="../uploaded_files/TUB/jquery-ui.css" />
+<script type="text/javascript" src="../uploaded_files/TUB/jquery-ui-1.10.2.custom.min.js"></script>
+<!-- jQuery Tooltips end -->
+
+<noscript>
+HILFE
+</noscript>
+ 
+<!-- includeStaticHTML.jspf end (/uploaded_files/TUB/footer_de_DE.html) --><!-- autoRefresh.jspf begin -->
+<!-- deferScript.tag begin -->
+<!-- deferScript.tag end --><div class="EXLFooterUpdateContainer">
+    <div class="EXLFooterAutoUpdate">
+      <form action="" method="post" name="update" id="update">
+		<input type="checkbox" id="allowRefresh_chkbx" checked="checked" onclick="updateAutoRefresh(this);"/>
+		<label for="allowRefresh_chkbx">Meine Ansicht automatisch aktualisieren<!-- Update my screen automatically --></label>
+
+		<input class="EXLHide" type="submit"/>
+      </form>
+    </div>
+  </div>
+
+<!-- autoRefresh.jspf end --><!-- footer.jsp end -->
+
+
+
+
+<!-- l_footer.jsp end -->
+</div>
+
+<input type="hidden" class="gatherpagestat" value="true" />
+
+<input type="hidden" class="EXLTabBoomId" id="eShelfMyAccountClicked" 
+		value="A=Primo_Local&amp;I=TUB&amp;S=844DCE56517C81F80AB84D85B75859E0&amp;G=&amp;IP=10.16.120.116&amp;SRVR=fe0301.prod.pmt.dc03.hosted.exlibrisgroup.com&amp;P=general&amp;OP=gotoMyAccount&amp;TYP=Page_View_4.9.7.0&amp;O=%26%26%26%26TUB%26TU Berlin%26%26&amp;O1=&amp;O2=&amp;O3=&amp;O4=&amp;O5=49TUB.TUB.PPRD&amp;O6=&amp;O7=1&amp;O8=&amp;O9=TUB&amp;O10=&amp;O12=0&amp;O18=UI&amp;O23=Primo&amp;" />
+
+		
+<input type="hidden" class="boombaseurl" value="https://beacon-eu.hosted.exlibrisgroup.com/boom/apache_pb.gif" />
+
+<script type="text/javascript">
+		boomCallToRum('eShelfMyAccountClicked',true);
+	</script>
+	<noscript>This feature requires javascript</noscript>
+
+</body>
+
+</html>
+<!-- my_account_layout.jsp -->
