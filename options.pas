@@ -17,9 +17,11 @@ type
   ToptionForm = class(TForm)
     accountList: TListView;
     cbCopyAccountLimits: TCheckBox;
+    accountType: TComboBox;
     groupingProperty: TComboBox;
     Label34: TLabel;
     Label35: TLabel;
+    lblAccountType: TLabel;
     libNameEdit: TEdit;
     Label33: TLabel;
     Panel6: TPanel;
@@ -710,10 +712,13 @@ end;
 
 procedure ToptionForm.accountListSelectItem(Sender: TObject; Item: TListItem;
   Selected: Boolean);
+var
+  lib: TLibrary;
 begin
   if not Selected then exit;
   currentSelectedAccount:=TCustomAccountAccess(item.data);
-  lblAccountLibrary.Caption:=currentSelectedAccount.getLibrary().prettyNameLong;
+  lib := currentSelectedAccount.getLibrary();
+  lblAccountLibrary.Caption:=lib.prettyNameLong;
   edtAccountPrettyName.Text:=item.Caption;
   edtAccountUser.Text:=item.SubItems[0];
   edtAccountPass.Text:=item.SubItems[1];
@@ -732,6 +737,11 @@ begin
   end;
   cmbAccountExtend.OnSelect(cmbAccountExtend);
   edtAccountExtendDays.Text:=inttostr(currentSelectedAccount.extendDays);
+
+  accountType.ItemIndex := currentSelectedAccount.accountType - 1;
+  accountType.Visible := lib.segregatedAccounts ;
+  lblAccountType.Visible := lib.segregatedAccounts ;
+
 {  case currentSelectedAccount.getLibrary().passwordType of
     ptCustom: lblAccountPass.caption:='Passwort:';
     else lblAccountPass.caption:='Geburtsdatum:';
@@ -764,6 +774,8 @@ begin
     etAllDepends, etSingleDepends: accountList.selected.SubItems[3]:=Format(rsBeforeDue, [IntToStr(currentSelectedAccount.extendDays)]);
     etNever: accountList.selected.SubItems[3]:=rsNever;
   end;
+  if accountType.Visible then
+    lib.accountType := accountType.ItemIndex + 1;
   if edtAccountUser.text<>item.SubItems[0] then begin
     lib.changeUser(edtAccountUser.text);
     accounts.Strings[item.Index]:=lib.getPlusEncodedID();

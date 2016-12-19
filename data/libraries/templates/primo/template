@@ -6,6 +6,9 @@
 
   <variable name="baseurl"><description>volle Serverurl, inklusive trailing slash (z.B.: http://portal.ub.tu-berlin.de/primo_library/libweb/action/)</description></variable>
 
+  <variable name="login-url-1"><description>Login-URL für Interne (Studenten)</description></variable>
+  <variable name="login-url-2"><description>Login-URL für Externe</description></variable>
+  
   <variable name="institute"><description>(veraltet) Institutsid der Bücherei im Primosystem</description></variable>
   <variable name="server" default="primo.kobv.de"><description>(veraltet) Serveraddresse</description></variable>
   <variable name="loginServer" default="primo.kobv.de"><description>(veraltet) alternative Serveraddresse</description></variable>
@@ -18,7 +21,9 @@
 </action>
 
 <action id="update-all">
-  <variable name="request">$login-url-2</variable>
+  <s>$request := get("login-url-" || $type, ()),
+     if ($request) then () else $request := get("login-url")
+  </s>
   
   <s>i := 1</s>
   <!-- follow links till we reach the login page -->
@@ -30,9 +35,10 @@
         <input name="username"/>
         {request := form(., {"username": $username, "password": $password} )}
       </form>
+      <span class="login-error">{vl:raise(.)}</span>
       <form>
         <input name="j_username"/>
-        {request := form(., {"j_username": $username, "j_password": $password} )}
+        {request := form(., {"j_username": $username, "j_password": $password, "_eventId_proceed": .//button[@name = "_eventId_proceed"]/@value} )}
       </form>
       <DIV class="EXLMyAccountContainer" id="exlidMyAccountContainer"> <DIV class="EXLMyAccountMainContainer"/> 
         {i := 10000}<!--logged in-->
@@ -46,7 +52,7 @@
   </loop>
     
   <if test="$i < 100">
-  <s>vl:raise("Zuviele Weiterleitungen")</s>
+  <s>vl:raise("Zuviele Weiterleitungen beim Login. ")</s>
   </if>
     
   <s>videlibri:delete-current-books()</s>

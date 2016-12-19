@@ -17,7 +17,7 @@ object newAccountWizard: TnewAccountWizard
     Height = 311
     Top = 0
     Width = 520
-    PageIndex = 0
+    PageIndex = 1
     Align = alClient
     TabOrder = 0
     TabStop = True
@@ -56,8 +56,8 @@ object newAccountWizard: TnewAccountWizard
         AnchorSideTop.Side = asrCenter
         Left = 36
         Height = 15
-        Top = 102
-        Width = 94
+        Top = 133
+        Width = 96
         Alignment = taRightJustify
         Caption = 'Kontonummer:'
         ParentColor = False
@@ -67,8 +67,8 @@ object newAccountWizard: TnewAccountWizard
         AnchorSideTop.Side = asrCenter
         Left = 36
         Height = 15
-        Top = 142
-        Width = 96
+        Top = 173
+        Width = 98
         Caption = 'Passwort:         '
         ParentColor = False
       end
@@ -77,8 +77,8 @@ object newAccountWizard: TnewAccountWizard
         AnchorSideTop.Side = asrBottom
         Left = 20
         Height = 15
-        Top = 166
-        Width = 50
+        Top = 197
+        Width = 58
         Caption = '(empty)'
         Font.Color = clRed
         Font.Style = [fsBold]
@@ -87,7 +87,7 @@ object newAccountWizard: TnewAccountWizard
       end
       object label2Account: TLabel
         Left = 16
-        Height = 33
+        Height = 30
         Top = 29
         Width = 436
         Anchors = [akTop, akLeft, akRight]
@@ -100,13 +100,13 @@ object newAccountWizard: TnewAccountWizard
         AnchorSideLeft.Side = asrBottom
         AnchorSideTop.Control = label2Account
         AnchorSideTop.Side = asrBottom
-        Left = 142
+        Left = 144
         Height = 25
-        Top = 97
-        Width = 305
+        Top = 128
+        Width = 303
         Anchors = [akTop, akLeft, akRight]
         BorderSpacing.Left = 6
-        BorderSpacing.Top = 31
+        BorderSpacing.Top = 65
         BorderSpacing.Around = 4
         OnChange = accountNameChange
         TabOrder = 0
@@ -116,16 +116,49 @@ object newAccountWizard: TnewAccountWizard
         AnchorSideLeft.Side = asrBottom
         AnchorSideTop.Control = accountName
         AnchorSideTop.Side = asrBottom
-        Left = 142
+        Left = 144
         Height = 25
-        Top = 137
-        Width = 305
+        Top = 168
+        Width = 303
         Anchors = [akTop, akLeft, akRight]
         BorderSpacing.Left = 6
         BorderSpacing.Top = 11
         BorderSpacing.Around = 4
         OnChange = accountNameChange
         TabOrder = 1
+      end
+      object LabelAccountType: TLabel
+        AnchorSideTop.Control = accountType
+        AnchorSideTop.Side = asrCenter
+        Left = 35
+        Height = 15
+        Top = 86
+        Width = 62
+        Caption = 'Kontotyp:'
+        ParentColor = False
+      end
+      object accountType: TComboBox
+        AnchorSideLeft.Control = passLabel
+        AnchorSideLeft.Side = asrBottom
+        AnchorSideTop.Control = label2Account
+        AnchorSideTop.Side = asrBottom
+        Left = 144
+        Height = 21
+        Top = 83
+        Width = 303
+        Anchors = [akTop, akLeft, akRight]
+        BorderSpacing.Left = 6
+        BorderSpacing.Top = 20
+        BorderSpacing.Around = 4
+        ItemHeight = 0
+        ItemIndex = 0
+        Items.Strings = (
+          'Intern (z.B.: Student)'
+          'Extern'
+        )
+        Style = csDropDownList
+        TabOrder = 2
+        Text = 'Intern (z.B.: Student)'
       end
     end
     object Page3: TPage

@@ -14,6 +14,8 @@ type
 
   TnewAccountWizard = class(TForm)
     cancelBtn: TButton;
+    accountType: TComboBox;
+    LabelAccountType: TLabel;
     label2Account: TLabel;
     label4autoextend: TLabel;
     Label8: TLabel;
@@ -311,7 +313,7 @@ procedure TnewAccountWizard.Button2Click(Sender: TObject);
 //const libraryIDs:array[0..1] of string=('001','200');
 var newLib:TCustomAccountAccess;
   selectedLibrary: TLibrary;
-  i: Integer;
+  i, accType: Integer;
 begin
   selectedLibrary:=libs.selectedLibrary;
   if selectedLibrary = nil then begin
@@ -320,8 +322,10 @@ begin
   end;
 
   if Notebook1.PageIndex=Notebook1.PageCount-1 then begin
+    if accountType.Visible then accType := accountType.ItemIndex + 1
+    else accType := 0;
     newLib:=accounts.add(selectedLibrary.id,accountPrettyName.text,accountName.text,accountPass.text,
-                        TExtendType(extendTypeRG.Tag),strtoint(extendDaysEdit.text),saveHistory.checked);
+                        TExtendType(extendTypeRG.Tag),strtoint(extendDaysEdit.text),saveHistory.checked, accType);
     if MessageDlg('VideLibri',
                   Format(rsFinishedRefreshConfirm, [accountPrettyName.text, #13#10]),
                   mtConfirmation ,[mbYes,mbNo],0)=mrYes then
@@ -361,6 +365,10 @@ begin
   debugln(BoolToStr(accountName.HandleObjectShouldBeVisible)+ ' '+BoolToStr(accountName.Enabled)+ ' '+booltostr(Page2.Enabled));
   debugln(inttostr(accountName.Top)+' '+inttostr(page2.Top)+' '+inttostr(Notebook1.Top)+' '+inttostr(Top));
    {$endif}
+
+
+  LabelAccountType.Visible := selectedLibrary.segregatedAccounts;
+  accountType.Visible := selectedLibrary.segregatedAccounts;
 end;
 
 procedure TnewAccountWizard.Button1Click(Sender: TObject);

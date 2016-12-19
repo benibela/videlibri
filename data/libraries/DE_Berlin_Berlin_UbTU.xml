@@ -4,6 +4,7 @@
 
   <longName value="Universitätsbibliothek der TU-Berlin"/>
   <shortName value="UBTU Berlin"/>
+  <segregated-accounts value="true"/>
   
   <template value="primo"/>
 

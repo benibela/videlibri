@@ -26,7 +26,7 @@ public
   property Accounts[i: integer]: TCustomAccountAccess read get; default;
   destructor Destroy; override;
 
-  function add(const libID: string; prettyName, aname, pass: string; extendType: TExtendType; extendDays:integer; history: boolean):TCustomAccountAccess;
+  function add(const libID: string; prettyName, aname, pass: string; extendType: TExtendType; extendDays:integer; history: boolean; atype: integer):TCustomAccountAccess;
   procedure add(account: TCustomAccountAccess);
 end;
 implementation
@@ -98,7 +98,7 @@ begin
 end;
 
 function TAccountList.add(const libID: string; prettyName, aname, pass: string; extendType: TExtendType; extendDays: integer;
-  history: boolean): TCustomAccountAccess;
+  history: boolean; atype: integer): TCustomAccountAccess;
 begin
   {if accountList.Selected <> nil then
       if (accountList.Selected.Caption=edtAccountPrettyName.Text) or
@@ -115,6 +115,7 @@ begin
   result.keepHistory:=history;//ckbAccountHistory.Checked;
   result.extendType:=extendType;// TExtendType( cmbAccountExtend.ItemIndex));
   result.extendDays:=extendDays;// StrToInt(edtAccountExtendDays.Text));
+  result.accountType := atype;
 
   add(result);
 

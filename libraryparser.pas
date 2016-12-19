@@ -23,6 +23,7 @@ type
 
 
     canModifySingleBooks:boolean;
+    segregatedAccounts: boolean;
     //function getPrettyNameShort():string;virtual;
     homepageBase:string;
     prettyNameLong:string;
@@ -173,6 +174,7 @@ type
     FTimeout: dword;
     function GetConnected: boolean;
     function GetUpdated: boolean;
+    procedure SetAccountType(AValue: integer);
     procedure setPassword(AValue: string);
   protected
     fbooks: TBookLists;
@@ -182,6 +184,7 @@ type
     path,user,pass,FPrettyName:string;
     FExtendType: TExtendType;
     FExtendDays,FLastCheckDate:integer;
+    FAccountType: integer;
 
     FKeepHistory, FConnected, FUpdated: boolean;
     FConnectingTime, FUpdateTime: dword;
@@ -240,6 +243,7 @@ type
     property connected: boolean read GetConnected;
     property updated: boolean read GetUpdated;
     property timeout: dword read FTimeout write FTimeout;
+    property accountType: integer read FAccountType write SetAccountType;
   end;
 
 
@@ -618,6 +622,7 @@ begin
   else if tagName='maxrenewcount' then maxRenewCount:=StrToInt(value)
   else if tagName='deprecatedname' then deprecatedId:=value
   else if tagName='table-comment' then tableComment:=value
+  else if tagName='segregated-accounts' then segregatedAccounts:=StrToBool(value)
   ;
   Result:=prContinue;
 end;
@@ -1378,6 +1383,13 @@ begin
   result:=GetConnected and FUpdated and (GetTickCount - FUpdateTime < Timeout);
 end;
 
+procedure TCustomAccountAccess.SetAccountType(AValue: integer);
+begin
+  if FAccountType=AValue then Exit;
+  FAccountType:=AValue;
+  FConnected := false;
+end;
+
 procedure TCustomAccountAccess.setPassword(AValue: string);
 begin
   if pass=AValue then Exit;
@@ -1394,6 +1406,8 @@ procedure TCustomAccountAccess.initFromConfig;
 begin
 //Datenladen/cachen
   pass:=config.ReadString('base','pass','');
+  accountType:=config.ReadInteger('base','type',0);
+  if (lib.segregatedAccounts) and (accountType = 0) then accountType := 1;
   books.keepHistory:=config.ReadBool('base','keep-history',true);
   flastCheckDate:=config.ReadInteger('base','lastCheck',0);
   keepHistory:=config.readBool('base','keep-history',true);
@@ -1459,6 +1473,7 @@ begin
     config.WriteBool('base','keep-history',keepHistory);
     config.WriteString('base','prettyName',prettyName);
     config.WriteString ('base','pass',passWord);
+    config.WriteInteger('base','type',accountType);
     config.WriteInteger('base','extend-days',extendDays);
     config.WriteInteger('base','extend',integer(extendType));
     config.WriteInteger('base','charge',longint(trunc(charges*100)));
@@ -1650,6 +1665,7 @@ begin
     setVar(lib.defaultVariables.Names[i], lib.defaultVariables.ValueFromIndex[i]);
   parser.variableChangeLog.ValuesString['username'] := user;       //force account variables, since a missing password change is really annoying
   parser.variableChangeLog.ValuesString['password'] := passWord;
+  parser.variableChangeLog.add('type', xqvalue(accountType));
 end;
 
 procedure TTemplateAccountAccess.resetlib;
