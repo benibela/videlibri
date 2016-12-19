@@ -1,12 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <library>
   <longName value="Hochschulbibliothek der HTW (alpha)"/>
+  <segregated-accounts value="true"/>
 
   <template value="primo"/>
   <variable name="baseurl" value="http://primo.bib.htw-dresden.de/primo_library/libweb/action/"/>
-  <variable name="server" value="primo.bib.htw-dresden.de"/>
   <variable name="institute" value="49HTWINST"/>
-  <variable name="loginServer" value="htw-shib.hosted.exlibrisgroup.com"/>
+
+  <variable name="login-url-1" value="https://login.bib.htw-dresden.de/pds?lang=ger&func=load-login&institute=49HTWINST_SHIB&url=http://primo.bib.htw-dresden.de/primo_library/libweb/action/login.do?targetURL=http://primo.bib.htw-dresden.de/primo_library/libweb/action/search.do?vid=49HTW_VU1"/>
+  <variable name="login-url-2" value="https://login.bib.htw-dresden.de/pds?lang=ger&func=load-login&institute=49HTW_INST&url=http://primo.bib.htw-dresden.de/primo_library/libweb/action/login.do?targetURL=http://primo.bib.htw-dresden.de/primo_library/libweb/action/search.do?vid=49HTW_VU1"/>
+
+
+
+
 
   <homepage value="http://www.htw-dresden.de/bibliothek/"/>
   <testing-search value="ja" date="2013-07-05"/>

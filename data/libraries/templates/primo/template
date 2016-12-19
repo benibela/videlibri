@@ -10,9 +10,6 @@
   <variable name="login-url-2"><description>Login-URL für Externe</description></variable>
   
   <variable name="institute"><description>(veraltet) Institutsid der Bücherei im Primosystem</description></variable>
-  <variable name="server" default="primo.kobv.de"><description>(veraltet) Serveraddresse</description></variable>
-  <variable name="loginServer" default="primo.kobv.de"><description>(veraltet) alternative Serveraddresse</description></variable>
-  <variable name="primoView" default="FUB_MOBILE"><description>(veraltet) View für Benutzerkontenanzeige</description></variable>
   
 </meta>
 
@@ -25,20 +22,24 @@
      if ($request) then () else $request := get("login-url")
   </s>
   
-  <s>i := 1</s>
+  <s>i := 1, datasend := false()</s>
   <!-- follow links till we reach the login page -->
   <loop test="$i < 10">  
     <page url="{$request}"/>
     <pattern><t:switch prioritized="true">
-      <div class="EXLPRMLoginCardContentError">{vl:raise(.)}</div>
+      
+      <div  t:test="$datasend" class="EXLPRMLoginCardContentError">{vl:raise(.)}</div>
+      <div  t:test="$datasend" class="error">{vl:raise(.)}</div>
+      <span t:test="$datasend" class="login-error">{vl:raise(.)}</span>
+      <font t:test="$datasend" color="red">{vl:raise(.)}<!--htw--></font>
+      
       <form>
         <input name="username"/>
-        {request := form(., {"username": $username, "password": $password} )}
+        {request := form(., {"username": $username, "password": $password} ), datasend := true()}
       </form>
-      <span class="login-error">{vl:raise(.)}</span>
       <form>
         <input name="j_username"/>
-        {request := form(., {"j_username": $username, "j_password": $password, "_eventId_proceed": .//button[@name = "_eventId_proceed"]/@value} )}
+        {request := form(., {"j_username": $username, "j_password": $password, "_eventId_proceed": .//button[@name = "_eventId_proceed"]/@value} ), datasend := true()}
       </form>
       <DIV class="EXLMyAccountContainer" id="exlidMyAccountContainer"> <DIV class="EXLMyAccountMainContainer"/> 
         {i := 10000}<!--logged in-->
