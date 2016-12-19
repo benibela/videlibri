@@ -22,6 +22,7 @@ type
     CheckBox2: TCheckBox;
     CheckBox3: TCheckBox;
     CheckBox4: TCheckBox;
+    ComboBox1: TComboBox;
     Edit1: TEdit;
     Edit2: TEdit;
     editTitle: TEdit;
@@ -120,6 +121,7 @@ begin
   t := TTemplateAccountAccessTester.create(lib);
   t.init('', edit1.text);
   t.passWord:=edit2.Text;
+  t.accountType:=ComboBox1.ItemIndex;
   try
     t.connect(internet);
     t.updateAll;
@@ -183,7 +185,7 @@ begin
     if TreeListView1.Items[i].Selected then
       tocp += TreeListView1.Items[i].RecordItemsText[0] + ' ' +TreeListView1.Items[i].RecordItemsText[1] + LineEnding
               + TTestData(TreeListView1.Items[i].data.obj).lib.homepageCatalogue + LineEnding
-              + TreeListView1.Items[i].RecordItemsText[2] +#9' '+TreeListView1.Items[i].RecordItemsText[3] + #9' '+TreeListView1.Items[i].RecordItemsText[4] + LineEnding;
+              + TreeListView1.Items[i].RecordItemsText[2] +LineEnding+TreeListView1.Items[i].RecordItemsText[3] + LineEnding+TreeListView1.Items[i].RecordItemsText[4] + LineEnding+LineEnding;
   Clipboard.AsText := tocp;
 end;
 
@@ -263,7 +265,7 @@ end;
 
 procedure TTestThread.Execute;
 var t: TTemplateAccountAccessTester;
-  i: Integer;
+  i, acctype: Integer;
   internet: TInternetAccess;
   searcher: TLibrarySearcher;
   critSection: TRTLCriticalSection;
@@ -276,28 +278,31 @@ begin
   end;
   if account then begin
     try
-      internet := internetaccess.defaultInternetAccessClass.create();
-      t := TTemplateAccountAccessTester.create(lib);
-      t.init('', fakeUser);
-      t.passWord:=fakePwd;
+      resultAccount := '';
+      for acctype := 1 to ifthen(lib.segregatedAccounts, 2, 1) do begin
+        internet := internetaccess.defaultInternetAccessClass.create();
+        t := TTemplateAccountAccessTester.create(lib);
+        t.init('', fakeUser);
+        t.accountType:=acctype;
+        t.passWord:=fakePwd;
 
 
-      try
-        t.connect(internet);
-        t.updateAll;
-        resultAccount := '';
-        for i := 0 to t.books.currentUpdate.Count-1do
-          resultAccount += t.books.currentUpdate[i].toLimitString();
-      except
-        on e: ELoginException do
-          resultAccount := '0-'+e.ClassName +': '+ e.Message;
-        on e: EBookListReader do
-          resultAccount := '1-'+e.ClassName +': '+ e.Message;
-        on e: Exception do
-          resultAccount := '2-' + e.ClassName +': '+ e.Message;
+        try
+          t.connect(internet);
+          t.updateAll;
+          for i := 0 to t.books.currentUpdate.Count-1do
+            resultAccount += t.books.currentUpdate[i].toLimitString();
+        except
+          on e: ELoginException do
+            resultAccount += '0-'+e.ClassName +': '+ e.Message + ' '+resultAccount;
+          on e: EBookListReader do
+            resultAccount += '1-'+e.ClassName +': '+ e.Message + ' '+resultAccount;
+          on e: Exception do
+            resultAccount += '2-' + e.ClassName +': '+ e.Message + ' '+resultAccount;
+        end;
+
+        t.free;
       end;
-
-      t.free;
     except
       on e: exception do
         resultAccount := '2-UNHANDLED EXCEPTION: '+e.Message;
