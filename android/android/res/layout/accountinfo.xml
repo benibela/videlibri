@@ -34,7 +34,7 @@
                         android:layout_height="wrap_content"
                         android:text="@string/lay_account_label_type"
                         android:id="@+id/textView8" android:layout_gravity="left|center_vertical"
-                        android:layout_weight="1"/>
+                        android:layout_weight="1" android:padding="3sp"/>
                 <RadioButton
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
