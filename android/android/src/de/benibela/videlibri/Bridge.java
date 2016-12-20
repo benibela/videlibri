@@ -22,10 +22,12 @@ public class Bridge {
         String templateId;
         String variableNames[];
         String variableValues[];
+        boolean segregatedAccounts;
     }
 
     public static class Account implements Serializable{
         String libId, name, pass, prettyName;
+        int type;
         boolean extend;
         int extendDays;
         boolean history;

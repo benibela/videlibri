@@ -1385,6 +1385,9 @@ end;
 
 procedure TCustomAccountAccess.SetAccountType(AValue: integer);
 begin
+  if lib.segregatedAccounts then begin
+    if avalue = 0 then avalue := 1;
+  end else avalue := 0;
   if FAccountType=AValue then Exit;
   FAccountType:=AValue;
   FConnected := false;
@@ -1407,7 +1410,6 @@ begin
 //Datenladen/cachen
   pass:=config.ReadString('base','pass','');
   accountType:=config.ReadInteger('base','type',0);
-  if (lib.segregatedAccounts) and (accountType = 0) then accountType := 1;
   books.keepHistory:=config.ReadBool('base','keep-history',true);
   flastCheckDate:=config.ReadInteger('base','lastCheck',0);
   keepHistory:=config.readBool('base','keep-history',true);

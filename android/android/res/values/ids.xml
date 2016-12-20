@@ -19,5 +19,5 @@
     <item type="id" name="actionbar_compat_title" />
     <item type="id" name="actionbar_compat_item_refresh_progress" />
     <item type="id" name="actionbar_compat_item_refresh" />
-    <item type="id" name="menu_refresh" />
+    <item type="id" name="menu_refresh" /><item name="lay_account_label_intern" type="id">intern (z.B.: Student)</item>
 </resources>

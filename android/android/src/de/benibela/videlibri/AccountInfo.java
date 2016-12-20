@@ -31,7 +31,8 @@ class EmptyTextWatcher implements TextWatcher{
 public class AccountInfo extends VideLibriBaseActivity {
 
     int mode;
-    String libId,libShortName,libName;
+    Bridge.LibraryDetails libdetails;
+    String libshortname;
 
     TextView lib;
     EditText accountId, accountPassword, accountPrettyName;
@@ -42,6 +43,15 @@ public class AccountInfo extends VideLibriBaseActivity {
     static final int MODE_ACCOUNT_CREATION_INITIAL = 134391 ;
     static final int MODE_ACCOUNT_MODIFY = 134392 ;
     static final int REQUEST_LIBRARY_FOR_ACCOUNT_CREATION = 1236;
+
+    public void setActiveLibrary(String libid, String shortname){
+        libshortname = libshortname;
+        libdetails = Bridge.VLGetLibraryDetails(libid);
+        if (libdetails != null){
+            lib.setText(libdetails.prettyName);
+            findViewById(R.id.typeLayout).setVisibility(libdetails.segregatedAccounts ? View.VISIBLE : View.GONE);
+        }
+    }
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,22 +65,18 @@ public class AccountInfo extends VideLibriBaseActivity {
         mode = getIntent().getIntExtra("mode", MODE_ACCOUNT_CREATION);
 
 
-        libName = getStringExtraSafe("libName");
-        libShortName = getStringExtraSafe("libShortName");
-        libId = getStringExtraSafe("libId");
-
-        if ("".equals(libId) && (System.currentTimeMillis() - LibraryList.lastSelectedTime) < LibraryList.SELECTION_REUSE_TIME) {
-            libName = LibraryList.lastSelectedLibName;
-            libShortName = LibraryList.lastSelectedLibShortName;
-            libId = LibraryList.lastSelectedLibId;
-        }
+        setActiveLibrary(getStringExtraSafe("libId"), getStringExtraSafe("libShortName")); //todo: this is not used? like Bridge.library.putinintent
 
 
-        if (mode != MODE_ACCOUNT_MODIFY || accountPrettyName.equals(accountId + " "+libShortName) )
+        if (libdetails == null && (System.currentTimeMillis() - LibraryList.lastSelectedTime) < LibraryList.SELECTION_REUSE_TIME)
+            setActiveLibrary(LibraryList.lastSelectedLibId, LibraryList.lastSelectedLibShortName);
+
+
+        if (mode != MODE_ACCOUNT_MODIFY || accountPrettyName.equals(accountId + " "+libshortname) )
             accountId.addTextChangedListener(new EmptyTextWatcher() {
                 @Override
                 public void afterTextChanged(Editable editable) {
-                    accountPrettyName.setText(accountId.getText() + " " + libShortName);
+                    accountPrettyName.setText(accountId.getText() + " " + libshortname);
                 }
             });
 
@@ -86,10 +92,7 @@ public class AccountInfo extends VideLibriBaseActivity {
         if (mode == MODE_ACCOUNT_MODIFY) {
             final Bridge.Account oldAccount = (Bridge.Account) getIntent().getSerializableExtra("account");
             Bridge.Library lib = oldAccount.getLibrary();
-
-            libName = lib.namePretty;
-            libShortName = lib.nameShort;
-            libId = lib.id;
+            setActiveLibrary(lib.id, lib.nameShort);
 
             accountId.setText(oldAccount.name);
             accountPassword.setText(oldAccount.pass);
@@ -97,6 +100,8 @@ public class AccountInfo extends VideLibriBaseActivity {
             ((CheckBox) findViewById(R.id.autoExtendButton)).setChecked(oldAccount.extend);
             ((EditText) findViewById(R.id.autoExtendDaysEdit)).setText("" + oldAccount.extendDays);
             ((CheckBox) findViewById(R.id.saveHistoryButton)).setChecked(oldAccount.history);
+            if (libdetails != null && libdetails.segregatedAccounts)
+                ((RadioButton) findViewById(oldAccount.type == 2 ? R.id.radioButtonExtern : R.id.radioButtonIntern)).setChecked(true);
 
             findViewById(R.id.deleteButton).setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -117,6 +122,7 @@ public class AccountInfo extends VideLibriBaseActivity {
             findViewById(R.id.completeAccountButton).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+                    if (libdetails == null) return;
                     VideLibriApp.changeAccount(oldAccount, inputToAccount());
                     setResult(RESULT_OK, new Intent());
                     AccountInfo.this.finish();
@@ -135,7 +141,7 @@ public class AccountInfo extends VideLibriBaseActivity {
             findViewById(R.id.completeAccountButton).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    if (libId == null || "".equals(libId)){
+                    if (libdetails == null){
                         showMessage(tr(R.string.error_nolibselected));
                         return;
                     }
@@ -143,34 +149,31 @@ public class AccountInfo extends VideLibriBaseActivity {
                     MessageHandler temp = new MessageHandler() {
                         @Override
                         public void onDialogEnd(DialogInterface dialogInterface, int i) {
+                            if (libdetails == null) return;
                             VideLibriApp.addAccount(inputToAccount());
                             setResult(RESULT_OK, new Intent());
                             AccountInfo.this.finish();
                         }
                     };
-                    if (libName.contains("(alpha)") && accountId.getText().length() > 0) {
+                    if (libdetails.prettyName.contains("(alpha)") && accountId.getText().length() > 0) {
                         showMessage(
                                 tr(R.string.warning_alphalib),
                                 temp);
                     } else temp.onDialogEnd(null, 0);
                 }
             });
-            accountPrettyName.setText(libShortName);
+            accountPrettyName.setText(libshortname);
         }
 
-        lib.setText(libName);
     }
 
     @Override
     protected void onResume() {
         super.onResume();
 
-        if ("".equals(libId) && (System.currentTimeMillis() - LibraryList.lastSelectedTime) < LibraryList.SELECTION_REUSE_TIME) {
-            libName = LibraryList.lastSelectedLibName;
-            libShortName = LibraryList.lastSelectedLibShortName;
-            libId = LibraryList.lastSelectedLibId;
-        }
-        if ("".equals(libId)) updateLibrary();
+        if (libdetails == null && (System.currentTimeMillis() - LibraryList.lastSelectedTime) < LibraryList.SELECTION_REUSE_TIME)
+            setActiveLibrary(LibraryList.lastSelectedLibId, LibraryList.lastSelectedLibShortName);
+        if (libdetails == null) updateLibrary();
     }
 
     /*@Override
@@ -197,13 +200,14 @@ public class AccountInfo extends VideLibriBaseActivity {
 
     Bridge.Account inputToAccount(){
         Bridge.Account acc = new Bridge.Account();
-        acc.libId = libId;
+        acc.libId = libdetails.id;
         acc.name = accountId.getText().toString();
         acc.pass = accountPassword.getText().toString();
         acc.prettyName = accountPrettyName.getText().toString();
         acc.extend = ((CheckBox) findViewById(R.id.autoExtendButton)).isChecked();
         acc.extendDays = Util.strToIntDef( ((EditText) findViewById(R.id.autoExtendDaysEdit)).getText().toString(), 7);
         acc.history = ((CheckBox) findViewById(R.id.saveHistoryButton)).isChecked();
+        acc.type = ((RadioButton) findViewById(R.id.radioButtonExtern)).isChecked() ? 2 : 1;
         return acc;
     }
 
@@ -212,12 +216,10 @@ public class AccountInfo extends VideLibriBaseActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == REQUEST_LIBRARY_FOR_ACCOUNT_CREATION) {
             if (resultCode == LibraryList.RESULT_OK) {
-                libName = LibraryList.lastSelectedLibName;
-                libShortName = LibraryList.lastSelectedLibShortName;
-                libId = LibraryList.lastSelectedLibId;
-                lib.setText(libName);
-                accountPrettyName.setText(libShortName);
-            } else if (libId.equals(""))
+                setActiveLibrary(LibraryList.lastSelectedLibId, LibraryList.lastSelectedLibShortName);
+                if (libdetails != null)
+                    accountPrettyName.setText(libshortname);
+            } else if (libdetails == null)
                 if (mode == MODE_ACCOUNT_CREATION_INITIAL && (VideLibriApp.accounts == null || VideLibriApp.accounts.length == 0))
                 {}//    updateLibrary();
                 else

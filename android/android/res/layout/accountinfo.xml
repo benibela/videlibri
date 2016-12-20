@@ -25,6 +25,28 @@
                     android:text="@string/lay_account_label1"
                     android:id="@+id/textView" android:layout_gravity="center" android:padding="3sp"
                     android:password="false" android:layout_marginBottom="6sp"/>
+            <RadioGroup
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent" android:orientation="horizontal"
+                    android:focusableInTouchMode="false" android:id="@+id/typeLayout">
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/lay_account_label_type"
+                        android:id="@+id/textView8" android:layout_gravity="left|center_vertical"
+                        android:layout_weight="1"/>
+                <RadioButton
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/lay_account_intern"
+                        android:id="@+id/radioButtonIntern" android:layout_gravity="left|center_vertical"
+                        android:layout_weight="1" android:checked="true"/>
+                <RadioButton
+                        android:layout_width="wrap_content"
+                        android:layout_height="fill_parent"
+                        android:text="@string/extern"
+                        android:id="@+id/radioButtonExtern" android:layout_weight="1"/>
+            </RadioGroup>
             <TextView
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"

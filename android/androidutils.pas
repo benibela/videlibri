@@ -132,7 +132,7 @@ var assets: jobject = nil;
     accountClass, bookClass: jobject;
     accountClassInit, bookClassInit: jmethodID;
     accountFields: record
-      LibIdS, NameS, PassS, PrettyNameS, ExtendDaysI, ExtendZ, HistoryZ: jfieldID;
+      LibIdS, NameS, PassS, TypeI, PrettyNameS, ExtendDaysI, ExtendZ, HistoryZ: jfieldID;
 //      internalIdMethod: jmethodID;
     end;
     bookFields: record
@@ -232,6 +232,7 @@ begin
       LibIdS := j.getfield(accountClass, 'libId', 'Ljava/lang/String;');
       NameS := j.getfield(accountClass, 'name', 'Ljava/lang/String;');
       PassS := j.getfield(accountClass, 'pass', 'Ljava/lang/String;');
+      TypeI := j.getfield(accountClass, 'type', 'I');
       PrettyNameS := j.getfield(accountClass, 'prettyName', 'Ljava/lang/String;');
       ExtendDaysI := j.getfield(accountClass, 'extendDays', 'I');
       ExtendZ := j.getfield(accountClass, 'extend', 'Z');
@@ -385,7 +386,7 @@ end;
 
 
 type TLibraryDetails = record
-  homepageBase, homepageCatalogue, prettyName, id, templateId, variableNames, variableValues: jfieldID;
+  homepageBase, homepageCatalogue, prettyName, id, templateId, variableNames, variableValues, segregatedAccountsZ: jfieldID;
 end;
 function getLibraryDetailsFields(c: jclass): TLibraryDetails;
 begin
@@ -397,6 +398,7 @@ begin
      templateId := getfield(c, 'templateId', 'Ljava/lang/String;');
      variableNames := getfield(c, 'variableNames', '[Ljava/lang/String;');
      variableValues := getfield(c, 'variableValues', '[Ljava/lang/String;');
+     segregatedAccountsZ := getfield(c, 'segregatedAccounts', 'Z');
    end;
 end;
 
@@ -415,6 +417,7 @@ begin
   try
     libId := j.jStringToStringAndDelete(id);
     lib := libraryManager.get(libId);
+    if lib = nil then exit(nil);
     detailClass := j.getclass('de/benibela/videlibri/Bridge$LibraryDetails');
     result := j.newObject(detailClass, j.getmethod(detailClass, '<init>', '()V'));
 
@@ -433,6 +436,7 @@ begin
       end;
       SetObjectField(result, variableNames, namesArray);
       SetObjectField(result, variableValues, valuesArray);
+      SetBooleanField(result, segregatedAccountsZ, lib.segregatedAccounts);
     end;
   except
     on e: Exception do j.ThrowNew('de/benibela/videlibri/Bridge$InternalError', 'Interner Fehler: '+e.Message);
@@ -474,6 +478,8 @@ begin
         for i := 0 to getArrayLength(names) - 1 do
           libXml += '   <variable name="'+xmlStrEscape(jStringToStringAndDelete(getObjectArrayElement(names, i)))+'" '+
                                  'value="'+xmlStrEscape(jStringToStringAndDelete(getObjectArrayElement(values, i)))+'"/>'+LineEnding;
+        if getBooleanField(details, segregatedAccountsZ) then
+          libXml += '  <segregated-accounts value="true"/>';
 
         libXml += '</library>';
         libraryManager.setUserLibrary(libid, libXml);
@@ -595,7 +601,8 @@ begin
       bbdebugtools.log('AddAccount B: '+j.getStringField(acc, PassS));}
       accounts.Add(j.getStringField(acc, LibIdS) , j.getStringField(acc, PrettyNameS),
                    j.getStringField(acc, NameS), j.getStringField(acc, PassS),
-                   temp, j.getIntField(acc, ExtendDaysI), j.getBooleanField(acc, HistoryZ));
+                   temp, j.getIntField(acc, ExtendDaysI), j.getBooleanField(acc, HistoryZ),
+                   j.getIntField(acc, TypeI) );
     end;
     accounts.save;
   except
@@ -651,12 +658,13 @@ procedure changeAccount(
       enabled: boolean;
       prettyName, username, password: string;
       keepHistory: boolean;
-      extendType: TExtendType; extendDays: integer);
+      extendType: TExtendType; extendDays: integer; accountType: integer);
 var oldacc: TCustomAccountAccess;
 begin
   oldacc := accounts[i];
   oldacc.prettyName:=prettyName;
   oldacc.passWord:=password;
+  oldacc.accountType:=accountType;
   oldacc.keepHistory:=keepHistory;
 
   oldacc.extendType:=extendType;
@@ -688,7 +696,8 @@ begin
                       true,
                       j.getStringField(jnewacc, PrettyNameS), j.getStringField(jnewacc, NameS), j.getStringField(jnewacc, PassS),
                       j.getBooleanField(jnewacc, HistoryZ),
-                      temp, j.getIntField(jnewacc, ExtendDaysI)
+                      temp, j.getIntField(jnewacc, ExtendDaysI),
+                      j.getIntField(jnewacc, TypeI)
                       );
       end;
   except
@@ -714,6 +723,7 @@ begin
         j.SetObjectField(temp, LibIdS, j.stringToJString(accounts[i].getLibrary().id));
         j.SetObjectField(temp, NameS, j.stringToJString(accounts[i].getUser()));
         j.SetObjectField(temp, PassS, j.stringToJString(accounts[i].passWord));
+        j.SetIntField(temp, TypeI, accounts[i].accountType);
         j.SetObjectField(temp, PrettyNameS, j.stringToJString(accounts[i].prettyName));
         j.SetIntField(temp, ExtendDaysI, accounts[i].extendDays);
         j.SetBooleanField(temp, ExtendZ, accounts[i].extendType <> etNever);

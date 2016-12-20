@@ -253,5 +253,5 @@
         etwas sinnvolles angezeigt werden kann.
     </string>
     <string name="notificationNoAccounts">Ohne registrierte Konten können keine Ausleihwarnungen angezeigt werden.</string>
-    <string name="notificationNoAccountsTitle">VideLibri: Keine Konten</string>
+    <string name="notificationNoAccountsTitle">VideLibri: Keine Konten</string><string name="lay_account_label_type">Kontoart:</string><string name="lay_account_intern">intern (z.B.: Student)</string><string name="extern">extern</string>
 </resources>
