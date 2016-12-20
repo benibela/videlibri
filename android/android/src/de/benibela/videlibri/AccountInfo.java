@@ -45,7 +45,7 @@ public class AccountInfo extends VideLibriBaseActivity {
     static final int REQUEST_LIBRARY_FOR_ACCOUNT_CREATION = 1236;
 
     public void setActiveLibrary(String libid, String shortname){
-        libshortname = libshortname;
+        libshortname = shortname;
         libdetails = Bridge.VLGetLibraryDetails(libid);
         if (libdetails != null){
             lib.setText(libdetails.prettyName);
