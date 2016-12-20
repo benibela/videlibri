@@ -172,7 +172,7 @@
                     android:text="@string/lay_options_btn_newlib"
                     android:id="@+id/newlib"/>
             <TextView android:layout_width="fill_parent" android:layout_height="wrap_content"
-                      android:text="@string/lay_options_caption_misc" android:id="@+id/textView3"
+                      android:text="@string/lay_options_caption_misc"
                       android:padding="@dimen/optionheaderpadding"
                       android:background="@color/optionHeaderBackgroundColor" android:textStyle="bold"
                       android:layout_marginTop="@dimen/optionheaderpadding"/>
@@ -195,7 +195,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/lay_options_check2"
-                        android:id="@+id/textView5" android:layout_gravity="center" android:padding="@dimen/defborder"/>
+                        android:layout_gravity="center" android:padding="@dimen/defborder"/>
             </LinearLayout>
             <CheckBox
                     android:layout_width="fill_parent"
