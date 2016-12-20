@@ -65,7 +65,7 @@
 <!--  <error templateFile="loginError"/>-->
 </action>
 
-
+<!--
 <action id="update-single">
   <page url="{$book.detailUrl}">
   <template>
@@ -83,17 +83,24 @@
   </template>
   </page> 
 </action>
+-->
 
-<!--
+
 <action id="renew-list">
-  <loop var="b" list="$book-list">
+  <loop var="b" list="$renew-books">
     <page url="{$b._renewUrl}">
     </page>
   </loop>
   <call action="update-all"/>
 </action>
--->
 
+<action id="cancel-list">
+  <loop var="b" list="$cancel-books">
+    <page url="{$b._cancelUrl}">
+    </page>
+  </loop>
+  <call action="update-all"/>
+</action>
 
 
 

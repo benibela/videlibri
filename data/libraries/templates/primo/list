@@ -14,8 +14,9 @@
           <TD>{$temp := if (contains(., "Bereitgestellt")) then "provided" else "ordered",
                let $till := extract(., "\d+/\d+/\d+") return if ($till) then $book.dueDate := parse-date($till, "dd/mm/yyyy") else ()}</TD>
           <TD>{$book.status := ., $book.statusId := $temp}</td>
+          <td><!--callnumber--></td>
           <TD>
-          {if (./a) then book._cancelUrl := resolve-uri(./a/@href) else ()}
+          {if (./a) then $book._cancelUrl := resolve-uri(./a/@href) else ($book.cancelable := false())}
           </TD>
           </t:if>
           <t:else>
