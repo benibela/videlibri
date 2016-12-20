@@ -58,7 +58,7 @@ build-java)
   if [[ -z "$BUILDMODE" ]]; then BUILDMODE=debug; fi
   case "$BUILDMODE" in
   debug) GRADLEMODE=assembleDebug;;
-  release) ???;;
+  release) GRADLEMODE=assembleRelease;;
   esac
   
   ./gradlew $GRADLEMODE || (echo "FAILED!"; exit)

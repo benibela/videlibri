@@ -1,10 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?xml-stylesheet type="text/xsl" href="../changelog.xsl"?>
 <changelog program="VideLibri">
-  <build version="1852" date="2016-10-14">
+  <build version="1860" date="2016-12-20">
     <download url="http://videlibri.sourceforge.net/updates/videlibri-setup.exe" platform="WINDOWS" execute="&quot;$DOWNLOAD&quot;  /SP- /noicons &quot;/dir=$OLDPATH&quot; " restart="true"/>
     <download url="http://videlibri.sourceforge.net/updates/videlibri-linux32.deb" platform="LINUX32" execute=""/>
-    <download url="http://videlibri.sourceforge.net/updates/videlibri-linux64.deb" platform="LINUX64" execute=""/>
+    <download url="http://videlibri.sourceforge.net/updates/videlibri-linux64.deb" platform="LINUX64" execute=""/> 
+    <fix>Anpassungen an Systemänderungen in der Universitätsbibliothek Ulm, der Universitätsbibliothek der TU-Berlin (Bibliothekssystem Alma), der Winterthurer Bibliotheken</fix>
+    <change>Aktualisierte primo-Implementierung</change>
+    <change>Moderneres Layout unter Android: keine separaten Menüs mehr, alle Funktionen sind in einem einzigen Menü</change>
+    <change>verwendet Android Level 22 statt 14, Appcompat statt Sherlock, Gradle statt Ant, FreePascal r35148 statt r34557</change>
+    <add>Es kann nun zwischen internen und externen Leserkonten unterschieden werden</add>
+  </build>
+  <build version="1852" date="2016-10-14">
     <fix>Die Androidversion ist nun mit FreePascal 3.1.1 (fpc r34557) kompiliert, da Apps, welche mit fpc 3.0 erstellt wurden (d.h. VideLibri seit Version 1.835), unter Android &lt;= 4.0 nicht starten und Android 6 von fpc 3.0 nicht unterstützt wird.
 Die Desktopversion ist weiterhin mit fpc 3.0 kompiliert, da fpc 3.1.1 beim optimierten Kompilieren von größeren Desktop-Programmen einfach abstürzt.
     </fix>
