@@ -387,6 +387,15 @@ public class VideLibri extends  BookListActivity{
 
     public void refreshBookCache(){
         boolean xquery = filterActually != null && (filterActually.startsWith("xquery version") || filterActually.startsWith("for $") || filterActually.contains("$book"));
+        if (!xquery && filterActually != null) {
+            int controlchars = 0;
+            for (int i=0;i<filterActually.length();i++)
+                switch (filterActually.charAt(i) ){
+                    case '!':case '$':case '(':case ')':case'*':case '+':case '"':case ',':case '/':case'<':case'=':case'>':case'[':case']':
+                        controlchars++;
+                }
+            xquery = controlchars >= 4;
+        }
         if (!xquery)
             bookCache = filterToSecondaryBookCache(primaryBookCache, groupingKeyActually, sortingKeyActually, filterActually, filterKeyActually);
         else {
