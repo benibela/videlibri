@@ -64,8 +64,8 @@ build-java)
   ./gradlew $GRADLEMODE || (echo "FAILED!"; exit)
   
   cd android
-  $SDK_HOME/adb uninstall de.benibela.videlibri || (echo "FAILED!"; exit)
-  $SDK_HOME/adb install build/outputs/apk/android-$BUILDMODE.apk || (echo "FAILED!"; exit)
+  #$SDK_HOME/adb uninstall de.benibela.videlibri || (echo "FAILED!"; exit)
+  $SDK_HOME/adb install -r build/outputs/apk/android-$BUILDMODE.apk || (echo "FAILED!"; exit)
 ;;
 
 install)
@@ -73,8 +73,8 @@ install)
   else BUILDMODE=debug;  fi
 
   cd android
-  $SDK_HOME/adb uninstall de.benibela.videlibri || (echo "FAILED!"; exit)
-  $SDK_HOME/adb install build/outputs/apk/android-$BUILDMODE.apk || (echo "FAILED!"; exit)
+  #$SDK_HOME/adb uninstall de.benibela.videlibri || (echo "FAILED!"; exit)
+  $SDK_HOME/adb install -r build/outputs/apk/android-$BUILDMODE.apk || (echo "FAILED!"; exit)
   
 ;;
 
