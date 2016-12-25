@@ -10,21 +10,21 @@
               android:orientation="horizontal" >
 
 
-    <fragment
+    <LinearLayout
             android:id="@+id/list"
             android:layout_width="0dp"
             android:layout_weight="2"
             android:layout_height="match_parent"
-            class="de.benibela.videlibri.BookListFragment" ></fragment>
+            ></LinearLayout>
 
-    <fragment
+    <LinearLayout
             android:id="@+id/details"
             android:layout_width="0dp"
             android:layout_weight="2"
             android:layout_height="match_parent"
-            class="de.benibela.videlibri.BookDetails" >
+             >
         <!-- Preview: layout=@layout/details -->
-    </fragment>
+    </LinearLayout>
 
 </LinearLayout>
 </LinearLayout>

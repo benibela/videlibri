@@ -98,7 +98,8 @@ public class VideLibri extends  BookListActivity{
                 || !sortingKey.equals(sortingKeyActually)
                 || !filterKey.equals(filterKeyActually)
                 ) {
-            findViewById(R.id.searchFilterPanel).setVisibility( "__disabled".equals(filterKey) ? View.GONE : View.VISIBLE );
+            View searchPanel = findViewById(R.id.searchFilterPanel);
+            if (searchPanel != null) searchPanel.setVisibility( "__disabled".equals(filterKey) ? View.GONE : View.VISIBLE );
             displayAccount(null);
         }
         //setTitle("Ausleihen");  //does not work in onCreate (why? makes the title invisible) No. it just works sometimes?
@@ -121,8 +122,8 @@ public class VideLibri extends  BookListActivity{
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == android.R.id.home) {
-            if (detailsOpened) onBackPressed();
-            else openOptionsMenu();
+            if (showList())
+                openOptionsMenu();
             return true;
         }
         return super.onOptionsItemSelected(item);
@@ -385,6 +386,7 @@ public class VideLibri extends  BookListActivity{
     }
 
 
+
     public void refreshBookCache(){
         boolean xquery = filterActually != null && (filterActually.startsWith("xquery version") || filterActually.startsWith("for $") || filterActually.contains("$book"));
         if (!xquery && filterActually != null) {
@@ -421,7 +423,7 @@ public class VideLibri extends  BookListActivity{
         switch (book.getStatus()) {
             case Normal:
                 VideLibriApp.renewBooks(new Bridge.Book[]{book});
-                if (detailsOpened) onBackPressed();
+                showList();
                 break;
             case Ordered: case Provided:
                 showMessageYesNo(tr(R.string.main_cancelconfirm), new MessageHandler() {
@@ -430,7 +432,7 @@ public class VideLibri extends  BookListActivity{
                         if (i == DialogInterface.BUTTON_POSITIVE) {
                             Bridge.VLBookOperation(new Bridge.Book[]{book}, Bridge.BOOK_OPERATION_CANCEL); //cancel
                             setLoading(true);
-                            if (detailsOpened) onBackPressed();
+                            showList();
                         }
                     }
                 });

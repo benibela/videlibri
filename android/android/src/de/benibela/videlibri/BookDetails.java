@@ -9,6 +9,7 @@ import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.text.util.Linkify;
 import android.util.DisplayMetrics;
 import android.util.Log;
@@ -140,24 +141,36 @@ public class BookDetails extends VideLibriBaseFragment {
         details.add(new Details(displayName, value));
     }
 
-    static Bridge.Book bookToView = null; //passed as parameter to newly created detail display (do not serialize, as it crashes with books with images and is slow in any case)
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.bookdetails, container, false);
+        return inflater.inflate(R.layout.bookdetails, container, false);
+    }
 
-
-        return view;
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        refreshBook();
     }
 
     @Override
     public void onResume() {
         super.onResume();    //To change body of overridden methods use File | Settings | File Templates.
+        refreshBook();
+    }
 
-        setBook( bookToView );
-        bookToView = null;
+    @Override
+    public void onHiddenChanged(boolean hidden) {
+        super.onHiddenChanged(hidden);
+        if (!hidden) refreshBook();
+    }
+
+    void refreshBook(){
+        BookListActivity bl = (BookListActivity)(getActivity());
+
+        if (bl != null && book != bl.currentBook && getView() != null)
+            setBook( bl.currentBook );
     }
 
     void setBook(Bridge.Book newBook){

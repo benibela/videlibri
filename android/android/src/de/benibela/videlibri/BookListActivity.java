@@ -1,7 +1,7 @@
 package de.benibela.videlibri;
 
 import android.app.Activity;
-import android.app.FragmentTransaction;
+import android.support.v4.app.FragmentTransaction;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -16,34 +16,41 @@ import java.util.EnumSet;
 import java.util.Iterator;
 
 public class BookListActivity extends VideLibriBaseFragmentActivity{
+    static final String FRAGMENT_TAG_LIST = "list";
+    static final String FRAGMENT_TAG_DETAILS = "details";
 
     boolean port_mode;
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Log.d("VL", "onCreate: " + port_mode);
         setContentView(R.layout.booklistactivity);
         port_mode = getResources().getBoolean(R.bool.port_mode);
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         if (port_mode) {
-
-            android.support.v4.app.FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-            //transaction.setCustomAnimations(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
-            listFragment = new BookListFragment();
-            transaction.add(R.id.layout, listFragment);
+            transactionAddList(transaction);
             //transaction.addToBackStack(null);
-            transaction.commit();
-            detailsOpened = false;
+        } else {
+            transactionAddList(transaction);
+            transactionAddDetails(transaction);
         }
+        transaction.commit();
+
+        Log.d("VL", "  end onCreate: " + port_mode);
     }
 
     @Override
     protected void onResume() {
         super.onResume();
+        port_mode = getResources().getBoolean(R.bool.port_mode); //should not have changed
         if (!cacheShown)
             displayBookCache();
     }
 
     @Override
     void setLoading(boolean loading) {
-        super.setLoading(loading || (details() != null && details().loading) || (list() != null && list().loading));
+        BookDetails d = details();
+        BookListFragment l = list();
+        super.setLoading(loading || (d != null && d.isVisible() && d.loading) || (l != null && l.loading));
     }
 
     public ArrayList<Bridge.Book> bookCache = new ArrayList<Bridge.Book>();
@@ -94,54 +101,60 @@ public class BookListActivity extends VideLibriBaseFragmentActivity{
 
     public void onPlaceHolderShown(int position){}
 
+    public Bridge.Book currentBook;
     public void viewDetails(int bookpos){
+        currentBook = bookCache.get(bookpos);
+        BookDetails d = details();
         if (port_mode) {
-            android.support.v4.app.FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
             //transaction.setCustomAnimations(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
-            transaction.hide(listFragment);
-            if (lastDetails == null){
-                lastDetails = new BookDetails();
-                transaction.add(R.id.layout, lastDetails);
-                BookDetails.bookToView = bookCache.get(bookpos);
-            } else {
-                transaction.show(lastDetails);
-                lastDetails.setBook(bookCache.get(bookpos));
-            }
-            //transaction.addToBackStack(null);    back stack did not work (why ?) add/detach/remove also did not work
+            transactionAddDetails(transaction);
             transaction.commit();
-            detailsOpened = true;
             return;
         }
         BookDetails dets = details();
         if (dets == null) return;
-        dets.setBook(bookCache.get(bookpos));
+        dets.setBook(currentBook);
     }
 
-    boolean detailsOpened = false;
+    //shows the list. returns if the list was already visible
+    public boolean showList(){
+        BookDetails d = details();
+        if (port_mode && d != null && d.isVisible()) {
+            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+            //transaction.setCustomAnimations(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
+            transactionAddList(transaction);
+            transaction.commit();
+            return false;
+        } else return true;
+    }
+
     @Override
     public void onBackPressed() {
-        if (detailsOpened) {
-            android.support.v4.app.FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-            //transaction.setCustomAnimations(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
-            transaction.hide(lastDetails);
-            transaction.show(listFragment);
-            transaction.commit();
-            detailsOpened = false;
-        } else super.onBackPressed();
+        if (showList())
+            super.onBackPressed();
     }
 
     public void onBookActionButtonClicked(Bridge.Book book){} //called from detail fragment
 
-    BookListFragment listFragment;
-    BookDetails lastDetails;
     public BookDetails details(){
-        if (lastDetails != null) return lastDetails;
-        BookDetails fragment = (BookDetails) getSupportFragmentManager().findFragmentById(R.id.details); //does not work in portrait mode (id is not set??)
+        BookDetails fragment = (BookDetails) getSupportFragmentManager().findFragmentByTag(FRAGMENT_TAG_DETAILS);
         return fragment;
     }
     public BookListFragment list(){
-        if (listFragment != null) return listFragment;
-        BookListFragment fragment = (BookListFragment) getSupportFragmentManager().findFragmentById(R.id.list); //does not work in portrait mode (id is not set??)
+        BookListFragment fragment = (BookListFragment) getSupportFragmentManager().findFragmentByTag(FRAGMENT_TAG_LIST);
         return fragment;
     }
+    private void transactionAddList(FragmentTransaction t){
+        BookListFragment l = list();
+        if (l == null) l = new BookListFragment();
+        //if (l.isAdded() && !)
+        t.replace(port_mode ? R.id.layout : R.id.list, l, FRAGMENT_TAG_LIST);
+    }
+    private void transactionAddDetails(FragmentTransaction t){
+        BookDetails d = details();
+        if (d == null) d = new BookDetails();
+        t.replace(port_mode ? R.id.layout : R.id.details, d, FRAGMENT_TAG_DETAILS);
+    }
+
 }
