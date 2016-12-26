@@ -74,7 +74,7 @@ class BookOverviewAdapter extends ArrayAdapter<Bridge.Book> {
         }
         ViewHolder holder = (ViewHolder) view.getTag();
         Bridge.Book book = getItem(position);
-        boolean isGroupingHeader = options.contains(DisplayEnum.Grouped) && book.more == VideLibri.crazyHeaderHack;
+        boolean isGroupingHeader = options.contains(DisplayEnum.Grouped) && book.isGroupingHeaderFakeBook();
         holder.caption.setText(shortened(book.title));
         if (options.contains(DisplayEnum.Grouped)) {
             if (isGroupingHeader) {

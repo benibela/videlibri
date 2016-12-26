@@ -14,6 +14,8 @@ import android.app.*;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -65,6 +67,26 @@ public class VideLibri extends  BookListActivity{
 
        // Log.i("VideLibri", "onCreate")               ;
 
+        if (savedInstanceState != null)
+            filterActually = savedInstanceState.getString("filterActually");
+        updateViewFilters();
+
+        findViewById(R.id.searchFilterPanel).setVisibility(View.VISIBLE);
+        EditText et = (EditText) findViewById(R.id.searchFilter);
+        et.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i2, int i3) { }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i2, int i3) { }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                filterActually = editable.toString();
+                refreshBookCache();
+            }
+        });
+
 
         if (VideLibriApp.accounts == null || VideLibriApp.accounts.length == 0) ; //startActivity(new Intent(this, NewAccountWizard.class));
         else {
@@ -80,14 +102,7 @@ public class VideLibri extends  BookListActivity{
     protected void onResume() {
         super.onResume();
 
-        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(this);
-        setOption(BookOverviewAdapter.DisplayEnum.NoDetails, sp.getBoolean("noLendBookDetails", false));
-        setOption(BookOverviewAdapter.DisplayEnum.ShowRenewCount, sp.getBoolean("showRenewCount", true));
-        sortingKey = sp.getString("sorting", "dueDate");
-        groupingKey = sp.getString("grouping", "_dueWeek");
-        filterKey = sp.getString("filtering", "");
-        displayHistory = sp.getBoolean("displayHistory", false);
-
+        updateViewFilters();
 
         if (displayHistoryActually != displayHistory
                 || !hiddenAccounts.equals(hiddenAccountsActually)
@@ -117,6 +132,22 @@ public class VideLibri extends  BookListActivity{
         }
 
         setLoading(!VideLibriApp.runningUpdates.isEmpty());
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putString("filterActually", filterActually);
+    }
+
+    private void updateViewFilters(){
+        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(this);
+        setOption(BookOverviewAdapter.DisplayEnum.NoDetails, sp.getBoolean("noLendBookDetails", false));
+        setOption(BookOverviewAdapter.DisplayEnum.ShowRenewCount, sp.getBoolean("showRenewCount", true));
+        sortingKey = sp.getString("sorting", "dueDate");
+        groupingKey = sp.getString("grouping", "_dueWeek");
+        filterKey = sp.getString("filtering", "");
+        displayHistory = sp.getBoolean("displayHistory", false);
     }
 
     @Override
@@ -379,11 +410,6 @@ public class VideLibri extends  BookListActivity{
         refreshBookCache();
     }
 
-
-    public void setFilter(String filter){
-        filterActually = filter;
-        refreshBookCache();
-    }
 
 
 

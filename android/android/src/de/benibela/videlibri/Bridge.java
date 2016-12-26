@@ -153,6 +153,10 @@ public class Bridge {
             return cancelable == null || !"false".equals(cancelable);
         }
 
+        boolean isGroupingHeaderFakeBook(){
+            return more == VideLibri.crazyHeaderHack;
+        }
+
         //called from Videlibri midend
         void setProperty(String name, String value){
             more.add(new Pair(name, value));
@@ -201,6 +205,24 @@ public class Bridge {
             if (removeSeps)
                 isbn = isbn.replaceAll("[- ]", "");
             return isbn;
+        }
+
+        public boolean equalsBook(Book q) {
+            if (!Util.equalStrings(title, q.title)) return false;
+            if (!Util.equalStrings(author, q.author)) return false;
+            if (history != q.history) return false;
+            if (!(account == null ? q.account == null : Util.equalStrings(account.libId, q.account.libId) && Util.equalStrings(account.name, q.account.name) )) return false;
+            for (int i=0;i<more.size();i++) {
+                if (i < q.more.size() && Util.equalStrings(more.get(i).first, q.more.get(i).first) && Util.equalStrings(more.get(i).second, q.more.get(i).second))
+                    continue;
+
+                if (!Util.equalStrings(more.get(i).second, q.getProperty(more.get(i).first))) return false;
+               /*boolean ok = false;
+                    ok = Util.equalStrings(more.get(i).second, q.more.get(i).second);
+                    for (Pair b: q.more)
+                        if (Util.equalStrings())*/
+            }
+            return true;
         }
     }
 

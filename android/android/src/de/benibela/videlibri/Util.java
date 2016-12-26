@@ -48,6 +48,10 @@ public class Util {
         }
     }
 
+    static public boolean equalStrings(String s, String t) {
+        return s == null ? t == null : s.equals(t);
+    }
+
     static public void showMessage(String message){showMessage(message, null, tr(R.string.ok), null, null);}
     static public void showMessage(String message, final MessageHandler handler){showMessage(message, null, tr(R.string.ok), null, handler);}
     static public void showMessageYesNo(String message, MessageHandler handler){ Util.showMessage(message, tr(R.string.no), null, tr(R.string.yes), handler); }

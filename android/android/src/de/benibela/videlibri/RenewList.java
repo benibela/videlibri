@@ -18,19 +18,52 @@ public class RenewList extends BookListActivity {
 
         setTitle(tr(R.string.renew_title_start));
         selectedBooks = new ArrayList<Bridge.Book>();
+        updateViewFilters();
+
+
+        button = (Button) findViewById(R.id.buttonbelowlist);
+        //if (button == null) return;
+        button.setVisibility(View.VISIBLE);
+        button.setEnabled(false);
+        button.setText(tr(R.string.booklist_noselection));
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                VideLibriApp.renewBooks((Bridge.Book[]) selectedBooks.toArray(new Bridge.Book[0]));
+                finish();
+            }
+        });
     }
 
     @Override
     protected void onResume() {
         super.onResume();
+        updateViewFilters();
+        displayBookCache();
+    }
+
+    @Override
+    public void onBookCacheAvailable() {
+        super.onBookCacheAvailable();
+        updateRenewButton();
+    }
+
+    private void updateViewFilters(){
         SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(this);
         setOption(BookOverviewAdapter.DisplayEnum.NoDetails, sp.getBoolean("noLendBookDetails", false));
         setOption(BookOverviewAdapter.DisplayEnum.ShowRenewCount, sp.getBoolean("showRenewCount", true));
         sortingKey = sp.getString("sorting", "dueDate");
         groupingKey = sp.getString("grouping", "_dueWeek");
+        ArrayList<Bridge.Book> oldSelection = selectedBooks;
         bookCache = VideLibri.makePrimaryBookCache(null, new ArrayList<Bridge.Book>(), true);
         bookCache = VideLibri.filterToSecondaryBookCache(bookCache, groupingKey, sortingKey, "", null);
-        displayBookCache();
+        selectedBooks = new ArrayList<Bridge.Book>(selectedBooks.size());
+        for (Bridge.Book selbook: oldSelection)
+            for (Bridge.Book book: bookCache)
+                if (selbook.equalsBook(book)) {
+                    selectedBooks.add(book);
+                    break;
+                }
     }
 
     @Override
@@ -44,6 +77,13 @@ public class RenewList extends BookListActivity {
             }
         if (!deleted)
             selectedBooks.add(bookCache.get(bookpos));
+        updateRenewButton();
+        ((BookOverviewAdapter)((ListView) findViewById(R.id.booklistview)).getAdapter()).notifyDataSetChanged();
+        if (!port_mode) super.viewDetails(bookpos);
+    }
+
+
+    private void updateRenewButton(){
         if (selectedBooks.size() == 0) {
             setTitle(tr(R.string.renew_title_select));
             if (button != null) {
@@ -58,7 +98,5 @@ public class RenewList extends BookListActivity {
                 //button.setBackgroundDrawable(activity.getResources().getDrawable(android.R.drawable.butt)); //http://stackoverflow.com/questions/4384890/how-to-disable-an-android-button
             }
         }
-        ((BookOverviewAdapter)((ListView) findViewById(R.id.booklistview)).getAdapter()).notifyDataSetChanged();
-        if (!port_mode) super.viewDetails(bookpos);
     }
 }
