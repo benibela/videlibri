@@ -102,7 +102,7 @@ public class SearchResult extends BookListActivity implements Bridge.SearchResul
 
                 setLoading(false || orderingAccount != null);
 
-                if (details() != null) {
+                if (detailsVisible()) {
                     if (nextDetailsRequested == -1)
                         return;
                     if (nextDetailsRequested != oldWaitingForDetails) {
@@ -113,7 +113,7 @@ public class SearchResult extends BookListActivity implements Bridge.SearchResul
                         return;
                     }
 
-                    details().setBook(book);
+                    details.setBook(book);
                 }
             }
         });

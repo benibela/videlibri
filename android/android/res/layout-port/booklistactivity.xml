@@ -5,12 +5,15 @@
               android:orientation="vertical">
     <include layout="@layout/actionbar"/>
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:layout_width="fill_parent"
               android:layout_height="fill_parent"
               android:orientation="horizontal"
               android:id="@+id/layout">
 
+    <include layout="@layout/booklist"/>
+    <include layout="@layout/bookdetails"/>
 
-</LinearLayout>
+
+</FrameLayout>
 </LinearLayout>

@@ -107,7 +107,7 @@ public class VideLibri extends  BookListActivity{
         if (VideLibriApp.accounts == null || VideLibriApp.accounts.length == 0){
             View v = findViewById(R.id.layout); //need an arbitrary view. Depends on landscape/portrait, which is there
             if (v == null) v = findViewById(R.id.booklistview);
-            if (v == null) v = findViewById(R.id.list);
+            //if (v == null) v = findViewById(R.id.list);
             if (v != null) v.postDelayed(new Runnable() {
                 @Override
                 public void run() {

@@ -21,7 +21,7 @@ import android.widget.*;
 import java.io.InputStream;
 import java.util.*;
 
-public class BookDetails extends VideLibriBaseFragment {
+public class BookDetails extends VideLibriFakeFragment {
     Bridge.Book book;
 
     static String trStatus = "", trDueDate = "";
@@ -142,35 +142,8 @@ public class BookDetails extends VideLibriBaseFragment {
     }
 
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.bookdetails, container, false);
-    }
-
-    @Override
-    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-        refreshBook();
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();    //To change body of overridden methods use File | Settings | File Templates.
-        refreshBook();
-    }
-
-    @Override
-    public void onHiddenChanged(boolean hidden) {
-        super.onHiddenChanged(hidden);
-        if (!hidden) refreshBook();
-    }
-
-    void refreshBook(){
-        BookListActivity bl = (BookListActivity)(getActivity());
-
-        if (bl != null && book != bl.currentBook && getView() != null)
-            setBook( bl.currentBook );
+    BookDetails (BookListActivity activity) {
+        super(activity);
     }
 
     void setBook(Bridge.Book newBook){
@@ -181,7 +154,7 @@ public class BookDetails extends VideLibriBaseFragment {
         Log.i("VL", ""+getSherlockActivity());
         Log.i("VL", ""+getView());       */
 
-        if (getActivity() == null || getView() == null || newBook == null) return;
+        if (newBook == null) return;
 
         boolean searchedBook = book.account == null;
 
@@ -241,7 +214,7 @@ public class BookDetails extends VideLibriBaseFragment {
             }
 
 
-        lv.setAdapter(new BookDetailsAdapter(getActivity(), details, book));
+        lv.setAdapter(new BookDetailsAdapter(activity, details, book));
 
         boolean needToLoadImage = book.more != null && (book.hasProperty("image-url") || book.hasProperty("isbn")) && book.image == null;
         if (needToLoadImage)
@@ -255,7 +228,7 @@ public class BookDetails extends VideLibriBaseFragment {
                 action = book.getProperty("orderTitle");
                 if (action == null || "".equals(action)) action = tr(R.string.book_order);
             }
-        } else if (!book.history && !(getActivity() instanceof RenewList))
+        } else if (!book.history && !(activity instanceof RenewList))
             switch (book.getStatus()) {
                 case Unknown: action = tr(R.string.book_renew); break;
                 case Normal: action = tr(R.string.book_renew); break;
@@ -271,12 +244,12 @@ public class BookDetails extends VideLibriBaseFragment {
             actionButton.setVisibility(View.VISIBLE);
             actionButton.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View view){
-                    if (getActivity() instanceof BookListActivity)
-                        ((BookListActivity) getActivity()).onBookActionButtonClicked(book);
+                    if (activity instanceof BookListActivity)
+                        ((BookListActivity) activity).onBookActionButtonClicked(book);
                 }
             });
-            if (getActivity() instanceof BookListActivity)
-                ((BookListActivity) getActivity()).bookActionButton = actionButton;
+            if (activity instanceof BookListActivity)
+                ((BookListActivity) activity).bookActionButton = actionButton;
         } else actionButton.setVisibility(View.GONE);
 
     }

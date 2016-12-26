@@ -10,21 +10,21 @@
               android:orientation="horizontal" >
 
 
-    <LinearLayout
-            android:id="@+id/list"
+    <FrameLayout
             android:layout_width="0dp"
             android:layout_weight="2"
             android:layout_height="match_parent"
-            ></LinearLayout>
+            >
+        <include layout="@layout/booklist"/>
+    </FrameLayout>
 
-    <LinearLayout
-            android:id="@+id/details"
+    <FrameLayout
             android:layout_width="0dp"
             android:layout_weight="2"
             android:layout_height="match_parent"
              >
-        <!-- Preview: layout=@layout/details -->
-    </LinearLayout>
+        <include layout="@layout/bookdetails"/>
+    </FrameLayout>
 
 </LinearLayout>
 </LinearLayout>

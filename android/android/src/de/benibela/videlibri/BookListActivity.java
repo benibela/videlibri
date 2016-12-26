@@ -16,26 +16,24 @@ import java.util.EnumSet;
 import java.util.Iterator;
 
 public class BookListActivity extends VideLibriBaseFragmentActivity{
-    static final String FRAGMENT_TAG_LIST = "list";
-    static final String FRAGMENT_TAG_DETAILS = "details";
-
     boolean port_mode;
+
+    BookListFragment list;
+    BookDetails details;
+    View detailsPortHolder, listPortHolder;
+
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Log.d("VL", "onCreate: " + port_mode);
         setContentView(R.layout.booklistactivity);
         port_mode = getResources().getBoolean(R.bool.port_mode);
-        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        list = new BookListFragment(this);
+        details = new BookDetails(this);
         if (port_mode) {
-            transactionAddList(transaction);
-            //transaction.addToBackStack(null);
-        } else {
-            transactionAddList(transaction);
-            transactionAddDetails(transaction);
+            detailsPortHolder = findViewById(R.id.bookdetailslayout);
+            listPortHolder = findViewById(R.id.booklistlayout);
+            showList();
         }
-        transaction.commit();
-
-        Log.d("VL", "  end onCreate: " + port_mode);
     }
 
     @Override
@@ -48,9 +46,7 @@ public class BookListActivity extends VideLibriBaseFragmentActivity{
 
     @Override
     void setLoading(boolean loading) {
-        BookDetails d = details();
-        BookListFragment l = list();
-        super.setLoading(loading || (d != null && d.isVisible() && d.loading) || (l != null && l.loading));
+        super.setLoading(loading || (detailsVisible() && details.loading) || list.loading);
     }
 
     public ArrayList<Bridge.Book> bookCache = new ArrayList<Bridge.Book>();
@@ -73,8 +69,6 @@ public class BookListActivity extends VideLibriBaseFragmentActivity{
         setOption(BookOverviewAdapter.DisplayEnum.Grouped, !"".equals(groupingKey));
         BookOverviewAdapter sa = new BookOverviewAdapter(this, bookCache, partialSize, options);
         ListView bookListView = (ListView) findViewById(R.id.booklistview);
-        if (bookListView == null && list() != null) bookListView = (ListView) (list().findViewById(R.id.booklistview));
-        if (bookListView == null) return; //this might get executed before the fragment/view is loaded
         cacheShown = true;
         bookListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -101,32 +95,26 @@ public class BookListActivity extends VideLibriBaseFragmentActivity{
 
     public void onPlaceHolderShown(int position){}
 
-    public Bridge.Book currentBook;
     public void viewDetails(int bookpos){
-        currentBook = bookCache.get(bookpos);
-        BookDetails d = details();
         if (port_mode) {
-            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-            //transaction.setCustomAnimations(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
-            transactionAddDetails(transaction);
-            transaction.commit();
-            return;
+            detailsPortHolder.setVisibility(View.VISIBLE);
+            listPortHolder.setVisibility(View.INVISIBLE);
         }
-        BookDetails dets = details();
-        if (dets == null) return;
-        dets.setBook(currentBook);
+        details.setBook(bookCache.get(bookpos));
     }
 
     //shows the list. returns if the list was already visible
     public boolean showList(){
-        BookDetails d = details();
-        if (port_mode && d != null && d.isVisible()) {
-            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-            //transaction.setCustomAnimations(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
-            transactionAddList(transaction);
-            transaction.commit();
+        if (!port_mode) return true;
+        if (detailsVisible()) {
+            listPortHolder.setVisibility(View.VISIBLE);
+            detailsPortHolder.setVisibility(View.INVISIBLE);
             return false;
         } else return true;
+    }
+    public boolean detailsVisible(){
+        if (!port_mode) return true;
+        return detailsPortHolder.getVisibility() == View.VISIBLE;
     }
 
     @Override
@@ -136,25 +124,5 @@ public class BookListActivity extends VideLibriBaseFragmentActivity{
     }
 
     public void onBookActionButtonClicked(Bridge.Book book){} //called from detail fragment
-
-    public BookDetails details(){
-        BookDetails fragment = (BookDetails) getSupportFragmentManager().findFragmentByTag(FRAGMENT_TAG_DETAILS);
-        return fragment;
-    }
-    public BookListFragment list(){
-        BookListFragment fragment = (BookListFragment) getSupportFragmentManager().findFragmentByTag(FRAGMENT_TAG_LIST);
-        return fragment;
-    }
-    private void transactionAddList(FragmentTransaction t){
-        BookListFragment l = list();
-        if (l == null) l = new BookListFragment();
-        //if (l.isAdded() && !)
-        t.replace(port_mode ? R.id.layout : R.id.list, l, FRAGMENT_TAG_LIST);
-    }
-    private void transactionAddDetails(FragmentTransaction t){
-        BookDetails d = details();
-        if (d == null) d = new BookDetails();
-        t.replace(port_mode ? R.id.layout : R.id.details, d, FRAGMENT_TAG_DETAILS);
-    }
 
 }
