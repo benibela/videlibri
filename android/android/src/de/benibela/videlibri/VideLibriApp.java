@@ -11,29 +11,37 @@ import android.os.Handler;
 import android.os.Message;
 import org.acra.*;
 import org.acra.annotation.*;
+import org.acra.config.*;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-@ReportsCrashes(formKey = "",
-                formUri = "http://www.benibela.de/autoFeedback.php?app=VideLibri",
+import static org.acra.ReportField.*;
+
+@ReportsCrashes(formUri = "http://www.benibela.de/autoFeedback.php?app=VideLibri",
                 logcatArguments = { "-t", "2500", "-v", "threadtime"},
                 mode = ReportingInteractionMode.DIALOG,
                 resToastText = R.string.crash_toast_text, // optional, displayed as soon as the crash occurs, before collecting data which can take a few seconds
                 resDialogText = R.string.crash_dialog_text,
                 resDialogIcon = android.R.drawable.ic_dialog_info, //optional. default is a warning sign
                 resDialogCommentPrompt = R.string.crash_dialog_comment_prompt, // optional. when defined, adds a user text field input with this text resource as a label
-                resDialogOkToast = R.string.crash_dialog_ok_toast // optional. displays a Toast message when the user accepts to send a report.
+                resDialogOkToast = R.string.crash_dialog_ok_toast, // optional. displays a Toast message when the user accepts to send a report.
+                customReportContent = { REPORT_ID, APP_VERSION_CODE, APP_VERSION_NAME,
+                        PACKAGE_NAME, FILE_PATH, PHONE_MODEL, BRAND, PRODUCT, ANDROID_VERSION, BUILD, TOTAL_MEM_SIZE,
+                        AVAILABLE_MEM_SIZE, BUILD_CONFIG, CUSTOM_DATA, IS_SILENT, STACK_TRACE, INITIAL_CONFIGURATION, CRASH_CONFIGURATION,
+                        DISPLAY, USER_COMMENT, USER_EMAIL, USER_APP_START_DATE, USER_CRASH_DATE, DUMPSYS_MEMINFO, /*LOGCAT,*/
+                        INSTALLATION_ID, DEVICE_FEATURES, ENVIRONMENT, SHARED_PREFERENCES }
 )
 public class VideLibriApp extends Application implements Bridge.VideLibriContext {
     @Override
     public void onCreate() {
         super.onCreate();
 
+
         ACRA.init(this);
 
-        setACRAlogcat(false);
+        //setACRAlogcat(false);
 
 
         instance = this;
@@ -83,11 +91,13 @@ public class VideLibriApp extends Application implements Bridge.VideLibriContext
             }
         };
 
+        if (ACRA.isACRASenderServiceProcess()) return;
+
         NotificationService.startIfNecessary(this);
     }
 
     static void setACRAlogcat(boolean enabled) {
-        ACRAConfiguration config = ACRA.getConfig();
+        /*ACRAConfiguration config = ACRA.getConfig();
         if (enabled) config.setCustomReportContent(ACRAConstants.DEFAULT_REPORT_FIELDS);
         else {
             ReportField[] fields = ACRAConstants.DEFAULT_REPORT_FIELDS;
@@ -102,7 +112,7 @@ public class VideLibriApp extends Application implements Bridge.VideLibriContext
             ReportField[] newFields2 = new ReportField[fields.length];
             System.arraycopy(newFields, 0, newFields2, 0, p);
             config.setCustomReportContent(newFields2);
-        }
+        } */
 
         SharedPreferences prefs = ACRA.getACRASharedPreferences();
         SharedPreferences.Editor editor = prefs.edit();
