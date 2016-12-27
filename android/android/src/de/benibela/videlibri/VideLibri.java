@@ -14,6 +14,7 @@ import android.app.*;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -26,6 +27,8 @@ import android.widget.*;
 
 
 public class VideLibri extends  BookListActivity{
+
+
  /* AssetManager assets;
   byte[] getDataFile(String fileName){//implemented with JNI on pascal side
     InputStream is = assets.open(fileName);
@@ -443,6 +446,8 @@ public class VideLibri extends  BookListActivity{
     }
 
 
+    static private Bridge.Book lastSelectedBookForDialog;
+
     @Override
     public void onBookActionButtonClicked(final Bridge.Book book) {
         int action = -1;
@@ -452,16 +457,8 @@ public class VideLibri extends  BookListActivity{
                 showList();
                 break;
             case Ordered: case Provided:
-                showMessageYesNo(tr(R.string.main_cancelconfirm), new MessageHandler() {
-                    @Override
-                    public void onDialogEnd(DialogInterface dialogInterface, int i) {
-                        if (i == DialogInterface.BUTTON_POSITIVE) {
-                            Bridge.VLBookOperation(new Bridge.Book[]{book}, Bridge.BOOK_OPERATION_CANCEL); //cancel
-                            setLoading(true);
-                            showList();
-                        }
-                    }
-                });
+                lastSelectedBookForDialog = book;
+                Util.showMessageYesNo(DialogId.CANCEL_CONFIRM, tr(R.string.main_cancelconfirm));
         }
     }
 
@@ -471,5 +468,20 @@ public class VideLibri extends  BookListActivity{
         displayForcedCounter += 1;
         if (VideLibriApp.currentActivity instanceof VideLibri)
             ((VideLibri)VideLibriApp.currentActivity).displayAccount(account);
+    }
+
+    @Override
+    boolean onDialogResult(int dialogId, int buttonId, Bundle more) {
+        switch (dialogId) {
+            case DialogId.CANCEL_CONFIRM:
+                if (buttonId == DialogInterface.BUTTON_POSITIVE) {
+                    Bridge.VLBookOperation(new Bridge.Book[]{lastSelectedBookForDialog}, Bridge.BOOK_OPERATION_CANCEL); //cancel
+                    setLoading(true);
+                    showList();
+                }
+                lastSelectedBookForDialog = null;
+                return true;
+        }
+        return super.onDialogResult(dialogId, buttonId, more);
     }
 }

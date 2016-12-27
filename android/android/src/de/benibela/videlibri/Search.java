@@ -190,93 +190,96 @@ public class Search extends VideLibriBaseActivity implements Bridge.SearchConnec
 
     volatile int debugWaiting ;
     public void activateHiddenDebugMode(){
-        showMessage("You have activated the secret debug mode", new MessageHandler() {
-            @Override
-            public void onDialogEnd(DialogInterface dialogInterface, int i) {
-                showMessageYesNo("Do you want to search ALL libraries? ", new MessageHandler() {
-                    @Override
-                    public void onDialogEnd(DialogInterface dialogInterface, int res) {
-                        if (res == DialogInterface.BUTTON_POSITIVE) {
-                            Bridge.Library[] libs = Bridge.getLibraries();
-                            boolean start = false;
-                            for (int i = 0; i < libs.length; i++) {
-                                if (start || libId.equals(libs[i].id)) {
-                                    Log.i("VIDELIBRI", "============================================================");
-                                    Log.i("VIDELIBRI", "Testing search: " + libs[i].namePretty);
-                                    Log.i("VIDELIBRI", "============================================================");
+        Util.showMessage(DialogId.DEBUG_SEARCH_BEGIN, "You have activated the secret debug mode");
+    }
 
-                                    start = true;
-                                    final Bridge.SearcherAccess searcher = new Bridge.SearcherAccess(Search.this, libs[i].id);
-                                    debugWaiting = 0;
-                                    searcher.setDisplay(new Bridge.SearchResultDisplay() {
-                                        @Override
-                                        public void onSearchFirstPageComplete(Bridge.Book[] books) {
-                                            if (searcher.nextPageAvailable) searcher.nextPage();
-                                            else onSearchNextPageComplete(books);
-                                        }
+    @Override
+    boolean onDialogResult(int dialogId, int buttonId, Bundle more) {
+        switch (dialogId){
+            case DialogId.DEBUG_SEARCH_BEGIN:
+                Util.showMessageYesNo(DialogId.DEBUG_SEARCH_ALL, "Do you want to search ALL libraries? ");
+                return true;
+            case DialogId.DEBUG_SEARCH_ALL:
+                if (buttonId == DialogInterface.BUTTON_POSITIVE) {
+                    Bridge.Library[] libs = Bridge.getLibraries();
+                    boolean start = false;
+                    for (int i = 0; i < libs.length; i++) {
+                        if (start || libId.equals(libs[i].id)) {
+                            Log.i("VIDELIBRI", "============================================================");
+                            Log.i("VIDELIBRI", "Testing search: " + libs[i].namePretty);
+                            Log.i("VIDELIBRI", "============================================================");
 
-                                        @Override
-                                        public void onSearchNextPageComplete(Bridge.Book[] books) {
-                                            debugWaiting = 1;
-                                        }
-
-                                        @Override
-                                        public void onSearchDetailsComplete(Bridge.Book book) {
-
-                                        }
-
-                                        @Override
-                                        public void onOrderComplete(Bridge.Book book) {
-
-                                        }
-
-                                        @Override
-                                        public void onOrderConfirm(Bridge.Book book) {
-
-                                        }
-
-                                        @Override
-                                        public void onTakePendingMessage(int kind, String caption, String[] options) {
-
-                                        }
-
-                                        @Override
-                                        public void onPendingMessageCompleted() {
-
-                                        }
-
-                                        @Override
-                                        public void onConnected(String[] homeBranches, String[] searchBranches) {
-
-                                        }
-
-                                        @Override
-                                        public void onException() {
-                                            debugWaiting = -1;
-                                        }
-                                    });
-                                    Bridge.Book book = new Bridge.Book();
-                                    book.title = getTextViewText(R.id.title);
-                                    book.author = getTextViewText(R.id.author);
-                                    searcher.start(book, -1, -1);
-
-                                    while (debugWaiting == 0)
-                                        try {
-                                            Thread.sleep(50);
-                                        } catch (InterruptedException e) {
-
-                                        }
-                                    if (debugWaiting == -1) {
-                                        Search.this.onException();
-                                        return;
-                                    }
-                                    searcher.free();
+                            start = true;
+                            final Bridge.SearcherAccess searcher = new Bridge.SearcherAccess(Search.this, libs[i].id);
+                            debugWaiting = 0;
+                            searcher.setDisplay(new Bridge.SearchResultDisplay() {
+                                @Override
+                                public void onSearchFirstPageComplete(Bridge.Book[] books) {
+                                    if (searcher.nextPageAvailable) searcher.nextPage();
+                                    else onSearchNextPageComplete(books);
                                 }
+
+                                @Override
+                                public void onSearchNextPageComplete(Bridge.Book[] books) {
+                                    debugWaiting = 1;
+                                }
+
+                                @Override
+                                public void onSearchDetailsComplete(Bridge.Book book) {
+
+                                }
+
+                                @Override
+                                public void onOrderComplete(Bridge.Book book) {
+
+                                }
+
+                                @Override
+                                public void onOrderConfirm(Bridge.Book book) {
+
+                                }
+
+                                @Override
+                                public void onTakePendingMessage(int kind, String caption, String[] options) {
+
+                                }
+
+                                @Override
+                                public void onPendingMessageCompleted() {
+
+                                }
+
+                                @Override
+                                public void onConnected(String[] homeBranches, String[] searchBranches) {
+
+                                }
+
+                                @Override
+                                public void onException() {
+                                    debugWaiting = -1;
+                                }
+                            });
+                            Bridge.Book book = new Bridge.Book();
+                            book.title = getTextViewText(R.id.title);
+                            book.author = getTextViewText(R.id.author);
+                            searcher.start(book, -1, -1);
+
+                            while (debugWaiting == 0)
+                                try {
+                                    Thread.sleep(50);
+                                } catch (InterruptedException e) {
+
+                                }
+                            if (debugWaiting == -1) {
+                                Search.this.onException();
+                                return true;
                             }
+                            searcher.free();
                         }
                     }
-                });
-            }
-        });
+                }
+                return true;
+        }
+        return super.onDialogResult(dialogId, buttonId, more);
     }
 }

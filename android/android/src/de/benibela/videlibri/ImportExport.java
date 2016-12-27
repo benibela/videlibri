@@ -1,6 +1,7 @@
 package de.benibela.videlibri;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Environment;
 import android.view.View;
@@ -49,12 +50,7 @@ public class ImportExport extends VideLibriBaseActivity {
             setTextViewText(R.id.textView1, tr(R.string.import_properties));
             setTextViewText(R.id.textView2, tr(R.string.import_file));
             if (VideLibriApp.runningUpdates.size() > 0) {
-                showMessage(tr(R.string.import_not_while_update_runs), new MessageHandler() {
-                    @Override
-                    public void onDialogEnd(DialogInterface dialogInterface, int i) {
-                        ImportExport.this.finish();
-                    }
-                });
+                Util.showMessage(DialogId.IMPORTEXPORT_DONE, tr(R.string.import_not_while_update_runs));
                 return;
             }
         } else {
@@ -135,12 +131,7 @@ public class ImportExport extends VideLibriBaseActivity {
                             Bridge.VLImportAccounts(data);
                             VideLibriApp.accounts = Bridge.VLGetAccounts();
                             VideLibriApp.displayAccount(null);
-                            showMessage(tr(R.string.import_done), new MessageHandler() {
-                                @Override
-                                public void onDialogEnd(DialogInterface dialogInterface, int i) {
-                                    ImportExport.this.finish();
-                                }
-                            });
+                            Util.showMessage(DialogId.IMPORTEXPORT_DONE, tr(R.string.import_done));
                             data = null;
                         }
                     }   else {
@@ -153,15 +144,10 @@ public class ImportExport extends VideLibriBaseActivity {
                         for (int i=0;i<accounts.length;i++)
                             accounts[i] = choosen.get(i);
                         Bridge.VLExportAccounts(getEditTextText(R.id.edit), accounts, flags);
-                        showMessage(tr(R.string.export_done), new MessageHandler() {
-                            @Override
-                            public void onDialogEnd(DialogInterface dialogInterface, int i) {
-                                ImportExport.this.finish();
-                            }
-                        });
+                        Util.showMessage(DialogId.IMPORTEXPORT_DONE, tr(R.string.export_done));
                     }
                 } catch (Bridge.InternalError e) {
-                    showMessage(e.getMessage());
+                    Util.showMessage(e.getMessage());
                 }
             }
         });
@@ -175,5 +161,15 @@ public class ImportExport extends VideLibriBaseActivity {
             Bridge.VLImportAccounts(data);
         }
         super.onDestroy();
+    }
+
+    @Override
+    boolean onDialogResult(int dialogId, int buttonId, Bundle more) {
+        switch (dialogId) {
+            case DialogId.IMPORTEXPORT_DONE:
+                finish();
+                return true;
+        }
+        return super.onDialogResult(dialogId, buttonId, more);
     }
 }

@@ -144,28 +144,10 @@ public class Feedback extends VideLibriBaseActivity {
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                if (fok > 0 ) {
-                                    showMessage(
-                                            fok == rep ?
-                                                    tr(R.string.feedback_send_ok) :
-                                                    tr(R.string.feedback_send_failed)
-                                            ,
-                                            new MessageHandler() {
-                                        @Override
-                                        public void onDialogEnd(DialogInterface dialogInterface, int i) {
-                                            if (VideLibriApp.currentActivity == Feedback.this) {
-                                                findViewById(R.id.button).postDelayed(new Runnable() {
-                                                    @Override
-                                                    public void run() {
-                                                        finish();
-                                                    }
-                                                }, 100); //delayed to avoid  "android.view.WindowManager$BadTokenException: Unable to add window -- token android.os.BinderProxy@40b47bd8 is not valid" error.
-                                                         // Probably not necessary
-                                            }
-                                        }
-                                    });
-                                } else
-                                    showMessage(tr(R.string.feedback_send_failedconnect));
+                                if (fok > 0 )
+                                    Util.showMessage(DialogId.FEEDBACK_SEND_ATTEMPTED, tr(fok == rep ? R.string.feedback_send_ok : R.string.feedback_send_failed));
+                                else
+                                    Util.showMessage(tr(R.string.feedback_send_failedconnect));
                             }
                         });
 
@@ -186,7 +168,7 @@ public class Feedback extends VideLibriBaseActivity {
                 try{
                     startActivity(emailIntent);
                 } catch (ActivityNotFoundException e) {
-                    showMessage(tr(R.string.error_nomailapp));
+                    Util.showMessage(tr(R.string.error_nomailapp));
                 }
             }
         });
@@ -219,5 +201,21 @@ public class Feedback extends VideLibriBaseActivity {
         } catch (PackageManager.NameNotFoundException e) {
             return "??";
         }
+    }
+
+    @Override
+    boolean onDialogResult(int dialogId, int buttonId, Bundle more) {
+        switch (dialogId){
+            case DialogId.FEEDBACK_SEND_ATTEMPTED:
+                findViewById(R.id.button).postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        finish();
+                    }
+                }, 100); //delayed to avoid  "android.view.WindowManager$BadTokenException: Unable to add window -- token android.os.BinderProxy@40b47bd8 is not valid" error.
+                // Probably not necessary
+                return true;
+        }
+        return super.onDialogResult(dialogId, buttonId, more);
     }
 }

@@ -7,6 +7,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import org.acra.*;
@@ -73,22 +74,13 @@ public class VideLibriApp extends Application implements Bridge.VideLibriContext
         installationDoneHandler = new Handler(){
             @Override
             public void handleMessage(Message msg) {
-                final int status = msg.what;
-                String message = status == 1
-                        ? Util.tr(R.string.app_libregistered)
-                        : Util.tr(R.string.app_libregisterfailed);
-                Util.showMessage(
-                        message,
-                        new MessageHandler() {
-                            @Override
-                            public void onDialogEnd(DialogInterface dialogInterface, int i) {
-                                if (status == 1 && (currentActivity instanceof NewLibrary))
-                                    currentActivity.finish();
-                            }
-                        } );
                 if (currentActivity instanceof NewLibrary)
                     ((NewLibrary)currentActivity).setLoading(false);
-            }
+                final int status = msg.what;
+                Bundle more = new Bundle();
+                more.putInt("status", status);
+                Util.showMessage(DialogId.INSTALLATION_DONE, Util.tr(status == 1 ? R.string.app_libregistered : R.string.app_libregisterfailed), more);
+             }
         };
 
         if (ACRA.isACRASenderServiceProcess()) return;
@@ -139,6 +131,8 @@ public class VideLibriApp extends Application implements Bridge.VideLibriContext
     static Bridge.Account accounts[] = null;
 
     static ArrayList<Bridge.PendingException> errors = new ArrayList<Bridge.PendingException>();
+
+    static ArrayList<Bundle> pendingDialogs = new ArrayList<Bundle>();
 
     static void addAccount(Bridge.Account acc){
         Bridge.VLAddAccount(acc);
@@ -234,39 +228,24 @@ public class VideLibriApp extends Application implements Bridge.VideLibriContext
 
     public static void showPendingExceptions(){
         Bridge.PendingException[] exceptions = Bridge.VLTakePendingExceptions();
+        if (VideLibriApp.errors.size() > 3) { //errors eat a lot of memory
+            while (VideLibriApp.errors.size() > 3)
+                VideLibriApp.errors.remove(0);
+            System.gc();
+        }
+        VideLibriApp.errors.addAll(Arrays.asList(exceptions));
 
-        if (currentActivity != null) {
-            if (VideLibriApp.errors.size() > 3) { //errors eat a lot of memory
-                while (VideLibriApp.errors.size() > 3)
-                    VideLibriApp.errors.remove(0);
-                System.gc();
+        String queries = "";
+        for (int i=0;i<exceptions.length;i++){
+            Bridge.PendingException ex = exceptions[i];
+            if (i != 0) Util.showMessage(ex.accountPrettyNames + ": " + ex.error);
+            else {
+                Util.showMessageYesNo(DialogId.ERROR_CONFIRM, ex.accountPrettyNames + ": " + ex.error + "\n\n" + Util.tr(R.string.app_error_report));
             }
-            VideLibriApp.errors.addAll(Arrays.asList(exceptions));
-
-            String queries = "";
-            for (int i=0;i<exceptions.length;i++){
-                Bridge.PendingException ex = exceptions[i];
-                if (ex.searchQuery != null && !"".equals(ex.searchQuery))
-                    queries = queries + Util.tr(R.string.app_error_searchedfor) + ex.searchQuery+"\n";
-                if (i != exceptions.length - 1) Util.showMessage(ex.accountPrettyNames + ": " + ex.error);
-                else {
-                    final String message = Util.tr(R.string.app_error_anerror) + "\n"+queries+
-                                           Util.tr(R.string.app_error_needcontact);
-                    Util.showMessageYesNo(ex.accountPrettyNames + ": " + ex.error + "\n\n" +
-                            Util.tr(R.string.app_error_report), new MessageHandler() {
-                        @Override
-                        public void onDialogEnd(DialogInterface dialogInterface, int i) {
-                            if (i == DialogInterface.BUTTON_POSITIVE) {
-                                Intent intent = new Intent(currentActivity, Feedback.class);
-                                intent.putExtra("message", message);
-                                currentActivity.startActivity(intent);
-                            }
-                        }
-                    });
-                }
-            }
-        } else VideLibriApp.errors.addAll(Arrays.asList(exceptions));
+        }
+        //    } else VideLibriApp.errors.addAll(Arrays.asList(exceptions));
     }
+
 
     public static String userPath(Context context) {
         return context.getFilesDir().getAbsolutePath();
@@ -280,4 +259,6 @@ public class VideLibriApp extends Application implements Bridge.VideLibriContext
     public static void displayAccount(Bridge.Account account) {
         VideLibri.displayAccountStatically(account);
     }
+
+
 }

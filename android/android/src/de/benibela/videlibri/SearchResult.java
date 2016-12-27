@@ -119,6 +119,8 @@ public class SearchResult extends BookListActivity implements Bridge.SearchResul
         });
     }
 
+
+
     @Override
     public void onOrderConfirm(final Bridge.Book book) {
         runOnUiThread(new Runnable() {
@@ -136,16 +138,8 @@ public class SearchResult extends BookListActivity implements Bridge.SearchResul
                 if (question == null || "".equals(question))
                     searcher.orderConfirmed(book);
                 else if (orderConfirmationOptionTitles == null || "".equals(orderConfirmationOptionTitles)) {
-                    showMessageYesNo(question, new MessageHandler() {
-                        @Override
-                        public void onDialogEnd(DialogInterface dialogInterface, int i) {
-                            if (i == DialogInterface.BUTTON_POSITIVE) {
-                                setLoading(true);
-                                if (bookActionButton != null) bookActionButton.setClickable(false);
-                                searcher.orderConfirmed(book);
-                            }
-                        }
-                    });
+                    lastSelectedBookForDialog = book;
+                    Util.showMessageYesNo(DialogId.SEARCHER_ORDER_CONFIRM, question);
                 } else {
                     final String[] options = orderConfirmationOptionTitles.split("\\\\[|]");
                     Util.chooseDialog(SearchResult.this, question, options,new MessageHandler() {
@@ -170,14 +164,7 @@ public class SearchResult extends BookListActivity implements Bridge.SearchResul
             public void run() {
                 setLoading(waitingForDetails != -1 || false);
                 switch (kind) {
-                    case 1: showMessageYesNo(caption, new MessageHandler() {
-                        @Override
-                        public void onDialogEnd(DialogInterface dialogInterface, int i) {
-                         setLoading(true);
-                            searcher.completePendingMessage( i == DialogInterface.BUTTON_POSITIVE ? 1 : 0 );
-                        }
-                    });
-                        break;
+                    case 1: Util.showMessageYesNo(DialogId.SEARCHER_MESSAGE_CONFIRM, caption); break;
                     case 2:
                         Util.chooseDialog(SearchResult.this, caption, options,new MessageHandler() {
                             @Override
@@ -206,7 +193,7 @@ public class SearchResult extends BookListActivity implements Bridge.SearchResul
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                showMessage(tr(R.string.search_orderedokS, book.title));
+                Util.showMessage(tr(R.string.search_orderedokS, book.title));
                 VideLibriApp.displayAccount(orderingAccount);
                 if (orderingAccount != null)
                     VideLibriApp.updateAccount(orderingAccount, false, false); //full update, so the book is only shown if it worked, and canceling work
@@ -264,7 +251,7 @@ public class SearchResult extends BookListActivity implements Bridge.SearchResul
             if (acc.libId.equals(libId) && acc.name != null && !acc.name.equals(""))
                 matchingAccounts.add(acc);
         if (matchingAccounts.size() == 0) {
-            showMessage(tr(R.string.search_needaccount));
+            Util.showMessage(tr(R.string.search_needaccount));
             return;
         }
         if (matchingAccounts.size() > 1) {
@@ -326,5 +313,23 @@ public class SearchResult extends BookListActivity implements Bridge.SearchResul
     }
 
 
-
+    private static Bridge.Book lastSelectedBookForDialog = null;
+    @Override
+    boolean onDialogResult(int dialogId, int buttonId, Bundle more) {
+        switch (dialogId) {
+            case DialogId.SEARCHER_MESSAGE_CONFIRM:
+                setLoading(true);
+                searcher.completePendingMessage( buttonId == DialogInterface.BUTTON_POSITIVE ? 1 : 0 );
+                return true;
+            case DialogId.SEARCHER_ORDER_CONFIRM:
+                if (buttonId == DialogInterface.BUTTON_POSITIVE && lastSelectedBookForDialog != null) {
+                    setLoading(true);
+                    if (bookActionButton != null) bookActionButton.setClickable(false);
+                    searcher.orderConfirmed(lastSelectedBookForDialog);
+                }
+                lastSelectedBookForDialog = null;
+                return true;
+        }
+        return super.onDialogResult(dialogId, buttonId, more);
+    }
 }

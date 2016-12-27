@@ -5,6 +5,9 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.res.Resources;
+import android.os.Bundle;
+import android.support.v4.app.DialogFragment;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -52,7 +55,99 @@ public class Util {
         return s == null ? t == null : s.equals(t);
     }
 
-    static public void showMessage(String message){showMessage(message, null, tr(R.string.ok), null, null);}
+    public static class DialogFragmentUtil extends DialogFragment implements DialogInterface.OnClickListener, DialogInterface.OnCancelListener{
+
+        @Override
+        public Dialog onCreateDialog(Bundle savedInstanceState) {
+            Bundle args = getArguments();
+            String message = args.getString("message");
+            String title = args.getString("title");
+            String negative = args.getString("negativeButton");
+            String neutral = args.getString("neutralButton");
+            String positive = args.getString("positiveButton");
+            String items[] = args.getStringArray("items");
+
+            AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+            builder.setTitle(title != null ? title : "VideLibri" );
+            if (message != null)
+                builder.setMessage(message);
+            if (negative != null)
+                builder.setNegativeButton(negative, this);
+            if (neutral != null)
+                builder.setNeutralButton(neutral, this);
+            if (positive != null)
+                builder.setPositiveButton(positive, this);
+            if (items != null)
+                builder.setItems(items, this);
+            builder.setOnCancelListener(this);
+            return builder.create();
+        }
+
+        @Override
+        public void onClick(DialogInterface dialogInterface, int i) {
+            if (!(getActivity() instanceof VideLibriBaseActivity)) return;
+            Bundle args = getArguments();
+            ((VideLibriBaseActivity)getActivity()).onDialogResult(args.getInt("id"), i, args.getBundle("more"));
+        }
+
+        @Override
+        public void onCancel(DialogInterface dialog) {
+            if (!(getActivity() instanceof VideLibriBaseActivity)) return;
+            Bundle args = getArguments();
+            ((VideLibriBaseActivity)getActivity()).onDialogResult(getArguments().getInt("id"), MessageHandlerCanceled, args.getBundle("more"));
+        }
+    }
+    /*
+    void showDialog() {
+    DialogFragment newFragment = MyAlertDialogFragment.newInstance(
+            R.string.alert_dialog_two_buttons_title);
+    newFragment.show(getFragmentManager(), "dialog");
+}
+
+     */
+
+    static public void showMessage(String message){ showMessage(message, null); }
+    static public void showMessage(int dialogId, String message){ showMessage(dialogId, message, null); }
+    static public void showMessageYesNo(int dialogId, String message){ showMessageYesNo(dialogId, message, null); }
+
+    static public void showMessage(String message, Bundle more){ showMessage(DialogId.OK, message, null, tr(R.string.ok), null, more); }
+    static public void showMessage(int dialogId, String message, Bundle more){ showMessage(dialogId, message, null, tr(R.string.ok), null, more); }
+    static public void showMessageYesNo(int dialogId, String message, Bundle more){ showMessage(dialogId, message, tr(R.string.no), null, tr(R.string.yes), more); }
+
+
+    static public void showMessage(int dialogId, String message, String negative, String neutral, String positive, Bundle more){
+        Bundle args = new Bundle();
+        args.putInt("id", dialogId);
+        args.putString("message", message);
+        args.putString("negativeButton", negative);
+        args.putString("neutralButton", neutral);
+        args.putString("positiveButton", positive);
+        args.putBundle("more", more);
+        showDialog(args);
+    }
+
+    static public void chooseDialogNew(int dialogId, String title, String[] options, Bundle more) {
+        Bundle args = new Bundle();
+        args.putInt("id", dialogId);
+        args.putString("title", title);
+        args.putStringArray("items", options);
+        args.putBundle("more", more);
+        showDialog(args);
+    }
+    static private void showDialog(Bundle args){
+        if (VideLibriApp.currentActivity instanceof AppCompatActivity) showDialog((AppCompatActivity)VideLibriApp.currentActivity, args);
+        else VideLibriApp.pendingDialogs.add(args);
+    }
+    static public void showDialog(AppCompatActivity activity, Bundle args){
+        DialogFragmentUtil frag = new DialogFragmentUtil();
+        frag.setArguments(args);
+        //String tag = "dialog" + args.getInt("id");
+        frag.show(activity.getSupportFragmentManager(), null);//tag);
+    }
+
+
+
+    /*static public void showMessage(String message){showMessage(message, null, tr(R.string.ok), null, null);}
     static public void showMessage(String message, final MessageHandler handler){showMessage(message, null, tr(R.string.ok), null, handler);}
     static public void showMessageYesNo(String message, MessageHandler handler){ Util.showMessage(message, tr(R.string.no), null, tr(R.string.yes), handler); }
     static public void showMessage(String message, String negative, String neutral, String positive, final MessageHandler handler){
@@ -91,7 +186,7 @@ public class Util {
             });
         }
         builder.show();
-    }
+    }                       */
 
     static public void chooseDialog(Context context, String message, String[] options, final MessageHandler handler) {
         AlertDialog.Builder builder = new AlertDialog.Builder(context);

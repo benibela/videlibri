@@ -37,8 +37,6 @@ public class AccountInfo extends VideLibriBaseActivity {
     TextView lib;
     EditText accountId, accountPassword, accountPrettyName;
 
-    Bridge.Account oldAccount;
-
     static final int MODE_ACCOUNT_CREATION = 134390 ;
     static final int MODE_ACCOUNT_CREATION_INITIAL = 134391 ;
     static final int MODE_ACCOUNT_MODIFY = 134392 ;
@@ -64,8 +62,10 @@ public class AccountInfo extends VideLibriBaseActivity {
 
         mode = getIntent().getIntExtra("mode", MODE_ACCOUNT_CREATION);
 
-
-        setActiveLibrary(getStringExtraSafe("libId"), getStringExtraSafe("libShortName")); //todo: this is not used? like Bridge.library.putinintent
+        if (savedInstanceState != null)
+            setActiveLibrary(savedInstanceState.getString("libId"), savedInstanceState.getString("libShortName"));
+        else
+            setActiveLibrary(getStringExtraSafe("libId"), getStringExtraSafe("libShortName")); //todo: this is not used? like Bridge.library.putinintent
 
 
         if (libdetails == null && (System.currentTimeMillis() - LibraryList.lastSelectedTime) < LibraryList.SELECTION_REUSE_TIME)
@@ -106,16 +106,7 @@ public class AccountInfo extends VideLibriBaseActivity {
             findViewById(R.id.deleteButton).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    showMessageYesNo(tr(R.string.account_delete), new MessageHandler() {
-                        @Override
-                        public void onDialogEnd(DialogInterface dialogInterface, int i) {
-                            if (i == DialogInterface.BUTTON_POSITIVE) {
-                                VideLibriApp.deleteAccount(oldAccount);
-                                setResult(RESULT_OK, new Intent());
-                                AccountInfo.this.finish();
-                            }
-                        }
-                    });
+                    Util.showMessageYesNo(DialogId.ACCOUNT_DELETE_CONFIRM, tr(R.string.account_delete));
                 }
             });
             findButtonById(R.id.completeAccountButton).setText(tr(R.string.change));
@@ -141,25 +132,15 @@ public class AccountInfo extends VideLibriBaseActivity {
             findViewById(R.id.completeAccountButton).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    if (libdetails == null){
-                        showMessage(tr(R.string.error_nolibselected));
+                    if (libdetails == null) {
+                        Util.showMessage(tr(R.string.error_nolibselected));
                         return;
                     }
 
-                    MessageHandler temp = new MessageHandler() {
-                        @Override
-                        public void onDialogEnd(DialogInterface dialogInterface, int i) {
-                            if (libdetails == null) return;
-                            VideLibriApp.addAccount(inputToAccount());
-                            setResult(RESULT_OK, new Intent());
-                            AccountInfo.this.finish();
-                        }
-                    };
-                    if (libdetails.prettyName.contains("(alpha)") && accountId.getText().length() > 0) {
-                        showMessage(
-                                tr(R.string.warning_alphalib),
-                                temp);
-                    } else temp.onDialogEnd(null, 0);
+                    if (libdetails.prettyName.contains("(alpha)") && accountId.getText().length() > 0)
+                        Util.showMessage(DialogId.ACCOUNT_ADD_NOW, tr(R.string.warning_alphalib));
+                    else
+                        onDialogResult(DialogId.ACCOUNT_ADD_NOW, DialogInterface.BUTTON_POSITIVE, null);
                 }
             });
             accountPrettyName.setText(libshortname);
@@ -174,6 +155,16 @@ public class AccountInfo extends VideLibriBaseActivity {
         if (libdetails == null && (System.currentTimeMillis() - LibraryList.lastSelectedTime) < LibraryList.SELECTION_REUSE_TIME)
             setActiveLibrary(LibraryList.lastSelectedLibId, LibraryList.lastSelectedLibShortName);
         if (libdetails == null) updateLibrary();
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+
+        if (libdetails != null) {
+            outState.putString("libId", libdetails.id);
+            outState.putString("libShortName", libshortname);
+        }
     }
 
     /*@Override
@@ -211,6 +202,27 @@ public class AccountInfo extends VideLibriBaseActivity {
         return acc;
     }
 
+
+    @Override
+    boolean onDialogResult(int dialogId, int buttonId, Bundle more) {
+        switch (dialogId) {
+            case DialogId.ACCOUNT_DELETE_CONFIRM:
+                if (buttonId == DialogInterface.BUTTON_POSITIVE) {
+                    Bridge.Account oldAccount = (Bridge.Account) getIntent().getSerializableExtra("account");
+                    VideLibriApp.deleteAccount(oldAccount);
+                    setResult(RESULT_OK, new Intent());
+                    AccountInfo.this.finish();
+                }
+                return true;
+            case DialogId.ACCOUNT_ADD_NOW:
+                if (libdetails == null) break;
+                VideLibriApp.addAccount(inputToAccount());
+                setResult(RESULT_OK, new Intent());
+                AccountInfo.this.finish();
+                return true;
+        }
+        return super.onDialogResult(dialogId, buttonId, more);
+    }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {

@@ -16,7 +16,8 @@ import android.widget.*;
 
 import android.support.v7.app.AppCompatActivity;
 
- 
+import java.util.Arrays;
+
 
 public class VideLibriBaseActivity extends AppCompatActivity implements Bridge.VideLibriContext {
     private static final int REQUESTED_LIBRARY_HOMEPAGE  = 29324;
@@ -105,16 +106,7 @@ public class VideLibriBaseActivity extends AppCompatActivity implements Bridge.V
                 VideLibriApp.updateAccount(null, false, false);
                 return true;
             case R.id.renew:
-                Util.showMessageYesNo(Util.tr(R.string.base_renewallconfirm), new MessageHandler() {
-                    @Override
-                    public void onDialogEnd(DialogInterface dialogInterface, int i) {
-                        if (i == DialogInterface.BUTTON_POSITIVE) {
-                            VideLibriApp.updateAccount(null, false, true);
-                            if (VideLibriApp.currentActivity instanceof RenewList)
-                                context.onBackPressed();
-                        }
-                    }
-                });
+                Util.showMessageYesNo(DialogId.RENEW_CONFIRM, tr(R.string.base_renewallconfirm));
                 return true;
             case R.id.renewlist:
                 context.startActivity(new Intent(context, RenewList.class));
@@ -131,13 +123,13 @@ public class VideLibriBaseActivity extends AppCompatActivity implements Bridge.V
                 return true;
             case R.id.libinfo:
                 intent = new Intent(context, LibraryList.class);
-                intent.putExtra("reason", Util.tr(R.string.base_chooselibhomepage));
+                intent.putExtra("reason", tr(R.string.base_chooselibhomepage));
                 intent.putExtra("search", true);
                 context.startActivityForResult(intent, REQUESTED_LIBRARY_HOMEPAGE);
                 return true;
             case R.id.libcatalogue:
                 intent = new Intent(context, LibraryList.class);
-                intent.putExtra("reason", Util.tr(R.string.base_chooselibcat));
+                intent.putExtra("reason", tr(R.string.base_chooselibcat));
                 intent.putExtra("search", true);
                 context.startActivityForResult(intent, REQUESTED_LIBRARY_CATALOGUE);
                 return true;
@@ -187,7 +179,10 @@ public class VideLibriBaseActivity extends AppCompatActivity implements Bridge.V
         else
            refreshView = inflater.inflate(R.layout.actionbar_refresh_button, null);*/
 
-
+        ///for (int i=VideLibriApp.pendingDialogs.size();i>=0;i--)
+        for (Bundle b: VideLibriApp.pendingDialogs)
+                Util.showDialog(this, b);//VideLibriApp.pendingDialogs.get(i));
+        VideLibriApp.pendingDialogs.clear();
     }
 
     @Override
@@ -212,6 +207,7 @@ public class VideLibriBaseActivity extends AppCompatActivity implements Bridge.V
     public void setTitle(CharSequence title){
         super.setTitle(title.length() > 0 ? "VideLibri: "+title : "VideLibri");
     } */
+
 
 
 
@@ -270,13 +266,44 @@ public class VideLibriBaseActivity extends AppCompatActivity implements Bridge.V
     }
 
 
+    boolean onDialogResult(int dialogId, int buttonId, Bundle more){
+        //callback
+        //debug: Util.showMessage(1234, ""+dialogId+"=>"+buttonId,null,null,null);
+        switch (dialogId) {
+            case DialogId.RENEW_CONFIRM:
+                if (buttonId == DialogInterface.BUTTON_POSITIVE) {
+                    VideLibriApp.updateAccount(null, false, true);
+                    if (this instanceof RenewList)
+                        onBackPressed();
+                }
+                return true;
+            case DialogId.ERROR_CONFIRM:
+                if (buttonId == DialogInterface.BUTTON_POSITIVE) {
+                    Intent intent = new Intent(this, Feedback.class);
+                    String queries = "";
+                    for (Bridge.PendingException ex: VideLibriApp.errors)
+                        if (ex.searchQuery != null && !"".equals(ex.searchQuery))
+                            queries = queries + Util.tr(R.string.app_error_searchedfor) + ex.searchQuery+"\n";
+
+                    final String message = Util.tr(R.string.app_error_anerror) + "\n"+ queries + Util.tr(R.string.app_error_needcontact);
+                    intent.putExtra("message", message);
+                    startActivity(intent);
+                }
+                return true;
+            case DialogId.INSTALLATION_DONE:
+                if (more != null && more.getInt("status") == 1 && this instanceof NewLibrary)
+                    finish();
+                return true;
+
+        }
+        return false;
+    }
+
+
     public String tr(int id){ return Util.tr(this, id); }
     public String tr(int id, Object... args){ return Util.tr(this, id, args); }
 
 
-    public void showMessage(String message){ Util.showMessage(message, null); }
-    public void showMessage(String message, MessageHandler handler){ Util.showMessage(message, handler); }
-    public void showMessageYesNo(String message, MessageHandler handler){ Util.showMessageYesNo(message, handler); }
 
     @Override
     public String userPath() {
