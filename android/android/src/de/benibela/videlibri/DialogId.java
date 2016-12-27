@@ -1,6 +1,7 @@
 package de.benibela.videlibri;
 
 class DialogId {
+    //the numbers are arbitrary. everything goes as long as they are pairwise different
     public static final int OK = 7001;
     public static final int RENEW_CONFIRM = 7002;
     public static final int ERROR_CONFIRM = 7005;
@@ -13,5 +14,9 @@ class DialogId {
     public static final int IMPORTEXPORT_DONE = 7060;
     public static final int CANCEL_CONFIRM = 7070;
     public static final int SEARCHER_MESSAGE_CONFIRM = 7082;
+    public static final int SEARCHER_MESSAGE_CHOOSE = 7083;
     public static final int SEARCHER_ORDER_CONFIRM = 7085;
+    public static final int SEARCHER_CHOOSE_ORDER = 7086;
+    public static final int SEARCHER_CHOOSE_ORRERTITLE = 7087;
+    public static final int SEARCHER_CHOOSE_TARGET_ACCOUNT = 7088;
 }

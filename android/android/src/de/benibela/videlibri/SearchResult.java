@@ -9,12 +9,15 @@ import de.benibela.videlibri.BookListActivity;
 import de.benibela.videlibri.Bridge;
 import de.benibela.videlibri.VideLibriBaseActivity;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 
 public class SearchResult extends BookListActivity implements Bridge.SearchResultDisplay  {
 
     Bridge.SearcherAccess searcher;
     String libId = "";
+    private Bridge.Account orderingAccount;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -142,17 +145,8 @@ public class SearchResult extends BookListActivity implements Bridge.SearchResul
                     Util.showMessageYesNo(DialogId.SEARCHER_ORDER_CONFIRM, question);
                 } else {
                     final String[] options = orderConfirmationOptionTitles.split("\\\\[|]");
-                    Util.chooseDialog(SearchResult.this, question, options,new MessageHandler() {
-                        @Override
-                        public void onDialogEnd(DialogInterface dialogInterface, int i) {
-                            if (i >= 0 && i < options.length) {
-                                book.setProperty("choosenConfirmation", (i+1)+"");
-                                setLoading(true);
-                                if (bookActionButton != null) bookActionButton.setClickable(false);
-                                searcher.orderConfirmed(book);
-                            }
-                        }
-                    });
+                    lastSelectedBookForDialog = book;
+                    Util.chooseDialog(DialogId.SEARCHER_CHOOSE_ORDER, question, options);
                 }
             }
         });
@@ -165,14 +159,7 @@ public class SearchResult extends BookListActivity implements Bridge.SearchResul
                 setLoading(waitingForDetails != -1 || false);
                 switch (kind) {
                     case 1: Util.showMessageYesNo(DialogId.SEARCHER_MESSAGE_CONFIRM, caption); break;
-                    case 2:
-                        Util.chooseDialog(SearchResult.this, caption, options,new MessageHandler() {
-                            @Override
-                            public void onDialogEnd(DialogInterface dialogInterface, int i) {
-                                setLoading(true);
-                                searcher.completePendingMessage( i );
-                            }
-                        });
+                    case 2: Util.chooseDialog(DialogId.SEARCHER_MESSAGE_CHOOSE, caption, options);
                 }
             }
         });
@@ -241,7 +228,6 @@ public class SearchResult extends BookListActivity implements Bridge.SearchResul
         }
     }
 
-    private Bridge.Account orderingAccount;
 
     public void orderBook(final Bridge.Book book, int choosenOrder){
         if (searcher == null) return;
@@ -258,19 +244,9 @@ public class SearchResult extends BookListActivity implements Bridge.SearchResul
             String [] temp = new String[matchingAccounts.size()];
             for (int i=0;i<matchingAccounts.size();i++)
                 temp[i] = matchingAccounts.get(i).prettyName;
-
-            Util.chooseDialog(this, tr(R.string.search_orderTargetAccount), temp, new MessageHandler() {
-                @Override
-                public void onDialogEnd(DialogInterface dialogInterface, int i) {
-                    if (i >= 0 && i < matchingAccounts.size()) {
-                        book.account = matchingAccounts.get(i);
-                        orderingAccount = book.account; //this property is lost on roundtrip, saved it on java side
-                        if (bookActionButton != null) bookActionButton.setClickable(false);
-                        setLoading(true);
-                        searcher.order(book);
-                    }
-                }
-            });
+            lastSelectedBookForDialog = book;
+            lastMatchingAccountsForDialog = matchingAccounts;
+            Util.chooseDialog(DialogId.SEARCHER_CHOOSE_TARGET_ACCOUNT, tr(R.string.search_orderTargetAccount), temp);
         } else {
             book.account = matchingAccounts.get(0);
             orderingAccount = book.account;
@@ -294,13 +270,8 @@ public class SearchResult extends BookListActivity implements Bridge.SearchResul
                 final String versions[] = new String[orders];
                 for (int i=0;i<orders;i++)
                     versions[i] = book.getProperty("orderTitle"+i);
-                Util.chooseDialog(this, tr(R.string.search_chooseitem), versions, new MessageHandler() {
-                    @Override
-                    public void onDialogEnd(DialogInterface dialogInterface, int i) {
-                        if (i >= 0 && i < versions.length)
-                            orderBook(book, i);
-                    }
-                });
+                lastSelectedBookForDialog = book;
+                Util.chooseDialog(DialogId.SEARCHER_CHOOSE_ORRERTITLE, tr(R.string.search_chooseitem), versions);
             }
 
 
@@ -314,6 +285,7 @@ public class SearchResult extends BookListActivity implements Bridge.SearchResul
 
 
     private static Bridge.Book lastSelectedBookForDialog = null;
+    private static ArrayList<Bridge.Account> lastMatchingAccountsForDialog = null;
     @Override
     boolean onDialogResult(int dialogId, int buttonId, Bundle more) {
         switch (dialogId) {
@@ -321,13 +293,44 @@ public class SearchResult extends BookListActivity implements Bridge.SearchResul
                 setLoading(true);
                 searcher.completePendingMessage( buttonId == DialogInterface.BUTTON_POSITIVE ? 1 : 0 );
                 return true;
+            case DialogId.SEARCHER_MESSAGE_CHOOSE:
+                setLoading(true);
+                searcher.completePendingMessage( buttonId );
             case DialogId.SEARCHER_ORDER_CONFIRM:
-                if (buttonId == DialogInterface.BUTTON_POSITIVE && lastSelectedBookForDialog != null) {
+                if (lastSelectedBookForDialog == null) break;
+                if (buttonId == DialogInterface.BUTTON_POSITIVE) {
                     setLoading(true);
                     if (bookActionButton != null) bookActionButton.setClickable(false);
                     searcher.orderConfirmed(lastSelectedBookForDialog);
                 }
                 lastSelectedBookForDialog = null;
+                return true;
+            case DialogId.SEARCHER_CHOOSE_ORDER:
+                if (lastSelectedBookForDialog == null) break;
+                if (buttonId >= 0 /*&& buttonId < options.length*/) {
+                        lastSelectedBookForDialog.setProperty("choosenConfirmation", (buttonId+1)+"");
+                    setLoading(true);
+                    if (bookActionButton != null) bookActionButton.setClickable(false);
+                    searcher.orderConfirmed(lastSelectedBookForDialog);
+                }
+                lastSelectedBookForDialog = null;
+                return true;
+            case DialogId.SEARCHER_CHOOSE_ORRERTITLE:
+                if (lastSelectedBookForDialog == null) break;
+                if (buttonId >= 0 /*&& i < versions.length*/)
+                    orderBook(lastSelectedBookForDialog, buttonId);
+                return true;
+            case DialogId.SEARCHER_CHOOSE_TARGET_ACCOUNT:
+                if (lastSelectedBookForDialog == null || lastMatchingAccountsForDialog == null) break;
+                if (buttonId >= 0 && buttonId < lastMatchingAccountsForDialog.size()) {
+                    lastSelectedBookForDialog.account = lastMatchingAccountsForDialog.get(buttonId);
+                    orderingAccount = lastSelectedBookForDialog.account; //this property is lost on roundtrip, saved it on java side
+                    if (bookActionButton != null) bookActionButton.setClickable(false);
+                    setLoading(true);
+                    searcher.order(lastSelectedBookForDialog);
+                }
+                lastSelectedBookForDialog = null;
+                lastMatchingAccountsForDialog = null;
                 return true;
         }
         return super.onDialogResult(dialogId, buttonId, more);

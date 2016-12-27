@@ -97,14 +97,7 @@ public class Util {
             ((VideLibriBaseActivity)getActivity()).onDialogResult(getArguments().getInt("id"), MessageHandlerCanceled, args.getBundle("more"));
         }
     }
-    /*
-    void showDialog() {
-    DialogFragment newFragment = MyAlertDialogFragment.newInstance(
-            R.string.alert_dialog_two_buttons_title);
-    newFragment.show(getFragmentManager(), "dialog");
-}
 
-     */
 
     static public void showMessage(String message){ showMessage(message, null); }
     static public void showMessage(int dialogId, String message){ showMessage(dialogId, message, null); }
@@ -126,7 +119,8 @@ public class Util {
         showDialog(args);
     }
 
-    static public void chooseDialogNew(int dialogId, String title, String[] options, Bundle more) {
+    static public void chooseDialog(int dialogId, String title, String[] options) { chooseDialog(dialogId, title, options, null); }
+    static public void chooseDialog(int dialogId, String title, String[] options, Bundle more) {
         Bundle args = new Bundle();
         args.putInt("id", dialogId);
         args.putString("title", title);
@@ -145,67 +139,6 @@ public class Util {
         frag.show(activity.getSupportFragmentManager(), null);//tag);
     }
 
-
-
-    /*static public void showMessage(String message){showMessage(message, null, tr(R.string.ok), null, null);}
-    static public void showMessage(String message, final MessageHandler handler){showMessage(message, null, tr(R.string.ok), null, handler);}
-    static public void showMessageYesNo(String message, MessageHandler handler){ Util.showMessage(message, tr(R.string.no), null, tr(R.string.yes), handler); }
-    static public void showMessage(String message, String negative, String neutral, String positive, final MessageHandler handler){
-        Context context = VideLibriApp.currentActivity;
-        if (context == null) return;
-        AlertDialog.Builder builder = new AlertDialog.Builder(context);
-        builder.setMessage(message);
-        builder.setTitle("VideLibri");
-        if (negative != null)
-            builder.setNegativeButton(negative, new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialogInterface, int i) {
-                    if (handler != null) handler.onDialogEnd(dialogInterface, i);
-                }
-            });
-        if (neutral != null)
-            builder.setNeutralButton(neutral, new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialogInterface, int i) {
-                    if (handler != null) handler.onDialogEnd(dialogInterface, i);
-                }
-            });
-        if (positive != null)
-            builder.setPositiveButton(positive, new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialogInterface, int i) {
-                    if (handler != null) handler.onDialogEnd(dialogInterface, i);
-                }
-            });
-        if (handler != null) {
-            builder.setOnCancelListener(new DialogInterface.OnCancelListener() {
-                @Override
-                public void onCancel(DialogInterface dialogInterface) {
-                    handler.onDialogEnd(dialogInterface, MessageHandlerCanceled);
-                }
-            });
-        }
-        builder.show();
-    }                       */
-
-    static public void chooseDialog(Context context, String message, String[] options, final MessageHandler handler) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(context);
-        builder.setTitle(message);
-        builder.setItems(options, new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int item) {
-                if (handler != null) handler.onDialogEnd(dialog, item);
-            }
-        });
-        if (handler != null)
-            builder.setOnCancelListener(new DialogInterface.OnCancelListener() {
-                @Override
-                public void onCancel(DialogInterface dialogInterface) {
-                    handler.onDialogEnd(dialogInterface, MessageHandlerCanceled);
-                }
-            });
-        AlertDialog alert = builder.create();
-        alert.show();
-    }
 
     public static int strToIntDef(String firstVersion, int i) {
         try {
