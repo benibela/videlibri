@@ -32,12 +32,12 @@ public class Search extends VideLibriBaseActivity implements Bridge.SearchEventH
     static final int SEARCHER_STATE_INIT = 0; //connecting
     static final int SEARCHER_STATE_CONNECTED = 1;
     static final int SEARCHER_STATE_SEARCHING = 2;
-    static final int SEARCHER_STATE_STOPPED = 3;
+    static final int SEARCHER_STATE_FAILED = 3;
 
     static public void gcSearchers(){
         for (int i=searchers.size()-1;i>=0;i--)
             if (System.currentTimeMillis() - searchers.get(i).heartBeat > SEARCHER_HEARTH_BEAT_TIMEOUT
-                    || searchers.get(i).state == SEARCHER_STATE_STOPPED) {
+                    || searchers.get(i).state == SEARCHER_STATE_FAILED) {
                 searchers.get(i).free();
                 searchers.remove(i);
             }
@@ -213,7 +213,7 @@ public class Search extends VideLibriBaseActivity implements Bridge.SearchEventH
                 return true;
             case EXCEPTION:
                 endLoadingAll(LOADING_SEARCH_CONNECTING);
-                searcher.state = SEARCHER_STATE_STOPPED;
+                searcher.state = SEARCHER_STATE_FAILED;
                 searcher = null;
                 gcSearchers();
                 VideLibriApp.showPendingExceptions();

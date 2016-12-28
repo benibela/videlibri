@@ -24,10 +24,8 @@ public class SearchResult extends BookListActivity implements Bridge.SearchEvent
         if (book == null) { Log.i("VideLibri", "search without book. Abort."); finish(); return; }
 
         searcher = Search.searchers.isEmpty() ? null : Search.searchers.get(Search.searchers.size()-1);
-        if (searcher == null) {
-            setTitle(tr(R.string.search_lost));
-            return;
-        }
+        setTitle();
+        if (searcher == null) return;
         libId = searcher.libId;
         switch (searcher.state){
             case Search.SEARCHER_STATE_INIT:
@@ -44,7 +42,22 @@ public class SearchResult extends BookListActivity implements Bridge.SearchEvent
                 bookCache = searcher.bookCache;
                 break;
         }
-        setTitle(tr(R.string.search_loading));
+    }
+
+    private void setTitle(){
+        if (searcher == null) setTitle(R.string.search_lost);
+        else switch (searcher.state) {
+            case Search.SEARCHER_STATE_SEARCHING:
+                setTitle(tr(R.string.search_resultcountD,  Math.max(bookCache.size(), searcher.totalResultCount)));
+                break;
+            case Search.SEARCHER_STATE_INIT:
+            case Search.SEARCHER_STATE_CONNECTED:
+                setTitle(R.string.search_loading);
+                break;
+            case Search.SEARCHER_STATE_FAILED:
+                setTitle(R.string.search_failed);
+                break;
+        }
     }
 
     @Override
@@ -115,9 +128,8 @@ public class SearchResult extends BookListActivity implements Bridge.SearchEvent
                 break;
             case EXCEPTION:
                 endLoadingAll(new int[]{ LOADING_SEARCH_CONNECTING, LOADING_SEARCH_SEARCHING, LOADING_SEARCH_DETAILS, LOADING_SEARCH_ORDER, LOADING_SEARCH_MESSAGE });
-
-                setTitle(tr(R.string.search_failed));
-                searcher.state = Search.SEARCHER_STATE_STOPPED;
+                setTitle();
+                searcher.state = Search.SEARCHER_STATE_FAILED;
                 searcher = null;
                 Search.gcSearchers();
                 VideLibriApp.showPendingExceptions();
@@ -131,14 +143,15 @@ public class SearchResult extends BookListActivity implements Bridge.SearchEvent
         for (Bridge.Book b : books) searcher.bookCache.add(b);
         bookCache = searcher.bookCache;
         int realCount = Math.max(searcher.totalResultCount, bookCache.size());
-        displayBookCache(searcher.totalResultCount);
-        setTitle(tr(R.string.search_resultcountD,  realCount));
+        displayBookCache(realCount);
+        setTitle();
     }
 
     public void onSearchNextPageComplete(final Bridge.Book[] books) {
         for (Bridge.Book b: books) searcher.bookCache.add(b);
         bookCache = searcher.bookCache;
         updateDisplayBookCache();
+        setTitle();
     }
 
 
