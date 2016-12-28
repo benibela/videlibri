@@ -28,8 +28,8 @@ interface MessageHandler{
 public class Util {
     static int MessageHandlerCanceled = -123;
     static public String tr(int id){
-        if (VideLibriApp.currentActivity == null) return "?tr?";
-        else return tr(VideLibriApp.currentActivity, id);
+        if (VideLibriApp.currentContext() == null) return "?tr?";
+        else return tr(VideLibriApp.currentContext(), id);
     }
     static public String tr(Context context, int id){
         try {
@@ -153,15 +153,15 @@ public class Util {
     public static String formatDate(Date date){
         if (date == null) return "";
         if (dateFormat != null) return dateFormat.format(date);
-        if (dateFormat == null && VideLibriApp.currentActivity != null)
-            dateFormat = android.text.format.DateFormat.getDateFormat(VideLibriApp.currentActivity);
+        if (dateFormat == null && VideLibriApp.currentContext() != null)
+            dateFormat = android.text.format.DateFormat.getDateFormat(VideLibriApp.currentContext());
         if (dateFormat != null) return dateFormat.format(date);
         return date.getYear()+"-"+date.getMonth()+"-"+date.getDay();
     }
 
     public static String formatDate(Bridge.SimpleDate date){
         if (date == null) return tr(R.string.unknown_date);
-        if (Bridge.currentPascalDate > 0 && VideLibriApp.currentActivity != null) {
+        if (Bridge.currentPascalDate > 0 && VideLibriApp.currentContext() != null) {
             switch (date.pascalDate - Bridge.currentPascalDate) {
                 case -2: return tr(R.string.daybeforeyesterday);
                 case -1: return tr(R.string.yesterday);

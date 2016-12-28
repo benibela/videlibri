@@ -42,6 +42,8 @@ public class VideLibriApp extends Application implements Bridge.VideLibriContext
 
         ACRA.init(this);
 
+        applicationContext = getApplicationContext();
+
         //setACRAlogcat(false);
 
 
@@ -127,6 +129,13 @@ public class VideLibriApp extends Application implements Bridge.VideLibriContext
 
     static VideLibriApp instance;
     static Activity currentActivity;
+    static Context applicationContext;
+
+    static public Context currentContext(){
+        if (currentActivity != null) return currentActivity;
+        return applicationContext;
+    }
+
 
     static Bridge.Account accounts[] = null;
 
