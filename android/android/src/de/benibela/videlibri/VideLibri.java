@@ -134,7 +134,7 @@ public class VideLibri extends  BookListActivity{
             }, 400);
         }
 
-        setLoading(!VideLibriApp.runningUpdates.isEmpty());
+        if (!VideLibriApp.runningUpdates.isEmpty()) beginLoading(LOADING_ACCOUNT_UPDATE);
         if (!cacheShown)
             displayBookCache();
     }
@@ -478,7 +478,7 @@ public class VideLibri extends  BookListActivity{
             case DialogId.CANCEL_CONFIRM:
                 if (buttonId == DialogInterface.BUTTON_POSITIVE) {
                     Bridge.VLBookOperation(new Bridge.Book[]{lastSelectedBookForDialog}, Bridge.BOOK_OPERATION_CANCEL); //cancel
-                    setLoading(true);
+                    beginLoading(LOADING_ACCOUNT_UPDATE);
                     showList();
                 }
                 lastSelectedBookForDialog = null;

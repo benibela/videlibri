@@ -9,6 +9,7 @@ import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.util.SparseArray;
 import android.view.*;
 import android.app.Activity;
 import android.os.Bundle;
@@ -16,6 +17,7 @@ import android.widget.*;
 
 import android.support.v7.app.AppCompatActivity;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 
 
@@ -23,10 +25,23 @@ public class VideLibriBaseActivity extends AppCompatActivity implements Bridge.V
     private static final int REQUESTED_LIBRARY_HOMEPAGE  = 29324;
     private static final int REQUESTED_LIBRARY_CATALOGUE = 29325;
 
+    static final int LOADING_ACCOUNT_UPDATE = 1;
+    static final int LOADING_COVER_IMAGE = 100;
+    static final int LOADING_SEARCH_CONNECTING = 200;
+    static final int LOADING_SEARCH_SEARCHING = 201;
+    static final int LOADING_SEARCH_DETAILS = 202;
+    static final int LOADING_SEARCH_ORDER = 203;
+    static final int LOADING_SEARCH_MESSAGE = 204;
+    static final int LOADING_INSTALL_LIBRARY = 600;
+
+    private ArrayList<Integer> loadingTasks;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);    //To change body of overridden methods use File | Settings | File Templates.
         Bridge.initialize(this);
+        if (savedInstanceState != null) loadingTasks = savedInstanceState.getIntegerArrayList("activeLoadingTasks");
+        if (loadingTasks == null) loadingTasks = new ArrayList<Integer>();
     }
 
     @Override
@@ -46,7 +61,6 @@ public class VideLibriBaseActivity extends AppCompatActivity implements Bridge.V
         super.onPostCreate(savedInstanceState);    //To change body of overridden methods use File | Settings | File Templates.
     }
 
-    boolean loading = false;
     private MenuItem loadingItem, renewAllItem, renewListItem, refreshAllItem, exportItem;
 
     @Override
@@ -54,8 +68,10 @@ public class VideLibriBaseActivity extends AppCompatActivity implements Bridge.V
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.videlibrimenu, menu);
         loadingItem = menu.findItem(R.id.loading);
-        if (loadingItem != null)
+        if (loadingItem != null) {
             MenuItemCompat.setActionView(loadingItem, R.layout.actionbar_loading);
+            loadingItem.setVisible(loadingTasks.size() > 0);
+        }
         renewAllItem = menu.findItem(R.id.renew);
         renewListItem = menu.findItem(R.id.renewlist);
         refreshAllItem = menu.findItem(R.id.refresh);
@@ -67,7 +83,7 @@ public class VideLibriBaseActivity extends AppCompatActivity implements Bridge.V
     public boolean onPrepareOptionsMenu(Menu menu) {
         boolean x = super.onPrepareOptionsMenu(menu);
         loadingItem = menu.findItem(R.id.loading);
-        if (loadingItem != null) loadingItem.setVisible(loading);
+        if (loadingItem != null) loadingItem.setVisible(loadingTasks.size() > 0);
         setSubMenuVisibility();
         return x;
     }
@@ -179,9 +195,10 @@ public class VideLibriBaseActivity extends AppCompatActivity implements Bridge.V
         else
            refreshView = inflater.inflate(R.layout.actionbar_refresh_button, null);*/
 
-        ///for (int i=VideLibriApp.pendingDialogs.size();i>=0;i--)
+        if (loadingItem != null) loadingItem.setVisible(loadingTasks.size() > 0);
+
         for (Bundle b: VideLibriApp.pendingDialogs)
-                Util.showDialog(this, b);//VideLibriApp.pendingDialogs.get(i));
+                Util.showDialog(this, b);
         VideLibriApp.pendingDialogs.clear();
     }
 
@@ -192,15 +209,15 @@ public class VideLibriBaseActivity extends AppCompatActivity implements Bridge.V
     }
 
     @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putIntegerArrayList("activeLoadingTasks", loadingTasks);
+    }
+
+    @Override
     protected void onDestroy() {
         if (VideLibriApp.currentActivity == this) VideLibriApp.currentActivity = null;
         super.onDestroy();
-    }
-
-    void setLoading(boolean loading){
-        this.loading = loading;
-        if (loadingItem == null) return;
-        loadingItem.setVisible(loading);
     }
 
     /*@Override
@@ -209,6 +226,28 @@ public class VideLibriBaseActivity extends AppCompatActivity implements Bridge.V
     } */
 
 
+
+    void beginLoading(int loadingId){
+        loadingTasks.add(loadingId);
+        if (loadingItem != null) loadingItem.setVisible(loadingTasks.size() > 0);
+    }
+    void endLoading(int loadingId){
+        int pos = loadingTasks.indexOf(loadingId);
+        if (pos >= 0) loadingTasks.remove(pos);
+        if (loadingItem != null) loadingItem.setVisible(loadingTasks.size() > 0);
+    }
+    void endLoadingAll(int loadingId){
+        Integer lid = loadingId;
+        while (true) {
+            int pos = loadingTasks.indexOf(lid);
+            if (pos < 0) break;
+            loadingTasks.remove(pos);
+        }
+        if (loadingItem != null) loadingItem.setVisible(loadingTasks.size() > 0);
+    }
+    void endLoadingAll(int[] loadingId){
+        for (int id: loadingId) endLoadingAll(id);
+    }
 
 
 

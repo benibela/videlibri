@@ -61,6 +61,7 @@ public class Search extends VideLibriBaseActivity implements Bridge.SearchEventH
         searcher.heartBeat = System.currentTimeMillis();
         searcher.state = SEARCHER_STATE_INIT;
         searchers.add(searcher);
+        beginLoading(LOADING_SEARCH_CONNECTING);
         searcher.connect();
     }
 
@@ -125,7 +126,6 @@ public class Search extends VideLibriBaseActivity implements Bridge.SearchEventH
         setTitle(tr(R.string.search_title));
 
         if (libId != null && !libId.equals("")) {
-            setLoading(true);
             obtainSearcher();
             if (searcher.state == SEARCHER_STATE_CONNECTED) setBranchViewes();
         }
@@ -139,6 +139,7 @@ public class Search extends VideLibriBaseActivity implements Bridge.SearchEventH
             for (Bridge.SearchEvent event: searcher.pendingEvents)
                 onSearchEvent(searcher, event);
             searcher.pendingEvents.clear();
+            if (searcher.state != SEARCHER_STATE_INIT) endLoadingAll(LOADING_SEARCH_CONNECTING);
         }
     }
 
@@ -193,8 +194,6 @@ public class Search extends VideLibriBaseActivity implements Bridge.SearchEventH
                 libName = LibraryList.lastSelectedLibName;
                 ((TextView) findViewById(R.id.library)).setText(libName);
 
-
-                setLoading(true);
                 obtainSearcher();
             } else if ("".equals(libId)) finish();
         } else super.onActivityResult(requestCode, resultCode, data);
@@ -205,7 +204,7 @@ public class Search extends VideLibriBaseActivity implements Bridge.SearchEventH
         if (access != searcher) return false;
         switch (event.kind) {
             case CONNECTED:
-                setLoading(false);
+                endLoadingAll(LOADING_SEARCH_CONNECTING);
                 searcher.heartBeat = System.currentTimeMillis();
                 access.state = SEARCHER_STATE_CONNECTED;
                 access.homeBranches = (String[])event.obj1;
@@ -213,7 +212,7 @@ public class Search extends VideLibriBaseActivity implements Bridge.SearchEventH
                 setBranchViewes();
                 return true;
             case EXCEPTION:
-                setLoading(false);
+                endLoadingAll(LOADING_SEARCH_CONNECTING);
                 searcher.state = SEARCHER_STATE_STOPPED;
                 searcher = null;
                 gcSearchers();

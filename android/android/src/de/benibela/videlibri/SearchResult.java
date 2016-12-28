@@ -32,17 +32,18 @@ public class SearchResult extends BookListActivity implements Bridge.SearchEvent
         switch (searcher.state){
             case Search.SEARCHER_STATE_INIT:
                 searcher.connect(); //should not happen
+                beginLoading(LOADING_SEARCH_CONNECTING);
                 break;
             case Search.SEARCHER_STATE_CONNECTED:
                 searcher.waitingForDetails = -1;
                 searcher.nextDetailsRequested = -1;
                 searcher.start(book, getIntent().getIntExtra("homeBranch", -1), getIntent().getIntExtra("searchBranch", -1));
+                beginLoading(LOADING_SEARCH_SEARCHING);
                 break;
             default:
                 bookCache = searcher.bookCache;
                 break;
         }
-        setLoading(searcher.state != Search.SEARCHER_STATE_STOPPED);
         setTitle(tr(R.string.search_loading));
     }
 
@@ -82,31 +83,39 @@ public class SearchResult extends BookListActivity implements Bridge.SearchEvent
                 searcher.waitingForDetails = -1;
                 searcher.nextDetailsRequested = -1;
                 searcher.start((Bridge.Book) getIntent().getSerializableExtra("searchQuery"), getIntent().getIntExtra("homeBranch", -1), getIntent().getIntExtra("searchBranch", -1));
+                beginLoading(LOADING_SEARCH_SEARCHING);
+                endLoadingAll(LOADING_SEARCH_CONNECTING);
                 return true;
             case FIRST_PAGE: //obj1 = Book[] books
+                endLoadingAll(LOADING_SEARCH_SEARCHING);
                 searcher.state = Search.SEARCHER_STATE_SEARCHING;
                 onSearchFirstPageComplete((Bridge.Book[])event.obj1);
                 break;
             case NEXT_PAGE:  //obj1 = Book[] books
+                endLoadingAll(LOADING_SEARCH_SEARCHING);
                 onSearchNextPageComplete((Bridge.Book[])event.obj1);
                 break;
             case DETAILS:    //obj1 = Book book
                 onSearchDetailsComplete((Bridge.Book)event.obj1);
                 break;
             case ORDER_COMPLETE: //obj1 = Book book
+                endLoading(LOADING_SEARCH_ORDER);
                 onOrderComplete((Bridge.Book)event.obj1);
                 break;
             case ORDER_CONFIRM:  //obj1 = Book book
+                endLoading(LOADING_SEARCH_ORDER);
                 onOrderConfirm((Bridge.Book)event.obj1);
                 break;
             case TAKE_PENDING_MESSAGE: //arg1 = int kind, obj1 = String caption, obj2 = String[] options
+                endLoading(LOADING_SEARCH_MESSAGE);
                 onTakePendingMessage(event.arg1, (String)(event.obj1), (String[])event.obj2);
                 break;
             case PENDING_MESSAGE_COMPLETE:
-                onPendingMessageCompleted();
+                endLoading(LOADING_SEARCH_MESSAGE);
                 break;
             case EXCEPTION:
-                setLoading(false);
+                endLoadingAll(new int[]{ LOADING_SEARCH_CONNECTING, LOADING_SEARCH_SEARCHING, LOADING_SEARCH_DETAILS, LOADING_SEARCH_ORDER, LOADING_SEARCH_MESSAGE });
+
                 setTitle(tr(R.string.search_failed));
                 searcher.state = Search.SEARCHER_STATE_STOPPED;
                 searcher = null;
@@ -124,14 +133,12 @@ public class SearchResult extends BookListActivity implements Bridge.SearchEvent
         int realCount = Math.max(searcher.totalResultCount, bookCache.size());
         displayBookCache(searcher.totalResultCount);
         setTitle(tr(R.string.search_resultcountD,  realCount));
-        setLoading(false || searcher.orderingAccount != null);
     }
 
     public void onSearchNextPageComplete(final Bridge.Book[] books) {
         for (Bridge.Book b: books) searcher.bookCache.add(b);
         bookCache = searcher.bookCache;
         updateDisplayBookCache();
-        setLoading(searcher.waitingForDetails != -1 || searcher.orderingAccount != null);
     }
 
 
@@ -143,15 +150,15 @@ public class SearchResult extends BookListActivity implements Bridge.SearchEvent
         if (oldWaitingForDetails >= 0 && oldWaitingForDetails < searcher.bookCache.size())
             searcher.bookCache.set(oldWaitingForDetails, book); //still save the search result, so it does not need to be searched again
 
-        setLoading(false || searcher.orderingAccount != null);
+        endLoading(LOADING_SEARCH_DETAILS);
 
         if (detailsVisible()) {
             if (searcher.nextDetailsRequested == -1)
                 return;
             if (searcher.nextDetailsRequested != oldWaitingForDetails) {
                 searcher.waitingForDetails = searcher.nextDetailsRequested;
-                setLoading(true);
                 if (searcher == null) return;
+                beginLoading(LOADING_SEARCH_DETAILS);
                 searcher.details(bookCache.get(searcher.waitingForDetails));
                 return;
             }
@@ -168,7 +175,6 @@ public class SearchResult extends BookListActivity implements Bridge.SearchEvent
 
         book.account = searcher.orderingAccount;
 
-        setLoading(searcher.waitingForDetails != -1 || false);
         if (bookActionButton != null) bookActionButton.setClickable(true);
 
         if (question == null || "".equals(question))
@@ -184,14 +190,10 @@ public class SearchResult extends BookListActivity implements Bridge.SearchEvent
     }
 
     public void onTakePendingMessage(final int kind, final String caption, final String[] options){
-        setLoading(searcher.waitingForDetails != -1 || false);
         switch (kind) {
             case 1: Util.showMessageYesNo(DialogId.SEARCHER_MESSAGE_CONFIRM, caption); break;
             case 2: Util.chooseDialog(DialogId.SEARCHER_MESSAGE_CHOOSE, caption, options);
         }
-    }
-    public void onPendingMessageCompleted(){
-        setLoading(searcher.waitingForDetails != -1 || false);
     }
 
 
@@ -201,7 +203,6 @@ public class SearchResult extends BookListActivity implements Bridge.SearchEvent
         if (searcher.orderingAccount != null)
             VideLibriApp.updateAccount(searcher.orderingAccount, false, false); //full update, so the book is only shown if it worked, and canceling work
         searcher.orderingAccount = null; //???? todo
-        setLoading(searcher.waitingForDetails != -1 || false);
         if (bookActionButton != null) bookActionButton.setClickable(true);
     }
 
@@ -210,7 +211,7 @@ public class SearchResult extends BookListActivity implements Bridge.SearchEvent
         if (searcher == null) return;
         if (searcher.nextPageAvailable) {
             searcher.nextPageAvailable = false;
-            setLoading(true);
+            beginLoading(LOADING_SEARCH_SEARCHING);
             searcher.nextPage();
         }
     }
@@ -226,7 +227,7 @@ public class SearchResult extends BookListActivity implements Bridge.SearchEvent
         searcher.nextDetailsRequested = bookpos;
         if (searcher.waitingForDetails == -1) {
             searcher.waitingForDetails = bookpos;
-            setLoading(true);
+            beginLoading(LOADING_SEARCH_DETAILS);
             searcher.details(bookCache.get(searcher.waitingForDetails));
         }
     }
@@ -254,7 +255,7 @@ public class SearchResult extends BookListActivity implements Bridge.SearchEvent
             book.account = matchingAccounts.get(0);
             searcher.orderingAccount = book.account;
             if (bookActionButton != null) bookActionButton.setClickable(false);
-            setLoading(true);
+            beginLoading(LOADING_SEARCH_ORDER);
             searcher.order(book);
         }
     }
@@ -289,17 +290,17 @@ public class SearchResult extends BookListActivity implements Bridge.SearchEvent
     boolean onDialogResult(int dialogId, int buttonId, Bundle more) {
         switch (dialogId) {
             case DialogId.SEARCHER_MESSAGE_CONFIRM:
-                setLoading(true);
+                beginLoading(LOADING_SEARCH_MESSAGE);
                 searcher.completePendingMessage( buttonId == DialogInterface.BUTTON_POSITIVE ? 1 : 0 );
                 return true;
             case DialogId.SEARCHER_MESSAGE_CHOOSE:
-                setLoading(true);
+                beginLoading(LOADING_SEARCH_MESSAGE);
                 searcher.completePendingMessage( buttonId );
             case DialogId.SEARCHER_ORDER_CONFIRM:
                 if (lastSelectedBookForDialog == null) break;
                 if (buttonId == DialogInterface.BUTTON_POSITIVE) {
-                    setLoading(true);
                     if (bookActionButton != null) bookActionButton.setClickable(false);
+                    beginLoading(LOADING_SEARCH_ORDER);
                     searcher.orderConfirmed(lastSelectedBookForDialog);
                 }
                 lastSelectedBookForDialog = null;
@@ -308,8 +309,8 @@ public class SearchResult extends BookListActivity implements Bridge.SearchEvent
                 if (lastSelectedBookForDialog == null) break;
                 if (buttonId >= 0 /*&& buttonId < options.length*/) {
                         lastSelectedBookForDialog.setProperty("choosenConfirmation", (buttonId+1)+"");
-                    setLoading(true);
                     if (bookActionButton != null) bookActionButton.setClickable(false);
+                    beginLoading(LOADING_SEARCH_ORDER);
                     searcher.orderConfirmed(lastSelectedBookForDialog);
                 }
                 lastSelectedBookForDialog = null;
@@ -325,7 +326,7 @@ public class SearchResult extends BookListActivity implements Bridge.SearchEvent
                     lastSelectedBookForDialog.account = lastMatchingAccountsForDialog.get(buttonId);
                     searcher.orderingAccount = lastSelectedBookForDialog.account; //this property is lost on roundtrip, saved it on java side
                     if (bookActionButton != null) bookActionButton.setClickable(false);
-                    setLoading(true);
+                    beginLoading(LOADING_SEARCH_ORDER);
                     searcher.order(lastSelectedBookForDialog);
                 }
                 lastSelectedBookForDialog = null;

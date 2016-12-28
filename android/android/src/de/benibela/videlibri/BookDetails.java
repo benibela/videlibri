@@ -217,10 +217,10 @@ public class BookDetails extends VideLibriFakeFragment {
         lv.setAdapter(new BookDetailsAdapter(activity, details, book));
 
         boolean needToLoadImage = book.more != null && (book.hasProperty("image-url") || book.hasProperty("isbn")) && book.image == null;
-        if (needToLoadImage)
+        if (needToLoadImage) {
             new DownloadImageTask(this, book).execute(book.getProperty("image-url"));
-
-        setLoading(searchedBook && (!book.hasProperty("__details") || needToLoadImage ));
+            beginLoading(VideLibriBaseActivity.LOADING_COVER_IMAGE);
+        }
 
         String action = null;
         if (searchedBook) {
@@ -255,7 +255,6 @@ public class BookDetails extends VideLibriFakeFragment {
     }
 
     void updateImage(){
-        setLoading(false);
         ListView lv = (ListView) findViewById(R.id.bookdetailsview);
         if (lv == null) return;
         BookDetailsAdapter adapter = (BookDetailsAdapter) lv.getAdapter();
@@ -299,7 +298,7 @@ public class BookDetails extends VideLibriFakeFragment {
         }
 
         protected void onPostExecute(Bitmap result) {
-            setLoading((book.account == null) && !book.hasProperty("__details") ); //cover might finish (usually failing) before details have been loaded
+            endLoading(VideLibriBaseActivity.LOADING_COVER_IMAGE);
             if (result == null) return;
             book.image = result;
             if (activity != null && book == activity.book) activity.updateImage();

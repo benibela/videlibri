@@ -32,7 +32,7 @@ public class NewLibrary extends VideLibriBaseActivity{
             @Override
             public void onClick(View view) {
                 Bridge.VLInstallLibrary(getTextViewText(R.id.url));
-                setLoading(true);
+                beginLoading(LOADING_INSTALL_LIBRARY);
             }
         });
 

@@ -7,19 +7,15 @@ import android.widget.Button;
 import android.support.v4.app.Fragment;
 
 public class VideLibriFakeFragment {
-
-    boolean loading;
     VideLibriBaseActivity activity;
 
     VideLibriFakeFragment (VideLibriBaseActivity activity) {
         this.activity = activity;
     }
 
-    void setLoading(boolean loading){
-        this.loading = loading;
-        if (activity instanceof VideLibriBaseFragmentActivity)
-            activity.setLoading(activity.loading);
-    }
+    void beginLoading(int loadingId){ activity.beginLoading(loadingId); }
+    void endLoading(int loadingId){ activity.endLoading(loadingId); }
+    void endLoadingAll(int loadingId){ activity.endLoadingAll(loadingId); }
 
 
     View findViewById(int id){

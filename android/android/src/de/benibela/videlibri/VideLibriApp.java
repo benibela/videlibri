@@ -63,7 +63,7 @@ public class VideLibriApp extends Application implements Bridge.VideLibriContext
                     NotificationService.updateNotification(currentActivity);
 
                     if (currentActivity instanceof VideLibri)
-                        ((VideLibri)currentActivity).setLoading(false);
+                        ((VideLibri)currentActivity).endLoadingAll(VideLibriBaseActivity.LOADING_ACCOUNT_UPDATE);
 
                     VideLibriApp.displayAccount(null);
                 }
@@ -75,7 +75,7 @@ public class VideLibriApp extends Application implements Bridge.VideLibriContext
             @Override
             public void handleMessage(Message msg) {
                 if (currentActivity instanceof NewLibrary)
-                    ((NewLibrary)currentActivity).setLoading(false);
+                    ((NewLibrary)currentActivity).endLoading(VideLibriBaseActivity.LOADING_INSTALL_LIBRARY);
                 final int status = msg.what;
                 Bundle more = new Bundle();
                 more.putInt("status", status);
@@ -170,7 +170,8 @@ public class VideLibriApp extends Application implements Bridge.VideLibriContext
         if ((acc.name == null || acc.name.equals("")) && (acc.pass == null || acc.pass.equals("")))
             return; //search only account
         if (Bridge.VLUpdateAccount(acc, autoUpdate, forceExtend)) {
-            if (currentActivity instanceof VideLibri) ((VideLibri)currentActivity).setLoading(true);
+            if (currentActivity instanceof VideLibri)
+                ((VideLibri)currentActivity).beginLoading(VideLibriBaseActivity.LOADING_ACCOUNT_UPDATE);
             if (!runningUpdates.contains(acc))
                 runningUpdates.add(acc);
         }
@@ -193,7 +194,7 @@ public class VideLibriApp extends Application implements Bridge.VideLibriContext
             if (book.account != null && !runningUpdates.contains(book.account))
                 runningUpdates.add(book.account);
         if (!runningUpdates.isEmpty() && currentActivity instanceof VideLibri)
-            ((VideLibri)currentActivity).setLoading(true);
+            ((VideLibri)currentActivity).beginLoading(VideLibriBaseActivity.LOADING_ACCOUNT_UPDATE);
         Bridge.VLBookOperation(books, Bridge.BOOK_OPERATION_RENEW); //renew
     }
 

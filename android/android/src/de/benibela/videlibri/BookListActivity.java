@@ -101,11 +101,6 @@ public class BookListActivity extends VideLibriBaseFragmentActivity{
         });
     }
 
-    @Override
-    void setLoading(boolean loading) {
-        super.setLoading(loading || (detailsVisible() && details.loading) || list.loading);
-    }
-
     public ArrayList<Bridge.Book> bookCache = new ArrayList<Bridge.Book>();
     public EnumSet<BookOverviewAdapter.DisplayEnum> options = java.util.EnumSet.of(BookOverviewAdapter.DisplayEnum.Grouped, BookOverviewAdapter.DisplayEnum.ShowRenewCount);
     public String sortingKey, groupingKey;
