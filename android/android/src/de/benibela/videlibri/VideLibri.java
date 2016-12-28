@@ -135,6 +135,8 @@ public class VideLibri extends  BookListActivity{
         }
 
         setLoading(!VideLibriApp.runningUpdates.isEmpty());
+        if (!cacheShown)
+            displayBookCache();
     }
 
     @Override

@@ -20,40 +20,66 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Stack;
 
-public class Search extends VideLibriBaseActivity implements Bridge.SearchConnector{
+public class Search extends VideLibriBaseActivity implements Bridge.SearchEventHandler{
     static final int REQUEST_CHOOSE_LIBRARY = 1234;
     static ArrayList< Bridge.SearcherAccess> searchers = new ArrayList<Bridge.SearcherAccess>();
 
-    private Bridge.SearcherAccess createSearcher(){
-        Bridge.SearcherAccess searcher = new Bridge.SearcherAccess(this, libId);
-        searchers.add(searcher);
-        return searcher;
-    }
+    String libId, libName;
 
-    static void removeSearcherOwner(Object owner){
-        if (searchers.isEmpty()) return;
-        for (int i=searchers.size()-1; i >= 0; i--) {
-            Bridge.SearcherAccess current = searchers.get(i);
-            if (current.connector == owner) current.connector = null;
-            if (current.display == owner) current.setDisplay(null);
-            if (current.connector == null && current.display == null && !current.waitingForDisplay) {
-                current.free();
+    Bridge.SearcherAccess searcher;
+
+    static final int SEARCHER_HEARTH_BEAT_TIMEOUT = 5*60*1000;
+    static final int SEARCHER_STATE_INIT = 0; //connecting
+    static final int SEARCHER_STATE_CONNECTED = 1;
+    static final int SEARCHER_STATE_SEARCHING = 2;
+    static final int SEARCHER_STATE_STOPPED = 3;
+
+    static public void gcSearchers(){
+        for (int i=searchers.size()-1;i>=0;i--)
+            if (System.currentTimeMillis() - searchers.get(i).heartBeat > SEARCHER_HEARTH_BEAT_TIMEOUT
+                    || searchers.get(i).state == SEARCHER_STATE_STOPPED) {
+                searchers.get(i).free();
                 searchers.remove(i);
             }
+    }
+
+
+
+    private void obtainSearcher(){
+        gcSearchers();
+        if (searchers.size() > 0) {
+            Bridge.SearcherAccess candidate = searchers.get(searchers.size() - 1);
+            if (candidate.libId.equals(libId))
+                switch (candidate.state) {
+                    case SEARCHER_STATE_INIT:
+                    case SEARCHER_STATE_CONNECTED:
+                        searcher = candidate;
+                        return;
+                };
         }
+        searcher = new Bridge.SearcherAccess(libId);
+        searcher.heartBeat = System.currentTimeMillis();
+        searcher.state = SEARCHER_STATE_INIT;
+        searchers.add(searcher);
+        searcher.connect();
     }
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.searchlayout);
 
-        libId = getIntent().getStringExtra("libId");
-        libName = getIntent().getStringExtra("libName");
+        if (savedInstanceState != null) {
+            libId = savedInstanceState.getString("libId");
+            libName = savedInstanceState.getString("libName");
+        } else {
+            libId = getIntent().getStringExtra("libId");
+            libName = getIntent().getStringExtra("libName");
+        }
 
         TextView lib = ((TextView) findViewById(R.id.library));
         lib.setText(libName + " ("+tr(R.string.change)+")");
         lib.setPaintFlags(lib.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
-        if (libId == null || libId.equals("") || getIntent().getBooleanExtra("showLibList", false)) {
+        if (libId == null || libId.equals("") || (getIntent().getBooleanExtra("showLibList", false) && savedInstanceState == null )) {
             if ((System.currentTimeMillis() - LibraryList.lastSelectedTime) < LibraryList.SELECTION_REUSE_TIME){
                 libId = LibraryList.lastSelectedLibId;
                 libName = LibraryList.lastSelectedLibName;
@@ -61,9 +87,6 @@ public class Search extends VideLibriBaseActivity implements Bridge.SearchConnec
                 libId = "";
                 changeSearchLib();
             }
-        } else {
-            setLoading(true);
-            createSearcher();
         }
 
         ((TextView) findViewById(R.id.library)).setOnClickListener(new View.OnClickListener() {
@@ -76,9 +99,7 @@ public class Search extends VideLibriBaseActivity implements Bridge.SearchConnec
         ((Button) findViewById(R.id.button)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (searchers.isEmpty() || searchers.get(searchers.size()-1).connector != Search.this)
-                    createSearcher();
-                searchers.get(searchers.size()-1).waitingForDisplay = true;
+                obtainSearcher();
 
                 if ("debug".equals(getTextViewText(R.id.year))) {
                     activateHiddenDebugMode();
@@ -102,6 +123,23 @@ public class Search extends VideLibriBaseActivity implements Bridge.SearchConnec
         });
 
         setTitle(tr(R.string.search_title));
+
+        if (libId != null && !libId.equals("")) {
+            setLoading(true);
+            obtainSearcher();
+            if (searcher.state == SEARCHER_STATE_CONNECTED) setBranchViewes();
+        }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        obtainSearcher();
+        if (searcher != null) {
+            for (Bridge.SearchEvent event: searcher.pendingEvents)
+                onSearchEvent(searcher, event);
+            searcher.pendingEvents.clear();
+        }
     }
 
     @Override
@@ -113,11 +151,10 @@ public class Search extends VideLibriBaseActivity implements Bridge.SearchConnec
 
     @Override
     protected void onDestroy() {
-        removeSearcherOwner(this);
+        gcSearchers();
         super.onDestroy();
     }
 
-    String libId, libName;
 
     void changeSearchLib(){
         Intent intent = new Intent(this, LibraryList.class);
@@ -127,7 +164,9 @@ public class Search extends VideLibriBaseActivity implements Bridge.SearchConnec
         startActivityForResult(intent, REQUEST_CHOOSE_LIBRARY);
     }
 
-    void setBranchViewes( String[] homeBranches, String[] searchBranches) {
+    void setBranchViewes( ) {
+        String[] homeBranches = searcher.homeBranches;
+        String[] searchBranches = searcher.searchBranches;
         if (homeBranches == null || homeBranches.length == 0)
             findViewById(R.id.homeBranchLayout).setVisibility(View.GONE);
         else {
@@ -156,37 +195,33 @@ public class Search extends VideLibriBaseActivity implements Bridge.SearchConnec
 
 
                 setLoading(true);
-                removeSearcherOwner(this);
-                createSearcher();
+                obtainSearcher();
             } else if ("".equals(libId)) finish();
         } else super.onActivityResult(requestCode, resultCode, data);
     }
 
     @Override
-    public void onConnected(final String[] homeBranches, final String[] searchBranches) {
-        runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
+    public boolean onSearchEvent(Bridge.SearcherAccess access, Bridge.SearchEvent event) {
+        if (access != searcher) return false;
+        switch (event.kind) {
+            case CONNECTED:
                 setLoading(false);
-                setBranchViewes(homeBranches,searchBranches);
-            }
-        });
-    }
-
-    @Override
-    public void onException() {
-        runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
+                searcher.heartBeat = System.currentTimeMillis();
+                access.state = SEARCHER_STATE_CONNECTED;
+                access.homeBranches = (String[])event.obj1;
+                access.searchBranches = (String[])event.obj2;
+                setBranchViewes();
+                return true;
+            case EXCEPTION:
                 setLoading(false);
-                //setTitle("Katalog ist nicht erreichbar");
+                searcher.state = SEARCHER_STATE_STOPPED;
+                searcher = null;
+                gcSearchers();
                 VideLibriApp.showPendingExceptions();
-            }
-        });
+                return true;
+        }
+        return false;
     }
-
-
-
 
     volatile int debugWaiting ;
     public void activateHiddenDebugMode(){
@@ -195,6 +230,7 @@ public class Search extends VideLibriBaseActivity implements Bridge.SearchConnec
 
     @Override
     boolean onDialogResult(int dialogId, int buttonId, Bundle more) {
+        /*
         switch (dialogId){
             case DialogId.DEBUG_SEARCH_BEGIN:
                 Util.showMessageYesNo(DialogId.DEBUG_SEARCH_ALL, "Do you want to search ALL libraries? ");
@@ -279,7 +315,7 @@ public class Search extends VideLibriBaseActivity implements Bridge.SearchConnec
                     }
                 }
                 return true;
-        }
+        }                                              */
         return super.onDialogResult(dialogId, buttonId, more);
     }
 }

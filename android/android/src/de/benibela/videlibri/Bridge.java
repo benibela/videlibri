@@ -8,6 +8,8 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.os.Handler;
+import android.os.Message;
 import android.util.Log;
 import android.util.Pair;
 
@@ -287,27 +289,45 @@ public class Bridge {
     //SearcherAccess helper class like in Pascal-VideLibri
     //All methods run asynchronously in a Pascal Thread
     //All events are called in the same thread ()
-    public static class SearcherAccess implements SearchResultDisplay{
+    public static class SearcherAccess{
+        //set from Pascal side
         long nativePtr;
+        volatile int totalResultCount;
+        volatile boolean nextPageAvailable;
 
+        //set in Java
         final String libId;
-        SearchConnector connector;
-        SearchResultDisplay display;
-        boolean waitingForDisplay;
+        final Handler queueHandler;
+        final ArrayList<SearchEvent> pendingEvents = new ArrayList<SearchEvent>();
 
-        int totalResultCount;
-        boolean nextPageAvailable;
-        String[] homeBranches, searchBranches;
+        //set in (Java) activity
+        int state;
+        long heartBeat;
+        volatile String[] homeBranches, searchBranches;
+        final ArrayList<Bridge.Book> bookCache = new ArrayList<Book>();
+        //The detail search runs in the background, for a single book.
+        //But the user might request other detail searches, before the search is complete.
+        //Then wait for the old search to complete, and then start the newest search, unless the user has closed the view
+        int waitingForDetails;    //nr of book currently searched. Only set when the search is started or has ended (-1 if no search is running)
+        int nextDetailsRequested; //nr of the book that *should* be searched. Set when requesting a new search, or to -1 to cancel the current search
+        Bridge.Account orderingAccount;
 
-        SearcherAccess(SearchConnector connector, String libId){
-            this.connector = connector;
+        SearcherAccess(String libId){
             this.libId = libId;
-            this.display = null;
-            VLSearchConnect(this, libId);
+            queueHandler = new Handler(){
+                @Override
+                public void handleMessage(Message msg) {
+                    SearchEvent event = (SearchEvent)(msg.obj);
+                    if (VideLibriApp.currentActivity instanceof SearchEventHandler) {
+                        SearchEventHandler handleAct = (SearchEventHandler) VideLibriApp.currentActivity;
+                        if (handleAct.onSearchEvent(SearcherAccess.this, event)) return;
+                    }
+                    pendingEvents.add(event);
+                }
+            };
         }
-        public void setDisplay(SearchResultDisplay display){
-            this.display = display;
-            this.waitingForDisplay = false;
+        public void connect(){
+            VLSearchConnect(this, libId);
         }
         public void start(Book query, int homeBranch, int searchBranch){
             VLSearchStart(this, query, homeBranch, searchBranch);
@@ -328,35 +348,54 @@ public class Bridge {
             VLSearchCompletePendingMessage(this, result);
         }
         public void free(){
-            display = null;
-            connector = null;
             VLSearchEnd(this);
         }
 
-        public void onConnected(String[] homeBranches, String[] searchBranches){ if (connector != null) connector.onConnected(homeBranches, searchBranches); }
-        public void onSearchFirstPageComplete(Book[] books) { if (display != null) display.onSearchFirstPageComplete(books); }
-        public void onSearchNextPageComplete(Book[] books) { if (display != null) display.onSearchNextPageComplete(books); }
-        public void onSearchDetailsComplete(Book book) { if (display != null) display.onSearchDetailsComplete(book); }
-        public void onOrderComplete(Book book) { if (display != null) display.onOrderComplete(book); }
-        public void onOrderConfirm(Book book) { if (display != null) display.onOrderConfirm(book); }
-        public void onTakePendingMessage(int kind, String caption, String[] options) { if (display != null) display.onTakePendingMessage(kind, caption, options); }
-        public void onPendingMessageCompleted() { if (display != null) display.onPendingMessageCompleted(); }
-        public void onException() { if (display != null) display.onException(); else if (connector != null) connector.onException();}
+        private SearchEvent newEvent(SearchEventKind kind) {  return newEvent(kind, 0, null, null); }
+        private SearchEvent newEvent(SearchEventKind kind, Object obj) {  return newEvent(kind, 0, obj, null); }
+        private SearchEvent newEvent(SearchEventKind kind, int arg1, Object obj1, Object obj2) {
+            SearchEvent event = new SearchEvent();
+            event.kind = kind;
+            event.arg1 = arg1;
+            event.obj1 = obj1;
+            event.obj2 = obj2;
+            return event;
+        }
+        private void send(SearchEvent event) {
+            queueHandler.sendMessage(queueHandler.obtainMessage(0, event));
+        }
+
+
+        public void onConnected(String[] homeBranches, String[] searchBranches){ send(newEvent(SearchEventKind.CONNECTED, 0, homeBranches, searchBranches)); }
+        public void onSearchFirstPageComplete(Book[] books) { send(newEvent(SearchEventKind.FIRST_PAGE, books)); }
+        public void onSearchNextPageComplete(Book[] books) { send(newEvent(SearchEventKind.NEXT_PAGE, books)); }
+        public void onSearchDetailsComplete(Book book) { send(newEvent(SearchEventKind.DETAILS, book)); }
+        public void onOrderComplete(Book book) { send(newEvent(SearchEventKind.ORDER_COMPLETE, book)); }
+        public void onOrderConfirm(Book book) { send(newEvent(SearchEventKind.ORDER_CONFIRM, book)); }
+        public void onTakePendingMessage(int kind, String caption, String[] options) { send(newEvent(SearchEventKind.TAKE_PENDING_MESSAGE, kind, caption, options)); }
+        public void onPendingMessageCompleted() { send(newEvent(SearchEventKind.PENDING_MESSAGE_COMPLETE)); }
+        public void onException() { send(newEvent(SearchEventKind.EXCEPTION)); }
     }
 
-    public static interface SearchConnector{
-        void onConnected(String[] homeBranches, String[] searchBranches);
-        void onException();
+    static enum SearchEventKind {
+        CONNECTED, //obj1 = String[] homeBranches, obj2 = String[] searchBranches
+        FIRST_PAGE, //obj1 = Book[] books
+        NEXT_PAGE,  //obj1 = Book[] books
+        DETAILS,    //obj1 = Book book
+        ORDER_COMPLETE, //obj1 = Book book
+        ORDER_CONFIRM,  //obj1 = Book book
+        TAKE_PENDING_MESSAGE, //arg1 = int kind, obj1 = String caption, obj2 = String[] options
+        PENDING_MESSAGE_COMPLETE,
+        EXCEPTION
+    }
+    public static class SearchEvent{
+        SearchEventKind kind;
+        int arg1;
+        Object obj1, obj2;
     }
 
-    public static interface SearchResultDisplay extends SearchConnector{
-        void onSearchFirstPageComplete(Book[] books);
-        void onSearchNextPageComplete(Book[] books);
-        void onSearchDetailsComplete(Book book);
-        void onOrderComplete(Book book);
-        void onOrderConfirm(Book book);
-        void onTakePendingMessage(int kind, String caption, String[] options);
-        void onPendingMessageCompleted();
+    interface SearchEventHandler {
+        boolean onSearchEvent(SearcherAccess access, SearchEvent event);
     }
 
     static class Library{

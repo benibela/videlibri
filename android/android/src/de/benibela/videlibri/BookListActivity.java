@@ -52,8 +52,6 @@ public class BookListActivity extends VideLibriBaseFragmentActivity{
     protected void onResume() {
         super.onResume();
         port_mode = getResources().getBoolean(R.bool.port_mode); //should not have changed
-        if (!cacheShown)
-            displayBookCache();
     }
 
     @Override
@@ -116,7 +114,7 @@ public class BookListActivity extends VideLibriBaseFragmentActivity{
 
     public Button bookActionButton = null; //set from detail fragment
 
-    private boolean cacheShown = false;
+    boolean cacheShown = false;
 
     void setOption(BookOverviewAdapter.DisplayEnum option, boolean on){
         if (on) options.add(option);
