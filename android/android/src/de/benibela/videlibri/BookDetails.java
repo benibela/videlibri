@@ -280,10 +280,15 @@ public class BookDetails extends VideLibriFakeFragment {
                 try {
                     String url;
                     if (i < urls.length) url = urls[i].trim();
-                    else if (i == urls.length)
-                        url = "http://covers.openlibrary.org/b/isbn/"+book.getNormalizedISBN(false,false)+"-M.jpg?default=false";
-                    else
-                        url = "http://vlb.de/GetBlob.aspx?strIsbn="+book.getNormalizedISBN(true,true)+"&size=M";
+                    else if (i == urls.length) {
+                        String isbn = book.getNormalizedISBN(false,false);
+                        if ("".equals(isbn)) continue;
+                        url = "http://covers.openlibrary.org/b/isbn/"+isbn+"-M.jpg?default=false";
+                    } else {
+                        String isbn = book.getNormalizedISBN(true,true);
+                        if ("".equals(isbn)) continue;
+                        url = "http://vlb.de/GetBlob.aspx?strIsbn="+isbn+"&size=M";
+                    }
 
                     if ("".equals(url)) continue;
 
