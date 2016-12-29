@@ -12,6 +12,7 @@ import java.util.ArrayList;
 
 public class RenewList extends BookListActivity {
     public Button button;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,6 +49,8 @@ public class RenewList extends BookListActivity {
         updateRenewButton();
     }
 
+    private int truecount;
+
     private void updateViewFilters(){
         SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(this);
         setOption(BookOverviewAdapter.DisplayEnum.NoDetails, sp.getBoolean("noLendBookDetails", false));
@@ -56,6 +59,7 @@ public class RenewList extends BookListActivity {
         groupingKey = sp.getString("grouping", "_dueWeek");
         ArrayList<Bridge.Book> oldSelection = selectedBooks;
         bookCache = VideLibri.makePrimaryBookCache(null, new ArrayList<Bridge.Book>(), true);
+        truecount = bookCache.size();
         bookCache = VideLibri.filterToSecondaryBookCache(bookCache, groupingKey, sortingKey, "", null);
         selectedBooks = new ArrayList<Bridge.Book>(selectedBooks.size());
         for (Bridge.Book selbook: oldSelection)
@@ -91,7 +95,7 @@ public class RenewList extends BookListActivity {
                 button.setText(tr(R.string.renew_noselection));
             }
         } else {
-            setTitle(tr(R.string.renew_title_selectionDD, selectedBooks.size(), bookCache.size()));
+            setTitle(tr(R.string.renew_title_selectionDD, selectedBooks.size(), truecount));
             if (button != null) {
                 button.setEnabled(true);
                 button.setText(tr(R.string.renew_renewD, selectedBooks.size()));
