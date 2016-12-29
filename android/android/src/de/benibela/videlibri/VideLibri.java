@@ -98,7 +98,7 @@ public class VideLibri extends  BookListActivity{
             displayAccount(null);
             for (Bridge.Account a: VideLibriApp.accounts) VideLibriApp.updateAccount(a, true, false);
         }
-
+        endLoadingAll(VideLibriBaseActivity.LOADING_COVER_IMAGE);
     }
 
 

@@ -263,14 +263,14 @@ public class BookDetails extends VideLibriFakeFragment {
     }
 
     //from http://stackoverflow.com/questions/5776851/load-image-from-url
-    class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
+    static class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
         Bridge.Book book;
-        BookDetails activity;
+        BookDetails fragment;
 
 
-        public DownloadImageTask(BookDetails activity, Bridge.Book book) {
+        public DownloadImageTask(BookDetails fragment, Bridge.Book book) {
             this.book = book;
-            this.activity = activity;
+            this.fragment = fragment;
         }
 
         protected Bitmap doInBackground(String... imageUrlProp) {
@@ -303,10 +303,13 @@ public class BookDetails extends VideLibriFakeFragment {
         }
 
         protected void onPostExecute(Bitmap result) {
-            endLoading(VideLibriBaseActivity.LOADING_COVER_IMAGE);
-            if (result == null) return;
-            book.image = result;
-            if (activity != null && book == activity.book) activity.updateImage();
+            if (VideLibriApp.currentActivity != null
+                    && VideLibriApp.currentActivity instanceof BookListActivity
+                    ) {
+                ((BookListActivity)VideLibriApp.currentActivity).endLoading(VideLibriBaseActivity.LOADING_COVER_IMAGE);
+                book.image = result;
+                if (VideLibriApp.currentActivity == fragment.activity && book == fragment.book) fragment.updateImage();
+            }
         }
     }
 }
