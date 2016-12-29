@@ -52,10 +52,12 @@ public class Options extends VideLibriBaseActivity{
 
         ArrayList<String> accounts = new ArrayList<String>();
 
+        LayoutInflater inflater = getLayoutInflater();
+
         LinearLayout linearLayout = (LinearLayout) findViewById(R.id.viewaccounts);
         linearLayout.removeAllViews();
         for (final Bridge.Account acc: VideLibriApp.accounts) if (acc != null) {
-            CheckBox viewAcc = new CheckBox(this);
+            CheckBox viewAcc = (CheckBox) inflater.inflate(R.layout.checkbox, null);
             viewAcc.setText(acc.prettyName);
             viewAcc.setChecked(!VideLibri.hiddenAccounts.contains(acc));
             viewAcc.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -71,7 +73,6 @@ public class Options extends VideLibriBaseActivity{
 
         linearLayout = (LinearLayout) findViewById(R.id.accounts);
         linearLayout.removeAllViews();
-        LayoutInflater inflater = getLayoutInflater();
 
         for (final Bridge.Account acc: VideLibriApp.accounts) if (acc != null) {
             Button btn = (Button) inflater.inflate(R.layout.insetbutton, null);
