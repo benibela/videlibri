@@ -11,7 +11,9 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 import java.lang.*;
 import android.app.*;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
@@ -413,6 +415,13 @@ public class VideLibri extends  BookListActivity{
 
         primaryBookCache = makePrimaryBookCache(acc, bookCache, false);
         refreshBookCache();
+
+        if (VideLibriApp.getMainIcon() != currentMainIcon){
+            checkMainIcon();
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                setTaskDescription(new ActivityManager.TaskDescription(null, BitmapFactory.decodeResource(getResources(), VideLibriApp.getMainIcon(), null)));
+            }
+        }
     }
 
 

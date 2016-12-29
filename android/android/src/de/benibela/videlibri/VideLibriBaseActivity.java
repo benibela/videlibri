@@ -53,7 +53,6 @@ public class VideLibriBaseActivity extends AppCompatActivity implements Bridge.V
         setSupportActionBar(bar);
         ActionBar sbar = getSupportActionBar();
         sbar.setDisplayHomeAsUpEnabled(true);
-        sbar.setHomeAsUpIndicator(R.drawable.icon);
     }
 
     @Override
@@ -196,6 +195,7 @@ public class VideLibriBaseActivity extends AppCompatActivity implements Bridge.V
            refreshView = inflater.inflate(R.layout.actionbar_refresh_button, null);*/
 
         if (loadingItem != null) loadingItem.setVisible(loadingTasks.size() > 0);
+        checkMainIcon();
 
         for (Bundle b: VideLibriApp.pendingDialogs)
                 Util.showDialog(this, b);
@@ -225,6 +225,16 @@ public class VideLibriBaseActivity extends AppCompatActivity implements Bridge.V
         super.setTitle(title.length() > 0 ? "VideLibri: "+title : "VideLibri");
     } */
 
+    int currentMainIcon;
+    public void checkMainIcon(){
+        if (VideLibriApp.getMainIcon() != currentMainIcon) {
+            ActionBar ab = getSupportActionBar();
+            if (ab != null) {
+                currentMainIcon = VideLibriApp.getMainIcon();
+                ab.setHomeAsUpIndicator(currentMainIcon);
+            }
+        }
+    }
 
 
     void beginLoading(int loadingId){

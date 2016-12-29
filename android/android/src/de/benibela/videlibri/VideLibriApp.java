@@ -7,6 +7,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -59,6 +60,7 @@ public class VideLibriApp extends Application implements Bridge.VideLibriContext
         allThreadsDoneHandler = new Handler(){
             @Override
             public void handleMessage(Message msg) {
+                mainIconCache = 0;
                 VideLibriApp.runningUpdates.clear();
 
                 if (currentActivity != null) {
@@ -123,6 +125,31 @@ public class VideLibriApp extends Application implements Bridge.VideLibriContext
         }
     }
 
+    static int mainIconCache;
+    static int getMainIcon(){
+        if (mainIconCache != 0) return mainIconCache;
+        if (accounts == null || accounts.length == 0) return R.drawable.icon;
+        boolean hasRed = false;
+        boolean hasYellow = false;
+        if (currentActivity instanceof VideLibri) {
+            for (Bridge.Book book: ((VideLibri)currentActivity).primaryBookCache)
+                switch (book.getStatusColor()) {
+                    case Color.RED: hasRed = true; break;
+                    case Color.YELLOW: hasYellow = true; break;
+                }
+        } else {
+            for (Bridge.Account facc: VideLibriApp.accounts)
+                for (Bridge.Book book: Bridge.VLGetBooks(facc, false))
+                    switch (book.getStatusColor()) {
+                        case Color.RED: hasRed = true; break;
+                        case Color.YELLOW: hasYellow = true; break;
+                    }
+        }
+        if (hasRed) mainIconCache = R.drawable.iconr;
+        else if (hasYellow) mainIconCache = R.drawable.icon;
+        else mainIconCache = R.drawable.icong;
+        return mainIconCache;
+    }
 
 
 
