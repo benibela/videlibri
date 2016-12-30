@@ -201,6 +201,7 @@ public class Search extends VideLibriBaseActivity implements Bridge.SearchEventH
 
     @Override
     public boolean onSearchEvent(Bridge.SearcherAccess access, Bridge.SearchEvent event) {
+        if (debugTester != null && debugTester.onSearchEvent(access, event)) return true;
         if (access != searcher) return false;
         switch (event.kind) {
             case CONNECTED:
