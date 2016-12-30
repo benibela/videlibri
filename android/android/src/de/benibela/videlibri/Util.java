@@ -8,6 +8,7 @@ import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -85,16 +86,23 @@ public class Util {
 
         @Override
         public void onClick(DialogInterface dialogInterface, int i) {
-            if (!(getActivity() instanceof VideLibriBaseActivity)) return;
-            Bundle args = getArguments();
-            ((VideLibriBaseActivity)getActivity()).onDialogResult(args.getInt("id"), i, args.getBundle("more"));
+            notifyActivity(i);
         }
 
         @Override
         public void onCancel(DialogInterface dialog) {
-            if (!(getActivity() instanceof VideLibriBaseActivity)) return;
+            notifyActivity(MessageHandlerCanceled);
+        }
+
+        private void notifyActivity(int code){
+            if (!(getActivity() instanceof VideLibriBaseActivity)) {
+                Log.d("VideLibri", "No activity for dialog result");
+                return;
+            }
             Bundle args = getArguments();
-            ((VideLibriBaseActivity)getActivity()).onDialogResult(getArguments().getInt("id"), MessageHandlerCanceled, args.getBundle("more"));
+            int myId = args.getInt("id");
+            Log.d("VideLibri", "Dialog result "+code + " for "+ myId);
+            ((VideLibriBaseActivity)getActivity()).onDialogResult(myId, code, args.getBundle("more"));
         }
     }
 

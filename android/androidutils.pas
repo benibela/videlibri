@@ -1311,6 +1311,7 @@ end;
 function unwrapSearcher(const searcher: jobject): TLibrarySearcherAccessWrapper;
 begin
   result := TLibrarySearcherAccessWrapper(PtrInt(j.getLongField(searcher, searcherFields.nativePtrJ)));
+  if result = nil then raise Exception.create('Internal error: Searcher has been destroyed');
 end;
 
 function wrapSearcherPtr(const searcher: TLibrarySearcherAccess): int64;
