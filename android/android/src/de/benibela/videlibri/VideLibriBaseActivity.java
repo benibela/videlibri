@@ -140,12 +140,14 @@ public class VideLibriBaseActivity extends AppCompatActivity implements Bridge.V
                 intent = new Intent(context, LibraryList.class);
                 intent.putExtra("reason", tr(R.string.base_chooselibhomepage));
                 intent.putExtra("search", true);
+                intent.putExtra("whynot", false);
                 context.startActivityForResult(intent, REQUESTED_LIBRARY_HOMEPAGE);
                 return true;
             case R.id.libcatalogue:
                 intent = new Intent(context, LibraryList.class);
                 intent.putExtra("reason", tr(R.string.base_chooselibcat));
                 intent.putExtra("search", true);
+                intent.putExtra("whynot", false);
                 context.startActivityForResult(intent, REQUESTED_LIBRARY_CATALOGUE);
                 return true;
             case R.id.feedback:
