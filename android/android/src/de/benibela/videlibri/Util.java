@@ -81,21 +81,28 @@ public class Util {
         public Dialog onCreateDialog(Bundle savedInstanceState) {
             Bundle args = getArguments();
             int special = args.getInt("special");
-            String message = args.getString("message");
+            final String message = args.getString("message");
             String title = args.getString("title");
             String negative = args.getString("negativeButton");
             String neutral = args.getString("neutralButton");
             String positive = args.getString("positiveButton");
-            final String items[] = trs(args.get("items"));
+            String items[] = trs(args.get("items"));
 
             AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
             builder.setTitle(title != null ? title : "VideLibri" );
             switch (special) {
                 case DialogId.SPECIAL_LIBRARY_NOT_IN_LIST:
+                    if (message != null) {
+                        String []itemscopied = new String[items.length + 1];
+                        itemscopied[0] = message;
+                        for (int i=0;i<items.length;i++) itemscopied[i+1] = items[i];
+                        items = itemscopied;
+                    }
+                    final boolean skipFirst = message != null;
                     final String itemsSubCaptions[] = trs(args.get("itemsSubCaption"));
                     LayoutInflater inflater = getActivity().getLayoutInflater();
                     View v = inflater.inflate(R.layout.dialogbooklistlike, null);
-                    ((TextView) v.findViewById(R.id.textView)).setText(message);
+                    //((TextView) v.findViewById(R.id.textView)).setText(message);
                     ListView lv = (ListView)v.findViewById(R.id.listView);
                     lv.setAdapter(new ArrayAdapter<String>(getActivity(), R.layout.bookoverview, R.id.bookoverviewCaption, items){
                         @Override
@@ -103,6 +110,17 @@ public class Util {
                             View res = super.getView(position, convertView, parent);
                             if (res != null) {
                                 res.findViewById(R.id.bookoverviewDate).setVisibility(View.GONE);
+                                if (skipFirst) {
+                                    if (position > 0) position--;
+                                    else {
+                                        res.findViewById(R.id.bookoverviewCaption).setVisibility(View.GONE);
+                                        TextView moreview = ((TextView)res.findViewById(R.id.bookoverviewMore));
+                                        moreview.setVisibility(View.VISIBLE);
+                                        moreview.setText(message);
+                                        return res;
+                                    }
+                                }
+                                res.findViewById(R.id.bookoverviewCaption).setVisibility(View.VISIBLE);
                                 ((TextView)res.findViewById(R.id.bookoverviewMore)).setText(position < itemsSubCaptions.length ? itemsSubCaptions[position] : "");
                             }
                             return res;
@@ -112,6 +130,8 @@ public class Util {
                     lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                         @Override
                         public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                            if (skipFirst) i--;
+                            if (i < 0) return;
                             notifyActivity(i);
                             dismiss();
                         }
