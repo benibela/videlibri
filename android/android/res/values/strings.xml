@@ -107,7 +107,7 @@
     <string name="lay_account_delete">löschen!</string>
     <string name="renew">verlängern</string>
     <string name="lay_chooselib_choose">Wählen Sie die Bücherei:</string>
-    <string name="lay_chooselib_whynot">Hier drücken, falls die gesuchte Bibliothek in der Liste fehlt.</string>
+    <string name="lay_chooselib_whynot">Fehlt die gesuchte Bibliothek in der Liste? Hier drücken.</string>
     <string name="lay_feedback_label_formular">Per Formular:</string>
     <string name="lay_feedback_label_message">Feedback:</string>
     <string name="lay_feedback_label_name">Ihr Name (optional):</string>
