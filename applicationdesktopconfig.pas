@@ -305,6 +305,7 @@ begin
   try
     updater:=TAutoUpdater.create(versionNumber,programpath,'http://www.videlibri.de/updates/version.xml'
                                                           ,'http://www.videlibri.de/updates/changelog.xml');
+    updater.language := 'de';
 
     if updater.existsUpdate then begin
       if { (not auto) or} (Application.MessageBox(pchar(Format(rsUpdateFound, [floattostr(updater.newestVersion/1000), #13#10#13#10,
