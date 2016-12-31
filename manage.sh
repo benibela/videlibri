@@ -212,7 +212,20 @@ downloadTable)
     cd _meta/help
     webUpload *.css *.gif *.html /help/
   ;;
+  
+  colorize-icons)
+    function greeny { convert "$1" -modulate 100,100,133  "$2";  }
+    function reddy { convert "$1" -modulate 100,100,68  "$2";  }
 
+    greeny data/yellow48.png data/green48.png 
+    reddy data/yellow48.png data/red48.png     
+    greeny android/android/res/drawable-hdpi/icon.png android/android/res/drawable-hdpi/icong.png
+    reddy android/android/res/drawable-hdpi/icon.png android/android/res/drawable-hdpi/iconr.png
+    greeny android/android/res/drawable-xhdpi/icon.png android/android/res/drawable-xhdpi/icong.png
+    reddy android/android/res/drawable-xhdpi/icon.png android/android/res/drawable-xhdpi/iconr.png
+    
+  ;;
+  
 defaults)
   setFileDefaults  VideLibri/VideLibri%20$VERSION/
 ;;
