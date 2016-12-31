@@ -105,7 +105,9 @@
     <string name="lay_account_label_accountdisplayname">Name des Kontos in VideLibri:</string>
     <string name="lay_account_create">Konto registrieren</string>
     <string name="lay_account_delete">löschen!</string>
-    <string name="renew">verlängern</string><string name="lay_chooselib_choose">Wählen Sie die Bücherei:</string>
+    <string name="renew">verlängern</string>
+    <string name="lay_chooselib_choose">Wählen Sie die Bücherei:</string>
+    <string name="lay_chooselib_whynot">Hier drücken, falls die gesuchte Bibliothek in der Liste fehlt.</string>
     <string name="lay_feedback_label_formular">Per Formular:</string>
     <string name="lay_feedback_label_message">Feedback:</string>
     <string name="lay_feedback_label_name">Ihr Name (optional):</string>
@@ -124,10 +126,12 @@
     <string name="lay_newlib_label_adress">Adresse:</string>
     <string name="install">installieren</string>
     <string name="lay_newlib_caption_ownlib">Eigene Bibliothek :</string>
-    <string name="lay_newlib_label_id">Interne Id:</string>
-    <string name="lay_newlib_label_name">Name:</string>
+    <string name="lay_newlib_label_id">Interne Id: (eindeutige Zufallszahl, um die Bibliothek zu identifizieren)</string>
+    <string name="lay_newlib_label_name">Name: (beliebige, irrelevante Bezeichnung)</string>
     <string name="lay_newlib_edit_newlib">meine neue Bib</string>
-    <string name="lay_newlib_label_template">Zugrunde liegendes Template:</string>
+    <string name="lay_newlib_label_template">Zugrunde liegendes Template: (das verwendete Katalogsystem)</string>
+    <string name="lay_newlib_label_template_description">In diesem Abschnitt können bereitgestellte Metadaten von einer HTTP-Adresse heruntergeladen und installiert werden. Diese Metadaten können sowohl die Parameter für einen Server/Katalogsystem als auch neue ausführbare Programmteile (Template) enthalten. Hiermit kann also der Zugriff auf beliebige Bibliothekssysteme installiert werden, aber nur wenn bereits jemand alle Daten im VideLibri-(XQuery)-Format vorbereitet hat. Jemand wie entweder die Bibliothek selbst, der VideLibri-Entwickler oder ein beliebiger Leser. </string>
+    <string name="lay_newlib_label_args_description">In diesem Abschnitt können Metadaten für eine Bibliothek direkt eingegeben werden, aber nur die Serverparameter. Daher kann man hiermit auf jede Bibliothek zugreifen, die ein Katalogsystem verwendet, welches auch von einer anderen, VideLibri bereits bekannten Bibliothek eingesetzt wird. </string>
     <string name="create">erstellen</string>
     <string name="delete">löschen</string>
     <string name="lay_options_caption_viewmode">Angezeigte Ausleihen:</string>
@@ -254,4 +258,18 @@
     </string>
     <string name="notificationNoAccounts">Ohne registrierte Konten können keine Ausleihwarnungen angezeigt werden.</string>
     <string name="notificationNoAccountsTitle">VideLibri: Keine Konten</string><string name="lay_account_label_type">Kontoart:</string><string name="lay_account_intern">intern (z.B.: Student)</string><string name="extern">extern</string>
+
+
+    <string name="foreignlibrariesnotinthelist">
+        Es gibt keine vollständige Liste der unterstützten Bibliotheken, da VideLibri für die Ausleihkontoverwaltung konzipiert wurde, so dass nur Bibliotheken gelistet werden konnten, die ein Testkonto bereitgestellt haben.
+        Um auf Konten weiterer Bibliotheken zuzugreifen, wurde deshalb eine möglichst einfache Programmiersprache entwickelt, mit denen jeder seine eigene Bibliothek hinzufügen kann, so dass VideLibri ähnlich wie ein Browser auf alle Webseiten zugreifen kann.
+        Mittlerweile gibt es folgende Möglichkeiten, um es mit einer nicht gelisteten Bibliothek zu verwenden.</string>
+    <string name="foreignlibrariesnotinthelist_easy">1. Die Adresse (URL) des Bibliothekskatalog eingeben</string>
+    <string name="foreignlibrariesnotinthelist_easy_req">falls die Bibliothek ein bereits unterstützes System verwendet.</string>
+    <string name="foreignlibrariesnotinthelist_install">2. Die nötigen Katalogmetadaten herunterladen</string>
+    <string name="foreignlibrariesnotinthelist_install_req">falls die Bibliothek oder jemand anderes ein fertiges VideLibri-Template bereitstellt.</string>
+    <string name="foreignlibrariesnotinthelist_diy">3. Selbst ein VideLibri-Template erstellen</string>
+    <string name="foreignlibrariesnotinthelist_diy_req">benötigt einen Desktop-Computer, und GreaseMonkey oder Programmiererfahrung.</string>
+    <string name="foreignlibrariesnotinthelist_mail">4. Eine E-Mail schreiben, damit die Bibliothek in der nächsten VideLibri-Version gelistet wird. </string>
+    <string name="foreignlibrariesnotinthelist_mail_req">wozu ich (vor allem bei unbekannten System) eben ein Benutzerkonto zum Testen brauche. </string>
 </resources>

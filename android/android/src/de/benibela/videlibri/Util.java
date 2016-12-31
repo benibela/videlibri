@@ -9,9 +9,13 @@ import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import java.text.DateFormat;
 import java.util.*;
@@ -51,6 +55,21 @@ public class Util {
         } */
         }
     }
+    static public String[] tr(Context context, int[] ids){
+        String[] res = new String[ids.length];
+        for (int i=0;i<ids.length;i++)
+            res[i] = tr(context, ids[i]);
+        return res;
+    }
+    static public String[] trs(Object ids){
+        if (ids == null) return null;
+        if (ids instanceof String[]) return (String[]) ids;
+        else {
+            Context context = VideLibriApp.currentContext();
+            if (context != null && ids instanceof int[]) return tr(context, (int[])ids);
+        }
+        return new String[]{};
+    }
 
     static public boolean equalStrings(String s, String t) {
         return s == null ? t == null : s.equals(t);
@@ -61,25 +80,57 @@ public class Util {
         @Override
         public Dialog onCreateDialog(Bundle savedInstanceState) {
             Bundle args = getArguments();
+            int special = args.getInt("special");
             String message = args.getString("message");
             String title = args.getString("title");
             String negative = args.getString("negativeButton");
             String neutral = args.getString("neutralButton");
             String positive = args.getString("positiveButton");
-            String items[] = args.getStringArray("items");
+            final String items[] = trs(args.get("items"));
 
             AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
             builder.setTitle(title != null ? title : "VideLibri" );
-            if (message != null)
-                builder.setMessage(message);
+            switch (special) {
+                case DialogId.SPECIAL_LIBRARY_NOT_IN_LIST:
+                    final String itemsSubCaptions[] = trs(args.get("itemsSubCaption"));
+                    LayoutInflater inflater = getActivity().getLayoutInflater();
+                    View v = inflater.inflate(R.layout.dialogbooklistlike, null);
+                    ((TextView) v.findViewById(R.id.textView)).setText(message);
+                    ListView lv = (ListView)v.findViewById(R.id.listView);
+                    lv.setAdapter(new ArrayAdapter<String>(getActivity(), R.layout.bookoverview, R.id.bookoverviewCaption, items){
+                        @Override
+                        public View getView(int position, View convertView, ViewGroup parent) {
+                            View res = super.getView(position, convertView, parent);
+                            if (res != null) {
+                                res.findViewById(R.id.bookoverviewDate).setVisibility(View.GONE);
+                                ((TextView)res.findViewById(R.id.bookoverviewMore)).setText(position < itemsSubCaptions.length ? itemsSubCaptions[position] : "");
+                            }
+                            return res;
+                        }
+                    }
+                    );
+                    lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                        @Override
+                        public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                            notifyActivity(i);
+                            dismiss();
+                        }
+                    });
+                    builder.setView(v);
+
+                    break;
+                default:
+                    if (message != null)
+                        builder.setMessage(message);
+                    if (items != null)
+                        builder.setItems(items, this);
+            }
             if (negative != null)
                 builder.setNegativeButton(negative, this);
             if (neutral != null)
                 builder.setNeutralButton(neutral, this);
             if (positive != null)
                 builder.setPositiveButton(positive, this);
-            if (items != null)
-                builder.setItems(items, this);
             builder.setOnCancelListener(this);
             return builder.create();
         }

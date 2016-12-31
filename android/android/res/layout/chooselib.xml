@@ -15,6 +15,12 @@
     <ScrollView
             android:layout_width="match_parent"
             android:layout_height="fill_parent"
-            android:id="@+id/libListView" android:layout_gravity="right|center_vertical"
+            android:id="@+id/libListView" android:layout_gravity="right|center_vertical" android:layout_weight="1"
             />
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/lay_chooselib_whynot"
+            android:id="@+id/textViewLibWhyNot" android:layout_gravity="center_vertical|left" android:padding="5sp"
+            android:clickable="true" android:singleLine="true" android:layout_weight="0"/>
 </LinearLayout>

@@ -19,4 +19,6 @@ class DialogId {
     public static final int SEARCHER_CHOOSE_ORDER = 7086;
     public static final int SEARCHER_CHOOSE_ORRERTITLE = 7087;
     public static final int SEARCHER_CHOOSE_TARGET_ACCOUNT = 7088;
+
+    public static final int SPECIAL_LIBRARY_NOT_IN_LIST = 10000;
 }

@@ -11,6 +11,7 @@ import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.StateListDrawable;
 import android.graphics.drawable.TransitionDrawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Debug;
 import android.util.Log;
@@ -124,6 +125,23 @@ public class LibraryList extends VideLibriBaseActivity {
 
         scrollView = ((ScrollView) findViewById(R.id.libListView));
         scrollView.addView(makeLibView());
+
+        View whynot = findViewById(R.id.textViewLibWhyNot);
+        if (whynot == null) return;
+        if (!getIntent().getBooleanExtra("whynot", true)) whynot.setVisibility(View.GONE);
+        whynot.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Bundle args = new Bundle();
+                args.putInt("id", DialogId.SPECIAL_LIBRARY_NOT_IN_LIST);
+                args.putInt("special", DialogId.SPECIAL_LIBRARY_NOT_IN_LIST);
+                args.putString("message", tr(R.string.foreignlibrariesnotinthelist));
+                args.putIntArray("items", new int[]{R.string.foreignlibrariesnotinthelist_easy, R.string.foreignlibrariesnotinthelist_install, R.string.foreignlibrariesnotinthelist_diy, R.string.foreignlibrariesnotinthelist_mail});
+                args.putIntArray("itemsSubCaption", new int[]{R.string.foreignlibrariesnotinthelist_easy_req, R.string.foreignlibrariesnotinthelist_install_req, R.string.foreignlibrariesnotinthelist_diy_req, R.string.foreignlibrariesnotinthelist_mail_req});
+                Util.showDialog(LibraryList.this, args);
+            }
+        });
+
     }
 
 
@@ -320,4 +338,28 @@ public class LibraryList extends VideLibriBaseActivity {
 
     }
 
+
+    @Override
+    boolean onDialogResult(int dialogId, int buttonId, Bundle more) {
+        switch (dialogId) {
+            case DialogId.SPECIAL_LIBRARY_NOT_IN_LIST:
+                Intent intent;
+                switch (buttonId) {
+                    case 0:case 1:
+                        intent = new Intent(this, NewLibrary.class);
+                        intent.putExtra("mode", buttonId == 1 ? 0 : NewLibrary.MODE_LIBRARY_ENTER_NEW_DATA);
+                        startActivity(intent);
+                        break;
+                    case 2:
+                        startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.videlibri.de/help/neuebibliothek.html")));
+                        break;
+                    case 3:
+                        intent = new Intent(this, Feedback.class);
+                        startActivity(intent);
+                        break;
+                }
+                return true;
+        }
+        return super.onDialogResult(dialogId, buttonId, more);
+    }
 }

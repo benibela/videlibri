@@ -16,6 +16,7 @@ public class NewLibrary extends VideLibriBaseActivity{
 
 
     static final int MODE_LIBRARY_MODIFY = 1237;
+    static final int MODE_LIBRARY_ENTER_NEW_DATA = 1238;
 
     Bridge.LibraryDetails details;
 
@@ -141,6 +142,12 @@ spinner.setAdapter(adapter);*/
             }
         });
 
+        if (mode == MODE_LIBRARY_ENTER_NEW_DATA || mode == MODE_LIBRARY_MODIFY) {
+            ScrollView sv = (ScrollView) findViewById(R.id.scrollView);
+            View target = findViewById(R.id.id);
+            target.requestFocus();
+            //sv.requestChildFocus(target, target);
+        }
     }
 
     EditText addTemplateVariable(LinearLayout linearLayout, LayoutInflater inflater, String name, String desc, String value){
