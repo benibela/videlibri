@@ -119,7 +119,10 @@ brokenServers)
        echo something | openssl s_client -connect $server:443 > $TMPFILE
        if grep -qv "BEGIN CERTIFICATE" $TMPFILE; then 
          #openssl fails to negotiate protocol version for some servers. only tls1 prints certificate data
-         echo something | openssl s_client -connect $server:443 -tls1 > $TMPFILE 
+         echo something | openssl s_client -connect $server:443 -tls1 > $TMPFILE;
+         if grep -qv "BEGIN CERTIFICATE" $TMPFILE; then  
+           cp certs/$server $TMPFILE
+         fi
        fi
        
        cp $KEYSTORE $TEMPKEYSTORE
