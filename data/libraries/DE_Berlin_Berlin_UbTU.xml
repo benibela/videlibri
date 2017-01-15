@@ -9,12 +9,13 @@
   <template value="primo"/>
 
 
-  <variable name="server" value="ublibsprod.ub.tu-berlin.de/"/>
-  <variable name="institute" value="TUK50"/>
+  <variable name="server" value="ublibsprod.ub.tu-berlin.de/"/><!--veraltet?-->
+  <variable name="institute" value="TUK50"/><!--veraltet?-->
 
   <variable name="baseurl" value="http://portal.ub.tu-berlin.de/primo_library/libweb/action/"/>
   <variable name="institute" value="TUB"/>
 
+  <!-- get links from stupid buttons on anmelden page-->
   <variable name="login-url-1" value="https://tu-berlin.hosted.exlibrisgroup.com/primo_library/libweb/action/login.do?loginFn=signin&vid=TUB&authProfileName=SAML+(Shibboleth)&targetURL=https%3a%2f%2ftu-berlin.hosted.exlibrisgroup.com%2fprimo_library%2flibweb%2faction%2fdlBasketGet.do%3fvid%3dTUB%26redirectTo%3dmyAccount%26fromLogin%3dtrue%26fromSitemap%3d1"/>
   <variable name="login-url-2" value="https://tu-berlin.hosted.exlibrisgroup.com/primo_library/libweb/action/login.do?loginFn=signin&vid=TUB&authProfileName=Alma+native&targetURL=https%3a%2f%2ftu-berlin.hosted.exlibrisgroup.com%2fprimo_library%2flibweb%2faction%2fdlBasketGet.do%3fvid%3dTUB%26redirectTo%3dmyAccount%26fromLogin%3dtrue%26fromSitemap%3d1"/>
 

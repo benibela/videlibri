@@ -7,7 +7,7 @@
       <t:loop>
         <TR>
           <TD/><!--number-->
-          <TD>{$book := {}}<input>{$book._renewLoanId := @value}</input>?</TD>
+          <TD>{$book := {}}<input>{$book._renewLoanId := @value, book.status := @title}</input>?</TD>
           <TD>{$book.title := ., let $href := ./a/@href return ($book._detailUrl := resolve-uri($href), $hold := contains($href, "type=hold"))}</TD>
           <TD>{$book.author}</TD>
           <t:if test="$hold">
@@ -25,7 +25,7 @@
               $book.libraryBranch := $split[1], $book.id := $split[2])}</td>
            <TD>
            {if (./a) then (book.statusId := "curious", book._renewUrl := resolve-uri(./a/@href))
-            else (book.status := ., book.statusId := "critical")}
+            else ((let $s := normalize-space() where $s return book.status := .), book.statusId := "critical")}
            </TD>
           </t:else>
         </Tr>

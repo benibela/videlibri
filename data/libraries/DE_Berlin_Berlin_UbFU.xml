@@ -1,30 +1,20 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <library>
   <deprecatedName value="408"/>
-  <username matches="^HU[A-Z]{2}\d+$"/>
-  <password matches="."/>
-  <maxRenewCount value="5"/>
 
   <longName value="Universitätsbibliothek der FU-Berlin"/>
   <shortName value="UBFU Berlin"/>
-  <catalogue value="http://aleph-www.ub.fu-berlin.de"/>
-
-
-  
-  <!--ALEPH System:-->
-  <template value="aleph_ubFUb"/>
-  <variable name="server" value="aleph-www.ub.fu-berlin.de/"/>
 
   <!-- PRIMO System   -->
   <template value="primo"/>
   <variable name="baseurl" value="http://primo.kobv.de/primo_library/libweb/action/"/>
   <variable name="institute" value="FUB"/>
+  <variable name="login-url-1" value="https://fu-berlin.hosted.exlibrisgroup.com//primo_library/libweb/action/login.do?loginFn=signin&vid=FUB&targetURL=https%3a%2f%2ffu-berlin.hosted.exlibrisgroup.com%2fprimo_library%2flibweb%2faction%2fsearch.do%3fvid%3dFUB%26amp%3bdscnt%3d0%26amp%3binitializeIndex%3dtrue&isMobile=false"/>
+  <variable name="login-url-2" value="https://fu-berlin.hosted.exlibrisgroup.com//primo_library/libweb/action/login.do?loginFn=signin&vid=FUB&targetURL=https%3a%2f%2ffu-berlin.hosted.exlibrisgroup.com%2fprimo_library%2flibweb%2faction%2fsearch.do%3fvid%3dFUB%26amp%3bdscnt%3d0%26amp%3binitializeIndex%3dtrue&isMobile=false"/>
   
-  <!--<variable name="Location" value="Düsseldorf"/>
-  <variable name="searchid-digibib" value="SERVICEGROUP1.SERVICE.SEARCH_ULBD"/>-->
 
   <homepage value="http://www.ub.fu-berlin.de/"/>
   <testing-search value="ja" date="2013-07-07"/>
-  <testing-account value="ja" date="2012-07-12"/>
+  <testing-account value="ja" date="2017-01-15"/>
   <testing-renew value="ja" date="2012-07-12"/>
 </library>

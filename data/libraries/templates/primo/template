@@ -18,7 +18,7 @@
 </action>
 
 <action id="update-all">
-  <s>$request := get("login-url-" || $type, ()),
+  <s>$request := get("login-url-" || (if ($type ge 1) then $type else 1), ()),
      if ($request) then () else $request := get("login-url")
   </s>
   
