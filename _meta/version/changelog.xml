@@ -1,10 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?xml-stylesheet type="text/xsl" href="../changelog.xsl"?>
 <changelog program="VideLibri">
-  <build version="1865" date="2016-12-31">
+  <build version="1866" date="2017-01-10">
     <download url="http://videlibri.sourceforge.net/updates/videlibri-setup.exe" platform="WINDOWS" execute="&quot;$DOWNLOAD&quot;  /SP- /noicons &quot;/dir=$OLDPATH&quot; " restart="true"/>
     <download url="http://videlibri.sourceforge.net/updates/videlibri-linux32.deb" platform="LINUX32" execute=""/>
     <download url="http://videlibri.sourceforge.net/updates/videlibri-linux64.deb" platform="LINUX64" execute=""/>
+    <fix>android: Neues HTTPS-Zertifikat für Linz und Kiru.</fix>
+  </build>
+  <build version="1865" date="2016-12-31">
     <fix>android: verarbeite Drehungen von Tabletgeräten korrekt: Dialoge/Markierungen verschwinden nicht mehr und die Suche wird nicht neugestartet</fix>
     <fix>android: Layoutdisplayfehler (z.B.: falsche Farben, Gesamtanzahlen, verschwindende Texte beim Wechseln zu anderen Apps, unnötige Ladesymbole)</fix>
     <fix>android: Absturz der neuen Bibliotheksseite seit der Modernisierung in 1.860</fix>
