@@ -32,6 +32,8 @@
       <div  t:test="$datasend" class="error">{vl:raise(.)}</div>
       <span t:test="$datasend" class="login-error">{vl:raise(.)}</span>
       <font t:test="$datasend" color="red">{vl:raise(.)}<!--htw--></font>
+      <h2 t:test="$datasend" style="color: red;">{vl:raise(.)}<!--fu--></h2>
+      <p t:test="$datasend" class="error">{vl:raise(.)}<!--hu intern--></p>
       
       <form>
         <input name="username"/>
