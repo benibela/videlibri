@@ -2,12 +2,14 @@
 <library>
   <longName value="Hochschulbibliothek der Fachhochschule Münster"/>
   
-  <template value="sisis"/>  
-  <variable name="server" value="https://hb063.fh-muenster.de/webOPACClient/"/>
-  <variable name="startparams" value="?Login=jopacf"/>
+  <template value="digibib"/>
+  <variable name="location" value="836"/>
+  <variable name="view" value="836:BiblKat"/>
+  <!--<variable name="selectedLibraries" value="SERVICEGROUP1.SERVICE.SEARCH_BTHA"/>  selectedLibraries is overriden by searchid-templatename-->
+  <variable name="searchid-digibib" value="SERVICEGROUP1.SERVICE.SEARCH_FHBM-x"/>
   
   <homepage value="http://www.fh-muenster.de/BIBL/index.php"/>
-  <testing-search value="ja" date="2013-10-09"/>
-  <testing-account value="ja" date="2013-11-14"/>
-  <testing-renew value="ja" date="2013-11-14"/>
+  <testing-search value="ja" date=""/>
+  <testing-account value="" date=""/>
+  <testing-renew value="" date=""/>
 </library>
