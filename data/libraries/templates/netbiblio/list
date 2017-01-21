@@ -1,7 +1,7 @@
 <div class="wos-main">
 <div class="wos-box">
 <div class="wo-com wo-com-account wo-com-circulations">
-<div class="wo-grid">
+<div class="wo-grid" t:optional="true">
    <!--id="grd-circulations" -->
 
 <table class="table wo-grid-table">
