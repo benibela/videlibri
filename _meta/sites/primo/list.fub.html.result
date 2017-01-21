@@ -1,0 +1,9 @@
+book := {}
+orderPage := ""
+orderPage := "file:///primo_library/libweb/action/myAccountMenu.do?activity=requests&amp;fromLink=menu.myaccount.requests"
+hold := false()
+book := {"statusId": "critical", "id": "", "libraryBranch": "", "dueDate": "2017-01-16", "author": "Ford, Robert.", "_detailUrl": "file:///primo_library/libweb/action/myAccountLoan.do?command=details&loanID=9792424170001717&type=active&pagingActivated=true&partialResult=false", "title": "Dolores", "status": "Nicht verlängerbar", "_renewLoanId": "9792424170001717"}
+hold := false()
+book := {"statusId": "critical", "id": "", "libraryBranch": "", "dueDate": "2017-01-16", "author": "Lowe, Bernard/td>", "_detailUrl": "file:///primo_library/libweb/action/myAccountLoan.do?command=details&loanID=9792424170001234&type=active&pagingActivated=true&partialResult=false", "title": "Maeve", "status": "Nicht verlängerbar", "_renewLoanId": "9792424170001234"}
+hold := false()
+book := {"statusId": "critical", "id": "", "libraryBranch": "", "dueDate": "2017-01-16", "author": "Counter, Mick", "_detailUrl": "file:///primo_library/libweb/action/myAccountLoan.do?command=details&loanID=9792424170008765&type=active&pagingActivated=true&partialResult=false", "title": "one two three", "status": "Nicht verlängerbar", "_renewLoanId": "9792424170008765"}
