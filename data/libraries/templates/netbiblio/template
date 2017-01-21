@@ -40,13 +40,34 @@
 
 
 <action id="search">
+  <s>
+    search-keys := {"author": "Person", "title": "T", "keywords": "Thema", "isbn": "I"},
+    tempcount := 0,
+    request := {
+    "url": $baseurl || "/search/extended/submit",
+    "method": "POST",
+    "post": join((for $key in jn:keys($book) return if (boolean($book($key)) and exists($search-keys($key))) then (
+         "Request.SearchTerm=" || uri-encode($book($key)),
+         "Request.SearchField=" || uri-encode($search-keys($key)),
+         "Request.SearchOperator=AND",
+         (tempcount := $tempcount + 1)[0]
+         ) else (), 
+         for $filler in 1 to 2 - $tempcount return ("Request.SearchTerm=", "Request.SearchField=W", "Request.SearchOperator=AND"[$tempcount = 0]), (:500 error without 2 search terms:)
+         if (boolean($book.year)) then (
+           "Filter.StartDate="||$book.year,
+           "Filter.EndDate="||$book.year
+         ) else ()  ), $amp)
+  }</s>
+  <page url="{$request}" templateFile="searchList"/>
 </action>
 
-<action id="search-next-page">
+<action id="search-next-page"> 
+  <page url="{$next-page}" templateFile="searchList"/>
 </action>
 
 
 <action id="search-details">
+  <page url="{$book._detailUrl}" templateFile="searchDetails"/>
 </action>
 
 

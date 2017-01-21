@@ -1,0 +1,324 @@
+<body>
+
+<div class="panel panel-default wo-list-group">
+	<div class="panel-body">
+		<div class="wo-list">
+			<!--<div class="wo-list-right">
+				<div class="wo-list-right-item">
+					<img src="http://ecx.images-amazon.com/images/I/41Cp5MeT7FL.03._SY160_.jpg" class="wo-cover wo-cover-fullview" />
+				</div>
+			</div>-->
+      <t:if>
+        <div class="wo-list-label">{$key}</div>
+        <div class="wo-list-content">{vl:set-book-property($key, .)}</div>
+      </t:if>+
+		</div>
+	</div>
+</div>
+<!--
+<div id="grd-items" class="wo-grid">
+	<div class="wo-grid-meta wo-grid-meta-top">
+		<div class="wo-grid-meta-row clearfix">
+			<div class="wo-grid-actions pull-right">
+				<button class="ladda-button wo-grid-action-btn btn-default btn" data-action="/account/makeitemreservation" data-actionhandling="get" data-additionalparameters="{&quot;returnUrl&quot;:&quot;/search/fullview?searchField=W&amp;searchType=Simple&amp;searchTerm=test&amp;searchResultId=5012&amp;sort=Notices.Date1+DESC%2cNotices.Author%2cNotices.Title&amp;page=1&amp;pageSize=25&amp;fvIndex=12&amp;gridPosition=wo-row_158261&quot;}" data-confirmationtext="" data-ismobilerowaction="false" data-isrowaction="true" data-issinglerowaction="true" data-needsconfirmation="false" data-selectablerows="155968" data-spinner-color="#333" data-style="zoom-in" type="button"><span class="ladda-label"><span class="glyphicon glyphicon-book"></span> Reservieren</span></button>
+			</div>
+		</div>
+	</div><table class="table wo-grid-table">
+		<thead>
+			<tr>
+				<th><input type="checkbox" checked="checked" class="wo-grid-chkall" /></th><th class="sortable"><span class="wo-grid-header-content"><a href="/search/fullview?searchField=W&amp;searchType=Simple&amp;searchTerm=test&amp;searchResultId=5012&amp;fvindex=12&amp;sort=Notices.Date1%20DESC%2CNotices.Author%2CNotices.Title&amp;page=1&amp;pageSize=25&amp;itemsort=Items.ItemNr&amp;gridPosition=wo-row_158261">Exemplarnr.</a></span></th><th class="combined"><span class="wo-grid-header-content"><a href="/search/fullview?searchField=W&amp;searchType=Simple&amp;searchTerm=test&amp;searchResultId=5012&amp;fvindex=12&amp;sort=Notices.Date1%20DESC%2CNotices.Author%2CNotices.Title&amp;page=1&amp;pageSize=25&amp;itemsort=Items.LocationCode&amp;gridPosition=wo-row_158261">Standort</a> / <a href="/search/fullview?searchField=W&amp;searchType=Simple&amp;searchTerm=test&amp;searchResultId=5012&amp;fvindex=12&amp;sort=Notices.Date1%20DESC%2CNotices.Author%2CNotices.Title&amp;page=1&amp;pageSize=25&amp;itemsort=Items.Location2Code&amp;gridPosition=wo-row_158261">Abteilung</a></span></th><th class="sortable"><span class="wo-grid-header-content"><a href="/search/fullview?searchField=W&amp;searchType=Simple&amp;searchTerm=test&amp;searchResultId=5012&amp;fvindex=12&amp;sort=Notices.Date1%20DESC%2CNotices.Author%2CNotices.Title&amp;page=1&amp;pageSize=25&amp;itemsort=Items.CallNumber&amp;gridPosition=wo-row_158261">Signatur</a></span></th><th><span class="wo-grid-header-content">Verfügbarkeit</span></th><th><span class="wo-grid-header-content"></span></th><th class="sortable"><span class="wo-grid-header-content"><a href="/search/fullview?searchField=W&amp;searchType=Simple&amp;searchTerm=test&amp;searchResultId=5012&amp;fvindex=12&amp;sort=Notices.Date1%20DESC%2CNotices.Author%2CNotices.Title&amp;page=1&amp;pageSize=25&amp;itemsort=Circulations.DueDate%20DESC&amp;gridPosition=wo-row_158261">Fälligkeitsdatum<span class="wo-grid-sort glyphicon glyphicon-triangle-top"></span></a></span></th><th class="sortable"><span class="wo-grid-header-content"><a href="/search/fullview?searchField=W&amp;searchType=Simple&amp;searchTerm=test&amp;searchResultId=5012&amp;fvindex=12&amp;sort=Notices.Date1%20DESC%2CNotices.Author%2CNotices.Title&amp;page=1&amp;pageSize=25&amp;itemsort=Items.ActualReservations&amp;gridPosition=wo-row_158261">Reservationen</a></span></th><th><span class="wo-grid-header-content">Reservieren</span></th>
+			</tr>
+		</thead><tbody>
+			<tr id="wo-row_155968" class="active-row">
+				<td class="wo-grid-cell-checkbox"><input type="checkbox" value="155968" checked="checked" class="wo-grid-checkbox" /></td><td>72076964</td><td>Sachbereich<br />Psychologie</td><td>159.952 MISC</td><td>ausgeliehen</td><td><span class="wo-disposability-icon wo-disposability-checkedOut" alt="ausgeliehen">&#9899;&#65038;</span></td><td>15.02.2017</td><td>0</td><td><a href="/account/makeitemreservation?returnUrl=%2Fsearch%2Fshortview%3FsearchField%3DW%26searchType%3DSimple%26searchTerm%3Dtest%26searchResultId%3D5012%26sort%3DNotices.Date1%2520DESC%252CNotices.Author%252CNotices.Title%26page%3D1%26pageSize%3D25%26gridPosition%3Dwo-row_158261&selectedItems=155968" class="btn btn-default">Reservieren</a></td>
+			</tr>
+		</tbody>
+	</table>
+</div><div data-loadasync="Summary" class="panel panel-default wo-list-group" style="display: none;">
+	<div data-toggle="collapse" data-target="#lst-fullview_Summary" class="panel-heading collapsed">
+		<h3 class="panel-title">
+			<span class="wo-list-group-indicator glyphicon glyphicon-chevron-down"></span> Zusammenfassung
+		</h3>
+	</div><div id="lst-fullview_Summary" class="panel-collapse collapse">
+		<div class="panel-body">
+
+		</div>
+	</div>
+</div><div data-loadasync="Authorities" class="panel panel-default wo-list-group" style="display: none;">
+	<div data-toggle="collapse" data-target="#lst-fullview_Authorities" class="panel-heading collapsed">
+		<h3 class="panel-title">
+			<span class="wo-list-group-indicator glyphicon glyphicon-chevron-down"></span> Autoren/Themen
+		</h3>
+	</div><div id="lst-fullview_Authorities" class="panel-collapse collapse">
+		<div class="panel-body">
+
+		</div>
+	</div>
+</div><div data-loadasync="OtherDocumentsRead" class="panel panel-default wo-list-group" style="display: none;">
+	<div class="panel-heading">
+		<h3 class="panel-title">
+			Das k&#246;nnte Sie auch interessieren
+		</h3>
+	</div><div class="panel-body">
+
+	</div>
+</div>
+</div>
+
+
+  
+</div>
+
+
+   <div class="modal fade" id="marcView" tabindex="-1">
+      <div class="modal-dialog modal-lg">
+         <div class="modal-content">
+            <div class="modal-header">
+               <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span></button>
+               <h4 class="modal-title">MARC-Ansicht</h4>
+            </div>
+            <div class="modal-body wo-marcview-loading">
+               <p>Lade..</p>
+            </div>
+            <div class="modal-footer">
+               <button type="button" class="btn btn-default" data-dismiss="modal">Schliessen</button>
+            </div>
+         </div>
+      </div>
+   </div>
+
+
+
+
+
+
+               </div>
+            </div>
+
+               <div class="wos-sidebar-l">
+                  <div class="wos-box">
+                        <div class="panel panel-primary wo-panel wo-sidebar-l-meta">
+                           <div class="wo-panel-body">
+                              
+   <div class="dropdown wo-sidebar wo-sidebar-links yamm">
+      <button class="btn btn-default dropdown-toggle wo-icon-btn wo-sidebar-btn" type="button" data-toggle="dropdown">
+         <div class="wo-icon-btn-left">
+            <span class="glyphicon glyphicon-link"></span>
+         </div>
+         <div class="wo-icon-btn-center">
+            Links
+         </div>
+         <div class="wo-icon-btn-right">
+            <span class="caret"></span>
+         </div>
+      </button>
+      <ul class="dropdown-menu yamm-content wo-dropdownmenu-s wo-dropdownmenu-medialist">
+         <li>
+               <a class="media" href="https://www.swissbib.ch/" >
+                  <div class="media-body">
+                     <div class="wo-media-title">Swissbib</div>
+                        <small class="wo-media-description">
+                           Swissbib ist der Katalog aller Schweizer Hochschulbibliotheken, der Schweizerischen Nationalbibliothek, zahlreicher Kantonsbibliotheken und weiterer Institutionen.
+                        </small>
+                  </div>
+                     <div class="media-right">
+                        <img src="/media/images/swissbib.jpg" />
+                     </div>
+               </a>
+         </li>
+      </ul>
+   </div>
+
+<div class="wo-sidebar wo-sidebar-watchlist">
+   <a class="btn btn-default wo-icon-btn wo-sidebar-btn" href="/watchlist">
+      <div class="wo-icon-btn-left">
+         <span class="glyphicon glyphicon-bookmark"></span>
+      </div>
+      <div class="wo-icon-btn-center">
+         Merkliste <br />
+         <small><i>
+            0 
+Einträge         </i></small>
+      </div>
+   </a>
+</div>
+
+<div class="dropdown wo-sidebar wo-sidebar-searchhistory">
+   <button class="btn btn-default dropdown-toggle wo-icon-btn wo-sidebar-btn" type="button" data-toggle="dropdown">
+      <div class="wo-icon-btn-left">
+         <span class="glyphicon glyphicon-time"></span>
+      </div>
+      <div class="wo-icon-btn-center">
+        Suchverlauf <br/>
+         <small>
+            <i>
+               1
+Eintrag            </i>
+         </small>
+      </div>
+      <div class="wo-icon-btn-right">
+         <span class="caret"></span>
+      </div>
+   </button>
+   <ul class="dropdown-menu">
+      <li class="wo-searchhistory-entry">
+         <a href="/search/shortview?searchField=W&amp;searchType=Simple&amp;searchTerm=test&amp;searchResultId=5012&amp;sort=Notices.Date1%20DESC%2CNotices.Author%2CNotices.Title&amp;page=1&amp;pageSize=25">
+            <small class="wo-searchhistory-resultcount pull-right">113 Treffer</small>
+            <span class="wo-searchhistory-description"><span class="wo-searchhistory-searchterm">test</span> (Suche &#252;ber alle Felder)</span>
+         </a>
+      </li>
+      <li class="wo-searchhistory-entry">
+         <a href="/searchhistory">Alle anzeigen</a>
+      </li>
+      <li class="wo-searchhistory-entry">
+         <a href="/searchhistory">Suchen kombinieren</a>
+      </li>
+   </ul>
+</div>
+
+   <div class="dropdown wo-sidebar wo-sidebar-links yamm">
+      <button class="btn btn-default dropdown-toggle wo-icon-btn wo-sidebar-btn" type="button" data-toggle="dropdown">
+         <div class="wo-icon-btn-left">
+            <span class="glyphicon glyphicon-magnet"></span>
+         </div>
+         <div class="wo-icon-btn-center">
+            Permalink
+         </div>
+         <div class="wo-icon-btn-right">
+            <span class="caret"></span>
+         </div>
+      </button>
+      <ul class="dropdown-menu yamm-content wo-dropdownmenu-s">
+         <li>
+            <div class="wo-permalink">
+               <p>Permalink für diese Seite:</p>
+               <textarea id="wo-permalink" rows="4" readonly>http://opac.bibliobiel.ch/search/notice?noticeNr=427505</textarea>
+               <p class="text-right margin-top-5">
+                  <button class="btn btn-primary" id="btn-copypermalink">Kopieren</button>
+                  <button class="btn btn-default">Abbrechen</button>
+               </p>
+            </div>
+         </li>
+      </ul>
+   </div>
+
+
+
+
+
+                           </div>
+                        </div>
+                     
+   <div class="panel panel-primary wo-pnl-wikipedia">
+      <div class="panel-heading">
+         <h3 class="panel-title">Wikipedia</h3>
+      </div>
+      <div class="panel-body">
+         <p><b>Test</b></p>
+         <p>Ein <b>Test</b> ist ein Versuch, mit dem größere Sicherheit darüber gewonnen werden soll, ob ein technisches Gerät oder ein Vorgang innerhalb der geplanten Rahmenbedingungen funktioniert beziehungsweise ob bestimmte Eigenschaften vorliegen oder nicht.</p>
+<p>Er unterscheidet sich vom Experiment dadurch, dass es beim Test eine Erwartung gibt, die belegt beziehungsweise widerlegt werden soll, während das Ergebnis beim Experiment offen ist oder nur vermutet werden kann. Eine Wiederholbarkeit der Ergebnisse beim Anwenden auf verschiedene Objekte ist eine Voraussetzung beim Experiment, beim Test hingegen ist das Ergebnis je nach Objekt anders. Vom Prüfen unterscheidet sich Testen, dass beim Prüfen noch eine Aussage gemacht wird, wie gut das Objekt die Anforderungen erfüllt.</p>
+<p>Während im Extremfall ein Test ein Beweis sein kann, legt der Begriff „Test“ im Allgemeinen nahe, dass das Testergebnis nicht absolut gültig ist, sondern eine Näherung darstellt. Er ist damit zumeist einfacher oder</p>…
+         <div class="wo-pnl-wikipedia-more"> 
+            <a href="https://de.wikipedia.org/wiki/Test" target="_blank">Weiterlesen</a>
+         </div>
+      </div>
+   </div>
+
+                  </div>
+               </div>
+                     </div>
+      </div>
+
+      <div class="wos-footer-wrapper">
+         
+<footer class="wos-footer">
+   <div class="wos-footer-custom wos-has-sidebar-l">
+      <div class="wos-footer-main">
+         <div class="wos-box">
+               <div class="wo-librarynews-entry-footer">
+                  <style type="text/css">
+
+.wos-footer h1{
+ color:white;
+ font-size:115%;
+margin-top:0px;
+}
+
+</style>
+
+<table style="width: 100%">
+<tbody>
+<tr>
+<td style="width: 33%; vertical-align: top">
+<h1>Stadbibliothek<br />Bibliothèque de la ville<br />Biel/Bienne</h1>Dufourstrasse 26, rue Dufour<br />Postfach/Case postale<br />CH-2500 Biel/Bienne 3<br />Tel +41 32 329 11 00<br />Fax +41 32 329 11 99<br /><a href="mailto:biblio@bibliobiel.ch" target="_blank">biblio@bibliobiel.ch</a><br /></td>
+<td style="width: 33%; vertical-align: top; padding-left: 10px; padding-right: 10px">
+<table style="width: 100%">
+<tbody>
+<tr>
+<td colspan="2">
+<h1>Öffnungszeiten</h1></td></tr>
+<tr>
+<td style="width: 110px">Montag</td>
+<td>14:00-18:30*</td></tr>
+<tr>
+<td>Dienstag</td>
+<td>09:00-18:30*</td></tr>
+<tr>
+<td>Mittwoch</td>
+<td>09:00-18:30*</td></tr>
+<tr>
+<td>Donnerstag</td>
+<td>09:00-20:00</td></tr>
+<tr>
+<td>Freitag</td>
+<td>09:00-18:30*</td></tr>
+<tr>
+<td>Samstag</td>
+<td>09:00-17:00 </td></tr>
+<tr>
+<td colspan="2">*(Sommerferien: 17h00) </td></tr></tbody></table></td>
+<td style="width: 33%; vertical-align: top">
+<table style="width: 100%; vertical-align: top">
+<tbody>
+<tr>
+<td colspan="2">
+<h1>Links</h1></td></tr>
+<tr>
+<td><a href="http://www.bibliobiel.ch/" target="_blank">www.bibliobiel.ch</a></td></tr></tbody></table></td></tr></tbody></table>
+               </div>
+         </div>
+      </div>
+
+      <div class="wos-sidebar-l">
+         <div class="wos-box">
+               <p>
+                  Folgen Sie uns auf
+               </p>
+                  <div class="media">
+                     <div class="media-left">
+                        <a href="https://www.facebook.com/bibliobienne" target="_blank">
+                           <img class="media-object" src="/Media/Images/SocialMedia/icon_facebook.png" alt="Facebook" />
+                        </a>
+                     </div>
+                     <div class="media-body media-middle">
+                        <a href="https://www.facebook.com/bibliobienne" target="_blank">
+                           Facebook
+                        </a>
+                     </div>
+                  </div>
+         </div>
+      </div>
+   </div>
+
+   <div class="wos-footer-alcoda">
+      <div class="wos-box">
+         <p> NetBiblio WebOPAC 4.0.0.45 &copy; Copyright 2009 - 2017 <a href="http://www.alcoda.ch" target="_blank">AlCoda GmbH</a> <span class="wo-builddate">Build Date: 13.01.2017</span></p>
+            <p><a href="/Site/SwitchView?mobile=True&amp;permanent=False&amp;returnUrl=%2Fsearch%2Ffullview%3FsearchField%3DW%26searchType%3DSimple%26searchTerm%3Dtest%26searchResultId%3D5012%26sort%3DNotices.Date1%2BDESC%252cNotices.Author%252cNotices.Title%26page%3D1%26pageSize%3D25%26fvIndex%3D12%26gridPosition%3Dwo-row_158261">Zur mobilen Ansicht</a></p>
+      </div>
+   </div>
+</footer>
+      </div>
+
+   </div>
+-->
+</body>

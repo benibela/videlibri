@@ -20,11 +20,11 @@
 			</tr>
 		</thead><tbody>
 			<tr>
-				<td class="wo-grid-cell-checkbox"><input/>{$book := {}}</td>
+				<td class="wo-grid-cell-checkbox"><!--<input/>-->{$book := {}}</td>
         <td><!--<img class="wo-cover wo-cover-shortview" src="http://ecx.images-amazon.com/images/I/41%2BUrT396hL.03._SY75_.jpg">--></td>
         <td>{$book.id}</td>
         <td><!--<img src="/Media/Icons/journal.gif" alt="Zeitschrift"><br>Zeitschrift--></td>
-        <td>{$book.author}<br/><a>{$book.title}</a></td>
+        <td>{$book.author := join(br/preceding-sibling::text())}<a>{$book.title}</a></td>
         <td>{$book.year}</td>
         <td>{$book.dueDate := parse-date(., "dd.mm.yyyy")}</td>
         <td>{$book.status := switch (normalize-space()) 

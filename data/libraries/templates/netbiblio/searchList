@@ -1,0 +1,46 @@
+
+<t:switch prioritized="true">
+<body>
+
+<div class="wo-grid-meta-resultcount">
+  {search-result-count := extract(normalize-space(), "[0-9]+$")}
+</div>
+  
+<ul class="pagination">
+  <li class="next-page"><a t:condition="string-length(@href) gt 3">{
+    search-next-page-available := true(), 
+    next-page := resolve-html(.)
+  }</a>?</li>
+</ul>
+
+<table class="wo-grid-table"> <thead>
+  <tr>
+    <th><input type="checkbox" class="wo-grid-chkall" /></th>
+    <th></th>
+    <th><a t:condition="contains(@href,'sort=Notices.Author')">Autor</a>
+        <a t:condition="contains(@href,'sort=Notices.Title')">Titel</a></th>
+    <th><a t:condition="contains(@href,'sort=Notices.Date1')">Jahr</a></th>
+    <th><a t:condition="contains(@href,'sort=Notices.VolumeKey')">Band</a></th>
+    <th><a t:condition="contains(@href,'sort=Notices.MediaType1Code')">Datenträger</a>
+        <a t:condition="contains(@href,'sort=Notices.MediaType2Code')">Bereich</a></th>
+    <th>  </th>
+  </tr>
+ </thead>
+ <tbody>
+    <tr>
+      <td>{$book := {}}</td>
+      <td><!--{$book.image-url := resolve-html(img)}--></td>
+      <td>{$book.author := join(br/preceding-sibling::text())}<a>{$book.title := ., $book._detailUrl := resolve-html(.)}</a></td>
+      <td>{$book.year}</td>
+      <td></td>
+      <td><!--E-Book<br />---></td>
+      <td><!--<span id="wo-status-177235" class="wo-status-plc" data-noticeid="177235" data-divibibid="402284777" data-format="icon"></span>--></td>
+    </tr>+
+  </tbody>
+</table>
+</body>
+
+
+<p>Ihre Abfrage hat keine Treffer erzielt<t:s>search-result-count := 0</t:s></p>
+
+</t:switch>

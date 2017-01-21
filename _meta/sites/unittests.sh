@@ -225,6 +225,9 @@ PAGES=(${PAGES[@]} summon/searchDetails.html summon/searchDetails_multiex.html s
 mkdir -p $OUTPATH/netbiblio
 test netbiblio list list.html 
 
+test netbiblio searchList searchList.0.html searchList.html 
+
+test netbiblio searchDetails{vl:set-book-property} searchDetails.html searchDetails.ebook.html 
 
 
 #=============DIGIBIB==============
@@ -256,6 +259,9 @@ for ((i=0;i<${#TEMPLATES[@]};i++)); do
     EXTRA="-e ${BASH_REMATCH[2]}"
     if [[ $EXTRA =~ vl:confirm ]]; then
       EXTRA="-e \"declare function vl:confirm(\\\$a,\\\$b) { message-confirm :=  join((\\\$a,\\\$b))};()\""
+    fi
+    if [[ $EXTRA =~ vl:set-book-property ]]; then
+      EXTRA="-e \"declare function vl:set-book-property(\\\$a,\\\$b) { \\\$book(\\\$a||'!!') := \\\$b }; ()\""
     fi
   fi
   FUNCTIONS="-e \"

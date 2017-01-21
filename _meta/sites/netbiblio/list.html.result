@@ -1,3 +1,3 @@
 book := {}
-book := {"status": " ", "dueDate": "2017-02-17", "year": "1991", "title": "Bieler Jahrbuch 1991", "author": "Rohrbach, StefanBieler Jahrbuch 1991", "id": "71022121"}
-book := {"status": " ", "dueDate": "2017-02-17", "year": "1993", "title": "L'espace bibliothéconomique suisse : hier, aujourd'hui, demain", "author": "Roten, Gabrielle vonL'espace bibliothéconomique suisse : hier, aujourd'hui, demain", "id": "70002549"}
+book := {"status": " ", "dueDate": "2017-02-17", "year": "1991", "title": "Bieler Jahrbuch 1991", "author": "Rohrbach, Stefan", "id": "71022121"}
+book := {"status": " ", "dueDate": "2017-02-17", "year": "1993", "title": "L'espace bibliothéconomique suisse : hier, aujourd'hui, demain", "author": "Roten, Gabrielle von", "id": "70002549"}
