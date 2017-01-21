@@ -1,0 +1,42 @@
+<div class="wos-main">
+<div class="wos-box">
+<div class="wo-com wo-com-account wo-com-circulations">
+<div class="wo-grid">
+   <!--id="grd-circulations" -->
+
+<table class="table wo-grid-table">
+		<thead>
+			<tr>
+				<th><input/></th>
+        <th></th> 
+        <th><a t:condition="contains(@href,'Items.ItemNr')">Exemplarnr.</a></th>
+        <th><a t:condition="contains(@href,'Notices.MediaType1Code')">Datenträger</a></th>
+        <th><a t:condition="contains(@href,'Notices.Author')">Autor</a> 
+            <a t:condition="contains(@href,'Notices.Title')">Titel</a></th>
+        <th><a t:condition="contains(@href,'Notices.Date1')">Jahr</a></th>
+        <th><a t:condition="contains(@href,'Circulations.DueDate')">Fälligkeitsdatum</a></th>
+        <th><a t:condition="contains(@href,'Circulations.Renewals')">Verlängerungen</a></th>
+        <th><a t:condition="contains(@href,'Circulations.RenewalDate')">Datum der Verlängerung</a></th>
+			</tr>
+		</thead><tbody>
+			<tr>
+				<td class="wo-grid-cell-checkbox"><input/>{$book := {}}</td>
+        <td><!--<img class="wo-cover wo-cover-shortview" src="http://ecx.images-amazon.com/images/I/41%2BUrT396hL.03._SY75_.jpg">--></td>
+        <td>{$book.id}</td>
+        <td><!--<img src="/Media/Icons/journal.gif" alt="Zeitschrift"><br>Zeitschrift--></td>
+        <td>{$book.author}<br/><a>{$book.title}</a></td>
+        <td>{$book.year}</td>
+        <td>{$book.dueDate := parse-date(., "dd.mm.yyyy")}</td>
+        <td>{$book.status := switch (normalize-space()) 
+                               case "0"return "" 
+                               case "1" return "Eine Verlängerung"
+                               default return . || " Verlängerungen"}</td>
+        <td>{$book.status := $book.status || " " || .}</td>
+			</tr>+
+		</tbody>
+	</table>
+  
+</div>
+</div>
+</div>
+</div>

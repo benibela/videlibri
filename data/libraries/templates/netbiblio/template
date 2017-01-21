@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<actions>
+
+<meta>
+  <description>Template für das NetBiblio-System</description>
+  <variable name="baseurl"><description>Web-URI der Bibliothek</description></variable>  
+</meta>
+
+
+<action id="connect"></action>
+
+<action id="internal-login"> 
+  <page url="{$baseurl}/account/login">
+    <post name="Username" value="{$username}"/>
+    <post name="Password" value="{$password}"/>
+  </page>
+  <pattern><body><div class="alert alert-danger">{vl:raise(.)}</div>?</body></pattern>
+</action>
+
+<action id="update-all">
+  <call action="internal-login"/>
+  <s>vl:delete-current-books()</s>
+  <page url="{$baseurl}/account/circulations?sort=Circulations.DueDate&page=1&pageSize=100000" templateFile="list"/>
+</action>
+
+<action id="renew-list">
+</action>
+
+
+
+<action id="cancel-list">
+</action>
+
+
+
+
+
+
+
+
+
+<action id="search">
+</action>
+
+<action id="search-next-page">
+</action>
+
+
+<action id="search-details">
+</action>
+
+
+
+
+<action id="order-single">
+</action>
+
+
+<action id="catalogue">
+  <variable name="url" value="{$baseurl}"/>
+</action>
+
+
+
+</actions>

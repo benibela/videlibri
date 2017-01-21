@@ -2,11 +2,11 @@
 <library>
   <longName value="Stadtbibliothek Biel"/>
   
-  <template value="zones18"/>  
-  <variable name="baseurl" value="http://zonesl.bibliobiel.ch/alswww2.dll/"/>
+  <template value="netbiblio"/>  
+  <variable name="baseurl" value="http://opac.bibliobiel.ch/"/>
 
   <homepage value="http://www.bibliobiel.ch/"/>
-  <testing-search value="ja" date="2013-10-07"/>
-  <testing-account value="ja" date="2014-03-19"/>
-  <testing-renew value="ja" date="2014-03-19"/>
+  <testing-search value="ja" date="2017-01-21"/>
+  <testing-account value="ja" date="2017-01-21"/>
+  <testing-renew value="ja" date="2017-01-21"/>
 </library>

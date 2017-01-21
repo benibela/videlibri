@@ -221,6 +221,9 @@ PAGES=(${PAGES[@]} summon/searchList0.html summon/searchList.html)
 ADDTEMPLATE summon/searchDetails 3
 PAGES=(${PAGES[@]} summon/searchDetails.html summon/searchDetails_multiex.html summon/searchDetails_orderable.html)
 
+#=============netbiblio==============
+mkdir -p $OUTPATH/netbiblio
+test netbiblio list list.html 
 
 
 
