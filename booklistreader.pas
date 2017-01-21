@@ -5,7 +5,7 @@ unit booklistreader;
 interface
 
 uses
-  Classes, SysUtils,bbutils,extendedhtmlparser,simplehtmltreeparser,simplexmlparser, xquery, internetaccess, multipagetemplate;
+  Classes, SysUtils,bbutils,extendedhtmlparser,simplehtmltreeparser,simplexmlparser, xquery, internetaccess, multipagetemplate, xquery__regex;
   
 type
   TBookList = class;
@@ -1248,19 +1248,68 @@ end;
 //
 //Prints data to the log immediately. Log output remains during template rollback!
 function xqFunctionLogImmediately(const context: TXQEvaluationContext; argc: SizeInt; argv: PIXQValue): IXQValue;
-var
-  temp: TXQValueObject;
-  reader: TBookListReader;
-  query: IXQValue;
-  book: TBook;
 begin
-  requiredArgCount(argc, 1, 1);
-
-  if logging then log(argv[0].debugAsStringWithTypeAnnotation());
-
+  if logging then log(argv[0].toXQuery());
   result := argv[0];
 end;
 
+var BookPropertyNormalizationRegex: record
+  title, author, publisher, isbn: TWrappedRegExpr;
+end;
+
+function xqFunctionSetBookProperty(const context: TXQEvaluationContext; argc: SizeInt; argv: PIXQValue): IXQValue;
+  procedure setProperty(const k, v: string);
+  var
+    book: IXQValue;
+  begin
+    //$book(k) := v
+    book := context.staticContext.sender.VariableChangelog.get('book');
+    if (book = nil) or (book.kind <> pvkObject) then exit;
+    context.staticContext.sender.VariableChangelog.add('book', (book as TXQValueObject).setImmutable(k, v));
+  end;
+
+var
+  key, href, value: String;
+  node: TTreeNode;
+  yearAt: Integer;
+
+begin
+  key := strTrimAndNormalize(argv[0].toString, [#0..' ', ':']);
+  value := strTrimAndNormalize(argv[1].toString);
+  if argv[1].kind = pvkNode then begin
+    node := argv[1].toNode;
+    if node.typ = tetOpen then begin
+      node := node.findNext(tetOpen, 'a', [], node.reverse);
+      if node <> nil then begin
+        href := node.getAttribute('href');
+        if href <> '' then  begin
+          if not strIsAbsoluteURI(href) then begin
+            node := node.getDocument();
+            if node <> nil then href := strResolveURI(href, TTreeDocument(node).baseURI);
+          end;
+          value += ' ( ' + href + ' )';
+        end;
+      end;
+    end;
+  end;
+
+  with BookPropertyNormalizationRegex do begin
+    if wregexprMatches(title, key) then setProperty('title', value)
+    else if wregexprMatches(author, key) then setProperty('author', value)
+    else if wregexprMatches(publisher, key) then begin
+      yearAt := length(value);
+      while (yearAt > 0) and (value[yearAt] in ['0'..'9']) do dec(yearAt);
+      if yearAt <= length(value) - 2 then begin
+        setProperty('year', strCopyFrom(value, yearAt + 1));
+        while (yearAt > 0) and (value[yearAt] in [#0..' ','.',';',',']) do dec(yearAt);
+        value := copy(value, 1, yearAt);
+      end;
+      setProperty('publisher', value);
+    end else if wregexprMatches(isbn, key) then setProperty('isbn', value)
+    else setProperty(key + '!', value);
+  end;
+
+end;
 
 var vl: TXQNativeModule;
 initialization
@@ -1274,7 +1323,17 @@ initialization
   vl.registerFunction('confirm', 2, 2, @xqFunctionConfirm, []);
   vl.registerFunction('select-book', 1, 1, @xqFunctionSelectBook, []);
   vl.registerFunction('log-immediately', 1, 1, @xqFunctionLogImmediately, []);
+
+  vl.registerFunction('set-book-property', 2, 2, @xqFunctionSetBookProperty, []);
+
   TXQueryEngine.registerNativeModule(vl);
+
+  with BookPropertyNormalizationRegex do begin
+    title := wregexprParse('Titel', [wrfIgnoreCase]);
+    author := wregexprParse('Verantwortlichkeit', [wrfIgnoreCase]);
+    publisher := wregexprParse('Verlag', [wrfIgnoreCase]);
+    isbn := wregexprParse('ISBN', [wrfIgnoreCase]);
+  end;
 finalization
   vl.free
 end.
