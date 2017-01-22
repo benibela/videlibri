@@ -127,7 +127,6 @@ begin
   try
     t.connect(internet);
     t.updateAll;
-    memo1.Lines.Clear;
     for i := 0 to t.books.currentUpdate.Count-1do
       memo1.Lines.Add(t.books.currentUpdate[i].toLimitString());
   finally
