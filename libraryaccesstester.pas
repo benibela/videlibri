@@ -119,6 +119,8 @@ begin
   internet := internetaccess.defaultInternetAccessClass.create();
   lib := libraryManager.getLibraryFromEnumeration(ListBox1.ItemIndex);
   t := TTemplateAccountAccessTester.create(lib);
+  memo1.Lines.Clear;
+  if (ComboBox1.ItemIndex > 0) <> lib.segregatedAccounts then memo1.lines.add('segregation mismatch');
   t.init('', edit1.text);
   t.passWord:=edit2.Text;
   t.accountType:=ComboBox1.ItemIndex;
