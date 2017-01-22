@@ -1,10 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?xml-stylesheet type="text/xsl" href="../changelog.xsl"?>
 <changelog program="VideLibri">
-  <build version="1866" date="2017-01-10">
+  <build version="1870" date="2017-01-23">
     <download url="http://videlibri.sourceforge.net/updates/videlibri-setup.exe" platform="WINDOWS" execute="&quot;$DOWNLOAD&quot;  /SP- /noicons &quot;/dir=$OLDPATH&quot; " restart="true"/>
     <download url="http://videlibri.sourceforge.net/updates/videlibri-linux32.deb" platform="LINUX32" execute=""/>
     <download url="http://videlibri.sourceforge.net/updates/videlibri-linux64.deb" platform="LINUX64" execute=""/>
+    <change>Cookies werden auch für jeden Server separat statt nur nach Benutzerkonto getrennt gespeichert, so dass Server keinen Zugriff auf Cookies anderer Server haben, selbst wenn beide Server zur selben Bibliothek gehören.</change>
+    <fix>Verhindert, dass sich das ALMA-System und der Studentenlogin-Server der Universitätsbibliotheken der HU/TU-Berlin gegenseitig ihre Cookies überschreiben.</fix>
+    <fix>Anpassungen an das ALMA-System der Bibliotheken der HU/TU/FU-Berlin für grundlegende Such- und Kontofunktionen.</fix>
+    <fix>Neue Webseiten für Stadtbibliothek Solingen, Bibliothek der staatlichen Akademie der Künste Stuttgart, Stadtbücherei (Oberts-)hausen, Bibliothek der Pädagogischen Hochschule Heidelberg</fix>
+    <fix>Anpassungen an das neue System der Stadbibliothek Biel</fix>
+    <fix>Verwende die Digibib für Suche in der FH Münster (noch keine Kontofunktionen)</fix>
+    <add>In eigenen Templates kann nun mittels parse-date("datum") ein Datum gelesen werden, ohne dass ein Datumsformat (wie yyyy-mm-dd) angegeben werden muss.</add>
+    <add>netbiblio-Grundfunktionen</add>
+ </build>
+  <build version="1866" date="2017-01-10">
     <fix>android: Neues HTTPS-Zertifikat für Linz und Kiru.</fix>
   </build>
   <build version="1865" date="2016-12-31">
@@ -17,9 +27,6 @@
     <change>Desktop: Unterstützt unterschiedliche Sprachen im Layoutsystem</change>
   </build> 
   <build version="1860" date="2016-12-20">
-    <download url="http://videlibri.sourceforge.net/updates/videlibri-setup.exe" platform="WINDOWS" execute="&quot;$DOWNLOAD&quot;  /SP- /noicons &quot;/dir=$OLDPATH&quot; " restart="true"/>
-    <download url="http://videlibri.sourceforge.net/updates/videlibri-linux32.deb" platform="LINUX32" execute=""/>
-    <download url="http://videlibri.sourceforge.net/updates/videlibri-linux64.deb" platform="LINUX64" execute=""/> 
     <fix>Anpassungen an Systemänderungen in der Universitätsbibliothek Ulm, der Universitätsbibliothek der TU-Berlin (Bibliothekssystem Alma), der Winterthurer Bibliotheken</fix>
     <change>Aktualisierte primo-Implementierung</change>
     <change>Moderneres Layout unter Android: keine separaten Menüs mehr, alle Funktionen sind in einem einzigen Menü</change>
@@ -105,9 +112,6 @@ Die Desktopversion ist weiterhin mit fpc 3.0 kompiliert, da fpc 3.1.1 beim optim
     <fix>Koblenz/Dresden/Saarland: Liefere wieder die nicht-verifizierbaren HTTPS-Zertifikate mit</fix>
   </build>
   <build version="1800" date="2015-08-25">
-    <download url="http://videlibri.sourceforge.net/updates/videlibri-setup.exe" platform="WINDOWS" execute="&quot;$DOWNLOAD&quot;  /SP- /noicons &quot;/dir=$OLDPATH&quot; " restart="true"/>
-    <download url="http://videlibri.sourceforge.net/updates/videlibri-linux32.deb" platform="LINUX32" execute=""/>
-    <download url="http://videlibri.sourceforge.net/updates/videlibri-linux64.deb" platform="LINUX64" execute=""/>
     <add>Import/Export-Funktionen für manuelle Synchronization mehrere Geräte und Backups</add>
     <change>leichter verständliche Fehlermeldungen</change>
     <change>Zuweisungen an VideLibris Spezialvariablen können auch in Templates statt nur in den enthaltenen Patterns durchgeführt werden</change>

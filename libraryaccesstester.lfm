@@ -15,9 +15,9 @@ object libraryTesterForm: TlibraryTesterForm
     Height = 729
     Top = 0
     Width = 1182
-    ActivePage = TabSheet1
+    ActivePage = TabSheet2
     Align = alClient
-    TabIndex = 1
+    TabIndex = 0
     TabOrder = 0
     object TabSheet2: TTabSheet
       Caption = 'Multi-Tester'
