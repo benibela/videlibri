@@ -176,7 +176,27 @@ downloadTable)
     ;;
   
 	changelog)
-		sed -e 's/<stable  *value="[0-9]*"/<stable value="'$INTVERSION'"/'  -i $VIDELIBRIBASE/_meta/version/version.xml;
+    sed -e 's/<stable  *value="[0-9]*"/<stable value="'$INTVERSION'"/'  -i $VIDELIBRIBASE/_meta/version/version.xml;
+    CHANGELOGVERSION=$(grep version= _meta/version/changelog.xml | head -2 | tail -1 | grep -oE '[0-9]+' | head -1)
+    if [[ "$CHANGELOGVERSION" != "$INTVERSION" ]]; then 
+      sed '/<download/d' -i _meta/version/changelog.xml 
+      sed '/changelog *prog/a\
+      '"<build version=\"$INTVERSION\" date=\"$(date +%Y-%m-%d)\">"'\
+        <download url="http://videlibri.sourceforge.net/updates/videlibri-setup.exe" platform="WINDOWS" execute="&quot;$DOWNLOAD&quot;  /SP- /noicons &quot;/dir=$OLDPATH&quot; " restart="true"/>\
+        <download url="http://videlibri.sourceforge.net/updates/videlibri-linux32.deb" platform="LINUX32" execute=""/>\
+        <download url="http://videlibri.sourceforge.net/updates/videlibri-linux64.deb" platform="LINUX64" execute=""/>\
+        <change></change>\
+        <change></change>\
+        <fix></fix>\
+        <fix></fix>\
+        <fix></fix>\
+        <add></add>\
+        <add></add>\
+        <add></add>\
+     </build>' -i  _meta/version/changelog.xml
+    fi
+
+    
     function xmledit(){
       fn=$1
       vim $fn
@@ -253,6 +273,7 @@ src)
 	  echo do not forget to close the commit window
 		thg commit
 	  ./manage.sh defaults
+    hg tag "VIDELIBRI $VERSION"
 		;;
  
  
