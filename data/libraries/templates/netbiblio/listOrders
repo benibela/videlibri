@@ -17,7 +17,7 @@
 			</tr>
 		</thead><tbody>
 			<tr>
-				<td class="wo-grid-cell-checkbox"><!--<input/>-->{$book := {}}</td>
+				<td class="wo-grid-cell-checkbox"><!--<input/>-->{$book := {"_cancelId": ./input/@value}}</td>
         <td><!--<img class="wo-cover wo-cover-shortview" src="http://ecx.images-amazon.com/images/I/41%2BUrT396hL.03._SY75_.jpg">--></td>
         <td>{$book.id}</td>
         <td>{$book.author := join(br/preceding-sibling::text())}<a>{$book.title}</a></td>

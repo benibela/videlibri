@@ -10,11 +10,14 @@
 <action id="connect"></action>
 
 <action id="internal-login"> 
-  <page url="{$baseurl}/account/login">
-    <post name="Username" value="{$username}"/>
-    <post name="Password" value="{$password}"/>
-  </page>
-  <pattern><body><div class="alert alert-danger">{vl:raise(.)}</div>?</body></pattern>
+  <if test="not(get('loggedIn', false()))">
+    <page url="{$baseurl}/account/login">
+      <post name="Username" value="{$username}"/>
+      <post name="Password" value="{$password}"/>
+    </page>
+    <pattern><body><div class="alert alert-danger">{vl:raise(.)}</div>?</body></pattern>
+    <s>loggedIn := true()</s>
+  </if>
 </action>
 
 <action id="update-all">
@@ -25,11 +28,18 @@
 </action>
 
 <action id="renew-list">
+  <!-- example
+  /account/renew?selectedItems%5B0%5D=96188&returnUrl=%2Faccount%2Fcirculations 
+  /account/renew?selectedItems%5B0%5D=96188&selectedItems%5B1%5D=4821&returnUrl=%2Faccount%2Fcirculations -->
+  <page url="{$baseurl}/account/renew?{join($renew-books!(x'selectedItems%5B{position()-1}%5D={_renewId}'), $amp)}"> </page>     
+  <call action="update-all"/>
 </action>
 
 
 
 <action id="cancel-list">
+  <page url="{$baseurl}/account/deleteorders?{join($cancel-books!(x'selectedItems%5B{position()-1}%5D={_cancelId}'), $amp)}"> </page>     
+  <call action="update-all"/>
 </action>
 
 

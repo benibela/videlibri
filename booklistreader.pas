@@ -1285,7 +1285,7 @@ begin
         if href <> '' then  begin
           if not strIsAbsoluteURI(href) then begin
             node := node.getDocument();
-            if node <> nil then href := strResolveURI(href, TTreeDocument(node).baseURI);
+            if node <> nil then href := strResolveURI(href, (node as TTreeDocument).baseURI);
           end;
           value += ' ( ' + href + ' )';
         end;
