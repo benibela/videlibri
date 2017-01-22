@@ -23,7 +23,7 @@
         <td>{$book.author := join(br/preceding-sibling::text())}<a>{$book.title}</a></td>
       
         <td></td>
-        <td>{$book.issueDate := parse-date(., "dd.mm.yyyy"), $book.statusId := "ordered"}</td>
+        <td>{$book.issueDate := parse-date(.), $book.statusId := "ordered"}</td>
 			</tr>+
 		</tbody>
 	</table>

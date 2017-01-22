@@ -26,7 +26,7 @@
         <td><!--<img src="/Media/Icons/journal.gif" alt="Zeitschrift"><br>Zeitschrift--></td>
         <td>{$book.author := join(br/preceding-sibling::text())}<a>{$book.title}</a></td>
         <td>{$book.year}</td>
-        <td>{$book.dueDate := parse-date(., "dd.mm.yyyy")}</td>
+        <td>{$book.dueDate := parse-date(.)}</td>
         <td>{$book.status := switch (normalize-space()) 
                                case "0"return "" 
                                case "1" return "Eine Verlängerung"
