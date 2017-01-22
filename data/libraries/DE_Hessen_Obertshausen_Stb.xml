@@ -5,7 +5,7 @@
   <template value="libero5"/>
   <variable name="baseurl" value="https://buecherei-obertshausen.de/libero/"/>
 
-  <homepage value="http://www.obertshausen.de/c152/default.html"/>
+  <homepage value="http://www.obertshausen.de/de/service/staedtische-einrichtungen/buechereien.html"/>
   <testing-search value="ja" date="2013-07-05"/>
   <testing-account value="?" date=""/>
   <testing-renew value="?" date=""/>

@@ -5,7 +5,7 @@
   <template value="libero5"/>
   <variable name="baseurl" value="http://www.stadtbib.stadt-solingen.de/libero/"/>
 
-  <homepage value="http://www2.solingen.de/C12573970063EF58/0/CDC94D6BCCF210FAC12573A3003EFE72?OpenDocument"/>
+  <homepage value="https://www.solingen.de/de/inhalt/stadtbibliothek-solingen/"/>
   <testing-search value="ja" date="2013-07-05"/>
   <testing-account value="?" date=""/>
   <testing-renew value="?" date=""/>

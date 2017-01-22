@@ -6,7 +6,7 @@
   <variable name="server" value="bsz.ibs-bw.de"/>
   <variable name="startparams" value="?service=direct/0/Home/$DirectLink&sp=S127.0.0.1:23402"/>
 
-  <homepage value="http://www.abk-stuttgart.de/hochschule/orte/bibliothek.html"/>
+  <homepage value="http://www.abk-stuttgart.de/hochschule/einrichtungen/bibliothek.html"/>
   <testing-search value="ja" date="2013-05-18"/>
   <testing-account value="?" date=""/>
   <testing-renew value="?" date=""/>
