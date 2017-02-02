@@ -16,7 +16,11 @@
 <action id="internal-connect">
   <page url="{$baseurl}WebOpac.cls" templateFile="start"/>
   <page url="{$baseurl}WebOpac.cls?VERSION=2&amp;ACTION=MEMBERSERV&amp;RSN=0&amp;DATA={$data}&amp;TOKEN={$token}&amp;Z=1&amp;NewBreadCrumb=1&amp;{$loginToken}">
-    <template><form><input name="usernum"/><t:s>update-page := form(., {"usernum": $username, "password": $password, "btnlogin": "LOGIN"})</t:s></form></template>
+    <template>
+      <t:switch prioritized="true">
+        <form><input name="usernum"/><t:s>update-page := form(., {"usernum": $username, "password": $password, "btnlogin": "LOGIN"})</t:s></form>
+        <fieldset t:condition="@id=('issued_items', 'reserved_items_flds')">{$update-page := $url}</fieldset>
+      </t:switch></template>
   </page>
 </action>
 
