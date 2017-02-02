@@ -1,10 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?xml-stylesheet type="text/xsl" href="../changelog.xsl"?>
 <changelog program="VideLibri">
+      <build version="1873" date="2017-02-02">
+        <download url="http://videlibri.sourceforge.net/updates/videlibri-setup.exe" platform="WINDOWS" execute="&quot;$DOWNLOAD&quot;  /SP- /noicons &quot;/dir=$OLDPATH&quot; " restart="true"/>
+        <download url="http://videlibri.sourceforge.net/updates/videlibri-linux32.deb" platform="LINUX32" execute=""/>
+        <download url="http://videlibri.sourceforge.net/updates/videlibri-linux64.deb" platform="LINUX64" execute=""/>
+        <change>Noch strengere Cookie-Abschirmung, die Server anhand der Subdomain nicht nur der Domain unterscheidet. </change>
+        <fix>Stadtbücherei Erbach: Anpassung an neuen OPAC</fix>
+        <fix>libero 6/Saarbrücken: Teste, ob VideLibri bereits im Katalog eingeloggt ist, und wenn ja, überspringe den Einlogvorgang. </fix>
+        <add>digibib/FH Münster: Neuimplementation der Konto-Anzeige und Verlängerung</add>
+     </build>
   <build version="1870" date="2017-01-23">
-    <download url="http://videlibri.sourceforge.net/updates/videlibri-setup.exe" platform="WINDOWS" execute="&quot;$DOWNLOAD&quot;  /SP- /noicons &quot;/dir=$OLDPATH&quot; " restart="true"/>
-    <download url="http://videlibri.sourceforge.net/updates/videlibri-linux32.deb" platform="LINUX32" execute=""/>
-    <download url="http://videlibri.sourceforge.net/updates/videlibri-linux64.deb" platform="LINUX64" execute=""/>
     <change>Cookies werden auch für jeden Server separat statt nur nach Benutzerkonto getrennt gespeichert, so dass Server keinen Zugriff auf Cookies anderer Server haben, selbst wenn beide Server zur selben Bibliothek gehören.</change>
     <fix>Verhindert, dass sich das ALMA-System und der Studentenlogin-Server der Universitätsbibliotheken der HU/TU-Berlin gegenseitig ihre Cookies überschreiben.</fix>
     <fix>Anpassungen an das ALMA-System der Bibliotheken der HU/TU/FU-Berlin für grundlegende Such- und Kontofunktionen.</fix>

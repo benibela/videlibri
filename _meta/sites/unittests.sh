@@ -237,6 +237,11 @@ DISE=../search/templates/digibib/search
 DIDE=../search/templates/digibib/details
 TEMPLATES=(${TEMPLATES[@]} $DISE $DISE $DIDE $DIDE $DIDE $DIDE $DIDE $DIDE)
 PAGES=(${PAGES[@]} digibib/search.html digibib/search2.html digibib/details.html digibib/details2.html digibib/details3.html digibib/details4.html digibib/details5.html digibib/details6new.html)  
+
+test digibib list list.html list.empty.html 
+
+
+
 #echo $OUTPATH/stderr
 #echo > $OUTPATH/stderr
 error=0
