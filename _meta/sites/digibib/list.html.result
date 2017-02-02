@@ -1,0 +1,3 @@
+book := {}
+books-deleted := true()
+book := {"id": "255474746", "_renewUrl": "file:///template/opacservice?SID=PHOBOS:053bb8a58765d9efc76f219b2b6a903b&LOCATION=836&mnumber=1803e18e-8c9d-4396-a61f-1a8b6808718d&PAGE=renew", "statusId": "curious", "dueDate": "2017-02-28", "issueDate": "2017-01-25", "title": "Linux : die praktische Referenz ", "author": ", Hertzog, Ute. ", "year": "2005"}

@@ -67,4 +67,12 @@
   <page url="{$book.extendLink}"/>
   <page url="{$book.detailLink}" templateFile="../aleph_base/details"/>
 </action>
+
+<action id="renew-list">
+  <loop var="b" list="$renew-books">
+    <s>book := $b</s>
+    <call action="renew-single"/>
+  </loop>
+</action>
+
 </actions>

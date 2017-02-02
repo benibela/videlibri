@@ -23,6 +23,55 @@ andere server außer abderos: eris, metis, rhea, thetis
 -->
 
 <action id="connect">
+  <s>request := x"https://www.digibib.net/jumpto?D_SUBSERVICE=CUSTOMIZE&LOCATION={$location}", 
+     i := 1, 
+     datasend := false()</s>
+  <!-- follow links till we reach the login page -->
+  <loop test="$i <= 50 and exists($request)">  
+    <page url="{$request}"/>
+    <pattern><t:switch prioritized="true">
+      <div class="uic-error" t:condition="$datasend">
+        <span class="requestError">{vl:raise(.)}</span>
+      </div>
+    
+      <table class="datarows">{$request := (), $accountUrl := $url (:we have reached our destination:)}</table>
+      <form>{  
+        let $action := @action return
+        if (contains($action, "session/logout")) then ($request := (), $accountUrl := $url)
+        else
+        $request := form(.,
+          if (contains($action, "selectIdp")) then 
+            let $t := if ($type ge 1) then $type else 1 return (.//button)[$t]/{@name: @value}
+          else if (contains($action, "samllogin")) then 
+            ({"signin.username": $username, "signin.password": $password}, (datasend := true())[0])
+          else if (contains($action, "HandleAuthorizeResponse")) then 
+            (.//input[@type="submit" and not(contains(@name, "decline"))])[1]
+          else ())
+      }</form>
+      <!-- not used: -->
+      <a>{$request}</a>
+      <meta http-equiv="refresh">{$request}</meta>    
+    </t:switch></pattern>
+    <s>$i := $i + 1</s>
+  </loop>
+  <if test="$i > 50">
+  <s>vl:raise("Zuviele Weiterleitungen beim Login. ")</s>
+  </if>
+</action>
+
+<action id="update-all">
+  <page url="{$accountUrl}" test="$url ne $accountUrl"/>
+  <pattern href="list"/>
+</action>
+
+<action id="renew-list">
+  <loop var="book" list="$renew-books">
+    <page url="{$book._renewUrl}"> </page>
+  </loop>
+  <call action="update-all"/>
+</action>
+
+<action id="search-connect">
 </action>
 
 <action id="search">

@@ -3,6 +3,7 @@
   <longName value="Hochschulbibliothek der Fachhochschule Münster"/>
   
   <template value="digibib"/>
+  <segregated-accounts value="true"/>
   <variable name="location" value="836"/>
   <variable name="view" value="836:BiblKat"/>
   <!--<variable name="selectedLibraries" value="SERVICEGROUP1.SERVICE.SEARCH_BTHA"/>  selectedLibraries is overriden by searchid-templatename-->
