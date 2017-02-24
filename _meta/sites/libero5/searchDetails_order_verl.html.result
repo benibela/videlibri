@@ -2,7 +2,7 @@ book := {}
 id := 1
 first-input := ()
 id := 2
-order-form := {"method": "POST", "post": "MGWCHD=0&TOKEN=NbgzqQOXPq4818&TOKENX=NbgzqQOXPq4818&DATA=VER&usercode=&VERSION=2&ACTION=Vormerkung%20senden", "url": "https://katalog.bibliothek.verl.de/libero/WebOpac.cls"}
+order-form := {"method": "POST", "post": "MGWCHD=0&TOKEN=NbgzqQOXPq4818&TOKENX=NbgzqQOXPq4818&DATA=VER&usercode=&VERSION=2&ACTION=Vormerkung+senden", "url": "https://katalog.bibliothek.verl.de/libero/WebOpac.cls"}
 currentfield := "Verfasser"
 currentfield := "Weitere Pers"
 currentfield := "Auflage"
