@@ -1,27 +1,28 @@
 <div class="wos-main">
 <div class="wos-box">
-<div class="wo-com wo-com-account wo-com-circulations">
+<div class="wo-com wo-com-account">
+{mode := if (contains(@class, "wo-com-orders")) then "orders" else "circulations"}
 <div class="wo-grid" t:optional="true">
    <!--id="grd-circulations" -->
 
 <table class="table wo-grid-table">
-		<thead>
-			<tr>
-				<th><input/></th>
-        <th></th> 
+    <thead><tr>
+      <t:siblings-header>
+        <th><input/></th>
         <th><a t:condition="contains(@href,'Items.ItemNr')">Exemplarnr.</a></th>
-        <th><a t:condition="contains(@href,'Notices.MediaType1Code')">Datenträger</a></th>
+        <th><a t:condition="contains(@href,'Notices.MediaType1Code')">Datenträger</a></th>?
         <th><a t:condition="contains(@href,'Notices.Author')">Autor</a> 
             <a t:condition="contains(@href,'Notices.Title')">Titel</a></th>
-        <th><a t:condition="contains(@href,'Notices.Date1')">Jahr</a></th>
-        <th><a t:condition="contains(@href,'Circulations.DueDate')">Fälligkeitsdatum</a></th>
-        <th><a t:condition="contains(@href,'Circulations.Renewals')">Verlängerungen</a></th>
-        <th><a t:condition="contains(@href,'Circulations.RenewalDate')">Datum der Verlängerung</a></th>
-			</tr>
-		</thead><tbody>
-			<tr>
-				<td><!--<input/>-->{$book := {"_renewId": ./input/@value}}</td>
-        <td><!--<img class="wo-cover wo-cover-shortview" src="http://ecx.images-amazon.com/images/I/41%2BUrT396hL.03._SY75_.jpg">--></td>
+        <th><a t:condition="contains(@href,'Notices.Date1')">Jahr</a></th>?
+        <th><a t:condition="contains(@href,'Circulations.DueDate')">Fälligkeitsdatum</a></th>?
+        <th><a t:condition="contains(@href,'Circulations.Renewals')">Verlängerungen</a></th>?
+        <th><a t:condition="contains(@href,'Circulations.RenewalDate')">Datum der Verlängerung</a></th>?
+        <th><a t:condition="contains(@href,'Reservations.CreationDate')">Erzeugungsdatum</a></th>?
+        <th></th>*
+      </t:siblings-header>
+    </tr></thead><tbody><tr>{$book := {}}
+      <t:siblings>
+				<td>{$book( if ($mode eq "orders") then "_cancelId" else "_renewId") := ./input/@value}</td>
         <td>{$book.id}</td>
         <td><!--<img src="/Media/Icons/journal.gif" alt="Zeitschrift"><br>Zeitschrift--></td>
         <td>{$book.author := join(br/preceding-sibling::text())}<a>{$book.title}</a></td>
@@ -32,7 +33,9 @@
                                case "1" return "Eine Verlängerung"
                                default return . || " Verlängerungen"}</td>
         <td>{$book.status := $book.status || " " || .}</td>
-			</tr>+
+        <td>{$book.issueDate := parse-date(.), $book.statusId := "ordered"}</td>
+        <td></td>
+      </t:siblings></tr>+
 		</tbody>
 	</table>
   
