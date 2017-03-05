@@ -223,8 +223,7 @@ PAGES=(${PAGES[@]} summon/searchDetails.html summon/searchDetails_multiex.html s
 
 #=============netbiblio==============
 mkdir -p $OUTPATH/netbiblio
-test netbiblio list list.html 
-test netbiblio listOrders list.orders.html 
+test netbiblio list list.html list.orders.html 
 
 test netbiblio searchList searchList.0.html searchList.html 
 test netbiblio searchDetails{vl:set-book-property} searchDetails.html searchDetails.ebook.html 
