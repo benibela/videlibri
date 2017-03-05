@@ -24,7 +24,7 @@
   <call action="internal-login"/>
   <s>vl:delete-current-books()</s>
   <page url="{$baseurl}/account/circulations?sort=Circulations.DueDate&page=1&pageSize=100000" templateFile="list"/>
-  <page url="{$baseurl}/account/orders" templateFile="listOrders"/>
+  <page url="{$baseurl}/account/orders" templateFile="list"/>
 </action>
 
 <action id="renew-list">
