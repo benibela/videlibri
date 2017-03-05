@@ -11,28 +11,28 @@
 <a href="#time">Wie erfahre ich, wann die angezeigten Medien das letzte mal aktualisiert worden sind? </a>          <br>
 <a href="#autostart">Warum funktioniert der Autostart nicht (mehr)?</a>                                             <br>
 <a href="#colors">Was bedeuten die unterschiedlichen Farben?</a>                                                    <br>
+<a href="#libmissing">Warum kann ich meine Bibliothek nicht in der Auswahlliste der Bibliotheken finden?</a>                                                    <br>
 <a href="#bad-error">Warum erscheint die Fehlermeldung "Ich habe leider die Antwort der Bücherei nicht verstanden"?</a><br>
 <a href="#send-back">Wie funktioniert das Melden eines Fehlers?</a><br>
 <a href="#daten">Wie sind die Mediendatendateien aufgebaut?</a><br>
 <a href="#usb">Wie lässt man das Programm von einem USB-Stick laufen?</a>
 
    <H3><a name="caching">Warum behauptet das Programm, dass Bücher (über-)fällig sind, die ich bereits abgegeben habe?</a></H3>
-Ein wichtiges Feature von Videlibri ist, dass die Informationen über die ausgeliehenen Medien off-line verfügbar sind, das heißt, man kann seine ausgeliehenen Medien sehen, ohne dafür ins Internet zu müssen.<br>
-Wurden nun Medien abgegeben, so ist die Information, dass sie abgegeben wurden, für das Programm nur über das Internet zu erreichen, weshalb die Anzeige des Programms beim Start meistens veraltet ist.<br>
-Sobald die Daten dann über das Internet aktualisiert worden sind, werden die neuen und tatsächlichen Informationen angezeigt.<br>
-Im Normalfall findet diese Aktualisierung nur alle drei Tage statt, um den Büchereien das ständige Übertragen von unveränderten Daten zu ersparen. Man kann dieses Verhalten aber unter "Extra\Einstellungen" (Ctrl-E) ändern.<br>
-Eine andere Möglichkeit ist über "Medien\Aktualisieren" oder das Bild mit den drei Büchern und dem grünen Pfeil (ganz links) auf den neuesten Medienstatus zu aktualisieren. (Dies dauert einige Sekunden, während denen das Programm unten links zeigt, dass die Aktualisierung läuft)
+Ein wichtiges Feature von Videlibri ist, dass die Informationen über die ausgeliehenen Medien offline verfügbar sind, das heißt, man kann seine ausgeliehenen Medien sehen, ohne dafür ins Internet zu müssen.<br>
+In regelmäßigen Abständen erfolgt eine "Aktualisierung", welche den aktuellen Zustand der Ausleihen aus dem OPAC der Bibliothek über das Internet herunterlädt. Öffnet man VideLibri werden solange die alten, möglicherweise bereits abgegebenen Ausleihen angezeigt, bis die Aktualisierung abgeschlossen ist. 
+Im Normalfall findet diese Aktualisierung nur einmal täglich statt, um den Büchereien unnötigen Traffic durch das ständige Übertragen von unveränderten Daten zu ersparen. Man kann dieses Verhalten aber in den über das Menü erreichbaren Einstellungen ändern. (früher war das standardmäßige Aktualisierungsinterval nur zweimal pro Woche, aber dies hat leider zu viele Leute verwirrt)<br>
+Falls man nicht auf die automatische Aktualisierung warten will, kann man die Aktualisierung sofort manuell durchführen, indem man im Menü auf "Aktualisieren" drückt. In der Desktopversion gibt es dafür auch einen Toolbarbutton. 
 
 
-<H3><a name="inet_failed">Warum erscheint die Fehlermeldung "Internetverbindung konnte nicht hergestellt werden"?</a></H3>
+<H3><a name="inet_failed">Warum erscheint die Fehlermeldung "Internetverbindung konnte nicht hergestellt werden" oder "Bitte überprüfen Sie Ihre Internetverbindung"?</a></H3>
 Diese Fehlermeldung kann viele Ursachen haben, 
 Die einfachste Möglichkeit ist, dass tatsächlich keine Internetverbindung besteht, was Sie überprüfen können, indem Sie versuchen mit einem Internetbrowser eine Seite aufzurufen.<br>
 Kann keine Seite geöffnet werden, so sollten Sie die üblichen Fehlermöglichkeiten wie Verbindungseinstellungen, Kabel, usw. überprüfen, und sich, wenn das nichts bringt, an ihren Netzwerkadministrator wenden.<br>
 Funktioniert die normalen Zugriffevarianten, überprüfen Sie bitte als nächstes Ihre <a href="#firewall">Firewalleinstellungen</a>. (Wissen Sie nicht, wie das geht, fragen Sie bitte ihren Netzwerkadmin oder den Computerexperten um die Ecke)<br>
 Sind diese in Ordnung, versuchen Sie am besten die Büchereiseiten im Internetbrowser aufzurufen. Es kann nämlich vorkommen, dass diese auf Grund von Wartungsarbeiten nicht verfügbar sind.<br>
-Funktioniert das sollten alle <strong>externen Fehlerquellen ausgeschlossen sein</strong>, und der Fehler liegt an Videlibri.<br>
-Überprüfen Sie in diesem Fall die Interneteinstellung im Menu Extras\Einstellungen (Ctrl+E). Sollten Sie den Internet Explorer benutzen, müsste die Option "Windoweinstellungen übernehmen" funktionieren, bei einem anderen Programm, setzen Sie die übrigen Einstellungen (Direkt, Proxy, ...) auf diejenigen, in Ihrem Browser.<br>
-Nutzt dies alles nichts, gibt es wahrscheinlich einen Programmierfehler, den Sie über das Menü "Hilfe\Fehler melden" bekannt geben können, und der dann (hoffentlich schnell) von mir gelöst wird.
+Falls sich deren Seiten aufrufen lassen, sollten Sie die Interneteinstellung im Menü Extras\Einstellungen (Ctrl+E) überprüfen. Unter Windows übernimmt VideLibri standardmäßig die Interneteinstellungen des Internet Explorers. Falls Sie einen anderen Browser mit anderen Proxyeinstellungen verwenden, können Sie die entsprechenden Konfigurationen in den Einstellungen von VideLibri eingeben.  <br>
+Häufig gibt es Probleme, dass der Internet Explorer sich weigert, die HTTPS-Zertifikate der Bibliothek zu akzeptieren, da diese Zertifikate veraltet sind und als unsicher gelten. In diesen Fällen hilft es in den erweiterten Einstellungen des Internet Explorers (nicht den Einstellungen von VideLibri) SSL und TLS zu aktivieren. Startet man VideLibri nach dem Ändern der Einstellungen im Internet Explorers, übernimmt VideLibri diese Einstellungen und kann die Bibliothekseite aufrufen. Alternativ kann man in den Interneteinstellungen von VideLibri "Synapse" auswählen. In diesem Fall wird der Internet Explorer ignoriert und VideLibri stellt die Verbindung zur Bibliothek direkt her. Es muss allerdings nun zusätzlich <a href="https://slproweb.com/products/Win32OpenSSL.html">OpenSSL (Windowsversion)</a> installiert werden. Unter Linux wird immer Synapse verwendet, und es muss immer die Developmentversion von OpenSSL installiert sein. <br>
+Nutzt dies alles nichts, gibt es wahrscheinlich einen Programmierfehler, den Sie über das Menü "Hilfe\Fehler melden" (oder in der Androidversion "Feedback") bekannt geben können, und der dann (hoffentlich schnell) von mir gelöst wird.
 
 <H3><a name="firewall">Welche Firewalleinstellungen benötigt Videlibri?</a></H3>
 VideLibri greift auf die Server der Büchereien unter den Porten 80, und 443 zu, welche dementsprechend freigegeben sein müssen.<br>
@@ -79,7 +79,7 @@ Ein zweites Programm "simpleBrowser.exe" dient als integrierter Browser und grei
 -->
 
 <H3><a name="extend">Wann werden die Medien verlängert?</a></H3>
-Das lässt für jedes Konto einzeln einstellen. Zur Auswahl stehen dabei folgende Möglichkeiten:
+Das lässt für jedes Konto einzeln einstellen. In der Desktopversion stehen dabei folgende Möglichkeiten zur Auswahl:
 <table>
 <tr>
 <td>immer, wenn möglich</td>
@@ -99,12 +99,13 @@ Das lässt für jedes Konto einzeln einstellen. Zur Auswahl stehen dabei folgende 
 </tr>
 </table>
 
+Die Androidversion hat für jedes Konto eine Option "automatisch verlängern", diese entspricht der Option "einzeln, wenn nötig" der Desktopversion. Es gibt dort somit nur die Option "einzeln, wenn nötig" und "niemals"
 
 <H3><a name="time">Wie erfahre ich, wann die angezeigten Medien das letzte mal aktualisiert worden sind? </a></H3>
-Dies ist relativ einfach, solange keine Daten aktualisiert werden, zeigt, dass Programm unten links an, wie alt, die ältesten angezeigten Medieninformationen sind.<br>
+In der Desktopversion ist dies relativ einfach, solange keine Daten aktualisiert werden, zeigt das Programm unten links an, wie alt die ältesten angezeigten Medieninformationen sind.<br>
 Will man detailliert für jedes Konto wissen, wann es das letzte Mal aktualisiert worden ist, kann man auf diese Information doppelklicken, um ein Fenster mit genaueren Informationen zu öffnen.
 
-<H3><a name="autostart">Warum funktioniert der Autostart nicht (mehr)?</a></H3>
+<H3><a name="autostart">Warum funktioniert der Autostart nicht (in der Desktopversion)?</a></H3>
 Es gibt zwei Möglichkeiten. Entweder ist es für Videlibri nicht notwendig zu starten, oder der der Autostart funktioniert tatsächlich nicht mehr.<br>
 Der erste Fall tritt einfach, wenn die Mediendaten vor kurzem aktualisiert worden sind und in nächster Zeit keine Medien zu verlängern sind.<br>
 Es gibt dann einfach keinen Grund, warum Videlibri starten solle, da es weder die Mediendaten aktualisieren noch Medien verlängern würde.<br>
@@ -113,7 +114,7 @@ Funktioniert der Autostart aus irgendwelchen Gründen tatsächlich nicht, so ist e
 Nützt das nichts, liegt wahrscheinlich ein Programmierfehler vor, den Sie bitte <a href="#send-back">melden.</a>
 
 <H3><a name="colors">Was bedeuten die unterschiedlichen Farben?</a></H3>
-In der Liste der Medien, gibt die die Farbe der Zeile eines Mediums Informationen über die Abgabefrist:
+In der Liste der Medien gibt die Farbe der Zeile eines Mediums Informationen über die Abgabefrist:
 <table>
 <tr>
 <td>rot</td>
@@ -127,10 +128,23 @@ In der Liste der Medien, gibt die die Farbe der Zeile eines Mediums Informatione
 <td>grün</td>
 <td>Das Buch kann verlängert werden und muss nicht innerhalb der nächsten Tagen abgegeben werden.</td>
 </tr>
+<tr>
+<td>cyan (hellblau)</td>
+<td>Das Buch ist vorgemerkt.</td>
+</tr>
+<tr>
+<td>lila (violett)</td>
+<td>Das Buch war vorgemerkt und ist nun abholbereit.</td>
+</tr>
 </table>
 
-Im Autostartmodus findet man in der Taskleiste das Icon eines kleinen Buches. Dessen Farbe gibt die Farbe an, die das als nächste abzugebende Medium bekommen würde.
+Das Icon von VideLibri ändert seine Farbe, so dass es der Farbe des als nächstes abzugebendem Mediums entspricht. In der Desktopversion ändert sich die Farbe des Icons in der Taskleiste, in der Androidversion die Farbe des Icons in Benachrichtigungen und dem Taskwechsler. Die Farbe im Startmenü kann sich leider nicht ändern und ist immer gelb. 
 
+<h3><a name="libmissing">Warum kann ich meine Bibliothek nicht in der Auswahlliste der Bibliotheken finden?</a></h3>
+
+Traditionell hat VideLibri nur die Bibliotheken in der Auswahlliste aufgeführt, bei denen jemand angefragt hat, ob die Bibliothek mit VideLibri verwendet werden kann. Es wäre nämlich sinnlos, eine Bibliothek zu betreuen, bei der kein Leser VideLibri benutzt und die Bibliothekare kein Interesse an VideLibri haben.<br>
+Insofern lohnt es sich einfach nachzufragen, vielleicht funktioniert die Bibliothek bereits mit VideLibri und ist nur nicht aufgeführt. Alternativ kann man in diesem Fall auch ohne nachzufragen, die Adresse des Bibliotheks-OPAC <a href="bibliothek.html">in VideLibri eintragen</a>. <br>
+Falls die Bibliothek ein unbekanntes System verwendet, geht dies nicht und es ist nötig in VideLibri bestimmte Informationen über <a href="templates.html">jede einzelne Seite im OPAC einzutragen</a>.  Dazu reicht es im Allgemeinen die Adressen einzugeben und die Webseiten der Bibliothek mit leichten Modifikation in VideLibri hineinzukopieren.  Wenn man dies zum ersten Mal tut, kann es jedoch recht zeitaufwendig werden. Daher ist es meistens nötig, dass ich diese Konfiguration persönlich vornehme. Dann jedoch müssen Sie mir ein Testkonto bei der Bibliothek schicken, denn solange ich keinen Zugriff auf die Seiten im OPAC habe, kann ich auch nicht in VideLibri eintragen, wie diese Seiten aufgebaut sind.
 
 <H3><a name="bad-error">Warum erscheint die Fehlermeldung "Ich habe leider die Antwort der Bücherei nicht verstanden"?</a></H3>
 Diese Fehlermeldung erscheint immer auf, wenn der Zugriff auf die Bücherei möglich ist, aber nicht die erwartete Medienliste empfangen wurde.<br>
