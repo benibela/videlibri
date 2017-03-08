@@ -1,5 +1,5 @@
 book := {}
-renew-form := {"method": "POST", "post": "renew=Verl%C3%A4ngern&selection=ALL&sorting=NONE", "url": "file:///LBS_WEB/borrower/loans.htm"}
+renew-form := {"method": "POST", "post": "renew=Verl%E4ngern&selection=ALL&sorting=NONE", "url": "file:///LBS_WEB/borrower/loans.htm", "charset": "CP1252"}
 books-deleted := true()
 book := {"statusId": "critical", "status": "Keine Verlängerung möglich Mahnungen: 0  Verlängerungen: 10 ", "id": "AB 123 C456 V9", "libraryBranch": "Theke", "duedate": "2015-02-20", "year": "1980", "author": " Haber, Anna ", "title": "Prioritätisierung nach der Lifo-Methode  ", "renewId": "31234"}
 book := {"statusId": "critical", "status": "Keine Verlängerung möglich Mahnungen: 0  Verlängerungen: 10 ", "id": "AB 123 I456", "libraryBranch": "Theke", "duedate": "2015-04-20", "year": "1994", "author": " Haber, Martin ", "title": "Foobar ", "renewId": "37123"}
