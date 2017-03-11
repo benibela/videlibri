@@ -13,6 +13,14 @@ const
    LM_SHOW_VIDELIBRI = LM_USER + $4224;
 {$ENDIF}
 
+type EBookListReader=class(Exception)
+  details:string;
+  constructor create;
+  constructor create(s:string;more_details:string='');
+end;
+ELoginException=class(EBookListReader)
+end;
+
 type TErrorArray=array of record
                      error: string;
                      details: array of record
@@ -151,6 +159,8 @@ resourcestring
   rsAfterTomorrow = 'übermorgen';
   rsErrorCheckInternet = 'Bitte überprüfen Sie Ihre Internetverbindung.';
   rsErrorBacktrace = 'Detaillierte Informationen über die entsprechende Quellcodestelle:';
+  rsErrorBookListReader = 'Die Bibliothek zeigt diese Nachricht auf der Katalogwebseite an: '+LineEnding;
+  rsErrorLoginException = 'Die Kontonummer bzw. das Passwort wurden vom Bibliothekskatalog nicht akzeptiert. Der Bibliothekskatalog erläutert dazu: '+LineEnding;
 
 
   procedure addErrorMessage(errorStr,errordetails, anonymouseDetails, libraryId, searchQuery:string;lib:TCustomAccountAccess=nil);
@@ -185,9 +195,11 @@ resourcestring
       errorstr:=exception.message+LineEnding;
       errorStr += rsErrorCheckInternet;
       errordetails:=EInternetException(exception).details;
-     end {else if exception is ELoginException then begin
-      errorstr:=#13#10+exception.message;
-     end }else if exception is ELibraryException then begin
+     end else if exception is ELoginException then begin
+      errorstr:=rsErrorLoginException + trim(exception.message);
+     end else if exception is EBookListReader then begin
+      errorstr:=rsErrorBookListReader + trim(exception.message);
+     end else if exception is ELibraryException then begin
       errorstr:=#13#10+exception.message;
       errordetails:=ELibraryException(exception).details;
      end else if exception is EHTMLParseMatchingException then begin
@@ -230,6 +242,17 @@ resourcestring
       system.LeaveCriticalSection(exceptionStoring);
     end;
 
+  end;
+
+  constructor EBookListReader.create;
+  begin
+
+  end;
+
+  constructor EBookListReader.create(s: string; more_details: string);
+  begin
+    Message:=s;
+    details:=more_details;
   end;
 
   function getTNAIconBaseFileName(): string;

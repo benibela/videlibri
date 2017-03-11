@@ -114,14 +114,6 @@ type
     property lendList: boolean read flendList write setLendList;
   end;
 
-  EBookListReader=class(Exception)
-    details:string;
-    constructor create;
-    constructor create(s:string;more_details:string='');
-  end;
-  ELoginException=class(EBookListReader)
-  end;
-
   TPendingMessageKind = (pmkConfirm, pmkChoose);
   TPendingMessage = class
     kind: TPendingMessageKind;
@@ -1149,18 +1141,6 @@ begin
   currentBook:=book;
 end;
 
-{ EBookListReader }
-
-constructor EBookListReader.create;
-begin
-
-end;
-
-constructor EBookListReader.create(s: string; more_details: string);
-begin
-  Message:=s;
-  details:=more_details;
-end;
 
 function xqFunctionDelete_Current_Books(const context: TXQEvaluationContext; argc: SizeInt; argv: PIXQValue): IXQValue;
 begin

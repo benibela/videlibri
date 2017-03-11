@@ -314,24 +314,6 @@ begin
   if logging then log('TUpdateLibThread.execute ended');
 end;
 
-                                           {
-procedure TUpdateLibThread.showError;
-//var i:integer;
-begin
-  if messageShown then exit;
-  messageShown:=true;
-  addErrorMessage(errorStr,errordetails,lib);
-  messageShown:=false;
-end;
-procedure TUpdateLibThread.exceptionRaised(raisedException:Exception);
-begin
-  if raisedException=nil then exit;
-  createErrorMessageStr(raisedException,errorstr,errordetails,lib);
- // end;
-  messageShown:=false;
-  Synchronize(@showError);
-end;                                      }
-
 constructor TUpdateLibThread.Create(alib: TCustomAccountAccess; var config: TThreadConfig; someRequests: TFPList);
 begin
   lib:=alib;
