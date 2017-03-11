@@ -18,8 +18,8 @@
     <loop test="$i < 10">
         <page url="{$loginFormPost}">
           <template><t:switch-prioritized>  
-            <div class="notify">Benutzernummer oder Passwort falsch<t:s>vl:raise-login(.)</t:s></div> <!-- blb karlsruhe -->
-          
+            <p class="form-error">Benutzernummer oder Passwort falsch<t:s>vl:raise-login(.)</t:s></p><!-- blb karlsruhe -->
+
             <!-- seems we already are on the correct page, send request again (not tested with any library) -->
             <td>Keine Ausleihen<t:s>i:=1000</t:s></td>
             <a>Ausleihen zeigen oder verlängern<t:s>i:=1000</t:s></a> 
@@ -92,7 +92,7 @@
     <page url="{$lf}">
       <template><t:switch prioritized="true">
         <input name="$Textfield">{ loginFormPost := form((ancestor::form, //form)[1], {"$Textfield": $username, "$Textfield$0": $password}) } <!-- Aalen has invalid html where the form is not an ancestor of the input-->  </input> 
-        <input name="j_username">{ loginFormPost := form((ancestor::form, //form)[1], {"j_username": $username, "j_password": $password}),
+        <input name="j_username">{ loginFormPost := let $form := (ancestor::form, //form)[1] return form($form, ({"j_username": $username, "j_password": $password}, ($form//button)[1])),
                 idpSystem := true() }</input> 
         <form><div class="message">Sind Sie Angehörige/r unserer Hochschule?
           <t:s> if (starts-with($username, "E")) then loginForm := form(ancestor::form[1], (.//input)[2])
