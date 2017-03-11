@@ -9,7 +9,7 @@
 
    
   <template value="primo"/>
-  <variable name="baseurl" value="http://primo.kobv.de/primo_library/libweb/action/"/>
+  <variable name="baseurl" value="https://hu-berlin.hosted.exlibrisgroup.com/primo_library/libweb/action/"/>
   <variable name="institute" value="hub_ub"/>
 
   <!-- get links from stupid buttons on anmelden page-->

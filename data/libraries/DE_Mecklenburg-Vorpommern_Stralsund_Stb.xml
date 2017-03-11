@@ -4,13 +4,13 @@
   <shortName value="Stb Stralsund"/>
   
   <template value="bibliothecaplus"/>
-  <variable name="urlaccount" value="http://katalog.stralsund.de/de-de/konto.aspx"/>	
-  <variable name="urlsearch" value="http://katalog.stralsund.de/de-de/profisuche.aspx"/>
+  <variable name="urlaccount" value="http://katalog.stralsund.de/Konto"/>	
+  <variable name="urlsearch" value="http://katalog.stralsund.de/Profisuche"/>
   <!--<template value="pica"/>-->
 
 
   <homepage value="http://stadtbibliothek.stralsund.de/"/>
-  <testing-search value="ja" date="2014-09-14"/>
+  <testing-search value="ja" date="2017-03-11"/>
   <testing-account value="ja" date="2014-09-14"/>
   <testing-renew value="?" date=""/>
 </library>

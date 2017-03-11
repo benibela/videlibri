@@ -3,10 +3,10 @@
   <longName value="Bibliothek Witten (alpha)"/>
 
   <template value="sisis"/>
-  <variable name="server" value="http://webopac.stadt-witten.de:8080/webOPACClient/"/>
+  <variable name="server" value="https://webopac.stadt-witten.de/webOPACClient/"/>
 
   <homepage value="http://www.kulturforum-witten.de/bibliothek.html"/>
-  <testing-search value="ja" date="2015-01-25"/>
+  <testing-search value="ja" date="2017-03-11"/>
   <testing-account value="?" date=""/>
   <testing-renew value="?" date=""/>
 </library>
