@@ -345,7 +345,7 @@ resourcestring
     commandLine.declareInt('updated-to', rsParamUpdateComplete, 0);
     commandLine.declareInt('debug-addr-info', rsParamDebugAddress, 0);
     commandLine.declareFlag('log', rsParamLog, false);
-    commandLine.declareString               ('http-log-path', rsParamHttpLogPath, '');
+    commandLine.declareString('http-log-path', rsParamHttpLogPath, '');
     commandLine.declareFlag('refreshAll', rsParamRefresh, false);
     commandLine.declareString('debug-html-template', rsParamTemplate, '');
     commandLine.declareString('on', rsParamPattern, '');
@@ -373,8 +373,10 @@ resourcestring
     if logging then log('Started with logging enabled, command line:'+ParamStr(0));
 
     defaultInternetConfiguration.logToPath:=commandLine.readString('http-log-path');
-    if defaultInternetConfiguration.logToPath <>'' then
+    if defaultInternetConfiguration.logToPath <>'' then begin
+      ForceDirectories(defaultInternetConfiguration.logToPath);
       defaultInternetConfiguration.logToPath:=IncludeTrailingPathDelimiter(defaultInternetConfiguration.logToPath);
+    end;
     if logging then log('Started with internet logging enabled');
 
     //Pfade auslesen und überprüfen
