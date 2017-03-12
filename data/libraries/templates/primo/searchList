@@ -15,10 +15,11 @@
               <DIV class="EXLSummaryFields">
                 <H2 class="EXLResultTitle">{book := {"title": .}}</H2>
                 <H3 class="EXLResultAuthor">{$book.author}</H3>?
-                <P class="EXLResultAvailability">{$book.id}</P>
+                <P class="EXLResultAvailability">{$book.id}</P> <!-- that is wrong. is not id, but like "Online-Zugriff ". however it looks kind of nice in overview -->
               </DIV>
             </DIV>
                 <UL class="EXLResultTabs">
+                  <LI class="EXLLocationsTab"><A>{$book.locations-url := resolve-html(.)}</A></LI>?
                   <LI class="EXLViewOnlineTab"><A><t:read var="book.Volltexte!" source="resolve-uri(translate(@href, ' ', '+'))"/></A></LI>?
                   <LI class="EXLDetailsTab"><A>{$book.home-url := resolve-uri(translate(@href, ' ', '+'))}</A></LI>
                 </UL>

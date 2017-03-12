@@ -130,8 +130,8 @@
 </action>
 
 <action id="search-details">
-  <page url="{$book.home-url}" templateFile="searchDetails">
-  </page>
+  <page url="{$book.home-url}" templateFile="searchDetails"/>
+  <page url="{$book.locations-url}" templateFile="searchDetailsLocations"/>
 
 </action>
 

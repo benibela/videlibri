@@ -1,0 +1,2 @@
+book := {}
+book := {"Zeige die Bände aus dieser Serie!!": "Zeige die Bände aus dieser Serie", "Quelle:!!": "TUB ALMA DS", "Verlag:!!": "Neuilly sur Seine", "Weitere Titel:!!": ["Früheres u.d.T.: NATO / Advisory Group for Aerospace Research and Development: AGARD flight test instrumentation series", "test"], "Beschreibung:!!": "990000934240302884", "Person / Institution:!!": null, "Titel:!!": "test", "!!": null}

@@ -5,7 +5,7 @@
        <FORM>
          <DIV class="EXLDetailsTabContent">
            <DIV class="EXLDetailsContent">
-             <UL><LI>{vl:set-book-property(.//strong, .//span)}</LI>*</UL>
+             <UL><LI>{vl:set-book-property(.//strong, .//span)}</LI>*</UL> <!-- perhaps better use (.//span,.//a)[1] ? -->
            </DIV>
            <DIV class="EXLDetailsLinks">
              <EM/>

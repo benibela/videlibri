@@ -1,0 +1,6 @@
+book := {}
+i := 0
+i := 1
+i := 2
+i := 3
+book := {"Exemplar 3 Bestand!": "27.1992 - 28.1993; 1994 - (Ungeb. Jg.: Zeitschriftenauslage; ZB011)", "Exemplar 3 Standort!": "3 ZB Grimm-Zentrum \n\t\t\t\t\t\t\t\t\t\t\tZeitschriften \n\t\t\t\t\t\t\t\t\t\t\tQA 36700 ", "Exemplar 2 Bestand!": "von:2016 2016 bis:2017 2017", "Exemplar 2 Standort!": "2 ZB Grimm-Zentrum \n\t\t\t\t\t\t\t\t\t\t\t1. OG - Freihandbestand Zeitschriftenauslage \n\t\t\t\t\t\t\t\t\t\t\tQA 36700 ", "Exemplar 1 Bestand!": "von:27 1992 bis:2015 2015", "Exemplar 1 Standort!": "1 ZB Grimm-Zentrum \n\t\t\t\t\t\t\t\t\t\t\t2. OG / Bereich C / Regal 1-17 - Freihandbestand \n\t\t\t\t\t\t\t\t\t\t\tQA 36700 "}
