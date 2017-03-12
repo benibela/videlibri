@@ -1,10 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?xml-stylesheet type="text/xsl" href="../changelog.xsl"?>
 <changelog program="VideLibri">
-      <build version="1873" date="2017-02-02">
+      <build version="1880" date="2017-03-12">
         <download url="http://videlibri.sourceforge.net/updates/videlibri-setup.exe" platform="WINDOWS" execute="&quot;$DOWNLOAD&quot;  /SP- /noicons &quot;/dir=$OLDPATH&quot; " restart="true"/>
         <download url="http://videlibri.sourceforge.net/updates/videlibri-linux32.deb" platform="LINUX32" execute=""/>
         <download url="http://videlibri.sourceforge.net/updates/videlibri-linux64.deb" platform="LINUX64" execute=""/>
+        <change>Modernisierung des intern simulierten Webbrowsers: Sende Anfragen als latin1 statt utf-8, wenn die Seite nicht explizit utf-8 verwendet. Folge der Cookie-RFC, so dass Cookies, die von einem Server für eine Einzelseite gesetzt werden, auch für andere Seiten auf demselben Server nicht verfügbar sind.</change>
+        <change>bibliotheca/netbiblio: Verwende t:siblings, so dass es mit mehr unbekannten Bibliotheken funktionieren sollte</change>
+        <fix>Anpassung an geänderte Serveradresse der Stadtbibliothek Stralsund und Bibliothek Witten. Sowie der Suche bei Universitätsbibliothek der HU-Berlin und Universitätsbibliothek der FU-Berlin</fix>
+        <fix>Anpassung an geänderte Loginseite der Badischen Landesbibliothek (Karlsruhe).</fix>
+        <add>primo, Universitätsbibliotheken TU/HU/FU-Berlin: Anzeige von Standortdaten</add>
+        <add>t:siblings-header/t:siblings-Befehle im Pattern Matching, die VideLibri mitteilen, dass die Spalten einer Tabelle beliebig permutiert werden dürfen. </add>
+        <change>ausführlichere Fehlermeldungen</change>
+     </build>
+      <build version="1873" date="2017-02-02">
         <change>Noch strengere Cookie-Abschirmung, die Server anhand der Subdomain nicht nur der Domain unterscheidet. </change>
         <fix>Stadtbücherei Erbach: Anpassung an neuen OPAC</fix>
         <fix>libero 6/Saarbrücken: Teste, ob VideLibri bereits im Katalog eingeloggt ist, und wenn ja, überspringe den Einlogvorgang. </fix>
