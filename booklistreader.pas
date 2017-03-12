@@ -864,7 +864,7 @@ end;
 
 procedure TBookListReader.logall(sender: TMultipageTemplateReader; logged: string; debugLevel: integer=0);
 begin
-  log(logged);
+  if logging then log(logged);
 end;
 
 procedure TBookListReader.applyPattern(pattern, name: string);
@@ -1093,7 +1093,7 @@ var
 begin
   inherited create(atemplate, nil);
   defaultBook:=TBook.create;
-  if logging then onLog:=@logall;
+  onLog:=@logall;
   parser.QueryEngine.GlobalNamespaces.add(XMlNamespaceVideLibri);
   parser.QueryEngine.GlobalNamespaces.add(XMlNamespaceVideLibri_VL);
   temp := TXQVideLibriStaticContext.create(self);
