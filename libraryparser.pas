@@ -63,6 +63,7 @@ type
     
     flibraries: TList;
     function getAccountObject(libID: string):TCustomAccountAccess;
+    procedure insertLibraryInSortedOrder(lib: TLibrary);
   public
     templates:TStringList;
 
@@ -752,6 +753,8 @@ begin
   result := libraries[0].getAccountObject(); //exception will crash since nothing is initialized yet
   //raise Exception('Bücherei '+libID+' ist unbekannt');
 end;
+
+
 constructor TLibraryManager.create();
 begin
   flibraries:=Tlist.create;
@@ -775,8 +778,17 @@ var
   loc2: String;
 begin
   loc1 := TLibrary(lib1).location;
-  loc2 := TLibrary(lib2).location;
+  loc2 := TLibrary(ppointer(lib2)^).location;
   result := CompareStr(loc1, loc2);
+end;
+
+procedure TLibraryManager.insertLibraryInSortedOrder(lib: TLibrary);
+var
+  next: Pointer;
+begin
+  next := binarySearch(@flibraries.List^[0], @flibraries.List^[flibraries.Count-1], sizeof(pointer), @libraryLocationCompare, lib, bsFirst, [bsGreater]);
+  if next = nil then flibraries.Insert(0, lib)
+  else flibraries.Insert((next - @flibraries.List[0]) div sizeof(Pointer), lib)
 end;
 
 procedure TLibraryManager.init(apath: string);
@@ -785,7 +797,6 @@ var //tempLibrary:TLibrary;
     newLib:TLibrary;
     i:longint;
     userlibs: TStringArray;
-    next: Pointer;
 begin
   basePath:=apath;
 
@@ -806,9 +817,7 @@ begin
     newLib:=TLibrary.Create;
     try
       newLib.loadFromString(assetFileAsString('libraries/'+userlibs[i]+'.xml'), 'libraries/'+userlibs[i]+'.xml');
-      next := binarySearch(@flibraries.List^[0], @flibraries.List^[flibraries.Count-1], sizeof(pointer), @libraryLocationCompare, newLib, bsFirst, [bsGreater]);
-      if next = nil then flibraries.Insert(0, newLib)
-      else flibraries.Insert((next - @flibraries.List[0]) div sizeof(Pointer), newLib)
+      insertLibraryInSortedOrder(newLib);
     except
       newLib.free;
     end;
@@ -1031,7 +1040,6 @@ function TLibraryManager.setUserLibrary(trueid, data: string): TLibrary;
 var
   lib: TLibrary;
   userlibs: TStringArray;
-  next: Pointer;
 begin
   if not DirectoryExists(userPath+'libraries') then
     ForceDirectories(userPath+'libraries');
@@ -1046,9 +1054,7 @@ begin
   if lib = nil then begin
     lib := TLibrary.create;
     lib.id:=trueid;
-    next := binarySearch(@flibraries.List[0], @flibraries.List[flibraries.Count-1], sizeof(pointer), @libraryLocationCompare, lib, bsFirst, [bsGreater]);
-    if next = nil then flibraries.Insert(0, lib)
-    else flibraries.Insert((next - @flibraries.List[0]) div sizeof(Pointer), lib)
+    insertLibraryInSortedOrder(lib);
   end;
   lib.template:=nil;
   lib.variables.Clear;
