@@ -407,9 +407,9 @@ var
   i: SizeInt;
   temp: String;
 begin
-  if strContains(recordItem.Text, 'http://') or strContains(recordItem.Text, 'https://') then begin
-    i := pos('http://', recordItem.Text);
-    if i < 0 then i := pos('https://', recordItem.Text);
+  if striContains(recordItem.Text, 'http://') or striContains(recordItem.Text, 'https://') then begin
+    i := striIndexOf(recordItem.Text, 'http://');
+    if i <= 0 then i := striIndexOf(recordItem.Text, 'https://');
     temp := strCopyFrom(recorditem.Text, i);
     if strContains(temp, ' ') then delete(temp, strIndexOf(temp, ' '), length(temp));
     openURL(temp);
