@@ -118,7 +118,7 @@ end;
 procedure beginAssetRead;begin end;
 procedure endAssetRead;begin end;
 procedure uninit;begin end;
-function loaded: LongInt; begin end;
+function loaded: LongInt; begin result := 0; end;
 
 {$else}
 

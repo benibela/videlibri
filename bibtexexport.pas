@@ -161,7 +161,7 @@ begin
     if clipboardExport.Checked then Clipboard.AsText:=exportStr
     else case outputEncoding of
       0: strSaveToFile(FileNameEdit1.Text,exportStr); //exportStr is ASCII, no convert
-      1: strSaveToFile(FileNameEdit1.Text,strConvertFromUtf8(exportStr,eWindows1252)); //exportStr is UTF-8, convert to ANSI
+      1: strSaveToFile(FileNameEdit1.Text,strConvertFromUtf8(exportStr,CP_LATIN1)); //exportStr is UTF-8, convert to ANSI
       2: strSaveToFile(FileNameEdit1.Text,exportStr); //exportStr is UTF-8, no convert
     end;
 
@@ -192,4 +192,4 @@ initialization
   {$I bibtexexport.lrs}
 
 end.
-
+

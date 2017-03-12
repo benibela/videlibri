@@ -690,7 +690,7 @@ end;
 
 procedure TBookListXMLReader.parse(data: string);
 begin
-  simplexmlparser.parseXML(data, @enterTag, @leaveTag, @textRead, eUTF8);
+  simplexmlparser.parseXML(data, @enterTag, @leaveTag, @textRead, CP_UTF8);
 end;
 
 function TBookListXMLReader.enterTag(tagName: string; properties: TProperties): TParsingResult;
@@ -1207,7 +1207,6 @@ end;
 //callback action is called with confirm-result := true/false
 function xqFunctionSelectBook(const context: TXQEvaluationContext; argc: SizeInt; argv: PIXQValue): IXQValue;
 var
-  temp: TXQValueObject;
   reader: TBookListReader;
   query: IXQValue;
   book: TBook;
@@ -1242,7 +1241,7 @@ function xqFunctionSetBookProperty(const context: TXQEvaluationContext; argc: Si
   var
     book: IXQValue;
   begin
-    //$book(k) := v
+    // $book(k) := v
     book := context.staticContext.sender.VariableChangelog.get('book');
     if (book = nil) or (book.kind <> pvkObject) then exit;
     context.staticContext.sender.VariableChangelog.add('book', (book as TXQValueObject).setImmutable(k, v));
@@ -1291,6 +1290,7 @@ begin
     else setProperty(key + '!', value);
   end;
 
+  result := xqvalue();
 end;
 
 var vl: TXQNativeModule;

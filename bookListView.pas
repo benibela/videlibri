@@ -19,7 +19,7 @@ uses
    procedure startEditing(item: TTreeListRecordItem);
 
    procedure editorExit(Sender: TObject);
-   procedure editorKeyUp(Sender: TObject; var Key: Word; Shift: TShiftState);
+   procedure editorKeyUp(Sender: TObject; var Key: Word; {%H-}Shift: TShiftState);
  end;
 
  TBookListView = class(TEditableListView)
@@ -28,7 +28,7 @@ uses
     fshowlendbooks: boolean;
     lastAddBook: tbook;
 
-    procedure BookListCompareItems(sender: TObject; i1, i2: TTreeListItem;
+    procedure BookListCompareItems({%H-}sender: TObject; i1, i2: TTreeListItem;
       var compare: longint);
     procedure BookListCustomItemDraw(sender: TObject;
       eventTyp_cdet: TCustomDrawEventTyp; item: TTreeListItem; var defaultDraw: Boolean);

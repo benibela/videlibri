@@ -299,7 +299,6 @@ var prog: string;
  week: LongInt;
  proc: TProcess;
  subject: String;
- nextLimitDate, nextLimitDateNotExtendable: integer;
 
 begin
   prog := userConfig.ReadString('Mail', 'Sendmail', 'sendmail -i -f "$from" $to');
@@ -384,8 +383,6 @@ procedure TmainForm.FormCreate(Sender: TObject);
 
 var i:integer;
     tempItem:TMenuItem;
-    img,mask: graphics.TBITMAP;
-    order: array[0..100] of longint;
     stream: TStringStream;
     po: TPOFile;
     libsAtLoc: TStringArray;
@@ -515,10 +512,6 @@ begin
 
   caption:=appFullTitle;
 
-  {$ifdef debug}
-  caption:=caption+' (DEBUG-BUILD!)';
-  {$endif}
-
   RefreshShellIntegration;
 
   if debugMode then MenuItemTester.Visible:=true;
@@ -534,8 +527,6 @@ end;
 
 procedure TmainForm.FormResize(Sender: TObject);
 var i:integer;
-    item:TListItem;
-    rec: Trect;
     w:integer;
 begin
   if logging then log('FormResize started');
@@ -1194,20 +1185,13 @@ end;
 
 procedure TmainForm.LibraryHomepageClick(Sender: TObject);
 var baseURL:string;
-    id,title,extraParams:string;
     lib:TLibrary;
 begin
   if tcontrol(sender).Tag=-1 then begin
     baseURL:='http://www.digibib.net/Digibib?SERVICE=SESSION&SUBSERVICE=GUESTLOGIN&LOCATION=DUEBIB&LANGUAGE=de';
-    id:='xxx';
-    title:='DigiBib: Düsseldorfer Bibliotheken';
-    extraParams:='';
   end else begin
     lib:=libraryManager.getLibraryFromEnumeration(TMenuItem(sender).Parent.Caption, tcontrol(sender).Tag);
     baseURL:=lib.homepageCatalogue;
-    id:=lib.id;
-    title:=TMenuItem(sender).Caption;
-    extraParams:='';
     //if not lib.allowHomepageNavigation then extraParams:=extraParams+' /no-navigation';
     //if lib.bestHomepageWidth>0 then extraParams:=extraParams+' /pagewidth='+InttoStr(lib.bestHomepageWidth);
     //if lib.bestHomepageHeight>0 then extraParams:=extraParams+' /pageheight='+InttoStr(lib.bestHomepageHeight);
@@ -1222,7 +1206,7 @@ var pos: TPoint;
     i,j:integer;
     s:string;
 begin
-  GetCursorPos(pos);
+  GetCursorPos(pos{%H-});
   pos:=StatusBar1.ScreenToClient(pos);
   for i:=0 to StatusBar1. Panels.Count-1 do
     if pos.x<=statusbar1.panels.items[i].Width then begin
@@ -1303,10 +1287,7 @@ begin
 end;
 
 procedure TmainForm.RefreshListView;
-var i,j,count,count2:integer;
-    book:TBook;
-    books:TBookLists;
-    typ: TBookOutputType;
+var i:integer;
     criticalSessionUsed,oldList,currentList:boolean;
     account: TCustomAccountAccess;
     maxcharges:currency;
@@ -1451,7 +1432,6 @@ procedure TmainForm.refreshAccountGUIElements();
 
 var temp:TMenuItem;
     i:integer;
-    account: TCustomAccountAccess;
     j: Integer;
 begin
   //delete old
@@ -1466,7 +1446,6 @@ begin
 
   //add new
   for i:=0 to accounts.Count-1 do begin
-    account:=(accounts[i]);
     accountListMenu.Items.Add(newItem(accountListMenu,@refreshAccountClick,i));
     accountListMenuItem.Add(newItem(accountListMenu,@refreshAccountClick,i));
     temp:=newItem(accountListMenu,@showAccount,i);

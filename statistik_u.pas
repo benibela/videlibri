@@ -31,14 +31,14 @@ type
     procedure FormDestroy(Sender: TObject);
     procedure FormResize(Sender: TObject);
     procedure FormShow(Sender: TObject);
-    procedure PaintBox1MouseMove(Sender: TObject; Shift: TShiftState; X,
+    procedure PaintBox1MouseMove(Sender: TObject; {%H-}Shift: TShiftState; X,
       Y: Integer);
     procedure PaintBox1Paint(Sender: TObject);
     procedure PaintBox1Resize(Sender: TObject);
     procedure Timer1Timer(Sender: TObject);
   private
     { private declarations }
-    procedure translateDate(sender: TAxis; value: extended; var translated: string);
+    procedure translateDate({%H-}sender: TAxis; value: extended; var translated: string);
   public
     { public declarations }
     diagramDrawer: TDiagramDrawer;
@@ -356,4 +356,4 @@ initialization
   {$I statistik_u.lrs}
 
 end.
-
+

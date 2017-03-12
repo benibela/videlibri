@@ -164,7 +164,7 @@ procedure TduplicateForm.searchDuplicates;
     item.RecordItemsText[BL_BOOK_COLUMNS_EXISTDATELAST] := DateToPrettyStr(book.lastExistsDate);
     item.RecordItemsText[BL_BOOK_EXTCOLUMNS_CHECKED] := CHECKBOX_CHECKED;
   end;
-var alllists, list: TBookList;
+var alllists: TBookList;
   i, accountMode, timeMode: Integer;
   ingroup: Boolean;
   subitem, item: TTreeListItem;

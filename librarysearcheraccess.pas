@@ -456,7 +456,6 @@ procedure TSearcherThread.execute;
 var mes: TSearcherMessage;
     temp, image:string;
     book: tbook;
-    i: Integer;
     debugLastSearchQuery: String;
     oldUrl: String;
     images: TStringArray;

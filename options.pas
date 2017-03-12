@@ -923,7 +923,6 @@ var
   vari: String;
   desc: String;
   systems: String;
-  url: string;
 
 label systemWrong;
 begin
@@ -986,7 +985,6 @@ end;
 procedure ToptionForm.libChangeClick(Sender: TObject);
 var
   trueId: String;
-  userlibs: TStringArray;
 begin
   if (libList.Selected <> nil) and (libList.Selected.Caption = libNameEdit.Text) then trueid := TLibrary(libList.Selected.Data).id
   else trueId := '-_-_-_'+trim(libNameEdit.text);
@@ -1026,15 +1024,7 @@ end;
 
 
 procedure ToptionForm.templateDefineClick(Sender: TObject);
-var
-  oldTemplateIdx: Integer;
-  oldTemplate: TObject;
-  i: Integer;
-  j: Integer;
 begin
-  oldTemplateIdx := libraryManager.templates.IndexOf(templateName.Text);
-  if oldTemplateIdx >= 0 then oldTemplate := libraryManager.templates.Objects[oldTemplateIdx];
-
   if not DirectoryExists(userPath+'libraries/templates/'+templateName.Text) then
     ForceDirectories(userPath+'libraries/templates/'+templateName.Text+'');
   templatexml.Lines.SaveToFile(userPath+'libraries/templates/'+templateName.Text+'/template');

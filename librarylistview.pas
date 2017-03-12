@@ -55,7 +55,6 @@ procedure TLibraryListView.LibraryListViewCustomRecordItemDraw(sender: TObject; 
   recordItem: TTreeListRecordItem; var defaultDraw: Boolean);
 var
   lib: TLibrary;
-  ts: TTextStyle;
 begin
   if recordItem.Parent.data.p = nil then exit;
   lib := TLibrary(recordItem.Parent.data.p);
@@ -69,7 +68,7 @@ end;
 
 constructor TLibraryListView.create(aowner: TComponent);
 var
-  i, j: Integer;
+  j: Integer;
   state, loc: String;
   libs: TStringArray;
 begin

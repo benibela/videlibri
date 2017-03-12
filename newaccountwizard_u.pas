@@ -270,8 +270,10 @@ begin
 end;
 
 procedure TnewAccountWizard.Timer1Timer(Sender: TObject);
+{$ifdef android}
 var
   panelBorder: Integer;
+{$endif}
 begin
 Timer1.Enabled:=false;
 Notebook1.PageIndex:=1;
@@ -313,7 +315,7 @@ procedure TnewAccountWizard.Button2Click(Sender: TObject);
 //const libraryIDs:array[0..1] of string=('001','200');
 var newLib:TCustomAccountAccess;
   selectedLibrary: TLibrary;
-  i, accType: Integer;
+  accType: Integer;
 begin
   selectedLibrary:=libs.selectedLibrary;
   if selectedLibrary = nil then begin

@@ -625,8 +625,6 @@ begin
 end;
 
 procedure TLibrary.loadFromString(data, fileName: string);
-var
-  temp: TStringArray;
 begin
   id:=ChangeFileExt(ExtractFileName(fileName),'');;
   maxRenewCount:=-1;
@@ -666,7 +664,6 @@ type TInternetAccessNonSense = TMockInternetAccess;
 
 function TLibrary.homepageCatalogue: string;
 var
-  action: TTemplateAction;
   parser: TMultipageTemplateReader;
   i: Integer;
   tempinternet: TInternetAccess;
@@ -778,7 +775,7 @@ var
   loc2: String;
 begin
   loc1 := TLibrary(lib1).location;
-  loc2 := TLibrary(lib1).location;
+  loc2 := TLibrary(lib2).location;
   result := CompareStr(loc1, loc2);
 end;
 

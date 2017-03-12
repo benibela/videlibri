@@ -166,7 +166,6 @@ end;
 procedure TLibrarySearcher.connect;
 var selectedLibraries: string;
   i: Integer;
-  j: Integer;
   connectAction: TTemplateAction;
   temp: IXQValue;
 begin

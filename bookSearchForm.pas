@@ -175,8 +175,6 @@ resourcestring
 
 
 procedure TbookSearchFrm.FormCreate(Sender: TObject);
-var
-  i: Integer;
 begin
   selectedLibrariesPerLocation:= TStringList.Create;
   loadDefaults;
@@ -239,8 +237,7 @@ procedure TbookSearchFrm.startSearchClick(Sender: TObject);
     while cb.Items.Count>maxCount do cb.Items.Delete(maxCount);
     cb.Text := temp; //lines above sometimes erase text
   end;
-var i, j:longint;
-  first: Boolean;
+var i:longint;
 begin
   displayedBook:=nil;
   nextPageAvailable:=false;
@@ -540,9 +537,7 @@ end;
 
 procedure TbookSearchFrm.LabelOrderClick(Sender: TObject);
 var
-  temp: TBook;
   acc: TCustomAccountAccess;
-  tempList: TBookList;
   i: Integer;
   v: String;
   s: String;
@@ -743,8 +738,6 @@ begin
 end;
 
 procedure TbookSearchFrm.FormDestroy(Sender: TObject);
-var
-  i: Integer;
 begin
   bookList.free;
   detaillist.free;
@@ -830,7 +823,7 @@ end;
 
 
 procedure TbookSearchFrm.searchLocationSelect(Sender: TObject);
-var list: TList;
+var
     i:longint;
     loki: Integer;
 begin
@@ -1072,7 +1065,6 @@ procedure TbookSearchFrm.selectBookToReSearch(book: TBook);
 var i,rp:longint;
     s: string;
     accId: Integer;
-    found: Boolean;
 begin
   researchedBook := nil;
   if book = nil then
@@ -1133,8 +1125,6 @@ procedure TbookSearchFrm.loadDefaults;
                       '\\','\',[rfReplaceAll]);
   end;
 var i:longint;
-   location: String;
-   temp: TMultiPageTemplate;
 begin
   locations := getSearchableLocations;
 
