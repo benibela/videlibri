@@ -293,14 +293,6 @@ begin
 end;
 
 procedure TbookSearchFrm.bookListSelect(sender: TObject; item: TTreeListItem);
-  procedure propAdd(n,v: string);
-  begin
-    if length(v)>1000 then v:=Format(rsBytesHidden, [IntToStr(length(v))]);
-    if (n<>'')and(n[length(n)]='!')and(v<>'') then
-      detaillist.items.add((copy(n,1,length(n)-1))).RecordItems.Add((v))
-     else if displayInternalProperties.Checked then
-      detaillist.items.add((n)).RecordItems.Add((v))
-  end;
 var book: tbook;
 
 begin
@@ -933,7 +925,10 @@ function TbookSearchFrm.displayDetails(book: TBook): longint;
 var intern, empty, normal: TTreeListItems; //item lists
   procedure propAdd(n,v: string);
   begin
-    if length(v)>1000 then v:=Format(rsBytesHidden, [IntToStr(length(v))]);
+    if length(v)>1000 then begin
+      if strEndsWith(n, '!') then v := copy(v, 1, 1000) + '..'
+      else v:=Format(rsBytesHidden, [IntToStr(length(v))]);
+    end;
     if not displayInternalProperties.Checked then begin
       if (n<>'')and(n[length(n)]='!')and(v<>'') then
         detaillist.items.add((copy(n,1,length(n)-1))).RecordItems.Add((v))
