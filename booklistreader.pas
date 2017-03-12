@@ -1234,7 +1234,7 @@ begin
 end;
 
 var BookPropertyNormalizationRegex: record
-  title, author, publisher, isbn: TWrappedRegExpr;
+  title, author, publisher, isbn, year: TWrappedRegExpr;
 end;
 
 function xqFunctionSetBookProperty(const context: TXQEvaluationContext; argc: SizeInt; argv: PIXQValue): IXQValue;
@@ -1259,7 +1259,7 @@ begin
   if argv[1].kind = pvkNode then begin
     node := argv[1].toNode;
     if node.typ = tetOpen then begin
-      node := node.findNext(tetOpen, 'a', [], node.reverse);
+      if not striEqual(node.value, 'a') then node := node.findNext(tetOpen, 'a', [], node.reverse);
       if node <> nil then begin
         href := node.getAttribute('href');
         if href <> '' then  begin
@@ -1267,6 +1267,7 @@ begin
             node := node.getDocument();
             if node <> nil then href := strResolveURI(href, (node as TTreeDocument).baseURI);
           end;
+          href := StringReplace(href, ' ', '+', [rfReplaceAll]); //the search dialog searchs for ' ' to find the end of the url
           value += ' ( ' + href + ' )';
         end;
       end;
@@ -1286,6 +1287,7 @@ begin
       end;
       setProperty('publisher', value);
     end else if wregexprMatches(isbn, key) then setProperty('isbn', value)
+    else if wregexprMatches(year, key) then setProperty('year', value)
     else setProperty(key + '!', value);
   end;
 
@@ -1309,10 +1311,11 @@ initialization
   TXQueryEngine.registerNativeModule(vl);
 
   with BookPropertyNormalizationRegex do begin
-    title := wregexprParse('Titel', [wrfIgnoreCase]);
-    author := wregexprParse('Verantwortlichkeit', [wrfIgnoreCase]);
+    title := wregexprParse('Titel|Title', [wrfIgnoreCase]);
+    author := wregexprParse('Verantwortlichkeit|Author|Autor', [wrfIgnoreCase]);
     publisher := wregexprParse('Verlag', [wrfIgnoreCase]);
     isbn := wregexprParse('ISBN', [wrfIgnoreCase]);
+    year := wregexprParse('Creation Date', [wrfIgnoreCase]);
   end;
 finalization
   vl.free
