@@ -156,14 +156,6 @@ type
   end;
   EImportException = class(EVidelibriException) end;
 
-  { ENeverEver }
-
-  ENeverEverLibraryException=class(Exception)
-    constructor create(mes: string);
-  end;
-
-  { EWrongPasswordException }
-
   TExtendType=(etAlways,etAllDepends,etSingleDepends,etNever);
 
   { TCustomAccountAccess }
