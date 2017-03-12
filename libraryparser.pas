@@ -1979,11 +1979,4 @@ begin
 end;                                             *)
 
 
-{ ENeverEver }
-
-constructor ENeverEverLibraryException.create(mes: string);
-begin
-  inherited create(mes+' (dieser Fehler dürfte niemals auftreten)');
-end;
-
 end.
