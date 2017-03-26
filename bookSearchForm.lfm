@@ -189,6 +189,7 @@ object bookSearchFrm: TbookSearchFrm
         Anchors = [akTop, akLeft, akRight]
         BorderSpacing.Bottom = 10
         ItemHeight = 0
+        OnChange = searchKeywordsChange
         TabOrder = 2
       end
       object Label9: TLabel
@@ -250,7 +251,7 @@ object bookSearchFrm: TbookSearchFrm
         AnchorSideTop.Control = searchBranchLabel
         AnchorSideTop.Side = asrBottom
         AnchorSideBottom.Control = homeBranchLabel
-        Left = 6
+        Left = 8
         Height = 25
         Top = 271
         Width = 196
@@ -282,34 +283,6 @@ object bookSearchFrm: TbookSearchFrm
         ItemHeight = 0
         Style = csDropDownList
         TabOrder = 6
-      end
-      object searchAuthorHint: TLabel
-        AnchorSideTop.Control = Label8
-        AnchorSideTop.Side = asrCenter
-        Left = -7
-        Height = 15
-        Top = 56
-        Width = 236
-        Anchors = [akTop, akRight]
-        Caption = '"Nachname" oder "Name, Vorname"'
-        Color = 11400696
-        ParentColor = False
-        Transparent = False
-        Visible = False
-      end
-      object searchTitleHint: TLabel
-        AnchorSideTop.Control = Label7
-        AnchorSideTop.Side = asrCenter
-        Left = -6
-        Height = 15
-        Top = 6
-        Width = 243
-        Anchors = [akTop, akRight]
-        Caption = '* am Ende sucht alle mögliche Enden'
-        Color = 11400696
-        ParentColor = False
-        Transparent = False
-        Visible = False
       end
     end
     object startAutoSearchButton: TButton

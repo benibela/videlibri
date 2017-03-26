@@ -18,8 +18,6 @@ type
     menuCopyRow: TMenuItem;
     PopupMenu1: TPopupMenu;
     startAutoSearchButton: TButton;
-    searchAuthorHint: TLabel;
-    searchTitleHint: TLabel;
     searchBranch: TComboBox;
     homeBranch: TComboBox;
     Label10: TLabel;
@@ -68,6 +66,7 @@ type
     procedure bookListVScrollBarChange(Sender: TObject);
     procedure menuCopyRowClick(Sender: TObject);
     procedure menuCopyValueClick(Sender: TObject);
+    procedure searchKeywordsChange(Sender: TObject);
     procedure startAutoSearchButtonClick(Sender: TObject);
     procedure detaillistClickAtRecordItem(sender: TObject; recorditem: TTreeListRecordItem);
     procedure detaillistCustomRecordItemDraw(sender: TObject; eventTyp_cdet: TCustomDrawEventTyp; recordItem: TTreeListRecordItem;
@@ -378,6 +377,11 @@ begin
   Clipboard.AsText := detaillistLastClickedRecordItem.Text;
 end;
 
+procedure TbookSearchFrm.searchKeywordsChange(Sender: TObject);
+begin
+
+end;
+
 procedure TbookSearchFrm.startAutoSearchButtonClick(Sender: TObject);
 var
   i: Integer;
@@ -593,19 +597,11 @@ begin
 end;
 
 procedure TbookSearchFrm.searchAuthorEnter(Sender: TObject);
-var hi: tcontrol;
 begin
-  if not (sender is tcontrol) then exit;
-  hi:=FindComponent(tcontrol(sender).Name+'hint') as TControl;
-  hi.Visible:=true;
 end;
 
 procedure TbookSearchFrm.searchAuthorExit(Sender: TObject);
-var hi: tcontrol;
 begin
-  if not (sender is tcontrol) then exit;
-  hi:=FindComponent(tcontrol(sender).Name+'hint') as TControl;
-  hi.Visible:=false
 end;
 
 procedure TbookSearchFrm.searcherAccessOrderComplete(sender: TObject; book: TBook);
