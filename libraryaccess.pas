@@ -311,6 +311,7 @@ begin
    OnTerminate:=nil;
   end;
   {$endif}
+  xquery.freeThreadVars;
   if logging then log('TUpdateLibThread.execute ended');
 end;
 
