@@ -14,6 +14,7 @@ type
   { TbookSearchFrm }
 
   TbookSearchFrm = class(TForm)
+    searchLocationRegion: TComboBox;
     menuCopyValue: TMenuItem;
     menuCopyRow: TMenuItem;
     PopupMenu1: TPopupMenu;
@@ -67,6 +68,7 @@ type
     procedure menuCopyRowClick(Sender: TObject);
     procedure menuCopyValueClick(Sender: TObject);
     procedure searchKeywordsChange(Sender: TObject);
+    procedure searchLocationRegionSelect(Sender: TObject);
     procedure startAutoSearchButtonClick(Sender: TObject);
     procedure detaillistClickAtRecordItem(sender: TObject; recorditem: TTreeListRecordItem);
     procedure detaillistCustomRecordItemDraw(sender: TObject; eventTyp_cdet: TCustomDrawEventTyp; recordItem: TTreeListRecordItem;
@@ -109,6 +111,7 @@ type
     autoSearchPhase: (aspConnecting, aspConnected, aspSearching, aspSearched, aspSearchingDetails, aspSearchedDetails);
     autoSearchDetailCount: integer;
     function makeSearcherAccess: TLibrarySearcherAccess;
+    function currentLocationRegionConfig: string;
   public
     { public declarations }
     bookList: TBookListView;
@@ -380,6 +383,25 @@ end;
 procedure TbookSearchFrm.searchKeywordsChange(Sender: TObject);
 begin
 
+end;
+
+procedure TbookSearchFrm.searchLocationRegionSelect(Sender: TObject);
+var
+  i: Integer;
+  locs: TStringList;
+  temp: String;
+begin
+  i := locations.regions.IndexOf(searchLocationRegion.Text);
+  if i < 0 then exit;
+  locs := locations.regions.Objects[i] as TStringList;
+  searchLocation.Items.Clear;
+  for i := 0 to locs.count - 1 do
+    searchLocation.Items.add(locs[i]);
+  if locs.count = 0 then exit;
+  temp := userConfig.ReadString('BookSearcher', currentLocationRegionConfig, '');
+  if locs.IndexOf(temp) >= 0 then searchLocation.Text := temp
+  else searchLocation.text := locs[0];
+  searchLocationSelect(searchLocation);
 end;
 
 procedure TbookSearchFrm.startAutoSearchButtonClick(Sender: TObject);
@@ -741,6 +763,7 @@ begin
   newSearcherAccess.free;
   locations.searchTemplates.free;
   locations.locations.Free;
+  locations.regions.Free;
   selectedLibrariesPerLocation.free;
 end;
 
@@ -831,6 +854,7 @@ begin
     searchSelectionList.Checked[i-1]:=selectedLibrariesPerLocation.Values[searchLocation.Text][i]='+';
 
   newSearcherAccess := makeSearcherAccess;
+  userConfig.WriteString('BookSearcher', currentLocationRegionConfig, searchLocation.Text);
 end;
 
 procedure TbookSearchFrm.searchSelectionListClickCheck(Sender: TObject);
@@ -883,7 +907,8 @@ begin
   newSearcherAccess := result;
 
   i := locations.locations.IndexOf(searchLocation.Text);
-  if i = -1 then exit;
+  if i = -1 then
+    exit;
 
   first := true;
   for j := 0 to searchSelectionList.Items.count - 1 do
@@ -907,6 +932,17 @@ begin
 
   result.searcher.setLocation(searchLocation.Text);
   result.connectAsync;
+end;
+
+function TbookSearchFrm.currentLocationRegionConfig: string;
+var
+  temp: TCaption;
+  i: Integer;
+begin
+  temp := searchLocationRegion.Text;
+  result := '';
+  for i := 1 to length(temp) do if temp[i] in ['a'..'z','A'..'Z','0'..'9','-'] then result += temp[i];
+  result := 'default-location-' + result;
 end;
 
 
@@ -1121,6 +1157,7 @@ procedure TbookSearchFrm.loadDefaults;
                       '\\','\',[rfReplaceAll]);
   end;
 var i:longint;
+  temp: String;
 begin
   locations := getSearchableLocations;
 
@@ -1128,15 +1165,18 @@ begin
   for i := 0 to locations.locations.count - 1 do
     searchLocation.Items.add(locations.locations[i]);
 
+  searchLocationRegion.Items.Clear;
+  for i := 0 to locations.regions.count - 1 do
+    searchLocationRegion.Items.add(locations.regions[i]);
+
 
   for i:=0 to locations.locations.count-1 do
     selectedLibrariesPerLocation.Values[locations.locations[i]]:=userConfig.ReadString('BookSearcher','selection-'+locations.locations[i],'+--');
 
-  if locations.locations.IndexOf(userConfig.ReadString('BookSearcher', 'default-location', '')) > 0 then
-    searchLocation.Text:=userConfig.ReadString('BookSearcher', 'default-location', '')
-  else
-    searchLocation.Text:=searchLocation.items[0];
-  searchLocationSelect(self);
+  temp := userConfig.ReadString('BookSearcher', 'default-region', '');
+  if locations.regions.IndexOf(temp) >= 0 then searchLocationRegion.Text:=temp
+  else searchLocationRegion.Text:=searchLocationRegion.items[0];
+  searchLocationRegionSelect(self);
 
   loadComboBoxItems(searchAuthor);
   loadComboBoxItems(searchTitle);
@@ -1170,7 +1210,8 @@ begin
   saveComboBoxItems(searchISBN);
   userConfig.WriteString('BookSearcher','default-save-to', saveToDefaultAccountID);
   userConfig.WriteString('BookSearcher','default-order-for', orderForDefaultAccountID);
-  userConfig.WriteString('BookSearcher', 'default-location', searchLocation.Text);
+  userConfig.WriteString('BookSearcher', 'default-region', searchLocationRegion.Text);
+  userConfig.WriteString('BookSearcher', currentLocationRegionConfig, searchLocation.Text);
 end;
 
 procedure TbookSearchFrm.changeDefaultSaveToAccount(sender: tobject);

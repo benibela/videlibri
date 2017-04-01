@@ -37,8 +37,8 @@ object bookSearchFrm: TbookSearchFrm
       AnchorSideTop.Control = searchLocation
       AnchorSideTop.Side = asrBottom
       Left = 8
-      Height = 76
-      Top = 55
+      Height = 77
+      Top = 86
       Width = 228
       Anchors = [akTop, akLeft, akRight]
       BorderSpacing.Around = 6
@@ -65,11 +65,11 @@ object bookSearchFrm: TbookSearchFrm
       TabOrder = 1
     end
     object searchLocation: TComboBox
-      AnchorSideTop.Control = Label1
+      AnchorSideTop.Control = searchLocationRegion
       AnchorSideTop.Side = asrBottom
       Left = 8
       Height = 25
-      Top = 24
+      Top = 55
       Width = 228
       Anchors = [akTop, akLeft, akRight]
       BorderSpacing.Top = 1
@@ -105,8 +105,8 @@ object bookSearchFrm: TbookSearchFrm
       AnchorSideTop.Control = searchSelectionList
       AnchorSideTop.Side = asrBottom
       Left = 8
-      Height = 332
-      Top = 137
+      Height = 300
+      Top = 169
       Width = 228
       HorzScrollBar.Page = 224
       HorzScrollBar.Range = 188
@@ -114,7 +114,7 @@ object bookSearchFrm: TbookSearchFrm
       VertScrollBar.Range = 400
       Anchors = [akTop, akLeft, akRight, akBottom]
       AutoScroll = False
-      ClientHeight = 328
+      ClientHeight = 296
       ClientWidth = 209
       TabOrder = 5
       object Label7: TLabel
@@ -294,6 +294,18 @@ object bookSearchFrm: TbookSearchFrm
       OnClick = startAutoSearchButtonClick
       TabOrder = 6
       Visible = False
+    end
+    object searchLocationRegion: TComboBox
+      Left = 8
+      Height = 25
+      Top = 24
+      Width = 228
+      Anchors = [akTop, akLeft, akRight]
+      BorderSpacing.Around = 6
+      ItemHeight = 0
+      OnSelect = searchLocationRegionSelect
+      Style = csDropDownList
+      TabOrder = 7
     end
   end
   object bookListPanel: TPanel

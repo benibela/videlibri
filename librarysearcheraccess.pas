@@ -133,6 +133,7 @@ type
   { TSearchableLocations }
 
   TSearchableLocations = record
+    regions: TStringList; //string -> tstringlist
     locations:  TStringList; //string->stringlist of TSearchTarget
     searchTemplates: TStringList;
   end;
@@ -142,13 +143,32 @@ implementation
 
 uses applicationconfig, bbdebugtools, internetaccess, androidutils {$ifdef android}, bbjniutils{$endif};
 
+resourcestring
+  rsSearchAllRegions = 'alle Regionen';
+  rsSearchWorldRegion = 'Metakatalog';
+
 function getSearchableLocations: TSearchableLocations;
+  function nestedList(base: TStringList; name: string): TStringList;
+  var
+    i: Integer;
+  begin
+    i := base.IndexOf(name);
+    if i < 0 then begin
+      result := TStringList.Create;
+      result.OwnsObjects := true;
+      i := base.AddObject(name, result);
+    end;
+    result := TStringList(base.Objects[i]);
+  end;
+
 var digibib: TMultiPageTemplate;
   temp: TStringList;
   i: Integer;
   loc: String;
 begin
   with result do begin
+    regions := TStringList.Create;
+    regions.OwnsObjects := true;
     locations := TStringList.Create;
     locations.OwnsObjects := true;
 
@@ -169,28 +189,32 @@ begin
         locations.AddObject(searchTemplates[i], temp);
       end else digibib := TMultiPageTemplate(searchTemplates.Objects[i]);
     end;
+    if locations.Count > 0 then
+      nestedList(regions, rsSearchWorldRegion).Text := locations.Text;
 
     if digibib = nil then raise ELibraryException.create('Digibib template not found');
 
     for i := 0 to libraryManager.getLibraryCountInEnumeration-1 do begin
       loc := libraryManager[i].prettyLocation;
       if libraryManager[i].template.findAction('search') <> nil then begin
-        if locations.IndexOf(loc) < 0 then
-          locations.AddObject(loc, TStringList.Create);
-        temp := TStringList(locations.Objects[locations.IndexOf(loc)]);
-        temp.OwnsObjects := true;
+        temp := nestedList(regions, libraryManager[i].prettyCountryState);
+        if temp.IndexOf(loc) < 0 then temp.Add(loc);
+        temp := nestedList(locations, loc);
         temp.AddObject(libraryManager[i].prettyNameLong, TSearchTarget.create(libraryManager[i].prettyNameLong, libraryManager[i], libraryManager[i].template));
       end;
       if libraryManager[i].variables.IndexOfName('searchid-digibib') >= 0 then begin
-        if locations.IndexOf(loc+' (digibib)') < 0 then
-          locations.AddObject(loc+' (digibib)', TStringList.Create);
-        temp := TStringList(locations.Objects[locations.IndexOf(loc+' (digibib)')]);
-        temp.OwnsObjects := true;
+        temp := nestedList(regions, libraryManager[i].prettyCountryState);
+        if temp.IndexOf(loc+' (digibib)') < 0 then temp.Add(loc+' (digibib)');
+        temp := nestedList(regions, rsSearchWorldRegion);
+        if temp.IndexOf(loc+' (digibib)') < 0 then temp.Add(loc+' (digibib)');
+        temp := nestedList(locations, loc+' (digibib)');
         temp.AddObject(libraryManager[i].prettyNameLong, TSearchTarget.create(libraryManager[i].prettyNameLong, libraryManager[i], digibib));
       end;
     end;
 
     locations.Sort;
+    nestedList(regions, rsSearchAllRegions).Text := locations.Text;
+    regions.Sort;
   end;
 end;
 
