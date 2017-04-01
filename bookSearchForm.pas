@@ -110,7 +110,7 @@ type
     selectedLibrariesPerLocation: TStringList;
     autoSearchPhase: (aspConnecting, aspConnected, aspSearching, aspSearched, aspSearchingDetails, aspSearchedDetails);
     autoSearchDetailCount: integer;
-    function makeSearcherAccess: TLibrarySearcherAccess;
+    procedure makeSearcherAccess;
     function currentLocationRegionConfig: string;
   public
     { public declarations }
@@ -853,7 +853,7 @@ begin
                   searchSelectionList.Items.count) do
     searchSelectionList.Checked[i-1]:=selectedLibrariesPerLocation.Values[searchLocation.Text][i]='+';
 
-  newSearcherAccess := makeSearcherAccess;
+  makeSearcherAccess;
   userConfig.WriteString('BookSearcher', currentLocationRegionConfig, searchLocation.Text);
 end;
 
@@ -885,14 +885,15 @@ begin
   selectedLibrariesPerLocation.Values[searchLocation.Text]:=s;
 
 
-  newSearcherAccess := makeSearcherAccess;
+  makeSearcherAccess;
 end;
 
-function TbookSearchFrm.makeSearcherAccess: TLibrarySearcherAccess;
+procedure TbookSearchFrm.makeSearcherAccess;
 var
   first: Boolean;
   j: Integer;
   i: Integer;
+  result: TLibrarySearcherAccess;
 begin
   result:=TLibrarySearcherAccess.Create;
   result.OnSearchPageComplete:=@searcherAccessSearchComplete;
@@ -904,6 +905,7 @@ begin
   result.OnImageComplete:=@searcherAccessImageComplete;
   result.OnException:=@searcherAccessException;
   result.OnConnected:=@searcherAccessConnected;
+  if newSearcherAccess <> nil then newSearcherAccess.free;
   newSearcherAccess := result;
 
   i := locations.locations.IndexOf(searchLocation.Text);
@@ -1091,7 +1093,7 @@ procedure TbookSearchFrm.selectBookToReSearch(book: TBook);
 
     result := pos('+', state) > 0;
 
-    newSearcherAccess := makeSearcherAccess;
+    makeSearcherAccess;
   end;
 
 var i,rp:longint;
