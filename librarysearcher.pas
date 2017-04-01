@@ -58,8 +58,8 @@ public
   property Connected: boolean read GetConnected;
   property Timeout: dword read FTimeout write FTimeout;
 
-  property HomeBranches: TStringArray read fhomeBranches;
-  property SearchBranches: TStringArray read fsearchBranches;
+  property HomeBranches: TStringArray read fhomeBranches write fhomeBranches;
+  property SearchBranches: TStringArray read fsearchBranches write fsearchBranches;
 
   property SearchOptions: TBookSearchOptions read fsearchBook;
   property SearchResult: TBookList read fsearchResult;
@@ -175,11 +175,6 @@ begin
   bookListReader.parser.variableChangeLog.ValuesString['selectedLibraries']:=selectedLibraries;
 
   assert(Assigned(bookListReader.bookAccessSection));
-  EnterCriticalSection(bookListReader.bookAccessSection^);
-  SetLength(fhomebranches, 0);
-  SetLength(fsearchBranches, 0);
-  LeaveCriticalSection(bookListReader.bookAccessSection^);
-
   connectAction := bookListReader.findAction('search-connect');
   if connectAction <> nil then begin
     bookListReader.callAction(connectAction);

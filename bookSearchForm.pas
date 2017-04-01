@@ -112,6 +112,7 @@ type
     autoSearchDetailCount: integer;
     procedure makeSearcherAccess;
     function currentLocationRegionConfig: string;
+    procedure updateBranches;
   public
     { public declarations }
     bookList: TBookListView;
@@ -451,7 +452,7 @@ begin
      tlv.Cursor:=crDefault;
 end;
 
-procedure TbookSearchFrm.searcherAccessConnected(Sender: TObject);
+procedure TbookSearchFrm.updateBranches;
   procedure update(cb: TComboBox; sa: TStringArray; l: TLabel);
   var
     i: Integer;
@@ -466,8 +467,6 @@ procedure TbookSearchFrm.searcherAccessConnected(Sender: TObject);
   end;
 
 begin
-  if sender <> newSearcherAccess then exit;
-  if newSearcherAccess.searcher = nil then exit;
   newSearcherAccess.beginResultReading;
   try
     update(homeBranch, newSearcherAccess.searcher.HomeBranches, homeBranchLabel);
@@ -475,6 +474,13 @@ begin
   finally
     newSearcherAccess.endResultReading;
   end;
+end;
+
+procedure TbookSearchFrm.searcherAccessConnected(Sender: TObject);
+begin
+  if sender <> newSearcherAccess then exit;
+  if newSearcherAccess.searcher = nil then exit;
+  updateBranches;
   autoSearchPhase:=aspConnected;
 end;
 
@@ -934,6 +940,7 @@ begin
 
   result.searcher.setLocation(searchLocation.Text);
   result.connectAsync;
+  updateBranches; //from cache
 end;
 
 function TbookSearchFrm.currentLocationRegionConfig: string;

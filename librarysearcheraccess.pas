@@ -319,18 +319,46 @@ begin
   end;
 end;
 
+const BranchSeparator = ',//,';
+
 procedure TLibrarySearcherAccess.connectAsync;
+var
+  branches, homes, ids: String;
 begin
   if not assigned(fthread) then exit;
   removeOldMessageOf(smtConnect);
-  fthread.messages.storeMessage(TSearcherMessage.Create(smtConnect));
+  ids := searcher.getLibraryIds;
+  homes := userConfig.ReadString('Search-Cache', ids + '-HomeBranches','');
+  branches := userConfig.ReadString('Search-Cache', ids + '-Branches','');
+  beginResultReading;
+  try
+    searcher.HomeBranches := strSplit(homes, BranchSeparator, false);
+    searcher.SearchBranches := strSplit(branches, BranchSeparator, false);
+  finally
+    endResultReading;
+    fthread.messages.storeMessage(TSearcherMessage.Create(smtConnect));
+  end;
 end;
 
 procedure TLibrarySearcherAccess.searchAsync;
+var
+  branches, homes: RawByteString;
+  ids: String;
 begin
   if not assigned(fthread) then exit;
   removeOldMessageOf(smtSearch);
   fthread.messages.storeMessage(TSearcherMessage.Create(smtSearch));
+
+  beginResultReading;
+  try
+    ids := searcher.getLibraryIds;
+    homes := strJoin(searcher.HomeBranches, BranchSeparator);
+    branches := strJoin(searcher.SearchBranches, BranchSeparator);
+  finally
+    endResultReading;
+  end;
+  userConfig.WriteString('Search-Cache', ids + '-HomeBranches', homes);
+  userConfig.WriteString('Search-Cache', ids + '-Branches', branches);
 end;
 
 procedure TLibrarySearcherAccess.searchNextAsync;
