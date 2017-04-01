@@ -158,15 +158,15 @@ downloadTable)
         ) else (
           <td class="{$class}"><span>{$value}</span></td>
         )
-      }' \
+      };()' \
       --xquery 'declare function row($element, $homepage){
         $element / <tr><td><a href="{$homepage/@value}" rel="nofollow">{ let $name := ($homepage/@name, .//longName/@value)[1] return if (contains($name, "(alpha)")) then substring-before($name, "(alpha") else data($name)}</a>{if (.//table-comment) then (<br/>, <i> { data(.//table-comment/@value) } </i> ) else () } </td>
         {state(.//testing-search), state(.//testing-account)(:, state(.//testing-renew):)}
-        <td class="supporttablesystem">{string(.//template/@value) ! if (matches(., "aleph|ulbdue")) then <a href="#aleph">{.}</a> else <a href="#{.}">{.}</a> }</td></tr> 
-      }' \
+        <td class="supporttablesystem">{string(.//template/@value) ! (if (matches(., "aleph|ulbdue")) then <a href="#aleph">{.}</a> else <a href="#{.}">{.}</a> )}</td></tr> 
+      };()' \
       -e 'city:=("nimbo")' \
       $LIBS  \
-      -e 'newcity := replace(replace(replace(replace(filter($url, "/[^_]+_[^_]+_([^/]*)_", 1), "[+]ue", "ü"), "[+]oe", "ö"), "[+]ae", "ä"), "[+]sz", "ß")' \
+      -e 'newcity := replace(replace(replace(replace(extract($url, "/[^_]+_[^_]+_([^/]*)_", 1), "[+]ue", "ü"), "[+]oe", "ö"), "[+]ae", "ä"), "[+]sz", "ß")' \
       --xquery 'if ($newcity  != $city and not(//homepage/@nolist = "true")) then <tr class="city"><td colspan="6"><b>{$newcity}</b></td></tr> else ()'   \
       --xquery 'if (//homepage/@nolist = "true") then () else city := $newcity' \
       --xquery 'if (//homepage/@nolist = "true") then () else //homepage/row(/,.)' \
