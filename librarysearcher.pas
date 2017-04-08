@@ -260,7 +260,7 @@ end;
 procedure TLibrarySearcher.orderSingle(book: tbook);
 begin
   bookListReader.selectBook(book);
-  if book.owner is TTemplateAccountAccess then TTemplateAccountAccess(book.owner).setVariables(bookListReader.parser);
+  if book.owningAccount is TTemplateAccountAccess then TTemplateAccountAccess(book.owningAccount).setVariables(bookListReader.parser);
   bookListReader.callAction('order-single');
   FLastAccessTime:=GetTickCount;
 end;

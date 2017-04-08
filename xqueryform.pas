@@ -55,10 +55,10 @@ begin
       case b.kind of
         pvkObject: begin
           book.clear;
-          book.owner:=nil;
+          book.owningAccount:=nil;
           for p in b.getPropertyEnumerator do
             case p.Name of
-              '_accountPtr': book.owner := tobject(PtrInt(p.Value.toInt64));
+              '_accountPtr': book.owningAccount := TCustomBookOwner(PtrInt(p.Value.toInt64));
               'statusId': if p.Value.toString = 'history' then book.lend := false
               else begin
                 book.lend := true;

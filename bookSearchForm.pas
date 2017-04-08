@@ -641,7 +641,7 @@ begin
   //see androidutils/bookSearchForm
   searcherAccess.beginBookReading;
   EnterCriticalSection(updateThreadConfig.libraryAccessSection);
-  acc := TCustomAccountAccess(book.owner);
+  acc := TCustomAccountAccess(book.owningAccount);
   temp := book.clone; temp.status:=bsOrdered;
   acc.books.current.add(temp);
   temp := book.clone; temp.status:=bsOrdered;
@@ -1106,6 +1106,7 @@ procedure TbookSearchFrm.selectBookToReSearch(book: TBook);
 var i,rp:longint;
     s: string;
     accId: Integer;
+    lib: TLibrary;
 begin
   researchedBook := nil;
   if book = nil then
@@ -1137,11 +1138,12 @@ begin
 
   
   searchTitle.Text:=trim(s)+'*';
-  if book.owner is TCustomAccountAccess then begin
-    if not selectLibrary(TCustomAccountAccess(book.owner).getLibrary().prettyLocation, TCustomAccountAccess(book.owner).getLibrary()) then
-      selectLibrary(TCustomAccountAccess(book.owner).getLibrary().prettyLocation+ ' (digibib)', TCustomAccountAccess(book.owner).getLibrary());
+  if book.owningAccount is TCustomAccountAccess then begin
+    lib := TCustomAccountAccess(book.owningAccount).getLibrary();
+    if not selectLibrary(lib.prettyLocation, lib) then
+      selectLibrary(lib.prettyLocation+ ' (digibib)', lib);
 
-    accId := accounts.IndexOfObject(book.owner);
+    accId := accounts.IndexOfObject(book.owningAccount);
     if (accId >= 0) and (accId < saveToAccountMenu.Items.Count) then begin
       changeDefaultSaveToAccount(saveToAccountMenu.Items[accId]);
       researchedBook := book;

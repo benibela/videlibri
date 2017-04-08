@@ -20,9 +20,22 @@ type
 
   TSerializeStringProperty = procedure (name: string; value: string) of object;
   TSerializeDateProperty = procedure (name: string; date: integer) of object;
+  TCustomBookOwner = class
+    //todo: move TCustomAccountAccess in the same unit as TBook (probably move both in a new unit)
+    //till moved, use this class as place holder type
+  protected
+    FPrettyName: string;
+  public
+    property prettyName: string read FPrettyName write FPrettyName;
+  end;
+
   TBook=class
+  private
+    function GetOwningAccount: TCustomBookOwner;
+    procedure SetOwningAccount(AValue: TCustomBookOwner);
   protected
     _referenceCount: longint;
+    owner: TObject; //account
   public
     procedure decReference;
     procedure incReference;
@@ -43,7 +56,6 @@ type
 
  // public
     lastExistsDate,firstExistsDate:longint;
-    owner: TObject; //account
   //  list: TBookList;
 
     //temporary
@@ -51,6 +63,9 @@ type
     charges: currency;
     additional: TProperties;
     
+    function owningBook: TBook;
+    property owningAccount: TCustomBookOwner read GetOwningAccount write SetOwningAccount;
+
     constructor create;
     function equalToKey(compareTo: TBook): boolean;overload;
     function equalToKey(aid,aauthor,atitle,ayear:string):boolean;overload;
@@ -240,6 +255,24 @@ end;
 
 { TBook }
 
+function TBook.GetOwningAccount: TCustomBookOwner;
+var
+  b: TBook;
+begin
+  b := owningBook;
+  if b.owner is TCustomBookOwner then result := TCustomBookOwner(b.owner)
+  else result := nil;
+end;
+
+procedure TBook.SetOwningAccount(AValue: TCustomBookOwner);
+var
+  b: TBook;
+begin
+  b := owningBook;
+  if b.owner=AValue then Exit;
+  b.owner:=AValue;
+end;
+
 procedure TBook.decReference;
 begin
   _referenceCount-=1;
@@ -249,6 +282,12 @@ end;
 procedure TBook.incReference;
 begin
   _referenceCount+=1;
+end;
+
+function TBook.owningBook: TBook;
+begin
+  result := self;
+  while result.owner is TBook do result := tbook(result.owner);
 end;
 
 constructor TBook.create;

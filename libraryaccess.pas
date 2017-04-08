@@ -481,7 +481,7 @@ begin
   for i:=0 to accounts.Count-1 do begin
     current:=nil;
     for j:=0 to books.count-1 do
-      if books[j].owner=accounts.Objects[i] then begin
+      if books[j].owningAccount=accounts.Objects[i] then begin
         if current = nil then current := TBookList.Create;
         current.add(books[j]);
       end;
@@ -538,7 +538,7 @@ var
     obj: TXQValueObject;
   begin
     obj := reader.bookToPXP(b);
-    obj.setMutable('_accountPtr', xqvalue(PtrInt(b.owner)));
+    obj.setMutable('_accountPtr', xqvalue(PtrInt(b.owningAccount)));
     list.add(obj);
   end;
 

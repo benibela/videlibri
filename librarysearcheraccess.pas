@@ -385,7 +385,7 @@ end;
 procedure TLibrarySearcherAccess.orderAsync(account: TCustomAccountAccess; book: TBook);
 begin
   if not assigned(fthread) then exit;
-  book.owner := account;
+  book.owningAccount := account;
   fthread.messages.storeMessage(TSearcherMessage.Create(smtOrder,book));
 end;
 
@@ -609,7 +609,7 @@ begin
         end;
         smtOrder, smtOrderConfirmed: begin
           if logging then log('Searcher thread: message smtOrder: '+book.toSimpleString());
-          if (book = nil) or (book.owner = nil) then log('Invalid book')
+          if (book = nil) or (book.owningAccount = nil) then log('Invalid book')
           else begin
             if (mes.typ = smtOrderConfirmed) or not searcher.orderNeedsConfirmation(book) then begin
               Searcher.orderSingle(book);

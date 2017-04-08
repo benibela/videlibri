@@ -377,7 +377,7 @@ begin
       else RecordItemsText[BL_BOOK_COLUMNS_LIMIT_ID] := rsLendHistory
     end else
      RecordItemsText[BL_BOOK_COLUMNS_LIMIT_ID] := DateToPrettyStr(book.dueDate);
-    if book.owner<>nil then RecordItemsText[BL_BOOK_COLUMNS_ACCOUNT] := (book.owner as TCustomAccountAccess).prettyName
+    if (book.owningAccount is TCustomAccountAccess) then RecordItemsText[BL_BOOK_COLUMNS_ACCOUNT] := TCustomAccountAccess(book.owningAccount).prettyName
     else RecordItemsText[BL_BOOK_COLUMNS_ACCOUNT] := rsunknown;
     RecordItemsText[BL_BOOK_COLUMNS_STATUS]:=BookStatusToStr(book);//Abgegeben nach '+DateToSimpleStr(book.lastExistsDate))
     RecordItemsText[BL_BOOK_COLUMNS_ISBN] := book.isbn;

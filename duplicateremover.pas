@@ -72,11 +72,11 @@ begin
   for i := 0 to listview.Items.Count - 1 do begin
     if listview.Items[i].RecordItemsText[BL_BOOK_EXTCOLUMNS_CHECKED] = CHECKBOX_UNCHECKED then continue;
 
-    (listview.books[i].owner as TCustomAccountAccess).books.old.add(listview.books[i]);
+    (listview.books[i].owningAccount as TCustomAccountAccess).books.old.add(listview.books[i]);
 
     for j := 0 to listview.Items[i].SubItems.Count - 1 do
       if listview.Items[i].SubItems[j].RecordItemsText[BL_BOOK_EXTCOLUMNS_CHECKED] <> CHECKBOX_UNCHECKED then
-        (tbook(listview.Items[i].SubItems[j].data.obj).owner as TCustomAccountAccess).books.old.remove(tbook(listview.Items[i].SubItems[j].data.obj));
+        (tbook(listview.Items[i].SubItems[j].data.obj).owningAccount as TCustomAccountAccess).books.old.remove(tbook(listview.Items[i].SubItems[j].data.obj));
   end;
 
   for i := 0 to accounts.Count - 1 do
@@ -138,7 +138,7 @@ begin
   result := striCompareClever(tbook(item1).id, tbook(item2).id);
   if result <> 0 then exit;
   if sortUsers then begin
-    result := Sign(PtrInt(tbook(item1).owner) - PtrInt(tbook(item2).owner));
+    result := Sign(PtrInt(tbook(item1).owningAccount) - PtrInt(tbook(item2).owningAccount));
     if result <> 0 then exit;
   end;
   result := Sign(tbook(item1).issueDate - tbook(item2).issueDate);
@@ -190,7 +190,7 @@ begin
     listview.BeginUpdate;
     for i := 1 to alllists.Count - 1 do begin
       if alllists[i].equalToKey(alllists[i-1])
-         and ((accountMode <> 1) or (alllists[i].owner = alllists[i-1].owner))
+         and ((accountMode <> 1) or (alllists[i].owningAccount = alllists[i-1].owningAccount))
          and ((timeMode = 0)
              or ((timeMode = 1) and ( max(alllists[i-1].dueDate, alllists[i-1].lastExistsDate) >= minPos(alllists[i].issueDate, alllists[i].firstExistsDate ) - 1))
              or ((timeMode = 2) and (alllists[i-1].issueDate = alllists[i].issueDate)))
@@ -199,7 +199,7 @@ begin
           if item <> nil then fillItem(item, itembook);
           item := listview.Items.Add;
           itemBook := alllists[i-1].clone;
-          itemBook.owner := alllists[i-1].owner;
+          itemBook.owningAccount := alllists[i-1].owningAccount;
           subitem := item.SubItems.add;
           fillItem(subitem, alllists[i-1]);
           ingroup := true;

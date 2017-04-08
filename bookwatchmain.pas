@@ -339,7 +339,7 @@ begin
           week := dateToWeek(tmpbl.books[j].dueDate);
           report += #13#10#13#10;
         end;
-        if tmpbl.books[j].owner <> nil then report += TCustomAccountAccess(tmpbl.books[j].owner).prettyName + ': ';
+        if tmpbl.books[j].owningAccount <> nil then report += tmpbl.books[j].owningAccount.prettyName + ': ';
         report +=  tmpbl.books[j].toSimpleString() + ':  ' + BookStatusToStr(tmpbl.books[j]) +  '  =>  ' +  mailDate(tmpbl.books[j].dueDate);
         report += #13#10;
       end;
@@ -617,7 +617,7 @@ begin
   try
     booklist.SelectedBook.setProperty(BookListColumnToProperty[item.Index], booklist.feditor.Text);
     item.text := booklist.feditor.Text;
-    (booklist.SelectedBook.owner as TCustomAccountAccess).save();
+    (booklist.SelectedBook.owningAccount as TCustomAccountAccess).save();
   finally
     LeaveCriticalSection(updateThreadConfig.libraryFileAccess);
     LeaveCriticalSection(updateThreadConfig.libraryAccessSection);
@@ -691,7 +691,7 @@ end;
 procedure TmainForm.extendAdjacentBooksClick(Sender: TObject);
 begin
   if (BookList.Selected = nil) or (BookList.Selected.data.obj=nil) then exit;
-  extendBooks(MaxLongint,tbook(BookList.Selected.data.obj).owner as TCustomAccountAccess);
+  extendBooks(MaxLongint,tbook(BookList.Selected.data.obj).owningAccount as TCustomAccountAccess);
 end;
 
 procedure TmainForm.FormActivate(Sender: TObject);
@@ -972,9 +972,9 @@ begin
   copyLimits := userConfig.ReadBool('user','copy-limit',false);
   t := '';
   for i:=0 to Books.count-1 do
-    if (books[i].owner<>nil) then
+    if (books[i].owningAccount<>nil) then
       if copyLimits then
-        t += (books[i].owner as TCustomAccountAccess).prettyName + ':  ' + books[i].toLimitString() + LineEnding
+        t += books[i].owningAccount.prettyName + ':  ' + books[i].toLimitString() + LineEnding
        else
          t += books[i].author + ': ' + books[i].title + LineEnding;
 
@@ -1023,8 +1023,8 @@ begin
   accountsToSave:=tlist.Create;
   try
     for i:=0 to books.count-1 do begin
-        if accountsToSave.IndexOf(books[i].owner)<0 then accountsToSave.Add(books[i].owner);
-        if TCustomAccountAccess(books[i].owner).books.old.Remove(books[i]) < 0 then begin
+        if accountsToSave.IndexOf(books[i].owningAccount)<0 then accountsToSave.Add(books[i].owningAccount);
+        if TCustomAccountAccess(books[i].owningAccount).books.old.Remove(books[i]) < 0 then begin
           ShowMessage(Format(rsSelectedBookMissing, [#13#10]));
           exit;
         end;

@@ -161,7 +161,7 @@ type
 
   { TCustomAccountAccess }
                 //first start info
-  TCustomAccountAccess=class
+  TCustomAccountAccess=class(TCustomBookOwner)
   private
     FEnabled: boolean;
     FTimeout: dword;
@@ -174,7 +174,7 @@ type
     lib: TLibrary;
     internet: TInternetAccess;
     config: TSafeIniFile;
-    path,user,pass,FPrettyName:string;
+    path,user,pass:string;
     FExtendType: TExtendType;
     FExtendDays,FLastCheckDate:integer;
     FAccountType: integer;
@@ -226,7 +226,6 @@ type
     property charges: currency read getCharges;        //<0 means unknown
 
     property books: TBookLists read fbooks;
-    property prettyName: string read FPrettyName write FPrettyName;
     property passWord: string read pass write setPassword;
     property lastCheckDate: integer read FLastCheckDate;
     property extendDays: integer read FExtendDays write FExtendDays;
