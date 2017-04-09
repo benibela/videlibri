@@ -45,7 +45,7 @@ public
   procedure search;
   procedure searchNext;
   procedure details(book: tbook);
-  function orderNeedsConfirmation(book: TBook): boolean;
+  function orderNeedsConfirmation(): boolean;
   procedure orderConfirmSingle(book: tbook);
   procedure orderSingle(book: tbook);
   procedure completePendingMessage(pm: TPendingMessage; idx: integer);
@@ -244,7 +244,7 @@ begin
   FLastAccessTime:=GetTickCount;
 end;
 
-function TLibrarySearcher.orderNeedsConfirmation(book: TBook): boolean;
+function TLibrarySearcher.orderNeedsConfirmation(): boolean;
 begin
   result := bookListReader.findAction('order-confirm-single') <> nil;
 end;
@@ -252,13 +252,20 @@ end;
 procedure TLibrarySearcher.orderConfirmSingle(book: tbook);
 begin
   bookListReader.selectBook(book);
-  if book.owner is TTemplateAccountAccess then TTemplateAccountAccess(book.owner).setVariables(bookListReader.parser);
+  if book.owningAccount is TTemplateAccountAccess then TTemplateAccountAccess(book.owningAccount).setVariables(bookListReader.parser);
   bookListReader.callAction('order-confirm-single');
   FLastAccessTime:=GetTickCount;
 end;
 
 procedure TLibrarySearcher.orderSingle(book: tbook);
+var
+  owningBook: TBook;
 begin
+  owningBook := book.owningBook;
+  if book <> owningBook then begin
+    bookListReader.parser.variableChangeLog.add('holding', TBookListReader.bookToPXP(book));
+    book := owningBook;
+  end;
   bookListReader.selectBook(book);
   if book.owningAccount is TTemplateAccountAccess then TTemplateAccountAccess(book.owningAccount).setVariables(bookListReader.parser);
   bookListReader.callAction('order-single');

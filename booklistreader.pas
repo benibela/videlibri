@@ -59,7 +59,7 @@ type
   //  list: TBookList;
 
     //temporary
-
+    holdings: TBookList;
     charges: currency;
     additional: TProperties;
     
@@ -73,6 +73,7 @@ type
     procedure serialize(str: TSerializeStringProperty; date: TSerializeDateProperty);
 
     procedure clear;
+    destructor Destroy; override;
     procedure assign(book: TBook);        //assigns everything except key fields
     procedure assignAll(book: TBook);     //assigns everything
     procedure assignIfNewer(book: TBook); //assigns from the newer book, also take min of issue/exist date
@@ -121,6 +122,7 @@ type
     
     procedure load(fileName: string);
     procedure save(fileName: string);
+    function toXQuery: IXQValue;
     
     function lastCheck: longint;
     function nextLimitDate(const extendable: boolean = true): longint;
@@ -141,7 +143,8 @@ type
   TBookListReader = class(TMultipageTemplateReader)
   private
     currentBook,defaultBook: TBook;
-    procedure setBookProperty(book:TBook;variable: string; value:IXQValue);
+    class procedure setAllBookProperties(book:TBook; const value:IXQValue); static;
+    class procedure setBookProperty(book:TBook;variable: string; const value:IXQValue); static;
     procedure parserVariableRead(variable: string; value: IXQValue);
     procedure logall(sender: TMultipageTemplateReader; logged: string; debugLevel: integer=0);
   protected
@@ -155,7 +158,7 @@ type
     constructor create(atemplate:TMultiPageTemplate);
     destructor destroy();override;
 
-    function bookToPXP(book:TBook): TXQValueObject;
+    class function bookToPXP(book:TBook): TXQValueObject; static;
     procedure selectBook(book:TBook);
   end;
 
@@ -351,9 +354,19 @@ begin
   dueDate:=0;
   issueDate:=0;
   SetLength(Additional,0);
+  FreeAndNil(holdings);
+end;
+
+destructor TBook.Destroy;
+begin
+  holdings.Free;
+  inherited Destroy;
 end;
 
 procedure TBook.assign(book: TBook);
+var
+  temp: TBook;
+  i: Integer;
 begin
   if (book=nil) or (book = self) then exit;
   category:=book.category;
@@ -371,6 +384,16 @@ begin
   renewCount := book.renewCount;
   additional := book.additional;
   SetLength(additional, length(additional));
+  if book.holdings <> nil then begin
+    if holdings = nil then holdings := TBookList.create(self);
+    holdings.clear;
+    holdings.Capacity:=book.holdings.Count;
+    for i := 0 to book.holdings.Count - 1 do begin
+      temp := book.holdings[i].clone;
+      holdings.add(temp);
+      temp.decReference;
+    end;
+  end;
 end;
 
 procedure TBook.assignAll(book: TBook);
@@ -875,6 +898,16 @@ begin
     log('TBookList.save('+fileName+') ended')
 end;
 
+function TBookList.toXQuery: IXQValue;
+var l: TXQVList;
+  i: Integer;
+begin
+  l:=TXQVList.create();
+  for i := 0 to Count - 1 do
+    l.add(TBookListReader.bookToPXP(books[i]));
+  result := TXQValueSequence.create(l);
+end;
+
 function TBookList.lastCheck: longint;
 var i:longint;
 begin
@@ -953,7 +986,20 @@ begin
   end;
 end;
 
-procedure TBookListReader.setBookProperty(book: TBook; variable: string; value:IXQValue);
+class procedure TBookListReader.setAllBookProperties(book: TBook; const value: IXQValue);
+var
+  v: IXQValue;
+  obj: TXQValueObject;
+  i: Integer;
+begin
+  v := value.clone;
+  if not (v is TXQValueObject) then raise EBookListReader.Create('Nested Buch ohne Eigenschaften');
+  obj := v as TXQValueObject;;
+  for i:=0 to obj.values.count-1 do
+    setBookProperty(book, obj.values.getName(i), obj.values.get(i));
+end;
+
+class procedure TBookListReader.setBookProperty(book: TBook; variable: string; const value:IXQValue);
 function strconv():string;
 begin
   result:=strTrimAndNormalize(value.toString);
@@ -969,6 +1015,9 @@ end;
 
 var
   basevariable, temp: String;
+  i: Integer;
+  pv: PIXQValue;
+  newbook: TBook;
 
 begin
   basevariable := variable;
@@ -988,7 +1037,15 @@ begin
     book.dueDate:=dateParse(strconv(),strcopyfrom(variable,pos(':',variable)+1))
   else if striEqual(variable, 'limitdate') or strlibeginswith(@variable[1],length(variable),'limitdate') then
     raise EBookListReader.create('The template is using the limitdate property which is deprecated. It should now be called duedate')
-  else begin
+  else if strEqual(variable, 'holdings') then begin
+    if book.holdings = nil then book.holdings := TBookList.create(book);
+    for pv in value.GetEnumeratorPtrUnsafe do begin
+      newbook := TBook.create;
+      setAllBookProperties(newbook, pv^);
+      book.holdings.add(newbook);
+      newbook.decReference;
+    end;
+  end else begin
     if value.getSequenceCount > 1 then begin
       case variable of
         'orderconfirmationoptiontitles': temp := strconvlist('\|');
@@ -1150,7 +1207,7 @@ begin
   inherited destroy();
 end;
 
-function TBookListReader.bookToPXP(book: TBook): TXQValueObject;
+class function TBookListReader.bookToPXP(book: TBook): TXQValueObject;
   function xqvalueDate(const i: integer): IXQValue;
   begin
     result := TXQValueDateTime.create(baseSchema.date, i);
@@ -1171,6 +1228,7 @@ begin
   result.setMutable('_existing', xqvalueTrue);
   if book.dueDate <> 0 then result.setMutable('dueDate', xqvalueDate(book.dueDate));
   if book.issueDate <> 0 then result.setMutable('issueDate', xqvalueDate(book.issueDate));
+  if book.holdings <> nil then result.setMutable('holdings', book.holdings.toXQuery);
   //see queryHistory;
 end;
 

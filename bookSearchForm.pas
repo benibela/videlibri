@@ -14,10 +14,13 @@ type
   { TbookSearchFrm }
 
   TbookSearchFrm = class(TForm)
+    detailPanel: TPanel;
+    holdingsPanel: TPanel;
     searchLocationRegion: TComboBox;
     menuCopyValue: TMenuItem;
     menuCopyRow: TMenuItem;
     PopupMenu1: TPopupMenu;
+    holdingsSplitter: TSplitter;
     startAutoSearchButton: TButton;
     searchBranch: TComboBox;
     homeBranch: TComboBox;
@@ -44,7 +47,7 @@ type
     startSearch: TButton;
     displayImage: TCheckBox;
     displayInternalProperties: TCheckBox;
-    detailPanel: TPanel;
+    detailPanelHolder: TPanel;
     Image1: TImage;
     Label2: TLabel;
     linkLabelDigibib: TLabel;
@@ -118,11 +121,13 @@ type
     bookList: TBookListView;
     detaillist: TTreeListView;
     detaillistLastClickedRecordItem: TTreeListRecordItem;
+    holdings: TBookListView;
     searcherAccess: TLibrarySearcherAccess;
     newSearcherAccess: TLibrarySearcherAccess;
     nextPageAvailable: boolean;
     displayedBook: TBook;
     researchedBook: TBook;
+    procedure bookListHoldingsSelect(sender: TObject; item: TTreeListItem);
     procedure detaillistMouseDown(Sender: TObject; Button: TMouseButton; Shift: TShiftState; X, Y: Integer);
     function displayDetails(book: TBook=nil): longint; //0: no details, 1: detail, no image, 2: everything
     function cloneDisplayedBook: TBook;
@@ -169,6 +174,7 @@ resourcestring
   rsExistsOverrideConfirm = 'Das Medium existiert bereits als "%s", soll es mit "%s" überschrieben werden?';
   rsOverrideConfirm = 'Soll das markierte Medium "%s" mit "%s" überschrieben werden?';
   rsChooseOrder = 'Es gibt mehrere vormerkbare/Bestellbare Exemplare. Welches wollen Sie? (Nummer eingeben)%s';
+  rsNoHoldingSelected = 'Es wurde nicht ausgewählt, welches Exemplar bestellt werden soll. (in der unteren Liste)';
   rsOrderComplete = 'Das Buch "%s" wurde ohne Fehler vorgemerkt.';
   rsNumberNeeded = ' (Nummer eingeben)';
   rsCount = '%s Treffer';
@@ -212,12 +218,17 @@ begin
   end;
   with detaillist.columns.Add do begin
     text:=rsValue;
-    width:=200;
+    width:=400;
   end;
   detaillist.OnCustomRecordItemDraw:=@detaillistCustomRecordItemDraw;
   detaillist.OnClickAtRecordItem:=@detaillistClickAtRecordItem;
   detaillist.OnMouseMove:=@detaillistMouseMove;
   detaillist.OnMouseDown:=@detaillistMouseDown;
+
+  holdings := TBookListView.create(self, false);
+  holdings.Parent := holdingsPanel;
+  holdings.align:=alClient;
+  holdings.OnSelect:=@bookListHoldingsSelect;
 
 
   Image1.Width:=0;
@@ -296,7 +307,7 @@ procedure TbookSearchFrm.bookListSelect(sender: TObject; item: TTreeListItem);
 var book: tbook;
 
 begin
-  if item=nil then exit;
+  if (item=nil) or not (item.Selected) then exit;
   if searcherAccess = nil then exit;
   book:=tbook(item.data.obj);
 
@@ -573,9 +584,19 @@ var
   i: Integer;
   v: String;
   s: String;
+  orderBook: TBook;
 begin
   if (displayedBook = nil) or (searcherAccess = nil) then exit;
   if accounts.Count = 0 then exit;
+
+  orderBook := displayedBook;
+  if displayedBook.holdings <> nil then begin
+    if holdings.SelectedBook = nil then begin
+      ShowMessage(rsNoHoldingSelected);
+      exit;
+    end;
+    orderBook := holdings.SelectedBook;
+  end;
 
   acc := accounts[0];
   for i:=1 to accounts.Count-1 do
@@ -584,29 +605,21 @@ begin
 
   searcherAccess.beginBookReading;
   try
-    if StrToIntDef(displayedBook.getPropertyAdditional('orderable'), 1) > 1 then begin
+    if StrToIntDef(orderBook.getPropertyAdditional('orderable'), 1) > 1 then begin
       s := Format(rsChooseOrder, [LineEnding]);
-      for i :=  0 to StrToIntDef(displayedBook.getPropertyAdditional('orderable'), 1) - 1 do
-       s += inttostr(i+1)+': '+ displayedBook.getPropertyAdditional('orderTitle'+inttostr(i))+LineEnding;
+      for i :=  0 to StrToIntDef(orderBook.getPropertyAdditional('orderable'), 1) - 1 do
+       s += inttostr(i+1)+': '+ orderBook.getPropertyAdditional('orderTitle'+inttostr(i))+LineEnding;
       v := '1';
       if not InputQuery('VideLibri', s, v) then exit;
-      displayedBook.setProperty('choosenOrder', inttostr(strtointdef(v,1)-1));
-    end else displayedBook.setProperty('choosenOrder', '0');
+      orderBook.setProperty('choosenOrder', inttostr(strtointdef(v,1)-1));
+    end else orderBook.setProperty('choosenOrder', '0');
   finally
     searcherAccess.endBookReading;
   end;
 
 
   screen.Cursor:=crHourGlass;
-  searcherAccess.orderAsync(acc, displayedBook);
-
-  {temp := cloneDisplayedBook;
-
-  temp.owner := acc;
-  tempList := TBookList.create(acc);
-  tempList.add(temp);
-
-  orderBooks(tempList);}
+  searcherAccess.orderAsync(acc, orderBook);
 end;
 
 procedure TbookSearchFrm.LabelOrderForClick(Sender: TObject);
@@ -989,6 +1002,8 @@ var intern, empty, normal: TTreeListItems; //item lists
 var i:longint;
     tempStream: TStringStream;
     ext: String;
+    columnsToShow: array of boolean;
+    j, orderableHolding: Integer;
 begin
   if book=nil then
     if bookList.Selected=nil then book:=displayedBook
@@ -1011,7 +1026,7 @@ begin
     propAddForce(rsBookPropertyISBN,book.isbn);
     if getProperty('publisher', book.additional) <> '' then propAddForce(rsBookPropertyPublisher, getProperty('publisher', book.additional));
     if getProperty('location', book.additional) <> '' then propAddForce(ifthen(book.lend, rsBookPropertyLocationLend, rsBookPropertyLocationSearch), getProperty('location', book.additional));
-    if book.owner<>nil then begin
+    if book.owningAccount<>nil then begin
       propAddForce(rsBookPropertyIssueDate, DateToPrettyStr(book.issueDate));
       propAddForce(rsBookPropertyLimitDate, DateToPrettyStr(book.dueDate));
       propAddForce(rsBookPropertyStatus, BookStatusToStr(book,true));
@@ -1050,8 +1065,6 @@ begin
     else if getProperty('image-searched',book.additional) <> 'true' then result:=1
     else result:=2;
 
-    LabelOrder.Enabled:=(getProperty( 'orderable', book.additional) <> '') and (getProperty('orderable', book.additional) <> '0') and (getProperty('orderable', book.additional) <> 'false');
-    LabelOrder.Caption := book.getPropertyAdditional('orderTitle', rsRequestOrder);
 
     linkLabelDigibib.Enabled := getProperty('digibib-url', book.additional) <> '';
     linkLabelBib.Enabled := getProperty('home-url', book.additional) <> '';
@@ -1062,6 +1075,35 @@ begin
       linkLabelAmazon.Caption := 'buchhandel.de';
       linkLabelAmazon.Enabled := true;
     end else linkLabelAmazon.Enabled := false;
+
+    if book.holdings = nil then begin
+      holdingsPanel.Visible := false;
+      holdingsSplitter.Visible := false;
+      LabelOrder.Enabled:=(getProperty( 'orderable', book.additional) <> '') and (getProperty('orderable', book.additional) <> '0') and (getProperty('orderable', book.additional) <> 'false');
+      LabelOrder.Caption := book.getPropertyAdditional('orderTitle', rsRequestOrder);
+    end else begin
+      holdings.clear;
+      holdings.addBookList(book.holdings);
+      SetLength(columnsToShow, length(BookListColumnToProperty));
+      orderableHolding := -1;
+      for i := 0 to book.holdings.Count - 1 do begin
+        if (orderableHolding = -1) and (book.holdings[i].getProperty('orderable') <> 'false') then orderableHolding := i;
+        for j := 0 to high(columnsToShow) do
+          if not columnsToShow[j] then
+            case j of
+              BL_BOOK_COLUMNS_ISSUE_ID: columnsToShow[j] := book.holdings[i].libraryBranch <> '';
+              BL_BOOK_COLUMNS_LIMIT_ID: ;
+              else columnsToShow[j] := (book.holdings[i].getProperty(BookListColumnToProperty[j]) <> '')
+            end;
+      end;
+      for j := 0 to min(high(columnsToShow), holdings.Columns.Count - 1) do
+        holdings.Columns[j].Visible := columnsToShow[j];
+      holdingsPanel.Visible := True;
+      holdingsSplitter.Visible := True;
+      if orderableHolding = -1 then LabelOrder.Enabled := false
+      else holdings.Selected := holdings.Items[orderableHolding];
+    end;
+
   finally
     if searcherAccess <> nil then searcherAccess.endBookReading;
   end;
@@ -1070,6 +1112,21 @@ end;
 procedure TbookSearchFrm.detaillistMouseDown(Sender: TObject; Button: TMouseButton; Shift: TShiftState; X, Y: Integer);
 begin
   detaillistLastClickedRecordItem := detaillist.GetRecordItemAtPos(x,y);
+end;
+
+procedure TbookSearchFrm.bookListHoldingsSelect(sender: TObject; item: TTreeListItem);
+var
+  book: TBook;
+  cmdtitle: String;
+begin
+  if (item = nil) or not item.Selected then exit;
+  book:=tbook(item.data.obj);
+  if book = nil then exit;
+  LabelOrder.Enabled := book.getProperty('orderable') <> 'false';
+  cmdtitle := book.getPropertyAdditional('orderTitle', '');
+  if (cmdtitle = '') and (book.owningBook <> nil) then
+    cmdtitle := book.owningBook.getPropertyAdditional('orderTitle', '');
+  if cmdtitle = '' then cmdtitle:=rsRequestOrder;
 end;
 
 function TbookSearchFrm.cloneDisplayedBook: TBook;

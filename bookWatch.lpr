@@ -24,6 +24,8 @@ uses
 {$R bookWatch.res}
 
 begin
+  //printleakedblock:=true;
+
   Application.Initialize;
   Application.Title:='VideLibri';
   application.Name:='VideLibri';

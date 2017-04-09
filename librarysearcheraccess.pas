@@ -611,7 +611,7 @@ begin
           if logging then log('Searcher thread: message smtOrder: '+book.toSimpleString());
           if (book = nil) or (book.owningAccount = nil) then log('Invalid book')
           else begin
-            if (mes.typ = smtOrderConfirmed) or not searcher.orderNeedsConfirmation(book) then begin
+            if (mes.typ = smtOrderConfirmed) or not searcher.orderNeedsConfirmation() then begin
               Searcher.orderSingle(book);
               if Searcher.bookListReader.pendingMessage <> nil then begin
                 callPendingMessageEvent(access.FOnTakePendingMessage, book, Searcher.bookListReader.pendingMessage);
