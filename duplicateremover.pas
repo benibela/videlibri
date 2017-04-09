@@ -46,14 +46,6 @@ resourcestring
   rsConfirmDelete = 'Sollen die ausgewählten Duplikate durch jeweils einen einzelnen Eintrag ersetzt werden?';
 
 
-const BL_BOOK_COLUMNS_EXISTDATEFIRST=12;
-const BL_BOOK_COLUMNS_EXISTDATELAST=13;
-const BL_BOOK_EXTCOLUMNS_CHECKED=14;
-
-const CHECKBOX_CHECKED = 'X';
-      CHECKBOX_DISABLED = '-';
-      CHECKBOX_UNCHECKED = '';
-      CHECKBOX_MIXED = 'M';
 
 procedure TduplicateForm.Button2Click(Sender: TObject);
 begin
@@ -70,12 +62,12 @@ begin
   system.EnterCriticalsection(updateThreadConfig.libraryFileAccess);
 
   for i := 0 to listview.Items.Count - 1 do begin
-    if listview.Items[i].RecordItemsText[BL_BOOK_EXTCOLUMNS_CHECKED] = CHECKBOX_UNCHECKED then continue;
+    if listview.getAdditionalBookData(listview.Items[i]).checked = csUnchecked then continue;
 
     (listview.books[i].owningAccount as TCustomAccountAccess).books.old.add(listview.books[i]);
 
     for j := 0 to listview.Items[i].SubItems.Count - 1 do
-      if listview.Items[i].SubItems[j].RecordItemsText[BL_BOOK_EXTCOLUMNS_CHECKED] <> CHECKBOX_UNCHECKED then
+      if listview.getAdditionalBookData(listview.Items[i]).checked <> csUnchecked then
         (tbook(listview.Items[i].SubItems[j].data.obj).owningAccount as TCustomAccountAccess).books.old.remove(tbook(listview.Items[i].SubItems[j].data.obj));
   end;
 
@@ -110,17 +102,10 @@ begin
   listview.OnCustomRecordItemPositioning:=@itemPositioning;
   listview.OnCustomRecordItemDraw:=@listviewCustomRecordItemDraw;
   listview.OnMouseDown:=@listviewMouseDown;
-  listview.Columns[BL_BOOK_COLUMNS_STATUS].Width:=15;
-  listview.Columns.Add.Text := 'X';
-  listview.Columns.Add.Text := 'X';
-  with listview.Columns.Add do begin
-    text := 'bekannt von';
-    width := 70;
-  end;
-  with listview.Columns.Add do begin
-    text := 'bekannt bis';
-    width := 70;
-  end;
+  listview.addDefaultColumns;
+  listview.Columns[high(listview.properties)].Width:=15;
+  listview.addColumn('_firstexistsdate');
+  listview.addColumn('_lastexistsdate');
   for i := 0 to accounts.count - 1 do cbAccounts.Items.add(accounts[i].prettyName);
   searchDuplicates;
 end;
@@ -159,10 +144,8 @@ procedure TduplicateForm.searchDuplicates;
   procedure fillItem(item: TTreeListItem; book: TBook);
   begin
     listview.fillBookItem(item, book);
-    item.RecordItemsText[BL_BOOK_COLUMNS_LIMIT_ID] := DateToPrettyStr(book.dueDate);
-    item.RecordItemsText[BL_BOOK_COLUMNS_EXISTDATEFIRST] := DateToPrettyStr(book.firstExistsDate);
-    item.RecordItemsText[BL_BOOK_COLUMNS_EXISTDATELAST] := DateToPrettyStr(book.lastExistsDate);
-    item.RecordItemsText[BL_BOOK_EXTCOLUMNS_CHECKED] := CHECKBOX_CHECKED;
+    listview.getAdditionalBookData(item).checked := csChecked;
+    item.RecordItemsText[listview.getPropertyColumnIndex('dueDate')] := DateToPrettyStr(book.dueDate);
   end;
 var alllists: TBookList;
   i, accountMode, timeMode: Integer;
@@ -237,10 +220,10 @@ var
 begin
   if eventTyp_cdet = cdetPrePaint then exit;
   if recordItem.Index <> 0 then exit;
-  case recordItem.Parent.RecordItemsText[BL_BOOK_EXTCOLUMNS_CHECKED] of
-    CHECKBOX_CHECKED:  cb := ThemeServices.GetElementDetails(tbCheckBoxCheckedNormal);
-    CHECKBOX_DISABLED:  cb := ThemeServices.GetElementDetails(tbCheckBoxUncheckedDisabled);
-    CHECKBOX_MIXED:  cb := ThemeServices.GetElementDetails(tbCheckBoxMixedNormal);
+  case listview.getAdditionalBookData(recordItem.Parent).checked of
+    csChecked:  cb := ThemeServices.GetElementDetails(tbCheckBoxCheckedNormal);
+    csDisabled:  cb := ThemeServices.GetElementDetails(tbCheckBoxUncheckedDisabled);
+    csMixed:  cb := ThemeServices.GetElementDetails(tbCheckBoxMixedNormal);
     //CHECKBOX_HIDDEN: exit;
     else cb := ThemeServices.GetElementDetails(tbCheckBoxUncheckedNormal);
   end;
@@ -263,29 +246,32 @@ begin
   item := recorditem.Parent;
   rec := item.getBounds(0);
   if (x >= 15) and (x <= 15 + 5 + rec.Bottom - rec.Top) then begin
-    old :=  item.RecordItemsText[BL_BOOK_EXTCOLUMNS_CHECKED] <> CHECKBOX_UNCHECKED;
-    case item.RecordItemsText[BL_BOOK_EXTCOLUMNS_CHECKED] of
-      CHECKBOX_UNCHECKED: item.RecordItemsText[BL_BOOK_EXTCOLUMNS_CHECKED] := CHECKBOX_CHECKED;
-      else item.RecordItemsText[BL_BOOK_EXTCOLUMNS_CHECKED] := CHECKBOX_UNCHECKED;
+    old :=  listview.getAdditionalBookData(item).checked <> csUNCHECKED;
+    case listview.getAdditionalBookData(item).checked of
+      csUNCHECKED: listview.getAdditionalBookData(item).checked := csCHECKED;
+      else listview.getAdditionalBookData(item).checked := csUNCHECKED;
     end;
+    listview.invalidateItem(item);
     if item.Parent <> nil then begin
       hasChecked := false;
       hasUnchecked := false;
       counteditem := item.Parent;
-      old := item.parent.RecordItemsText[BL_BOOK_EXTCOLUMNS_CHECKED] <> CHECKBOX_UNCHECKED;
+      old := listview.getAdditionalBookData(item.Parent).checked  <> csUnchecked;
       for i := 0 to item.Parent.SubItems.Count - 1 do
-        if item.Parent.SubItems[i].RecordItemsText[BL_BOOK_EXTCOLUMNS_CHECKED] = CHECKBOX_CHECKED then hasChecked := true
+        if listview.getAdditionalBookData(item.Parent.SubItems[i]).checked = csCHECKED then hasChecked := true
         else hasUnchecked := true;
-      if hasChecked and hasUnchecked then item.Parent.RecordItemsText[BL_BOOK_EXTCOLUMNS_CHECKED] := CHECKBOX_MIXED
-      else if hasChecked then item.Parent.RecordItemsText[BL_BOOK_EXTCOLUMNS_CHECKED] := CHECKBOX_CHECKED
-      else if hasUnchecked then item.Parent.RecordItemsText[BL_BOOK_EXTCOLUMNS_CHECKED] := CHECKBOX_UNCHECKED
+      if hasChecked and hasUnchecked then listview.getAdditionalBookData(item.parent).checked := csMIXED
+      else if hasChecked then listview.getAdditionalBookData(item.parent).checked := csCHECKED
+      else if hasUnchecked then listview.getAdditionalBookData(item.parent).checked := csUNCHECKED;
+      listview.invalidateItem(item.parent);
     end else counteditem := item;
     for i := 0 to item.SubItems.Count - 1 do
-      item.SubItems[i].RecordItemsText[BL_BOOK_EXTCOLUMNS_CHECKED] := item.RecordItemsText[BL_BOOK_EXTCOLUMNS_CHECKED];
+      listview.getAdditionalBookData(item.SubItems[i]).checked := listview.getAdditionalBookData(item).checked;
 
-    if (old <> (counteditem.RecordItemsText[BL_BOOK_EXTCOLUMNS_CHECKED] <> CHECKBOX_UNCHECKED)) then
-      if counteditem.RecordItemsText[BL_BOOK_EXTCOLUMNS_CHECKED] = CHECKBOX_UNCHECKED then dec(checkedcount)
+    if (old <> (listview.getAdditionalBookData(counteditem).checked <> csUNCHECKED)) then
+      if listview.getAdditionalBookData(counteditem).checked = csUNCHECKED then dec(checkedcount)
       else inc(checkedcount);
+    listview.sheduleInternRepaint();
     lbCount.Caption := IntToStr(checkedcount) + ' / ' + IntToStr(listview.Items.Count) + ' / ' + IntToStr(totalcount);
   end;
 end;

@@ -22,11 +22,23 @@ uses
    procedure editorKeyUp(Sender: TObject; var Key: Word; {%H-}Shift: TShiftState);
  end;
 
+ type TBookColorState = (bcsOld, bcsOrdered, bcsOK, bcsProvided, bcsLimited, bcsTimeNear);
+
+ TAdditionalBookData = class(TTreeListRecordItem)
+ public
+   colorState: TBookColorState;
+   weekSeparator: integer;
+   checked: (csUnchecked, csChecked, csMixed, csDisabled);
+
+   constructor Create(aparent: TTreeListItem); overload;
+ end;
+
  TBookListView = class(TEditableListView)
 
  private
     fshowlendbooks: boolean;
     lastAddBook: tbook;
+    ColumnIssueDateId, ColumnDueDateId: integer;
 
     procedure BookListCompareItems({%H-}sender: TObject; i1, i2: TTreeListItem;
       var compare: longint);
@@ -34,11 +46,17 @@ uses
       eventTyp_cdet: TCustomDrawEventTyp; item: TTreeListItem; var defaultDraw: Boolean);
     procedure BookListViewItemsSortedEvent(Sender: TObject);
 
+    procedure setBookWeekSeparator(b: TTreeListItem; v: integer);
+    procedure setBookColorState(b: TTreeListItem; c: TBookColorState);
+    function getBookWeekSeparator(b: TTreeListItem): integer;
+    function getBookColorState(b: TTreeListItem): TBookColorState;
+
     function getBook(i: integer): TBook;
  public
+   properties: TStringArray;
    groupingProperty: string;
    bookCount: integer;
-   constructor create(aowner: TComponent;showLendBooks: boolean);
+   constructor create(aowner: TComponent; showLendBooks: boolean);
    destructor Destroy; override;
    procedure clear;
    procedure addBookList(list: TBookList; const accountName: string = '');
@@ -46,33 +64,20 @@ uses
    procedure fillBookItem(item: TTreeListItem; book: TBook);
    property books[i:integer]: TBook read GetBook;
 
+   procedure ColumnsClear;
+   procedure addDefaultColumns;
+   procedure addColumn(prop: string);
+   function getPropertyColumnIndex(p: string): integer;
+   function getAdditionalBookData(item: TTreeListItem): TAdditionalBookData;
+
    function SelectedBook: TBooK;
    function SelectedBooks: TBookList;
  end;
 
-const BL_BOOK_COLUMNS_AUTHOR=2;
-      BL_BOOK_COLUMNS_TITLE=3;
-      BL_BOOK_COLUMNS_YEAR=4;
-      BL_BOOK_COLUMNS_ISSUE_ID=5;
-      BL_BOOK_COLUMNS_LIMIT_ID=6;
-      BL_BOOK_COLUMNS_ACCOUNT=7;
-      BL_BOOK_COLUMNS_STATUS=8;
-      BL_BOOK_COLUMNS_ISBN=9;
-      BL_BOOK_EXTCOLUMNS_COLOR=10;
-      BL_BOOK_EXTCOLUMNS_WEEK_SEPARATOR=11;
-      //don't add more without checking duplicate remover
-
-const BookListColumnToProperty: array[0..11] of string = (
-      'id', 'category', 'author', 'title',
-      'year',
-      'issuedate',
-      'duedate',
-      '?account',
-      'status',
-      'isbn',
-      '?','?');
 
 function dateToWeek(date: longint):longint; //week: monday - sunday
+
+const WEEK_SEPARATOR_UNDEFINED = MaxInt;
 
 resourcestring
   rsBookPropertyNone = 'Keine';
@@ -83,9 +88,12 @@ resourcestring
   rsBookPropertyYear = 'Jahr';
   rsBookPropertyIssueDate = 'Ausleihe';
   rsBookPropertyLimitDate = 'Frist';
+  rsBookPropertyLibraryBranch = 'Zweigstelle';
   rsBookPropertyAccount = 'Konto';
   rsBookPropertyStatusComment = 'Bemerkung';
   rsBookPropertyISBN = 'ISBN';
+  rsBookPropertyFirstExistsDate = 'bekannt von';
+  rsBookPropertyLastExistsDate = 'bekannt bis';
   rsWeekUnknown = 'Unbekannte Woche';
   rsWeekLast = 'Letzte Woche';
   rsWeekThis = 'Diese Woche';
@@ -116,6 +124,12 @@ begin
     1: result := rsWeekNext;
     else result := Format(rsWeekDates, [DateToStr(week * 7 + 2), DateToStr(week * 7+2+6)]);
   end;
+end;
+
+constructor TAdditionalBookData.Create(aparent: TTreeListItem);
+begin
+  inherited;
+  weekSeparator := WEEK_SEPARATOR_UNDEFINED;
 end;
 
 procedure TEditableListView.startEditing(item: TTreeListRecordItem);
@@ -170,7 +184,7 @@ var i: longint;
     lastWeek: longint;
     book: TBook;
 begin
-  if SortColumn<>BL_BOOK_COLUMNS_LIMIT_ID then exit;
+  if SortColumn <> ColumnDueDateId then exit;
   if items.count=0 then exit;
   BeginMultipleUpdate;
   lastWeek:=dateToWeek(currentDate);
@@ -178,13 +192,34 @@ begin
     book:=TBook(Items[i].data.obj);
     if (book<>nil) and (book.lend) and
        (dateToWeek(book.dueDate) <> lastWeek) then begin
-      Items[i].RecordItemsText[BL_BOOK_EXTCOLUMNS_WEEK_SEPARATOR]:=IntToStr(abs(dateToWeek(book.dueDate) - lastWeek));
+         setBookWeekSeparator(items[i], abs(dateToWeek(book.dueDate) - lastWeek));
       lastWeek:=dateToWeek(book.dueDate);
      end else
-      Items[i].RecordItemsText[BL_BOOK_EXTCOLUMNS_WEEK_SEPARATOR]:='';
+      setBookWeekSeparator(items[i],WEEK_SEPARATOR_UNDEFINED);
   end;
   EndMultipleUpdate;
 end;
+
+procedure TBookListView.setBookWeekSeparator(b: TTreeListItem; v: integer);
+begin
+  getAdditionalBookData(b).weekSeparator := v;
+end;
+
+procedure TBookListView.setBookColorState(b: TTreeListItem; c: TBookColorState);
+begin
+  getAdditionalBookData(b).colorState := c;
+end;
+
+function TBookListView.getBookWeekSeparator(b: TTreeListItem): integer;
+begin
+  result := getAdditionalBookData(b).weekSeparator;
+end;
+
+function TBookListView.getBookColorState(b: TTreeListItem): TBookColorState;
+begin
+  result := getAdditionalBookData(b).colorState;
+end;
+
 
 procedure TBookListView.BookListCompareItems(sender: TObject; i1,
   i2: TTreeListItem; var compare: longint);
@@ -207,15 +242,13 @@ begin
     exit;
   end;
   compare:=0;
-  case SortColumn of
-    BL_BOOK_COLUMNS_ISSUE_ID:
-        if book1.issueDate<book2.issueDate then compare:=-1
-        else if book1.issueDate>book2.issueDate then compare:=1
-        else compare := CompareText(book1.libraryBranch, book2.libraryBranch);
-    BL_BOOK_COLUMNS_LIMIT_ID:; //see later
-
-    else compare:=CompareText(i1.RecordItemsText[SortColumn],i2.RecordItemsText[SortColumn]);
-  end;
+  if SortColumn = ColumnIssueDateId then begin
+    if book1.issueDate<book2.issueDate then compare:=-1
+    else if book1.issueDate>book2.issueDate then compare:=1
+    else compare := CompareText(book1.libraryBranch, book2.libraryBranch);
+  end else if SortColumn = ColumnDueDateId then begin
+    //see later
+  end else compare:=CompareText(i1.RecordItemsText[SortColumn],i2.RecordItemsText[SortColumn]);
   if (compare=0) and (book1.status in BOOK_NOT_LEND) <> (book2.status in BOOK_NOT_LEND) then
     if book1.status in BOOK_NOT_LEND then
       compare := 1
@@ -236,7 +269,6 @@ begin
     compare:=compareText(i1.Text,i2.Text);
 end;
 
-type TBookColorState = (bcsOld, bcsOrdered, bcsOK, bcsProvided, bcsLimited, bcsTimeNear);
 
 function getBookColor(book:TBook):TBookColorState;
 begin
@@ -267,9 +299,7 @@ begin
     cdetPrePaint:
       if not item.SeemsSelected then begin
         canvas.Brush.Style:=bsSolid;
-        temp := item.RecordItemsText[BL_BOOK_EXTCOLUMNS_COLOR];
-        if temp <> '' then colorState := TBookColorState(ord(temp[1]) - ord('0'))
-        else colorState := bcsOld;
+        colorState := getBookColorState(item);
         case colorState of
           bcsOld: Canvas.brush.color:=colorOld;
           bcsOrdered: Canvas.brush.color:=colorOrdered;
@@ -281,8 +311,8 @@ begin
         if Canvas.brush.color=clnone then
           Canvas.brush.color:=self.Color;;
       end;
-    cdetPostPaint: if SortColumn= BL_BOOK_COLUMNS_LIMIT_ID then
-      if item.RecordItemsText[BL_BOOK_EXTCOLUMNS_WEEK_SEPARATOR] <> '' then begin
+    cdetPostPaint: if SortColumn= ColumnDueDateId then
+      if getBookWeekSeparator(item) <> WEEK_SEPARATOR_UNDEFINED then begin
         canvas.pen.Style:=psSolid;
         canvas.pen.Color:=$bB00BB;
         Canvas.pen.Width:=2;
@@ -298,7 +328,7 @@ begin
         pa[1].x:=width-F_VScroll.width-5;pa[1].y:=ypos;
         pa[2].x:=width-F_VScroll.width-1;pa[2].y:=ypos+4;
         Canvas.Polygon(pa);
-        for i:=1 to StrToInt(item.RecordItemsText[BL_BOOK_EXTCOLUMNS_WEEK_SEPARATOR]) do begin
+        for i:=1 to getBookWeekSeparator(item) do begin
           x:=width-F_VScroll.width-8*i-2;
           y:=ypos;
           Canvas.Ellipse(x-3,y-3,x+3,y+3);
@@ -352,7 +382,6 @@ begin
     if bookItem = nil then
       with items.Add(group) do begin
         bookItem := SubItems.Add();
-        RecordItemsText[BL_BOOK_EXTCOLUMNS_COLOR]:='0';
       end;
   end;
 
@@ -360,37 +389,118 @@ begin
 end;
 
 procedure TBookListView.fillBookItem(item: TTreeListItem; book: TBook);
+var
+  i: Integer;
+  colorState: TBookColorState;
 begin
   with item do begin
     book.incReference;
 
-    text:=book.id;
-    RecordItems.Add(book.category);
-    RecordItemsText[BL_BOOK_COLUMNS_AUTHOR] := book.author;
-    RecordItemsText[BL_BOOK_COLUMNS_TITLE] := book.title;
-    RecordItemsText[BL_BOOK_COLUMNS_YEAR] := book.year;
-    if book.libraryBranch = '' then RecordItemsText[BL_BOOK_COLUMNS_ISSUE_ID] := DateToPrettyStr(book.issueDate)
-    else if book.issueDate = 0 then RecordItemsText[BL_BOOK_COLUMNS_ISSUE_ID] := book.libraryBranch
-    else RecordItemsText[BL_BOOK_COLUMNS_ISSUE_ID] := DateToPrettyStr(book.issueDate) + ' in ' + book.libraryBranch;
-    if book.lend = false then begin
-      if book.dueDate = -2 then RecordItemsText[BL_BOOK_COLUMNS_LIMIT_ID] := rsNeverLend
-      else RecordItemsText[BL_BOOK_COLUMNS_LIMIT_ID] := rsLendHistory
-    end else
-     RecordItemsText[BL_BOOK_COLUMNS_LIMIT_ID] := DateToPrettyStr(book.dueDate);
-    if (book.owningAccount is TCustomAccountAccess) then RecordItemsText[BL_BOOK_COLUMNS_ACCOUNT] := TCustomAccountAccess(book.owningAccount).prettyName
-    else RecordItemsText[BL_BOOK_COLUMNS_ACCOUNT] := rsunknown;
-    RecordItemsText[BL_BOOK_COLUMNS_STATUS]:=BookStatusToStr(book);//Abgegeben nach '+DateToSimpleStr(book.lastExistsDate))
-    RecordItemsText[BL_BOOK_COLUMNS_ISBN] := book.isbn;
-
-//    RecordItems.Add(book.year); ;
-   // SubItems.add(book.otherInfo);
-    RecordItemsText[BL_BOOK_EXTCOLUMNS_COLOR]:=chr(ord(getBookColor(book)) + ord('0'));
-    if (groupingProperty <> '') and (RecordItemsText[BL_BOOK_EXTCOLUMNS_COLOR] > Parent.RecordItemsText[BL_BOOK_EXTCOLUMNS_COLOR]) then
-      parent.RecordItemsText[BL_BOOK_EXTCOLUMNS_COLOR] := RecordItemsText[BL_BOOK_EXTCOLUMNS_COLOR];
+    item.RecordItems.Clear;
+    RecordItems.Capacity := length(properties) + 1;
+    for i := 0 to high(properties) do
+      if i = ColumnIssueDateId then RecordItems.Add(DateToPrettyStr(book.issueDate))
+      else if i = ColumnIssueDateId then begin
+        if book.lend = false then begin
+          if book.dueDate = -2 then RecordItems.Add(rsNeverLend)
+          else RecordItems.Add(rsLendHistory)
+        end else
+         RecordItems.Add(DateToPrettyStr(book.dueDate));
+      end else
+        case properties[i] of
+          '?account': if book.owningAccount <> nil then RecordItems.Add(book.owningAccount.prettyName)
+                      else RecordItems.Add(rsunknown);
+          'status': RecordItems.Add(BookStatusToStr(book));
+          else RecordItems.Add(book.getProperty(properties[i]));
+        end;
 
     //else
     data.obj:=book;
   end;
+  colorState := getBookColor(book);
+  setBookColorState(item, colorState);
+  if (groupingProperty <> '') and (colorState > getBookColorState(item.Parent)) then
+    setBookColorState(item.Parent, colorState);
+end;
+
+procedure TBookListView.ColumnsClear;
+begin
+  Columns.Clear;
+  ColumnIssueDateId := -1;
+  ColumnDueDateId := -1;
+end;
+
+procedure TBookListView.addDefaultColumns;
+var defColumns: array[0..10] of string = (
+  'id',
+  'category',
+  'author',
+  'title',
+  'year',
+  'issueDate',
+  'dueDate',
+  '?account',
+  'status',
+  'isbn',
+  'libraryBranch'
+);
+  i: Integer;
+begin
+  for i := 0 to high(defColumns) do
+    addColumn(defColumns[i]);
+end;
+
+procedure TBookListView.addColumn(prop: string);
+begin
+  prop := lowercase(prop);
+  with Columns.Add do begin
+    case prop of
+      'id': begin text :=rsBookPropertyID; width := 80; end;
+      'category': begin text :=rsBookPropertyCategory; width := 50; end;
+      'author': begin text :=rsBookPropertyAuthor; width := 120; end;
+      'title': begin text :=rsBookPropertyTitle; width := 150; end;
+      'year': begin text :=rsBookPropertyYear; width := 30; end;
+      'issuedate': begin
+        text :=rsBookPropertyIssueDate;
+        width := 70;
+        Alignment:=taCenter;
+        ColumnIssueDateId := columns.Count-1;
+      end;
+      'duedate': begin
+        text :=rsBookPropertyLimitDate;
+        width := 70;
+        Alignment:=taCenter;
+        ColumnDueDateId := columns.Count-1;
+      end;
+      'librarybranch': begin text :=rsBookPropertyLibraryBranch; width := 40; end;
+      '?account': begin Text:=rsBookPropertyAccount; Width:=80; end;
+      'status': begin Text:=rsBookPropertyStatusComment; Width:=250;end;
+      'isbn': begin Text:=rsBookPropertyISBN; Width:=80; Visible:=false;end;
+      '_firstexistsdate': begin Text:=rsBookPropertyFirstExistsDate; Width:=70; end;
+      '_lastexistsdate': begin Text:=rsBookPropertyLastExistsDate; Width:=70; end;
+    end;
+  end;
+  SetLength(properties, length(properties)+1);
+  properties[high(properties)] := prop;
+end;
+
+function TBookListView.getPropertyColumnIndex(p: string): integer;
+begin
+  p := lowercase(p);
+  result := arrayIndexOf(properties, p);
+end;
+
+function TBookListView.getAdditionalBookData(item: TTreeListItem): TAdditionalBookData;
+begin
+  while item.RecordItems.Count < length(properties) do item.RecordItems.Add('');
+  while item.RecordItems.Count >= length(properties) + 1 do
+    if not (item.RecordItems[length(properties)] is TAdditionalBookData) then begin
+      item.RecordItems[Length(properties)].Free;
+      item.RecordItems[Length(properties)]:=nil;
+      item.RecordItems.Delete(length(properties));
+    end else break;
+  if item.RecordItems.Count < length(properties) + 1 then item.RecordItems.Additem(TAdditionalBookData.Create(item));
+  result := TAdditionalBookData(item.RecordItems[Length(properties)]);
 end;
 
 function TBookListView.getBook(i: integer): TBook;
@@ -411,51 +521,7 @@ begin
   Align:=alClient;
 
   Options:=Options+[tlvoColumnsDragable];
-  Columns.Clear;
-  with Columns.Add do begin
-    Text:= rsBookPropertyID;
-    Width:=80;
-  end;
-  with Columns.Add do begin
-    Text:=rsBookPropertyCategory;
-    Width:=50;
-  end;
-  with Columns.Add do begin
-    Text:=rsBookPropertyAuthor;
-    Width:=120;
-  end;
-  with Columns.Add do begin
-    Text:=rsBookPropertyTitle;
-    Width:=150;
-  end;
-  with Columns.Add do begin
-    Text:=rsBookPropertyYear;
-    Width:=30;
-  end;
-  with Columns.Add do begin
-    Text:=rsBookPropertyIssueDate;
-    Width:=70;
-    Alignment:=taCenter;
-  end;
-  with Columns.Add do begin
-    Text:=rsBookPropertyLimitDate;
-    Width:=70;
-    Alignment:=taCenter;
-  end;
-  with Columns.Add do begin
-    Text:=rsBookPropertyAccount;
-    Width:=80;
-  end;
-  with Columns.Add do begin
-    Text:=rsBookPropertyStatusComment;
-    Width:=250;
-  end;
-  with Columns.Add do begin
-    Text:=rsBookPropertyISBN;
-    Width:=80;
-    Visible:=false;
-  end;
-
+  ColumnsClear;
 end;
 
 destructor TBookListView.Destroy;

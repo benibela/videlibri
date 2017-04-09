@@ -70,7 +70,7 @@ begin
           listview.fillBookItem(item, book);
           item.data.obj := nil;
         end;
-        else listview.Items.add.RecordItemsText[BL_BOOK_COLUMNS_TITLE] := b.toString;
+        else listview.Items.add.RecordItemsText[listview.getPropertyColumnIndex('title')] := b.toString;
       end;
     end;
   finally
@@ -89,6 +89,7 @@ end;
 procedure Txqueryfrm.FormCreate(Sender: TObject);
 begin
   listview := TBookListView.create(self,true);
+  listview.addDefaultColumns;
   listview.Align := alClient;
   listview.Parent := self;
   listview.Options := listview.Options + [tlvoSorted];
