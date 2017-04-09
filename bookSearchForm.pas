@@ -198,10 +198,12 @@ begin
   
 
   bookList:=TBookListView.create(self,false);
+  booklist.addColumn('author');
+  booklist.addColumn('title');
+  booklist.addColumn('year');
+  booklist.addColumn('status');
   bookList.Parent:=bookListPanel;
-  booklist.deserializeColumnOrder(userConfig.ReadString('BookSearcher','ListColumnOrder',''));
-  booklist.deserializeColumnVisibility(userConfig.ReadString('BookSearcher','ListColumnVisibility','--+++---+'));
-  booklist.deserializeColumnWidths(userConfig.ReadString('BookSearcher','ListColumnWidths','10,10,200,200,50,10,10,10,75'));
+  booklist.deserializeColumnWidths(userConfig.ReadString('BookSearcher','ListColumnWidths','200,200,50,75'));
   booklist.OnSelect:=@bookListSelect;
   bookList.OnVScrollBarChange:=@bookListVScrollBarChange;
 
@@ -538,7 +540,7 @@ begin
   temp.dueDate:=-2;
 
 
-  if (mainForm.BookList.SelectedBook <> nil) and (mainForm.BookList.Selected.RecordItemsText[BL_BOOK_COLUMNS_ACCOUNT] = acc.prettyName) then begin
+  if (mainForm.BookList.SelectedBook <> nil) and (mainForm.BookList.SelectedBook.owningAccount = acc) then begin
     old := mainForm.BookList.SelectedBook;
     if (old.author = temp.author) or (old.title = temp.title) or
        striBeginsWith(temp.author,old.author) or striBeginsWith(temp.title, old.title) then
@@ -999,11 +1001,21 @@ var intern, empty, normal: TTreeListItems; //item lists
     propAdd(n+'!',v);
   end;
 
+const holdingColumns: array[0..5] of string = (
+  'id',
+  'category',
+  'author',
+  'title',
+  'year',
+  'libraryBranch'
+);
+
 var i:longint;
     tempStream: TStringStream;
     ext: String;
     columnsToShow: array of boolean;
     j, orderableHolding: Integer;
+    showColumn: Boolean;
 begin
   if book=nil then
     if bookList.Selected=nil then book:=displayedBook
@@ -1083,21 +1095,21 @@ begin
       LabelOrder.Caption := book.getPropertyAdditional('orderTitle', rsRequestOrder);
     end else begin
       holdings.clear;
-      holdings.addBookList(book.holdings);
-      SetLength(columnsToShow, length(BookListColumnToProperty));
-      orderableHolding := -1;
-      for i := 0 to book.holdings.Count - 1 do begin
-        if (orderableHolding = -1) and (book.holdings[i].getProperty('orderable') <> 'false') then orderableHolding := i;
-        for j := 0 to high(columnsToShow) do
-          if not columnsToShow[j] then
-            case j of
-              BL_BOOK_COLUMNS_ISSUE_ID: columnsToShow[j] := book.holdings[i].libraryBranch <> '';
-              BL_BOOK_COLUMNS_LIMIT_ID: ;
-              else columnsToShow[j] := (book.holdings[i].getProperty(BookListColumnToProperty[j]) <> '')
-            end;
+      holdings.ColumnsClear;
+      for i := 0 to high(holdingColumns) do begin
+        showColumn := false;
+        for j := 0 to book.holdings.Count - 1 do
+          if book.holdings[j].getProperty(holdingColumns[i]) <> '' then begin
+            showColumn := true;
+            break;
+          end;
+        if showColumn then holdings.addColumn(holdingColumns[i]);
       end;
-      for j := 0 to min(high(columnsToShow), holdings.Columns.Count - 1) do
-        holdings.Columns[j].Visible := columnsToShow[j];
+      holdings.addBookList(book.holdings);
+      orderableHolding := -1;
+      for i := 0 to book.holdings.Count - 1 do
+        if (orderableHolding = -1) and (book.holdings[i].getProperty('orderable') <> 'false') then
+          orderableHolding := i;
       holdingsPanel.Visible := True;
       holdingsSplitter.Visible := True;
       if orderableHolding = -1 then LabelOrder.Enabled := false

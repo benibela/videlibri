@@ -474,12 +474,13 @@ begin
   refreshAccountGUIElements();
 
   BookList:=TBookListView.create(self,true);
+  booklist.addDefaultColumns;
   BookList.Parent:=self;
   BookList.BackGroundColor:=colorOK;
   BookList.Options:=BookList.Options-[tlvoStriped]+[tlvoMultiSelect,tlvoSorted];
   BookList.PopupMenu:=bookPopupMenu;
    BookList.OnSelect:=@BookListSelectItem;
-  BookList.SortColumn:=BL_BOOK_COLUMNS_LIMIT_ID;
+  BookList.SortColumn:=booklist.getPropertyColumnIndex('dueDate');
   BookList.OnUserSortItemsEvent:=@BookListUserSortItemsEvent;
   BookList.OnDblClick:=@BookListDblClick;
   booklist.OnMouseDown:=@BookListMouseDown;
@@ -495,7 +496,7 @@ begin
   BookList.SearchBar.SearchForwardText:=rsSearchBarNext;
   BookList.SearchBar.SearchBackwardText:=rsSearchBarPrev;
   BookList.SearchBar.SearchLocations[0]:=rsSearchBarAll;
-  BookList.SearchBar.SearchLocations.InsertObject(0, rsSearchBarAuthorTitle, tobject(1 shl BL_BOOK_COLUMNS_AUTHOR or 1 shl BL_BOOK_COLUMNS_TITLE));
+  BookList.SearchBar.SearchLocations.InsertObject(0, rsSearchBarAuthorTitle, tobject(ptruint(1 shl booklist.getPropertyColumnIndex('author')) or ptruint(1 shl booklist.getPropertyColumnIndex('title'))));
   {$endif}
   //TODO Iconoptimize
   //TODO Öffnungszeiten
@@ -592,8 +593,8 @@ begin
     end;
     recordItem := booklist.Selected.GetRecordItemAtPos(BookList, booklistClickX);
     col := recordItem.Index;
-    case col of
-      BL_BOOK_COLUMNS_ISSUE_ID,BL_BOOK_COLUMNS_LIMIT_ID, BL_BOOK_COLUMNS_ACCOUNT: exit;
+    case booklist.properties[col] of
+      'dueDate', 'issueDate', '?account': exit;
     end;
     if historyEditable or confirm(rsEditHistoryConfirm) then historyEditable := true
     else exit;
@@ -615,7 +616,7 @@ begin
   EnterCriticalSection(updateThreadConfig.libraryAccessSection);
   EnterCriticalSection(updateThreadConfig.libraryFileAccess);
   try
-    booklist.SelectedBook.setProperty(BookListColumnToProperty[item.Index], booklist.feditor.Text);
+    booklist.SelectedBook.setProperty(booklist.properties[item.Index], booklist.feditor.Text);
     item.text := booklist.feditor.Text;
     (booklist.SelectedBook.owningAccount as TCustomAccountAccess).save();
   finally
@@ -1291,6 +1292,7 @@ var i:integer;
     criticalSessionUsed,oldList,currentList:boolean;
     account: TCustomAccountAccess;
     maxcharges:currency;
+    tempitem: TTreeListItem;
 begin
   if logging then log('RefreshListView started');
   lastCheck:=currentDate;
@@ -1351,19 +1353,13 @@ begin
 
 
     BookList.BeginUpdate;
-    with BookList.items.Add do begin
+    tempitem := BookList.items.Add;
+    with tempitem do begin
       text:='ACHTUNG';
-      RecordItems.Add('');
-      RecordItems.Add('VideLibri');
-      RecordItems.Add(rsAccountDisabled);
-      RecordItems.Add('');
-      RecordItems.Add('');
-      RecordItems.Add('');
-      RecordItems.Add(menuItem2AssociatedAccount(viewMenu.Items[i]).prettyName);
-      RecordItems.Add('');
-      RecordItems.Add('');
-      RecordItemsText[BL_BOOK_EXTCOLUMNS_COLOR]:='clRed';
-      //SubItems.add('');
+      RecordItemsText[booklist.getPropertyColumnIndex('author')] := 'VideLibri';
+      RecordItemsText[booklist.getPropertyColumnIndex('title')] := rsAccountDisabled;
+      RecordItemsText[booklist.getPropertyColumnIndex('?account')] := menuItem2AssociatedAccount(viewMenu.Items[i]).prettyName;
+      BookList.getAdditionalBookData(tempitem).colorState:=bcsTimeNear;
       Tag:=0;
     end;
     BookList.EndUpdate;
