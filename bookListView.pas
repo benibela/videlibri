@@ -5,7 +5,7 @@ unit bookListView;
 interface
 
 uses
-  Classes, SysUtils, booklistreader, TreeListView, forms, Controls,StdCtrls, FPCanvas;
+  Classes, SysUtils, booklistreader, TreeListView, forms, Controls,StdCtrls, FPCanvas,bbutils;
 
  type
 
@@ -102,7 +102,7 @@ resourcestring
 
 implementation
 
-uses applicationdesktopconfig, applicationconfig,  bbutils, libraryParser, Graphics;
+uses applicationdesktopconfig, applicationconfig,  libraryParser, Graphics;
 //  ,windows {for the search only};
 
 
