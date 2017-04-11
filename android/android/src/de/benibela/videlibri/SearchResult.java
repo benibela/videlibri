@@ -29,9 +29,8 @@ public class SearchResult extends BookListActivity implements Bridge.SearchEvent
         libId = searcher.libId;
         switch (searcher.state){
             case Search.SEARCHER_STATE_INIT:
-                searcher.connect(); //should not happen
+                //searcher.connect(); //should not happen
                 beginLoading(LOADING_SEARCH_CONNECTING);
-                break;
             case Search.SEARCHER_STATE_CONNECTED:
                 searcher.waitingForDetails = -1;
                 searcher.nextDetailsRequested = -1;
