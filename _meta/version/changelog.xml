@@ -1,10 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?xml-stylesheet type="text/xsl" href="../changelog.xsl"?>
 <changelog program="VideLibri">
-      <build version="1880" date="2017-03-12">
+      <build version="1885" date="2017-04-11">
         <download url="http://videlibri.sourceforge.net/updates/videlibri-setup.exe" platform="WINDOWS" execute="&quot;$DOWNLOAD&quot;  /SP- /noicons &quot;/dir=$OLDPATH&quot; " restart="true"/>
         <download url="http://videlibri.sourceforge.net/updates/videlibri-linux32.deb" platform="LINUX32" execute=""/>
         <download url="http://videlibri.sourceforge.net/updates/videlibri-linux64.deb" platform="LINUX64" execute=""/>
+        <change>Speichert die für die Suche auswählbaren Zweigstellen jeder Bibliothek lokal, so dass eine neue Suche augenblicklich ohne Pause gestartet werden kann. ( Bisher wurde die Liste der Zweigstellen bei jedem Aufruf der Suchfunktionalität in VideLibri heruntergeladen, und wenn man währenddessen den Suchbutton drückt, hat die App gehangen, bis der Download abgeschlossen war )</change>
+        <add>Vollständig neues Vormerkungssystem, welches für jedes bestellbare Exemplar beliebige bibliografische Daten speichern kann. (alle auswählbaren Bibliothek verwenden jedoch noch die alten Systeme)</add>
+        <change>Desktopversion: Im Suchfenster auswählbare Städte sind nun nach Bundesland gruppiert statt nur in einer Liste gelistet zu sein. Es werden keine Hinweise mehr angezeigt, wie Titel/Autor in der Digibib verarbeitet werden, da VideLibri seit Jahren auch ohne Digibib suchen kann.</change>
+        <fix>Neue HTTPS-Zertifikate für die Stadtbibliothek München, Düsseldorf, Braunschweig, Stolberg, Hannover und die Hochschulbibliotheken Zittau/Görlitz und Jena.</fix>
+        <fix>behebt Memory-Leaks</fix>
+        <fix>Neue Adressen für SLUB Dresden und Stadtbibliothek Erlangen (vermutlich jedoch sinnlos, da keine Anpassung an neue Katalog).</fix>
+        <change>Allgemein optimiertes Downloadsystem, welches alle Webseiten etwas schneller aufrufen kann.</change>
+     </build>
+      <build version="1880" date="2017-03-12">
         <change>Modernisierung des intern simulierten Webbrowsers: Sende Anfragen als latin1 statt utf-8, wenn die Seite nicht explizit utf-8 verwendet. Folge der Cookie-RFC, so dass Cookies, die von einem Server für eine Einzelseite gesetzt werden, auch für andere Seiten auf demselben Server nicht verfügbar sind.</change>
         <change>bibliotheca/netbiblio: Verwende t:siblings, so dass es mit mehr unbekannten Bibliotheken funktionieren sollte</change>
         <fix>Anpassung an geänderte Serveradresse der Stadtbibliothek Stralsund und Bibliothek Witten. Sowie der Suche bei Universitätsbibliothek der HU-Berlin und Universitätsbibliothek der FU-Berlin</fix>
