@@ -3,10 +3,9 @@
   <longName value="Stadtbibliothek Erlangen (alpha)"/>
   <shortName value="Stb Erlangen"/>
   
-  <template value="bibliotheca"/>
-  <variable name="baseurl" value="http://stadtbibliothek.erlangen.de/wwwopac"/>	
-  <variable name="DB" value="erl_buecherei"/>	
-  
+  <template value="bibliothecaplus"/>
+  <variable name="urlaccount" value="https://stadtbibliothek-recherche.erlangen.de/Mein-Konto"/>	
+  <variable name="urlsearch" value="https://stadtbibliothek-recherche.erlangen.de/Mediensuche/Erweiterte-Suche"/>	
   <!--<template value="pica"/>-->
 
 
