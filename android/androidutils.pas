@@ -1393,6 +1393,7 @@ begin
         exit;
       end;
 
+      //that is not thread safe, but as long as no smtSearch message is handled it should be okay
       searcherAccess.searcher.SearchOptions.author:= j.getStringField(query, authorS);
       searcherAccess.searcher.SearchOptions.title:= j.getStringField(query, titleS);
       temp := j.stringToJString('year');

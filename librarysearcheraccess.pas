@@ -16,7 +16,7 @@ TLibrarySearcherAccess = class;
 
 { TLibrarySearcherAccess }
 
-TSearcherMessageTyp=(smtFree, smtConnect, smtSearch, smtSearchNext, smtDetails, smtImage, smtOrder, smtOrderConfirmed, smtCompletePendingMessage, smtDisconnect);
+TSearcherMessageTyp=(smtNone, smtFree, smtConnect, smtSearch, smtSearchNext, smtDetails, smtImage, smtOrder, smtOrderConfirmed, smtCompletePendingMessage, smtDisconnect);
 
 { TSearcherMessage }
 
@@ -47,7 +47,7 @@ private
   firstPageForSync, nextPageAvailableForSync: boolean;
   pendingMessage: TPendingMessage;
 
-  performingAction: boolean;
+  performingAction: TSearcherMessageTyp;
 
   procedure desktopSynchronized(t: TThreadMethod);
 
@@ -277,7 +277,7 @@ end;
 function TLibrarySearcherAccess.operationActive: boolean;
 begin
   ReadWriteBarrier;
-  result:=assigned(fthread) and (fthread.messages.existsMessage or fthread.performingAction);
+  result:=assigned(fthread) and (fthread.messages.existsMessage or (fthread.performingAction <> smtNone));
 end;
 
 procedure TLibrarySearcherAccess.removeOldMessageOf(typ: TSearcherMessageTyp);
@@ -303,17 +303,19 @@ begin
 end;
 
 procedure TLibrarySearcherAccess.prepareNewSearchWithoutDisconnect;
+const ALLOWED_ACTIONS = [smtNone, smtFree, smtConnect, smtDisconnect];
 var
   list: TFPList;
   i: Integer;
 begin
   list:=fthread.messages.openDirectMessageAccess;
   for i:=list.Count-1 downto 0 do
-    if not (TSearcherMessage(list[i]).typ in [smtFree, smtConnect, smtDisconnect]) then
+    if not (TSearcherMessage(list[i]).typ in ALLOWED_ACTIONS) then
       list.Delete(i);
   fthread.messages.closeDirectMessageAccess(list);
 
-  while operationActive do begin
+  while assigned(fthread) and not (fthread.performingAction in ALLOWED_ACTIONS) do begin
+    ReadWriteBarrier; //i do not understand what this does
     sleep(50);
     {$ifndef android}application.ProcessMessages;{$endif}
   end;
@@ -516,9 +518,9 @@ begin
   Searcher.bookListReader.bookAccessSection:=@fbookAccessSection;
   while true do begin
     try
-      performingAction:=false;
+      performingAction:=smtNone;
       if logging then log('Searcher thread: wait for message');
-      while not messages.existsMessage do sleep(5);
+      while not messages.existsMessage do sleep(15);
       if logging then log('Searcher thread: possible message');
       mes:=TSearcherMessage(messages.retrieveMessageOrNil);
       if logging then log('Searcher thread: got message'+strFromPtr(mes));
@@ -528,7 +530,7 @@ begin
         mes.free;
         break;
       end;
-      performingAction:=true;
+      performingAction:=mes.typ;
       book:=mes.book;
       if logging then
         if mes.book = nil then log('Message book: nil')
@@ -537,6 +539,7 @@ begin
           //for i:=0 to high(book.additional) do log('Book properties: '+book.additional[i].name+' = '+book.additional[i].value);
         end;
       case mes.typ of
+        smtNone: ;
         smtConnect: begin
           if logging then log('Searcher thread: message typ smtConnect');
           searcher.connect;
@@ -649,7 +652,7 @@ begin
       end;
     end;
   end;
-  performingAction:=false;
+  performingAction:=smtNone;
   FreeAndNil(Searcher);
 end;
 
@@ -658,6 +661,7 @@ begin
   InitCriticalSection(fbookAccessSection);
   self.access:=aaccess;
   messages:=TMessageSystem.create;
+  performingAction := smtNone;
   changedBook:=nil;
   FreeOnTerminate:=true;
   inherited create(false);
