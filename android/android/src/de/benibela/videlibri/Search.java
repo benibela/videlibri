@@ -127,7 +127,7 @@ public class Search extends VideLibriBaseActivity implements Bridge.SearchEventH
 
         if (libId != null && !libId.equals("")) {
             obtainSearcher();
-            if (searcher.state == SEARCHER_STATE_CONNECTED) setBranchViewes();
+            setBranchViewes();
         }
     }
 
@@ -195,6 +195,7 @@ public class Search extends VideLibriBaseActivity implements Bridge.SearchEventH
                 ((TextView) findViewById(R.id.library)).setText(libName);
 
                 obtainSearcher();
+                setBranchViewes();
             } else if ("".equals(libId)) finish();
         } else super.onActivityResult(requestCode, resultCode, data);
     }

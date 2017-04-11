@@ -146,7 +146,7 @@ var assets: jobject = nil;
     end;
     searcherClass: jclass;
     searcherFields: record
-      nativePtrJ, totalResultCountI, nextPageAvailableZ: jfieldID;
+      homeBranchesL, searchBranchesL, nativePtrJ, totalResultCountI, nextPageAvailableZ: jfieldID;
     end;
     //searcherResultInterface: jclass;
     searcherOnConnected, searcherOnSearchFirstPageComplete, searcherOnSearchNextPageComplete, searcherOnSearchDetailsComplete, searcherOnOrderComplete, searcherOnOrderConfirm,  searcherOnTakePendingMessage, searcherOnPendingMessageCompleted, searcherOnException: jmethodID;
@@ -264,6 +264,8 @@ begin
       nativePtrJ := j.getfield(searcherClass, 'nativePtr', 'J');
       totalResultCountI := j.getfield(searcherClass, 'totalResultCount', 'I');
       nextPageAvailableZ := j.getfield(searcherClass, 'nextPageAvailable', 'Z');
+      homeBranchesL := j.getfield(searcherClass, 'homeBranches', '[Ljava/lang/String;');
+      searchBranchesL := j.getfield(searcherClass, 'searchBranches', '[Ljava/lang/String;');
     end;
     searcherOnConnected := j.getmethod(searcherClass, 'onConnected', '([Ljava/lang/String;[Ljava/lang/String;)V');
     searcherOnSearchFirstPageComplete := j.getmethod(searcherClass, 'onSearchFirstPageComplete', '([Lde/benibela/videlibri/Bridge$Book;)V');
@@ -881,7 +883,7 @@ begin
 
     jaccount := j.getObjectField(jbook, accountL);
     if jaccount <> nil then begin
-      result.owner := getRealAccount(jaccount);
+      result.owningAccount := getRealAccount(jaccount);
       j.deleteLocalRef(jaccount);
     end;
 
@@ -1010,7 +1012,7 @@ begin
     books.Capacity:=j.getArrayLength(jbooks);
     for i := 0 to j.getArrayLength(jbooks) - 1 do begin
       book := jbookToBookAndDelete(j.getObjectArrayElement(jbooks, i));
-      if book.owner <> nil then books.add(book);
+      if book.owningAccount <> nil then books.add(book);
     end;
     case operation of
       1: extendBooks(books);
@@ -1239,11 +1241,11 @@ var
   acc: TCustomAccountAccess;
   temp: TBook;
 begin
-  if book.owner <> nil then begin
+  if book.owningAccount <> nil then begin
     //see androidutils/bookSearchForm
     self.beginBookReading;
     EnterCriticalSection(updateThreadConfig.libraryAccessSection);
-    acc := TCustomAccountAccess(book.owner);
+    acc := TCustomAccountAccess(book.owningAccount);
     temp := book.clone; temp.status:=bsOrdered;
     acc.books.current.add(temp);
     temp := book.clone; temp.status:=bsOrdered;
@@ -1324,6 +1326,7 @@ var
   searcherAccess: TLibrarySearcherAccessWrapper;
   lib: TLibrary;
   libId: String;
+  temp: jobject;
 begin
   if logging then log('Bridge_VLSearchConnect started');
   try
@@ -1355,7 +1358,17 @@ begin
 
     searcherAccess.searcher.setLocation(lib.prettyLocation); //for digibib search (also needed for libs that only have digibib search, not just meta search)
     searcherAccess.connectAsync;
-
+    searcherAccess.beginResultReading;
+    try
+      temp := j.arrayToJArray(SearcherAccess.searcher.HomeBranches);
+      j.SetObjectField(searcherAccess.jsearcher, searcherFields.homeBranchesL, temp);
+      j.deleteLocalRef(temp);
+      temp := j.arrayToJArray(SearcherAccess.searcher.SearchBranches);
+      j.SetObjectField(searcherAccess.jsearcher, searcherFields.searchBranchesL, temp);
+      j.deleteLocalRef(temp);
+    finally
+      searcherAccess.endResultReading;
+    end;
 
   except
     on e: Exception do j.ThrowNew('de/benibela/videlibri/Bridge$InternalError', 'Interner Fehler: '+e.Message);
@@ -1445,11 +1458,11 @@ begin
     sa := unwrapSearcher(searcher);
     for i := 0 to j.getArrayLength(jbooks) - 1 do begin
       book :=  jbookToBookAndDelete(j.getObjectArrayElement(jbooks, i));
-      if book.owner = nil then begin
+      if book.owningAccount = nil then begin
         log('Owner of book '+book.title+' not found');
         continue;
       end;
-      sa.orderAsync(TCustomAccountAccess(book.owner), book);
+      sa.orderAsync(TCustomAccountAccess(book.owningAccount), book);
     end;
   except
     on e: Exception do j.ThrowNew('de/benibela/videlibri/Bridge$InternalError', 'Interner Fehler: '+e.Message);
@@ -1712,7 +1725,7 @@ begin
         case b.kind of
           pvkObject: begin
             book.clear;
-            book.owner:=nil;
+            book.owningAccount:=nil;
             accountId := -1;
             for p in b.getPropertyEnumerator do
               case p.Name of

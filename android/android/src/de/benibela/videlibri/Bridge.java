@@ -294,6 +294,7 @@ public class Bridge {
         long nativePtr;
         volatile int totalResultCount;
         volatile boolean nextPageAvailable;
+        volatile String[] homeBranches, searchBranches; //from java and pascal
 
         //set in Java
         final String libId;
@@ -303,7 +304,6 @@ public class Bridge {
         //set in (Java) activity
         int state;
         long heartBeat;
-        volatile String[] homeBranches, searchBranches;
         final ArrayList<Bridge.Book> bookCache = new ArrayList<Book>();
         //The detail search runs in the background, for a single book.
         //But the user might request other detail searches, before the search is complete.
