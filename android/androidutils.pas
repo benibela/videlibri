@@ -1513,9 +1513,15 @@ procedure Java_de_benibela_VideLibri_Bridge_VLSearchEnd(env:PJNIEnv; this:jobjec
 var
   sa: TLibrarySearcherAccessWrapper;
 begin
-  sa := unwrapSearcher(searcher);
-  sa.free;
-  j.SetLongField(searcher, searcherFields.nativePtrJ, 0);
+  if logging then log('Bridge_VLSearchEnd started');
+  try
+    sa := unwrapSearcher(searcher);
+    sa.free;
+    j.SetLongField(searcher, searcherFields.nativePtrJ, 0);
+  except
+    on e: Exception do j.ThrowNew('de/benibela/videlibri/Bridge$InternalError', 'Interner Fehler: '+e.Message);
+  end;
+  if logging then log('Bridge_VLSearchEnd stopped');
 end;
 
 type TJOptionClass = record
