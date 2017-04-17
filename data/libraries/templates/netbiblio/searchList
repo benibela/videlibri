@@ -10,8 +10,8 @@
   <li class="next-page"><a t:condition="string-length(@href) gt 3">{
     search-next-page-available := true(), 
     next-page := resolve-html(.)
-  }</a>?</li>
-</ul>
+  }</a></li>
+</ul>?
 
 <table class="wo-grid-table"> <thead>
   <tr>
