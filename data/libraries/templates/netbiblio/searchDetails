@@ -15,6 +15,47 @@
 		</div>
 	</div>
 </div>
+
+<div id="grd-items" class="wo-grid">
+	<table class="table wo-grid-table">
+		<thead>
+			<tr>
+        <t:siblings-header>
+  				<th><input/></th>
+          <th><a t:condition="contains(@href,'itemsort=Items.ItemNr')">Exemplarnr.</a></th>
+          <th><a t:condition="contains(@href,'itemsort=Items.LocationCode')">Standort</a>  
+              <a t:condition="contains(@href,'itemsort=Items.Location2Code')">Abteilung</a></th>
+          <th><a t:condition="contains(@href,'itemsort=Items.CallNumber')">Signatur</a></th>
+          <th><t:switch>
+             <a t:condition="contains(@href,'itemsort=Items.CirculationCode')">Ausleihbarkeit</a>
+             <span>Verfügbarkeit</span>
+          </t:switch></th>
+<!--          <th></th>-->
+          <th><a t:condition="contains(@href,'itemsort=Circulations.DueDate')">Fälligkeitsdatum</a></th>
+          <th><a t:condition="contains(@href,'itemsort=Items.ActualReservations')">Reservationen</a></th>
+         <!-- <th><span class="wo-grid-header-content">Reservieren</th>-->
+          <th></th>*
+        </t:siblings-header>
+			</tr>
+		</thead><tbody>
+			<tr>{$holding := {}}
+       <t:siblings>
+				<td><input>{$holding("_orderId") := @value}</input></td>
+        <td>{$holding("Exemplarnr.!") := .}</td>
+        <td>{$holding.libraryBranch := join(node())}</td>
+        <td>{$holding.id}</td>
+        <td>{$holding.status}</td>
+        <td>{normalize-space()[.]!($holding.dueDate := parse-date(.))}</td>
+        <td>{$holding("andere Reservationen!") := .}</td>
+<!--        <td><a href="/account/makeitemreservation?returnUrl=%2Fsearch%2Fshortview%3FsearchType%3DExtended%26pageSize%3D0%26searchResultId%3D160846%26sort%3DNotices.Date1%2520DESC%252CNotices.Author%252CNotices.Title%26page%3D1%26gridPosition%3Dwo-row_180153%26searchField%3DW%26searchTerm%3Dwarum&amp;selectedItems=163793" class="btn btn-default">Reservieren</a></td>-->
+        <td/>
+       </t:siblings>
+        {$book.holdings[]:=$holding}
+			</tr>+
+		</tbody>
+	</table>
+</div>?
+
 <!--
 <div id="grd-items" class="wo-grid">
 	<div class="wo-grid-meta wo-grid-meta-top">
