@@ -92,8 +92,8 @@ public class LibraryList extends VideLibriBaseActivity {
         LibraryListView lv = new LibraryListView(this);
 
         for (int i=0;i<autoExpand;i++) {
-            lv.expand(i);
-            if (cities.get(i).size() == 1) lv.expand(i, 0);
+            lv.expand(i,false);
+            if (cities.get(i).size() == 1) lv.expand(i, 0,false);
         }
 
         return lv;
@@ -214,7 +214,7 @@ public class LibraryList extends VideLibriBaseActivity {
         }
 
 
-        void expand(final int state){
+        void expand(final int state, boolean scroll){
             if (stateChildViews[state].getChildCount() == 0) {
                 for (int b = 0; b < cities.get(state).size(); b ++) {
                     View row = getLayoutInflater().inflate(R.layout.librarycityinlistview, this, false);
@@ -236,12 +236,13 @@ public class LibraryList extends VideLibriBaseActivity {
 
             setIndicator(stateViews[state], true);
 
-            smoothScrollTo(cityChildViews[state].length > 0 && isExpanded(state, cityChildViews[state].length-1)
+            if (scroll)
+                smoothScrollTo(cityChildViews[state].length > 0 && isExpanded(state, cityChildViews[state].length-1)
                            ? cityChildViews[state][cityChildViews[state].length-1]
                            : stateChildViews[state], stateViews[state]);
         }
-        void expand(final int state, final int city){
-            if (cityChildViews[state][city] == null) expand(state);
+        void expand(final int state, final int city, boolean scroll){
+            if (cityChildViews[state][city] == null) expand(state, scroll);
             if (cityChildViews[state][city] == null) return;
             if (cityChildViews[state][city].getChildCount() == 0) {
                 for (int libId = 0; libId < localLibs.get(state).get(city).size(); libId ++) {
@@ -254,7 +255,8 @@ public class LibraryList extends VideLibriBaseActivity {
             }
             cityChildViews[state][city].setVisibility(VISIBLE);
             setIndicator(cityViews[state][city], true);
-            smoothScrollTo(cityChildViews[state][city], cityViews[state][city]);
+            if (scroll)
+                smoothScrollTo(cityChildViews[state][city], cityViews[state][city]);
         }
 
         void collapse(int state){
@@ -289,12 +291,12 @@ public class LibraryList extends VideLibriBaseActivity {
                 switch (id.level) {
                     case State:
                         if (!isExpanded(id.a)) {
-                            expand(id.a);
-                            if (cities.get(id.a).size() == 1 && !isExpanded(id.a, 0)) expand(id.a, 0);
+                            expand(id.a,true);
+                            if (cities.get(id.a).size() == 1 && !isExpanded(id.a, 0)) expand(id.a, 0,true);
                         } else collapse(id.a);
 
                         break;
-                    case City: if (!isExpanded(id.a, id.b)) expand(id.a, id.b); else collapse(id.a, id.b); break;
+                    case City: if (!isExpanded(id.a, id.b)) expand(id.a, id.b,true); else collapse(id.a, id.b); break;
                     case Lib: onLeafClick(id.a, id.b, id.c); break;
                 }
             }
