@@ -413,7 +413,7 @@ public class Bridge {
     }
 
     static class Library{
-        String id, fullStatePretty, locationPretty, namePretty, nameShort;
+        String id, country, fullStatePretty, locationPretty, namePretty, nameShort;
         void putInIntent(Intent intent){
             intent.putExtra("libName", namePretty);
             intent.putExtra("libShortName", nameShort);
@@ -428,20 +428,29 @@ public class Bridge {
             result[i] = new Library();
             String[] temp = libs[i].split("\\|");
             result[i].id = temp[0];
+            String[] tmpCountry = temp[1].split("[ -]");
+            result[i].country = tmpCountry.length > 0 ? tmpCountry[0] : "";
             result[i].fullStatePretty = temp[1];
             result[i].locationPretty = temp[2];
             result[i].namePretty = temp[3];
             result[i].nameShort = temp[4];
             if (result[i].namePretty.contains("(Neu)")) important.add(result[i]);
         }
+        Locale locale = Locale.getDefault();
+        final String location = locale != null ? locale.getCountry() : "DE";
+
         Arrays.sort(result, new Comparator<Library>() {
             @Override
             public int compare(Library library, Library library2) {
-                if (library.fullStatePretty.charAt(0) != library2.fullStatePretty.charAt(0)) {
-                    if (library.fullStatePretty.charAt(0) == 'D') return -1;
-                    else if (library2.fullStatePretty.charAt(0) == 'D') return 1;
+                int r = library.country.compareTo(library2.country);
+                if (r != 0){
+                    if (Util.isEmptyString(library.country)) return -1;
+                    if (Util.isEmptyString(library2.country)) return 1;
+                    if (library.country.equals(location)) return -1;
+                    if (library2.country.equals(location)) return 1;
+                    return r;
                 }
-                int r = library.fullStatePretty.compareTo(library2.fullStatePretty);
+                r = library.fullStatePretty.compareTo(library2.fullStatePretty);
                 if (r != 0) return r;
                 r = library.locationPretty.compareTo(library2.locationPretty);
                 if (r != 0) return r;
