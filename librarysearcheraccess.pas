@@ -111,6 +111,18 @@ public
   property OnConnected: TNotifyEvent read FOnConnected write FOnConnected;
   property OnSearchPageComplete: TPageCompleteNotifyEvent read FOnSearchPageComplete write FOnSearchPageComplete;
   property OnDetailsComplete: TBookNotifyEvent read FOnDetailsComplete write FOnDetailsComplete;
+  //holding order events:
+  //after calling orderAsync,
+  //                  --if there is a message---> OnTakePendingMessage  --\
+  //                  --if there is no message--> OnOrderComplete         |
+  //                                                                      |
+  //             /--------------------------------------------------------+
+  //            \|/                                                       |
+  //after calling completePendingMessage                                  |
+  //                 --if there is a message---> OnTakePendingMessage ----/
+  //                 --if there is no message
+  //                          -----if status=ordered-----> OnOrderComplete
+  //                          -----if status<>ordered----> OnPendingMessageCompleted
   property OnOrderComplete: TBookNotifyEvent read FOnOrderComplete write FOnOrderComplete;
   property OnOrderConfirm: TBookNotifyEvent read FOnOrderConfirm write FOnOrderConfirm;
   property OnTakePendingMessage: TPendingMessageEvent read FOnTakePendingMessage write FOnTakePendingMessage;
@@ -617,13 +629,13 @@ begin
             if (mes.typ = smtOrderConfirmed) or not searcher.orderNeedsConfirmation() then begin
               Searcher.orderSingle(book);
               if Searcher.bookListReader.pendingMessage <> nil then begin
-                callPendingMessageEvent(access.FOnTakePendingMessage, book, Searcher.bookListReader.pendingMessage);
+                callPendingMessageEvent(access.FOnTakePendingMessage, book.owningBook, Searcher.bookListReader.pendingMessage);
                 Searcher.bookListReader.pendingMessage := nil;
                end else
-                callBookEvent(access.FOnOrderComplete, book);
+                callBookEvent(access.FOnOrderComplete, book.owningBook);
             end else begin
               Searcher.orderConfirmSingle(book);
-              callBookEvent(access.FOnOrderConfirm, book);
+              callBookEvent(access.FOnOrderConfirm, book.owningBook);
             end;
           end;
           if logging then log('end order');

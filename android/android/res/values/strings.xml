@@ -37,6 +37,11 @@
     <string name="book_order">vormerken/bestellen</string>
     <string name="book_renew">verlängern</string>
     <string name="book_cancel">Bestellung abbrechen</string>
+    <string name="book_title">Titel</string>
+    <string name="book_author">Autor</string>
+    <string name="book_id">Signatur</string>
+    <string name="book_libraryBranch">Standort</string>
+    <string name="book_year">Jahr</string>
     <string name="booklist_noselection">noch keine Auswahl</string>
     <string name="booklist_loading">Ergebnisse werden geladen...</string>
     <string name="booklist_from">von</string>
@@ -57,7 +62,7 @@
     <string name="search_lost">Suchvorgang verschwunden</string>
     <string name="search_loading">Suche läuft...</string>
     <string name="search_resultcountD">%d Treffer</string>
-    <string name="search_orderedokS">Das Buch \"%s\" wurde ohne Fehler vorbestellt.</string>
+    <string name="search_orderedokS">Das Buch \"%s\" wurde ohne Fehlermeldung vorbestellt.</string>
     <string name="search_failed">Suche fehlgeschlagen</string>
     <string name="search_needaccount">Bestellungen benötigen ein registriertes Bibliothekskonto in VideLibri.</string>
     <string name="search_orderTargetAccount">Für welches Konto soll es bestellt werden?</string>

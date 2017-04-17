@@ -136,7 +136,7 @@ var assets: jobject = nil;
 //      internalIdMethod: jmethodID;
     end;
     bookFields: record
-      authorS, titleS, issueDateGC, dueDateGC, accountL, historyZ, statusI: jfieldID;
+      authorS, titleS, issueDateGC, dueDateGC, accountL, historyZ, statusI, holdingsL: jfieldID;
       setPropertyMethod, getPropertyMethod: jmethodID;
     end;
     simpleDateClass: jclass;
@@ -249,6 +249,7 @@ begin
       dueDateGC := j.getfield(bookClass, 'dueDate', 'Lde/benibela/videlibri/Bridge$SimpleDate;');
       accountL := j.getfield(bookClass, 'account', 'Lde/benibela/videlibri/Bridge$Account;');
       historyZ := j.getfield(bookClass, 'history', 'Z');
+      holdingsL := j.getfield(bookClass, 'holdings', '[Lde/benibela/videlibri/Bridge$Book;');
       setPropertyMethod := j.getmethod(bookClass, 'setProperty', '(Ljava/lang/String;Ljava/lang/String;)V');
       getPropertyMethod := j.getmethod(bookClass, 'getProperty', '(Ljava/lang/String;)Ljava/lang/String;');
       statusI := j.getfield(bookClass, 'status', 'I');
@@ -768,13 +769,13 @@ type
 TJBookSerializer = object
   book: jobject;
   includeDates: boolean;
-  procedure writeProp(n,v:string);
-  procedure writeDateProp(n: string; d: integer);
+  procedure writeProp(const n,v:string);
+  procedure writeDateProp(const n: string; d: integer);
 end;
 
 
 
-procedure TJBookSerializer.writeProp(n, v: string);
+procedure TJBookSerializer.writeProp(const n, v: string);
 var args: array[0..1] of jvalue;
 begin
   case n of
@@ -790,7 +791,7 @@ begin
   end;
 end;
 
-procedure TJBookSerializer.writeDateProp(n: string; d: integer);
+procedure TJBookSerializer.writeDateProp(const n: string; d: integer);
 var args: array[0..3] of jvalue;
     temp: jobject;
     field: jfieldID;
@@ -816,6 +817,7 @@ function bookToJBook(book: TBook; includeDates: boolean = true; includeAllString
 var temp: TJBookSerializer;
   i: Integer;
   tempi: integer;
+  holdings, tempbook: jobject;
 begin
   temp.book := j.newObject(bookClass, bookClassInit);
   temp.includeDates := includeDates;
@@ -836,11 +838,23 @@ begin
     else ;
   end;
   j.SetIntField(temp.book, bookFields.statusI, tempi);
+  if (book.holdings<> nil) and (book.holdings.Count> 0) then begin
+    holdings := j.newObjectArray(book.holdings.Count, bookClass, nil);
+    for i := 0 to book.holdings.Count-1 do begin
+      tempbook := bookToJBook(book.holdings[i], includeDates, includeAllStrings);
+      j.setObjectArrayElement(holdings,i,tempbook);
+      j.deleteLocalRef(tempbook);
+    end;
+    j.SetObjectField(temp.book, bookFields.holdingsL, holdings);
+    j.deleteLocalRef(holdings);
+  end;
   if includeAllStrings then
     for i := 0 to high(book.additional) do
       temp.writeProp(book.additional[i].name, book.additional[i].value);
   result := temp.book;
 end;
+
+function jbookToBookAndDelete(jbook: jobject): TBook; forward;
 
 function jbookToBook(jbook: jobject): TBook;
   function jSimpleDateToPascalDate(jsimpledate: jobject): integer;
@@ -859,7 +873,7 @@ var
   pair: jobject;
   size: jint;
   i: Integer;
-  jaccount: jobject;
+  jaccount, jholdings: jobject;
 begin
   result := TBook.create;
   with bookFields do begin
@@ -885,6 +899,14 @@ begin
     if jaccount <> nil then begin
       result.owningAccount := getRealAccount(jaccount);
       j.deleteLocalRef(jaccount);
+    end;
+
+    jholdings := j.getObjectField(jbook, holdingsL);
+    if jholdings <> nil then begin
+      result.holdings := TBookList.create(result);
+      for i:=0 to j.getArrayLength(jholdings) - 1 do
+        result.holdings.add(jbookToBookAndDelete(j.getObjectArrayElement(jholdings, i)));
+      j.deleteLocalRef(jholdings);
     end;
 
     {entrySet := j.callObjectMethodChecked(more, j.getmethod('java/util/Map', 'entrySet', '()Ljava/util/Set;'));
@@ -1471,6 +1493,33 @@ begin
   if logging then log('Bridge_VLSearchOrder ended');
 end;
 
+procedure Java_de_benibela_VideLibri_Bridge_VLSearchOrderWithHolding(env:PJNIEnv; this:jobject; searcher: jobject; jbooks: jobject; jholdingids: jobject); cdecl;
+var
+  sa: TLibrarySearcherAccessWrapper;
+  book: TBook;
+  i: Integer;
+  holdingIds: TLongintArray;
+
+begin
+  if logging then log('Bridge_VLSearchOrder started');
+  try
+    sa := unwrapSearcher(searcher);
+    holdingIds := j.getIntArray(jholdingids);
+    for i := 0 to j.getArrayLength(jbooks) - 1 do begin //array is always single element
+      book :=  jbookToBookAndDelete(j.getObjectArrayElement(jbooks, i));
+      if book.owningAccount = nil then begin
+        log('Owner of book '+book.title+' not found');
+        continue;
+      end;
+
+      sa.orderAsync(TCustomAccountAccess(book.owningAccount), book.holdings[holdingIds[0]]);
+    end;
+  except
+    on e: Exception do j.ThrowNew('de/benibela/videlibri/Bridge$InternalError', 'Interner Fehler: '+e.Message);
+  end;
+  if logging then log('Bridge_VLSearchOrder ended');
+end;
+
 procedure Java_de_benibela_VideLibri_Bridge_VLSearchOrderConfirmed(env:PJNIEnv; this:jobject; searcher: jobject; jbooks: jobject); cdecl;
 var
   sa: TLibrarySearcherAccessWrapper;
@@ -1496,7 +1545,7 @@ procedure Java_de_benibela_VideLibri_Bridge_VLSearchCompletePendingMessage(env:P
 var
   sa: TLibrarySearcherAccessWrapper;
 begin
-  if logging then log('Bridge_VLSearchOrderConfirmed started');
+  if logging then log('Bridge_VLSearchOrderCompletePendingMessage started');
   try
     sa := unwrapSearcher(searcher);
     if sa.pendingMessage <> nil then
@@ -1505,7 +1554,7 @@ begin
   except
     on e: Exception do j.ThrowNew('de/benibela/videlibri/Bridge$InternalError', 'Interner Fehler: '+e.Message);
   end;
-  if logging then log('Bridge_VLSearchOrderConfirmed ended');
+  if logging then log('Bridge_VLSearchOrderCompletePendingMessage ended');
 end;
 
 
@@ -1786,7 +1835,7 @@ end;
 
 
 
-const nativeMethods: array[1..31] of JNINativeMethod=
+const nativeMethods: array[1..32] of JNINativeMethod=
   ((name:'VLInit';          signature:'(Lde/benibela/videlibri/Bridge$VideLibriContext;)V';                   fnPtr:@Java_de_benibela_VideLibri_Bridge_VLInit)
    ,(name:'VLFinalize';      signature:'()V';                   fnPtr:@Java_de_benibela_VideLibri_Bridge_VLFInit)
 
@@ -1814,6 +1863,7 @@ const nativeMethods: array[1..31] of JNINativeMethod=
    ,(name:'VLSearchNextPage'; signature: '(Lde/benibela/videlibri/Bridge$SearcherAccess;)V'; fnPtr: @Java_de_benibela_VideLibri_Bridge_VLSearchNextPage)
    ,(name:'VLSearchDetails'; signature: '(Lde/benibela/videlibri/Bridge$SearcherAccess;Lde/benibela/videlibri/Bridge$Book;)V'; fnPtr: @Java_de_benibela_VideLibri_Bridge_VLSearchDetails)
    ,(name:'VLSearchOrder'; signature: '(Lde/benibela/videlibri/Bridge$SearcherAccess;[Lde/benibela/videlibri/Bridge$Book;)V'; fnPtr: @Java_de_benibela_VideLibri_Bridge_VLSearchOrder)
+   ,(name:'VLSearchOrder'; signature: '(Lde/benibela/videlibri/Bridge$SearcherAccess;[Lde/benibela/videlibri/Bridge$Book;[I)V'; fnPtr: @Java_de_benibela_VideLibri_Bridge_VLSearchOrderWithHolding)
    ,(name:'VLSearchOrderConfirmed'; signature: '(Lde/benibela/videlibri/Bridge$SearcherAccess;[Lde/benibela/videlibri/Bridge$Book;)V'; fnPtr: @Java_de_benibela_VideLibri_Bridge_VLSearchOrderConfirmed)
    ,(name:'VLSearchCompletePendingMessage'; signature: '(Lde/benibela/videlibri/Bridge$SearcherAccess;I)V'; fnPtr: @Java_de_benibela_VideLibri_Bridge_VLSearchCompletePendingMessage)
    ,(name:'VLSearchEnd'; signature: '(Lde/benibela/videlibri/Bridge$SearcherAccess;)V'; fnPtr: @Java_de_benibela_VideLibri_Bridge_VLSearchEnd)

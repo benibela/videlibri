@@ -18,8 +18,8 @@ type
 
   { TBook }
 
-  TSerializeStringProperty = procedure (name: string; value: string) of object;
-  TSerializeDateProperty = procedure (name: string; date: integer) of object;
+  TSerializeStringProperty = procedure (const name: string; const value: string) of object;
+  TSerializeDateProperty = procedure (const name: string; date: integer) of object;
   TCustomBookOwner = class
     //todo: move TCustomAccountAccess in the same unit as TBook (probably move both in a new unit)
     //till moved, use this class as place holder type
@@ -845,18 +845,18 @@ type
 
 TBookListSerializer = object
   stream: tstream;
-  procedure writeProp(n,v:string);
-  procedure writeDateProp(n: string; d: integer);
+  procedure writeProp(const n,v:string);
+  procedure writeDateProp(const n: string; d: integer);
   procedure writeString(const s: string);
   procedure writeLn(const s: string);
 end;
 
-procedure TBookListSerializer.writeProp(n, v: string);
+procedure TBookListSerializer.writeProp(const n, v: string);
 begin
   writeLn(#9'<v n="'+xmlStrEscape(n,true)+'">'+xmlStrEscape(v)+'</v>');
 end;
 
-procedure TBookListSerializer.writeDateProp(n: string; d: integer);
+procedure TBookListSerializer.writeDateProp(const n: string; d: integer);
 begin
   writeProp(n, dateTimeFormat('yyyy-mm-dd', d));
 end;
@@ -1038,7 +1038,8 @@ begin
   else if striEqual(variable, 'limitdate') or strlibeginswith(@variable[1],length(variable),'limitdate') then
     raise EBookListReader.create('The template is using the limitdate property which is deprecated. It should now be called duedate')
   else if strEqual(variable, 'holdings') then begin
-    if book.holdings = nil then book.holdings := TBookList.create(book);
+    if book.holdings = nil then book.holdings := TBookList.create(book)
+    else book.holdings.clear;
     for pv in value.GetEnumeratorPtrUnsafe do begin
       newbook := TBook.create;
       setAllBookProperties(newbook, pv^);
@@ -1207,27 +1208,40 @@ begin
   inherited destroy();
 end;
 
-class function TBookListReader.bookToPXP(book: TBook): TXQValueObject;
+type TXQueryBookSerializer = object
+  obj: TXQValueObject;
+  procedure writeStr(const name, value: string);
+  procedure writeDate(const name: string; date: integer);
+end;
+
+procedure TXQueryBookSerializer.writeStr(const name, value: string);
+begin
+  obj.setMutable(name,value);
+end;
+
+procedure TXQueryBookSerializer.writeDate(const name: string; date: integer);
   function xqvalueDate(const i: integer): IXQValue;
   begin
     result := TXQValueDateTime.create(baseSchema.date, i);
   end;
+begin
+  if date <> 0 then
+    obj.setMutable(name, xqvalueDate(date));
+end;
+
+class function TBookListReader.bookToPXP(book: TBook): TXQValueObject;
 var
+  ser: TXQueryBookSerializer;
   i: Integer;
 begin
-  result := TXQValueObject.create();
-  result.setMutable('id', book.id);
-  result.setMutable('author', book.author);
-  result.setMutable('title', book.title);
-  result.setMutable('year', book.year);
-  result.setMutable('isbn', book.isbn);
-  if book.lend then result.setMutable('statusId', BookStatusToSerializationStr(book.status))
-  else result.setMutable('statusId', 'history');
+  ser.obj := TXQValueObject.create();
+  result := ser.obj;
+  book.serialize(@ser.writeStr, @ser.writeDate);
+  if not book.lend then //result.setMutable('statusId', BookStatusToSerializationStr(book.status))
+    result.setMutable('statusId', 'history');
   for i:=0 to high(book.additional) do
     result.setMutable(book.additional[i].name, book.additional[i].value );
   result.setMutable('_existing', xqvalueTrue);
-  if book.dueDate <> 0 then result.setMutable('dueDate', xqvalueDate(book.dueDate));
-  if book.issueDate <> 0 then result.setMutable('issueDate', xqvalueDate(book.issueDate));
   if book.holdings <> nil then result.setMutable('holdings', book.holdings.toXQuery);
   //see queryHistory;
 end;

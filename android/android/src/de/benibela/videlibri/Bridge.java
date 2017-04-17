@@ -84,6 +84,8 @@ public class Bridge {
         ArrayList<Pair> more = new ArrayList<Pair>();
         private int status;
 
+        Book holdings[];
+
         Bitmap image; //handled on Javasite only
 
         @Override
@@ -146,9 +148,13 @@ public class Bridge {
             }
         }
 
-        boolean isOrderable(){
+        boolean isOrderable(){ //defaults to false
             String orderable = getProperty("orderable");
             return (orderable != null && !"".equals(orderable) && !"0".equals(orderable) && !"false".equals(orderable));
+        }
+        boolean isOrderableHolding(){ //defaults to true
+            String order = getProperty("orderable");
+            return !( "false".equals(order));
         }
         boolean isCancelable(){
             String cancelable = getProperty("cancelable");;
@@ -171,6 +177,10 @@ public class Bridge {
             if ("title".equals(name)) return title;
             if ("author".equals(name)) return author;
             return "";
+        }
+        String getProperty(String name, String def){
+            String res = getProperty(name);
+            return Util.isEmptyString(res) ? def : res;
         }
 
         boolean hasProperty(String name){
@@ -274,6 +284,7 @@ public class Bridge {
     static public native void VLSearchNextPage(SearcherAccess searcher);
     static public native void VLSearchDetails(SearcherAccess searcher, Book book);
     static public native void VLSearchOrder(SearcherAccess searcher, Book[] book);
+    static public native void VLSearchOrder(SearcherAccess searcher, Book[] book, int[] holding);
     static public native void VLSearchOrderConfirmed(SearcherAccess searcher, Book[] book);
     static public native void VLSearchCompletePendingMessage(SearcherAccess searcher, int result);
     static public native void VLSearchEnd(SearcherAccess searcher);
@@ -340,6 +351,9 @@ public class Bridge {
         }
         public void order(Book book){
             VLSearchOrder(this, new Book[]{book});
+        }
+        public void order(Book book, int holdingId){
+            VLSearchOrder(this, new Book[]{book}, new int[]{holdingId});
         }
         public void orderConfirmed(Book book){
             VLSearchOrderConfirmed(this, new Book[]{book});

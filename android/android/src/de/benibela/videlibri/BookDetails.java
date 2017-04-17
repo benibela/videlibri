@@ -4,6 +4,7 @@ package de.benibela.videlibri;
 import android.app.Activity;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.graphics.Typeface;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
@@ -26,6 +27,7 @@ public class BookDetails extends VideLibriFakeFragment {
 
     static String trStatus = "", trDueDate = "";
 
+
     static class Details{
         String name, data;
         Details(String name, String data){
@@ -36,11 +38,24 @@ public class BookDetails extends VideLibriFakeFragment {
             if (data == null) this.data = "";
         }
     }
+    static class DetailsHolding extends Details{
+        final boolean orderable;
+        String orderLabel;
+        int holdingId;
+        DetailsHolding(String name, String data, Bridge.Book holding, int holdingId, String orderLabel){
+            super(name, data);
+            orderable = holding.isOrderableHolding();
+            this.orderLabel = orderLabel;
+            this.holdingId = holdingId;
+        }
+    }
+
     static BitmapFactory.Options bitmapOpts = new BitmapFactory.Options();
 
     static class BookDetailsAdapter extends BaseAdapter{
         private final Activity context;
         private final ArrayList<Details> details;
+        private final int holdingStartPosition;
         private final Bridge.Book book;
 
 
@@ -48,6 +63,7 @@ public class BookDetails extends VideLibriFakeFragment {
         final float scale;
         int toPx(float sp) { return (int) (sp * scale + 0.5f); }
 
+        boolean holdingOrderClickable = true;
 
 
         BookDetailsAdapter(Activity context, ArrayList<Details> details, Bridge.Book book){
@@ -64,10 +80,17 @@ public class BookDetails extends VideLibriFakeFragment {
             bitmapOpts.inDensity = DisplayMetrics.DENSITY_LOW;
             bitmapOpts.inTargetDensity = dm.densityDpi;
             bitmapOpts.inScaled = true;
+
+            int hs = details.size();
+            while (hs > 0 && details.get(hs-1) instanceof DetailsHolding) hs--;
+            holdingStartPosition = hs * 2 + 1;
         }
 
         static class ViewHolder {
             public TextView text;
+        }
+        static class ViewHolderHolding extends ViewHolder {
+            public Button button;
         }
 
         @Override
@@ -85,43 +108,103 @@ public class BookDetails extends VideLibriFakeFragment {
             return i;
         }
 
+        static final private int VIEW_HEADER = 0;
+        static final private int VIEW_VALUE = 1;
+        static final private int VIEW_HOLDING_VALUE = 2;
+
+
+        @Override
+        public int getViewTypeCount() {
+            return 3;
+        }
+
+
+        @Override
+        public int getItemViewType(int position) {
+            if (position == 0) return VIEW_VALUE;
+            if ((position & 1) == 1) return VIEW_HEADER;
+            if (position < holdingStartPosition ) return VIEW_VALUE;
+            return VIEW_HOLDING_VALUE;
+        }
+
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
             View view = convertView;
+            int type = getItemViewType(position);
             if (view == null){
+                ViewHolder viewHolder = null;
                 LayoutInflater inflater = context.getLayoutInflater();
-                view = inflater.inflate(R.layout.simpletextview, null);
-                ViewHolder viewHolder = new ViewHolder();
+                switch (type) {
+                    case VIEW_HOLDING_VALUE:
+                        view = inflater.inflate(R.layout.holdingrow, null);
+                        viewHolder = new ViewHolderHolding();
+                        ((ViewHolderHolding)viewHolder).button = (Button) view.findViewById(R.id.holdingbutton);
+                        break;
+                    case VIEW_HEADER:
+                    case VIEW_VALUE:
+                    default:
+                        view = inflater.inflate(R.layout.simpletextview, null);
+                        viewHolder = new ViewHolder();
+                        break;
+                }
                 viewHolder.text = (TextView) view.findViewById(R.id.simpletextview);
                 viewHolder.text.setAutoLinkMask(Linkify.WEB_URLS);
                 view.setTag(viewHolder);
+                switch (type) {
+                    case VIEW_HEADER:
+                        viewHolder.text.setTypeface(Typeface.DEFAULT_BOLD);
+                        viewHolder.text.setPadding(toPx(10),toPx(1),toPx(10),toPx(1));
+                        break;
+                    case VIEW_VALUE:
+                        viewHolder.text.setTypeface(Typeface.DEFAULT);
+                        viewHolder.text.setPadding(toPx(30),toPx(1),toPx(10),toPx(2));
+                        break;
+                    case VIEW_HOLDING_VALUE:
+                        viewHolder.text.setTypeface(Typeface.DEFAULT);
+                        viewHolder.text.setPadding(toPx(30),toPx(1),toPx(10),toPx(2));
+                }
             }
+
             ViewHolder holder = (ViewHolder) view.getTag();
             if (position > 0) {
-                Details d = details.get((position-1)/2);
-                int c =  defaultColor;
-                if (position % 2 == 1) {
-                    holder.text.setTypeface(Typeface.DEFAULT_BOLD);
-                    holder.text.setText(d.name);
-                    holder.text.setPadding(toPx(10),toPx(1),toPx(10),toPx(1));
-                } else {
-                    holder.text.setTypeface(Typeface.DEFAULT);
-                    holder.text.setText(d.data);
-                    holder.text.setPadding(toPx(30),toPx(1),toPx(10),toPx(2));
-                    if (trStatus.equals(d.name) || trDueDate.equals(d.name)){
-                        c = book.getStatusColor();
-                        if (c == -1) c = defaultColor;
-                    }
-
+                final Details d = details.get((position-1)/2);
+                switch (type){
+                    case VIEW_HEADER:
+                        holder.text.setText(d.name);
+                        break;
+                    case VIEW_VALUE:
+                        holder.text.setText(d.data);
+                        int c =  defaultColor;
+                        if (trStatus.equals(d.name) || trDueDate.equals(d.name)){
+                            c = book.getStatusColor();
+                            if (c == -1) c = defaultColor;
+                        }
+                        holder.text.setTextColor(c);
+                        holder.text.setCompoundDrawables(null, null, null, null);
+                        break;
+                    case VIEW_HOLDING_VALUE:
+                        holder.text.setText(d.data);
+                        if (d instanceof DetailsHolding
+                                && ((DetailsHolding)d).orderable
+                                && book.account == null
+                                && context instanceof SearchResult
+                                ) {
+                            ((ViewHolderHolding)holder).button.setVisibility(View.VISIBLE);
+                            ((ViewHolderHolding)holder).button.setClickable(holdingOrderClickable);
+                            ((ViewHolderHolding)holder).button.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View view) {
+                                    ((SearchResult)context).orderBookHolding(book, ((DetailsHolding)d).holdingId);
+                                }
+                            });
+                        } else
+                            ((ViewHolderHolding)holder).button.setVisibility(View.INVISIBLE);
 
                 }
-                holder.text.setCompoundDrawables(null, null, null, null);
-                holder.text.setTextColor(c);
             } else {
                 holder.text.setText("");
                 holder.text.setCompoundDrawablesWithIntrinsicBounds(null, null, null, image);
             }
-
 
             return view;
         }
@@ -214,6 +297,8 @@ public class BookDetails extends VideLibriFakeFragment {
             }
 
 
+        addHoldings(book.holdings);
+
         lv.setAdapter(new BookDetailsAdapter(activity, details, book));
 
         boolean needToLoadImage = book.more != null && (book.hasProperty("image-url") || book.hasProperty("isbn")) && book.image == null;
@@ -254,12 +339,74 @@ public class BookDetails extends VideLibriFakeFragment {
 
     }
 
+    private class HoldingDetailMaker{
+        StringBuilder builder = new StringBuilder();
+        Bridge.Book holding;
+        //  String indent;
+        void addPair(String name, String value){
+            if (Util.isEmptyString(value)) return;
+            if (builder.length()>0) builder.append("\n");
+            //builder.append(indent);
+            builder.append(name);
+            builder.append(": ");
+            builder.append(value);
+        }
+        void addProperty(int translation, String value){
+            String v = holding.getProperty(value);
+            if (Util.isEmptyString(v)) return;
+            addPair(tr(translation), v);
+        }
+    }
+    private void addHoldings(Bridge.Book holdings[]){
+        if (holdings==null || holdings.length==0) return;
+        HoldingDetailMaker builder = new HoldingDetailMaker();
+        //builder.indent = "      ";
+        String defaultOrderTitle = book.getProperty("orderTitle");
+        if (Util.isEmptyString(defaultOrderTitle)) defaultOrderTitle = tr(R.string.book_order);
+        for (int i=0;i<holdings.length;i++){
+            builder.builder.setLength(0);
+            builder.holding = holdings[i];
+            builder.addPair(tr(R.string.book_title), builder.holding.title);
+            builder.addPair(tr(R.string.book_author), builder.holding.author);
+
+            String specialProperties[] = {"id", "libraryBranch", "category", "publisher", "year"};
+            int specialPropertiesLabel[] = {R.string.book_id, R.string.book_libraryBranch, R.string.book_category, R.string.book_publisher, R.string.book_year};
+
+            for (int j=0;j<specialPropertiesLabel.length;j++)
+                builder.addProperty(specialPropertiesLabel[j], specialProperties[j]);
+
+            String orderTitle = book.getProperty("orderTitle", defaultOrderTitle);
+            details.add(new DetailsHolding("Exemplar " + (i + 1), builder.builder.toString(), builder.holding, i, orderTitle));
+        }
+    }
+
+    protected BookDetailsAdapter getAdapter(View v) {
+        if (v == null) return null;
+        ListView lv = (ListView) v;
+        return (BookDetailsAdapter) lv.getAdapter();
+    };
+    protected BookDetailsAdapter getAdapter() {
+        return getAdapter(findViewById(R.id.bookdetailsview));
+    }
+
     void updateImage(){
-        ListView lv = (ListView) findViewById(R.id.bookdetailsview);
-        if (lv == null) return;
-        BookDetailsAdapter adapter = (BookDetailsAdapter) lv.getAdapter();
+        BookDetailsAdapter adapter = getAdapter();
         if (adapter == null) return;
         adapter.updateImage();
+    }
+
+
+    public void setOrderButtonsClickable() {
+        ListView lv = (ListView) findViewById(R.id.bookdetailsview);
+        if (lv == null) return;
+        final boolean clickable = !activity.isLoading(VideLibriBaseActivity.LOADING_SEARCH_ORDER_HOLDING);
+        getAdapter(lv).holdingOrderClickable = clickable;
+        Util.iterateChildViews(lv, new Util.ViewIterator(){
+            @Override
+            public void visit(View v) {
+                if (v instanceof Button) v.setClickable(clickable);
+            }
+        });
     }
 
     //from http://stackoverflow.com/questions/5776851/load-image-from-url

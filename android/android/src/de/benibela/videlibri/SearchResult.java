@@ -112,10 +112,13 @@ public class SearchResult extends BookListActivity implements Bridge.SearchEvent
                 break;
             case ORDER_COMPLETE: //obj1 = Book book
                 endLoading(LOADING_SEARCH_ORDER);
+                endLoading(LOADING_SEARCH_ORDER_HOLDING);
+                endLoading(LOADING_SEARCH_MESSAGE);
                 onOrderComplete((Bridge.Book)event.obj1);
                 break;
             case ORDER_CONFIRM:  //obj1 = Book book
                 endLoading(LOADING_SEARCH_ORDER);
+                endLoading(LOADING_SEARCH_ORDER_HOLDING);
                 onOrderConfirm((Bridge.Book)event.obj1);
                 break;
             case TAKE_PENDING_MESSAGE: //arg1 = int kind, obj1 = String caption, obj2 = String[] options
@@ -124,9 +127,12 @@ public class SearchResult extends BookListActivity implements Bridge.SearchEvent
                 break;
             case PENDING_MESSAGE_COMPLETE:
                 endLoading(LOADING_SEARCH_MESSAGE);
+                endLoading(LOADING_SEARCH_ORDER);
+                endLoading(LOADING_SEARCH_ORDER_HOLDING);
+                details.setOrderButtonsClickable();
                 break;
             case EXCEPTION:
-                endLoadingAll(new int[]{ LOADING_SEARCH_CONNECTING, LOADING_SEARCH_SEARCHING, LOADING_SEARCH_DETAILS, LOADING_SEARCH_ORDER, LOADING_SEARCH_MESSAGE });
+                endLoadingAll(new int[]{ LOADING_SEARCH_CONNECTING, LOADING_SEARCH_SEARCHING, LOADING_SEARCH_DETAILS, LOADING_SEARCH_ORDER, LOADING_SEARCH_ORDER_HOLDING, LOADING_SEARCH_MESSAGE });
                 setTitle();
                 searcher.state = Search.SEARCHER_STATE_FAILED;
                 searcher = null;
@@ -178,6 +184,10 @@ public class SearchResult extends BookListActivity implements Bridge.SearchEvent
             details.setBook(book);
         }
 
+    }
+
+    public void refreshDetails(){
+        //asa
     }
 
     public void onOrderConfirm(final Bridge.Book book) {
@@ -272,6 +282,33 @@ public class SearchResult extends BookListActivity implements Bridge.SearchEvent
         }
     }
 
+
+    public void orderBookHolding(final Bridge.Book book, int choosenHolding){
+        if (searcher == null) return;
+        final java.util.ArrayList<Bridge.Account> matchingAccounts = new java.util.ArrayList();
+        for (Bridge.Account acc: VideLibriApp.accounts)
+            if (acc.libId.equals(libId) && acc.name != null && !acc.name.equals(""))
+                matchingAccounts.add(acc);
+        if (matchingAccounts.size() == 0) {
+            Util.showMessage(tr(R.string.search_needaccount));
+            return;
+        }
+        if (matchingAccounts.size() > 1) {
+            String [] temp = new String[matchingAccounts.size()];
+            for (int i=0;i<matchingAccounts.size();i++)
+                temp[i] = matchingAccounts.get(i).prettyName;
+            lastSelectedBookForDialog = book;
+            lastSelectedHolding = choosenHolding;
+            lastMatchingAccountsForDialog = matchingAccounts;
+            Util.chooseDialog(DialogId.SEARCHER_CHOOSE_TARGET_ACCOUNT_FOR_HOLDING, tr(R.string.search_orderTargetAccount), temp);
+        } else {
+            book.account = matchingAccounts.get(0);
+            searcher.orderingAccount = book.account;
+            beginLoading(LOADING_SEARCH_ORDER_HOLDING);
+            details.setOrderButtonsClickable();
+            searcher.order(book, choosenHolding);
+        }
+    }
     @Override
     public void onBookActionButtonClicked(final Bridge.Book book){
         if (book != null && book.isOrderable()) {
@@ -297,6 +334,7 @@ public class SearchResult extends BookListActivity implements Bridge.SearchEvent
 
 
     private static Bridge.Book lastSelectedBookForDialog = null;
+    private static int lastSelectedHolding = 0;
     private static ArrayList<Bridge.Account> lastMatchingAccountsForDialog = null;
     @Override
     boolean onDialogResult(int dialogId, int buttonId, Bundle more) {
@@ -340,6 +378,18 @@ public class SearchResult extends BookListActivity implements Bridge.SearchEvent
                     if (bookActionButton != null) bookActionButton.setClickable(false);
                     beginLoading(LOADING_SEARCH_ORDER);
                     searcher.order(lastSelectedBookForDialog);
+                }
+                lastSelectedBookForDialog = null;
+                lastMatchingAccountsForDialog = null;
+                return true;
+            case DialogId.SEARCHER_CHOOSE_TARGET_ACCOUNT_FOR_HOLDING:
+                if (lastSelectedBookForDialog == null || lastMatchingAccountsForDialog == null) break;
+                if (buttonId >= 0 && buttonId < lastMatchingAccountsForDialog.size()) {
+                    lastSelectedBookForDialog.account = lastMatchingAccountsForDialog.get(buttonId);
+                    searcher.orderingAccount = lastSelectedBookForDialog.account; //this property is lost on roundtrip, saved it on java side
+                    beginLoading(LOADING_SEARCH_ORDER_HOLDING);
+                    details.setOrderButtonsClickable();
+                    searcher.order(lastSelectedBookForDialog, lastSelectedHolding);
                 }
                 lastSelectedBookForDialog = null;
                 lastMatchingAccountsForDialog = null;

@@ -71,8 +71,24 @@ public class Util {
         return new String[]{};
     }
 
+    static public interface ViewIterator{
+        void visit(View v);
+    }
+    static public void iterateChildViews(View view, ViewIterator iterator){
+        iterator.visit(view);
+        if (view instanceof ViewGroup) {
+            ViewGroup g = (ViewGroup)view;
+            for (int i=0;i<g.getChildCount();i++)
+                iterateChildViews(g.getChildAt(i), iterator);
+        }
+    }
+
     static public boolean equalStrings(String s, String t) {
         return s == null ? t == null : s.equals(t);
+    }
+
+    public static boolean isEmptyString(String s) {
+        return s == null || "".equals(s);
     }
 
     public static class DialogFragmentUtil extends DialogFragment implements DialogInterface.OnClickListener, DialogInterface.OnCancelListener{

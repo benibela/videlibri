@@ -31,7 +31,8 @@ public class VideLibriBaseActivity extends AppCompatActivity implements Bridge.V
     static final int LOADING_SEARCH_SEARCHING = 201;
     static final int LOADING_SEARCH_DETAILS = 202;
     static final int LOADING_SEARCH_ORDER = 203;
-    static final int LOADING_SEARCH_MESSAGE = 204;
+    static final int LOADING_SEARCH_ORDER_HOLDING = 204;
+    static final int LOADING_SEARCH_MESSAGE = 205;
     static final int LOADING_INSTALL_LIBRARY = 600;
 
     private ArrayList<Integer> loadingTasks;
@@ -259,6 +260,9 @@ public class VideLibriBaseActivity extends AppCompatActivity implements Bridge.V
     }
     void endLoadingAll(int[] loadingId){
         for (int id: loadingId) endLoadingAll(id);
+    }
+    boolean isLoading(int loadingId){
+        return loadingTasks.indexOf(loadingId) >= 0;
     }
 
 
