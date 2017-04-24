@@ -1,10 +1,12 @@
 VideLibri
 =============
-VideLibri likely was the world's first app to access the web catalogs/OPACs of libraries.
+VideLibri likely was the world's first app to access the web catalogs/OPACs of libraries as it has been developed continuously since 2006.
 It has all the usual features of their OPACs, e.g. viewing your account, searching books or ordering other items. It also renews all due books automatically and can do other things only a locally running app can do, like keeping a history of all ever lend books. 
 
 So far VideLibri has been tested with 200 libraries successfully.
 It is platform-independent and currently [provides binaries](http://www.videlibri.de) for (Desktop) Windows, Linux and Android. At the moment its GUI is entirely in German as no support for any non-German-speaking library has been requested, but a translation can be made if wished for.
+
+![on Windows](http://sourceforge.net/dbimage.php?id=280463) ![on Android](http://sourceforge.net/p/videlibri/screenshot/android.png)
 
 Backend
 -------------
@@ -22,4 +24,18 @@ It cannot be emphasized enough that these are not programming languages for deve
 
 The source of these interpreters has been moved to a separate repository ( internettools ) for clarity.
 
-A spin-off command line tool ( see repository xidel ) has been developed to let you use these languages for tasks unrelated to libraries. 
+A spin-off command line tool ( see repository xidel ) has been developed to let you use these languages for tasks unrelated to libraries.  
+
+Contributing
+-------------
+The biggest contribution are reports about changes on the account page of the catalog (e.g. screenshots or downloads of the webpage) or directly library accounts for testing purposes. It has happened many times that VideLibri had worked perfectly with a library for years, but then they changed something in their OPAC and VideLibri did not work anymore. A user wrote "Last week it stopped working" anonymously, the library refused to reply to mails, I could not see a change hidden behind the login-wall, so the issue could never be fixed. Even if the fix was trivial given information about the change.
+
+You do not need to contribute to add a new library, just like you do not need to contribute to Firefox to visit a webpage. See the backend section above, or [this (German) tutorial](http://www.videlibri.de/help/neuebibliothek.html). 
+
+License
+-------------
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
