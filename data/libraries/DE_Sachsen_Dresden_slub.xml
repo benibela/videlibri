@@ -8,7 +8,9 @@
   <variable name="institute" value="SEM"/>
 
   <homepage value="http://www.slub-dresden.de/"/>
-  <testing-search value="nein" date="2013-07-05"/>
+  <testing-search value="nein" date="2017-05-06"/>
   <testing-account value="?" date=""/>
   <testing-renew value="?" date=""/>
+
+  <table-comment value="Sie haben mittlerweile eine neue, eigene App."/>
 </library>
