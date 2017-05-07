@@ -220,7 +220,7 @@ public class SearchResult extends BookListActivity implements Bridge.SearchEvent
 
 
     public void onOrderComplete(final Bridge.Book book) {
-        Util.showMessage(tr(R.string.search_orderedokS, book.title));
+        Util.showMessage(tr(R.string.search_orderedokS, book.title, book.getProperty("status")));
         VideLibriApp.displayAccount(searcher.orderingAccount);
         if (searcher.orderingAccount != null)
             VideLibriApp.updateAccount(searcher.orderingAccount, false, false); //full update, so the book is only shown if it worked, and canceling work
