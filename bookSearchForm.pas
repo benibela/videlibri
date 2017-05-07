@@ -175,7 +175,8 @@ resourcestring
   rsOverrideConfirm = 'Soll das markierte Medium "%s" mit "%s" überschrieben werden?';
   rsChooseOrder = 'Es gibt mehrere vormerkbare/Bestellbare Exemplare. Welches wollen Sie? (Nummer eingeben)%s';
   rsNoHoldingSelected = 'Es wurde nicht ausgewählt, welches Exemplar bestellt werden soll. (in der unteren Liste)';
-  rsOrderComplete = 'Das Buch "%s" wurde ohne Fehler vorgemerkt.';
+  rsOrderConfirm = 'Soll "%s" bestellt werden?';
+  rsOrderComplete = 'Das Buch "%s" wurde ohne Fehler vorgemerkt. %s';
   rsNumberNeeded = ' (Nummer eingeben)';
   rsCount = '%s Treffer';
   rsCountSelected = '%D / %D Treffer';
@@ -619,6 +620,7 @@ begin
     searcherAccess.endBookReading;
   end;
 
+  if not confirm(Format(rsOrderConfirm, [displayedBook.title])) then exit;
 
   screen.Cursor:=crHourGlass;
   searcherAccess.orderAsync(acc, orderBook);
@@ -667,7 +669,7 @@ begin
 
 
   if mainForm <> nil then mainForm.RefreshListView;
-  ShowMessage(format(rsOrderComplete, [book.toSimpleString()])  );
+  ShowMessage(format(rsOrderComplete, [book.toSimpleString(), LineEnding + LineEnding + book.statusStr])  );
   screen.Cursor:=crDefault;
 end;
 
@@ -1014,7 +1016,6 @@ const holdingColumns: array[0..6] of string = (
 var i:longint;
     tempStream: TStringStream;
     ext: String;
-    columnsToShow: array of boolean;
     j, orderableHolding: Integer;
     showColumn: Boolean;
     tempBook: TBook;
@@ -1157,6 +1158,7 @@ begin
   if (cmdtitle = '') and (book.owningBook <> nil) then
     cmdtitle := book.owningBook.getPropertyAdditional('orderTitle', '');
   if cmdtitle = '' then cmdtitle:=rsRequestOrder;
+  LabelOrder.Caption := cmdtitle;
 end;
 
 function TbookSearchFrm.cloneDisplayedBook: TBook;
