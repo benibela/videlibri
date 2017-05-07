@@ -1001,13 +1001,14 @@ var intern, empty, normal: TTreeListItems; //item lists
     propAdd(n+'!',v);
   end;
 
-const holdingColumns: array[0..5] of string = (
+const holdingColumns: array[0..6] of string = (
   'id',
   'category',
   'author',
   'title',
   'year',
-  'libraryBranch'
+  'libraryBranch',
+  'status'
 );
 
 var i:longint;
@@ -1016,6 +1017,7 @@ var i:longint;
     columnsToShow: array of boolean;
     j, orderableHolding: Integer;
     showColumn: Boolean;
+    tempBook: TBook;
 begin
   if book=nil then
     if bookList.Selected=nil then book:=displayedBook
@@ -1105,7 +1107,23 @@ begin
           end;
         if showColumn then holdings.addColumn(holdingColumns[i]);
       end;
+      for i := 0 to book.holdings.Count-1 do begin
+        tempBook := book.holdings[i];
+        for j:=0 to high(tempBook.additional) do
+          if strEndsWith(tempBook.additional[j].name,'!')
+             and (holdings.getPropertyColumnIndex(tempBook.additional[j].name) = -1) then
+            holdings.addColumn(tempBook.additional[j].name);
+      end;
+      showColumn := false;
+      for i := 0 to book.holdings.Count - 1 do
+        if book.holdings[i].dueDate <> 0 then begin
+          showColumn:=true;
+          break;
+        end;
+      if showColumn then holdings.addColumn('dueDate');
       holdings.addBookList(book.holdings);
+      holdings.ColumnsAutoSize;
+
       orderableHolding := -1;
       for i := 0 to book.holdings.Count - 1 do
         if (orderableHolding = -1) and (book.holdings[i].getProperty('orderable') <> 'false') then

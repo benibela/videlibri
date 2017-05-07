@@ -65,8 +65,9 @@ uses
    property books[i:integer]: TBook read GetBook;
 
    procedure ColumnsClear;
+   procedure ColumnsAutoSize;
    procedure addDefaultColumns;
-   procedure addColumn(prop: string);
+   procedure addColumn(const prop: string);
    function getPropertyColumnIndex(p: string): integer;
    function getAdditionalBookData(item: TTreeListItem): TAdditionalBookData;
 
@@ -401,7 +402,7 @@ begin
     for i := 0 to high(properties) do
       if i = ColumnIssueDateId then RecordItems.Add(DateToPrettyStr(book.issueDate))
       else if i = ColumnDueDateId then begin
-        if book.lend = false then begin
+        if (book.lend = false) and (book.owningAccount <> nil) then begin
           if book.dueDate = -2 then RecordItems.Add(rsNeverLend)
           else RecordItems.Add(rsLendHistory)
         end else
@@ -428,6 +429,15 @@ begin
   Columns.Clear;
   ColumnIssueDateId := -1;
   ColumnDueDateId := -1;
+  properties := nil;
+end;
+
+procedure TBookListView.ColumnsAutoSize;
+var
+  i: Integer;
+begin
+  for i := 0 to F_Header.Sections.Count - 1 do
+    _HeaderSectionDblClick(F_Header, F_Header.Sections[i]);
 end;
 
 procedure TBookListView.addDefaultColumns;
@@ -450,11 +460,13 @@ begin
     addColumn(defColumns[i]);
 end;
 
-procedure TBookListView.addColumn(prop: string);
+procedure TBookListView.addColumn(const prop: string);
+var
+  lprop, tprop: String;
 begin
-  prop := lowercase(prop);
+  lprop := lowercase(prop);
   with Columns.Add do begin
-    case prop of
+    case lprop of
       'id': begin text :=rsBookPropertyID; width := 80; end;
       'category': begin text :=rsBookPropertyCategory; width := 50; end;
       'author': begin text :=rsBookPropertyAuthor; width := 120; end;
@@ -478,10 +490,17 @@ begin
       'isbn': begin Text:=rsBookPropertyISBN; Width:=80; Visible:=false;end;
       '_firstexistsdate': begin Text:=rsBookPropertyFirstExistsDate; Width:=70; end;
       '_lastexistsdate': begin Text:=rsBookPropertyLastExistsDate; Width:=70; end;
+      else begin
+        tprop := prop;
+        if strEndsWith(tprop, '!') then delete(tprop, length(tprop), 1);
+        text := tprop;
+        width := 50;
+        visible := true;
+      end;
     end;
   end;
   SetLength(properties, length(properties)+1);
-  properties[high(properties)] := prop;
+  properties[high(properties)] := lprop;
 end;
 
 function TBookListView.getPropertyColumnIndex(p: string): integer;
