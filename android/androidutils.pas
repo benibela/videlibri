@@ -841,7 +841,7 @@ begin
   if (book.holdings<> nil) and (book.holdings.Count> 0) then begin
     holdings := j.newObjectArray(book.holdings.Count, bookClass, nil);
     for i := 0 to book.holdings.Count-1 do begin
-      tempbook := bookToJBook(book.holdings[i], includeDates, includeAllStrings);
+      tempbook := bookToJBook(book.holdings[i], true, includeAllStrings);
       j.setObjectArrayElement(holdings,i,tempbook);
       j.deleteLocalRef(tempbook);
     end;
