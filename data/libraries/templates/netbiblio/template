@@ -25,6 +25,7 @@
   <s>vl:delete-current-books()</s>
   <page url="{$baseurl}/account/circulations?sort=Circulations.DueDate&page=1&pageSize=100000" templateFile="list"/>
   <page url="{$baseurl}/account/orders" templateFile="list"/>
+  <page url="{$baseurl}/account/reservations" templateFile="list"/>
 </action>
 
 <action id="renew-list">
@@ -85,6 +86,21 @@
 
 
 <action id="order-single">
+  <call action="internal-login"/>
+  <page url="{$baseurl}/account/makeitemreservation?{join($holding!(x'selectedItems={_orderId}'), $amp)}"> </page>
+  <pattern>
+    <form action="/account/makeitemreservation">
+       {form:=form(.), $kind := "" }
+       <input checked="checked" id="ReservationKind">{$kind := following-sibling::text()}</input>?
+    </form>
+  </pattern>
+  <page url="{$form}"/>
+  <pattern>
+    <t:switch prioritized="true">
+      <div class="alert-success">{$book.status := $kind}</div>
+      <div class="alert">{vl:raise(.)}</div>
+    </t:switch>	
+  </pattern>
 </action>
 
 

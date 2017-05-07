@@ -1,7 +1,7 @@
 <div class="wos-main">
 <div class="wos-box">
 <div class="wo-com wo-com-account">
-{mode := if (contains(@class, "wo-com-orders")) then "orders" else "circulations"}
+{mode := if (matches(@class, "wo-com-(orders|reservations)")) then "orders" else "circulations"}
 <div class="wo-grid" t:optional="true">
    <!--id="grd-circulations" -->
 
@@ -9,15 +9,15 @@
     <thead><tr>
       <t:siblings-header>
         <th><input/></th>
-        <th><a t:condition="contains(@href,'Items.ItemNr')">Exemplarnr.</a></th>
-        <th><a t:condition="contains(@href,'Notices.MediaType1Code')">Datenträger</a></th>?
-        <th><a t:condition="contains(@href,'Notices.Author')">Autor</a> 
-            <a t:condition="contains(@href,'Notices.Title')">Titel</a></th>
-        <th><a t:condition="contains(@href,'Notices.Date1')">Jahr</a></th>?
-        <th><a t:condition="contains(@href,'Circulations.DueDate')">Fälligkeitsdatum</a></th>?
-        <th><a t:condition="contains(@href,'Circulations.Renewals')">Verlängerungen</a></th>?
-        <th><a t:condition="contains(@href,'Circulations.RenewalDate')">Datum der Verlängerung</a></th>?
-        <th><a t:condition="contains(@href,'Reservations.CreationDate')">Erzeugungsdatum</a></th>?
+        <th><a t:condition="matches(@href,'Items.ItemNr|Notices.NoticeNr')"></a></th>
+        <th><a t:condition="contains(@href,'Notices.MediaType1Code')"></a></th>?
+        <th><a t:condition="contains(@href,'Notices.Author')"></a> 
+            <a t:condition="contains(@href,'Notices.Title')"></a></th>
+        <th><a t:condition="contains(@href,'Notices.Date1')"></a></th>?
+        <th><a t:condition="contains(@href,'Circulations.DueDate')"></a></th>?
+        <th><a t:condition="contains(@href,'Circulations.Renewals')"></a></th>?
+        <th><a t:condition="contains(@href,'Circulations.RenewalDate')"></a></th>?
+        <th><a t:condition="contains(@href,'Reservations.CreationDate')"></a></th>?
         <th></th>*
       </t:siblings-header>
     </tr></thead><tbody><tr>{$book := {}}
