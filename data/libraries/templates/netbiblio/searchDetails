@@ -22,17 +22,17 @@
 			<tr>
         <t:siblings-header>
   				<th><input/></th>
-          <th><a t:condition="contains(@href,'itemsort=Items.ItemNr')">Exemplarnr.</a></th>
-          <th><a t:condition="contains(@href,'itemsort=Items.LocationCode')">Standort</a>  
-              <a t:condition="contains(@href,'itemsort=Items.Location2Code')">Abteilung</a></th>
-          <th><a t:condition="contains(@href,'itemsort=Items.CallNumber')">Signatur</a></th>
+          <th><a t:condition="contains(@href,'itemsort=Items.ItemNr')"></a></th>
+          <th><a t:condition="contains(@href,'itemsort=Items.LocationCode')"></a>  
+              <a t:condition="contains(@href,'itemsort=Items.Location2Code')"></a></th>
+          <th><a t:condition="contains(@href,'itemsort=Items.CallNumber')"></a></th>
           <th><t:switch>
-             <a t:condition="contains(@href,'itemsort=Items.CirculationCode')">Ausleihbarkeit</a>
+             <a t:condition="contains(@href,'itemsort=Items.CirculationCode')"></a>
              <span>Verfügbarkeit</span>
           </t:switch></th>
 <!--          <th></th>-->
-          <th><a t:condition="contains(@href,'itemsort=Circulations.DueDate')">Fälligkeitsdatum</a></th>
-          <th><a t:condition="contains(@href,'itemsort=Items.ActualReservations')">Reservationen</a></th>
+          <th><a t:condition="contains(@href,'itemsort=Circulations.DueDate')"></a></th>
+          <th><a t:condition="contains(@href,'itemsort=Items.ActualReservations')"></a></th>
          <!-- <th><span class="wo-grid-header-content">Reservieren</th>-->
           <th></th>*
         </t:siblings-header>

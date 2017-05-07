@@ -227,8 +227,8 @@ PAGES=(${PAGES[@]} summon/searchDetails.html summon/searchDetails_multiex.html s
 mkdir -p $OUTPATH/netbiblio
 test netbiblio list list.html list.orders.html 
 
-test netbiblio searchList searchList.0.html searchList.html  searchList.singlepage.html
-test netbiblio searchDetails{vl:set-book-property} searchDetails.html searchDetails.ebook.html 
+test netbiblio searchList searchList.0.html searchList.html  searchList.singlepage.html searchList.en.html
+test netbiblio searchDetails{vl:set-book-property} searchDetails.html searchDetails.ebook.html  
 
 
 #=============DIGIBIB==============
