@@ -266,20 +266,20 @@ public class SearchResult extends BookListActivity implements Bridge.SearchEvent
             Util.showMessage(tr(R.string.search_needaccount));
             return;
         }
-        if (matchingAccounts.size() > 1) {
+        //if (matchingAccounts.size() > 1) {
             String [] temp = new String[matchingAccounts.size()];
             for (int i=0;i<matchingAccounts.size();i++)
                 temp[i] = matchingAccounts.get(i).prettyName;
             lastSelectedBookForDialog = book;
             lastMatchingAccountsForDialog = matchingAccounts;
-            Util.chooseDialog(DialogId.SEARCHER_CHOOSE_TARGET_ACCOUNT, tr(R.string.search_orderTargetAccount), temp);
-        } else {
+            Util.chooseDialog(DialogId.SEARCHER_CHOOSE_TARGET_ACCOUNT, tr(R.string.search_orderTargetAccount, book.title), temp);
+        /*} else {
             book.account = matchingAccounts.get(0);
             searcher.orderingAccount = book.account;
             if (bookActionButton != null) bookActionButton.setClickable(false);
             beginLoading(LOADING_SEARCH_ORDER);
             searcher.order(book);
-        }
+        } */
     }
 
 
@@ -293,21 +293,21 @@ public class SearchResult extends BookListActivity implements Bridge.SearchEvent
             Util.showMessage(tr(R.string.search_needaccount));
             return;
         }
-        if (matchingAccounts.size() > 1) {
+        //if (matchingAccounts.size() > 1) {
             String [] temp = new String[matchingAccounts.size()];
             for (int i=0;i<matchingAccounts.size();i++)
                 temp[i] = matchingAccounts.get(i).prettyName;
             lastSelectedBookForDialog = book;
             lastSelectedHolding = choosenHolding;
             lastMatchingAccountsForDialog = matchingAccounts;
-            Util.chooseDialog(DialogId.SEARCHER_CHOOSE_TARGET_ACCOUNT_FOR_HOLDING, tr(R.string.search_orderTargetAccount), temp);
-        } else {
+            Util.chooseDialog(DialogId.SEARCHER_CHOOSE_TARGET_ACCOUNT_FOR_HOLDING, tr(R.string.search_orderTargetAccount, book.title), temp);
+        /*} else {
             book.account = matchingAccounts.get(0);
             searcher.orderingAccount = book.account;
             beginLoading(LOADING_SEARCH_ORDER_HOLDING);
             details.setOrderButtonsClickable();
             searcher.order(book, choosenHolding);
-        }
+        }  */
     }
     @Override
     public void onBookActionButtonClicked(final Bridge.Book book){

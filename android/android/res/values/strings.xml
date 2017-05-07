@@ -65,7 +65,7 @@
     <string name="search_orderedokS">Das Buch \"%s\" wurde ohne Fehlermeldung vorbestellt.</string>
     <string name="search_failed">Suche fehlgeschlagen</string>
     <string name="search_needaccount">Bestellungen benötigen ein registriertes Bibliothekskonto in VideLibri.</string>
-    <string name="search_orderTargetAccount">Für welches Konto soll es bestellt werden?</string>
+    <string name="search_orderTargetAccount">Wählen Sie ein Konto für die Bestellung von \"%s\"</string>
     <string name="search_chooseitem">Welches Exemplar wollen Sie vorbestellen?</string>
     <string name="ok">OK</string>
     <string name="no">Nein</string>
