@@ -3,7 +3,8 @@
   <longName value="Universitätsbibliothek Regensburg (alpha)"/>
   
   <template value="sisis"/>  
-  <variable name="server" value="https://www.regensburger-katalog.de/InfoGuideClient.ubrsis/"/>
+  <variable name="server" value="https://www.regensburger-katalog.de/TouchPoint/"/>
+  <variable name="startparams" value="?View=ubr"/>
   
   <homepage value="http://www.uni-regensburg.de/bibliothek/"/>
   <testing-search value="ja" date="2013-05-18"/>

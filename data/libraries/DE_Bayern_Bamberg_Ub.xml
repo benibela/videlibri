@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <library>
-  <longName value="Unibibliothek Bamberg (alpha)"/>
+  <longName value="Universitätsbibliothek Bamberg (alpha)"/>
   <shortName value="Ub Bamberg"/> 
   
   <template value="sisis"/>  
-  <variable name="server" value="https://katalog.ub.uni-bamberg.de/InfoGuideClient.ubgsis/"/>
+  <variable name="server" value="https://katalog.ub.uni-bamberg.de/TouchPoint/"/>
+  <variable name="startparams" value="?View=ubg&amp;Branch=1"/>
   
   <homepage value="http://www.uni-bamberg.de/ub/"/>
   <testing-search value="ja" date="2013-05-17"/>
