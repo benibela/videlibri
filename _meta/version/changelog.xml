@@ -1,10 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?xml-stylesheet type="text/xsl" href="../changelog.xsl"?>
 <changelog program="VideLibri">
-      <build version="1885" date="2017-04-11">
+      <build version="1887" date="2017-05-08">
         <download url="http://videlibri.sourceforge.net/updates/videlibri-setup.exe" platform="WINDOWS" execute="&quot;$DOWNLOAD&quot;  /SP- /noicons &quot;/dir=$OLDPATH&quot; " restart="true"/>
         <download url="http://videlibri.sourceforge.net/updates/videlibri-linux32.deb" platform="LINUX32" execute=""/>
         <download url="http://videlibri.sourceforge.net/updates/videlibri-linux64.deb" platform="LINUX64" execute=""/>
+        <change>android: Frage bei jeder Vormerkung, für welches Konto die Vormerkung erfolgen soll, damit es nicht sofort ohne Nachfrage etwas vormerkt, wenn jemand aus Versehen auf den Vormerkbutton drückt.</change>
+        <change>android: Sortiere das lokale Land an den Anfang der Bibliothekliste.</change>
+        <fix>Desktop: Verwende wieder das korrekte Datumsformat.</fix>
+        <fix>Neue OPAC/Web-Addressen für Universitätsbibliothek Regensburg, Universitätsbibliothek Bamberg, Technische Informationsbibliothek/Universitätsbibliothek Hannover und Universitätsbibliothek Hohenheim.</fix>
+        <fix>Netbiblio/Stadtbibliothek Biel: Anzeige von Suchergebnissen einer Einzelseite ohne "nächste Seite"-Button im Katalog; und wenn die Katalogsprache nicht deutsch ist</fix>
+        <fix>android: Behebt Absturz bei einem Timeout der Suche, wenn keine eindeutige Bibliothek zur Suche ausgewählt ist.</fix>
+        <add>Netbiblio/Stadtbibliothek Biel: Reservierungsfunktion mit dem neuen Vormerksystem.</add>
+      </build>
+      <build version="1885" date="2017-04-11">
         <change>Speichert die für die Suche auswählbaren Zweigstellen jeder Bibliothek lokal, so dass eine neue Suche augenblicklich ohne Pause gestartet werden kann. ( Bisher wurde die Liste der Zweigstellen bei jedem Aufruf der Suchfunktionalität in VideLibri heruntergeladen, und wenn man währenddessen den Suchbutton drückt, hat die App gehangen, bis der Download abgeschlossen war )</change>
         <add>Vollständig neues Vormerkungssystem, welches für jedes bestellbare Exemplar beliebige bibliografische Daten speichern kann. (alle auswählbaren Bibliothek verwenden jedoch noch die alten Systeme)</add>
         <change>Desktopversion: Im Suchfenster auswählbare Städte sind nun nach Bundesland gruppiert statt nur in einer Liste gelistet zu sein. Es werden keine Hinweise mehr angezeigt, wie Titel/Autor in der Digibib verarbeitet werden, da VideLibri seit Jahren auch ohne Digibib suchen kann.</change>

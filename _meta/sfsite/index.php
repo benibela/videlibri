@@ -250,20 +250,21 @@ Ob man VideLibri out-of-the-box mit einer Bibliothek verwenden kann, ist jedoch 
 <tr><th>System</th><th>Suche</th><th>Kontoanzeige</th><th>Verlängern</th><th>Vormerkungen</th><th>Bemerkung</th><th>Seit</th></tr>
 </thead>
 <tr><td id="aDISWeb">aDIS/BMS</td>  <td>ja</td><td>ja</td><td>ja</td><td>ja</td>  <td></td><td>2012</td></tr>
-<tr><td id="aleph">Aleph</td>  <td>nein</td><td>ja</td><td>ja</td><td>nein</td>  <td>generalisiert schlecht, bisher waren für jede neue Bibliothek Anpassungen erforderlich</td><td>2006</td></tr>
-<tr><td id="bibliotheca">Bibliotheca</td>  <td>ja</td><td>ja</td><td>ja</td><td>ja</td>  <td>Bei abweichenden Spalten im Benutzerkonto (statt Autor/Titel/Abgabedatum) sind Anpassungen erforderlich</td><td>2014</td></tr>
+<tr><td id="aleph">Aleph</td>  <td>nein</td><td>ja</td><td>ja</td><td>nein</td>  <td>generalisiert schlecht</td><td>2006</td></tr>
+<tr><td id="bibliotheca">Bibliotheca</td>  <td>ja</td><td>ja</td><td>ja</td><td>ja</td>  <td></td><td>2014</td></tr>
 <tr><td id="bibliothecaplus">Bibliotheca+/OPEN</td>  <td>ja</td><td>ja</td><td>ja</td><td>ja</td>  <td></td><td>2014</td></tr>
 <tr><td id="digibib">Digibib</td>  <td>ja</td><td></td><td></td><td></td>  <td>Suche über Metasuchmaschine</td><td>2008</td></tr>
 <tr><td id="libero5">Libero 5</td>  <td>ja</td><td>ja</td><td>ja</td><td>ja</td>  <td></td><td>2007</td></tr>
+<tr><td id="netbiblio">Netbiblio</td>  <td>ja</td><td>ja</td><td>ja</td><td>nein</td>  <td></td><td>2017</td></tr>
 <tr><td id="paia">PAIA</td>  <td></td><td>ja</td><td>ja</td><td>nein</td>  <td></td><td>2013</td></tr>
 <tr><td>PICA:</td></tr>
 <tr><td style="padding-left: 1em" id="pica">PICA Standard</td>  <td>ja</td><td>ja</td><td>ja</td><td>ja</td>  <td></td><td>2011</td></tr>
-<tr><td style="padding-left: 1em" id="bibdia_stabib">mit Bibdia</td>  <td>ja</td><td>ja</td><td>ja</td><td>nein</td>  <td>nur für eine Bibliothek</td><td>2011</td></tr>
+<tr><td style="padding-left: 1em" id="bibdia_stabib">mit Bibdia</td>  <td>ja</td><td>ja</td><td>ja</td><td>nein</td>  <td>nur für Staatsbibliothek Berlin</td><td>2011</td></tr>
 <tr><td style="padding-left: 1em" id="lbs">mit LBS</td>  <td>ja</td><td>ja</td><td>ja</td><td>ja</td>  <td>bisher nur wenig getestet</td><td>2014</td></tr>
-<tr><td id="primo">Primo</td>  <td>ja</td><td>nein</td><td>nein</td><td>nein</td>  <td></td><td>2013</td></tr>
-<tr><td id="sisis">SISIS-SunRise</td>  <td>ja</td><td>ja</td><td>ja</td><td>ja</td>  <td>Kontozugriff nur, wenn der Benutzer die Spracheinstellung auf "deutsch" gelassen hat</td><td>2010</td></tr>
+<tr><td id="primo">Primo</td>  <td>ja</td><td>ja</td><td>ja</td><td>nein</td>  <td></td><td>2013</td></tr>
+<tr><td id="sisis">SISIS-SunRise</td>  <td>ja</td><td>ja</td><td>ja</td><td>ja</td>  <td></td><td>2010</td></tr>
 <tr><td id="sru">SRU</td>  <td>ja</td><td></td><td></td><td></td>  <td></td><td>2013</td></tr>
-<tr><td id="was">Websphere (WAS)</td>  <td>nein</td><td>ja</td><td>ja</td><td>nein</td>  <td>nur für eine Bibliothek</td><td>2006</td></tr>
+<tr><td id="was">Websphere (WAS)</td>  <td>nein</td><td>ja</td><td>ja</td><td>nein</td>  <td>nur für Stadtbibliothek Düsseldorf</td><td>2006</td></tr>
 <tr><td id="zones18">Zones (nur 1.8)</td>  <td>ja</td><td>ja</td><td>ja</td><td>ja</td>  <td></td><td>2013</td></tr>
 </table>
 

@@ -352,7 +352,7 @@
     </Other>
   </CompilerOptions>
   <Debugging>
-    <Exceptions Count="4">
+    <Exceptions Count="5">
       <Item1>
         <Name Value="EInterfaceCriti"/>
       </Item1>
@@ -365,6 +365,9 @@
       <Item4>
         <Name Value="EInternetException"/>
       </Item4>
+      <Item5>
+        <Name Value="EInvalidGraphic"/>
+      </Item5>
     </Exceptions>
   </Debugging>
 </CONFIG>
