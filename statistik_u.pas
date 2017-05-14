@@ -249,7 +249,7 @@ begin
   diagramDrawer.RangeMinY:=0;
   diagramDrawer.RangeMaxY:=diagramModel.maxY;
   diagramDrawer.update();
-  PaintBox1.Update;
+  PaintBox1.Refresh;
 end;
 
 procedure TstatistikForm.FormCreate(Sender: TObject);
