@@ -31,7 +31,7 @@ type
     tableComment: string;
     id:string;
     deprecatedId: string;
-    maxRenewCount: integer; //-1: if you can renew so frequently you want
+    maxRenewCount: integer;
 
     usernameRegEx,passwordRegEx: TRegExpr;
 

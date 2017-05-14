@@ -15,6 +15,7 @@ type
   TnewAccountWizard = class(TForm)
     cancelBtn: TButton;
     accountType: TComboBox;
+    LabelSelectedLib: TLabel;
     LabelAccountType: TLabel;
     label2Account: TLabel;
     label4autoextend: TLabel;
@@ -70,6 +71,7 @@ type
   public
     { public declarations }
     libs: TLibraryListView;
+    selectedExtendTypeItemIndex: integer;
     finalPage: TTreeListView;
     procedure selectCurrentPage;
   end;
@@ -132,6 +134,7 @@ begin
   libs := TLibraryListView.create(Panel2);
   libs.Align:=alClient;
   libs.OnSelect:=@libsSelect;
+  libs.OnDblClick := @Button2Click;
   libs.Parent := panel2;
   //if accountIDs.Count =0 then FormStyle:=fsStayOnTop;
 
@@ -178,19 +181,20 @@ begin
   finalPage.Items[2].RecordItemsText[0]:=passLabel.Caption;
   if selectedLibrary.maxRenewCount=0 then begin
     extendTypeRG.Items.Text:='niemals                       ';
-    application.ProcessMessages;
-    extendTypeRG.ItemIndex:=0;
+    selectedExtendTypeItemIndex:=0;
   end else begin
     if selectedLibrary.canModifySingleBooks then
       extendTypeRG.Items.text:=format(rsRenewOptions,[LineEnding,LineEnding,LineEnding])
      else
       extendTypeRG.Items.Text:=format(rsRenewOptionsNoSingle,[LineEnding,LineEnding]) ;
-    application.ProcessMessages;
-    if selectedLibrary.maxRenewCount=-1 then extendTypeRG.ItemIndex:=0
-    else if selectedLibrary.canModifySingleBooks then extendTypeRG.ItemIndex:=2
-    else extendTypeRG.ItemIndex:=1;
+    //we need to set a default itemindex, but we cannot change extendTypeRG.itemIndex
+    //till all pending events (probably caused by changing items.text) have been processed.
+    //We cannot call application.ProcessMessages or the listview starts flickering
+    if selectedLibrary.canModifySingleBooks then selectedExtendTypeItemIndex:=2
+    else selectedExtendTypeItemIndex:=1;
   end;
   extendTypeRG.OnClick(extendTypeRG);
+  LabelSelectedLib.Caption := selectedLibrary.prettyNameLong;
 end;
 
 procedure TnewAccountWizard.locationListChange(Sender: TObject);
@@ -223,6 +227,7 @@ begin
     nextbtn.Caption:=rsBtnCreate;
     finalPage.Repaint;
   end else nextbtn.Caption:=rsBtnNext;
+  back.Enabled := Notebook1.PageIndex > 0;
   //fix lcl bug 14877
   Panel2.ReAlign;
   extendTypeRG.ReAlign;
@@ -267,6 +272,8 @@ begin
   extendDaysLbl.Visible:=extendType in [etSingleDepends,etAllDepends];
   extendDaysLbl2.Visible:=extendType in [etSingleDepends,etAllDepends];
   extendDaysEdit.Visible:=extendType in [etSingleDepends,etAllDepends];
+  if extendTypeRG.ItemIndex >= 0 then
+    selectedExtendTypeItemIndex := extendTypeRG.ItemIndex;
 end;
 
 procedure TnewAccountWizard.Timer1Timer(Sender: TObject);
@@ -322,6 +329,9 @@ begin
     ShowMessage(rsNoLibChosen2);
     exit;
   end;
+
+  if Notebook1.PageIndex = 1 then
+    extendTypeRG.ItemIndex := selectedExtendTypeItemIndex;
 
   if Notebook1.PageIndex=Notebook1.PageCount-1 then begin
     if accountType.Visible then accType := accountType.ItemIndex + 1
