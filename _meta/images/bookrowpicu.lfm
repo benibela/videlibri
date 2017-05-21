@@ -1,0 +1,59 @@
+object Form1: TForm1
+  Left = 211
+  Height = 629
+  Top = 131
+  Width = 1149
+  Caption = 'Form1'
+  ClientHeight = 629
+  ClientWidth = 1149
+  OnCreate = FormCreate
+  LCLVersion = '1.7'
+  object Button1: TButton
+    Left = 50
+    Height = 25
+    Top = 225
+    Width = 75
+    Caption = 'Button1'
+    OnClick = Button1Click
+    TabOrder = 0
+  end
+  object Image1: TImage
+    Left = 64
+    Height = 90
+    Top = 25
+    Width = 90
+    AutoSize = True
+  end
+  object Edit1: TEdit
+    Left = 304
+    Height = 25
+    Top = 216
+    Width = 80
+    TabOrder = 1
+    Text = 'FFFFFF'
+  end
+  object Edit2: TEdit
+    Left = 304
+    Height = 25
+    Top = 240
+    Width = 80
+    TabOrder = 2
+    Text = '0000C0'
+  end
+  object Label1: TLabel
+    Left = 174
+    Height = 15
+    Top = 248
+    Width = 123
+    Caption = 'backgroundbottom'
+    ParentColor = False
+  end
+  object Label2: TLabel
+    Left = 176
+    Height = 15
+    Top = 216
+    Width = 97
+    Caption = 'backgroundtop'
+    ParentColor = False
+  end
+end
