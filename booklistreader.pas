@@ -1422,11 +1422,11 @@ initialization
   TXQueryEngine.registerNativeModule(vl);
 
   with BookPropertyNormalizationRegex do begin
-    title := wregexprParse('Titel|Title', [wrfIgnoreCase]);
+    title := wregexprParse('Titel|Title', [wrfIgnoreCase]); //todo: but not "Einheitssachtitel"
     author := wregexprParse('Verantwortlichkeit|Author|Autor', [wrfIgnoreCase]);
     publisher := wregexprParse('Verlag', [wrfIgnoreCase]);
     isbn := wregexprParse('ISBN', [wrfIgnoreCase]);
-    year := wregexprParse('Creation Date', [wrfIgnoreCase]);
+    year := wregexprParse('Creation Date|Jahr', [wrfIgnoreCase]);
   end;
 finalization
   vl.free
