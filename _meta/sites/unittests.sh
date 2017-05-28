@@ -235,9 +235,9 @@ test netbiblio searchDetails{vl:set-book-property} searchDetails.html searchDeta
 mkdir -p $OUTPATH/digibib
 
 DISE=../search/templates/digibib/search
-DIDE=../search/templates/digibib/details
-TEMPLATES=(${TEMPLATES[@]} $DISE $DISE $DIDE $DIDE $DIDE $DIDE $DIDE $DIDE)
-PAGES=(${PAGES[@]} digibib/search.html digibib/search2.html digibib/details.html digibib/details2.html digibib/details3.html digibib/details4.html digibib/details5.html digibib/details6new.html)  
+DIDE=../search/templates/digibib/details{vl:set-book-property}
+TEMPLATES=(${TEMPLATES[@]} $DISE $DISE $DIDE $DIDE $DIDE $DIDE $DIDE $DIDE $DIDE $DIDE)
+PAGES=(${PAGES[@]} digibib/search.html digibib/search2.html digibib/details.html digibib/details2.html digibib/details3.html digibib/details4.html digibib/details5.html digibib/details6new.html digibib/details7new.fhmuenster.html digibib/details7holdings.fhmuenster.html)  
 
 test digibib list list.html list.empty.html 
 

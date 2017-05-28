@@ -16,35 +16,43 @@
     
          
       <table class="datarows"><t:loop>
-        <tr>
-         <th>{currentfield := concat(normalize-space(text()), "!")}</th>
-         <t:if   test="contains($currentfield, 'Titel') and not(contains($currentfield, 'Einheitssachtitel'))">{currentfield := "title"}</t:if>
-         <t:else test="contains($currentfield, 'Autor')">{currentfield := "author"}</t:else>
-         <t:else test="contains($currentfield, 'ISBN')" >{currentfield := "isbn"}</t:else>
-         <t:else test="contains($currentfield, 'Jahr')" >{currentfield := "year"}</t:else>
-         <td><t:read source="deep-text()" var="book.{$currentfield}"/></td>
-        </tr>
+        <tr>{vl:set-book-property(th, td)}</tr>
       </t:loop></table>
    </dd>
 
-   <dt t:optional="true">Bestand</dt>      
-   <td t:optional="true">
-     <template:loop>
-       <a template:optional="true"><template:read var="book.home-url" source="@href"/></a>
-     </template:loop>
-     <form template:optional="true">
-       <template:read var="book.home-url" source="concat(@action,'?')"/>
-       <template:loop>
-          <input><template:read var="book.home-url" source="concat($book.home-url,@name,'=',@value,'&')"/></input>
-       </template:loop>
-     </form>
+   <dt t:optional="true">Bestand</dt>
+   <dd><table class="datagrid2">
+     <thead><tr>
+      <t:siblings-header>
+        <th>Status</th>?
+        <th>In Zweigstelle</th>?
+        <th>Signatur</th>?
+        <th>Mediennummer</th>?
+      </t:siblings-header>
+     </tr></thead>
+     <tbody>
+     <tr>{$holding := {}}<t:siblings>
+       <td>{$holding.statusId}</td>
+       <td>{$holding.libraryBranch}</td>
+       <td>{$holding.id}</td>
+       <td>{$holding("Mediennummer!")}</td>
+     </t:siblings>{$book.holdings[] := $holding}</tr>+
+     </tbody>
+   </table></dd>?
+   <table class="datarows">
+   <td>
+     <a>{$book.home-url:=@href}</a>?
+     <form template:optional="true">{
+       $book.home-url := form(.),
+       $book.holdings[] := ..//text()[normalize-space()]!{"title": ., "orderable": false()}
+     }</form>
    </td>
-   
+   </table>?
 </dl>
 </div>
 
          <div class="contentpadding">
-           <p class="warning">{vl:raise("Digibib-System: " || .)}</p>  
+           <p class="warning">{vl:raise(.)}</p>  
          </div>
 
 </t:switch>

@@ -1,11 +1,2 @@
 book := {}
-currentfield := "Titel:!"
-currentfield := "title"
-currentfield := "Autor(in):!"
-currentfield := "author"
-currentfield := "Ausgabe:!"
-currentfield := "Serie:!"
-currentfield := "ISBN:!"
-currentfield := "isbn"
-currentfield := "Sonstiges:!"
-book := {"Sonstiges:!": "NWBib-Titel", "isbn": "978-3-642-20072-4", "Serie:!": "Springer-Lehrbuch", "Ausgabe:!": "2., aktualisierte und überarbeitete Auflage. - Berlin, Heidelberg: Springer-Verlag Berlin Heidelberg, 2012", "author": "Moosbrugger, Helfried ; Kelava, Augustin", "title": "Testtheorie und Fragebogenkonstruktion : Elektronische Ressource / herausgegeben von Helfried Moosbrugger, Augustin Kelava"}
+book := {"Sonstiges:!!": "NWBib-Titel", "ISBN:!!": "978-3-642-20072-4", "Serie:!!": "Springer-Lehrbuch", "Ausgabe:!!": "2., aktualisierte und überarbeitete Auflage. - Berlin, Heidelberg: Springer-Verlag Berlin Heidelberg, 2012", "Autor(in):!!": "Moosbrugger, Helfried ; Kelava, Augustin", "Titel:!!": "Testtheorie und Fragebogenkonstruktion : Elektronische Ressource / herausgegeben von Helfried Moosbrugger, Augustin Kelava"}

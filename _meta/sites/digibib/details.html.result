@@ -1,7 +1,2 @@
 book := {}
-currentfield := "Titel:!"
-currentfield := "title"
-currentfield := "Ort / Verlag, Jahr:!"
-currentfield := "year"
-currentfield := "Sonstiges:!"
-book := {"Sonstiges:!": "Ungezählte Schriftenreihe", "year": "Göttingen, Bern , Wien , Paris , Oxford , Prag , Toronto , Cambridge, Mass. , Amsterdam , Kopenhagen , Stockholm : Hogrefe", "title": "Beltz-Test"}
+book := {"Sonstiges:!!": "Ungezählte Schriftenreihe", "Ort / Verlag, Jahr:!!": "Göttingen, Bern , Wien , Paris , Oxford , Prag , Toronto , Cambridge, Mass. , Amsterdam , Kopenhagen , Stockholm : Hogrefe", "Titel:!!": "Beltz-Test"}
