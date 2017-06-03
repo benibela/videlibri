@@ -7,7 +7,8 @@
           {book := $b, book._select := $b}
           <strong class="c2">Titel:</strong>
           <strong>{let $newBookTitle:=text() return
-            if (translate($newBookTitle, "¬", "")!=translate($book.title, "¬", "")) then 
+            if (  substring(translate($newBookTitle, "¬", ""), 1, 60)
+                !=substring(translate($book.title  , "¬", ""), 1, 60)) then 
               vl:raise(x'Es wurde {$newBookTitle} verlängert, obwohl {$book.title} verlängert werden sollte.')
             else ()
           }</strong>
