@@ -1,0 +1,6 @@
+include programs/internet/VideLibri
+exclude programs/internet/VideLibri/config
+exclude programs/internet/VideLibri/_meta/codegen
+rename programs/internet/VideLibri .
+include components/lazarus/dialogs/inputlistbox.pas
+rename components/lazarus/dialogs/inputlistbox.pas ./inputlistbox.pas
