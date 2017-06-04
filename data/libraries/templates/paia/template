@@ -71,8 +71,7 @@
     { serialize-json({ "doc":  
       for $book in $renew-books return {
         "item": $book.item,
-        "edition": $book.edition,
-        "barcode": $book.barcode
+        "edition": $book.edition
       }
     }) }
     </post> 
