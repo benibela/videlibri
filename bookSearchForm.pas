@@ -146,7 +146,7 @@ const SB_PANEL_FOUND_COUNT=1;
       SB_PANEL_SEARCH_STATUS=0;
 implementation
 
-uses applicationconfig,applicationdesktopconfig, libraryParser,simplexmlparser,bbdebugtools,bookWatchMain,bbutils,LCLType,libraryAccess,LCLIntf,strutils,Clipbrd;
+uses applicationconfig,applicationdesktopconfig, libraryParser,simplexmlparser,bbdebugtools,bookWatchMain,bbutils,LCLType,libraryAccess,LCLIntf,strutils,Clipbrd,inputlistbox;
 
 { TbookSearchFrm }
 //TODO: fehler bei keinem ergebnis
@@ -173,7 +173,7 @@ resourcestring
   rsSearchPartiallyComplete = 'Suche abgeschlossen (mehr Ergebnisse verfügbar)';
   rsExistsOverrideConfirm = 'Das Medium existiert bereits als "%s", soll es mit "%s" überschrieben werden?';
   rsOverrideConfirm = 'Soll das markierte Medium "%s" mit "%s" überschrieben werden?';
-  rsChooseOrder = 'Es gibt mehrere vormerkbare/Bestellbare Exemplare. Welches wollen Sie? (Nummer eingeben)%s';
+  rsChooseOrder = 'Es gibt mehrere vormerkbare/Bestellbare Exemplare. Welches wollen Sie?';
   rsNoHoldingSelected = 'Es wurde nicht ausgewählt, welches Exemplar bestellt werden soll. (in der unteren Liste)';
   rsOrderConfirm = 'Soll "%s" bestellt werden?';
   rsOrderComplete = 'Das Buch "%s" wurde ohne Fehler vorgemerkt. %s';
@@ -588,6 +588,7 @@ var
   v: String;
   s: String;
   orderBook: TBook;
+  sl: TStringList;
 begin
   if (displayedBook = nil) or (searcherAccess = nil) then exit;
   if accounts.Count = 0 then exit;
@@ -609,12 +610,13 @@ begin
   searcherAccess.beginBookReading;
   try
     if StrToIntDef(orderBook.getPropertyAdditional('orderable'), 1) > 1 then begin
-      s := Format(rsChooseOrder, [LineEnding]);
+      sl := TStringList.Create;
       for i :=  0 to StrToIntDef(orderBook.getPropertyAdditional('orderable'), 1) - 1 do
-       s += inttostr(i+1)+': '+ orderBook.getPropertyAdditional('orderTitle'+inttostr(i))+LineEnding;
-      v := '1';
-      if not InputQuery('VideLibri', s, v) then exit;
-      orderBook.setProperty('choosenOrder', inttostr(strtointdef(v,1)-1));
+        sl.Add(orderBook.getPropertyAdditional('orderTitle'+inttostr(i)));
+      i := InputList('VideLibri', rsChooseOrder, sl );
+      sl.free;
+      if i < 0 then exit;
+      orderBook.setProperty('choosenOrder', inttostr(i));
     end else orderBook.setProperty('choosenOrder', '0');
   finally
     searcherAccess.endBookReading;
@@ -679,7 +681,7 @@ var
   orderConfirmationOptionTitles: String;
   temp: TStringArray;
   i: Integer;
-  v: string;
+  sl: TStringList;
 begin
   if sender <> searcherAccess then exit;
 
@@ -690,17 +692,20 @@ begin
 
   question := StringReplace(question, '\n', LineEnding, [rfReplaceAll]);
   if orderConfirmationOptionTitles <> '' then begin
-    question += rsNumberNeeded;
+    sl := TStringList.Create;
     temp := strSplit(orderConfirmationOptionTitles, '\|');
     for i := 0 to high(temp) do
-      question += LineEnding + IntToStr(i+1) +':'  + temp[i];
-    v := '1';
+      sl.add(temp[i]);
     screen.Cursor:=crDefault;
-    if not InputQuery('VideLibri', question, v) then exit;
+    i := InputList('VideLibri', question, sl );
+    sl.free;
+    if i < 0 then exit;
+
+
     screen.Cursor:=crHourGlass;
 
     searcherAccess.beginBookReading;
-    book.setProperty('choosenConfirmation', inttostr(strtointdef(v,1)));
+    book.setProperty('choosenConfirmation', IntToStr(i + 1));
     searcherAccess.endBookReading;
 
     searcherAccess.orderConfirmedAsync(book);
@@ -715,21 +720,20 @@ end;
 
 procedure TbookSearchFrm.searcherAccessTakePendingMessage(sender: TObject; book: TBook; pendingMessage: TPendingMessage);
 var
-  question: String;
-  v: AnsiString;
   i: Integer;
+  sl: TStringList;
 begin
   screen.Cursor:=crDefault;
   case pendingMessage.kind of
     pmkChoose: begin
-      question := pendingMessage.caption + rsNumberNeeded;
-      for i := 0 to high(pendingMessage.options) do
-        question += LineEnding + IntToStr(i+1) +':'  + pendingMessage.options[i];
-      v := '1';
-      if not InputQuery('VideLibri', question, v) then v := '0';
+      sl := TStringList.Create;
+      for i :=  0 to high(pendingMessage.options) do
+        sl.Add(pendingMessage.options[i]);
+      i := InputList('VideLibri', pendingMessage.caption, sl );
+      sl.free;
       screen.Cursor:=crHourGlass;
 
-      searcherAccess.completePendingMessage(book, pendingMessage, StrToIntDef(v, 0) - 1);
+      searcherAccess.completePendingMessage(book, pendingMessage, i);
     end;
     pmkConfirm: begin
       searcherAccess.completePendingMessage(book, pendingMessage, ifthen(confirm(pendingMessage.caption), 1, 0));
