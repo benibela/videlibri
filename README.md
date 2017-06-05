@@ -32,7 +32,10 @@ The biggest contribution are reports about changes on the account page of the ca
 
 You do not need to contribute to VideLibri in order to use it with an untested library, just like you do not need to contribute to Firefox in order to visit a webpage. See the backend section above, or [this (German) tutorial](http://www.videlibri.de/help/neuebibliothek.html). 
 
-The source is structured in individual layers that are and must remain strictly separated from each other. Everything related to individual library systems is stored with the self-learned pattern matching in  data/libraries/templates/. These templates have no access to any part of the GUI. Similarly the Pascal and Java source code does not contain anything related to library systems (except for the glue code passing data between GUI and templates) and the GUI is a dumb view displaying whatever data the templates send. The interpreters of the templates/pattern matching have been moved to the repository internettools, thus ensuring they remain independent of libraries.
+The source is structured in individual layers that are and must remain strictly separated from each other. Everything related to individual library systems is stored with the self-learned pattern matching in  data/libraries/templates/. These templates have no access to any part of the GUI. Similarly the Pascal and Java source code does not contain anything related to library systems (except for the glue code passing data between GUI and templates) and the GUI is a dumb view displaying whatever data the templates send. 
+
+
+VideLibri depends on several libraries that are stored in their own repositories  (see internettools, flre, treelistview, diagram, rcmdline) and that all need to be in the compiler search path, if you want to compile it. To compile the desktop version, you open bookWatch.lpi in Lazarus and click the compile button. To compile the android version, you open videlibriandroid.lpi in Lazarus and click the compile button. Afterwards call `./gradlew assembleDebug`. 
 
 License
 -------------
