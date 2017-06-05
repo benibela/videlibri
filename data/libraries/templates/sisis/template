@@ -116,8 +116,8 @@
 </action>-->
 
 <action id="search-connect">
-  <call action="connect"/>
   <s>$home-branches := $search-branches := (), $home-branch-id := $search-branch-id := 0</s>
+  <call action="connect"/>
 </action>
 
 
