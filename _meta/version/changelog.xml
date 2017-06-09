@@ -1,42 +1,42 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?xml-stylesheet type="text/xsl" href="../changelog.xsl"?>
 <changelog program="VideLibri">
-      <build version="1887" date="2017-05-08">
-        <download url="http://videlibri.sourceforge.net/updates/videlibri-setup.exe" platform="WINDOWS" execute="&quot;$DOWNLOAD&quot;  /SP- /noicons &quot;/dir=$OLDPATH&quot; " restart="true"/>
-        <download url="http://videlibri.sourceforge.net/updates/videlibri-linux32.deb" platform="LINUX32" execute=""/>
-        <download url="http://videlibri.sourceforge.net/updates/videlibri-linux64.deb" platform="LINUX64" execute=""/>
-        <change>android: Frage bei jeder Vormerkung, für welches Konto die Vormerkung erfolgen soll, damit es nicht sofort ohne Nachfrage etwas vormerkt, wenn jemand aus Versehen auf den Vormerkbutton drückt.</change>
-        <change>android: Sortiere das lokale Land an den Anfang der Bibliothekliste.</change>
-        <fix>Desktop: Verwende wieder das korrekte Datumsformat.</fix>
-        <fix>Neue OPAC/Web-Addressen für Universitätsbibliothek Regensburg, Universitätsbibliothek Bamberg, Technische Informationsbibliothek/Universitätsbibliothek Hannover und Universitätsbibliothek Hohenheim.</fix>
-        <fix>Netbiblio/Stadtbibliothek Biel: Anzeige von Suchergebnissen einer Einzelseite ohne "nächste Seite"-Button im Katalog; und wenn die Katalogsprache nicht deutsch ist</fix>
-        <fix>android: Behebt Absturz bei einem Timeout der Suche, wenn keine eindeutige Bibliothek zur Suche ausgewählt ist.</fix>
-        <add>Netbiblio/Stadtbibliothek Biel: Reservierungsfunktion mit dem neuen Vormerksystem.</add>
-      </build>
-      <build version="1885" date="2017-04-11">
-        <change>Speichert die für die Suche auswählbaren Zweigstellen jeder Bibliothek lokal, so dass eine neue Suche augenblicklich ohne Pause gestartet werden kann. ( Bisher wurde die Liste der Zweigstellen bei jedem Aufruf der Suchfunktionalität in VideLibri heruntergeladen, und wenn man währenddessen den Suchbutton drückt, hat die App gehangen, bis der Download abgeschlossen war )</change>
-        <add>Vollständig neues Vormerkungssystem, welches für jedes bestellbare Exemplar beliebige bibliografische Daten speichern kann. (alle auswählbaren Bibliothek verwenden jedoch noch die alten Systeme)</add>
-        <change>Desktopversion: Im Suchfenster auswählbare Städte sind nun nach Bundesland gruppiert statt nur in einer Liste gelistet zu sein. Es werden keine Hinweise mehr angezeigt, wie Titel/Autor in der Digibib verarbeitet werden, da VideLibri seit Jahren auch ohne Digibib suchen kann.</change>
-        <fix>Neue HTTPS-Zertifikate für die Stadtbibliothek München, Düsseldorf, Braunschweig, Stolberg, Hannover und die Hochschulbibliotheken Zittau/Görlitz und Jena.</fix>
-        <fix>behebt Memory-Leaks</fix>
-        <fix>Neue Adressen für SLUB Dresden und Stadtbibliothek Erlangen (vermutlich jedoch sinnlos, da keine Anpassung an neue Katalog).</fix>
-        <change>Allgemein optimiertes Downloadsystem, welches alle Webseiten etwas schneller aufrufen kann.</change>
-     </build>
-      <build version="1880" date="2017-03-12">
-        <change>Modernisierung des intern simulierten Webbrowsers: Sende Anfragen als latin1 statt utf-8, wenn die Seite nicht explizit utf-8 verwendet. Folge der Cookie-RFC, so dass Cookies, die von einem Server für eine Einzelseite gesetzt werden, auch für andere Seiten auf demselben Server nicht verfügbar sind.</change>
-        <change>bibliotheca/netbiblio: Verwende t:siblings, so dass es mit mehr unbekannten Bibliotheken funktionieren sollte</change>
-        <fix>Anpassung an geänderte Serveradresse der Stadtbibliothek Stralsund und Bibliothek Witten. Sowie der Suche bei Universitätsbibliothek der HU-Berlin und Universitätsbibliothek der FU-Berlin</fix>
-        <fix>Anpassung an geänderte Loginseite der Badischen Landesbibliothek (Karlsruhe).</fix>
-        <add>primo, Universitätsbibliotheken TU/HU/FU-Berlin: Anzeige von Standortdaten</add>
-        <add>t:siblings-header/t:siblings-Befehle im Pattern Matching, die VideLibri mitteilen, dass die Spalten einer Tabelle beliebig permutiert werden dürfen. </add>
-        <change>ausführlichere Fehlermeldungen</change>
-     </build>
-      <build version="1873" date="2017-02-02">
-        <change>Noch strengere Cookie-Abschirmung, die Server anhand der Subdomain nicht nur der Domain unterscheidet. </change>
-        <fix>Stadtbücherei Erbach: Anpassung an neuen OPAC</fix>
-        <fix>libero 6/Saarbrücken: Teste, ob VideLibri bereits im Katalog eingeloggt ist, und wenn ja, überspringe den Einlogvorgang. </fix>
-        <add>digibib/FH Münster: Neuimplementation der Konto-Anzeige und Verlängerung</add>
-     </build>
+  <build version="1887" date="2017-05-08">
+    <download url="http://videlibri.sourceforge.net/updates/videlibri-setup.exe" platform="WINDOWS" execute="&quot;$DOWNLOAD&quot;  /SP- /noicons &quot;/dir=$OLDPATH&quot; " restart="true"/>
+    <download url="http://videlibri.sourceforge.net/updates/videlibri-linux32.deb" platform="LINUX32" execute=""/>
+    <download url="http://videlibri.sourceforge.net/updates/videlibri-linux64.deb" platform="LINUX64" execute=""/>
+    <change>android: Frage bei jeder Vormerkung, für welches Konto die Vormerkung erfolgen soll, damit es nicht sofort ohne Nachfrage etwas vormerkt, wenn jemand aus Versehen auf den Vormerkbutton drückt.</change>
+    <change>android: Sortiere das lokale Land an den Anfang der Bibliothekliste.</change>
+    <fix>Desktop: Verwende wieder das korrekte Datumsformat.</fix>
+    <fix>Neue OPAC/Web-Addressen für Universitätsbibliothek Regensburg, Universitätsbibliothek Bamberg, Technische Informationsbibliothek/Universitätsbibliothek Hannover und Universitätsbibliothek Hohenheim.</fix>
+    <fix>Netbiblio/Stadtbibliothek Biel: Anzeige von Suchergebnissen einer Einzelseite ohne "nächste Seite"-Button im Katalog; und wenn die Katalogsprache nicht deutsch ist</fix>
+    <fix>android: Behebt Absturz bei einem Timeout der Suche, wenn keine eindeutige Bibliothek zur Suche ausgewählt ist.</fix>
+    <add>Netbiblio/Stadtbibliothek Biel: Reservierungsfunktion mit dem neuen Vormerksystem.</add>
+  </build>
+  <build version="1885" date="2017-04-11">
+    <change>Speichert die für die Suche auswählbaren Zweigstellen jeder Bibliothek lokal, so dass eine neue Suche augenblicklich ohne Pause gestartet werden kann. ( Bisher wurde die Liste der Zweigstellen bei jedem Aufruf der Suchfunktionalität in VideLibri heruntergeladen, und wenn man währenddessen den Suchbutton drückt, hat die App gehangen, bis der Download abgeschlossen war )</change>
+    <add>Vollständig neues Vormerkungssystem, welches für jedes bestellbare Exemplar beliebige bibliografische Daten speichern kann. (alle auswählbaren Bibliothek verwenden jedoch noch die alten Systeme)</add>
+    <change>Desktopversion: Im Suchfenster auswählbare Städte sind nun nach Bundesland gruppiert statt nur in einer Liste gelistet zu sein. Es werden keine Hinweise mehr angezeigt, wie Titel/Autor in der Digibib verarbeitet werden, da VideLibri seit Jahren auch ohne Digibib suchen kann.</change>
+    <fix>Neue HTTPS-Zertifikate für die Stadtbibliothek München, Düsseldorf, Braunschweig, Stolberg, Hannover und die Hochschulbibliotheken Zittau/Görlitz und Jena.</fix>
+    <fix>behebt Memory-Leaks</fix>
+    <fix>Neue Adressen für SLUB Dresden und Stadtbibliothek Erlangen (vermutlich jedoch sinnlos, da keine Anpassung an neue Katalog).</fix>
+    <change>Allgemein optimiertes Downloadsystem, welches alle Webseiten etwas schneller aufrufen kann.</change>
+ </build>
+  <build version="1880" date="2017-03-12">
+    <change>Modernisierung des intern simulierten Webbrowsers: Sende Anfragen als latin1 statt utf-8, wenn die Seite nicht explizit utf-8 verwendet. Folge der Cookie-RFC, so dass Cookies, die von einem Server für eine Einzelseite gesetzt werden, auch für andere Seiten auf demselben Server nicht verfügbar sind.</change>
+    <change>bibliotheca/netbiblio: Verwende t:siblings, so dass es mit mehr unbekannten Bibliotheken funktionieren sollte</change>
+    <fix>Anpassung an geänderte Serveradresse der Stadtbibliothek Stralsund und Bibliothek Witten. Sowie der Suche bei Universitätsbibliothek der HU-Berlin und Universitätsbibliothek der FU-Berlin</fix>
+    <fix>Anpassung an geänderte Loginseite der Badischen Landesbibliothek (Karlsruhe).</fix>
+    <add>primo, Universitätsbibliotheken TU/HU/FU-Berlin: Anzeige von Standortdaten</add>
+    <add>t:siblings-header/t:siblings-Befehle im Pattern Matching, die VideLibri mitteilen, dass die Spalten einer Tabelle beliebig permutiert werden dürfen. </add>
+    <change>ausführlichere Fehlermeldungen</change>
+ </build>
+  <build version="1873" date="2017-02-02">
+    <change>Noch strengere Cookie-Abschirmung, die Server anhand der Subdomain nicht nur der Domain unterscheidet. </change>
+    <fix>Stadtbücherei Erbach: Anpassung an neuen OPAC</fix>
+    <fix>libero 6/Saarbrücken: Teste, ob VideLibri bereits im Katalog eingeloggt ist, und wenn ja, überspringe den Einlogvorgang. </fix>
+    <add>digibib/FH Münster: Neuimplementation der Konto-Anzeige und Verlängerung</add>
+ </build>
   <build version="1870" date="2017-01-23">
     <change>Cookies werden auch für jeden Server separat statt nur nach Benutzerkonto getrennt gespeichert, so dass Server keinen Zugriff auf Cookies anderer Server haben, selbst wenn beide Server zur selben Bibliothek gehören.</change>
     <fix>Verhindert, dass sich das ALMA-System und der Studentenlogin-Server der Universitätsbibliotheken der HU/TU-Berlin gegenseitig ihre Cookies überschreiben.</fix>
@@ -175,7 +175,7 @@ Die Desktopversion ist weiterhin mit fpc 3.0 kompiliert, da fpc 3.1.1 beim optim
     <fix>Der HTML-Parser kommt nicht mehr durcheinander, wenn ungültige schließende DIV-Tags in Tabellen auftreten (für Oberhausen) </fix>
   </build>
   <build version="1690" date="2015-04-06">
-    <fix>Hochschulbibliothek Magdeburg/Stendal, Stb Gießen, ULB Düsseldorf, Münster: Anpassung an neue Katalog-URL</fix>
+    <fix>Hochschulbibliothek Magdeburg/Stendal, Stb Gießen, Universitäts- und Landesbibliothek Düsseldorf, Münster: Anpassung an neue Katalog-URL</fix>
     <change>Die Android-Version ist nun kompiliert mit FreePascal 3.1.1 (r30435) und Lazarus 1.5 (r48633) statt FreePascal 2.7.1 und Lazarus 1.1, wodurch es unter Android 4.4 x86 nicht mehr crashen sollte.</change>
     <change>Die Desktop-Version verwendet nun Lazarus 1.5 (und unverändert FreePascal 2.6).</change>
     <change>Update zu einer neuen Version der Regulären-Ausdruck-Library, da die bisherige keine alten ARM Systeme unterstützt hat.</change>
@@ -278,7 +278,7 @@ Die Desktopversion ist weiterhin mit fpc 3.0 kompiliert, da fpc 3.1.1 beim optim
   </build>
   <build version="1620" date="2013-11-23">
     <fix>zones (z.B.: Lübeck): Verwende die aktuelle Sitzung für Verlängerungen und Vormerken, anstatt zu versuchen, sich erneut im Katalog anzumelden (was fehlschlägt, weil die Sitzung nicht beendet wurde)</fix>
-    <change>Erlaube beliebige Sonderzeichen in Benutzernummern (behebt Crash bei der ULB Münster)</change>
+    <change>Erlaube beliebige Sonderzeichen in Benutzernummern (behebt Crash bei der Universitäts- und Landesbibliothek Münster)</change>
   </build>
   <build version="1615" date="2013-11-14">
     <fix>Universitätsbibliothek Hohenheim (Stuttgart): geänderte Serverparameter  </fix>
@@ -298,7 +298,7 @@ Die Desktopversion ist weiterhin mit fpc 3.0 kompiliert, da fpc 3.1.1 beim optim
     <add level="major">Unterstützung für Zones 1.8 (z.B.: Stadtbibliothek Lübeck, Stadtbibliothek Köln, Stadtbücherei Kiel, Stadtbibliothek Hannover, Stadtbibliothek Koblenz).</add>
     <change>Templates: Unterstützung fürs Rechnen mit arbitrary-precision Zahlen (bis zu 19327352832 Stellen Genauigkeit mal einem Exponenten von 10^-2147483648 bis 10^2147483647)</change>
     <change>Templates: markierte html-Elemente können beim Matching übersprungen werden</change>
-    <fix>Sisis (FHB Münster): Zeige abholbereite Bestellungen statt die Aktualisierung abzubrechen</fix>
+    <fix>Sisis (FHB/Fachhochschulbibliothek Münster): Zeige abholbereite Bestellungen statt die Aktualisierung abzubrechen</fix>
     <fix>Stabi Berlin: Zeige irgendein Exemplar an, wenn mehrere Medien mit derselben Signatur existieren, statt die Aktualisierung abzubrechen</fix>
     <fix>ZHB Lübeck: Anpassung an nicht Standard-PICA Titel in Ausleihentabelle</fix>
     <fix>HU Berlin: Anpassung an neue Ausleihentabelle; HU/FU/TU Berlin: Deaktivierung der primo-Verlängerung, so dass die Aleph-Verlängerung wieder funktioniert</fix>    
@@ -345,7 +345,7 @@ Die Desktopversion ist weiterhin mit fpc 3.0 kompiliert, da fpc 3.1.1 beim optim
   <add level="minor">Auflistung aller Bibliotheken, deren Suche mit dem aDISWeb-Template funktioniert. Also: Bibliothek der Hochschule Aalen, Hochschulbibliothek Albstadt-Sigmaringen, Bibliothek der HS Biberach, Hochschulbibliothek Esslingen, Bibliothek der Hochschule für Musik Freiburg, Bibliothek der Zeppelin Universität, Bibliotheken der Hochschule Furtwangen, Bibliothek der HfG Schwäbisch Gmünd, Bibliothek der PH Gmünd, Bibliothek der Pädagogischen Hochschule Heidelberg, Bibliothek der DHBW Heidenheim, Hochschulbibliothek Heilbronn, Badische Landesbibliothek, Bibliothek der Hochschule für Musik Karlsruhe, Hochschulbibliothek der Ph Karlsruhe, Hochschulbibliothek Kehl, Bibliothek der HTWG Konstanz, Bibliothek der DHBW Lörrach, Bibliothek der Wissenschaftlichen Regionalbibliothek Lörrach, Pädagogische Hochschulbibliothek Ludwigsburg, Bibliothek der DHBW Mannheim, Hochschulbibliothek Mannheim, Bibliothek der Musikhochschule Mannheim, Bibliothek des Technoseum, Hochschulbibliothek Mosbach, Stadtbibliothek im Bildungscampus Nürnberg, Hochschulbibliothek HWU Nürtingen-Geislingen, Hochschulbibliothek Offenburg, Bibliothek der Hochschule Pforzheim, Bibliothek der DHBW Ravensburg-Friedrichshafen, Bibliothek de Hochschule Reutlingen, Bibliothek der Hochschule Rottenburg, Bibliothek der staatlichen Akademie der Künste Stuttgart, Bibliothek der DHBW Stuttgart, Bibliothek der DHS Stuttgart Campus Horb, Bibliothek der Hochschule der Medien Stuttgart, Bibliothek der HFT Stuttgart, Bibliothek der Hochschule für Musik und darstellende Kunst, Universitätsbibliothek Hohenheim, Bibliothek der Musikhochschule Trossingen, Universitätsbibliothek Tübingen, Bibliothek der Hochschule Ulm, Universitätsbibliothek Ulm, Bibliothek der Dualen Hochschule Villingen-Schwenningen, Bibliothek der Hochschule für Polizei Villingen-Schwenningen, Hochschulbibliothek Weingarten</add>
   <change level="minor">Neue Bibliotheken können über die GUI registriert werden, anstatt nur über Änderung der XML-Dateien</change>
   <add>Medien können bestellt/vorgemerkt werden, und auch wieder abgebrochen werden</add>
-  <change>ULB Düsseldorf: verwendet wieder den alten Katalog</change>
+  <change>Universitäts- und Landesbibliothek Düsseldorf: verwendet wieder den alten Katalog</change>
   </build>
   <build version="1402" date="2013-04-17">
     <fix level="major">Münchener Stadtbibliothek: Unterstützung für neue Katalogversion</fix>
@@ -353,7 +353,7 @@ Die Desktopversion ist weiterhin mit fpc 3.0 kompiliert, da fpc 3.1.1 beim optim
   <build version="1400" date="2013-03-22">
     <fix level="major">Münchener Stadtbibliothek: Behebt Fehler bei genau einem ausgeliehenen Buch, behebt Verlängerungsfehler</fix>
     <fix level="minor">FU Berlin: Behebt Fehler bei genau einem ausgeliehenen Buch</fix>
-    <fix level="major">ULB Düsseldorf: Anpassung an neuen Katalog</fix>
+    <fix level="major">Universitätsbibliothek Düsseldorf: Anpassung an neuen Katalog</fix>
     <change>Reaktiviert die SSL-Zertifikatüberprüfung, mit einer zusätzlichen Option, um sie zu deaktivieren.</change>
     <change>Templatesyntax: Die Syntax für Variablen in "-Strings wurde geändert, JSONiq wird nun unterstützt, "extend" und "limitDate" wurde in "renew" und "dueDate" umbenannt, um kompatibel zu PAIA zu sein </change>
     <change>Geändertes Auto-Update-System, sollte nun den Installer auch aufrufen können, wenn VideLibri nicht als Administrator gestartet wurde</change>
@@ -404,14 +404,14 @@ Die Desktopversion ist weiterhin mit fpc 3.0 kompiliert, da fpc 3.1.1 beim optim
   </build>
   <build version="1115" date="2012-01-30">
     <change level="minor">Unterstützt die neue BTH Aachen Sisis version</change>
-    <change level="minor">Unterstützt die neue STB Düsseldorf Version</change>
+    <change level="minor">Unterstützt die neue Stadtbüchereien Düsseldorf Version</change>
     <fix level="minor">Kleinere Fehler behoben</fix>
   </build>
   <build version="1110" date="2011-09-25">
     <fix level="critical">Fix Crash unter deutschsprachigen Betriebsystemen</fix>
   </build>
   <build version="1100" date="2011-08-16">
-    <fix level="critical">Unterstützung für den 2.2.1 STB Düsseldorf OPAC</fix>
+    <fix level="critical">Unterstützung für den 2.2.1 Stadtbüchereien Düsseldorf OPAC</fix>
     <fix level="major">Unterstützung für die Digibib 6</fix>
     <change level="major">Die Templates sind jetzt nahezu vollständig XPath 2 kompatibel (womöglich ist VideLibri jetzt die einzige existierende Pascal XPath 2 Implementierung)</change>
     <add level="minor">E-Mailbenachrichtigungen</add>
@@ -419,13 +419,13 @@ Die Desktopversion ist weiterhin mit fpc 3.0 kompiliert, da fpc 3.1.1 beim optim
   <build version="1000" date="2011-05-17">
     <add level="minor">Neue Büchereien dank EDSync/Martin Kim Dung-Pham: Campus Katalog Hamburg (und prinzipiell alle anderen GBV-Bibliotheken)</add>
     <fix level="minor">Die Digibibsuche geht wieder</fix>
-    <fix level="minor">Die Verlängerung der FHB Düsseldorf funktioniert wieder (sollte zumindest, aber ich gehe da nicht nochmal zum Testen hin)</fix>
+    <fix level="minor">Die Verlängerung der FHB/Fachhochschulbibliothek Düsseldorf funktioniert wieder (sollte zumindest, aber ich gehe da nicht nochmal zum Testen hin)</fix>
     <fix level="minor">Windows-Fehler behoben: Eine zweite Instanz öffnet wieder das Fenster der ersten.</fix>
   </build>
   <build version="0999" date="2011-03-07">
     <change level="minor">Leicht verbesserte Templateverarbeitung (für die, die ihre eigenen Templates schreiben)</change>
-    <change level="major">Angepasst an neuen STB Düsseldorf WebOPAC</change>
-    <fix level="major">ULB Düsseldorf Verlängerungsfehler behoben</fix>
+    <change level="major">Angepasst an neuen WebOPAC der Stadtbüchereien Düsseldorf </change>
+    <fix level="major">Universitäts- und Landesbibliothek Düsseldorf Verlängerungsfehler behoben</fix>
     <add level="major">Neue Büchereien dank Leonid: Universitätsbibliothek der TU/HU/FU Berlin und die Staatsbibliothek zu Berlin</add>
     <fix level="minor">Kleinere Dinge</fix>
   </build>
@@ -433,30 +433,30 @@ Die Desktopversion ist weiterhin mit fpc 3.0 kompiliert, da fpc 3.1.1 beim optim
     <change level="minor">Interne Templates neugeschrieben</change>
   </build>
   <build version="0997" date="2010-02-16">
-    <fix level="critical">FHB Düsseldorf: An Serverumzug angepasst. </fix>
-    <change level="major">FHB Bochum: gestrichen</change>
+    <fix level="critical">FHB/Fachhochschulbibliothek Düsseldorf: An Serverumzug angepasst. </fix>
+    <change level="major">FHB/Fachhochschulbibliothek Bochum: gestrichen</change>
     <change level="major">Läuft nun unter Linux</change>
     <add level="major">Unterstützt nun auch die Stadtbibliothek Aachen</add>
     <add level="major">Unterstützt nun auch die Hochschulbibliothek der RWTH Aachen</add>
   </build>
   <build version="0995" date="2008-11-07">
-    <fix level="minor">FHB: Kein Fehler mehr, wenn keine Medien ausgeliehen sind. </fix>
+    <fix level="minor">FHB (Fachhochschulbibliothek): Kein Fehler mehr, wenn keine Medien ausgeliehen sind. </fix>
   </build>
   <build version="0994" date="2008-10-15">
     <fix level="minor">Größere Icons</fix>
     <fix level="minor">Keine Textüberlappungen mehr, wenn in Windows große Schrift aktiviert wurde</fix>
   </build>
   <build version="0993" date="2008-09-03">
-    <fix level="critical">FHB: Die Änderung der Seitenstruktur wurde übernommen</fix>
+    <fix level="critical">FHB (Fachhochschulbibliothek): Die Änderung der Seitenstruktur wurde übernommen</fix>
     <fix level="major">Das nicht automatische Verlängern funktioniert nun auch zuverlässiger</fix>
     <fix level="minor">Die Liste verschwindet bei XP-Themes nicht mehr beim Fenstervergrößern</fix>
   </build>
   <build version="0992" date="2008-08-30">
-    <fix level="critical">ULB: Die Änderung der Seitenstruktur wurde übernommen</fix>
+    <fix level="critical">Universitäts- und Landesbibliothek Düsseldorf: Die Änderung der Seitenstruktur wurde übernommen</fix>
     <fix level="critical">Die Autoupdatefunktion wurde repariert</fix>
   </build>
   <build version="0991" date="2008-08-24">
-    <fix level="major">STB: Ein Film wird nun auch angezeigt, wenn statt &lt;Jahr> nur &lt;Jahr im WebOPAC steht</fix>
+    <fix level="major">Stadtbüchereien Düsseldorf: Ein Film wird nun auch angezeigt, wenn statt &lt;Jahr> nur &lt;Jahr im WebOPAC steht</fix>
     <fix level="minor">In den Autostartmeldungen/fenstern werden die Umlaute richtig angezeigt</fix>
     <fix>Das Programmicon wird jetzt zusammen mit dem Fenstericon geändert</fix>
     <change>Die Woche beginnt nun Montags</change>
@@ -466,26 +466,26 @@ Die Desktopversion ist weiterhin mit fpc 3.0 kompiliert, da fpc 3.1.1 beim optim
     <add level="minor">In der gleichen Woche abzugebende Medien sind markiert</add>
     <change level="minor">Die Statistik wird nun schneller berechnet (Faktor "Zeit der Programmbenutzung" durch "Ausleihzeit eines Medium" ersetzt)</change>
     <change level="minor">Statt der Listenanzeige von Windows wird eine selbstentwickelte benutzt, so dass das Programm paradoxerweise dem übliche Windows XP Design entspricht. </change>
-    <fix level="minor">FHB: Die Statistik funktioniert nun auch hier</fix>
-    <fix level="critical">STB: Berücksichtigung einer weiteren Änderung der Websitenstruktur</fix>
+    <fix level="minor">FHB (Fachhochschulbibliothek): Die Statistik funktioniert nun auch hier</fix>
+    <fix level="critical">Stadtbüchereien Düsseldorf: Berücksichtigung einer weiteren Änderung der Websitenstruktur</fix>
   </build>
   <build version="0989" date="2008-04-24">
-    <fix level="critical">STB: Berücksichtigung einer weiteren Änderung der Websitenstruktur</fix>
+    <fix level="critical">Stadtbüchereien Düsseldorf: Berücksichtigung einer weiteren Änderung der Websitenstruktur</fix>
   </build>
   <build version="0988" date="2008-02-28">
-    <fix level="critical">STB: Berücksichtigung einer erneuten Änderung der Websitenstruktur</fix>
+    <fix level="critical">Stadtbüchereien Düsseldorf: Berücksichtigung einer erneuten Änderung der Websitenstruktur</fix>
     <change>Erlaubt Verschachtelungen in den pseudo-XPath-Ausdrücken (verwendet sie aber nicht)</change>
   </build>
   <build version="0987" date="2008-02-10">
-    <fix level="major">(FHB: )Es wurde wieder ein Fehler mit dem nicht erkannten Umlaut "in März" beseitigt</fix>
+    <fix level="major">(Fachhochschulbibliothek: )Es wurde wieder ein Fehler mit dem nicht erkannten Umlaut "in März" beseitigt</fix>
     <change>Die xml-Dateien lassen sind nun valides xml.</change>
     <change>HTTP-Cookies werden vom Programm selber und für jedes Konto einzeln verwaltet.</change>
-    <fix level="critical">STB: Es gibt beim Verlängern keine Vermischungen mehr zwischen Konten</fix>
-    <fix level="minor">STB: Eine Bandnummer lässt nicht mehr den Titel verschwinden</fix>
+    <fix level="critical">Stadtbüchereien Düsseldorf: Es gibt beim Verlängern keine Vermischungen mehr zwischen Konten</fix>
+    <fix level="minor">Stadtbüchereien Düsseldorf: Eine Bandnummer lässt nicht mehr den Titel verschwinden</fix>
   </build>
   <build version="0985" date="2007-11-29">
-    <fix level="critical">Das Programm startet nun auch wieder, wenn Medien der FHB vorgemerkt sind.</fix>
-    <fix level="critical">Das rückgabefrist-abhängige Verlängern funktioniert nun auch wieder bei der STB.</fix>
+    <fix level="critical">Das Programm startet nun auch wieder, wenn Medien der FHB (Fachhochschulbibliothek) vorgemerkt sind.</fix>
+    <fix level="critical">Das rückgabefrist-abhängige Verlängern funktioniert nun auch wieder bei den Stadtbüchereien Düsseldorf.</fix>
     <change>Die Buttons sind wieder flach</change>
   </build>
   <build version="0980" date="2007-10-31">
@@ -496,7 +496,7 @@ Die Desktopversion ist weiterhin mit fpc 3.0 kompiliert, da fpc 3.1.1 beim optim
     <change>Das Büchereiseiten-Auslesen wurde komplett überarbeitet.</change>
     <change>Die Bücherdaten werden jetzt als UTF-8 gespeichert.</change>
     <add>Die Spalten der Bücherliste können verschoben werden und die Zahl der Markierungen wird angezeigt</add>
-    <add>Das Erscheinungsjahr der Medien wird angezeigt (nur ULB)</add>
+    <add>Das Erscheinungsjahr der Medien wird angezeigt (nur Universitäts- und Landesbibliothek Düsseldorf)</add>
     <add>Es gibt eine BibTex-Exportroutine für Literaturverzeichnisse.</add>
   </build>
   <build version="0950" date="2007-06-25">
@@ -506,7 +506,7 @@ Die Desktopversion ist weiterhin mit fpc 3.0 kompiliert, da fpc 3.1.1 beim optim
     <fix>Das Medienlistenkontextmenü funktioniert nun immer.</fix>
   </build>
   <build version="0906" date="2007-06-04">
-    <fix>Bei den Medien der FHB sind die Monate Juni bis September nicht mehr verschoben.</fix>
+    <fix>Bei den Medien der FHB (Fachhochschulbibliothek) sind die Monate Juni bis September nicht mehr verschoben.</fix>
   </build>
   <build version="0905" date="2007-05-12">
     <fix>Die Icons der Symbolleiste werden nun auch unter Windows 9x angezeigt.</fix>
@@ -520,7 +520,7 @@ Die Desktopversion ist weiterhin mit fpc 3.0 kompiliert, da fpc 3.1.1 beim optim
     <change>Läuft das Programm schon beim Aufruf, wird nur die laufende Version geöffnet.</change>
   </build>
   <build version="0902" date="2007-02-27">
-    <fix>Es werden nun auch wieder im März fällige Bücher der FHB erkannt.</fix> <!--Problem war: der Umlaut wurde nicht gelesen.--> 
+    <fix>Es werden nun auch wieder im März fällige Bücher der FHB (Fachhochschulbibliothek) erkannt.</fix> <!--Problem war: der Umlaut wurde nicht gelesen.--> 
     <fix>Das Benutzerverzeichnis wird nun auch gefunden, wenn der Pfad in machine.config nur relativ angegeben ist.</fix>
   </build>
 </changelog>
