@@ -1,3 +1,6 @@
+id-list := 12/435:X XYZ
 book := {}
-book := {"duedate": "2011-05-30", "status": "borrowed byg (0 reminders);", "select(id)": "12/345:X YSZ 12345"}
+tempbook := {"duedate": "2011-05-30", "status": "borrowed byg (0 reminders);", "select(id)": "12/345:X YSZ 12345"}
+need-update := true()
+tempbook := {"duedate": "2011-05-30", "status": "borrowed by (0 reminders);", "select(id)": "12/435:X XYZ"}
 book := {"duedate": "2011-05-30", "status": "borrowed by (0 reminders);", "select(id)": "12/435:X XYZ"}

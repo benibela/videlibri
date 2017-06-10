@@ -40,13 +40,17 @@
 </action>
 
 <action id="renew-list">
-  <variable name="book-list">string-join(for $book in $renew-books return x"VB={$book.extendId}", "&amp;")</variable> 
+  <s>$book-list := string-join(for $book in $renew-books return x"VB={$book.extendId}", "&amp;"),
+     $id-list := $renew-books("id")
+     $need-update := false()
+  </variable> 
   <page url="{$loanServer}/USERINFO" templateFile="extend">
     <post name="ACT" value="UI_RENEWLOAN"/>
     <post name="BOR_U" value="{$username}"/>
     <post name="BOR_PW" value="{$password}"/>
     <post value="{$book-list}"/>
   </page>
+  <if test="$need-update"><call action="update-all"/></if>
 </action>
 
 

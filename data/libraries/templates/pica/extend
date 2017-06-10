@@ -11,11 +11,13 @@
         <tr><td class="plain"> <!--TITEL/AUTOR--></td></tr>
         <tr><td>
           <span class="label-small">Signatur:<!--shelf mark--></span>
-          {book:=object(("select(id)", extract(text(),'[^;]*')))} 
+          {$tempbook := { "select(id)": extract(text(),'[^;]*') }}
           <span class="label-small"><!--status:-->Status:</span>
-          <template:read var="book.status" source="text()"/>
+          {$tempbook.status := text()}
           <span class="label-small">Leihfristende:<!--expiry date:--></span>
-          <template:read source="parse-date(text(), 'dd-mm-yyyy')" var="book.duedate"/>
+          {$tempbook.duedate := parse-date(text()),
+           if ($id-list = $tempbook("select(id)")) then $book := $tempbook else $need-update := true()
+          }          
         </td></tr>
       </table>
     </td>

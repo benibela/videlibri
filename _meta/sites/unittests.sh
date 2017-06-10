@@ -24,9 +24,9 @@ function ADDTEMPLATE {
 
 function test {
   system=$1; shift
-  TEMP=$system/$1; shift
+  TEMP="$system/$1"; shift
   for page in "$@"; do 
-    TEMPLATES=(${TEMPLATES[@]} $TEMP) 
+    TEMPLATES=(${TEMPLATES[@]} "$TEMP") 
     PAGES=(${PAGES[@]} "$system/$page")
   done
  
@@ -114,8 +114,8 @@ mkdir -p $OUTPATH/pica
 ADDTEMPLATE pica/update 4
 PAGES=(${PAGES[@]} pica/update3.html pica/update_abholen.html pica/update_luebeck.html pica/update_vormerk.khsb.html)
 
-ADDTEMPLATE pica/extend 1
-PAGES=(${PAGES[@]} pica/extend2.html)
+#use join, because test blows up with a space
+test pica 'extend{id-list:=join\(\(\"12/435:X\",\"XYZ\"\)\)}' extend2.html
 
 test pica 'searchDetails{\(\)/\(base:=\"\"\)}' searchDetails.html
 
