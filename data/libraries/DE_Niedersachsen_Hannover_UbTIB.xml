@@ -7,7 +7,7 @@
   <variable name="server" value="https://opac.tib.eu/"/>
 
 
-  <homepage value="http:///www.tib.eu"/>
+  <homepage value="https://www.tib.eu/"/>
   <testing-search value="ja" date="2013-04-26"/>
   <testing-account value="ja" date="2013-06-26"/>
   <testing-renew value="ja" date="2013-06-26"/>
