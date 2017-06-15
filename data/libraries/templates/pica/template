@@ -33,7 +33,12 @@
   </page>-->
   <variable name="reservations"/>
   <page url="{$loanServer}/USERINFO">
-  <template><form t:condition="contains(@action, 'USERINFO')">{login:=form(., {"ACT": "UI_LOL", "BOR_U": $username, "BOR_PW": $password })}</form></template>
+  <template>
+    <t:switch prioritized="true">
+      <form t:condition="contains(@action, 'USERINFO')">{login:=form(., {"ACT": "UI_LOL", "BOR_U": $username, "BOR_PW": $password })}</form>
+      <font color="red"><b>{vl:raise(.)}</b></font>
+    </t:switch>
+  </template>
   </page>
   <page url="{$login}" templateFile="update"/> 
   <page url="{$reservations}" templateFile="updateReservations"/> 
