@@ -1,19 +1,41 @@
-VideLibri
+VideLibri :books:
 =============
 VideLibri likely was the world's first app to access the web catalogs/OPACs of libraries as it has been developed continuously since 2006.
 It has all the usual features of their OPACs, e.g. viewing your account, searching books or ordering other items. It also renews all due books automatically and can do other things only a locally running app can do without privacy concerns, like keeping a history of all ever lend books to track your own reading habits.  
 
 So far VideLibri has been tested with 200 libraries successfully.
-It is platform-independent and currently [provides binaries](http://www.videlibri.de) for (Desktop) Windows, Linux and Android. At the moment its GUI is entirely in German as no support for any non-German-speaking library has been requested, but a translation can be made if wished for.
+It is platform-independent and currently [provides binaries](http://www.videlibri.de) for (Desktop) Windows, Linux and Android. At the moment its GUI is entirely in German as no support for any non-German-speaking library has been requested, but a translation can be made if asked for.
 
 ![on Windows](http://sourceforge.net/dbimage.php?id=280463) ![on Android](http://sourceforge.net/p/videlibri/screenshot/android.png)
 
 Backend
 -------------
 
-VideLibri was designed to be self-learning, so that it can learn the structure of any website automatically as far as feasible. This should ensure that VideLibri can be used with every possible library system, all existing libraries and all yet-to-be-founded libraries.
+Out-of-the-box VideLibri supports the following library catalog systems, OPACs, and open standard APIs:
 
-Towards this goal VideLibri implements several different query languages that are supposed to simplify the interaction with arbitrary webpages as much as possible:
+* aDIS/BMS
+* Aleph  (with 4 separate implementations for 4 different libraries as they were incompatible to each other)
+* Bibliotheca 
+* Bibliotheca+/OPEN 
+* Digibib 
+* Libero 5 
+* Netbiblio 
+* PAIA 
+* PICA 
+    * PICA standard 
+    * combined with Bibdia 
+    * combined with LBS     
+* Primo 
+* SISIS-SunRise (including Touchpoint)
+* SRU 
+* Websphere (WAS) 
+* Zones 1.8
+
+When you connect to an previously untested, unknown library in VideLibri, the app will ask for the system and then for the relevant parameters (usually the server URL and, if the system allows multiple OPACs on a single server, the database id ).
+
+However, a finite set of supported systems is not enough to access all libraries as there are libraries using other kinds of OPACs. In fact, they are not even enough to support a single library eternally, since libraries tend to replace their catalog with a new catalog system randomly and unannounced, and then you might not be able to renew your lendings anymore. Therefore it became necessary to develop a webscraping framework that can learn the structure of any OPAC and any webpage semi-automatically and should be simple enough that an end-user can understand it and use it to connect to their own library no matter which catalog system they use. This will ensure that VideLibri can be used with every possible library system, all existing libraries and all yet-to-be-founded libraries.
+
+Towards this goal VideLibri implements several different query languages and DSLs that should simplify the interaction with an arbitrary webpage as much as possible:
 
 - A pattern-matching "template" that selects arbitrary data from a single HTML page and can be automatically generated from an annotated sample of that page. (annotations are required, since fully autonomous learning would require a vast amount of test accounts and different search terms, and most users cannot get access to hundreds of library accounts)
 - A catalog of related pages to apply these patterns to multiple webpages. Its syntax is similar to XSLT and likewise it is almost Turing complete (i.e. it has the necessary control structures, but requires XPath to do calculations ). 
