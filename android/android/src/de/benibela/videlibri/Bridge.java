@@ -90,7 +90,7 @@ public class Bridge {
 
         @Override
         public String toString() {
-            return title;
+            return title; //used for copy to clipboard. where else? todo: probably add author
         }
 
         int getStatusColor(){

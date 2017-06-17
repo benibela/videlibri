@@ -281,7 +281,7 @@
     <string name="foreignlibrariesnotinthelist_mail">4. Eine E-Mail schreiben, damit die Bibliothek in der nächsten VideLibri-Version gelistet wird. </string>
     <string name="foreignlibrariesnotinthelist_mail_req">wozu ich (vor allem bei unbekannten System) eben ein Benutzerkonto zum Testen brauche. </string>
 
-    <string name="share_export_footer">\n\nvon meinem VideLibri gesendet</string>
+    <string name="share_export_footer">von meinem VideLibri gesendet</string>
     <string name="clipboard_copiedS">In Zwischenablage kopiert:\n%s</string>
 
 </resources>

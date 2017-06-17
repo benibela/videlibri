@@ -173,7 +173,7 @@ public class BookListActivity extends VideLibriBaseFragmentActivity{
     @Override
     protected void setSubMenuVisibility() {
         super.setSubMenuVisibility();
-        if (shareItem != null) shareItem.setVisible(detailsVisible());
+        if (shareItem != null) shareItem.setVisible(true);
     }
 
     @Override
@@ -182,9 +182,17 @@ public class BookListActivity extends VideLibriBaseFragmentActivity{
             case R.id.share: {
                 Intent sendIntent = new Intent();
                 sendIntent.setAction(Intent.ACTION_SEND);
-                sendIntent.putExtra(Intent.EXTRA_TEXT, details.exportShare(false) + tr(R.string.share_export_footer));
+                sendIntent.putExtra(Intent.EXTRA_TEXT,
+                        (listVisible() ? list.exportShare(false) + "\n\n" : "")
+                        + (detailsVisible() ? details.exportShare(false) + "\n\n" : "")
+                        + tr(R.string.share_export_footer)
+                );
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN)
-                    sendIntent.putExtra(Intent.EXTRA_HTML_TEXT, details.exportShare(true) + tr(R.string.share_export_footer));
+                    sendIntent.putExtra(Intent.EXTRA_HTML_TEXT,
+                            (listVisible() ? list.exportShare(true) + "\n\n" : "")
+                            + (detailsVisible() ? details.exportShare(true) + "\n\n" : "")
+                            + tr(R.string.share_export_footer)
+                    );
                 sendIntent.setType("text/plain");
                 startActivity(Intent.createChooser(sendIntent, getResources().getText(R.string.menu_share)));
                 return true;
@@ -193,7 +201,7 @@ public class BookListActivity extends VideLibriBaseFragmentActivity{
         return super.onOptionsItemIdSelectedOld(context, id);
     }
 
-    BookDetails.Details contextMenuSelectedItem;
+    Object contextMenuSelectedItem;
     @Override
     public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
         super.onCreateContextMenu(menu, v, menuInfo);
@@ -202,8 +210,7 @@ public class BookListActivity extends VideLibriBaseFragmentActivity{
         if (v instanceof ListView && menuInfo instanceof AdapterView.AdapterContextMenuInfo){
             ListView lv = (ListView) v;
             AdapterView.AdapterContextMenuInfo acmi = (AdapterView.AdapterContextMenuInfo) menuInfo;
-            Object tmp = lv.getItemAtPosition(acmi.position);
-            if (tmp instanceof BookDetails.Details) contextMenuSelectedItem = (BookDetails.Details)tmp;
+            contextMenuSelectedItem = lv.getItemAtPosition(acmi.position);
         }
     }
 
@@ -212,10 +219,15 @@ public class BookListActivity extends VideLibriBaseFragmentActivity{
         String toCopy = null;
         switch (item.getItemId()) {
             case R.id.copy:
-                toCopy = contextMenuSelectedItem != null ? contextMenuSelectedItem.toString() : "x";
+                toCopy = contextMenuSelectedItem != null ? contextMenuSelectedItem.toString() : "";
                 break;
             case R.id.copyall:
-                toCopy = details.exportShare(false);
+                if (!detailsVisible() || contextMenuSelectedItem instanceof Bridge.Book )
+                    toCopy = list.exportShare(false);
+                else if (contextMenuSelectedItem instanceof BookDetails.Details)
+                    toCopy = details.exportShare(false);
+                else
+                    toCopy = list.exportShare(false) + "\n\n" + details.exportShare(false); //this case should not happen
                 break;
         }
         if (toCopy != null) {
@@ -246,6 +258,10 @@ public class BookListActivity extends VideLibriBaseFragmentActivity{
     public boolean detailsVisible(){
         if (!port_mode) return true;
         return detailsPortHolder.getVisibility() == View.VISIBLE;
+    }
+    public boolean listVisible(){
+        if (!port_mode) return true;
+        return !detailsVisible();
     }
 
     @Override

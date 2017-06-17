@@ -178,4 +178,28 @@ class BookOverviewAdapter extends ArrayAdapter<Bridge.Book> {
         notifyDataSetChanged();
     }
 
+    /*ArrayList<Bridge.Book> getBooks(){
+        return books;
+    } */
+
+    String exportShare(){
+        StringBuilder sb = new StringBuilder();
+        for (int i=0;i<books.size();i++) {
+            Bridge.Book book = books.get(i);
+            boolean isGroupingHeader = options.contains(DisplayEnum.Grouped) && book.isGroupingHeaderFakeBook();
+            if (isGroupingHeader)
+                sb.append("\n");
+            sb.append(book.title);
+            sb.append(" ");
+            if (!isGroupingHeader && !options.contains(DisplayEnum.NoDetails))
+                sb.append(getBookMoreText(book));
+            if (!book.history) {
+                sb.append(": ");
+                sb.append(getBookDateText(book));
+            }
+            sb.append("\n");
+        }
+        return sb.toString();
+    }
+
 }
