@@ -1,6 +1,7 @@
 package de.benibela.videlibri;
 
 import android.app.Activity;
+import android.os.Build;
 import android.support.v4.app.FragmentTransaction;
 import android.content.Intent;
 import android.os.Bundle;
@@ -183,7 +184,8 @@ public class BookListActivity extends VideLibriBaseFragmentActivity{
                 Intent sendIntent = new Intent();
                 sendIntent.setAction(Intent.ACTION_SEND);
                 sendIntent.putExtra(Intent.EXTRA_TEXT, details.exportShare(false));
-                sendIntent.putExtra(Intent.EXTRA_HTML_TEXT, details.exportShare(true));
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+                    sendIntent.putExtra(Intent.EXTRA_HTML_TEXT, details.exportShare(true));
                 sendIntent.setType("text/plain");
                 startActivity(Intent.createChooser(sendIntent, getResources().getText(R.string.menu_share)));
                 return true;
