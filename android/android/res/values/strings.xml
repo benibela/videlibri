@@ -183,7 +183,7 @@
 
     <string name="week_from_to">Woche vom %1$s zum %2$s</string>
 
-    <string name="unknown_date">Unbekanntes Datum</string><string name="lay_options_label_filtering">Filter:</string><string name="lay_show_renewcount">Verlängerungsanzahl anzeigen</string>
+    <string name="unknown_date">Unbekanntes Datum</string><string name="lay_options_label_filtering">Filter:</string><string name="lay_show_renewcount">Verlängerungsanzahl anzeigen (falls bekannt)</string>
 
     <string-array name="sortable_properties_tr">
         <item>Keine</item>

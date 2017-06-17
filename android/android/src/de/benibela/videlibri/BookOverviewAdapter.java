@@ -85,8 +85,10 @@ class BookOverviewAdapter extends ArrayAdapter<Bridge.Book> {
                 case Ordered:  return tr_ordered;
                 default:
                     String t = Util.formatDate(book.dueDate);
-                    String renewCount = book.getProperty("renewCount");
-                    if (!"".equals(renewCount) && !"0".equals(renewCount)) t = renewCount + "V " + t;
+                    if (options.contains(DisplayEnum.ShowRenewCount)) {
+                        String renewCount = book.getProperty("renewCount");
+                        if (!"".equals(renewCount) && !"0".equals(renewCount)) t = renewCount + "V " + t;
+                    }
                     return t;
             }
         } else {
