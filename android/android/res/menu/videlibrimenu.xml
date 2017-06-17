@@ -33,6 +33,7 @@
                   />
 
     <item android:id="@+id/refresh" android:title="@string/menu_refreshall" android:icon="@android:drawable/ic_menu_rotate"/>
+    <item android:id="@+id/share" android:title="@string/menu_share" android:icon="@android:drawable/ic_menu_share"/>
     <item android:id="@+id/renewlist" android:title="@string/menu_renewlist" android:icon="@android:drawable/ic_menu_week"/>
     <item android:id="@+id/renew" android:title="@string/menu_renewall" android:icon="@android:drawable/ic_menu_month"/>
     <item android:id="@+id/import_" android:title="@string/menu_import" android:icon="@android:drawable/ic_menu_add"/>

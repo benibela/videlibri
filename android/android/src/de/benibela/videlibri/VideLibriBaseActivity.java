@@ -62,6 +62,7 @@ public class VideLibriBaseActivity extends AppCompatActivity implements Bridge.V
     }
 
     private MenuItem loadingItem, renewAllItem, renewListItem, refreshAllItem, exportItem;
+    protected MenuItem shareItem;
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -75,6 +76,8 @@ public class VideLibriBaseActivity extends AppCompatActivity implements Bridge.V
         renewAllItem = menu.findItem(R.id.renew);
         renewListItem = menu.findItem(R.id.renewlist);
         refreshAllItem = menu.findItem(R.id.refresh);
+        shareItem = menu.findItem(R.id.share);
+        if (shareItem != null) shareItem.setVisible(false);
         exportItem = menu.findItem(R.id.export);
         return super.onCreateOptionsMenu(menu);
     }
@@ -88,7 +91,7 @@ public class VideLibriBaseActivity extends AppCompatActivity implements Bridge.V
         return x;
     }
 
-    private void setSubMenuVisibility(){
+    protected void setSubMenuVisibility(){
         boolean hasAccounts = VideLibriApp.accounts.length > 0;
         if (renewAllItem != null) renewAllItem.setVisible(hasAccounts);
         if (renewListItem != null) renewListItem.setVisible(hasAccounts);

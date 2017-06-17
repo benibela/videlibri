@@ -170,6 +170,28 @@ public class BookListActivity extends VideLibriBaseFragmentActivity{
         details.setBook(bookCache.get(bookpos));
     }
 
+    @Override
+    protected void setSubMenuVisibility() {
+        super.setSubMenuVisibility();
+        if (shareItem != null) shareItem.setVisible(detailsVisible());
+    }
+
+    @Override
+    public boolean onOptionsItemIdSelectedOld(Activity context, int id) {
+        switch (id){
+            case R.id.share: {
+                Intent sendIntent = new Intent();
+                sendIntent.setAction(Intent.ACTION_SEND);
+                sendIntent.putExtra(Intent.EXTRA_TEXT, details.exportShare(false));
+                sendIntent.putExtra(Intent.EXTRA_HTML_TEXT, details.exportShare(true));
+                sendIntent.setType("text/plain");
+                startActivity(Intent.createChooser(sendIntent, getResources().getText(R.string.menu_share)));
+                return true;
+            }
+        }
+        return super.onOptionsItemIdSelectedOld(context, id);
+    }
+
     //shows the list. returns if the list was already visible
     public boolean showList(){
         if (!port_mode) return true;

@@ -424,6 +424,26 @@ public class BookDetails extends VideLibriFakeFragment {
         });
     }
 
+
+    String exportShare(boolean html){
+        StringBuilder sb = new StringBuilder();
+        for (int i=0;i<details.size();i++) {
+            if (html) sb.append("<b>");
+            sb.append(details.get(i).name);
+            if (html) sb.append("</b>");
+            if (details.get(i).name != null && !details.get(i).name.endsWith(":") ) sb.append(":");
+            sb.append("\n");
+            sb.append(details.get(i).data);
+            if (html) sb.append("<br>");
+            sb.append("\n\n");
+        }
+        sb.append("\n");
+        sb.append("\n");
+        sb.append("von meinem VideLibri gesendet");
+        return sb.toString();
+    }
+
+
     //from http://stackoverflow.com/questions/5776851/load-image-from-url
     static class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
         Bridge.Book book;
