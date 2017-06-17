@@ -46,7 +46,7 @@
 
 <action id="renew-list">
   <s>$book-list := string-join(for $book in $renew-books return x"VB={$book.extendId}", "&amp;"),
-     $id-list := $renew-books("id")
+     $id-list := $renew-books("id"),
      $need-update := false()
   </s> 
   <page url="{$loanServer}/USERINFO" templateFile="extend">
