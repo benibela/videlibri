@@ -142,8 +142,12 @@ public class Search extends VideLibriBaseActivity implements Bridge.SearchEventH
         if (searcher != null && searcher.nativePtr != 0) {
             for (Bridge.SearchEvent event: searcher.pendingEvents)
                 onSearchEvent(searcher, event);
-            searcher.pendingEvents.clear();
-            if (searcher.state != SEARCHER_STATE_INIT) endLoadingAll(LOADING_SEARCH_CONNECTING);
+        }
+        if (searcher != null){
+            if (searcher.pendingEvents != null)
+                searcher.pendingEvents.clear();
+            if (searcher.state != SEARCHER_STATE_INIT)
+                endLoadingAll(LOADING_SEARCH_CONNECTING);
         }
     }
 

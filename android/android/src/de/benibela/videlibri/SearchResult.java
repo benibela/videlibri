@@ -62,13 +62,14 @@ public class SearchResult extends BookListActivity implements Bridge.SearchEvent
     @Override
     protected void onResume() {
         super.onResume();
-        if (searcher != null) {
+        if (searcher != null && searcher.nativePtr != 0) {
             if (!cacheShown && bookCache != null)
                 displayBookCache(Math.max(bookCache.size(), searcher.totalResultCount));
             for (Bridge.SearchEvent event: searcher.pendingEvents)
                 onSearchEvent(searcher, event);
-            searcher.pendingEvents.clear();
         }
+        if (searcher != null && searcher.pendingEvents != null)
+            searcher.pendingEvents.clear();
     }
 
     @Override
