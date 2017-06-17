@@ -1,5 +1,6 @@
 package de.benibela.videlibri;
 
+import android.content.Context;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.view.Gravity;
@@ -24,6 +25,7 @@ class BookOverviewAdapter extends ArrayAdapter<Bridge.Book> {
     private Bridge.Book placeHolder;
     private int completeCount;
     private final EnumSet<DisplayEnum> options;
+    private final String tr_booklist_from, tr_provided, tr_ordered;
 
     enum DisplayEnum {
         NoDetails,
@@ -47,7 +49,12 @@ class BookOverviewAdapter extends ArrayAdapter<Bridge.Book> {
         placeHolder = new Bridge.Book();
         placeHolder.author = context.getString(R.string.booklist_loading);
 
+
+        tr_booklist_from = context.getString(R.string.booklist_from);
+        tr_provided = context.getString(R.string.book_status_provided);
+        tr_ordered = context.getString(R.string.book_status_ordered);
     }
+
 
     static class ViewHolder {
         public TextView caption, date, more;
@@ -58,6 +65,43 @@ class BookOverviewAdapter extends ArrayAdapter<Bridge.Book> {
         if (s.length() < 300) return s;
         else return s.substring(0,300) + "...";
     }
+
+    String getBookMoreText(Bridge.Book book){
+        String more = "";
+        if (!book.author.trim().equals(""))
+            if (!book.author.startsWith("von") && !book.author.startsWith("by")) more = tr_booklist_from + " " + shortened(book.author);
+            else more = " " + shortened(book.author);
+        String year = book.getProperty("year");
+        if (year != null && !"".equals(year)) more += " ; " + year;
+        String id = book.getProperty("id");
+        if (id != null && !"".equals(id)) more += " ; " + id;
+        return more;
+    }
+
+    String getBookDateText(Bridge.Book book){
+        if (book.account != null && !book.history ) { //lend book
+            switch (book.getStatus()) {
+                case Provided:  return tr_provided;
+                case Ordered:  return tr_ordered;
+                default:
+                    String t = Util.formatDate(book.dueDate);
+                    String renewCount = book.getProperty("renewCount");
+                    if (!"".equals(renewCount) && !"0".equals(renewCount)) t = renewCount + "V " + t;
+                    return t;
+            }
+        } else {
+            String s = "";
+            switch (book.getStatus()) {
+                case Available: s = "V"; break;
+                case Lend: s = "X"; break;
+                case Virtual: s = "?"; break;
+                case Presentation: s = "X"; break;
+                case InterLoan: s = "X"; break;
+            }
+            return s;
+        }
+    }
+
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
@@ -96,15 +140,7 @@ class BookOverviewAdapter extends ArrayAdapter<Bridge.Book> {
             if  (options.contains(DisplayEnum.Grouped))
                 holder.more.setVisibility(isGroupingHeader ? View.GONE : View.VISIBLE);
             if (!isGroupingHeader) {
-                String more = "";
-                if (!book.author.trim().equals(""))
-                    if (!book.author.startsWith("von") && !book.author.startsWith("by")) more = view.getContext().getString(R.string.booklist_from) + " " + shortened(book.author);
-                    else more = " " + shortened(book.author);
-                String year = book.getProperty("year");
-                if (year != null && !"".equals(year)) more += " ; " + year;
-                String id = book.getProperty("id");
-                if (id != null && !"".equals(id)) more += " ; " + id;
-                holder.more.setText(more);
+                holder.more.setText(getBookMoreText(book));
             }
         }
 
@@ -116,28 +152,8 @@ class BookOverviewAdapter extends ArrayAdapter<Bridge.Book> {
             else holder.layout.setBackgroundColor(defaultBackgroundColor);
         }
 
-        if (book.account != null && !book.history ) { //lend book
-            switch (book.getStatus()) {
-                case Provided:  holder.date.setText(view.getContext().getString(R.string.book_status_provided)); break;
-                case Ordered:  holder.date.setText(view.getContext().getString(R.string.book_status_ordered)); break;
-                default:
-                    String t = Util.formatDate(book.dueDate);
-                    String renewCount = book.getProperty("renewCount");
-                    if (!"".equals(renewCount) && !"0".equals(renewCount)) t = renewCount + "V " + t;
-                    holder.date.setText(t);
-                    break;
-            }
-        } else {
-            String s = "";
-            switch (book.getStatus()) {
-                case Available: s = "V"; break;
-                case Lend: s = "X"; break;
-                case Virtual: s = "?"; break;
-                case Presentation: s = "X"; break;
-                case InterLoan: s = "X"; break;
-            }
-            holder.date.setText(s);
-        }
+        holder.date.setText(getBookDateText(book));
+
         int c = book.getStatusColor();
         if (c == -1) c = defaultColor;
         //holder.caption.setTextColor(c);
