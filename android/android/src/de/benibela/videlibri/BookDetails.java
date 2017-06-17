@@ -40,6 +40,11 @@ public class BookDetails extends VideLibriFakeFragment {
             if (isAdditionalDisplayProperty(this.name)) this.name = this.name.substring(0,this.name.length()-1);
             if (data == null) this.data = "";
         }
+
+        @Override
+        public String toString() {
+            return name + ": " + data;
+        }
     }
     static class DetailsHolding extends Details{
         final boolean orderable;
@@ -231,6 +236,8 @@ public class BookDetails extends VideLibriFakeFragment {
 
     BookDetails (BookListActivity activity) {
         super(activity);
+        View lv = findViewById(R.id.bookdetailsview);
+        if (lv != null) activity.registerForContextMenu(lv);
     }
 
     void setBook(Bridge.Book newBook){
@@ -437,9 +444,6 @@ public class BookDetails extends VideLibriFakeFragment {
             if (html) sb.append("<br>");
             sb.append("\n\n");
         }
-        sb.append("\n");
-        sb.append("\n");
-        sb.append("von meinem VideLibri gesendet");
         return sb.toString();
     }
 

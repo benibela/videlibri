@@ -101,6 +101,8 @@
     <string name="menu_feedback">Feedback</string>
     <string name="menu_about">Über Videlibri</string>
     <string name="menu_misc">Sonstiges</string>
+    <string name="menu_context_copy">Kopieren</string>
+    <string name="menu_context_copyall">Alles kopieren</string>
     <string name="lay_account_label1">Um die Ausleihenanzeige und Verlängerung verwenden zu könne, geben Sie hier ihre Kontodaten ein: (für reines Suchen im Katalog leer lassen)</string>
     <string name="lay_account_label_account">Kontonummer:</string>
     <string name="lay_account_label_password">Passwort:</string>
@@ -278,4 +280,8 @@
     <string name="foreignlibrariesnotinthelist_diy_req">benötigt einen Desktop-Computer, und GreaseMonkey oder Programmiererfahrung.</string>
     <string name="foreignlibrariesnotinthelist_mail">4. Eine E-Mail schreiben, damit die Bibliothek in der nächsten VideLibri-Version gelistet wird. </string>
     <string name="foreignlibrariesnotinthelist_mail_req">wozu ich (vor allem bei unbekannten System) eben ein Benutzerkonto zum Testen brauche. </string>
+
+    <string name="share_export_footer">\n\nvon meinem VideLibri gesendet</string>
+    <string name="clipboard_copiedS">In Zwischenablage kopiert:\n%s</string>
+
 </resources>

@@ -1,14 +1,13 @@
 package de.benibela.videlibri;
 
 import android.app.Activity;
+import android.content.Context;
 import android.os.Build;
 import android.support.v4.app.FragmentTransaction;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
+import android.view.*;
 import android.widget.*;
 
 import java.text.DateFormat;
@@ -183,15 +182,55 @@ public class BookListActivity extends VideLibriBaseFragmentActivity{
             case R.id.share: {
                 Intent sendIntent = new Intent();
                 sendIntent.setAction(Intent.ACTION_SEND);
-                sendIntent.putExtra(Intent.EXTRA_TEXT, details.exportShare(false));
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
-                    sendIntent.putExtra(Intent.EXTRA_HTML_TEXT, details.exportShare(true));
+                sendIntent.putExtra(Intent.EXTRA_TEXT, details.exportShare(false) + tr(R.string.share_export_footer));
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN)
+                    sendIntent.putExtra(Intent.EXTRA_HTML_TEXT, details.exportShare(true) + tr(R.string.share_export_footer));
                 sendIntent.setType("text/plain");
                 startActivity(Intent.createChooser(sendIntent, getResources().getText(R.string.menu_share)));
                 return true;
             }
         }
         return super.onOptionsItemIdSelectedOld(context, id);
+    }
+
+    BookDetails.Details contextMenuSelectedItem;
+    @Override
+    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
+        super.onCreateContextMenu(menu, v, menuInfo);
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.detailcontextmenu, menu);
+        if (v instanceof ListView && menuInfo instanceof AdapterView.AdapterContextMenuInfo){
+            ListView lv = (ListView) v;
+            AdapterView.AdapterContextMenuInfo acmi = (AdapterView.AdapterContextMenuInfo) menuInfo;
+            Object tmp = lv.getItemAtPosition(acmi.position);
+            if (tmp instanceof BookDetails.Details) contextMenuSelectedItem = (BookDetails.Details)tmp;
+        }
+    }
+
+    @Override
+    public boolean onContextItemSelected(MenuItem item) {
+        String toCopy = null;
+        switch (item.getItemId()) {
+            case R.id.copy:
+                toCopy = contextMenuSelectedItem != null ? contextMenuSelectedItem.toString() : "x";
+                break;
+            case R.id.copyall:
+                toCopy = details.exportShare(false);
+                break;
+        }
+        if (toCopy != null) {
+            if(android.os.Build.VERSION.SDK_INT < android.os.Build.VERSION_CODES.HONEYCOMB) {
+                android.text.ClipboardManager clipboard = (android.text.ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
+                clipboard.setText(toCopy);
+            } else {
+                android.content.ClipboardManager clipboard = (android.content.ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
+                android.content.ClipData clip = android.content.ClipData.newPlainText("Book details", toCopy);
+                clipboard.setPrimaryClip(clip);
+            }
+            Toast.makeText(this, tr(R.string.clipboard_copiedS, toCopy), Toast.LENGTH_SHORT).show();
+        }
+        contextMenuSelectedItem = null;
+        return super.onContextItemSelected(item);
     }
 
     //shows the list. returns if the list was already visible
