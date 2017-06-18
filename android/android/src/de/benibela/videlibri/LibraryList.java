@@ -128,8 +128,8 @@ public class LibraryList extends VideLibriBaseActivity {
 
         View whynot = findViewById(R.id.textViewLibWhyNot);
         if (whynot == null) return;
-        if (!getIntent().getBooleanExtra("whynot", true)) whynot.setVisibility(View.GONE);
-        whynot.setOnClickListener(new View.OnClickListener() {
+        if (VideLibriApp.accounts != null && VideLibriApp.accounts.length > 0) whynot.setVisibility(View.GONE);
+        else whynot.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Bundle args = new Bundle();
