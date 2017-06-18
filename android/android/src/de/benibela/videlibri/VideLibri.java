@@ -461,6 +461,7 @@ public class VideLibri extends  BookListActivity{
         else for (Bridge.Book b: bookCache) if (b.account != null) realCount++;
         if (hiddenAccounts.size() > 0) setTitle(tr(R.string.main_bookaccountcountDDD, realCount, (VideLibriApp.accounts.length-hiddenAccounts.size()), VideLibriApp.accounts.length));
         else if (realCountPrimary != realCount) setTitle(tr(R.string.main_bookcountDD, realCount, realCountPrimary));
+        else if (realCount == 1) setTitle(tr(R.string.main_bookcount1));
         else setTitle(tr(R.string.main_bookcountD, realCount));
     }
 

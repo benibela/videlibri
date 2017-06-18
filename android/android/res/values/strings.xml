@@ -70,6 +70,7 @@
     <string name="ok">OK</string>
     <string name="no">Nein</string>
     <string name="yes">Ja</string>
+    <string name="main_bookcount1">Eine Ausleihe</string>
     <string name="main_bookcountD">%d Ausleihen</string>
     <string name="main_bookcountDD">%1$d/%2$d Ausleihen</string>
     <string name="main_bookaccountcountDDD">%1$d Ausleihen: %2$d/%3$d Konten</string>
