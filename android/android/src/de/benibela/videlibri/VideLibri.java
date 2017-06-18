@@ -87,8 +87,7 @@ public class VideLibri extends  BookListActivity{
 
             @Override
             public void afterTextChanged(Editable editable) {
-                filterActually = editable.toString();
-                refreshBookCache();
+                setFilter(editable.toString());
             }
         });
 
@@ -101,6 +100,14 @@ public class VideLibri extends  BookListActivity{
         endLoadingAll(VideLibriBaseActivity.LOADING_COVER_IMAGE);
     }
 
+    void setFilter(String s) {
+        String oldFilterActually = filterActually;
+        filterActually = s;
+        if (alwaysFilterOnHistory && ( Util.isEmptyString(oldFilterActually) != Util.isEmptyString(filterActually))) {
+            displayAccount(null);
+        } else
+            refreshBookCache();
+    }
 
 
     @Override
@@ -109,7 +116,7 @@ public class VideLibri extends  BookListActivity{
 
         updateViewFilters();
 
-        if (displayHistoryActually != displayHistory
+        if (displayHistoryActually != (displayHistory || (alwaysFilterOnHistory && !Util.isEmptyString(filterActually)))
                 || !hiddenAccounts.equals(hiddenAccountsActually)
                 || noDetailsInOverviewActually != options.contains(BookOverviewAdapter.DisplayEnum.NoDetails)
                 || showRenewCountActually != options.contains(BookOverviewAdapter.DisplayEnum.ShowRenewCount)
@@ -155,6 +162,7 @@ public class VideLibri extends  BookListActivity{
         groupingKey = sp.getString("grouping", "_dueWeek");
         filterKey = sp.getString("filtering", "");
         displayHistory = sp.getBoolean("displayHistory", false);
+        alwaysFilterOnHistory = sp.getBoolean("alwaysFilterOnHistory", true);
     }
 
     @Override
@@ -178,6 +186,7 @@ public class VideLibri extends  BookListActivity{
 
 
     static public boolean displayHistory = false;
+    public boolean alwaysFilterOnHistory = true;
     private boolean displayHistoryActually = false;
     private boolean noDetailsInOverviewActually = false, showRenewCountActually = true;
     private String sortingKeyActually, groupingKeyActually, filterActually, filterKeyActually, filterKey;
@@ -310,10 +319,10 @@ public class VideLibri extends  BookListActivity{
 
     static final ArrayList<Bridge.Book.Pair> crazyHeaderHack = new ArrayList<Bridge.Book.Pair>();
     static public ArrayList<Bridge.Book> makePrimaryBookCache(Bridge.Account acc, ArrayList<Bridge.Book> oldBookCache,
+                                                              boolean addHistory,
                                                               boolean renewableOnly){
         //renewableOnly is not supported for acc != null
-
-        boolean addHistory = displayHistory && !renewableOnly;
+        addHistory = addHistory && !renewableOnly;
         ArrayList<Bridge.Book> bookCache = new ArrayList<Bridge.Book>();
         if (acc == null) {
             for (Bridge.Account facc: VideLibriApp.accounts) {
@@ -344,7 +353,6 @@ public class VideLibri extends  BookListActivity{
                 }
             }
         }
-
 
         return bookCache;
     }
@@ -402,7 +410,7 @@ public class VideLibri extends  BookListActivity{
 
     public ArrayList<Bridge.Book> primaryBookCache = new ArrayList<Bridge.Book>();
     public void displayAccount(Bridge.Account acc){
-        displayHistoryActually = displayHistory;
+        displayHistoryActually = displayHistory || (alwaysFilterOnHistory && !Util.isEmptyString(filterActually));
         noDetailsInOverviewActually = options.contains(BookOverviewAdapter.DisplayEnum.NoDetails);
         showRenewCountActually = options.contains(BookOverviewAdapter.DisplayEnum.ShowRenewCount);
         groupingKeyActually = groupingKey;
@@ -413,7 +421,7 @@ public class VideLibri extends  BookListActivity{
         hiddenAccountsActually.addAll(hiddenAccounts);
 
 
-        primaryBookCache = makePrimaryBookCache(acc, bookCache, false);
+        primaryBookCache = makePrimaryBookCache(acc, bookCache, displayHistoryActually, false);
         refreshBookCache();
 
         if (VideLibriApp.getMainIcon() != currentMainIcon){
