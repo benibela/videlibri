@@ -262,9 +262,9 @@ Ob man VideLibri out-of-the-box mit einer Bibliothek verwenden kann, ist jedoch 
 <tr><td style="padding-left: 1em" id="bibdia_stabib">mit Bibdia</td>  <td>ja</td><td>ja</td><td>ja</td><td>nein</td>  <td>nur für Staatsbibliothek Berlin</td><td>2011</td></tr>
 <tr><td style="padding-left: 1em" id="lbs">mit LBS</td>  <td>ja</td><td>ja</td><td>ja</td><td>ja</td>  <td>bisher nur wenig getestet</td><td>2014</td></tr>
 <tr><td id="primo">Primo</td>  <td>ja</td><td>ja</td><td>ja</td><td>nein</td>  <td></td><td>2013</td></tr>
-<tr><td id="sisis">SISIS-SunRise</td>  <td>ja</td><td>ja</td><td>ja</td><td>ja</td>  <td></td><td>2010</td></tr>
+<tr><td id="sisis">SISIS-SunRise (und Touchpoint)</td>  <td>ja</td><td>ja</td><td>ja</td><td>ja</td>  <td></td><td>2010</td></tr>
 <tr><td id="sru">SRU</td>  <td>ja</td><td></td><td></td><td></td>  <td></td><td>2013</td></tr>
-<tr><td id="was">Websphere (WAS)</td>  <td>nein</td><td>ja</td><td>ja</td><td>nein</td>  <td>nur für Stadtbibliothek Düsseldorf</td><td>2006</td></tr>
+<tr><td id="was">Websphere (WAS)</td>  <td>nein</td><td>ja</td><td>ja</td><td>nein</td>  <td>nur für Stadtbüchereien Düsseldorf</td><td>2006</td></tr>
 <tr><td id="zones18">Zones (nur 1.8)</td>  <td>ja</td><td>ja</td><td>ja</td><td>ja</td>  <td></td><td>2013</td></tr>
 </table>
 

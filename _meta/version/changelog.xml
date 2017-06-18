@@ -1,10 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?xml-stylesheet type="text/xsl" href="../changelog.xsl"?>
 <changelog program="VideLibri">
+      <build version="1900" date="2017-06-18">
+        <download url="http://videlibri.sourceforge.net/updates/videlibri-setup.exe" platform="WINDOWS" execute="&quot;$DOWNLOAD&quot;  /SP- /noicons &quot;/dir=$OLDPATH&quot; " restart="true"/>
+        <download url="http://videlibri.sourceforge.net/updates/videlibri-linux32.deb" platform="LINUX32" execute=""/>
+        <download url="http://videlibri.sourceforge.net/updates/videlibri-linux64.deb" platform="LINUX64" execute=""/>
+        <change>android: Wechsel automatisch zur Historien-Sicht, wenn ein Suchfilter eingegeben wurde.</change>
+        <change>verbesserte Auswahl von mehreren Optionen bei einer Vormerkung/Bestellung.</change>
+        <fix>sisis: Akzeptiere Verlängerungs-Bestätigungen auch, wenn zwischen Worten im Titel mehrere Leerzeichen statt einem einzelnen stehen und ein langer Titel in der Verlängerungs-Bestätigung abgeschnitten ist.</fix>
+        <fix>paia (Universitätsbibliothek Dortmund): Sende nicht den Barcode bei einer Verlängerung mit.</fix>
+        <fix>aDIS (VÖBB Berlin): Keine Fehlermeldung bei Bestellungen ins Außenmagazin.</fix>
+        <fix>sisis: Zweigstellenauswahl funktioniert wieder bei der Suche.</fix>
+        <fix>Universitätsbibliothek Hannover, Technische Hochschulbibliothek Nürnberg: Neue Info-Webadresse.</fix>
+        <fix>pica: Akzeptiere Verlängerungs-Bestätigungen auch, wenn die Signatur des Buches ein Semikolon enthält (wie beispielsweise bei der Lübecker Lehrbuchsammlung).</fix>
+        <fix>android: Behebt Crash, wenn die Suche fehlschlägt, während die App nicht aktiv war.</fix>
+        <fix>android: Option zum Deaktivieren der Anzeige der bisherigen Verlängerungsanzahl wird nicht mehr ignoriert.</fix>
+        <add>digibib: Zeige Exemplarstandortdaten.</add>
+        <add>android: Menüeintrag zum Teilen der angezeigten Daten.</add>
+        <add>android: Daten können mittels langem Drücken in die Zwischenablage kopiert werden.</add>
+        <add>android: Zwischenablage/Speicherfunktionen für Suchfilter, und XQuery-Beispiele.</add>
+     </build>
   <build version="1887" date="2017-05-08">
-    <download url="http://videlibri.sourceforge.net/updates/videlibri-setup.exe" platform="WINDOWS" execute="&quot;$DOWNLOAD&quot;  /SP- /noicons &quot;/dir=$OLDPATH&quot; " restart="true"/>
-    <download url="http://videlibri.sourceforge.net/updates/videlibri-linux32.deb" platform="LINUX32" execute=""/>
-    <download url="http://videlibri.sourceforge.net/updates/videlibri-linux64.deb" platform="LINUX64" execute=""/>
     <change>android: Frage bei jeder Vormerkung, für welches Konto die Vormerkung erfolgen soll, damit es nicht sofort ohne Nachfrage etwas vormerkt, wenn jemand aus Versehen auf den Vormerkbutton drückt.</change>
     <change>android: Sortiere das lokale Land an den Anfang der Bibliothekliste.</change>
     <fix>Desktop: Verwende wieder das korrekte Datumsformat.</fix>
