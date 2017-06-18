@@ -6,7 +6,7 @@
   <variable name="server" value="https://opac.ohm-hochschule.de/InfoGuideClient.fhnsis/"/>
   <variable name="startparams" value="?Login=wofhn00"/>
   
-  <homepage value="http://www.th-nuernberg.de/institutionen/bibliothek/"/>
+  <homepage value="https://www.th-nuernberg.de/einrichtungen-gesamt/zentrale-einrichtungen/bibliothek/"/>
   <testing-search value="ja" date="2013-05-18"/>
   <testing-account value="?" date=""/>
   <testing-renew value="?" date=""/>
