@@ -21,6 +21,8 @@ class DialogId {
     public static final int SEARCHER_CHOOSE_TARGET_ACCOUNT = 7088;
     public static final int SEARCHER_CHOOSE_TARGET_ACCOUNT_FOR_HOLDING = 7089;
 
+    public static final int FILTER_LOAD_LIST = 7100;
+
 
     public static final int SPECIAL_LIBRARY_NOT_IN_LIST = 10000;
 }

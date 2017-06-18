@@ -1,8 +1,5 @@
 package de.benibela.videlibri;
-import android.content.Context;
-import android.content.DialogInterface;
-import android.content.Intent;
-import android.content.SharedPreferences;
+import android.content.*;
 import android.content.res.AssetManager;
 import java.io.InputStream;
 import java.text.DateFormat;
@@ -20,12 +17,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.view.View;
-import android.view.ViewGroup;
+import android.view.*;
 import android.widget.*;
+import org.json.JSONArray;
+import org.json.JSONException;
 
 
 public class VideLibri extends  BookListActivity{
@@ -78,6 +73,7 @@ public class VideLibri extends  BookListActivity{
 
         findViewById(R.id.searchFilterPanel).setVisibility(View.VISIBLE);
         EditText et = (EditText) findViewById(R.id.searchFilter);
+        registerForContextMenu(et);
         et.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i2, int i3) { }
@@ -501,7 +497,72 @@ public class VideLibri extends  BookListActivity{
                 }
                 lastSelectedBookForDialog = null;
                 return true;
+            case DialogId.FILTER_LOAD_LIST:
+                if (buttonId >= 0)
+                    setEditTextText(R.id.searchFilter, getFilterHistory().get(buttonId));
+                return true;
         }
         return super.onDialogResult(dialogId, buttonId, more);
+    }
+
+
+    @Override
+    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
+        if (v != null && v.getId() == R.id.searchFilter) {
+            getMenuInflater().inflate(R.menu.searchfiltercontextmenu, menu);
+            contextMenuSelectedItem = filterActually;
+        } else
+            super.onCreateContextMenu(menu, v, menuInfo);
+    }
+
+    private ArrayList<String> getFilterHistory(){
+        ArrayList<String> filters = new ArrayList<String>();
+        try {
+            JSONArray filtersJson = new JSONArray(PreferenceManager.getDefaultSharedPreferences(this).getString("filterHistory", tr(R.string.config_example_filters_json)));
+            for (int i=0;i<filtersJson.length();i++)
+                filters.add(filtersJson.getString(i));
+        } catch (JSONException e) {
+        }
+        return filters;
+    }
+
+    @Override
+    public boolean onContextItemSelected(MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.load_filter: {
+                Util.chooseDialog(DialogId.FILTER_LOAD_LIST, tr(R.string.menu_context_load_filter), getFilterHistory().toArray(new String[0]));
+                return true;
+            } case R.id.save_filter:
+                ArrayList<String> filters = getFilterHistory();
+                if (filters.contains(filterActually)) filters.remove(filterActually);
+                filters.add(0, filterActually);
+                JSONArray filtersJson = new JSONArray();
+                for (String s: filters) filtersJson.put(s);
+                SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(this);
+                SharedPreferences.Editor editor = sp.edit();
+                editor.putString("filterHistory", filtersJson.toString());
+                editor.commit();
+                return true;
+            case R.id.clear:
+                setEditTextText(R.id.searchFilter, "");
+                return true;
+            case R.id.paste:
+            case R.id.pastereplace:
+                CharSequence text = null;
+                if(android.os.Build.VERSION.SDK_INT < android.os.Build.VERSION_CODES.HONEYCOMB) {
+                    text = ((android.text.ClipboardManager) getSystemService(CLIPBOARD_SERVICE)).getText();
+                } else {
+                    ClipData data = ((android.content.ClipboardManager)getSystemService(CLIPBOARD_SERVICE)).getPrimaryClip();
+                    if (data != null) {
+                        ClipData.Item i = data.getItemAt(0);
+                        if (i != null) text = i.coerceToText(this);
+                    }
+                }
+                if (text != null) {
+                    setEditTextText(R.id.searchFilter, (item.getItemId() == R.id.pastereplace ? "" : filterActually) + text);
+                }
+                return true;
+        }
+        return super.onContextItemSelected(item);
     }
 }
