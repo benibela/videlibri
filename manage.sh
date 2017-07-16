@@ -35,6 +35,7 @@ mirror)
 linux32)
 		find ~/hg -name "*.ppu" | grep -v /lib/ | xargs rm
 		lazCompileLinux32 bookWatch
+    cp videlibri videlibri.unstripped.linux32
     strip --strip-all videlibri
 
 		sudo checkinstall --pkgarch=i386 --install=no --pkgname=videlibri --default  --pkgversion=$VERSION --nodoc --maintainer="Benito van der Zander \<benito@benibela.de\>" --reset-uids=yes --requires="libgtk2.0-0, libssl-dev" bash _meta/install_direct.sh 
@@ -46,6 +47,7 @@ linux32)
 linux64)
 		find ~/hg -name "*.ppu" | grep -v /lib/ | xargs rm
 		lazCompileLinux64 bookWatch
+    cp videlibri videlibri.unstripped.linux64
     strip --strip-all videlibri
 
 		sudo checkinstall --install=no --pkgname=VideLibri --default  --pkgversion=$VERSION --nodoc --maintainer="Benito van der Zander \<benito@benibela.de\>" --reset-uids=yes --requires="libgtk2.0-0, libssl-dev" bash _meta/install_direct.sh 
@@ -57,6 +59,7 @@ linux64)
 win32)
 		find . -name "*.ppu" | grep -v /lib/ | xargs rm
 		lazCompileWin32 bookWatch
+    cp $VIDELIBRIBASE/videlibri.exe $VIDELIBRIBASE/videlibri.unstripped.exe
 		strip --strip-all $VIDELIBRIBASE/videlibri.exe
 		cd $VIDELIBRIBASE  #innosetup does not understand absolute linux paths
 		sed _meta/installer/videlibri.iss -i -Ee "s/^( *AppVer(Name|sion)=[^0-9]*)[^\r]*(\r)?\$/\1$VERSION\3/"

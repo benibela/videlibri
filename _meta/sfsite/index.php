@@ -222,7 +222,7 @@ Praktisch sollte man das Programm genau dann benutzen, wenn man jedes Jahr mehre
 <img src="http://sourceforge.net/dbimage.php?id=306557" title="Suche in der Digibib. (öffnet sich automatisch nach Doppelklick auf ein ausgeliehenes Buch, und ist z.B.: bei den Stadtbüchereien von Düsseldorf nötig, um mehr als Autor oder Titel angezeigt zu bekommen)" alt="Suche in der Digibib. (öffnet sich automatisch nach Doppelklick auf ein ausgeliehenes Buch, und ist z.B.: bei den Stadtbüchereien von Düsseldorf nötig, um mehr als Autor oder Titel angezeigt zu bekommen)"/>
 
 <div>
-<img src="http://sourceforge.net/p/videlibri/screenshot/android.png" title="VideLibri 1.5 unter Android" alt="VideLibri 1.5 unter Android"/>
+<img src="https://a.fsdn.com/con/app/proj/videlibri/screenshots/s1.png" title="VideLibri unter Android" alt="VideLibri unter Android"/><br/>
 <div style="display: inline-block; max-width: 100%">
 <img src="http://sourceforge.net/p/videlibri/screenshot/android-search-list.png" title="VideLibri 1.5 unter Android (Liste der Suchergebnisse)" alt="VideLibri 1.5 unter Android (Liste der Suchergebnisse)"/>
 <img src="http://sourceforge.net/p/videlibri/screenshot/android-search-result.png" title="VideLibri 1.5 unter Android (Details eines Suchergebnisses)" alt="VideLibri 1.5 unter Android (Details eines Suchergebnis)"/>
