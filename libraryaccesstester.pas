@@ -68,6 +68,29 @@ implementation
 uses booklistreader, applicationconfig, internetaccess, bbutils, Clipbrd, librarySearcher,math;
 { TlibraryTesterForm }
 
+
+procedure testISBN;
+const test: array[1..3] of string = (
+  '346204567X', '3462045679', '978-3-462-04567-3'
+);
+var
+  temp: TBook;
+  i: Integer;
+begin
+  exit;
+  i := 1;
+  temp := tbook.create;
+  while i <= high(test) do begin
+    temp.isbn := test[i];
+    if  temp.getNormalizedISBN(false, false) <> test[i+1] then
+      raise Exception.Create('Failed: '+temp.isbn + ': ' + temp.getNormalizedISBN(false, false) +'<>' +test[i+1]);
+    if  temp.getNormalizedISBN(false, true) <> test[i+2] then
+      raise Exception.Create('Failed: '+temp.isbn + ': ' + temp.getNormalizedISBN(false, true) +'<>' +test[i+2]);
+    i += 3;
+  end;
+  temp.free;
+end;
+
 var activeThreads, pendingThreads: integer;
 const pendingLimit: integer = 50;
 type

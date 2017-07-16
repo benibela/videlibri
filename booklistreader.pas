@@ -437,11 +437,17 @@ var
 begin
   result := trim(isbn);
   if length(result) >= 5 then begin
+    //see https://en.wikipedia.org/wiki/List_of_ISBN_identifier_groups
+    //X can mean 0
+
     //e.g. isbn10: 3-680-08783-7
     if result[2] = '-' then begin
       result := copy(result, 1, 13);
       if convertTo13 then begin
-        result := '978-' + result;
+        if strBeginsWith(result, '1') and ( strBeginsWith(result, '10-') or strBeginsWith(result, '11-') or strBeginsWith(result, '12-') ) then
+          result =: '979-' + result
+         else
+          result := '978-' + result;
         check := 0;
         multiplier := 1;
         for i := 1 to length(result) - 1 do
