@@ -25,6 +25,7 @@ type
     ComboBox1: TComboBox;
     Edit1: TEdit;
     Edit2: TEdit;
+    editSearchProp: TEdit;
     editTitle: TEdit;
     EditAutor: TEdit;
     EditUser: TEdit;
@@ -85,13 +86,13 @@ type TTestThread = class(TThread)
   lib: TLibrary;
   row: TTreeListItem;
   fakeUser, fakePwd: string;
-  title,author: string;
+  title,author,moreSearchProp: string;
   resultSearch, resultAccount, resultHomepage: string;
   search, account, homepage: boolean;
   searchCount: integer;
 
   pending: boolean;
-  constructor Create(arow: TTreeListItem; dosearch, doaccount, dohomepage: boolean; asearchCount: integer; atitle,anauthor, afakeUser, afakePwd: string);
+  constructor Create(arow: TTreeListItem; dosearch, doaccount, dohomepage: boolean; asearchCount: integer; atitle,anauthor,asearchprop, afakeUser, afakePwd: string);
   procedure Execute; override;
   procedure showResult;
   procedure checkPending;
@@ -172,7 +173,9 @@ begin
   pendingLimit := SpinEdit2.Value;
   for i := 0 to TreeListView1.Items.Count - 1 do
     if CheckBox1.Checked or TreeListView1.Items[i].Selected then
-      TTestThread.Create(TreeListView1.Items[i],CheckBox2.Checked,CheckBox3.Checked, CheckBox4.Checked, SpinEdit1.Value, editTitle.Text, EditAutor.Text, EditUser.Text,editPass.text);
+      TTestThread.Create(TreeListView1.Items[i],CheckBox2.Checked,CheckBox3.Checked, CheckBox4.Checked, SpinEdit1.Value,
+                         editTitle.Text, EditAutor.Text, editSearchProp.Text,
+                         EditUser.Text,editPass.text);
   Caption := 'Active Threads: ' + IntToStr(activeThreads) + ' Pending Threads: ' + IntToStr(pendingThreads);
 end;
 
@@ -207,6 +210,7 @@ var
   i: Integer;
   lib: TLibrary;
 begin
+  testISBN;
   TreeListView1.BeginUpdate;
   for i := 0 to libraryManager.count - 1 do begin
     lib := libraryManager.getLibraryFromEnumeration(i);
@@ -241,7 +245,7 @@ begin
 end;
 
 constructor TTestThread.Create(arow: TTreeListItem; dosearch, doaccount, dohomepage: boolean; asearchCount: integer; atitle, anauthor,
-  afakeUser, afakePwd: string);
+  asearchprop, afakeUser, afakePwd: string);
 begin
   inherited Create(false);
   row := arow;
@@ -257,6 +261,7 @@ begin
   homepage := dohomepage;
   title := atitle;
   author := anauthor;
+  moreSearchProp := asearchprop;
   searchCount := asearchCount;
 
   pending := activeThreads > pendingLimit;
@@ -319,6 +324,9 @@ begin
       try
         searcher.SearchOptions.title := title;
         searcher.SearchOptions.author := author;
+        if moreSearchProp <> '' then begin
+          searcher.SearchOptions.setProperty(strBefore(moreSearchProp, '='), strAfter(moreSearchProp, '=') );
+        end;
         searcher.connect;
         searcher.search;
         if searcher.SearchNextPageAvailable then
