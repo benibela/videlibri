@@ -460,7 +460,7 @@ resourcestring
     //Userdaten lesen
     userConfig:=TSafeIniFile.Create(userPath + 'user.config');
 
-    if userConfig.ReadInteger('updates','lastVersion',0)<versionNumber then begin
+    if userConfig.ReadInteger('updates','lastVersion',999999)<versionNumber then begin
       userConfig.writeInteger('updates','lastVersion',versionNumber);
       newVersionInstalled:=true;
     end;
