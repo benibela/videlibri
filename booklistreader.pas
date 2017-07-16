@@ -445,7 +445,7 @@ begin
       result := copy(result, 1, 13);
       if convertTo13 then begin
         if strBeginsWith(result, '1') and ( strBeginsWith(result, '10-') or strBeginsWith(result, '11-') or strBeginsWith(result, '12-') ) then
-          result =: '979-' + result
+          result := '979-' + result
          else
           result := '978-' + result;
         check := 0;
