@@ -95,7 +95,7 @@
     </div>
   </div>
   
-  <h2>Ihre Suche erzielte ( *leider *)?keine Treffer<t:s>search-result-count:=0</t:s></h2>
+  <h2 t:condition="matches(normalize-space(), 'Ihre Suche erzielte ( *leider *)?keine Treffer')">{search-result-count:=0}</h2>
   
   <form>
     <input type="hidden" name="speedHitlistUrl" value="speedHitList.do" /> 
