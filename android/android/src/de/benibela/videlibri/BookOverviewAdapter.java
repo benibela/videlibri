@@ -184,13 +184,16 @@ class BookOverviewAdapter extends ArrayAdapter<Bridge.Book> {
         return books;
     } */
 
-    String exportShare(){
+    String exportShare(boolean html){
+        String newline = html ? "<br>\n" : "\n";
         StringBuilder sb = new StringBuilder();
         for (int i=0;i<books.size();i++) {
             Bridge.Book book = books.get(i);
             boolean isGroupingHeader = options.contains(DisplayEnum.Grouped) && book.isGroupingHeaderFakeBook();
-            if (isGroupingHeader)
-                sb.append("\n");
+            if (isGroupingHeader && i != 0) {
+                sb.append(newline);
+                sb.append(newline);
+            }
             sb.append(book.title);
             sb.append(" ");
             if (!isGroupingHeader && !options.contains(DisplayEnum.NoDetails))
@@ -199,7 +202,8 @@ class BookOverviewAdapter extends ArrayAdapter<Bridge.Book> {
                 sb.append(": ");
                 sb.append(getBookDateText(book));
             }
-            sb.append("\n");
+            sb.append(newline);
+            sb.append(newline);
         }
         return sb.toString();
     }

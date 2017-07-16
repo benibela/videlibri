@@ -30,7 +30,7 @@ public class BookListFragment extends VideLibriFakeFragment{
 
     String exportShare(boolean html){
         BookOverviewAdapter adapter = getAdapter();
-        return adapter.exportShare();
+        return adapter.exportShare(html);
     }
 
 }

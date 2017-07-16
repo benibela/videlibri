@@ -189,8 +189,8 @@ public class BookListActivity extends VideLibriBaseFragmentActivity{
                 );
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN)
                     sendIntent.putExtra(Intent.EXTRA_HTML_TEXT,
-                            (listVisible() ? list.exportShare(true) + "\n\n" : "")
-                            + (detailsVisible() ? details.exportShare(true) + "\n\n" : "")
+                            (listVisible() ? list.exportShare(true) + "<br>\n<br>\n" : "")
+                            + (detailsVisible() ? details.exportShare(true) + "<br>\n<br>\n" : "")
                             + tr(R.string.share_export_footer)
                     );
                 sendIntent.setType("text/plain");
