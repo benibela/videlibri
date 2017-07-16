@@ -48,9 +48,13 @@
 
 
 <TABLE class="advanced-table">
-  <TR bgcolor="orange">Leider wurden keine passenden Titel zu Ihrer Anfrage gefunden<t:s>search-result-count:=0</t:s></TR>
+  <template:meta default-text-matching="regex"/>
+  <TR bgcolor="orange">
+    Leider wurden keine passenden Titel zu Ihrer Anfrage gefunden|Es tut uns leid, aber es wurden keine Übereinstimmungen mit Ihrem Suchbegriff gefunden|Leider wurden keine Titel zu Ihrer Suchanfrage gefunden
+    <t:s>search-result-count:=0</t:s>
+  </TR>
 </TABLE>
-                            
+
 
 <TABLE class="advanced-table">
   <TR bgcolor="orange">{vl:raise(.)}</TR>

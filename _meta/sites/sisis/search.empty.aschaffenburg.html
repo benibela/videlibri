@@ -1,0 +1,802 @@
+
+
+
+
+
+
+
+
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!-- START jsp/common/metaHeader.jsp -->
+
+
+
+<html xmlns="http://www.w3.org/1999/xhtml" 
+ xml:lang="de" 
+ lang="de"
+> 
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <meta http-equiv="pragma" content="no-cache" />
+  <meta http-equiv="expires" content="0" />
+  <meta http-equiv="cache-control" content="no-cache" />
+
+<!-- <link rel="shortcut icon" href="/InfoGuideClient.fwssis/images/OCLC.ico" /> -->
+
+
+<script src="jsp/common/jquery.js" type="text/javascript" language="javascript"></script>
+
+
+
+
+
+
+
+
+
+
+ 
+
+
+
+   
+   
+   
+      
+         
+         
+            
+         
+         
+      
+   
+
+
+
+   
+   
+      
+      <link rel="stylesheet" href="/InfoGuideClient.fwssis/jsp/common/infoguide.css"  type="text/css" />
+      <!--[if IE]>  <link rel="stylesheet" href="/InfoGuideClient.fwssis/jsp/common/infoguide.css"  type="text/css" />  <![endif]-->
+   
+    
+   
+   
+
+  
+
+
+
+<!-- Favicon geaendert 19.10.09 DW / Le -->
+<link rel="SHORTCUT ICON" type="image/x-icon" href="/InfoGuideClient.fwssis/images/favicon.ico">
+<link REL="ICON" type="image/ico" HREF="/InfoGuideClient.fwssis/images/favicon.ico">
+<!-- Ende Favicon geaendert -->
+  
+  <!--[if IE 7]>
+    <style type="text/css">
+      #tab-content{margin-top:5px;}
+      select {height:auto;}
+      #searchfield input#f1 {width:10em;}
+    </style>
+  <![endif]-->
+  
+  <title>
+    
+      InfoGuide der FH-Bibliotheken Würzburg-Schweinfurt, Aschaffenburg, Coburg und der Hofbibliothek Aschaffenburg
+    
+  </title>
+
+
+                <link type="text/css" href="https://dienste.bibliothek.fhws.de/+extras/fws-www/jqueryui/css/redmond/jquery-ui-1.8.12.custom.css" rel="stylesheet" />      
+                <script type="text/javascript" src="https://dienste.bibliothek.fhws.de/+extras/fws-www/jqueryui/js/jquery-ui-1.8.12.custom.min.js"></script>
+
+
+</head>
+<!-- END of jsp/common/metaHeader.jsp -->
+
+<!-- START jsp/result/HitlistLayout.jsp --> 
+
+
+
+
+
+
+
+
+
+			
+	
+
+	
+		
+	
+		
+		
+			<!-- no fast drilldowns available -->
+		
+		
+	
+
+
+<body>
+	<div id="pageContainer">
+
+		
+
+
+
+<!-- START jsp/common/header.jsp -->
+
+
+<!-- BEGIN /bsb/mobileOPAC/addMobileFunctionality.jsp -->
+
+
+
+
+
+
+
+
+
+<!-- END /bsb/mobileOPAC/addMobileFunctionality.jsp -->
+
+
+
+
+
+<div id="branding">
+	<div id="header-img" style="float: right; height: 56px;">
+        <img src="https://dienste.bibliothek.fhws.de/+extras/fws-www/images-ig/ig_header_right.png" alt="" width="253" height="57" />
+	</div>
+
+  <span id="logo">
+    
+      <img src="/InfoGuideClient.fwssis/images/InfoGuide.gif" width="370" height="40" alt="InfoGuide" title="InfoGuide" style="height:40px" />
+    
+    
+  </span>
+  <span id="timer">&nbsp;</span>
+</div>
+
+
+  <div align="right" style="margin-right:10px; font-size:0.7em">
+   <div id="timer" class="textrot">&nbsp;</div>
+  </div>
+
+
+
+
+<!-- START jsp/common/timer.jsp -->
+
+
+<script type="text/javascript" language="javascript">
+
+var timeout=(20 * 60 * 1000)  + new Date().getTime();
+timeout-=2000;
+
+var mesg="Diese Sitzung läuft in %VAR% Sek. ab!";
+var toFront=false;
+
+if(mesg.length <= 0 || mesg.indexOf("???") >= 0)
+	mesg="Diese Sitzung läuft in %VAR% Sek. ab!";
+ticker(); 
+
+function ticker()
+{
+  var timeoutID;
+  var s; 
+  var t=timeout - new Date().getTime();
+  t=(t<0)?0:Math.round(t/1000);
+  s=""+ ((t>60)?"":t.toFixed(0));
+ 	if(t <= 60)
+ 	{
+ 		if(toFront == false)
+ 		{
+ 			toFront=true;
+ 			window.focus();
+ 		}
+ 		var msg = mesg.replace("%VAR%", s);
+    document.getElementById("timer").innerHTML = msg;
+ 	}
+  if(t == 0)
+  {
+    window.clearTimeout(timeoutID);
+    window.location.replace("/InfoGuideClient.fwssis/jsp/common/timeout.jsp");
+  } 
+  else
+    timeoutID = window.setTimeout("ticker()",(t>60) ? 6000 : 1000);
+}
+</script>
+
+
+<!-- END of jsp/common/timer.jsp --> 
+
+
+<!-- END of jsp/common/header.jsp -->
+
+
+		<div id="mainnav">
+			
+
+
+
+
+<!-- START jsp/navigation/mainNavi.jsp --> 
+
+
+<!-- Actual Tiles Context 754 -->
+
+<ul>
+
+
+	<li id="current"><div id="active">Suche</div>
+		<ul>
+			
+			 
+				
+				
+					<li>
+						<a href="/InfoGuideClient.fwssis/search.do?methodToCall=switchSearchPage&amp;SearchType=2" title="Erweiterte Suche">Erweiterte Suche</a>
+					</li>
+				
+			
+			 
+				
+				
+					<li>
+						<a href="/InfoGuideClient.fwssis/search.do?methodToCall=switchSearchPage&amp;SearchType=3" title="Fachliche Suche">Fachliche Suche</a>
+					</li>
+				
+			
+      
+		  
+			  
+          <li id="current2">Trefferliste</li>
+				
+        
+			
+		
+			
+			
+			
+		</ul>
+	</li>
+
+
+	<li><a href="/InfoGuideClient.fwssis/memorizelist.do?methodToCall=show" title="Merkliste">Merkliste</a></li>
+
+
+
+
+
+<li><a href="/InfoGuideClient.fwssis/userAccount.do?methodToCall=show&amp;type=1" title="Konto">Konto</a></li>
+
+
+
+
+
+
+	<li><a href="/InfoGuideClient.fwssis/additional.do?methodToCall=show" title="weitere Angebote">weitere Angebote</a></li>
+
+
+
+</ul>
+<!-- END of jsp/navigation/mainNavi.jsp --> 
+
+			
+
+
+
+
+
+
+
+<!-- START jsp/navigation/loginnavi.jsp --> 
+
+<div id="login">
+  
+	
+		<a href="/InfoGuideClient.fwssis/loginpage.do?methodToCall=showLogin" title="Anmelden">Anmelden</a>
+	
+	
+</div>
+<!-- END of jsp/navigation/loginnavi.jsp --> 
+		</div> 
+ 		<br class="cleaner" />
+ 		
+
+
+
+
+
+
+
+
+
+<!-- START jsp/navigation/bgnavi.jsp --> 
+<script language="javascript" type="text/javascript"
+ src="/InfoGuideClient.fwssis/help/help.js">
+</script>
+
+<div id="bgmainnav">
+	<div id="nav2">
+		<ul>
+			
+			
+			
+				
+				
+					
+					
+					
+						
+						<li>
+							<a href="/InfoGuideClient.fwssis/acqrequest.do?methodToCall=show" title=" Beschaffungswunsch">Beschaffungswunsch</a>
+						</li>
+						
+					
+				
+			
+			
+			
+			<li>
+			  <a href="#" onclick="return openHelp('/InfoGuideClient.fwssis');"
+			     title="Hilfe">
+			   Hilfe</a>
+		  </li>
+  		
+	    	
+		  	
+			   	<li><a href="/InfoGuideClient.fwssis/actual.do?methodToCall=show" title="Neuerwerbungen">Neuerwerbungen</a></li>
+    		
+    	
+		</ul>
+	</div>  
+</div>
+<!-- END of jsp/navigation/bgnavi.jsp --> 
+
+		<br class="cleaner" />
+		
+
+
+
+
+
+
+
+
+
+
+<!-- START jsp/search/searchbar.jsp --> 
+
+<!-- END of jsp/search/searchbar.jsp --> 
+		
+			
+
+
+
+
+<!-- START jsp/result/searchinfo.jsp --> 
+<div id="info1">
+	
+
+	
+	<strong class="c1">Ihre Suchanfrage</strong>
+	ISBN/ISSN = 978-3-462-04567-3
+	
+	
+	
+</div> 
+<!-- END of jsp/result/searchinfo.jsp --> 
+		
+		<br class="cleaner" />
+		<div id="main"> 
+			<div id="SOWrap"> 
+				<div id="middle"> 
+					
+
+
+
+<!-- START jsp/result/hitlist.jsp --> 
+			
+	
+	
+		
+
+
+
+
+
+
+
+
+
+<!-- START jsp/result/de/noHitsText.jsp --> 
+
+<style type="text/css">
+*html .box {height:1px;} /* Angabe wichtig, da im IE die Box nur mit H�henangabe darin liegende Boxen umschlie�t, IE7 braucht zoom */
+.box ul { padding:0.5em 0.5em 0 0.5em; font-size:0.7em; line-height:140%;}
+.box ul li {margin-bottom:0.5em;}
+
+#nores-box-title {
+    color: yellow;
+    font-size: 120%;
+}
+.nores-box-item {
+    padding: 24px 16px;
+	font-weight: bold;
+    margin: 0 auto;
+    background-color: #FFF;
+    border: 1px solid #A9BCD5;
+    width: 480px;
+    border-radius: 8px;
+}
+.nores-box-arrow {
+    text-align: center;
+    margin: 0;
+    padding: 0;
+    position: relative;
+    top: -16px;
+    height: 32px;
+}
+.nores-box-nr {
+    position: relative;
+    display: inline;
+    top: -32px;
+    left: -32px;
+    padding: 8px 12px;
+    border-radius: 16px;
+    font-weight: bold;
+    color: #FFF;
+    background: url("https://recherche.bibkatalog.de/InfoGuideClient.fwssis/images/new_design/dark-gradient.png") repeat scroll left top transparent;
+}
+<!--[if (gt IE 9)|!(IE)]><!--> /* Only use this with IE9+ or better (=non-IE) browsers */
+.nores-box-text {
+    text-align: center;
+    font-weight: bold;
+	font-size: 120%;
+	display: block;
+	position: relative;
+	top: -8px;
+	padding: 16px !important;
+}
+<!--<![endif]-->
+</style>
+
+
+<div id="hitlist">
+<div class="box">
+<div class="box-header">
+<h2 id="nores-box-title">Ihre Suche erzielte leider keine Treffer!</h2>
+</div>
+<br><br>
+<span style="padding-left: 16px; font-weight: bold; font-style: italic;">Was k&ouml;nnen Sie tun?</span>
+<ul style="list-stype-type: none; padding-top: 32px;">
+<li class="nores-box-item">
+    <span class="nores-box-nr">1</span>
+    <span class="nores-box-text">&Uuml;berpr&uuml;fen Sie Ihre Suchanfrage auf <a href="http://www.bibliothek.fhws.de/ighilfe/Tippfehler" target="_blank">Tippfehler</a> u.&auml;.</span>
+</li>
+<li class="nores-box-arrow"><img src="https://dienste.bibliothek.fhws.de/+extras/fws-www/images-ig/arrow_down.png" alt="" width="64" height="64" /></li>
+<li class="nores-box-item">
+    <span class="nores-box-nr">2</span>
+    <span class="nores-box-text" title='Die Suchergebnisse werden rechts unter "Recherche-Quellen" angezeigt.'>Versuchen Sie eine <a href="/InfoGuideClient.fwssis/search.do?methodToCall=dbExtension">Fernleihe im Bayerischen Bibliotheksverbund</a>.</span>
+</li>
+<li class="nores-box-arrow"><img src="https://dienste.bibliothek.fhws.de/+extras/fws-www/images-ig/arrow_down.png" alt="" width="64" height="64" /></li>
+<li class="nores-box-item">
+    <span class="nores-box-nr">3</span>
+    <span class="nores-box-text" title='Die Suchergebnisse werden rechts unter "Recherche-Quellen" angezeigt.'>Versuchen Sie eine <a href="/InfoGuideClient.fwssis/search.do?methodToCall=dbExtension">deutschlandweite Suche</a>.<span>
+</li>
+<li class="nores-box-arrow"><img src="https://dienste.bibliothek.fhws.de/+extras/fws-www/images-ig/arrow_down.png" alt="" width="64" height="64" /></li>
+<li class="nores-box-item">
+    <span class="nores-box-nr">4</span>
+    <span class="nores-box-text" title="Wenn Sie bei Ihrer Suche in den deutschen Bibliothekskatalogen nicht f&uuml;ndig geworden sind, k&ouml;nnen Sie hier eingeben, was Sie suchen. Wir pr&uuml;fen Ihre Bestellung manuell und versuchen das Gew&uuml;nschte zu bestellen. Bei dieser Option m&uuml;ssen Sie ggf. mit l&auml;ngeren Lieferzeiten rechnen.">Geben Sie eine <a href="http://sfx.bib-bvb.de/cgi-bin/fernleihe.pl?set_number=1&set_entry=1&gast=0&nullhits=1" target="_blank">manuelle Fernleihbestellung</a> auf.</b></span>
+</li>
+<li class="nores-box-arrow"><img src="https://dienste.bibliothek.fhws.de/+extras/fws-www/images-ig/arrow_down.png" alt="" width="64" height="64" /></li>
+<li class="nores-box-item">
+    <span class="nores-box-nr">5</span>
+    <span class="nores-box-text">Schlagen Sie uns das gesuchte Medium zur <a href="/InfoGuideClient.fwssis/acqrequest.do?methodToCall=show">Beschaffung</a> vor.</b></span>
+</li>
+</ul>
+
+<br>&nbsp;
+<!-- END of jsp/result/de/noHitsText.jsp -->
+</div>
+</div>
+<!-- END of jsp/result/de/noHitsText.jsp -->
+
+
+
+
+	
+
+
+
+
+
+<script language="javascript" type="text/javascript">
+ setHelp("trefferliste", "");
+</script>
+<!-- END of jsp/result/hitlist.jsp --> 
+
+				</div>
+   			
+				  
+
+
+
+
+
+
+
+
+
+
+
+<!-- START jsp/result/hitlistNavigators.jsp --> 
+    
+
+
+<!-- END of jsp/result/hitlistNavigators.jsp --> 
+
+				
+			</div>
+			
+			<div id="right">
+				
+
+
+
+
+
+
+
+
+
+
+
+<!-- START jsp/result/rechtsoben.jsp --> 
+
+
+
+
+<div class="box3">
+	<div class="box3-header">
+		<div class="box3-img"><img src="images/box3-right.gif" width="8" height="8" alt="" /></div>
+		<h2>weitere Optionen</h2>
+	</div>
+	<div class="box3-content">
+	<p><strong>Suchanfrage</strong><br />
+			<a href="/InfoGuideClient.fwssis/search.do?methodToCall=start" title="Suchanfrage &auml;ndern">&auml;ndern</a>
+	</p>
+	
+					
+			
+		
+	
+	
+	
+	
+	
+	
+
+	 
+		
+			
+		
+	
+	
+	<p>
+		<strong>Nicht das Richtige gefunden?</strong><br />
+        <a href="http://sfx.bib-bvb.de/cgi-bin/fernleihe.pl?set_number=1&set_entry=1&gast=0&nullhits=1" title="Wenn Sie bei Ihrer Suche in den deutschen Bibliothekskatalogen nicht f&uuml;ndig geworden sind, k&ouml;nnen Sie hier eingeben, was Sie suchen. Wir pr&uuml;fen Ihre Bestellung manuell und versuchen das Gew&uuml;nschte zu bestellen. Bei dieser Option m&uuml;ssen Sie ggf. mit l&auml;ngeren Lieferzeiten rechnen.">Manuelle Fernleihbestellung</a>
+    </p>
+	
+</div> <!-- box3-content --> 
+</div><!-- box3 -->
+
+<!-- END of jsp/result/rechtsoben.jsp --> 
+
+				<br class="space" />
+				
+
+
+
+
+
+
+
+<!-- START jsp/result/rechtsunten.jsp --> 
+
+ 
+	<div class="box1">
+		<h2>Recherche-Quellen</h2>
+		<h3>Suche erweitern</h3> 
+		<p><br />
+			
+				<a href="/InfoGuideClient.fwssis/search.do?methodToCall=dbExtension" title="Fernleihe">Fernleihe</a> |
+			
+		
+			<a href="/InfoGuideClient.fwssis/search.do?methodToCall=submit&amp;methodToCallParameter=databaseSelection" title="Datenbank-Auswahl &auml;ndern">Datenbank-Auswahl &auml;ndern</a> 
+		</p>
+		
+			
+				
+					<h3>Durchsuchte Bibliothekskataloge</h3>
+					<ul> 
+					
+				
+				<li><a href="#-1" title="gehe zu Katalog WÜ-SW-AB-CO">Katalog WÜ-SW-AB-CO</a> (0)</li>
+			
+		
+		
+		
+			</ul>
+		
+	</div>
+
+<!-- END of jsp/result/rechtsunten.jsp --> 
+
+				<br class="space" />
+				
+
+
+
+
+<!-- START jsp/common/news.jsp -->
+
+
+	<!-- START jsp/news+info/de_754_6.jsp -->
+		
+<div class="box3">
+   <div class="box3-header">
+      <div class="box3-img"><img src="images/box3-right.gif" width="8" height="8" alt="" /></div>
+      <h2>Web 2.0</h2>
+   </div>
+   <p>
+     <div class="box3-content">
+        
+        
+        <a href="http://social.bibkatalog.de/?heimat=hab" target="_blank">Social Media</a>
+        
+        
+     </div>
+   </p>
+</div>
+	<!-- END of jsp/news+info/de_754_6.jsp -->
+	<br class="space" />
+
+
+
+
+	<!-- START jsp/news+info/de_754_4.jsp -->
+		<div class="box3">
+   <div class="box3-header">
+      <div class="box3-img"><img src="images/box3-right.gif" width="8" height="8" alt="" /></div>
+      <h2>Literaturverwaltung</h2>
+   </div>
+   <p>
+     <div class="box3-content">
+Exportieren Sie die für Sie relevanten Buchdaten in Ihr Literaturverwaltungsprogramm.<br />
+Zotero oder Citavi sind zwei Programme, die Ihnen bei Ihrer Arbeit mit Literaturzitaten helfen können. Näheres dazu finden Sie auf unserer <a href="http://hilfe.bibkatalog.de/Literaturverwaltung">Informationsseite</a>.
+     </div>
+   </p>
+</div>
+	<!-- END of jsp/news+info/de_754_4.jsp -->
+	<br class="space" />
+
+
+
+
+	<!-- START jsp/news+info/de_754_5.jsp -->
+		<div class="box3">
+   <div class="box3-header">
+      <div class="box3-img"><img src="images/box3-right.gif" width="8" height="8" alt="" /></div>
+      <h2>Such-Plugin</h2>
+   </div>
+   <p>
+     <div class="box3-content">
+        Sie können die Suche im InfoGuide direkt in das Suchfeld Ihres Browsers integrieren.
+Wie das im Detail funktioniert, erfahren Sie auf unserer <a href="https://www.bibliothek.fhws.de/igsearch/index.html">Seite über das InfoGuide-Such-Plugin</a>.
+     </div>
+   </p>
+</div>
+	<!-- END of jsp/news+info/de_754_5.jsp -->
+	<br class="space" />
+
+
+
+<!-- END of jsp/common/news.jsp --> 
+			</div>
+			
+ 			
+			<!-- right -->
+			<br class="cleaner" />
+		</div>
+		
+
+
+
+
+
+
+
+<!-- START jsp/common/footer.jsp -->
+
+<div id="footer">
+
+
+        <div id="mobileSwitch">
+            OPAC-Ansicht:&nbsp;
+            
+            
+              <span>  Klassisch </span>
+              &nbsp;|&nbsp;
+              <script language="javascript" type="text/javascript">
+                if (window.location.href.indexOf("device") == -1){
+                   document.write("<a title=\"OPAC-Ansicht:&nbsp;Mobil\" href=\""+window.location.href+"&device=mobile\">");
+                }
+                else {
+                   document.write("<a title=\"OPAC-Ansicht:&nbsp;Klassisch\" href=\""+window.location.href.replace('non-mobile','mobile')+"\">");
+                }
+              </script>
+              Mobil</a>
+            
+        </div>
+        
+
+  
+	
+	
+		&nbsp;
+	
+	
+  <div id="copyright">
+	  Copyright &copy; 2014.&nbsp;Alle Rechte vorbehalten.
+	  <img src="/InfoGuideClient.fwssis/images/OCLC.jpg" alt="OCLC" title="OCLC" width="54" height="19" />
+  </div>
+
+<!-- Information ueber verwendete Cookies wandert von allen OPAC-Seiten an zentrale Stelle in den Footer 13.06.14 Le/ST -->
+  <div class="info">
+    <div>
+      Diese Seite verwendet Cookies.
+      <a href="#" onclick="return cookieHelp('/InfoGuideClient.fwssis');">
+         Weitere Informationen..</a>
+    </div>
+  </div>
+<!-- Ende Cookies -->
+
+  <div class="cleaner"></div>
+
+</div>
+
+<!-- Piwik, Heil 07.07.2011, 09.06.2016 -->
+<script type="text/javascript">
+  var _paq = _paq || [];
+  _paq.push(["setDomains", ["*.recherche.bibkatalog.de"]]);
+  _paq.push(['trackPageView']);
+  _paq.push(['enableLinkTracking']);
+  (function() {
+    var u="//dienste.bibliothek.fhws.de/+extras/piwik/";
+    _paq.push(['setTrackerUrl', u+'piwik.php']);
+    _paq.push(['setSiteId', 19]);
+    var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+    g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'piwik.js'; s.parentNode.insertBefore(g,s);
+  })();
+</script>
+<noscript><p><img src="//dienste.bibliothek.fhws.de/+extras/piwik/piwik.php?idsite=19" style="border:0;" alt="" /></p></noscript>
+<!-- End Piwik Code -->
+
+<!-- END of jsp/common/footer.jsp -->
+ 
+	</div> 
+</body>
+
+
+
+<!-- END of the jsp/result/HitlistLayout.jsp --> 
+<!-- START jsp/common/metaFooter.jsp -->
+</html>
+<!-- END of jsp/common/metaFooter.jsp -->
