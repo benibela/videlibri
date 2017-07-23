@@ -17,13 +17,39 @@
       </DIV>
 
       <DIV class="ItemInfoCont">
-        {id := 1,$first-input := ()}
-        <TABLE><TBODY>
-        <TR><t:read source="." var="book.Exemplar {$id}!"/>{id := $id+1, if ($book._order-id) then () else $book._order-id := .//input/@name}</TR>*
-        </TBODY></TABLE>
+        <table> <colgroup>
+          <t:siblings-header>
+           <col class="barcode" />?
+           <col class="shelf" />
+           <col class="collection" />?
+           <col class="volume" />?
+           <col class="branch" />?
+           <col class="status" />?
+           <col class="dueDate" />?
+           <col class="res" />?
+           <col/>*
+          </t:siblings-header>
+        </colgroup>
+        <tbody>
+          <tr>{$holding := {"orderable": false()}}
+          <t:siblings>
+            <td>{$holding.id}</td>
+            <td>{$holding("Regalstandort!"):=.}</td>
+            <td>{$holding("Abteilung!"):=.}</td>
+            <td>{normalize-space()[.]!($holding("Band!"):=.)}</td>
+            <td>{$holding.libraryBranch}</td>
+            <td>{$holding.status}</td>
+            <td>{normalize-space()[string-length()>1]!($holding.dueDate:=parse-date(.))}</td>
+            <td>{$holding._order-id := .//input/@name, $holding.orderable := exists($holding._order-id) }</td>
+            <td/>
+          </t:siblings>
+          {$book.holdings[]:=$holding}
+          </tr>+
+        </tbody>
+        </table>
         <a title="Reserve Title">{book._order-url := @href, book.orderable := true()}</a>?
-        <div class='SubmitIssuesReserves' t:test="not($book.orderable)">
-        {$order-form := form(ancestor::form[1], (.//input)), book.orderable := true()}
+        <div class='SubmitIssuesReserves' t:test="$book.holdings.orderable[.]">
+        {$order-form := form(ancestor::form[1], (.//input))}
         </div>
       </DIV>
    </t:switch></t:loop>

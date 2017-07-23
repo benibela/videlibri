@@ -130,53 +130,58 @@
   <page url="{$book._detail-url}" templateFile="searchDetails"/>
 </action>
 
-<action id="order-confirm-single"> 
+<action id="order-single"> 
   <s>$order := if ($book._order-url) then $book._order-url
-               else if ($book._order-id and get("order-form")) then
-                 request-combine(get("order-form"), {$book._order-id: 1})
+               else if (get("holding")._order-id and get("order-form")) then
+                 request-combine(get("order-form"), {get("holding")._order-id: 1})
                else ()
    </s>
-  <page url="{$order}">
-    <template><form>{f := form(., {"usernum": $username, "password": $password})}</form></template>
-  </page>
-  <page url="{$f}">  
-    <template>
-     <t:switch>
-      <form>
-        {issuePoints := (), confirm := form(.)}
-        <select t:condition="@name=('BRANCH','PICKUPBR')">
-          {order-branch-name := @name,
-           book.orderConfirmationOptionTitles := option, 
-           issuePoints := $book.orderConfirmationOptionTitles/@value}
-        </select>
-        
-        {if (count($issuePoints) > 1 ) then book.orderConfirmation := "Wohin soll das Buch vorbestellt werden?"
-         else book.orderConfirmation := ""
-        }
-      </form>
-      <ul class='SysMsgList'>
-        <b>Die Transaktion wurde abgelehnt</b>
-        <t:s>vl:raise(.)</t:s>
-      </ul>
-    </t:switch></template>   
-  </page>
+  <page url="{$order}"/>
+  <if test="//form//input[@name='usernum' and not(@type = 'hidden')]">
+    <s>f := form(//form[.//input[@name='usernum']], {"usernum": $username, "password": $password})</s>
+    <page url="{$f}"/>
+  </if>
+  <pattern>
+   <t:switch>
+    <form>
+      {issuePoints := (), confirm := form(.)}
+      <select t:condition="@name=('BRANCH','PICKUPBR')">
+        {order-branch-name := @name,
+         $issuePoints := option,
+         if (count($issuePoints) > 1) then 
+           vl:choose("internal-order-choosen", "Wohin soll das Buch vorbestellt werden?", $issuePoints, $issuePoints/@value)
+         else
+          ()
+         }
+      </select>        
+    </form>
+    <ul class='SysMsgList'>
+      <b>Die Transaktion wurde abgelehnt</b>
+      <t:s>vl:raise(.)</t:s>
+    </ul>
+  </t:switch></pattern>
+  <if test="count($issuePoints) le 1">
+    <s>$choose-result := ""</s>
+    <call action="internal-order-choosen"/>
+  </if>
 </action>
 
 
-<action id="order-single"> 
-  <if test="boolean($book.orderConfirmation)">
-    <s>confirm.post := uri-combine($confirm.post, {$order-branch-name: $issuePoints[$book.choosenConfirmation*1]})</s>
+<action id="internal-order-choosen"> 
+  <if test="$choose-result instance of xs:string">
+    <if test="count($issuePoints) > 1">
+      <s>confirm.post := uri-combine($confirm.post, {$order-branch-name: $choose-result})</s>
+    </if>
+    <page url="{$confirm}"/>
+    <pattern><t:switch>    
+      <b>Ihre Vormerkung wurde vorgenommen</b>
+      <div>Ihre Vormerkung wurde vorgenommen</div>
+      <ul class="SysMsgList">
+        <t:s>vl:raise(.)</t:s>
+      </ul>    
+    </t:switch></pattern>
   </if>
-  <page url="{$confirm}">
-  <template><t:switch>    
-    <b>Ihre Vormerkung wurde vorgenommen</b>
-    <div>Ihre Vormerkung wurde vorgenommen</div>
-    <ul class="SysMsgList">
-      <b>Für diesen Titel konnte keine Vormerkung eingetragen werden</b>
-      <t:s>vl:raise(.)</t:s>
-    </ul>    
-  </t:switch></template>
-  </page>
+  <s>$book.status := "ordered"</s>
 </action>
 
 
