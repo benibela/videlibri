@@ -1,0 +1,18 @@
+<t:switch>
+  <form>
+    {issuePoints := (), confirm := form(.)}
+    <select t:condition="@name=('BRANCH','PICKUPBR')">
+      {order-branch-name := @name,
+       $issuePoints := option,
+       if (count($issuePoints) > 1) then 
+         vl:choose("internal-order-choosen", "Wohin soll das Buch vorbestellt werden?", $issuePoints, $issuePoints/@value)
+       else
+        ()
+       }
+    </select>        
+  </form>
+  <ul class='SysMsgList'>
+    <b>Die Transaktion wurde abgelehnt</b>
+    <t:s>vl:raise(.)</t:s>
+  </ul>
+</t:switch>

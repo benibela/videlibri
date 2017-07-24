@@ -1,0 +1,7 @@
+<t:switch>    
+  <b>Ihre Vormerkung wurde vorgenommen</b>
+  <div>Ihre Vormerkung wurde vorgenommen</div>
+  <ul class="SysMsgList">
+    <t:s>vl:raise(.)</t:s>
+  </ul>    
+</t:switch>

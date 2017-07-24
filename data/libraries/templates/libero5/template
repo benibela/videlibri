@@ -141,25 +141,7 @@
     <s>f := form(//form[.//input[@name='usernum']], {"usernum": $username, "password": $password})</s>
     <page url="{$f}"/>
   </if>
-  <pattern>
-   <t:switch>
-    <form>
-      {issuePoints := (), confirm := form(.)}
-      <select t:condition="@name=('BRANCH','PICKUPBR')">
-        {order-branch-name := @name,
-         $issuePoints := option,
-         if (count($issuePoints) > 1) then 
-           vl:choose("internal-order-choosen", "Wohin soll das Buch vorbestellt werden?", $issuePoints, $issuePoints/@value)
-         else
-          ()
-         }
-      </select>        
-    </form>
-    <ul class='SysMsgList'>
-      <b>Die Transaktion wurde abgelehnt</b>
-      <t:s>vl:raise(.)</t:s>
-    </ul>
-  </t:switch></pattern>
+  <pattern href="orderConfirm"/>
   <if test="count($issuePoints) le 1">
     <s>$choose-result := ""</s>
     <call action="internal-order-choosen"/>
@@ -173,13 +155,7 @@
       <s>confirm.post := uri-combine($confirm.post, {$order-branch-name: $choose-result})</s>
     </if>
     <page url="{$confirm}"/>
-    <pattern><t:switch>    
-      <b>Ihre Vormerkung wurde vorgenommen</b>
-      <div>Ihre Vormerkung wurde vorgenommen</div>
-      <ul class="SysMsgList">
-        <t:s>vl:raise(.)</t:s>
-      </ul>    
-    </t:switch></pattern>
+    <pattern href="orderComplete"/>
   </if>
   <s>$book.status := "ordered"</s>
 </action>
