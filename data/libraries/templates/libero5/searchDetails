@@ -47,7 +47,7 @@
           </tr>+
         </tbody>
         </table>
-        <a title="Reserve Title">{book._order-url := @href, book.orderable := true()}</a>?
+        <a title="Reserve Title">{book._order-url := @href, if ($book.holdings.orderable[.]) then () else $book.holdings[] := {"title": $book.title} }</a>?
         <div class='SubmitIssuesReserves' t:test="$book.holdings.orderable[.]">
         {$order-form := form(ancestor::form[1], (.//input))}
         </div>

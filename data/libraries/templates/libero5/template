@@ -132,8 +132,8 @@
 
 <action id="order-single"> 
   <s>$order := if ($book._order-url) then $book._order-url
-               else if (get("holding")._order-id and get("order-form")) then
-                 request-combine(get("order-form"), {get("holding")._order-id: 1})
+               else if ($holding._order-id and get("order-form")) then
+                 request-combine(get("order-form"), {$holding._order-id: 1})
                else ()
    </s>
   <page url="{$order}"/>
@@ -156,8 +156,8 @@
     </if>
     <page url="{$confirm}"/>
     <pattern href="orderComplete"/>
+    <s>$book.status := "ordered"</s>
   </if>
-  <s>$book.status := "ordered"</s>
 </action>
 
 
