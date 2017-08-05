@@ -1,7 +1,7 @@
 <t:switch prioritized="true">
 
 <form>{form:=form(.)}
-<a id="dnn_dnnLOGIN_loginLink">{$loginlink := @href}</a>
+<a t:condition="@id=('dnn_dnnLOGIN_loginLink', 'dnn_dnnLogin3_enhancedLoginLink')">{$loginlink := @href}</a>
 <DIV class="DnnModule-OPENSearchModule">
   <div t:condition="contains(@id, 'SearchResult_ResultArea')">
     <t:switch prioritized="true">

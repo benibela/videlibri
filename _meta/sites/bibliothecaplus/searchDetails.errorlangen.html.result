@@ -1,0 +1,3 @@
+search-reverse-keys := 
+book := {}
+raised := text{"Das Medium ist im Bibliothekskatalog momentan nicht verfügbar."}
