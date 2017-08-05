@@ -1,12 +1,12 @@
 VideLibri :books:
 =============
 VideLibri likely was the world's first app to access the web catalogs/OPACs of libraries as it has been developed continuously since 2006.
-It has all the usual features of their OPACs, e.g. viewing your account, searching books or ordering other items. It also renews all due books automatically and can do other things only a locally running app can do without privacy concerns, like keeping a history of all ever lend books to track your own reading habits.  With account viewing and renewing for the first public libraries completed in 2006 it is world's first universal library app.
+It has all the usual features of their OPACs, e.g. viewing your account, searching books or ordering other items. It also renews all due books automatically and can do other things only a locally running app can do without privacy concerns, like keeping a history of all ever lend books to track your own reading habits.  
 
 So far VideLibri has been tested with 200 libraries successfully.
 It is platform-independent and currently [provides binaries](http://www.videlibri.de) for (Desktop) Windows, Linux and Android. At the moment its GUI is entirely in German as no support for any non-German-speaking library has been requested, but a translation can be made if asked for.
 
-![on Windows](http://sourceforge.net/dbimage.php?id=280463) ![on Android](http://sourceforge.net/p/videlibri/screenshot/android.png)
+![on Windows](http://sourceforge.net/dbimage.php?id=280463) ![on Android](https://a.fsdn.com/con/app/proj/videlibri/screenshots/s1.png)
 
 Backend
 -------------
