@@ -634,6 +634,7 @@ begin
                end else
                 callBookEvent(access.FOnOrderComplete, book.owningBook);
             end else begin
+              //else branch is deprecated
               Searcher.orderConfirmSingle(book);
               callBookEvent(access.FOnOrderConfirm, book.owningBook);
             end;

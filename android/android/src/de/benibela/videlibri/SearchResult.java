@@ -127,12 +127,14 @@ public class SearchResult extends BookListActivity implements Bridge.SearchEvent
                 onTakePendingMessage(event.arg1, (String)(event.obj1), (String[])event.obj2);
                 break;
             case PENDING_MESSAGE_COMPLETE:
+                onOrderFailed();
                 endLoading(LOADING_SEARCH_MESSAGE);
                 endLoading(LOADING_SEARCH_ORDER);
                 endLoading(LOADING_SEARCH_ORDER_HOLDING);
                 details.setOrderButtonsClickable();
                 break;
             case EXCEPTION:
+                onOrderFailed();
                 endLoadingAll(new int[]{ LOADING_SEARCH_CONNECTING, LOADING_SEARCH_SEARCHING, LOADING_SEARCH_DETAILS, LOADING_SEARCH_ORDER, LOADING_SEARCH_ORDER_HOLDING, LOADING_SEARCH_MESSAGE });
                 setTitle();
                 searcher.state = Search.SEARCHER_STATE_FAILED;
@@ -283,6 +285,22 @@ public class SearchResult extends BookListActivity implements Bridge.SearchEvent
         } */
     }
 
+    private void onOrderFailed(){
+        //if the book has an account, but is not ordered, it will be shown as lend, which is completely wrong
+
+        //unfortunately we do not know which book was supposed to be ordered
+        Bridge.Book book = lastSelectedBookForDialog;
+        if (book == null && details != null)
+            book = details.book;
+        if (book == null)
+            return;
+        switch (book.getStatus()) {
+            case Ordered: case Provided: return;
+            default:
+                book.account = null;
+        }
+
+    }
 
     public void orderBookHolding(final Bridge.Book book, int choosenHolding){
         if (searcher == null) return;
