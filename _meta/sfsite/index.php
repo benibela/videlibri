@@ -14,7 +14,7 @@
 <link rel="stylesheet" media="only screen and (max-width: 480px)" href="mobile.css" />
 <link rel="canonical" href="http://www.videlibri.de"/>
 
-<title>VideLibri - Die Bibliotheks-App</title></head>
+<title>VideLibri - Alle Bibliotheken in einer App</title></head>
 
 <?php
 //from http://stackoverflow.com/questions/3770513/detect-browser-language-in-php

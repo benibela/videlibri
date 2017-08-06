@@ -1,10 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?xml-stylesheet type="text/xsl" href="../changelog.xsl"?>
 <changelog program="VideLibri">
-      <build version="1905" date="2017-07-16">
+      <build version="1910" date="2017-08-06">
         <download url="http://videlibri.sourceforge.net/updates/videlibri-setup.exe" platform="WINDOWS" execute="&quot;$DOWNLOAD&quot;  /SP- /noicons &quot;/dir=$OLDPATH&quot; " restart="true"/>
         <download url="http://videlibri.sourceforge.net/updates/videlibri-linux32.deb" platform="LINUX32" execute=""/>
         <download url="http://videlibri.sourceforge.net/updates/videlibri-linux64.deb" platform="LINUX64" execute=""/>
+        <change>libero/Bibliothek Verl: Neuimplementierung der Vormerkungen mittels "holding"-System.</change>
+        <change>android: breche die Suche nicht ab, wenn eine Fehlermeldung auftritt, da es öfter eine Warnung der Bibliothek ist ("Buch momentan nicht verfügbar") als eine fehlgeschlagene Suche.</change>
+        <fix>libero/Bibliothek Verl: Zeige keine nicht verlängerbaren Medien als verlängerbar an.</fix>
+        <fix>Bibliothek des Deutschen Alpenvereins: Neue Webadresse.</fix>
+        <fix>Stadtbibliothek Erlangen: Erkenne umbenannten Login-Link auf der Suchergebnisseite.</fix>
+        <fix>Stadt- und Landesbibliothek Dortmund: Neues HTTPS-Zertifikat.</fix>
+        <fix>Desktop-Suche: Zeige Scrollbars (nur) an wenn sie benötigt werden.</fix>
+     </build>
+      <build version="1905" date="2017-07-16">
         <change>VideLibri ist nun mit Lazarus 1.8 RC 2 erstellt.</change>
         <change>android: Zusätzlicher Zeilenumbruch für Teilen/Textexport.</change>
         <fix>android: Stadtbibliothek Koblenz: Neues Serverzertifikat.</fix>
