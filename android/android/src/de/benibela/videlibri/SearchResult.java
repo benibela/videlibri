@@ -137,9 +137,9 @@ public class SearchResult extends BookListActivity implements Bridge.SearchEvent
                 onOrderFailed();
                 endLoadingAll(new int[]{ LOADING_SEARCH_CONNECTING, LOADING_SEARCH_SEARCHING, LOADING_SEARCH_DETAILS, LOADING_SEARCH_ORDER, LOADING_SEARCH_ORDER_HOLDING, LOADING_SEARCH_MESSAGE });
                 setTitle();
-                searcher.state = Search.SEARCHER_STATE_FAILED;
-                searcher = null;
-                Search.gcSearchers();
+                //searcher.state = Search.SEARCHER_STATE_FAILED;
+                //searcher = null;
+                //Search.gcSearchers();
                 VideLibriApp.showPendingExceptions();
                 return true;
         }
