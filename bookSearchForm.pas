@@ -1101,6 +1101,7 @@ begin
       LabelOrder.Enabled:=(getProperty( 'orderable', book.additional) <> '') and (getProperty('orderable', book.additional) <> '0') and (getProperty('orderable', book.additional) <> 'false');
       LabelOrder.Caption := book.getPropertyAdditional('orderTitle', rsRequestOrder);
     end else begin
+      holdings.BeginUpdate;
       holdings.clear;
       holdings.ColumnsClear;
       for i := 0 to high(holdingColumns) do begin
@@ -1137,6 +1138,7 @@ begin
       holdingsSplitter.Visible := True;
       if orderableHolding = -1 then LabelOrder.Enabled := false
       else holdings.Selected := holdings.Items[orderableHolding];
+      holdings.EndUpdate;
     end;
 
   finally

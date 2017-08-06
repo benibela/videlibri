@@ -13,7 +13,7 @@ object bookSearchFrm: TbookSearchFrm
   OnDeactivate = FormDeactivate
   OnDestroy = FormDestroy
   OnKeyUp = FormKeyUp
-  LCLVersion = '1.7'
+  LCLVersion = '1.8.0.2'
   object optionPanel: TPanel
     Left = 0
     Height = 653
@@ -108,14 +108,11 @@ object bookSearchFrm: TbookSearchFrm
       Height = 388
       Top = 169
       Width = 228
-      HorzScrollBar.Page = 224
-      HorzScrollBar.Range = 188
-      VertScrollBar.Page = 332
-      VertScrollBar.Range = 400
+      HorzScrollBar.Page = 215
+      VertScrollBar.Page = 346
       Anchors = [akTop, akLeft, akRight, akBottom]
-      AutoScroll = False
       ClientHeight = 384
-      ClientWidth = 209
+      ClientWidth = 224
       TabOrder = 5
       object Label7: TLabel
         AnchorSideTop.Side = asrBottom
@@ -134,7 +131,7 @@ object bookSearchFrm: TbookSearchFrm
         Left = 6
         Height = 25
         Top = 21
-        Width = 196
+        Width = 211
         Anchors = [akTop, akLeft, akRight]
         BorderSpacing.Bottom = 10
         ItemHeight = 0
@@ -161,7 +158,7 @@ object bookSearchFrm: TbookSearchFrm
         Left = 6
         Height = 25
         Top = 71
-        Width = 196
+        Width = 211
         Anchors = [akTop, akLeft, akRight]
         BorderSpacing.Bottom = 10
         ItemHeight = 0
@@ -185,7 +182,7 @@ object bookSearchFrm: TbookSearchFrm
         Left = 6
         Height = 25
         Top = 121
-        Width = 194
+        Width = 209
         Anchors = [akTop, akLeft, akRight]
         BorderSpacing.Bottom = 10
         ItemHeight = 0
@@ -208,7 +205,7 @@ object bookSearchFrm: TbookSearchFrm
         Left = 6
         Height = 25
         Top = 171
-        Width = 196
+        Width = 211
         Anchors = [akTop, akLeft, akRight]
         BorderSpacing.Bottom = 10
         ItemHeight = 0
@@ -230,7 +227,7 @@ object bookSearchFrm: TbookSearchFrm
         Left = 6
         Height = 25
         Top = 221
-        Width = 196
+        Width = 211
         Anchors = [akTop, akLeft, akRight]
         BorderSpacing.Bottom = 10
         ItemHeight = 0
@@ -254,7 +251,7 @@ object bookSearchFrm: TbookSearchFrm
         Left = 8
         Height = 25
         Top = 271
-        Width = 196
+        Width = 211
         Anchors = [akTop, akLeft, akRight]
         BorderSpacing.Bottom = 10
         ItemHeight = 0
@@ -278,7 +275,7 @@ object bookSearchFrm: TbookSearchFrm
         Left = 6
         Height = 25
         Top = 321
-        Width = 196
+        Width = 211
         Anchors = [akTop, akLeft, akRight]
         ItemHeight = 0
         Style = csDropDownList
@@ -556,23 +553,23 @@ object bookSearchFrm: TbookSearchFrm
     SimplePanel = False
   end
   object saveToAccountMenu: TPopupMenu
-    left = 400
-    top = 400
+    Left = 400
+    Top = 400
   end
   object orderForAccountMenu: TPopupMenu
-    left = 640
-    top = 448
+    Left = 640
+    Top = 448
   end
   object autoSearchContinueTimer: TTimer
     Enabled = False
     Interval = 100
     OnTimer = autoSearchContinueTimerTimer
-    left = 95
-    top = 516
+    Left = 95
+    Top = 516
   end
   object PopupMenu1: TPopupMenu
-    left = 552
-    top = 357
+    Left = 552
+    Top = 357
     object menuCopyValue: TMenuItem
       Caption = 'Wert kopieren'
       OnClick = menuCopyValueClick
