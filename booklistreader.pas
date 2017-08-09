@@ -1134,6 +1134,7 @@ begin
       case temp.kind of
         pvkObject: begin
           sl := TStringList.Create;
+          sl.CaseSensitive := true;
           (temp as TXQValueObject).enumerateKeys(sl);
           for i:=0 to books.Count-1 do begin
             currentBook := books[i];
