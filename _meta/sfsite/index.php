@@ -100,7 +100,7 @@ if (count($matches) == 0 || count(reset($matches)) == 0 || (reset(reset($matches
   //$
 ?>
 <body>
-<h1><a name="home">VideLibri - Die Bibliotheks-App</a></h1>
+<h1><a name="home">VideLibri - Die weltweit erste Bibliotheks-App</a></h1>
 
 <ul id="navigation">
   <li style="border-left: 1px solid blue;"><a href="#home">Start</a></li>
@@ -127,7 +127,7 @@ if (count($matches) == 0 || count(reset($matches)) == 0 || (reset(reset($matches
 </a>
 </div>
 
-Mit VideLibri kann man auf die Katalogen/WebOPACs zahlreicher Bibliotheken zugreifen, um darin zu suchen und seine Ausleihen zu sehen oder zu verlängern.
+Mit VideLibri kann man seit 2006 auf die Katalogen/OPACs zahlreicher Bibliotheken zugreifen, um darin zu suchen und seine Ausleihen zu sehen oder zu verlängern.
 
 </div>
 
