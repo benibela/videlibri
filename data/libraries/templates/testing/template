@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<actions>
+
+<meta>
+  <description>Template für internes Testen</description>
+</meta>
+
+
+<action id="connect">
+</action>
+
+<action id="update-all">
+</action>
+
+
+<action id="renew-list">
+</action>
+
+<action id="cancel-list">
+</action>
+
+
+
+
+<action id="search">  
+  <s>book := {"title": "foo", "author": "a"},
+     book := {"title": "foo 2", "author": "a"},
+     book := {"title": "fu fighters", "author": "b", "holdings": (
+       {"title": "ex 1", "libraryBranch": "neverlands", "orderable": false()},
+       {"title": "queen's", "libraryBranch": "fillory"}
+     )}
+  </s>
+</action>
+
+
+<action id="search-next-page">
+</action>
+
+<action id="search-details">
+</action>
+
+<action id="order-single">
+  <s> vl:confirm("internal-order", "Book: " || serialize-json($book) || $line-ending|| $line-ending || "Holding: "||serialize-json($holding)) </s>
+</action>
+
+<action id="internal-order">
+  <s>if ($confirm-result) then ($book.statusId:="ordered") else ()</s>
+</action>
+
+</actions>

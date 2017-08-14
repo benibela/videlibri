@@ -1,0 +1,27 @@
+<body>{vl:delete-current-books()}
+<div class="listcontainer">
+   <dl class="list">
+     <strong>{ 
+       let $cur := . 
+       let $year := extract($cur, "([0-9]+)\s*$", 1)
+       let $authorTitle := if ($year) then substring-before($cur, $year) else $cur
+       return $book := {"title": extract($authorTitle, "^[^/]+"),
+                        "author": extract($authorTitle, "[^/]+$"), 
+                        "year": $year} 
+     }</strong>
+
+     <t:loop><t:switch>
+     <tr><th>Ausgeliehen am:</th>  <td>{$book.issueDate := parse-date(.)}</td></tr>
+     <tr><th>Zurückzugeben am:</th> <td>
+       {$book.dueDate := parse-date(.), 
+       let $renew := a[1]!resolve-html(.) return (
+         $book.statusId := if ($renew) then "curious" else "critical",
+         $book._renewUrl := $renew
+         )
+       }
+     </td></tr>
+     <tr><th>Medien-Nummer:</th> <td>{$book.id}</td></tr>
+     </t:switch></t:loop>         
+   </dl>
+</div>*
+</body>

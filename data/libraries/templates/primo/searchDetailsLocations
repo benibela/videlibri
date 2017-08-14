@@ -1,0 +1,40 @@
+<t:switch prioritized="true">  
+  <table id="TABLE_DATA_item_list">
+    {i:=0}
+    <thead><tr><t:siblings-header>
+      <th>STANDORT</th>
+      <th>Bestand</th>?
+      <th>Lageplan</th>?
+      <th/>*
+    </t:siblings-header></tr></thead>
+    <tr>{i:=$i + 1}<t:siblings>
+      <td>{$book(x"Exemplar {$i} Standort!") := .}</td>
+      <td>{$book(x"Exemplar {$i} Bestand!") := .}</td>
+      <td><!--{$book(x"Exemplar {$i} Lageplan") := .}--></td>
+      <td/>
+    </t:siblings></tr>*
+  </table>
+  
+  <div class="EXLLocationListContainer">{i:=0}
+    <div class="EXLLocationList">
+      {$book(x"Exemplar {$i := $i+1}!") := join(span, ", ")}
+    </div>+
+  </div>
+    
+  <div class="serialSelection">
+    <li>STANDORT</li>
+    <li>
+      <span class="libraryName">{$book.libraryBranch}</span>
+      {vl:set-book-property("Standort", join(text())),
+       vl:set-book-property("Standort: Signatur", subsequence(span, 2, 100))
+      }
+    </li>
+    <ul> 
+      <li>Verfügbarkeit</li>
+      <li>{vl:set-book-property("Verfügbarkeit", .)}</li>
+    </ul>?
+  </div>
+  
+  <body>{$book("Fehler bei der Standort/Exemplarermittlung!") := "Bitte als Fehler melden"}</body>
+  
+</t:switch>

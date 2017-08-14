@@ -1,0 +1,6 @@
+<daia xmlns="http://ws.gbv.de/daia/" >
+ <!-- <document> -->
+ { //item  / 
+   $book(x"Bestand {position()}") := x"{department}: {label} "
+ }
+</daia>
