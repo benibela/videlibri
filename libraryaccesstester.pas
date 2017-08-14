@@ -18,6 +18,7 @@ type
     Button3: TButton;
     Button4: TButton;
     Button5: TButton;
+    Button6: TButton;
     CheckBox1: TCheckBox;
     CheckBox2: TCheckBox;
     CheckBox3: TCheckBox;
@@ -49,11 +50,13 @@ type
     procedure Button3Click(Sender: TObject);
     procedure Button4Click(Sender: TObject);
     procedure Button5Click(Sender: TObject);
+    procedure Button6Click(Sender: TObject);
     procedure FormClose(Sender: TObject; var CloseAction: TCloseAction);
     procedure FormCloseQuery(Sender: TObject; var CanClose: boolean);
     procedure FormCreate(Sender: TObject);
     procedure TreeListView1CustomRecordItemDraw(sender: TObject; eventTyp_cdet: TCustomDrawEventTyp; recordItem: TTreeListRecordItem;
       var defaultDraw: Boolean);
+    procedure TreeListView1Select(sender: TObject; item: TTreeListItem);
   private
     { private declarations }
   public
@@ -65,7 +68,7 @@ var
 
 implementation
 
-uses booklistreader, applicationconfig, internetaccess, bbutils, Clipbrd, librarySearcher,math;
+uses booklistreader, applicationconfig, internetaccess, bbutils, Clipbrd, librarySearcher,math, simplehtmltreeparser,strutils;
 { TlibraryTesterForm }
 
 
@@ -209,11 +212,51 @@ var
 begin
   tocp := '';
   for i := 0 to TreeListView1.Items.Count - 1 do
-    if TreeListView1.Items[i].Selected then
+    if  CheckBox1.Checked or TreeListView1.Items[i].Selected then
       tocp += TreeListView1.Items[i].RecordItemsText[0] + ' ' +TreeListView1.Items[i].RecordItemsText[1] + LineEnding
               + TTestData(TreeListView1.Items[i].data.obj).lib.homepageCatalogue + LineEnding
               + TreeListView1.Items[i].RecordItemsText[2] +LineEnding+TreeListView1.Items[i].RecordItemsText[3] + LineEnding+TreeListView1.Items[i].RecordItemsText[4] + LineEnding+LineEnding;
   Clipboard.AsText := tocp;
+end;
+
+procedure TlibraryTesterForm.Button6Click(Sender: TObject);
+const testingRecords: string = '/home/benito/hg/programs/internet/VideLibri/_meta/testingrecords/';
+var   buffer, searchres: string;
+      builder: TStrBuilder;
+      d: RawByteString;
+      i: Integer;
+  procedure appendAttribute(const name, value: string);
+  begin
+    builder.append(' ');
+    builder.append(name);
+    builder.append('="');
+    builder.append(xmlStrEscape(value, true));
+    builder.append('"');
+  end;
+
+begin
+  builder.init(@buffer);
+  d := dateTimeFormat('yyyy-mm-dd', currentDate);
+  builder.append('<?xml version="1.0" encoding="UTF-8"?>'); builder.append(LineEnding);
+  builder.append('<tests'); appendAttribute('date', d); builder.append('>'); builder.append(LineEnding);
+  for i := 0 to TreeListView1.Items.Count - 1 do
+     if  CheckBox1.Checked or TreeListView1.Items[i].Selected then begin
+       searchres := TreeListView1.Items[i].RecordItemsText[2];
+       if searchres = '' then continue;
+       if strBeginsWith(searchres, '1-') then continue; //unclear
+       if strBeginsWith(searchres, '2-EInternetException: Internet Error: -4') then
+         continue;//that is not a bug, but a unreachable server (timeout, openssl cert mismatch)
+       builder.append('  <test');
+       appendAttribute('date', d);
+       appendAttribute('id', (TreeListView1.Items[i].data.obj as TTestData).lib.id);
+       appendAttribute('search', ifthen(strBeginsWith(searchres, '2-'),'no','yes'));
+       appendAttribute('system', (TreeListView1.Items[i].data.obj as TTestData).lib.template.name);
+      builder.append('/>'); builder.append(LineEnding);
+     end;
+  builder.append('</tests>');
+  builder.final;
+  ForceDirectories(testingRecords);
+  strSaveToFile(testingRecords + 'tests.' + d+'T'+dateTimeFormat('hhnnss', Time)+'.xml', buffer);
 end;
 
 procedure TlibraryTesterForm.FormClose(Sender: TObject; var CloseAction: TCloseAction);
@@ -259,6 +302,12 @@ begin
     TreeListView1.canvas.Brush.Style := bsSolid;
     TreeListView1.Canvas.FillRect(TreeListView1.DrawingRecordItemRect);
   end;
+end;
+
+procedure TlibraryTesterForm.TreeListView1Select(sender: TObject; item: TTreeListItem);
+begin
+  if item <> nil then
+    CheckBox1.Checked := false;
 end;
 
 
