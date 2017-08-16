@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tests date="2017-08-16">
+  <test date="2017-08-16" id="DE_Bayern_Erlangen_Stb" search="yes" system="bibliothecaplus" fix="css"/>
+  <test date="2017-08-16" id="DE_Nordrhein-Westfalen_Hamm_Stb" search="yes" system="bibliothecaplus" fix="css"/>
+</tests>
