@@ -7,13 +7,20 @@
 
 
 <action id="connect">
+  <s>_renewed := false()</s>
 </action>
 
 <action id="update-all">
+  <s>vl:delete-current-books()</s>
+  <s>book := {"title": "ABC", "author": "an author", "dueDate": current-date() + xs:dayTimeDuration("P2D"), "statusId": "critical"}</s>
+  <s>book := {"title": "DEF", "author": "another author", "dueDate": current-date() + xs:dayTimeDuration("P10D"), "statusId": "critical"}</s>
+  <s>book := {"title": "GHI", "author": "another author", "dueDate": current-date() + xs:dayTimeDuration(if ($_renewed) then "P50D" else "P1D"), "statusId": "normal"}</s>
 </action>
 
 
 <action id="renew-list">
+  <s>_renewed := true()</s>
+  <call action="update-all"/>
 </action>
 
 <action id="cancel-list">
