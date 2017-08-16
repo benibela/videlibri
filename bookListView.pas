@@ -400,8 +400,12 @@ begin
     item.RecordItems.Clear;
     RecordItems.Capacity := length(properties) + 1;
     for i := 0 to high(properties) do
-      if i = ColumnIssueDateId then RecordItems.Add(DateToPrettyStr(book.issueDate))
-      else if i = ColumnDueDateId then begin
+      if i = ColumnIssueDateId then begin
+        if (book.issueDate > 0) or (book.firstExistsDate = 0) then
+          RecordItems.Add(DateToPrettyStr(book.issueDate))
+         else
+          RecordItems.Add('<= ' + DateToPrettyStr(book.firstExistsDate));
+      end else if i = ColumnDueDateId then begin
         if (book.lend = false) and (book.owningAccount <> nil) then begin
           if book.dueDate = -2 then RecordItems.Add(rsNeverLend)
           else RecordItems.Add(rsLendHistory)
