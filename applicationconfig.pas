@@ -470,7 +470,7 @@ resourcestring
     RefreshInterval:=userConfig.ReadInteger('access','refresh-interval',1);
     WarnInterval:=userConfig.ReadInteger('base','warn-interval',0);
     lastWarnDate:=userConfig.ReadInteger('base','last-warn-date',0);
-    HistoryBackupInterval:=userConfig.ReadInteger('base','history-backup-interval',30);
+    HistoryBackupInterval:=userConfig.ReadInteger('base','history-backup-interval',90);
 
     {$ifdef android}logging:=logging or userConfig.ReadBool('base','logging',false);{$endif};
 

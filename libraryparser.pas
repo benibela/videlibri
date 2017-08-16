@@ -1241,6 +1241,9 @@ begin
   sl:=FindAllFiles(ExtractFilePath(bookListOldFileName),ExtractFileNameOnly(bookListOldFileName)+'.????????',false);
   for i:=0 to sl.count-1 do
     DeleteFile(sl[i]);
+  sl:=FindAllFiles(ExtractFilePath(bookListOldFileName),ExtractFileNameOnly(bookListOldFileName)+'.xml' +'.????????',false);
+  for i:=0 to sl.count-1 do
+    DeleteFile(sl[i]);
   sl.free;
 end;
 
@@ -1265,8 +1268,11 @@ begin
   if logging then
     log('TBookLists.save started');
   if keepHistory then begin
-    if (currentDate-ownerLib.config.ReadInteger('base','last-history-backup',0)>HistoryBackupInterval) and (FileExistsUTF8(bookListOldFileName)) then begin
-      CopyFile(bookListOldFileName,bookListOldFileName+'.'+dateTimeFormat('yyyymmdd',currentDate));
+    if (currentDate-ownerLib.config.ReadInteger('base','last-history-backup',0)>HistoryBackupInterval) then begin
+      if FileExistsUTF8(bookListOldFileName) then
+        CopyFile(bookListOldFileName,bookListOldFileName+'.'+dateTimeFormat('yyyymmdd',currentDate));
+      if FileExistsUTF8(bookListOldFileName + '.xml') then
+        CopyFile(bookListOldFileName+ '.xml',bookListOldFileName+ '.xml'+'.'+dateTimeFormat('yyyymmdd',currentDate));
       ownerLib.config.WriteInteger('base','last-history-backup',currentDate);
     end;
     if bookLists[bltInOldData].Count>0 then begin
