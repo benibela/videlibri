@@ -1,0 +1,213 @@
+<file>
+<title>Alle Bibliotheken in einer App</title>
+
+<head>
+  <meta name="keywords" content="bibliothek, bibliotheken, opac, büchereien, stadtbibliothek, stadtbücherei, düsseldorf" />
+
+<?php
+//from http://stackoverflow.com/questions/3770513/detect-browser-language-in-php
+
+// parse list of comma separated language tags and sort it by the quality value
+function parseLanguageList($languageList) {
+    if (is_null($languageList)) {
+        if (!isset($_SERVER['HTTP_ACCEPT_LANGUAGE'])) {
+            return array();
+        }
+        $languageList = $_SERVER['HTTP_ACCEPT_LANGUAGE'];
+    }
+    $languages = array();
+    $languageRanges = explode(',', trim($languageList));
+    foreach ($languageRanges as $languageRange) {
+        if (preg_match('/(\*|[a-zA-Z0-9]{1,8}(?:-[a-zA-Z0-9]{1,8})*)(?:\s*;\s*q\s*=\s*(0(?:\.\d{0,3})|1(?:\.0{0,3})))?/', trim($languageRange), $match)) {
+            if (!isset($match[2])) {
+                $match[2] = '1.0';
+            } else {
+                $match[2] = (string) floatval($match[2]);
+            }
+            if (!isset($languages[$match[2]])) {
+                $languages[$match[2]] = array();
+            }
+            $languages[$match[2]][] = strtolower($match[1]);
+        }
+    }
+    krsort($languages);
+    return $languages;
+}
+
+// compare two parsed arrays of language tags and find the matches
+function findMatches($accepted, $available) {
+    $matches = array();
+    $any = false;
+    foreach ($accepted as $acceptedQuality => $acceptedValues) {
+        $acceptedQuality = floatval($acceptedQuality);
+        if ($acceptedQuality === 0.0) continue;
+        foreach ($available as $availableQuality => $availableValues) {
+            $availableQuality = floatval($availableQuality);
+            if ($availableQuality === 0.0) continue;
+            foreach ($acceptedValues as $acceptedValue) {
+                if ($acceptedValue === '*') {
+                    $any = true;
+                }
+                foreach ($availableValues as $availableValue) {
+                    $matchingGrade = matchLanguage($acceptedValue, $availableValue);
+                    if ($matchingGrade > 0) {
+                        $q = (string) ($acceptedQuality * $availableQuality * $matchingGrade);
+                        if (!isset($matches[$q])) {
+                            $matches[$q] = array();
+                        }
+                        if (!in_array($availableValue, $matches[$q])) {
+                            $matches[$q][] = $availableValue;
+                        }
+                    }
+                }
+            }
+        }
+    }
+    if (count($matches) === 0 && $any) {
+        $matches = $available;
+    }
+    krsort($matches);
+    return $matches;
+}
+
+// compare two language tags and distinguish the degree of matching
+function matchLanguage($a, $b) {
+    $a = explode('-', $a);
+    $b = explode('-', $b);
+    for ($i=0, $n=min(count($a), count($b)); $i<$n; $i++) {
+        if ($a[$i] !== $b[$i]) break;
+    }
+    return $i === 0 ? 0 : (float) $i / count($a);
+}
+
+$accepted = parseLanguageList($_SERVER['HTTP_ACCEPT_LANGUAGE']);
+$available = parseLanguageList('en, de, DE');
+$matches = findMatches($accepted, $available);
+if (count($matches) == 0 || count(reset($matches)) == 0 || (reset(reset($matches)) != "de" && reset(reset($matches)) != "DE"))
+  print ("<style>#navigation a.enlink { text-decoration: blink; font-weight: bold; color: #AA0000} </style>");
+  //$
+?>
+  
+</head>
+
+<prequel>
+<div style="float: right">
+<a href="https://play.google.com/store/apps/details?id=de.benibela.videlibri" rel="nofollow" style="vertical-align:center;display:block">
+  <img alt="Android app on Google Play"
+       src="https://developer.android.com/images/brand/de_app_rgb_wo_45.png" style="position:relative;top: -40px" width="125" height="45"/>
+
+  <img alt="Android app on Google Play" width="126" height="126" src="img/qrcode_pretty.png" />
+</a>
+</div>
+
+Mit VideLibri kann man seit 2006 auf die Kataloge/OPACs zahlreicher Bibliotheken zugreifen, um seine Ausleihen zu sehen oder zu verlängern. Auch Katalogsuchen sind möglich.
+</prequel>
+
+<content title="Features">
+
+VideLibri hat folgende Vorteile gegenüber den normalen Web-Katalogen der Büchereien:
+<ul class="f1list">
+<li><h3>Automatische Verlängerung</h3>
+VideLibri verlängert alle ausgeliehenen Bücher automatisch, so dass man dies nie vergessen kann. 
+</li>
+<li><h3>Zuverlässige Benachrichtigung über Ausleihfristen</h3>
+Bei den Benachrichtigungen der Büchereien passiert es ständig, dass die Benachrichtigungsemails nicht ankommen, oder ihr Katalog nicht erreichbar ist. 
+VideLibri ist zuverlässiger, da es auf dem lokalen Rechner läuft und eine Art fail-safe Prinzip realisiert: es wird immer gewarnt, wenn nicht gezeigt werden kann, dass keine Bücher abzugeben sind. 
+</li>
+<li><h3>Kein permanenter Internetzugang nötig</h3>
+Um den normalen Katalog aufzurufen, muss man immer eine Internetverbindung haben. VideLibri dagegen speichert  alle Ausleihdaten auf der Festplatte, so dass es auch funktioniert, wenn man zeitweilig nicht online ist, weil man beispielsweise im Zug sitzt.
+</li>
+<li><h3>Gesamthistorie aller Ausleihen</h3>
+Es speichert auch alle jemals ausgeliehenen Bücher, wodurch  man jederzeit nachsehen kann, wann man, welche Bücher ausgeliehen hatte. Das ist nützlich, wenn man bei einer Arbeit vergessen hat, das Literaturverzeichnis zu schreiben, oder einfach nur wissen will, wie viel man ausgeliehen hatte.  (Paranoide können die Funktion aber auch abschalten)
+</li>
+<li><h3>Übersicht über mehrere Ausleihkonten</h3>
+VideLibri zeigt die Ausleihdaten von mehreren Konten gleichzeitig an, so dass man, wenn man in mehreren Büchereien angemeldet ist, nicht jeden Katalog einzeln aufrufen muss. Auch wenn in einer mehrköpfigen Familie jeder eine eigene Ausleihkarte hat, wie von der Benutzerordnung vorgeschrieben, stellt es sicher, dass niemand/kein Kind vergessen hat, etwas abzugeben.
+</li>
+<li><h3>Besseres Interface</h3>
+VideLibri ist nach der Installation sehr viel einfacher zu benutzen, als die meisten Webkataloge/WebOPACs der Büchereien. Man muss nur einmal klicken, um die Ausleihliste zu öffnen, und braucht nicht jedesmal sein Passwort einzugeben. Zudem werden alle Bücher farbkodiert in einer sortierbaren Liste angezeigt und die jeweiligen Abgabezeiten nach Wochen getrennt.
+</li>
+<li><h3>Mobile Android-Version</h3>
+VideLibri läuft nativ auf Androidsystemen und bietet so eine bessere und bequemere Integration in das System als Webkataloge. 
+</li>
+<li><h3>Lokal laufende App</h3>
+App ist die Abkürzung von Applikation und der Begriff wird hier nicht zur Unterscheidung zwischen Desktop-App oder mobiler App verwendet, sondern zur Abgrenzung von Webseiten. Eine Unterscheidung zwischen mobil und nicht-mobil wäre bedeutungslos,  denn mit der richtigen Hardware ist jedes Programm mobil, während umgekehrt ein Smart-Fernseher nicht mobil ist, obwohl der Fernseher Android als Betriebssystem verwendet. <br/>
+Der Unterschied zwischen einer App und einer Webseite ist dagegen erheblich. Bei einer Webseite ist man dem Anbieter hilflos ausgeliefert. Die Webseite kann unangekündigt abgeschaltet werden und ist dann nicht mehr nur nicht-nutzbar, sondern auch alle früher dort gespeicherten Daten sind weg. Eine installierte App dagegen bleibt installiert und, solange man sie nicht deinstalliert, läuft sie auch in 100 Jahren noch auf dem Gerät.<br/>
+Zudem hat ein Benutzer keine Kontrolle darüber, was eine Webseite tut. Wenn zum Beispiel eine Bibliothek von einem webseitenbasierten Metakatalog nicht unterstützt wird, gibt es keine Möglichkeit über den Metakatalog auf die nicht-unterstützte Bibliothek zuzugreifen. Eine App auf dem eigenen Gerät kann man dagegen beliebig ändern und ohne Einschränkungen seine eigene Bibliothek hinzufügen. <br/> Ebenso könnte eine Webseite gehackt werden oder persönliche Daten weitergeben. Sind die Daten dagegen alle in einer lokalen App, bleiben diese auf dem lokalen Gerät und niemand Fremdes kann darauf zugreifen.
+</li>
+
+<li><h3>Vollständige XQuery Unterstützung</h3>
+Mittels der Datenbankabfragesprache XQuery lassen sich <a href="/help/xquerysearch.html">beliebige komplizierte Suchen</a> über die eigene Ausleihhistorie ausführen, um beispielsweise folgende Frage zu beantworten: "Von allen Büchern, deren Titellänge eine Primzahl ist, welches habe ich am häufigsten ausgeliehen?"
+</li>
+
+<li><h3>Mehr Details</h3>
+Viele Bibliotheken zeigen in ihrem Online-Katalog keine Details an. So fehlt bei den Stadtbüchereien Düsseldorfs normalerweise der Autor; während die Berliner Staatsbibliothek weder Autor noch Titel anzeigt und stattdessen lediglich die Inventarnummer nennt. VideLibri dagegen kann diese Informationen anzeigen, im Falle der Stabi wird automatisch im Katalog gesucht, für andere Büchereien kann man manuell die Digibib-Suche starten<sup class="desktop">D</sup> und bekommt dann sogar ein Titelbild angezeigt. 
+</li>
+
+<li><h3>E-Mailbenachrichtigung<sup class="desktop">D</sup></h3> 
+VideLibri kann einen E-Mailbericht über alle Medien versenden, in dem fällige und nicht fällige Bücher aufgelistet sind.</li>
+
+<li><h3>Open-Source</h3>
+Jeder kann VideLibri genauso ändern, wie er es haben will, und beliebige Features hinzufügen. Dies darf nicht mit dem Hinzufügen neuer Bibliotheken verwechselt werden, denn dies ist orthogonal. Bei vielen Systemen reicht es die richtige Webkatalog URL in der GUI einzugeben. Es gibt im kompilierten Quellcode von VideLibri keine Bibliotheksspezifischen Funktionen, sondern die Bibliothekssysteme werden mittels Pattern-Matching halbautomatisch von VideLibri gelernt und mittels XQuery-Skripten für Sonderfälle angepasst.
+</li>
+</ul>
+
+Einige andere Features sind:
+<!--    *  Es können die Medien von mehreren Konten gleichzeitig betrachtet und verlängert werden
+    * Bald fällige Medien werden automatisch verlängert
+    * Abgabezeiten in unterschiedlichen Wochen werden markiert.
+    * Vor dem endgültigem Ablauf der Leihfrist wird man vom Programm benachrichtigt
+    * Die Liste der ausgeliehenen Medien wird automatisch über die Internetseiten der Büchereien aktualisiert.
+    * Die momentan ausgeliehenen Medien werden gespeichert, so dass man seine Ausleihen sehen kann, ohne dafür ins Internet zu müssen.
+    * Es kann nach beliebigen (auch nicht ausgeliehenen) Medien gesucht werden
+    * VideLibri wird (je nach Einstellung) bei jedem Systemstart minimiert in der Symbolleiste gestartet
+    * Alle jemals ausgeliehenen Medien können gespeichert
+    * Es gibt eine Statistik über alle ausgeliehenen Medien
+    * BibTeX-Export für die Erstellung von Literaturverzeichnisse.
+    * Automatisches Update
+    * Links zu den Homepages und Katalogen der einzelnen Büchereien 
+-->
+<ul>
+<li>Abgabezeiten in unterschiedlichen Wochen werden markiert</li>
+<li>Es kann nach beliebigen Medien gesucht werden</li>
+<li>Vormerkungen und Bestellungen im Katalog</li>
+<li>VideLibri wird (je nach Einstellung) bei jedem Systemstart minimiert in der Symbolleiste gestartet</li>
+<li>Es gibt eine Statistik über alle ausgeliehenen Medien<sup class="desktop">D</sup></li>
+<li>BibTeX-Export für die Erstellung von Literaturverzeichnissen<sup class="desktop">D</sup></li>
+<li>XML-Import/Export zur Synchronisation von mehreren Geräten</li>
+<li>Automatisches Update<sup class="desktop">D</sup></li>
+<li>Speicherung von gesuchten Medien in der Kontohistorie, was zur Literaturverwaltung oder als Merkliste verwendet werden kann.<sup class="desktop">D</sup></li>
+</ul>
+
+Generell werden nur Bibliotheken gelistet, die ein System verwenden, bei dem sowohl die Katalog-Suche als auch alle Kontofunktionen funktioniert hat. Da die meisten Bibliotheken jedoch keine Testkonten zur Verfügung gestellt haben, konnte der Kontozugriff nur bei wenigen Bibliotheken direkt getestet werden. Mit <sup class="desktop">D</sup>-markiere Features sind nur in der Desktopversion enthalten, und fehlen in der Androidversion.<br/><br/>
+
+Es gibt allerdings auch ein paar Nachteile im Vergleich zu den online Web-Katalogen:
+<ul>
+<li>Es muss erst heruntergeladen und eingerichtet werden, so dass man nicht schnell auf einem fremden Computer seine Ausleihdaten nachsehen kann. (man kann es aber auf einem USB-Stick installieren) </li>
+<li>Es unterstützt nicht alle Büchereien und muss die Internetseite der Bücherei kennen. Wenn die Bücherei ihre Internetseite plötzlich ändert, lassen sich also die Daten nicht mehr aktualisieren. (da alles gecacht ist, funktioniert VideLibri aber trotzdem noch einen Monat weiter. Allerdings ist der Bibliotheksserver auch üblicherweise abgestürzt, so dass der Online-Katalog selbst nicht aufgerufen werden kann, und der VideLibri-Cache die einzige verfügbare Ausleihenübersicht ist) </li>
+</ul>
+
+Praktisch sollte man das Programm genau dann benutzen, wenn man jedes Jahr mehrere hunderte Bücher ausleiht. 
+
+</content>
+    
+<content title="Screenshots">
+<center>
+<img src="http://sourceforge.net/dbimage.php?id=280463" title="Allgemeine Übersicht über ausgeliehene Bücher (von den Büchereien in Düsseldorf und Aachen)" alt="Allgemeine Übersicht über ausgeliehene Bücher (von den Büchereien in Düsseldorf und Aachen)"/>
+
+<img src="http://sourceforge.net/dbimage.php?id=280465" title="Ausleihstatistik (über alle von meiner Familie in Düsseldorf und Aachen ausgeliehenen Bücher)" alt="Ausleihstatistik (über alle von meiner Familie in Düsseldorf und Aachen ausgeliehenen Bücher)"/>
+
+
+<img src="http://sourceforge.net/dbimage.php?id=306557" title="Suche in der Digibib. (öffnet sich automatisch nach Doppelklick auf ein ausgeliehenes Buch, und ist z.B.: bei den Stadtbüchereien von Düsseldorf nötig, um mehr als Autor oder Titel angezeigt zu bekommen)" alt="Suche in der Digibib. (öffnet sich automatisch nach Doppelklick auf ein ausgeliehenes Buch, und ist z.B.: bei den Stadtbüchereien von Düsseldorf nötig, um mehr als Autor oder Titel angezeigt zu bekommen)"/>
+
+<div>
+<img src="https://a.fsdn.com/con/app/proj/videlibri/screenshots/s1.png" title="VideLibri unter Android" alt="VideLibri unter Android"/><br/>
+<div style="display: inline-block; max-width: 100%">
+<img src="http://sourceforge.net/p/videlibri/screenshot/android-search-list.png" title="VideLibri 1.5 unter Android (Liste der Suchergebnisse)" alt="VideLibri 1.5 unter Android (Liste der Suchergebnisse)"/>
+<img src="http://sourceforge.net/p/videlibri/screenshot/android-search-result.png" title="VideLibri 1.5 unter Android (Details eines Suchergebnisses)" alt="VideLibri 1.5 unter Android (Details eines Suchergebnis)"/>
+</div>
+</div>
+
+</center>
+</content>
+    
+</file>

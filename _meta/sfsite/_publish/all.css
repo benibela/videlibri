@@ -4,6 +4,9 @@ h2 div {background-color: green; padding: 0.4em}
 h2 a {display: block; max-width: 45em; margin: auto; color: white}
 .f1list {padding-left: 4em; list-style: none}
 .f1list h3 {margin-left: -1em}
+div.footer { border-right: 3px solid green; border-top: 3px solid green; margin-top: 1em; padding-top: 5em; padding-bottom: 3em }
+div.footer a { padding-left: 3em; padding-right: 3em }
+
 #navigation{
   background-color:#DFDF80;
   color:#202047;
@@ -46,3 +49,28 @@ table i { font-size: 70% }
 .desktop {  }
 
 table.downloadTable td { padding: 3px 12px 3px 12px}
+
+
+#testing-table .date {float: left; width: 50%; padding-left: 2em}
+#testing-table .libname {float: left; width: 50%}
+#testing-table .search {float: left; width: 20%}
+#testing-table .account {float: left; width: 20%}
+#testing-table .text {float: left; margin-left: -6em; width: 50%}
+#testing-table h4 { display: inline; font-weight: 500 }
+#testing-table .time-line {font-size: 70%;}
+#testing-table div.library {margin-bottom: 1em}
+
+#testing-table div {overflow: auto}
+
+.header-row {     background-color: #E0FFE0; padding-top: 1em; padding-bottom: 1em }
+.city {     border-top: 2px solid #00CC00; margin-top: 1.5em }
+
+#testing-table div.library div.log {display: none }
+#testing-table div.library:hover div.log {display: block; background-color: #E0FFE0;  }
+
+.content { 
+  max-width: 60em;
+  margin-left: auto;
+  margin-right: auto;
+}
+

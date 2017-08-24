@@ -1,0 +1,14 @@
+<file>
+<title>Spin-Offs</title>
+
+<head>
+</head>
+
+<content title="Xidel">
+<p>Xidel ist ein Spin-Off von VideLibri ohne "libri", also was von VideLibri übrigbleibt, wenn man alle Funktionen bezüglich Bibliotheken und Büchern entfernt. <br/>
+Dies ist für jede Webseite nützlich, da durch das Ziel, dass VideLibri ohne Umprogrammierung mit sämtlichen existierenden Bibliothekssystemen arbeiten soll, ein einzigartiges Framework zum automatischen Webseitenabfragen entstanden ist. </p>
+
+<p>Xidel wird auf seiner eigenen <a href="xidel.html">Xidel-Seite</a> genauer beschrieben. Da Xidel und VideLibri größtenteils denselben Quellcode haben, liegen sie im selben <a href="https://sourceforge.net/p/videlibri/code/ci/tip/tree/">Repository</a>.</p>
+
+</content>
+</file>

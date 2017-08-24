@@ -1,0 +1,60 @@
+if ($fileinfo/@extension = "php") then <?php
+  if ($_SERVER['HTTP_HOST'] === 'code.videlibri.de') {
+    header('Location: http://sourceforge.net/p/videlibri/code/commit_browser', true, 307);
+    die();
+  };
+?> else (),
+<html lang="de">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<meta http-equiv="content-language" content="de"/>
+<link rel="stylesheet" type="text/css" href="all.css"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<link rel="stylesheet" media="only screen and (max-width: 480px)" href="mobile.css" />
+<link rel="canonical" href="http://www.videlibri.de/{local:file-url()}"/>
+
+<title>VideLibri - {$file/title/node()}</title>
+{$file/head/node()}
+</head>
+
+<body>
+  <h1><a name="home">VideLibri - Die weltweit erste Bibliothek-App</a></h1>
+  
+  <ul id="navigation">
+    {$global!fileinfo!<li><a href="{local:file-url(.)}">{title/node()}</a></li>}
+       
+    <li style="float: right"><a class="enlink" href="index_en.html">English Version</a></li>
+  </ul>
+
+  {$file!prequel!<div class="content" style="border:none;">{ node() }</div> }
+
+  {$file!content! (
+  <h2><div><a>{@title/data()}</a></div></h2>,
+  <div class="content">
+  {node()}
+  </div>
+  )}
+
+
+
+
+<!-- Piwik -->
+<script type="text/javascript">
+var pkBaseURL = (("https:" == document.location.protocol) ? "https://videlibri.sourceforge.net/piwik/" : "http://videlibri.sourceforge.net/piwik/");
+document.write(unescape("%3Cscript src='" + pkBaseURL + "piwik.js' type='text/javascript'%3E%3C/script%3E"));
+</script><script type="text/javascript">
+try {{
+var piwikTracker = Piwik.getTracker(pkBaseURL + "piwik.php", 1);
+piwikTracker.trackPageView();
+piwikTracker.enableLinkTracking();
+}} catch( err ) {{}}
+</script><noscript><p><img src="http://videlibri.sourceforge.net/piwik/piwik.php?idsite=1" style="border:0" alt="" /></p></noscript>
+<!-- End Piwik Tracking Code -->
+
+<div class="footer">{
+$fileinfo/preceding-sibling::fileinfo[1]!<a href="{local:file-url(.)}">Vorherige Seite</a>,
+$fileinfo/following-sibling::fileinfo[1]!<a href="{local:file-url(.)}" style="float: right">Nächste Seite</a>
+}</div>
+
+</body>
+</html>

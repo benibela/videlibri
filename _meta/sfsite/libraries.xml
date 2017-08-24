@@ -1,0 +1,20 @@
+<file>
+<title>Getestete Bibliotheken</title>
+<meta  name="description"  content="Bibliotheken, bei denen die Katalog-Suche oder der Ausleihkonto-Zugriff mit VideLibri getestet wurde."/>
+
+<head>
+</head>
+
+<content title="Getestete Bibliotheken">
+<p>
+Prinzipiell unterstützt VideLibri sämtliche existierenden Bibliotheken, da man die URL zum OPAC der Bibliothek eingeben kann (plus zusätzliche Datenbankparameter), wenn bereits eine andere Bibliothek in VideLibri das gleiche Katalog-System verwendet, und anderenfalls über das zugrundeliegende Webscraping-Template-Framework <a href="help/neuebibliothek.html">beliebige Webseiten als Datenquellen</a> hinzugefügt werden können, ohne etwas an VideLibri selbst zu ändern.</p>
+
+<!--Es liegen aber auch einige Templates standardmäßig bei, welche erfolgreich mit -->
+<p>Trotzdem wurde es mit einigen Bibliothek explizit getestet. Alle Bibliotheken in der folgenden Tabelle verwenden oder verwendeten ein OPAC-System, bei dem die Kontofunktionen mit VideLibri funktionieren, aber bei den meisten Bibliotheken haben wir keine Ausleihkarte, um dort die Kontofunktionen direkt zu testen (mit ? in der Tabelle markiert). Zudem haben manche Büchereien mittlerweile auf ein anderes Katalogsystem umgestellt:</p>
+
+<insert href="testing-table.html"/>
+
+
+
+</content>
+</file>

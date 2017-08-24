@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<global>
+
+<makecommand>
+_publish/$outfile: $infile $depends common.xq style.xq.html global.xml
+	xidel --input-format xml-strict --extract-include=xxx -e 'source := "$infile", output-dir := "_publish/"' --extract-kind xquery  --extract-file common.xq -e 'local:doit()'
+</makecommand>
+ 
+<fileinfo base="index" extension="php">
+  <title>Features</title>
+</fileinfo>  
+<fileinfo base="libraries">
+  <targetbase>bibliotheken</targetbase>
+  <depends>testing-table.html</depends>
+  <title>Getestete Bibliotheken</title>
+</fileinfo>  
+<fileinfo base="systems">
+  <targetbase>opac</targetbase>
+  <title>Unterstütze OPAC-Systeme</title>
+</fileinfo>  
+<fileinfo base="downloads">
+  <depends>supportTable.html</depends>
+  <title>Downloads</title>
+</fileinfo>  
+<fileinfo base="history">
+  <title>Geschichte</title>
+</fileinfo>  
+<fileinfo base="spinoffs">
+  <title>Spin-Offs</title>
+</fileinfo>  
+<fileinfo base="contact">
+  <title>Kontakt</title>
+</fileinfo>  
+
+</global>

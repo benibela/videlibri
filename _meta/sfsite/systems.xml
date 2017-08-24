@@ -1,0 +1,51 @@
+<file>
+<title>Getestete OPAC-Systeme</title>
+<head>
+<meta  name="description"  content="Eine Liste von OPACs, in denen VideLibri Bücher suchen, vormerken, Ausleihen anzeigen oder verlängern kann."/>
+</head>
+
+<content title="Getestete OPAC-Systeme">
+
+<p>
+
+Ob man VideLibri out-of-the-box mit einer Bibliothek verwenden kann, ist nicht von dem Namen der Bibliothek abhängig, sondern von dem von der Bibliothek verwendeten Katalogsystem und den in VideLibri geladenen Templates. </p>
+
+<p>VideLibri liefert standardmäßig Templates für die folgenden Bibliothekssysteme mit: </p>
+
+<table class="systemsupport">
+<thead>
+<tr><th>System</th><th>Suche</th><th>Kontoanzeige</th><th>Verlängern</th><th>Vormerkungen</th><th>Bemerkung</th><th>Seit</th></tr>
+</thead>
+<tr><td id="aDISWeb">aDIS/BMS</td>  <td>ja</td><td>ja</td><td>ja</td><td>ja</td>  <td></td><td>2012</td></tr>
+<tr><td id="aleph">Aleph</td>  <td>nein</td><td>ja</td><td>ja</td><td>nein</td>  <td>generalisiert schlecht</td><td>2006</td></tr>
+<tr><td id="bibliotheca">Bibliotheca</td>  <td>ja</td><td>ja</td><td>ja</td><td>ja</td>  <td></td><td>2014</td></tr>
+<tr><td id="bibliothecaplus">Bibliotheca+/OPEN</td>  <td>ja</td><td>ja</td><td>ja</td><td>ja</td>  <td></td><td>2014</td></tr>
+<tr><td id="digibib">Digibib</td>  <td>ja</td><td></td><td></td><td></td>  <td>Suche über Metasuchmaschine</td><td>2008</td></tr>
+<tr><td id="libero5">Libero 5</td>  <td>ja</td><td>ja</td><td>ja</td><td>ja</td>  <td></td><td>2007</td></tr>
+<tr><td id="netbiblio">Netbiblio</td>  <td>ja</td><td>ja</td><td>ja</td><td>ja</td>  <td></td><td>2017</td></tr>
+<tr><td id="paia">PAIA</td>  <td></td><td>ja</td><td>ja</td><td>nein</td>  <td></td><td>2013</td></tr>
+<tr><td>PICA:</td></tr>
+<tr><td style="padding-left: 1em" id="pica">PICA Standard</td>  <td>ja</td><td>ja</td><td>ja</td><td>ja</td>  <td></td><td>2011</td></tr>
+<tr><td style="padding-left: 1em" id="bibdia_stabib">mit Bibdia</td>  <td>ja</td><td>ja</td><td>ja</td><td>nein</td>  <td>nur für Staatsbibliothek Berlin</td><td>2011</td></tr>
+<tr><td style="padding-left: 1em" id="lbs">mit LBS</td>  <td>ja</td><td>ja</td><td>ja</td><td>ja</td>  <td>bisher nur wenig getestet</td><td>2014</td></tr>
+<tr><td id="primo">Primo</td>  <td>ja</td><td>ja</td><td>ja</td><td>nein</td>  <td></td><td>2013</td></tr>
+<tr><td id="sisis">SISIS-SunRise (und Touchpoint)</td>  <td>ja</td><td>ja</td><td>ja</td><td>ja</td>  <td></td><td>2010</td></tr>
+<tr><td id="sru">SRU</td>  <td>ja</td><td></td><td></td><td></td>  <td></td><td>2013</td></tr>
+<tr><td id="was">Websphere (WAS)</td>  <td>nein</td><td>ja</td><td>ja</td><td>nein</td>  <td>nur für Stadtbüchereien Düsseldorf</td><td>2006</td></tr>
+<tr><td id="zones18">Zones (nur 1.8)</td>  <td>ja</td><td>ja</td><td>ja</td><td>ja</td>  <td></td><td>2013</td></tr>
+</table>
+
+
+<br/><br/>
+
+Man kann es aber auch mit anderen Bibliotheken benutzen, wenn man dort eine Ausleihkarte hat. Wegen dem zugrundeliegenden Templatesystem ist es nicht einmal nötig VideLibri umzuprogrammieren. Um ein solches Template für eine neue Bibliothek hinzuzufügen, speichert man im wesentlichen jede Seite des WebOPACs ab, und markiert die Stellen, die Medieninformationen wie Autor/Titel enthalten, mit semantischen Annotationen. Wie genau  das funktioniert, ist ausführlich in der <a href="http://videlibri.sourceforge.net/help/neuebibliothek.html">Hilfe</a> beschrieben.  Programmierkenntnisse sind dabei nur erforderlich, wenn der Katalog irgendwelche Merkwürdigkeiten, wie beispielsweise ungültiges HTML oder einen komplizierten XSS-Schutz, aufweist, oder man das Template für mehrere unterschiedliche Bibliotheken verwenden will. Das  <a href="http://videlibri.sourceforge.net/script.user.js">VideLibri-Greasemonkey-Skript</a> <!--http://userscripts.org/scripts/show/434588(<a href="http://videlibri.sourceforge.net/script.user.js">Installations-Mirror</a>) --> kann verwendet werden, um ein Kontozugriff-Template  automatisch  durch Markieren der Buchinformationen in Firefox zu erstellen. (siehe <a href="http://www.youtube.com/watch?v=PUrBJ6wOXvE">Video</a>, wie man das Skript verwenden kann)<br/>
+Zudem kann eine interessierte Bibliothek ein Videlibri-Template auf ihrem Server hinterlegen und mit den entsprechenden Linkmetatags verlinken. Dann reicht die Eingabe der Serveraddresse in Videlibri, um das Template automatisch herunterzuladen und zu installieren.<br/>
+<!--Verwendet die Bücherei ein aktuelles aleph/libero/sisis/pica/aDISWeb-System ist es nicht mal nötig ein Template zu schreiben, weil man dann einfach die Serveradresse in die xml-Dateien im data/libraries Verzeichnis eintragen kann.--> <br/><br/>
+
+Nichtsdestotrotz kann ich bei Anfragen einer Bibliothek oder eines Lesers auch direkte Unterstützung für den entsprechenden Katalog in VideLibri einbauen. Für eine vollständige Unterstützung benötigte ich einen Testzugang zu einem Konto mit verlängerbaren Büchern. Für ein beliebiges Bibliotheksystem, welches kein JavaScript benötigt, lässt sich ein Template für das bloße Anzeigen der Ausleihen in einigen Minuten erstellen. Ein Template für alle Funktionen inklusive Vormerkungen kann aber auch schon mal eine Woche dauern (und Testen, ob es keine Sonderfälle dauert, bis die Fälle bei jemanden auftreten). Auch bei Fragen zu den Templates können Sie mir gerne eine <a href="#contact">Mail</a> schreiben.
+
+
+</content>
+
+
+</file>
