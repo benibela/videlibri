@@ -217,7 +217,8 @@ downloadTable)
 		
 	web)
 		cd $VIDELIBRIBASE/_meta/sfsite
-		rsync -av -e ssh index.html index_en.html index.php all.css "benibela,videlibri@web.sourceforge.net:/home/project-web/videlibri/htdocs/"
+		./maketable.sh
+		make
 		cd ../version/
 		rsync -av -e ssh version.xml changelog.xml "benibela,videlibri@web.sourceforge.net:/home/project-web/videlibri/htdocs/updates"
 		;;

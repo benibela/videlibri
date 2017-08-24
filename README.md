@@ -1,7 +1,6 @@
 VideLibri :books:
 =============
-VideLibri likely was the world's first app to access the web catalogs/OPACs of libraries as it has been developed continuously since 2006.
-It has all the usual features of their OPACs, e.g. viewing your account, searching books or ordering other items. It also renews all due books automatically and can do other things only a locally running app can do without privacy concerns, like keeping a history of all ever lend books to track your own reading habits.  
+VideLibri is a library app with all the usual features of a library OPACs, e.g. viewing your account, searching books or ordering other items. It also renews all due books automatically and can do other things only a locally running app can do without privacy concerns, like keeping a history of all ever lend books to track your own reading habits.  Supporting account viewing and renewing in multiple public library systems in 2006 makes VideLibri the world's first universal library app.
 
 So far VideLibri has been tested with 200 libraries successfully.
 It is platform-independent and currently [provides binaries](http://www.videlibri.de) for (Desktop) Windows, Linux and Android. At the moment its GUI is entirely in German as no support for any non-German-speaking library has been requested, but a translation can be made if asked for.
@@ -33,7 +32,7 @@ Out-of-the-box VideLibri supports the following library catalog systems, OPACs, 
 
 When you connect to an previously untested, unknown library in VideLibri, the app will ask for the system and then for the relevant parameters (usually the server URL and, if the system allows multiple OPACs on a single server, the database id ).
 
-However, a finite set of supported systems is not enough to access all libraries as there are libraries using other kinds of OPACs. In fact, they are not even enough to support a single library eternally, since libraries tend to replace their catalog with a new catalog system randomly and unannounced, and then you might not be able to renew your lendings anymore. Therefore it became necessary to develop a webscraping framework that can learn the structure of any OPAC and any webpage semi-automatically and should be simple enough that an end-user can understand it and use it to connect to their own library no matter which catalog system they use. This will ensure that VideLibri can be used with every possible library system, all existing libraries and all yet-to-be-founded libraries.
+However, a finite set of supported systems is not enough to access all libraries as there are libraries using other kinds of OPACs. In fact, they are not even enough to support a single library eternally, since libraries tend to replace their catalog with a new catalog system randomly and unannounced, and then you might not be able to renew your lendings anymore. Therefore in 2008 it became necessary to turn VideLibri into a webscraping framework that can learn the structure of any OPAC and any webpage semi-automatically and should be simple enough that an end-user can understand it and use it to connect to their own library no matter which catalog system they use. This will ensure that VideLibri can be used with every possible library system, all existing libraries and all yet-to-be-founded libraries.
 
 Towards this goal VideLibri implements several different query languages and DSLs that should simplify the interaction with an arbitrary webpage as much as possible:
 
@@ -50,7 +49,10 @@ A spin-off command line tool ( see repository xidel ) has been developed to let 
 
 Contributing
 -------------
-The biggest contribution are reports about changes on the account page of the catalog (e.g. screenshots or downloads of the webpage) or directly library accounts for testing purposes. It has happened many times that VideLibri had worked perfectly with a library for years, but then they changed something in their OPAC and VideLibri did not work anymore. A user wrote "Last week it stopped working" anonymously, the library refused to reply to mails, I could not see a change hidden behind the login-wall, so the issue could never be fixed. Even if the fix was trivial given information about the change.
+
+Due to VideLibri being its own interpreter contributing a connection to new libraries is very simple and can be done without any preparation. Most open source projects require one to install a compiler, an IDE, a build system and various other dependencies before you can contribute to them. VideLibri does not need any of this, it is completely self-contained. You can install VideLibri and directly edit the source of the templates (in the directory data), because the source is there and there is nothing but the source. VideLibri just loads the templates from the text files and evaluates them itself without involving any other software. Although making changes to the GUI or internals like the HTML parser or the interpreter still requires a recompilation.
+
+Another big contributions are reports about changes on the account page of the catalog (e.g. screenshots or downloads of the webpage) or library accounts for testing purposes. It has happened frequently that VideLibri worked perfectly with a library for years, but then they changed something on their webpage and VideLibri did not work anymore. An anonymous bug report "It worked last week and now it does not" is of no use, when I do not have access to their OPAC and the library refuses to reply to mails. 
 
 You do not need to contribute to VideLibri in order to use it with an untested library, just like you do not need to contribute to Firefox in order to visit a webpage. See the backend section above, or [this (German) tutorial](http://www.videlibri.de/help/neuebibliothek.html). 
 
