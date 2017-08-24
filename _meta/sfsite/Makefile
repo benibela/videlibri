@@ -31,6 +31,6 @@ buildtemp/tardis:
 upload:
 #Write all files that were changed to buildtemp/changed
 	find _publish/ -type f -newer buildtemp/tardis > buildtemp/changed
-	cd _publish; sed -e 's:^_publish:.:' ../buildtemp/changed | xargs -I XXXX rsync -av -e ssh XXXX all.css  "benibela,videlibri@web.sourceforge.net:/home/project-web/videlibri/htdocs/"
+	cd _publish; sed -e 's:^_publish:.:' ../buildtemp/changed | tr '\n' ' ' | xargs -I XXXX rsync -av -e ssh XXXX all.css  "benibela,videlibri@web.sourceforge.net:/home/project-web/videlibri/htdocs/"
 	touch buildtemp/tardis
 	
