@@ -3,7 +3,7 @@
   <test date="2017-08-14" id="DE_Hamburg_Hamburg_Oebh" search="no" system="zones18"/>
   <test date="2017-08-14" id="DE_Mecklenburg-Vorpommern_Stralsund_Stb" search="no" system="bibliothecaplus"/>
   <test date="2017-08-14" id="DE_Nordrhein-Westfalen_Hamm_Stb" search="no" system="bibliothecaplus"/>
-  <test date="2017-08-14" id="DE_Sachsen_Dresden_slub" search="no" system="primo"/>
+  <test date="2017-08-14" id="DE_Sachsen_Dresden_slub" search="no" system="primo" account="no"/>
   <test date="2017-08-14" id="DE_Hessen_M+uehlheim_StbAM" search="no" system="libero5"/>
   <test date="2017-08-14" id="DE_Baden-W+uertenberg_Villingen_Stb" search="no" system="bibliotheca"/>
   <test date="2017-08-14" id="DE_Sachsen_Leipzig_Hmt" search="no" system="libero5"/>
@@ -33,7 +33,7 @@
   <test date="2017-08-14" id="DE_Brandenburg_Potsdam_Fh" search="yes" system="sisis"/>
   <test date="2017-08-14" id="DE_Baden-W+uertenberg_Weinheim_Stb" search="yes" system="bibliotheca"/>
   <test date="2017-08-14" id="DE_Nordrhein-Westfalen_Halle_Stb" search="yes" system="bibliotheca"/>
-  <test date="2017-08-14" id="DE_Rheinland-Pfalz_Neustadt-an-der-Weinstra+sze_Stb" search="yes" system="bibliotheca"/>
+  <test date="2017-08-14" id="DE_Rheinland-Pfalz_Neustadt-an-der-Weinstra+sze_Stb" search="yes" account="yes" system="bibliotheca"/>
   <test date="2017-08-14" id="DE_Bayern_Erlangen_Stb" search="yes" system="bibliothecaplus"/>
   <test date="2017-08-14" id="DE_Niedersachsen_Wilhelmshaven_Ub" search="yes" system="pica"/>
   <test date="2017-08-14" id="DE_Th+ueringen_Schmalkalden_Fhb" search="yes" system="pica"/>
@@ -84,12 +84,12 @@
   <test date="2017-08-14" id="DE_Bayern_N+uernberg_TH" search="yes" system="sisis"/>
   <test date="2017-08-14" id="DE_Th+ueringen_Ilmenau_Ub" search="yes" system="pica"/>
   <test date="2017-08-14" id="DE_Bayern_Neubiberg_Ub" search="yes" system="sisis"/>
-  <test date="2017-08-14" id="DE_Nordrhein-Westfalen_D+uesseldorf_Ub" search="yes" system="ulbdue|digibib"/>
+  <test date="2017-08-14" id="DE_Nordrhein-Westfalen_D+uesseldorf_Ub" search="yes" system="digibib ulbdue"/>
   <test date="2017-08-14" id="DE_Niedersachsen_Hannover_Ub" search="yes" system="pica"/>
   <test date="2017-08-14" id="DE_Th+ueringen_Erfurt_Ub" search="yes" system="pica"/>
-  <test date="2017-08-14" id="DE_Nordrhein-Westfalen_Dortmund_Ub" search="yes" system="paia|digibib"/>
+  <test date="2017-08-14" id="DE_Nordrhein-Westfalen_Dortmund_Ub" search="yes" system="digibib paia"/>
   <test date="2017-08-14" id="DE_Mecklenburg-Vorpommern_Greifswald_Ub" search="yes" system="lbs"/>
-  <test date="2017-08-14" id="DE_Schleswig-Holstein_L+uebeck_ZHb" search="yes" system="pica"/>
+  <test date="2017-08-14" id="DE_Schleswig-Holstein_L+uebeck_ZHb" search="yes" account="yes"  system="pica"/>
   <test date="2017-08-14" id="DE_Niedersachsen_Osnabr+ueck_UbHs" search="yes" system="pica"/>
   <test date="2017-08-14" id="DE_Bayern_Passau_Ub" search="yes" system="sisis"/>
   <test date="2017-08-14" id="DE_Niedersachsen_Osnabr+ueck_Ub" search="yes" system="pica"/>
@@ -185,7 +185,7 @@
   <test date="2017-08-14" id="DE_Nordrhein-Westfalen_Steinfurt_Stb" search="yes" system="bibliotheca"/>
   <test date="2017-08-14" id="CH_Bern_Biel_Stb" search="yes" system="netbiblio"/>
   <test date="2017-08-14" id="DE_Bayern_Amberg-Weiden_HAW" search="yes" system="sisis"/>
-  <test date="2017-08-14" id="DE_Nordrhein-Westfalen_Aachen_Ub" search="yes" system="sisis|digibib"/>
+  <test date="2017-08-14" id="DE_Nordrhein-Westfalen_Aachen_Ub" search="yes" system="digibib sisis"/>
   <test date="2017-08-14" id="DE_Berlin_Berlin_UbHU" search="yes" system="primo"/>
   <test date="2017-08-14" id="DE_Nordrhein-Westfalen_Verl_Stb" search="yes" system="libero5"/>
   <test date="2017-08-14" id="DE_Baden-W+uertenberg_Singen_Stb" search="yes" system="bibliotheca"/>

@@ -31,6 +31,7 @@ buildtemp/tardis:
 upload:
 #Write all files that were changed to buildtemp/changed
 	find _publish/ -type f -newer buildtemp/tardis > buildtemp/changed
-	cd _publish; sed -e 's:^_publish:.:' ../buildtemp/changed | tr '\n' ' ' | xargs -I XXXX rsync -av -e ssh XXXX all.css  "benibela,videlibri@web.sourceforge.net:/home/project-web/videlibri/htdocs/"
+	#xargs alone calls rsync for every file separately, which is slow. tr+xargs calls rsync with one arg for all files, which does not work
+	cd _publish; sed -e 's:^_publish:.:' ../buildtemp/changed | tr '\n' ' ' | xargs -I XXXX sh -c 'rsync -av -e ssh XXXX  "benibela,videlibri@web.sourceforge.net:/home/project-web/videlibri/htdocs/"; echo'
 	touch buildtemp/tardis
 	

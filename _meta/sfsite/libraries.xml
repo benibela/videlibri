@@ -1,8 +1,7 @@
 <file>
 <title>Getestete Bibliotheken</title>
-<meta  name="description"  content="Bibliotheken, bei denen die Katalog-Suche oder der Ausleihkonto-Zugriff mit VideLibri getestet wurde."/>
-
 <head>
+<meta  name="description"  content="Bibliotheken, bei denen die Katalog-Suche oder der Konto-Zugriff auf die Ausleihen mit VideLibri getestet wurde."/>
 </head>
 
 <content title="Getestete Bibliotheken">
