@@ -1,7 +1,7 @@
 book := {}
 obj := text{"Obj_582291377438929"}
 bFoundBottom := false()
-baseForm := {"method": "POST", "post": "Method=SelectiveBulkRenew&BrowseAsHloc=-2&Style=Portal2&SubStyle=&Lang=GER&ResponseEncoding=utf-8&radioButton=on&DueInXDays=0&DueOnBox=", "url": "file:///home/benito/hg/programs/internet/VideLibri/_meta/sites//zones18/Obj_582291377438929"}
+baseForm := {"method": "POST", "post": "Method=SelectiveBulkRenew&BrowseAsHloc=-2&Style=Portal2&SubStyle=&Lang=GER&ResponseEncoding=utf-8&radioButton=on&DueInXDays=0&DueOnBox=", "url": "vltest://zones18/Obj_582291377438929"}
 options := {}
 tempId := text{"item:IN=M01 996 012 6;AT=Brandhorst, Andreas/Diamant"}
 tempId := text{"item:IN=M02 005 789 2;AT=Niven, Larry/Ringwelt-Thron"}

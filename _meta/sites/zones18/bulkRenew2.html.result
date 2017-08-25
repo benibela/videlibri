@@ -1,7 +1,7 @@
 book := {}
 obj := text{"Obj_389641380909543"}
 bFoundBottom := false()
-baseForm := {"method": "POST", "post": "Method=SelectiveBulkRenew&BrowseAsHloc=-2&Style=Portal2&SubStyle=&Lang=GER&ResponseEncoding=utf-8&radioButton=on&DueInXDays=0&DueOnBox=", "url": "file:///home/benito/hg/programs/internet/VideLibri/_meta/sites//zones18/Obj_389641380909543"}
+baseForm := {"method": "POST", "post": "Method=SelectiveBulkRenew&BrowseAsHloc=-2&Style=Portal2&SubStyle=&Lang=GER&ResponseEncoding=utf-8&radioButton=on&DueInXDays=0&DueOnBox=", "url": "vltest://zones18/Obj_389641380909543"}
 options := {}
 tempId := text{"item:IN=M01 425 475 2;AT=McCaffrey, Anne/Acorna - Die Fahrt zu den Sternen◉2."}
 tempId := text{"item:IN=M01 454 828 1;AT=McCaffrey, Anne/Acornas Welt◉4."}

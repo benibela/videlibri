@@ -9,7 +9,7 @@
           "author": substring-before($x, ":"), 
           "title": if (contains($x, ":")) then extract($x, "^[^:]+:(.*)-[0-9 ]+$", 1, "s") else substring-before($x, "-"), 
           "year": extract($x, "[0-9 ]+$"),
-          "_detailsBackScroll": if (contains($url, "scrollAction")) then $url else $url || "?scrollAction=1",
+          "_detailsBackScroll": let $url := base-uri() return if (contains($url, "scrollAction")) then $url else $url || "?scrollAction=1",
           "_details": resolve-uri(@href) }}</A>
       </TD>
     </TR>+

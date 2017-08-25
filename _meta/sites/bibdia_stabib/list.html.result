@@ -1,6 +1,6 @@
 book := {}
 templateError := false()
-base := xs:anyURI("file:///home/benito/hg/programs/internet/VideLibri/_meta/sites//bibdia_stabib/list.html")
+base := xs:anyURI("vltest://bibdia_stabib/list.html")
 delete-current-books() := ()
 bookCount := "5"
 templateError := "true"

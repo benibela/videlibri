@@ -1,9 +1,9 @@
 book := {}
-book := {"renew-link": "file:///home/benito/hg/programs/internet/VideLibri/_meta/sites//bibliotheca/index.asp?target=verl_1", "statusId": "curious", "duedate": "2014-12-04", "title": "Das Hexenmädchen", "author": "xxx, xxx"}
-book := {"renew-link": "file:///home/benito/hg/programs/internet/VideLibri/_meta/sites//bibliotheca/index.asp?target=verl_2", "statusId": "curious", "duedate": "2014-12-04", "title": "Fräulein Jacobs funktioniert nicht", "author": "Jacobs, Louise"}
-book := {"renew-link": "file:///home/benito/hg/programs/internet/VideLibri/_meta/sites//bibliotheca/index.asp?target=verl_3", "statusId": "curious", "duedate": "2014-12-04", "title": "yyyyyyyyyyyyy", "author": "xxxxxx, Douglas"}
-book := {"renew-link": "file:///home/benito/hg/programs/internet/VideLibri/_meta/sites//bibliotheca/index.asp?target=verl_4", "statusId": "curious", "duedate": "2014-12-04", "title": "xxxxxxxxxxx", "author": "xxxx, Marcia"}
-book := {"renew-link": "file:///home/benito/hg/programs/internet/VideLibri/_meta/sites//bibliotheca/index.asp?target=verl_5", "statusId": "curious", "duedate": "2014-12-04", "title": "1984", "author": "xxx, xxxxx"}
-book := {"renew-link": "file:///home/benito/hg/programs/internet/VideLibri/_meta/sites//bibliotheca/index.asp?target=verl_6", "statusId": "curious", "duedate": "2014-12-04", "title": "yyyyyyyy", "author": "xxxxxxxxx, Karen"}
-book := {"renew-link": "file:///home/benito/hg/programs/internet/VideLibri/_meta/sites//bibliotheca/index.asp?target=verl_7", "statusId": "curious", "duedate": "2014-12-04", "title": "yyyyyyyyy", "author": "xxxxxxx, Edney"}
-book := {"renew-link": "file:///home/benito/hg/programs/internet/VideLibri/_meta/sites//bibliotheca/index.asp?target=verl_8", "statusId": "curious", "duedate": "2014-12-04", "title": "yyyyyyyyyyyyyyt", "author": "Templeton, Aline"}
+book := {"renew-link": "vltest://bibliotheca/index.asp?target=verl_1", "statusId": "curious", "duedate": "2014-12-04", "title": "Das Hexenmädchen", "author": "xxx, xxx"}
+book := {"renew-link": "vltest://bibliotheca/index.asp?target=verl_2", "statusId": "curious", "duedate": "2014-12-04", "title": "Fräulein Jacobs funktioniert nicht", "author": "Jacobs, Louise"}
+book := {"renew-link": "vltest://bibliotheca/index.asp?target=verl_3", "statusId": "curious", "duedate": "2014-12-04", "title": "yyyyyyyyyyyyy", "author": "xxxxxx, Douglas"}
+book := {"renew-link": "vltest://bibliotheca/index.asp?target=verl_4", "statusId": "curious", "duedate": "2014-12-04", "title": "xxxxxxxxxxx", "author": "xxxx, Marcia"}
+book := {"renew-link": "vltest://bibliotheca/index.asp?target=verl_5", "statusId": "curious", "duedate": "2014-12-04", "title": "1984", "author": "xxx, xxxxx"}
+book := {"renew-link": "vltest://bibliotheca/index.asp?target=verl_6", "statusId": "curious", "duedate": "2014-12-04", "title": "yyyyyyyy", "author": "xxxxxxxxx, Karen"}
+book := {"renew-link": "vltest://bibliotheca/index.asp?target=verl_7", "statusId": "curious", "duedate": "2014-12-04", "title": "yyyyyyyyy", "author": "xxxxxxx, Edney"}
+book := {"renew-link": "vltest://bibliotheca/index.asp?target=verl_8", "statusId": "curious", "duedate": "2014-12-04", "title": "yyyyyyyyyyyyyyt", "author": "Templeton, Aline"}

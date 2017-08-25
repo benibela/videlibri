@@ -81,7 +81,7 @@
               <template:read source="." var="book.status:curious"/>
             <!--  <template:read source="@class != 'textgruen'" var="spanmissing"/>-->
             </span>
-            {book._onPage := $url, book._onPageStart := $startUrl}
+            {book._onPage := base-uri(), book._onPageStart := $startUrl}
           </a>
           <span template:optional="true">
             <template:read source="." var="book.status:problematic"/>
@@ -92,7 +92,7 @@
             {book.actionURI := resolve-html(.),
              book.statusId := if ($mode eq 3) then "ordered" else if ($mode eq 2) then "provided" else "curious",
              book.cancelable := $mode eq 3,
-             book._onPage := $url, book._onPageStart := $startUrl}          
+             book._onPage := base-uri(), book._onPageStart := $startUrl}          
           </a>
           <t:if test="not($book.actionURI) and not(book.status)">
             {$book.status := (br[last()]/following-sibling::text())[last()], $book.statusId := "critical"}
