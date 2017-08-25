@@ -1,0 +1,199 @@
+<!DOCTYPE HTML PUBLIC "-//SQ//DTD HTML 2.0 + all extensions//EN" "hmpro3.dtd">
+<!-- opac/de/user -->
+<html>
+<head>
+	<base href="vltest://bibdia_stabib/list_new.html"/>
+
+<meta http-equiv="Content-Type" content="text/html; charset=iso-9059-1">
+<LINK REL="stylesheet" HREF="/opac/OPAC.css.S" TYPE="text/css">
+<title> Bibliothekskonto</title>
+<!-- ! /behaviors/cacheas?as=text/css ! -->
+<script language="JavaScript" type="text/javascript">
+  parent.frames[0].document.getElementById("LeftFrame1").style.display = "none";
+  parent.frames[0].document.getElementById("LeftFrame2").style.display = "block";
+var checkflag = "false";
+</script>
+<script language="JavaScript" src="scripts_spk.js.S"></script>
+
+<body onload="onLoad('Bibliothekskonto anzeigen')"; onclick="resetLogoutTimer('K')" onmouseover="resetLogoutTimer('M')" style="margin: 0 0 0 0; border-top: 1px solid #FFFFFF">
+<div id="LeftKonto" style="display:none;"><p class="navi">Bibliothekskonto</p>
+<p class="navi" style="margin: 0 0 0 7px"><A href="javascript:konto_func('medk')" title="Medienkonto">Entleihungen (10)</A></p>
+<p class="navi" style="margin: 0 0 0 7px"><A href="javascript:konto_func('vorm')" title="Vormerkungen">Vormerkungen (0)</A></p>
+<p class="navi" style="margin: 0 0 0 7px"><A href="javascript:konto_func('best')" title="Bestellungen">Bestellungen (0)</A></p>
+<p class="navi" style="margin: 0 0 0 7px"><A href="javascript:konto_func('gebk')" title="Geb&#252;hrenkonto">Geb&#252;hren</A></p>
+<p class="navi" style="margin: 0 0 0 7px"><A href="javascript:konto_func('kurz')" title="Kurzinformation">Kurzinformation</A></p>
+<p class="navi" style="margin: 0 0 0 7px"><a href="javascript:frm_left('isrv')">Benachrichtigungen</a></p>
+<p class="navi" style="margin: 0 0 0 7px"><a href="javascript:start();">Abmelden</a></p>
+</div>
+<div style="height: 90px; background-color: #EEEEEE">
+<br><br>
+<!-- <H2 class="mainheader" style="color: #000000">Bibliothekskonto</H2> -->
+<H2 class="mainheader" style="color: #000000">Bibliothekskonto - Entleihungen/Bereitstellungen<span onmouseover="event.cancelBubble=true;" id="msg" style="color:red; margin left:2cm;"></span></H2>
+
+<a href="javascript:kontohilfe('callhinweise')" id="callhinweise" class="collapsed" style="float: left; display: block; line-height: 26px; margin: 0 0 0 40px;">Hinweise</a>
+<div style="clear: both"></div>
+<div id="hinweis_entleihungen/bereitstellungen" style="display: none; position: absolute; z-index: 1; background: #F5F5DC; border: 1px solid #577FBB; font-weight: normal; padding: 11px;">
+<div style="text-align: right"><a href="javascript:kontohilfe('callhinweise')" title="schlie&#223;en"><img src="/opac/image/close_small.gif.S" border="0" /></a></div>
+Die Leihfrist f&uuml;r entliehene Medien kann viermal verl&auml;ngert werden, <br> wenn keine Vormerkung eines 
+anderen Benutzers vorliegt. Eine Verl&auml;ngerung ist fr&uuml;hestens <br> 10 Tage vor Ablauf der Leihfrist m&ouml;glich. <br><br>
+Unter &quot;Benachrichtigungen&quot; k&ouml;nnen Sie einstellen, wenn Sie vor Ablauf der Leihfrist per E-Mail <br> oder SMS benachrichtigt werden m&ouml;chten. 
+<br><br>
+Die Frist f&#252;r die Abholung abholbereiter Medien betr&auml;gt 7 Tage f&#252;r die Ausleihe au&szlig;er Haus und <br> 3 Tage f&uuml;r die erste Einsichtnahme bei Lesesaalbenutzung. 
+<br><br>
+&quot;Medien in Transit&quot; bedeutet, dass das Medium zu Ihrem gew&uuml;nschten Ausgabeort (in der Spalte <br> &quot;Status&quot; angegeben) unterwegs ist.
+</div>
+
+
+<div id="hinweis_bestellungen" style="display: none; position: absolute; z-index: 1; background: #F5F5DC; border: 1px solid #577FBB; font-weight: normal; padding: 11px;">
+<div style="text-align: right"><a href="javascript:kontohilfe('callhinweise')" title="schlie&#223;en"><img src="/opac/image/close_small.gif.S" border="0" /></a></div>
+Hier finden Sie alle bestellten, aber noch nicht bereit liegenden Medien. Abholbereite Medien<br> finden
+Sie unter &quot;Entleihungen&quot;. Bestellungen, die noch nicht bearbeitet werden, k&ouml;nnen Sie l&ouml;schen.
+</div>
+
+<div id="hinweis_vormerkungen" style="display: none; position: absolute; z-index: 1; background: #F5F5DC; border: 1px solid #577FBB; font-weight: normal; padding: 11px;">
+<div style="text-align: right"><a href="javascript:kontohilfe('callhinweise')" title="schlie&#223;en"><img src="/opac/image/close_small.gif.S" border="0" /></a></div>
+In dieser Tabelle sind alle Vormerkungen aufgelistet, die noch nicht f&uuml;r Sie bereitgestellt <br> worden sind.
+Pro Bereitstellung eines vorgemerkten Mediums fallen Geb&uuml;hren in H&#246;he von 1,- &euro; an. <br> Wenn Sie die Vormerkung nicht w&uuml;nschen, k&ouml;nnen Sie diese l&oumlschen. Der Rang bezeichnet die <br> Warteposition Ihrer 
+Vormerkung. Rechnen Sie ab dem zweiten Rang mit einer l&auml;ngeren Frist bis zur <br> Bereitstellung.
+</div>
+
+
+<div id="hinweis_geb&#252;hren" style="display: none; position: absolute; z-index: 1; background: #F5F5DC; border: 1px solid #577FBB; font-weight: normal; padding: 11px;">
+<div style="text-align: right"><a href="javascript:kontohilfe('callhinweise')" title="schlie&#223;en"><img src="/opac/image/close_small.gif.S" border="0" /></a></div>
+Sie haben die M&ouml;glichkeit, offene Geb&uuml;hren an den Anmeldestellen, an den <br> Kassenautomaten zu
+bezahlen oder diese zu &uuml;berweisen:<br><br> 
+Zahlungsempf&auml;nger: Bundeskasse Trier - Dienstsitz Kiel<br><br>
+IBAN: DE18200000000020001066<br>
+BIC: MARKDEF1200<br>
+zugunsten SPK-0683111012<br><br>
+Bitte geben Sie bei der &Uuml;berweisung Ihre Bibliotheksausweisnummer und die interne Zuweisung <br>
+(zugunsten SPK-0683111012) an und rechnen Sie mit einer Bearbeitungszeit von ungef&auml;hr 10 Tagen.<br><br>
+Umsatzsteueridentifikationsnummer: DE 811176976<br>
+Die Staatsbibliothek ist gem. &#167;4 Ne. 20a UStG von der Umsatzsteuer befreit.
+</div>
+
+<div id="hinweis_kurzinformation" style="display: none; position: absolute; z-index: 1; background: #F5F5DC; border: 1px solid #577FBB; font-weight: normal; padding: 11px;">
+<div style="text-align: right"><a href="javascript:kontohilfe('callhinweise')" title="schlie&#223;en"><img src="/opac/image/close_small.gif.S" border="0" /></a></div>
+Hier k&ouml;nnen Sie die von der Bibliothek erfassten Kontaktdaten <br> und Ausleihberechtigungen zu Ihrem Konto einsehen. &Auml;nderungen veranlassen Sie bitte bei den Leihstellen. </div>
+
+
+
+</div>
+<div class="blueborder"></div>
+<br>
+<div class="content">
+<html><body><table  width="99%"><tr><td >005953152</td><td >&#160;&#160;Sokolov,Leonid<br/>
+</td><td >Entliehen/Bereitgestellt: 10</td></tr></table><br/>
+<table ><tr><td  colspan="9">Ausweis g&#252;ltig bis: 07.06.2015</td><td ></td></tr><tr></tr><tr></tr></table><br/>
+</body></html>
+
+<!-- Your output data goes in here -->
+<font color="black"><br></font>
+ 
+<br><b>Entliehene Medien</b><br>
+Verl&auml;ngerungen bitte markieren und&nbsp; &nbsp;<A href="javascript:sm_frm2('de')"><img src="/opac/de/button/go1.gif.S" tabindex="3" alt="Verl&#228;ngern " border="0"></A>
+<form name="verl" method="post" action="/opac/verl.S">
+<input name="LANG" type="hidden" value="de">
+<input name="FUNC" type="hidden" value="verl">
+<input name="BENUTZER" type="hidden" value="005953152">
+<input type="hidden" name="PASS" value="S0tZRz07WjM=
+">
+<table border="1" width="99%">
+<tr>
+<th width="2%"><A href="javascript:sl_all2('de')">Alle</A></th>
+<th width="3%">F&auml;llig</th>
+<th width="2%"><a href="#" title="Verl&auml;ngerungen" style="text-decoration:none; color:black">  V </a></th>
+<th width="2%"><a href="#" title="Mahnungen" style="text-decoration:none; color:black">  M </a></th>
+<th width="*" align="center">Signatur  / Titel </th><th>&nbsp;</th>
+<th width="*" colspan="2">Status</th>
+</tr>
+<TR><TD width="1%">&nbsp;</TD>
+<TD width="11%" align="center">29.01.2015</TD><TD width="1%" align="center">&nbsp;</TD><TD width="1%">&nbsp;</TD><TD>Yx28066 &lt;a&gt;
+ /  Marholm, Laura: Zwei FrauenerlebnisseNovellen
+</TD>
+<TD>&nbsp;</TD><TD align="center"><FONT COLOR="black">Potsdamer Stra&#223;e, Lesesaal Abholbereich </FONT></TD></TR>
+<TR><TD width="1%">&nbsp;</TD>
+<TD width="11%" align="center">29.01.2015</TD><TD width="1%" align="center">&nbsp;</TD><TD width="1%">&nbsp;</TD><TD>Pb6572 &lt;5;a&gt;
+ /  Marholm, Laura: Das Buch der Frauenzeitpsychologische
+Portr&#228;ts
+</TD>
+<TD>&nbsp;</TD><TD align="center"><FONT COLOR="black">Potsdamer Stra&#223;e, Lesesaal Abholbereich </FONT></TD></TR>
+<TR><TD width="1%">&nbsp;</TD>
+<TD width="11%" align="center">02.02.2015</TD><TD width="1%" align="center">&nbsp;</TD><TD width="1%">&nbsp;</TD><TD>1A66647
+ /  Dardis, Tom: The thirsty musealcohol and the American writer
+</TD>
+<TD>&nbsp;</TD><TD align="center"><FONT COLOR="black">Potsdamer Stra&#223;e, Lesesaal Abholbereich </FONT></TD></TR>
+<TR><TD width="1%">&nbsp;</TD>
+<TD width="11%" align="center">02.02.2015</TD><TD width="1%" align="center">&nbsp;</TD><TD width="1%">&nbsp;</TD><TD>1A828307
+ /  Roth, Joseph: &quot;Jede Freundschaft mit mir ist verderblich&quot;
+Joseph Roth und Stefan Zweig ;  Briefwechsel 1927
+</TD>
+<TD>&nbsp;</TD><TD align="center"><FONT COLOR="black">Potsdamer Stra&#223;e, Lesesaal Abholbereich </FONT></TD></TR>
+<TR><TD width="1%">&nbsp;</TD>
+<TD width="11%" align="center">02.02.2015</TD><TD width="1%" align="center">&nbsp;</TD><TD width="1%">&nbsp;</TD><TD>1A836399
+ /  Ulrich, Bernd: German Soldiers in the great warletters and
+eyewitness accounts
+</TD>
+<TD>&nbsp;</TD><TD align="center"><FONT COLOR="black">Potsdamer Stra&#223;e, Lesesaal Abholbereich </FONT></TD></TR>
+<TR><TD width="1%">&nbsp;</TD>
+<TD width="11%" align="center">02.02.2015</TD><TD width="1%" align="center">&nbsp;</TD><TD width="1%">&nbsp;</TD><TD>1A750104
+ /  Donaldson, Scott: Fitzgerald &amp; Hemingway(works and days)
+</TD>
+<TD>&nbsp;</TD><TD align="center"><FONT COLOR="black">Potsdamer Stra&#223;e, Lesesaal Abholbereich </FONT></TD></TR>
+<TR><TD width="1%">&nbsp;</TD>
+<TD width="11%" align="center">02.02.2015</TD><TD width="1%" align="center">&nbsp;</TD><TD width="1%">&nbsp;</TD><TD>1A696891
+ /  Amis, Kingsley: Everyday drinkingthe distilled Kingsley Amis
+</TD>
+<TD>&nbsp;</TD><TD align="center"><FONT COLOR="black">Potsdamer Stra&#223;e, Lesesaal Abholbereich </FONT></TD></TR>
+<TR><TD width="1%">&nbsp;</TD>
+<TD width="11%" align="center">02.02.2015</TD><TD width="1%" align="center">&nbsp;</TD><TD width="1%">&nbsp;</TD><TD>1A903348
+ /  Fischl, Eric: Bad boymy life on and off the canvas
+</TD>
+<TD>&nbsp;</TD><TD align="center"><FONT COLOR="black">Potsdamer Stra&#223;e, Lesesaal Abholbereich </FONT></TD></TR>
+<TR><TD width="1%">&nbsp;</TD>
+<TD width="11%" align="center">02.02.2015</TD><TD width="1%" align="center">&nbsp;</TD><TD width="1%">&nbsp;</TD><TD>1A886900
+ /  Laing, Olivia: The trip to Echo Springwhy writers drink
+</TD>
+<TD>&nbsp;</TD><TD align="center"><FONT COLOR="black">Potsdamer Stra&#223;e, Lesesaal Abholbereich </FONT></TD></TR>
+<TR><TD width="1%">&nbsp;</TD>
+<TD width="11%" align="center">02.02.2015</TD><TD width="1%" align="center">&nbsp;</TD><TD width="1%">&nbsp;</TD><TD>1A746104
+ /  Sternburg, Wilhelm v: Joseph Rotheine Biographie
+</TD>
+<TD>&nbsp;</TD><TD align="center"><FONT COLOR="black">Potsdamer Stra&#223;e, Lesesaal Abholbereich </FONT></TD></TR>
+</TABLE>
+</form>
+
+ 
+
+<br><br>
+Aufgrund zahlreicher Bestandsumz&uuml;ge innerhalb und zwischen den Standorten der Bibliothek wird es in den n&auml;chsten Wochen vermehrt zu Verz&ouml;gerungen bei der Bereitstellung kommen. Die gewohnten Bereitstellungszeiten werden in vielen F&auml;llen nicht mehr zutreffen. W&auml;hrend der Umzugszeit lassen sich leider keine verl&auml;sslichen Zeiten angeben. Bitte informieren Sie sich daher in Ihrem Bibliothekskonto &#252;ber die erfolgte Bereitstellung.
+<!--Seit dem 16.6.2014 ziehen ca. 4 Millionen B&auml;nde unseres Bestandes in das neue Au&szlig;enmagazin der Staatsbibliothek nach Berlin-Friedrichshagen.<br>
+Alle Medien k&ouml;nnen weiterhin bestellt werden, es kann aber zu Verz&ouml;gerungen in der Bereitstellung bestellter B&auml;nde kommen. <br>
+Wir bitten um Ihr Verst&auml;ndnis!-->
+<br><br>
+<img src="/opac/image/linie_990000-neu.gif.S" width="100%" height="5"
+<font size="2"><font face="Arial">Fragen und Anmerkungen k&ouml;nnen Sie telefonisch (+49 30) 266 433999 oder <a target="_blank" href="http://staatsbibliothek-berlin.de/service/hinweise-zu-ausleihe-und-benutzung/anfragen/">schriftlich</a> an uns richten.<br><br>
+<i>Optimal ab Internet Explorer 8.0, Firefox 6.0, Safari 5.1.2, Opera 11.6. </i>
+</font><br><br>
+<address>
+<!--
+<font size="1">&copy; copyright 2001-2009 by BiBer GmbH.<br>All rights reserved </font>
+-->
+</address>
+</body>
+</html>
+
+
+</div>
+</body>
+
+
+
+
+
+
+
+
+
+
+
