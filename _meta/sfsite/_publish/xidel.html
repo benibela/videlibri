@@ -1,9 +1,4 @@
 <!DOCTYPE html>
-
-
-
-
-
 <html>
 <head>
 <title>Xidel - HTML/XML/JSON data extraction tool </title>
@@ -170,7 +165,7 @@ Generally follow all links on a page and print the titles of the linked pages:<u
 </ol>
 
 <br>
-You may also want to read the <a href="xidel_readme.txt">readme file of Xidel</a>, the <a href="http://www.benibela.de/documentation/internettools/xpath-functions.html">complete list of available functions</a>,   the documentation of my <a href="http://benibela.de/documentation/internettools/extendedhtmlparser.THtmlTemplateParser.html">template language</a> and <a href="http://www.benibela.de/documentation/internettools/xquery.TXQueryEngine.html"> XPath/XQuery 3.0 library</a>. Or look at <a href="http://www.benibela.de/documentation/internettools/xqts.html">its results</a> on the XQuery Testsuite. 
+More examples are in the <a href="https://github.com/benibela/xidel/wiki/Frequently-asked-questions ">Wiki</a> and the <a href="https://sourceforge.net/p/videlibri/code/ci/default/tree/programs/internet/xidel/examples/">directory "example "</a>. You may also want to read the <a href="xidel_readme.txt">readme file of Xidel</a>, the <a href="http://www.benibela.de/documentation/internettools/xpath-functions.html">complete list of available functions</a>,   the documentation of my <a href="http://benibela.de/documentation/internettools/extendedhtmlparser.THtmlTemplateParser.html">template language</a> and <a href="http://www.benibela.de/documentation/internettools/xquery.TXQueryEngine.html"> XPath/XQuery 3.0 library</a>. Or look at <a href="http://www.benibela.de/documentation/internettools/xqts.html">its results</a> on the XQuery Testsuite. 
 
 
 
@@ -198,7 +193,7 @@ However, for https connections on Linux openssl (including openssl-dev) and libc
 
 You can also test it <a href="/cgi-bin/xidelcgi">online on a webpage</a> or directly by sending a request to the cgi service like <a href="/cgi-bin/xidelcgi?data=<html><title>foobar</title></html>&amp;extract=//title&amp;raw=true" rel="nofollow"><code>http://www.videlibri.de/cgi-bin/xidelcgi?data=&lt;html&gt;&lt;title&gt;foobar&lt;/title&gt;&lt;/html&gt;&amp;extract=//title&amp;raw=true</code></a>.<br><br><br>
 
-The source is stored in a <a href="https://sourceforge.net/p/videlibri/code/ci/tip/tree/">mercurial repository</a> together with the VideLibri source.<br><br>
+The source is stored in a <a href="https://sourceforge.net/p/videlibri/code/ci/tip/tree/">mercurial repository</a> together with the VideLibri source and dependencies. There are mirrors on <a href="https://github.com/benibela/xidel/" rel="nofollow">Github</a>, <a href="http://bitbucket.com/benibela/xidel">Bitbucket</a> and <a href="https://gitlab.com/benito/xidel">GitLab</a>. These mirrors have the Xidel source only, in order to compile it you need to download the dependencies from their own repositories first. <br><br>
 You can compile it with FreePascal and a regular expression library, preferably my copy of <a href="https://github.com/benibela/flre/">FLRE</a>.  <br>
 To compile it on the command line, call <code>fpc xidel.pas</code> and pass the paths to all directories using the -Fu option.<br>
 Alternatively, it can be compiled using Lazarus. For this install components/pascal/internettools.lpk and components/pascal/internettools_utf8.lpk in Lazarus, then open programs/internet/xidel/xidel.lpi and click on Run\Compile.<br>
@@ -220,7 +215,7 @@ Pronounciation: To say the name "Xidel" in English, you say "excited" with a sil
 <a href="img/stackoverflow.png"><img src="img/stackoverflow_tiny.png" title="Selections that create a template to read the newest stackoverflow question. (votes/title/author are extracted for each of the questions) " alt="Selections that create a template to read the newest stackoverflow question. (votes/title/author are extracted for each of the questions) "></a></center>
 Afterwards you can  call Xidel with the templates and it will output the element that you have selected and related ones. (so e.g. in the screenshots the first reddit/stackoverflow post was selected, and Xidel will print all of them  ) <br>
 <br>
-</p><p>You can find the script in the <a href="https://sourceforge.net/p/videlibri/code/ci/default/tree/programs/internet/firefoxgreasemonkey/webscraper/Webscraper.user.js">mercurial repository</a> or on <a href="http://userscripts-mirror.org/scripts/show/144991">userscripts.org</a> with a detailed description. You need to change the name to "Webscraper / Xidelscript" (it is a multiscript that changes its behaviour depending on its name))
+</p><p>You can find the script in the <a href="https://sourceforge.net/p/videlibri/code/ci/default/tree/programs/internet/firefoxgreasemonkey/webscraper/Webscraper.user.js">mercurial repository</a> or on <a href="http://userscripts-mirror.org/scripts/show/144991">userscripts.org</a> (mirrored as userscripts is dead) with a detailed description. You need to change the name to "Webscraper / Xidelscript" (it is a multiscript that changes its behaviour depending on its name))
 
 <br><br><br><br>
 
