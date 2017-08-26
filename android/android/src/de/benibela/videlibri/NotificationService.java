@@ -171,7 +171,7 @@ public class NotificationService extends Service implements Bridge.VideLibriCont
                 context, SHOWNOW,
                 new Intent(context, NotificationShowNow.class),
                 PendingIntent.FLAG_UPDATE_CURRENT);
-        ((AlarmManager) context.getSystemService(Context.ALARM_SERVICE)).set(AlarmManager.RTC, System.currentTimeMillis() + delayMs, intent);
+        ((AlarmManager) context.getSystemService(Context.ALARM_SERVICE)).setInexactRepeating(AlarmManager.RTC, System.currentTimeMillis(), delayMs, intent);
     }
 
     static void startIfNecessary(Context context){
