@@ -133,6 +133,10 @@ public class NotificationService extends Service implements Bridge.VideLibriCont
      * (partly from http://stackoverflow.com/questions/13902115/how-to-create-a-notification-with-notificationcompat-builder)
      */
     static void updateNotification(Context context) {
+        if (context == null) context = instance;
+        if (context == null) context = VideLibriApp.currentActivity;
+        if (context == null) return;
+
         String[] notification = getNotifications(context);
 
         if (notification == null || notification.length < 2) {
