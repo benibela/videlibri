@@ -20,11 +20,11 @@ var
   function alertAboutBooksThatMustBeReturned:boolean;
 
 type TCallbackHolderDesktop = class (TCallbackHolder)
-  class procedure updateAutostart(enabled, askBeforeChange: boolean); override; static;
-  class procedure applicationUpdate(auto: boolean); override; static;
-  class procedure statusChange(const message: string); override; static;
-  class procedure allThreadsDone(); override; static;
-  class procedure postInitApplication(); override; static;
+  class procedure updateAutostart(enabled, askBeforeChange: boolean); override;
+  class procedure applicationUpdate(auto: boolean); override;
+  class procedure statusChange(const message: string); override;
+  class procedure allThreadsDone(); override;
+  class procedure postInitApplication(); override;
 end;
 
   procedure showErrorMessages();

@@ -32,11 +32,11 @@ type TErrorArray=array of record
 const VIDELIBRI_MUTEX_NAME='VideLibriStarted';
 
 type TCallbackHolder = class
-  class procedure updateAutostart(enabled, askBeforeChange: boolean); virtual; static;
-  class procedure applicationUpdate(auto:boolean); virtual; static;
-  class procedure statusChange(const message: string); virtual; static;
-  class procedure allThreadsDone(); virtual; static;
-  class procedure postInitApplication(); virtual; static;
+  class procedure updateAutostart(enabled, askBeforeChange: boolean); virtual;
+  class procedure applicationUpdate(auto:boolean); virtual;
+  class procedure statusChange(const message: string); virtual;
+  class procedure allThreadsDone(); virtual;
+  class procedure postInitApplication(); virtual;
 end;
 TCallbackHolderClass = class of TCallbackHolder;
 

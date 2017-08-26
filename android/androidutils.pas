@@ -25,7 +25,7 @@ procedure uninit;
 
 {$ifdef android}
 type TCallbackHolderAndroid = class (TCallbackHolder)
-  class procedure allThreadsDone(); override; static;
+  class procedure allThreadsDone(); override;
 end;
 {$endif}
 
