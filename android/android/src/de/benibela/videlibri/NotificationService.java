@@ -5,7 +5,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
+import android.net.Network;
 import android.net.NetworkInfo;
+import android.os.Build;
 import android.preference.PreferenceManager;
 import android.support.v4.app.NotificationCompat;
 import android.os.Binder;
@@ -37,6 +39,34 @@ public class NotificationService extends Service implements Bridge.VideLibriCont
         instance = this;
     }
 
+    private boolean isNetworkConnected(){
+        try {
+        ConnectivityManager cmanager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        if (cmanager == null) return false;
+        {
+        NetworkInfo networkInfo = cmanager.getActiveNetworkInfo();
+        if (networkInfo != null && networkInfo.isAvailable() && networkInfo.isConnected())
+            return true;
+        }
+        if (Build.VERSION.SDK_INT < 23) {
+            NetworkInfo networkInfos[] = cmanager.getAllNetworkInfo();
+            for (NetworkInfo networkInfo: networkInfos) {
+                if (networkInfo != null && networkInfo.isAvailable() && networkInfo.isConnectedOrConnecting())
+                    return true;
+            }
+        }
+        if (Build.VERSION.SDK_INT >= 21){
+            Network[] networks = cmanager.getAllNetworks();
+            for (Network network: networks) {
+                NetworkInfo info = cmanager.getNetworkInfo(network);
+                if (info != null && info.isAvailable() && info.isConnectedOrConnecting())
+                    return true;
+            }
+        }
+        }catch (Exception e) { return false; } //there are a few reports about networkinfo crashing on stackoverflow
+        return false;
+    }
+
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         pendingNotificationService = false;
@@ -45,8 +75,8 @@ public class NotificationService extends Service implements Bridge.VideLibriCont
         if (!sp.getBoolean("notifications", true)) return START_NOT_STICKY;
 
 
-        NetworkInfo network = ((ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE)).getActiveNetworkInfo();
-        if (network != null && network.isConnected()){
+
+        if (isNetworkConnected()){
             VideLibriApp.updateAccount(null, true, false);
             showLater(this, 1000*60*60*24); //check every day
         } else
