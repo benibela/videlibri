@@ -1,12 +1,42 @@
 #!/bin/bash
 
-#export JAVA_HOME=/usr/lib/jvm/java-6-sun-1.6.0.26/jre 
-#export JAVA_HOME=/usr/lib/jvm/java-7-oracle/jre 
-export JAVA_HOME=/usr/lib/jvm/java-8-oracle/jre 
-export SDK_HOME=/home/benito/opt/android-sdk-linux/platform-tools/
+if [ -z "$JAVA_HOME" ]; then
+#JAVA_HOME=/usr/lib/jvm/java-6-sun-1.6.0.26/jre 
+#JAVA_HOME=/usr/lib/jvm/java-7-oracle/jre 
+if [ -d /usr/lib/jvm/java-8-oracle/jre ]; then
+JAVA_HOME=/usr/lib/jvm/java-8-oracle/jre 
+else echo Failed to find java. Set JAVA_HOME variable; exit
+fi
+fi
+export JAVA_HOME
+
+if [ -z "$ANDROID_HOME" ]; then
+if [ -d ~/opt/android-sdk-linux/platform-tools/ ]; then
+export ANDROID_HOME=~/opt/android-sdk-linux/
+else echo Failed to find Android SDK. Set ANDROID_HOME variable; exit
+fi
+fi
+export ANDROID_HOME
+ADB=$ANDROID_HOME/platform-tools/adb
+
+
+if [ -z "$FPC_DIRECTORY" ]; then 
+if [ -d /usr/local/lib/fpc/3.1.1 ]; then
 FPC_DIRECTORY=/usr/local/lib/fpc/3.1.1
+else echo Failed to find fpc 3.1.1. Install FreePascal; exit
+fi
+fi
+export FPC_DIRECTORY
+
 FPC_ARM=$FPC_DIRECTORY/ppcrossarm
+if [ ! -f $FPC_ARM ]; then echo Failed to find fpc arm target. Install FreePascal cross compiler; exit; fi
 FPC_386=$FPC_DIRECTORY/ppcross386
+if [ ! -f $FPC_386 ]; then echo Failed to find fpc 386 target. Install FreePascal cross compiler; exit; fi
+
+LAZBUILD=lazbuild
+which $LAZBUILD 2>/dev/null >/dev/null || (
+  echo Failed to find lazbuild. Install Lazarus.
+)
 
 case "$1" in
 build)
@@ -28,13 +58,13 @@ build)
   if $BUILDARM; then
     FORCE=""
     if [[ ! -f android/libs/armeabi/liblclapp.so ]]; then FORCE=-B; fi
-    if /opt/lazarus/lazbuild $FORCE --os=android --ws=nogui --compiler=$FPC_ARM --cpu=arm videlibriandroid.lpi; then echo; else echo "FAILED!"; exit 1; fi
+    if $LAZBUILD $FORCE --os=android --ws=nogui --compiler=$FPC_ARM --cpu=arm videlibriandroid.lpi; then echo; else echo "FAILED!"; exit 1; fi
   fi
 
   if $BUILDX86; then
     FORCE=""
     if [[ ! -f android/libs/x86/liblclapp.so ]]; then FORCE=-B; fi
-    if /opt/lazarus/lazbuild $FORCE --compiler=$FPC_386 --os=android --ws=nogui --cpu=i386 videlibriandroid.lpi; then echo; else echo "FAILED!"; exit 1; fi
+    if $LAZBUILD $FORCE --compiler=$FPC_386 --os=android --ws=nogui --cpu=i386 videlibriandroid.lpi; then echo; else echo "FAILED!"; exit 1; fi
   fi
 
   STRIP=true
@@ -64,8 +94,8 @@ build-java)
   ./gradlew $GRADLEMODE || (echo "FAILED!"; exit)
   
   cd android
-  #$SDK_HOME/adb uninstall de.benibela.videlibri || (echo "FAILED!"; exit)
-  $SDK_HOME/adb install -r build/outputs/apk/android-$BUILDMODE.apk || (echo "FAILED!"; exit)
+  #$ADB uninstall de.benibela.videlibri || (echo "FAILED!"; exit)
+  $ADB install -r build/outputs/apk/android-$BUILDMODE.apk || (echo "FAILED!"; exit)
 ;;
 
 install)
@@ -73,8 +103,8 @@ install)
   else BUILDMODE=debug;  fi
 
   cd android
-  #$SDK_HOME/adb uninstall de.benibela.videlibri || (echo "FAILED!"; exit)
-  $SDK_HOME/adb install -r build/outputs/apk/android-$BUILDMODE.apk || (echo "FAILED!"; exit)
+  #$ADB uninstall de.benibela.videlibri || (echo "FAILED!"; exit)
+  $ADB install -r build/outputs/apk/android-$BUILDMODE.apk || (echo "FAILED!"; exit)
   
 ;;
 
