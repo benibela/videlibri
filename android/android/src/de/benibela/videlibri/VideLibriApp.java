@@ -64,13 +64,13 @@ public class VideLibriApp extends Application implements Bridge.VideLibriContext
                 VideLibriApp.runningUpdates.clear();
 
                 if (currentActivity != null) {
-                    NotificationService.updateNotification(currentActivity);
-
                     if (currentActivity instanceof VideLibri)
                         ((VideLibri)currentActivity).endLoadingAll(VideLibriBaseActivity.LOADING_ACCOUNT_UPDATE);
 
                     VideLibriApp.displayAccount(null);
+                    //displayed account has an icon cache, so displayAccount needs to be called before updateNotification
                 }
+                NotificationService.updateNotification(currentActivity);
                 showPendingExceptions();
             }
         };
