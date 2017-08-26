@@ -36,15 +36,24 @@ public class DebugLogViewer extends VideLibriBaseActivity {
             Pattern pattern = Pattern.compile("([a-zA-Z]+/VideLibri.+?:)( *[-0-9:T ]+[(].*?[)] *:)?(.*)");
             BookDetails.Details lastDetails = null;
             while ((line = bufferedReader.readLine()) != null) {
+                try {
                 Matcher m = pattern.matcher(line);
                 if (!m.matches()) {
                     details.add(new BookDetails.Details("", line));
                     lastDetails = null;
-                } else if (lastDetails != null && (m.group(2) == null || m.group(2).isEmpty()))  {
-                    lastDetails.data += lastDetails.data + "\n" + m.group(3);
                 } else {
-                    lastDetails = new BookDetails.Details(m.group(1) + m.group(2), m.group(3));
-                    details.add(lastDetails);
+                    String temp = m.group(3);
+                    if (temp.length() > 200000) temp = "[too large]";
+                    if (lastDetails != null && (m.group(2) == null || m.group(2).isEmpty()))  {
+                        if (lastDetails.data.length() < 500000)
+                            lastDetails.data += lastDetails.data + "\n" + temp;
+                    } else {
+                        lastDetails = new BookDetails.Details(m.group(1) + m.group(2), temp);
+                        details.add(lastDetails);
+                    }
+                }
+                } catch (OutOfMemoryError e) {
+
                 }
             }
 
