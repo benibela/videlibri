@@ -149,7 +149,7 @@ public class NotificationService extends Service implements Bridge.VideLibriCont
 
         NotificationCompat.Builder mBuilder =
                 new NotificationCompat.Builder(context)
-                        .setSmallIcon(R.drawable.icon)
+                        .setSmallIcon(VideLibriApp.getMainIcon())
                         .setContentTitle(notification[0])
                         .setContentText(notification[1])
                         .setContentIntent(PendingIntent.getActivity(context, 0, new Intent(context, VideLibri.class), 0));
