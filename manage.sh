@@ -38,7 +38,8 @@ linux32)
     cp videlibri videlibri.unstripped.linux32
     strip --strip-all videlibri
 
-		sudo checkinstall --pkgarch=i386 --install=no --pkgname=videlibri --default  --pkgversion=$VERSION --nodoc --maintainer="Benito van der Zander \<benito@benibela.de\>" --reset-uids=yes --requires="libgtk2.0-0, libssl-dev" bash _meta/install_direct.sh 
+		./_meta/build.deb.sh 
+    
 		
 		fileUpload videlibri_$VERSION-1_i386.deb "/VideLibri/VideLibri\ $VERSION/"
 		webUpload  videlibri_$VERSION-1_i386.deb /updates/videlibri-linux32.deb
@@ -50,7 +51,8 @@ linux64)
     cp videlibri videlibri.unstripped.linux64
     strip --strip-all videlibri
 
-		sudo checkinstall --install=no --pkgname=VideLibri --default  --pkgversion=$VERSION --nodoc --maintainer="Benito van der Zander \<benito@benibela.de\>" --reset-uids=yes --requires="libgtk2.0-0, libssl-dev" bash _meta/install_direct.sh 
+		./_meta/build.deb.sh 
+    
 		
 		fileUpload videlibri_$VERSION-1_amd64.deb "/VideLibri/VideLibri\ $VERSION/"
 		webUpload  videlibri_$VERSION-1_amd64.deb /updates/videlibri-linux64.deb
@@ -266,10 +268,10 @@ src)
 ;;
 
 	release)
+	  ./manage.sh changelog		
 		./manage.sh linux64
 		./manage.sh win32
 		./manage.sh linux32
-	  ./manage.sh changelog		
 		./manage.sh android
 	  ./manage.sh src
 	  sleep 10 #sf is slow to show the downloads
