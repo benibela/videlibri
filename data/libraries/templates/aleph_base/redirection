@@ -1,0 +1,9 @@
+<html> 
+<head> 
+<title>PDS</title> 
+<script>{redirectedPage:=extract(., "https?://[^']+")}</script>
+</head> 
+</html> 
+ 
+
+ 

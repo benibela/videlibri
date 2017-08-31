@@ -37,7 +37,7 @@
     
     <page url="{$redirectedPage}" templateFile="../aleph_ubHUb/redirection2"/>
 
-    <page url="{replace($redirectedPage, '&pds_handle=GUEST', '')}" templateFile="redirection_b"/>
+    <page url="{replace($redirectedPage, '&pds_handle=GUEST', '')}" templateFile="../aleph_base/redirection"/>
 
     <page url="{$redirectedPage}">
       <template><script>{redirectedPage:=extract(., "https?://[^'""]+")}</script></template>

@@ -1,16 +1,14 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <library>
   <deprecatedName value="200"/>
-  <username matches="^\w\d{7,8}$"/>
-  <password matches="."/>
-  <maxRenewCount value="3"/>
+  <maxRenewCount value="2"/>
 
   <longName value="Universitäts- und Landesbibliothek Düsseldorf"/>
   <shortName value="ULB Düsseldorf"/>
   <catalogue value="http://katalog.ub.uni-duesseldorf.de/F"/>
   
   <template value="ulbdue"/>  
-  <variable name="server" value="aleph.ub.uni-duesseldorf.de/"/>
+  <variable name="server" value="katalog.ub.uni-duesseldorf.de/"/>
   <variable name="institute" value="DUE50"/>
 <!--  <template value="primo"/>  
   <variable name="loginServer" value="fichte.ub.uni-duesseldorf.de"/>  

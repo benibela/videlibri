@@ -19,7 +19,7 @@
       <post name="bor_library" value="DUE50"/>
     </page>-->
       
-  <page url="https://{$server}/pds?func=load-login&calling_system=aleph&institute={$institute}">
+  <page url="https://{$server}/pds?func=load-login&calling_system=aleph&institute={$institute}&url=https://{$server}/F">
   <template><html>{
     if (//form) then
       login := form(., {"bor_id": $username, "bor_verification": $password})
