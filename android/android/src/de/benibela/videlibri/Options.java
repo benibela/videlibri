@@ -180,7 +180,7 @@ public class Options extends VideLibriBaseActivity{
         if (filteringPos >= 0 && filteringPos < filterKeys.length) editor.putString("filtering", filterKeys[filteringPos]);
         editor.commit();
 
-        NotificationService.startIfNecessary(this);
+        NotificationService.resheduleDailyIfNecessary(this, false);
 
 
         VideLibriApp.setACRAlogcat(getCheckBoxChecked(R.id.loggingSend));

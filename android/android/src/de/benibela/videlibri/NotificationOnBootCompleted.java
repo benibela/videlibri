@@ -12,6 +12,6 @@ import android.util.Log;
 public class NotificationOnBootCompleted extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
-        NotificationService.startIfNecessary(context);
+        NotificationService.resheduleDailyIfNecessary(context, true);
     }
 }

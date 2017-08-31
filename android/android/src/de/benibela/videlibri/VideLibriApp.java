@@ -89,7 +89,7 @@ public class VideLibriApp extends Application implements Bridge.VideLibriContext
 
         if (ACRA.isACRASenderServiceProcess()) return;
 
-        NotificationService.startIfNecessary(this);
+        NotificationService.resheduleDailyIfNecessary(this, false);
     }
 
     static void setACRAlogcat(boolean enabled) {

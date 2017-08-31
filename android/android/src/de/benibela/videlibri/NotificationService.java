@@ -69,18 +69,15 @@ public class NotificationService extends Service implements Bridge.VideLibriCont
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        pendingNotificationService = false;
         //Log.i("LocalService", "Received start id " + startId + ": " + intent);
         SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(this);
         if (!sp.getBoolean("notifications", true)) return START_NOT_STICKY;
 
 
-
         if (isNetworkConnected()){
             VideLibriApp.updateAccount(null, true, false);
-            showLater(this, 1000*60*60*24); //check every day
         } else
-            showLater(this, 1000*60*60); //wait 1 h
+            sheduleQuickCheck(this, 1000*60*60); //wait 1 h
 
         updateNotification(this);
 
@@ -157,7 +154,7 @@ public class NotificationService extends Service implements Bridge.VideLibriCont
                         .setContentTitle(notification[0])
                         .setContentText(notification[1])
                         .setContentIntent(PendingIntent.getActivity(context, 0, new Intent(context, VideLibri.class), 0));
-        //we could setAutoCancel to remove it when the user clicks on it
+        if  (Build.VERSION.SDK_INT >= 11) mBuilder = mBuilder.setAutoCancel(true);
 
         // Set the info for the views that show in the notification panel.
         //notification.setLatestEventInfo(this, getText(R.string.local_service_label),text, contentIntent);
@@ -167,22 +164,36 @@ public class NotificationService extends Service implements Bridge.VideLibriCont
     }
 
 
-    static final int SHOWNOW = 14355;
-    static boolean pendingNotificationService = false;
-    static void showLater(Context context, int delayMs){
-        pendingNotificationService = true;
-        PendingIntent intent = PendingIntent.getBroadcast(
-                context, SHOWNOW,
+    static private final int NOTIFICATION_CHECK_DAILY = 14355;
+    static private final int NOTIFICATION_CHECK_SOON = 14356;
+
+
+    static private PendingIntent getBroadcast(Context context, int requestCode) {
+        return PendingIntent.getBroadcast(
+                context, requestCode,
                 new Intent(context, NotificationShowNow.class),
                 PendingIntent.FLAG_UPDATE_CURRENT);
-        ((AlarmManager) context.getSystemService(Context.ALARM_SERVICE)).setInexactRepeating(AlarmManager.RTC, System.currentTimeMillis(), delayMs, intent);
     }
 
-    static void startIfNecessary(Context context){
-        if (pendingNotificationService) return;
+    static private void sheduleDailyCheck(Context context){
+        //if (getBroadcast(context, NOTIFICATION_CHECK_DAILY, PendingIntent.FLAG_NO_CREATE) != null)
+        //    return; could check for existing pending, but said not to work with force stop http://luboganev.github.io/post/alarms-pending-intent/
+        ((AlarmManager) context.getSystemService(Context.ALARM_SERVICE))
+                .setInexactRepeating(AlarmManager.RTC, System.currentTimeMillis() + AlarmManager.INTERVAL_DAY, AlarmManager.INTERVAL_DAY, getBroadcast(context, NOTIFICATION_CHECK_DAILY));
+    }
+
+    static private void sheduleQuickCheck(Context context, int delay) {
+        ((AlarmManager) context.getSystemService(Context.ALARM_SERVICE))
+                .set(AlarmManager.RTC, System.currentTimeMillis() + delay, getBroadcast(context, NOTIFICATION_CHECK_SOON));
+    }
+
+
+    static void resheduleDailyIfNecessary(Context context, boolean quickCheck){
         SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(context);
         if (!sp.getBoolean("notifications", true)) return;
-        showLater(context, 1000 * 60 * sp.getInt("notificationsServiceDelay", 15)); //wait 15 min
+        sheduleDailyCheck(context);
+        if (quickCheck)
+            sheduleQuickCheck(context, 1000 * 60 * sp.getInt("notificationsServiceDelay", 15));
     }
 
     @Override
