@@ -188,7 +188,8 @@ More examples are in the <a href="https://github.com/benibela/xidel/wiki/Frequen
                           return <tr><td>{$link.verboseName}</td><td><a href="{$link.a/@href}">{$link.a/text()}</a></td><td>{$link.size/text()}</td></tr>}</table>'     --printed-node-format xml -->
 <br>Usually you can just extract the zip/deb and call Xidel, or copy it to some place in your PATH, <br>
 because it consists of a single binary without any external dependencies, except the standard system libraries (i.e. Windows API or respectively libc).<br>
-However, for https connections on Linux openssl (including openssl-dev) and libcrypto are also required.
+However, for https connections on Linux openssl (including openssl-dev) and libcrypto are also required.<br>
+<a href="https://sourceforge.net/projects/videlibri/files/Xidel/Xidel%20development/">Development snapshots</a> are provided in a special download folder occasionally. They are uploaded untested, but since they are newer, probably more reliable than the previous stable release.
 <br><br>
 
 You can also test it <a href="/cgi-bin/xidelcgi">online on a webpage</a> or directly by sending a request to the cgi service like <a href="/cgi-bin/xidelcgi?data=<html><title>foobar</title></html>&amp;extract=//title&amp;raw=true" rel="nofollow"><code>http://www.videlibri.de/cgi-bin/xidelcgi?data=&lt;html&gt;&lt;title&gt;foobar&lt;/title&gt;&lt;/html&gt;&amp;extract=//title&amp;raw=true</code></a>.<br><br><br>

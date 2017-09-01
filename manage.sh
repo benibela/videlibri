@@ -131,9 +131,9 @@ downloadTable)
            <td/><td>{{link.size := .}}</td></TR></t:loop></TABLE>, /).link 
            order by $link.verboseName descending 
            return <tr><td>{$link.verboseName}</td><td>
-           <a href="{$link.href}">{$link.name}</a></td><td>{$link.size/text()}</td></tr>}</table></div>'     --printed-node-format html > $VIDELIBRIBASE/_meta/sfsite/downloadTable.html
+           <a href="{$link.href}">{$link.name}</a></td><td>{$link.size/text()}</td></tr>}</table></div>'     --printed-node-format xml > $VIDELIBRIBASE/_meta/sfsite/downloadTable.html
   cat $VIDELIBRIBASE/_meta/sfsite/downloadTable.html
-  webUpload $VIDELIBRIBASE/_meta/sfsite/downloadTable.html /
+  (cd _meta/sfsite; rm _publish/downloads.html; make )
 
 ;;
 

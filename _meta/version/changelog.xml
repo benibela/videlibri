@@ -1,10 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?xml-stylesheet type="text/xsl" href="../changelog.xsl"?>
 <changelog program="VideLibri">
-      <build version="1910" date="2017-08-06">
+      <build version="1930" date="2017-09-01">
         <download url="http://videlibri.sourceforge.net/updates/videlibri-setup.exe" platform="WINDOWS" execute="&quot;$DOWNLOAD&quot;  /SP- /noicons &quot;/dir=$OLDPATH&quot; " restart="true"/>
         <download url="http://videlibri.sourceforge.net/updates/videlibri-linux32.deb" platform="LINUX32" execute=""/>
         <download url="http://videlibri.sourceforge.net/updates/videlibri-linux64.deb" platform="LINUX64" execute=""/>
+	<change>android: Umprogrammierung der Benachrichtigungen: Verwende Regenbogen-Icon; setze eine einzigen tägliche Benachrichtigungs-Alarm, statt jeden Tag einen Benachrichtigungs-Alarm für den darauffolgenden Tag zu setzen; zeige die Benachrichtigung nach jeder Aktualisierung sofort an, statt auf den nächsten gesetzten Alarm zu warten. </change>
+	<change>android: Zeige keine Fehlermeldung bei einem SSL-IO-Error/Timeout, sondern sende dieselbe Anfrage erneut an den Bibliotheksserver.</change>
+        <change>Aktualisiertes Webseiten-Layout. </change>
+	<change>Erstelle Debian-Packages mit dpkg-deb statt checkinstall.</change>
+	<change>Es ist nun mit FreePascal r35800 und Lazarus 1.8 RC4 mit Patch #32258 kompiliert, da die LCL ohne Patch unter Unity abstürzt.</change>
+        <fix>android: Verhindere, dass Abgabe-Benachrichtigungen vom App-Store-Update abgestellt werden.</fix>
+        <fix>Desktop: Zeige das Aktualisierungsdatum als ausgeliehen-bevor-Datum, wenn das exakte Ausleihdatum nicht bekannt ist.</fix>
+        <fix>android: Versuche nicht abzustürzen, wenn das Debug-Log geöffnet wird, aber das Gerät nicht genügend Speicher hat, um das Debug-Log anzuzeigen.</fix>
+        <fix>Universitätsbibliothek Düsseldorf, Stadtbibliothek Villingen-Schwenningen: Anpassung an neue Katalog-URL.</fix>
+        <fix>Stadtbücherei Erbach: Neue Bibliothekswebseite. </fix>
+        <fix>Erstelle wieder Backups der Ausleihenhistory.</fix>
+        <fix>Stadtbibliothek Hamm, Stadtbibliothek Erlangen: Anpassung an geändertes Layout.</fix>
+        <fix>Wenn die Bibliothek nicht erlaubte Entities in ihrem OPAC verwendet, zeige ein ? statt den Webseitenaufruf abzubrechend. </fix>
+     </build>
+      <build version="1910" date="2017-08-06">
         <change>libero/Bibliothek Verl: Neuimplementierung der Vormerkungen mittels "holding"-System.</change>
         <change>android: breche die Suche nicht ab, wenn eine Fehlermeldung auftritt, da es öfter eine Warnung der Bibliothek ist ("Buch momentan nicht verfügbar") als eine fehlgeschlagene Suche.</change>
         <fix>libero/Bibliothek Verl: Zeige keine nicht verlängerbaren Medien als verlängerbar an.</fix>

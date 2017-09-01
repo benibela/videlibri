@@ -1,0 +1,378 @@
+<?xml version="1.0" encoding="utf-8"?>
+<tests>
+<!-- generated using
+ for lib in *.xml; do 
+   export lib
+   for r in $(hg log - -template "{rev} "  -f $lib ); do
+     hg cat -r $r $lib | xidel - - -variable lib - -xquery '
+       let $id := substring-before($lib, ".xml"), 
+           $search := //testing-search[@value != "?"], 
+           $account := //testing-account[@value != "?"],
+           $renew := //testing-renew[@value != "?"],
+           $all := ($search,$account,$renew)
+       where exists($all) 
+       for $date in distinct-values($all/@date)
+       let $tests := $all[@date = $date]
+       return <test date="{$date}" 
+                    id="{$id}" 
+                    system="{for $s in //template/@value/data() order by $s return $s}">{  
+                      ($tests)[replace(@value/data(),"\?","")] 
+                      ! (attribute 
+                          {substring-after(name(),"testing-")} 
+                          {@value/data()!(
+                            if (matches(., "ja|in *[0-9.]+")) then "yes"
+                            else if (matches(., "nein")) then "no"
+                            else .)})  
+              }</test>' - -xml
+   done
+ done | sort -t= -k3 | uniq > /tmp/old.xml
+and manual update 
+-->
+<test date="2013-07-29" id="AT_Ober+oesterreich_Linz_Stb" system="libero5" account="yes" renew="yes"/>
+<test date="2013-07-05" id="AT_Ober+oesterreich_Linz_Stb" system="libero5" search="yes"/>
+<test date="2014-09-30" id="AT_Wien_Wien_Stb" system="bibliotheca" search="yes" text="Hinweis der Bibliothek: VideLibri ist kein Produkt der Büchereien Wien!"/>
+<test date="2013-05-17" id="CH_Aargau_Baden_Stb" system="sisis" search="yes"/>
+<test date="2013-05-17" id="CH_Basel_Basel_Stb" system="sisis" search="yes"/>
+<test date="2013-05-18" id="CH_Basel_Liestal_Kb" system="sisis" search="yes"/>
+<test date="2017-01-21" id="CH_Bern_Biel_Stb" system="netbiblio" search="yes" account="yes" renew="yes"/>
+<test date="2014-03-19" id="CH_Bern_Biel_Stb" system="zones18" account="yes" renew="yes"/>
+<test date="2013-10-07" id="CH_Bern_Biel_Stb" system="zones18" search="yes"/>
+<test date="2013-05-18" id="CH_Uri_Altdorf_Kb" system="sisis" search="yes"/>
+<test date="2013-05-18" id="CH_Z+uerich_Winterthur_Vb" system="sisis" search="yes"/>
+<test date="2013-05-18" id="DE_Baden-W+uertenberg_Aalen_HS" system="aDISWeb" search="yes"/>
+<test date="2013-05-18" id="DE_Baden-W+uertenberg_Albstadt_HS" system="aDISWeb" search="yes"/>
+<test date="2013-05-18" id="DE_Baden-W+uertenberg_Biberach_Hs" system="aDISWeb" search="yes"/>
+<test date="2013-05-18" id="DE_Baden-W+uertenberg_Esslingen_HS" system="aDISWeb" search="yes"/>
+<test date="2013-07-05" id="DE_Baden-W+uertenberg_Filderstadt_Stb" system="libero5" search="yes"/>
+<test date="2013-05-18" id="DE_Baden-W+uertenberg_Freiburg_HS" system="aDISWeb" search="yes"/>
+<test date="2013-05-18" id="DE_Baden-W+uertenberg_Freiburg_Stb" system="sisis" search="yes"/>
+<test date="2013-05-18" id="DE_Baden-W+uertenberg_Friedrichshafen_ZU" system="aDISWeb" search="yes"/>
+<test date="2013-05-18" id="DE_Baden-W+uertenberg_Furtwangen_Hs" system="aDISWeb" search="yes"/>
+<test date="2013-05-18" id="DE_Baden-W+uertenberg_Gm+uend_Hfg" system="aDISWeb" search="yes"/>
+<test date="2013-05-18" id="DE_Baden-W+uertenberg_Gm+uend_Hs" system="aDISWeb" search="yes"/>
+<test date="2013-05-18" id="DE_Baden-W+uertenberg_Heidelberg_Ph" system="aDISWeb" search="yes"/>
+<test date="2014-11-10" id="DE_Baden-W+uertenberg_Heidelberg_Stb" system="bibliotheca" search="no"/>
+<test date="2014-09-30" id="DE_Baden-W+uertenberg_Heidelberg_Stb" system="bibliotheca" search="yes"/>
+<test date="2013-05-18" id="DE_Baden-W+uertenberg_Heidenheim_HS" system="aDISWeb" search="yes"/>
+<test date="2013-05-18" id="DE_Baden-W+uertenberg_Heilbronn_HS" system="aDISWeb" search="yes"/>
+<test date="2014-09-30" id="DE_Baden-W+uertenberg_Heilbronn_Stb" system="bibliotheca" search="yes"/>
+<test date="2016-06-22" id="DE_Baden-W+uertenberg_Holzgerlingen_Stb" system="bibliothecaplus" search="yes"/>
+<test date="2013-05-18" id="DE_Baden-W+uertenberg_Karlsruhe_Blb" system="aDISWeb" search="yes"/>
+<test date="2013-05-18" id="DE_Baden-W+uertenberg_Karlsruhe_Hfm" system="aDISWeb" search="yes"/>
+<test date="2013-05-18" id="DE_Baden-W+uertenberg_Karlsruhe_Ph" system="aDISWeb" search="yes"/>
+<test date="2013-05-18" id="DE_Baden-W+uertenberg_Kehl_HS" system="aDISWeb" search="yes"/>
+<test date="2013-05-18" id="DE_Baden-W+uertenberg_Konstanz_HS" system="aDISWeb" search="yes"/>
+<test date="2013-07-05" id="DE_Baden-W+uertenberg_Konstanz_Ub" system="libero5" search="yes"/>
+<test date="2013-05-18" id="DE_Baden-W+uertenberg_L+oerrach_DHS" system="aDISWeb" search="yes"/>
+<test date="2013-05-18" id="DE_Baden-W+uertenberg_L+oerrach_WRb" system="aDISWeb" search="yes"/>
+<test date="2013-05-18" id="DE_Baden-W+uertenberg_Ludwigsburg_Hb" system="aDISWeb" search="yes"/>
+<test date="2013-05-18" id="DE_Baden-W+uertenberg_Mannheim_DHs" system="aDISWeb" search="yes"/>
+<test date="2013-05-18" id="DE_Baden-W+uertenberg_Mannheim_HS" system="aDISWeb" search="yes"/>
+<test date="2013-05-18" id="DE_Baden-W+uertenberg_Mannheim_MHS" system="aDISWeb" search="yes"/>
+<test date="2013-05-18" id="DE_Baden-W+uertenberg_Mannheim_Techno" system="aDISWeb" search="yes"/>
+<test date="2013-05-18" id="DE_Baden-W+uertenberg_Mosbach_HS" system="aDISWeb" search="yes"/>
+<test date="2013-05-18" id="DE_Baden-W+uertenberg_N+uertingen_HWU" system="aDISWeb" search="yes"/>
+<test date="2013-05-18" id="DE_Baden-W+uertenberg_Offenburg_Fh" system="aDISWeb" search="yes"/>
+<test date="2013-05-18" id="DE_Baden-W+uertenberg_Pforzheim_HS" system="aDISWeb" search="yes"/>
+<test date="2014-09-30" id="DE_Baden-W+uertenberg_Pforzheim_Stb" system="bibliotheca" search="yes"/>
+<test date="2013-05-18" id="DE_Baden-W+uertenberg_Ravensburg_HS" system="aDISWeb" search="yes"/>
+<test date="2013-05-18" id="DE_Baden-W+uertenberg_Reutlingen_Hs" system="aDISWeb" search="yes"/>
+<test date="2013-05-18" id="DE_Baden-W+uertenberg_Rottenburg_Hs" system="aDISWeb" search="yes"/>
+<test date="2014-09-30" id="DE_Baden-W+uertenberg_Singen_Stb" system="bibliotheca" search="yes"/>
+<test date="2013-05-18" id="DE_Baden-W+uertenberg_Stuttgart_Abk" system="aDISWeb" search="yes"/>
+<test date="2013-05-18" id="DE_Baden-W+uertenberg_Stuttgart_DHsC" system="aDISWeb" search="yes"/>
+<test date="2013-05-18" id="DE_Baden-W+uertenberg_Stuttgart_DHs" system="aDISWeb" search="yes"/>
+<test date="2013-05-18" id="DE_Baden-W+uertenberg_Stuttgart_HdM" system="aDISWeb" search="yes"/>
+<test date="2013-05-18" id="DE_Baden-W+uertenberg_Stuttgart_HS" system="aDISWeb" search="yes"/>
+<test date="2013-05-18" id="DE_Baden-W+uertenberg_Stuttgart_Mh" system="aDISWeb" search="yes"/>
+<test date="2013-05-18" id="DE_Baden-W+uertenberg_Stuttgart_Ub" system="aDISWeb" search="yes"/>
+<test date="2013-05-18" id="DE_Baden-W+uertenberg_Trossingen_Mh" system="aDISWeb" search="yes"/>
+<test date="2013-05-18" id="DE_Baden-W+uertenberg_T+uebingen_Ub" system="aDISWeb" search="yes"/>
+<test date="2013-05-18" id="DE_Baden-W+uertenberg_Ulm_Hs" system="aDISWeb" search="yes"/>
+<test date="2013-05-18" id="DE_Baden-W+uertenberg_Ulm_Ub" system="aDISWeb" search="yes"/>
+<test date="2013-05-18" id="DE_Baden-W+uertenberg_Villingen_DHs" system="aDISWeb" search="yes"/>
+<test date="2013-05-18" id="DE_Baden-W+uertenberg_Villingen_Hfpol" system="aDISWeb" search="yes"/>
+<test date="2014-09-29" id="DE_Baden-W+uertenberg_Villingen_Stb" system="bibliotheca" search="yes"/>
+<test date="2013-05-18" id="DE_Baden-W+uertenberg_Weingarten_HS" system="aDISWeb" search="yes"/>
+<test date="2014-09-30" id="DE_Baden-W+uertenberg_Weinheim_Stb" system="bibliotheca" search="yes"/>
+<test date="2013-05-17" id="DE_Bayern_Amberg-Weiden_HAW" system="sisis" search="yes"/>
+<test date="2013-05-17" id="DE_Bayern_Aschaffenburg_Hb" system="sisis" search="yes"/>
+<test date="2013-05-17" id="DE_Bayern_Aschaffenburg_Hof" system="sisis" search="yes"/>
+<test date="2013-05-17" id="DE_Bayern_Augsburg_Stb" system="sisis" search="yes"/>
+<test date="2013-05-17" id="DE_Bayern_Bamberg_Ub" system="sisis" search="yes"/>
+<test date="2013-05-18" id="DE_Bayern_Coburg_Hb" system="sisis" search="yes"/>
+<test date="2014-09-30" id="DE_Bayern_Erlangen_Stb" system="bibliothecaplus" search="yes"/>
+<test date="2014-09-30" id="DE_Bayern_Erlangen_Stb" system="bibliotheca" search="yes"/>
+<test date="2013-05-18" id="DE_Bayern_F+uerth_Vb" system="sisis" search="yes"/>
+<test date="2013-05-18" id="DE_Bayern_M+uenchen_Alpen" system="sisis" search="yes"/>
+<test date="2012-10-01" id="DE_Bayern_M+uenchen_Stb" system="aDISWeb" account="yes" renew="yes"/>
+<test date="2013-05-17" id="DE_Bayern_M+uenchen_Stb" system="aDISWeb" search="yes"/>
+<test date="2013-05-18" id="DE_Bayern_M+uenchen_UbLMU" system="sisis" search="yes"/>
+<test date="2013-05-18" id="DE_Bayern_M+uenchen_UbTUM" system="sisis" search="yes"/>
+<test date="2013-05-18" id="DE_Bayern_Neubiberg_Ub" system="sisis" search="yes"/>
+<test date="2013-06-28" id="DE_Bayern_N+uernberg_Stb" system="aDISWeb" account="yes" renew="yes"/>
+<test date="2013-05-17" id="DE_Bayern_N+uernberg_Stb" system="aDISWeb" search="yes"/>
+<test date="2013-05-18" id="DE_Bayern_N+uernberg_TH" system="sisis" search="yes"/>
+<test date="2013-05-18" id="DE_Bayern_Passau_Ub" system="sisis" search="yes"/>
+<test date="2013-05-18" id="DE_Bayern_Regensburg_Ub" system="sisis" search="yes"/>
+<test date="2013-05-18" id="DE_Bayern_Schweinfurt_Hb" system="sisis" search="yes"/>
+<test date="2013-07-21" id="DE_Bayern_W+uerzburg_Hb" system="sisis" search="yes"/>
+<test date="2013-05-18" id="DE_Bayern_W+uerzburg_Hsb" system="sisis" search="yes"/>
+<test date="2015-03-01" id="DE_Berlin_Berlin_BeuthHS" system="sisis" account="yes"/>
+<test date="2013-05-18" id="DE_Berlin_Berlin_BeuthHS" system="sisis" search="yes"/>
+<test date="2013-05-18" id="DE_Berlin_Berlin_HTW" system="sisis" search="yes"/>
+<test date="2013-11-02" id="DE_Berlin_Berlin_HTW" system="sisis" search="yes" account="yes"/>
+<test date="2014-11-16" id="DE_Berlin_Berlin_KHSB" system="pica" account="yes"/>
+<test date="2013-04-26" id="DE_Berlin_Berlin_KHSB" system="pica" search="yes"/>
+<test date="2014-11-10" id="DE_Berlin_Berlin_KHSB" system="pica" search="yes"/>
+<test date="2012-12-23" id="DE_Berlin_Berlin_Stabi" system="bibdia_stabib" account="yes"/>
+<test date="2012-05-16" id="DE_Berlin_Berlin_Stabi" system="bibdia_stabib" renew="yes"/>
+<test date="2013-04-26" id="DE_Berlin_Berlin_Stabi" system="bibdia_stabib" search="yes"/>
+<test date="2011-03-07" id="DE_Berlin_Berlin_Stabi" system="bibdia_stabib" account="yes" renew="yes" search="no"/>
+
+<test date="2011-03-07" id="DE_Berlin_Berlin_UbFU" system="aleph_ubFUb" account="yes" renew="yes" search="no"/>
+<test date="2012-07-12" id="DE_Berlin_Berlin_UbFU" system="aleph_ubFUb" account="yes" renew="yes"/>
+<test date="2012-07-12" id="DE_Berlin_Berlin_UbFU" system="aleph_ubFUb primo" account="yes" renew="yes"/>
+<test date="2013-07-07" id="DE_Berlin_Berlin_UbFU" system="aleph_ubFUb primo" search="yes"/>
+<test date="2017-01-15" id="DE_Berlin_Berlin_UbFU" system="primo" account="yes"/>
+<test date="2012-07-12" id="DE_Berlin_Berlin_UbFU" system="primo" renew="yes"/>
+<test date="2013-07-07" id="DE_Berlin_Berlin_UbFU" system="primo" search="yes"/>
+
+<test date="2011-03-07" id="DE_Berlin_Berlin_UbHU" system="aleph_ubHUb" account="yes" renew="yes" search="no"/>
+<test date="2012-03-03" id="DE_Berlin_Berlin_UbHU" system="aleph_ubHUb" account="yes"/>
+<test date="2012-03-03" id="DE_Berlin_Berlin_UbHU" system="aleph_ubHUb primo" account="yes"/>
+<test date="2013-07-07" id="DE_Berlin_Berlin_UbHU" system="aleph_ubHUb primo" search="yes"/>
+<test date="2013-07-07" id="DE_Berlin_Berlin_UbHU" system="primo" search="yes"/>
+
+<test date="2011-03-07" id="DE_Berlin_Berlin_UbTU" system="aleph_ubTUb" account="yes" renew="yes" search="no"/>
+<test date="2012-12-23" id="DE_Berlin_Berlin_UbTU" system="aleph_ubTUb" account="yes"/>
+<test date="2012-12-23" id="DE_Berlin_Berlin_UbTU" system="aleph_ubTUb primo" account="yes"/>
+<test date="2013-07-07" id="DE_Berlin_Berlin_UbTU" system="aleph_ubTUb primo" search="yes"/>
+<test date="2012-12-23" id="DE_Berlin_Berlin_UbTU" system="primo" account="yes"/>
+<test date="2013-07-07" id="DE_Berlin_Berlin_UbTU" system="primo" search="yes"/>
+
+<test date="2014-02-21" id="DE_Berlin_Berlin_VOEBB" system="aDISWeb" account="yes"/>
+<test date="2014-03-05" id="DE_Berlin_Berlin_VOEBB" system="aDISWeb" search="yes"/>
+
+<test date="2013-07-05" id="DE_Brandenburg_Cottbus_Stb" system="libero5" search="yes" text="Internetverbindung zur Bibliotheksseite scheint öfters gestört zu sein."/>
+<test date="2013-07-05" id="DE_Brandenburg_Cottbus_Stb" system="libero5" search="yes"/>
+
+<test date="2013-05-18" id="DE_Brandenburg_Potsdam_Fh" system="sisis" search="yes"/>
+<test date="2013-05-18" id="DE_Bremen_Bremen_Stb" system="sisis" search="yes"/>
+<test date="2013-04-26" id="DE_Bremen_Bremen_Sub" system="pica" search="yes"/>
+<test date="2014-03-16" id="DE_Hamburg_Hamburg_Oebh" system="zones18" search="no" account="no" comment="Ich denke Sie haben Verständnis dafür, dass wir den Traffic über die Bücherhallen App lenken wollen."/>
+<test date="2014-03-17" id="DE_Hamburg_Hamburg_Oebh" system="zones18" search="no" account="no" text="no-reply"/>
+<test date="2013-11-02" id="DE_Hamburg_Hamburg_Oebh" system="zones18" search="yes"/>
+<test date="2011-05-16" id="DE_Hamburg_Hamburg_UbHSU" system="pica" account="yes" renew="yes"/>
+<test date="2013-04-26" id="DE_Hamburg_Hamburg_UbHSU" system="pica" search="yes"/>
+<test date="2013-04-26" id="DE_Hamburg_Hamburg_Ub" system="pica" search="yes" account="yes"/>
+<test date="2011-05-17" id="DE_Hamburg_Hamburg_Ub" system="pica" account="yes"/>
+
+
+<test date="2014-09-14" id="DE_Hessen_Darmstadt_Stb" system="bibliothecaplus" search="yes" account="yes"/>
+<test date="2013-07-05" id="DE_Hessen_Dieburg_Stb" system="libero5" search="yes"/>
+
+<test date="2017-02-02" id="DE_Hessen_Erbach_Stb" system="bibliotheca" search="yes"/>
+<test date="2013-07-05" id="DE_Hessen_Erbach_Stb" system="libero5" search="yes"/>
+
+<test date="2013-07-05" id="DE_Hessen_Gie+szen_Stb" system="libero5" search="yes"/>
+<test date="2013-10-09" id="DE_Hessen_Hanau_Stb" system="libero5" account="no"/>
+<test date="2013-07-05" id="DE_Hessen_Hanau_Stb" system="libero5" search="yes"/>
+<test date="2013-07-05" id="DE_Hessen_Hattersheim_Stb" system="libero5" search="yes"/>
+<test date="2013-07-05" id="DE_Hessen_M+oerfelden-Walldorf_Stb" system="libero5" search="yes"/>
+<test date="2015-04-05" id="DE_Hessen_M+uehlheim_StbAM" system="libero5" search="no"/>
+<test date="2013-07-05" id="DE_Hessen_M+uehlheim_StbAM" system="libero5" search="yes"/>
+<test date="2013-07-05" id="DE_Hessen_Obertshausen_Stb" system="libero5" search="yes"/>
+<test date="2013-07-05" id="DE_Hessen_Pfungstadt_Stb" system="libero5" search="yes"/>
+<test date="2013-05-21" id="DE_Hessen_R+uesselheim_Stb" system="sisis" account="yes"/>
+<test date="2013-05-18" id="DE_Hessen_R+uesselheim_Stb" system="sisis" search="yes"/>
+<test date="2013-07-05" id="DE_Hessen_Schotten_Stb" system="libero5" search="yes"/>
+<test date="2014-09-30" id="DE_Hessen_Wiesbaden_Stb" system="bibliotheca" search="yes"/>
+<test date="2014-07-28" id="DE_Mecklenburg-Vorpommern_Greifswald_Ub" system="lbs" search="yes"/>
+<test date="2013-04-26" id="DE_Mecklenburg-Vorpommern_Greifswald_Ub" system="pica" search="yes"/>
+
+<test date="2014-07-28" id="DE_Mecklenburg-Vorpommern_Stralsund_Hb" system="lbs" account="yes"/>
+<test date="2013-04-26" id="DE_Mecklenburg-Vorpommern_Stralsund_Hb" system="lbs" search="yes"/>
+<test date="2014-06-21, neue Loginseite, bräuchte Zugangsdaten" id="DE_Mecklenburg-Vorpommern_Stralsund_Hb" system="pica" account="no"/>
+<test date="2013-04-26" id="DE_Mecklenburg-Vorpommern_Stralsund_Hb" system="pica" search="yes"/>
+<test date="2017-03-11" id="DE_Mecklenburg-Vorpommern_Stralsund_Stb" system="bibliothecaplus" search="yes"/>
+<test date="2014-09-14" id="DE_Mecklenburg-Vorpommern_Stralsund_Stb" system="bibliothecaplus" search="yes" account="yes" text="no-reply"/>
+<test date="2014-09-07" id="DE_Mecklenburg-Vorpommern_Stralsund_Stb" system="bibliotheca" search="no" account="no"/>
+<test date="2014-08-20" id="DE_Mecklenburg-Vorpommern_Stralsund_Stb" system="bibliotheca" search="yes" account="yes"/>
+<test date="2014-08-19" id="DE_Mecklenburg-Vorpommern_Stralsund_Stb" system="bibliotheca" account="yes"/>
+<test date="2013-10-25" id="DE_Niedersachsen_Braunschweig_Stb" system="sisis" account="yes"/>
+<test date="2013-05-18" id="DE_Niedersachsen_Braunschweig_Stb" system="sisis" search="yes"/>
+<test date="2013-06-27" id="DE_Niedersachsen_Braunschweig_Ub" system="pica" account="yes" renew="yes"/>
+<test date="2013-04-26" id="DE_Niedersachsen_Braunschweig_Ub" system="pica" search="yes"/>
+<test date="2013-04-26" id="DE_Niedersachsen_Clausthal_Ub" system="pica" search="yes"/>
+<test date="2013-04-26" id="DE_Niedersachsen_Elsfleth_Ub" system="pica" search="yes"/>
+<test date="2013-04-26" id="DE_Niedersachsen_Emden_OstBib" system="pica" search="yes"/>
+<test date="2013-04-26" id="DE_Niedersachsen_Emden_Ub" system="pica" search="yes"/>
+<test date="2013-04-26" id="DE_Niedersachsen_G+oettingen_Ub" system="pica" search="yes"/>
+<test date="2013-07-07" id="DE_Niedersachsen_Hannover_GWLB" system="pica" search="yes"/>
+<test date="2013-07-07" id="DE_Niedersachsen_Hannover_HMTMH" system="pica" search="yes"/>
+<test date="2013-07-07" id="DE_Niedersachsen_Hannover_KSF" system="pica" search="yes"/>
+<test date="2013-07-07" id="DE_Niedersachsen_Hannover_Lkab" system="pica" search="yes"/>
+<test date="2013-07-07" id="DE_Niedersachsen_Hannover_MHb" system="pica" search="yes"/>
+<test date="2013-10-07" id="DE_Niedersachsen_Hannover_Stb" system="zones18" account="yes"/>
+<test date="2013-11-03" id="DE_Niedersachsen_Hannover_Stb" system="zones18" account="yes"/>
+<test date="2013-10-07" id="DE_Niedersachsen_Hannover_Stb" system="zones18" search="yes"/>
+<test date="2013-07-07" id="DE_Niedersachsen_Hannover_TiHo" system="pica" search="yes"/>
+<test date="2013-06-26" id="DE_Niedersachsen_Hannover_Ub" system="pica" account="yes" renew="yes"/>
+<test date="2013-04-26" id="DE_Niedersachsen_Hannover_Ub" system="pica" search="yes"/>
+<test date="2013-06-26" id="DE_Niedersachsen_Hannover_UbTIB" system="pica" account="yes" renew="yes"/>
+<test date="2013-04-26" id="DE_Niedersachsen_Hannover_UbTIB" system="pica" search="yes"/>
+<test date="2013-07-07" id="DE_Niedersachsen_Hildesheim_Mkb" system="pica" search="yes"/>
+<test date="2013-07-05" id="DE_Niedersachsen_Hildesheim_Stb" system="libero5" search="yes"/>
+
+<test date="2013-05-22" id="DE_Niedersachsen_Hildesheim_Ub" system="paia sru" search="yes" account="yes"/>
+<test date="2013-05-23" id="DE_Niedersachsen_Hildesheim_Ub" system="pica" search="yes" account="yes"/>
+<!--<test date="2013-04-01" id="DE_Niedersachsen_Hildesheim_Ub" system="pica" renew="yes"/>-->
+<test date="2013-04-26" id="DE_Niedersachsen_Hildesheim_Ub" system="pica" search="yes" account="yes"/>
+<!--<test date="2013-03-22" id="DE_Niedersachsen_Hildesheim_Ub" system="pica" search="yes" account="yes"/> where does this come from?-->
+
+<test date="2013-04-26" id="DE_Niedersachsen_L+ueneburg_Ub" system="pica" search="yes"/>
+<test date="2015-08-11" id="DE_Niedersachsen_Osnabr+ueck_UbHs" system="pica" account="yes"/>
+<test date="2013-04-26" id="DE_Niedersachsen_Osnabr+ueck_UbHs" system="pica" search="yes"/>
+<test date="2013-04-26" id="DE_Niedersachsen_Osnabr+ueck_Ub" system="pica" search="yes"/>
+<test date="2013-04-26" id="DE_Niedersachsen_Wilhelmshaven_Ub" system="pica" search="yes"/>
+<test date="2014-09-30" id="DE_Niedersachsen_Wolfsburg_Stb" system="bibliotheca" search="yes"/>
+
+<test date="2011-05-16" id="DE_Nordrhein-Westfalen_Aachen_Stb" system="digibib libero5" search="yes" account="yes" renew="nicht erlaubt"/>
+<test date="2010-02-16" id="DE_Nordrhein-Westfalen_Aachen_Stb" system="digibib libero5" search="yes" account="yes" renew="nicht erlaubt"/>
+
+<test date="2012-07-08" id="DE_Nordrhein-Westfalen_Aachen_Ub" system="digibib sisis" search="yes" account="yes"/>
+<test date="2011-05-16" id="DE_Nordrhein-Westfalen_Aachen_Ub" system="digibib sisis" search="yes" account="yes" renew="yes"/>
+<test date="2010-02-16" id="DE_Nordrhein-Westfalen_Aachen_Ub" system="digibib sisis" search="yes" account="yes"/>
+
+
+<test date="2015-07-01" id="DE_Nordrhein-Westfalen_Bochum_Hsb" system="libero5" account="yes" renew="yes"/>
+<test date="2013-07-05" id="DE_Nordrhein-Westfalen_Bochum_Hsb" system="libero5" search="yes"/>
+<test date="2010-02-16" id="DE_Nordrhein-Westfalen_Bochum_Hsb" system="libero5" search="no" account="no" text="Nicht mehr im HBZ gehostet."/>
+<test date="2007-02-27" id="DE_Nordrhein-Westfalen_Bochum_Hsb" system="libero5"/>
+
+<test date="2013-05-18" id="DE_Nordrhein-Westfalen_Bochum_UbRUB" system="sisis" search="yes"/>
+<test date="2013-05-18" id="DE_Nordrhein-Westfalen_Bonn_Stb" system="sisis" search="yes"/>
+<test date="2015-11-22" id="DE_Nordrhein-Westfalen_Bonn_Ulb" system="summon" search="yes" account="yes"/>
+<test date="2015-01-25" id="DE_Nordrhein-Westfalen_Bonn_Ulb" system="sisis" search="yes" account="yes"/>
+<test date="2015-01-22" id="DE_Nordrhein-Westfalen_Dortmund_Stb" system="aDISWeb" search="yes"/>
+
+<test date="2015-12-25" id="DE_Nordrhein-Westfalen_Dortmund_Ub" system="digibib paia" search="yes"/>
+<test date="2013-05-18" id="DE_Nordrhein-Westfalen_Dortmund_Ub" system="sisis" search="yes"/>
+
+<test date="2011-05-16" id="DE_Nordrhein-Westfalen_D+uesseldorf_Fhb" system="digibib libero5" search="yes" account="yes" renew="yes"/>
+<test date="2006-12-19" id="DE_Nordrhein-Westfalen_D+uesseldorf_Fhb" system="libero5" account="yes"/> <!--old dates from videlibri's own lending log, when VideLibri says I had a book lend at that day. -->
+
+<test date="2015-01-22" id="DE_Nordrhein-Westfalen_D+uesseldorf_Stb" system="aDISWeb"  search="yes" account="yes" renew="yes"/>
+<test date="2014-11-12" id="DE_Nordrhein-Westfalen_D+uesseldorf_Stb" system="aDISWeb" account="yes"/>
+<test date="2014-05-10" id="DE_Nordrhein-Westfalen_D+uesseldorf_Stb" system="aDISWeb" search="yes"/>
+<test date="2014-04-24" id="DE_Nordrhein-Westfalen_D+uesseldorf_Stb" system="digibib wasnrw" search="yes" account="yes" renew="yes"/>
+<test date="2014-01-17" id="DE_Nordrhein-Westfalen_D+uesseldorf_Stb" system="digibib wasnrw" account="yes" renew="yes"/>
+<test date="2013-04-26" id="DE_Nordrhein-Westfalen_D+uesseldorf_Stb" system="digibib wasnrw" search="yes" account="yes" renew="yes"/>
+<test date="2008-07-19" id="DE_Nordrhein-Westfalen_D+uesseldorf_Stb" system="digibib wasnrw" search="yes" account="yes"/>
+<test date="2006-08-06" id="DE_Nordrhein-Westfalen_D+uesseldorf_Stb" system="wasnrw" account="yes"/>
+
+
+<test date="2013-06-18" id="DE_Nordrhein-Westfalen_D+uesseldorf_Ub" system="digibib ulbdue" search="yes" text="no-reply"/>
+<test date="2013-05-17" id="DE_Nordrhein-Westfalen_D+uesseldorf_Ub" system="digibib primo" search="yes" account="yes" renew="yes"/>
+<test date="2013-02-10" id="DE_Nordrhein-Westfalen_D+uesseldorf_Ub" system="digibib ulbdue" search="yes"/>
+<test date="2011-05-16" id="DE_Nordrhein-Westfalen_D+uesseldorf_Ub" system="digibib ulbdue" search="yes" text="no-reply"/>
+<test date="2008-07-19" id="DE_Nordrhein-Westfalen_D+uesseldorf_Ub" system="digibib ulbdue" search="yes" account="yes" text="no-reply"/>
+<test date="2006-08-10" id="DE_Nordrhein-Westfalen_D+uesseldorf_Ub" system="ulbdue" account="yes"/>
+
+
+<test date="2013-07-05" id="DE_Nordrhein-Westfalen_Gelsenkirchen_Fhb" system="libero5" search="yes"/>
+<test date="2014-09-29" id="DE_Nordrhein-Westfalen_Halle_Stb" system="bibliotheca" search="yes"/>
+<test date="2014-09-30" id="DE_Nordrhein-Westfalen_Hamm_Stb" system="bibliothecaplus" search="yes"/>
+<test date="2014-09-30" id="DE_Nordrhein-Westfalen_Hamm_Stb" system="bibliotheca" search="yes"/>
+<test date="2013-10-07" id="DE_Nordrhein-Westfalen_K+oeln_Stb" system="zones18" account="yes"/>
+<test date="2013-10-07" id="DE_Nordrhein-Westfalen_K+oeln_Stb" system="zones18" search="yes"/>
+
+<test date="2013-11-14" id="DE_Nordrhein-Westfalen_M+uenster_Fh" system="sisis" account="yes" renew="yes"/>
+<test date="2013-05-18" id="DE_Nordrhein-Westfalen_M+uenster_Fh" system="sisis" search="yes"/>
+<test date="2013-10-09" id="DE_Nordrhein-Westfalen_M+uenster_Fh" system="sisis" search="yes"/>
+
+
+<test date="2013-05-18" id="DE_Nordrhein-Westfalen_M+uenster_Ulb" system="sisis" search="yes"/>
+<test date="2014-05-10" id="DE_Nordrhein-Westfalen_Neuss_Stb" system="aDISWeb" search="yes"/>
+<test date="2013-05-18" id="DE_Nordrhein-Westfalen_Oberhausen_Stb" system="sisis" search="yes"/>
+<test date="2013-05-18" id="DE_Nordrhein-Westfalen_Pulheim_Stb" system="sisis" search="yes"/>
+<test date="2013-07-05" id="DE_Nordrhein-Westfalen_Solingen_Stb" system="libero5" search="yes"/>
+<test date="2014-09-30" id="DE_Nordrhein-Westfalen_Steinfurt_Stb" system="bibliotheca" search="yes"/>
+<test date="2013-07-05" id="DE_Nordrhein-Westfalen_Stolberg_Stb" system="libero5" search="yes"/>
+<test date="2013-07-05" id="DE_Nordrhein-Westfalen_Verl_Stb" system="libero5" search="yes"/>
+<test date="2016-05-15" id="DE_Nordrhein-Westfalen_Verl_Stb" system="libero5" search="yes" account="yes" renew="yes"/>
+<test date="2015-01-25" id="DE_Nordrhein-Westfalen_Witten_Stb" system="sisis" search="yes"/>
+<test date="2017-03-11" id="DE_Nordrhein-Westfalen_Witten_Stb" system="sisis" search="yes"/>
+<test date="2013-07-05" id="DE_Nordrhein-Westfalen_Witten_Ulb" system="libero5" search="yes"/>
+<test date="2014-11-12" id="DE_Nordrhein-Westfalen_Wuppertal_Stb" system="sisis" account="yes"/>
+<test date="2013-05-18" id="DE_Nordrhein-Westfalen_Wuppertal_Stb" system="sisis" search="yes"/>
+<test date="2013-10-07" id="DE_Rheinland-Pfalz_Koblenz_Stb" system="zones18" account="yes"/>
+<test date="2013-10-07" id="DE_Rheinland-Pfalz_Koblenz_Stb" system="zones18" search="yes"/>
+<test date="2014-09-08" id="DE_Rheinland-Pfalz_Neustadt-an-der-Weinstra+sze_Stb" system="bibliotheca" search="yes" account="yes" text="no-reply"/>
+<test date="2014-09-30" id="DE_Rheinland-Pfalz_Speyer_Stb" system="bibliotheca" search="yes"/>
+<test date="2013-05-18" id="DE_Rheinland-Pfalz_Trier_Fh" system="sisis" search="yes"/>
+<test date="2014-09-29" id="DE_Rheinland-Pfalz_Trier_StbWd" system="bibliothecaplus" search="yes"/>
+<test date="2014-09-29" id="DE_Rheinland-Pfalz_Trier_StbWd" system="bibliotheca" search="yes"/>
+<test date="2013-07-05" id="DE_Saarland_Saarbr+uecken_Stb" system="libero5" search="yes"/>
+<test date="2013-07-05" id="DE_Saarland_Saarbr+uecken_Ub" system="libero5" search="yes"/>
+<test date="2013-04-26" id="DE_Sachsen-Anhalt_Anhalt_HSB" system="pica" search="yes"/>
+<test date="2013-04-26" id="DE_Sachsen-Anhalt_Halle_Ub" system="pica" search="yes"/>
+<test date="2014-03-05" id="DE_Sachsen-Anhalt_Magdeburg_Hs" system="pica" search="yes"/>
+<test date="2015-03-24" id="DE_Sachsen-Anhalt_Magdeburg_Hs" system="pica" search="yes"/>
+<test date="2013-04-26" id="DE_Sachsen-Anhalt_Magdeburg_Ub" system="pica" search="yes"/>
+<test date="2013-04-26" id="DE_Sachsen-Anhalt_Merseburg_Fhb" system="pica" search="yes"/>
+<test date="2014-03-05" id="DE_Sachsen-Anhalt_Stendal_Hs" system="pica" search="yes"/>
+<test date="2015-03-24" id="DE_Sachsen-Anhalt_Stendal_Hs" system="pica" search="yes"/>
+<test date="2015-09-30" id="DE_Sachsen_Chemnitz_Stb" system="sisis" account="yes"/>
+<test date="2013-05-18" id="DE_Sachsen_Chemnitz_Stb" system="sisis" search="yes"/>
+<test date="2015-09-20" id="DE_Sachsen_Chemnitz_Stb" system="sisis" search="yes"/>
+<test date="2013-07-05" id="DE_Sachsen_Chemnitz_Ub" system="libero5" search="yes"/>
+<test date="2013-05-18" id="DE_Sachsen_Dresden_bibo" system="sisis" search="yes"/>
+<test date="2013-07-05" id="DE_Sachsen_Dresden_htwb" system="libero5" search="yes"/>
+<test date="2013-07-05" id="DE_Sachsen_Dresden_htwb" system="primo" search="yes"/>
+<test date="2013-07-05" id="DE_Sachsen_Dresden_slub" system="libero5" search="yes"/>
+<test date="2017-04-01" id="DE_Sachsen_Dresden_slub" system="libero5" search="yes" account="yes"/>
+<test date="2017-05-06" id="DE_Sachsen_Dresden_slub" system="primo" search="no"/>
+<test date="2013-07-05" id="DE_Sachsen_Leipzig_Hgb" system="libero5" search="yes"/>
+<test date="2013-07-05" id="DE_Sachsen_Leipzig_Hmt" system="libero5" search="yes"/>
+<test date="2016-09-05" id="DE_Sachsen_Leipzig_Hmt" system="libero5" search="yes"/> <!-- guess, since there was a videlibri release and I ran the tests before a release, and it only failed the tests on this date: -->
+<test date="2016-12-14" id="DE_Sachsen_Leipzig_Hmt" system="libero5" search="no" text="Umstellung auf das System VuFind."/>
+<test date="2013-05-18" id="DE_Sachsen_Leipzig_Stb" system="sisis" search="yes"/>
+<test date="2013-07-05" id="DE_Sachsen_Zittau_Hsb" system="libero5" search="yes"/>
+<test date="2013-07-05" id="DE_Sachsen_Zwickau_Hsb" system="libero5" search="yes"/>
+
+<test date="2013-04-26" id="DE_Schleswig-Holstein_Kiel_Fhb" system="pica" search="yes" account="no"/>
+<test date="2013-10-10" id="DE_Schleswig-Holstein_Kiel_Fhb" system="pica" search="yes"/>
+
+<test date="2013-04-26" id="DE_Schleswig-Holstein_Kiel_Ub" system="pica" search="yes" account="no"/>
+<test date="2013-10-10" id="DE_Schleswig-Holstein_Kiel_Ub" system="pica" search="yes"/>
+
+<test date="2013-07-07" id="DE_Schleswig-Holstein_Kiel_SHLB" system="pica" search="yes"/>
+
+<!--<test date="2013-08-03" id="DE_Schleswig-Holstein_L+uebeck_Stb" system="zones18" account="yes"/>
+<test date="2013-09-03" id="DE_Schleswig-Holstein_L+uebeck_Stb" system="zones18" search="yes" account="yes"/> working (because it shows i had a book lend at that time) but not published (according to changelog) -->
+<test date="2013-10-07" id="DE_Schleswig-Holstein_L+uebeck_Stb" system="zones18" search="yes" account="yes"/>
+<test date="2016-11-24" id="DE_Schleswig-Holstein_L+uebeck_Stb" system="zones18" search="yes" account="yes"/>
+
+<test date="2013-10-07" id="DE_Schleswig-Holstein_Kiel_Stb" system="zones18" search="yes" account="yes"/>
+<test date="2015-10-10" id="DE_Schleswig-Holstein_Kiel_Stb" system="zones18" account="yes"/>
+
+<test date="2013-09-03" id="DE_Schleswig-Holstein_L+uebeck_ZHb" system="pica" account="yes"/>
+<test date="2013-07-07" id="DE_Schleswig-Holstein_L+uebeck_ZHb" system="pica" search="yes"/>
+<test date="2013-06-26" id="DE_Th+ueringen_Erfurt_Fhb" system="pica" account="yes" renew="yes"/>
+<test date="2013-04-26" id="DE_Th+ueringen_Erfurt_Fhb" system="pica" search="yes"/>
+<test date="2013-04-26" id="DE_Th+ueringen_Erfurt_Ub" system="pica" search="yes"/>
+<test date="2013-06-27" id="DE_Th+ueringen_Ilmenau_Ub" system="pica" account="yes" renew="yes"/>
+<test date="2013-04-26" id="DE_Th+ueringen_Ilmenau_Ub" system="pica" search="yes"/>
+<test date="2013-04-26" id="DE_Th+ueringen_Jena_EAH" system="pica" search="yes"/>
+<test date="2013-04-26" id="DE_Th+ueringen_Jena_Ulb" system="pica" search="yes"/>
+<test date="2013-04-26" id="DE_Th+ueringen_Nordhausen_Fhb" system="pica" search="yes"/>
+<test date="2013-06-27" id="DE_Th+ueringen_Schmalkalden_Fhb" system="pica" account="yes" renew="yes"/>
+<test date="2013-04-26" id="DE_Th+ueringen_Schmalkalden_Fhb" system="pica" search="yes"/>
+<test date="2013-05-18" id="DE_Th+ueringen_Weimar_Stb" system="sisis" search="yes"/>
+<test date="2015-07-05" id="DE_Th+ueringen_Weimar_Ub" system="lbs" search="yes"/>
+<test date="2013-04-26" id="DE_Th+ueringen_Weimar_Ub" system="pica" search="yes"/>
+<test date="2013-05-23" id="DE_+ueberregional-weit_Verbund_gvk" system="sru" search="yes"/>  <!-- from sru log -->
+<!--<test date="2013-04-26" id="DE_+ueberregional-weit_Verbund_gvk" system="sru" search="yes"/> that is what the old testing says, but i do remember how that is possible -->
+</tests>
