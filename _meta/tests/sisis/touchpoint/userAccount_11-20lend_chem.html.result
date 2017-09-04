@@ -1,15 +1,10 @@
 touchpoint := true
 book := {}
-bookCount := ""
 nextPage := ""
 startUrl := ""
 touchpoint := true()
-bookCountLend := "20"
-bookCountRequested := "0"
-requestedUrl := text{"/TouchPoint/userAccount.do?methodToCall=showAccount&amp;accountTyp=ordered"}
-bookCountOrdered := "0"
-orderedUrl := text{"/TouchPoint/userAccount.do?methodToCall=showAccount&amp;accountTyp=requested"}
-bookCount := "20"
+result := ()
+result := ()
 mode := 1
 books-deleted := true()
 book := {"duedate": "2015-10-19", "statusId": "critical", "status": "Eine Verlängerung ist noch nicht möglich.", "id": "B0559651 ", "author": "Scheib, Asta", "title": "Schwere Reiter"}

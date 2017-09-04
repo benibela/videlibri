@@ -1,14 +1,9 @@
 touchpoint := true
 book := {}
-bookCount := ""
 nextPage := ""
 startUrl := ""
 touchpoint := true()
-bookCountLend := "20"
-bookCountRequested := "0"
-requestedUrl := text{"/TouchPoint/userAccount.do?methodToCall=showAccount&amp;accountTyp=ordered"}
-bookCountOrdered := "0"
-orderedUrl := text{"/TouchPoint/userAccount.do?methodToCall=showAccount&amp;accountTyp=requested"}
-bookCount := "0"
+result := ()
+result := ()
 mode := 3
 nextPage := ()

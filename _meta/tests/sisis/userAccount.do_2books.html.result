@@ -1,14 +1,9 @@
 book := {}
-bookCount := ""
 nextPage := ""
 startUrl := ""
 touchpoint := false()
-bookCountLend := "2"
-bookCountRequested := "0"
-requestedUrl := text{"/InfoGuideClient/userAccount.do?methodToCall=showAccount&amp;typ=6"}
-bookCountOrdered := "0"
-orderedUrl := text{"/InfoGuideClient/userAccount.do?methodToCall=showAccount&amp;typ=7"}
-bookCount := "2"
+result := ()
+result := ()
 mode := 1
 delete-current-books() := ()
 book := {"duedate": "2011-01-05", "issuedate": "2010-08-19", "statusId": "critical", "status": "", "status:problematic": "Dieses Medium wurde bereits 5 mal verlängert.", "id": "BP1357  ", "author": "Delfs, Hans", "title": "Introduction to cryptography"}

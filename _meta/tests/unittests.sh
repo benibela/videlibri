@@ -85,8 +85,7 @@ PAGES=(${PAGES[@]} sisis/start.do.html sisis/start_schweinfurt.do.html sisis/tou
 ADDTEMPLATE sisis/loggedIn 4
 PAGES=(${PAGES[@]} sisis/userAccount.do_empty.html sisis/userAccount.do_singlebook.html sisis/userAccount.do_singlebook2.html sisis/userAccount.do_2books.html )
 
-ADDTEMPLATE "sisis/loggedIn{touchpoint:=true\(\)}" 4
-PAGES=(${PAGES[@]}   sisis/touchpoint/userAccount_0provided_chem.html sisis/touchpoint/userAccount_0requests_chem.html sisis/touchpoint/userAccount_1-10lend_chem.html sisis/touchpoint/userAccount_11-20lend_chem.html)
+test sisis "loggedIn{touchpoint:=true\(\)}" touchpoint/userAccount_0provided_chem.html touchpoint/userAccount_0requests_chem.html touchpoint/userAccount_1-10lend_chem.html touchpoint/userAccount_11-20lend_chem.html touchpoint/userAccount_empty_chem.html 
 
 
 #search

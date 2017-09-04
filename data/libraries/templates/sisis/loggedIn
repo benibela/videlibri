@@ -1,32 +1,33 @@
 <html>
 <template:meta default-text-matching="regex"/>
 <head>
-<template:read source="''" var="bookCount"/>
-<template:read source="get('nextPage', '')" var="nextPage"/>
-<template:read source="get('startUrl', '')" var="startUrl"/>
-<template:read source="get('touchpoint', false())" var="touchpoint"/>
+{
+nextPage := get('nextPage', ''),
+startUrl := get('startUrl', ''),
+touchpoint := get('touchpoint', false())
+}
 </head>
 <body>
    <div id="main"> 
      <div id="middle"> 
       <t:if test="$touchpoint">
         <ul id="account-nav">
-          <li>Ausleihen|Loans<t:s>bookCountLend := extract(., "[0-9]+")</t:s></li>
-          <li>Bestellungen|Requests<t:s>bookCountRequested := extract(., "[0-9]+"), requestedUrl := a/@href</t:s></li>?
-          <li>Vormerkungen|Reservations<t:s>bookCountOrdered := extract(., "[0-9]+"), orderedUrl := a/@href</t:s></li>?
+<!--          <li>Ausleihen|Loans<t:s>bookCountLend := extract(., "[0-9]+")</t:s></li>-->
+          <li>Bestellungen|Requests<t:s>if (extract(., "[0-9]+") > "0") then requestedUrl := a/@href else ()</t:s></li>?
+          <li>Vormerkungen|Reservations<t:s>if (extract(., "[0-9]+") > "0") then bookCountOrdered := a/@href else ()</t:s></li>?
         </ul>
         <script>{let $temp := extract(., 'typ="([^"]+)', 1) return switch ($temp) 
-          case "loaned" return    ( bookCount := $bookCountLend, mode := 1, if ($nextPage = '') then vl:delete-current-books() else () ) 
-          case "ordered" return   ( bookCount := $bookCountRequested, mode := 2 )
-          case "requested" return ( bookCount := $bookCountOrdered, mode := 3 )
+          case "loaned" return    ( mode := 1, if ($nextPage = '') then vl:delete-current-books() else () ) 
+          case "ordered" return   ( mode := 2 )
+          case "requested" return ( mode := 3 )
           default return vl:raise("Unbekannter Medienlistentyp: " || $temp)
           }</script>
       </t:if>
       <t:else>
         <div id="tab">
-          <div>Ausleihen|Loans<t:s>bookCountLend := extract(., "[0-9]+")</t:s></div>
-          <div>Bestellungen|Requests<t:s>bookCountRequested := extract(., "[0-9]+"), requestedUrl := a/@href</t:s></div>?
-          <div>Vormerkungen|Reservations<t:s>bookCountOrdered := extract(., "[0-9]+"), orderedUrl := a/@href</t:s></div>?
+          <div>Ausleihen|Loans</div>
+          <div>Bestellungen|Requests<t:s>if (extract(., "[0-9]+") > "0") then requestedUrl := a/@href else ()</t:s></div>?
+          <div>Vormerkungen|Reservations<t:s>if (extract(., "[0-9]+") > "0") then orderedUrl := a/@href else ()</t:s></div>?
         </div>
       </t:else>
         
@@ -37,10 +38,10 @@
         <div class="box-header">
           <template:switch>
             <h2>Ausleihen|Loans
-               <t:s>bookCount := $bookCountLend, mode := 1</t:s>
+               <t:s>mode := 1</t:s>
                <t:if test="$nextPage = ''"><template:read var="delete-current-books()"/></t:if></h2>
-            <h2>Bestellungen|Requests<t:s>bookCount := $bookCountRequested, mode := 2</t:s></h2>
-            <h2>Vormerkungen|Reservations<t:s>bookCount := $bookCountOrdered, mode := 3</t:s></h2>
+            <h2>Bestellungen|Requests<t:s>mode := 2</t:s></h2>
+            <h2>Vormerkungen|Reservations<t:s>mode := 3</t:s></h2>
           </template:switch>
         </div>
       </div>

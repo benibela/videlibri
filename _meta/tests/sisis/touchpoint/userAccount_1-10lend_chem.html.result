@@ -1,15 +1,10 @@
 touchpoint := true
 book := {}
-bookCount := ""
 nextPage := ""
 startUrl := ""
 touchpoint := true()
-bookCountLend := "20"
-bookCountRequested := "0"
-requestedUrl := text{"/TouchPoint/userAccount.do?methodToCall=showAccount&amp;accountTyp=ordered"}
-bookCountOrdered := "0"
-orderedUrl := text{"/TouchPoint/userAccount.do?methodToCall=showAccount&amp;accountTyp=requested"}
-bookCount := "20"
+result := ()
+result := ()
 mode := 1
 books-deleted := true()
 book := {"duedate": "2015-09-17", "_onPageStart": "", "_onPage": "vltest://sisis/touchpoint/userAccount_1-10lend_chem.html", "cancelable": false, "statusId": "curious", "actionURI": "vltest://sisis/TouchPoint/renewal.do?methodToCall=renewal&pos=0", "id": "A9034165 ", "author": "Kipp, Angelika", "title": "Lustige Frühlings-Minis"}
