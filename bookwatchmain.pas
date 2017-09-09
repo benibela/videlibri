@@ -1383,9 +1383,9 @@ begin
   MenuItem29.Caption:=Format(rsTNAMenuLimit, [nextLimitStr]);
   TrayIcon1.Hint:='Videlibri'#13#10+Format(rsTNAHintLimitCheck, [nextLimitStr, #13#10, DateToPrettyStr(lastCheck)]);
   iconStream := TStringStream.Create(assetFileAsString(getTNAIconBaseFileName()));
-  TrayIcon1.Icon.LoadFromStream(iconStream);
-  icon.LoadFromStream(iconStream);
-  Application.icon.LoadFromStream(iconStream);
+  TrayIcon1.Icon.LoadFromStream(iconStream); iconStream.Position := 0;
+  icon.LoadFromStream(iconStream); iconStream.Position := 0;
+  Application.icon.LoadFromStream(iconStream); iconStream.Position := 0;
   iconStream.Free;
 end;
 
