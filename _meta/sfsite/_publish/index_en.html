@@ -23,27 +23,28 @@
   <li style="float:right"><a href="index.php">Deutsche Version</a></li>
 </ul>
 
-VideLibri is an extension of the usual library web catalogs, running locally on desktop computers or Android smartphones. Its main function is to automatically renew the lend books and warn the user of an ending loan period, but it also has several other features, including everything the normal OPAC can do.
-<br><br>
-It works by parsing the web page of the library, so it does not work with all libraries out of the box. However, new libraries can be added easily by creating a corresponding pattern matching templates, which can be generated automatically for most libraries. <br>
 
-Currently it has only been tested with German/Swiss/Austrian libraries (but with around 200 of them, see the <a href="index.html">German page</a> for more information) and so far there is no English translation. If you would like to have a translation, you can send me a mail. <br><br>
-
-<br>
-The syntax of a template pattern is described on my <a href="http://benibela.de/documentation/internettools/extendedhtmlparser.THtmlTemplateParser.html">homepage</a> and the currently existing templates are stored in the directory data/libraries/templates. If you write your own template, you can test a pattern for a single page <a href="cgi-bin/htmlparserExampleCGI">online</a> or with the example programs in directory components/pascal/data/example of the VideLibri source. There is an automatic template generator as  <a href="http://videlibri.sourceforge.net/script.user.js">Greasemonkey-Script</a> for Firefox. <br><br>
-
-There are built-in templates for aDIS/BMS, Bibliotheca, Bibliotheca+, Libero, PICA, Primo, SISIS, SRU, Websphere and Zones, so if your library uses on of these systems, it is not even necessarily to create a completely new template, merely the URL of the library system needs to be entered. Although some templates expect a German system and would need to be translated first.
+  <div class="content" style="border:none;">A cross-platform app to access library catalogs and OPACs from your local computer.</div>
 
 
-<br><br>
+<h2><div><a>Overview</a></div></h2>
+<div class="content">
+<p>VideLibri is an extension of the usual public library web catalogs (OPACs) running on your local device, be it a desktop computer or Android phone. Its primary purpose is to automatically renew your lend books and warn of an ending loan period, but it also has all the features of a normal OPAC like searching books or ordering other items. Additionally it has features of a literature management tool, e.g. storing a list of all ever lend books and exporting them as BibTeX. </p>
 
-If you want to use/test it for your library, you can write me a mail. (I can also add the corresponding library, iff you can send me a library account with password)
-<!--
-<h2><a name="screenshots">Screenshots</a></h2>
-Ein altes Foto von der Büchertabelle:<br>
-<img src="https://sourceforge.net/dbimage.php?id=280445"/>
-	-->
+<p>
+It works by scraping the web page of the library, so before VideLibri can be used with a certain public library, it needs to be configured for that library. There are three levels of configurability:
+<ul>
+<li><a href="bibliotheken.html">200 German/Swiss/Austrian libraries</a> are pre-configured, and can be chosen from a list. In this case you do not need to configure anything, just pick your library. </li>
+<li>If your library uses aDIS/BMS, Bibliotheca, Bibliotheca+, Libero, Netbiblio, PICA, Primo, SISIS, SRU, Websphere or Zones as OPAC system, it should be sufficient to enter the URL or database parameters of your library in VideLibri in order to connect VideLibri to that library. </li>
+<li>For completely different library systems a new interface template needs to be implemented. One would think this requires a lot of programming, however, VideLibri comes with a webscraping framework to learn the structure of any webpage automatically, so no programming is required to add a new OPAC system. Unless the structure of the webpage changes dynamically and is not always the same, e.g. if the OPAC sometimes displays all lendings on one page and sometimes on multiple pages. Then you need to program a condition to tell it, if it should expect one or multiple pages. In any case no modification of the VideLibri source is required, because the interface templates are plaintext files that are interpreted by VideLibri itself. This also makes VideLibri one of the most simplest open-source projects to contribute to. Most open source projects require one to install a compiler, an IDE, a build system and various other dependencies before you can contribute to them. VideLibri does not need any of this, it is completely self-contained. You can install VideLibri and directly edit the templates (in the directory data/libraries/templates). <br><br>
 
+The complete tutorial how to <a href="/help/neuebibliothek.html">create such an interface template</a> is currently only available in German. However, the templates themselves are in English (because they can be used as full programming language for special cases, and most programming languages are in English), so you can just read the templates in the tutorial and in data directory of VideLibri. The details should be self-explaining. Each template consists of two parts, one XML file that contains the addresses of all the webpages of an OPAC and for all those webpages a <a href="http://benibela.de/documentation/internettools/extendedhtmlparser.THtmlTemplateParser.html">pattern</a>. The pattern for a webpage is just the webpage, but annotated. E.g. when the webpage contains <code>&lt;b>Mark Twain&lt;/b> &lt;i>The Adventures of Tom Sawyer&lt;/i></code> you replace the title with <code>{$book.title}</code>, the author with <code>{$book.author}</code> and put in the pattern <code>&lt;b>{$book.author}&lt;/b> &lt;i>{$book.title}&lt;/i></code>. Then VideLibri knows where the webpages shows a title and where it shows an author, and when the webpage shows a different title/author there, the new title/author is shown in VideLibri. If you write your own template, you can test a pattern for a single page <a href="cgi-bin/xidelcgi">online</a> or with the example programs in directory components/pascal/data/example of the VideLibri source. <br/><br>
+
+XML as well as the HTML used in webpages and patterns are markup languages. Although a markup language and a programming language are completely different things, they are similar enough to make certain people feel uncomfortable.  For those people there is a template generator as  <a href="http://videlibri.sourceforge.net/script.user.js">Greasemonkey-Script</a> for Firefox. Rather than annotating the HTML of a webpage, it allows you to annotate the rendered webpage by selecting title and author in Firefox . </li></ul>
+</p>
+
+If you want further help to configure VideLibri with your library, you can send a mail or file a ticket (see contact at the bottom of this page). Unfortunately, if you want a template for account access with a new OPAC system, you would need to send me the password for a lending card, since the account page of a library OPAC is password protected and I cannot create a pattern for a webpage that I cannot open in the browser.
+</div>
 
 
 
@@ -70,38 +71,32 @@ Ein altes Foto von der Büchertabelle:<br>
 
 
 <h2><div><a name="downloads">Downloads</a></div></h2>
+<div class="content">
+<p>On the <a href="https://sourceforge.net/projects/videlibri/files/">sourceforge download page</a> you can download Windows, Linux and Android binaries for VideLibri. Since all pre-configured libraries are in German-speaking countries the GUI of VideLibri is currently also in German.  <br><br>
 
-On the <a href="https://sourceforge.net/projects/videlibri/files/">sourceforge download page</a> you can download the Windows and Linux version of VideLibri. (Attention: Currently only a German version is available; but you can write me a mail, if you need a translation.)<br><br>
+<p>The source is stored in a <a href="https://sourceforge.net/p/videlibri/code/ci/tip/tree/">mercurial repository</a>.<br>
+Since the  program is written in FreePascal/Lazarus, it should be very easy to compile it. Just open the bookWatch.lpi in Lazarus and select your platform/OS in the project settings. The repository contains also the source of most dependencies, for other dependencies there are excessive comments in the code that tell you where to download them and are shown in Lazarus during the compilation.<br>
+You can compile and run it on Windows/Linux/Mac with the gtk/qt/win32/cocoa interfaces. The motto of Lazarus is "Write once, compile anywhere", so VideLibri is supposed to run on any platform and device, although Lazarus does not always delive on that promise.</p>
 
-
-The source is stored in a <a href="https://sourceforge.net/p/videlibri/code/ci/tip/tree/">mercurial repository</a>.<br>
-Since the  program is written in FreePascal/Lazarus, it should be very easy to compile it. Just open the bookWatch.lpi in Lazarus and select your platform/OS in the project settings.
-You can compile and run it on Windows/Linux/Mac with the gtk/qt/win32/cocoa interfaces (yes, all of them. Lazarus supports a lot of interfaces).
-<br>
+<p>Hence the Android GUI is implemented separately in Java, and you need the Java SDK and Android SDK/NDK to compile it. First you compile the VideLibri Lazarus project with Lazarus as before (except using the project file android/videlibriandroid.lpi), then you call the standard tool gradle in the android folder.</p>
+</div>
   
 
 <br><br><br><br>
-<h2><a name="spinoffs">Spin-offs</a></h2>
-Using the framework written for VideLibri it is trivial to convert other websites in local running programs. Since the share 90% of the source with VideLibri, I keep them in the same public <a href="https://sourceforge.net/p/videlibri/code/ci/tip/tree/">repository</a>:
-<h3><a name="xibel">Xidel</a></h3>
-Xidel is just the VideLibri core with anything about libraries and books removed, and can be used to extract data from arbitrary webpages.<br>
-See more on the <a href="xidel.html">Xidel page</a>.
+<h2><div><a name="spinoffs">Xidel</a></div></h2>
+<div class="content">Since a webscraping framework to automatically learn the structure of a webpage is also useful for other webpages than library OPACs, the framework itself without any pre-configured public libraries has been published as <a href="xidel.html">command line tool Xidel</a>.
+</div>
 
 
-<h3><a name="sourceforgeresponder">SourceForgeResponder</a></h3>
-This is a daemon that will convert every mail sent to localhost to a reply on the sourceforge page. <br>
-It is very easy to use:
-<ol>
-<li>You start the daemon with your sourceforge username/password given as command line parameters</li>
-<li>If you get a sourceforge notification per mail, you send your reply to localhost (you have to cite the complete sourceforge mail, so the daemon knows where to post the reply)</li>
-<li>The daemon will automatically post it (but since it is currently single threaded, you have to wait 5 seconds before it ca post another reply ) </li>
-</ol>
-Remark: You will not get a warning, if the daemon is unable to post a reply and the message will be silently lost. However, this does not really matter, because you will get a notification mail by sourceforge about every completed posting and your mail program should keep a copy of every send message (the daemon also prints every message to stdout).<br>
-You can read more details in the source. 
+<h2><div><a id="contact">Contact</a></div></h2>
+<div class="content">
+<p>For feature requests and bug reports there is an <a href="https://sourceforge.net/p/videlibri/tickets/">ticketing system</a> on SourceForge. SourceForge allows anonymous ticket filing, so no SourceForge account is required.  </p>
 
-<h2><a id="contact">Contact</a></h2>
-Autor: Benito van der Zander, <a href="benito_NOSPAM_benibela.de">benito_NOSPAM_benibela.de</a>, <a href="http://www.benibela.de/index_en.html">www.benibela.de</a><br>
+<p>For discussions we provide a mailing list <a href="https://sourceforge.net/p/videlibri/mailman/">videlibri-list</a>.</p>
+
+<p>Autor: Benito van der Zander, <a href="benito_NOSPAM_benibela.de">benito_NOSPAM_benibela.de</a>, <a href="http://www.benibela.de/index_en.html">www.benibela.de</a><br>
 <div id="sf-logo"><a href="http://sourceforge.net/projects/videlibri"><img src="http://sflogo.sourceforge.net/sflogo.php?group_id=359854&amp;type=1" width="125" height="37" border="0" alt="SourceForge.net Logo" /></a></div>
+</div>
 <!-- Piwik -->
 <script type="text/javascript">
 var pkBaseURL = (("https:" == document.location.protocol) ? "https://videlibri.sourceforge.net/piwik/" : "http://videlibri.sourceforge.net/piwik/");

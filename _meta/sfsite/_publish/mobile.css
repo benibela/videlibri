@@ -8,19 +8,15 @@ table.downloadTable tr { display: block }
 table.downloadTable th { display: inline-block }
 table.downloadTable td { display: inline-block }
 
+#testing-table .date {float: none; display: block;  padding-left: 0.1em}
+#testing-table .libname {float: none; display: block }
+#testing-table .search {float: none; display: block; width: auto;  padding-left: 1em}
+#testing-table .account {float: none; display: block; width: auto;  padding-left: 1em}
+#testing-table .text {float: none; display: block; width: auto; margin-left: 0;  padding-left: 1em}
+#testing-table h4 { display: block }
+#testing-table .search:before {content: "Suche: "}
+#testing-table .account:before {content: "Konto: "}
 
-table.bibsupport tr { display: block }
-table.bibsupport th { display: inline-block }
-table.bibsupport td { display: inline-block }
-
-.bibsupport .supporttablesystem {display: none}
-.bibsupport td span {display: none}
-.bibsupport th:nth-child(2) {display: none}
-.bibsupport th:nth-child(3) {display: none}
-.bibsupport td.supported:nth-child(2):before { content: "Suche"; color: #007700 }
-.bibsupport td.supported:nth-child(3):before { content: "Konto"; color: #007700 }
-.bibsupport td.unknown:nth-child(2):before { content: "(Suche?)"; color: #666600 }
-.bibsupport td.unknown:nth-child(3):before { content: "(Konto?)"; color: #666600 }
 .city { margin-top: 1em }
 
 table.systemsupport tr { display: block }

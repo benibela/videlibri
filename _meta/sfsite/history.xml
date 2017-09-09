@@ -10,11 +10,11 @@ Eine kurze Übersicht über die Entwicklung von VideLibri gibt folgende Liste:
 
 
 <ul>
-<li><b>2006</b>: Beginn der Entwicklung für die Stadtbüchereien Düsseldorf<sup>*</sup> und die Universitäts/landesbibliothek Düsseldorf<sup>*</sup>.</li>
+<li><b>2006</b>: Beginn der Entwicklung für die Stadtbüchereien Düsseldorf<sup>*</sup> und die Universitäts/landesbibliothek Düsseldorf<sup>*</sup> (Aleph OPAC).</li>
 <li><b>2007</b>: Erste Veröffentlichung; Unterstützung für die Fachhochschulbibliothek Düsseldorf<sup>*</sup> (Libero OPAC);  später Umstellung auf ein Templatesystem, bei dem der Benutzer beliebige Büchereien hinzufügen kann, indem er die Webseiten des OPACs kopiert und entsprechend annotiert.</li>
 <li><b>2008</b>: Unterstützung für Suchen über die Digibib, womit VideLibri fertig ist: Über die Digibib lassen sich die meisten Verbundkataloge erreichen, somit kann VideLibri deutschlandweite quasi alle Bibliotheken durchsuchen, während der Kontozugriff über das Templatesystem mit allen Webseiten funktioniert;  Einreichung bei Jugend Forscht.</li>
 <li><b>2010</b>: Unterstützung für das SISIS-Sunrise-System, mit den Aachener Bibliotheken<sup>*</sup> als Beispiel; vollständige Veröffentlichung des Quellcodes</li>
-<li><b>2011</b>: Unterstützung für PICA, mit dem Campuskatalog Hamburg als Beispiel sowie Auflistung der Berliner Bibliotheken<sup>*</sup>.</li>
+<li><b>2011</b>: Unterstützung für PICA, mit dem Campuskatalog Hamburg als Beispiel sowie Auflistung der Berliner Universitätsbibliotheken<sup>*</sup>.</li>
 <li><b>2012</b>: Unterstützung für aDIS/BMS, mit der Stadtbücherei München<sup>*</sup> als Beispiel.</li>
 <li><b>2013</b>: erster Androidportierung, Vormerkungsmöglichkeiten, Auflistung einiger Bibliotheken für die unterstützten Systeme, und Unterstützung für Zones 1.8 und Primo.</li>
 <li><b>2014</b>: Unterstützung für LBS, Bibliotheca und Bibliotheca+/OPEN. Präsentation von <a href="http://www.balisage.net/Proceedings/vol13/html/Zander01/BalisageVol13-Zander01.html">VideLibri's HTML Matching</a> auf der Balisage-Konferenz, was mit einem "Student Support Award" ausgezeichnet wurde.</li>
@@ -27,7 +27,7 @@ Eine Übersicht, über alle veröffentlichten Versionen findet man im <a href="u
 
 <br/><br/><br/><br/><br/><br/>
 
-<small>*: die leider kein Interesse an einer App hatten</small>
+<small>*: die leider kein Interesse an einer App hatten.</small>
 
 </content>
 

@@ -9,11 +9,20 @@
 Prinzipiell unterstützt VideLibri sämtliche existierenden Bibliotheken, da man die URL zum OPAC der Bibliothek eingeben kann (plus zusätzliche Datenbankparameter), wenn bereits eine andere Bibliothek in VideLibri das gleiche Katalog-System verwendet, und anderenfalls über das zugrundeliegende Webscraping-Template-Framework <a href="help/neuebibliothek.html">beliebige Webseiten als Datenquellen</a> hinzugefügt werden können, ohne etwas an VideLibri selbst zu ändern.</p>
 
 <!--Es liegen aber auch einige Templates standardmäßig bei, welche erfolgreich mit -->
-<p>Trotzdem wurde es mit einigen Bibliothek explizit getestet. Alle Bibliotheken in der folgenden Tabelle verwenden oder verwendeten ein OPAC-System, bei dem die Kontofunktionen mit VideLibri funktionieren, aber bei den meisten Bibliotheken haben wir keine Ausleihkarte, um dort die Kontofunktionen direkt zu testen (mit ? in der Tabelle markiert). Zudem haben manche Büchereien mittlerweile auf ein anderes Katalogsystem umgestellt:</p>
+<p>Trotzdem wurde es mit einigen Bibliotheken explizit getestet. Alle Bibliotheken in der folgenden Tabelle verwenden oder verwendeten ein OPAC-System, bei dem die Kontofunktionen mit VideLibri funktionieren, aber bei den meisten Bibliotheken stand keine Ausleihkarte zur Verfügung, um dort die Kontofunktionen direkt zu testen (mit ? in der Tabelle markiert). Zudem haben manche Büchereien mittlerweile auf ein anderes Katalogsystem umgestellt. Nach Mouse-Over oder Anklicken einer Bibliothek werden mehr Informationen angezeigt:</p>
 
 <insert href="testing-table.html"/>
 
-
+<script><![CDATA[
+var links = document.getElementsByClassName("libname");
+var curlocation = (location.hash + "").replace("#", "");
+for (var i=0;i<links.length;i++) { 
+  if (links[i].tagName == "A") {
+    links[i].onclick = function(){ this.parentNode.parentNode.getElementsByClassName("log")[0].style.display = "block"; }
+    if (links[i].id == curlocation ) links[i].onclick();
+  }
+}
+]]> </script>
 
 </content>
 </file>

@@ -12,6 +12,7 @@ xidel --xquery '
       <span class="{$kind, "ok"[$ok]}">{
         if ($ok) then "ja" 
         else if (count($status) = 0) then "?"
+        else if ($status = "?") then "?"
         else if ($status = "no") then "nein"
         else "nein"||$status,
         if (exists($append)) then (<br/>, <span class="time-line">({"ja: "[not($ok)]}{$append})</span>) else ()
@@ -69,6 +70,7 @@ xidel --xquery '
       for $test in $test
       group by $id := $test/@id/data()
       let $name := $libraries($id[1])[1].name
+      let $webid := replace($id[1], "[+]", "")
       return
       <div class="library">
         {let $ordered-tests := (for $test in $test let $date := $test/@date order by $date return $test)
@@ -90,7 +92,7 @@ xidel --xquery '
            let $account-ok-text := if ($account-ok-from = $account-ok-to) then $account-ok-from 
                                   else x"{$account-ok-from} - {$account-ok-to}" 
            return
-           <div><span class="libname"><h4>{$name}</h4></span>{
+           <div><a class="libname" id="{$webid}" href="#{$webid}"><h4>{$name}</h4></a>{
            local:test-result("search", ($ordered-tests!@search)[last()],  $search-ok-text),
            local:test-result("account", ($ordered-tests!@account)[last()], $account-ok-text[exists($account-ok-tests)])}</div>,
            <div class="log">{

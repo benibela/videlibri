@@ -115,10 +115,11 @@ Bei den Benachrichtigungen der Büchereien passiert es ständig, dass die Benach
 VideLibri ist zuverlässiger, da es auf dem lokalen Rechner läuft und eine Art fail-safe Prinzip realisiert: es wird immer gewarnt, wenn nicht gezeigt werden kann, dass keine Bücher abzugeben sind. 
 </li>
 <li><h3>Kein permanenter Internetzugang nötig</h3>
-Um den normalen Katalog aufzurufen, muss man immer eine Internetverbindung haben. VideLibri dagegen speichert  alle Ausleihdaten auf der Festplatte, so dass es auch funktioniert, wenn man zeitweilig nicht online ist, weil man beispielsweise im Zug sitzt.
+Um einen normalen OPAC aufzurufen, muss man immer eine Internetverbindung haben. VideLibri dagegen speichert  alle Ausleihdaten auf der eigenen Festplatte, so dass man den nächsten Abgabefristtermin auch sehen kann, wenn man zeitweilig nicht online ist, weil man beispielsweise im Zug sitzt.
 </li>
 <li><h3>Gesamthistorie aller Ausleihen</h3>
-Es speichert auch alle jemals ausgeliehenen Bücher, wodurch  man jederzeit nachsehen kann, wann man, welche Bücher ausgeliehen hatte. Das ist nützlich, wenn man bei einer Arbeit vergessen hat, das Literaturverzeichnis zu schreiben, oder einfach nur wissen will, wie viel man ausgeliehen hatte.  (Paranoide können die Funktion aber auch abschalten)
+Es speichert alle jemals ausgeliehenen Bücher, wodurch  man jederzeit nachsehen kann, wann man, welche Bücher ausgeliehen hatte. Dies ermöglicht eine Literaturverwaltung, die ein Literaturverzeichnis über alle Ausleihen führt, ohne dass man diese manuell eintragen muss.<br/>
+Wenn man zudem in ein paar Jahren einen Fortsetzungband einer Serie lesen will oder ein gelesenes Buch weiterempfehlen will, und sich nicht mehr genau erinnert, wie der Titel des Buches lautete, kann man in der Historie nachschauen und weiß es wieder. Wer diese Funktion suspekt findet, kann sie auch deaktivieren, so dass immer nur die aktuellen Ausleihen angezeigt werden.
 </li>
 <li><h3>Übersicht über mehrere Ausleihkonten</h3>
 VideLibri zeigt die Ausleihdaten von mehreren Konten gleichzeitig an, so dass man, wenn man in mehreren Büchereien angemeldet ist, nicht jeden Katalog einzeln aufrufen muss. Auch wenn in einer mehrköpfigen Familie jeder eine eigene Ausleihkarte hat, wie von der Benutzerordnung vorgeschrieben, stellt es sicher, dass niemand/kein Kind vergessen hat, etwas abzugeben.
@@ -138,56 +139,38 @@ Zudem hat ein Benutzer keine Kontrolle darüber, was eine Webseite tut. Wenn zum
 <li><h3>Vollständige XQuery Unterstützung</h3>
 Mittels der Datenbankabfragesprache XQuery lassen sich <a href="/help/xquerysearch.html">beliebige komplizierte Suchen</a> über die eigene Ausleihhistorie ausführen, um beispielsweise folgende Frage zu beantworten: "Von allen Büchern, deren Titellänge eine Primzahl ist, welches habe ich am häufigsten ausgeliehen?"
 </li>
-
-<li><h3>Mehr Details</h3>
-Viele Bibliotheken zeigen in ihrem Online-Katalog keine Details an. So fehlt bei den Stadtbüchereien Düsseldorfs normalerweise der Autor; während die Berliner Staatsbibliothek weder Autor noch Titel anzeigt und stattdessen lediglich die Inventarnummer nennt. VideLibri dagegen kann diese Informationen anzeigen, im Falle der Stabi wird automatisch im Katalog gesucht, für andere Büchereien kann man manuell die Digibib-Suche starten<sup class="desktop">D</sup> und bekommt dann sogar ein Titelbild angezeigt. 
-</li>
+ 
 
 <li><h3>E-Mailbenachrichtigung<sup class="desktop">D</sup></h3> 
-VideLibri kann einen E-Mailbericht über alle Medien versenden, in dem fällige und nicht fällige Bücher aufgelistet sind.</li>
+VideLibri kann einen E-Mailbericht über alle Medien erstellen, in dem fällige und nicht fällige Bücher aufgelistet sind. Der Bericht wird nicht direkt von VideLibri versandt, sondern an ein anderes Programm übergeben. Unter Linux kann dazu das Standardprogramm <code>sendmail</code> verwendet werden, wodurch es nicht nötig ist, in VideLibri das Passwort für den Mailserver zu speichern. </li>
 
 <li><h3>Open-Source</h3>
-Jeder kann VideLibri genauso ändern, wie er es haben will, und beliebige Features hinzufügen. Dies darf nicht mit dem Hinzufügen neuer Bibliotheken verwechselt werden, denn dies ist orthogonal. Bei vielen Systemen reicht es die richtige Webkatalog URL in der GUI einzugeben. Es gibt im kompilierten Quellcode von VideLibri keine Bibliotheksspezifischen Funktionen, sondern die Bibliothekssysteme werden mittels Pattern-Matching halbautomatisch von VideLibri gelernt und mittels XQuery-Skripten für Sonderfälle angepasst.
+Jeder kann VideLibri genauso ändern, wie er es haben will, und beliebige Features hinzufügen. Dies darf nicht mit dem Hinzufügen neuer Bibliotheken verwechselt werden, denn dies ist orthogonal. Um eine neue Bibliothek hinzuzufügen, muss man VideLibri genauso wenig ändert, wie man Firefox umprogrammieren müsste, um eine Webseite aufzurufen. Bei vielen Systemen reicht es die richtige Webkatalog URL in der GUI einzugeben. Es gibt im kompilierten Quellcode von VideLibri keine Bibliotheksspezifischen Funktionen, sondern die Bibliothekssysteme werden mittels Pattern-Matching halbautomatisch von VideLibri gelernt und mittels XQuery-Skripten für Sonderfälle angepasst.
 </li>
 </ul>
 
 Einige andere Features sind:
-<!--    *  Es können die Medien von mehreren Konten gleichzeitig betrachtet und verlängert werden
-    * Bald fällige Medien werden automatisch verlängert
-    * Abgabezeiten in unterschiedlichen Wochen werden markiert.
-    * Vor dem endgültigem Ablauf der Leihfrist wird man vom Programm benachrichtigt
-    * Die Liste der ausgeliehenen Medien wird automatisch über die Internetseiten der Büchereien aktualisiert.
-    * Die momentan ausgeliehenen Medien werden gespeichert, so dass man seine Ausleihen sehen kann, ohne dafür ins Internet zu müssen.
-    * Es kann nach beliebigen (auch nicht ausgeliehenen) Medien gesucht werden
-    * VideLibri wird (je nach Einstellung) bei jedem Systemstart minimiert in der Symbolleiste gestartet
-    * Alle jemals ausgeliehenen Medien können gespeichert
-    * Es gibt eine Statistik über alle ausgeliehenen Medien
-    * BibTeX-Export für die Erstellung von Literaturverzeichnisse.
-    * Automatisches Update
-    * Links zu den Homepages und Katalogen der einzelnen Büchereien 
--->
 <ul>
-<li>Abgabezeiten in unterschiedlichen Wochen werden markiert</li>
-<li>Es kann nach beliebigen Medien gesucht werden</li>
-<li>Vormerkungen und Bestellungen im Katalog</li>
-<li>VideLibri wird (je nach Einstellung) bei jedem Systemstart minimiert in der Symbolleiste gestartet</li>
-<li>Es gibt eine Statistik über alle ausgeliehenen Medien<sup class="desktop">D</sup></li>
-<li>BibTeX-Export für die Erstellung von Literaturverzeichnissen<sup class="desktop">D</sup></li>
-<li>XML-Import/Export zur Synchronisation von mehreren Geräten</li>
-<li>Automatisches Update<sup class="desktop">D</sup></li>
-<li>Speicherung von gesuchten Medien in der Kontohistorie, was zur Literaturverwaltung oder als Merkliste verwendet werden kann.<sup class="desktop">D</sup></li>
+<li>Abgabezeiten in unterschiedlichen Wochen werden markiert.</li>
+<li>Es kann nach beliebigen Medien gesucht werden.</li>
+<li>Vormerkungen und Bestellungen im Katalog.</li>
+<li>VideLibri wird (je nach Einstellung) bei jedem Systemstart minimiert in der Symbolleiste gestartet.</li>
+<li>Es gibt eine Statistik über alle ausgeliehenen Medien<sup class="desktop">D</sup>.</li>
+<li>BibTeX-Export für die Erstellung von Literaturverzeichnissen<sup class="desktop">D</sup>.</li>
+<li>XML-Import/Export zur Synchronisation von mehreren Geräten.</li>
+<li>Automatisches Update<sup class="desktop">D</sup>.</li>
+<li>Speicherung von gesuchten Medien in der Kontohistorie, was zur Literaturverwaltung oder als Merkliste verwendet werden kann.<sup class="desktop">D</sup>.</li>
 </ul>
 
-Generell werden nur Bibliotheken gelistet, die ein System verwenden, bei dem sowohl die Katalog-Suche als auch alle Kontofunktionen funktioniert hat. Da die meisten Bibliotheken jedoch keine Testkonten zur Verfügung gestellt haben, konnte der Kontozugriff nur bei wenigen Bibliotheken direkt getestet werden. Mit <sup class="desktop">D</sup>-markiere Features sind nur in der Desktopversion enthalten, und fehlen in der Androidversion.<br/><br/>
+Mit <sup class="desktop">D</sup>-markiere Features sind nur in der Desktopversion enthalten, und fehlen in der Androidversion.<br/><br/>
 
 Es gibt allerdings auch ein paar Nachteile im Vergleich zu den online Web-Katalogen:
 <ul>
 <li>Es muss erst heruntergeladen und eingerichtet werden, so dass man nicht schnell auf einem fremden Computer seine Ausleihdaten nachsehen kann. (man kann es aber auf einem USB-Stick installieren) </li>
-<li>Es unterstützt nicht alle Büchereien und muss die Internetseite der Bücherei kennen. Wenn die Bücherei ihre Internetseite plötzlich ändert, lassen sich also die Daten nicht mehr aktualisieren. (da alles gecacht ist, funktioniert VideLibri aber trotzdem noch einen Monat weiter. Allerdings ist der Bibliotheksserver auch üblicherweise abgestürzt, so dass der Online-Katalog selbst nicht aufgerufen werden kann, und der VideLibri-Cache die einzige verfügbare Ausleihenübersicht ist) </li>
+<li>Für bisher nicht getestete Bibliotheken und unbekannte OPAC-Systeme muss VideLibri vor der Verwendung umkonfiguriert werden, so dass nicht alle Büchereien direkt unterstützt werden. Wenn die Bücherei ihre Internetseite plötzlich ändert, lassen sich die Daten daher erstmal nicht mehr aktualisieren. (da alles gecacht ist, zeigt VideLibri aber trotzdem noch so einen Monat lang das nächste Abgabedatum an.) </li>
 </ul>
 
-Praktisch sollte man das Programm genau dann benutzen, wenn man jedes Jahr mehrere hunderte Bücher ausleiht. 
-
+Auf der nächsten Seite kann man sehen, mit welchen <a href="bibliotheken.html">Bibliotheken</a> VideLibri bisher getestet wurde, und auf der Seite danach für welche <a href="opac.html">OPAC-Systeme</a> ein Zugriffs-Template in VideLibri integriert ist, so dass man VideLibri nach Eingabe der Web-Adresse der Bibliothek mit der Bibliothek verwenden kann, auch wenn die Bibliothek bisher noch nicht getestet worden ist. Für eine unbekannte Bibliothek mit einem unbekannten OPAC, kann jeder selbst ein <a href="help/neuebibliothek.html">Zugriffs-Template</a> schreiben.
 </content>
     
 <content title="Screenshots">

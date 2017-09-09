@@ -52,7 +52,7 @@ table.downloadTable td { padding: 3px 12px 3px 12px}
 
 
 #testing-table .date {float: left; width: 50%; padding-left: 2em}
-#testing-table .libname {float: left; width: 50%}
+#testing-table .libname {float: left; width: 50%; color: #333333}
 #testing-table .search {float: left; width: 20%}
 #testing-table .account {float: left; width: 20%}
 #testing-table .text {float: left; margin-left: -6em; width: 50%}
@@ -66,7 +66,8 @@ table.downloadTable td { padding: 3px 12px 3px 12px}
 .city {     border-top: 2px solid #00CC00; margin-top: 1.5em }
 
 #testing-table div.library div.log {display: none }
-#testing-table div.library:hover div.log {display: block; background-color: #E0FFE0;  }
+#testing-table div.library:hover div.log {display: block;  }
+#testing-table div.library:focus div.log {display: block; }
 
 .content { 
   max-width: 60em;

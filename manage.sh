@@ -33,7 +33,7 @@ mirror)
 ;;
 
 linux32)
-		find ~/hg -name "*.ppu" | grep -v /lib/ | xargs rm
+    rm videlibri
 		lazCompileLinux32 bookWatch
     cp videlibri videlibri.unstripped.linux32
     strip --strip-all videlibri
@@ -46,7 +46,7 @@ linux32)
 		;;
 
 linux64)
-		find ~/hg -name "*.ppu" | grep -v /lib/ | xargs rm
+    rm videlibri
 		lazCompileLinux64 bookWatch
     cp videlibri videlibri.unstripped.linux64
     strip --strip-all videlibri
@@ -59,7 +59,7 @@ linux64)
 		;;
 		
 win32)
-		find . -name "*.ppu" | grep -v /lib/ | xargs rm
+		rm videlibri.exe
 		lazCompileWin32 bookWatch
     cp $VIDELIBRIBASE/videlibri.exe $VIDELIBRIBASE/videlibri.unstripped.exe
 		strip --strip-all $VIDELIBRIBASE/videlibri.exe
