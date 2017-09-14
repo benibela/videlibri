@@ -1,10 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?xml-stylesheet type="text/xsl" href="../changelog.xsl"?>
 <changelog program="VideLibri">
-      <build version="1930" date="2017-09-01">
+      <build version="1932" date="2017-09-14">
         <download url="http://videlibri.sourceforge.net/updates/videlibri-setup.exe" platform="WINDOWS" execute="&quot;$DOWNLOAD&quot;  /SP- /noicons &quot;/dir=$OLDPATH&quot; " restart="true"/>
         <download url="http://videlibri.sourceforge.net/updates/videlibri-linux32.deb" platform="LINUX32" execute=""/>
         <download url="http://videlibri.sourceforge.net/updates/videlibri-linux64.deb" platform="LINUX64" execute=""/>
+        <fix>korrigiere deb-Erstellung</fix>
+        <fix>Universitäts- und Landesbibliothek Jena, Bibliothek der EAH Jena: Neues Bibliothekssystem</fix>
+	<fix>Stadtbibliothek Chemnitz: Versuche nicht die Zahl der Ausleihen zu ermitteln, um dann abzubrechen, wenn es den Ausleihenlink zweimal im Konto-OPAC gibt.</fix>
+	<fix>Desktop: Ändere Fenstersymbol zusammen mit Programmsymbol</fix>
+     </build>
+      <build version="1930" date="2017-09-01">
 	<change>android: Umprogrammierung der Benachrichtigungen: Verwende Regenbogen-Icon; setze einen einzigen tägliche Benachrichtigungs-Alarm, statt jeden Tag einen Benachrichtigungs-Alarm für den darauffolgenden Tag zu setzen; zeige die Benachrichtigung nach jeder Aktualisierung sofort an, statt auf den nächsten gesetzten Alarm zu warten. </change>
 	<change>android: Zeige keine Fehlermeldung bei einem SSL-IO-Error/Timeout, sondern sende dieselbe Anfrage erneut an den Bibliotheksserver.</change>
         <change>Aktualisiertes Webseiten-Layout. </change>

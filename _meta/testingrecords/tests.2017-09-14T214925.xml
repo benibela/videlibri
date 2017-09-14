@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tests date="2017-09-14">
+  <test date="2017-09-14" id="DE_Th+ueringen_Jena_Ulb" search="yes" account="no" system="pica"/>
+  <test date="2017-09-14" id="DE_Th+ueringen_Jena_EAH" search="yes" account="no" system="pica"/>
+</tests>
