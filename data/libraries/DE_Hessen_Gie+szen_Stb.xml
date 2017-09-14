@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <library>
-  <longName value="Stadtbücherei Gießen (alpha)"/>
+  <longName value="Stadtbücherei Gießen"/>
 
   <template value="libero5"/>
   <variable name="baseurl" value="https://stadtbibliothek.giessen.de/libero/"/>
 
   <homepage value="http://www.stadtbibliothek.giessen.de/"/>
   <testing-search value="ja" date="2013-07-05"/>
-  <testing-account value="?" date=""/>
+  <testing-account value="ja" date="2017-09-10"/>
   <testing-renew value="?" date=""/>
 </library>

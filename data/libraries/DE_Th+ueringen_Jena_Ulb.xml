@@ -3,7 +3,7 @@
   <longName value="Universitäts- und Landesbibliothek Jena (alpha)"/>
   <shortName value="ThULB Jena"/>
   
-  <template value="pica"/>  
+  <template value="lbs"/>  
   <variable name="server" value="https://kataloge.thulb.uni-jena.de/"/>
   <variable name="picadb" value="1"/>
 

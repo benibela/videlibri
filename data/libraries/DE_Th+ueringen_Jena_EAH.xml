@@ -3,7 +3,7 @@
   <longName value="Bibliothek der EAH Jena (alpha)"/>
   <shortName value="EAH Jena"/>
   
-  <template value="pica"/>  
+  <template value="lbs"/>  
   <variable name="server" value="https://kataloge.thulb.uni-jena.de/"/>
   <variable name="picadb" value="2"/>
 
