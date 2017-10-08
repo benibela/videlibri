@@ -4,30 +4,45 @@
   <a t:condition="contains(@href, 'activity=requests')">{$orderPage := resolve-html(.)}</a>?
   <DIV class="EXLMyAccountMainContainer">
     <TABLE class="EXLMyAccountTable">
+      <thead/>?
       <t:loop>
         <TR>
-          <TD/><!--number-->
-          <TD>{$book := {}}<input>{$book._renewLoanId := @value, book.status := @title}</input>?</TD>
-          <TD>{$book.title := ., let $href := ./a/@href return ($book._detailUrl := resolve-uri($href), $hold := contains($href, "type=hold"))}</TD>
-          <TD>{$book.author}</TD>
-          <t:if test="$hold">
-          <TD>{$temp := if (contains(., "Bereitgestellt")) then "provided" else "ordered",
-               let $till := extract(., "\d+/\d+/\d+") return if ($till) then $book.dueDate := parse-date($till, "dd/mm/yyyy") else ()}</TD>
-          <TD>{$book.status := ., $book.statusId := $temp}</td>
-          <td><!--callnumber--></td>
-          <TD>
-          {if (./a) then $book._cancelUrl := resolve-uri(./a/@href) else ($book.cancelable := false())}
-          </TD>
-          </t:if>
-          <t:else>
-           <TD>{$book.dueDate := parse-date(., "dd.mm.yyyy")}</TD>
-           <TD>{let $split := extract(normalize-space(), "([^0-9]+)( (.+)*|$)", (1,3)) return (
-              $book.libraryBranch := $split[1], $book.id := $split[2])}</td>
-           <TD>
-           {if (./a) then (book.statusId := "curious", book._renewUrl := resolve-uri(./a/@href))
-            else ((let $s := normalize-space() where $s return book.status := .), book.statusId := "critical")}
-           </TD>
-          </t:else>
+          {$book := {"status": ""}}
+          <td>{
+            switch (extract(@class, "MyAccount_(Loans|Requests)_([a-zA-Z_]{5,})", 2)) 
+              (:common:)
+              case "title" return ($book.title := ., let $href := ./a/@href return ($book._detailUrl := resolve-uri($href), $hold := contains($href, "type=hold")))
+              case "author" return ($book.author := .)
+              (:only lending:)
+              case "select" return 
+                input/($book._renewLoanId := @value, $book.status := @title)
+              case "dueDate" return 
+                $book.dueDate := parse-date(., "dd.mm.yyyy")
+              case "location" return (
+                let $split := extract(normalize-space(), "([^0-9]+)( (.+)*|$)", (1,3)) 
+                return ($book.libraryBranch := $split[1], $book.id := $split[2]))
+              case "LoanStatus" return 
+                $book.status := .
+              case "renewal" return (
+                if (./a) then (book.statusId := "curious", book._renewUrl := resolve-uri(./a/@href))
+                else (book.status := join(distinct-values(($book.status, .)!normalize-space()[.]), ", "), book.statusId := "critical"))
+              (:only holding:)
+              case "request_type_label" return 
+                $book.status := .
+              case "hold_status" return (
+               (: $book.status := join(($book.status, .)!normalize-space()[.], ", "),:)
+                $book.statusId := if (contains(., "Bereitgestellt")) then "provided" else "ordered",
+                let $till := extract(., "\d+/\d+/\d+") return if ($till) then $book.dueDate :=  parse-date($till, "dd/mm/yyyy") else ()
+              )
+              case "pickup_location_name" return (
+                $book.status := join(($book.status, .)!normalize-space()[.], ", "),
+                $book.statusId := $book.statusId)
+              case "call_number" return 
+                ()
+              case "cancel" return 
+                (if (./a) then $book._cancelUrl := resolve-uri(./a/@href) else ($book.cancelable := false()))
+              default return ()
+          }</td>+
         </Tr>
       </t:loop>
     </TABLE>

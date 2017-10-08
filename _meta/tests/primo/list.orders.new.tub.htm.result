@@ -1,0 +1,27 @@
+book := {}
+orderPage := ""
+orderPage := "file:///primo_library/libweb/action/myAccountMenu.do?activity=requests&amp;fromLink=menu.myaccount.requests"
+result := ()
+hold := true()
+result := ()
+book := {"_cancelUrl": "file:///primo_library/libweb/action/myAccountRequest.do?command=cancel&requestId=7612501810002884&request_type=holds", "statusId": "ordered", "status": "Vormerkung, Benutzung innerhalb der Mediathek", "author": "", "_detailUrl": "file:///primo_library/libweb/action/myAccountRequest.do?command=details&requestId=7612501810002884&request_type=holds", "title": "Rororo : Taschenbücher."}
+result := ()
+hold := true()
+result := ()
+book := {"_cancelUrl": "file:///primo_library/libweb/action/myAccountRequest.do?command=cancel&requestId=7585261420002884&request_type=holds", "statusId": "provided", "status": "Vormerkung, ZB Lesesaal Etage 3", "dueDate": "2017-10-09", "author": "", "_detailUrl": "file:///primo_library/libweb/action/myAccountRequest.do?command=details&requestId=7585261420002884&request_type=holds", "title": "Göttinger geographische Abhandlungen : GGA /"}
+result := ()
+hold := true()
+result := ()
+book := {"_cancelUrl": "file:///primo_library/libweb/action/myAccountRequest.do?command=cancel&requestId=7604870670002884&request_type=holds", "statusId": "provided", "status": "Vormerkung, ZB Lesesaal Etage 3", "dueDate": "2017-10-12", "author": "Golmohammadi, Gholamreza", "_detailUrl": "file:///primo_library/libweb/action/myAccountRequest.do?command=details&requestId=7604870670002884&request_type=holds", "title": "Karawanserei in Persien : ein Bauwerk an den Karawanenwegen Irans im Laufe der Jahrhunderte /"}
+result := ()
+hold := true()
+result := ()
+book := {"_cancelUrl": "file:///primo_library/libweb/action/myAccountRequest.do?command=cancel&requestId=7585261070002884&request_type=holds", "statusId": "provided", "status": "Vormerkung, ZB Lesesaal Etage 3", "dueDate": "2017-10-09", "author": "Behrmann, Walter 1882-1955", "_detailUrl": "file:///primo_library/libweb/action/myAccountRequest.do?command=details&requestId=7585261070002884&request_type=holds", "title": "Die Oberflächengestaltung des Harzes : eine Morphologie des Gebirges /"}
+result := ()
+hold := true()
+result := ()
+book := {"_cancelUrl": "file:///primo_library/libweb/action/myAccountRequest.do?command=cancel&requestId=7585261770002884&request_type=holds", "statusId": "provided", "status": "Vormerkung, ZB Lesesaal Etage 3", "dueDate": "2017-10-09", "author": "Blenk, Marianne", "_detailUrl": "file:///primo_library/libweb/action/myAccountRequest.do?command=details&requestId=7585261770002884&request_type=holds", "title": "Morphologie des nordwestlichen Harzes und seines Vorlandes."}
+result := ()
+hold := true()
+result := ()
+book := {"_cancelUrl": "file:///primo_library/libweb/action/myAccountRequest.do?command=cancel&requestId=7581186210002884&request_type=holds", "statusId": "provided", "status": "Vormerkung, ZB Lesesaal Etage 3", "dueDate": "2017-10-06", "author": "", "_detailUrl": "file:///primo_library/libweb/action/myAccountRequest.do?command=details&requestId=7581186210002884&request_type=holds", "title": "Studies in the humanities. (Bestand vor 1985)"}

@@ -187,7 +187,7 @@ PAGES=(${PAGES[@]} primo/searchStart.fub.html primo/searchStart.hub.html  primo/
 ADDTEMPLATE primo/searchList  5
 PAGES=(${PAGES[@]} primo/searchList.hub.html primo/searchList0.hub.html primo/searchList.fub.html primo/searchList.tub.html primo/searchList3.tub.html)
 
-test primo list list.tub.html list.orders.tub.html list.orders2.tub.html list.fub.html list.orders.fub.html
+test primo list list.tub.html list.orders.tub.html list.orders2.tub.html list.fub.html list.orders.fub.html list.new.tub.htm list.orders.new.tub.htm 
 test primo searchDetails{vl:set-book-property} searchDetails.tub.html 
 test primo searchDetailsLocations{vl:set-book-property} location.hu.berlin.html location.tu.berlin.html    locations.fu.berlin.html locations.hu.berlin.html locations.tu.berlin.html  locationsdiv.fu.html
 

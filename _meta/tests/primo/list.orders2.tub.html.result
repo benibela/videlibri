@@ -1,27 +1,35 @@
 book := {}
 orderPage := ""
 orderPage := "file:///primo_library/libweb/action/myAccountMenu.do?activity=requests&amp;fromLink=menu.myaccount.requests"
+result := ()
 hold := true()
-temp := "ordered"
-book := {"_cancelUrl": "file:///primo_library/libweb/action/myAccountRequest.do?command=cancel&requestId=6172406880002884&request_type=holds", "statusId": "ordered", "status": "ZB Lesesaal Etage 3", "author": "Friederich, Michael", "_detailUrl": "file:///primo_library/libweb/action/myAccountRequest.do?command=details&requestId=6172406880002884&request_type=holds", "title": "Dissipation in gerührten nicht-Newtonschen Flüssigkeiten /"}
+result := ()
+book := {"_cancelUrl": "file:///primo_library/libweb/action/myAccountRequest.do?command=cancel&requestId=6172406880002884&request_type=holds", "statusId": "ordered", "status": "Vormerkung, ZB Lesesaal Etage 3", "author": "Friederich, Michael", "_detailUrl": "file:///primo_library/libweb/action/myAccountRequest.do?command=details&requestId=6172406880002884&request_type=holds", "title": "Dissipation in gerührten nicht-Newtonschen Flüssigkeiten /"}
+result := ()
 hold := true()
-temp := "provided"
-book := {"_cancelUrl": "file:///primo_library/libweb/action/myAccountRequest.do?command=cancel&requestId=6205068620002884&request_type=holds", "statusId": "provided", "status": "ZB Lesesaal Etage 3", "dueDate": "2017-01-23", "author": "", "_detailUrl": "file:///primo_library/libweb/action/myAccountRequest.do?command=details&requestId=6205068620002884&request_type=holds", "title": "Zur Eröffnung der IV. Teilstrecke der GN-Bahn Boddinstraße-Leinestraße und des Hochbahnhofs Kottbusser Tor am 4. August 1929."}
+result := ()
+book := {"_cancelUrl": "file:///primo_library/libweb/action/myAccountRequest.do?command=cancel&requestId=6205068620002884&request_type=holds", "statusId": "provided", "status": "Vormerkung, ZB Lesesaal Etage 3", "dueDate": "2017-01-23", "author": "", "_detailUrl": "file:///primo_library/libweb/action/myAccountRequest.do?command=details&requestId=6205068620002884&request_type=holds", "title": "Zur Eröffnung der IV. Teilstrecke der GN-Bahn Boddinstraße-Leinestraße und des Hochbahnhofs Kottbusser Tor am 4. August 1929."}
+result := ()
 hold := true()
-temp := "provided"
-book := {"_cancelUrl": "file:///primo_library/libweb/action/myAccountRequest.do?command=cancel&requestId=6186639030002884&request_type=holds", "statusId": "provided", "status": "ZB Lesesaal Etage 3", "dueDate": "2017-01-18", "author": "Krüger, Eckhard", "_detailUrl": "file:///primo_library/libweb/action/myAccountRequest.do?command=details&requestId=6186639030002884&request_type=holds", "title": "Betriebs- und Qualitätskontrolle in Brauerei und alkoholfreier Getränkeindustrie : mit 28 Tab. /"}
+result := ()
+book := {"_cancelUrl": "file:///primo_library/libweb/action/myAccountRequest.do?command=cancel&requestId=6186639030002884&request_type=holds", "statusId": "provided", "status": "Vormerkung, ZB Lesesaal Etage 3", "dueDate": "2017-01-18", "author": "Krüger, Eckhard", "_detailUrl": "file:///primo_library/libweb/action/myAccountRequest.do?command=details&requestId=6186639030002884&request_type=holds", "title": "Betriebs- und Qualitätskontrolle in Brauerei und alkoholfreier Getränkeindustrie : mit 28 Tab. /"}
+result := ()
 hold := true()
-temp := "provided"
-book := {"_cancelUrl": "file:///primo_library/libweb/action/myAccountRequest.do?command=cancel&requestId=6176749180002884&request_type=holds", "statusId": "provided", "status": "ZB Lesesaal Etage 3", "dueDate": "2017-01-14", "author": "Worster, Donald 1941-", "_detailUrl": "file:///primo_library/libweb/action/myAccountRequest.do?command=details&requestId=6176749180002884&request_type=holds", "title": "Nature's Economy : the roots of ecology / (Bestand vor 1985)"}
+result := ()
+book := {"_cancelUrl": "file:///primo_library/libweb/action/myAccountRequest.do?command=cancel&requestId=6176749180002884&request_type=holds", "statusId": "provided", "status": "Vormerkung, ZB Lesesaal Etage 3", "dueDate": "2017-01-14", "author": "Worster, Donald 1941-", "_detailUrl": "file:///primo_library/libweb/action/myAccountRequest.do?command=details&requestId=6176749180002884&request_type=holds", "title": "Nature's Economy : the roots of ecology / (Bestand vor 1985)"}
+result := ()
 hold := true()
-temp := "provided"
-book := {"_cancelUrl": "file:///primo_library/libweb/action/myAccountRequest.do?command=cancel&requestId=6183724570002884&request_type=holds", "statusId": "provided", "status": "ZB Lesesaal Etage 3", "dueDate": "2017-01-17", "author": "", "_detailUrl": "file:///primo_library/libweb/action/myAccountRequest.do?command=details&requestId=6183724570002884&request_type=holds", "title": "The application of architectural research to practice : proceedings of the 1. Seminar on Architectural Research in Commonwealth and United Kingdom Universities held at the University of Edinburgh, January 1972."}
+result := ()
+book := {"_cancelUrl": "file:///primo_library/libweb/action/myAccountRequest.do?command=cancel&requestId=6183724570002884&request_type=holds", "statusId": "provided", "status": "Vormerkung, ZB Lesesaal Etage 3", "dueDate": "2017-01-17", "author": "", "_detailUrl": "file:///primo_library/libweb/action/myAccountRequest.do?command=details&requestId=6183724570002884&request_type=holds", "title": "The application of architectural research to practice : proceedings of the 1. Seminar on Architectural Research in Commonwealth and United Kingdom Universities held at the University of Edinburgh, January 1972."}
+result := ()
 hold := true()
-temp := "provided"
-book := {"_cancelUrl": "file:///primo_library/libweb/action/myAccountRequest.do?command=cancel&requestId=6205027270002884&request_type=holds", "statusId": "provided", "status": "ZB Lesesaal Etage 3", "dueDate": "2017-01-23", "author": "Ferriss, Hugh 1889-1962", "_detailUrl": "file:///primo_library/libweb/action/myAccountRequest.do?command=details&requestId=6205027270002884&request_type=holds", "title": "The Metropolis of tomorrow."}
+result := ()
+book := {"_cancelUrl": "file:///primo_library/libweb/action/myAccountRequest.do?command=cancel&requestId=6205027270002884&request_type=holds", "statusId": "provided", "status": "Vormerkung, ZB Lesesaal Etage 3", "dueDate": "2017-01-23", "author": "Ferriss, Hugh 1889-1962", "_detailUrl": "file:///primo_library/libweb/action/myAccountRequest.do?command=details&requestId=6205027270002884&request_type=holds", "title": "The Metropolis of tomorrow."}
+result := ()
 hold := true()
-temp := "provided"
-book := {"_cancelUrl": "file:///primo_library/libweb/action/myAccountRequest.do?command=cancel&requestId=6191301740002884&request_type=holds", "statusId": "provided", "status": "ZB Lesesaal Etage 3", "dueDate": "2017-01-20", "author": "Mersch, Friedhelm", "_detailUrl": "file:///primo_library/libweb/action/myAccountRequest.do?command=details&requestId=6191301740002884&request_type=holds", "title": "Maximalkraftveränderung im präpuberalen Kindesalter : e. Unters. zur Entwicklung u. Trainierbarkeit unter bes. Berücks. von Testosteronkonzentration u. Muskelhypertrophie."}
+result := ()
+book := {"_cancelUrl": "file:///primo_library/libweb/action/myAccountRequest.do?command=cancel&requestId=6191301740002884&request_type=holds", "statusId": "provided", "status": "Vormerkung, ZB Lesesaal Etage 3", "dueDate": "2017-01-20", "author": "Mersch, Friedhelm", "_detailUrl": "file:///primo_library/libweb/action/myAccountRequest.do?command=details&requestId=6191301740002884&request_type=holds", "title": "Maximalkraftveränderung im präpuberalen Kindesalter : e. Unters. zur Entwicklung u. Trainierbarkeit unter bes. Berücks. von Testosteronkonzentration u. Muskelhypertrophie."}
+result := ()
 hold := true()
-temp := "ordered"
-book := {"_cancelUrl": "file:///primo_library/libweb/action/myAccountRequest.do?command=cancel&requestId=6188845910002884&request_type=holds", "statusId": "ordered", "status": "TU Zentralbibliothek", "author": "", "_detailUrl": "file:///primo_library/libweb/action/myAccountRequest.do?command=details&requestId=6188845910002884&request_type=holds", "title": "Flow visualization : techniques and examples /"}
+result := ()
+book := {"_cancelUrl": "file:///primo_library/libweb/action/myAccountRequest.do?command=cancel&requestId=6188845910002884&request_type=holds", "statusId": "ordered", "status": "Vormerkung, TU Zentralbibliothek", "author": "", "_detailUrl": "file:///primo_library/libweb/action/myAccountRequest.do?command=details&requestId=6188845910002884&request_type=holds", "title": "Flow visualization : techniques and examples /"}

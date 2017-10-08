@@ -1,0 +1,18 @@
+book := {}
+orderPage := ""
+orderPage := "file:///primo_library/libweb/action/myAccountMenu.do?activity=requests&amp;fromLink=menu.myaccount.requests"
+result := ()
+hold := false()
+book := {"_renewUrl": "file:///primo_library/libweb/action/myAccountLoan.do?command=renew&loanID=7597838390002884&type=active&pagingActivated=true&partialResult=false", "statusId": "curious", "status": "Verlängert(im Regal)", "id": "8BC1608", "libraryBranch": "TU Zentralbibliothek", "dueDate": "2017-10-11", "author": "Ziman, John M.", "_detailUrl": "file:///primo_library/libweb/action/myAccountLoan.do?command=details&loanID=7597838390002884&type=active&pagingActivated=true&partialResult=false", "title": "Electrons and phonons : the theory of transport phenomena in solids /", "_renewLoanId": "7597838390002884"}
+result := ()
+hold := false()
+book := {"_renewUrl": "file:///primo_library/libweb/action/myAccountLoan.do?command=renew&loanID=7603610220002884&type=active&pagingActivated=true&partialResult=false", "statusId": "curious", "status": "Normal(im Regal)", "id": "8BB3488", "libraryBranch": "TU Zentralbibliothek", "dueDate": "2017-10-11", "author": "Spindler, Max", "_detailUrl": "file:///primo_library/libweb/action/myAccountLoan.do?command=details&loanID=7603610220002884&type=active&pagingActivated=true&partialResult=false", "title": "Erbe und Verpflichtung : Aufsätze und Vorträge zur bayerischen Geschichte /", "_renewLoanId": "7603610220002884"}
+result := ()
+hold := false()
+book := {"_renewUrl": "file:///primo_library/libweb/action/myAccountLoan.do?command=renew&loanID=7603748820002884&type=active&pagingActivated=true&partialResult=false", "statusId": "curious", "status": "Normal(im Regal)", "id": "8Fi5548", "libraryBranch": "TU Zentralbibliothek", "dueDate": "2017-10-13", "author": "Quint-Wegemund, Uschi", "_detailUrl": "file:///primo_library/libweb/action/myAccountLoan.do?command=details&loanID=7603748820002884&type=active&pagingActivated=true&partialResult=false", "title": "Das Theater des Absurden auf der Bühne und im Spiegel der literaturwissenschaftlichen Kritik : eine Untersuchung zur Rezeption und Wirkung Becketts und Ionescos in der Bundesrepublik Deutschland /", "_renewLoanId": "7603748820002884"}
+result := ()
+hold := false()
+book := {"_renewUrl": "file:///primo_library/libweb/action/myAccountLoan.do?command=renew&loanID=7603749800002884&type=active&pagingActivated=true&partialResult=false", "statusId": "curious", "status": "Normal(im Regal)", "id": "8Ki3951", "libraryBranch": "TU Zentralbibliothek", "dueDate": "2017-10-13", "author": "Drechsler, Ute", "_detailUrl": "file:///primo_library/libweb/action/myAccountLoan.do?command=details&loanID=7603749800002884&type=active&pagingActivated=true&partialResult=false", "title": "Die \"absurde Farce\" bei Beckett, Pinter und Ionesco : Vor- und Überleben einer Gattung /", "_renewLoanId": "7603749800002884"}
+result := ()
+hold := false()
+book := {"_renewUrl": "file:///primo_library/libweb/action/myAccountLoan.do?command=renew&loanID=7603750700002884&type=active&pagingActivated=true&partialResult=false", "statusId": "curious", "status": "Normal(im Regal)", "id": "8Ki9138", "libraryBranch": "TU Zentralbibliothek", "dueDate": "2017-10-13", "author": "Fritsch, Rudolf", "_detailUrl": "file:///primo_library/libweb/action/myAccountLoan.do?command=details&loanID=7603750700002884&type=active&pagingActivated=true&partialResult=false", "title": "Absurd oder grotesk? : über literarische Darstellung von Entfremdung bei Beckett und Heller.", "_renewLoanId": "7603750700002884"}
