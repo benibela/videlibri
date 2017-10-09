@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <library>
-  <longName value="Hochschulbibliothek Albstadt-Sigmaringen (alpha)"/>
+  <longName value="Hochschulbibliothek Albstadt-Sigmaringen"/>
 
   <template value="aDISWeb"/>
   <variable name="server" value="bsz.ibs-bw.de"/>

@@ -3,6 +3,7 @@
   <deprecatedName value="gbv"/>
 
   <longName value="GVK - Gemeinsamer Verbundkatalog"/>
+  <table-comment value="(vorwiegend Norddeutschland)"/>
   <catalogue value="http://www.gbv.de/"/>
 
   <template value="sru"/>
@@ -19,6 +20,4 @@
 
   <homepage value="" nolist="true"/>
   <testing-search value="ja" date="2013-04-26"/>
-  <testing-account value="?" date=""/>
-  <testing-renew value="?" date=""/>
 </library>
