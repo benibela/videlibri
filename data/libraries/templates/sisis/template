@@ -46,11 +46,11 @@
 <action id="update-all">
   <call action="login"/>
   
-  <s>requestedUrl := "",
-     orderedUrl := "",
+  <s>requestedUrl := (),
+     orderedUrl := (),
      startUrl := x'{$server}/userAccount.do;jsession;?methodToCall={if ($touchpoint) then "start" else "show&amp;typ=1"}',
      minRenewedId := $minCancelId := "ZZZZZZZZ",
-     nextPage := ""
+     nextPage := ()
   </s>
   
   <page url="{$startUrl}"  templateFile="loggedIn"></page>
