@@ -1,5 +1,7 @@
 #!/bin/bash
 
+#Use: like ./publish-test-lib.sh data/libraries/DE_Berlin_Berlin_UbTU.xml berlin-tu --override
+# path to metadata, new temporary id, new lib vs template override
 
 
 libData=$1
@@ -46,7 +48,7 @@ Neues Template f&uuml;r  (die) "$name" <span style="font-size: 50%">vom $(LC_ALL
 
 <p>
 
-<p style="font-size: 75%; margin-top: 2em">Quellcode des Templates anzeigen: <a href="newlibs/$libDataNew">Bibliotheksmetadata</a>, <a href="view-source:$templateIdNew/template">Template selbst</a>, <a href="$templateIdNew/">verwendete Patterns</a>.
+<p style="font-size: 66%; margin-top: 2em">Quellcode des Templates anzeigen: <a href="newlibs/$libDataNew">Bibliotheksmetadata</a>, <a href="$templateIdNew/template">Template selbst</a>, <a href="$templateIdNew/">verwendete Patterns</a>. <!--(wenn der Browser die Datei nicht direkt anzeigen will, nach Anklicken des Links im Browsermenü "Seitenquellcode anzeigen"auswählen)--> 
 
 </body>
 </html>
@@ -56,6 +58,11 @@ EOF
 
 cp -Lr $templatePath/$templateId $tmp/$templateIdNew
 cp $libData $tmp/newlibs/$libDataNew
+
+cat > $tmp/$templateIdNew/.htaccess <<EOF
+ForceType text/plain
+Options +Indexes
+EOF
 
 #sed -e '' -i $tmp/newlibs/$libDataNew
 xmlstarlet ed -L -u //longName/@value -v "$name (Neu)" $tmp/newlibs/$libDataNew
