@@ -11,13 +11,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="New Text"
-            xmlns:android="http://schemas.android.com/apk/res/android" android:id="@+id/simpletextview"
+            android:id="@+id/simpletextview"
             android:layout_weight="1"></TextView>
 
     <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="vormerken/bestellen"
-            xmlns:android="http://schemas.android.com/apk/res/android" android:id="@+id/holdingbutton"
+            android:id="@+id/holdingbutton"
             android:singleLine="true" android:layout_weight="0" android:layout_gravity="center_vertical"></Button>
 </LinearLayout>
