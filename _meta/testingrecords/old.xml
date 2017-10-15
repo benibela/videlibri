@@ -271,10 +271,11 @@ and manual update
 <test date="2014-01-17" id="DE_Nordrhein-Westfalen_D+uesseldorf_Stb" system="digibib wasnrw" account="yes" renew="yes"/>
 <test date="2013-04-26" id="DE_Nordrhein-Westfalen_D+uesseldorf_Stb" system="digibib wasnrw" search="yes" account="yes" renew="yes"/>
 <test date="2008-07-19" id="DE_Nordrhein-Westfalen_D+uesseldorf_Stb" system="digibib wasnrw" search="yes" account="yes"/>
+<test date="2007-06-01" id="DE_Nordrhein-Westfalen_D+uesseldorf_Stb" system="wasnrw" search="no" account="yes" comment="die offizielle Anweiseung aber [ist] so, dass ich es nicht per Aushang an unsere Leser weitergeben darf. [...] wenn Bibliotheskunden dieses Programm nutzen wollen und Anwednungsprobleme entstehen [...], müßten wir letztlich auch die Folgen verantworten. "/>
 <test date="2006-08-06" id="DE_Nordrhein-Westfalen_D+uesseldorf_Stb" system="wasnrw" search="no" account="yes"/>
 
 
-
+<test date="2017-09-02" id="DE_Nordrhein-Westfalen_D+uesseldorf_Ub" system="digibib ulbdue" text="no-reply"/>
 <test date="2017-08-31" id="DE_Nordrhein-Westfalen_D+uesseldorf_Ub" search="yes" system="digibib ulbdue" fix="url" account="?"/>
 <test date="2013-06-18" id="DE_Nordrhein-Westfalen_D+uesseldorf_Ub" system="digibib ulbdue" search="yes"/>
 <test date="2013-05-17" id="DE_Nordrhein-Westfalen_D+uesseldorf_Ub" system="digibib primo" search="yes" account="yes" renew="yes"/>
