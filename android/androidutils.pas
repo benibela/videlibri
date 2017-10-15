@@ -13,7 +13,7 @@ Classes, SysUtils, IniFiles, applicationconfig, jni, bbjniutils, libraryParser, 
 var assetPath: string;
 
 procedure beginAssetRead;
-function assetFileAsString(name: rawbytestring): RawByteString;
+function assetFileAsString(name: rawbytestring): string;
 procedure endAssetRead;
 
 function iniFileFromString(data: string): TIniFile;
@@ -88,7 +88,7 @@ begin
   if skip and (maxVersion <> -1) and (maxVersion < versionNumber) then result := false; //ABORT!
 end;
 
-function userAssetFileAsString(name: rawbytestring; var res: RawByteString): boolean;
+function userAssetFileAsString(name: rawbytestring; var res: string): boolean;
 begin
   if length(skippedpaths) > 0 then begin
     if arrayContains(skippedpaths, copy(name, 1, max(strRpos('/', name), strRpos(DirectorySeparator, name)))) then
@@ -104,7 +104,7 @@ begin
 end;
 
 {$ifndef android}
-function assetFileAsString(name: rawbytestring): RawByteString;
+function assetFileAsString(name: rawbytestring): string;
 begin
   if userAssetFileAsString(name, result) then exit;
   result := strLoadFromFileUTF8(assetPath + name);
@@ -155,7 +155,7 @@ var assets: jobject = nil;
     importExportDataFields: record
       accountsToImportAL, flagsI, nativePtrJ: jfieldID;
     end;
-function assetFileAsString(name: rawbytestring): RawByteString;
+function assetFileAsString(name: rawbytestring): string;
 begin
   if userAssetFileAsString(name, result) then exit;
   beginAssetRead;
