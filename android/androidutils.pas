@@ -1902,15 +1902,12 @@ end;
 
 function iniFileFromString(data: string): TIniFile;
 var
-  stream: TStringStream;
+  stream: TStringAsMemoryStream;
 begin
-  stream := TStringStream.Create(data);
+  stream := TStringAsMemoryStream.Create(data);
   result := TIniFile.Create(stream);
   stream.free;
 end;
-
-
-
 
 end.
 

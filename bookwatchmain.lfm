@@ -4,7 +4,7 @@ object mainForm: TmainForm
   Top = 87
   Width = 927
   Caption = 'Videlibri'
-  ClientHeight = 651
+  ClientHeight = 649
   ClientWidth = 927
   Menu = MainMenu1
   OnActivate = FormActivate
@@ -15,11 +15,11 @@ object mainForm: TmainForm
   OnShow = FormShow
   OnWindowStateChange = FormWindowStateChange
   Position = poScreenCenter
-  LCLVersion = '1.7'
+  LCLVersion = '1.8.0.4'
   object StatusBar1: TStatusBar
     Left = 0
-    Height = 19
-    Top = 632
+    Height = 20
+    Top = 629
     Width = 927
     Panels = <    
       item

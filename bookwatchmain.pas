@@ -383,7 +383,7 @@ procedure TmainForm.FormCreate(Sender: TObject);
 
 var i:integer;
     tempItem:TMenuItem;
-    stream: TStringStream;
+    stream: TStringAsMemoryStream;
     po: TPOFile;
     libsAtLoc: TStringArray;
     tempItem2: TMenuItem;
@@ -418,7 +418,7 @@ begin
 
   accounts.OnAccountAdd:=@accountAddedChanged;
 
-  stream := TStringStream.Create(assetFileAsString('lclstrconsts.de.po'));
+  stream := TStringAsMemoryStream.Create(assetFileAsString('lclstrconsts.de.po'));
   po := TPOFile.Create(stream);
   TranslateUnitResourceStrings('LCLStrConsts', po);
   po.free;
@@ -1378,15 +1378,26 @@ end;
 
 procedure TmainForm.refreshShellIntegration;
 var
-  iconStream: TStringStream;
+  iconStream: TStringAsMemoryStream;
+  iconName: String;
 begin
+  if logging then log('refreshShellIntegration started');
   MenuItem29.Caption:=Format(rsTNAMenuLimit, [nextLimitStr]);
   TrayIcon1.Hint:='Videlibri'#13#10+Format(rsTNAHintLimitCheck, [nextLimitStr, #13#10, DateToPrettyStr(lastCheck)]);
-  iconStream := TStringStream.Create(assetFileAsString(getTNAIconBaseFileName()));
-  TrayIcon1.Icon.LoadFromStream(iconStream); iconStream.Position := 0;
-  icon.LoadFromStream(iconStream); iconStream.Position := 0;
-  Application.icon.LoadFromStream(iconStream); iconStream.Position := 0;
+  iconName := getTNAIconBaseFileName();
+  if logging then log('Display icon: ' + iconName);
+  iconStream := TStringAsMemoryStream.Create(assetFileAsString(iconName));
+  if logging then log('Icon size: ' + IntToStr(iconStream.Size));
+  try
+    TrayIcon1.Icon.LoadFromStream(iconStream); iconStream.Position := 0;
+    icon.LoadFromStream(iconStream); iconStream.Position := 0;
+    Application.icon.LoadFromStream(iconStream); iconStream.Position := 0;
+  except
+    on e: Exception do
+      if logging then log('Icon displaying failed: ' + e.Message);
+  end;
   iconStream.Free;
+  if logging then log('refreshShellIntegration ended');
 end;
 
 

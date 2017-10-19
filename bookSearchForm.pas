@@ -1018,7 +1018,7 @@ const holdingColumns: array[0..6] of string = (
 );
 
 var i:longint;
-    tempStream: TStringStream;
+    tempStream: TStringAsMemoryStream;
     ext: String;
     j, orderableHolding: Integer;
     showColumn: Boolean;
@@ -1062,7 +1062,7 @@ begin
     Image1.Width:=1;
     if displayImage.Checked and (length(getProperty('image',book.additional))>50) then begin
       try
-        tempStream:=TStringStream.Create(getProperty('image',book.additional));
+        tempStream:=TStringAsMemoryStream.Create(getProperty('image',book.additional));
         try
           ext := getProperty('image-content-type',book.additional);
           if striContains(ext, 'image/jpeg') or striContains(ext, 'image/jpg') then ext := '.jpg'

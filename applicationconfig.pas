@@ -41,6 +41,10 @@ end;
 TCallbackHolderClass = class of TCallbackHolder;
 
 
+type TStringAsMemoryStream = class(TMemoryStream)
+  constructor create(const s: RawByteString);
+end;
+
 var programPath,userPath:string;
     machineConfig: TIniFile;
     userConfig: TSafeIniFile;
@@ -618,6 +622,18 @@ class procedure TCallbackHolder.applicationUpdate(auto: boolean); begin end;
 class procedure TCallbackHolder.statusChange(const message: string); begin end;
 class procedure TCallbackHolder.allThreadsDone; begin end;
 class procedure TCallbackHolder.postInitApplication; begin end;
+
+
+constructor TStringAsMemoryStream.create(const s: RawByteString);
+begin
+  inherited Create;
+  SetSize(length(s));
+  if Size > 0 then begin
+    write(s[1], length(s));
+    Position := 1;
+  end;
+end;
+
 
 end.
 
