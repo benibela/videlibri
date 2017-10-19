@@ -57,9 +57,14 @@
                       android:layout_marginTop="@dimen/optionheaderpadding"/>
             <LinearLayout android:orientation="horizontal" android:layout_width="fill_parent"
                           android:layout_height="fill_parent" android:id="@+id/linearLayout">
-                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-                          android:text="@string/lay_options_label_grouping" android:id="@+id/textView10"
-                          android:layout_gravity="center_vertical"/>
+
+                <TextView
+                    android:id="@+id/textView10"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:padding="@dimen/optionheaderpadding"
+                    android:text="@string/lay_options_label_grouping" />
                 <Spinner android:layout_width="fill_parent" android:layout_height="wrap_content"
                          android:id="@+id/grouping"
                          android:entries="@array/sortable_properties_tr"/>
@@ -68,11 +73,14 @@
                     android:orientation="horizontal"
                     android:layout_width="fill_parent"
                     android:layout_height="fill_parent">
+
                 <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/lay_options_label_sorting"
-                        android:id="@+id/textView9" android:layout_gravity="center_vertical"/>
+                    android:id="@+id/textView9"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:padding="@dimen/optionheaderpadding"
+                    android:text="@string/lay_options_label_sorting" />
                 <Spinner
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
@@ -81,9 +89,14 @@
             </LinearLayout>
             <LinearLayout android:orientation="horizontal" android:layout_width="fill_parent"
                           android:layout_height="fill_parent" android:id="@+id/linearLayout1">
-                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-                          android:text="@string/lay_options_label_filtering" android:id="@+id/textView11"
-                          android:layout_gravity="center_vertical"/>
+
+                <TextView
+                    android:id="@+id/textView11"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:padding="@dimen/optionheaderpadding"
+                    android:text="@string/lay_options_label_filtering" />
                 <Spinner android:layout_width="fill_parent" android:layout_height="wrap_content"
                          android:id="@+id/searchFilter" android:entries="@array/filterable_properties_tr"/>
             </LinearLayout>
@@ -102,13 +115,17 @@
                     android:layout_height="wrap_content"
                     android:text="@string/lay_show_renewcount"
                     android:id="@+id/showRenewCount"/>
+
             <TextView
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/lay_options_caption_accountchange"
-                    android:id="@+id/textView2" android:layout_gravity="left|center_vertical"
-                    android:padding="@dimen/optionheaderpadding" android:background="@color/optionHeaderBackgroundColor"
-                    android:textStyle="bold" android:layout_marginTop="@dimen/optionheaderpadding"/>
+                android:id="@+id/textView2"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="left|center_vertical"
+                android:layout_marginTop="@dimen/optionheaderpadding"
+                android:background="@color/optionHeaderBackgroundColor"
+                android:padding="@dimen/optionheaderpadding"
+                android:text="@string/lay_options_caption_accountchange"
+                android:textStyle="bold" />
             <LinearLayout
                     android:orientation="vertical"
                     android:layout_width="fill_parent"
@@ -119,11 +136,16 @@
                     android:layout_height="wrap_content"
                     android:text="@string/lay_options_btn_newaccount"
                     android:id="@+id/newaccount"/>
-            <TextView android:layout_width="fill_parent" android:layout_height="wrap_content"
-                      android:text="@string/lay_options_caption_notifications" android:id="@+id/textView3"
-                      android:padding="@dimen/optionheaderpadding"
-                      android:background="@color/optionHeaderBackgroundColor" android:textStyle="bold"
-                      android:layout_marginTop="@dimen/optionheaderpadding"/>
+
+            <TextView
+                android:id="@+id/textView3"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/optionheaderpadding"
+                android:background="@color/optionHeaderBackgroundColor"
+                android:padding="@dimen/optionheaderpadding"
+                android:text="@string/lay_options_caption_notifications"
+                android:textStyle="bold" />
             <CheckBox
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
