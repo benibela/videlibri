@@ -13,6 +13,7 @@ import org.apache.http.cookie.*;
 import org.apache.http.impl.client.DefaultHttpClient;
 
 import javax.net.ssl.SSLContext;
+import javax.net.ssl.SSLSocket;
 import javax.net.ssl.TrustManager;
 import javax.net.ssl.TrustManagerFactory;
 import javax.net.ssl.X509TrustManager;
@@ -90,15 +91,32 @@ class SSLSocketFactoryWithAdditionalLazyKeyStore extends SSLSocketFactory {
 
     @Override
     public Socket createSocket(Socket socket, String host, int port, boolean autoClose) throws IOException {
-        return sslContext.getSocketFactory().createSocket(socket, host, port, autoClose);
+        return enableTLSOnSocket(sslContext.getSocketFactory().createSocket(socket, host, port, autoClose));
     }
 
     @Override
     public Socket createSocket() throws IOException {
-        return sslContext.getSocketFactory().createSocket();
+        return enableTLSOnSocket(sslContext.getSocketFactory().createSocket());
     }
 
 
+    //https://stackoverflow.com/questions/29249630/android-enable-tlsv1-2-in-okhttp
+    private Socket enableTLSOnSocket(Socket socket) {
+        if(socket != null && (socket instanceof SSLSocket)) {
+            ArrayList<String> supported = new ArrayList<String>(Arrays.asList(((SSLSocket)socket).getSupportedProtocols()));
+            ArrayList<String> enabled = new ArrayList<String>(Arrays.asList(((SSLSocket)socket).getEnabledProtocols()));
+
+            String[] toEnable = {"TLSv1.1", "TLSv1.2"};
+            for (String proto: toEnable)
+                if (supported.contains(proto) && !enabled.contains(proto))
+                    enabled.add(proto);
+
+            //todo: disable SSL? but need to make sure no library uses that
+
+            ((SSLSocket)socket).setEnabledProtocols(enabled.toArray(new String[enabled.size()]));
+        }
+        return socket;
+    }
 
     /**
      * Based on http://download.oracle.com/javase/1.5.0/docs/guide/security/jsse/JSSERefGuide.html#X509TrustManager
