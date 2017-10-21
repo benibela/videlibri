@@ -34,13 +34,13 @@ Falls man nicht auf die automatische Aktualisierung warten will, kann man die Ak
 <li><b>Inkompatible HTTPS-Versionen</b>.<br>
   <p>Viele Webseiten sind mittels HTTPS verschlüsselt. Manche Bibliotheken erlauben nur neue HTTPS-Versionen (<i>insbesondere the VÖBB nur TLS 1.2</i>), die auf alten Geräte nicht unterstützt werden; während andere noch alte HTTPS-Versionen (SSL 3) verwenden, die auf neuen Geräten aus Sicherheitsgründen deaktiviert sind. VideLibri verwendet die Standard HTTPS-Version des Systems. Um diesen Fall zu untersuchen, ist es wichtig die Bibliothekswebseite im Systemstandardbrowser zu öfffnen, dies ist der Internet Explorer unter Windows, und der vorinstallierte Browser in Android. 
   <ul>
-  <li><i>Windows 8.1 oder neuer:</i> <br>Alle neue HTTPS-Versionen sollten bereits aktiviert sein. </li>
+  <li><i>Windows 8.1 oder neuer:</i> <br>Alle neuen  HTTPS-Versionen sollten bereits aktiviert sein. </li>
   <li><i>Windows 7 und Windows 8:</i> <br>TLS 1.1 und TLS 1.2 sind deaktiviert, lassen sich jedoch im  <a href="https://support.microsoft.com/de-de/help/2779122" rel="nofollow">Internet Explorer aktivieren</a>. Alternativ lässt sich OpenSSL verwenden (siehe unten). </li>
   <li><i>Windows Vista:</i> <br> TLS 1.1 und TLS 1.2 werden offiziell nicht unterstützt. Das Windows-Update <a href="https://web.archive.org/web/20170810231809/http://www.msfn.org/board/topic/176902-enabling-tls-1112-support-in-vistas-internet-explorer-9/">KB4019276</a> für TLS unter Windows Server 2008 SP2 soll jedoch auch auf Vista SP2+PU laufen. Alternativ lässt sich OpenSSL verwenden (siehe unten). </li>
   <li><i>Windows XP oder älter:</i> <br> TLS 1.1 und TLS 1.2 werden nicht unterstützt. Es kann nur auf OpenSSL ausgewichen werden (siehe unten). </li>
   <li><i>Android 5.0:</i> <br>Alle neue HTTPS-Versionen sollten bereits aktiviert sein. </li>
   <li><i>Android 4.1 bis Android 4.4:</i> <br>TLS 1.1 und TLS 1.2 sind standardmäßig deaktiviert, aber VideLibri ab Version 1.938 aktiviert beide TLS-Versionen.</li>
-  <li><i>Android 4.0 oder älter:</i> <br>Es gibt keine Möglichkeit TLS 1.1 und TLS 1.2 zu verwenden.</li>
+  <li><i>Android 4.0 oder älter:</i> <br>Es gibt keine Möglichkeit TLS 1.1 oder TLS 1.2 zu verwenden.</li>
   <li><i>Debian 10:</i> <br>Alle HTTPS-Versionen außer TLS 1.2 sollen abgeschaltet sein.</li>
   <li><i>Linux oder Mac:</i> <br>VideLibri verwendet das System OpenSSL aus den Dateien <code>libssl.so</code> und <code>libcrypto.so</code>. Sie unterstützen meistens das neue HTTPS, jedoch ist es wichtig, dass der Dateiname mit <code>.so</code> endet statt mit einer Versionsnummer wie <code>.so.1.0.1</code>. Eine Name mit Versionsnummer wird von VideLibri nicht gefunden. Man kann einen Symlink setzen, oder ein OpenSSL-Development-Paket wie <code>openssl-devel</code> (unter Fedora) oder <code>libssl-dev</code> (unter Debian/Ubuntu) installieren.   </li>
   </ul>
