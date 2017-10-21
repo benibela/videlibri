@@ -162,9 +162,8 @@ type
     procedure btnAccountCreateClick(Sender: TObject);
     procedure accountdeleteClick(Sender: TObject);
     procedure Button11Click(Sender: TObject);
-    procedure internetAccessSynapseChange(Sender: TObject);
-    procedure internetAccessSynapseChangeBounds(Sender: TObject);
-    procedure internetAccessW32Change(Sender: TObject);
+    procedure internetAccessChange(Sender: TObject);
+    procedure internetProxyChange(Sender: TObject);
     procedure libAddClick(Sender: TObject);
     procedure libChangeClick(Sender: TObject);
     procedure libDeleteClick(Sender: TObject);
@@ -206,11 +205,13 @@ type
     { private declarations }
   public
     { public declarations }
+    currentSelectedItem: TListItem;
     currentSelectedAccount: TCustomAccountAccess;
     currentSelectedExtendType: TExtendType;
     function backSelect(const prompt: boolean):TCustomAccountAccess;
     procedure addAccount(const account: TCustomAccountAccess);
     procedure addUserLibrary(lib: TLibrary);
+    procedure checkUncommitedAccountChange;
   end;
 
 var
@@ -370,18 +371,24 @@ begin
   end;
 
   //Internetpage
-  {$IFNDEF WINDOWS}internetAccessW32.Enabled := false;{$endif}
-  case userConfig.readInteger('access','internet-backend',0) of
-    0: {$IFDEF WINDOWS}internetAccessW32.Checked := True{$ELSE}internetAccessSynapse.Checked := True{$endif};
-    1: internetAccessW32.Checked := True;
-    2: internetAccessSynapse.Checked := True;
-  end;
-
+  checkCertificates.Checked:=userConfig.ReadBool('access', 'checkCertificates', true);
   case userConfig.readInteger('access','internet-type',0) of
     0: internetWindows.Checked:=true;
     1: internetDirect.Checked:=true;
     2: internetProxy.Checked:=true;
   end;
+  {$IFDEF WINDOWS}
+  case userConfig.readInteger('access','internet-backend',0) of
+    0, 1: internetAccessW32.Checked := True;
+    2: internetAccessSynapse.Checked := True;
+  end;
+  {$else}
+  internetAccessW32.Enabled := false;
+  internetAccessSynapse.Checked := true;
+  {$endif}
+  internetAccessChange(self);
+  internetProxyChange(internetProxy);
+
   proxyHTTPName.Text:=userConfig.ReadString('access','httpProxyName','');
   proxyHTTPPort.Text:=userConfig.ReadString('access','httpProxyPort','');
   proxyHTTPSname.Text:=userConfig.ReadString('access','httpsProxyName','');
@@ -393,7 +400,6 @@ begin
     1: homepageDefaultBrowser.Checked:=true;
   end;
   autoUpdate.checked:=userConfig.ReadInteger('updates','auto-check',1)=1;
-  checkCertificates.Checked:=userConfig.ReadBool('access', 'checkCertificates', true);
 
   //Mail
   mailProgram.Text := userConfig.ReadString('Mail', 'Sendmail', 'sendmail -i -f "$from" $to');
@@ -716,6 +722,9 @@ var
   lib: TLibrary;
 begin
   if not Selected then exit;
+  if TCustomAccountAccess(item.data) <> currentSelectedAccount then
+     checkUncommitedAccountChange;
+  currentSelectedItem := item;
   currentSelectedAccount:=TCustomAccountAccess(item.data);
   lib := currentSelectedAccount.getLibrary();
   lblAccountLibrary.Caption:=lib.prettyNameLong;
@@ -756,23 +765,25 @@ procedure ToptionForm.btnAccountChangeClick(Sender: TObject);
 var item:TListItem;
     lib: TCustomAccountAccess;
 begin
-  item:=accountList.Selected;
-  lib:=(accounts[item.Index]);
-  if edtAccountPass.text<>accountList.Selected.SubItems[1] then
+  if not Assigned(currentSelectedItem) or not assigned(currentSelectedAccount) then exit;
+
+  item:=currentSelectedItem;
+  lib:=currentSelectedAccount;
+  if edtAccountPass.text<>item.SubItems[1] then
     lib.password:=edtAccountPass.text;
-  if edtAccountPrettyName.text<>accountList.Selected.Caption then
+  if edtAccountPrettyName.text<>item.Caption then
     lib.prettyName:=edtAccountPrettyName.text;
-  if ckbAccountHistory.Checked<>(accountList.Selected.SubItems[2]='ja') then
+  if ckbAccountHistory.Checked<>(item.SubItems[2]=rsYes) then
     lib.keepHistory:=ckbAccountHistory.Checked;
 
   lib.extendType:=currentSelectedExtendType;
   lib.extendDays:=StrToInt(edtAccountExtendDays.Text);
   lib.enabled:=not ckbAccountDisabled.Checked;
-  if not lib.enabled then accountList.selected.SubItems[3]:=rsDisabled
+  if not lib.enabled then item.SubItems[3]:=rsDisabled
   else case currentSelectedExtendType of
-    etAlways: accountList.selected.SubItems[3]:=rsAlways;
-    etAllDepends, etSingleDepends: accountList.selected.SubItems[3]:=Format(rsBeforeDue, [IntToStr(currentSelectedAccount.extendDays)]);
-    etNever: accountList.selected.SubItems[3]:=rsNever;
+    etAlways: item.SubItems[3]:=rsAlways;
+    etAllDepends, etSingleDepends: item.SubItems[3]:=Format(rsBeforeDue, [IntToStr(currentSelectedAccount.extendDays)]);
+    etNever: item.SubItems[3]:=rsNever;
   end;
   if accountType.Visible then
     lib.accountType := accountType.ItemIndex + 1;
@@ -796,6 +807,8 @@ procedure ToptionForm.btnAccountCreateClick(Sender: TObject);
 var newAccount:TnewAccountWizard;
     i:integer;
 begin
+  checkUncommitedAccountChange;
+
   newAccount:=TnewAccountWizard.Create(nil);
   if (accountList.Selected=nil) or (accountList.Selected.Caption<>edtAccountPrettyName.Text) then begin
     newAccount.accountName.Text:=edtAccountUser.text;
@@ -865,27 +878,22 @@ begin
   end;
 end;
 
-procedure ToptionForm.internetAccessSynapseChange(Sender: TObject);
+procedure ToptionForm.internetAccessChange(Sender: TObject);
 begin
-  if internetAccessSynapse.Checked then begin
-    internetWindows.Enabled := false;
-    checkCertificates.Enabled := false;
-    checkCertificates.Checked:=false;
-  end;
+  internetWindows.Enabled := internetAccessW32.Checked;
+  if internetWindows.Checked and not internetWindows.Enabled then internetDirect.Checked := true;
+  checkCertificates.Enabled := internetAccessW32.Checked;
+  checkCertificates.Checked := checkCertificates.Enabled; //and userConfig.ReadBool('access', 'checkCertificates', true)
 end;
 
-procedure ToptionForm.internetAccessSynapseChangeBounds(Sender: TObject);
+procedure ToptionForm.internetProxyChange(Sender: TObject);
 begin
-
-end;
-
-procedure ToptionForm.internetAccessW32Change(Sender: TObject);
-begin
-  if internetAccessW32.Checked then begin
-    internetWindows.Enabled := true;
-    checkCertificates.Enabled := true;
-    checkCertificates.Checked:=userConfig.ReadBool('access', 'checkCertificates', true);
-  end;
+ proxyHTTPName.Enabled := internetProxy.Checked;
+ proxyHTTPSname.Enabled := internetProxy.Checked;
+ proxySocksName.Enabled := internetProxy.Checked;
+ proxyHTTPPort.Enabled := internetProxy.Checked;
+ proxyHTTPSport.Enabled := internetProxy.Checked;
+ proxySocksPort.Enabled := internetProxy.Checked;
 end;
 
 procedure ToptionForm.libAddClick(Sender: TObject);
@@ -1034,21 +1042,33 @@ begin
   libraryManager.reloadTemplate(templateName.Text);
 end;
 
+procedure ToptionForm.checkUncommitedAccountChange;
+var
+  account: TCustomAccountAccess;
+begin
+  if (accountList.Selected = nil) or (currentSelectedItem = nil) then exit;
+  account := currentSelectedAccount;
+  if account = nil then exit;
+
+  if    (edtAccountPrettyName.Text<>account.prettyName)
+     or (edtAccountUser.Text <> account.getUser())
+     or (edtAccountPass.Text <> account.passWord)
+     or (ckbAccountHistory.Checked <> account.keepHistory)
+     or (currentSelectedExtendType <> account.extendType)
+     or ( (currentSelectedExtendType in [etAllDepends,etSingleDepends])
+          and (StrToInt(edtAccountExtendDays.text)<> account.extendDays) )
+     or (accountType.Visible and ( accountType.ItemIndex <> currentSelectedAccount.accountType - 1) )
+  then
+    if MessageDlg(rsAccountChange, Format(rsAccountSaveConfirm, [#13#10]), mtConfirmation,mbYesNo,0) = mrYes then
+      btnAccountChange.Click;
+  currentSelectedItem := nil;
+  currentSelectedAccount := nil;
+end;
+
 procedure ToptionForm.Button2Click(Sender: TObject);
 begin
-  if Notebook1.ActivePageComponent=pageAccount then begin
-    if (accountList.Selected<>nil) and
-       (edtAccountUser.Text=accountList.Selected.SubItems[0]) and (
-         (edtAccountPrettyName.Text<>accountList.Selected.Caption) or
-         (edtAccountPass.Text<>accountList.Selected.SubItems[1]) or
-         (ckbAccountHistory.Checked<>(accountList.Selected.SubItems[2]='ja')) or
-         (currentSelectedExtendType<>TCustomAccountAccess(accountList.Selected.Data).extendType) or (
-           (currentSelectedExtendType in [etAllDepends,etSingleDepends]) and
-           (StrToInt(edtAccountExtendDays.text)<>TCustomAccountAccess(accountList.Selected.Data).extendDays))) then
-       if MessageDlg(rsAccountChange, Format(rsAccountSaveConfirm, [#13#10]),
-          mtConfirmation,mbYesNo,0)=mrYes then
-        btnAccountChange.Click;
-  end;
+  if Notebook1.ActivePageComponent=pageAccount then
+    checkUncommitedAccountChange;
   button3.Click;
 end;
 
