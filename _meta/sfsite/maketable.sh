@@ -120,7 +120,8 @@ xidel --xquery '
                else (),
                [local:test-result("search", @search, () ), local:test-result("account", @account, ())],
                [@comment ! <span class="text">Kommentar der Bibliothek: "{data()}"</span>],
-               [@text ! <span class="text">{($texts(.), data())[1]}</span>]
+               [@text ! <span class="text">{($texts(.), data())[1]}</span>],
+               [text ! <span class="text">{node()}</span>]
               )
              for $row at $i in $rows[exists(.())]
              return 

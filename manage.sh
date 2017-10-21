@@ -233,7 +233,7 @@ downloadTable)
   
 
   help)
-    wine /migration/migration/p/programming/htmlHelpWorkshop/HHC.EXE _meta/help/videlibri.hhp 
+    wine "/home/theo/.wine/drive_c/Programme/HTML Help Workshop/hhc.exe" _meta/help/videlibri.hhp 
     mv _meta/videlibri.chm data/
     cd _meta/help
     webUpload *.css *.gif *.html /help/

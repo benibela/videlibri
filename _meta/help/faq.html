@@ -6,7 +6,7 @@
 <div class="main">
 <h1>Fragen und Antworten</h1>
 <a href="#caching">Warum behauptet das Programm, dass Bücher (über-)fällig sind, die ich bereits abgegeben habe?</a><br>
-<a href="#inet_failed">Warum erscheint die Fehlermeldung "Internetverbindung konnte nicht hergestellt werden"?</a>  <br>
+<a href="#inet_failed">Warum erscheint die Fehlermeldung "Bitte überprüfen Sie Ihre Internetverbindung"?</a>  <br>
 <a href="#firewall">Welche Firewalleinstellungen benötigt Videlibri?</a>                                            <br>
 <a href="#extend">Wann werden die Medien verlängert?</a>                                                            <br>
 <a href="#time">Wie erfahre ich, wann die angezeigten Medien das letzte mal aktualisiert worden sind? </a>          <br>
@@ -26,14 +26,44 @@ Falls man nicht auf die automatische Aktualisierung warten will, kann man die Ak
 
 
 <H3><a name="inet_failed">Warum erscheint die Fehlermeldung "Internetverbindung konnte nicht hergestellt werden" oder "Bitte überprüfen Sie Ihre Internetverbindung"?</a></H3>
-Diese Fehlermeldung kann viele Ursachen haben, 
-Die einfachste Möglichkeit ist, dass tatsächlich keine Internetverbindung besteht, was Sie überprüfen können, indem Sie versuchen mit einem Internetbrowser eine Seite aufzurufen.<br>
-Kann keine Seite geöffnet werden, so sollten Sie die üblichen Fehlermöglichkeiten wie Verbindungseinstellungen, Kabel, usw. überprüfen, und sich, wenn das nichts bringt, an ihren Netzwerkadministrator wenden.<br>
-Funktioniert die normalen Zugriffevarianten, überprüfen Sie bitte als nächstes Ihre <a href="#firewall">Firewalleinstellungen</a>. (Wissen Sie nicht, wie das geht, fragen Sie bitte ihren Netzwerkadmin oder den Computerexperten um die Ecke)<br>
-Sind diese in Ordnung, versuchen Sie am besten die Büchereiseiten im Internetbrowser aufzurufen. Es kann nämlich vorkommen, dass diese auf Grund von Wartungsarbeiten nicht verfügbar sind.<br>
-Falls sich deren Seiten aufrufen lassen, sollten Sie die Interneteinstellung im Menü Extras\Einstellungen (Ctrl+E) überprüfen. Unter Windows übernimmt VideLibri standardmäßig die Interneteinstellungen des Internet Explorers. Falls Sie einen anderen Browser mit anderen Proxyeinstellungen verwenden, können Sie die entsprechenden Konfigurationen in den Einstellungen von VideLibri eingeben.  <br>
-Häufig gibt es Probleme, dass der Internet Explorer sich weigert, die HTTPS-Zertifikate der Bibliothek zu akzeptieren, da diese Zertifikate veraltet sind und als unsicher gelten. In diesen Fällen hilft es in den erweiterten Einstellungen des Internet Explorers (nicht den Einstellungen von VideLibri) SSL und TLS zu aktivieren. Startet man VideLibri nach dem Ändern der Einstellungen im Internet Explorers, übernimmt VideLibri diese Einstellungen und kann die Bibliothekseite aufrufen. Alternativ kann man in den Interneteinstellungen von VideLibri "Synapse" auswählen. In diesem Fall wird der Internet Explorer ignoriert und VideLibri stellt die Verbindung zur Bibliothek direkt her. Es muss allerdings nun zusätzlich <a href="https://slproweb.com/products/Win32OpenSSL.html">OpenSSL (Windowsversion)</a> installiert werden. Unter Linux wird immer Synapse verwendet, und es muss immer die Developmentversion von OpenSSL installiert sein. <br>
-Nutzt dies alles nichts, gibt es wahrscheinlich einen Programmierfehler, den Sie über das Menü "Hilfe\Fehler melden" (oder in der Androidversion "Feedback") bekannt geben können, und der dann (hoffentlich schnell) von mir gelöst wird.
+
+<p>Diese Fehlermeldung kommt, wenn VideLibri die Webseite des Bibliothekskatalogs nicht aufrufen kann. Dies kann verschiedene Ursachen haben. Der hilfreichste Schritt unter Windows ist es die Bibliothekswebseite im <em>Internet Explorer zu öffnen</em>. VideLibri verwendet unter Windows standardmäßig dieselbe Konfiguration wie der Internet Explorer, so dass wenn der Internet Explorer nicht richtig konfiguriert ist, VideLibri nicht funktionieren kann, auch wenn andere Browser laufen.
+</p>
+
+<ul>
+<li><b>Inkompatible HTTPS-Versionen</b>.<br>
+  <p>Viele Webseiten sind mittels HTTPS verschlüsselt. Manche Bibliotheken erlauben nur neue HTTPS-Versionen (<i>insbesondere the VÖBB nur TLS 1.2</i>), die auf alten Geräte nicht unterstützt werden; während andere noch alte HTTPS-Versionen (SSL 3) verwenden, die auf neuen Geräten aus Sicherheitsgründen deaktiviert sind. VideLibri verwendet die Standard HTTPS-Version des Systems. Um diesen Fall zu untersuchen, ist es wichtig die Bibliothekswebseite im Systemstandardbrowser zu öfffnen, dies ist der Internet Explorer unter Windows, und der vorinstallierte Browser in Android. 
+  <ul>
+  <li><i>Windows 8.1 oder neuer:</i> <br>Alle neue HTTPS-Versionen sollten bereits aktiviert sein. </li>
+  <li><i>Windows 7 und Windows 8:</i> <br>TLS 1.1 und TLS 1.2 sind deaktiviert, lassen sich jedoch im  <a href="https://support.microsoft.com/de-de/help/2779122" rel="nofollow">Internet Explorer aktivieren</a>. Alternativ lässt sich OpenSSL verwenden (siehe unten). </li>
+  <li><i>Windows Vista:</i> <br> TLS 1.1 und TLS 1.2 werden offiziell nicht unterstützt. Das Windows-Update <a href="https://web.archive.org/web/20170810231809/http://www.msfn.org/board/topic/176902-enabling-tls-1112-support-in-vistas-internet-explorer-9/">KB4019276</a> für TLS unter Windows Server 2008 SP2 soll jedoch auch auf Vista SP2+PU laufen. Alternativ lässt sich OpenSSL verwenden (siehe unten). </li>
+  <li><i>Windows XP oder älter:</i> <br> TLS 1.1 und TLS 1.2 werden nicht unterstützt. Es kann nur auf OpenSSL ausgewichen werden (siehe unten). </li>
+  <li><i>Android 5.0:</i> <br>Alle neue HTTPS-Versionen sollten bereits aktiviert sein. </li>
+  <li><i>Android 4.1 bis Android 4.4:</i> <br>TLS 1.1 und TLS 1.2 sind standardmäßig deaktiviert, aber VideLibri ab Version 1.938 aktiviert beide TLS-Versionen.</li>
+  <li><i>Android 4.0 oder älter:</i> <br>Es gibt keine Möglichkeit TLS 1.1 und TLS 1.2 zu verwenden.</li>
+  <li><i>Debian 10:</i> <br>Alle HTTPS-Versionen außer TLS 1.2 sollen abgeschaltet sein.</li>
+  <li><i>Linux oder Mac:</i> <br>VideLibri verwendet das System OpenSSL aus den Dateien <code>libssl.so</code> und <code>libcrypto.so</code>. Sie unterstützen meistens das neue HTTPS, jedoch ist es wichtig, dass der Dateiname mit <code>.so</code> endet statt mit einer Versionsnummer wie <code>.so.1.0.1</code>. Eine Name mit Versionsnummer wird von VideLibri nicht gefunden. Man kann einen Symlink setzen, oder ein OpenSSL-Development-Paket wie <code>openssl-devel</code> (unter Fedora) oder <code>libssl-dev</code> (unter Debian/Ubuntu) installieren.   </li>
+  </ul>
+  
+  <p>Statt den Internet Explorer zu verwenden, kann VideLibri auch <em>unter Windows OpenSSL verwenden</em>. Dazu muss man zuerst OpenSSL <a href="https://slproweb.com/products/Win32OpenSSL.html">herunterladen und installieren</a>. Dann kann man in VideLibri unter Extras / Einstellungen / Internet das Internetbackend "Synapse" auswählen, und sollte VideLibri neustarten.  <br>
+  Wenn man Synapse auswählt ohne OpenSSL zu installieren oder OpenSSL nicht gefunden werden kann, kommt immer wieder die "Überprüfen Sie Ihre Internetverbindung"-Meldung.
+  </p>
+</li>
+<li><b>Inkompatibles HTTPS-Zertifikat</b><br><p>
+Eine HTTPS-verschlüsselte Webseite benötigt ein Zertifikat mit dem ein Zertifikataussteller bescheinigt, dass es sich wirklich um die Seite der Bibliothek handelt. Die Webseite lässt sich nur öffnen, wenn das Zertifikat gültig ist und der Zertifikataussteller dem System bekannt ist. Vor allem alte Systeme kennen keine neuen Zertifikataussteller und akzeptieren daher auch manche gültige Zertifikate/Webseiten nicht. <br>
+In den Interneteinstellung der Desktop-Version kann man das SSL-Zertifikat überprüfen abschalten. In der Androidversion muss man auf ein Update warten. VideLibri kommt mit einer Liste von Zertifikaten, die akzeptiert werden (z.B.: für Stadtbüchereien Koblenz und München), obwohl der Zertifikataussteller unter Android nicht bekannt ist. Diese Liste muss regelmäßig aktualisiert werden, wenn die Bibliotheken ein neues Zertifikat einführen.
+</p></li>
+<li><b>Der Bibliotheksserver ist zu Wartungsarbeiten abgeschaltet</b><br><p>
+Bibliothekswebseiten sind oft nicht zu erreichen, da viele Bibliotheken ihre Webseite nachts abschalten oder Wartungsarbeiten durchführen (bei den VÖBB zum Beispiel regelmäßig alle 14 Tage). In dem Fall kann man nur warten, bis die Bibliothek ihren OPAC wieder einschaltet.
+</p></li>
+<li><b>Eine Firewall blockiert VideLibri</b><br><p>
+Die Ports 80 und 443 müssen in der Firewall freigegeben werden.
+</p></li>
+<li><b>Keine Internetverbindung</b><br><p>
+Womöglich besteht einfach keine Internetverbindung. Dann muss man die Kabel überprüfen, oder sich neu ins WLAN einloggen.
+</p></li>
+
+
 
 <H3><a name="firewall">Welche Firewalleinstellungen benötigt Videlibri?</a></H3>
 VideLibri greift auf die Server der Büchereien unter den Porten 80, und 443 zu, welche dementsprechend freigegeben sein müssen.<br>
