@@ -127,7 +127,7 @@ public class BookListActivity extends VideLibriBaseFragmentActivity{
                 if (i >= bookCache.size() || bookCache.get(i) == null) return;
                 if (groupingKey != "") {
                     Bridge.Book book = bookCache.get(i);
-                    if (book.isGroupingHeaderFakeBook()) return; //grouping header
+                    if (BookFormatter.isGroupingHeaderFakeBook(book)) return; //grouping header
                 }
                 viewDetails(i);
             }
@@ -157,7 +157,7 @@ public class BookListActivity extends VideLibriBaseFragmentActivity{
 
     public void showDetails(int bookpos){
         if (bookpos < 0 || bookpos >= bookCache.size()) return;
-        while (bookCache.get(bookpos).isGroupingHeaderFakeBook()) {
+        while (BookFormatter.isGroupingHeaderFakeBook(bookCache.get(bookpos))) {
             bookpos++;
             if (bookpos >= bookCache.size()) return;
         }

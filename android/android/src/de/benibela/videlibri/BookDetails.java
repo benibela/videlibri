@@ -184,7 +184,7 @@ public class BookDetails extends VideLibriFakeFragment {
                         holder.text.setText(d.data);
                         int c =  defaultColor;
                         if (trStatus.equals(d.name) || trDueDate.equals(d.name)){
-                            c = book.getStatusColor();
+                            c = BookFormatter.getStatusColor(book);
                             if (c == -1) c = defaultColor;
                         }
                         holder.text.setTextColor(c);

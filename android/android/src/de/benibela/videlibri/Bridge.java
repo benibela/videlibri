@@ -93,30 +93,6 @@ public class Bridge {
             return title; //used for copy to clipboard. where else? todo: probably add author
         }
 
-        int getStatusColor(){
-            int c = Color.GREEN;
-            if (this.history) c = -1;
-            else if ((account != null || more == VideLibri.crazyHeaderHack)  && dueDate != null && this.dueDate.pascalDate - currentPascalDate <= 3)
-                c = Color.RED;
-            else switch (getStatus()){
-                //lend
-                case Normal: return Color.GREEN;
-                case Problematic: return Color.YELLOW;
-                case Ordered: return Color.CYAN;
-                case Provided: return Color.MAGENTA;
-                //search
-                case Available: return Color.GREEN;
-                case Lend: return Color.RED;
-                case Virtual: return Color.CYAN;
-                case Presentation: return Color.RED;
-                case InterLoan: return Color.RED;
-
-
-                default: return Color.YELLOW; //Template did not set status. Assume not renewable
-            }
-            return c;
-        }
-
         enum StatusEnum { Unknown, Normal, Problematic, Ordered, Provided,
                           Available, Lend, Virtual, Presentation, InterLoan};
 
@@ -161,9 +137,6 @@ public class Bridge {
             return cancelable == null || !"false".equals(cancelable);
         }
 
-        boolean isGroupingHeaderFakeBook(){
-            return more == VideLibri.crazyHeaderHack;
-        }
 
         //called from Videlibri midend
         void setProperty(String name, String value){

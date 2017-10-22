@@ -133,14 +133,14 @@ public class VideLibriApp extends Application implements Bridge.VideLibriContext
         boolean hasYellow = false;
         if (currentActivity instanceof VideLibri) {
             for (Bridge.Book book: ((VideLibri)currentActivity).primaryBookCache)
-                switch (book.getStatusColor()) {
+                switch (BookFormatter.getStatusColor(book)) {
                     case Color.RED: hasRed = true; break;
                     case Color.YELLOW: hasYellow = true; break;
                 }
         } else {
             for (Bridge.Account facc: VideLibriApp.accounts)
                 for (Bridge.Book book: Bridge.VLGetBooks(facc, false))
-                    switch (book.getStatusColor()) {
+                    switch (BookFormatter.getStatusColor(book)) {
                         case Color.RED: hasRed = true; break;
                         case Color.YELLOW: hasYellow = true; break;
                     }

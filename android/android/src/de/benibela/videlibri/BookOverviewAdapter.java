@@ -25,13 +25,18 @@ class BookOverviewAdapter extends ArrayAdapter<Bridge.Book> {
     private Bridge.Book placeHolder;
     private int completeCount;
     private final EnumSet<DisplayEnum> options;
-    private final String tr_booklist_from, tr_provided, tr_ordered;
+
 
     enum DisplayEnum {
         NoDetails,
         Grouped,
         ShowRenewCount
     };
+
+    static class ViewHolder {
+        public TextView caption, date, more;
+        public View layout;
+    }
 
 
     BookOverviewAdapter(BookListActivity context, ArrayList<Bridge.Book> books, int completeCount, EnumSet<DisplayEnum> options){
@@ -50,58 +55,9 @@ class BookOverviewAdapter extends ArrayAdapter<Bridge.Book> {
         placeHolder.author = context.getString(R.string.booklist_loading);
 
 
-        tr_booklist_from = context.getString(R.string.booklist_from);
-        tr_provided = context.getString(R.string.book_status_provided);
-        tr_ordered = context.getString(R.string.book_status_ordered);
-    }
-
-
-    static class ViewHolder {
-        public TextView caption, date, more;
-        public View layout;
-    }
-
-    private String shortened(String s){
-        if (s.length() < 300) return s;
-        else return s.substring(0,300) + "...";
-    }
-
-    String getBookMoreText(Bridge.Book book){
-        String more = "";
-        if (!book.author.trim().equals(""))
-            if (!book.author.startsWith("von") && !book.author.startsWith("by")) more = tr_booklist_from + " " + shortened(book.author);
-            else more = " " + shortened(book.author);
-        String year = book.getProperty("year");
-        if (year != null && !"".equals(year)) more += " ; " + year;
-        String id = book.getProperty("id");
-        if (id != null && !"".equals(id)) more += " ; " + id;
-        return more;
-    }
-
-    String getBookDateText(Bridge.Book book){
-        if (book.account != null && !book.history ) { //lend book
-            switch (book.getStatus()) {
-                case Provided:  return tr_provided;
-                case Ordered:  return tr_ordered;
-                default:
-                    String t = Util.formatDate(book.dueDate);
-                    if (options.contains(DisplayEnum.ShowRenewCount)) {
-                        String renewCount = book.getProperty("renewCount");
-                        if (!"".equals(renewCount) && !"0".equals(renewCount)) t = renewCount + "V " + t;
-                    }
-                    return t;
-            }
-        } else {
-            String s = "";
-            switch (book.getStatus()) {
-                case Available: s = "V"; break;
-                case Lend: s = "X"; break;
-                case Virtual: s = "?"; break;
-                case Presentation: s = "X"; break;
-                case InterLoan: s = "X"; break;
-            }
-            return s;
-        }
+        BookFormatter.tr_booklist_from = context.getString(R.string.booklist_from);
+        BookFormatter.tr_provided = context.getString(R.string.book_status_provided);
+        BookFormatter.tr_ordered = context.getString(R.string.book_status_ordered);
     }
 
 
@@ -120,13 +76,13 @@ class BookOverviewAdapter extends ArrayAdapter<Bridge.Book> {
         }
         ViewHolder holder = (ViewHolder) view.getTag();
         Bridge.Book book = getItem(position);
-        boolean isGroupingHeader = options.contains(DisplayEnum.Grouped) && book.isGroupingHeaderFakeBook();
-        holder.caption.setText(shortened(book.title));
+        boolean isGroupingHeader = options.contains(DisplayEnum.Grouped) && BookFormatter.isGroupingHeaderFakeBook(book);
+        holder.caption.setText(BookFormatter.shortened(book.title));
         if (options.contains(DisplayEnum.Grouped)) {
             if (isGroupingHeader) {
                 holder.caption.setTypeface(holder.caption.getTypeface(), Typeface.BOLD);
                 holder.caption.setGravity(Gravity.CENTER_HORIZONTAL);
-                holder.caption.setTextColor(book.getStatusColor());
+                holder.caption.setTextColor(BookFormatter.getStatusColor(book));
             } else {
                 holder.caption.setTypeface(holder.caption.getTypeface(), Typeface.NORMAL);
                 holder.caption.setGravity(Gravity.NO_GRAVITY);
@@ -142,7 +98,7 @@ class BookOverviewAdapter extends ArrayAdapter<Bridge.Book> {
             if  (options.contains(DisplayEnum.Grouped))
                 holder.more.setVisibility(isGroupingHeader ? View.GONE : View.VISIBLE);
             if (!isGroupingHeader) {
-                holder.more.setText(getBookMoreText(book));
+                holder.more.setText(BookFormatter.getBookMoreText(book));
             }
         }
 
@@ -154,9 +110,9 @@ class BookOverviewAdapter extends ArrayAdapter<Bridge.Book> {
             else holder.layout.setBackgroundColor(defaultBackgroundColor);
         }
 
-        holder.date.setText(getBookDateText(book));
+        holder.date.setText(BookFormatter.getBookDateText(book, options));
 
-        int c = book.getStatusColor();
+        int c = BookFormatter.getStatusColor(book);
         if (c == -1) c = defaultColor;
         //holder.caption.setTextColor(c);
         //holder.more.setTextColor(c);
@@ -189,7 +145,7 @@ class BookOverviewAdapter extends ArrayAdapter<Bridge.Book> {
         StringBuilder sb = new StringBuilder();
         for (int i=0;i<books.size();i++) {
             Bridge.Book book = books.get(i);
-            boolean isGroupingHeader = options.contains(DisplayEnum.Grouped) && book.isGroupingHeaderFakeBook();
+            boolean isGroupingHeader = options.contains(DisplayEnum.Grouped) && BookFormatter.isGroupingHeaderFakeBook(book);
             if (isGroupingHeader && i != 0) {
                 sb.append(newline);
                 sb.append(newline);
@@ -197,10 +153,10 @@ class BookOverviewAdapter extends ArrayAdapter<Bridge.Book> {
             sb.append(book.title);
             sb.append(" ");
             if (!isGroupingHeader && !options.contains(DisplayEnum.NoDetails))
-                sb.append(getBookMoreText(book));
+                sb.append(BookFormatter.getBookMoreText(book));
             if (!book.history) {
                 sb.append(": ");
-                sb.append(getBookDateText(book));
+                sb.append(BookFormatter.getBookDateText(book, options));
             }
             sb.append(newline);
             sb.append(newline);
