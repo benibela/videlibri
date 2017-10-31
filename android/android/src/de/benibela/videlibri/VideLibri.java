@@ -391,11 +391,13 @@ public class VideLibri extends  BookListActivity{
                     i++;
                 }
                 if (groupHeader != null) {
-                    if (!b.history) groupHeader.history = false;
-                    if (compareStatus(groupHeader.getStatus(), b.getStatus()) > 0)
-                        groupHeader.setStatus(b.getStatus());
-                    if (b.dueDate != null && (groupHeader.dueDate == null || groupHeader.dueDate.pascalDate > b.dueDate.pascalDate))
-                        groupHeader.dueDate = b.dueDate;
+                    if (!b.history) {
+                        groupHeader.history = false;
+                        if (compareStatus(groupHeader.getStatus(), b.getStatus()) > 0)
+                            groupHeader.setStatus(b.getStatus());
+                        if (b.dueDate != null && (groupHeader.dueDate == null || groupHeader.dueDate.pascalDate > b.dueDate.pascalDate))
+                            groupHeader.dueDate = b.dueDate;
+                    }
                 }
             }
         }
