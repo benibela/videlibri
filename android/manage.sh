@@ -1,23 +1,24 @@
 #!/bin/bash
-
-if [ -z "$JAVA_HOME" ]; then
-#JAVA_HOME=/usr/lib/jvm/java-6-sun-1.6.0.26/jre 
-#JAVA_HOME=/usr/lib/jvm/java-7-oracle/jre 
-if [ -d /usr/lib/jvm/java-8-oracle/jre ]; then
-JAVA_HOME=/usr/lib/jvm/java-8-oracle/jre 
-else echo Failed to find java. Set JAVA_HOME variable; exit
-fi
-fi
-export JAVA_HOME
-
 if [ -z "$ANDROID_HOME" ]; then
-if [ -d ~/opt/android-sdk-linux/platform-tools/ ]; then
-export ANDROID_HOME=~/opt/android-sdk-linux/
-else echo Failed to find Android SDK. Set ANDROID_HOME variable; exit
+  if [ -d ~/opt/android/sdk/platform-tools/ ]; then ANDROID_HOME=~/opt/android/sdk/
+  else echo Failed to find Android SDK. Set ANDROID_HOME variable; exit
+  fi
+  if [ -d ~/opt/android/studio/jre ]; then JAVA_HOME=~/opt/android/studio/jre; fi
 fi
+if [ -z "$JAVA_HOME" ]; then
+  if [ -d ~/opt/android/studio/jre ]; then JAVA_HOME=~/opt/android/studio/jre 
+  else echo Failed to find java. Set JAVA_HOME variable; exit
+  fi
 fi
-export ANDROID_HOME
+
 ADB=$ANDROID_HOME/platform-tools/adb
+
+export ANDROID_HOME
+export JAVA_HOME
+export JRE_HOME="$JAVA_HOME"
+export JDK_HOME="$JAVA_HOME"
+export JAVA_ROOT="$JAVA_HOME"
+export JAVA_BINDIR="$JAVA_HOME/bin"
 
 
 if [ -z "$FPC_DIRECTORY" ]; then 
