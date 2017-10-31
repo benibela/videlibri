@@ -31,6 +31,9 @@ andere server außer abderos: eris, metis, rhea, thetis
     <page url="{$request}"/>
     <pattern><t:switch prioritized="true">
       <div class="uic-error" t:condition="$datasend">
+        <span class="requestError">The benutzername or passwort is invalid<t:s>vl:raise-login(.)</t:s></span>
+      </div>
+      <div class="uic-error" t:condition="$datasend">
         <span class="requestError">{vl:raise(.)}</span>
       </div>
     

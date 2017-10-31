@@ -15,7 +15,10 @@
       <post name="Username" value="{$username}"/>
       <post name="Password" value="{$password}"/>
     </page>
-    <pattern><body><div class="alert alert-danger">{vl:raise(.)}</div>?</body></pattern>
+    <pattern><body><div class="alert alert-danger">{
+    string() ! (if (matches(., "Anmeldung fehlgeschlagen")) then vl:raise-login(.)
+    else vl:raise(.))
+    }</div>?</body></pattern>
     <s>loggedIn := true()</s>
   </if>
 </action>

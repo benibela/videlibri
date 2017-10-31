@@ -102,7 +102,10 @@
   Systemmeldung|System Nachricht|Exception Message
   <p>Ihre Anforderung konnte|Your process</p>
   <blockquote>
-    <ul><template:read var="raise()" source="deep-text()"/></ul>
+    <ul>{
+     string() ! (if (matches(., "Ungültige Benutzernummer|Invalid user number")) then vl:raise-login(.)
+     else vl:raise(.))
+    }</ul>
   </blockquote>
 </form>
 

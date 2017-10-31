@@ -18,7 +18,10 @@
   <pattern><t:switch prioritized="true">
     <a class="logout" t:condition="not(x:split-equal(../@class, 'hide'))"></a>
     <div id="loginMaskForm">
-      <div class="error"><t:s>vl:raise(.)</t:s></div>
+      <div class="error"><t:s>
+       string() ! (if (matches(., "Ungültige Loginangaben")) then vl:raise-login(.)
+       else vl:raise(.))
+      </t:s></div>
       <form name="loginForm" id="loginForm"/>
     </div>
     </t:switch>

@@ -89,6 +89,9 @@
 
 
 <table summary="Message block header">
-<strong class="alert"><t:read var="raise()" source="deep-text()"/></strong>
+<strong class="alert">{
+  string() ! (if (contains(., "Nummer und/oder Passwort sind nicht korrekt.")) then vl:raise-login(.)
+  else vl:raise(.))
+}</strong>
 </table>
 </t:switch-prioritized>
