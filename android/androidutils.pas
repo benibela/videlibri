@@ -355,7 +355,7 @@ begin
   //bbdebugtools.log(strFromPtr(libraryManager));
   //bbdebugtools.log(IntToStr(libraryManager.count));
   try
-    template := libraryManager.getTemplate(j.jStringToStringAndDelete(id));
+    template := libraryManager.getTemplate(j.jStringToString(id));
     if template = nil then exit(nil);
     meta := nil;
     for i := 0 to high(template.baseActions.children) do
@@ -418,7 +418,7 @@ begin
   //bbdebugtools.log(strFromPtr(libraryManager));
   //bbdebugtools.log(IntToStr(libraryManager.count));
   try
-    libId := j.jStringToStringAndDelete(id);
+    libId := j.jStringToString(id);
     lib := libraryManager.get(libId);
     if lib = nil then exit(nil);
     detailClass := j.getclass('de/benibela/videlibri/Bridge$LibraryDetails');
@@ -460,7 +460,7 @@ begin
   //bbdebugtools.log(strFromPtr(libraryManager));
   //bbdebugtools.log(IntToStr(libraryManager.count));
   try
-    libid := j.jStringToStringAndDelete(id);
+    libid := j.jStringToString(id);
     if details = nil then begin
       //null means delete
       libraryManager.deleteUserLibrary(libid);
@@ -536,7 +536,7 @@ var
 begin
   if logging then bbdebugtools.log('de.benibela.VideLibri.Bride.VLInstallLibrary (started)');
   try
-    surl := j.jStringToStringAndDelete(url);
+    surl := j.jStringToString(url);
     TInstallLibraryThread.Create(surl).Start;
   except
     on e: Exception do j.ThrowNew('de/benibela/videlibri/Bridge$InternalError', 'Interner Fehler: '+e.Message);
@@ -1352,7 +1352,7 @@ var
 begin
   if logging then log('Bridge_VLSearchConnect started');
   try
-    libId:=j.jStringToStringAndDelete(libJid);
+    libId:=j.jStringToString(libJid);
 
     lib := libraryManager.get(libId);
     if lib = nil then begin
@@ -1686,7 +1686,7 @@ begin
         flgs[i] := flgs[0];
       end;
 
-      exportAccounts(j.jStringToStringAndDelete(filename), accs, flgs);
+      exportAccounts(j.jStringToString(filename), accs, flgs);
     end;
   except
     on e: Exception do j.ThrowNew('de/benibela/videlibri/Bridge$InternalError', 'Interner Fehler: '+e.Message);
@@ -1705,7 +1705,7 @@ var
 begin
   if logging then bbdebugtools.log('de.benibela.VideLibri.Bride.VLImportAccountsPrepare (started)');
   try
-    importAccountsPrepare(j.jStringToStringAndDelete(filename), parser, accounts, flags);
+    importAccountsPrepare(j.jStringToString(filename), parser, accounts, flags);
 
     result := j.newObject(importExportDataClass, importExportDataClassInit);
 
@@ -1772,7 +1772,7 @@ begin
   EnterCriticalsection(updateThreadConfig.libraryAccessSection);
   try
     try
-      list := queryHistory(r,j.jStringToStringAndDelete(query));
+      list := queryHistory(r,j.jStringToString(query));
       result := j.newObjectArray(list.getSequenceCount, bookClass,nil);
       accs := Java_de_benibela_VideLibri_Bridge_VLGetAccounts(env,this);
       SetLength(accs2, accounts.Count);
