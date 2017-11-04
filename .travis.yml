@@ -22,10 +22,13 @@ install:
   - travis-lazarus/.travis.install.py
   - if [[ "$LAZ_ENV" = wine ]]; then find $WINEPREFIX -iname '*fpc.cfg' | head -1 | xargs -i{} ln {} ~/.fpc.cfg; ls -l ~; fi
   - if [[ ! -e ~/.fpc.cfg ]]; then echo '#INCLUDE /etc/fpc.cfg' > ~/.fpc.cfg; fi 
+  - mkdir import
   #get dependencies from sourceforge
   - hg clone http://hg.code.sf.net/p/videlibri/code sf
   - git clone https://github.com/benibela/flre.git import/flre; 
   - echo -Fu$HOME/import/flre/src/ >> ~/.fpc.cfg;
+  - ln -s ~/import/flre /home/travis/build/benibela/videlibri/components/pascal/import/flre
+  - find
 
 script:
   - lazbuild $LAZ_OPT --add-package sf/components/pascal/data/searchbarpackage.lpk
