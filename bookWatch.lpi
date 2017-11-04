@@ -328,8 +328,8 @@
     </Target>
     <SearchPaths>
       <IncludeFiles Value="../../../components/pascal/import/synapse"/>
-      <OtherUnitFiles Value="../../../components/pascal/import/synapse;../../../components/lazarus/dialogs;../../../components/lazarus/internet/sendBackError;../../../components/pascal/data;android"/>
-      <SrcPath Value="../../../components/pascal/system;$(LazarusDir)/lcl;../../../components/lazarus/internet;$(LazarusDir)/lcl/interfaces/$(LCLWidgetType)"/>
+      <OtherUnitFiles Value="../../../components/pascal/import/synapse;../../../components/lazarus/dialogs;../../../components/lazarus/internet/sendBackError;../../../components/pascal/data;../../../components/pascal/system;../../../components/pascal/internet;android;../../../components/lazarus/internet"/>
+      <SrcPath Value="$(LazarusDir)/lcl;$(LazarusDir)/lcl/interfaces/$(LCLWidgetType)"/>
     </SearchPaths>
     <Parsing>
       <SyntaxOptions>
