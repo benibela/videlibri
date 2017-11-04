@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <library>
-  <longName value="Universitätsbibliothek Konstanz  (alpha)"/>
+  <longName value="Universitätsbibliothek Konstanz"/>
 
   <template value="libero5"/>
   <variable name="baseurl" value="https://libero.ub.uni-konstanz.de/libero/"/>
