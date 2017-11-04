@@ -6,11 +6,6 @@ dist: trusty
 os:
   - linux
 
-env:
-  - LAZ_VER=1.8.0RC5 
-  - LAZ_VER=1.8RC5 
-  - android=false
-  - android=true
 
 matrix:
   include:
@@ -26,11 +21,10 @@ install:
   #get dependencies from sourceforge
   - hg clone http://hg.code.sf.net/p/videlibri/code sf
   - git clone https://github.com/benibela/flre.git import/flre; 
-  - echo "-Fuimport/flre/src/ -Fu " >> ~/.fpc.cfg;
+  - echo "-Fuimport/flre/src/" >> ~/.fpc.cfg;
 
 script:
   - lazbuild $LAZ_OPT --add-package sf/components/pascal/internettools.lpk
-  - lazbuild $LAZ_OPT --add-package sf/components/pascal/internettools_autoupdate.lpk
   - lazbuild $LAZ_OPT sf/programs/internet/xidel/xidel.lpi
   - if [[ $android = false ]]; then lazbuild $LAZ_OPT bookWatch.lpi; fi
   - if [[ $android = true ]]; then cd android; ./manage.sh build; fi
