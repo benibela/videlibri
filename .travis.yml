@@ -51,7 +51,7 @@ install:
       echo '-XParm-linux-gnueabi-' >> ~/.fpc.cfg;
       echo '-Fl/usr/arm-linux-gnueabi/lib'; >> ~/.fpc.cfg;
       echo '-Fl/usr/lib/gcc/arm-linux-gnueabi/'$gccv; >> ~/.fpc.cfg;
-      echo '-Fl/usr/lib/gcc-cross/arm-linux-gnueabi/$gccv; >> ~/.fpc.cfg;
+      echo '-Fl/usr/lib/gcc-cross/arm-linux-gnueabi/'$gccv; >> ~/.fpc.cfg;
       echo '#ENDIF'; >> ~/.fpc.cfg;
       cat ~/.fpc.cfg;
     fi
