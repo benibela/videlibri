@@ -17,14 +17,14 @@ matrix:
     - env: LAZ_VER=1.8RC5  LAZ_ENV=wine LAZ_OPT="--os=win32 --cpu=i386" android=false
     - env: LAZ_VER=1.8.0RC5  android=true FPC_VER=3.0.4 FPC_DIRECTORY=/usr/lib/fpc/$FPC_VER/
 
-
-components:
-  - tools
-  - platform-tools
-  - tools
-  - build-tools-25.0.3
-  - android-25
-  - ndk-bundle
+android:
+  components:
+    - tools
+    - platform-tools
+    - tools
+    - build-tools-25.0.3
+    - android-25
+    - ndk-bundle
 
 install:
   - git clone https://github.com/benibela/travis-lazarus travis-lazarus
