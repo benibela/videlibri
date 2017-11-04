@@ -17,6 +17,15 @@ matrix:
     - env: LAZ_VER=1.8RC5  LAZ_ENV=wine LAZ_OPT="--os=win32 --cpu=i386" android=false
     - env: LAZ_VER=1.8.0RC5  android=true FPC_VER=3.0.4 FPC_DIRECTORY=/usr/lib/fpc/$FPC_VER/
 
+
+components:
+  - tools
+  - platform-tools
+  - tools
+  - build-tools-25.0.3
+  - android-25
+  - ndk-bundle
+
 install:
   - git clone https://github.com/benibela/travis-lazarus travis-lazarus
   - travis-lazarus/.travis.install.py
@@ -53,11 +62,11 @@ install:
       echo -Fl/usr/arm-linux-androideabi/lib >> ~/.fpc.cfg;
       echo -Fl/usr/lib/gcc/arm-linux-androideabi/* >> ~/.fpc.cfg;
       echo '#ENDIF' >> ~/.fpc.cfg;
-      cat ~/.fpc.cfg;
       echo '#IFDEF CPU386' >> ~/.fpc.cfg;
       echo -Fl/usr/lib/gcc/i686-linux-gnu/* >> ~/.fpc.cfg;
       echo -Fl/usr/lib/gcc/i586-mingw32msvc/* >> ~/.fpc.cfg;
       echo '#ENDIF' >> ~/.fpc.cfg;
+      cat ~/.fpc.cfg;
     fi
   - if [[ $LAZ_ENV = wine ]]; then  
       sudo apt-get install -y dos2unix;
@@ -69,6 +78,7 @@ install:
       
       
 script:
+  - find $HOME /usr/lib -name libdl.so
   - lazbuild $LAZ_OPT --add-package components/pascal/data/searchbarpackage.lpk
   - lazbuild $LAZ_OPT --add-package components/pascal/data/treelistviewpackage.lpk
   - lazbuild $LAZ_OPT --add-package components/pascal/internettools.lpk
