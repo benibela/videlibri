@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CONFIG>
   <ProjectOptions>
-    <Version Value="9"/>
+    <Version Value="10"/>
     <PathDelim Value="\"/>
     <General>
       <SessionStorage Value="InProjectDir"/>
@@ -67,9 +67,9 @@
     <PathDelim Value="\"/>
     <SearchPaths>
       <IncludeFiles Value="$(ProjOutDir)"/>
-      <OtherUnitFiles Value="\home\benito\hg\components\pascal\data\;\home\benito\hg\programs\contests\euler\;\home\benito\hg\components\pascal\internet\;\home\benito\hg\components\lazarus\dialogs\;\home\benito\hg\components\pascal\system\;\home\benito\hg\components\pascal\import\regexpr\source\;..;\opt\lazarus\lcl\interfaces\customdrawn\android\"/>
+      <OtherUnitFiles Value="..\..\..\..\..\..\benito\hg\components\pascal\data;..\..\..\..\..\..\benito\hg\programs\contests\euler;..\..\..\..\..\..\benito\hg\components\pascal\internet;..\..\..\..\..\..\benito\hg\components\lazarus\dialogs;..\..\..\..\..\..\benito\hg\components\pascal\system;..\..\..\..\components\pascal\system"/>
       <UnitOutputDirectory Value="lib\$(TargetCPU)-$(TargetOS)"/>
-      <SrcPath Value="\home\benito\hg\components\pascal\import\synapse\;..\..\import\synapse"/>
+      <SrcPath Value="..\..\..\..\components\pascal\import\synapse"/>
     </SearchPaths>
     <Conditionals Value="if TargetCPU = 'arm' then
    CustomOptions += '-oandroid/libs/armeabi/liblclapp.so'

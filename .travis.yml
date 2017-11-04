@@ -65,9 +65,12 @@ script:
   - lazbuild $LAZ_OPT --add-package components/pascal/data/treelistviewpackage.lpk
   - lazbuild $LAZ_OPT --add-package components/pascal/internettools.lpk
   - touch programs/internet/xidel/xidelbuilddata.inc; lazbuild $LAZ_OPT programs/internet/xidel/xidel.lpi
-  - find -name "*.ppu" -delete; find -name "*.o" -delete; 
+  - lazbuild $LAZ_OPT --add-package programs/internet/VideLibri/_meta/assetversiontests.lpi
   - if [[ $android = false ]]; then lazbuild $LAZ_OPT programs/internet/VideLibri/bookWatch.lpi; fi
   - if [[ $android = true ]]; then cd programs/internet/VideLibri/android; ./manage.sh build; fi
+  - export PATH=$PATH:$PWD/programs/internet/xidel/
+  - programs/internet/VideLibri/_meta/assetversiontests
+  - cd programs/internet/VideLibri/_meta/tests;  ./_meta/tests/unittests.sh
 
 notifications:
   email:
