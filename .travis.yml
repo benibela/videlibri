@@ -18,14 +18,14 @@ install:
   - if [[ "$LAZ_ENV" = wine ]]; then find $WINEPREFIX -iname '*fpc.cfg' | head -1 | xargs -i{} ln {} ~/.fpc.cfg; ls -l ~; fi
   - if [[ ! -e ~/.fpc.cfg ]]; then echo '#INCLUDE /etc/fpc.cfg' > ~/.fpc.cfg; fi 
   #get dependencies from sourceforge
-  - hg clone http://hg.code.sf.net/p/videlibri/code videlibri
+  - hg clone http://hg.code.sf.net/p/videlibri/code sf
   - git clone https://github.com/benibela/flre.git import/flre; 
   - echo "-Fuimport/flre/src/ -Fu " >> ~/.fpc.cfg;
 
 script:
-  - lazbuild $LAZ_OPT --add-package components/pascal/internettools.lpk
-  - lazbuild $LAZ_OPT --add-package components/pascal/internettools_autoupdate.lpk
-  - lazbuild $LAZ_OPT programs/internet/xidel/xidel.lpi
+  - lazbuild $LAZ_OPT --add-package sf/components/pascal/internettools.lpk
+  - lazbuild $LAZ_OPT --add-package sf/components/pascal/internettools_autoupdate.lpk
+  - lazbuild $LAZ_OPT sf/programs/internet/xidel/xidel.lpi
   - if [[ $android = false ]]; then lazbuild $LAZ_OPT bookWatch.lpi; fi
   - if [[ $android = true ]]; then cd android; ./manage.sh build; fi
 
