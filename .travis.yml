@@ -72,7 +72,7 @@ script:
   - touch programs/internet/xidel/xidelbuilddata.inc; lazbuild $LAZ_OPT programs/internet/xidel/xidel.lpi
   - lazbuild $LAZ_OPT programs/internet/VideLibri/_meta/assetversiontests.lpi
   - if [[ $android = false ]]; then lazbuild $LAZ_OPT programs/internet/VideLibri/bookWatch.lpi; fi
-  - if [[ $android = true ]]; then cd programs/internet/VideLibri/android; ./manage.sh build; fi
+  - if [[ $android = true ]]; then cd programs/internet/VideLibri/android; ./manage.sh build; cd ../../../..; fi
   - export PATH=$PATH:$PWD/programs/internet/xidel/
   - $LAZ_ENV programs/internet/VideLibri/_meta/assetversiontests
   - cd programs/internet/VideLibri/_meta/tests;  ./unittests.sh
