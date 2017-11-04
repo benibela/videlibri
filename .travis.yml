@@ -15,24 +15,25 @@ matrix:
   include:
     - env: LAZ_VER=1.8.0RC5 android=false
     - env: LAZ_VER=1.8RC5  LAZ_ENV=wine LAZ_OPT="--os=win32 --cpu=i386" android=false
-    - env: LAZ_VER=1.8.0RC5  android=true FPC_VER=3.0.4 FPC_DIRECTORY=/usr/local/lib/fpc/$FPC_VER/
+    - env: LAZ_VER=1.8.0RC5  android=true FPC_VER=3.0.4 FPC_DIRECTORY=/usr/lib/fpc/$FPC_VER/
 
 install:
   - git clone https://github.com/benibela/travis-lazarus travis-lazarus
   - travis-lazarus/.travis.install.py
   - if [[ "$LAZ_ENV" = wine ]]; then find $WINEPREFIX -iname '*fpc.cfg' | head -1 | xargs -i{} ln {} ~/.fpc.cfg; ls -l ~; fi
   - if [[ ! -e ~/.fpc.cfg ]]; then echo '#INCLUDE /etc/fpc.cfg' > ~/.fpc.cfg; fi 
-  - mkdir import
+  - cd ..
   #get dependencies from sourceforge
   - hg clone http://hg.code.sf.net/p/videlibri/code sf
-  - git clone https://github.com/benibela/flre.git import/flre; 
+  - rm -rf sf/programs/internet/VideLibri; mv videlibri sf/programs/internet/VideLibri; cd sf
+  - mkdir import; git clone https://github.com/benibela/flre.git import/flre; 
   - echo -Fu$PWD/import/flre/src/ >> ~/.fpc.cfg;
-  - echo -Fi$PWD/sf/components/pascal/ >> ~/.fpc.cfg;
-  - echo -Fi$PWD/sf/components/pascal/data >> ~/.fpc.cfg;
-  - echo -Fu$PWD/sf/components/pascal/data >> ~/.fpc.cfg;
-  - ln -s $PWD/import/flre sf/components/pascal/import/flre
+  - echo -Fi$PWD/components/pascal/ >> ~/.fpc.cfg;
+  - echo -Fi$PWD/components/pascal/data >> ~/.fpc.cfg;
+  - echo -Fu$PWD/components/pascal/data >> ~/.fpc.cfg;
+  - ln -s $PWD/import/flre components/pascal/import/flre
   - cat ~/.fpc.cfg
-  - echo Fu$PWD/sf/components/pascal/data
+  - echo Fu$PWD/components/pascal/data
   - if [[ $android = true ]]; then 
       sudo apt-get install -y gcc-arm-linux-androideabi libstdc++6:i386 libgcc1:i386 zlib1g:i386 libncurses5:i386;
       sudo tee /usr/bin/i386-linux-as <<<$'#!/bin/bash\nas --32 $@';
@@ -40,9 +41,19 @@ install:
       sudo chmod +x /usr/bin/i386-linux-*;
       oldpath=$PWD;
       cd /usr/share/fpcsrc/3* ;
-      sudo make crossinstall OS_TARGET=android CPU_TARGET=arm BINUTILSPREFIX=arm-linux-androideabi-;
-      sudo make crossinstall OS_TARGET=android CPU_TARGET=i386 BINUTILSPREFIX=i386-linux-;
+      sudo make crossinstall OS_TARGET=android CPU_TARGET=arm BINUTILSPREFIX=arm-linux-androideabi- INSTALL_PREFIX=/usr;
+      sudo make crossinstall OS_TARGET=android CPU_TARGET=i386 BINUTILSPREFIX=i386-linux- INSTALL_PREFIX=/usr;
       cd $oldpath;
+      gccv=$(arm-linux-gnueabi-gcc -dumpversion)
+      echo '#IFDEF CPUARM' >> ~/.fpc.cfg;
+      echo '-Xd' >> ~/.fpc.cfg;
+      echo '-Xt' >> ~/.fpc.cfg;
+      echo '-XParm-linux-gnueabi-' >> ~/.fpc.cfg;
+      echo '-Fl/usr/arm-linux-gnueabi/lib'; >> ~/.fpc.cfg;
+      echo '-Fl/usr/lib/gcc/arm-linux-gnueabi/'$gccv; >> ~/.fpc.cfg;
+      echo '-Fl/usr/lib/gcc-cross/arm-linux-gnueabi/$gccv; >> ~/.fpc.cfg;
+      echo '#ENDIF'; >> ~/.fpc.cfg;
+      cat ~/.fpc.cfg;
     fi
 
 #    svn checkout -r 37480 https://svn.freepascal.org/svn/fpc/trunk	fpc-trunk
@@ -50,10 +61,10 @@ install:
       
       
 script:
-  - lazbuild $LAZ_OPT --add-package sf/components/pascal/data/searchbarpackage.lpk
-  - lazbuild $LAZ_OPT --add-package sf/components/pascal/data/treelistviewpackage.lpk
-  - lazbuild $LAZ_OPT --add-package sf/components/pascal/internettools.lpk
-  - touch sf/programs/internet/xidel/xidelbuilddata.inc; lazbuild $LAZ_OPT sf/programs/internet/xidel/xidel.lpi
+  - lazbuild $LAZ_OPT --add-package components/pascal/data/searchbarpackage.lpk
+  - lazbuild $LAZ_OPT --add-package components/pascal/data/treelistviewpackage.lpk
+  - lazbuild $LAZ_OPT --add-package components/pascal/internettools.lpk
+  - touch programs/internet/xidel/xidelbuilddata.inc; lazbuild $LAZ_OPT programs/internet/xidel/xidel.lpi
   - find -name "*.ppu" -delete; find -name "*.o" -delete; 
   - if [[ $android = false ]]; then lazbuild $LAZ_OPT bookWatch.lpi; fi
   - if [[ $android = true ]]; then cd android; ./manage.sh build; fi
