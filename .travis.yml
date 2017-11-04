@@ -27,7 +27,7 @@ install:
   - hg clone http://hg.code.sf.net/p/videlibri/code sf
   - git clone https://github.com/benibela/flre.git import/flre; 
   - echo -Fu$PWD/import/flre/src/ >> ~/.fpc.cfg;
-  - ln -s $PWD/import/flre /home/travis/build/benibela/videlibri/components/pascal/import/flre
+  - ln -s $PWD/import/flre sf/components/pascal/import/flre
   - find ~
 
 script:
