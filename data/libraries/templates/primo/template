@@ -15,6 +15,11 @@
 
 
 <action id="connect">
+  <s>declare function local:raise($err){
+       string($err) ! (if (matches(., "Anmeldung fehlgeschlagen|The login credentials are incorrect|Benutzerkonto abgelaufen oder ungültige UserID und/oder Passwort|The username you entered cannot be identified|Wrong username or password|Ungültige Ausweisnummer und/oder Passwort")) then vl:raise-login(.)
+       else vl:raise(.))
+     };
+  </s>
 </action>
 
 <action id="update-all">
@@ -26,14 +31,13 @@
   <!-- follow links till we reach the login page -->
   <loop test="$i < 10">  
     <page url="{$request}"/>
-    <pattern><t:switch prioritized="true">
-      
-      <div  t:test="$datasend" class="EXLPRMLoginCardContentError">{vl:raise(.)}</div>
-      <div  t:test="$datasend" class="error">{vl:raise(.)}</div>
-      <span t:test="$datasend" class="login-error">{vl:raise(.)}</span>
-      <font t:test="$datasend" color="red">{vl:raise(.)}<!--htw--></font>
-      <h2 t:test="$datasend" style="color: red;">{vl:raise(.)}<!--fu--></h2>
-      <p t:test="$datasend" class="error">{vl:raise(.)}<!--hu intern--></p>
+    <pattern><t:switch prioritized="true">     
+      <div   class="EXLPRMLoginCardContentError">{local:raise(.)}</div>
+      <div  t:test="$datasend" class="error">{local:raise(.)}</div>
+      <span t:test="$datasend" class="login-error">{local:raise(.)}</span>
+      <font t:test="$datasend" color="red">{local:raise(.)}<!--htw--></font>
+      <h2 t:test="$datasend" style="color: red;">{local:raise(.)}<!--fu--></h2>
+      <p t:test="$datasend" class="error">{local:raise(.)}<!--hu intern--></p>
       
       <form>
         <input name="username"/>
