@@ -34,8 +34,11 @@ install:
       sudo make crossinstall OS_TARGET=android CPU_TARGET=arm BINUTILSPREFIX=arm-linux-androideabi-;
       sudo make crossinstall OS_TARGET=android CPU_TARGET=i386 BINUTILSPREFIX=i386-linux-;
     fi
-      #    svn checkout -r 37480 https://svn.freepascal.org/svn/fpc/trunk	fpc-trunk
-      #    cd fpc-trunk
+
+#    svn checkout -r 37480 https://svn.freepascal.org/svn/fpc/trunk	fpc-trunk
+#    cd fpc-trunk
+      
+      
 script:
   - lazbuild $LAZ_OPT --add-package sf/components/pascal/data/searchbarpackage.lpk
   - lazbuild $LAZ_OPT --add-package sf/components/pascal/data/treelistviewpackage.lpk
