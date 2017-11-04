@@ -26,9 +26,9 @@ install:
   #get dependencies from sourceforge
   - hg clone http://hg.code.sf.net/p/videlibri/code sf
   - git clone https://github.com/benibela/flre.git import/flre; 
-  - echo -Fu$HOME/import/flre/src/ >> ~/.fpc.cfg;
-  - ln -s ~/import/flre /home/travis/build/benibela/videlibri/components/pascal/import/flre
-  - find
+  - echo -Fu$PWD/import/flre/src/ >> ~/.fpc.cfg;
+  - ln -s $PWD/import/flre /home/travis/build/benibela/videlibri/components/pascal/import/flre
+  - find ~
 
 script:
   - lazbuild $LAZ_OPT --add-package sf/components/pascal/data/searchbarpackage.lpk
