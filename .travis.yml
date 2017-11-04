@@ -56,10 +56,10 @@ install:
       echo '#ENDIF' >> ~/.fpc.cfg;
       cat ~/.fpc.cfg;
     fi
-    - if [[ $LAZ_ENV = wine ]]; then  
-      sudo apt-get install -y dos2unix
-      tee programs/internet/xidel/xidel <<<$'#!/bin/bash\nwine ../../../xidel/xidel.exe "$@" | dos2unix | perl -pne \' s!(file://Z:[^"]+)! {my $temp = $1; $temp =~ s%(Z:)?\\\\{1,2}%/%g; $temp}!ge\''
-    fi
+  - if [[ $LAZ_ENV = wine ]]; then  
+    sudo apt-get install -y dos2unix
+    tee programs/internet/xidel/xidel <<<$'#!/bin/bash\nwine ../../../xidel/xidel.exe "$@" | dos2unix | perl -pne \' s!(file://Z:[^"]+)! {my $temp = $1; $temp =~ s%(Z:)?\\\\{1,2}%/%g; $temp}!ge\''
+  fi
 
 #    svn checkout -r 37480 https://svn.freepascal.org/svn/fpc/trunk	fpc-trunk
 #    cd fpc-trunk
