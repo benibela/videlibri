@@ -1,0 +1,35 @@
+language: generic
+sudo: required
+dist: trusty
+
+os:
+  - linux
+
+env:
+  matrix:
+    - env: LAZ_VER=1.8.0RC5 INTERNETACCESS=USE_SYNAPSE_WRAPPER
+    - env: LAZ_VER=1.8RC5  LAZ_ENV=wine INTERNETACCESS=USE_WININET_WRAPPER LAZ_OPT="--os=win32 --cpu=i386"
+
+install:
+  - git clone https://github.com/benibela/travis-lazarus travis-lazarus
+  - travis-lazarus/.travis.install.py
+  - if [[ "$LAZ_ENV" = wine ]]; then find $WINEPREFIX -iname '*fpc.cfg' | head -1 | xargs -i{} ln {} ~/.fpc.cfg; ls -l ~; fi
+  - if [[ ! -e ~/.fpc.cfg ]]; then echo '#INCLUDE /etc/fpc.cfg' > ~/.fpc.cfg; fi 
+  #get dependencies from sourceforge, because 
+  - mkdir github; mv * github;
+  - hg clone http://hg.code.sf.net/p/videlibri/code videlibri
+  #delete SF videlibri (SF has dependencies+VideLibri, but no Travis. Github has Travis, but dependencies in separate repositories)
+  - rm -rf videlibri/programs/internet/VideLibri; mv github  videlibri/programs/internet/VideLibri
+  - git clone https://github.com/benibela/flre.git import/flre; 
+  - echo "-Fuimport/flre/src/" >> ~/.fpc.cfg;
+
+script:
+  - lazbuild $LAZ_OPT --add-package components/pascal/internettools.lpk
+  - lazbuild $LAZ_OPT --add-package components/pascal/internettools_autoupdate.lpk
+  - lazbuild $LAZ_OPT programs/internet/xidel/xidel.lpi
+  - lazbuild $LAZ_OPT programs/internet/VideLibri/bookWatch.lpi
+
+notifications:
+  email:
+    on_success: false
+    on_failure: change
