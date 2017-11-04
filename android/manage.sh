@@ -7,7 +7,7 @@ if [ -z "$ANDROID_HOME" ]; then
 fi
 if [ -z "$JAVA_HOME" ]; then
   if [ -d ~/opt/android/studio/jre ]; then JAVA_HOME=~/opt/android/studio/jre 
-  else echo Failed to find java. Set JAVA_HOME variable; exit
+  else echo Failed to find java. Set JAVA_HOME variable; exit 2
   fi
 fi
 
@@ -24,15 +24,15 @@ export JAVA_BINDIR="$JAVA_HOME/bin"
 if [ -z "$FPC_DIRECTORY" ]; then 
 if [ -d /usr/local/lib/fpc/3.1.1 ]; then
 FPC_DIRECTORY=/usr/local/lib/fpc/3.1.1
-else echo Failed to find fpc 3.1.1. Install FreePascal; exit
+else echo Failed to find fpc 3.1.1. Install FreePascal; exit 2
 fi
 fi
 export FPC_DIRECTORY
 
 FPC_ARM=$FPC_DIRECTORY/ppcrossarm
-if [ ! -f $FPC_ARM ]; then echo Failed to find fpc arm target. Install FreePascal cross compiler; exit; fi
+if [ ! -f $FPC_ARM ]; then echo Failed to find fpc arm target. Install FreePascal cross compiler; exit 2; fi
 FPC_386=$FPC_DIRECTORY/ppcross386
-if [ ! -f $FPC_386 ]; then echo Failed to find fpc 386 target. Install FreePascal cross compiler; exit; fi
+if [ ! -f $FPC_386 ]; then echo Failed to find fpc 386 target. Install FreePascal cross compiler; exit 2; fi
 
 LAZBUILD=lazbuild
 which $LAZBUILD 2>/dev/null >/dev/null || (

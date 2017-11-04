@@ -44,12 +44,12 @@ install:
       sudo make crossinstall OS_TARGET=android CPU_TARGET=arm BINUTILSPREFIX=arm-linux-androideabi- INSTALL_PREFIX=/usr;
       sudo make crossinstall OS_TARGET=android CPU_TARGET=i386 BINUTILSPREFIX=i386-linux- INSTALL_PREFIX=/usr;
       cd $oldpath;
-      gccv=$(arm-linux-gnueabi-gcc -dumpversion)
+      gccv=$(gcc-arm-linux-androideabi -dumpversion);
       echo '#IFDEF CPUARM' >> ~/.fpc.cfg;
       echo '-Xd' >> ~/.fpc.cfg;
       echo '-Xt' >> ~/.fpc.cfg;
       echo '-XParm-linux-androideabi-' >> ~/.fpc.cfg;
-      ls -l /usr /usr/lib /usr/lib/gcc /usr/lib/gcc-cross
+      ls -l /usr /usr/lib /usr/lib/gcc /usr/lib/gcc-cross;
       echo '-Fl/usr/arm-linux-androideabi/lib' >> ~/.fpc.cfg;
       echo '-Fl/usr/lib/gcc/arm-linux-androideabi/'$gccv >> ~/.fpc.cfg;
       echo '-Fl/usr/lib/gcc-cross/arm-linux-androideabi/'$gccv >> ~/.fpc.cfg;
@@ -72,7 +72,7 @@ script:
   - touch programs/internet/xidel/xidelbuilddata.inc; lazbuild $LAZ_OPT programs/internet/xidel/xidel.lpi
   - lazbuild $LAZ_OPT programs/internet/VideLibri/_meta/assetversiontests.lpi
   - if [[ $android = false ]]; then lazbuild $LAZ_OPT programs/internet/VideLibri/bookWatch.lpi; fi
-  - if [[ $android = true ]]; then cd programs/internet/VideLibri/android; ./manage.sh build; cd ../../../..; fi
+  - if [[ $android = true ]]; then cd programs/internet/VideLibri/android; ./manage.sh build && cd ../../../..; fi
   - export PATH=$PATH:$PWD/programs/internet/xidel/
   - $LAZ_ENV programs/internet/VideLibri/_meta/assetversiontests
   - cd programs/internet/VideLibri/_meta/tests;  ./unittests.sh
