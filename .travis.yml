@@ -58,7 +58,7 @@ install:
     fi
     - if [[ $LAZ_ENV = wine ]]; then  
       sudo apt-get install -y dos2unix
-      tee programs/internet/xidel/xidel <<<$'#!/bin/bash\nwine ../../../xidel/xidel.exe "$@" | dos2unix | perl -e \'while (my $line = <>) { if ($line =~ /^(.*?)(file:\\/\\/Z.*)$/) { print $1; my $b = $2; $b =~ s%file://Z:%file://%g; $b =~ s%[\\\\]([\\\\]|([^"]))%/\\2%g; print "$b\\n"; } else {print $line;}}\''
+      tee programs/internet/xidel/xidel <<<$'#!/bin/bash\nwine ../../../xidel/xidel.exe "$@" | dos2unix | perl -pne \' s!(file://Z:[^"]+)! {my $temp = $1; $temp =~ s%(Z:)?\\\\{1,2}%/%g; $temp}!ge\''
     fi
 
 #    svn checkout -r 37480 https://svn.freepascal.org/svn/fpc/trunk	fpc-trunk

@@ -1,6 +1,6 @@
 <html>
   {culture := (//input[contains(@name, "Culture")], "de-DE")[1]/@value, vl:delete-current-books() }
-  <link t:condition="contains(@href, 'PatronAccountModule')">{extendableCheck := extract(resolve-uri(@href), "^.*PatronAccountModule/") || "PatronAccountService.asmx/IsCatalogueCopyExtendable"}</link>
+  <link t:condition="contains(@href, 'PatronAccountModule')">{extendableCheck := extract(resolve-uri(@href), "^.*PatronAccountModule[/\\]") || "PatronAccountService.asmx/IsCatalogueCopyExtendable"}</link>
   
   <form>
     { $user-form := form(.),
