@@ -1,4 +1,5 @@
-language: generic
+language: android
+  
 sudo: required
 dist: trusty
 
@@ -16,7 +17,7 @@ install:
   - if [[ "$LAZ_ENV" = wine ]]; then find $WINEPREFIX -iname '*fpc.cfg' | head -1 | xargs -i{} ln {} ~/.fpc.cfg; ls -l ~; fi
   - if [[ ! -e ~/.fpc.cfg ]]; then echo '#INCLUDE /etc/fpc.cfg' > ~/.fpc.cfg; fi 
   #get dependencies from sourceforge, because 
-  - mkdir github; mv * github;
+  - mkdir github; mv * github 2>/dev/null;
   - hg clone http://hg.code.sf.net/p/videlibri/code videlibri
   #delete SF videlibri (SF has dependencies+VideLibri, but no Travis. Github has Travis, but dependencies in separate repositories)
   - rm -rf videlibri/programs/internet/VideLibri; mv github  videlibri/programs/internet/VideLibri
