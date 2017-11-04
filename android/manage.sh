@@ -41,6 +41,7 @@ which $LAZBUILD 2>/dev/null >/dev/null || (
 
 case "$1" in
 build)
+  mkdir -p android/libs/armeabi/ android/libs/x86
   if [[ $2 == "arm" || $3 == "arm" || $2 != "x86" ]]; then BUILDARM=true
   else BUILDARM=false; fi
 

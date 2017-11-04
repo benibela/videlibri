@@ -56,6 +56,10 @@ install:
       echo '#ENDIF' >> ~/.fpc.cfg;
       cat ~/.fpc.cfg;
     fi
+    - if [[ $LAZ_ENV = wine ]]; then  
+      sudo apt-get install -y dos2unix
+      tee programs/internet/xidel/xidel <<<$'#!/bin/bash\nwine ../../../xidel/xidel.exe "$@" | dos2unix | perl -e \'while (my $line = <>) { if ($line =~ /^(.*?)(file:\\/\\/Z.*)$/) { print $1; my $b = $2; $b =~ s%file://Z:%file://%g; $b =~ s%[\\\\]([\\\\]|([^"]))%/\\2%g; print "$b\\n"; } else {print $line;}}\''
+    fi
 
 #    svn checkout -r 37480 https://svn.freepascal.org/svn/fpc/trunk	fpc-trunk
 #    cd fpc-trunk
@@ -70,7 +74,7 @@ script:
   - if [[ $android = false ]]; then lazbuild $LAZ_OPT programs/internet/VideLibri/bookWatch.lpi; fi
   - if [[ $android = true ]]; then cd programs/internet/VideLibri/android; ./manage.sh build; fi
   - export PATH=$PATH:$PWD/programs/internet/xidel/
-  - programs/internet/VideLibri/_meta/assetversiontests
+  - $LAZ_ENV programs/internet/VideLibri/_meta/assetversiontests
   - cd programs/internet/VideLibri/_meta/tests;  ./unittests.sh
 
 notifications:
