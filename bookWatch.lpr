@@ -10,8 +10,8 @@ uses
   Interfaces, // this includes the LCL widgetset
   Forms,menus,Graphics
   { add your units here }, sysutils, bookWatchMain, libraryParser, options, newAccountWizard_u, errorDialog, applicationConfig, statistik_u,
-  diagram, libraryAccess, sendBackError, progressDialog, bbdebugtools, bibtexexport, simplexmlparser, booklistreader, librarySearcher,
-  bookListView, bookSearchForm, librarySearcherAccess, autoMenuManager, treelistviewpackage, bbutils, LCLIntf, messagesystem, accountlist,
+  diagram, libraryAccess, sendBackError, progressDialog, bbdebugtools, bibtexexport, booklistreader, librarySearcher,
+  bookListView, bookSearchForm, librarySearcherAccess, treelistviewpackage, bbutils, LCLIntf, messagesystem, accountlist,
   libraryListView, androidutils, libraryaccesstester, exportxml, applicationdesktopconfig, LCLType, debuglogviewer, inifilessafe,
   xqueryform;
 
