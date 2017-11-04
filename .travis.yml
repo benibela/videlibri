@@ -42,7 +42,7 @@ install:
       cd /usr/share/fpcsrc/3* ;
       sudo make crossinstall OS_TARGET=android CPU_TARGET=arm BINUTILSPREFIX=arm-linux-androideabi-;
       sudo make crossinstall OS_TARGET=android CPU_TARGET=i386 BINUTILSPREFIX=i386-linux-;
-      cd $oldpath
+      cd $oldpath;
     fi
 
 #    svn checkout -r 37480 https://svn.freepascal.org/svn/fpc/trunk	fpc-trunk
