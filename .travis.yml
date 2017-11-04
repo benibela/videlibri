@@ -66,8 +66,8 @@ script:
   - lazbuild $LAZ_OPT --add-package components/pascal/internettools.lpk
   - touch programs/internet/xidel/xidelbuilddata.inc; lazbuild $LAZ_OPT programs/internet/xidel/xidel.lpi
   - find -name "*.ppu" -delete; find -name "*.o" -delete; 
-  - if [[ $android = false ]]; then lazbuild $LAZ_OPT bookWatch.lpi; fi
-  - if [[ $android = true ]]; then cd android; ./manage.sh build; fi
+  - if [[ $android = false ]]; then lazbuild $LAZ_OPT programs/internet/VideLibri/bookWatch.lpi; fi
+  - if [[ $android = true ]]; then cd programs/internet/VideLibri/android; ./manage.sh build; fi
 
 notifications:
   email:
