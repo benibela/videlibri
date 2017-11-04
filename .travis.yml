@@ -6,6 +6,10 @@ dist: trusty
 os:
   - linux
 
+env:
+  global:
+    - WINEPREFIX=~/.winelaz
+    - DISPLAY=:99.0
 
 matrix:
   include:
@@ -21,9 +25,11 @@ install:
   #get dependencies from sourceforge
   - hg clone http://hg.code.sf.net/p/videlibri/code sf
   - git clone https://github.com/benibela/flre.git import/flre; 
-  - echo "-Fuimport/flre/src/" >> ~/.fpc.cfg;
+  - echo -Fu$HOME/import/flre/src/ >> ~/.fpc.cfg;
 
 script:
+  - lazbuild $LAZ_OPT --add-package sf/components/pascal/data/searchbarpackage.lpk
+  - lazbuild $LAZ_OPT --add-package sf/components/pascal/data/treelistviewpackage.lpk
   - lazbuild $LAZ_OPT --add-package sf/components/pascal/internettools.lpk
   - lazbuild $LAZ_OPT sf/programs/internet/xidel/xidel.lpi
   - if [[ $android = false ]]; then lazbuild $LAZ_OPT bookWatch.lpi; fi
