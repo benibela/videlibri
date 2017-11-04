@@ -8,8 +8,9 @@ os:
 
 env:
   matrix:
-    - env: LAZ_VER=1.8.0RC5 
-    - env: LAZ_VER=1.8RC5  LAZ_ENV=wine LAZ_OPT="--os=win32 --cpu=i386"
+    - env: LAZ_VER=1.8.0RC5 android=false
+    - env: LAZ_VER=1.8RC5  LAZ_ENV=wine LAZ_OPT="--os=win32 --cpu=i386" android=false
+    - env: LAZ_VER=1.8RC5  android=true
 
 install:
   - git clone https://github.com/benibela/travis-lazarus travis-lazarus
@@ -17,7 +18,6 @@ install:
   - if [[ "$LAZ_ENV" = wine ]]; then find $WINEPREFIX -iname '*fpc.cfg' | head -1 | xargs -i{} ln {} ~/.fpc.cfg; ls -l ~; fi
   - if [[ ! -e ~/.fpc.cfg ]]; then echo '#INCLUDE /etc/fpc.cfg' > ~/.fpc.cfg; fi 
   #get dependencies from sourceforge
-  - mkdir github; mv * github 2>/dev/null;
   - hg clone http://hg.code.sf.net/p/videlibri/code videlibri
   - git clone https://github.com/benibela/flre.git import/flre; 
   - echo "-Fuimport/flre/src/ -Fu " >> ~/.fpc.cfg;
@@ -26,7 +26,8 @@ script:
   - lazbuild $LAZ_OPT --add-package components/pascal/internettools.lpk
   - lazbuild $LAZ_OPT --add-package components/pascal/internettools_autoupdate.lpk
   - lazbuild $LAZ_OPT programs/internet/xidel/xidel.lpi
-  - lazbuild $LAZ_OPT bookWatch.lpi
+  - if [[ $android = false ]]; then lazbuild $LAZ_OPT bookWatch.lpi; fi
+  - if [[ $android = true ]]; then cd android; ./manage.sh build; fi
 
 notifications:
   email:
