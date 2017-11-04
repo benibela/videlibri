@@ -15,7 +15,7 @@ matrix:
   include:
     - env: LAZ_VER=1.8.0RC5 android=false
     - env: LAZ_VER=1.8RC5  LAZ_ENV=wine LAZ_OPT="--os=win32 --cpu=i386" android=false
-    - env: LAZ_VER=1.8.0RC5  android=true
+    - env: LAZ_VER=1.8.0RC5  android=true FPC_VER=3.0.4 FPC_DIRECTORY=/usr/local/lib/fpc/$FPC_VER/
 
 install:
   - git clone https://github.com/benibela/travis-lazarus travis-lazarus
