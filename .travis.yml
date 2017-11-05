@@ -43,9 +43,6 @@ install:
   - if [[ $android = true ]]; then 
       yes | sdkmanager ndk-bundle "build-tools;25.0.3"  "platforms;android-25";
       sudo apt-get install -y gcc-arm-linux-androideabi libstdc++6:i386 libgcc1:i386 zlib1g:i386 libncurses5:i386;
-      sudo tee /usr/bin/i386-linux-as <<<$'#!/bin/bash\nas --32 $@';
-      sudo tee /usr/bin/i386-linux-ld <<<$'#!/bin/bash\nld -A elf32-i386 $@';
-      sudo chmod +x /usr/bin/i386-linux-*;
       oldpath=$PWD;
       cd /usr/share/fpcsrc/3* ;
       sudo make crossinstall OS_TARGET=android CPU_TARGET=arm BINUTILSPREFIX=arm-linux-androideabi- INSTALL_PREFIX=/usr;
@@ -57,12 +54,11 @@ install:
       for l in  /usr/local/android-sdk-*/ndk-bundle/platforms/android-24/arch-arm/usr/lib /usr/lib/gcc/arm-linux-androideabi/* /usr/arm-linux-androideabi/lib; do echo -Fl$l >> ~/.fpc.cfg; done;
       echo '#ENDIF' >> ~/.fpc.cfg;
       echo '#IFDEF CPU386' >> ~/.fpc.cfg;
-      echo '-XPi386-linux-'  >> ~/.fpc.cfg;
+      echo '-XPi686-linux-android-'  >> ~/.fpc.cfg;
       for l in /usr/local/android-sdk/ndk-bundle/platforms/android-24/arch-x86/usr/lib/ /usr/lib/gcc/i686-linux-gnu/* /usr/lib/gcc/i586-mingw32msvc/*; do echo -Fl$l >> ~/.fpc.cfg; done;
       echo '#ENDIF' >> ~/.fpc.cfg;
       cat ~/.fpc.cfg;
-      ls -l /usr/local/android-sdk-*;
-      ls -l /usr/local/;
+      find /usr/local/android-sdk/ndk-bundle/ -name "i686-linux-android-ld";
     fi
   - if [[ $LAZ_ENV = wine ]]; then  
       sudo apt-get install -y dos2unix;
