@@ -22,8 +22,6 @@ android:
     - tools
     - platform-tools
     - tools
-    - build-tools-25.0.3
-    - android-25
 
 install:
   - git clone https://github.com/benibela/travis-lazarus travis-lazarus
@@ -43,7 +41,7 @@ install:
   - cat ~/.fpc.cfg
   - echo Fu$PWD/components/pascal/data
   - if [[ $android = true ]]; then 
-      yes | sdkmanager ndk-bundle;
+      yes | sdkmanager ndk-bundle build-tools-25.0.3 android-25;
       sudo apt-get install -y gcc-arm-linux-androideabi libstdc++6:i386 libgcc1:i386 zlib1g:i386 libncurses5:i386;
       sudo tee /usr/bin/i386-linux-as <<<$'#!/bin/bash\nas --32 $@';
       sudo tee /usr/bin/i386-linux-ld <<<$'#!/bin/bash\nld -A elf32-i386 $@';
@@ -58,11 +56,12 @@ install:
       echo '-Xd' >> ~/.fpc.cfg;
       echo '-Xt' >> ~/.fpc.cfg;
       echo '-XParm-linux-androideabi-' >> ~/.fpc.cfg;
-      ls -l /usr /usr/lib /usr/lib/gcc /usr/lib/gcc-cross /usr/lib/gcc/arm-linux-androideabi/* /usr/lib/gcc/arm-linux-androideabi/*;
+      echo -Fl/usr/local/android-sdk-*/ndk-bundle/platforms/android-24/arch-arm/usr/lib/ >> ~/.fpc.cfg;
       echo -Fl/usr/arm-linux-androideabi/lib >> ~/.fpc.cfg;
       echo -Fl/usr/lib/gcc/arm-linux-androideabi/* >> ~/.fpc.cfg;
       echo '#ENDIF' >> ~/.fpc.cfg;
       echo '#IFDEF CPU386' >> ~/.fpc.cfg;
+      echo -Fl/usr/local/android-sdk-*/ndk-bundle/platforms/android-24/arch-x86/usr/lib/ >> ~/.fpc.cfg;
       echo -Fl/usr/lib/gcc/i686-linux-gnu/* >> ~/.fpc.cfg;
       echo -Fl/usr/lib/gcc/i586-mingw32msvc/* >> ~/.fpc.cfg;
       echo '#ENDIF' >> ~/.fpc.cfg;
@@ -79,7 +78,6 @@ install:
       
 script:
   - env
-  - find /home /usr/ /opt -name libdl.so
   - lazbuild $LAZ_OPT --add-package components/pascal/data/searchbarpackage.lpk
   - lazbuild $LAZ_OPT --add-package components/pascal/data/treelistviewpackage.lpk
   - lazbuild $LAZ_OPT --add-package components/pascal/internettools.lpk
