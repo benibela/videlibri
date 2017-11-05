@@ -23,7 +23,7 @@ _publish/$outfile: $infile $depends common.xq style.xq.html global.xml
   <title>Downloads</title>
 </fileinfo>  
 <fileinfo base="history">
-  <title>Geschichte</title>
+  <title>Entwicklungs-Historie</title>
 </fileinfo>  
 <fileinfo base="spinoffs">
   <title>Spin-Offs</title>

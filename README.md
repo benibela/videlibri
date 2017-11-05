@@ -1,4 +1,4 @@
-VideLibri :books:
+VideLibri :books: [![Build Status](https://travis-ci.org/benibela/videlibri.svg?branch=master)](https://travis-ci.org/benibela/videlibri)
 =============
 VideLibri is a library app with all the usual features of a library OPACs, e.g. viewing your account, searching books or ordering other items. It also renews all due books automatically and can do other things only a locally running app can do without privacy concerns, like keeping a history of all ever lend books to track your own reading habits.  Supporting account viewing and renewing in multiple public library systems in 2006 makes VideLibri the world's first universal library app.
 
