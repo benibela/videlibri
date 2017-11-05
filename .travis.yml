@@ -57,7 +57,8 @@ install:
       for l in  /usr/local/android-sdk-*/ndk-bundle/platforms/android-24/arch-arm/usr/lib /usr/lib/gcc/arm-linux-androideabi/* /usr/arm-linux-androideabi/lib; do echo -Fl$l >> ~/.fpc.cfg; done;
       echo '#ENDIF' >> ~/.fpc.cfg;
       echo '#IFDEF CPU386' >> ~/.fpc.cfg;
-      for l in /usr/local/android-sdk-*/ndk-bundle/platforms/android-24/arch-x86/usr/lib/ /usr/lib/gcc/i686-linux-gnu/* /usr/lib/gcc/i586-mingw32msvc/*; do echo -Fl$l >> ~/.fpc.cfg; done;
+      echo '-XPi386-linux-'  >> ~/.fpc.cfg;
+      for l in /usr/local/android-sdk/ndk-bundle/platforms/android-24/arch-x86/usr/lib/ /usr/lib/gcc/i686-linux-gnu/* /usr/lib/gcc/i586-mingw32msvc/*; do echo -Fl$l >> ~/.fpc.cfg; done;
       echo '#ENDIF' >> ~/.fpc.cfg;
       cat ~/.fpc.cfg;
       ls -l /usr/local/android-sdk-*;
