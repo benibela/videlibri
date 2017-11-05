@@ -18,7 +18,7 @@
   <s>declare function local:raise($err){
        string($err) ! (if (matches(., "Anmeldung fehlgeschlagen|The login credentials are incorrect|Benutzerkonto abgelaufen oder ungültige UserID und/oder Passwort|The username you entered cannot be identified|Wrong username or password|Ungültige Ausweisnummer und/oder Passwort")) then vl:raise-login(.)
        else vl:raise(.))
-     };
+     };()
   </s>
 </action>
 
