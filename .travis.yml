@@ -56,14 +56,10 @@ install:
       echo '-Xd' >> ~/.fpc.cfg;
       echo '-Xt' >> ~/.fpc.cfg;
       echo '-XParm-linux-androideabi-' >> ~/.fpc.cfg;
-      echo -Fl/usr/local/android-sdk-*/ndk-bundle/platforms/android-24/arch-arm/usr/lib/ >> ~/.fpc.cfg;
-      echo -Fl/usr/arm-linux-androideabi/lib >> ~/.fpc.cfg;
-      echo -Fl/usr/lib/gcc/arm-linux-androideabi/* >> ~/.fpc.cfg;
+      for l in /usr/local/android-sdk-*/ndk-bundle/platforms/android-24/arch-arm/usr/lib/ /usr/lib/gcc/arm-linux-androideabi/* /usr/arm-linux-androideabi/lib; do echo -Fl$l >> ~/.fpc.cfg; done
       echo '#ENDIF' >> ~/.fpc.cfg;
       echo '#IFDEF CPU386' >> ~/.fpc.cfg;
-      echo -Fl/usr/local/android-sdk-*/ndk-bundle/platforms/android-24/arch-x86/usr/lib/ >> ~/.fpc.cfg;
-      echo -Fl/usr/lib/gcc/i686-linux-gnu/* >> ~/.fpc.cfg;
-      echo -Fl/usr/lib/gcc/i586-mingw32msvc/* >> ~/.fpc.cfg;
+      for l in /usr/local/android-sdk-*/ndk-bundle/platforms/android-24/arch-x86/usr/lib/ /usr/lib/gcc/i686-linux-gnu/* /usr/lib/gcc/i586-mingw32msvc/*; do echo -Fl$l >> ~/.fpc.cfg; done
       echo '#ENDIF' >> ~/.fpc.cfg;
       cat ~/.fpc.cfg;
     fi
