@@ -53,19 +53,20 @@ install:
       cd $oldpath;
       gccv=$(gcc-arm-linux-androideabi -dumpversion);
       echo '#IFDEF CPUARM' >> ~/.fpc.cfg;
-      echo '-Xd' >> ~/.fpc.cfg;
-      echo '-Xt' >> ~/.fpc.cfg;
       echo '-XParm-linux-androideabi-' >> ~/.fpc.cfg;
-      for l in /usr/local/android-sdk-*/ndk-bundle/platforms/android-24/arch-arm/usr/lib/ /usr/lib/gcc/arm-linux-androideabi/* /usr/arm-linux-androideabi/lib; do echo -Fl$l >> ~/.fpc.cfg; done;
+      for l in  /usr/local/android-sdk-*/ndk-bundle/platforms/android-24/arch-arm/usr/lib /usr/lib/gcc/arm-linux-androideabi/* /usr/arm-linux-androideabi/lib; do echo -Fl$l >> ~/.fpc.cfg; done;
       echo '#ENDIF' >> ~/.fpc.cfg;
       echo '#IFDEF CPU386' >> ~/.fpc.cfg;
       for l in /usr/local/android-sdk-*/ndk-bundle/platforms/android-24/arch-x86/usr/lib/ /usr/lib/gcc/i686-linux-gnu/* /usr/lib/gcc/i586-mingw32msvc/*; do echo -Fl$l >> ~/.fpc.cfg; done;
       echo '#ENDIF' >> ~/.fpc.cfg;
       cat ~/.fpc.cfg;
+      ls -l /usr/local/android-sdk-*;
+      ls -l /usr/local/;
     fi
   - if [[ $LAZ_ENV = wine ]]; then  
       sudo apt-get install -y dos2unix;
       tee programs/internet/xidel/xidel <<<$'#!/bin/bash\nwine ../../../xidel/xidel.exe "$@" | dos2unix | perl -pne \' s!(file://Z:[^"]+)! {my $temp = $1; $temp =~ s%(Z:)?\\\\{1,2}%/%g; $temp}!ge\'';
+      chmod +x programs/internet/xidel/xidel;
     fi
 
 #    svn checkout -r 37480 https://svn.freepascal.org/svn/fpc/trunk	fpc-trunk

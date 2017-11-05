@@ -294,7 +294,7 @@ echo
 echo
 
 echo $error
-if [[ error -ne 0 ]]; then echo -----ERROR\!\!\!-----; fi
+if [[ error -ne 0 ]]; then echo -----ERROR\!\!\!-----; exit 2; fi
 
 #$TEMPLATEPARSER$TEMPLATES/wasnrw/start $INPAGES/was/start.html > $OUTPAGES/was/start
 #$TEMPLATEPARSER$TEMPLATES/wasnrw/KontoServlet $INPAGES/wasnrw/BenutzerkontoServlet_books.html $OUTPAGES/was/BenutzerkontoServlet_books.ht
