@@ -59,7 +59,11 @@ install:
       for l in /usr/local/android-sdk/ndk-bundle/platforms/android-24/arch-x86/usr/lib/ /usr/lib/gcc/i686-linux-gnu/* /usr/lib/gcc/i586-mingw32msvc/*; do echo -Fl$l >> ~/.fpc.cfg; done;
       echo '#ENDIF' >> ~/.fpc.cfg;
       cat ~/.fpc.cfg;
-      
+      mkdir -p ~/.gradle;
+      echo 'ANDROID_STORE_PASSWORD=F2XyHtMYmG65GQimSQmm4WDD' > ~/.gradle/gradle.properties;
+      echo 'ANDROID_KEY_PASSWORD=F2XyHtMYmG65GQimSQmm4WDD' >> ~/.gradle/gradle.properties;
+      echo 'ANDROID_GLOBAL_KEYSTORE=/tmp/keystore' >> ~/.gradle/gradle.properties;
+      keytool -genkey -no-prompt -keystore /tmp/keystore -alias videlibri -keyalg RSA -keysize 2048 -validity 10000 -storepass F2XyHtMYmG65GQimSQmm4WDD -keypass F2XyHtMYmG65GQimSQmm4WDD -dname "CN=travis, OU=ID, O=T, L=T, S=T, C=T";      
     fi
   - if [[ $LAZ_ENV = wine ]]; then  
       sudo apt-get install -y dos2unix;

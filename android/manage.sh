@@ -93,12 +93,12 @@ build-java)
   release) GRADLEMODE=assembleRelease;;
   esac
   
-  ./gradlew $GRADLEMODE || (echo "FAILED!"; exit 2)
+  ./gradlew $GRADLEMODE || {echo "FAILED!"; exit 1}
   
   if [[ "$TRAVIS" != true ]]; then
     cd android
-    #$ADB uninstall de.benibela.videlibri || (echo "FAILED!"; exit)
-    $ADB install -r build/outputs/apk/android-$BUILDMODE.apk || (echo "FAILED!"; exit)
+    #$ADB uninstall de.benibela.videlibri || {echo "FAILED!"; exit 1}
+    $ADB install -r build/outputs/apk/android-$BUILDMODE.apk || {echo "FAILED!"; exit 1}
   fi
 ;;
 
@@ -107,8 +107,8 @@ install)
   else BUILDMODE=debug;  fi
 
   cd android
-  #$ADB uninstall de.benibela.videlibri || (echo "FAILED!"; exit)
-  $ADB install -r build/outputs/apk/android-$BUILDMODE.apk || (echo "FAILED!"; exit)
+  #$ADB uninstall de.benibela.videlibri || {echo "FAILED!"; exit 1}
+  $ADB install -r build/outputs/apk/android-$BUILDMODE.apk || {echo "FAILED!"; exit 1}
   
 ;;
 
