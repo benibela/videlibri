@@ -20,6 +20,8 @@ type EBookListReader=class(Exception)
 end;
 ELoginException=class(EBookListReader)
 end;
+EBookListReaderFromWebpage = class(EBookListReader)
+end;
 
 type
   TExceptionKind = (ekUnknown = 0, ekInternet = 1, ekLogin = 2);
@@ -168,8 +170,9 @@ resourcestring
   rsAfterTomorrow = 'übermorgen';
   rsErrorCheckInternet = 'Bitte überprüfen Sie Ihre Internetverbindung.';
   rsErrorBacktrace = 'Detaillierte Informationen über die entsprechende Quellcodestelle:';
-  rsErrorBookListReader = 'Die Bibliothek zeigt diese Nachricht auf der Katalogwebseite an: '+LineEnding;
+  rsErrorBookListReaderFromWebpage = 'Die Bibliothek zeigt diese Nachricht auf der Katalogwebseite an: '+LineEnding;
   rsErrorLoginException = 'Die Kontonummer bzw. das Passwort wurden vom Bibliothekskatalog nicht akzeptiert. Der Bibliothekskatalog erläutert dazu: '+LineEnding;
+  rsErrorBookListReaderInternal = 'Internet Fehler: '+LineEnding;
 
 
   procedure addErrorMessage(kind: TExceptionKind; errorStr,errordetails, anonymouseDetails, libraryId, searchQuery:string;lib:TCustomAccountAccess=nil);
@@ -212,8 +215,10 @@ resourcestring
     end else if exception is ELoginException then begin
       kind := ekLogin;
       errorstr:=rsErrorLoginException + moreLineBreak+ trim(exception.message);
+    end else if exception is EBookListReaderFromWebpage then begin
+      errorstr:=rsErrorBookListReaderFromWebpage + moreLineBreak+ trim(exception.message);
     end else if exception is EBookListReader then begin
-      errorstr:=rsErrorBookListReader + moreLineBreak+ trim(exception.message);
+      errorstr:=rsErrorBookListReaderInternal + moreLineBreak+ trim(exception.message);
     end else if exception is ELibraryException then begin
       errorstr:=#13#10+exception.message;
       errordetails:=ELibraryException(exception).details;

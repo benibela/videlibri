@@ -500,7 +500,7 @@ begin
           'presentation': status:=bsPresentation;
           'interloan': status:=bsInterLoan;
 
-          'history', '': status := bsUnknown; //these are invalid status (not occuring during serialization, however history is used by xquery offline search )
+          'history', '': status := bsUnknown; //these are invalid statuses (not occuring during serialization, however history is used by xquery offline search )
           else raise EBookListReader.create(Format(rsBookStatusInvalid, [value]));
         end;
     'cancelable': if (value <> '') and (value <> '0') and not striEqual(value, 'false') and (value <> '?') then cancelable:=tTrue
@@ -1112,8 +1112,10 @@ begin
   end else if variable='book-select()' then begin
     //reset
     raise EBookListReader.create('not implemented yet');
-  end else if (variable='raise()') then raise EBookListReader.create(LineEnding + LineEnding + value.toString)
+  end
+  else if (variable='raise()') then raise EBookListReaderFromWebpage.create(LineEnding + LineEnding + value.toString)
   else if (variable = 'raise-login()') then raise ELoginException.create(LineEnding + LineEnding + value.toString)
+  else if (variable='raise-internal()') then raise EBookListReader.create(LineEnding + LineEnding + value.toString)
   else if (variable='message()') then begin
      if pendingMessage <> nil then pendingMessage.free;
      pendingMessage := TPendingMessage.Create;
@@ -1276,6 +1278,14 @@ begin
   result := xqvalue();
 end;
 
+function xqFunctionRaise_Internal(const context: TXQEvaluationContext; argc: SizeInt; argv: PIXQValue): IXQValue;
+begin
+  requiredArgCount(argc, 0, 1);
+  if argc = 0 then context.staticContext.sender.VariableChangelog.add('raise-internal()', xqvalue())
+  else context.staticContext.sender.VariableChangelog.add('raise-internal()', argv[0]);
+  result := xqvalue();
+end;
+
 function xqFunctionRaise(const context: TXQEvaluationContext; argc: SizeInt; argv: PIXQValue): IXQValue;
 begin
   requiredArgCount(argc, 0, 1);
@@ -1420,6 +1430,7 @@ initialization
   vl := TXQNativeModule.Create(XMLNamespaceVideLibri);
   vl.registerFunction('delete-current-books', 0, 0, @xqFunctionDelete_Current_Books, []);
   vl.registerFunction('raise', 0, 1, @xqFunctionRaise, []);
+  vl.registerFunction('raise-internal', 0, 1, @xqFunctionRaise_Internal, []);
   vl.registerFunction('raise-login', 0, 1, @xqFunctionRaise_Login, []);
   vl.registerFunction('choose', 4, 4, @xqFunctionChoose, []);
   vl.registerFunction('confirm', 2, 2, @xqFunctionConfirm, []);
