@@ -292,8 +292,10 @@ begin
   if not assigned(fthread) then exit;
   list:=fthread.messages.openDirectMessageAccess;
   for i:=list.Count-1 downto 0 do
-    if TSearcherMessage(list[i]).typ=typ then
+    if TSearcherMessage(list[i]).typ=typ then begin
+      tobject(list[i]).free;
       list.Delete(i);
+    end;
   fthread.messages.closeDirectMessageAccess(list);
 end;
 
@@ -315,8 +317,10 @@ var
 begin
   list:=fthread.messages.openDirectMessageAccess;
   for i:=list.Count-1 downto 0 do
-    if not (TSearcherMessage(list[i]).typ in ALLOWED_ACTIONS) then
+    if not (TSearcherMessage(list[i]).typ in ALLOWED_ACTIONS) then begin
+      tobject(list[i]).free;
       list.Delete(i);
+    end;
   fthread.messages.closeDirectMessageAccess(list);
 
   while assigned(fthread) and not (fthread.performingAction in ALLOWED_ACTIONS) do begin
