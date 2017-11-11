@@ -499,7 +499,9 @@ begin
           'virtual': status:=bsVirtual;
           'presentation': status:=bsPresentation;
           'interloan': status:=bsInterLoan;
-          else EBookListReader.create(Format(rsBookStatusInvalid, [value]));
+
+          'history', '': status := bsUnknown; //these are invalid status (not occuring during serialization, however history is used by xquery offline search )
+          else raise EBookListReader.create(Format(rsBookStatusInvalid, [value]));
         end;
     'cancelable': if (value <> '') and (value <> '0') and not striEqual(value, 'false') and (value <> '?') then cancelable:=tTrue
                  else if value = '?' then cancelable:=tUnknown
