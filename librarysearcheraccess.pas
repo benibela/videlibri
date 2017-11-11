@@ -81,7 +81,6 @@ private
 
   procedure removeOldMessageOf(typ: TSearcherMessageTyp);
   function GetSearcher: TLibrarySearcher;
-  procedure threadException();
 public
   function operationActive: boolean;
 
@@ -247,12 +246,6 @@ begin
   Result:=fthread.Searcher;
 end;
 
-procedure TLibrarySearcherAccess.threadException();
-begin
-  if logging then log('TLibrarySearcherAccess.threadException called');
-  if assigned(OnException) then
-    OnException(self);
-end;
 
 constructor TLibrarySearcherAccess.create();
 begin
@@ -661,7 +654,7 @@ begin
         storeException(e,nil,searcher.getLibraryIds,debugLastSearchQuery);
         FreeAndNil(mes);
         messages.removeAndFreeAll;
-        desktopSynchronized(@access.threadException);
+        callNotifyEvent(access.fOnException);
       end;
     end;
   end;
