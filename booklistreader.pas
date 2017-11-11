@@ -358,8 +358,15 @@ begin
 end;
 
 destructor TBook.Destroy;
+var
+  i: Integer;
 begin
-  holdings.Free;
+  if holdings <> nil then begin
+    //safety check
+    for i := 0 to holdings.Count - 1 do
+      if holdings[i].owner = self then holdings[i].owner := owner;
+    holdings.Free;
+  end;
   inherited Destroy;
 end;
 
