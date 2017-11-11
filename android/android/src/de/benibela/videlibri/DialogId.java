@@ -4,8 +4,10 @@ class DialogId {
     //the numbers are arbitrary. everything goes as long as they are pairwise different
     public static final int OK = 7001;
     public static final int RENEW_CONFIRM = 7002;
+    public static final int INSTALLATION_DONE = 7004;
     public static final int ERROR_CONFIRM = 7005;
-    public static final int INSTALLATION_DONE = 7006;
+    public static final int ERROR_LOGIN = 7006;
+    public static final int ERROR_INTERNET = 7007;
     public static final int ACCOUNT_DELETE_CONFIRM = 7012;
     public static final int ACCOUNT_ADD_NOW = 7013;
     public static final int FEEDBACK_SEND_ATTEMPTED = 7014;

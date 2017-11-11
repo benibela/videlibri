@@ -21,14 +21,19 @@ end;
 ELoginException=class(EBookListReader)
 end;
 
-type TErrorArray=array of record
-                     error: string;
-                     details: array of record
-                       account: TCustomAccountAccess;
-                       details, anonymouseDetails, libraryId, searchQuery: string;
-                     end;
-                   end;
-  
+type
+  TExceptionKind = (ekUnknown = 0, ekInternet = 1, ekLogin = 2);
+  TVideLibriExceptionDetails = record
+    account: TCustomAccountAccess;
+    details, anonymouseDetails, libraryId, searchQuery: string;
+  end;
+  TVideLibriException = record
+    error: string;
+    kind: TExceptionKind;
+    details: array of TVideLibriExceptionDetails;
+  end;
+  TErrorArray = array of TVideLibriException;
+
 const VIDELIBRI_MUTEX_NAME='VideLibriStarted';
 
 type TCallbackHolder = class
@@ -90,8 +95,8 @@ var programPath,userPath:string;
   procedure initApplicationConfig;
   procedure finalizeApplicationConfig;
 
-  procedure addErrorMessage(errorStr,errordetails, anonymouseDetails, libraryId, searchQuery:string;lib:TCustomAccountAccess=nil);
-  procedure createErrorMessageStr(exception:exception; out errorStr,errordetails, anonymousDetails:string;account:TCustomAccountAccess=nil);
+  procedure addErrorMessage(kind: TExceptionKind; errorStr,errordetails, anonymouseDetails, libraryId, searchQuery:string;lib:TCustomAccountAccess=nil);
+  procedure createErrorMessageStr(exception:exception; out kind: TExceptionKind; out errorStr,errordetails, anonymousDetails:string;account:TCustomAccountAccess=nil);
 
   procedure storeException(ex: exception; account:TCustomAccountAccess; libraryId, searchQuery: string); //thread safe
 
@@ -167,7 +172,7 @@ resourcestring
   rsErrorLoginException = 'Die Kontonummer bzw. das Passwort wurden vom Bibliothekskatalog nicht akzeptiert. Der Bibliothekskatalog erläutert dazu: '+LineEnding;
 
 
-  procedure addErrorMessage(errorStr,errordetails, anonymouseDetails, libraryId, searchQuery:string;lib:TCustomAccountAccess=nil);
+  procedure addErrorMessage(kind: TExceptionKind; errorStr,errordetails, anonymouseDetails, libraryId, searchQuery:string;lib:TCustomAccountAccess=nil);
   var i:integer;
   begin
     for i:=0 to high(errorMessageList) do
@@ -183,6 +188,7 @@ resourcestring
     SetLength(errorMessageList,length(errorMessageList)+1);
     errorMessageList[high(errorMessageList)].error:=errorstr;
     setlength(errorMessageList[high(errorMessageList)].details,1);
+    errorMessageList[high(errorMessageList)].kind:=kind;
     errorMessageList[high(errorMessageList)].details[0].account:=lib;
     errorMessageList[high(errorMessageList)].details[0].details:=errordetails;
     errorMessageList[high(errorMessageList)].details[0].anonymouseDetails:=anonymouseDetails;
@@ -190,33 +196,38 @@ resourcestring
     errorMessageList[high(errorMessageList)].details[0].searchQuery:=searchQuery;
   end;
 
-  procedure createErrorMessageStr(exception: exception; out errorStr, errordetails, anonymousDetails: string; account: TCustomAccountAccess);
+  procedure createErrorMessageStr(exception: exception; out kind: TExceptionKind; out errorStr, errordetails, anonymousDetails: string; account: TCustomAccountAccess);
   var i:integer;
+    moreLineBreak: string;
   begin
+    kind := ekUnknown;
     errordetails:='';
     anonymousDetails:='';
+    moreLineBreak := {$ifdef android}''{$else}LineEnding{$endif};
     if exception is EInternetException then begin
+      kind := ekInternet;
       errorstr:=exception.message+LineEnding;
-      errorStr += rsErrorCheckInternet;
+      errorStr += moreLineBreak+rsErrorCheckInternet;
       errordetails:=EInternetException(exception).details;
-     end else if exception is ELoginException then begin
-      errorstr:=rsErrorLoginException + trim(exception.message);
-     end else if exception is EBookListReader then begin
-      errorstr:=rsErrorBookListReader + trim(exception.message);
-     end else if exception is ELibraryException then begin
+    end else if exception is ELoginException then begin
+      kind := ekLogin;
+      errorstr:=rsErrorLoginException + moreLineBreak+ trim(exception.message);
+    end else if exception is EBookListReader then begin
+      errorstr:=rsErrorBookListReader + moreLineBreak+ trim(exception.message);
+    end else if exception is ELibraryException then begin
       errorstr:=#13#10+exception.message;
       errordetails:=ELibraryException(exception).details;
-     end else if exception is EHTMLParseMatchingException then begin
+    end else if exception is EHTMLParseMatchingException then begin
        errorstr:=//'Es ist folgender Fehler aufgetreten:      '#13#10+
             exception.className()+': '+ exception.message+'     ';
        if EHTMLParseMatchingException(exception).sender is THtmlTemplateParser then begin
          errordetails := THtmlTemplateParser(EHTMLParseMatchingException(exception).sender).debugMatchings(80);
          anonymousDetails := THtmlTemplateParser(EHTMLParseMatchingException(exception).sender).debugMatchings(80, false, ['class', 'id', 'style']);
        end;
-     end else begin
+    end else begin
       errorstr:=//'Es ist folgender Fehler aufgetreten:      '#13#10+
            exception.className()+': '+ exception.message+'     ';
-     end;
+    end;
     errordetails:=errordetails+#13#10  +rsErrorBacktrace+ #13#10+ BackTraceStrFunc(ExceptAddr);
     for i:=0 to ExceptFrameCount-1 do
       errordetails:=errordetails+#13#10+BackTraceStrFunc(ExceptFrames[i]);
@@ -237,11 +248,12 @@ resourcestring
 
   procedure storeException(ex: exception; account:TCustomAccountAccess; libraryId, searchQuery: string);
   var  errorstr, errordetails, anonymouseDetails: string;
+       kind: TExceptionKind;
   begin
-    createErrorMessageStr(ex,errorstr,errordetails,anonymouseDetails, account);
+    createErrorMessageStr(ex,kind,errorstr,errordetails,anonymouseDetails, account);
     system.EnterCriticalSection(exceptionStoring);
     try
-      addErrorMessage(errorstr,errordetails,anonymouseDetails, libraryId, searchQuery, account);
+      addErrorMessage(kind, errorstr,errordetails,anonymouseDetails, libraryId, searchQuery, account);
     finally
       system.LeaveCriticalSection(exceptionStoring);
     end;

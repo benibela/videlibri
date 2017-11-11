@@ -1054,13 +1054,13 @@ var
   pendingExceptionClass: jclass;
   pendingExceptionClassInit: jmethodID;
   pendingExceptionFields: record
-    accountPrettyNamesS, errorS, libraryS, searchQueryS, detailsS, anonymousDetailsS: jfieldID;
+    kindI, accountPrettyNamesS, errorS, libraryS, searchQueryS, detailsS, anonymousDetailsS, firstAccountUserS, firstAccountLibS: jfieldID;
   end;
 
 
 var
   details, anonymousDetails, libs, queries: String;
-  names: String;
+  names, firstAccountUser, firstAccountLib: String;
   i: Integer;
   temp: jobject;
   k: Integer;
@@ -1072,12 +1072,15 @@ begin
     pendingExceptionClass := j.newGlobalRefAndDelete(j.getclass('de/benibela/videlibri/Bridge$PendingException'));
     pendingExceptionClassInit := j.getmethod(pendingExceptionClass, '<init>', '()V');
     with pendingExceptionFields do begin
+      kindI := j.getfield(pendingExceptionClass, 'kind', 'I');
       accountPrettyNamesS := j.getfield(pendingExceptionClass, 'accountPrettyNames', 'Ljava/lang/String;');
       errorS := j.getfield(pendingExceptionClass, 'error', 'Ljava/lang/String;');
       detailsS := j.getfield(pendingExceptionClass, 'details', 'Ljava/lang/String;');
       libraryS := j.getfield(pendingExceptionClass, 'library', 'Ljava/lang/String;');
       searchQueryS := j.getfield(pendingExceptionClass, 'searchQuery', 'Ljava/lang/String;');
       anonymousDetailsS := j.getfield(pendingExceptionClass, 'anonymousDetails', 'Ljava/lang/String;');
+      firstAccountLibS := j.getfield(pendingExceptionClass, 'firstAccountLib', 'Ljava/lang/String;');
+      firstAccountUserS := j.getfield(pendingExceptionClass, 'firstAccountUser', 'Ljava/lang/String;');
     end;
 
     system.EnterCriticalSection(exceptionStoring);
@@ -1091,6 +1094,7 @@ begin
           names := '';
           libs := '';
           queries := '';
+          firstAccountUser := '';
           for k := 0 to high(errorMessageList[i].details) do begin
             details += errorMessageList[i].details[k].details+LineEnding+LineEnding;
             anonymousDetails += errorMessageList[i].details[k].anonymouseDetails+LineEnding+LineEnding;
@@ -1099,15 +1103,24 @@ begin
             if errorMessageList[i].details[k].searchQuery <> '' then
               queries += errorMessageList[i].details[k].searchQuery + ' ';
             if names <> '' then names += ', ';
-            if errorMessageList[i].details[k].account <> nil then
-              names += errorMessageList[i].details[k].account.prettyName;
+            with errorMessageList[i].details[k] do
+              if account <> nil then begin
+                names += account.prettyName;
+                if firstAccountUser = '' then begin
+                  firstAccountUser := account.getUser();
+                  firstAccountLib := account.getLibrary().id;
+                end;
+              end;
           end;
-          j.SetStringField(temp, detailsS, details);
-          j.SetStringField(temp, anonymousDetailsS, anonymousDetails);
-          j.SetStringField(temp, accountPrettyNamesS, names);
-          j.SetStringField(temp, errorS, errorMessageList[i].error);
-          j.SetStringField(temp, libraryS, libs);
-          j.SetStringField(temp, searchQueryS, queries);
+          temp.SetIntField(kindI, ord(errorMessageList[i].kind));
+          temp.SetStringField(detailsS, details);
+          temp.SetStringField(anonymousDetailsS, anonymousDetails);
+          temp.SetStringField(accountPrettyNamesS, names);
+          temp.SetStringField(errorS, errorMessageList[i].error);
+          temp.SetStringField(libraryS, libs);
+          temp.SetStringField(searchQueryS, queries);
+          temp.SetStringField(firstAccountLibS, firstAccountLib);
+          temp.SetStringField(firstAccountUserS, firstAccountUser);
         end;
         j.SetObjectArrayElement(result, i, temp);
         j.deleteLocalRef(temp);

@@ -38,9 +38,9 @@ public class Bridge {
             Account a = (Account) o;
             return  (a.libId == libId && a.prettyName == prettyName);
         }
-        String internalId(){
+        /*String internalId(){
             return libId+"#"+name;
-        }
+        }*/
         Library getLibrary(){ //warning slow
             Library[] libs = getLibraries();
             for (Library lib: libs)
@@ -217,7 +217,13 @@ public class Bridge {
     }
 
     public static class PendingException{
+        static final public int KIND_UNKNOWN = 0;
+        static final public int KIND_INTERNET = 1;
+        static final public int KIND_LOGIN = 2;
+
+        int kind;
         String accountPrettyNames, error, library, searchQuery, details, anonymousDetails;
+        String firstAccountUser, firstAccountLib;
     }
 
     public static class Options{

@@ -1,8 +1,8 @@
 object showErrorForm: TshowErrorForm
   Left = 335
-  Height = 69
+  Height = 85
   Top = 187
-  Width = 403
+  Width = 470
   HorzScrollBar.Page = 399
   HorzScrollBar.Range = 392
   VertScrollBar.Page = 71
@@ -10,40 +10,45 @@ object showErrorForm: TshowErrorForm
   ActiveControl = Button1
   BorderIcons = [biSystemMenu]
   Caption = 'showErrorForm'
-  ClientHeight = 69
-  ClientWidth = 403
+  ClientHeight = 85
+  ClientWidth = 470
   OnCreate = FormCreate
+  OnResize = FormResize
   OnShow = FormShow
   Position = poScreenCenter
-  LCLVersion = '1.1'
+  LCLVersion = '1.8.0.5'
   object Label1: TLabel
     Left = 11
-    Height = 15
+    Height = 18
     Top = 10
-    Width = 380
+    Width = 450
     Caption = 'jjhhhhhhhhhhh'
-    Constraints.MaxWidth = 380
-    Constraints.MinWidth = 380
+    Constraints.MaxWidth = 450
+    Constraints.MinWidth = 450
     ParentColor = False
     WordWrap = True
   end
   object Button1: TButton
-    Left = 160
-    Height = 25
+    Left = 184
+    Height = 40
     Top = 40
-    Width = 74
+    Width = 90
+    AutoSize = True
     BorderSpacing.InnerBorder = 4
     Cancel = True
     Caption = 'OK'
+    Constraints.MinWidth = 90
     Default = True
     OnClick = Button1Click
     TabOrder = 0
   end
   object Button2: TButton
-    Left = 318
-    Height = 25
+    Left = 384
+    Height = 40
     Top = 40
-    Width = 74
+    Width = 84
+    Anchors = [akTop, akRight]
+    AutoSize = True
     BorderSpacing.InnerBorder = 4
     Caption = 'Details \/\/'
     OnClick = Button2Click
@@ -51,9 +56,9 @@ object showErrorForm: TshowErrorForm
   end
   object Details: TMemo
     Left = 7
-    Height = 61
-    Top = 71
-    Width = 388
+    Height = 77
+    Top = 88
+    Width = 460
     Anchors = [akTop, akLeft, akRight, akBottom]
     Lines.Strings = (
       'M'
@@ -64,16 +69,17 @@ object showErrorForm: TshowErrorForm
     )
     ReadOnly = True
     ScrollBars = ssAutoVertical
-    TabOrder = 2
+    TabOrder = 3
   end
   object Button3: TButton
     Left = 7
-    Height = 25
-    Top = 39
-    Width = 99
+    Height = 40
+    Top = 40
+    Width = 116
+    AutoSize = True
     BorderSpacing.InnerBorder = 4
     Caption = 'Fehler melden...'
     OnClick = Button3Click
-    TabOrder = 3
+    TabOrder = 2
   end
-end
+end

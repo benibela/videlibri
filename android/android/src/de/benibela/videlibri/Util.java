@@ -105,7 +105,7 @@ public class Util {
             String items[] = trs(args.get("items"));
 
             AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-            builder.setTitle(title != null ? title : "VideLibri" );
+            if (title != null) builder.setTitle(title);
             switch (special) {
                 case DialogId.SPECIAL_LIBRARY_NOT_IN_LIST:
                     if (message != null) {
@@ -201,7 +201,9 @@ public class Util {
     static public void showMessage(String message, Bundle more){ showMessage(DialogId.OK, message, null, tr(R.string.ok), null, more); }
     static public void showMessage(int dialogId, String message, Bundle more){ showMessage(dialogId, message, null, tr(R.string.ok), null, more); }
     static public void showMessageYesNo(int dialogId, String message, Bundle more){ showMessage(dialogId, message, tr(R.string.no), null, tr(R.string.yes), more); }
-
+    static public void showMessage(int dialogId, String message, String negative, String neutral, String positive){ showMessage(dialogId, message, negative, neutral, positive, null); }
+    static public void showMessage(int dialogId, String message, int negative, int neutral, int positive){ showMessage(dialogId, message, Util.tr(negative), Util.tr(neutral), Util.tr(positive), null); }
+    static public void showMessage(int dialogId, String message, int negative, int neutral, int positive, Bundle more){ showMessage(dialogId, message, Util.tr(negative), Util.tr(neutral), Util.tr(positive), more); }
 
     static public void showMessage(int dialogId, String message, String negative, String neutral, String positive, Bundle more){
         Bundle args = new Bundle();
@@ -210,7 +212,8 @@ public class Util {
         args.putString("negativeButton", negative);
         args.putString("neutralButton", neutral);
         args.putString("positiveButton", positive);
-        args.putBundle("more", more);
+        if (more != null)
+            args.putBundle("more", more);
         showDialog(args);
     }
 

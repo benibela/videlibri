@@ -155,6 +155,7 @@ begin
   if logging then log('showErrorMessages called: '+IntToStr(length(errorMessageList))) ;
   system.EnterCriticalSection(exceptionStoring);
   sl_title := TStringList.Create; sl_message := TStringList.Create; sl_messagedetails := TStringList.Create;
+  sl_messagedetails.OwnsObjects := false;
   try
     for i:=0 to high(errorMessageList) do begin
       if oldErrorMessageString='' then
@@ -177,7 +178,7 @@ begin
           end;
           mes:=Format(rsErrorOnAccounts, [mes]);
         end else mes := rsErrorGeneral;
-        mes += LineEnding + error;
+        mes += LineEnding + LineEnding + error;
 
         mesDetails:='';
         for j:=0 to high(details) do begin
@@ -191,8 +192,8 @@ begin
         else title:=rsError;;
         oldErrorMessageString:=oldErrorMessageString+'---'+title+'---'#13#10+mes+#13#10+rsDetails+':'#13#10+mesdetails;
         sl_title.Add(title);
-        sl_message.add(mes);
-        sl_messagedetails.add(mesDetails);
+        sl_message.AddObject(mes, UIntToObj(ord(kind)));
+        sl_messagedetails.Add(mesDetails);
         //Application.MessageBox(pchar(error),pchar('Fehler bei Zugriff auf '+lib.prettyName),MB_APPLMODAL or MB_ICONERROR or MB_OK);
       end;
     end;
@@ -201,10 +202,10 @@ begin
     system.LeaveCriticalSection(exceptionStoring);
   end;
   for i:=0 to sl_title.Count-1 do begin
-    if mainForm.Visible then
-      TshowErrorForm.showError(sl_title[i],sl_message[i],sl_messagedetails[i],@mainForm.MenuItem16Click)
+    if mainForm <> nil then
+      TshowErrorForm.showError(TExceptionKind(ObjToUInt(sl_message.Objects[i])), sl_title[i],sl_message[i],sl_messagedetails[i],@mainForm.MenuItem16Click,@mainform.ShowOptionsClick)
      else
-      TshowErrorForm.showError(sl_title[i],sl_message[i],sl_messagedetails[i]);
+      TshowErrorForm.showError(TExceptionKind(ObjToUInt(sl_message.Objects[i])),sl_title[i],sl_message[i],sl_messagedetails[i],nil,nil);
   end;
   sl_title.free; sl_message.free; sl_messagedetails.free
 end;

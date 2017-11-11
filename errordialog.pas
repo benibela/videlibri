@@ -6,7 +6,7 @@ interface
 
 uses
   Classes, SysUtils, LResources, Forms, Controls, Graphics, Dialogs, StdCtrls,
-  Buttons;
+  Buttons, applicationconfig;
 
 type
 
@@ -22,25 +22,30 @@ type
     procedure Button2Click(Sender: TObject);
     procedure Button3Click(Sender: TObject);
     procedure FormCreate(Sender: TObject);
+    procedure FormResize(Sender: TObject);
     procedure FormShow(Sender: TObject);
   private
     { private declarations }
-    sendErrorEvent:TNotifyEvent;
+    sendErrorEvent, checkPasswordEvent:TNotifyEvent;
+    procedure checkPassword(Sender: TObject);
+    procedure arrangeLayout;
   public
     { public declarations }
-    class procedure showError(title,error: string;detailStr: string='';sendError:TNotifyEvent=nil);
+    class procedure showError(kind: TExceptionKind; title,error: string;detailStr: string;sendError, acheckPasswordEvent: TNotifyEvent);
   end;
 
 var
   showErrorForm: TshowErrorForm;
 
+resourcestring
+  rsCheckYourPassword = 'Passwort überprüfen...';
 implementation
 
-uses applicationdesktopconfig;
+uses applicationdesktopconfig, math;
 
 { TshowErrorForm }
 
-class procedure TshowErrorForm.showError(title,error: string;detailStr: string='';sendError:TNotifyEvent=nil);
+class procedure TshowErrorForm.showError(kind: TExceptionKind; title,error: string;detailStr: string;sendError, acheckPasswordEvent:TNotifyEvent);
 var errorForm: TShowErrorForm;
 begin
   errorForm:=TShowErrorForm.Create(nil);
@@ -50,9 +55,15 @@ begin
     caption:=title;
     Label1.Caption:=error;
     Details.Lines.Text:=detailStr;
-    Button2.Visible:=detailStr<>'';
+    if (kind = ekLogin) and assigned(acheckPasswordEvent) then begin
+      button2.Visible := true;
+      button2.Caption := rsCheckYourPassword;
+      button2.onClick := @checkPassword;
+      button2.Font.Style := button2.Font.Style + [fsBold];
+    end else Button2.Visible:=detailStr<>'';
     button3.visible:=sendError<>nil;
     sendErrorEvent:=sendError;
+    checkPasswordEvent := acheckPasswordEvent;
   end;
   errorForm.showmodal;
   errorForm.free;
@@ -84,19 +95,40 @@ end;
 
 procedure TshowErrorForm.FormCreate(Sender: TObject);
 begin
+  button2.caption:=rsDetails + ' \/\/';
+end;
 
+procedure TshowErrorForm.FormResize(Sender: TObject);
+begin
+  label1.Constraints.MaxWidth := max(ClientWidth - 2 * label1.Left, 30);
+  label1.Constraints.MinWidth := max(ClientWidth - 2 * label1.Left, 0);
+  arrangeLayout;
 end;
 
 procedure TshowErrorForm.FormShow(Sender: TObject);
 begin
+  arrangeLayout;
   OnShow:=nil;
-  button1.top:=16+Label1.top+Label1.Height;
-  button2.top:=button1.top;
-  button3.top:=button1.top;
-  details.top:=button1.top+36;
-  height:=button1.top+button1.height+5;
-  details.height:=clientheight-5-details.top;
-  button2.caption:=rsDetails + ' \/\/';
+ // details.height:=clientheight-5-details.top;
+end;
+
+procedure TshowErrorForm.checkPassword(Sender: TObject);
+begin
+  checkPasswordEvent(sender);
+  close;
+end;
+
+procedure TshowErrorForm.arrangeLayout;
+begin
+  button1.Left := math.max(button3.Left + button3.Width, (ClientWidth - button1.Width) div 2);
+  button2.Left := ClientWidth - 5 - button2.Width;
+  if (OnShow <> nil) or (button1.top <> 16+Label1.top+Label1.Height) then begin
+    button1.top:=16+Label1.top+Label1.Height;
+    button2.top:=button1.top;
+    button3.top:=button1.top;
+    details.top:=button1.top+button1.Height+6;
+    height:=button1.top+button1.height+5;
+  end;
 end;
 
 initialization

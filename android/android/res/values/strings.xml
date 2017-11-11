@@ -298,4 +298,7 @@
          \"(:Primzahlen:) for $i in 2 to 100 where empty((2 to $i - 1)[$i mod . = 0]) return $i\"
         ]
     "</string>
+    <string name="app_error_check_passwd_btn">Passwort korrigieren</string>
+    <string name="app_error_report_btn">Fehlerbericht senden</string>
+    <string name="app_error_check_internet_btn">Interneteinstellungen</string>
 </resources>

@@ -42,6 +42,13 @@ public class AccountInfo extends VideLibriBaseActivity {
     static final int MODE_ACCOUNT_MODIFY = 134392 ;
     static final int REQUEST_LIBRARY_FOR_ACCOUNT_CREATION = 1236;
 
+    private Bridge.Account getOldAccount(){
+        Bridge.Account account = (Bridge.Account) getIntent().getSerializableExtra("account");
+        if (account != null) return account;
+        if (VideLibriApp.accounts.length > 0 ) return VideLibriApp.accounts[0];
+        return new Bridge.Account(); //modify with null account would crash
+    }
+
     public void setActiveLibrary(String libid, String shortname){
         libshortname = shortname;
         libdetails = Bridge.VLGetLibraryDetails(libid);
@@ -90,7 +97,7 @@ public class AccountInfo extends VideLibriBaseActivity {
 
 
         if (mode == MODE_ACCOUNT_MODIFY) {
-            final Bridge.Account oldAccount = (Bridge.Account) getIntent().getSerializableExtra("account");
+            final Bridge.Account oldAccount = getOldAccount();
             Bridge.Library lib = oldAccount.getLibrary();
             setActiveLibrary(lib.id, lib.nameShort);
 
@@ -208,8 +215,7 @@ public class AccountInfo extends VideLibriBaseActivity {
         switch (dialogId) {
             case DialogId.ACCOUNT_DELETE_CONFIRM:
                 if (buttonId == DialogInterface.BUTTON_POSITIVE) {
-                    Bridge.Account oldAccount = (Bridge.Account) getIntent().getSerializableExtra("account");
-                    VideLibriApp.deleteAccount(oldAccount);
+                    VideLibriApp.deleteAccount(getOldAccount());
                     setResult(RESULT_OK, new Intent());
                     AccountInfo.this.finish();
                 }

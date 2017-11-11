@@ -191,6 +191,12 @@ public class VideLibriApp extends Application implements Bridge.VideLibriContext
             VideLibri.hiddenAccounts.add(newacc);
         }
     }
+    static Bridge.Account getAccount(String libId, String userName) {
+        for (Bridge.Account acc: accounts)
+            if (Util.equalStrings(acc.libId, libId) && Util.equalStrings(acc.name, userName))
+                return acc;
+        return null;
+    }
 
 
     static List<Bridge.Account> runningUpdates = new ArrayList<Bridge.Account>();
@@ -277,11 +283,22 @@ public class VideLibriApp extends Application implements Bridge.VideLibriContext
             Bridge.PendingException ex = exceptions[i];
             if (i != 0) Util.showMessage(ex.accountPrettyNames + ": " + ex.error);
             else {
-                Util.showMessageYesNo(DialogId.ERROR_CONFIRM, ex.accountPrettyNames + ": " + ex.error + "\n\n" + Util.tr(R.string.app_error_report));
+                switch (ex.kind) {
+                    case Bridge.PendingException.KIND_LOGIN:
+                        Bundle more = new Bundle();
+                        more.putString("lib", ex.firstAccountLib);
+                        more.putString("user", ex.firstAccountUser);
+                        Util.showMessage(DialogId.ERROR_LOGIN, ex.accountPrettyNames + ": " + ex.error, R.string.app_error_report_btn, R.string.ok, R.string.app_error_check_passwd_btn, more);
+                        break;
+                    case Bridge.PendingException.KIND_INTERNET:
+                        Util.showMessage(DialogId.ERROR_INTERNET, ex.accountPrettyNames + ": " + ex.error, R.string.app_error_report_btn, R.string.ok, R.string.app_error_check_internet_btn);
+                        break;
+                    case Bridge.PendingException.KIND_UNKNOWN:
+                    default:
+                        Util.showMessageYesNo(DialogId.ERROR_CONFIRM, ex.accountPrettyNames + ": " + ex.error + "\n\n" + Util.tr(R.string.app_error_report));
+                }
             }
-        }
-        //    } else VideLibriApp.errors.addAll(Arrays.asList(exceptions));
-    }
+        }}
 
 
     public static String userPath(Context context) {
