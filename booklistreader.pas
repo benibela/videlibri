@@ -263,7 +263,7 @@ var
   b: TBook;
 begin
   b := owningBook;
-  if b.owner is TCustomBookOwner then result := TCustomBookOwner(b.owner)
+  if assigned(b.owner) and b.owner.InheritsFrom(TCustomBookOwner) then result := TCustomBookOwner(b.owner)
   else result := nil;
 end;
 
@@ -290,7 +290,7 @@ end;
 function TBook.owningBook: TBook;
 begin
   result := self;
-  while result.owner is TBook do result := tbook(result.owner);
+  while (result.owner <> nil) and (result.owner.InheritsFrom(TBook)) do result := tbook(result.owner);
 end;
 
 constructor TBook.create;
