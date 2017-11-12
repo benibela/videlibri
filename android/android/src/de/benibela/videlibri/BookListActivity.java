@@ -15,7 +15,7 @@ import java.util.ArrayList;
 import java.util.EnumSet;
 import java.util.Iterator;
 
-public class BookListActivity extends VideLibriBaseFragmentActivity{
+public class BookListActivity extends VideLibriBaseActivity{
     boolean port_mode;
 
     BookListFragment list;
