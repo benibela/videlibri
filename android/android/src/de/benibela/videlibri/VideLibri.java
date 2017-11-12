@@ -64,6 +64,7 @@ public class VideLibri extends  BookListActivity{
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        createDrawerToggle();
 
        // Log.i("VideLibri", "onCreate")               ;
 

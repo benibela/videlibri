@@ -68,13 +68,6 @@ public class VideLibriBaseActivity extends AppCompatActivity implements Bridge.V
         }
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         if (mDrawerLayout != null) {
-            mDrawerToggle = new ActionBarDrawerToggle(
-                    this,
-                    mDrawerLayout,
-                    R.string.drawer_open,
-                    R.string.drawer_close
-            );
-            mDrawerLayout.addDrawerListener(mDrawerToggle);
             NavigationView navi = (NavigationView) findViewById(R.id.navigation);
             if (navi != null) {
                 navi.inflateHeaderView(R.layout.naviheader);
@@ -94,6 +87,18 @@ public class VideLibriBaseActivity extends AppCompatActivity implements Bridge.V
         View layout = inflater.inflate(R.layout.videlibribaselayout, null);
         inflater.inflate(layoutResID, (ViewGroup) layout.findViewById(R.id.content_holder), true);
         setContentView(layout);
+    }
+
+    protected void createDrawerToggle(){
+        if (mDrawerLayout != null && mDrawerToggle == null) {
+            mDrawerToggle = new ActionBarDrawerToggle(
+                    this,
+                    mDrawerLayout,
+                    R.string.drawer_open,
+                    R.string.drawer_close
+            );
+            mDrawerLayout.addDrawerListener(mDrawerToggle);
+        }
     }
 
     @Override
@@ -166,9 +171,10 @@ public class VideLibriBaseActivity extends AppCompatActivity implements Bridge.V
 //                context.openOptionsMenu();
                 //              return true;
 //            case R.id.accounts:
-                intent = new Intent(context, VideLibri.class);
+                /*intent = new Intent(context, VideLibri.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                context.startActivity(intent);
+                context.startActivity(intent);*/
+                onBackPressed();
                 return true;
             case R.id.accounts:
                 intent = new Intent(context, VideLibri.class);
