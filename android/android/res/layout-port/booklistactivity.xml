@@ -1,19 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:layout_width="fill_parent"
-              android:layout_height="fill_parent"
-              android:orientation="vertical">
-    <include layout="@layout/actionbar"/>
-
-<FrameLayout 
-              android:layout_width="fill_parent"
-              android:layout_height="fill_parent"
-              android:orientation="horizontal"
-              android:id="@+id/layout">
+<FrameLayout android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="horizontal"
+    android:id="@+id/layout"
+    xmlns:android="http://schemas.android.com/apk/res/android">
 
     <include layout="@layout/booklist"/>
     <include layout="@layout/bookdetails"/>
 
 
 </FrameLayout>
-</LinearLayout>
+

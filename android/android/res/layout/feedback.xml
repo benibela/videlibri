@@ -1,121 +1,174 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:orientation="vertical"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent">
+<ScrollView android:id="@+id/scrollView"
+    android:layout_height="wrap_content"
+    android:layout_weight="1"
+    android:layout_width="fill_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <include layout="@layout/actionbar"/>
+    <LinearLayout
+        android:layout_height="wrap_content"
+        android:layout_width="fill_parent"
+        android:orientation="vertical">
 
-    <ScrollView
-            android:layout_width="fill_parent"
+
+        <TextView
+            android:background="@color/optionHeaderBackgroundColor"
+            android:id="@+id/textView2"
             android:layout_height="wrap_content"
-            android:id="@+id/scrollView" android:layout_weight="1">
+            android:layout_width="fill_parent"
+            android:padding="@dimen/optionheaderpadding"
+            android:text="@string/lay_feedback_label_formular"
+            android:textStyle="bold" />
 
-        <LinearLayout
-                android:orientation="vertical"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content">
-
-
-    <TextView android:layout_width="fill_parent" android:layout_height="wrap_content" android:text="@string/lay_feedback_label_formular"
-              android:id="@+id/textView2" android:padding="@dimen/optionheaderpadding"
-              android:background="@color/optionHeaderBackgroundColor" android:textStyle="bold"/>
-    <TextView
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_gravity="left|center_vertical"
+            android:layout_height="wrap_content"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/lay_feedback_label_message"
-            android:id="@+id/textView3" android:layout_gravity="left|center_vertical"
-            android:padding="@dimen/defborder"/>
-    <EditText
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/text" android:minLines="4" android:layout_weight="1"/>
-    <CheckBox android:layout_width="fill_parent" android:layout_height="wrap_content"
-              android:text="@string/lay_feedback_label_includeerrors" android:id="@+id/feedbackIncludeErrors" android:checked="false"
-              android:visibility="gone"/>
-    <CheckBox android:layout_width="fill_parent" android:layout_height="wrap_content"
-              android:text="@string/lay_feedback_label_includepagesanonymized"
-              android:id="@+id/feedbackIncludeErrorAnonymousDetails" android:checked="false" android:visibility="gone"/>
-    <CheckBox android:layout_width="fill_parent" android:layout_height="wrap_content"
-              android:text="@string/lay_feedback_label_includepagesfull"
-              android:id="@+id/feedbackIncludeErrorDetails" android:checked="false" android:visibility="gone"/>
+            android:padding="@dimen/defborder"
+            android:text="@string/lay_feedback_label_message" />
 
-    <TextView
+        <EditText
+            android:id="@+id/text"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_width="fill_parent"
+            android:minLines="4" />
+
+        <CheckBox
+            android:checked="false"
+            android:id="@+id/feedbackIncludeErrors"
+            android:layout_height="wrap_content"
+            android:layout_width="fill_parent"
+            android:text="@string/lay_feedback_label_includeerrors"
+            android:visibility="gone" />
+
+        <CheckBox
+            android:checked="false"
+            android:id="@+id/feedbackIncludeErrorAnonymousDetails"
+            android:layout_height="wrap_content"
+            android:layout_width="fill_parent"
+            android:text="@string/lay_feedback_label_includepagesanonymized"
+            android:visibility="gone" />
+
+        <CheckBox
+            android:checked="false"
+            android:id="@+id/feedbackIncludeErrorDetails"
+            android:layout_height="wrap_content"
+            android:layout_width="fill_parent"
+            android:text="@string/lay_feedback_label_includepagesfull"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/textView4"
+            android:layout_gravity="left|center_vertical"
+            android:layout_height="wrap_content"
             android:layout_width="wrap_content"
+            android:padding="@dimen/defborder"
+            android:text="@string/lay_feedback_label_name" />
+
+        <EditText
+            android:id="@+id/name"
             android:layout_height="wrap_content"
-            android:id="@+id/textView4" android:layout_gravity="left|center_vertical"
-            android:text="@string/lay_feedback_label_name" android:padding="@dimen/defborder"/>
-    <EditText
             android:layout_width="fill_parent"
+            android:singleLine="true" />
+
+        <TextView
+            android:id="@+id/textView5"
+            android:layout_gravity="left|center_vertical"
             android:layout_height="wrap_content"
-            android:id="@+id/name" android:singleLine="true"/>
-    <TextView
             android:layout_width="wrap_content"
+            android:padding="@dimen/defborder"
+            android:text="@string/lay_feedback_label_mail" />
+
+        <EditText
+            android:id="@+id/mail"
             android:layout_height="wrap_content"
-            android:text="@string/lay_feedback_label_mail"
-            android:id="@+id/textView5" android:layout_gravity="left|center_vertical"
-            android:padding="@dimen/defborder"/>
-    <EditText
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/mail" android:singleLine="true"/>
+            android:singleLine="true" />
 
-            <Button
+        <Button
+            android:id="@+id/button"
+            android:layout_height="wrap_content"
             android:layout_width="fill_parent"
+            android:text="@string/lay_feedback_send" />
+
+
+        <TextView
+            android:background="@color/optionHeaderBackgroundColor"
+            android:id="@+id/textView"
             android:layout_height="wrap_content"
-            android:text="@string/lay_feedback_send"
-            android:id="@+id/button"/>
+            android:layout_width="fill_parent"
+            android:padding="@dimen/optionheaderpadding"
+            android:text="@string/lay_feedback_caption_mail"
+            android:textStyle="bold" />
+
+        <TextView
+            android:clickable="true"
+            android:gravity="center"
+            android:id="@+id/textViewMail"
+            android:layout_height="wrap_content"
+            android:layout_width="fill_parent"
+            android:padding="20sp"
+            android:text="benito@benibela.de"
+            android:textColor="#5830ff" />
 
 
-            <TextView android:layout_width="fill_parent" android:layout_height="wrap_content"
-                      android:text="@string/lay_feedback_caption_mail" android:id="@+id/textView"
-                      android:padding="@dimen/optionheaderpadding"
-                      android:background="@color/optionHeaderBackgroundColor" android:textStyle="bold"/>
-            <TextView
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:text="benito@benibela.de"
-                    android:id="@+id/textViewMail" android:padding="20sp"
-                    android:gravity="center" android:clickable="true" android:textColor="#5830ff"/>
+        <TextView
+            android:background="@color/optionHeaderBackgroundColor"
+            android:layout_height="wrap_content"
+            android:layout_width="fill_parent"
+            android:padding="@dimen/optionheaderpadding"
+            android:text="@string/lay_feedback_caption_play"
+            android:textStyle="bold" />
+
+        <TextView
+            android:autoLink="email|web"
+            android:gravity="center"
+            android:layout_height="wrap_content"
+            android:layout_width="fill_parent"
+            android:padding="20sp"
+            android:text="https://play.google.com/store/apps/details?id=de.benibela.videlibri" />
 
 
-            <TextView android:layout_width="fill_parent" android:layout_height="wrap_content"
-                      android:text="@string/lay_feedback_caption_play"
-                      android:padding="@dimen/optionheaderpadding"
-                      android:background="@color/optionHeaderBackgroundColor" android:textStyle="bold"/>
-            <TextView
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:text="https://play.google.com/store/apps/details?id=de.benibela.videlibri"
-                    android:autoLink="email|web" android:padding="20sp"
-                    android:gravity="center"/>
+        <TextView
+            android:background="@color/optionHeaderBackgroundColor"
+            android:id="@+id/feedbackACRAHeader"
+            android:layout_height="wrap_content"
+            android:layout_width="fill_parent"
+            android:padding="@dimen/optionheaderpadding"
+            android:text="@string/lay_feedback_caption_acra"
+            android:textStyle="bold" />
 
+        <CheckBox
+            android:checked="false"
+            android:id="@+id/feedbackACRAIncludeErrors"
+            android:layout_height="wrap_content"
+            android:layout_width="fill_parent"
+            android:text="@string/lay_feedback_label_includeerrors"
+            android:visibility="gone" />
 
+        <CheckBox
+            android:checked="false"
+            android:id="@+id/feedbackACRAIncludeErrorAnonymousDetails"
+            android:layout_height="wrap_content"
+            android:layout_width="fill_parent"
+            android:text="@string/lay_feedback_label_includepagesanonymized"
+            android:visibility="gone" />
 
-            <TextView android:layout_width="fill_parent" android:layout_height="wrap_content" android:text="@string/lay_feedback_caption_acra"
-                      android:id="@+id/feedbackACRAHeader" android:padding="@dimen/optionheaderpadding"
-                      android:background="@color/optionHeaderBackgroundColor" android:textStyle="bold"/>
-            <CheckBox
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/lay_feedback_label_includeerrors"
-                    android:id="@+id/feedbackACRAIncludeErrors" android:checked="false"
-                    android:visibility="gone"/>
-            <CheckBox
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/lay_feedback_label_includepagesanonymized"
-                    android:id="@+id/feedbackACRAIncludeErrorAnonymousDetails" android:checked="false"
-                    android:visibility="gone"/>
-            <CheckBox
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/lay_feedback_label_includepagesfull"
-                    android:id="@+id/feedbackACRAIncludeErrorDetails" android:checked="false"
-                    android:visibility="gone"/>
-            <Button android:layout_width="fill_parent" android:layout_height="wrap_content" android:text="@string/lay_feedback_acra"
-                    android:id="@+id/acra"/>
-        </LinearLayout>
+        <CheckBox
+            android:checked="false"
+            android:id="@+id/feedbackACRAIncludeErrorDetails"
+            android:layout_height="wrap_content"
+            android:layout_width="fill_parent"
+            android:text="@string/lay_feedback_label_includepagesfull"
+            android:visibility="gone" />
+
+        <Button
+            android:id="@+id/acra"
+            android:layout_height="wrap_content"
+            android:layout_width="fill_parent"
+            android:text="@string/lay_feedback_acra" />
+    </LinearLayout>
 </ScrollView>
-</LinearLayout>

@@ -22,7 +22,7 @@ public class Options extends VideLibriBaseActivity{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);    //To change body of overridden methods use File | Settings | File Templates.
-        setContentView(R.layout.options);
+        setVideLibriView(R.layout.options);
 
 
 

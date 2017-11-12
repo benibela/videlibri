@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/accounts"
+        android:icon="@android:drawable/ic_menu_view"
+        android:title="@string/menu_accounts"
+    />
+    <item
+        android:id="@+id/search"
+        android:icon="@android:drawable/ic_menu_search"
+        android:title="@string/menu_search"
+    />
+
+    <item
+        android:id="@+id/options"
+        android:icon="@android:drawable/ic_menu_preferences"
+        android:title="@string/menu_options" />
+
+    <item
+        android:id="@+id/import_"
+        android:icon="@android:drawable/ic_menu_add"
+        android:title="@string/menu_import" />
+    <item
+        android:id="@+id/export"
+        android:icon="@android:drawable/ic_menu_save"
+        android:title="@string/menu_export" />
+    <item
+        android:id="@+id/libinfo"
+        android:icon="@android:drawable/ic_menu_info_details"
+        android:title="@string/menu_homepages" />
+    <item
+        android:id="@+id/libcatalogue"
+        android:icon="@android:drawable/ic_menu_info_details"
+        android:title="@string/menu_cats" />
+    <item
+        android:id="@+id/feedback"
+        android:icon="@android:drawable/ic_menu_send"
+        android:title="@string/menu_feedback" />
+    <item
+        android:id="@+id/debuglog"
+        android:icon="@android:drawable/ic_menu_recent_history"
+        android:title="@string/menu_debuglog" />
+    <item
+        android:id="@+id/about"
+        android:icon="@android:drawable/ic_menu_help"
+        android:title="@string/menu_about" />
+
+</menu>

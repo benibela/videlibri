@@ -301,4 +301,9 @@
     <string name="app_error_check_passwd_btn">Passwort korrigieren</string>
     <string name="app_error_report_btn">Fehlerbericht senden</string>
     <string name="app_error_check_internet_btn">Interneteinstellungen</string>
+    <string name="menu_search">Suche</string>
+    <string name="menu_options">Einstellungen</string>
+    <string name="drawer_open">Weitere Funktionen</string>
+    <string name="drawer_close">schließen</string>
+    <string name="menu_accounts">Ausleihkonten</string>
 </resources>

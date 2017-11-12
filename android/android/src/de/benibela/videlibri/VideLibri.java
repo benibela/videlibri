@@ -161,17 +161,6 @@ public class VideLibri extends  BookListActivity{
         alwaysFilterOnHistory = sp.getBoolean("alwaysFilterOnHistory", true);
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == android.R.id.home) {
-            if (showList())
-                openOptionsMenu();
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
-    }
-
-
     //Mix
 
     public void newAccountDialog(boolean initial){
@@ -190,10 +179,12 @@ public class VideLibri extends  BookListActivity{
     private ArrayList<Bridge.Account> hiddenAccountsActually = new ArrayList<Bridge.Account>();
 
     @Override
-    public boolean onPrepareOptionsMenu(Menu menu) {
-        boolean x = super.onPrepareOptionsMenu(menu);    //To change body of overridden methods use File | Settings | File Templates.
-        //menu.findItem(R.id.accounts).setVisible(false);
-        return x;
+    protected int onPrepareOptionsMenuVisibility() {
+        boolean hasAccounts = VideLibriApp.accounts.length > 0;
+        if (!hasAccounts) return 0;
+        return super.onPrepareOptionsMenuVisibility()
+                | (hasAccounts ? ACTIONBAR_MENU_RENEW_ALL | ACTIONBAR_MENU_RENEW_LIST : 0)
+                | (hasAccounts && VideLibriApp.runningUpdates.isEmpty() ? ACTIONBAR_MENU_REFRESH : 0);
     }
 
     @Override

@@ -60,7 +60,7 @@ public class AccountInfo extends VideLibriBaseActivity {
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.accountinfo);
+        setVideLibriView(R.layout.accountinfo);
 
         lib = (TextView) findViewById(R.id.libraryTextView);
         accountId = (EditText) findViewById(R.id.accountId);

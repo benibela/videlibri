@@ -115,7 +115,7 @@ public class LibraryList extends VideLibriBaseActivity {
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.chooselib);
+        setVideLibriView(R.layout.chooselib);
 
         String reason = getIntent().getStringExtra("reason");
         if (reason != null && !"".equals(reason))

@@ -1,24 +1,26 @@
 package de.benibela.videlibri;
-import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.net.Uri;
 import android.support.annotation.LayoutRes;
+import android.support.annotation.NonNull;
+import android.support.v4.view.GravityCompat;
 import android.support.v4.view.MenuItemCompat;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
-import android.util.SparseArray;
 import android.view.*;
 import android.app.Activity;
 import android.os.Bundle;
 import android.widget.*;
 
 import android.support.v7.app.AppCompatActivity;
+import android.support.design.widget.NavigationView;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
 
 public class VideLibriBaseActivity extends AppCompatActivity implements Bridge.VideLibriContext {
@@ -37,6 +39,9 @@ public class VideLibriBaseActivity extends AppCompatActivity implements Bridge.V
 
     private ArrayList<Integer> loadingTasks;
 
+    private DrawerLayout mDrawerLayout;
+    private ActionBarDrawerToggle mDrawerToggle;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);    //To change body of overridden methods use File | Settings | File Templates.
@@ -47,22 +52,68 @@ public class VideLibriBaseActivity extends AppCompatActivity implements Bridge.V
 
     @Override
     public void setContentView(@LayoutRes int layoutResID) {
-        super.setContentView(layoutResID);
+        LayoutInflater inflater = (LayoutInflater) getSystemService( Context.LAYOUT_INFLATER_SERVICE );
+        setContentView(inflater.inflate(layoutResID, null));
+    }
+    @Override
+    public void setContentView(View view) {
+        super.setContentView(view);
         // initActionBar
         Toolbar bar = (Toolbar) findViewById(R.id.actionbar);
-        if (bar == null) return;
-        setSupportActionBar(bar);
-        ActionBar sbar = getSupportActionBar();
-        sbar.setDisplayHomeAsUpEnabled(true);
+        if (bar != null) {
+            setSupportActionBar(bar);
+            ActionBar sbar = getSupportActionBar();
+            sbar.setDisplayHomeAsUpEnabled(true);
+            sbar.setHomeButtonEnabled(true);
+        }
+        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+        if (mDrawerLayout != null) {
+            mDrawerToggle = new ActionBarDrawerToggle(
+                    this,
+                    mDrawerLayout,
+                    R.string.drawer_open,
+                    R.string.drawer_close
+            );
+            mDrawerLayout.addDrawerListener(mDrawerToggle);
+            NavigationView navi = (NavigationView) findViewById(R.id.navigation);
+            if (navi != null) {
+                navi.inflateHeaderView(R.layout.naviheader);
+                navi.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+                    @Override
+                    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                        mDrawerLayout.closeDrawer(GravityCompat.START);
+                        return onOptionsItemIdSelectedOld(VideLibriBaseActivity.this, item.getItemId());
+                    }
+                });
+            }
+        }
+    }
+
+    public void setVideLibriView(@LayoutRes int layoutResID) {
+        LayoutInflater inflater = (LayoutInflater) getSystemService( Context.LAYOUT_INFLATER_SERVICE );
+        View layout = inflater.inflate(R.layout.videlibribaselayout, null);
+        inflater.inflate(layoutResID, (ViewGroup) layout.findViewById(R.id.content_holder), true);
+        setContentView(layout);
     }
 
     @Override
     protected void onPostCreate(Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);    //To change body of overridden methods use File | Settings | File Templates.
+        if (mDrawerToggle != null) mDrawerToggle.syncState();
     }
 
-    private MenuItem loadingItem, renewAllItem, renewListItem, refreshAllItem, exportItem;
-    protected MenuItem shareItem;
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        if (mDrawerToggle != null) mDrawerToggle.onConfigurationChanged(newConfig);
+    }
+
+    final static int ACTIONBAR_MENU_REFRESH = 0x1;
+    final static int ACTIONBAR_MENU_RENEW_LIST = 0x2;
+    final static int ACTIONBAR_MENU_RENEW_ALL = 0x4;
+    final static int ACTIONBAR_MENU_SHARE = 0x8;
+
+    private MenuItem loadingItem, moreItem;
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -73,34 +124,39 @@ public class VideLibriBaseActivity extends AppCompatActivity implements Bridge.V
             MenuItemCompat.setActionView(loadingItem, R.layout.actionbar_loading);
             loadingItem.setVisible(loadingTasks.size() > 0);
         }
-        renewAllItem = menu.findItem(R.id.renew);
-        renewListItem = menu.findItem(R.id.renewlist);
-        refreshAllItem = menu.findItem(R.id.refresh);
-        shareItem = menu.findItem(R.id.share);
-        if (shareItem != null) shareItem.setVisible(false);
-        exportItem = menu.findItem(R.id.export);
+        moreItem = menu.findItem(R.id.more);
         return super.onCreateOptionsMenu(menu);
     }
 
+    protected int onPrepareOptionsMenuVisibility(){
+        return 0;
+    }
+    private void setOptionMenuVisibility(){
+        int visibility = onPrepareOptionsMenuVisibility();
+        if (visibility != currentVisibility) {
+            currentVisibility = visibility;
+            moreItem.setVisible(visibility != 0);
+            Menu menu = moreItem.getSubMenu();
+            menu.findItem(R.id.refresh).setVisible((visibility & ACTIONBAR_MENU_REFRESH) != 0);
+            menu.findItem(R.id.renew).setVisible((visibility & ACTIONBAR_MENU_RENEW_LIST) != 0);
+            menu.findItem(R.id.renewlist).setVisible((visibility & ACTIONBAR_MENU_RENEW_ALL) != 0);
+            menu.findItem(R.id.share).setVisible((visibility & ACTIONBAR_MENU_SHARE) != 0);
+        }
+    }
+
+    private int currentVisibility;
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
         boolean x = super.onPrepareOptionsMenu(menu);
         loadingItem = menu.findItem(R.id.loading);
         if (loadingItem != null) loadingItem.setVisible(loadingTasks.size() > 0);
-        setSubMenuVisibility();
+        setOptionMenuVisibility();
+
         return x;
     }
 
-    protected void setSubMenuVisibility(){
-        boolean hasAccounts = VideLibriApp.accounts.length > 0;
-        if (renewAllItem != null) renewAllItem.setVisible(hasAccounts);
-        if (renewListItem != null) renewListItem.setVisible(hasAccounts);
-        if (exportItem != null) exportItem.setVisible(hasAccounts);
-        if (refreshAllItem != null) refreshAllItem.setVisible(VideLibriApp.runningUpdates.isEmpty() && hasAccounts);
-    }
 
     public boolean onOptionsItemIdSelectedOld(final Activity context, int id) {
-        // Handle item selection
         Intent intent;
         switch (id) {
             case R.id.search:
@@ -114,8 +170,12 @@ public class VideLibriBaseActivity extends AppCompatActivity implements Bridge.V
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 context.startActivity(intent);
                 return true;
+            case R.id.accounts:
+                intent = new Intent(context, VideLibri.class);
+                context.startActivity(intent);
+                return true;
             case R.id.more:
-                setSubMenuVisibility();
+                setOptionMenuVisibility();
                 return false; //should open the normal sub menu
             case R.id.options:
                 intent = new Intent(context, Options.class);
@@ -170,6 +230,7 @@ public class VideLibriBaseActivity extends AppCompatActivity implements Bridge.V
         return false;
     }
     public boolean onOptionsItemSelected(MenuItem item) {
+        if (mDrawerToggle != null && mDrawerToggle.onOptionsItemSelected(item)) return true;
         if (onOptionsItemIdSelectedOld(this, item.getItemId())) return true;
         return super.onOptionsItemSelected(item);
     }
@@ -232,11 +293,18 @@ public class VideLibriBaseActivity extends AppCompatActivity implements Bridge.V
     int currentMainIcon;
     public void checkMainIcon(){
         if (VideLibriApp.getMainIcon() != currentMainIcon) {
-            ActionBar ab = getSupportActionBar();
+            /*ActionBar ab = getSupportActionBar();
             if (ab != null) {
                 currentMainIcon = VideLibriApp.getMainIcon();
                 ab.setHomeAsUpIndicator(currentMainIcon);
+            }*/
+
+            NavigationView navi = (NavigationView) findViewById(R.id.navigation);
+            if (navi != null) {
+                ImageView iv = ((ImageView) navi.getHeaderView(0).findViewById(R.id.icon));
+                if (iv != null) iv.setImageResource(VideLibriApp.getMainIcon());
             }
+
         }
     }
 

@@ -37,7 +37,7 @@ public class Feedback extends VideLibriBaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);    //To change body of overridden methods use File | Settings | File Templates.
-        setContentView(R.layout.feedback);
+        setVideLibriView(R.layout.feedback);
         setTitle(tr(R.string.feedback_feedbacktitle));
         if (!ACRA.getACRASharedPreferences().getBoolean(ACRA.PREF_ENABLE_SYSTEM_LOGS, true))
             ((TextView)findViewById(R.id.feedbackACRAHeader)).setText(tr(R.string.feedback_acraheader));

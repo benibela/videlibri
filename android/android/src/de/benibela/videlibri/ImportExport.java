@@ -30,7 +30,7 @@ public class ImportExport extends VideLibriBaseActivity {
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);    //To change body of overridden methods use File | Settings | File Templates.
-        setContentView(R.layout.importexport);
+        setVideLibriView(R.layout.importexport);
         mode = getIntent().getIntExtra("mode", MODE_IMPORT);
 
         File dir = Environment.getExternalStorageDirectory();

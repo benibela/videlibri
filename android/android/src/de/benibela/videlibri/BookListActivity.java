@@ -30,7 +30,7 @@ public class BookListActivity extends VideLibriBaseActivity{
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Log.d("VL", "onCreate: " + port_mode);
-        setContentView(R.layout.booklistactivity);
+        setVideLibriView(R.layout.booklistactivity);
         port_mode = getResources().getBoolean(R.bool.port_mode);
         list = new BookListFragment(this);
         details = new BookDetails(this);
@@ -171,9 +171,8 @@ public class BookListActivity extends VideLibriBaseActivity{
     }
 
     @Override
-    protected void setSubMenuVisibility() {
-        super.setSubMenuVisibility();
-        if (shareItem != null) shareItem.setVisible(true);
+    protected int onPrepareOptionsMenuVisibility() {
+        return ACTIONBAR_MENU_SHARE;
     }
 
     @Override

@@ -71,7 +71,7 @@ public class Search extends VideLibriBaseActivity implements Bridge.SearchEventH
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.searchlayout);
+        setVideLibriView(R.layout.searchlayout);
 
         if (savedInstanceState != null) {
             libId = savedInstanceState.getString("libId");

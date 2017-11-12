@@ -27,7 +27,7 @@ public class NewLibrary extends VideLibriBaseActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);    //To change body of overridden methods use File | Settings | File Templates
 
-        setContentView(R.layout.newlib);
+        setVideLibriView(R.layout.newlib);
 
         findButtonById(R.id.install).setOnClickListener(new View.OnClickListener() {
             @Override
