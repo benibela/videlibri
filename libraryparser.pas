@@ -235,7 +235,7 @@ type
     property enabled: boolean read FEnabled write FEnabled;
     property connected: boolean read GetConnected;
     property updated: boolean read GetUpdated;
-    property timeout: dword read FTimeout write FTimeout;
+    property timeout: qword read FTimeout write FTimeout;
     property accountType: integer read FAccountType write SetAccountType;
   end;
 
