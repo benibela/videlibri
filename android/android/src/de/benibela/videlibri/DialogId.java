@@ -15,6 +15,7 @@ class DialogId {
     public static final int DEBUG_SEARCH_ALL = 7051;
     public static final int IMPORTEXPORT_DONE = 7060;
     public static final int CANCEL_CONFIRM = 7070;
+    public static final int RENEW_SINGLE_CONFIRM = 7071;
     public static final int SEARCHER_MESSAGE_CONFIRM = 7082;
     public static final int SEARCHER_MESSAGE_CHOOSE = 7083;
     public static final int SEARCHER_ORDER_CONFIRM = 7085;

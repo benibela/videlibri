@@ -463,8 +463,8 @@ public class VideLibri extends  BookListActivity{
         int action = -1;
         switch (book.getStatus()) {
             case Normal:
-                VideLibriApp.renewBooks(new Bridge.Book[]{book});
-                showList();
+                lastSelectedBookForDialog = book;
+                Util.showMessageNegPos(DialogId.RENEW_SINGLE_CONFIRM, tr(R.string.renew_single_confirm), R.string.cancel, R.string.renew);
                 break;
             case Ordered: case Provided:
                 lastSelectedBookForDialog = book;
@@ -483,6 +483,12 @@ public class VideLibri extends  BookListActivity{
     @Override
     boolean onDialogResult(int dialogId, int buttonId, Bundle more) {
         switch (dialogId) {
+            case DialogId.RENEW_SINGLE_CONFIRM:
+                if (buttonId == DialogInterface.BUTTON_POSITIVE) {
+                    VideLibriApp.renewBooks(new Bridge.Book[]{lastSelectedBookForDialog});
+                    showList();
+                }
+                return true;
             case DialogId.CANCEL_CONFIRM:
                 if (buttonId == DialogInterface.BUTTON_POSITIVE) {
                     Bridge.VLBookOperation(new Bridge.Book[]{lastSelectedBookForDialog}, Bridge.BOOK_OPERATION_CANCEL); //cancel

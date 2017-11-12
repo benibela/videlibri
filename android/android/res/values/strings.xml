@@ -306,4 +306,6 @@
     <string name="drawer_open">Weitere Funktionen</string>
     <string name="drawer_close">schließen</string>
     <string name="menu_accounts">Ausleihkonten</string>
+    <string name="renew_single_confirm">Soll das Medium verlängert werden?</string>
+    <string name="cancel">abbrechen</string>
 </resources>

@@ -204,6 +204,8 @@ public class Util {
     static public void showMessage(int dialogId, String message, String negative, String neutral, String positive){ showMessage(dialogId, message, negative, neutral, positive, null); }
     static public void showMessage(int dialogId, String message, int negative, int neutral, int positive){ showMessage(dialogId, message, Util.tr(negative), Util.tr(neutral), Util.tr(positive), null); }
     static public void showMessage(int dialogId, String message, int negative, int neutral, int positive, Bundle more){ showMessage(dialogId, message, Util.tr(negative), Util.tr(neutral), Util.tr(positive), more); }
+    static public void showMessageNegPos(int dialogId, String message, String negative, String positive){ showMessage(dialogId, message, negative, null, positive, null); }
+    static public void showMessageNegPos(int dialogId, String message, int negative, int positive){ showMessage(dialogId, message, Util.tr(negative), null, Util.tr(positive), null); }
 
     static public void showMessage(int dialogId, String message, String negative, String neutral, String positive, Bundle more){
         Bundle args = new Bundle();
