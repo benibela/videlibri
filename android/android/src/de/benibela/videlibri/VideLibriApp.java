@@ -11,6 +11,9 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.os.PowerManager;
+import android.util.Log;
+
 import org.acra.*;
 import org.acra.annotation.*;
 import org.acra.config.*;
@@ -72,6 +75,12 @@ public class VideLibriApp extends Application implements Bridge.VideLibriContext
                 }
                 NotificationService.updateNotification(currentActivity);
                 showPendingExceptions();
+                if (updateWakeLock != null) {
+                    System.gc(); //some devices crash when sleep starts during gc run
+                    updateWakeLock.release();
+                    updateWakeLock = null;
+                    Log.i("VideLibri", "Released wakelock");
+                }
             }
         };
 
@@ -202,9 +211,16 @@ public class VideLibriApp extends Application implements Bridge.VideLibriContext
     static List<Bridge.Account> runningUpdates = new ArrayList<Bridge.Account>();
     static Handler allThreadsDoneHandler, installationDoneHandler;
     static int bookUpdateCounter = 1;
+    static PowerManager.WakeLock updateWakeLock;
     static public void updateAccount(Bridge.Account acc, final boolean autoUpdate, final boolean forceExtend){
         if (acc == null ) {
             if (accounts == null) accounts = Bridge.VLGetAccounts();
+            if (updateWakeLock == null && currentContext() != null) {
+                PowerManager pm = (PowerManager)currentContext().getSystemService(Context.POWER_SERVICE);
+                updateWakeLock = pm.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "updateLock");
+                updateWakeLock.acquire();
+                Log.i("VideLibri", "Acquired wakelock");
+            }
             for (Bridge.Account a: accounts)
                 updateAccount(a, autoUpdate, forceExtend);
             return;

@@ -91,7 +91,7 @@ public class VideLibri extends  BookListActivity{
         if (VideLibriApp.accounts == null || VideLibriApp.accounts.length == 0) ; //startActivity(new Intent(this, NewAccountWizard.class));
         else {
             displayAccount(null);
-            for (Bridge.Account a: VideLibriApp.accounts) VideLibriApp.updateAccount(a, true, false);
+            VideLibriApp.updateAccount(null, true, false);
         }
         endLoadingAll(VideLibriBaseActivity.LOADING_COVER_IMAGE);
     }
