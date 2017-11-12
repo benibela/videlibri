@@ -178,7 +178,7 @@ type
   private
     { private declarations }
     lastState: TWindowState;
-    lastTrayIconClick: dword;
+    lastTrayIconClick: qword;
   public
     { public declarations }
     oldListViewWindowProc: TWndMethod;
@@ -1084,8 +1084,8 @@ end;
 
 procedure TmainForm.TrayIcon1Click(Sender: TObject);
 begin
-  if GetTickCount - lastTrayIconClick < 250 then exit;
-  lastTrayIconClick:=GetTickCount;
+  if GetTickCount64 - lastTrayIconClick < 250 then exit;
+  lastTrayIconClick:=GetTickCount64;
   if Visible then begin
     {$ifndef win32}Hide;{$endif}
     exit;

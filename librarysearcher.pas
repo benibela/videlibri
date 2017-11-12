@@ -24,10 +24,11 @@ private
   fsearchResult: TBookList;
   fsearchResultCount: integer;
   FConnected: boolean;
-  FTimeout, FLastAccessTime: DWORD;
+  FTimeout, FLastAccessTime: QWORD;
   template: TMultiPageTemplate;
   flocation:string;
   function GetConnected: boolean;
+  procedure updateTimeout;
   procedure setHomeBranch(AValue: Integer);
   procedure setSearchBranch(AValue: Integer);
 public
@@ -74,8 +75,16 @@ resourcestring
   rsDefault = 'Standard';
 
 function TLibrarySearcher.GetConnected: boolean;
+var
+  tempTime: QWord;
 begin
-  result:=FConnected and (GetTickCount - FLastAccessTime < Timeout);
+  tempTime := GetTickCount64;
+  result:=FConnected and (tempTime >= FLastAccessTime) and (tempTime - FLastAccessTime < Timeout);
+end;
+
+procedure TLibrarySearcher.updateTimeout;
+begin
+  FLastAccessTime := GetTickCount64;
 end;
 
 procedure TLibrarySearcher.setHomeBranch(AValue: Integer);
@@ -201,7 +210,7 @@ begin
     end;
   end;
   FConnected:=true;
-  FLastAccessTime:=GetTickCount;
+  updateTimeout;
 end;
 
 procedure TLibrarySearcher.search;
@@ -213,7 +222,7 @@ begin
   bookListReader.callAction('search');
   FSearchNextPageAvailable := bookListReader.parser.variableChangeLog.get('search-next-page-available').toBooleanEffective;
   fsearchResultCount := bookListReader.parser.variableChangeLog.get('search-result-count').toInt64;
-  FLastAccessTime:=GetTickCount;
+  updateTimeout;
 end;
 
 procedure TLibrarySearcher.searchNext;
@@ -222,7 +231,7 @@ begin
   bookListReader.callAction('search-next-page');
   FSearchNextPageAvailable := bookListReader.parser.variableChangeLog.get('search-next-page-available').toBooleanEffective;
   fsearchResultCount := bookListReader.parser.variableChangeLog.get('search-result-count').toInt64;
-  FLastAccessTime:=GetTickCount;
+  updateTimeout;
 end;
 
 procedure TLibrarySearcher.details(book: tbook);
@@ -241,7 +250,7 @@ begin
         setlength(book.additional, length(book.additional)-1);
         exit;
       end;
-  FLastAccessTime:=GetTickCount;
+  updateTimeout;
 end;
 
 function TLibrarySearcher.orderNeedsConfirmation(): boolean;
@@ -254,7 +263,7 @@ begin
   bookListReader.selectBook(book);
   if book.owningAccount is TTemplateAccountAccess then TTemplateAccountAccess(book.owningAccount).setVariables(bookListReader.parser);
   bookListReader.callAction('order-confirm-single');
-  FLastAccessTime:=GetTickCount;
+  updateTimeout;
 end;
 
 procedure TLibrarySearcher.orderSingle(book: tbook);
@@ -269,7 +278,7 @@ begin
   bookListReader.selectBook(book);
   if book.owningAccount is TTemplateAccountAccess then TTemplateAccountAccess(book.owningAccount).setVariables(bookListReader.parser);
   bookListReader.callAction('order-single');
-  FLastAccessTime:=GetTickCount;
+  updateTimeout;
 end;
 
 procedure TLibrarySearcher.completePendingMessage(pm: TPendingMessage; idx: integer);
@@ -282,7 +291,7 @@ begin
   end;
   bookListReader.callAction(pm.callback);
   pm.free;
-  FLastAccessTime:=GetTickCount;
+  updateTimeout
 end;
 
 procedure TLibrarySearcher.disconnect;

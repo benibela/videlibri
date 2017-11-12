@@ -164,7 +164,7 @@ type
   TCustomAccountAccess=class(TCustomBookOwner)
   private
     FEnabled: boolean;
-    FTimeout: dword;
+    FTimeout: qword;
     function GetConnected: boolean;
     function GetUpdated: boolean;
     procedure SetAccountType(AValue: integer);
@@ -180,8 +180,9 @@ type
     FAccountType: integer;
 
     FKeepHistory, FConnected, FUpdated: boolean;
-    FConnectingTime, FUpdateTime: dword;
+    FConnectingTime, FUpdateTime: qword;
     FCharges:Currency;
+    procedure updateConnectingTimeout;
     function getCharges:currency;virtual;
     procedure initFromConfig;
   public
@@ -243,7 +244,6 @@ type
 
   TTemplateAccountAccess = class(TCustomAccountAccess)
   protected
-    lastTodayUpdate: longint; //if connected, time of update (ms, Gettickcount)
     extendAllBooks:boolean;
 
     reader:TBookListReader;
@@ -253,6 +253,7 @@ type
 
     //procedure selectBook(variable,value: string); not needed
     procedure setVariables();
+
 
   public
     procedure setVariables(parser: THtmlTemplateParser);
@@ -1374,13 +1375,23 @@ begin
 end;
 
 function TCustomAccountAccess.GetConnected: boolean;
+var tempTime: QWord;
 begin
-  result:=FConnected and (GetTickCount - FConnectingTime < Timeout);
+  tempTime := GetTickCount64;
+  result:=FConnected and (tempTime > FConnectingTime) and (tempTime - FConnectingTime < Timeout);
 end;
 
 function TCustomAccountAccess.GetUpdated: boolean;
+var
+  tempTime: QWord;
 begin
-  result:=GetConnected and FUpdated and (GetTickCount - FUpdateTime < Timeout);
+  tempTime := GetTickCount64;
+  result:=GetConnected and FUpdated and (tempTime > FUpdateTime) and (tempTime - FUpdateTime < Timeout);
+end;
+
+procedure TCustomAccountAccess.updateConnectingTimeout;
+begin
+  FConnectingTime:=GetTickCount64;
 end;
 
 procedure TCustomAccountAccess.SetAccountType(AValue: integer);
@@ -1710,8 +1721,7 @@ begin
   if logging then log('Enter TTemplateAccountAccess.updateAll');
   setVariables();
   reader.callAction('update-all');
-  lastTodayUpdate:=GetTickCount;
-  FConnectingTime:=GetTickCount;
+  updateConnectingTimeout;
   FUpdated:=true;
   FUpdateTime:=FConnectingTime;
   if logging then log('Leave TTemplateAccountAccess.updateAll');
@@ -1724,7 +1734,7 @@ begin
   setVariables();
   reader.selectBook(book);
   reader.callAction('update-single');
-  FConnectingTime:=GetTickCount;
+  updateConnectingTimeout;
   FUpdated:=true;
   FUpdateTime:=FConnectingTime;
   if logging then
@@ -1759,7 +1769,7 @@ begin
       realBooksToExtend.free
     end;
   end;
-  FConnectingTime:=GetTickCount;
+  updateConnectingTimeout;
   FUpdateTime:=FConnectingTime; //treat renew like update, since renew usually reupdates
   if logging then
     log('leave TTemplateAccountAccess.extendAll');
@@ -1801,7 +1811,7 @@ begin
     if logging then log('use renew-all Template');
     reader.callAction('renew-all');
   end;
-  FConnectingTime:=GetTickCount;
+  updateConnectingTimeout;
   FUpdateTime:=FConnectingTime; //treat renew like update, since renew usually reupdates
   if logging then log('Leave TTemplateAccountAccess.extendList');
 end;
@@ -1862,7 +1872,7 @@ begin
         end;
 
 
-  FConnectingTime:=GetTickCount;
+  updateConnectingTimeout;
   FUpdateTime:=FConnectingTime; //treat cancel like update, since renew usually reupdates
 
   if logging then log('Leave TTemplateAccountAccess.cancelList');
@@ -1877,8 +1887,6 @@ begin
   lib:=alib;
   reader:=TBookListReader.create(alib.template);
   //parser.onVariableRead:=@parserVariableRead;
-  lastTodayUpdate:=0;
-  
 end;
 
 procedure TTemplateAccountAccess.init(apath, userID: string);
@@ -1910,13 +1918,12 @@ begin
     if logging then log('TTemplateAccountAccess.connect ended (already connected)');
     exit;
   end;
-  lastTodayUpdate:=0;
   reader.parser.variableChangeLog.clear;
   Reader.parser.oldVariableChangeLog.clear;
   setVariables();
   reader.callAction('connect');
   fconnected:=true;
-  FConnectingTime:=GetTickCount;
+  updateConnectingTimeout;
   if logging then log('TTemplateAccountAccess.connect ended');
 end;
 
@@ -1931,60 +1938,6 @@ begin
   Result:=reader.findAction('update-single')<>nil;
 end;
 
-
-(*procedure TTemplateAccountAccess.updateAndExtend(booksToExtend: TBookList);
-  function shouldExtendBook(book: TBook):boolean;
-  begin
-    Result:=(reader.books[i].status in BOOK_EXTENDABLE) and
-             ((booksToExtend.findBook(book)<>nil) or
-              (book.dueDate<=currentDate+extendDays));
-  end;
-var booksToExtendCount,booksExtendableCount: longint;
-    realBooksToExtend: TBookList;
-begin
-
-  updateAll;
-  if reader.findAction('update-single')<>nil then
-    for i:=0 to reader.books.Count-1 do
-      updateSingle(reader.books[i]);
-
-
-  booksExtendableCount:=0;
-  for i:=0 to reader.books.Count-1 do
-    if reader.books[i].status in BOOK_EXTENDABLE then
-      booksExtendableCount+=1;
-
-  case extendType of
-    etNever: exit;
-    etAlways: //renew always (when there are books which can be extended)
-      booksToExtendCount:=booksExtendableCount;
-    etAllDepends,etSingleDepends: begin
-      for i:=0 to reader.books.count-1 do //check for books to renew
-        if shouldExtendBook(reader.books[i]) then
-          booksToExtend+=1;
-      if (extendType=etAllDepends) and (booksToExtend>0) then
-        booksToExtend:=booksExtendableCount;
-    end;
-  end;
-
-  if booksToExtend=booksExtendableCount then
-    extendAll
-   else begin
-    realBooksToExtend:=TBookList.Create;
-    for i:=0 to reader.books.count-1 do
-      if shouldExtendBook(reader.books[i]) then
-        realBooksToExtend.add(reader.books[i]);
-    extendList(realBooksToExtend);
-    realBooksToExtend.free
-   end;
-end;
-
-procedure TTemplateAccountAccess.fastExtend(booksToExtend: TBookList);
-begin
-  if GetTickCount-lastUpdate>10*60*1000 then updateAndExtend(booksToExtend)
-  else begin
-  end;
-end;                                             *)
 
 
 end.
