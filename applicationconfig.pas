@@ -363,7 +363,7 @@ resourcestring
 
   procedure initApplicationConfig;
   var i:integer;
-      window,proc:THANDLE;
+      {$IFDEF WIN32}window,proc:THANDLE;{$endif}
 
       commandLine:TCommandLineReader;
       //checkOne: boolean;
@@ -510,7 +510,7 @@ resourcestring
 
     if commandLine.readInt('debug-addr-info')<>0 then begin
       cancelStarting:=true;
-      raise EInitializationError.create(BackTraceStrFunc(pointer(commandLine.readInt('debug-addr-info'))));
+      raise EInitializationError.create(BackTraceStrFunc(UIntToPtr(commandLine.readInt('debug-addr-info'))));
     end;
 
     if commandLine.readInt('updated-to')<>0 then
@@ -555,7 +555,6 @@ resourcestring
   end;
   
   procedure finalizeApplicationConfig;
-  var i:integer;
   begin
     if logging then log('finalizeApplicationConfig started');
     if accounts<>nil then begin

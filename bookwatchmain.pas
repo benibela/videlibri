@@ -1516,7 +1516,7 @@ end;
 procedure TmainForm.ThreadDone(Sender: TObject);
 //called in the main thread
 begin
-  libraryAccess.threadDone(self, Sender); //self=nil !!!
+  libraryAccess.threadDone.ThreadDone(Sender); //self=nil !!!
 end;
 
 

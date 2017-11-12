@@ -177,7 +177,6 @@ resourcestring
   rsNoHoldingSelected = 'Es wurde nicht ausgewählt, welches Exemplar bestellt werden soll. (in der unteren Liste)';
   rsOrderConfirm = 'Soll "%s" bestellt werden?';
   rsOrderComplete = 'Das Buch "%s" wurde ohne Fehler vorgemerkt. %s';
-  rsNumberNeeded = ' (Nummer eingeben)';
   rsCount = '%s Treffer';
   rsCountSelected = '%D / %D Treffer';
   rsFor = 'für';

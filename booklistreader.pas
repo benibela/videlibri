@@ -951,6 +951,8 @@ end;
 
 procedure TBookListReader.logall(sender: TMultipageTemplateReader; logged: string; debugLevel: integer=0);
 begin
+  ignore(sender);
+  ignore(debugLevel);
   if logging then log(logged);
 end;
 
@@ -1030,7 +1032,6 @@ end;
 
 var
   basevariable, temp: String;
-  i: Integer;
   pv: PIXQValue;
   newbook: TBook;
 
@@ -1091,7 +1092,7 @@ var
  sl: TStringList;
 begin
   if logging then
-    log('** Read variable: "'+variable+'" = "'+value.debugAsStringWithTypeAnnotation+'"');
+    log('** Read variable: "'+variable+'" = "'+value.toXQuery+'"');
   if variable='delete-current-books()' then begin
     books.clear();
   end else if variable='book-start()' then begin
@@ -1163,8 +1164,8 @@ begin
       end;
       //s := temp.toString;
       if currentBook=nil then begin
-        if logging then for i:=0 to books.Count-1 do log('Book: "'+books[i].toLimitString() + '" <> "'+temp.debugAsStringWithTypeAnnotation()+'"');
-        raise EBookListReader.create('Template wants to select book '+temp.debugAsStringWithTypeAnnotation()+', but it doesn''t exist');
+        if logging then for i:=0 to books.Count-1 do log('Book: "'+books[i].toLimitString() + '" <> "'+temp.toXQuery()+'"');
+        raise EBookListReader.create('Template wants to select book '+temp.toXQuery()+', but it doesn''t exist');
       end;
     end else if book.hasProperty('select(id)', @temp) then begin
       s := temp.toString;
@@ -1179,7 +1180,7 @@ begin
     end else if book.hasProperty('select(new)', @temp) or book.hasProperty('select(current)', @temp) then
       raise EBookListReader.Create('Das Template hat die Bucheigenschaften select(new) oder select(current) gesetzt, aber in der neuesten Version, werden sie nicht länger benötigt)')
     else if book.hasProperty('_existing', @temp) then begin
-      if not temp.toBoolean then raise EBookListReader.create('Das Buch hat einen _existing Marker, aber er sagt, das Buch existiere nicht : '+temp.debugAsStringWithTypeAnnotation());
+      if not temp.toBoolean then raise EBookListReader.create('Das Buch hat einen _existing Marker, aber er sagt, das Buch existiere nicht : '+temp.toXQuery());
       if currentBook = nil then raise EBookListReader.Create('Das Template will ein existierendes Buch verändert, aber mir ist kein Buch bekannt.');
     end else begin
       currentBook := defaultBook;
@@ -1273,6 +1274,7 @@ end;
 
 function xqFunctionDelete_Current_Books(const context: TXQEvaluationContext; argc: SizeInt; argv: PIXQValue): IXQValue;
 begin
+  ignore(argc); ignore(argv);
   context.staticContext.sender.VariableChangelog.add('delete-current-books()', xqvalueTrue);
   result := xqvalue();
 end;
@@ -1365,6 +1367,8 @@ end;
 //Prints data to the log immediately. Log output remains during template rollback!
 function xqFunctionLogImmediately(const context: TXQEvaluationContext; argc: SizeInt; argv: PIXQValue): IXQValue;
 begin
+  ignore(context);
+  requiredArgCount(argc, 1, 1);
   if logging then log(argv[0].toXQuery());
   result := argv[0];
 end;
@@ -1390,6 +1394,7 @@ var
   yearAt: Integer;
 
 begin
+  requiredArgCount(argc, 2, 2);
   key := strTrimAndNormalize(argv[0].toString, [#0..' ', ':']);
   value := strTrimAndNormalize(argv[1].toString);
   if argv[1].kind = pvkNode then begin

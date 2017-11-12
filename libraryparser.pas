@@ -629,7 +629,7 @@ procedure TLibrary.loadFromString(data, fileName: string);
 begin
   id:=ChangeFileExt(ExtractFileName(fileName),'');;
   maxRenewCount:=-1;
-  parseXML(data,@readProperty,nil,nil,eUTF8);
+  parseXML(data,@readProperty,nil,nil,CP_UTF8);
   if template<>nil then begin
     canModifySingleBooks:=(template.findAction('renew-single')<>nil)  or
                           (template.findAction('renew-list')<>nil) ;
@@ -1427,7 +1427,7 @@ begin
   prettyName:=config.readString('base','prettyName', user);
   extendDays:=config.readInteger('base','extend-days',7);
   extendType:=TExtendType(config.readInteger('base','extend',0));
-  fcharges:=currency(config.readInteger('base','charge',-100))/100;;
+  fcharges:=currency(config.readInteger('base','charge',-100))/100.0;;
   FEnabled:=config.ReadBool('base','enabled',true);
 end;
 

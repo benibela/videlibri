@@ -5,7 +5,7 @@ unit applicationdesktopconfig;
 interface
 
 uses
-  Classes, SysUtils, Graphics, LMessages, applicationconfig,LazFileUtils {$ifdef win32},registry{$endif};
+  Classes, SysUtils, Graphics, applicationconfig,LazFileUtils {$ifdef win32},registry{$endif};
 
 
 var
@@ -138,13 +138,6 @@ begin
   if logging then log('alertAboutBooksThatMustBeReturned ended');
 end;
 
-procedure errorCallback(sender:TObject; var Done: Boolean);
-begin
-  //messagebeep(0);
-  Application.OnIdle:=nil;
-  showErrorMessages();
-  done:=true;
-end;
 procedure showErrorMessages();
 var i,j:integer;
     title,mes,mesDetails: string;

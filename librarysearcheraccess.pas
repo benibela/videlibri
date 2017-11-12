@@ -61,6 +61,7 @@ private
   procedure callPageCompleteEvent(event: TPageCompleteNotifyEvent; firstPage, nextPageAvailable: boolean);
   procedure callPendingMessageEvent(event: TPendingMessageEvent; book: TBook; pendingMes: TPendingMessage);
 
+protected
   procedure execute;override;
 public
   constructor create(template: TMultiPageTemplate; aaccess: TLibrarySearcherAccess);

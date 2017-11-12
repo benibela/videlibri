@@ -28,7 +28,10 @@ type
     OnPartialUpdated: TNotifyEvent;
   end;
 var updateThreadConfig: TThreadConfig;
-procedure ThreadDone(pself: TObject; sender:TObject);
+type TThreadDoneHolder = object
+  procedure ThreadDone(sender:TObject);
+end;
+var ThreadDone: TThreadDoneHolder;
 
 //Aktualisiert eine (oder bei lib=nil alle) Konten in einem extra-thread
 function updateAccountBookData(account: TCustomAccountAccess;ignoreConnErrors, checkDate,extendAlways: boolean): boolean;
@@ -321,7 +324,7 @@ begin
   pconfig:=@config;
   requests := someRequests;
 
-  OnTerminate:=TNotifyEvent(procedureToMethod(TProcedure(@ThreadDone)));
+  OnTerminate:= @ThreadDone.ThreadDone;
   FreeOnTerminate:=true;
 
   if logging then log('TUpdateLibThread.Create');
@@ -366,7 +369,7 @@ begin
   LeaveCriticalSection(config.threadManagementSection);
 end;
 
-procedure ThreadDone(pself: TObject; sender:TObject);
+procedure TThreadDoneHolder.ThreadDone(sender:TObject);
 //called in the main thread on normal OS
 //called in update thread on Android!
 begin
