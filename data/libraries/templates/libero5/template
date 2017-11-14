@@ -156,7 +156,7 @@
     </if>
     <page url="{$confirm}"/>
     <pattern href="orderComplete"/>
-    <s>$book.status := "ordered"</s>
+    <s>$book.statusId := "ordered"</s>
   </if>
 </action>
 
