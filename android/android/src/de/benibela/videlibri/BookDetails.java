@@ -276,14 +276,7 @@ public class BookDetails extends VideLibriFakeFragment {
         if ((!searchedBook && !book.history) || book.dueDate != null)
             details.add(new Details(trDueDate, Util.formatDate(book.dueDate)));
 
-        String status = book.getProperty("status");
-        if (status == null) status = "";
-        if ("".equals(status))
-            switch (book.getStatus()){
-                case Problematic: status = tr(R.string.book_status_problematic); break;
-                case Ordered: status = tr(R.string.book_status_ordered); break;
-                case Provided: status = tr(R.string.book_status_provided); break;
-            }
+        String status = BookFormatter.getStatusText(book);
         if (!"".equals(status)) details.add(new Details(trStatus, status));
 
         if (book.issueDate != null)
@@ -387,7 +380,7 @@ public class BookDetails extends VideLibriFakeFragment {
                 builder.addProperty(specialPropertiesLabel[j], specialProperties[j]);
             for (int j=0;j<builder.holding.more.size();j++) {
                 Bridge.Book.Pair pair = builder.holding.more.get(j);
-                Log.i("VIDELIBRIPAIR", pair.first+" : "+pair.second);
+                //Log.i("VIDELIBRIPAIR", pair.first+" : "+pair.second);
                 if (isAdditionalDisplayProperty(pair.first))
                     builder.addPair(pair.first.substring(0,pair.first.length()-1), pair.second );
             }

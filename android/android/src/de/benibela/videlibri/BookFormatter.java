@@ -82,4 +82,16 @@ class BookFormatter {
             return s;
         }
     }
+
+    static String getStatusText(Bridge.Book book){
+        String status = book.getProperty("status");
+        if (status == null) status = "";
+        if ("".equals(status))
+            switch (book.getStatus()){
+                case Problematic: status = Util.tr(R.string.book_status_problematic); break;
+                case Ordered: status = Util.tr(R.string.book_status_ordered); break;
+                case Provided: status = Util.tr(R.string.book_status_provided); break;
+            }
+        return status;
+    }
 }
