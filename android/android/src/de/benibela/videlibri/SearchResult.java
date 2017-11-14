@@ -241,17 +241,10 @@ public class SearchResult extends BookListActivity implements Bridge.SearchEvent
         }
     }
 
-    static boolean hasOrderedStatus(Bridge.Book book){
-        switch (book.getStatus()) {
-            case Ordered: case Provided: return true;
-            default: return false;
-        }
-    }
-
     @Override
     public void viewDetails(int bookpos) {
         Bridge.Book oldbook = bookCache.get(bookpos);
-        if (oldbook.account != null && !hasOrderedStatus(oldbook))
+        if (oldbook.account != null && !oldbook.hasOrderedStatus())
             oldbook.history = true; //todo: tricky, cannot have a book with account and without order status, or it is shown as renewable.
         super.viewDetails(bookpos);    //To change body of overridden methods use File | Settings | File Templates.
         if (searcher == null) return;
@@ -304,7 +297,7 @@ public class SearchResult extends BookListActivity implements Bridge.SearchEvent
             book = details.book;
         if (book == null)
             return;
-        if (!hasOrderedStatus(book))
+        if (!book.hasOrderedStatus())
             book.account = null;
     }
 

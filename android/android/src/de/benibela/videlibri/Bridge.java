@@ -123,6 +123,13 @@ public class Bridge {
                 case InterLoan: status = 104; break;
             }
         }
+        boolean hasOrderedStatus(){
+            switch (getStatus()) {
+                case Ordered: case Provided: return true;
+                default: return false;
+            }
+        }
+
 
         boolean isOrderable(){ //defaults to false
             String orderable = getProperty("orderable");

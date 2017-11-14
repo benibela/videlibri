@@ -23,6 +23,7 @@
     <string name="book_titleauthor">Titeldaten</string>
     <string name="book_from">von</string>
     <string name="book_duedate">Abgabefrist</string>
+    <string name="book_duedate_order">Frist</string>
     <string name="book_status_unknown">unbekannter Status</string>
     <string name="book_status_normal">normal/verlängerbar</string>
     <string name="book_status_problematic">nicht verlängerbar</string>
@@ -68,6 +69,7 @@
     <string name="search_orderTargetAccount">Wählen Sie ein Konto für die Bestellung von \"%s\"</string>
     <string name="search_chooseitem">Welches Exemplar wollen Sie vorbestellen?</string>
     <string name="ok">OK</string>
+    <string name="cancel">abbrechen</string>
     <string name="no">Nein</string>
     <string name="yes">Ja</string>
     <string name="main_bookcount1">Eine Ausleihe</string>
@@ -122,6 +124,7 @@
     <string name="lay_account_create">Konto registrieren</string>
     <string name="lay_account_delete">löschen!</string>
     <string name="renew">verlängern</string>
+    <string name="renew_single_confirm">Soll das Medium verlängert werden?</string>
     <string name="lay_chooselib_choose">Wählen Sie die Bücherei:</string>
     <string name="lay_chooselib_whynot">Fehlt die gesuchte Bibliothek in der Liste?</string>
     <string name="lay_feedback_label_formular">Per Formular:</string>
@@ -306,6 +309,4 @@
     <string name="drawer_open">Weitere Funktionen</string>
     <string name="drawer_close">schließen</string>
     <string name="menu_accounts">Ausleihkonten</string>
-    <string name="renew_single_confirm">Soll das Medium verlängert werden?</string>
-    <string name="cancel">abbrechen</string>
 </resources>

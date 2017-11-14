@@ -274,7 +274,7 @@ public class BookDetails extends VideLibriFakeFragment {
         trDueDate = tr(R.string.book_duedate);
 
         if ((!searchedBook && !book.history) || book.dueDate != null)
-            details.add(new Details(trDueDate, Util.formatDate(book.dueDate)));
+            details.add(new Details(book.hasOrderedStatus() ? tr(R.string.book_duedate_order) : trDueDate, Util.formatDate(book.dueDate)));
 
         String status = BookFormatter.getStatusText(book);
         if (!"".equals(status)) details.add(new Details(trStatus, status));
