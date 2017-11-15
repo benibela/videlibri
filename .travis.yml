@@ -82,7 +82,12 @@ script:
   - lazbuild $LAZ_OPT --add-package components/pascal/internettools.lpk
   - touch programs/internet/xidel/xidelbuilddata.inc; lazbuild $LAZ_OPT programs/internet/xidel/xidel.lpi
   - lazbuild $LAZ_OPT programs/internet/VideLibri/_meta/assetversiontests.lpi
-  - if [[ $android = false ]]; then lazbuild $LAZ_OPT programs/internet/VideLibri/bookWatch.lpi; fi
+  - if [[ $android = false ]]; then 
+      lazbuild $LAZ_OPT programs/internet/VideLibri/bookWatch.lpi; 
+      if [[ -z "$LAZ_ENV" ]]; then 
+        cd programs/internet/VideLibri; ./_meta/build.deb.sh; lintian *.deb; cd ../../..
+      fi;
+    fi
   - if [[ $android = true ]]; then cd programs/internet/VideLibri/android; ./manage.sh build && cd ../../../..; fi
   - export PATH=$PATH:$PWD/programs/internet/xidel/
   - $LAZ_ENV programs/internet/VideLibri/_meta/assetversiontests
