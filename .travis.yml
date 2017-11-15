@@ -70,6 +70,9 @@ install:
       tee programs/internet/xidel/xidel <<<$'#!/bin/bash\nwine ../../../xidel/xidel.exe "$@" | dos2unix | perl -pne \' s!(file://Z:[^"]+)! {my $temp = $1; $temp =~ s%(Z:)?\\\\{1,2}%/%g; $temp}!ge\'';
       chmod +x programs/internet/xidel/xidel;
     fi
+  - if [[ -z "$LAZ_ENV" ]] && [[ $android = false ]]; then 
+      sudo apt-get install fakeroot lintian
+    fi
 
 #    svn checkout -r 37480 https://svn.freepascal.org/svn/fpc/trunk	fpc-trunk
 #    cd fpc-trunk
@@ -85,12 +88,15 @@ script:
   - if [[ $android = false ]]; then 
       lazbuild $LAZ_OPT programs/internet/VideLibri/bookWatch.lpi; 
       if [[ -z "$LAZ_ENV" ]]; then 
-        cd programs/internet/VideLibri; ./_meta/build.deb.sh; lintian *.deb; cd ../../..;
+        
       fi;
     fi
   - if [[ $android = true ]]; then cd programs/internet/VideLibri/android; ./manage.sh build && cd ../../../..; fi
   - export PATH=$PATH:$PWD/programs/internet/xidel/
   - $LAZ_ENV programs/internet/VideLibri/_meta/assetversiontests
+  - if [[ -z "$LAZ_ENV" ]] && [[ $android = false ]]; then 
+      cd programs/internet/VideLibri && ./_meta/build.deb.sh && lintian *.deb && cd ../../..;
+    fi
   - cd programs/internet/VideLibri/_meta/tests;  ./unittests.sh
 
 notifications:
