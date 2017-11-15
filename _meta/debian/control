@@ -10,7 +10,7 @@ Architecture: any
 Version: 0.9.6
 Depends: libc6, libgtk2.0-0
 Recommends: libssl-dev, libcrypto++8 | libcrypto++9
-Description: VideLibri shows and renews automatically all books lend from certain libraries. It can also search and order books
+Description: This shows and renews automatically all books lend from certain libraries. It can also search and order books
  VideLibri lists the books you have lend from a public library and lets you search the library catalog from your local device. 
  .
  It has all the usual features of an library OPAC, i.e. viewing, renewing, searching and ordering books. It also renews all due books automatically and can do other things only a locally running app can do, like keeping a history of all ever lend books across multiple libraries. It is the world's first universal library app. 

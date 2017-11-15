@@ -79,20 +79,22 @@ install:
       
       
 script:
-  - env
+  - ls -l
+  - umask 0022
   - lazbuild $LAZ_OPT --add-package components/pascal/data/searchbarpackage.lpk
   - lazbuild $LAZ_OPT --add-package components/pascal/data/treelistviewpackage.lpk
   - lazbuild $LAZ_OPT --add-package components/pascal/internettools.lpk
   - touch programs/internet/xidel/xidelbuilddata.inc; lazbuild $LAZ_OPT programs/internet/xidel/xidel.lpi
   - lazbuild $LAZ_OPT programs/internet/VideLibri/_meta/assetversiontests.lpi
+  - basepath=$PWD
   - if [[ $android = false ]]; then lazbuild $LAZ_OPT programs/internet/VideLibri/bookWatch.lpi; fi
-  - if [[ $android = true ]]; then cd programs/internet/VideLibri/android; ./manage.sh build && cd ../../../..; fi
+  - if [[ $android = true ]]; then cd programs/internet/VideLibri/android; ./manage.sh build; fi
   - export PATH=$PATH:$PWD/programs/internet/xidel/
-  - $LAZ_ENV programs/internet/VideLibri/_meta/assetversiontests
+  - cd $basepath; $LAZ_ENV programs/internet/VideLibri/_meta/assetversiontests
   - if [[ -z "$LAZ_ENV" ]] && [[ $android = false ]]; then 
-      cd programs/internet/VideLibri && ./_meta/build.deb.sh && lintian *.deb && cd ../../..;
+      cd $basepath/programs/internet/VideLibri && ./_meta/build.deb.sh && lintian *.deb;
     fi
-  - cd programs/internet/VideLibri/_meta/tests;  ./unittests.sh
+  - cd $basepath/programs/internet/VideLibri/_meta/tests;  ./unittests.sh
 
 notifications:
   email:
