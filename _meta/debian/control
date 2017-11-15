@@ -11,15 +11,35 @@ Version: 0.9.6
 Depends: libc6, libgtk2.0-0
 Recommends: libssl-dev, libcrypto++8 | libcrypto++9
 Description: This shows and renews automatically all books lend from certain libraries. It can also search and order books
- VideLibri lists the books you have lend from a public library and lets you search the library catalog from your local device. 
+ VideLibri lists the books you have lend from a public library and 
+ lets you search the library catalog from your local device. 
  .
- It has all the usual features of an library OPAC, i.e. viewing, renewing, searching and ordering books. It also renews all due books automatically and can do other things only a locally running app can do, like keeping a history of all ever lend books across multiple libraries. It is the world's first universal library app. 
+ It has all the usual features of an library OPAC, i.e. viewing, renewing, 
+ searching and ordering books. 
+ It also renews all due books automatically and can do other things only a 
+ locally running app can do, like keeping a history of all ever lend books 
+ across multiple libraries. Supporting account viewing and renewing in 
+ multiple public library systems in 2006 makes VideLibri the world's 
+ first universal library app.
  .
- So far VideLibri has been tested with 200 libraries successfully, but it was designed to allow every user to adds its own library without requiring any/much programming knowledge. For this purpose three query languages were developed that are supposed to simplify the querying of webpages as much as possible: 
+ So far VideLibri has been tested with 200 libraries successfully, 
+ but it was designed to allow every user to adds its own library 
+ without requiring any/much programming knowledge. 
+ For this purpose three query languages were developed that are supposed 
+ to simplify the querying of webpages as much as possible: 
  .
- - A pattern-matching language that selects arbitrary data from a single HTML page, based on an annotated sample of that page. 
- - A catalog of related pages to apply these patterns to multiple webpages. Its syntax is similar to XSLT and likewise it is almost Turing complete (i.e. it has the necessary control structures, but requires XPath to do calculations ). 
- - A extension of XPath/XQuery/JSONiq that is Turing-complete and thus can calculate arbitrary, unexpected things.
+ - A pattern-matching language that selects arbitrary data from a single 
+   HTML page, based on an annotated sample of that page. 
+ - A catalog of related pages to apply these patterns to multiple webpages. 
+   Its syntax is similar to XSLT and likewise it is almost Turing complete 
+   (i.e. it has the necessary control structures, but requires XPath to do
+   calculations ). 
+ - A extension of XPath/XQuery/JSONiq that is Turing-complete and 
+   thus can calculate arbitrary, unexpected things.
  .
- VideLibri is platform-independent and currently there are binaries for (Desktop) Windows, Linux and Android. At the moment its GUI is entirely in German as no support for any non-German-speaking library has been requested, but a translation can be made if wished for.
+ VideLibri is platform-independent and currently there are binaries 
+ for (Desktop) Windows, Linux and Android. 
+ At the moment its GUI is entirely in German as no support for any
+ non-German-speaking library has been requested, 
+ but a translation can be made if wished for.
 

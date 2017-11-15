@@ -20,7 +20,7 @@ xidel $metadir/version/changelog.xml -e '/changelog/build!(
   x"videlibri ({format-number(xs:decimal(@version)*0.001, "0.000")}) unstable; urgency=low", 
    "", .//(fix,add,change)/("  * "||.),
    "",
-   " -- Benito van der Zander <benito@benibela.de>  "||format-date(xs:date(@date), "[FNn,3-3], [D] [MNn,3-3] [Y]")||" 00:00:00 +0100", "" )' | gzip -9 -n -c | $builddir/usr/share/doc/videlibri/changelog.gz
+   " -- Benito van der Zander <benito@benibela.de>  "||format-date(xs:date(@date), "[FNn,3-3], [D] [MNn,3-3] [Y]")||" 00:00:00 +0100", "" )' | gzip -9 -n -c > $builddir/usr/share/doc/videlibri/changelog.gz
 
 
 sed -Ee "s/Version:.*/Version: $VERSION/" -i $builddir/DEBIAN/control
