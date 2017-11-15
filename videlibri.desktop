@@ -1,0 +1,9 @@
+[Desktop Entry]
+Type=Application
+Name=Videlibri
+Icon=/usr/share/videlibri/data/yellow48.png
+Exec=videlibri
+Terminal=false
+Categories=Utility;
+StartupNotify=false
+
