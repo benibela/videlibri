@@ -85,7 +85,7 @@ script:
   - if [[ $android = false ]]; then 
       lazbuild $LAZ_OPT programs/internet/VideLibri/bookWatch.lpi; 
       if [[ -z "$LAZ_ENV" ]]; then 
-        cd programs/internet/VideLibri; ./_meta/build.deb.sh; lintian *.deb; cd ../../..
+        cd programs/internet/VideLibri; ./_meta/build.deb.sh; lintian *.deb; cd ../../..;
       fi;
     fi
   - if [[ $android = true ]]; then cd programs/internet/VideLibri/android; ./manage.sh build && cd ../../../..; fi
