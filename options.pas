@@ -504,7 +504,6 @@ begin
   colorOld:=ShapeOld.brush.color;
   colorProvided := ShapeProvided.brush.Color;
   colorOrdered := ShapeOrdered.brush.Color;
-  redTime:=StrToInt(timeNearMeaning.Text)+currentDate;mainForm.RefreshListView;
   userConfig.WriteInteger('appearance','limited',colorLimited);
   userConfig.WriteInteger('appearance','timeNear',colorTimeNear);
   userConfig.WriteInteger('appearance','default',colorOK);
@@ -512,6 +511,7 @@ begin
   userConfig.WriteInteger('appearance','ordered',colorOrdered);
   userConfig.WriteInteger('appearance','provided',colorProvided);
   userConfig.WriteInteger('base','near-time',StrToInt(timeNearMeaning.Text));
+  updateGlobalTimeCache;
   if mainForm.ViewOld.Checked then mainform.BookList.BackGroundColor:=ShapeOld.brush.color
   else mainform.BookList.BackGroundColor:=ShapeOK.brush.color;
   userConfig.WriteInteger('appearance','symbols',symbols.ItemIndex);
@@ -523,6 +523,7 @@ begin
        mainForm.groupingItem.Items[groupingProperty.ItemIndex].Checked := true;;
     needRefreshListView := true;
   end;
+  needRefreshListView := true; //todo
   mainForm.setSymbolAppearance(symbols.ItemIndex);
 
   //Internetpage

@@ -106,6 +106,7 @@ var programPath,userPath:string;
   //function getTNAHint():string;
   function getTNAIconBaseFileName():string;
 
+  procedure updateGlobalTimeCache;
   procedure updateGlobalAccountDates;
   procedure updateActiveInternetConfig;
 
@@ -284,6 +285,12 @@ resourcestring
       result:='smallYellow.ico'
      else
       result:='smallGreen.ico';
+  end;
+
+  procedure updateGlobalTimeCache;
+  begin
+    currentDate:=trunc(now);
+    redTime:=currentDate + userConfig.ReadInteger('base','near-time',2);
   end;
 
   procedure updateGlobalAccountDates;
@@ -516,7 +523,7 @@ resourcestring
     if commandLine.readInt('updated-to')<>0 then
       userConfig.WriteInteger('version','number',commandLine.readInt('updated-to'));
 
-    redTime:=trunc(now)+userConfig.ReadInteger('base','near-time',2);
+    updateGlobalTimeCache;
 
     if commandLine.readFlag('autostart') then begin
       startToTNA:=userConfig.ReadBool('autostart','minimized',true);

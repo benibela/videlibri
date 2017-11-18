@@ -710,6 +710,20 @@ begin
   if logging then bbdebugtools.log('de.benibela.VideLibri.Bride.VLChangeAccount (ended)');
 end;
 
+function accountToJAccount(account: TCustomAccountAccess): jobject;
+begin
+  result := j.newObject(accountClass, accountClassInit);
+  with accountFields  do begin
+    result.SetStringField(LibIdS, account.getLibrary().id);
+    result.SetStringField(NameS, account.getUser());
+    result.SetStringField(PassS, account.passWord);
+    result.SetIntField(TypeI, account.accountType);
+    result.SetStringField(PrettyNameS, account.prettyName);
+    result.SetIntField(ExtendDaysI, account.extendDays);
+    result.SetBooleanField(ExtendZ, account.extendType <> etNever);
+    result.SetBooleanField(HistoryZ, account.keepHistory);
+  end;
+end;
 
 function Java_de_benibela_VideLibri_Bridge_VLGetAccounts(env:PJNIEnv; this:jobject): jobject; cdecl;
 var
@@ -720,18 +734,8 @@ begin
   try
     result := j.newObjectArray(accounts.Count, accountClass, nil);
     for i := 0 to accounts.Count - 1 do begin
-      temp := j.newObject(accountClass, accountClassInit);
+      temp := accountToJAccount(accounts[i]);
       j.SetObjectArrayElement(result, i,  temp);
-      with accountFields  do begin
-        j.SetObjectField(temp, LibIdS, j.stringToJString(accounts[i].getLibrary().id));
-        j.SetObjectField(temp, NameS, j.stringToJString(accounts[i].getUser()));
-        j.SetObjectField(temp, PassS, j.stringToJString(accounts[i].passWord));
-        j.SetIntField(temp, TypeI, accounts[i].accountType);
-        j.SetObjectField(temp, PrettyNameS, j.stringToJString(accounts[i].prettyName));
-        j.SetIntField(temp, ExtendDaysI, accounts[i].extendDays);
-        j.SetBooleanField(temp, ExtendZ, accounts[i].extendType <> etNever);
-        j.SetBooleanField(temp, HistoryZ, accounts[i].keepHistory);
-      end;
       j.deleteLocalRef(temp);
     end;
   except
@@ -985,6 +989,46 @@ begin
 
   if logging then bbdebugtools.log('Java_de_benibela_VideLibri_Bridge_VLGetBooks ended');
 
+end;
+
+function Java_de_benibela_VideLibri_Bridge_VLGetCriticalBook(env:PJNIEnv; this:jobject): jobject; cdecl;
+var redBook, yellowBook, book: TBook;
+  i, j: Integer;
+  account: TCustomBookOwner;
+begin
+  if logging then bbdebugtools.log('Java_de_benibela_VideLibri_Bridge_VLGetCriticalBook started');
+  try
+    updateGlobalTimeCache;
+    try
+      system.EnterCriticalsection(updateThreadConfig.libraryAccessSection);
+      redBook := nil;
+      yellowBook := nil;
+      for i:=0 to accounts.count-1 do
+        with (accounts[i]) do
+          for j:=0  to books.current.count-1 do begin
+            book := books.current[j];
+            if book.status in BOOK_NOT_LEND then continue;
+            if (book.dueDate<=redTime) then redBook := book;
+            if (book.status in BOOK_NOT_EXTENDABLE) then yellowBook := book;
+          end;
+      if redBook <> nil then book := redBook
+      else book := yellowBook;
+      if book = nil then result := nil
+      else begin
+        result := bookToJBook(book, true);
+        account := book.owningAccount;
+        if (account <> nil) and (account.InheritsFrom(TCustomAccountAccess)) then
+          result.SetObjectField(bookFields.accountL, accountToJAccount(TCustomAccountAccess(account)));
+      end;
+    finally
+      system.LeaveCriticalsection(updateThreadConfig.libraryAccessSection)
+    end;
+
+  except
+    on e: Exception do needJ.ThrowNew('de/benibela/videlibri/Bridge$InternalError', 'Interner Fehler: '+e.Message);
+  end;
+
+  if logging then bbdebugtools.log('Java_de_benibela_VideLibri_Bridge_VLGetCriticalBook ended');
 end;
 
 function Java_de_benibela_VideLibri_Bridge_VLUpdateAccounts(env:PJNIEnv; this:jobject; jacc: jobject; jautoupdate: jboolean; jforceExtend: jboolean): jboolean; cdecl;
@@ -1645,7 +1689,7 @@ begin
   try
     with getOptionClass do begin
       userConfig.WriteInteger('base','near-time', j.getIntField(options, nearTimeI));
-      redTime := currentDate + j.getIntField(options, nearTimeI);
+      updateGlobalTimeCache;
 
       RefreshInterval:=j.getIntField(options, refreshIntervalI);
       userConfig.WriteInteger('access','refresh-interval',refreshInterval);
@@ -1848,7 +1892,7 @@ end;
 
 
 
-const nativeMethods: array[1..32] of JNINativeMethod=
+const nativeMethods: array[1..33] of JNINativeMethod=
   ((name:'VLInit';          signature:'(Lde/benibela/videlibri/Bridge$VideLibriContext;)V';                   fnPtr:@Java_de_benibela_VideLibri_Bridge_VLInit)
    ,(name:'VLFinalize';      signature:'()V';                   fnPtr:@Java_de_benibela_VideLibri_Bridge_VLFInit)
 
@@ -1864,6 +1908,7 @@ const nativeMethods: array[1..32] of JNINativeMethod=
    ,(name:'VLChangeAccount'; signature:'(Lde/benibela/videlibri/Bridge$Account;Lde/benibela/videlibri/Bridge$Account;)V'; fnPtr:@Java_de_benibela_VideLibri_Bridge_VLChangeAccount)
    ,(name:'VLGetAccounts'; signature:'()[Lde/benibela/videlibri/Bridge$Account;'; fnPtr:@Java_de_benibela_VideLibri_Bridge_VLGetAccounts)
    ,(name:'VLGetBooks'; signature:'(Lde/benibela/videlibri/Bridge$Account;Z)[Lde/benibela/videlibri/Bridge$Book;'; fnPtr:@Java_de_benibela_VideLibri_Bridge_VLGetBooks)
+   ,(name:'VLGetCriticalBook'; signature:'()Lde/benibela/videlibri/Bridge$Book;'; fnPtr:@Java_de_benibela_VideLibri_Bridge_VLGetCriticalBook)
 
    ,(name:'VLUpdateAccount'; signature:'(Lde/benibela/videlibri/Bridge$Account;ZZ)Z'; fnPtr:@Java_de_benibela_VideLibri_Bridge_VLUpdateAccounts)
    ,(name:'VLBookOperation'; signature:'([Lde/benibela/videlibri/Bridge$Book;I)V'; fnPtr:@Java_de_benibela_VideLibri_Bridge_VLBookOperation)

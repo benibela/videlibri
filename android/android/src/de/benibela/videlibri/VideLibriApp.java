@@ -20,6 +20,7 @@ import org.acra.config.*;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.EnumSet;
 import java.util.List;
 
 import static org.acra.ReportField.*;
@@ -138,25 +139,14 @@ public class VideLibriApp extends Application implements Bridge.VideLibriContext
     static int getMainIcon(){
         if (mainIconCache != 0) return mainIconCache;
         if (accounts == null || accounts.length == 0) return R.drawable.icon;
-        boolean hasRed = false;
-        boolean hasYellow = false;
-        if (currentActivity instanceof VideLibri) {
-            for (Bridge.Book book: ((VideLibri)currentActivity).primaryBookCache)
-                switch (BookFormatter.getStatusColor(book)) {
-                    case Color.RED: hasRed = true; break;
-                    case Color.YELLOW: hasYellow = true; break;
-                }
-        } else {
-            for (Bridge.Account facc: VideLibriApp.accounts)
-                for (Bridge.Book book: Bridge.VLGetBooks(facc, false))
-                    switch (BookFormatter.getStatusColor(book)) {
-                        case Color.RED: hasRed = true; break;
-                        case Color.YELLOW: hasYellow = true; break;
-                    }
+        Bridge.Book book = Bridge.VLGetCriticalBook();
+        mainIconCache = R.drawable.icong;
+        if (book != null) {
+            switch (BookFormatter.getStatusColor(book)) {
+                case Color.RED: mainIconCache = R.drawable.iconr; break;
+                case Color.YELLOW: mainIconCache = R.drawable.icon; break;
+            }
         }
-        if (hasRed) mainIconCache = R.drawable.iconr;
-        else if (hasYellow) mainIconCache = R.drawable.icon;
-        else mainIconCache = R.drawable.icong;
         return mainIconCache;
     }
 

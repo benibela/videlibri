@@ -565,7 +565,7 @@ procedure findBooksThatMustBeReturned(out booksOverdue, booksSoonNotExtendable, 
 var
   i,j: Integer;
 begin
-  currentDate:=longint(trunc(now));
+  updateGlobalTimeCache;
 
   booksOverdue:=TList.Create;
   booksSoonNotExtendable:=TList.Create;
@@ -575,7 +575,6 @@ begin
   minDateSoonNotExtendable := currentDate+1000;
   minDateSoon := currentDate+1000;
 
-  //redTime := currentDate+14; //debug!
 
   for i:=0 to accounts.count-1 do
     with (accounts[i]) do
