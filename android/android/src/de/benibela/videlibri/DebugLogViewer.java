@@ -46,7 +46,7 @@ public class DebugLogViewer extends VideLibriBaseActivity {
                     if (temp.length() > 200000) temp = "[too large]";
                     if (lastDetails != null && (m.group(2) == null || m.group(2).isEmpty()))  {
                         if (lastDetails.data.length() < 500000)
-                            lastDetails.data += lastDetails.data + "\n" + temp;
+                            lastDetails.data = lastDetails.data + "\n" + temp;
                     } else {
                         lastDetails = new BookDetails.Details(m.group(1) + m.group(2), temp);
                         details.add(lastDetails);
