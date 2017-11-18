@@ -106,7 +106,7 @@ public class NotificationService extends Service implements Bridge.VideLibriCont
     static private long lastNotificationTime = 0;
 
     static private String [] getNotifications(Context context){
-        if (VideLibriApp.accounts == null) VideLibriApp.accounts = Bridge.VLGetAccounts();
+        if (VideLibriApp.accounts == null) VideLibriApp.refreshAccountList();
 
         if (VideLibriApp.accounts.length == 0) return new String[] {
                 Util.tr(context, R.string.notificationNoAccountsTitle),

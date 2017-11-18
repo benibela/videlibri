@@ -129,8 +129,8 @@ public class ImportExport extends VideLibriBaseActivity {
                                 data.accountsToImport[i] = choosen.get(i);
                             data.flags = flags;
                             Bridge.VLImportAccounts(data);
-                            VideLibriApp.accounts = Bridge.VLGetAccounts();
-                            VideLibriApp.displayAccount(null);
+                            VideLibriApp.refreshAccountList();
+                            VideLibriApp.refreshDisplayedLendBooks();
                             Util.showMessage(DialogId.IMPORTEXPORT_DONE, tr(R.string.import_done));
                             data = null;
                         }

@@ -55,7 +55,7 @@ public class VideLibriApp extends Application implements Bridge.VideLibriContext
 
         Bridge.initialize(this);
         VideLibriHttpClient.BrokenServers = getResources().getStringArray(R.array.broken_servers);
-        accounts = Bridge.VLGetAccounts();
+        refreshAccountList();
 
         //ACRA.getErrorReporter().putCustomData("app", "VideLibri");
         //ACRA.getErrorReporter().putCustomData("ver", getVersion()+" (android)");
@@ -70,7 +70,7 @@ public class VideLibriApp extends Application implements Bridge.VideLibriContext
                     if (currentActivity instanceof VideLibri)
                         ((VideLibri)currentActivity).endLoadingAll(VideLibriBaseActivity.LOADING_ACCOUNT_UPDATE);
 
-                    VideLibriApp.displayAccount(null);
+                    VideLibriApp.refreshDisplayedLendBooks();
                     //displayed account has an icon cache, so displayAccount needs to be called before updateNotification
                 }
                 NotificationService.updateNotification(currentActivity);
@@ -174,6 +174,7 @@ public class VideLibriApp extends Application implements Bridge.VideLibriContext
 
 
     static Bridge.Account accounts[] = null;
+    static int accountUpdateCounter = 0;
 
     static ArrayList<Bridge.PendingException> errors = new ArrayList<Bridge.PendingException>();
 
@@ -181,25 +182,36 @@ public class VideLibriApp extends Application implements Bridge.VideLibriContext
 
     static void addAccount(Bridge.Account acc){
         Bridge.VLAddAccount(acc);
-        accounts = Bridge.VLGetAccounts();
+        refreshAccountList();
         updateAccount(acc, false, false);
     }
     static void deleteAccount(Bridge.Account acc){
         if (acc == null) return;
         Bridge.VLDeleteAccount(acc);
-        accounts = Bridge.VLGetAccounts();
         if (VideLibri.hiddenAccounts.contains(acc)) VideLibri.hiddenAccounts.remove(acc);
-        VideLibriApp.displayAccount(null);
+        refreshAccountList();
+        refreshDisplayedLendBooks();
     }
     static void changeAccount(Bridge.Account old, Bridge.Account newacc){
         Bridge.VLChangeAccount(old, newacc);
-        accounts = Bridge.VLGetAccounts();
-        updateAccount(newacc, false, false);
         if (VideLibri.hiddenAccounts.contains(old)) {
             VideLibri.hiddenAccounts.remove(old);
             VideLibri.hiddenAccounts.add(newacc);
         }
+        refreshAccountList();
+        updateAccount(newacc, false, false);
     }
+
+    static void refreshAccountList(){
+        accountUpdateCounter++;
+        accounts = Bridge.VLGetAccounts();
+    }
+
+    public static void refreshDisplayedLendBooks() {
+        VideLibri.refreshDisplayedLendBooks();
+    }
+
+
     static Bridge.Account getAccount(String libId, String userName) {
         for (Bridge.Account acc: accounts)
             if (Util.equalStrings(acc.libId, libId) && Util.equalStrings(acc.name, userName))
@@ -214,7 +226,7 @@ public class VideLibriApp extends Application implements Bridge.VideLibriContext
     static PowerManager.WakeLock updateWakeLock;
     static public void updateAccount(Bridge.Account acc, final boolean autoUpdate, final boolean forceExtend){
         if (acc == null ) {
-            if (accounts == null) accounts = Bridge.VLGetAccounts();
+            if (accounts == null) refreshAccountList();
             if (updateWakeLock == null && currentContext() != null) {
                 PowerManager pm = (PowerManager)currentContext().getSystemService(Context.POWER_SERVICE);
                 updateWakeLock = pm.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "updateLock");
@@ -225,7 +237,7 @@ public class VideLibriApp extends Application implements Bridge.VideLibriContext
                 updateAccount(a, autoUpdate, forceExtend);
             return;
         }
-        if ((acc.name == null || acc.name.equals("")) && (acc.pass == null || acc.pass.equals("")))
+        if (Util.isEmptyString(acc.name) && Util.isEmptyString(acc.pass))
             return; //search only account
         if (Bridge.VLUpdateAccount(acc, autoUpdate, forceExtend)) {
             if (currentActivity instanceof VideLibri)
@@ -326,9 +338,6 @@ public class VideLibriApp extends Application implements Bridge.VideLibriContext
         return userPath(this);
     }
 
-    public static void displayAccount(Bridge.Account account) {
-        VideLibri.displayAccountStatically(account);
-    }
 
 
 }

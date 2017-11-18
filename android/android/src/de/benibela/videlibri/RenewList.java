@@ -12,10 +12,13 @@ import java.util.ArrayList;
 
 public class RenewList extends BookListActivity {
     public Button button;
+    int accountFilterOverride = VideLibri.ACCOUNT_FILTER_ALL;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        accountFilterOverride = getIntent().getIntExtra("accountFilterOverride", VideLibri.ACCOUNT_FILTER_ALL);
 
         setTitle(tr(R.string.renew_title_start));
         selectedBooks = new ArrayList<Bridge.Book>();
@@ -58,7 +61,7 @@ public class RenewList extends BookListActivity {
         sortingKey = sp.getString("sorting", "dueDate");
         groupingKey = sp.getString("grouping", "_dueWeek");
         ArrayList<Bridge.Book> oldSelection = selectedBooks;
-        bookCache = VideLibri.makePrimaryBookCache(null, new ArrayList<Bridge.Book>(), false, true);
+        bookCache = VideLibri.makePrimaryBookCache(accountFilterOverride, false, true);
         truecount = bookCache.size();
         bookCache = VideLibri.filterToSecondaryBookCache(bookCache, groupingKey, sortingKey, "", null);
         selectedBooks = new ArrayList<Bridge.Book>(selectedBooks.size());

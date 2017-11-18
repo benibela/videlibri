@@ -75,8 +75,11 @@
     <string name="main_bookcount1">Eine Ausleihe</string>
     <string name="main_bookcountD">%d Ausleihen</string>
     <string name="main_bookcountDD">%1$d/%2$d Ausleihen</string>
-    <string name="main_bookaccountcountDDD">%1$d Ausleihen: %2$d/%3$d Konten</string>
+    <string name="main_accountcountDD">Mix: %1$d/%2$d Konten</string>
+    <string name="main_allaccounts">Alle Konten</string>
     <string name="main_cancelconfirm">Soll die Bestellung abgebrochen werden?</string>
+    <string name="menu_accounts">Ausleihkonten</string>
+    <string name="main_accountwithhistory">Historie</string>
     <string name="app_libregistered">Bibliothek wurde registriert.</string>
     <string name="app_libregisterfailed">Bibliotheksregistrierung fehlgeschlagen.</string>
     <string name="app_error_searchedfor">gesucht wurde:</string>
@@ -308,5 +311,4 @@
     <string name="menu_options">Einstellungen</string>
     <string name="drawer_open">Weitere Funktionen</string>
     <string name="drawer_close">schließen</string>
-    <string name="menu_accounts">Ausleihkonten</string>
 </resources>

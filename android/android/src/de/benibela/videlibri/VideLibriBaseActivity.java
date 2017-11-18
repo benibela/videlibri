@@ -194,7 +194,9 @@ public class VideLibriBaseActivity extends AppCompatActivity implements Bridge.V
                 Util.showMessageYesNo(DialogId.RENEW_CONFIRM, tr(R.string.base_renewallconfirm));
                 return true;
             case R.id.renewlist:
-                context.startActivity(new Intent(context, RenewList.class));
+                intent = new Intent(context, RenewList.class);
+                if (this instanceof VideLibri) intent.putExtra("accountFilterOverride", ( (VideLibri)this).accountFilterOverride);
+                context.startActivity(intent);
                 return true;
             case R.id.import_:
                 intent = new Intent(context, ImportExport.class);
