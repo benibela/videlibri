@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<library>
+  <longName value="Katalog des Südwestdeutschen Bibliotheksverbundes"/>
+  <catalogue value="http://swb.bsz-bw.de"/>
+
+
+  <template value="pica"/>  
+  <variable name="server" value="http://swb.bsz-bw.de"/>
+  <variable name="picadb" value="2.1"/>
+  <variable name="searchKeysOverride" value="tit;per;num;erj;sw"/>
+  <variable name="specialSearchOptions" value="HILN=888"/>
+  
+
+  <homepage value="" nolist="true"/>
+</library>

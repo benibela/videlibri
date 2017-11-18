@@ -14,3 +14,4 @@ sigid := 1
 book := {"Ausleihstatus 1!": "", "Standort 2!": "Potsdamer Straße", "Signatur 1!": "1 A 743781 Verfügbarkeit anzeigen / bestellen", "Mehr zum Titel!": "Inhaltsverzeichnis", "Mehr zum Thema!": "Klassifikation der Library of Congress: DF234Dewey Dezimal-Klassifikation: 938/.07092 BRegensburger Verbund-Klassifikation: NH 6450", "Sachgebiete!": "15.27 ; Griechische Welt <Alte Geschichte>", "Schlagwörter!": "*Alexander <Makedonien, König, III.>  / Biographie*Alexander -- the Great -- 356-323 B.C / Generals -- Biography", "isbn": "1-405-13082-2, 978-1-405-13082-0*(pbk)", "Anmerkung!": "Literaturverz. S. [311] - 348", "Umfang!": "XIX, 366 S. : Ill., Kt.", "Erschienen!": "Malden, Mass. [u.a.] : Wiley-Blackwell, 2009", "author": "Heckel, Waldemar ", "title": "Alexander the Great : a new history ", "orderable": 0}
 propname := ""
 propname := ""
+result := ()

@@ -575,27 +575,31 @@ begin
   minDateSoonNotExtendable := currentDate+1000;
   minDateSoon := currentDate+1000;
 
-
-  for i:=0 to accounts.count-1 do
-    with (accounts[i]) do
-      for j:=0  to books.current.count-1 do begin
-        if books.current[j].status in BOOK_NOT_LEND then continue;
-        if books.current[j].dueDate<currentDate then begin
-          booksOverdue.Add(books.current[j]);
-          if books.current[j].dueDate < minDateOverdue then
-            minDateOverdue:=books.current[j].dueDate;
-        end else if (books.current[j].dueDate<=redTime) then begin
-          if (books.current[j].status in BOOK_NOT_EXTENDABLE) then begin
-            booksSoonNotExtendable.Add(books.current[j]);
-            if books.current[j].dueDate < minDateSoonNotExtendable then
-              minDateSoonNotExtendable:=books.current[j].dueDate;
-           end else begin
-            booksSoon.Add(books.current[j]);
-            if books.current[j].dueDate < minDateSoon then
-              minDateSoon:=books.current[j].dueDate;
-           end;
-        end
-      end;
+  system.EnterCriticalSection(updateThreadConfig.libraryAccessSection);
+  try
+    for i:=0 to accounts.count-1 do
+      with (accounts[i]) do
+        for j:=0  to books.current.count-1 do begin
+          if books.current[j].status in BOOK_NOT_LEND then continue;
+          if books.current[j].dueDate<currentDate then begin
+            booksOverdue.Add(books.current[j]);
+            if books.current[j].dueDate < minDateOverdue then
+              minDateOverdue:=books.current[j].dueDate;
+          end else if (books.current[j].dueDate<=redTime) then begin
+            if (books.current[j].status in BOOK_NOT_EXTENDABLE) then begin
+              booksSoonNotExtendable.Add(books.current[j]);
+              if books.current[j].dueDate < minDateSoonNotExtendable then
+                minDateSoonNotExtendable:=books.current[j].dueDate;
+             end else begin
+              booksSoon.Add(books.current[j]);
+              if books.current[j].dueDate < minDateSoon then
+                minDateSoon:=books.current[j].dueDate;
+             end;
+          end
+        end;
+    finally
+      system.LeaveCriticalSection(updateThreadConfig.libraryAccessSection);
+    end;
 end;
 
 

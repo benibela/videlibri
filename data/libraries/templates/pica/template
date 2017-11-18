@@ -8,6 +8,7 @@
   <variable name="server"><description>Serveraddresse, inklusive Protokoll und Parameter (z.B.: http://katalog.uni-hildesheim.de/) </description></variable>
   <variable name="picadb" default="1"><description>Datenbanknummer, wenn mehrere Datenbanken auf demselben Server liegen</description></variable>    
   <variable name="searchKeysOverride" default="tit;prs;isb;jah;slw"><description>Abkürzungen der Suchschlüssel bei Katalogsuchen</description></variable>
+  <variable name="specialSearchOptions" default=""><description>Ungewöhnliche Parameter, die bei dieser Bibliothek zur Suche benötigt werden.</description></variable>
 </meta>
 
 
@@ -74,6 +75,9 @@
 
 <action id="search-connect">
   <call action="connect"/>
+  <s>
+  $specialSearchOptions := get("specialSearchOptions")[.] ! ($amp || .)
+  </s>
 </action>
 
 <action id="search">
@@ -84,15 +88,15 @@
   
   <variable name="searchOptions">
   encode-for-uri( string-join(
-    (if ($book.title)    then concat($searchKeys[1], " ", $book.title)    else (),
-     if ($book.author)   then concat($searchKeys[2], " ", $book.author)   else (),
-     if ($book.isbn)     then concat($searchKeys[3], " ", $book.isbn)     else (),
-     if ($book.year)     then concat($searchKeys[4], " ", $book.year)     else (),
-     if ($book.keywords) then concat($searchKeys[5], " ", $book.keywords) else ()), "&amp;"))
+    (if ($book.title)    then concat($searchKeys[1], ": ", $book.title)    else (),
+     if ($book.author)   then concat($searchKeys[2], ": ", $book.author)   else (),
+     if ($book.isbn)     then concat($searchKeys[3], ": ", $book.isbn)     else (),
+     if ($book.year)     then concat($searchKeys[4], ": ", $book.year)     else (),
+     if ($book.keywords) then concat($searchKeys[5], ": ", $book.keywords) else ()), "&amp;"))
   </variable>
 
-
-  <page url="{$server}/{$db}/HTML=Y/CMD?ACT=SRCHA&IKT=1016&SRT=RLV&TRM={$searchOptions}" templateFile="searchList"></page>
+<!-- IKT: Index, means Titel like; SRT: Sort relevanz  -->
+  <page url="{$server}/{$db}/HTML=Y/CMD?ACT=SRCHA&IKT=1016&SRT=RLV&TRM={$searchOptions}{$specialSearchOptions}" templateFile="searchList"></page>
   
   <page test="$singleResult" url="{$server}/{$db}/CMD?ACT=SRCHA&IKT=1016&SRT=RLV&TRM={$searchOptions}" templateFile="searchDetails"></page>
   

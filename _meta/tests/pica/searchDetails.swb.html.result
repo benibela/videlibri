@@ -1,0 +1,11 @@
+book := {}
+curAuthor := ()
+sigid := 0
+curAuthor := "Sparn, Günter"
+propname := "Erschienen"
+propname := "Umfang"
+propname := "Hochschulschrift"
+propname := ""
+propname := "Art und Inhalt"
+propname := "Schlagwortfolge"
+book := {"holdings": [{"Nachgewiesen in: !": "<93> Stuttgart, Universitätsbibliothek Stuttgart Holzgartenstr. 16, 70174  Stuttgart , Tel.: (0711)6 85- 82222 - E-Mail  ( http://www.ub.uni-stuttgart.de/wirueberuns/kontakt )   ( mailto:auskunft@ub.uni-stuttgart.de ) ", "Entleihbarkeit: !": "Ausleihbar  Zeige Verfügbarkeit  ( http://resolver.ub.uni-stuttgart.de/?wcmu=pollux&HLIB=593&ppn=028334051&epn=185043747 ) ", "Signatur: !": "Diss. 1992/2910", "orderable": false}, {"Nachgewiesen in: !": "<D 210> Dresden, Max-Planck-Institut für chemische Physik fester StoffeNöthnitzer Straße 40, 01187  Dresden , Tel.: (0351)4646-3607  ( http://swb.bsz-bw.de/DB=2.101/CMD?ACT=SRCH&IKT=2220&TRM=%22%60D+210&NEWWINDOWOPEN=Y ) ", "Entleihbarkeit: !": "Präsenzbestand", "Signatur: !": "03 G 005", "orderable": false}, {"Entleihbarkeit: !": "Entleihbarkeit siehe oben", "Signatur: !": "03 G 005 02", "Weitere Standorte: !": "Signatur: HS [Sparn, Günter]", "orderable": false}, {"Entleihbarkeit: !": "Entleihbarkeit siehe oben", "Signatur: !": "03 G 005 01", "Weitere Standorte: !": "Signatur: HS [Sparn, Günter]", "orderable": false}], "Schlagwortfolge!": "*Schwere-Fermionen-System          Zum Register*Schwere-Fermionen-Supraleiter          Zum Register ", "Art und Inhalt!": "Hochschulschrift", "Hochschulschrift!": "Darmstadt, Techn. Hochsch., Diss., 1990", "Umfang!": "147 S. : graph. Darst.", "Erschienen!": "1990", "author": "Sparn, Günter", "title": "Niederenergetische Anregungen in elektronisch hochkorrelierten Metallen ", "home-url": "http://swb.bsz-bw.de/DB=2.1/PPNSET?PPN=028334051&INDEXSET=1", "orderable": 0}
