@@ -128,14 +128,7 @@ public class LibraryList extends VideLibriBaseActivity {
 
         searchMode = getIntent().getBooleanExtra("search", false);
 
-        boolean port_mode = getResources().getBoolean(R.bool.port_mode);
-
-        scrollView = ((ScrollView) findViewById(R.id.libListView));
-        if (port_mode) {
-            scrollView.addView(makeLibView());
-        } else {
-            scrollView.addView(makeLibView((ScrollView) findViewById(R.id.libListViewCities), (ScrollView) findViewById(R.id.libListViewLibs)) );
-        }
+        createListView();
 
         View whynot = findViewById(R.id.textViewLibWhyNot);
         if (whynot == null) return;
@@ -155,6 +148,16 @@ public class LibraryList extends VideLibriBaseActivity {
 
     }
 
+    void createListView(){
+        boolean port_mode = getResources().getBoolean(R.bool.port_mode);
+        scrollView = ((ScrollView) findViewById(R.id.libListView));
+        scrollView.removeAllViews();
+        if (port_mode) {
+            scrollView.addView(makeLibView());
+        } else {
+            scrollView.addView(makeLibView((ScrollView) findViewById(R.id.libListViewCities), (ScrollView) findViewById(R.id.libListViewLibs)) );
+        }
+    }
 
     static class ViewId{
         enum Level { State, City, Lib };
@@ -377,6 +380,20 @@ public class LibraryList extends VideLibriBaseActivity {
 
     }
 
+    @Override
+    protected int onPrepareOptionsMenuVisibility() {
+        return super.onPrepareOptionsMenuVisibility() | ACTIONBAR_MENU_NEWLIB;
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        switch (requestCode) {
+            case RETURNED_FROM_NEW_LIBRARY:
+                createListView();
+                break;
+        }
+        super.onActivityResult(requestCode, resultCode, data);
+    }
 
     @Override
     boolean onDialogResult(int dialogId, int buttonId, Bundle more) {

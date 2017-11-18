@@ -45,6 +45,10 @@
                 android:icon="@android:drawable/ic_menu_share"
                 android:visible="false"
                 android:title="@string/menu_share" />
+            <item
+                android:id="@+id/newlib"
+                android:visible="false"
+                android:title="@string/lay_options_btn_newlib" />
 
         </menu>
     </item>

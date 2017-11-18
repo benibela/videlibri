@@ -26,6 +26,7 @@ import java.util.ArrayList;
 public class VideLibriBaseActivity extends AppCompatActivity implements Bridge.VideLibriContext {
     private static final int REQUESTED_LIBRARY_HOMEPAGE  = 29324;
     private static final int REQUESTED_LIBRARY_CATALOGUE = 29325;
+    protected static final int RETURNED_FROM_NEW_LIBRARY = 29326;
 
     static final int LOADING_ACCOUNT_UPDATE = 1;
     static final int LOADING_COVER_IMAGE = 100;
@@ -117,6 +118,7 @@ public class VideLibriBaseActivity extends AppCompatActivity implements Bridge.V
     final static int ACTIONBAR_MENU_RENEW_LIST = 0x2;
     final static int ACTIONBAR_MENU_RENEW_ALL = 0x4;
     final static int ACTIONBAR_MENU_SHARE = 0x8;
+    final static int ACTIONBAR_MENU_NEWLIB = 0x10;
 
     private MenuItem loadingItem, moreItem;
 
@@ -153,6 +155,7 @@ public class VideLibriBaseActivity extends AppCompatActivity implements Bridge.V
             menu.findItem(R.id.renew).setVisible((visibility & ACTIONBAR_MENU_RENEW_LIST) != 0);
             menu.findItem(R.id.renewlist).setVisible((visibility & ACTIONBAR_MENU_RENEW_ALL) != 0);
             menu.findItem(R.id.share).setVisible((visibility & ACTIONBAR_MENU_SHARE) != 0);
+            menu.findItem(R.id.newlib).setVisible((visibility & ACTIONBAR_MENU_NEWLIB) != 0);
         }
     }
 
@@ -226,6 +229,10 @@ public class VideLibriBaseActivity extends AppCompatActivity implements Bridge.V
                 intent.putExtra("reason", tr(R.string.base_chooselibcat));
                 intent.putExtra("search", true);
                 context.startActivityForResult(intent, REQUESTED_LIBRARY_CATALOGUE);
+                return true;
+            case R.id.newlib:
+                intent = new Intent(context, NewLibrary.class);
+                context.startActivityForResult(intent, RETURNED_FROM_NEW_LIBRARY);
                 return true;
             case R.id.feedback:
                 intent = new Intent(context, Feedback.class);
