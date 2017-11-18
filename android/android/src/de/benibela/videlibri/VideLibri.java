@@ -477,15 +477,30 @@ public class VideLibri extends  BookListActivity implements AdapterView.OnItemSe
         displayBookCache();
 
         int bookCount = 0, bookCountPrimary = 0; //number of shown books (after filtering), number of books (before filtering)
-        bookCount = bookCountPrimary = 0;
-        for (Bridge.Book b: primaryBookCache) if (b.account != null) bookCountPrimary++;
+        int bookCountPrimaryNoHistory = 0;
+        if (displayHistoryActually) {
+            for (Bridge.Book b : primaryBookCache) if (b.account != null) {
+                bookCountPrimary++;
+                if (!b.history) bookCountPrimaryNoHistory++;
+            }
+        } else {
+            for (Bridge.Book b : primaryBookCache) if (b.account != null) bookCountPrimary++;
+        }
         if (primaryBookCache.size() == bookCache.size()) bookCount = bookCountPrimary;
         else for (Bridge.Book b: bookCache) if (b.account != null) bookCount++;
 
         String title;
-        if (bookCountPrimary != bookCount) title = tr(R.string.main_bookcountDD, bookCount, bookCountPrimary);
-        else if (bookCount == 1) title = tr(R.string.main_bookcount1);
-        else title = tr(R.string.main_bookcountD, bookCount);
+        if (displayHistoryActually) {
+            if (bookCountPrimary == bookCount)
+                title = tr(R.string.main_bookcounthistoryDD, bookCountPrimaryNoHistory, bookCountPrimary);
+            else
+                title = tr(R.string.main_bookcounthistoryDDD, bookCount, bookCountPrimaryNoHistory, bookCountPrimary);
+        } else {
+            if (bookCountPrimary != bookCount)
+                title = tr(R.string.main_bookcountDD, bookCount, bookCountPrimary);
+            else
+                title = getResources().getQuantityString(R.plurals.main_bookcountPluralD, bookCount, bookCount);
+        }
         bookCountView.setText(title);
     }
 

@@ -72,9 +72,13 @@
     <string name="cancel">abbrechen</string>
     <string name="no">Nein</string>
     <string name="yes">Ja</string>
-    <string name="main_bookcount1">Eine Ausleihe</string>
-    <string name="main_bookcountD">%d Ausleihen</string>
+    <plurals name="main_bookcountPluralD">
+        <item quantity="one">Eine Ausleihe</item>
+        <item quantity="other">%d Ausleihen</item>
+    </plurals>
     <string name="main_bookcountDD">%1$d/%2$d Ausleihen</string>
+    <string name="main_bookcounthistoryDD">%1$d/%2$d Medien</string>
+    <string name="main_bookcounthistoryDDD">%1$d/%2$d/%3$d Medien</string>
     <string name="main_accountcountDD">Mix: %1$d/%2$d Konten</string>
     <string name="main_allaccounts">Alle Konten</string>
     <string name="main_cancelconfirm">Soll die Bestellung abgebrochen werden?</string>
