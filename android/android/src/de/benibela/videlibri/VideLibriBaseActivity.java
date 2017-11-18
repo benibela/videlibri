@@ -127,6 +127,13 @@ public class VideLibriBaseActivity extends AppCompatActivity implements Bridge.V
         loadingItem = menu.findItem(R.id.loading);
         if (loadingItem != null) {
             MenuItemCompat.setActionView(loadingItem, R.layout.actionbar_loading);
+            View actionView = MenuItemCompat.getActionView(loadingItem);
+            if (actionView != null) actionView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    showLoadingInfo();
+                }
+            });
             loadingItem.setVisible(loadingTasks.size() > 0);
         }
         moreItem = menu.findItem(R.id.more);
@@ -341,7 +348,27 @@ public class VideLibriBaseActivity extends AppCompatActivity implements Bridge.V
     boolean isLoading(int loadingId){
         return loadingTasks.indexOf(loadingId) >= 0;
     }
-
+    void showLoadingInfo(){
+        StringBuilder sb = new StringBuilder();
+        sb.append(tr(R.string.loading_tasks_info));
+        for (int id: loadingTasks) {
+            int code = 0;
+            switch (id) {
+                case LOADING_ACCOUNT_UPDATE:code=R.string.loading_account_update; break;
+                case LOADING_COVER_IMAGE: code=R.string.loading_cover; break;
+                case LOADING_SEARCH_CONNECTING: code=R.string.loading_search_connecting; break;
+                case LOADING_SEARCH_SEARCHING: code=R.string.loading_search_searching; break;
+                case LOADING_SEARCH_DETAILS: code=R.string.loading_search_details; break;
+                case LOADING_SEARCH_ORDER: code=R.string.loading_search_order; break;
+                case LOADING_SEARCH_ORDER_HOLDING: code=R.string.loading_search_order_holding; break;
+                case LOADING_SEARCH_MESSAGE: code=R.string.loading_search_message; break;
+                case LOADING_INSTALL_LIBRARY: code=R.string.loading_search_install_library; break;
+            }
+            if (code != 0) sb.append(tr(code));
+            sb.append("\n");
+        }
+        Util.showMessage(sb.toString());
+    }
 
 
 

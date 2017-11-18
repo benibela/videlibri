@@ -315,4 +315,17 @@
     <string name="menu_options">Einstellungen</string>
     <string name="drawer_open">Weitere Funktionen</string>
     <string name="drawer_close">schließen</string>
+
+
+    <string name="loading_tasks_info">Aktuelle Vorgänge:\n\n</string>
+    <string name="loading_account_update">Ausleihenaktualisierung</string>
+    <string name="loading_cover">Titelbild</string>
+    <string name="loading_search_connecting">Suche: Verbindungsaufbau</string>
+    <string name="loading_search_searching">Suche</string>
+    <string name="loading_search_details">Suche: Einzelbuchdetails</string>
+    <string name="loading_search_order">Suche: (alte) Vormerkung</string>
+    <string name="loading_search_order_holding">Suche: Vormerkung</string>
+    <string name="loading_search_message">Suche: Frage/Antwort</string>
+    <string name="loading_search_install_library">Bibliotheksinstallation</string>
+
 </resources>
