@@ -41,6 +41,10 @@ public class LibraryList extends VideLibriBaseActivity {
     ScrollView scrollView;
 
     LibraryListView makeLibView(){
+        return makeLibView(null,null);
+    }
+
+    LibraryListView makeLibView(ScrollView cityView, ScrollView libView){
         Bridge.Library[] libs = Bridge.getLibraries();
 
         states.clear(); cities.clear(); localLibs.clear();
@@ -89,11 +93,12 @@ public class LibraryList extends VideLibriBaseActivity {
             map.put("ID", lib.id);
         }
 
-        LibraryListView lv = new LibraryListView(this);
+        LibraryListView lv = new LibraryListView(this, cityView, libView);
 
         for (int i=0;i<autoExpand;i++) {
             lv.expand(i,false);
             if (cities.get(i).size() == 1) lv.expand(i, 0,false);
+            if (cityView != null) break;
         }
 
         return lv;
@@ -123,8 +128,14 @@ public class LibraryList extends VideLibriBaseActivity {
 
         searchMode = getIntent().getBooleanExtra("search", false);
 
+        boolean port_mode = getResources().getBoolean(R.bool.port_mode);
+
         scrollView = ((ScrollView) findViewById(R.id.libListView));
-        scrollView.addView(makeLibView());
+        if (port_mode) {
+            scrollView.addView(makeLibView());
+        } else {
+            scrollView.addView(makeLibView((ScrollView) findViewById(R.id.libListViewCities), (ScrollView) findViewById(R.id.libListViewLibs)) );
+        }
 
         View whynot = findViewById(R.id.textViewLibWhyNot);
         if (whynot == null) return;
@@ -160,12 +171,19 @@ public class LibraryList extends VideLibriBaseActivity {
         TextView cityViews[][];
         LinearLayout stateChildViews[];
         LinearLayout cityChildViews[][];
+        boolean port_mode;
+        ScrollView cityView,  libView;
         //View libViews[][][];
 
         Drawable groupIndicator, groupIndicatorExpanded;
 
-        LibraryListView (Context context){
+        LibraryListView (Context context, ScrollView cityView, ScrollView libView){
             super(context);
+
+            this.cityView = cityView;
+            this.libView = libView;
+
+            port_mode = cityView == null;
 
             setOrientation(VERTICAL);
 
@@ -201,7 +219,9 @@ public class LibraryList extends VideLibriBaseActivity {
                 stateChildViews[i] = new LinearLayout(context);
                 stateChildViews[i].setLayoutParams(new LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.WRAP_CONTENT));
                 stateChildViews[i].setOrientation(VERTICAL);
-                addView(stateChildViews[i]);
+                if (port_mode) {
+                    addView(stateChildViews[i]);
+                }
             }
 
         }
@@ -229,17 +249,24 @@ public class LibraryList extends VideLibriBaseActivity {
                     cityChildViews[state][b] = new LinearLayout(getContext());
                     cityChildViews[state][b].setLayoutParams(new LayoutParams(LayoutParams.FILL_PARENT,LayoutParams.WRAP_CONTENT));
                     cityChildViews[state][b].setOrientation(VERTICAL);
-                    stateChildViews[state].addView(cityChildViews[state][b]);
+                    if (port_mode)
+                        stateChildViews[state].addView(cityChildViews[state][b]);
                 }
+            }
+            if (!port_mode) {
+                cityView.removeAllViews();
+                cityView.addView(stateChildViews[state]);
             }
             stateChildViews[state].setVisibility(VISIBLE);
 
-            setIndicator(stateViews[state], true);
+            if (port_mode) {
+                setIndicator(stateViews[state], true);
 
-            if (scroll)
-                smoothScrollTo(cityChildViews[state].length > 0 && isExpanded(state, cityChildViews[state].length-1)
-                           ? cityChildViews[state][cityChildViews[state].length-1]
-                           : stateChildViews[state], stateViews[state]);
+                if (scroll)
+                    smoothScrollTo(cityChildViews[state].length > 0 && isExpanded(state, cityChildViews[state].length - 1)
+                            ? cityChildViews[state][cityChildViews[state].length - 1]
+                            : stateChildViews[state], stateViews[state]);
+            }
         }
         void expand(final int state, final int city, boolean scroll){
             if (cityChildViews[state][city] == null) expand(state, scroll);
@@ -253,19 +280,29 @@ public class LibraryList extends VideLibriBaseActivity {
                     cityChildViews[state][city].addView(row);
                 }
             }
+            if (!port_mode) {
+                libView.removeAllViews();
+                libView.addView(cityChildViews[state][city]);
+            }
             cityChildViews[state][city].setVisibility(VISIBLE);
-            setIndicator(cityViews[state][city], true);
-            if (scroll)
-                smoothScrollTo(cityChildViews[state][city], cityViews[state][city]);
+            if (port_mode) {
+                setIndicator(cityViews[state][city], true);
+                if (port_mode)
+                    smoothScrollTo(cityChildViews[state][city], cityViews[state][city]);
+            }
         }
 
         void collapse(int state){
-            stateChildViews[state].setVisibility(GONE);
-            setIndicator(stateViews[state], false);
+            if (port_mode) {
+                stateChildViews[state].setVisibility(GONE);
+                setIndicator(stateViews[state], false);
+            }
         }
         void collapse(int state, int city){
-            cityChildViews[state][city].setVisibility(GONE);
-            setIndicator(cityViews[state][city], false);
+            if (port_mode) {
+                cityChildViews[state][city].setVisibility(GONE);
+                setIndicator(cityViews[state][city], false);
+            }
         }
 
         private void setIndicator(final TextView view, final boolean expanded){

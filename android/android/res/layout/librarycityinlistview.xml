@@ -5,7 +5,7 @@
           android:layout_width="fill_parent"
           android:layout_height="?android:attr/listPreferredItemHeight"
           android:gravity="center_vertical"
-          android:paddingLeft="60dip"
+          android:paddingLeft="@dimen/librarycityinlistviewpaddingleft"
           android:singleLine="true"
           android:textAppearance="?android:attr/textAppearanceMedium"
           android:background="@android:drawable/list_selector_background"
