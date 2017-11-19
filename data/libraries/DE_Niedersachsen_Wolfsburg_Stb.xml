@@ -2,16 +2,11 @@
 <library>
   <longName value="Stadtbibliothek Wolfsburg (alpha)"/>
   <shortName value="Stb Wolfsburg"/>
-  
-  <template value="bibliotheca"/>
-  <variable name="baseurl" value="http://webopac.stadt.wolfsburg.de/webopac"/>	
-  <variable name="DB" value="web_biblio"/>	
-  
-  <!--<template value="pica"/>-->
+
+  <template value="bibliothecaplus"/>
+  <variable name="urlaccount" value="https://ebibliothek.stadt.wolfsburg.de/Mein-Konto"/>	
+  <variable name="urlsearch" value="https://ebibliothek.stadt.wolfsburg.de/Mediensuche/Erweiterte-Suche"/>	
 
 
   <homepage value="http://www.wolfsburg.de/stadtbibliothek"/>
-  <testing-search value="ja" date="2014-09-30"/>
-  <testing-account value="?" date=""/>
-  <testing-renew value="?" date=""/>
 </library>
