@@ -7,8 +7,8 @@
   <template value="pica"/>  
   <variable name="server" value="http://swb.bsz-bw.de"/>
   <variable name="picadb" value="2.1"/>
-  <variable name="searchKeysOverride" value="tit;per;num;erj;sw"/>
-  <variable name="specialSearchOptions" value="HILN=888"/>
+  <variable name="searchKeysOverride" value="tit;per;num;jhr;sw"/>
+  <variable name="specialSearchOptions" value="&amp;HILN=888"/>
   
 
   <homepage value="" nolist="true"/>

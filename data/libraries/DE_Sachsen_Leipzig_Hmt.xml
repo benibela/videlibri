@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <library>
-  <longName value="Bibliothek der Hochschule für Musik und Theater (alter Katalog) (alpha)"/>
+  <longName value="Bibliothek der Hochschule für Musik und Theater (nur Suche)"/>
 
-  <template value="libero5"/>
-  <variable name="baseurl" value="http://opac.hmt-leipzig.de/libero/"/>
-  <variable name="loginBaseurl" value="https://opac.hmt-leipzig.de/libero/"/>
+  <template value="pica"/>  
+  <variable name="server" value="http://swb.bsz-bw.de"/>
+  <variable name="picadb" value="2.1"/>
+  <variable name="searchKeysOverride" value="tit;per;num;jhr;sw"/>
+  <variable name="specialSearchOptions" value="+%26+sge:+%22L+152%22&amp;HILN=400"/>
 
   <homepage value="http://www.hmt-leipzig.de/index.php?bibliothek"/>
-  <testing-search value="ja" date="2013-07-05"/>
-  <testing-account value="?" date=""/>
-  <testing-renew value="?" date=""/>
 </library>
