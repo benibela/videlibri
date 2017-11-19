@@ -107,7 +107,7 @@ public class Bridge {
                 case 102: return StatusEnum.Virtual;
                 case 103: return StatusEnum.Presentation;
                 case 104: return StatusEnum.InterLoan;
-                default: return StatusEnum.Unknown;
+                default: return account == null ? StatusEnum.Unknown : StatusEnum.Problematic;
             }
         }
         void setStatus(StatusEnum se) {
