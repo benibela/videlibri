@@ -653,7 +653,7 @@ begin
   SetSize(length(s));
   if Size > 0 then begin
     write(s[1], length(s));
-    Position := 1;
+    Position := 0;
   end;
 end;
 
