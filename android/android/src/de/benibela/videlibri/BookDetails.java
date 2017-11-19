@@ -455,7 +455,7 @@ public class BookDetails extends VideLibriFakeFragment {
         protected Bitmap doInBackground(String... imageUrlProp) {
             String[] urls = imageUrlProp[0].split("[\r\n]");
             Bitmap cover = null;
-            for (int i=0;i<urls.length + 3 && cover == null;i++) {
+            for (int i=0;i<urls.length + 3;i++) {
                 try {
                     String url;
                     if (i < urls.length) {
@@ -477,7 +477,6 @@ public class BookDetails extends VideLibriFakeFragment {
                         }
                     }
 
-                    if ("".equals(url)) continue;
 
                     InputStream in = new java.net.URL(url).openStream();
                     cover = BitmapFactory.decodeStream(in, null, bitmapOpts);
