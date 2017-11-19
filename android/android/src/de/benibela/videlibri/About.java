@@ -104,7 +104,7 @@ public class About extends VideLibriBaseActivity {
         }
         details.add(1, new BookDetails.Details(tr(R.string.homepage), "http://www.videlibri.de"));
         details.add(2, new BookDetails.Details(tr(R.string.source), "http://sourceforge.net/p/videlibri/code/ci/trunks/tree/"));
-        details.add(3, new BookDetails.Details("Covers", "http://www.openlibrary.org ; http://www.buchhandel.de"));
+        details.add(3, new BookDetails.Details("Covers", "http://www.openlibrary.org ; http://amazon.com ; http://www.buchhandel.de"));
 
 
         lv.setAdapter(new BookDetails.BookDetailsAdapter(this, details, new Bridge.Book()));

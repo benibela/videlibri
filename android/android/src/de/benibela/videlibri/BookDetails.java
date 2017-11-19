@@ -453,26 +453,35 @@ public class BookDetails extends VideLibriFakeFragment {
         }
 
         protected Bitmap doInBackground(String... imageUrlProp) {
-            String[] urls = imageUrlProp[0].split("[\r\n]]");
+            String[] urls = imageUrlProp[0].split("[\r\n]");
             Bitmap cover = null;
-            for (int i=0;i<urls.length + 2 && cover == null;i++) {
+            for (int i=0;i<urls.length + 3 && cover == null;i++) {
                 try {
                     String url;
-                    if (i < urls.length) url = urls[i].trim();
-                    else if (i == urls.length) {
-                        String isbn = book.getNormalizedISBN(false,false);
-                        if ("".equals(isbn)) continue;
-                        url = "http://covers.openlibrary.org/b/isbn/"+isbn+"-M.jpg?default=false";
+                    if (i < urls.length) {
+                        url = urls[i].trim();
+                        if ("".equals(url)) continue;
                     } else {
-                        String isbn = book.getNormalizedISBN(true,true);
-                        if ("".equals(isbn)) continue;
-                        url = "http://vlb.de/GetBlob.aspx?strIsbn="+isbn+"&size=M";
+                        if (i == urls.length) {
+                            String isbn = book.getNormalizedISBN(false,false);
+                            if ("".equals(isbn)) continue;
+                            url = "http://covers.openlibrary.org/b/isbn/"+isbn+"-M.jpg?default=false";
+                        } else if (i == urls.length + 1) {
+                            String isbn = book.getNormalizedISBN(true,false);
+                            if ("".equals(isbn)) continue;
+                            url = "http://images-eu.amazon.com/images/P/" + isbn + ".03.L.jpg";
+                        } else {
+                            String isbn = book.getNormalizedISBN(true,true);
+                            if ("".equals(isbn)) continue;
+                            url = "http://vlb.de/GetBlob.aspx?strIsbn=" + isbn + "&size=M";
+                        }
                     }
 
                     if ("".equals(url)) continue;
 
                     InputStream in = new java.net.URL(url).openStream();
                     cover = BitmapFactory.decodeStream(in, null, bitmapOpts);
+                    if (cover != null && cover.getWidth() > 3 && cover.getHeight() > 3) return cover;
                 } catch (Throwable e) { //need to catch OutOfMemoryError and broken images exceptions
                     //Log.e("Error", e.getMessage());
                     e.printStackTrace();
