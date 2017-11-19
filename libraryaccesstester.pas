@@ -225,6 +225,7 @@ var   buffer, searchres: string;
       builder: TStrBuilder;
       d: RawByteString;
       i: Integer;
+      sysname: string;
   procedure appendAttribute(const name, value: string);
   begin
     builder.append(' ');
@@ -250,7 +251,11 @@ begin
        appendAttribute('date', d);
        appendAttribute('id', (TreeListView1.Items[i].data.obj as TTestData).lib.id);
        appendAttribute('search', ifthen(strBeginsWith(searchres, '2-'),'no','yes'));
-       appendAttribute('system', (TreeListView1.Items[i].data.obj as TTestData).lib.template.name);
+       sysname := (TreeListView1.Items[i].data.obj as TTestData).lib.template.name;
+       if strContains(sysname, '|') then begin
+         sysname := strJoin(stableSort(strSplit(sysname, '|')), ' ');
+       end;
+       appendAttribute('system', sysname);
       builder.append('/>'); builder.append(LineEnding);
      end;
   builder.append('</tests>');
