@@ -9,7 +9,7 @@ object libraryTesterForm: TlibraryTesterForm
   OnClose = FormClose
   OnCloseQuery = FormCloseQuery
   OnCreate = FormCreate
-  LCLVersion = '1.8.0.2'
+  LCLVersion = '1.8.0.5'
   object PageControl1: TPageControl
     Left = 0
     Height = 749
@@ -21,14 +21,14 @@ object libraryTesterForm: TlibraryTesterForm
     TabOrder = 0
     object TabSheet2: TTabSheet
       Caption = 'Multi-Tester'
-      ClientHeight = 724
-      ClientWidth = 1298
+      ClientHeight = 719
+      ClientWidth = 1290
       object TreeListView1: TTreeListView
         Left = 0
-        Height = 691
+        Height = 686
         Hint = 'Constant example tree'
         Top = 0
-        Width = 1298
+        Width = 1290
         Options = [tlvoMultiSelect, tlvoToolTips, tlvoRightMouseSelects, tlvoStriped, tlvoSorted]
         Columns = <        
           item
@@ -98,14 +98,14 @@ object libraryTesterForm: TlibraryTesterForm
       object Panel2: TPanel
         Left = 0
         Height = 33
-        Top = 691
-        Width = 1298
+        Top = 686
+        Width = 1290
         Align = alBottom
         ClientHeight = 33
-        ClientWidth = 1298
+        ClientWidth = 1290
         TabOrder = 1
         object Button4: TButton
-          Left = 1196
+          Left = 1188
           Height = 25
           Top = 0
           Width = 91
@@ -116,7 +116,7 @@ object libraryTesterForm: TlibraryTesterForm
         end
         object editTitle: TEdit
           Left = 48
-          Height = 25
+          Height = 30
           Top = 5
           Width = 80
           TabOrder = 1
@@ -124,14 +124,14 @@ object libraryTesterForm: TlibraryTesterForm
         end
         object EditAutor: TEdit
           Left = 168
-          Height = 25
+          Height = 30
           Top = 5
           Width = 80
           TabOrder = 2
         end
         object EditUser: TEdit
           Left = 512
-          Height = 25
+          Height = 30
           Top = 1
           Width = 80
           TabOrder = 3
@@ -139,33 +139,33 @@ object libraryTesterForm: TlibraryTesterForm
         end
         object Label2: TLabel
           Left = 8
-          Height = 15
+          Height = 18
           Top = 9
-          Width = 30
+          Width = 25
           Caption = 'titel:'
           ParentColor = False
         end
         object Label3: TLabel
           Left = 128
-          Height = 15
+          Height = 18
           Top = 8
-          Width = 38
+          Width = 35
           Caption = 'autor:'
           ParentColor = False
         end
         object editPass: TEdit
           Left = 600
-          Height = 25
+          Height = 30
           Top = 1
           Width = 80
           TabOrder = 4
           Text = 'pass'
         end
         object CheckBox1: TCheckBox
-          Left = 946
-          Height = 18
+          Left = 940
+          Height = 21
           Top = 5
-          Width = 63
+          Width = 61
           Anchors = [akTop, akRight]
           Caption = 'all libs'
           Checked = True
@@ -182,10 +182,10 @@ object libraryTesterForm: TlibraryTesterForm
           TabOrder = 6
         end
         object CheckBox2: TCheckBox
-          Left = 1025
-          Height = 18
+          Left = 1014
+          Height = 21
           Top = 5
-          Width = 59
+          Width = 62
           Anchors = [akTop, akRight]
           Caption = 'Suche'
           Checked = True
@@ -193,10 +193,10 @@ object libraryTesterForm: TlibraryTesterForm
           TabOrder = 7
         end
         object CheckBox3: TCheckBox
-          Left = 1087
-          Height = 18
+          Left = 1076
+          Height = 21
           Top = 5
-          Width = 57
+          Width = 60
           Anchors = [akTop, akRight]
           Caption = 'Konto'
           Checked = True
@@ -205,7 +205,7 @@ object libraryTesterForm: TlibraryTesterForm
         end
         object SpinEdit1: TSpinEdit
           Left = 424
-          Height = 25
+          Height = 28
           Top = 5
           Width = 50
           MaxValue = 1000
@@ -214,9 +214,9 @@ object libraryTesterForm: TlibraryTesterForm
         end
         object CheckBox4: TCheckBox
           Left = 1032
-          Height = 18
+          Height = 21
           Top = 5
-          Width = 47
+          Width = 50
           Caption = 'web'
           Checked = True
           State = cbChecked
@@ -224,7 +224,7 @@ object libraryTesterForm: TlibraryTesterForm
         end
         object editSearchProp: TEdit
           Left = 256
-          Height = 25
+          Height = 30
           Top = 5
           Width = 160
           TabOrder = 11
@@ -240,9 +240,9 @@ object libraryTesterForm: TlibraryTesterForm
         end
       end
       object SpinEdit2: TSpinEdit
-        Left = 901
-        Height = 25
-        Top = 693
+        Left = 893
+        Height = 28
+        Top = 685
         Width = 50
         Anchors = [akRight, akBottom]
         MaxValue = 1000
@@ -252,8 +252,8 @@ object libraryTesterForm: TlibraryTesterForm
     end
     object TabSheet1: TTabSheet
       Caption = 'Alter Konto-Tester'
-      ClientHeight = 724
-      ClientWidth = 1298
+      ClientHeight = 719
+      ClientWidth = 1290
       object Panel1: TPanel
         Left = 320
         Height = 704
@@ -361,7 +361,7 @@ object libraryTesterForm: TlibraryTesterForm
         Width = 320
         Align = alLeft
         ItemHeight = 0
-        ScrollWidth = 316
+        ScrollWidth = 318
         TabOrder = 1
         TopIndex = -1
       end

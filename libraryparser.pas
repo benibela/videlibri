@@ -588,9 +588,9 @@ begin
       realAccounts[i].save();
     end;
 
+    parser.free;
   finally
     xq.free;
-    parser.free;
   end;
 end;
 
