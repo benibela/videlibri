@@ -4,7 +4,9 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.res.Resources;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
@@ -33,8 +35,19 @@ interface MessageHandler{
 public class Util {
     static int MessageHandlerCanceled = -123;
     static public String tr(int id){
-        if (VideLibriApp.currentContext() == null) return "?tr?";
+        if (VideLibriApp.currentContext() == null) return "?tr?"+id;
         else return tr(VideLibriApp.currentContext(), id);
+    }
+    static public String tr(int id, Object... args){
+        Context context = VideLibriApp.currentContext();
+        if (context == null) return "?tr?" + id;
+        try {
+            return context.getString(id, args);
+        } catch (Resources.NotFoundException e) {
+            return "missing translation: "+id;
+        } catch (IllegalFormatException e) {
+            return context.getString(id);
+        }
     }
     static public String tr(Context context, int id){
         try {
@@ -50,9 +63,6 @@ public class Util {
             return "missing translation: "+id;
         } catch (IllegalFormatException e) {
             return context.getString(id);
-        /*} catch (MissingFormatArgumentException e) { child of    IllegalFormatException
-            return context.getString(id);
-        } */
         }
     }
     static public String[] tr(Context context, int[] ids){
@@ -238,6 +248,7 @@ public class Util {
         //String tag = "dialog" + args.getInt("id");
         frag.show(activity.getSupportFragmentManager(), null);//tag);
     }
+
 
 
     public static int strToIntDef(String firstVersion, int i) {

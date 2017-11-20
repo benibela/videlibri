@@ -261,9 +261,7 @@ public class VideLibriBaseActivity extends AppCompatActivity implements Bridge.V
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if ((requestCode == REQUESTED_LIBRARY_CATALOGUE || requestCode == REQUESTED_LIBRARY_HOMEPAGE) && resultCode == LibraryList.RESULT_OK) {
            Bridge.LibraryDetails details = Bridge.VLGetLibraryDetails(LibraryList.lastSelectedLibId);
-           startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(
-              requestCode == REQUESTED_LIBRARY_HOMEPAGE ? details.homepageBase : details.homepageCatalogue
-           )));
+           showUriInBrowser(requestCode == REQUESTED_LIBRARY_HOMEPAGE ? details.homepageBase : details.homepageCatalogue);
            return;
         }
 
@@ -482,6 +480,15 @@ public class VideLibriBaseActivity extends AppCompatActivity implements Bridge.V
     public String tr(int id){ return Util.tr(this, id); }
     public String tr(int id, Object... args){ return Util.tr(this, id, args); }
 
+
+
+    public void showUriInBrowser(String uri){
+        try {
+            startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(uri)));
+        } catch (android.content.ActivityNotFoundException e) {
+            Util.showMessage(tr(R.string.err_uri_open_failed, uri));
+        }
+    }
 
 
     @Override

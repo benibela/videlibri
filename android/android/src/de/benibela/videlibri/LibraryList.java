@@ -407,7 +407,7 @@ public class LibraryList extends VideLibriBaseActivity {
                         startActivity(intent);
                         break;
                     case 2:
-                        startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.videlibri.de/help/neuebibliothek.html")));
+                        showUriInBrowser("http://www.videlibri.de/help/neuebibliothek.html");
                         break;
                     case 3:
                         intent = new Intent(this, Feedback.class);

@@ -327,5 +327,6 @@
     <string name="loading_search_order_holding">Suche: Vormerkung</string>
     <string name="loading_search_message">Suche: Frage/Antwort</string>
     <string name="loading_search_install_library">Bibliotheksinstallation</string>
+    <string name="err_uri_open_failed">Webseite \"%s\" konnte nicht geöffnet werden</string>
 
 </resources>
