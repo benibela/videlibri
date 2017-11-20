@@ -21,7 +21,7 @@
     </t:switch>
 
   
-    <div t:condition="matches(@id, '(ComprehensiveItem|divMedium)$')">
+    <div t:condition="matches(@id, '(ComprehensiveItem|divMedium|divDependentCatalogue)$')">
       <t:switch prioritized="true">
         <div>
           <div class="standardPaddingCover"/>
@@ -42,6 +42,11 @@
                }
             </div>*
           </div>
+<!-- geht nicht, needs ajax         {..//img[ends-with(@id, "mediumImageAvailable")]!(
+            if (ends-with(@src, "true.png")) then $book.status := "available"
+            else if (ends-with(@src, "false.png")) then $book.status := "lend"
+            else ()
+          )}-->
         </div>
               
         <table><tr> <!-- old stralsund, nowhere used? -->

@@ -18,15 +18,14 @@
         <input t:test="$book.orderable">{reserve-request := form((//form)[1], {"__EVENTTARGET":  @name})}</input>?
       </div>?
   
-      <div t:test="$book.orderable">
+
          <a t:condition="contains(@id, 'BtnReserve')">{reserve-request := form((//form)[1], {"__EVENTTARGET":  translate(@id, "_", "$")})}</a>?
-      </div>
           
     
       <table t:condition="contains(@id, 'grdViewMediumCopies')">
         <tr><th>{$i := 0}</th></tr>
         <tr>{$book(x"Exemplar {$i := $i + 1}!") := join(td), 
-             if (empty(reserve-request)) then reserve-request := .//a[contains(@id, BtnReserve)]/form((//form)[1], {"__EVENTTARGET":  extract(@href, "&#39;([^&#39;]+)&#39;", 1)}) else ()}</tr>+
+             if (empty($reserve-request)) then reserve-request := .//a[contains(@id, "BtnReserve")]/form((//form)[1], {"__EVENTTARGET":  extract(@href, "&#39;([^&#39;]+)&#39;", 1)}) else ()}</tr>+
       </table>
       
       <div t:condition="contains(@id, 'tpnlDetail') or contains(@ id, 'CatalogueDetailView')"><!-- class="DnnContainer">-->
