@@ -13,7 +13,7 @@
     <string name="account_delete">Soll das Konto wirklich gelöscht werden?</string>
     <string name="change">ändern</string>
     <string name="error_nolibselected">Keine Bibliothek ausgewählt</string>
-    <string name="warning_alphalib">Hinweis: Bei dieser Bibliothek wurde nur die Suche ohne Kontozugriff getestet, da die Bibliothek kein Testkonto bereitgestellt hat.
+    <string name="warning_alphalib">Hinweis: Bei dieser Bibliothek wurde nur die Suche ohne Kontozugriff getestet, da uns kein Ausleihkonto zur Verfügung stand.
         Bitte geben Sie Feedback, ob das Konto gleich angezeigt wird oder nicht.
     </string>
     <string name="account_createinitial">Wählen Sie Ihre Bibliothek, um in ihrem Katalog zu suchen oder auf Ihr
@@ -292,11 +292,13 @@
         Mittlerweile gibt es folgende Möglichkeiten, um es mit einer nicht gelisteten Bibliothek zu verwenden.</string>
     <string name="foreignlibrariesnotinthelist_easy">1. Die Adresse (URL) des Bibliothekskatalog eingeben</string>
     <string name="foreignlibrariesnotinthelist_easy_req">falls die Bibliothek ein bereits unterstützes System verwendet.</string>
-    <string name="foreignlibrariesnotinthelist_install">2. Die nötigen Katalogmetadaten herunterladen</string>
+    <string name="foreignlibrariesnotinthelist_meta">2. über einen regionalen Meta-Katalog suchen</string>
+    <string name="foreignlibrariesnotinthelist_meta_req">falls man nur etwas suchen möchte.</string>
+    <string name="foreignlibrariesnotinthelist_install">3. Die nötigen Katalogmetadaten herunterladen</string>
     <string name="foreignlibrariesnotinthelist_install_req">falls die Bibliothek oder jemand anderes ein fertiges VideLibri-Template bereitstellt.</string>
-    <string name="foreignlibrariesnotinthelist_diy">3. Selbst ein VideLibri-Template erstellen</string>
+    <string name="foreignlibrariesnotinthelist_diy">4. Selbst ein VideLibri-Template erstellen</string>
     <string name="foreignlibrariesnotinthelist_diy_req">benötigt einen Desktop-Computer, und GreaseMonkey oder Programmiererfahrung.</string>
-    <string name="foreignlibrariesnotinthelist_mail">4. Eine E-Mail schreiben, damit die Bibliothek in der nächsten VideLibri-Version gelistet wird. </string>
+    <string name="foreignlibrariesnotinthelist_mail">5. Eine E-Mail schreiben, damit die Bibliothek in der nächsten VideLibri-Version gelistet wird. </string>
     <string name="foreignlibrariesnotinthelist_mail_req">wozu ich (vor allem bei unbekannten System) eben ein Benutzerkonto zum Testen brauche. </string>
 
     <string name="share_export_footer">von meinem VideLibri gesendet</string>

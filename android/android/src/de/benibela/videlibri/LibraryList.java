@@ -39,12 +39,15 @@ public class LibraryList extends VideLibriBaseActivity {
 
 
     ScrollView scrollView;
+    LibraryListView libView;
+    int metaCat;
 
     LibraryListView makeLibView(){
         return makeLibView(null,null);
     }
 
     LibraryListView makeLibView(ScrollView cityView, ScrollView libView){
+        metaCat = -1;
         Bridge.Library[] libs = Bridge.getLibraries();
 
         states.clear(); cities.clear(); localLibs.clear();
@@ -76,6 +79,7 @@ public class LibraryList extends VideLibriBaseActivity {
 
         for (Bridge.Library lib : libs) {
             if (states.isEmpty() || !states.get(states.size()-1).equals(lib.fullStatePretty)) {
+                if (metaCat < 0 && lib.fullStatePretty.contains("regional")) metaCat = states.size();
                 states.add(lib.fullStatePretty);
                 cities.add(new ArrayList<String>());
                 localLibs.add(new ArrayList<List<Map<String, String>>>());
@@ -140,8 +144,8 @@ public class LibraryList extends VideLibriBaseActivity {
                 args.putInt("id", DialogId.SPECIAL_LIBRARY_NOT_IN_LIST);
                 args.putInt("special", DialogId.SPECIAL_LIBRARY_NOT_IN_LIST);
                 args.putString("message", tr(R.string.foreignlibrariesnotinthelist));
-                args.putIntArray("items", new int[]{R.string.foreignlibrariesnotinthelist_easy, R.string.foreignlibrariesnotinthelist_install, R.string.foreignlibrariesnotinthelist_diy, R.string.foreignlibrariesnotinthelist_mail});
-                args.putIntArray("itemsSubCaption", new int[]{R.string.foreignlibrariesnotinthelist_easy_req, R.string.foreignlibrariesnotinthelist_install_req, R.string.foreignlibrariesnotinthelist_diy_req, R.string.foreignlibrariesnotinthelist_mail_req});
+                args.putIntArray("items", new int[]{R.string.foreignlibrariesnotinthelist_easy, R.string.foreignlibrariesnotinthelist_meta, R.string.foreignlibrariesnotinthelist_install, R.string.foreignlibrariesnotinthelist_diy, R.string.foreignlibrariesnotinthelist_mail});
+                args.putIntArray("itemsSubCaption", new int[]{R.string.foreignlibrariesnotinthelist_easy_req, R.string.foreignlibrariesnotinthelist_meta_req, R.string.foreignlibrariesnotinthelist_install_req, R.string.foreignlibrariesnotinthelist_diy_req, R.string.foreignlibrariesnotinthelist_mail_req});
                 Util.showDialog(LibraryList.this, args);
             }
         });
@@ -153,10 +157,11 @@ public class LibraryList extends VideLibriBaseActivity {
         scrollView = ((ScrollView) findViewById(R.id.libListView));
         scrollView.removeAllViews();
         if (port_mode) {
-            scrollView.addView(makeLibView());
+            libView = makeLibView();
         } else {
-            scrollView.addView(makeLibView((ScrollView) findViewById(R.id.libListViewCities), (ScrollView) findViewById(R.id.libListViewLibs)) );
+            libView = makeLibView((ScrollView) findViewById(R.id.libListViewCities), (ScrollView) findViewById(R.id.libListViewLibs));
         }
+        scrollView.addView(libView);
     }
 
     static class ViewId{
@@ -237,7 +242,7 @@ public class LibraryList extends VideLibriBaseActivity {
         }
 
 
-        void expand(final int state, boolean scroll){
+        private void expand(final int state, boolean scroll){
             if (stateChildViews[state].getChildCount() == 0) {
                 for (int b = 0; b < cities.get(state).size(); b ++) {
                     View row = getLayoutInflater().inflate(R.layout.librarycityinlistview, this, false);
@@ -262,16 +267,18 @@ public class LibraryList extends VideLibriBaseActivity {
             }
             stateChildViews[state].setVisibility(VISIBLE);
 
-            if (port_mode) {
+            if (port_mode)
                 setIndicator(stateViews[state], true);
 
-                if (scroll)
-                    smoothScrollTo(cityChildViews[state].length > 0 && isExpanded(state, cityChildViews[state].length - 1)
+            if (scroll)
+                smoothScrollTo(
+                        port_mode ? (
+                            cityChildViews[state].length > 0 && isExpanded(state, cityChildViews[state].length - 1)
                             ? cityChildViews[state][cityChildViews[state].length - 1]
-                            : stateChildViews[state], stateViews[state]);
-            }
+                            : stateChildViews[state])
+                        : stateViews[state], stateViews[state] );
         }
-        void expand(final int state, final int city, boolean scroll){
+        private void expand(final int state, final int city, boolean scroll){
             if (cityChildViews[state][city] == null) expand(state, scroll);
             if (cityChildViews[state][city] == null) return;
             if (cityChildViews[state][city].getChildCount() == 0) {
@@ -295,13 +302,13 @@ public class LibraryList extends VideLibriBaseActivity {
             }
         }
 
-        void collapse(int state){
+        private void collapse(int state){
             if (port_mode) {
                 stateChildViews[state].setVisibility(GONE);
                 setIndicator(stateViews[state], false);
             }
         }
-        void collapse(int state, int city){
+        private void collapse(int state, int city){
             if (port_mode) {
                 cityChildViews[state][city].setVisibility(GONE);
                 setIndicator(cityViews[state][city], false);
@@ -322,6 +329,11 @@ public class LibraryList extends VideLibriBaseActivity {
             trans.startTransition(500);                             */
         }
 
+        void openState(int i, boolean scroll){
+            expand(i, scroll);
+            if (cities.get(i).size() == 1 && !isExpanded(i, 0)) expand(i, 0, port_mode);
+        }
+
         OnClickListener combinedListener = new OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -331,8 +343,7 @@ public class LibraryList extends VideLibriBaseActivity {
                 switch (id.level) {
                     case State:
                         if (!isExpanded(id.a)) {
-                            expand(id.a,true);
-                            if (cities.get(id.a).size() == 1 && !isExpanded(id.a, 0)) expand(id.a, 0,true);
+                            openState(id.a, port_mode);
                         } else collapse(id.a);
 
                         break;
@@ -401,15 +412,18 @@ public class LibraryList extends VideLibriBaseActivity {
             case DialogId.SPECIAL_LIBRARY_NOT_IN_LIST:
                 Intent intent;
                 switch (buttonId) {
-                    case 0:case 1:
+                    case 0:case 2:
                         intent = new Intent(this, NewLibrary.class);
-                        intent.putExtra("mode", buttonId == 1 ? 0 : NewLibrary.MODE_LIBRARY_ENTER_NEW_DATA);
+                        intent.putExtra("mode", buttonId == 2 ? 0 : NewLibrary.MODE_LIBRARY_ENTER_NEW_DATA);
                         startActivity(intent);
                         break;
-                    case 2:
-                        showUriInBrowser("http://www.videlibri.de/help/neuebibliothek.html");
+                    case 1:
+                        if (metaCat >= 0 && libView != null) libView.openState(metaCat, true);
                         break;
                     case 3:
+                        showUriInBrowser("http://www.videlibri.de/help/neuebibliothek.html");
+                        break;
+                    case 4:
                         intent = new Intent(this, Feedback.class);
                         startActivity(intent);
                         break;
