@@ -129,8 +129,10 @@ brokenServers)
    export RESSERVERLIST=android/res/values/brokenServers.xml
    export TMPFILE=__vl__certificate.pem
    export KEYTOOL=keytool
+   export LANG=C.utf8
+   export LC_ALL=C.utf8
    #/usr/lib/jvm/java-6-sun/jre/bin/keytool
-   export BOUNCYCASTLE=/usr/share/java/bcprov-1.46.jar
+   export BOUNCYCASTLE=/usr/share/java/bcprov-1.58.jar
    FINGERPRINTFILE=keystore.bks.fingerprints
    TEMPKEYSTORE=__vl__keystore.bks 
 

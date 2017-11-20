@@ -27,5 +27,9 @@
 <item>CN=stadtbuecherei.kiel.de</item>
 <item>CN=service.filderstadt.de</item>
 <item>CN=opac-duesseldorf.itk-rheinland.de</item>
+<item>CN=opac-dormagen.itk-rheinland.de</item>
+<item>CN=opac-meerbusch.itk-rheinland.de</item>
+<item>CN=opac-grevenbroich.itk-rheinland.de</item>
+<item>CN=opac-neuss.itk-rheinland.de</item>
 </string-array>
 </resources>
