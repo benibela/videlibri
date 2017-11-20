@@ -22,7 +22,7 @@ Name: "custom"; Description: "Benutzerdefinierte Installation"; Flags: iscustom
 
 [Components]
 Name: "main"; Description: "Programm"; Types: full custom; Flags: fixed
-Name: "browser"; Description: "Integrierter Browser"; Types: full
+Name: "openssl"; Description: "OpenSSL"; Types: full
 Name: "help"; Description: "Hilfedatei"; Types: full
 Name: "usbstick"; Description: "Zum Start von USB-Stick konfigurieren (beta)";
 
@@ -41,7 +41,9 @@ Source: "_meta\installer\add_usbstick\data\machine.config"; DestDir: "{app}\data
 Source: "videlibri.exe"; DestDir: "{app}"; Components: main
 Source: "bbabout.dll"; DestDir: "{app}"; Components: main
 Source: "data\videlibri.chm"; DestDir: "{app}"; Components: help
-Source: "simplebrowser.exe"; DestDir: "{app}"; Components: browser
+Source: "_meta\installer\openssl\libeay32.dll"; DestDir: "{app}"; Components: openssl
+Source: "_meta\installer\openssl\ssleay32.dll"; DestDir: "{app}"; Components: openssl
+Source: "_meta\installer\openssl\ReadMe.txt"; DestDir: "{app}"; DestName: "openssl.txt"; Components: openssl
 
 [Icons]
 Name: "{group}\VideLibri"; Filename: "{app}\VideLibri.exe"; Tasks: menuicon
