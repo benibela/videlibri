@@ -93,7 +93,7 @@
   </variable>
 
 <!-- IKT: Index, means Titel like; SRT: Sort relevanz  -->
-  <page url="{$server}/{$db}/HTML=Y/CMD?ACT=SRCHA&IKT=1016&SRT=RLV&TRM={$searchOptions}{$specialSearchOptions}" templateFile="searchList"></page>
+  <page url="{$server}/{$db}/HTML=Y/CMD?ACT=SRCHA&IKT=1016&SRT=RLV&TRM={$searchOptions}{get('$specialSearchOptions')}" templateFile="searchList"></page>
   
   <page test="$singleResult" url="{$server}/{$db}/CMD?ACT=SRCHA&IKT=1016&SRT=RLV&TRM={$searchOptions}" templateFile="searchDetails"></page>
   
