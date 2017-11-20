@@ -1,6 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?xml-stylesheet type="text/xsl" href="../changelog.xsl"?>
 <changelog program="VideLibri">
+      <build version="1950" date="2017-11-20">
+        <download url="http://videlibri.sourceforge.net/updates/videlibri-setup.exe" platform="WINDOWS" execute="&quot;$DOWNLOAD&quot;  /SP- /noicons &quot;/dir=$OLDPATH&quot; " restart="true"/>
+        <download url="http://videlibri.sourceforge.net/updates/videlibri-linux32.deb" platform="LINUX32" execute=""/>
+        <download url="http://videlibri.sourceforge.net/updates/videlibri-linux64.deb" platform="LINUX64" execute=""/>
+        <add>neue Stadtbibliotheken Ludwigshafen, Dormagen, Grevenbroich, Meerbusch; sowie SWB-Verbundkatalog.</add>
+        <fix>Bibliotheca+/OPEN: Korrigiere Anzeige von Teilbänden und vormerkbaren Medien.</fix>
+        <fix>aDIS (VÖBB, Düsseldorf, etc.): Anzeige von Autornamen, die nicht im ersten Div Zeile stehen.</fix>
+        <fix>Anzeige von Titelbildern; lade sie von Amazons Seite.</fix>
+        <fix>Bibliothek der HMT Leipzig: Umstellung auf Suche über SWB-Verbundkatalog.</fix>
+        <fix>Stadtbibliothek Wolfburg: Umstellung auf OPEN.</fix>
+        <change>android: Zeitgemäßeres Layout: Seitennavigation, Kontowähler, Unicode-Status-Symbol, Ladeinformationen, Vormerkungs-Frist-Anzeige, ...</change>
+	<change>android: Deaktiviere Schlafmodus während Ausleihenaktualisierung, da manche Geräte die App killen, wenn das Gerät während einer Systemaktion einschläft.</change>
+	<change>android: Aktualisierte HTTPS-Zertifikate.</change>
+	<change>Windows: Installiere OpenSSL.</change>
+	<fix>Debian: Behebe .deb-Warnungen.</fix>
+     </build>
       <build version="1938" date="2017-10-20">
 	<fix>Aktiviere TLS1.1 und TLS1.2 auf Android >= 4.1 und Android &lt; 5.0 (für VÖBB)</fix>
         <fix>Kompilierung erfolgt mittels FreePascal r37480, um auf Android 8.0 lauffähig zu werden.</fix>
