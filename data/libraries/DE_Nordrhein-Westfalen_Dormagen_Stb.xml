@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<library>  
+  <longName value="Stadtbibliothek Dormagen (alpha)"/>
+  <shortName value="StB Meerbusch"/>
+  
+  <template value="aDISWeb"/>
+  <variable name="server" value="opac-dormagen.itk-rheinland.de/"/>
+
+  <homepage value="https://dormagen.de/bildung-kultur/stadtbibliothek/"/>
+</library>

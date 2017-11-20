@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<library>  
+  <longName value="Stadtbücherei Grevenbroich (alpha)"/>
+  <shortName value="StB Grevenbroich"/>
+  
+  <template value="aDISWeb"/>
+  <variable name="server" value="opac-grevenbroich.itk-rheinland.de/"/>
+
+  <homepage value="https://www.grevenbroich.de/leben-in-grevenbroich/bildung/stadtbuecherei/"/>
+</library>
