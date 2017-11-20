@@ -73,11 +73,11 @@ class BookFormatter {
         } else {
             String s = "";
             switch (book.getStatus()) {
-                case Available: s = "V"; break;
-                case Lend: s = "X"; break;
+                case Available: s = "\u2713"; break;
+                case Lend: s = "\u2717"; break;
                 case Virtual: s = "?"; break;
-                case Presentation: s = "X"; break;
-                case InterLoan: s = "X"; break;
+                case Presentation: s = "\u2717"; break;
+                case InterLoan: s = "\u2717"; break;
             }
             return s;
         }
