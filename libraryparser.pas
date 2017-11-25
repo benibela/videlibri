@@ -1378,7 +1378,7 @@ function TCustomAccountAccess.GetConnected: boolean;
 var tempTime: QWord;
 begin
   tempTime := GetTickCount64;
-  result:=FConnected and (tempTime > FConnectingTime) and (tempTime - FConnectingTime < Timeout);
+  result:=FConnected and (tempTime >= FConnectingTime) and (tempTime - FConnectingTime < Timeout);
 end;
 
 function TCustomAccountAccess.GetUpdated: boolean;
@@ -1386,7 +1386,7 @@ var
   tempTime: QWord;
 begin
   tempTime := GetTickCount64;
-  result:=GetConnected and FUpdated and (tempTime > FUpdateTime) and (tempTime - FUpdateTime < Timeout);
+  result:=GetConnected and FUpdated and (tempTime >= FUpdateTime) and (tempTime - FUpdateTime < Timeout);
 end;
 
 procedure TCustomAccountAccess.updateConnectingTimeout;
