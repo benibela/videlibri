@@ -199,7 +199,7 @@ type
 
     //==============Access functions================
     //At first connect must be called
-    function connect(AInternet:TInternetAccess):boolean; virtual;abstract;
+    procedure connect(AInternet:TInternetAccess); virtual;abstract;
     //After disconnect you mustn't call any one except connect
     procedure disconnect(); virtual;
     
@@ -268,7 +268,7 @@ type
     procedure changeUser(const s:string); override;
 
     //==============Access functions================
-    function connect(AInternet:TInternetAccess):boolean; override;
+    procedure connect(AInternet:TInternetAccess); override;
     procedure disconnect(); override;
 
     function needSingleBookCheck():boolean;override;
@@ -1515,62 +1515,36 @@ end;
 
 procedure TCustomAccountAccess.updateAll();
 begin
-  if not connected then
-    if not connect(internet) then
-      raise ELibraryException.Create('Zugriff auf die Bücherei fehlgeschlagen'#13#10#13#10'Bitte überprüfen Sie Ihre Internetverbindung');
+  if not connected then connect(internet);
 end;
 
 procedure TCustomAccountAccess.updateSingle(book: TBook);
 begin
   ignore(book);
-  if not connected then
-    if not connect(internet) then
-      raise ELibraryException.Create('Zugriff auf die Bücherei fehlgeschlagen'#13#10#13#10'Bitte überprüfen Sie Ihre Internetverbindung');
+  if not connected then connect(internet);
 end;
 
 procedure TCustomAccountAccess.extendAll();
 begin
-  if not connected then
-    if not connect(internet) then
-      raise ELibraryException.Create('Zugriff auf die Bücherei fehlgeschlagen'#13#10#13#10'Bitte überprüfen Sie Ihre Internetverbindung');
+  if not updated then updateAll();
 end;
 
 procedure TCustomAccountAccess.extendList(bookList: TBookList);
 begin
   ignore(bookList);
-  if not connected then
-    if not connect(internet) then
-      raise ELibraryException.Create('Zugriff auf die Bücherei fehlgeschlagen'#13#10#13#10'Bitte überprüfen Sie Ihre Internetverbindung');
+  if not updated then updateAll();
 end;
-
-{procedure TCustomAccountAccess.orderSingle(book: TBook);
-begin
-  if not connected then
-    if not connect then
-      raise ELibraryException.Create('Zugriff auf die Bücherei fehlgeschlagen'#13#10#13#10'Bitte überprüfen Sie Ihre Internetverbindung');
-end;
-
-procedure TCustomAccountAccess.orderList(booklist: TBookList);
-begin
-  if not connected then
-    if not connect then
-      raise ELibraryException.Create('Zugriff auf die Bücherei fehlgeschlagen'#13#10#13#10'Bitte überprüfen Sie Ihre Internetverbindung');
-end;}
 
 procedure TCustomAccountAccess.cancelSingle(book: TBook);
 begin
   ignore(book);
-  if not connected then
-    if not connect(internet) then
-      raise ELibraryException.Create('Zugriff auf die Bücherei fehlgeschlagen'#13#10#13#10'Bitte überprüfen Sie Ihre Internetverbindung');
+  if not updated then updateAll();
 end;
 
 procedure TCustomAccountAccess.cancelList(booklist: TBookList);
 begin
   ignore(booklist);
-  if not connected then
-    if not connect(internet) then
-      raise ELibraryException.Create('Zugriff auf die Bücherei fehlgeschlagen'#13#10#13#10'Bitte überprüfen Sie Ihre Internetverbindung');
+  if not updated then updateAll();
 end;
 
 function TCustomAccountAccess.shouldExtendBook(book: TBook): boolean;
@@ -1595,9 +1569,7 @@ end;
 procedure TCustomAccountAccess.updateAllSingly;
 var i:integer;
 begin
-  if not connected then
-    if not connect(internet) then
-      raise ELibraryException.Create('Zugriff auf die Bücherei fehlgeschlagen'#13#10#13#10'Bitte überprüfen Sie Ihre Internetverbindung');
+  if not connected then connect(internet);
   for i:=0 to books.bookLists[bltInCurrentDataUpdate].count-1 do
     updateSingle(books.bookLists[bltInCurrentDataUpdate][i]);
   books.updateSharedDates();
@@ -1907,10 +1879,9 @@ begin
   reader.books:=books.bookLists[bltInCurrentDataUpdate];
 end;
 
-function TTemplateAccountAccess.connect(AInternet: TInternetAccess): boolean;
+procedure TTemplateAccountAccess.connect(AInternet: TInternetAccess);
 begin
   if logging then log('TTemplateAccountAccess.connect started');
-  result:=false;
   internet:=ainternet;
   assert(internet <> nil);
   reader.internet:=internet;
