@@ -5,7 +5,7 @@
   
   {selections := true()}
   
-  <fieldset id="OPACGP" t:optional="true"> <!-- münchen/nürnberg -->
+  <fieldset id="OPACGP" t:optional="true"> <!-- nürnberg -->
     <label>Titel</label>       <input>{$nameTitle := @name}</input>
     <label>Person|Name</label> <input>{$nameAuthor := @name}</input>
     <label>ISBN</label>        <input>{$nameIsbn := @name}</input>
@@ -39,6 +39,11 @@
     <label>[jJ]ahr</label>     <input>{$nameYear := @name}</input>
 
     {
+      if ($book.keywords != "" and not($selects[last()]/../following::input[1] is $inputs[last()])) then (
+         $selects := ($selects[position() le 3], $selects[3]), 
+         $search-keys.keywords := ($selects[last()]/..//option[matches(., "Schlag|Thema")]/@value)[1],
+         $inputs := ($inputs[position() le 3], $inputs[3])
+      ) else (),
       i := 1,
       startSearch := form(//form, {|
         { $nameYear: $book.year },
