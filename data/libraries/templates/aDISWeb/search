@@ -72,7 +72,7 @@
                     lastSearchedIndex := $lastIndex,
                     let $title := $props[contains(@class, "rList_titel")][1],
                         $year  := $props[contains(@class, "rList_jahr")][1],
-                        $name  := join($props[contains(@class, "rList_name")]),
+                        $name  := normalize-space(translate(join($props[contains(@class, "rList_name")]), "&#xA0;", " ")),
                         $name  := if ($name) then $name else $props[contains(@class, "r_list_name")][last()], (:ulm only:)
                         $ava   := $props[contains(@class, "rList_availability")]//img[1]
                     return (book := {
