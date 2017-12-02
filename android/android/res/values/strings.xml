@@ -267,6 +267,7 @@
     <string name="import_properties">mit jeweils diesen Daten</string>
     <string name="import_file">Import aus dieser Datei:</string>
     <string name="import_done">Import abgeschlossen</string>
+    <string name="import_done_has_empty_pass">Import ohne Passwörter abgeschlossen.\nVor einer Ausleihenaktualisierung müssen noch die entsprechenden Passwörter eingegeben werden.</string>
     <string name="import_not_while_update_runs">Ein Import kann nicht durchgeführt werden, während eine Aktualisierung, Verlängerung oder ähnliches durchgeführt wird.</string>
 
     <string name="export">Exportieren</string>

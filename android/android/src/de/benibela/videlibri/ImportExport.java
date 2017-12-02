@@ -131,7 +131,10 @@ public class ImportExport extends VideLibriBaseActivity {
                             Bridge.VLImportAccounts(data);
                             VideLibriApp.refreshAccountList();
                             VideLibriApp.refreshDisplayedLendBooks();
-                            Util.showMessage(DialogId.IMPORTEXPORT_DONE, tr(R.string.import_done));
+                            boolean hasEmptyPass = false;
+                            for (Bridge.Account acc: VideLibriApp.accounts)
+                                if (!Util.isEmptyString(acc.name) && Util.isEmptyString(acc.pass)) hasEmptyPass = true;
+                            Util.showMessage(DialogId.IMPORTEXPORT_DONE, tr( hasEmptyPass ? R.string.import_done_has_empty_pass : R.string.import_done));
                             data = null;
                         }
                     }   else {
