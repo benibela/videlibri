@@ -459,7 +459,7 @@ public class BookDetails extends VideLibriFakeFragment {
             bitmapOpts.inScaled = true;
             String normalizedISBN10 = "";
 
-            for (int i=0;i<urls.length + 3;i++) {
+            for (int i=0;i<urls.length + 1 + 1 /*+1 disabled*/;i++) {
                 try {
                     String url;
                     if (i < urls.length) {
