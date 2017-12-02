@@ -5,14 +5,18 @@ unit accountlist;
 interface
 
 uses
-  Classes, SysUtils, libraryParser;
+  Classes, SysUtils, libraryParser, bbutilsbeta;
+
+
+
 
 type
 
 { TAccountList }
 
- TAccountEvent = procedure (acc: TCustomAccountAccess) of object;
- TAccountList = class(TStringList)
+TAccountEvent = procedure (acc: TCustomAccountAccess) of object;
+TAccountEnumerator = specialize TCommonEnumerator<TCustomAccountAccess>;
+TAccountList = class(TStringList)
 private
   fileName: string;
   libs: TLibraryManager;
@@ -28,10 +32,14 @@ public
 
   function add(const libID: string; prettyName, aname, pass: string; extendType: TExtendType; extendDays:integer; history: boolean; atype: integer):TCustomAccountAccess;
   procedure add(account: TCustomAccountAccess);
+
+  function GetEnumerator: TAccountEnumerator;
 end;
+
 implementation
 
 uses bbutils, bbdebugtools, applicationconfig;
+
 { TAccountList }
 
 procedure stringsSaveSafeCallback(stream: TStream; data: pointer);
@@ -132,6 +140,11 @@ begin
   account.save();
   save;
   if assigned(OnAccountAdd) then OnAccountAdd(account);
+end;
+
+function TAccountList.GetEnumerator: TAccountEnumerator;
+begin
+  result := TAccountEnumerator.create(Count, @get);
 end;
 
 end.
