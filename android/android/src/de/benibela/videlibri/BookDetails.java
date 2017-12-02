@@ -59,6 +59,7 @@ public class BookDetails extends VideLibriFakeFragment {
     }
 
     static BitmapFactory.Options bitmapOpts = new BitmapFactory.Options();
+    static private DisplayMetrics displayMetrics;
 
     static class BookDetailsAdapter extends BaseAdapter{
         private final Activity context;
@@ -82,12 +83,8 @@ public class BookDetails extends VideLibriFakeFragment {
             if (book.image != null) image = new BitmapDrawable(book.image);
 
             this.defaultColor = context.getResources().getColor(android.R.color.primary_text_dark);
-
-            DisplayMetrics dm = context.getResources().getDisplayMetrics();
-            this.scale = dm.scaledDensity;
-            bitmapOpts.inDensity = DisplayMetrics.DENSITY_LOW;
-            bitmapOpts.inTargetDensity = dm.densityDpi;
-            bitmapOpts.inScaled = true;
+            displayMetrics = context.getResources().getDisplayMetrics();
+            this.scale = displayMetrics.scaledDensity;
 
             int hs = details.size();
             while (hs > 0 && details.get(hs-1) instanceof DetailsHolding) hs--;
@@ -455,6 +452,13 @@ public class BookDetails extends VideLibriFakeFragment {
         protected Bitmap doInBackground(String... imageUrlProp) {
             String[] urls = imageUrlProp[0].split("[\r\n]");
             Bitmap cover = null;
+            BitmapFactory.Options bitmapOpts = new BitmapFactory.Options();
+            bitmapOpts.inDensity = DisplayMetrics.DENSITY_DEFAULT;
+            bitmapOpts.inTargetDensity = displayMetrics.densityDpi;
+            bitmapOpts.inScreenDensity = displayMetrics.densityDpi;
+            bitmapOpts.inScaled = true;
+            String normalizedISBN10 = "";
+
             for (int i=0;i<urls.length + 3;i++) {
                 try {
                     String url;
@@ -463,15 +467,14 @@ public class BookDetails extends VideLibriFakeFragment {
                         if ("".equals(url)) continue;
                     } else {
                         if (i == urls.length) {
-                            String isbn = book.getNormalizedISBN(false,false);
-                            if ("".equals(isbn)) continue;
-                            url = "http://covers.openlibrary.org/b/isbn/"+isbn+"-M.jpg?default=false";
+                            normalizedISBN10 = book.getNormalizedISBN(true,Bridge.Book.ISBNNormalization.ISBN_CONVERT_TO_10);
+                            if ("".equals(normalizedISBN10)) continue;
+                            url = "http://covers.openlibrary.org/b/isbn/"+normalizedISBN10+"-M.jpg?default=false";
                         } else if (i == urls.length + 1) {
-                            String isbn = book.getNormalizedISBN(true,false);
-                            if ("".equals(isbn)) continue;
-                            url = "http://images-eu.amazon.com/images/P/" + isbn + ".03.L.jpg";
+                            if ("".equals(normalizedISBN10)) continue;
+                            url = "http://images-eu.amazon.com/images/P/" + normalizedISBN10 + ".03.L.jpg";
                         } else {
-                            String isbn = book.getNormalizedISBN(true,true);
+                            String isbn = book.getNormalizedISBN(true,Bridge.Book.ISBNNormalization.ISBN_CONVERT_TO_13);
                             if ("".equals(isbn)) continue;
                             url = "http://vlb.de/GetBlob.aspx?strIsbn=" + isbn + "&size=M";
                         }
@@ -480,7 +483,30 @@ public class BookDetails extends VideLibriFakeFragment {
 
                     InputStream in = new java.net.URL(url).openStream();
                     cover = BitmapFactory.decodeStream(in, null, bitmapOpts);
-                    if (cover != null && cover.getWidth() > 3 && cover.getHeight() > 3) return cover;
+                    if (cover != null && cover.getWidth() > 3 && cover.getHeight() > 3) {
+                        int longSide = Math.max(displayMetrics.widthPixels, displayMetrics.heightPixels);
+                        int shortSide = Math.min(displayMetrics.widthPixels, displayMetrics.heightPixels);
+                        //portrait: maxWidth = shortSide, maxHeight = longSide * factor
+                        //landscape: maxWidth = longSide / 2, maxHeight = shortSide * factor
+                        int maxWidth =  Math.max(3, Math.min(shortSide, longSide / 2) );
+                        int maxHeight = Math.max(3,shortSide / 2 );
+                        int minWidth = maxWidth / 4;
+                        int minHeight = maxHeight / 4;
+                        double scale = 1;
+                        if (cover.getWidth() < minWidth || cover.getHeight() < minHeight) {
+                            scale = Math.max(minWidth * 1.0 / cover.getWidth(), minHeight * 1.0 / cover.getHeight());
+                        }
+                        if (cover.getWidth() * scale > maxWidth || cover.getHeight() * scale > maxHeight) {
+                            scale = Math.min(maxWidth * 1.0 / cover.getWidth(), maxHeight * 1.0 / cover.getHeight());
+                        }
+                        if (scale != 1) {
+                            Bitmap oldCover = cover;
+                            cover = Bitmap.createScaledBitmap(cover, (int)(cover.getWidth() * scale), (int)(cover.getHeight()  * scale), true);
+                            oldCover.recycle();
+                        }
+                        return cover;
+
+                    }
                 } catch (Throwable e) { //need to catch OutOfMemoryError and broken images exceptions
                     //Log.e("Error", e.getMessage());
                     e.printStackTrace();
