@@ -815,7 +815,7 @@ begin
   end else  if pos('buchhandel',LowerCase(site))>0 then begin
     site:=getProperty('buchhandel-url',displayedBook.additional);
     if site = '' then
-     site:='http://www.buchhandel.de/default.aspx?strframe=titelsuche&caller=vlbPublic&func=DirectIsbnSearch&isbn='+displayedBook.getNormalizedISBN(true,true)+'&nSiteId=11';
+     site:='http://www.buchhandel.de/default.aspx?strframe=titelsuche&caller=vlbPublic&func=DirectIsbnSearch&isbn='+displayedBook.getNormalizedISBN(true,13)+'&nSiteId=11';
   end else if pos('google',LowerCase(site))>0 then begin
     site:='http://www.google.de/search?q=%22'+displayedBook.title+'%22 %22'+displayedBook.author+'%22&ie=utf-8'
   end else begin

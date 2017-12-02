@@ -1889,10 +1889,22 @@ begin
 end;
 
 
+function Java_de_benibela_VideLibri_Bridge_VLNormalizeISBN(env:PJNIEnv; this:jobject; isbn: jstring; removeSep: jboolean; conversion: jint): jobject; cdecl;
+begin
+  if logging then bbdebugtools.log('de.benibela.VideLibri.Bride.VLNormalizeISBN (started)');
+  try
+    needJ;
+    result := j.stringToJString(TBook.getNormalizedISBN(j.jStringToString(isbn), removeSep <> JNI_FALSE, conversion));
+  except
+    on e: Exception do j.ThrowNew('de/benibela/videlibri/Bridge$InternalError', 'Interner Fehler: '+e.Message);
+  end;
+  if logging then bbdebugtools.log('de.benibela.VideLibri.Bride.VLNormalizeISBN (ended)');
+end;
 
 
 
-const nativeMethods: array[1..33] of JNINativeMethod=
+
+const nativeMethods: array[1..34] of JNINativeMethod=
   ((name:'VLInit';          signature:'(Lde/benibela/videlibri/Bridge$VideLibriContext;)V';                   fnPtr:@Java_de_benibela_VideLibri_Bridge_VLInit)
    ,(name:'VLFinalize';      signature:'()V';                   fnPtr:@Java_de_benibela_VideLibri_Bridge_VLFInit)
 
@@ -1934,6 +1946,8 @@ const nativeMethods: array[1..33] of JNINativeMethod=
    ,(name:'VLImportAccounts'; signature: '(Lde/benibela/videlibri/Bridge$ImportExportData;)V'; fnPtr: @Java_de_benibela_VideLibri_Bridge_VLImportAccounts)
 
    ,(name:'VLXQuery'; signature: '(Ljava/lang/String;)[Lde/benibela/videlibri/Bridge$Book;'; fnPtr: @Java_de_benibela_VideLibri_Bridge_VLXQuery)
+
+   ,(name:'VLNormalizeISBN'; signature: '(Ljava/lang/String;ZI)Ljava/lang/String;'; fnPtr: @Java_de_benibela_VideLibri_Bridge_VLNormalizeISBN)
    );
 
 

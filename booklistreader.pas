@@ -80,7 +80,8 @@ type
     procedure mergePersistentFields(book: TBook);
     function clone: TBook;
 
-    function getNormalizedISBN(const removeSeps, convertTo13: boolean): string;
+    function getNormalizedISBN(const removeSeps: boolean; conversion: integer): string;
+    class function getNormalizedISBN(const aisbn: string; const removeSeps: boolean; conversion: integer): string;
 
     function toSimpleString():string;
     function toLimitString():string;
@@ -436,13 +437,18 @@ begin
   result.assignAll(self);
 end;
 
-function TBook.getNormalizedISBN(const removeSeps, convertTo13: boolean): string;
+function TBook.getNormalizedISBN(const removeSeps: boolean; conversion: integer): string;
+begin
+  result := getNormalizedISBN(isbn, removeSeps, conversion);
+end;
+
+class function TBook.getNormalizedISBN(const aisbn: string; const removeSeps: boolean; conversion: integer): string;
 var
   check: Integer;
   multiplier: Integer;
-  i: Integer;
+  i, pos: Integer;
 begin
-  result := trim(isbn);
+  result := trim(aisbn);
   if length(result) >= 5 then begin
     //see https://en.wikipedia.org/wiki/List_of_ISBN_identifier_groups
     //X can mean 0
@@ -450,7 +456,7 @@ begin
     //e.g. isbn10: 3-680-08783-7
     if result[2] = '-' then begin
       result := copy(result, 1, 13);
-      if convertTo13 then begin
+      if conversion = 13 then begin
         if strBeginsWith(result, '1') and ( strBeginsWith(result, '10-') or strBeginsWith(result, '11-') or strBeginsWith(result, '12-') ) then
           result := '979-' + result
          else
@@ -466,7 +472,25 @@ begin
       end;
     end;
     //isbn13: 978-3-7657-2781-8
-    if result[4] in ['-', ' '] then result := copy(result, 1, 17);
+    if result[4] in ['-', ' '] then begin
+      result := copy(result, 1, 17);
+      if conversion = 10 then begin
+        delete(result, 1, 4);
+        i := 1;
+        check := 0;
+        for pos := 1 to length(result) do
+          if result[pos] in ['0'..'9'] then begin
+            if i = 10 then begin
+              check := check mod 11;
+              if check = 10 then result[pos] := 'X'
+              else result[pos] := chr(check + ord('0'));
+              break;
+            end;
+            check += (ord(result[pos]) - ord('0')) * i;
+            inc(i);
+          end;
+      end;
+    end;
   end;
 
   if removeSeps then

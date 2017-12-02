@@ -176,27 +176,17 @@ public class Bridge {
             return false;
         }
 
-        String getNormalizedISBN(boolean removeSeps, boolean convertTo13) {
-            String isbn = getProperty("isbn").trim();
-            if (isbn.length() >= 5) {
-                if (isbn.charAt(1) == '-') {
-                    isbn = isbn.substring(0,13);
-                    if (convertTo13) {
-                        isbn = "978-" + isbn;
-                        int check = 0, multiplier = 1;
-                        for (int i=0;i<isbn.length() - 1; i++)
-                            if (isbn.charAt(i) >= '0' && isbn.charAt(i) <= 9) {
-                                check += multiplier * (int)(isbn.charAt(i) - '0');
-                                multiplier = (multiplier + 2) & 3;
-                            }
-                        isbn = isbn.substring(0, 12) + (10 - check % 10) % 10;
-                    }
-                }
-                if (isbn.charAt(3) == '-' || isbn.charAt(3) == ' ') isbn = isbn.substring(0, 17);
+        enum ISBNNormalization { ISBN_NO_CONVERSION, ISBN_CONVERT_TO_10, ISBN_CONVERT_TO_13};
+        String getNormalizedISBN(boolean removeSeps, ISBNNormalization normalize) {
+            String isbn = getProperty("isbn");
+            if (Util.isEmptyString(isbn)) return "";
+            int normalizationCode;
+            switch (normalize) {
+                case ISBN_CONVERT_TO_10: normalizationCode = 10; break;
+                case ISBN_CONVERT_TO_13: normalizationCode = 13; break;
+                case ISBN_NO_CONVERSION: default: normalizationCode = 0; break;
             }
-            if (removeSeps)
-                isbn = isbn.replaceAll("[- ]", "");
-            return isbn;
+            return VLNormalizeISBN(isbn, removeSeps, normalizationCode);
         }
 
         public boolean equalsBook(Book q) {
@@ -257,6 +247,7 @@ public class Bridge {
     static public native void VLChangeAccount(Account oldacc, Account newacc);
     static public native void VLDeleteAccount(Account acc);
     static public native Book[] VLGetBooks(Account acc, boolean history);
+    static public native String VLNormalizeISBN(String isbn, boolean removeSep, int conversion);
     static public native Book VLGetCriticalBook();
     static public native boolean VLUpdateAccount(Account acc, boolean autoUpdate, boolean forceExtend);
     static final int BOOK_OPERATION_RENEW = 1;

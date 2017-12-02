@@ -85,10 +85,10 @@ begin
   temp := tbook.create;
   while i <= high(test) do begin
     temp.isbn := test[i];
-    if  temp.getNormalizedISBN(false, false) <> test[i+1] then
-      raise Exception.Create('Failed: '+temp.isbn + ': ' + temp.getNormalizedISBN(false, false) +'<>' +test[i+1]);
-    if  temp.getNormalizedISBN(false, true) <> test[i+2] then
-      raise Exception.Create('Failed: '+temp.isbn + ': ' + temp.getNormalizedISBN(false, true) +'<>' +test[i+2]);
+    if  temp.getNormalizedISBN(false, 0) <> test[i+1] then
+      raise Exception.Create('Failed: '+temp.isbn + ': ' + temp.getNormalizedISBN(false, 0) +'<>' +test[i+1]);
+    if  temp.getNormalizedISBN(false, 13) <> test[i+2] then
+      raise Exception.Create('Failed: '+temp.isbn + ': ' + temp.getNormalizedISBN(false, 13) +'<>' +test[i+2]);
     i += 3;
   end;
   temp.free;
