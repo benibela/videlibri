@@ -200,8 +200,8 @@ type
     //==============Access functions================
     //At first connect must be called
     procedure connect(AInternet:TInternetAccess); virtual;abstract;
-    //After disconnect you mustn't call any one except connect
     procedure disconnect(); virtual;
+    procedure resetConnection;
     
     procedure updateAll();   virtual;
     procedure updateSingle(book: TBook);virtual;
@@ -1040,6 +1040,7 @@ function TLibraryManager.setUserLibrary(trueid, data: string): TLibrary;
 var
   lib: TLibrary;
   userlibs: TStringArray;
+  acc: TCustomAccountAccess;
 begin
   if not DirectoryExists(userPath+'libraries') then
     ForceDirectories(userPath+'libraries');
@@ -1059,6 +1060,9 @@ begin
   lib.template:=nil;
   lib.variables.Clear;
   lib.loadFromString(data, 'libraries/'+trueid+'.xml');
+  for acc in accounts do
+    if acc.getLibrary().id = trueid then
+      acc.resetConnection;
 
   result := lib;
 end;
@@ -1401,14 +1405,14 @@ begin
   end else avalue := 0;
   if FAccountType=AValue then Exit;
   FAccountType:=AValue;
-  FConnected := false;
+  resetConnection;
 end;
 
 procedure TCustomAccountAccess.setPassword(AValue: string);
 begin
   if pass=AValue then Exit;
   pass:=AValue;
-  fconnected := false;
+  resetConnection;
 end;
 
 function TCustomAccountAccess.getCharges: currency;
@@ -1513,6 +1517,11 @@ begin
   fconnected:=false;
 end;
 
+procedure TCustomAccountAccess.resetConnection;
+begin
+  fconnected := false;
+end;
+
 procedure TCustomAccountAccess.updateAll();
 begin
   if not connected then connect(internet);
@@ -1600,7 +1609,7 @@ begin
   fbooks:=TBookLists.create(self,path+newID+'.history',path+newID+'.current');
   config:=TSafeIniFile.Create(path+newID+'.config');
 
-  fconnected := false;
+  resetConnection;
   //config.UpdateFile;
 end;
 
