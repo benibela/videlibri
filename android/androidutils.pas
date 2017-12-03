@@ -359,7 +359,7 @@ begin
     if template = nil then exit(nil);
     meta := nil;
     for i := 0 to high(template.baseActions.children) do
-      if template.baseActions.children[i] is TTemplateActionMeta then
+      if assigned(template.baseActions.children[i]) and (template.baseActions.children[i].InheritsFrom(TTemplateActionMeta)) then
         meta := template.baseActions.children[i] as TTemplateActionMeta ;
 
     if meta = nil then exit(nil);

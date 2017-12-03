@@ -212,22 +212,22 @@ resourcestring
     errordetails:='';
     anonymousDetails:='';
     moreLineBreak := {$ifdef android}''{$else}LineEnding{$endif};
-    if exception is EInternetException then begin
+    if exception.InheritsFrom(EInternetException) then begin
       kind := ekInternet;
       errorstr:=exception.message+LineEnding;
       errorStr += moreLineBreak+rsErrorCheckInternet;
       errordetails:=EInternetException(exception).details;
-    end else if exception is ELoginException then begin
+    end else if exception.InheritsFrom(ELoginException) then begin
       kind := ekLogin;
       errorstr:=rsErrorLoginException + moreLineBreak+ trim(exception.message);
-    end else if exception is EBookListReaderFromWebpage then begin
+    end else if exception.InheritsFrom(EBookListReaderFromWebpage) then begin
       errorstr:=rsErrorBookListReaderFromWebpage + moreLineBreak+ trim(exception.message);
-    end else if exception is EBookListReader then begin
+    end else if exception.InheritsFrom(EBookListReader) then begin
       errorstr:=rsErrorBookListReaderInternal + moreLineBreak+ trim(exception.message);
-    end else if exception is ELibraryException then begin
+    end else if exception.InheritsFrom(ELibraryException) then begin
       errorstr:=#13#10+exception.message;
       errordetails:=ELibraryException(exception).details;
-    end else if exception is EHTMLParseMatchingException then begin
+    end else if exception.InheritsFrom(EHTMLParseMatchingException) then begin
        errorstr:=//'Es ist folgender Fehler aufgetreten:      '#13#10+
             exception.className()+': '+ exception.message+'     ';
        if exception.InheritsFrom(EVideLibriHTMLMatchingException) then begin

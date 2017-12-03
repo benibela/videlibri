@@ -671,7 +671,8 @@ var
 begin
   if (fhomepageCatalogue = '') and (template.findAction('catalogue') <> nil)  then begin
     tempinternet := TInternetAccessNonSense.create(); //will crash if used
-    parser := TMultipageTemplateReader.create(template,tempinternet);
+    parser := TMultipageTemplateReader.create(template,tempinternet, nil);
+    parser.parser.KeepPreviousVariables:=kpvKeepValues; //used in book list reader. needed here, too?
     for i:=0 to defaultVariables.count-1 do
       parser.parser.variableChangeLog.ValuesString[defaultVariables.Names[i]]:=defaultVariables.ValueFromIndex[i];
     parser.callAction('catalogue');
