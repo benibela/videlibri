@@ -13,6 +13,7 @@ type
   { TnewAccountWizard }
 
   TnewAccountWizard = class(TForm)
+    newlibbtn: TButton;
     cancelBtn: TButton;
     accountType: TComboBox;
     LabelSelectedLib: TLabel;
@@ -57,6 +58,7 @@ type
     procedure FormShow(Sender: TObject);
     procedure libsSelect(sender: TObject; item: TTreeListItem);
     procedure locationListChange(Sender: TObject);
+    procedure newlibbtnClick(Sender: TObject);
     procedure Notebook1PageChanged(Sender: TObject);
     procedure Page2BeforeShow(ASender: TObject; ANewPage: TPage;
      ANewIndex: Integer);
@@ -80,7 +82,7 @@ var
   newAccountWizard: TnewAccountWizard;
 
 implementation
-uses applicationconfig,applicationdesktopconfig, libraryaccess,internetAccess,LCLProc,bbdebugtools;
+uses applicationconfig,applicationdesktopconfig, libraryaccess,internetAccess,LCLProc,bbdebugtools, options;
 { TnewAccountWizard }
 
 
@@ -201,6 +203,19 @@ procedure TnewAccountWizard.locationListChange(Sender: TObject);
 begin
 end;
 
+procedure TnewAccountWizard.newlibbtnClick(Sender: TObject);
+var optionsForm:ToptionForm;
+begin
+  optionsForm:=ToptionForm.Create(nil);
+  optionsForm.SpeedButtonLibraryConfig.Down := true;
+  optionsForm.SpeedButtonLibraryConfig.Click;
+  try
+     optionsForm.ShowModal;
+  finally
+     optionsForm.free;
+  end;
+end;
+
 procedure TnewAccountWizard.Notebook1PageChanged(Sender: TObject);
 begin
   if Notebook1.ActivePageComponent=lastPage then begin
@@ -227,6 +242,7 @@ begin
     nextbtn.Caption:=rsBtnCreate;
     finalPage.Repaint;
   end else nextbtn.Caption:=rsBtnNext;
+  newlibbtn.visible := Notebook1.PageIndex = 0;
   back.Enabled := Notebook1.PageIndex > 0;
   //fix lcl bug 14877
   Panel2.ReAlign;

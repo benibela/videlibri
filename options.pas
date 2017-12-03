@@ -101,7 +101,7 @@ type
     SpeedButton3: TSpeedButton;
     SpeedButton5: TSpeedButton;
     SpeedButton6: TSpeedButton;
-    SpeedButton7: TSpeedButton;
+    SpeedButtonLibraryConfig: TSpeedButton;
     Splitter1: TSplitter;
     symbols: TComboBox;
     Label19: TLabel;

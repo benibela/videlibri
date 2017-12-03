@@ -14,7 +14,7 @@ object optionForm: ToptionForm
   OnResize = FormResize
   OnShow = FormShow
   Position = poScreenCenter
-  LCLVersion = '1.8.0.4'
+  LCLVersion = '1.8.0.5'
   object Bevel1: TBevel
     AnchorSideLeft.Control = Panel2
     AnchorSideLeft.Side = asrBottom
@@ -46,9 +46,9 @@ object optionForm: ToptionForm
         AnchorSideTop.Control = edtAccountPass
         AnchorSideTop.Side = asrCenter
         Left = 8
-        Height = 18
-        Top = 333
-        Width = 101
+        Height = 19
+        Top = 327
+        Width = 102
         BorderSpacing.Around = 10
         Caption = 'Passwort:              '
         ParentColor = False
@@ -57,9 +57,9 @@ object optionForm: ToptionForm
         AnchorSideTop.Control = edtAccountUser
         AnchorSideTop.Side = asrCenter
         Left = 8
-        Height = 18
-        Top = 299
-        Width = 90
+        Height = 19
+        Top = 292
+        Width = 94
         BorderSpacing.Around = 10
         BorderSpacing.InnerBorder = 10
         Caption = 'Kontonummer:'
@@ -69,9 +69,9 @@ object optionForm: ToptionForm
         AnchorSideTop.Control = edtAccountPrettyName
         AnchorSideTop.Side = asrCenter
         Left = 8
-        Height = 18
-        Top = 231
-        Width = 73
+        Height = 19
+        Top = 218
+        Width = 76
         BorderSpacing.InnerBorder = 10
         Caption = 'Kontoname:'
         ParentColor = False
@@ -80,9 +80,9 @@ object optionForm: ToptionForm
         AnchorSideTop.Control = cmbAccountExtend
         AnchorSideTop.Side = asrCenter
         Left = 8
-        Height = 18
-        Top = 367
-        Width = 71
+        Height = 19
+        Top = 364
+        Width = 72
         BorderSpacing.Around = 10
         Caption = 'Verlängern:'
         ParentColor = False
@@ -91,9 +91,9 @@ object optionForm: ToptionForm
         AnchorSideTop.Control = Label4
         AnchorSideTop.Side = asrCenter
         Left = 222
-        Height = 18
-        Top = 367
-        Width = 28
+        Height = 19
+        Top = 364
+        Width = 29
         Caption = 'also '
         ParentColor = False
       end
@@ -102,10 +102,10 @@ object optionForm: ToptionForm
         AnchorSideLeft.Side = asrBottom
         AnchorSideTop.Control = Label4
         AnchorSideTop.Side = asrCenter
-        Left = 292
-        Height = 18
-        Top = 367
-        Width = 120
+        Left = 293
+        Height = 19
+        Top = 364
+        Width = 124
         BorderSpacing.Left = 5
         Caption = 'Tage vor Fristdatum'
         ParentColor = False
@@ -115,8 +115,8 @@ object optionForm: ToptionForm
         AnchorSideTop.Control = lblAccountLibrary
         AnchorSideTop.Side = asrCenter
         Left = 8
-        Height = 18
-        Top = 199
+        Height = 19
+        Top = 185
         Width = 57
         BorderSpacing.Around = 10
         Caption = 'Bücherei:'
@@ -128,9 +128,9 @@ object optionForm: ToptionForm
         AnchorSideTop.Control = Label5
         AnchorSideTop.Side = asrCenter
         AnchorSideBottom.Control = edtAccountPrettyName
-        Left = 119
-        Height = 18
-        Top = 199
+        Left = 120
+        Height = 19
+        Top = 185
         Width = 6
         Anchors = [akLeft, akBottom]
         BorderSpacing.Bottom = 4
@@ -144,7 +144,7 @@ object optionForm: ToptionForm
         Left = 8
         Height = 21
         Top = 412
-        Width = 339
+        Width = 345
         Anchors = [akLeft, akBottom]
         BorderSpacing.Bottom = 3
         Caption = 'Daten aller jemals ausgeliehenen Medien speichern'
@@ -155,7 +155,7 @@ object optionForm: ToptionForm
       object btnAccountDelete: TButton
         AnchorSideLeft.Control = btnAccountChange
         AnchorSideLeft.Side = asrBottom
-        Left = 113
+        Left = 114
         Height = 30
         Top = 436
         Width = 107
@@ -173,7 +173,7 @@ object optionForm: ToptionForm
         Left = 8
         Height = 30
         Top = 436
-        Width = 103
+        Width = 104
         Anchors = [akLeft, akBottom]
         AutoSize = True
         BorderSpacing.InnerBorder = 4
@@ -186,7 +186,7 @@ object optionForm: ToptionForm
       object btnAccountCreate: TButton
         AnchorSideLeft.Control = btnAccountDelete
         AnchorSideLeft.Side = asrBottom
-        Left = 230
+        Left = 231
         Height = 30
         Top = 436
         Width = 110
@@ -206,10 +206,10 @@ object optionForm: ToptionForm
         AnchorSideTop.Control = lblAccountPass
         AnchorSideTop.Side = asrCenter
         AnchorSideBottom.Control = cmbAccountExtend
-        Left = 119
-        Height = 30
-        Top = 327
-        Width = 484
+        Left = 120
+        Height = 31
+        Top = 321
+        Width = 483
         Anchors = [akLeft, akRight, akBottom]
         BorderSpacing.Left = 3
         BorderSpacing.Around = 4
@@ -221,10 +221,10 @@ object optionForm: ToptionForm
         AnchorSideTop.Control = Label2
         AnchorSideTop.Side = asrCenter
         AnchorSideBottom.Control = edtAccountPass
-        Left = 119
-        Height = 30
-        Top = 293
-        Width = 483
+        Left = 120
+        Height = 31
+        Top = 286
+        Width = 482
         Anchors = [akLeft, akRight, akBottom]
         BorderSpacing.Left = 3
         BorderSpacing.Around = 4
@@ -237,10 +237,10 @@ object optionForm: ToptionForm
         AnchorSideTop.Control = Label1
         AnchorSideTop.Side = asrCenter
         AnchorSideBottom.Control = accountType
-        Left = 119
-        Height = 30
-        Top = 225
-        Width = 484
+        Left = 120
+        Height = 31
+        Top = 212
+        Width = 483
         Anchors = [akLeft, akRight, akBottom]
         BorderSpacing.Left = 3
         BorderSpacing.Around = 4
@@ -249,7 +249,7 @@ object optionForm: ToptionForm
       object accountList: TListView
         AnchorSideBottom.Control = lblAccountLibrary
         Left = 0
-        Height = 190
+        Height = 176
         Top = 2
         Width = 603
         Anchors = [akTop, akLeft, akRight, akBottom]
@@ -292,10 +292,10 @@ object optionForm: ToptionForm
         AnchorSideLeft.Side = asrBottom
         AnchorSideTop.Control = Label4
         AnchorSideTop.Side = asrCenter
-        Left = 119
-        Height = 30
-        Top = 361
-        Width = 483
+        Left = 120
+        Height = 35
+        Top = 356
+        Width = 482
         Anchors = [akLeft, akRight, akBottom]
         BorderSpacing.Left = 3
         BorderSpacing.Around = 4
@@ -314,9 +314,9 @@ object optionForm: ToptionForm
         AnchorSideLeft.Side = asrBottom
         AnchorSideTop.Control = Label4
         AnchorSideTop.Side = asrCenter
-        Left = 255
-        Height = 30
-        Top = 359
+        Left = 256
+        Height = 31
+        Top = 358
         Width = 32
         Anchors = [akLeft, akBottom]
         BorderSpacing.Left = 5
@@ -343,7 +343,7 @@ object optionForm: ToptionForm
         Left = 8
         Height = 21
         Top = 393
-        Width = 163
+        Width = 164
         Anchors = [akLeft, akBottom]
         Caption = 'deaktivieren (Vorsicht!)'
         TabOrder = 11
@@ -352,10 +352,10 @@ object optionForm: ToptionForm
         AnchorSideLeft.Control = lblAccountPass
         AnchorSideLeft.Side = asrBottom
         AnchorSideBottom.Control = edtAccountUser
-        Left = 119
-        Height = 30
-        Top = 259
-        Width = 484
+        Left = 120
+        Height = 35
+        Top = 247
+        Width = 483
         Anchors = [akLeft, akRight, akBottom]
         BorderSpacing.Left = 3
         BorderSpacing.Around = 4
@@ -371,9 +371,9 @@ object optionForm: ToptionForm
         AnchorSideTop.Control = accountType
         AnchorSideTop.Side = asrCenter
         Left = 8
-        Height = 18
-        Top = 265
-        Width = 55
+        Height = 19
+        Top = 255
+        Width = 56
         Caption = 'Kontoart:'
         ParentColor = False
       end
@@ -1969,7 +1969,7 @@ object optionForm: ToptionForm
       Layout = blGlyphTop
       OnClick = SpeedButton1Click
     end
-    object SpeedButton7: TSpeedButton
+    object SpeedButtonLibraryConfig: TSpeedButton
       Tag = 5
       Left = 5
       Height = 72
@@ -2709,7 +2709,7 @@ object optionForm: ToptionForm
       'ColorS=F0FBFF'
       'ColorT=A4A0A0'
     )
-    left = 56
-    top = 80
+    Left = 56
+    Top = 80
   end
 end

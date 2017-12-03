@@ -11,13 +11,13 @@ object newAccountWizard: TnewAccountWizard
   OnCreate = FormCreate
   OnShow = FormShow
   Position = poScreenCenter
-  LCLVersion = '1.7'
+  LCLVersion = '1.8.0.5'
   object Notebook1: TNotebook
     Left = 0
     Height = 311
     Top = 0
     Width = 520
-    PageIndex = 3
+    PageIndex = 0
     Align = alClient
     TabOrder = 0
     TabStop = True
@@ -25,7 +25,7 @@ object newAccountWizard: TnewAccountWizard
       Color = clBtnFace
       object Label1ChooseLib: TLabel
         Left = 20
-        Height = 75
+        Height = 95
         Top = 7
         Width = 473
         Anchors = [akTop, akLeft, akRight]
@@ -39,8 +39,8 @@ object newAccountWizard: TnewAccountWizard
         AnchorSideBottom.Control = Page1
         AnchorSideBottom.Side = asrBottom
         Left = 19
-        Height = 209
-        Top = 92
+        Height = 189
+        Top = 112
         Width = 486
         Anchors = [akTop, akLeft, akRight, akBottom]
         BorderSpacing.Around = 10
@@ -306,8 +306,8 @@ object newAccountWizard: TnewAccountWizard
         ChildSizing.ShrinkVertical = crsScaleChilds
         ChildSizing.Layout = cclLeftToRightThenTopToBottom
         ChildSizing.ControlsPerLine = 1
-        ClientHeight = 240
-        ClientWidth = 194
+        ClientHeight = 224
+        ClientWidth = 196
         ItemIndex = 0
         Items.Strings = (
           'immer, wenn möglich'
@@ -372,10 +372,10 @@ object newAccountWizard: TnewAccountWizard
     ClientWidth = 520
     TabOrder = 1
     object cancelBtn: TButton
-      Left = 431
+      Left = 428
       Height = 27
       Top = 3
-      Width = 85
+      Width = 88
       Anchors = [akTop, akRight, akBottom]
       AutoSize = True
       BorderSpacing.InnerBorder = 4
@@ -386,10 +386,10 @@ object newAccountWizard: TnewAccountWizard
     end
     object nextbtn: TButton
       AnchorSideRight.Control = cancelBtn
-      Left = 346
+      Left = 345
       Height = 27
       Top = 3
-      Width = 73
+      Width = 71
       Anchors = [akTop, akRight, akBottom]
       AutoSize = True
       BorderSpacing.Right = 10
@@ -402,10 +402,10 @@ object newAccountWizard: TnewAccountWizard
     end
     object back: TButton
       AnchorSideRight.Control = nextbtn
-      Left = 268
+      Left = 270
       Height = 27
       Top = 3
-      Width = 76
+      Width = 73
       Anchors = [akTop, akRight, akBottom]
       AutoSize = True
       BorderSpacing.InnerBorder = 4
@@ -414,11 +414,20 @@ object newAccountWizard: TnewAccountWizard
       OnClick = Button3Click
       TabOrder = 1
     end
+    object newlibbtn: TButton
+      Left = 8
+      Height = 25
+      Top = 3
+      Width = 203
+      Caption = 'Neue Bibliothek registrieren'
+      OnClick = newlibbtnClick
+      TabOrder = 3
+    end
   end
   object Timer1: TTimer
     Interval = 60
     OnTimer = Timer1Timer
-    left = 456
-    top = 32
+    Left = 456
+    Top = 32
   end
 end
