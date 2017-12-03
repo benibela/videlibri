@@ -196,6 +196,12 @@ resourcestring
 const XMLNamespaceURL_VideLibri = 'http://www.benibela.de/2013/videlibri/';
 var XMlNamespaceVideLibri, XMlNamespaceVideLibri_VL: INamespace;
 
+type TVideLibriHtmlPatternMatcher = class(THtmlTemplateParser)
+  protected
+    procedure raiseMatchingException(message: string); override;
+end;
+
+
 function BookStatusToStr(book: TBook;verbose:boolean=false): string;
 begin
   if book.lend  then begin
@@ -242,6 +248,11 @@ begin
     bsInterLoan: exit('interloan');
     else exit('--invalid--'+inttostr(integer(status)));
   end;
+end;
+
+procedure TVideLibriHtmlPatternMatcher.raiseMatchingException(message: string);
+begin
+  raise EVideLibriHTMLMatchingException.create(message, self);
 end;
 
 { TXQVideLibriStaticContext }
@@ -1230,8 +1241,11 @@ constructor TBookListReader.create(atemplate:TMultiPageTemplate);
 var
   temp: TXQVideLibriStaticContext;
   tempc: TXQEvaluationContext;
+  matcher: TVideLibriHtmlPatternMatcher;
 begin
-  inherited create(atemplate, nil);
+  matcher := TVideLibriHtmlPatternMatcher.create;
+  matcher.KeepPreviousVariables := kpvKeepValues;
+  inherited create(atemplate, nil, matcher);
   defaultBook:=TBook.create;
   onLog:=@logall;
   parser.QueryEngine.GlobalNamespaces.add(XMlNamespaceVideLibri);

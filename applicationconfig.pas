@@ -22,6 +22,10 @@ ELoginException=class(EBookListReader)
 end;
 EBookListReaderFromWebpage = class(EBookListReader)
 end;
+EVideLibriHTMLMatchingException = class(EHTMLParseMatchingException)
+  partialMatches, anonymousPartialMatches: string;
+  constructor create(amessage: string; asender: THtmlTemplateParser);
+end;
 
 type
   TExceptionKind = (ekUnknown = 0, ekInternet = 1, ekLogin = 2);
@@ -226,9 +230,9 @@ resourcestring
     end else if exception is EHTMLParseMatchingException then begin
        errorstr:=//'Es ist folgender Fehler aufgetreten:      '#13#10+
             exception.className()+': '+ exception.message+'     ';
-       if EHTMLParseMatchingException(exception).sender is THtmlTemplateParser then begin
-         errordetails := THtmlTemplateParser(EHTMLParseMatchingException(exception).sender).debugMatchings(80);
-         anonymousDetails := THtmlTemplateParser(EHTMLParseMatchingException(exception).sender).debugMatchings(80, false, ['class', 'id', 'style']);
+       if exception.InheritsFrom(EVideLibriHTMLMatchingException) then begin
+         errordetails := EVideLibriHTMLMatchingException(exception).partialMatches;
+         anonymousDetails := EVideLibriHTMLMatchingException(exception).anonymousPartialMatches;
        end;
     end else begin
       errorstr:=//'Es ist folgender Fehler aufgetreten:      '#13#10+
@@ -264,6 +268,15 @@ resourcestring
       system.LeaveCriticalSection(exceptionStoring);
     end;
 
+  end;
+
+  constructor EVideLibriHTMLMatchingException.create(amessage: string; asender: THtmlTemplateParser);
+  begin
+    inherited create(amessage);
+    if asender <> nil then begin
+      partialMatches := asender.debugMatchings(80);
+      anonymousPartialMatches := asender.debugMatchings(80, false, ['class', 'id', 'style']);
+    end;
   end;
 
   constructor EBookListReader.create;
