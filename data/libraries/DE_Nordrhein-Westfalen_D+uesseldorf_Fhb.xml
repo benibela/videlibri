@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <library>
   <deprecatedName value="100"/>
-  <longName value="Fachhochschulbibliothek Düsseldorf"/>
+  <longName value="Hochschulbibliothek der Hochschule Düsseldorf"/>
   <shortName value="FHB Düsseldorf"/>
   <catalogue value="http://katalog.bibl.fh-duesseldorf.de/libero/WebOpac.cls"/>
 
@@ -23,8 +23,5 @@
   <variable name="searchid-digibib" value="SERVICEGROUP1.SERVICE.SEARCH_FHBDUE"/>
 
 
-  <homepage value="http://www.bibl.fh-duesseldorf.de/"/>
-  <testing-search value="ja (direkt + digibib)" date="2011-05-16"/>
-  <testing-account value="ja" date="2011-05-16"/>
-  <testing-renew value="ja" date="2011-05-16"/>
+  <homepage value="https://bib.hs-duesseldorf.de/"/>
 </library>
