@@ -1,17 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?xml-stylesheet type="text/xsl" href="../changelog.xsl"?>
 <changelog program="VideLibri">
-      <build version="1950" date="2017-11-20">
+      <build version="1953" date="2017-12-04">
         <download url="http://videlibri.sourceforge.net/updates/videlibri-setup.exe" platform="WINDOWS" execute="&quot;$DOWNLOAD&quot;  /SP- /noicons &quot;/dir=$OLDPATH&quot; " restart="true"/>
         <download url="http://videlibri.sourceforge.net/updates/videlibri-linux32.deb" platform="LINUX32" execute=""/>
         <download url="http://videlibri.sourceforge.net/updates/videlibri-linux64.deb" platform="LINUX64" execute=""/>
+	<change>Skaliere zu große/kleine Titelbilder.</change>
+        <change>Versuche nicht Titelbilder vom Buchhandel zu laden.</change>
+	<fix>aDIS: Suche nicht nur nach "Mathematik" bei einer Schlagwortsuche, wenn es kein separates Feld zur Suche nach einem Thema gibt (wie bei Stadtbibliothek München).</fix>
+	<fix>Aleph/Bibliotheca+/OPEN: Breche die Verbindung nicht mit "Zugriff fehlgeschlagen" ab, wenn das Gerät schneller ist, als eine fehlerhafte Timeoutberechnung annimmt.</fix> 
+        <fix>Neue Homepage-Adressen für Campusbibliothek Beuth-Hochschule und Fachhochschulbibliothek Düsseldorf (sie nennen sich nun Hochschulbibliothek der Hochschule Düsseldorf).</fix>
+        <add>Button zur Bibliothekskonfigurierung im Neues-Konto-Konfigdialog.</add>
+     </build>
+      <build version="1950" date="2017-11-20">
         <add>neue Stadtbibliotheken Ludwigshafen, Dormagen, Grevenbroich, Meerbusch; sowie SWB-Verbundkatalog.</add>
         <fix>Bibliotheca+/OPEN: Korrigiere Anzeige von Teilbänden und vormerkbaren Medien.</fix>
-        <fix>aDIS (VÖBB, Düsseldorf, etc.): Anzeige von Autornamen, die nicht im ersten Div Zeile stehen.</fix>
+        <fix>aDIS (VÖBB, Düsseldorf, etc.): Anzeige von Autornamen, die nicht im ersten Div stehen.</fix>
         <fix>Anzeige von Titelbildern; lade sie von Amazons Seite.</fix>
         <fix>Bibliothek der HMT Leipzig: Umstellung auf Suche über SWB-Verbundkatalog.</fix>
         <fix>Stadtbibliothek Wolfburg: Umstellung auf OPEN.</fix>
         <change>android: Zeitgemäßeres Layout: Seitennavigation, Kontowähler, Unicode-Status-Symbol, Ladeinformationen, Vormerkungs-Frist-Anzeige, ...</change>
+        <change>Ausführlichere Fehlermeldungen.</change>
 	<change>android: Deaktiviere Schlafmodus während Ausleihenaktualisierung, da manche Geräte die App killen, wenn das Gerät während einer Systemaktion einschläft.</change>
 	<change>android: Aktualisierte HTTPS-Zertifikate.</change>
 	<change>Windows: Installiere OpenSSL.</change>
