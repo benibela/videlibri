@@ -99,7 +99,7 @@ xidel --xquery '
              <div><span class="date">{local:format-date( ($basesystem("account"), $basesystem("search"))[1] )}</span><span class="text">Implementierung des Bibliothekssystems {$basesystem("name")}.</span> </div>[exists($basesystem)],
              if ( $basesystem("account") < $ordered-tests[1]/@date ) then (
              if (substring-before($basesystem("account"), "-") != substring-before($ordered-tests[1]/@date, "-")) then <br/> else (),
-             <div><span class="date">{local:format-date($ordered-tests[1]/@date)}</span><span class="text">Eintragung der "{$name}" in die Liste der das Bibliothekssystem {$basesystem("name")} verwendenden Bibliotheken (um zuvor mit VideLibri auf die "{$name}" zuzugreifen, musste man zumindest die OPAC-Webadresse ähnlich wie im Browser eingeben).</span> </div> 
+             <div><span class="date">{local:format-date($ordered-tests[1]/@date)}</span><span class="text">Eintragung der "{$name}" in die Liste der das Bibliothekssystem {$basesystem("name")} verwendenden Bibliotheken (um zuvor mit VideLibri auf die "{$name}" zuzugreifen, müsste man zumindest die OPAC-Webadresse eingeben).</span> </div> 
              ) else (),
                 
              for $test at $i in $ordered-tests 

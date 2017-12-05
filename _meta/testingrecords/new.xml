@@ -2,4 +2,6 @@
 <tests>
   <test date="2017-09-10" id="DE_Hessen_Gie+szen_Stb" system="libero5" search="yes" account="yes"/>
   <test date="2017-10-01" id="DE_Berlin_Berlin_VOEBB" system="aDISWeb" search="yes" account="yes"><text>Die VÖBB verwenden nun TLS1.2. Auf alten Geräten benötigt VideLibri dafür eine <a href='http://www.videlibri.de/help/faq.html#inet_failed'>spezielle Konfiguration</a>.</text></test>
+  <test date="2017-11-20" id="DE_Rheinland-Pfalz_Ludwigshafen_Stb" search="yes" account="yes" system="bibliothecaplus"/>
+  <test date="2017-11-20" id="DE_Sachsen_Leipzig_Hmt" search="yes" account="no" system="pica"><text>(Suche über Verbundkatalog)</text></test>
 </tests>
