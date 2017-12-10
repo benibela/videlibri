@@ -332,4 +332,11 @@
     <string name="loading_search_install_library">Bibliotheksinstallation</string>
     <string name="err_uri_open_failed">Webseite \"%s\" konnte nicht geöffnet werden</string>
 
+
+    <string name="debug_order_new_first">neu->alt</string>
+    <string name="debug_order_old_first">alt&lt;-neu</string>
+    <string name="debug_log_http">Übertragene Daten (%s)</string>
+    <string name="debug_log_videlibri">+ VideLibri (%s)</string>
+    <string name="debug_log_all">+ Android (%s)</string>
 </resources>
+
