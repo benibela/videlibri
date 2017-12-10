@@ -81,11 +81,12 @@
   <if test="$connected"><variable name="connectPage">$searchPage</variable></if>
 
   <page url="{$connectPage}">
-    <template><template:switch>
-      <a><span>Benutzerkonto</span>{loginForm:=@href}</a>
-      <a><span>Mein Konto</span>{loginForm:=@href}</a>
-      <a><span>Anmeldung<!--Mein Konto--></span>{loginForm:=@href}</a>
-    </template:switch></template>
+    <template>
+      <a>
+        <template:meta default-text-matching="regex"/>
+        Benutzerkonto|Mein Konto|Anmeldung<t:s>loginForm:=@href</t:s>
+      </a>
+    </template>
   </page>
   
   <loop test="exists($loginForm)">

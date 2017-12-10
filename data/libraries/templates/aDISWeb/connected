@@ -1,5 +1,5 @@
     <template:switch-prioritized>
-       <a><span>Erweiterte Suche</span>{searchPage:=.,connected:=true()}</a>
+       <a>Erweiterte Suche<t:s>searchPage:=.,connected:=true()</t:s></a>
        
        <div id="topleiste" class="block">
          <span class="invisible">Sie sind hier: </span> 
@@ -7,8 +7,14 @@
          {searchPage:=base-uri(),connected:=true()}
        </div>               
 
-       <a><span>Suche</span>{connectPage:=@href}</a>
-       <a><span>Mein Konto</span>{searchPage:=$url,connected:=true()}</a>
+       <strong><span class="tree_strong">Erweiterte Suche</span>
+         {searchPage:=base-uri(),connected:=true()}
+       </strong>
+
+       <a>Suche<t:s>connectPage:=@href</t:s></a>
+       <a>Mein Konto<t:s>searchPage:=$url,connected:=true()</t:s></a>
+       
+       
        <meta http-equiv="refresh">{connectPage:=extract(@content, "url=(.*)", 1)}</meta>
        <a title="Zur Startseite">{connectPage:=@href}</a>
        <a><t:s>connectPage:=@href</t:s>Neue Sitzung</a>
