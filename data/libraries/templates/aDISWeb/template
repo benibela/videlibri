@@ -274,7 +274,7 @@
 
 <action id="internal-order-single">
   <page url="{$form}">
-    <template><form>{form:=form(., (.//input[@type = "submit" and contains(@value, "Bestellen")])[1]/{string(@name): @value})}</form></template>
+    <template><form>{form:=form(., (.//input[@type = "submit" and contains(@value, "Bestell")])[1]/{string(@name): @value})}</form></template>
   </page>
   
   <s>inCollection:=false(), subBookOnly := false(), error := ()</s>
@@ -291,7 +291,7 @@
     </page>
     
     <page url="{$collection}">
-      <template><form>{form:=form(., (.//input[@type = "submit" and contains(@value, "Bestellen")])[1]/{string(@name): @value})}</form></template>
+      <template><form>{form:=form(., (.//input[@type = "submit" and contains(@value, "Bestell")])[1]/{string(@name): @value})}</form></template>
     </page>
     <page test="get('multiple-district-ordering', false())" url="{$form}" templateFile="orderMultipleDistrict"/>
   </if>

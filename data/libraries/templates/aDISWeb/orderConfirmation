@@ -23,6 +23,21 @@
     </DIV>
   </form>
 
+  <form> 
+    <h2>{tempOrderConfirmation := x"Wohin soll das Buch ""{.}"" vorbestellt werden?"}</h2>
+    <select name="select">{tempOptions :=  ./option[. != ""],    
+    vl:choose("internal-order-confirmed", $tempOrderConfirmation, $tempOptions, $tempOptions/@value)
+    }</select>
+    <input type="submit"/>
+    <input type="submit" value="Abbrechen">{$cancelinput}</input>
+    {form := form(., (
+      {"select": "_DESTINATIONFILLER_"},
+      (.//select[@name = "select$0"])[1]/{@name: "Nein"}, (: benachrichtigung :)
+      (.//input[@type = "submit"])[1]
+      )),
+     goBackPage := form(., $cancelinput) )
+  </form>
+
   <form><div class="message"><div id="R01">
     <!--<h1>Bitte auf Band oder Heft verzweigen und dann bestellen!</h1>-->
     <h1>Bitte auf den gewünschten Bestand oder Band verzweigen</h1>   

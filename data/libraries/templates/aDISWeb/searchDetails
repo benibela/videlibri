@@ -15,7 +15,7 @@
     </t:switch-prioritized> 
     
     {goback := form(//form, x"{$backButtonName}.x=0&{$backButtonName}.y=0"),
-     if (//input[@type="submit" and contains(@value, 'Bestellen')]) then book.orderable := true() else ()
+     if (//input[@type="submit" and contains(@value, 'Bestell')]) then book.orderable := true() else ()
     }    
 
  

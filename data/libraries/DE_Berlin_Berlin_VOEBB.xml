@@ -5,7 +5,7 @@
   
   <template value="aDISWeb"/>
   <variable name="server" value="www.voebb.de/#"/>
-  <variable name="multiple-district-ordering" value="true"/>  
+ 
   
   <homepage value="http://www.voebb.de/"/>
   <testing-search value="ja" date="2014-03-05"/>
