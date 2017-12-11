@@ -1,10 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?xml-stylesheet type="text/xsl" href="../changelog.xsl"?>
 <changelog program="VideLibri">
-      <build version="1953" date="2017-12-04">
+      <build version="1955" date="2017-12-11">
         <download url="http://videlibri.sourceforge.net/updates/videlibri-setup.exe" platform="WINDOWS" execute="&quot;$DOWNLOAD&quot;  /SP- /noicons &quot;/dir=$OLDPATH&quot; " restart="true"/>
         <download url="http://videlibri.sourceforge.net/updates/videlibri-linux32.deb" platform="LINUX32" execute=""/>
         <download url="http://videlibri.sourceforge.net/updates/videlibri-linux64.deb" platform="LINUX64" execute=""/>
+        <change>Übersichtlicheres Debug-Log.</change>
+	<fix>VÖBB: Anpassung an geänderte Links, die nicht mehr zum Login/Suche gefunden wurden.</fix>
+        <fix>Stadtbücherei Weimar: Neue OPAC-Adresse.</fix>
+        <fix>Beuth Hochschule, Hochschulbibliothek Würzburg-Schweinfort: Neue Info-Webadresse.</fix>
+     </build>
+      <build version="1953" date="2017-12-04">
 	<change>Skaliere zu große/kleine Titelbilder.</change>
         <change>Versuche nicht Titelbilder vom Buchhandel zu laden.</change>
 	<fix>aDIS: Suche nicht nur nach "Mathematik" bei einer Schlagwortsuche, wenn es kein separates Feld zur Suche nach einem Thema gibt (wie bei Stadtbibliothek München).</fix>
