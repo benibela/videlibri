@@ -6,7 +6,7 @@
   <template value="sisis"/>  
   <variable name="server" value="https://webopac.beuth-hochschule.de/webOPACClient.bhssis/"/>
   
-  <homepage value="http://www.beuth-hochschule.de/beuth-hochschule/campus/bibliothek/"/>
+  <homepage value="http://www.beuth-hochschule.de/bibliothek/"/>
   <testing-search value="ja" date="2013-05-18"/>
   <testing-account value="ja" date="2015-03-01"/>
   <testing-renew value="?" date=""/>

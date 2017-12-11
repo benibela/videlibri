@@ -6,7 +6,7 @@
   <variable name="server" value="https://recherche.bibkatalog.de/InfoGuideClient.fwssis/"/>
   <variable name="startparams" value="?Login=wofwsw"/>
   
-  <homepage value="http://www.fh-sw.de/sw/bibliothek/"/>
+  <homepage value="http://bibliothek.fhws.de/"/>
   <testing-search value="ja" date="2013-07-21"/>
   <testing-account value="?" date=""/>
   <testing-renew value="?" date=""/>

@@ -3,10 +3,7 @@
   <longName value="Stadtbücherei Weimar (alpha)"/>
   
   <template value="sisis"/>  
-  <variable name="server" value="http://katalog.stadtbibo-weimar.de:8080/webOPACClient/"/>
+  <variable name="server" value="http://katalog.stadtbibo-weimar.de/webOPACClient/"/>
   
   <homepage value="http://www.stadtbibliothek-weimar.de"/>
-  <testing-search value="ja" date="2013-05-18"/>
-  <testing-account value="?" date=""/>
-  <testing-renew value="?" date=""/>
 </library>
