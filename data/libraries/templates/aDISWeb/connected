@@ -19,5 +19,5 @@
        <a title="Zur Startseite">{connectPage:=@href}</a>
        <a><t:s>connectPage:=@href</t:s>Neue Sitzung</a>
        
-       <div id="inhalt"><h1/>{vl:raise(let $strong := .//strong return if ($strong) then join($strong) else . )}</div> 
+       <div id="inhalt"><h1>{vl:raise(join((., let $strong := ..//strong return if ($strong) then $strong else .. )))}</h1></div> 
      </template:switch-prioritized>
