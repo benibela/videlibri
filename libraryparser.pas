@@ -1150,7 +1150,10 @@ begin
 
   inUse := false;
   for i := 0 to accounts.Count - 1 do begin
-    if (accounts[i].getLibrary().template = oldTemplate) and (accounts[i] is TTemplateAccountAccess) and (accounts[i].thread <> nil) then
+    if (accounts[i].getLibrary().template = oldTemplate)
+        and assigned(accounts[i])
+        and accounts[i].InheritsFrom(TTemplateAccountAccess)
+        and (accounts[i].thread <> nil) then
       inUse:=true;
   end;
   if not inUse then replaceTemplate(oldTemplate, newTemplate)
@@ -1188,7 +1191,10 @@ begin
     if lib.template = old then begin
       lib.template := new;
       for j := 0 to accounts.Count - 1 do
-        if (accounts[j].getLibrary() = lib) and (accounts[j] is TTemplateAccountAccess) and (accounts[j].thread = nil) then
+        if (accounts[j].getLibrary() = lib)
+            and assigned(accounts[j])
+            and accounts[j].InheritsFrom(TTemplateAccountAccess)
+            and (accounts[j].thread = nil) then
           TTemplateAccountAccess(accounts[j]).resetlib();
     end;
   end;

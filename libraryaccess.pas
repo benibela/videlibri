@@ -376,7 +376,7 @@ begin
   if logging then log('ThreadDone started'#13#10'Without this one, '+IntToStr(updateThreadConfig.updateThreadsRunning)+' threads are currently running');
 //  Assert(mainForm<>nil);
 //log(booltostr(sender is TUpdateLibThread) );
-  if not (sender is TUpdateLibThread) then
+  if not assigned(sender) or not sender.InheritsFrom(TUpdateLibThread) then
     raise exception.Create('Interner Fehler:'#13#10'Die Funktion, die für gerade beendete Aktualisierungthread zuständig ist, wurde auf einen anderen Thread angewendet'#13#10'(kann eigentlich nicht auftreten)');
 
   {$ifdef android}EnterCriticalSection(updateThreadConfig.threadManagementSection);{$endif}

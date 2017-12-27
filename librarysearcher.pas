@@ -261,7 +261,7 @@ end;
 procedure TLibrarySearcher.orderConfirmSingle(book: tbook);
 begin
   bookListReader.selectBook(book);
-  if book.owningAccount is TTemplateAccountAccess then TTemplateAccountAccess(book.owningAccount).setVariables(bookListReader.parser);
+  if assigned(book.owningAccount) and (book.owningAccount.InheritsFrom(TTemplateAccountAccess)) then TTemplateAccountAccess(book.owningAccount).setVariables(bookListReader.parser);
   bookListReader.callAction('order-confirm-single');
   updateAccessTimeout;
 end;
@@ -276,7 +276,7 @@ begin
     book := owningBook;
   end;
   bookListReader.selectBook(book);
-  if book.owningAccount is TTemplateAccountAccess then TTemplateAccountAccess(book.owningAccount).setVariables(bookListReader.parser);
+  if assigned(book.owningAccount) and book.owningAccount.InheritsFrom(TTemplateAccountAccess) then TTemplateAccountAccess(book.owningAccount).setVariables(bookListReader.parser);
   bookListReader.callAction('order-single');
   updateAccessTimeout;
 end;
