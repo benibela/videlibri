@@ -338,5 +338,7 @@
     <string name="debug_log_http">Übertragene Daten (%s)</string>
     <string name="debug_log_videlibri">+ VideLibri (%s)</string>
     <string name="debug_log_all">+ Android (%s)</string>
+    <string name="lay_options_label_view_history" >Zeige Ausleihenhistorie:</string>
+    <string name="lay_options_btn_account_history">+Historie</string>
 </resources>
 

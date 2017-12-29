@@ -512,9 +512,64 @@ public class VideLibri extends BookListActivity {
             LayoutInflater inflater = getActivity().getLayoutInflater();
             view = inflater.inflate(R.layout.options_lendings, null);
             Options.showLendingOptionsInView(getActivity(),view);
+
+            LinearLayout linearLayout = (LinearLayout) view.findViewById(R.id.viewaccounts);
+            linearLayout.removeAllViews();
+            final ArrayList<CompoundButton> switchboxes = new ArrayList<>();
+            CompoundButton.OnCheckedChangeListener checkListener = new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                    Bridge.Account acc = (Bridge.Account)compoundButton.getTag();
+                    if (acc == null) {
+                        if (b) VideLibri.hiddenAccounts.clear();
+                        else VideLibri.hiddenAccounts = new ArrayList<>(Arrays.asList(VideLibriApp.accounts));
+                        for (CompoundButton cb: switchboxes) cb.setChecked(b);
+                    } else {
+                        if (!b == VideLibri.hiddenAccounts.contains(acc)) return;
+                        if (!b) VideLibri.hiddenAccounts.add(acc);
+                        else VideLibri.hiddenAccounts.remove(acc);
+                    }
+                }
+            };
+            CompoundButton.OnClickListener clickListener = new CompoundButton.OnClickListener(){
+                @Override
+                public void onClick(View v) {
+                    Bridge.Account acc = (Bridge.Account)v.getTag();
+                    if (acc == null) {
+                        VideLibri.hiddenAccounts.clear();
+                    } else {
+                        VideLibri.hiddenAccounts.clear();
+                        for (final Bridge.Account acc2 : VideLibriApp.accounts)
+                            if (!acc.equals(acc2)) VideLibri.hiddenAccounts.add(acc2);
+                    }
+                    ((CompoundButton) getDialog().findViewById(R.id.viewHistory)).setChecked(v.getId() == R.id.buttonforhistory);
+                    getDialog().cancel();
+                }
+            };
+
+            for (int i = -1; i < VideLibriApp.accounts.length; i++) {
+                Bridge.Account acc = i == -1 ? null : VideLibriApp.accounts[i];
+                View group = (View) inflater.inflate(R.layout.options_lendings_accountrow, null);
+                CompoundButton sb = ((CompoundButton)group.findViewById(R.id.switchbox));
+                sb.setChecked(acc == null ? VideLibri.hiddenAccounts.size() <= VideLibriApp.accounts.length / 2 : !VideLibri.hiddenAccounts.contains(acc));
+                sb.setTag(acc);
+                sb.setOnCheckedChangeListener(checkListener);
+                if (acc != null) switchboxes.add(sb);
+                Button btn = ((Button) group.findViewById(R.id.button));
+                btn.setText(acc == null ? getText(R.string.main_allaccounts) : acc.prettyName);
+                btn.setTag(acc);
+                btn.setOnClickListener(clickListener);
+                btn = ((Button) group.findViewById(R.id.buttonforhistory));
+                btn.setTag(acc);
+                btn.setOnClickListener(clickListener);
+                linearLayout.addView(group);
+            }
+
             builder.setView(view);
             builder.setOnCancelListener(this);
-            return builder.create();
+            Dialog d = builder.create();
+            if (d.getWindow() != null) d.getWindow().setGravity(Gravity.RIGHT | Gravity.TOP);
+            return d;
         }
 
         @Override

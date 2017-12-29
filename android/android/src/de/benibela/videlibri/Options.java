@@ -165,27 +165,7 @@ public class Options extends VideLibriBaseActivity{
 
     static void showLendingOptionsInView(Activity activity, View v){
         SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(activity);
-        if (!VideLibri.displayHistory) ((RadioButton) v.findViewById(R.id.radioButton1)).setChecked(true);
-        else ((RadioButton) v.findViewById(R.id.radioButton2)).setChecked(true);
-
-        LayoutInflater inflater = activity.getLayoutInflater();
-
-        LinearLayout linearLayout = (LinearLayout) v.findViewById(R.id.viewaccounts);
-        linearLayout.removeAllViews();
-        for (final Bridge.Account acc: VideLibriApp.accounts) if (acc != null) {
-            CheckBox viewAcc = (CheckBox) inflater.inflate(R.layout.checkbox, null);
-            viewAcc.setText(acc.prettyName);
-            viewAcc.setChecked(!VideLibri.hiddenAccounts.contains(acc));
-            viewAcc.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-                @Override
-                public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                    if (!b == VideLibri.hiddenAccounts.contains(acc)) return;
-                    if (!b) VideLibri.hiddenAccounts.add(acc);
-                    else VideLibri.hiddenAccounts.remove(acc);
-                }
-            });
-            linearLayout.addView(viewAcc);
-        }
+        ((SwitchBoxSwitch)v.findViewById(R.id.viewHistory)).setChecked(VideLibri.displayHistory);
 
 
         final String[] sortingKeys = activity.getResources().getStringArray(R.array.sortable_properties);
@@ -199,7 +179,7 @@ public class Options extends VideLibriBaseActivity{
         SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(activity);
         SharedPreferences.Editor editor = sp.edit();
 
-        VideLibri.displayHistory = ((RadioButton) v.findViewById(R.id.radioButton2)).isChecked();
+        VideLibri.displayHistory = ((CompoundButton) v.findViewById(R.id.viewHistory)).isChecked();
         editor.putBoolean("displayHistory", VideLibri.displayHistory);
 
         final String[] sortingKeys = activity.getResources().getStringArray(R.array.sortable_properties);
