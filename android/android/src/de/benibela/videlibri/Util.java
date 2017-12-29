@@ -117,11 +117,11 @@ public class Util {
             AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
             if (title != null) builder.setTitle(title);
             switch (special) {
-                case DialogId.SPECIAL_LIBRARY_NOT_IN_LIST:
+                case DialogId.SPECIAL_LIBRARY_NOT_IN_LIST: {
                     if (message != null) {
-                        String []itemscopied = new String[items.length + 1];
+                        String[] itemscopied = new String[items.length + 1];
                         itemscopied[0] = message;
-                        for (int i=0;i<items.length;i++) itemscopied[i+1] = items[i];
+                        for (int i = 0; i < items.length; i++) itemscopied[i + 1] = items[i];
                         items = itemscopied;
                     }
                     final boolean skipFirst = message != null;
@@ -129,29 +129,29 @@ public class Util {
                     LayoutInflater inflater = getActivity().getLayoutInflater();
                     View v = inflater.inflate(R.layout.dialogbooklistlike, null);
                     //((TextView) v.findViewById(R.id.textView)).setText(message);
-                    ListView lv = (ListView)v.findViewById(R.id.listView);
-                    lv.setAdapter(new ArrayAdapter<String>(getActivity(), R.layout.bookoverview, R.id.bookoverviewCaption, items){
-                        @Override
-                        public View getView(int position, View convertView, ViewGroup parent) {
-                            View res = super.getView(position, convertView, parent);
-                            if (res != null) {
-                                res.findViewById(R.id.bookoverviewDate).setVisibility(View.GONE);
-                                if (skipFirst) {
-                                    if (position > 0) position--;
-                                    else {
-                                        res.findViewById(R.id.bookoverviewCaption).setVisibility(View.GONE);
-                                        TextView moreview = ((TextView)res.findViewById(R.id.bookoverviewMore));
-                                        moreview.setVisibility(View.VISIBLE);
-                                        moreview.setText(message);
-                                        return res;
-                                    }
-                                }
-                                res.findViewById(R.id.bookoverviewCaption).setVisibility(View.VISIBLE);
-                                ((TextView)res.findViewById(R.id.bookoverviewMore)).setText(position < itemsSubCaptions.length ? itemsSubCaptions[position] : "");
-                            }
-                            return res;
-                        }
-                    }
+                    ListView lv = (ListView) v.findViewById(R.id.listView);
+                    lv.setAdapter(new ArrayAdapter<String>(getActivity(), R.layout.bookoverview, R.id.bookoverviewCaption, items) {
+                                      @Override
+                                      public View getView(int position, View convertView, ViewGroup parent) {
+                                          View res = super.getView(position, convertView, parent);
+                                          if (res != null) {
+                                              res.findViewById(R.id.bookoverviewDate).setVisibility(View.GONE);
+                                              if (skipFirst) {
+                                                  if (position > 0) position--;
+                                                  else {
+                                                      res.findViewById(R.id.bookoverviewCaption).setVisibility(View.GONE);
+                                                      TextView moreview = ((TextView) res.findViewById(R.id.bookoverviewMore));
+                                                      moreview.setVisibility(View.VISIBLE);
+                                                      moreview.setText(message);
+                                                      return res;
+                                                  }
+                                              }
+                                              res.findViewById(R.id.bookoverviewCaption).setVisibility(View.VISIBLE);
+                                              ((TextView) res.findViewById(R.id.bookoverviewMore)).setText(position < itemsSubCaptions.length ? itemsSubCaptions[position] : "");
+                                          }
+                                          return res;
+                                      }
+                                  }
                     );
                     lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                         @Override
@@ -165,6 +165,7 @@ public class Util {
                     builder.setView(v);
 
                     break;
+                }
                 default:
                     if (message != null)
                         builder.setMessage(message);
@@ -238,7 +239,7 @@ public class Util {
         args.putBundle("more", more);
         showDialog(args);
     }
-    static private void showDialog(Bundle args){
+    static void showDialog(Bundle args){
         if (VideLibriApp.currentActivity instanceof AppCompatActivity) showDialog((AppCompatActivity)VideLibriApp.currentActivity, args);
         else VideLibriApp.pendingDialogs.add(args);
     }

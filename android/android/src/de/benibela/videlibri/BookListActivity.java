@@ -176,7 +176,7 @@ public class BookListActivity extends VideLibriBaseActivity{
     }
 
     @Override
-    public boolean onOptionsItemIdSelectedOld(Activity context, int id) {
+    public boolean onOptionsItemIdSelected(int id) {
         switch (id){
             case R.id.share: {
                 Intent sendIntent = new Intent();
@@ -197,7 +197,7 @@ public class BookListActivity extends VideLibriBaseActivity{
                 return true;
             }
         }
-        return super.onOptionsItemIdSelectedOld(context, id);
+        return super.onOptionsItemIdSelected(id);
     }
 
     Object contextMenuSelectedItem;

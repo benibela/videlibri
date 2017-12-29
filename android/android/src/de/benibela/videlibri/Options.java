@@ -1,5 +1,7 @@
 package de.benibela.videlibri;
 
+import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -43,36 +45,24 @@ public class Options extends VideLibriBaseActivity{
 
         SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(this);
         setCheckBoxChecked(R.id.notifications, sp.getBoolean("notifications", true));
-        setCheckBoxChecked(R.id.noLendBookDetails, sp.getBoolean("noLendBookDetails", false));
-        setCheckBoxChecked(R.id.showRenewCount, sp.getBoolean("showRenewCount", true));
-        setCheckBoxChecked(R.id.alwaysFilterOnHistory, sp.getBoolean("alwaysFilterOnHistory", true));
         setEditTextText(R.id.notificationsServiceDelay, ""+sp.getInt("notificationsServiceDelay", 15));
+
+        ((CheckBox)findViewById(R.id.noLendBookDetails)).setChecked(sp.getBoolean("noLendBookDetails", false));
+        ((CheckBox)findViewById(R.id.showRenewCount)).setChecked(sp.getBoolean("showRenewCount", true));
+        ((CheckBox)findViewById(R.id.alwaysFilterOnHistory)).setChecked(sp.getBoolean("alwaysFilterOnHistory", true));
+        final String[] filterKeys = getResources().getStringArray(R.array.filterable_properties);
+        String filtering = sp.getString("filtering", "");
+        setSpinnerSelection ((Spinner)findViewById(R.id.searchFilter), filterKeys, filtering);
+
+
 
         SharedPreferences acraprefs = ACRA.getACRASharedPreferences();
         setCheckBoxChecked(R.id.loggingSend, acraprefs.getBoolean(ACRA.PREF_ENABLE_SYSTEM_LOGS, true));
 
-        ArrayList<String> accounts = new ArrayList<String>();
-
         LayoutInflater inflater = getLayoutInflater();
 
-        LinearLayout linearLayout = (LinearLayout) findViewById(R.id.viewaccounts);
-        linearLayout.removeAllViews();
-        for (final Bridge.Account acc: VideLibriApp.accounts) if (acc != null) {
-            CheckBox viewAcc = (CheckBox) inflater.inflate(R.layout.checkbox, null);
-            viewAcc.setText(acc.prettyName);
-            viewAcc.setChecked(!VideLibri.hiddenAccounts.contains(acc));
-            viewAcc.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-                @Override
-                public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                    if (!b == VideLibri.hiddenAccounts.contains(acc)) return;
-                    if (!b) VideLibri.hiddenAccounts.add(acc);
-                    else VideLibri.hiddenAccounts.remove(acc);
-                }
-            });
-            linearLayout.addView(viewAcc);
-        }
 
-        linearLayout = (LinearLayout) findViewById(R.id.accounts);
+        LinearLayout linearLayout = (LinearLayout) findViewById(R.id.accounts);
         linearLayout.removeAllViews();
 
         for (final Bridge.Account acc: VideLibriApp.accounts) if (acc != null) {
@@ -90,18 +80,7 @@ public class Options extends VideLibriBaseActivity{
             });
         }
 
-        if (!VideLibri.displayHistory) ((RadioButton) findViewById(R.id.radioButton1)).setChecked(true);
-        else ((RadioButton) findViewById(R.id.radioButton2)).setChecked(true);
 
-
-        final String[] sortingKeys = getResources().getStringArray(R.array.sortable_properties);
-        final String[] filterKeys = getResources().getStringArray(R.array.filterable_properties);
-        String sorting = sp.getString("sorting", "dueDate"),
-                grouping = sp.getString("grouping", "_dueWeek"),
-                filtering = sp.getString("filtering", "");
-        setSpinnerSelection(R.id.sorting, sortingKeys, sorting);
-        setSpinnerSelection(R.id.grouping, sortingKeys, grouping);
-        setSpinnerSelection(R.id.searchFilter, filterKeys, filtering);
 
 
         findButtonById(R.id.newaccount).setOnClickListener(new View.OnClickListener() {
@@ -160,24 +139,20 @@ public class Options extends VideLibriBaseActivity{
         options.logging = getCheckBoxChecked(R.id.logging);
         Bridge.VLSetOptions(options);
 
-        VideLibri.displayHistory = ((RadioButton) findViewById(R.id.radioButton2)).isChecked();
 
         SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(this);
         SharedPreferences.Editor editor = sp.edit();
         editor.putBoolean("notifications", getCheckBoxChecked(R.id.notifications));
-        editor.putBoolean("noLendBookDetails", getCheckBoxChecked(R.id.noLendBookDetails));
-        editor.putBoolean("showRenewCount", getCheckBoxChecked(R.id.showRenewCount));
-        editor.putBoolean("alwaysFilterOnHistory", getCheckBoxChecked(R.id.alwaysFilterOnHistory));
-        editor.putBoolean("displayHistory", VideLibri.displayHistory);
         editor.putInt("notificationsServiceDelay", Util.strToIntDef((getEditTextText(R.id.notificationsServiceDelay)), 15));
-        final String[] sortingKeys = getResources().getStringArray(R.array.sortable_properties);
-        int sortingPos = ((Spinner)findViewById(R.id.sorting)).getSelectedItemPosition();
-        if (sortingPos >= 0 && sortingPos < sortingKeys.length) editor.putString("sorting", sortingKeys[sortingPos]);
-        int groupingPos = ((Spinner)findViewById(R.id.grouping)).getSelectedItemPosition();
-        if (groupingPos >= 0 && groupingPos < sortingKeys.length) editor.putString("grouping", sortingKeys[groupingPos]);
+
+        editor.putBoolean("noLendBookDetails", ((CheckBox)findViewById(R.id.noLendBookDetails)).isChecked());
+        editor.putBoolean("showRenewCount", ((CheckBox)findViewById(R.id.showRenewCount)).isChecked());
+        editor.putBoolean("alwaysFilterOnHistory", ((CheckBox)findViewById(R.id.alwaysFilterOnHistory)).isChecked());
+
         final String[] filterKeys = getResources().getStringArray(R.array.filterable_properties);
         int filteringPos = ((Spinner)findViewById(R.id.searchFilter)).getSelectedItemPosition();
         if (filteringPos >= 0 && filteringPos < filterKeys.length) editor.putString("filtering", filterKeys[filteringPos]);
+
         editor.commit();
 
         NotificationService.resheduleDailyIfNecessary(this, false);
@@ -186,4 +161,54 @@ public class Options extends VideLibriBaseActivity{
         VideLibriApp.setACRAlogcat(getCheckBoxChecked(R.id.loggingSend));
 
     }
+
+
+    static void showLendingOptionsInView(Activity activity, View v){
+        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(activity);
+        if (!VideLibri.displayHistory) ((RadioButton) v.findViewById(R.id.radioButton1)).setChecked(true);
+        else ((RadioButton) v.findViewById(R.id.radioButton2)).setChecked(true);
+
+        LayoutInflater inflater = activity.getLayoutInflater();
+
+        LinearLayout linearLayout = (LinearLayout) v.findViewById(R.id.viewaccounts);
+        linearLayout.removeAllViews();
+        for (final Bridge.Account acc: VideLibriApp.accounts) if (acc != null) {
+            CheckBox viewAcc = (CheckBox) inflater.inflate(R.layout.checkbox, null);
+            viewAcc.setText(acc.prettyName);
+            viewAcc.setChecked(!VideLibri.hiddenAccounts.contains(acc));
+            viewAcc.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                    if (!b == VideLibri.hiddenAccounts.contains(acc)) return;
+                    if (!b) VideLibri.hiddenAccounts.add(acc);
+                    else VideLibri.hiddenAccounts.remove(acc);
+                }
+            });
+            linearLayout.addView(viewAcc);
+        }
+
+
+        final String[] sortingKeys = activity.getResources().getStringArray(R.array.sortable_properties);
+        String sorting = sp.getString("sorting", "dueDate"),
+                grouping = sp.getString("grouping", "_dueWeek");
+        setSpinnerSelection ((Spinner)v.findViewById(R.id.sorting), sortingKeys, sorting);
+        setSpinnerSelection ((Spinner)v.findViewById(R.id.grouping), sortingKeys, grouping);
+    }
+
+    static void putLendingOptionsFromView(Activity activity, View v){
+        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(activity);
+        SharedPreferences.Editor editor = sp.edit();
+
+        VideLibri.displayHistory = ((RadioButton) v.findViewById(R.id.radioButton2)).isChecked();
+        editor.putBoolean("displayHistory", VideLibri.displayHistory);
+
+        final String[] sortingKeys = activity.getResources().getStringArray(R.array.sortable_properties);
+        int sortingPos = ((Spinner)v.findViewById(R.id.sorting)).getSelectedItemPosition();
+        if (sortingPos >= 0 && sortingPos < sortingKeys.length) editor.putString("sorting", sortingKeys[sortingPos]);
+        int groupingPos = ((Spinner)v.findViewById(R.id.grouping)).getSelectedItemPosition();
+        if (groupingPos >= 0 && groupingPos < sortingKeys.length) editor.putString("grouping", sortingKeys[groupingPos]);
+
+        editor.commit();
+    }
+
 }

@@ -10,79 +10,15 @@
                 android:id="@+id/tab1"
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent" android:orientation="vertical">
-            <TextView
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/lay_options_caption_viewmode"
-                    android:id="@+id/textView1" android:layout_gravity="left|center_vertical"
-                    android:padding="@dimen/optionheaderpadding" android:background="@color/optionHeaderBackgroundColor"
-                    android:textStyle="bold"/>
-            <RadioGroup
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content">
-                <RadioButton
-                        android:layout_width="fill_parent"
-                        android:layout_height="wrap_content"
-                        android:text="@string/lay_options_option_current"
-                        android:id="@+id/radioButton1" android:checked="false"/>
-                <RadioButton
-                        android:layout_width="fill_parent"
-                        android:layout_height="wrap_content"
-                        android:text="@string/lay_options_option_currenthistory"
-                        android:id="@+id/radioButton2" android:checked="false"/>
-            </RadioGroup>
-            <TextView
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/lay_options_caption_accountview"
-                    android:id="@+id/textView" android:layout_gravity="left|center_vertical"
-                    android:gravity="left" android:padding="@dimen/optionheaderpadding"
-                    android:background="@color/optionHeaderBackgroundColor" android:textStyle="bold"
-                    android:layout_marginTop="@dimen/optionheaderpadding"/>
-            <LinearLayout
-                    android:orientation="vertical"
-                    android:layout_width="fill_parent"
-                    android:layout_height="fill_parent" android:id="@+id/viewaccounts">
-            </LinearLayout>
+
             <TextView android:layout_width="fill_parent" android:layout_height="wrap_content"
-                      android:text="@string/lay_options_caption_displayoptions" android:id="@+id/textView8"
-                      android:padding="@dimen/optionheaderpadding"
-                      android:background="@color/optionHeaderBackgroundColor" android:textStyle="bold"
-                      android:layout_marginTop="@dimen/optionheaderpadding"/>
-            <LinearLayout android:orientation="horizontal" android:layout_width="fill_parent"
-                          android:layout_height="fill_parent" android:id="@+id/linearLayout">
+                android:text="@string/lay_options_caption_displayoptions" android:id="@+id/textView8"
+                android:padding="@dimen/optionheaderpadding"
+                android:background="@color/optionHeaderBackgroundColor" android:textStyle="bold"
+                android:layout_marginTop="@dimen/optionheaderpadding"/>
 
-                <TextView
-                    android:id="@+id/textView10"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:padding="@dimen/optionheaderpadding"
-                    android:text="@string/lay_options_label_grouping" />
-                <Spinner android:layout_width="fill_parent" android:layout_height="wrap_content"
-                         android:id="@+id/grouping"
-                         android:entries="@array/sortable_properties_tr"/>
-            </LinearLayout>
-            <LinearLayout
-                    android:orientation="horizontal"
-                    android:layout_width="fill_parent"
-                    android:layout_height="fill_parent">
-
-                <TextView
-                    android:id="@+id/textView9"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:padding="@dimen/optionheaderpadding"
-                    android:text="@string/lay_options_label_sorting" />
-                <Spinner
-                        android:layout_width="fill_parent"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/sorting"
-                        android:entries="@array/sortable_properties_tr"/>
-            </LinearLayout>
             <LinearLayout android:orientation="horizontal" android:layout_width="fill_parent"
-                          android:layout_height="fill_parent" android:id="@+id/linearLayout1">
+                android:layout_height="fill_parent" android:id="@+id/linearLayout1">
 
                 <TextView
                     android:id="@+id/textView11"
@@ -92,23 +28,23 @@
                     android:padding="@dimen/optionheaderpadding"
                     android:text="@string/lay_options_label_filtering" />
                 <Spinner android:layout_width="fill_parent" android:layout_height="wrap_content"
-                         android:id="@+id/searchFilter" android:entries="@array/filterable_properties_tr"/>
+                    android:id="@+id/searchFilter" android:entries="@array/filterable_properties_tr"/>
             </LinearLayout>
             <CheckBox
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:text="bei Filter-Suche immer Historie anzeigen"
-                    android:id="@+id/alwaysFilterOnHistory" android:checked="false"/>
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="bei Filter-Suche immer Historie anzeigen"
+                android:id="@+id/alwaysFilterOnHistory" android:checked="false"/>
             <CheckBox
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/lay_options_option_onlytitles"
-                    android:id="@+id/noLendBookDetails" android:checked="false"/>
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/lay_options_option_onlytitles"
+                android:id="@+id/noLendBookDetails" android:checked="false"/>
             <CheckBox
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/lay_show_renewcount"
-                    android:id="@+id/showRenewCount"/>
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/lay_show_renewcount"
+                android:id="@+id/showRenewCount"/>
 
             <TextView
                 android:id="@+id/textView2"

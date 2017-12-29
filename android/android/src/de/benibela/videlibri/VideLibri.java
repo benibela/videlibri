@@ -13,6 +13,7 @@ import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.v4.app.*;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.*;
 import android.text.Editable;
@@ -106,21 +107,8 @@ public class VideLibri extends  BookListActivity implements AdapterView.OnItemSe
     protected void onResume() {
         super.onResume();
 
-        updateViewFilters();
+        updateAccountView();
 
-        if (displayHistoryActually != (displayHistory || (alwaysFilterOnHistory && !Util.isEmptyString(filterActually)) || accountFilterHistoryOverride)
-                || !hiddenAccounts.equals(hiddenAccountsActually)
-                || noDetailsInOverviewActually != options.contains(BookOverviewAdapter.DisplayEnum.NoDetails)
-                || showRenewCountActually != options.contains(BookOverviewAdapter.DisplayEnum.ShowRenewCount)
-                || displayForcedCounterActually != displayForcedCounter
-                || !groupingKey.equals(groupingKeyActually)
-                || !sortingKey.equals(sortingKeyActually)
-                || !filterKey.equals(filterKeyActually)
-                ) {
-            View searchPanel = findViewById(R.id.searchFilterPanel);
-            if (searchPanel != null) searchPanel.setVisibility( "__disabled".equals(filterKey) ? View.GONE : View.VISIBLE );
-            displayAccounts();
-        }
         //setTitle("Ausleihen");  //does not work in onCreate (why? makes the title invisible) No. it just works sometimes?
 
         if (VideLibriApp.accounts == null || VideLibriApp.accounts.length == 0){
@@ -172,6 +160,23 @@ public class VideLibri extends  BookListActivity implements AdapterView.OnItemSe
                 accountFilters.add(acc.prettyName + plusHistory);
             accountFilters.add(tr(R.string.main_accountcountDD, (VideLibriApp.accounts.length-hiddenAccounts.size()), VideLibriApp.accounts.length));
             if (filterSpinnerAdapter != null) filterSpinnerAdapter.notifyDataSetChanged();
+        }
+    }
+
+    private void updateAccountView(){
+        updateViewFilters();
+        if (displayHistoryActually != (displayHistory || (alwaysFilterOnHistory && !Util.isEmptyString(filterActually)) || accountFilterHistoryOverride)
+                || !hiddenAccounts.equals(hiddenAccountsActually)
+                || noDetailsInOverviewActually != options.contains(BookOverviewAdapter.DisplayEnum.NoDetails)
+                || showRenewCountActually != options.contains(BookOverviewAdapter.DisplayEnum.ShowRenewCount)
+                || displayForcedCounterActually != displayForcedCounter
+                || !groupingKey.equals(groupingKeyActually)
+                || !sortingKey.equals(sortingKeyActually)
+                || !filterKey.equals(filterKeyActually)
+                ) {
+            View searchPanel = findViewById(R.id.searchFilterPanel);
+            if (searchPanel != null) searchPanel.setVisibility( "__disabled".equals(filterKey) ? View.GONE : View.VISIBLE );
+            displayAccounts();
         }
     }
 
@@ -228,7 +233,7 @@ public class VideLibri extends  BookListActivity implements AdapterView.OnItemSe
         boolean hasAccounts = VideLibriApp.accounts.length > 0;
         if (!hasAccounts) return 0;
         return super.onPrepareOptionsMenuVisibility()
-                | (hasAccounts ? ACTIONBAR_MENU_RENEW_ALL | ACTIONBAR_MENU_RENEW_LIST : 0)
+                | (hasAccounts ? ACTIONBAR_MENU_RENEW_ALL | ACTIONBAR_MENU_RENEW_LIST | ACTIONBAR_MENU_FILTER : 0)
                 | (hasAccounts && VideLibriApp.runningUpdates.isEmpty() ? ACTIONBAR_MENU_REFRESH : 0);
     }
 
@@ -550,10 +555,41 @@ public class VideLibri extends  BookListActivity implements AdapterView.OnItemSe
                 if (buttonId >= 0)
                     setEditTextText(R.id.searchFilter, getFilterHistory().get(buttonId));
                 return true;
+            case DialogId.SPECIAL_LEND_LIST_OPTIONS:
+                updateAccountView();
+                return true;
         }
         return super.onDialogResult(dialogId, buttonId, more);
     }
 
+    public boolean onOptionsItemIdSelected(int id) {
+        switch (id) {
+            case R.id.filter:
+                (new ViewOptionsDialog()).show(getSupportFragmentManager(), null);
+                return true;
+        }
+        return super.onOptionsItemIdSelected(id);
+    }
+
+    public static class ViewOptionsDialog extends android.support.v4.app.DialogFragment implements DialogInterface.OnCancelListener{
+        View view;
+        public Dialog onCreateDialog(Bundle savedInstanceState) {
+            AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+            LayoutInflater inflater = getActivity().getLayoutInflater();
+            view = inflater.inflate(R.layout.options_lendings, null);
+            Options.showLendingOptionsInView(getActivity(),view);
+            builder.setView(view);
+            builder.setOnCancelListener(this);
+            return builder.create();
+        }
+
+        @Override
+        public void onCancel(DialogInterface dialog) {
+            super.onCancel(dialog);
+            Options.putLendingOptionsFromView(getActivity(), view);
+            ((VideLibri)getActivity()).updateAccountView();
+        }
+    }
 
     @Override
     public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
