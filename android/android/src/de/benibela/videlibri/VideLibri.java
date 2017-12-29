@@ -27,7 +27,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 
 
-public class VideLibri extends  BookListActivity implements AdapterView.OnItemSelectedListener {
+public class VideLibri extends BookListActivity {
     public VideLibri(){
         super();
     }
@@ -42,28 +42,8 @@ public class VideLibri extends  BookListActivity implements AdapterView.OnItemSe
 
         if (savedInstanceState != null) {
             filterActually = savedInstanceState.getString("filterActually");
-            accountFilterOverride = savedInstanceState.getInt("accountFilter", ACCOUNT_FILTER_ALL);
-            accountFilterHistoryOverride = savedInstanceState.getBoolean("accountFilterHistory", false);
-        } else accountFilterOverride = ACCOUNT_FILTER_ALL;
+        }
         updateViewFilters();
-        setTitle("");
-
-        Spinner filterSpinner = new Spinner(this);
-        filterSpinnerAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, accountFilters);
-        filterSpinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        filterSpinner.setAdapter(filterSpinnerAdapter);
-        filterSpinner.setSelection(
-                accountFilterOverride == ACCOUNT_FILTER_SOME ? accountFilters.size() - 1 :
-                accountFilterOverride + 1 + (accountFilterHistoryOverride ? VideLibriApp.accounts.length + 1 : 0)
-        );
-        filterSpinner.setOnItemSelectedListener(this);
-        bookCountView = (TextView) getLayoutInflater().inflate(android.R.layout.simple_spinner_item, null);
-        bookCountView.setGravity(Gravity.CENTER_VERTICAL);
-
-
-        android.support.v7.widget.Toolbar bar = (android.support.v7.widget.Toolbar) findViewById(R.id.actionbar);
-        bar.addView(filterSpinner, ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.MATCH_PARENT);
-        bar.addView(bookCountView, ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.MATCH_PARENT);
 
 
         findViewById(R.id.searchFilterPanel).setVisibility(View.VISIBLE);
@@ -132,8 +112,6 @@ public class VideLibri extends  BookListActivity implements AdapterView.OnItemSe
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         outState.putString("filterActually", filterActually);
-        outState.putInt("accountFilter", accountFilterOverride);
-        outState.putBoolean("accountFilterHistory", accountFilterHistoryOverride);
     }
 
 
@@ -146,26 +124,11 @@ public class VideLibri extends  BookListActivity implements AdapterView.OnItemSe
         filterKey = sp.getString("filtering", "");
         displayHistory = sp.getBoolean("displayHistory", false);
         alwaysFilterOnHistory = sp.getBoolean("alwaysFilterOnHistory", true);
-
-        if (accountUpdateVersion != VideLibriApp.accountUpdateCounter
-                || !hiddenAccounts.equals(hiddenAccountsActually)) {
-            accountUpdateVersion = VideLibriApp.accountUpdateCounter;
-            accountFilters.clear();
-            accountFilters.add(tr(R.string.main_allaccounts));
-            for (Bridge.Account acc: VideLibriApp.accounts)
-                accountFilters.add(acc.prettyName);
-            String plusHistory = " + " + tr(R.string.main_accountwithhistory);
-            accountFilters.add(tr(R.string.main_allaccounts) + plusHistory);
-            for (Bridge.Account acc: VideLibriApp.accounts)
-                accountFilters.add(acc.prettyName + plusHistory);
-            accountFilters.add(tr(R.string.main_accountcountDD, (VideLibriApp.accounts.length-hiddenAccounts.size()), VideLibriApp.accounts.length));
-            if (filterSpinnerAdapter != null) filterSpinnerAdapter.notifyDataSetChanged();
-        }
     }
 
     private void updateAccountView(){
         updateViewFilters();
-        if (displayHistoryActually != (displayHistory || (alwaysFilterOnHistory && !Util.isEmptyString(filterActually)) || accountFilterHistoryOverride)
+        if (displayHistoryActually != (displayHistory || (alwaysFilterOnHistory && !Util.isEmptyString(filterActually)))
                 || !hiddenAccounts.equals(hiddenAccountsActually)
                 || noDetailsInOverviewActually != options.contains(BookOverviewAdapter.DisplayEnum.NoDetails)
                 || showRenewCountActually != options.contains(BookOverviewAdapter.DisplayEnum.ShowRenewCount)
@@ -181,27 +144,6 @@ public class VideLibri extends  BookListActivity implements AdapterView.OnItemSe
     }
 
 
-    @Override
-    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-        if (position == accountFilters.size() - 1 ) {
-            accountFilterOverride = ACCOUNT_FILTER_SOME;
-            accountFilterHistoryOverride = false;
-            //todo: this is not called on reselection: https://stackoverflow.com/questions/5335306/how-can-i-get-an-event-in-android-spinner-when-the-current-selected-item-is-sele
-            startActivity(new Intent(this, Options.class));
-        } else {
-            accountFilterOverride = position - 1;
-            accountFilterHistoryOverride = position > VideLibriApp.accounts.length;
-            if (accountFilterHistoryOverride) accountFilterOverride -= VideLibriApp.accounts.length + 1;
-        }
-        displayAccounts();
-    }
-
-    @Override
-    public void onNothingSelected(AdapterView<?> parent) {
-
-    }
-
-
     //Mix
 
     public void newAccountDialog(boolean initial){
@@ -210,15 +152,8 @@ public class VideLibri extends  BookListActivity implements AdapterView.OnItemSe
         startActivity(intent);
     }
 
-    static final int ACCOUNT_FILTER_ALL = -1;
-    static final int ACCOUNT_FILTER_SOME = -2;
-    protected int accountFilterOverride;
-    private boolean accountFilterHistoryOverride;
-
-    private ArrayAdapter<String> filterSpinnerAdapter;
-    private int accountUpdateVersion;
-    private ArrayList<String> accountFilters = new ArrayList<>();
-    private TextView bookCountView;
+    //private int accountUpdateVersion;
+    //private TextView bookCountView;
 
     static public boolean displayHistory = false;
     public boolean alwaysFilterOnHistory = true;
@@ -355,15 +290,14 @@ public class VideLibri extends  BookListActivity implements AdapterView.OnItemSe
     }
 
     static final ArrayList<Bridge.Book.Pair> crazyHeaderHack = new ArrayList<Bridge.Book.Pair>();
-    static public ArrayList<Bridge.Book> makePrimaryBookCache(int account,
-                                                              boolean addHistory,
+    static public ArrayList<Bridge.Book> makePrimaryBookCache(boolean addHistory,
                                                               boolean renewableOnly){
         //renewableOnly is not supported for acc != null
         addHistory = addHistory && !renewableOnly;
-        Bridge.Account[] accounts = account < 0 ? VideLibriApp.accounts : new Bridge.Account[]{VideLibriApp.accounts[account]};
+        Bridge.Account[] accounts = VideLibriApp.accounts;
         ArrayList<Bridge.Book> bookCache = new ArrayList<Bridge.Book>();
         for (Bridge.Account facc: accounts) {
-            if (account == -2 && hiddenAccounts.contains(facc))
+            if (hiddenAccounts.contains(facc))
                 continue;
             Bridge.Book[] books = Bridge.VLGetBooks(facc, false);
             if (!renewableOnly) {
@@ -436,7 +370,7 @@ public class VideLibri extends  BookListActivity implements AdapterView.OnItemSe
 
     public ArrayList<Bridge.Book> primaryBookCache = new ArrayList<Bridge.Book>();
     public void displayAccounts(){
-        displayHistoryActually = displayHistory || (alwaysFilterOnHistory && !Util.isEmptyString(filterActually)) || accountFilterHistoryOverride;
+        displayHistoryActually = displayHistory || (alwaysFilterOnHistory && !Util.isEmptyString(filterActually));
         noDetailsInOverviewActually = options.contains(BookOverviewAdapter.DisplayEnum.NoDetails);
         showRenewCountActually = options.contains(BookOverviewAdapter.DisplayEnum.ShowRenewCount);
         groupingKeyActually = groupingKey;
@@ -447,7 +381,7 @@ public class VideLibri extends  BookListActivity implements AdapterView.OnItemSe
         hiddenAccountsActually.addAll(hiddenAccounts);
 
 
-        primaryBookCache = makePrimaryBookCache( accountFilterOverride, displayHistoryActually, false);
+        primaryBookCache = makePrimaryBookCache( displayHistoryActually, false);
         refreshBookCache();
 
         if (VideLibriApp.getMainIcon() != currentMainIcon){
@@ -506,7 +440,7 @@ public class VideLibri extends  BookListActivity implements AdapterView.OnItemSe
             else
                 title = getResources().getQuantityString(R.plurals.main_bookcountPluralD, bookCount, bookCount);
         }
-        bookCountView.setText(title);
+        setTitle(title);
     }
 
 

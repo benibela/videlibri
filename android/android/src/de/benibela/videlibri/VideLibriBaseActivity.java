@@ -208,7 +208,7 @@ public class VideLibriBaseActivity extends AppCompatActivity implements Bridge.V
                 return true;
             case R.id.renewlist:
                 intent = new Intent(context, RenewList.class);
-                if (this instanceof VideLibri) intent.putExtra("accountFilterOverride", ( (VideLibri)this).accountFilterOverride);
+                //if (this instanceof VideLibri) intent.putExtra("accountFilterOverride", ( (VideLibri)this).accountFilterOverride);
                 context.startActivity(intent);
                 return true;
             case R.id.import_:
