@@ -250,9 +250,10 @@ public class Util {
 
 
 
-    public static int strToIntDef(String firstVersion, int i) {
+    public static int strToIntDef(String s, int i) {
+        if (s == null) return i;
         try {
-            return Integer.parseInt(firstVersion);
+            return Integer.parseInt(s);
         } catch (NumberFormatException e) {
             return i;
         }

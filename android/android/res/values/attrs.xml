@@ -28,4 +28,9 @@
         <attr name="borderDrawable" format="reference" />
     </declare-styleable>
 
+
+
+    <declare-styleable name="PreferenceSeekBar">
+        <attr name="dynamicSummary" format="string"/>
+    </declare-styleable>
 </resources>

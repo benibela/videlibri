@@ -414,13 +414,13 @@ public class VideLibriBaseActivity extends AppCompatActivity implements Bridge.V
         return tv.getText().toString();
     }
 
-    public void setCheckBoxChecked(int id, boolean text){
-        CheckBox tv = (CheckBox) findViewById(id);
+    public void setCheckableChecked(int id, boolean text){
+        Checkable tv = (Checkable) findViewById(id);
         tv.setChecked(text);
     }
 
-    public boolean getCheckBoxChecked(int id){
-        CheckBox tv = (CheckBox) findViewById(id);
+    public boolean getCheckableChecked(int id){
+        Checkable tv = (Checkable) findViewById(id);
         return tv.isChecked();
     }
 

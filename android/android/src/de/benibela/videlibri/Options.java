@@ -6,6 +6,10 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.v7.preference.Preference;
+import android.support.v7.preference.PreferenceCategory;
+import android.support.v7.view.ContextThemeWrapper;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.*;
@@ -13,23 +17,149 @@ import org.acra.ACRA;
 
 import java.util.ArrayList;
 
-/**
- * Created with IntelliJ IDEA.
- * User: benito
- * Date: 5/20/13
- * Time: 5:33 PM
- * To change this template use File | Settings | File Templates.
- */
+
 public class Options extends VideLibriBaseActivity{
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);    //To change body of overridden methods use File | Settings | File Templates.
-        setVideLibriView(R.layout.options);
-
-
-
-
+        syncBridgeToPreferences(this);
+        setContentView(R.layout.videlibribaselayout);
     }
+
+    @Override
+    protected void onPostCreate(Bundle savedInstanceState) {
+        super.onPostCreate(savedInstanceState);
+        getSupportFragmentManager().beginTransaction().replace(R.id.content_holder, new SettingsFragment()).commit();
+    }
+
+    static public class SettingsFragment extends android.support.v7.preference.PreferenceFragmentCompat  {
+
+        @Override
+        public void onCreate(Bundle savedInstanceState) {
+            super.onCreate(savedInstanceState);
+            addPreferencesFromResource(R.xml.preferences);
+            Preference[] prefs = new Preference[]{ findPreference("bridge_logging"), findPreference("bridge_nearTime"), findPreference("bridge_refreshInterval") };
+            Preference.OnPreferenceChangeListener listener = new Preference.OnPreferenceChangeListener() {
+                @Override
+                public boolean onPreferenceChange(Preference preference, Object newValue) {
+                    Bridge.Options options = Bridge.VLGetOptions();
+                    switch (preference.getKey()) {
+                        case "bridge_logging":
+                            options.logging = (Boolean) newValue;
+                            break;
+                        case "bridge_nearTime":
+                            options.nearTime = (Integer) newValue;
+                            break;
+                        case "bridge_refreshInterval":
+                            options.refreshInterval = (Integer) newValue;
+                            break;
+                    }
+                    Bridge.VLSetOptions(options);
+                    return true;
+                }
+            };
+            for (Preference p: prefs) p.setOnPreferenceChangeListener(listener);
+        }
+
+        @Override
+        public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
+
+        }
+
+        @Override
+        public void onResume() {
+            super.onResume();
+
+            PreferenceCategory cat = (PreferenceCategory)getPreferenceScreen().findPreference("accounts");
+            cat.removeAll();
+
+            TypedValue themeTypedValue = new TypedValue();
+            getContext().getTheme().resolveAttribute(R.attr.preferenceTheme, themeTypedValue, true);
+            @SuppressWarnings("RestrictedApi")
+            ContextThemeWrapper contextThemeWrapper = new ContextThemeWrapper(getContext(), themeTypedValue.resourceId);
+
+
+
+            String summary = getString(R.string.lay_options_label_accounts_summary);
+            for (final Bridge.Account acc: VideLibriApp.accounts) if (acc != null) {
+                Preference pref = new Preference(contextThemeWrapper);
+                pref.setTitle(acc.prettyName);
+                pref.setSummary(summary);
+                pref.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener(){
+                    @Override
+                    public boolean onPreferenceClick(Preference preference) {
+                        Intent intent = new Intent(getActivity(), AccountInfo.class);
+                        intent.putExtra("mode", AccountInfo.MODE_ACCOUNT_MODIFY);
+                        intent.putExtra("account", acc);
+                        startActivity(intent);
+                        return true;
+                    }
+                });
+                cat.addPreference(pref);
+            }
+
+
+            Preference pref = new Preference(contextThemeWrapper);
+            pref.setTitle(getString(R.string.lay_options_btn_newaccount));
+            pref.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+                @Override
+                public boolean onPreferenceClick(Preference preference) {
+                    Intent intent = new Intent(getActivity(), AccountInfo.class);
+                    intent.putExtra("mode", AccountInfo.MODE_ACCOUNT_CREATION) ;
+                    startActivityForResult(intent, NEW_ACCOUNT_CREATION_RESULT);
+                    return true;
+                }
+            });
+            cat.addPreference(pref);
+
+
+            cat = (PreferenceCategory)getPreferenceScreen().findPreference("ownlibraries");
+            cat.removeAll();
+
+            Bridge.Options options = Bridge.VLGetOptions();
+
+            summary = getString(R.string.lay_options_label_ownlibraries_summary);
+            for (final String userLibId: options.roUserLibIds) if (userLibId != null) {
+                final Bridge.LibraryDetails details = Bridge.VLGetLibraryDetails(userLibId);
+                if (details == null) continue;
+                pref = new Preference(contextThemeWrapper);
+                pref.setTitle(details.prettyName);
+                pref.setSummary(summary);
+                cat.addPreference(pref);
+                pref.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+                    @Override
+                    public boolean onPreferenceClick(Preference preference) {
+                        Intent intent = new Intent(getActivity(), NewLibrary.class);
+                        intent.putExtra("mode", NewLibrary.MODE_LIBRARY_MODIFY);
+                        intent.putExtra("libId", userLibId);
+                        startActivity(intent);
+                        return true;
+                    }
+                });
+            }
+
+            pref = new Preference(contextThemeWrapper);
+            pref.setTitle(getString(R.string.lay_options_btn_newlib));
+            pref.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+                @Override
+                public boolean onPreferenceClick(Preference preference) {
+                    startActivity(new Intent(getActivity(), NewLibrary.class));
+                    return true;
+                }
+            });
+            cat.addPreference(pref);
+        }
+
+        @Override
+        public void onDisplayPreferenceDialog(Preference preference) {
+            if (preference instanceof PreferenceInteger) {
+
+            } else super.onDisplayPreferenceDialog(preference);
+        }
+    }
+
 
     static final int NEW_ACCOUNT_CREATION_RESULT = 1235;
 
@@ -37,88 +167,9 @@ public class Options extends VideLibriBaseActivity{
     protected void onResume() {
         super.onResume();    //To change body of overridden methods use File | Settings | File Templates.
 
-        Bridge.Options options = Bridge.VLGetOptions();
-
-        setEditTextText(R.id.notificationsTimeDelta,""+options.nearTime);
-        setEditTextText(R.id.refreshInterval,""+options.refreshInterval);
-        setCheckBoxChecked(R.id.logging, options.logging);
-
-        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(this);
-        setCheckBoxChecked(R.id.notifications, sp.getBoolean("notifications", true));
-        setEditTextText(R.id.notificationsServiceDelay, ""+sp.getInt("notificationsServiceDelay", 15));
-
-        ((CheckBox)findViewById(R.id.noLendBookDetails)).setChecked(sp.getBoolean("noLendBookDetails", false));
-        ((CheckBox)findViewById(R.id.showRenewCount)).setChecked(sp.getBoolean("showRenewCount", true));
-        ((CheckBox)findViewById(R.id.alwaysFilterOnHistory)).setChecked(sp.getBoolean("alwaysFilterOnHistory", true));
-        final String[] filterKeys = getResources().getStringArray(R.array.filterable_properties);
-        String filtering = sp.getString("filtering", "");
-        setSpinnerSelection ((Spinner)findViewById(R.id.searchFilter), filterKeys, filtering);
 
 
 
-        SharedPreferences acraprefs = ACRA.getACRASharedPreferences();
-        setCheckBoxChecked(R.id.loggingSend, acraprefs.getBoolean(ACRA.PREF_ENABLE_SYSTEM_LOGS, true));
-
-        LayoutInflater inflater = getLayoutInflater();
-
-
-        LinearLayout linearLayout = (LinearLayout) findViewById(R.id.accounts);
-        linearLayout.removeAllViews();
-
-        for (final Bridge.Account acc: VideLibriApp.accounts) if (acc != null) {
-            Button btn = (Button) inflater.inflate(R.layout.insetbutton, null);
-            btn.setText(acc.prettyName);
-            linearLayout.addView(btn);
-            btn.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Intent intent = new Intent(Options.this, AccountInfo.class);
-                    intent.putExtra("mode", AccountInfo.MODE_ACCOUNT_MODIFY);
-                    intent.putExtra("account", acc);
-                    startActivity(intent);
-                }
-            });
-        }
-
-
-
-
-        findButtonById(R.id.newaccount).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(Options.this, AccountInfo.class);
-                intent.putExtra("mode", AccountInfo.MODE_ACCOUNT_CREATION) ;
-                startActivityForResult(intent, NEW_ACCOUNT_CREATION_RESULT);
-            }
-        });
-
-
-        linearLayout = (LinearLayout) findViewById(R.id.libraries);
-        linearLayout.removeAllViews();
-        for (final String userLibId: options.roUserLibIds) if (userLibId != null) {
-            final Bridge.LibraryDetails details = Bridge.VLGetLibraryDetails(userLibId);
-            if (details == null) continue;
-            Button btn = (Button) inflater.inflate(R.layout.insetbutton, null);
-            btn.setText(details.prettyName);
-            linearLayout.addView(btn);
-            btn.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Intent intent = new Intent(Options.this, NewLibrary.class);
-                    intent.putExtra("mode", NewLibrary.MODE_LIBRARY_MODIFY);
-                    intent.putExtra("libId", userLibId);
-                    startActivity(intent);
-                }
-            });
-        }
-
-
-        findButtonById(R.id.newlib).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(Options.this, NewLibrary.class));
-            }
-        });
     }
 
     @Override
@@ -130,42 +181,41 @@ public class Options extends VideLibriBaseActivity{
 
     @Override
     protected void onPause() {
-        super.onPause();    //To change body of overridden methods use File | Settings | File Templates.
+        super.onPause();
 
+       /* Bridge.Options options = new Bridge.Options();
 
-        Bridge.Options options = new Bridge.Options();
-        options.nearTime = Util.strToIntDef(getEditTextText(R.id.notificationsTimeDelta), 3);
-        options.refreshInterval = Util.strToIntDef(getEditTextText(R.id.refreshInterval), 1);
-        options.logging = getCheckBoxChecked(R.id.logging);
-        Bridge.VLSetOptions(options);
-
-
-        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(this);
-        SharedPreferences.Editor editor = sp.edit();
-        editor.putBoolean("notifications", getCheckBoxChecked(R.id.notifications));
-        editor.putInt("notificationsServiceDelay", Util.strToIntDef((getEditTextText(R.id.notificationsServiceDelay)), 15));
-
-        editor.putBoolean("noLendBookDetails", ((CheckBox)findViewById(R.id.noLendBookDetails)).isChecked());
-        editor.putBoolean("showRenewCount", ((CheckBox)findViewById(R.id.showRenewCount)).isChecked());
-        editor.putBoolean("alwaysFilterOnHistory", ((CheckBox)findViewById(R.id.alwaysFilterOnHistory)).isChecked());
-
-        final String[] filterKeys = getResources().getStringArray(R.array.filterable_properties);
-        int filteringPos = ((Spinner)findViewById(R.id.searchFilter)).getSelectedItemPosition();
-        if (filteringPos >= 0 && filteringPos < filterKeys.length) editor.putString("filtering", filterKeys[filteringPos]);
-
-        editor.commit();
+         Bridge.VLSetOptions(options);
+                 Bridge.Options options = Bridge.VLGetOptions();
+*/
 
         NotificationService.resheduleDailyIfNecessary(this, false);
 
 
-        VideLibriApp.setACRAlogcat(getCheckBoxChecked(R.id.loggingSend));
-
     }
 
 
+    static void syncBridgeToPreferences(Activity activity){
+        Bridge.Options options = Bridge.VLGetOptions();
+        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(activity);
+        SharedPreferences.Editor editor = sp.edit();
+        editor.putBoolean("bridge_logging", options.logging);
+        editor.putInt("bridge_nearTime", options.nearTime);
+        editor.putInt("bridge_refreshInterval", options.refreshInterval);
+        editor.apply();
+    }
+    /*static void syncPreferencesToBridge(Activity activity){
+        Bridge.Options options = Bridge.VLGetOptions();
+        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(activity);
+        options.logging = sp.getBoolean("bridge_logging", false);
+        options.nearTime = sp.getInt("bridge_nearTime", 3);
+        options.refreshInterval = sp.getInt("bridge_refreshInterval", 1);
+        Bridge.VLSetOptions(options);
+    }*/
+
     static void showLendingOptionsInView(Activity activity, View v){
         SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(activity);
-        ((SwitchBoxSwitch)v.findViewById(R.id.viewHistory)).setChecked(VideLibri.displayHistory);
+        ((Checkable)v.findViewById(R.id.viewHistory)).setChecked(VideLibri.displayHistory);
 
 
         final String[] sortingKeys = activity.getResources().getStringArray(R.array.sortable_properties);

@@ -49,9 +49,6 @@ public class VideLibriApp extends Application implements Bridge.VideLibriContext
 
         applicationContext = getApplicationContext();
 
-        //setACRAlogcat(false);
-
-
         instance = this;
 
         Bridge.initialize(this);
@@ -102,30 +99,6 @@ public class VideLibriApp extends Application implements Bridge.VideLibriContext
         NotificationService.resheduleDailyIfNecessary(this, false);
     }
 
-    static void setACRAlogcat(boolean enabled) {
-        /*ACRAConfiguration config = ACRA.getConfig();
-        if (enabled) config.setCustomReportContent(ACRAConstants.DEFAULT_REPORT_FIELDS);
-        else {
-            ReportField[] fields = ACRAConstants.DEFAULT_REPORT_FIELDS;
-            ReportField[] newFields = new ReportField[fields.length];
-            int p = 0;
-            for (int i=0;i<fields.length;i++)
-                if (fields[i] != ReportField.LOGCAT) {
-                    newFields[p] = fields[i];
-                    p+=1;
-                }
-
-            ReportField[] newFields2 = new ReportField[fields.length];
-            System.arraycopy(newFields, 0, newFields2, 0, p);
-            config.setCustomReportContent(newFields2);
-        } */
-
-        SharedPreferences prefs = ACRA.getACRASharedPreferences();
-        SharedPreferences.Editor editor = prefs.edit();
-        editor.putBoolean(ACRA.PREF_ENABLE_SYSTEM_LOGS, enabled);
-        editor.commit();
-
-    }
 
     String getVersion(){
         try {

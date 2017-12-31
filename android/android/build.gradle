@@ -59,9 +59,10 @@ repositories {
 dependencies {
 /*  compile 'com.actionbarsherlock:actionbarsherlock:4.4.0@aar'*/
 /*  compile 'com.android.support:support-v4:23.+'*/
-  compile 'com.android.support:appcompat-v7:25.+'
-  compile 'com.android.support:design:25.+'
+    compile 'com.android.support:appcompat-v7:25.+'
+    compile 'com.android.support:design:25.+'
+    compile 'com.android.support:preference-v7:25.+'
 /*  compile 'com.android.support:support-v13:+'*/
-  compile fileTree(dir: 'libs', include: ['*.jar'])
-  compile 'ch.acra:acra:4.9.1' 
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile 'ch.acra:acra:4.9.1'
 }

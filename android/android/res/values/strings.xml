@@ -164,20 +164,23 @@
     <string name="lay_options_option_current">aktuelle Ausleihen</string>
     <string name="lay_options_option_currenthistory">alle Ausleihen, inklusive Historie</string>
     <string name="lay_options_caption_accountview">Konten, deren Medien angezeigt werden:</string>
-    <string name="lay_options_caption_accountchange">Konten ändern:</string>
-    <string name="lay_options_btn_newaccount">Neues Konto registrieren</string>
+    <string name="lay_options_caption_accountchange">Ausleihkonten:</string>
+    <string name="lay_options_btn_newaccount">Neues Konto registrieren...</string>
     <string name="lay_options_caption_notifications">Benachrichtigungservice:</string>
-    <string name="lay_options_option_warn">vor ablaufenden Medien warnen</string>
+    <string name="lay_options_option_warn">Vor ablaufenden Medien warnen</string>
+    <string name="lay_options_option_warn_summary_on">Laufe im Hintergrund und überprüfe regelmäßig, ob bald etwas abgegeben werden muss.</string>
     <string name="lay_options_warningtimedelay">Tage vor Fristablauf</string>
     <string name="lay_options_label_autocheckdelay">Minuten nach Systemstart</string>
     <string name="lay_options_caption_ownlibs">Eigene Bibliotheken:</string>
-    <string name="lay_options_btn_newlib">Neue Bibliothek registrieren</string>
+    <string name="lay_options_btn_newlib">Neue Bibliothek registrieren...</string>
     <string name="lay_options_caption_misc">Sonstige Einstellungen:</string>
     <string name="lay_options_check1">alle</string>
     <string name="lay_options_check2">Tage aktualisieren</string>
-    <string name="lay_options_option_onlytitles">nur Titel der Ausleihen anzeigen</string>
-    <string name="lay_options_option_debuglog">aktiviere debug logging (kann auch Passwörter loggen)</string>
+    <string name="lay_options_option_onlytitles">Nur Titel der Ausleihen anzeigen</string>
+    <string name="lay_options_option_debuglog">Debug Log</string>
+    <string name="lay_options_option_debuglog_summary_on">Protokolliert sämtliche Aktivitäten der App im Android \"logcat\": alle intern aufgerufenen Funktionen, Katalogadressen und alle an die Bibliothek übertragenen Daten (inklusive Passwörter).</string>
     <string name="lay_options_option_includelog">Logdaten bei Fehlerberichten mitsenden</string>
+    <string name="lay_options_option_includelog_summary_on">Versende das gesamte Debug-Log/logcat in Fehlerberichten, die durch ACRA (Application Crash Reports for Android) versandt werden.</string>
     <string name="lay_search_lib">Bibliothek</string>
     <string name="lay_search_libselect">Bitte wählen Sie eine Bibliothek aus</string>
     <string name="lay_search_title">Titel</string>
@@ -187,7 +190,10 @@
     <string name="lay_search_year">Jahr</string>
     <string name="lay_search_searchedbranch">Zweigstelle (für Suchfilter)</string>
     <string name="lay_search_orderbranch">Zweigstelle (für Bestellungsfilter)</string>
-    <string name="lay_search_btn_search">Suchen</string><string name="lay_options_caption_displayoptions">Anzeigeeinstellungen:</string><string name="lay_options_label_sorting">Sortierung:</string><string name="lay_options_label_grouping">Gruppierung:</string>
+    <string name="lay_search_btn_search">Suchen</string>
+    <string name="lay_options_caption_displayoptions">Anzeigeeinstellungen:</string>
+    <string name="lay_options_label_sorting">Sortierung:</string>
+    <string name="lay_options_label_grouping">Gruppierung:</string>
 
     <string name="daybeforeyesterday">vorgestern</string>
     <string name="yesterday">gestern</string>
@@ -201,7 +207,10 @@
 
     <string name="week_from_to">Woche vom %1$s zum %2$s</string>
 
-    <string name="unknown_date">Unbekanntes Datum</string><string name="lay_options_label_filtering">Filter:</string><string name="lay_show_renewcount">Verlängerungsanzahl anzeigen (falls bekannt)</string>
+    <string name="unknown_date">Unbekanntes Datum</string>
+    <string name="lay_options_label_filtering">Filter</string>
+    <string name="lay_show_renewcount">Verlängerungsanzahl anzeigen</string>
+    <string name="lay_show_renewcount_summary_on">Zeige die Verlängerungsanzahl aller Ausleihen in der Übersichtsliste (nicht bei allen Bibliotheken möglich).</string>
 
     <string-array name="sortable_properties_tr">
         <item>Keine</item>
@@ -238,7 +247,7 @@
     </string-array>
 
     <string-array name="filterable_properties_tr">
-        <item>Keiner</item>
+        <item>Keine</item>
         <item>Autor + Titel</item>
         <item>Ausleihbibliothek</item>
         <item>ID</item>
@@ -260,7 +269,6 @@
     </string-array>
 
 
-
     <string name="import_">Importieren</string>
     <string name="import_load">Importdatei laden</string>
     <string name="import_accounts">Importiere diese Konten</string>
@@ -278,13 +286,17 @@
 
     <string name="history">Ausleihenhistorie</string>
     <string name="configuration">Konfiguration</string>
-    <string name="passwords">Passwörter</string><string name="lay_booklist_searchfilter_hint">(Offlinesuche in den eigenen Medien und XQuery)</string>
+    <string name="passwords">Passwörter</string>
+    <string name="lay_booklist_searchfilter_hint">(Offlinesuche in den eigenen Medien und XQuery)</string>
     <string name="menu_debuglog">Debug-Log</string>
-    <string name="debuglog_disabled">Debug-Log ist deaktiviert. Es muss in den Einstellugen aktiviert werden, damit hier
+    <string name="debuglog_disabled">Debug-Log ist deaktiviert. Es muss in den Einstellungen aktiviert werden, damit hier
         etwas sinnvolles angezeigt werden kann.
     </string>
     <string name="notificationNoAccounts">Ohne registrierte Konten können keine Ausleihwarnungen angezeigt werden.</string>
-    <string name="notificationNoAccountsTitle">VideLibri: Keine Konten</string><string name="lay_account_label_type">Kontoart:</string><string name="lay_account_intern">intern (z.B.: Student)</string><string name="extern">extern</string>
+    <string name="notificationNoAccountsTitle">VideLibri: Keine Konten</string>
+    <string name="lay_account_label_type">Kontoart:</string>
+    <string name="lay_account_intern">intern (z.B.: Student)</string>
+    <string name="extern">extern</string>
 
 
     <string name="foreignlibrariesnotinthelist">
@@ -338,7 +350,21 @@
     <string name="debug_log_http">Übertragene Daten (%s)</string>
     <string name="debug_log_videlibri">+ VideLibri (%s)</string>
     <string name="debug_log_all">+ Android (%s)</string>
-    <string name="lay_options_label_view_history" >Zeige Ausleihenhistorie:</string>
+    <string name="lay_options_label_view_history">Zeige Ausleihenhistorie:</string>
     <string name="lay_options_btn_account_history">+Historie</string>
+    <string name="lay_options_label_filtering_summary">Durchsuche \"%s\" Eigenschaft(en) bei Offline-Suchen in der Ausleihenhistorie.</string>
+    <string name="lay_options_filter_search_in_history">Filter-Suche in Historie</string>
+    <string name="lay_options_filter_search_in_history_summary_on">Durchsuche bei einer Offline-Ausleihen-Suche aktuelle und wieder abgegebene Ausleihen.</string>
+    <string name="lay_options_filter_search_in_history_summary_off">Durchsuche bei einer Offline-Ausleihen-Suche nur aktuelle Ausleihen.</string>
+
+    <string name="lay_options_refreshInterval">Aktualisierungs-Interval</string>
+    <string name="lay_options_check_summary">Rufe die Bibliothekswebseite alle %d Tag(e) auf, um über neue oder abgegebene Ausleihen informiert zu werden.</string>
+
+    <string name="lay_options_label_autocheckdelay_summary">Aktualisiere die Ausleihen und zeige die Abgabefristwarnung %d Minuten nach Einschalten des Geräts an.</string>
+    <string name="lay_options_warningtimedelay_summary">Warne vor Ausleihen, die in den nächsten %d Tag(e) abgegeben werden müssen.</string>
+
+
+    <string name="lay_options_label_accounts_summary">Kontoeinstellungen/Verlängerungsverhalten ändern...</string>
+    <string name="lay_options_label_ownlibraries_summary">Bibliothekseinstellungen ändern...</string>
 </resources>
 
