@@ -79,7 +79,7 @@ touchpoint := get('touchpoint', false())
           <a template:optional="true">
             {$book.actionURI := resolve-html(.)}
             <span>
-              {$book.status := ., $book.statusId := "normal"}
+              {$book.status := ., $book.statusId := "curious"}
             <!--  <template:read source="@class != 'textgruen'" var="spanmissing"/>-->
             </span>
             {book._onPage := base-uri(), book._onPageStart := $startUrl}
