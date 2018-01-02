@@ -22,6 +22,7 @@
         <CheckBoxPreference
             android:defaultValue="false"
             android:key="noLendBookDetails"
+            android:summaryOn="@string/lay_options_option_onlytitles_summary_on"
             android:title="@string/lay_options_option_onlytitles" />
         <CheckBoxPreference
             android:defaultValue="true"
@@ -36,7 +37,8 @@
         <CheckBoxPreference
             android:defaultValue="true"
             android:key="notifications"
-            android:title="@string/lay_options_option_warn" />
+            android:title="@string/lay_options_option_warn"
+            android:summaryOn="@string/lay_options_option_warn_summary_on"/>
         <de.benibela.videlibri.PreferenceSeekBar
             android:defaultValue="15"
             android:max="1440"
