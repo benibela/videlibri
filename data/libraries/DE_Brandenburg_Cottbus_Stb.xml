@@ -3,7 +3,7 @@
   <longName value="Stadt- und Regionalbibliothek Cottbus (alpha)"/>
 
   <template value="libero5"/>
-  <variable name="baseurl" value="http://web-opac.bibliothek-cottbus.de/libero/"/>
+  <variable name="baseurl" value="https://web-opac.bibliothek-cottbus.de/libero/"/>
   <variable name="loginBaseurl" value="https://web-opac.bibliothek-cottbus.de/libero/"/>
 
   <homepage value="http://www.bibliothek-cottbus.de/"/>
