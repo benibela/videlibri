@@ -18,7 +18,7 @@ eval $(xidel --output-format bash $libData -e 'name:=//longName/@value, template
 libDataNew=$(basename $libData | sed -e 's/[.]xml/New.xml/' )
 libDataIdNew=$( sed -e 's/[.]xml//' <<<"$libDataNew")
 if [[ "$3" = "--override" ]]; then templateIdNew=${templateId}
-message="Da dieses Template ein existierendes Template überschreibt, muss VideLibri nach der Installation neugestartet werden"
+message="Da dieses Template ein existierendes Template überschreibt, müssen alte VideLibri-Versionen nach der Installation neugestartet werden"
 else templateIdNew=${templateId}New
 message=
 fi
