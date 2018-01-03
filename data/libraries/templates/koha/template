@@ -47,7 +47,8 @@
       case "year" return "limit-yr=" || uri-encode($value)
       default return ("idx="||uri-encode($search-keys($key)), "q="||uri-encode($value), "op=and")
    ), $amp)</s>
-  <page url="{$req}" templateFile="search"/>
+  <page url="{$req}"/>
+  <pattern href="search"/>
   <s>$search-next-page-available:=$search-result-count > 20,offset:=0</s>
 </action>
 

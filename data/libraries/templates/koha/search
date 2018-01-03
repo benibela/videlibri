@@ -1,3 +1,5 @@
+<t:switch prioritized="true">
+
 <body>
   <p id="numresults"><strong>{$search-result-count:=extract(.,"[0-9]+")}</strong></p>
   <div class="searchresults">
@@ -16,3 +18,14 @@
     </table>
   </div>
 </body>
+
+<div id="catalogue_detail_biblio">
+  {$search-result-count := 1, $book:={"author":css(".author"), "title": css(".title"), "home-url": base-uri()}}
+</div>
+
+
+<strong>Keine Treffer gefunden<t:s>search-result-count:=0</t:s></strong>
+<strong>No results found!<t:s>search-result-count:=0</t:s></strong>
+
+
+</t:switch>
