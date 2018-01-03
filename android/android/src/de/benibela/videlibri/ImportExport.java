@@ -1,18 +1,61 @@
 package de.benibela.videlibri;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Environment;
+import android.util.AttributeSet;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.AbsListView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.ScrollView;
 
 import java.io.File;
 import java.util.ArrayList;
 
 public class ImportExport extends VideLibriBaseActivity {
+
+    //https://stackoverflow.com/a/22751867
+    public static class MaxHeightListView extends ListView{
+
+
+        public MaxHeightListView(Context context) {
+            super(context);
+        }
+        public MaxHeightListView(Context context, AttributeSet attrs)
+        {
+            super(context, attrs);
+        }
+        public MaxHeightListView(Context context, AttributeSet attrs, int defStyle) {
+            super(context, attrs, defStyle);
+        }
+        @Override
+        public void onMeasure(int widthMeasureSpec, int heightMeasureSpec)
+        {
+            super.onMeasure(widthMeasureSpec, MeasureSpec.makeMeasureSpec(Integer.MAX_VALUE >> 2, MeasureSpec.AT_MOST));
+        }
+    }
+    public static class ScrollViewInterceptor extends ScrollView
+    {
+        float startY;
+
+        public ScrollViewInterceptor(Context context, AttributeSet attrs)
+        {
+            super(context, attrs);
+        }
+
+        @Override
+        public boolean onInterceptTouchEvent(MotionEvent e)
+        {
+            onTouchEvent(e);
+            if (e.getAction() == MotionEvent.ACTION_DOWN) startY = e.getY();
+            return (e.getAction() == MotionEvent.ACTION_MOVE) && (Math.abs(startY - e.getY()) > 50);
+        }
+    }
+
     public static final int MODE_IMPORT = 0;
     public static final int MODE_EXPORT = 1;
 

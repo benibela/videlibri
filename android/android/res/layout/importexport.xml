@@ -1,43 +1,73 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:orientation="vertical"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
-    <TextView
-            android:layout_width="fill_parent"
+    <view class="de.benibela.videlibri.ImportExport$ScrollViewInterceptor"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1">
+
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="New Text"
-            android:id="@+id/textView" android:padding="@dimen/optionheaderpadding" android:layout_gravity="top"
-            android:layout_weight="0"/>
-    <ListView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:id="@+id/listView" android:layout_weight="01" android:layout_gravity="top"/>
-    <TextView
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:text="New Text"
-            android:id="@+id/textView1" android:autoText="false" android:padding="@dimen/optionheaderpadding"
-            android:layout_gravity="top"/>
-    <ListView
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/listView1" android:layout_gravity="top"/>
-    <TextView
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:text="New Text"
-            android:id="@+id/textView2" android:padding="@dimen/optionheaderpadding" android:layout_gravity="top"/>
-    <EditText
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:text="New EditText"
-            android:id="@+id/edit" android:layout_gravity="top"/>
+            android:orientation="vertical">
+
+
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="top"
+                android:layout_weight="0"
+                android:padding="@dimen/optionheaderpadding"
+                android:text="New Text" />
+
+            <view class="de.benibela.videlibri.ImportExport$MaxHeightListView"
+                android:id="@+id/listView"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="top"
+                android:layout_weight="01" />
+
+            <TextView
+                android:id="@+id/textView1"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="top"
+                android:autoText="false"
+                android:padding="@dimen/optionheaderpadding"
+                android:text="New Text" />
+
+            <view class="de.benibela.videlibri.ImportExport$MaxHeightListView"
+                android:id="@+id/listView1"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="top" />
+
+            <TextView
+                android:id="@+id/textView2"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="top"
+                android:padding="@dimen/optionheaderpadding"
+                android:text="New Text" />
+
+            <EditText
+                android:id="@+id/edit"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="top"
+                android:text="New EditText" />
+        </LinearLayout>
+    </view>
+
     <Button
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:text="New Button"
-            android:id="@+id/button" android:layout_gravity="top"/>
+        android:id="@+id/button"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="top"
+        android:text="New Button"
+        android:layout_weight="0"/>
 </LinearLayout>
