@@ -23,6 +23,7 @@
     default return ()) |}
   }</tbody></table>?
   </div>
+  {$book.orderTitle:="vormerken"}
 </body>
 <!--for tumbling window $window in $span/node() start $s when true() end next $e when exists($e/span[contains(@class, "label")]) return 
 $book(substring-before($window[1], ":") || "!") := normalize-space(join(tail(trace($window,"in")))) 

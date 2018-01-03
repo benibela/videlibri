@@ -1,3 +1,5 @@
+<t:switch prioritized="true">
+
 <body>
   <template:meta default-text-matching="regex"/>
   <t:s>vl:delete-current-books()</t:s>
@@ -68,3 +70,10 @@
       </tr>+
   </tbody>+-->
 </body>
+
+
+ <div class="alert">
+ {vl:raise-login(.)}
+ </div>
+ 
+</t:switch>
