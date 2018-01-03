@@ -440,6 +440,18 @@ public class VideLibri extends BookListActivity {
             else
                 title = getResources().getQuantityString(R.plurals.main_bookcountPluralD, bookCount, bookCount);
         }
+        if (!hiddenAccounts.isEmpty()){
+            int shownAccounts = VideLibriApp.accounts.length - hiddenAccounts.size();
+            if (shownAccounts == 1) {
+                for (Bridge.Account account: VideLibriApp.accounts)
+                    if (!hiddenAccounts.contains(account)) {
+                        title += ", " + account.prettyName;
+                        break;
+                    }
+            } else {
+                title += ", " + tr(R.string.main_accountcountDD, shownAccounts, VideLibriApp.accounts.length);
+            }
+        }
         setTitle(title);
     }
 
