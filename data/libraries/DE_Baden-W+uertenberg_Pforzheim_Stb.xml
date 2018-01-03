@@ -1,17 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <library>
-  <longName value="Stadtbibliothek Pforzheim (alpha)"/>
-  <shortName value="Stb Pforzheim"/>
+  <longName value="Stadtbibliothek Pforzheim"/>
+  <shortName value="StaBi PF"/>
   
-  <template value="bibliotheca"/>
-  <variable name="baseurl" value="https://opac1.stadt-pforzheim.de"/>	
-  <variable name="DB" value="W_Bond"/>	
-  
-  <!--<template value="pica"/>-->
-
+  <template value="koha"/>
+  <variable name="baseurl" value="https://sb-pforzheim.lmscloud.net/"/>	
+ 
 
   <homepage value="http://stadtbibliothek.pforzheim.de/"/>
-  <testing-search value="ja" date="2014-09-30"/>
-  <testing-account value="?" date=""/>
-  <testing-renew value="?" date=""/>
 </library>
