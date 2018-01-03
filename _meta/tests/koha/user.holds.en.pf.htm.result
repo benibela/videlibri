@@ -1,0 +1,51 @@
+book := {}
+books-deleted := true()
+prestatus := ()
+prestatus := "Details: file:///cgi-bin/koha/opac-detail.pl?biblionumber=512202"
+prestatus := ("Details: file:///cgi-bin/koha/opac-detail.pl?biblionumber=512202", 
+text{"(2 of 3 renewals remaining)"})
+prestatus := ("Details: file:///cgi-bin/koha/opac-detail.pl?biblionumber=512202", 
+text{"(2 of 3 renewals remaining)"}, 
+text{"Fines:
+                                                        
+                                                            No"})
+book := {"statusId": "curious", "status": "Fines:\n                                                        \n                                                            No; (2 of 3 renewals remaining); Details: file:///cgi-bin/koha/opac-detail.pl?biblionumber=512202", "_item": "65911", "id": " Thriller", "duedate": "2018-01-30T23:59:00", "author": " Schwarz, Åsa ", "title": "Nephilim"}
+prestatus := ()
+prestatus := "Details: file:///cgi-bin/koha/opac-detail.pl?biblionumber=502970"
+prestatus := ("Details: file:///cgi-bin/koha/opac-detail.pl?biblionumber=502970", 
+text{"(3 of 3 renewals remaining)"})
+prestatus := ("Details: file:///cgi-bin/koha/opac-detail.pl?biblionumber=502970", 
+text{"(3 of 3 renewals remaining)"}, 
+text{"Fines:
+                                                        
+                                                            No"})
+book := {"statusId": "curious", "status": "Fines:\n                                                        \n                                                            No; (3 of 3 renewals remaining); Details: file:///cgi-bin/koha/opac-detail.pl?biblionumber=502970", "_item": "120112", "id": " CD Folk Country Song", "duedate": "2018-01-05T23:59:00", "author": "  ", "title": "Bis nach Toulouse"}
+prestatus := ()
+prestatus := "Details: file:///cgi-bin/koha/opac-detail.pl?biblionumber=95805"
+prestatus := ("Details: file:///cgi-bin/koha/opac-detail.pl?biblionumber=95805", 
+text{"Expiration:
+                                                        Never expires"})
+prestatus := ("Details: file:///cgi-bin/koha/opac-detail.pl?biblionumber=95805", 
+text{"Expiration:
+                                                        Never expires"}, 
+text{"Status:
+                                                
+                                                    
+                                                        
+                                                            Pending"})
+book := {"statusId": "ordered", "status": "Status:\n                                                \n                                                    \n                                                        \n                                                            Pending; Expiration:\n                                                        Never expires; Details: file:///cgi-bin/koha/opac-detail.pl?biblionumber=95805", "_cancel-form": "{\"method\": \"POST\", \"post\": \"biblionumber=95805&reserve_id=2287\", \"url\": \"file:///cgi-bin/koha/opac-modrequest.pl\"}", "libraryBranch": "Pick up location:\n                                                Huchenfeld", "issueDate": "2018-01-03", "author": "Funke, Cornelia", "title": "Die wilden Hühner"}
+prestatus := ()
+prestatus := "Details: file:///cgi-bin/koha/opac-detail.pl?biblionumber=598202"
+prestatus := ("Details: file:///cgi-bin/koha/opac-detail.pl?biblionumber=598202", 
+text{"Expiration:
+                                                        Never expires"})
+prestatus := ("Details: file:///cgi-bin/koha/opac-detail.pl?biblionumber=598202", 
+text{"Expiration:
+                                                        Never expires"}, 
+text{"Status:
+                                                
+                                                    
+                                                        
+                                                            Pending"})
+book := {"statusId": "ordered", "status": "Status:\n                                                \n                                                    \n                                                        \n                                                            Pending; Expiration:\n                                                        Never expires; Details: file:///cgi-bin/koha/opac-detail.pl?biblionumber=598202", "_cancel-form": "{\"method\": \"POST\", \"post\": \"biblionumber=598202&reserve_id=2288\", \"url\": \"file:///cgi-bin/koha/opac-modrequest.pl\"}", "libraryBranch": "Pick up location:\n                                                Zentralbibliothek", "issueDate": "2018-01-03", "author": "Weiler, Jan", "title": "Im Reich der Pubertiere"}
+renew-form := {"method": "POST", "post": "borrowernumber=40297&from=opac_user", "url": "file:///cgi-bin/koha/opac-renew.pl"}

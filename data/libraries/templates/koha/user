@@ -1,0 +1,70 @@
+<body>
+  <template:meta default-text-matching="regex"/>
+  <t:s>vl:delete-current-books()</t:s>
+  <table>
+    <thead>
+      <tr><t:siblings-header>
+        <th>^(Title|Titel)</th>
+        <th>^(Author|Verfasser)</th>?
+        <th>^(Due|Fällig)</th>?
+        <th>^(Call|Signatur)</th>?
+        <th>^(Renew|Verlängern)</th>?
+        <th>^(Fines|Gebühren)</th>?
+        
+        
+         <th>^(Placed on|Bestellt am)</th>?
+         <th>^(Expires|Läuft ab)</th>?
+         <th>^((Pick up )?location|Abholstandort)</th>?
+         <th>^(Status)</th>?
+         <th>^(Modify|Ändern)</th>?
+             
+        <th/>*
+      </t:siblings-header></tr>
+    </thead>
+    <tbody>
+      <tr>
+        {$book:={},$prestatus := ()}
+        <t:siblings>
+        <td>{$book.title := a, $prestatus[] := a/@href!("Details: "||resolve-uri(.)), $book("author") := join(a/following-sibling::node())}</td>
+        <td>{$book.author}</td>
+        <td>{$book.duedate := xs:dateTime(span/@title)}</td>
+        <td>{$book.id := join(node() except span[1])}</td>
+        <td>{$book._item := input/@value, $prestatus[] := span}</td>
+        <td>{$prestatus[] := .}</td>
+        
+        <td>{$book.issueDate := parse-date(span/@title) }</td>
+        <td>{$prestatus[] := . }</td>
+        <td>{$book.libraryBranch}</td>
+        <td>{$prestatus[] := . }</td>
+        <td><form>{$book._cancel-form := serialize-json(form(.))}</form></td>
+               
+        <td/>
+        </t:siblings>
+        <t:s>
+          $book.status := join(reverse($prestatus), "; "),
+          $book.statusId := if (exists($book._cancel-form)) then "ordered" else  if (exists($book._item)) then "curious" else "critical"
+        </t:s> 
+      </tr>+
+    </tbody>
+  </table>+
+  <t:s>renew-form := (//form[contains(@action, "renew")])[1]/form(.)</t:s>
+  <!--
+  <tbody>
+      <tr>
+        {$book:={},$prestatus := ()}
+        <td>{for $type in tokenize(@class, " ") return 
+         switch ($type) 
+           case "title" return ($book.title := a, $prestatus[] := a/@href!("Details: "||resolve-uri(.)), $book("author") := join(span) )
+           case "date_due" return $book.duedate := xs:dateTime(span/@title)
+           case "call_no" return $book.id := join(node() except span[1])
+           case "renew" return ($book._item := input/@value, $prestatus[] := span)
+           case "fines" return ($prestatus[] := .)
+           default return ()
+         } </td>+
+         <t:s>
+           $book.status := join(reverse($prestatus), "; "),
+           $book.statusId := if (exists($book._item)) then "curious" else "critical"
+         </t:s>
+      </tr>+
+  </tbody>+-->
+</body>

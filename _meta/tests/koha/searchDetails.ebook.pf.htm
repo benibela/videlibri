@@ -1,0 +1,1715 @@
+
+
+
+
+
+
+
+
+
+
+
+ 
+
+<!DOCTYPE html>
+<!-- TEMPLATE FILE: opac-detail.tt -->
+
+
+
+
+<html lang="de-DE" class="no-js">
+<head>
+
+<title>Kundenportal StaBi PF     - Katalog &rsaquo; Details zu: Ziergehölze schneiden</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="Koha 16.0512011" /> <!-- leave this for stats -->
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="shortcut icon" href="/webcustom/images/custom/pforzheim.ico" type="image/x-icon" />
+
+ <link rel="stylesheet" type="text/css" href="/opac-tmpl/bootstrap/lib/bootstrap/css/bootstrap.min.css" />
+
+
+
+ <link rel="stylesheet" type="text/css" href="/opac-tmpl/bootstrap/lib/jquery/jquery-ui.css" />
+
+
+
+
+ <link rel="stylesheet" type="text/css" href="/opac-tmpl/bootstrap/css/opac.css" />
+
+
+ 
+ <link rel="stylesheet" type="text/css" href="/webcustom/css/opac-lmscloud.css" />
+ 
+
+
+<link rel="stylesheet" type="text/css" media="print" href="/opac-tmpl/bootstrap/css/print.css" />
+
+
+<style type="text/css">@media screen and (min-width: 1024px) { 
+    .mastheadsearch {
+        background: url("/webcustom/images/custom/suchschlitz.jpg")
+                    left
+                    center	   
+                    no-repeat 
+                    transparent;
+				   
+        position: relative;	
+        color: #ffffff; 
+        background-size: 100% auto;
+    }
+}
+
+@media screen and (max-width: 1023px) { 
+    .mastheadsearch {
+        /*background: url("/webcustom/images/custom/suchschlitz.jpg")
+                    left
+                    center	   
+                    no-repeat 
+                    transparent;*/
+				   
+        position: relative;	
+        color: #ffffff; 
+        background-color: #BAAE91;
+        background-size: 100% auto;
+    }
+
+    #logo {
+        background: transparent url(/webcustom/images/LMSCloud-Logo.png) no-repeat scroll 0;
+        padding-top: 15px;
+        margin-left: 5px;
+        width: 80px !important;
+        background-size: 80px 28px;
+    }
+}
+
+    #blockTop::after {
+        clear: both;
+        content: ".";
+        display: block;
+        height: 0;
+        overflow: hidden;
+        visibility: hidden;
+    }
+
+    #blockTop {
+        opacity: 1.0;
+        margin-top: 8px;
+        width: 100%;
+        margin-top: 1em;
+        margin-bottom: .5em;
+    }
+
+.navbar-inverse .navbar-inner {
+  background-image: linear-gradient(to bottom, #7d7254, #bbaf91);
+  border-color: #bbaf91;
+  background-color: #bbaf91;
+}
+
+#moresearches li {
+    font-size: larger;
+}
+.breadcrumb {
+    font-size: unset;
+    margin: 0px 0px 10px 0px;
+}
+
+#opacheader {
+    background-color: unset  !important;
+}
+
+body {
+    color: black !important;
+    background-attachment: fixed, fixed, fixed, fixed !important;
+}
+
+#moresearches a, a.visited {
+    font-size: medium;
+    color: black;
+}
+
+#moresearches, #news {
+    margin: 1.0em 0;
+}
+
+.main {
+    background-color: #ffffff;;
+}
+
+#opac-suggestions label[for=itemtype], #opac-suggestions label[for=branch] {
+    color: #C00;
+}
+
+#opac-usersuggestions label[for=itemtype], #opac-usersuggestions label[for=branch] {
+    color: #C00;
+}
+</style>
+
+<link rel="unapi-server" type="application/xml" title="unAPI" href="https://sb-pforzheim.lmscloud.net/cgi-bin/koha/unapi" />
+<link rel="stylesheet" type="text/css" href="/opac-tmpl/bootstrap/css/jquery.rating.css" />
+<!-- Respond.js brings responsive layout behavior to IE < v.9 -->
+<!--[if lt IE 9]>
+ <script src="/opac-tmpl/bootstrap/lib/respond.min.js"></script>
+<![endif]-->
+<script type="text/javascript">
+    function _(s) { return s } // dummy function for gettext
+</script>
+<script type="text/javascript" src="/opac-tmpl/bootstrap/lib/modernizr.min.js"></script>
+<link rel="stylesheet" type="text/css" href="/opac-tmpl/bootstrap/lib/font-awesome/css/font-awesome.min.css" />
+
+
+
+ 
+
+<script type="text/javascript">
+    var GB_ROOT_DIR = "/opac-tmpl/bootstrap/lib/greybox/";
+</script>
+<script type="text/javascript" src="/opac-tmpl/bootstrap/lib/greybox/AJS.js"></script>
+<script type="text/javascript" src="/opac-tmpl/bootstrap/lib/greybox/AJS_fx.js"></script>
+<script type="text/javascript" src="/opac-tmpl/bootstrap/lib/greybox/gb_scripts.js"></script>
+<link href="/opac-tmpl/bootstrap/lib/greybox/gb_styles.css" rel="stylesheet" type="text/css" />
+
+</head>
+
+
+ 
+
+
+ 
+
+
+
+
+ 
+
+<body ID="opac-detail" class="branch-default scrollto" >
+
+
+
+<div id="wrap">
+ <div id="header-region" class="noprint">
+ <div class="navbar navbar-inverse navbar-static-top">
+ <h1 id="logo">
+ <a class="brand" href="/cgi-bin/koha/opac-main.pl">
+  Kundenportal StaBi PF      </a>
+ </h1>
+ <div class="navbar-inner">
+ <div class="container-fluid">
+ 
+ <div id="cartDetails" class="cart-message">Ihr Korb ist leer.</div>
+ 
+ <ul class="nav">
+ 
+ <li class="dropdown">
+ <a href="#" class="dropdown-toggle" title="Stellen Sie Titel zusammen, an denen Sie interessiert sind" role="button" id="cartmenulink" data-toggle="dropdown">
+ <i id="carticon" class="icon-shopping-cart icon-white"></i> <span class="cartlabel">Korb</span> <span id="basketcount"></span> <b class="caret"></b>
+ </a>
+ <ul aria-labelledby="cartmenulink" role="menu" class="dropdown-menu">
+ <li role="presentation">
+ <a href="#" id="cartmenuitem" class="cart-message" tabindex="-1" role="menuitem">Ihr Korb ist leer.</a>
+ </li>
+ </ul>
+ </li>
+ 
+ 
+ <li class="divider-vertical"></li>
+ 
+ 
+ <li class="dropdown">
+ <a data-toggle="dropdown" role="button" id="listsmenu" title="Zeige Listen" href="#" class="dropdown-toggle"><i class="icon-list icon-white"></i> <span class="listslabel">Listen</span> <b class="caret"></b></a>
+ <ul aria-labelledby="listsmenu" role="menu" class="dropdown-menu">
+ 
+ <li role="presentation"><a href="#" tabindex="-1" class="menu-inactive" role="menuitem">Keine öffentlichen Listen</a></li>
+ 
+ <li class="divider" role="presentation"></li>
+ 
+ <li role="presentation"><a href="/cgi-bin/koha/opac-shelves.pl?op=list&amp;category=1" tabindex="-1" role="menuitem"><strong>Ihre Listen</strong></a></li>
+ 
+ <li role="presentation"><a href="/cgi-bin/koha/opac-user.pl" tabindex="-1" class="menu-inactive loginModal-trigger" role="menuitem">Melden Sie sich an, um eigene Listen zu erstellen</a></li>
+ 
+ 
+ </ul> <!-- / .dropdown-menu -->
+ </li> <!-- / .dropdown -->
+ 
+ </ul> <!-- / .nav -->
+ <div id="listsDetails"></div>
+ 
+ <a id="user-menu-trigger" class="pull-right" href="#"><i class="icon-user"></i> <span class="caret"></span></a>
+ <div id="members">
+ <ul class="nav pull-right">
+
+ 
+ <li class="dropdown">
+ <a data-toggle="dropdown" id="langmenu" class="dropdown-toggle" role="button" href="#" title="Sprache wechseln"><i class="icon-flag icon-white"></i> <span class="langlabel">Sprachen</span> <b class="caret"></b></a>
+ <ul aria-labelledby="langmenu" role="menu" class="dropdown-menu">
+ 
+ 
+ 
+ 
+ 
+ <li role="presentation"><a href="#" tabindex="-1" class="menu-inactive" role="menuitem">Deutsch&nbsp;<i class="icon-ok"></i></a></li>
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ <li role="presentation"><a href="/cgi-bin/koha/opac-changelanguage.pl?language=en"  tabindex="-1" role="menuitem" class="listmenulink">English</a></li>
+ 
+ 
+ 
+ 
+ 
+ </ul> <!-- /# .dropdown-menu -->
+</li> <!-- / .dropdown -->
+
+
+
+ 
+ 
+ 
+ <li><a href="/cgi-bin/koha/opac-user.pl" class="loginModal-trigger" role="button" data-toggle="modal">Benutzerkonto</a></li>
+ 
+ 
+ 
+ 
+ 
+ <li><p class="navbar-text"><a title="Suchhistorie anzeigen" href="/cgi-bin/koha/opac-search-history.pl">Suchhistorie</a> [<a title="Suchhistorie löschen" onclick="return confirm(MSG_DELETE_SEARCH_HISTORY);" href="/cgi-bin/koha/opac-search-history.pl?action=delete" class="logout">x</a>]</p></li>
+ <li class="divider-vertical"></li>
+ 
+ 
+ 
+ 
+ </ul>
+ </div> <!-- /members -->
+ 
+ </div> <!-- /container-fluid -->
+ </div> <!-- /navbar-inner -->
+ </div> <!-- /navbar -->
+
+ 
+ <div class="container-fluid">
+ <div class="row-fluid">
+ <div id="opacheader">
+ <div id="blockTop">
+    <div id="blockTopInner">
+        <a title="Zur Startseite" href="/" id="wlogo">
+            <img alt="Logo" src="/webcustom/images/custom/header.jpg" style="width:100%" target="_blank">
+        </a>
+    </div>
+</div>
+ </div>
+ </div>
+ </div>
+ 
+ </div> <!-- / header-region -->
+
+ <div class="container-fluid">
+ <div class="row-fluid">
+ <div id="opac-main-search">
+ <!-- <div class="span2">
+ 
+ <h1 id="libraryname">
+ 
+ <a href="/cgi-bin/koha/opac-main.pl">Kundenportal StaBi PF    </a></h1>
+ </div> /.span2 -->
+ <div class="span12">
+ 
+ 
+ 
+ <div class="mastheadsearch librarypulldown">
+ 
+ 
+ <form name="searchform" method="get" action="/cgi-bin/koha/opac-search.pl" id="searchform" class="form-inline">
+ <label for="masthead_search"> Suche  </label>
+
+ <select name="idx" id="masthead_search">
+ 
+ <option value="kw,wrdl">Freitext</option>
+ 
+ 
+ <option value="ti,phr">Titel</option>
+ 
+ 
+ <option value="au">Verfasser</option>
+ 
+ 
+ <option value="su,phr">Schlagwort</option>
+ 
+ 
+ <option value="nb">ISBN</option>
+ 
+ 
+ <option value="se,phr">Reihen</option>
+ 
+ 
+ 
+ <option value="callnum">Signatur</option>
+ 
+ 
+ </select>
+
+ 
+ <input name="q" class="transl1" title="Suchbegriffe eingeben" id="translControl1" type="text" /><span id="translControl"></span>
+
+ 
+
+ 
+ <div class="input-append">
+ <select name="branch_group_limit" id="select_library">
+ <option value="">Alle Bibliotheken</option>
+ <optgroup label="Bibliotheken">
+ 
+ <option value="branch:BUHA">Buckenberg-Haidach</option>
+ 
+ <option value="branch:eBib">Digitale Filiale</option>
+ 
+ <option value="branch:HUFE">Huchenfeld</option>
+ 
+ <option value="branch:SHUT">MediaShuttle</option>
+ 
+ <option value="branch:ZENT">Zentralbibliothek</option>
+ 
+ 
+ </optgroup>
+ <optgroup label="Gruppen">
+ 
+ </optgroup>
+ 
+ </select>
+ <button type="submit" id="searchsubmit" class="btn btn-primary">OK</button>
+ </div>
+ 
+
+ </form>
+ 
+ </div> <!-- / .mastheadsearch -->
+ 
+
+ <div class="row-fluid">
+ <div id="moresearches">
+ <ul>
+ <li><a href="/cgi-bin/koha/opac-entrypages.pl?interestGroup=9&classlevel=3&filter=^Y:4.3"><img src="/webcustom/images/Child.png" style="vertical-align: baseline;">
+ Kinderbibliothek</a></li>
+ <li><a href="/cgi-bin/koha/opac-entrypages.pl?interestGroup=T&classlevel=3&filter=^Y:6. "><img src="/webcustom/images/Infant.png" style="vertical-align: baseline;">
+ Jugendbibliothek</a></li>
+ <li><a href="/cgi-bin/koha/opac-entrypages.pl?interestGroup=A&mediafilter=^M:&filter=^S:"><i class="fa fa-user" style="color:darkred;"></i>
+ Erwachsenenbibliothek</a></li>
+ 
+ <li><img src="/webcustom/images/Antolin16.png" style="vertical-align: baseline;"></img> <a href="/cgi-bin/koha/opac-antolin.pl">Bücher mit Antolin-Quiz</a></li>
+ <li><a href="/cgi-bin/koha/opac-search.pl"><i class="fa fa-search-plus" style="color:cadetblue"></i>
+ Erweiterte Suche</a></li>
+ 
+ 
+ 
+ <!--  -->
+ 
+ 
+ 
+ 
+ <li><a href="/cgi-bin/koha/opac-suggestions.pl">Anschaffungsvorschläge</a></li>
+ 
+ 
+ </ul>
+ </div> <!-- /#moresearches -->
+ </div> <!-- /.row-fluid -->
+
+ 
+ </div> <!-- /.span10 -->
+ </div> <!-- /.opac-main-search -->
+ </div> <!-- / .row-fluid -->
+ </div> <!-- /.container-fluid -->
+
+ <!-- Login form hidden by default, used for modal window -->
+ <div id="loginModal" class="modal hide" tabindex="-1" role="dialog" aria-labelledby="modalLoginLabel" aria-hidden="true">
+ <div class="modal-header">
+ <button type="button" class="closebtn" data-dismiss="modal" aria-hidden="true">×</button>
+ <h3 id="modalLoginLabel">Benutzerkonto</h3>
+ </div>
+ <form action="/cgi-bin/koha/opac-user.pl" method="post" name="auth" id="modalAuth">
+ <div class="modal-body">
+ 
+ <input type="hidden" name="koha_login_context" value="opac" />
+ <fieldset class="brief">
+ <label for="muserid">Login:</label><input type="text" id="muserid" name="userid" />
+ <label for="mpassword">Passwort:</label><input type="password" id="mpassword" name="password" />
+ 
+ <div id="nologininstructions-modal">
+ <br />
+<p>Zum Anmelden verwenden Sie bitte Ihre Benutzernummer als Login Kennung und Ihr Geburtsdatum in der Form XX.XX.XXXX als Passwort.<br />
+Bitte machen Sie nach dem ersten Login von der Möglichkeit Gebrauch, <b>Ihr Passwort auf ein von Ihnen gewähltes zu ändern</b>.</p>
+<p>Wenn Sie Ihre Zugangsdaten vergessen haben, melden Sie sich bitte persönlich bei uns.</p>
+
+
+
+
+ </div>
+ 
+ 
+ </fieldset>
+ </div>
+ <div class="modal-footer">
+ <input value="Anmelden" class="btn btn-primary" type="submit" />
+ <a href="#" data-dismiss="modal" aria-hidden="true" class="cancel">Abbrechen</a>
+ </div>
+ </form> <!-- /#auth -->
+ </div> <!-- /#modalAuth -->
+
+
+<div class="main">
+ <ul class="breadcrumb">
+ <li><a href="/cgi-bin/koha/opac-main.pl">Start</a> <span class="divider">&rsaquo;</span></li>
+ <li><a href="#">Details zu: Ziergehölze schneiden </a></li>
+ </ul>
+
+ <div class="container-fluid">
+ <div class="row-fluid">
+ <div class="span9">
+ <div id="catalogue_detail_biblio" class="maincontent">
+
+ <div id="bookcover">
+ 
+ 
+ 
+ 
+  
+ <img src="http://www.onleihe.de/static/images/ulmer/20110224/978-3-8001-9200-7/tn978-3-8001-9200-7l.jpg" style="max-width:300px" title="641451"></img>
+ 
+ 
+ 
+
+ 
+
+ 
+ 
+ 
+ 
+ 
+ </div><!-- / #bookcover -->
+
+ <abbr class="unapi-id" title="koha:biblionumber:641451"><!-- unAPI --></abbr>
+ 
+ <span class="Z3988" title="ctx_ver=Z39.88-2004&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Adc&amp;rft.type=computerProgram&amp;rft.btitle=Ziergehölze+schneidenVerständlich,+einfach,+schön&amp;rft.isbn=9783800192007&amp;rft.issn=&amp;rft.aulast=&amp;rft.aufirst=&amp;rft.au=Beltz,+Heinrich&amp;rft.pub=&amp;rft.date=&amp;rft.pages="></span>
+ 
+
+
+ 
+ 
+
+<div id="bibtip_isxn" style="display:none">9783800192007</div><div id="bibtip_shorttitle" style="display:none">Ziergehölze schneiden: Verständlich, einfach, schön / Heinrich Beltz.</div><div id="bibtip_id" style="display:none">641451</div><div class="Titel" vocab="http://schema.org/" typeof="CreativeWork Produkt" resource="#record">
+<h1 class="title" property="name">Ziergehölze schneiden : Verständlich, einfach, schön<span class="title_resp_stmt">Heinrich Beltz</span>
+</h1>
+<h5 class="author">Von: <a href="/cgi-bin/koha/opac-search.pl?q=au:%22Beltz,%20Heinrich%22"><span resource="#record"><span property="author" typeof="Person"><span property="name">Beltz, Heinrich</span></span></span><span class="relatorcode"> [Autor]</span></a>.</h5>
+<span class="results_summary type"><span class="label">Materialtyp: </span><img src="/opac-tmpl/lib/famfamfam/CF.png" alt="materialTypeLabel" class="materialtype">
+  Computerdatei, <span property="description">66 S. zahlr. Ill</span>.</span><span class="results_summary"><span class="label">Verlag: </span>Stuttgart Ulmer, E 2011<span id="content_type"> , <span class="label">Medientyp: </span> </span>, <span class="isbn"><span class="label">ISBN: </span><span property="isbn">9783800192007.</span></span></span><span class="results_summary series"><span class="label">Reihen: </span><a href="/cgi-bin/koha/opac-search.pl?q=se,phr:%22Smart%22">Smart</a>.</span><span class="results_summary classification"><span class="label">Themenkreis: </span><a href="/cgi-bin/koha/opac-search.pl?q=sbg:%22Ratgeber%20-%20Garten%22">Ratgeber - Garten</a> | <a href="/cgi-bin/koha/opac-search.pl?q=katno,st-numeric:%221%22">Sachmedien &amp; Ratgeber</a> &gt; <a href="/cgi-bin/koha/opac-search.pl?q=katno,st-numeric:%22530%22">Hobby &amp; Lifestyle</a> &gt; <a href="/cgi-bin/koha/opac-search.pl?q=katno,st-numeric:%22539%22">Garten &amp; Pflanzen</a></span><span class="results_summary genre"><span class="label">Genre/Form: </span><a href="/cgi-bin/koha/opac-search.pl?q=su:%22Ratgeber%22">Ratgeber</a></span><span class="results_summary subjects"><span class="label">Schlagwörter: </span><span property="keywords"><a href="/cgi-bin/koha/opac-search.pl?q=su:%22Geh%C3%B6lzschnitt%22">Gehölzschnitt</a></span> | <span property="keywords"><a href="/cgi-bin/koha/opac-search.pl?q=su:%22Ziergeh%C3%B6lze%22">Ziergehölze</a></span></span><span class="results_summary summary truncable-txt"><span class="label">Zusammenfassung: </span>Durch einfache Schnittmaßnahmen kann man den Schmuckwert von Ziergehölzen positiv beeinflussen und dafür sorgen, dass man lange Freude an ihnen hat. Die unterschiedlichen Schnittmaßnahmen an Rosen, Ziersträuchern und Bäumen werden erläutert und mit anschaulichen Zeichnungen ergänzt. Die richtigen Vorgehensweisen für Wundverschluss und Wundheilung sowie die Vermeidung von Astbruch und Krankheiten werden erklärt.<a href="javascript:void(0)" class="truncable-txt-readmore">Mehr lesen »</a></span>
+</div>
+
+
+
+ 
+
+ 
+
+ <!-- This puts the LTFL reviews in, and if TabbedView is not set, puts the remaining content above the Tabs instead of in them -->
+ 
+
+ <!--This grabs all of the lists a bib record appears in -->
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+ <form method="post" action="/cgi-bin/koha/opac-ratings.pl">
+ <div class="results_summary ratings">
+
+ 
+ 
+ <input class="auto-submit-star" type="radio" name="rating" value="1" disabled="disabled" />
+ 
+ 
+ 
+ <input class="auto-submit-star" type="radio" name="rating" value="2" disabled="disabled" />
+ 
+ 
+ 
+ <input class="auto-submit-star" type="radio" name="rating" value="3" disabled="disabled" />
+ 
+ 
+ 
+ <input class="auto-submit-star" type="radio" name="rating" value="4" disabled="disabled" />
+ 
+ 
+ 
+ <input class="auto-submit-star" type="radio" name="rating" value="5" disabled="disabled" />
+ 
+ 
+
+ <!-- define some hidden vars for ratings -->
+
+ <input  type="hidden" name='biblionumber'  value="641451" />
+ <input  type="hidden" name='rating_value' id='rating_value' value="" />
+ <input  type="hidden" name='rating_total' id='rating_total' value="0" />
+ <input  type="hidden" name='rating_avg_int' id='rating_avg_int' value="0.0" />
+
+ &nbsp; <input type="submit" value="Bewerten" name="rate_button" />&nbsp;
+
+ 
+ <span id="rating_value_text"></span>
+ 
+
+ <span id="rating_text">Durchschnitt: 0.0 (0 Bewertungen)</span>
+ </div>
+ </form>
+ 
+
+ 
+
+ 
+
+ 
+
+ </div> <!-- / #catalogue_detail_biblio -->
+ 
+ <span class="results_summary">
+ <div id="bibtip_reclist" style="display:none"></div>
+ </span>
+ 
+ </div> <!-- /.span8 -->
+
+ <div class="span3">
+ <div id="ulactioncontainer">
+
+ 
+ <div class="nav_results">
+ <div class="l_Results">
+ 
+ <a title="Zeige Trefferliste (1-3 / 3)" href="#" id="a_listResults">Trefferliste durchstöbern</a>
+ 
+ </div>
+ <ul class="pg_menu clearfix">
+ <li class="left_results">
+ 
+ <a title="Zeige: Das Dorf Kieselbronn" href="opac-detail.pl?biblionumber=331032&query_desc=kw%2Cwrdl%3A%20baumschule">&laquo; Zurück</a>
+ 
+ </li>
+ 
+ <li class="back_results"><a href="opac-search.pl?idx=kw%2Cwrdl&amp;q=baumschule&amp;branch_group_limit=" title="Trefferliste">Trefferliste</a></li>
+ <li class="right_results">
+ 
+ <a title="Zeige: Hochbeete" href="opac-detail.pl?biblionumber=644346&query_desc=kw%2Cwrdl%3A%20baumschule">Vor &raquo;</a>
+ 
+ </li>
+ </ul>
+ 
+ <div class="results-pagination">
+ <div class="nav_pages">
+ <span class="close_pagination"><a href="#" id="close_pagination">Schließen</a></span>
+ <ul id="listResults"></ul>
+ </div>
+ <div class="pagination_list">
+ <ul id="ul_pagination_list"></ul>
+ </div>
+ </div>
+ 
+ </div>
+ 
+
+ <ul id="action">
+ 
+ 
+ 
+ 
+ <li><a class="reserve" href="/cgi-bin/koha/opac-reserve.pl?biblionumber=641451">Vormerken</a></li>
+ 
+ 
+ 
+ 
+ <li><a class="print-large" href="#" onclick="window.print();">Druck</a></li>
+ 
+ 
+ 
+ 
+ 
+ <li><a class="addtocart cart641451" href="#" onclick="addRecord('641451'); return false;">Meinem Korb hinzufügen</a> <a style="display:none;" class="cartRemove cartR641451" href="#" onclick="delSingleRecord('641451'); return false;">(Entfernen)</a></li>
+ 
+ 
+ 
+ <!--
+ <li>
+ <a href="#" class="highlight_toggle" id="highlight_toggle_off">Unmarkieren</a>
+ <a href="#" class="highlight_toggle" id="highlight_toggle_on">Markieren</a>
+ </li>
+ -->
+ 
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+ 
+ 
+ 
+ 
+ 
+ 
+ <li>
+ <div id="wikipedia_menu">
+ <div class="dropdown"> 
+ <a class="open_wikipedia_menu" class="dropdown-toggle" data-toggle="dropdown" href="#">Wikipedia-Artikel<b class="caret"></b></a>
+ <ul class="dropdown-menu" role="menu" aria-labelledby="format">
+ 
+ <li>
+ 
+ 
+ <a role="menuitem" href="/cgi-bin/koha/tracklinks.pl?uri=https://de.wikipedia.org/wiki/Ziergeh%C3%B6lze&amp;biblionumber=641451" title="https://de.wikipedia.org/wiki/Ziergehölze" target="_blank">
+ 
+ 
+ Ziergehölze</a>
+ </li>
+ 
+ 
+ 
+ 
+ 
+ <li>
+ 
+ 
+ <a role="menuitem" href="/cgi-bin/koha/tracklinks.pl?uri=https://de.wikipedia.org/wiki/Verst%C3%A4ndlich&amp;biblionumber=641451" title="https://de.wikipedia.org/wiki/Verständlich" target="_blank">
+ 
+ 
+ Verständlich</a>
+ </li>
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ </ul>
+ </div>
+ </div>
+ </li>
+ 
+ 
+ 
+ 
+  
+ 
+ 
+
+ 
+ <li>
+ <div id="moresearches_menu">
+ <div class="dropdown">
+ <a id="furthersearches" class="dropdown-toggle" data-toggle="dropdown" href="#">Weitere Suchen <b class="caret"></b></a>
+ <ul class="dropdown-menu" role="menu" aria-labelledby="furthersearches">
+ <li><a href="#" class="menu-inactive">Suche nach diesem Titel in:</a></li>
+ <li><a href="https://scholar.google.de/scholar?q=Ziergeh%C3%B6lze%20schneiden" target="_blank">Google Scholar</a></li>
+<li><a href="http://swb.bsz-bw.de/DB=2.1/CMD?ACT=SRCHA&IKT=4&SRT=RLV&TRM=Ziergeh%C3%B6lze%20schneiden&MATCFILTER=N&MATCSET=N&NOABS=Y" target="_blank">SWB Online-Katalog</a></li> 
+<li><a href="https://www.gutenberg.org/wiki/DE_Hauptseite=Ziergeh%C3%B6lze%20schneiden&MATCFILTER=N&MATCSET=N&NOABS=Y" target="_blank">Projekt Gutenberg</a></li> 
+ </ul>
+ </div>
+ </div>
+ </li>
+ 
+</ul>
+
+
+ 
+
+ 
+
+ 
+ <div id="social_networks" class="clearfix">
+ <span>Teilen</span>
+ <div><a id="facebook" title="Teilen über Facebook" href="http://www.facebook.com/sharer.php?u=https://sb-pforzheim.lmscloud.net/cgi-bin/koha/opac-detail.pl?biblionumber=641451&t=Ziergeh%C3%B6lze%20schneiden">Facebook</a></div>
+ <div><a id="linkedin" title="Teilen über LinkedIn" href="http://www.linkedin.com/shareArticle?mini=true&url=https://sb-pforzheim.lmscloud.net/cgi-bin/koha/opac-detail.pl?biblionumber=641451&title=Ziergeh%C3%B6lze%20schneiden">LinkedIn</a></div>
+ <div><a title="Teien über Delicious" href="http://www.delicious.com/save?url=https://sb-pforzheim.lmscloud.net/cgi-bin/koha/opac-detail.pl?biblionumber=641451&title=Ziergeh%C3%B6lze%20schneiden" id="delicious">Delicious</a></div>
+ <div><a title="Teilen über E-Mail" href="mailto:?subject=Ziergeh%C3%B6lze%20schneiden&body=Ziergeh%C3%B6lze%20schneiden%20(https://sb-pforzheim.lmscloud.net/cgi-bin/koha/opac-detail.pl?biblionumber=641451)" id="email">E-Mail</a></div>
+ <div><div class="g-plusone" data-size="small" data-count="false"></div></div>
+ <div><a id="twitter" href="https://twitter.com/share" class="twitter-share-button" data-count="none" data-text="Ziergeh%C3%B6lze%20schneiden" data-lang="de-DE">Tweet</a></div>
+ </div>
+ 
+ </div> <!-- / .ulactioncontainer -->
+ </div> <!-- / .span4 -->
+ </div> <!-- / .row-fluid -->
+ 
+ 
+ 
+ 
+ 
+ <div class="row-fluid">
+ <div class="span12">
+ 
+
+ <div id="bibliodescriptions" class="toptabs">
+
+ <ul>
+ 
+ <li id="tab_holdings" class="ui-tabs-active">
+ 
+ <a href="#holdings">Exemplare  ( 1 )</a>
+ </li>
+ 
+ 
+ 
+
+ 
+
+ 
+
+ 
+ <li id="tab_comments"><a href="#comments">Kommentare ( 0 )</a></li>
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+ </ul>
+
+ 
+
+
+ <div id="holdings">
+  
+ <table class="holdingst table table-bordered table-striped">
+ <thead>
+ <tr>
+ <th id="item_itemtype" class="itype">Medientyp</th>
+ 
+ 
+ 
+ <th id="item_home_location" class="item_location">Heimatbibliothek</th>
+ 
+ 
+ <th id="item_ccode" class="collection">Sammlung</th>
+ <th id="item_callnumber" class="call_no">Signatur</th>
+ 
+ 
+ 
+ <th id="item_status" class="status">Status</th>
+ 
+ <th id="item_datedue" class="date_due">Fälligkeitsdatum</th>
+ <th id="item_barcode" class="barcode">Barcode</th>
+ 
+ <th id="item_holds">Vormerkungen</th>
+ 
+ 
+ </tr>
+ </thead>
+ <tbody>
+ 
+ 
+ <tr class="highlight-row-detail" vocab="http://schema.org/" typeof="Offer">
+ 
+ 
+ <td class="itype">
+ 
+ 
+ <img src="https://sb-pforzheim.lmscloud.net/webcustom/images/custom/icons/Icon_Onleihe_35x35.png" title="Elektronisches Buch zum Download" alt="Elektronisches Buch zum Download" />
+ 
+ 
+ Elektronisches Buch zum Download
+ </td>
+ 
+ 
+ 
+
+ 
+ <td class="location" property="seller">
+ <link property="itemOffered" href="#record" />
+ <link property="businessFunction" href="http://purl.org/goodrelations/v1#LeaseOut">
+ <span class="" title="">
+ 
+ <span>Digitale Filiale</span>
+ 
+ </span>
+ <div class="branch-info-tooltip"></div>
+
+ 
+ <span class="shelvingloc"></span>
+ 
+
+ </td>
+ 
+
+ 
+
+ 
+ <td class="collection">eMedien</td>
+ 
+ <td class="call_no" property="sku">
+ 
+                         
+                            
+                                
+                                    
+                                       <span class="available">Für angemeldete Benutzer zum Download verfügbar.</span>
+                                    
+                                
+                            
+                        
+ </td>
+ 
+ 
+ 
+ <td class="status">
+ <link property="availability" href="http://schema.org/InStock" />
+
+   
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ <span class="item-status available">Verfügbar </span>
+
+</td>
+ 
+ <td class="date_due"><span title=""></span></td>
+ <td class="barcode" property="serialNumber"></td>
+ 
+ <td class="holds_count">
+     </td>
+ 
+ 
+ </tr>
+ 
+ </tbody>
+ </table>
+   <div id="bib_holds">
+  Vormerkungen: 0   </div>
+ 
+ 
+ 
+
+
+ 
+    
+
+ <br style="clear:both;" />
+ </div> <!-- / #holdings -->
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+ <div id="comments">
+ <div id="newcomment"></div>
+ 
+ <p>Es gibt keine Kommentare zu diesem Titel.</p>
+ 
+
+ 
+ <div id="addcomment"><a href="/cgi-bin/koha/opac-user.pl">Benutzerkonto</a> um einen Kommentar hinzuzufügen.</div>
+ 
+ </div> <!-- / #comments -->
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+ </div> <!-- / #bibliodescriptions -->
+
+ 
+
+  
+ 
+ </div>
+ </div>
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ <div class="row-fluid">
+ 
+
+ 
+
+ 
+ </div> <!-- / .row-fluid -->
+</div> <!-- / .container-fluid -->
+</div> <!-- / .main -->
+
+
+ 
+ 
+ <div class="container-fluid">
+ <div class="row-fluid">
+ <div class="span12">
+ <div id="opaccredits" class="noprint">
+ Bitte überprüfen Sie bei Erstanmeldung im Kundenportal Ihre persönlichen Datenschutzoptionen. Diese finden Sie in Ihrem Benutzerkonto, hier können Sie auch Ihre Änderungen vornehmen. 
+ </div>
+ </div>
+ </div>
+ </div>
+ 
+
+ 
+ <div class="container-fluid">
+ <div class="row-fluid">
+ <div class="span12">
+ <div id="koha_url" class="clearfix noprint">
+ <p>Powered by 
+ <a class="koha_url" rel="nofollow" href="http://koha-community.org">Koha</a>
+ </p>
+ </div>
+ </div> <!-- /.span12 -->
+ </div> <!-- /.row-fluid -->
+ </div> <!-- /.container-fluid -->
+ 
+
+</div> <!-- / #wrap in masthead.inc -->
+
+ 
+ 
+ 
+ <div id="changelanguage" class="navbar navbar-fixed-bottom navbar-static-bottom noprint">
+ <div class="navbar-inner">
+ <ul id="i18nMenu" class="nav">
+ <li><p class="lang navbar-text"><strong>Sprachen:&nbsp;</strong></p></li>
+ 
+ 
+ 
+ 
+ 
+ <li class="active"><p class="navbar-text">Deutsch</p></li>
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ <li><a href="/cgi-bin/koha/opac-changelanguage.pl?language=en">English</a></li>
+ 
+ 
+ 
+ 
+ 
+ </ul> <!-- / #i18menu -->
+ </div> <!-- / .navbar-inner -->
+ </div> <!-- / #changelanguage -->
+ 
+ 
+ 
+
+
+
+
+<!-- JavaScript includes -->
+<script type="text/javascript" src="/opac-tmpl/bootstrap/lib/jquery/jquery.js"></script>
+<script type="text/javascript" src="/opac-tmpl/bootstrap/lib/jquery/jquery-ui.js"></script>
+<script type="text/javascript">
+// Resolve name collision between jQuery UI and Twitter Bootstrap
+$.widget.bridge('uitooltip', $.ui.tooltip);
+</script>
+<script type="text/javascript" src="/opac-tmpl/bootstrap/lib/bootstrap/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="/opac-tmpl/bootstrap/js/global.js"></script>
+<script type="text/javascript">
+    Modernizr.load([
+        // Test need for polyfill
+        {
+            test: window.matchMedia,
+            nope: "/opac-tmpl/bootstrap/lib/media.match.min.js"
+        },
+        // and then load enquire
+        "/opac-tmpl/bootstrap/lib/enquire.min.js",
+        "/opac-tmpl/bootstrap/js/script.js"
+    ]);
+
+    // Fix for datepicker in a modal
+    $.fn.modal.Constructor.prototype.enforceFocus = function () {};
+</script>
+
+
+<script type="text/javascript">
+    //<![CDATA[
+    var MSG_CONFIRM_AGAIN = _("Vorsicht: Dies kann nicht rückgängig gemacht werden. Bitte bestätigen Sie nochmals")
+    var MSG_DELETE_SEARCH_HISTORY = _("Sind Sie sicher, dass Sie Ihre Suchhistorie löschen möchten?");
+    var MSG_NO_SUGGESTION_SELECTED = _("Kein Anschaffungsvorschlag ausgewählt");
+    
+        var MSG_BASKET_EMPTY = _("Ihr Korb ist zur Zeit leer");
+        var MSG_RECORD_IN_BASKET = _("Dieser Titel ist bereits in Ihrem Korb");
+        var MSG_RECORD_ADDED = _("Dieser Titel wurde Ihrem Korb hinzugefügt");
+        var MSG_RECORD_REMOVED = _("Dieser Titel wurde aus Ihrem Korb gelöscht");
+        var MSG_NRECORDS_ADDED = _(" Titel zum Korb hinzugefügt");
+        var MSG_NRECORDS_IN_BASKET = _("bereits in Ihrem Korb");
+        var MSG_NO_RECORD_SELECTED = _("Kein Exemplar ausgewählt");
+        var MSG_NO_RECORD_ADDED = _("Es wurde kein Exemplar in den Korb gelegt.");
+        var MSG_CONFIRM_DEL_BASKET = _("Sind Sie sicher, dass Sie Ihren Korb leeren möchten?");
+        var MSG_CONFIRM_DEL_RECORDS = _("Sind Sie sicher, dass Sie die markierten Exemplare löschen möchten?");
+        var MSG_ITEM_IN_CART = _("In Ihrem Korb");
+        var MSG_IN_YOUR_CART = _("Titel in Ihrem Korb: ");
+        var MSG_ITEM_NOT_IN_CART = _("Meinem Korb hinzufügen");
+    
+    
+    
+
+    $(".print-large").on("click",function(){
+        window.print();
+        return false;
+    });
+    $("#ulactioncontainer > ul > li > a.addtoshelf").on("click",function(){
+        Dopop('opac-addbybiblionumber.pl?biblionumber=641451');
+        return false;
+    });
+    $(".addrecord").on("click",function(){
+        addRecord('641451');
+        return false;
+    });
+    $(".cartRemove").on("click",function(){
+        delSingleRecord('641451');
+        return false;
+    });
+    //]]>
+</script>
+
+
+ <script type="text/javascript" src="/opac-tmpl/bootstrap/js/basket.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" src="/opac-tmpl/bootstrap/lib/jquery/plugins/jquery.cookie.min.js"></script>
+<script type="text/javascript">
+$(document).ready(function() {
+    if($('#searchsubmit').length) {
+        $(document).on("click", '#searchsubmit', function(e) {
+            jQuery.removeCookie("form_serialized", { path: '/'});
+            jQuery.removeCookie("form_serialized_itype", { path: '/'});
+            jQuery.removeCookie("form_serialized_limits", { path: '/'});
+            jQuery.removeCookie("num_paragraph", { path: '/'});
+            jQuery.removeCookie("search_path_code", { path: '/'});
+        });
+    }
+});
+</script>
+
+<script type="text/javascript" src="/opac-tmpl/lib/jquery/plugins/jquery.dataTables.min.js"></script>
+<script type="text/javascript">
+//<![CDATA[
+    var MSG_DT_FIRST = _("Erste");
+    var MSG_DT_LAST = _("Letzte");
+    var MSG_DT_NEXT = _("Weiter");
+    var MSG_DT_PREVIOUS = _("Zurück");
+    var MSG_DT_EMPTY_TABLE = _("Keine Daten verfügbar");
+    var MSG_DT_INFO = _("Zeige _START_ bis _END_ von _TOTAL_");
+    var MSG_DT_INFO_EMPTY = _("Keine Einträge anzuzeigen");
+    var MSG_DT_INFO_FILTERED = _("(Auswahl von _MAX_ Einträgen)");
+    var MSG_DT_LENGTH_MENU = _("Zeige _MENU_ Einträge");
+    var MSG_DT_LOADING_RECORDS = _("Lädt...");
+    var MSG_DT_PROCESSING = _("Lädt...");
+    var MSG_DT_SEARCH = _("Suche:");
+    var MSG_DT_ZERO_RECORDS = _("Keine übereinstimmenden Datensätze gefunden");
+    var CONFIG_EXCLUDE_ARTICLES_FROM_SORT = _("ein eine einer eines einem einen der die das dem des");
+//]]>
+</script>
+<script type="text/javascript" src="/opac-tmpl/bootstrap/js/datatables.js"></script>
+
+ <script type="text/javascript" src="https://apis.google.com/js/plusone.js">
+    //<![CDATA[
+      {lang: 'de-DE'}
+    //]]>
+    </script>
+ <script type="text/javascript">!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+
+<script type="text/javascript" src="/opac-tmpl/bootstrap/lib/jquery/plugins/jquery.rating.js"></script>
+
+<script type="text/javascript" src="/opac-tmpl/bootstrap/lib/jquery/plugins/jquery.highlight-3.js"></script>
+
+<script type="text/javascript">
+//<![CDATA[
+
+    
+        function accessDivibibResource(action,divibibID) {
+    $.ajax({
+        url: "/cgi-bin/koha/opac-divibib-access.pl",
+        type: "POST",
+        cache: false,
+        data: { 'divibibID' : divibibID, 'action' : action },
+        dataType: "json",
+        success: function(data) {
+            console.log(data);
+            for (var i=0; i < data.titles.length; i++) {
+                if ( data.titles[i].resultOk == 1 ) {
+                    var win = window.open(data.titles[i].result.URL, '_blank');
+                    win.focus();
+                }
+            }
+        },
+        error: function (data1, data2, data3) {
+            console.log("Error accessing divibib item: ", data1, data2, data3);
+        }
+    });
+}
+function checkDivibibAvalability(idList) {
+    var checkIDs;
+    if ( $.isArray(idList) ) {
+        checkIDs = idList.join(" ");
+    }
+    else {
+        checkIDs = idList;
+    }
+    if ( idList.length == 0 ) {
+        return;
+    }
+    $.ajax({
+        url: "/cgi-bin/koha/opac-divibib-availability.pl",
+        type: "POST",
+        cache: false,
+        data: { divibibID : checkIDs },
+        dataType: "json",
+        success: function(data) {
+            for (var i=0; i < data.titles.length; i++) {
+                var statusDisplay;
+                if ( data.titles[i].resultOk == 1 ) {
+                    var loggedIn=false;
+                    
+                        
+                    
+                    // check whether the item can be loaned
+                    if ( data.titles[i].result.Available > 0 ) {
+                        statusDisplay = '<b><span class="available">Für angemeldete Benutzer zum Download verfügbar.</span></b>';
+                        if ( loggedIn ) {
+                            statusDisplay = '<a href="#" onclick="accessDivibibResource(' + "'loan','" + data.titles[i].result.ItemId + "')" + '">' +
+                                            '<b><span class="available">Verfügbar zum Online-Download.</span></b></a>';
+                        }
+                    }
+                    // check whether the item can be reserved
+                    else if ( data.titles[i].result.Reservable > 0 ) {
+                        // get available date
+                        var availableFrom = data.titles[i].result.DateAvailable.split("-");
+                        // split date fields to year month and day
+                        // and insert the formatted javascriptdate
+                        var formattedDate = availableFrom[2] + "." + availableFrom[1] + "." + availableFrom[0];
+                        statusDisplay = "<b>Verfügbar ab dem " + formattedDate + ". Angemeldete Benutzer können ein Exemplar reservieren.</b>";
+                        if ( loggedIn ) {
+                            statusDisplay = '<a href="#" onclick="accessDivibibResource(' + "'reservation','" + data.titles[i].result.ItemId + "')" + '">' +
+                                            '<b><span class="available">Ein Exemplar ist online verfügbar ab dem ' + formattedDate + ". Hier klicken zum Reservieren.</span></b></a>";
+                        }
+                    }
+                    else {
+                        statusDisplay = "<b>Nicht ausleihbar.</b>";
+                    }
+                }
+                else {
+                    statusDisplay = "<b>Nicht im Bestand.</b>";
+                }
+                $("#Onleihe-"+data.titles[i].result.ItemId).html(statusDisplay);
+                // console.log(data.titles[i]);
+            }
+        },
+        error: function (data1, data2, data3) {
+            var statusDisplay = 'Fehler bei der Abfrage der Vefügbarkeit des Titels der elektronischen Bibliothek.';
+            for (var i=0; i < this.data.divibibID.length; i++) {
+                var id = this.data.divibibID[i];
+                $("#Onleihe-"+id).html(statusDisplay);
+            }
+            console.log("Error retrieving divibib availability information: ", data1, data2, data3);
+        }
+    });
+}
+
+    
+
+    
+        var arrPagination = new Array();
+        var pag_index_ini = 1;
+        
+            
+                arrPagination[1] = {
+                    url:"opac-detail.pl?biblionumber=331032&query_desc=kw%2Cwrdl%3A%20baumschule",
+                    title:"Das Dorf Kieselbronn",
+                    author:"Rudin, Bärbel",
+                    biblionumber:331032
+                };
+           
+                arrPagination[2] = {
+                    url:"",
+                    title:"",
+                    author:"",
+                    biblionumber:641451
+                };
+           
+                arrPagination[3] = {
+                    url:"opac-detail.pl?biblionumber=644346&query_desc=kw%2Cwrdl%3A%20baumschule",
+                    title:"Hochbeete",
+                    author:"Hudak, Renate",
+                    biblionumber:644346
+                };
+           
+        
+    
+
+    
+        var q_array = new Array();  // holds search terms if available
+
+        function highlightOff() {
+            $("#catalogue_detail_biblio").removeHighlight();
+            $(".highlight_toggle").toggle();
+        }
+        function highlightOn() {
+            var x;
+            for (x in q_array) {
+                if ( q_array[x].length > 0 ) {
+                    q_array[x] = q_array[x].replace(/\w*:([\w])/, "$1");
+                    q_array[x] = q_array[x].toLowerCase();
+                    var myStopwords = "and|or|not|und|oder|nicht|der|die|das|ein|einer|eine|the".toLowerCase().split('|');
+                    if( $.inArray(q_array[x], myStopwords) == -1 ) {
+                        $(".title").highlight(q_array[x]);
+                        $(".author").highlight(q_array[x]);
+                        $(".results_summary").highlight(q_array[x]);
+                    }
+                }
+            }
+            $(".highlight_toggle").toggle();
+        }
+    
+
+     $(document).ready(function() {
+        $('#bibliodescriptions').tabs();
+        $(".branch-info-tooltip-trigger").uitooltip({
+            position: { my: "left+15 center", at: "right center" },
+            show: 50,
+            hide: 50,
+            content: function(){
+                var element = $(this).next("div");
+                return element.html();
+            }
+        });
+
+
+        $(".holdingst").dataTable($.extend(true, {}, dataTablesDefaults, {
+            "aoColumns": [
+                null,
+                null,
+                
+                null,
+                null,
+                
+                
+                
+                null,
+                
+                { "sType": "title-string" },
+                null,
+                
+                    null,
+                
+                
+            ]
+        }));
+
+        var query_desc = "kw,wrdl: baumschule";
+            q_array = query_desc.split(" ");
+            q_array = q_array.filter(function(n){ return n }); // Remove empty strings
+            highlightOn();
+            $("#highlight_toggle_on" ).hide().click(function() {highlightOn() ; return false;});
+            $("#highlight_toggle_off").show().click(function() {highlightOff(); return false;});
+    
+    
+
+    
+    
+    
+
+    
+        if (arrPagination.length > 0) {
+            renderPagIndexList(pag_index_ini, $("#listResults"));
+        }
+        $("#a_listResults").click(function(e) {
+            if (arrPagination.length > 0) {
+                e.preventDefault();
+                var navigation = $(".results-pagination");
+                if (navigation.css("display") == 'none') {
+                    navigation.show();
+                    var newtitle = $(this).attr('title').replace('Show', 'Hide')
+                    $(this).attr('title',newtitle);
+                    renderPagination(pag_index_ini, arrPagination.length - 1, $("#ul_pagination_list"), false);
+                } else {
+                    navigation.hide();
+                    var newtitle = $(this).attr('title').replace('Hide', 'Show')
+                    $(this).attr('title',newtitle);
+                }
+            }
+        });
+        $("#close_pagination").click(function(e) {
+            e.preventDefault();
+            var navigation = $(".results-pagination");
+            navigation.hide();
+        });
+    
+
+
+    (function prepareShelfBrowser(){
+
+        $(".main").on("click",".close_shelf",function(e){
+            e.preventDefault();
+            $("#shelfbrowser").toggle();
+        });
+        $(".main").on("click", "#browser_previous a", function(e){
+            e.preventDefault();
+            $.ajax({
+                url: "/cgi-bin/koha/svc/shelfbrowser.pl",
+                type: "POST",
+                data: {
+                    "shelfbrowse_itemnumber": $("#browser_previous a").data( "prev-itemnumber" )
+                },
+                success: function(data){
+                    $("#shelfbrowser").replaceWith(data);
+                    
+                    
+                    
+                    
+                }
+            });
+        });
+
+        $(".main").on("click", "#browser_next a", function(e){
+            e.preventDefault();
+            $.ajax({
+                  url: "/cgi-bin/koha/svc/shelfbrowser.pl",
+                  type: "POST",
+                  data: {
+                    "shelfbrowse_itemnumber": $("#browser_next a").data( "next-itemnumber" )
+                },
+                success: function(data){
+                    $("#shelfbrowser").replaceWith(data);
+                    
+                    
+                    
+                    
+                }
+            });
+        });
+    }());
+
+
+    // -----------------------------------------------------
+    // star-ratings code
+    // -----------------------------------------------------
+    // hide 'rate' button if javascript enabled
+
+    $('input[name="rate_button"]').remove();
+
+    $(function () {
+      $(".auto-submit-star").rating({
+        callback: function (value, link) {
+
+          // if the new value equals the old value, dont execute callback...
+          // just do nothing!
+          if ($("#rating_value").attr("value") != value) {
+
+            $(function () {
+
+              $.post("/cgi-bin/koha/opac-ratings-ajax.pl", {
+                rating_old_value: $("#rating_value").attr("value"),
+                borrowernumber: "",
+                biblionumber: "641451",
+                rating_value: value,
+                auth_error: value
+              }, function (data) {
+
+                if (data.auth_status != 'ok') {
+                  window.alert(_("Ihr Cookie ist nicht aktuell. Bitte aktualisieren Sie die Seite und versuchen Sie es erneut."));
+                } else {
+                  $("#rating_value").val(data.rating_value);
+
+                  if (data.rating_value) {
+                    $("#rating_value_text").text(_("Ihre Bewertung: ") + data.rating_value + ", ");
+                  } else {
+                    $("#rating_value_text").text('');
+                  }
+
+                  $("#rating_text").text(_("Durchschnittliche Bewertung: ") + data.rating_avg_int + " (" + data.rating_total + ' ' + _("Stimmen") + ")");
+
+                }
+              }, "json");
+            });
+          };
+        }
+      });
+    });
+    // -----------------------------------------------------
+
+
+
+
+});
+    
+
+    
+        var timeoutRFW;
+        var totalPagItemList = 10;
+
+        function rewindList()
+        {
+            var ul = $("#listResults");
+            var li_ini = ul.children(':first').next();
+            var index_ini = pag_index_ini;
+            if (li_ini) {
+                index_ini = parseInt(li_ini.attr("class").substring(7), 10);
+            }
+            var li_end = ul.children(':last').prev();
+            var index_end = arrPagination.length - 1;
+            if (li_end) {
+                index_end = parseInt(li_end.attr("class").substring(7), 10);
+            }
+            if (index_ini > pag_index_ini) {
+                renderPagIndexList(index_ini - 1, ul, false);
+                renderPagination(index_ini - 1, arrPagination.length - 1, $("#ul_pagination_list"), true);
+            }
+        }//rewindList
+
+        function forwardList()
+        {
+            var ul = $("#listResults");
+            var li_ini = ul.children(':first').next();
+            var index_ini = pag_index_ini;
+            if (li_ini) {
+                index_ini = parseInt(li_ini.attr("class").substring(7), 10);
+            }
+            var li_end = ul.children(':last').prev();
+            var index_end = arrPagination.length - 1;
+            if (li_end) {
+                index_end = parseInt(li_end.attr("class").substring(7), 10);
+            }
+            if (index_end < arrPagination.length - 1) {
+                renderPagIndexList(index_ini + 1, ul, false);
+                renderPagination(index_ini + 1, arrPagination.length - 1, $("#ul_pagination_list"), true);
+            }
+        }//forwardList
+
+        function renderPagIndexList(index, ul)
+        {
+            var $kids = ul.children("li");
+            if ($kids.length > 0) {
+                $kids.each(function() {
+                    $(this).remove();
+                });
+            }
+            var li;
+            var html = "";
+            var ini = index - 1;
+            var end = ini + totalPagItemList - 1;
+            li = $("<li />");
+            html = (index > pag_index_ini)?"<a href='#' id='rew_list_index' onclick='rewindList()' title='" + _("Zurückblättern auf") + " " + ini + " - " + end + "'>&laquo;</a>":"&laquo;";
+            li.html(html);
+            ul.append(li);
+            var title = "";
+            for (var i=index; i < arrPagination.length && i < index + totalPagItemList; i++) {
+                if (arrPagination[i] == undefined) continue;
+                var li = $("<li />");
+                if (arrPagination[i].url != "") {
+                    title = _("Zeige Titel") + " &quot;" + arrPagination[i].title + "&quot; ";
+                    if (arrPagination[i].author != "") title += " " + _("von") + "&quot;" + arrPagination[i].author + "&quot;";
+                    title += " " + _("mit Titelsatznr.") + " " + arrPagination[i].biblionumber;
+                    html = "<a href='" + arrPagination[i].url + "' title='" + title + "' class='a_pag' id='a_pag_" + i + "'";
+                    html += " onmouseover='renderPagination(" + i + ", " + (arrPagination.length - 1) + ", $(\"#ul_pagination_list\"), true)'";
+                    html += ">" + i + "</a>";
+                } else html = i;
+                li.html(html);
+                li.attr("class", "li_pag_" + i);
+                ul.append(li);
+            }
+            li = $("<li />");
+            ini = index + 1;
+            end = (arrPagination.length > index + totalPagItemList)?index + totalPagItemList:arrPagination.length - 1;
+            html = (end <= arrPagination.length - 1 && (end - index) >= totalPagItemList)?"<a href='#' id='fw_list_index' onclick='forwardList()' title='" + _("Weiterblättern zu") + " " + ini + " - " + end + "'>&raquo;</a>":"&raquo;";
+            li.html(html);
+            ul.append(li);
+        }//renderPagIndexList
+
+
+        function renderPagination(index, total, ul, highlIndex)
+        {
+            for (var i = pag_index_ini; i <= total; i++) {
+                if (arrPagination[i] == undefined || arrPagination[i].url == "") continue;
+                $("#li_pag_" + i).remove();
+            }
+            var j = 0;
+            for (var i = index; i <= total && j < totalPagItemList; i++) {
+                if (arrPagination[i] == undefined || arrPagination[i].url == "") continue;
+                var li = $("<li id='li_pag_" + i + "' " + ((j % 2 == 0)?"class='highlight'":"")  + " title='" + _("Zurück auf Detailansicht") + "' />");
+                var html = "<span class='li_pag_index'>" + i + "</span><a href='" + arrPagination[i].url + "'>" + arrPagination[i].title + "</a>";
+                if (arrPagination[i].author) html += "<br /> " + _("von") + " " + arrPagination[i].author;
+                li.html(html);
+                if (highlIndex && i == index) li.css("backgroundColor", "#DDDDDD");
+                ul.append(li);
+                j++;
+            }
+            for (i = pag_index_ini; i < index && j < totalPagItemList; i++) {
+                if (arrPagination[i] == undefined || arrPagination[i].url == "") continue;
+                $("#li_pag_" + i).remove();
+                var li = $("<li id='li_pag_" + i + "' " + ((j % 2 == 0)?"class='highlight'":"")  + " title='" + _("Zurück auf Detailansicht") + "' />");
+                var html = "<span class='li_pag_index'>" + i + "</span><a href='" + arrPagination[i].url + "'>" + arrPagination[i].title + "</a>";
+                if (arrPagination[i].author) html += "<br /> " + _("von") + " " + arrPagination[i].author;
+                li.html(html);
+                ul.append(li);
+                j++;
+            }
+        }//renderPagination
+    
+
+    
+    
+    //init dotdotdot
+    $(document).ready(function() {
+        $(".truncable-txt").dotdotdot({
+            ellipsis    : ' ... ',
+            wrap        : 'word',
+            after       : "a.truncable-txt-readmore",
+            watch       : true,
+            height      : 50,
+            callback : function( isTruncated, orgContent ) {
+                var self = $( this );
+                self.find(".truncable-txt-readmore").click(function(){
+                    toggleRead($(this));
+                });
+        
+                //if no more text to show hide read more link
+                if(!isTruncated){                        
+                    self.find("a.truncable-txt-readmore").css("display","none");
+                }
+        
+            }
+        });
+    });
+
+    // Toggle truncation
+    function toggleRead(caller) {
+        var callerText = $(caller).text();
+        var parent = $(caller).closest(".truncable-txt");
+        var isTruncated = $(parent).triggerHandler("isTruncated");
+        if (isTruncated) {        
+            // Remove ellipsis
+            $(parent).trigger("destroy.dot");
+            // Update text - have to be clever about it, since destroy overwrites after element text values apparently
+            $(parent).find("a").html(" &laquo; Weniger lesen");
+            // Re-add click function since I guess destroy also removes this
+            $(parent).find("a").click(function () {
+                toggleRead(this);
+            });
+        } else {       
+            // Update text
+            $(parent).find("a").html("Mehr lesen &raquo;");
+        
+            // Re-add ellipsis
+            $(parent).dotdotdot({
+                ellipsis    : ' ... ',
+                wrap        : 'word',
+                after       : "a.truncable-txt-readmore",
+                watch       : true,
+                height      : 50
+            });
+      
+            // Have to re-add click function again, not totally sure why
+            $(parent).find("a").click(function () {
+                toggleRead(this);
+            });
+        }
+    }
+//]]>
+</script>
+
+<script src="/webcustom/js/lmscloud-bibtip.js" type="text/javascript"></script>
+<script src="/opac-tmpl/bootstrap/js/jquery.dotdotdot.min.js" type="text/javascript"></script>
+
+
+ <script type="text/javascript">
+        //<![CDATA[
+        $( document ).ready(function() {
+  $(".view a:contains('MARC')").hide();
+  $("#availability_facet").hide();
+  $("span.title_resp_stmt").hide();
+
+  $(".link-collection-collapse-toggle").on("click",function(e){
+        e.preventDefault();
+        $(this).toggleClass("menu-open");
+        // $(".link-collection-collapse-entries").toggle();
+        $($(this).attr("href")).toggle();
+    });
+    $("#opac-suggestions #itemtype").after("<span style='color: #C00; vertical-align: top'>    Bitte wählen Sie den Medientyp aus.</span>");
+    $("#opac-suggestions #branch").after("<span style='color: #C00; vertical-align: top'>    Bitte wählen Sie die Zweigstelle aus, für die das Medium beschaft werden soll.</span>");
+    $("#opac-usersuggestions #itemtype").after("<span style='color: #C00; vertical-align: top'>    Bitte wählen Sie den Medientyp aus.</span>");
+    $("#opac-usersuggestions #branch").after("<span style='color: #C00; vertical-align: top'>    Bitte wählen Sie die Zweigstelle aus, für die das Medium beschaft werden soll.</span>");
+});
+
+
+        //]]>
+    </script>
+
+
+</body>
+</html>
+
+
+
+
+
+
+

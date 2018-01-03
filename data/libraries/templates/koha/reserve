@@ -1,0 +1,5 @@
+    <form t:condition="contains(@action, 'reserve')">
+     {let $input := css("td.barcode")[contains(., $holding.id)]/..//input[starts-with(@name, "checkitem_")]
+      return if (exists($input)) then reserve := form(., $input)
+      else vl:raise-internal("Dieses Exemplar konnte nicht vorgemerkt werden.")
+    }</form>

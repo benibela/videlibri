@@ -1,0 +1,21 @@
+book := {}
+books-deleted := true()
+prestatus := ()
+prestatus := "Details: file:///cgi-bin/koha/opac-detail.pl?biblionumber=512202"
+prestatus := ("Details: file:///cgi-bin/koha/opac-detail.pl?biblionumber=512202", 
+text{"(3 von 3 Verlängerungen möglich)"})
+prestatus := ("Details: file:///cgi-bin/koha/opac-detail.pl?biblionumber=512202", 
+text{"(3 von 3 Verlängerungen möglich)"}, 
+text{"Gebühren:
+  Nein"})
+book := {"statusId": "curious", "status": "Gebühren:\n  Nein; (3 von 3 Verlängerungen möglich); Details: file:///cgi-bin/koha/opac-detail.pl?biblionumber=512202", "_item": "65911", "id": " Thriller", "duedate": "2018-01-20T23:59:00", "author": " Schwarz, Åsa ", "title": "Nephilim"}
+prestatus := ()
+prestatus := "Details: file:///cgi-bin/koha/opac-detail.pl?biblionumber=502970"
+prestatus := ("Details: file:///cgi-bin/koha/opac-detail.pl?biblionumber=502970", 
+text{"(3 von 3 Verlängerungen möglich)"})
+prestatus := ("Details: file:///cgi-bin/koha/opac-detail.pl?biblionumber=502970", 
+text{"(3 von 3 Verlängerungen möglich)"}, 
+text{"Gebühren:
+  Nein"})
+book := {"statusId": "curious", "status": "Gebühren:\n  Nein; (3 von 3 Verlängerungen möglich); Details: file:///cgi-bin/koha/opac-detail.pl?biblionumber=502970", "_item": "120112", "id": " CD Folk Country Song", "duedate": "2018-01-05T23:59:00", "author": "  ", "title": "Bis nach Toulouse"}
+renew-form := {"method": "POST", "post": "borrowernumber=40297&from=opac_user", "url": "file:///cgi-bin/koha/opac-renew.pl"}

@@ -1,0 +1,89 @@
+<actions>
+
+<meta>
+  <description>Template für Koha-System</description>
+  <variable name="baseurl"><description>Web-URI der Bibliothek</description></variable>  
+</meta>
+
+
+<action id="connect">
+  <s>kohaurl := $baseurl || "/cgi-bin/koha/"</s>
+</action>
+
+<action id="internal-login"> 
+  <page url="{$kohaurl}opac-user.pl">
+    <post name="userid" value="{$username}"/>
+    <post name="password" value="{$password}"/>
+  </page>
+</action>
+
+
+<action id="update-all">
+  <call action="internal-login"/>
+  <pattern href="user"/>
+</action>
+
+<action id="renew-list">
+  <s>req := request-combine($renew-form, $renew-books!{"item": (.)._item})</s>
+  <page url="{$req}"/>
+  <call action="update-all"/>
+</action>
+
+<action id="search-connect">
+  <s>kohaurl := $baseurl || "/cgi-bin/koha/"</s>
+  <page url="{$kohaurl}opac-search.pl">
+  </page>
+  <pattern>
+   <select name="limit" id="branchloop" >
+     {search-branches := option, search-branches-value := option/@value}
+   </select>
+  </pattern>
+</action>
+
+<action id="search">
+  <s>search-keys := {"author": "au,wrdl", "title": "ti", "keywords": "su,wrdl", "isbn": "nb", "year": ""},
+  req:=$kohaurl || "opac-search.pl?sort_by=relevance&count=20&" || string-join((for $key in jn:keys($search-keys) let $value := $book($key) where boolean($value) return
+    switch ($key) 
+      case "year" return "limit-yr=" || uri-encode($value)
+      default return ("idx="||uri-encode($search-keys($key)), "q="||uri-encode($value), "op=and")
+   ), $amp)</s>
+  <page url="{$req}" templateFile="search"/>
+  <s>$search-next-page-available:=$search-result-count > 20,offset:=0</s>
+</action>
+
+<action id="search-next-page">
+  <s>offset := $offset + 20</s>
+  <page url="{$req}&offset={$offset}" templateFile="search"/>
+  <s>$search-next-page-available:=$search-result-count > 20 + $offset</s>
+</action>
+
+<action id="search-details">
+  <page url="{$book.home-url}" templateFile="searchDetails"/>
+</action>
+
+<action id="order-single">
+  <s>req:=$kohaurl || "opac-reserve.pl?" || extract($book.home-url, "biblionumber=([0-9]+)")</s>
+  <if test="not(get('loggedIn', false()))">
+  <page url="{$kohaurl}opac-user.pl">
+    <post name="koha_login_context" value="opac" />
+    <post name="userid" value="{$username}"/>
+    <post name="password" value="{$password}"/>
+  </page>
+<!--    <call action="internal-login"/>-->
+    <s>loggedIn:=true()</s>
+  </if>
+  <page url="{$req}" templateFile="reserve"/>
+  <page url="{$reserve}"/>
+</action>
+
+<action id="cancel-list">
+  <loop var="b" list="$cancel-books"> 
+    <s>form:=json($b._cancel-form)</s>
+    <page url="{$form}"> </page>     
+  </loop>
+<!--  <call action="update-all"/>-->
+  <pattern href="user"/>
+</action>
+
+
+</actions>
