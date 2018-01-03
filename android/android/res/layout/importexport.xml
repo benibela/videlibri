@@ -4,7 +4,8 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <view class="de.benibela.videlibri.ImportExport$ScrollViewInterceptor"
+    <view
+        class="de.benibela.videlibri.ImportExport$ScrollViewInterceptor"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="1">
@@ -24,8 +25,9 @@
                 android:padding="@dimen/optionheaderpadding"
                 android:text="New Text" />
 
-            <view class="de.benibela.videlibri.ImportExport$MaxHeightListView"
+            <view
                 android:id="@+id/listView"
+                class="de.benibela.videlibri.ImportExport$MaxHeightListView"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="top"
@@ -40,8 +42,9 @@
                 android:padding="@dimen/optionheaderpadding"
                 android:text="New Text" />
 
-            <view class="de.benibela.videlibri.ImportExport$MaxHeightListView"
+            <view
                 android:id="@+id/listView1"
+                class="de.benibela.videlibri.ImportExport$MaxHeightListView"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="top" />
@@ -54,12 +57,28 @@
                 android:padding="@dimen/optionheaderpadding"
                 android:text="New Text" />
 
-            <EditText
-                android:id="@+id/edit"
-                android:layout_width="fill_parent"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:orientation="horizontal"
                 android:layout_gravity="top"
-                android:text="New EditText" />
+                >
+
+                <EditText
+                    android:id="@+id/edit"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="New EditText" />
+
+                <Button
+                    android:id="@+id/buttonChoose"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right"
+                    android:layout_weight="0"
+                    android:text=".." />
+            </LinearLayout>
         </LinearLayout>
     </view>
 
@@ -68,6 +87,6 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="top"
-        android:text="New Button"
-        android:layout_weight="0"/>
+        android:layout_weight="0"
+        android:text="New Button" />
 </LinearLayout>
