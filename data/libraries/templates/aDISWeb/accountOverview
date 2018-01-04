@@ -9,7 +9,7 @@
   <t:switch t:optional="true">
   <td>Keine Bestellungen/Magazin<t:s>orderedMagazinePage:=""</t:s></td>
   <a>Bestellung/Magazin zeigen<!-- oder löschen--><t:s>orderedMagazinePage := @href</t:s></a>
-  <a>Bestellungen/Magazin zeigen oder löschen . <!-- oder löschen--><t:s>orderedMagazinePage := @href</t:s></a>
+  <a>Bestellungen/Magazin zeigen<!-- oder löschen--><t:s>orderedMagazinePage := @href</t:s></a>
   </t:switch>
 
 <!--  Keine Bestellungen/Magazin .  ? -->
