@@ -109,7 +109,7 @@
     <RunParams>
       <local>
         <FormatVersion Value="1"/>
-        <CommandLineParams Value="--user-path \tmp\vl\ --log --http-log-path \tmp\vl2 --debug"/>
+        <CommandLineParams Value="--autostart"/>
       </local>
     </RunParams>
     <RequiredPackages Count="4">

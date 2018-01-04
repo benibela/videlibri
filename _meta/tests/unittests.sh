@@ -241,7 +241,12 @@ PAGES=(${PAGES[@]} digibib/search.html digibib/search2.html digibib/details.html
 
 test digibib list list.html list.empty.html 
 
-
+#=============KOHA==============
+mkdir -p $OUTPATH/koha
+test koha user user.2.en.pf.htm user.2.pf.htm user.adminkuhn.htm user.holds.en.pf.htm
+test koha searchDetails searchDetails.ebook.pf.htm searchDetails.2.pf.htm
+#test koha 
+#test koha reserve'{holding:={"id":123}}' reserve.pf.htm
 
 #echo $OUTPATH/stderr
 #echo > $OUTPATH/stderr

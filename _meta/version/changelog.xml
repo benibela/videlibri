@@ -1,10 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?xml-stylesheet type="text/xsl" href="../changelog.xsl"?>
 <changelog program="VideLibri">
-      <build version="1955" date="2017-12-11">
+      <build version="1960" date="2018-01-04">
         <download url="http://videlibri.sourceforge.net/updates/videlibri-setup.exe" platform="WINDOWS" execute="&quot;$DOWNLOAD&quot;  /SP- /noicons &quot;/dir=$OLDPATH&quot; " restart="true"/>
         <download url="http://videlibri.sourceforge.net/updates/videlibri-linux32.deb" platform="LINUX32" execute=""/>
         <download url="http://videlibri.sourceforge.net/updates/videlibri-linux64.deb" platform="LINUX64" execute=""/>
+	<change>android: Ersetze den Kontoauswahl-Spinner durch einen Button; verwende einen Standard Android-Einstellungsdialog anstatt einem selbstentwickelten; verbessertes Import/Export-Layout. </change>
+	<add>Unterstützung für Koha/LMSCloud</add>
+        <fix>Bibliothek Cottbus, Trier, HMT Leipzig, SLUB Dresden: Neues HTTPS-Zertifikat.</fix>
+        <fix>Stadtbibliothek Pforzheim: Umstellung auf Koha System.</fix>
+        <fix>sisis: Anzeige des Verlängerungsstatus.</fix>
+        <fix>dhbw-Heidenheim: neue Webseite.</fix>
+     </build>
+      <build version="1955" date="2017-12-11">
         <change>Übersichtlicheres Debug-Log.</change>
 	<fix>VÖBB: Anpassung an geänderte Links, die nicht mehr zum Login/Suche gefunden wurden.</fix>
         <fix>Stadtbücherei Weimar: Neue OPAC-Adresse.</fix>
