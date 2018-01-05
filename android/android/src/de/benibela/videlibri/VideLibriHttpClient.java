@@ -1,5 +1,6 @@
 package de.benibela.videlibri;
 
+import android.os.Build;
 import android.util.Log;
 import org.apache.http.Header;
 import org.apache.http.HttpVersion;
@@ -267,12 +268,14 @@ public class VideLibriHttpClient extends DefaultHttpClient {
             return new SSLSocketFactoryWithAdditionalLazyKeyStore(new LazyLoadKeystore(){
                 @Override
                 protected KeyStore loadStore() {
+                    final String password = "psswrd"; // length must be at most 7 ??: https://stackoverflow.com/a/12528853
                     final KeyStore ks;
                     try {
                         ks = KeyStore.getInstance("BKS");
-                        final InputStream in = VideLibriApp.instance.getResources().openRawResource( R.raw.keystore);
+                        int keystore = Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1 ? R.raw.keystore : R.raw.keystoreold; //https://stackoverflow.com/a/33197845
+                        InputStream in = VideLibriApp.instance.getResources().openRawResource( keystore );
                         try {
-                            ks.load(in, ( "password" ).toCharArray());
+                            ks.load(in, ( password ).toCharArray());
                         } finally {
                             in.close();
                         }
