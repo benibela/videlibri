@@ -1235,7 +1235,12 @@ begin
     booksOverdue.Free;
 
     lastWarnDate:=currentDate;
-    userConfig.WriteInteger('base','last-warn-date',currentDate);
+    try
+      userConfig.WriteInteger('base','last-warn-date',currentDate);
+    except
+      on e: EStreamError do ; //bug report: de.benibela.videlibri.Bridge$InternalError: Interner Fehler: Stream write error at de.benibela.videlibri.Bridge.VLGetNotifications(Native Method)
+
+    end;
   except
     on e: Exception do j.ThrowNew('de/benibela/videlibri/Bridge$InternalError', 'Interner Fehler: '+e.Message);
   end;
