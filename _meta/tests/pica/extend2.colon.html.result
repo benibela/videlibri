@@ -1,6 +1,6 @@
 id-list := 12/435:X XYZ
 book := {}
-tempbook := {"duedate": "2017-07-17", "status": "ausgeliehen (0 Mahnung(en));", "select(id)": "LB:QC:49/2"}
+tempbook := {"duedate": "2017-07-17", "status": "ausgeliehen (0 Mahnung(en));", "select(id)": "LB:QC:49/2;1"}
 need-update := true()
 tempbook := {"duedate": "2017-07-17", "status": "ausgeliehen (0 Mahnung(en));", "select(id)": "VK 2760 2006 A 185"}
 need-update := true()

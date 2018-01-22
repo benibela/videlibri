@@ -11,7 +11,7 @@
         <tr><td class="plain"> <!--TITEL/AUTOR--></td></tr>
         <tr><td>
           <span class="label-small">Signatur:<!--shelf mark--></span>
-          {$tempbook := { "select(id)": extract(text(),'[^;]*') }}
+          {$tempbook := { "select(id)": replace(text(),"(;\s*|\s+)$", "") }}
           <span class="label-small"><!--status:-->Status:</span>
           {$tempbook.status := text()}
           <span class="label-small">Leihfristende:<!--expiry date:--></span>
@@ -36,11 +36,11 @@
         <tr><td class="plain"> <!--TITEL/AUTOR--></td></tr>
         <tr><td>
           <span class="label-small">Signatur:<!--shelf mark--></span>
-          {book:=object(("select(id)", extract(text(),'[^;]*')))}
+          {book:={ "select(id)": replace(text(),"(;\s*|\s+)$", "")} }
           <span class="label-small"><!--???:-->Verweigerungsgrund:</span>
           <template:read var="book.status:problematic" source="text()"/>
           <span class="label-small">Leihfristende:<!--expiry date:--></span>
-          <template:read source="parse-date(text(), 'dd-mm-yyyy')" var="book.duedate"/>
+          {$book.duedate := parse-date(text())}
         </td></tr>
       </table>
     </td>

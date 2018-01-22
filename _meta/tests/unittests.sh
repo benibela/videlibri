@@ -115,7 +115,7 @@ ADDTEMPLATE pica/update 4
 PAGES=(${PAGES[@]} pica/update3.html pica/update_abholen.html pica/update_luebeck.html pica/update_vormerk.khsb.html)
 
 #use join, because test blows up with a space
-test pica 'extend{id-list:=join\(\(\"12/435:X\",\"XYZ\"\)\)}' extend2.html extend2.colon.html
+test pica 'extend{id-list:=join\(\(\"12/435:X\",\"XYZ\"\)\)}' extend2.html extend2.colon.html extend.colon.html
 
 test pica 'searchDetails{\(\)/\(base:=\"\"\)}' searchDetails.html searchDetails.swb.html
 
@@ -280,6 +280,7 @@ for ((i=0;i<${#TEMPLATES[@]};i++)); do
     declare function vl:choose(\\\$a,\\\$b,\\\$c,\\\$d) { message-choose :=  join((\\\$a,\\\$b,\\\$c,\\\$d))};
     declare function vl:raise(\\\$x) { raised := \\\$x }; 
     declare function vl:raise-login(\\\$x) { raised := \\\$x }; 
+    declare function vl:raise-internal(\\\$x) { raised := \\\$x }; 
     ()\""
 
   #echo $TEMPLATEPARSER $FUNCTIONS $EXTRA $TEMPLATEPARSERARGS $INPATH/${PAGES[i]} --extract-file=$TFILE  
