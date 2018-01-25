@@ -123,8 +123,9 @@ clean-java)
 ;;
 
 brokenServers)
-   export PASSWORD=password
+   export PASSWORD=psswrd
    export KEYSTORE=android/res/raw/keystore.bks 
+   export KEYSTOREOLD=android/res/raw/keystoreold.bks 
    export SERVERLIST=../data/libraries/brokenServers.list
    export RESSERVERLIST=android/res/values/brokenServers.xml
    export TMPFILE=__vl__certificate.pem
@@ -134,15 +135,16 @@ brokenServers)
    #/usr/lib/jvm/java-6-sun/jre/bin/keytool
    export BOUNCYCASTLE=/usr/share/java/bcprov-1.58.jar
    FINGERPRINTFILE=keystore.bks.fingerprints
+   FINGERPRINTFILEOLD=keystoreold.bks.fingerprints
    TEMPKEYSTORE=__vl__keystore.bks 
+
 
 
    echo '<?xml version="1.0" encoding="utf-8"?>' > $RESSERVERLIST
    echo "<resources>" >> $RESSERVERLIST
    echo '<string-array name="broken_servers">' >> $RESSERVERLIST
    
-   rm $KEYSTORE
-   rm $FINGERPRINTFILE
+   rm $KEYSTORE $KEYSTOREOLD $FINGERPRINTFILE $FINGERPRINTFILEOLD
    i=0
    while read server; do
      if [[ -n "$server" ]]; then      
@@ -169,12 +171,18 @@ brokenServers)
          echo FAIL >> $FINGERPRINTFILE
        else
          keytool -list -keystore $KEYSTORE -provider org.bouncycastle.jce.provider.BouncyCastleProvider -providerpath $BOUNCYCASTLE -storetype BKS -storepass $PASSWORD  | grep -E "trusted|fingerprint" | while read line1; do read line2; echo "$line1: $line2"; done | sort -n | tail -1  | sed -Ee 's/,[^:]+,//' >> $FINGERPRINTFILE
+         
+         
+         echo -en "$server\t" >> $FINGERPRINTFILEOLD
+         yes | $KEYTOOL       -import       -v       -trustcacerts       -alias $i       -file <(openssl x509 -in $TMPFILE)       -keystore $KEYSTOREOLD       -storetype BKS-V1       -provider org.bouncycastle.jce.provider.BouncyCastleProvider       -providerpath $BOUNCYCASTLE       -storepass $PASSWORD
+         keytool -list -keystore $KEYSTOREOLD -provider org.bouncycastle.jce.provider.BouncyCastleProvider -providerpath $BOUNCYCASTLE -storetype BKS-V1 -storepass $PASSWORD  | grep -E "trusted|fingerprint" | while read line1; do read line2; echo "$line1: $line2"; done | sort -n | tail -1  | sed -Ee 's/,[^:]+,//' >> $FINGERPRINTFILEOLD
        fi
        
        ((i=i+1))
      fi
    done <  $SERVERLIST
 
+   echo "<item>CN=*.itk-rheinland.de</item>" >> $RESSERVERLIST
    echo '</string-array>' >> $RESSERVERLIST
    echo "</resources>" >> $RESSERVERLIST
    
@@ -183,6 +191,7 @@ brokenServers)
    echo
    
     $KEYTOOL -list -keystore $KEYSTORE -provider org.bouncycastle.jce.provider.BouncyCastleProvider -providerpath $BOUNCYCASTLE -storetype BKS -storepass $PASSWORD
+    $KEYTOOL -list -keystore $KEYSTOREOLD -provider org.bouncycastle.jce.provider.BouncyCastleProvider -providerpath $BOUNCYCASTLE -storetype BKS-V1 -storepass $PASSWORD
    
    echo 
    echo
@@ -194,6 +203,10 @@ brokenServers)
 
    #keytool -list -keystore $KEYSTORE -provider org.bouncycastle.jce.provider.BouncyCastleProvider -providerpath $BOUNCYCASTLE -storetype BKS -storepass $PASSWORD  | grep -E "trusted|fingerprint" | while read line1; do read line2; echo "$line1: $line2"; done | sort -n | paste ../data/libraries/brokenServers.list - | sed -Ee 's/, *[A-Za-z]{3} *[0-9]+, *[0-9]{4},//' | tee keystore.bks.fingerprints
    cat $FINGERPRINTFILE
+   if ! diff $FINGERPRINTFILE $FINGERPRINTFILEOLD; then 
+     echo OLD NEW FINGERPRINT MISMATCH
+   fi
+   
 
    
    rm $TMPFILE

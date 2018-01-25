@@ -26,6 +26,8 @@
 <item>CN=bibliothek.hannover-stadt.de</item>
 <item>CN=stadtbuecherei.kiel.de</item>
 <item>CN=service.filderstadt.de</item>
+<item>CN=*.itk-rheinland.de</item>
+<item>CN=webopac.itk-rheinland.de</item>
 <item>CN=opac-duesseldorf.itk-rheinland.de</item>
 <item>CN=opac-dormagen.itk-rheinland.de</item>
 <item>CN=opac-meerbusch.itk-rheinland.de</item>

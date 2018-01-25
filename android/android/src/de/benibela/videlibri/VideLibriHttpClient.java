@@ -184,8 +184,10 @@ class SSLSocketFactoryWithAdditionalLazyKeyStore extends SSLSocketFactory {
          */
         public void checkServerTrusted(X509Certificate[] chain, String authType) throws CertificateException {
 
+            String name = "";
             if (chain.length > 0) {
-                String name = chain[0].getSubjectDN().toString();
+                name = chain[0].getSubjectDN().toString();
+                //Log.i("VIDELIBRI", "HTTPS: subjectDN: " + name);
                 for (String bs: VideLibriHttpClient.BrokenServers)
                     if (name.startsWith(bs)) {
                         //Only check the first certificate in the chain for the libraries we have the certificates in the keystore
@@ -197,6 +199,7 @@ class SSLSocketFactoryWithAdditionalLazyKeyStore extends SSLSocketFactory {
                         //    fails with java.lang.RuntimeException: java.lang.RuntimeException: error:0407006A:rsa routines:RSA_padding_check_PKCS1_type_1:block type is not 01 (SHA-1)
 
                         chain = new X509Certificate[]{ chain[0] };
+                        //Log.i("VIDELIBRI", "HTTPS: chosen: " + bs);
                     }
             }
 
@@ -205,7 +208,9 @@ class SSLSocketFactoryWithAdditionalLazyKeyStore extends SSLSocketFactory {
                 try {
                     tm.checkServerTrusted(chain, authType);
                     return;
-                } catch (CertificateException e){ /*ignore*/ }
+                } catch (CertificateException e){
+                    Log.d("VideLibri", "HTTPS Error: ", e);
+                }
 
             for (int i=originalTrustManagers.size()-1;i>=0;i--)
                 try {
@@ -213,8 +218,12 @@ class SSLSocketFactoryWithAdditionalLazyKeyStore extends SSLSocketFactory {
                     //cachedAdditionalTrustManagers.add(originalTrustManagers.get(i));
                     //originalTrustManagers.remove(i);
                     return;
-                } catch (CertificateException e){ /*ignore*/ }
-                catch (RuntimeException re) { /* ignore */ }
+                } catch (CertificateException e){
+                    Log.d("VideLibri", "HTTPS Error: ", e);
+                }
+                catch (RuntimeException re) {
+                    Log.d("VideLibri", "HTTPS Error: ", re);
+                }
 
             //only load additional keystores when the system ones failed
             if (additionalKeystores != null) {
@@ -232,10 +241,10 @@ class SSLSocketFactoryWithAdditionalLazyKeyStore extends SSLSocketFactory {
                     additionalTrustManagers.remove(i);
                     return;
                 } catch (CertificateException e) {
-                    //ignore
+                    Log.d("VideLibri", "HTTPS Error: ", e);
                 }
 
-            throw new CertificateException("Ungültiges Serverzertifikat.");
+            throw new CertificateException("Ungültiges Serverzertifikat für "+name);
         }
 
         public X509Certificate[] getAcceptedIssuers() {
