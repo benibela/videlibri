@@ -59,7 +59,7 @@
   </loop>
     
   <if test="$i < 100">
-  <s>vl:raise("Zuviele Weiterleitungen beim Login. ")</s>
+  <s>vl:raise-internal("Zuviele Weiterleitungen beim Login. ")</s>
   </if>
     
   <s>videlibri:delete-current-books()</s>
