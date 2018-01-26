@@ -142,7 +142,7 @@
     <string name="lay_feedback_caption_play">Per Google Play Store:</string>
     <string name="lay_feedback_caption_acra">Per ACRA für Fehlerberichte (enthält debug log):</string>
     <string name="lay_feedback_send">absenden</string>
-    <string name="lay_feedback_acra">ACRA Fehlerbericht erstellen</string>
+    <string name="lay_feedback_acra">abstürzen, um Crash-Report zu senden</string>
     <string name="lay_feedback_label_includeerrors">Fehlermeldungen mitsenden</string>
     <string name="lay_feedback_label_includepagesanonymized">Struktur der zuletzt aufgerufenen Katalogseiten
         anonymisiert mitsenden
