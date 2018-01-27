@@ -10,7 +10,7 @@
 </action>
 
 <action id="update-all">
-  <page url="https://ausleihe.staatsbibliothek-berlin.de/opac/user.S?LANG=de&FUNC=medk&DUM1=&BENUTZER={uri-encode($username)}&PASS={xs:string(string-to-base64Binary($password))}" templateFile="update"/>
+  <page url="https://ausleihe.staatsbibliothek-berlin.de/opac/user.S?LANG=de&FUNC=medk&DUM1=&BENUTZER={uri-encode($username)}&PASS={uri-encode(xs:string(string-to-base64Binary($password)))}" templateFile="update"/>
 <!--  <error templateFile="loginError"/>-->
 </action>
 
