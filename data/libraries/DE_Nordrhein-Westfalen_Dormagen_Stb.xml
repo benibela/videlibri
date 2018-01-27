@@ -6,5 +6,5 @@
   <template value="aDISWeb"/>
   <variable name="server" value="opac-dormagen.itk-rheinland.de/"/>
 
-  <homepage value="https://dormagen.de/bildung-kultur/stadtbibliothek/"/>
+  <homepage value="https://dormagen.de/kunst-kultur/stadtbibliothek-dormagen/"/>
 </library>
