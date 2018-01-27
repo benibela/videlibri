@@ -13,7 +13,7 @@
   <td>
     <t:read var="book.status:problematic" source="deep-text()"/>  
     <a t:optional="true">
-      <t:read var="book.status:curious"/>
+      <t:read var="book.status:curious" source="(ancestor::table[1]//tr[contains(.,  'Anzahl Verlängerungen')]/td)[last()]"/>
       <t:read var="book.extendLink" source="@href"/>
       Jetzt verlängern
     </a>

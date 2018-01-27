@@ -1,0 +1,2 @@
+book := {}
+book := {"extendLink": "https://katalog.ub.uni-duesseldorf.de/F/58KA8IS7CQBX1YJMYNS8LNL9VUEVL4V8DFHXS427BAMUEP9E6K-00244?func=BOR-LOAN-RENEW&doc_number=001618161&item_sequence=000010&adm_library=DUE50&token_id=4310854380027904&ill_unit=", "status:curious": "1 (von 4 möglichen Verlängerungen).", "status:problematic": "Jetzt verlängern", "duedate": "2018-02-19", "issuedate": "2018-01-12"}
