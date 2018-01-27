@@ -1781,12 +1781,7 @@ begin
   if logging then log('Enter TTemplateAccountAccess.extendList');
   setVariables();
   extendAction:=reader.findAction('renew-list');
-  if extendAction<>nil then begin
-    if logging then log('use extendList Template');
-    //if logging then log('bookList (count: '+inttostr(extendBookList.seq.count)+') is: '+extendBookList.debugAsStringWithTypeAnnotation());
-    reader.parser.variableChangeLog.add('renew-books', xqvalueBookList(reader, booksToExtend));
-    reader.callAction(extendAction);
-  end else if reader.findAction('renew-single')<>nil then begin
+  if reader.findAction('renew-single')<>nil then begin
     if logging then log('use renew-single Template');
     extendAction:=reader.findAction('renew-single');
     for i:=booksToExtend.count-1 downto 0 do begin
@@ -1795,6 +1790,12 @@ begin
       if book<>nil then reader.selectBook(book); //handles more instances of the same book
       reader.callAction(extendAction);
     end;
+  end else
+  if extendAction<>nil then begin
+    if logging then log('use extendList Template');
+    //if logging then log('bookList (count: '+inttostr(extendBookList.seq.count)+') is: '+extendBookList.debugAsStringWithTypeAnnotation());
+    reader.parser.variableChangeLog.add('renew-books', xqvalueBookList(reader, booksToExtend));
+    reader.callAction(extendAction);
   end else if reader.findAction('renew-all')<>nil then begin
     if logging then log('use renew-all Template');
     reader.callAction('renew-all');

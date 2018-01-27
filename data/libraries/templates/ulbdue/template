@@ -68,11 +68,14 @@
   <page url="{$book.detailLink}" templateFile="../aleph_base/details"/>
 </action>
 
+<!--this does not work, because it can only modify a single currentBook.
 <action id="renew-list">
   <loop var="b" list="$renew-books">
     <s>book := $b</s>
     <call action="renew-single"/>
   </loop>
+  <call action="update-all"/>
 </action>
+-->
 
 </actions>
