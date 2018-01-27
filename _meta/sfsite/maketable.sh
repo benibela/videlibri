@@ -21,7 +21,13 @@ xidel --xquery '
   declare function local:format-date($date){
     join( reverse(tokenize($date, "-")), ".")
   };
-  declare variable $systems := {
+  declare function local:make-offset($date){
+    if ($date) then
+      xs:string(xs:date($date) + xs:dayTimeDuration("P15D"))
+    else 
+      $date
+  };
+  declare variable $systems := let $raw := {
     "aDISWeb":         {"name": "aDIS/BMS", "search": "2013-05-17", "account": "2012-10-03"},
     "aleph_base":      {"name": "Aleph"},
     "aleph_ubFUb":     {"name": "Aleph (der FU-Berlin)", "account": "2011-03-07"},
@@ -42,9 +48,10 @@ xidel --xquery '
     "netbiblio":       {"name": "Netbiblio", "search": "2017-01-22", "account": "2017-01-22"},
     "sisis":           {"name": "SISIS-SunRise", "search": "2013-04-25", "account": "2010-02-16"},
     "summon":          {"name": "Summon", "search": "2015-11-22", "account": "2015-11-22"},
+    "koha":     {"name": "Koha", "search": "2018-01-04", "account": "2018-01-04"}, 
     "vufind":          {"name": "VuFind"},
     "zones18":         {"name": "Zones 1.8", "search": "2013-10-07", "account": "2013-10-07"}
-  };
+  } return {| for $k in jn:keys($raw) let $o := $raw($k) return {$k: {"name": $o("name"), "account": local:make-offset($o("account")), "search": local:make-offset($o("search")), "origin": ($o("account"), $o("search"))[1]  }  } |};
   (:<html>
   
   <head>   <meta  charset="utf-8"/> <link rel="stylesheet" type="text/css" href="test.css"/>   </head>
@@ -96,7 +103,7 @@ xidel --xquery '
            local:test-result("search", ($ordered-tests!@search)[last()],  $search-ok-text),
            local:test-result("account", ($ordered-tests!@account)[last()], $account-ok-text[exists($account-ok-tests)])}</div>,
            <div class="log">{
-             <div><span class="date">{local:format-date( ($basesystem("account"), $basesystem("search"))[1] )}</span><span class="text">Implementierung des Bibliothekssystems {$basesystem("name")}.</span> </div>[exists($basesystem)],
+             <div><span class="date">{local:format-date( $basesystem("origin") )}</span><span class="text">Unterstützung für das Bibliothek-System {$basesystem("name")}.</span> </div>[exists($basesystem)],
              if ( $basesystem("account") < $ordered-tests[1]/@date ) then (
              if (substring-before($basesystem("account"), "-") != substring-before($ordered-tests[1]/@date, "-")) then <br/> else (),
              <div><span class="date">{local:format-date($ordered-tests[1]/@date)}</span><span class="text">Eintragung der "{$name}" in die Liste der das Bibliothekssystem {$basesystem("name")} verwendenden Bibliotheken (um zuvor mit VideLibri auf die "{$name}" zuzugreifen, müsste man zumindest die OPAC-Webadresse eingeben).</span> </div> 

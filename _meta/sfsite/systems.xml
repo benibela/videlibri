@@ -22,6 +22,7 @@ Ob man VideLibri out-of-the-box mit einer Bibliothek verwenden kann, ist nicht v
 <tr><td id="bibliothecaplus">Bibliotheca+/OPEN</td>  <td>ja</td><td>ja</td><td>ja</td><td>ja</td>  <td></td><td>2014</td></tr>
 <tr><td id="digibib">Digibib</td>  <td>ja</td><td></td><td></td><td></td>  <td>Suche über Metasuchmaschine</td><td>2008</td></tr>
 <tr><td id="libero5">Libero 5</td>  <td>ja</td><td>ja</td><td>ja</td><td>ja</td>  <td></td><td>2007</td></tr>
+<tr><td id="koha">Koha</td>  <td>ja</td><td>ja</td><td>ja</td><td>ja</td>  <td></td><td>2018</td></tr>
 <tr><td id="netbiblio">Netbiblio</td>  <td>ja</td><td>ja</td><td>ja</td><td>ja</td>  <td></td><td>2017</td></tr>
 <tr><td id="paia">PAIA</td>  <td></td><td>ja</td><td>ja</td><td>nein</td>  <td></td><td>2013</td></tr>
 <tr><td>PICA:</td></tr>

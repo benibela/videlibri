@@ -1,10 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?xml-stylesheet type="text/xsl" href="../changelog.xsl"?>
 <changelog program="VideLibri">
-      <build version="1960" date="2018-01-04">
+      <build version="1963" date="2018-01-27">
         <download url="http://videlibri.sourceforge.net/updates/videlibri-setup.exe" platform="WINDOWS" execute="&quot;$DOWNLOAD&quot;  /SP- /noicons &quot;/dir=$OLDPATH&quot; " restart="true"/>
         <download url="http://videlibri.sourceforge.net/updates/videlibri-linux32.deb" platform="LINUX32" execute=""/>
         <download url="http://videlibri.sourceforge.net/updates/videlibri-linux64.deb" platform="LINUX64" execute=""/>
+        <change>Stadtbibliothek Biel: Verwende HTTPS.</change>
+	<fix>Android &lt;= 4.0: Speichere zusätzliche HTTPS-Zertifikate im alten Keystore-Format, damit unter alten Android-Versionen keine "Wrong version of key store"-Fehlermeldung kommt.  </fix>
+	<fix>Android: Stürze nicht ab, wenn die Internetverbindung mitten in einer Übertragung plötzlich unterbrochen wird.</fix>
+	<fix>pica/Zentrale Hochschulbibliothek Lübeck: Zeige keine unsinnige Fehlermeldung an, wenn die Verlängerung eines nicht verlängerbaren Mediums, welches ein Semikolon in der Signatur hat, fehlschlägt.</fix>
+        <fix>Staatsbibliothek Berlin: Kodiere das Passwort auch korrekt, wenn das 3te, 6te, 9te, oder 12te, etc. Zeichen im Passwort ein &gt; oder ? ist.</fix>
+	<fix>aleph/Universitäts- und Landesbibliothek Düsseldorf: Zeige auch nach der Verlängerung von mehreren Medien deren Autor/Titel korrekt an.</fix>
+	<fix>Stadtbibliothek Dormagen: Neue Webseiten-Adresse</fix>
+     </build>
+      <build version="1960" date="2018-01-04">
 	<change>android: Ersetze den Kontoauswahl-Spinner durch einen Button; verwende einen Standard Android-Einstellungsdialog anstatt einem selbstentwickelten; verbessertes Import/Export-Layout. </change>
 	<add>Unterstützung für Koha/LMSCloud</add>
         <fix>Bibliothek Cottbus, Trier, HMT Leipzig, SLUB Dresden: Neues HTTPS-Zertifikat.</fix>
