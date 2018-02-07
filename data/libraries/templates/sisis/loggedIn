@@ -2,7 +2,7 @@
 <template:meta default-text-matching="regex"/>
 <head>
 {
-nextPage := get('nextPage', ''),
+nextPage := get('nextPage', ()),
 startUrl := get('startUrl', ''),
 touchpoint := get('touchpoint', false())
 }
@@ -17,7 +17,7 @@ touchpoint := get('touchpoint', false())
           <li>Vormerkungen|Reservations<t:s>if (extract(., "[0-9]+") > "0") then bookCountOrdered := a/@href else ()</t:s></li>?
         </ul>
         <script>{let $temp := extract(., 'typ="([^"]+)', 1) return switch ($temp) 
-          case "loaned" return    ( mode := 1, if ($nextPage = '') then vl:delete-current-books() else () ) 
+          case "loaned" return    ( mode := 1, if (empty($nextPage)) then vl:delete-current-books() else () ) 
           case "ordered" return   ( mode := 2 )
           case "requested" return ( mode := 3 )
           default return vl:raise("Unbekannter Medienlistentyp: " || $temp)
@@ -39,7 +39,7 @@ touchpoint := get('touchpoint', false())
           <template:switch>
             <h2>Ausleihen|Loans
                <t:s>mode := 1</t:s>
-               <t:if test="$nextPage = ''"><template:read var="delete-current-books()"/></t:if></h2>
+               <t:if test="empty($nextPage)"><template:read var="delete-current-books()"/></t:if></h2>
             <h2>Bestellungen|Requests<t:s>mode := 2</t:s></h2>
             <h2>Vormerkungen|Reservations<t:s>mode := 3</t:s></h2>
           </template:switch>
@@ -48,7 +48,7 @@ touchpoint := get('touchpoint', false())
     </t:if>
     <!--<fieldset>-->
 
-    <t:if test="$nextPage != ''">{nextPage := ""}</t:if>
+    <t:if test="$nextPage != ''">{nextPage := ()}</t:if>
 
 <!--    <template:if test="$allBooksAway=''">-->
     <table class="data">

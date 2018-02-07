@@ -1,6 +1,6 @@
 touchpoint := true
 book := {}
-nextPage := ""
+nextPage := ()
 startUrl := ""
 touchpoint := true()
 result := ()

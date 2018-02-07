@@ -1,5 +1,5 @@
 book := {}
-nextPage := ""
+nextPage := ()
 startUrl := ""
 touchpoint := false()
 result := ()
