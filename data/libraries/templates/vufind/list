@@ -1,40 +1,40 @@
 
 <t:switch prioritized="true">
  
-	  <form t:condition="@name = ('renewals', 'cancelForm')">
-	    { $inOrderings := @name = 'cancelForm' }
-	    <t:if test="$inOrderings"><div class="row"><strong/></div></t:if>
-	    <div class="table-container" t:ignore-self-test="$inOrderings">
-	      <div class="row">
-	        { let $checkbox := .//input[@type="checkbox" and not(@disabled)] return
- 	        		$book := {"status": (.//div)[last()], 
- 	        		          "statusId": if ($inOrderings) then "ordered" else if ($checkbox) then "curious" else "critical",
- 	        		          if ($inOrderings) then "_cancelID" else "_renewID": $checkbox/@value
- 	        		          }
- 	       	}
-	        <a class="title">{$book.title}</a>
-	        <a t:condition="contains(@href, 'type=Author')">{$book.author}</a>?
-	        <t:s>
-	          (.//strong, .//label) ! (
-	          let $self := string() 
-	          let $property := substring-before($self, ":")
-	          let $value := normalize-space(substring-after($self, ":") || following-sibling::text())
-	          return switch ($property)
-	            case "Signatur" case "Call Number" return $book.id := $value
-	(:            case "Barcode" return $book.duedate := parse-date($value):)
-	            case "due date" case "fällig am" return $book.duedate := parse-date($value)
-	            case "Erstellt" case "Created" return $book.issuedate := parse-date($value)
-	            case "Status" case "Vormerkstatus" return ($book.status := $value, $book.duedate := parse-date(extract(join((following-sibling::text(), ..)), "[0-9][-0-9.]{7,10}")))
-	            case "Abholort" case "Pickup Location" return $book.libraryBranch := $value
-	            default return $book($property || "!") := $value
-	          )
-	        </t:s>
-	      </div>+
-	    </div>
-	  </form>
+    <form t:condition="@name = ('renewals', 'cancelForm')">
+      { $inOrderings := @name = 'cancelForm' }
+      <t:if test="$inOrderings"><div class="row"><strong/></div></t:if>
+      <div class="table-container" t:ignore-self-test="$inOrderings">
+        <div class="row">
+          { let $checkbox := .//input[@type="checkbox" and not(@disabled)] return
+                $book := {"status": (.//div)[last()], 
+                          "statusId": if ($inOrderings) then "ordered" else if ($checkbox) then "curious" else "critical",
+                          if ($inOrderings) then "_cancelID" else "_renewID": $checkbox/@value
+                         }
+          }
+          <a class="title">{$book.title}</a>
+          <a t:condition="contains(@href, 'type=Author')">{$book.author}</a>?
+          <t:s>
+            (.//strong, .//label) ! (
+            let $self := string() 
+            let $property := substring-before($self, ":")
+            let $value := normalize-space(substring-after($self, ":") || following-sibling::text())
+            return switch ($property)
+              case "Signatur" case "Call Number" return $book.id := $value
+  (:            case "Barcode" return $book.duedate := parse-date($value):)
+              case "due date" case "fällig am" return $book.duedate := parse-date($value)
+              case "Erstellt" case "Created" return $book.issuedate := parse-date($value)
+              case "Status" case "Vormerkstatus" return ($book.status := $value, if ($inOrderings) then $book.statusId := "ordered" else (), $book.duedate := parse-date(extract(join((following-sibling::text(), ..)), "[0-9][-0-9.]{7,10}")))
+              case "Abholort" case "Pickup Location" return $book.libraryBranch := $value
+              default return $book($property || "!") := $value
+            )
+          </t:s>
+        </div>+
+      </div>
+    </form>
  
-	
-	  
+  
+    
   <div class="result-container" t:condition="empty(.//form)">
   </div>
 </t:switch>
