@@ -6,9 +6,12 @@
 	    <t:if test="$inOrderings"><div class="row"><strong/></div></t:if>
 	    <div class="table-container" t:ignore-self-test="$inOrderings">
 	      <div class="row">
-	        {$book := {"status": (.//div)[last()], "statusId": if ($inOrderings) then "ordered" else "curious" }}
-	        <input type="checkbox" name="renewSelectedIDS[]" t:test="not($inOrderings)">{$book._renewID := @value}</input>
-	        <input type="checkbox" name="cancelSelectedIDS[]" t:test="$inOrderings">{$book._cancelID := @value}</input>
+	        { let $checkbox := .//input[@type="checkbox" and not(@disabled)] return
+ 	        		$book := {"status": (.//div)[last()], 
+ 	        		          "statusId": if ($inOrderings) then "ordered" else if ($checkbox) then "curious" else "critical",
+ 	        		          if ($inOrderings) then "_cancelID" else "_renewID": $checkbox/@value
+ 	        		          }
+ 	       	}
 	        <a class="title">{$book.title}</a>
 	        <a t:condition="contains(@href, 'type=Author')">{$book.author}</a>?
 	        <t:s>

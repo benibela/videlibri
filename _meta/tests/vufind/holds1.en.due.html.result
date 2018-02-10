@@ -1,3 +1,3 @@
 book := {}
 inOrderings := true()
-book := {"libraryBranch": "Central Library, ground floor (pick-up shelf)", "duedate": "2018-02-26", "status": "1. hold request in queue", "issuedate": "2018-02-10", "id": "bio t 146.m468", "author": "Mayer, Joachim", "title": "Welcher Baum ist das? : Bäume, Sträucher, Ziergehölze ; [über 600 Arten]", "_cancelID": "DUE500033073850000100001", "statusId": "ordered"}
+book := {"libraryBranch": "Central Library, ground floor (pick-up shelf)", "duedate": "2018-02-26", "status": "1. hold request in queue", "issuedate": "2018-02-10", "id": "bio t 146.m468", "author": "Mayer, Joachim", "title": "Welcher Baum ist das? : Bäume, Sträucher, Ziergehölze ; [über 600 Arten]", "statusId": "ordered", "_cancelID": "DUE500033073850000100001"}
