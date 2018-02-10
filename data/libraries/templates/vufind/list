@@ -24,7 +24,11 @@
   (:            case "Barcode" return $book.duedate := parse-date($value):)
               case "due date" case "fällig am" return $book.duedate := parse-date($value)
               case "Erstellt" case "Created" return $book.issuedate := parse-date($value)
-              case "Status" case "Vormerkstatus" return ($book.status := $value, if ($inOrderings) then $book.statusId := "ordered" else (), $book.duedate := parse-date(extract(join((following-sibling::text(), ..)), "[0-9][-0-9.]{7,10}")))
+              case "Status" case "Vormerkstatus" return (
+                $book.status := $value, 
+                if ($inOrderings) then $book.statusId := "ordered" else (), 
+                extract(join((following-sibling::text(), ..)), "[0-9][-0-9.]{7,10}")[.] ! ( $book.duedate := parse-date(.) )
+              )
               case "Abholort" case "Pickup Location" return $book.libraryBranch := $value
               default return $book($property || "!") := $value
             )

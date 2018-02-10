@@ -235,7 +235,7 @@ test netbiblio searchDetails{vl:set-book-property} searchDetails.html searchDeta
 
 #=============vufind==============
 mkdir -p $OUTPATH/vufind
-test vufind list checkedout.due.html checkedout.en.due.html checkedout.overdue.html checkedout.en.overdue.html holds1.due.html holds1.en.due.html holds0.due.html holds0.en.due.html
+test vufind list checkedout.due.html checkedout.en.due.html checkedout.overdue.html checkedout.en.overdue.html holds1.due.html holds1.en.due.html holds0.due.html holds0.en.due.html holds2.due.html holds2.en.due.html
 
 #=============DIGIBIB==============
 mkdir -p $OUTPATH/digibib

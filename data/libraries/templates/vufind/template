@@ -3,7 +3,7 @@
 
 <meta>
   <description>Template für das VuFind-System</description>
-  <variable name="baseurl"><description>Web-URI der Bibliothek</description></variable>  
+  <variable name="baseurl"><description>Web-URI der Bibliothek (inklusive Protokoll und, falls vorhanden, "MyResearch/" )</description></variable>  
 </meta>
 
 
@@ -32,21 +32,16 @@
 </action>
 
 <action id="renew-list">
-  <!-- example
-  /account/renew?selectedItems%5B0%5D=96188&returnUrl=%2Faccount%2Fcirculations 
-  /account/renew?selectedItems%5B0%5D=96188&selectedItems%5B1%5D=4821&returnUrl=%2Faccount%2Fcirculations -->
-<!--  <page url="{$baseurl}/account/renew?{join($renew-books!(x'selectedItems%5B{position()-1}%5D={_renewId}'), $amp)}"> </page>     
-  <call action="update-all"/>-->
-</action>
-
-
-
-<action id="cancel-list">
-  <page url="{$baseurl}/account/deleteorders?{join($cancel-books!(x'selectedItems%5B{position()-1}%5D={_cancelId}'), $amp)}"> </page>     
+  <s>form := request-combine({"url": x"{$baseurl}/CheckedOut", "method": "POST"}, ($renew-books!{"renewSelectedIDS[]": .("_renewID")}, "renewSelected=1", "confirm=1")  )</s>
+  <page url="{$form}"/>
   <call action="update-all"/>
 </action>
 
-
+<action id="cancel-list">
+  <s>form := request-combine({"url": x"{$baseurl}/Holds", "method": "POST"}, ($cancel-books!{"cancelSelectedIDS[]": .("_cancelID")}, "cancelSelected=1", "confirm=1")  )</s>
+  <page url="{$form}"/>
+  <call action="update-all"/>
+</action>
 
 
 
@@ -91,7 +86,7 @@
 <action id="order-single">
   <call action="internal-login"/>
   <!--<page url="{$holding._orderUrl}"> </page>-->
-  <page url="/Record/003307385/Hold?id=003307385&item_id=DUE50003307385000010&hashKey=38685b4a112ecf8943b12c8660e2d3e5"/>
+<!-- example:  <page url="/Record/003307385/Hold?id=003307385&item_id=DUE50003307385000010&hashKey=38685b4a112ecf8943b12c8660e2d3e5"/>-->
   <pattern>
     <input type="submit" name="placeHold">
     {let $af := ancestor::form[1] return
@@ -99,8 +94,6 @@
      form := form($af, .))}
     </input>
   </pattern>
-  <s>$confirm-result:=true()</s>
-  <call action="internal-order-confirmed"/>
 </action>
 
 <action id="internal-order-confirmed">
@@ -108,20 +101,6 @@
     <page url="{$form}"/>
   </if>
 </action>
-<!--
-       {form:=form(.), $kind := "" }
-       <input checked="checked" id="ReservationKind">{$kind := following-sibling::text()}</input>?
-    </form>
-  </pattern>
-  <page url="{$form}"/>
-  <pattern>
-    <t:switch prioritized="true">
-      <div class="alert-success">{$book.status := $kind}</div>
-      <div class="alert">{vl:raise(.)}</div>
-    </t:switch>	
-  </pattern>
-</action>
--->
 
 <action id="catalogue">
   <variable name="url" value="{$baseurl}"/>
