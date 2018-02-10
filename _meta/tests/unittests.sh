@@ -285,7 +285,11 @@ for ((i=0;i<${#TEMPLATES[@]};i++)); do
     ()\""
 
   #echo $TEMPLATEPARSER $FUNCTIONS $EXTRA $TEMPLATEPARSERARGS $INPATH/${PAGES[i]} --extract-file=$TFILE  
-  eval $TEMPLATEPARSER $FUNCTIONS $EXTRA $TEMPLATEPARSERARGS $INPATH/${PAGES[i]} --extract-file=$TFILE  > $OUTPATH/${PAGES[i]}.result 2> $OUTPATH/stderr
+  if ! eval $TEMPLATEPARSER $FUNCTIONS $EXTRA $TEMPLATEPARSERARGS $INPATH/${PAGES[i]} --extract-file=$TFILE  > $OUTPATH/${PAGES[i]}.result 2> $OUTPATH/stderr; then
+    echo EXCEPTION >> $OUTPATH/${PAGES[i]}.result
+    cat $OUTPATH/stderr >> $OUTPATH/${PAGES[i]}.result
+  fi
+  
   if diff -q $INPATH/${PAGES[i]}.result $OUTPATH/${PAGES[i]}.result; then tempasasas=42; else 
     echo
     echo -n ERROR: 
