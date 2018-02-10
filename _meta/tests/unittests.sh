@@ -231,6 +231,9 @@ test netbiblio list list.html list.orders.html
 test netbiblio searchList searchList.0.html searchList.html  searchList.singlepage.html searchList.en.html
 test netbiblio searchDetails{vl:set-book-property} searchDetails.html searchDetails.ebook.html  
 
+#=============vufind==============
+mkdir -p $OUTPATH/vufind
+test vufind list checkedout.due.html checkedout.en.due.html holds1.due.html holds1.en.due.html holds0.due.html holds0.en.due.html
 
 #=============DIGIBIB==============
 mkdir -p $OUTPATH/digibib

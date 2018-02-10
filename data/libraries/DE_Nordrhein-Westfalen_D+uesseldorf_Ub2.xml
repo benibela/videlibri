@@ -1,18 +1,10 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <library>
-  <deprecatedName value="200"/>
-
-  <longName value="Universitäts- und Landesbibliothek Düsseldorf (Alter Katalog)"/>
+  <longName value="Universitäts- und Landesbibliothek Düsseldorf (Neuer Katalog)"/>
   <shortName value="ULB Düsseldorf"/>
-  <catalogue value="http://katalog.ub.uni-duesseldorf.de/F"/>
   
-  <template value="ulbdue"/>  
-  <variable name="server" value="katalog.ub.uni-duesseldorf.de/"/>
-  <variable name="institute" value="DUE50"/>
-<!--  <template value="primo"/>  
-  <variable name="loginServer" value="fichte.ub.uni-duesseldorf.de"/>  
-  <variable name="server" value="katalog.ulb.hhu.de"/>    
-  <variable name="institute" value="DUE"/>  -->
+  <template value="vufind"/>  
+  <variable name="baseurl" value="https://katalog.ulb.hhu.de/MyResearch/"/>
     
    
   <template value="digibib"/>
@@ -20,7 +12,7 @@
   <variable name="view" value="DUEBIB:SGduebib"/>
   <!--<variable name="selectedLibraries" value="SERVICEGROUP1.SERVICE.SEARCH_ULBD"/>  selectedLibraries is overriden by searchid-templatename-->
   <variable name="searchid-ulbdue|digibib" value="SERVICEGROUP1.SERVICE.SEARCH_ULBD"/>
-  <variable name="searchid-primo|digibib" value="SERVICEGROUP1.SERVICE.SEARCH_ULBD"/>
+  <variable name="searchid-vufind|digibib" value="SERVICEGROUP1.SERVICE.SEARCH_ULBD"/>
 
    
   <variable name="Location" value="Düsseldorf"/>

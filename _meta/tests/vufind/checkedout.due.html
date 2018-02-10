@@ -1,0 +1,494 @@
+<!DOCTYPE html><html lang="de">
+  <head>
+        <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="Generator" content="VuFind 2.5">    <title>Entliehene Medien</title>        <!-- RTL styling -->
+        <link href="/themes/ulbd/css/compiled.css?_=1514974828" media="all" rel="stylesheet" type="text/css">
+<link href="/themes/ulbd/css/formats.css?_=1498539884" media="all" rel="stylesheet" type="text/css">
+<link href="/themes/bootstrap3/css/vendor/font-awesome.min.css?_=1452863243" media="all" rel="stylesheet" type="text/css">
+<link href="/themes/bootstrap3/css/vendor/bootstrap-slider.css?_=1452863243" media="all" rel="stylesheet" type="text/css">
+<link href="/themes/bootstrap3/css/print.css?_=1452863243" media="print" rel="stylesheet" type="text/css">
+<link href="/themes/ulbd/images/ulbd-favicon.ico" rel="shortcut icon" type="image/x-icon">
+<link href="/Search/OpenSearch?method=describe" rel="search" type="application/opensearchdescription+xml" title="Bibliothekskatalogsuche">            <script type="text/javascript">
+    //<!--
+    path = '';
+    //-->
+</script>
+<!--[if lt IE 10]><script type="text/javascript" src="/themes/bootstrap3/js/vendor/base64.js?_=1452863243"></script><![endif]-->
+<script type="text/javascript" src="/themes/bootstrap3/js/vendor/jquery.min.js?_=1452863243"></script>
+<script type="text/javascript" src="/themes/bootstrap3/js/vendor/bootstrap.min.js?_=1452863243"></script>
+<script type="text/javascript" src="/themes/bootstrap3/js/vendor/bootstrap-accessibility.min.js?_=1452863243"></script>
+<script type="text/javascript" src="/themes/bootstrap3/js/vendor/typeahead.js?_=1498539884"></script>
+<script type="text/javascript" src="/themes/bootstrap3/js/vendor/validator.min.js?_=1498539884"></script>
+<script type="text/javascript" src="/themes/bootstrap3/js/vendor/rc4.js?_=1452863243"></script>
+<script type="text/javascript" src="/themes/bootstrap3/js/common.js?_=1498539884"></script>
+<script type="text/javascript" src="/themes/bootstrap3/js/lightbox.js?_=1498539884"></script>
+<script type="text/javascript">
+    //<!--
+    vufindString = {add_tag_success: "Tags gespeichert",bulk_email_success: "Ihre Auswahl wurde per E-Mail verschickt",bulk_noitems_advice: "Es wurde nichts ausgewählt. Klicken Sie bitte in eine Auswahlbox neben einem Eintrag und versuchen Sie es erneut.",bulk_save_success: "Ihre Auswahl wurde erfolgreich abgespeichert",close: "schließen",libphonenumber_invalid: "Ungültige Telefonnummer",libphonenumber_invalidcountry: "Ungültige Landesvorwahl",libphonenumber_invalidregion: "Ungültige Vorwahl:",libphonenumber_notanumber: "Die Eingabe scheint keine Telefonnummer zu sein",libphonenumber_toolong: "Die Eingabe ist zu lang für eine Telefonnummer",libphonenumber_tooshort: "Die Eingabe ist zu kurz für eine Telefonnumer",libphonenumber_tooshortidd: "Die Telefonnumer nach der internationalen Direktwahl ist zu kurz",loading: "wird geladen...",sms_success: "Nachricht verschickt.",number_thousands_separator: "."};
+    //-->
+</script>
+<script type="text/javascript">
+    //<!--
+    var userIsLoggedIn = true;
+    //-->
+</script>
+<script type="text/javascript" src="/themes/ulbd/js/bootstrap-add-clear.min.js?_=1498539884"></script>
+<script type="text/javascript" src="/themes/ulbd/js/Hyphenator.js?_=1498539884"></script>
+<script type="text/javascript" src="/themes/ulbd/js/ulbd.js?_=1516962304"></script>  </head>
+  <body class="">
+        <header class="hidden-print">
+      <div class="container navbar">
+        <a class="sr-only" href="#content">Weiter zum Inhalt</a>
+        <nav class="navbar navbar-default" role="navigation">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      
+      
+      <a  class="navbar-brand" id="hhu-logo" href="http://www.uni-duesseldorf.de/home/startseite.html"><img 
+              alt="Heinrich-Heine-Universität Düsseldorf" src="/themes/ulbd/images/uni-logo.gif" width="170" height="85"></a>
+      <div class="navbar-brand" id="site-title">
+        Universitäts- und Landesbibliothek<br/>
+        Katalog       </div>
+<!--
+      <a class="navbar-brand" href="http://www.ulb.hhu.de" id="ulb-logo"><img 
+              alt="Universitäts- und Landesbibliothek Düsseldorf" src="/themes/ulbd/images/ulb-logo.png"></a>-->
+    </div>
+    <div class="navbar-collapse collapse" id="portal-links">
+      <ul class="nav navbar-nav navbar-right">
+        <li><a class="" href="http://www.uni-duesseldorf.de/home/login-links/portale.html" target="_blank">Portale</a></li>
+        <li><a class="" href="http://www.uni-duesseldorf.de/home/login-links/ulb-katalog.html" target="_blank">ULB-Katalog</a></li>
+        <li><a class="" href="http://www.uni-duesseldorf.de/home/login-links/intranet.html" target="_blank">Intranet</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+    
+
+<nav id="userArea" class="navbar navbar-default" role="navigation">
+  <div class="container-fluid">
+            <div class="collapse navbar-collapse">
+          <ul class="nav navbar-nav navbar-left ">
+                          <li>
+                <a id="feedbackLink" class="modal-link" href="/Feedback/Home"><i class="fa fa-envelope"></i> Feedback</a>
+              </li>
+                        
+                          <li class="logoutOptions">
+                <a href="/MyResearch/Logout" class="modal-link" title="Log out"><i class="fa fa-sign-out"></i> Log out</a>
+              </li>
+              <li id="loginOptions" class="hidden">
+                                  <a href="/MyResearch/UserLogin" class="modal-link" title="Login"><i class="fa fa-sign-in"></i> Login</a>
+                              </li>
+
+              <li class="logoutOptions nav-item dropdown">
+                <form method="post" name="AccountForm" id="AccountForm">
+                  <input type="hidden" name="myAccount"/>
+                </form>
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Ihr Konto <b class="caret"></b></a>
+                <ul id="account_menu" class="dropdown-menu">
+                                                    
+                              <li id="account_checkedouts" >
+        <a href="/MyResearch/CheckedOut">Entliehene Medien          <span class="badge">5</span></a>
+      </li>
+                                  <li id="account_holds" >
+        <a href="/MyResearch/Holds">Bestellungen/Vormerkungen        <span class="badge">0</span></a>
+      </li>
+                                      <li id="account_ill" >
+        <a href="/MyResearch/ILLRequests">Fernleihen        <span class="badge">0</span></a>
+      </li>
+              <li >
+        <a href="/MyResearch/Fines">Gebühren</a>
+      </li>
+              <li >
+        <a href="/MyResearch/Profile">Persönliche Daten</a>
+      </li>
+            
+    <!-- your lists -->
+          
+<!-- your lists -->
+
+ 
+<div id="myLists" align="center"><h4>Ihre Listen</h4></div>
+
+<!--    
+    <li >
+      <a href="/MyResearch/Favorites">Ihre Favoriten</a>
+    </li>
+-->
+
+        
+    <li>
+      <a href="/MyResearch/EditList/NEW" title="Eine Liste erstellen">
+        Eine Liste erstellen      </a>
+    </li>
+  
+
+      <!--      
+    <li >
+      <a href="/Search/History?require_login">Gespeicherte Suchanfragen</a>
+    </li>
+
+      <a href="/MyResearch/Logout" class="list-group-item">
+      Log out    </a>
+  
+-->
+
+
+                </ul>
+              </li>        
+            
+            <!-- Your Account -->
+                                                                                                          <li id="loggedinName" class="nav-item "> Benito van der Zander</li>  
+
+                      </ul>
+          <ul class="nav navbar-nav navbar-right">
+            <li>
+              <a id="online-enquiry" href="http://www.ulb.hhu.de/recherchieren/auskunft/online-auskunft.html" target="_blank">Online-Auskunft</a>
+            </li>
+            <li>
+              <a id="online-help" href="http://katalog-hilfe.ulb.hhu.de" target="_blank">Hilfe</a>
+            </li>
+                          <li class="dropdown">
+                <form method="post" name="langForm" id="langForm">
+                  <input type="hidden" name="mylang"/>
+                </form>
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Sprache <b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                                      <li><a href="#" onClick="document.langForm.mylang.value='en';document.langForm.submit()">English</a></li>
+                                      <li class="active"><a href="#" onClick="document.langForm.mylang.value='de';document.langForm.submit()">Deutsch</a></li>
+                                  </ul>
+              </li>
+                      </ul>
+      </div>
+          </div>
+</nav>
+    
+ 
+<nav class="navbar navbar-default" role="navigation">
+  <div class="container-fluid">
+
+<div class="collapse navbar-collapse" id="navbar-top">
+    <ul class="nav navbar-nav navbar-right">
+        <li><a href="/">Neue Suche</a></li>
+        <li><a href="http://www.ulb.hhu.de/ausleihen-und-bestellen/fernleihe.html" target="_blank">Fernleihe</a></li>
+        <!--<li><a class="modal-link" title="Zeitschriften-Magazinbestellung" id="journalStorageRequestLink" href="#">Zeitschriften-Magazinbestellung</a></li>-->
+        <li><a href="http://www.ulb.hhu.de/zg-ulb/myulb/erwerbungsvorschlag.html" target="_blank">Erwerbungsvorschlag</a></li>
+        <li class="lastItem"><a href="http://www.ulb.hhu.de/nc/recherchieren/fachsystematiken-und-fachinformationen/fachsystematik.html" target="_blank">Fachsystematiken</a></li>
+    </ul>
+</div>
+  </div>
+</nav>
+
+
+<noscript>
+<div class="row">
+  <div class="col-xs-10 col-xs-offset-1">
+    <div class="alert alert-warning">
+      <p>Warnung: Javascript ist in Ihrem Browser deaktiviert. Diese Seiten werden ohne Javascript nicht korrekt funktionieren!</p>
+    </div>
+  </div>
+</div>
+</noscript>
+<div id="motd" class="row"></div>
+<script type="text/javascript">
+  $(document).ready(function() {
+    
+    /* disable routing to the url in href for journalStorageRequest link*/
+    $('#journalStorageRequestLink').on( 'click', function(event) {
+      event.preventDefault();
+    });
+  
+    /* bind click event to journalStorageRequest link */
+    $('#journalStorageRequestLink').on( 'click', function() {
+        return Lightbox.get('Ulbd','getJournalStorageRequestForm', {}, {}, function(html) {
+          var page = $('<div>'+html+'</div>');
+          if (page.find('.record').length) {
+            Lightbox.checkForError(html, Lightbox.changeContent);
+          } else {
+            Lightbox.changeContent(html);
+          }
+        });
+    });
+
+    /* add message of the day */
+    try {
+      var motd_server='production';
+      $.ajax({
+        "dataType": "html",
+        "url": "/motd/motd_html?server="+motd_server,
+        "cache": true,
+        "success": function(r) {
+           if (r != "") {
+             $("#motd").html('<div class="col-sm-10 col-sm-offset-1"><div class="alert alert-warning">'+r+'</div></div>');
+           }
+        },
+        "error": function(msg) { }
+      });
+    } catch (err) {
+      console.log(err);
+    }
+  });
+</script>
+      </div>
+      <div class="container">
+        <nav class="nav searchbox hidden-lg hidden-print">
+            <div class="clearfix">
+                  <form class="searchForm navbar-form navbar-left flip" method="get" action="/Search/Results" name="searchForm" autocomplete="off">
+        <input class="searchForm_lookfor form-control search-query" 
+           id="searchbox-input" type="text" name="lookfor" placeholder="Suche mit Titel, Verfasser, ISBN, Schlagwort oder anderen..." value=""/>
+          <select class="searchForm_type form-control" name="type" data-native-menu="false">
+                  <option value="AllFields">Alle Felder</option>
+                  <option value="Title">Titel</option>
+                  <option value="Author">Verfasser</option>
+                  <option value="Subject">Schlagwort</option>
+                  <option value="CallNumber">Signatur</option>
+              </select>
+        <button type="submit" class="btn btn-primary"><i class="fa fa-search"></i> Suchen</button>
+          <a href="/Search/Advanced" class="btn btn-link" rel="nofollow">Erweiterte Suche</a>
+    
+                  </form>
+  <script type="text/javascript">$(".searchForm_lookfor:visible").focus()</script>
+            </div>
+        </nav>
+        
+                
+              </div>
+    </header>
+    <div role="main" class="main template-dir-myresearch template-name-checkedout">
+      <div class="container main-container hyphenate">
+        
+<div class="result-container">
+    <h1>Ihre entliehenen Medien</h1>
+    
+      
+                <form name="renewals" method="post" id="renewals">
+        <div class="toolbar">
+          <input type="submit" class="btn btn-default" name="renewSelected" value="Fristverlängerung der ausgewählten Ausleihen" />
+          <input type="submit" class="btn btn-default" name="renewAll" value="Alle Ausleihfristen verlängern" />
+        </div>
+      
+            
+      <div class="table-container">
+        
+                  <hr/>
+                    <div id="record001004200" class="row">
+            <div class="col-sm-1 col-xs-1">
+                                                                  <input class="pull-left flip" type="checkbox" name="renewSelectedIDS[]" value="DUE50016001599" id="checkbox_DUE50016001599" />
+                  <input class="pull-left flip" type="hidden" name="renewAllIDS[]" value="DUE50016001599" />
+                                          </div>
+
+            <div class="col-xs-11 col-sm-7">
+              <a href="/Record/001004200" class="title">Allgemeine Terminologielehre und Wissenstechnik : theoretische Grundlagen</a><br/>
+                              von                <a href="/Search/Results?lookfor=%22Felber%2C+Helmut%22&amp;type=Author">Felber, Helmut</a><br/>
+                <br />
+              
+              
+                            
+                              <strong>Signatur:</strong> bib&#x20;t&#x20;200.f311                <br />
+              
+                                              <strong>Barcode:</strong> 092321601                <br />
+              
+                          
+                          </div>
+            
+            <div class="col-xs-11 col-xs-offset-1 col-sm-4 col-sm-offset-0">
+                              <strong>fällig am: 09.02.2018                                  </strong><br />
+                  
+                                    <div>
+                                            ( noch 4 Verlängerungen möglich )                    </div>
+                
+                                                                
+            </div>
+
+                                                </div>
+                  <hr/>
+                    <div id="record001618161" class="row">
+            <div class="col-sm-1 col-xs-1">
+                                                                  <input class="pull-left flip" type="checkbox" name="renewSelectedIDS[]" value="DUE50016001602" id="checkbox_DUE50016001602" />
+                  <input class="pull-left flip" type="hidden" name="renewAllIDS[]" value="DUE50016001602" />
+                                          </div>
+
+            <div class="col-xs-11 col-sm-7">
+              <a href="/Record/001618161" class="title">Towards knowledge portals : from human issues to intelligent agents</a><br/>
+                              von                <a href="/Search/Results?lookfor=%22Detlor%2C+Brian%22&amp;type=Author">Detlor, Brian</a><br/>
+                <br />
+              
+              
+                            
+                              <strong>Signatur:</strong> bib&#x20;t&#x20;200.d481                <br />
+              
+                                              <strong>Barcode:</strong> 109031701                <br />
+              
+                          
+                          </div>
+            
+            <div class="col-xs-11 col-xs-offset-1 col-sm-4 col-sm-offset-0">
+                              <strong>fällig am: 19.02.2018                                  </strong><br />
+                  
+                                    <div>
+                                            ( noch 3 Verlängerungen möglich )                    </div>
+                
+                                                                
+            </div>
+
+                                                </div>
+                  <hr/>
+                    <div id="record001087198" class="row">
+            <div class="col-sm-1 col-xs-1">
+                                                                  <input class="pull-left flip" type="checkbox" name="renewSelectedIDS[]" value="DUE50016001606" id="checkbox_DUE50016001606" />
+                  <input class="pull-left flip" type="hidden" name="renewAllIDS[]" value="DUE50016001606" />
+                                          </div>
+
+            <div class="col-xs-11 col-sm-7">
+              <a href="/Record/001087198" class="title">Analogie in der Wissensrepräsentation: case-based reasoning und räumliche Modelle : Trier, 17. - 20. Oktober 1995</a><br/>
+                              von                <a href="/Search/Results?lookfor=%22Czap%2C+Hans+%5BHerausgeber%5D%22&amp;type=Author">Czap, Hans [Herausgeber]</a><br/>
+                <br />
+              
+              
+                            
+                              <strong>Signatur:</strong> bib&#x20;t&#x20;200.c998                <br />
+              
+                                              <strong>Barcode:</strong> 093342701                <br />
+              
+                          
+                          </div>
+            
+            <div class="col-xs-11 col-xs-offset-1 col-sm-4 col-sm-offset-0">
+                              <strong>fällig am: 19.02.2018                                  </strong><br />
+                  
+                                    <div>
+                                            ( noch 3 Verlängerungen möglich )                    </div>
+                
+                                                                
+            </div>
+
+                                                </div>
+                  <hr/>
+                    <div id="record001790038" class="row">
+            <div class="col-sm-1 col-xs-1">
+                                                                  <input class="pull-left flip" type="checkbox" name="renewSelectedIDS[]" value="DUE50016001613" id="checkbox_DUE50016001613" />
+                  <input class="pull-left flip" type="hidden" name="renewAllIDS[]" value="DUE50016001613" />
+                                          </div>
+
+            <div class="col-xs-11 col-sm-7">
+              <a href="/Record/001790038" class="title">Information architecture for information professionals</a><br/>
+                              von                <a href="/Search/Results?lookfor=%22Batley%2C+Sue%22&amp;type=Author">Batley, Sue</a><br/>
+                <br />
+              
+              
+                            
+                              <strong>Signatur:</strong> bib&#x20;t&#x20;200.b333                <br />
+              
+                                              <strong>Barcode:</strong> 115117101                <br />
+              
+                          
+                          </div>
+            
+            <div class="col-xs-11 col-xs-offset-1 col-sm-4 col-sm-offset-0">
+                              <strong>fällig am: 26.02.2018                                  </strong><br />
+                  
+                                    <div>
+                                            ( noch 3 Verlängerungen möglich )                    </div>
+                
+                                                                
+            </div>
+
+                                                </div>
+                  <hr/>
+                    <div id="record001618157" class="row">
+            <div class="col-sm-1 col-xs-1">
+                                                                  <input class="pull-left flip" type="checkbox" name="renewSelectedIDS[]" value="DUE50016001610" id="checkbox_DUE50016001610" />
+                  <input class="pull-left flip" type="hidden" name="renewAllIDS[]" value="DUE50016001610" />
+                                          </div>
+
+            <div class="col-xs-11 col-sm-7">
+              <a href="/Record/001618157" class="title">Relationships in the organization of knowledge</a><br/>
+                              von                <a href="/Search/Results?lookfor=%22Bean%2C+Carol+A.+%5BHerausgeber%5D%22&amp;type=Author">Bean, Carol A. [Herausgeber]</a><br/>
+                <br />
+              
+              
+                            
+                              <strong>Signatur:</strong> bib&#x20;t&#x20;200.b367                <br />
+              
+                                              <strong>Barcode:</strong> 108573401                <br />
+              
+                          
+                          </div>
+            
+            <div class="col-xs-11 col-xs-offset-1 col-sm-4 col-sm-offset-0">
+                              <strong>fällig am: 26.02.2018                                  </strong><br />
+                  
+                                    <div>
+                                            ( noch 3 Verlängerungen möglich )                    </div>
+                
+                                                                
+            </div>
+
+                                                </div>
+              </div>
+      </form>            </div>
+</div>
+      </div>
+    </div>
+    <footer class="hidden-print">
+      <div class="container">
+        
+<div id="footer">
+    <center>
+  <span>© Copyright 2018 Heinrich-Heine-Universität Düsseldorf</span>
+  <ul>
+    <li>
+      <a href="http://www.ulb.hhu.de/footer/impressum.html" onfocus="blurLink(this);">Impressum</a>
+    </li>
+    <li>
+      <a href="http://www.ulb.hhu.de/ueberblick-gewinnen/ansprechpartnerinnen-und-ansprechpartner.html" onfocus="blurLink(this);">Kontakt</a>
+    </li>
+  </ul>
+</center>
+</div>              </div>
+    </footer>
+    <!-- MODAL IN CASE WE NEED ONE -->
+    <div id="modal" class="modal fade hidden-print" tabindex="-1" role="dialog" aria-labelledby="modalTitle" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h2 id="modalTitle" class="modal-title">&nbsp;</h2>
+          </div>
+          <div class="modal-body">wird geladen......</div>
+        </div>
+      </div>
+    </div>
+    <div class="offcanvas-toggle" data-toggle="offcanvas"><i class="fa"></i></div>
+    <div class="offcanvas-overlay" data-toggle="offcanvas"></div>
+        <script type="text/javascript">
+    //<!--
+    
+function initVuFindPiwikTracker(){
+    var VuFindPiwikTracker = Piwik.getTracker();
+
+    VuFindPiwikTracker.setSiteId(22);
+    VuFindPiwikTracker.setTrackerUrl('https://piwik.ub.uni-duesseldorf.de/piwik/piwik.php');
+    VuFindPiwikTracker.setCustomUrl(location.protocol + '//'
+        + location.host + location.pathname);
+    VuFindPiwikTracker.trackPageView();
+    VuFindPiwikTracker.enableLinkTracking();
+};
+(function(){
+var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+    g.type='text/javascript'; g.defer=true; g.async=true;
+    g.src='https://piwik.ub.uni-duesseldorf.de/piwik/piwik.js';
+    g.onload=initVuFindPiwikTracker;
+s.parentNode.insertBefore(g,s); })();
+    //-->
+</script>  </body>
+</html>

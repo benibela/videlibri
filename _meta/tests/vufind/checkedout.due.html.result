@@ -1,0 +1,7 @@
+book := {}
+inOrderings := false()
+book := {"duedate": "2018-02-09", "Barcode!": "092321601", "id": "bib t 200.f311", "author": "Felber, Helmut", "title": "Allgemeine Terminologielehre und Wissenstechnik : theoretische Grundlagen", "_renewID": "DUE50016001599", "status": "( noch 4 Verlängerungen möglich )", "statusId": "curious"}
+book := {"duedate": "2018-02-19", "Barcode!": "109031701", "id": "bib t 200.d481", "author": "Detlor, Brian", "title": "Towards knowledge portals : from human issues to intelligent agents", "_renewID": "DUE50016001602", "status": "( noch 3 Verlängerungen möglich )", "statusId": "curious"}
+book := {"duedate": "2018-02-19", "Barcode!": "093342701", "id": "bib t 200.c998", "author": "Czap, Hans [Herausgeber]", "title": "Analogie in der Wissensrepräsentation: case-based reasoning und räumliche Modelle : Trier, 17. - 20. Oktober 1995", "_renewID": "DUE50016001606", "status": "( noch 3 Verlängerungen möglich )", "statusId": "curious"}
+book := {"duedate": "2018-02-26", "Barcode!": "115117101", "id": "bib t 200.b333", "author": "Batley, Sue", "title": "Information architecture for information professionals", "_renewID": "DUE50016001613", "status": "( noch 3 Verlängerungen möglich )", "statusId": "curious"}
+book := {"duedate": "2018-02-26", "Barcode!": "108573401", "id": "bib t 200.b367", "author": "Bean, Carol A. [Herausgeber]", "title": "Relationships in the organization of knowledge", "_renewID": "DUE50016001610", "status": "( noch 3 Verlängerungen möglich )", "statusId": "curious"}
