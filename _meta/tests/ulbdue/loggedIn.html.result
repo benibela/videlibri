@@ -1,2 +1,3 @@
 book := {}
 bookPage := "http://katalog.ub.uni-duesseldorf.de:80/F/PB323S9L3KIBUK8UNDD4X1H4ELTMF7SGYJH1FM7K4NH1RGRSK5-54363?func=bor-loan&amp;adm_library=DUE50"
+holdPage := ()

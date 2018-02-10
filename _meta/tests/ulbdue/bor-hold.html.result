@@ -1,0 +1,2 @@
+book := {}
+book := {"libraryBranch": "ZB: Selbstabholregal", "category": "gerw", "id": "gerw46002.b142", "statusID": "ordered", "status": "1. Vormerker, fällig am 28/02/18.", "issuedate": "10/02/18", "year": "2014", "title": "Bäume 1. Aufl.", "author": "Hesse, Hermann", "detailLink": "https://katalog.ub.uni-duesseldorf.de/F/FRYAGS9RXUY32AXGFSXHXLSYH3UIPQVQ8HPN55CSAS7ALTXPDI-00495?func=BOR-HOLD-EXP&doc_number=003329702&item_sequence=000010&sequence=0001&index=0001&adm_library=DUE50"}

@@ -1,14 +1,11 @@
 
-
-<t:switch-prioritized>
-<table class="indent1"> 
- <tr> 
-  <td class=td1> Ausleihen</td>
-  <td class=td1> 
-    <a><t:read var="bookPage" source="@href" regex="https?://.*bor-loan[^'&quot;]*"/></a>
-  </td>
- </tr>
-</table> 
+<t:switch prioritized="on">
+<table><tr> 
+    <td class="td1"> Ausleihen</td>
+    { bookPage := (//a/@href[contains(., "bor-loan")])[1]/extract(., "https?://.*bor-loan[^'""]*"),
+      holdPage := (//a[normalize-space()ne "0"]/@href[contains(., "bor-hold")])[1]/extract(., "https?://.*bor-hold[^'""]*")
+    }
+</tr></table>
 <td class="feedbackbar"><img/><t:read var="raise()" source="text()"/></td>
-</t:switch-prioritized>
+</t:switch>
 

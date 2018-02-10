@@ -57,6 +57,7 @@
 
 <action id="update-all">
   <page url="{$bookPage}" templateFile="update"/>
+  <page url="{$holdPage}" templateFile="update-hold"/>
 </action>
 
 <action id="update-single">
@@ -67,6 +68,18 @@
   <page url="{$book.extendLink}"/>
   <page url="{$book.detailLink}" templateFile="../aleph_base/details"/>
 </action>
+
+<action id="cancel-single">
+  <page url="{$book._cancelLink}"/>
+</action>
+<!--
+cancel confirmation:
+<table border="0" cellspacing="0" cellpadding="0" width="100%"> 
+  <tr> 
+    <td class="feedbackbar" valign="middle" align="center" nowrap> 
+      <img src="https://katalog.ub.uni-duesseldorf.de/exlibris/aleph/u22_1/alephe/www_f_ger/icon/f-tip.gif" border="0" alt="System Tip"> Vormerkung wurde gelöscht.</td> 
+  </tr> 
+</table> -->
 
 <!--this does not work, because it can only modify a single currentBook.
 <action id="renew-list">

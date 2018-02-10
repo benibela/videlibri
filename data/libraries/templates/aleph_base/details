@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
+<t:switch prioritized="on">
  <table>
  <tr>
   <td>Ausleihdatum:</td>
@@ -26,6 +27,9 @@
 
 </table>
 
+<a t:condition="contains(@href, 'BOR-HOLD-DELETE')">{$book._cancelLink := @href}</a>
+
+</t:switch>
 <!--
 <br>
 <table border=0 cellspacing=2 width="90%">

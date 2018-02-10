@@ -1,0 +1,36 @@
+<t:switch prioritized="on">
+  <table cellspacing="2"> 
+   <tr><t:siblings-header>
+    <th>Nr</th> 
+    <th>Autor</th> 
+    <th>Titel</th> 
+    <th>Jahr</th> 
+    <th>Vormerkdatum</th>?
+     
+    <th>Vormerkstatus</th>
+    <th>Signatur</th>?
+    <th>Notiz</th>?
+    <th>Abholort</th>?
+    <th/>*
+   </t:siblings-header></tr>  
+   
+   <tr>{$book := {}}<t:siblings>
+    <td><a>{$book.detailLink := @href}</a></td>
+    <td>{$book.author}</td> 
+    <td>{$book.title}</td> 
+    <td>{$book.year}</td> 
+    <td>{$book.issuedate}</td> 
+     
+     
+    <td>{$book.status := ., $book.statusID := "ordered"}</td> 
+    <td>{$book.id := ., $book.category := extract($book.id, "[a-zA-Z]*")}</td> 
+    <td></td> 
+    <td>{$book.libraryBranch}</td> 
+    <td/>
+   </t:siblings></tr>+
+  
+</table> 
+
+
+<p>Sie haben keine offenen Vormerkungen/Magazinbestellungen. </p>
+</t:switch>
