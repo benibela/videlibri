@@ -1,4 +1,4 @@
 book := {}
 inOrderings := true()
 book := {"libraryBranch": "Zentralbibliothek, Erdgeschoss (Selbstabholregal)", "duedate": "2018-02-16", "statusId": "ordered", "status": "1. Vormerker", "issuedate": "2018-02-10", "id": "his p 808.b347", "author": "Baum, Christoph", "title": "Geschichte(n) der Königsallee", "_cancelID": "DUE500037244550000100001"}
-book := {"libraryBranch": "Fachbibliothek Medizin in der O.A.S.E., 4. Etage (Selbstabholregal)", "duedate": "1972-12-31", "statusId": "ordered", "status": "Reserviert", "issuedate": "2018-02-10", "id": "med n 310.r234", "author": "Rathgeber, Jörg", "title": "Grundlagen der maschinellen Beatmung : Einführung in die Beatmung für Ärzte und Pflegekräfte ; 47 Tabellen", "_cancelID": "DUE500023738350000100001"}
+book := {"libraryBranch": "Fachbibliothek Medizin in der O.A.S.E., 4. Etage (Selbstabholregal)", "statusId": "ordered", "status": "Reserviert", "issuedate": "2018-02-10", "id": "med n 310.r234", "author": "Rathgeber, Jörg", "title": "Grundlagen der maschinellen Beatmung : Einführung in die Beatmung für Ärzte und Pflegekräfte ; 47 Tabellen", "_cancelID": "DUE500023738350000100001"}
