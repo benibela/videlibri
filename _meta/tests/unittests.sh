@@ -231,7 +231,7 @@ mkdir -p $OUTPATH/netbiblio
 test netbiblio list list.html list.orders.html 
 
 test netbiblio searchList searchList.0.html searchList.html  searchList.singlepage.html searchList.en.html
-test netbiblio searchDetails{vl:set-book-property} searchDetails.html searchDetails.ebook.html  
+test netbiblio searchDetails{vl:set-book-property} searchDetails.html searchDetailsNew.html searchDetails.ebook.html  
 
 #=============vufind==============
 mkdir -p $OUTPATH/vufind
@@ -242,8 +242,8 @@ mkdir -p $OUTPATH/digibib
 
 DISE=../search/templates/digibib/search
 DIDE=../search/templates/digibib/details{vl:set-book-property}
-TEMPLATES=(${TEMPLATES[@]} $DISE $DISE $DIDE $DIDE $DIDE $DIDE $DIDE $DIDE $DIDE $DIDE $DIDE)
-PAGES=(${PAGES[@]} digibib/search.html digibib/search2.html digibib/details.html digibib/details2.html digibib/details3.html digibib/details4.html digibib/details5.html digibib/details6new.html digibib/details7new.fhmuenster.html digibib/details7holdings.fhmuenster.html digibib/detailsNRW.html)  
+TEMPLATES=(${TEMPLATES[@]} $DISE $DISE $DIDE $DIDE $DIDE $DIDE $DIDE $DIDE $DIDE $DIDE $DIDE $DIDE)
+PAGES=(${PAGES[@]} digibib/search.html digibib/search2.html digibib/details.html digibib/details2.html digibib/details3.html digibib/details4.html digibib/details5.html digibib/details6new.html digibib/details7new.fhmuenster.html digibib/details7holdings.fhmuenster.html digibib/details7noholdings.fhmuenster.html  digibib/detailsNRW.html)  
 
 test digibib list list.html list.empty.html 
 
