@@ -231,7 +231,11 @@ begin
   holdings.Parent := holdingsPanel;
   holdings.align:=alClient;
   holdings.OnSelect:=@bookListHoldingsSelect;
-
+  holdings.PopupMenu := PopupMenu1;
+  holdings.OnCustomRecordItemDraw:=@detaillistCustomRecordItemDraw;
+  holdings.OnClickAtRecordItem:=@detaillistClickAtRecordItem;
+  holdings.OnMouseMove:=@detaillistMouseMove;
+  holdings.OnMouseDown:=@detaillistMouseDown;
 
   Image1.Width:=0;
 
@@ -383,9 +387,25 @@ begin
 end;
 
 procedure TbookSearchFrm.menuCopyRowClick(Sender: TObject);
+var
+  opener: TComponent;
+  list: TTreeListView;
+  v: String;
+  item: TTreeListItem;
+  i: Integer;
 begin
-  if detaillist.Selected = nil then exit;
-  Clipboard.AsText := detaillist.Selected.Text + ': '+ detaillist.Selected.RecordItemsText[1];
+  opener := ((Sender as TMenuItem).GetParentMenu as TPopupMenu).PopupComponent;
+  if opener = holdings then list := holdings
+  else list := detaillist;
+  item := list.selected;
+  if item = nil then exit;
+  v := item.Text;
+  if list = detaillist then v := v + ': '+ item.RecordItemsText[1]
+  else for i := 1 to item.RecordItems.Count - 1 do begin
+    if (i = item.RecordItems.Count - 1) and (item.RecordItemsText[i] = '') then continue; //is there a hidden column?
+    v := v + '|'+ item.RecordItemsText[i];
+  end;
+  Clipboard.AsText := v;
 end;
 
 procedure TbookSearchFrm.menuCopyValueClick(Sender: TObject);
@@ -1147,7 +1167,7 @@ end;
 
 procedure TbookSearchFrm.detaillistMouseDown(Sender: TObject; Button: TMouseButton; Shift: TShiftState; X, Y: Integer);
 begin
-  detaillistLastClickedRecordItem := detaillist.GetRecordItemAtPos(x,y);
+  detaillistLastClickedRecordItem := (sender as TTreeListView).GetRecordItemAtPos(x,y);
 end;
 
 procedure TbookSearchFrm.bookListHoldingsSelect(sender: TObject; item: TTreeListItem);

@@ -568,8 +568,8 @@ object bookSearchFrm: TbookSearchFrm
     Top = 516
   end
   object PopupMenu1: TPopupMenu
-    Left = 552
-    Top = 357
+    Left = 528
+    Top = 488
     object menuCopyValue: TMenuItem
       Caption = 'Wert kopieren'
       OnClick = menuCopyValueClick
