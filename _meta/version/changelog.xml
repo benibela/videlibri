@@ -1,10 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?xml-stylesheet type="text/xsl" href="../changelog.xsl"?>
 <changelog program="VideLibri">
-      <build version="1963" date="2018-01-27">
+      <build version="1965" date="2018-02-11">
         <download url="http://videlibri.sourceforge.net/updates/videlibri-setup.exe" platform="WINDOWS" execute="&quot;$DOWNLOAD&quot;  /SP- /noicons &quot;/dir=$OLDPATH&quot; " restart="true"/>
         <download url="http://videlibri.sourceforge.net/updates/videlibri-linux32.deb" platform="LINUX32" execute=""/>
         <download url="http://videlibri.sourceforge.net/updates/videlibri-linux64.deb" platform="LINUX64" execute=""/>
+	<change>Verbesserte Fehlermeldungen: Bei fehlgeschlagener Weiterleitung bei Universitätsbibliotheken TU/FU/HU Berlin, SLUB Dresden; Bei Wartungsarbeiten beim VOEBB.</change>
+        <fix>SISIS: Lösche alte Medien bei mehrfachen Aktualisierungen.</fix>
+        <fix>Stadtbücherei Pulheim: Neue OPAC-IP-Adresse.</fix>
+	<fix>Digibib/FH Münster, Stadtbibliothek Biel: Zeige wieder Bestandsexemplare an.</fix>
+        <add>VuFind: Kontoanzeige.</add>
+	<add>Universitäts- und Landesbibliothek Düsseldorf: Zeige Vormerkungen an, und Kontozugriff über den neuen Katalog.</add>
+	<add>Liste Digibib NRW in Auswahlliste.</add>
+     </build>
+      <build version="1963" date="2018-01-27">
         <change>Stadtbibliothek Biel: Verwende HTTPS.</change>
 	<fix>Android &lt;= 4.0: Speichere zusätzliche HTTPS-Zertifikate im alten Keystore-Format, damit unter alten Android-Versionen keine "Wrong version of key store"-Fehlermeldung kommt.  </fix>
 	<fix>Android: Stürze nicht ab, wenn die Internetverbindung mitten in einer Übertragung plötzlich unterbrochen wird.</fix>
