@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<library>
+  <longName value="Öffentliche Bibliotheken NRW (über Digibib)"/>
+
+  <template value="digibib"/>
+  
+  <variable name="location" value="EXTERN"/>
+  <variable name="view" value="EXTERN:Recherchedatenbanken"/>
+  <variable name="searchid-digibib" value="SERVICEGROUP1.SERVICE.SEARCH_HBZOEB"/>
+
+  <homepage value="https://www.digibib.net"/>
+</library>
