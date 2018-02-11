@@ -1,2 +1,3 @@
 book := {}
 book := {"Sonstiges:!!": "Ungezählte Schriftenreihe", "Ort / Verlag, Jahr:!!": "Göttingen, Bern , Wien , Paris , Oxford , Prag , Toronto , Cambridge, Mass. , Amsterdam , Kopenhagen , Stockholm : Hogrefe", "Titel:!!": "Beltz-Test"}
+hasBestand := false()

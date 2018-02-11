@@ -1,4 +1,6 @@
 book := {}
+hasBestand := false()
+hasBestand := true()
 holding := {"id": "ZFF 30", "libraryBranch": "BB Steinfurt / Freihand_04", "status": "Verliehen (Rückgabe vorauss. 02.06.2017)"}
 result := ()
 holding := {"id": "ZFF 30+1", "libraryBranch": "BB Steinfurt / Freihand_04", "status": "Verliehen (Rückgabe vorauss. 31.12.9999)"}

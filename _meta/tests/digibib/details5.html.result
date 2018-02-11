@@ -1,2 +1,4 @@
 book := {}
+hasBestand := false()
+hasBestand := true()
 book := {"holdings": [{"title": "Standort: 03 Sign.: erze110.l278", "orderable": false}, {"title": "Standort: 26 Sign.: erzr120.l278", "orderable": false}], "home-url": {"method": "GET", "url": "http://katalog.ub.uni-duesseldorf.de/F/?func=find-b&request=HT001117118&find_code=IDN"}, "Sonstiges:!!": "Zugl.: Köln, Päd.Hochschule Rheinland, Diss., 1979", "ISBN:!!": "3-8204-6928-1", "Serie:!!": "Europäische Hochschulschriften : Reihe 6, Psychologie ; 77", "Umfang:!!": "145 S. : graph. Darst.", "Ort / Verlag, Jahr:!!": "Frankfurt am Main [u.a.]: Lang, 1982", "Autor(in):!!": "Langfeldt-Nagel, Maria", "Titel:!!": "Der Einfluß der Schulbildung auf Intelligenztestleistungen : eine Längsschnittuntersuchung"}

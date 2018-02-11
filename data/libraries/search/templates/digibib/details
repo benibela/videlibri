@@ -21,10 +21,11 @@
    </dd>
 
  
-   <t:if t:optional="true">
-   <dt >Bestand</dt>
-   <t:switch prioritized="on">
-    <dd><table class="datagrid2">
+   <t:s>hasBestand:=false()</t:s>
+   <dt >Bestand<t:s>hasBestand:=true()</t:s></dt>?
+   <dd t:test="$hasBestand">
+    <t:switch prioritized="on">
+    <table class="datagrid2">
       <thead><tr>
        <t:siblings-header>
          <th>Status</th>?
@@ -41,7 +42,7 @@
         <td>{$holding("Mediennummer!")}</td>
       </t:siblings>{$book.holdings[] := $holding}</tr>+
       </tbody>
-    </table></dd>
+    </table>
     <table class="datarows">
       <t:switch prioritized="on">
         <form>{
@@ -52,9 +53,8 @@
         <a>{$book.home-url:=@href}</a>
       </t:switch>
      </table>
-    </t:switch>
-   </t:if>
-</dl>
+    </t:switch></dd>
+  </dl>
 </div>
 
          <div class="contentpadding">
