@@ -20,34 +20,40 @@
       </t:loop></table>
    </dd>
 
-   <dt t:optional="true">Bestand</dt>
-   <dd><table class="datagrid2">
-     <thead><tr>
-      <t:siblings-header>
-        <th>Status</th>?
-        <th>In Zweigstelle</th>?
-        <th>Signatur</th>?
-        <th>Mediennummer</th>?
-      </t:siblings-header>
-     </tr></thead>
-     <tbody>
-     <tr>{$holding := {}}<t:siblings>
-       <td>{$holding.statusId}</td>
-       <td>{$holding.libraryBranch}</td>
-       <td>{$holding.id}</td>
-       <td>{$holding("Mediennummer!")}</td>
-     </t:siblings>{$book.holdings[] := $holding}</tr>+
-     </tbody>
-   </table></dd>?
-   <table class="datarows">
-   <td>
-     <a>{$book.home-url:=@href}</a>?
-     <form template:optional="true">{
-       $book.home-url := form(.),
-       $book.holdings[] := ..//text()[normalize-space()]!{"title": ., "orderable": false()}
-     }</form>
-   </td>
-   </table>?
+ 
+   <t:if t:optional="true">
+   <dt >Bestand</dt>
+   <t:switch prioritized="on">
+    <dd><table class="datagrid2">
+      <thead><tr>
+       <t:siblings-header>
+         <th>Status</th>?
+         <th>In Zweigstelle</th>?
+         <th>Signatur</th>?
+         <th>Mediennummer</th>?
+       </t:siblings-header>
+      </tr></thead>
+      <tbody>
+      <tr>{$holding := {}}<t:siblings>
+        <td>{$holding.status}</td>
+        <td>{$holding.libraryBranch}</td>
+        <td>{$holding.id}</td>
+        <td>{$holding("Mediennummer!")}</td>
+      </t:siblings>{$book.holdings[] := $holding}</tr>+
+      </tbody>
+    </table></dd>
+    <table class="datarows">
+      <t:switch prioritized="on">
+        <form>{
+          $book.home-url := form(.),
+          $book.holdings[] := ..//text()[normalize-space()]!{"title": ., "orderable": false()}
+        }</form>
+        <ul>{$book.holdings[] := .//li/{"libraryBranch": ., "Bibliothek-Info!": .//a/@href}, $book.home-url:=.//a/@href[1]}</ul>
+        <a>{$book.home-url:=@href}</a>
+      </t:switch>
+     </table>
+    </t:switch>
+   </t:if>
 </dl>
 </div>
 
