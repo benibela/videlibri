@@ -354,6 +354,7 @@ begin
   if logging then bbdebugtools.log('de.benibela.VideLibri.Bride.VLGetTemplateDetails (started)');
   //bbdebugtools.log(strFromPtr(libraryManager));
   //bbdebugtools.log(IntToStr(libraryManager.count));
+  result := nil;
   try
     template := libraryManager.getTemplate(j.jStringToString(id));
     if template = nil then exit(nil);
@@ -417,6 +418,7 @@ begin
   if logging then bbdebugtools.log('de.benibela.VideLibri.Bride.VLGetLibraryDetails (started)');
   //bbdebugtools.log(strFromPtr(libraryManager));
   //bbdebugtools.log(IntToStr(libraryManager.count));
+  result := nil;
   try
     libId := j.jStringToString(id);
     lib := libraryManager.get(libId);
@@ -556,6 +558,7 @@ begin
   if logging then bbdebugtools.log('de.benibela.VideLibri.Bride.VLGetTemplates (started)');
   //bbdebugtools.log(strFromPtr(libraryManager));
   //bbdebugtools.log(IntToStr(libraryManager.count));
+  result := nil;
   try
     beginAssetRead;
 
@@ -946,6 +949,7 @@ var
   timeField: jfieldID;
 begin
   if logging then bbdebugtools.log('Java_de_benibela_VideLibri_Bridge_VLGetBooks started');
+  result := nil;
   try
     acc := getRealAccountChecked(jacc);
     if acc = nil then exit;
@@ -997,6 +1001,7 @@ var redBook, yellowBook, book: TBook;
   account: TCustomBookOwner;
 begin
   if logging then bbdebugtools.log('Java_de_benibela_VideLibri_Bridge_VLGetCriticalBook started');
+  result := nil;
   try
     updateGlobalTimeCache;
     try
@@ -1110,7 +1115,7 @@ var
   k: Integer;
 begin
   if logging then bbdebugtools.log('Bridge_VLGetPendingExceptions started');
-
+  result := nil;
 
   try
     pendingExceptionClass := j.newGlobalRefAndDelete(j.getclass('de/benibela/videlibri/Bridge$PendingException'));
@@ -1195,7 +1200,7 @@ var title, text: string;
   minDateSoon: integer;
 begin
   if logging then bbdebugtools.log('Bridge_VLGetNotifications started');
-
+  result := nil;
   try
     title := '';
     text := '';
@@ -1663,6 +1668,7 @@ begin
   if logging then bbdebugtools.log('de.benibela.VideLibri.Bride.VLGetOptions (started)');
   //bbdebugtools.log(strFromPtr(libraryManager));
   //bbdebugtools.log(IntToStr(libraryManager.count));
+  result := nil;
   try
     with getOptionClass do begin
       result := j.newObject(c, init);
@@ -1767,9 +1773,9 @@ var
 begin
   if logging then bbdebugtools.log('de.benibela.VideLibri.Bride.VLImportAccountsPrepare (started)');
   try
-    importAccountsPrepare(j.jStringToString(filename), parser, accounts, flags);
-
     result := j.newObject(importExportDataClass, importExportDataClassInit);
+
+    importAccountsPrepare(j.jStringToString(filename), parser, accounts, flags);
 
     j.SetLongField(result, importExportDataFields.nativePtrJ, ptrint(parser));
 
@@ -1829,6 +1835,7 @@ var r: TBookListReader;
   i64: Int64;
 begin
   if logging then bbdebugtools.log('de.benibela.VideLibri.Bride.VLXQuery (started)');
+  result := nil;
   r:=TBookListReader.create(nil);
   book := TBook.create;
   EnterCriticalsection(updateThreadConfig.libraryAccessSection);
@@ -1897,6 +1904,7 @@ end;
 function Java_de_benibela_VideLibri_Bridge_VLNormalizeISBN(env:PJNIEnv; this:jobject; isbn: jstring; removeSep: jboolean; conversion: jint): jobject; cdecl;
 begin
   if logging then bbdebugtools.log('de.benibela.VideLibri.Bride.VLNormalizeISBN (started)');
+  result := nil;
   try
     needJ;
     result := j.stringToJString(TBook.getNormalizedISBN(j.jStringToString(isbn), removeSep <> JNI_FALSE, conversion));
