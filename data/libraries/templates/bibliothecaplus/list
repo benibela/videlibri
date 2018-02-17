@@ -1,5 +1,10 @@
 <html>
-  {culture := (//input[contains(@name, "Culture")], "de-DE")[1]/@value, vl:delete-current-books() }
+  {declare function local:parse-column($element){ 
+     $element/normalize-space(string-join(node() except span[contains(@class, "oclc-module-label")])) 
+   };
+  culture := (//input[contains(@name, "Culture")], "de-DE")[1]/@value, 
+  vl:delete-current-books() 
+  }
   <link t:condition="contains(@href, 'PatronAccountModule')">{extendableCheck := extract(resolve-uri(@href), "^.*PatronAccountModule[/\\]") || "PatronAccountService.asmx/IsCatalogueCopyExtendable"}</link>
   
   <form>
@@ -21,12 +26,12 @@
         <TR>
           <TD><INPUT>{book := {"_renewid": @name}}</INPUT></TD>
           <TD>{$book.image-url := .//(img,input[type="image"])!(@src, tokenize(@sources, "[|]")[contains(.,"://")]),
-               $book.image-url!extract(., "(amazon.*/(ASIN|P)/|isbn=)([-0-9]+)[./&amp;]", 3)[.][1]!($book.ISBN := .)
+               $book.image-url!extract(., "(amazon.*/(ASIN|P)/|isbn=|cover/)([-0-9]{8,})([./&amp;]|[.]jpg)", 3)[.][1]!($book.ISBN := .)
            }</TD>
-          <TD>{book.title := .}</TD>
-          <TD>{book.author := .}</TD>
-          <TD>{book.category := .}</TD>
-          <TD t:test="$hasBranches">{book.libraryBranch := .}</TD>
+          <TD>{book.title := local:parse-column(.)}</TD>
+          <TD>{book.author := local:parse-column(.)}</TD>
+          <TD>{book.category := local:parse-column(.)}</TD>
+          <TD t:test="$hasBranches">{book.libraryBranch := local:parse-column(.)}</TD>
           <TD>{book.duedate := parse-date(extract(., "[0-9./-]+"))}</TD>
           <div class="extendableRegion"><input t:condition="contains(@name, 'CopyId')">{book._copyId := @value, book.id := @value}</input></div>?
         </TR>
@@ -42,8 +47,8 @@
       </t:switch>
       <tr><td><input>{book := {"_cancelid": @name, "statusId": "ordered", "cancelable": true()}}</input></td>
           <TD/><!--<input type="image" src=".."/>-->
-          <TD>{book.title := .}</TD>
-          <TD>{book.author := .}</TD>
+          <TD>{book.title := local:parse-column(.)}</TD>
+          <TD>{book.author := local:parse-column(.)}</TD>
       </tr>*
     </table>
            
@@ -56,8 +61,8 @@
       </t:switch>
       <tr><td><input>{book := {"_cancelid": @name, "statusId": "provided", "cancelable": true()}}</input></td>
           <TD/><!--<input type="image" src=".."/>-->
-          <TD>{book.title := .}</TD>
-          <TD>{book.author := .}</TD>
+          <TD>{book.title := local:parse-column(.)}</TD>
+          <TD>{book.author := local:parse-column(.)}</TD>
       </tr>* <!-- todo: correct columns???-->
   	</table>
     
