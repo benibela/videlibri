@@ -9,7 +9,7 @@
     <thead><tr>
       <t:siblings-header>
         <th><input/></th>?
-        <th><a t:condition="matches(@href,'Items.ItemNr|Notices.NoticeNr')"></a></th>
+        <th><a t:condition="matches(@href,'Items.ItemNr|Notices.NoticeNr')"></a></th>?
         <th><a t:condition="contains(@href,'Notices.MediaType1Code')"></a></th>?
         <th><a t:condition="contains(@href,'Notices.Author')"></a> 
             <a t:condition="contains(@href,'Notices.Title')"></a></th>?
