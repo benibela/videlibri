@@ -43,11 +43,12 @@
   <call action="update-all"/>
 </action>
 
-
-
 <!--
 
 
+
+<action id="search-connect">
+</action>
 
 <action id="search">
   <s>
@@ -69,24 +70,21 @@
          ) else ()  ), $amp)
   }</s>
   <page url="{$request}" templateFile="searchList"/>
+  <s>book:={"title": "test", "holdings": {"libraryBranch":  "Lesesaal 3. Etage ", "_orderUrl": "/Record/003307385/Hold?id=003307385&item_id=DUE50003307385000010&hashKey=38685b4a112ecf8943b12c8660e2d3e5"}}</s>
 </action>
 
 <action id="search-next-page"> 
-  <page url="{$next-page}" templateFile="searchList"/>
 </action>
-
 
 <action id="search-details">
-  <page url="{$book._detailUrl}" templateFile="searchDetails"/>
 </action>
 
 
--->
+
 
 <action id="order-single">
   <call action="internal-login"/>
-  <!--<page url="{$holding._orderUrl}"> </page>-->
-<!-- example:  <page url="/Record/003307385/Hold?id=003307385&item_id=DUE50003307385000010&hashKey=38685b4a112ecf8943b12c8660e2d3e5"/>-->
+  <page url="{$holding._orderUrl}"> </page>
   <pattern>
     <input type="submit" name="placeHold">
     {let $af := ancestor::form[1] return
@@ -99,8 +97,14 @@
 <action id="internal-order-confirmed">
   <if test="$confirm-result">
     <page url="{$form}"/>
+    <pattern>
+      <t:switch prioritized="true">
+        <div class="alert-success">{$book.status := "ordered"}</div>
+        <div class="alert-danger">{vl:raise(.)}</div>
+      </t:switch>  
+    </pattern>
   </if>
-</action>
+</action>-->
 
 <action id="catalogue">
   <variable name="url" value="{$baseurl}"/>
