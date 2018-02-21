@@ -45,7 +45,7 @@
         <td>{$holding.libraryBranch := join(node())}</td>
         <td>{$holding.id}</td>
         <td>{$holding.status}</td>
-        <td>{normalize-space()[.]!($holding.dueDate := parse-date(.))}</td>
+        <td>{normalize-space()[.]!(try { $holding.dueDate := parse-date(.) } catch *:FORG0001 { $holding.status := join(($holding.status, .)) } ) }</td>
         <td>{$holding("andere Reservationen!") := .}</td>
         <td><a class="btn"><!-- href="/account/makeitemreservation?returnUrl=%2Fsearch%2Fshortview%3FsearchType%3DExtended%26pageSize%3D0%26searchResultId%3D160846%26sort%3DNotices.Date1%2520DESC%252CNotices.Author%252CNotices.Title%26page%3D1%26gridPosition%3Dwo-row_180153%26searchField%3DW%26searchTerm%3Dwarum&amp;selectedItems=163793" class="btn btn-default">-->{$holding.orderTitle := ., if (not($holding._orderId)) then $holding._orderId := extract(@href, "selectedItems=([0-9]+)", 1) else () }</a>?</td>
        </t:siblings>
