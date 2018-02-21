@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <library>
-  <longName value="Bibliothek der Hochschule für Musik und Theater (nur Suche)"/>
+  <longName value="Bibliothek der Hochschule für Musik und Theater  (nur Suche)"/>
+
+<!--
+  <template value="vufind"/>
+  <variable name="baseurl" value="https://katalog.hmt-leipzig.de/vufind/MyResearch/"/>
+-->
 
   <template value="pica"/>  
   <variable name="server" value="http://swb.bsz-bw.de"/>
