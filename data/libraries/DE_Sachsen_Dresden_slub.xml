@@ -5,7 +5,7 @@
   <template value="primo"/>
   <variable name="login-url-1" value="http://katalog.slub-dresden.de/primo_library/libweb/action/login.do?loginFn=signin&targetURL=http%3a%2f%2fkatalogbeta.slub-dresden.de%2fmein-konto%2f%3f"/>
   <variable name="baseurl" value="http://katalog.slub-dresden.de/primo_library/libweb/action/"/>
-  <variable name="institute" value="SEM"/>
+  <variable name="institute" value="default"/>
 
   <homepage value="http://www.slub-dresden.de/"/>
   <testing-search value="nein" date="2017-05-06"/>
