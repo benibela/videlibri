@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
       package="de.benibela.videlibri"
-      android:versionCode="1965"
-      android:versionName="1.965">
+      android:versionCode="1967"
+      android:versionName="1.967">
     <!--<uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.SEND_SMS" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />-->

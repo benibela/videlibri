@@ -236,7 +236,7 @@ src)
 		./manage.sh linux32
 		./manage.sh android
 	  ./manage.sh src
-	  sleep 10 #sf is slow to show the downloads
+	  sleep 120 #sf is slow to show the downloads
 	  ./manage.sh downloadTable
 	  echo do not forget to close the commit window
 		thg commit
