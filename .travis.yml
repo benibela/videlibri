@@ -32,7 +32,7 @@ install:
   #get dependencies from sourceforge
   - hg clone -r 2000 http://hg.code.sf.net/p/videlibri/code sf
   - cd sf
-  - hg pull -r 4000; hg pull; hg update
+  - hg pull -r 4000; hg pull; hg update default
   - rm -rf programs/internet/VideLibri; mv ../videlibri programs/internet/VideLibri
   - mkdir import; git clone https://github.com/benibela/flre.git import/flre; 
   - echo -Fu$PWD/import/flre/src/ >> ~/.fpc.cfg;
