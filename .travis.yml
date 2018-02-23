@@ -30,8 +30,10 @@ install:
   - if [[ ! -e ~/.fpc.cfg ]]; then echo '#INCLUDE /etc/fpc.cfg' > ~/.fpc.cfg; fi 
   - cd ..
   #get dependencies from sourceforge
-  - hg clone http://hg.code.sf.net/p/videlibri/code sf
-  - rm -rf sf/programs/internet/VideLibri; mv videlibri sf/programs/internet/VideLibri; cd sf
+  - hg clone -r 2000 http://hg.code.sf.net/p/videlibri/code sf
+  - cd sf
+  - hg pull -r 4000; hg pull; hg update
+  - rm -rf programs/internet/VideLibri; mv ../videlibri programs/internet/VideLibri
   - mkdir import; git clone https://github.com/benibela/flre.git import/flre; 
   - echo -Fu$PWD/import/flre/src/ >> ~/.fpc.cfg;
   - echo -Fi$PWD/components/pascal/ >> ~/.fpc.cfg;
