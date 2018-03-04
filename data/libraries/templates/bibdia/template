@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<actions>
+
+<meta>
+  <description>Biber BIBDIA</description>
+</meta>
+
+
+<action id="connect">
+</action>
+
+<action id="update-all">
+  <loop list="('medk', 'vorm')" var="func">
+    <page url="{$baseurl}/user.C" templateFile="update">
+      <post name="BENUTZER" value="{$username}"/>
+      <post name="FUNC" value="{$func}"/>
+      <post name="LANG" value="de"/>
+      <post name="PASSWORD" value="{$password}"/>
+    </page>
+  </loop>
+</action>
+
+
+<action id="renew-list">
+  <s>form := request-combine($renew-form, $renew-books!{.("_internalId"): "YES"})</s>
+  <page url="{$form}"/>
+  <call action="update-all"/>
+</action>
+
+<action id="cancel-list">
+  <s>form := request-combine($cancel-form, $cancel-books!{.("_internalId"): "YES"})</s>
+  <page url="{$form}"/>
+  <call action="update-all"/>
+</action>
+
+
+</actions>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<library>
+  <longName value="Stadtbibliothek Duisburg"/>
+  <shortName value="StB Duisburg"/>
+  
+  <template value="bibdia"/>
+  <variable name="baseurl" value="https://opac.stadtbibliothek.duisburg.de/opax/"/>
+
+  
+  <variable name="location" value="BIBDIA"/>
+  <variable name="view" value="BIBDIA:BasisExt"/>
+  <variable name="searchid-bibdia|digibib" value="SERVICEGROUP1.SERVICE.SEARCH_SBDB"/>
+  
+  
+
+  <variable name="searchid-digibib" value="SERVICEGROUP1.SERVICE.SEARCH_SBDB"/>
+
+<!--
+bochum: SEARCH_SBBO
+essen: SEARCH_SBES
+-->
+
+  <homepage value="https://www.duisburg.de/bildungwissenschaft/stadtbibliothek/stadtbibliothek.php"/>
+</library>

@@ -64,6 +64,10 @@ mkdir -p $OUTPATH/aleph_ubFUb
 TEMPLATES=(${TEMPLATES[@]} aleph_base/details aleph_ubFUb/update aleph_ubFUb/update aleph_ubFUb/update aleph_base/loggedIn2007)
 PAGES=(${PAGES[@]} aleph_ubFUb/details.html aleph_ubFUb/update-2books.html aleph_ubFUb/update-0books.html aleph_ubFUb/update-6books.html aleph_ubFUb/loggedIn.html)
 
+#============BIBDIA===============
+mkdir -p $OUTPATH/bibdia
+test bibdia update user.medk.duisburg.0.html user.medk.duisburg.1.html user.vorm.duisburg.1.html user.vorm.duisburg.1b.html
+
 #============BIBDIA StaBib===============
 mkdir -p $OUTPATH/bibdia_stabib
 TEMPLATES=(${TEMPLATES[@]} bibdia_stabib/update bibdia_stabib/update bibdia_stabib/fastUpdate bibdia_stabib/update bibdia_stabib/update 'pica/searchDetails{\(\)/\(base:=\"\"\)}' 'pica/searchDetails{\(\)/\(base:=\"\"\)}' 'pica/searchDetails{\(\)/\(base:=\"\"\)}') 

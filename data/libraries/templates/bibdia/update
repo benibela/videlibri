@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<t:switch prioritized="true">
+<form>
+
+{mode := @name/string(),
+ switch ($mode) 
+   case "vorml" return cancel-form := form(.)
+   case "medkl" return renew-form := form(.)
+   default return vl:raise-internal("Unknown list: " || $mode)
+}
+
+<TABLE>
+<tr><th><font/></th></tr>
+<TR>
+<t:siblings-header>
+	<TH></TH>
+	<th><img/></th>
+	<th>Nr</th>
+	<th>F&#228;llig</th>?
+	<th>Mediennr</th>?
+	<th>A</th>?
+	<th>V</th>?
+	<th>M</th>?
+	<th>Signatur<!-- / Kurztitel--></th>
+	<th>Status</th>?
+	
+	<th>gültig ab</th>?
+	<th>gültig bis</th>?
+	<th>entliehen bis</th>?
+	<th>Rang</th>?
+
+	<th/>*
+</t:siblings-header>
+</TR>
+
+<TR>
+{book:={"status": ""}}
+<t:siblings>
+ <td/>
+ <td><input type="checkbox">{$book._internalId := @name/string()}</input>?</td>
+ <td/>
+ <TD>{$book.duedate := parse-date(.)}</TD> 
+ <td/>
+ <td>{$book.libraryBranch := join((normalize-space(), .//@title), ", ")}</td>
+ <TD>{$book.status := $book.status || ((normalize-space()[.], "0")[1]!x"{.} Verlängerungen") }</TD>
+ <TD>{$book.status := $book.status || (normalize-space()[.]!x"{.} Mahnungen") }</TD>
+ <TD>{book.id := extract(., "^[^/]+"), 
+      book.title := substring-after(., ":"),
+      book.author := extract(., "/([^:]+)", 1)
+ }</TD>
+ <TD>{$book.status}</TD>
+ 
+ 
+ <TD>{$book.issuedate := parse-date(.)}</TD> 
+ <TD>{$book.duedate := parse-date(.)}</TD> 
+ <TD>{$book.status := $book.status || " Entliehen bis: " || . }</TD>
+ <TD>{$book.status := $book.status || " Rang: " || . }</TD>
+ 
+ <td/>
+</t:siblings>
+{$book.statusId := if ($mode eq "vorml") then "ordered" else if (exists($book._internalId)) then "curious" else "critical" }
+</tr>+
+</table>
+ 
+</form>
+
+<font>Kein Medium</font>
+<font>Sie haben keine Medien</font>
+
+<form name="errorl" >{vl:raise-login((../preceding::table)[1])}</form>
+
+
+<html>
+<title>Status</title>
+<font color="red">{vl:raise(.)}</font>
+</html>
+
+<body>
+  <div class="formTitle"></div>
+  <t:element class="error">{vl:raise(.)}</t:element>
+</body>
+
+</t:switch>

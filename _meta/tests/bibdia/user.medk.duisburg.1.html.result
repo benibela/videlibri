@@ -1,0 +1,4 @@
+book := {}
+mode := "medkl"
+renew-form := {"method": "POST", "post": "LANG=de&FUNC=verl&BENUTZER=5678956789&PASSWORD=56789987", "url": "file:///home/theo/hg/programs/internet/VideLibri/_meta/tests//bibdia/user.medk.duisburg.1.html"}
+book := {"statusId": "curious", "status": " ", "author": " Foobar, Jo", "title": "", "id": "CD ROMANE FOO ", "libraryBranch": " ZB , Zentralbibliothek", "duedate": "2018-03-17", "_internalId": "567898695"}

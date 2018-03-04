@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <library>
   <deprecatedName value="000"/>
-  <username matches="^\d{8}$"/>
-  <password matches="^\d{1,2}\.\d{1,2}\.\d{2,4}$"/>  
   
   <longName value="Stadtbüchereien Düsseldorf"/>
   <shortName value="StB Düsseldorf"/>
