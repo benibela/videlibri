@@ -17,7 +17,16 @@
     }</form></template>
   </page>
 </action>
+<!--
 
+}
+function __doPostBack(eventTarget, eventArgument) {
+    if (!theForm.onsubmit || (theForm.onsubmit() != false)) {
+        theForm.__EVENTTARGET.value = eventTarget;
+        theForm.__EVENTARGUMENT.value = eventArgument;
+        theForm.submit();
+    }
+}-->
 
 <action id="update-all">
   <call action="internal-login"/>
@@ -54,9 +63,12 @@
 <action id="renew-list">
   <s>form := form-combine($user-form, ($renew-books  ! {(.)._renewid: "on"}, $renew-button) ) </s>
   <page url="{$form}"> <!-- this returns all of update-all list again-->
-    <template><form>{confirm-form := form(., 
-      {'__EVENTTARGET': (.//input[contains(@name, 'ucLoansView')])[1]/extract(., "dnn.*ucLoansView"), 
-       "__EVENTARGUMENT": "CommitCatalogueCopiesExtensionEventArgs" } )}</form></template>
+    <template><form>{
+      let $target := (.//input/@name/string()[contains(., 'ucLoansView') or contains(., 'loansExtensionPopup$btnDefault')])[1]
+      let $argument := if (contains($target, "ucLoansView")) then "CommitCatalogueCopiesExtensionEventArgs" else ""
+      return (
+       confirm-form := form(., {'__EVENTTARGET': $target, "__EVENTARGUMENT": $argument } )
+     )}</form></template>
   </page>
   <page url="{$confirm-form}"/> <!-- this returns all of update-all list again-->
   <call action="update-all"/>
