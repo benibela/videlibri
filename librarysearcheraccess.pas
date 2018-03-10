@@ -214,7 +214,7 @@ begin
         temp := nestedList(locations, loc);
         temp.AddObject(libraryManager[i].prettyNameLong, TSearchTarget.create(libraryManager[i].prettyNameLong, libraryManager[i], libraryManager[i].template));
       end;
-      if libraryManager[i].variables.IndexOfName('searchid-digibib') >= 0 then begin
+      if strContains(libraryManager[i].template.name, 'digibib') then begin
         temp := nestedList(regions, libraryManager[i].prettyCountryState);
         if temp.IndexOf(loc+' (digibib)') < 0 then temp.Add(loc+' (digibib)');
         temp := nestedList(regions, rsSearchWorldRegion);

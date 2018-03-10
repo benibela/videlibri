@@ -37,7 +37,6 @@ public
   constructor create(searchTemplate: TMultiPageTemplate);
   destructor Destroy; override;
   
-  procedure setLocation(s:string);
   function addLibrary(lib: tlibrary): boolean;
   function getLibraryIds: string;
   procedure clear;
@@ -52,7 +51,6 @@ public
   procedure completePendingMessage(pm: TPendingMessage; idx: integer);
   procedure disconnect;
 
-  property Location: string read flocation write setLocation;
   property HomeBranch: Integer read fhomebranch write setHomeBranch;
   property SearchBranch: Integer read fsearchBranch write setSearchBranch;
 
@@ -125,32 +123,31 @@ begin
   inherited Destroy;
 end;
 
-procedure TLibrarySearcher.setLocation(s: string);
+function xqvalueSeqAppend(const v1, v2: ixqvalue): ixqvalue;
 var
-  temp: String;
+  templist: TXQVList;
 begin
-  flocation:=s;
-  if pos('digibib', s) > 0 then s := copy(s, 1, pos(' ', s)-1);
-  temp := template.findVariableValue('location:'+s);
-  if temp <> '' then
-    bookListReader.parser.variableChangeLog.ValuesString['location']:=temp;
-  temp := template.findVariableValue('view:'+s);
-  if temp <> '' then
-    bookListReader.parser.variableChangeLog.ValuesString['view']:=temp;
-  {if (s <> template.name) //not a standard search template
-      and (bookListReader.parser.variableChangeLog.ValuesString['location']='') //not a digibib template
-      and (template.findAction('update-all') = nil) and (template.findAction('update-single') = nil) //and not a account template
-      then
-    raise Exception.Create('Unbekannter Suchort');}
+  templist := TXQVList.create(2);
+  templist.add(v1);
+  templist.add(v2);
+  xqvalueSeqSqueezed(result, templist);
 end;
 
 function TLibrarySearcher.addLibrary(lib: tlibrary): boolean;
 var
   j: Integer;
+  vars: TXQVariableChangeLog;
+  value: ixqvalue;
+  name, newvalue: String;
 begin
   flibsToSearch.Add(lib);
-  for j := 0 to lib.variables.Count-1 do
-    bookListReader.parser.variableChangeLog.ValuesString[lib.variables.Names[j]] := lib.variables.ValueFromIndex[j];
+  vars := bookListReader.parser.variableChangeLog;
+  for j := 0 to lib.variables.Count-1 do begin
+    name := lib.variables.Names[j];
+    newvalue := lib.variables.ValueFromIndex[j];
+    if vars.hasVariable(name, value) then vars.add(name, xqvalueSeqAppend(value, xqvalue(newvalue)))
+    else vars.ValuesString[name] := newvalue;
+  end;
   Result:=true;
 end;
 
@@ -173,16 +170,11 @@ begin
 end;
 
 procedure TLibrarySearcher.connect;
-var selectedLibraries: string;
+var
   i: Integer;
   connectAction: TTemplateAction;
   temp: IXQValue;
 begin
-  selectedLibraries:='';
-  for i:=0 to flibsToSearch.count-1 do
-    selectedLibraries+=TLibrary(flibsToSearch[i]).variables.values['searchid-'+template.Name]+template.findVariableValue('after-id');
-  bookListReader.parser.variableChangeLog.ValuesString['selectedLibraries']:=selectedLibraries;
-
   assert(Assigned(bookListReader.bookAccessSection));
   connectAction := bookListReader.findAction('search-connect');
   if connectAction <> nil then begin

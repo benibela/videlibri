@@ -6,8 +6,7 @@
   <segregated-accounts value="true"/>
   <variable name="location" value="836"/>
   <variable name="view" value="836:BiblKat"/>
-  <!--<variable name="selectedLibraries" value="SERVICEGROUP1.SERVICE.SEARCH_BTHA"/>  selectedLibraries is overriden by searchid-templatename-->
-  <variable name="searchid-digibib" value="SERVICEGROUP1.SERVICE.SEARCH_FHBM-x"/>
+  <variable name="searchid" value="SERVICEGROUP1.SERVICE.SEARCH_FHBM-x"/>
   
   <homepage value="http://www.fh-muenster.de/BIBL/index.php"/>
   <testing-search value="ja" date=""/>

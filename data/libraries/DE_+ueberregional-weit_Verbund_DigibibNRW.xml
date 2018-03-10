@@ -6,7 +6,7 @@
   
   <variable name="location" value="EXTERN"/>
   <variable name="view" value="EXTERN:Recherchedatenbanken"/>
-  <variable name="searchid-digibib" value="SERVICEGROUP1.SERVICE.SEARCH_HBZOEB"/>
+  <variable name="searchid" value="SERVICEGROUP1.SERVICE.SEARCH_HBZOEB"/>
 
   <homepage value="https://www.digibib.net"/>
 </library>

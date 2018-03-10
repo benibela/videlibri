@@ -604,8 +604,6 @@ procedure TbookSearchFrm.LabelOrderClick(Sender: TObject);
 var
   acc: TCustomAccountAccess;
   i: Integer;
-  v: String;
-  s: String;
   orderBook: TBook;
   sl: TStringList;
 begin
@@ -978,7 +976,6 @@ begin
       searchSelectionList.Checked[0] := true;
   end;
 
-  result.searcher.setLocation(searchLocation.Text);
   result.connectAsync;
   updateBranches; //from cache
 end;

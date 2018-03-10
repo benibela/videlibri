@@ -1445,7 +1445,6 @@ begin
   //searcherAccess.searcher.clear;
     searcherAccess.searcher.addLibrary(lib);
 
-    searcherAccess.searcher.setLocation(lib.prettyLocation); //for digibib search (also needed for libs that only have digibib search, not just meta search)
     searcherAccess.connectAsync;
     searcherAccess.beginResultReading;
     try

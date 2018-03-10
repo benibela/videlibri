@@ -8,16 +8,11 @@
   <template value="sisis"/>
   <variable name="server" value="https://index.ub.rwth-aachen.de/TouchPointClient_touchpoint/"/>
   
-  <template value="digibib"/>
-  <variable name="location" value="052"/>
-  <variable name="view" value="052:SGBuecherRegional"/>
-  <!--<variable name="selectedLibraries" value="SERVICEGROUP1.SERVICE.SEARCH_BTHA"/>  selectedLibraries is overriden by searchid-templatename-->
-  <variable name="searchid-sisis|digibib" value="SERVICEGROUP1.SERVICE.SEARCH_BTHA"/>
-
-  
-  
-  <variable name="location" value="Aachen"/>
-  <variable name="searchid-digibib" value="SERVICEGROUP1.SERVICE.SEARCH_BTHA"/>
+  <template value="digibib">
+    <variable name="location" value="052"/>
+    <variable name="view" value="052:SGBuecherRegional"/>
+    <variable name="searchid" value="SERVICEGROUP1.SERVICE.SEARCH_BTHA"/>
+  </template>
 
   <homepage value="http://www.bth.rwth-aachen.de/"/>
   <testing-search value="ja (digibib + direkt)" date="2011-05-16"/>

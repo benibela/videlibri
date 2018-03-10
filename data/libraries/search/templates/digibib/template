@@ -5,22 +5,8 @@
   <description>reines Such-Template für Suche über die Digibib</description>
   <variable name="location"><description>Such-Ort (siehe digibib-Dokumentation)</description></variable>
   <variable name="view"><description>Such-View (siehe digibib-Dokumentation)</description></variable>
-  <variable name="searchid-digibib"><description>Sigel der Bücherei (siehe digibib-Dokumentation)</description></variable>
+  <variable name="searchid"><description>Sigel der Bücherei (siehe digibib-Dokumentation)</description></variable>
 </meta>
-
-
-<variable name="after-id" value="=on&amp;"/>
-<variable name="location:Düsseldorf" value="DUEBIB"/>
-<variable name="location:Aachen" value="052"/>
-<variable name="view:Düsseldorf" value="DUEBIB:SGduebib"/>
-<variable name="view:Aachen" value="052:SGBuecherRegional"/>
-
-<!--sid = ABDEROS:nummer, {$selectedLibraries}
-SERVICEGROUP1.SERVICE.SEARCH_FHBDUE
-SERVICEGROUP1.SERVICE.SEARCH_SBDUE
-SERVICEGROUP1.SERVICE.SEARCH_ULBD=on
-andere server außer abderos: eris, metis, rhea, thetis
--->
 
 <action id="connect">
   <s>request := x"https://www.digibib.net/jumpto?D_SUBSERVICE=CUSTOMIZE&LOCATION={$location}", 
@@ -58,7 +44,7 @@ andere server außer abderos: eris, metis, rhea, thetis
     <s>$i := $i + 1</s>
   </loop>
   <if test="$i > 50">
-  <s>vl:raise("Zuviele Weiterleitungen beim Login. ")</s>
+  <s>vl:raise-internal("Zuviele Weiterleitungen beim Login. ")</s>
   </if>
 </action>
 
@@ -84,8 +70,8 @@ http://www.digibib.net/opensearch?S.SEARCH_SBDUE=on&S.SEARCH_SBAA=on&VIEW=HBZ:Oe
 
 -->
   <page url="http://www.digibib.net/opensearch" templateFile="search">
-    <post name="LOCATION" value="{$location}"/>
-    <post name="VIEW" value="{$view}"/>
+    <post name="LOCATION" value="{$location[1]}"/>
+    <post name="VIEW" value="{$view[1]}"/>
 
     <post name="QUERY_azTI" value="{$book.title}"/>  
     <post name="QUERY_bzAU" value="{$book.author}"/>
@@ -103,7 +89,7 @@ http://www.digibib.net/opensearch?S.SEARCH_SBDUE=on&S.SEARCH_SBAA=on&VIEW=HBZ:Oe
     <post name="COUNT" value="50"/>
     <post name="GWTIMEOUT" value="90"/>
     
-    <post value="{$selectedLibraries}"/>
+    <post value="{join($searchid ! x'{.}=on', $amp)}"/>
     
   </page>  
   

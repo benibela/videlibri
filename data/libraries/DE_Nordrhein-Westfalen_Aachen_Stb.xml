@@ -12,17 +12,13 @@
   <template value="libero5"/>
   <variable name="baseurl" value="http://webopac.stadtbibliothek-aachen.de/libero/"/>
   
-  <!--<template value="digibib"/>
-  <variable name="location" value="052"/>
-  <variable name="view" value="052:SGBuecherRegional"/>
-  <variable name="searchid-libero54|digibib" value="SERVICEGROUP1.SERVICE.SEARCH_SBAA"/>-->
-  <!--<variable name="selectedLibraries" value="SERVICEGROUP1.SERVICE.SEARCH_SBAA"/>  selectedLibraries is overriden by searchid-templatename-->
-  
-  
-  <variable name="globalExtraStatusRemark" value=" (Verlängerung kostenpflichtig, daher nicht von Videlibri aus möglich)"/>
-  <variable name="Location" value="Aachen"/>
-  <variable name="searchid-digibib" value="SERVICEGROUP1.SERVICE.SEARCH_SBAA"/>
+  <template value="digibib">
+    <variable name="location" value="052"/>
+    <variable name="view" value="052:SGBuecherRegional"/>
+    <variable name="searchid" value="SERVICEGROUP1.SERVICE.SEARCH_SBAA"/>
+  </template>
 
+  <variable name="globalExtraStatusRemark" value=" (Verlängerung kostenpflichtig, daher nicht von Videlibri aus möglich)"/>
 
   <homepage value="http://www.aachen.de/DE/stadt_buerger/bildung/oeffentliche_bibliothek/stadtteile/index.html"/>
   <testing-search value="ja (direkt + digibib)" date="2011-05-16"/>

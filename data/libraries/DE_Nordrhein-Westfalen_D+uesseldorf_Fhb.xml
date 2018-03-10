@@ -12,16 +12,11 @@
   <template value="libero5"/>
   <variable name="baseurl" value="http://katalog.bibl.fh-duesseldorf.de/libero/"/>
 
-<!--  <template value="digibib"/>
-  <variable name="location" value="DUEBIB"/>
-  <variable name="view" value="DUEBIB:SGduebib"/>
-  <variable name="searchid-libero54|digibib" value="SERVICEGROUP1.SERVICE.SEARCH_FHBDUE"/>-->
-<!--<variable name="selectedLibraries" value="SERVICEGROUP1.SERVICE.SEARCH_FHBDUE"/>  selectedLibraries is overriden by searchid-templatename-->
-  
-  
-  <variable name="Location" value="Düsseldorf"/>
-  <variable name="searchid-digibib" value="SERVICEGROUP1.SERVICE.SEARCH_FHBDUE"/>
-
+  <template value="digibib">
+    <variable name="location" value="DUEBIB"/>
+    <variable name="view" value="DUEBIB:SGduebib"/>
+    <variable name="searchid" value="SERVICEGROUP1.SERVICE.SEARCH_FHBDUE"/>
+  </template>
 
   <homepage value="https://bib.hs-duesseldorf.de/"/>
 </library>
