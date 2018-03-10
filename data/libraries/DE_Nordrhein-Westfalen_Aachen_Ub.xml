@@ -15,7 +15,4 @@
   </template>
 
   <homepage value="http://www.bth.rwth-aachen.de/"/>
-  <testing-search value="ja (digibib + direkt)" date="2011-05-16"/>
-  <testing-account value="ja" date="2012-07-08"/>
-  <testing-renew value="ja" date="2011-05-16"/>
 </library>

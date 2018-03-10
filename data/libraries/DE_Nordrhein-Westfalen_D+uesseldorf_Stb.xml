@@ -4,10 +4,6 @@
   
   <longName value="Stadtbüchereien Düsseldorf"/>
   <shortName value="StB Düsseldorf"/>
- <!-- <catalogue value="http://was.duesseldorf.de/WebOPAC/start?homegkz=111"/>
-  <template value="wasnrw"/>
-  
-  <variable name="server" value="was.duesseldorf.de/WebOPAC/"/>
 
   <template value="aDISWeb"/>
   <variable name="server" value="opac-duesseldorf.itk-rheinland.de/"/>

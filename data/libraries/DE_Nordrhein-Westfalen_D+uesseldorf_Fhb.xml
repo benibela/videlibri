@@ -5,8 +5,6 @@
   <shortName value="FHB Düsseldorf"/>
   <catalogue value="http://katalog.bibl.fh-duesseldorf.de/libero/WebOpac.cls"/>
 
-  <username matches="^(\d000\d{3}|\w\d{8})$"/>
-  <password matches="."/>
   <maxRenewCount value="3"/>
 
   <template value="libero5"/>
