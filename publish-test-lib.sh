@@ -66,7 +66,7 @@ EOF
 
 #sed -e '' -i $tmp/newlibs/$libDataNew
 xmlstarlet ed -L -u //longName/@value -v "$name (Neu)" $tmp/newlibs/$libDataNew
-xmlstarlet ed -L -u //template/@value -v "$templateIdNew" $tmp/newlibs/$libDataNew
+xmlstarlet ed -L -u "//template/@value[. != 'digibib']" -v "$templateIdNew" $tmp/newlibs/$libDataNew
 xmlstarlet ed -L -s /library -t elem -n "id" -v "" $tmp/newlibs/$libDataNew
 xmlstarlet ed -L -s /library/id -t attr -n "value" -v "$libDataIdNew" $tmp/newlibs/$libDataNew
 xmlstarlet ed -L -u //id/@value -v "$libDataIdNew" $tmp/newlibs/$libDataNew
