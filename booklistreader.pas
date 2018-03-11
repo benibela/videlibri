@@ -155,6 +155,7 @@ type
   public
     bookAccessSection: ^TRTLCriticalSection;
     books: TBookList;
+    bookListHasBeenClearedAndMightNeedSingleUpdate: boolean;
     pendingMessage: TPendingMessage;
     constructor create(atemplate:TMultiPageTemplate);
     destructor destroy();override;
@@ -1130,6 +1131,7 @@ begin
     log('** Read variable: "'+variable+'" = "'+value.toXQuery+'"');
   if variable='delete-current-books()' then begin
     books.clear();
+    bookListHasBeenClearedAndMightNeedSingleUpdate := true;
   end else if variable='book-start()' then begin
   //reset
     //currentBook:=defaultBook;

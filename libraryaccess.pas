@@ -165,7 +165,7 @@ begin
       if (not wasConnected) or (not lib.updated) or (partialListOperation = nil) then begin //default behaviour is "update", disabled when a special partial list operation is given, but if we were not connected, it still needs to update
         lib.updateAll();
         if logging then log('TUpdateLibThread.execute ended marker 3');
-        if lib.needSingleBookCheck() then begin
+        if lib.needSingleBookUpdate then begin
           if logging then log('TUpdateLibThread.execute marker 3.1');
           EnterCriticalSection(pconfig^.libraryAccessSection);
           lib.books.mergePersistentToCurrentUpdate;
@@ -222,6 +222,9 @@ begin
             lib.extendList(realBooksToExtend);
             realBooksToExtend.free
            end;
+
+        if lib.needSingleBookUpdate then
+          lib.updateAllSingly;
       end;
 
       //other, special operation
@@ -246,6 +249,8 @@ begin
         partialList.free;
         partialList := newPartialBookList;
         partialListOperation(partialList);
+        if lib.needSingleBookUpdate then
+          lib.updateAllSingly;
       end;
 
 

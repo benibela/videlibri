@@ -184,6 +184,7 @@ type
     FCharges:Currency;
     procedure updateConnectingTimeout;
     function getCharges:currency;virtual;
+    function GetNeedSingleBookUpdate: boolean; virtual;
     procedure initFromConfig;
   public
 //    nextLimit,nextNotExtendableLimit:longint;
@@ -216,7 +217,6 @@ type
 
     function shouldExtendBook(book: TBook):boolean;
     function existsCertainBookToExtend: boolean;
-    function needSingleBookCheck():boolean;virtual;
 
     function getLibrary():TLibrary;
 
@@ -237,6 +237,7 @@ type
     property updated: boolean read GetUpdated;
     property timeout: qword read FTimeout write FTimeout;
     property accountType: integer read FAccountType write SetAccountType;
+    property needSingleBookUpdate: boolean read GetNeedSingleBookUpdate;
   end;
 
 
@@ -244,10 +245,8 @@ type
 
   TTemplateAccountAccess = class(TCustomAccountAccess)
   protected
-    extendAllBooks:boolean;
-
     reader:TBookListReader;
-
+    function GetNeedSingleBookUpdate: boolean; override;
     procedure parserVariableRead(variable: string; value: String);
 
 
@@ -271,17 +270,14 @@ type
     procedure connect(AInternet:TInternetAccess); override;
     procedure disconnect(); override;
 
-    function needSingleBookCheck():boolean;override;
-
     procedure updateAll;override;
     procedure updateSingle(book: TBook);override;
+    procedure updateAllSingly; override;
     procedure extendAll;override;
     procedure extendList(booksToExtend: TBookList);override;
 
    // procedure orderList(booklist: TBookList); override;
     procedure cancelList(booklist: TBookList); override;
-
-    //function needSingleBookCheck():boolean;virtual;
   end;
 
   TExportImportFlag = (eifCurrent, eifHistory, eifConfig, eifPassword);
@@ -1392,6 +1388,11 @@ begin
   result:=FConnected and (tempTime >= FConnectingTime) and (tempTime - FConnectingTime < Timeout);
 end;
 
+function TCustomAccountAccess.GetNeedSingleBookUpdate: boolean;
+begin
+  result := false;
+end;
+
 function TCustomAccountAccess.GetUpdated: boolean;
 var
   tempTime: QWord;
@@ -1591,11 +1592,6 @@ begin
   books.updateSharedDates();
 end;
 
-function TCustomAccountAccess.needSingleBookCheck():boolean;
-begin
-  result:=false;
-end;
-
 function TCustomAccountAccess.getLibrary():TLibrary;
 begin
   result:=lib;
@@ -1634,6 +1630,11 @@ end;
 
 { TTemplateAccountAccess }
 
+function TTemplateAccountAccess.GetNeedSingleBookUpdate: boolean;
+begin
+  result := reader.bookListHasBeenClearedAndMightNeedSingleUpdate and (reader.findAction('update-single')<>nil);
+end;
+
 procedure TTemplateAccountAccess.parserVariableRead(variable: string;  value: String);
 begin
   if logging then
@@ -1648,7 +1649,7 @@ begin
     'Unbekannte Variable '+variable+' mit Wert '+value);}
 end;
 
-procedure TTemplateAccountAccess.setVariables;
+procedure TTemplateAccountAccess.setVariables();
 begin
   setVariables(reader.parser);
 end;
@@ -1669,7 +1670,7 @@ begin
   parser.variableChangeLog.add('type', xqvalue(accountType));
 end;
 
-procedure TTemplateAccountAccess.resetlib;
+procedure TTemplateAccountAccess.resetlib();
 begin
   //todo: fix memory leak
   reader:=TBookListReader.create(lib.template);
@@ -1728,6 +1729,12 @@ begin
   if logging then
     log('leave TTemplateAccountAccess.updateSingle');
 
+end;
+
+procedure TTemplateAccountAccess.updateAllSingly;
+begin
+  inherited updateAllSingly;
+  reader.bookListHasBeenClearedAndMightNeedSingleUpdate := false;
 end;
 
 procedure TTemplateAccountAccess.extendAll;
@@ -1919,11 +1926,6 @@ procedure TTemplateAccountAccess.disconnect();
 begin
   //inherited disconnect();
   //hasBeenUpdated:=false;
-end;
-
-function TTemplateAccountAccess.needSingleBookCheck(): boolean;
-begin
-  Result:=reader.findAction('update-single')<>nil;
 end;
 
 
