@@ -1,5 +1,10 @@
 <t:switch prioritized="true">
-  <html> {reserve-request:=()}
+  <html> {
+  declare function local:parse-column($element){ 
+    $element/normalize-space(string-join(node() except span[contains(@class, "oclc-module-label")])) 
+  };
+  reserve-request:=()
+  }
     <head> 
       <meta property="og:image" content="{$book.image-url}"/>?
     </head>
@@ -17,15 +22,51 @@
   
         <input t:test="$book.orderable">{reserve-request := form((//form)[1], {"__EVENTTARGET":  @name})}</input>?
       </div>?
-  
-
-         <a t:condition="contains(@id, 'BtnReserve')">{reserve-request := form((//form)[1], {"__EVENTTARGET":  translate(@id, "_", "$")})}</a>?
-          
+           
     
       <table t:condition="contains(@id, 'grdViewMediumCopies')">
-        <tr><th>{$i := 0}</th></tr>
-        <tr>{$book(x"Exemplar {$i := $i + 1}!") := join(td), 
-             if (empty($reserve-request)) then reserve-request := .//a[contains(@id, "BtnReserve")]/form((//form)[1], {"__EVENTTARGET":  extract(@href, "&#39;([^&#39;]+)&#39;", 1)}) else ()}</tr>+
+        <tr><t:siblings-header>
+          <th>Zweigstelle</th>?
+          <th>Standort</th>*
+          <th>Signatur</th>?
+          <th>Status</th>?
+          <th>Frist</th>?
+          <th>Vorbestellungen</th>?
+          <th>Barcode</th>?
+          <th>Mediengruppe</th>?
+          <th>Ausleihhinweis</th>?
+          <th></th>*
+        </t:siblings-header><!--Status,Frist,Vorbestellungen seem to be always theree--></tr>
+        <tr>{$holding:={}}<t:siblings>
+          <td>{$holding.libraryBranch := local:parse-column(.)}</td>
+          <td>{$holding.libraryBranch := $holding.libraryBranch || " " || local:parse-column(.)}</td>
+          <td>{$holding.id := local:parse-column(.)}</td>
+          <td>{$holding.statusStr := local:parse-column(.)}</td>
+          <td>{translate(local:parse-column(.), "&#xA0;", "")[.] ! ( $holding.duedate := parse-date(.) ) }</td>
+          <td>{translate(local:parse-column(.), "&#xA0;", "")[.] ! ( $holding.statusStr := $holding.statusStr || ", Vorbestellungen: " || . ) }</td>
+          <td>{$holding.barCode := local:parse-column(.)}</td>
+          <td>{$holding.category := local:parse-column(.)}</td>
+          <td>{$holding("Ausleihhinweis!") :=  local:parse-column(.)}</td>
+          <td></td>
+        </t:siblings>
+        {let $orderBtn := .//a[contains(@id, "BtnReserve")]
+         return (
+           $holding("orderable") := exists($orderBtn),
+           $orderBtn ! (
+           $holding("_orderTarget") := extract(@href, "&#39;([^&#39;]+)&#39;", 1),
+           $holding("orderTitle") := $orderBtn
+           )
+         ), $book.holdings[] := $holding
+        }</tr>+
+        <t:s>if (not($book.orderable) and empty($book.holdings[.("orderable")])) then 
+          let $globalOrderBtn := //a[contains(@id, 'BtnReserve')]
+          where exists($globalOrderBtn)
+          return (
+            reserve-request := form((//form)[1], {"__EVENTTARGET":  translate($globalOrderBtn/@id, "_", "$")})
+          )
+        else if (empty($reserve-request)) then reserve-request := form((//form)[1])
+        else ()
+        </t:s>
       </table>?
       
       <div t:condition="contains(@id, 'tpnlDetail') or contains(@ id, 'CatalogueDetailView')"><!-- class="DnnContainer">-->
