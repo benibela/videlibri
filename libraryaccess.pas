@@ -166,11 +166,11 @@ begin
         lib.updateAll();
         if logging then log('TUpdateLibThread.execute ended marker 3');
         if lib.needSingleBookUpdate then begin
-          if logging then log('TUpdateLibThread.execute marker 3.1');
+          {if logging then log('TUpdateLibThread.execute marker 3.1');
           EnterCriticalSection(pconfig^.libraryAccessSection);
           lib.books.mergePersistentToCurrentUpdate;
           LeaveCriticalSection(pconfig^.libraryAccessSection);
-          if logging then log('TUpdateLibThread.execute marker 3.4');
+          if logging then log('TUpdateLibThread.execute marker 3.4');}
 
 
           if logging then log('TUpdateLibThread.execute marker 3.5');
