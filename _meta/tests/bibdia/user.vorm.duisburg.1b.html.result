@@ -1,4 +1,4 @@
 book := {}
 mode := "vorml"
 cancel-form := {"method": "POST", "post": "LANG=de&FUNC=vorl&BENUTZER=5678956789&PASSWORD=56789987", "url": "vltest://bibdia/bibdia/user.vorm.duisburg.1b.html"}
-book := {"statusId": "ordered", "status": " Entliehen bis: 02.03.2018 Rang: 1 T", "duedate": "2019-03-01", "issuedate": "2018-03-01", "libraryBranch": "ZB, Zentralbibliothek", "author": " Leichende Frösche!", "title": "", "id": "WTF 4 LEICH ", "_internalId": "T 567893 5678901"}
+book := {"statusId": "ordered", "status": " Entliehen bis: 02.03.2018 Rang: 1 T", "duedate": "2019-03-01", "issuedate": "2018-03-01", "libraryBranch": "ZB, Zentralbibliothek", "_internalTitleId": "567893", "author": " Leichende Frösche!", "title": "", "id": "WTF 4 LEICH ", "_internalId": "T 567893 5678901"}
