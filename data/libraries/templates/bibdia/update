@@ -46,7 +46,8 @@
  <TD>{$book.status := $book.status || (normalize-space()[.]!x"{.} Mahnungen") }</TD>
  <TD>{book.id := extract(., "^[^/]+"), 
       book.title := substring-after(., ":"),
-      book.author := extract(., "/([^:]+)", 1)
+      book.author := extract(., "/([^:]+)", 1),
+      book._internalTitleId := extract(a/@href, "[0-9]+")
  }</TD>
  <TD>{$book.status}</TD>
  

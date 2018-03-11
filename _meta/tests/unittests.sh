@@ -67,6 +67,7 @@ PAGES=(${PAGES[@]} aleph_ubFUb/details.html aleph_ubFUb/update-2books.html aleph
 #============BIBDIA===============
 mkdir -p $OUTPATH/bibdia
 test bibdia update user.medk.duisburg.0.html user.medk.duisburg.1.html user.vorm.duisburg.1.html user.vorm.duisburg.1b.html
+test bibdia quickDetails quickDetails.duisburg.htm quickDetails.en.duisburg.html quickDetails2.duisburg.htm
 
 #============BIBDIA StaBib===============
 mkdir -p $OUTPATH/bibdia_stabib

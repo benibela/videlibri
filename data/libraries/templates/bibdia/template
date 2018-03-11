@@ -9,7 +9,8 @@
 <action id="connect">
 </action>
 
-<action id="update-all">
+<action id="update-all"> 
+  <s>vl:delete-current-books()</s>
   <loop list="('medk', 'vorm')" var="func">
     <page url="{$baseurl}/user.C" templateFile="update">
       <post name="BENUTZER" value="{$username}"/>
@@ -20,6 +21,12 @@
   </loop>
 </action>
 
+<action id="update-single">
+  <try>
+    <page url="{$baseurl}/ftitle.C?LANG=de&FUNC=full&DUM1=0&{$book._internalTitleId}=YES" templateFile="quickDetails"/>
+    <catch errors="*"></catch>
+  </try>
+</action>
 
 <action id="renew-list">
   <s>form := request-combine($renew-form, $renew-books!{.("_internalId"): "YES"})</s>

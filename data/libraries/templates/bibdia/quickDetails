@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<table>
+<template:meta default-text-matching="regex"/>
+<tr><td>Titel|Title</td><td>{
+  let $split := extract(., "(.*)/([^/]*)", (1,2))!normalize-space()
+  return ($book.title := $split[1], $book.author := if ($split[2]) then $split[2] else $split[2] )
+}</td></tr>?
+<tr><td>ISBN|ISSN</td><td>{$book.ISBN}</td></tr>?
+</table>
