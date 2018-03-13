@@ -166,7 +166,7 @@ function __doPostBack(eventTarget, eventArgument) {
 
 <action id="order-single"> 
   <if test="not(get('loggedIn', false()))">
-    <s>urlaccount := $loginlink, current-page := 1</s> <!-- need to use login form from search page, tp  -->
+    <s>urlaccount := $loginlink</s> <!-- need to use login form from search page, tp  -->
     <call action="internal-login"/>
     <page url="{$loginForm}" templateFile="searchListHeaderOnly"/>
 <!--    <s>temp := if (matches($loginlink, "returnurl=")) then uri-decode(extract($loginlink, "returnurl=(.*)", 1)) else $loginForm</s>-->
@@ -177,9 +177,12 @@ function __doPostBack(eventTarget, eventArgument) {
   <s>let $h := get("holding", ())
      where exists($h) and exists($h("_orderTarget")[.])
      return $reserve-request := request-combine($reserve-request, {"__EVENTTARGET":  $h("_orderTarget")})
-  </s>
+  </s><!--{"ScriptManager_TSM": ";;System.Web.Extensions, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35:en:d28568d3-e53e-4706-928f-3765912b66ca:ea597d4b:b25378d2"}-->
   <page urL="{$reserve-request}"><template>
-    <form>{$form := form(., //input[matches(@name, "btnSave|btnConfirm", "i")])}</form>
+    <t:switch prioritized="on">
+      <form><t:element t:condition='matches(@name||@id, "btnSave|btnConfirm", "i")'>{$input}</t:element>{$form := form(., $input)}</form>
+      <div t:condition='matches(@id, "dnnSkinMessage|DivWaring")'>{vl:raise(.)}</div>
+    </t:switch>
   </template></page>
  <page urL="{$form}"/>
 </action> 
