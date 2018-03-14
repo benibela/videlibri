@@ -1111,10 +1111,10 @@ begin
       linkLabelAmazon.Enabled := true;
     end else linkLabelAmazon.Enabled := false;
 
+    LabelOrder.Enabled:=(getProperty( 'orderable', book.additional) <> '') and (getProperty('orderable', book.additional) <> '0') and (getProperty('orderable', book.additional) <> 'false');
     if book.holdings = nil then begin
       holdingsPanel.Visible := false;
       holdingsSplitter.Visible := false;
-      LabelOrder.Enabled:=(getProperty( 'orderable', book.additional) <> '') and (getProperty('orderable', book.additional) <> '0') and (getProperty('orderable', book.additional) <> 'false');
       LabelOrder.Caption := book.getPropertyAdditional('orderTitle', rsRequestOrder);
     end else begin
       holdings.BeginUpdate;
@@ -1152,8 +1152,8 @@ begin
           orderableHolding := i;
       holdingsPanel.Visible := True;
       holdingsSplitter.Visible := True;
-      if orderableHolding = -1 then LabelOrder.Enabled := false
-      else holdings.Selected := holdings.Items[orderableHolding];
+      if orderableHolding >= 0 then
+        holdings.Selected := holdings.Items[orderableHolding];
       holdings.EndUpdate;
     end;
 
@@ -1176,6 +1176,8 @@ begin
   book:=tbook(item.data.obj);
   if book = nil then exit;
   LabelOrder.Enabled := book.getProperty('orderable') <> 'false';
+  if not LabelOrder.Enabled and (book.owningBook <> nil)  then
+    LabelOrder.Enabled:=(getProperty( 'orderable', book.owningBook.additional) <> '') and (getProperty('orderable', book.owningBook.additional) <> '0') and (getProperty('orderable', book.owningBook.additional) <> 'false');
   cmdtitle := book.getPropertyAdditional('orderTitle', '');
   if (cmdtitle = '') and (book.owningBook <> nil) then
     cmdtitle := book.owningBook.getPropertyAdditional('orderTitle', '');
