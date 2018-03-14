@@ -42,14 +42,15 @@ xidel --xquery '
     "primo":           {"name": "Primo", "search": "2013-07-10", "account": "2013-03-19"},
     "sru":             {"name": "SRU", "search": "2013-05-23"},
     "wasnrw":          {"name": "der Stadtbüchereien Düsseldorf", "account": "2006-08-06"},
+    "bibdia":          {"name": "Biber Bibdia mit PICA)", "search": "", "account": "2018-03-15"},
     "bibdia_stabib":   {"name": "Stabikat (Bibdia mit PICA)", "search": "", "account": "2011-03-07"},
     "pica":            {"name": "PICA", "search": "2013-04-26", "account": "2011-04-23"},
     "lbs":             {"name": "PICA mit LBS", "search": "2014-07-31", "account": "2014-07-31"},
     "netbiblio":       {"name": "Netbiblio", "search": "2017-01-22", "account": "2017-01-22"},
     "sisis":           {"name": "SISIS-SunRise", "search": "2013-04-25", "account": "2010-02-16"},
     "summon":          {"name": "Summon", "search": "2015-11-22", "account": "2015-11-22"},
-    "koha":     {"name": "Koha", "search": "2018-01-04", "account": "2018-01-04"}, 
-    "vufind":          {"name": "VuFind"},
+    "koha":            {"name": "Koha", "search": "2018-01-04", "account": "2018-01-04"}, 
+    "vufind":          {"name": "VuFind", "account": "2018-02-11"},
     "zones18":         {"name": "Zones 1.8", "search": "2013-10-07", "account": "2013-10-07"}
   } return {| for $k in jn:keys($raw) let $o := $raw($k) return {$k: {"name": $o("name"), "account": local:make-offset($o("account")), "search": local:make-offset($o("search")), "origin": ($o("account"), $o("search"))[1]  }  } |};
   (:<html>

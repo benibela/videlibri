@@ -1,10 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?xml-stylesheet type="text/xsl" href="../changelog.xsl"?>
 <changelog program="VideLibri">
-      <build version="1967" date="2018-02-21">
+      <build version="1970" date="2018-03-14">
         <download url="http://videlibri.sourceforge.net/updates/videlibri-setup.exe" platform="WINDOWS" execute="&quot;$DOWNLOAD&quot;  /SP- /noicons &quot;/dir=$OLDPATH&quot; " restart="true"/>
         <download url="http://videlibri.sourceforge.net/updates/videlibri-linux32.deb" platform="LINUX32" execute=""/>
         <download url="http://videlibri.sourceforge.net/updates/videlibri-linux64.deb" platform="LINUX64" execute=""/>
+        <change>Bibliotheca+/OPEN: Verwende holdings-System für Vormerkungen.</change>
+        <change>Variablename für Sigel-Codes für Suchen in benutzerdefinierte Bibliotheken der Digibib ist nun unabhängig von dem für Ausleihen verwendeten OPAC. </change>
+        <fix>Stadtbibliothek Darmstadt: Anpassung an OPEN-Änderung, um wieder Verlängerungen und Vormerkungen zu ermöglichen. Zeige nach Verlängerung den neuen Status an.</fix>
+        <fix>Hochschulbibliothek Amberg-Weiden: Neue OPAC-Url.</fix>
+        <fix>Wenn Ausleihen mit ISBN und ohne ISBN im Konto vorhanden sind, zeige nicht für die Ausleihen ohne ISBN eine falsche ISBN an.</fix>
+        <fix>Select-Elemente ohne Auswahl auf Webseitenformularen werden ignoriert, statt keine Auswahl an die Seite zu senden. </fix>
+        <add>Unterstütze Kontozugriff über den neuen Biber BIBDIA OPAX.</add>
+        <add>Liste Stadtbibliothek Duisburg, Essen und Bochum.</add>
+     </build>
+      <build version="1967" date="2018-02-21">
         <fix>netbiblio/Stadtbibliothek Biel: Breche die Kontoanzeige nicht ab, wenn erwartete Spalten fehlen.</fix>
         <fix>Stadtbibliothek Darmstadt: Anpassung an geänderten Ausleihentabellennamen.</fix>
         <fix>SLUB Dresden: korrigierte Suchfunktion (?)</fix>

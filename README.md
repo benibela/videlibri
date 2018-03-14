@@ -13,9 +13,10 @@ Backend
 Out-of-the-box VideLibri supports the following library catalog systems, OPACs, and open standard APIs:
 
 * aDIS/BMS
-* Aleph  (mostly deprecated, since barely maintained since 2007)
+* Aleph  (hard coded urls for university libraries of Berlin/Düsseldorf)
+* Biber Bibdia (only user account)
 * Bibliotheca 
-* Bibliotheca+/OPEN 
+* Bibliotheca+/OCLC OPEN 
 * Digibib 
 * Koha
 * Libero 5 
@@ -23,13 +24,13 @@ Out-of-the-box VideLibri supports the following library catalog systems, OPACs, 
 * PAIA 
 * PICA 
     * PICA standard 
-    * combined with Bibdia 
+    * combined with Bibdia  (hard coded urls for public library "Staatsbibliothek" Berlin)
     * combined with LBS     
 * Primo 
 * SISIS-SunRise (including Touchpoint)
 * SRU 
-* VuFind (only user view)
-* Websphere ("WAS") 
+* VuFind (only user account)
+* Websphere (hard coded url for public library Düsseldorf) 
 * Zones 1.8
 
 When you connect to an previously untested, unknown library in VideLibri, the app will ask for the system and then for the relevant parameters (usually the server URL and, if the system allows multiple OPACs on a single server, the database id ).
