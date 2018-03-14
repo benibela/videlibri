@@ -362,6 +362,8 @@ begin
   Author:='';
   year:='';
   StatusStr:='';
+  libraryBranch := '';
+  isbn := '';
   Status:=bsUnknown;
   cancelable:=tUnknown;
   dueDate:=0;
