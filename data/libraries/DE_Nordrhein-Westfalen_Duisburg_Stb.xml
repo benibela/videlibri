@@ -11,10 +11,6 @@
     <variable name="view" value="BIBDIA:BasisExt"/>
     <variable name="searchid" value="SERVICEGROUP1.SERVICE.SEARCH_SBDB"/>
   </template>
-<!--
-bochum: SEARCH_SBBO
-essen: SEARCH_SBES
--->
 
   <homepage value="https://www.duisburg.de/bildungwissenschaft/stadtbibliothek/stadtbibliothek.php"/>
 </library>

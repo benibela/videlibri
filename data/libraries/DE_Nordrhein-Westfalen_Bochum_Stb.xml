@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<library>
+  <longName value="Stadtbücherei Bochum (alpha)"/>
+  <shortName value="StB Bochum"/>
+  
+  <template value="bibdia"/>
+  <variable name="baseurl" value="https://stadtbuecherei.bochum.de/opax/"/>
+
+  <template value="digibib">
+    <variable name="location" value="BIBDIA"/>
+    <variable name="view" value="BIBDIA:BasisExt"/>
+    <variable name="searchid" value="SERVICEGROUP1.SERVICE.SEARCH_SBBO"/>
+  </template>
+
+  <homepage value="http://www.bochum.de/stadtbuecherei"/>
+</library>
