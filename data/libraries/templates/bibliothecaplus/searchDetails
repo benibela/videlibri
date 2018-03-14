@@ -54,15 +54,18 @@
            $holding("orderable") := exists($orderBtn),
            $orderBtn ! (
            $holding("_orderTarget") := extract(@href, "&#39;([^&#39;]+)&#39;", 1),
-           $holding("orderTitle") := $orderBtn
+           $holding("orderTitle") := $orderBtn,
+           $book.orderable := false() (: when it can order a specific holding, it does not need to order all :)
            )
          ), $book.holdings[] := $holding
         }</tr>+
-        <t:s>if (not($book.orderable) and empty($book.holdings[.("orderable")])) then 
+        <t:s>
+        if (not($book.orderable) and empty($book.holdings[.("orderable")])) then 
           let $globalOrderBtn := //a[contains(@id, 'BtnReserve')]
           where exists($globalOrderBtn)
           return (
-            reserve-request := form((//form)[1], {"__EVENTTARGET":  translate($globalOrderBtn/@id, "_", "$")})
+            reserve-request := form((//form)[1], {"__EVENTTARGET":  translate($globalOrderBtn/@id, "_", "$")}),
+            $book.orderable := true()
           )
         else if (empty($reserve-request)) then reserve-request := form((//form)[1])
         else ()
