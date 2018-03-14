@@ -9,8 +9,8 @@
   <img alt="Buchcover">{book.image-url := resolve-uri(@src)}</img>?
 </div>?
 
-<div t:condition="@id=('tab-content', 'detailsTabs-titleinfo')">
-  <template:switch-prioritized>
+<div t:condition="@id=('tab-content', 'detailsTabs-titleinfo', 'box-container')">
+  <template:switch prioritized="on">
     <table class="data2">
       <template:loop><template:switch>
       <tr><td>^(Titel|Title):</td><td>{$book.title}</td></tr>
@@ -49,6 +49,6 @@
     </template:switch></template:loop>
     </td>
     </table>
-  </template:switch-prioritized>
+  </template:switch>
 </div>
 </html>
