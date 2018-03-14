@@ -2,14 +2,11 @@
 <library>
   <longName value="Hochschulbibliothek Amberg-Weiden"/>
   <shortName value="HAW Amberg-Weiden"/>
-  <catalogue value="https://opac.haw-aw.de/InfoGuideClient.fawsis/start.do"/>
   
   
   <template value="sisis"/>  
-  <variable name="server" value="https://opac.haw-aw.de/InfoGuideClient.fawsis/"/>
+  <variable name="server" value="https://opac.oth-aw.de/TouchPoint/"/>
+  <variable name="startparams" value="?View=faw"/>
   
   <homepage value="http://www.haw-aw.de/einrichtungen/bibliothek/"/>
-  <testing-search value="ja" date="2013-05-17"/>
-  <testing-account value="?" date=""/>
-  <testing-renew value="?" date=""/>
 </library>
