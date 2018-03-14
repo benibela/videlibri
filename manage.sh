@@ -26,6 +26,7 @@ hg)
 ;;
 
 mirror)
+  (cd _meta/tests; ./unittests.sh) || exit;
   pushhg
   SF_PROJECT= 
   mirroredProject videlibri
