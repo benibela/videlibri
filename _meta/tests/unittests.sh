@@ -1,7 +1,7 @@
 #!/bin/bash
 
 TEMPLATEPARSER="../../../xidel/xidel"
-TEMPLATEPARSERARGS="--dot-notation=on --extract=\"book:=object()\" --print-type-annotations  --extract-kind=xml-pattern --xmlns:vl videlibri --xmlns:videlibri videlibri"
+TEMPLATEPARSERARGS="--dot-notation=on --extract=\"book:=object()\" --print-type-annotations  --extract-kind=xml-pattern --module ../../mockvidelibri.xqm --xmlns:videlibri http://www.videlibri.de "
 TEMPLATEPATH=../../data/libraries/templates
 INPATH=./
 OUTPATH=/tmp/
@@ -102,7 +102,7 @@ test sisis searchList search_rwth.do.html searchHitlist_rwth.do.html search_altd
 ADDTEMPLATE sisis/searchSingle 4
 PAGES=(${PAGES[@]} sisis/searchSingle_basel.do.html sisis/searchSingle_aachen.do.html sisis/searchSingle_regensburg.html sisis/touchpoint/searchHit_chem.html)
 
-ADDTEMPLATE sisis/orderConfirmation{vl:confirm} 2
+ADDTEMPLATE sisis/orderConfirmation 2
 PAGES=(${PAGES[@]} sisis/orderConfirmation_aachen.html sisis/orderConfirmation_pulheim.html  )
 
 ADDTEMPLATE 'sisis/singleExtended{b:={\"id\":123}}' 1
@@ -196,8 +196,8 @@ ADDTEMPLATE primo/searchList  5
 PAGES=(${PAGES[@]} primo/searchList.hub.html primo/searchList0.hub.html primo/searchList.fub.html primo/searchList.tub.html primo/searchList3.tub.html)
 
 test primo list list.tub.html list.orders.tub.html list.orders2.tub.html list.fub.html list.orders.fub.html list.new.tub.htm list.orders.new.tub.htm 
-test primo searchDetails{vl:set-book-property} searchDetails.tub.html 
-test primo searchDetailsLocations{vl:set-book-property} location.hu.berlin.html location.tu.berlin.html    locations.fu.berlin.html locations.hu.berlin.html locations.tu.berlin.html  locationsdiv.fu.html
+test primo searchDetails searchDetails.tub.html 
+test primo searchDetailsLocations location.hu.berlin.html location.tu.berlin.html    locations.fu.berlin.html locations.hu.berlin.html locations.tu.berlin.html  locationsdiv.fu.html
 
 #=============Bibliothea==============
 mkdir -p $OUTPATH/bibliotheca
@@ -236,7 +236,7 @@ mkdir -p $OUTPATH/netbiblio
 test netbiblio list list.html list.orders.html 
 
 test netbiblio searchList searchList.0.html searchList.html  searchList.singlepage.html searchList.en.html
-test netbiblio searchDetails{vl:set-book-property} searchDetails.html searchDetailsNew.html searchDetails.ebook.html  
+test netbiblio searchDetails searchDetails.html searchDetailsNew.html searchDetails.ebook.html  
 
 #=============vufind==============
 mkdir -p $OUTPATH/vufind
@@ -246,7 +246,7 @@ test vufind list checkedout.due.html checkedout.en.due.html checkedout.overdue.h
 mkdir -p $OUTPATH/digibib
 
 DISE=../search/templates/digibib/search
-DIDE=../search/templates/digibib/details{vl:set-book-property}
+DIDE=../search/templates/digibib/details
 TEMPLATES=(${TEMPLATES[@]} $DISE $DISE $DIDE $DIDE $DIDE $DIDE $DIDE $DIDE $DIDE $DIDE $DIDE $DIDE)
 PAGES=(${PAGES[@]} digibib/search.html digibib/search2.html digibib/details.html digibib/details2.html digibib/details3.html digibib/details4.html digibib/details5.html digibib/details6new.html digibib/details7new.fhmuenster.html digibib/details7holdings.fhmuenster.html digibib/details7noholdings.fhmuenster.html  digibib/detailsNRW.html)  
 
@@ -279,23 +279,10 @@ for ((i=0;i<${#TEMPLATES[@]};i++)); do
   if [[ $TFILE =~ ([^{]+)[{](.+)[}] ]]; then
     TFILE=${BASH_REMATCH[1]}
     EXTRA="-e ${BASH_REMATCH[2]}"
-    if [[ $EXTRA =~ vl:confirm ]]; then
-      EXTRA="-e \"declare function vl:confirm(\\\$a,\\\$b) { message-confirm :=  join((\\\$a,\\\$b))};()\""
-    fi
-    if [[ $EXTRA =~ vl:set-book-property ]]; then
-      EXTRA="-e \"declare function vl:set-book-property(\\\$a,\\\$b) { \\\$book(\\\$a||'!!') := \\\$b }; ()\""
-    fi
   fi
-  FUNCTIONS="-e \"
-    declare function vl:delete-current-books() { books-deleted := true() }; 
-    declare function vl:choose(\\\$a,\\\$b,\\\$c,\\\$d) { message-choose :=  join((\\\$a,\\\$b,\\\$c,\\\$d))};
-    declare function vl:raise(\\\$x) { raised := \\\$x }; 
-    declare function vl:raise-login(\\\$x) { raised := \\\$x }; 
-    declare function vl:raise-internal(\\\$x) { raised := \\\$x }; 
-    ()\""
 
-  #echo $TEMPLATEPARSER $FUNCTIONS $EXTRA $TEMPLATEPARSERARGS $INPATH/${PAGES[i]} --extract-file=$TFILE  
-  if ! eval $TEMPLATEPARSER $FUNCTIONS $EXTRA $TEMPLATEPARSERARGS $INPATH/${PAGES[i]} --extract-file=$TFILE  > $OUTPATH/${PAGES[i]}.result 2> $OUTPATH/stderr; then
+  #echo $TEMPLATEPARSER $EXTRA $TEMPLATEPARSERARGS $INPATH/${PAGES[i]} --extract-file=$TFILE  
+  if ! eval $TEMPLATEPARSER $EXTRA $TEMPLATEPARSERARGS $INPATH/${PAGES[i]} --extract-file=$TFILE  > $OUTPATH/${PAGES[i]}.result 2> $OUTPATH/stderr; then
     echo EXCEPTION >> $OUTPATH/${PAGES[i]}.result
     cat $OUTPATH/stderr >> $OUTPATH/${PAGES[i]}.result
   fi
