@@ -194,7 +194,7 @@ resourcestring
   rsBookStatusInterloan = 'fernleihbar';
 
 
-const XMLNamespaceURL_VideLibri = 'http://www.benibela.de/2013/videlibri/';
+const XMLNamespaceURL_VideLibri = 'http://www.videlibri.de';
 var XMlNamespaceVideLibri, XMlNamespaceVideLibri_VL: INamespace;
 
 type TVideLibriHtmlPatternMatcher = class(THtmlTemplateParser)
