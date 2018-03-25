@@ -124,10 +124,12 @@ Generally follow all links on a page and print the titles of the linked pages:<u
    Windows cmd: <code>xidel --xquery "&lt;table&gt;{for $i in 1 to 1000 return &lt;tr&gt;&lt;td&gt;{$i}&lt;/td&gt;&lt;td&gt;{if ($i mod 2 = 0) then 'even' else 'odd'}&lt;/td&gt;&lt;/tr&gt;}&lt;/table&gt;" --output-format xml </code><br>
    Linux/Powershell: <code>xidel --xquery '&lt;table&gt;{for $i in 1 to 1000 return &lt;tr&gt;&lt;td&gt;{$i}&lt;/td&gt;&lt;td&gt;{if ($i mod 2 = 0) then "even" else "odd"}&lt;/td&gt;&lt;/tr&gt;}&lt;/table&gt;' --output-format xml</code><br>
    <span style="font-size:75%">(Xidel itself supports ' and "-quotes on all platforms, but ' does not escape &lt;&gt; in Windows' cmd, and " does not escape $ in the Linux shells)</span>  </li>
-<li>Export variables to bash<br><br>
-    <code>eval "$(xidel http://site -e 'title:=//title' -e 'links:=//a/@href' --output-format bash)"</code><br><br>
-    This sets the bash variable $title to the title of the page and $links becomes an array of all links there.
-</li>
+<li>Export variables to shell<br><br>
+    Linux/bash: <code>eval "$(xidel http://site -e 'title:=//title' -e 'links:=//a/@href' --output-format bash)"</code><br>
+     This sets the bash variable $title to the title of the page and $links becomes an array of all links there.<br><br>
+    Windows cmd: <code> FOR /F "delims=" %%A IN ('xidel http://site -e "title:=//title" -e "links:=//a/@href" --output-format cmd') DO %%A </code><br>
+     This sets the batch variable %title% to the title of the page and %links% becomes an array of all links there. 
+    </li>
 <li>Reading JSON:<br><br>
     <ul>
       <li>Read the 10th array element: <code>xidel file.json -e '$json(10)'</code> </li>

@@ -21,6 +21,7 @@ Eine kurze Übersicht über die Entwicklung von VideLibri gibt folgende Liste:
 <li><b>2015</b>: Unterstützung für marcXML</li>
 <li><b>2016</b>: Vollständige Unterstützung für XPath/XQuery 3.0, getestet mit über 30 000 Testfällen.</li>
 <li><b>2017</b>: Unterstützung für Netbiblio.</li>
+<li><b>2018</b>: Unterstützung für Biber Bibdia außerhalb der Staatsbibliothek Berlin sowie Katalogsysteme Koha und VuFind.</li>
 </ul>
 
 Eine Übersicht, über alle veröffentlichten Versionen findet man im <a href="updates/changelog.xml">Changelog</a>. Alle Änderungen und Entwicklungsschritte findet man im <a href="https://sourceforge.net/p/videlibri/code/ci/tip/log/">Repositorylog</a>.

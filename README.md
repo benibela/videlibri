@@ -5,7 +5,11 @@ VideLibri is a library app with all the usual features of a library OPACs, e.g. 
 So far VideLibri has been tested with 200 libraries successfully.
 It is platform-independent and currently [provides binaries](http://www.videlibri.de) for (Desktop) Windows, Linux and Android. At the moment its GUI is entirely in German as no support for any non-German-speaking library has been requested, but a translation can be made if asked for.
 
-![on Windows](http://sourceforge.net/dbimage.php?id=280463) ![on Android](https://a.fsdn.com/con/app/proj/videlibri/screenshots/s1.png)
+![on Windows](http://sourceforge.net/dbimage.php?id=280463) 
+
+![search on Android](http://www.videlibri.de/img/android-tablet-search.png)
+
+![on Android](https://a.fsdn.com/con/app/proj/videlibri/screenshots/s1.png)
 
 Backend
 -------------
@@ -15,12 +19,12 @@ Out-of-the-box VideLibri supports the following library catalog systems, OPACs, 
 * aDIS/BMS
 * Aleph  (hard coded urls for university libraries of Berlin/Düsseldorf)
 * Biber Bibdia (only user account)
-* Bibliotheca 
-* Bibliotheca+/OCLC OPEN 
-* Digibib 
+* HBZ Digibib 
 * Koha
 * Libero 5 
 * Netbiblio 
+* OCLC Bibliotheca 
+* OCLC Bibliotheca+/OPEN 
 * PAIA 
 * PICA 
     * PICA standard 
@@ -46,9 +50,99 @@ Towards this goal VideLibri implements several different query languages and DSL
 
 It cannot be emphasized enough that these are not programming languages for developers, rather they are query languages simple enough that any end user can use them. Thus you can also enter XQuery statements directly in the GUI of VideLibri to run queries over the sequence of lend `$books` to answer important questions like "How many books of author X have I lend?" or "Which book have I lend the most often, of all the books that have a title whose length is divisible by 7?" (see [this (German) tutorial](http://www.videlibri.de/help/xquerysearch.html))
 
-The source of these interpreters has been moved to a separate repository ( internettools ) to improve modularization and because some people want to scrape webpages that are not part of an OPAC.
+The source of these interpreters has been moved to a separate repository ( [internettools](http://www.benibela.de/sources_de.html#internettools) ) to improve modularization and because some people want to scrape webpages that are not part of an OPAC.
 
-A spin-off command line tool ( see repository xidel ) has been developed to let you use these languages for tasks unrelated to libraries.  
+A spin-off command line tool ( see repository [xidel](http://www.videlibri.de/xidel.html) ) has been developed to let you use these languages for tasks unrelated to libraries.  
+
+Usage as library
+-------------
+VideLibri can also be used as library itself to access library catalogs in your own projects. You can intercept the data at various layers, ranging from just calling VideLibri and exporting the data, to intercepting all HTTP requests. 
+
+The most straightforward way is probably the standalone [cli XQuery interpreter Xidel](http://www.videlibri.de/xidel.html) (and template interpreter). Since it is based on the same interpreter VideLibri is based on, you can directly call the OPAC templates from the shell:
+
+For example the currently lend books in the public library Biel can be obtained using (in Linux shell):
+
+```bash
+xidel -e '$username:="XXXXXXXX", 
+          $password:="XXXXXXXX",
+          $baseurl:="https://opac.bibliobiel.ch/"
+    ' --template-action connect,update-all  \
+      --module mockvidelibri.xqm --xmlns videlibri=http://www.videlibri.de --dot-notation=on \
+      --template-file data/libraries/templates/netbiblio/template 
+```
+
+This prints all variables and the lend/ordered books in the variable `$book`, each in a line with a JSON object:
+
+```javascript
+ book := {"dueDate": "2017-07-13", "title": "foobar", "author": "abc"}
+```
+
+The command requires first the parameters for the account (`$username` and `$password`), which are in the same variables for all libraries, and then the parameters for the catalog (`$baseurl`), which need different variables depending on the catalog system, but usually the URL of the OPAC is sufficient. `connect,update-all` are the two template actions performing the account access. The last line might be the most important, it loads the `netbiblio` template from the file system (because Biel uses a netbiblio OPAC) and starts the download from the catalog.
+
+For another example to search in a catalog, e.g. in the OPAC of the public library Düsseldorf, you change the above command to:
+
+```bash
+xidel -e '$book := {"title": "Baum"},
+          $server:="opac-duesseldorf.itk-rheinland.de"
+    ' --template-action connect,search  \
+      --module mockvidelibri.xqm --xmlns videlibri=http://www.videlibri.de --dot-notation=on \
+      --template-file data/libraries/templates/aDISWeb/template 
+```
+
+The output is basically the same, some irrelevant variables and a long list of book objects:
+
+```javascript
+book := {"statusId": "lend", "publisher": "Frankfurter Verlagsanstalt", "author": "Britta Boerdner.", "year": "2017", "title": "Am Tag, als Frank Z. in den Grünen Baum kam : Roman", "_searchId": "ZTEXT%20%20%20%20%20%20%20AK07098254", "_index": 1}
+...
+book := {"statusId": "lend", "publisher": "Ulmer", "author": "Rudi Beiser.", "year": "2017", "title": "Baum & Mensch : Heilkraft, Mythen und Kulturgeschichte unserer Bäume", "_searchId": "ZTEXT%20%20%20%20%20%20%20AK07116268", "_index": 2}
+...
+```
+
+Rather than the variables `$username`, `$password` as for the account access, we need to define a single variable `$book` as JSON object that stores the search query, i.e. a title search for "Baum" ("tree" in German). The properties of this query are the same as those of the book objects in the output. Rather than calling the action `update-all`, we call the action `search`, because we want to search (beware that `connect` also needs to be changed to `search-connect` for some libraries).  Since the public library Düsseldorf uses the aDIS system unlike the library Biel, the URL is given in the variable `$server` instead of `$baseurl`.
+
+The action `search` only outputs the first page of the search results. If you want to use multiple pages, you also need to call the action `search-next-page`, e.g. `--template-action connect,search,search-next-page,search-next-page` to obtain exactly three pages. 
+
+If you do not want a fixed number of search result pages, you need to call action `search-next-page` dynamically with  `x:call-action("search-next-page")`. For example you can write a recursive function that keeps calling `search-next-page`, till `search-next-page-available` is not set as follows:
+
+```bash
+xidel -e '$book := {"title": "Baum"},
+          $server:="opac-duesseldorf.itk-rheinland.de"
+    ' --template-action connect,search  \
+      --module mockvidelibri.xqm --xmlns videlibri=http://www.videlibri.de --dot-notation=on \
+      --template-file data/libraries/templates/aDISWeb/template \
+      -e 'declare function local:search-all(){
+           if ($search-next-page-available) then (
+             $search-next-page-available := false(),
+             x:call-action("search-next-page"),
+             local:search-all()
+           ) else ()
+         }; local:search-all()'
+```
+This returns all the information read from the search result listing on the webcatalog of the library. Most OPACs show additional information when you click on a book, to obtain these information you have to similarly call the action search-details for each book.
+
+
+Xidel default output is `book := {...}...` which might be difficult to parse for some people. 
+You can use the option `--output-format json-wrapped` to convert everything to JSON:
+
+```javascript
+[{"book": [{"statusId": "available", "publisher": "Diogenes", "author": "Alan Sillitoe. Aus dem Engl. von Peter Naujack.", "year": "1975", "title": "Der brennende Baum : Roman", "_searchId": "ZTEXT%20%20%20%20%20%20%20AK10815366", "_index": 199}, 
+           {"statusId": "lend", "publisher": "Oak Publications", "author": "by Bertolt Brecht and Hanns Eisler. Ed., with singable English translations and introductory notes by Eric Bentley.", "year": "1967", "title": "The Brecht-Eisler song book : forty-two songs in German and English", "_searchId": "ZTEXT%20%20%20%20%20%20%20AK07060692", "_index": 200}, ...], ... }]
+```
+
+Or the option `--output-format xml-wrapped` to convert everything to XML:
+
+```xml
+    <book><object><statusId>lend</statusId><publisher>Frankfurter Verlagsanstalt</publisher><author>Britta Boerdner.</author><year>2017</year><title>Am Tag, als Frank Z. in den Grünen Baum kam : Roman</title><_searchId>ZTEXT%20%20%20%20%20%20%20AK07098254</_searchId><_index>1</_index></object></book>
+    <book><object><statusId>lend</statusId><publisher>Ulmer</publisher><author>Rudi Beiser.</author><year>2017</year><title>Baum &amp; Mensch : Heilkraft, Mythen und Kulturgeschichte unserer Bäume</title><_searchId>ZTEXT%20%20%20%20%20%20%20AK07116268</_searchId><_index>2</_index></object></book>
+    ...
+```
+
+
+Xidel is of course just a wrapper around the XQuery interpreter in the [Pascal Internet Tools](http://www.benibela.de/sources_de.html#internettools). So to use VideLibri as Pascal library, you can use the Internet Tools and call the actions from the OPAC templates using the [multipage template classes](http://www.benibela.de/documentation/internettools/multipagetemplate.html). This returns the book objects printed by Xidel as [XQuery IXQValue](http://www.benibela.de/documentation/internettools/xquery.IXQValue.html)s. 
+
+Calling the actions through the Internet Tools library does not use any of the Pascal source of VideLibri in this repository, actually it uses nothing of this repository except the system definitions in data/libraries/templates. However, you might like to use all of VideLibri in your Pascal project, e.g. to avoid confusion between a book object storing a search query,  book objects returned form an OPAC result listing and book objects returned form a detail page. Then you can interlink your project with VideLibri, basically running all of VideLibri invisibly in the background. `TBookListReader` in `booklistreader` is another wrapper around the XQuery interpreter to call a single action from a template, similarly to the Xidel output, but reading all book objects into a Pascal class `TBook`. `libraryaccess.pas` and `librarysearcheraccess.pas` integrate everything, wrapping the actions themselves in Pascal classes and calling them from new threads. 
+
+Last but not least, you can use VideLibri as *Java library*. Only a single file is required, `Bridge.java` in the Android directory. The class `Bridge` interacts with the Pascal code of VideLibri through JNI after loading all of VideLibri from a .so file, which again is a true dynamic library. Rather than calling the multipage template actions directly, you call the corresponding method of the Java class, which then calls the action through JNI, e.g. action search-connect corresponds to a method `VLSearchConnect`. Searches are performed in memory only directly calling the interpreted multipage actions; account access is a three step process, since all account data is stored in the filesystem: First the account is registered with the method `VLAddAccount`, then the method `VLUpdateAccount` can call all account actions, and finally `VLGetBooks` returns the lend books.  The book objects have the same properties as those dumped by Xidel, but they are automatically read into a Java class Bridge.Book.
 
 Contributing
 -------------
