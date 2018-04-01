@@ -89,7 +89,7 @@ resourcestring
 
 implementation
 
-uses applicationdesktopconfig, applicationconfig,  libraryParser, Graphics, bookproperties;
+uses applicationdesktopconfig, applicationconfig,  Graphics, bookproperties;
 //  ,windows {for the search only};
 
 
@@ -279,7 +279,6 @@ procedure TBookListView.BookListCustomItemDraw(sender: TObject;
 var pa: array[0..2] of tpoint;
     i,x,y,ypos:longint;
     colorState: TBookColorState;
-    temp: String;
 begin
   ypos:=TTreeListView(sender).DrawingYPos;
   case eventTyp_cdet of

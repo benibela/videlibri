@@ -1,13 +1,13 @@
 unit options;
 
 {$mode objfpc}{$H+}
-
+{$WARN 5024 on : Parameter "$1" not used}
 interface
 
 uses
   Classes, SysUtils, LResources, Forms, Controls, Graphics, Dialogs, ComCtrls,
   Buttons, StdCtrls, bookWatchMain, libraryParser, ExtCtrls,{$ifdef win32}registry,{$endif}
-  ButtonPanel, EditBtn,Themes, xquery;
+   EditBtn,Themes, xquery;
 //TODO: Fix resizing bug (LCL)
 //TODO2: Offenen Einstellungsfenster => Verschwinden aus Programmauswahl
 type
