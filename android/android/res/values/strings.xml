@@ -41,7 +41,10 @@
     <string name="book_title">Titel</string>
     <string name="book_author">Autor</string>
     <string name="book_id">Signatur</string>
-    <string name="book_libraryBranch">Standort</string>
+    <string name="book_barcode">Mediennummer</string>
+    <string name="book_libraryBranch">Bibliothek</string>
+    <string name="book_libraryLocation">Standort</string>
+    <string name="book_pendingOrders">Vorbestellungen</string>
     <string name="book_year">Jahr</string>
     <string name="booklist_noselection">noch keine Auswahl</string>
     <string name="booklist_loading">Ergebnisse werden geladen...</string>

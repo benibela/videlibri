@@ -50,7 +50,7 @@ Das Beispiel zeigt, wie sich die Tabelle einer idealen Bücherei auswerten läss
 
 
 
-<h2>Variablen</h2>
+<h2 id="properties">Variablen</h2>
 
 Die wichtigste Markierung/Annotation  ist <code>{$variable}</code> mit der man VideLibri im Pattern mitteilt, welche Bedeutung ein bestimmtes HTML-Element auf der Seite hat. Zum Beispiel <code>&lt;td&gt;{$book.author}&lt;/td&gt;</code>, für eine Tabellenzelle, die den Autor eines Buches enthält. Im Beispiel ist <code>$book.author</code> eine so genannte Variable. 
  Mittels <code>&lt;td&gt;{$book.author := ..}&lt;/td&gt;</code> kann man auch komplexere Sachen in so eine Variable schreiben, was nützlich ist, falls nicht nur der Autor in dieser Tabellenzelle steht.
@@ -61,9 +61,9 @@ Man kann beliebige eigene Variablen definieren, die folgenden Variablen haben ei
 <table>
 <tr><td><b>$book</b></td><td>Das aktuelle Buch. Der Beginn eines neuen Buches wird mit <code>$book := {}</code> markiert (siehe unten).</td></tr>
 <tr><td>$book.author</td><td>Autor</td></tr>
+<tr><td>$book.title</td><td>Titel</td></tr>
 <tr><td>$book.id</td><td>Signatur</td></tr>
 <tr><td>$book.isbn</td><td>ISBN</td></tr>
-<tr><td>$book.title</td><td>Titel</td></tr>
 <tr><td>$book.year</td><td>Erscheinungsjahr</td></tr>
 <tr><td>$book.status</td><td>Bemerkung zum Verlängerungsstatus</td></tr>
 <tr><td valign="top">$book.statusId</td><td>Der Status des Buches.
@@ -88,15 +88,30 @@ Man kann beliebige eigene Variablen definieren, die folgenden Variablen haben ei
   </table>
   </td></tr>
 <tr><td>$book.dueDate</td><td>Fristdatum. Man schreibt <code>$book.issueDate := parse-date(., 'd.m.yyyy')</code>, um Daten in einem Format wie 1.10.2015 zu verarbeiten.</td></tr>
-<tr><td>$book.issueDate</td><td>Ausleihdatum, entsprechend $book.dueDate</td></tr>
-<tr><td>$book.category</td><td>Kategorie des aktuellen Buches</td></tr>
-<tr><td>$book.libraryBranch</td><td>Zweigstelle der Bibliothek, in der das Buch ausgeliehen wurde.</td></tr>
-<tr><td>$book.renewCount</td><td>Anzahl der bisherigen Verlängerungen</td></tr>
-<tr><td>$book.irgendwas</td><td>Für <code>irgendwas</code> kann irgendetwas beliebiges stehen, der Wert wird bis zum Programmende für das Buch gespeichert. Zukünftige Version könnten ihn dauerhaft speichern</td></tr>
 <tr><td></td><td></td></tr>
 <tr><td>$username</td><td>Benutzer/Kartennummer</td></tr>
 <tr><td>$password</td><td>Passwort oder Geburtsdatum</td></tr>
-<tr><td>$charge</td><td>Zu zahlende Gebühren bei diesem Ausleihkonto</td></tr>
+</table>
+
+Zudem gibt es die folgenden seltener verwendeten Bucheigenschaften:
+
+<table>
+<tr><td>$book.barcode</td><td>Mediennummer des Buches.</td></tr>
+<tr><td>$book.category</td><td>Kategorie des aktuellen Buches</td></tr>
+<tr><td>$book.issueDate</td><td>Ausleihdatum, entsprechend $book.dueDate</td></tr>
+<tr><td>$book.libraryBranch</td><td>Zweigstelle der Bibliothek, in der das Buch ausgeliehen wurde.</td></tr>
+<tr><td>$book.libraryLocation</td><td>Standort des Buches.</td></tr>
+<tr><td>$book.publisher</td><td>Verlag.</td></tr>
+<tr><td>$book.location</td><td>Ort (i.A. Sitz des Verlags).</td></tr>
+<tr><td>$book.renewCount</td><td>Anzahl der bisherigen Verlängerungen.</td></tr>
+<tr><td>$book.pendingOrders</td><td>Anzahl der bisherigen Vormerkungen (i.A. Vormerkungen durch andere Leute).</td></tr>
+<tr><td>$book.cancelable</td><td>Wenn das Buch vorgemerkt ist, ob man die Vormerkung abbrechen kann.</td></tr>
+<tr><td>$book.orderable</td><td>Wenn das Buch nicht ausgeliehen ist, ob man es bestellen/vormerken kann.</td></tr>
+<tr><td>$book.orderTitle</td><td>Die Art der Vorbestellung, zum Beispiel "bestellen" oder "vormerken".</td></tr>
+<tr><td>$book.holdings</td><td>Liste von (ausleihbaren) Exemplaren. Jeder Wert in holdings kann alle Werte eines Buches annehmen, zum Beispiel <code>$book.holdings := {"title": "Ein Untertitel"}</code>.</td></tr>
+<tr><td>$book.irgendwas</td><td>Für <code>irgendwas</code> kann irgendetwas beliebiges stehen, der Wert wird bis zum Programmende für das Buch gespeichert. Zukünftige Version könnten ihn dauerhaft speichern</td></tr>
+<tr><td>$book.irgendwas!</td><td>Der Wert nicht nur temporär gespeichert, sondern auch angezeigt.</td></tr>
+<!--<tr><td>$charge</td><td>Zu zahlende Gebühren bei diesem Ausleihkonto</td></tr>-->
 <tr><td></td><td></td></tr>
 </table>
 
@@ -127,7 +142,7 @@ Falls es zur Auswahl keinen Wert in <code>$optionValues</code> gibt, weil  <code
 <tr><td>vl:select-book($queryBook)</td><td>Sucht ein Buch in den aktuellen Ausleihen. Es wird das Buch zurückgegeben, dass die gleichen Eigenschaften wie das $queryBook hat.</td></tr>
 </table>
 
-Zudem können die <a href="http://www.w3.org/TR/xpath-functions-30/">Standard-XPath/XQuery-Funktionen</a> verwendet werden.
+Zudem können die <a href="http://www.benibela.de/documentation/internettools/xpath-functions.html">XPath/XQuery-Funktionen</a> verwendet werden.
 
 <p>
 Die Existenz von zuweisbaren Variablen und Funktionen dürfte bei Programmiererfahrenen den Eindruck erwecken, bei den beschriebenen Ausdrücken handele es sich um eine imperative Programmiersprache. Dem ist nicht so. Insbesondere haben die aufgerufenen Funktionen keinen unmittelbaren Effekt. Zum Beispiel kann man nach dem Aufruf von <code>vl:delete-current-books()</code> weiterhin mit <code>vl:select-book</code> ein Buch aus den Ausleihen auswählen, obwohl  <code>vl:delete-current-books()</code> alle Ausleihen gelöscht hat. Und obwohl  <code>vl:confirm()</code> einen Dialog anzeigt, werden alle darauffolgenden Ausdrücke ausgewertet, bevor der Dialog angezeigt wird.<br>

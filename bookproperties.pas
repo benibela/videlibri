@@ -26,8 +26,9 @@ const
     'status'
   );
 
-  defaultDetailsProperties: array[0..7] of string = (
+  defaultDetailsProperties: array[0..8] of string = (
     'id',
+    'barcode',
     'category',
     'author',
     'title',
@@ -37,14 +38,18 @@ const
     'location'
   );
 
-  defaultHoldingColumns: array[0..6] of string = (
+  defaultHoldingColumns: array[0..10] of string = (
     'id',
+    'barcode',
     'category',
+    'publisher',
     'author',
     'title',
     'year',
     'libraryBranch',
-    'status'
+    'libraryLocation',
+    'status',
+    'pendingOrders'
   );
 
 
@@ -75,6 +80,9 @@ resourcestring
   rsBookPropertyStatus = 'Ausleihstatus';
   rsBookPropertyPublisher = 'Verlag';
   rsBookPropertyRenewCount = 'Anzahl Verlängerungen';
+  rsBookPropertyLibraryLocation = 'Standort';
+  rsBookPropertyBarcode = 'Mediennummer';
+  rsBookPropertyPendingOrders = 'Vorbestellungen';
 
 
 function getBookPropertyPretty(const s: string): string;
@@ -92,7 +100,7 @@ implementation
 
 uses contnrs, bbutils;
 const
-  translationMap: array[0..15] of record
+  translationMap: array[0..18] of record
     key, text: string;
     defaultWidth: UIntPtr;
   end = (
@@ -110,9 +118,14 @@ const
   (key: '_firstExistsDate'; text: rsBookPropertyFirstExistsDate; defaultWidth: 70),
   (key: '_lastExistsDate'; text: rsBookPropertyLastExistsDate; defaultWidth: 70),
 
-  (key: 'publisher'; text: rsBookPropertyPublisher; defaultWidth: 0),
-  (key: 'location'; text: rsBookPropertyLocationSearch; defaultWidth: 0),
-  (key: 'renewCount'; text: rsBookPropertyRenewCount; defaultWidth: 0)
+  (key: 'publisher'; text: rsBookPropertyPublisher; defaultWidth: 50),
+  (key: 'location'; text: rsBookPropertyLocationSearch; defaultWidth: 50),
+  (key: 'renewCount'; text: rsBookPropertyRenewCount; defaultWidth: 30),
+
+  (key: 'barcode'; text: rsBookPropertyBarcode; defaultWidth: 30),
+  (key: 'libraryLocation'; text: rsBookPropertyLibraryLocation; defaultWidth: 40),
+  (key: 'pendingOrders'; text: rsBookPropertyPendingOrders; defaultWidth: 30)
+
 
   );
 

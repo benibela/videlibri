@@ -33,9 +33,9 @@
         <tbody>
           <tr>{$holding := {"orderable": false()}}
           <t:siblings>
+            <td>{$holding.barcode}</td>
             <td>{$holding.id}</td>
-            <td>{$holding("Regalstandort!"):=.}</td>
-            <td>{$holding("Abteilung!"):=.}</td>
+            <td>{$holding.libraryLocation}</td>
             <td>{normalize-space()[.]!($holding("Band!"):=.)}</td>
             <td>{$holding.libraryBranch}</td>
             <td>{$holding.status}</td>
