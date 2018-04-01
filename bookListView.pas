@@ -81,20 +81,6 @@ function dateToWeek(date: longint):longint; //week: monday - sunday
 const WEEK_SEPARATOR_UNDEFINED = MaxInt;
 
 resourcestring
-  rsBookPropertyNone = 'Keine';
-  rsBookPropertyID = 'ID';
-  rsBookPropertyCategory = 'Kategorie';
-  rsBookPropertyAuthor = 'Verfasser';
-  rsBookPropertyTitle = 'Titel';
-  rsBookPropertyYear = 'Jahr';
-  rsBookPropertyIssueDate = 'Ausleihe';
-  rsBookPropertyLimitDate = 'Frist';
-  rsBookPropertyLibraryBranch = 'Zweigstelle';
-  rsBookPropertyAccount = 'Konto';
-  rsBookPropertyStatusComment = 'Bemerkung';
-  rsBookPropertyISBN = 'ISBN';
-  rsBookPropertyFirstExistsDate = 'bekannt von';
-  rsBookPropertyLastExistsDate = 'bekannt bis';
   rsWeekUnknown = 'Unbekannte Woche';
   rsWeekLast = 'Letzte Woche';
   rsWeekThis = 'Diese Woche';
@@ -103,7 +89,7 @@ resourcestring
 
 implementation
 
-uses applicationdesktopconfig, applicationconfig,  libraryParser, Graphics;
+uses applicationdesktopconfig, applicationconfig,  libraryParser, Graphics, bookproperties;
 //  ,windows {for the search only};
 
 
@@ -445,23 +431,10 @@ begin
 end;
 
 procedure TBookListView.addDefaultColumns;
-var defColumns: array[0..10] of string = (
-  'id',
-  'category',
-  'author',
-  'title',
-  'year',
-  'issueDate',
-  'dueDate',
-  '?account',
-  'status',
-  'isbn',
-  'libraryBranch'
-);
-  i: Integer;
+var i: Integer;
 begin
-  for i := 0 to high(defColumns) do
-    addColumn(defColumns[i]);
+  for i := 0 to high(defaultBookListViewLendColumns) do
+    addColumn(defaultBookListViewLendColumns[i]);
 end;
 
 procedure TBookListView.addColumn(const prop: string);
@@ -470,37 +443,26 @@ var
 begin
   lprop := lowercase(prop);
   with Columns.Add do begin
-    case lprop of
-      'id': begin text :=rsBookPropertyID; width := 80; end;
-      'category': begin text :=rsBookPropertyCategory; width := 50; end;
-      'author': begin text :=rsBookPropertyAuthor; width := 120; end;
-      'title': begin text :=rsBookPropertyTitle; width := 150; end;
-      'year': begin text :=rsBookPropertyYear; width := 30; end;
-      'issuedate': begin
-        text :=rsBookPropertyIssueDate;
-        width := 70;
-        Alignment:=taCenter;
-        ColumnIssueDateId := columns.Count-1;
+    text := getBookPropertyPretty(lprop);
+    if text <> '' then begin
+      width := getBookPropertyDefaultWidth(lprop);
+      case lprop of
+        'issuedate': begin
+          Alignment:=taCenter;
+          ColumnIssueDateId := columns.Count-1;
+        end;
+        'duedate': begin
+          Alignment:=taCenter;
+          ColumnDueDateId := columns.Count-1;
+        end;
+        'isbn': Visible:=false;
       end;
-      'duedate': begin
-        text :=rsBookPropertyLimitDate;
-        width := 70;
-        Alignment:=taCenter;
-        ColumnDueDateId := columns.Count-1;
-      end;
-      'librarybranch': begin text :=rsBookPropertyLibraryBranch; width := 40; end;
-      '?account': begin Text:=rsBookPropertyAccount; Width:=80; end;
-      'status': begin Text:=rsBookPropertyStatusComment; Width:=250;end;
-      'isbn': begin Text:=rsBookPropertyISBN; Width:=80; Visible:=false;end;
-      '_firstexistsdate': begin Text:=rsBookPropertyFirstExistsDate; Width:=70; end;
-      '_lastexistsdate': begin Text:=rsBookPropertyLastExistsDate; Width:=70; end;
-      else begin
-        tprop := prop;
-        if strEndsWith(tprop, '!') then delete(tprop, length(tprop), 1);
-        text := tprop;
-        width := 50;
-        visible := true;
-      end;
+    end else begin
+      tprop := prop;
+      if strEndsWith(tprop, '!') then delete(tprop, length(tprop), 1);
+      text := tprop;
+      width := 50;
+      visible := true;
     end;
   end;
   SetLength(properties, length(properties)+1);

@@ -15,11 +15,11 @@ object mainForm: TmainForm
   OnShow = FormShow
   OnWindowStateChange = FormWindowStateChange
   Position = poScreenCenter
-  LCLVersion = '1.8.0.4'
+  LCLVersion = '1.8.1.0'
   object StatusBar1: TStatusBar
     Left = 0
-    Height = 20
-    Top = 629
+    Height = 21
+    Top = 628
     Width = 927
     Panels = <    
       item
@@ -82,8 +82,8 @@ object mainForm: TmainForm
     end
   end
   object MainMenu1: TMainMenu
-    left = 24
-    top = 152
+    Left = 24
+    Top = 152
     object bookMenu: TMenuItem
       Caption = '&Medien'
       Visible = False
@@ -274,8 +274,8 @@ object mainForm: TmainForm
     end
   end
   object accountListMenu: TPopupMenu
-    left = 24
-    top = 184
+    Left = 24
+    Top = 184
     object MenuItem4: TMenuItem
       Caption = 'Alle Konten'
       OnClick = btnRefreshClick
@@ -284,8 +284,8 @@ object mainForm: TmainForm
   object ImageList1: TImageList
     Height = 48
     Width = 48
-    left = 64
-    top = 56
+    Left = 64
+    Top = 56
     Bitmap = {
       4C69030000003000000030000000848484008484840084848400848484008484
       8400848484008484840084848400848484008484840084848400848484008484
@@ -1158,12 +1158,12 @@ object mainForm: TmainForm
     Enabled = False
     Interval = 100
     OnTimer = delayedCallTimer
-    left = 320
-    top = 216
+    Left = 320
+    Top = 216
   end
   object libraryList: TPopupMenu
-    left = 24
-    top = 224
+    Left = 24
+    Top = 224
     object MenuItem7: TMenuItem
       Caption = 'New Item1'
     end
@@ -1171,8 +1171,8 @@ object mainForm: TmainForm
   object bookPopupMenu: TPopupMenu
     AutoPopup = False
     OnPopup = bookPopupMenuPopup
-    left = 96
-    top = 104
+    Left = 96
+    Top = 104
     object searchDetailsMI: TMenuItem
       Caption = 'Details für dieses Buch suchen...'
       OnClick = displayDetailsMIClick
@@ -1363,12 +1363,12 @@ object mainForm: TmainForm
     Hint = 'VideLibri'
     OnClick = TrayIcon1Click
     OnDblClick = TrayIcon1DblClick
-    left = 432
-    top = 200
+    Left = 432
+    Top = 200
   end
   object trayIconPopupMenu: TPopupMenu
-    left = 432
-    top = 232
+    Left = 432
+    Top = 232
     object MenuItem26: TMenuItem
       Caption = '&Öffnen'
       OnClick = MenuItem26Click
@@ -1392,33 +1392,33 @@ object mainForm: TmainForm
   object EnsureTrayIconTimer: TTimer
     Interval = 10000
     OnTimer = EnsureTrayIconTimerTimer
-    left = 464
-    top = 232
+    Left = 464
+    Top = 232
   end
   object repeatedCheckTimer: TTimer
     Interval = 300000
     OnTimer = repeatedCheckTimerTimer
-    left = 304
-    top = 160
+    Left = 304
+    Top = 160
   end
   object dailyCheckThread: TTimer
     Interval = 86400000
     OnTimer = dailyCheckThreadTimer
-    left = 280
-    top = 112
+    Left = 280
+    Top = 112
   end
   object TrayIconClick: TTimer
     Enabled = False
     Interval = 250
     OnTimer = TrayIconClickTimer
-    left = 464
-    top = 200
+    Left = 464
+    Top = 200
   end
   object androidActivationTimer: TTimer
     Enabled = False
     Interval = 750
     OnTimer = androidActivationTimerTimer
-    left = 181
-    top = 293
+    Left = 181
+    Top = 293
   end
 end

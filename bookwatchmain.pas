@@ -208,11 +208,6 @@ type
     procedure showMainwindow;
   end;
 
-const
-  groupingPropertyNames: array[0..12] of string = (rsBookPropertyNone, rsBookPropertyAccount, rsBookPropertyLimitWeek,
-    rsBookPropertyLimitDate, rsBookPropertyStatusComment, rsBookPropertyIssueWeek, rsBookPropertyIssueDate, rsBookPropertyLocationLend,
-    rsBookPropertyID, rsBookPropertyCategory, rsBookPropertyTitle, rsBookPropertyAuthor, rsBookPropertyYear);
-  groupingPropertyMap: array[0..12] of string = ('', '_account', '_dueWeek', 'dueDate', '_status', '_issueWeek', 'issueDate', 'libraryBranch', 'id', 'category', 'title', 'author', 'year');
 
 
 var
@@ -225,7 +220,7 @@ procedure sendMailReports();
 implementation
 
 { TmainForm }
-uses math,options,debuglogviewer, newaccountwizard_u,bbdebugtools,bibtexexport,booklistreader{$IFDEF WIN32},windows{$ENDIF},Clipbrd,bbutils,androidutils,libraryaccesstester,duplicateremover,xqueryform;
+uses math,options,debuglogviewer, newaccountwizard_u,bbdebugtools,bibtexexport,booklistreader{$IFDEF WIN32},windows{$ENDIF},Clipbrd,bbutils,androidutils,libraryaccesstester,duplicateremover,xqueryform,bookproperties;
 
 resourcestring
   rsSearchBarTitle = 'Ausleihensuche:';

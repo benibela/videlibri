@@ -40,11 +40,6 @@ resourcestring
   rsBy = 'von';
   rsAnd = 'und';
   rsDetails = 'Details';
-  rsBookPropertyLimitWeek = 'Fristwoche';
-  rsBookPropertyIssueWeek = 'Ausleihwoche';
-  rsBookPropertyLocationLend = 'Ausleihbibliothek';
-  rsBookPropertyLocationSearch = 'Ort';
-  rsBookPropertyStatus = 'Ausleihstatus';
 
 
 implementation

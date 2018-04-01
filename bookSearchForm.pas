@@ -146,7 +146,7 @@ const SB_PANEL_FOUND_COUNT=1;
       SB_PANEL_SEARCH_STATUS=0;
 implementation
 
-uses applicationconfig,applicationdesktopconfig, libraryParser,simplexmlparser,bbdebugtools,bookWatchMain,bbutils,LCLType,libraryAccess,LCLIntf,strutils,Clipbrd,inputlistbox;
+uses applicationconfig,applicationdesktopconfig, libraryParser,simplexmlparser,bbdebugtools,bookWatchMain,bbutils,LCLType,libraryAccess,LCLIntf,strutils,Clipbrd,inputlistbox,bookproperties;
 
 { TbookSearchFrm }
 //TODO: fehler bei keinem ergebnis
@@ -159,10 +159,8 @@ resourcestring
   rsPropertiesNormal = 'normale Eigenschaften';
   rsPropertiesInternal = 'interne Eigenschaften';
   rsPropertiesEmpty = 'leere Eigenschaften';
-  rsBookPropertyPublisher = 'Verlag';
   rsBookPropertyFirstTime = 'Erstes Vorkommen';
   rsBookPropertyLastTime = 'Letztes Vorkommen';
-  rsBookPropertyRenewCount = 'Anzahl Verlängerungen';
   rsRequestOrder = 'Vormerken/Bestellen';
   rsSearchingDetails = 'Suche Details für dieses Medium...';
   rsLoadingNextPage = 'Lade nächste Seite...';
@@ -184,6 +182,8 @@ resourcestring
 
 
 procedure TbookSearchFrm.FormCreate(Sender: TObject);
+var
+  i: Integer;
 begin
   selectedLibrariesPerLocation:= TStringList.Create;
   loadDefaults;
@@ -198,10 +198,8 @@ begin
   
 
   bookList:=TBookListView.create(self,false);
-  booklist.addColumn('author');
-  booklist.addColumn('title');
-  booklist.addColumn('year');
-  booklist.addColumn('status');
+  for i := 0 to high(defaultBookListViewSearchColumns) do
+    booklist.addColumn(defaultBookListViewSearchColumns[i]);
   bookList.Parent:=bookListPanel;
   booklist.deserializeColumnWidths(userConfig.ReadString('BookSearcher','ListColumnWidths','200,200,50,75'));
   booklist.OnSelect:=@bookListSelect;
@@ -994,44 +992,37 @@ end;
 
 function TbookSearchFrm.displayDetails(book: TBook): longint;
 var intern, empty, normal: TTreeListItems; //item lists
-  procedure propAdd(n,v: string);
+  procedure propAdd(n,v: string; important: boolean = false);
   begin
+    if strEndsWith(n, '!') then begin
+      important := true;
+      delete(n, length(n), 1);
+    end;
+
     if length(v)>1000 then begin
-      if strEndsWith(n, '!') then v := copy(v, 1, 1000) + '..'
+      if important then v := copy(v, 1, 1000) + '..'
       else v:=Format(rsBytesHidden, [IntToStr(length(v))]);
     end;
-    if not displayInternalProperties.Checked then begin
-      if (n<>'')and(n[length(n)]='!')and(v<>'') then
-        detaillist.items.add((copy(n,1,length(n)-1))).RecordItems.Add((v))
-    end else begin
-      if (n<>'')and(n[length(n)]='!')and(v<>'') then begin
-        if normal=nil then normal:=detaillist.Items.Add(rsPropertiesNormal).SubItems;
-        normal.add((copy(n,1,length(n)-1))).RecordItems.Add((v))
-      end else if (n<>'') and (n[length(n)]<>'!') then begin
+
+    if important and (v<>'') then
+      normal.add(n).RecordItems.Add(v)
+    else begin
+      if not displayInternalProperties.Checked then exit;
+      if v <> '' then begin
         if intern=nil then intern:=detaillist.Items.Add(rsPropertiesInternal).SubItems;
-        intern.add((n)).RecordItems.Add((v));
+        intern.add(n).RecordItems.Add(v);
       end else begin
         if empty=nil then empty:=detaillist.Items.Add(rsPropertiesEmpty).SubItems;
-        empty.add((n)).RecordItems.Add((v))
+        empty.add(n).RecordItems.Add(v)
       end;
 
-
-    end;
+    end
   end;
   procedure propAddForce(n,v: string);
   begin
-    propAdd(n+'!',v);
+    propAdd(n,v, true);
   end;
 
-const holdingColumns: array[0..6] of string = (
-  'id',
-  'category',
-  'author',
-  'title',
-  'year',
-  'libraryBranch',
-  'status'
-);
 
 var i:longint;
     tempStream: TStringAsMemoryStream;
@@ -1047,20 +1038,18 @@ begin
   intern:=nil;
   empty:=nil;
   normal:=nil;
+
   displayedBook:=book;
   Result:=0;
   if searcherAccess <> nil then searcherAccess.beginBookReading;
   try
     detaillist.BeginUpdate;
     detaillist.items.clear;
-    propAddForce(rsBookPropertyID,book.id);
-    propAddForce(rsBookPropertyCategory,book.category);
-    propAddForce(rsBookPropertyAuthor,book.author);
-    propAddForce(rsBookPropertyTitle,book.title);
-    propAddForce(rsBookPropertyYear,book.year);
-    propAddForce(rsBookPropertyISBN,book.isbn);
-    if getProperty('publisher', book.additional) <> '' then propAddForce(rsBookPropertyPublisher, getProperty('publisher', book.additional));
-    if getProperty('location', book.additional) <> '' then propAddForce(ifthen(book.lend, rsBookPropertyLocationLend, rsBookPropertyLocationSearch), getProperty('location', book.additional));
+    if displayInternalProperties.Checked then normal := detaillist.Items.Add(rsPropertiesNormal).SubItems
+    else normal := detaillist.items;
+    for i := 0 to high(defaultDetailsProperties) do
+      propAddForce(getBookPropertyPretty(defaultDetailsProperties[i]), book.getProperty(defaultDetailsProperties[i]) );
+
     if book.owningAccount<>nil then begin
       propAddForce(rsBookPropertyIssueDate, DateToPrettyStr(book.issueDate));
       propAddForce(rsBookPropertyLimitDate, DateToPrettyStr(book.dueDate));
@@ -1120,14 +1109,14 @@ begin
       holdings.BeginUpdate;
       holdings.clear;
       holdings.ColumnsClear;
-      for i := 0 to high(holdingColumns) do begin
+      for i := 0 to high(defaultHoldingColumns) do begin
         showColumn := false;
         for j := 0 to book.holdings.Count - 1 do
-          if book.holdings[j].getProperty(holdingColumns[i]) <> '' then begin
+          if book.holdings[j].getProperty(defaultHoldingColumns[i]) <> '' then begin
             showColumn := true;
             break;
           end;
-        if showColumn then holdings.addColumn(holdingColumns[i]);
+        if showColumn then holdings.addColumn(defaultHoldingColumns[i]);
       end;
       for i := 0 to book.holdings.Count-1 do begin
         tempBook := book.holdings[i];
