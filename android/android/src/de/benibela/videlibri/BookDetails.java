@@ -370,8 +370,8 @@ public class BookDetails extends VideLibriFakeFragment {
             builder.addPair(tr(R.string.book_title), builder.holding.title);
             builder.addPair(tr(R.string.book_author), builder.holding.author);
 
-            String specialProperties[] = {"id", "barcode", "category", "publisher", "libraryBranch", "libraryLocation", "year", "status", "pendingOrders"};
-            int specialPropertiesLabel[] = {R.string.book_id, R.string.book_barcode, R.string.book_category, R.string.book_publisher, R.string.book_libraryBranch, R.string.book_year, R.string.book_status, R.string.book_pendingOrders};
+            final String specialProperties[] = {"id", "barcode", "category", "publisher", "libraryBranch", "libraryLocation", "year", "status", "pendingOrders"};
+            final int specialPropertiesLabel[] = {R.string.book_id, R.string.book_barcode, R.string.book_category, R.string.book_publisher, R.string.book_libraryBranch, R.string.book_libraryLocation, R.string.book_year, R.string.book_status, R.string.book_pendingOrders};
 
             for (int j=0;j<specialPropertiesLabel.length;j++)
                 builder.addProperty(specialPropertiesLabel[j], specialProperties[j]);
