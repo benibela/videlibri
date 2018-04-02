@@ -70,13 +70,26 @@
               </DIV>
   
             <DIV class="rTable_div" template:optional="true">
-              {exemplarCount := 0}
               <TABLE class="rTable_table">
-                <thead/>
-                <TR>
-                  {exemplarCount := $exemplarCount + 1}
-                  <t:read source="string-join(./td, ',  ')" var="book.Exemplar {$exemplarCount}!"/>
-                </TR>*
+                <thead><tr><t:siblings-header>
+                  <th>Bibliothek|Library</th>?
+                  <th>Standort|Location</th>?
+                  <th>Signatur|Shelfmark</th>?
+                  <th>Mediennummer|Barcode</th>?
+                  <th>Ausleihtyp|Bestellmöglichkeit|Leihfrist|Circulation type|Order possibility</th>?
+                  <th>Status|Verfügbarkeit</th>?
+                  <th/>*
+                  </t:siblings-header></tr>	
+                </thead>
+                <TR>{$holding := {"orderable": false()}}<t:siblings>
+                  <td>{$holding.libraryBranch}</td>
+                  <td>{$holding.libraryLocation}</td>
+                  <td>{$holding.id}</td>
+                  <td>{$holding.barcode}</td>
+                  <td>{$holding("Ausleihtyp!") := .}</td>
+                  <td>{$holding.status}</td>
+                  <td>{$holding("und!") := .}</td>
+                </t:siblings>{$book.holdings[] := $holding}</TR>*
               </TABLE>
             </DIV>
   
