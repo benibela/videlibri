@@ -30,9 +30,9 @@ install:
   - if [[ ! -e ~/.fpc.cfg ]]; then echo '#INCLUDE /etc/fpc.cfg' > ~/.fpc.cfg; fi 
   - cd ..
   #get dependencies from sourceforge
-  - hg clone -r 1000 http://hg.code.sf.net/p/videlibri/code sf
+  - (hg clone http://hg.code.sf.net/p/videlibri/code sf) || (sleep $( echo $$ | head -c 2); hg clone http://hg.code.sf.net/p/videlibri/code sf) || (sleep 60; hg clone http://hg.code.sf.net/p/videlibri/code sf) || (sleep 60; hg clone http://hg.code.sf.net/p/videlibri/code sf) 
   - cd sf
-  - hg pull -r 2000 && hg pull -r 3000 && hg pull -r 4000 && hg pull && hg update default
+  - hg pull && hg update default
   - rm -rf programs/internet/VideLibri; mv ../videlibri programs/internet/VideLibri
   - mkdir import; git clone https://github.com/benibela/flre.git import/flre; 
   - echo -Fu$PWD/import/flre/src/ >> ~/.fpc.cfg;
