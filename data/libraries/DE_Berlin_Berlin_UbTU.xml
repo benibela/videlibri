@@ -8,10 +8,6 @@
   
   <template value="primo"/>
 
-
-  <variable name="server" value="ublibsprod.ub.tu-berlin.de/"/><!--veraltet?-->
-  <variable name="institute" value="TUK50"/><!--veraltet?-->
-
   <variable name="baseurl" value="http://portal.ub.tu-berlin.de/primo_library/libweb/action/"/>
   <variable name="institute" value="TUB"/>
 
