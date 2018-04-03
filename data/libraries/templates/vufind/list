@@ -21,7 +21,7 @@
             let $value := normalize-space(substring-after($self, ":") || following-sibling::text())
             return switch ($property)
               case "Signatur" case "Call Number" return $book.id := $value
-  (:            case "Barcode" return $book.duedate := parse-date($value):)
+              case "Barcode" return $book.barcode := $value
               case "due date" case "fällig am" return $book.duedate := parse-date($value)
               case "Erstellt" case "Created" return $book.issuedate := parse-date($value)
               case "Status" case "Vormerkstatus" return (
