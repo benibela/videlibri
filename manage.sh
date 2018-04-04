@@ -226,6 +226,9 @@ src)
   cp -r $PUBLICHG $SRCDIR
   cd /tmp
   rm -Rvf $SRCDIR/programs/internet/xidel $SRCDIR/programs/internet/sourceforgeresponder/
+  cp $VIDELIBRIBASE/applicationconfig.pas $SRCDIR/programs/internet/VideLibri/
+  cp $VIDELIBRIBASE/_meta/version/* $SRCDIR/programs/internet/VideLibri/_meta/version/
+  cp $VIDELIBRIBASE/android/android/AndroidManifest.xml $SRCDIR/programs/internet/VideLibri/android/android/
   tar -cvzf /tmp/videlibri-$VERSION.src.tar.gz --exclude=.hg videlibri-$VERSION-src
   fileUpload videlibri-$VERSION.src.tar.gz "/VideLibri/VideLibri\ $VERSION/"
 ;;

@@ -1,15 +1,30 @@
 VideLibri :books: [![Build Status](https://travis-ci.org/benibela/videlibri.svg?branch=master)](https://travis-ci.org/benibela/videlibri)
 =============
-VideLibri is a library app with all the usual features of a library OPACs, e.g. viewing your account, searching books or ordering other items. It also renews all due books automatically and can do other things only a locally running app can do without privacy concerns, like keeping a history of all ever lend books to track your own reading habits.  Supporting account viewing and renewing in multiple public library systems in 2006 makes VideLibri the world's first universal library app.
+VideLibri is a library client to access all the features of a (public) library catalog/OPAC and store the catalog data for further offline processing. It can
 
-So far VideLibri has been tested with 200 libraries successfully.
-It is platform-independent and currently [provides binaries](http://www.videlibri.de) for (Desktop) Windows, Linux and Android. At the moment its GUI is entirely in German as no support for any non-German-speaking library has been requested, but a translation can be made if asked for.
+* view your lend books,
+* renew your lend books to extend the lending period,
+* renew the books automatically when ever the due date is close,
+* warn about the due date before the books need to be returned,
+* keep a history of all ever lend books to track your reading habits,
+* search your lend books with Turing-complete XQuery queries,
+* export the lend books as BibTeX/XML,
+* search the catalog,
+* order books from the catalog,
+* do many more things
 
-![on Windows](http://sourceforge.net/dbimage.php?id=280463) 
 
-![search on Android](http://www.videlibri.de/img/android-tablet-search.png)
+VideLibri is platform-independent and currently [provides binaries](http://www.videlibri.de) for (Desktop) Windows, Linux and Android. So far VideLibri has been tested with 200 libraries successfully, where we have noticed the library using one of the supported library systems, but it can be used with many more libraries in towns we do not know. Supporting account viewing and renewing in multiple public library systems in 2006 makes VideLibri the world's first universal library app. At the moment its GUI is entirely in German as no support for any non-German-speaking library has been requested, but a translation can be made if asked for.
 
-![on Android](https://a.fsdn.com/con/app/proj/videlibri/screenshots/s1.png)
+<p align="center">
+
+<img src="http://sourceforge.net/dbimage.php?id=280463" alt="List of books lend from various libraries; sorted by due date and color coded by renewability status.">
+
+<img src="http://www.videlibri.de/img/android-tablet-search.png" alt="Searching in an OPAC from on an Android tablet.">
+
+<img src="https://a.fsdn.com/con/app/proj/videlibri/screenshots/s1.png" alt="List of lend books on Android; grouped by the due data: this week or next week.">
+
+</p>
 
 Backend
 -------------
@@ -89,7 +104,7 @@ xidel -e '$book := {"title": "Baum"},
       --template-file data/libraries/templates/aDISWeb/template 
 ```
 
-The output is basically the same, some irrelevant variables and a long list of book objects:
+The output is basically the same, some irrelevant variables and a long list of book objects (the possible properties of a book object are described in the [German manual](http://www.videlibri.de/help/seiten.html#properties)):
 
 ```javascript
 book := {"statusId": "lend", "publisher": "Frankfurter Verlagsanstalt", "author": "Britta Boerdner.", "year": "2017", "title": "Am Tag, als Frank Z. in den Grünen Baum kam : Roman", "_searchId": "ZTEXT%20%20%20%20%20%20%20AK07098254", "_index": 1}

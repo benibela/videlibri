@@ -1,10 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?xml-stylesheet type="text/xsl" href="../changelog.xsl"?>
 <changelog program="VideLibri">
-      <build version="1970" date="2018-03-14">
+      <build version="1972" date="2018-04-04">
         <download url="http://videlibri.sourceforge.net/updates/videlibri-setup.exe" platform="WINDOWS" execute="&quot;$DOWNLOAD&quot;  /SP- /noicons &quot;/dir=$OLDPATH&quot; " restart="true"/>
         <download url="http://videlibri.sourceforge.net/updates/videlibri-linux32.deb" platform="LINUX32" execute=""/>
         <download url="http://videlibri.sourceforge.net/updates/videlibri-linux64.deb" platform="LINUX64" execute=""/>
+        <change>aDIS: Verwende holdings-System für Vormerkungen.</change>
+        <change>Verbesserte Kompatibilität mit Xidel für Bibliothekszugriffe ohne GUI.</change>
+        <change>Barcode, Standort und Vormerkungszähler als unterstützte Bucheigenschaften statt zusätzlich angezeigte Eigenschaften.</change>
+        <fix>netbiblio/Biel: Zeige Signaturen an.</fix>
+        <fix>TU Berlin: Suche funktioniert wieder.</fix>
+        <add>Führe Datteln, Marl, Haltern am See, Recklinghausen in der Liste auf.</add>
+     </build>
+      <build version="1970" date="2018-03-14">
         <change>Bibliotheca+/OPEN: Verwende holdings-System für Vormerkungen.</change>
         <change>Variablename für Sigel-Codes für Suchen in benutzerdefinierte Bibliotheken der Digibib ist nun unabhängig von dem für Ausleihen verwendeten OPAC. </change>
         <fix>Stadtbibliothek Darmstadt: Anpassung an OPEN-Änderung, um wieder Verlängerungen und Vormerkungen zu ermöglichen. Zeige nach Verlängerung den neuen Status an.</fix>
