@@ -109,7 +109,7 @@
     <RunParams>
       <local>
         <FormatVersion Value="1"/>
-        <CommandLineParams Value="--autostart"/>
+        <CommandLineParams Value="--user-path \tmp\renewdarmstadt"/>
       </local>
     </RunParams>
     <RequiredPackages Count="4">

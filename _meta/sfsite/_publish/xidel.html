@@ -1,4 +1,12 @@
 <!DOCTYPE html>
+
+
+
+
+
+
+
+
 <html>
 <head>
 <title>Xidel - HTML/XML/JSON data extraction tool </title>
@@ -31,6 +39,8 @@ Xidel is a command line tool to download and extract data from HTML/XML pages as
 
 </p><h2><div><a name="news">News</a></div></h2>
 <dl>
+<dt><b>2018-04-02</b>: New release 0.9.8</dt>
+<dd>The 0.9.6 release improves cookie handling, module loading, adds pattern matching between siblings elements, functions to use multipage templates and the variable changelog dynamically, as well as minor bug fixes and performance improvements.</dd>
 <dt><b>2016-11-20</b>: New release 0.9.6</dt>
 <dd>The 0.9.6 release brings new functions, performance improvements, bug fixes, and stricter default settings.</dd>
 <dt><b>2016-06-08</b>: New release 0.9.4</dt>
@@ -179,10 +189,26 @@ More examples are in the <a href="https://github.com/benibela/xidel/wiki/Frequen
 
 <h2><div><a name="downloads">Downloads</a></div></h2>
 
-<div class="downloadSection">The following Xidel downloads are available on the <a href="https://sourceforge.net/projects/videlibri/files/Xidel/Xidel%200.9.6/">sourceforge download page</a>: <br><br>
+<div class="downloadSection">The following Xidel downloads are available on the <a href="https://sourceforge.net/projects/videlibri/files/Xidel/Xidel%200.9.8/">sourceforge download page</a>: <br><br>
 <table class="downloadTable">
-                           <tbody><tr><th>Operating System</th><th>Filename</th><th>Size</th></tr>
-                           <tr><td>Windows: 32 Bit</td><td><a href="https://sourceforge.net/projects/videlibri/files/Xidel/Xidel%200.9.6/xidel-0.9.6.win32.zip/download">xidel-0.9.6.win32.zip</a></td><td>801.8 kB</td></tr><tr><td>Universal Linux: 64 Bit</td><td><a href="https://sourceforge.net/projects/videlibri/files/Xidel/Xidel%200.9.6/xidel-0.9.6.linux64.tar.gz/download">xidel-0.9.6.linux64.tar.gz</a></td><td>1.3 MB</td></tr><tr><td>Universal Linux: 32 Bit</td><td><a href="https://sourceforge.net/projects/videlibri/files/Xidel/Xidel%200.9.6/xidel-0.9.6.linux32.tar.gz/download">xidel-0.9.6.linux32.tar.gz</a></td><td>852.8 kB</td></tr><tr><td>Source:</td><td><a href="https://sourceforge.net/projects/videlibri/files/Xidel/Xidel%200.9.6/xidel-0.9.6.src.tar.gz/download">xidel-0.9.6.src.tar.gz</a></td><td>1.9 MB</td></tr><tr><td>Debian: 64 Bit</td><td><a href="https://sourceforge.net/projects/videlibri/files/Xidel/Xidel%200.9.6/xidel_0.9.6-1_amd64.deb/download">xidel_0.9.6-1_amd64.deb</a></td><td>967.1 kB</td></tr><tr><td>Debian: 32 Bit</td><td><a href="https://sourceforge.net/projects/videlibri/files/Xidel/Xidel%200.9.6/xidel_0.9.6-1_i386.deb/download">xidel_0.9.6-1_i386.deb</a></td><td>659.8 kB</td></tr>
+                           <tbody><tr><th>Operating System</th><th>Filename</th><th>Size</th><th>SHA-1</th></tr>
+                           <tr><td>Windows: 32 Bit</td><td><a href="https://sourceforge.net/projects/videlibri/files/Xidel/Xidel%200.9.8/xidel-0.9.8.win32.zip/download">xidel-0.9.8.win32.zip</a></td><td>839.7 kB</td>
+                             <td>4ac0c11307fd9e6e5f2cc6e63b45fd87449b300c</td>
+                             </tr><tr><td>Windows: 32 Bit (needs OpenSSL)</td><td><a href="https://sourceforge.net/projects/videlibri/files/Xidel/Xidel%200.9.8/xidel-0.9.8-openssl.win32.zip/download">xidel-0.9.8-openssl.win32.zip</a></td><td>873.7 kB</td>
+                             <td>e6b3962530ecb41dbd4bc94fb11345eb0d063ef3</td>
+                             </tr><tr><td>Universal Linux: 32 Bit</td><td><a href="https://sourceforge.net/projects/videlibri/files/Xidel/Xidel%200.9.8/xidel-0.9.8.linux32.tar.gz/download">xidel-0.9.8.linux32.tar.gz</a></td><td>848.4 kB</td>
+                             <td>58a28c87ce18afcd7a80fa22b3408ffd64ccaba1</td>
+                             </tr><tr><td>Universal Linux: 64 Bit</td><td><a href="https://sourceforge.net/projects/videlibri/files/Xidel/Xidel%200.9.8/xidel-0.9.8.linux64.tar.gz/download">xidel-0.9.8.linux64.tar.gz</a></td><td>1.3 MB</td>
+                             <td>90edeab3b80df0ef162031501c5f126f746aee13</td>
+                             </tr><tr><td>Debian: 32 Bit</td><td><a href="https://sourceforge.net/projects/videlibri/files/Xidel/Xidel%200.9.8/xidel_0.9.8-1_i386.deb/download">xidel_0.9.8-1_i386.deb</a></td><td>665.2 kB</td>
+                             <td>f94a637a99382418c88be28442ab50d8224425ca</td>
+                             </tr><tr><td>Debian: 64 Bit</td><td><a href="https://sourceforge.net/projects/videlibri/files/Xidel/Xidel%200.9.8/xidel_0.9.8-1_amd64.deb/download">xidel_0.9.8-1_amd64.deb</a></td><td>991.7 kB</td>
+                             <td>b738a4782f10b29ca17f9a9be060aea3c2c246bc</td>
+                             </tr><tr><td>Android ARM:</td><td><a href="https://sourceforge.net/projects/videlibri/files/Xidel/Xidel%200.9.8/xidel-0.9.8.androidarm.tar.gz/download">xidel-0.9.8.androidarm.tar.gz</a></td><td>2.1 MB</td>
+                             <td>3952e942723e2803f325219423860a2f9e28d2fd</td>
+                             </tr><tr><td>Source:</td><td><a href="https://sourceforge.net/projects/videlibri/files/Xidel/Xidel%200.9.8/xidel-0.9.8.src.tar.gz/download">xidel-0.9.8.src.tar.gz</a></td><td>1.9 MB</td>
+                             <td>a1a48f17af24a7832d65b238e09e3fd3e86ae2aa</td>
+                             </tr>
                            <tr><td>Mac 10.8</td><td colspan="2"><a href="https://www.evernote.com/shard/s69/sh/ff1e78f3-a369-4855-b18f-6184ce789c45/f3511927d0fb356ce883835f2eb712e0">externally prebuilt version</a> and compile instructions.</td></tr>
                            </tbody></table>
  </div>
@@ -197,12 +223,12 @@ More examples are in the <a href="https://github.com/benibela/xidel/wiki/Frequen
 <br>Usually you can just extract the zip/deb and call Xidel, or copy it to some place in your PATH, <br>
 because it consists of a single binary without any external dependencies, except the standard system libraries (i.e. Windows API or respectively libc).<br>
 However, for https connections on Linux openssl (including openssl-dev) and libcrypto are also required.<br>
-<a href="https://sourceforge.net/projects/videlibri/files/Xidel/Xidel%20development/">Development snapshots</a> are provided in a special download folder occasionally. They are uploaded untested, but since they are newer, probably more reliable than the previous stable release.
+<a href="https://sourceforge.net/projects/videlibri/files/Xidel/Xidel%20development/">Development snapshots</a> are provided in a special download folder occasionally. <!--They are uploaded untested, but since they are newer, probably more reliable than the previous stable release.-->
 <br><br>
 
 You can also test it <a href="/cgi-bin/xidelcgi">online on a webpage</a> or directly by sending a request to the cgi service like <a href="/cgi-bin/xidelcgi?data=<html><title>foobar</title></html>&amp;extract=//title&amp;raw=true" rel="nofollow"><code>http://www.videlibri.de/cgi-bin/xidelcgi?data=&lt;html&gt;&lt;title&gt;foobar&lt;/title&gt;&lt;/html&gt;&amp;extract=//title&amp;raw=true</code></a>.<br><br><br>
 
-The source is stored in a <a href="https://sourceforge.net/p/videlibri/code/ci/tip/tree/">mercurial repository</a> together with the VideLibri source and dependencies. There are mirrors on <a href="https://github.com/benibela/xidel/" rel="nofollow">Github</a> <a href="https://travis-ci.org/benibela/xidel"><img src="https://travis-ci.org/benibela/xidel.svg?branch=master" alt="Build status"/></a>, <a href="http://bitbucket.com/benibela/xidel">Bitbucket</a> and <a href="https://gitlab.com/benito/xidel">GitLab</a>. These mirrors have the Xidel source only, in order to compile it you need to download the dependencies from their own repositories first.  <br><br>
+The source is stored in a <a href="https://sourceforge.net/p/videlibri/code/ci/tip/tree/">mercurial repository</a> together with the VideLibri source and dependencies. There are mirrors on <a href="https://github.com/benibela/xidel/" rel="nofollow">Github</a> <a href="https://travis-ci.org/benibela/xidel"><img src="https://travis-ci.org/benibela/xidel.svg?branch=master" alt="Build status"></a>, <a href="http://bitbucket.com/benibela/xidel">Bitbucket</a> and <a href="https://gitlab.com/benito/xidel">GitLab</a>. These mirrors have the Xidel source only, in order to compile it you need to download the dependencies from their own repositories first.  <br><br>
 You can compile it with FreePascal and a regular expression library, preferably my copy of <a href="https://github.com/benibela/flre/">FLRE</a>.  <br>
 To compile it on the command line, call <code>fpc xidel.pas</code> and pass the paths to all directories using the -Fu option.<br>
 Alternatively, it can be compiled using Lazarus. For this install components/pascal/internettools.lpk and components/pascal/internettools_utf8.lpk in Lazarus, then open programs/internet/xidel/xidel.lpi and click on Run\Compile.<br>
@@ -234,7 +260,7 @@ Afterwards you can  call Xidel with the templates and it will output the element
 </p><h2><div><a id="contact">Contact</a></div></h2>
 
 You can join the <a href="https://sourceforge.net/p/videlibri/mailman/">Xidel mailing list</a> or have discussions on  <a href="https://sourceforge.net/p/xidel/discussion">SourceForge</a>.
-<br/><br/>
+<br><br>
 
 Autor: Benito van der Zander, <a href="benito_NOSPAM_benibela.de">benito_NOSPAM_benibela.de</a>, <a href="http://www.benibela.de/index_en.html">www.benibela.de</a><br>
 <span style="font-size:80%">(Please do not ask me how to scrape your website. Ask how to do something with Xidel instead. I know Xidel, I do not know your website. The point of the tool is to make it easy for anyone to parse any webpage. Scraping every webpage myself does not scale well.)</span>
@@ -255,6 +281,14 @@ piwikTracker.enableLinkTracking();
 
 </body>
 </html>
+
+
+
+
+
+
+
+
 
 
 
