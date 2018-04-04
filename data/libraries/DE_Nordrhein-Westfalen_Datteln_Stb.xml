@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<library>
+  <longName value="Datteln"/>
+  <shortName value="Stb Datteln"/>
+  
+  <template value="vufind"/>  
+  <variable name="baseurl" value="https://www.bib-kreisre.de/MyResearch/"/>
+  <variable name="loginParams" value="library_select=DATT"/>
+    
+   
+
+  <homepage value="https://www.datteln.de/04_Kultur_Bildung/Stadtbuecherei.htm"/>
+</library>

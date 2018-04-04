@@ -3,7 +3,9 @@
 
 <meta>
   <description>Template für das VuFind-System</description>
-  <variable name="baseurl"><description>Web-URI der Bibliothek (inklusive Protokoll und, falls vorhanden, "MyResearch/" )</description></variable>  
+  <variable name="baseurl"><description>Web-URI der Bibliothek (inklusive Protokoll und, falls vorhanden, "MyResearch/" )</description></variable>
+  <variable name="loginParams"><description>Eventuell benötigte zusätzliche Parameter für den Login</description></variable>
+  
 </meta>
 
 
@@ -12,8 +14,8 @@
 <action id="internal-login"> 
   <if test="not(get('loggedIn', false()))">
     <page url="{$baseurl}/UserLogin"/>
-    <pattern><form id="loginForm">
-      {$form := form(., {"username": $username, "password": $password})}
+    <pattern><form t:condition="(@id,@name)='loginForm'">
+      {$form := form(., ({"username": $username, "password": $password}, get("loginParams",())[1]))}
     </form></pattern>
     <page url="{$form}"/>
     <pattern><body><div class="alert alert-danger">{
