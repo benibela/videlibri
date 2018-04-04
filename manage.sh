@@ -139,7 +139,7 @@ downloadTable)
 ;;
 
   libraries.list)
-     LIBS=$(ls data/libraries/*.xml | grep -oE "[^_]+_[^_]+.xml" | sort | xargs -I{} find data/libraries/ -name "*{}" -maxdepth 1)
+     LIBS=$(ls data/libraries/*.xml | grep -oE "[^_]+_[^_]+.xml" | sort | xargs -I{} find data/libraries/ -name "*{}" -maxdepth 1 | sort)
      grep -oE "[^/]*$" <<<"$LIBS" > data/libraries/libraries.list
     ;;
   
