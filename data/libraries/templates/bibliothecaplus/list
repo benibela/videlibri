@@ -2,7 +2,7 @@
   {declare function local:parse-column($element){ 
      $element/normalize-space(string-join(node() except span[contains(@class, "oclc-module-label")])) 
    };
-  culture := (//input[contains(@name, "Culture")], "de-DE")[1]/@value, 
+  culture := (//input[contains(@name, "Culture")]/@value, "de-DE")[1], 
   vl:delete-current-books() 
   }
   <link t:condition="contains(@href, 'PatronAccountModule')">{extendableCheck := extract(resolve-uri(@href), "^.*PatronAccountModule[/\\]") || "PatronAccountService.asmx/IsCatalogueCopyExtendable"}</link>
