@@ -20,6 +20,7 @@
         let $sep := if (contains($field, ":")) then ":" else " "
         let $name := normalize-space(substring-before($field, $sep))
         let $value := normalize-space(substring-after($field, $sep))
+        let $value := if (ends-with($value, ",")) then substring($value, 1, string-length($value) - 1) else $value
         return switch ($name)
           case "Signatur" case "Call Number" return $book.id := $value
           case "due date" case "fällig am" case "Bis" case "until" return $book.duedate := parse-date($value)
