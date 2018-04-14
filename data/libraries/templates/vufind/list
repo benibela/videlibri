@@ -1,50 +1,47 @@
-
-<t:switch prioritized="true">
+<t:loop>
+  <div role="main">
+    { $inOrderings := contains(@class, "template-name-holds") (:template-name-checkedout:)} 
  
-    <form t:condition="@name = ('renewals', 'cancelForm')">
-      { $inOrderings := @name = 'cancelForm' }
-      <t:if test="$inOrderings"><div class="row" t:condition="not(.//input)"/>?</t:if>
-        <div class="row">
-          { let $checkbox := .//input[@type="checkbox" and not(@disabled)] return
-                $book := {"status": (.//div)[last()][not(strong)], 
-                          "statusId": if ($inOrderings) then "ordered" else if ($checkbox) then "curious" else "critical",
-                          if ($inOrderings) then "_cancelID" else "_renewID": $checkbox/@value
-                         }
-          }
-          <a class="title">{$book.title}</a>?
-          <a t:condition="contains(@href, 'type=Author')">{$book.author}</a>?
-          <t:s>
-            (.//strong, .//label) ! (
-            let $field := . || following-sibling::text()[1]
-            let $sep := if (contains($field, ":")) then ":" else " "
-            let $name := normalize-space(substring-before($field, $sep))
-            let $value := normalize-space(substring-after($field, $sep))
-            return switch ($name)
-              case "Signatur" case "Call Number" return $book.id := $value
-              case "due date" case "fällig am" case "Bis" case "until" return $book.duedate := parse-date($value)
-              case "Erstellt" case "Created" return $book.issuedate := parse-date($value)
-              case "Zweigstelle" case "Borrowing Location" case "Pickup library" return $book.libraryBranch := $value
-              case "Buchungsnummer" case "barcode" return $book.barcode := $value
-              case "Medientyp" case "Media type" return $book.id := $value
-              case "Status" case "Vormerkstatus" return (
-                $book.status := $value, 
-                if ($inOrderings) then $book.statusId := "ordered" else (), 
-                extract(join((following-sibling::text(), ..)), "[0-9][-0-9.]{7,10}")[.] ! ( $book.duedate := parse-date(.) )
-              )
-              case "Abholort" case "Pickup Location" return $book.libraryBranch := $value
-              default return if (empty($book.title)) then (
-                let $split := extract($field, "(.*)\[(.*)\]", (1,2))
-                return if (empty($split)) then $book.title := $field
-                else ($book.title := $split[1], $book.author := $split[2])
-              ) else $book($name || "!") := $value
-            ),
-            if (empty($book.title)) then $book.title := join(.//br[1]/preceding-sibling::text()) else ()
-          </t:s>
-        </div>+
-    </form>
- 
-  
-    
-  <div class="result-container" t:condition="empty(.//form)">
+    <div t:condition="starts-with(@id, 'record')"> 
+       <input/>
+       <t:s>
+       ancestor-or-self::div[contains(@class, "row")][1]/(
+       let $checkbox := .//input[@type="checkbox" and not(@disabled)] return
+            $book := {"status": (.//div)[last()][not(strong)], 
+                      "statusId": if ($inOrderings) then "ordered" 
+                                  else if ($checkbox) then "curious" 
+                                  else "critical",
+                      if ($inOrderings) then "_cancelID" else "_renewID": $checkbox/@value,
+                      "title": (.//a[contains(@class, "title")])[1],
+                      "author": (.//a[contains(@href, 'type=Author')])[1]
+                     },
+        (.//strong, .//label) ! (
+        let $field := . || following-sibling::text()[1]
+        let $sep := if (contains($field, ":")) then ":" else " "
+        let $name := normalize-space(substring-before($field, $sep))
+        let $value := normalize-space(substring-after($field, $sep))
+        return switch ($name)
+          case "Signatur" case "Call Number" return $book.id := $value
+          case "due date" case "fällig am" case "Bis" case "until" return $book.duedate := parse-date($value)
+          case "Erstellt" case "Created" return $book.issuedate := parse-date($value)
+          case "Zweigstelle" case "Borrowing Location" case "Pickup library" return $book.libraryBranch := $value
+          case "Buchungsnummer" case "barcode" return $book.barcode := $value
+          case "Medientyp" case "Media type" return $book.id := $value
+          case "Status" case "Vormerkstatus" return (
+            $book.status := $value, 
+            if ($inOrderings) then $book.statusId := "ordered" else (), 
+            extract(join((following-sibling::text(), ..)), "[0-9][-0-9.]{7,10}")[.] ! ( $book.duedate := parse-date(.) )
+          )
+          case "Abholort" case "Pickup Location" return $book.libraryBranch := $value
+          default return if (empty($book.title)) then (
+            let $split := extract($field, "(.*)\[(.*)\]", (1,2))
+            return if (empty($split)) then $book.title := $field
+            else ($book.title := $split[1], $book.author := $split[2])
+          ) else $book($name || "!") := $value
+        ),
+        if (empty($book.title)) then $book.title := join(.//br[1]/preceding-sibling::text()) else ()
+      )
+      </t:s>
+    </div>+
   </div>
-</t:switch>
+</t:loop>
