@@ -1,4 +1,4 @@
-<t:loop>
+<t:switch prioritized="true">
   <div role="main">
     { $inOrderings := contains(@class, "template-name-holds") (:template-name-checkedout:)} 
  
@@ -7,7 +7,7 @@
        <t:s>
        ancestor-or-self::div[contains(@class, "row")][1]/(
        let $checkbox := .//input[@type="checkbox" and not(@disabled)] return
-            $book := {"status": (.//div)[last()][not(strong)], 
+            $book := {"status": join ( (.//div)[last()][not(strong)] | .//div[contains(@class, "alert")] ), 
                       "statusId": if ($inOrderings) then "ordered" 
                                   else if ($checkbox) then "curious" 
                                   else "critical",
@@ -40,9 +40,13 @@
             else ($book.title := $split[1], $book.author := $split[2])
           ) else $book($name || "!") := $value
         ),
-        if (empty($book.title)) then $book.title := join(.//br[1]/preceding-sibling::text()) else ()
+        if (empty($book.title[.])) then $book.title := join(.//br[1]/(preceding-sibling::strong,preceding-sibling::text())) else ()
       )
       </t:s>
     </div>+
   </div>
-</t:loop>
+  
+  <div role="main" t:condition="empty(.//input[contains(@id, 'IDS')])">
+  </div>
+  
+</t:switch>
