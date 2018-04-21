@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <library>
-  <longName value="Datteln"/>
+  <longName value="Stadtbücherei Datteln"/>
   <shortName value="Stb Datteln"/>
   
   <template value="vufind"/>  
