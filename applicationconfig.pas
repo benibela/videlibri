@@ -605,7 +605,7 @@ resourcestring
 
   function DateToSimpleStr(const date: tdatetime): string;
   begin
-    result := dateTimeFormat(lowercase(FormatSettings.ShortDateFormat), date);
+    result := sysutils.DateToStr(date);
   end;
 
   function DateToPrettyStr(const date: tdatetime):string;
