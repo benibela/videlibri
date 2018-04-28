@@ -21,7 +21,7 @@
 	<th>A</th>?
 	<th>V</th>?
 	<th>M</th>?
-	<th>Signatur<!-- / Kurztitel--></th>
+	<th><template:match-text regex="Signatur|Kurztitel|Kurzinformation"/></th>
 	<th>Status</th>?
 	
 	<th>gültig ab</th>?
@@ -42,14 +42,14 @@
  <TD>{$book.duedate := parse-date(.)}</TD> 
  <td/>
  <td>{$book.libraryBranch := join((normalize-space(), .//@title), ", ")}</td>
- <TD>{$book.status := $book.status || ((normalize-space()[.], "0")[1]!x"{.} Verlängerungen") }</TD>
- <TD>{$book.status := $book.status || (normalize-space()[.]!x"{.} Mahnungen") }</TD>
+ <TD>{$book.status := $book.status || (normalize-space()[.]!x"{.} Verlängerungen") }</TD>
+ <TD>{$book.status := $book.status || (extract(., "[0-9]+")[.]!x"{.} Mahnungen") }</TD>
  <TD>{book.id := extract(., "^[^/]+"), 
       book.title := substring-after(., ":"),
       book.author := extract(., "/([^:]+)", 1),
       book._internalTitleId := extract(a/@href, "[0-9]+")
  }</TD>
- <TD>{$book.status}</TD>
+ <TD>{$book.status := $book.status || .}</TD>
  
  
  <TD>{$book.issuedate := parse-date(.)}</TD> 
