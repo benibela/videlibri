@@ -113,7 +113,7 @@ type
     selectedLibrariesPerLocation: TStringList;
     autoSearchPhase: (aspConnecting, aspConnected, aspSearching, aspSearched, aspSearchingDetails, aspSearchedDetails);
     autoSearchDetailCount: integer;
-    procedure makeSearcherAccess;
+    procedure makeSearcherAccess(connectNow: boolean = true);
     function currentLocationRegionConfig: string;
     procedure updateBranches;
   public
@@ -930,7 +930,7 @@ begin
   makeSearcherAccess;
 end;
 
-procedure TbookSearchFrm.makeSearcherAccess;
+procedure TbookSearchFrm.makeSearcherAccess(connectNow: boolean = true);
 var
   first: Boolean;
   j: Integer;
@@ -974,7 +974,9 @@ begin
       searchSelectionList.Checked[0] := true;
   end;
 
-  result.connectAsync;
+  if connectNow then begin
+    result.connectAsync;
+  end;
   updateBranches; //from cache
 end;
 
@@ -1256,6 +1258,17 @@ begin
   end;
 
 
+  displayedBook := researchedBook;
+
+  if displayImage.Checked and (getProperty('image-searched',book.additional) <> 'true') then begin
+    makeSearcherAccess(false);
+    FreeAndNil(searcherAccess);
+    searcherAccess := newSearcherAccess;
+    newSearcherAccess := nil;
+
+    searcherAccess.imageAsyncSave(displayedBook);
+    StatusBar1.Panels[SB_PANEL_SEARCH_STATUS].Text:=rsSearchingCover;
+  end;
 end;
 
 procedure TbookSearchFrm.loadDefaults;
