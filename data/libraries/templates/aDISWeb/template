@@ -29,9 +29,17 @@
             <a>Mein Konto<t:s>loginFormPost := .</t:s></a>
     
             <!-- redirection -->
-            <form>{loginFormPost := form(.)}</form>
+            <form t:condition=" .//@name = ('_eventId_proceed', 'SAMLResponse', 'RelayState') ">
+              { let $buttons := (.//input[@type="submit"], .//button, .//input[@type="button"])
+                let $proceed := $buttons[@name = "_eventId_proceed"]
+                return
+                  $loginFormPost := form(., ($proceed, $buttons)[1] )
+              }
+            </form>
+            <meta http-equiv="refresh">{$loginFormPost}</meta>    
+            <a t:condition="contains(@href, '?')">{$loginFormPost}</a>
+            <form>{$loginFormPost := form(., (.//input[@type="submit"], .//button, .//input[@type="button"])[1] )}</form>
             <a>{$loginFormPost}</a>
-            <meta http-equiv="refresh">{$loginFormPost}</meta>
           </t:switch-prioritized></template>
         </page>
         <s>$i := $i + 1</s>
