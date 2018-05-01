@@ -24,15 +24,16 @@
 </action>
 
 <action id="renew-list">
-  <loop var="b" list="$renew-books">
-    <page url="{$b.renew-link}"><template><form>{form := form(., {"vorbdelbest": "Bestätigung"})}</form></template></page>
+  <s>l := for $b in $renew-books order by $b.renew-link descending return $b </s>
+  <loop var="b" list="$l">
+    <page url="{$b.renew-link}"><template><form>{form := form(., {"verlaengern": "Verlängern"})}</form></template></page>
     <page url="{$form}"/>
   </loop>
   <call action="update-all"/>
 </action>
 
 <action id="cancel-single">
-  <page url="{$book.cancel-link}"><template><form>{form := form(., {"verlaengern": "Verlängern"})}</form></template></page>
+  <page url="{$book.cancel-link}"><template><form>{form := form(., {"vorbdelbest": "Bestätigung"})}</form></template></page>
   <page url="{$form}"/> <!-- this returns the full of update-all list again-->
 </action>
 
