@@ -3,7 +3,8 @@
 <template:meta default-text-matching="regex"/>
 <tr><td>Titel|Title</td><td>{
   let $split := extract(., "(.*)/([^/]*)", (1,2))!normalize-space()
-  return ($book.title := $split[1], $book.author := if ($split[2]) then $split[2] else $split[2] )
+  return ($book.title := if ($split[1]) then $split[1] else ., $split[2][.]!($book.author := . ) )
 }</td></tr>?
+<tr><td>Impressum|Verlag|Imprint</td><td>{extract(.,"[0-3][0-9]{3}")[.]!($book.year:=.) }</td></tr>?
 <tr><td>ISBN|ISSN</td><td>{$book.ISBN}</td></tr>?
 </table>
