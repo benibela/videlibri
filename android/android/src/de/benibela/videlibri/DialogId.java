@@ -9,8 +9,9 @@ class DialogId {
     public static final int ERROR_LOGIN = 7006;
     public static final int ERROR_INTERNET = 7007;
     public static final int ACCOUNT_DELETE_CONFIRM = 7012;
-    public static final int ACCOUNT_ADD_NOW = 7013;
-    public static final int FEEDBACK_SEND_ATTEMPTED = 7014;
+    public static final int ACCOUNT_ADD_RENEWAL_MODE_CONFIRM = 7013;
+    public static final int ACCOUNT_ADD_NOW = 7014;
+    public static final int FEEDBACK_SEND_ATTEMPTED = 7015;
     public static final int DEBUG_SEARCH_BEGIN = 7050;
     public static final int DEBUG_SEARCH_ALL = 7051;
     public static final int IMPORTEXPORT_DONE = 7060;

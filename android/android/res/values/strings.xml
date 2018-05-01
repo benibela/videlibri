@@ -16,6 +16,11 @@
     <string name="warning_alphalib">Hinweis: Bei dieser Bibliothek wurde nur die Suche ohne Kontozugriff getestet, da uns kein Ausleihkonto zur Verfügung stand.
         Bitte geben Sie Feedback, ob das Konto gleich angezeigt wird oder nicht.
     </string>
+    <plurals name="warning_autorenewal_onD">
+        <item quantity="one">Automatische Verlängerung ist AKTIVIERT.\nVerlängert werden alle Ausleihen 1 Tag vor Fristablauf.\nEs ist darauf zu achten, keine Medien auszuleihen, deren Verlängerung kostenpflichtig ist.</item>
+        <item quantity="other">Automatische Verlängerung ist AKTIVIERT.\nVerlängert werden alle Ausleihen %d Tage vor Fristablauf.\nEs ist darauf zu achten, keine Medien auszuleihen, deren Verlängerung kostenpflichtig ist.</item>
+    </plurals>
+    <string name="warning_autorenewal_off">Automatische Verlängerung ist DEAKTIVIERT.\nEs ist darauf zu achten, alle Ausleihen selbst zu verlängern.</string>
     <string name="account_createinitial">Wählen Sie Ihre Bibliothek, um in ihrem Katalog zu suchen oder auf Ihr
         Bibliothekskonto zuzugreifen:
     </string>

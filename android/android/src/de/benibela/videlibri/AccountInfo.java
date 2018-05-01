@@ -144,10 +144,18 @@ public class AccountInfo extends VideLibriBaseActivity {
                         return;
                     }
 
-                    if (libdetails.prettyName.contains("(alpha)") && accountId.getText().length() > 0)
-                        Util.showMessage(DialogId.ACCOUNT_ADD_NOW, tr(R.string.warning_alphalib));
-                    else
+                    if (accountId.getText().length() == 0) {
                         onDialogResult(DialogId.ACCOUNT_ADD_NOW, DialogInterface.BUTTON_POSITIVE, null);
+                        return;
+                    }
+
+                    Util.showMessageNegPos(DialogId.ACCOUNT_ADD_RENEWAL_MODE_CONFIRM,
+                        getAccountAutoExtend()
+                                ? getResources().getQuantityString(R.plurals.warning_autorenewal_onD, getAccountAutoExtendDays(), getAccountAutoExtendDays())
+                                : tr(R.string.warning_autorenewal_off),
+                            R.string.cancel,
+                            R.string.ok
+                        );
                 }
             });
             accountPrettyName.setText(libshortname);
@@ -196,14 +204,17 @@ public class AccountInfo extends VideLibriBaseActivity {
         }, 300);
     }
 
+    private boolean getAccountAutoExtend(){ return  ((CheckBox) findViewById(R.id.autoExtendButton)).isChecked(); }
+    private int getAccountAutoExtendDays(){ return Util.strToIntDef( ((EditText) findViewById(R.id.autoExtendDaysEdit)).getText().toString(), 7); }
+
     Bridge.Account inputToAccount(){
         Bridge.Account acc = new Bridge.Account();
         acc.libId = libdetails.id;
         acc.name = accountId.getText().toString();
         acc.pass = accountPassword.getText().toString();
         acc.prettyName = accountPrettyName.getText().toString();
-        acc.extend = ((CheckBox) findViewById(R.id.autoExtendButton)).isChecked();
-        acc.extendDays = Util.strToIntDef( ((EditText) findViewById(R.id.autoExtendDaysEdit)).getText().toString(), 7);
+        acc.extend = getAccountAutoExtend();
+        acc.extendDays = getAccountAutoExtendDays();
         acc.history = ((CheckBox) findViewById(R.id.saveHistoryButton)).isChecked();
         acc.type = ((RadioButton) findViewById(R.id.radioButtonExtern)).isChecked() ? 2 : 1;
         return acc;
@@ -218,6 +229,15 @@ public class AccountInfo extends VideLibriBaseActivity {
                     VideLibriApp.deleteAccount(getOldAccount());
                     setResult(RESULT_OK, new Intent());
                     AccountInfo.this.finish();
+                }
+                return true;
+            case DialogId.ACCOUNT_ADD_RENEWAL_MODE_CONFIRM:
+                if (buttonId == DialogInterface.BUTTON_POSITIVE) {
+                    if (libdetails == null) break;
+                    if (libdetails.prettyName.contains("(alpha)"))
+                        Util.showMessage(DialogId.ACCOUNT_ADD_NOW, tr(R.string.warning_alphalib));
+                    else
+                        onDialogResult(DialogId.ACCOUNT_ADD_NOW, DialogInterface.BUTTON_POSITIVE, null);
                 }
                 return true;
             case DialogId.ACCOUNT_ADD_NOW:
