@@ -13,8 +13,9 @@
 <action id="update-all">
   <s>vl:delete-current-books()</s>
   <s>book := {"title": "ABC", "author": "an author", "dueDate": current-date() + xs:dayTimeDuration("P2D"), "statusId": "critical"}</s>
-  <s>book := {"title": "DEF", "author": "another author", "dueDate": current-date() + xs:dayTimeDuration("P10D"), "statusId": "critical"}</s>
-  <s>book := {"title": "GHI", "author": "another author", "dueDate": current-date() + xs:dayTimeDuration(if ($_renewed) then "P50D" else "P1D"), "statusId": "normal"}</s>
+  <s>book := {"title": "DEF", "author": "another author", "dueDate": current-date() + xs:dayTimeDuration("P10D"), "statusId": "critical", "test": "foobar2"}</s>
+  <s>book := {"title": "GHI", "author": "another author", "dueDate": current-date() + xs:dayTimeDuration(if ($_renewed) then "P50D" else "P1D"), "statusId": "normal", "test": "foobar3"}</s>
+  <s>book := {"title": "JKL", "author": "another author", "dueDate": current-date() + xs:dayTimeDuration(if ($_renewed) then "P50D" else "P1D"), "statusId": "normal", "test": "foobar4"}</s>
 </action>
 
 
