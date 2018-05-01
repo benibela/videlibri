@@ -30,7 +30,7 @@
     
             <!-- redirection -->
             <form t:condition=" .//@name = ('_eventId_proceed', 'SAMLResponse', 'RelayState') ">
-              { let $buttons := (.//input[@type="submit"], .//button, .//input[@type="button"])
+              { let $buttons := ((.//input, .//button)[@type=("submit", "image")], .//button, .//input[@type="button"])
                 let $proceed := $buttons[@name = "_eventId_proceed"]
                 return
                   $loginFormPost := form(., ($proceed, $buttons)[1] )
@@ -38,7 +38,7 @@
             </form>
             <meta http-equiv="refresh">{$loginFormPost}</meta>    
             <a t:condition="contains(@href, '?')">{$loginFormPost}</a>
-            <form>{$loginFormPost := form(., (.//input[@type="submit"], .//button, .//input[@type="button"])[1] )}</form>
+            <form>{$loginFormPost := form(., ((.//input, .//button)[@type=("submit", "image")], .//button, .//input[@type="button"])[1] )}</form>
             <a>{$loginFormPost}</a>
           </t:switch-prioritized></template>
         </page>

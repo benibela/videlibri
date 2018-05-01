@@ -52,7 +52,7 @@
       </DIV>
       <a t:condition="contains(@href, 'myAccountMenu.do')">{$request}</a>
       <form t:condition=" .//@name = ('_eventId_proceed', 'SAMLResponse', 'RelayState') ">
-        { let $buttons := (.//input[@type="submit"], .//button, .//input[@type="button"])
+        { let $buttons := ((.//input, .//button)[@type=("submit", "image")], .//button, .//input[@type="button"])
           let $proceed := $buttons[@name = "_eventId_proceed"]
           return
             $request := form(., ($proceed, $buttons)[1] )
@@ -60,7 +60,7 @@
       </form>
       <meta http-equiv="refresh">{$request}</meta>    
       <a t:condition="contains(@href, '?')">{$request}</a>
-      <form>{$request := form(., (.//input[@type="submit"], .//button, .//input[@type="button"])[1] )}</form>
+      <form>{$request := form(., ((.//input, .//button)[@type=("submit", "image")], .//button, .//input[@type="button"])[1] )}</form>
       <a>{$request}</a>
     </t:switch></pattern>
     <s>$i := $i + 1</s>    
