@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<library>
+  <longName value="Öffentliche Bücherei Mainz Anna Seghers (alpha)"/>
+  <shortName value="Bücherei Mainz"/>
+  
+  <template value="bibliotheca"/>
+  <variable name="baseurl" value="https://webopac.mainz.de/webopac/"/>	
+  <variable name="DB" value="web_biblio"/>
+  
+  <homepage value="http://www.bibliothek.mainz.de/rubrik4/bereich1.php"/>
+</library>
