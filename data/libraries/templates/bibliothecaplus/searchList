@@ -1,7 +1,10 @@
 <t:switch prioritized="true">
 
-<form>{form:=form(.)}
-<a t:condition="@id=('dnn_dnnLOGIN_loginLink', 'dnn_dnnLogin3_enhancedLoginLink')">{$loginlink := @href}</a>
+<form>
+{form:=form(.),
+ $loginlink := .//a[@id=('dnn_dnnLOGIN_loginLink', 'dnn_dnnLogin3_enhancedLoginLink')]/@href,
+ if (empty($loginlink)) then $loginlink := get("urlaccount", "") || "?returnurl=" || base-uri() else ()
+}
 <DIV class="DnnModule-OPENSearchModule">
   <div t:condition="contains(@id, 'SearchResult_ResultArea')">
     <t:switch prioritized="true">
@@ -96,7 +99,7 @@
 
 
 
-<div t:condition="ends-with(@id, 'DivSearchResultView')
+<div t:condition="(ends-with(@id, 'DivSearchResultView') or ends-with(@class, 'searchresult'))
                   and matches(., 'Ihre Suche erzielte keine Treffer|No results available')">{search-result-count := 0}</div>
 
 </t:switch>
