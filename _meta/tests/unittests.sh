@@ -204,8 +204,8 @@ mkdir -p $OUTPATH/bibliotheca
 ADDTEMPLATE bibliotheca/list 4
 PAGES=(${PAGES[@]} bibliotheca/list.stralsund.html bibliotheca/list.neustadt.html bibliotheca/listmixed.neustadt.html bibliotheca/list.stralsundasfakeheidelberg.html)
 
-ADDTEMPLATE bibliotheca/searchList 2
-PAGES=(${PAGES[@]} bibliotheca/searchList.stralsund.html bibliotheca/searchList.neustadt.html)
+ADDTEMPLATE bibliotheca/searchList 3
+PAGES=(${PAGES[@]} bibliotheca/searchList.stralsund.html bibliotheca/searchList.neustadt.html bibliotheca/searchList.mainz.html)
 
 ADDTEMPLATE bibliotheca/searchDetails 1
 PAGES=(${PAGES[@]} bibliotheca/searchDetails.neustadt.html)

@@ -1,0 +1,248 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+	"http://www.w3.org/TR/2002/REC-xhtml1-20020801/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="de">
+<head>
+<meta http-equiv="Content-type" content="text/html;charset=iso-8859-1" />
+<title>Web-OPAC V3.2.0.11168</title>
+
+<link href="style.css.asp" rel="stylesheet" type="text/css"/>
+
+<meta http-equiv="refresh" content="360; URL=https://webopac.mainz.de/webopac/woload.asp"/>
+</head>
+ <body>
+ <script src="jquery-1.7.2.min.js" type="text/javascript"></script>
+ 
+  
+ 
+ <script type="text/javascript">
+    var EU_LAW_INFO_COOKIE = 'EU_LAW_INFO';
+    function setCookie(c_name,value,exdays)
+	{
+	var exdate=new Date();
+	exdate.setDate(exdate.getDate() + exdays);
+	var c_value=escape(value) + ((exdays==null) ? "" : "; expires="+exdate.toUTCString())+"; path=/";
+	document.cookie=c_name + "=" + c_value;
+	}
+    function setlocalcookie() {
+     setCookie(EU_LAW_INFO_COOKIE, true,3650);
+     $("#CookieAcknowledgeInfo").hide();          
+	}
+</script>
+
+
+<form action="index.asp" name="webopac" id="webopac" method="post"
+
+>
+
+
+
+<div class="maindiv">
+<div class="topmenu"><div id="link_default"><input type="submit" value="" name="default" id="default"/></div><div id="link_home"><input name="link_home" src="/Deutsch/PICS/home.gif" type="image" onmouseover="this.src='/Deutsch/PICS/home_.gif'" onmouseout="this.src='/Deutsch/PICS/home.gif'" alt="Startseite laden"/></div><div id="link_konto"><a href="index.asp?kontofenster=start" target="kontowin"><img src="/Deutsch/PICS/konto.gif" onmouseover="this.src='/Deutsch/PICS/konto_.gif'" onmouseout="this.src='/Deutsch/PICS/konto.gif'" alt="Benutzerkonto"/></a></div><div id="link_mail"><a href="mailto:oeffentliche.buecherei@stadt.mainz.de"><label class="invisible">E-Mail&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label></a></div><div id="link_info"><input name="link_info" src="/Deutsch/PICS/info.gif" type="image" onmouseover="this.src='/Deutsch/PICS/info_.gif'" onmouseout="this.src='/Deutsch/PICS/info.gif'" alt="Info"/></div><div id="link_suchtip"><input name="link_suchtip" src="/Deutsch/PICS/suchtip.gif" type="image" onmouseover="this.src='/Deutsch/PICS/suchtip_.gif'" onmouseout="this.src='/Deutsch/PICS/suchtip.gif'" alt="Suchtipps"/></div><div id="link_hilfe"><input name="link_hilfe" src="/Deutsch/PICS/hilfe.gif" type="image" onmouseover="this.src='/Deutsch/PICS/hilfe_.gif'" onmouseout="this.src='/Deutsch/PICS/hilfe.gif'" alt="Hilfe"/></div></div><div class="suchzeile"><div class="suchfeld"><div class="suchfeldinhalt"><div class="suchfeld_inhalt_titel"><label for="stichwort"><a class="stealth" title="Hilfe f&uuml;r Suchfeld Stichwort/Titel" href="index.asp?target=hilfe_stichw">Titel</a></label></div>
+<div class="suchfeld_inhalt_input"><input type="text" name="stichwort" id="stichwort" value="hallo" size="22" maxlength="248"/><br/>
+<input type="radio" name="stichtit" id="stichtit_sich" value="stich" checked="checked"/><label for="stichtit_sich"><a class="stealth" title="Hilfe" href="index.asp?target=hilfe_stichhelp">Stichwörter</a></label>
+<input type="radio" name="stichtit" id="stichtit_titel" value="titel"/><label for="stichtit_titel"><a class="stealth" href="index.asp?target=hilfe_titelhelp">Titelanfang</a></label></div>
+</div></div><div class="suchfeld"><div class="suchfeldinhalt"><div class="suchfeld_inhalt_titel"><label for="verfasser"><a class="stealth" title="Hilfe f&uuml;r Suchfeld Verfasser" href="index.asp?target=hilfe_verfhelp">Verfasser</a></label></div>
+<div class="suchfeld_inhalt_input"><input type="text" id="verfasser" name="verfasser" value="" size="22" maxlength="248"/>
+<br/>Nachname, Vorname</div>
+<div class="link_register"><input type="image" name="link_register_verfasser" src="/Deutsch/PICS/question.gif" onmouseover="this.src='/Deutsch/PICS/question_.gif'" onmouseout="this.src='/Deutsch/PICS/question.gif'" alt="Verfasserindex anzeigen"/></div></div></div><div class="suchfeld"><div class="suchfeldinhalt"><div class="suchfeld_inhalt_titel">&nbsp;</div>
+<div class="suchfeld_inhalt_input"><select name="feld1"><option value="MEDIEN~SPRACHE~1" selected="selected">Sprache</option><option value="MEDIEN~VERL~0">Verlag</option></select>&nbsp;<input type="text" name="ifeld1" value="" size="16" maxlength="248"/></div></div></div></div><div class="suchzeile"><div class="suchfeld"><div class="suchfeldinhalt"><div class="suchfeld_inhalt_titel"><label for="status"><a class="stealth" title="Hilfe f&uuml;r Suchfeld Status" href="index.asp?target=hilfe_statushelp">Status</a></label></div>
+<div class="suchfeld_inhalt_input"><select name="status" id="status"><option value="">Alle&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</option>
+<option value="V">Verfügbar</option>
+<option value="B">Bestellt</option>
+<option value="Z">Zurückgelegt</option>
+<option value="M">Makuliert</option>
+<option value="P">Nicht entleihbar</option>
+<option value="U">Kontrolle</option>
+<option value="G">Gesperrt</option>
+<option value="I">Ersatzkauf</option>
+<option value="E">Entliehen</option>
+<option value="N">In Einarbeitung</option>
+<option value="L">Verloren</option>
+<option value="R">Vermisst</option>
+<option value="D">Vorschlagsliste</option>
+<option value="H">Heute zurückgebucht</option>
+<option value="Y">Reparatur</option>
+<option value="K">Kontrolle MUB</option>
+<option value="S">Reklamiert</option>
+<option value="t">Zum Transport</option>
+<option value="Q">Nicht entleihbar /MB</option>
+<option value="X">Vorbestellbar</option>
+<option value="F">Verwaltung</option>
+<option value="u">Kontrolle Cover</option>
+<option value="O">Onleihe</option>
+<option value="C">Suchfall</option>
+</select></div>
+</div></div><div class="suchfeld"><div class="suchfeldinhalt"><div class="suchfeld_inhalt_titel"><label for="notation"><a class="stealth" title="Hilfe f&uuml;r Suchfeld Systematik" href="index.asp?target=hilfe_systhelp">Systematik</a></label></div>
+<div class="suchfeld_inhalt_input"><input type="text" name="notation" id="notation" value="" size="22" maxlength="248"/></div>
+<div class="link_register"><input type="image" name="link_register_systematik" src="/Deutsch/PICS/question.gif" onmouseover="this.src='/Deutsch/PICS/question_.gif'" onmouseout="this.src='/Deutsch/PICS/question.gif'" alt="Systematikindex anzeigen"/></div></div></div><div class="suchfeld"><div class="suchfeldinhalt"><div class="suchfeld_inhalt_titel"><label for="medigrp"><a class="stealth" title="Hilfe f&uuml;r Suchfeld Mediengruppe" href="index.asp?target=hilfe_medihelp">Mediengruppe</a></label></div>
+<div class="suchfeld_inhalt_input"><select id="medigrp" name="medigrp"><option value="">Alle&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</option>
+<option value="BSL">Bestseller SL</option>
+<option value="BSA">Bestseller SaL</option>
+<option value="BK">Bücherkiste</option>
+<option value="LCD">CD Hörbuch</option>
+<option value="CD">CD Musik</option>
+<option value="CDR">CD-ROM</option>
+<option value="DVD">DVD Musik</option>
+<option value="DVDR">DVD-ROM</option>
+<option value="DVDSA">DVD-Sachfilm</option>
+<option value="DVDSL">DVD-Spielfilm</option>
+<option value="F">Fremdsprachen</option>
+<option value="K">Karten</option>
+<option value="LC">Kassette Hörbuch</option>
+<option value="MC">Kassette Musik</option>
+<option value="LITX">LIT-Express</option>
+<option value="LAP">Laptop</option>
+<option value="LS">Lesesommer</option>
+<option value="MB">Medienbox</option>
+<option value="MP">Medienpaket</option>
+<option value="N">Noten</option>
+<option value="SA">Sachliteratur</option>
+<option value="SAJ">Sachliteratur Kinder</option>
+<option value="SLJ">Schöne Lit. Kinder</option>
+<option value="SL">Schöne Literatur</option>
+<option value="SfBE">SprachboxErwachsene</option>
+<option value="SfBK">SprachboxKinder</option>
+<option value="SfB">Sprachförderbox</option>
+<option value="TAB">Tablet</option>
+<option value="TD">Tasche Demenz</option>
+<option value="TDM">Tasche Demenz Medien</option>
+<option value="WL">Weblink</option>
+<option value="Z">Zeitschriften</option>
+<option value="EA">eAudio</option>
+<option value="EB">eBook</option>
+<option value="EM">eMusic</option>
+<option value="EP">ePaper</option>
+<option value="ER">eReader</option>
+<option value="EV">eVideo</option>
+</select></div>
+</div></div></div><div class="suchzeile"><div class="suchfeld"><div class="suchfeldinhalt"><div class="suchfeld_inhalt_titel"><label for="jahr_von"><a title="Hilfe f&uuml;r Suchfeld Jahr" class="stealth" href="index.asp?target=hilfe_jahrhelp">Jahr&nbsp;(von&nbsp;bis)</a></label></div>
+<div class="suchfeld_inhalt_input"><input type="text" name="jahr_von" id="jahr_von" value="" size="9" maxlength="248"/>&nbsp;<input type="text" name="jahr_bis" id="jahr_bis" value="" size="9" maxlength="248"/></div></div></div><div class="suchfeld"><div class="suchfeldinhalt"><div class="suchfeld_inhalt_titel"><label for="ikr"><a title="Hilfe f&uuml;r Suchfeld Interessenkreis" class="stealth" href="index.asp?target=hilfe_ikahelp">Interessenkreis</a></label></div>
+<div class="suchfeld_inhalt_input"><input type="text" name="ikr" id="ikr" value="" size="22" maxlength="248"/></div>
+<div class="link_register"><input type="image" name="link_register_ikr" src="/Deutsch/PICS/question.gif" onmouseover="this.src='/Deutsch/PICS/question_.gif'" onmouseout="this.src='/Deutsch/PICS/question.gif'" alt=""/></div></div></div><div class="suchfeld"><div class="suchfeldinhalt"><div class="suchfeld_inhalt_titel"><label for="zst"><a class="stealth" title="Hilfe f&uuml;r Suchfeld Zweigstelle" href="index.asp?target=hilfe_zwsthelp">Zweigstelle</a></label></div>
+<div class="suchfeld_inhalt_input"><select name="zst" id="zst"><option value="">Alle&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</option>
+<option value="DM">Digitales Medium</option><option value="GO">Gonsenheim</option><option value="HE">Hechtsheim</option><option value="IS">Internet-Seite</option><option value="LG">Lerchenberg</option><option value="MA">Magazin</option><option value="MO">Mombach</option><option value="V">Verwaltung</option><option value="WE">Weisenau</option><option value="HA">Zentrale-Erwachsene</option><option value="JU">Zentrale-Kinder</option></select></div>
+</div></div></div>
+
+
+
+<script type="text/javascript">
+
+
+function verstecken(){
+
+}
+
+function sucheFertig(){
+	document.getElementById("warten").style.visibility = "hidden";
+	
+}
+
+
+
+</script>
+
+
+    
+	<div id="menu_mitte">
+	 
+	
+<script type="text/javascript">
+	function OpenPrintWindow()
+	{
+		
+		win1=window.open("print.asp?whichOne=FIRST","printWindow", "width=400,height=400,innerWidth=400,innerHeight=400,dependent,scrollbars");
+		
+	}
+	</script>
+
+<div class="menu_mitte_katalog">Katalog</div><div class="menu_mitte_katalog">bib1</div>
+
+	
+	<div class="menu_mitte_links_feld">
+	<input name="suche_starten" src="/Deutsch/PICS/b-suche.gif" type="image" onmouseover="this.src='/Deutsch/PICS/b-suche_.gif'" onmouseout="this.src='/Deutsch/PICS/b-suche.gif'" alt="Suche starten"  id="suche_starten" />
+	</div>
+
+
+
+
+	<div class="menu_mitte_links_feld">
+		<input name="reset" src="/Deutsch/PICS/reset.gif" type="image" onmouseover="this.src='/Deutsch/PICS/reset_.gif'" onmouseout="this.src='/Deutsch/PICS/reset.gif'" alt="Inhalt der Suchfelder löschen"/>
+	</div>
+
+    <div class="menu_mitte_rechts_feld"><input name="link_einfaches" src="/Deutsch/PICS/einfsuche.gif" type="image" onmouseover="this.src='/Deutsch/PICS/einfsuche_.gif'" onmouseout="this.src='/Deutsch/PICS/einfsuche.gif'" alt="Zur einfachen Suche wechseln"/></div><div class="menu_mitte_rechts_feld"><div id="link_drucken"><a href="javascript:OpenPrintWindow();"><img style="margin-top:-3px;" src="/Deutsch/PICS/print.gif" onmouseout="this.src='/Deutsch/PICS/print.gif'" onmouseover="this.src='/Deutsch/PICS/print_.gif'" alt="Drucken"/></a></div></div>
+	</div>
+
+    
+		    
+		        <div class="result" id="Result">
+			    
+
+<script type="text/javascript">
+
+function finished()
+{
+	
+				document.images[0].src = "/Deutsch/PICS/dummy.gif";	
+			 
+		/*document.images[1].src = "/Deutsch/PICS/dummy.gif";	*/
+}
+
+</script>
+<div class="result_titel"><h1>Suchergebnis - Übersicht</h1></div><div class="result_gefunden">Gefunden:&nbsp;168</div><div class="result_sort"><select name="orderselect" onchange="document.webopac.submit();"><option value="">sortieren nach</option>
+<option selected="selected" value="1">Standardsortierung</option>
+<option value="2">Nach Erscheinungsjahr</option>
+<option value="3">Nach Mediengruppe</option>
+</select>&nbsp; </div><div class="clearleft"></div><div class="resultzeile">Sortierrichtung:&nbsp;aufsteigend&nbsp;&nbsp;<a href="index.asp?order=desc">absteigend</a></div><table cellpadding="2" cellspacing="0" class="resulttab"><tr><th class="tabbeschreibung">Trefferbild</th><th class="tabbeschreibung">Treffer Kurzanzeige</th></tr><tr class="result_trefferX"><td><a href="index.asp?detmediennr=0"><IMG SRC='/Deutsch/PICS/mBuchS.gif' ALT='Monographie' BORDER=FALSE ></a></td><td><!--MEDIENNR: 0520830 --><a href="index.asp?detmediennr=0 " title="Details öffnen">Sprachförderbox DaZ Grundschule 1/2 - 6.<br/>11. <b><b>Hallo</b></b>! Jetzt lerne ich Deutsch : erste Grundlagen für Deutsch als Zweitsprache. - 1. Aufl. - 2016. - 28 S. : überw. Ill. (überw. farb.), graph. Darst.<br/>
+(Grundschule: Mit und ohne Vorkentnisse)</a></td></tr><tr class="result_treffer"><td><a href="index.asp?detmediennr=1"><IMG SRC='/Deutsch/PICS/mBuchS.gif' ALT='Monographie' BORDER=FALSE ></a></td><td><!--MEDIENNR: 0520832 --><a href="index.asp?detmediennr=1 " title="Details öffnen">Sprachförderbox DaZ Grundschule 1/2 - 6.<br/>13. <b><b>Hallo</b></b>, liebe Maus - Mein Körper : ein Sprachlern-Bilderbuch ab 2 Jahren ; Deutsch, Arabisch. - 2015. - 23 S. : überw. Ill. (farb.)</a></td></tr><tr class="result_trefferX"><td><a href="index.asp?detmediennr=2"><IMG SRC='/Deutsch/PICS/mBuchS.gif' ALT='Monographie' BORDER=FALSE ></a></td><td><!--MEDIENNR: 0522298 --><a href="index.asp?detmediennr=2 " title="Details öffnen">Sprachförderbox DaZ Grundschule 3/4 - 7.<br/>15. <b><b>Hallo</b></b>! Jetzt lerne ich Deutsch : erste Grundlagen für Deutsch als Zweitsprache. - 1. Aufl. - 2016. - 28 S. : überw. Ill. (überw. farb.), graph. Darst.<br/>
+(Grundschule: Mit und ohne Vorkentnisse)</a></td></tr><tr class="result_treffer"><td><a href="index.asp?detmediennr=3"><IMG SRC='/Deutsch/PICS/mBuchS.gif' ALT='Monographie' BORDER=FALSE ></a></td><td><!--MEDIENNR: 0521846 --><a href="index.asp?detmediennr=3 " title="Details öffnen">Sprachförderbox DaZ Grundschule 3/4 - 8.<br/>17. <b><b>Hallo</b></b>! Jetzt lerne ich Deutsch : erste Grundlagen für Deutsch als Zweitsprache. - 1. Aufl. - 2016. - 28 S. : überw. Ill. (überw. farb.), graph. Darst.<br/>
+(Grundschule: Mit und ohne Vorkentnisse)</a></td></tr><tr class="result_trefferX"><td><a href="index.asp?detmediennr=4"><img src="/Deutsch/PICS/mNoten1S.gif" alt="Noten"/></a></td><td><!--MEDIENNR: 0186963 --><a href="index.asp?detmediennr=4 " title="Details öffnen">Stolz, Robert : Werke / Ausw. : für Gesang und Klavier.<br/>2.  - [o.J.]. - S. 80 - 157 : 1 Porträt</a></td></tr><tr class="result_treffer"><td><a href="index.asp?detmediennr=5"><img src="/Deutsch/PICS/mp.gif" alt="Medienpaket"/></a></td><td><!--MEDIENNR: 0454129 --><a href="index.asp?detmediennr=5 " title="Details öffnen">Swerlowa, Olga : Hallo Anna : Deutsch für Kinder ; [Sprachkurs, CD].<br/>2.  : [Sprachkurs, CD] - 2013. - 1 Lehrbuch (83 S. : Ill.), 1 Arbeitsbuch (88 S. : Ill.) + 2 Audio-Discs<br/>
+(Wydawnictwo LektorKlett)</a></td></tr><tr class="result_trefferX"><td><a href="index.asp?detmediennr=6"><IMG SRC='/Deutsch/PICS/mBuchS.gif' ALT='Monographie' BORDER=FALSE ></a></td><td><!--MEDIENNR: 0209136 --><a href="index.asp?detmediennr=6 " title="Details öffnen">Dream-K.I.D.S..<br/>2. 2. : &lt;CD&gt;. - 1 Compact Disc</a></td></tr><tr class="result_treffer"><td><a href="index.asp?detmediennr=7"><IMG SRC='/Deutsch/PICS/mBuchS.gif' ALT='Monographie' BORDER=FALSE ></a></td><td><!--MEDIENNR: 0519949 --><a href="index.asp?detmediennr=7 " title="Details öffnen">Sprachförderbox DaZ Kita 2.<br/>20. <b><b>Hallo</b></b>, liebe Maus - Im Kindergarten : ein Sprachlern-Bilderbuch ab 2 Jahren ; Deutsch, Arabisch. - 2015. - 23 S. : überw. Ill. (farb.)</a></td></tr><tr class="result_trefferX"><td><a href="index.asp?detmediennr=8"><IMG SRC='/Deutsch/PICS/mBuchS.gif' ALT='Monographie' BORDER=FALSE ></a></td><td><!--MEDIENNR: 0520708 --><a href="index.asp?detmediennr=8 " title="Details öffnen">Sprachförderbox DaZ Grundschule 1/2 - 7.<br/>28. <b><b>Hallo</b></b>! Jetzt lerne ich Deutsch : erste Grundlagen für Deutsch als Zweitsprache. - 1. Aufl., 2016. - 28 S. : überw. Ill. (überw. farb.), graph. Darst.<br/>
+(Grundschule: Mit und ohne Vorkentnisse)</a></td></tr><tr class="result_treffer"><td><a href="index.asp?detmediennr=9"><IMG SRC='/Deutsch/PICS/mBuchS.gif' ALT='Monographie' BORDER=FALSE ></a></td><td><!--MEDIENNR: 0418944 --><a href="index.asp?detmediennr=9 " title="Details öffnen">Dschungelfieber.<br/>3. <b><b>Hallo</b></b> Freunde !. - 1990. - 48 S. </a></td></tr></table><div class="result_nav"><a href="index.asp?scrollAction=1" title="1">1</a>&nbsp; <u>2</u>&nbsp; <a href="index.asp?scrollAction=3" title="3">3</a>&nbsp; <a href="index.asp?scrollAction=4" title="4">4</a>&nbsp; <a href="index.asp?scrollAction=5" title="5">5</a>&nbsp; <a href="index.asp?scrollAction=6" title="6">6</a>&nbsp; <a href="index.asp?scrollAction=7" title="7">7</a>&nbsp; <a href="index.asp?scrollAction=8" title="8">8</a>&nbsp; <a href="index.asp?scrollAction=9" title="9">9</a>&nbsp; <a href="index.asp?scrollAction=10" title="10">10</a>&nbsp; <a href="index.asp?scrollAction=f"> >></a>&nbsp; </div><div class="resultzeile_center"><a href="http://www.oclc.org" target="_blank"></a></div>
+			    </div>
+		        <div class="detail" id="Detail"><TABLE BORDER=0 CELLSPACING=0 CELLPADDING=0 width="100%"><TR  valign="top" align="left">
+  <td>  
+  <table width="100%" border="0" cellspacing="0" cellpadding="0">
+        <tr valign="bottom" align="center"> 
+          <td></td>
+          <td><br><br><br><img border="0" src="/DEUTSCH/PICS/zentrale.jpg" alt="Bild des Eingangsbereichs der Büchereizentrale" title="Eingangsbereich der Büchereizentrale, Bonifaziustürme"><br><a href="HA.html" target="_blank"><b></a><br><br>
+		  <font size="+1"color="#FF0000" face="Times"><span style="font-size:14px;font-family:Times;color:#345EBC">
+<div style="text-align:center;">
+<font color="#FF0000" face="Times">
+</font>
+<div style="text-align:center;">
+<br>
+<b>Elektronische Medien (eBooks, eVideos, eAudio, ePapers) finden Sie in unserem<br> Online-Katalog mit Download-Link. Sie können diese eMedien aber auch direkt<br> über die <a href="http://www.onleihe-rlp.de" target="_blank">Onleihe Rheinland-Pfalz</b></a> herunterladen.<br> Voraussetzung ist ein gültiger Büchereiausweis.
+<br>
+<br>
+<b>Tipp für Smartphone-Nutzer: die kostenlose <a href="http://opacapp.de/" target="_blank">Web Opac App für Android</b></a><br>
+Diese App ist kein Angebot der Öffentlichen Bücherei Mainz,<br> bei Fragen hilft Ihnen der Hersteller weiter.
+<br><br>
+Wichtiges und Interessantes &uuml;ber L&auml;nder und Personen finden<br> Sie beim Informationsdienst <a href="http://www.munzinger.de/search/login?portalid=77082" target="_blank"><b>Munzinger online</b></a>.<br>
+Als angemeldeter Benutzer der &Ouml;ffentlichen B&uuml;cherei Mainz<br> haben Sie auch von Zuhause Zugriff auf diesen Service.
+<br>Sie finden Internetlinks zum jeweiligen Artikel <br> auch bei der Recherche in unserem Katalog.<br></div>
+</span></p>
+</td>
+	</tr>
+   </table>
+
+
+
+<br/><br/><br/><br/>
+
+
+
+
+
+</div>
+
+</div>
+</form>
+</body>
+</html>
+
+
+
