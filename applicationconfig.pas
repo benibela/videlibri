@@ -183,6 +183,8 @@ resourcestring
   procedure addErrorMessage(kind: TExceptionKind; errorStr,errordetails, anonymouseDetails, libraryId, searchQuery:string;lib:TCustomAccountAccess=nil);
   var i:integer;
   begin
+    if lib <> nil then
+      errordetails := StringReplace(errordetails, lib.passWord, '******', [rfReplaceAll]);
     for i:=0 to high(errorMessageList) do
       if errorMessageList[i].error=errorstr then begin
         SetLength(errorMessageList[i].details,length(errorMessageList[i].details)+1);
