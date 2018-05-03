@@ -851,6 +851,7 @@ end;
 
 procedure TmainForm.MenuItem16Click(Sender: TObject);
 begin
+  if length(oldErrorMessageString) > 50000 then oldErrorMessageString := copy(oldErrorMessageString, 1, 50000);
   TsendBackErrorForm.openErrorWindow(oldErrorMessageString,IntToStr(versionNumber),'Videlibri');
 end;
 
