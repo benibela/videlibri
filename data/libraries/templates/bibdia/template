@@ -11,14 +11,35 @@
 
 <action id="update-all"> 
   <s>vl:delete-current-books()</s>
-  <loop list="('medk', 'vorm')" var="func">
-    <page url="{$baseurl}/user.C" templateFile="update">
+  <try>
+    <loop list="('medk', 'vorm')" var="func">
+      <page url="{$baseurl}/user.C" templateFile="update">
+        <post name="BENUTZER" value="{$username}"/>
+        <post name="FUNC" value="{$func}"/>
+        <post name="LANG" value="de"/>
+        <post name="PASSWORD" value="{$password}"/>
+      </page>
+    </loop>
+  <catch errors="*"><!--The following is not actually doing anything, except checking for invalid passwords: -->
+    <page url="{$baseurl}/login.C">
       <post name="BENUTZER" value="{$username}"/>
-      <post name="FUNC" value="{$func}"/>
+      <post name="FUNC" value="login"/>
+      <post name="DUM1" value=""/>
       <post name="LANG" value="de"/>
       <post name="PASSWORD" value="{$password}"/>
     </page>
-  </loop>
+    <pattern><t:switch prioritized="true">
+      <form> 
+        <input name="FUNC" value="medk"/>
+        {next := form(., {"FUNC": "medk"})}
+      </form>
+      <td>Benutzernummer ungültig<t:s>vl:raise-login(.)</t:s> </td>
+      <td>Benutzernummer / Password ungültig<t:s>vl:raise-login(.)</t:s> </td>
+      <form name="errorl">{vl:raise(join(//table))}</form>
+    </t:switch></pattern>
+    <page url="{$next}" templateFile="update"/>
+  </catch>
+  </try>
 </action>
 
 <action id="update-single">

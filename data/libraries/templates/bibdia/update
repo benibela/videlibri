@@ -67,7 +67,8 @@
 
 <font>Kein Medium</font>
 <font>Sie haben keine Medien</font>
-
+<font>Nothing <!--reserved! also: No charges--></font>
+<!--
 <form name="errorl" >{vl:raise-login((../preceding::table)[1])}</form>
 
 
@@ -80,5 +81,5 @@
   <div class="formTitle"></div>
   <t:element class="error">{vl:raise(.)}</t:element>
 </body>
-
+-->
 </t:switch>
