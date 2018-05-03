@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<library>
+  <longName value="Stadt- und Regionalbibliothek Erfurt (alpha)"/>
+  <shortName value="Stb Erfurt"/>
+
+  <template value="sisis"/>
+  <variable name="server" value="https://opac.erfurt.de/webOPACClient/"/>
+  <variable name="startparams" value="?Login=sisis"/>
+  
+  <homepage value="http://bibliothek.erfurt.de"/>
+</library>

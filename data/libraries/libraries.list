@@ -61,6 +61,7 @@ DE_Baden-W+uertenberg_Villingen_Hfpol.xml
 DE_Baden-W+uertenberg_Villingen_Stb.xml
 DE_Baden-W+uertenberg_Weingarten_HS.xml
 DE_Baden-W+uertenberg_Weinheim_Stb.xml
+DE_Baden-W+uerttemberg_Mannheim_Stb.xml
 DE_Bayern_Amberg-Weiden_HAW.xml
 DE_Bayern_Aschaffenburg_Hb.xml
 DE_Bayern_Aschaffenburg_Hof.xml
@@ -110,6 +111,7 @@ DE_Hessen_R+uesselheim_Stb.xml
 DE_Hessen_Schotten_Stb.xml
 DE_Hessen_Wiesbaden_Stb.xml
 DE_Mecklenburg-Vorpommern_Greifswald_Ub.xml
+DE_Mecklenburg-Vorpommern_Rostock_Stb.xml
 DE_Mecklenburg-Vorpommern_Stralsund_Hb.xml
 DE_Mecklenburg-Vorpommern_Stralsund_Stb.xml
 DE_Niedersachsen_Braunschweig_Stb.xml
@@ -138,6 +140,7 @@ DE_Niedersachsen_Wilhelmshaven_Ub.xml
 DE_Niedersachsen_Wolfsburg_Stb.xml
 DE_Nordrhein-Westfalen_Aachen_Stb.xml
 DE_Nordrhein-Westfalen_Aachen_Ub.xml
+DE_Nordrhein-Westfalen_Bielefeld_Stb.xml
 DE_Nordrhein-Westfalen_Bochum_Hsb.xml
 DE_Nordrhein-Westfalen_Bochum_Stb.xml
 DE_Nordrhein-Westfalen_Bochum_UbRUB.xml
@@ -154,14 +157,19 @@ DE_Nordrhein-Westfalen_D+uesseldorf_Ub.xml
 DE_Nordrhein-Westfalen_Duisburg_Stb.xml
 DE_Nordrhein-Westfalen_Essen_Stb.xml
 DE_Nordrhein-Westfalen_Gelsenkirchen_Fhb.xml
+DE_Nordrhein-Westfalen_Gelsenkirchen_Stb.xml
 DE_Nordrhein-Westfalen_Grevenbroich_Stb.xml
+DE_Nordrhein-Westfalen_Hagen_Stb.xml
 DE_Nordrhein-Westfalen_Halle_Stb.xml
 DE_Nordrhein-Westfalen_Haltern-am-See_Stb.xml
 DE_Nordrhein-Westfalen_Hamm_Stb.xml
 DE_Nordrhein-Westfalen_K+oeln_Stb.xml
+DE_Nordrhein-Westfalen_Leverkusen_Stb.xml
 DE_Nordrhein-Westfalen_Marl_Stb.xml
 DE_Nordrhein-Westfalen_Meerbusch_Stb.xml
+DE_Nordrhein-Westfalen_M+oenchengladbach_Stb.xml
 DE_Nordrhein-Westfalen_M+uenster_Fh.xml
+DE_Nordrhein-Westfalen_M+uenster_Stb.xml
 DE_Nordrhein-Westfalen_M+uenster_Ulb.xml
 DE_Nordrhein-Westfalen_Neuss_Stb.xml
 DE_Nordrhein-Westfalen_Oberhausen_Stb.xml
@@ -176,6 +184,7 @@ DE_Nordrhein-Westfalen_Witten_Ulb.xml
 DE_Nordrhein-Westfalen_Wuppertal_Stb.xml
 DE_Rheinland-Pfalz_Koblenz_Stb.xml
 DE_Rheinland-Pfalz_Ludwigshafen_Stb.xml
+DE_Rheinland-Pfalz_Mainz_Stb.xml
 DE_Rheinland-Pfalz_Neustadt-an-der-Weinstra+sze_Stb.xml
 DE_Rheinland-Pfalz_Speyer_Stb.xml
 DE_Rheinland-Pfalz_Trier_Fh.xml
@@ -183,8 +192,10 @@ DE_Rheinland-Pfalz_Trier_StbWd.xml
 DE_Saarland_Saarbr+uecken_Stb.xml
 DE_Saarland_Saarbr+uecken_Ub.xml
 DE_Sachsen-Anhalt_Anhalt_HSB.xml
+DE_Sachsen-Anhalt_Halle_Stb.xml
 DE_Sachsen-Anhalt_Halle_Ub.xml
 DE_Sachsen-Anhalt_Magdeburg_Hs.xml
+DE_Sachsen-Anhalt_Magdeburg_Stb.xml
 DE_Sachsen-Anhalt_Magdeburg_Ub.xml
 DE_Sachsen-Anhalt_Merseburg_Fhb.xml
 DE_Sachsen-Anhalt_Stendal_Hs.xml
@@ -205,6 +216,7 @@ DE_Schleswig-Holstein_Kiel_Ub.xml
 DE_Schleswig-Holstein_L+uebeck_Stb.xml
 DE_Schleswig-Holstein_L+uebeck_ZHb.xml
 DE_Th+ueringen_Erfurt_Fhb.xml
+DE_Th+ueringen_Erfurt_Stb.xml
 DE_Th+ueringen_Erfurt_Ub.xml
 DE_Th+ueringen_Ilmenau_Ub.xml
 DE_Th+ueringen_Jena_EAH.xml

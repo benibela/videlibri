@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<library>
+  <longName value="Stadtbibliothek Bielefeld (alpha)"/>
+  <shortName value="Stb Bielefeld"/>
+  
+  <template value="bibliothecaplus"/>
+  <variable name="urlaccount" value="https://www.stadtbibliothek-bielefeld.de/open/Mein-Konto"/>	
+  <variable name="urlsearch" value="https://www.stadtbibliothek-bielefeld.de/open/Mediensuche"/>
+
+  <homepage value="https://www.stadtbibliothek-bielefeld.de"/>
+</library>

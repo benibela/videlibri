@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<library>
+  <longName value="Stadtbücherei Hagen (alpha)"/>
+  <shortName value="StB Hagen"/>
+  
+  <template value="bibdia"/>
+  <variable name="baseurl" value="https://www.hagen.de/opax/"/>
+
+  <template value="digibib">
+    <variable name="location" value="142"/>
+    <variable name="view" value="142:Recherchedatenbanken"/>
+    <variable name="searchid" value="SERVICEGROUP1.SERVICE.SEARCH_SBHA"/>
+  </template>
+
+  <homepage value="https://www.hagen.de/web/de/fachbereiche/fb_48sb/fb_48sb_01/informationen.html"/>
+</library>

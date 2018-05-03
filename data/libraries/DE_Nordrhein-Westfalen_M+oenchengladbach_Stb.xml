@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<library>
+  <longName value="Stadtbibliothek Mönchengladbach (alpha)"/>
+  <shortName value="StB Mönchengladbach"/>
+  
+  <template value="bibdia"/>
+  <variable name="baseurl" value="https://bibliothek.moenchengladbach.de/opax/"/>
+
+  <template value="digibib">
+    <variable name="location" value="BIBDIA"/>
+    <variable name="view" value="BIBDIA:BasisExt"/>
+    <variable name="searchid" value="SERVICEGROUP1.SERVICE.SEARCH_SBMGL"/>
+  </template>
+
+  <homepage value="http://www.stadtbibliothek-mg.de"/>
+</library>

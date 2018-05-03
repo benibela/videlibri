@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<library>
+  <longName value="Stadtbibliothek Leverkusen (alpha)"/>
+  <shortName value="Stb Leverkusen"/>
+  
+  <template value="bibliothecaplus"/>
+  <variable name="urlaccount" value="https://www.stadtbibliothek-leverkusen.de/Benutzerkonto.aspx"/>
+  <variable name="urlsearch" value="https://www.stadtbibliothek-leverkusen.de/Profisuche"/>
+
+  <homepage value="https://www.stadtbibliothek-leverkusen.de"/>
+</library>

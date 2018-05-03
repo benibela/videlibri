@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<library>
+  <longName value="Stadtbibliothek Mannheim (alpha)"/>
+  <shortName value="Stb Mannheim"/>
+  
+  <template value="bibliotheca"/>
+  <variable name="baseurl" value="https://katalog.mannheim.de/wopac"/>	
+  <variable name="DB" value="web_biblio"/>
+  
+  <homepage value="https://www.mannheim.de/de/bildung-staerken/stadtbibliothek"/>
+</library>

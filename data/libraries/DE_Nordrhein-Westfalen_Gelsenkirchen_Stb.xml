@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<library>
+  <longName value="Stadtbibliothek Gelsenkirchen (alpha)"/>
+  <shortName value="StB Gelsenkirchen"/>
+  
+  <template value="bibdia"/>
+  <variable name="baseurl" value="https://katalog.stadtbibliothek-ge.de/opax/"/>
+
+  <template value="digibib">
+    <variable name="location" value="BIBDIA"/>
+    <variable name="view" value="BIBDIA:BasisExt"/>
+    <variable name="searchid" value="SERVICEGROUP1.SERVICE.SEARCH_SBGEL"/>
+  </template>
+
+  <homepage value="https://stadtbibliothek.gelsenkirchen.de/>
+</library>
