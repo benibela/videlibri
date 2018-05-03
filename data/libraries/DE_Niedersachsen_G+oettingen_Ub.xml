@@ -3,7 +3,7 @@
   <longName value="Göttinger Universitätskataloge (alpha)"/>
   <shortName value="Ub Göttingen"/>
   
-  <template value="pica"/>
+  <template value="lbs"/>
   <variable name="server" value="https://opac.sub.uni-goettingen.de/"/>	
 
 

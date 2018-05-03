@@ -8,7 +8,7 @@
   <variable name="picadb" value="5"/>	
 
 
-  <homepage value="http://www.fh-nordhausen.de/bibliothek.html"/>
+  <homepage value="https://www.hs-nordhausen.de/service/bibliothek/"/>
   <testing-search value="ja" date="2013-04-26"/>
   <testing-account value="?" date=""/>
   <testing-renew value="?" date=""/>
