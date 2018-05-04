@@ -862,9 +862,16 @@ begin
   if logging then log('TLibraryManager.getAccount('+libID+','+accountID+') started');
   Result:=getAccountObject(libID);
   if libID = Result.lib.deprecatedId then begin
-    if FileExists(basePath+libID+'#'+accountID+'.history') then CopyFile(basePath+libID+'#'+accountID+'.history', basePath+result.lib.id+'#'+accountID+'.history'); //old files, not xml files
-    if FileExists(basePath+libID+'#'+accountID+'.current') then CopyFile(basePath+libID+'#'+accountID+'.current', basePath+result.lib.id+'#'+accountID+'.current');
-    CopyFile(basePath+libID+'#'+accountID+'.config', basePath+result.lib.id+'#'+accountID+'.config');
+    if FileExists(basePath+libID+'#'+accountID+'.history') then
+      RenameFileUTF8(basePath+libID+'#'+accountID+'.history', basePath+result.lib.id+'#'+accountID+'.history'); //old files, not xml files
+    if FileExists(basePath+libID+'#'+accountID+'.current') then
+      RenameFileUTF8(basePath+libID+'#'+accountID+'.current', basePath+result.lib.id+'#'+accountID+'.current');
+    if FileExists(basePath+libID+'#'+accountID+'.history.xml') then
+      RenameFileUTF8(basePath+libID+'#'+accountID+'.history.xml', basePath+result.lib.id+'#'+accountID+'.history.xml');
+    if FileExists(basePath+libID+'#'+accountID+'.current.xml') then
+      RenameFileUTF8(basePath+libID+'#'+accountID+'.current.xml', basePath+result.lib.id+'#'+accountID+'.current.xml');
+    if FileExists(basePath+libID+'#'+accountID+'.config') then
+      RenameFileUTF8(basePath+libID+'#'+accountID+'.config', basePath+result.lib.id+'#'+accountID+'.config');
     log('Import old '+basePath+libID+'#'+accountID+'.* => ' +basePath+result.lib.id+'#'+accountID+'.*');
   end;
   result.init(basePath,accountID);
