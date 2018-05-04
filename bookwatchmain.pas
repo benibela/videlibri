@@ -220,7 +220,7 @@ procedure sendMailReports();
 implementation
 
 { TmainForm }
-uses math,options,debuglogviewer, newaccountwizard_u,bbdebugtools,bibtexexport,booklistreader{$IFDEF WIN32},windows{$ENDIF},Clipbrd,bbutils,androidutils,libraryaccesstester,duplicateremover,xqueryform,bookproperties;
+uses math,options,debuglogviewer, newaccountwizard_u,bbdebugtools,bibtexexport,booklistreader{$IFDEF WIN32},windows{$ENDIF},Clipbrd,bbutils,androidutils,libraryaccesstester,duplicateremover,xqueryform,bookproperties,LazUTF8;
 
 resourcestring
   rsSearchBarTitle = 'Ausleihensuche:';
@@ -850,8 +850,10 @@ begin
 end;
 
 procedure TmainForm.MenuItem16Click(Sender: TObject);
+var invalid: SizeInt;
 begin
-  if length(oldErrorMessageString) > 50000 then oldErrorMessageString := copy(oldErrorMessageString, 1, 50000);
+  strLengthUtf8(oldErrorMessageString, invalid);
+  if invalid > 0 then UTF8FixBroken(oldErrorMessageString);
   TsendBackErrorForm.openErrorWindow(oldErrorMessageString,IntToStr(versionNumber),'Videlibri');
 end;
 
