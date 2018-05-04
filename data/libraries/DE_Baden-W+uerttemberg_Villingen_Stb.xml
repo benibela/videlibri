@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<library>
+  <deprecatedName value="DE_Baden-W+uertenberg_Villingen_Stb"/>
+  <longName value="Stadtbibliothek Villingen-Schwenningen (alpha)"/>
+  <shortName value="Stb Villingen-Schwenningen"/>
+  
+  <template value="bibliotheca"/>
+  <variable name="baseurl" value="https://opac.villingen-schwenningen.de/wwwopac"/>	
+  <variable name="DB" value="wopac"/>	
+  
+  <!--<template value="pica"/>-->
+
+ 
+  <homepage value="http://www.villingen-schwenningen.de/bildung/stadtbibliothek.html"/>
+  <testing-search value="ja" date="2014-09-29"/>
+  <testing-account value="?" date=""/>
+  <testing-renew value="?" date=""/>
+</library>

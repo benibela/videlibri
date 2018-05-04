@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<library>
+  <deprecatedName value="DE_Baden-W+uertenberg_Ulm_Hs"/>
+  <longName value="Bibliothek der Hochschule Ulm (alpha)"/>
+
+  <template value="aDISWeb"/>
+  <variable name="server" value="bsz.ibs-bw.de"/>
+  <variable name="startparams" value="?service=direct/0/Home/$DirectLink&sp=S127.0.0.1:23322"/>
+
+  <homepage value="http://www.hs-ulm.de/Bibliothek"/>
+  <testing-search value="ja" date="2013-05-18"/>
+  <testing-account value="?" date=""/>
+  <testing-renew value="?" date=""/>
+</library>  

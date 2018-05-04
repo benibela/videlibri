@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<library>
+  <deprecatedName value="DE_Baden-W+uertenberg_Stuttgart_DHs"/>
+  <longName value="Bibliothek der DHBW Stuttgart (alpha)"/>
+
+  <template value="aDISWeb"/>
+  <variable name="server" value="bsz.ibs-bw.de"/>
+  <variable name="startparams" value="?service=direct/0/Home/$DirectLink&sp=S127.0.0.1:23412"/>
+
+  <homepage value="http://www.dhbw-stuttgart.de/themen/service-einrichtungen/bibliothek.html"/>
+  <testing-search value="ja" date="2013-05-18"/>
+  <testing-account value="?" date=""/>
+  <testing-renew value="?" date=""/>
+</library>  

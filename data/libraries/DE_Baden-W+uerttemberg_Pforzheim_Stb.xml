@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<library>
+  <deprecatedName value="DE_Baden-W+uertenberg_Pforzheim_Stb"/>
+  <longName value="Stadtbibliothek Pforzheim"/>
+  <shortName value="StaBi PF"/>
+  
+  <template value="koha"/>
+  <variable name="baseurl" value="https://sb-pforzheim.lmscloud.net/"/>	
+ 
+
+  <homepage value="http://stadtbibliothek.pforzheim.de/"/>
+</library>
