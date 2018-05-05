@@ -1,23 +1,23 @@
 object newAccountWizard: TnewAccountWizard
   Left = 349
-  Height = 344
+  Height = 422
   Top = 141
-  Width = 520
+  Width = 517
   BorderIcons = [biSystemMenu]
   Caption = 'Neues Konto'
-  ClientHeight = 344
-  ClientWidth = 520
+  ClientHeight = 422
+  ClientWidth = 517
   OnActivate = FormActivate
   OnCreate = FormCreate
   OnShow = FormShow
   Position = poScreenCenter
-  LCLVersion = '1.8.0.5'
+  LCLVersion = '1.8.1.0'
   object Notebook1: TNotebook
     Left = 0
-    Height = 311
+    Height = 389
     Top = 0
-    Width = 520
-    PageIndex = 0
+    Width = 517
+    PageIndex = 2
     Align = alClient
     TabOrder = 0
     TabStop = True
@@ -27,7 +27,7 @@ object newAccountWizard: TnewAccountWizard
         Left = 20
         Height = 95
         Top = 7
-        Width = 473
+        Width = 470
         Anchors = [akTop, akLeft, akRight]
         Caption = 'Um die auf einem Konto ausgeliehenen Medien zu betrachten, müssen Sie hier Ihre Büchereikontodaten eingeben.    '#10#10'Bitte wählen Sie zuerst die Stadt und dann die Bücherei aus, zu der das entsprechende Konto gehört und klicken dann auf "Weiter".'
         ParentColor = False
@@ -39,9 +39,9 @@ object newAccountWizard: TnewAccountWizard
         AnchorSideBottom.Control = Page1
         AnchorSideBottom.Side = asrBottom
         Left = 19
-        Height = 189
+        Height = 267
         Top = 112
-        Width = 486
+        Width = 483
         Anchors = [akTop, akLeft, akRight, akBottom]
         BorderSpacing.Around = 10
         BevelInner = bvLowered
@@ -55,9 +55,9 @@ object newAccountWizard: TnewAccountWizard
         AnchorSideTop.Control = accountName
         AnchorSideTop.Side = asrCenter
         Left = 36
-        Height = 15
-        Top = 152
-        Width = 96
+        Height = 19
+        Top = 161
+        Width = 94
         Alignment = taRightJustify
         Caption = 'Kontonummer:'
         ParentColor = False
@@ -66,9 +66,9 @@ object newAccountWizard: TnewAccountWizard
         AnchorSideTop.Control = accountPass
         AnchorSideTop.Side = asrCenter
         Left = 36
-        Height = 15
-        Top = 192
-        Width = 98
+        Height = 19
+        Top = 207
+        Width = 87
         Caption = 'Passwort:         '
         ParentColor = False
       end
@@ -76,9 +76,9 @@ object newAccountWizard: TnewAccountWizard
         AnchorSideTop.Control = accountPass
         AnchorSideTop.Side = asrBottom
         Left = 20
-        Height = 15
-        Top = 216
-        Width = 58
+        Height = 19
+        Top = 236
+        Width = 57
         Caption = '(empty)'
         Font.Color = clRed
         Font.Style = [fsBold]
@@ -86,10 +86,10 @@ object newAccountWizard: TnewAccountWizard
         ParentFont = False
       end
       object label2Account: TLabel
-        Left = 16
-        Height = 30
+        Left = 20
+        Height = 38
         Top = 48
-        Width = 436
+        Width = 433
         Anchors = [akTop, akLeft, akRight]
         Caption = 'Bitte geben Sie jetzt Ihre Kartennummer und ihr Passwort (häufig Geburtsdatum) ein und klicken Sie dann auf "Weiter".'
         ParentColor = False
@@ -100,10 +100,10 @@ object newAccountWizard: TnewAccountWizard
         AnchorSideLeft.Side = asrBottom
         AnchorSideTop.Control = label2Account
         AnchorSideTop.Side = asrBottom
-        Left = 144
-        Height = 25
-        Top = 147
-        Width = 303
+        Left = 133
+        Height = 31
+        Top = 155
+        Width = 311
         Anchors = [akTop, akLeft, akRight]
         BorderSpacing.Left = 6
         BorderSpacing.Top = 65
@@ -116,10 +116,10 @@ object newAccountWizard: TnewAccountWizard
         AnchorSideLeft.Side = asrBottom
         AnchorSideTop.Control = accountName
         AnchorSideTop.Side = asrBottom
-        Left = 144
-        Height = 25
-        Top = 187
-        Width = 303
+        Left = 133
+        Height = 31
+        Top = 201
+        Width = 311
         Anchors = [akTop, akLeft, akRight]
         BorderSpacing.Left = 6
         BorderSpacing.Top = 11
@@ -131,9 +131,9 @@ object newAccountWizard: TnewAccountWizard
         AnchorSideTop.Control = accountType
         AnchorSideTop.Side = asrCenter
         Left = 35
-        Height = 15
-        Top = 105
-        Width = 62
+        Height = 19
+        Top = 116
+        Width = 58
         Caption = 'Kontotyp:'
         ParentColor = False
       end
@@ -142,10 +142,10 @@ object newAccountWizard: TnewAccountWizard
         AnchorSideLeft.Side = asrBottom
         AnchorSideTop.Control = label2Account
         AnchorSideTop.Side = asrBottom
-        Left = 144
-        Height = 21
-        Top = 102
-        Width = 303
+        Left = 133
+        Height = 31
+        Top = 110
+        Width = 311
         Anchors = [akTop, akLeft, akRight]
         BorderSpacing.Left = 6
         BorderSpacing.Top = 20
@@ -162,9 +162,9 @@ object newAccountWizard: TnewAccountWizard
       end
       object LabelSelectedLib: TLabel
         Left = 16
-        Height = 15
+        Height = 17
         Top = 16
-        Width = 123
+        Width = 111
         Caption = 'LabelSelectedLib'
         Font.Height = -13
         Font.Name = 'Sans'
@@ -176,12 +176,11 @@ object newAccountWizard: TnewAccountWizard
     object Page3: TPage
       object label3displayName: TLabel
         Left = 24
-        Height = 30
+        Height = 38
         Top = 21
-        Width = 348
+        Width = 490
         Anchors = [akTop, akLeft, akRight]
         Caption = 'Geben Sie nun ein, unter welchem Namen das Konto im Programm angezeigt werden soll:'
-        Constraints.MaxWidth = 348
         ParentColor = False
         WordWrap = True
       end
@@ -189,20 +188,20 @@ object newAccountWizard: TnewAccountWizard
         AnchorSideTop.Control = accountPrettyName
         AnchorSideTop.Side = asrBottom
         Left = 24
-        Height = 15
-        Top = 103
-        Width = 357
-        BorderSpacing.Top = 15
+        Height = 19
+        Top = 134
+        Width = 341
+        BorderSpacing.Top = 32
         Caption = 'Sollen alle ausgeliehenen Medien gespeichert werden?'
         ParentColor = False
       end
       object accountPrettyName: TEdit
         AnchorSideTop.Control = label3displayName
         AnchorSideTop.Side = asrBottom
-        Left = 44
-        Height = 25
-        Top = 63
-        Width = 380
+        Left = 24
+        Height = 31
+        Top = 71
+        Width = 469
         Anchors = [akTop, akLeft, akRight]
         BorderSpacing.Top = 12
         TabOrder = 0
@@ -211,10 +210,10 @@ object newAccountWizard: TnewAccountWizard
         AnchorSideTop.Control = Label8
         AnchorSideTop.Side = asrBottom
         Left = 55
-        Height = 18
-        Top = 124
-        Width = 182
-        BorderSpacing.Top = 6
+        Height = 21
+        Top = 166
+        Width = 177
+        BorderSpacing.Top = 13
         Caption = 'ja, alle Medien speichern'
         Checked = True
         TabOrder = 1
@@ -224,9 +223,10 @@ object newAccountWizard: TnewAccountWizard
         AnchorSideTop.Control = saveHistory
         AnchorSideTop.Side = asrBottom
         Left = 55
-        Height = 18
-        Top = 142
-        Width = 317
+        Height = 21
+        Top = 202
+        Width = 296
+        BorderSpacing.Top = 15
         Caption = 'nein, => keine Ausleihenhistory und Statistik'
         TabOrder = 2
       end
@@ -236,10 +236,10 @@ object newAccountWizard: TnewAccountWizard
       object lblWarning: TLabel
         AnchorSideTop.Control = label4autoextend
         AnchorSideTop.Side = asrBottom
-        Left = 242
-        Height = 135
-        Top = 64
-        Width = 215
+        Left = 236
+        Height = 152
+        Top = 72
+        Width = 218
         Anchors = [akTop, akRight]
         BorderSpacing.Top = 13
         Caption = 'Achtung: '#10'Die Bücherei erlaubt nur wenige Verlängerungen pro Medium. Bei der Option "immer, wenn möglich" werden daher, nach kurzer Zeit, keinerlei Verlängerungen mehr erlaubt sein.'
@@ -254,23 +254,25 @@ object newAccountWizard: TnewAccountWizard
         AnchorSideTop.Control = label4autoextend
         AnchorSideTop.Side = asrBottom
         Left = 293
-        Height = 15
-        Top = 98
-        Width = 101
-        BorderSpacing.Top = 47
+        Height = 19
+        Top = 109
+        Width = 94
+        BorderSpacing.Top = 50
         Caption = 'Nötig bedeutet:'
         ParentColor = False
         Visible = False
       end
       object extendDaysLbl2: TLabel
+        AnchorSideLeft.Control = extendDaysEdit
+        AnchorSideLeft.Side = asrBottom
         AnchorSideTop.Control = extendDaysLbl
         AnchorSideTop.Side = asrBottom
-        Left = 267
-        Height = 15
-        Top = 121
-        Width = 183
-        Anchors = [akTop, akRight]
-        BorderSpacing.Top = 8
+        Left = 271
+        Height = 19
+        Top = 153
+        Width = 176
+        BorderSpacing.Top = 20
+        BorderSpacing.Around = 5
         Caption = 'Tage vor Ablauf der Leihfrist'
         ParentColor = False
         Visible = False
@@ -278,9 +280,9 @@ object newAccountWizard: TnewAccountWizard
       end
       object label4autoextend: TLabel
         Left = 9
-        Height = 30
+        Height = 38
         Top = 21
-        Width = 437
+        Width = 490
         Anchors = [akTop, akLeft, akRight]
         Caption = 'Wählen Sie nun aus, wann das Programm selbstständig die auf diesem Konto ausgeliehenen Medien verlängern soll:'
         ParentColor = False
@@ -291,8 +293,8 @@ object newAccountWizard: TnewAccountWizard
         AnchorSideTop.Side = asrBottom
         AnchorSideRight.Control = lblWarning
         Left = 18
-        Height = 244
-        Top = 62
+        Height = 314
+        Top = 70
         Width = 198
         Anchors = [akTop, akLeft, akBottom]
         AutoFill = True
@@ -306,7 +308,7 @@ object newAccountWizard: TnewAccountWizard
         ChildSizing.ShrinkVertical = crsScaleChilds
         ChildSizing.Layout = cclLeftToRightThenTopToBottom
         ChildSizing.ControlsPerLine = 1
-        ClientHeight = 224
+        ClientHeight = 312
         ClientWidth = 196
         ItemIndex = 0
         Items.Strings = (
@@ -321,11 +323,10 @@ object newAccountWizard: TnewAccountWizard
         AnchorSideTop.Control = extendDaysLbl2
         AnchorSideTop.Side = asrCenter
         AnchorSideRight.Control = extendDaysLbl2
-        Left = 224
-        Height = 25
-        Top = 116
+        Left = 228
+        Height = 31
+        Top = 147
         Width = 34
-        Anchors = [akTop, akRight]
         BorderSpacing.Top = 14
         BorderSpacing.Right = 9
         TabOrder = 1
@@ -365,14 +366,14 @@ object newAccountWizard: TnewAccountWizard
   object Panel1: TPanel
     Left = 0
     Height = 33
-    Top = 311
-    Width = 520
+    Top = 389
+    Width = 517
     Align = alBottom
     ClientHeight = 33
-    ClientWidth = 520
+    ClientWidth = 517
     TabOrder = 1
     object cancelBtn: TButton
-      Left = 428
+      Left = 425
       Height = 27
       Top = 3
       Width = 88
@@ -386,7 +387,7 @@ object newAccountWizard: TnewAccountWizard
     end
     object nextbtn: TButton
       AnchorSideRight.Control = cancelBtn
-      Left = 345
+      Left = 342
       Height = 27
       Top = 3
       Width = 71
@@ -402,7 +403,7 @@ object newAccountWizard: TnewAccountWizard
     end
     object back: TButton
       AnchorSideRight.Control = nextbtn
-      Left = 270
+      Left = 267
       Height = 27
       Top = 3
       Width = 73
