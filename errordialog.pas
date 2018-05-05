@@ -41,13 +41,15 @@ resourcestring
   rsCheckYourPassword = 'Passwort überprüfen...';
 implementation
 
-uses applicationdesktopconfig, math;
+uses applicationdesktopconfig, math, LazUTF8;
 
 { TshowErrorForm }
 
 class procedure TshowErrorForm.showError(kind: TExceptionKind; title,error: string;detailStr: string;sendError, acheckPasswordEvent:TNotifyEvent);
 var errorForm: TShowErrorForm;
 begin
+  UTF8FixBroken(error); //invalid utf-8 is invisible on gtk2
+  UTF8FixBroken(detailStr);
   errorForm:=TShowErrorForm.Create(nil);
   //errorForm:=showErrorForm;
   //TODO Move to create event
