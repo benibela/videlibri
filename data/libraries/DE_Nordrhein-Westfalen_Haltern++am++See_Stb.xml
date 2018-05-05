@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<library>
+  <deprecatedName value="DE_Nordrhein-Westfalen_Haltern-am-See_Stb"/>
+  <longName value="Verbund Haltern Mark Recklinghausen"/>
+  <shortName value="HMR"/>
+  
+  <template value="vufind"/>  
+  <variable name="baseurl" value="https://www.bib-kreisre.de/MyResearch/"/>
+  <variable name="loginParams" value="library_select=VERB"/>
+    
+   
+  <template value="digibib">
+    <variable name="location" value="RECKL"/>
+    <variable name="view" value="RECKL:RecherchedatenbankenExt"/>
+    <variable name="searchid" value="SERVICEGROUP1.SERVICE.SEARCH_SBRHM"/>
+  </template>
+
+
+  <homepage value="https://www.haltern-am-see.de/Inhalte/Startseite/Sport_Kultur_Freizeit/Kultur/Stadtbuecherei/index.asp?seite=oe&id=361"/>
+</library>

@@ -729,6 +729,7 @@ begin
   result := StringReplace(Result, '+oe', 'ö', [rfReplaceAll]);
   result := StringReplace(Result, '+ae', 'ä', [rfReplaceAll]);
   result := StringReplace(Result, '+sz', 'ß', [rfReplaceAll]);
+  result := StringReplace(Result, '++', ' ', [rfReplaceAll]);
 end;
 
 class function TLibrary.unpretty(const l: string): string;
@@ -738,6 +739,8 @@ begin
   result := StringReplace(Result, 'ö', '+oe', [rfReplaceAll]);
   result := StringReplace(Result, 'ä', '+ae', [rfReplaceAll]);
   result := StringReplace(Result, 'ß', '+sz', [rfReplaceAll]);
+  result := StringReplace(Result, ' ', '++', [rfReplaceAll]);
+  //also in maketable
 end;
 
 function TLibraryManager.getAccountObject(libID: string):TCustomAccountAccess;
