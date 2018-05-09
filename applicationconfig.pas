@@ -132,6 +132,12 @@ resourcestring
   rsNeverLend = 'nie';
   rsLendHistory = 'erledigt';
   rsUnknown = 'unbekannt';
+
+  rsPatternMatchingFailedS = 'Die Webseite der Bibliothek hat sich auf unerwartete Weise geändert. Interner Name der Seite: %s';
+  rsPatternMatchingFailedDebugAtS = 'Auf der Seite ist "%s" nicht aufzufinden.';
+  rsPatternMatchingFailedDebugPreviousElementS = 'Direkt hinter "%s".';
+  rsPatternMatchingFailedDebugLastMatchSS = 'Gefunden wurde zuletzt: "%s" bei "%s".';
+  rsPatternMatchingFailedDebugAllMatched = 'Es ist nicht klar, was auf der Seite fehlt.';
 implementation
 uses internetaccess,libraryaccess,math,FileUtil,bbutils,bbdebugtools,androidutils ,
   {$IFDEF WIN32}
@@ -230,12 +236,11 @@ resourcestring
       errorstr:=#13#10+exception.message;
       errordetails:=ELibraryException(exception).details;
     end else if exception.InheritsFrom(EHTMLParseMatchingException) then begin
-       errorstr:=//'Es ist folgender Fehler aufgetreten:      '#13#10+
-            exception.className()+': '+ exception.message+'     ';
+       errorstr:=exception.message;
        if exception.InheritsFrom(EVideLibriHTMLMatchingException) then begin
          errordetails := EVideLibriHTMLMatchingException(exception).partialMatches;
          anonymousDetails := EVideLibriHTMLMatchingException(exception).anonymousPartialMatches;
-       end;
+       end else errorStr += '|'+exception.className();
     end else begin
       errorstr:=//'Es ist folgender Fehler aufgetreten:      '#13#10+
            exception.className()+': '+ exception.message+'     ';
@@ -562,6 +567,14 @@ resourcestring
     if not cancelStarting then begin
       debugMode := commandLine.readFlag('debug');
       refreshAllAndIgnoreDate:=commandline.readFlag('refreshAll');
+
+      extendedhtmlparser.rsPatternMatchingFailedS := rsPatternMatchingFailedS;
+      extendedhtmlparser.rsPatternMatchingFailedDebugAtS := rsPatternMatchingFailedDebugAtS;
+      extendedhtmlparser.rsPatternMatchingFailedDebugPreviousElementS := rsPatternMatchingFailedDebugPreviousElementS;
+      extendedhtmlparser.rsPatternMatchingFailedDebugLastMatchSS := rsPatternMatchingFailedDebugLastMatchSS;
+      extendedhtmlparser.rsPatternMatchingFailedDebugAllMatched := rsPatternMatchingFailedDebugAllMatched;
+      extendedhtmlparser.rsPatternMatchingFailedS := rsPatternMatchingFailedS;
+
 
       updateActiveInternetConfig;
 
