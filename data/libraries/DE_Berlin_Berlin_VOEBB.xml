@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <library>
-  <longName value="Verbund der Öffentlichen Bibliotheken - VÖBB"/>
-  <shortName value="VÖBB Berlin"/> 
+  <longName value="Der Verbund der Öffentlichen Bibliotheken Berlins - VÖBB"/>
+  <shortName value="VÖBB"/> 
   
   <template value="aDISWeb"/>
   <variable name="server" value="www.voebb.de/#"/>

@@ -1,17 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <library>
-  <longName value="Bibliothek der Hochschule für Musik und Theater  (nur Suche)"/>
+  <longName value="Bibliothek der Hochschule für Musik und Theater (alpha)"/>
+
+  <template value="vufind"/>
+  <variable name="baseurl" value="https://katalog.hmt-leipzig.de/vufind/"/>
 
 <!--
-  <template value="vufind"/>
-  <variable name="baseurl" value="https://katalog.hmt-leipzig.de/vufind/MyResearch/"/>
--->
-
   <template value="pica"/>  
   <variable name="server" value="http://swb.bsz-bw.de"/>
   <variable name="picadb" value="2.1"/>
   <variable name="searchKeysOverride" value="tit;per;num;jhr;sw"/>
   <variable name="specialSearchOptions" value="+%26+sge:+%22L+152%22&amp;HILN=400"/>
-
+-->
   <homepage value="http://www.hmt-leipzig.de/index.php?bibliothek"/>
 </library>

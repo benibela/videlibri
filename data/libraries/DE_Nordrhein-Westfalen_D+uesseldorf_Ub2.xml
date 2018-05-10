@@ -4,7 +4,7 @@
   <shortName value="ULB Düsseldorf"/>
   
   <template value="vufind"/>  
-  <variable name="baseurl" value="https://katalog.ulb.hhu.de/MyResearch/"/>
+  <variable name="baseurl" value="https://katalog.ulb.hhu.de/"/>
     
    
   <template value="digibib">

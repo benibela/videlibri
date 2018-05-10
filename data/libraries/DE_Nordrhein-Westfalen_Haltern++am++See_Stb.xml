@@ -1,11 +1,11 @@
-<?xml version="1.0" encoding="ISO-8859-1"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <library>
   <deprecatedName value="DE_Nordrhein-Westfalen_Haltern-am-See_Stb"/>
   <longName value="Verbund Haltern Mark Recklinghausen"/>
   <shortName value="HMR"/>
   
   <template value="vufind"/>  
-  <variable name="baseurl" value="https://www.bib-kreisre.de/MyResearch/"/>
+  <variable name="baseurl" value="https://www.bib-kreisre.de/"/>
   <variable name="loginParams" value="library_select=VERB"/>
     
    
