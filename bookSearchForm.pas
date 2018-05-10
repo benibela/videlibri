@@ -1103,7 +1103,7 @@ begin
     end else linkLabelAmazon.Enabled := false;
 
     LabelOrder.Enabled:=(getProperty( 'orderable', book.additional) <> '') and (getProperty('orderable', book.additional) <> '0') and (getProperty('orderable', book.additional) <> 'false');
-    if book.holdings = nil then begin
+    if (book.holdings = nil) or (book.holdings.Count = 0) then begin
       holdingsPanel.Visible := false;
       holdingsSplitter.Visible := false;
       LabelOrder.Caption := book.getPropertyAdditional('orderTitle', rsRequestOrder);
