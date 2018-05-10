@@ -1497,8 +1497,8 @@ initialization
 
   with BookPropertyNormalizationRegex do begin
     title := wregexprParse('Titel|Title', [wrfIgnoreCase]); //todo: but not "Einheitssachtitel"
-    author := wregexprParse('Verantwortlichkeit|Author|Autor', [wrfIgnoreCase]);
-    publisher := wregexprParse('Verlag', [wrfIgnoreCase]);
+    author := wregexprParse('Verantwortlichkeit|Author|Autor|^\s*Verfasser', [wrfIgnoreCase]);
+    publisher := wregexprParse('Verlag|Veröffentlicht|Published', [wrfIgnoreCase]);
     isbn := wregexprParse('ISBN', [wrfIgnoreCase]);
     year := wregexprParse('Creation Date|Jahr', [wrfIgnoreCase]);
   end;

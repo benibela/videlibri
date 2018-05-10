@@ -1,0 +1,6 @@
+book := {}
+generalOrderUrl := text{"/Record/002193074/Holdings?login=true&amp;catalogLogin=true"}
+holding := {"statusStr": "Ausleihbestand", "Journal!": "", "barcode": "117614701", "id": "oas l 99990.o28", "libraryBranch": "Lesesaal 1. Etage", "orderable": true, "_orderUrl": "/Record/002193074/Holdings?login=true&catalogLogin=true"}
+result := ()
+book := {"holdings": {"statusStr": "Ausleihbestand", "Journal!": "", "barcode": "117614701", "id": "oas l 99990.o28", "libraryBranch": "Lesesaal 1. Etage", "orderable": true, "_orderUrl": "/Record/002193074/Holdings?login=true&catalogLogin=true"}, "Notationen:!!": "oasl99990.o28", "Schlagwörter:!!": "Shikoku Heiler Biologischer Landbau Geschichte 1990 Belletristische Darstellung Literaturübersetzung", "ISBN:!!": "3-10-055206-7 9783100552068", "Überordnung:!!": "Grüner Baum in Flammen / Ōe Kenzaburō ; [1]", "Anmerkung:!!": "Aus dem Japan. übers.", "Umfang:!!": "347 S.", "Veröffentlicht:!!": "Frankfurt am Main: Fischer, 2000", "Sprache:!!": "Deutsch", "Format:!!": "Buch", "Verfasser:!!": "Ōe, Kenzaburō ; Ortmanns, Annelie [Übersetzer]", "Weitere Titel:!!": "'Sukuinushi' ga nagurareru made <dt.>", "Titel:!!": "Grüner Baum in Flammen"}
+result := ()

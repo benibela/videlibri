@@ -1,0 +1,6 @@
+book := {}
+generalOrderUrl := ()
+holding := {"pendingOrders": "0", "statusStr": "Verfügbar", "id": "BIO 688\nKlin", "libraryLocation": "", "libraryBranch": "Marl Kin&Jug", "orderable": false, "_orderUrl": null}
+holding := {"pendingOrders": "0", "statusStr": "Verfügbar", "id": "BIO 688\nKlin", "libraryLocation": "", "libraryBranch": "Marl Kin&Jug", "orderable": false, "_orderUrl": null}
+book := {"holdings": [{"pendingOrders": "0", "statusStr": "Verfügbar", "id": "BIO 688\nKlin", "libraryLocation": "", "libraryBranch": "Marl Kin&Jug", "orderable": false, "_orderUrl": null}, {"pendingOrders": "0", "statusStr": "Verfügbar", "id": "BIO 688\nKlin", "libraryLocation": "", "libraryBranch": "Marl Kin&Jug", "orderable": false, "_orderUrl": null}], "Bücherei:!!": "Haltern Marl Recklinghausen", "Systematik:!!": "BIO 688", "Veröffentlicht:!!": "Hamburg\n                                      Oetinger\n                        \n                          1991", "Medientyp:!!": "Kinder/Jugendbuch", "1. Verfasser:!!": "Klinting, Lars (-)"}
+result := ()

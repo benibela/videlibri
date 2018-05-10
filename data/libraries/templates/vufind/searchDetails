@@ -1,0 +1,84 @@
+<html>
+
+{ .//div[@resource]//table[@summary]//tr/vl:set-book-property(th, td),
+
+  css("div#record div.row.result")/*[.//label]/vl:set-book-property(.//label, normalize-space(join(following-sibling::*))),
+  
+  css("div#detailview-leftcol div.detailview-content-item")/vl:set-book-property(./div[1], ./div[2])
+
+}
+
+<div t:condition="contains(@class, 'holdings-tab') or @id = 'holdings-tab'">
+  <template:meta default-text-matching="regex"/>
+  
+  <t:s>$generalOrderUrl := .//a/@href[contains(., "Hold") and contains(., "login")]</t:s>
+  
+  
+  
+  <table class="table">
+   <tr><t:siblings-header>
+     <th>Bücherei|Library|Collection</th>?
+     <th>Bereich|Area</th>?
+     <th>Standort|Location</th>?
+     <th>Signatur|Call Number</th>?
+     <th>Barcode</th>?
+     <th>Status</th>?
+     <th>Zss-Heft|Journal Item</th>?
+     <th>Vorbestellungen|Reservations</th>?
+     <th>Entliehen bis|Checked Out until</th>?
+     <th/>*
+   </t:siblings-header></tr>
+   <tr>{$holding := {"orderable": exists($generalOrderUrl), "_orderUrl": $generalOrderUrl }}
+   <t:siblings>
+     <td>{$holding.libraryBranch}</td>
+     <td>{$holding.libraryLocation}</td>
+     <td>{if (exists(($holding.libraryBranch, $holding.libraryLocation))) then $holding.id := . 
+          else $holding.libraryBranch := . }</td>
+     <td>{$holding.id}</td>
+     <td>{$holding.barcode}</td>
+     <td>{$holding.statusStr := (let $big := *[contains(@class, "text-")] return if ($big) then $big[1] else .), 
+          extract(., "[0-9.-]{10}")[.]!($holding.duedate:=parse-date(.)) }</td>
+     <td>{$holding("Journal!") := .}</td>
+     <td>{$holding.pendingOrders}</td>
+     <td>{normalize-space()[.]!($holding.duedate:=parse-date(.))}</td>
+     <td><a>{
+       $holding.orderable := true(),
+       $holding._orderUrl := @href
+      }</a>?</td>
+   </t:siblings>
+   {$book.holdings[] := $holding}
+   </tr>+
+  </table>?
+  
+  <t:s>let $temp := css("div.detailview-content-item")/(
+         let $a := .//a
+         let $ahold := $a[contains(@href, "Hold") or contains(@href, "StorageRetrieval")]
+         let $b := .//b
+         return if (exists($ahold) or exists(.//strong)) then
+           {|{
+             "orderable": exists($ahold),
+             "_orderUrl": $ahold[1]/@href,
+            (: "orderTitle": $ahold[1],:)
+             "libraryBranch" ?: get("templib", ())
+           }, for tumbling window $notes in .//node()
+              start $s when name($s) eq "strong"  
+              end next $n when name($n) eq "strong"  
+              let $key := switch (translate($notes[1], ": ", "")) 
+                case "Standort" return "libraryLocation"
+                case "Signatur" return "id"
+                case "Barcode" return "barcode"
+                default return $notes[1] || "!"
+               return {$key: normalize-space(join(tail($notes/self::text())))}
+              
+           |}
+         else if (empty($a)) then
+           (.//b/($templib := .))[0]
+          else 
+            vl:set-book-property($a, $a)[0]
+       )
+       where $temp 
+       return $book.holdings := $temp
+  </t:s>
+</div>?
+ 
+</html>
