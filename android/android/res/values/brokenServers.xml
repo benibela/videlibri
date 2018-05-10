@@ -34,6 +34,12 @@
 <item>CN=opac-neuss.itk-rheinland.de</item>
 <item>CN=web-opac.bibliothek-cottbus.de</item>
 <item>CN=open-stadtbibliothek.darmstadt.de</item>
+<item>CN=katalog.mannheim.de</item>
+<item>CN=katalog.stadtbibliothek-rostock.de</item>
+<item>CN=katalog.stadtbibliothek-ge.de</item>
+<item>CN=www.hagen.de</item>
+<item>CN=www.stadtbibliothek-leverkusen.de</item>
+<item>CN=open.stadt-muenster.de</item>
 <item>CN=*.itk-rheinland.de</item>
 </string-array>
 </resources>
