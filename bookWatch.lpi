@@ -362,6 +362,9 @@
       <Item6>
         <Name Value="ELoginException"/>
       </Item6>
+      <Item7>
+        <Name Value="EBookListReaderFromWebpage"/>
+      </Item7>
     </Exceptions>
   </Debugging>
 </CONFIG>

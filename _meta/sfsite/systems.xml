@@ -39,7 +39,7 @@ Ob man VideLibri out-of-the-box mit einer Bibliothek verwenden kann, ist nicht v
 <tr><td id="primo">Primo</td>  <td>ja</td><td>ja</td><td>ja</td><td>nein</td>  <td></td><td>2013</td></tr>
 <tr><td id="sisis">SISIS-SunRise (und Touchpoint)</td>  <td>ja</td><td>ja</td><td>ja</td><td>ja</td>  <td></td><td>2010</td></tr>
 <tr><td id="sru">SRU</td>  <td>ja</td><td></td><td></td><td></td>  <td></td><td>2013</td></tr>
-<tr><td id="vufind">VuFind</td>  <td>nein</td><td>ja</td><td>ja</td><td>ja</td>  <td></td><td>2018</td></tr>
+<tr><td id="vufind">VuFind</td>  <td>ja</td><td>ja</td><td>ja</td><td>ja</td>  <td></td><td>2018</td></tr>
 <tr><td id="was">Websphere (WAS)</td>  <td>nein</td><td>ja</td><td>ja</td><td>nein</td>  <td>nur für Stadtbüchereien Düsseldorf</td><td>2006</td></tr>
 <tr><td id="zones18">Zones (nur 1.8)</td>  <td>ja</td><td>ja</td><td>ja</td><td>ja</td>  <td></td><td>2013</td></tr>
 </table>

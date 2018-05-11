@@ -5,7 +5,7 @@ xidel --xquery '
   declare variable $testingpath := "../testingrecords/";
   declare variable $text-fixes := {"url": "Anpassung an neue OPAC-Webadresse.", "css": "Anpassung an geändertes CSS-Design auf der Bibliothekswebseite."};
   declare variable $texts := {"no-reply": "Bibliothek hat auf Nachfrage nicht reagiert."};
-  declare function local:unescape($s) { replace(replace(replace(replace($s, "[+]sz", "ß"), "[+]ae", "ä"), "[+]oe", "ö"), "[+]ue", "ü") };
+  declare function local:unescape($s) { replace(replace(replace(replace(replace($s, "[+]sz", "ß"), "[+]ae", "ä"), "[+]oe", "ö"), "[+]ue", "ü"), "[+][+]", " ") };
   declare function local:test-result($kind, $status, $append) {
     let $ok := $status = "yes"
     return 

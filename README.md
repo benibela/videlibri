@@ -48,7 +48,7 @@ Out-of-the-box VideLibri supports the following library catalog systems, OPACs, 
 * Primo 
 * SISIS-SunRise (including Touchpoint)
 * SRU 
-* VuFind (only user account)
+* VuFind
 * Websphere (hard coded url for public library Düsseldorf) 
 * Zones 1.8
 
