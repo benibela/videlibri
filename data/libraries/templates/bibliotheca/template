@@ -54,9 +54,10 @@
 
 <action id="search">
     <s>   next-page := (),
-          search-keys := {"title": "titel", "author": "verfasser", "keywords": "stichwort", "isbn": "isbn", "year": "jahr_von"},
+          temp-year := (tokenize($book.year, "-"), $book.year),
+          search-keys := {"title": "titel", "author": "verfasser", "keywords": "stichwort", "isbn": "isbn"},
           startSearch := form-combine($search, {|
-            { "jahr_bis": $book.year },
+            { "jahr_von": $temp-year[1], "jahr_bis": $temp-year[2] },
             (
               for $key in jn:keys($book) return if (boolean($book($key)) and exists($search-keys($key))) then (
                       {$search-keys($key): $book($key)}

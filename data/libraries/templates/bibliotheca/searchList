@@ -1,3 +1,5 @@
+<t:switch prioritized="true">
+
 <DIV id="Result" class="result">
   <div class="result_gefunden">Gefunden:<t:s>search-result-count := extract(., "[0-9 ]+$")</t:s></div>
   <TABLE class="resulttab" t:test="$search-result-count > 0">
@@ -18,3 +20,8 @@
     <u/> <a>{search-next-page-available := true(), next-page := @href}</a>
   </div>?
 </DIV>
+
+<div class="suchfeldfehler">{vl:raise(.)}</div>
+<div class="resultzeile">{vl:raise(.)}</div>
+
+</t:switch>
