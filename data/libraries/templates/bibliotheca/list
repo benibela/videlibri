@@ -1,15 +1,17 @@
 <t:switch prioritized="true">
   <form>
+    <template:meta default-text-matching="regex"/>
     <DIV class="kontozeile_center">
       <TABLE>
          <tr>
          <t:siblings-header id="lendings">
-           <th>Ausleihstatus</th>?
-           <th>Verfasser</th>?
-           <th>Titel</th>
-           <th>Frist</th>
-           <th>Barcode</th>?
-           <th>Zweigstelle</th>?
+           <th>Status|Verlänger(ungen|t)|Number of renewals|Verl[.]</th>?
+           <th>Verfasser|Author|Autor</th>?
+           <th>Titel|Title</th>
+           <th>Frist|Due date|Rückgabe|zurückzugeben bis</th>
+           <th>Ausleihdatum</th>?
+           <th>Barcode|^\s*No\s*$|Buchung|Number|Strichcode|barcode|signature</th>?
+           <th>Bibliothek|Branch|Zweigstelle|Bücherei|Library|Location|branch|department|Filiale|Ausleihstelle|place</th>?
            <th/>*
          </t:siblings-header></tr>
          <t:loop>
@@ -17,7 +19,8 @@
              <TD>{$book.status}</TD>
              <TD>{$book.author}</TD>
              <TD>{$book.title}</TD>
-             <TD>{$book.duedate := parse-date(., 'd.m.yyyy')}</TD>
+             <TD>{$book.duedate := parse-date(.)}</TD>
+             <TD>{$book.issuedate := parse-date(.)}</TD>
              <TD>{$book.id}</TD>
              <td>{$book.libraryBranch}</td>
              <td><a>{if (contains(@href, "vermsg")) then ( 
@@ -33,10 +36,11 @@
       <TABLE>
         <tr>
           <t:siblings-header id="orders">
-            <th>Verfasser</th>?
-            <th>Titel</th>?
-            <th>Bereitstellung</th>?
-            <th>Zweigstelle</th>?
+            <th>Verfasser|Author|Autor</th>?
+            <th>Titel|Title</th>?
+            <th>Available|Bereit|Eingetroffen|Unterwegs|Verfügbar</th>?
+            <th>Abholbar bis|Available until|Zurückgelegt bis|bereit bis</th>?
+            <th>Ausleihstelle|Bibliothek|Branch|Bücherei|Filiale|Library|Location|Zweigstelle|department|place</th>?
             <th/>*
           </t:siblings-header>
         </tr> 
@@ -46,7 +50,8 @@
            <t:siblings id="orders">
             <TD>{$book.author}</TD>
             <TD>{$book.title}</TD>
-            <td><!--??--></td>
+            <td>{$book.statusStr}</td>
+            <td>{$book.duedate:=parse-date(.)}</td>
             <td>{$book.libraryBranch}</td>
             <td><a t:condition='contains(@href, "delvor")'>{$book.cancelable := true(), $book.cancel-link := resolve-html(.)}</a>?</td>
           </t:siblings></TR>
