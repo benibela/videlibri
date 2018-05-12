@@ -52,7 +52,6 @@ public class VideLibriApp extends Application implements Bridge.VideLibriContext
         instance = this;
 
         Bridge.initialize(this);
-        VideLibriHttpClient.BrokenServers = getResources().getStringArray(R.array.broken_servers);
         refreshAccountList();
 
         //ACRA.getErrorReporter().putCustomData("app", "VideLibri");
