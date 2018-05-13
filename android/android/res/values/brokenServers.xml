@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+<string-array name="broken_servers">
+<item>CN=wwwopac.rz-kiru.de</item>
+<item>CN=buecherei-obertshausen.de</item>
+<item>CN=stadtbibliothek.linz.at</item>
+<item>CN=bibliothek.hannover-stadt.de</item>
+<item>CN=web-opac.bibliothek-cottbus.de</item>
+</string-array>
+</resources>
