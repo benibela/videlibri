@@ -1,6 +1,10 @@
 package de.benibela.videlibri.internettools;
 
+import android.os.Build;
+import android.util.Log;
+
 import java.io.IOException;
+import java.lang.reflect.Method;
 import java.net.Socket;
 import java.security.KeyManagementException;
 import java.security.KeyStoreException;
@@ -21,7 +25,7 @@ public class ModernSSLSocketFactory {
     }
 
     public Socket createSocket(Socket socket, String host, int port, boolean autoClose) throws IOException {
-        return modernize(sslContext.getSocketFactory().createSocket(socket, host, port, autoClose));
+        return setSocketHostName(modernize(sslContext.getSocketFactory().createSocket(socket, host, port, autoClose)), host);
     }
 
     public Socket createSocket() throws IOException {
@@ -39,6 +43,25 @@ public class ModernSSLSocketFactory {
 
             //Activate all ciphers
             socket.setEnabledCipherSuites(socket.getSupportedCipherSuites());
+        }
+        return somesocket;
+    }
+
+    public Socket setSocketHostName(Socket somesocket, String host){
+        if (somesocket instanceof SSLSocket) {
+            //Activate SNI
+            //see https://stackoverflow.com/questions/35782882/how-do-we-enable-sni-in-httpclient-4-4-on-android
+            //this is required for Stb Gelsenkirchen with Apache HTTPClient on my smartbook table. todo: check if this is still needed for newer http libraries
+            SSLSocket socket = (SSLSocket)somesocket;
+            try {
+                //if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
+                Method method = socket.getClass().getMethod("setHostname", String.class);
+                if (method != null)
+                    method.invoke(socket, host);
+            } catch (Exception ex) {
+                Log.d("videlibri", "SNI configuration failed", ex);
+            }
+
         }
         return somesocket;
     }
