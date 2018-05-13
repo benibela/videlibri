@@ -146,20 +146,24 @@ brokenServers)
    
    rm $KEYSTORE $KEYSTOREOLD $FINGERPRINTFILE $FINGERPRINTFILEOLD
    i=0
-   while read server; do
+   (cat $SERVERLIST; ls certs/*.cer) |  while read server; do
      if [[ -n "$server" ]]; then      
        echo
        echo
        echo =====================================================================
        echo ==========================$server==========================
        echo =====================================================================
-       echo "<item>CN=$server</item>" >> $RESSERVERLIST
-       echo something | openssl s_client -connect $server:443 > $TMPFILE
-       if ! grep -q "BEGIN CERTIFICATE" $TMPFILE; then 
-         #openssl fails to negotiate protocol version for some servers. only tls1 prints certificate data
-         echo something | openssl s_client -connect $server:443 -tls1 > $TMPFILE;
-         if ! grep -q "BEGIN CERTIFICATE" $TMPFILE; then  
-           cp certs/$server $TMPFILE
+       if [[ "$server" =~ certs.*cer ]]; then
+         cp $server $TMPFILE
+        else
+         echo "<item>CN=$server</item>" >> $RESSERVERLIST
+         echo something | openssl s_client -servername $server -connect $server:443 > $TMPFILE
+         if ! grep -q "BEGIN CERTIFICATE" $TMPFILE; then 
+           #openssl fails to negotiate protocol version for some servers. only tls1 prints certificate data
+           echo something | openssl s_client -servername $server -connect $server:443 -tls1 > $TMPFILE;
+           if ! grep -q "BEGIN CERTIFICATE" $TMPFILE; then  
+             cp certs/$server $TMPFILE
+           fi
          fi
        fi
        
@@ -180,15 +184,11 @@ brokenServers)
        
        ((i=i+1))
      fi
-   done <  $SERVERLIST
+   done 
 
-   echo "<item>CN=*.itk-rheinland.de</item>" >> $RESSERVERLIST
    echo '</string-array>' >> $RESSERVERLIST
    echo "</resources>" >> $RESSERVERLIST
    
-   echo 
-   echo
-   echo
    
     $KEYTOOL -list -keystore $KEYSTORE -provider org.bouncycastle.jce.provider.BouncyCastleProvider -providerpath $BOUNCYCASTLE -storetype BKS -storepass $PASSWORD
     $KEYTOOL -list -keystore $KEYSTOREOLD -provider org.bouncycastle.jce.provider.BouncyCastleProvider -providerpath $BOUNCYCASTLE -storetype BKS-V1 -storepass $PASSWORD
