@@ -12,5 +12,5 @@
     <variable name="searchid" value="SERVICEGROUP1.SERVICE.SEARCH_SBGEL"/>
   </template>
 
-  <homepage value="https://stadtbibliothek.gelsenkirchen.de/>
+  <homepage value="https://stadtbibliothek.gelsenkirchen.de"/>
 </library>
