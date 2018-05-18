@@ -10,7 +10,7 @@
             </td>
             <TD class="rec_title">
               <DIV>
-                <TABLE class="titlelist">
+ 
                   <TR>
                     <TD class="rec_data">
                       <SPAN class="titleLine">{
@@ -30,7 +30,7 @@
                     </TD>
                   </TR>
                   <!--row: theke: theke ; row : Ausleihfrist in Tagen : 	170 -->
-                </TABLE>
+ 
                 
               </DIV>
             </TD>
