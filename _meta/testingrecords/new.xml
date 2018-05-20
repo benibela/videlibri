@@ -4,4 +4,12 @@
   <test date="2017-10-01" id="DE_Berlin_Berlin_VOEBB" system="aDISWeb" search="yes" account="yes"><text>Die VÖBB verwenden nun TLS1.2. Auf alten Geräten benötigt VideLibri dafür eine <a href='http://www.videlibri.de/help/faq.html#inet_failed'>spezielle Konfiguration</a>.</text></test>
   <test date="2017-11-20" id="DE_Rheinland-Pfalz_Ludwigshafen_Stb" search="yes" account="yes" system="bibliothecaplus"/>
   <test date="2017-11-20" id="DE_Sachsen_Leipzig_Hmt" search="yes" account="no" system="pica"><text>(Suche über Verbundkatalog)</text></test>
+  
+  <!--<test date="2008-07-19" id="DE_Nordrhein-Westfalen_Duisburg_Stb" search="?" account="no" system="bibdia digibib"><text>Unterstützung für Suchen über die Digibib nach Sigel-Eingabe</text></test>
+  <test date="2011-03-07" id="DE_Nordrhein-Westfalen_Duisburg_Stb" search="?" account="no" system="bibdia digibib"><text>Unterstützung für Biber Bibdia OPAC</text></test>-->
+  <test date="2018-03-15" id="DE_Nordrhein-Westfalen_Duisburg_Stb" search="yes" account="yes" system="bibdia digibib"/>
+  
+  <test date="2018-03-15" id="DE_Nordrhein-Westfalen_Essen_Stb" search="yes" account="no" system="bibdia digibib"/>
+  <test date="2018-05-11" id="DE_Nordrhein-Westfalen_Essen_Stb" search="yes" account="yes" system="bibdia digibib"/>
+
 </tests>

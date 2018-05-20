@@ -23,7 +23,7 @@ xidel --xquery '
   };
   declare function local:make-offset($date){
     if ($date) then
-      xs:string(xs:date($date) + xs:dayTimeDuration("P15D"))
+      xs:string(xs:date($date) + xs:dayTimeDuration("P90D"))
     else 
       $date
   };
@@ -42,7 +42,7 @@ xidel --xquery '
     "primo":           {"name": "Primo", "search": "2013-07-10", "account": "2013-03-19"},
     "sru":             {"name": "SRU", "search": "2013-05-23"},
     "wasnrw":          {"name": "der Stadtbüchereien Düsseldorf", "account": "2006-08-06"},
-    "bibdia":          {"name": "Biber Bibdia mit PICA)", "search": "", "account": "2018-03-15"},
+    "bibdia":          {"name": "Biber Bibdia OPAX", "search": "", "account": "2018-03-15"},
     "bibdia_stabib":   {"name": "Stabikat (Bibdia mit PICA)", "search": "", "account": "2011-03-07"},
     "pica":            {"name": "PICA", "search": "2013-04-26", "account": "2011-04-23"},
     "lbs":             {"name": "PICA mit LBS", "search": "2014-07-31", "account": "2014-07-31"},
@@ -77,11 +77,13 @@ xidel --xquery '
     {
       for $test in $test
       group by $id := $test/@id/data()
-      let $name := $libraries($id[1])[1].name
+      let $library := $libraries($id[1])[1]
+      let $name := ($library).name
       let $webid := replace($id[1], "[+]", "")
       return
       <div class="library">
-        {let $ordered-tests := (for $test in $test let $date := $test/@date order by $date return $test)
+        {if (empty($library)) then error(xs:QName("pxp:XX"), "Missing library: "||$id) else (),
+         let $ordered-tests := (for $test in $test let $date := $test/@date order by $date return $test)
          let $basesystemid := tokenize($ordered-tests[1]!@system, " ")
          let $basesystem := $systems(tokenize($basesystemid, " ")[. != "digibib"])
          return (
@@ -144,4 +146,4 @@ xidel --xquery '
   </div>}</div>(:</div>
   </body></html>:)
   
-' --input-format xml --output-format xml > testing-table.html
+' --input-format xml --output-format xml > testing-table.html.1234 && mv  testing-table.html.1234 testing-table.html 

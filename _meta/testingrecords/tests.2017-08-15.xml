@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <tests date="2017-08-15">
-  <test date="2017-08-15" id="DE_Baden-W+uertenberg_Villingen_Stb" search="yes" system="bibliotheca" fix="url"/>
+  <test date="2017-08-15" id="DE_Baden-W+uerttemberg_Villingen_Stb" search="yes" system="bibliotheca" fix="url"/>
   <test date="2017-08-15" id="DE_Hessen_Erbach_Stb" search="yes" system="bibliotheca"/>
 </tests>

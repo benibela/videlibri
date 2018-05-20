@@ -6,57 +6,57 @@
   <test date="2017-08-28" id="DE_Bayern_Coburg_Hb" search="yes" system="sisis"/>
   <test date="2017-08-28" id="DE_Bayern_Schweinfurt_Hb" search="yes" system="sisis"/>
   <test date="2017-08-28" id="DE_Bayern_W+uerzburg_Hb" search="yes" system="sisis"/>
-  <test date="2017-08-28" id="DE_Baden-W+uertenberg_Heilbronn_Stb" search="yes" system="bibliotheca"/>
+  <test date="2017-08-28" id="DE_Baden-W+uerttemberg_Heilbronn_Stb" search="yes" system="bibliotheca"/>
   <test date="2017-08-28" id="AT_Wien_Wien_Stb" search="yes" system="bibliotheca"/>
-  <test date="2017-08-28" id="DE_Baden-W+uertenberg_Singen_Stb" search="yes" system="bibliotheca"/>
+  <test date="2017-08-28" id="DE_Baden-W+uerttemberg_Singen_Stb" search="yes" system="bibliotheca"/>
   <test date="2017-08-28" id="DE_Nordrhein-Westfalen_Verl_Stb" search="yes" system="libero5"/>
   <test date="2017-08-28" id="DE_Berlin_Berlin_UbHU" search="yes" system="primo"/>
   <test date="2017-08-28" id="DE_Nordrhein-Westfalen_Aachen_Ub" search="yes" system="digibib sisis"/>
   <test date="2017-08-28" id="DE_Bayern_Amberg-Weiden_HAW" search="yes" system="sisis"/>
   <test date="2017-08-28" id="CH_Bern_Biel_Stb" search="yes" system="netbiblio"/>
   <test date="2017-08-28" id="DE_Nordrhein-Westfalen_Steinfurt_Stb" search="yes" system="bibliotheca"/>
-  <test date="2017-08-28" id="DE_Baden-W+uertenberg_T+uebingen_Ub" search="yes" system="aDISWeb"/>
+  <test date="2017-08-28" id="DE_Baden-W+uerttemberg_T+uebingen_Ub" search="yes" system="aDISWeb"/>
   <test date="2017-08-28" id="DE_Berlin_Berlin_VOEBB" search="yes" system="aDISWeb"/>
-  <test date="2017-08-28" id="DE_Baden-W+uertenberg_Ulm_Ub" search="yes" system="aDISWeb"/>
-  <test date="2017-08-28" id="DE_Baden-W+uertenberg_Karlsruhe_Blb" search="yes" system="aDISWeb"/>
-  <test date="2017-08-28" id="DE_Baden-W+uertenberg_Offenburg_Fh" search="yes" system="aDISWeb"/>
-  <test date="2017-08-28" id="DE_Baden-W+uertenberg_Stuttgart_Ub" search="yes" system="aDISWeb"/>
-  <test date="2017-08-28" id="DE_Baden-W+uertenberg_Furtwangen_Hs" search="yes" system="aDISWeb"/>
-  <test date="2017-08-28" id="DE_Baden-W+uertenberg_Mannheim_DHs" search="yes" system="aDISWeb"/>
+  <test date="2017-08-28" id="DE_Baden-W+uerttemberg_Ulm_Ub" search="yes" system="aDISWeb"/>
+  <test date="2017-08-28" id="DE_Baden-W+uerttemberg_Karlsruhe_Blb" search="yes" system="aDISWeb"/>
+  <test date="2017-08-28" id="DE_Baden-W+uerttemberg_Offenburg_Fh" search="yes" system="aDISWeb"/>
+  <test date="2017-08-28" id="DE_Baden-W+uerttemberg_Stuttgart_Ub" search="yes" system="aDISWeb"/>
+  <test date="2017-08-28" id="DE_Baden-W+uerttemberg_Furtwangen_Hs" search="yes" system="aDISWeb"/>
+  <test date="2017-08-28" id="DE_Baden-W+uerttemberg_Mannheim_DHs" search="yes" system="aDISWeb"/>
   <test date="2017-08-28" id="DE_Bayern_M+uenchen_Stb" search="yes" system="aDISWeb"/>
-  <test date="2017-08-28" id="DE_Baden-W+uertenberg_Reutlingen_Hs" search="yes" system="aDISWeb"/>
-  <test date="2017-08-28" id="DE_Baden-W+uertenberg_Heilbronn_HS" search="yes" system="aDISWeb"/>
-  <test date="2017-08-28" id="DE_Baden-W+uertenberg_Mannheim_HS" search="yes" system="aDISWeb"/>
-  <test date="2017-08-28" id="DE_Baden-W+uertenberg_Konstanz_HS" search="yes" system="aDISWeb"/>
+  <test date="2017-08-28" id="DE_Baden-W+uerttemberg_Reutlingen_Hs" search="yes" system="aDISWeb"/>
+  <test date="2017-08-28" id="DE_Baden-W+uerttemberg_Heilbronn_HS" search="yes" system="aDISWeb"/>
+  <test date="2017-08-28" id="DE_Baden-W+uerttemberg_Mannheim_HS" search="yes" system="aDISWeb"/>
+  <test date="2017-08-28" id="DE_Baden-W+uerttemberg_Konstanz_HS" search="yes" system="aDISWeb"/>
   <test date="2017-08-28" id="DE_Nordrhein-Westfalen_D+uesseldorf_Stb" search="yes" system="aDISWeb"/>
-  <test date="2017-08-28" id="DE_Baden-W+uertenberg_Pforzheim_HS" search="yes" system="aDISWeb"/>
-  <test date="2017-08-28" id="DE_Baden-W+uertenberg_N+uertingen_HWU" search="yes" system="aDISWeb"/>
-  <test date="2017-08-28" id="DE_Baden-W+uertenberg_Mosbach_HS" search="yes" system="aDISWeb"/>
-  <test date="2017-08-28" id="DE_Baden-W+uertenberg_Ravensburg_HS" search="yes" system="aDISWeb"/>
-  <test date="2017-08-28" id="DE_Baden-W+uertenberg_L+oerrach_DHS" search="yes" system="aDISWeb"/>
-  <test date="2017-08-28" id="DE_Baden-W+uertenberg_Ulm_Hs" search="yes" system="aDISWeb"/>
-  <test date="2017-08-28" id="DE_Baden-W+uertenberg_Villingen_DHs" search="yes" system="aDISWeb"/>
-  <test date="2017-08-28" id="DE_Baden-W+uertenberg_Heidenheim_HS" search="yes" system="aDISWeb"/>
-  <test date="2017-08-28" id="DE_Baden-W+uertenberg_Friedrichshafen_ZU" search="yes" system="aDISWeb"/>
+  <test date="2017-08-28" id="DE_Baden-W+uerttemberg_Pforzheim_HS" search="yes" system="aDISWeb"/>
+  <test date="2017-08-28" id="DE_Baden-W+uerttemberg_N+uertingen_HWU" search="yes" system="aDISWeb"/>
+  <test date="2017-08-28" id="DE_Baden-W+uerttemberg_Mosbach_HS" search="yes" system="aDISWeb"/>
+  <test date="2017-08-28" id="DE_Baden-W+uerttemberg_Ravensburg_HS" search="yes" system="aDISWeb"/>
+  <test date="2017-08-28" id="DE_Baden-W+uerttemberg_L+oerrach_DHS" search="yes" system="aDISWeb"/>
+  <test date="2017-08-28" id="DE_Baden-W+uerttemberg_Ulm_Hs" search="yes" system="aDISWeb"/>
+  <test date="2017-08-28" id="DE_Baden-W+uerttemberg_Villingen_DHs" search="yes" system="aDISWeb"/>
+  <test date="2017-08-28" id="DE_Baden-W+uerttemberg_Heidenheim_HS" search="yes" system="aDISWeb"/>
+  <test date="2017-08-28" id="DE_Baden-W+uerttemberg_Friedrichshafen_ZU" search="yes" system="aDISWeb"/>
   <test date="2017-08-28" id="DE_Bayern_N+uernberg_Stb" search="yes" system="aDISWeb"/>
   <test date="2017-08-28" id="DE_Nordrhein-Westfalen_Dortmund_Stb" search="yes" system="aDISWeb"/>
-  <test date="2017-08-28" id="DE_Baden-W+uertenberg_Heidelberg_Ph" search="yes" system="aDISWeb"/>
-  <test date="2017-08-28" id="DE_Baden-W+uertenberg_Gm+uend_Hs" search="yes" system="aDISWeb"/>
-  <test date="2017-08-28" id="DE_Baden-W+uertenberg_Albstadt_HS" search="yes" system="aDISWeb"/>
-  <test date="2017-08-28" id="DE_Baden-W+uertenberg_Ludwigsburg_Hb" search="yes" system="aDISWeb"/>
-  <test date="2017-08-28" id="DE_Baden-W+uertenberg_Weingarten_HS" search="yes" system="aDISWeb"/>
-  <test date="2017-08-28" id="DE_Baden-W+uertenberg_Aalen_HS" search="yes" system="aDISWeb"/>
-  <test date="2017-08-28" id="DE_Baden-W+uertenberg_Karlsruhe_Ph" search="yes" system="aDISWeb"/>
+  <test date="2017-08-28" id="DE_Baden-W+uerttemberg_Heidelberg_Ph" search="yes" system="aDISWeb"/>
+  <test date="2017-08-28" id="DE_Baden-W+uerttemberg_Gm+uend_Hs" search="yes" system="aDISWeb"/>
+  <test date="2017-08-28" id="DE_Baden-W+uerttemberg_Albstadt_HS" search="yes" system="aDISWeb"/>
+  <test date="2017-08-28" id="DE_Baden-W+uerttemberg_Ludwigsburg_Hb" search="yes" system="aDISWeb"/>
+  <test date="2017-08-28" id="DE_Baden-W+uerttemberg_Weingarten_HS" search="yes" system="aDISWeb"/>
+  <test date="2017-08-28" id="DE_Baden-W+uerttemberg_Aalen_HS" search="yes" system="aDISWeb"/>
+  <test date="2017-08-28" id="DE_Baden-W+uerttemberg_Karlsruhe_Ph" search="yes" system="aDISWeb"/>
   <test date="2017-08-28" id="DE_Nordrhein-Westfalen_Neuss_Stb" search="yes" system="aDISWeb"/>
-  <test date="2017-08-28" id="DE_Baden-W+uertenberg_Esslingen_HS" search="yes" system="aDISWeb"/>
-  <test date="2017-08-28" id="DE_Baden-W+uertenberg_Stuttgart_HdM" search="yes" system="aDISWeb"/>
-  <test date="2017-08-28" id="DE_Baden-W+uertenberg_Stuttgart_HS" search="yes" system="aDISWeb"/>
-  <test date="2017-08-28" id="DE_Baden-W+uertenberg_Stuttgart_DHs" search="yes" system="aDISWeb"/>
-  <test date="2017-08-28" id="DE_Baden-W+uertenberg_Stuttgart_DHsC" search="yes" system="aDISWeb"/>
-  <test date="2017-08-28" id="DE_Baden-W+uertenberg_Biberach_Hs" search="yes" system="aDISWeb"/>
+  <test date="2017-08-28" id="DE_Baden-W+uerttemberg_Esslingen_HS" search="yes" system="aDISWeb"/>
+  <test date="2017-08-28" id="DE_Baden-W+uerttemberg_Stuttgart_HdM" search="yes" system="aDISWeb"/>
+  <test date="2017-08-28" id="DE_Baden-W+uerttemberg_Stuttgart_HS" search="yes" system="aDISWeb"/>
+  <test date="2017-08-28" id="DE_Baden-W+uerttemberg_Stuttgart_DHs" search="yes" system="aDISWeb"/>
+  <test date="2017-08-28" id="DE_Baden-W+uerttemberg_Stuttgart_DHsC" search="yes" system="aDISWeb"/>
+  <test date="2017-08-28" id="DE_Baden-W+uerttemberg_Biberach_Hs" search="yes" system="aDISWeb"/>
   <test date="2017-08-28" id="DE_Nordrhein-Westfalen_Bonn_Ulb" search="yes" system="summon"/>
   <test date="2017-08-28" id="DE_Saarland_Saarbr+uecken_Ub" search="yes" system="libero5"/>
-  <test date="2017-08-28" id="DE_Baden-W+uertenberg_Konstanz_Ub" search="yes" system="libero5"/>
+  <test date="2017-08-28" id="DE_Baden-W+uerttemberg_Konstanz_Ub" search="yes" system="libero5"/>
   <test date="2017-08-28" id="DE_Sachsen_Chemnitz_Ub" search="yes" system="libero5"/>
   <test date="2017-08-28" id="DE_Nordrhein-Westfalen_D+uesseldorf_Fhb" search="yes" system="libero5"/>
   <test date="2017-08-28" id="DE_Hessen_Hanau_Stb" search="yes" system="libero5"/>
@@ -76,15 +76,15 @@
   <test date="2017-08-28" id="DE_Berlin_Berlin_UbTU" search="yes" system="primo"/>
   <test date="2017-08-28" id="DE_Nordrhein-Westfalen_Witten_Ulb" search="yes" system="libero5"/>
   <test date="2017-08-28" id="DE_Nordrhein-Westfalen_Stolberg_Stb" search="yes" system="libero5"/>
-  <test date="2017-08-28" id="DE_Baden-W+uertenberg_Gm+uend_Hfg" search="yes" system="aDISWeb"/>
+  <test date="2017-08-28" id="DE_Baden-W+uerttemberg_Gm+uend_Hfg" search="yes" system="aDISWeb"/>
   <test date="2017-08-28" id="DE_+ueberregional-weit_Verbund_gvk" search="yes" system="sru"/>
-  <test date="2017-08-28" id="DE_Baden-W+uertenberg_Freiburg_HS" search="yes" system="aDISWeb"/>
-  <test date="2017-08-28" id="DE_Baden-W+uertenberg_Filderstadt_Stb" search="yes" system="libero5"/>
-  <test date="2017-08-28" id="DE_Baden-W+uertenberg_Rottenburg_Hs" search="yes" system="aDISWeb"/>
-  <test date="2017-08-28" id="DE_Baden-W+uertenberg_Mannheim_MHS" search="yes" system="aDISWeb"/>
+  <test date="2017-08-28" id="DE_Baden-W+uerttemberg_Freiburg_HS" search="yes" system="aDISWeb"/>
+  <test date="2017-08-28" id="DE_Baden-W+uerttemberg_Filderstadt_Stb" search="yes" system="libero5"/>
+  <test date="2017-08-28" id="DE_Baden-W+uerttemberg_Rottenburg_Hs" search="yes" system="aDISWeb"/>
+  <test date="2017-08-28" id="DE_Baden-W+uerttemberg_Mannheim_MHS" search="yes" system="aDISWeb"/>
   <test date="2017-08-28" id="DE_Hessen_Schotten_Stb" search="yes" system="libero5"/>
-  <test date="2017-08-28" id="DE_Baden-W+uertenberg_Trossingen_Mh" search="yes" system="aDISWeb"/>
-  <test date="2017-08-28" id="DE_Baden-W+uertenberg_Villingen_Hfpol" search="yes" system="aDISWeb"/>
+  <test date="2017-08-28" id="DE_Baden-W+uerttemberg_Trossingen_Mh" search="yes" system="aDISWeb"/>
+  <test date="2017-08-28" id="DE_Baden-W+uerttemberg_Villingen_Hfpol" search="yes" system="aDISWeb"/>
   <test date="2017-08-28" id="DE_Berlin_Berlin_UbFU" search="yes" system="primo"/>
   <test date="2017-08-28" id="DE_Niedersachsen_Hannover_UbTIB" search="yes" system="pica"/>
   <test date="2017-08-28" id="DE_Niedersachsen_G+oettingen_Ub" search="yes" system="pica"/>
@@ -130,7 +130,7 @@
   <test date="2017-08-28" id="DE_Sachsen_Dresden_bibo" search="yes" system="sisis"/>
   <test date="2017-08-28" id="DE_Schleswig-Holstein_Kiel_Stb" search="yes" system="zones18"/>
   <test date="2017-08-28" id="DE_Bremen_Bremen_Stb" search="yes" system="sisis"/>
-  <test date="2017-08-28" id="DE_Baden-W+uertenberg_Freiburg_Stb" search="yes" system="sisis"/>
+  <test date="2017-08-28" id="DE_Baden-W+uerttemberg_Freiburg_Stb" search="yes" system="sisis"/>
   <test date="2017-08-28" id="DE_Sachsen_Leipzig_Stb" search="yes" system="sisis"/>
   <test date="2017-08-28" id="DE_Niedersachsen_Hannover_TiHo" search="yes" system="pica"/>
   <test date="2017-08-28" id="DE_Nordrhein-Westfalen_K+oeln_Stb" search="yes" system="zones18"/>
@@ -144,7 +144,7 @@
   <test date="2017-08-28" id="DE_Berlin_Berlin_HTW" search="yes" system="sisis"/>
   <test date="2017-08-28" id="DE_Schleswig-Holstein_Kiel_Fhb" search="yes" system="pica"/>
   <test date="2017-08-28" id="DE_Sachsen-Anhalt_Anhalt_HSB" search="yes" system="pica"/>
-  <test date="2017-08-28" id="DE_Baden-W+uertenberg_Pforzheim_Stb" search="yes" system="bibliotheca"/>
+  <test date="2017-08-28" id="DE_Baden-W+uerttemberg_Pforzheim_Stb" search="yes" system="bibliotheca"/>
   <test date="2017-08-28" id="DE_Rheinland-Pfalz_Trier_Fh" search="yes" system="sisis"/>
   <test date="2017-08-28" id="DE_Th+ueringen_Jena_EAH" search="yes" system="pica"/>
   <test date="2017-08-28" id="DE_Bayern_F+uerth_Vb" search="yes" system="sisis"/>
@@ -163,12 +163,12 @@
   <test date="2017-08-28" id="DE_Nordrhein-Westfalen_Pulheim_Stb" search="yes" system="sisis"/>
   <test date="2017-08-28" id="DE_Th+ueringen_Schmalkalden_Fhb" search="yes" system="pica"/>
   <test date="2017-08-28" id="DE_Niedersachsen_Wilhelmshaven_Ub" search="yes" system="pica"/>
-  <test date="2017-08-28" id="DE_Baden-W+uertenberg_Villingen_Stb" search="yes" system="bibliotheca"/>
+  <test date="2017-08-28" id="DE_Baden-W+uerttemberg_Villingen_Stb" search="yes" system="bibliotheca"/>
   <test date="2017-08-28" id="DE_Bayern_Erlangen_Stb" search="yes" system="bibliothecaplus"/>
-  <test date="2017-08-28" id="DE_Rheinland-Pfalz_Neustadt-an-der-Weinstra+sze_Stb" search="yes" system="bibliotheca"/>
+  <test date="2017-08-28" id="DE_Rheinland-Pfalz_Neustadt++an++der++Weinstra+sze_Stb" search="yes" system="bibliotheca"/>
   <test date="2017-08-28" id="DE_Mecklenburg-Vorpommern_Stralsund_Stb" search="yes" system="bibliothecaplus"/>
   <test date="2017-08-28" id="DE_Nordrhein-Westfalen_Halle_Stb" search="yes" system="bibliotheca"/>
-  <test date="2017-08-28" id="DE_Baden-W+uertenberg_Weinheim_Stb" search="yes" system="bibliotheca"/>
+  <test date="2017-08-28" id="DE_Baden-W+uerttemberg_Weinheim_Stb" search="yes" system="bibliotheca"/>
   <test date="2017-08-28" id="DE_Brandenburg_Potsdam_Fh" search="yes" system="sisis"/>
   <test date="2017-08-28" id="CH_Basel_Liestal_Kb" search="yes" system="sisis"/>
   <test date="2017-08-28" id="DE_Niedersachsen_Emden_OstBib" search="yes" system="pica"/>
@@ -176,20 +176,20 @@
   <test date="2017-08-28" id="DE_Berlin_Berlin_BeuthHS" search="yes" system="sisis"/>
   <test date="2017-08-28" id="DE_Th+ueringen_Nordhausen_Fhb" search="yes" system="pica"/>
   <test date="2017-08-28" id="DE_Nordrhein-Westfalen_Witten_Stb" search="yes" system="sisis"/>
-  <test date="2017-08-28" id="DE_Baden-W+uertenberg_Holzgerlingen_Stb" search="yes" system="bibliothecaplus"/>
+  <test date="2017-08-28" id="DE_Baden-W+uerttemberg_Holzgerlingen_Stb" search="yes" system="bibliothecaplus"/>
   <test date="2017-08-28" id="CH_Aargau_Baden_Stb" search="yes" system="sisis"/>
   <test date="2017-08-28" id="CH_Uri_Altdorf_Kb" search="yes" system="sisis"/>
   <test date="2017-08-28" id="DE_Schleswig-Holstein_Kiel_SHLB" search="yes" system="pica"/>
   <test date="2017-08-28" id="DE_Berlin_Berlin_KHSB" search="yes" system="pica"/>
   <test date="2017-08-28" id="DE_Bayern_W+uerzburg_Hsb" search="yes" system="sisis"/>
-  <test date="2017-08-28" id="DE_Baden-W+uertenberg_Mannheim_Techno" search="yes" system="aDISWeb"/>
+  <test date="2017-08-28" id="DE_Baden-W+uerttemberg_Mannheim_Techno" search="yes" system="aDISWeb"/>
   <test date="2017-08-28" id="DE_Niedersachsen_Hannover_Lkab" search="yes" system="pica"/>
-  <test date="2017-08-28" id="DE_Baden-W+uertenberg_Karlsruhe_Hfm" search="yes" system="aDISWeb"/>
-  <test date="2017-08-28" id="DE_Baden-W+uertenberg_Kehl_HS" search="yes" system="aDISWeb"/>
-  <test date="2017-08-28" id="DE_Baden-W+uertenberg_L+oerrach_WRb" search="yes" system="aDISWeb"/>
-  <test date="2017-08-28" id="DE_Baden-W+uertenberg_Stuttgart_Mh" search="yes" system="aDISWeb"/>
+  <test date="2017-08-28" id="DE_Baden-W+uerttemberg_Karlsruhe_Hfm" search="yes" system="aDISWeb"/>
+  <test date="2017-08-28" id="DE_Baden-W+uerttemberg_Kehl_HS" search="yes" system="aDISWeb"/>
+  <test date="2017-08-28" id="DE_Baden-W+uerttemberg_L+oerrach_WRb" search="yes" system="aDISWeb"/>
+  <test date="2017-08-28" id="DE_Baden-W+uerttemberg_Stuttgart_Mh" search="yes" system="aDISWeb"/>
   <test date="2017-08-28" id="DE_Hessen_M+oerfelden-Walldorf_Stb" search="yes" system="libero5"/>
-  <test date="2017-08-28" id="DE_Baden-W+uertenberg_Stuttgart_Abk" search="yes" system="aDISWeb"/>
+  <test date="2017-08-28" id="DE_Baden-W+uerttemberg_Stuttgart_Abk" search="yes" system="aDISWeb"/>
   <test date="2017-08-28" id="DE_Bayern_M+uenchen_Alpen" search="yes" system="sisis"/>
   <test date="2017-08-28" id="DE_Sachsen_Leipzig_Hgb" search="yes" system="libero5"/>
   <test date="2017-08-28" id="DE_Hessen_M+uehlheim_StbAM" search="no" system="libero5"/>
