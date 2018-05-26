@@ -1,5 +1,10 @@
-
+<t:switch prioritized="true">
   <SELECT NAME="MakeResTypeDef.Reservation.RecipientLocn"> 
     {confirm-form := form((//form)[last()]), (: page is broken, select not in form :)
      vl:choose("internal-order-confirmed", "Wohin soll das Buch geliefert werden?", option, option/@value)}
   </SELECT>
+  
+  <td class="advice">
+    {vl:raise(.)}
+  </td>
+</t:switch>
