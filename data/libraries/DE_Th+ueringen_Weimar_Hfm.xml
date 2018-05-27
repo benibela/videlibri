@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<library>
+  <longName value="Bibliothek der Hochschule für Musik Franz Liszt Weimar (alpha)"/>
+  <shortName value="Hfm Weimar"/>
+  
+  <template value="lbs"/>  
+  <variable name="server" value="https://opac.lbs-weimar.gbv.de"/>
+  <variable name="DB" value="3"/>
+
+
+
+  <homepage value="https://www.hfm-weimar.de/148"/>
+</library>
