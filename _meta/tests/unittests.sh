@@ -254,6 +254,11 @@ PAGES=(${PAGES[@]} digibib/search.html digibib/search2.html digibib/details.html
 
 test digibib list list.html list.empty.html 
 
+#=============SRU=================
+mkdir -p $OUTPATH/sru
+test sru sruconnect explain.xml
+test sru list opac-de-gl2.xml gvk.xml
+
 #=============KOHA==============
 mkdir -p $OUTPATH/koha
 test koha user user.2.en.pf.htm user.2.pf.htm user.adminkuhn.htm user.holds.en.pf.htm

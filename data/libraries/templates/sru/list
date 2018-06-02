@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <zs:searchRetrieveResponse xmlns:zs="http://www.loc.gov/zing/srw/">
-  <zs:numberOfRecords>{search-result-count := ., search-next-page-available := $position + $maximumRecords &lt;= $search-result-count }</zs:numberOfRecords>
+  <zs:numberOfRecords>{search-result-count := ., search-next-page-available := get("position",1) + get("maximumRecords",1) &lt;= $search-result-count }</zs:numberOfRecords>
   <zs:records t:test="$search-result-count gt 0">
     <template:switch-prioritized>
       <zs:record>
@@ -28,6 +28,7 @@
             <controlfield tag="001">{$book.ppn}</controlfield>
             <controlfield tag="008">{$book.year := substring(., 8, 4)}</controlfield>
             <datafield tag="100"><subfield code="a">{$book.author}</subfield></datafield>
+            <datafield tag="110"><subfield code="a">{$book.author}</subfield></datafield>
             <datafield tag="245">
               <subfield code="a">{$book.title}</subfield>
               <subfield code="b">{$book.title := concat($book.title, " ", .)}</subfield>? <!-- sub title?? -->

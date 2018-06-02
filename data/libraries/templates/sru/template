@@ -5,29 +5,38 @@
 <meta>
   <description>Template für die standardisierte SRU-API für Suche in Katalogen</description>
   <variable name="baseurl"><description>Url des Servers, inklusive Protokoll</description></variable>
-  <variable name="searchKeys" default="dc.title;dc.creator;dc.identifier;dc.date;dc.subject"><description>zu verwendende Suchschlüssel</description></variable>  
-  <variable name="recordSchema" default="dc"><description>zu verwendende Suchschlüssel</description></variable>
+<!--  <variable name="searchKeys"><description>zu verwendende Suchschlüssel (optional)</description></variable>  
+  <variable name="recordSchema"><description>zu verwendendes Schema (optional)</description></variable>-->
   <!--<variable name="daiabaseurl"><description>Url für einen DAIA-Server für Bestandsanzeigen</description></variable>-->
 </meta>
 
-<action id="search-connect"></action>
+<action id="search-connect">
+  <s>
+  sruVersion := "1.1",
+  recordSchema := "dc",
+  searchKeys := {"title": "dc.title", 
+                 "author": "dc.creator", 
+                 "isbn": "dc.identifier", 
+                 "year": "dc.date", 
+                 "keywords": "dc.subject"}
+  </s>
+  <try>
+    <page url="{$baseurl}" templateFile="sruconnect"/>
+  <catch errors="http:*"/>
+  </try>
+</action>
 
 <action id="search">
   
-  <variable name="maximumRecords">15</variable>
-  <variable name="recordSchema">get("recordSchema", "dc")</variable>
-
-  <variable name="searchKey">
-  tokenize(get("searchKeys", "dc.title;dc.creator;dc.identifier;dc.date;dc.subject"), ";")
-  </variable>
+  <variable name="maximumRecords">20</variable>
   
   <variable name="query">
   encode-for-uri( string-join(
-    (if ($book.title)    then concat($searchKey[1], "=", $book.title)    else (),
-     if ($book.author)   then concat($searchKey[2], "=", $book.author)   else (),
-     if ($book.isbn)     then concat($searchKey[3], "=", $book.isbn)     else (),
-     if ($book.year)     then concat($searchKey[4], "=", $book.year)     else (),
-     if ($book.keywords) then concat($searchKey[5], "=", $book.keywords) else ()), " AND "))
+    (if ($book.title)    then concat($searchKeys.title, "=", $book.title)    else (),
+     if ($book.author)   then concat($searchKeys.author, "=", $book.author)   else (),
+     if ($book.isbn)     then concat($searchKeys.isbn, "=", $book.isbn)     else (),
+     if ($book.year)     then concat($searchKeys.year, "=", $book.year)     else (),
+     if ($book.keywords) then concat($searchKeys.keywords, "=", $book.keywords) else ()), " AND "))
   </variable>
 
   <variable name="position">1</variable>

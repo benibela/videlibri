@@ -1,0 +1,1226 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<zs:searchRetrieveResponse xmlns:zs="http://www.loc.gov/zing/srw/"><zs:version>1.1</zs:version><zs:numberOfRecords>38977</zs:numberOfRecords><zs:records><zs:record><zs:recordSchema>marcxml</zs:recordSchema><zs:recordPacking>xml</zs:recordPacking><zs:recordData><record xmlns="http://www.loc.gov/MARC21/slim">
+  <leader>xxxxxnam a22yyyyy5ca4500</leader>
+  <controlfield tag="001">558974147</controlfield>
+  <controlfield tag="003">DE-601</controlfield>
+  <controlfield tag="005">20171212161322.0</controlfield>
+  <controlfield tag="008">080226s2021                  000 0 und d</controlfield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="a">(DE-599)GBV558974147</subfield>
+  </datafield>
+  <datafield tag="040" ind1=" " ind2=" ">
+    <subfield code="b">ger</subfield>
+    <subfield code="c">GBVCP</subfield>
+  </datafield>
+  <datafield tag="100" ind1="0" ind2=" ">
+    <subfield code="6">880-01</subfield>
+    <subfield code="a">Goko</subfield>
+    <subfield code="e">Autor</subfield>
+    <subfield code="4">aut</subfield>
+  </datafield>
+  <datafield tag="245" ind1="1" ind2="4">
+    <subfield code="a">Der Test-MBW für Sortierzählung</subfield>
+    <subfield code="b">Zusatz zu 4000</subfield>
+    <subfield code="c">bearb. vonGoko, Danka DW</subfield>
+  </datafield>
+  <datafield tag="250" ind1=" " ind2=" ">
+    <subfield code="a">2. Auflage</subfield>
+  </datafield>
+  <datafield tag="264" ind1="3" ind2="1">
+    <subfield code="a">Göttingen</subfield>
+    <subfield code="b">VZG</subfield>
+    <subfield code="c">2021</subfield>
+  </datafield>
+  <datafield tag="700" ind1="1" ind2=" ">
+    <subfield code="6">880-01</subfield>
+    <subfield code="a">Wisniewski-Tp, Danka-Tp</subfield>
+    <subfield code="0">(DE-601)32633016X</subfield>
+  </datafield>
+  <datafield tag="700" ind1="1" ind2=" ">
+    <subfield code="6">880-01</subfield>
+    <subfield code="a">Liventsova, Elena</subfield>
+    <subfield code="c">Praktikantin</subfield>
+    <subfield code="e">AusführendeR</subfield>
+    <subfield code="4">prf</subfield>
+  </datafield>
+  <datafield tag="710" ind1="2" ind2=" ">
+    <subfield code="a">Testkp</subfield>
+  </datafield>
+  <datafield tag="880" ind1="1" ind2=" ">
+    <subfield code="6">700-01/(N</subfield>
+    <subfield code="a">Bисниеbска, Данута</subfield>
+    <subfield code="0">(DE-601)32633016X</subfield>
+  </datafield>
+  <datafield tag="880" ind1="1" ind2=" ">
+    <subfield code="6">700-01/(N</subfield>
+    <subfield code="a">Bисниеbска, Данута</subfield>
+    <subfield code="e">AusführendeR</subfield>
+    <subfield code="4">prf</subfield>
+    <subfield code="0">(DE-601)32633016X</subfield>
+  </datafield>
+  <datafield tag="900" ind1=" " ind2=" ">
+    <subfield code="a">GBV</subfield>
+    <subfield code="b">GBV/VZG &lt;601x&gt;</subfield>
+    <subfield code="d">tets</subfield>
+    <subfield code="x">L</subfield>
+    <subfield code="z">LC</subfield>
+  </datafield>
+  <datafield tag="950" ind1="l" ind2=" ">
+    <subfield code="a">nochtest</subfield>
+    <subfield code="2">1</subfield>
+  </datafield>
+  <datafield tag="951" ind1=" " ind2=" ">
+    <subfield code="a">test</subfield>
+    <subfield code="2">1</subfield>
+  </datafield>
+  <datafield tag="954" ind1=" " ind2=" ">
+    <subfield code="0">GBV/VZG &lt;601x&gt;</subfield>
+    <subfield code="a">1</subfield>
+    <subfield code="b">111289697X</subfield>
+    <subfield code="c">01</subfield>
+    <subfield code="d">tets</subfield>
+    <subfield code="e">u</subfield>
+    <subfield code="x">1999</subfield>
+  </datafield>
+</record></zs:recordData><zs:recordPosition>1</zs:recordPosition></zs:record><zs:record><zs:recordSchema>marcxml</zs:recordSchema><zs:recordPacking>xml</zs:recordPacking><zs:recordData><record xmlns="http://www.loc.gov/MARC21/slim">
+  <leader>xxxxxnam a22yyyyy c 4500</leader>
+  <controlfield tag="001">1023632314</controlfield>
+  <controlfield tag="003">DE-601</controlfield>
+  <controlfield tag="005">20180601131632.0</controlfield>
+  <controlfield tag="007">cr uuu---uuuuu</controlfield>
+  <controlfield tag="008">180601s2018    gw      o     000 0 ger d</controlfield>
+  <datafield tag="024" ind1="7" ind2=" ">
+    <subfield code="a">10.2314/GBV:1023632314</subfield>
+    <subfield code="2">doi</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="a">(OCoLC)1038251782</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="a">(DE-599)GBV1023632314</subfield>
+  </datafield>
+  <datafield tag="040" ind1=" " ind2=" ">
+    <subfield code="b">ger</subfield>
+    <subfield code="c">GBVCP</subfield>
+    <subfield code="e">rda</subfield>
+  </datafield>
+  <datafield tag="041" ind1="0" ind2=" ">
+    <subfield code="a">ger</subfield>
+  </datafield>
+  <datafield tag="100" ind1="1" ind2=" ">
+    <subfield code="a">Altmann, Michael</subfield>
+    <subfield code="e">VerfasserIn</subfield>
+    <subfield code="4">aut</subfield>
+  </datafield>
+  <datafield tag="245" ind1="1" ind2="0">
+    <subfield code="a">Multifunktionales energieeffizientes Dach- und Fassaden-Solarelement - DAFASOL, Teilvorhaben: Umsetzung in einen Teststand und Anwendung im Stahlbetonbau</subfield>
+    <subfield code="h">Elektronische Ressource</subfield>
+    <subfield code="b">Sachbericht : Laufzeit des Vorhabens: 01.12.2014-30.11.2017 = Multifunctional energy-efficient roof and facade solar-element - DAFASOL, sub project: Implementation in a test stand and its adaption to applications in reinforced concrete construction</subfield>
+    <subfield code="c">Zuwendungsempfänger: BACKER-BAU GmbH Bauunternehmung ; Dipl.-Ing. Michael Altmann</subfield>
+  </datafield>
+  <datafield tag="246" ind1="3" ind2=" ">
+    <subfield code="a">DAFASOL - Multifunktionales energieeffizientes Dach- und Fassaden-Solarelement</subfield>
+  </datafield>
+  <datafield tag="246" ind1="3" ind2=" ">
+    <subfield code="a">Verbundvorhaben: Multifunktionales energieeffizientes Dach- und Fassaden-Solarelement - DAFASOL</subfield>
+  </datafield>
+  <datafield tag="246" ind1="3" ind2=" ">
+    <subfield code="a">Joint project: Multifunctional energy-efficient roof and facade solar-element - DAFASOL</subfield>
+  </datafield>
+  <datafield tag="264" ind1="3" ind2="1">
+    <subfield code="a">Hainichen</subfield>
+    <subfield code="b">[BACKER-BAU GmbH Bauunternehmung]</subfield>
+    <subfield code="c">12.02.2018</subfield>
+  </datafield>
+  <datafield tag="300" ind1=" " ind2=" ">
+    <subfield code="a">1 Online-Ressource (20 Seiten, 6,21 MB)</subfield>
+  </datafield>
+  <datafield tag="336" ind1=" " ind2=" ">
+    <subfield code="a">Text</subfield>
+    <subfield code="b">txt</subfield>
+    <subfield code="2">rdacontent</subfield>
+  </datafield>
+  <datafield tag="337" ind1=" " ind2=" ">
+    <subfield code="a">Computermedien</subfield>
+    <subfield code="b">c</subfield>
+    <subfield code="2">rdamedia</subfield>
+  </datafield>
+  <datafield tag="338" ind1=" " ind2=" ">
+    <subfield code="a">Online-Ressource</subfield>
+    <subfield code="b">cr</subfield>
+    <subfield code="2">rdacarrier</subfield>
+  </datafield>
+  <datafield tag="500" ind1=" " ind2=" ">
+    <subfield code="a">Förderkennzeichen BMWi 03ET1268A. - Verbund-Nummer 01156888</subfield>
+  </datafield>
+  <datafield tag="500" ind1=" " ind2=" ">
+    <subfield code="a">Paralleltitel dem englischen Berichtsblatt entnommen</subfield>
+  </datafield>
+  <datafield tag="500" ind1=" " ind2=" ">
+    <subfield code="a">Unterschiede zwischen dem gedruckten Dokument und der elektronischen Ressource können nicht ausgeschlossen werden</subfield>
+  </datafield>
+  <datafield tag="546" ind1=" " ind2=" ">
+    <subfield code="a">Sprache der Zusammenfassung: Deutsch, Englisch</subfield>
+  </datafield>
+  <datafield tag="655" ind1="0" ind2="7">
+    <subfield code="0">(DE-588)4155043-2</subfield>
+    <subfield code="a">Forschungsbericht</subfield>
+    <subfield code="2">gnd-content</subfield>
+  </datafield>
+  <datafield tag="710" ind1="2" ind2=" ">
+    <subfield code="a">Backer-Bau GmbH Bauunternehmung</subfield>
+    <subfield code="e">Herausgebendes Organ</subfield>
+    <subfield code="4">isb</subfield>
+    <subfield code="0">(DE-601)1023632020</subfield>
+    <subfield code="0">(DE-588)1160454809</subfield>
+  </datafield>
+  <datafield tag="787" ind1="0" ind2="8">
+    <subfield code="i">Erscheint auch als</subfield>
+    <subfield code="n">Druck-Ausgabe</subfield>
+    <subfield code="t">Multifunktionales energieeffizientes Dach- und Fassaden-Solarelement - DAFASOL, Teilvorhaben: Umsetzung in einen Teststand und Anwendung im Stahlbetonbau</subfield>
+    <subfield code="d">Hainichen : [BACKER-BAU GmbH Bauunternehmung], 12.02.2018</subfield>
+    <subfield code="h">18 Blätter, 2 ungezählte Blätter</subfield>
+    <subfield code="w">(DE-601)1022978527</subfield>
+  </datafield>
+  <datafield tag="856" ind1="4" ind2="0">
+    <subfield code="u">https://doi.org/10.2314/GBV:1023632314</subfield>
+    <subfield code="z">OA</subfield>
+  </datafield>
+  <datafield tag="900" ind1=" " ind2=" ">
+    <subfield code="a">GBV</subfield>
+    <subfield code="b">TIB/UB Hannover &lt;89&gt;</subfield>
+  </datafield>
+  <datafield tag="912" ind1=" " ind2=" ">
+    <subfield code="a">GBV-FB-TIB</subfield>
+  </datafield>
+  <datafield tag="954" ind1=" " ind2=" ">
+    <subfield code="0">TIB/UB Hannover &lt;89&gt;</subfield>
+    <subfield code="a">70</subfield>
+    <subfield code="b">1773154826</subfield>
+    <subfield code="c">01</subfield>
+    <subfield code="x">0089</subfield>
+  </datafield>
+</record></zs:recordData><zs:recordPosition>2</zs:recordPosition></zs:record><zs:record><zs:recordSchema>marcxml</zs:recordSchema><zs:recordPacking>xml</zs:recordPacking><zs:recordData><record xmlns="http://www.loc.gov/MARC21/slim">
+  <leader>xxxxxnaa a22yyyyy c 4500</leader>
+  <controlfield tag="001">1023562987</controlfield>
+  <controlfield tag="003">DE-601</controlfield>
+  <controlfield tag="005">20180531153112.0</controlfield>
+  <controlfield tag="008">180531s2018                  000 0 ger d</controlfield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="a">(DE-599)GBV1023562987</subfield>
+  </datafield>
+  <datafield tag="040" ind1=" " ind2=" ">
+    <subfield code="b">ger</subfield>
+    <subfield code="c">GBVCP</subfield>
+    <subfield code="e">rda</subfield>
+  </datafield>
+  <datafield tag="041" ind1="0" ind2=" ">
+    <subfield code="a">ger</subfield>
+  </datafield>
+  <datafield tag="100" ind1="1" ind2=" ">
+    <subfield code="a">Hanisch, Falk</subfield>
+    <subfield code="e">VerfasserIn</subfield>
+    <subfield code="4">aut</subfield>
+  </datafield>
+  <datafield tag="245" ind1="1" ind2="0">
+    <subfield code="a">Automatisierte Generierung von Straßennetzwerken für die Verwendung der Verkehrsflusssimulation SUMO</subfield>
+    <subfield code="c">Dipl.-Ing. Falk Hanisch, Prof. Dr.-Ing. Bernard Bäker</subfield>
+  </datafield>
+  <datafield tag="300" ind1=" " ind2=" ">
+    <subfield code="b">Illustrationen</subfield>
+  </datafield>
+  <datafield tag="336" ind1=" " ind2=" ">
+    <subfield code="a">Text</subfield>
+    <subfield code="b">txt</subfield>
+    <subfield code="2">rdacontent</subfield>
+  </datafield>
+  <datafield tag="337" ind1=" " ind2=" ">
+    <subfield code="a">ohne Hilfsmittel zu benutzen</subfield>
+    <subfield code="b">n</subfield>
+    <subfield code="2">rdamedia</subfield>
+  </datafield>
+  <datafield tag="338" ind1=" " ind2=" ">
+    <subfield code="a">Band</subfield>
+    <subfield code="b">nc</subfield>
+    <subfield code="2">rdacarrier</subfield>
+  </datafield>
+  <datafield tag="500" ind1=" " ind2=" ">
+    <subfield code="a">Literaturangaben</subfield>
+  </datafield>
+  <datafield tag="700" ind1="1" ind2=" ">
+    <subfield code="a">Bäker, Bernard</subfield>
+    <subfield code="e">VerfasserIn</subfield>
+    <subfield code="4">aut</subfield>
+    <subfield code="0">(DE-601)515797227</subfield>
+    <subfield code="0">(DE-588)120589125</subfield>
+  </datafield>
+  <datafield tag="773" ind1="0" ind2="8">
+    <subfield code="i">Enthalten in</subfield>
+    <subfield code="t">Diagnose in mechatronischen Fahrzeugsystemen XII : Neue Verfahren für Test, Prüfung und Diagnose von E/E-Systemen im Kfz</subfield>
+    <subfield code="d">Dresden : TUDpress</subfield>
+    <subfield code="g">(2018), p. 236-241</subfield>
+    <subfield code="q">&lt;236-241</subfield>
+    <subfield code="w">(DE-601)102091145X</subfield>
+    <subfield code="z">3-95908-132-4</subfield>
+    <subfield code="z">978-3-95908-132-0</subfield>
+  </datafield>
+  <datafield tag="900" ind1=" " ind2=" ">
+    <subfield code="a">GBV</subfield>
+    <subfield code="b">Ostfalia Wolfenbuettel &lt;916&gt;</subfield>
+  </datafield>
+  <datafield tag="952" ind1=" " ind2=" ">
+    <subfield code="j">2018</subfield>
+    <subfield code="h">236-241</subfield>
+  </datafield>
+  <datafield tag="954" ind1=" " ind2=" ">
+    <subfield code="0">Ostfalia Wolfenbuettel &lt;916&gt;</subfield>
+    <subfield code="a">164</subfield>
+    <subfield code="b">177306164X</subfield>
+    <subfield code="c">03</subfield>
+    <subfield code="x">0916</subfield>
+  </datafield>
+</record></zs:recordData><zs:recordPosition>3</zs:recordPosition></zs:record><zs:record><zs:recordSchema>marcxml</zs:recordSchema><zs:recordPacking>xml</zs:recordPacking><zs:recordData><record xmlns="http://www.loc.gov/MARC21/slim">
+  <leader>xxxxxnaa a22yyyyy c 4500</leader>
+  <controlfield tag="001">1023562723</controlfield>
+  <controlfield tag="003">DE-601</controlfield>
+  <controlfield tag="005">20180531152906.0</controlfield>
+  <controlfield tag="008">180531s2018                  000 0 ger d</controlfield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="a">(DE-599)GBV1023562723</subfield>
+  </datafield>
+  <datafield tag="040" ind1=" " ind2=" ">
+    <subfield code="b">ger</subfield>
+    <subfield code="c">GBVCP</subfield>
+    <subfield code="e">rda</subfield>
+  </datafield>
+  <datafield tag="041" ind1="0" ind2=" ">
+    <subfield code="a">ger</subfield>
+  </datafield>
+  <datafield tag="100" ind1="1" ind2=" ">
+    <subfield code="a">Häberlein, Tim</subfield>
+    <subfield code="e">VerfasserIn</subfield>
+    <subfield code="4">aut</subfield>
+  </datafield>
+  <datafield tag="245" ind1="1" ind2="0">
+    <subfield code="a">Backendbasierte Fahrzeugfunktionen</subfield>
+    <subfield code="b">Herausforderungen zur durchgängigen Funktionsüberprüfung</subfield>
+    <subfield code="c">Dipl.-Ing. Tim Häberlein, Dipl.-Ing. Andreas Unger, Prof. Dr.-Ing. Bernard Bäker, Dr.-Ing. Oliver Manicke</subfield>
+  </datafield>
+  <datafield tag="300" ind1=" " ind2=" ">
+    <subfield code="b">Illustrationen</subfield>
+  </datafield>
+  <datafield tag="336" ind1=" " ind2=" ">
+    <subfield code="a">Text</subfield>
+    <subfield code="b">txt</subfield>
+    <subfield code="2">rdacontent</subfield>
+  </datafield>
+  <datafield tag="337" ind1=" " ind2=" ">
+    <subfield code="a">ohne Hilfsmittel zu benutzen</subfield>
+    <subfield code="b">n</subfield>
+    <subfield code="2">rdamedia</subfield>
+  </datafield>
+  <datafield tag="338" ind1=" " ind2=" ">
+    <subfield code="a">Band</subfield>
+    <subfield code="b">nc</subfield>
+    <subfield code="2">rdacarrier</subfield>
+  </datafield>
+  <datafield tag="500" ind1=" " ind2=" ">
+    <subfield code="a">Literaturangaben</subfield>
+  </datafield>
+  <datafield tag="700" ind1="1" ind2=" ">
+    <subfield code="a">Unger, Andreas</subfield>
+    <subfield code="e">VerfasserIn</subfield>
+    <subfield code="4">aut</subfield>
+  </datafield>
+  <datafield tag="700" ind1="1" ind2=" ">
+    <subfield code="a">Bäker, Bernard</subfield>
+    <subfield code="e">VerfasserIn</subfield>
+    <subfield code="4">aut</subfield>
+    <subfield code="0">(DE-601)515797227</subfield>
+    <subfield code="0">(DE-588)120589125</subfield>
+  </datafield>
+  <datafield tag="700" ind1="1" ind2=" ">
+    <subfield code="a">Manicke, Oliver</subfield>
+    <subfield code="e">VerfasserIn</subfield>
+    <subfield code="4">aut</subfield>
+  </datafield>
+  <datafield tag="773" ind1="0" ind2="8">
+    <subfield code="i">Enthalten in</subfield>
+    <subfield code="t">Diagnose in mechatronischen Fahrzeugsystemen XII : Neue Verfahren für Test, Prüfung und Diagnose von E/E-Systemen im Kfz</subfield>
+    <subfield code="d">Dresden : TUDpress</subfield>
+    <subfield code="g">(2018), p. 229-235</subfield>
+    <subfield code="q">&lt;229-235</subfield>
+    <subfield code="w">(DE-601)102091145X</subfield>
+    <subfield code="z">3-95908-132-4</subfield>
+    <subfield code="z">978-3-95908-132-0</subfield>
+  </datafield>
+  <datafield tag="900" ind1=" " ind2=" ">
+    <subfield code="a">GBV</subfield>
+    <subfield code="b">Ostfalia Wolfenbuettel &lt;916&gt;</subfield>
+  </datafield>
+  <datafield tag="952" ind1=" " ind2=" ">
+    <subfield code="j">2018</subfield>
+    <subfield code="h">229-235</subfield>
+  </datafield>
+  <datafield tag="954" ind1=" " ind2=" ">
+    <subfield code="0">Ostfalia Wolfenbuettel &lt;916&gt;</subfield>
+    <subfield code="a">164</subfield>
+    <subfield code="b">1773061259</subfield>
+    <subfield code="c">03</subfield>
+    <subfield code="x">0916</subfield>
+  </datafield>
+</record></zs:recordData><zs:recordPosition>4</zs:recordPosition></zs:record><zs:record><zs:recordSchema>marcxml</zs:recordSchema><zs:recordPacking>xml</zs:recordPacking><zs:recordData><record xmlns="http://www.loc.gov/MARC21/slim">
+  <leader>xxxxxnaa a22yyyyy c 4500</leader>
+  <controlfield tag="001">1023562456</controlfield>
+  <controlfield tag="003">DE-601</controlfield>
+  <controlfield tag="005">20180531152515.0</controlfield>
+  <controlfield tag="008">180531s2018                  000 0 ger d</controlfield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="a">(DE-599)GBV1023562456</subfield>
+  </datafield>
+  <datafield tag="040" ind1=" " ind2=" ">
+    <subfield code="b">ger</subfield>
+    <subfield code="c">GBVCP</subfield>
+    <subfield code="e">rda</subfield>
+  </datafield>
+  <datafield tag="041" ind1="0" ind2=" ">
+    <subfield code="a">ger</subfield>
+  </datafield>
+  <datafield tag="100" ind1="1" ind2=" ">
+    <subfield code="a">Günther, Andy</subfield>
+    <subfield code="e">VerfasserIn</subfield>
+    <subfield code="4">aut</subfield>
+  </datafield>
+  <datafield tag="245" ind1="1" ind2="0">
+    <subfield code="a">Prüffeld für LiDaR-Sensoren</subfield>
+    <subfield code="b">Diagnose zukünftiger Fahrerassistenzsystem</subfield>
+    <subfield code="c">Dipl.-Ing. Andy Günther, Prof. Dr.-Ing. Bernard Bäker</subfield>
+  </datafield>
+  <datafield tag="300" ind1=" " ind2=" ">
+    <subfield code="b">Illustrationen</subfield>
+  </datafield>
+  <datafield tag="336" ind1=" " ind2=" ">
+    <subfield code="a">Text</subfield>
+    <subfield code="b">txt</subfield>
+    <subfield code="2">rdacontent</subfield>
+  </datafield>
+  <datafield tag="337" ind1=" " ind2=" ">
+    <subfield code="a">ohne Hilfsmittel zu benutzen</subfield>
+    <subfield code="b">n</subfield>
+    <subfield code="2">rdamedia</subfield>
+  </datafield>
+  <datafield tag="338" ind1=" " ind2=" ">
+    <subfield code="a">Band</subfield>
+    <subfield code="b">nc</subfield>
+    <subfield code="2">rdacarrier</subfield>
+  </datafield>
+  <datafield tag="500" ind1=" " ind2=" ">
+    <subfield code="a">Literaturangaben</subfield>
+  </datafield>
+  <datafield tag="700" ind1="1" ind2=" ">
+    <subfield code="a">Bäker, Bernard</subfield>
+    <subfield code="e">VerfasserIn</subfield>
+    <subfield code="4">aut</subfield>
+    <subfield code="0">(DE-601)515797227</subfield>
+    <subfield code="0">(DE-588)120589125</subfield>
+  </datafield>
+  <datafield tag="773" ind1="0" ind2="8">
+    <subfield code="i">Enthalten in</subfield>
+    <subfield code="t">Diagnose in mechatronischen Fahrzeugsystemen XII : Neue Verfahren für Test, Prüfung und Diagnose von E/E-Systemen im Kfz</subfield>
+    <subfield code="d">Dresden : TUDpress</subfield>
+    <subfield code="g">(2018), p. 223-228</subfield>
+    <subfield code="q">&lt;223-228</subfield>
+    <subfield code="w">(DE-601)102091145X</subfield>
+    <subfield code="z">3-95908-132-4</subfield>
+    <subfield code="z">978-3-95908-132-0</subfield>
+  </datafield>
+  <datafield tag="900" ind1=" " ind2=" ">
+    <subfield code="a">GBV</subfield>
+    <subfield code="b">Ostfalia Wolfenbuettel &lt;916&gt;</subfield>
+  </datafield>
+  <datafield tag="952" ind1=" " ind2=" ">
+    <subfield code="j">2018</subfield>
+    <subfield code="h">223-228</subfield>
+  </datafield>
+  <datafield tag="954" ind1=" " ind2=" ">
+    <subfield code="0">Ostfalia Wolfenbuettel &lt;916&gt;</subfield>
+    <subfield code="a">164</subfield>
+    <subfield code="b">1773060619</subfield>
+    <subfield code="c">03</subfield>
+    <subfield code="x">0916</subfield>
+  </datafield>
+</record></zs:recordData><zs:recordPosition>5</zs:recordPosition></zs:record><zs:record><zs:recordSchema>marcxml</zs:recordSchema><zs:recordPacking>xml</zs:recordPacking><zs:recordData><record xmlns="http://www.loc.gov/MARC21/slim">
+  <leader>xxxxxnaa a22yyyyy c 4500</leader>
+  <controlfield tag="001">1023561824</controlfield>
+  <controlfield tag="003">DE-601</controlfield>
+  <controlfield tag="005">20180531151753.0</controlfield>
+  <controlfield tag="008">180531s2018                  000 0 ger d</controlfield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="a">(DE-599)GBV1023561824</subfield>
+  </datafield>
+  <datafield tag="040" ind1=" " ind2=" ">
+    <subfield code="b">ger</subfield>
+    <subfield code="c">GBVCP</subfield>
+    <subfield code="e">rda</subfield>
+  </datafield>
+  <datafield tag="041" ind1="0" ind2=" ">
+    <subfield code="a">ger</subfield>
+  </datafield>
+  <datafield tag="100" ind1="1" ind2=" ">
+    <subfield code="a">Gothan, Tom</subfield>
+    <subfield code="e">VerfasserIn</subfield>
+    <subfield code="4">aut</subfield>
+  </datafield>
+  <datafield tag="245" ind1="1" ind2="0">
+    <subfield code="a">Continuos Delivery im Kontext von vernetzen Fahrzeugen</subfield>
+    <subfield code="c">Dipl.-Ing. Tom Gothan, Prof. Dr.-Ing. Bernard Bäker</subfield>
+  </datafield>
+  <datafield tag="300" ind1=" " ind2=" ">
+    <subfield code="b">Illustrationen</subfield>
+  </datafield>
+  <datafield tag="336" ind1=" " ind2=" ">
+    <subfield code="a">Text</subfield>
+    <subfield code="b">txt</subfield>
+    <subfield code="2">rdacontent</subfield>
+  </datafield>
+  <datafield tag="337" ind1=" " ind2=" ">
+    <subfield code="a">ohne Hilfsmittel zu benutzen</subfield>
+    <subfield code="b">n</subfield>
+    <subfield code="2">rdamedia</subfield>
+  </datafield>
+  <datafield tag="338" ind1=" " ind2=" ">
+    <subfield code="a">Band</subfield>
+    <subfield code="b">nc</subfield>
+    <subfield code="2">rdacarrier</subfield>
+  </datafield>
+  <datafield tag="700" ind1="1" ind2=" ">
+    <subfield code="a">Bäker, Bernard</subfield>
+    <subfield code="e">VerfasserIn</subfield>
+    <subfield code="4">aut</subfield>
+    <subfield code="0">(DE-601)515797227</subfield>
+    <subfield code="0">(DE-588)120589125</subfield>
+  </datafield>
+  <datafield tag="773" ind1="0" ind2="8">
+    <subfield code="i">Enthalten in</subfield>
+    <subfield code="t">Diagnose in mechatronischen Fahrzeugsystemen XII : Neue Verfahren für Test, Prüfung und Diagnose von E/E-Systemen im Kfz</subfield>
+    <subfield code="d">Dresden : TUDpress</subfield>
+    <subfield code="g">(2018), p. 218-222</subfield>
+    <subfield code="q">&lt;218-222</subfield>
+    <subfield code="w">(DE-601)102091145X</subfield>
+    <subfield code="z">3-95908-132-4</subfield>
+    <subfield code="z">978-3-95908-132-0</subfield>
+  </datafield>
+  <datafield tag="900" ind1=" " ind2=" ">
+    <subfield code="a">GBV</subfield>
+    <subfield code="b">Ostfalia Wolfenbuettel &lt;916&gt;</subfield>
+  </datafield>
+  <datafield tag="952" ind1=" " ind2=" ">
+    <subfield code="j">2018</subfield>
+    <subfield code="h">218-222</subfield>
+  </datafield>
+  <datafield tag="954" ind1=" " ind2=" ">
+    <subfield code="0">Ostfalia Wolfenbuettel &lt;916&gt;</subfield>
+    <subfield code="a">164</subfield>
+    <subfield code="b">1773059327</subfield>
+    <subfield code="c">03</subfield>
+    <subfield code="x">0916</subfield>
+  </datafield>
+</record></zs:recordData><zs:recordPosition>6</zs:recordPosition></zs:record><zs:record><zs:recordSchema>marcxml</zs:recordSchema><zs:recordPacking>xml</zs:recordPacking><zs:recordData><record xmlns="http://www.loc.gov/MARC21/slim">
+  <leader>xxxxxnaa a22yyyyy c 4500</leader>
+  <controlfield tag="001">1023561530</controlfield>
+  <controlfield tag="003">DE-601</controlfield>
+  <controlfield tag="005">20180531151256.0</controlfield>
+  <controlfield tag="008">180531s2018                  000 0 ger d</controlfield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="a">(DE-599)GBV1023561530</subfield>
+  </datafield>
+  <datafield tag="040" ind1=" " ind2=" ">
+    <subfield code="b">ger</subfield>
+    <subfield code="c">GBVCP</subfield>
+    <subfield code="e">rda</subfield>
+  </datafield>
+  <datafield tag="041" ind1="0" ind2=" ">
+    <subfield code="a">ger</subfield>
+  </datafield>
+  <datafield tag="100" ind1="1" ind2=" ">
+    <subfield code="a">Hartl, Florian</subfield>
+    <subfield code="e">VerfasserIn</subfield>
+    <subfield code="4">aut</subfield>
+  </datafield>
+  <datafield tag="245" ind1="1" ind2="0">
+    <subfield code="a">Online Identifikation von Laufunruhe an einem Vierzylinder Otto DI Motor als Beitrag zur Überwachung des SOH und zur prädiktiven Wartung</subfield>
+    <subfield code="c">Florian Hartl, Andreas Dlask, Dr.-Ing. Sebastian Grasreiner, Axel Pöltenstein</subfield>
+  </datafield>
+  <datafield tag="300" ind1=" " ind2=" ">
+    <subfield code="b">Illustrationen</subfield>
+  </datafield>
+  <datafield tag="336" ind1=" " ind2=" ">
+    <subfield code="a">Text</subfield>
+    <subfield code="b">txt</subfield>
+    <subfield code="2">rdacontent</subfield>
+  </datafield>
+  <datafield tag="337" ind1=" " ind2=" ">
+    <subfield code="a">ohne Hilfsmittel zu benutzen</subfield>
+    <subfield code="b">n</subfield>
+    <subfield code="2">rdamedia</subfield>
+  </datafield>
+  <datafield tag="338" ind1=" " ind2=" ">
+    <subfield code="a">Band</subfield>
+    <subfield code="b">nc</subfield>
+    <subfield code="2">rdacarrier</subfield>
+  </datafield>
+  <datafield tag="500" ind1=" " ind2=" ">
+    <subfield code="a">Literaturangaben</subfield>
+  </datafield>
+  <datafield tag="700" ind1="1" ind2=" ">
+    <subfield code="a">Dlask, Andreas</subfield>
+    <subfield code="e">VerfasserIn</subfield>
+    <subfield code="4">aut</subfield>
+  </datafield>
+  <datafield tag="700" ind1="1" ind2=" ">
+    <subfield code="a">Grasreiner, Sebastian</subfield>
+    <subfield code="e">VerfasserIn</subfield>
+    <subfield code="4">aut</subfield>
+  </datafield>
+  <datafield tag="700" ind1="1" ind2=" ">
+    <subfield code="a">Pöltenstein, Axel</subfield>
+  </datafield>
+  <datafield tag="773" ind1="0" ind2="8">
+    <subfield code="i">Enthalten in</subfield>
+    <subfield code="t">Diagnose in mechatronischen Fahrzeugsystemen XII : Neue Verfahren für Test, Prüfung und Diagnose von E/E-Systemen im Kfz</subfield>
+    <subfield code="d">Dresden : TUDpress</subfield>
+    <subfield code="g">(2018), p. 202-217</subfield>
+    <subfield code="q">&lt;202-217</subfield>
+    <subfield code="w">(DE-601)102091145X</subfield>
+    <subfield code="z">3-95908-132-4</subfield>
+    <subfield code="z">978-3-95908-132-0</subfield>
+  </datafield>
+  <datafield tag="900" ind1=" " ind2=" ">
+    <subfield code="a">GBV</subfield>
+    <subfield code="b">Ostfalia Wolfenbuettel &lt;916&gt;</subfield>
+  </datafield>
+  <datafield tag="952" ind1=" " ind2=" ">
+    <subfield code="j">2018</subfield>
+    <subfield code="h">202-217</subfield>
+  </datafield>
+  <datafield tag="954" ind1=" " ind2=" ">
+    <subfield code="0">Ostfalia Wolfenbuettel &lt;916&gt;</subfield>
+    <subfield code="a">164</subfield>
+    <subfield code="b">177305841X</subfield>
+    <subfield code="c">03</subfield>
+    <subfield code="x">0916</subfield>
+  </datafield>
+</record></zs:recordData><zs:recordPosition>7</zs:recordPosition></zs:record><zs:record><zs:recordSchema>marcxml</zs:recordSchema><zs:recordPacking>xml</zs:recordPacking><zs:recordData><record xmlns="http://www.loc.gov/MARC21/slim">
+  <leader>xxxxxnaa a22yyyyy c 4500</leader>
+  <controlfield tag="001">1023561239</controlfield>
+  <controlfield tag="003">DE-601</controlfield>
+  <controlfield tag="005">20180531150802.0</controlfield>
+  <controlfield tag="008">180531s2018                  000 0 ger d</controlfield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="a">(DE-599)GBV1023561239</subfield>
+  </datafield>
+  <datafield tag="040" ind1=" " ind2=" ">
+    <subfield code="b">ger</subfield>
+    <subfield code="c">GBVCP</subfield>
+    <subfield code="e">rda</subfield>
+  </datafield>
+  <datafield tag="041" ind1="0" ind2=" ">
+    <subfield code="a">ger</subfield>
+  </datafield>
+  <datafield tag="100" ind1="1" ind2=" ">
+    <subfield code="a">Jähnel, Tobias</subfield>
+    <subfield code="e">VerfasserIn</subfield>
+    <subfield code="4">aut</subfield>
+  </datafield>
+  <datafield tag="245" ind1="1" ind2="0">
+    <subfield code="a">An open source CAN diagnostic vehicle simulator for Raspberry Pi</subfield>
+    <subfield code="c">Tobias Jähnel, Marc Riese</subfield>
+  </datafield>
+  <datafield tag="300" ind1=" " ind2=" ">
+    <subfield code="b">Illustrationen</subfield>
+  </datafield>
+  <datafield tag="336" ind1=" " ind2=" ">
+    <subfield code="a">Text</subfield>
+    <subfield code="b">txt</subfield>
+    <subfield code="2">rdacontent</subfield>
+  </datafield>
+  <datafield tag="337" ind1=" " ind2=" ">
+    <subfield code="a">ohne Hilfsmittel zu benutzen</subfield>
+    <subfield code="b">n</subfield>
+    <subfield code="2">rdamedia</subfield>
+  </datafield>
+  <datafield tag="338" ind1=" " ind2=" ">
+    <subfield code="a">Band</subfield>
+    <subfield code="b">nc</subfield>
+    <subfield code="2">rdacarrier</subfield>
+  </datafield>
+  <datafield tag="500" ind1=" " ind2=" ">
+    <subfield code="a">Literaturangaben</subfield>
+  </datafield>
+  <datafield tag="700" ind1="1" ind2=" ">
+    <subfield code="a">Riese, Marc</subfield>
+    <subfield code="e">VerfasserIn</subfield>
+    <subfield code="4">aut</subfield>
+  </datafield>
+  <datafield tag="773" ind1="0" ind2="8">
+    <subfield code="i">Enthalten in</subfield>
+    <subfield code="t">Diagnose in mechatronischen Fahrzeugsystemen XII : Neue Verfahren für Test, Prüfung und Diagnose von E/E-Systemen im Kfz</subfield>
+    <subfield code="d">Dresden : TUDpress</subfield>
+    <subfield code="g">(2018), p. 185-201</subfield>
+    <subfield code="q">&lt;185-201</subfield>
+    <subfield code="w">(DE-601)102091145X</subfield>
+    <subfield code="z">3-95908-132-4</subfield>
+    <subfield code="z">978-3-95908-132-0</subfield>
+  </datafield>
+  <datafield tag="900" ind1=" " ind2=" ">
+    <subfield code="a">GBV</subfield>
+    <subfield code="b">Ostfalia Wolfenbuettel &lt;916&gt;</subfield>
+  </datafield>
+  <datafield tag="952" ind1=" " ind2=" ">
+    <subfield code="j">2018</subfield>
+    <subfield code="h">185-201</subfield>
+  </datafield>
+  <datafield tag="954" ind1=" " ind2=" ">
+    <subfield code="0">Ostfalia Wolfenbuettel &lt;916&gt;</subfield>
+    <subfield code="a">164</subfield>
+    <subfield code="b">1773057677</subfield>
+    <subfield code="c">03</subfield>
+    <subfield code="x">0916</subfield>
+  </datafield>
+</record></zs:recordData><zs:recordPosition>8</zs:recordPosition></zs:record><zs:record><zs:recordSchema>marcxml</zs:recordSchema><zs:recordPacking>xml</zs:recordPacking><zs:recordData><record xmlns="http://www.loc.gov/MARC21/slim">
+  <leader>xxxxxnaa a22yyyyy c 4500</leader>
+  <controlfield tag="001">1023561042</controlfield>
+  <controlfield tag="003">DE-601</controlfield>
+  <controlfield tag="005">20180531150448.0</controlfield>
+  <controlfield tag="008">180531s2018                  000 0 ger d</controlfield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="a">(DE-599)GBV1023561042</subfield>
+  </datafield>
+  <datafield tag="040" ind1=" " ind2=" ">
+    <subfield code="b">ger</subfield>
+    <subfield code="c">GBVCP</subfield>
+    <subfield code="e">rda</subfield>
+  </datafield>
+  <datafield tag="041" ind1="0" ind2=" ">
+    <subfield code="a">ger</subfield>
+  </datafield>
+  <datafield tag="100" ind1="1" ind2=" ">
+    <subfield code="a">Richter, Jens</subfield>
+    <subfield code="e">VerfasserIn</subfield>
+    <subfield code="4">aut</subfield>
+  </datafield>
+  <datafield tag="245" ind1="1" ind2="0">
+    <subfield code="a">Automatisierte Generierung von Diagnosemodellen</subfield>
+    <subfield code="c">Dipl.-Ing. Jens Richter, Dipl.-Ing. Andreas Unger, Prof. Dr.-Ing. Bernard Bäker [und 2 andere]</subfield>
+  </datafield>
+  <datafield tag="300" ind1=" " ind2=" ">
+    <subfield code="b">Illustrationen, Diagramm</subfield>
+  </datafield>
+  <datafield tag="336" ind1=" " ind2=" ">
+    <subfield code="a">Text</subfield>
+    <subfield code="b">txt</subfield>
+    <subfield code="2">rdacontent</subfield>
+  </datafield>
+  <datafield tag="337" ind1=" " ind2=" ">
+    <subfield code="a">ohne Hilfsmittel zu benutzen</subfield>
+    <subfield code="b">n</subfield>
+    <subfield code="2">rdamedia</subfield>
+  </datafield>
+  <datafield tag="338" ind1=" " ind2=" ">
+    <subfield code="a">Band</subfield>
+    <subfield code="b">nc</subfield>
+    <subfield code="2">rdacarrier</subfield>
+  </datafield>
+  <datafield tag="500" ind1=" " ind2=" ">
+    <subfield code="a">Literaturangaben</subfield>
+  </datafield>
+  <datafield tag="700" ind1="1" ind2=" ">
+    <subfield code="a">Unger, Andreas</subfield>
+    <subfield code="e">VerfasserIn</subfield>
+    <subfield code="4">aut</subfield>
+  </datafield>
+  <datafield tag="700" ind1="1" ind2=" ">
+    <subfield code="a">Bäker, Bernard</subfield>
+    <subfield code="e">VerfasserIn</subfield>
+    <subfield code="4">aut</subfield>
+    <subfield code="0">(DE-601)515797227</subfield>
+    <subfield code="0">(DE-588)120589125</subfield>
+  </datafield>
+  <datafield tag="773" ind1="0" ind2="8">
+    <subfield code="i">Enthalten in</subfield>
+    <subfield code="t">Diagnose in mechatronischen Fahrzeugsystemen XII : Neue Verfahren für Test, Prüfung und Diagnose von E/E-Systemen im Kfz</subfield>
+    <subfield code="d">Dresden : TUDpress</subfield>
+    <subfield code="g">(2018), p. 166-184</subfield>
+    <subfield code="q">&lt;166-184</subfield>
+    <subfield code="w">(DE-601)102091145X</subfield>
+    <subfield code="z">3-95908-132-4</subfield>
+    <subfield code="z">978-3-95908-132-0</subfield>
+  </datafield>
+  <datafield tag="900" ind1=" " ind2=" ">
+    <subfield code="a">GBV</subfield>
+    <subfield code="b">Ostfalia Wolfenbuettel &lt;916&gt;</subfield>
+  </datafield>
+  <datafield tag="952" ind1=" " ind2=" ">
+    <subfield code="j">2018</subfield>
+    <subfield code="h">166-184</subfield>
+  </datafield>
+  <datafield tag="954" ind1=" " ind2=" ">
+    <subfield code="0">Ostfalia Wolfenbuettel &lt;916&gt;</subfield>
+    <subfield code="a">164</subfield>
+    <subfield code="b">1773057146</subfield>
+    <subfield code="c">03</subfield>
+    <subfield code="x">0916</subfield>
+  </datafield>
+</record></zs:recordData><zs:recordPosition>9</zs:recordPosition></zs:record><zs:record><zs:recordSchema>marcxml</zs:recordSchema><zs:recordPacking>xml</zs:recordPacking><zs:recordData><record xmlns="http://www.loc.gov/MARC21/slim">
+  <leader>xxxxxnaa a22yyyyy c 4500</leader>
+  <controlfield tag="001">102356078X</controlfield>
+  <controlfield tag="003">DE-601</controlfield>
+  <controlfield tag="005">20180531150044.0</controlfield>
+  <controlfield tag="008">180531s2018                  000 0 ger d</controlfield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="a">(DE-599)GBV102356078X</subfield>
+  </datafield>
+  <datafield tag="040" ind1=" " ind2=" ">
+    <subfield code="b">ger</subfield>
+    <subfield code="c">GBVCP</subfield>
+    <subfield code="e">rda</subfield>
+  </datafield>
+  <datafield tag="041" ind1="0" ind2=" ">
+    <subfield code="a">ger</subfield>
+  </datafield>
+  <datafield tag="100" ind1="1" ind2=" ">
+    <subfield code="a">Rupalla, Armin</subfield>
+    <subfield code="e">VerfasserIn</subfield>
+    <subfield code="4">aut</subfield>
+  </datafield>
+  <datafield tag="245" ind1="1" ind2="0">
+    <subfield code="a">ASAM-Telematik-Referenzarchitektur für die Entwicklung von hochautomatisierten und autonomen Fahrzeugen</subfield>
+    <subfield code="c">Armin Rupalla, Thomas Kotschreuther</subfield>
+  </datafield>
+  <datafield tag="300" ind1=" " ind2=" ">
+    <subfield code="b">Illustrationen</subfield>
+  </datafield>
+  <datafield tag="336" ind1=" " ind2=" ">
+    <subfield code="a">Text</subfield>
+    <subfield code="b">txt</subfield>
+    <subfield code="2">rdacontent</subfield>
+  </datafield>
+  <datafield tag="337" ind1=" " ind2=" ">
+    <subfield code="a">ohne Hilfsmittel zu benutzen</subfield>
+    <subfield code="b">n</subfield>
+    <subfield code="2">rdamedia</subfield>
+  </datafield>
+  <datafield tag="338" ind1=" " ind2=" ">
+    <subfield code="a">Band</subfield>
+    <subfield code="b">nc</subfield>
+    <subfield code="2">rdacarrier</subfield>
+  </datafield>
+  <datafield tag="500" ind1=" " ind2=" ">
+    <subfield code="a">Literaturangaben</subfield>
+  </datafield>
+  <datafield tag="700" ind1="1" ind2=" ">
+    <subfield code="a">Kotschenreuther, Thomas</subfield>
+    <subfield code="e">VerfasserIn</subfield>
+    <subfield code="4">aut</subfield>
+  </datafield>
+  <datafield tag="773" ind1="0" ind2="8">
+    <subfield code="i">Enthalten in</subfield>
+    <subfield code="t">Diagnose in mechatronischen Fahrzeugsystemen XII : Neue Verfahren für Test, Prüfung und Diagnose von E/E-Systemen im Kfz</subfield>
+    <subfield code="d">Dresden : TUDpress</subfield>
+    <subfield code="g">(2018), p. 153-165</subfield>
+    <subfield code="q">&lt;153-165</subfield>
+    <subfield code="w">(DE-601)102091145X</subfield>
+    <subfield code="z">3-95908-132-4</subfield>
+    <subfield code="z">978-3-95908-132-0</subfield>
+  </datafield>
+  <datafield tag="900" ind1=" " ind2=" ">
+    <subfield code="a">GBV</subfield>
+    <subfield code="b">Ostfalia Wolfenbuettel &lt;916&gt;</subfield>
+  </datafield>
+  <datafield tag="952" ind1=" " ind2=" ">
+    <subfield code="j">2018</subfield>
+    <subfield code="h">153-165</subfield>
+  </datafield>
+  <datafield tag="954" ind1=" " ind2=" ">
+    <subfield code="0">Ostfalia Wolfenbuettel &lt;916&gt;</subfield>
+    <subfield code="a">164</subfield>
+    <subfield code="b">1773056395</subfield>
+    <subfield code="c">03</subfield>
+    <subfield code="x">0916</subfield>
+  </datafield>
+</record></zs:recordData><zs:recordPosition>10</zs:recordPosition></zs:record><zs:record><zs:recordSchema>marcxml</zs:recordSchema><zs:recordPacking>xml</zs:recordPacking><zs:recordData><record xmlns="http://www.loc.gov/MARC21/slim">
+  <leader>xxxxxnaa a22yyyyy c 4500</leader>
+  <controlfield tag="001">1023560496</controlfield>
+  <controlfield tag="003">DE-601</controlfield>
+  <controlfield tag="005">20180531145800.0</controlfield>
+  <controlfield tag="008">180531s2018                  000 0 ger d</controlfield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="a">(DE-599)GBV1023560496</subfield>
+  </datafield>
+  <datafield tag="040" ind1=" " ind2=" ">
+    <subfield code="b">ger</subfield>
+    <subfield code="c">GBVCP</subfield>
+    <subfield code="e">rda</subfield>
+  </datafield>
+  <datafield tag="041" ind1="0" ind2=" ">
+    <subfield code="a">ger</subfield>
+  </datafield>
+  <datafield tag="100" ind1="1" ind2=" ">
+    <subfield code="a">Hartwig, Andreas</subfield>
+    <subfield code="e">VerfasserIn</subfield>
+    <subfield code="4">aut</subfield>
+  </datafield>
+  <datafield tag="245" ind1="1" ind2="0">
+    <subfield code="a">Welweiter Service mit webbasierter, kooperativer Diagnose</subfield>
+    <subfield code="c">Andreas Hartwig, Dr. Roman Cunis</subfield>
+  </datafield>
+  <datafield tag="300" ind1=" " ind2=" ">
+    <subfield code="b">Illustrationen</subfield>
+  </datafield>
+  <datafield tag="336" ind1=" " ind2=" ">
+    <subfield code="a">Text</subfield>
+    <subfield code="b">txt</subfield>
+    <subfield code="2">rdacontent</subfield>
+  </datafield>
+  <datafield tag="337" ind1=" " ind2=" ">
+    <subfield code="a">ohne Hilfsmittel zu benutzen</subfield>
+    <subfield code="b">n</subfield>
+    <subfield code="2">rdamedia</subfield>
+  </datafield>
+  <datafield tag="338" ind1=" " ind2=" ">
+    <subfield code="a">Band</subfield>
+    <subfield code="b">nc</subfield>
+    <subfield code="2">rdacarrier</subfield>
+  </datafield>
+  <datafield tag="700" ind1="1" ind2=" ">
+    <subfield code="a">Cunis, Roman</subfield>
+    <subfield code="e">VerfasserIn</subfield>
+    <subfield code="4">aut</subfield>
+  </datafield>
+  <datafield tag="773" ind1="0" ind2="8">
+    <subfield code="i">Enthalten in</subfield>
+    <subfield code="t">Diagnose in mechatronischen Fahrzeugsystemen XII : Neue Verfahren für Test, Prüfung und Diagnose von E/E-Systemen im Kfz</subfield>
+    <subfield code="d">Dresden : TUDpress</subfield>
+    <subfield code="g">(2018), p. 144-152</subfield>
+    <subfield code="q">&lt;144-152</subfield>
+    <subfield code="w">(DE-601)102091145X</subfield>
+    <subfield code="z">3-95908-132-4</subfield>
+    <subfield code="z">978-3-95908-132-0</subfield>
+  </datafield>
+  <datafield tag="900" ind1=" " ind2=" ">
+    <subfield code="a">GBV</subfield>
+    <subfield code="b">Ostfalia Wolfenbuettel &lt;916&gt;</subfield>
+  </datafield>
+  <datafield tag="952" ind1=" " ind2=" ">
+    <subfield code="j">2018</subfield>
+    <subfield code="h">144-152</subfield>
+  </datafield>
+  <datafield tag="954" ind1=" " ind2=" ">
+    <subfield code="0">Ostfalia Wolfenbuettel &lt;916&gt;</subfield>
+    <subfield code="a">164</subfield>
+    <subfield code="b">1773055720</subfield>
+    <subfield code="c">03</subfield>
+    <subfield code="x">0916</subfield>
+  </datafield>
+</record></zs:recordData><zs:recordPosition>11</zs:recordPosition></zs:record><zs:record><zs:recordSchema>marcxml</zs:recordSchema><zs:recordPacking>xml</zs:recordPacking><zs:recordData><record xmlns="http://www.loc.gov/MARC21/slim">
+  <leader>xxxxxnaa a22yyyyy c 4500</leader>
+  <controlfield tag="001">1023560313</controlfield>
+  <controlfield tag="003">DE-601</controlfield>
+  <controlfield tag="005">20180531145514.0</controlfield>
+  <controlfield tag="008">180531s2018                  000 0 ger d</controlfield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="a">(DE-599)GBV1023560313</subfield>
+  </datafield>
+  <datafield tag="040" ind1=" " ind2=" ">
+    <subfield code="b">ger</subfield>
+    <subfield code="c">GBVCP</subfield>
+    <subfield code="e">rda</subfield>
+  </datafield>
+  <datafield tag="041" ind1="0" ind2=" ">
+    <subfield code="a">ger</subfield>
+  </datafield>
+  <datafield tag="100" ind1="1" ind2=" ">
+    <subfield code="a">Schröder, Thorsten</subfield>
+    <subfield code="e">VerfasserIn</subfield>
+    <subfield code="4">aut</subfield>
+  </datafield>
+  <datafield tag="245" ind1="1" ind2="0">
+    <subfield code="a">Future Smart Service</subfield>
+    <subfield code="b">die Digitalisierung des After Sales</subfield>
+    <subfield code="c">Dr.-Ing. Thorsten Schröder, Dr.-Ing. Alexander Roy, Holger Nitsche</subfield>
+  </datafield>
+  <datafield tag="300" ind1=" " ind2=" ">
+    <subfield code="b">Illustrationen</subfield>
+  </datafield>
+  <datafield tag="336" ind1=" " ind2=" ">
+    <subfield code="a">Text</subfield>
+    <subfield code="b">txt</subfield>
+    <subfield code="2">rdacontent</subfield>
+  </datafield>
+  <datafield tag="337" ind1=" " ind2=" ">
+    <subfield code="a">ohne Hilfsmittel zu benutzen</subfield>
+    <subfield code="b">n</subfield>
+    <subfield code="2">rdamedia</subfield>
+  </datafield>
+  <datafield tag="338" ind1=" " ind2=" ">
+    <subfield code="a">Band</subfield>
+    <subfield code="b">nc</subfield>
+    <subfield code="2">rdacarrier</subfield>
+  </datafield>
+  <datafield tag="700" ind1="1" ind2=" ">
+    <subfield code="a">Roy, Alexander</subfield>
+    <subfield code="e">VerfasserIn</subfield>
+    <subfield code="4">aut</subfield>
+  </datafield>
+  <datafield tag="700" ind1="1" ind2=" ">
+    <subfield code="a">Nitsche, Holger</subfield>
+    <subfield code="e">VerfasserIn</subfield>
+    <subfield code="4">aut</subfield>
+  </datafield>
+  <datafield tag="773" ind1="0" ind2="8">
+    <subfield code="i">Enthalten in</subfield>
+    <subfield code="t">Diagnose in mechatronischen Fahrzeugsystemen XII : Neue Verfahren für Test, Prüfung und Diagnose von E/E-Systemen im Kfz</subfield>
+    <subfield code="d">Dresden : TUDpress</subfield>
+    <subfield code="g">(2018), p. 132-143</subfield>
+    <subfield code="q">&lt;132-143</subfield>
+    <subfield code="w">(DE-601)102091145X</subfield>
+    <subfield code="z">3-95908-132-4</subfield>
+    <subfield code="z">978-3-95908-132-0</subfield>
+  </datafield>
+  <datafield tag="900" ind1=" " ind2=" ">
+    <subfield code="a">GBV</subfield>
+    <subfield code="b">Ostfalia Wolfenbuettel &lt;916&gt;</subfield>
+  </datafield>
+  <datafield tag="952" ind1=" " ind2=" ">
+    <subfield code="j">2018</subfield>
+    <subfield code="h">132-143</subfield>
+  </datafield>
+  <datafield tag="954" ind1=" " ind2=" ">
+    <subfield code="0">Ostfalia Wolfenbuettel &lt;916&gt;</subfield>
+    <subfield code="a">164</subfield>
+    <subfield code="b">1773055100</subfield>
+    <subfield code="c">03</subfield>
+    <subfield code="x">0916</subfield>
+  </datafield>
+</record></zs:recordData><zs:recordPosition>12</zs:recordPosition></zs:record><zs:record><zs:recordSchema>marcxml</zs:recordSchema><zs:recordPacking>xml</zs:recordPacking><zs:recordData><record xmlns="http://www.loc.gov/MARC21/slim">
+  <leader>xxxxxnaa a22yyyyy c 4500</leader>
+  <controlfield tag="001">1023559528</controlfield>
+  <controlfield tag="003">DE-601</controlfield>
+  <controlfield tag="005">20180531144428.0</controlfield>
+  <controlfield tag="008">180531s2018                  000 0 ger d</controlfield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="a">(DE-599)GBV1023559528</subfield>
+  </datafield>
+  <datafield tag="040" ind1=" " ind2=" ">
+    <subfield code="b">ger</subfield>
+    <subfield code="c">GBVCP</subfield>
+    <subfield code="e">rda</subfield>
+  </datafield>
+  <datafield tag="041" ind1="0" ind2=" ">
+    <subfield code="a">ger</subfield>
+  </datafield>
+  <datafield tag="100" ind1="1" ind2=" ">
+    <subfield code="a">Gutenkunst, Christian</subfield>
+    <subfield code="e">VerfasserIn</subfield>
+    <subfield code="4">aut</subfield>
+  </datafield>
+  <datafield tag="245" ind1="1" ind2="0">
+    <subfield code="a">Validierung von hochautomatisierten Fahrerassistenzsystemen am Fahrzeugprüfstand</subfield>
+    <subfield code="c">Christian Gutenkunst, Dr.-Ing. Christian Schyr</subfield>
+  </datafield>
+  <datafield tag="300" ind1=" " ind2=" ">
+    <subfield code="b">Illustrationen</subfield>
+  </datafield>
+  <datafield tag="336" ind1=" " ind2=" ">
+    <subfield code="a">Text</subfield>
+    <subfield code="b">txt</subfield>
+    <subfield code="2">rdacontent</subfield>
+  </datafield>
+  <datafield tag="337" ind1=" " ind2=" ">
+    <subfield code="a">ohne Hilfsmittel zu benutzen</subfield>
+    <subfield code="b">n</subfield>
+    <subfield code="2">rdamedia</subfield>
+  </datafield>
+  <datafield tag="338" ind1=" " ind2=" ">
+    <subfield code="a">Band</subfield>
+    <subfield code="b">nc</subfield>
+    <subfield code="2">rdacarrier</subfield>
+  </datafield>
+  <datafield tag="500" ind1=" " ind2=" ">
+    <subfield code="a">Literaturangaben</subfield>
+  </datafield>
+  <datafield tag="773" ind1="0" ind2="8">
+    <subfield code="i">Enthalten in</subfield>
+    <subfield code="t">Diagnose in mechatronischen Fahrzeugsystemen XII : Neue Verfahren für Test, Prüfung und Diagnose von E/E-Systemen im Kfz</subfield>
+    <subfield code="d">Dresden : TUDpress</subfield>
+    <subfield code="g">(2018), p. 116-131</subfield>
+    <subfield code="q">&lt;116-131</subfield>
+    <subfield code="w">(DE-601)102091145X</subfield>
+    <subfield code="z">3-95908-132-4</subfield>
+    <subfield code="z">978-3-95908-132-0</subfield>
+  </datafield>
+  <datafield tag="900" ind1=" " ind2=" ">
+    <subfield code="a">GBV</subfield>
+    <subfield code="b">Ostfalia Wolfenbuettel &lt;916&gt;</subfield>
+  </datafield>
+  <datafield tag="952" ind1=" " ind2=" ">
+    <subfield code="j">2018</subfield>
+    <subfield code="h">116-131</subfield>
+  </datafield>
+  <datafield tag="954" ind1=" " ind2=" ">
+    <subfield code="0">Ostfalia Wolfenbuettel &lt;916&gt;</subfield>
+    <subfield code="a">164</subfield>
+    <subfield code="b">1773053116</subfield>
+    <subfield code="c">03</subfield>
+    <subfield code="x">0916</subfield>
+  </datafield>
+</record></zs:recordData><zs:recordPosition>13</zs:recordPosition></zs:record><zs:record><zs:recordSchema>marcxml</zs:recordSchema><zs:recordPacking>xml</zs:recordPacking><zs:recordData><record xmlns="http://www.loc.gov/MARC21/slim">
+  <leader>xxxxxnaa a22yyyyy c 4500</leader>
+  <controlfield tag="001">102355934X</controlfield>
+  <controlfield tag="003">DE-601</controlfield>
+  <controlfield tag="005">20180531144159.0</controlfield>
+  <controlfield tag="008">180531s2018                  000 0 ger d</controlfield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="a">(DE-599)GBV102355934X</subfield>
+  </datafield>
+  <datafield tag="040" ind1=" " ind2=" ">
+    <subfield code="b">ger</subfield>
+    <subfield code="c">GBVCP</subfield>
+    <subfield code="e">rda</subfield>
+  </datafield>
+  <datafield tag="041" ind1="0" ind2=" ">
+    <subfield code="a">ger</subfield>
+  </datafield>
+  <datafield tag="100" ind1="1" ind2=" ">
+    <subfield code="a">Stoß, Peter</subfield>
+    <subfield code="e">VerfasserIn</subfield>
+    <subfield code="4">aut</subfield>
+  </datafield>
+  <datafield tag="245" ind1="1" ind2="0">
+    <subfield code="a">Konformitätstest für WWH-OBD nach ISO 27145</subfield>
+    <subfield code="c">Dipl.-Ing. Peter Stoß</subfield>
+  </datafield>
+  <datafield tag="300" ind1=" " ind2=" ">
+    <subfield code="b">Illustrationen</subfield>
+  </datafield>
+  <datafield tag="336" ind1=" " ind2=" ">
+    <subfield code="a">Text</subfield>
+    <subfield code="b">txt</subfield>
+    <subfield code="2">rdacontent</subfield>
+  </datafield>
+  <datafield tag="337" ind1=" " ind2=" ">
+    <subfield code="a">ohne Hilfsmittel zu benutzen</subfield>
+    <subfield code="b">n</subfield>
+    <subfield code="2">rdamedia</subfield>
+  </datafield>
+  <datafield tag="338" ind1=" " ind2=" ">
+    <subfield code="a">Band</subfield>
+    <subfield code="b">nc</subfield>
+    <subfield code="2">rdacarrier</subfield>
+  </datafield>
+  <datafield tag="500" ind1=" " ind2=" ">
+    <subfield code="a">Literaturangaben</subfield>
+  </datafield>
+  <datafield tag="773" ind1="0" ind2="8">
+    <subfield code="i">Enthalten in</subfield>
+    <subfield code="t">Diagnose in mechatronischen Fahrzeugsystemen XII : Neue Verfahren für Test, Prüfung und Diagnose von E/E-Systemen im Kfz</subfield>
+    <subfield code="d">Dresden : TUDpress</subfield>
+    <subfield code="g">(2018), p. 104-115</subfield>
+    <subfield code="q">&lt;104-115</subfield>
+    <subfield code="w">(DE-601)102091145X</subfield>
+    <subfield code="z">3-95908-132-4</subfield>
+    <subfield code="z">978-3-95908-132-0</subfield>
+  </datafield>
+  <datafield tag="900" ind1=" " ind2=" ">
+    <subfield code="a">GBV</subfield>
+    <subfield code="b">Ostfalia Wolfenbuettel &lt;916&gt;</subfield>
+  </datafield>
+  <datafield tag="952" ind1=" " ind2=" ">
+    <subfield code="j">2018</subfield>
+    <subfield code="h">104-115</subfield>
+  </datafield>
+  <datafield tag="954" ind1=" " ind2=" ">
+    <subfield code="0">Ostfalia Wolfenbuettel &lt;916&gt;</subfield>
+    <subfield code="a">164</subfield>
+    <subfield code="b">1773052713</subfield>
+    <subfield code="c">03</subfield>
+    <subfield code="x">0916</subfield>
+  </datafield>
+</record></zs:recordData><zs:recordPosition>14</zs:recordPosition></zs:record><zs:record><zs:recordSchema>marcxml</zs:recordSchema><zs:recordPacking>xml</zs:recordPacking><zs:recordData><record xmlns="http://www.loc.gov/MARC21/slim">
+  <leader>xxxxxnaa a22yyyyy c 4500</leader>
+  <controlfield tag="001">1023559145</controlfield>
+  <controlfield tag="003">DE-601</controlfield>
+  <controlfield tag="005">20180531143950.0</controlfield>
+  <controlfield tag="008">180531s2018                  000 0 ger d</controlfield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="a">(DE-599)GBV1023559145</subfield>
+  </datafield>
+  <datafield tag="040" ind1=" " ind2=" ">
+    <subfield code="b">ger</subfield>
+    <subfield code="c">GBVCP</subfield>
+    <subfield code="e">rda</subfield>
+  </datafield>
+  <datafield tag="041" ind1="0" ind2=" ">
+    <subfield code="a">ger</subfield>
+  </datafield>
+  <datafield tag="100" ind1="1" ind2=" ">
+    <subfield code="a">Hanc, Marjan</subfield>
+    <subfield code="e">VerfasserIn</subfield>
+    <subfield code="4">aut</subfield>
+  </datafield>
+  <datafield tag="245" ind1="1" ind2="0">
+    <subfield code="a">OTX in lokalen und Remote-Anwendungsfällen</subfield>
+    <subfield code="c">Dipl.-Ing. Marjan Hanc, Dipl.-Ing. (FH) Markus Steffelbauer</subfield>
+  </datafield>
+  <datafield tag="300" ind1=" " ind2=" ">
+    <subfield code="b">Illustrationen</subfield>
+  </datafield>
+  <datafield tag="336" ind1=" " ind2=" ">
+    <subfield code="a">Text</subfield>
+    <subfield code="b">txt</subfield>
+    <subfield code="2">rdacontent</subfield>
+  </datafield>
+  <datafield tag="337" ind1=" " ind2=" ">
+    <subfield code="a">ohne Hilfsmittel zu benutzen</subfield>
+    <subfield code="b">n</subfield>
+    <subfield code="2">rdamedia</subfield>
+  </datafield>
+  <datafield tag="338" ind1=" " ind2=" ">
+    <subfield code="a">Band</subfield>
+    <subfield code="b">nc</subfield>
+    <subfield code="2">rdacarrier</subfield>
+  </datafield>
+  <datafield tag="500" ind1=" " ind2=" ">
+    <subfield code="a">Literaturangaben</subfield>
+  </datafield>
+  <datafield tag="700" ind1="1" ind2=" ">
+    <subfield code="a">Steffelbauer, Markus</subfield>
+    <subfield code="e">VerfasserIn</subfield>
+    <subfield code="4">aut</subfield>
+  </datafield>
+  <datafield tag="773" ind1="0" ind2="8">
+    <subfield code="i">Enthalten in</subfield>
+    <subfield code="t">Diagnose in mechatronischen Fahrzeugsystemen XII : Neue Verfahren für Test, Prüfung und Diagnose von E/E-Systemen im Kfz</subfield>
+    <subfield code="d">Dresden : TUDpress</subfield>
+    <subfield code="g">(2018), p. 90-103</subfield>
+    <subfield code="q">&lt;90-103</subfield>
+    <subfield code="w">(DE-601)102091145X</subfield>
+    <subfield code="z">3-95908-132-4</subfield>
+    <subfield code="z">978-3-95908-132-0</subfield>
+  </datafield>
+  <datafield tag="900" ind1=" " ind2=" ">
+    <subfield code="a">GBV</subfield>
+    <subfield code="b">Ostfalia Wolfenbuettel &lt;916&gt;</subfield>
+  </datafield>
+  <datafield tag="952" ind1=" " ind2=" ">
+    <subfield code="j">2018</subfield>
+    <subfield code="h">90-103</subfield>
+  </datafield>
+  <datafield tag="954" ind1=" " ind2=" ">
+    <subfield code="0">Ostfalia Wolfenbuettel &lt;916&gt;</subfield>
+    <subfield code="a">164</subfield>
+    <subfield code="b">1773052314</subfield>
+    <subfield code="c">03</subfield>
+    <subfield code="x">0916</subfield>
+  </datafield>
+</record></zs:recordData><zs:recordPosition>15</zs:recordPosition></zs:record></zs:records><zs:echoedSearchRetrieveRequest><zs:version>1.1</zs:version><zs:query>pica.tit=test</zs:query><zs:maximumRecords>15</zs:maximumRecords><zs:recordPacking>xml</zs:recordPacking><zs:recordSchema>marcxml</zs:recordSchema></zs:echoedSearchRetrieveRequest></zs:searchRetrieveResponse>

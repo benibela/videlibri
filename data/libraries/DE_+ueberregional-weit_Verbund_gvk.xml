@@ -8,8 +8,8 @@
 
   <template value="sru"/>
   <variable name="baseurl" value="http://sru.gbv.de/gvk"/>
-  <variable name="searchKeys" value="pica.tit;pica.prs;pica.isb;pica.jah;pica.slw"/>
-  <variable name="recordSchema" value="marcxml"/>  
+<!--  <variable name="searchKeys" value="pica.tit;pica.prs;pica.isb;pica.jah;pica.slw"/>
+  <variable name="recordSchema" value="marcxml"/>  -->
  <!-- <template value="pica"/>  
   <variable name="server" value="http://gso.gbv.de"/>
   <variable name="picadb" value="2.1"/>-->

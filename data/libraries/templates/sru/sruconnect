@@ -1,0 +1,34 @@
+<explain>{
+  (*:serverInfo[@protocol="SRU"])[1]/@version!($sruVersion := string()),
+  
+  let $indices := *:indexInfo/*:index/*:map/*:name
+  let $pica-indices := $indices[@set="pica"]/string()
+  let $dc-indices := $indices[@set="dc"]/string()
+  let $pica-prefix := "pica."
+  let $dc-prefix := "dc."
+  return $searchKeys := {
+    "title": (("tit")[. = $pica-indices]!($pica-prefix||.), 
+              ("title")[. = $dc-indices]!($dc-prefix||.)
+             )[1], 
+    "author": (("prs", "per", "aut")[. = $pica-indices]!($pica-prefix||.), 
+               ("author", "creator")[. = $dc-indices]!($dc-prefix||.)
+              )[1], 
+    "isbn": (("isb")[. = $pica-indices]!($pica-prefix||.),
+             ("identifier")[. = $dc-indices]!($dc-prefix||.)
+            )[1], 
+    "year": (("jah", "erj")[. = $pica-indices]!($pica-prefix||.),
+             ("date")[. = $dc-indices]!($dc-prefix||.)
+            )[1], 
+    "keywords":(("slw", "sww", "thm")[. = $pica-indices]!($pica-prefix||.),
+                ("subject")[. = $dc-indices]!($dc-prefix||.)
+               )[1]
+  }
+  ,
+  
+  
+  let $schemas := *:schemaInfo/*:schema
+  return $recordSchema := (
+    $schemas[@name="marcxml"]/@name,
+    $schemas[@name="dc"]/@name
+  )[1]/string()
+}</explain>

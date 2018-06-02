@@ -1,0 +1,8 @@
+book := {}
+search-result-count := text{"5"}
+search-next-page-available := true()
+book := {"author": "Silly; Gundermann, Gerhard", "title": "Silly + Gundermann & Seilschaft - Unplugged das legendäre Konzert vom 22.11.1994", "year": "1999", "ppn": "342439952"}
+book := {"title": "Die Kreba - Fisch - GmbH", "year": "1997", "ppn": "360743331"}
+book := {"title": "Engel über dem Revier", "author": "Gundermann und Seilschaft", "year": "1997", "ppn": "106904019"}
+book := {"author": "King, Charles; Arnold, Theodor", "title": "Eine Untersuchung Des Ursprungs und der Formirung Der Fossilien, oder Fisch-Schalen, und anderer dergleichen Cörper, so aus der Erden gegraben werden ...", "year": "1733", "ppn": "031083188"}
+book := {"title": "Himmlischer Comet-Stern Welchen der erzürnete Höchste Gesamt-Richter abermahl ietzund in diesemVor-Jahre Anno 1677. durchn Aprill über ein frisches gewisses Volck, zur Land-Plage, leider ! verhängethat, wegen Sündiger Verschuldigung; und unter der Andromeda, durch Nord-Fisch und Triangel führende zum Medusischen Kopff, aufgehaben hat. Hier aber Warnungs weise vorgeleget, und aus sonderbahrem Geheimnisse, wegen mitleidigen Hertzens, bey Zeite einem ieden kund gemachtet wird, zur eilwichtigen Bekehrung", "author": "Praetorius, Johannes", "year": "1677", "ppn": "360810764"}

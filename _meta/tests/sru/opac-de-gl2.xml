@@ -1,0 +1,400 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<zs:searchRetrieveResponse xmlns:zs="http://www.loc.gov/zing/srw/"><zs:version>1.1</zs:version><zs:numberOfRecords>5</zs:numberOfRecords><zs:records><zs:record><zs:recordSchema>marcxml</zs:recordSchema><zs:recordPacking>xml</zs:recordPacking><zs:recordData><record xmlns="http://www.loc.gov/MARC21/slim">
+  <leader>xxxxxngm a22yyyyy c 4500</leader>
+  <controlfield tag="001">342439952</controlfield>
+  <controlfield tag="003">DE-601</controlfield>
+  <controlfield tag="005">20171221110746.0</controlfield>
+  <controlfield tag="007">vu uvuuuu</controlfield>
+  <controlfield tag="008">110501s1999                  000 0 ger d</controlfield>
+  <datafield tag="020" ind1=" " ind2=" ">
+    <subfield code="c">EUR 8,99</subfield>
+  </datafield>
+  <datafield tag="028" ind1="5" ind2="2">
+    <subfield code="a">74321608262</subfield>
+  </datafield>
+  <datafield tag="040" ind1=" " ind2=" ">
+    <subfield code="b">ger</subfield>
+    <subfield code="c">GBVCP</subfield>
+    <subfield code="e">rda</subfield>
+  </datafield>
+  <datafield tag="041" ind1="0" ind2=" ">
+    <subfield code="a">ger</subfield>
+  </datafield>
+  <datafield tag="110" ind1="2" ind2=" ">
+    <subfield code="a">Silly</subfield>
+    <subfield code="g">Musikgruppe</subfield>
+    <subfield code="0">(DE-601)197517293</subfield>
+  </datafield>
+  <datafield tag="245" ind1="0" ind2="0">
+    <subfield code="a">Silly + Gundermann &amp; Seilschaft - Unplugged</subfield>
+    <subfield code="h">Bildmaterial</subfield>
+    <subfield code="b">das legendäre Konzert vom 22.11.1994</subfield>
+  </datafield>
+  <datafield tag="264" ind1="3" ind2="1">
+    <subfield code="a">Berlin</subfield>
+    <subfield code="b">BMG Berlin Musik</subfield>
+    <subfield code="c">P 1999</subfield>
+  </datafield>
+  <datafield tag="300" ind1=" " ind2=" ">
+    <subfield code="a">2 CD</subfield>
+    <subfield code="b">ADD, stereo</subfield>
+    <subfield code="c">12 cm</subfield>
+    <subfield code="e">1 Beih.</subfield>
+  </datafield>
+  <datafield tag="336" ind1=" " ind2=" ">
+    <subfield code="a">aufgeführte Musik</subfield>
+    <subfield code="b">prm</subfield>
+    <subfield code="2">rdacontent</subfield>
+  </datafield>
+  <datafield tag="337" ind1=" " ind2=" ">
+    <subfield code="a">audio</subfield>
+    <subfield code="b">s</subfield>
+    <subfield code="2">rdamedia</subfield>
+  </datafield>
+  <datafield tag="338" ind1=" " ind2=" ">
+    <subfield code="a">Audiodisk</subfield>
+    <subfield code="b">sd</subfield>
+    <subfield code="2">rdacarrier</subfield>
+  </datafield>
+  <datafield tag="655" ind1="0" ind2="7">
+    <subfield code="a">CD</subfield>
+    <subfield code="2">gnd-carrier</subfield>
+  </datafield>
+  <datafield tag="655" ind1="0" ind2="7">
+    <subfield code="a">cdda</subfield>
+    <subfield code="2">gnd-carrier</subfield>
+  </datafield>
+  <datafield tag="700" ind1="1" ind2=" ">
+    <subfield code="a">Gundermann, Gerhard</subfield>
+    <subfield code="e">BeteiligteR</subfield>
+    <subfield code="4">asn</subfield>
+    <subfield code="0">(DE-601)21216046X</subfield>
+  </datafield>
+  <datafield tag="710" ind1="2" ind2=" ">
+    <subfield code="a">Silly</subfield>
+    <subfield code="g">Musikgruppe</subfield>
+    <subfield code="0">(DE-601)197517293</subfield>
+  </datafield>
+  <datafield tag="710" ind1="2" ind2=" ">
+    <subfield code="a">Gundermann und Seilschaft</subfield>
+    <subfield code="0">(DE-601)198574304</subfield>
+  </datafield>
+  <datafield tag="900" ind1=" " ind2=" ">
+    <subfield code="a">GBV</subfield>
+    <subfield code="b">StB Nuernberg &lt;75&gt;</subfield>
+    <subfield code="d">CD 18</subfield>
+  </datafield>
+  <datafield tag="954" ind1=" " ind2=" ">
+    <subfield code="0">StB Nuernberg &lt;75&gt;</subfield>
+    <subfield code="a">299</subfield>
+    <subfield code="b">707413060</subfield>
+    <subfield code="c">01</subfield>
+    <subfield code="d">CD 18</subfield>
+    <subfield code="x">0075</subfield>
+  </datafield>
+</record></zs:recordData><zs:recordPosition>1</zs:recordPosition></zs:record><zs:record><zs:recordSchema>marcxml</zs:recordSchema><zs:recordPacking>xml</zs:recordPacking><zs:recordData><record xmlns="http://www.loc.gov/MARC21/slim">
+  <leader>xxxxxnaa a22yyyyy c 4500</leader>
+  <controlfield tag="001">360743331</controlfield>
+  <controlfield tag="003">DE-601</controlfield>
+  <controlfield tag="005">20120309153312.0</controlfield>
+  <controlfield tag="008">3-9-W:s1997                  000 0 und d</controlfield>
+  <datafield tag="040" ind1=" " ind2=" ">
+    <subfield code="b">ger</subfield>
+    <subfield code="c">GBVCP</subfield>
+    <subfield code="e">rda</subfield>
+  </datafield>
+  <datafield tag="245" ind1="0" ind2="4">
+    <subfield code="a">Die Kreba - Fisch - GmbH</subfield>
+  </datafield>
+  <datafield tag="336" ind1=" " ind2=" ">
+    <subfield code="a">Text</subfield>
+    <subfield code="b">txt</subfield>
+    <subfield code="2">rdacontent</subfield>
+  </datafield>
+  <datafield tag="337" ind1=" " ind2=" ">
+    <subfield code="a">ohne Hilfsmittel zu benutzen</subfield>
+    <subfield code="b">n</subfield>
+    <subfield code="2">rdamedia</subfield>
+  </datafield>
+  <datafield tag="338" ind1=" " ind2=" ">
+    <subfield code="a">Band</subfield>
+    <subfield code="b">nc</subfield>
+    <subfield code="2">rdacarrier</subfield>
+  </datafield>
+  <datafield tag="655" ind1="0" ind2="7">
+    <subfield code="a">druck</subfield>
+    <subfield code="2">gnd-carrier</subfield>
+  </datafield>
+  <datafield tag="773" ind1="0" ind2="8">
+    <subfield code="t">In</subfield>
+    <subfield code="g">(1997), p. 8</subfield>
+    <subfield code="q">&lt;8</subfield>
+    <subfield code="w">(DE-601)061692336</subfield>
+  </datafield>
+  <datafield tag="900" ind1=" " ind2=" ">
+    <subfield code="a">GBV</subfield>
+    <subfield code="b">StB Nuernberg &lt;75&gt;</subfield>
+  </datafield>
+  <datafield tag="901" ind1=" " ind2=" ">
+    <subfield code="a">OLC</subfield>
+  </datafield>
+  <datafield tag="952" ind1=" " ind2=" ">
+    <subfield code="j">1997</subfield>
+    <subfield code="h">8</subfield>
+  </datafield>
+  <datafield tag="954" ind1=" " ind2=" ">
+    <subfield code="0">StB Nuernberg &lt;75&gt;</subfield>
+    <subfield code="a">299</subfield>
+    <subfield code="b">706763513</subfield>
+    <subfield code="c">01</subfield>
+    <subfield code="x">0075</subfield>
+  </datafield>
+</record></zs:recordData><zs:recordPosition>2</zs:recordPosition></zs:record><zs:record><zs:recordSchema>marcxml</zs:recordSchema><zs:recordPacking>xml</zs:recordPacking><zs:recordData><record xmlns="http://www.loc.gov/MARC21/slim">
+  <leader>xxxxxngm a22yyyyy c 4500</leader>
+  <controlfield tag="001">106904019</controlfield>
+  <controlfield tag="003">DE-601</controlfield>
+  <controlfield tag="005">20140807151352.0</controlfield>
+  <controlfield tag="007">vu uvuuuu</controlfield>
+  <controlfield tag="008">9-2-L:s1997                  000 0 ger d</controlfield>
+  <datafield tag="024" ind1="3" ind2=" ">
+    <subfield code="a">4021934907025</subfield>
+  </datafield>
+  <datafield tag="028" ind1="5" ind2="2">
+    <subfield code="a">0070-2</subfield>
+  </datafield>
+  <datafield tag="028" ind1="5" ind2="2">
+    <subfield code="a">00722</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="a">314249410</subfield>
+  </datafield>
+  <datafield tag="040" ind1=" " ind2=" ">
+    <subfield code="b">ger</subfield>
+    <subfield code="c">GBVCP</subfield>
+    <subfield code="e">rda</subfield>
+  </datafield>
+  <datafield tag="041" ind1="0" ind2=" ">
+    <subfield code="a">ger</subfield>
+  </datafield>
+  <datafield tag="110" ind1="2" ind2=" ">
+    <subfield code="a">Gundermann und Seilschaft</subfield>
+    <subfield code="0">(DE-601)198574304</subfield>
+  </datafield>
+  <datafield tag="245" ind1="0" ind2="0">
+    <subfield code="a">Engel über dem Revier</subfield>
+    <subfield code="h">Bildmaterial</subfield>
+    <subfield code="c">Gundermann &amp; Seilschaft</subfield>
+  </datafield>
+  <datafield tag="264" ind1="3" ind2="1">
+    <subfield code="a">Berlin</subfield>
+    <subfield code="b">Buschfunk</subfield>
+    <subfield code="c">P 1997</subfield>
+  </datafield>
+  <datafield tag="300" ind1=" " ind2=" ">
+    <subfield code="a">1 CD (51 Min.)</subfield>
+    <subfield code="c">12 cm</subfield>
+    <subfield code="e">Beih. (mit Songtexten)</subfield>
+  </datafield>
+  <datafield tag="336" ind1=" " ind2=" ">
+    <subfield code="a">aufgeführte Musik</subfield>
+    <subfield code="b">prm</subfield>
+    <subfield code="2">rdacontent</subfield>
+  </datafield>
+  <datafield tag="337" ind1=" " ind2=" ">
+    <subfield code="a">audio</subfield>
+    <subfield code="b">s</subfield>
+    <subfield code="2">rdamedia</subfield>
+  </datafield>
+  <datafield tag="338" ind1=" " ind2=" ">
+    <subfield code="a">Audiodisk</subfield>
+    <subfield code="b">sd</subfield>
+    <subfield code="2">rdacarrier</subfield>
+  </datafield>
+  <datafield tag="655" ind1="0" ind2="7">
+    <subfield code="a">CD</subfield>
+    <subfield code="2">gnd-carrier</subfield>
+  </datafield>
+  <datafield tag="655" ind1="0" ind2="7">
+    <subfield code="a">cdda</subfield>
+    <subfield code="2">gnd-carrier</subfield>
+  </datafield>
+  <datafield tag="710" ind1="2" ind2=" ">
+    <subfield code="a">Gundermann und Seilschaft</subfield>
+    <subfield code="0">(DE-601)198574304</subfield>
+  </datafield>
+  <datafield tag="900" ind1=" " ind2=" ">
+    <subfield code="a">GBV</subfield>
+    <subfield code="b">StB Nuernberg &lt;75&gt;</subfield>
+    <subfield code="d">CD 7</subfield>
+  </datafield>
+  <datafield tag="954" ind1=" " ind2=" ">
+    <subfield code="0">StB Nuernberg &lt;75&gt;</subfield>
+    <subfield code="a">299</subfield>
+    <subfield code="b">707413079</subfield>
+    <subfield code="c">01</subfield>
+    <subfield code="d">CD 7</subfield>
+    <subfield code="x">0075</subfield>
+  </datafield>
+</record></zs:recordData><zs:recordPosition>3</zs:recordPosition></zs:record><zs:record><zs:recordSchema>marcxml</zs:recordSchema><zs:recordPacking>xml</zs:recordPacking><zs:recordData><record xmlns="http://www.loc.gov/MARC21/slim">
+  <leader>xxxxxnam a22yyyyy c 4500</leader>
+  <controlfield tag="001">031083188</controlfield>
+  <controlfield tag="003">DE-601</controlfield>
+  <controlfield tag="005">20170215133234.0</controlfield>
+  <controlfield tag="008">921210s1733                  000 0 ger d</controlfield>
+  <datafield tag="024" ind1="8" ind2=" ">
+    <subfield code="a">VD17VD18 11409983-001</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="a">311335238</subfield>
+  </datafield>
+  <datafield tag="040" ind1=" " ind2=" ">
+    <subfield code="b">ger</subfield>
+    <subfield code="c">GBVCP</subfield>
+    <subfield code="e">rda</subfield>
+  </datafield>
+  <datafield tag="041" ind1="1" ind2=" ">
+    <subfield code="a">ger</subfield>
+    <subfield code="h">eng</subfield>
+  </datafield>
+  <datafield tag="084" ind1=" " ind2=" ">
+    <subfield code="a">13</subfield>
+    <subfield code="2">ssgn</subfield>
+  </datafield>
+  <datafield tag="100" ind1="1" ind2=" ">
+    <subfield code="a">King, Charles</subfield>
+    <subfield code="0">(DE-601)35474657X</subfield>
+  </datafield>
+  <datafield tag="240" ind1="1" ind2="3">
+    <subfield code="a">An account of the origin and formation of fossil shells</subfield>
+    <subfield code="r">dt.</subfield>
+  </datafield>
+  <datafield tag="245" ind1="1" ind2="5">
+    <subfield code="a">Eine Untersuchung Des Ursprungs und der Formirung Der Fossilien, oder Fisch-Schalen, und anderer dergleichen Cörper, so aus der Erden gegraben werden ...</subfield>
+    <subfield code="c">Aus dem Englischen übersetzt von Theodor Arnold. [Verf.: Charles King]</subfield>
+  </datafield>
+  <datafield tag="246" ind1="3" ind2="0">
+    <subfield code="a">Formierung Körper</subfield>
+  </datafield>
+  <datafield tag="264" ind1="3" ind2="1">
+    <subfield code="a">Leipzig</subfield>
+    <subfield code="b">Löwe</subfield>
+    <subfield code="c">1733</subfield>
+  </datafield>
+  <datafield tag="300" ind1=" " ind2=" ">
+    <subfield code="a">[1] Bl., 95 S., [3] Bl.</subfield>
+    <subfield code="b">Ill.</subfield>
+    <subfield code="c">8o</subfield>
+  </datafield>
+  <datafield tag="336" ind1=" " ind2=" ">
+    <subfield code="a">Text</subfield>
+    <subfield code="b">txt</subfield>
+    <subfield code="2">rdacontent</subfield>
+  </datafield>
+  <datafield tag="337" ind1=" " ind2=" ">
+    <subfield code="a">ohne Hilfsmittel zu benutzen</subfield>
+    <subfield code="b">n</subfield>
+    <subfield code="2">rdamedia</subfield>
+  </datafield>
+  <datafield tag="338" ind1=" " ind2=" ">
+    <subfield code="a">Band</subfield>
+    <subfield code="b">nc</subfield>
+    <subfield code="2">rdacarrier</subfield>
+  </datafield>
+  <datafield tag="500" ind1=" " ind2=" ">
+    <subfield code="a">Verf. ermittelt aus BBA</subfield>
+  </datafield>
+  <datafield tag="500" ind1=" " ind2=" ">
+    <subfield code="a">Vorlageform des Erscheinungsvermerks: Leipzig, Verlegts Johann George Löwe, 1733.</subfield>
+  </datafield>
+  <datafield tag="655" ind1="0" ind2="7">
+    <subfield code="a">druck</subfield>
+    <subfield code="2">gnd-carrier</subfield>
+  </datafield>
+  <datafield tag="700" ind1="1" ind2=" ">
+    <subfield code="a">Arnold, Theodor</subfield>
+    <subfield code="0">(DE-601)320967220</subfield>
+  </datafield>
+  <datafield tag="900" ind1=" " ind2=" ">
+    <subfield code="a">GBV</subfield>
+    <subfield code="b">StB Nuernberg &lt;75&gt;</subfield>
+    <subfield code="d">Phys IV 65</subfield>
+    <subfield code="x">N</subfield>
+    <subfield code="z">N</subfield>
+  </datafield>
+  <datafield tag="954" ind1=" " ind2=" ">
+    <subfield code="0">StB Nuernberg &lt;75&gt;</subfield>
+    <subfield code="a">299</subfield>
+    <subfield code="b">707320496</subfield>
+    <subfield code="c">01</subfield>
+    <subfield code="d">Phys IV 65</subfield>
+    <subfield code="e">p</subfield>
+    <subfield code="x">0075</subfield>
+  </datafield>
+</record></zs:recordData><zs:recordPosition>4</zs:recordPosition></zs:record><zs:record><zs:recordSchema>marcxml</zs:recordSchema><zs:recordPacking>xml</zs:recordPacking><zs:recordData><record xmlns="http://www.loc.gov/MARC21/slim">
+  <leader>xxxxxnaa a22yyyyy c 4500</leader>
+  <controlfield tag="001">360810764</controlfield>
+  <controlfield tag="003">DE-601</controlfield>
+  <controlfield tag="005">20120309155017.0</controlfield>
+  <controlfield tag="008">3-9-W:s1677                  000 0 und d</controlfield>
+  <datafield tag="040" ind1=" " ind2=" ">
+    <subfield code="b">ger</subfield>
+    <subfield code="c">GBVCP</subfield>
+    <subfield code="e">rda</subfield>
+  </datafield>
+  <datafield tag="100" ind1="1" ind2=" ">
+    <subfield code="a">Praetorius, Johannes</subfield>
+    <subfield code="0">(DE-601)257275339</subfield>
+  </datafield>
+  <datafield tag="245" ind1="1" ind2="0">
+    <subfield code="a">Himmlischer Comet-Stern</subfield>
+    <subfield code="b">Welchen der erzürnete Höchste Gesamt-Richter abermahl ietzund in diesemVor-Jahre Anno 1677. durchn Aprill über ein frisches gewisses Volck, zur Land-Plage, leider ! verhängethat, wegen Sündiger Verschuldigung; und unter der Andromeda, durch Nord-Fisch und Triangel führende zum Medusischen Kopff, aufgehaben hat. Hier aber Warnungs weise vorgeleget, und aus sonderbahrem Geheimnisse, wegen mitleidigen Hertzens, bey Zeite einem ieden kund gemachtet wird, zur eilwichtigen Bekehrung</subfield>
+    <subfield code="c">Durch Johannes Praetorius</subfield>
+  </datafield>
+  <datafield tag="264" ind1="3" ind2="1">
+    <subfield code="a">Halle in Sachsen</subfield>
+    <subfield code="b">Praetorius (Johannes)</subfield>
+    <subfield code="c">[ca. 1677]</subfield>
+  </datafield>
+  <datafield tag="336" ind1=" " ind2=" ">
+    <subfield code="a">Text</subfield>
+    <subfield code="b">txt</subfield>
+    <subfield code="2">rdacontent</subfield>
+  </datafield>
+  <datafield tag="337" ind1=" " ind2=" ">
+    <subfield code="a">ohne Hilfsmittel zu benutzen</subfield>
+    <subfield code="b">n</subfield>
+    <subfield code="2">rdamedia</subfield>
+  </datafield>
+  <datafield tag="338" ind1=" " ind2=" ">
+    <subfield code="a">Band</subfield>
+    <subfield code="b">nc</subfield>
+    <subfield code="2">rdacarrier</subfield>
+  </datafield>
+  <datafield tag="500" ind1=" " ind2=" ">
+    <subfield code="a">[18] Bl.. - In dt. Sprache mit lat. u. hebr.</subfield>
+  </datafield>
+  <datafield tag="655" ind1="0" ind2="7">
+    <subfield code="a">druck</subfield>
+    <subfield code="2">gnd-carrier</subfield>
+  </datafield>
+  <datafield tag="773" ind1="0" ind2="8">
+    <subfield code="t">In</subfield>
+    <subfield code="w">(DE-601)361016336</subfield>
+  </datafield>
+  <datafield tag="900" ind1=" " ind2=" ">
+    <subfield code="a">GBV</subfield>
+    <subfield code="b">StB Nuernberg &lt;75&gt;</subfield>
+    <subfield code="d">B II 4° 36b,6</subfield>
+  </datafield>
+  <datafield tag="901" ind1=" " ind2=" ">
+    <subfield code="a">OLC</subfield>
+  </datafield>
+  <datafield tag="954" ind1=" " ind2=" ">
+    <subfield code="0">StB Nuernberg &lt;75&gt;</subfield>
+    <subfield code="a">299</subfield>
+    <subfield code="b">706836650</subfield>
+    <subfield code="c">01</subfield>
+    <subfield code="d">B II 4° 36b,6</subfield>
+    <subfield code="x">0075</subfield>
+  </datafield>
+</record></zs:recordData><zs:recordPosition>5</zs:recordPosition></zs:record></zs:records><zs:echoedSearchRetrieveRequest><zs:version>1.1</zs:version><zs:query>dc.title=fisch</zs:query><zs:maximumRecords>15</zs:maximumRecords><zs:recordPacking>xml</zs:recordPacking><zs:recordSchema>marcxml</zs:recordSchema></zs:echoedSearchRetrieveRequest></zs:searchRetrieveResponse>

@@ -1,0 +1,645 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<zs:explainResponse xmlns:zs="http://docs.oasis-open.org/ns/search-ws/sruResponse"><zs:version>2.0</zs:version><zs:record><zs:recordSchema>http://explain.z3950.org/dtd/2.0/</zs:recordSchema><zs:recordXMLEscaping>xml</zs:recordXMLEscaping><zs:recordData><explain xmlns="http://explain.z3950.org/dtd/2.0/">
+
+    <serverInfo protocol="SRU" version="1.1">
+	<host>0.0.0.0</host>
+	<port>8210</port>
+	<database>gvk</database>
+    </serverInfo>
+
+    <databaseInfo>
+	<title lang="en" primary="true">GVK - Gemeinsamer Verbundkatalog</title>
+	<description lang="en" primary="true">GBV database</description>
+	<author>Verbundzentrale des GBV (VZG)</author> 
+	<contact>gbv@gbv.de</contact> 
+	<extent>Gemeinsamer Bibliotheksverbund (GBV)</extent> 
+	<langUsage codes="du ge en fr">Records are in Dutch, German, English, French and other languages</langUsage> 
+    </databaseInfo>
+
+    <indexInfo>
+	<set name="cql" identifier="info:srw/cql-context-set/1/cql-v1.1"/>
+	<set name="pica" identifier="info:srw/cql-context-set/5/pica-v1.0"/>
+	<set name="dc" identifier="info:srw/cql-context-set/1/dc-v1.1"/>
+	<index>
+	    <title>[ALL] Alle Wörter ohne Volltext</title>
+	    <map><name set="pica">all</name></map>
+	</index>
+	<index>
+	    <title>[TXT] Volltextsuche</title>
+	    <map><name set="pica">txt</name></map>
+	</index>
+	<index>
+	    <title>[TIT] Titel (Stichwort)</title>
+	    <map><name set="pica">tit</name></map>
+	</index>
+	<index>
+	    <title>[TIT] Titel (Stichwort)</title>
+	    <map><name set="dc">title</name></map>
+	</index>
+	<index>
+	    <title>[PER] Person, Autor</title>
+	    <map><name set="pica">per</name></map>
+	</index>
+	<index>
+	    <title>[PER] Person, Autor</title>
+	    <map><name set="dc">author</name></map>
+	</index>
+	<index>
+	    <title>[PER] Person, Autor</title>
+	    <map><name set="dc">creator</name></map>
+	</index>
+	<index>
+	    <title>[AUT] Person, Autor (Stichwort)</title>
+	    <map><name set="pica">aut</name></map>
+	</index>
+	<index>
+	    <title>[DRU] Drucker (Stichwort)</title>
+	    <map><name set="pica">dru</name></map>
+	</index>
+	<index>
+	    <title>[THM] Alle Themen</title>
+	    <map><name set="pica">thm</name></map>
+	</index>
+	<index>
+	    <title>[SLW] Schlagwörter</title>
+	    <map><name set="pica">slw</name></map>
+	</index>
+	<index>
+	    <title>[GTI] Titelanfang Serie, Zeitschrift, GT</title>
+	    <map><name set="pica">gti</name></map>
+	</index>
+	<index>
+	    <title>[ZTI] Titelanfang Serie, Zeitschrift</title>
+	    <map><name set="pica">zti</name></map>
+	</index>
+	<index>
+	    <title>[SER] Serie, Zeitschrift (Stichwort)</title>
+	    <map><name set="pica">ser</name></map>
+	</index>
+	<index>
+	    <title>[ZTW] Zeitschriftentitel im Aufsatz (Stichwort)</title>
+	    <map><name set="pica">ztw</name></map>
+	</index>
+	<index>
+	    <title>[ZET] Zeitschriftentitel im Aufsatz (Phrase)</title>
+	    <map><name set="pica">zet</name></map>
+	</index>
+	<index>
+	    <title>[HSS] Hochschulschriftenvermerk</title>
+	    <map><name set="pica">hss</name></map>
+	</index>
+	<index>
+	    <title>[ISB] ISBN</title>
+	    <map><name set="pica">isb</name></map>
+	</index>
+	<index>
+	    <title>[ISS] ISSN</title>
+	    <map><name set="pica">iss</name></map>
+	</index>
+	<index>
+	    <title>[ZIS] ISSN im Aufsatz</title>
+	    <map><name set="pica">zis</name></map>
+	</index>
+	<index>
+	    <title>[NUM] Nummern (allgemein)</title>
+	    <map><name set="pica">num</name></map>
+	</index>
+	<index>
+	    <title>[KOR] Körperschaft (Stichwort)</title>
+	    <map><name set="pica">kor</name></map>
+	</index>
+	<index>
+	    <title>[KON] Kongress (Stichwort)</title>
+	    <map><name set="pica">kon</name></map>
+	</index>
+	<index>
+	    <title>[PUB] Ort,Verlag (Stichwort)</title>
+	    <map><name set="pica">pub</name></map>
+	</index>
+	<index>
+	    <title>[PRK] Provenienzen (Stichwort)</title>
+	    <map><name set="pica">prk</name></map>
+	</index>
+	<index>
+	    <title>[PRP] Provenienzen (Phrase)</title>
+	    <map><name set="pica">prp</name></map>
+	</index>
+	<index>
+	    <title>[URL] URL (Phrase)</title>
+	    <map><name set="pica">url</name></map>
+	</index>
+	<index>
+	    <title>[URN] URN (Phrase)</title>
+	    <map><name set="pica">urn</name></map>
+	</index>
+	<index>
+	    <title>[URK] URL, URN (Stichwort)</title>
+	    <map><name set="pica">urk</name></map>
+	</index>
+	<index>
+	    <title>[SYS] Systematik</title>
+	    <map><name set="pica">sys</name></map>
+	</index>
+	<index>
+	    <title>[BKL] Basisklassifikation</title>
+	    <map><name set="pica">bkl</name></map>
+	</index>
+	<index>
+	    <title>[PPN] Identifikationsnummer</title>
+	    <map><name set="pica">ppn</name></map>
+	</index>
+	<index>
+	    <title>[PPN] Identifikationsnummer</title>
+	    <map><name set="dc">resourceidentifier</name></map>
+	</index>
+	<index>
+	    <title>[PRS] Personennamen</title>
+	    <map><name set="pica">prs</name></map>
+	</index>
+	<index>
+	    <title>[LCN] LoC-Nummer</title>
+	    <map><name set="pica">lcn</name></map>
+	</index>
+	<index>
+	    <title>[LCC] LoC-Classification</title>
+	    <map><name set="pica">lcc</name></map>
+	</index>
+	<index>
+	    <title>[LSY] Lokale Systematik</title>
+	    <map><name set="pica">lsy</name></map>
+	</index>
+	<index>
+	    <title>[LSW] Lokale Schlagwörter (Stichwort)</title>
+	    <map><name set="pica">lsw</name></map>
+	</index>
+	<index>
+	    <title>[JAH] Erscheinungsjahr</title>
+	    <map><name set="pica">jah</name></map>
+	</index>
+	<index>
+	    <title>[SWW] Schlagwörter</title>
+	    <map><name set="pica">sww</name></map>
+	</index>
+	<index>
+	    <title>[SPR] Sprache</title>
+	    <map><name set="pica">spr</name></map>
+	</index>
+	<index>
+	    <title>[SPR] Sprache</title>
+	    <map><name set="dc">language</name></map>
+	</index>
+	<index>
+	    <title>[BIB] Bibliothek</title>
+	    <map><name set="pica">bib</name></map>
+	</index>
+	<index>
+	    <title>[PLC] Erscheinungsort</title>
+	    <map><name set="pica">plc</name></map>
+	</index>
+	<index>
+	    <title>[GSF] Geistiger Schoepfer</title>
+	    <map><name set="pica">gsf</name></map>
+	</index>
+	<index>
+	    <title>[GAT] Gattungsbegriff (Alte Drucke)</title>
+	    <map><name set="pica">gat</name></map>
+	</index>
+	<index>
+	    <title>[SGS] Signatur mit Blanks</title>
+	    <map><name set="pica">sgs</name></map>
+	</index>
+	<index>
+	    <title>[OLC] OLC Sortstring</title>
+	    <map><name set="pica">olc</name></map>
+	</index>
+	<index>
+	    <title>[NEL] Neuerwerbungslisten</title>
+	    <map><name set="pica">nel</name></map>
+	</index>
+	<index>
+	    <title>[SGZ] Sachgruppen ZDB</title>
+	    <map><name set="pica">sgz</name></map>
+	</index>
+	<index>
+	    <title>[MSC] Mathematics Subject Classification</title>
+	    <map><name set="pica">msc</name></map>
+	</index>
+	<index>
+	    <title>[ADP] Angaben zum Datentraeger (Phrase)</title>
+	    <map><name set="pica">adp</name></map>
+	</index>
+	<index>
+	    <title>[AIP] Art des Inhalts (Phrase)</title>
+	    <map><name set="pica">aip</name></map>
+	</index>
+	<index>
+	    <title>[AMP] Musikalische Ausgabeform (Phrase)</title>
+	    <map><name set="pica">amp</name></map>
+	</index>
+	<index>
+	    <title>[TPK] Titel (Phrase, kurz)</title>
+	    <map><name set="pica">tpk</name></map>
+	</index>
+	<index>
+	    <title>[TAF] Titelanfang</title>
+	    <map><name set="pica">taf</name></map>
+	</index>
+	<index>
+	    <title>[ADO] Aenderungsdatum Openurl</title>
+	    <map><name set="pica">ado</name></map>
+	</index>
+	<index>
+	    <title>[DRX] Drucker (Person)</title>
+	    <map><name set="pica">drx</name></map>
+	</index>
+	<index>
+	    <title>[AED] Änderungsdatum</title>
+	    <map><name set="pica">aed</name></map>
+	</index>
+	<index>
+	    <title>[SGD] Sachgruppe DDC</title>
+	    <map><name set="pica">sgd</name></map>
+	</index>
+	<index>
+	    <title>[GNO] Geschaeftsgang Notizen</title>
+	    <map><name set="pica">gno</name></map>
+	</index>
+	<index>
+	    <title>[LSG] Lokale Notation</title>
+	    <map><name set="pica">lsg</name></map>
+	</index>
+	<index>
+	    <title>[VKZ] Verbund Kennzeichen</title>
+	    <map><name set="pica">vkz</name></map>
+	</index>
+	<index>
+	    <title>[ZZD] ZDB-Nr im Aufsatz</title>
+	    <map><name set="pica">zzd</name></map>
+	</index>
+	<index>
+	    <title>[SRE] Reprod. Reihe (Stichwort)</title>
+	    <map><name set="pica">sre</name></map>
+	</index>
+	<index>
+	    <title>[SBN] Stand. Bibl. Nachweis</title>
+	    <map><name set="pica">sbn</name></map>
+	</index>
+	<index>
+	    <title>[EKI] Verbund ID (Ph)</title>
+	    <map><name set="pica">eki</name></map>
+	</index>
+	<index>
+	    <title>[DUH] DOI/URN/Handle (Ph)</title>
+	    <map><name set="pica">duh</name></map>
+	</index>
+	<index>
+	    <title>[XPR] ZDB-Sigel (Ph)</title>
+	    <map><name set="pica">xpr</name></map>
+	</index>
+	<index>
+	    <title>[ISM] ISMN (Ph)</title>
+	    <map><name set="pica">ism</name></map>
+	</index>
+	<index>
+	    <title>[OCN] OCLC Nummer</title>
+	    <map><name set="pica">ocn</name></map>
+	</index>
+	<index>
+	    <title>[DDN] DDC Normdaten</title>
+	    <map><name set="pica">ddn</name></map>
+	</index>
+	<index>
+	    <title>[SCR] Schriftcode</title>
+	    <map><name set="pica">scr</name></map>
+	</index>
+	<index>
+	    <title>[ONX] Onixcode</title>
+	    <map><name set="pica">onx</name></map>
+	</index>
+	<index>
+	    <title>[TBS] Teilbestandskennzeichen</title>
+	    <map><name set="pica">tbs</name></map>
+	</index>
+	<index>
+	    <title>[PNE] Personen GND</title>
+	    <map><name set="pica">pne</name></map>
+	</index>
+	<index>
+	    <title>[ATR] Person als Autor GND</title>
+	    <map><name set="pica">atr</name></map>
+	</index>
+	<index>
+	    <title>[PSW] Person als Schlagwort GND</title>
+	    <map><name set="pica">psw</name></map>
+	</index>
+	<index>
+	    <title>[PZT] Pommersche Zeitungen</title>
+	    <map><name set="pica">pzt</name></map>
+	</index>
+	<index>
+	    <title>[BAB] Bibliothek_2</title>
+	    <map><name set="pica">bab</name></map>
+	</index>
+	<index>
+	    <title>[EWI] Einwortindex</title>
+	    <map><name set="pica">ewi</name></map>
+	</index>
+	<index>
+	    <title>[WTU] Werktitel u. Urheber</title>
+	    <map><name set="pica">wtu</name></map>
+	</index>
+	<index>
+	    <title>[IDN] ID-Nummer OEVK</title>
+	    <map><name set="pica">idn</name></map>
+	</index>
+	<index>
+	    <title>[SDC] Synt. DDC</title>
+	    <map><name set="pica">sdc</name></map>
+	</index>
+	<index>
+	    <title>[DDA] DDC A</title>
+	    <map><name set="pica">dda</name></map>
+	</index>
+	<index>
+	    <title>[DDD] DDC D</title>
+	    <map><name set="pica">ddd</name></map>
+	</index>
+	<index>
+	    <title>[DDF] DDC F</title>
+	    <map><name set="pica">ddf</name></map>
+	</index>
+	<index>
+	    <title>[DDG] DDC G</title>
+	    <map><name set="pica">ddg</name></map>
+	</index>
+	<index>
+	    <title>[DDH] DDC H</title>
+	    <map><name set="pica">ddh</name></map>
+	</index>
+	<index>
+	    <title>[DDI] DDC I</title>
+	    <map><name set="pica">ddi</name></map>
+	</index>
+	<index>
+	    <title>[DDJ] DDC J</title>
+	    <map><name set="pica">ddj</name></map>
+	</index>
+	<index>
+	    <title>[DDK] DDC K</title>
+	    <map><name set="pica">ddk</name></map>
+	</index>
+	<index>
+	    <title>[DDL] DDC L</title>
+	    <map><name set="pica">ddl</name></map>
+	</index>
+	<index>
+	    <title>[DDM] DDC M</title>
+	    <map><name set="pica">ddm</name></map>
+	</index>
+	<index>
+	    <title>[DDT] DDC T</title>
+	    <map><name set="pica">ddt</name></map>
+	</index>
+	<index>
+	    <title>[VDT] VD18 Nr.</title>
+	    <map><name set="pica">vdt</name></map>
+	</index>
+	<index>
+	    <title>[TKP] Kommentar in VD18 Bedingung: $a enthaelt Bestand</title>
+	    <map><name set="pica">tkp</name></map>
+	</index>
+	<index>
+	    <title>[SBP] Stand. Bibl. Nachweis (Ph)</title>
+	    <map><name set="pica">sbp</name></map>
+	</index>
+	<index>
+	    <title>[RVK] Regensburger Verbundklassifikation (PH)</title>
+	    <map><name set="pica">rvk</name></map>
+	</index>
+	<index>
+	    <title>[RVN] Regensburger Verbundklassifikation (PH)</title>
+	    <map><name set="pica">rvn</name></map>
+	</index>
+	<index>
+	    <title>[SLK] Selektionsschlüssel (Kw)</title>
+	    <map><name set="pica">slk</name></map>
+	</index>
+	<index>
+	    <title>[LDS] Lieferdatum Swets (OLC)</title>
+	    <map><name set="pica">lds</name></map>
+	</index>
+	<index>
+	    <title>[SWA] DB Schlagwörter bis 1986</title>
+	    <map><name set="pica">swa</name></map>
+	</index>
+	<index>
+	    <title>[SPK] Schlagwörter Projekte (Stichwort)</title>
+	    <map><name set="pica">spk</name></map>
+	</index>
+	<index>
+	    <title>[SRR] Schriftenreihe</title>
+	    <map><name set="pica">srr</name></map>
+	</index>
+	<index>
+	    <title>[ZDB] ZDB-Nummer</title>
+	    <map><name set="pica">zdb</name></map>
+	</index>
+	<index>
+	    <title>[SNR] Sonstige Nummern</title>
+	    <map><name set="pica">snr</name></map>
+	</index>
+	<index>
+	    <title>[NRY] ID-Nummer</title>
+	    <map><name set="pica">nry</name></map>
+	</index>
+	<index>
+	    <title>[VLG] Verlag</title>
+	    <map><name set="pica">vlg</name></map>
+	</index>
+	<index>
+	    <title>[RTI] Serie (Phrase)</title>
+	    <map><name set="pica">rti</name></map>
+	</index>
+	<index>
+	    <title>[VSE] Serie (Stichwort)</title>
+	    <map><name set="pica">vse</name></map>
+	</index>
+	<index>
+	    <title>[SHA] Serie, Zeitschrift (Stichwort)</title>
+	    <map><name set="pica">sha</name></map>
+	</index>
+	<index>
+	    <title>[ZTO] Zeitschriftengesamttitel OLC</title>
+	    <map><name set="pica">zto</name></map>
+	</index>
+	<index>
+	    <title>[MTI] Gesamttitel (Phrase)</title>
+	    <map><name set="pica">mti</name></map>
+	</index>
+	<index>
+	    <title>[GND] GND Nummer</title>
+	    <map><name set="pica">gnd</name></map>
+	</index>
+	<index>
+	    <title>[VDS] Verknüpfte Datensätze</title>
+	    <map><name set="pica">vds</name></map>
+	</index>
+	<index>
+	    <title>[SBK] Basisklassifikation</title>
+	    <map><name set="pica">sbk</name></map>
+	</index>
+	<index>
+	    <title>[SN] Systematik DDB</title>
+	    <map><name set="pica">sn</name></map>
+	</index>
+	<index>
+	    <title>[DDC] DDC</title>
+	    <map><name set="pica">ddc</name></map>
+	</index>
+	<index>
+	    <title>[ASB] ASB</title>
+	    <map><name set="pica">asb</name></map>
+	</index>
+	<index>
+	    <title>[SSD] SSD</title>
+	    <map><name set="pica">ssd</name></map>
+	</index>
+	<index>
+	    <title>[SFB] SfB</title>
+	    <map><name set="pica">sfb</name></map>
+	</index>
+	<index>
+	    <title>[KAB] KAB</title>
+	    <map><name set="pica">kab</name></map>
+	</index>
+	<index>
+	    <title>[EKZ] ekz</title>
+	    <map><name set="pica">ekz</name></map>
+	</index>
+	<index>
+	    <title>[SYO] Systematiken Öffentl. Bibl.</title>
+	    <map><name set="pica">syo</name></map>
+	</index>
+	<index>
+	    <title>[FNM] Fußnoten Musik</title>
+	    <map><name set="pica">fnm</name></map>
+	</index>
+	<index>
+	    <title>[ZID] ID-NR. Zeitschrift</title>
+	    <map><name set="pica">zid</name></map>
+	</index>
+	<index>
+	    <title>[AID] ID-Nr. Aufsatz</title>
+	    <map><name set="pica">aid</name></map>
+	</index>
+	<index>
+	    <title>[MAK] Bibliogr. Gattung und Status</title>
+	    <map><name set="pica">mak</name></map>
+	</index>
+	<index>
+	    <title>[UUU] URL fuer FT</title>
+	    <map><name set="pica">uuu</name></map>
+	</index>
+	<index>
+	    <title>[TMB] Gesamttitel (Stichwort)</title>
+	    <map><name set="pica">tmb</name></map>
+	</index>
+	<index>
+	    <title>[LIZ] Lizenzangaben aus $4</title>
+	    <map><name set="pica">liz</name></map>
+	</index>
+	<index>
+	    <title>[ABZ] Ausgabebezeichnung</title>
+	    <map><name set="pica">abz</name></map>
+	</index>
+	<index>
+	    <title>[COD] Codierte Angaben</title>
+	    <map><name set="pica">cod</name></map>
+	</index>
+	<index>
+	    <title>[ELD] Erscheinungsland</title>
+	    <map><name set="pica">eld</name></map>
+	</index>
+	<index>
+	    <title>[RPU] Reprod. Ort, Verlag (Stichwort)</title>
+	    <map><name set="pica">rpu</name></map>
+	</index>
+	<index>
+	    <title>[OSG] Online Contents SSG</title>
+	    <map><name set="pica">osg</name></map>
+	</index>
+	<index>
+	    <title>[KAQ] Katalogisierungsquelle</title>
+	    <map><name set="pica">kaq</name></map>
+	</index>
+	<index>
+	    <title>[ODI] OSG-Adi</title>
+	    <map><name set="pica">odi</name></map>
+	</index>
+	<index>
+	    <title>Siehe auch</title>
+	    <map><name set="pica">clt</name></map>
+	</index>
+	<index>
+	    <title>Erscheinungsjahr</title>
+	    <map><name set="pica">erj</name></map>
+	</index>
+	<index>
+	    <title>Materialart</title>
+	    <map><name set="pica">mat</name></map>
+	</index>
+	<index>
+	    <title>Sprachcode</title>
+	    <map><name set="pica">taa</name></map>
+	</index>
+	<index>
+	    <title>Laendercode</title>
+	    <map><name set="pica">lnd</name></map>
+	</index>
+	<index>
+	    <title>Flag</title>
+	    <map><name set="pica">flg</name></map>
+	</index>
+	<index>
+	    <title>Zeitraum</title>
+	    <map><name set="pica">ztr</name></map>
+	</index>
+    </indexInfo>
+
+    <schemaInfo>
+	<schema name="turbomarc" identifier="">
+	    <title>IndexData TurboMARC</title>
+	</schema>
+	<schema name="mads" identifier="">
+	    <title>Metadata Authority Description Schema (MADS)</title>
+	</schema>
+	<schema name="oai-dc" identifier="">
+	    <title>OAI-encoded simple Dublin Core</title>
+	</schema>
+	<schema name="srw-dc" identifier="">
+	    <title>SRW-encoded simple Dublin Core</title>
+	</schema>
+	<schema name="test" identifier="">
+	    <title>Identity transformation for testing</title>
+	</schema>
+	<schema name="mods" identifier="">
+	    <title>MODS</title>
+	</schema>
+	<schema name="gribxml" identifier="">
+	    <title>BHL-Europe / GRIB XML</title>
+	</schema>
+	<schema name="daiapica" identifier="">
+	    <title>PicaXML beschränkt auf für DAIA relevante Felder</title>
+	</schema>
+	<schema name="dc" identifier="">
+	    <title>Dublin Core</title>
+	</schema>
+	<schema name="marcxml" identifier="">
+	    <title>MARC21 XML</title>
+	</schema>
+	<schema name="picaxml" identifier="">
+	    <title>PicaXML</title>
+	</schema>
+    </schemaInfo>
+
+</explain></zs:recordData></zs:record><zs:echoedExplainRequest><zs:version>2.0</zs:version><zs:recordXMLEscaping>xml</zs:recordXMLEscaping></zs:echoedExplainRequest></zs:explainResponse>
