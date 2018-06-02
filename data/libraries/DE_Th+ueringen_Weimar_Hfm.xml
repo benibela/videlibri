@@ -5,7 +5,7 @@
   
   <template value="lbs"/>  
   <variable name="server" value="https://opac.lbs-weimar.gbv.de"/>
-  <variable name="DB" value="3"/>
+  <variable name="picadb" value="3"/>
 
 
 
