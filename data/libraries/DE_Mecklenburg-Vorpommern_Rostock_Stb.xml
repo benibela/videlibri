@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
+
+
 <library>
-  <longName value="Stadtbibliothek Rostock (alpha)"/>
+  <longName value="Stadtbibliothek Rostock"/>
   <shortName value="Stb Rostock"/>
   
   <template value="bibliothecaplus"/>
@@ -8,4 +11,5 @@
   <variable name="urlsearch" value="https://katalog.stadtbibliothek-rostock.de/Mediensuche/Erweiterte-Suche"/>
 
   <homepage value="http://www.stadtbibliothek-rostock.de/"/>
-</library>
+  <testing-search value="yes"/>  <testing-account value="unknown"/></library>
+

@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
+
 <library>
   <longName value="Stadtbibliothek Darmstadt"/>
   <shortName value="Stb Darmstadt"/>
@@ -10,7 +12,8 @@
 
 
   <homepage value="http://stadtbibliothek.darmstadt.de/"/>
-  <testing-search value="ja" date="2014-09-14"/>
-  <testing-account value="ja" date="2014-09-14"/>
-  <testing-renew value="?" date=""/>
+  <testing-search value="yes"/>
+  <testing-account value="yes"/>
+  
 </library>
+

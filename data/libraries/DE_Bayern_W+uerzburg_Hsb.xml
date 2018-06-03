@@ -1,13 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
+
 <library>
-  <longName value="Universitätsbibliothek Würzburg (alpha)"/>
+  <longName value="Universitätsbibliothek Würzburg"/>
   
   <template value="sisis"/>  
   <variable name="server" value="https://katalog.bibliothek.uni-wuerzburg.de/TouchPoint/"/>
-  <variable name="startparams" value="?View=sunrise&Language=de"/>
+  <variable name="startparams" value="?View=sunrise&amp;Language=de"/>
 
   <homepage value="http://www.bibliothek.uni-wuerzburg.de/"/>
-  <testing-search value="ja" date="2013-05-18"/>
-  <testing-account value="?" date=""/>
-  <testing-renew value="?" date=""/>
+  <testing-search value="yes"/>
+  <testing-account value="unknown"/>
+  
 </library>

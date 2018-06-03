@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
+
 <library>
   <longName value="Staats- und Universitätsbibliothek Bremen"/>
   <shortName value="SUB Bremen"/>
@@ -7,7 +9,7 @@
   <variable name="server" value="https://opac.suub.uni-bremen.de/"/>	
 
   <homepage value="http://www.suub.uni-bremen.de/"/>
-  <testing-search value="ja" date="2013-04-26"/>
-  <testing-account value="?" date=""/>
-  <testing-renew value="?" date=""/>
+  <testing-search value="yes"/>
+  <testing-account value="yes"/>
+  
 </library>

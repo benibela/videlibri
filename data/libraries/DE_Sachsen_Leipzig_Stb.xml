@@ -1,13 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
+
 <library>
-  <longName value="Leipziger Städtische Bibliotheken (alpha)"/>
+  <longName value="Leipziger Städtische Bibliotheken"/>
   <shortName value="Stb Leipzig"/> 
   
   <template value="sisis"/>  
   <variable name="server" value="https://webopac.stadtbibliothek-leipzig.de/webOPACClient/"/>
   
   <homepage value="http://www.leipzig.de/stadtbib/"/>
-  <testing-search value="ja" date="2013-05-18"/>
-  <testing-account value="?" date=""/>
-  <testing-renew value="?" date=""/>
+  <testing-search value="yes"/>
+  <testing-account value="unknown"/>
+  
 </library>

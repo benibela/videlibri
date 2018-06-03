@@ -1,13 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
+
 <library>
   <deprecatedName value="DE_Baden-W+uertenberg_Filderstadt_Stb"/>
-  <longName value="Stadtbibliothek Filderstadt  (alpha)"/>
+  <longName value="Stadtbibliothek Filderstadt"/>
 
   <template value="libero5"/>
   <variable name="baseurl" value="https://service.filderstadt.de/libero/"/>
 
   <homepage value="http://www.filderstadt.de/servlet/PB/menu/1002829/1002829.html"/>
-  <testing-search value="ja" date="2013-07-05"/>
-  <testing-account value="?" date=""/>
-  <testing-renew value="?" date=""/>
+  <testing-search value="yes"/>
+  <testing-account value="unknown"/>
+  
 </library>
+

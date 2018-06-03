@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
+
 <library>
-  <longName value="Hochschulbibliothek Aschaffenburg (alpha)"/>
+  <longName value="Hochschulbibliothek Aschaffenburg"/>
   <shortName value="Hb Aschaffenburg"/> 
   
   <template value="sisis"/>  
@@ -8,7 +10,8 @@
   <variable name="startparams" value="?Login=wofwsa"/>
   
   <homepage value="http://www.h-ab.de/bibliothek"/>
-  <testing-search value="ja" date="2013-05-17"/>
-  <testing-account value="?" date=""/>
-  <testing-renew value="?" date=""/>
+  <testing-search value="yes"/>
+  <testing-account value="unknown"/>
+  
 </library>
+

@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
+
+
 <library>
-  <longName value="Stadtbibliothek Mannheim (alpha)"/>
+  <longName value="Stadtbibliothek Mannheim"/>
   <shortName value="Stb Mannheim"/>
   
   <template value="bibliotheca"/>
@@ -8,4 +11,5 @@
   <variable name="DB" value="web_biblio"/>
   
   <homepage value="https://www.mannheim.de/de/bildung-staerken/stadtbibliothek"/>
-</library>
+  <testing-search value="yes"/>  <testing-account value="unknown"/></library>
+

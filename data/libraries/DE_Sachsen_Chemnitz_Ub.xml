@@ -1,12 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
+
 <library>
-  <longName value="Universitätsbibliothek Chemnitz (alter Katalog) (alpha)"/>
+  <longName value="Universitätsbibliothek Chemnitz (alter Katalog)"/>
 
   <template value="libero5"/>
   <variable name="baseurl" value="https://opac.bibliothek.tu-chemnitz.de/libero/"/>
 
   <homepage value="http://www.bibliothek.tu-chemnitz.de/"/>
-  <testing-search value="ja" date="2013-07-05"/>
-  <testing-account value="?" date=""/>
-  <testing-renew value="?" date=""/>
+  <testing-search value="yes"/>
+  <testing-account value="unknown"/>
+  
 </library>
+

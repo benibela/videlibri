@@ -1,13 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
+
 <library>
-  <longName value="Hochschulbibliothek Würzburg-Schweinfurt (alpha)"/>
+  <longName value="Hochschulbibliothek Würzburg-Schweinfurt"/>
   
   <template value="sisis"/>  
   <variable name="server" value="https://recherche.bibkatalog.de/InfoGuideClient.fwssis/"/>
   <variable name="startparams" value="?Login=wofwss"/>
   
   <homepage value="http://bibliothek.fhws.de/"/>
-  <testing-search value="ja" date="2013-05-18"/>
-  <testing-account value="?" date=""/>
-  <testing-renew value="?" date=""/>
+  <testing-search value="yes"/>
+  <testing-account value="unknown"/>
+  
 </library>

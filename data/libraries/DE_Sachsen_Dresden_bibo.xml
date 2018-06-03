@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
+
 <library>
   <longName value="Städtische Bibliotheken Dresden"/>
   <shortName value="Bibo Dresden"/> 
@@ -8,7 +10,7 @@
   <variable name="startparams" value="?Login=webopac"/>
   
   <homepage value="http://www.bibo-dresden.de/"/>
-  <testing-search value="ja" date="2013-05-18"/>
-  <testing-account value="?" date="2015-09-27"/>
-  <testing-renew value="?" date=""/>
+  <testing-search value="yes"/>
+  <testing-account value="yes"/>
+  
 </library>

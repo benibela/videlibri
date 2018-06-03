@@ -1,13 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
+
 <library>
-  <longName value="Stadtbücherei Erbach (alpha)"/>
+  <longName value="Stadtbücherei Erbach"/>
 
   <template value="bibliotheca"/>
   <variable name="baseurl" value="https://wwwopac.rz-kiru.de/erbach/"/>
   <variable name="DB" value="erbach"/>
 
   <homepage value="http://www.erbach.de/index.php?id=53"/>
-  <testing-search value="ja" date="2013-07-05"/>
-  <testing-account value="?" date=""/>
-  <testing-renew value="?" date=""/>
+  <testing-search value="yes"/>
+  <testing-account value="unknown"/>
+  
 </library>
+

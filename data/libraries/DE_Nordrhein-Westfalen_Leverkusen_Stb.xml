@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
+
+
 <library>
-  <longName value="Stadtbibliothek Leverkusen (alpha)"/>
+  <longName value="Stadtbibliothek Leverkusen"/>
   <shortName value="Stb Leverkusen"/>
   
   <template value="bibliothecaplus"/>
@@ -8,4 +11,5 @@
   <variable name="urlsearch" value="https://www.stadtbibliothek-leverkusen.de/Profisuche"/>
 
   <homepage value="https://www.stadtbibliothek-leverkusen.de"/>
-</library>
+  <testing-search value="yes"/>  <testing-account value="unknown"/></library>
+

@@ -1,13 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
+
 <library>
-  <longName value="Universitätsbibliothek (alpha)"/>
+  <longName value="Universitätsbibliothek"/>
   
   <template value="sisis"/>  
   <variable name="server" value="https://infoguide.ub.uni-passau.de/InfoGuideClient.upasis/"/>
   <variable name="startparams" value="?Login=igupa"/>
   
   <homepage value="http://www.ub.uni-passau.de/"/>
-  <testing-search value="ja" date="2013-05-18"/>
-  <testing-account value="?" date=""/>
-  <testing-renew value="?" date=""/>
+  <testing-search value="yes"/>
+  <testing-account value="unknown"/>
+  
 </library>

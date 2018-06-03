@@ -1,13 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
+
 <library>
-  <longName value="Deutscher Alpenverein (alpha)"/>
+  <longName value="Deutscher Alpenverein"/>
  
   <template value="sisis"/>  
   <variable name="server" value="https://opac.alpenverein.de/TouchPoint/"/>
   <variable name="startparams" value="?View=dav"/>
   
   <homepage value="http://www.alpenverein.de/kultur/bibliothek-archiv/bibliothek-des-dav_aid_10192.htm"/>
-  <testing-search value="ja" date="2013-05-18"/>
-  <testing-account value="?" date=""/>
-  <testing-renew value="?" date=""/>
+  <testing-search value="yes"/>
+  <testing-account value="unknown"/>
+  
 </library>

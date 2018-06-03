@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
+
+
+
 <library>
-  <longName value="Universitätsbibliothek Weimar (alpha)"/>
+  <longName value="Universitätsbibliothek Weimar"/>
   <shortName value="Ub Weimar"/>
   
   <template value="lbs"/>  
@@ -9,7 +13,8 @@
 
 
   <homepage value="http://www.uni-weimar.de/ub"/>
-  <testing-search value="ja" date="2013-04-26"/>
-  <testing-account value="?" date=""/>
-  <testing-renew value="?" date=""/>
+  <testing-search value="yes"/>
+  <testing-account value="unknown"/>
+  
 </library>
+

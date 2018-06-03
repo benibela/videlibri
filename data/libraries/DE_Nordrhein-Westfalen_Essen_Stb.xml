@@ -1,4 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
+
+
 <library>
   <longName value="Stadtbibliothek Essen"/>
   <shortName value="StB Essen"/>
@@ -13,4 +16,5 @@
   </template>
 
   <homepage value="https://www.stadtbibliothek-essen.de"/>
-</library>
+  <testing-search value="yes"/>  <testing-account value="yes"/></library>
+

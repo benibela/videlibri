@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
+
+
 <library>
-  <longName value="Stadtbücherei Hagen (alpha)"/>
+  <longName value="Stadtbücherei Hagen"/>
   <shortName value="StB Hagen"/>
   
   <template value="bibdia"/>
@@ -13,4 +16,5 @@
   </template>
 
   <homepage value="https://www.hagen.de/web/de/fachbereiche/fb_48sb/fb_48sb_01/informationen.html"/>
-</library>
+  <testing-search value="yes"/>  <testing-account value="unknown"/></library>
+

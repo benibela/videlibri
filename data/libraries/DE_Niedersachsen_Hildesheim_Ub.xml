@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
+
 <library>
   <deprecatedName value="206"/>
   <username matches="^[0-9]+$"/>
@@ -23,7 +25,8 @@
 	
 
   <homepage value="http://www.uni-hildesheim.de/index.php?id=bibliothek"/>
-  <testing-search value="ja" date="2013-04-26"/>
-  <testing-account value="ja" date="2013-04-26"/>
-  <testing-renew value="ja" date="2013-04-01"/>
+  <testing-search value="yes"/>
+  <testing-account value="yes"/>
+  
 </library>
+

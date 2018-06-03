@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
+
+
+
 <library>
   <deprecatedName value="DE_Baden-W+uertenberg_Heidelberg_Stb"/>
-  <longName value="Stadtbücherei Heidelberg (alpha)"/>
+  <longName value="Stadtbücherei Heidelberg"/>
   <shortName value="Stb Heidelberg"/>
   
   <template value="bibliotheca"/>
@@ -12,7 +16,9 @@
 
 
   <homepage value="http://www.heidelberg.de/stadtbuecherei"/>
-  <testing-search value="nein, da Systemumstellung." date="2014-11-10"/>
-  <testing-account value="nein, benötige Zugangsdaten für Anpassung" date=""/>
-  <testing-renew value="?" date=""/>
+  <testing-search value="yes"/>
+  <testing-account value="unknown"/>
+  
 </library>
+
+

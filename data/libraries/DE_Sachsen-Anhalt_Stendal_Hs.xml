@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
+
 <library>
   <longName value="Hochschulbibliothek Stendal"/>
   <shortName value="Hs Stendal"/>
@@ -8,7 +10,7 @@
   <variable name="picadb" value="5"/>
 
   <homepage value="https://www.hs-magdeburg.de/hochschule/einrichtung/hochschulbibliothek"/>
-  <testing-search value="ja" date="2015-03-24"/>
-  <testing-account value="?" date=""/>
-  <testing-renew value="?" date=""/>
+  <testing-search value="yes"/>
+  <testing-account value="yes"/>
+  
 </library>

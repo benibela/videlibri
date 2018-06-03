@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
+
 <library>
   <longName value="Bibliothek im Kurt-Schwitters-Forum"/>
   
@@ -8,7 +10,7 @@
 
 
   <homepage value="http://www.kurt-schwitters-forum.de/bibliothek/kataloge/index.htm"/>
-  <testing-search value="ja" date="2013-07-07"/>
-  <testing-account value="ja ?" date=""/>
-  <testing-renew value="ja ?" date=""/>
+  <testing-search value="yes"/>
+  <testing-account value="yes"/>
+  
 </library>

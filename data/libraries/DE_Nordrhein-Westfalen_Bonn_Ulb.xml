@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
+
 <library>
   <longName value="Universitäts- und Landesbibliothek Bonn"/>
   <shortName value="Ulb Bonn"/> 
@@ -7,7 +9,7 @@
   <variable name="baseurl" value="https://bonnus.ulb.uni-bonn.de/"/>   
   
   <homepage value="http://www.ulb.uni-bonn.de/"/>
-  <testing-search value="ja" date="2015-01-25"/>
-  <testing-account value="ja" date="2015-01-25"/>
-  <testing-renew value="?" date=""/>
+  <testing-search value="yes"/>
+  <testing-account value="yes"/>
+  
 </library>

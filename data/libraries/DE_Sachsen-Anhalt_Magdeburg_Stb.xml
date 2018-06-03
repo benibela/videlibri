@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
+
+
 <library>
-  <longName value="Stadtbibliothek Magdeburg (alpha)"/>
+  <longName value="Stadtbibliothek Magdeburg"/>
   <shortName value="Stb Magdeburg"/>
   
   <template value="bibliotheca"/>
@@ -8,4 +11,5 @@
   <variable name="DB" value="web_biblio"/>
   
   <homepage value="http://www.magdeburg-stadtbibliothek.de/"/>
-</library>
+  <testing-search value="yes"/>  <testing-account value="unknown"/></library>
+

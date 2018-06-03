@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
+
 <library>
-  <longName value="Schleswig-Holsteinische Landesbibliothek (alpha)"/>
+  <longName value="Schleswig-Holsteinische Landesbibliothek"/>
   
   <template value="pica"/>  
   <variable name="server" value="http://kiopc4.ub.uni-kiel.de:8080"/>
@@ -9,7 +11,8 @@
 
 
   <homepage value="http://www.shlb.de/"/>
-  <testing-search value="ja" date="2013-07-07"/>
-  <testing-account value="?" date=""/>
-  <testing-renew value="?" date=""/>
+  <testing-search value="yes"/>
+  <testing-account value="unknown"/>
+  
 </library>
+

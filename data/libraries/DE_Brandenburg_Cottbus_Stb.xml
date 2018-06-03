@@ -1,13 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
+
+
+
 <library>
-  <longName value="Stadt- und Regionalbibliothek Cottbus (alpha)"/>
+  <longName value="Stadt- und Regionalbibliothek Cottbus"/>
 
   <template value="libero5"/>
   <variable name="baseurl" value="https://web-opac.bibliothek-cottbus.de/libero/"/>
   <variable name="loginBaseurl" value="https://web-opac.bibliothek-cottbus.de/libero/"/>
 
   <homepage value="http://www.bibliothek-cottbus.de/"/>
-  <testing-search value="manchmal ???" date="2013-07-05"/>
-  <testing-account value="???" date=""/>
-  <testing-renew value="???" date=""/>
+  <testing-search value="yes"/>
+  <testing-account value="unknown"/>
+  
 </library>
+
+

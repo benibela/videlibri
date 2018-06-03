@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
+
 <library>
   <longName value="Fachhochschulbibliothek Erfurt"/>
   <shortName value="Fhb Erfurt"/>
@@ -9,7 +11,8 @@
 
 
   <homepage value="http://www.fh-erfurt.de/bibo/"/>
-  <testing-search value="ja" date="2013-04-26"/>
-  <testing-account value="ja" date="2013-06-26"/>
-  <testing-renew value="ja" date="2013-06-26"/>
+  <testing-search value="yes"/>
+  <testing-account value="yes"/>
+  
 </library>
+

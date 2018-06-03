@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
+
 <library>
   <deprecatedName value="007"/>
   <username matches="^[0-9]+$"/>
@@ -15,7 +17,7 @@
 
 
   <homepage value="https://ssl.muenchen.de/aDISWeb"/>
-  <testing-search value="ja" date="2013-05-17"/>
-  <testing-account value="ja" date="2012-10-03"/>
-  <testing-renew value="ja" date="2012-10-01"/>
+  <testing-search value="yes"/>
+  <testing-account value="yes"/>
+  
 </library>

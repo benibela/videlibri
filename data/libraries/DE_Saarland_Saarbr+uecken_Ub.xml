@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
+
 <library>
   <longName value="SVK (Standort- und Ausleih-OPAC)"/>
 
@@ -6,7 +8,8 @@
   <variable name="baseurl" value="http://opac.sulb.uni-saarland.de/libero/"/>
 
   <homepage value="http://www.sulb.uni-saarland.de/en/"/>
-  <testing-search value="ja" date="2013-07-05"/>
-  <testing-account value="?" date=""/>
-  <testing-renew value="?" date=""/>
+  <testing-search value="yes"/>
+  <testing-account value="yes"/>
+  
 </library>
+

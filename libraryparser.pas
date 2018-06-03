@@ -13,8 +13,10 @@ type
 
   { TLibrary }
 
+  TTestingInfo = (tiUnknown, tiYes, tiNo, tiBroken);
   TLibrary=class
   protected
+    ftestingSearch, ftestingAccount: TTestingInfo;
     defaultVariables:TStringList;
     fhomepageCatalogue: string;
     function readProperty(tagName: string; properties: TProperties):TParsingResult;
@@ -593,6 +595,17 @@ end;
 
 function TLibrary.readProperty(tagName: string; properties: TProperties):TParsingResult;
 var value:string;
+  function parseTesting: TTestingInfo;
+  begin
+    case value of
+      'yes': result := tiYes;
+      'no': result := tiNo;
+      //'unknown': result := tiYes;
+      'broken': result := tiBroken;
+      else result := tiUnknown;
+    end;
+  end;
+
 begin
   tagName:=LowerCase(tagName);
   value:=getProperty('value',properties);
@@ -612,6 +625,8 @@ begin
   else if tagName='deprecatedname' then deprecatedId:=value
   else if tagName='table-comment' then tableComment:=value
   else if tagName='segregated-accounts' then segregatedAccounts:=StrToBool(value)
+  else if tagName='testing-search' then ftestingSearch:=parseTesting
+  else if tagName='testing-account' then ftestingAccount:=parseTesting
   ;
   Result:=prContinue;
 end;
@@ -625,6 +640,8 @@ procedure TLibrary.loadFromString(data, fileName: string);
 begin
   id:=ChangeFileExt(ExtractFileName(fileName),'');;
   maxRenewCount:=-1;
+  ftestingAccount := tiUnknown;
+  ftestingSearch := tiUnknown;
   parseXML(data,@readProperty,nil,nil,CP_UTF8);
   if template<>nil then begin
     canModifySingleBooks:=(template.findAction('renew-single')<>nil)  or
@@ -632,6 +649,10 @@ begin
   end;
   if prettyNameShort = '' then
     prettyNameShort:=strCopyFrom(id, strRpos('_', id)+1) + ' '+ prettyLocation;
+  if (ftestingSearch = tiBroken) and (ftestingAccount = tiBroken) then tableComment := 'Nach Änderungen auf der Bibliothekswebseite kaputt'
+  else if (ftestingSearch = tiYes) and (ftestingAccount in [tiBroken, tiNo]) then prettyNameLong += ' (nur Suche)'
+  else if (ftestingSearch = tiYes) and (ftestingAccount = tiUnknown) then prettyNameLong += ' (nur Suche getestet)'
+  else if (ftestingSearch in [tiBroken, tiNo]) and (ftestingAccount = tiYes) then prettyNameLong += ' (nur Konto)'
 end;
 
 //==============================================================================

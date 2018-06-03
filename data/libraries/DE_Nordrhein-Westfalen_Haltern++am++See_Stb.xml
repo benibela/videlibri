@@ -1,4 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
+
+
 <library>
   <deprecatedName value="DE_Nordrhein-Westfalen_Haltern-am-See_Stb"/>
   <longName value="Verbund Haltern Mark Recklinghausen"/>
@@ -16,5 +19,6 @@
   </template>
 
 
-  <homepage value="https://www.haltern-am-see.de/Inhalte/Startseite/Sport_Kultur_Freizeit/Kultur/Stadtbuecherei/index.asp?seite=oe&id=361"/>
-</library>
+  <homepage value="https://www.haltern-am-see.de/Inhalte/Startseite/Sport_Kultur_Freizeit/Kultur/Stadtbuecherei/index.asp?seite=oe&amp;id=361"/>
+  <testing-search value="yes"/>  <testing-account value="yes"/></library>
+

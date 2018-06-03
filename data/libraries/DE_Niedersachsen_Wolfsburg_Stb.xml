@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
+
+
 <library>
-  <longName value="Stadtbibliothek Wolfsburg (alpha)"/>
+  <longName value="Stadtbibliothek Wolfsburg"/>
   <shortName value="Stb Wolfsburg"/>
 
   <template value="bibliothecaplus"/>
@@ -9,4 +12,5 @@
 
 
   <homepage value="http://www.wolfsburg.de/stadtbibliothek"/>
-</library>
+  <testing-search value="yes"/>  <testing-account value="unknown"/></library>
+

@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
 <library>
   <deprecatedName value="DE_Baden-W+uertenberg_Pforzheim_Stb"/>
   <longName value="Stadtbibliothek Pforzheim"/>
@@ -9,4 +10,4 @@
  
 
   <homepage value="http://stadtbibliothek.pforzheim.de/"/>
-</library>
+  <testing-search value="yes"/>  <testing-account value="yes"/></library>

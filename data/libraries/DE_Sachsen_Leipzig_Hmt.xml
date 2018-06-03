@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
+
+
 <library>
-  <longName value="Bibliothek der Hochschule für Musik und Theater (alpha)"/>
+  <longName value="Bibliothek der Hochschule für Musik und Theater"/>
 
   <template value="vufind"/>
   <variable name="baseurl" value="https://katalog.hmt-leipzig.de/vufind/"/>
@@ -13,4 +16,5 @@
   <variable name="specialSearchOptions" value="+%26+sge:+%22L+152%22&amp;HILN=400"/>
 -->
   <homepage value="http://www.hmt-leipzig.de/index.php?bibliothek"/>
-</library>
+  <testing-search value="yes"/>  <testing-account value="unknown"/></library>
+

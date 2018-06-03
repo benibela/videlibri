@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
+
 <library>
   <longName value="Stadtbibliothek Chemnitz"/>
   <shortName value="Stb Chemnitz"/> 
@@ -8,7 +10,7 @@
   <variable name="startparams" value=""/>
   
   <homepage value="http://www.stadtbibliothek-chemnitz.de/"/>
-  <testing-search value="ja" date="2015-09-20"/>
-  <testing-account value="ja" date="2015-09-30"/>
-  <testing-renew value="?" date=""/>
+  <testing-search value="yes"/>
+  <testing-account value="yes"/>
+  
 </library>

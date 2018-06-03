@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
+
 <library>
-  <longName value="Fachhochschulbibliothek Nordhausen (alpha)"/>
+  <longName value="Fachhochschulbibliothek Nordhausen"/>
   <shortName value="Fhb Nordhausen"/>
   
   <template value="pica"/>
@@ -9,7 +11,8 @@
 
 
   <homepage value="https://www.hs-nordhausen.de/service/bibliothek/"/>
-  <testing-search value="ja" date="2013-04-26"/>
-  <testing-account value="?" date=""/>
-  <testing-renew value="?" date=""/>
+  <testing-search value="yes"/>
+  <testing-account value="unknown"/>
+  
 </library>
+

@@ -1,12 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
+
 <library>
-  <longName value="Universitätsbibliothek Witten/Herdecke (alpha)"/>
+  <longName value="Universitätsbibliothek Witten/Herdecke"/>
 
   <template value="libero5"/>
   <variable name="baseurl" value="https://bib.uni-wh.de/libero/"/>
 
   <homepage value="http://www.uni-wh.de/studium/bibliothek/"/>
-  <testing-search value="ja" date="2013-07-05"/>
-  <testing-account value="?" date=""/>
-  <testing-renew value="?" date=""/>
+  <testing-search value="yes"/>
+  <testing-account value="unknown"/>
+  
 </library>
+

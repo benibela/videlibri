@@ -1,12 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
+
 <library>
-  <longName value="Bibliothek der Hochschule für Grafik und Buchkunst (alpha)"/>
+  <longName value="Bibliothek der Hochschule für Grafik und Buchkunst"/>
 
   <template value="libero5"/>
   <variable name="baseurl" value="http://webpac.bibhgb.hgb-leipzig.de/libero/"/>
 
   <homepage value="http://www.hgb-leipzig.de/index.php?a=inst&amp;b=biblio"/>
-  <testing-search value="ja" date="2013-07-05"/>
-  <testing-account value="?" date=""/>
-  <testing-renew value="?" date=""/>
+  <testing-search value="yes"/>
+  <testing-account value="unknown"/>
+  
 </library>
+

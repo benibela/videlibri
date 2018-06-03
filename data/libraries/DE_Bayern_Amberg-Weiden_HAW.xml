@@ -1,4 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
+
+
 <library>
   <longName value="Hochschulbibliothek Amberg-Weiden"/>
   <shortName value="HAW Amberg-Weiden"/>
@@ -9,4 +12,5 @@
   <variable name="startparams" value="?View=faw"/>
   
   <homepage value="http://www.haw-aw.de/einrichtungen/bibliothek/"/>
-</library>
+  <testing-search value="yes"/>  <testing-account value="yes"/></library>
+

@@ -1,14 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
+
 <library>
   <deprecatedName value="DE_Baden-W+uertenberg_Mosbach_HS"/>
-  <longName value="Hochschulbibliothek Mosbach (alpha)"/>
+  <longName value="Hochschulbibliothek Mosbach"/>
 
   <template value="aDISWeb"/>
   <variable name="server" value="bsz.ibs-bw.de"/>
-  <variable name="startparams" value="?service=direct/0/Home/$DirectLink&sp=S127.0.0.1:23102"/>
+  <variable name="startparams" value="?service=direct/0/Home/$DirectLink&amp;sp=S127.0.0.1:23102"/>
 
   <homepage value="http://bibliothek.dhbw-mosbach.de/"/>
-  <testing-search value="ja" date="2013-05-18"/>
-  <testing-account value="?" date=""/>
-  <testing-renew value="?" date=""/>
+  <testing-search value="yes"/>
+  <testing-account value="unknown"/>
+  
 </library>

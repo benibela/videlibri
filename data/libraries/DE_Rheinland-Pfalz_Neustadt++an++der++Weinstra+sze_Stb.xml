@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
+
 <library>
   <deprecatedName value="DE_Rheinland-Pfalz_Neustadt-an-der-Weinstra+sze_Stb"/>
   <longName value="Stadtbibliothek Neustadt"/>
@@ -12,7 +14,8 @@
 
 
   <homepage value="http://www.neustadt.eu/Kultur/Stadtb%C3%BCcherei"/>
-  <testing-search value="ja" date="2014-09-08"/>
-  <testing-account value="ja" date="2014-09-08"/>
-  <testing-renew value="?" date=""/>
+  <testing-search value="yes"/>
+  <testing-account value="yes"/>
+  
 </library>
+

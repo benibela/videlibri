@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
+
 <library>
   <longName value="Bibliothek der Hochschule Hannover"/>
   <shortName value="HSUB Hannover"/>
@@ -9,7 +11,7 @@
 
 
   <homepage value="http://www.hs-hannover.de/bibl/"/>
-  <testing-search value="ja" date="2013-04-26"/>
-  <testing-account value="ja" date="2013-06-26"/>
-  <testing-renew value="ja" date="2013-06-26"/>
+  <testing-search value="yes"/>
+  <testing-account value="yes"/>
+  
 </library>

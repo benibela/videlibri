@@ -1,14 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
+
 <library>
   <deprecatedName value="DE_Baden-W+uertenberg_Villingen_Hfpol"/>
-  <longName value="Bibliothek der Hochschule für Polizei Villingen-Schwenningen (alpha)"/>
+  <longName value="Bibliothek der Hochschule für Polizei Villingen-Schwenningen"/>
 
   <template value="aDISWeb"/>
   <variable name="server" value="bsz.ibs-bw.de"/>
-  <variable name="startparams" value="?service=direct/0/Home/$DirectLink&sp=S127.0.0.1:23282"/>
+  <variable name="startparams" value="?service=direct/0/Home/$DirectLink&amp;sp=S127.0.0.1:23282"/>
 
   <homepage value="http://www.hfpol-bw.de/index.php/literatur/bibliothek"/>
-  <testing-search value="ja" date="2013-05-18"/>
-  <testing-account value="?" date=""/>
-  <testing-renew value="?" date=""/>
+  <testing-search value="yes"/>
+  <testing-account value="unknown"/>
+  
 </library>  
+

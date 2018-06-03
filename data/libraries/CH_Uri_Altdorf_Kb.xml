@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
+
 <library>
-  <longName value="Kantonsbibliothek Uri (alpha)"/>
+  <longName value="Kantonsbibliothek Uri"/>
   
   <template value="sisis"/>  
   <variable name="server" value="http://kbu.ur.ch/webOPACClient.sisis/"/>
   
   <homepage value="http://www.kbu.ch/"/>
-  <testing-search value="ja" date="2013-05-18"/>
-  <testing-account value="?" date=""/>
-  <testing-renew value="?" date=""/>
+  <testing-search value="yes"/>
+  <testing-account value="unknown"/>
+  
 </library>

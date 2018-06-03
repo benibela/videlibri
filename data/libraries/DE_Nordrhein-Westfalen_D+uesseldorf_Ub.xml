@@ -1,9 +1,12 @@
-<?xml version="1.0" encoding="ISO-8859-1"?>
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+
 <library>
   <deprecatedName value="200"/>
 
-  <longName value="Universitäts- und Landesbibliothek Düsseldorf (Alter Katalog)"/>
-  <shortName value="ULB Düsseldorf"/>
+  <longName value="UniversitÃ¤ts- und Landesbibliothek DÃ¼sseldorf (Alter Katalog)"/>
+  <shortName value="ULB DÃ¼sseldorf"/>
   <catalogue value="http://katalog.ub.uni-duesseldorf.de/F"/>
   
   <template value="ulbdue"/>  
@@ -23,4 +26,5 @@
 
 
   <homepage value="http://www.ulb.hhu.de/"/>
-</library>
+  <testing-search value="yes"/>  <testing-account value="yes"/></library>
+

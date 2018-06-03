@@ -234,7 +234,7 @@ public class AccountInfo extends VideLibriBaseActivity {
             case DialogId.ACCOUNT_ADD_RENEWAL_MODE_CONFIRM:
                 if (buttonId == DialogInterface.BUTTON_POSITIVE) {
                     if (libdetails == null) break;
-                    if (libdetails.prettyName.contains("(alpha)"))
+                    if (libdetails.prettyName.contains("(nur Suche getestet)"))
                         Util.showMessage(DialogId.ACCOUNT_ADD_NOW, tr(R.string.warning_alphalib));
                     else
                         onDialogResult(DialogId.ACCOUNT_ADD_NOW, DialogInterface.BUTTON_POSITIVE, null);

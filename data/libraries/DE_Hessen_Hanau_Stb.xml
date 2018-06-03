@@ -1,12 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
+
 <library>
-  <longName value="Stadtbibliothek Hanau (alpha)"/>
+  <longName value="Stadtbibliothek Hanau"/>
 
   <template value="libero5"/>
   <variable name="baseurl" value="https://medienkatalog.hanau.de/libero/"/>
 
   <homepage value="http://www.hanau.de/kultur/literatur/bibliothek/index.html"/>
-  <testing-search value="ja" date="2013-07-05"/>
-  <testing-account value="nein" date="2013-10-09"/>
-  <testing-renew value="?" date=""/>
+  <testing-search value="yes"/>
+  <testing-account value="unknown"/>
+  
 </library>
+

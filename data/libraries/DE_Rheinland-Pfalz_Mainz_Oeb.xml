@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
+
+
 <library>
-  <longName value="Öffentliche Bücherei Mainz Anna Seghers (alpha)"/>
+  <longName value="Öffentliche Bücherei Mainz Anna Seghers"/>
   <shortName value="Bücherei Mainz"/>
   
   <template value="bibliotheca"/>
@@ -8,4 +11,5 @@
   <variable name="DB" value="web_biblio"/>
   
   <homepage value="http://www.bibliothek.mainz.de/rubrik4/bereich1.php"/>
-</library>
+  <testing-search value="yes"/>  <testing-account value="unknown"/></library>
+

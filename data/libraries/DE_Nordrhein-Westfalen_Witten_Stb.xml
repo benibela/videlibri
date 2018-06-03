@@ -1,12 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
+
 <library>
-  <longName value="Bibliothek Witten (alpha)"/>
+  <longName value="Bibliothek Witten"/>
 
   <template value="sisis"/>
   <variable name="server" value="https://webopac.stadt-witten.de/webOPACClient/"/>
 
   <homepage value="http://www.kulturforum-witten.de/bibliothek.html"/>
-  <testing-search value="ja" date="2017-03-11"/>
-  <testing-account value="?" date=""/>
-  <testing-renew value="?" date=""/>
+  <testing-search value="yes"/>
+  <testing-account value="unknown"/>
+  
 </library>
+

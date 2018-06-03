@@ -1,13 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
+
 <library>
-  <longName value="Bibliothek der Universität der Bundeswehr München (alpha)"/>
+  <longName value="Bibliothek der Universität der Bundeswehr München"/>
   
   <template value="sisis"/>  
   <variable name="server" value="https://opac.unibw.de/InfoGuideClient.ubysis/"/>
   <variable name="startparams" value="?Login=iguby"/>
   
   <homepage value="https://www.unibw.de/ub"/>
-  <testing-search value="ja" date="2013-05-18"/>
-  <testing-account value="?" date=""/>
-  <testing-renew value="?" date=""/>
+  <testing-search value="yes"/>
+  <testing-account value="unknown"/>
+  
 </library>

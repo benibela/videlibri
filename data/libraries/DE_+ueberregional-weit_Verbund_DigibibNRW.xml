@@ -1,6 +1,6 @@
-<?xml version="1.0" encoding="ISO-8859-1"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <library>
-  <longName value="Öffentliche Bibliotheken NRW (über Digibib)"/>
+  <longName value="Ã–ffentliche Bibliotheken NRW (Ã¼ber Digibib)"/>
 
   <template value="digibib"/>
   
@@ -9,4 +9,5 @@
   <variable name="searchid" value="SERVICEGROUP1.SERVICE.SEARCH_HBZOEB"/>
 
   <homepage value="https://www.digibib.net"/>
-</library>
+  <testing-search value="yes"/>  <testing-account value="no"/></library>
+

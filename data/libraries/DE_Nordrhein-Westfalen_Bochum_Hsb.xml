@@ -1,12 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
+
 <library>
-  <longName value="Hochschulbibliothek Bochum (alpha)"/>
+  <longName value="Hochschulbibliothek Bochum"/>
 
   <template value="libero5"/>
   <variable name="baseurl" value="http://opac.hs-bochum.de/libero/"/>
 
   <homepage value="http://www.hochschule-bochum.de/bib.html"/>
-  <testing-search value="ja" date="2013-07-05"/>
-  <testing-account value="ja" date="2015-07-01"/>
-  <testing-renew value="ja" date="2015-07-01"/>
+  <testing-search value="yes"/>
+  <testing-account value="unknown"/>
+  
 </library>
+

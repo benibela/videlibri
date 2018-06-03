@@ -1,12 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
+
 <library>
-  <longName value="Stadtbücherei Stolberg (alpha)"/>
+  <longName value="Stadtbücherei Stolberg"/>
 
   <template value="libero5"/>
   <variable name="baseurl" value="http://webopac.stolberg.de/libero/"/>
 
-  <homepage value="http://www.stolberg.de/city_info/webaccessibility/index.cfm?item_id=867158&waid=699"/>
-  <testing-search value="ja" date="2013-07-05"/>
-  <testing-account value="?" date=""/>
-  <testing-renew value="?" date=""/>
+  <homepage value="http://www.stolberg.de/city_info/webaccessibility/index.cfm?item_id=867158&amp;waid=699"/>
+  <testing-search value="yes"/>
+  <testing-account value="unknown"/>
+  
 </library>
+

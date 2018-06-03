@@ -1,4 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
+
+
 <library>
   <deprecatedName value="002"/>
   
@@ -19,4 +22,5 @@
 
   <homepage value="http://www.aachen.de/DE/stadt_buerger/bildung/oeffentliche_bibliothek/stadtteile/index.html"/>
   <catalogue value="http://webopac.stadtbibliothek-aachen.de/"/>
-</library>
+  <testing-search value="yes"/>  <testing-account value="yes"/></library>
+

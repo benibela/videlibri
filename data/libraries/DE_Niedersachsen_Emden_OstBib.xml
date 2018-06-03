@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
+
 <library>
-  <longName value="Landschaftsbibliothek Aurich und Johannes a Lasco Bibliothek Emden (alpha) "/>
+  <longName value="Landschaftsbibliothek Aurich und Johannes a Lasco Bibliothek Emden"/>
   <shortName value="Emden/Aurich Bib"/>
   
   <template value="pica"/>
@@ -10,7 +12,7 @@
 
   <homepage value="http://www.jalb.de/" name="Johannes a Lasco Bibliothek"/>
   <homepage value="http://www.ostfriesischelandschaft.de/4.html" name="Landschaftsbibliothek Aurich"/>
-  <testing-search value="ja" date="2013-04-26"/>
-  <testing-account value="?" date=""/>
-  <testing-renew value="?" date=""/>
+  <testing-search value="yes"/>
+  <testing-account value="unknown"/>
+  
 }</library>

@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
+
 <library>
-  <longName value="Stadtbücherei Rüsselheim (alpha)"/>
+  <longName value="Stadtbücherei Rüsselheim"/>
   
   <template value="sisis"/>  
   <variable name="server" value="http://stadtbuecherei.ruesselsheim.de/webOPACClient/"/>
   
   <homepage value="http://www.stadt-ruesselsheim.de/Stadtbuecherei.html"/>
-  <testing-search value="ja" date="2013-05-18"/>
-  <testing-account value="ja" date="2013-05-21"/>
-  <testing-renew value="?" date=""/>
+  <testing-search value="yes"/>
+  <testing-account value="unknown"/>
+  
 </library>

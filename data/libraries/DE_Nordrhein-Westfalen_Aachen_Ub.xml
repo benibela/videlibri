@@ -1,4 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
+
+
 <library>
   <deprecatedName value="202"/>
 
@@ -15,4 +18,5 @@
   </template>
 
   <homepage value="http://www.bth.rwth-aachen.de/"/>
-</library>
+  <testing-search value="yes"/>  <testing-account value="yes"/></library>
+

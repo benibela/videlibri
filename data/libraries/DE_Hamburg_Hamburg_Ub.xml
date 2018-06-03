@@ -1,4 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
+
+
 <library>
   <deprecatedName value="209"/>
   <maxRenewCount value="5"/>
@@ -12,4 +15,5 @@
   
 
   <homepage value="http://kataloge.uni-hamburg.de/"/>
-</library>
+  <testing-search value="yes"/>  <testing-account value="yes"/></library>
+

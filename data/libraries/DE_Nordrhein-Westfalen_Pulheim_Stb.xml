@@ -1,4 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
+
+
 <library>
   <longName value="Stadtbücherei Pulheim"/>
   
@@ -6,4 +9,5 @@
   <variable name="server" value="http://173.212.235.246/webOPACClient/"/>
   
   <homepage value="http://www.stadtbuecherei.pulheim.de/"/>
-</library>
+  <testing-search value="yes"/>  <testing-account value="yes"/></library>
+

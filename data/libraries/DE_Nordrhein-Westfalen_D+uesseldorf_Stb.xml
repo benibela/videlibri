@@ -1,9 +1,12 @@
-<?xml version="1.0" encoding="ISO-8859-1"?>
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+
 <library>
   <deprecatedName value="000"/>
   
-  <longName value="Stadtbüchereien Düsseldorf"/>
-  <shortName value="StB Düsseldorf"/>
+  <longName value="StadtbÃ¼chereien DÃ¼sseldorf"/>
+  <shortName value="StB DÃ¼sseldorf"/>
 
   <template value="aDISWeb"/>
   <variable name="server" value="opac-duesseldorf.itk-rheinland.de/"/>
@@ -15,4 +18,5 @@
   </template>
   
   <homepage value="https://www.duesseldorf.de/stadtbuechereien.html"/>
-</library>
+  <testing-search value="yes"/>  <testing-account value="yes"/></library>
+

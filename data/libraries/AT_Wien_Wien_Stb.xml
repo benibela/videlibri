@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
+
 <library>
   <longName value="Büchereien Wien"/>
   <shortName value="Stb Wien"/>
@@ -11,9 +13,10 @@
 
 
   <homepage value="http://www.buechereien.wien.at/"/>
-  <testing-search value="ja" date="2014-09-30"/>
-  <testing-account value="?" date=""/>
-  <testing-renew value="?" date=""/>
+  <testing-search value="yes"/>
+  <testing-account value="yes"/>
+  
 
   <table-comment value="(VideLibri ist kein Produkt der Büchereien Wien!)"/>
 </library>
+

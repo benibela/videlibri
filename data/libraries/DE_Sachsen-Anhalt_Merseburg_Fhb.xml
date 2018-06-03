@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
+
 <library>
-  <longName value="Hochschulbibliothek der Hochschule Merseburg (FH) (alpha)"/>
+  <longName value="Hochschulbibliothek der Hochschule Merseburg (FH)"/>
   <shortName value="FH Merseburg"/>
   
   <template value="pica"/>
@@ -9,7 +11,7 @@
 
   
   <homepage value="http://www.hs-merseburg.de/bibliothek"/>
-  <testing-search value="ja" date="2013-04-26"/>
-  <testing-account value="?" date=""/>
-  <testing-renew value="?" date=""/>
+  <testing-search value="yes"/>
+  <testing-account value="unknown"/>
+  
 </library>

@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
+
+
 <library>
-  <longName value="Stadtbibliothek Gelsenkirchen (alpha)"/>
+  <longName value="Stadtbibliothek Gelsenkirchen"/>
   <shortName value="StB Gelsenkirchen"/>
   
   <template value="bibdia"/>
@@ -13,4 +16,5 @@
   </template>
 
   <homepage value="https://stadtbibliothek.gelsenkirchen.de"/>
-</library>
+  <testing-search value="yes"/>  <testing-account value="unknown"/></library>
+

@@ -1,14 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
+
 <library>
   <deprecatedName value="DE_Baden-W+uertenberg_Mannheim_DHs"/>
-  <longName value="Bibliothek der DHBW Mannheim (alpha)"/>
+  <longName value="Bibliothek der DHBW Mannheim"/>
 
   <template value="aDISWeb"/>
   <variable name="server" value="bsz.ibs-bw.de"/>
-  <variable name="startparams" value="?service=direct/0/Home/$DirectLink&sp=S127.0.0.1:23432"/>
+  <variable name="startparams" value="?service=direct/0/Home/$DirectLink&amp;sp=S127.0.0.1:23432"/>
 
   <homepage value="http://www.bib.dhbw-mannheim.de/"/>
-  <testing-search value="ja" date="2013-05-18"/>
-  <testing-account value="?" date=""/>
-  <testing-renew value="?" date=""/>
+  <testing-search value="yes"/>
+  <testing-account value="unknown"/>
+  
 </library>  

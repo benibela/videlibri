@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
+
 <library>
   <longName value="Stadtbibliothek Bremen"/>
   <shortName value="Stb Bremen"/> 
@@ -7,7 +9,7 @@
   <variable name="server" value="https://opac.stadtbibliothek-bremen.de/webOPACClient/"/>
   
   <homepage value="http://www.stadtbibliothek-bremen.de/"/>
-  <testing-search value="ja" date="2013-05-18"/>
-  <testing-account value="?" date=""/>
-  <testing-renew value="?" date=""/>
+  <testing-search value="yes"/>
+  <testing-account value="yes"/>
+  
 </library>

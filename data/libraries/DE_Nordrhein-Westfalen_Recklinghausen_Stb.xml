@@ -1,4 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
+
+
 <library>
   <longName value="Verbund Haltern Mark Recklinghausen"/>
   <shortName value="HMR"/>
@@ -16,4 +19,5 @@
 
 
   <homepage value="https://www.recklinghausen.de/Inhalte/Startseite/Familie_Bildung/Stadtbuecherei/index.asp"/>
-</library>
+  <testing-search value="yes"/>  <testing-account value="yes"/></library>
+

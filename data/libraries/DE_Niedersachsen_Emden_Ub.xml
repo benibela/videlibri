@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
+
 <library>
-  <longName value="Hochschulbibliothek Emden/Leer (alpha)"/>
+  <longName value="Hochschulbibliothek Emden/Leer"/>
   <shortName value="HS Emden/Leer"/>
   
   <template value="pica"/>
@@ -9,7 +11,7 @@
 
 
   <homepage value="http://www.hs-emden-leer.de/einrichtungen/bibliothek.html"/>
-  <testing-search value="ja" date="2013-04-26"/>
-  <testing-account value="?" date=""/>
-  <testing-renew value="?" date=""/>
+  <testing-search value="yes"/>
+  <testing-account value="unknown"/>
+  
 </library>

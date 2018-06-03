@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <library>
-  <longName value="Stadtbibliothek Mönchengladbach (alpha)"/>
+  <longName value="Stadtbibliothek Mönchengladbach"/>
   <shortName value="StB Mönchengladbach"/>
   
   <template value="bibdia"/>
@@ -13,4 +13,4 @@
   </template>
 
   <homepage value="http://www.stadtbibliothek-mg.de"/>
-</library>
+  <testing-search value="yes"/>  <testing-account value="unknown"/></library>

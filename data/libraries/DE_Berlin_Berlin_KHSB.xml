@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
+
 <library>
   <longName value="Bibliothek der Katholischen Hochschule für Sozialwesen"/>
   <shortName value="KHS Berlin"/>
@@ -9,7 +11,8 @@
   <variable name="searchKeysOverride" value="tit;per;num;jah;slw"/>
    
   <homepage value="http://www.khsb-berlin.de/bibliothek/"/>
-  <testing-search value="ja" date="2014-11-10"/>
-  <testing-account value="ja" date="2014-11-16"/>
-  <testing-renew value="?" date=""/>
+  <testing-search value="yes"/>
+  <testing-account value="yes"/>
+  
 </library>
+

@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
+
 <library>
   <deprecatedName value="DE_Baden-W+uertenberg_Heilbronn_Stb"/>
-  <longName value="Stadtbibliothek Heilbronn (alpha)"/>
+  <longName value="Stadtbibliothek Heilbronn"/>
   <shortName value="Stb Heilbronn"/>
   
   <template value="bibliotheca"/>
@@ -12,7 +14,8 @@
 
 
   <homepage value="https://stadtbibliothek.heilbronn.de/"/>
-  <testing-search value="ja" date="2014-09-30"/>
-  <testing-account value="?" date=""/>
-  <testing-renew value="?" date=""/>
+  <testing-search value="yes"/>
+  <testing-account value="unknown"/>
+  
 </library>
+

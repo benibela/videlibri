@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
+
 <library>
   <longName value="Stadtbibliothek Biel"/>
   
@@ -6,4 +8,5 @@
   <variable name="baseurl" value="https://opac.bibliobiel.ch/"/>
 
   <homepage value="https://www.bibliobiel.ch/"/>
-</library>
+  <testing-search value="yes"/>  <testing-account value="yes"/></library>
+

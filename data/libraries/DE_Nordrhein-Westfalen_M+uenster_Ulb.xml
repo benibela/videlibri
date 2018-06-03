@@ -1,12 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
+
 <library>
-  <longName value="Universitäts- und Landesbibliothek Münster (alpha)"/>
+  <longName value="Universitäts- und Landesbibliothek Münster"/>
   
   <template value="sisis"/>  
   <variable name="server" value="https://katalogix.uni-muenster.de/Katalog/"/>
   
   <homepage value="http://www.ulb.uni-muenster.de/bibliothek/"/>
-  <testing-search value="ja" date="2013-05-18"/>
-  <testing-account value="?" date=""/>
-  <testing-renew value="nein" date=""/>
+  <testing-search value="yes"/>
+  <testing-account value="unknown"/>
+  
 </library>
+

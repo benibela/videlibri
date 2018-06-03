@@ -19,5 +19,6 @@
   
 
   <homepage value="" nolist="true"/>
-  <testing-search value="ja" date="2013-04-26"/>
-</library>
+  <testing-search value="yes"/>
+  <testing-account value="no"/></library>
+

@@ -9,4 +9,4 @@
   <template value="bibdia_stabib"/>
   
   <homepage value="http://staatsbibliothek-berlin.de/"/>
-</library>
+  <testing-search value="yes"/>  <testing-account value="yes"/></library>

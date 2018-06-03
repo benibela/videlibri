@@ -1,4 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
+
+
 <library>
   <longName value="Stadtbibliothek Münster"/>
   <shortName value="Stb Münster"/>
@@ -8,4 +11,5 @@
   <variable name="urlsearch" value="https://open.stadt-muenster.de/Erweiterte-Suche"/>
 
   <homepage value="https://www.stadt-muenster.de/buecherei/startseite.html"/>
-</library>
+  <testing-search value="yes"/>  <testing-account value="yes"/></library>
+

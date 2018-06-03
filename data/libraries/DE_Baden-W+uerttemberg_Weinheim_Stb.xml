@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
+
 <library>
   <deprecatedName value="DE_Baden-W+uertenberg_Weinheim_Stb"/>
-  <longName value="Stadtbibliothek Weinheim (alpha)"/>
+  <longName value="Stadtbibliothek Weinheim"/>
   <shortName value="Stb Weinheim"/>
   
   <template value="bibliotheca"/>
@@ -12,7 +14,8 @@
 
 
   <homepage value="http://www.weinheim.de/servlet/PB/menu/1075105/index.html"/>
-  <testing-search value="ja" date="2014-09-30"/>
-  <testing-account value="?" date=""/>
-  <testing-renew value="?" date=""/>
+  <testing-search value="yes"/>
+  <testing-account value="unknown"/>
+  
 </library>
+

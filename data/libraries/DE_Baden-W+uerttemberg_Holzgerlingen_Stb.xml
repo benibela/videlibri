@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
+
 <library>
   <deprecatedName value="DE_Baden-W+uertenberg_Holzgerlingen_Stb"/>
-  <longName value="Stadtbibliothek Holzgerlingen (alpha)"/>
+  <longName value="Stadtbibliothek Holzgerlingen"/>
   <shortName value="Stabue Holzgerlingen"/>
   
   <template value="bibliothecaplus"/>
@@ -10,7 +12,8 @@
 
 
   <homepage value="http://www.stabue-holzgerlingen.de"/>
-  <testing-search value="ja" date="2016-06-22"/>
-  <testing-account value="?" date=""/>
-  <testing-renew value="?" date=""/>
+  <testing-search value="yes"/>
+  <testing-account value="unknown"/>
+  
 </library>
+

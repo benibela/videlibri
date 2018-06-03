@@ -12,4 +12,5 @@
   
 
   <homepage value="" nolist="true"/>
-</library>
+  <testing-search value="yes"/>  <testing-account value="no"/></library>
+

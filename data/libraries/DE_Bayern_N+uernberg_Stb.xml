@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
+
 <library>
   <longName value="Stadtbibliothek im Bildungscampus Nürnberg"/>
   <shortName value="StB Nürnberg"/>
@@ -8,7 +10,8 @@
 
 
   <homepage value="http://www.nuernberg.de/internet/stadtbibliothek/"/>
-  <testing-search value="ja" date="2013-05-17"/>
-  <testing-account value="ja" date="2013-06-28"/>
-  <testing-renew value="ja" date="2013-06-28"/>
+  <testing-search value="yes"/>
+  <testing-account value="yes"/>
+  
 </library>
+

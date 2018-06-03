@@ -1,14 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
+
 <library>
   <deprecatedName value="DE_Baden-W+uertenberg_Reutlingen_Hs"/>
-  <longName value="Bibliothek der Hochschule Reutlingen (alpha)"/>
+  <longName value="Bibliothek der Hochschule Reutlingen"/>
 
   <template value="aDISWeb"/>
   <variable name="server" value="bsz.ibs-bw.de"/>
-  <variable name="startparams" value="?service=direct/0/Home/$DirectLink&sp=S127.0.0.1:23312"/>
+  <variable name="startparams" value="?service=direct/0/Home/$DirectLink&amp;sp=S127.0.0.1:23312"/>
 
   <homepage value="https://www.reutlingen-university.de/ueber-uns/organisation/hochschulbibliothek/"/>
-  <testing-search value="ja" date="2013-05-18"/>
-  <testing-account value="?" date=""/>
-  <testing-renew value="?" date=""/>
+  <testing-search value="yes"/>
+  <testing-account value="unknown"/>
+  
 </library>  

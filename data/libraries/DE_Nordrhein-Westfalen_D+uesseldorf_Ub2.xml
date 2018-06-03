@@ -1,7 +1,10 @@
-<?xml version="1.0" encoding="ISO-8859-1"?>
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+
 <library>
-  <longName value="Universitäts- und Landesbibliothek Düsseldorf (Neuer Katalog)"/>
-  <shortName value="ULB Düsseldorf"/>
+  <longName value="UniversitÃ¤ts- und Landesbibliothek DÃ¼sseldorf (Neuer Katalog)"/>
+  <shortName value="ULB DÃ¼sseldorf"/>
   
   <template value="vufind"/>  
   <variable name="baseurl" value="https://katalog.ulb.hhu.de/"/>
@@ -15,4 +18,5 @@
 
 
   <homepage value="http://www.ulb.hhu.de/"/>
-</library>
+  <testing-search value="yes"/>  <testing-account value="yes"/></library>
+

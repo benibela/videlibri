@@ -1,9 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
+
+
 <library>
-  <longName value="Stadtbücherei Weimar (alpha)"/>
+  <longName value="Stadtbücherei Weimar"/>
   
   <template value="sisis"/>  
   <variable name="server" value="http://katalog.stadtbibo-weimar.de/webOPACClient/"/>
   
   <homepage value="http://www.stadtbibliothek-weimar.de"/>
-</library>
+  <testing-search value="yes"/>  <testing-account value="unknown"/></library>
+

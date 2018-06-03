@@ -1,13 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
+
 <library>
-  <longName value="Universitätsbibliothek Regensburg (alpha)"/>
+  <longName value="Universitätsbibliothek Regensburg"/>
   
   <template value="sisis"/>  
   <variable name="server" value="https://www.regensburger-katalog.de/TouchPoint/"/>
   <variable name="startparams" value="?View=ubr"/>
   
   <homepage value="http://www.uni-regensburg.de/bibliothek/"/>
-  <testing-search value="ja" date="2013-05-18"/>
-  <testing-account value="?" date=""/>
-  <testing-renew value="?" date=""/>
+  <testing-search value="yes"/>
+  <testing-account value="unknown"/>
+  
 </library>

@@ -1,10 +1,14 @@
-<?xml version="1.0" encoding="ISO-8859-1"?>
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+
 <library>  
-  <longName value="Stadtbibliothek Meerbusch (alpha)"/>
+  <longName value="Stadtbibliothek Meerbusch"/>
   <shortName value="StB Meerbusch"/>
   
   <template value="aDISWeb"/>
   <variable name="server" value="opac-meerbusch.itk-rheinland.de/"/>
 
   <homepage value="https://meerbusch.de/kultur-und-tourismus/stadtbibliothek.html"/>
-</library>
+  <testing-search value="yes"/>  <testing-account value="unknown"/></library>
+

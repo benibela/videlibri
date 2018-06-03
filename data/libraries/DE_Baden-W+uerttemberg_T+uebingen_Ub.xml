@@ -1,13 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
+
 <library>
   <deprecatedName value="DE_Baden-W+uertenberg_T+uebingen_Ub"/>
-  <longName value="Universitätsbibliothek Tübingen (alpha)"/>
+  <longName value="Universitätsbibliothek Tübingen"/>
 
   <template value="aDISWeb"/>
   <variable name="server" value="tue.ibs-bw.de"/>
 
   <homepage value="http://www.ub.uni-tuebingen.de/home.html"/>
-  <testing-search value="ja" date="2013-05-18"/>
-  <testing-account value="?" date=""/>
-  <testing-renew value="?" date=""/>
+  <testing-search value="yes"/>
+  <testing-account value="unknown"/>
+  
 </library>

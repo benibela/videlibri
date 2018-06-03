@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
+
+
 <library>
-  <longName value="Stadt- und Regionalbibliothek Erfurt (alpha)"/>
+  <longName value="Stadt- und Regionalbibliothek Erfurt"/>
   <shortName value="Stb Erfurt"/>
 
   <template value="sisis"/>
@@ -8,4 +11,5 @@
   <variable name="startparams" value="?Login=sisis"/>
   
   <homepage value="http://bibliothek.erfurt.de"/>
-</library>
+  <testing-search value="yes"/>  <testing-account value="unknown"/></library>
+

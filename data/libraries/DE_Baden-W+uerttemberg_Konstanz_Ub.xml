@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
+
 <library>
   <deprecatedName value="DE_Baden-W+uertenberg_Konstanz_Ub"/>
   <longName value="Universitätsbibliothek Konstanz"/>
@@ -7,7 +9,8 @@
   <variable name="baseurl" value="https://libero.ub.uni-konstanz.de/libero/"/>
 
   <homepage value="http://www.ub.uni-konstanz.de/home/"/>
-  <testing-search value="ja" date="2013-07-05"/>
-  <testing-account value="?" date=""/>
-  <testing-renew value="?" date=""/>
+  <testing-search value="yes"/>
+  <testing-account value="yes"/>
+  
 </library>
+

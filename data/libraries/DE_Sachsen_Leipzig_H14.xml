@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
 <library>
-  <longName value="Bibliothek der Halle 14 (nur Suche)"/>
+  <longName value="Bibliothek der Halle 14"/>
   <shortName value="Halle 14"/>
 
   <template value="sru"/>
   <variable name="baseurl" value="http://sru.gbv.de/opac-de-gl2"/>
 
   <homepage value="http://www.halle14.org/"/>
-</library>
+  <testing-search value="yes"/>  <testing-account value="no"/></library>

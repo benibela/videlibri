@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
+
 <library>
   <longName value="Stadtbibliothek Wuppertal"/>
   
@@ -6,7 +8,8 @@
   <variable name="server" value="http://webopac.wuppertal.de/webOPACClient.sisis/"/>
 
   <homepage value="http://www.wuppertal.de/kultur-bildung/stadtbibliothek/index.php"/>
-  <testing-search value="ja" date="2013-05-18"/>
-  <testing-account value="ja" date="2014-11-12"/>
-  <testing-renew value="?" date=""/>
+  <testing-search value="yes"/>
+  <testing-account value="yes"/>
+  
 </library>
+

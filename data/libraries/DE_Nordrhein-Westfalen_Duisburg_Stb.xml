@@ -1,4 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
+
+
 <library>
   <longName value="Stadtbibliothek Duisburg"/>
   <shortName value="StB Duisburg"/>
@@ -13,4 +16,5 @@
   </template>
 
   <homepage value="https://www.duisburg.de/bildungwissenschaft/stadtbibliothek/stadtbibliothek.php"/>
-</library>
+  <testing-search value="yes"/>  <testing-account value="yes"/></library>
+

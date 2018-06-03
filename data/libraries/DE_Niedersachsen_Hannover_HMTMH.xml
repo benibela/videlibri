@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
+
 <library>
-  <longName value="Bibliothek der Hochschule für Musik, Theater und Medien Hannover "/>
+  <longName value="Bibliothek der Hochschule für Musik, Theater und Medien Hannover"/>
   
   <template value="pica"/>  
   <variable name="server" value="https://opac.tib.eu/"/>
@@ -8,7 +10,7 @@
 
 
   <homepage value="http://www.hmtm-hannover.de/de/studium/hochschulbibliothek/"/>
-  <testing-search value="ja" date="2013-07-07"/>
-  <testing-account value="ja ?" date=""/>
-  <testing-renew value="ja ?" date=""/>
+  <testing-search value="yes"/>
+  <testing-account value="yes"/>
+  
 </library>

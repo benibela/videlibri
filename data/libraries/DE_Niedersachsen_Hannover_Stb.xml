@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
+
 <library>
   <longName value="Stadtbibliothek Hannover"/>
   
@@ -6,7 +8,8 @@
   <variable name="baseurl" value="https://bibliothek.hannover-stadt.de/alswww3.dll/"/>
 
   <homepage value="http://www.hannover.de/Leben-in-der-Region-Hannover/Bildung/Bibliotheken-Archive/Stadtbibliothek-Hannover"/>
-  <testing-search value="ja" date="2013-10-07"/>
-  <testing-account value="ja" date="2013-11-03"/>
-  <testing-renew value="?" date=""/>
+  <testing-search value="yes"/>
+  <testing-account value="yes"/>
+  
 </library>
+

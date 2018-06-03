@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
+
 <library>
-  <longName value="Universitätsbibliothek der Helmut-Schmidt-Universität Hamburg (alpha)"/>
+  <longName value="Universitätsbibliothek der Helmut-Schmidt-Universität Hamburg"/>
   <shortName value="HSU Hamburg"/>
   
   <template value="pica"/>  
@@ -8,7 +10,7 @@
 
 
   <homepage value="http://www.hsu-bibliothek.de/"/>
-  <testing-search value="ja" date="2013-04-26"/>
-  <testing-account value="ja (?)" date="2011-05-16"/>
-  <testing-renew value="ja (?)" date="2011-05-16"/>
+  <testing-search value="yes"/>
+  <testing-account value="unknown"/>
+  
 </library>

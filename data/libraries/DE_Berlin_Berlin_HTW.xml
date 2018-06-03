@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
+
 <library>
   <longName value="Hochschulbibliothek HTW"/>
   <shortName value="HTW Berlin"/> 
@@ -7,7 +9,7 @@
   <variable name="server" value="https://sisis.rz.htw-berlin.de/InfoGuideClient/"/>
   
   <homepage value="http://bibliothek.htw-berlin.de/"/>
-  <testing-search value="ja" date="2013-11-02"/>
-  <testing-account value="ja" date="2013-11-02"/>
-  <testing-renew value="?" date=""/>
+  <testing-search value="yes"/>
+  <testing-account value="yes"/>
+  
 </library>

@@ -1,13 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
+
 <library>
-  <longName value="Hochschulbibliothek der TH (alpha)"/>
+  <longName value="Hochschulbibliothek der TH"/>
   
   <template value="sisis"/>  
   <variable name="server" value="https://opac.ohm-hochschule.de/InfoGuideClient.fhnsis/"/>
   <variable name="startparams" value="?Login=wofhn00"/>
   
   <homepage value="https://www.th-nuernberg.de/einrichtungen-gesamt/zentrale-einrichtungen/bibliothek/"/>
-  <testing-search value="ja" date="2013-05-18"/>
-  <testing-account value="?" date=""/>
-  <testing-renew value="?" date=""/>
+  <testing-search value="yes"/>
+  <testing-account value="unknown"/>
+  
 </library>

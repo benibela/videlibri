@@ -1,13 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
+
 <library>
-  <longName value="Hochschulbibliothek der FH Potsdam (alpha)"/>
+  <longName value="Hochschulbibliothek der FH Potsdam"/>
   
   <template value="sisis"/>  
   <variable name="server" value="https://opac.fh-potsdam.de/InfoGuideClient.bfpsis/"/>
   <variable name="startparams" value="?Login=wobfp01"/>
   
   <homepage value="http://bibliothek.fh-potsdam.de/"/>
-  <testing-search value="ja" date="2013-05-18"/>
-  <testing-account value="?" date=""/>
-  <testing-renew value="?" date=""/>
+  <testing-search value="yes"/>
+  <testing-account value="unknown"/>
+  
 </library>

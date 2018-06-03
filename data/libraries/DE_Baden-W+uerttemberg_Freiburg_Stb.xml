@@ -1,14 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
+
 <library>
   <deprecatedName value="DE_Baden-W+uertenberg_Freiburg_Stb"/>
-  <longName value="Stadtbibliothek Freiburg (alpha)"/>
+  <longName value="Stadtbibliothek Freiburg"/>
   <shortName value="Stb Freiburg"/> 
   
   <template value="sisis"/>  
   <variable name="server" value="https://katalog.stadtbibliothek.freiburg.de/webOPACClient/"/>
   
   <homepage value="http://www.freiburg.de/pb/,Lde/266131.html"/>
-  <testing-search value="ja" date="2013-05-18"/>
-  <testing-account value="?" date=""/>
-  <testing-renew value="?" date=""/>
+  <testing-search value="yes"/>
+  <testing-account value="unknown"/>
+  
 </library>

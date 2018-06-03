@@ -1,4 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
+
+
 <library>
   <longName value="Stadtbücherei Datteln"/>
   <shortName value="Stb Datteln"/>
@@ -9,5 +12,6 @@
     
    
 
-  <homepage value="https://www.datteln.de/04_Kultur_Bildung/Stadtbuecherei.asp?A_highmain=13&A_highsub=0&A_highsubsub=0"/>
-</library>
+  <homepage value="https://www.datteln.de/04_Kultur_Bildung/Stadtbuecherei.asp?A_highmain=13&amp;A_highsub=0&amp;A_highsubsub=0"/>
+  <testing-search value="yes"/>  <testing-account value="yes"/></library>
+

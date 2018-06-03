@@ -9,7 +9,8 @@
   <variable name="searchid" value="SERVICEGROUP1.SERVICE.SEARCH_FHBM-x"/>
   
   <homepage value="http://www.fh-muenster.de/BIBL/index.php"/>
-  <testing-search value="ja" date=""/>
-  <testing-account value="" date=""/>
-  <testing-renew value="" date=""/>
+  <testing-search value="yes"/>
+  <testing-account value="yes"/>
+  
 </library>
+

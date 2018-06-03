@@ -1,8 +1,11 @@
-<?xml version="1.0" encoding="ISO-8859-1"?>
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+
 <library>
   <deprecatedName value="100"/>
-  <longName value="Hochschulbibliothek der Hochschule Düsseldorf"/>
-  <shortName value="FHB Düsseldorf"/>
+  <longName value="Hochschulbibliothek der Hochschule DÃ¼sseldorf"/>
+  <shortName value="FHB DÃ¼sseldorf"/>
   <catalogue value="http://katalog.bibl.fh-duesseldorf.de/libero/WebOpac.cls"/>
 
   <maxRenewCount value="3"/>
@@ -17,4 +20,5 @@
   </template>
 
   <homepage value="https://bib.hs-duesseldorf.de/"/>
-</library>
+  <testing-search value="yes"/>  <testing-account value="yes"/></library>
+

@@ -1,13 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
+
 <library>
-  <longName value="Kantonsbibliothek Baselland (alpha)"/>
+  <longName value="Kantonsbibliothek Baselland"/>
   <shortName value="Kb Baselland"/> 
   
   <template value="sisis"/>  
   <variable name="server" value="http://xaikb01.bl.ch/InfoGuideClient/"/>
   
   <homepage value="http://www.kbl.ch/"/>
-  <testing-search value="ja" date="2013-05-18"/>
-  <testing-account value="?" date=""/>
-  <testing-renew value="?" date=""/>
+  <testing-search value="yes"/>
+  <testing-account value="unknown"/>
+  
 </library>

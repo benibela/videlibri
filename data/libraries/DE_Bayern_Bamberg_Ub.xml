@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
+
 <library>
-  <longName value="Universitätsbibliothek Bamberg (alpha)"/>
+  <longName value="Universitätsbibliothek Bamberg"/>
   <shortName value="Ub Bamberg"/> 
   
   <template value="sisis"/>  
@@ -8,7 +10,7 @@
   <variable name="startparams" value="?View=ubg&amp;Branch=1"/>
   
   <homepage value="http://www.uni-bamberg.de/ub/"/>
-  <testing-search value="ja" date="2013-05-17"/>
-  <testing-account value="?" date=""/>
-  <testing-renew value="?" date=""/>
+  <testing-search value="yes"/>
+  <testing-account value="unknown"/>
+  
 </library>

@@ -1,12 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
+
 <library>
-  <longName value="Bibliothek der Westfälischen Hochschule (alpha)"/>
+  <longName value="Bibliothek der Westfälischen Hochschule"/>
 
   <template value="libero5"/>
   <variable name="baseurl" value="https://katalog.w-hs.de/libero/"/>
 
   <homepage value="http://bibliothek.w-hs.de/"/>
-  <testing-search value="ja" date="2013-07-05"/>
-  <testing-account value="?" date=""/>
-  <testing-renew value="?" date=""/>
+  <testing-search value="yes"/>
+  <testing-account value="unknown"/>
+  
 </library>
+

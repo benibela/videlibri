@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
 <library>
-  <longName value="Oberlausitzische Bibliothek der Wissenschaften (nur Suche)"/>
+  <longName value="Oberlausitzische Bibliothek der Wissenschaften"/>
   <shortName value="OLB"/>
 
   <template value="sru"/>
   <variable name="baseurl" value="http://sru.gbv.de/opac-de-gl2"/>
 
   <homepage value="https://www.goerlitzer-sammlungen.de/olb/"/>
-</library>
+  <testing-search value="yes"/>  <testing-account value="no"/></library>

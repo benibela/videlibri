@@ -1,12 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
+
+
+
 <library>
-  <longName value="Stadtbücherei Mühlheim (am Main) (alpha)"/>
+  <longName value="Stadtbücherei Mühlheim (am Main)"/>
 
   <template value="libero5"/>
   <variable name="baseurl" value="https://webopac.muehlheim.de/libero/"/>
 
   <homepage value="https://www.muehlheim.de/buecherei-informationen"/>
-  <testing-search value="nein" date="2015-04-05"/>
-  <testing-account value="?" date=""/>
-  <testing-renew value="?" date=""/>
+  <testing-search value="yes"/>
+  <testing-account value="unknown"/>
+  
 </library>
+
+

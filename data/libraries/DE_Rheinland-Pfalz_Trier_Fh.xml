@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
+
 <library>
-  <longName value="Hochschule Trier Katalog (alpha)"/>
+  <longName value="Hochschule Trier Katalog"/>
   
   <template value="sisis"/>  
   <variable name="server" value="http://bibserv.fh-trier.de:8080/webOPACClient/"/>
   
   <homepage value="http://www.hochschule-trier.de/index.php?id=1011"/>
-  <testing-search value="ja" date="2013-05-18"/>
-  <testing-account value="?" date=""/>
-  <testing-renew value="?" date=""/>
+  <testing-search value="yes"/>
+  <testing-account value="unknown"/>
+  
 </library>

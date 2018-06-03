@@ -66,7 +66,7 @@ xidel --xquery '
   {
   let $alltests := file:list($testingpath, true(), "*.xml")!doc($testingpath || .)!tests!test
   let $libraries := {| file:list($librarypath, false(), "*.xml")!(
-    let $lib := doc($librarypath || .)/* return {extract(., "/?([^/]+).xml", 1): {"lib": $lib, "name": replace($lib/longName/@value/data(),"\(.*\)", "")}} ) |} 
+    let $lib := doc($librarypath || .)/* return {extract(., "/?([^/]+).xml", 1): {"lib": $lib, "name": $lib/longName/@value/data()}} ) |} 
   return
   for $test in $alltests
   let $id := $test/@id

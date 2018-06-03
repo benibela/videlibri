@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
+
+
 <library>
-  <longName value="Stadtbibliothek Halle (alpha)"/>
+  <longName value="Stadtbibliothek Halle"/>
   <shortName value="Stb Halle"/>
   
   <template value="bibliotheca"/>
@@ -8,4 +11,5 @@
   <variable name="DB" value="BUCH"/>
 
   <homepage value="http://www.stadtbibliothek-halle.de/stadtbibliothek/startseite/"/>
-</library>
+  <testing-search value="yes"/>  <testing-account value="unknown"/></library>
+

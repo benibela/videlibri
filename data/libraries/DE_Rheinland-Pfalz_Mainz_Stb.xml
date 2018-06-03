@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
+
+
 <library>
-  <longName value="Wissenschaftliche Stadtbibliothek (alpha)"/>
+  <longName value="Wissenschaftliche Stadtbibliothek"/>
   <shortName value="Wissenschaft Mainz"/>
   
   <template value="pica"/>  
@@ -10,4 +13,5 @@
 
 
   <homepage value="http://www.bibliothek.mainz.de/rubrik4/wissenschaftliche-stadtbibliothek.php"/>
-</library>
+  <testing-search value="yes"/>  <testing-account value="unknown"/></library>
+

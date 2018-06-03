@@ -1,8 +1,10 @@
-<?xml version="1.0" encoding="ISO-8859-1"?>
+<?xml version="1.0" encoding="UTF-8"?>
+
+
 <library>
   <deprecatedName value="308"/>
 
-  <longName value="Universitätsbibliothek der TU-Berlin"/>
+  <longName value="UniversitÃ¤tsbibliothek der TU-Berlin"/>
   <shortName value="UBTU Berlin"/>
   <segregated-accounts value="true"/>
   
@@ -12,12 +14,13 @@
   <variable name="institute" value="TUB"/>
 
   <!-- get links from stupid buttons on anmelden page-->
-  <variable name="login-url-1" value="https://tu-berlin.hosted.exlibrisgroup.com/primo_library/libweb/action/login.do?loginFn=signin&vid=TUB&authProfileName=SAML+(Shibboleth)&targetURL=https%3a%2f%2ftu-berlin.hosted.exlibrisgroup.com%2fprimo_library%2flibweb%2faction%2fdlBasketGet.do%3fvid%3dTUB%26redirectTo%3dmyAccount%26fromLogin%3dtrue%26fromSitemap%3d1"/>
-  <variable name="login-url-2" value="https://tu-berlin.hosted.exlibrisgroup.com/primo_library/libweb/action/login.do?loginFn=signin&vid=TUB&authProfileName=Alma+native&targetURL=https%3a%2f%2ftu-berlin.hosted.exlibrisgroup.com%2fprimo_library%2flibweb%2faction%2fdlBasketGet.do%3fvid%3dTUB%26redirectTo%3dmyAccount%26fromLogin%3dtrue%26fromSitemap%3d1"/>
+  <variable name="login-url-1" value="https://tu-berlin.hosted.exlibrisgroup.com/primo_library/libweb/action/login.do?loginFn=signin&amp;vid=TUB&amp;authProfileName=SAML+(Shibboleth)&amp;targetURL=https%3a%2f%2ftu-berlin.hosted.exlibrisgroup.com%2fprimo_library%2flibweb%2faction%2fdlBasketGet.do%3fvid%3dTUB%26redirectTo%3dmyAccount%26fromLogin%3dtrue%26fromSitemap%3d1"/>
+  <variable name="login-url-2" value="https://tu-berlin.hosted.exlibrisgroup.com/primo_library/libweb/action/login.do?loginFn=signin&amp;vid=TUB&amp;authProfileName=Alma+native&amp;targetURL=https%3a%2f%2ftu-berlin.hosted.exlibrisgroup.com%2fprimo_library%2flibweb%2faction%2fdlBasketGet.do%3fvid%3dTUB%26redirectTo%3dmyAccount%26fromLogin%3dtrue%26fromSitemap%3d1"/>
 
 
   <homepage value="http://www.ub.tu-berlin.de/"/>
-  <testing-search value="ja" date="2013-07-07"/>
-  <testing-account value="ja" date="2012-12-23"/>
-  <testing-renew value="?" date=""/>
+  <testing-search value="yes"/>
+  <testing-account value="yes"/>
+  
 </library>
+
