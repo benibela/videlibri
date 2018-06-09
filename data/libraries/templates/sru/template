@@ -53,18 +53,19 @@
   <if test="exists($book.ppn) and contains($baseurl, 'gbv.de')">
     <page url="http://gso.gbv.de/DB=2.1/PPNSET?PPN={$book.ppn}&HILN=888#888">
       <template>
-        <DIV class="holding_box" t:optional="true">{$libName:="??", $bestand := 0}
+        <DIV class="holding_box" t:optional="true">{$libName:="??"}
           <DIV>
             <t:switch>
               <TABLE><TR><span class="libName">{
-                $libName := .                
+                $libName := .
               }</span></TR></TABLE>
               <table summary="holding info">
-               {$bestand := $bestand + 1,  $book(x"Exemplar {$bestand} in !") := $libName  }
+               {$holding := {"libraryBranch": $libName, "orderable": false() }}
                <tr>
-                <td class="rec_lable_holding"><span class="left60">{$id}</span></td>
-                <td class="rec_title">{$book(x"Ex. {$bestand} {$id}!") := .}</td>
+                <td class="rec_lable_holding"><span class="left60">{$prop}</span></td>
+                <td class="rec_title">{$holding($prop||"!") := .}</td>
                </tr>+
+               <t:s>$book.holdings[] := $holding</t:s>
               </table>
             </t:switch>
           </DIV>*
