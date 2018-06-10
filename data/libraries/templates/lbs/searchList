@@ -14,7 +14,7 @@
       <strong class="pages">{search-result-count := extract(., "[0-9]+$") * 1}</strong>?
       <!--<a><img alt="vorherige Seite"/>{prevPage := @href}</a>-->
       <a><img alt="nächste Seite"/>{nextPage :=  concat($base, "/", @href)}</a>
-      <t:if test="extract($nextPage, '[0-9]+$') <= 1">{nextPage := ""}</t:if> <!-- it's looping -->
+      <t:if test="extract($nextPage, '([0-9]+)([^0-9]+)?$', 1) <= 1">{nextPage := ""}</t:if> <!-- it's looping -->
       </table>?
       
       <table summary="hitlist">
