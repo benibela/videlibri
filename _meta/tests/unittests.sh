@@ -126,7 +126,7 @@ PAGES=(${PAGES[@]} pica/update3.html pica/update_abholen.html pica/update_luebec
 test pica 'extend{id-list:=join\(\(\"12/435:X\",\"XYZ\"\)\)}' extend2.html extend2.colon.html extend.colon.html
 
 test pica 'searchDetails{\(\)/\(base:=\"\"\)}' searchDetails.html searchDetails.swb.html
-
+test pica searchList searchList.merseburg.html
 
 #================LBS=============
 mkdir -p $OUTPATH/lbs

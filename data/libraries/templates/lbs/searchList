@@ -25,9 +25,12 @@
         <td class="hit">
           <a>{book := {"title": deep-text(), "home-url": concat($base, "/", @href)}}</a>
           <br/>
-          {book.author := extract(text(), " */? *-? *([^-]*)", 1) ,
+          {let $text-year := extract(text(),             "^(.*?)\[?((ca[.] *)?[0-9]{4}( *- *)?([0-9]{4})?)\]?$", (1,2))
+          return (
+          book.author := extract(replace($text-year[1], ".? - .*", ""), " */? *-? *([^-]*)", 1),
                          (: replace(text(), "( *([-,.])? *\[?(ca[.] *)?[0-9]{4}( *- *)?([0-9]{4})?\]?)$", "") :)
-           book.year   := extract(text(),             "(\[?(ca[.] *)?[0-9]{4}( *- *)?([0-9]{4})?\]?)$", 1)
+          book.year   := $text-year[2]
+          )
           } 
         </td>
       </tr>+
