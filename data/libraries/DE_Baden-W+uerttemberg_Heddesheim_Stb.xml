@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<library>
+  <longName value="Stadtbibliothek Heddesheim"/>
+  <shortName value="Stb Heddesheim"/>
+  
+  <template value="bibliothecaplus"/>
+  <variable name="urlaccount" value="https://bibliotheken.kivbf.de/heddesheim/Mein-Konto"/>	
+  <variable name="urlsearch" value="https://bibliotheken.kivbf.de/heddesheim/Mediensuche/Erweiterte-Suche"/>
+
+  <homepage value="https://www.heddesheim.de/buecherei"/>
+  <testing-search value="yes"/>  
+  <testing-account value="unknown"/>
+</library>
+
