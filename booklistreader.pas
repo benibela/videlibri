@@ -1421,13 +1421,9 @@ end;
 
 function xqFunctionSetBookProperty(const context: TXQEvaluationContext; argc: SizeInt; argv: PIXQValue): IXQValue;
   procedure setProperty(const k, v: string);
-  var
-    book: IXQValue;
   begin
     // $book(k) := v
-    book := context.staticContext.sender.VariableChangelog.get('book');
-    if (book = nil) or (book.kind <> pvkObject) then exit;
-    context.staticContext.sender.VariableChangelog.add('book', (book as TXQValueObject).setImmutable(k, v));
+    context.staticContext.sender.VariableChangelog.addObjectModification('book', xqvalue(v), '', [k]);
   end;
 
 var
