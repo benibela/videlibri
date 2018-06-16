@@ -8,13 +8,17 @@
       </t:element>
       <h2>Keine Ergebnisse<t:s>$search-result-count:=0</t:s></h2>
       <h2>No results<t:s>$search-result-count:=0</t:s></h2>
+      <div class="limiter">
+        {$search-result-count := extract(join(//script/node()[contains(., "piwik")]), "trackSiteSearch.*?, *([0-9]+)", 1, "s")}<!-- ub leipzig-->
+      </div>
+       <span class="sr-only">vl:raise(.)</span>
     </t:switch>
     
     {$search-result-count := max( $search-result-count ! translate(.,".,","")[.] ! xs:integer(.) ),
      
      $new-books := .//div[starts-with(@id, 'result')]/(
        let $linkurls := .//a/@href
-       let $records := $linkurls[contains(., "/Record/") and not(ends-with(., "/Save"))]/parent::a[normalize-space()[.]]
+       let $records := $linkurls[matches(., "/Record/[^/]+$")]/parent::a[normalize-space()[.]]
        let $title := normalize-space($records[1])
        let $author := join($linkurls[matches(., "/Author/.*author=([^&]+)|Results[?].*lookfor=([^&]+).*type=Author")]/parent::a)
        let $year := (.//span[@property="publicationDate"], .//text()/extract(., "(,|published|Veröffentlicht|^)\s*\[?((ca\.\s*)?[1-3][0-9]{3})",2)[.])[1]

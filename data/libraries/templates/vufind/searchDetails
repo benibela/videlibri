@@ -4,8 +4,10 @@
 
   css("div#record div.row.result")/*[.//label]/vl:set-book-property(.//label, normalize-space(join(following-sibling::*))),
   
-  css("div#detailview-leftcol div.detailview-content-item")/vl:set-book-property(./div[1], ./div[2])
-
+  css("div#detailview-leftcol div.detailview-content-item")/vl:set-book-property(./div[1], ./div[2]),
+  
+  (:ub leipzig:)
+  css("div.tab-content div.description-tab table.table")//tr/vl:set-book-property(th, td)
 }
 
 <div t:condition="contains(@class, 'holdings-tab') or @id = 'holdings-tab'">

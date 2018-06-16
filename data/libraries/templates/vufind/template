@@ -50,6 +50,7 @@
 <action id="search-connect">
   <call action="connect"/>
   <s>searchurl := $baseurl || "/Search/"</s>
+  <!--possible: alternative, opensearch and append &view=rss but it lacks some info-->
   <page url="{$searchurl}/Advanced"/>
   <pattern>
     <form t:condition="contains(@action, 'Search/Results')">
@@ -72,7 +73,7 @@
     search-next-page := request-combine($search-request, (
       "sort=relevance",
       "join=AND",
-      {"bool0[]": "OR"},
+      {"bool0[]": "AND"},
       for $key in jn:keys($book) where boolean($book($key)) and exists($search-keys($key)) return
         {"lookfor0[]": $book($key), "type0[]": $search-keys($key)},
       if (boolean($book.year)) then 
@@ -107,8 +108,8 @@
   <s>$page := $page + 1,
      for $b in $new-books 
      let $id := $b._recordId
-     let $status := $item-statuses[id = $id][1]
-     return $book := {| 
+     let $status := $item-statuses[id = $id][not(missing_data = true())][1]
+     return $book := if (empty($status)) then $b else {| 
        $b, 
        $status!{"statusId": switch (availability)
                case "true" return "available"

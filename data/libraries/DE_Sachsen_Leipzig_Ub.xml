@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<library>
+  <longName value="Universitätsbibliothek Leipzig"/>
+  <shortName value="UB Leipzig"/>
+
+  <template value="vufind"/>
+  <variable name="baseurl" value="https://katalog.ub.uni-leipzig.de"/>
+
+  <homepage value="https://www.ub.uni-leipzig.de"/>
+  <testing-search value="yes"/>  
+  <testing-account value="unknown"/>
+</library>
