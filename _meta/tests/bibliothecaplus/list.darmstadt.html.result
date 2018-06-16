@@ -7,7 +7,9 @@ renew-button := {"__EVENTTARGET": "dnn$ctr515$View$UcNormalView$tpnlLoans$ucLoan
 cancel-ordered-button := ()
 cancel-provided-button := ()
 hasBranches := false()
+extendableCheck := "/DesktopModules/OCLC.OPEN.PL.DNN.PatronAccountModule/PatronAccountService.asmx/IsCatalogueCopyExtendable"
 portalId := "0"
+localResourceFile := "~/DesktopModules/OCLC.OPEN.PL.DNN.PatronAccountModule/App_LocalResources/PatronAccountModule.resx"
 hasBranches := true()
 book := {"id": "0635744001", "_copyId": "0635744001", "duedate": "2016-02-09", "libraryBranch": "Hauptstelle", "category": "Buch Sachliteratur", "author": "Stiller, Eileen", "title": "Mein neues Leben - Norwegen", "ISBN": "9783865511553", "image-url": ["/DesktopModules/OCLC.OPEN.PL.DNN.BaseLibrary/StyleSheets/Images/Fallbacks/emptyURL.gif?4.2.0.0", "http://open-stadtbibliothek.darmstadt.de/Portals/0/cover/978-3-86551-155-3.jpg", "https://vlb.de/GetBlob.aspx?strIsbn=9783865511553&size=S", "http://www.buchhandel.de/default.aspx?strframe=titelsuche&caller=vlbPublic&func=DirectIsbnSearch&isbn=9783865511553&nSiteId=11"], "_renewid": "dnn$ctr515$View$UcNormalView$tpnlLoans$ucLoansView$grdViewLoans$ctl02$chkSelect"}
 book := {"id": "0719945001", "_copyId": "0719945001", "duedate": "2016-02-09", "libraryBranch": "Hauptstelle", "category": "Buch Sachliteratur", "author": "Dusik, Roland", "title": "Indonesien", "ISBN": "9783770176755", "image-url": ["/DesktopModules/OCLC.OPEN.PL.DNN.BaseLibrary/StyleSheets/Images/Fallbacks/emptyURL.gif?4.2.0.0", "http://open-stadtbibliothek.darmstadt.de/Portals/0/cover/978-3-7701-7675-5.jpg", "https://vlb.de/GetBlob.aspx?strIsbn=9783770176755&size=S", "http://www.buchhandel.de/default.aspx?strframe=titelsuche&caller=vlbPublic&func=DirectIsbnSearch&isbn=9783770176755&nSiteId=11"], "_renewid": "dnn$ctr515$View$UcNormalView$tpnlLoans$ucLoansView$grdViewLoans$ctl03$chkSelect"}

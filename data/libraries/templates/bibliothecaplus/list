@@ -13,7 +13,13 @@
       $cancel-ordered-button := (//input[ends-with(@name, "BtnCancelReservations")])[1]/{"__EVENTTARGET":  @name},
       $cancel-provided-button := (//input[ends-with(@name, "BtnCancelReadyForPickup")])[1]/{"__EVENTTARGET":  @name},
       $hasBranches := false(),
-      $portalId := (extract($raw, 'eonportalid *= *[''"]([0-9]+)[''"]', 1)[.], 1)[1]
+      let $split := extract($raw, 'LoadExtensionsAsync *\( *["'']([^"'']*?/IsCatalogueCopyExtendable)["''] *, *["'']([^"'']*?)["''] *, *["''][^"'']*?["''] *, *["'']([^"'']*?)["'']', (1,2,3))
+      return (
+        $extendableCheck := if ($split[1][.]) then $split[1] 
+                            else (//link[contains(@href, 'PatronAccountModule')])[1]/(extract(resolve-uri(@href), "^.*PatronAccountModule[/\\]") || "PatronAccountService.asmx/IsCatalogueCopyExtendable"),
+        $portalId := if ($split[2]) then $split[2] else (extract($raw, 'eonportalid *= *[''"]([0-9]+)[''"]', 1)[.], 1)[1],
+        $localResourceFile := ($split[3], "/DesktopModules/OCLC.OPEN.PL.DNN.PatronAccountModule/App_LocalResources/NormalView")[.][1]
+      )
     }
     
     <TABLE t:condition="contains(@id, 'grdViewLoans')"> <!-- also in @id -->
