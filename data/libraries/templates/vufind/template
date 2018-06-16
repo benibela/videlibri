@@ -97,6 +97,10 @@
 
 <action id="search-internal-vufind">
   <page url="{$search-next-page}" templateFile="searchList"/>
+  <if test="$singleMode">
+    <page url="{$baseurl}/Record/{$singleModeRecordId}" templateFile="searchDetails" />
+  </if>
+  <else>
   <try>
     <s>item-statuses := (), params := join( $new-books/_recordId ! ("id%5B%5D="||.), $amp) </s>
     <page url="{$baseurl}/AJAX/JSON?method=getItemStatuses&{$params}">
@@ -118,6 +122,7 @@
        $status.callnumber[.]!{"id": .}
      |}
   </s>
+  </else>
 </action>
 
 <action id="search-details">

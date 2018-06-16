@@ -1,5 +1,6 @@
  
   <div role="main">
+    {$singleMode:=false()}
     <t:switch prioritized="true">
       <div id="search-counter"><strong>{$search-result-count}</strong></div>
       <span class="numResult">{$search-result-count}</span>
@@ -11,8 +12,15 @@
       <div class="limiter">
         {$search-result-count := extract(join(//script/node()[contains(., "piwik")]), "trackSiteSearch.*?, *([0-9]+)", 1, "s")}<!-- ub leipzig-->
       </div>
+      <t:element t:test="contains($url, '/Record/')">{
+        singleMode := true(),
+        singleModeRecordId:=substring-after($url, "/Record/"), 
+        $new-books := ()
+      }</t:element>
        <span class="sr-only">vl:raise(.)</span>
     </t:switch>
+    
+    <t:if test="not($singleMode)">
     
     {$search-result-count := max( $search-result-count ! translate(.,".,","")[.] ! xs:integer(.) ),
      
@@ -40,4 +48,5 @@
        search-next-page-available := exists($search-next-page)
      )
      }</ul>
+     </t:if>
   </div>

@@ -1,6 +1,8 @@
 <html>
 
-{ .//div[@resource]//table[@summary]//tr/vl:set-book-property(th, td),
+{  if (get("singleMode", false())) then $book := {"_recordId": $singleModeRecordId} else (),
+
+.//div[@resource]//table[@summary]//tr/vl:set-book-property(th, td),
 
   css("div#record div.row.result")/*[.//label]/vl:set-book-property(.//label, normalize-space(join(following-sibling::*))),
   
