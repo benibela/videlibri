@@ -10,8 +10,8 @@
   <variable name="baseurl" value="https://webopac.muehlheim.de/libero/"/>
 
   <homepage value="https://www.muehlheim.de/buecherei-informationen"/>
-  <testing-search value="yes"/>
-  <testing-account value="unknown"/>
+  <testing-search value="broken"/>
+  <testing-account value="broken"/>
   
 </library>
 
