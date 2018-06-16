@@ -1,10 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?xml-stylesheet type="text/xsl" href="../changelog.xsl"?>
 <changelog program="VideLibri">
-      <build version="1975" date="2018-05-11">
+      <build version="1980" date="2018-06-17">
         <download url="http://videlibri.sourceforge.net/updates/videlibri-setup.exe" platform="WINDOWS" execute="&quot;$DOWNLOAD&quot;  /SP- /noicons &quot;/dir=$OLDPATH&quot; " restart="true"/>
         <download url="http://videlibri.sourceforge.net/updates/videlibri-linux32.deb" platform="LINUX32" execute=""/>
         <download url="http://videlibri.sourceforge.net/updates/videlibri-linux64.deb" platform="LINUX64" execute=""/>
+        <change>Bibliothek der HMT Leipzig: Doppelt so schnelle Auswertung der Suchergebniswebseite</change>
+        <change>HTTPS: Wenn Android das HTTPS-Zertifikat der Bibliothek nicht akzeptiert, weil es das verwendete Rootzertifikat nicht kennt,  speichere das Rootzertifikat in der App statt das Zertifikat der Bibliothek (Linz..)</change>
+        <change>GBV GKV: Verwende das neue holdings-Vormerkungsanzeigesystem</change>
+        <change>Markiere Bibliotheken, bei denen ich kein Ausleihkonto habe mit (nur Suche getestet) statt mit (alpha)</change>
+        <change>SRU: Frage den Server nach den verfügbaren Suchschlüsseln, statt die Schlüssel fest zu konfigurieren</change>
+        <change>Verhalte sich mehr wie ein Browser beim Ausfüllen von Formularen auf der Bibliothekswebseite, insbesondere ignoriere deaktivierte Formularelemente.</change>
+        <fix>VuFind: Verwende UND statt ODER-Suche</fix>
+        <fix>PICA/LBS: Wenn im Katalog kein Autor steht, zeige nicht stattdessen das Jahr an</fix>
+        <fix>PICA/LBS: Korrigiere Anzeige der Vormerkungen: Lese die Eigenschaften aus allen Zeilen unabhängig von den Tabellen, statt die Tabellen aus dem kaputten HTML von Stralsund zu suchen.</fix>
+        <fix>OPEN: Verwende den korrekten Pfad zur API, wenn das API-Verzeichnis nicht das Webseitenverzeichnis ist (Bielefeld..)</fix>
+        <add>CDVOST Bibliotheken, die nicht sowieso schon da waren: Bibliothek der Hochschule für Musik Franz Liszt Weimar, Oberlausitzische Bibliothek der Wissenschaften, Bibliothek der Halle 14, Universitätsbibliothek Leipzig</add>
+        <add>Stadtbibliothek Heddesheim </add>
+     </build>
+      <build version="1975" date="2018-05-11">
         <change>Weise eindringlicher auf automatische Verlängerungen hin, so dass man davon nicht überrascht wird.</change>
         <change>Verbesserte Fehlermeldungen.</change>
         <change>Neuimplementierung des Shibboleth-Logins bei den Universitätsbibliotheken TU/HU-Berlin, BLB Karlsruhe, etc..</change>
@@ -13,11 +27,12 @@
         <change>Universitätsbibliothek HHU Düsseldorf, HMT Leipzig; Stadtbibliotheken Marl, Haltern am See, Recklinghausen: Suche direkt im Katalog statt in der digibib/Verbundkatalog.</change>
         <fix>bibliotheca: Korrigiere Probleme beim Verlängern.</fix>
         <fix>Stadtbibliothek Essen: Korrigiere Kontoanzeige.</fix>
+        <fix>Kompiliert mit FreePascal Patch #33323.</fix>
         <fix>Neue Webseiten für: Göttinger Universitätskataloge, Neubiberg, Nordhausen; Stadtbücherei Datteln, Meerbusch.</fix>
         <fix>Rechtschreibung von "Baden-Württemberg".</fix>
         <add>bibliotheca: Erlaube von-bis Angaben im Suchfeld "Jahr".</add>
         <add>VuFind/Stadtbücherei Datteln: Suche im Katalog.</add>
-        <add>Liste einige Stadtbibliotheken deren Systeme bereits unterstützt wurden: Mannheim, Rostock, Bielefeld, Gelsenkirchen, Hagen, Leverkusen, Mönchengladbach, Münster, Mainz, Halle, Magdeburg, Erfurt, Mainz</add>
+        <add>Liste einige Stadtbibliotheken deren Systeme bereits unterstützt wurden: Mannheim, Rostock, Bielefeld, Gelsenkirchen, Hagen, Leverkusen, Mönchengladbach, Münster, Mainz, Halle, Magdeburg, Erfurt</add>
         <add>Neue HTTPS-Zertifikate für: Rostock, Gelsenkirchen, Leverkusen, Münster, Köln, Witten, Speyer, Chemnitz, Halle.</add>
      </build>
       <build version="1972" date="2018-04-04">

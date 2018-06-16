@@ -109,7 +109,7 @@
     <RunParams>
       <local>
         <FormatVersion Value="1"/>
-        <CommandLineParams Value="--user-path \tmp\renewdarmstadt"/>
+        <CommandLineParams Value="--user-path \tmp\xxxxxxxxxxxxxxxxxxx --log"/>
       </local>
     </RunParams>
     <RequiredPackages Count="4">
@@ -343,7 +343,7 @@
     </Other>
   </CompilerOptions>
   <Debugging>
-    <Exceptions Count="6">
+    <Exceptions Count="7">
       <Item1>
         <Name Value="EInterfaceCriti"/>
       </Item1>

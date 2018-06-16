@@ -164,7 +164,7 @@ Einige andere Features sind:
 
 Mit <sup class="desktop">D</sup>-markiere Features sind nur in der Desktopversion enthalten, und fehlen in der Androidversion.<br/><br/>
 
-Es gibt allerdings auch ein paar Nachteile im Vergleich zu den online Web-Katalogen:
+Es gibt natürlich auch ein paar Nachteile im Vergleich zu den online Web-Katalogen:
 <ul>
 <li>Es muss erst heruntergeladen und eingerichtet werden, so dass man nicht schnell auf einem fremden Computer seine Ausleihdaten nachsehen kann. (man kann es aber auf einem USB-Stick installieren) </li>
 <li>Für bisher nicht getestete Bibliotheken und unbekannte OPAC-Systeme muss VideLibri vor der Verwendung umkonfiguriert werden, so dass nicht alle Büchereien direkt unterstützt werden. Wenn die Bücherei ihre Internetseite plötzlich ändert, lassen sich die Daten daher erstmal nicht mehr aktualisieren. (da alles gecacht ist, zeigt VideLibri aber trotzdem noch so einen Monat lang das nächste Abgabedatum an.) </li>
