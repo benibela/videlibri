@@ -1,4 +1,5 @@
 book := {}
+singleMode := false()
 search-result-count := text{"61"}
 search-result-count := 61
 new-books := ({"_recordId": "000342639", "title": "Bürger und Beamter: Johann Georg Schlosser 1739 - 1799", "author": "Zande, Johan van der", "year": "1986", "image-url": "vltest://vufind/Cover/Show?author=Zande%2C+Johan+van+der&callnumber=02%3A+hisk492.s345&size=small&title=B%C3%BCrger+und+Beamter%3A+Johann+Georg+Schlosser+1739+-+1799&isbn=3515044728"}, 

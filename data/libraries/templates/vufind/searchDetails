@@ -1,6 +1,6 @@
 <html>
 
-{  if (get("singleMode", false())) then $book := {"_recordId": $singleModeRecordId} else (),
+{  if (get("singleMode", false())) then $book := {"_recordId": get("singleModeRecordId","")} else (),
 
 .//div[@resource]//table[@summary]//tr/vl:set-book-property(th, td),
 

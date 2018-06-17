@@ -1,4 +1,5 @@
 book := {}
+singleMode := false()
 search-result-count := text{"115"}
 search-result-count := 115
 new-books := ({"_recordId": "ai-55-aHR0cHM6Ly93d3cuanN0b3Iub3JnL3N0YWJsZS83Mjg3NDU", "title": "Review: Die mehrstimmige Spielmusik das 17. Jahrhunderts in Nord-und Mittel Europa", "author": "Einstein, A.", "year": null, "image-url": null}, 
