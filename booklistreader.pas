@@ -1423,7 +1423,7 @@ function xqFunctionSetBookProperty(const context: TXQEvaluationContext; argc: Si
   procedure setProperty(const k, v: string);
   begin
     // $book(k) := v
-    context.staticContext.sender.VariableChangelog.addObjectModification('book', xqvalue(v), '', [k]);
+    context.staticContext.sender.VariableChangelog.addObjectModification('book', xqvalue(v), '', @k, 1);
   end;
 
 var
