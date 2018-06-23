@@ -1,28 +1,23 @@
 package de.benibela.videlibri;
 
 
-import android.app.Activity;
+import android.annotation.SuppressLint;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Paint;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
 import android.view.View;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.view.Menu;
-import android.view.MenuItem;
-
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Stack;
 
 public class Search extends VideLibriBaseActivity implements Bridge.SearchEventHandler{
     static final int REQUEST_CHOOSE_LIBRARY = 1234;
-    static ArrayList< Bridge.SearcherAccess> searchers = new ArrayList<Bridge.SearcherAccess>();
+    static ArrayList< Bridge.SearcherAccess> searchers = new ArrayList<>();
 
     String libId, libName;
 
@@ -57,7 +52,7 @@ public class Search extends VideLibriBaseActivity implements Bridge.SearchEventH
                     case SEARCHER_STATE_CONNECTED:
                         searcher = candidate;
                         return;
-                };
+                }
         }
         searcher = new Bridge.SearcherAccess(libId);
         searcher.heartBeat = System.currentTimeMillis();
@@ -94,14 +89,14 @@ public class Search extends VideLibriBaseActivity implements Bridge.SearchEventH
             }
         }
 
-        ((TextView) findViewById(R.id.library)).setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.library).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 changeSearchLib();
             }
         });
 
-        ((Button) findViewById(R.id.button)).setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.button).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 obtainSearcher();
@@ -180,7 +175,7 @@ public class Search extends VideLibriBaseActivity implements Bridge.SearchEventH
             findViewById(R.id.homeBranchLayout).setVisibility(View.GONE);
         else {
             findViewById(R.id.homeBranchLayout).setVisibility(View.VISIBLE);
-            ArrayAdapter<String> adapter = new ArrayAdapter<String>(Search.this, android.R.layout.simple_spinner_item, homeBranches);
+            ArrayAdapter<String> adapter = new ArrayAdapter<>(Search.this, android.R.layout.simple_spinner_item, homeBranches);
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
             ((Spinner) findViewById(R.id.homeBranch)).setAdapter(adapter);
         }
@@ -188,7 +183,7 @@ public class Search extends VideLibriBaseActivity implements Bridge.SearchEventH
             findViewById(R.id.searchBranchLayout).setVisibility(View.GONE);
         else {
             findViewById(R.id.searchBranchLayout).setVisibility(View.VISIBLE);
-            ArrayAdapter<String> adapter = new ArrayAdapter<String>(Search.this, android.R.layout.simple_spinner_item, searchBranches);
+            ArrayAdapter<String> adapter = new ArrayAdapter<>(Search.this, android.R.layout.simple_spinner_item, searchBranches);
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
             ((Spinner) findViewById(R.id.searchBranch)).setAdapter(adapter);
         }
@@ -259,7 +254,7 @@ public class Search extends VideLibriBaseActivity implements Bridge.SearchEventH
                 s.beginLoading(LOADING_SEARCH_SEARCHING);
             }
         }
-        public boolean onSearchEvent(Bridge.SearcherAccess access, Bridge.SearchEvent event) {
+        boolean onSearchEvent(Bridge.SearcherAccess access, Bridge.SearchEvent event) {
             if (access != searcher) return false;
             switch (event.kind) {
                 case CONNECTED:

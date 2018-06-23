@@ -133,8 +133,9 @@ public class ImportExport extends VideLibriBaseActivity {
                 for (int i=0;i<flagAdapter.getCount();i++)
                     if (flagListView.isItemChecked(i)) {
                         for (;!options[optionI].equals(flagAdapter.getItem(i));optionI++) {
-                            
+
                         }
+                        //assert i == optionI ???
                         flags |= 1 << optionI;
                     }
                 if ((flags & Bridge.ImportExportData.PASSWORD) != 0)

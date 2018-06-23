@@ -4,13 +4,8 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
-import android.view.MenuItem;
-import de.benibela.videlibri.BookListActivity;
-import de.benibela.videlibri.Bridge;
-import de.benibela.videlibri.VideLibriBaseActivity;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
 public class SearchResult extends BookListActivity implements Bridge.SearchEventHandler  {
 
@@ -264,7 +259,7 @@ public class SearchResult extends BookListActivity implements Bridge.SearchEvent
     public void orderBook(final Bridge.Book book, int choosenOrder){
         if (searcher == null) return;
         book.setProperty("choosenOrder", "" + choosenOrder);
-        final java.util.ArrayList<Bridge.Account> matchingAccounts = new java.util.ArrayList();
+        final ArrayList<Bridge.Account> matchingAccounts = new ArrayList<>();
         for (Bridge.Account acc: VideLibriApp.accounts)
             if (acc.libId.equals(libId) && acc.name != null && !acc.name.equals(""))
                 matchingAccounts.add(acc);
@@ -303,7 +298,7 @@ public class SearchResult extends BookListActivity implements Bridge.SearchEvent
 
     public void orderBookHolding(final Bridge.Book book, int choosenHolding){
         if (searcher == null) return;
-        final java.util.ArrayList<Bridge.Account> matchingAccounts = new java.util.ArrayList();
+        final ArrayList<Bridge.Account> matchingAccounts = new ArrayList<>();
         for (Bridge.Account acc: VideLibriApp.accounts)
             if (acc.libId.equals(libId) && acc.name != null && !acc.name.equals(""))
                 matchingAccounts.add(acc);
@@ -333,7 +328,7 @@ public class SearchResult extends BookListActivity implements Bridge.SearchEvent
             int orders = 1;
             try{
                 orders = Integer.parseInt(book.getProperty("orderable"));
-            } catch (NumberFormatException e) {
+            } catch (NumberFormatException ignored) {
             }
 
             if (orders == 1) orderBook(book, 0);
