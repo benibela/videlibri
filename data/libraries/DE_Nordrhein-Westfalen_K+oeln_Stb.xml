@@ -9,7 +9,7 @@
 
   <homepage value="http://www.stadt-koeln.de/5/stadtbibliothek/"/>
   <testing-search value="yes"/>
-  <testing-account value="unknown"/>
+  <testing-account value="yes"/>
   
 </library>
 
