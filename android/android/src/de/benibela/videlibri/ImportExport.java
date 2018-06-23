@@ -239,7 +239,7 @@ public class ImportExport extends VideLibriBaseActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == 30017) {
+        if (requestCode == 30017 && resultCode != RESULT_CANCELED && data != null) {
             String path = UriToPath.getPath(this, data.getData());
             if (path != null) setEditTextText(R.id.edit, path);
             return;
