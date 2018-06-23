@@ -2,7 +2,6 @@ package de.benibela.videlibri;
 
 import android.content.ContentUris;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
@@ -11,7 +10,6 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.provider.DocumentsContract;
 import android.provider.MediaStore;
-import android.support.annotation.RequiresApi;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
@@ -113,13 +111,13 @@ public class ImportExport extends VideLibriBaseActivity {
             Bridge.Account[] accounts = Bridge.VLGetAccounts();
             String[] accountNames = new String[accounts.length];
             for (int i=0;i<accounts.length;i++) accountNames[i] = accounts[i].prettyName;
-            accountAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_multiple_choice, accountNames);
+            accountAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_multiple_choice, accountNames);
             ListView lv = ((ListView)findViewById(R.id.listView));
             lv.setAdapter(accountAdapter);
             checkAll(lv);
         }
         final String[] options = new String[]{tr(R.string.lay_options_option_current), tr(R.string.history), tr(R.string.configuration), tr(R.string.passwords)};
-        flagAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_multiple_choice, options);
+        flagAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_multiple_choice, options);
         ListView lv = ((ListView)findViewById(R.id.listView1));
         lv.setAdapter(flagAdapter);
         checkAll(lv);
@@ -134,8 +132,9 @@ public class ImportExport extends VideLibriBaseActivity {
                 int optionI = 0;
                 for (int i=0;i<flagAdapter.getCount();i++)
                     if (flagListView.isItemChecked(i)) {
-                        for (;!options[optionI].equals(flagAdapter.getItem(i));optionI++)
-                            ;
+                        for (;!options[optionI].equals(flagAdapter.getItem(i));optionI++) {
+                            
+                        }
                         flags |= 1 << optionI;
                     }
                 if ((flags & Bridge.ImportExportData.PASSWORD) != 0)
@@ -148,16 +147,16 @@ public class ImportExport extends VideLibriBaseActivity {
                         if (data == null) {
                             data = Bridge.VLImportAccountsPrepare(getEditTextText(R.id.edit));
 
-                            accountAdapter = new ArrayAdapter<String>(ImportExport.this, android.R.layout.simple_list_item_multiple_choice, data.accountsToImport);
+                            accountAdapter = new ArrayAdapter<>(ImportExport.this, android.R.layout.simple_list_item_multiple_choice, data.accountsToImport);
                             ListView lv = (ListView)findViewById(R.id.listView);
                             lv.setAdapter(accountAdapter);
                             checkAll(lv);
 
-                            ArrayList<String> newOptions = new ArrayList<String>();
+                            ArrayList<String> newOptions = new ArrayList<>();
                             for (int i=0;i<options.length;i++)
                                 if ((data.flags & (1 << i)) != 0)
                                     newOptions.add(options[i]);
-                            flagAdapter = new ArrayAdapter<String>(ImportExport.this, android.R.layout.simple_list_item_multiple_choice, newOptions);
+                            flagAdapter = new ArrayAdapter<>(ImportExport.this, android.R.layout.simple_list_item_multiple_choice, newOptions);
                             lv = ((ListView)findViewById(R.id.listView1));
                             lv.setAdapter(flagAdapter);
                             checkAll(lv);
@@ -170,7 +169,7 @@ public class ImportExport extends VideLibriBaseActivity {
                             findViewById(R.id.textView2).setVisibility(View.GONE);
                             findViewById(R.id.edit).setVisibility(View.GONE);
                         } else {
-                            ArrayList<String> choosen = new ArrayList<String>();
+                            ArrayList<String> choosen = new ArrayList<>();
                             for (int i=0;i<accountAdapter.getCount();i++)
                                 if (accountListView.isItemChecked(i))
                                     choosen.add(data.accountsToImport[i]);
@@ -189,7 +188,7 @@ public class ImportExport extends VideLibriBaseActivity {
                         }
                     }   else {
                         Bridge.Account[] accounts = Bridge.VLGetAccounts();
-                        ArrayList<Bridge.Account> choosen = new ArrayList<Bridge.Account>();
+                        ArrayList<Bridge.Account> choosen = new ArrayList<>();
                         for (int i=0;i<accounts.length;i++)
                             if (accountListView.isItemChecked(i))
                                 choosen.add(accounts[i]);
@@ -250,7 +249,7 @@ public class ImportExport extends VideLibriBaseActivity {
 
     static private class UriToPath {
         //https://stackoverflow.com/a/36129285
-        public static String getPath(Context context, Uri uri) {
+        static String getPath(Context context, Uri uri) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
                 if (DocumentsContract.isDocumentUri(context, uri)) {
                     // ExternalStorageProvider
@@ -304,7 +303,7 @@ public class ImportExport extends VideLibriBaseActivity {
             return null;
         }
 
-        public static String getDataColumn(Context context, Uri uri, String selection, String[] selectionArgs) {
+        static String getDataColumn(Context context, Uri uri, String selection, String[] selectionArgs) {
             Cursor cursor = null;
             final String column = "_data";
             final String[] projection = {column};
@@ -321,7 +320,7 @@ public class ImportExport extends VideLibriBaseActivity {
             return null;
         }
 
-        public static boolean isExternalStorageDocument(Uri uri) {
+        static boolean isExternalStorageDocument(Uri uri) {
             return "com.android.externalstorage.documents".equals(uri.getAuthority());
         }
 
@@ -330,7 +329,8 @@ public class ImportExport extends VideLibriBaseActivity {
          * @param uri The Uri to check.
          * @return Whether the Uri authority is DownloadsProvider.
          */
-        public static boolean isDownloadsDocument(Uri uri) {
+
+        static boolean isDownloadsDocument(Uri uri) {
             return "com.android.providers.downloads.documents".equals(uri.getAuthority());
         }
 
@@ -338,7 +338,7 @@ public class ImportExport extends VideLibriBaseActivity {
          * @param uri The Uri to check.
          * @return Whether the Uri authority is MediaProvider.
          */
-        public static boolean isMediaDocument(Uri uri) {
+        static boolean isMediaDocument(Uri uri) {
             return "com.android.providers.media.documents".equals(uri.getAuthority());
         }
 
@@ -346,7 +346,7 @@ public class ImportExport extends VideLibriBaseActivity {
          * @param uri The Uri to check.
          * @return Whether the Uri authority is Google Photos.
          */
-        public static boolean isGooglePhotosUri(Uri uri) {
+        static boolean isGooglePhotosUri(Uri uri) {
             return "com.google.android.apps.photos.content".equals(uri.getAuthority());
         }
     }
