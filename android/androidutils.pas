@@ -1978,6 +1978,7 @@ begin
     bbdebugtools.log('failed to register methods');
     exit(JNI_ERR);
   end;
+  setCustomClassLoaderFromLoadedClass(bridgeClass);
   result := JNI_VERSION_1_4;
 end;
 
