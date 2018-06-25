@@ -1,4 +1,4 @@
-package de.benibela.videlibri.internettools;
+package de.benibela.internettools;
 
 import android.util.Log;
 
@@ -18,12 +18,22 @@ import javax.net.ssl.X509TrustManager;
  */
 public class X509TrustManagerWithAdditionalKeystores implements X509TrustManager {
 
+    public interface LazyLoadKeyStoreFactory{
+        LazyLoadKeystore factor();
+    }
+
     private ArrayList<X509TrustManager> nestedTrustManagers = new ArrayList<>(); //system TMs
     private ArrayList<X509Certificate> issuers = new ArrayList<>();
     private X509Certificate[] issuersArray = new X509Certificate[0];
 
     LazyLoadKeystore pendingKeystores;
+    public static LazyLoadKeyStoreFactory defaultKeystoreFactory;
 
+    public X509TrustManagerWithAdditionalKeystores() {
+        if (defaultKeystoreFactory != null)
+            pendingKeystores = defaultKeystoreFactory.factor();
+        loadKeystore(null);
+    }
     public X509TrustManagerWithAdditionalKeystores(LazyLoadKeystore additionalkeyStores) {
         this.pendingKeystores = additionalkeyStores;
         loadKeystore(null);

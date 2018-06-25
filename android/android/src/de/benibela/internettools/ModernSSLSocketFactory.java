@@ -1,6 +1,5 @@
-package de.benibela.videlibri.internettools;
+package de.benibela.internettools;
 
-import android.os.Build;
 import android.util.Log;
 
 import java.io.IOException;
@@ -12,8 +11,6 @@ import java.security.KeyManagementException;
 import java.security.KeyStoreException;
 import java.security.NoSuchAlgorithmException;
 import java.security.UnrecoverableKeyException;
-import java.util.ArrayList;
-import java.util.Arrays;
 
 import javax.net.ssl.SSLContext;
 import javax.net.ssl.SSLSocket;
@@ -28,6 +25,9 @@ public class ModernSSLSocketFactory extends SSLSocketFactory {
     }
 
 
+    public ModernSSLSocketFactory () throws NoSuchAlgorithmException, KeyManagementException, KeyStoreException, UnrecoverableKeyException {
+        sslContext.init(null, new TrustManager[]{new X509TrustManagerWithAdditionalKeystores()}, null);
+    }
     public ModernSSLSocketFactory (LazyLoadKeystore keyStore) throws NoSuchAlgorithmException, KeyManagementException, KeyStoreException, UnrecoverableKeyException {
         sslContext.init(null, new TrustManager[]{new X509TrustManagerWithAdditionalKeystores(keyStore)}, null);
     }

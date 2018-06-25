@@ -1,4 +1,4 @@
-package de.benibela.videlibri;
+package de.benibela.internettools.apache;
 
 import org.apache.http.conn.ClientConnectionManager;
 import org.apache.http.conn.scheme.PlainSocketFactory;
@@ -20,13 +20,18 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import de.benibela.videlibri.internettools.LazyLoadKeystore;
-import de.benibela.videlibri.internettools.ModernSSLSocketFactory;
+import de.benibela.internettools.LazyLoadKeystore;
+import de.benibela.internettools.ModernSSLSocketFactory;
 
 //based on http://stackoverflow.com/questions/2642777/trusting-all-certificates-using-httpclient-over-https
 
 class SSLSocketFactoryWithAdditionalLazyKeyStore extends SSLSocketFactory {
     private ModernSSLSocketFactory modernSSLSocketFactory;
+
+    public SSLSocketFactoryWithAdditionalLazyKeyStore() throws NoSuchAlgorithmException, KeyManagementException, KeyStoreException, UnrecoverableKeyException {
+        super(null, null, null, null, null, null);
+        modernSSLSocketFactory = new ModernSSLSocketFactory();
+    }
 
     public SSLSocketFactoryWithAdditionalLazyKeyStore(LazyLoadKeystore keyStore) throws NoSuchAlgorithmException, KeyManagementException, KeyStoreException, UnrecoverableKeyException {
         super(null, null, null, null, null, null);
@@ -48,8 +53,8 @@ class SSLSocketFactoryWithAdditionalLazyKeyStore extends SSLSocketFactory {
 
 
 //also based on http://blog.antoine.li/2010/10/22/android-trusting-ssl-certificates/
-public class VideLibriHttpClient extends DefaultHttpClient {
-     public VideLibriHttpClient(){
+public class ModernHttpClient extends DefaultHttpClient {
+     public ModernHttpClient(){
         super();
         setCookieStore(cookies);
     }
@@ -65,7 +70,7 @@ public class VideLibriHttpClient extends DefaultHttpClient {
     }
     static private SocketFactory createAdditionalCertsSSLSocketFactory() {
         try {
-            return new SSLSocketFactoryWithAdditionalLazyKeyStore(new VideLibriKeyStore());
+            return new SSLSocketFactoryWithAdditionalLazyKeyStore();
         } catch (Exception e) {
             throw new RuntimeException(e);
         }

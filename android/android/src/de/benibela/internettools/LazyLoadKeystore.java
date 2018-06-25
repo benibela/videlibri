@@ -1,4 +1,4 @@
-package de.benibela.videlibri.internettools;
+package de.benibela.internettools;
 
 import java.security.KeyStore;
 

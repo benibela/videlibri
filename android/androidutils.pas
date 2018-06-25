@@ -6,7 +6,7 @@ interface
 
 uses
 Classes, SysUtils, IniFiles, applicationconfig, jni, bbjniutils, libraryParser, LCLProc, booklistreader, librarySearcherAccess,
-{$ifdef android}androidinternetaccess,{$ENDIF} multipagetemplate, xquery;
+{$ifdef android}androidinternetaccess, okhttpinternetaccess, {$ENDIF} multipagetemplate, xquery;
 
 //procedure deleteLocalRef(jobj: pointer);
 
@@ -210,13 +210,28 @@ begin
   if logging then bbdebugtools.log('androidAllThreadsDone ended');
 end;
 
+type TOkHttpBuildCallbackObject = object
+  procedure onBuild(sender: TOKHTTPInternetAccess; builder: jobject);
+end;
+
+procedure TOkHttpBuildCallbackObject.onBuild(sender: TOKHTTPInternetAccess; builder: jobject);
+var
+  customizer: jclass;
+begin
+  customizer := j.getclass('de/benibela/internettools/okhttp/ClientBuilderCustomizer');
+  customizer.callStaticVoidMethodChecked(customizer.getstaticmethod('customize', '(Lokhttp3/OkHttpClient$Builder;)V'), @builder);
+  customizer.deleteLocalRef();
+end;
+
 
 
 procedure Java_de_benibela_VideLibri_Bridge_VLInit(env:PJNIEnv; this:jobject; videlibri: jobject); cdecl;
+var tempOkHttpBuild: TOkHttpBuildCallbackObject;
 begin
   if logging then bbdebugtools.log('de.benibela.VideLibri.Bride.VLInit (started)');
   try
-    defaultHttpClientClass:=j.newGlobalRefAndDelete(j.getclass('de/benibela/videlibri/VideLibriHttpClient'));
+    defaultHttpClientClass := j.newGlobalRefAndDelete(j.getclass('de/benibela/internettools/apache/ModernHttpClient'));
+    okhttpinternetaccess.onBuildCallback := @tempOkHttpBuild.onBuild;
 
     videlibriContextInterface :=  j.newGlobalRefAndDelete(j.getclass('de/benibela/videlibri/Bridge$VideLibriContext'));
     jContextObject := needj.env^^.NewGlobalRef(j.env, videlibri);

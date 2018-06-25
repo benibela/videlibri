@@ -1,7 +1,6 @@
 package de.benibela.videlibri;
 
 import android.content.ActivityNotFoundException;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
@@ -17,7 +16,6 @@ import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.message.BasicNameValuePair;
-import org.apache.http.params.BasicHttpParams;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -25,6 +23,8 @@ import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
+
+import de.benibela.internettools.apache.ModernHttpClient;
 
 /**
  * Created with IntelliJ IDEA.
@@ -106,7 +106,7 @@ public class Feedback extends VideLibriBaseActivity {
                         final int rep = errCache.size() == 0 ? 1 : errCache.size();
                         int ok = 0;
                         for (int i = 0; i < rep; i++) { //send each error separately to avoid running out of memory
-                            VideLibriHttpClient client =  new VideLibriHttpClient();
+                            ModernHttpClient client =  new ModernHttpClient();
                             HttpPost post = new HttpPost("http://www.benibela.de/autoFeedback.php");
                             try {
                                 List<NameValuePair> data = new ArrayList<NameValuePair>(3 + (VideLibriApp.errors != null ? VideLibriApp.errors.size() * 3 : 0));

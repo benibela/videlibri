@@ -23,6 +23,11 @@ import java.util.Arrays;
 import java.util.EnumSet;
 import java.util.List;
 
+import de.benibela.internettools.LazyLoadKeystore;
+import de.benibela.internettools.ModernSSLSocketFactory;
+import de.benibela.internettools.X509TrustManagerWithAdditionalKeystores;
+import de.benibela.internettools.apache.ModernHttpClient;
+
 import static org.acra.ReportField.*;
 
 @ReportsCrashes(formUri = "http://www.benibela.de/autoFeedback.php?app=VideLibri",
@@ -50,6 +55,13 @@ public class VideLibriApp extends Application implements Bridge.VideLibriContext
         applicationContext = getApplicationContext();
 
         instance = this;
+
+        X509TrustManagerWithAdditionalKeystores.defaultKeystoreFactory = new X509TrustManagerWithAdditionalKeystores.LazyLoadKeyStoreFactory() {
+            @Override
+            public LazyLoadKeystore factor() {
+                return new VideLibriKeyStore();
+            }
+        };
 
         Bridge.initialize(this);
         refreshAccountList();

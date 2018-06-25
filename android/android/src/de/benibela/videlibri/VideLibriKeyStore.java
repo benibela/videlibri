@@ -5,8 +5,7 @@ import android.os.Build;
 import java.io.InputStream;
 import java.security.KeyStore;
 
-import de.benibela.videlibri.VideLibriApp;
-import de.benibela.videlibri.internettools.LazyLoadKeystore;
+import de.benibela.internettools.LazyLoadKeystore;
 
 public class VideLibriKeyStore extends LazyLoadKeystore {
     @Override
