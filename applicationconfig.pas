@@ -144,7 +144,7 @@ uses internetaccess,libraryaccess,math,FileUtil,bbutils,bbdebugtools,androidutil
   windows,synapseinternetaccess,w32internetaccess
   {$ELSE}
   {$IFDEF ANDROID}
-  androidinternetaccess, okhttpinternetaccess
+  okhttpinternetaccess
   {$ELSE}
   synapseinternetaccess
   {$ENDIF}
@@ -342,7 +342,6 @@ resourcestring
     defaultInternetAccessClass:=TW32InternetAccess;
     {$ELSE}
     {$IFDEF ANDROID}
-    defaultInternetAccessClass:=TAndroidInternetAccess;
     defaultInternetAccessClass:=TOKHTTPInternetAccess;
     {$ELSE}
     defaultInternetAccessClass:=TSynapseInternetAccess;

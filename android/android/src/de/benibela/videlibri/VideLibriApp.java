@@ -24,9 +24,7 @@ import java.util.EnumSet;
 import java.util.List;
 
 import de.benibela.internettools.LazyLoadKeystore;
-import de.benibela.internettools.ModernSSLSocketFactory;
 import de.benibela.internettools.X509TrustManagerWithAdditionalKeystores;
-import de.benibela.internettools.apache.ModernHttpClient;
 
 import static org.acra.ReportField.*;
 

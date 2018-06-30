@@ -10,29 +10,23 @@ import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.TextView;
 import org.acra.ACRA;
-import org.apache.http.HttpResponse;
-import org.apache.http.NameValuePair;
-import org.apache.http.client.ClientProtocolException;
-import org.apache.http.client.entity.UrlEncodedFormEntity;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.message.BasicNameValuePair;
 
-import java.io.BufferedReader;
+
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
+import java.security.KeyManagementException;
+import java.security.KeyStoreException;
+import java.security.NoSuchAlgorithmException;
+import java.security.UnrecoverableKeyException;
 import java.util.ArrayList;
-import java.util.List;
 
-import de.benibela.internettools.apache.ModernHttpClient;
+import de.benibela.internettools.okhttp.ClientBuilderCustomizer;
+import okhttp3.FormBody;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
 
-/**
- * Created with IntelliJ IDEA.
- * User: benito
- * Date: 6/6/13
- * Time: 3:16 PM
- * To change this template use File | Settings | File Templates.
- */
+
 public class Feedback extends VideLibriBaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -103,37 +97,43 @@ public class Feedback extends VideLibriBaseActivity {
                 (new Thread(new Runnable() {
                     @Override
                     public void run() {
+                        OkHttpClient.Builder b = new OkHttpClient.Builder();
+                        try {
+                            ClientBuilderCustomizer.customize(b);
+                        } catch (UnrecoverableKeyException e) {
+                            e.printStackTrace();
+                        } catch (NoSuchAlgorithmException e) {
+                            e.printStackTrace();
+                        } catch (KeyStoreException e) {
+                            e.printStackTrace();
+                        } catch (KeyManagementException e) {
+                            e.printStackTrace();
+                        }
+                        OkHttpClient client = b.build();
+
                         final int rep = errCache.size() == 0 ? 1 : errCache.size();
                         int ok = 0;
+                        String err = "";
                         for (int i = 0; i < rep; i++) { //send each error separately to avoid running out of memory
-                            ModernHttpClient client =  new ModernHttpClient();
-                            HttpPost post = new HttpPost("http://www.benibela.de/autoFeedback.php");
+                            Request.Builder rb = new Request.Builder();
+                            rb.url("http://www.benibela.de/autoFeedback.php");
+                            FormBody.Builder fbb = new FormBody.Builder();
                             try {
-                                List<NameValuePair> data = new ArrayList<NameValuePair>(3 + (VideLibriApp.errors != null ? VideLibriApp.errors.size() * 3 : 0));
-                                data.add(new BasicNameValuePair("app", "VideLibri"));
-                                data.add(new BasicNameValuePair("ver", version));
-                                data.add(new BasicNameValuePair("data", sendData));
+                                fbb.add("app", "VideLibri");
+                                fbb.add("ver", version);
+                                fbb.add("data", sendData);
                                 if (i < errCache.size()) {
                                     Bridge.PendingException e = errCache.get(i);
-                                    data.add(new BasicNameValuePair("error" + i, "Error: " + e.error+" bei " + e.library +  "\n"));
-                                    if (details) data.add(new BasicNameValuePair("errorDetails" + i, e.details));
-                                    else if (anonymousDetails) data.add(new BasicNameValuePair("errorAnonDetails" + i, e.anonymousDetails)); //including both will cause an outofmemory exception
+                                    fbb.add("error" + i, "Error: " + e.error+" bei " + e.library +  "\n");
+                                    if (details) fbb.add("errorDetails" + i, e.details);
+                                    else if (anonymousDetails) fbb.add("errorAnonDetails" + i, e.anonymousDetails); //including both will cause an outofmemory exception
                                 }
 
-                                post.setEntity(new UrlEncodedFormEntity(data));
-                                HttpResponse response = client.execute(post);
-                                BufferedReader reader = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
-                                String line;
-                                String total = "";
-                                // Read response until the end
-                                while ((line = reader.readLine()) != null)
-                                    total += line;
-                                if (total.contains("PHPOK")) ok += 1;
-                            } catch (UnsupportedEncodingException e) {
-                                e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
-                            } catch (ClientProtocolException e) {
-                                e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+                                Request r = rb.post(fbb.build()).build();
+                                Response response = client.newCall(r).execute();
+                                if (response.body().string().contains("PHPOK")) ok += 1;
                             } catch (IOException e) {
+                                err = e.getLocalizedMessage();
                                 e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
                             }
 
@@ -141,13 +141,14 @@ public class Feedback extends VideLibriBaseActivity {
                         }
 
                         final int fok = ok;
+                        final String ferr = err;
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
                                 if (fok > 0 )
                                     Util.showMessage(DialogId.FEEDBACK_SEND_ATTEMPTED, tr(fok == rep ? R.string.feedback_send_ok : R.string.feedback_send_failed));
                                 else
-                                    Util.showMessage(tr(R.string.feedback_send_failedconnect));
+                                    Util.showMessage(tr(R.string.feedback_send_failedconnect) + "\n" + ferr);
                             }
                         });
 

@@ -6,7 +6,7 @@ interface
 
 uses
 Classes, SysUtils, IniFiles, applicationconfig, jni, bbjniutils, libraryParser, LCLProc, booklistreader, librarySearcherAccess,
-{$ifdef android}androidinternetaccess, okhttpinternetaccess, {$ENDIF} multipagetemplate, xquery;
+{$ifdef android}okhttpinternetaccess, {$ENDIF} multipagetemplate, xquery;
 
 //procedure deleteLocalRef(jobj: pointer);
 
@@ -230,7 +230,6 @@ var tempOkHttpBuild: TOkHttpBuildCallbackObject;
 begin
   if logging then bbdebugtools.log('de.benibela.VideLibri.Bride.VLInit (started)');
   try
-    defaultHttpClientClass := j.newGlobalRefAndDelete(j.getclass('de/benibela/internettools/apache/ModernHttpClient'));
     okhttpinternetaccess.onBuildCallback := @tempOkHttpBuild.onBuild;
 
     videlibriContextInterface :=  j.newGlobalRefAndDelete(j.getclass('de/benibela/videlibri/Bridge$VideLibriContext'));
