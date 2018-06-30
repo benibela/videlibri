@@ -1027,7 +1027,9 @@ begin
         with (accounts[i]) do
           for j:=0  to books.current.count-1 do begin
             book := books.current[j];
+            log(book.title);
             if book.status in BOOK_NOT_LEND then continue;
+            log('duedate: '+ inttostr(book.dueDate)+ #9#9'redtime: '+inttostr(redtime));
             if (book.dueDate<=redTime) then redBook := book;
             if (book.status in BOOK_NOT_EXTENDABLE) then yellowBook := book;
           end;
@@ -1657,7 +1659,7 @@ end;
 type TJOptionClass = record
   c: jclass;
   init: jmethodID;
-  nearTimeI, loggingZ, refreshIntervalI, roUserLibIdsAS: jfieldID;
+  nearTimeI, loggingZ, refreshIntervalI, internetBackendI, roUserLibIdsAS: jfieldID;
 
 end;
 
@@ -1669,6 +1671,7 @@ begin
     nearTimeI := j.getfield(c, 'nearTime', 'I');
     loggingZ := j.getfield(c, 'logging', 'Z');
     refreshIntervalI := j.getfield(c, 'refreshInterval','I');
+    internetBackendI := j.getfield(c, 'internetBackend','I');
     roUserLibIdsAS := j.getfield(c, 'roUserLibIds', '[Ljava/lang/String;');
   end;
 end;
@@ -1688,6 +1691,7 @@ begin
       result := j.newObject(c, init);
       j.SetIntField(result, nearTimeI, userConfig.ReadInteger('base','near-time',3));
       j.SetIntField(result, refreshIntervalI, RefreshInterval);
+      j.SetIntField(result, internetBackendI, userConfig.ReadInteger('access','internet-backend',0));
       j.SetBooleanField(result, loggingZ, logging);
 
       userlibs := libraryManager.getUserLibraries();
@@ -1706,6 +1710,8 @@ begin
 end;
 
 function Java_de_benibela_VideLibri_Bridge_VLSetOptions(env:PJNIEnv; this:jobject; options: jobject): jobject; cdecl;
+var
+  internetBackend: jint;
 begin
   if logging then bbdebugtools.log('de.benibela.VideLibri.Bride.VLSetOptions (started)');
   result := nil;
@@ -1716,8 +1722,14 @@ begin
       userConfig.WriteInteger('base','near-time', j.getIntField(options, nearTimeI));
       updateGlobalTimeCache;
 
-      RefreshInterval:=j.getIntField(options, refreshIntervalI);
+      RefreshInterval:= j.getIntField(options, refreshIntervalI);
       userConfig.WriteInteger('access','refresh-interval',refreshInterval);
+
+      internetBackend := j.getIntField(options, internetBackendI);
+      if internetBackend <> userConfig.ReadInteger('access','internet-backend',0) then begin
+        userConfig.WriteInteger('access','internet-backend',internetBackend);
+        updateActiveInternetConfig;
+      end;
 
       logging := j.getBooleanField(options, loggingZ);
       userConfig.WriteBool('base','logging', logging);

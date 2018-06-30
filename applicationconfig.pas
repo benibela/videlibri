@@ -342,18 +342,20 @@ resourcestring
     defaultInternetAccessClass:=TW32InternetAccess;
     {$ELSE}
     {$IFDEF ANDROID}
-    defaultInternetAccessClass:=TAndroidInternetAccess;
     defaultInternetAccessClass:=TOKHTTPInternetAccess;
     {$ELSE}
     defaultInternetAccessClass:=TSynapseInternetAccess;
     {$ENDIF}
     {$ENDIF}
-    {$IFNDEF ANDROID}
     case userConfig.readInteger('access','internet-backend',0) of
+      {$IFNDEF ANDROID}
       1: {$IFDEF WIN32} defaultInternetAccessClass:=TW32InternetAccess{$ENDIF};
       2: defaultInternetAccessClass:=TSynapseInternetAccess;
+      {$else}
+      3: defaultInternetAccessClass:=TAndroidInternetAccess;
+      4: defaultInternetAccessClass:=TOKHTTPInternetAccess;
+      {$ENDIF}
     end;
-    {$ENDIF}
 
 
 

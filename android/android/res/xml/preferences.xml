@@ -4,7 +4,6 @@
     <PreferenceCategory android:title="@string/lay_options_caption_displayoptions">
 
         <ListPreference
-            android:defaultValue=""
             android:dialogTitle="@string/lay_options_label_filtering"
             android:entries="@array/filterable_properties_tr"
             android:entryValues="@array/filterable_properties"
@@ -76,6 +75,16 @@
             android:summaryOn="@string/lay_options_option_includelog_summary_on"
             android:title="@string/lay_options_option_includelog"
             android:defaultValue="false"/>
+
+        <ListPreference
+            android:dialogTitle="@string/lay_options_label_internet_backend"
+            android:entries="@array/internet_backend_tr"
+            android:entryValues="@array/internet_backend"
+            android:key="bridge_internetBackend"
+            android:title="@string/lay_options_label_internet_backend"
+            android:summary="@string/lay_options_label_internet_backend_summary"
+            />
+
     </PreferenceCategory>
 
 </PreferenceScreen>

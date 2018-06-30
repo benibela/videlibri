@@ -40,7 +40,11 @@ public class Options extends VideLibriBaseActivity{
         public void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
             addPreferencesFromResource(R.xml.preferences);
-            Preference[] prefs = new Preference[]{ findPreference("bridge_logging"), findPreference("bridge_nearTime"), findPreference("bridge_refreshInterval") };
+            Preference[] prefs = new Preference[]{
+                    findPreference("bridge_logging"),
+                    findPreference("bridge_nearTime"),
+                    findPreference("bridge_refreshInterval"),
+                    findPreference("bridge_internetBackend")};
             Preference.OnPreferenceChangeListener listener = new Preference.OnPreferenceChangeListener() {
                 @Override
                 public boolean onPreferenceChange(Preference preference, Object newValue) {
@@ -55,6 +59,14 @@ public class Options extends VideLibriBaseActivity{
                             break;
                         case "bridge_refreshInterval":
                             options.refreshInterval = (Integer) newValue;
+                            break;
+                        case "bridge_internetBackend":
+                            int mappedValue = 0;
+                            switch ((String)newValue) {
+                                case "okhttp": mappedValue = 4; break;
+                                case "apache": mappedValue = 3; break;
+                            }
+                            options.internetBackend = mappedValue;
                             break;
                     }
                     Bridge.VLSetOptions(options);
@@ -204,6 +216,12 @@ public class Options extends VideLibriBaseActivity{
         editor.putBoolean("bridge_logging", options.logging);
         editor.putInt("bridge_nearTime", options.nearTime);
         editor.putInt("bridge_refreshInterval", options.refreshInterval);
+        switch (options.internetBackend) {
+            case 3: editor.putString("bridge_internetBackend", "apache"); break;
+            case 4: editor.putString("bridge_internetBackend", "okhttp"); break;
+            default: editor.putString("bridge_internetBackend", "auto"); break;
+        }
+
         editor.apply();
     }
     /*static void syncPreferencesToBridge(Activity activity){
