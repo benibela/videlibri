@@ -44,7 +44,8 @@ public class Options extends VideLibriBaseActivity{
             Preference.OnPreferenceChangeListener listener = new Preference.OnPreferenceChangeListener() {
                 @Override
                 public boolean onPreferenceChange(Preference preference, Object newValue) {
-                    Bridge.Options options = Bridge.VLGetOptions();
+                    Bridge.globalOptions = Bridge.VLGetOptions();
+                    Bridge.Options options = Bridge.globalOptions;
                     switch (preference.getKey()) {
                         case "bridge_logging":
                             options.logging = (Boolean) newValue;
@@ -196,7 +197,8 @@ public class Options extends VideLibriBaseActivity{
 
 
     static void syncBridgeToPreferences(Activity activity){
-        Bridge.Options options = Bridge.VLGetOptions();
+        Bridge.globalOptions = Bridge.VLGetOptions();
+        Bridge.Options options = Bridge.globalOptions;
         SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(activity);
         SharedPreferences.Editor editor = sp.edit();
         editor.putBoolean("bridge_logging", options.logging);

@@ -228,6 +228,7 @@ public class Bridge {
         int nearTime, refreshInterval;
         String roUserLibIds[];
     }
+    public static Options globalOptions;
 
     public static class TemplateDetails{
         String variablesNames[];
@@ -509,6 +510,7 @@ public class Bridge {
             System.loadLibrary("lclapp");
             Log.i("Videlibri", "Initializing Windows VM and Pascal layer");
             VLInit(context);
+            Bridge.globalOptions = Bridge.VLGetOptions();
         }
         catch(UnsatisfiedLinkError ule)
         {
