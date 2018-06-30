@@ -225,7 +225,7 @@ public class Bridge {
 
     public static class Options{
         boolean logging;
-        int nearTime, refreshInterval, internetBackend;
+        int nearTime, refreshInterval;
         String roUserLibIds[];
     }
     public static Options globalOptions;

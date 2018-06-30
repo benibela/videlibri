@@ -278,20 +278,6 @@
     </string-array>
 
 
-    <string-array name="internet_backend_tr">
-        <item>automatisch</item>
-        <item>OkHttp</item>
-        <item>Apache HttpComponents (veraltet)</item>
-    </string-array>
-
-    <string-array name="internet_backend">
-        <item>auto</item>
-        <item>okhttp</item>
-        <item>apache</item>
-    </string-array>
-    <string name="lay_options_label_internet_backend">Internet-Zugriffsmethode</string>
-    <string name="lay_options_label_internet_backend_summary">ändern mit welcher Library auf das Internet zugegriffen wird...</string>
-
     <string name="import_">Importieren</string>
     <string name="import_load">Importdatei laden</string>
     <string name="import_accounts">Importiere diese Konten</string>
