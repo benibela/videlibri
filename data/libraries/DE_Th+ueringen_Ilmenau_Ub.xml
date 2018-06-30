@@ -6,7 +6,7 @@
   <shortName value="Ub Ilmenau"/>
   
   <template value="pica"/>  
-  <variable name="server" value="https://katalog.bibliothek.tu-ilmenau.de/"/>
+  <variable name="server" value="https://opac.lbs-ilmenau.gbv.de/"/>
   <variable name="picadb" value="1"/>
 
 
