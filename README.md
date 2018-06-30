@@ -14,7 +14,7 @@ VideLibri is a library client to access all the features of a (public) library c
 * do many more things
 
 
-VideLibri is platform-independent and currently [provides binaries](http://www.videlibri.de) for (Desktop) Windows, Linux and Android. So far VideLibri has been tested with 200 libraries successfully, where we have noticed the library using one of the supported library systems, but it can be used with many more libraries in towns we do not know. Supporting account viewing and renewing in multiple public library systems in 2006 makes VideLibri the world's first universal library app. At the moment its GUI is entirely in German as no support for any non-German-speaking library has been requested, but a translation can be made if asked for.
+VideLibri is platform-independent and currently [provides binaries](http://www.videlibri.de) for (Desktop) Windows, Linux and Android. So far VideLibri has been tested with 200 libraries successfully, where we have noticed the library using one of the supported library systems, but it can be used with every library using one of the supported systems, even if we did not put the name of the library in a list. Supporting account viewing and renewing in multiple public library systems in 2006 makes VideLibri the world's first universal library app. At the moment its GUI is entirely in German as no support for any non-German-speaking library has been requested, but a translation can be made if asked for.
 
 <p align="center">
 

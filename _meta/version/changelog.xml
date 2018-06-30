@@ -16,7 +16,7 @@
         <fix>PICA/LBS: Korrigiere Anzeige der Vormerkungen: Lese die Eigenschaften aus allen Zeilen unabhängig von den Tabellen, statt die Tabellen aus dem kaputten HTML von Stralsund zu suchen.</fix>
         <fix>OPEN: Verwende den korrekten Pfad zur API, wenn das API-Verzeichnis nicht das Webseitenverzeichnis ist (Bielefeld..)</fix>
         <add>CDVOST Bibliotheken, die nicht sowieso schon da waren: Bibliothek der Hochschule für Musik Franz Liszt Weimar, Oberlausitzische Bibliothek der Wissenschaften, Bibliothek der Halle 14, Universitätsbibliothek Leipzig</add>
-        <add>Stadtbibliothek Heddesheim </add>
+        <add>Gemeindebibliothek Heddesheim </add>
      </build>
       <build version="1975" date="2018-05-11">
         <change>Weise eindringlicher auf automatische Verlängerungen hin, so dass man davon nicht überrascht wird.</change>
