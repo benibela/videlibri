@@ -22,13 +22,16 @@ import okhttp3.Request;
 import okhttp3.Response;
 
 public class ClientBuilderCustomizer {
-    static void customize(OkHttpClient.Builder builder) throws UnrecoverableKeyException, NoSuchAlgorithmException, KeyStoreException, KeyManagementException {
+    public static void customize(OkHttpClient.Builder builder) throws UnrecoverableKeyException, NoSuchAlgorithmException, KeyStoreException, KeyManagementException {
         X509TrustManager tm = new X509TrustManagerWithAdditionalKeystores();
         builder.connectTimeout(5, TimeUnit.MINUTES);
         builder.readTimeout(5, TimeUnit.MINUTES);
         builder.writeTimeout(5, TimeUnit.MINUTES);
         ArrayList<ConnectionSpec> temp = new ArrayList<>();
         temp.add(new ConnectionSpec.Builder(ConnectionSpec.MODERN_TLS).allEnabledCipherSuites().allEnabledTlsVersions().build());
+        temp.add(ConnectionSpec.CLEARTEXT);
+        temp.add(ConnectionSpec.MODERN_TLS);
+        temp.add(ConnectionSpec.COMPATIBLE_TLS);
         builder.connectionSpecs(temp);
         builder.sslSocketFactory(new ModernSSLSocketFactory(tm), tm);
         /*builder.addInterceptor(new Interceptor() {
