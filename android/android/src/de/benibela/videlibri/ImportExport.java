@@ -1,8 +1,10 @@
 package de.benibela.videlibri;
 
+import android.Manifest;
 import android.content.ContentUris;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Build;
@@ -10,11 +12,15 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.provider.DocumentsContract;
 import android.provider.MediaStore;
+import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.AbsListView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.ScrollView;
 
@@ -76,6 +82,23 @@ public class ImportExport extends VideLibriBaseActivity {
             lv.setItemChecked(i, true);
     }
 
+    protected void setButtonText(){
+        Button btn = findButtonById(R.id.button);
+        if (mode == MODE_IMPORT) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN)
+                if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+                    btn.setText(tr(R.string.import_export_need_permission));
+                    return;
+                }
+                btn.setText(tr(R.string.import_load));
+        } else {
+            if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED)
+                btn.setText(tr(R.string.import_export_need_permission));
+            else
+                btn.setText(tr(R.string.export));
+        }
+    }
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);    //To change body of overridden methods use File | Settings | File Templates.
         setVideLibriView(R.layout.importexport);
@@ -92,8 +115,6 @@ public class ImportExport extends VideLibriBaseActivity {
             findViewById(R.id.listView).setVisibility(View.GONE);
             findViewById(R.id.listView1).setVisibility(View.GONE);
             setTitle(tr(R.string.import_));
-            findButtonById(R.id.button).setText(tr(R.string.import_));
-            findButtonById(R.id.button).setText(tr(R.string.import_load));
             setTextViewText(R.id.textView, tr(R.string.import_accounts));
             setTextViewText(R.id.textView1, tr(R.string.import_properties));
             setTextViewText(R.id.textView2, tr(R.string.import_file));
@@ -103,7 +124,6 @@ public class ImportExport extends VideLibriBaseActivity {
             }
         } else {
             setTitle(tr(R.string.export));
-            findButtonById(R.id.button).setText(tr(R.string.export));
             setTextViewText(R.id.textView, tr(R.string.export_accounts));
             setTextViewText(R.id.textView1, tr(R.string.export_properties));
             setTextViewText(R.id.textView2, tr(R.string.export_file));
@@ -116,6 +136,7 @@ public class ImportExport extends VideLibriBaseActivity {
             lv.setAdapter(accountAdapter);
             checkAll(lv);
         }
+        setButtonText();
         final String[] options = new String[]{tr(R.string.lay_options_option_current), tr(R.string.history), tr(R.string.configuration), tr(R.string.passwords)};
         flagAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_multiple_choice, options);
         ListView lv = ((ListView)findViewById(R.id.listView1));
@@ -127,6 +148,21 @@ public class ImportExport extends VideLibriBaseActivity {
         findButtonById(R.id.button).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if (mode == MODE_IMPORT) {
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN)
+                        if (ContextCompat.checkSelfPermission(ImportExport.this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+                            ActivityCompat.requestPermissions(ImportExport.this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, 1);
+                            return;
+                        }
+                } else {
+                    if (ContextCompat.checkSelfPermission(ImportExport.this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+                        ActivityCompat.requestPermissions(ImportExport.this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
+                        return;
+                    }
+                }
+
+
+
                 ListView flagListView = (ListView)findViewById((R.id.listView1));
                 int flags = 0;
                 int optionI = 0;
@@ -350,5 +386,11 @@ public class ImportExport extends VideLibriBaseActivity {
         static boolean isGooglePhotosUri(Uri uri) {
             return "com.google.android.apps.photos.content".equals(uri.getAuthority());
         }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        setButtonText();
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
     }
 }

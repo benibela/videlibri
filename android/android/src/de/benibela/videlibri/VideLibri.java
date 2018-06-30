@@ -1,5 +1,7 @@
 package de.benibela.videlibri;
+import android.Manifest;
 import android.content.*;
+import android.content.pm.PackageManager;
 import android.content.res.AssetManager;
 import java.io.InputStream;
 import java.text.DateFormat;
@@ -14,6 +16,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.*;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.*;
 import android.text.Editable;
@@ -106,6 +109,10 @@ public class VideLibri extends BookListActivity {
         if (!VideLibriApp.runningUpdates.isEmpty()) beginLoading(LOADING_ACCOUNT_UPDATE);
         if (!cacheShown)
             displayBookCache();
+
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.INTERNET) != PackageManager.PERMISSION_GRANTED)
+            //unnecessary, because not dangerous??
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.INTERNET}, 0);
     }
 
     @Override

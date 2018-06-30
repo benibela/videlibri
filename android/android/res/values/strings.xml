@@ -375,5 +375,6 @@
 
     <string name="lay_options_label_accounts_summary">Kontoeinstellungen/Verlängerungsverhalten ändern...</string>
     <string name="lay_options_label_ownlibraries_summary">Bibliothekseinstellungen ändern...</string>
+    <string name="import_export_need_permission">Import/Export erlauben</string>
 </resources>
 
