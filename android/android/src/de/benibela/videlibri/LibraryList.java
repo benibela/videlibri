@@ -1,30 +1,23 @@
 package de.benibela.videlibri;
 
-import android.app.Activity;
-import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.TypedArray;
-import android.graphics.Color;
 import android.graphics.Rect;
-import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.StateListDrawable;
-import android.graphics.drawable.TransitionDrawable;
-import android.net.Uri;
 import android.os.Bundle;
-import android.os.Debug;
-import android.util.Log;
 import android.util.TypedValue;
-import android.view.LayoutInflater;
 import android.view.SoundEffectConstants;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.*;
-import android.widget.BaseExpandableListAdapter;
+import android.widget.LinearLayout;
+import android.widget.ScrollView;
+import android.widget.TextView;
 
-import java.util.*;
-import java.util.concurrent.RunnableFuture;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
 
 
 public class LibraryList extends VideLibriBaseActivity {
@@ -33,9 +26,9 @@ public class LibraryList extends VideLibriBaseActivity {
     static long lastSelectedTime = 0;                                               //(passing as intent did not work on every device (perhaps the caller is killed?)
     static final long SELECTION_REUSE_TIME = 10*1000;
 
-    final List<String> states = new ArrayList<String>();
-    final List<List<String>> cities = new ArrayList<List<String>>();
-    final List<List<List<Map<String, String>>>> localLibs = new ArrayList<List<List<Map<String, String>>>>();
+    final List<String> states = new ArrayList<>();
+    final List<List<String>> cities = new ArrayList<>();
+    final List<List<List<Map<String, String>>>> localLibs = new ArrayList<>();
 
 
     ScrollView scrollView;
@@ -55,7 +48,7 @@ public class LibraryList extends VideLibriBaseActivity {
         int autoExpand = 0;
         if (VideLibriApp.accounts != null && VideLibriApp.accounts.length > 0) {
             autoExpand = 1;
-            ArrayList<String> used = new ArrayList<String>();
+            ArrayList<String> used = new ArrayList<>();
             states.add(tr(R.string.liblist_withaccounts));
             cities.add(new ArrayList<String>());
             cities.get(0).add(tr(R.string.liblist_withaccounts));
@@ -65,7 +58,7 @@ public class LibraryList extends VideLibriBaseActivity {
                 if (used.contains(account.libId)) continue;
                 used.add(account.libId);
 
-                TreeMap map = new TreeMap<String, String>();
+                TreeMap<String, String> map = new TreeMap<>();
                 localLibs.get(0).get(localLibs.size()-1).add(map);
                 for (Bridge.Library lib: libs)
                     if (lib.id.equals(account.libId)) {
@@ -90,8 +83,8 @@ public class LibraryList extends VideLibriBaseActivity {
                 if ("-".equals(lib.locationPretty) && autoExpand < 2) autoExpand+=1;
                 localLibs.get(localLibs.size() - 1).add(new ArrayList<Map<String, String>>());
             }
-            TreeMap<String,String> map = new TreeMap<String, String>();
-            localLibs.get(localLibs.size()-1).get(localLibs.get(localLibs.size()-1).size()-1).add(map);;
+            TreeMap<String,String> map = new TreeMap<>();
+            localLibs.get(localLibs.size()-1).get(localLibs.get(localLibs.size()-1).size()-1).add(map);
             map.put("NAME", lib.namePretty);
             map.put("SHORT", lib.nameShort);
             map.put("ID", lib.id);
@@ -165,13 +158,13 @@ public class LibraryList extends VideLibriBaseActivity {
     }
 
     static class ViewId{
-        enum Level { State, City, Lib };
+        enum Level { State, City, Lib }
         Level level;
         int a, b, c;
         ViewId(int a){ level = Level.State; this.a = a; }
         ViewId(int a, int b){ level = Level.City; this.a = a; this.b = b;}
         ViewId(int a, int b, int c){ level = Level.Lib; this.a = a; this.b = b; this.c = c; }
-    };
+    }
 
     public class LibraryListView extends LinearLayout
     {
@@ -206,7 +199,7 @@ public class LibraryList extends VideLibriBaseActivity {
             if (getTheme().resolveAttribute(android.R.attr.expandableListViewStyle, typedValue , true)){
                 TypedArray typedArray = getTheme().obtainStyledAttributes(typedValue.resourceId, new int[] { android.R.attr.groupIndicator });
                 if (typedArray.getDrawable(0) instanceof StateListDrawable) {
-                    groupIndicator = (StateListDrawable)typedArray.getDrawable(0);
+                    groupIndicator = typedArray.getDrawable(0);
                     StateListDrawable temp = (StateListDrawable)typedArray.getDrawable(0);
                     if (temp != null) {
                         temp.setState(new int[] { android.R.attr.state_expanded });
@@ -222,7 +215,7 @@ public class LibraryList extends VideLibriBaseActivity {
                 row.setCompoundDrawablesWithIntrinsicBounds(groupIndicator,null,null,null);
                 row.setTag(new ViewId(i));
                 row.setOnClickListener(combinedListener);
-                stateViews[i] = (TextView) row;
+                stateViews[i] = row;
                 addView(row);
                 stateChildViews[i] = new LinearLayout(context);
                 stateChildViews[i].setLayoutParams(new LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.WRAP_CONTENT));
