@@ -2,13 +2,11 @@ package de.benibela.videlibri;
 
 
 import android.os.Bundle;
-import android.sax.TextElementListener;
 import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.*;
 
-import java.lang.reflect.Array;
 import java.util.HashMap;
 import java.util.Map;
 

@@ -1,17 +1,10 @@
 package de.benibela.videlibri;
 
-import android.*;
-import android.R;
-import android.app.Activity;
-import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.Color;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
-import android.util.Pair;
 
 import java.io.Serializable;
 import java.util.*;

@@ -1,19 +1,13 @@
 package de.benibela.videlibri;
 
-import android.app.Activity;
-import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Paint;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.View;
 import android.widget.*;
-
-import java.util.*;
-import java.util.concurrent.RunnableFuture;
 
 class EmptyTextWatcher implements TextWatcher{
     @Override

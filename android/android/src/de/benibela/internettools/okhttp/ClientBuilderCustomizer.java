@@ -1,14 +1,10 @@
 package de.benibela.internettools.okhttp;
 
-import android.util.Log;
-
-import java.io.IOException;
 import java.security.KeyManagementException;
 import java.security.KeyStoreException;
 import java.security.NoSuchAlgorithmException;
 import java.security.UnrecoverableKeyException;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.concurrent.TimeUnit;
 
 import javax.net.ssl.X509TrustManager;
@@ -16,10 +12,7 @@ import javax.net.ssl.X509TrustManager;
 import de.benibela.internettools.ModernSSLSocketFactory;
 import de.benibela.internettools.X509TrustManagerWithAdditionalKeystores;
 import okhttp3.ConnectionSpec;
-import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.Response;
 
 public class ClientBuilderCustomizer {
     public static void customize(OkHttpClient.Builder builder) throws UnrecoverableKeyException, NoSuchAlgorithmException, KeyStoreException, KeyManagementException {

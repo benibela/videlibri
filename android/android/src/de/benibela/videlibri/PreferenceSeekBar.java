@@ -7,7 +7,6 @@ import android.graphics.Color;
 import android.support.v7.preference.PreferenceViewHolder;
 import android.support.v7.preference.SeekBarPreference;
 import android.util.AttributeSet;
-import android.util.StringBuilderPrinter;
 import android.widget.TextView;
 
 /**

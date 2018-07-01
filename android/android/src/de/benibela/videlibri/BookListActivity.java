@@ -1,19 +1,15 @@
 package de.benibela.videlibri;
 
-import android.app.Activity;
 import android.content.Context;
 import android.os.Build;
-import android.support.v4.app.FragmentTransaction;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.*;
 import android.widget.*;
 
-import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.EnumSet;
-import java.util.Iterator;
 
 public class BookListActivity extends VideLibriBaseActivity{
     boolean port_mode;

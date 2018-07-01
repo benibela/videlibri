@@ -1,10 +1,7 @@
 package de.benibela.videlibri;
 
-import android.content.res.Resources;
 import android.view.View;
 import android.widget.Button;
-
-import android.support.v4.app.Fragment;
 
 public class VideLibriFakeFragment {
     VideLibriBaseActivity activity;

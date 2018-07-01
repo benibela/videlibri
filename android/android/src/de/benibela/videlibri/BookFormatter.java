@@ -2,8 +2,6 @@ package de.benibela.videlibri;
 
 
 import android.graphics.Color;
-import android.view.View;
-import android.widget.TextView;
 
 import java.util.EnumSet;
 

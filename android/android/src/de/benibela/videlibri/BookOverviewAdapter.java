@@ -1,6 +1,5 @@
 package de.benibela.videlibri;
 
-import android.content.Context;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.view.Gravity;
@@ -12,7 +11,6 @@ import android.widget.TextView;
 import de.benibela.videlibri.BookListActivity;
 import de.benibela.videlibri.Bridge;
 import de.benibela.videlibri.R;
-import de.benibela.videlibri.VideLibri;
 
 import java.util.ArrayList;
 import java.util.EnumSet;
