@@ -198,6 +198,7 @@ public class BookDetails extends VideLibriFakeFragment {
                         break;
                     case VIEW_HOLDING_VALUE:
                         holder.text.setText(d.data);
+                        holder.text.setTextColor(defaultColor);
                         if (d instanceof DetailsHolding
                                 && ((DetailsHolding)d).orderable
                                 && book.account == null
