@@ -214,7 +214,7 @@ public class BookDetails extends VideLibriFakeFragment {
                                 }
                             });
                         } else
-                            ((ViewHolderHolding)holder).button.setVisibility(View.INVISIBLE);
+                            ((ViewHolderHolding)holder).button.setVisibility(View.GONE);
 
                 }
             } else {
