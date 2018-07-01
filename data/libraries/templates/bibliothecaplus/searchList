@@ -36,14 +36,19 @@
             
             <span t:condition="contains(@id, 'LblSubTitleValue')">{book.title := x"{$book.title}: {.}"}</span>? 
             
-            <div>     
-               <span>{cat := .}</span>
-               {
-                 let $temp := extract($cat/@id, "_Lbl(.*)$", 1) 
-                 return 
-                   $book(if (exists($search-reverse-keys($temp))) then $search-reverse-keys($temp) else $cat||"!") := substring-after(., ":")
-               }
-            </div>*
+             <t:s> for $span in .//div//span
+                   let $idlbl := $span/extract(@id, "_Lbl(.*)$", 1)[.]
+                   where exists($idlbl) and not(ends-with($idlbl, "Value"))
+                   let $key := if (exists($search-reverse-keys($idlbl))) then $search-reverse-keys($idlbl)
+                               else $span || "!"
+                   let $value := join($span!following-sibling::node()!(
+                     if (self::a) then (. || (if (contains(@href, "http")) then x" ( {@href} )" else ""))
+                     else .
+                   ))
+                   where $value
+                   return $book($key) := $value
+                     
+                 </t:s>
           </div>
 <!-- geht nicht, needs ajax         {..//img[ends-with(@id, "mediumImageAvailable")]!(
             if (ends-with(@src, "true.png")) then $book.status := "available"
@@ -59,13 +64,19 @@
             
             <span t:condition="contains(@id, 'LblSubTitleValue')">{book.title := x"{$book.title}: {.}"}</span>? 
             
-            <div>     
-               <span>{cat := .}</span>
-               <span>{
-                 let $temp := extract($cat/@id, "_Lbl(.*)$", 1) 
-                 return if (exists($search-reverse-keys($temp))) then $book($search-reverse-keys($temp)) := .
-                        else $book($cat||"!") := .}</span> 
-            </div>*
+            <t:s> for $span in .//div//span
+              let $idlbl := $span/extract(@id, "_Lbl(.*)$", 1)[.]
+              where exists($idlbl) and not(ends-with($idlbl, "Value"))
+              let $key := if (exists($search-reverse-keys($idlbl))) then $search-reverse-keys($idlbl)
+                          else $span || "!"
+              let $value := join($span!following-sibling::node()!(
+                if (self::a) then (. || (if (contains(@href, "http")) then x" ( {@href} )" else ""))
+                else .
+              ))
+              where $value
+              return $book($key) := $value
+                
+            </t:s>
           </td>
         </tr></table>
       </t:switch>

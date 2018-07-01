@@ -6,44 +6,13 @@ form := {"method": "POST", "headers": "Content-Type: multipart/form-data; bounda
 loginlink := text{"https://open.rz-kiru.de/holzgerlingen/login.aspx?ReturnUrl=%2fholzgerlingen%2fMediensuche%2fEinfacheSuche.aspx%3fsearchhash%3dOCLC_70dc4c4828b0c5a62bef84e3a1889350763baa2c%26top%3dy"}
 next-page := "https://open.rz-kiru.de/holzgerlingen/Mediensuche/EinfacheSuche.aspx?searchhash=OCLC_70dc4c4828b0c5a62bef84e3a1889350763baa2c&amp;top=y&amp;page=2"
 search-result-count := "48"
-cat := text{"Verfasser:"}
-cat := text{"Jahr:"}
-cat := text{"Verlag:"}
-cat := text{"Sachbücher EW"}
-book := {"Sachbücher EW!": "", "Verlag:!": "\n\t\t\tNew York, Barron's", "Jahr:!": " \n\t\t\t2004", "Verfasser:!": " \n\t\t\tHinkel, Eli", "title": "TOEFL, test strategies", "_detailId": "https://open.rz-kiru.de/holzgerlingen/Mediensuche/EinfacheSuche.aspx?searchhash=OCLC_70dc4c4828b0c5a62bef84e3a1889350763baa2c&top=y&detail=0", "_page": 1}
-cat := text{"Jahr:"}
-cat := text{"Verlag:"}
-cat := text{"OnlineBB"}
-book := {"OnlineBB!": "", "Verlag:!": "\n\t\t\tSchool Scout", "Jahr:!": " \n\t\t\t2002", "title": "Abwechslungsreicher Test", "_detailId": "https://open.rz-kiru.de/holzgerlingen/Mediensuche/EinfacheSuche.aspx?searchhash=OCLC_70dc4c4828b0c5a62bef84e3a1889350763baa2c&top=y&detail=1", "_page": 1}
-cat := text{"Jahr:"}
-cat := text{"Verlag:"}
-cat := text{"OnlineBB"}
-book := {"OnlineBB!": "", "Verlag:!": "\n\t\t\tSchool Scout", "Jahr:!": " \n\t\t\t2001", "title": "Test - Übung", "_detailId": "https://open.rz-kiru.de/holzgerlingen/Mediensuche/EinfacheSuche.aspx?searchhash=OCLC_70dc4c4828b0c5a62bef84e3a1889350763baa2c&top=y&detail=2", "_page": 1}
-cat := text{"Jahr:"}
-cat := text{"Verlag:"}
-cat := text{"OnlineBB"}
-book := {"OnlineBB!": "", "Verlag:!": "\n\t\t\tSchool Scout", "Jahr:!": " \n\t\t\t2001", "title": "Test/Übung zu verschiedenen grammatikalischen Themen", "_detailId": "https://open.rz-kiru.de/holzgerlingen/Mediensuche/EinfacheSuche.aspx?searchhash=OCLC_70dc4c4828b0c5a62bef84e3a1889350763baa2c&top=y&detail=3", "_page": 1}
-cat := text{"Jahr:"}
-cat := text{"Verlag:"}
-cat := text{"OnlineBB"}
-book := {"OnlineBB!": "", "Verlag:!": "\n\t\t\tSchool Scout", "Jahr:!": " \n\t\t\t2001", "title": "Test zum Thema idioms", "_detailId": "https://open.rz-kiru.de/holzgerlingen/Mediensuche/EinfacheSuche.aspx?searchhash=OCLC_70dc4c4828b0c5a62bef84e3a1889350763baa2c&top=y&detail=4", "_page": 1}
-cat := text{"Jahr:"}
-cat := text{"Verlag:"}
-cat := text{"OnlineBB"}
-book := {"OnlineBB!": "", "Verlag:!": "\n\t\t\tSchool Scout", "Jahr:!": " \n\t\t\t2001", "title": "Test zum Thema Uhrzeit für die 5. Klasse", "_detailId": "https://open.rz-kiru.de/holzgerlingen/Mediensuche/EinfacheSuche.aspx?searchhash=OCLC_70dc4c4828b0c5a62bef84e3a1889350763baa2c&top=y&detail=5", "_page": 1}
-cat := text{"Jahr:"}
-cat := text{"Verlag:"}
-cat := text{"OnlineBB"}
-book := {"OnlineBB!": "", "Verlag:!": "\n\t\t\tSchool Scout", "Jahr:!": " \n\t\t\t2001", "title": "Reading Comprehension Test", "_detailId": "https://open.rz-kiru.de/holzgerlingen/Mediensuche/EinfacheSuche.aspx?searchhash=OCLC_70dc4c4828b0c5a62bef84e3a1889350763baa2c&top=y&detail=6", "_page": 1}
-cat := text{"Jahr:"}
-cat := text{"Verlag:"}
-cat := text{"OnlineBB"}
-book := {"OnlineBB!": "", "Verlag:!": "\n\t\t\tSchool Scout", "Jahr:!": " \n\t\t\t2001", "title": "Stephan Hermlin, Die Vögel und der Test", "_detailId": "https://open.rz-kiru.de/holzgerlingen/Mediensuche/EinfacheSuche.aspx?searchhash=OCLC_70dc4c4828b0c5a62bef84e3a1889350763baa2c&top=y&detail=7", "_page": 1}
-cat := text{"Jahr:"}
-cat := text{"Verlag:"}
-cat := text{"OnlineBB"}
-book := {"OnlineBB!": "", "Verlag:!": "\n\t\t\tSchool Scout", "Jahr:!": " \n\t\t\t2001", "title": "Test", "_detailId": "https://open.rz-kiru.de/holzgerlingen/Mediensuche/EinfacheSuche.aspx?searchhash=OCLC_70dc4c4828b0c5a62bef84e3a1889350763baa2c&top=y&detail=8", "_page": 1}
-cat := text{"Jahr:"}
-cat := text{"Verlag:"}
-cat := text{"OnlineBB"}
-book := {"OnlineBB!": "", "Verlag:!": "\n\t\t\tSchool Scout", "Jahr:!": " \n\t\t\t2001", "title": "Test Aufgabenstellungen mit Punkteverteilung und Lösungen", "_detailId": "https://open.rz-kiru.de/holzgerlingen/Mediensuche/EinfacheSuche.aspx?searchhash=OCLC_70dc4c4828b0c5a62bef84e3a1889350763baa2c&top=y&detail=9", "_page": 1}
+book := {"Verlag:!": " New York, Barron's ", "Jahr:!": "2004", "Verfasser:!": "Hinkel, Eli", "title": "TOEFL, test strategies", "_detailId": "https://open.rz-kiru.de/holzgerlingen/Mediensuche/EinfacheSuche.aspx?searchhash=OCLC_70dc4c4828b0c5a62bef84e3a1889350763baa2c&top=y&detail=0", "_page": 1}
+book := {"Verlag:!": " School Scout ", "Jahr:!": "2002", "title": "Abwechslungsreicher Test", "_detailId": "https://open.rz-kiru.de/holzgerlingen/Mediensuche/EinfacheSuche.aspx?searchhash=OCLC_70dc4c4828b0c5a62bef84e3a1889350763baa2c&top=y&detail=1", "_page": 1}
+book := {"Verlag:!": " School Scout ", "Jahr:!": "2001", "title": "Test - Übung", "_detailId": "https://open.rz-kiru.de/holzgerlingen/Mediensuche/EinfacheSuche.aspx?searchhash=OCLC_70dc4c4828b0c5a62bef84e3a1889350763baa2c&top=y&detail=2", "_page": 1}
+book := {"Verlag:!": " School Scout ", "Jahr:!": "2001", "title": "Test/Übung zu verschiedenen grammatikalischen Themen", "_detailId": "https://open.rz-kiru.de/holzgerlingen/Mediensuche/EinfacheSuche.aspx?searchhash=OCLC_70dc4c4828b0c5a62bef84e3a1889350763baa2c&top=y&detail=3", "_page": 1}
+book := {"Verlag:!": " School Scout ", "Jahr:!": "2001", "title": "Test zum Thema idioms", "_detailId": "https://open.rz-kiru.de/holzgerlingen/Mediensuche/EinfacheSuche.aspx?searchhash=OCLC_70dc4c4828b0c5a62bef84e3a1889350763baa2c&top=y&detail=4", "_page": 1}
+book := {"Verlag:!": " School Scout ", "Jahr:!": "2001", "title": "Test zum Thema Uhrzeit für die 5. Klasse", "_detailId": "https://open.rz-kiru.de/holzgerlingen/Mediensuche/EinfacheSuche.aspx?searchhash=OCLC_70dc4c4828b0c5a62bef84e3a1889350763baa2c&top=y&detail=5", "_page": 1}
+book := {"Verlag:!": " School Scout ", "Jahr:!": "2001", "title": "Reading Comprehension Test", "_detailId": "https://open.rz-kiru.de/holzgerlingen/Mediensuche/EinfacheSuche.aspx?searchhash=OCLC_70dc4c4828b0c5a62bef84e3a1889350763baa2c&top=y&detail=6", "_page": 1}
+book := {"Verlag:!": " School Scout ", "Jahr:!": "2001", "title": "Stephan Hermlin, Die Vögel und der Test", "_detailId": "https://open.rz-kiru.de/holzgerlingen/Mediensuche/EinfacheSuche.aspx?searchhash=OCLC_70dc4c4828b0c5a62bef84e3a1889350763baa2c&top=y&detail=7", "_page": 1}
+book := {"Verlag:!": " School Scout ", "Jahr:!": "2001", "title": "Test", "_detailId": "https://open.rz-kiru.de/holzgerlingen/Mediensuche/EinfacheSuche.aspx?searchhash=OCLC_70dc4c4828b0c5a62bef84e3a1889350763baa2c&top=y&detail=8", "_page": 1}
+book := {"Verlag:!": " School Scout ", "Jahr:!": "2001", "title": "Test Aufgabenstellungen mit Punkteverteilung und Lösungen", "_detailId": "https://open.rz-kiru.de/holzgerlingen/Mediensuche/EinfacheSuche.aspx?searchhash=OCLC_70dc4c4828b0c5a62bef84e3a1889350763baa2c&top=y&detail=9", "_page": 1}
