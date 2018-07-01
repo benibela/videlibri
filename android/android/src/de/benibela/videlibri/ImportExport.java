@@ -75,16 +75,37 @@ public class ImportExport extends VideLibriBaseActivity {
     public static final int MODE_IMPORT = 0;
     public static final int MODE_EXPORT = 1;
 
+    private String[] OPTIONS;
+
     int mode;
     ArrayAdapter<String> accountAdapter;
     ArrayAdapter<String> flagAdapter;
     Bridge.ImportExportData data;
 
-    private void checkAll(ListView lv) {
+    private void setVisibilities(int ids[], int visibility){
+        for (int id: ids) findViewById(id).setVisibility(visibility);
+    }
+
+    private void checkAllSet(ListView lv, boolean checked) {
         lv.setChoiceMode(AbsListView.CHOICE_MODE_MULTIPLE);
         int count = lv.getCount();
         for (int i=0;i<count;i++)
-            lv.setItemChecked(i, true);
+            lv.setItemChecked(i, checked);
+    }
+    private void checkAll(ListView lv) {
+        checkAllSet(lv, true);
+    }
+    private void checkSomeOnly(ListView lv, ArrayList<Integer> checked){
+        if (lv == null || checked == null) return;
+        checkAllSet(lv, false);
+        for (int i: checked) lv.setItemChecked(i, true);
+    }
+    private ArrayList<Integer> getChecked(ListView lv){
+        ArrayList<Integer> res = new ArrayList<>();
+        int count = lv.getCount();
+        for (int i=0;i<count;i++)
+            if (lv.isItemChecked(i)) res.add(i);
+        return res;
     }
 
     protected void setButtonText(){
@@ -108,17 +129,19 @@ public class ImportExport extends VideLibriBaseActivity {
         super.onCreate(savedInstanceState);
         setVideLibriView(R.layout.importexport);
         mode = getIntent().getIntExtra("mode", MODE_IMPORT);
+        OPTIONS = new String[]{tr(R.string.lay_options_option_current), tr(R.string.history), tr(R.string.configuration), tr(R.string.passwords)};
 
-        File dir = Environment.getExternalStorageDirectory();
-        File export = new File(dir , "videlibri.xml" );
-        setEditTextText(R.id.edit, export.getAbsolutePath());
+        String fileName = PreferenceManager.getDefaultSharedPreferences(this).getString("importExportFileName", "");
+        if (Util.isEmptyString(fileName)) {
+            File dir = Environment.getExternalStorageDirectory();
+            File export = new File(dir, "videlibri.xml");
+            fileName = export.getAbsolutePath();
+        }
+        setEditTextText(R.id.edit, fileName);
 
 
         if (mode == MODE_IMPORT) {
-            findViewById(R.id.textView).setVisibility(View.GONE);
-            findViewById(R.id.textView1).setVisibility(View.GONE);
-            findViewById(R.id.listView).setVisibility(View.GONE);
-            findViewById(R.id.listView1).setVisibility(View.GONE);
+            setVisibilities(new int[]{R.id.textView, R.id.textView1, R.id.listView, R.id.listView1}, View.GONE);
             setTitle(tr(R.string.import_));
             setTextViewText(R.id.textView, tr(R.string.import_accounts));
             setTextViewText(R.id.textView1, tr(R.string.import_properties));
@@ -142,8 +165,8 @@ public class ImportExport extends VideLibriBaseActivity {
             checkAll(lv);
         }
         setButtonText();
-        final String[] options = new String[]{tr(R.string.lay_options_option_current), tr(R.string.history), tr(R.string.configuration), tr(R.string.passwords)};
-        flagAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_multiple_choice, options);
+
+        flagAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_multiple_choice, OPTIONS);
         ListView lv = ((ListView)findViewById(R.id.listView1));
         lv.setAdapter(flagAdapter);
         checkAll(lv);
@@ -168,12 +191,13 @@ public class ImportExport extends VideLibriBaseActivity {
 
 
 
+
                 ListView flagListView = (ListView)findViewById((R.id.listView1));
                 int flags = 0;
                 int optionI = 0;
                 for (int i=0;i<flagAdapter.getCount();i++)
                     if (flagListView.isItemChecked(i)) {
-                        for (;!options[optionI].equals(flagAdapter.getItem(i));optionI++) {
+                        for (;!OPTIONS[optionI].equals(flagAdapter.getItem(i));optionI++) {
 
                         }
                         //assert i == optionI ???
@@ -187,29 +211,7 @@ public class ImportExport extends VideLibriBaseActivity {
                 try {
                     if (mode == MODE_IMPORT) {
                         if (data == null) {
-                            data = Bridge.VLImportAccountsPrepare(getEditTextText(R.id.edit));
-
-                            accountAdapter = new ArrayAdapter<>(ImportExport.this, android.R.layout.simple_list_item_multiple_choice, data.accountsToImport);
-                            ListView lv = (ListView)findViewById(R.id.listView);
-                            lv.setAdapter(accountAdapter);
-                            checkAll(lv);
-
-                            ArrayList<String> newOptions = new ArrayList<>();
-                            for (int i=0;i<options.length;i++)
-                                if ((data.flags & (1 << i)) != 0)
-                                    newOptions.add(options[i]);
-                            flagAdapter = new ArrayAdapter<>(ImportExport.this, android.R.layout.simple_list_item_multiple_choice, newOptions);
-                            lv = ((ListView)findViewById(R.id.listView1));
-                            lv.setAdapter(flagAdapter);
-                            checkAll(lv);
-
-                            findButtonById(R.id.button).setText(tr(R.string.import_));
-                            findViewById(R.id.textView).setVisibility(View.VISIBLE);
-                            findViewById(R.id.textView1).setVisibility(View.VISIBLE);
-                            findViewById(R.id.listView).setVisibility(View.VISIBLE);
-                            findViewById(R.id.listView1).setVisibility(View.VISIBLE);
-                            findViewById(R.id.textView2).setVisibility(View.GONE);
-                            findViewById(R.id.edit).setVisibility(View.GONE);
+                            showPreparedImport(getEditTextText(R.id.edit));
                         } else {
                             ArrayList<String> choosen = new ArrayList<>();
                             for (int i=0;i<accountAdapter.getCount();i++)
@@ -238,6 +240,7 @@ public class ImportExport extends VideLibriBaseActivity {
                         for (int i=0;i<accounts.length;i++)
                             accounts[i] = choosen.get(i);
                         Bridge.VLExportAccounts(getEditTextText(R.id.edit), accounts, flags);
+                        rememberFileNameInPreferences();
                         Util.showMessage(DialogId.IMPORTEXPORT_DONE, tr(R.string.export_done));
                     }
                 } catch (Bridge.InternalError e) {
@@ -257,6 +260,62 @@ public class ImportExport extends VideLibriBaseActivity {
                 startActivityForResult(intent, 30017);
             }
         });
+    }
+
+    private void rememberFileNameInPreferences(){
+        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(this);
+        SharedPreferences.Editor editor = sp.edit();
+        editor.putString("importExportFileName", getEditTextText(R.id.edit));
+        editor.apply();
+    }
+
+    private void showPreparedImport(String filename){
+        data = Bridge.VLImportAccountsPrepare(filename);
+        rememberFileNameInPreferences();
+
+        accountAdapter = new ArrayAdapter<>(ImportExport.this, android.R.layout.simple_list_item_multiple_choice, data.accountsToImport);
+        ListView lv = (ListView)findViewById(R.id.listView);
+        lv.setAdapter(accountAdapter);
+        checkAll(lv);
+
+        ArrayList<String> newOptions = new ArrayList<>();
+        for (int i=0;i<OPTIONS.length;i++)
+            if ((data.flags & (1 << i)) != 0)
+                newOptions.add(OPTIONS[i]);
+        flagAdapter = new ArrayAdapter<>(ImportExport.this, android.R.layout.simple_list_item_multiple_choice, newOptions);
+        lv = ((ListView)findViewById(R.id.listView1));
+        lv.setAdapter(flagAdapter);
+        checkAll(lv);
+
+        findButtonById(R.id.button).setText(tr(R.string.import_));
+        setVisibilities(new int[]{R.id.textView, R.id.textView1, R.id.listView, R.id.listView1}, View.VISIBLE);
+        setVisibilities(new int[]{R.id.edit, R.id.buttonChoose, R.id.textView2}, View.GONE);
+        hideKeyboard(this);
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        if (mode == MODE_IMPORT && data != null) {
+                outState.putString("activeImportFileName", getEditTextText(R.id.edit));
+                outState.putIntegerArrayList("listViewChecked", getChecked((ListView) findViewById(R.id.listView)));
+                outState.putIntegerArrayList("listView1Checked", getChecked((ListView) findViewById(R.id.listView1)));
+        }
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        String fn = savedInstanceState.getString("activeImportFileName");
+        if (!Util.isEmptyString(fn)) {
+            try {
+                showPreparedImport(fn);
+                checkSomeOnly((ListView)findViewById(R.id.listView), savedInstanceState.getIntegerArrayList("listViewChecked"));
+                checkSomeOnly((ListView)findViewById(R.id.listView1), savedInstanceState.getIntegerArrayList("listView1Checked"));
+            } catch (Exception e) { //this will happen when someone has removed the SD card or our permissions
+                Toast.makeText(this, e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
+            }
+        }
     }
 
     @Override
@@ -391,6 +450,17 @@ public class ImportExport extends VideLibriBaseActivity {
         static boolean isGooglePhotosUri(Uri uri) {
             return "com.google.android.apps.photos.content".equals(uri.getAuthority());
         }
+    }
+
+
+    //https://stackoverflow.com/questions/1109022/close-hide-the-android-soft-keyboard
+    public static void hideKeyboard(Activity activity) {
+        InputMethodManager imm = (InputMethodManager) activity.getSystemService(Activity.INPUT_METHOD_SERVICE);
+        View view = activity.getCurrentFocus();
+        if (view == null) {
+            view = new View(activity);
+        }
+        imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
     }
 
     @Override
