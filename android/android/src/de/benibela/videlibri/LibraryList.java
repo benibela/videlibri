@@ -196,17 +196,18 @@ public class LibraryList extends VideLibriBaseActivity {
             for (int i=0;i<cityChildViews.length;i++) cityChildViews[i] = new LinearLayout[cities.get(i).size()];
 
             TypedValue typedValue = new TypedValue();
-            if (getTheme().resolveAttribute(android.R.attr.expandableListViewStyle, typedValue , true)){
-                TypedArray typedArray = getTheme().obtainStyledAttributes(typedValue.resourceId, new int[] { android.R.attr.groupIndicator });
-                if (typedArray.getDrawable(0) instanceof StateListDrawable) {
-                    groupIndicator = typedArray.getDrawable(0);
-                    StateListDrawable temp = (StateListDrawable)typedArray.getDrawable(0);
-                    if (temp != null) {
-                        temp.setState(new int[] { android.R.attr.state_expanded });
-                        groupIndicatorExpanded = temp.getCurrent()  ;//.getConstantState().newDrawable();
+            if (port_mode)
+                if (getTheme().resolveAttribute(android.R.attr.expandableListViewStyle, typedValue , true)){
+                    TypedArray typedArray = getTheme().obtainStyledAttributes(typedValue.resourceId, new int[] { android.R.attr.groupIndicator });
+                    if (typedArray.getDrawable(0) instanceof StateListDrawable) {
+                        groupIndicator = typedArray.getDrawable(0);
+                        StateListDrawable temp = (StateListDrawable)typedArray.getDrawable(0);
+                        if (temp != null) {
+                            temp.setState(new int[] { android.R.attr.state_expanded });
+                            groupIndicatorExpanded = temp.getCurrent()  ;//.getConstantState().newDrawable();
+                        }
                     }
                 }
-            }
 
             for (int i=0;i<states.size();i++) {
                 TextView row = (TextView)getLayoutInflater().inflate(android.R.layout.simple_expandable_list_item_1, this, false);
@@ -310,12 +311,13 @@ public class LibraryList extends VideLibriBaseActivity {
 
         private void setIndicator(final TextView view, final boolean expanded){
             playSoundEffect(SoundEffectConstants.CLICK);
-            view.postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    view.setCompoundDrawablesWithIntrinsicBounds(expanded ? groupIndicatorExpanded : groupIndicator, null, null, null);
-                }
-            }, 150);
+            if (groupIndicator != null || groupIndicatorExpanded != null)
+                view.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        view.setCompoundDrawablesWithIntrinsicBounds(expanded ? groupIndicatorExpanded : groupIndicator, null, null, null);
+                    }
+                }, 150);
 
             /*TransitionDrawable trans = new TransitionDrawable(new ColorDrawable[]{new ColorDrawable(Color.BLACK), new ColorDrawable(Color.BLUE), new ColorDrawable(Color.BLACK)});
             view.setBackgroundDrawable(trans);
