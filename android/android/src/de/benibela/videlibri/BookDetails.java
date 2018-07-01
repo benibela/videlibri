@@ -2,15 +2,23 @@ package de.benibela.videlibri;
 
 
 import android.app.Activity;
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.Paint;
 import android.graphics.Typeface;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.text.SpannableStringBuilder;
+import android.text.Spanned;
+import android.text.style.LeadingMarginSpan;
+import android.text.style.ReplacementSpan;
 import android.text.util.Linkify;
 import android.util.DisplayMetrics;
 import android.util.Log;
@@ -32,8 +40,9 @@ public class BookDetails extends VideLibriFakeFragment {
     }
 
     static class Details{
-        String name, data;
-        Details(String name, String data){
+        String name;
+        CharSequence data;
+        Details(String name, CharSequence data){
             this.name = name;
             this.data = data;
             if (name == null) this.name = "??";
@@ -50,7 +59,7 @@ public class BookDetails extends VideLibriFakeFragment {
         final boolean orderable;
         String orderLabel;
         int holdingId;
-        DetailsHolding(String name, String data, Bridge.Book holding, int holdingId, String orderLabel){
+        DetailsHolding(String name, CharSequence data, Bridge.Book holding, int holdingId, String orderLabel){
             super(name, data);
             orderable = holding.isOrderableHolding();
             this.orderLabel = orderLabel;
@@ -341,31 +350,59 @@ public class BookDetails extends VideLibriFakeFragment {
     }
 
     private class HoldingDetailMaker{
-        StringBuilder builder = new StringBuilder();
+        private SpannableStringBuilder builder = new SpannableStringBuilder();
+        int padding;
         Bridge.Book holding;
         //  String indent;
         void addPair(String name, String value){
             if (Util.isEmptyString(value)) return;
-            if (builder.length()>0) builder.append("\n");
+            //if (builder.length()>0) builder.append("\n");
             //builder.append(indent);
+            int len = builder.length();
+
+            builder.append(" ");
+
+            builder.setSpan(new ReplacementSpan() {
+                @Override
+                public int getSize(@NonNull Paint paint, CharSequence text, int start, int end, @Nullable Paint.FontMetricsInt fm) {
+                    return -padding; //undo the indentation of the leadingmarginspan as leadingmarginspan seems to be broken crap: https://issuetracker.google.com/issues/36956124
+                }
+
+                @Override
+                public void draw(@NonNull Canvas canvas, CharSequence text, int start, int end, float x, int top, int y, int bottom, @NonNull Paint paint) {
+
+                }
+            }, len, len + 1, Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
+            //len++;
             builder.append(name);
             builder.append(": ");
             builder.append(value);
+            builder.append("\n");
+            builder.setSpan(new LeadingMarginSpan.Standard(padding,padding), len, builder.length(), Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
         }
         void addProperty(int translation, String value){
             String v = holding.getProperty(value);
             if (Util.isEmptyString(v)) return;
             addPair(tr(translation), v);
         }
+        CharSequence build(){
+            return builder;
+        }
+        void clear(){
+            builder = new SpannableStringBuilder();
+        }
     }
     private void addHoldings(Bridge.Book holdings[]){
         if (holdings==null || holdings.length==0) return;
         HoldingDetailMaker builder = new HoldingDetailMaker();
+        builder.padding = (int) (activity.getResources().getDisplayMetrics().scaledDensity * 40+0.5);
+
+
         //builder.indent = "      ";
         String defaultOrderTitle = book.getProperty("orderTitle");
         if (Util.isEmptyString(defaultOrderTitle)) defaultOrderTitle = tr(R.string.book_order);
         for (int i=0;i<holdings.length;i++){
-            builder.builder.setLength(0);
+            builder.clear();
             builder.holding = holdings[i];
             builder.addPair(tr(R.string.book_title), builder.holding.title);
             builder.addPair(tr(R.string.book_author), builder.holding.author);
@@ -388,7 +425,7 @@ public class BookDetails extends VideLibriFakeFragment {
 
             String orderTitle = builder.holding.getProperty("orderTitle", defaultOrderTitle);
 
-            details.add(new DetailsHolding("Exemplar " + (i + 1), builder.builder.toString(), builder.holding, i, orderTitle));
+            details.add(new DetailsHolding("Exemplar " + (i + 1), builder.build(), builder.holding, i, orderTitle));
         }
     }
 
