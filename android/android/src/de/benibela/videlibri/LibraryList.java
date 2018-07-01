@@ -145,6 +145,27 @@ public class LibraryList extends VideLibriBaseActivity {
 
     }
 
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        if (libView == null) return;
+        outState.putString("lastExpandedState", libView.lastExpandedState);
+        outState.putString("lastExpandedCity", libView.lastExpandedCity);
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        if (libView == null) return;
+        String lastExpandedState = savedInstanceState.getString("lastExpandedState");
+        String lastExpandedCity = savedInstanceState.getString("lastExpandedCity");
+        int state = states.indexOf(lastExpandedState);
+        if (state < 0 || state >= cities.size()) return;
+        int city = cities.get(state).indexOf(lastExpandedCity);
+        if (city < 0) libView.expand(state, true);
+        else libView.expand(state, city, true);
+    }
+
     void createListView(){
         boolean port_mode = getResources().getBoolean(R.bool.port_mode);
         scrollView = ((ScrollView) findViewById(R.id.libListView));
@@ -175,6 +196,8 @@ public class LibraryList extends VideLibriBaseActivity {
         boolean port_mode;
         ScrollView cityView,  libView;
         //View libViews[][][];
+
+        String lastExpandedState,lastExpandedCity;
 
         Drawable groupIndicator, groupIndicatorExpanded;
 
@@ -271,6 +294,11 @@ public class LibraryList extends VideLibriBaseActivity {
                             ? cityChildViews[state][cityChildViews[state].length - 1]
                             : stateChildViews[state])
                         : stateViews[state], stateViews[state] );
+
+            if (state < states.size()) {
+                lastExpandedState = states.get(state);
+                lastExpandedCity = null;
+            }
         }
         private void expand(final int state, final int city, boolean scroll){
             if (cityChildViews[state][city] == null) expand(state, scroll);
@@ -293,6 +321,10 @@ public class LibraryList extends VideLibriBaseActivity {
                 setIndicator(cityViews[state][city], true);
                 if (port_mode)
                     smoothScrollTo(cityChildViews[state][city], cityViews[state][city]);
+            }
+            if (state < Math.min(states.size(), cities.size()) && city < cities.get(state).size()) {
+                lastExpandedState = states.get(state);
+                lastExpandedCity = cities.get(state).get(city);
             }
         }
 
