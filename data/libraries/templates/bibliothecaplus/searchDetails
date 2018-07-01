@@ -34,6 +34,7 @@
           <th>Vorbestellungen</th>?
           <th>Barcode</th>?
           <th>Mediengruppe</th>?
+          <th>Interessenkreis</th>?
           <th>Ausleihhinweis</th>?
           <th></th>*
         </t:siblings-header><!--Status,Frist,Vorbestellungen seem to be always theree--></tr>
@@ -45,6 +46,7 @@
           <td>{translate(local:parse-column(.), "&#xA0;", "")[.] ! ( $holding.duedate := parse-date(.) ) }</td>
           <td>{translate(local:parse-column(.), "&#xA0;", "")[.] ! ( $holding.pendingOrders := . ) }</td>
           <td>{$holding.barcode := local:parse-column(.)}</td>
+          <td>{$holding.category := local:parse-column(.)}</td>
           <td>{$holding.category := local:parse-column(.)}</td>
           <td>{$holding("Ausleihhinweis!") :=  local:parse-column(.)}</td>
           <td></td>
@@ -73,16 +75,19 @@
       </table>?
       
       <div t:condition="contains(@id, 'tpnlDetail') or contains(@ id, 'CatalogueDetailView')"><!-- class="DnnContainer">-->
-        <div>     
-           <span>{cat := .}</span>
-           <t:switch>
-             <span>{
-               let $temp := extract($cat/@id, "_Lbl(.*)$", 1) 
-               return if (exists($search-reverse-keys($temp))) then $book($search-reverse-keys($temp)) := .
-                      else $book($cat||"!") := .}</span> 
-              <a>{$book($cat||"!") := . || (if (contains(@href, "http")) then x" ( {@href} )" else "")}</a>
-           </t:switch>
-        </div>*
+       { for $span in .//span
+         let $idlbl := $span/extract(@id, "_Lbl(.*)$", 1)[.]
+         where exists($idlbl) and not(ends-with($idlbl, "Value"))
+         let $key := if (exists($search-reverse-keys($idlbl))) then $search-reverse-keys($idlbl)
+                     else $span || "!"
+         let $value := join($span!following-sibling::*!(
+           if (self::a) then (. || (if (contains(@href, "http")) then x" ( {@href} )" else ""))
+           else .
+         ))
+         where $value
+         return $book($key) := $value
+           
+       }
       </div>
       				
     </body>

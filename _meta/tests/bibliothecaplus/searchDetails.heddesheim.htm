@@ -1,0 +1,1639 @@
+<!DOCTYPE html>
+<html  lang="de-DE">
+<head id="Head">
+<!--*********************************************-->
+<!-- DNN Platform - http://www.dnnsoftware.com   -->
+<!-- Copyright (c) 2002-2016, by DNN Corporation -->
+<!--*********************************************-->
+<meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
+<meta name="REVISIT-AFTER" content="1 DAYS" />
+<meta name="RATING" content="GENERAL" />
+<meta name="RESOURCE-TYPE" content="DOCUMENT" />
+<meta content="text/javascript" http-equiv="Content-Script-Type" />
+<meta content="text/css" http-equiv="Content-Style-Type" />
+<title>
+	Gemeindebücherei Heddesheim > Mediensuche > Einfache Suche
+</title><meta id="MetaKeywords" name="KEYWORDS" content=",DotNetNuke,DNN" /><meta id="MetaGenerator" name="GENERATOR" content="DotNetNuke " /><meta id="MetaRobots" name="ROBOTS" content="INDEX, FOLLOW" /><link href="/heddesheim/Resources/Shared/stylesheets/dnndefault/7.0.0/default.css?cdv=375" type="text/css" rel="stylesheet"/><link href="/heddesheim/DesktopModules/OCLC.OPEN.PL.DNN.SearchModule/module.css?cdv=375" type="text/css" rel="stylesheet"/><link href="/Heddesheim/Portals/_default/Skins/20054-UnlimitedColorPack-036/skin.css?cdv=375" type="text/css" rel="stylesheet"/><link href="/heddesheim/Portals/_default/Skins/20054-UnlimitedColorPack-036/InsidePage.css?cdv=375" type="text/css" rel="stylesheet"/><link href="/Heddesheim/Portals/_default/Containers/20054-UnlimitedColorPack-036/container.css?cdv=375" type="text/css" rel="stylesheet"/><script src="/Heddesheim/Resources/libraries/jQuery/01_09_01/jquery.js?cdv=375" type="text/javascript"></script><script src="/Heddesheim/Resources/libraries/jQuery-Migrate/01_02_01/jquery-migrate.js?cdv=375" type="text/javascript"></script><script src="/Heddesheim/Resources/libraries/jQuery-UI/01_11_03/jquery-ui.js?cdv=375" type="text/javascript"></script><link  rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Open+Sans" /><link  rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Raleway" /><link  rel="stylesheet" type="text/css" href="/Heddesheim/DesktopModules/DNNGo_xPlugin/Resource/css/jquery.mmenu.css?cdv=375" /><!--[if LT IE 9]><link id="IE6Minus" rel="stylesheet" type="text/css" href="/Heddesheim/Portals/_default/Skins/20054-UnlimitedColorPack-036/ie.css" /><![endif]--><meta property="og:title" content="Das einsame Haus" /><meta property="og:description" /><meta property="og:image" content="https://images-eu.ssl-images-amazon.com/images/P/3455057225.03.MZZZZZZZ.jpg" /><meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0" /></head>
+<body id="Body">
+    
+    <form method="post" action="/heddesheim/Mediensuche/Einfache-Suche?searchhash=OCLC_737706b52284faa106925e4c6c10cebb6e538b11&amp;top=y&amp;detail=3" id="Form" enctype="multipart/form-data">
+<div class="aspNetHidden">
+<input type="hidden" name="StylesheetManager_TSSM" id="StylesheetManager_TSSM" value="" />
+<input type="hidden" name="ScriptManager_TSM" id="ScriptManager_TSM" value="" />
+<input type="hidden" name="__EVENTTARGET" id="__EVENTTARGET" value="" />
+<input type="hidden" name="__EVENTARGUMENT" id="__EVENTARGUMENT" value="" />
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="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" />
+</div>
+
+<script type="text/javascript">
+//<![CDATA[
+var theForm = document.forms['Form'];
+if (!theForm) {
+    theForm = document.Form;
+}
+function __doPostBack(eventTarget, eventArgument) {
+    if (!theForm.onsubmit || (theForm.onsubmit() != false)) {
+        theForm.__EVENTTARGET.value = eventTarget;
+        theForm.__EVENTARGUMENT.value = eventArgument;
+        theForm.submit();
+    }
+}
+//]]>
+</script>
+
+
+<script src="/Heddesheim/WebResource.axd?d=pynGkmcFUV1YVs5hDw6X0c5z-Q_gGvYNVV-tOs2Q8Yj2fzhuUWUonN-Nw601&amp;t=636396602200000000" type="text/javascript"></script>
+
+<link rel="stylesheet" type="text/css" href="/Heddesheim/DesktopModules/OCLC.OPEN.PL.DNN.BaseLibrary/StyleSheets/Common/OPENCommon.css?6.1.0.0" /><link rel="stylesheet" type="text/css" href="/Heddesheim/DesktopModules/OCLC.OPEN.PL.DNN.BaseLibrary/StyleSheets/Common/jquery-ui.css?6.1.0.0" />
+<script src="/Heddesheim/DesktopModules/OCLC.OPEN.PL.DNN.BaseLibrary/JavaScriptFrameworks/jQueryExtensions/jquery.cookie.js?6.1.0.0" type="text/javascript"></script><link rel="stylesheet" type="text/css" href="/Heddesheim/DesktopModules/OCLC.OPEN.PL.DNN.BaseLibrary/StyleSheets/AutoCompletion/AutoCompletion.css?6.1.0.0" />
+<script src="/Heddesheim/DesktopModules/OCLC.OPEN.PL.DNN.BaseLibrary/JavaScriptFrameworks/OPEN/open.js?6.1.0.0" type="text/javascript"></script>
+<script src="/Heddesheim/DesktopModules/OCLC.OPEN.PL.DNN.BaseLibrary/JavaScriptFrameworks/Tipsy/javascripts/jquery.tipsy.js?6.1.0.0" type="text/javascript"></script><link rel="stylesheet" type="text/css" href="/Heddesheim/DesktopModules/OCLC.OPEN.PL.DNN.BaseLibrary/JavaScriptFrameworks/Tipsy/stylesheets/tipsy.css?6.1.0.0" /><link rel="stylesheet" type="text/css" href="/Heddesheim/DesktopModules/OCLC.OPEN.PL.DNN.BaseLibrary/StyleSheets/GridViews/GridView.css?6.1.0.0" /><link rel="stylesheet" type="text/css" href="/Heddesheim/DesktopModules/OCLC.OPEN.PL.DNN.BaseLibrary/StyleSheets/Common/PagingControls.css?6.1.0.0" />
+<script type="text/javascript">
+//<![CDATA[
+var __cultureInfo = {"name":"de-DE","numberFormat":{"CurrencyDecimalDigits":2,"CurrencyDecimalSeparator":",","IsReadOnly":false,"CurrencyGroupSizes":[3],"NumberGroupSizes":[3],"PercentGroupSizes":[3],"CurrencyGroupSeparator":".","CurrencySymbol":"€","NaNSymbol":"n. def.","CurrencyNegativePattern":8,"NumberNegativePattern":1,"PercentPositivePattern":1,"PercentNegativePattern":1,"NegativeInfinitySymbol":"-unendlich","NegativeSign":"-","NumberDecimalDigits":2,"NumberDecimalSeparator":",","NumberGroupSeparator":".","CurrencyPositivePattern":3,"PositiveInfinitySymbol":"+unendlich","PositiveSign":"+","PercentDecimalDigits":2,"PercentDecimalSeparator":",","PercentGroupSeparator":".","PercentSymbol":"%","PerMilleSymbol":"‰","NativeDigits":["0","1","2","3","4","5","6","7","8","9"],"DigitSubstitution":1},"dateTimeFormat":{"AMDesignator":"","Calendar":{"MinSupportedDateTime":"\/Date(-62135596800000)\/","MaxSupportedDateTime":"\/Date(253402297199999)\/","AlgorithmType":1,"CalendarType":1,"Eras":[1],"TwoDigitYearMax":2029,"IsReadOnly":false},"DateSeparator":".","FirstDayOfWeek":1,"CalendarWeekRule":2,"FullDateTimePattern":"dddd, d. MMMM yyyy HH:mm:ss","LongDatePattern":"dddd, d. MMMM yyyy","LongTimePattern":"HH:mm:ss","MonthDayPattern":"dd MMMM","PMDesignator":"","RFC1123Pattern":"ddd, dd MMM yyyy HH\u0027:\u0027mm\u0027:\u0027ss \u0027GMT\u0027","ShortDatePattern":"dd.MM.yyyy","ShortTimePattern":"HH:mm","SortableDateTimePattern":"yyyy\u0027-\u0027MM\u0027-\u0027dd\u0027T\u0027HH\u0027:\u0027mm\u0027:\u0027ss","TimeSeparator":":","UniversalSortableDateTimePattern":"yyyy\u0027-\u0027MM\u0027-\u0027dd HH\u0027:\u0027mm\u0027:\u0027ss\u0027Z\u0027","YearMonthPattern":"MMMM yyyy","AbbreviatedDayNames":["So","Mo","Di","Mi","Do","Fr","Sa"],"ShortestDayNames":["So","Mo","Di","Mi","Do","Fr","Sa"],"DayNames":["Sonntag","Montag","Dienstag","Mittwoch","Donnerstag","Freitag","Samstag"],"AbbreviatedMonthNames":["Jan","Feb","Mrz","Apr","Mai","Jun","Jul","Aug","Sep","Okt","Nov","Dez",""],"MonthNames":["Januar","Februar","März","April","Mai","Juni","Juli","August","September","Oktober","November","Dezember",""],"IsReadOnly":false,"NativeCalendarName":"Gregorianischer Kalender","AbbreviatedMonthGenitiveNames":["Jan","Feb","Mrz","Apr","Mai","Jun","Jul","Aug","Sep","Okt","Nov","Dez",""],"MonthGenitiveNames":["Januar","Februar","März","April","Mai","Juni","Juli","August","September","Oktober","November","Dezember",""]},"eras":[1,"n. Chr.",null,0]};//]]>
+</script>
+
+<script src="/Heddesheim/Telerik.Web.UI.WebResource.axd?_TSM_HiddenField_=ScriptManager_TSM&amp;compress=1&amp;_TSM_CombinedScripts_=%3b%3bSystem.Web.Extensions%2c+Version%3d4.0.0.0%2c+Culture%3dneutral%2c+PublicKeyToken%3d31bf3856ad364e35%3ade-DE%3a1dfc24a8-f1c6-47eb-a669-f28ac03160f2%3aea597d4b%3ab25378d2" type="text/javascript"></script>
+<div class="aspNetHidden">
+
+	<input type="hidden" name="__VIEWSTATEGENERATOR" id="__VIEWSTATEGENERATOR" value="D7D8F6F3" />
+	<input type="hidden" name="__VIEWSTATEENCRYPTED" id="__VIEWSTATEENCRYPTED" value="" />
+	<input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="dPnK0FECV9pQsFDKP0yS1QTthlHu65/0p1MLN25PhrB0dGp4c10YJYefCms85UrSHw35V57f2u5/nnaVPIGxyNFRzk4u1VAcrUNQnktc3ApaB04DS2QAsiRTkdIBUioKDlZrN50YppoxpgpX0VPUDKxWf6E5FlwLsJhSi2V1ei+1z7BvhJ99VvGMs2BCZOZYYNnED3d902/8FNhkztPlN/z4vxiEkeXn9HHpNMVs3CJEJkVtnNQnVI8dtU8/0i5cIiH3O3Pnn9d9JLq58qTE+7C4ajpgYUxu/JK6znzFuULyXSiuQxAS3AmavnpiTNWb55Kiepvg+LAeMWBN3AuZGYSSBRqDKV+6vUza59yAGQxZcqdcXOgpFiJhyYzumwX1q3brg3W/k4jljjFQC7ca0npo7gH99wsHCzH1hT8XiaDwHXpCZklW8zL6WqgCdV/eOxmIEdHVei3Na1lX2pknfR8OFYf8hBloPinR3UeeWlV3IfOI0nRCzsuRqvbPLSLFvw7CBYzc5Acs/ZYA6J2lCq5JbkHoyqrLo82tUDl5vMK/JrqARq8E+sPF0dURjZAE65JMyXKgRK1fda0j3yfIUl9hi4VPpzBOubfitJA+0Tx4BuvpuC/I/hAnIYBgLnl0VJ/sihQnFzDZpdds8eCQ72vIMA/di9+yDVI6BKwMx2chCX/DgiJc62f1y1KRH+u2lBPvMzfJzcT849uSllig2OURO1uEXNaE8zmyHroPa5yB3IoZMjJJLgB4kbyARIKgFlTXTb5cxM+4zf8AQxtOWSQWFprtdiJpEu8VnknKK/dTeg6idOX3x0vjtCgXTFZwayJez4O+F5dYKM8R9L6t2qip1M9kdYCZxkRbL5LiN5jgPZdAVIztorRw/8aPrxiA7LhJCmY4Hzl9kNCPc56DyNVxqeQOKun2vQHcEq5rW3e04lo9I6FPMaHHugfF5Ye0EakS5Q==" />
+</div><script src="/Heddesheim/js/dnn.js?cdv=375" type="text/javascript"></script><script src="/Heddesheim/Resources/Shared/Scripts/jquery/jquery.hoverIntent.min.js?cdv=375" type="text/javascript"></script><script src="/Heddesheim/js/dnncore.js?cdv=375" type="text/javascript"></script><script src="/Heddesheim/Resources/Shared/Scripts/dnn.jquery.js?cdv=375" type="text/javascript"></script><script type="text/javascript">
+//<![CDATA[
+Sys.WebForms.PageRequestManager._initialize('ScriptManager', 'Form', [], [], [], 90, '');
+//]]>
+</script>
+
+        
+        
+        
+
+
+ 
+
+<!--[if lt IE 9]>
+<script src="https://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
+
+<script type="text/javascript">
+	$(document).ready(function () {
+		var divToHide = $("#CookieAcknowledgeInfo");
+		if ($.cookie('EU_LAW_INFO') == 'v1') { divToHide.hide(); } else { divToHide.show(); }
+	});
+
+	function oclcOPENInfoHide() {
+		$.cookie('EU_LAW_INFO','v1', { expires: 3650, path: "/" });
+		$("#CookieAcknowledgeInfo").hide();
+	}
+</script>
+<style type="text/css">
+	.oclc-cookieLawInfoModule {
+		position: fixed;
+		bottom: 0;
+		left: 0;
+		width: 100%;
+		background: #d5d5e7;
+		background: rgba(213,213,231,0.85);
+		z-index: 1001;
+		overflow: hidden;
+	}
+
+	.oclc-cookieLawInfoModule > div {
+		padding: 10px;
+	}
+
+	.oclc-cookieLawInfoModuleCaption img {
+		width: 20px;
+		height: 20px;
+		float: right;
+	}
+	.oclc-cookieLawInfoModule a {
+		text-decoration: underline !important
+	}
+</style>
+<div id="CookieAcknowledgeInfo" class="oclc-module-main oclc-cookieLawInfoModule">
+	<div>
+		<div class="boldText spacingBottomSmall oclc-cookieLawInfoModuleCaption">
+			<span id="dnn_cookielaw_lblCaption">Informationen zum Datenschutz</span>
+			<img id="dnn_cookielaw_CookieAcknowledgeImage" onclick="oclcOPENInfoHide()" src="../DesktopModules/OCLC.OPEN.PL.DNN.SkinObject.CookieLawInfo/Images/false.png" alt="&lt;Hier klicken>" />
+		</div>
+		<div>
+			Bei der Verwendung dieser Webseite werden <a href="#" onclick="javascript:$('.dnn_cookielaw_popupCookieDetailsDialog').show();event.preventDefault();">Cookies</a> angelegt, um die Funktionalit&#228;t f&#252;r Sie optimal gew&#228;hrleisten zu k&#246;nnen. Zudem werden personenbezogene Daten erhoben und genutzt. Bitte beachten Sie hierzu unsere allgemeine <a href="http://bibliotheken.kivbf.de/heddesheim/Privacy" target="_blank">Datenschutzerklärung</a>. Mit der weiteren Nutzung stimmen Sie diesen Bedingungen zu.
+		</div>
+	</div>
+</div>
+<div class="oclc-module-main oclc-cookieLawInfoModulepopup">
+	<div>
+		
+<div class="oclc-module-popup dnn_cookielaw_popupCookieDetailsDialog" style="display: none">
+	<div>
+		<div>
+			<span id="dnn_cookielaw_popupCookieDetailsDialog_lblHeader" class="oclc-module-popup-header">Details</span>
+			<div class="oclc-module-popup-content">
+				
+			<p style="font-size: larger">Verwendung von Cookies</p>
+<br>
+<p style="font-size: large">Cookies</p>
+
+<br>
+ <p>Diese Anwendung benötigt für ihren fehlerfreien Ablauf Cookies.<br>
+Cookies sind kleine Textdateien, die von einer Webseite oder einem Online-Dienst auf Ihrem Rechner gespeichert werden.
+<br><br>
+Nachfolgend erhalten Sie eine Auflistung der von OCLC verwendeten Cookies mit Angabe der Anwendung, einer Kurzbeschreibung und der Speicherdauer auf Ihrem Computer (sofern Sie diese nicht sperren oder löschen).
+</p> <br>
+       
+<div> 
+<table rules="all" style="border-width:1px;border-style:Solid;">
+<tbody>
+    <tr>
+		<th align="left">Cookie</th>
+        <th align="left">Beschreibung</th>
+        <th align="left">Speicherdauer</th>
+	</tr>
+    <tr>
+		<td>OPAC Portal</td>
+        <td><a href="http://www.dnnsoftware.com/wiki/Page/DotNetNuke-Cookie-usage" target="_blank">Liste der verwendeten Cookies des Portals DotNetNuke &lt;Hier klicken&gt;</a></td>
+        <td>siehe Herstellerseite</td>
+	</tr>
+    <tr>
+		<td>EU_LAW_INFO</td>
+        <td>Der Cookie wird erstellt, sobald der Benutzer die Verwendung von Cookies in OPEN zur Kenntnis genommen hat</td>
+        <td>10 Jahre nach Erstellung</td>
+	</tr>
+    </tbody>
+</table>
+</div>
+		
+			</div>
+			<div class="oclc-module-popup-footer">
+				<div>
+					
+					<input type="submit" name="dnn$cookielaw$popupCookieDetailsDialog$btnCancel" value="OK" onclick="javascript:$(this).parents(&#39;.oclc-module-popup&#39;).hide();event.preventDefault();" id="dnn_cookielaw_popupCookieDetailsDialog_btnCancel" />
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+	</div>
+</div>
+
+
+
+<div class="body_bg full">   <div id="dnn_wrapper">
+    <div class="wrapper">
+      <div class="visible-xs "> 
+        <!-- mobile header --> 
+        
+<header class="mobile_top  ">
+  <div class="phoneHeadTop clearfix"> <span class="glyphicons glyph-search  " id="mobile_search"></span> <span class="  ">
+    <a id="dnn_dnnLOGO4_hypLogo" title="Gemeindebücherei Heddesheim" href="http://bibliotheken.kivbf.de/heddesheim/"><img id="dnn_dnnLOGO4_imgLogo" src="/heddesheim/Portals/0/logo_heddesheim_buecherei_1.jpg?ver=2018-04-13-115533-580" alt="Gemeindebücherei Heddesheim" style="border-width:0px;" /></a>
+    </span>
+    
+<a href="#gomenu193219f8da" class="mobilemenu_close">X</a>
+<div id="gomenu193219f8da" class="mobile_menu ">
+    <ul  class="menu_list"><li class="   first-item Item-1 "><a href="http://bibliotheken.kivbf.de/heddesheim/"   title="Herzlich willkommen!"  ><span>Willkommen</span></a></li><li class="dir  current  Item-2 "><a href="javascript:;"   title="Mediensuche"  ><span>Mediensuche</span></a><ul><li class="  subcurrent  first-item SunItem-1  mm-selected"><a href="http://bibliotheken.kivbf.de/heddesheim/Mediensuche/Einfache-Suche" class="acurrent"  title="Einfache Suche"  ><span>Einfache Suche</span></a></li><li class="   SunItem-2 "><a href="http://bibliotheken.kivbf.de/heddesheim/Mediensuche/Erweiterte-Suche"   title="Erweiterte Suche"  ><span>Erweiterte Suche</span></a></li><li class="   last-item SunItem-3 "><a href="http://bibliotheken.kivbf.de/heddesheim/Mediensuche/Medienwunsch"   title="Medienwunsch"  ><span>Medienwunsch</span></a></li></ul></li><li class="   Item-3 "><a href="https://www.heddesheim.de/de/Bildung%2BSoziales/B%C3%BCcherei/Veranstaltungen"   title="Veranstaltungen"  target="_blank"><span>Veranstaltungen</span></a></li><li class="dir   Item-4 "><a href="javascript:;"   title="Angebote"  ><span>Angebote</span></a><ul><li class="   first-item SunItem-1 "><a href="http://bibliotheken.kivbf.de/heddesheim/Angebote/Suche-im-Büchereikatalog"   title="Rund um die Ausleihe"  ><span>Rund um die Ausleihe</span></a></li><li class="   SunItem-2 "><a href="http://bibliotheken.kivbf.de/heddesheim/Angebote/E-Books-und-Digitale-Medien"   title="E-Books und Digitale Medien"  ><span>E-Books und Digitale Medien</span></a></li><li class="   last-item SunItem-3 "><a href="http://bibliotheken.kivbf.de/heddesheim/Angebote/Kostenloser-WLAN-Zugang"   title="Kostenloser WLAN-Zugang"  ><span>Kostenloser WLAN-Zugang</span></a></li></ul></li><li class="dir   Item-5 "><a href="javascript:;"   title="Über uns"  ><span>Über uns</span></a><ul><li class="   first-item SunItem-1 "><a href="http://bibliotheken.kivbf.de/heddesheim/Über-uns/Info-Kontakt"   title="Info & Kontakt"  ><span>Info & Kontakt</span></a></li><li class="   SunItem-2 "><a href="http://bibliotheken.kivbf.de/heddesheim/Über-uns/Unser-Team"   title="Unser Team"  ><span>Unser Team</span></a></li><li class="   last-item SunItem-3 "><a href="http://bibliotheken.kivbf.de/heddesheim/Über-uns/Benutzungsordnung"   title="Benutzungsordnung"  ><span>Benutzungsordnung</span></a></li></ul></li><li class="dir   Item-6 "><a href="javascript:;"   title="Impressum/Datenschutz"  ><span>Impressum/Datenschutz</span></a><ul><li class="   first-item SunItem-1 "><a href="http://bibliotheken.kivbf.de/heddesheim/Impressum-Datenschutz/Datenschutzerklärung"   title="Datenschutzerklärung"  ><span>Datenschutzerklärung</span></a></li><li class="   last-item SunItem-2 "><a href="http://bibliotheken.kivbf.de/heddesheim/Impressum-Datenschutz/Impressum"   title="Impressum"  ><span>Impressum</span></a></li></ul></li><li class="   last-item Item-7 "><a href="http://bibliotheken.kivbf.de/heddesheim/Mein-Konto"   title="Mein Konto"  ><span>Mein Konto</span></a></li></ul>
+</div>
+ 
+ <script type="text/javascript">
+     jQuery(document).ready(function ($) {
+
+
+		 $('#gomenu193219f8da').find(".dir.mm-selected").removeClass("mm-selected").parent().parent().addClass("mm-selected")
+		 
+         $('#gomenu193219f8da').mobile_menu({
+             slidingSubmenus: true,
+             counters: true,
+             navbartitle: "Menu",
+             headerbox: ".menu_header",
+             footerbox: ".menu_footer"			 
+         });
+		 
+		  $('#gomenu193219f8da').find("a[href='javascript:;']").on("click",function () {
+			  $('#gomenu193219f8da').find(".mm-close.mm-btn").click();
+		  })
+     });
+</script>
+
+
+ 
+  </div>
+  <div class="phoneHeadBottom">
+    <div class="HeadPane_mobile menu_header   " ></div>
+    <div class="searchBox2   " id="search2" >
+      
+<script type="text/javascript">
+	$(document).ready(function () {
+		swapValues = [];
+		$('#' + 'dnn_dnnSEARCH2_txtSearch').each(function (i) {
+			swapValues[i] = 'Ihre Mediensuche ...';
+			var color = $(this).css("color");
+			if ($.trim($(this).val()) == "" || $(this).val() == swapValues[i]) {
+				$(this).val(swapValues[i]);
+				$(this).css("font-style", "italic");
+				$(this).css("color", color).css("opacity", 0.5);
+			}
+			$(this).focus(function () {
+				if ($(this).val() == swapValues[i]) {
+					$(this).val("");
+					$(this).css("font-style", "normal");
+					$(this).css("color", color).css("opacity", 1);
+				}
+			}).blur(function () {
+				if ($.trim($(this).val()) == "") {
+					$(this).val(swapValues[i]);
+					$(this).css("font-style", "italic");
+					$(this).css("color", color).css("opacity", 0.5);
+				}
+			});
+		});
+	});
+</script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        swapValues2 = [];
+        $('#' + 'dnn_dnnSEARCH2_txtSearchNew').each(function (i) {
+        	swapValues2[i] = 'Ihre Mediensuche ...';
+        	var color = $(this).css("color");
+        	if ($.trim($(this).val()) == "" || $(this).val() == swapValues2[i]) {
+        		$(this).val(swapValues2[i]);
+        		$(this).css("font-style", "italic");
+        		$(this).css("color", color).css("opacity", 0.5);
+        	}
+            $(this).focus(function () {
+                if ($(this).val() == swapValues2[i]) {
+                    $(this).val("");
+                    $(this).css("font-style", "normal");
+                    $(this).css("color", color).css("opacity", 1);
+                }
+            }).blur(function () {
+                if ($.trim($(this).val()) == "") {
+                    $(this).val(swapValues2[i]);
+                    $(this).css("font-style", "italic");
+                    $(this).css("color", color).css("opacity", 0.5);
+                }
+            });
+        });
+    });
+</script>
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#' + 'dnn_dnnSEARCH2_txtSearch').autocomplete({
+            source: function (request, response) {
+                $.ajax({
+                    type: "POST",
+                    url: "/Heddesheim/DesktopModules/OCLC.OPEN.PL.DNN.CopConnector/Services/AutocompleteService.asmx/GetSuggestions",
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    data:
+                      "{" +
+                          "'prefixText': '" + request.term + "', " +
+                          "'count': '20', " +
+                          "'contextKey': 'CatchWordAutoComplete|0'" +
+                      "}",
+                    success: function (data) {
+                        response($.map(data.d, function (item) {
+                            return {
+                                label: item
+                            }
+                        }))
+                    }
+                });
+
+            },
+            minLength: 3
+        });
+    });
+  </script>
+
+  <script type="text/javascript">
+      $(document).ready(function () {
+          $('#' + 'dnn_dnnSEARCH2_txtSearchNew').autocomplete({
+              source: function (request, response) {
+                  $.ajax({
+                      type: "POST",
+                      url: "/Heddesheim/DesktopModules/OCLC.OPEN.PL.DNN.CopConnector/Services/AutocompleteService.asmx/GetSuggestions",
+                      contentType: "application/json; charset=utf-8",
+                      dataType: "json",
+                      data:
+                      "{" +
+                          "'prefixText': '" + request.term + "', " +
+                          "'count': '20', " +
+                          "'contextKey': 'CatchWordAutoComplete|0'" +
+                      "}",
+                      success: function (data) {
+                          response($.map(data.d, function (item) {
+                              return {
+                                  label: item
+                              }
+                          }))
+                      }
+                  });
+
+              },
+              minLength: 3
+          });
+      });
+  </script>
+
+
+<span id="dnn_dnnSEARCH2_ClassicSearch">
+    
+    
+    <input name="dnn$dnnSEARCH2$txtSearch" type="text" maxlength="255" size="20" id="dnn_dnnSEARCH2_txtSearch" class="NormalTextBox" onkeydown="return __dnn_KeyDown(&#39;13&#39;, &#39;javascript:__doPostBack(%27dnn$dnnSEARCH2$cmdSearch%27,%27%27)&#39;, event);" />&nbsp;
+    <a id="dnn_dnnSEARCH2_cmdSearch" class="search" href="javascript:__doPostBack(&#39;dnn$dnnSEARCH2$cmdSearch&#39;,&#39;&#39;)">GO</a>
+</span>
+
+
+    </div>
+    <div class="Login   ">
+      
+
+      <span class="sep">|</span>
+      
+<div id="dnn_dnnLogin3_loginGroup" class="loginGroup">
+    <a id="dnn_dnnLogin3_enhancedLoginLink" title="anmelden" class="LoginLink" rel="nofollow" onclick="this.disabled=true;" href="http://bibliotheken.kivbf.de/heddesheim/Mein-Konto?returnurl=%2fheddesheim%2fMediensuche%2fEinfache-Suche%3fsearchhash%3dOCLC_737706b52284faa106925e4c6c10cebb6e538b11%26top%3dy%26detail%3d3">anmelden</a>
+</div>
+    </div>
+    <div class="languageBox  ">
+      <div class="language-object" >
+
+
+</div>
+    </div>
+  </div>
+</header>
+
+
+
+
+        <!-- mobile end --> 
+      </div>
+      <div class="hidden-xs"> 
+        <!-- header1~6 --> 
+        <!-- header1 -->
+<div class="roll_menu">
+  <header>
+    <div id="header1">
+      <div class="header_top  ">
+        <div class="head_mid clearfix header1_boxed">
+          <div id="dnn_HeadPane" class="HeadPane   DNNEmptyPane"></div>
+          <div class="Login  ">
+            
+
+            <span class="sep">|</span>
+            
+<div id="dnn_dnnLogin_loginGroup" class="loginGroup">
+    <a id="dnn_dnnLogin_enhancedLoginLink" title="anmelden" class="LoginLink" rel="nofollow" onclick="this.disabled=true;" href="http://bibliotheken.kivbf.de/heddesheim/Mein-Konto?returnurl=%2fheddesheim%2fMediensuche%2fEinfache-Suche%3fsearchhash%3dOCLC_737706b52284faa106925e4c6c10cebb6e538b11%26top%3dy%26detail%3d3">anmelden</a>
+</div>
+          </div>
+          <div class="languageBox  ">
+            <div class="language-object" >
+
+
+</div>
+          </div>
+        </div>
+      </div>
+      <div class="LogoMenuBox    " >
+        <div class="head_mid clearfix">
+          <div class="dnn_layout">
+            <div class="dnn_logo    ">
+              <a id="dnn_dnnLOGO_hypLogo" title="Gemeindebücherei Heddesheim" href="http://bibliotheken.kivbf.de/heddesheim/"><img id="dnn_dnnLOGO_imgLogo" src="/heddesheim/Portals/0/logo_heddesheim_buecherei_1.jpg?ver=2018-04-13-115533-580" alt="Gemeindebücherei Heddesheim" style="border-width:0px;" /></a>
+            </div>
+            <div class="pulldownsearch  ">
+              <div class="searchbut"  id="searchbut"><span class="glyphicons glyph-search"></span></div>
+              <div class="searchBox" id="search" >
+                
+<script type="text/javascript">
+	$(document).ready(function () {
+		swapValues = [];
+		$('#' + 'dnn_dnnSEARCH_txtSearch').each(function (i) {
+			swapValues[i] = 'Ihre Mediensuche ...';
+			var color = $(this).css("color");
+			if ($.trim($(this).val()) == "" || $(this).val() == swapValues[i]) {
+				$(this).val(swapValues[i]);
+				$(this).css("font-style", "italic");
+				$(this).css("color", color).css("opacity", 0.5);
+			}
+			$(this).focus(function () {
+				if ($(this).val() == swapValues[i]) {
+					$(this).val("");
+					$(this).css("font-style", "normal");
+					$(this).css("color", color).css("opacity", 1);
+				}
+			}).blur(function () {
+				if ($.trim($(this).val()) == "") {
+					$(this).val(swapValues[i]);
+					$(this).css("font-style", "italic");
+					$(this).css("color", color).css("opacity", 0.5);
+				}
+			});
+		});
+	});
+</script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        swapValues2 = [];
+        $('#' + 'dnn_dnnSEARCH_txtSearchNew').each(function (i) {
+        	swapValues2[i] = 'Ihre Mediensuche ...';
+        	var color = $(this).css("color");
+        	if ($.trim($(this).val()) == "" || $(this).val() == swapValues2[i]) {
+        		$(this).val(swapValues2[i]);
+        		$(this).css("font-style", "italic");
+        		$(this).css("color", color).css("opacity", 0.5);
+        	}
+            $(this).focus(function () {
+                if ($(this).val() == swapValues2[i]) {
+                    $(this).val("");
+                    $(this).css("font-style", "normal");
+                    $(this).css("color", color).css("opacity", 1);
+                }
+            }).blur(function () {
+                if ($.trim($(this).val()) == "") {
+                    $(this).val(swapValues2[i]);
+                    $(this).css("font-style", "italic");
+                    $(this).css("color", color).css("opacity", 0.5);
+                }
+            });
+        });
+    });
+</script>
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#' + 'dnn_dnnSEARCH_txtSearch').autocomplete({
+            source: function (request, response) {
+                $.ajax({
+                    type: "POST",
+                    url: "/Heddesheim/DesktopModules/OCLC.OPEN.PL.DNN.CopConnector/Services/AutocompleteService.asmx/GetSuggestions",
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    data:
+                      "{" +
+                          "'prefixText': '" + request.term + "', " +
+                          "'count': '20', " +
+                          "'contextKey': 'CatchWordAutoComplete|0'" +
+                      "}",
+                    success: function (data) {
+                        response($.map(data.d, function (item) {
+                            return {
+                                label: item
+                            }
+                        }))
+                    }
+                });
+
+            },
+            minLength: 3
+        });
+    });
+  </script>
+
+  <script type="text/javascript">
+      $(document).ready(function () {
+          $('#' + 'dnn_dnnSEARCH_txtSearchNew').autocomplete({
+              source: function (request, response) {
+                  $.ajax({
+                      type: "POST",
+                      url: "/Heddesheim/DesktopModules/OCLC.OPEN.PL.DNN.CopConnector/Services/AutocompleteService.asmx/GetSuggestions",
+                      contentType: "application/json; charset=utf-8",
+                      dataType: "json",
+                      data:
+                      "{" +
+                          "'prefixText': '" + request.term + "', " +
+                          "'count': '20', " +
+                          "'contextKey': 'CatchWordAutoComplete|0'" +
+                      "}",
+                      success: function (data) {
+                          response($.map(data.d, function (item) {
+                              return {
+                                  label: item
+                              }
+                          }))
+                      }
+                  });
+
+              },
+              minLength: 3
+          });
+      });
+  </script>
+
+
+<span id="dnn_dnnSEARCH_ClassicSearch">
+    
+    
+    <input name="dnn$dnnSEARCH$txtSearch" type="text" maxlength="255" size="20" id="dnn_dnnSEARCH_txtSearch" class="NormalTextBox" onkeydown="return __dnn_KeyDown(&#39;13&#39;, &#39;javascript:__doPostBack(%27dnn$dnnSEARCH$cmdSearch%27,%27%27)&#39;, event);" />&nbsp;
+    <a id="dnn_dnnSEARCH_cmdSearch" class="search" href="javascript:__doPostBack(&#39;dnn$dnnSEARCH$cmdSearch&#39;,&#39;&#39;)"> </a>
+</span>
+
+
+              </div>
+            </div>
+            <nav>
+              <div class="dnn_menu  ">
+                <div id="dnngo_megamenu">
+                  
+    <div class="dnngo_gomenu" id="dnngo_megamenu67f1a588c0">
+      
+         <ul class="primary_structure">
+ <li class=" ">
+<a href="http://bibliotheken.kivbf.de/heddesheim/"   title="Herzlich willkommen!"  ><span>Willkommen</span></a>
+</li>
+ <li class="dir current">
+<a href="javascript:;"   title="Mediensuche"  ><span>Mediensuche</span></a>
+ <div class="dnngo_menuslide">
+ <ul class="dnngo_slide_menu ">
+ <li class=" subcurrent">
+<a href="http://bibliotheken.kivbf.de/heddesheim/Mediensuche/Einfache-Suche"   title="Einfache Suche"  ><span>Einfache Suche</span></a>
+</li>
+ <li class=" ">
+<a href="http://bibliotheken.kivbf.de/heddesheim/Mediensuche/Erweiterte-Suche"   title="Erweiterte Suche"  ><span>Erweiterte Suche</span></a>
+</li>
+ <li class=" ">
+<a href="http://bibliotheken.kivbf.de/heddesheim/Mediensuche/Medienwunsch"   title="Medienwunsch"  ><span>Medienwunsch</span></a>
+</li>
+</ul>
+</div>
+</li>
+ <li class=" ">
+<a href="https://www.heddesheim.de/de/Bildung%2BSoziales/B%C3%BCcherei/Veranstaltungen"   title="Veranstaltungen"  target="_blank"><span>Veranstaltungen</span></a>
+</li>
+ <li class="dir ">
+<a href="javascript:;"   title="Angebote"  ><span>Angebote</span></a>
+ <div class="dnngo_menuslide">
+ <ul class="dnngo_slide_menu ">
+ <li class=" ">
+<a href="http://bibliotheken.kivbf.de/heddesheim/Angebote/Suche-im-Büchereikatalog"   title="Rund um die Ausleihe"  ><span>Rund um die Ausleihe</span></a>
+</li>
+ <li class=" ">
+<a href="http://bibliotheken.kivbf.de/heddesheim/Angebote/E-Books-und-Digitale-Medien"   title="E-Books und Digitale Medien"  ><span>E-Books und Digitale Medien</span></a>
+</li>
+ <li class=" ">
+<a href="http://bibliotheken.kivbf.de/heddesheim/Angebote/Kostenloser-WLAN-Zugang"   title="Kostenloser WLAN-Zugang"  ><span>Kostenloser WLAN-Zugang</span></a>
+</li>
+</ul>
+</div>
+</li>
+ <li class="dir ">
+<a href="javascript:;"   title="Über uns"  ><span>Über uns</span></a>
+ <div class="dnngo_menuslide">
+ <ul class="dnngo_slide_menu ">
+ <li class=" ">
+<a href="http://bibliotheken.kivbf.de/heddesheim/Über-uns/Info-Kontakt"   title="Info & Kontakt"  ><span>Info & Kontakt</span></a>
+</li>
+ <li class=" ">
+<a href="http://bibliotheken.kivbf.de/heddesheim/Über-uns/Unser-Team"   title="Unser Team"  ><span>Unser Team</span></a>
+</li>
+ <li class=" ">
+<a href="http://bibliotheken.kivbf.de/heddesheim/Über-uns/Benutzungsordnung"   title="Benutzungsordnung"  ><span>Benutzungsordnung</span></a>
+</li>
+</ul>
+</div>
+</li>
+ <li class="dir ">
+<a href="javascript:;"   title="Impressum/Datenschutz"  ><span>Impressum/Datenschutz</span></a>
+ <div class="dnngo_menuslide">
+ <ul class="dnngo_slide_menu ">
+ <li class=" ">
+<a href="http://bibliotheken.kivbf.de/heddesheim/Impressum-Datenschutz/Datenschutzerklärung"   title="Datenschutzerklärung"  ><span>Datenschutzerklärung</span></a>
+</li>
+ <li class=" ">
+<a href="http://bibliotheken.kivbf.de/heddesheim/Impressum-Datenschutz/Impressum"   title="Impressum"  ><span>Impressum</span></a>
+</li>
+</ul>
+</div>
+</li>
+ <li class=" ">
+<a href="http://bibliotheken.kivbf.de/heddesheim/Mein-Konto"   title="Mein Konto"  ><span>Mein Konto</span></a>
+</li>
+</ul>
+
+      
+    </div>
+    
+    
+<script type="text/javascript">
+    jQuery(document).ready(function ($) {
+        $("#dnngo_megamenu67f1a588c0").dnngomegamenu({
+            slide_speed: 200,
+            delay_disappear: 500,
+            popUp: "vertical",//level
+			delay_show:150,
+			direction:"ltr",//rtl ltr
+			megamenuwidth:"box",//full box
+			WidthBoxClassName:".dnn_layout"
+        });
+    });
+
+
+	jQuery(document).ready(function () {
+		jQuery("#dnngo_megamenu67f1a588c0").has("ul").find(".dir > a").attr("aria-haspopup", "true");
+	}); 
+
+</script>
+                </div>
+              </div>
+            </nav>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+</div>
+<!-- header1 End --> 
+                
+    <!-- header6 --> 
+ <!-- header6 End --> 
+
+
+
+<!-- header7 -->
+<!-- header7 End -->
+
+
+
+        <!-- header1~6 end --> 
+      </div>
+      
+<div class="breadcrumbBox   ">
+  <div class="content_mid clearfix">
+    <div class="breadcrumbLeft"><span class="glyphicons glyph-google-maps"></span></div>
+    <div class="breadcrumbborder clearfix">
+      <h3 class="breadcrumbTitle">Einfache Suche </h3>
+      <div class="breadcrumbRight"> <a href="http://bibliotheken.kivbf.de/heddesheim/" > <span class="glyphicons glyph-home"></span></a>
+        <span id="dnn_dnnBREADCRUMB_lblBreadCrumb" itemprop="breadcrumb" itemscope="" itemtype="https://schema.org/breadcrumb"><span itemscope itemtype="http://schema.org/BreadcrumbList"><span itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem"><span class="breadcrumb" itemprop="name">Mediensuche</span><meta itemprop="position" content="1" /></span>   >   <span itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem"><a href="http://bibliotheken.kivbf.de/heddesheim/Mediensuche/Einfache-Suche" class="breadcrumb" itemprop="item"><span itemprop="name">Einfache Suche</span></a><meta itemprop="position" content="2" /></span></span></span>
+      </div>
+      <div class="clear"></div>
+    </div>
+    <div id="dnn_breadcrumbPane" class="breadcrumbPane DNNEmptyPane"></div>
+  </div>
+     
+    
+   </div>
+
+
+
+
+      <section id="dnn_content"> 
+        <!-- content pane --> 
+        
+<div id="dnn_Full_Screen_PaneA" class="Full_Screen_PaneA DNNEmptyPane"></div>
+<div class="dnn_layoutB">
+  <div class="content_mid clearfix">
+    <div class="pane_layout">
+      <div class="row">
+        <div class="col-sm-12">
+          <div id="dnn_TopPane" class="TopPane DNNEmptyPane"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div id="dnn_Full_Screen_PaneB" class="Full_Screen_PaneB DNNEmptyPane"></div>
+<div class="dnn_layoutB">
+  <div class="content_mid clearfix">
+    <div class="pane_layout">
+      <div class="row">
+        <div class="col-sm-3">
+          <div id="dnn_RowOne_Grid3_Pane" class="RowOne_Grid3_Pane DNNEmptyPane"></div>
+        </div>
+        <div class="col-sm-9">
+          <div id="dnn_RowOne_Grid9_Pane" class="RowOne_Grid9_Pane DNNEmptyPane"></div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-4">
+          <div id="dnn_RowTwo_Grid4_Pane" class="RowTwo_Grid4_Pane DNNEmptyPane"></div>
+        </div>
+        <div class="col-sm-8">
+          <div id="dnn_RowTwo_Grid8_Pane" class="RowTwo_Grid8_Pane DNNEmptyPane"></div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-5">
+          <div id="dnn_RowThree_Grid5_Pane" class="RowThree_Grid5_Pane DNNEmptyPane"></div>
+        </div>
+        <div class="col-sm-7">
+          <div id="dnn_RowThree_Grid7_Pane" class="RowThree_Grid7_Pane DNNEmptyPane"></div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-6">
+          <div id="dnn_RowFour_Grid6_Pane1" class="RowFour_Grid6_Pane1 DNNEmptyPane"></div>
+        </div>
+        <div class="col-sm-6">
+          <div id="dnn_RowFour_Grid6_Pane2" class="RowFour_Grid6_Pane2 DNNEmptyPane"></div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-7">
+          <div id="dnn_RowFive_Grid7_Pane" class="RowFive_Grid7_Pane DNNEmptyPane"></div>
+        </div>
+        <div class="col-sm-5">
+          <div id="dnn_RowFive_Grid5_Pane" class="RowFive_Grid5_Pane DNNEmptyPane"></div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-8">
+          <div id="dnn_RowSix_Grid8_Pane" class="RowSix_Grid8_Pane DNNEmptyPane"></div>
+        </div>
+        <div class="col-sm-4">
+          <div id="dnn_RowSix_Grid4_Pane" class="RowSix_Grid4_Pane DNNEmptyPane"></div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-9">
+          <div id="dnn_RowSeven_Grid9_Pane" class="RowSeven_Grid9_Pane DNNEmptyPane"></div>
+        </div>
+        <div class="col-sm-3">
+          <div id="dnn_RowSeven_Grid3_Pane" class="RowSeven_Grid3_Pane DNNEmptyPane"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div id="dnn_Full_Screen_PaneC" class="Full_Screen_PaneC DNNEmptyPane"></div>
+<div class="dnn_layoutB">
+  <div class="content_mid clearfix">
+    <div class="pane_layout">
+      <div class="row">
+        <div class="col-sm-4">
+          <div id="dnn_RowEight_Grid4_Pane1" class="RowEight_Grid4_Pane1 DNNEmptyPane"></div>
+        </div>
+        <div class="col-sm-4">
+          <div id="dnn_RowEight_Grid4_Pane2" class="RowEight_Grid4_Pane2 DNNEmptyPane"></div>
+        </div>
+        <div class="col-sm-4">
+          <div id="dnn_RowEight_Grid4_Pane3" class="RowEight_Grid4_Pane3 DNNEmptyPane"></div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-3">
+          <div id="dnn_RowNine_Grid3_Pane1" class="RowNine_Grid3_Pane1 DNNEmptyPane"></div>
+        </div>
+        <div class="col-sm-6">
+          <div id="dnn_RowNine_Grid6_Pane" class="RowNine_Grid6_Pane DNNEmptyPane"></div>
+        </div>
+        <div class="col-sm-3">
+          <div id="dnn_RowNine_Grid3_Pane2" class="RowNine_Grid3_Pane2 DNNEmptyPane"></div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-3">
+          <div id="dnn_RownTen_Grid3_Pane1" class="RownTen_Grid3_Pane1 DNNEmptyPane"></div>
+        </div>
+        <div class="col-sm-3">
+          <div id="dnn_RowTen_Grid3_Pane2" class="RowTen_Grid3_Pane2 DNNEmptyPane"></div>
+        </div>
+        <div class="col-sm-3">
+          <div id="dnn_RowTen_Grid3_Pane3" class="RowTen_Grid3_Pane3 DNNEmptyPane"></div>
+        </div>
+        <div class="col-sm-3">
+          <div id="dnn_RowTen_Grid3_Pane4" class="RowTen_Grid3_Pane4 DNNEmptyPane"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div id="dnn_Full_Screen_PaneD" class="Full_Screen_PaneD DNNEmptyPane"></div>
+<div class="dnn_layoutB">
+  <div class="content_mid clearfix">
+    <div class="pane_layout">
+      <div class="row">
+        <div class="col-sm-12">
+          <div id="dnn_ContentPane" class="ContentPane"><div class="DnnModule DnnModule-OPENSearchModule DnnModule-369"><a name="369"></a>
+
+<div class="Container-3"> 
+  <!--Container Title-->
+  <div class="dnntitle">
+    <span id="dnn_ctr369_dnnTITLE3_titleLabel" class="title3">Ihre Mediensuche</span>
+
+
+
+  </div>
+  <!--Container Title End--> 
+  <!--Container Content-->
+  <div class="contentmain1">
+    <div id="dnn_ctr369_ContentPane" class="contentpane"><!-- Start_Module_369 --><div id="dnn_ctr369_ModuleContent" class="DNNModuleContent ModOPENSearchModuleC">
+	<div id="dnn_ctr369_MainView_divSearchModuleMain" class="oclc-module-main oclc-searchmodule">
+	<link rel="stylesheet" type="text/css" href="/Heddesheim/DesktopModules/OCLC.OPEN.PL.DNN.SearchModule//itemtype.css" />
+	
+	
+<div class="oclc-module-popup dnn_ctr369_MainView_popupPermalink" style="display: none">
+	<div>
+		<div>
+			<span id="dnn_ctr369_MainView_popupPermalink_lblHeader" class="oclc-module-popup-header">Permalink Trefferliste</span>
+			<div class="oclc-module-popup-content">
+				
+		<label for="dnn_ctr369_MainView_popupPermalink_TxtPermaLink" id="dnn_ctr369_MainView_popupPermalink_LblPermaLink">Permanenter Link zu dieser Seite:</label>
+		<span class="oclc-textbox"><input name="dnn$ctr369$MainView$popupPermalink$TxtPermaLink" type="text" value="http://bibliotheken.kivbf.de/heddesheim/Permalink.aspx?searchhash=OCLC_737706b52284faa106925e4c6c10cebb6e538b11&amp;detail=3" readonly="readonly" id="dnn_ctr369_MainView_popupPermalink_TxtPermaLink" /></span>
+	
+			</div>
+			<div class="oclc-module-popup-footer">
+				<div>
+					<input type="submit" name="dnn$ctr369$MainView$popupPermalink$btnDefault" value="OK" onclick="javascript:$(this).parents(&#39;.oclc-module-popup&#39;).hide();event.preventDefault();" id="dnn_ctr369_MainView_popupPermalink_btnDefault" />
+					
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+	
+<div class="oclc-module-popup dnn_ctr369_MainView_popupPermalinkDetail" style="display: none">
+	<div>
+		<div>
+			<span id="dnn_ctr369_MainView_popupPermalinkDetail_lblHeader" class="oclc-module-popup-header">Permalink Detailanzeige</span>
+			<div class="oclc-module-popup-content">
+				
+		<label for="dnn_ctr369_MainView_popupPermalinkDetail_TxtPermaLinkDetail" id="dnn_ctr369_MainView_popupPermalinkDetail_lblPermaLinkDetail">Permanenter Link zu dieser Seite:</label>
+		<span class="oclc-textbox"><input name="dnn$ctr369$MainView$popupPermalinkDetail$TxtPermaLinkDetail" type="text" value="http://bibliotheken.kivbf.de/heddesheim/Permalink.aspx?id=1007717" readonly="readonly" id="dnn_ctr369_MainView_popupPermalinkDetail_TxtPermaLinkDetail" /></span>
+	
+			</div>
+			<div class="oclc-module-popup-footer">
+				<div>
+					<input type="submit" name="dnn$ctr369$MainView$popupPermalinkDetail$btnDefault" value="OK" onclick="javascript:$(this).parents(&#39;.oclc-module-popup&#39;).hide();event.preventDefault();" id="dnn_ctr369_MainView_popupPermalinkDetail_btnDefault" />
+					
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+	
+<div class="oclc-module-popup dnn_ctr369_MainView_popupPrintResult" style="display: none">
+	<div>
+		<div>
+			<span id="dnn_ctr369_MainView_popupPrintResult_lblHeader" class="oclc-module-popup-header">Trefferliste drucken</span>
+			<div class="oclc-module-popup-content">
+				
+		<table id="dnn_ctr369_MainView_popupPrintResult_printSelection" class="xnormalRadioButton">
+		<tr>
+			<td><input id="dnn_ctr369_MainView_popupPrintResult_printSelection_0" type="radio" name="dnn$ctr369$MainView$popupPrintResult$printSelection" value="Displayed" checked="checked" /><label for="dnn_ctr369_MainView_popupPrintResult_printSelection_0">Aktuelle Ansicht</label></td>
+		</tr><tr>
+			<td><input id="dnn_ctr369_MainView_popupPrintResult_printSelection_1" type="radio" name="dnn$ctr369$MainView$popupPrintResult$printSelection" value="All" /><label for="dnn_ctr369_MainView_popupPrintResult_printSelection_1">Alle Treffer</label></td>
+		</tr>
+	</table>
+	
+			</div>
+			<div class="oclc-module-popup-footer">
+				<div>
+					<input type="submit" name="dnn$ctr369$MainView$popupPrintResult$btnDefault" value="Drucken " id="dnn_ctr369_MainView_popupPrintResult_btnDefault" />
+					<input type="submit" name="dnn$ctr369$MainView$popupPrintResult$btnCancel" value="Abbrechen " onclick="javascript:$(this).parents(&#39;.oclc-module-popup&#39;).hide();event.preventDefault();" id="dnn_ctr369_MainView_popupPrintResult_btnCancel" />
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+	
+<div class="oclc-module-popup dnn_ctr369_MainView_popupEmailList" style="display: none">
+	<div>
+		<div>
+			<span id="dnn_ctr369_MainView_popupEmailList_lblHeader" class="oclc-module-popup-header">Trefferliste als E-Mail versenden</span>
+			<div class="oclc-module-popup-content">
+				
+		
+		<span id="dnn_ctr369_MainView_popupEmailList_lblEmailListAddressRecipient">E-Mail-Adresse Empfänger</span>
+		<span class="oclc-textbox"><input name="dnn$ctr369$MainView$popupEmailList$TxtEmailListAddressRecipient" type="text" id="dnn_ctr369_MainView_popupEmailList_TxtEmailListAddressRecipient" /></span>
+		<span id="dnn_ctr369_MainView_popupEmailList_LblEmailListSenderName">Ihr Name</span>
+		<span class="oclc-textbox"><input name="dnn$ctr369$MainView$popupEmailList$TxtEmailListSenderName" type="text" id="dnn_ctr369_MainView_popupEmailList_TxtEmailListSenderName" /></span>
+		<span id="dnn_ctr369_MainView_popupEmailList_LblEmailListSubject">Betreff</span>
+		<span class="oclc-textbox"><input name="dnn$ctr369$MainView$popupEmailList$TxtEmailListSubject" type="text" value="Diese Titel könnten dich interessieren." id="dnn_ctr369_MainView_popupEmailList_TxtEmailListSubject" /></span>
+		<span id="dnn_ctr369_MainView_popupEmailList_LblEmailListContent">Inhalt</span>
+		<span class="oclc-textbox"><textarea name="dnn$ctr369$MainView$popupEmailList$TxtEmailListContent" rows="15" cols="20" id="dnn_ctr369_MainView_popupEmailList_TxtEmailListContent">
+Diese Titel k&#246;nnten dich interessieren.
+
+Link zu den Titeln: http://bibliotheken.kivbf.de/heddesheim/Permalink.aspx?searchhash=OCLC_737706b52284faa106925e4c6c10cebb6e538b11&amp;detail=3
+</textarea></span>
+	
+			</div>
+			<div class="oclc-module-popup-footer">
+				<div>
+					<input type="submit" name="dnn$ctr369$MainView$popupEmailList$btnDefault" value="E-Mail versenden" id="dnn_ctr369_MainView_popupEmailList_btnDefault" />
+					<input type="submit" name="dnn$ctr369$MainView$popupEmailList$btnCancel" value="Abbrechen" onclick="javascript:$(this).parents(&#39;.oclc-module-popup&#39;).hide();event.preventDefault();" id="dnn_ctr369_MainView_popupEmailList_btnCancel" />
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+	
+<div class="oclc-module-popup dnn_ctr369_MainView_popupEmailDetail" style="display: none">
+	<div>
+		<div>
+			<span id="dnn_ctr369_MainView_popupEmailDetail_lblHeader" class="oclc-module-popup-header">Detailanzeige per E-Mail versenden</span>
+			<div class="oclc-module-popup-content">
+				
+		
+		<span id="dnn_ctr369_MainView_popupEmailDetail_lblEmailDetailAddressRecipient">E-Mail-Adresse Empfänger</span>
+		<span class="oclc-textbox"><input name="dnn$ctr369$MainView$popupEmailDetail$TxtEmailDetailAddressRecipient" type="text" id="dnn_ctr369_MainView_popupEmailDetail_TxtEmailDetailAddressRecipient" /></span>
+		<span id="dnn_ctr369_MainView_popupEmailDetail_LblEmailDetailSenderName">Ihr Name</span>
+		<span class="oclc-textbox"><input name="dnn$ctr369$MainView$popupEmailDetail$TxtEmailDetailSenderName" type="text" id="dnn_ctr369_MainView_popupEmailDetail_TxtEmailDetailSenderName" /></span>
+		<span id="dnn_ctr369_MainView_popupEmailDetail_LblEmailDetailSubject">Betreff</span>
+		<span class="oclc-textbox"><input name="dnn$ctr369$MainView$popupEmailDetail$TxtEmailDetailSubject" type="text" value="Dieser Titel könnte dich interessieren." id="dnn_ctr369_MainView_popupEmailDetail_TxtEmailDetailSubject" /></span>
+		<span id="dnn_ctr369_MainView_popupEmailDetail_LblEmailDetailContent">Inhalt</span>
+		<span class="oclc-textbox"><textarea name="dnn$ctr369$MainView$popupEmailDetail$TxtEmailDetailContent" rows="15" cols="20" id="dnn_ctr369_MainView_popupEmailDetail_TxtEmailDetailContent">
+Dieser Titel k&#246;nnte dich interessieren.
+
+Link zum Titel: http://bibliotheken.kivbf.de/heddesheim/Permalink.aspx?id=1007717
+
+Das einsame Haus
+Mediengruppe: Sch&#246;ne Literatur
+Verfasser: O&#39;Brien, Edna
+Jahr: 1996</textarea></span>
+	
+			</div>
+			<div class="oclc-module-popup-footer">
+				<div>
+					<input type="submit" name="dnn$ctr369$MainView$popupEmailDetail$btnDefault" value="E-Mail versenden" id="dnn_ctr369_MainView_popupEmailDetail_btnDefault" />
+					<input type="submit" name="dnn$ctr369$MainView$popupEmailDetail$btnCancel" value="Abbrechen" onclick="javascript:$(this).parents(&#39;.oclc-module-popup&#39;).hide();event.preventDefault();" id="dnn_ctr369_MainView_popupEmailDetail_btnCancel" />
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+	
+<div class="oclc-module-popup dnn_ctr369_MainView_popupLogin" style="display: none">
+	<div>
+		<div>
+			<span id="dnn_ctr369_MainView_popupLogin_lblHeader" class="oclc-module-popup-header">Benutzeranmeldung</span>
+			<div class="oclc-module-popup-content">
+				
+		<span id="dnn_ctr369_MainView_popupLogin_LblRedirectToLogin">Sie müssen angemeldet sein, um fortfahren zu können. Möchten Sie zur Anmeldung weitergeleitet werden?</span>
+	
+			</div>
+			<div class="oclc-module-popup-footer">
+				<div>
+					<input type="submit" name="dnn$ctr369$MainView$popupLogin$btnDefault" value="OK" id="dnn_ctr369_MainView_popupLogin_btnDefault" />
+					<input type="submit" name="dnn$ctr369$MainView$popupLogin$btnCancel" value="Abbrechen" onclick="javascript:$(this).parents(&#39;.oclc-module-popup&#39;).hide();event.preventDefault();" id="dnn_ctr369_MainView_popupLogin_btnCancel" />
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+	
+<div class="oclc-module-popup dnn_ctr369_MainView_popupLoginOnleihe" style="display: none">
+	<div>
+		<div>
+			<span id="dnn_ctr369_MainView_popupLoginOnleihe_lblHeader" class="oclc-module-popup-header">Benutzeranmeldung</span>
+			<div class="oclc-module-popup-content">
+				
+		<span id="dnn_ctr369_MainView_popupLoginOnleihe_LblRedirectToLoginOnleihe">Sie müssen angemeldet sein, um fortfahren zu können. Möchten Sie zur Anmeldung weitergeleitet werden?</span>
+	
+			</div>
+			<div class="oclc-module-popup-footer">
+				<div>
+					<input type="submit" name="dnn$ctr369$MainView$popupLoginOnleihe$btnDefault" value="OK" id="dnn_ctr369_MainView_popupLoginOnleihe_btnDefault" />
+					<input type="submit" name="dnn$ctr369$MainView$popupLoginOnleihe$btnCancel" value="Abbrechen" onclick="javascript:$(this).parents(&#39;.oclc-module-popup&#39;).hide();event.preventDefault();" id="dnn_ctr369_MainView_popupLoginOnleihe_btnCancel" />
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+	
+<div class="oclc-module-popup dnn_ctr369_MainView_popupSelectPickupBranch" style="display: none">
+	<div>
+		<div>
+			<span id="dnn_ctr369_MainView_popupSelectPickupBranch_lblHeader" class="oclc-module-popup-header">Abholzweigstelle wählen</span>
+			<div class="oclc-module-popup-content">
+				
+		<span id="dnn_ctr369_MainView_popupSelectPickupBranch_LblSelectPickupBranch">Wählen Sie die Zweigstelle aus, in der Sie das Medium abholen möchten.</span>
+		<div>
+			<label for="dnn_ctr369_MainView_popupSelectPickupBranch_DdlPickupBranches" id="dnn_ctr369_MainView_popupSelectPickupBranch_LblPickupBranch">Zweigstelle</label> 
+			<select name="dnn$ctr369$MainView$popupSelectPickupBranch$DdlPickupBranches" id="dnn_ctr369_MainView_popupSelectPickupBranch_DdlPickupBranches">
+
+	</select>
+		</div>
+	
+			</div>
+			<div class="oclc-module-popup-footer">
+				<div>
+					<input type="submit" name="dnn$ctr369$MainView$popupSelectPickupBranch$btnDefault" value="OK" id="dnn_ctr369_MainView_popupSelectPickupBranch_btnDefault" />
+					<input type="submit" name="dnn$ctr369$MainView$popupSelectPickupBranch$btnCancel" value="Abbrechen" onclick="javascript:$(this).parents(&#39;.oclc-module-popup&#39;).hide();event.preventDefault();" id="dnn_ctr369_MainView_popupSelectPickupBranch_btnCancel" />
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+	
+<div class="oclc-searchmodule-searchslot  oclc-cf">
+	<input type="submit" name="dnn$ctr369$MainView$UcSearchSlot$btnSearch" value="Suchen" id="dnn_ctr369_MainView_UcSearchSlot_btnSearch" class="oclc-module-view-normal" />
+	<input type="image" name="dnn$ctr369$MainView$UcSearchSlot$imgBtnSearch" id="dnn_ctr369_MainView_UcSearchSlot_imgBtnSearch" title="Suchen" class="oclc-module-view-small" src="../DesktopModules/OCLC.OPEN.PL.DNN.SearchModule/Images/Search32px.png" alt="Suchen" />
+	<span class="oclc-textbox"><input name="dnn$ctr369$MainView$UcSearchSlot$txtSearchSlot" type="text" id="dnn_ctr369_MainView_UcSearchSlot_txtSearchSlot" onkeydown="return __dnn_KeyDown(&#39;13&#39;, &#39;javascript:__doPostBack(%27dnn$ctr369$MainView$UcSearchSlot$btnSearch%27,%27%27)&#39;, event);" /></span>
+	<script>
+		$('#' + 'dnn_ctr369_MainView_UcSearchSlot_txtSearchSlot').autocomplete({
+			source: function (request, response) {
+				$.ajax({
+					type:"POST",url: "/Heddesheim/DesktopModules/OCLC.OPEN.PL.DNN.CopConnector/Services/AutocompleteService.asmx/GetSuggestions",contentType: "application/json; charset=utf-8",dataType: "json",
+					data:"{'prefixText':'" + request.term + "','count':'20','contextKey': 'CatchWordAutoComplete|0'}",
+					success: function (data) {
+						response($.map(data.d, function (item) {
+							return {
+								label: item
+							};
+						}));
+					}
+				});
+			},
+			minLength: 3
+		});
+	</script>
+</div>
+	<div id="dnn_ctr369_MainView_divExtendedSearch" class="oclc-searchmodule-extendedsearch">
+		<a id="dnn_ctr369_MainView_LbtnExtendedSearch" href="http://bibliotheken.kivbf.de/heddesheim/Mediensuche/Erweiterte-Suche?searchhash=OCLC_737706b52284faa106925e4c6c10cebb6e538b11">Zurück zur erweiterten Suche</a>
+	</div>
+	
+	
+	<script type="text/javascript">
+		$('#dnn_ctr369_MainView_divSearchModuleMain').find('.oclc-searchmodule-menu-button').click(function() {
+			$(this).toggleClass('oclc-searchmodule-menu-open').prevAll().toggle();
+		}).height($('#dnn_ctr369_MainView_divSearchModuleMain').find('.oclc-searchmodule-menu-content').height());
+	</script>
+	
+	
+<div class="oclc-searchmodule-detail ">
+	<div style="display:none" id="bibtip_uid"></div>
+	<div style="display:none" id="bibtip_number">1007717</div>
+	<div style="display:none" id="bibtip_isxn">3-455-05722-5</div>
+	<div style="display:none" id="bibtip_author">O&#39;Brien, Edna</div>
+	<div style="display:none" id="bibtip_hst">Das einsame Haus</div>
+	<div style="display:none" id="bibtip_hst_zu">Roman</div>
+	<div style="display:none" id="bibtip_releasedate">1996</div>
+	
+	<div class="oclc-searchmodule-detail-toresultlist">
+		<a id="dnn_ctr369_MainView_UcDetailView_LbtnToResultlist" href="http://bibliotheken.kivbf.de/heddesheim/Mediensuche/Einfache-Suche?searchhash=OCLC_737706b52284faa106925e4c6c10cebb6e538b11&amp;top=y">Zur Trefferliste</a>
+	</div>
+	<div id="dnn_ctr369_MainView_UcDetailView_Buttons" class="oclc-searchmodule-detail-controls">
+		<input type="image" name="dnn$ctr369$MainView$UcDetailView$IbtPrintDetailView" id="dnn_ctr369_MainView_UcDetailView_IbtPrintDetailView" title="Detailanzeige drucken" src="/Heddesheim/Images/action_print.gif" />
+		<input type="image" name="dnn$ctr369$MainView$UcDetailView$IbtShowPermalink" id="dnn_ctr369_MainView_UcDetailView_IbtShowPermalink" title="Permalink Detailanzeige" src="../DesktopModules/OCLC.OPEN.PL.DNN.SearchModule/Images/permalink.png" onclick="javascript:$(&#39;.dnn_ctr369_MainView_popupPermalinkDetail&#39;).show();event.preventDefault();" />
+		<input type="image" name="dnn$ctr369$MainView$UcDetailView$IbtSendEmailPopup" id="dnn_ctr369_MainView_UcDetailView_IbtSendEmailPopup" title="Detailanzeige per E-Mail versenden" src="../DesktopModules/OCLC.OPEN.PL.DNN.SearchModule/Images/Email16px.png" onclick="javascript:$(&#39;.dnn_ctr369_MainView_popupEmailDetail&#39;).show();event.preventDefault();" />
+		<!-- Facebook Button -->
+		
+		<!-- AddThis Button -->
+		
+		<div class="oclc-searchmodule-detail-pager">
+			<div>
+				<a id="dnn_ctr369_MainView_UcDetailView_IbtnNavigateBackward" title="zum vorherigen Treffer blättern" href="http://bibliotheken.kivbf.de/heddesheim/Mediensuche/Einfache-Suche?searchhash=OCLC_737706b52284faa106925e4c6c10cebb6e538b11&amp;top=y&amp;detail=2"><img id="dnn_ctr369_MainView_UcDetailView_imagePrevious" src="../DesktopModules/OCLC.OPEN.PL.DNN.SearchModule/Images/previous.png" /></a>
+				<span id="dnn_ctr369_MainView_UcDetailView_LblDetailNavigator">4 von 85</span>
+				<a id="dnn_ctr369_MainView_UcDetailView_IbtnNavigateForward" title="zum nächsten Treffer blättern" href="http://bibliotheken.kivbf.de/heddesheim/Mediensuche/Einfache-Suche?searchhash=OCLC_737706b52284faa106925e4c6c10cebb6e538b11&amp;top=y&amp;detail=4"><img id="dnn_ctr369_MainView_UcDetailView_imageNext" src="../DesktopModules/OCLC.OPEN.PL.DNN.SearchModule/Images/next.png" /></a>
+			</div>
+		</div>
+	</div>
+	
+	<div id="dnn_ctr369_MainView_UcDetailView_divContent" class="oclc-searchmodule-detail-content">
+		<script type="text/javascript">
+			registerWatchlistActionToolTip();
+		</script>
+		
+		
+<div class="oclc-searchmodule-mediumview ">
+	<div class="standardPaddingCover coverContainter">
+		
+<div class="coverRegion" >
+	
+	<a id="dnn_ctr369_MainView_UcDetailView_ucSharedCatalogueView_CoverView_Link" title="Zum Coveranbieter wechseln: Das einsame Haus" OnClick="event.stopPropagation()" coverclick="event.stopPropagation()" covertitle="Zum Coveranbieter wechseln: Das einsame Haus" target="_blank"><img id="dnn_ctr369_MainView_UcDetailView_ucSharedCatalogueView_CoverView_Image" class="coverGradient coverBig" sources="SetCoverByAjax|a|/Heddesheim/DesktopModules/OCLC.OPEN.PL.DNN.BaseLibrary/RequestCover.asmx/GetMvbCover|a|0$9783455057225|c|SetSimpleCover|a|https://images-eu.ssl-images-amazon.com/images/P/3455057225.03.MZZZZZZZ.jpg|a|http://www.amazon.de/exec/obidos/ASIN/3455057225/bondonline-21|c|SetNoCover|a|/Heddesheim/DesktopModules/OCLC.OPEN.PL.DNN.BaseLibrary/StyleSheets/Images/Fallbacks/emptyURL.gif?6.1.0.0|a|" devsources="SetCoverByAjax|a|/Heddesheim/DesktopModules/OCLC.OPEN.PL.DNN.BaseLibrary/RequestCover.asmx/GetMvbCover|a|0$9783455057225|c|SetSimpleCover|a|https://images-eu.ssl-images-amazon.com/images/P/3455057225.03.MZZZZZZZ.jpg|a|http://www.amazon.de/exec/obidos/ASIN/3455057225/bondonline-21|c|SetNoCover|a|/Heddesheim/DesktopModules/OCLC.OPEN.PL.DNN.BaseLibrary/StyleSheets/Images/Fallbacks/emptyURL.gif?6.1.0.0|a|" onerror="SetNextCover($(this));" onload="CheckCoverImg($(this));" src="/Heddesheim/DesktopModules/OCLC.OPEN.PL.DNN.BaseLibrary/StyleSheets/Images/Fallbacks/emptyURL.gif?6.1.0.0" /></a>
+</div>
+
+
+	</div>
+	<div class="oclc-searchmodule-mediumview-content">
+		<div>
+			<span id="dnn_ctr369_MainView_UcDetailView_ucSharedCatalogueView_LblShortDescriptionValue" class="boldText">Das einsame Haus</span>
+			
+			
+		</div>
+		<div>
+			Roman
+		</div>
+		<div>
+			<span id="dnn_ctr369_MainView_UcDetailView_ucSharedCatalogueView_LblAuthor" class="oclc-module-label">Verfasser: </span>
+			
+			<a id="dnn_ctr369_MainView_UcDetailView_ucSharedCatalogueView_LVAuthorValue_LinkAuthor_0" href="http://bibliotheken.kivbf.de/heddesheim/Mediensuche/Einfache-Suche?query=SC%7cAuthor%7cAnd%7c3%7cO%27Brien%2c+Edna">O&#39;Brien, Edna</a>
+		</div>
+		<div>
+			
+			
+		</div>
+		<div>
+			<span id="dnn_ctr369_MainView_UcDetailView_ucSharedCatalogueView_LblMediumIdentifier" class="oclc-module-label">Medienkennzeichen:</span>
+			<span id="dnn_ctr369_MainView_UcDetailView_ucSharedCatalogueView_LblMediumIdentifierValue">0023</span>
+		</div>
+		<div>
+			<span id="dnn_ctr369_MainView_UcDetailView_ucSharedCatalogueView_LblProductionYear" class="oclc-module-label">Jahr: </span>
+			1996
+		</div>
+		<div>
+			<span id="dnn_ctr369_MainView_UcDetailView_ucSharedCatalogueView_LblPublisher" class="oclc-module-label">Verlag:</span>
+			<span id="dnn_ctr369_MainView_UcDetailView_ucSharedCatalogueView_LblPublisherValue">Hamburg, Hoffmann &amp; Campe Verlag</span>
+		</div>
+		<div>
+			
+			
+		</div>
+		<div>
+			
+			
+		</div>
+		<div>
+			
+			
+		</div>
+		<div>
+			
+			
+			
+		</div>
+		<div id="dnn_ctr369_MainView_UcDetailView_ucSharedCatalogueView_DivSpanMediaGrpIcon">
+			<span id="spanMediaGrpIcon" class="">
+				<span id="dnn_ctr369_MainView_UcDetailView_ucSharedCatalogueView_LblMediaGrp" class="oclc-module-label">Mediengruppe: </span>
+				<span id="dnn_ctr369_MainView_UcDetailView_ucSharedCatalogueView_spanMediaGrpValue">
+					Sch&#246;ne Literatur
+				</span>
+			</span>
+		</div>
+		
+	</div>
+	<div class="copyDataRegion" style="display:none;">
+		<img id="dnn_ctr369_MainView_UcDetailView_ucSharedCatalogueView_imgLoading" src="../DesktopModules/OCLC.OPEN.PL.DNN.SearchModule/Images/loadingbar.gif" alt="loading" />
+		<input type="hidden" name="dnn$ctr369$MainView$UcDetailView$ucSharedCatalogueView$regionmednr" id="dnn_ctr369_MainView_UcDetailView_ucSharedCatalogueView_regionmednr" value="1007717" />
+		<input type="hidden" name="dnn$ctr369$MainView$UcDetailView$ucSharedCatalogueView$culture" id="dnn_ctr369_MainView_UcDetailView_ucSharedCatalogueView_culture" value="de-DE" />
+		<div class="copyDataTarget"></div>
+	</div>
+	<div class="oclc-searchmodule-mediumview-controls">
+		<div id="dnn_ctr369_MainView_UcDetailView_ucSharedCatalogueView_divGoogleBook">
+			<script type="text/javascript">CallGoogleBooksAPI('3455057225','dnn_ctr369_MainView_UcDetailView_ucSharedCatalogueView_divGoogleBook','/Heddesheim/DesktopModules/OCLC.OPEN.PL.DNN.SearchModule/images/gbs_preview_button1.gif')</script>
+		</div>
+		<div>
+			
+		</div>
+		
+		<div id="dnn_ctr369_MainView_UcDetailView_ucSharedCatalogueView_DivAvailRegionDetail">
+			<div id="dnn_ctr369_MainView_UcDetailView_ucSharedCatalogueView_DivNormalDetail" class="LinkWithImgAndText">
+				<img id="dnn_ctr369_MainView_UcDetailView_ucSharedCatalogueView_mediumImageAvailDetail" src="../DesktopModules/OCLC.OPEN.PL.DNN.SearchModule/images/true.png" alt="verfügbar" /><span id="dnn_ctr369_MainView_UcDetailView_ucSharedCatalogueView_LblMediumImageAvailDetail">verfügbar</span>
+			</div>
+			
+		</div>
+		
+		<div class="oclc-searchmodule-mediumview-link">
+			
+			
+		</div>
+	</div>
+</div>
+
+		
+		
+		<div id="dnn_ctr369_MainView_UcDetailView_CatalogueCopyView">
+			<span id="dnn_ctr369_MainView_UcDetailView_lblCatalogueCopyView" class="oclc-module-header">Exemplare</span>
+			<div>
+		<table class="oclc-module-table" cellspacing="0" rules="all" border="1" id="dnn_ctr369_MainView_UcDetailView_ucCatalogueCopyView_grdViewMediumCopies" style="border-collapse:collapse;">
+			<tr>
+				<th scope="col" abbr="Standorte">Standorte</th><th scope="col" abbr="Interessenkreis">Interessenkreis</th><th scope="col" abbr="Status">Status</th><th scope="col" abbr="Vorbestellungen">Vorbestellungen</th><th scope="col" abbr="Frist">Frist</th>
+			</tr><tr>
+				<td>
+				<span class="oclc-module-view-small oclc-module-label">Standorte:</span>
+				<span>SL O&#39;Bri / SL -Sch&#246;ne Literatur</span>
+			</td><td>
+				<span class="oclc-module-view-small oclc-module-label">Interessenkreis:</span>
+				<span>Heiteres</span>
+			</td><td>
+				<span class="oclc-module-view-small oclc-module-label">Status:</span>
+				<span>Verf&#252;gbar</span>
+			</td><td>
+				<span class="oclc-module-view-small oclc-module-label">Vorbestellungen:</span>
+				<span>0</span>
+			</td><td>
+				<span class="oclc-module-view-small oclc-module-label">Frist:</span>
+				<span></span>
+			</td>
+			</tr>
+		</table>
+	</div>
+
+
+		</div>
+		
+		
+		
+		<div id="dnn_ctr369_MainView_UcDetailView_biblioatContainer">
+			<div>
+				<span id="dnn_ctr369_MainView_UcDetailView_LblReview" class="oclc-module-header">Rezensionen</span>
+			</div>
+			<div class="spacingTopSmall ReviewsLoading">
+				<img id="dnn_ctr369_MainView_UcDetailView_loading" src="../DesktopModules/OCLC.OPEN.PL.DNN.SearchModule/Controls/Images/loading.gif" alt=" " />
+			</div>
+			<div class="spacingTopSmall NoReviews" style="display:none">
+				<span id="dnn_ctr369_MainView_UcDetailView_LblNoReviews">Keine Rezensionen gefunden.</span>
+			</div>
+			<div class="ReviewTemplate spacingTopSmall" style="display:none">
+				<div>
+					<span id="dnn_ctr369_MainView_UcDetailView_LblReviewSource">Quelle:</span>
+					<a class="ReviewSource" target="_blank"></a>,
+					<span class="ReviewAuthor"></span>
+				</div>
+				<div class="ReviewTextBox" style="max-height: 47px;overflow: hidden">
+					<div class="ReviewText">
+					</div>
+				</div>
+			</div>
+			<div id="FirstReview"></div>
+			<a id="showMoreReviews" href="javascript:void" style="display:none" onclick="javascript:$('#MoreReviews').show();$(this).hide();$('.ReviewTextBox').css('max-height','');return false;">Mehr...</a>
+			<div id="MoreReviews" style="display:none"></div>
+			<script type="text/javascript">
+				GetBiblioAt('http://ws.biblio.at/rezensionen/v1/suche?key=eaab910e6c5183bf1f6dfe5f174ec51ec9520a0d7c92e8aec464f87b9ba1555a&isbn=3455057225&mittext=1', 'Unbekannt');
+			</script>
+		</div>
+		<div id="dnn_ctr369_MainView_UcDetailView_CatalogueDetailView">
+			<span id="dnn_ctr369_MainView_UcDetailView_lblCatalogueDetailView" class="oclc-module-header">Details</span>
+			
+<div class="oclc-searchmodule-detail-data ">
+	<div>
+		<span id="dnn_ctr369_MainView_UcDetailView_ucCatalogueDetailView_LblAuthor" class="oclc-module-label">Verfasser: </span>
+		<a id="dnn_ctr369_MainView_UcDetailView_ucCatalogueDetailView_LVAuthorValue_LinkAuthor_0" href="http://bibliotheken.kivbf.de/heddesheim/Mediensuche/Einfache-Suche?query=SC%7cAuthor%7cAnd%7c3%7cO%27Brien%2c+Edna">O&#39;Brien, Edna</a>
+	</div>
+	<div>
+		
+		
+	</div>
+	<div>
+		<span id="dnn_ctr369_MainView_UcDetailView_ucCatalogueDetailView_LblMediumIdentifierTitle" class="oclc-module-label">Medienkennzeichen: </span>
+		<span id="dnn_ctr369_MainView_UcDetailView_ucCatalogueDetailView_LblMediumIdentifierValue">0023</span>
+	</div>
+	<div>
+		<span id="dnn_ctr369_MainView_UcDetailView_ucCatalogueDetailView_LblProductionYear" class="oclc-module-label">Jahr: </span>
+		<span id="dnn_ctr369_MainView_UcDetailView_ucCatalogueDetailView_LblProductionYearValue">1996</span>
+	</div>
+	<div>
+		<span id="dnn_ctr369_MainView_UcDetailView_ucCatalogueDetailView_LblManufacturer" class="oclc-module-label">Verlag: </span>
+		<span id="dnn_ctr369_MainView_UcDetailView_ucCatalogueDetailView_LblManufacturerValue">Hamburg, Hoffmann &amp; Campe Verlag</span>
+	</div>
+	<div>
+		
+		
+	</div>
+	<div>
+		
+		
+	</div>
+	<div>
+		
+		
+	</div>
+	<div id="dnn_ctr369_MainView_UcDetailView_ucCatalogueDetailView_DivDependentCatalogue" style="display:none">
+		<span id="dnn_ctr369_MainView_UcDetailView_ucCatalogueDetailView_LblDependantCatalogues" class="oclc-module-label">Aufsätze:</span>
+		<div class="dependantRegion">
+		</div>
+	</div>
+	<script type="text/javascript">
+		LoadCatalogueViewDependantCataloguesAsync('/Heddesheim/DesktopModules/OCLC.OPEN.PL.DNN.SearchModule/SearchService.asmx/GetDependantCatalogues', '1007717', 'True', 'dnn_ctr369_MainView_UcDetailView_ucCatalogueDetailView_DivDependentCatalogue', 'http://bibliotheken.kivbf.de/heddesheim/Mediensuche/Einfache-Suche?searchhash=OCLC_737706b52284faa106925e4c6c10cebb6e538b11&top=y&id=', '0', '');
+	</script>
+	<div>
+		
+		
+	</div>
+	<div>
+		
+		
+	</div>
+	<div>
+		
+		
+	</div>
+	<div>
+		<span id="dnn_ctr369_MainView_UcDetailView_ucCatalogueDetailView_LblSystematicTitle" class="oclc-module-label">Systematik: </span>
+		<a id="dnn_ctr369_MainView_UcDetailView_ucCatalogueDetailView_LVSystematicValue_LinkSystematic_0" href="http://bibliotheken.kivbf.de/heddesheim/Mediensuche/Einfache-Suche?query=SC%7cSystematicLink%7cAnd%7c2%7cSL+">SL </a>
+	</div>
+	<div>
+		<span id="dnn_ctr369_MainView_UcDetailView_ucCatalogueDetailView_LblSubjectTypeTitle" class="oclc-module-label">Interessenkreis: </span>
+		<a id="dnn_ctr369_MainView_UcDetailView_ucCatalogueDetailView_LVSubjectTypeValue_LinkSubjectType_0" href="http://bibliotheken.kivbf.de/heddesheim/Mediensuche/Einfache-Suche?query=SC%7cSubjectType%7cAnd%7c2%7cHeiteres">Heiteres</a>
+	</div>
+	<div>
+		
+		
+	</div>
+	<div>
+		<span id="dnn_ctr369_MainView_UcDetailView_ucCatalogueDetailView_Lbl1stIsbnTitle" class="oclc-module-label">ISBN: </span>
+		<span id="dnn_ctr369_MainView_UcDetailView_ucCatalogueDetailView_Lbl1stIsbnValue">3-455-05722-5</span>
+	</div>
+	<div>
+		
+		
+	</div>
+	<div>
+		
+		
+	</div>
+	<div>
+		<span id="dnn_ctr369_MainView_UcDetailView_ucCatalogueDetailView_LblDescriptionTitle" class="oclc-module-label">Beschreibung: </span>
+		<span id="dnn_ctr369_MainView_UcDetailView_ucCatalogueDetailView_LblDescriptionValue">1. Aufl., 283 S.</span>
+	</div>
+	<div>
+		
+		
+	</div>
+	<div>
+		
+		
+	</div>
+	<div>
+		
+		
+		
+	</div>
+	<div>
+		<span id="dnn_ctr369_MainView_UcDetailView_ucCatalogueDetailView_LblKeywordsTitle" class="oclc-module-label">Schlagwörter: </span>
+		<a id="dnn_ctr369_MainView_UcDetailView_ucCatalogueDetailView_LVKeywordsValue_LinkKeyword_0" href="http://bibliotheken.kivbf.de/heddesheim/Mediensuche/Einfache-Suche?query=SC%7cKeyword%7cAnd%7c2%7cIRA">IRA</a><span>, </span><a id="dnn_ctr369_MainView_UcDetailView_ucCatalogueDetailView_LVKeywordsValue_LinkKeyword_1" href="http://bibliotheken.kivbf.de/heddesheim/Mediensuche/Einfache-Suche?query=SC%7cKeyword%7cAnd%7c2%7cIrland">Irland</a>
+	</div>
+	<div>
+		
+		
+	</div>
+	<div>
+		
+		
+	</div>
+	<div>
+		
+		
+	</div>
+	<div>
+		
+		
+	</div>
+	<div id="dnn_ctr369_MainView_UcDetailView_ucCatalogueDetailView_DivSpanMediaGrpIcon">
+		<span id="dnn_ctr369_MainView_UcDetailView_ucCatalogueDetailView_LblMediaGrp" class="oclc-module-label">Mediengruppe: </span>
+		<span id="dnn_ctr369_MainView_UcDetailView_ucCatalogueDetailView_LblMediaGrpValue">Sch&#246;ne Literatur</span>
+	</div>
+</div>
+		</div>
+	</div>
+</div>
+
+</div>
+
+</div><!-- End_Module_369 --></div>
+  </div>
+  <!--Container Content End--> 
+  <!--Container Buttons-->
+  <!--Container Buttons End--> 
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div id="dnn_Full_Screen_PaneE" class="Full_Screen_PaneE DNNEmptyPane"></div>
+<div class="dnn_layoutB">
+  <div class="content_mid clearfix">
+    <div class="pane_layout">
+      <div class="row">
+        <div class="col-sm-3">
+          <div id="dnn_RownEleven_Grid3_Pane1" class="RownEleven_Grid3_Pane1 DNNEmptyPane"></div>
+        </div>
+        <div class="col-sm-3">
+          <div id="dnn_RowEleven_Grid3_Pane2" class="RowEleven_Grid3_Pane2 DNNEmptyPane"></div>
+        </div>
+        <div class="col-sm-3">
+          <div id="dnn_RowEleven_Grid3_Pane3" class="RowEleven_Grid3_Pane3 DNNEmptyPane"></div>
+        </div>
+        <div class="col-sm-3">
+          <div id="dnn_RowEleven_Grid3_Pane4" class="RowEleven_Grid3_Pane4 DNNEmptyPane"></div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-3">
+          <div id="dnn_RowTwelve_Grid3_Pane1" class="RowTwelve_Grid3_Pane1 DNNEmptyPane"></div>
+        </div>
+        <div class="col-sm-6">
+          <div id="dnn_RowTwelve_Grid6_Pane" class="RowTwelve_Grid6_Pane DNNEmptyPane"></div>
+        </div>
+        <div class="col-sm-3">
+          <div id="dnn_RowTwelve_Grid3_Pane2" class="RowTwelve_Grid3_Pane2 DNNEmptyPane"></div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-4">
+          <div id="dnn_RowThirteen_Grid4_Pane1" class="RowThirteen_Grid4_Pane1 DNNEmptyPane"></div>
+        </div>
+        <div class="col-sm-4">
+          <div id="dnn_RowThirteen_Grid4_Pane2" class="RowThirteen_Grid4_Pane2 DNNEmptyPane"></div>
+        </div>
+        <div class="col-sm-4">
+          <div id="dnn_RowThirteen_Grid4_Pane3" class="RowThirteen_Grid4_Pane3 DNNEmptyPane"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div id="dnn_Full_Screen_PaneF" class="Full_Screen_PaneF DNNEmptyPane"></div>
+<div class="dnn_layoutB">
+  <div class="content_mid clearfix">
+    <div class="pane_layout">
+      <div class="row">
+        <div class="col-sm-9">
+          <div id="dnn_RowFourteen_Grid9_Pane" class="RowFourteen_Grid9_Pane DNNEmptyPane"></div>
+        </div>
+        <div class="col-sm-3">
+          <div id="dnn_RowFourteen_Grid3_Pane" class="RowFourteen_Grid3_Pane DNNEmptyPane"></div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-8">
+          <div id="dnn_RowFifteen_Grid8_Pane" class="RowFifteen_Grid8_Pane DNNEmptyPane"></div>
+        </div>
+        <div class="col-sm-4">
+          <div id="dnn_RowFifteen_Grid4_Pane" class="RowFifteen_Grid4_Pane DNNEmptyPane"></div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-7">
+          <div id="dnn_RowSixteen_Grid7_Pane" class="RowSixteen_Grid7_Pane DNNEmptyPane"></div>
+        </div>
+        <div class="col-sm-5">
+          <div id="dnn_RowSixteen_Grid5_Pane" class="RowSixteen_Grid5_Pane DNNEmptyPane"></div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-6">
+          <div id="dnn_RowSeventeen_Grid6_Pane1" class="RowSeventeen_Grid6_Pane1 DNNEmptyPane"></div>
+        </div>
+        <div class="col-sm-6">
+          <div id="dnn_RowSeventeen_Grid6_Pane2" class="RowSeventeen_Grid6_Pane2 DNNEmptyPane"></div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-5">
+          <div id="dnn_RowEighteen_Grid5_Pane" class="RowEighteen_Grid5_Pane DNNEmptyPane"></div>
+        </div>
+        <div class="col-sm-7">
+          <div id="dnn_RowEighteen_Grid7_Pane" class="RowEighteen_Grid7_Pane DNNEmptyPane"></div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-4">
+          <div id="dnn_RowNineteen_Grid4_Pane" class="RowNineteen_Grid4_Pane DNNEmptyPane"></div>
+        </div>
+        <div class="col-sm-8">
+          <div id="dnn_RowNineteen_Grid8_Pane" class="RowNineteen_Grid8_Pane DNNEmptyPane"></div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-3">
+          <div id="dnn_RowTwenty_Grid3_Pane" class="RowTwenty_Grid3_Pane DNNEmptyPane"></div>
+        </div>
+        <div class="col-sm-9">
+          <div id="dnn_RowTwenty_Grid9_Pane" class="RowTwenty_Grid9_Pane DNNEmptyPane"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div id="dnn_Full_Screen_PaneG" class="Full_Screen_PaneG DNNEmptyPane"></div>
+<div class="dnn_layoutB">
+  <div class="content_mid clearfix">
+    <div class="pane_layout">
+      <div class="row">
+        <div class="col-sm-12">
+          <div id="dnn_BottomPane" class="BottomPane DNNEmptyPane"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div id="dnn_Full_Screen_PaneH" class="Full_Screen_PaneH DNNEmptyPane"></div>
+
+
+
+
+        <!-- content pane end --> 
+      </section>
+      <!-- Footer --> 
+      
+<div id="footer1">
+  <footer>
+    <div class="Footer_Contentbg  ">
+      <div class="dnn_layoutB">
+        <div class="footer_mid clearfix">
+          <div class="row">
+            <div class="col-md-3 col-sm-6">
+              <div id="dnn_FootPaneA" class="FootPaneA   DNNEmptyPane"></div>
+            </div>
+            <div class="col-md-3 col-sm-6">
+              <div id="dnn_FootPaneB" class="FootPaneB   DNNEmptyPane"></div>
+            </div>
+            <div class="clearfix visible-sm"></div>
+            <div class="col-md-3 col-sm-6">
+              <div id="dnn_FootPaneC" class="FootPaneC   DNNEmptyPane"></div>
+            </div>
+            <div class="col-md-3 col-sm-6">
+              <div id="dnn_FootPaneD" class="FootPaneD   DNNEmptyPane"></div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-4">
+              <div id="dnn_FootPaneE" class="FootPaneE   DNNEmptyPane"></div>
+            </div>
+            <div class="col-sm-4">
+              <div id="dnn_FootPaneF" class="FootPaneF   DNNEmptyPane"></div>
+            </div>
+            <div class="col-sm-4">
+              <div id="dnn_FootPaneG" class="FootPaneG   DNNEmptyPane"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="Footer_Bottombg ElementHide-xs ElementHide-sm ElementHide-md ElementHide-lg">
+      <div class="dnn_layoutB">
+        <div class="footer_mid clearfix">
+          <div class="copyright_style">
+			<div class="LinkToSkinObject">
+				
+						  		  
+			</div>		  
+            <span id="dnn_dnnCOPYRIGHT_lblCopyright" class="footer  ">Copyright [Year] by OCLC GmbH</span>
+
+            <span class="sep  ">|</span>
+            <a id="dnn_dnnPRIVACY_hypPrivacy" class="terms  " rel="nofollow" href="http://bibliotheken.kivbf.de/heddesheim/Privacy">Datenschutzerklärung</a>
+            <span class="sep    ">|</span>
+            <a id="dnn_dnnTERMS_hypTerms" class="terms  " rel="nofollow" href="http://bibliotheken.kivbf.de/heddesheim/Terms">Nutzungsbedingungen</a>
+            
+          </div>
+          <div id="dnn_FooterPane" class="FooterPane DNNEmptyPane"></div>
+        </div>
+      </div>
+    </div>
+    <div id="to_top"><span> </span></div>
+  </footer>
+</div>
+
+
+
+
+      <!-- Footer End --> 
+    </div>
+    <div class="dnn_layout"></div>
+  </div>
+</div>
+<script type="text/javascript" src="/Heddesheim/Portals/_default/Skins/20054-UnlimitedColorPack-036/scripts/script.js?v5.3.3"></script> 
+<script type="text/javascript" src="/Heddesheim/Portals/_default/Skins/20054-UnlimitedColorPack-036/scripts/custom.js?v5.3.3"></script> 
+
+
+
+
+        <input name="ScrollTop" type="hidden" id="ScrollTop" />
+        <input name="__dnnVariable" type="hidden" id="__dnnVariable" autocomplete="off" value="`{`__scdoff`:`1`}" />
+        
+    
+<script type="text/javascript" src="/Heddesheim/DesktopModules/DNNGo_xPlugin/Resource/js/dnngo-xplugin.js?cdv=375"></script>
+<script type="text/javascript">
+//<![CDATA[
+RegisterResponsiveModule('#dnn_ctr369_MainView_divSearchModuleMain',[{class:'oclc-module-view-normal',min:768},{class:'oclc-module-view-small',max:767}]);RegisterMobileTooltips();//]]>
+</script>
+<script type="text/javascript">
+var newtop = $('#dnn_ctr369_MainView_divSearchModuleMain').offset().top;
+var havingdown = $(document).height()-newtop;
+var neededdown = $(window).height();
+if (neededdown-havingdown > 0)$('#dnn_ctr369_MainView_divSearchModuleMain').css('min-height',$(window).height());
+$('#ScrollTop').attr('value',newtop);
+__dnn_setScrollTop();
+$('#__SCROLLPOSITIONY').attr('value',newtop);
+$(document).on('scroll',function(){$('#__SCROLLPOSITIONY').attr('value',$(document).scrollTop());});
+</script><script type="text/javascript">
+							$(document).ready(function () {
+							   var evarg =  document.getElementById("__EVENTARGUMENT");
+							   evarg.value = "";
+							   var evtar =  document.getElementById("__EVENTTARGET");
+							   evtar.value = ""  
+							});
+						</script>
+				</form>
+    <!--CDF(Javascript|/Heddesheim/js/dnncore.js?cdv=375)--><!--CDF(Css|/heddesheim/Resources/Shared/stylesheets/dnndefault/7.0.0/default.css?cdv=375)--><!--CDF(Css|/Heddesheim/Portals/_default/Skins/20054-UnlimitedColorPack-036/skin.css?cdv=375)--><!--CDF(Css|/heddesheim/Portals/_default/Skins/20054-UnlimitedColorPack-036/InsidePage.css?cdv=375)--><!--CDF(Css|/Heddesheim/Portals/_default/Containers/20054-UnlimitedColorPack-036/container.css?cdv=375)--><!--CDF(Css|/heddesheim/DesktopModules/OCLC.OPEN.PL.DNN.SearchModule/module.css?cdv=375)--><!--CDF(Javascript|/Heddesheim/js/dnn.js?cdv=375)--><!--CDF(Javascript|/Heddesheim/Resources/Shared/Scripts/jquery/jquery.hoverIntent.min.js?cdv=375)--><!--CDF(Javascript|/Heddesheim/Resources/Shared/Scripts/jquery/jquery.hoverIntent.min.js?cdv=375)--><!--CDF(Javascript|/Heddesheim/Resources/Shared/Scripts/dnn.jquery.js?cdv=375)--><!--CDF(Javascript|/Heddesheim/Resources/libraries/jQuery/01_09_01/jquery.js?cdv=375)--><!--CDF(Javascript|/Heddesheim/Resources/libraries/jQuery-Migrate/01_02_01/jquery-migrate.js?cdv=375)--><!--CDF(Javascript|/Heddesheim/Resources/libraries/jQuery-UI/01_11_03/jquery-ui.js?cdv=375)-->
+    
+</body>
+</html>
