@@ -1,7 +1,7 @@
 package de.benibela.videlibri;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -10,12 +10,10 @@ import android.support.v7.preference.Preference;
 import android.support.v7.preference.PreferenceCategory;
 import android.support.v7.view.ContextThemeWrapper;
 import android.util.TypedValue;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.*;
-import org.acra.ACRA;
-
-import java.util.ArrayList;
+import android.widget.Checkable;
+import android.widget.CompoundButton;
+import android.widget.Spinner;
 
 
 public class Options extends VideLibriBaseActivity{
@@ -227,6 +225,7 @@ public class Options extends VideLibriBaseActivity{
         setSpinnerSelection ((Spinner)v.findViewById(R.id.grouping), sortingKeys, grouping);
     }
 
+    @SuppressLint("ApplySharedPref")
     static void putLendingOptionsFromView(Activity activity, View v){
         SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(activity);
         SharedPreferences.Editor editor = sp.edit();

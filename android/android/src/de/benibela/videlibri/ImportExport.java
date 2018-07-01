@@ -1,15 +1,18 @@
 package de.benibela.videlibri;
 
 import android.Manifest;
+import android.app.Activity;
 import android.content.ContentUris;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
+import android.preference.PreferenceManager;
 import android.provider.DocumentsContract;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
@@ -18,11 +21,13 @@ import android.support.v4.content.ContextCompat;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AbsListView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.ScrollView;
+import android.widget.Toast;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -100,7 +105,7 @@ public class ImportExport extends VideLibriBaseActivity {
     }
 
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);    //To change body of overridden methods use File | Settings | File Templates.
+        super.onCreate(savedInstanceState);
         setVideLibriView(R.layout.importexport);
         mode = getIntent().getIntExtra("mode", MODE_IMPORT);
 

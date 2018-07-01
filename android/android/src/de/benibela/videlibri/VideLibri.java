@@ -1,33 +1,39 @@
 package de.benibela.videlibri;
 import android.Manifest;
-import android.content.*;
+import android.app.ActivityManager;
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.content.ClipData;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
-import android.content.res.AssetManager;
-import java.io.InputStream;
-import java.text.DateFormat;
-import java.text.Normalizer;
-import java.text.SimpleDateFormat;
-import java.util.*;
-import java.lang.*;
-import android.app.*;
 import android.graphics.BitmapFactory;
-import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.support.v4.app.*;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.*;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
-import android.view.*;
-import android.widget.*;
-import android.widget.Toolbar;
+import android.view.ContextMenu;
+import android.view.Gravity;
+import android.view.LayoutInflater;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
+import android.widget.CompoundButton;
+import android.widget.EditText;
+import android.widget.LinearLayout;
 
 import org.json.JSONArray;
 import org.json.JSONException;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.Date;
 
 
 public class VideLibri extends BookListActivity {
@@ -167,8 +173,8 @@ public class VideLibri extends BookListActivity {
     private boolean displayHistoryActually = false;
     private boolean noDetailsInOverviewActually = false, showRenewCountActually = true;
     private String sortingKeyActually, groupingKeyActually, filterActually, filterKeyActually, filterKey;
-    static public ArrayList<Bridge.Account> hiddenAccounts = new ArrayList<Bridge.Account>();
-    private ArrayList<Bridge.Account> hiddenAccountsActually = new ArrayList<Bridge.Account>();
+    static public ArrayList<Bridge.Account> hiddenAccounts = new ArrayList<>();
+    private ArrayList<Bridge.Account> hiddenAccountsActually = new ArrayList<>();
 
     @Override
     protected int onPrepareOptionsMenuVisibility() {
@@ -296,13 +302,13 @@ public class VideLibri extends BookListActivity {
         } else return book.getProperty(key).compareTo(book2.getProperty(key));
     }
 
-    static final ArrayList<Bridge.Book.Pair> crazyHeaderHack = new ArrayList<Bridge.Book.Pair>();
+    static final ArrayList<Bridge.Book.Pair> crazyHeaderHack = new ArrayList<>();
     static public ArrayList<Bridge.Book> makePrimaryBookCache(boolean addHistory,
                                                               boolean renewableOnly){
         //renewableOnly is not supported for acc != null
         addHistory = addHistory && !renewableOnly;
         Bridge.Account[] accounts = VideLibriApp.accounts;
-        ArrayList<Bridge.Book> bookCache = new ArrayList<Bridge.Book>();
+        ArrayList<Bridge.Book> bookCache = new ArrayList<>();
         for (Bridge.Account facc: accounts) {
             if (hiddenAccounts.contains(facc))
                 continue;
@@ -324,7 +330,7 @@ public class VideLibri extends BookListActivity {
     static public ArrayList<Bridge.Book> filterToSecondaryBookCache(ArrayList<Bridge.Book> oldBookCache,
                                                                     final String groupingKey, final String sortingKey,
                                                                     String filter, String filterKey){
-        ArrayList<Bridge.Book> bookCache = new ArrayList<Bridge.Book>();
+        ArrayList<Bridge.Book> bookCache = new ArrayList<>();
 
         if (filter != null && !"".equals(filter) && !"__disabled".equals(filterKey)) {
             filter = filter.toLowerCase();
@@ -375,7 +381,7 @@ public class VideLibri extends BookListActivity {
     }
 
 
-    public ArrayList<Bridge.Book> primaryBookCache = new ArrayList<Bridge.Book>();
+    public ArrayList<Bridge.Book> primaryBookCache = new ArrayList<>();
     public void displayAccounts(){
         displayHistoryActually = displayHistory || (alwaysFilterOnHistory && !Util.isEmptyString(filterActually));
         noDetailsInOverviewActually = options.contains(BookOverviewAdapter.DisplayEnum.NoDetails);
@@ -416,7 +422,7 @@ public class VideLibri extends BookListActivity {
         if (!xquery)
             bookCache = filterToSecondaryBookCache(primaryBookCache, groupingKeyActually, sortingKeyActually, filterActually, filterKeyActually);
         else {
-            bookCache = new ArrayList<Bridge.Book>();
+            bookCache = new ArrayList<>();
             for (Bridge.Book b: Bridge.VLXQuery(filterActually)) bookCache.add(b);
         }
 
@@ -568,7 +574,7 @@ public class VideLibri extends BookListActivity {
 
             for (int i = -1; i < VideLibriApp.accounts.length; i++) {
                 Bridge.Account acc = i == -1 ? null : VideLibriApp.accounts[i];
-                View group = (View) inflater.inflate(R.layout.options_lendings_accountrow, null);
+                View group = inflater.inflate(R.layout.options_lendings_accountrow, null);
                 CompoundButton sb = ((CompoundButton)group.findViewById(R.id.switchbox));
                 sb.setChecked(acc == null ? VideLibri.hiddenAccounts.size() <= VideLibriApp.accounts.length / 2 : !VideLibri.hiddenAccounts.contains(acc));
                 sb.setTag(acc);
@@ -609,12 +615,12 @@ public class VideLibri extends BookListActivity {
     }
 
     private ArrayList<String> getFilterHistory(){
-        ArrayList<String> filters = new ArrayList<String>();
+        ArrayList<String> filters = new ArrayList<>();
         try {
             JSONArray filtersJson = new JSONArray(PreferenceManager.getDefaultSharedPreferences(this).getString("filterHistory", tr(R.string.config_example_filters_json)));
             for (int i=0;i<filtersJson.length();i++)
                 filters.add(filtersJson.getString(i));
-        } catch (JSONException e) {
+        } catch (JSONException ignored) {
         }
         return filters;
     }
