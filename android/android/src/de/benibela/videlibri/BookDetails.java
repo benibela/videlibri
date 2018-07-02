@@ -16,6 +16,8 @@ import android.text.SpannableStringBuilder;
 import android.text.Spanned;
 import android.text.style.LeadingMarginSpan;
 import android.text.style.ReplacementSpan;
+import android.text.style.StyleSpan;
+import android.text.style.TypefaceSpan;
 import android.text.util.Linkify;
 import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
@@ -373,6 +375,7 @@ public class BookDetails extends VideLibriFakeFragment {
             //len++;
             builder.append(name);
             builder.append(": ");
+            builder.setSpan(new StyleSpan(Typeface.BOLD), len, builder.length(), Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
             builder.append(value);
             builder.append("\n");
             builder.setSpan(new LeadingMarginSpan.Standard(padding,padding), len, builder.length(), Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
