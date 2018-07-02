@@ -51,6 +51,7 @@ public class VideLibri extends BookListActivity {
 
         if (savedInstanceState != null) {
             filterActually = savedInstanceState.getString("filterActually");
+            setFilterMultiLine(savedInstanceState.getBoolean("filterIsMultiLine", false));
         }
         updateViewFilters();
 
@@ -121,10 +122,13 @@ public class VideLibri extends BookListActivity {
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.INTERNET}, 0);
     }
 
+
+
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         outState.putString("filterActually", filterActually);
+        outState.putBoolean("filterIsMultiLine", filterIsMultiLine);
     }
 
 
@@ -173,6 +177,7 @@ public class VideLibri extends BookListActivity {
     private boolean displayHistoryActually = false;
     private boolean noDetailsInOverviewActually = false, showRenewCountActually = true;
     private String sortingKeyActually, groupingKeyActually, filterActually, filterKeyActually, filterKey;
+    private boolean filterIsMultiLine;
     static public ArrayList<Bridge.Account> hiddenAccounts = new ArrayList<>();
     private ArrayList<Bridge.Account> hiddenAccountsActually = new ArrayList<>();
 
@@ -609,6 +614,7 @@ public class VideLibri extends BookListActivity {
     public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
         if (v != null && v.getId() == R.id.searchFilter) {
             getMenuInflater().inflate(R.menu.searchfiltercontextmenu, menu);
+            menu.findItem(R.id.toggle_singleline).setTitle(filterIsMultiLine ? R.string.menu_context_filter_singleline : R.string.menu_context_filter_multiline);
             contextMenuSelectedItem = filterActually;
         } else
             super.onCreateContextMenu(menu, v, menuInfo);
@@ -661,8 +667,23 @@ public class VideLibri extends BookListActivity {
                     setEditTextText(R.id.searchFilter, (item.getItemId() == R.id.pastereplace ? "" : filterActually) + text);
                 }
                 return true;
+            case R.id.toggle_singleline:
+                setFilterMultiLine(!filterIsMultiLine);
+                return true;
         }
         return super.onContextItemSelected(item);
     }
 
+    void setFilterMultiLine(boolean ml){
+        if (ml == filterIsMultiLine) return;
+        filterIsMultiLine = ml;
+        EditText edit = (EditText)findViewById(R.id.searchFilter);
+        if (filterIsMultiLine) {
+            edit.setSingleLine(false);
+            edit.setMaxLines(10);
+        } else {
+            edit.setMaxLines(1);
+            edit.setSingleLine(true);
+        }
+    }
 }

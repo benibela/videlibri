@@ -5,6 +5,7 @@
     <item android:id="@+id/clear" android:title="@string/clear" />
     <item android:id="@+id/pastereplace" android:title="@string/menu_context_paste_replace" />
     <item android:id="@+id/copy" android:title="@string/menu_context_copy" />
+    <item android:id="@+id/toggle_singleline"/>
     <item android:id="@+id/load_filter" android:title="@string/menu_context_load_filter" />
     <item android:id="@+id/save_filter" android:title="@string/menu_context_save_filter" />
 </menu>
