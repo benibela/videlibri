@@ -13,7 +13,8 @@
     <template><form>{
       loginForm := form(., {"__EVENTTARGET": (//input[contains(@name, "cmdLogin")])[1]/@name, 
                            (//input[contains(@name, "Username")])[1]/@name: $username, 
-                           (//input[contains(@name, "password")])[1]/@name: $password  })
+                           (//input[contains(@name, "txtPassword")],
+                            //input[contains(@name, "password")])[1]/@name: $password  })
     }</form></template>
   </page>
 </action>
