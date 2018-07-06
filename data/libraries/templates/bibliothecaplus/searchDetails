@@ -78,10 +78,11 @@
        { for $span in .//span
          let $idlbl := $span/extract(@id, "_Lbl(.*)$", 1)[.]
          where exists($idlbl) and not(ends-with($idlbl, "Value"))
-         let $key := if (exists($search-reverse-keys($idlbl))) then $search-reverse-keys($idlbl)
+         let $primary-key := exists($search-reverse-keys($idlbl))
+         let $key := if ($primary-key) then $search-reverse-keys($idlbl)
                      else $span || "!"
          let $value := join($span!following-sibling::node()!(
-           if (self::a) then (. || (if (contains(@href, "http")) then x" ( {@href} )" else ""))
+           if (self::a and not($primary-key)) then (. || (if (contains(@href, "http")) then x" ( {@href} )" else ""))
            else .
          ))
          where $value
