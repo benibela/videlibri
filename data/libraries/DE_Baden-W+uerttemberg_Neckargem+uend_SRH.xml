@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<library>
+  <longName value="SRH Mediothek Neckargemünd"/>
+  <shortName value="SRH Mediothek Neckargemünd"/>
+  
+  <template value="bibliothecaplus"/>
+  <variable name="urlaccount" value="http://www.mediothek-srh.de/Mein-Konto"/>	
+  <variable name="urlsearch" value="http://www.mediothek-srh.de/Mediensuche/Erweiterte-Suche"/>
+
+  <homepage value="http://www.mediothek-srh.de/"/>
+  <testing-search value="yes"/>  
+  <testing-account value="yes"/>
+</library>
+
