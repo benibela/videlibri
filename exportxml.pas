@@ -329,15 +329,9 @@ begin
   //is that function supposed to return the real size? did not work, only returns the input ThemeServices.ContentRect(TreeListView1.Canvas.Handle, cb, TreeListView1.DrawingRecordItemRect);
 
   //draw the item right aligned in first column and centered in the others
-  //adjust rect, because windows always centers, and gtk2 always right aligns
   w := contentrect.Bottom - contentrect.Top; //contentrect.Right - contentrect.left;
-  {$ifdef lclwin32}
   if recordItem.Index = 0 then
-    contentrect.Left := contentrect.Right - w;
-  {$else}
-  if recordItem.Index <> 0 then
-    contentrect.Right := (TreeListView1.DrawingRecordItemRect.Left + TreeListView1.DrawingRecordItemRect.Right + w) div 2;
-  {$endif}
+    contentrect.Left := contentrect.Right - w; //right align
   ThemeServices.DrawElement(TreeListView1.Canvas.Handle, cb, contentrect, @TreeListView1.DrawingRecordItemRect);
 end;
 
