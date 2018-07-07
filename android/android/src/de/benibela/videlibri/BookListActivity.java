@@ -1,5 +1,6 @@
 package de.benibela.videlibri;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Build;
 import android.content.Intent;
@@ -64,7 +65,7 @@ public class BookListActivity extends VideLibriBaseActivity{
         outState.putInt("listFirstItem", listFirstItem); //perhaps better use the list view save/restore state function??
 
         if (selectedBooks != null) {
-            ArrayList<Integer> selindices = new ArrayList<Integer>(selectedBooks.size());
+            ArrayList<Integer> selindices = new ArrayList<>(selectedBooks.size());
             for (int i = 0; i < selectedBooks.size(); i++)
                 for (int j = 0; j < bookCache.size(); j++)
                     if (selectedBooks.get(i) == bookCache.get(j))
@@ -76,7 +77,7 @@ public class BookListActivity extends VideLibriBaseActivity{
     public void onBookCacheAvailable(){
         //Log.d("VideLIBRI", "onBookCacheAvailable" + currentBookPos + " / " + listFirstItem + " / " + bookCache.size() );
         if (selectedBooksIndices != null) {
-            if (selectedBooks == null) selectedBooks = new ArrayList<Bridge.Book>();
+            if (selectedBooks == null) selectedBooks = new ArrayList<>();
             for (int i = 0; i < selectedBooksIndices.size(); i++)
                 selectedBooks.add(bookCache.get(selectedBooksIndices.get(i)));
             selectedBooksIndices = null;
@@ -97,7 +98,7 @@ public class BookListActivity extends VideLibriBaseActivity{
         });
     }
 
-    public ArrayList<Bridge.Book> bookCache = new ArrayList<Bridge.Book>();
+    public ArrayList<Bridge.Book> bookCache = new ArrayList<>();
     public EnumSet<BookOverviewAdapter.DisplayEnum> options = java.util.EnumSet.of(BookOverviewAdapter.DisplayEnum.Grouped, BookOverviewAdapter.DisplayEnum.ShowRenewCount);
     public String sortingKey, groupingKey;
 
@@ -121,7 +122,7 @@ public class BookListActivity extends VideLibriBaseActivity{
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 if (i >= bookCache.size() || bookCache.get(i) == null) return;
-                if (groupingKey != "") {
+                if (!"".equals(groupingKey)) {
                     Bridge.Book book = bookCache.get(i);
                     if (BookFormatter.isGroupingHeaderFakeBook(book)) return; //grouping header
                 }
@@ -226,15 +227,7 @@ public class BookListActivity extends VideLibriBaseActivity{
                 break;
         }
         if (toCopy != null) {
-            if(android.os.Build.VERSION.SDK_INT < android.os.Build.VERSION_CODES.HONEYCOMB) {
-                android.text.ClipboardManager clipboard = (android.text.ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
-                clipboard.setText(toCopy);
-            } else {
-                android.content.ClipboardManager clipboard = (android.content.ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
-                android.content.ClipData clip = android.content.ClipData.newPlainText("Book details", toCopy);
-                clipboard.setPrimaryClip(clip);
-            }
-            Toast.makeText(this, tr(R.string.clipboard_copiedS, toCopy), Toast.LENGTH_SHORT).show();
+            Util.Clipboard.setText(this, toCopy);
         }
         contextMenuSelectedItem = null;
         return super.onContextItemSelected(item);

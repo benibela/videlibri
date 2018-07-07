@@ -26,7 +26,7 @@ public class DebugLogViewer extends VideLibriBaseActivity implements AdapterView
         setVideLibriView(R.layout.bookdetails);
 
         filterSpinner = new Spinner(this);
-        ArrayAdapter<String> filterSpinnerAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, new String[]{
+        ArrayAdapter<String> filterSpinnerAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, new String[]{
                 tr(R.string.debug_log_http, tr(R.string.debug_order_new_first)),
                 tr(R.string.debug_log_http, tr(R.string.debug_order_old_first)),
                 tr(R.string.debug_log_videlibri, tr(R.string.debug_order_new_first)),
@@ -57,7 +57,7 @@ public class DebugLogViewer extends VideLibriBaseActivity implements AdapterView
         final int MODE_HTTP = 0;
         final int MODE_VIDELIBRI = 1;
         final int MODE_ALL = 2;
-        details = new ArrayList<BookDetails.Details>();
+        details = new ArrayList<>();
 
         Bridge.Options options = Bridge.VLGetOptions();
         try {
@@ -65,7 +65,7 @@ public class DebugLogViewer extends VideLibriBaseActivity implements AdapterView
             Process process = Runtime.getRuntime().exec("logcat -d");
             BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(process.getInputStream()));
 
-            String line = "";
+            String line;
             Pattern pattern = Pattern.compile("([a-zA-Z]+/VideLibri.+?:)( *[-0-9:T ]+[(].*?[)] *:)?(.*)");
             Pattern patternHttp = Pattern.compile("^\\s*(GET|POST).*");
             BookDetails.Details lastDetails = null;

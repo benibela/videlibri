@@ -104,15 +104,6 @@ public class VideLibriApp extends Application implements Bridge.VideLibriContext
         NotificationService.resheduleDailyIfNecessary(this, false);
     }
 
-
-    String getVersion(){
-        try {
-            return getPackageManager().getPackageInfo("de.benibela.videlibri", 0).versionName ;
-        } catch (PackageManager.NameNotFoundException e) {
-            return "??";
-        }
-    }
-
     static int mainIconCache;
     static int getMainIcon(){
         if (mainIconCache != 0) return mainIconCache;
@@ -144,9 +135,9 @@ public class VideLibriApp extends Application implements Bridge.VideLibriContext
     static Bridge.Account accounts[] = null;
     static int accountUpdateCounter = 0;
 
-    static ArrayList<Bridge.PendingException> errors = new ArrayList<Bridge.PendingException>();
+    static ArrayList<Bridge.PendingException> errors = new ArrayList<>();
 
-    static ArrayList<Bundle> pendingDialogs = new ArrayList<Bundle>();
+    static ArrayList<Bundle> pendingDialogs = new ArrayList<>();
 
     static void addAccount(Bridge.Account acc){
         Bridge.VLAddAccount(acc);
@@ -274,7 +265,6 @@ public class VideLibriApp extends Application implements Bridge.VideLibriContext
         }
         VideLibriApp.errors.addAll(Arrays.asList(exceptions));
 
-        String queries = "";
         for (int i=0;i<exceptions.length;i++){
             Bridge.PendingException ex = exceptions[i];
             if (i != 0) Util.showMessage(ex.accountPrettyNames + ": " + ex.error);

@@ -25,13 +25,13 @@ public class ModernSSLSocketFactory extends SSLSocketFactory {
     }
 
 
-    public ModernSSLSocketFactory () throws NoSuchAlgorithmException, KeyManagementException, KeyStoreException, UnrecoverableKeyException {
+    public ModernSSLSocketFactory () throws NoSuchAlgorithmException, KeyManagementException {
         sslContext.init(null, new TrustManager[]{new X509TrustManagerWithAdditionalKeystores()}, null);
     }
-    public ModernSSLSocketFactory (LazyLoadKeystore keyStore) throws NoSuchAlgorithmException, KeyManagementException, KeyStoreException, UnrecoverableKeyException {
+    public ModernSSLSocketFactory (LazyLoadKeystore keyStore) throws NoSuchAlgorithmException, KeyManagementException {
         sslContext.init(null, new TrustManager[]{new X509TrustManagerWithAdditionalKeystores(keyStore)}, null);
     }
-    public ModernSSLSocketFactory (X509TrustManager trustManager) throws NoSuchAlgorithmException, KeyManagementException, KeyStoreException, UnrecoverableKeyException {
+    public ModernSSLSocketFactory (X509TrustManager trustManager) throws NoSuchAlgorithmException, KeyManagementException {
         sslContext.init(null, new TrustManager[]{trustManager}, null);
     }
 
@@ -56,12 +56,12 @@ public class ModernSSLSocketFactory extends SSLSocketFactory {
     }
 
     @Override
-    public Socket createSocket(String host, int port) throws IOException, UnknownHostException {
+    public Socket createSocket(String host, int port) throws IOException {
         return modernize(baseFactory().createSocket(host, port), host);
     }
 
     @Override
-    public Socket createSocket(String host, int port, InetAddress localHost, int localPort) throws IOException, UnknownHostException {
+    public Socket createSocket(String host, int port, InetAddress localHost, int localPort) throws IOException {
         return modernize(baseFactory().createSocket(host, port, localHost, localPort), host);
     }
 

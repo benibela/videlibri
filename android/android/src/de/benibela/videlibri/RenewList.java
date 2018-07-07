@@ -17,7 +17,7 @@ public class RenewList extends BookListActivity {
         super.onCreate(savedInstanceState);
 
         setTitle(tr(R.string.renew_title_start));
-        selectedBooks = new ArrayList<Bridge.Book>();
+        selectedBooks = new ArrayList<>();
         updateViewFilters();
 
 
@@ -29,7 +29,7 @@ public class RenewList extends BookListActivity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                VideLibriApp.renewBooks((Bridge.Book[]) selectedBooks.toArray(new Bridge.Book[0]));
+                VideLibriApp.renewBooks(selectedBooks.toArray(new Bridge.Book[0]));
                 finish();
             }
         });
@@ -60,7 +60,7 @@ public class RenewList extends BookListActivity {
         bookCache = VideLibri.makePrimaryBookCache(false, true);
         truecount = bookCache.size();
         bookCache = VideLibri.filterToSecondaryBookCache(bookCache, groupingKey, sortingKey, "", null);
-        selectedBooks = new ArrayList<Bridge.Book>(selectedBooks.size());
+        selectedBooks = new ArrayList<>(selectedBooks.size());
         for (Bridge.Book selbook: oldSelection)
             for (Bridge.Book book: bookCache)
                 if (selbook.equalsBook(book)) {

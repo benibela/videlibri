@@ -2,6 +2,7 @@ package de.benibela.videlibri;
 
 import android.graphics.Color;
 import android.graphics.Typeface;
+import android.support.annotation.NonNull;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -29,7 +30,7 @@ class BookOverviewAdapter extends ArrayAdapter<Bridge.Book> {
         NoDetails,
         Grouped,
         ShowRenewCount
-    };
+    }
 
     static class ViewHolder {
         public TextView caption, date, more;
@@ -59,8 +60,9 @@ class BookOverviewAdapter extends ArrayAdapter<Bridge.Book> {
     }
 
 
+    @NonNull
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(int position, View convertView, @NonNull ViewGroup parent) {
         View view = convertView;
         if (view == null){
             LayoutInflater inflater = context.getLayoutInflater();
@@ -74,6 +76,7 @@ class BookOverviewAdapter extends ArrayAdapter<Bridge.Book> {
         }
         ViewHolder holder = (ViewHolder) view.getTag();
         Bridge.Book book = getItem(position);
+        if (book == null) return view;
         boolean isGroupingHeader = options.contains(DisplayEnum.Grouped) && BookFormatter.isGroupingHeaderFakeBook(book);
         holder.caption.setText(BookFormatter.shortened(book.title));
         if (options.contains(DisplayEnum.Grouped)) {

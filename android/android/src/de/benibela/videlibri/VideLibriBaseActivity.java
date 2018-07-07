@@ -1,4 +1,5 @@
 package de.benibela.videlibri;
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -23,6 +24,8 @@ import android.support.design.widget.NavigationView;
 import java.util.ArrayList;
 
 
+
+@SuppressLint("Registered")
 public class VideLibriBaseActivity extends AppCompatActivity implements Bridge.VideLibriContext {
     private static final int REQUESTED_LIBRARY_HOMEPAGE  = 29324;
     private static final int REQUESTED_LIBRARY_CATALOGUE = 29325;
@@ -48,7 +51,7 @@ public class VideLibriBaseActivity extends AppCompatActivity implements Bridge.V
         super.onCreate(savedInstanceState);    //To change body of overridden methods use File | Settings | File Templates.
         Bridge.initialize(this);
         if (savedInstanceState != null) loadingTasks = savedInstanceState.getIntegerArrayList("activeLoadingTasks");
-        if (loadingTasks == null) loadingTasks = new ArrayList<Integer>();
+        if (loadingTasks == null) loadingTasks = new ArrayList<>();
     }
 
     @Override
@@ -64,8 +67,10 @@ public class VideLibriBaseActivity extends AppCompatActivity implements Bridge.V
         if (bar != null) {
             setSupportActionBar(bar);
             ActionBar sbar = getSupportActionBar();
-            sbar.setDisplayHomeAsUpEnabled(true);
-            sbar.setHomeButtonEnabled(true);
+            if (sbar != null) {
+                sbar.setDisplayHomeAsUpEnabled(true);
+                sbar.setHomeButtonEnabled(true);
+            }
         }
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         if (mDrawerLayout != null) {

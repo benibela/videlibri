@@ -12,6 +12,7 @@ import android.graphics.BitmapFactory;
 import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.text.Editable;
@@ -190,12 +191,6 @@ public class VideLibri extends BookListActivity {
                 | (hasAccounts && VideLibriApp.runningUpdates.isEmpty() ? ACTIONBAR_MENU_REFRESH : 0);
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-    }
-
-
     static private int dateToWeek(int pascalDate){
         return (pascalDate - 2) / 7;
     }
@@ -215,27 +210,36 @@ public class VideLibri extends BookListActivity {
                 Util.formatDate(new Date(date.getTime().getTime() + (6 - delta) * 1000 * 60 * 60 * 24 )));
     }
     static public String getKeyValue(Bridge.Book b, String key){
-        if ("_dueWeek".equals(key)) {
-            return getWeekString(b.dueDate);
-        } else if ("_account".equals(key)) {
-            return b.account.prettyName;
-        } else if ("dueDate".equals(key)) {
-            return Util.formatDate(b.dueDate);
-        } else if ("_status".equals(key)) {
-            switch (b.getStatus()) {
-                case Unknown: case Normal: return Util.tr(R.string.book_status_normal);
-                case Problematic: return Util.tr(R.string.book_status_problematic);
-                case Ordered: return Util.tr(R.string.book_status_ordered);
-                case Provided: return Util.tr(R.string.book_status_provided);
-                default: return Util.tr(R.string.book_status_unknown);
-            }
-        } else if ("_issueWeek".equals(key)) {
-            return getWeekString(b.issueDate);
-        } else if ("issueDate".equals(key)) {
-            return Util.formatDate(b.issueDate);
-        } else if ("".equals(key)) {
-            return "";
-        } else return b.getProperty(key);
+        switch (key) {
+            case "_dueWeek":
+                return getWeekString(b.dueDate);
+            case "_account":
+                return b.account.prettyName;
+            case "dueDate":
+                return BookFormatter.formatDate(b.dueDate);
+            case "_status":
+                switch (b.getStatus()) {
+                    case Unknown:
+                    case Normal:
+                        return Util.tr(R.string.book_status_normal);
+                    case Problematic:
+                        return Util.tr(R.string.book_status_problematic);
+                    case Ordered:
+                        return Util.tr(R.string.book_status_ordered);
+                    case Provided:
+                        return Util.tr(R.string.book_status_provided);
+                    default:
+                        return Util.tr(R.string.book_status_unknown);
+                }
+            case "_issueWeek":
+                return getWeekString(b.issueDate);
+            case "issueDate":
+                return BookFormatter.formatDate(b.issueDate);
+            case "":
+                return "";
+            default:
+                return b.getProperty(key);
+        }
     }
     static public int compareForStateMismatch(Bridge.Book book, Bridge.Book book2){
         if (book.history != book2.history) {
@@ -272,39 +276,48 @@ public class VideLibri extends BookListActivity {
     }
     static public int compareForKey(Bridge.Book book, Bridge.Book book2, String key){
         if (book == null || book2 == null) return 0;
-        if ("_dueWeek".equals(key)) {
-            int temp = compareForStateMismatch(book, book2);
-            if (temp != 0 || book.dueDate == null) return temp;
-            return Util.compare(dateToWeek(book.dueDate.pascalDate), dateToWeek(book2.dueDate.pascalDate));
-        } else if ("_account".equals(key)) {
-            int temp = Util.compareNullFirst(book.account, book2.account);
-            if (temp != 0 || book.account == null) return 0;
-            temp = Util.compareNullFirst(book.account.prettyName, book2.account.prettyName);
-            if (temp != 0 || book.account.prettyName == null) return 0;
-            return book.account.prettyName.compareTo(book2.account.prettyName);
-        } else if ("dueDate".equals(key)) {
-            int temp = compareForStateMismatch(book, book2);
-            if (temp != 0 || book.dueDate == null) return temp;
-            return Util.compare(book.dueDate.pascalDate, book2.dueDate.pascalDate);
-        } else if ("_status".equals(key)) {
-            int temp = compareForStateMismatch(book, book2);
-            if (temp != 0) return temp;
-            return compareStatus(book.getStatus(), book2.getStatus());
-        } else if ("_issueWeek".equals(key)) {
-            int temp = compareForStateMismatch(book, book2);
-            if (temp != 0) return temp;
-            temp = Util.compareNullFirst(book.issueDate, book2.issueDate);
-            if (temp != 0 || book.issueDate == null) return temp;
-            return Util.compare(dateToWeek(book.issueDate.pascalDate), dateToWeek(book2.issueDate.pascalDate));
-        } else if ("issueDate".equals(key)) {
-            int temp = compareForStateMismatch(book, book2);
-            if (temp != 0) return temp;
-            temp = Util.compareNullFirst(book.issueDate, book2.issueDate);
-            if (temp != 0 || book.issueDate == null) return temp;
-            return Util.compare(book.issueDate.pascalDate, book2.issueDate.pascalDate);
-        } else if ("".equals(key)) {
-            return 0;
-        } else return book.getProperty(key).compareTo(book2.getProperty(key));
+        switch (key) {
+            case "_dueWeek": {
+                int temp = compareForStateMismatch(book, book2);
+                if (temp != 0 || book.dueDate == null) return temp;
+                return Util.compare(dateToWeek(book.dueDate.pascalDate), dateToWeek(book2.dueDate.pascalDate));
+            }
+            case "_account": {
+                int temp = Util.compareNullFirst(book.account, book2.account);
+                if (temp != 0 || book.account == null) return 0;
+                temp = Util.compareNullFirst(book.account.prettyName, book2.account.prettyName);
+                if (temp != 0 || book.account.prettyName == null) return 0;
+                return book.account.prettyName.compareTo(book2.account.prettyName);
+            }
+            case "dueDate": {
+                int temp = compareForStateMismatch(book, book2);
+                if (temp != 0 || book.dueDate == null) return temp;
+                return Util.compare(book.dueDate.pascalDate, book2.dueDate.pascalDate);
+            }
+            case "_status": {
+                int temp = compareForStateMismatch(book, book2);
+                if (temp != 0) return temp;
+                return compareStatus(book.getStatus(), book2.getStatus());
+            }
+            case "_issueWeek": {
+                int temp = compareForStateMismatch(book, book2);
+                if (temp != 0) return temp;
+                temp = Util.compareNullFirst(book.issueDate, book2.issueDate);
+                if (temp != 0 || book.issueDate == null) return temp;
+                return Util.compare(dateToWeek(book.issueDate.pascalDate), dateToWeek(book2.issueDate.pascalDate));
+            }
+            case "issueDate": {
+                int temp = compareForStateMismatch(book, book2);
+                if (temp != 0) return temp;
+                temp = Util.compareNullFirst(book.issueDate, book2.issueDate);
+                if (temp != 0 || book.issueDate == null) return temp;
+                return Util.compare(book.issueDate.pascalDate, book2.issueDate.pascalDate);
+            }
+            case "":
+                return 0;
+            default:
+                return book.getProperty(key).compareTo(book2.getProperty(key));
+        }
     }
 
     static final ArrayList<Bridge.Book.Pair> crazyHeaderHack = new ArrayList<>();
@@ -478,7 +491,6 @@ public class VideLibri extends BookListActivity {
 
     @Override
     public void onBookActionButtonClicked(final Bridge.Book book) {
-        int action = -1;
         switch (book.getStatus()) {
             case Normal:
                 lastSelectedBookForDialog = book;
@@ -537,6 +549,7 @@ public class VideLibri extends BookListActivity {
 
     public static class ViewOptionsDialog extends android.support.v4.app.DialogFragment implements DialogInterface.OnCancelListener{
         View view;
+        @NonNull
         public Dialog onCreateDialog(Bundle savedInstanceState) {
             AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
             LayoutInflater inflater = getActivity().getLayoutInflater();
@@ -653,16 +666,7 @@ public class VideLibri extends BookListActivity {
                 return true;
             case R.id.paste:
             case R.id.pastereplace:
-                CharSequence text = null;
-                if(android.os.Build.VERSION.SDK_INT < android.os.Build.VERSION_CODES.HONEYCOMB) {
-                    text = ((android.text.ClipboardManager) getSystemService(CLIPBOARD_SERVICE)).getText();
-                } else {
-                    ClipData data = ((android.content.ClipboardManager)getSystemService(CLIPBOARD_SERVICE)).getPrimaryClip();
-                    if (data != null) {
-                        ClipData.Item i = data.getItemAt(0);
-                        if (i != null) text = i.coerceToText(this);
-                    }
-                }
+                CharSequence text = Util.Clipboard.getText(this);
                 if (text != null) {
                     setEditTextText(R.id.searchFilter, (item.getItemId() == R.id.pastereplace ? "" : filterActually) + text);
                 }

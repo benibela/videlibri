@@ -113,8 +113,6 @@ public class LibraryList extends VideLibriBaseActivity {
         LibraryList.this.finish();
     }
 
-    boolean searchMode;
-
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setVideLibriView(R.layout.chooselib);
@@ -122,8 +120,6 @@ public class LibraryList extends VideLibriBaseActivity {
         String reason = getIntent().getStringExtra("reason");
         if (reason != null && !"".equals(reason))
             setTextViewText(R.id.textView, reason);
-
-        searchMode = getIntent().getBooleanExtra("search", false);
 
         createListView();
 

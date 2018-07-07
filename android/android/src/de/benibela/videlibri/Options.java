@@ -163,15 +163,6 @@ public class Options extends VideLibriBaseActivity{
     static final int NEW_ACCOUNT_CREATION_RESULT = 1235;
 
     @Override
-    protected void onResume() {
-        super.onResume();    //To change body of overridden methods use File | Settings | File Templates.
-
-
-
-
-    }
-
-    @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == NEW_ACCOUNT_CREATION_RESULT && resultCode == AccountInfo.RESULT_OK)
             finish();

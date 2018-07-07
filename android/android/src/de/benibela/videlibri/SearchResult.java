@@ -184,10 +184,6 @@ public class SearchResult extends BookListActivity implements Bridge.SearchEvent
 
     }
 
-    public void refreshDetails(){
-        //asa
-    }
-
     public void onOrderConfirm(final Bridge.Book book) {
         //see bookSearchForm.pas
         String question = book.getProperty("orderConfirmation").replace("\\n", "\n");

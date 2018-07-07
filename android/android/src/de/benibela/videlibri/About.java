@@ -43,10 +43,20 @@ public class About extends VideLibriBaseActivity {
         while (parser.next() != XmlPullParser.END_TAG) {
             if (parser.getEventType() != XmlPullParser.START_TAG)
                 continue;
-            if ("add".equals(parser.getName())) curDetails.data = curDetails.data + "\n" + " (+) " + parseText();
-            else if ("change".equals(parser.getName())) curDetails.data = curDetails.data + "\n" + " (*) " + parseText();
-            else if ("fix".equals(parser.getName())) curDetails.data = curDetails.data + "\n" + " (f) " + parseText();
-            else skip();
+            switch (parser.getName()) {
+                case "add":
+                    curDetails.data = curDetails.data + "\n" + " (+) " + parseText();
+                    break;
+                case "change":
+                    curDetails.data = curDetails.data + "\n" + " (*) " + parseText();
+                    break;
+                case "fix":
+                    curDetails.data = curDetails.data + "\n" + " (f) " + parseText();
+                    break;
+                default:
+                    skip();
+                    break;
+            }
         }
     }
 
@@ -82,7 +92,7 @@ public class About extends VideLibriBaseActivity {
         setVideLibriView(R.layout.bookdetails);
         ListView lv = (ListView) findViewById(R.id.bookdetailsview);
 
-        details = new ArrayList<BookDetails.Details>();
+        details = new ArrayList<>();
         parser = Xml.newPullParser();
         try {
             parser.setFeature(XmlPullParser.FEATURE_PROCESS_NAMESPACES, false);

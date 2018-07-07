@@ -2,10 +2,12 @@ package de.benibela.videlibri;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.ClipData;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.res.Resources;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -16,20 +18,13 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.text.DateFormat;
 import java.util.*;
 
-/**
- * Created with IntelliJ IDEA.
- * User: benito
- * Date: 5/28/13
- * Time: 2:07 PM
- * To change this template use File | Settings | File Templates.
- */
-interface MessageHandler{
-    void onDialogEnd(DialogInterface dialogInterface, int i);
-}
+import static android.content.Context.CLIPBOARD_SERVICE;
+
 public class Util {
     static int MessageHandlerCanceled = -123;
     static public String tr(int id){
@@ -79,7 +74,7 @@ public class Util {
         return new String[]{};
     }
 
-    static public interface ViewIterator{
+    public interface ViewIterator{
         void visit(View v);
     }
     static public void iterateChildViews(View view, ViewIterator iterator){
@@ -101,6 +96,7 @@ public class Util {
 
     public static class DialogFragmentUtil extends DialogFragment implements DialogInterface.OnClickListener, DialogInterface.OnCancelListener{
 
+        @NonNull
         @Override
         public Dialog onCreateDialog(Bundle savedInstanceState) {
             Bundle args = getArguments();
@@ -129,8 +125,9 @@ public class Util {
                     //((TextView) v.findViewById(R.id.textView)).setText(message);
                     ListView lv = (ListView) v.findViewById(R.id.listView);
                     lv.setAdapter(new ArrayAdapter<String>(getActivity(), R.layout.bookoverview, R.id.bookoverviewCaption, items) {
+                                      @NonNull
                                       @Override
-                                      public View getView(int position, View convertView, ViewGroup parent) {
+                                      public View getView(int position, View convertView, @NonNull ViewGroup parent) {
                                           View res = super.getView(position, convertView, parent);
                                           if (res != null) {
                                               res.findViewById(R.id.bookoverviewDate).setVisibility(View.GONE);
@@ -264,25 +261,12 @@ public class Util {
     public static String formatDate(Date date){
         if (date == null) return "";
         if (dateFormat != null) return dateFormat.format(date);
-        if (dateFormat == null && VideLibriApp.currentContext() != null)
+        if (VideLibriApp.currentContext() != null)
             dateFormat = android.text.format.DateFormat.getDateFormat(VideLibriApp.currentContext());
         if (dateFormat != null) return dateFormat.format(date);
         return date.getYear()+"-"+date.getMonth()+"-"+date.getDay();
     }
 
-    public static String formatDate(Bridge.SimpleDate date){
-        if (date == null) return tr(R.string.unknown_date);
-        if (Bridge.currentPascalDate > 0 && VideLibriApp.currentContext() != null) {
-            switch (date.pascalDate - Bridge.currentPascalDate) {
-                case -2: return tr(R.string.daybeforeyesterday);
-                case -1: return tr(R.string.yesterday);
-                case 0: return tr(R.string.today);
-                case 1: return tr(R.string.tomorrow);
-                case 2: return tr(R.string.dayaftertomorrow);
-            }
-        }
-        return formatDate(date.getTime());
-    }
 
     public static int compare(int a, int b) {
         if (a < b) return -1;
@@ -296,5 +280,40 @@ public class Util {
     }
     public static int   compareNullFirst(Object a, Object b) {
         return compare(a != null, b != null);
+    }
+
+
+
+    static class Clipboard{
+        static CharSequence getText(Context context){
+            if(android.os.Build.VERSION.SDK_INT < android.os.Build.VERSION_CODES.HONEYCOMB) {
+                android.text.ClipboardManager cm = ((android.text.ClipboardManager) context.getSystemService(CLIPBOARD_SERVICE));
+                if (cm == null) return null;
+                return cm.getText();
+            } else {
+                android.content.ClipboardManager cm = ((android.content.ClipboardManager)context.getSystemService(CLIPBOARD_SERVICE));
+                if (cm == null) return null;
+                ClipData data = cm.getPrimaryClip();
+                if (data == null) return null;
+                ClipData.Item i = data.getItemAt(0);
+                if (i == null) return null;
+                return i.coerceToText(context);
+            }
+        }
+        static void setText(Context context, CharSequence toCopy){
+            if(android.os.Build.VERSION.SDK_INT < android.os.Build.VERSION_CODES.HONEYCOMB) {
+                android.text.ClipboardManager clipboard = (android.text.ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);
+                if (clipboard == null) return;
+                clipboard.setText(toCopy);
+            } else {
+                android.content.ClipboardManager clipboard = (android.content.ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);
+                if (clipboard == null) return;
+                android.content.ClipData clip = android.content.ClipData.newPlainText("Book details", toCopy);
+                if (clip == null) return;
+                clipboard.setPrimaryClip(clip);
+            }
+            Toast.makeText(context, tr(R.string.clipboard_copiedS, toCopy), Toast.LENGTH_SHORT).show();
+
+        }
     }
 }

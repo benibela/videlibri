@@ -73,7 +73,7 @@ public class AccountInfo extends VideLibriBaseActivity {
             setActiveLibrary(LibraryList.lastSelectedLibId, LibraryList.lastSelectedLibShortName);
 
 
-        if (mode != MODE_ACCOUNT_MODIFY || accountPrettyName.equals(accountId + " "+libshortname) )
+        if (mode != MODE_ACCOUNT_MODIFY || (accountId + " "+libshortname).equals(accountPrettyName.getText().toString()) )
             accountId.addTextChangedListener(new EmptyTextWatcher() {
                 @Override
                 public void afterTextChanged(Editable editable) {
@@ -84,7 +84,7 @@ public class AccountInfo extends VideLibriBaseActivity {
         ((CheckBox) findViewById(R.id.autoExtendButton)).setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                ((EditText) findViewById(R.id.autoExtendDaysEdit)).setEnabled(b);
+                findViewById(R.id.autoExtendDaysEdit).setEnabled(b);
             }
         });
 

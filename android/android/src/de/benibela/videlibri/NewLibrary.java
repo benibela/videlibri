@@ -19,7 +19,7 @@ public class NewLibrary extends VideLibriBaseActivity{
     Bridge.LibraryDetails details;
 
 
-    HashMap<String, Pair<String, EditText>> variables = new HashMap<String, Pair<String, EditText>>();
+    HashMap<String, Pair<String, EditText>> variables = new HashMap<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,7 +37,7 @@ public class NewLibrary extends VideLibriBaseActivity{
 
         final String [] templates = Bridge.VLGetTemplates();
         final Spinner templatesSpinner = (Spinner) findViewById(R.id.template);
-        ArrayAdapter<String> adapter = new ArrayAdapter(this, android.R.layout.simple_spinner_item, templates);
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, templates);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         templatesSpinner.setAdapter(adapter);
 
@@ -92,7 +92,7 @@ spinner.setAdapter(adapter);*/
                     for (int i=sublocs; i < 4;i++) newId = "-_" + newId;
 
                     details.prettyName = getTextViewText(R.id.name);
-                    if (newId != id) Bridge.VLSetLibraryDetails(id, null);
+                    if (!Util.equalStrings(newId, id)) Bridge.VLSetLibraryDetails(id, null);
 
                     Bridge.VLSetLibraryDetails(newId, details);
                     finish();
@@ -156,7 +156,7 @@ spinner.setAdapter(adapter);*/
         if (value == null) value = "";
         edit.setText(value);
         linearLayout.addView(option);
-        variables.put(name, new Pair<String, EditText>(value, edit));
+        variables.put(name, new Pair<>(value, edit));
         return edit;
     }
 
@@ -165,9 +165,9 @@ spinner.setAdapter(adapter);*/
         if (details == null) return;
 
         HashMap<String, Pair<String, EditText>> oldVariables = variables;
-        variables = new HashMap<String, Pair<String, EditText>>();
+        variables = new HashMap<>();
 
-        HashMap<String, String> oldValues = new HashMap<String, String>();
+        HashMap<String, String> oldValues = new HashMap<>();
 
         for (Map.Entry<String, Pair<String, EditText>> e: oldVariables.entrySet() )
             if (e.getValue().second == null) oldValues.put(e.getKey(), e.getValue().first);

@@ -17,7 +17,6 @@ import android.text.Spanned;
 import android.text.style.LeadingMarginSpan;
 import android.text.style.ReplacementSpan;
 import android.text.style.StyleSpan;
-import android.text.style.TypefaceSpan;
 import android.text.util.Linkify;
 import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
@@ -65,7 +64,6 @@ public class BookDetails extends VideLibriFakeFragment {
         }
     }
 
-    static BitmapFactory.Options bitmapOpts = new BitmapFactory.Options();
     static private DisplayMetrics displayMetrics;
 
     static class BookDetailsAdapter extends BaseAdapter{
@@ -144,7 +142,7 @@ public class BookDetails extends VideLibriFakeFragment {
             View view = convertView;
             int type = getItemViewType(position);
             if (view == null){
-                ViewHolder viewHolder = null;
+                ViewHolder viewHolder;
                 LayoutInflater inflater = context.getLayoutInflater();
                 switch (type) {
                     case VIEW_HOLDING_VALUE:
@@ -231,7 +229,7 @@ public class BookDetails extends VideLibriFakeFragment {
         }
     }
 
-    ArrayList<Details> details = new ArrayList<Details>();
+    ArrayList<Details> details = new ArrayList<>();
     void addIfExists(String displayName, String propertyName){
         String value = book.getProperty(propertyName);
         if (value == null || "".equals(value)) return;
@@ -279,13 +277,13 @@ public class BookDetails extends VideLibriFakeFragment {
         trDueDate = tr(R.string.book_duedate);
 
         if ((!searchedBook && !book.history) || book.dueDate != null)
-            details.add(new Details(book.hasOrderedStatus() ? tr(R.string.book_duedate_order) : trDueDate, Util.formatDate(book.dueDate)));
+            details.add(new Details(book.hasOrderedStatus() ? tr(R.string.book_duedate_order) : trDueDate, BookFormatter.formatDate(book.dueDate)));
 
         String status = BookFormatter.getStatusText(book);
         if (!"".equals(status)) details.add(new Details(trStatus, status));
 
         if (book.issueDate != null)
-          details.add(new Details(tr(R.string.book_lenddate), Util.formatDate(book.issueDate)));
+          details.add(new Details(tr(R.string.book_lenddate), BookFormatter.formatDate(book.issueDate)));
         addIfExists(tr(R.string.book_lendat) , "libraryBranch");
         if (book.account != null) details.add(new Details(tr(R.string.book_account), book.account.prettyName));
 
@@ -419,7 +417,7 @@ public class BookDetails extends VideLibriFakeFragment {
                     builder.addPair(pair.first.substring(0,pair.first.length()-1), pair.second );
             }
             if (builder.holding.dueDate != null)
-                builder.addPair(trDueDate, Util.formatDate(builder.holding.dueDate));
+                builder.addPair(trDueDate, BookFormatter.formatDate(builder.holding.dueDate));
 
 
 
@@ -433,7 +431,7 @@ public class BookDetails extends VideLibriFakeFragment {
         if (v == null) return null;
         ListView lv = (ListView) v;
         return (BookDetailsAdapter) lv.getAdapter();
-    };
+    }
     protected BookDetailsAdapter getAdapter() {
         return getAdapter(findViewById(R.id.bookdetailsview));
     }

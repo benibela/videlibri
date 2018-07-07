@@ -9,7 +9,7 @@ class BookFormatter {
     static String tr_booklist_from = "from", tr_provided = "provided", tr_ordered = "ordered";
 
     static int getStatusColor(Bridge.Book book){
-        int c = Color.GREEN;
+        int c;
         if (book.history) c = -1;
         else if ((book.account != null || book.more == VideLibri.crazyHeaderHack)
                 && book.dueDate != null && book.dueDate.pascalDate - Bridge.currentPascalDate <= 3)
@@ -61,7 +61,7 @@ class BookFormatter {
                 case Provided:  return tr_provided;
                 case Ordered:  return tr_ordered;
                 default:
-                    String t = Util.formatDate(book.dueDate);
+                    String t = formatDate(book.dueDate);
                     if (options.contains(BookOverviewAdapter.DisplayEnum.ShowRenewCount)) {
                         String renewCount = book.getProperty("renewCount");
                         if (!"".equals(renewCount) && !"0".equals(renewCount)) t = renewCount + "V " + t;
@@ -92,4 +92,19 @@ class BookFormatter {
             }
         return status;
     }
+
+    public static String formatDate(Bridge.SimpleDate date){
+        if (date == null) return Util.tr(R.string.unknown_date);
+        if (Bridge.currentPascalDate > 0 && VideLibriApp.currentContext() != null) {
+            switch (date.pascalDate - Bridge.currentPascalDate) {
+                case -2: return Util.tr(R.string.daybeforeyesterday);
+                case -1: return Util.tr(R.string.yesterday);
+                case 0: return Util.tr(R.string.today);
+                case 1: return Util.tr(R.string.tomorrow);
+                case 2: return Util.tr(R.string.dayaftertomorrow);
+            }
+        }
+        return Util.formatDate(date.getTime());
+    }
+
 }

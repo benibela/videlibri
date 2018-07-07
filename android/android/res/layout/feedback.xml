@@ -105,6 +105,7 @@
             android:textStyle="bold" />
 
         <TextView
+            android:focusable="true"
             android:clickable="true"
             android:gravity="center"
             android:id="@+id/textViewMail"
