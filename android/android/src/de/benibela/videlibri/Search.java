@@ -14,7 +14,15 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-public class Search extends VideLibriBaseActivity implements Bridge.SearchEventHandler{
+import de.benibela.videlibri.jni.Bridge;
+
+interface SearchEventHandler {
+    boolean onSearchEvent(Bridge.SearchEvent event);
+}
+
+public class Search extends VideLibriBaseActivity implements SearchEventHandler{
+
+
     static final int REQUEST_CHOOSE_LIBRARY = 1234;
     static ArrayList< Bridge.SearcherAccess> searchers = new ArrayList<>();
 
@@ -135,7 +143,7 @@ public class Search extends VideLibriBaseActivity implements Bridge.SearchEventH
         obtainSearcher();
         if (searcher != null && searcher.nativePtr != 0) {
             for (Bridge.SearchEvent event: searcher.pendingEvents)
-                onSearchEvent(searcher, event);
+                onSearchEvent(event);
         }
         if (searcher != null){
             if (searcher.pendingEvents != null)
@@ -203,16 +211,16 @@ public class Search extends VideLibriBaseActivity implements Bridge.SearchEventH
     }
 
     @Override
-    public boolean onSearchEvent(Bridge.SearcherAccess access, Bridge.SearchEvent event) {
-        if (debugTester != null && debugTester.onSearchEvent(access, event)) return true;
-        if (access != searcher) return false;
+    public boolean onSearchEvent(Bridge.SearchEvent event) {
+        if (debugTester != null && debugTester.onSearchEvent(event)) return true;
+        if (event.searcherAccess != searcher) return false;
         switch (event.kind) {
             case CONNECTED:
                 endLoadingAll(LOADING_SEARCH_CONNECTING);
                 searcher.heartBeat = System.currentTimeMillis();
-                access.state = SEARCHER_STATE_CONNECTED;
-                access.homeBranches = (String[])event.obj1;
-                access.searchBranches = (String[])event.obj2;
+                event.searcherAccess.state = SEARCHER_STATE_CONNECTED;
+                event.searcherAccess.homeBranches = (String[])event.obj1;
+                event.searcherAccess.searchBranches = (String[])event.obj2;
                 setBranchViewes();
                 return true;
             case EXCEPTION:
@@ -253,8 +261,8 @@ public class Search extends VideLibriBaseActivity implements Bridge.SearchEventH
                 s.beginLoading(LOADING_SEARCH_SEARCHING);
             }
         }
-        boolean onSearchEvent(Bridge.SearcherAccess access, Bridge.SearchEvent event) {
-            if (access != searcher) return false;
+        boolean onSearchEvent(Bridge.SearchEvent event) {
+            if (event.searcherAccess != searcher) return false;
             switch (event.kind) {
                 case CONNECTED:
                     searcher.start(query, -1, -1);
@@ -276,7 +284,7 @@ public class Search extends VideLibriBaseActivity implements Bridge.SearchEventH
                      VideLibriApp.showPendingExceptions();
                      break;
             }
-            return access == searcher;
+            return true;
         }
 
         private void endComplete(){

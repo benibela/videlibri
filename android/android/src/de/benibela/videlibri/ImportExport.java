@@ -458,6 +458,7 @@ public class ImportExport extends VideLibriBaseActivity {
     //https://stackoverflow.com/questions/1109022/close-hide-the-android-soft-keyboard
     public static void hideKeyboard(Activity activity) {
         InputMethodManager imm = (InputMethodManager) activity.getSystemService(Activity.INPUT_METHOD_SERVICE);
+        if (imm == null) return;
         View view = activity.getCurrentFocus();
         if (view == null) {
             view = new View(activity);

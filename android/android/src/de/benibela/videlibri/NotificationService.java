@@ -122,7 +122,9 @@ public class NotificationService extends Service implements Bridge.VideLibriCont
     }
 
     static void cancelNotification(Context context) {
-        ((NotificationManager)context.getSystemService(NOTIFICATION_SERVICE)).cancel(NOTIFICATION_ID);
+        NotificationManager nm = ((NotificationManager)context.getSystemService(NOTIFICATION_SERVICE));
+        if (nm == null) return;
+        nm.cancel(NOTIFICATION_ID);
         lastNotificationTime = 0;
     }
 
@@ -161,7 +163,9 @@ public class NotificationService extends Service implements Bridge.VideLibriCont
         //notification.setLatestEventInfo(this, getText(R.string.local_service_label),text, contentIntent);
 
         // Send the notification.
-        ((NotificationManager)context.getSystemService(NOTIFICATION_SERVICE)).notify(NOTIFICATION_ID, mBuilder.build());
+        NotificationManager nm = ((NotificationManager)context.getSystemService(NOTIFICATION_SERVICE));
+        if (nm == null) return;
+        nm.notify(NOTIFICATION_ID, mBuilder.build());
     }
 
 
@@ -179,13 +183,15 @@ public class NotificationService extends Service implements Bridge.VideLibriCont
     static private void sheduleDailyCheck(Context context){
         //if (getBroadcast(context, NOTIFICATION_CHECK_DAILY, PendingIntent.FLAG_NO_CREATE) != null)
         //    return; could check for existing pending, but said not to work with force stop http://luboganev.github.io/post/alarms-pending-intent/
-        ((AlarmManager) context.getSystemService(Context.ALARM_SERVICE))
-                .setInexactRepeating(AlarmManager.RTC, System.currentTimeMillis() + AlarmManager.INTERVAL_DAY, AlarmManager.INTERVAL_DAY, getBroadcast(context, NOTIFICATION_CHECK_DAILY));
+        AlarmManager am = ((AlarmManager) context.getSystemService(Context.ALARM_SERVICE));
+        if (am == null) return;
+        am.setInexactRepeating(AlarmManager.RTC, System.currentTimeMillis() + AlarmManager.INTERVAL_DAY, AlarmManager.INTERVAL_DAY, getBroadcast(context, NOTIFICATION_CHECK_DAILY));
     }
 
     static private void sheduleQuickCheck(Context context, int delay) {
-        ((AlarmManager) context.getSystemService(Context.ALARM_SERVICE))
-                .set(AlarmManager.RTC, System.currentTimeMillis() + delay, getBroadcast(context, NOTIFICATION_CHECK_SOON));
+        AlarmManager am = ((AlarmManager) context.getSystemService(Context.ALARM_SERVICE));
+        if (am == null) return;
+        am.set(AlarmManager.RTC, System.currentTimeMillis() + delay, getBroadcast(context, NOTIFICATION_CHECK_SOON));
     }
 
 

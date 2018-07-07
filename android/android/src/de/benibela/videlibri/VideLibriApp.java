@@ -80,10 +80,14 @@ public class VideLibriApp extends Application implements Bridge.VideLibriContext
                 NotificationService.updateNotification(currentActivity);
                 showPendingExceptions();
                 if (updateWakeLock != null) {
-                    System.gc(); //some devices crash when sleep starts during gc run
-                    updateWakeLock.release();
-                    updateWakeLock = null;
-                    Log.i("VideLibri", "Released wakelock");
+                    if (updateWakeLock.isHeld()) {
+                        System.gc(); //some devices crash when sleep starts during gc run
+                        updateWakeLock.release();
+                        updateWakeLock = null;
+                        Log.i("VideLibri", "Released wakelock");
+                    } else
+                        Log.i("VideLibri", "Released wakelock (timeout)");
+
                 }
             }
         };
@@ -201,8 +205,10 @@ public class VideLibriApp extends Application implements Bridge.VideLibriContext
             if (accounts == null) refreshAccountList();
             if (updateWakeLock == null && currentContext() != null) {
                 PowerManager pm = (PowerManager)currentContext().getSystemService(Context.POWER_SERVICE);
-                updateWakeLock = pm.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "updateLock");
-                updateWakeLock.acquire();
+                if (pm != null) {
+                    updateWakeLock = pm.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "updateLock");
+                    updateWakeLock.acquire(10*60*1000);
+                }
                 Log.i("VideLibri", "Acquired wakelock");
             }
             for (Bridge.Account a: accounts)
