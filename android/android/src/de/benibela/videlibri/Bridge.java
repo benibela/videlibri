@@ -497,18 +497,10 @@ public class Bridge {
     static public void initialize(VideLibriContext context){
         if (initialized) return;
         initialized = true;
-        try
-        {
-            Log.i("Videlibri", "Trying to load liblclapp.so");
-            System.loadLibrary("lclapp");
-            Log.i("Videlibri", "Initializing Windows VM and Pascal layer");
-            VLInit(context);
-            Bridge.globalOptions = Bridge.VLGetOptions();
-        }
-        catch(UnsatisfiedLinkError ule)
-        {
-            Log.e("Videlibri", "WARNING: Could not load liblclapp.so: " + ule.getMessage());
-            ule.printStackTrace();
-        }
+        Log.i("Videlibri", "Trying to load liblclapp.so");
+        System.loadLibrary("lclapp");
+        Log.i("Videlibri", "Initializing Windows VM and Pascal layer");
+        VLInit(context);
+        Bridge.globalOptions = Bridge.VLGetOptions();
     }
 }
