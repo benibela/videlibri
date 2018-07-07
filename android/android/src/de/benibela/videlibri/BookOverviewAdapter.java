@@ -9,12 +9,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
-import de.benibela.videlibri.BookListActivity;
-import de.benibela.videlibri.Bridge;
-import de.benibela.videlibri.R;
-
 import java.util.ArrayList;
 import java.util.EnumSet;
+
+import de.benibela.videlibri.jni.Bridge;
 
 class BookOverviewAdapter extends ArrayAdapter<Bridge.Book> {
     private final BookListActivity context;

@@ -13,6 +13,8 @@ import android.support.v4.app.NotificationCompat;
 import android.os.Binder;
 import android.os.IBinder;
 
+import de.benibela.videlibri.jni.Bridge;
+
 public class NotificationService extends Service implements Bridge.VideLibriContext{
     // Unique Identification Number for the Notification.
     // We use it on Notification start, and to cancel it.

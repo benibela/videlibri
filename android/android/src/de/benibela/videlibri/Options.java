@@ -15,6 +15,8 @@ import android.widget.Checkable;
 import android.widget.CompoundButton;
 import android.widget.Spinner;
 
+import de.benibela.videlibri.jni.Bridge;
+
 
 public class Options extends VideLibriBaseActivity{
 

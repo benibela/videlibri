@@ -23,6 +23,7 @@ import android.support.design.widget.NavigationView;
 
 import java.util.ArrayList;
 
+import de.benibela.videlibri.jni.Bridge;
 
 
 @SuppressLint("Registered")

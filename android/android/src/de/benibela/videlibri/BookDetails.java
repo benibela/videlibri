@@ -27,6 +27,8 @@ import android.widget.*;
 import java.io.InputStream;
 import java.util.*;
 
+import de.benibela.videlibri.jni.Bridge;
+
 public class BookDetails extends VideLibriFakeFragment {
     Bridge.Book book;
 

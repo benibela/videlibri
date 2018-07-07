@@ -21,6 +21,7 @@ import java.util.List;
 
 import de.benibela.internettools.LazyLoadKeystore;
 import de.benibela.internettools.X509TrustManagerWithAdditionalKeystores;
+import de.benibela.videlibri.jni.Bridge;
 
 import static org.acra.ReportField.*;
 
@@ -63,7 +64,7 @@ public class VideLibriApp extends Application implements Bridge.VideLibriContext
         //ACRA.getErrorReporter().putCustomData("app", "VideLibri");
         //ACRA.getErrorReporter().putCustomData("ver", getVersion()+" (android)");
 
-        allThreadsDoneHandler = new Handler(){
+        Bridge.allThreadsDoneHandler = new Handler(){
             @Override
             public void handleMessage(Message msg) {
                 mainIconCache = 0;
@@ -87,7 +88,7 @@ public class VideLibriApp extends Application implements Bridge.VideLibriContext
             }
         };
 
-        installationDoneHandler = new Handler(){
+        Bridge.installationDoneHandler = new Handler(){
             @Override
             public void handleMessage(Message msg) {
                 if (currentActivity instanceof NewLibrary)
@@ -98,6 +99,19 @@ public class VideLibriApp extends Application implements Bridge.VideLibriContext
                 Util.showMessage(DialogId.INSTALLATION_DONE, Util.tr(status == 1 ? R.string.app_libregistered : R.string.app_libregisterfailed), more);
              }
         };
+
+        Bridge.searchEventHandler = new Handler(){
+            @Override
+            public void handleMessage(Message msg) {
+                Bridge.SearchEvent event = (Bridge.SearchEvent)(msg.obj);
+                if (VideLibriApp.currentActivity instanceof SearchEventHandler) {
+                    SearchEventHandler handleAct = (SearchEventHandler) VideLibriApp.currentActivity;
+                    if (handleAct.onSearchEvent(event)) return;
+                }
+                event.searcherAccess.pendingEvents.add(event);
+            }
+        };
+
 
         if (ACRA.isACRASenderServiceProcess()) return;
 
@@ -179,9 +193,8 @@ public class VideLibriApp extends Application implements Bridge.VideLibriContext
     }
 
 
-    static List<Bridge.Account> runningUpdates = new ArrayList<Bridge.Account>();
-    static Handler allThreadsDoneHandler, installationDoneHandler;
-    static int bookUpdateCounter = 1;
+    static List<Bridge.Account> runningUpdates = new ArrayList<>();
+
     static PowerManager.WakeLock updateWakeLock;
     static public void updateAccount(Bridge.Account acc, final boolean autoUpdate, final boolean forceExtend){
         if (acc == null ) {

@@ -9,6 +9,8 @@ import android.text.TextWatcher;
 import android.view.View;
 import android.widget.*;
 
+import de.benibela.videlibri.jni.Bridge;
+
 class EmptyTextWatcher implements TextWatcher{
     @Override
     public void beforeTextChanged(CharSequence charSequence, int i, int i2, int i3) {}

@@ -12,6 +12,9 @@ import android.widget.*;
 import java.util.ArrayList;
 import java.util.EnumSet;
 
+import de.benibela.videlibri.jni.Bridge;
+
+@SuppressLint("Registered")
 public class BookListActivity extends VideLibriBaseActivity{
     boolean port_mode;
 

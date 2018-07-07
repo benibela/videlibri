@@ -32,6 +32,8 @@ import android.widget.Toast;
 import java.io.File;
 import java.util.ArrayList;
 
+import de.benibela.videlibri.jni.Bridge;
+
 public class ImportExport extends VideLibriBaseActivity {
 
     //https://stackoverflow.com/a/22751867

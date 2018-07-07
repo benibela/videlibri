@@ -10,6 +10,8 @@ import android.widget.*;
 import java.util.HashMap;
 import java.util.Map;
 
+import de.benibela.videlibri.jni.Bridge;
+
 public class NewLibrary extends VideLibriBaseActivity{
 
 

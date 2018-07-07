@@ -11,6 +11,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 
+import de.benibela.videlibri.jni.Bridge;
+
 /**
  * Created with IntelliJ IDEA.
  * User: benito

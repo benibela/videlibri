@@ -5,6 +5,8 @@ import android.graphics.Color;
 
 import java.util.EnumSet;
 
+import de.benibela.videlibri.jni.Bridge;
+
 class BookFormatter {
     static String tr_booklist_from = "from", tr_provided = "provided", tr_ordered = "ordered";
 

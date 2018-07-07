@@ -36,6 +36,8 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
 
+import de.benibela.videlibri.jni.Bridge;
+
 
 public class VideLibri extends BookListActivity {
     public VideLibri(){

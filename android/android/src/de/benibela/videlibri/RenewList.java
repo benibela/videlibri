@@ -9,6 +9,8 @@ import android.widget.ListView;
 
 import java.util.ArrayList;
 
+import de.benibela.videlibri.jni.Bridge;
+
 public class RenewList extends BookListActivity {
     public Button button;
 

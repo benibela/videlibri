@@ -232,15 +232,15 @@ begin
   try
     okhttpinternetaccess.onBuildCallback := @tempOkHttpBuild.onBuild;
 
-    videlibriContextInterface :=  j.newGlobalRefAndDelete(j.getclass('de/benibela/videlibri/Bridge$VideLibriContext'));
+    videlibriContextInterface :=  j.newGlobalRefAndDelete(j.getclass('de/benibela/videlibri/jni/Bridge$VideLibriContext'));
     jContextObject := needj.env^^.NewGlobalRef(j.env, videlibri);
     videLibriContextMethodUserPath := j.getmethod(videlibriContextInterface, 'userPath', '()Ljava/lang/String;');
 
-    bridgeClass := j.newGlobalRefAndDelete(j.getclass('de/benibela/videlibri/Bridge'));
+    bridgeClass := j.newGlobalRefAndDelete(j.getclass('de/benibela/videlibri/jni/Bridge'));
     bridgeCallbackMethods.VLAllThreadsDone := j.getstaticmethod(bridgeClass, 'allThreadsDone', '()V');
     bridgeCallbackMethods.VLInstallationDone := j.getstaticmethod(bridgeClass, 'installationDone', '(I)V');
 
-    accountClass := j.newGlobalRefAndDelete(j.getclass('de/benibela/videlibri/Bridge$Account'));
+    accountClass := j.newGlobalRefAndDelete(j.getclass('de/benibela/videlibri/jni/Bridge$Account'));
     accountClassInit := j.getmethod(accountClass, '<init>', '()V');
     with accountFields  do begin
       LibIdS := j.getfield(accountClass, 'libId', 'Ljava/lang/String;');
@@ -254,27 +254,27 @@ begin
   //    internalIdMethod := j.getmethod(accountClass, 'internalId', '()Ljava/lang/String;');
     end;
 
-    bookClass := j.newGlobalRefAndDelete(j.getclass('de/benibela/videlibri/Bridge$Book'));
+    bookClass := j.newGlobalRefAndDelete(j.getclass('de/benibela/videlibri/jni/Bridge$Book'));
     bookClassInit := j.getmethod(bookClass, '<init>', '()V');
     with bookFields do begin
       authorS := j.getfield(bookClass, 'author', 'Ljava/lang/String;');
       titleS := j.getfield(bookClass, 'title', 'Ljava/lang/String;');
-      issueDateGC := j.getfield(bookClass, 'issueDate', 'Lde/benibela/videlibri/Bridge$SimpleDate;');
-      dueDateGC := j.getfield(bookClass, 'dueDate', 'Lde/benibela/videlibri/Bridge$SimpleDate;');
-      accountL := j.getfield(bookClass, 'account', 'Lde/benibela/videlibri/Bridge$Account;');
+      issueDateGC := j.getfield(bookClass, 'issueDate', 'Lde/benibela/videlibri/jni/Bridge$SimpleDate;');
+      dueDateGC := j.getfield(bookClass, 'dueDate', 'Lde/benibela/videlibri/jni/Bridge$SimpleDate;');
+      accountL := j.getfield(bookClass, 'account', 'Lde/benibela/videlibri/jni/Bridge$Account;');
       historyZ := j.getfield(bookClass, 'history', 'Z');
-      holdingsL := j.getfield(bookClass, 'holdings', '[Lde/benibela/videlibri/Bridge$Book;');
+      holdingsL := j.getfield(bookClass, 'holdings', '[Lde/benibela/videlibri/jni/Bridge$Book;');
       setPropertyMethod := j.getmethod(bookClass, 'setProperty', '(Ljava/lang/String;Ljava/lang/String;)V');
       getPropertyMethod := j.getmethod(bookClass, 'getProperty', '(Ljava/lang/String;)Ljava/lang/String;');
       statusI := j.getfield(bookClass, 'status', 'I');
     end;
 
 
-    simpleDateClass := j.newGlobalRefAndDelete(j.getclass('de/benibela/videlibri/Bridge$SimpleDate'));
+    simpleDateClass := j.newGlobalRefAndDelete(j.getclass('de/benibela/videlibri/jni/Bridge$SimpleDate'));
     simpleDateClassInit := j.getmethod(simpleDateClass, '<init>', '(IIII)V');
     simpleDateFields.pascalDateI := j.getfield(simpleDateClass, 'pascalDate', 'I');
 
-    searcherClass := j.newGlobalRefAndDelete(j.getclass('de/benibela/videlibri/Bridge$SearcherAccess'));
+    searcherClass := j.newGlobalRefAndDelete(j.getclass('de/benibela/videlibri/jni/Bridge$SearcherAccess'));
     with searcherFields do begin
       nativePtrJ := j.getfield(searcherClass, 'nativePtr', 'J');
       totalResultCountI := j.getfield(searcherClass, 'totalResultCount', 'I');
@@ -283,17 +283,17 @@ begin
       searchBranchesL := j.getfield(searcherClass, 'searchBranches', '[Ljava/lang/String;');
     end;
     searcherOnConnected := j.getmethod(searcherClass, 'onConnected', '([Ljava/lang/String;[Ljava/lang/String;)V');
-    searcherOnSearchFirstPageComplete := j.getmethod(searcherClass, 'onSearchFirstPageComplete', '([Lde/benibela/videlibri/Bridge$Book;)V');
-    searcherOnSearchNextPageComplete := j.getmethod(searcherClass, 'onSearchNextPageComplete', '([Lde/benibela/videlibri/Bridge$Book;)V');
-    searcherOnSearchDetailsComplete := j.getmethod(searcherClass, 'onSearchDetailsComplete', '(Lde/benibela/videlibri/Bridge$Book;)V');
-    searcherOnOrderComplete := j.getmethod(searcherClass, 'onOrderComplete', '(Lde/benibela/videlibri/Bridge$Book;)V');
-    searcherOnOrderConfirm := j.getmethod(searcherClass, 'onOrderConfirm', '(Lde/benibela/videlibri/Bridge$Book;)V');
+    searcherOnSearchFirstPageComplete := j.getmethod(searcherClass, 'onSearchFirstPageComplete', '([Lde/benibela/videlibri/jni/Bridge$Book;)V');
+    searcherOnSearchNextPageComplete := j.getmethod(searcherClass, 'onSearchNextPageComplete', '([Lde/benibela/videlibri/jni/Bridge$Book;)V');
+    searcherOnSearchDetailsComplete := j.getmethod(searcherClass, 'onSearchDetailsComplete', '(Lde/benibela/videlibri/jni/Bridge$Book;)V');
+    searcherOnOrderComplete := j.getmethod(searcherClass, 'onOrderComplete', '(Lde/benibela/videlibri/jni/Bridge$Book;)V');
+    searcherOnOrderConfirm := j.getmethod(searcherClass, 'onOrderConfirm', '(Lde/benibela/videlibri/jni/Bridge$Book;)V');
     searcherOnTakePendingMessage := j.getmethod(searcherClass, 'onTakePendingMessage', '(ILjava/lang/String;[Ljava/lang/String;)V');
     searcherOnPendingMessageCompleted := j.getmethod(searcherClass, 'onPendingMessageCompleted', '()V');
     searcherOnException := j.getmethod(searcherClass, 'onException', '()V');
 
 
-    importExportDataClass := j.newGlobalRefAndDelete(j.getclass('de/benibela/videlibri/Bridge$ImportExportData'));
+    importExportDataClass := j.newGlobalRefAndDelete(j.getclass('de/benibela/videlibri/jni/Bridge$ImportExportData'));
     importExportDataClassInit := j.getmethod(importExportDataClass, '<init>', '()V');
     importExportDataFields.nativePtrJ := j.getfield(importExportDataClass, 'nativePtr', 'J');
     importExportDataFields.flagsI := j.getfield(importExportDataClass, 'flags', 'I');
@@ -307,7 +307,7 @@ begin
 
  // bbdebugtools.OnLog := TStringNotifyEvent(procedureToMethod(TProcedure(@onLog)));
   except
-    on e: Exception do j.ThrowNew('de/benibela/videlibri/Bridge$InternalError', 'Interner Fehler: '+e.Message);
+    on e: Exception do j.ThrowNew('de/benibela/videlibri/jni/Bridge$InternalError', 'Interner Fehler: '+e.Message);
   end;
   if logging then bbdebugtools.log('de.benibela.VideLibri.Bride.VLInit (ended)');
 end;
@@ -319,7 +319,7 @@ begin
     j.deleteGlobalRef(jContextObject);
     jContextObject:=nil;
   except
-    on e: Exception do j.ThrowNew('de/benibela/videlibri/Bridge$InternalError', 'Interner Fehler: '+e.Message);
+    on e: Exception do j.ThrowNew('de/benibela/videlibri/jni/Bridge$InternalError', 'Interner Fehler: '+e.Message);
   end;            }
 end;
 
@@ -338,7 +338,7 @@ begin
       j.env^^.SetObjectArrayElement(j.env, result, i, j.stringToJString(lib.id+'|'+lib.prettyCountryState+'|'+lib.prettyLocation+'|'+lib.prettyNameLongWithComment+'|'+lib.prettyNameShort));
     end;
   except
-    on e: Exception do j.ThrowNew('de/benibela/videlibri/Bridge$InternalError', 'Interner Fehler: '+e.Message);
+    on e: Exception do j.ThrowNew('de/benibela/videlibri/jni/Bridge$InternalError', 'Interner Fehler: '+e.Message);
   end;
   if logging then bbdebugtools.log('de.benibela.VideLibri.Bride.VLGetLibraries (ended)');
 end;
@@ -379,7 +379,7 @@ begin
 
     if meta = nil then exit(nil);
 
-    detailClass := j.getclass('de/benibela/videlibri/Bridge$TemplateDetails');
+    detailClass := j.getclass('de/benibela/videlibri/jni/Bridge$TemplateDetails');
     result := j.newObject(detailClass, j.getmethod(detailClass, '<init>', '()V'));
     with getTemplateDetailsFields(detailClass), j do begin
       names := j.newObjectArray(length(meta.variables), j.commonClasses_String, nil);
@@ -397,7 +397,7 @@ begin
       end;
     end;
   except
-    on e: Exception do j.ThrowNew('de/benibela/videlibri/Bridge$InternalError', 'Interner Fehler: '+e.Message);
+    on e: Exception do j.ThrowNew('de/benibela/videlibri/jni/Bridge$InternalError', 'Interner Fehler: '+e.Message);
   end;
   if logging then bbdebugtools.log('de.benibela.VideLibri.Bride.VLGetTemplateDetails (ended)');
 end;
@@ -437,7 +437,7 @@ begin
     libId := j.jStringToString(id);
     lib := libraryManager.get(libId);
     if lib = nil then exit(nil);
-    detailClass := j.getclass('de/benibela/videlibri/Bridge$LibraryDetails');
+    detailClass := j.getclass('de/benibela/videlibri/jni/Bridge$LibraryDetails');
     result := j.newObject(detailClass, j.getmethod(detailClass, '<init>', '()V'));
 
     with getLibraryDetailsFields(detailClass), j do begin
@@ -458,7 +458,7 @@ begin
       SetBooleanField(result, segregatedAccountsZ, lib.segregatedAccounts);
     end;
   except
-    on e: Exception do j.ThrowNew('de/benibela/videlibri/Bridge$InternalError', 'Interner Fehler: '+e.Message);
+    on e: Exception do j.ThrowNew('de/benibela/videlibri/jni/Bridge$InternalError', 'Interner Fehler: '+e.Message);
   end;
   if logging then bbdebugtools.log('de.benibela.VideLibri.Bride.VLGetLibraryDetails (ended)');
 end;
@@ -481,7 +481,7 @@ begin
       //null means delete
       libraryManager.deleteUserLibrary(libid);
     end else begin
-      detailClass := j.getclass('de/benibela/videlibri/Bridge$LibraryDetails');
+      detailClass := j.getclass('de/benibela/videlibri/jni/Bridge$LibraryDetails');
 
       with getLibraryDetailsFields(detailClass), j do begin
         libXml := '<?xml version="1.0" encoding="UTF-8"?>'+LineEnding;
@@ -505,7 +505,7 @@ begin
       end;
     end;
   except
-    on e: Exception do j.ThrowNew('de/benibela/videlibri/Bridge$InternalError', 'Interner Fehler: '+e.Message);
+    on e: Exception do j.ThrowNew('de/benibela/videlibri/jni/Bridge$InternalError', 'Interner Fehler: '+e.Message);
   end;
   if logging then bbdebugtools.log('de.benibela.VideLibri.Bride.VLSetLibraryDetails (ended)');
 end;
@@ -555,7 +555,7 @@ begin
     surl := j.jStringToString(url);
     TInstallLibraryThread.Create(surl).Start;
   except
-    on e: Exception do j.ThrowNew('de/benibela/videlibri/Bridge$InternalError', 'Interner Fehler: '+e.Message);
+    on e: Exception do j.ThrowNew('de/benibela/videlibri/jni/Bridge$InternalError', 'Interner Fehler: '+e.Message);
   end;
   result := nil;
   if logging then bbdebugtools.log('de.benibela.VideLibri.Bride.VLInstallLibrary (ended)');
@@ -599,7 +599,7 @@ begin
 
     templates.free;
   except
-    on e: Exception do j.ThrowNew('de/benibela/videlibri/Bridge$InternalError', 'Interner Fehler: '+e.Message);
+    on e: Exception do j.ThrowNew('de/benibela/videlibri/jni/Bridge$InternalError', 'Interner Fehler: '+e.Message);
   end;
   if logging then bbdebugtools.log('de.benibela.VideLibri.Bride.VLGetTemplates (ended)');
 end;
@@ -626,7 +626,7 @@ begin
     end;
     accounts.save;
   except
-    on e: Exception do j.ThrowNew('de/benibela/videlibri/Bridge$InternalError', 'Interner Fehler: '+e.Message);
+    on e: Exception do j.ThrowNew('de/benibela/videlibri/jni/Bridge$InternalError', 'Interner Fehler: '+e.Message);
   end;
   result := nil;
   if logging then bbdebugtools.log('de.benibela.VideLibri.Bride.VLAddAccount (ended)');
@@ -666,7 +666,7 @@ begin
       temp.remove();
     end;
   except
-    on e: Exception do j.ThrowNew('de/benibela/videlibri/Bridge$InternalError', 'Interner Fehler: '+e.Message);
+    on e: Exception do j.ThrowNew('de/benibela/videlibri/jni/Bridge$InternalError', 'Interner Fehler: '+e.Message);
   end;
   result := nil;
   if logging then bbdebugtools.log('de.benibela.VideLibri.Bride.VLDeleteAccount (ended)');
@@ -721,7 +721,7 @@ begin
                       );
       end;
   except
-    on e: Exception do j.ThrowNew('de/benibela/videlibri/Bridge$InternalError', 'Interner Fehler: '+e.Message);
+    on e: Exception do j.ThrowNew('de/benibela/videlibri/jni/Bridge$InternalError', 'Interner Fehler: '+e.Message);
   end;
   result := nil;
   if logging then bbdebugtools.log('de.benibela.VideLibri.Bride.VLChangeAccount (ended)');
@@ -756,7 +756,7 @@ begin
       j.deleteLocalRef(temp);
     end;
   except
-    on e: Exception do j.ThrowNew('de/benibela/videlibri/Bridge$InternalError', 'Interner Fehler: '+e.Message);
+    on e: Exception do j.ThrowNew('de/benibela/videlibri/jni/Bridge$InternalError', 'Interner Fehler: '+e.Message);
   end;
   if logging then bbdebugtools.log('de.benibela.VideLibri.Bride.VLGetAccounts (ended)');
 end;
@@ -780,7 +780,7 @@ function getRealAccountChecked(acc: jobject): TCustomAccountAccess;
 begin
   result := getRealAccount(acc);
   if result = nil then
-    needJ.ThrowNew('de/benibela/videlibri/Bridge$InternalError', 'Konto nicht gefunden: '+needj.getStringField(acc, accountFields.LibIdS)+':'+ j.getStringField(acc, accountFields.NameS));
+    needJ.ThrowNew('de/benibela/videlibri/jni/Bridge$InternalError', 'Konto nicht gefunden: '+needj.getStringField(acc, accountFields.LibIdS)+':'+ j.getStringField(acc, accountFields.NameS));
 end;
 
 type
@@ -906,8 +906,8 @@ begin
 
     size := j.callIntMethodChecked(more, j.getmethod('java/util/ArrayList', 'size', '()I'));
     get := j.getmethod('java/util/ArrayList', 'get', '(I)Ljava/lang/Object;');
-    first := j.getfield('de/benibela/videlibri/Bridge$Book$Pair', 'first', 'Ljava/lang/String;');
-    second := j.getfield('de/benibela/videlibri/Bridge$Book$Pair', 'second', 'Ljava/lang/String;');
+    first := j.getfield('de/benibela/videlibri/jni/Bridge$Book$Pair', 'first', 'Ljava/lang/String;');
+    second := j.getfield('de/benibela/videlibri/jni/Bridge$Book$Pair', 'second', 'Ljava/lang/String;');
     for i := 0 to size - 1 do begin
       iv.i:=i;
       pair := j.callObjectMethodChecked(more, get, @iv);
@@ -969,7 +969,7 @@ begin
     if acc = nil then exit;
   except
     on e: Exception do begin
-      j.ThrowNew('de/benibela/videlibri/Bridge$InternalError', 'Interner Fehler: '+e.Message);
+      j.ThrowNew('de/benibela/videlibri/jni/Bridge$InternalError', 'Interner Fehler: '+e.Message);
       exit;
     end;
   end;
@@ -1002,7 +1002,7 @@ begin
 
 
   except
-    on e: Exception do j.ThrowNew('de/benibela/videlibri/Bridge$InternalError', 'Interner Fehler: '+e.Message);
+    on e: Exception do j.ThrowNew('de/benibela/videlibri/jni/Bridge$InternalError', 'Interner Fehler: '+e.Message);
   end;
 
   if logging then bbdebugtools.log('Java_de_benibela_VideLibri_Bridge_VLGetBooks ended');
@@ -1044,7 +1044,7 @@ begin
     end;
 
   except
-    on e: Exception do needJ.ThrowNew('de/benibela/videlibri/Bridge$InternalError', 'Interner Fehler: '+e.Message);
+    on e: Exception do needJ.ThrowNew('de/benibela/videlibri/jni/Bridge$InternalError', 'Interner Fehler: '+e.Message);
   end;
 
   if logging then bbdebugtools.log('Java_de_benibela_VideLibri_Bridge_VLGetCriticalBook ended');
@@ -1078,7 +1078,7 @@ begin
     if updateAccountBookData(acc, autoupdate, autoupdate, forceExtend) then
       result := JNI_TRUE;
   except
-    on e: Exception do j.ThrowNew('de/benibela/videlibri/Bridge$InternalError', 'Interner Fehler: '+e.Message);
+    on e: Exception do j.ThrowNew('de/benibela/videlibri/jni/Bridge$InternalError', 'Interner Fehler: '+e.Message);
   end;
   if logging then log('VLUpdateAccounts ended');
 
@@ -1105,7 +1105,7 @@ begin
     end;
     books.free;
   except
-    on e: Exception do j.ThrowNew('de/benibela/videlibri/Bridge$InternalError', 'Interner Fehler: '+e.Message);
+    on e: Exception do j.ThrowNew('de/benibela/videlibri/jni/Bridge$InternalError', 'Interner Fehler: '+e.Message);
   end;
   if logging then log('VLBookOperation ended');
 
@@ -1132,7 +1132,7 @@ begin
   result := nil;
 
   try
-    pendingExceptionClass := j.newGlobalRefAndDelete(j.getclass('de/benibela/videlibri/Bridge$PendingException'));
+    pendingExceptionClass := j.newGlobalRefAndDelete(j.getclass('de/benibela/videlibri/jni/Bridge$PendingException'));
     pendingExceptionClassInit := j.getmethod(pendingExceptionClass, '<init>', '()V');
     with pendingExceptionFields do begin
       kindI := j.getfield(pendingExceptionClass, 'kind', 'I');
@@ -1193,7 +1193,7 @@ begin
       system.LeaveCriticalSection(exceptionStoring);
     end;
   except
-    on e: Exception do j.ThrowNew('de/benibela/videlibri/Bridge$InternalError', 'Interner Fehler: '+e.Message);
+    on e: Exception do j.ThrowNew('de/benibela/videlibri/jni/Bridge$InternalError', 'Interner Fehler: '+e.Message);
   end;
   if logging then bbdebugtools.log('Bridge_VLGetPendingExceptions ended');
 end;
@@ -1261,7 +1261,7 @@ begin
 
     end;
   except
-    on e: Exception do j.ThrowNew('de/benibela/videlibri/Bridge$InternalError', 'Interner Fehler: '+e.Message);
+    on e: Exception do j.ThrowNew('de/benibela/videlibri/jni/Bridge$InternalError', 'Interner Fehler: '+e.Message);
   end;
 
   if logging then bbdebugtools.log('Bridge_VLGetNotifications ended');
@@ -1473,7 +1473,7 @@ begin
     end;
 
   except
-    on e: Exception do j.ThrowNew('de/benibela/videlibri/Bridge$InternalError', 'Interner Fehler: '+e.Message);
+    on e: Exception do j.ThrowNew('de/benibela/videlibri/jni/Bridge$InternalError', 'Interner Fehler: '+e.Message);
   end;
   if logging then log('Bridge_VLSearchConnect ended');
 end;
@@ -1512,7 +1512,7 @@ begin
 
     end;
   except
-    on e: Exception do j.ThrowNew('de/benibela/videlibri/Bridge$InternalError', 'Interner Fehler: '+e.Message);
+    on e: Exception do j.ThrowNew('de/benibela/videlibri/jni/Bridge$InternalError', 'Interner Fehler: '+e.Message);
   end;
   if logging then log('Bridge_VLSearchStart ended');
 end;
@@ -1526,7 +1526,7 @@ begin
     sa := unwrapSearcher(searcher);
     sa.searchNextAsync;
   except
-    on e: Exception do j.ThrowNew('de/benibela/videlibri/Bridge$InternalError', 'Interner Fehler: '+e.Message);
+    on e: Exception do j.ThrowNew('de/benibela/videlibri/jni/Bridge$InternalError', 'Interner Fehler: '+e.Message);
   end;
   if logging then log('Bridge_VLSearchNextPage started');
 end;
@@ -1544,7 +1544,7 @@ begin
     sa.tempBooks.add(book);
     sa.detailsAsyncSave(book);
   except
-    on e: Exception do j.ThrowNew('de/benibela/videlibri/Bridge$InternalError', 'Interner Fehler: '+e.Message);
+    on e: Exception do j.ThrowNew('de/benibela/videlibri/jni/Bridge$InternalError', 'Interner Fehler: '+e.Message);
   end;
   if logging then log('Bridge_VLSearchDetails ended');
 end;
@@ -1568,7 +1568,7 @@ begin
       sa.orderAsync(TCustomAccountAccess(book.owningAccount), book);
     end;
   except
-    on e: Exception do j.ThrowNew('de/benibela/videlibri/Bridge$InternalError', 'Interner Fehler: '+e.Message);
+    on e: Exception do j.ThrowNew('de/benibela/videlibri/jni/Bridge$InternalError', 'Interner Fehler: '+e.Message);
   end;
   if logging then log('Bridge_VLSearchOrder ended');
 end;
@@ -1595,7 +1595,7 @@ begin
       sa.orderAsync(TCustomAccountAccess(book.owningAccount), book.holdings[holdingIds[0]]);
     end;
   except
-    on e: Exception do j.ThrowNew('de/benibela/videlibri/Bridge$InternalError', 'Interner Fehler: '+e.Message);
+    on e: Exception do j.ThrowNew('de/benibela/videlibri/jni/Bridge$InternalError', 'Interner Fehler: '+e.Message);
   end;
   if logging then log('Bridge_VLSearchOrder ended');
 end;
@@ -1615,7 +1615,7 @@ begin
       sa.orderConfirmedAsync(book);
     end;
   except
-    on e: Exception do j.ThrowNew('de/benibela/videlibri/Bridge$InternalError', 'Interner Fehler: '+e.Message);
+    on e: Exception do j.ThrowNew('de/benibela/videlibri/jni/Bridge$InternalError', 'Interner Fehler: '+e.Message);
   end;
   if logging then log('Bridge_VLSearchOrderConfirmed ended');
 end;
@@ -1632,7 +1632,7 @@ begin
       sa.completePendingMessage(sa.pendingMessageBook, sa.pendingMessage, res);
     sa.pendingMessage := nil;
   except
-    on e: Exception do j.ThrowNew('de/benibela/videlibri/Bridge$InternalError', 'Interner Fehler: '+e.Message);
+    on e: Exception do j.ThrowNew('de/benibela/videlibri/jni/Bridge$InternalError', 'Interner Fehler: '+e.Message);
   end;
   if logging then log('Bridge_VLSearchOrderCompletePendingMessage ended');
 end;
@@ -1648,7 +1648,7 @@ begin
     sa.free;
     j.SetLongField(searcher, searcherFields.nativePtrJ, 0);
   except
-    on e: Exception do j.ThrowNew('de/benibela/videlibri/Bridge$InternalError', 'Interner Fehler: '+e.Message);
+    on e: Exception do j.ThrowNew('de/benibela/videlibri/jni/Bridge$InternalError', 'Interner Fehler: '+e.Message);
   end;
   if logging then log('Bridge_VLSearchEnd stopped');
 end;
@@ -1663,7 +1663,7 @@ end;
 function getOptionClass: TJOptionClass;
 begin
   with result do begin
-    c := j.getclass('de/benibela/videlibri/Bridge$Options');
+    c := j.getclass('de/benibela/videlibri/jni/Bridge$Options');
     init := j.getmethod(c, '<init>', '()V');
     nearTimeI := j.getfield(c, 'nearTime', 'I');
     loggingZ := j.getfield(c, 'logging', 'Z');
@@ -1699,7 +1699,7 @@ begin
       j.SetObjectField(result, roUserLibIdsAS, temp);
     end;
   except
-    on e: Exception do j.ThrowNew('de/benibela/videlibri/Bridge$InternalError', 'Interner Fehler: '+e.Message);
+    on e: Exception do j.ThrowNew('de/benibela/videlibri/jni/Bridge$InternalError', 'Interner Fehler: '+e.Message);
   end;
   if logging then bbdebugtools.log('de.benibela.VideLibri.Bride.VLGetOptions (ended)');
 end;
@@ -1722,7 +1722,7 @@ begin
       userConfig.WriteBool('base','logging', logging);
     end;
   except
-    on e: Exception do j.ThrowNew('de/benibela/videlibri/Bridge$InternalError', 'Interner Fehler: '+e.Message);
+    on e: Exception do j.ThrowNew('de/benibela/videlibri/jni/Bridge$InternalError', 'Interner Fehler: '+e.Message);
   end;
   if logging then bbdebugtools.log('de.benibela.VideLibri.Bride.VLSetOptions (ended)');
 end;
@@ -1770,7 +1770,7 @@ begin
       exportAccounts(j.jStringToString(filename), accs, flgs);
     end;
   except
-    on e: Exception do j.ThrowNew('de/benibela/videlibri/Bridge$InternalError', 'Interner Fehler: '+e.Message);
+    on e: Exception do j.ThrowNew('de/benibela/videlibri/jni/Bridge$InternalError', 'Interner Fehler: '+e.Message);
   end;
   if logging then bbdebugtools.log('de.benibela.VideLibri.Bride.VLExportAccounts (ended)');
 end;
@@ -1803,7 +1803,7 @@ begin
 
     j.SetIntField(result, importExportDataFields.flagsI, combinedFlags);
   except
-    on e: Exception do j.ThrowNew('de/benibela/videlibri/Bridge$InternalError', 'Interner Fehler: '+e.Message);
+    on e: Exception do j.ThrowNew('de/benibela/videlibri/jni/Bridge$InternalError', 'Interner Fehler: '+e.Message);
   end;
   if logging then bbdebugtools.log('de.benibela.VideLibri.Bride.VLImportAccountsPrepare (ended)');
 end;
@@ -1831,7 +1831,7 @@ begin
       accounts[i] := j.jStringToStringAndDelete(j.getObjectArrayElement(jaccounts, i));
     importAccounts(parser, accounts, flags);
   except
-    on e: Exception do j.ThrowNew('de/benibela/videlibri/Bridge$InternalError', 'Interner Fehler: '+e.Message);
+    on e: Exception do j.ThrowNew('de/benibela/videlibri/jni/Bridge$InternalError', 'Interner Fehler: '+e.Message);
   end;
   if logging then bbdebugtools.log('de.benibela.VideLibri.Bride.VLImportAccounts (ended)');
 end;
@@ -1922,7 +1922,7 @@ begin
     needJ;
     result := j.stringToJString(TBook.getNormalizedISBN(j.jStringToString(isbn), removeSep <> JNI_FALSE, conversion));
   except
-    on e: Exception do j.ThrowNew('de/benibela/videlibri/Bridge$InternalError', 'Interner Fehler: '+e.Message);
+    on e: Exception do j.ThrowNew('de/benibela/videlibri/jni/Bridge$InternalError', 'Interner Fehler: '+e.Message);
   end;
   if logging then bbdebugtools.log('de.benibela.VideLibri.Bride.VLNormalizeISBN (ended)');
 end;
@@ -1931,47 +1931,47 @@ end;
 
 
 const nativeMethods: array[1..34] of JNINativeMethod=
-  ((name:'VLInit';          signature:'(Lde/benibela/videlibri/Bridge$VideLibriContext;)V';                   fnPtr:@Java_de_benibela_VideLibri_Bridge_VLInit)
+  ((name:'VLInit';          signature:'(Lde/benibela/videlibri/jni/Bridge$VideLibriContext;)V';                   fnPtr:@Java_de_benibela_VideLibri_Bridge_VLInit)
    ,(name:'VLFinalize';      signature:'()V';                   fnPtr:@Java_de_benibela_VideLibri_Bridge_VLFInit)
 
    ,(name:'VLGetLibraries'; signature:'()[Ljava/lang/String;'; fnPtr:@Java_de_benibela_VideLibri_Bridge_VLGetLibraries)
-   ,(name:'VLGetLibraryDetails'; signature:'(Ljava/lang/String;)Lde/benibela/videlibri/Bridge$LibraryDetails;'; fnPtr:@Java_de_benibela_VideLibri_Bridge_VLGetLibraryDetails)
-   ,(name:'VLSetLibraryDetails'; signature:'(Ljava/lang/String;Lde/benibela/videlibri/Bridge$LibraryDetails;)V'; fnPtr:@Java_de_benibela_VideLibri_Bridge_VLSetLibraryDetails)
+   ,(name:'VLGetLibraryDetails'; signature:'(Ljava/lang/String;)Lde/benibela/videlibri/jni/Bridge$LibraryDetails;'; fnPtr:@Java_de_benibela_VideLibri_Bridge_VLGetLibraryDetails)
+   ,(name:'VLSetLibraryDetails'; signature:'(Ljava/lang/String;Lde/benibela/videlibri/jni/Bridge$LibraryDetails;)V'; fnPtr:@Java_de_benibela_VideLibri_Bridge_VLSetLibraryDetails)
    ,(name:'VLInstallLibrary'; signature:'(Ljava/lang/String;)V'; fnPtr:@Java_de_benibela_VideLibri_Bridge_VLInstallLibrary)
    ,(name:'VLGetTemplates'; signature:'()[Ljava/lang/String;'; fnPtr:@Java_de_benibela_VideLibri_Bridge_VLGetTemplates)
-   ,(name:'VLGetTemplateDetails'; signature:'(Ljava/lang/String;)Lde/benibela/videlibri/Bridge$TemplateDetails;'; fnPtr:@Java_de_benibela_VideLibri_Bridge_VLGetTemplateDetails)
+   ,(name:'VLGetTemplateDetails'; signature:'(Ljava/lang/String;)Lde/benibela/videlibri/jni/Bridge$TemplateDetails;'; fnPtr:@Java_de_benibela_VideLibri_Bridge_VLGetTemplateDetails)
 
-   ,(name:'VLAddAccount'; signature:'(Lde/benibela/videlibri/Bridge$Account;)V'; fnPtr:@Java_de_benibela_VideLibri_Bridge_VLAddAccount)
-   ,(name:'VLDeleteAccount'; signature:'(Lde/benibela/videlibri/Bridge$Account;)V'; fnPtr:@Java_de_benibela_VideLibri_Bridge_VLDeleteAccount)
-   ,(name:'VLChangeAccount'; signature:'(Lde/benibela/videlibri/Bridge$Account;Lde/benibela/videlibri/Bridge$Account;)V'; fnPtr:@Java_de_benibela_VideLibri_Bridge_VLChangeAccount)
-   ,(name:'VLGetAccounts'; signature:'()[Lde/benibela/videlibri/Bridge$Account;'; fnPtr:@Java_de_benibela_VideLibri_Bridge_VLGetAccounts)
-   ,(name:'VLGetBooks'; signature:'(Lde/benibela/videlibri/Bridge$Account;Z)[Lde/benibela/videlibri/Bridge$Book;'; fnPtr:@Java_de_benibela_VideLibri_Bridge_VLGetBooks)
-   ,(name:'VLGetCriticalBook'; signature:'()Lde/benibela/videlibri/Bridge$Book;'; fnPtr:@Java_de_benibela_VideLibri_Bridge_VLGetCriticalBook)
+   ,(name:'VLAddAccount'; signature:'(Lde/benibela/videlibri/jni/Bridge$Account;)V'; fnPtr:@Java_de_benibela_VideLibri_Bridge_VLAddAccount)
+   ,(name:'VLDeleteAccount'; signature:'(Lde/benibela/videlibri/jni/Bridge$Account;)V'; fnPtr:@Java_de_benibela_VideLibri_Bridge_VLDeleteAccount)
+   ,(name:'VLChangeAccount'; signature:'(Lde/benibela/videlibri/jni/Bridge$Account;Lde/benibela/videlibri/jni/Bridge$Account;)V'; fnPtr:@Java_de_benibela_VideLibri_Bridge_VLChangeAccount)
+   ,(name:'VLGetAccounts'; signature:'()[Lde/benibela/videlibri/jni/Bridge$Account;'; fnPtr:@Java_de_benibela_VideLibri_Bridge_VLGetAccounts)
+   ,(name:'VLGetBooks'; signature:'(Lde/benibela/videlibri/jni/Bridge$Account;Z)[Lde/benibela/videlibri/jni/Bridge$Book;'; fnPtr:@Java_de_benibela_VideLibri_Bridge_VLGetBooks)
+   ,(name:'VLGetCriticalBook'; signature:'()Lde/benibela/videlibri/jni/Bridge$Book;'; fnPtr:@Java_de_benibela_VideLibri_Bridge_VLGetCriticalBook)
 
-   ,(name:'VLUpdateAccount'; signature:'(Lde/benibela/videlibri/Bridge$Account;ZZ)Z'; fnPtr:@Java_de_benibela_VideLibri_Bridge_VLUpdateAccounts)
-   ,(name:'VLBookOperation'; signature:'([Lde/benibela/videlibri/Bridge$Book;I)V'; fnPtr:@Java_de_benibela_VideLibri_Bridge_VLBookOperation)
-   ,(name:'VLTakePendingExceptions'; signature: '()[Lde/benibela/videlibri/Bridge$PendingException;'; fnPtr: @Java_de_benibela_VideLibri_Bridge_VLGetPendingExceptions)
+   ,(name:'VLUpdateAccount'; signature:'(Lde/benibela/videlibri/jni/Bridge$Account;ZZ)Z'; fnPtr:@Java_de_benibela_VideLibri_Bridge_VLUpdateAccounts)
+   ,(name:'VLBookOperation'; signature:'([Lde/benibela/videlibri/jni/Bridge$Book;I)V'; fnPtr:@Java_de_benibela_VideLibri_Bridge_VLBookOperation)
+   ,(name:'VLTakePendingExceptions'; signature: '()[Lde/benibela/videlibri/jni/Bridge$PendingException;'; fnPtr: @Java_de_benibela_VideLibri_Bridge_VLGetPendingExceptions)
 
    ,(name:'VLGetNotifications'; signature: '()[Ljava/lang/String;'; fnPtr: @Java_de_benibela_VideLibri_Bridge_VLGetNotifications)
 
-   ,(name:'VLSearchConnect'; signature: '(Lde/benibela/videlibri/Bridge$SearcherAccess;Ljava/lang/String;)V'; fnPtr: @Java_de_benibela_VideLibri_Bridge_VLSearchConnect)
-   ,(name:'VLSearchStart'; signature: '(Lde/benibela/videlibri/Bridge$SearcherAccess;Lde/benibela/videlibri/Bridge$Book;II)V'; fnPtr: @Java_de_benibela_VideLibri_Bridge_VLSearchStart)
-   ,(name:'VLSearchNextPage'; signature: '(Lde/benibela/videlibri/Bridge$SearcherAccess;)V'; fnPtr: @Java_de_benibela_VideLibri_Bridge_VLSearchNextPage)
-   ,(name:'VLSearchDetails'; signature: '(Lde/benibela/videlibri/Bridge$SearcherAccess;Lde/benibela/videlibri/Bridge$Book;)V'; fnPtr: @Java_de_benibela_VideLibri_Bridge_VLSearchDetails)
-   ,(name:'VLSearchOrder'; signature: '(Lde/benibela/videlibri/Bridge$SearcherAccess;[Lde/benibela/videlibri/Bridge$Book;)V'; fnPtr: @Java_de_benibela_VideLibri_Bridge_VLSearchOrder)
-   ,(name:'VLSearchOrder'; signature: '(Lde/benibela/videlibri/Bridge$SearcherAccess;[Lde/benibela/videlibri/Bridge$Book;[I)V'; fnPtr: @Java_de_benibela_VideLibri_Bridge_VLSearchOrderWithHolding)
-   ,(name:'VLSearchOrderConfirmed'; signature: '(Lde/benibela/videlibri/Bridge$SearcherAccess;[Lde/benibela/videlibri/Bridge$Book;)V'; fnPtr: @Java_de_benibela_VideLibri_Bridge_VLSearchOrderConfirmed)
-   ,(name:'VLSearchCompletePendingMessage'; signature: '(Lde/benibela/videlibri/Bridge$SearcherAccess;I)V'; fnPtr: @Java_de_benibela_VideLibri_Bridge_VLSearchCompletePendingMessage)
-   ,(name:'VLSearchEnd'; signature: '(Lde/benibela/videlibri/Bridge$SearcherAccess;)V'; fnPtr: @Java_de_benibela_VideLibri_Bridge_VLSearchEnd)
+   ,(name:'VLSearchConnect'; signature: '(Lde/benibela/videlibri/jni/Bridge$SearcherAccess;Ljava/lang/String;)V'; fnPtr: @Java_de_benibela_VideLibri_Bridge_VLSearchConnect)
+   ,(name:'VLSearchStart'; signature: '(Lde/benibela/videlibri/jni/Bridge$SearcherAccess;Lde/benibela/videlibri/jni/Bridge$Book;II)V'; fnPtr: @Java_de_benibela_VideLibri_Bridge_VLSearchStart)
+   ,(name:'VLSearchNextPage'; signature: '(Lde/benibela/videlibri/jni/Bridge$SearcherAccess;)V'; fnPtr: @Java_de_benibela_VideLibri_Bridge_VLSearchNextPage)
+   ,(name:'VLSearchDetails'; signature: '(Lde/benibela/videlibri/jni/Bridge$SearcherAccess;Lde/benibela/videlibri/jni/Bridge$Book;)V'; fnPtr: @Java_de_benibela_VideLibri_Bridge_VLSearchDetails)
+   ,(name:'VLSearchOrder'; signature: '(Lde/benibela/videlibri/jni/Bridge$SearcherAccess;[Lde/benibela/videlibri/jni/Bridge$Book;)V'; fnPtr: @Java_de_benibela_VideLibri_Bridge_VLSearchOrder)
+   ,(name:'VLSearchOrder'; signature: '(Lde/benibela/videlibri/jni/Bridge$SearcherAccess;[Lde/benibela/videlibri/jni/Bridge$Book;[I)V'; fnPtr: @Java_de_benibela_VideLibri_Bridge_VLSearchOrderWithHolding)
+   ,(name:'VLSearchOrderConfirmed'; signature: '(Lde/benibela/videlibri/jni/Bridge$SearcherAccess;[Lde/benibela/videlibri/jni/Bridge$Book;)V'; fnPtr: @Java_de_benibela_VideLibri_Bridge_VLSearchOrderConfirmed)
+   ,(name:'VLSearchCompletePendingMessage'; signature: '(Lde/benibela/videlibri/jni/Bridge$SearcherAccess;I)V'; fnPtr: @Java_de_benibela_VideLibri_Bridge_VLSearchCompletePendingMessage)
+   ,(name:'VLSearchEnd'; signature: '(Lde/benibela/videlibri/jni/Bridge$SearcherAccess;)V'; fnPtr: @Java_de_benibela_VideLibri_Bridge_VLSearchEnd)
 
-   ,(name:'VLSetOptions'; signature: '(Lde/benibela/videlibri/Bridge$Options;)V'; fnPtr: @Java_de_benibela_VideLibri_Bridge_VLSetOptions)
-   ,(name:'VLGetOptions'; signature: '()Lde/benibela/videlibri/Bridge$Options;'; fnPtr: @Java_de_benibela_VideLibri_Bridge_VLGetOptions)
+   ,(name:'VLSetOptions'; signature: '(Lde/benibela/videlibri/jni/Bridge$Options;)V'; fnPtr: @Java_de_benibela_VideLibri_Bridge_VLSetOptions)
+   ,(name:'VLGetOptions'; signature: '()Lde/benibela/videlibri/jni/Bridge$Options;'; fnPtr: @Java_de_benibela_VideLibri_Bridge_VLGetOptions)
 
-   ,(name:'VLExportAccounts'; signature: '(Ljava/lang/String;[Lde/benibela/videlibri/Bridge$Account;I)V'; fnPtr: @Java_de_benibela_VideLibri_Bridge_VLExportAccounts)
-   ,(name:'VLImportAccountsPrepare'; signature: '(Ljava/lang/String;)Lde/benibela/videlibri/Bridge$ImportExportData;'; fnPtr: @Java_de_benibela_VideLibri_Bridge_VLImportAccountsPrepare)
-   ,(name:'VLImportAccounts'; signature: '(Lde/benibela/videlibri/Bridge$ImportExportData;)V'; fnPtr: @Java_de_benibela_VideLibri_Bridge_VLImportAccounts)
+   ,(name:'VLExportAccounts'; signature: '(Ljava/lang/String;[Lde/benibela/videlibri/jni/Bridge$Account;I)V'; fnPtr: @Java_de_benibela_VideLibri_Bridge_VLExportAccounts)
+   ,(name:'VLImportAccountsPrepare'; signature: '(Ljava/lang/String;)Lde/benibela/videlibri/jni/Bridge$ImportExportData;'; fnPtr: @Java_de_benibela_VideLibri_Bridge_VLImportAccountsPrepare)
+   ,(name:'VLImportAccounts'; signature: '(Lde/benibela/videlibri/jni/Bridge$ImportExportData;)V'; fnPtr: @Java_de_benibela_VideLibri_Bridge_VLImportAccounts)
 
-   ,(name:'VLXQuery'; signature: '(Ljava/lang/String;)[Lde/benibela/videlibri/Bridge$Book;'; fnPtr: @Java_de_benibela_VideLibri_Bridge_VLXQuery)
+   ,(name:'VLXQuery'; signature: '(Ljava/lang/String;)[Lde/benibela/videlibri/jni/Bridge$Book;'; fnPtr: @Java_de_benibela_VideLibri_Bridge_VLXQuery)
 
    ,(name:'VLNormalizeISBN'; signature: '(Ljava/lang/String;ZI)Ljava/lang/String;'; fnPtr: @Java_de_benibela_VideLibri_Bridge_VLNormalizeISBN)
    );
@@ -1983,7 +1983,7 @@ function loaded: integer;
 var bridgeClass: jclass;
 begin
   needJ;
-  bridgeClass := j.env^^.FindClass(j.env, 'de/benibela/videlibri/Bridge');
+  bridgeClass := j.env^^.FindClass(j.env, 'de/benibela/videlibri/jni/Bridge');
   if (not assigned(bridgeClass)) or (j.env^^.ExceptionCheck(j.env)<>0) then begin
     bbdebugtools.log('failed to find VideLibri Bridge');
     exit(JNI_ERR);

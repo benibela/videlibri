@@ -7,7 +7,9 @@ import android.view.Menu;
 
 import java.util.ArrayList;
 
-public class SearchResult extends BookListActivity implements Bridge.SearchEventHandler  {
+import de.benibela.videlibri.jni.Bridge;
+
+public class SearchResult extends BookListActivity implements SearchEventHandler  {
 
     Bridge.SearcherAccess searcher;
     String libId = "";
@@ -61,7 +63,7 @@ public class SearchResult extends BookListActivity implements Bridge.SearchEvent
             if (!cacheShown && bookCache != null)
                 displayBookCache(Math.max(bookCache.size(), searcher.totalResultCount));
             for (Bridge.SearchEvent event: searcher.pendingEvents)
-                onSearchEvent(searcher, event);
+                onSearchEvent(event);
         }
         if (searcher != null && searcher.pendingEvents != null)
             searcher.pendingEvents.clear();
@@ -75,12 +77,8 @@ public class SearchResult extends BookListActivity implements Bridge.SearchEvent
     }
 
     @Override
-    protected void onDestroy() {
-        super.onDestroy();
-    }
-
-    @Override
-    public boolean onSearchEvent(Bridge.SearcherAccess access, Bridge.SearchEvent event) {
+    public boolean onSearchEvent(Bridge.SearchEvent event) {
+        Bridge.SearcherAccess access = event.searcherAccess;
         if (access != searcher) return false;
         searcher.heartBeat = System.currentTimeMillis();
         switch (event.kind) {

@@ -1,40 +1,41 @@
-package de.benibela.videlibri;
+package de.benibela.videlibri.jni;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Handler;
-import android.os.Message;
 import android.util.Log;
 
 import java.io.Serializable;
 import java.util.*;
 
+
+@SuppressWarnings( {"JniMissingFunction", "unused"} )
 public class Bridge {
     public static class LibraryDetails {
-        String homepageBase, homepageCatalogue;
-        String prettyName;
-        String id;
-        String templateId;
-        String variableNames[];
-        String variableValues[];
-        boolean segregatedAccounts;
+        public String homepageBase, homepageCatalogue;
+        public String prettyName;
+        public String id;
+        public String templateId;
+        public String variableNames[];
+        public String variableValues[];
+        public boolean segregatedAccounts;
     }
 
     public static class Account implements Serializable{
-        String libId, name, pass, prettyName;
-        int type;
-        boolean extend;
-        int extendDays;
-        boolean history;
+        public String libId, name, pass, prettyName;
+        public int type;
+        public boolean extend;
+        public int extendDays;
+        public boolean history;
         public boolean equals(Object o) {
-            if (!(o instanceof Account)) return  false;
+            if (!(o instanceof Account)) return false;
             Account a = (Account) o;
-            return  (a.libId == libId && a.prettyName == prettyName);
+            return  Util.equalStrings(a.libId, libId) && Util.equalStrings(a.prettyName, prettyName);
         }
         /*String internalId(){
             return libId+"#"+name;
         }*/
-        Library getLibrary(){ //warning slow
+        public Library getLibrary(){ //warning slow
             Library[] libs = getLibraries();
             for (Library lib: libs)
                 if (lib.id.equals(libId)) return lib;
@@ -42,54 +43,65 @@ public class Bridge {
         }
     }
 
-    static int currentPascalDate;
+    public static int currentPascalDate;
     public static class SimpleDate {
         private int year, month, day;
         public int pascalDate;
-        SimpleDate (int year, int month, int day, int pascalDate){
+        public SimpleDate (int year, int month, int day, int pascalDate){
             this.year = year;
             this.month = month;
             this.day = day;
             this.pascalDate = pascalDate;
         }
-        Date getTime(){
+        public Date getTime(){
             return new Date(year - 1900, month, day);
         }
     }
 
+    private static class Util{
+        static public boolean equalStrings(String s, String t) {
+            return s == null ? t == null : s.equals(t);
+        }
+
+        public static boolean isEmptyString(String s) {
+            return s == null || "".equals(s);
+        }
+    }
+
+
     public static class Book implements Serializable{
 
         public static class Pair implements Serializable{   //android.os.Pair is not serializable
-            String first, second;
-            Pair (String a, String b){
+            public String first, second;
+            public Pair (String a, String b){
                 first = a;
                 second = b;
             }
         }
 
 
-        Account account;
-        String author = "";
-        String title = "";
-        SimpleDate issueDate; //might be null
-        SimpleDate dueDate; //might be null
-        boolean history;
-        ArrayList<Pair> more = new ArrayList<Pair>();
+        public Account account;
+        public String author = "";
+        public String title = "";
+        public SimpleDate issueDate; //might be null
+        public SimpleDate dueDate; //might be null
+        public boolean history;
+        public ArrayList<Pair> more = new ArrayList<>();
         private int status;
 
-        Book holdings[];
+        public Book holdings[];
 
-        Bitmap image; //handled on Javasite only
+        public Bitmap image; //handled on Javasite only
 
         @Override
         public String toString() {
             return title; //used for copy to clipboard. where else? todo: probably add author
         }
 
-        enum StatusEnum { Unknown, Normal, Problematic, Ordered, Provided,
-                          Available, Lend, Virtual, Presentation, InterLoan};
+        public enum StatusEnum { Unknown, Normal, Problematic, Ordered, Provided,
+                          Available, Lend, Virtual, Presentation, InterLoan}
 
-        StatusEnum getStatus() {
+        public StatusEnum getStatus() {
             switch (status) {
                 case 1: return StatusEnum.Normal;
                 case 2: return StatusEnum.Problematic;
@@ -103,7 +115,7 @@ public class Bridge {
                 default: return account == null ? StatusEnum.Unknown : StatusEnum.Problematic;
             }
         }
-        void setStatus(StatusEnum se) {
+        public void setStatus(StatusEnum se) {
             switch (se) {
                 case Normal: status = 1; break;
                 case Problematic: status = 2; break;
@@ -116,7 +128,7 @@ public class Bridge {
                 case InterLoan: status = 104; break;
             }
         }
-        boolean hasOrderedStatus(){
+        public boolean hasOrderedStatus(){
             switch (getStatus()) {
                 case Ordered: case Provided: return true;
                 default: return false;
@@ -124,26 +136,26 @@ public class Bridge {
         }
 
 
-        boolean isOrderable(){ //defaults to false
+        public boolean isOrderable(){ //defaults to false
             String orderable = getProperty("orderable");
             return (orderable != null && !"".equals(orderable) && !"0".equals(orderable) && !"false".equals(orderable));
         }
-        boolean isOrderableHolding(){ //defaults to true
+        public boolean isOrderableHolding(){ //defaults to true
             String order = getProperty("orderable");
             return !( "false".equals(order));
         }
-        boolean isCancelable(){
-            String cancelable = getProperty("cancelable");;
+        public boolean isCancelable(){
+            String cancelable = getProperty("cancelable");
             return cancelable == null || !"false".equals(cancelable);
         }
 
 
         //called from Videlibri midend
-        void setProperty(String name, String value){
+        public void setProperty(String name, String value){
             more.add(new Pair(name, value));
         }
 
-        String getProperty(String name){
+        public String getProperty(String name){
             for (int i=more.size()-1;i>=0;i--)       //backward for simple overriding
                 if (more.get(i).first.equals(name))
                     return more.get(i).second;
@@ -151,26 +163,26 @@ public class Bridge {
             if ("author".equals(name)) return author;
             return "";
         }
-        String getProperty(String name, String def){
+        public String getProperty(String name, String def){
             String res = getProperty(name);
             return Util.isEmptyString(res) ? def : res;
         }
 
-        boolean hasProperty(String name){
+        public boolean hasProperty(String name){
             for (int i=more.size()-1;i>=0;i--)
                 if (more.get(i).first.equals(name))
                     return true;
             return false;
         }
 
-        boolean matchesFilter(String filter, String key){
+        public boolean matchesFilter(String filter, String key){
             if (key != null && !"".equals(key)) return getProperty(key).toLowerCase().indexOf(filter) >= 0;
             if (author.toLowerCase().indexOf(filter) >= 0 || title.toLowerCase().indexOf(filter) >= 0) return true;
             return false;
         }
 
-        enum ISBNNormalization { ISBN_NO_CONVERSION, ISBN_CONVERT_TO_10, ISBN_CONVERT_TO_13};
-        String getNormalizedISBN(boolean removeSeps, ISBNNormalization normalize) {
+        public enum ISBNNormalization { ISBN_NO_CONVERSION, ISBN_CONVERT_TO_10, ISBN_CONVERT_TO_13}
+        public String getNormalizedISBN(boolean removeSeps, ISBNNormalization normalize) {
             String isbn = getProperty("isbn");
             if (Util.isEmptyString(isbn)) return "";
             int normalizationCode;
@@ -211,22 +223,22 @@ public class Bridge {
         static final public int KIND_INTERNET = 1;
         static final public int KIND_LOGIN = 2;
 
-        int kind;
-        String accountPrettyNames, error, library, searchQuery, details, anonymousDetails;
-        String firstAccountUser, firstAccountLib;
+        public int kind;
+        public String accountPrettyNames, error, library, searchQuery, details, anonymousDetails;
+        public String firstAccountUser, firstAccountLib;
     }
 
     public static class Options{
-        boolean logging;
-        int nearTime, refreshInterval;
-        String roUserLibIds[];
+        public boolean logging;
+        public int nearTime, refreshInterval;
+        public String roUserLibIds[];
     }
     public static Options globalOptions;
 
     public static class TemplateDetails{
-        String variablesNames[];
-        String variablesDescription[];
-        String variablesDefault[];
+        public String variablesNames[];
+        public String variablesDescription[];
+        public String variablesDefault[];
     }
 
     static private native void VLInit(VideLibriContext videlibri);
@@ -244,8 +256,8 @@ public class Bridge {
     static public native String VLNormalizeISBN(String isbn, boolean removeSep, int conversion);
     static public native Book VLGetCriticalBook();
     static public native boolean VLUpdateAccount(Account acc, boolean autoUpdate, boolean forceExtend);
-    static final int BOOK_OPERATION_RENEW = 1;
-    static final int BOOK_OPERATION_CANCEL = 2;
+    public static final int BOOK_OPERATION_RENEW = 1;
+    public static final int BOOK_OPERATION_CANCEL = 2;
     static public native void VLBookOperation(Book[] books, int operation);
     static public native PendingException[] VLTakePendingExceptions();
 
@@ -274,40 +286,28 @@ public class Bridge {
     //All events are called in the same thread ()
     public static class SearcherAccess{
         //set from Pascal side
-        long nativePtr;
-        volatile int totalResultCount;
-        volatile boolean nextPageAvailable;
-        volatile String[] homeBranches, searchBranches; //from java and pascal
+        public long nativePtr;
+        public volatile int totalResultCount;
+        public volatile boolean nextPageAvailable;
+        public volatile String[] homeBranches, searchBranches; //from java and pascal
 
         //set in Java
-        final String libId;
-        final Handler queueHandler;
-        final ArrayList<SearchEvent> pendingEvents = new ArrayList<SearchEvent>();
+        public final String libId;
+        public final ArrayList<SearchEvent> pendingEvents = new ArrayList<>();
 
         //set in (Java) activity
-        int state;
-        long heartBeat;
-        final ArrayList<Bridge.Book> bookCache = new ArrayList<Book>();
+        public int state;
+        public long heartBeat;
+        public final ArrayList<Bridge.Book> bookCache = new ArrayList<>();
         //The detail search runs in the background, for a single book.
         //But the user might request other detail searches, before the search is complete.
         //Then wait for the old search to complete, and then start the newest search, unless the user has closed the view
-        int waitingForDetails;    //nr of book currently searched. Only set when the search is started or has ended (-1 if no search is running)
-        int nextDetailsRequested; //nr of the book that *should* be searched. Set when requesting a new search, or to -1 to cancel the current search
-        Bridge.Account orderingAccount;
+        public int waitingForDetails;    //nr of book currently searched. Only set when the search is started or has ended (-1 if no search is running)
+        public int nextDetailsRequested; //nr of the book that *should* be searched. Set when requesting a new search, or to -1 to cancel the current search
+        public Bridge.Account orderingAccount;
 
-        SearcherAccess(String libId){
+        public SearcherAccess(String libId){
             this.libId = libId;
-            queueHandler = new Handler(){
-                @Override
-                public void handleMessage(Message msg) {
-                    SearchEvent event = (SearchEvent)(msg.obj);
-                    if (VideLibriApp.currentActivity instanceof SearchEventHandler) {
-                        SearchEventHandler handleAct = (SearchEventHandler) VideLibriApp.currentActivity;
-                        if (handleAct.onSearchEvent(SearcherAccess.this, event)) return;
-                    }
-                    pendingEvents.add(event);
-                }
-            };
         }
         public void connect(){
             VLSearchConnect(this, libId);
@@ -348,7 +348,9 @@ public class Bridge {
             return event;
         }
         private void send(SearchEvent event) {
-            queueHandler.sendMessage(queueHandler.obtainMessage(0, event));
+            if (searchEventHandler == null) return;
+            event.searcherAccess = this;
+            searchEventHandler.sendMessage(searchEventHandler.obtainMessage(0, event));
         }
 
 
@@ -363,7 +365,7 @@ public class Bridge {
         public void onException() { send(newEvent(SearchEventKind.EXCEPTION)); }
     }
 
-    static enum SearchEventKind {
+    public enum SearchEventKind {
         CONNECTED, //obj1 = String[] homeBranches, obj2 = String[] searchBranches
         FIRST_PAGE, //obj1 = Book[] books
         NEXT_PAGE,  //obj1 = Book[] books
@@ -375,26 +377,23 @@ public class Bridge {
         EXCEPTION
     }
     public static class SearchEvent{
-        SearchEventKind kind;
-        int arg1;
-        Object obj1, obj2;
+        public SearcherAccess searcherAccess;
+        public SearchEventKind kind;
+        public int arg1;
+        public Object obj1, obj2;
     }
 
-    interface SearchEventHandler {
-        boolean onSearchEvent(SearcherAccess access, SearchEvent event);
-    }
-
-    static class Library{
-        String id, country, fullStatePretty, locationPretty, namePretty, nameShort;
+    public static class Library{
+        public String id, country, fullStatePretty, locationPretty, namePretty, nameShort;
         void putInIntent(Intent intent){
             intent.putExtra("libName", namePretty);
             intent.putExtra("libShortName", nameShort);
             intent.putExtra("libId", id);
         }
     }
-    static Library[] getLibraries(){
+    public static Library[] getLibraries(){
         String libs[] =  VLGetLibraries();
-        ArrayList<Library> important = new ArrayList<Library>();
+        ArrayList<Library> important = new ArrayList<>();
         Library[] result = new Library[libs.length];
         for (int i=0;i<libs.length;i++){
             result[i] = new Library();
@@ -460,37 +459,39 @@ public class Bridge {
         public static final int CONFIG   = 0x04;
         public static final int PASSWORD = 0x08;
         
-        String accountsToImport[];
-        int flags;
+        public String accountsToImport[];
+        public int flags;
         long nativePtr; //this is a very large object which must be destroyed with a call to  VLImportAccounts
     }
     public static native void VLExportAccounts(String filename, Account accountsToExport[], int flags);
     public static native ImportExportData VLImportAccountsPrepare(String filename);
     public static native void VLImportAccounts(ImportExportData data);
 
+    static public void log(final String message){
+        Log.i("VideLibri", message);
+    }
+
 
     //called from VideLibri
 
-    public static interface VideLibriContext{
-        String userPath();
-    }
-
-
     static void allThreadsDone(){
-        if (VideLibriApp.allThreadsDoneHandler == null) return;
-        VideLibriApp.allThreadsDoneHandler.sendEmptyMessage(0);
-
+        if (allThreadsDoneHandler == null) return;
+        allThreadsDoneHandler.sendEmptyMessage(0);
     }
 
     static void installationDone(final int status){
-        if (VideLibriApp.installationDoneHandler == null) return;
-        VideLibriApp.installationDoneHandler.sendEmptyMessage(status);
+        if (installationDoneHandler == null) return;
+        installationDoneHandler.sendEmptyMessage(status);
     }
+
+    //callbacks
+    static public Handler allThreadsDoneHandler, installationDoneHandler, searchEventHandler;
 
     //init
 
-    static public void log(final String message){
-        Log.i("VideLibri", message);
+
+    public interface VideLibriContext{
+        String userPath();
     }
 
     static boolean initialized = false;

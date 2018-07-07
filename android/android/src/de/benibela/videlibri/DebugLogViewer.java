@@ -16,6 +16,8 @@ import java.util.Collections;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import de.benibela.videlibri.jni.Bridge;
+
 public class DebugLogViewer extends VideLibriBaseActivity implements AdapterView.OnItemSelectedListener {
     ArrayList<BookDetails.Details> details;
     private Spinner filterSpinner;

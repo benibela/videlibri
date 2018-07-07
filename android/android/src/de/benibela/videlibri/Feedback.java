@@ -20,6 +20,7 @@ import java.security.UnrecoverableKeyException;
 import java.util.ArrayList;
 
 import de.benibela.internettools.okhttp.ClientBuilderCustomizer;
+import de.benibela.videlibri.jni.Bridge;
 import okhttp3.FormBody;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;

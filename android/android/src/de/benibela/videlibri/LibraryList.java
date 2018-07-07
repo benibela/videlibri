@@ -19,6 +19,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
+import de.benibela.videlibri.jni.Bridge;
+
 
 public class LibraryList extends VideLibriBaseActivity {
 
