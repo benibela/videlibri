@@ -117,4 +117,7 @@
 <div t:condition="(ends-with(@id, 'DivSearchResultView') or ends-with(@class, 'searchresult'))
                   and matches(., 'Ihre Suche erzielte keine Treffer|No results available')">{search-result-count := 0}</div>
 
+
+<div t:condition="ends-with(@id, 'InfoMessage')">{vl:raise(.)}</div>
+	
 </t:switch>
