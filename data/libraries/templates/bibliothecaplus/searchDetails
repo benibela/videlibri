@@ -27,6 +27,7 @@
       <table t:condition="contains(@id, 'grdViewMediumCopies')">
         <tr><t:siblings-header>
           <th>Zweigstelle</th>?
+          <th>Bibliothek</th>?
           <th>Standort</th>*
           <th>Signatur</th>?
           <th>Status</th>?
@@ -39,6 +40,7 @@
           <th></th>*
         </t:siblings-header><!--Status,Frist,Vorbestellungen seem to be always theree--></tr>
         <tr>{$holding:={}}<t:siblings>
+          <td>{$holding.libraryBranch := local:parse-column(.)}</td>
           <td>{$holding.libraryBranch := local:parse-column(.)}</td>
           <td>{$holding.libraryLocation := normalize-space($holding.libraryLocation || " " || local:parse-column(.))}</td>
           <td>{$holding.id := local:parse-column(.)}</td>
