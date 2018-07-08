@@ -12,10 +12,10 @@
       </span>
       <div>
         <a t:condition="ends-with(@id, 'searchResultPagerTop_aPrevious')">{$prev-page := resolve-html(.)}</a>?
-        <span t:condition='contains(@id, "LabelPageN")'>{current-page:=xs:integer(normalize-space())}</span>
+        <span t:condition='contains(@id, "LabelPageN")'>{current-page:=xs:integer(normalize-space())}</span>?
         <a t:condition="ends-with(@id, 'searchResultPagerTop_aNext')">{
           if ($current-page eq $last-visited-page) then (search-next-page-available := true()) else (), next-page := resolve-html(.)}</a>?
-        <span t:condition="contains(@id, 'TotalItemsLabel')">{search-result-count := normalize-space(.)}</span>
+        <span t:condition="contains(@id, 'TotalItemsLabel')">{search-result-count := extract(normalize-space(.), "[0-9]+")}</span>
       </div>
     </t:switch>
 
