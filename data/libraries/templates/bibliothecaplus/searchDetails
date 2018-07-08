@@ -20,7 +20,7 @@
           <img t:condition="contains(@id, 'mediumImageDigitalDetail')">{$book("Download !") := ../@href}</img>
         </t:switch>
   
-        <input t:test="$book.orderable">{reserve-request := form((//form)[1], {"__EVENTTARGET":  @name})}</input>?
+        <input t:test="$book.orderable">{$book._orderTarget := @name}</input>?
       </div>?
            
     
@@ -62,14 +62,13 @@
          ), $book.holdings[] := $holding
         }</tr>+
         <t:s>
-        if (not($book.orderable) and empty($book.holdings[.("orderable")])) then 
+        if (empty($book._orderTarget) and empty($book.holdings[.("orderable")])) then 
           let $globalOrderBtn := //a[contains(@id, 'BtnReserve')]
           where exists($globalOrderBtn)
           return (
-            reserve-request := form((//form)[1], {"__EVENTTARGET":  translate($globalOrderBtn/@id, "_", "$")}),
+            $book._orderTarget := translate($globalOrderBtn/@id, "_", "$"),
             $book.orderable := true()
           )
-        else if (empty($reserve-request)) then reserve-request := form((//form)[1])
         else ()
         </t:s>
       </table>?
@@ -90,7 +89,11 @@
            
        }
       </div>
-      				
+      
+      {let $target := get("need-reserve-request-target",())[.]
+       where exists($target)
+       return $reserve-request := form((//form)[1], {"__EVENTTARGET":  $target})}
+      
     </body>
   </html>
 

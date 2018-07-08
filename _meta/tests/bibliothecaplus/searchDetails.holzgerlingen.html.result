@@ -5,3 +5,4 @@ result := ()
 holding := {"orderable": false, "pendingOrders": "0", "statusStr": "Verfügbar", "category": "Zeitschriften", "id": " ", "libraryLocation": "Zeitschrift"}
 result := ()
 book := {"Mediengruppe:!": " Zeitschriften ", "ISSN:!": " 0040-3946 ", "Verlag:!": " Berlin, Stiftung Warentest ", "Jahr:!": " 2015 ", "holdings": {"orderable": false, "pendingOrders": "0", "statusStr": "Verfügbar", "category": "Zeitschriften", "id": " ", "libraryLocation": "Zeitschrift"}, "orderable": false, "image-url": ["https://images-eu.ssl-images-amazon.com/images/P/.03.MZZZZZZZ.jpg", "searchDetails.holzgerlingen_files/emptyURL.gif", "https://images-eu.ssl-images-amazon.com/images/P/.03.MZZZZZZZ.jpg", "http://www.amazon.de/exec/obidos/ASIN//bondonline-21", "https://vlb.de/GetBlob.aspx?strIsbn=&size=S", "http://www.buchhandel.de/default.aspx?strframe=titelsuche&caller=vlbPublic&func=DirectIsbnSearch&isbn=&nSiteId=11"]}
+result := ()

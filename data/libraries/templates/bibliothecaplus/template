@@ -174,11 +174,9 @@ function __doPostBack(eventTarget, eventArgument) {
     <page url="{$loginForm}" templateFile="searchListHeaderOnly"/>
     <s>loggedIn := true()</s>
   </if>
+  <s>need-reserve-request-target := (get("holding",())[1]("_orderTarget"), $book._orderTarget)[.]</s>
   <call action="internal-gotobookpage"/>
-  <s>let $h := get("holding", ())
-     where exists($h) and exists($h("_orderTarget")[.])
-     return $reserve-request := request-combine($reserve-request, {"__EVENTTARGET":  $h("_orderTarget")})
-  </s><!--{"ScriptManager_TSM": ";;System.Web.Extensions, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35:en:d28568d3-e53e-4706-928f-3765912b66ca:ea597d4b:b25378d2"}-->
+  <s>need-reserve-request-target := ()</s>
   <page urL="{$reserve-request}"><template>
     <t:switch prioritized="on">
       <form><t:element t:condition='matches(@name||@id, "btnSave|btnConfirm", "i")'>{$input}</t:element>{$form := form(., $input)}</form>
