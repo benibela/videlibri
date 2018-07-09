@@ -203,6 +203,8 @@ type
     //procedure WndProc(var TheMessage : TLMessage); override;
     function menuItem2AssociatedAccount(mi: TMenuItem): TCustomAccountAccess;
 
+    function IsShortcut(var Message: TLMKey): boolean; override;
+
 
     procedure showVidelibri(var m:lcltype.TMsg); message LM_SHOW_VIDELIBRI;
     procedure showMainwindow;
@@ -1487,6 +1489,14 @@ begin
   if (mi.tag<=0) or (mi.tag>accounts.Count) then
     raise exception.Create('Ungültiges Konto angegeben');
   result:=(accounts[mi.tag-1]);
+end;
+
+function TmainForm.IsShortcut(var Message: TLMKey): boolean;
+begin
+  result := false;
+  if not Active then exit;
+  if ActiveControl is TEdit then exit;
+  result := inherited IsShortcut(Message);
 end;
 
 
