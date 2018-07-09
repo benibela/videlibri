@@ -5,19 +5,24 @@ unit xqueryform;
 interface
 
 uses
-  Classes, SysUtils, FileUtil, LResources, Forms, Controls, Graphics, Dialogs, ExtCtrls, StdCtrls, TreeListView, booklistview;
+  Classes, SysUtils, FileUtil, LResources, Forms, Controls, Graphics, Dialogs, ExtCtrls, StdCtrls, Menus, TreeListView, booklistview;
 
 type
   Txqueryfrm = class(TForm)
     Button1: TButton;
     Button2: TButton;
+    Button3: TButton;
     Memo1: TMemo;
+    querySave: TMenuItem;
+    queryLoad: TMenuItem;
     Panel1: TPanel;
+    PopupMenu1: TPopupMenu;
     Splitter1: TSplitter;
     procedure Button1Click(Sender: TObject);
     procedure Button2Click(Sender: TObject);
     procedure FormClose(Sender: TObject; var CloseAction: TCloseAction);
     procedure FormCreate(Sender: TObject);
+    procedure querySaveClick(Sender: TObject);
   private
     { private declarations }
   public
@@ -94,6 +99,14 @@ begin
   listview.Parent := self;
   listview.Options := listview.Options + [tlvoSorted];
 end;
+
+procedure Txqueryfrm.querySaveClick(Sender: TObject);
+begin
+  //todo: save and load queries
+
+  //not possible with ini files. stupid TIniFile class cannot handle linebreaks
+end;
+
 
 initialization
   {$I xqueryform.lrs}
