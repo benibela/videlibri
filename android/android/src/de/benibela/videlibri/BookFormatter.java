@@ -14,7 +14,7 @@ class BookFormatter {
         int c;
         if (book.history) c = -1;
         else if ((book.account != null || book.more == VideLibri.crazyHeaderHack)
-                && book.dueDate != null && book.dueDate.pascalDate - Bridge.currentPascalDate <= 3)
+                && book.dueDate != null && book.dueDate.pascalDate - Bridge.currentPascalDate <= Bridge.globalOptions.nearTime)
             c = Color.RED;
         else switch (book.getStatus()){
                 //lend
