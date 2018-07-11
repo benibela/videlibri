@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<library>
+  <longName value="Stadtbibliothek Weißenfels"/>
+  <shortName value="Stb Weißenfels"/>
+  
+  <template value="bibliothecaplus"/>
+  <variable name="urlaccount" value="https://weissenfels.bibliotheca-open.de/MeinKonto.aspx"/>
+  <variable name="urlsearch" value="https://weissenfels.bibliotheca-open.de/Mediensuche/ErweiterteSuche.aspx"/>
+
+  <homepage value="https://weissenfels.bibliotheca-open.de/"/>
+  <testing-search value="yes"/>  
+  <testing-account value="unknown"/>
+</library>
+
