@@ -109,7 +109,6 @@
     <RunParams>
       <local>
         <FormatVersion Value="1"/>
-        <CommandLineParams Value="--user-path \tmp\xxxxxxxxxxxxxxxxxxx --log"/>
       </local>
     </RunParams>
     <RequiredPackages Count="4">

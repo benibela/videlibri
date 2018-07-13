@@ -1,10 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?xml-stylesheet type="text/xsl" href="../changelog.xsl"?>
 <changelog program="VideLibri">
-      <build version="1980" date="2018-06-17">
+      <build version="1985" date="2018-07-13">
         <download url="http://videlibri.sourceforge.net/updates/videlibri-setup.exe" platform="WINDOWS" execute="&quot;$DOWNLOAD&quot;  /SP- /noicons &quot;/dir=$OLDPATH&quot; " restart="true"/>
         <download url="http://videlibri.sourceforge.net/updates/videlibri-linux32.deb" platform="LINUX32" execute=""/>
         <download url="http://videlibri.sourceforge.net/updates/videlibri-linux64.deb" platform="LINUX64" execute=""/>
+        <change level="major">android: Alles neuprogrammiert, um OkHttp statt Apache HttpComponents für den Internetzugriff zu verwenden.</change>
+        <change>Bibliotheca+/OPEN: Zeige mehr Informationen für Suchergebnisse, verfügbare Medien.</change>
+        <change>verbessertes Layout: Import/Export, XQuery-Suche, Exemplaranzeige unter Android.</change>
+        <change>Android: Einstellung für "bald ablaufende Medien warnen" ändert welche Medien rot markiert werden.</change>
+        <fix>Linux/Windows: Strg+C kopiert den markierten Text, nicht immer nur das markierte Buch.</fix>
+        <fix>OPEN: Ignoriere unsichtbare Passwortdialoge beim Login.</fix>
+        <fix>Android: Falls der Import/Export mangels fehlenden Berechtigungen nicht möglich ist, frage nach den Berechtigungen, statt eine Fehlermeldung zu zeigen. Stürze nicht ab, wenn keine Datei ausgewählt wird.</fix>
+        <change>Android: Gebe Wakelock per Timeout frei, auch wenn die Ausleihen-Aktualisierung noch nicht fertig ist, falls die Kommunikation mit dem Bibliotheksserver viel langsamer ist als sie sein sollte.</change>
+        <add>SRH Mediothek Neckargemünd, Stadtbibliothek Weißenfels</add>
+     </build>
+      <build version="1980" date="2018-06-17">
         <change>Bibliothek der HMT Leipzig: Doppelt so schnelle Auswertung der Suchergebniswebseite</change>
         <change>HTTPS: Wenn Android das HTTPS-Zertifikat der Bibliothek nicht akzeptiert, weil es das verwendete Rootzertifikat nicht kennt,  speichere das Rootzertifikat in der App statt das Zertifikat der Bibliothek (Linz..)</change>
         <change>GBV GKV: Verwende das neue holdings-Vormerkungsanzeigesystem</change>
