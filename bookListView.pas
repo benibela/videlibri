@@ -65,7 +65,6 @@ uses
    property books[i:integer]: TBook read GetBook;
 
    procedure ColumnsClear;
-   procedure ColumnsAutoSize;
    procedure addDefaultColumns;
    procedure addColumn(const prop: string);
    function getPropertyColumnIndex(p: string): integer;
@@ -421,13 +420,6 @@ begin
   properties := nil;
 end;
 
-procedure TBookListView.ColumnsAutoSize;
-var
-  i: Integer;
-begin
-  for i := 0 to F_Header.Sections.Count - 1 do
-    _HeaderSectionDblClick(F_Header, F_Header.Sections[i]);
-end;
 
 procedure TBookListView.addDefaultColumns;
 var i: Integer;
