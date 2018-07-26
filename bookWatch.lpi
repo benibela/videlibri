@@ -12,6 +12,10 @@
       <AutoCreateForms Value="False"/>
       <Title Value="VideLibri"/>
       <UseXPManifest Value="True"/>
+      <XPManifest>
+        <TextName Value="benibela.videlibri.app"/>
+        <TextDesc Value="VideLibri"/>
+      </XPManifest>
       <Icon Value="0"/>
     </General>
     <VersionInfo>

@@ -40,7 +40,7 @@ object mainForm: TmainForm
   end
   object ToolBar1: TToolBar
     Left = 0
-    Height = 54
+    Height = 52
     Top = 0
     Width = 927
     ButtonHeight = 52

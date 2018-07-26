@@ -12,11 +12,11 @@ object XMLExportFrm: TXMLExportFrm
   object TreeListView1: TTreeListView
     AnchorSideTop.Control = Edit1
     AnchorSideTop.Side = asrBottom
-    AnchorSideBottom.Side = asrBottom
+    AnchorSideBottom.Control = Button2
     Left = 9
-    Height = 284
+    Height = 267
     Hint = 'Constant example tree'
-    Top = 84
+    Top = 86
     Width = 546
     Options = [tlvoToolTips, tlvoRightMouseSelects, tlvoStriped]
     Columns = <    
@@ -50,7 +50,7 @@ object XMLExportFrm: TXMLExportFrm
         Width = 100
         Visible = True
       end>
-    RowHeight = 16
+    RowHeight = 0
     HorizontalLineMode = lmNone
     HorizontalLineColor = clWindowFrame
     VerticalLineMode = lmDot
@@ -77,6 +77,7 @@ object XMLExportFrm: TXMLExportFrm
     OnClickAtRecordItem = TreeListView1ClickAtRecordItem
     TabOrder = 0
     Anchors = [akTop, akLeft, akRight, akBottom]
+    ShowHint = True
   end
   object Label1: TLabel
     AnchorSideTop.Control = Edit1
@@ -89,11 +90,13 @@ object XMLExportFrm: TXMLExportFrm
     ParentColor = False
   end
   object Edit1: TEdit
+    AnchorSideLeft.Control = Label1
+    AnchorSideLeft.Side = asrBottom
     AnchorSideRight.Control = Button1
-    Left = 88
+    Left = 81
     Height = 31
     Top = 48
-    Width = 347
+    Width = 354
     Anchors = [akTop, akLeft, akRight]
     BorderSpacing.Around = 5
     TabOrder = 1
@@ -114,20 +117,22 @@ object XMLExportFrm: TXMLExportFrm
   end
   object Button2: TButton
     Left = 9
-    Height = 25
-    Top = 368
-    Width = 167
+    Height = 33
+    Top = 360
+    Width = 135
     Anchors = [akLeft, akBottom]
+    AutoSize = True
     Caption = 'Import durchführen'
     OnClick = Button2Click
     TabOrder = 3
   end
   object Button3: TButton
-    Left = 464
-    Height = 25
-    Top = 368
-    Width = 91
+    Left = 483
+    Height = 33
+    Top = 360
+    Width = 72
     Anchors = [akRight, akBottom]
+    AutoSize = True
     Cancel = True
     Caption = 'Schließen'
     OnClick = Button3Click
@@ -135,7 +140,7 @@ object XMLExportFrm: TXMLExportFrm
   end
   object SpeedButton1: TSpeedButton
     Left = 144
-    Height = 30
+    Height = 32
     Top = 8
     Width = 128
     Caption = 'Export'

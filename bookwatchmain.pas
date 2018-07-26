@@ -421,6 +421,7 @@ begin
   po.free;
   stream.free;
 
+  BookList:=TBookListView.create(self,true);
 
   setSymbolAppearance(userConfig.ReadInteger('appearance','symbols',0));
 
@@ -470,7 +471,6 @@ begin
 
   refreshAccountGUIElements();
 
-  BookList:=TBookListView.create(self,true);
   booklist.addDefaultColumns;
   BookList.Parent:=self;
   BookList.BackGroundColor:=colorOK;
@@ -504,6 +504,9 @@ begin
   height:=userConfig.ReadInteger('window','height',height);
   if left+width>screen.width then width:=screen.width-left;
   if top+height>screen.height then height:=screen.height-top;
+
+
+  globalOnFormCreate(self);
 
   lastState:=WindowState;
   if lastState = wsMinimized then lastState:=wsNormal;
@@ -1405,7 +1408,7 @@ procedure TmainForm.setSymbolAppearance(showStatus: integer);
 var bheight: integer;
 begin
   bheight:=0;
-  if showStatus and 2=0 then bheight:=bHeight+17;
+  if showStatus and 2=0 then bheight:=bHeight+BookList.RowHeight;
   ToolBar1.ShowCaptions:=showStatus and 2=0;
   if showStatus and 1=0 then begin
     bheight:=bHeight+52;

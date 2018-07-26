@@ -107,6 +107,7 @@ begin
   listview.addColumn('_firstexistsdate');
   listview.addColumn('_lastexistsdate');
   for i := 0 to accounts.count - 1 do cbAccounts.Items.add(accounts[i].prettyName);
+  globalOnFormCreate(self);
   searchDuplicates;
 end;
 

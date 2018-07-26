@@ -1,13 +1,14 @@
 object DebugLogForm: TDebugLogForm
   Left = 287
   Height = 635
-  Top = 206
+  Top = 205
   Width = 875
   Caption = 'Debug Log'
   ClientHeight = 635
   ClientWidth = 875
+  OnCreate = FormCreate
   OnShow = FormShow
-  LCLVersion = '1.7'
+  LCLVersion = '1.8.1.0'
   object Memo1: TMemo
     Left = 0
     Height = 635
@@ -21,7 +22,7 @@ object DebugLogForm: TDebugLogForm
   end
   object Timer1: TTimer
     OnTimer = Timer1Timer
-    left = 201
-    top = 66
+    Left = 201
+    Top = 66
   end
 end

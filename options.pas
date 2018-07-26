@@ -348,6 +348,8 @@ begin
 //  else TrackBar1.Color:=cl; //ThemeServices.ColorToRGB(clBtnFace);
    //TrackBar1.ControlStyle:=TrackBar1.ControlStyle-[csOpaque];
 
+  globalOnFormCreate(self);
+
   Notebook1.PageIndex:=0;
 
   //Accountpage

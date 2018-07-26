@@ -11,6 +11,7 @@ type
   TDebugLogForm = class(TForm)
     Memo1: TMemo;
     Timer1: TTimer;
+    procedure FormCreate(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure Timer1Timer(Sender: TObject);
   private
@@ -24,7 +25,7 @@ var
 
 implementation
 
-uses bbdebugtools;
+uses bbdebugtools, applicationdesktopconfig;
 procedure TDebugLogForm.FormShow(Sender: TObject);
 begin
   if not logging then begin
@@ -32,6 +33,11 @@ begin
     log('Debug logging started');
   end;
   Timer1Timer(sender);
+end;
+
+procedure TDebugLogForm.FormCreate(Sender: TObject);
+begin
+  globalOnFormCreate(self);
 end;
 
 var oldFileSize: integer;

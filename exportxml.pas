@@ -47,7 +47,7 @@ var
   XMLExportFrm: TXMLExportFrm;
 
 implementation
-uses strutils,bookWatchMain,libraryAccess;
+uses strutils,bookWatchMain,libraryAccess,applicationdesktopconfig;
 
 const COLUMN_CURRENT = 1;
       COLUMN_HISTORY = 2;
@@ -76,6 +76,7 @@ resourcestring
 procedure TXMLExportFrm.FormCreate(Sender: TObject);
 begin
   currentMode := MODE_IMPORT;
+  globalOnFormCreate(self);
 end;
 
 procedure TXMLExportFrm.Button3Click(Sender: TObject);
@@ -362,6 +363,7 @@ begin
     end;
   end;
   TreeListView1.EndUpdate;
+  TreeListView1.ColumnsAutoSize;
 end;
 
 initialization

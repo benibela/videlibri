@@ -22,6 +22,7 @@ type
     procedure Button2Click(Sender: TObject);
     procedure FormClose(Sender: TObject; var CloseAction: TCloseAction);
     procedure FormCreate(Sender: TObject);
+    procedure FormShow(Sender: TObject);
     procedure querySaveClick(Sender: TObject);
   private
     { private declarations }
@@ -35,7 +36,7 @@ var
 
 implementation
 
-uses booklistreader,libraryAccess,xquery;
+uses booklistreader,libraryAccess,xquery,applicationdesktopconfig;
 
 procedure Txqueryfrm.Button1Click(Sender: TObject);
 begin
@@ -93,11 +94,17 @@ end;
 
 procedure Txqueryfrm.FormCreate(Sender: TObject);
 begin
+  globalOnFormCreate(self);
   listview := TBookListView.create(self,true);
   listview.addDefaultColumns;
   listview.Align := alClient;
   listview.Parent := self;
   listview.Options := listview.Options + [tlvoSorted];
+end;
+
+procedure Txqueryfrm.FormShow(Sender: TObject);
+begin
+  if button2.Top < 5 then panel1.Height := panel1.Height - button2.top + 10;
 end;
 
 procedure Txqueryfrm.querySaveClick(Sender: TObject);

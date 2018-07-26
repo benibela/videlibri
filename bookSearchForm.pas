@@ -240,6 +240,8 @@ begin
   if debugMode then begin
     startAutoSearchButton.Visible := true;
   end;
+
+  globalOnFormCreate(self);
 end;
 
 procedure TbookSearchFrm.startSearchClick(Sender: TObject);

@@ -57,7 +57,7 @@ var
 
 implementation
 
-uses bookwatchmain,bbutils,math,booklistreader,libraryParser;
+uses bookwatchmain,bbutils,math,booklistreader,libraryParser,applicationdesktopconfig;
 { TstatistikForm }
 
 
@@ -256,6 +256,7 @@ procedure TstatistikForm.FormCreate(Sender: TObject);
 begin
   diagramDrawer:=nil;
   ComboBox1.ItemIndex:=0;
+  globalOnFormCreate(self);
 end;
 
 procedure TstatistikForm.Button1Click(Sender: TObject);

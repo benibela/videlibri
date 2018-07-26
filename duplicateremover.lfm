@@ -7,35 +7,45 @@ object duplicateForm: TduplicateForm
   ClientHeight = 573
   ClientWidth = 783
   OnCreate = FormCreate
-  LCLVersion = '1.7'
+  LCLVersion = '1.8.1.0'
   object Panel2: TPanel
     Left = 0
-    Height = 77
-    Top = 496
+    Height = 72
+    Top = 501
     Width = 783
     Align = alBottom
+    AutoSize = True
+    BorderSpacing.InnerBorder = 5
     BevelOuter = bvNone
-    ClientHeight = 77
+    ClientHeight = 72
     ClientWidth = 783
     TabOrder = 0
     object Button1: TButton
       AnchorSideLeft.Control = cbTimeConstraint
       AnchorSideLeft.Side = asrBottom
-      Left = 314
-      Height = 25
-      Top = 24
-      Width = 136
+      AnchorSideTop.Control = cbTimeConstraint
+      AnchorSideBottom.Control = cbTimeConstraint
+      AnchorSideBottom.Side = asrBottom
+      Left = 298
+      Height = 33
+      Top = 29
+      Width = 121
+      Anchors = [akLeft, akBottom]
+      AutoSize = True
       BorderSpacing.Left = 30
       Caption = 'Duplikate löschen'
       OnClick = Button1Click
       TabOrder = 0
     end
     object Button2: TButton
-      Left = 696
-      Height = 25
-      Top = 24
-      Width = 75
+      AnchorSideTop.Control = Button1
+      AnchorSideTop.Side = asrCenter
+      Left = 699
+      Height = 33
+      Top = 29
+      Width = 72
       Anchors = [akTop, akRight]
+      AutoSize = True
       Cancel = True
       Caption = 'Schließen'
       OnClick = Button2Click
@@ -43,9 +53,9 @@ object duplicateForm: TduplicateForm
     end
     object cbAccounts: TComboBox
       AnchorSideLeft.Control = cbTimeConstraint
-      Left = 84
-      Height = 21
-      Top = 13
+      Left = 68
+      Height = 31
+      Top = 0
       Width = 200
       ItemHeight = 0
       ItemIndex = 1
@@ -61,9 +71,11 @@ object duplicateForm: TduplicateForm
     object cbTimeConstraint: TComboBox
       AnchorSideLeft.Control = Label2
       AnchorSideLeft.Side = asrBottom
-      Left = 84
-      Height = 21
-      Top = 40
+      AnchorSideTop.Control = cbAccounts
+      AnchorSideTop.Side = asrBottom
+      Left = 68
+      Height = 31
+      Top = 31
       Width = 200
       BorderSpacing.Left = 15
       ItemHeight = 0
@@ -81,28 +93,33 @@ object duplicateForm: TduplicateForm
     object Label1: TLabel
       AnchorSideTop.Control = cbAccounts
       AnchorSideTop.Side = asrCenter
-      Left = 8
-      Height = 15
-      Top = 16
-      Width = 49
+      Left = 0
+      Height = 19
+      Top = 6
+      Width = 47
       Caption = 'Konten:'
       ParentColor = False
     end
     object Label2: TLabel
       AnchorSideTop.Control = cbTimeConstraint
       AnchorSideTop.Side = asrCenter
-      Left = 9
-      Height = 15
-      Top = 43
-      Width = 60
+      Left = 1
+      Height = 19
+      Top = 37
+      Width = 52
       Caption = 'Zeitlimit:'
       ParentColor = False
     end
     object lbCount: TLabel
-      Left = 462
+      AnchorSideLeft.Control = cbAccounts
+      AnchorSideLeft.Side = asrBottom
+      AnchorSideTop.Control = cbAccounts
+      AnchorSideTop.Side = asrCenter
+      Left = 298
       Height = 1
-      Top = 30
+      Top = 15
       Width = 1
+      BorderSpacing.Left = 30
       ParentColor = False
     end
   end

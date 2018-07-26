@@ -35,7 +35,7 @@ var
   BibTexExportFrm: TBibTexExportFrm;
 
 implementation
-uses bbutils, applicationconfig, bookWatchMain,booklistreader,Clipbrd,math;
+uses bbutils, applicationconfig, bookWatchMain,booklistreader,Clipbrd,math,applicationdesktopconfig;
 { TBibTexExportFrm }
 
 procedure TBibTexExportFrm.RadioGroup2Click(Sender: TObject);
@@ -174,6 +174,7 @@ end;
 
 procedure TBibTexExportFrm.FormCreate(Sender: TObject);
 begin
+  globalOnFormCreate(self);
 end;
 
 procedure TBibTexExportFrm.FormShow(Sender: TObject);

@@ -5,7 +5,7 @@ unit applicationdesktopconfig;
 interface
 
 uses
-  Classes, SysUtils, Graphics, applicationconfig,LazFileUtils {$ifdef win32},registry{$endif};
+  Classes, SysUtils, Graphics, applicationconfig,LazFileUtils, forms {$ifdef win32},registry{$endif};
 
 
 var
@@ -28,6 +28,7 @@ type TCallbackHolderDesktop = class (TCallbackHolder)
 end;
 
   procedure showErrorMessages();
+  procedure globalOnFormCreate(form: TForm);
 
 resourcestring
   rsRenewOptions = 'immer, wenn möglich%salle, wenn nötig%seinzeln, wenn nötig%sniemals';
@@ -44,7 +45,7 @@ resourcestring
 
 implementation
 
-uses bookWatchMain,booklistreader,libraryAccess, bbutils,bbdebugtools,forms,LCLType,Dialogs, Controls, errorDialog, autoupdate, FileUtil, androidutils;
+uses bookWatchMain,booklistreader,libraryAccess, bbutils,bbdebugtools,LCLType,Dialogs, Controls, errorDialog, autoupdate, FileUtil, androidutils;
 
 resourcestring
   rsUpdateBeingInstalled = 'Bitte warten, Update wird installiert...';
@@ -196,6 +197,11 @@ begin
       TshowErrorForm.showError(TExceptionKind(ObjToUInt(sl_message.Objects[i])),sl_title[i],sl_message[i],sl_messagedetails[i],nil,nil);
   end;
   sl_title.free; sl_message.free; sl_messagedetails.free
+end;
+
+procedure globalOnFormCreate(form: TForm);
+begin
+
 end;
 
 function confirm(s: string): boolean;

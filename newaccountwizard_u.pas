@@ -162,6 +162,8 @@ begin
   DebugLn('9');
   label5.Caption:='Sind alle Angaben korrekt?';
   {$endif}
+
+  globalOnFormCreate(self);
 end;
 
 procedure TnewAccountWizard.FormShow(Sender: TObject);
@@ -239,6 +241,7 @@ begin
       finalPage.Items[5].RecordItemsText[1]:=rsYes
      else
       finalPage.Items[5].RecordItemsText[1]:=rsNo ;
+    finalPage.ColumnsAutoSize;
     nextbtn.Caption:=rsBtnCreate;
     finalPage.Repaint;
   end else nextbtn.Caption:=rsBtnNext;
