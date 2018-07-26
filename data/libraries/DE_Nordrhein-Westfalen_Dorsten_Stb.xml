@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<library>
+  <longName value="Stadtbücherei Dorsten"/>
+  <shortName value="Stb Dorsten"/>
+  
+  <template value="vufind"/>  
+  <variable name="baseurl" value="https://www.bib-kreisre.de/"/>
+  <variable name="loginParams" value="library_select=DORS"/>
+    
+   
+
+  <homepage value="http://www.vhsundkultur-dorsten.de/stadtbibliothek/index.php"/>
+  <testing-search value="yes"/>  <testing-account value="yes"/>
+</library>
+
+
+

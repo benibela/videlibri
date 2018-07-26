@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <library>
-  <longName value="Stadtbücherei Datteln"/>
-  <shortName value="Stb Datteln"/>
+  <longName value="Stadtbücherei Castrop-Rauxel"/>
+  <shortName value="Stb Castrop-Rauxel"/>
   
   <template value="vufind"/>  
   <variable name="baseurl" value="https://www.bib-kreisre.de/"/>
-  <variable name="loginParams" value="library_select=DATT"/>
+  <variable name="loginParams" value="library_select=CAST"/>
     
    
 
   <homepage value="https://www.datteln.de/04_Kultur_Bildung/Stadtbuecherei.asp?A_highmain=13&amp;A_highsub=0&amp;A_highsubsub=0"/>
-  <testing-search value="yes"/>  <testing-account value="yes"/></library>
+  <testing-search value="yes"/>  <testing-account value="yes"/>
+</library>
 

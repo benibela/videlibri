@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<library>
+  <longName value="Stadtbücherei Gladbeck"/>
+  <shortName value="Stb Gladbeck"/>
+  
+  <template value="vufind"/>  
+  <variable name="baseurl" value="https://www.bib-kreisre.de/"/>
+  <variable name="loginParams" value="library_select=GLAD"/>
+    
+   
+
+  <homepage value="http://www.stadtbuecherei-gladbeck.de/"/>
+  <testing-search value="yes"/>  <testing-account value="yes"/>
+</library>
+
