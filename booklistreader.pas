@@ -1251,7 +1251,7 @@ begin
   matcher.KeepPreviousVariables := kpvKeepValues;
   inherited create(atemplate, nil, matcher);
   defaultBook:=TBook.create;
-  onLog:=@logall;
+  self.onLog:=@logall;
   parser.QueryEngine.GlobalNamespaces.add(XMlNamespaceVideLibri);
   parser.QueryEngine.GlobalNamespaces.add(XMlNamespaceVideLibri_VL);
   temp := TXQVideLibriStaticContext.create(self);
