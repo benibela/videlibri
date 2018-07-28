@@ -59,40 +59,39 @@ begin
 end;
 
 procedure TVideLibriForm.DoCreate;
-const REFERENCE_FONT = 19;
+const REFERENCE_FONT = 19; //19 on Linux, 15 on Windows for the same DPI
 var
   fontHeight, i: Integer;
   bounds, oldbounds: TRect;
-  metrics: TLCLTextMetric;
 begin
   guiScaleFactor := 1;
   fontHeight := Canvas.GetTextHeight('Hm,.|');
-  Canvas.GetTextMetrics(metrics);
 
+  {Canvas.GetTextMetrics(metrics);
   log('METRI'+IntToStr(metrics.Height));
   log('PP::::' + inttostr(font.PixelsPerInch));
   log('GT::::' + inttostr(font.GetTextHeight('Hm,.|')));
-  log('CGT::::' + inttostr(Canvas.GetTextHeight('Hm,.|')));
+  log('CGT::::' + inttostr(Canvas.GetTextHeight('Hm,.|')));}
 
+  oldbounds := BoundsRect;
+  bounds := oldbounds;
   LockRealizeBounds;
   if fontHeight > REFERENCE_FONT then begin
     guiScaleFactor := fontHeight / REFERENCE_FONT;
-    oldbounds := BoundsRect;
-    bounds := oldbounds;
     bounds.Width := MulDiv(bounds.Width, fontHeight, REFERENCE_FONT);
     bounds.Height := MulDiv(bounds.Height, fontHeight, REFERENCE_FONT);
-    if bounds.Width > screen.Width then bounds.Width := screen.Width;
-    if bounds.Height > screen.Height then bounds.Height := screen.Height;
-    if (bounds.width <> oldbounds.Width) or (bounds.height <> oldbounds.Height) then begin
-
-      if bounds.Left + bounds.Width > screen.Width then bounds.Left := screen.Width - bounds.Width;
-      if bounds.Top + bounds.Height > screen.Height then bounds.Top := screen.Height - bounds.Height;
-
-      BoundsRect := bounds;
-
-      videLibriScale(self);
-    end;
   end;
+
+  if bounds.Width > screen.Width then bounds.Width := screen.Width;
+  if bounds.Height > screen.Height then bounds.Height := screen.Height;
+  if bounds.Left + bounds.Width > screen.Width then bounds.Left := screen.Width - bounds.Width;
+  if bounds.Top + bounds.Height > screen.Height then bounds.Top := screen.Height - bounds.Height;
+
+  if bounds <> oldbounds then
+    BoundsRect := bounds;
+
+  if fontHeight > REFERENCE_FONT then
+    videLibriScale(self);
 
   inherited DoCreate;
 
