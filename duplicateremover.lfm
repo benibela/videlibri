@@ -8,6 +8,7 @@ object duplicateForm: TduplicateForm
   ClientWidth = 783
   OnCreate = FormCreate
   LCLVersion = '1.8.1.0'
+  Scaled = False
   object Panel2: TPanel
     Left = 0
     Height = 72

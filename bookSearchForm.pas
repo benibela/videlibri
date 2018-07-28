@@ -7,13 +7,13 @@ interface
 uses
   Classes, SysUtils, LResources, Forms, Controls, Graphics, Dialogs, ExtCtrls,
   CheckLst, StdCtrls,bookListView, ComCtrls, Menus,librarySearcher,booklistreader,TreeListView,math,
-  librarySearcherAccess,multipagetemplate;
+  librarySearcherAccess,multipagetemplate,applicationformconfig;
 
 type
 
   { TbookSearchFrm }
 
-  TbookSearchFrm = class(TForm)
+  TbookSearchFrm = class(TVideLibriForm)
     detailPanel: TPanel;
     holdingsPanel: TPanel;
     searchLocationRegion: TComboBox;
@@ -240,8 +240,6 @@ begin
   if debugMode then begin
     startAutoSearchButton.Visible := true;
   end;
-
-  globalOnFormCreate(self);
 end;
 
 procedure TbookSearchFrm.startSearchClick(Sender: TObject);

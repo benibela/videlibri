@@ -7,14 +7,14 @@ interface
 uses
   Classes, SysUtils, LResources, Forms, Controls, Graphics, Dialogs, ComCtrls,
   Buttons, StdCtrls, bookWatchMain, libraryParser, ExtCtrls,{$ifdef win32}registry,{$endif}
-   EditBtn,Themes, xquery;
+   EditBtn,Themes, xquery,applicationformconfig;
 //TODO: Fix resizing bug (LCL)
 //TODO2: Offenen Einstellungsfenster => Verschwinden aus Programmauswahl
 type
 
   { ToptionForm }
 
-  ToptionForm = class(TForm)
+  ToptionForm = class(TVideLibriForm)
     accountList: TListView;
     cbCopyAccountLimits: TCheckBox;
     accountType: TComboBox;
@@ -348,7 +348,7 @@ begin
 //  else TrackBar1.Color:=cl; //ThemeServices.ColorToRGB(clBtnFace);
    //TrackBar1.ControlStyle:=TrackBar1.ControlStyle-[csOpaque];
 
-  globalOnFormCreate(self);
+
 
   Notebook1.PageIndex:=0;
 

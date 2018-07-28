@@ -6,13 +6,13 @@ interface
 
 uses
   Classes, SysUtils, LResources, Forms, Controls, Graphics, Dialogs, ExtCtrls,
-  Buttons, StdCtrls, Grids,bookwatchmain,libraryParser, libraryListView, TreeListView;
+  Buttons, StdCtrls, Grids,bookwatchmain,libraryParser, libraryListView, TreeListView,applicationformconfig;
 
 type
 
   { TnewAccountWizard }
 
-  TnewAccountWizard = class(TForm)
+  TnewAccountWizard = class(TVideLibriForm)
     newlibbtn: TButton;
     cancelBtn: TButton;
     accountType: TComboBox;
@@ -163,7 +163,7 @@ begin
   label5.Caption:='Sind alle Angaben korrekt?';
   {$endif}
 
-  globalOnFormCreate(self);
+
 end;
 
 procedure TnewAccountWizard.FormShow(Sender: TObject);

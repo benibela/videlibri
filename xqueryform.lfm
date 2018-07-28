@@ -11,6 +11,7 @@ object xqueryfrm: Txqueryfrm
   OnShow = FormShow
   Position = poScreenCenter
   LCLVersion = '1.8.1.0'
+  Scaled = False
   object Panel1: TPanel
     Left = 0
     Height = 107

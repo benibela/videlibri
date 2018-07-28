@@ -17,6 +17,7 @@ object showErrorForm: TshowErrorForm
   OnShow = FormShow
   Position = poScreenCenter
   LCLVersion = '1.8.1.0'
+  Scaled = False
   object Label1: TLabel
     Left = 11
     Height = 19

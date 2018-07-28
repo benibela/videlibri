@@ -12,11 +12,12 @@ object statistikForm: TstatistikForm
   OnResize = FormResize
   OnShow = FormShow
   LCLVersion = '1.8.1.0'
+  Scaled = False
   object PaintBox1: TPaintBox
     AnchorSideTop.Control = Panel1
     Left = 0
-    Height = 299
-    Top = 45
+    Height = 295
+    Top = 49
     Width = 623
     Align = alClient
     Anchors = [akLeft, akRight, akBottom]
@@ -26,7 +27,7 @@ object statistikForm: TstatistikForm
   end
   object Panel1: TPanel
     Left = 3
-    Height = 39
+    Height = 43
     Top = 3
     Width = 617
     Align = alTop
@@ -35,7 +36,7 @@ object statistikForm: TstatistikForm
     BevelOuter = bvNone
     ChildSizing.TopBottomSpacing = 3
     ChildSizing.VerticalSpacing = 3
-    ClientHeight = 39
+    ClientHeight = 43
     ClientWidth = 617
     TabOrder = 0
     object ComboBox1: TComboBox
@@ -43,7 +44,7 @@ object statistikForm: TstatistikForm
       AnchorSideLeft.Side = asrBottom
       AnchorSideTop.Side = asrCenter
       Left = 284
-      Height = 31
+      Height = 35
       Top = 4
       Width = 109
       BorderSpacing.Around = 4

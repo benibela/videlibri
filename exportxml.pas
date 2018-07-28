@@ -6,10 +6,10 @@ interface
 
 uses
   Classes, SysUtils, FileUtil, LResources, Forms, Controls, Graphics, Dialogs, ExtCtrls, StdCtrls, Themes, Buttons, TreeListView,
-  simplehtmltreeparser, applicationconfig,libraryParser;
+  simplehtmltreeparser, applicationconfig,libraryParser,applicationformconfig;
 
 type
-  TXMLExportFrm = class(TForm)
+  TXMLExportFrm = class(TVideLibriForm)
     Button1: TButton;
     Button2: TButton;
     Button3: TButton;
@@ -76,7 +76,7 @@ resourcestring
 procedure TXMLExportFrm.FormCreate(Sender: TObject);
 begin
   currentMode := MODE_IMPORT;
-  globalOnFormCreate(self);
+
 end;
 
 procedure TXMLExportFrm.Button3Click(Sender: TObject);

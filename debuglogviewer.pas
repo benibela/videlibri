@@ -5,10 +5,10 @@ unit debuglogviewer;
 interface
 
 uses
-  Classes, SysUtils, FileUtil, LResources, Forms, Controls, Graphics, Dialogs, StdCtrls, ExtCtrls;
+  Classes, SysUtils, FileUtil, LResources, Forms, Controls, Graphics, Dialogs, StdCtrls, ExtCtrls,applicationformconfig;
 
 type
-  TDebugLogForm = class(TForm)
+  TDebugLogForm = class(TVideLibriForm)
     Memo1: TMemo;
     Timer1: TTimer;
     procedure FormCreate(Sender: TObject);
@@ -37,7 +37,7 @@ end;
 
 procedure TDebugLogForm.FormCreate(Sender: TObject);
 begin
-  globalOnFormCreate(self);
+
 end;
 
 var oldFileSize: integer;

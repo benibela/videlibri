@@ -9,14 +9,15 @@ object XMLExportFrm: TXMLExportFrm
   OnCreate = FormCreate
   OnShow = FormShow
   LCLVersion = '1.8.1.0'
+  Scaled = False
   object TreeListView1: TTreeListView
     AnchorSideTop.Control = Edit1
     AnchorSideTop.Side = asrBottom
     AnchorSideBottom.Control = Button2
     Left = 9
-    Height = 267
+    Height = 277
     Hint = 'Constant example tree'
-    Top = 86
+    Top = 83
     Width = 546
     Options = [tlvoToolTips, tlvoRightMouseSelects, tlvoStriped]
     Columns = <    
@@ -84,7 +85,7 @@ object XMLExportFrm: TXMLExportFrm
     AnchorSideTop.Side = asrCenter
     Left = 9
     Height = 19
-    Top = 54
+    Top = 53
     Width = 67
     Caption = 'XML Datei: '
     ParentColor = False
@@ -92,12 +93,15 @@ object XMLExportFrm: TXMLExportFrm
   object Edit1: TEdit
     AnchorSideLeft.Control = Label1
     AnchorSideLeft.Side = asrBottom
+    AnchorSideTop.Control = SpeedButton1
+    AnchorSideTop.Side = asrBottom
     AnchorSideRight.Control = Button1
     Left = 81
     Height = 31
-    Top = 48
+    Top = 47
     Width = 354
     Anchors = [akTop, akLeft, akRight]
+    BorderSpacing.Top = 2
     BorderSpacing.Around = 5
     TabOrder = 1
     Text = 'videlibri.xml'
@@ -107,7 +111,7 @@ object XMLExportFrm: TXMLExportFrm
     AnchorSideTop.Side = asrCenter
     Left = 440
     Height = 33
-    Top = 47
+    Top = 46
     Width = 115
     Anchors = [akTop, akRight]
     AutoSize = True
@@ -127,14 +131,15 @@ object XMLExportFrm: TXMLExportFrm
     TabOrder = 3
   end
   object Button3: TButton
-    Left = 483
+    Left = 432
     Height = 33
     Top = 360
-    Width = 72
+    Width = 128
     Anchors = [akRight, akBottom]
     AutoSize = True
     Cancel = True
     Caption = 'Schließen'
+    Constraints.MinWidth = 128
     OnClick = Button3Click
     TabOrder = 4
   end
@@ -143,6 +148,9 @@ object XMLExportFrm: TXMLExportFrm
     Height = 32
     Top = 8
     Width = 128
+    AutoSize = True
+    Constraints.MinHeight = 32
+    Constraints.MinWidth = 128
     Caption = 'Export'
     GroupIndex = 10
     OnClick = SpeedButton1Click
@@ -152,6 +160,9 @@ object XMLExportFrm: TXMLExportFrm
     Height = 32
     Top = 8
     Width = 128
+    AutoSize = True
+    Constraints.MinHeight = 32
+    Constraints.MinWidth = 128
     Caption = 'Import'
     Down = True
     GroupIndex = 10

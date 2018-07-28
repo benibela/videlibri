@@ -6,13 +6,13 @@ interface
 
 uses
   Classes, SysUtils, LResources, Forms, Controls, Graphics, Dialogs, StdCtrls,
-  ExtCtrls, EditBtn, Buttons;
+  ExtCtrls, EditBtn, Buttons, applicationformconfig;
 
 type
 
   { TBibTexExportFrm }
 
-  TBibTexExportFrm = class(TForm)
+  TBibTexExportFrm = class(TVideLibriForm)
     BitBtn1: TBitBtn;
     BitBtn2: TBitBtn;
     FileNameEdit1: TFileNameEdit;
@@ -174,7 +174,6 @@ end;
 
 procedure TBibTexExportFrm.FormCreate(Sender: TObject);
 begin
-  globalOnFormCreate(self);
 end;
 
 procedure TBibTexExportFrm.FormShow(Sender: TObject);

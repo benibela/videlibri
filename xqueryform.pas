@@ -5,10 +5,10 @@ unit xqueryform;
 interface
 
 uses
-  Classes, SysUtils, FileUtil, LResources, Forms, Controls, Graphics, Dialogs, ExtCtrls, StdCtrls, Menus, TreeListView, booklistview;
+  Classes, SysUtils, FileUtil, LResources, Forms, Controls, Graphics, Dialogs, ExtCtrls, StdCtrls, Menus, TreeListView, booklistview,applicationformconfig;
 
 type
-  Txqueryfrm = class(TForm)
+  Txqueryfrm = class(TVideLibriForm)
     Button1: TButton;
     Button2: TButton;
     Button3: TButton;
@@ -94,7 +94,6 @@ end;
 
 procedure Txqueryfrm.FormCreate(Sender: TObject);
 begin
-  globalOnFormCreate(self);
   listview := TBookListView.create(self,true);
   listview.addDefaultColumns;
   listview.Align := alClient;

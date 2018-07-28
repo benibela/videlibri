@@ -15,6 +15,7 @@ object optionForm: ToptionForm
   OnShow = FormShow
   Position = poScreenCenter
   LCLVersion = '1.8.1.0'
+  Scaled = False
   object Bevel1: TBevel
     AnchorSideLeft.Control = Panel2
     AnchorSideLeft.Side = asrBottom
@@ -1425,18 +1426,18 @@ object optionForm: ToptionForm
     object pageLibs: TPage
       object Panel4: TPanel
         Left = 0
-        Height = 284
+        Height = 303
         Top = 0
         Width = 613
         Align = alClient
-        ClientHeight = 284
+        ClientHeight = 303
         ClientWidth = 613
         TabOrder = 0
         OnClick = Panel4Click
         object libList: TListView
           AnchorSideBottom.Control = libxml
           Left = 4
-          Height = 102
+          Height = 121
           Top = 2
           Width = 604
           Anchors = [akTop, akLeft, akRight, akBottom]
@@ -1467,7 +1468,7 @@ object optionForm: ToptionForm
           AnchorSideBottom.Control = libDelete
           Left = 6
           Height = 134
-          Top = 108
+          Top = 127
           Width = 597
           Anchors = [akLeft, akRight, akBottom]
           BorderSpacing.Bottom = 4
@@ -1499,7 +1500,7 @@ object optionForm: ToptionForm
           AnchorSideTop.Side = asrCenter
           Left = 117
           Height = 33
-          Top = 246
+          Top = 265
           Width = 136
           AutoSize = True
           BorderSpacing.Left = 4
@@ -1513,7 +1514,7 @@ object optionForm: ToptionForm
           AnchorSideTop.Control = libChange
           Left = 257
           Height = 32
-          Top = 246
+          Top = 265
           Width = 123
           Anchors = [akTop, akLeft, akBottom]
           AutoSize = True
@@ -1528,7 +1529,7 @@ object optionForm: ToptionForm
           AnchorSideTop.Control = libDelete
           Left = 395
           Height = 33
-          Top = 245
+          Top = 264
           Width = 182
           Anchors = [akLeft, akBottom]
           AutoSize = True
@@ -1542,7 +1543,7 @@ object optionForm: ToptionForm
           AnchorSideTop.Side = asrCenter
           Left = 12
           Height = 19
-          Top = 253
+          Top = 272
           Width = 17
           Caption = 'ID:'
           ParentColor = False
@@ -1553,7 +1554,7 @@ object optionForm: ToptionForm
           AnchorSideTop.Control = Label33
           Left = 38
           Height = 31
-          Top = 247
+          Top = 266
           Width = 70
           Anchors = [akLeft, akBottom]
           BorderSpacing.Around = 9
@@ -1565,7 +1566,7 @@ object optionForm: ToptionForm
       object Panel5: TPanel
         Left = 0
         Height = 195
-        Top = 291
+        Top = 310
         Width = 613
         Align = alBottom
         Caption = 'Panel5'
@@ -1766,12 +1767,15 @@ object optionForm: ToptionForm
           TabOrder = 0
         end
         object templateDefine: TButton
-          Left = 146
+          AnchorSideLeft.Control = templateName
+          AnchorSideLeft.Side = asrBottom
+          Left = 158
           Height = 33
           Top = 157
           Width = 126
           Anchors = [akLeft, akBottom]
           AutoSize = True
+          BorderSpacing.Left = 58
           Caption = 'System definieren'
           OnClick = templateDefineClick
           TabOrder = 1
@@ -1801,7 +1805,7 @@ object optionForm: ToptionForm
           AnchorSideLeft.Control = templateDefine
           AnchorSideLeft.Side = asrBottom
           AnchorSideTop.Control = templateDefine
-          Left = 276
+          Left = 288
           Height = 33
           Top = 157
           Width = 110
@@ -1831,7 +1835,7 @@ object optionForm: ToptionForm
         Cursor = crVSplit
         Left = 0
         Height = 7
-        Top = 284
+        Top = 303
         Width = 613
         Align = alBottom
         ResizeAnchor = akBottom

@@ -9,6 +9,7 @@ object DebugLogForm: TDebugLogForm
   OnCreate = FormCreate
   OnShow = FormShow
   LCLVersion = '1.8.1.0'
+  Scaled = False
   object Memo1: TMemo
     Left = 0
     Height = 635

@@ -6,13 +6,13 @@ interface
 
 uses
   Classes, SysUtils, LResources, Forms, Controls, Graphics, Dialogs, ExtCtrls,diagram,applicationconfig,
-  StdCtrls, Buttons;
+  StdCtrls, Buttons,applicationformconfig;
 
 type
 
   { TstatistikForm }
 
-  TstatistikForm = class(TForm)
+  TstatistikForm = class(TVideLibriForm)
     Button1: TButton;
     CheckBox1: TCheckBox;
     CheckBox2: TCheckBox;
@@ -256,7 +256,6 @@ procedure TstatistikForm.FormCreate(Sender: TObject);
 begin
   diagramDrawer:=nil;
   ComboBox1.ItemIndex:=0;
-  globalOnFormCreate(self);
 end;
 
 procedure TstatistikForm.Button1Click(Sender: TObject);

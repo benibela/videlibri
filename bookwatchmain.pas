@@ -17,7 +17,7 @@ uses
   Buttons, libraryParser, internetAccess, ComCtrls, Menus, lmessages, ExtCtrls,
   errorDialog, statistik_u, libraryAccess, sendBackError, Translations,
   progressDialog, bookListView, TreeListView, bookSearchForm, LCLType, lclproc,
-  LCLIntf, process, applicationconfig,exportxml,applicationdesktopconfig;
+  LCLIntf, process, applicationconfig,exportxml,applicationdesktopconfig,applicationformconfig;
 
 const //automaticExtend=true;
       colorSelected=clHighlight;
@@ -27,7 +27,7 @@ const //automaticExtend=true;
 
 type
   { TmainForm }
-  TmainForm = class(TForm)
+  TmainForm = class(TVideLibriForm)
     accountListMenuItem: TMenuItem;
     cancelTheseBooks: TMenuItem;
     groupingItem: TMenuItem;
@@ -421,6 +421,9 @@ begin
   po.free;
   stream.free;
 
+  for i := 0 to high(bookproperties.translationMap) do
+    bookproperties.translationMap[i].defaultWidth := MathRound(bookproperties.translationMap[i].defaultWidth * guiScaleFactor);
+
   BookList:=TBookListView.create(self,true);
 
   setSymbolAppearance(userConfig.ReadInteger('appearance','symbols',0));
@@ -505,8 +508,6 @@ begin
   if left+width>screen.width then width:=screen.width-left;
   if top+height>screen.height then height:=screen.height-top;
 
-
-  globalOnFormCreate(self);
 
   lastState:=WindowState;
   if lastState = wsMinimized then lastState:=wsNormal;

@@ -28,7 +28,6 @@ type TCallbackHolderDesktop = class (TCallbackHolder)
 end;
 
   procedure showErrorMessages();
-  procedure globalOnFormCreate(form: TForm);
 
 resourcestring
   rsRenewOptions = 'immer, wenn möglich%salle, wenn nötig%seinzeln, wenn nötig%sniemals';
@@ -199,10 +198,6 @@ begin
   sl_title.free; sl_message.free; sl_messagedetails.free
 end;
 
-procedure globalOnFormCreate(form: TForm);
-begin
-
-end;
 
 function confirm(s: string): boolean;
 begin

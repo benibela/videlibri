@@ -5,10 +5,10 @@ unit duplicateremover;
 interface
 
 uses
-  Classes, SysUtils, FileUtil, LResources, Forms, Controls, Graphics, Dialogs, ExtCtrls, StdCtrls, TreeListView, bookListView;
+  Classes, SysUtils, FileUtil, LResources, Forms, Controls, Graphics, Dialogs, ExtCtrls, StdCtrls, TreeListView, bookListView, applicationformconfig;
 
 type
-  TduplicateForm = class(TForm)
+  TduplicateForm = class(TVideLibriForm)
     Button1: TButton;
     Button2: TButton;
     cbAccounts: TComboBox;
@@ -107,7 +107,6 @@ begin
   listview.addColumn('_firstexistsdate');
   listview.addColumn('_lastexistsdate');
   for i := 0 to accounts.count - 1 do cbAccounts.Items.add(accounts[i].prettyName);
-  globalOnFormCreate(self);
   searchDuplicates;
 end;
 

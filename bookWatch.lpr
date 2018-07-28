@@ -13,7 +13,7 @@ uses
   diagram, libraryAccess, sendBackError, progressDialog, bbdebugtools, bibtexexport, booklistreader, librarySearcher,
   bookListView, bookSearchForm, librarySearcherAccess, treelistviewpackage, bbutils, LCLIntf, messagesystem, accountlist,
   libraryListView, androidutils, libraryaccesstester, exportxml, applicationdesktopconfig, LCLType, debuglogviewer, inifilessafe,
-  xqueryform, bookproperties;
+  xqueryform, bookproperties, applicationformconfig;
 
 {$IFDEF WINDOWS}{$R manifest.rc}{$R icons.res}{$ENDIF}
 

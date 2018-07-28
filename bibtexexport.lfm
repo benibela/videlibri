@@ -21,6 +21,7 @@ object BibTexExportFrm: TBibTexExportFrm
   OnShow = FormShow
   Position = poScreenCenter
   LCLVersion = '1.8.1.0'
+  Scaled = False
   object exportWhich: TRadioGroup
     Left = 5
     Height = 74

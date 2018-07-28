@@ -96,10 +96,7 @@ const
     rsBookPropertyID, rsBookPropertyCategory, rsBookPropertyTitle, rsBookPropertyAuthor, rsBookPropertyYear);
   groupingPropertyMap: array[0..12] of string = ('', '_account', '_dueWeek', 'dueDate', '_status', '_issueWeek', 'issueDate', 'libraryBranch', 'id', 'category', 'title', 'author', 'year');
 
-implementation
-
-uses contnrs, bbutils;
-const
+var
   translationMap: array[0..18] of record
     key, text: string;
     defaultWidth: UIntPtr;
@@ -126,8 +123,12 @@ const
   (key: 'libraryLocation'; text: rsBookPropertyLibraryLocation; defaultWidth: 40),
   (key: 'pendingOrders'; text: rsBookPropertyPendingOrders; defaultWidth: 30)
 
-
   );
+
+implementation
+
+uses contnrs, bbutils;
+
 
 var translationHash: TFPStringHashTable;
     widthHash: TFPDataHashTable;
