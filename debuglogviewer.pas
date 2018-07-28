@@ -15,6 +15,7 @@ type
     procedure FormShow(Sender: TObject);
     procedure Timer1Timer(Sender: TObject);
   private
+    procedure DebugLogFormLog(message: string);
     { private declarations }
   public
     { public declarations }
@@ -28,27 +29,31 @@ implementation
 uses bbdebugtools, applicationdesktopconfig;
 procedure TDebugLogForm.FormShow(Sender: TObject);
 begin
+  Timer1Timer(sender);
+end;
+
+var logModified: boolean;
+
+procedure TDebugLogForm.FormCreate(Sender: TObject);
+begin
+  bbdebugtools.OnLog:=@DebugLogFormLog;
+  logModified := true;
   if not logging then begin
     logging:=true;
     log('Debug logging started');
   end;
-  Timer1Timer(sender);
-end;
-
-procedure TDebugLogForm.FormCreate(Sender: TObject);
-begin
+  memo1.Lines.Add('Debug Log File: ' + logFileName);
 
 end;
 
-var oldFileSize: integer;
 
 procedure TDebugLogForm.Timer1Timer(Sender: TObject);
 var
   temp: TStringList;
   tempstream: TFileStream;
 begin
-  if FileSize(logFileName) <> oldFileSize then begin
-    oldFileSize := FileSize(logFilename);
+  if logModified then begin
+    logModified := false;
     temp := TStringList.Create;
     tempstream:=TFileStream.Create(logFileName,fmOpenRead or fmShareDenyNone);
     temp.LoadFromStream(tempstream);
@@ -59,6 +64,11 @@ begin
     memo1.Lines.EndUpdate;
     temp.free;
   end;
+end;
+
+procedure TDebugLogForm.DebugLogFormLog(message: string);
+begin
+  logModified := true;
 end;
 
 initialization
