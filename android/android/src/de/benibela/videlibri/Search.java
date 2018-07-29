@@ -3,8 +3,10 @@ package de.benibela.videlibri;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Paint;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.Menu;
 import android.view.View;
@@ -35,6 +37,10 @@ public class Search extends VideLibriBaseActivity implements SearchEventHandler{
     static final int SEARCHER_STATE_CONNECTED = 1;
     static final int SEARCHER_STATE_SEARCHING = 2;
     static final int SEARCHER_STATE_FAILED = 3;
+
+    static final String[] BRANCH_NAMES = new String[]{"homeBranch", "searchBranch"};
+    static final int[] BRANCH_LAYOUT_IDS = new int[]{R.id.homeBranchLayout, R.id.searchBranchLayout};
+    static final int[] BRANCH_IDS = new int[]{R.id.homeBranch, R.id.searchBranch};
 
     static public void gcSearchers(){
         for (int i=searchers.size()-1;i>=0;i--)  {
@@ -121,10 +127,18 @@ public class Search extends VideLibriBaseActivity implements SearchEventHandler{
                 book.setProperty("year", getTextViewText(R.id.year));
                 book.setProperty("isbn", getTextViewText(R.id.isbn));
                 intent.putExtra("searchQuery", book);
-                if (findViewById(R.id.homeBranchLayout).getVisibility() != View.GONE)
-                    intent.putExtra("homeBranch", ((Spinner)findViewById(R.id.homeBranch)).getSelectedItemPosition());
-                if (findViewById(R.id.searchBranchLayout).getVisibility() != View.GONE)
-                    intent.putExtra("searchBranch", ((Spinner)findViewById(R.id.searchBranch)).getSelectedItemPosition());
+
+                for (int i=0; i < BRANCH_NAMES.length; i++) {
+                    if (findViewById(BRANCH_LAYOUT_IDS[i]).getVisibility() != View.GONE) {
+                        Spinner spinner = (Spinner) findViewById(BRANCH_IDS[i]);
+                        intent.putExtra(BRANCH_NAMES[i], spinner.getSelectedItemPosition());
+                        String branch = (String) spinner.getSelectedItem();
+                        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(Search.this);
+                        SharedPreferences.Editor editor = sp.edit();
+                        editor.putString("Search|"+libId+"|"+BRANCH_NAMES[i], branch);
+                        editor.apply();
+                    }
+                }
                 startActivity(intent);
             }
         });
@@ -133,7 +147,7 @@ public class Search extends VideLibriBaseActivity implements SearchEventHandler{
 
         if (libId != null && !libId.equals("")) {
             obtainSearcher();
-            setBranchViewes();
+            setBranchViewes(true);
         }
     }
 
@@ -175,24 +189,28 @@ public class Search extends VideLibriBaseActivity implements SearchEventHandler{
         startActivityForResult(intent, REQUEST_CHOOSE_LIBRARY);
     }
 
-    void setBranchViewes( ) {
-        String[] homeBranches = searcher.homeBranches;
-        String[] searchBranches = searcher.searchBranches;
-        if (homeBranches == null || homeBranches.length == 0)
-            findViewById(R.id.homeBranchLayout).setVisibility(View.GONE);
-        else {
-            findViewById(R.id.homeBranchLayout).setVisibility(View.VISIBLE);
-            ArrayAdapter<String> adapter = new ArrayAdapter<>(Search.this, android.R.layout.simple_spinner_item, homeBranches);
-            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-            ((Spinner) findViewById(R.id.homeBranch)).setAdapter(adapter);
-        }
-        if (searchBranches == null || searchBranches.length == 0)
-            findViewById(R.id.searchBranchLayout).setVisibility(View.GONE);
-        else {
-            findViewById(R.id.searchBranchLayout).setVisibility(View.VISIBLE);
-            ArrayAdapter<String> adapter = new ArrayAdapter<>(Search.this, android.R.layout.simple_spinner_item, searchBranches);
-            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-            ((Spinner) findViewById(R.id.searchBranch)).setAdapter(adapter);
+    void setBranchViewes( boolean init ) {
+        SharedPreferences sp = init ? PreferenceManager.getDefaultSharedPreferences(Search.this) : null;
+        for (int i=0;i<BRANCH_NAMES.length;i++) {
+            String [] branches = BRANCH_IDS[i] == R.id.homeBranch ? searcher.homeBranches : searcher.searchBranches;
+            if (branches == null || branches.length == 0)
+                findViewById(BRANCH_LAYOUT_IDS[i]).setVisibility(View.GONE);
+            else {
+                Spinner spinner = (Spinner) findViewById(BRANCH_IDS[i]);
+                String current = init ? sp.getString("Search|"+libId+"|"+BRANCH_NAMES[i], null) : (String) spinner.getSelectedItem();
+
+                findViewById(BRANCH_LAYOUT_IDS[i]).setVisibility(View.VISIBLE);
+                ArrayAdapter<String> adapter = new ArrayAdapter<>(Search.this, android.R.layout.simple_spinner_item, branches);
+                adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                spinner.setAdapter(adapter);
+                if (current != null)
+                    for (int j=0; j < branches.length; j++)
+                        if (branches[j].equals(current)) {
+                            spinner.setSelection(j);
+                            break;
+                        }
+
+            }
         }
     }
 
@@ -205,7 +223,7 @@ public class Search extends VideLibriBaseActivity implements SearchEventHandler{
                 ((TextView) findViewById(R.id.library)).setText(libName);
 
                 obtainSearcher();
-                setBranchViewes();
+                setBranchViewes(true);
             } else if ("".equals(libId)) finish();
         } else super.onActivityResult(requestCode, resultCode, data);
     }
@@ -221,7 +239,7 @@ public class Search extends VideLibriBaseActivity implements SearchEventHandler{
                 event.searcherAccess.state = SEARCHER_STATE_CONNECTED;
                 event.searcherAccess.homeBranches = (String[])event.obj1;
                 event.searcherAccess.searchBranches = (String[])event.obj2;
-                setBranchViewes();
+                setBranchViewes(false);
                 return true;
             case EXCEPTION:
                 endLoadingAll(LOADING_SEARCH_CONNECTING);
