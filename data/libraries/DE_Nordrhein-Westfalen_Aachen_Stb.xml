@@ -10,7 +10,7 @@
   <maxRenewCount value="0"/>  
   
   <template value="libero5"/>
-  <variable name="baseurl" value="http://webopac.stadtbibliothek-aachen.de/libero/"/>
+  <variable name="baseurl" value="https://webopac.stadtbibliothek-aachen.de/libero/"/>
   
   <template value="digibib">
     <variable name="location" value="052"/>

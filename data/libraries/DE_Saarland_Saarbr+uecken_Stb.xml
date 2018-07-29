@@ -5,7 +5,7 @@
   <longName value="Stadtbibliothek Saarbrücken"/>
 
   <template value="libero5"/>
-  <variable name="baseurl" value="http://opac.saarbruecken.de/libero/"/>
+  <variable name="baseurl" value="https://opac.saarbruecken.de/libero/"/>
 
   <homepage value="http://www.stadtbibliothek.saarbruecken.de/de/start"/>
   <testing-search value="yes"/>

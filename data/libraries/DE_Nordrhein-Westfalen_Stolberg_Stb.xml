@@ -5,7 +5,7 @@
   <longName value="Stadtbücherei Stolberg"/>
 
   <template value="libero5"/>
-  <variable name="baseurl" value="http://webopac.stolberg.de/libero/"/>
+  <variable name="baseurl" value="https://webopac.stolberg.de/libero/"/>
 
   <homepage value="http://www.stolberg.de/city_info/webaccessibility/index.cfm?item_id=867158&amp;waid=699"/>
   <testing-search value="yes"/>

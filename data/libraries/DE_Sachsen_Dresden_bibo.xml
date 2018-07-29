@@ -6,8 +6,8 @@
   <shortName value="Bibo Dresden"/> 
   
   <template value="sisis"/>  
-  <variable name="server" value="http://katalog.bibo-dresden.de/webOPACClient/"/>
-  <variable name="startparams" value="?Login=webopac"/>
+  <variable name="server" value="https://katalog.bibo-dresden.de/webOPACClient/"/>
+  <variable name="startparams" value="?Login=webopac&amp;BaseURL=this&amp;StartPage=userAccount"/>
   
   <homepage value="http://www.bibo-dresden.de/"/>
   <testing-search value="yes"/>
