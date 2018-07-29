@@ -6,8 +6,8 @@
   <shortName value="Stb Hamm"/>
   
   <template value="bibliothecaplus"/>
-  <variable name="urlaccount" value="http://katalog.hamm.de/IhrBenutzerkonto.aspx"/>	
-  <variable name="urlsearch" value="http://katalog.hamm.de/Mediensuche/ErweiterteSuche.aspx"/>	
+  <variable name="urlaccount" value="https://katalog.hamm.de/IhrBenutzerkonto.aspx"/>	
+  <variable name="urlsearch" value="https://katalog.hamm.de/Mediensuche/ErweiterteSuche.aspx"/>	
   
   <!--<template value="pica"/>-->
 
