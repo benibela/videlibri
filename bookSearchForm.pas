@@ -115,7 +115,7 @@ type
     autoSearchDetailCount: integer;
     procedure makeSearcherAccess(connectNow: boolean = true);
     function currentLocationRegionConfig: string;
-    procedure updateBranches;
+    procedure updateBranches(init: boolean);
   public
     { public declarations }
     bookList: TBookListView;
@@ -281,8 +281,14 @@ begin
 
   //thread pending now, no need to use any locking
 
-  if homeBranch.ItemIndex >= 0 then searcherAccess.searcher.HomeBranch:=homeBranch.ItemIndex;
-  if searchBranch.ItemIndex >= 0 then searcherAccess.searcher.SearchBranch:=searchBranch.ItemIndex;
+  if homeBranch.ItemIndex >= 0 then begin
+    searcherAccess.searcher.HomeBranch:=homeBranch.ItemIndex;
+    userConfig.WriteString('BookSearcher', homeBranch.Name + '-' + searcherAccess.searcher.getLibraryIds, homeBranch.text);
+  end;
+  if searchBranch.ItemIndex >= 0 then begin
+    searcherAccess.searcher.SearchBranch:=searchBranch.ItemIndex;
+    userConfig.WriteString('BookSearcher', searchBranch.Name + '-' + searcherAccess.searcher.getLibraryIds, searchBranch.text);
+  end;
 
   searcherAccess.searcher.SearchOptions.author:=searchAuthor.Text;
   searcherAccess.searcher.SearchOptions.title:=searchTitle.Text;
@@ -483,21 +489,31 @@ begin
      tlv.Cursor:=crDefault;
 end;
 
-procedure TbookSearchFrm.updateBranches;
+procedure TbookSearchFrm.updateBranches(init: boolean);
   procedure update(cb: TComboBox; sa: TStringArray; l: TLabel);
   var
-    i: Integer;
+    i, selectedIndex: Integer;
+    selectedBranch: string;
   begin
+    selectedBranch := cb.Text;
+    if init then selectedBranch:=userConfig.ReadString('BookSearcher', cb.Name + '-' + newSearcherAccess.searcher.getLibraryIds, selectedBranch);
+    selectedIndex := -1;
+
     l.Visible:=length(sa) > 0;
     cb.Visible:=length(sa) > 0;
     cb.Clear;
     if length(sa) = 0 then exit;
-    for i := 0 to high(sa) do
+    for i := 0 to high(sa) do begin
       cb.Items.Add(sa[i]);
-    if cb.ItemIndex < 0 then cb.ItemIndex:=0;
+      if sa[i] = selectedBranch then selectedIndex := i;
+    end;
+    if selectedIndex >= 0 then begin
+      cb.ItemIndex := selectedIndex;
+    end else if cb.ItemIndex < 0 then cb.ItemIndex:=0;
   end;
 
 begin
+  if newSearcherAccess.searcher = nil then exit;
   newSearcherAccess.beginResultReading;
   try
     update(homeBranch, newSearcherAccess.searcher.HomeBranches, homeBranchLabel);
@@ -511,7 +527,7 @@ procedure TbookSearchFrm.searcherAccessConnected(Sender: TObject);
 begin
   if sender <> newSearcherAccess then exit;
   if newSearcherAccess.searcher = nil then exit;
-  updateBranches;
+  updateBranches(false);
   autoSearchPhase:=aspConnected;
 end;
 
@@ -977,7 +993,7 @@ begin
   if connectNow then begin
     result.connectAsync;
   end;
-  updateBranches; //from cache
+  updateBranches(true); //from cache
 end;
 
 function TbookSearchFrm.currentLocationRegionConfig: string;
