@@ -26,8 +26,6 @@ end;
 implementation
 uses bbutils, strutils, Graphics;
 
-resourcestring
-  rsCustom = 'selbst definierte';
 
 { TLibraryListView }
 
@@ -36,17 +34,33 @@ begin
   lastCollapsed := item;
 end;
 
+procedure lazyLoad(item: TTreeListItem);
+begin
+  if (item.SubItems.Count = 0) and (item.data.obj = nil) and (item.RecordItems.Count > 1) then begin
+    item.data.obj := libraryManager.get(item.RecordItemsText[1]);
+    if item.data.obj <> nil then item.Text := (item.data.obj as TLibrary).prettyNameLong;
+  end;
+end;
+
 procedure TLibraryListView.LibraryListViewClick(sender: TObject);
+var
+  i: Integer;
 begin
   if (Selected <> nil) then begin
+    BeginUpdate;
     if (Selected.data.obj = nil) and (Selected.SubItems.Count>0) and (Selected <> lastCollapsed) then begin
       Selected.Expand;
+      for i := 0 to Selected.SubItems.Count - 1 do
+        lazyLoad(selected.SubItems[i]);
       Selected := Selected.SubItems[0];
-      if (selected.Parent.SubItems.Count = 1) and (Selected.data.obj = nil) then begin
+      if (selected.Parent.SubItems.Count = 1) and (Selected.SubItems.Count > 0) and (Selected.data.obj = nil) then begin
         Selected.Expand;
+        for i := 0 to Selected.SubItems.Count - 1 do
+          lazyLoad(selected.SubItems[i]);
         Selected := Selected.SubItems[0];
       end;
     end;
+    EndUpdate;
     lastCollapsed := nil;
   end;
 end;
@@ -68,25 +82,28 @@ end;
 
 constructor TLibraryListView.create(aowner: TComponent);
 var
-  j: Integer;
-  state, loc: String;
-  libs: TStringArray;
+  enumerator: TLibraryMetaDataEnumerator;
+  currentCountryStateItem, currentLocationItem: TTreeListItem;
 begin
   inherited;
   BeginUpdate;
-  for state in libraryManager.enumerateCountryStates() do begin
-    with Items.Add(IfThen(state = '- - -', rsCustom, state)) do begin
-      for loc in libraryManager.enumerateLocations(state) do
-        if trim(loc) <> '' then
-           with SubItems.Add(IfThen(loc = '-', rsCustom, loc)) do begin
-             libs := libraryManager.enumeratePrettyLongNames(loc);
-             for j := 0 to high(libs) do
-               SubItems.Add(libs[j]).data.p:=libraryManager.getLibraryFromEnumeration(loc, j);
-             Collapse;
-           end;
-      Collapse;
+  currentCountryStateItem := nil;
+  currentLocationItem := nil;
+  enumerator := libraryManager.enumerateLibraryMetaData;
+  while enumerator.MoveNext do with enumerator do begin
+    if enumerator.newCountryState then begin
+       if currentCountryStateItem <> nil then currentCountryStateItem.Collapse;
+       currentCountryStateItem := Items.Add(IfThen(prettyCountryState = '- - -', rsCustomLibrary, prettyCountryState));
     end;
+    if enumerator.newLocation then begin
+       if currentLocationItem <> nil then currentLocationItem.Collapse;
+       currentLocationItem := currentCountryStateItem.SubItems.Add(IfThen(prettyLocation = '-', rsCustomLibrary, prettyLocation));
+    end;
+    currentLocationItem.SubItems.Add('').RecordItemsText[1] := libraryId;
   end;
+  if currentCountryStateItem <> nil then currentCountryStateItem.Collapse;
+  if currentLocationItem <> nil then currentLocationItem.Collapse;
+
   HeaderVisible:=false;
   OnItemCollapsed:=@LibraryListViewItemCollapsed;
   OnClick:=@LibraryListViewClick;

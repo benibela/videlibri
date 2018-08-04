@@ -524,7 +524,7 @@ resourcestring
 
     libraryManager:=TLibraryManager.create();
     libraryManager.init(userPath);
-    if libraryManager.enumeratePrettyLongNames()='' then
+    if libraryManager.count=0 then
       raise EXCEPTION.Create('No templates in '+assetPath);
 
     accounts:=TAccountList.create(userPath+'account.list', libraryManager);

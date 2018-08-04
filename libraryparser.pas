@@ -4,7 +4,7 @@ unit libraryParser;
 interface
 
 uses
-  Classes, SysUtils, simplehtmlparser, extendedhtmlparser, simplexmlparser, inifilessafe,internetaccess,regexpr,booklistreader,multipagetemplate,bbutils,simplehtmltreeparser;
+  Classes, SysUtils, simplehtmlparser, extendedhtmlparser, simplexmlparser, inifilessafe,internetaccess,regexpr,booklistreader,multipagetemplate,bbutils,simplehtmltreeparser,vlmaps;
 
 
 type
@@ -57,15 +57,29 @@ type
     class function unpretty(const l: string): string;
   end;
 
-  { TLibraryManager }
+  TLibraryManager = class;
+
+  TLibraryMetaDataEnumerator = object
+  private
+    i: integer;
+    manager: TLibraryManager;
+  public
+    prettyCountryState, prettyLocation: string;
+    newCountryState, newLocation: boolean;
+    libraryId: string;
+    function MoveNext: boolean;
+  end;
 
   TLibraryManager=class
+  private
+    function getCount: integer;
+    function getLibraryFromIndex(i: integer): TLibrary;
   protected
     basePath: string;
     
     flibraries: TList;
+    flibraryIds: TMapStringOwningObject;
     function getAccountObject(libID: string):TCustomAccountAccess;
-    procedure insertLibraryInSortedOrder(lib: TLibrary);
   public
     templates:TStringList;
 
@@ -78,17 +92,7 @@ type
     function getAccount(libID,accountID: string):TCustomAccountAccess;overload; //+-encoded library name, verbatim user number
     function getAccount(mixID: string):TCustomAccountAccess;overload; //mixId: +-Encoded library name # +2-encoded user number
 
-    function enumerateLocations: TStringArray;
-    function enumerateLocations(prettyState: string): TStringArray;
-    function enumerateStates(prettyCountry: string): TStringArray;
-    function enumerateCountries(): TStringArray;
-    function enumerateCountryStates(): TStringArray;
-    function enumeratePrettyLongNames(location: string): TStringArray;
-    function enumeratePrettyLongNames: string;
-    function enumeratePrettyShortNames: string;
-    function getLibraryFromEnumeration(const pos:integer):TLibrary;inline;
-    function getLibraryFromEnumeration(location: string; pos:integer):TLibrary;
-    function getLibraryCountInEnumeration:integer;
+    function enumerateLibraryMetaData: TLibraryMetaDataEnumerator;
 
     function get(id: string): TLibrary;
 
@@ -99,8 +103,8 @@ type
     procedure reloadTemplate(templateId: string);
     procedure reloadPendingTemplates(); //only call this synchronized thrugh updateThreadConfig.threadManagementSection
 
-    property libraries[i: integer]: TLibrary read getLibraryFromEnumeration; default;
-    property count: integer read getLibraryCountInEnumeration;
+    property libraries[i: integer]: TLibrary read getLibraryFromIndex; default;
+    property count: integer read getCount;
   private
     pendingReplacementsOld, pendingReplacementsNew: array of TMultiPageTemplate;
     procedure replaceTemplate(old, new: TMultiPageTemplate);
@@ -288,13 +292,16 @@ type
   //frees the parser
   procedure importAccounts(parser: TTreeParser; impAccounts: TStringArray; flags: TExportImportFlagsArray);
 
+resourcestring
+  rsCustomLibrary = 'selbst definierte';
+  rsAllLibraries = 'alle';
+
 
 implementation
 uses applicationconfig,bbdebugtools,FileUtil,LCLIntf,LazFileUtils, xquery,androidutils,simpleinternet,mockinternetaccess,libraryAccess,strutils;
 
 resourcestring
   rsNoTemplateLinkFound = 'Der Link verweist auf kein VideLibri-Template (es gibt kein Element < link rel="videlibri.description" auf der Seite)';
-  rsLibraryNotFound = 'Bücherei nicht gefunden: %s:%s';
 
 
 function currencyStrToCurrency(s:string):Currency;
@@ -589,6 +596,24 @@ begin
   end;
 end;
 
+function TLibraryMetaDataEnumerator.MoveNext: boolean;
+var
+  exploded: TStringArray;
+  newPrettyCountryState, newPrettyLocation: String;
+begin
+  i += 1;
+  if i >= manager.count then exit(false);
+  libraryId := manager.flibraryIds[i];
+  exploded := strSplit(libraryId, '_');
+  newPrettyCountryState := TLibrary.pretty(exploded[0]) + ' - ' + TLibrary.pretty(exploded[1]);
+  newPrettyLocation := TLibrary.pretty(exploded[2]);
+  newCountryState := (i = 0) or (newPrettyCountryState <> prettyCountryState);
+  newLocation := (i = 0) or (newPrettyLocation <> prettyLocation);
+  if newCountryState then prettyCountryState := newPrettyCountryState;
+  if newLocation then prettyLocation := newPrettyLocation;
+  result := true;
+end;
+
 
 function TLibrary.readProperty(tagName: string; properties: TProperties):TParsingResult;
 var value:string;
@@ -761,15 +786,25 @@ begin
   //also in maketable
 end;
 
+function TLibraryManager.getCount: integer;
+begin
+  result := flibraryIds.Count;
+end;
+
+function TLibraryManager.getLibraryFromIndex(i: integer): TLibrary;
+begin
+  if flibraryIds.Objects[i] <> nil then
+    exit(TLibrary(flibraryIds.Objects[i]));
+  result := get(flibraryIds[i]);
+end;
+
 function TLibraryManager.getAccountObject(libID: string):TCustomAccountAccess;
-var i:integer;
+var lib: TLibrary;
 begin
   Result:=nil;
-  for i:=0 to flibraries.count-1 do
-    if (TLibrary(libraries[i]).id=libID) or (TLibrary(libraries[i]).deprecatedId = libID) then
-      exit(TLibrary(libraries[i]).getAccountObject());
-  result := libraries[0].getAccountObject(); //exception will crash since nothing is initialized yet
-  //raise Exception('Bücherei '+libID+' ist unbekannt');
+  lib := get(libID);
+  if lib = nil then lib := libraries[0]; //exception will crash since nothing is initialized yet
+  result := lib.getAccountObject();
 end;
 
 
@@ -777,6 +812,10 @@ constructor TLibraryManager.create();
 begin
   flibraries:=Tlist.create;
   templates:=tStringList.Create;
+  flibraryIds := TMapStringOwningObject.Create;
+  flibraryIds.CaseSensitive := true;
+  flibraryIds.Sorted := true;
+  flibraryIds.Duplicates := dupIgnore;
 end;
 destructor TLibraryManager.destroy();
 var i:integer;
@@ -787,58 +826,29 @@ begin
   for i:=0 to templates.Count-1 do
     TMultiPageTemplate(templates.Objects[i]).free;
   templates.free;
+  flibraryIds.Free;
   inherited;
 end;
 
-function libraryLocationCompare(lib1: TObject; lib2: pointer): integer;
-var
-  loc1: String;
-  loc2: String;
-begin
-  loc1 := TLibrary(lib1).location;
-  loc2 := TLibrary(ppointer(lib2)^).location;
-  result := CompareStr(loc1, loc2);
-end;
-
-procedure TLibraryManager.insertLibraryInSortedOrder(lib: TLibrary);
-var
-  next: Pointer;
-begin
-  next := binarySearch(@flibraries.List^[0], @flibraries.List^[flibraries.Count-1], sizeof(pointer), @libraryLocationCompare, lib, bsFirst, [bsGreater]);
-  if next = nil then flibraries.Insert(0, lib)
-  else flibraries.Insert((next - @flibraries.List[0]) div sizeof(Pointer), lib)
-end;
 
 procedure TLibraryManager.init(apath: string);
-var //tempLibrary:TLibrary;
-    libraryFiles: TStringList;
-    newLib:TLibrary;
-    i:longint;
+var i:longint;
     userlibs: TStringArray;
 begin
   basePath:=apath;
 
-  libraryFiles:=TStringList.Create;
-  libraryFiles.text := assetFileAsString('libraries/libraries.list');
-  for i:=libraryFiles.Count-1 downto 0 do
-    if libraryFiles[i] = '' then libraryFiles.Delete(i);
-  for i:=0 to libraryFiles.count-1 do begin
-    newLib:=TLibrary.Create;
-    newLib.loadFromString(assetFileAsString('libraries/'+libraryFiles[i]), 'libraries/'+libraryFiles[i]);
-    flibraries.Add(newLib);
-  end;
-  libraryFiles.free;
+  flibraryIds.Sorted := false;
+  flibraryIds.text := assetFileAsString('libraries/libraries.list');
+  for i:=flibraryIds.Count-1 downto 0 do
+    if flibraryIds[i] = '' then
+      flibraryIds.Delete(i);
+  flibraryIds.Sort;
+  flibraryIds.Sorted := true;
   userlibs := strSplit(userConfig.ReadString('base', 'user-libraries', ''), ',');
   for i := 0 to high(userlibs) do begin
     userlibs[i] := trim(userlibs[i]);
     if userlibs[i] = '' then continue;
-    newLib:=TLibrary.Create;
-    try
-      newLib.loadFromString(assetFileAsString('libraries/'+userlibs[i]+'.xml'), 'libraries/'+userlibs[i]+'.xml');
-      insertLibraryInSortedOrder(newLib);
-    except
-      newLib.free;
-    end;
+    flibraryIds.Add(userlibs[i]);
   end;
 end;
 
@@ -907,126 +917,40 @@ begin
   result:=getAccount(libID,mixID);
 end;
 
-function TLibraryManager.enumerateLocations: TStringArray;
-var sl: TStringList;
-  i: Integer;
+function TLibraryManager.enumerateLibraryMetaData: TLibraryMetaDataEnumerator;
 begin
-  sl := TStringList.Create;
-  for i:= 0 to flibraries.count -1 do
-    if sl.IndexOf(TLibrary(libraries[i]).prettyLocation) < 0 then
-      sl.Add(TLibrary(libraries[i]).prettyLocation);
-  sl.Sort;
-  setlength(result, sl.Count);
-  for i := 0 to high(result) do
-    result[i] := sl[i];
-  sl.free;
-end;
-
-function TLibraryManager.enumerateLocations(prettyState: string): TStringArray;
-var
-  i: Integer;
-begin
-  result := nil;
-  if pos(' - ', prettyState) > 0 then prettyState := strSplit(prettyState, ' - ')[1];
-  for i := 0 to flibraries.Count-1 do
-    if (self[i].prettyState = prettyState) and not (arrayContains(result, self[i].prettyLocation)) then
-      arrayAdd(result, self[i].prettyLocation);
-  stableSort(result);
-end;
-
-function TLibraryManager.enumerateStates(prettyCountry: string): TStringArray;
-var
-  i: Integer;
-begin
-  result := nil;
-  for i := 0 to flibraries.Count-1 do
-    if (self[i].prettyCountry = prettyCountry) and not (arrayContains(result, self[i].prettyState)) then
-      arrayAdd(result, self[i].prettyState);
-  stableSort(result);
-end;
-
-function TLibraryManager.enumerateCountries: TStringArray;
-var
-  i: Integer;
-begin
-  result := nil;
-  for i := 0 to flibraries.Count-1 do
-    if not (arrayContains(result, self[i].prettyCountry)) then
-      arrayAdd(result, self[i].prettyCountry);
-end;
-
-function TLibraryManager.enumerateCountryStates: TStringArray;
-var
-  country: String;
-  state: String;
-begin
-  result := nil;
-  for country in enumerateCountries do
-    for state in enumerateStates(country) do
-      arrayAdd(result, country + ' - ' + state);
-end;
-
-function TLibraryManager.enumeratePrettyLongNames(location: string): TStringArray;
-var
-  i: Integer;
-begin
-  result := nil;
-  location := TLibrary.unpretty(location);
-  location:='_'+location+'_';
-  for i:=0 to flibraries.count-1 do
-    if strContains(TLibrary(libraries[i]).id, location) then
-      arrayAdd(result, TLibrary(libraries[i]).prettyNameLong);
-end;
-
-function TLibraryManager.enumeratePrettyLongNames: string;
-var i:integer;
-begin
-  result:='';
-  for i:=0 to flibraries.count-1 do
-    result:=result+TLibrary(libraries[i]).prettyNameLong+#13#10;
-end;
-function TLibraryManager.enumeratePrettyShortNames: string;
-var i:integer;
-begin
-  result:='';
-  for i:=0 to flibraries.count-1 do
-    result:=result+TLibrary(libraries[i]).prettyNameShort+#13#10;
-end;
-
-function TLibraryManager.getLibraryFromEnumeration(location: string; pos: integer): TLibrary;
-var
-  i: Integer;
-begin
-  location := TLibrary.unpretty(location);
-  location:='_'+location+'_';
-  for i:=0 to flibraries.count-1 do
-    if strContains(TLibrary(libraries[i]).id, location) then begin
-      if pos = 0 then
-        exit(TLibrary(libraries[i]));
-      pos -= 1;
-    end;
-  raise ELibraryException.Create(Format(rsLibraryNotFound, [location, IntToStr(pos)]));
-end;
-
-function TLibraryManager.getLibraryFromEnumeration(const pos:integer):TLibrary;
-begin
-  Result:=TLibrary(flibraries[pos]);
-end;
-function TLibraryManager.getLibraryCountInEnumeration:integer;
-begin
-  result:=flibraries.count;
+  result.manager := self;
+  result.i := -1;
 end;
 
 function TLibraryManager.get(id: string): TLibrary;
 var
-  i: Integer;
+  i, index: Integer;
+  libraryFileName: String;
 begin
-  for i := 0 to count - 1 do
-    if TLibrary(libraries[i]).id = id then exit(TLibrary(libraries[i]));
-  exit(nil);
+  if not flibraryIds.Find(id, index) then begin
+    for i:=0 to count-1 do begin
+      result := getLibraryFromIndex(i);
+      if assigned(result) and (result.deprecatedId = id) then
+        exit;
+    end;
+    exit(nil);
+  end;
+  result := TLibrary( flibraryIds.Objects[index] );
+  if Result = nil then begin
+    result:=TLibrary.Create;
+    try
+      libraryFileName := 'libraries/'+id+'.xml';
+      result.loadFromString(assetFileAsString(libraryFileName), libraryFileName);
+    except
+      FreeAndNil(result);
+      if FileExistsUTF8(assetPath + libraryFileName) then raise; //user defined libraries must not raise an exception or they write some bullshit and cannot start the app anymore
+    end;
+    flibraryIds.Objects[index] := result;
+  end;
 end;
 
-function TLibraryManager.getUserLibraries: TList;
+function TLibraryManager.getUserLibraries(): TList;
 var
   temp: TStringArray;
   i: Integer;
@@ -1060,7 +984,7 @@ begin
   if lib = nil then begin
     lib := TLibrary.create;
     lib.id:=trueid;
-    insertLibraryInSortedOrder(lib);
+    flibraryIds.AddObject(trueid, lib);
   end;
   lib.template:=nil;
   lib.variables.Clear;
@@ -1172,7 +1096,7 @@ begin
   end;
 end;
 
-procedure TLibraryManager.reloadPendingTemplates;
+procedure TLibraryManager.reloadPendingTemplates();
 var
   i: Integer;
 begin
@@ -1191,7 +1115,8 @@ begin
   if logging then log('Replacing template: '+new.name);
 
   for i := 0 to count - 1 do begin
-    lib := getLibraryFromEnumeration(i);
+    if flibraryIds.Objects[i] = nil then continue;
+    lib := TLibrary(flibraryIds.Objects[i]);
     if lib.template = old then begin
       lib.template := new;
       for j := 0 to accounts.Count - 1 do

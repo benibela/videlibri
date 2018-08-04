@@ -130,7 +130,7 @@
         <PackageName Value="LCL"/>
       </Item4>
     </RequiredPackages>
-    <Units Count="34">
+    <Units Count="35">
       <Unit0>
         <Filename Value="bookWatch.lpr"/>
         <IsPartOfProject Value="True"/>
@@ -318,6 +318,10 @@
         <Filename Value="applicationformconfig.pas"/>
         <IsPartOfProject Value="True"/>
       </Unit33>
+      <Unit34>
+        <Filename Value="vlmaps.pas"/>
+        <IsPartOfProject Value="True"/>
+      </Unit34>
     </Units>
   </ProjectOptions>
   <CompilerOptions>
@@ -353,6 +357,7 @@
     <Exceptions Count="7">
       <Item1>
         <Name Value="EInterfaceCriti"/>
+        <Enabled Value="False"/>
       </Item1>
       <Item2>
         <Name Value="EFOpenError"/>

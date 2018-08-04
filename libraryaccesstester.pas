@@ -144,7 +144,7 @@ var t: TTemplateAccountAccessTester;
   internet: TInternetAccess;
 begin
   internet := internetaccess.defaultInternetAccessClass.create();
-  lib := libraryManager.getLibraryFromEnumeration(ListBox1.ItemIndex);
+  lib := libraryManager[ListBox1.ItemIndex];
   t := TTemplateAccountAccessTester.create(lib);
   memo1.Lines.Clear;
   if (ComboBox1.ItemIndex > 0) <> lib.segregatedAccounts then memo1.lines.add('segregation mismatch');
@@ -167,7 +167,7 @@ var
   Message: String;
 begin
   while ListBox1.ItemIndex < ListBox1.Items.Count - 1 do begin
-    if  (filter.Text = '') or (pos(filter.Text, libraryManager.getLibraryFromEnumeration(ListBox1.ItemIndex).template.name) > 0) then begin
+    if  (filter.Text = '') or (pos(filter.Text, libraryManager[ListBox1.ItemIndex].template.name) > 0) then begin
       try
         button1.Click;
         Message := 'PASS!';
@@ -284,7 +284,7 @@ begin
   testISBN;
   TreeListView1.BeginUpdate;
   for i := 0 to libraryManager.count - 1 do begin
-    lib := libraryManager.getLibraryFromEnumeration(i);
+    lib := libraryManager[i];
     ListBox1.Items.Add(lib.prettyNameLong);
     TreeListView1.Items.Add([lib.prettyCountryState, lib.prettyNameLong]).data.obj := TTestData.create(lib);
     TreeListView1.Items[TreeListView1.Items.Count-1].RecordItemsText[5] := lib.template.name;

@@ -172,6 +172,7 @@ type
     { private declarations }
     lastState: TWindowState;
     lastTrayIconClick: qword;
+    procedure enumeratorcurrentLocationItemClick(Sender: TObject);
   public
     { public declarations }
     oldListViewWindowProc: TWndMethod;
@@ -372,16 +373,11 @@ procedure TmainForm.FormCreate(Sender: TObject);
 //const defaultorder:array[0..9] of longint=(0,1,2,3,BL_BOOK_COLUMNS_YEAR_ID,4,5,6,7,9);
 
 var i:integer;
-    tempItem:TMenuItem;
     stream: TStringAsMemoryStream;
     po: TPOFile;
-    libsAtLoc: TStringArray;
-    tempItem2: TMenuItem;
-    j: Integer;
-    tempItem3: TMenuItem;
-    state: String;
-    loc: String;
     s: String;
+    enumerator: TLibraryMetaDataEnumerator;
+    currentCountryStateItem, currentLocationItem, tempItem: TMenuItem;
 begin
   if logging then log('FormCreate started');
 
@@ -422,28 +418,28 @@ begin
   setSymbolAppearance(userConfig.ReadInteger('appearance','symbols',0));
 
 
-  tempItem:=TMenuItem.Create(libraryList);
-  for state in libraryManager.enumerateCountryStates() do begin
-    tempItem := TMenuItem.Create(libraryList);
-    if (state <> '-') and (state <> '- - -') then tempItem.Caption:=state
-    else tempItem.Caption:='<eigene>';
-    for loc in libraryManager.enumerateLocations(state) do begin
-      tempItem2 := TMenuItem.Create(tempItem);
-      if loc <> '-' then tempItem2.Caption := loc //if the name is '-' it is considered a separator and crashes
-      else tempItem2.Caption := '<alle>';
-      libsAtLoc := libraryManager.enumeratePrettyLongNames(loc);
-      for j := 0 to high(libsAtLoc) do begin
-        tempItem3 := TMenuItem.Create(tempItem2);
-        if libsAtLoc[j] <> '-' then tempItem3.Caption:= libsAtLoc[j]
-        else tempItem3.Caption:= '<Bücherei>';
-        tempItem3.Tag:=j;
-        tempItem3.OnClick:=@LibraryHomepageClick;
-        tempItem2.Add(tempItem3);
-      end;
-      tempItem.Add(tempItem2);
+  currentCountryStateItem := nil;
+  enumerator := libraryManager.enumerateLibraryMetaData;
+  while enumerator.MoveNext do with enumerator do begin
+    if enumerator.newCountryState then begin
+      if currentCountryStateItem <> nil then libraryList.items.Add(currentCountryStateItem);
+      currentCountryStateItem := TMenuItem.Create(libraryList);
+      if (prettyCountryState <> '-') and (prettyCountryState <> '- - -') then currentCountryStateItem.Caption:=prettyCountryState
+      else currentCountryStateItem.Caption := rsCustomLibrary;
     end;
-    libraryList.Items.Add(tempItem);
+    if enumerator.newLocation then begin
+      currentLocationItem := TMenuItem.Create(currentCountryStateItem);
+      if prettyLocation <> '-' then currentLocationItem.Caption := prettyLocation //if the name is '-' it is considered a separator and crashes
+      else currentLocationItem.Caption := rsAllLibraries;
+      currentCountryStateItem.Add(currentLocationItem);
+      currentLocationItem.OnClick:=@enumeratorcurrentLocationItemClick;
+    end;
+    tempItem := TMenuItem.Create(currentLocationItem);
+    tempItem.Caption:= libraryId;
+    tempItem.OnClick:=@LibraryHomepageClick;
+    currentLocationItem.Add(tempItem);
   end;
+  if currentCountryStateItem <> nil then libraryList.items.Add(currentCountryStateItem);
 
   s := userConfig.ReadString('appearance', 'groupingProperty','');
   for i := 1 to high(groupingPropertyNames) do begin
@@ -1181,7 +1177,9 @@ begin
   if tcontrol(sender).Tag=-1 then begin
     baseURL:='http://www.digibib.net/Digibib?SERVICE=SESSION&SUBSERVICE=GUESTLOGIN&LOCATION=DUEBIB&LANGUAGE=de';
   end else begin
-    lib:=libraryManager.getLibraryFromEnumeration(TMenuItem(sender).Parent.Caption, tcontrol(sender).Tag);
+    lib := UIntToObj(UIntPtr(TMenuItem(sender).Tag)) as TLibrary;
+    if lib = nil then lib := libraryManager.get(TMenuItem(sender).Caption);
+    if lib = nil then exit;
     baseURL:=lib.homepageCatalogue;
     //if not lib.allowHomepageNavigation then extraParams:=extraParams+' /no-navigation';
     //if lib.bestHomepageWidth>0 then extraParams:=extraParams+' /pagewidth='+InttoStr(lib.bestHomepageWidth);
@@ -1257,6 +1255,22 @@ begin
   if sender=ViewOld then BookList.BackGroundColor:=colorOld
   else BookList.BackGroundColor:=colorOK;
   RefreshListView;
+end;
+
+procedure TmainForm.enumeratorcurrentLocationItemClick(Sender: TObject);
+var
+  menuitem: TMenuItem;
+  lib: TLibrary;
+  i: Integer;
+begin
+  menuitem := sender as TMenuItem;
+  for i := 0 to menuitem.Count - 1 do
+    if menuitem[i].Tag = 0 then begin
+      lib := libraryManager.get(menuitem[i].Caption);
+      if lib = nil then continue;
+      menuitem[i].Caption := lib.prettyNameLong;
+      menuitem[i].Tag := PtrInt(ObjToUInt(lib));
+    end;
 end;
 
 procedure TmainForm.setPanelText(panel: TStatusPanel; atext: string);
