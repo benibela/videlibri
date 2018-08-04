@@ -16,12 +16,18 @@ VIDELIBRIBASE=$HGROOT/programs/internet/VideLibri
 
 eval $(xidel --output-format bash $libData -e 'name:=//longName/@value, templateId:=//template/@value')
 libDataNew=$(basename $libData | sed -e 's/[.]xml/New.xml/' )
-libDataIdNew=$( sed -e 's/[.]xml//' <<<"$libDataNew")
-if [[ "$3" = "--override" ]]; then templateIdNew=${templateId}
-message="Da dieses Template ein existierendes Template überschreibt, müssen alte VideLibri-Versionen nach der Installation neugestartet werden"
-else templateIdNew=${templateId}New
-message=
+if [[ "$3" = "--override" ]]; then 
+  templateIdNew=${templateId}
+  message="Da dieses Template ein existierendes Template überschreibt, müssen alte VideLibri-Versionen nach der Installation neugestartet werden"
+elif [[ "$3" = "--new-library" ]]; then 
+  templateIdNew=
+  message=
+  libDataNew=$(sed -e 's/New[.]xml/.xml/' <<<"$libDataNew")
+else
+  templateIdNew=${templateId}New
+  message=
 fi
+libDataIdNew=$( sed -e 's/[.]xml//' <<<"$libDataNew")
 templatePath=$(grep -oE '.*/' <<<$libData)templates
 
 
@@ -29,44 +35,53 @@ rm -rf $tmp
 mkdir $tmp
 mkdir $tmp/newlibs
 
+export libDataNew && export templateIdNew && export name && export publishId && export message && export libDataNew
 
-cat > $tmp/$publishId.html <<EOF 
+xidel --html --variable libDataNew,templateIdNew,name,publishId,message,libDataNew  > $tmp/$publishId.html --xquery '
 <html>
 <head>
 <meta charset="utf-8"/>
-<link rel="videlibri.description" href="newlibs/$libDataNew"/>
-<link rel="videlibri.template" href="$templateIdNew/template"/>
+<link rel="videlibri.description" href="newlibs/{$libDataNew}"/>
+{<link rel="videlibri.template" href="{$templateIdNew}/template"/>[$templateIdNew]}
 </head>
 <body>
-Neues Template f&uuml;r  (die) "$name" <span style="font-size: 50%">vom $(LC_ALL=de_DE.utf-8 date)</span><br><br>
+{if ($templateIdNew) then "Neues Template" else "Neue Daten"} für  (die) "{$name}" <span style="font-size: 50%">vom {format-dateTime(current-dateTime(), "[Y]-[M02]-[D02] [h02]:[m02]:[s02]")}</span><br/><br/>
 
-<p>Installationshinweise für: <a href="/help/templateinstallation.html#android">Android</a> und <a href="/help/templateinstallation.html#desktop">Desktop</a>-Version.
+<p>Installationshinweise für: <a href="/help/templateinstallation.html#android">Android</a> und <a href="/help/templateinstallation.html#desktop">Desktop</a>-Version.</p>
 
-<p>Adresse des Templates, die zur Installation in VideLibri eingegeben werden muss: http://www.videlibri.de/test/$publishId.html
+<p>Die Adresse, die als "Template-Adresse" zur Installation in VideLibri eingegeben werden muss: <code style="font-weight: bold">http://www.videlibri.de/test/{$publishId}.html</code></p>
 
-<p>$message
+<p>{$message}</p>
 
-<p>
+<p></p>
 
-<p style="font-size: 66%; margin-top: 2em">Quellcode des Templates anzeigen: <a href="newlibs/$libDataNew">Bibliotheksmetadata</a>, <a href="$templateIdNew/template">Template selbst</a>, <a href="$templateIdNew/">verwendete Patterns</a>. <!--(wenn der Browser die Datei nicht direkt anzeigen will, nach Anklicken des Links im Browsermenü "Seitenquellcode anzeigen"auswählen)--> 
-
+<p style="font-size: 66%; margin-top: 2em">Quellcode anzeigen: 
+<a href="newlibs/{$libDataNew}">Bibliotheksmetadata</a>{
+  if ($templateIdNew) then (
+    ", ",
+   <a href="{$templateIdNew}/template">Template selbst</a>,", ",
+   <a href="{$templateIdNew}/">verwendete Patterns</a>
+  ) else ()}.</p>
 </body>
 </html>
-EOF
+'
 
 #cat $tmp/$publishId.html
 
-cp -Lr $templatePath/$templateId $tmp/$templateIdNew
+
 cp $libData $tmp/newlibs/$libDataNew
 
+if [[ -n "$templateIdNew" ]]; then
+cp -Lr $templatePath/$templateId $tmp/$templateIdNew
 cat > $tmp/$templateIdNew/.htaccess <<EOF
 ForceType text/plain
 Options +Indexes
 EOF
+xmlstarlet ed -L -u "//template/@value[. != 'digibib']" -v "$templateIdNew" $tmp/newlibs/$libDataNew
+fi
 
 #sed -e '' -i $tmp/newlibs/$libDataNew
 xmlstarlet ed -L -u //longName/@value -v "$name (Neu)" $tmp/newlibs/$libDataNew
-xmlstarlet ed -L -u "//template/@value[. != 'digibib']" -v "$templateIdNew" $tmp/newlibs/$libDataNew
 xmlstarlet ed -L -s /library -t elem -n "id" -v "" $tmp/newlibs/$libDataNew
 xmlstarlet ed -L -s /library/id -t attr -n "value" -v "$libDataIdNew" $tmp/newlibs/$libDataNew
 xmlstarlet ed -L -u //id/@value -v "$libDataIdNew" $tmp/newlibs/$libDataNew
@@ -83,6 +98,8 @@ cd $tmp
 ls
 webUpload * /test/
 webUpload newlibs/* /test/newlibs/
+if [[ -n "$templateIdNew" ]]; then
 webUpload $templateIdNew/* /test/$templateIdNew/
+fi
 
 echo here you go: http://www.videlibri.de/test/$publishId.html
