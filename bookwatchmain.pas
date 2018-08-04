@@ -1,11 +1,4 @@
-{ChangeLog:
-  2007-04-29  Icons werden unter Win9x angezeigt (durch Update auf lcl-rev. 11027)
-              Dialogbuttons sind auf deutsch
-}
 unit bookWatchMain;
-//TODO2: Buchhintergrund beim Scrollen um 1 verschoben?
-//TODO: Hilfedatei vervollständigen
-
 {$mode objfpc}{$H+}
 
 
@@ -464,13 +457,6 @@ begin
     groupingItem.add(tempItem);
   end;
   libraryList.items[0].Visible:=false;//place holder
-  {
-  //TODO1: Bessere Statistik
-  tempItem:=libraryList.items[0];
-  tempItem.caption:='alle';
-  tempItem.Tag:=-1;
-  tempItem.OnClick:=@LibraryHomepageClick;}
-  //libraryList.Items.Add(tempItem);
 
   refreshAccountGUIElements();
 
@@ -1201,7 +1187,6 @@ begin
     //if lib.bestHomepageWidth>0 then extraParams:=extraParams+' /pagewidth='+InttoStr(lib.bestHomepageWidth);
     //if lib.bestHomepageHeight>0 then extraParams:=extraParams+' /pageheight='+InttoStr(lib.bestHomepageHeight);
   end;
-//  ShowMessage(TMenuItem(sender).Caption);
   OpenURL(baseURL);//,'/title="'+title+'" /configfile="'+userPath+'browserconfig.ini" /windowsection='+id+' '+extraParams);
   //ShowMessage(programPath+'simpleBrowser /title="'+TMenuItem(sender).Caption+'" /site="'+baseURL+'" /configfile="'+userPath+'browerconfig.ini" /windowsection='+id);
 end;

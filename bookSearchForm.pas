@@ -149,7 +149,6 @@ implementation
 uses applicationconfig,applicationdesktopconfig, libraryParser,simplexmlparser,bbdebugtools,bookWatchMain,bbutils,LCLType,libraryAccess,LCLIntf,strutils,Clipbrd,inputlistbox,bookproperties;
 
 { TbookSearchFrm }
-//TODO: fehler bei keinem ergebnis
 resourcestring
   rsPropertyName = 'Eigenschaftsname';
   rsValue = 'Wert';
@@ -187,15 +186,6 @@ var
 begin
   selectedLibrariesPerLocation:= TStringList.Create;
   loadDefaults;
-
-  {list:=TList.Create;
-  for i:=searchSelectionList.Items.count-1 downto 0 do begin
-    libraryManager.enumerateLibrariesWithValue('Location',searchSelectionList.Items[i],list);
-    for j:=list.count-1 downto 0 do
-      searchSelectionList.items.InsertObject(i+1,'   '+tlibrary(list[j]).prettyNameLong,tobject(list[j]));
-  end;
-  list.free;  }
-  
 
   bookList:=TBookListView.create(self,false);
   for i := 0 to high(defaultBookListViewSearchColumns) do

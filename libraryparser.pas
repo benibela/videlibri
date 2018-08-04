@@ -90,9 +90,6 @@ type
     function getLibraryFromEnumeration(location: string; pos:integer):TLibrary;
     function getLibraryCountInEnumeration:integer;
 
-    procedure enumerateVariableValues(const varName: string; result: TStringList);
-    procedure enumerateLibrariesWithValue(const varName, value: string; result: TList);
-
     function get(id: string): TLibrary;
 
     function getUserLibraries(): TList;
@@ -1018,26 +1015,6 @@ end;
 function TLibraryManager.getLibraryCountInEnumeration:integer;
 begin
   result:=flibraries.count;
-end;
-
-procedure TLibraryManager.enumerateVariableValues(const varName: string;
-  result: TStringList);
-var i:longint;
-begin
-  result.clear;
-  for i:=0 to flibraries.count-1 do
-    if  result.IndexOf(TLibrary(libraries[i]).defaultVariables.Values[varName])<0 then
-      result.add(TLibrary(libraries[i]).defaultVariables.Values[varName]);
-end;
-
-procedure TLibraryManager.enumerateLibrariesWithValue(const varName,
-  value: string; result: TList);
-var i:longint;
-begin
-  result.clear;
-  for i:=0 to flibraries.count-1 do
-    if TLibrary(libraries[i]).defaultVariables.Values[varName]=value then
-      result.add(TLibrary(libraries[i]));
 end;
 
 function TLibraryManager.get(id: string): TLibrary;
