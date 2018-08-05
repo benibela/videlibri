@@ -13,12 +13,21 @@ import java.util.*;
 public class Bridge {
     public static class LibraryDetails {
         public String homepageBase, homepageCatalogue;
-        public String prettyName;
+        public String prettyName, prettyNameShort;
         public String id;
         public String templateId;
         public String variableNames[];
         public String variableValues[];
         public boolean segregatedAccounts;
+
+        public static String decodeIdEscapes(String s) {
+            if (!s.contains("+")) return s;
+            return s.replace("+ue", "ü")
+                    .replace("+oe", "ö")
+                    .replace("+ae", "ä")
+                    .replace("+sz", "ß")
+                    .replace("++", " ");
+        }
     }
 
     public static class Account implements Serializable{
@@ -31,15 +40,6 @@ public class Bridge {
             if (!(o instanceof Account)) return false;
             Account a = (Account) o;
             return  Util.equalStrings(a.libId, libId) && Util.equalStrings(a.prettyName, prettyName);
-        }
-        /*String internalId(){
-            return libId+"#"+name;
-        }*/
-        public Library getLibrary(){ //warning slow
-            Library[] libs = getLibraries();
-            for (Library lib: libs)
-                if (lib.id.equals(libId)) return lib;
-            return null;
         }
     }
 
@@ -242,7 +242,7 @@ public class Bridge {
     }
 
     static private native void VLInit(VideLibriContext videlibri);
-    static public native String[] VLGetLibraries(); //id|pretty location|name|short name
+    static public native String[] VLGetLibraryIds();
     static public native LibraryDetails VLGetLibraryDetails(String id);
     static public native void VLSetLibraryDetails(String id, LibraryDetails details);
     static public native void VLInstallLibrary(String url);
@@ -383,74 +383,6 @@ public class Bridge {
         public Object obj1, obj2;
     }
 
-    public static class Library{
-        public String id, country, fullStatePretty, locationPretty, namePretty, nameShort;
-        void putInIntent(Intent intent){
-            intent.putExtra("libName", namePretty);
-            intent.putExtra("libShortName", nameShort);
-            intent.putExtra("libId", id);
-        }
-    }
-    public static Library[] getLibraries(){
-        String libs[] =  VLGetLibraries();
-        ArrayList<Library> important = new ArrayList<>();
-        Library[] result = new Library[libs.length];
-        for (int i=0;i<libs.length;i++){
-            result[i] = new Library();
-            String[] temp = libs[i].split("\\|");
-            result[i].id = temp[0];
-            String[] tmpCountry = temp[1].split("[ -]");
-            result[i].country = tmpCountry.length > 0 ? tmpCountry[0] : "";
-            result[i].fullStatePretty = temp[1];
-            result[i].locationPretty = temp[2];
-            result[i].namePretty = temp[3];
-            result[i].nameShort = temp[4];
-            if (result[i].namePretty.contains("(Neu)")) important.add(result[i]);
-        }
-        Locale locale = Locale.getDefault();
-        final String location = locale != null ? locale.getCountry() : "DE";
-
-        Arrays.sort(result, new Comparator<Library>() {
-            @Override
-            public int compare(Library library, Library library2) {
-                int r = library.country.compareTo(library2.country);
-                if (r != 0){
-                    if (Util.isEmptyString(library.country)) return -1;
-                    if (Util.isEmptyString(library2.country)) return 1;
-                    if (library.country.equals(location)) return -1;
-                    if (library2.country.equals(location)) return 1;
-                    return r;
-                }
-                r = library.fullStatePretty.compareTo(library2.fullStatePretty);
-                if (r != 0) return r;
-                r = library.locationPretty.compareTo(library2.locationPretty);
-                if (r != 0) return r;
-                return library.namePretty.compareTo(library2.namePretty);
-            }
-        });
-        if (important.size() > 0) {
-            important.addAll(Arrays.asList(result));
-            result = important.toArray(new Library[important.size()]);
-        }
-        return result;
-    }
-
-    //const libID: string; prettyName, aname, pass: string; extendType: TExtendType; extendDays:integer; history: boolean
-
-    //mock functions
-
-    /*static public Account[] VLGetAccounts(){
-        return new Account[0];
-    }
-    static public void VLAddAccount(Account acc){
-
-    }
-    static public void VLChangeAccount(Account oldacc, Account newacc){
-
-    }
-    static public void VLDeleteAccount(Account acc){}*/
-    //static public Book[] VLGetBooks(Account acc, boolean history){return  new Book[0];}
-    //static public void VLUpdateAccount(Account acc){}
 
 
     public static class ImportExportData {

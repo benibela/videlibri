@@ -70,15 +70,20 @@ type
     function MoveNext: boolean;
   end;
 
+  TLibraryIdStringList = class(TMapStringOwningObject)
+    function DoCompareText(const s1, s2: string): PtrInt; override;
+  end;
+
   TLibraryManager=class
   private
     function getCount: integer;
     function getLibraryFromIndex(i: integer): TLibrary;
+    function getLibraryIdFromIndex(i: integer): string;
   protected
     basePath: string;
     
     flibraries: TList;
-    flibraryIds: TMapStringOwningObject;
+    flibraryIds: TLibraryIdStringList;
     function getAccountObject(libID: string):TCustomAccountAccess;
   public
     templates:TStringList;
@@ -104,6 +109,7 @@ type
     procedure reloadPendingTemplates(); //only call this synchronized thrugh updateThreadConfig.threadManagementSection
 
     property libraries[i: integer]: TLibrary read getLibraryFromIndex; default;
+    property libraryIds[i: integer]: string read getLibraryIdFromIndex;
     property count: integer read getCount;
   private
     pendingReplacementsOld, pendingReplacementsNew: array of TMultiPageTemplate;
@@ -298,7 +304,7 @@ resourcestring
 
 
 implementation
-uses applicationconfig,bbdebugtools,FileUtil,LCLIntf,LazFileUtils, xquery,androidutils,simpleinternet,mockinternetaccess,libraryAccess,strutils;
+uses applicationconfig,bbdebugtools,FileUtil,LCLIntf,LazFileUtils, xquery,androidutils,simpleinternet,mockinternetaccess,libraryAccess,strutils,math;
 
 resourcestring
   rsNoTemplateLinkFound = 'Der Link verweist auf kein VideLibri-Template (es gibt kein Element < link rel="videlibri.description" auf der Seite)';
@@ -596,6 +602,47 @@ begin
   end;
 end;
 
+function TLibraryIdStringList.DoCompareText(const s1, s2: string): PtrInt;
+var
+  l1, l2, l: SizeInt;
+  c1, c2: Boolean;
+  i, i1, i2: SizeInt;
+begin
+  l1 := length(s1);
+  l2 := length(s2);
+  l := min(l1, l2);
+  for i := 1 to l do
+    if s1[i] <> s2[i] then begin
+      if i <= 3 then begin
+        c1 := (s1[1] = '-') or (s1[1] = '_');
+        c2 := (s2[1] = '-') or (s2[1] = '_');
+        if c1 <> c2 then begin
+          if c1 then exit(-1);
+          if c2 then exit(1);
+        end;
+        //sort current country before other countries
+        c1 := strBeginsWith(s1, localeCountry);
+        c2 := strBeginsWith(s2, localeCountry);
+        if c1 <> c2 then begin
+          if c1 then exit(-1);
+          if c2 then exit(1);
+        end;
+      end;
+      i1 := i;
+      i2 := i;
+      if (s1[i1] = '+') and (i1 < l) then inc(i1);
+      if (s2[i2] = '+') and (i2 < l) then inc(i2);
+      result := ord(upCase(s1[i1])) - ord(upCase(s2[i2]));
+      if result <> 0 then exit;
+      result := l1 - l2;
+      if result <> 0 then exit;
+      result := i1 - i2;
+      if result <> 0 then exit;
+      break;
+    end;
+  result := l1 - l2;
+end;
+
 function TLibraryMetaDataEnumerator.MoveNext: boolean;
 var
   exploded: TStringArray;
@@ -773,6 +820,7 @@ begin
   result := StringReplace(Result, '+ae', 'ä', [rfReplaceAll]);
   result := StringReplace(Result, '+sz', 'ß', [rfReplaceAll]);
   result := StringReplace(Result, '++', ' ', [rfReplaceAll]);
+  //also Bridge.LibraryDetails.decodeIdEscapes
 end;
 
 class function TLibrary.unpretty(const l: string): string;
@@ -798,6 +846,11 @@ begin
   result := get(flibraryIds[i]);
 end;
 
+function TLibraryManager.getLibraryIdFromIndex(i: integer): string;
+begin
+  result := flibraryIds[i];
+end;
+
 function TLibraryManager.getAccountObject(libID: string):TCustomAccountAccess;
 var lib: TLibrary;
 begin
@@ -812,7 +865,7 @@ constructor TLibraryManager.create();
 begin
   flibraries:=Tlist.create;
   templates:=tStringList.Create;
-  flibraryIds := TMapStringOwningObject.Create;
+  flibraryIds := TLibraryIdStringList.Create;
   flibraryIds.CaseSensitive := true;
   flibraryIds.Sorted := true;
   flibraryIds.Duplicates := dupIgnore;
@@ -928,6 +981,7 @@ var
   i, index: Integer;
   libraryFileName: String;
 begin
+  if logging then log('LOADING LIBRARY: ' + id);
   if not flibraryIds.Find(id, index) then begin
     for i:=0 to count-1 do begin
       result := getLibraryFromIndex(i);

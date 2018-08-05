@@ -98,6 +98,8 @@ var programPath,userPath:string;
 
     callbacks: TCallbackHolderClass = TCallbackHolder;
 
+const localeCountry: string = 'DE'; //for sorting libraries
+
   procedure initApplicationConfig;
   procedure finalizeApplicationConfig;
 

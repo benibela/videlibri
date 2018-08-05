@@ -254,28 +254,28 @@ public class Search extends VideLibriBaseActivity implements SearchEventHandler{
 
 
     static class SearchDebugTester{
-        Bridge.Library[] libs;
+        String[] libs;
         int pos;
         Bridge.SearcherAccess searcher;
         Bridge.Book query;
         SearchDebugTester(Bridge.Book query, String startId){
             this.query = query;
-            libs = Bridge.getLibraries();
+            libs = Bridge.VLGetLibraryIds();
             pos = 0;
-            while (pos < libs.length && !startId.equals(libs[pos].id) ) pos++;
+            while (pos < libs.length && !startId.equals(libs[pos]) ) pos++;
             start();
         }
         private void start(){
             Log.i("VIDELIBRI", "============================================================");
-            Log.i("VIDELIBRI", "Testing search: " + libs[pos].namePretty);
+            Log.i("VIDELIBRI", "Testing search: " + libs[pos]);
             Log.i("VIDELIBRI", "============================================================");
-            searcher = new Bridge.SearcherAccess(libs[pos].id);
+            searcher = new Bridge.SearcherAccess(libs[pos]);
             searcher.connect();
             if (VideLibriApp.currentActivity instanceof Search) {
                 Search s = (Search)VideLibriApp.currentActivity;
-                s.libId = libs[pos].id;
-                s.libName = libs[pos].namePretty;
-                ((TextView) s.findViewById(R.id.library)).setText(libs[pos].namePretty);
+                s.libId = libs[pos];
+                s.libName = libs[pos];
+                ((TextView) s.findViewById(R.id.library)).setText(s.libName);
                 s.beginLoading(LOADING_SEARCH_SEARCHING);
             }
         }

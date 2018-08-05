@@ -24,8 +24,8 @@ import de.benibela.videlibri.jni.Bridge;
 
 public class LibraryList extends VideLibriBaseActivity {
 
-    static String lastSelectedLibId, lastSelectedLibShortName, lastSelectedLibName; //result of the activity
-    static long lastSelectedTime = 0;                                               //(passing as intent did not work on every device (perhaps the caller is killed?)
+    static String lastSelectedLibId, lastSelectedLibName;        //result of the activity
+    static long lastSelectedTime = 0;       //(passing as intent did not work on every device (perhaps the caller is killed?)
     static final long SELECTION_REUSE_TIME = 10*1000;
 
     final List<String> states = new ArrayList<>();
@@ -43,7 +43,7 @@ public class LibraryList extends VideLibriBaseActivity {
 
     LibraryListView makeLibView(ScrollView cityView, ScrollView libView){
         metaCat = -1;
-        Bridge.Library[] libs = Bridge.getLibraries();
+        String[] libs = Bridge.VLGetLibraryIds();
 
         states.clear(); cities.clear(); localLibs.clear();
 
@@ -62,34 +62,30 @@ public class LibraryList extends VideLibriBaseActivity {
 
                 TreeMap<String, String> map = new TreeMap<>();
                 localLibs.get(0).get(localLibs.size()-1).add(map);
-                for (Bridge.Library lib: libs)
-                    if (lib.id.equals(account.libId)) {
-                        map.put("NAME", lib.namePretty);
-                        map.put("ID", lib.id);
-                        map.put("SHORT", lib.nameShort);
-                        break;
-                    }
+
+                map.put("ID", account.libId);
             }
         }
 
-        for (Bridge.Library lib : libs) {
-            if (states.isEmpty() || !states.get(states.size()-1).equals(lib.fullStatePretty)) {
-                if (metaCat < 0 && lib.fullStatePretty.contains("regional")) metaCat = states.size();
-                states.add(lib.fullStatePretty);
+        String lastIdSplit[] = new String[]{"","","",""};
+        for (String id : libs) {
+            String split[] = id.split("_");
+            if (states.isEmpty() || !split[0].equals(lastIdSplit[0]) || !split[1].equals(lastIdSplit[1])) {
+                if (metaCat < 0 && id.contains("ueberregional")) metaCat = states.size();
+                states.add(Bridge.LibraryDetails.decodeIdEscapes(split[0] + " - " + split[1]));
                 cities.add(new ArrayList<String>());
                 localLibs.add(new ArrayList<List<Map<String, String>>>());
             }
             List<String> curCities = cities.get(cities.size()-1);
-            if (curCities.isEmpty() || !curCities.get(curCities.size()-1).equals(lib.locationPretty)) {
-                curCities.add(lib.locationPretty);
-                if ("-".equals(lib.locationPretty) && autoExpand < 2) autoExpand+=1;
+            if (curCities.isEmpty() || !split[2].equals(lastIdSplit[2])) {
+                curCities.add(Bridge.LibraryDetails.decodeIdEscapes(split[2]));
+                if ("-".equals(split[2]) && autoExpand < 2) autoExpand+=1;
                 localLibs.get(localLibs.size() - 1).add(new ArrayList<Map<String, String>>());
             }
             TreeMap<String,String> map = new TreeMap<>();
             localLibs.get(localLibs.size()-1).get(localLibs.get(localLibs.size()-1).size()-1).add(map);
-            map.put("NAME", lib.namePretty);
-            map.put("SHORT", lib.nameShort);
-            map.put("ID", lib.id);
+            map.put("ID", id);
+            lastIdSplit = split;
         }
 
         LibraryListView lv = new LibraryListView(this, cityView, libView);
@@ -107,7 +103,6 @@ public class LibraryList extends VideLibriBaseActivity {
         Map<String, String> leaf = localLibs.get(state).get(city).get(lib);
         Intent result = new Intent();
         lastSelectedLibId = leaf.get("ID");
-        lastSelectedLibShortName = leaf.get("SHORT");
         lastSelectedLibName = leaf.get("NAME");
         lastSelectedTime = System.currentTimeMillis();
 
@@ -304,7 +299,12 @@ public class LibraryList extends VideLibriBaseActivity {
             if (cityChildViews[state][city].getChildCount() == 0) {
                 for (int libId = 0; libId < localLibs.get(state).get(city).size(); libId ++) {
                     View row = getLayoutInflater().inflate(R.layout.libraryinlistview, this, false);
-                    ((TextView) row).setText(localLibs.get(state).get(city).get(libId).get("NAME"));
+                    Map<String, String> libraryMap = localLibs.get(state).get(city).get(libId);
+                    if (!libraryMap.containsKey("NAME")) {
+                        Bridge.LibraryDetails details = Bridge.VLGetLibraryDetails(libraryMap.get("ID"));
+                        libraryMap.put("NAME", details.prettyName);
+                    }
+                    ((TextView) row).setText(libraryMap.get("NAME"));
                     row.setTag(new ViewId(state, city, libId));
                     row.setOnClickListener(combinedListener);
                     cityChildViews[state][city].addView(row);

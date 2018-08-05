@@ -45,10 +45,10 @@ public class AccountInfo extends VideLibriBaseActivity {
         return new Bridge.Account(); //modify with null account would crash
     }
 
-    public void setActiveLibrary(String libid, String shortname){
-        libshortname = shortname;
+    public void setActiveLibrary(String libid){
         libdetails = Bridge.VLGetLibraryDetails(libid);
         if (libdetails != null){
+            libshortname = libdetails.prettyNameShort;
             lib.setText(libdetails.prettyName);
             findViewById(R.id.typeLayout).setVisibility(libdetails.segregatedAccounts ? View.VISIBLE : View.GONE);
         }
@@ -66,13 +66,13 @@ public class AccountInfo extends VideLibriBaseActivity {
         mode = getIntent().getIntExtra("mode", MODE_ACCOUNT_CREATION);
 
         if (savedInstanceState != null)
-            setActiveLibrary(savedInstanceState.getString("libId"), savedInstanceState.getString("libShortName"));
+            setActiveLibrary(savedInstanceState.getString("libId"));
         else
-            setActiveLibrary(getStringExtraSafe("libId"), getStringExtraSafe("libShortName")); //todo: this is not used? like Bridge.library.putinintent
+            setActiveLibrary(getStringExtraSafe("libId")); //todo: this is not used? like Bridge.library.putinintent
 
 
         if (libdetails == null && (System.currentTimeMillis() - LibraryList.lastSelectedTime) < LibraryList.SELECTION_REUSE_TIME)
-            setActiveLibrary(LibraryList.lastSelectedLibId, LibraryList.lastSelectedLibShortName);
+            setActiveLibrary(LibraryList.lastSelectedLibId);
 
 
         if (mode != MODE_ACCOUNT_MODIFY || (accountId + " "+libshortname).equals(accountPrettyName.getText().toString()) )
@@ -94,8 +94,7 @@ public class AccountInfo extends VideLibriBaseActivity {
 
         if (mode == MODE_ACCOUNT_MODIFY) {
             final Bridge.Account oldAccount = getOldAccount();
-            Bridge.Library lib = oldAccount.getLibrary();
-            setActiveLibrary(lib.id, lib.nameShort);
+            setActiveLibrary(oldAccount.libId);
 
             accountId.setText(oldAccount.name);
             accountPassword.setText(oldAccount.pass);
@@ -164,7 +163,7 @@ public class AccountInfo extends VideLibriBaseActivity {
         super.onResume();
 
         if (libdetails == null && (System.currentTimeMillis() - LibraryList.lastSelectedTime) < LibraryList.SELECTION_REUSE_TIME)
-            setActiveLibrary(LibraryList.lastSelectedLibId, LibraryList.lastSelectedLibShortName);
+            setActiveLibrary(LibraryList.lastSelectedLibId);
         if (libdetails == null) updateLibrary();
     }
 
@@ -174,7 +173,6 @@ public class AccountInfo extends VideLibriBaseActivity {
 
         if (libdetails != null) {
             outState.putString("libId", libdetails.id);
-            outState.putString("libShortName", libshortname);
         }
     }
 
@@ -250,7 +248,7 @@ public class AccountInfo extends VideLibriBaseActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == REQUEST_LIBRARY_FOR_ACCOUNT_CREATION) {
             if (resultCode == LibraryList.RESULT_OK) {
-                setActiveLibrary(LibraryList.lastSelectedLibId, LibraryList.lastSelectedLibShortName);
+                setActiveLibrary(LibraryList.lastSelectedLibId);
                 if (libdetails != null)
                     accountPrettyName.setText(libshortname);
             } else if (libdetails == null)

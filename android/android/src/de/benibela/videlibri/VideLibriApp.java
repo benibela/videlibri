@@ -258,7 +258,8 @@ public class VideLibriApp extends Application implements Bridge.VideLibriContext
         if (accounts.length > 0){
             String libId = accounts[0].libId;
             intent.putExtra("libId", libId);
-            intent.putExtra("libName", accounts[0].getLibrary().namePretty);
+            Bridge.LibraryDetails tempLib = Bridge.VLGetLibraryDetails(accounts[0].libId);
+            intent.putExtra("libName", tempLib.prettyName);
 
             boolean sure = true;
             for (int i=1;i< accounts.length;i++)
