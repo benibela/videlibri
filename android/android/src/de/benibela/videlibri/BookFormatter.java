@@ -14,7 +14,7 @@ class BookFormatter {
         int c;
         if (book.history) c = -1;
         else if ((book.account != null || book.more == VideLibri.crazyHeaderHack)
-                && book.dueDate != null && book.dueDate.pascalDate - Bridge.currentPascalDate <= Bridge.globalOptions.nearTime)
+                && book.dueDate != 0 && book.dueDate - Bridge.currentPascalDate <= Bridge.globalOptions.nearTime)
             c = Color.RED;
         else switch (book.getStatus()){
                 //lend
@@ -95,10 +95,10 @@ class BookFormatter {
         return status;
     }
 
-    public static String formatDate(Bridge.SimpleDate date){
-        if (date == null) return Util.tr(R.string.unknown_date);
+    public static String formatDate(int pascalDate){
+        if (pascalDate == 0) return Util.tr(R.string.unknown_date);
         if (Bridge.currentPascalDate > 0 && VideLibriApp.currentContext() != null) {
-            switch (date.pascalDate - Bridge.currentPascalDate) {
+            switch (pascalDate - Bridge.currentPascalDate) {
                 case -2: return Util.tr(R.string.daybeforeyesterday);
                 case -1: return Util.tr(R.string.yesterday);
                 case 0: return Util.tr(R.string.today);
@@ -106,7 +106,7 @@ class BookFormatter {
                 case 2: return Util.tr(R.string.dayaftertomorrow);
             }
         }
-        return Util.formatDate(date.getTime());
+        return Util.formatDate(Bridge.pascalDateToDate(pascalDate));
     }
 
 }

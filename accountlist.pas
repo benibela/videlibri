@@ -77,7 +77,9 @@ begin
   deprecatedAccounts := false;
   for i:=0 to count-1 do begin
     Objects[i]:=libs.getAccount(Strings[i]);
-    if (Accounts[i].getPlusEncodedID() <> Strings[i]) and (length(Strings[i]) > 4) and ((Strings[i])[4] = '#') then begin
+    if (Accounts[i].getPlusEncodedID() <> Strings[i])
+        and (Accounts[i].getLibrary().deprecatedId <> '')
+        and strBeginsWith(Strings[i], Accounts[i].getLibrary().deprecatedId) then begin
       if logging then log('Renamed account: '+Strings[i]+' => '+Accounts[i].getPlusEncodedID());
       deprecatedAccounts := true;
       Strings[i] := Accounts[i].getPlusEncodedID();

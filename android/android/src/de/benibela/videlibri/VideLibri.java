@@ -196,20 +196,20 @@ public class VideLibri extends BookListActivity {
     static private int dateToWeek(int pascalDate){
         return (pascalDate - 2) / 7;
     }
-    static public String getWeekString(Bridge.SimpleDate date){
-        if (date == null) return Util.tr(R.string.unknown_date);
+    static public String getWeekString(int pascalDate){
+        if (pascalDate == 0) return Util.tr(R.string.unknown_date);
 
-        int week = dateToWeek(date.pascalDate);
+        int week = dateToWeek(pascalDate);
         if (Bridge.currentPascalDate > 0)
             switch (week - dateToWeek(Bridge.currentPascalDate)){
                 case -1: return Util.tr(R.string.last_week);
                 case 0: return Util.tr(R.string.this_week);
                 case 1: return Util.tr(R.string.next_week);
             }
-        int delta =  date.pascalDate - 2 - week * 7;
+        int delta =  pascalDate - 2 - week * 7;
         return String.format(Util.tr(R.string.week_from_to),
-                Util.formatDate(new Date(date.getTime().getTime() - delta * 1000 * 60 * 60 * 24 )),
-                Util.formatDate(new Date(date.getTime().getTime() + (6 - delta) * 1000 * 60 * 60 * 24 )));
+                Util.formatDate(Bridge.pascalDateToDate(pascalDate - delta)),
+                Util.formatDate(Bridge.pascalDateToDate(pascalDate - delta + 6)));
     }
     static public String getKeyValue(Bridge.Book b, String key){
         switch (key) {
@@ -281,8 +281,8 @@ public class VideLibri extends BookListActivity {
         switch (key) {
             case "_dueWeek": {
                 int temp = compareForStateMismatch(book, book2);
-                if (temp != 0 || book.dueDate == null) return temp;
-                return Util.compare(dateToWeek(book.dueDate.pascalDate), dateToWeek(book2.dueDate.pascalDate));
+                if (temp != 0 || book.dueDate == 0) return temp;
+                return Util.compare(dateToWeek(book.dueDate), dateToWeek(book2.dueDate));
             }
             case "_account": {
                 int temp = Util.compareNullFirst(book.account, book2.account);
@@ -293,8 +293,8 @@ public class VideLibri extends BookListActivity {
             }
             case "dueDate": {
                 int temp = compareForStateMismatch(book, book2);
-                if (temp != 0 || book.dueDate == null) return temp;
-                return Util.compare(book.dueDate.pascalDate, book2.dueDate.pascalDate);
+                if (temp != 0 || book.dueDate == 0) return temp;
+                return Util.compare(book.dueDate, book2.dueDate);
             }
             case "_status": {
                 int temp = compareForStateMismatch(book, book2);
@@ -305,15 +305,15 @@ public class VideLibri extends BookListActivity {
                 int temp = compareForStateMismatch(book, book2);
                 if (temp != 0) return temp;
                 temp = Util.compareNullFirst(book.issueDate, book2.issueDate);
-                if (temp != 0 || book.issueDate == null) return temp;
-                return Util.compare(dateToWeek(book.issueDate.pascalDate), dateToWeek(book2.issueDate.pascalDate));
+                if (temp != 0 || book.issueDate == 0) return temp;
+                return Util.compare(dateToWeek(book.issueDate), dateToWeek(book2.issueDate));
             }
             case "issueDate": {
                 int temp = compareForStateMismatch(book, book2);
                 if (temp != 0) return temp;
                 temp = Util.compareNullFirst(book.issueDate, book2.issueDate);
-                if (temp != 0 || book.issueDate == null) return temp;
-                return Util.compare(book.issueDate.pascalDate, book2.issueDate.pascalDate);
+                if (temp != 0 || book.issueDate == 0) return temp;
+                return Util.compare(book.issueDate, book2.issueDate);
             }
             case "":
                 return 0;
@@ -390,7 +390,7 @@ public class VideLibri extends BookListActivity {
                         groupHeader.history = false;
                         if (compareStatus(groupHeader.getStatus(), b.getStatus()) > 0)
                             groupHeader.setStatus(b.getStatus());
-                        if (b.dueDate != null && (groupHeader.dueDate == null || groupHeader.dueDate.pascalDate > b.dueDate.pascalDate))
+                        if (b.dueDate != 0 && (groupHeader.dueDate == 0 || groupHeader.dueDate > b.dueDate))
                             groupHeader.dueDate = b.dueDate;
                     }
                 }

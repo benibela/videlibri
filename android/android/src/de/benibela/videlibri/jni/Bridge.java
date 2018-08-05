@@ -44,18 +44,11 @@ public class Bridge {
     }
 
     public static int currentPascalDate;
-    public static class SimpleDate {
-        private int year, month, day;
-        public int pascalDate;
-        public SimpleDate (int year, int month, int day, int pascalDate){
-            this.year = year;
-            this.month = month;
-            this.day = day;
-            this.pascalDate = pascalDate;
-        }
-        public Date getTime(){
-            return new Date(year - 1900, month, day);
-        }
+    static private Calendar referenceCalendar = new GregorianCalendar(1899, 11, 30); //1899-12-30
+    public static Date pascalDateToDate(int pascalDate){
+        Calendar c = (Calendar)(referenceCalendar.clone());
+        c.add(Calendar.DATE, pascalDate);
+        return c.getTime();
     }
 
     private static class Util{
@@ -83,8 +76,7 @@ public class Bridge {
         public Account account;
         public String author = "";
         public String title = "";
-        public SimpleDate issueDate; //might be null
-        public SimpleDate dueDate; //might be null
+        public int issueDate, dueDate; //Pascal date, 0 if undefined
         public boolean history;
         public ArrayList<Pair> more = new ArrayList<>();
         private int status;

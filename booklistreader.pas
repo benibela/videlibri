@@ -352,6 +352,7 @@ begin
     date('_lastExistsDate', lastExistsDate);
     date('_firstExistsDate', firstExistsDate);
   end;
+  //check with bookToJBook
 end;
 
 procedure TBook.clear;

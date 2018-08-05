@@ -136,13 +136,8 @@ var assets: jobject = nil;
 //      internalIdMethod: jmethodID;
     end;
     bookFields: record
-      authorS, titleS, issueDateGC, dueDateGC, accountL, historyZ, statusI, holdingsL: jfieldID;
+      authorS, titleS, issueDateI, dueDateI, accountL, historyZ, statusI, holdingsL: jfieldID;
       setPropertyMethod, getPropertyMethod: jmethodID;
-    end;
-    simpleDateClass: jclass;
-    simpleDateClassInit: jmethodID;
-    simpleDateFields: record
-      pascalDateI: jfieldID;
     end;
     searcherClass: jclass;
     searcherFields: record
@@ -284,8 +279,8 @@ begin
     with bookFields do begin
       authorS := j.getfield(bookClass, 'author', 'Ljava/lang/String;');
       titleS := j.getfield(bookClass, 'title', 'Ljava/lang/String;');
-      issueDateGC := j.getfield(bookClass, 'issueDate', 'Lde/benibela/videlibri/jni/Bridge$SimpleDate;');
-      dueDateGC := j.getfield(bookClass, 'dueDate', 'Lde/benibela/videlibri/jni/Bridge$SimpleDate;');
+      issueDateI := j.getfield(bookClass, 'issueDate', 'I');
+      dueDateI := j.getfield(bookClass, 'dueDate', 'I');
       accountL := j.getfield(bookClass, 'account', 'Lde/benibela/videlibri/jni/Bridge$Account;');
       historyZ := j.getfield(bookClass, 'history', 'Z');
       holdingsL := j.getfield(bookClass, 'holdings', '[Lde/benibela/videlibri/jni/Bridge$Book;');
@@ -295,9 +290,6 @@ begin
     end;
 
 
-    simpleDateClass := j.newGlobalRefAndDelete(j.getclass('de/benibela/videlibri/jni/Bridge$SimpleDate'));
-    simpleDateClassInit := j.getmethod(simpleDateClass, '<init>', '(IIII)V');
-    simpleDateFields.pascalDateI := j.getfield(simpleDateClass, 'pascalDate', 'I');
 
     searcherClass := j.newGlobalRefAndDelete(j.getclass('de/benibela/videlibri/jni/Bridge$SearcherAccess'));
     with searcherFields do begin
@@ -816,9 +808,7 @@ type
 
 TJBookSerializer = object
   book: jobject;
-  includeDates: boolean;
   procedure writeProp(const n,v:string);
-  procedure writeDateProp(const n: string; d: integer);
 end;
 
 
@@ -839,28 +829,6 @@ begin
   end;
 end;
 
-procedure TJBookSerializer.writeDateProp(const n: string; d: integer);
-var args: array[0..3] of jvalue;
-    temp: jobject;
-    field: jfieldID;
-begin
-  if not includeDates then exit;
-  case n of
-  'issueDate': begin field := bookFields.issueDateGC; if d = 0 then exit; end;
-  'dueDate': field := bookFields.dueDateGC;
-  else exit;
-  end;
-  if d = 0 then j.SetObjectField(book, field, nil)
-  else begin
-    dateDecode(d, @args[0].i, @args[1].i, @args[2].i);
-    args[1].i -= 1;
-    args[3].i := d;
-    temp := j.newObject(simpleDateClass, simpleDateClassInit, @args);
-    j.SetObjectField(book, field, temp);
-    j.deleteLocalRef(temp);
-  end;
-end;
-
 function bookToJBook(book: TBook; includeDates: boolean = true; includeAllStrings: boolean = false): jobject;
 var temp: TJBookSerializer;
   i: Integer;
@@ -868,8 +836,14 @@ var temp: TJBookSerializer;
   holdings, tempbook: jobject;
 begin
   temp.book := j.newObject(bookClass, bookClassInit);
-  temp.includeDates := includeDates;
-  book.serialize(@temp.writeProp,@temp.writeDateProp);
+
+  book.serialize(@temp.writeProp, nil);
+  with j do
+  if includeDates then begin
+    SetIntField(temp.book, bookFields.issueDateI, book.issueDate);
+    SetIntField(temp.book, bookFields.dueDateI, book.dueDate);
+  end;
+
   tempi := 0;
   case book.status of
     bsNormal, bsCuriousInStr: tempi := 1;
@@ -905,13 +879,6 @@ end;
 function jbookToBookAndDelete(jbook: jobject): TBook; forward;
 
 function jbookToBook(jbook: jobject): TBook;
-  function jSimpleDateToPascalDate(jsimpledate: jobject): integer;
-  begin
-    if jsimpledate = nil then exit(0);
-    result := j.getIntField(jsimpledate, simpleDateFields.pascalDateI);
-    j.deleteLocalRef(jsimpledate);
-  end;
-
 var
   more: jobject;
   get: jmethodID;
@@ -924,52 +891,52 @@ var
   jaccount, jholdings: jobject;
 begin
   result := TBook.create;
-  with bookFields do begin
-    result.author := j.getStringField(jbook, authorS);
-    result.title := j.getStringField(jbook, titleS);
-    result.dueDate := jSimpleDateToPascalDate(j.getObjectField(jbook, dueDateGC));
-    result.issueDate := jSimpleDateToPascalDate(j.getObjectField(jbook, issueDateGC));
-    more := j.getObjectField(jbook, j.getfield(bookClass, 'more', 'Ljava/util/ArrayList;'));
+  with bookFields do with j do begin
+    result.author := getStringField(jbook, authorS);
+    result.title := getStringField(jbook, titleS);
+    result.dueDate := getIntField(jbook, dueDateI);
+    result.issueDate := getIntField(jbook, issueDateI);
+    more := getObjectField(jbook, getfield(bookClass, 'more', 'Ljava/util/ArrayList;'));
 
-    size := j.callIntMethodChecked(more, j.getmethod('java/util/ArrayList', 'size', '()I'));
-    get := j.getmethod('java/util/ArrayList', 'get', '(I)Ljava/lang/Object;');
-    first := j.getfield('de/benibela/videlibri/jni/Bridge$Book$Pair', 'first', 'Ljava/lang/String;');
-    second := j.getfield('de/benibela/videlibri/jni/Bridge$Book$Pair', 'second', 'Ljava/lang/String;');
+    size := callIntMethodChecked(more, getmethod('java/util/ArrayList', 'size', '()I'));
+    get := getmethod('java/util/ArrayList', 'get', '(I)Ljava/lang/Object;');
+    first := getfield('de/benibela/videlibri/jni/Bridge$Book$Pair', 'first', 'Ljava/lang/String;');
+    second := getfield('de/benibela/videlibri/jni/Bridge$Book$Pair', 'second', 'Ljava/lang/String;');
     for i := 0 to size - 1 do begin
       iv.i:=i;
-      pair := j.callObjectMethodChecked(more, get, @iv);
-      result.setProperty(j.getStringField(pair, first), j.getStringField(pair, second));
-      j.deleteLocalRef(pair);
+      pair := callObjectMethodChecked(more, get, @iv);
+      result.setProperty(getStringField(pair, first), getStringField(pair, second));
+      deleteLocalRef(pair);
     end;
 
 
-    jaccount := j.getObjectField(jbook, accountL);
+    jaccount := getObjectField(jbook, accountL);
     if jaccount <> nil then begin
       result.owningAccount := getRealAccount(jaccount);
-      j.deleteLocalRef(jaccount);
+      deleteLocalRef(jaccount);
     end;
 
-    jholdings := j.getObjectField(jbook, holdingsL);
+    jholdings := getObjectField(jbook, holdingsL);
     if jholdings <> nil then begin
       result.holdings := TBookList.create(result);
-      for i:=0 to j.getArrayLength(jholdings) - 1 do
-        result.holdings.add(jbookToBookAndDelete(j.getObjectArrayElement(jholdings, i)));
-      j.deleteLocalRef(jholdings);
+      for i:=0 to getArrayLength(jholdings) - 1 do
+        result.holdings.add(jbookToBookAndDelete(getObjectArrayElement(jholdings, i)));
+      deleteLocalRef(jholdings);
     end;
 
-    {entrySet := j.callObjectMethodChecked(more, j.getmethod('java/util/Map', 'entrySet', '()Ljava/util/Set;'));
-    iterator := j.callObjectMethodChecked(entrySet, j.getmethod('java/util/Set', 'iterator', '()Ljava/util/Iterator;'));
+    {entrySet := callObjectMethodChecked(more, getmethod('java/util/Map', 'entrySet', '()Ljava/util/Set;'));
+    iterator := callObjectMethodChecked(entrySet, getmethod('java/util/Set', 'iterator', '()Ljava/util/Iterator;'));
 
-    hasNext := j.getmethod('java/util/Iterator', 'hasNext', '()Z');
-    next := j.getmethod('java/util/Iterator', 'next', '()Ljava/lang/Object;');
-    getKey := j.getmethod('java/util/Map$Entry', 'getKey', '()Ljava/lang/Object;');
-    getValue := j.getmethod('java/util/Map$Entry', 'getValue', '()Ljava/lang/Object;');
+    hasNext := getmethod('java/util/Iterator', 'hasNext', '()Z');
+    next := getmethod('java/util/Iterator', 'next', '()Ljava/lang/Object;');
+    getKey := getmethod('java/util/Map$Entry', 'getKey', '()Ljava/lang/Object;');
+    getValue := getmethod('java/util/Map$Entry', 'getValue', '()Ljava/lang/Object;');
 
-    while j.callBooleanMethodChecked(iterator, hasNext) do begin
-      entry := j.callObjectMethodChecked(iterator, next);
-      result.setProperty(j.jStringToStringAndDelete(j.callObjectMethodChecked(entry, getKey)),
-                       j.jStringToStringAndDelete(j.callObjectMethodChecked(entry, getValue)));
-      j.deleteLocalRef(entry);
+    while callBooleanMethodChecked(iterator, hasNext) do begin
+      entry := callObjectMethodChecked(iterator, next);
+      result.setProperty(jStringToStringAndDelete(callObjectMethodChecked(entry, getKey)),
+                       jStringToStringAndDelete(callObjectMethodChecked(entry, getValue)));
+      deleteLocalRef(entry);
     end;}
   end;
 end;

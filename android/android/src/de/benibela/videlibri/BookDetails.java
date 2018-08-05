@@ -278,13 +278,13 @@ public class BookDetails extends VideLibriFakeFragment {
         trStatus = tr(R.string.book_status);
         trDueDate = tr(R.string.book_duedate);
 
-        if ((!searchedBook && !book.history) || book.dueDate != null)
+        if ((!searchedBook && !book.history) || book.dueDate != 0)
             details.add(new Details(book.hasOrderedStatus() ? tr(R.string.book_duedate_order) : trDueDate, BookFormatter.formatDate(book.dueDate)));
 
         String status = BookFormatter.getStatusText(book);
         if (!"".equals(status)) details.add(new Details(trStatus, status));
 
-        if (book.issueDate != null)
+        if (book.issueDate != 0)
           details.add(new Details(tr(R.string.book_lenddate), BookFormatter.formatDate(book.issueDate)));
         addIfExists(tr(R.string.book_lendat) , "libraryBranch");
         if (book.account != null) details.add(new Details(tr(R.string.book_account), book.account.prettyName));
@@ -418,7 +418,7 @@ public class BookDetails extends VideLibriFakeFragment {
                 if (isAdditionalDisplayProperty(pair.first))
                     builder.addPair(pair.first.substring(0,pair.first.length()-1), pair.second );
             }
-            if (builder.holding.dueDate != null)
+            if (builder.holding.dueDate != 0)
                 builder.addPair(trDueDate, BookFormatter.formatDate(builder.holding.dueDate));
 
 
