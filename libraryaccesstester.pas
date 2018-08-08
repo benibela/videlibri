@@ -145,6 +145,7 @@ var t: TTemplateAccountAccessTester;
 begin
   internet := internetaccess.defaultInternetAccessClass.create();
   lib := libraryManager[ListBox1.ItemIndex];
+  if lib = nil then exit;
   t := TTemplateAccountAccessTester.create(lib);
   memo1.Lines.Clear;
   if (ComboBox1.ItemIndex > 0) <> lib.segregatedAccounts then memo1.lines.add('segregation mismatch');
@@ -167,6 +168,7 @@ var
   Message: String;
 begin
   while ListBox1.ItemIndex < ListBox1.Items.Count - 1 do begin
+    if libraryManager[ListBox1.ItemIndex] <> nil then
     if  (filter.Text = '') or (pos(filter.Text, libraryManager[ListBox1.ItemIndex].template.name) > 0) then begin
       try
         button1.Click;
@@ -189,7 +191,8 @@ var
 begin
   memo1.Lines.Clear;
   for i := 0 to libraryManager.count - 1 do
-    Memo1.Lines.Add(libraryManager[i].id+':§: '+libraryManager[i].prettyNameShort+':§: '+libraryManager[i].homepageCatalogue);
+    if libraryManager[i] <> nil then
+      Memo1.Lines.Add(libraryManager[i].id+':§: '+libraryManager[i].prettyNameShort+':§: '+libraryManager[i].homepageCatalogue);
 end;
 
 procedure TlibraryTesterForm.Button4Click(Sender: TObject);
@@ -285,6 +288,7 @@ begin
   TreeListView1.BeginUpdate;
   for i := 0 to libraryManager.count - 1 do begin
     lib := libraryManager[i];
+    if lib = nil then continue;
     ListBox1.Items.Add(lib.prettyNameLong);
     TreeListView1.Items.Add([lib.prettyCountryState, lib.prettyNameLong]).data.obj := TTestData.create(lib);
     TreeListView1.Items[TreeListView1.Items.Count-1].RecordItemsText[5] := lib.template.name;

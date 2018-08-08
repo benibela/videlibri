@@ -207,6 +207,7 @@ begin
     if digibib = nil then raise ELibraryException.create('Digibib template not found');
 
     for i := 0 to libraryManager.count - 1 do begin
+      if libraryManager[i] = nil then continue;
       loc := libraryManager[i].prettyLocation;
       if libraryManager[i].template.findAction('search') <> nil then begin
         temp := nestedList(regions, libraryManager[i].prettyCountryState);
