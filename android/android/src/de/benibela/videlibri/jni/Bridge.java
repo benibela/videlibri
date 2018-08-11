@@ -73,6 +73,14 @@ public class Bridge {
         }
 
 
+        public Book(){
+            author = title = "";
+        }
+        public Book(String author, String title){
+            this.author = author;
+            this.title = title;
+        }
+
         public Account account;
         public String author = "";
         public String title = "";

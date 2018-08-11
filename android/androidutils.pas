@@ -130,7 +130,7 @@ var assets: jobject = nil;
     bridgeClass: jclass;
     bridgeCallbackMethods: record VLAllThreadsDone, VLInstallationDone: jmethodID; end;
     accountClass, bookClass: jobject;
-    accountClassInit, bookClassInit: jmethodID;
+    accountClassInit, bookClassInit, bookClassInitWithData: jmethodID;
     accountFields: record
       LibIdS, NameS, PassS, TypeI, PrettyNameS, ExtendDaysI, ExtendZ, HistoryZ: jfieldID;
 //      internalIdMethod: jmethodID;
@@ -276,6 +276,7 @@ begin
 
     bookClass := j.newGlobalRefAndDelete(j.getclass('de/benibela/videlibri/jni/Bridge$Book'));
     bookClassInit := j.getmethod(bookClass, '<init>', '()V');
+    bookClassInitWithData := j.getmethod(bookClass, '<init>', '(Ljava/lang/String;Ljava/lang/String;)V');
     with bookFields do begin
       authorS := j.getfield(bookClass, 'author', 'Ljava/lang/String;');
       titleS := j.getfield(bookClass, 'title', 'Ljava/lang/String;');
@@ -816,28 +817,51 @@ end;
 procedure TJBookSerializer.writeProp(const n, v: string);
 var args: array[0..1] of jvalue;
 begin
-  case n of
+{  case n of
   'title': j.SetStringField(book, bookFields.titleS, v);
   'author': j.SetStringField(book, bookFields.authorS, v);
-  else begin
+  else begin}
     args[0].l := j.stringToJString(n);
     args[1].l := j.stringToJString(v);
     j.callVoidMethod(book, bookFields.setPropertyMethod, @args);
     j.deleteLocalRef(args[0].l);
     j.deleteLocalRef(args[1].l);
-  end;
-  end;
+ { end;
+  end;}
 end;
+
 
 function bookToJBook(book: TBook; includeDates: boolean = true; includeAllStrings: boolean = false): jobject;
 var temp: TJBookSerializer;
   i: Integer;
   tempi: integer;
   holdings, tempbook: jobject;
+  args: array[0..2] of jvalue;
 begin
-  temp.book := j.newObject(bookClass, bookClassInit);
+  with j do with book do begin
+  args[0].l := stringToJString(author);
+  args[1].l := stringToJString(title);
+  temp.book := newObject(bookClass, bookClassInitWithData, @args[0]);
+  deleteLocalRef(args[0].l);
+  deleteLocalRef(args[1].l);
+  end;
 
-  book.serialize(@temp.writeProp, nil);
+  with book do begin
+    temp.writeProp('libraryBranch', libraryBranch);
+    temp.writeProp('id', id);
+    temp.writeProp('year', year);
+    temp.writeProp('isbn', isbn);
+    temp.writeProp('category', category);
+    temp.writeProp('status', statusStr);
+    //temp.writeProp('otherInfo', otherInfo);
+    if renewCount > 0 then temp.writeProp('renewCount', inttostr(renewCount));
+    case cancelable of
+      tUnknown: temp.writeProp('cancelable', '?');
+      tTrue: temp.writeProp('cancelable', 'true');
+      tFalse: temp.writeProp('cancelable', 'false');
+    end;
+  end;
+
   with j do
   if includeDates then begin
     SetIntField(temp.book, bookFields.issueDateI, book.issueDate);
@@ -1051,6 +1075,23 @@ var
   forceExtend: boolean;
 begin
   if logging then log('VLUpdateAccounts');
+  if tested then exit;
+  tested := true;
+  testBook := TBook.create;
+  testBook.title := 'title';
+  testBook.author:= 'author';
+  SetLength(testBook.additional, 3);
+  testBook.additional[0].name := 'abc';
+  testBook.additional[1].name := 'abc1';
+  testBook.additional[2].name := 'abc2';
+  for i := 1 to 3 do begin
+    starttime := now;
+    with j do
+    for k := 1 to 5000 do
+      deleteLocalRef(bookToJBook(testBook, false, false));
+    log('TESTING TIME: ' + inttostr(round( (now - starttime)*MSecsPerDay)));
+  end;
+  exit;
   result := JNI_FALSE;
   try
     acc := getRealAccountChecked(jacc);
