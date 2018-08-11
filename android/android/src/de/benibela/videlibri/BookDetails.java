@@ -267,9 +267,9 @@ public class BookDetails extends VideLibriFakeFragment {
             if (!book.author.startsWith("von") && !book.author.startsWith("by")) titleData += "\n\n" + tr(R.string.book_from) + " " + book.author;
             else titleData += "\n\n "+book.author;
         }
-        String year = book.getProperty("year");
+        String year = book.year;
         if (year != null && !year.equals("")) titleData += "\n " + year;
-        String id = book.getProperty("id");
+        String id = book.id;
         if (id != null && !id.equals("")) titleData += "\n " + id;
 
         if (titleData != null && !"".equals(titleData))
@@ -294,23 +294,26 @@ public class BookDetails extends VideLibriFakeFragment {
         //addIfExists("Jahr", "year");
         addIfExists(tr(R.string.book_publisher), "publisher");
 
-        final List<String> above = Arrays.asList("status", "id", "category", "year", "libraryBranch", "publisher", "orderable", "cancelable", "renewCount");
+        final List<String> above = Arrays.asList("status", "category", "libraryBranch", "publisher", "orderable", "cancelable", "renewCount");
 
-        for (int i=0;i<book.more.size();i++)
-            if ( book.more.get(i).second != null && !"".equals(book.more.get(i).second)) {
-                if  (!searchedBook && !above.contains(book.more.get(i).first)
-                    || (searchedBook && isAdditionalDisplayProperty(book.more.get(i).first)))
-                    details.add(new Details(book.more.get(i).first, book.more.get(i).second));
-                else if ("isbn".equals(book.more.get(i).first))
-                    details.add(new Details("ISBN", book.more.get(i).second));
+        for (int i=0;i<book.additionalProperties.size();i+=2){
+            String key = book.additionalProperties.get(i);
+            String value = book.additionalProperties.get(i+1);
+            if ( !Util.isEmptyString(value)) {
+                if  (!searchedBook && !above.contains(key)
+                    || (searchedBook && isAdditionalDisplayProperty(key)))
+                    details.add(new Details(key, value));
+                else if ("isbn".equals(key))
+                    details.add(new Details("ISBN", value));
             }
+        }
 
 
         addHoldings(book.holdings);
 
         lv.setAdapter(new BookDetailsAdapter(activity, details, book));
 
-        boolean needToLoadImage = book.more != null && (book.hasProperty("image-url") || book.hasProperty("isbn")) && book.image == null;
+        boolean needToLoadImage = (book.hasProperty("image-url") || book.hasProperty("isbn")) && book.image == null;
         if (needToLoadImage) {
             new DownloadImageTask(this, book).execute(book.getProperty("image-url"));
             beginLoading(VideLibriBaseActivity.LOADING_COVER_IMAGE);
@@ -412,11 +415,11 @@ public class BookDetails extends VideLibriFakeFragment {
 
             for (int j=0;j<specialPropertiesLabel.length;j++)
                 builder.addProperty(specialPropertiesLabel[j], specialProperties[j]);
-            for (int j=0;j<builder.holding.more.size();j++) {
-                Bridge.Book.Pair pair = builder.holding.more.get(j);
+            for (int j=0;j<builder.holding.additionalProperties.size();j+=2) {
+                String key = builder.holding.additionalProperties.get(j);
                 //Log.i("VIDELIBRIPAIR", pair.first+" : "+pair.second);
-                if (isAdditionalDisplayProperty(pair.first))
-                    builder.addPair(pair.first.substring(0,pair.first.length()-1), pair.second );
+                if (isAdditionalDisplayProperty(key))
+                    builder.addPair(key.substring(0,key.length()-1), builder.holding.additionalProperties.get(j+1));
             }
             if (builder.holding.dueDate != 0)
                 builder.addPair(trDueDate, BookFormatter.formatDate(builder.holding.dueDate));

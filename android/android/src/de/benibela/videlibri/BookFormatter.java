@@ -13,7 +13,7 @@ class BookFormatter {
     static int getStatusColor(Bridge.Book book){
         int c;
         if (book.history) c = -1;
-        else if ((book.account != null || book.more == VideLibri.crazyHeaderHack)
+        else if ((book.account != null || book.isGroupingHeader())
                 && book.dueDate != 0 && book.dueDate - Bridge.currentPascalDate <= Bridge.globalOptions.nearTime)
             c = Color.RED;
         else switch (book.getStatus()){
@@ -36,7 +36,7 @@ class BookFormatter {
     }
 
     static boolean isGroupingHeaderFakeBook(Bridge.Book book){
-        return book.more == VideLibri.crazyHeaderHack;
+        return book.isGroupingHeader();
     }
 
 
@@ -50,9 +50,9 @@ class BookFormatter {
         if (!book.author.trim().equals(""))
             if (!book.author.startsWith("von") && !book.author.startsWith("by")) more = tr_booklist_from + " " + shortened(book.author);
             else more = " " + shortened(book.author);
-        String year = book.getProperty("year");
+        String year = book.year;
         if (year != null && !"".equals(year)) more += " ; " + year;
-        String id = book.getProperty("id");
+        String id = book.id;
         if (id != null && !"".equals(id)) more += " ; " + id;
         return more;
     }

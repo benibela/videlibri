@@ -63,30 +63,23 @@ public class Bridge {
 
 
     public static class Book implements Serializable{
-
-        public static class Pair implements Serializable{   //android.os.Pair is not serializable
-            public String first, second;
-            public Pair (String a, String b){
-                first = a;
-                second = b;
-            }
-        }
-
-
         public Book(){
-            author = title = "";
+            author = title = id = year = "";
+            additionalProperties = new ArrayList<>(12);
         }
-        public Book(String author, String title){
+        public Book(int additionalPropertyCount, String id, String author, String title, String year){
+            this.id = id;
             this.author = author;
             this.title = title;
+            this.year = year;
+            this.additionalProperties = new ArrayList<>(additionalPropertyCount);
         }
 
         public Account account;
-        public String author = "";
-        public String title = "";
+        public String id, author, title, year;
         public int issueDate, dueDate; //Pascal date, 0 if undefined
         public boolean history;
-        public ArrayList<Pair> more = new ArrayList<>();
+        public ArrayList<String> additionalProperties;
         private int status;
 
         public Book holdings[];
@@ -101,7 +94,7 @@ public class Bridge {
         public enum StatusEnum { Unknown, Normal, Problematic, Ordered, Provided,
                           Available, Lend, Virtual, Presentation, InterLoan}
 
-        public StatusEnum getStatus() {
+        final public StatusEnum getStatus() {
             switch (status) {
                 case 1: return StatusEnum.Normal;
                 case 2: return StatusEnum.Problematic;
@@ -115,7 +108,7 @@ public class Bridge {
                 default: return account == null ? StatusEnum.Unknown : StatusEnum.Problematic;
             }
         }
-        public void setStatus(StatusEnum se) {
+        final public void setStatus(StatusEnum se) {
             switch (se) {
                 case Normal: status = 1; break;
                 case Problematic: status = 2; break;
@@ -128,7 +121,7 @@ public class Bridge {
                 case InterLoan: status = 104; break;
             }
         }
-        public boolean hasOrderedStatus(){
+        final public boolean hasOrderedStatus(){
             switch (getStatus()) {
                 case Ordered: case Provided: return true;
                 default: return false;
@@ -151,26 +144,38 @@ public class Bridge {
 
 
         //called from Videlibri midend
-        public void setProperty(String name, String value){
-            more.add(new Pair(name, value));
+        final public void setProperty(String name, String value){
+            //more.add(new Pair(name, value));
+            additionalProperties.add(name);
+            additionalProperties.add(value);
         }
 
-        public String getProperty(String name){
-            for (int i=more.size()-1;i>=0;i--)       //backward for simple overriding
-                if (more.get(i).first.equals(name))
-                    return more.get(i).second;
-            if ("title".equals(name)) return title;
-            if ("author".equals(name)) return author;
+        final public String getProperty(String name) {
+            assert (additionalProperties.size() & 1) == 0;
+            for (int i = additionalProperties.size() - 2; i >= 0; i -= 2)       //backward for simple overriding
+                if (additionalProperties.get(i).equals(name))
+                    return additionalProperties.get(i + 1);
+            switch (name){
+                case "title":
+                return title;
+                case "author":
+                return author;
+                case "id":
+                return id;
+                case "year":
+                return year;
+            }
             return "";
         }
-        public String getProperty(String name, String def){
+        final public String getProperty(String name, String def){
             String res = getProperty(name);
             return Util.isEmptyString(res) ? def : res;
         }
 
-        public boolean hasProperty(String name){
-            for (int i=more.size()-1;i>=0;i--)
-                if (more.get(i).first.equals(name))
+        final public boolean hasProperty(String name){
+            assert (additionalProperties.size() & 1) == 0;
+            for (int i = additionalProperties.size() - 2; i >= 0; i -= 2)
+                if (additionalProperties.get(i).equals(name))
                     return true;
             return false;
         }
@@ -195,21 +200,26 @@ public class Bridge {
         }
 
         public boolean equalsBook(Book q) {
+            if (!Util.equalStrings(id, q.id)) return false;
             if (!Util.equalStrings(title, q.title)) return false;
             if (!Util.equalStrings(author, q.author)) return false;
+            if (!Util.equalStrings(year, q.year)) return false;
             if (history != q.history) return false;
             if (!(account == null ? q.account == null : Util.equalStrings(account.libId, q.account.libId) && Util.equalStrings(account.name, q.account.name) )) return false;
-            for (int i=0;i<more.size();i++) {
-                if (i < q.more.size() && Util.equalStrings(more.get(i).first, q.more.get(i).first) && Util.equalStrings(more.get(i).second, q.more.get(i).second))
+            for (int i=0;i<additionalProperties.size();i+=2) {
+                if (i + 1 < q.additionalProperties.size()
+                        && Util.equalStrings(additionalProperties.get(i), q.additionalProperties.get(i))
+                        && Util.equalStrings(additionalProperties.get(i+1), q.additionalProperties.get(i+1)))
                     continue;
 
-                if (!Util.equalStrings(more.get(i).second, q.getProperty(more.get(i).first))) return false;
-               /*boolean ok = false;
-                    ok = Util.equalStrings(more.get(i).second, q.more.get(i).second);
-                    for (Pair b: q.more)
-                        if (Util.equalStrings())*/
+                if (!Util.equalStrings(additionalProperties.get(i+1), q.getProperty(additionalProperties.get(i))))
+                    return false;
             }
             return true;
+        }
+
+        public boolean isGroupingHeader(){
+            return false;
         }
     }
 

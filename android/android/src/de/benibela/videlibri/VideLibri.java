@@ -322,7 +322,6 @@ public class VideLibri extends BookListActivity {
         }
     }
 
-    static final ArrayList<Bridge.Book.Pair> crazyHeaderHack = new ArrayList<>();
     static public ArrayList<Bridge.Book> makePrimaryBookCache(boolean addHistory,
                                                               boolean renewableOnly){
         //renewableOnly is not supported for acc != null
@@ -376,9 +375,13 @@ public class VideLibri extends BookListActivity {
                 Bridge.Book b = bookCache.get(i);
                 String newGroup = getKeyValue(b, groupingKey);
                 if (!newGroup.equals(lastGroup)) {
-                    groupHeader = new Bridge.Book();
+                    groupHeader = new Bridge.Book() {
+                        @Override
+                        public boolean isGroupingHeader() {
+                            return true;
+                        }
+                    };
                     groupHeader.title = newGroup;
-                    groupHeader.more = crazyHeaderHack;
                     groupHeader.history = true;
                     groupHeader.setStatus(Bridge.Book.StatusEnum.Ordered);
                     bookCache.add(i, groupHeader);

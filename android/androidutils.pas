@@ -276,7 +276,7 @@ begin
 
     bookClass := j.newGlobalRefAndDelete(j.getclass('de/benibela/videlibri/jni/Bridge$Book'));
     bookClassInit := j.getmethod(bookClass, '<init>', '()V');
-    bookClassInitWithData := j.getmethod(bookClass, '<init>', '(Ljava/lang/String;Ljava/lang/String;)V');
+    bookClassInitWithData := j.getmethod(bookClass, '<init>', '(ILjava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V');
     with bookFields do begin
       authorS := j.getfield(bookClass, 'author', 'Ljava/lang/String;');
       titleS := j.getfield(bookClass, 'title', 'Ljava/lang/String;');
@@ -803,101 +803,99 @@ begin
     needJ.ThrowNew('de/benibela/videlibri/jni/Bridge$InternalError', 'Konto nicht gefunden: '+needj.getStringField(acc, accountFields.LibIdS)+':'+ j.getStringField(acc, accountFields.NameS));
 end;
 
-type
-
-{ TJBookSerializer }
-
-TJBookSerializer = object
-  book: jobject;
-  procedure writeProp(const n,v:string);
-end;
-
-
-
-procedure TJBookSerializer.writeProp(const n, v: string);
-var args: array[0..1] of jvalue;
-begin
-{  case n of
-  'title': j.SetStringField(book, bookFields.titleS, v);
-  'author': j.SetStringField(book, bookFields.authorS, v);
-  else begin}
-    args[0].l := j.stringToJString(n);
-    args[1].l := j.stringToJString(v);
-    j.callVoidMethod(book, bookFields.setPropertyMethod, @args);
-    j.deleteLocalRef(args[0].l);
-    j.deleteLocalRef(args[1].l);
- { end;
-  end;}
-end;
-
-
 function bookToJBook(book: TBook; includeDates: boolean = true; includeAllStrings: boolean = false): jobject;
-var temp: TJBookSerializer;
+var myj: ^TJavaEnv;
+    jbook: jclass;
+
+  procedure putProperty(const name, value: string);
+  var args: array[0..1] of jvalue;
+  begin
+    with myj^ do begin
+      args[0].l := stringToJString(name);
+      args[1].l := stringToJString(value);
+      callVoidMethod(jbook, bookFields.setPropertyMethod, @args);
+      deleteLocalRef(args[0].l);
+      deleteLocalRef(args[1].l);
+    end;
+  end;
+
+const INIT_STR = 1;
+
+var
   i: Integer;
   tempi: integer;
-  holdings, tempbook: jobject;
-  args: array[0..2] of jvalue;
+  jholdings, tempbook: jobject;
+  args: array[0..4] of jvalue;
+
 begin
+  myj := @j;
   with j do with book do begin
-  args[0].l := stringToJString(author);
-  args[1].l := stringToJString(title);
-  temp.book := newObject(bookClass, bookClassInitWithData, @args[0]);
-  deleteLocalRef(args[0].l);
-  deleteLocalRef(args[1].l);
-  end;
+    tempi := 5;
+    if renewCount > 0 then inc(tempi);
+    if includeAllStrings then inc(tempi, length(book.additional));
 
-  with book do begin
-    temp.writeProp('libraryBranch', libraryBranch);
-    temp.writeProp('id', id);
-    temp.writeProp('year', year);
-    temp.writeProp('isbn', isbn);
-    temp.writeProp('category', category);
-    temp.writeProp('status', statusStr);
-    //temp.writeProp('otherInfo', otherInfo);
-    if renewCount > 0 then temp.writeProp('renewCount', inttostr(renewCount));
+
+    args[0].i := tempi;
+    args[INIT_STR].l := stringToJString(id);
+    args[INIT_STR+1].l := stringToJString(author);
+    args[INIT_STR+2].l := stringToJString(title);
+    args[INIT_STR+3].l := stringToJString(year);
+
+    jbook := newObject(bookClass, bookClassInitWithData, @args[0]);
+    deleteLocalRef(args[INIT_STR].l);
+    deleteLocalRef(args[INIT_STR+1].l);
+    deleteLocalRef(args[INIT_STR+2].l);
+    deleteLocalRef(args[INIT_STR+3].l);
+
+    putProperty('libraryBranch', libraryBranch);
+    putProperty('isbn', isbn);
+    putProperty('category', category);
+    putProperty('status', statusStr);
+    if renewCount > 0 then putProperty('renewCount', inttostr(renewCount));
     case cancelable of
-      tUnknown: temp.writeProp('cancelable', '?');
-      tTrue: temp.writeProp('cancelable', 'true');
-      tFalse: temp.writeProp('cancelable', 'false');
+      tUnknown: putProperty('cancelable', '?');
+      tTrue: putProperty('cancelable', 'true');
+      tFalse: putProperty('cancelable', 'false');
     end;
-  end;
+    if includeAllStrings then
+      for i := 0 to high(book.additional) do
+        putProperty(book.additional[i].name, book.additional[i].value);
 
+    if includeDates then begin
+      SetIntField(jbook, bookFields.issueDateI, issueDate);
+      SetIntField(jbook, bookFields.dueDateI, dueDate);
+    end;
+
+    tempi := 0;
+    case book.status of
+      bsNormal, bsCuriousInStr: tempi := 1;
+      bsProblematicInStr: tempi := 2;
+      bsOrdered: tempi := 3;
+      bsProvided: tempi := 4;
+
+      bsAvailable: tempi := 100;
+      bsLend: tempi := 101;
+      bsVirtual: tempi := 102;
+      bsPresentation: tempi := 103;
+      bsInterLoan: tempi := 104;
+
+      else ;
+    end;
+    SetIntField(jbook, bookFields.statusI, tempi);
+
+  end;
   with j do
-  if includeDates then begin
-    SetIntField(temp.book, bookFields.issueDateI, book.issueDate);
-    SetIntField(temp.book, bookFields.dueDateI, book.dueDate);
-  end;
-
-  tempi := 0;
-  case book.status of
-    bsNormal, bsCuriousInStr: tempi := 1;
-    bsProblematicInStr: tempi := 2;
-    bsOrdered: tempi := 3;
-    bsProvided: tempi := 4;
-
-    bsAvailable: tempi := 100;
-    bsLend: tempi := 101;
-    bsVirtual: tempi := 102;
-    bsPresentation: tempi := 103;
-    bsInterLoan: tempi := 104;
-
-    else ;
-  end;
-  j.SetIntField(temp.book, bookFields.statusI, tempi);
   if (book.holdings<> nil) and (book.holdings.Count> 0) then begin
-    holdings := j.newObjectArray(book.holdings.Count, bookClass, nil);
+    jholdings := newObjectArray(book.holdings.Count, bookClass, nil);
     for i := 0 to book.holdings.Count-1 do begin
       tempbook := bookToJBook(book.holdings[i], true, includeAllStrings);
-      j.setObjectArrayElement(holdings,i,tempbook);
-      j.deleteLocalRef(tempbook);
+      setObjectArrayElement(jholdings,i,tempbook);
+      deleteLocalRef(tempbook);
     end;
-    j.SetObjectField(temp.book, bookFields.holdingsL, holdings);
-    j.deleteLocalRef(holdings);
+    SetObjectField(jbook, bookFields.holdingsL, jholdings);
+    deleteLocalRef(jholdings);
   end;
-  if includeAllStrings then
-    for i := 0 to high(book.additional) do
-      temp.writeProp(book.additional[i].name, book.additional[i].value);
-  result := temp.book;
+  result := jbook;
 end;
 
 function jbookToBookAndDelete(jbook: jobject): TBook; forward;
