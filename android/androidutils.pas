@@ -150,6 +150,9 @@ var assets: jobject = nil;
     importExportDataFields: record
       accountsToImportAL, flagsI, nativePtrJ: jfieldID;
     end;
+    globalStrings: record
+      libraryBranch, isbn, category, status, renewCount, cancelable: jobject;
+    end;
 function assetFileAsString(name: rawbytestring): string;
 begin
   if userAssetFileAsString(name, result) then exit;
@@ -318,6 +321,17 @@ begin
     importExportDataFields.accountsToImportAL := j.getfield(importExportDataClass, 'accountsToImport', '[Ljava/lang/String;');
 
     callbacks := TCallbackHolderAndroid;
+
+    with j do begin
+      with globalStrings do begin
+        libraryBranch := newGlobalRefAndDelete(NewStringUTF('libraryBranch'));
+        isbn := newGlobalRefAndDelete(NewStringUTF('isbn'));
+        category := newGlobalRefAndDelete(NewStringUTF('category'));
+        status := newGlobalRefAndDelete(NewStringUTF('status'));
+        renewCount := newGlobalRefAndDelete(NewStringUTF('renewCount'));
+        cancelable := newGlobalRefAndDelete(NewStringUTF('cancelable'));
+      end;
+    end;
 
     initLocale;
 
@@ -807,16 +821,22 @@ function bookToJBook(book: TBook; jaccount: jobject; includeDates: boolean = tru
 var myj: ^TJavaEnv;
     jbook: jclass;
 
-  procedure putProperty(const name, value: string);
+  procedure putProperty(name: jobject; const value: string);
   var args: array[0..1] of jvalue;
   begin
     with myj^ do begin
-      args[0].l := stringToJString(name);
+      args[0].l := name;
       args[1].l := stringToJString(value);
       callVoidMethod(jbook, bookFields.setPropertyMethod, @args);
-      deleteLocalRef(args[0].l);
       deleteLocalRef(args[1].l);
     end;
+  end;
+  procedure putProperty(const name, value: string);
+  var jname: jobject;
+  begin
+    jname := myj^.stringToJString(name);
+    putProperty(jname, value);
+    myj^.deleteLocalRef(jname);
   end;
 
 const INIT_STR = 2;
@@ -849,15 +869,15 @@ begin
     deleteLocalRef(args[INIT_STR+2].l);
     deleteLocalRef(args[INIT_STR+3].l);
 
-    putProperty('libraryBranch', libraryBranch);
-    putProperty('isbn', isbn);
-    putProperty('category', category);
-    putProperty('status', statusStr);
-    if renewCount > 0 then putProperty('renewCount', inttostr(renewCount));
+    putProperty(globalStrings.libraryBranch, libraryBranch);
+    putProperty(globalStrings.isbn, isbn);
+    putProperty(globalStrings.category, category);
+    putProperty(globalStrings.status, statusStr);
+    if renewCount > 0 then putProperty(globalStrings.renewCount, inttostr(renewCount));
     case cancelable of
-      tUnknown: putProperty('cancelable', '?');
-      tTrue: putProperty('cancelable', 'true');
-      tFalse: putProperty('cancelable', 'false');
+      tUnknown: putProperty(globalStrings.cancelable, '?');
+      tTrue: putProperty(globalStrings.cancelable, 'true');
+      tFalse: putProperty(globalStrings.cancelable, 'false');
     end;
     if includeAllStrings then
       for i := 0 to high(book.additional) do
