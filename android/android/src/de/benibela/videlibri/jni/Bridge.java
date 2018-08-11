@@ -67,7 +67,8 @@ public class Bridge {
             author = title = id = year = "";
             additionalProperties = new ArrayList<>(12);
         }
-        public Book(int additionalPropertyCount, String id, String author, String title, String year){
+        public Book(int additionalPropertyCount, Account account, String id, String author, String title, String year){
+            this.account = account;
             this.id = id;
             this.author = author;
             this.title = title;
@@ -80,6 +81,7 @@ public class Bridge {
         public int issueDate, dueDate; //Pascal date, 0 if undefined
         public boolean history;
         public ArrayList<String> additionalProperties;
+
         private int status;
 
         public Book holdings[];

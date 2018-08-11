@@ -276,7 +276,7 @@ begin
 
     bookClass := j.newGlobalRefAndDelete(j.getclass('de/benibela/videlibri/jni/Bridge$Book'));
     bookClassInit := j.getmethod(bookClass, '<init>', '()V');
-    bookClassInitWithData := j.getmethod(bookClass, '<init>', '(ILjava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V');
+    bookClassInitWithData := j.getmethod(bookClass, '<init>', '(ILde/benibela/videlibri/jni/Bridge$Account;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V');
     with bookFields do begin
       authorS := j.getfield(bookClass, 'author', 'Ljava/lang/String;');
       titleS := j.getfield(bookClass, 'title', 'Ljava/lang/String;');
@@ -803,7 +803,7 @@ begin
     needJ.ThrowNew('de/benibela/videlibri/jni/Bridge$InternalError', 'Konto nicht gefunden: '+needj.getStringField(acc, accountFields.LibIdS)+':'+ j.getStringField(acc, accountFields.NameS));
 end;
 
-function bookToJBook(book: TBook; includeDates: boolean = true; includeAllStrings: boolean = false): jobject;
+function bookToJBook(book: TBook; jaccount: jobject; includeDates: boolean = true; includeAllStrings: boolean = false): jobject;
 var myj: ^TJavaEnv;
     jbook: jclass;
 
@@ -819,7 +819,8 @@ var myj: ^TJavaEnv;
     end;
   end;
 
-const INIT_STR = 1;
+const INIT_STR = 2;
+
 
 var
   i: Integer;
@@ -836,6 +837,7 @@ begin
 
 
     args[0].i := tempi;
+    args[1].l := jaccount;
     args[INIT_STR].l := stringToJString(id);
     args[INIT_STR+1].l := stringToJString(author);
     args[INIT_STR+2].l := stringToJString(title);
@@ -888,7 +890,7 @@ begin
   if (book.holdings<> nil) and (book.holdings.Count> 0) then begin
     jholdings := newObjectArray(book.holdings.Count, bookClass, nil);
     for i := 0 to book.holdings.Count-1 do begin
-      tempbook := bookToJBook(book.holdings[i], true, includeAllStrings);
+      tempbook := bookToJBook(book.holdings[i], jaccount, true, includeAllStrings);
       setObjectArrayElement(jholdings,i,tempbook);
       deleteLocalRef(tempbook);
     end;
@@ -1003,9 +1005,8 @@ begin
 
       result := j.newObjectArray(books.Count, bookClass, nil);
       for i := 0 to books.Count - 1 do begin
-        book := bookToJBook(books[i]);
+        book := bookToJBook(books[i], jacc);
         j.SetBooleanField(book, bookFields.historyZ, history);
-        j.SetObjectField(book, bookFields.accountL, jacc);
         j.SetObjectArrayElement(result, i, book);
         j.deleteLocalRef(book);
       end;
@@ -1029,6 +1030,7 @@ function Java_de_benibela_VideLibri_Bridge_VLGetCriticalBook(env:PJNIEnv; this:j
 var redBook, yellowBook, book: TBook;
   i, j: Integer;
   account: TCustomBookOwner;
+  jaccount: jobject;
 begin
   if logging then bbdebugtools.log('Java_de_benibela_VideLibri_Bridge_VLGetCriticalBook started');
   result := nil;
@@ -1050,10 +1052,12 @@ begin
       else book := yellowBook;
       if book = nil then result := nil
       else begin
-        result := bookToJBook(book, true);
         account := book.owningAccount;
+        jaccount:=nil;
         if (account <> nil) and (account.InheritsFrom(TCustomAccountAccess)) then
-          result.SetObjectField(bookFields.accountL, accountToJAccount(TCustomAccountAccess(account)));
+          jaccount := accountToJAccount(TCustomAccountAccess(account));
+        result := bookToJBook(book, jaccount, true);
+        jaccount.deleteLocalRef();
       end;
     finally
       system.LeaveCriticalsection(updateThreadConfig.libraryAccessSection)
@@ -1353,7 +1357,7 @@ begin
   j.SetBooleanField(jsearcher, searcherFields.nextPageAvailableZ, nextPageAvailable);
   books := j.newObjectArray(searcher.SearchResult.Count, bookClass, nil);
   for i := 0 to searcher.SearchResult.Count-1 do begin
-    temp := bookToJBook(searcher.SearchResult[i], false, true);
+    temp := bookToJBook(searcher.SearchResult[i], nil, false, true);
     j.SetObjectArrayElement(books, i, temp);
     j.deleteLocalRef(temp);
   end;
@@ -1366,7 +1370,7 @@ procedure TLibrarySearcherAccessWrapper.OnDetailsCompleteImpl(sender: TObject; b
 var
   jbook: jobject;
 begin
-  jbook := bookToJBook(book, false, true);
+  jbook := bookToJBook(book, nil, false, true);
   j.callVoidMethod(jsearcher, searcherOnSearchDetailsComplete, @jbook);
   j.deleteLocalRef(jbook);
 end;
@@ -1391,7 +1395,7 @@ begin
     self.endBookReading;
   end;
 
-  jbook := bookToJBook(book, false, true);
+  jbook := bookToJBook(book, nil, false, true);
   j.callVoidMethod(jsearcher, searcherOnOrderComplete, @jbook);
   j.deleteLocalRef(jbook);
 end;
@@ -1400,7 +1404,7 @@ procedure TLibrarySearcherAccessWrapper.OnOrderConfirmImpl(sender: TObject; book
 var
   jbook: jobject;
 begin
-  jbook := bookToJBook(book, false, true);
+  jbook := bookToJBook(book, nil, false, true);
   j.callVoidMethod(jsearcher, searcherOnOrderConfirm, @jbook);
   j.deleteLocalRef(jbook);
 end;
@@ -1915,11 +1919,11 @@ begin
                 end
                 else book.setProperty(p.Name, p.Value.toString);
               end;
-            newelement := bookToJBook(book);
             if accountId <> -1 then begin
               if accs2[accountId] = nil then accs2[accountId] := j.getObjectArrayElement(accs, accountId);
-              j.SetObjectField(newelement, bookFields.accountL, accs2[accountId]);
-            end;
+              newelement := bookToJBook(book, accs2[accountId]);
+            end else
+              newelement := bookToJBook(book, nil);
             j.SetBooleanField(newelement, bookFields.historyZ, not book.lend);
           end;
           else begin
