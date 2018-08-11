@@ -136,7 +136,7 @@ var assets: jobject = nil;
 //      internalIdMethod: jmethodID;
     end;
     bookFields: record
-      authorS, titleS, issueDateI, dueDateI, accountL, historyZ, statusI, holdingsL: jfieldID;
+      authorS, titleS, idS, yearS, issueDateI, dueDateI, accountL, historyZ, statusI, holdingsL, additionalPropertiesL: jfieldID;
       setPropertyMethod, getPropertyMethod: jmethodID;
     end;
     searcherClass: jclass;
@@ -150,9 +150,16 @@ var assets: jobject = nil;
     importExportDataFields: record
       accountsToImportAL, flagsI, nativePtrJ: jfieldID;
     end;
+
+    //arrayListClass: jclass;
+    arrayListMethods: record
+      get, size: jmethodID;
+    end;
+
     globalStrings: record
       libraryBranch, isbn, category, status, renewCount, cancelable: jobject;
     end;
+
 function assetFileAsString(name: rawbytestring): string;
 begin
   if userAssetFileAsString(name, result) then exit;
@@ -249,6 +256,7 @@ procedure Java_de_benibela_VideLibri_Bridge_VLInit(env:PJNIEnv; this:jobject; vi
   end;
 
 var tempOkHttpBuild: TOkHttpBuildCallbackObject;
+  arrayListClass: jclass;
 begin
   if logging then bbdebugtools.log('de.benibela.VideLibri.Bride.VLInit (started)');
   needJ;
@@ -281,13 +289,16 @@ begin
     bookClassInit := j.getmethod(bookClass, '<init>', '()V');
     bookClassInitWithData := j.getmethod(bookClass, '<init>', '(ILde/benibela/videlibri/jni/Bridge$Account;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V');
     with bookFields do begin
+      idS := j.getfield(bookClass, 'id', 'Ljava/lang/String;');
       authorS := j.getfield(bookClass, 'author', 'Ljava/lang/String;');
       titleS := j.getfield(bookClass, 'title', 'Ljava/lang/String;');
+      yearS := j.getfield(bookClass, 'year', 'Ljava/lang/String;');
       issueDateI := j.getfield(bookClass, 'issueDate', 'I');
       dueDateI := j.getfield(bookClass, 'dueDate', 'I');
       accountL := j.getfield(bookClass, 'account', 'Lde/benibela/videlibri/jni/Bridge$Account;');
       historyZ := j.getfield(bookClass, 'history', 'Z');
       holdingsL := j.getfield(bookClass, 'holdings', '[Lde/benibela/videlibri/jni/Bridge$Book;');
+      additionalPropertiesL := j.getfield(bookClass, 'additionalProperties', 'Ljava/util/ArrayList;');
       setPropertyMethod := j.getmethod(bookClass, 'setProperty', '(Ljava/lang/String;Ljava/lang/String;)V');
       getPropertyMethod := j.getmethod(bookClass, 'getProperty', '(Ljava/lang/String;)Ljava/lang/String;');
       statusI := j.getfield(bookClass, 'status', 'I');
@@ -319,6 +330,13 @@ begin
     importExportDataFields.nativePtrJ := j.getfield(importExportDataClass, 'nativePtr', 'J');
     importExportDataFields.flagsI := j.getfield(importExportDataClass, 'flags', 'I');
     importExportDataFields.accountsToImportAL := j.getfield(importExportDataClass, 'accountsToImport', '[Ljava/lang/String;');
+
+    with j do begin
+      arrayListClass := getclass('java/util/ArrayList');
+      arrayListMethods.get := getmethod(arrayListClass, 'get', '(I)Ljava/lang/Object;');
+      arrayListMethods.size := getmethod(arrayListClass, 'size', '()I');
+      deleteLocalRef(arrayListClass);
+    end;
 
     callbacks := TCallbackHolderAndroid;
 
@@ -803,7 +821,7 @@ var
 begin
   libId := needj.getStringField(acc, accountFields.LibIdS);
   user := j.getStringField(acc, accountFields.NameS);
-  log('Account: '+libId+' '+user);
+  //log('Account: '+libId+' '+user);
   for i := 0 to accounts.Count-1 do
     if (accounts[i].getUser() = user) and (accounts[i].getLibrary().id = libId) then
       exit(accounts[i]);
@@ -846,7 +864,7 @@ var
   i: Integer;
   tempi: integer;
   jholdings, tempbook: jobject;
-  args: array[0..4] of jvalue;
+  args: array[0..INIT_STR+3] of jvalue;
 
 begin
   myj := @j;
@@ -925,34 +943,33 @@ function jbookToBookAndDelete(jbook: jobject): TBook; forward;
 function jbookToBook(jbook: jobject): TBook;
 var
   more: jobject;
-  get: jmethodID;
   iv: jvalue;
-  first: jfieldID;
-  second: jfieldID;
-  pair: jobject;
   size: jint;
   i: Integer;
-  jaccount, jholdings: jobject;
+  jaccount, jholdings, key, value: jobject;
 begin
   result := TBook.create;
   with bookFields do with j do begin
+    result.id := getStringField(jbook, idS);
     result.author := getStringField(jbook, authorS);
     result.title := getStringField(jbook, titleS);
+    result.year := getStringField(jbook, yearS);
     result.dueDate := getIntField(jbook, dueDateI);
     result.issueDate := getIntField(jbook, issueDateI);
-    more := getObjectField(jbook, getfield(bookClass, 'more', 'Ljava/util/ArrayList;'));
-
-    size := callIntMethodChecked(more, getmethod('java/util/ArrayList', 'size', '()I'));
-    get := getmethod('java/util/ArrayList', 'get', '(I)Ljava/lang/Object;');
-    first := getfield('de/benibela/videlibri/jni/Bridge$Book$Pair', 'first', 'Ljava/lang/String;');
-    second := getfield('de/benibela/videlibri/jni/Bridge$Book$Pair', 'second', 'Ljava/lang/String;');
-    for i := 0 to size - 1 do begin
-      iv.i:=i;
-      pair := callObjectMethodChecked(more, get, @iv);
-      result.setProperty(getStringField(pair, first), getStringField(pair, second));
-      deleteLocalRef(pair);
+    more := getObjectField(jbook, additionalPropertiesL);
+    if more <> nil then begin
+      size := callIntMethodChecked(more, arrayListMethods.size);
+      iv.i := 0;
+      while iv.i < size do begin
+        key := callObjectMethod(more, arrayListMethods.get, @iv);
+        inc(iv.i);
+        if iv.i >= size then break;
+        value := callObjectMethod(more, arrayListMethods.get, @iv);
+        inc(iv.i);
+        result.setProperty(jStringToStringAndDelete(key), jStringToStringAndDelete(value));
+      end;
+      deleteLocalRef(more);
     end;
-
 
     jaccount := getObjectField(jbook, accountL);
     if jaccount <> nil then begin
