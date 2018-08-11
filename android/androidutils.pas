@@ -1114,23 +1114,6 @@ var
   forceExtend: boolean;
 begin
   if logging then log('VLUpdateAccounts');
-  if tested then exit;
-  tested := true;
-  testBook := TBook.create;
-  testBook.title := 'title';
-  testBook.author:= 'author';
-  SetLength(testBook.additional, 3);
-  testBook.additional[0].name := 'abc';
-  testBook.additional[1].name := 'abc1';
-  testBook.additional[2].name := 'abc2';
-  for i := 1 to 3 do begin
-    starttime := now;
-    with j do
-    for k := 1 to 5000 do
-      deleteLocalRef(bookToJBook(testBook, false, false));
-    log('TESTING TIME: ' + inttostr(round( (now - starttime)*MSecsPerDay)));
-  end;
-  exit;
   result := JNI_FALSE;
   try
     acc := getRealAccountChecked(jacc);
