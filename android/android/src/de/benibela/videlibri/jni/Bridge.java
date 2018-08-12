@@ -36,6 +36,19 @@ public class Bridge {
         public boolean extend;
         public int extendDays;
         public boolean history;
+        public Account () {}
+        public Account (String libId, String name, String pass, String prettyName,
+                 int type, boolean extend,
+                 int extendDays, boolean history) {
+            this.libId = libId;
+            this.name = name;
+            this.pass = pass;
+            this.prettyName = prettyName;
+            this.type = type;
+            this.extend = extend;
+            this.extendDays = extendDays;
+            this.history = history;
+        }
         public boolean equals(Object o) {
             if (!(o instanceof Account)) return false;
             Account a = (Account) o;

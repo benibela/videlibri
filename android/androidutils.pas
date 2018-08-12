@@ -130,7 +130,7 @@ var assets: jobject = nil;
     bridgeClass: jclass;
     bridgeCallbackMethods: record VLAllThreadsDone, VLInstallationDone: jmethodID; end;
     accountClass, bookClass: jobject;
-    accountClassInit, bookClassInit, bookClassInitWithData: jmethodID;
+    accountClassInitWithData, bookClassInit, bookClassInitWithData: jmethodID;
     accountFields: record
       LibIdS, NameS, PassS, TypeI, PrettyNameS, ExtendDaysI, ExtendZ, HistoryZ: jfieldID;
 //      internalIdMethod: jmethodID;
@@ -272,7 +272,7 @@ begin
     bridgeCallbackMethods.VLInstallationDone := j.getstaticmethod(bridgeClass, 'installationDone', '(I)V');
 
     accountClass := j.newGlobalRefAndDelete(j.getclass('de/benibela/videlibri/jni/Bridge$Account'));
-    accountClassInit := j.getmethod(accountClass, '<init>', '()V');
+    accountClassInitWithData := j.getmethod(accountClass, '<init>', '(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;IZIZ)V');
     with accountFields  do begin
       LibIdS := j.getfield(accountClass, 'libId', 'Ljava/lang/String;');
       NameS := j.getfield(accountClass, 'name', 'Ljava/lang/String;');
@@ -780,17 +780,20 @@ begin
 end;
 
 function accountToJAccount(account: TCustomAccountAccess): jobject;
+var args: array[0..7] of jvalue;
+  i: Integer;
 begin
-  result := j.newObject(accountClass, accountClassInit);
-  with accountFields  do begin
-    result.SetStringField(LibIdS, account.getLibrary().id);
-    result.SetStringField(NameS, account.getUser());
-    result.SetStringField(PassS, account.passWord);
-    result.SetIntField(TypeI, account.accountType);
-    result.SetStringField(PrettyNameS, account.prettyName);
-    result.SetIntField(ExtendDaysI, account.extendDays);
-    result.SetBooleanField(ExtendZ, account.extendType <> etNever);
-    result.SetBooleanField(HistoryZ, account.keepHistory);
+  with j  do begin
+    args[0].l := stringToJString(account.getLibrary().id);
+    args[1].l := stringToJString(account.getUser());
+    args[2].l := stringToJString(account.passWord);
+    args[3].l := stringToJString(account.prettyName);
+    args[4].i := account.accountType;
+    args[5].z := booleanToJboolean(account.extendType <> etNever);
+    args[6].i := account.extendDays;
+    args[7].z := booleanToJboolean(account.keepHistory);
+    result := j.newObject(accountClass, accountClassInitWithData, @args[0]);
+    for i := 0 to 3 do deleteLocalRef(args[i].l);
   end;
 end;
 
