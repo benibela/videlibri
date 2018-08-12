@@ -150,6 +150,11 @@ var assets: jobject = nil;
     importExportDataFields: record
       accountsToImportAL, flagsI, nativePtrJ: jfieldID;
     end;
+    optionsClass: jclass;
+    optionsClassInit: jmethodID;
+    optionsClassFields: record
+      nearTimeI, loggingZ, refreshIntervalI, roUserLibIdsAS: jfieldID;
+    end;
 
     //arrayListClass: jclass;
     arrayListMethods: record
@@ -263,88 +268,95 @@ begin
   try
     okhttpinternetaccess.onBuildCallback := @tempOkHttpBuild.onBuild;
 
-    videlibriContextInterface :=  j.newGlobalRefAndDelete(j.getclass('de/benibela/videlibri/jni/Bridge$VideLibriContext'));
-    jContextObject := needj.env^^.NewGlobalRef(j.env, videlibri);
-    videLibriContextMethodUserPath := j.getmethod(videlibriContextInterface, 'userPath', '()Ljava/lang/String;');
+    with needJ do begin
+      videlibriContextInterface :=  newGlobalRefAndDelete(getclass('de/benibela/videlibri/jni/Bridge$VideLibriContext'));
+      jContextObject := env^^.NewGlobalRef(env, videlibri);
+      videLibriContextMethodUserPath := getmethod(videlibriContextInterface, 'userPath', '()Ljava/lang/String;');
 
-    bridgeClass := j.newGlobalRefAndDelete(j.getclass('de/benibela/videlibri/jni/Bridge'));
-    bridgeCallbackMethods.VLAllThreadsDone := j.getstaticmethod(bridgeClass, 'allThreadsDone', '()V');
-    bridgeCallbackMethods.VLInstallationDone := j.getstaticmethod(bridgeClass, 'installationDone', '(I)V');
+      bridgeClass := newGlobalRefAndDelete(getclass('de/benibela/videlibri/jni/Bridge'));
+      bridgeCallbackMethods.VLAllThreadsDone := getstaticmethod(bridgeClass, 'allThreadsDone', '()V');
+      bridgeCallbackMethods.VLInstallationDone := getstaticmethod(bridgeClass, 'installationDone', '(I)V');
 
-    accountClass := j.newGlobalRefAndDelete(j.getclass('de/benibela/videlibri/jni/Bridge$Account'));
-    accountClassInitWithData := j.getmethod(accountClass, '<init>', '(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;IZIZ)V');
-    with accountFields  do begin
-      LibIdS := j.getfield(accountClass, 'libId', 'Ljava/lang/String;');
-      NameS := j.getfield(accountClass, 'name', 'Ljava/lang/String;');
-      PassS := j.getfield(accountClass, 'pass', 'Ljava/lang/String;');
-      TypeI := j.getfield(accountClass, 'type', 'I');
-      PrettyNameS := j.getfield(accountClass, 'prettyName', 'Ljava/lang/String;');
-      ExtendDaysI := j.getfield(accountClass, 'extendDays', 'I');
-      ExtendZ := j.getfield(accountClass, 'extend', 'Z');
-      HistoryZ := j.getfield(accountClass, 'history', 'Z');
-  //    internalIdMethod := j.getmethod(accountClass, 'internalId', '()Ljava/lang/String;');
-    end;
+      accountClass := newGlobalRefAndDelete(getclass('de/benibela/videlibri/jni/Bridge$Account'));
+      accountClassInitWithData := getmethod(accountClass, '<init>', '(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;IZIZ)V');
+      with accountFields  do begin
+        LibIdS := getfield(accountClass, 'libId', 'Ljava/lang/String;');
+        NameS := getfield(accountClass, 'name', 'Ljava/lang/String;');
+        PassS := getfield(accountClass, 'pass', 'Ljava/lang/String;');
+        TypeI := getfield(accountClass, 'type', 'I');
+        PrettyNameS := getfield(accountClass, 'prettyName', 'Ljava/lang/String;');
+        ExtendDaysI := getfield(accountClass, 'extendDays', 'I');
+        ExtendZ := getfield(accountClass, 'extend', 'Z');
+        HistoryZ := getfield(accountClass, 'history', 'Z');
+    //    internalIdMethod := getmethod(accountClass, 'internalId', '()Ljava/lang/String;');
+      end;
 
-    bookClass := j.newGlobalRefAndDelete(j.getclass('de/benibela/videlibri/jni/Bridge$Book'));
-    bookClassInit := j.getmethod(bookClass, '<init>', '()V');
-    bookClassInitWithTitle := j.getmethod(bookClass, '<init>', '(Ljava/lang/String;)V');
-    bookClassInitWithData := j.getmethod(bookClass, '<init>', '(ILde/benibela/videlibri/jni/Bridge$Account;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V');
-    with bookFields do begin
-      idS := j.getfield(bookClass, 'id', 'Ljava/lang/String;');
-      authorS := j.getfield(bookClass, 'author', 'Ljava/lang/String;');
-      titleS := j.getfield(bookClass, 'title', 'Ljava/lang/String;');
-      yearS := j.getfield(bookClass, 'year', 'Ljava/lang/String;');
-      issueDateI := j.getfield(bookClass, 'issueDate', 'I');
-      dueDateI := j.getfield(bookClass, 'dueDate', 'I');
-      accountL := j.getfield(bookClass, 'account', 'Lde/benibela/videlibri/jni/Bridge$Account;');
-      historyZ := j.getfield(bookClass, 'history', 'Z');
-      holdingsL := j.getfield(bookClass, 'holdings', '[Lde/benibela/videlibri/jni/Bridge$Book;');
-      additionalPropertiesL := j.getfield(bookClass, 'additionalProperties', 'Ljava/util/ArrayList;');
-      setPropertyMethod := j.getmethod(bookClass, 'setProperty', '(Ljava/lang/String;Ljava/lang/String;)V');
-      getPropertyMethod := j.getmethod(bookClass, 'getProperty', '(Ljava/lang/String;)Ljava/lang/String;');
-      statusI := j.getfield(bookClass, 'status', 'I');
-    end;
+      bookClass := newGlobalRefAndDelete(getclass('de/benibela/videlibri/jni/Bridge$Book'));
+      bookClassInit := getmethod(bookClass, '<init>', '()V');
+      bookClassInitWithTitle := getmethod(bookClass, '<init>', '(Ljava/lang/String;)V');
+      bookClassInitWithData := getmethod(bookClass, '<init>', '(ILde/benibela/videlibri/jni/Bridge$Account;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V');
+      with bookFields do begin
+        idS := getfield(bookClass, 'id', 'Ljava/lang/String;');
+        authorS := getfield(bookClass, 'author', 'Ljava/lang/String;');
+        titleS := getfield(bookClass, 'title', 'Ljava/lang/String;');
+        yearS := getfield(bookClass, 'year', 'Ljava/lang/String;');
+        issueDateI := getfield(bookClass, 'issueDate', 'I');
+        dueDateI := getfield(bookClass, 'dueDate', 'I');
+        accountL := getfield(bookClass, 'account', 'Lde/benibela/videlibri/jni/Bridge$Account;');
+        historyZ := getfield(bookClass, 'history', 'Z');
+        holdingsL := getfield(bookClass, 'holdings', '[Lde/benibela/videlibri/jni/Bridge$Book;');
+        additionalPropertiesL := getfield(bookClass, 'additionalProperties', 'Ljava/util/ArrayList;');
+        setPropertyMethod := getmethod(bookClass, 'setProperty', '(Ljava/lang/String;Ljava/lang/String;)V');
+        getPropertyMethod := getmethod(bookClass, 'getProperty', '(Ljava/lang/String;)Ljava/lang/String;');
+        statusI := getfield(bookClass, 'status', 'I');
+      end;
 
-    libraryDetailsClass := j.newGlobalRefAndDelete(j.getclass('de/benibela/videlibri/jni/Bridge$LibraryDetails'));
-    libraryDetailsClassInitWithData := j.getmethod(libraryDetailsClass, '<init>', '(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;[Ljava/lang/String;[Ljava/lang/String;Z)V');
-
-
-
-    searcherClass := j.newGlobalRefAndDelete(j.getclass('de/benibela/videlibri/jni/Bridge$SearcherAccess'));
-    with searcherFields do begin
-      nativePtrJ := j.getfield(searcherClass, 'nativePtr', 'J');
-      totalResultCountI := j.getfield(searcherClass, 'totalResultCount', 'I');
-      nextPageAvailableZ := j.getfield(searcherClass, 'nextPageAvailable', 'Z');
-      homeBranchesL := j.getfield(searcherClass, 'homeBranches', '[Ljava/lang/String;');
-      searchBranchesL := j.getfield(searcherClass, 'searchBranches', '[Ljava/lang/String;');
-    end;
-    searcherOnConnected := j.getmethod(searcherClass, 'onConnected', '([Ljava/lang/String;[Ljava/lang/String;)V');
-    searcherOnSearchFirstPageComplete := j.getmethod(searcherClass, 'onSearchFirstPageComplete', '([Lde/benibela/videlibri/jni/Bridge$Book;)V');
-    searcherOnSearchNextPageComplete := j.getmethod(searcherClass, 'onSearchNextPageComplete', '([Lde/benibela/videlibri/jni/Bridge$Book;)V');
-    searcherOnSearchDetailsComplete := j.getmethod(searcherClass, 'onSearchDetailsComplete', '(Lde/benibela/videlibri/jni/Bridge$Book;)V');
-    searcherOnOrderComplete := j.getmethod(searcherClass, 'onOrderComplete', '(Lde/benibela/videlibri/jni/Bridge$Book;)V');
-    searcherOnOrderConfirm := j.getmethod(searcherClass, 'onOrderConfirm', '(Lde/benibela/videlibri/jni/Bridge$Book;)V');
-    searcherOnTakePendingMessage := j.getmethod(searcherClass, 'onTakePendingMessage', '(ILjava/lang/String;[Ljava/lang/String;)V');
-    searcherOnPendingMessageCompleted := j.getmethod(searcherClass, 'onPendingMessageCompleted', '()V');
-    searcherOnException := j.getmethod(searcherClass, 'onException', '()V');
+      libraryDetailsClass := newGlobalRefAndDelete(getclass('de/benibela/videlibri/jni/Bridge$LibraryDetails'));
+      libraryDetailsClassInitWithData := getmethod(libraryDetailsClass, '<init>', '(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;[Ljava/lang/String;[Ljava/lang/String;Z)V');
 
 
-    importExportDataClass := j.newGlobalRefAndDelete(j.getclass('de/benibela/videlibri/jni/Bridge$ImportExportData'));
-    importExportDataClassInit := j.getmethod(importExportDataClass, '<init>', '()V');
-    importExportDataFields.nativePtrJ := j.getfield(importExportDataClass, 'nativePtr', 'J');
-    importExportDataFields.flagsI := j.getfield(importExportDataClass, 'flags', 'I');
-    importExportDataFields.accountsToImportAL := j.getfield(importExportDataClass, 'accountsToImport', '[Ljava/lang/String;');
 
-    with j do begin
+      searcherClass := newGlobalRefAndDelete(getclass('de/benibela/videlibri/jni/Bridge$SearcherAccess'));
+      with searcherFields do begin
+        nativePtrJ := getfield(searcherClass, 'nativePtr', 'J');
+        totalResultCountI := getfield(searcherClass, 'totalResultCount', 'I');
+        nextPageAvailableZ := getfield(searcherClass, 'nextPageAvailable', 'Z');
+        homeBranchesL := getfield(searcherClass, 'homeBranches', '[Ljava/lang/String;');
+        searchBranchesL := getfield(searcherClass, 'searchBranches', '[Ljava/lang/String;');
+      end;
+      searcherOnConnected := getmethod(searcherClass, 'onConnected', '([Ljava/lang/String;[Ljava/lang/String;)V');
+      searcherOnSearchFirstPageComplete := getmethod(searcherClass, 'onSearchFirstPageComplete', '([Lde/benibela/videlibri/jni/Bridge$Book;)V');
+      searcherOnSearchNextPageComplete := getmethod(searcherClass, 'onSearchNextPageComplete', '([Lde/benibela/videlibri/jni/Bridge$Book;)V');
+      searcherOnSearchDetailsComplete := getmethod(searcherClass, 'onSearchDetailsComplete', '(Lde/benibela/videlibri/jni/Bridge$Book;)V');
+      searcherOnOrderComplete := getmethod(searcherClass, 'onOrderComplete', '(Lde/benibela/videlibri/jni/Bridge$Book;)V');
+      searcherOnOrderConfirm := getmethod(searcherClass, 'onOrderConfirm', '(Lde/benibela/videlibri/jni/Bridge$Book;)V');
+      searcherOnTakePendingMessage := getmethod(searcherClass, 'onTakePendingMessage', '(ILjava/lang/String;[Ljava/lang/String;)V');
+      searcherOnPendingMessageCompleted := getmethod(searcherClass, 'onPendingMessageCompleted', '()V');
+      searcherOnException := getmethod(searcherClass, 'onException', '()V');
+
+      optionsClass := newGlobalRefAndDelete(getclass('de/benibela/videlibri/jni/Bridge$Options'));
+      optionsClassInit := getmethod(optionsClass, '<init>', '()V');;
+      with optionsClassFields do begin
+        nearTimeI := getfield(optionsClass, 'nearTime', 'I');
+        loggingZ := getfield(optionsClass, 'logging', 'Z');
+        refreshIntervalI := getfield(optionsClass, 'refreshInterval','I');
+        roUserLibIdsAS := getfield(optionsClass, 'roUserLibIds', '[Ljava/lang/String;');
+      end;
+
+
+      importExportDataClass := newGlobalRefAndDelete(getclass('de/benibela/videlibri/jni/Bridge$ImportExportData'));
+      importExportDataClassInit := getmethod(importExportDataClass, '<init>', '()V');
+      importExportDataFields.nativePtrJ := getfield(importExportDataClass, 'nativePtr', 'J');
+      importExportDataFields.flagsI := getfield(importExportDataClass, 'flags', 'I');
+      importExportDataFields.accountsToImportAL := getfield(importExportDataClass, 'accountsToImport', '[Ljava/lang/String;');
+
       arrayListClass := getclass('java/util/ArrayList');
       arrayListMethods.get := getmethod(arrayListClass, 'get', '(I)Ljava/lang/Object;');
       arrayListMethods.size := getmethod(arrayListClass, 'size', '()I');
       deleteLocalRef(arrayListClass);
-    end;
 
-    callbacks := TCallbackHolderAndroid;
+      callbacks := TCallbackHolderAndroid;
 
-    with j do begin
       with globalStrings do begin
         libraryBranch := newGlobalRefAndDelete(NewStringUTF('libraryBranch'));
         isbn := newGlobalRefAndDelete(NewStringUTF('isbn'));
@@ -387,12 +399,13 @@ begin
   if logging then bbdebugtools.log('de.benibela.VideLibri.Bride.VLGetLibraryIds (started)');
   //bbdebugtools.log(strFromPtr(libraryManager));
   //bbdebugtools.log(IntToStr(libraryManager.count));
+  with j do
   try
-    result := j.newObjectArray(libraryManager.count, j.getclass('java/lang/String'), nil);
+    result := newStringArray(libraryManager.count);
     for i := 0 to libraryManager.count - 1 do
-      j.env^^.SetObjectArrayElement(j.env, result, i, j.stringToJString(libraryManager.libraryIds[i]));
+      setStringArrayElement(result, i, libraryManager.libraryIds[i]);
   except
-    on e: Exception do j.ThrowNew('de/benibela/videlibri/jni/Bridge$InternalError', 'Interner Fehler: '+e.Message);
+    on e: Exception do ThrowNew('de/benibela/videlibri/jni/Bridge$InternalError', 'Interner Fehler: '+e.Message);
   end;
   if logging then bbdebugtools.log('de.benibela.VideLibri.Bride.VLGetLibraryIds (ended)');
 end;
@@ -436,9 +449,9 @@ begin
     detailClass := j.getclass('de/benibela/videlibri/jni/Bridge$TemplateDetails');
     result := j.newObject(detailClass, j.getmethod(detailClass, '<init>', '()V'));
     with getTemplateDetailsFields(detailClass), j do begin
-      names := j.newObjectArray(length(meta.variables), j.commonClasses_String, nil);
-      defs := j.newObjectArray(length(meta.variables), j.commonClasses_String, nil);
-      desc := j.newObjectArray(length(meta.variables), j.commonClasses_String, nil);
+      names := newStringArray(length(meta.variables));
+      defs := newStringArray(length(meta.variables));
+      desc := newStringArray(length(meta.variables));
       SetObjectField(result, variablesNames, names);
       SetObjectField(result, variablesDefault, defs);
       SetObjectField(result, variablesDescription, desc);
@@ -449,6 +462,10 @@ begin
         if meta.variables[i].hasDef then
           setStringArrayElement(defs, i, meta.variables[i].def);
       end;
+
+      deleteLocalRef(names);
+      deleteLocalRef(defs);
+      deleteLocalRef(desc);
     end;
   except
     on e: Exception do j.ThrowNew('de/benibela/videlibri/jni/Bridge$InternalError', 'Interner Fehler: '+e.Message);
@@ -807,10 +824,11 @@ begin
   if logging then bbdebugtools.log('de.benibela.VideLibri.Bride.VLGetAccounts (started)');
   try
     result := j.newObjectArray(accounts.Count, accountClass, nil);
+    with j do
     for i := 0 to accounts.Count - 1 do begin
       temp := accountToJAccount(accounts[i]);
-      j.SetObjectArrayElement(result, i,  temp);
-      j.deleteLocalRef(temp);
+      SetObjectArrayElement(result, i,  temp);
+      deleteLocalRef(temp);
     end;
   except
     on e: Exception do j.ThrowNew('de/benibela/videlibri/jni/Bridge$InternalError', 'Interner Fehler: '+e.Message);
@@ -1046,11 +1064,12 @@ begin
       else books := acc.books.current;
 
       result := j.newObjectArray(books.Count, bookClass, nil);
+      with j do
       for i := 0 to books.Count - 1 do begin
         book := bookToJBook(books[i], jacc);
-        j.SetBooleanField(book, bookFields.historyZ, history);
-        j.SetObjectArrayElement(result, i, book);
-        j.deleteLocalRef(book);
+        SetBooleanField(book, bookFields.historyZ, history);
+        SetObjectArrayElement(result, i, book);
+        deleteLocalRef(book);
       end;
     finally
       system.LeaveCriticalsection(updateThreadConfig.libraryAccessSection)
@@ -1157,8 +1176,9 @@ begin
   try
     books := TBookList.create();
     books.Capacity:=j.getArrayLength(jbooks);
-    for i := 0 to j.getArrayLength(jbooks) - 1 do begin
-      book := jbookToBookAndDelete(j.getObjectArrayElement(jbooks, i));
+    with j do
+    for i := 0 to getArrayLength(jbooks) - 1 do begin
+      book := jbookToBookAndDelete(getObjectArrayElement(jbooks, i));
       if book.owningAccount <> nil then books.add(book);
     end;
     case operation of
@@ -1305,10 +1325,10 @@ begin
     end;
 
     if title = '' then result := nil
-    else begin
-      result := j.newObjectArray(2, j.getclass('java/lang/String'), nil);
-      j.SetObjectArrayElement(result, 0, j.stringToJString(title));
-      j.SetObjectArrayElement(result, 1, j.stringToJString(text));
+    else with j do begin
+      result := newStringArray(2);
+      setStringArrayElement(result, 0, title);
+      setStringArrayElement(result, 1, text);
     end;
 
     booksSoon.Free;
@@ -1378,17 +1398,19 @@ begin
     exit;
   end;
 
-  j.SetIntField(jsearcher, searcherFields.totalResultCountI, searcher.SearchResultCount);
-  j.SetBooleanField(jsearcher, searcherFields.nextPageAvailableZ, nextPageAvailable);
-  books := j.newObjectArray(searcher.SearchResult.Count, bookClass, nil);
-  for i := 0 to searcher.SearchResult.Count-1 do begin
-    temp := bookToJBook(searcher.SearchResult[i], nil, false, true);
-    j.SetObjectArrayElement(books, i, temp);
-    j.deleteLocalRef(temp);
+  with j do begin
+    SetIntField(jsearcher, searcherFields.totalResultCountI, searcher.SearchResultCount);
+    SetBooleanField(jsearcher, searcherFields.nextPageAvailableZ, nextPageAvailable);
+    books := newObjectArray(searcher.SearchResult.Count, bookClass, nil);
+    for i := 0 to searcher.SearchResult.Count-1 do begin
+      temp := bookToJBook(searcher.SearchResult[i], nil, false, true);
+      SetObjectArrayElement(books, i, temp);
+      deleteLocalRef(temp);
+    end;
+    if firstPage then callVoidMethod(jsearcher, searcherOnSearchFirstPageComplete, @books)
+    else callVoidMethod(jsearcher, searcherOnSearchNextPageComplete, @books);
+    deleteLocalRef(books);
   end;
-  if firstPage then j.callVoidMethod(jsearcher, searcherOnSearchFirstPageComplete, @books)
-  else j.callVoidMethod(jsearcher, searcherOnSearchNextPageComplete, @books);
-  j.deleteLocalRef(books);
 end;
 
 procedure TLibrarySearcherAccessWrapper.OnDetailsCompleteImpl(sender: TObject; book: TBook);
@@ -1445,10 +1467,13 @@ begin
     pmkConfirm: args[0].i := 1;
     pmkChoose: args[0].i := 2;
   end;
-  args[1].l := j.stringToJString(apendingMessage.caption);
-  args[2].l := j.arrayToJArray(apendingMessage.options);
-
-  j.callVoidMethod(jsearcher, searcherOnTakePendingMessage, @args[0]);
+  with j do begin
+    args[1].l := stringToJString(apendingMessage.caption);
+    args[2].l := arrayToJArray(apendingMessage.options);
+    callVoidMethod(jsearcher, searcherOnTakePendingMessage, @args[0]);
+    deleteLocalRef(args[1].l);
+    deleteLocalRef(args[2].l);
+  end;
 end;
 
 procedure TLibrarySearcherAccessWrapper.OnPendingMessageCompletedImpl(Sender: TObject);
@@ -1557,15 +1582,18 @@ begin
         exit;
       end;
 
-      //that is not thread safe, but as long as no smtSearch message is handled it should be okay
-      searcherAccess.searcher.SearchOptions.author:= j.getStringField(query, authorS);
-      searcherAccess.searcher.SearchOptions.title:= j.getStringField(query, titleS);
-      temp := j.stringToJString('year');
-      searcherAccess.searcher.SearchOptions.year:= j.callStringMethod(query, bookFields.getPropertyMethod, @temp);
-      temp := j.stringToJString('isbn');
-      searcherAccess.searcher.SearchOptions.isbn:= j.callStringMethod(query, bookFields.getPropertyMethod, @temp);
-      temp := j.stringToJString('keywords');
-      searcherAccess.searcher.SearchOptions.setProperty('keywords', j.callStringMethod(query, bookFields.getPropertyMethod, @temp));
+      with j do begin
+        //that is not thread safe, but as long as no smtSearch message is handled it should be okay
+        searcherAccess.searcher.SearchOptions.author:= getStringField(query, authorS);
+        searcherAccess.searcher.SearchOptions.title:= getStringField(query, titleS);
+        searcherAccess.searcher.SearchOptions.year:= getStringField(query, yearS);
+        temp := stringToJString('isbn');
+        searcherAccess.searcher.SearchOptions.isbn:= callStringMethod(query, bookFields.getPropertyMethod, @temp);
+        deleteLocalRef(temp);
+        temp := stringToJString('keywords');
+        searcherAccess.searcher.SearchOptions.setProperty('keywords', callStringMethod(query, bookFields.getPropertyMethod, @temp));
+        deleteLocalRef(temp);
+      end;
 
       if homeBranch >= 0 then searcherAccess.searcher.HomeBranch:=homeBranch;
       if searchBranch >= 0 then searcherAccess.searcher.searchBranch:=searchBranch;
@@ -1621,8 +1649,9 @@ begin
   if logging then log('Bridge_VLSearchOrder started');
   try
     sa := unwrapSearcher(searcher);
-    for i := 0 to j.getArrayLength(jbooks) - 1 do begin
-      book :=  jbookToBookAndDelete(j.getObjectArrayElement(jbooks, i));
+    with j do
+    for i := 0 to getArrayLength(jbooks) - 1 do begin
+      book :=  jbookToBookAndDelete(getObjectArrayElement(jbooks, i));
       if book.owningAccount = nil then begin
         log('Owner of book '+book.title+' not found');
         continue;
@@ -1647,8 +1676,9 @@ begin
   try
     sa := unwrapSearcher(searcher);
     holdingIds := j.getIntArray(jholdingids);
-    for i := 0 to j.getArrayLength(jbooks) - 1 do begin //array is always single element
-      book :=  jbookToBookAndDelete(j.getObjectArrayElement(jbooks, i));
+    with j do
+    for i := 0 to getArrayLength(jbooks) - 1 do begin //array is always single element
+      book :=  jbookToBookAndDelete(getObjectArrayElement(jbooks, i));
       if book.owningAccount = nil then begin
         log('Owner of book '+book.title+' not found');
         continue;
@@ -1672,8 +1702,9 @@ begin
   if logging then log('Bridge_VLSearchOrderConfirmed started');
   try
     sa := unwrapSearcher(searcher);
-    for i := 0 to j.getArrayLength(jbooks) - 1 do begin
-      book :=  jbookToBookAndDelete(j.getObjectArrayElement(jbooks, i));
+    with j do
+    for i := 0 to getArrayLength(jbooks) - 1 do begin
+      book :=  jbookToBookAndDelete(getObjectArrayElement(jbooks, i));
       sa.orderConfirmedAsync(book);
     end;
   except
@@ -1715,50 +1746,29 @@ begin
   if logging then log('Bridge_VLSearchEnd stopped');
 end;
 
-type TJOptionClass = record
-  c: jclass;
-  init: jmethodID;
-  nearTimeI, loggingZ, refreshIntervalI, roUserLibIdsAS: jfieldID;
-
-end;
-
-function getOptionClass: TJOptionClass;
-begin
-  with result do begin
-    c := j.getclass('de/benibela/videlibri/jni/Bridge$Options');
-    init := j.getmethod(c, '<init>', '()V');
-    nearTimeI := j.getfield(c, 'nearTime', 'I');
-    loggingZ := j.getfield(c, 'logging', 'Z');
-    refreshIntervalI := j.getfield(c, 'refreshInterval','I');
-    roUserLibIdsAS := j.getfield(c, 'roUserLibIds', '[Ljava/lang/String;');
-  end;
-end;
 
 function Java_de_benibela_VideLibri_Bridge_VLGetOptions(env:PJNIEnv; this:jobject): jobject; cdecl;
 var
   i: Integer;
   userlibs: TList;
-  temp, temp2: jobject;
+  temp: jobject;
 begin
   if logging then bbdebugtools.log('de.benibela.VideLibri.Bride.VLGetOptions (started)');
   //bbdebugtools.log(strFromPtr(libraryManager));
   //bbdebugtools.log(IntToStr(libraryManager.count));
   result := nil;
   try
-    with getOptionClass do begin
-      result := j.newObject(c, init);
-      j.SetIntField(result, nearTimeI, userConfig.ReadInteger('base','near-time',3));
-      j.SetIntField(result, refreshIntervalI, RefreshInterval);
-      j.SetBooleanField(result, loggingZ, logging);
+    with optionsClassFields, j do begin
+      result := newObject(optionsClass, optionsClassInit);
+      SetIntField(result, nearTimeI, userConfig.ReadInteger('base','near-time',3));
+      SetIntField(result, refreshIntervalI, RefreshInterval);
+      SetBooleanField(result, loggingZ, logging);
 
       userlibs := libraryManager.getUserLibraries();
-      temp := j.newObjectArray(userlibs.Count, j.commonClasses_String, nil);
-      for i := 0 to userlibs.Count-1 do begin
-        temp2 := j.stringToJString(TLibrary(userlibs[i]).id);
-        j.setObjectArrayElement(temp, i, temp2);
-        j.deleteLocalRef(temp2);
-      end;
-      j.SetObjectField(result, roUserLibIdsAS, temp);
+      temp := newStringArray(userlibs.Count);
+      for i := 0 to userlibs.Count-1 do
+        setStringArrayElement(temp, i, TLibrary(userlibs[i]).id);
+      SetObjectFieldAndDelete(result, roUserLibIdsAS, temp);
     end;
   except
     on e: Exception do j.ThrowNew('de/benibela/videlibri/jni/Bridge$InternalError', 'Interner Fehler: '+e.Message);
@@ -1773,14 +1783,14 @@ begin
   //bbdebugtools.log(strFromPtr(libraryManager));
   //bbdebugtools.log(IntToStr(libraryManager.count));
   try
-    with getOptionClass do begin
-      userConfig.WriteInteger('base','near-time', j.getIntField(options, nearTimeI));
+    with optionsClassFields, j do begin
+      userConfig.WriteInteger('base','near-time', getIntField(options, nearTimeI));
       updateGlobalTimeCache;
 
-      RefreshInterval:=j.getIntField(options, refreshIntervalI);
+      RefreshInterval:=getIntField(options, refreshIntervalI);
       userConfig.WriteInteger('access','refresh-interval',refreshInterval);
 
-      logging := j.getBooleanField(options, loggingZ);
+      logging := getBooleanField(options, loggingZ);
       userConfig.WriteBool('base','logging', logging);
     end;
   except
@@ -1982,8 +1992,8 @@ begin
   if logging then bbdebugtools.log('de.benibela.VideLibri.Bride.VLNormalizeISBN (started)');
   result := nil;
   try
-    needJ;
-    result := j.stringToJString(TBook.getNormalizedISBN(j.jStringToString(isbn), removeSep <> JNI_FALSE, conversion));
+    with needJ do
+      result := stringToJString(TBook.getNormalizedISBN(jStringToString(isbn), removeSep <> JNI_FALSE, conversion));
   except
     on e: Exception do j.ThrowNew('de/benibela/videlibri/jni/Bridge$InternalError', 'Interner Fehler: '+e.Message);
   end;
