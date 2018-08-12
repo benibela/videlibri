@@ -124,7 +124,6 @@ function loaded: LongInt; begin result := 0; end;
 
 var assets: jobject = nil;
     assetCount: integer = 0;
-    jmAssetManager_Open_StringInputStream, jmInputStream_Read_B, jmInputStream_Close: jmethodID;
     videlibriContextInterface: jclass;
     videLibriContextMethodUserPath: jmethodID;
     bridgeClass: jclass;
@@ -170,7 +169,7 @@ begin
   if userAssetFileAsString(name, result) then exit;
   beginAssetRead;
   try
-    result := j.getAssetAsString(assets, name, jmAssetManager_Open_StringInputStream, jmInputStream_Read_B, jmInputStream_Close);
+    result := j.getAssetAsString(assets, name);
   finally
     endAssetRead;
   end;
@@ -178,12 +177,8 @@ end;
 
 procedure beginAssetRead;
 begin
-  if assetCount = 0 then begin
+  if assetCount = 0 then
     assets := needJ.getAssets;
-    jmAssetManager_Open_StringInputStream := j.commonMethods_AssetManager_Open_StringInputStream;
-    jmInputStream_Read_B := j.commonMethods_InputStream_Read_B;
-    jmInputStream_Close := j.commonMethods_InputStream_Close;
-  end;
   assetCount += 1;
 end;
 
@@ -520,8 +515,8 @@ begin
       else args[5].l := stringToJString('');
       args[8].z := booleanToJboolean(lib.segregatedAccounts);
 
-      namesArray := newObjectArray(lib.variables.count, commonClasses_String, nil);
-      valuesArray := newObjectArray(lib.variables.count, commonClasses_String, nil);
+      namesArray := newStringArray(lib.variables.count);
+      valuesArray := newStringArray(lib.variables.count);
       for i := 0 to lib.variables.count-1 do begin
         setStringArrayElement(namesArray, i, lib.variables.Names[i]);
         setStringArrayElement(valuesArray, i, lib.variables.ValueFromIndex[i]);
