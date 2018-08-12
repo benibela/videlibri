@@ -122,8 +122,9 @@ function loaded: LongInt; begin result := 0; end;
 
 {$else}
 
-var assets: jobject = nil;
-    assetCount: integer = 0;
+threadvar assets: jobject;
+    assetCount: integer;
+var
     videlibriContextInterface: jclass;
     videLibriContextMethodUserPath: jmethodID;
     bridgeClass: jclass;
@@ -185,6 +186,7 @@ end;
 procedure endAssetRead;
 begin
   assetCount -= 1;
+  if assetCount = 0 then assets.deleteLocalRef();
 end;
 
 
