@@ -129,8 +129,8 @@ var assets: jobject = nil;
     videLibriContextMethodUserPath: jmethodID;
     bridgeClass: jclass;
     bridgeCallbackMethods: record VLAllThreadsDone, VLInstallationDone: jmethodID; end;
-    accountClass, bookClass: jobject;
-    accountClassInitWithData, bookClassInit, bookClassInitWithData: jmethodID;
+    accountClass, bookClass, libraryDetailsClass: jobject;
+    accountClassInitWithData, bookClassInit, bookClassInitWithTitle, bookClassInitWithData, libraryDetailsClassInitWithData: jmethodID;
     accountFields: record
       LibIdS, NameS, PassS, TypeI, PrettyNameS, ExtendDaysI, ExtendZ, HistoryZ: jfieldID;
 //      internalIdMethod: jmethodID;
@@ -287,6 +287,7 @@ begin
 
     bookClass := j.newGlobalRefAndDelete(j.getclass('de/benibela/videlibri/jni/Bridge$Book'));
     bookClassInit := j.getmethod(bookClass, '<init>', '()V');
+    bookClassInitWithTitle := j.getmethod(bookClass, '<init>', '(Ljava/lang/String;)V');
     bookClassInitWithData := j.getmethod(bookClass, '<init>', '(ILde/benibela/videlibri/jni/Bridge$Account;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V');
     with bookFields do begin
       idS := j.getfield(bookClass, 'id', 'Ljava/lang/String;');
@@ -303,6 +304,9 @@ begin
       getPropertyMethod := j.getmethod(bookClass, 'getProperty', '(Ljava/lang/String;)Ljava/lang/String;');
       statusI := j.getfield(bookClass, 'status', 'I');
     end;
+
+    libraryDetailsClass := j.newGlobalRefAndDelete(j.getclass('de/benibela/videlibri/jni/Bridge$LibraryDetails'));
+    libraryDetailsClassInitWithData := j.getmethod(libraryDetailsClass, '<init>', '(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;[Ljava/lang/String;[Ljava/lang/String;Z)V');
 
 
 
@@ -408,9 +412,9 @@ end;
 function Java_de_benibela_VideLibri_Bridge_VLGetTemplateDetails(env:PJNIEnv; this:jobject; id: jstring): jobject; cdecl;
 var
   i: Integer;
-  detailClass: jclass;
   template: TMultiPageTemplate;
   meta: TTemplateActionMeta;
+  detailClass: jclass;
   names: jobject;
   defs: jobject;
   desc: jobject;
@@ -475,10 +479,10 @@ function Java_de_benibela_VideLibri_Bridge_VLGetLibraryDetails(env:PJNIEnv; this
 var
   lib: TLibrary;
   i: Integer;
-  detailClass: jclass;
   namesArray: jobject;
   valuesArray: jobject;
   libId: String;
+  args: array[0..8] of jvalue;
 begin
   if logging then bbdebugtools.log('de.benibela.VideLibri.Bride.VLGetLibraryDetails (started)');
   //bbdebugtools.log(strFromPtr(libraryManager));
@@ -488,26 +492,27 @@ begin
     libId := j.jStringToString(id);
     lib := libraryManager.get(libId);
     if lib = nil then exit(nil);
-    detailClass := j.getclass('de/benibela/videlibri/jni/Bridge$LibraryDetails');
-    result := j.newObject(detailClass, j.getmethod(detailClass, '<init>', '()V'));
 
-    with getLibraryDetailsFields(detailClass), j do begin
-      SetStringField(result, homepageBase, lib.homepageBase);
-      SetStringField(result, homepageCatalogue, lib.homepageCatalogue);
-      SetStringField(result, prettyName, lib.prettyNameLong);
-      SetStringField(result, prettyNameShort, lib.prettyNameShort);
-      SetStringField(result, id, lib.id);
-      if lib.template <> nil then SetStringField(result, templateId, lib.template.name)
-      else SetStringField(result, templateId, '');
+    with j do begin
+      args[0].l := stringToJString(lib.homepageBase);
+      args[1].l := stringToJString(lib.homepageCatalogue);
+      args[2].l := stringToJString(lib.prettyNameLong);
+      args[3].l := stringToJString(lib.prettyNameShort);
+      args[4].l := stringToJString(lib.id);
+      if lib.template <> nil then args[5].l := stringToJString(lib.template.name)
+      else args[5].l := stringToJString('');
+      args[8].z := booleanToJboolean(lib.segregatedAccounts);
+
       namesArray := newObjectArray(lib.variables.count, commonClasses_String, nil);
       valuesArray := newObjectArray(lib.variables.count, commonClasses_String, nil);
       for i := 0 to lib.variables.count-1 do begin
-        setObjectArrayElement(namesArray, i, stringToJString(lib.variables.Names[i]));
-        setObjectArrayElement(valuesArray, i, stringToJString(lib.variables.ValueFromIndex[i]));
+        setStringArrayElement(namesArray, i, lib.variables.Names[i]);
+        setStringArrayElement(valuesArray, i, lib.variables.ValueFromIndex[i]);
       end;
-      SetObjectField(result, variableNames, namesArray);
-      SetObjectField(result, variableValues, valuesArray);
-      SetBooleanField(result, segregatedAccountsZ, lib.segregatedAccounts);
+      args[6].l := namesArray;
+      args[7].l := valuesArray;
+      result := newObject(libraryDetailsClass, libraryDetailsClassInitWithData, @args[0]);
+      for i := 0 to 7 do deleteLocalRef(args[i].l);
     end;
   except
     on e: Exception do j.ThrowNew('de/benibela/videlibri/jni/Bridge$InternalError', 'Interner Fehler: '+e.Message);
@@ -518,7 +523,6 @@ end;
 procedure Java_de_benibela_VideLibri_Bridge_VLSetLibraryDetails(env:PJNIEnv; this:jobject; id: jstring; details: jobject); cdecl;
 var
   i: Integer;
-  detailClass: jclass;
   names: jobject;
   values: jobject;
   libid: String;
@@ -533,9 +537,7 @@ begin
       //null means delete
       libraryManager.deleteUserLibrary(libid);
     end else begin
-      detailClass := j.getclass('de/benibela/videlibri/jni/Bridge$LibraryDetails');
-
-      with getLibraryDetailsFields(detailClass), j do begin
+      with getLibraryDetailsFields(libraryDetailsClass), j do begin
         libXml := '<?xml version="1.0" encoding="UTF-8"?>'+LineEnding;
         libXml += '<library>'+LineEnding;
         libXml += '   <longName value="'+xmlStrEscape(getStringField(details, prettyName))+'"/>'+LineEnding;
@@ -1902,7 +1904,7 @@ var r: TBookListReader;
   b, list:ixqvalue;
   book: TBook;
   p: TXQProperty;
-  newelement, accs: jobject;
+  newelement, accs, tempjobject: jobject;
   pos, accountId, i: integer;
   accs2: array of jobject;
   i64: Int64;
@@ -1949,9 +1951,10 @@ begin
               newelement := bookToJBook(book, nil);
             j.SetBooleanField(newelement, bookFields.historyZ, not book.lend);
           end;
-          else begin
-            newelement:=j.newObject(bookClass, bookClassInit);;
-            j.SetStringField(newelement, bookFields.titleS, b.toString);
+          else with j do begin
+            tempjobject :=  stringToJString(b.toString);
+            newelement:=newObject(bookClass, bookClassInitWithTitle, @tempjobject);
+            deleteLocalRef(tempjobject);
           end;
         end;
         j.setObjectArrayElement(Result, pos, newelement);

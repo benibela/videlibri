@@ -20,6 +20,26 @@ public class Bridge {
         public String variableValues[];
         public boolean segregatedAccounts;
 
+        public LibraryDetails(){}
+        public LibraryDetails(String homepageBase, String homepageCatalogue,
+                              String prettyName, String prettyNameShort,
+                              String id,
+                              String templateId,
+                              String variableNames[],
+                              String variableValues[],
+                              boolean segregatedAccounts
+        ){
+            this.homepageBase = homepageBase;
+            this.homepageCatalogue = homepageCatalogue;
+            this.prettyName = prettyName;
+            this.prettyNameShort = prettyNameShort;
+            this.id = id;
+            this.templateId = templateId;
+            this.variableNames = variableNames;
+            this.variableValues = variableValues;
+            this.segregatedAccounts = segregatedAccounts;
+        }
+
         public static String decodeIdEscapes(String s) {
             if (!s.contains("+")) return s;
             return s.replace("+ue", "ü")
@@ -79,6 +99,11 @@ public class Bridge {
         public Book(){
             author = title = id = year = "";
             additionalProperties = new ArrayList<>(12);
+        }
+        public Book(String title){
+            author = id = year = "";
+            this.title = title;
+            additionalProperties = new ArrayList<>(0);
         }
         public Book(int additionalPropertyCount, Account account, String id, String author, String title, String year){
             this.account = account;
