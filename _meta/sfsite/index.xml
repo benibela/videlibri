@@ -160,6 +160,7 @@ Einige andere Features sind:
 <li>XML-Import/Export zur Synchronisation von mehreren Geräten.</li>
 <li>Automatisches Update<sup class="desktop">D</sup>.</li>
 <li>Speicherung von gesuchten Medien in der Kontohistorie, was zur Literaturverwaltung oder als Merkliste verwendet werden kann.<sup class="desktop">D</sup>.</li>
+<li>Nahezu bugfrei: Innerhalb von zehn Jahren gab es lediglich 2 Bug-Meldungen <a href="https://sourceforge.net/p/videlibri/tickets/">im Bugtracker</a>.</li>
 </ul>
 
 Mit <sup class="desktop">D</sup>-markiere Features sind nur in der Desktopversion enthalten, und fehlen in der Androidversion.<br/><br/>
