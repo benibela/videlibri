@@ -1,76 +1,65 @@
 <html>
 
 <template:meta default-text-matching="regex"/>
-<t:s>curAuthor := (), sigid := 0, if (get("singleResult", false())) then book:={} else (), book.orderable := 0</t:s> <!-- extra variable to prevent contamination by previously set book.author -->
+<t:s>curAuthor := (), holding-keys := (), holding := (), if (get("singleResult", false())) then book:={} else ()</t:s> <!-- extra variable to prevent contamination by previously set book.author -->
 
 
 <table summary="Main layout">
   
-  <template:switch-prioritized>
+  {let $labels := //table/(. | ./tbody)/tr/td[contains(@class, 'preslabel')]
+   return ($labels-ok := count($labels) > 0,
+   let $unusedLabelChars := " .:" || codepoints-to-string((9,10,13,160))
+   for $label in $labels
+   let $name := replace($label, "^ +|:.*$", "")
+   let $value-td := $label/following-sibling::td
+   let $value := string($value-td)
+   return 
+   switch ($name)
+     case "Titel" return $book.title := extract($value, '[^/]+')
+     case "Verfasser" case "Personen" return (
+       curAuthor := ($curAuthor, extract($value, '[^*]+') ),
+       book.author := string-join($curAuthor, "; ") )
+     case "ISBN" return $book.isbn := $value
+     case "PPN" return 
+       $book.home-url := resolve-html($value-td//a)
+     case "Zeitschrift" return (
+       $book.title := concat(if (contains($value, ":")) then substring-before($value, ":") else $value, 
+                            if (contains($book.id, "-")) then concat(" [",substring-after($book.id, "-"), "]") else ""),
+       $book.author := if (contains($value, "/")) then x"{substring-after(normalize-space($value), "/")} (Zeitschrift)" else "Zeitschrift" 
+     )
+     case "Körperschaft" return
+       if ($book.author = "Zeitschrift") then book.author := concat($value, " (Zeitschrift)") else ()
+     case "Standort" case "Signatur" case "status" case "Ausleihstatus" case "Bestand"  return (
+       if ($holding-keys = $name ) then ( $book.holdings[] := $holding, $holding-keys := (), $holding := {"orderable": false()} )
+       else if (empty($holding)) then $holding := {"orderable": false()} else (),
+       $holding-keys := ($holding-keys, $name),
+       switch ($name) 
+         case "Standort" return $holding.libraryBranch := $value
+         case "Signatur" return $holding.id := $value
+         case "Anmerkung"  return $holding("Anmerkung!") := $value
+         case "Bestand"  return $holding("Bestand!") := $value
+         case "status" case "Ausleihstatus" return 
+           if (exists($holding("libraryBranch"))) then 
+             $value-td! (
+               $holding.status := string-join(div/text(), '; '),
+               let $script := .//script return (
+               $holding.orderable := exists($script),
+                 $holding._orderId := extract($script, '(/loan[^'']*)\\''', 1),
+                 $holding.orderTitle := extract($script, ">[^a-zA-Z]*([a-zA-Z]*)&lt;/a>", 1)
+               )
+             ) else ()
+         default return ()
+     )
+     case "Anmerkung" return 
+       if (exists($holding)) then $holding("Anmerkung!") := $value else $book("Anmerkung!") := $value
+     case "" return ()
+     default  
+      return $book($name||"!") := $value,
+     if (exists($holding)) then $book.holdings[] := $holding else ()
+  ),
   
-  <table t:condition="exists((. | ./tbody)/tr/td[contains(@class, 'preslabel')])">
-  <template:loop><template:switch>
-    <tr>
-      <td><strong>^[ ]*Titel:</strong></td>
-      <td>{book.title := extract(deep-text(''), '[^/]+')}</td>
-    </tr>
-    
-    <tr>
-      <td><strong>Verfasser|Personen</strong></td>
-      <td>{curAuthor := ($curAuthor, extract(deep-text(''), '[^*]+') ),
-           book.author := string-join($curAuthor, "; ")}</td>
-    </tr>
-    
-    <tr>
-      <td><strong>ISBN:</strong></td>
-      <td>{$book.isbn := text()}</td>
-    </tr>
-
-    <tr>
-      <td><strong>PPN:</strong></td>
-      <td><a>{$book.home-url := if (contains(@href, "://")) then @href else concat(get("base"),"/",@href)}</a></td>
-    </tr>
-    
-    <tr>
-      <td><strong>Zeitschrift:</strong></td>
-      <td>{temp := deep-text(""),
-           book.title := concat(if (contains($temp, ":")) then substring-before($temp, ":") else $temp, 
-                                if (contains($book.id, "-")) then concat(" [",substring-after($book.id, "-"), "]") else ""),
-           book.author := if (contains($temp, "/")) then x"{substring-after(normalize-space($temp), "/")} (Zeitschrift)" else "Zeitschrift"}</td>
-    </tr>
-
-    <tr>
-      <td><strong>Körperschaft:</strong></td>
-      <td>{if ($book.author = "Zeitschrift") then book.author := concat(., " (Zeitschrift)") else ()}</td>
-    </tr>
-    
-    
-    <tr>
-      <td><strong>Standort:</strong></td>
-      <td><t:read var="book.Standort {$sigid + 1}!" source="."/></td>
-    </tr>
-
-    <tr>
-      <td><strong>Signatur:</strong></td>
-      <td>{sigid := $sigid + 1}<t:read var="book.Signatur {$sigid}!" source="."/></td>
-    </tr>
-    
-    <tr>
-      <td><strong>(Ausleih)?status:</strong></td>
-      <td><t:read var="book.Ausleihstatus {$sigid}!" source="string-join(div/text(), '; ')"/>
-        <script><t:read var="book.order{$book.orderable}" source="extract(., '(/loan[^'']*)\\''', 1)"/><!-- source="extract(., '(/loan.*)LOGIN', 1)"/> -->
-                <t:read var="book.orderTitle{$book.orderable}" 
-                        source="concat($book(x'Standort {$sigid}!'), ' ',$book(x'Signatur {$sigid}!'), ' ', $book(x'Ausleihstatus {$sigid}!') )"/> 
-                {book.orderable := $book.orderable + 1, book.orderTitle := extract(., ">([^>]*)&lt;/a>", 1)}</script>?</td>
-    </tr>
-    
-    <tr>
-      <td><strong>{propname := extract(translate(normalize-space(.), ".", ""), "[^:]+")}</strong></td>
-      <td><t:if test="$propname != ''"><t:read var="book.{$propname}!" source="."/></t:if></td>
-    </tr>
-  </template:switch></template:loop>
   
-  { let $longproperties := ./ancestor::table[@summary][1]/following-sibling::table//tr[td[@class="longkey"]]/[.//td[@class="longkey"], td[@class="longval"] ]
+  let $longproperties := .//tr[td[@class="longkey"]]/[.//td[@class="longkey"], td[@class="longval"] ]
     where exists($longproperties)
     return $book.holdings := (
       for tumbling window $w in $longproperties start $s when empty($s(2)//hr) end next $n when exists($n(2)//hr)
@@ -81,7 +70,8 @@
     )
   }
   
-  </table>
+  <template:switch-prioritized>
+  <table t:condition="$labels-ok"/>
   
   <strong>Leider keine Treffer.</strong>
   <font t:condition="contains(@style, 'red')">Leider keine Treffer.</font>

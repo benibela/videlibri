@@ -112,33 +112,26 @@
 </action>
 
 
-<action id="order-confirm-single">
-  <page url="{$book(x'order{$book.choosenOrder}')}">
+<action id="order-single">
+  <page url="{$holding._orderId}">
     <template><html>
       <form>
-      {order:=form(., {"BOR_U": $username, "BOR_PW": $password})}
+      {order:=form(., {"BOR_U": $username, "BOR_PW": $password}),
+       $confirm := ()}
 
         <table summary="Message block header">
-        <td/><td>{book.orderConfirmation := x"Soll das folgende Buch {
-          if ($book.orderTitle = "Vormerken") then "vorgemerkt"
-          else  if ($book.orderTitle = "Bestellen") then "bestellt"
-          else $book.orderTitle
-        } werden?\n{$book.title}: \n{.}\n"}</td>
+        <td/><td>{$confirm[] :=  (($book.orderTitle, "Vormerken")[.][1] || " durchführen?", $line-ending)}</td>
         </table> ? 
       
-        <table summary="title data">
-        <tr><td>Signatur</td><td><img/></td>?<td>{$book.orderConfirmation := concat($book.orderConfirmation,      "\nSignatur: ", .)}</td></tr>
-        <tr><td>Standort</td><td><img/></td>?<td>{$book.orderConfirmation := concat($book.orderConfirmation,      "\nStandort: ", .)}</td></tr>
-        <tr><td>Ausleihstatus</td><td><img/></td>?<td>{$book.orderConfirmation := concat($book.orderConfirmation, "\nAusleihstatus: ", .)}</td></tr>
-        <tr><td>Vormerkungen</td><td><img/></td>?<td>{$book.orderConfirmation := concat($book.orderConfirmation,  "\nVormerkungen: ", .)}</td></tr>
-        </table> ?
-      
+        <table summary="title data">      <tr>{$confirm[] := join(td) }</tr>+    </table> ?
       </form>
     </html></template>
   </page>
+  <if test="exists($confirm)"><s>vl:confirm("internal-order-confirmed", join($confirm, $line-ending))</s></if>
+  <else><call action="internal-order-confirmed"/></else>
 </action>
 
-<action id="order-single">
+<action id="internal-order-confirmed">
   <page url="{$order}">
     
   </page>
