@@ -1,5 +1,5 @@
 book := {}
-row := 0
 needOrders := true()
-row := 1
-book := {"Exemplar 1!": "TEMP2376, eBook, eAusleihe, andere Zweigstelle (frei)"}
+holding := {"status": "andere Zweigstelle (frei)\n\t\t\t\t\tWegweiser", "libraryBranch": "eAusleihe", "id": "eBook", "libraryLocation": "", "barcode": "TEMP2376"}
+result := ()
+book := {"holdings": {"status": "andere Zweigstelle (frei)\n\t\t\t\t\tWegweiser", "libraryBranch": "eAusleihe", "id": "eBook", "libraryLocation": "", "barcode": "TEMP2376"}}

@@ -1,6 +1,7 @@
 book := {}
-row := 0
 needOrders := true()
-row := 1
-row := 2
-book := {"Exemplar 2!": "B0555810, 210 I 211 Bol, Zentralbibl. / Reisen und Sprachen  (IB,I,L), ausleihbar", "Exemplar 1!": "B055580X, 210 I 211 Bol, Zentralbibl. / Reisen und Sprachen  (IB,I,L), ausleihbar"}
+holding := {"status": "ausleihbar", "libraryBranch": "Zentralbibl. / Reisen und Sprachen (IB,I,L)", "id": "210 I 211 Bol", "barcode": "B055580X"}
+result := ()
+holding := {"status": "ausleihbar", "libraryBranch": "Zentralbibl. / Reisen und Sprachen (IB,I,L)", "id": "210 I 211 Bol", "barcode": "B0555810"}
+result := ()
+book := {"holdings": [{"status": "ausleihbar", "libraryBranch": "Zentralbibl. / Reisen und Sprachen (IB,I,L)", "id": "210 I 211 Bol", "barcode": "B055580X"}, {"status": "ausleihbar", "libraryBranch": "Zentralbibl. / Reisen und Sprachen (IB,I,L)", "id": "210 I 211 Bol", "barcode": "B0555810"}]}

@@ -1,5 +1,5 @@
 book := {}
-row := 0
 needOrders := true()
-row := 1
-book := {"Exemplar 1!": "10/ZO 4250 G924-4, 004000844139, ausleihbar, Lesesaal FH Amberg"}
+result := ()
+holding := {"libraryLocation": "Lesesaal FH Amberg", "status": "ausleihbar", "barcode": "004000844139", "id": "10/ZO 4250 G924-4"}
+book := {"holdings": {"libraryLocation": "Lesesaal FH Amberg", "status": "ausleihbar", "barcode": "004000844139", "id": "10/ZO 4250 G924-4"}}

@@ -1,5 +1,5 @@
 book := {}
-row := 0
 needOrders := true()
-row := 1
-book := {"Exemplar 1!": "0439820, Obergeschoss, Sachbuch/Mdk/Ban, ausleihbar"}
+holding := {"status": "ausleihbar", "id": "Sachbuch/Mdk/Ban", "libraryLocation": "Obergeschoss", "barcode": "0439820"}
+result := ()
+book := {"holdings": {"status": "ausleihbar", "id": "Sachbuch/Mdk/Ban", "libraryLocation": "Obergeschoss", "barcode": "0439820"}}

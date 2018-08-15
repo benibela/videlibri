@@ -1,19 +1,60 @@
 <html>
 <!--<template:meta default-text-matching="regex"/>-->
   <DIV id="tab-content">
+    {needOrders := not($book.orderable > 0)}
     <TABLE class="data">
-    <TR><TH/></TR>
-    {row := 0, needOrders := not($book.orderable > 0)}
-    <TR>{row := $row + 1}
-        <t:read var="book.Exemplar {$row}!" source="string-join(./td/(text()|a[. != 'Lageplan' and . != 'Wegweiser']|div/a/b)[normalize-space(.)], ', ')"/>
-        <t:if test="$needOrders">
-          <a t:condition="contains(@href, 'availability.do') and contains(@href, 'katkey')">
-            <t:read var="book.orderTitle{$book.orderable}" source="$book(x'Exemplar {$row}!')"/>
-            <t:read var="book.order{$book.orderable}" source="@href"/>
-            {book.orderable := $book.orderable + 1}
-          </a>?
-        </t:if>
+    <TR>
+    <t:siblings-header>
+      <th>Signatur<br/>Regalstandort</th>?
+      <th>Signatur<br/>Status</th>?
+      <th>Mediennummer<br/>Standort</th>?
+      <th>Zweigstelle<br/>Mediennummer</th>?
+      <th>Standort<br/>Zweigstelle</th>?
+      <th>Status<br/>Mediennummer</th>?
+      <th>Bibliothek<br/>Standort</th>?
+      <th>Signatur</th>?
+      <th>Standort</th>?
+      <th>Mediennummer</th>?
+      <th>Strichcode</th>?
+      <th>Status</th>?
+      <th>Zweigstelle</th>?
+      <th>QR-Code</th>?
+      <th/>*
+    </t:siblings-header>
+    </TR>
+    <TR>{$holding := {}}
+      <t:siblings>
+      <td>{$holding.id:=matched-text()}<br/>{$holding.libraryLocation:=matched-text()}</td>
+      <td>{$holding.id:=matched-text()}<br/>{$holding.status:=matched-text()}</td>
+      <td>{$holding.barcode:=matched-text()}<br/>{$holding.libraryLocation:=matched-text()}</td>
+      <td>{$holding.libraryBranch:=matched-text()}<br/>{$holding.barcode:=matched-text()}</td>
+      <td>{$holding.libraryLocation:=matched-text()}<br/>{$holding.libraryBranch:=matched-text()}</td>
+      <td>{$holding.status:=matched-text()}<br/>{$holding.barcode:=matched-text()}</td>
+      <td>{$holding.libraryBranch:=matched-text()}<br/>{$holding.libraryLocation:=matched-text()}</td>
+      <td>{$holding.id}</td>
+      <td>{$holding.libraryLocation := inner-text()}</td>
+      <td>{$holding.barcode}</td>
+      <td>{$holding.barcode}</td>
+      <td>{$holding.status}</td>
+      <td>{$holding.libraryBranch := inner-text()}</td>
+      <td></td>
+      <td></td>
+      </t:siblings>
+      
+      <t:if test="$needOrders">
+      { .//a[contains(@href, 'availability.do') and contains(@href, 'katkey')]!(
+        $book("orderTitle"||$book.orderable) := .,
+        $book("order"||$book.orderable) := resolve-html(),
+        book.orderable := $book.orderable + 1
+      )  }
+      </t:if>
+      {for $key in ("libraryBranch", "libraryLocation") return
+        if (matches($holding($key), "Wegweise|Lageplan|Was heißt das")) then 
+          $holding($key) := replace($holding($key), "\s*(Wegweiser|Lageplan|-?Was heißt das.*)", "") 
+        else (),
+      $book.holdings[] := $holding}
     </TR>*
+
     </TABLE>
   </DIV>?
 
@@ -40,13 +81,3 @@
 
 
 </html>
-
-<!--Signatur: 1 2
-Mediennummer: 1 2
-Standort: 2 5 1b
-Zweigstelle: 3
-Status: 2 3 4
-Zweigstelle/Standort: 3
-Hinweise: 4
-Fußnoten: 1b
-QR-Code: 6-->
