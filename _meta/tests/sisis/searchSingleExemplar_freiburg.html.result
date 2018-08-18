@@ -1,0 +1,7 @@
+book := {}
+needOrders := true()
+holding := {"libraryBranch": "Hauptstelle Münsterplatz / Infoabteilung", "barcode": "06206265", "status": "Präsenzexemplar - nicht entleihbar", "id": "Info-Abtlg. Verbraucherinformation"}
+result := ()
+holding := {"libraryBranch": "Hauptstelle Münsterplatz / Infoabteilung", "barcode": "06216673", "status": "Präsenzexemplar - nicht entleihbar", "id": "Info-Abtlg. Verbraucherinformation"}
+result := ()
+book := {"holdings": [{"libraryBranch": "Hauptstelle Münsterplatz / Infoabteilung", "barcode": "06206265", "status": "Präsenzexemplar - nicht entleihbar", "id": "Info-Abtlg. Verbraucherinformation"}, {"libraryBranch": "Hauptstelle Münsterplatz / Infoabteilung", "barcode": "06216673", "status": "Präsenzexemplar - nicht entleihbar", "id": "Info-Abtlg. Verbraucherinformation"}]}

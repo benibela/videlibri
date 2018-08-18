@@ -1,0 +1,1248 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!-- START jsp/common/metaHeader.jsp -->
+
+
+
+<html xmlns="http://www.w3.org/1999/xhtml" 
+ xml:lang="de" 
+ lang="de"
+> 
+<head>
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <meta http-equiv="pragma" content="no-cache" />
+  <meta http-equiv="expires" content="0" />
+  <meta http-equiv="cache-control" content="no-cache" />
+
+ 
+ <!-- <link rel="stylesheet" href="/webOPACClient/jsp/common/infoguide.css"  type="text/css" /> -->
+  
+  <link rel="shortcut icon" href="/webOPACClient/images/OCLC.ico" />
+  <link rel="stylesheet" href="/webOPACClient/js/jquery/jquery.all.css"/>
+  <link rel="stylesheet" href="/webOPACClient/jsp/common/alerts.css"/>
+  
+  <script src="/webOPACClient/js/jquery/jquery-1.4.2-min.js" type="text/javascript"><!-- --></script>
+  <!-- AjaxQ is a jQuery plugin that implements AJAX request queueing mechanism.  -->
+  <script src="/webOPACClient/js/jquery.ajaxq-0.0.1.js" type="text/javascript"><!-- --></script>
+  <script src="/webOPACClient/js/jquery/jquery-ui-1.7.2.js" type="text/javascript"><!--  --></script>
+  <script src="/webOPACClient/js/jquery/extensions/jquery.infoguide.js" type="text/javascript"><!-- --></script>
+  <script src="/webOPACClient/js/ig.utils.js" type="text/javascript"><!-- --></script>
+  <script src="/webOPACClient/js/jquery/extensions/jquery.autocomplete.js" type="text/javascript"><!-- --></script>
+  <script src="/webOPACClient/js/jstorage.js" type="text/javascript"><!-- --></script>
+  <script src="/webOPACClient/js/common.js" type="text/javascript"><!-- --></script>
+
+
+  <script type="text/javascript">/* <![CDATA[ */
+if (!(typeof globalSettings == "object" && globalSettings instanceof Map)) globalSettings = new Map();
+globalSettings.add({
+"imagePath": "/webOPACClient/images"
+});
+if (!(typeof i18n == "object" && i18n instanceof Map)) i18n = new Map();
+i18n.add({
+"common.header.loading.icon.alt": "Laden",
+"search.searchfield.suggestion.hits": "???de.search.searchfield.suggestion.hits???"
+});
+/* ]]> */</script>
+  
+  <!--[if IE 7]>
+    <style type="text/css">
+      #tab-content{margin-top:5px;}
+      select {height:auto;}
+      #searchfield input#f1 {width:10em;}
+    </style>
+  <![endif]-->
+  
+  <title>
+    
+      Online-Katalog der Leipziger Städtische Bibliotheken
+    
+  </title>
+
+  
+ 
+
+
+
+
+
+
+
+
+
+        
+        
+            <link rel="stylesheet" href="/webOPACClient/jsp/common/infoguide.css"  type="text/css" />
+            <!--[if IE]>  <link rel="stylesheet" href="/webOPACClient/jsp/common/infoguide.css"  type="text/css" />  <![endif]-->
+            <!--[if IE 7]>
+            <style type="text/css">
+              #tab-content{margin-top:5px;}
+              select {height:auto;}
+              #searchfield input#f1 {width:10em;}
+            </style>
+            <![endif]-->
+        
+  
+  
+ 
+  
+
+</head>
+<!-- END of jsp/common/metaHeader.jsp -->
+
+<!-- START jsp/result/HitLayout.jsp --> 
+
+
+
+<body>
+	<div id="pageContainer">
+		
+					
+			
+		
+			
+		
+		
+
+
+
+
+<!-- START jsp/common/header.jsp -->
+
+
+<!-- BEGIN /bsb/mobileOPAC/addMobileFunctionality.jsp -->
+
+
+
+
+
+
+<!-- END /bsb/mobileOPAC/addMobileFunctionality.jsp -->
+
+
+
+<div id="branding">
+  <span id="logo">
+    
+    
+      <!-- <img src="/webOPACClient/images/customer.gif" width="84" height="16" alt="webOPAC" title="webOPAC" /> -->
+      <!-- <h1>webOPAC</h1> -->
+ 
+ 
+<img src="/webOPACClient/images/stadtbib.gif"  alt="Logo Leipziger Städtische Bibliotheken" title="Katalog Leipziger Städtische Bibliotheken" /> 
+     
+Katalog der <a href="https://stadtbibliothek.leipzig.de" 
+target="_blank">Leipziger Städtischen Bibliotheken</a> 
+
+  </span>
+  <div class="info"> 
+    <div>
+      Diese Seite verwendet Cookies. 
+      <a href="#" onclick="return cookieHelp('/webOPACClient');">
+         Weitere Informationen..</a>
+    </div> 
+    <div id="timer" class="textrot">&nbsp;</div>
+  </div>
+</div>
+
+<!-- autocompletion aktiviert, 2018-07-12 wehringer
+-->
+<div id="ajaxAutoCompletion">solr</div>
+ 
+<div id="ajaxUrlSolrAutoCompletion">SolrQueryCompletionProxy</div>
+
+
+
+
+
+
+<!-- START jsp/common/timer.jsp -->
+
+
+<script type="text/javascript" language="javascript">
+
+var timeout=(9 * 60 * 1000)  + new Date().getTime();
+timeout-=2000;
+
+var mesg="Diese Sitzung läuft in %VAR% Sek. ab!";
+var toFront=false;
+
+if(mesg.length <= 0 || mesg.indexOf("???") >= 0)
+	mesg="Diese Sitzung läuft in %VAR% Sek. ab!";
+ticker(); 
+
+function ticker()
+{
+  var timeoutID;
+  var s; 
+  var t=timeout - new Date().getTime();
+  t=(t<0)?0:Math.round(t/1000);
+  s=""+ ((t>60)?"":t.toFixed(0));
+ 	if(t <= 60)
+ 	{
+ 		if(toFront == false)
+ 		{
+ 			toFront=true;
+ 			window.focus();
+ 		}
+ 		var msg = mesg.replace("%VAR%", s);
+    document.getElementById("timer").innerHTML = msg;
+ 	}
+  if(t == 0)
+  {
+    window.clearTimeout(timeoutID);
+    window.location.replace("/webOPACClient/jsp/common/timeout.jsp");
+  } 
+  else
+    timeoutID = window.setTimeout("ticker()",(t>60) ? 6000 : 1000);
+}
+</script>
+
+
+<!-- END of jsp/common/timer.jsp --> 
+<!-- END of jsp/common/header.jsp -->
+
+
+		<div id="mainnav">
+			
+
+
+
+
+<!-- START jsp/navigation/mainNavi.jsp --> 
+
+
+<!-- Actual Tiles Context 755 -->
+
+<ul>
+
+
+	<li id="current"><div id="active">Suche</div>
+		<ul>
+			 
+				
+				
+					<li>
+						<a href="/webOPACClient/search.do?methodToCall=switchSearchPage&amp;SearchType=1">Einfache Suche</a>
+					</li>
+				
+			
+			 
+				
+				
+					<li>
+						<a href="/webOPACClient/search.do?methodToCall=switchSearchPage&amp;SearchType=2">Erweiterte Suche</a>
+					</li>
+				
+			
+			
+      
+  		  
+		    
+		      <li>
+		        <a href="/webOPACClient/searchHistory.do?methodToCall=showHistory">Suchhistorie</a>
+		      </li>	
+		    
+		  
+		  
+		
+			
+				
+				
+							
+					
+						
+					
+				
+				
+			
+				
+					<li>
+						<a href="/webOPACClient/hitList.do?methodToCall=backToPrimaryHitList">Suchergebnis</a>
+					</li>
+				
+			
+			
+				<li id="current2">Detailanzeige</li>
+			
+			
+		</ul>
+	</li>
+
+
+	<li><a href="/webOPACClient/memorizelist.do?methodToCall=show">Merkliste</a></li>
+
+
+
+
+
+<li><a href="/webOPACClient/userAccount.do?methodToCall=show&amp;type=1">Konto</a></li>
+
+
+
+
+
+
+	<li><a href="/webOPACClient/additional.do?methodToCall=show">weitere Angebote</a></li>
+
+
+
+</ul>
+<!-- END of jsp/navigation/mainNavi.jsp --> 
+
+			
+
+
+
+
+
+
+<!-- START jsp/navigation/loginnavi.jsp --> 
+
+<div id="login">
+  
+    <a href="/webOPACClient/loginpage.do?methodToCall=showLogin">Anmelden</a><div id="onleihe">(auch am eMedien-Portal)</div>
+  
+  
+</div>
+<!-- END of jsp/navigation/loginnavi.jsp --> 
+		</div> 
+ 		<br class="cleaner" />
+ 		
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- START jsp/navigation/bgnavi.jsp --> 
+<script language="javascript" type="text/javascript"
+ src="/webOPACClient/help/help.js">
+</script>
+
+<div id="bgmainnav">
+<div>
+	<div id="nav2">
+		<ul>
+      
+			
+			
+			<li>
+			  <a href="#" title="Hilfe&nbsp;(neuer Tab)" onclick="return openHelp('/webOPACClient');">
+			   Hilfe</a>
+		  </li>
+  		
+	    	
+		  	
+			   	<li><a href="/webOPACClient/actual.do?methodToCall=show">Neu im Bestand</a></li>
+    		
+    	
+		</ul>
+	</div> 
+  </div> 
+</div>
+<!-- END of jsp/navigation/bgnavi.jsp --> 
+
+		<br class="cleaner" />
+		
+		
+			
+
+
+
+
+
+<!-- START jsp/result/searchinfo.jsp --> 
+
+<script type="text/javascript">/* <![CDATA[ */
+if (!(typeof i18n == "object" && i18n instanceof Map)) i18n = new Map();
+i18n.add({
+"result.output.output.servererror": "Der Server liefert einen Fehler für Ihre Anfrage \u2014 bitte versuchen Sie es später noch einmal oder kontaktieren Sie Ihren Systemadministrator, falls dieses Problem andauert"
+});
+/* ]]> */</script>
+
+
+
+
+
+<div id="info1">
+	
+
+	
+	  <strong class="c1">Ihre Suchanfrage</strong>
+	  Titel = test
+    
+    
+	  
+    
+    
+	
+</div> 
+
+<br class="cleaner" />
+
+  
+    
+  
+  <div id="outputActions">
+    <a href="/webOPACClient/search.do?methodToCall=start"><i class="ig-ico ig-ico-search" aria-hidden="true">
+      </i>Suchanfrage &auml;ndern</a>
+     
+      <a href="/webOPACClient/hitOutput.do?methodToCall=show&amp;outputMode=print&amp;caller=singlehit" id="print" title="Treffer drucken"><i class="ig-ico ig-ico-print" aria-hidden="true"></i>Drucken</a>
+    
+     
+      <a href="/webOPACClient/hitOutput.do?methodToCall=show&amp;outputMode=save&amp;caller=singlehit" id="save" title="Treffer lokal speichern"><i class="ig-ico ig-ico-save" aria-hidden="true"></i>Speichern</a>
+    
+     
+      <a href="/webOPACClient/hitOutput.do?methodToCall=show&amp;outputMode=send&amp;caller=singlehit" id="mail" title="Treffer versenden"><i class="ig-ico ig-ico-send" aria-hidden="true"></i>Versenden</a>
+    
+
+    
+    <script src="js/exportdialogs.js" type="text/javascript"><!--  --></script>
+  </div>
+
+
+<!-- END of jsp/result/searchinfo.jsp -->
+		
+		
+		<br class="cleaner" />
+		<div id="main"> 
+			<div id="SOWrap"> 
+				<div id="middle"> 
+					<div class="box">
+						
+
+
+
+
+
+<!-- START jsp/result/hit.jsp --> 
+
+
+
+<div class="box-header">
+  
+    <div class="box-right">
+      <div class="pagination">
+        <a href="/webOPACClient/singleHit.do?methodToCall=showHit&amp;identifier=-1_FT_1765958794&amp;curPos=1&amp;tab=showExemplarActive" aria-label="Erste Seite" title="Erste Seite"><i class="ig-ico ig-ico-arrow-step-backward" aria-hidden="true"></i></a>
+
+<a href="/webOPACClient/singleHit.do?methodToCall=showHit&amp;identifier=-1_FT_1765958794&amp;curPos=3&amp;tab=showExemplarActive" aria-label="Vorherige Seite" title="Vorherige Seite"><i class="ig-ico ig-ico-arrow-left" aria-hidden="true"></i></a>
+
+<span class="selectedlink selecteditem" aria-label="Aktuelle Seite" title="Aktuelle Seite">4</span>
+<a href="/webOPACClient/singleHit.do?methodToCall=showHit&amp;identifier=-1_FT_1765958794&amp;curPos=5&amp;tab=showExemplarActive" aria-label="Nächste Seite" title="Nächste Seite"><i class="ig-ico ig-ico-arrow-right" aria-hidden="true"></i></a>
+
+<a href="/webOPACClient/singleHit.do?methodToCall=showHit&amp;identifier=-1_FT_1765958794&amp;curPos=403&amp;tab=showExemplarActive" aria-label="Letzte Seite" title="Letzte Seite"><i class="ig-ico ig-ico-arrow-step-forward" aria-hidden="true"></i></a>
+
+
+      </div>
+    </div>
+  
+  
+  
+  
+  
+
+  
+    
+  
+  
+  
+  <h2>Lokaler Bestand (4/403)</h2>
+</div>
+<div class="box-container">
+  
+
+
+
+
+
+
+<!-- START jsp/result/teaser.jsp --> 
+<table class="data results-teaser" style="width:100%">
+
+
+
+<tr>
+	<td>
+	
+  
+    <h1>Test Jahrbuch/2015.</h1><br />
+    
+  
+  
+  
+  
+   mehr als 120 Tests und Reports<br /><br />
+  
+
+
+	
+
+    
+  
+  
+    
+    <strong class="c2">Person:</strong>
+    <a href=''>Stocker, Anita [Red.]</a>
+    
+    &nbsp;
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+  
+  
+  <script type="text/javascript">
+  <!--
+  var content = "";
+  var ajaxUrl = "/webOPACClient/jsp/result/wcidentities.jsp";
+  if (content.length > 0)
+  {
+    $.get(ajaxUrl, { content: content }, 
+    function(data)
+    {
+      var ref = data;
+      ref = ref.replace(/\r\n/g,'');
+      ref = ref.replace(/^\s+|\s+$/g, '');
+      if (ref.length > 0)
+        $("span#wcIdentity_").replaceWith('<a href="' + ref + '" target="_blank" title="WorldCat Identities&nbsp;(neuer Tab)" class="newWindow"><img aria-hidden="true" alt="" src="/webOPACClient/images/wcidentities.gif"></a>'); 
+    });
+  }
+  //-->
+  </script>
+
+  <span id="wcIdentity_">&nbsp;</span>
+  
+
+
+
+<br />
+    
+  
+
+
+        
+
+        
+  
+  
+    
+  
+
+	
+	
+	
+	
+	<strong class="c2">Ort, Verlag, Jahr:</strong> Berlin, Stiftung Warentest, 2014<br />
+	
+
+	
+	
+	
+
+	
+
+	
+
+	
+
+	
+  
+    <strong class="c2">Umfang:</strong>
+    287 S.<br />
+  
+
+
+	
+        
+  
+	
+  
+	  
+		
+	
+	  
+		
+	
+	  
+		
+	
+	  
+		
+	
+		
+	
+		
+	
+        
+        	<strong class="c2">ISBN:</strong>
+            
+            	978-3-86851-410-0
+            	
+              <br/>
+            
+        
+		
+	      
+        
+	
+	
+
+
+
+
+
+
+
+
+
+  
+
+  
+    
+    
+  
+  
+  
+
+  
+  
+
+
+
+
+
+        
+
+
+        
+
+    
+    <div id="bibtip_id" style="display:none">
+        1572581
+    </div>
+
+    
+    
+        
+        
+            <div id="bibtip_isxn" style="display:none">
+                978-3-86851-410-0
+            </div>
+        
+        
+        
+        
+        
+        
+        
+        
+        
+    
+
+    
+
+    
+    
+
+    
+    
+
+    
+    
+
+    
+    
+        
+
+    
+
+    
+    <div id="bibtip_shorttitle" style="display:none">
+         (2014)
+    </div>
+
+    
+    <div style="display:none" id="bibtip_reclist"></div>
+
+        
+
+		<p>&nbsp;</p>
+		
+		
+					
+			
+				
+					
+					<a href="/webOPACClient/memorizeHitList.do?methodToCall=addToMemorizeList&amp;curPos=4&amp;forward=singlehit&amp;identifier=-1_FT_1765958794" title="in die Merkliste">in die Merkliste</a>
+				
+				
+			
+			
+		
+    
+
+		
+			
+       |
+			
+			
+			<a href="/webOPACClient/search.do?methodToCall=parentSearch&amp;dbIdentifier=-1&amp;forward=success&amp;catKey=1572581"  title="&uuml;bergeordnete Titel">
+			 &uuml;bergeordnete Titel
+			</a>
+		
+		
+		
+		
+		
+		
+
+		
+	</td>
+
+    <td>
+      <div id="cover">
+        
+        
+        
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+  
+  
+  
+  
+
+  
+  
+  
+    
+    
+    
+      
+    
+    
+    <script type="text/javascript">
+    <!--
+      $.ajax({
+        url: 'jsp/result/cover.jsp?localImg=&isbns=%5B978-3-86851-410-0%5D&asins=%5B%5D&size=medium&pos=-1_4',
+        dataType: 'script'
+      });
+    //-->
+    </script>
+
+  
+  
+  <div id="-1_4" class="cover">
+    
+  </div>
+
+
+
+
+      </div>
+	</td>
+		    
+</tr>
+</table>
+
+
+<!-- END of jsp/result/teaser.jsp --> 
+
+
+</div>
+<script language="javascript" type="text/javascript">
+ setHelp("trefferliste", "");
+</script>
+
+<!-- END of jsp/result/hit.jsp --> 
+					</div>
+					<br />
+					
+
+
+
+
+
+<!-- START jsp/result/singleHitTabNavi.jsp --> 
+<div id="tab">
+	<ul>
+	  
+	
+     
+		<li id="tabExemplare">
+		  <div id="labelExemplare">
+		    
+				
+					<a href="/webOPACClient/singleHit.do?methodToCall=activateTab&amp;tab=showExemplarActive" title="Exemplare">
+					  Exemplare
+					</a>
+				
+		  </div>
+		</li>
+    
+    
+		<li id="tabTitle">
+		  <div id="labelTitle">
+			   
+  			
+				  <a href="/webOPACClient/singleHit.do?methodToCall=activateTab&amp;tab=showTitleActive" title="mehr zum Titel">
+				    mehr zum Titel
+				  </a>
+			  
+			</div>
+		</li>
+		
+       		
+	</ul>
+</div>
+<!-- END of jsp/result/singleHitTabNavi.jsp --> 
+
+					<div class="cleaner"></div>	
+					
+
+
+
+
+
+<!-- START jsp/result/exemplarinfo.jsp --> 
+
+<script language="javascript" type="text/javascript">
+  m_id=document.getElementById("labelExemplare");
+  if(m_id != null)
+  {
+    m_id.innerHTML='Exemplare';
+    m_id.id="active1";
+
+    m_id=document.getElementById("tabExemplare");
+    m_id.id="current1";
+  }
+</script>
+<div id="tab-content">
+
+	<table class="data" style="width:100%">
+		<tr id="bg2">
+		  <th></th>
+			<th scope="col" class="left">
+				Mediennummer
+				<br />
+				
+			</th>
+			<th scope="col" class="left">
+				Zweigstelle
+				<br />
+				
+			</th>
+			<th scope="col" class="left">
+				Standort
+				<br />
+				
+			</th>
+			<th scope="col" class="left">
+				Status/Vormerkung (1,-&euro;)
+			</th>
+		</tr>
+
+		 
+			<tr>
+				<td>
+						
+				</td>
+				<td>
+						001686817
+						<br />
+						
+				</td>
+				<td>
+                                        <!-- #BR 26.02.16 Spalte fett -->
+					<!-- Stadtbibliothek / Fachliteratur -->
+                                        <b>Stadtbibliothek / Fachliteratur</b>
+
+					<br />
+					
+				</td>
+				<td>
+					B 480 Tes
+					<br />
+					
+				</td>
+				<td>
+					<div><a class="tt" href="/webOPACClient/availability.do?methodToCall=doVormerkung&amp;mednr=001686817&amp;katkey=1572581&amp;title=Test+Jahrbuch%2F2015.&amp;author=&amp;context=showExemplarActive"><b>entliehen bis 28.08.2018 (gesamte Vormerkungen: 0)</b><span>Sie k&ouml;nnen genau dieses Exemplar vormerken.</span></a></div>
+					
+				</td>
+			</tr>
+		 
+			<tr>
+				<td>
+						
+				</td>
+				<td>
+						001678697
+						<br />
+						
+				</td>
+				<td>
+                                        <!-- #BR 26.02.16 Spalte fett -->
+					<!-- Bibliothek Südvorstadt / Wissen&Co -->
+                                        <b>Bibliothek Südvorstadt / Wissen&Co</b>
+
+					<br />
+					
+				</td>
+				<td>
+					B 480 Tes
+					<br />
+					
+				</td>
+				<td>
+					andere Zweigstelle (frei)
+					
+				</td>
+			</tr>
+		 
+			<tr>
+				<td>
+						
+				</td>
+				<td>
+						001678696
+						<br />
+						
+				</td>
+				<td>
+                                        <!-- #BR 26.02.16 Spalte fett -->
+					<!-- Bibliothek Gohlis / ZeitFragen -->
+                                        <b>Bibliothek Gohlis / ZeitFragen</b>
+
+					<br />
+					
+				</td>
+				<td>
+					B 480 Tes
+					<br />
+					
+				</td>
+				<td>
+					andere Zweigstelle (frei)
+					
+				</td>
+			</tr>
+		 
+			<tr>
+				<td>
+						
+				</td>
+				<td>
+						001947010
+						<br />
+						
+				</td>
+				<td>
+                                        <!-- #BR 26.02.16 Spalte fett -->
+					<!-- Bibliothek Schönefeld / Wissen&Co -->
+                                        <b>Bibliothek Schönefeld / Wissen&Co</b>
+
+					<br />
+					
+				</td>
+				<td>
+					B 480 Tes
+					<br />
+					
+				</td>
+				<td>
+					andere Zweigstelle (frei)
+					
+				</td>
+			</tr>
+		 
+			<tr>
+				<td>
+						
+				</td>
+				<td>
+						001678695
+						<br />
+						
+				</td>
+				<td>
+                                        <!-- #BR 26.02.16 Spalte fett -->
+					<!-- Bibliothek Paunsdorf / LebensArt -->
+                                        <b>Bibliothek Paunsdorf / LebensArt</b>
+
+					<br />
+					
+				</td>
+				<td>
+					Tipps und Tricks Tes
+					<br />
+					
+				</td>
+				<td>
+					andere Zweigstelle (frei)
+					
+				</td>
+			</tr>
+		
+	</table>
+
+  
+
+  
+  
+
+</div>
+
+<!-- END of jsp/result/exemplarinfo.jsp --> 
+				
+				</div>
+			</div>
+			<!-- SOWrap -->
+			
+				<div id="right">
+          
+					  
+
+
+
+
+
+
+
+
+
+
+
+<!-- START jsp/result/rechtsoben.jsp --> 
+
+
+
+
+<div class="box3">
+  <div class="box3-header">
+    <h2>weitere Optionen</h2>
+  </div>
+  <div class="box3-content">
+  
+  
+      
+    
+  
+      
+    
+      
+      
+      
+      
+      <p><strong>&Auml;hnliche Dokumente</strong><br />  
+        
+          
+        
+        
+          
+        
+          
+            
+              
+            
+            <a href='/webOPACClient/refineSearch.do?methodToCall=find&amp;dbIdentifier=-1&amp;curPos=4' title="im&nbsp;Gesamtbestand&nbsp;suchen">im&nbsp;Gesamtbestand&nbsp;suchen</a>
+          
+        </p>
+      
+    
+  
+
+  </div> <!-- box3-content --> 
+</div><!-- box3 -->
+
+<!-- END of jsp/result/rechtsoben.jsp --> 
+
+          
+					<!-- filler /jsp/common/empty.jsp --> 
+					
+
+
+
+
+<!-- START jsp/common/news.jsp -->
+
+
+	<!-- START jsp/news_info/de_755_11.jsp -->
+		<div class="box3">
+   <div class="box3-header">
+      <h2>neuer Katalog</h2>
+   </div>
+   <p>
+     <div class="box3-content">
+<p>Wie finden Sie unseren neuen Katalog? Haben Sie Fragen? <a href="https://stadtbibliothek.leipzig.de/kontakt/" target="_blank">Sagen Sie uns Ihre Meinung!</a>
+</div>
+   </p>
+</div>
+	<!-- END of jsp/news_info/de_755_11.jsp -->
+
+
+
+
+	<!-- START jsp/news_info/de_755_9.jsp -->
+		<div class="box3">
+   <div class="box3-header">
+      <h2>Selbstregistrierung</h2>
+   </div>
+   <p>
+     <div class="box3-content">
+<p><a href="https://stadtbibliothek.leipzig.de/anmeldung-und-benutzung/" target="_blank">Online anmelden und bezahlen</a></p>
+     </div>
+   </p>
+</div>
+	<!-- END of jsp/news_info/de_755_9.jsp -->
+
+
+
+
+	<!-- START jsp/news_info/de_755_1.jsp -->
+		<div class="box3">
+   <div class="box3-header">
+      <h2>Online-Angebote</h2>
+   </div>
+   <p>
+     <div class="box3-content">
+<p><b>TigerBooks</b></p>
+<p>Lesespaß für Kinder mit der TigerBooks App!</p>
+<p><a href="https://stadtbibliothek.leipzig.de/online-angebote/tigerbooks/" target="_blank">TigerBooks App mit dem Bibliotheksausweis</a></p>
+<p><b>scoyo</b></p>
+<p>Lernplattform für Schüler der 1. bis 7. Klasse.</p>
+<p><a href="https://stadtbibliothek.leipzig.de/online-angebote/" target="_blank">Login mit Bibliotheksausweis</a></p>
+<p><b>E-Learning-Portal</b></p>
+<p>Lernprogramme online nutzen - bequem von zu Hause aus!</p>
+<p><a href="https://stadtbibliothek.leipzig.de/online-angebote/" target="_blank">Zugang zum E-Learning-Portal</a></p>
+<p><b>lynda.com - Video-Kurse</b></p>
+<p>NEU im <a href="https://stadtbibliothek.leipzig.de/online-angebote/" target="_blank">E-Learning-Portal</a>!</p>
+<p><b>Munzinger Online</b></p>
+<p><a href="https://stadtbibliothek.leipzig.de/online-angebote/" target="_blank">Munzinger Archiv</a> - Personen, Länder, Chronik, Pop, Komponisten d. Gegenwart.</p>
+<p><b>eBooks und mehr</b></p>
+<p>In der <a href="https://stadtbibliothek.leipzig.de/online-angebote/" target="_blank">Onleihe</a> E-Books & E-Medien jederzeit ausleihen und herunterladen.</p>
+<p><b>Presseportal</b></p>
+<p>Im <a href="https://stadtbibliothek.leipzig.de/online-angebote/" target="_blank">GENIOS Presseportal</a> die deutsche Tages- und Wochenpresse online abrufen.</p>
+<p><b>Pressreader</b></p>
+<p><a href="https://stadtbibliothek.leipzig.de/online-angebote/" target="_blank">Internationale Tages- und Wochenzeitungen</a> im Originallayout lesen.</p>
+</div>
+   </p>
+</div>
+	<!-- END of jsp/news_info/de_755_1.jsp -->
+
+
+
+
+	<!-- START jsp/news_info/de_755_10.jsp -->
+		<div class="box3">
+   <div class="box3-header">
+      <h2>Folgen Sie uns...</h2>
+   </div>
+   <p>
+     <div class="box3-content">
+<p>...auf <a href="http://www.facebook.com/stadtbibliothek.leipzig" target="_blank">facebook</a>!</p>
+</div>
+   </p>
+</div>
+	<!-- END of jsp/news_info/de_755_10.jsp -->
+
+
+
+<!-- END of jsp/common/news.jsp --> 
+				</div>
+			
+			
+			
+			<!-- right -->
+			<br class="cleaner" />
+		</div>
+		
+
+
+
+
+
+
+
+<!-- START jsp/common/footer.jsp -->
+
+<div id="footer">
+  
+	
+	
+		&nbsp;
+	
+	
+
+  <br />
+  Folgende Zahlungsarten können Sie nutzen:
+  <br />
+  <img src="/webOPACClient/images/payment/visa.jpg" alt="VISA" title="VISA" width="30" height="17" />
+  <img src="/webOPACClient/images/payment/visa-verified.jpg" alt="verified by VISA" title="verified by VISA" width="45" height="26" />
+  <img src="/webOPACClient/images/payment/mastercard.jpg" alt="Mastercard" title="Mastercard" width="45" height="26" />
+  <img src="/webOPACClient/images/payment/mastercard-sc.jpg" alt="Mastercard Secure Code" title="Mastercard Secure Code" width="45" height="26" />
+  <img src="/webOPACClient/images/payment/giropay.gif" alt="Giropay" title="Giropay" width="45" height="26" />
+
+  <div id="copyright">
+          <a href="http://stadtbibliothek.leipzig.de/impressum/" target="_blank">Impressum</a> -  <a href="http://www.leipzig.de/datenschutzerklaerung/" target="_blank">Datenschutzerkl&auml;rung</a>
+          <br />
+	  Copyright &copy; 2017.&nbsp;Alle Rechte vorbehalten.
+	  <img src="/webOPACClient/images/OCLC.jpg" alt="OCLC" title="OCLC" width="54" height="19" />
+  </div>
+  <div class="cleaner"></div>
+</div>
+<!-- ### LSB bibtip Start; BR 24.07.2013 ### -->
+<script language="javascript" type="text/javascript" src="https://recommender.bibtip.de/js/bibtip_stb_l.js"></script>
+<!-- ### LSB bibtip Ende; BR 24.07.2013 ### -->
+<!-- ### LSB DBS-Zaehlpixel Start; BR 24.07.2013 ###
+<img src="https://dbspixel.hbz-nrw.de/count?id=AJ197&amp;page=2" width="1" height="1">
+### LSB DBS-Zaehlpixel Ende; BR 24.07.2013 ### -->
+<!-- END of jsp/common/footer.jsp -->
+ 
+	</div> 
+</body>
+<!-- END of jsp/result/HitLayout.jsp --> 
+<!-- START jsp/common/metaFooter.jsp -->
+</html>
+<!-- END of jsp/common/metaFooter.jsp -->

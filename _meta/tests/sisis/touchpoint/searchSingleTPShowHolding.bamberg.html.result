@@ -1,0 +1,3 @@
+book := {}
+holding := {"barcode": "013402311025", "libraryLocation": "Staatsbibliothek / Magazin Residenz / ausleihbar", "status": "bestellbar", "id": "22/2018.134", "orderable": false}
+book := {"holdings": {"barcode": "013402311025", "libraryLocation": "Staatsbibliothek / Magazin Residenz / ausleihbar", "status": "bestellbar", "id": "22/2018.134", "orderable": false}}

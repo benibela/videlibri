@@ -1,4 +1,38 @@
 <table class="data">
-  {$i := 0}
-  <tr><td/>{$book(x"Exemplar {$i := $i + 1}!") := .}</tr>*
+  <tr><t:siblings-header>
+    <th>Zweigstelle / Abteilung<br />Standort</th>?
+    <th>Leihstatus<br /></th>?
+    <th>Zweigstelle / Abteilung</th>?
+    <th>Standort / Abteilung</th>?    
+    <th>Zweigstelle</th>?
+    <th>Standort</th>?
+    <th>Regalstandort</th>?
+    <th>Signatur</th>?
+    <th>Status</th>?
+    <th>Ausleihstatus</th>?
+    <th>Mediennummer<br/></th>?
+    <th>Mediennummer</th>?
+    <th>QR</th>?
+    <th></th>*
+  </t:siblings-header></tr>
+  
+  <tr>{$holding:={"orderable": false()}}  <!--<t:if test="td[1]/@class='errortext'"><td>{$holding.status}</td></t:if>
+  <t:else>--><t:siblings>
+   <td>{$holding.libraryBranch:=matched-text()}<br/>{$holding.libraryLocation:=matched-text()}</td>
+   <td>{$holding.status:=matched-text()}<br/></td>
+   <td>{$holding.libraryBranch}</td>
+   <td>{$holding.libraryLocation}</td>
+   <td>{$holding.libraryBranch}</td>
+   <td>{$holding.libraryLocation}</td>
+   <td>{$holding.libraryLocation}</td>
+   <td>{$holding.id}</td>
+   <td>{$holding.status}</td>
+   <td>{$holding.status}</td>
+   <td>{$holding.barcode:=matched-text()}<br/></td>
+   <td>{$holding.barcode}</td>
+   <td></td>
+   <td></td>
+  </t:siblings>
+  {$book.holdings[]:=$holding}
+  </tr>*
 </table> 

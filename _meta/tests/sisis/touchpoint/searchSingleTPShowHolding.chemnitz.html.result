@@ -1,0 +1,3 @@
+book := {}
+holding := {"barcode": "A3839373", "libraryLocation": "", "libraryBranch": "Zentralbibl. / Magazin", "status": "bestellbar", "orderable": false}
+book := {"holdings": {"barcode": "A3839373", "libraryLocation": "", "libraryBranch": "Zentralbibl. / Magazin", "status": "bestellbar", "orderable": false}}
