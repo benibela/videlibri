@@ -1,24 +1,27 @@
 <html>
+  {$book._orderCount := 0}
 <!--<template:meta default-text-matching="regex"/>-->
   <DIV id="tab-content">
     <TABLE class="data">
     <TR><TH/></TR>
-    <TR>
-      <t:switch-prioritized>
-        <form t:condition="contains(@action, 'availability.do') ">
-          {temp := form(.)}
-          <t:read var="book.orderTitle{$book.orderable}" source="."/>
-          <t:read var="book.order{$book.orderable}" source="$temp.url"/>
-          <t:read var="book.orderPost{$book.orderable}" source="$temp.post"/>
-          {book.orderConfirmationOptionTitles := (), book.orderable := $book.orderable + 1}
-        </form>
-        <a t:condition="contains(@href, 'availability.do') and contains(@href, 'katkey')">
-          <t:read var="book.orderTitle{$book.orderable}" source="if (. eq 'auswählen') then 'vormerken' else ."/>
-          <t:read var="book.order{$book.orderable}" source="@href"/>
-          {book.orderConfirmationOptionTitles := (), book.orderable := $book.orderable + 1}
-        </a>
-      </t:switch-prioritized>
+    <TR>{
+      let $form := (.//form[contains(@action, 'availability.do')])[1]
+      let $a := if ($form) then () else (.//a[contains(@href, 'availability.do') and contains(@href, 'katkey')])[1]
+      let $orderElement := ($form, $a)
+      let $orderElementText := $orderElement!inner-text()
+      let $orderCount := $book._orderCount + 1
+      let $formhttp := form($form)
+      where $orderElement
+      return (
+        $book._orderCount := $orderCount,
+        $book("_orderTitle" || $orderCount) := inner-text(),
+        $book("_order" || $orderCount) := ($formhttp.url, $a!resolve-html()),
+        if ($form) then $book("_orderPost" || $orderCount) := $formhttp.post else (),
+        $book("orderTitle") := if ($orderElementText = ('auswählen', '')) then 'vorbestellen' else $orderElementText
+      )
+    }
     </TR>*
     </TABLE>
   </DIV>?
+  <t:s>$book.orderable := $book._orderCount > 0</t:s>
 </html>

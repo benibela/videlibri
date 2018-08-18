@@ -185,13 +185,28 @@
     <call action="login"/>
     <variable name="loggedIn">true()</variable>
   </if>
-  <s>confirm := "", finish-order-now := false(), choose-result:=1,
-     url := $book(concat('order', $book.choosenOrder)), 
-     post := $book(concat('orderPost', $book.choosenOrder)),
-     if ($post) then url := {"url": $url, "post": $post, "method": "POST"} else ()
-    </s>
-  <page url="{$url}"  templateFile="orderConfirmation"/>
-  <call test="$finish-order-now" action="internal-order"/>
+  <if test="$book._orderCount > 1">
+    <s>vl:choose("internal-order-choose-document", 
+                  "Welches Exemplar soll bestellt werden?", 
+                  (1 to integer($book._orderCount))!$book("_orderTitle" || .)) </s>
+  </if>
+  <else>
+    <s>choose-result := 1</s>
+    <call action="internal-order-choose-document"/>
+  </else>
+</action>
+
+<action id="internal-order-choose-document">
+  <if test="$choose-result ne 0">
+   <s>confirm := "", finish-order-now := false(), 
+      url := $book(concat('_order', $choose-result)), 
+      post := $book(concat('_orderPost', $choose-result)),
+      if ($post) then url := {"url": $url, "post": $post, "method": "POST"} else (),
+      $choose-result := 1
+     </s>
+   <page url="{$url}"  templateFile="orderConfirmation"/>
+   <call test="$finish-order-now" action="internal-order"/>
+  </if>
 </action>
 
 <action id="internal-order-confirmed">  
@@ -219,8 +234,9 @@
     und ist voraussichtlich bis |  Das Medium wurde für Sie an 2. Stelle vorgemerkt.  
     
      Ausgabeort: Zentralbibliothek    </template>-->
+           {$book.statusId := "ordered"} 
         </form>   
-        <div class="message-confirm"/>
+        <div class="message-confirm">{$book.statusId := "ordered"}</div>
         </t:switch>   
       </template>
     </page>

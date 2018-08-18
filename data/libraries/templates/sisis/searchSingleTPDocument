@@ -1,6 +1,14 @@
 <table class="data">
-  {$i:=-1,$book.orderConfirmationOptionTitles := .//tr[td], $book.orderable := exists(.//tr//a)}
-  <tr><td/>{$book(x"order{$i:=$i+1}") := .//a/@href}</tr>*
+  { let $rows := .//tr[td//a]
+    return (
+    $book.orderable := exists($rows),
+    $book._orderCount := count($rows),
+    for $r at $i in $rows return (
+      $book("_order" || $i) := resolve-html($r//a),
+      $book("_orderTitle" || $i) := inner-text($r)
+    )
+    )
+  }
 </table>
  
 

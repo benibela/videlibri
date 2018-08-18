@@ -1,2 +1,4 @@
 book := {}
-book := {"orderable": null, "orderConfirmationOptionTitles": null, "order": "/InfoGuideClient.fawsis/availability.do?methodToCall=doVormerkung&katkey=277376&title=Barron%27s+TOEFL+iBT&author=Sharpe%2C+Pamela+J.&context=hitlist", "orderTitle": "vormerken"}
+result := ()
+result := ()
+book := {"orderable": true, "orderTitle": "vormerken", "_order1": "file:///InfoGuideClient.fawsis/availability.do?methodToCall=doVormerkung&katkey=277376&title=Barron%27s+TOEFL+iBT&author=Sharpe%2C+Pamela+J.&context=hitlist", "_orderTitle1": "Bestand der HAW Amberg-Weiden / SB Amberg\tentliehen (gesamte Vormerkungen: 0)\tvormerken", "_orderCount": 1}
