@@ -184,7 +184,7 @@
   <if test="not(get('loggedIn', false()))"> 
     <call action="login"/>
     <variable name="loggedIn">true()</variable>
-  </if>
+  </if>-->
   <if test="$book._orderCount > 1">
     <s>vl:choose("internal-order-choose-document", 
                   "Welches Exemplar soll bestellt werden?", 
@@ -198,13 +198,19 @@
 
 <action id="internal-order-choose-document">
   <if test="$choose-result ne 0">
-   <s>confirm := "", finish-order-now := false(), 
-      url := $book(concat('_order', $choose-result)), 
-      post := $book(concat('_orderPost', $choose-result)),
-      if ($post) then url := {"url": $url, "post": $post, "method": "POST"} else (),
-      $choose-result := 1
+   <s>confirm := "", need-login := (), finish-order-now := false(), $choose-result := 1,
+      $order-now := $book(concat('_order', $choose-result)), 
+      let $post := $book(concat('_orderPost', $choose-result))
+      where $post
+      return $order-now := {"url": $order-now, "post": $post, "method": "POST"}
      </s>
-   <page url="{$url}"  templateFile="orderConfirmation"/>
+   <page url="{$order-now}"  templateFile="orderConfirmation"/>
+   <if test="exists($need-login)">
+     <page url="{$need-login}" />
+     <s>need-login := ()</s>
+     <page url="{$order-now}"  templateFile="orderConfirmation"/>
+     <if test="exists($need-login)"><s>vl:raise-internal("Login fehlgeschlagen")</s></if>
+   </if>
    <call test="$finish-order-now" action="internal-order"/>
   </if>
 </action>

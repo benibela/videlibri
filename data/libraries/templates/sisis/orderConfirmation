@@ -1,5 +1,9 @@
 <html>
   <t:switch prioritized="true">
+    <form t:condition="contains(@action, 'login.do')">
+    {need-login := form(., {"username": $username, "password": $password})}
+    </form>
+  
     <form t:condition="contains(@action, 'reservation.do') or contains(@action, 'order.do') ">
         {titles := (), issuePoints := ()}
         <table class="formular">
@@ -47,6 +51,9 @@
     <form t:condition="contains(@action, 'acknowledge.do') ">
      <!-- ok -->
     </form>
+    
+   <div class="alert message-error">{vl:raise(.)}</div> 
+
   </t:switch>
 </html>
     
