@@ -604,6 +604,12 @@ begin
   researchedBook := nil;
 end;
 
+function bookIsOrderable(book: TBook): boolean;
+begin
+  result := (getProperty( 'orderable', book.additional) <> '') and (getProperty('orderable', book.additional) <> '0') and (getProperty('orderable', book.additional) <> 'false');
+end;
+
+
 procedure TbookSearchFrm.LabelOrderClick(Sender: TObject);
 var
   acc: TCustomAccountAccess;
@@ -615,13 +621,14 @@ begin
   if accounts.Count = 0 then exit;
 
   orderBook := displayedBook;
-  if displayedBook.holdings <> nil then begin
-    if holdings.SelectedBook = nil then begin
+  if displayedBook.holdings <> nil then
+    if holdings.SelectedBook <> nil then orderBook := holdings.SelectedBook
+    else if not bookIsOrderable(orderBook) then begin
       ShowMessage(rsNoHoldingSelected);
       exit;
     end;
-    orderBook := holdings.SelectedBook;
-  end;
+
+
 
   acc := accounts[0];
   for i:=1 to accounts.Count-1 do
@@ -1108,7 +1115,7 @@ begin
       linkLabelAmazon.Enabled := true;
     end else linkLabelAmazon.Enabled := false;
 
-    LabelOrder.Enabled:=(getProperty( 'orderable', book.additional) <> '') and (getProperty('orderable', book.additional) <> '0') and (getProperty('orderable', book.additional) <> 'false');
+    LabelOrder.Enabled:=bookIsOrderable(book);
     if (book.holdings = nil) or (book.holdings.Count = 0) then begin
       holdingsPanel.Visible := false;
       holdingsSplitter.Visible := false;
