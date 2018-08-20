@@ -1,5 +1,9 @@
+curPos := 1
 book := {}
 nextPage := ()
+curPos := "11"
+nextPage := "file:///webOPACClient/hitList.do?methodToCall=pos&amp;identifier=-1_S_IG.12.6398&amp;curPos=11#-1"
+search-result-count := "23"
 hasZ3988 := false()
 brs := (text{"Nance, John J."}, 
 text{"2006"}, 

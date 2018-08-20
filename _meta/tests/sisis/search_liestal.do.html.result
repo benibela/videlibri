@@ -1,6 +1,8 @@
+curPos := 1
 book := {}
 nextPage := ()
-nextPage := text{"/InfoGuideClient/hitList.do?methodToCall=pos&amp;identifier=-1_FT_982427123&amp;curPos=11#-1"}
+curPos := "11"
+nextPage := "file:///InfoGuideClient/hitList.do?methodToCall=pos&amp;identifier=-1_FT_982427123&amp;curPos=11#-1"
 search-result-count := "73"
 hasZ3988 := false()
 brs := (text{""}, 

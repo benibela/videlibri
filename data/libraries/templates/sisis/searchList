@@ -5,14 +5,30 @@
       {nextPage := ()}
       <DIV class="box-header">
         <DIV t:condition="tokenize(@class, ' ') = ('box-right','pagination')">
-        <span class="selectedlink" t:condition="not(contains(text(), '&#171;'))"/>
+        {for $href in .//a/@href
+         let $cp := extract($href,"(?:hitList.*curPos=|javascript.*move\( *[0-9]+ *, *)([0-9]+)", 1)
+         where $cp and $cp > $curPos
+         order by $cp ascending
+         count $c
+         where $c = 1
+         return (
+          $curPos := $cp,
+          $nextPage := if (contains($href, "javascript")) then 
+           let $args := extract($href, "\( *([0-9]+) *, *([0-9]+) *\)", (1,2) )
+           return
+             x"speedHitList.do?methodToCall=refineHitList&speedHitlistUrl=speedHitList.do&newMemorizeListName=&databaseId={$args[1]}&dbIdentifier={$args[1]}&pos={$args[2]}"
+           else
+            resolve-html($href))
+         }
+<!--        <span class="selectedlink" t:condition="not(contains(text(), '&#171;'))"/>
         <a>{nextPage:=if (contains(@href, "javascript:")) then 
-              let $args := extract(@href, "\( *([0-9]+) *, *([0-9]+) *\)", (1,2) )
-              return x"speedHitList.do?methodToCall=refineHitList&speedHitlistUrl=speedHitList.do&newMemorizeListName=&databaseId={$args[1]}&dbIdentifier={$args[1]}&pos={$args[2]}"
-            else @href }</a>
+
+            else @href }</a>-->
         </DIV>
-        <H2>{search-result-count := extract(., "[0-9]+")}</h2>
+        <H2>{search-result-count := extract(., "[0-9]+")}</h2>?
       </DIV>?
+      <h1 t:test="not(get('search-result-count', ()))" 
+          t:condition="contains(., 'Treffer')">{search-result-count := extract(., "[0-9]+")}</h1>?
       
       
       <TABLE class="data">

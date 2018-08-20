@@ -1,6 +1,8 @@
+curPos := 1
 book := {}
 nextPage := ()
-nextPage := text{"/InfoGuideClient/hitList.do?methodToCall=pos&amp;identifier=-1_S_IG.92.25225&amp;curPos=21#-1"}
+curPos := "21"
+nextPage := "file:///InfoGuideClient/hitList.do?methodToCall=pos&amp;identifier=-1_S_IG.92.25225&amp;curPos=21#-1"
 search-result-count := "1419"
 hasZ3988 := false()
 book := {"author": " Babin, Edith H.", "title": "TOEFL, test of English as a foreign language", "_detail-url": "/InfoGuideClient/singleHit.do?methodToCall=showHit&curPos=11&identifier=-1_S_IG.92.25225", "orderable": 0}

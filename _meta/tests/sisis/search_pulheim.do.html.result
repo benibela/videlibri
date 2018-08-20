@@ -1,6 +1,8 @@
+curPos := 1
 book := {}
 nextPage := ()
-nextPage := text{"/webOPACClient/hitList.do?methodToCall=pos&amp;identifier=-1_S_IG.505.23157&amp;curPos=11#-1"}
+curPos := "11"
+nextPage := "file:///webOPACClient/hitList.do?methodToCall=pos&amp;identifier=-1_S_IG.505.23157&amp;curPos=11#-1"
 search-result-count := "115"
 hasZ3988 := false()
 brs := (text{"Zeitschrift"}, 

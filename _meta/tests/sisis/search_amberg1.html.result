@@ -1,3 +1,4 @@
+curPos := 1
 book := {}
 singleBookResult := text{"/InfoGuideClient.fawsis/singleHit.do?methodToCall=activateTab&amp;tab=showTitleActive"}
 search-result-count := 1

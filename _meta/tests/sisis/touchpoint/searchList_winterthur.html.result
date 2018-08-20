@@ -1,2 +1,3 @@
+curPos := 1
 book := {}
 speedPage := "vltest://sisis/touchpoint/speedHitList.do?databaseId=2"

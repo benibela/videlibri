@@ -1,6 +1,8 @@
+curPos := 1
 book := {}
 nextPage := ()
-nextPage := text{"/InfoGuideClient/hitList.do?methodToCall=pos&amp;identifier=-1_S_IG.805.4070&amp;curPos=11#-1"}
+curPos := "11"
+nextPage := "file:///InfoGuideClient/hitList.do?methodToCall=pos&amp;identifier=-1_S_IG.805.4070&amp;curPos=11#-1"
 search-result-count := "1419"
 hasZ3988 := false()
 book := {"author": " Rauchfleisch, Udo", "title": "Handbuch zum Rosenzweig Picture-Frustration Test (PFT)", "_detail-url": "/InfoGuideClient/singleHit.do?methodToCall=showHit&curPos=1&identifier=-1_S_IG.805.4070", "orderable": 0}

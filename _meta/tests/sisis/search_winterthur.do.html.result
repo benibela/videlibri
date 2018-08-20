@@ -1,6 +1,8 @@
+curPos := 1
 book := {}
 nextPage := ()
-nextPage := text{"/webOPACClient.sisis/hitList.do?methodToCall=pos&amp;identifier=-1_FT_1786867544&amp;curPos=11#-1"}
+curPos := "11"
+nextPage := "file:///webOPACClient.sisis/hitList.do?methodToCall=pos&amp;identifier=-1_FT_1786867544&amp;curPos=11#-1"
 search-result-count := "178"
 hasZ3988 := false()
 book := {"author": "Wiebe, Frank", "year": "  (2013)", "title": "Wie fair sind Apple & Co.?", "_detail-url": "/webOPACClient.sisis/singleHit.do?methodToCall=showHit&curPos=1&identifier=-1_FT_1786867544", "orderable": 0}

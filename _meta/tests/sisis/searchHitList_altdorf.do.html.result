@@ -1,6 +1,8 @@
+curPos := 1
 book := {}
 nextPage := ()
-nextPage := text{"/webOPACClient.sisis/hitList.do?methodToCall=pos&amp;identifier=-1_S_IG.127.14832&amp;curPos=21#-1"}
+curPos := "21"
+nextPage := "file:///webOPACClient.sisis/hitList.do?methodToCall=pos&amp;identifier=-1_S_IG.127.14832&amp;curPos=21#-1"
 search-result-count := "33"
 hasZ3988 := false()
 brs := (text{"Dunkel, Daniel"}, 

@@ -1,2 +1,3 @@
+curPos := 1
 book := {}
 search-result-count := 0

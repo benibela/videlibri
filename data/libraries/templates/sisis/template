@@ -149,7 +149,7 @@
   </s>
 
 
-  <s>$nextPage:=$singleBookResult:=speedPage:=""</s>
+  <s>$nextPage:=$singleBookResult:=speedPage:="", $curPos := 1</s>
   
   <page url="{$searchUrl}" templateFile="searchList"/>
   <page test="$speedPage != ''" url="{$speedPage}" templateFile="searchList"/>
@@ -160,7 +160,9 @@
 </action>
 
 <action id="search-next-page">
-  <page url="{$nextPage}" templateFile="searchList"></page>
+  <s>$oldNextPage:=$nextPage,$nextPage:=$singleBookResult:=speedPage:=""</s>
+  <page url="{$oldNextPage}" templateFile="searchList"></page>
+  <page test="$speedPage != ''" url="{$speedPage}" templateFile="searchList"/>
   <variable name="search-next-page-available">$nextPage != ''</variable>
 </action>
 

@@ -1,5 +1,7 @@
+curPos := 1
 book := {}
 nextPage := ()
+curPos := "11"
 nextPage := "speedHitList.do?methodToCall=refineHitList&amp;speedHitlistUrl=speedHitList.do&amp;newMemorizeListName=&amp;databaseId=2&amp;dbIdentifier=2&amp;pos=11"
 search-result-count := "453"
 hasZ3988 := false()

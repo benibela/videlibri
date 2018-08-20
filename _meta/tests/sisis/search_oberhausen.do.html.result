@@ -1,6 +1,8 @@
+curPos := 1
 book := {}
 nextPage := ()
-nextPage := text{"/webOPACClient.sisis/hitList.do?methodToCall=pos&amp;identifier=-1_S_IG.15.19941&amp;curPos=11#-1"}
+curPos := "11"
+nextPage := "file:///webOPACClient.sisis/hitList.do?methodToCall=pos&amp;identifier=-1_S_IG.15.19941&amp;curPos=11#-1"
 search-result-count := "500"
 hasZ3988 := false()
 brs := (text{"2005"}, 

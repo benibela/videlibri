@@ -1,6 +1,8 @@
+curPos := 1
 book := {}
 nextPage := ()
-nextPage := text{"/InfoGuideClient.fawsis/hitList.do?methodToCall=pos&amp;identifier=-1_FT_1826748791&amp;curPos=26#-1"}
+curPos := "26"
+nextPage := "file:///InfoGuideClient.fawsis/hitList.do?methodToCall=pos&amp;identifier=-1_FT_1826748791&amp;curPos=26#-1"
 search-result-count := "105"
 hasZ3988 := false()
 hasZ3988 := true()
