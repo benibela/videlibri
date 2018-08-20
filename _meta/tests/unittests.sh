@@ -105,7 +105,7 @@ test sisis searchList{curPos:=1} search_rwth.do.html searchHitlist_rwth.do.html 
 ADDTEMPLATE sisis/searchSingle 4
 PAGES=(${PAGES[@]} sisis/searchSingle_basel.do.html sisis/searchSingle_aachen.do.html sisis/searchSingle_regensburg.html sisis/touchpoint/searchHit_chem.html)
 
-test sisis'{username:=\"foo\",password=\"bar\"}' orderConfirmation orderConfirmation_aachen.html orderConfirmation_pulheim.html  
+test sisis orderConfirmation'{username:=\"foo\",password:=\"bar\"}' orderConfirmation_aachen.html orderConfirmation_pulheim.html  
 
 ADDTEMPLATE 'sisis/singleExtended{b:={\"id\":123}}' 1
 PAGES=(${PAGES[@]} sisis/singleExtended_h.html  )

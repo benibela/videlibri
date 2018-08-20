@@ -1,3 +1,5 @@
+username := foo
+password := bar
 book := {}
 titles := ()
 issuePoints := ()
