@@ -1,0 +1,2 @@
+book := {}
+book := {"_orderTitle1": "Lokaler Bibliotheksbestand\tbestellbar\tauswählen", "_order1": "file:///TouchPoint_touchpoint/requestItem.do?methodToCall=REQUESTITEM&itemId=8834&requestType=order&itemType=TitleId&circTarget=2&activeTab=0&context=hitlist", "_orderCount": 1, "orderable": true}
