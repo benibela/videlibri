@@ -1,7 +1,7 @@
 <html>
 <!--<template:meta default-text-matching="regex"/>-->
   <DIV id="tab-content">
-    {needOrders := not($book.orderable > 0)}
+    {needOrders := not($book.orderable)}
     <TABLE class="data">
     <TR>
     <t:siblings-header>
