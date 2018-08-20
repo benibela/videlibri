@@ -1,13 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
-
 <library>
   <longName value="Stadtbücherei Halle (Westf)"/>
   <shortName value="Stb Halle"/>
   
-  <template value="bibliotheca"/>
-  <variable name="baseurl" value="http://www.bibliotheken-in-owl.de/webopac"/>	
-  <variable name="DB" value="halle"/>	
+  <template value="bibliothecaplus"/>
+  <variable name="urlaccount" value="https://open.stadtbuecherei-halle.de/Mein-Konto"/>	
+  <variable name="urlsearch" value="https://open.stadtbuecherei-halle.de/Suche/Erweiterte-Suche"/>	
   
   <!--<template value="pica"/>-->
 
