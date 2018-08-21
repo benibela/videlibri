@@ -18,51 +18,103 @@
   <s>declare function local:raise($err){
        string($err) ! (if (matches(., "Anmeldung fehlgeschlagen|The login credentials are incorrect|Benutzerkonto abgelaufen oder ungültige UserID und/oder Passwort|The username you entered cannot be identified|Wrong username or password|Ungültige Ausweisnummer und/oder Passwort")) then vl:raise-login(.)
        else vl:raise(.))
-     };()
+     };
+     $primo-explore := contains($baseurl, '/primo-explore')
   </s>
+  <if test="$primo-explore">
+    <s>
+    server := substring-before($baseurl, "/primo-explore"),
+    vid := extract($baseurl, "vid=([^"||$amp||"]+)", 1)
+    </s>
+    <page url="{$server}/primo_library/libweb/webservices/rest/v1/configuration/{$vid}">
+      <template><t:s>
+        xquery version "3.0-videlibri";
+        let $answer := json($raw) return
+        (
+          institute := ( $answer.beacon.alternative-institution-code, get("institute"), $vid )[.][1],
+          authentication := $answer.authentication,
+          authentication-header := ""
+        )
+      </t:s></template>
+    </page>
+  </if>
+  <else>
+    <s>declare function local:raise($err){
+         string($err) ! (if (matches(., "Anmeldung fehlgeschlagen|The login credentials are incorrect|Benutzerkonto abgelaufen oder ungültige UserID und/oder Passwort|The username you entered cannot be identified|Wrong username or password|Ungültige Ausweisnummer und/oder Passwort")) then vl:raise-login(.)
+         else vl:raise(.))
+       };()
+    </s>
+  </else>
 </action>
 
 <action id="update-all">
-  <s>$request := get("login-url-" || (if ($type ge 1) then $type else 1), ()),
-     if ($request) then () else $request := get("login-url")
-  </s>
-  
   <s>i := 1, datasend := false()</s>
+  <if test="$primo-explore"><s>
+    $request := let $auth := $authentication((if ($type ge 1) then $type else 1))
+                let $targeturl := x"{uri-encode($server)}/primo-explore/account?vid={uri-encode($vid)}"
+                let $preurl := $server || "/primo_library/libweb/primoExploreLogin"
+                return if ($auth.authentication-system = "ALMA") then
+                  request-combine( 
+                     {"url": $preurl, "method": "POST"},
+                     {"authenticationProfile": $auth.profile-name,
+                      "institution": $institute,
+                      "password": $password,
+                      "targetUrl": $targeturl,
+                      "username": $username,
+                      "view": $vid}
+                   )
+                 else  $preurl  || x"?institution={uri-encode($institute)}&target-url={uri-encode($targeturl)}&authenticationProfile={uri-encode($auth.profile-name)}&auth={uri-encode($auth.authentication-system)}&isSilent=false"
+  </s></if>
+  <else>
+    <s>$request := get("login-url-" || (if ($type ge 1) then $type else 1), ()),
+       if ($request) then () else $request := get("login-url")
+    </s>
+  </else>
+  
   <!-- follow links till we reach the login page -->
   <loop test="$i < 10">  
     <page url="{$request}"/>
-    <pattern><t:switch prioritized="true">     
-      <div   class="EXLPRMLoginCardContentError">{local:raise(.)}</div>
-      <div  t:test="$datasend" class="error">{local:raise(.)}</div>
-      <span t:test="$datasend" class="login-error">{local:raise(.)}</span>
-      <font t:test="$datasend" color="red">{local:raise(.)}<!--htw--></font>
-      <h2 t:test="$datasend" style="color: red;">{local:raise(.)}<!--fu--></h2>
-      <p t:test="$datasend" class="error">{local:raise(.)}<!--hu intern--></p>
-      
-      <form>
-        <input name="username"/>
-        {request := form(., {"username": $username, "password": $password} ), datasend := true()}
-      </form>
-      <form>
-        <input name="j_username"/>
-        {request := form(., {"j_username": $username, "j_password": $password, "_eventId_proceed": .//button[@name = "_eventId_proceed"]/@value} ), datasend := true()}
-      </form>
-      <DIV class="EXLMyAccountContainer" id="exlidMyAccountContainer"> <DIV class="EXLMyAccountMainContainer"/> 
-        {i := 10000}<!--logged in-->
-      </DIV>
-      <a t:condition="contains(@href, 'myAccountMenu.do')">{$request}</a>
-      <form t:condition=" .//@name = ('_eventId_proceed', 'SAMLResponse', 'RelayState') ">
-        { let $buttons := ((.//input, .//button)[@type=("submit", "image")], .//button, .//input[@type="button"])
-          let $proceed := $buttons[@name = "_eventId_proceed"]
-          return
-            $request := form(., ($proceed, $buttons)[1] )
-        }
-      </form>
-      <meta http-equiv="refresh">{$request}</meta>    
-      <a t:condition="contains(@href, '?')">{$request}</a>
-      <form>{$request := form(., ((.//input, .//button)[@type=("submit", "image")], .//button, .//input[@type="button"])[1] )}</form>
-      <a>{$request}</a>
-    </t:switch></pattern>
+    <if test="$primo-explore and starts-with($raw, '{')">
+      <s>let $j := json($raw) where $j("jwtData") return (
+          $i := 10000,
+          authentication-header := $j("jwtData")
+        )</s>
+    </if>
+    <if test="$i < 10">
+      <pattern><t:switch prioritized="true">
+        <html t:test="$primo-explore and $datasend" id="primoExploreRoot">{i:=10000}</html>
+        <div   class="EXLPRMLoginCardContentError">{local:raise(.)}</div>
+        <div  t:test="$datasend" class="error">{local:raise(.)}</div>
+        <span t:test="$datasend" class="login-error">{local:raise(.)}</span>
+        <font t:test="$datasend" color="red">{local:raise(.)}<!--htw--></font>
+        <h2 t:test="$datasend" style="color: red;">{local:raise(.)}<!--fu--></h2>
+        <p t:test="$datasend" class="error">{local:raise(.)}<!--hu intern--></p>
+        
+        <form>
+          <input name="username"/>
+          {request := form(., {"username": $username, "password": $password} ), datasend := true()}
+        </form>
+        <form>
+          <input name="j_username"/>
+          {request := form(., {"j_username": $username, "j_password": $password, "_eventId_proceed": .//button[@name = "_eventId_proceed"]/@value} ), datasend := true()}
+        </form>
+        <DIV class="EXLMyAccountContainer" id="exlidMyAccountContainer"> <DIV class="EXLMyAccountMainContainer"/> 
+          {i := 10000}<!--logged in-->
+        </DIV>
+        <a t:condition="contains(@href, 'myAccountMenu.do')">{$request}</a>
+        <form t:condition=" .//@name = ('_eventId_proceed', 'SAMLResponse', 'RelayState') ">
+          { let $buttons := ((.//input, .//button)[@type=("submit", "image")], .//button, .//input[@type="button"])
+            let $proceed := $buttons[@name = "_eventId_proceed"]
+            return
+              $request := form(., ($proceed, $buttons)[1] )
+          }
+        </form>
+        <meta http-equiv="refresh">{$request}</meta>
+        <a t:condition="contains(@href, '?')">{$request}</a>
+        <form>{$request := form(., ((.//input, .//button)[@type=("submit", "image")], .//button, .//input[@type="button"])[1] )}</form>
+        <a>{$request}</a>
+      </t:switch></pattern>
+    </if>
     <s>$i := $i + 1</s>    
   </loop>
     
@@ -70,13 +122,69 @@
   <s>vl:raise-internal("Zuviele Weiterleitungen beim Login. Aktuelle Seite: " || base-uri() || substring(join(//body), 1, 1000))</s>
   </if>
     
-  <s>videlibri:delete-current-books()</s>
-  <pattern href="list"/>
+  <if test="$primo-explore">
+    <call action="primo-explore-update-all"/>
+  </if>
+  <else>  
+    <s>videlibri:delete-current-books()</s>
+    <pattern href="list"/>
 
-  <page url="{$orderPage}"/>
-  <pattern href="list"/>
+    <page url="{$orderPage}"/>
+    <pattern href="list"/>
+  </else>
   
 <!--  <error templateFile="loginError"/>-->
+</action>
+
+<action id="primo-explore-update-all">
+  <s>videlibri:delete-current-books()</s>
+  <page url="{$server}/primo_library/libweb/webservices/rest/v1/myaccount/loans?type=active">
+    <header>Accept: application/json,*/*</header>
+    <header>Authorization: Bearer {$authentication-header}</header>
+  </page>
+  <s>
+  xquery version "3.0-videlibri";
+  if (not(matches($raw, "^\s*[\[{]"))) then vl:raise(inner-text())
+  else let $answer := json($raw) return
+  for $loan in $answer.data.loans.loan() return
+    $book := $loan!{
+      "category": itemcategoryname,
+      "year": year,
+      "author": author,
+      "id": callnumber,
+      "issueDate": parse-date(loandate, "yyyymmdd"),
+      "title": title,
+      "libraryBranch": mainlocationname,
+      "_itemid": itemid,
+      "_loanid": loanid,
+      "dueDate": parse-date(duedate, "yyyymmdd"),
+      "status": loanstatus,
+      "statusId": if (renew eq "Y") then "curious" else "critical",
+      "barcode": itembarcode
+    }
+  </s>
+  <page url="{$server}/primo_library/libweb/webservices/rest/v1/myaccount/requests?vid={$vid}">
+    <header>Accept: application/json,*/*</header>
+    <header>Authorization: Bearer {$authentication-header}</header>
+  </page>
+  <s>
+    xquery version "3.0-videlibri";
+    let $answer := json($raw) let $data := $answer.data return
+    for $type in ("hold", "request", "ill")
+    let $types := $type || "s"
+    for $loan in $data($types)($type)() return
+      $book := $loan!{
+        "cancelable": cancel eq "Y",
+        "libraryBranch": pickuplocationname,
+        "author": author,
+        "title": title,
+        "status": holdstatus,
+        "statusId": if (available eq "Y") then "provided" else "ordered",
+        "_requestid": requestid,
+        "_request_type": $types,
+        "issueDate": parse-date(requestdate, "yyyymmdd")
+      }
+  </s>
 </action>
 
 <!--
@@ -99,21 +207,49 @@
 </action>
 -->
 
-
+<!-- renew all: https://tu-berlin.hosted.exlibrisgroup.com/primo_library/libweb/webservices/rest/v1/myaccount/renew_all_loans -->
 <action id="renew-list">
-  <loop var="b" list="$renew-books">
-    <page url="{$b._renewUrl}">
-    </page>
-  </loop>
-  <call action="update-all"/>
+  <if test="$primo-explore">
+    <loop var="b" list="$renew-books">
+      <page url="{$server}/primo_library/libweb/webservices/rest/v1/myaccount/renew_loan">
+        <header>Content-Type: application/json; charset=utf-8</header>
+        <header>Accept: application/json,*/*</header>
+        <header>Authorization: Bearer {$authentication-header}</header>
+        <method>POST</method>
+        <post>{{"id": {$b._loanid} }}</post>
+      </page>
+    </loop>
+    <call action="primo-explore-update-all"/>
+  </if>
+  <else>
+    <loop var="b" list="$renew-books">
+      <page url="{$b._renewUrl}">
+      </page>
+    </loop>
+    <call action="update-all"/>
+  </else>
 </action>
 
 <action id="cancel-list">
-  <loop var="b" list="$cancel-books">
-    <page url="{$b._cancelUrl}">
-    </page>
-  </loop>
-  <call action="update-all"/>
+  <if test="$primo-explore">
+    <loop var="b" list="$cancel-books">
+      <page url="{$server}/primo_library/libweb/webservices/rest/v1/myaccount/cancel_requests">
+        <header>Content-Type: application/json; charset=utf-8</header>
+        <header>Accept: application/json,*/*</header>
+        <header>Authorization: Bearer {$authentication-header}</header>
+        <method>POST</method>
+        <post>{{"request_id": {$b._requestid}, "request_type": {$b._request_type} }}</post>
+      </page>
+    </loop>
+    <call action="primo-explore-update-all"/>
+  </if>
+  <else>
+    <loop var="b" list="$cancel-books">
+      <page url="{$b._cancelUrl}">
+      </page>
+    </loop>
+    <call action="update-all"/>
+  </else>
 </action>
 
 
