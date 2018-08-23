@@ -7,6 +7,8 @@
   }
   <link t:condition="contains(@href, 'PatronAccountModule')">{extendableCheck := extract(resolve-uri(@href), "^.*PatronAccountModule[/\\]") || "PatronAccountService.asmx/IsCatalogueCopyExtendable"}</link>
   
+  <t:switch prioritized="true">
+  
   <form>
     { $user-form := form(.),
       $renew-button := (//input[ends-with(@name, "BtnExtendMediums")])[1]/{"__EVENTTARGET":  @name},
@@ -73,4 +75,11 @@
   	</table>
     
   </form>
+  
+    <div t:condition="contains(@id, 'dnnSkinMessage')" class="dnnFormMessage dnnFormWarning">
+      <span id="contains(@id, 'lblMessage')">
+      {vl:raise(.)}
+      </span>
+    </div>
+  </t:switch>
 </html>
