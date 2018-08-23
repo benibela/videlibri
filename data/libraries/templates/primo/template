@@ -15,12 +15,7 @@
 
 
 <action id="connect">
-  <s>declare function local:raise($err){
-       string($err) ! (if (matches(., "Anmeldung fehlgeschlagen|The login credentials are incorrect|Benutzerkonto abgelaufen oder ungültige UserID und/oder Passwort|The username you entered cannot be identified|Wrong username or password|Ungültige Ausweisnummer und/oder Passwort")) then vl:raise-login(.)
-       else vl:raise(.))
-     };
-     $primo-explore := contains($baseurl, '/primo-explore')
-  </s>
+  <s>$primo-explore := contains($baseurl, '/primo-explore')</s>
   <if test="$primo-explore">
     <s>
     server := substring-before($baseurl, "/primo-explore"),
@@ -33,7 +28,8 @@
         (
           institute := ( $answer.beacon.alternative-institution-code, get("institute"), $vid )[.][1],
           authentication := $answer.authentication,
-          authentication-header := ""
+          authentication-header := "",
+          search-scopes := $answer.primo-view.scopes()
         )
       </t:s></template>
     </page>
@@ -253,34 +249,148 @@
 </action>
 
 
-
-
-<action id="search">
-  
-  <variable name="search-keys">{"author": "creator", "title": "title", "keywords": "subject", "isbn": "isbn", "year": "cdate"}</variable>
-
-  <s>redirect:=()</s>
-
-  <page url="{$baseurl}search.do?mode=Advanced&amp;fromLogin=true&amp;vid={$institute}" templateFile="searchStart"/>
-  
-  <page url="{$redirect}" templateFile="searchStart"/>
-
-  <page url="{$form}" templateFile="searchList"/>
-  
-  <page url="{$form}" test="$waiting" templateFile="searchList"/>
-  
+<action id="search-connect">
+  <call action="connect"/>
+  <if test="$primo-explore">
+  <!-- or https://tu-berlin.hosted.exlibrisgroup.com/primo_library/libweb/webservices/rest/v1/configuration/TUB/scopes -->
+    <s>search-branches := $search-scopes ! scope-id, search-branch-id := 0</s>
+  </if>
 </action>
 
+<action id="search">
+  <if test="$primo-explore">
+    <variable name="search-keys">{"author": "creator", "title": "title", "keywords": "sub", "isbn": "isbn", "year": "cdate"}</variable>
+    <s>
+    all-raw-docs := (),
+    offset := 0,
+    if (empty($search-branches[$search-branch-id])) then $search-branch-id := 1 else (),
+    encoded-scope := uri-encode($search-scopes[$search-branch-id].scope-id),
+    encoded-tab := uri-encode($search-scopes[$search-branch-id].tab),
+    encoded-query := uri-encode(for $key in jn:keys($book) where boolean($book($key)) and exists($search-keys($key)) return
+      join(x"{$search-keys($key)},contains,{$book($key)},AND", ";")
+    )
+    </s>
+    <s>
+    declare function local:encode-request($offset, $limit){
+     join((
+      "blendFacetsSeparately=false",
+      "getMore=0",
+      "inst=" || uri-encode($institute),
+      "lang=de_DE",
+      "limit=" || $limit,
+      "offset=" || $offset,
+      "mode=advanced",
+      "newspapersActive=false",
+      "newspapersSearch=false",
+      "pcAvailability=true",
+      "q=" || $encoded-query,
+      "qExclude=",
+      "qInclude=",
+      "rtaLinks=true",
+      "scope=" || $encoded-scope,
+      "skipDelivery=Y",
+      "sort=rank",
+      "tab=" || $encoded-tab,
+      "vid=" || uri-encode($vid)
+     ), $amp)
+    };()
+    </s>
+    <page url="{$server}/primo_library/libweb/webservices/rest/v1/guestJwt/TUB?isGuest=true&lang=de_DE&targetUrl={uri-encode($server)}%252Fprimo-explore%252Fsearch%253Fvid%253D{uri-encode($vid)}&viewId={uri-encode($vid)}"/>
+    <s>let $header := json($raw) where $header instance of xs:string return authentication-header := $header</s>
+    <call action="search-next-page"/>
+    </if>
+  <else>
+    <variable name="search-keys">{"author": "creator", "title": "title", "keywords": "subject", "isbn": "isbn", "year": "cdate"}</variable>
+  
+    <s>redirect:=()</s>
+  
+    <page url="{$baseurl}search.do?mode=Advanced&amp;fromLogin=true&amp;vid={$institute}" templateFile="searchStart"/>
+    
+    <page url="{$redirect}" templateFile="searchStart"/>
+  
+    <page url="{$form}" templateFile="searchList"/>
+    
+    <page url="{$form}" test="$waiting" templateFile="searchList"/>
+  </else>
+</action>
 
 <action id="search-next-page">
-  <page url="{$search-next}" templateFile="searchList">
-  </page>
+  <if test="$primo-explore">
+  <!-- /primo_library/libweb/webservices/rest/primo-explore/v1/pnxs 
+   or /primo_library/libweb/webservices/rest/primo-explore/v1/pnxs/delivery
+  -->
+    <page url="{$server}/primo_library/libweb/webservices/rest/primo-explore/v1/pnxs?{local:encode-request($offset, 10)}">
+      <header>Accept: application/json,*/*</header>
+      <header>Authorization: Bearer {$authentication-header}</header>
+    </page>
+<!-- https://knowledge.exlibrisgroup.com/Primo/Product_Documentation/Technical_Guide/010The_PNX_Record/010PNX_Record_Sections -->
+    <s>
+      xquery version "3.0-videlibri";
+      let $answer := json($raw) return (
+        search-result-count := $answer.info.total,
+        $all-raw-docs[] := $answer.docs(),
+        for $d at $i in $answer.docs() return (
+          book := $d.pnx.display ! {
+            "title": join((title)()),
+            "publisher": join((publisher)()),
+            "author": join((creator, creatorcontrib)[1](), "; "),
+            "year": join((creationdate)()),
+            "statusId" ?: switch ((availpnx)()[1])
+              case "available" return
+                if (contains(replace((availinstitution)()[1], "unavailable", ""), "available")) then "available" else ()
+              case "unavailable" return "lend"
+              default return (),
+            "Schlagwörter!" ?: join((subject)(), ", ")[.],
+            "Beschreibung!" ?: join((description)(), ", ")[.],
+            "Format!" ?: (format)()[.],
+            "Sprache!" ?: (language)()[.],
+            "isbn" ?: replace(join((identifier)()), "[$][$].", " "),
+            "_offset": $offset + $i 
+            (:,
+            "_@rta_link": $d("@rta_link"),
+            "_@id": $d("@id"):)
+          }
+        ),
+        offset := $offset + 10,
+        search-next-page-available := $offset lt $search-result-count
+      )
+    </s>
+  </if>
+  <else>
+    <page url="{$search-next}" templateFile="searchList">
+    </page>
+  </else>
 </action>
 
 <action id="search-details">
-  <page url="{$book.home-url}" templateFile="searchDetails"/>
-  <page url="{$book.locations-url}" templateFile="searchDetailsLocations"/>
-
+  <if test="$primo-explore">
+  <!--  <page url="{$book('_@rta_link')}">
+      <header>Accept: application/json,*/*</header>
+      <header>Authorization: Bearer {$authentication-header}</header>
+    </page>--> 
+    <s>index := xs:integer($book._offset)</s>
+    <page url="{$server}/primo_library/libweb/webservices/rest/primo-explore/v1/pnxs/delivery?{local:encode-request($index - 1, 1)}">
+      <header>Accept: application/json,*/*</header>
+      <header>Authorization: Bearer {$authentication-header}</header>
+      <header>Content-Type: application/json; charset=utf-8</header>
+      <post>{{"records": [ {serialize-json($all-raw-docs[$index]  )} ] }}</post>
+    </page>
+    <s>$book.holdings := json($raw).docs(1).delivery.holding() ! {
+          "id": callNumber,
+          "statusId": switch (availabilityStatus)
+            case "available" return "available" 
+            case "unavailable" return "lend"
+            default return "unknown"
+          ,
+          "libraryLocation": subLocation,
+          "libraryBranch": libraryCode
+       }
+    </s>
+  </if>
+  <else>
+    <page url="{$book.home-url}" templateFile="searchDetails"/>
+    <page url="{$book.locations-url}" templateFile="searchDetailsLocations"/>
+  </else>
 </action>
 
 </actions>
