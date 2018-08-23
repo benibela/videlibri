@@ -24,7 +24,7 @@
       )
     }
     
-    <TABLE t:condition="contains(@id, 'grdViewLoans')"> <!-- also in @id -->
+    <TABLE t:condition="contains(@id, 'grdViewLoans')">
       <t:switch prioritized="true">
         <tr><th/><a t:condition="contains(@href, 'Sort$Branch')">{$hasBranches := true}</a>?</tr>
         <tr class="GridViewInnerBorderNoData"/>
