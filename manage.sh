@@ -140,7 +140,7 @@ downloadTable)
 
   libraries.list)
      LIBS=$(ls data/libraries/*.xml | grep -oE "[^_]+_[^_]+.xml" | sort | xargs -I{} find data/libraries/ -name "*{}" -maxdepth 1 | sort | uniq)
-     grep -oE "[^/]*$" <<<"$LIBS" > data/libraries/libraries.list
+     grep -oE "[^/]*$" <<<"$LIBS" | sed -e 's/\.xml$//' > data/libraries/libraries.list
     ;;
   
 	changelog)
