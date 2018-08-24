@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<library>
+  <longName value="Universitätsbibliothek Mannheim"/>
+  
+  <template value="primo"/>
+  <variable name="baseurl" value="https://primo-49man.hosted.exlibrisgroup.com/primo-explore/search?vid=MAN_UB"/>
+  
+  <homepage value="https://www.bib.uni-mannheim.de/"/>
+  <testing-search value="yes"/>
+  <testing-account value="unknown"/>
+</library>
+
