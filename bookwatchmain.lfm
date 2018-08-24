@@ -1397,7 +1397,7 @@ object mainForm: TmainForm
     Top = 232
   end
   object repeatedCheckTimer: TTimer
-    Interval = 300000
+    Interval = 600000
     OnTimer = repeatedCheckTimerTimer
     Left = 304
     Top = 160

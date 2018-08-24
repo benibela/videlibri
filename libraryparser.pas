@@ -226,6 +226,7 @@ type
 
     function shouldExtendBook(book: TBook):boolean;
     function existsCertainBookToExtend: boolean;
+    function needChecking: boolean;
 
     function getLibrary():TLibrary;
 
@@ -1568,6 +1569,11 @@ begin
         if shouldExtendBook(books.bookLists[bltInCurrentFile][i]) then
           exit(true);
   end;
+end;
+
+function TCustomAccountAccess.needChecking: boolean;
+begin
+  result := (lastCheckDate <= currentDate-refreshInterval) or existsCertainBookToExtend
 end;
 
 procedure TCustomAccountAccess.updateAllSingly;

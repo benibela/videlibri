@@ -1038,7 +1038,7 @@ begin
 end;
 
 procedure TmainForm.repeatedCheckTimerTimer(Sender: TObject);
-//this tries to update the books every 5min until a connection to the library
+//this tries to update the books every 10 min until a connection to the library
 //could actually established
 var internet: TInternetAccess;
 begin
@@ -1047,20 +1047,8 @@ begin
     exit;
   end;
 
-  internet:=defaultInternetAccessClass.create;
-  try
-  try
-    if internet.existsConnection then begin
-      if logging then log('repeatedCheckTimer: internet connection exists');
-      defaultAccountsRefresh;
-      if logging then log('repeatedCheckTimer: called defaultAccountsRefresh');
-    end;
-  finally
-    internet.free;
-    if logging then log('internet freed');
-  end;
-  except
-  end;
+  if not defaultAccountsRefresh then
+    repeatedCheckTimer.Enabled:=false;
 end;
 
 procedure TmainForm.searchTextKeyDown(Sender: TObject; var Key: Word;

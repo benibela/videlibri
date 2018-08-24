@@ -35,7 +35,7 @@ var ThreadDone: TThreadDoneHolder;
 
 //Aktualisiert eine (oder bei lib=nil alle) Konten in einem extra-thread
 function updateAccountBookData(account: TCustomAccountAccess;ignoreConnErrors, checkDate,extendAlways: boolean): boolean;
-procedure defaultAccountsRefresh;
+function defaultAccountsRefresh: boolean;
 
 //--Verlängerungen--
 //Verlängert die Bücher des Accounts indem extendAccountBookData aufgerufen wird
@@ -153,7 +153,7 @@ begin
       raise ELibraryException.create('Interner Fehler'#13#10'Aufruf von TUpdateLibThread.execute für einen nicht existierenden Account');
     with request do begin
       if checkDate then
-        if (lib.lastCheckDate>currentDate-refreshInterval) and (not lib.existsCertainBookToExtend) then begin
+        if not lib.needChecking then begin
           if logging then log('TUpdateLibThread.processRequest() ended without checking');
           exit;
         end;
@@ -424,19 +424,21 @@ begin
     ignoreConnErrors:=false;
     checkDate:=false;
   end;
-
+  if checkDate and not account.needChecking then exit
+  else checkDate := false;
   if ignoreConnErrors and (account.broken = currentDate) then exit;
   callbacks.statusChange(TRY_BOOK_UPDATE);
   result := performAccountAction(account,updateThreadConfig,ignoreConnErrors,checkDate,extendAlways,etAlways,nil,nil);
 end;
 //Bücher aktualisieren
-procedure defaultAccountsRefresh;
+function defaultAccountsRefresh: boolean;
 begin
+  result := false;
   if accountsRefreshedDate = currentDate then exit;
   if logging then log('defaultAccountsRefresh started');
   case userConfig.ReadInteger('base','startup-connection',1) of
-    1: updateAccountBookData(nil,true,true,false);
-    2: updateAccountBookData(nil,true,false,false);
+    1: result := updateAccountBookData(nil,true,true,false);
+    2: result := updateAccountBookData(nil,true,false,false);
   end;
   if logging then log('defaultAccountsRefresh ended');
 end;
