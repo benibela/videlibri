@@ -15,7 +15,12 @@
 
 
 <action id="connect">
-  <s>$primo-explore := contains($baseurl, '/primo-explore')</s>
+    <s>declare function local:raise($err){
+         string($err) ! (if (matches(., "Anmeldung fehlgeschlagen|The login credentials are incorrect|Benutzerkonto abgelaufen oder ungültige UserID und/oder Passwort|The username you entered cannot be identified|Wrong username or password|Ungültige Ausweisnummer und/oder Passwort")) then vl:raise-login(.)
+         else vl:raise(.))
+       };
+   $primo-explore := contains($baseurl, '/primo-explore')
+  </s>
   <if test="$primo-explore">
     <s>
     server := substring-before($baseurl, "/primo-explore"),
@@ -34,13 +39,6 @@
       </t:s></template>
     </page>
   </if>
-  <else>
-    <s>declare function local:raise($err){
-         string($err) ! (if (matches(., "Anmeldung fehlgeschlagen|The login credentials are incorrect|Benutzerkonto abgelaufen oder ungültige UserID und/oder Passwort|The username you entered cannot be identified|Wrong username or password|Ungültige Ausweisnummer und/oder Passwort")) then vl:raise-login(.)
-         else vl:raise(.))
-       };()
-    </s>
-  </else>
 </action>
 
 <action id="update-all">
@@ -266,9 +264,9 @@
     if (empty($search-branches[$search-branch-id])) then $search-branch-id := 1 else (),
     encoded-scope := uri-encode($search-scopes[$search-branch-id].scope-id),
     encoded-tab := uri-encode($search-scopes[$search-branch-id].tab),
-    encoded-query := uri-encode(for $key in jn:keys($book) where boolean($book($key)) and exists($search-keys($key)) return
-      join(x"{$search-keys($key)},contains,{$book($key)},AND", ";")
-    )
+    encoded-query := uri-encode(join(for $key in jn:keys($book) where boolean($book($key)) and exists($search-keys($key)) return
+      x"{$search-keys($key)},contains,{$book($key)},AND", ";"
+    ))
     </s>
     <s>
     declare function local:encode-request($offset, $limit){
