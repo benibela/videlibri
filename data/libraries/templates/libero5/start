@@ -7,18 +7,10 @@
 </a>
   
 <form name="display">
-<input type="hidden" name="TOKEN">
-<template:read source="@value" var="token"/>
-</input>
-<input type="hidden" name="TOKENX">
-<template:read source="@value" var="tokenx"/>
-</input>
-<input type="hidden" name="DATA">
-<template:read source="@value" var="data"/>
-</input>
-<input type="hidden" name="VERSION">
-<template:read source="@value" var="version"/>
-</input>
+<input type="hidden" name="TOKEN">{token:=string(@value)}</input>
+<input type="hidden" name="TOKENX">{tokenx:=string(@value)}</input>
+<input type="hidden" name="DATA">{data:=string(@value)}</input>
+<input type="hidden" name="VERSION">{version:=string(@value)}</input>
 </form>
 </BODY></HTML>
 

@@ -1,6 +1,6 @@
 book := {}
 loginToken := "LOGINTOKEN=MHVPOTIEBL"
-token := text{"cuvQ8j0Xfw7414"}
-tokenx := text{"cuvQ8j0Xfw7414"}
-data := text{"DUE"}
-version := text{"2"}
+token := "cuvQ8j0Xfw7414"
+tokenx := "cuvQ8j0Xfw7414"
+data := "DUE"
+version := "2"
