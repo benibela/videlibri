@@ -1,4 +1,0 @@
-curPos := 1
-book := {}
-singleBookResult := text{"http://sisis.bth.rwth-aachen.de:8080/InfoGuideClient/singleHit.do?methodToCall=activateTab&amp;tab=showTitleActive"}
-search-result-count := 1

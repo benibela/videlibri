@@ -5,98 +5,90 @@ curPos := "11"
 nextPage := "file:///webOPACClient.stasis/hitList.do?methodToCall=pos&amp;identifier=-1_S_IG.49.27050&amp;curPos=11#-1"
 search-result-count := "156"
 hasZ3988 := false()
-brs := (text{"1980"}, 
-text{"Rml/The"}, 
-text{""}, 
-text{""})
 brs := ("", 
-text{"1980"}, 
-text{"Rml/The"}, 
-text{""}, 
-text{""})
+"1980", 
+"Rml/The")
+brs := ("1980", 
+"Rml/The")
+brs := ("", 
+"1980", 
+"Rml/The")
 book := {"year": "1980", "author": "", "title": "/1. 1839-1912.", "_detail-url": "/webOPACClient.stasis/singleHit.do?methodToCall=showHit&curPos=1&identifier=-1_S_IG.49.27050", "orderable": 0}
 hasZ3988 := false()
-brs := (text{"1983"}, 
-text{"Rml/The"}, 
-text{""}, 
-text{""})
 brs := ("", 
-text{"1983"}, 
-text{"Rml/The"}, 
-text{""}, 
-text{""})
+"1983", 
+"Rml/The")
+brs := ("1983", 
+"Rml/The")
+brs := ("", 
+"1983", 
+"Rml/The")
 book := {"year": "1983", "author": "", "title": "/3. 1945-1980.", "_detail-url": "/webOPACClient.stasis/singleHit.do?methodToCall=showHit&curPos=2&identifier=-1_S_IG.49.27050", "orderable": 0}
 hasZ3988 := false()
-brs := (text{"Sbh2"}, 
-text{""}, 
-text{""})
+brs := ("", 
+"Sbh2", 
+"Ein oder mehrere Exemplare dieses Titels sind in der aktuellen Zweigstelle ausleihbar.")
+brs := ("Sbh2", 
+"Ein oder mehrere Exemplare dieses Titels sind in der aktuellen Zweigstelle ausleihbar.")
 book := {"author": "Sbh2", "title": "Ästhetische Theorie und musikpädagogische Theoriebildung : Sitzungsbericht der Wissenschaftlichen Sozietät Musikpädagogik", "_detail-url": "/webOPACClient.stasis/singleHit.do?methodToCall=showHit&curPos=3&identifier=-1_S_IG.49.27050", "orderable": 0}
 hasZ3988 := false()
-brs := (text{"2001"}, 
-text{"eBook"}, 
-text{""}, 
-text{""}, 
-text{""})
 brs := ("", 
-text{"2001"}, 
-text{"eBook"}, 
-text{""}, 
-text{""}, 
-text{""})
+"2001", 
+"eBook")
+brs := ("2001", 
+"eBook")
+brs := ("", 
+"2001", 
+"eBook")
 book := {"year": "2001", "author": "", "title": "Räumliche Ordnungsprinzipien", "_detail-url": "/webOPACClient.stasis/singleHit.do?methodToCall=showHit&curPos=4&identifier=-1_S_IG.49.27050", "orderable": 0}
 hasZ3988 := false()
-brs := (text{"2001"}, 
-text{"eBook"}, 
-text{""}, 
-text{""}, 
-text{""})
 brs := ("", 
-text{"2001"}, 
-text{"eBook"}, 
-text{""}, 
-text{""}, 
-text{""})
+"2001", 
+"eBook")
+brs := ("2001", 
+"eBook")
+brs := ("", 
+"2001", 
+"eBook")
 book := {"year": "2001", "author": "", "title": "Räumliche Ordnungsprinzipien - Walter Christallers", "_detail-url": "/webOPACClient.stasis/singleHit.do?methodToCall=showHit&curPos=5&identifier=-1_S_IG.49.27050", "orderable": 0}
 hasZ3988 := false()
-brs := (text{"2003"}, 
-text{"CD-ROM-Wkm11/Dre"}, 
-text{""}, 
-text{""})
 brs := ("", 
-text{"2003"}, 
-text{"CD-ROM-Wkm11/Dre"}, 
-text{""}, 
-text{""})
+"2003", 
+"CD-ROM-Wkm11/Dre")
+brs := ("2003", 
+"CD-ROM-Wkm11/Dre")
+brs := ("", 
+"2003", 
+"CD-ROM-Wkm11/Dre")
 book := {"year": "2003", "author": "", "title": "3D-Fahrschule 2 (CD-ROM)", "_detail-url": "/webOPACClient.stasis/singleHit.do?methodToCall=showHit&curPos=6&identifier=-1_S_IG.49.27050", "orderable": 0}
 hasZ3988 := false()
-brs := (text{"2009"}, 
-text{"Technik/CD-ROM"}, 
-text{"entliehen (gesamte Vormerkungen: 0)"}, 
-text{""})
 brs := ("", 
-text{"2009"}, 
-text{"Technik/CD-ROM"}, 
-text{"entliehen (gesamte Vormerkungen: 0)"}, 
-text{""})
+"2009", 
+"Technik/CD-ROM")
+brs := ("2009", 
+"Technik/CD-ROM")
+brs := ("", 
+"2009", 
+"Technik/CD-ROM")
 book := {"year": "2009", "author": "", "title": "3D-Fahrschule 2010", "_detail-url": "/webOPACClient.stasis/singleHit.do?methodToCall=showHit&curPos=7&identifier=-1_S_IG.49.27050", "orderable": 0}
 hasZ3988 := false()
-brs := (text{"Abel-Struth, Sigrid"}, 
-text{"1978"}, 
-text{"Sbh2/Abe-1"}, 
-text{""}, 
-text{""})
+brs := ("", 
+"Abel-Struth, Sigrid", 
+"1978")
+brs := ("Abel-Struth, Sigrid", 
+"1978")
 book := {"year": "1978", "author": "Abel-Struth, Sigrid", "title": "Ziele des Musik-Lernens/1. Beitrag zur Entwicklung ihrer Theorie", "_detail-url": "/webOPACClient.stasis/singleHit.do?methodToCall=showHit&curPos=8&identifier=-1_S_IG.49.27050", "orderable": 0}
 hasZ3988 := false()
-brs := (text{"Abendroth, Walter"}, 
-text{"1963"}, 
-text{"Sbm45/Abe"}, 
-text{""}, 
-text{""})
+brs := ("", 
+"Abendroth, Walter", 
+"1963")
+brs := ("Abendroth, Walter", 
+"1963")
 book := {"year": "1963", "author": "Abendroth, Walter", "title": "Selbstmord der Musik? : Zur Theorie, Ideologie und Phraseologie des modernen Schaffens", "_detail-url": "/webOPACClient.stasis/singleHit.do?methodToCall=showHit&curPos=9&identifier=-1_S_IG.49.27050", "orderable": 0}
 hasZ3988 := false()
-brs := (text{"Assunto, Rosario"}, 
-text{"1982"}, 
-text{"Rbk/Ass"}, 
-text{""}, 
-text{""})
+brs := ("", 
+"Assunto, Rosario", 
+"1982")
+brs := ("Assunto, Rosario", 
+"1982")
 book := {"year": "1982", "author": "Assunto, Rosario", "title": "¬Die Theorie des Schönen im Mittelalter", "_detail-url": "/webOPACClient.stasis/singleHit.do?methodToCall=showHit&curPos=10&identifier=-1_S_IG.49.27050", "orderable": 0}

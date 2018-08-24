@@ -100,7 +100,7 @@ test sisis searchSingleTPShowHolding touchpoint/searchSingleTPShowHolding.chemni
 test sisis searchSingleTPDocument touchpoint/searchSingleTPDocument.chemnitz.htm
 
 #search
-test sisis searchList{curPos:=1} search_rwth.do.html searchHitlist_rwth.do.html search_altdorf.do.html searchHitList_altdorf.do.html search_Z3988_haw-aw.do.html search_augsburg.do.html search_augsburg2.do.html search_basel.do.html search_chemnitz.do.html search_liestal.do.html search_tum.do.html search_pulheim.do.html searchHitlist_pulheim.do.html search_winterthur.do.html search_amberg1.html search_rwth1.html  search_last_fuerth.do.html search_oberhausen.do.html touchpoint/searchList_1stp_chem.html touchpoint/searchList_2ndp_chem.html touchpoint/searchList_winterthur.html touchpoint/searchList_speedHit_winterthur.html search.empty.aschaffenburg.html 
+test sisis searchList{curPos:=1} search_Z3988_haw-aw.do.html search_augsburg.do.html search_augsburg2.do.html search_basel.do.html search_liestal.do.html search_tum.do.html search_pulheim.do.html searchHitlist_pulheim.do.html search_winterthur.do.html search_amberg1.html  search_last_fuerth.do.html search_oberhausen.do.html touchpoint/searchList_winterthur.html touchpoint/searchList_speedHit_winterthur.html search.empty.aschaffenburg.html touchpoint/searchList_chemnitz.html touchpoint/searchList_rwth.html
 
 ADDTEMPLATE sisis/searchSingle 4
 PAGES=(${PAGES[@]} sisis/searchSingle_basel.do.html sisis/searchSingle_aachen.do.html sisis/searchSingle_regensburg.html sisis/touchpoint/searchHit_chem.html)

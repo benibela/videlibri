@@ -5,132 +5,102 @@ curPos := "11"
 nextPage := "file:///webOPACClient.stasis/hitList.do?methodToCall=pos&amp;identifier=-1_S_IG.45.27053&amp;curPos=11#-1"
 search-result-count := "299"
 hasZ3988 := false()
-brs := (text{"2002"}, 
-text{"eBook"}, 
-text{""}, 
-text{""}, 
-text{""})
 brs := ("", 
-text{"2002"}, 
-text{"eBook"}, 
-text{""}, 
-text{""}, 
-text{""})
+"2002", 
+"eBook")
+brs := ("2002", 
+"eBook")
+brs := ("", 
+"2002", 
+"eBook")
 book := {"year": "2002", "author": "", "title": "Abwechslungsreicher Test", "_detail-url": "/webOPACClient.stasis/singleHit.do?methodToCall=showHit&curPos=1&identifier=-1_S_IG.45.27053", "orderable": 0}
 hasZ3988 := false()
-brs := (text{"2002"}, 
-text{"eBook"}, 
-text{""}, 
-text{""}, 
-text{""})
 brs := ("", 
-text{"2002"}, 
-text{"eBook"}, 
-text{""}, 
-text{""}, 
-text{""})
+"2002", 
+"eBook")
+brs := ("2002", 
+"eBook")
+brs := ("", 
+"2002", 
+"eBook")
 book := {"year": "2002", "author": "", "title": "Aufbau des deutschen Gerichtswesens", "_detail-url": "/webOPACClient.stasis/singleHit.do?methodToCall=showHit&curPos=2&identifier=-1_S_IG.45.27053", "orderable": 0}
 hasZ3988 := false()
-brs := (text{"2002"}, 
-text{"eBook"}, 
-text{""}, 
-text{""}, 
-text{""})
 brs := ("", 
-text{"2002"}, 
-text{"eBook"}, 
-text{""}, 
-text{""}, 
-text{""})
+"2002", 
+"eBook")
+brs := ("2002", 
+"eBook")
+brs := ("", 
+"2002", 
+"eBook")
 book := {"year": "2002", "author": "", "title": "Aufbau und Funktion der Verwaltung", "_detail-url": "/webOPACClient.stasis/singleHit.do?methodToCall=showHit&curPos=3&identifier=-1_S_IG.45.27053", "orderable": 0}
 hasZ3988 := false()
-brs := (text{"2001"}, 
-text{"eBook"}, 
-text{""}, 
-text{""}, 
-text{""})
 brs := ("", 
-text{"2001"}, 
-text{"eBook"}, 
-text{""}, 
-text{""}, 
-text{""})
+"2001", 
+"eBook")
+brs := ("2001", 
+"eBook")
+brs := ("", 
+"2001", 
+"eBook")
 book := {"year": "2001", "author": "", "title": "Der Mensch und seine Rollen", "_detail-url": "/webOPACClient.stasis/singleHit.do?methodToCall=showHit&curPos=4&identifier=-1_S_IG.45.27053", "orderable": 0}
 hasZ3988 := false()
-brs := (text{"2006"}, 
-text{"eBook"}, 
-text{""}, 
-text{""}, 
-text{""})
 brs := ("", 
-text{"2006"}, 
-text{"eBook"}, 
-text{""}, 
-text{""}, 
-text{""})
+"2006", 
+"eBook")
+brs := ("2006", 
+"eBook")
+brs := ("", 
+"2006", 
+"eBook")
 book := {"year": "2006", "author": "", "title": "Der Nahe Osten", "_detail-url": "/webOPACClient.stasis/singleHit.do?methodToCall=showHit&curPos=5&identifier=-1_S_IG.45.27053", "orderable": 0}
 hasZ3988 := false()
-brs := (text{"2002"}, 
-text{"eBook"}, 
-text{""}, 
-text{""}, 
-text{""})
 brs := ("", 
-text{"2002"}, 
-text{"eBook"}, 
-text{""}, 
-text{""}, 
-text{""})
+"2002", 
+"eBook")
+brs := ("2002", 
+"eBook")
+brs := ("", 
+"2002", 
+"eBook")
 book := {"year": "2002", "author": "", "title": "Deutsches Sozialsystem", "_detail-url": "/webOPACClient.stasis/singleHit.do?methodToCall=showHit&curPos=6&identifier=-1_S_IG.45.27053", "orderable": 0}
 hasZ3988 := false()
-brs := (text{"2001"}, 
-text{"eBook"}, 
-text{""}, 
-text{""}, 
-text{""})
 brs := ("", 
-text{"2001"}, 
-text{"eBook"}, 
-text{""}, 
-text{""}, 
-text{""})
+"2001", 
+"eBook")
+brs := ("2001", 
+"eBook")
+brs := ("", 
+"2001", 
+"eBook")
 book := {"year": "2001", "author": "", "title": "Englisch Test zum Buch Animal Farm", "_detail-url": "/webOPACClient.stasis/singleHit.do?methodToCall=showHit&curPos=7&identifier=-1_S_IG.45.27053", "orderable": 0}
 hasZ3988 := false()
-brs := (text{"2006"}, 
-text{"eBook"}, 
-text{""}, 
-text{""}, 
-text{""})
 brs := ("", 
-text{"2006"}, 
-text{"eBook"}, 
-text{""}, 
-text{""}, 
-text{""})
+"2006", 
+"eBook")
+brs := ("2006", 
+"eBook")
+brs := ("", 
+"2006", 
+"eBook")
 book := {"year": "2006", "author": "", "title": "Englisch-Test  zum Thema Australien", "_detail-url": "/webOPACClient.stasis/singleHit.do?methodToCall=showHit&curPos=8&identifier=-1_S_IG.45.27053", "orderable": 0}
 hasZ3988 := false()
-brs := (text{"2001"}, 
-text{"eBook"}, 
-text{""}, 
-text{""}, 
-text{""})
 brs := ("", 
-text{"2001"}, 
-text{"eBook"}, 
-text{""}, 
-text{""}, 
-text{""})
+"2001", 
+"eBook")
+brs := ("2001", 
+"eBook")
+brs := ("", 
+"2001", 
+"eBook")
 book := {"year": "2001", "author": "", "title": "Freiheitlich-demokratische Grundordnung", "_detail-url": "/webOPACClient.stasis/singleHit.do?methodToCall=showHit&curPos=9&identifier=-1_S_IG.45.27053", "orderable": 0}
 hasZ3988 := false()
-brs := (text{"2005"}, 
-text{"eBook"}, 
-text{""}, 
-text{""}, 
-text{""})
 brs := ("", 
-text{"2005"}, 
-text{"eBook"}, 
-text{""}, 
-text{""}, 
-text{""})
+"2005", 
+"eBook")
+brs := ("2005", 
+"eBook")
+brs := ("", 
+"2005", 
+"eBook")
 book := {"year": "2005", "author": "", "title": "Grundwissen Weimarer Republik", "_detail-url": "/webOPACClient.stasis/singleHit.do?methodToCall=showHit&curPos=10&identifier=-1_S_IG.45.27053", "orderable": 0}

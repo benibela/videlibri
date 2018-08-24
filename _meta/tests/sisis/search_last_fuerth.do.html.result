@@ -5,25 +5,23 @@ curPos := "11"
 nextPage := "file:///webOPACClient/hitList.do?methodToCall=pos&amp;identifier=-1_S_IG.12.6398&amp;curPos=11#-1"
 search-result-count := "23"
 hasZ3988 := false()
-brs := (text{"Nance, John J."}, 
-text{"2006"}, 
-text{"Nanc"}, 
-text{"bestellbar"}, 
-text{""}, 
-text{""})
+brs := ("", 
+"Nance, John J.", 
+"2006")
+brs := ("Nance, John J.", 
+"2006")
 book := {"year": "2006", "author": "Nance, John J.", "title": "Fire Flight", "_detail-url": "/webOPACClient/singleHit.do?methodToCall=showHit&curPos=21&identifier=-1_S_IG.12.6398", "orderable": 0}
 hasZ3988 := false()
-brs := (text{"Stone, Irving"}, 
-text{"Ston"}, 
-text{""}, 
-text{""}, 
-text{""})
+brs := ("", 
+"Stone, Irving", 
+"Ston")
+brs := ("Stone, Irving", 
+"Ston")
 book := {"author": "Stone, Irving", "title": "Michelangelo", "_detail-url": "/webOPACClient/singleHit.do?methodToCall=showHit&curPos=22&identifier=-1_S_IG.12.6398", "orderable": 0}
 hasZ3988 := false()
-brs := (text{"Stone, Irving"}, 
-text{"1963"}, 
-text{"Ston"}, 
-text{""}, 
-text{""}, 
-text{""})
+brs := ("", 
+"Stone, Irving", 
+"1963")
+brs := ("Stone, Irving", 
+"1963")
 book := {"year": "1963", "author": "Stone, Irving", "title": "Michelangelo", "_detail-url": "/webOPACClient/singleHit.do?methodToCall=showHit&curPos=23&identifier=-1_S_IG.12.6398", "orderable": 0}
