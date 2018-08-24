@@ -29,6 +29,31 @@
 
 <a t:condition="contains(@href, 'BOR-HOLD-DELETE')">{$book._cancelLink := @href}</a>
 
+
+<table>
+<!--setting status would override statusId <tr> 
+<td>Vormerkungsstatus:</td> 
+<td>{$book.status}</td> 
+</tr> -->
+<tr> 
+<td>Vormerkungsdatum:</td> 
+<td>{book.issuedate:=parse-date(extract(., "[0-9/.-]+"),"dd/mm/[yy]yy")}</td> 
+</tr> 
+<tr> 
+<td>Enddatum:</td> 
+<td>{let $t := extract(., "[0-9/.-]+") where $t return book.duedate:=parse-date($t,"dd/mm/[yy]yy")}</td> 
+</tr>?
+<tr> 
+<td>Bereitstellungsdatum:</td> 
+<td>{let $t := extract(., "[0-9/.-]+") where $t return book.duedate:=parse-date($t,"dd/mm/[yy]yy")}</td> 
+</tr>?
+<tr> 
+<td>Abholort:</td> 
+<td>{$book.libraryBranch}</td> 
+</tr>?
+</table>
+
+
 </t:switch>
 <!--
 <br>
