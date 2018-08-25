@@ -15,18 +15,28 @@ VIDELIBRIBASE=$HGROOT/programs/internet/VideLibri
 
 
 eval $(xidel --output-format bash $libData -e 'name:=//longName/@value, templateId:=//template/@value')
-libDataNew=$(basename $libData | sed -e 's/[.]xml/New.xml/' )
+templateSetMaxVersion=
+libDataSetMaxVersion=
+libDataIdSuffix=New
 if [[ "$3" = "--override" ]]; then 
   templateIdNew=${templateId}
-  message="Da dieses Template ein existierendes Template überschreibt, müssen alte VideLibri-Versionen nach der Installation neugestartet werden"
+  templateSetMaxVersion=true
+  message="Da dieses Template ein existierendes Template überschreibt, müssen ältere VideLibri-Versionen nach der Installation neugestartet werden"
+elif [[ "$3" = "--override-all" ]]; then 
+  templateIdNew=${templateId}
+  templateSetMaxVersion=true
+  libDataSetMaxVersion=true
+  message="Da dieses Template ein existierendes Template überschreibt, müssen ältere VideLibri-Versionen nach der Installation neugestartet werden"
+  libDataIdSuffix=
 elif [[ "$3" = "--new-library" ]]; then 
   templateIdNew=
   message=
-  libDataNew=$(sed -e 's/New[.]xml/.xml/' <<<"$libDataNew")
+  libDataIdSuffix=
 else
   templateIdNew=${templateId}New
   message=
 fi
+libDataNew=$(basename $libData | sed -e 's/[.]xml/'$libDataIdSuffix'.xml/' )
 libDataIdNew=$( sed -e 's/[.]xml//' <<<"$libDataNew")
 templatePath=$(grep -oE '.*/' <<<$libData)templates
 
@@ -86,13 +96,19 @@ xmlstarlet ed -L -s /library -t elem -n "id" -v "" $tmp/newlibs/$libDataNew
 xmlstarlet ed -L -s /library/id -t attr -n "value" -v "$libDataIdNew" $tmp/newlibs/$libDataNew
 xmlstarlet ed -L -u //id/@value -v "$libDataIdNew" $tmp/newlibs/$libDataNew
 #xmlstarlet ed -L -u //id -v "$libDataIdNew" $tmp/newlibs/$libDataNew
-if [[ "$3" = "--override" ]]; then
+if [[ "$templateSetMaxVersion" = "true" ]]; then
 INTVERSION=`grep 'versionNumber *: *integer' $VIDELIBRIBASE/applicationconfig.pas | grep -oE "[0-9]+" | head -1 `;
 #xmlstarlet cannot change template (invalid xml) ??
 #xmlstarlet ed -L --insert "/actions" --type attr -n "max-version" -v "$INTVERSION" $tmp/$templateIdNew/template
 #xmlstarlet ed -L --insert "/actions" --type attr -n "version-mismatch" -v "skip" $tmp/$templateIdNew/template
 sed "s/<actions/<actions max-version=\"$INTVERSION\" version-mismatch=\"skip\"/" -i  $tmp/$templateIdNew/template
 fi
+if [[ "$libDataSetMaxVersion" = "true" ]]; then
+INTVERSION=`grep 'versionNumber *: *integer' $VIDELIBRIBASE/applicationconfig.pas | grep -oE "[0-9]+" | head -1 `;
+xmlstarlet ed -L --insert "/library" --type attr -n "max-version" -v "$INTVERSION" $tmp/newlibs/$libDataNew
+xmlstarlet ed -L --insert "/library" --type attr -n "version-mismatch" -v "skip" $tmp/newlibs/$libDataNew
+fi
+
 
 cd $tmp
 ls
