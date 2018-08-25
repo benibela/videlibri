@@ -1,5 +1,5 @@
 
-<t:switch prioritized="on">
+<t:switch prioritized="true">
 <table><tr> 
     <td class="td1"> Ausleihen</td>
     { bookPage := (//a/@href[contains(., "bor-loan")])[1]/extract(., "https?://.*bor-loan[^'""]*"),

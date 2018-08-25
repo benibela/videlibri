@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
-<t:switch prioritized="on">
+<t:switch prioritized="true">
  <table>
  <tr>
   <td>Ausleihdatum:</td>
@@ -29,12 +29,12 @@
 
 <a t:condition="contains(@href, 'BOR-HOLD-DELETE')">{$book._cancelLink := @href}</a>
 
-
 <table>
-<!--setting status would override statusId <tr> 
+<!--
+setting status would override statusId <tr> 
 <td>Vormerkungsstatus:</td> 
 <td>{$book.status}</td> 
-</tr> -->
+</tr> We do not need  to set these things, since we got them from the overview table, but we need the table in case there is no link -->
 <tr> 
 <td>Vormerkungsdatum:</td> 
 <td>{book.issuedate:=parse-date(extract(., "[0-9/.-]+"),"dd/mm/[yy]yy")}</td> 

@@ -10,7 +10,7 @@
 </div>?
 
 <div t:condition="@id=('tab-content', 'detailsTabs-titleinfo', 'box-container')">
-  <template:switch prioritized="on">
+  <template:switch prioritized="true">
     <table t:condition="@class=('fulltitle','titleinfo', 'data2')">
       {for $row in .//tr 
        let $key := $row/(let $th := th[1] return if ($th) then $th else

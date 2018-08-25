@@ -1,4 +1,4 @@
-<t:switch prioritized="on">
+<t:switch prioritized="true">
   <table cellspacing="2"> 
    <tr><t:siblings-header>
     <th>Nr</th> 

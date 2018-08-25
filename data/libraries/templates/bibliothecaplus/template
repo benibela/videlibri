@@ -178,7 +178,7 @@ function __doPostBack(eventTarget, eventArgument) {
   <call action="internal-gotobookpage"/>
   <s>need-reserve-request-target := ()</s>
   <page urL="{$reserve-request}"><template>
-    <t:switch prioritized="on">
+    <t:switch prioritized="true">
       <form><t:element t:condition='matches(@name||@id, "btnSave|btnConfirm", "i")'>{$input}</t:element>{$form := form(., $input)}</form>
       <div t:condition='matches(@id, "dnnSkinMessage|DivWaring")'>{vl:raise(.)}</div>
     </t:switch>
