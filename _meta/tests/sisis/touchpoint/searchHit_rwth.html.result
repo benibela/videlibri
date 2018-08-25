@@ -1,0 +1,3 @@
+book := {}
+result := ()
+book := {"ID im Bibliotheksverbund!": "HT000379545", "ID in diesem Katalog!": "611021", "Elektronische Ressource!": "Inhaltsverzeichnis: http://digitale-objekte.hbz-nrw.de/storage2/2017/07/14/fil ...", "isbn": "0-231-03889-5", "Sprache!": "Englisch", "Physische Eigenschaften!": "233 S.", "Veröffentlichungsangaben!": "New York  :  Columbia Univ. Pr. ,  1975", "Verantwortlich!": "Pearl Chesler Solomon", "title": "Dickens and Melville in their time", "author": "Solomon, Pearl Chesler"}

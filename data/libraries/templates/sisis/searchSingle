@@ -11,28 +11,23 @@
 
 <div t:condition="@id=('tab-content', 'detailsTabs-titleinfo', 'box-container')">
   <template:switch prioritized="on">
-    <table class="data2">
-      <template:loop><template:switch>
-      <tr><td>^(Titel|Title):</td><td>{$book.title}</td></tr>
-      <tr><td>^Autor|Verfasser</td><td>{$book.author}</td></tr>
-      <tr><td>^Ort:</td><td>{$book.location}</td></tr>
-      <tr><td>^Verlag:</td><td>{$book.publisher}</td></tr>
-      <tr><td>^Jahr:</td><td>{$book.year}</td></tr>
-      <tr><td>^ISBN:</td><td>{$book.isbn}</td></tr>
-      <tr><td>{$temp}</td><td>{$book($temp||"!") := .}</td></tr>
-      </template:switch></template:loop>
-    </table>
-
-    <table t:condition="@class=('fulltitle','titleinfo')">
-      <template:loop><template:switch>
-      <tr><th>^(Titel|Title):</th><td>{$book.title}</td></tr>
-      <tr><th>^Autor|Verfasser</th><td>{$book.author}</td></tr>
-      <tr><th>^Ort:</th><td>{$book.location}</td></tr>
-      <tr><th>^Verlag:</th><td>{$book.publisher}</td></tr>
-      <tr><th>^Jahr:</th><td>{$book.year}</td></tr>
-      <tr><th>^ISBN:</th><td>{$book.isbn}</td></tr>
-      <tr><th>{$temp}</th><td>{$book($temp||"!") := .}</td></tr>
-      </template:switch></template:loop>
+    <table t:condition="@class=('fulltitle','titleinfo', 'data2')">
+      {for $row in .//tr 
+       let $key := $row/(let $th := th[1] return if ($th) then $th else
+                         let $td := td return if (count($td) le 2) then $td else $td[not(@class = "fieldnumber")])[1]
+       let $value := $key/following-sibling::td
+       let $key := normalize-space(translate($key, ":", ""))
+       let $key := switch($key)
+                   case "Titel" case "Title" return "title"
+                   case "Autor" case "Verfasser" return "author"
+                   case "Ort"    return "location"
+                   case "Verlag" return "publisher"
+                   case "Jahr"   return "year"
+                   case "ISBN"   return "isbn"
+                   default return $key || "!"
+        where string-length($key) gt 2
+        return $book($key) := $value/inner-text()
+      }
     </table>
     
     <table class="data">

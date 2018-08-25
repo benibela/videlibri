@@ -1,12 +1,3 @@
 book := {}
 result := ()
-temp := text{"Bestand:"}
-temp := text{"ZDB-Signatur:"}
-temp := text{"ZDB-Bemerkung:"}
-temp := text{"Erscheinungsverlauf:"}
-temp := text{"Jahr, Ansetzung:"}
-temp := text{"Ausgabeform:"}
-temp := text{"Erscheinungsart:"}
-temp := text{"ID:"}
-temp := text{"MedienArt:"}
-book := {"MedienArt:!": "a ( = Gedrucktes Werk )", "ID:!": "HT007016928", "Erscheinungsart:!": "p ( =\n        Zeitschrift\n        \n        \n        \n        \n        \n        \n        \n        )", "Ausgabeform:!": "Repr.: New York, NY : AMS Pr", "Jahr, Ansetzung:!": "1756", "location": "London", "Erscheinungsverlauf:!": "1.1756 - 35.1757; damit Ersch. eingest.", "title": "Test", "ZDB-Bemerkung:!": "Repr. 1979", "ZDB-Signatur:!": "Zf2304", "Bestand:!": "1.1756 - 35.1757", "id": ""}
+book := {"MedienArt!": "a ( = Gedrucktes Werk )", "ID!": "HT007016928", "Erscheinungsart!": "p ( = Zeitschrift )", "Ausgabeform!": "Repr.: New York, NY : AMS Pr", "Jahr, Ansetzung!": "1756", "location": "London", "Erscheinungsverlauf!": "1.1756 - 35.1757; damit Ersch. eingest.", "title": "Test", "ZDB-Bemerkung!": "Repr. 1979", "ZDB-Signatur!": "Zf2304", "Bestand!": "1.1756 - 35.1757", "id": ""}

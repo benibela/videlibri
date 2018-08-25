@@ -102,15 +102,15 @@ test sisis searchSingleTPDocument touchpoint/searchSingleTPDocument.chemnitz.htm
 #search
 test sisis searchList{curPos:=1} search_Z3988_haw-aw.do.html search_augsburg.do.html search_augsburg2.do.html search_basel.do.html search_liestal.do.html search_tum.do.html search_pulheim.do.html searchHitlist_pulheim.do.html search_winterthur.do.html search_amberg1.html  search_last_fuerth.do.html search_oberhausen.do.html touchpoint/searchList_winterthur.html touchpoint/searchList_speedHit_winterthur.html search.empty.aschaffenburg.html touchpoint/searchList_chemnitz.html touchpoint/searchList_rwth.html
 
-ADDTEMPLATE sisis/searchSingle 4
-PAGES=(${PAGES[@]} sisis/searchSingle_basel.do.html sisis/searchSingle_aachen.do.html sisis/searchSingle_regensburg.html sisis/touchpoint/searchHit_chem.html)
+ADDTEMPLATE sisis/searchSingle 5
+PAGES=(${PAGES[@]} sisis/searchSingle_basel.do.html sisis/searchSingle_aachen.do.html sisis/searchSingle_regensburg.html sisis/touchpoint/searchHit_chem.html sisis/touchpoint/searchHit_rwth.html)
 
 test sisis orderConfirmation'{username:=\"foo\",password:=\"bar\"}' orderConfirmation_aachen.html orderConfirmation_pulheim.html  
 
 ADDTEMPLATE 'sisis/singleExtended{b:={\"id\":123}}' 1
 PAGES=(${PAGES[@]} sisis/singleExtended_h.html  )
 
-test sisis searchSingleExemplar searchSingleExemplar_aachen.html  searchSingleExemplar_altdorf.html  searchSingleExemplar_altdorf2.html  searchSingleExemplar_altdorf3.html   searchSingleExemplar_amberg.html   searchSingleExemplar_amberg2.html  searchSingleExemplar_amberg3.html   searchSingleExemplar_augsburg.html  searchSingleExemplar_basel.html  searchSingleExemplar_chemnitz.html   searchSingleExemplar_dortmund.html  searchSingleExemplar_dortmund2.html  searchSingleExemplar_dortmund3.html  searchSingleExemplar_pulheim.html  searchSingleExemplar_pulheim2.html searchSingleExemplar_freiburg.html searchSingleExemplar_leipzig.html 
+test sisis searchSingleExemplar searchSingleExemplar_aachen.html  searchSingleExemplar_altdorf.html  searchSingleExemplar_altdorf2.html  searchSingleExemplar_altdorf3.html   searchSingleExemplar_amberg.html   searchSingleExemplar_amberg2.html  searchSingleExemplar_amberg3.html   searchSingleExemplar_augsburg.html  searchSingleExemplar_basel.html  searchSingleExemplar_chemnitz.html   searchSingleExemplar_dortmund.html  searchSingleExemplar_dortmund2.html  searchSingleExemplar_dortmund3.html  searchSingleExemplar_pulheim.html  searchSingleExemplar_pulheim2.html searchSingleExemplar_freiburg.html searchSingleExemplar_leipzig.html
 
 ADDTEMPLATE sisis/searchSingleAvailability 15
 
