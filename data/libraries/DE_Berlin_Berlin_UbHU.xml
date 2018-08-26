@@ -1,23 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
-
 <library>
   <deprecatedName value="208"/>
 
   <longName value="Universitätsbibliothek der HU-Berlin"/>
   <shortName value="UBHU Berlin"/>
-  <catalogue value="http://opac.hu-berlin.de"/>
   <segregated-accounts value="true"/>
 
-   
   <template value="primo"/>
+  <variable name="baseurl" value="https://hu-berlin.hosted.exlibrisgroup.com/primo-explore/account?vid=hub_ub"/>
+<!---   
   <variable name="baseurl" value="https://hu-berlin.hosted.exlibrisgroup.com/primo_library/libweb/action/"/>
   <variable name="institute" value="hub_ub"/>
 
-  <!-- get links from stupid buttons on anmelden page-->
+   get links from stupid buttons on anmelden page
   <variable name="login-url-1" value="https://hu-berlin.hosted.exlibrisgroup.com/primo_library/libweb/action/login.do?loginFn=signin&amp;vid=hub_ub&amp;authProfileName=SAML+(Shibboleth)&amp;targetURL=https%3a%2f%2fhu-berlin.hosted.exlibrisgroup.com%2fprimo_library%2flibweb%2faction%2fsearch.do%3fvid%3dhub_ub"/>
   <variable name="login-url-2" value="https://hu-berlin.hosted.exlibrisgroup.com/primo_library/libweb/action/login.do?loginFn=signin&amp;vid=hub_ub&amp;authProfileName=Alma+native&amp;targetURL=https%3a%2f%2fhu-berlin.hosted.exlibrisgroup.com%2fprimo_library%2flibweb%2faction%2fsearch.do%3fvid%3dhub_ub"/>
-
+-->
   <homepage value="http://www.ub.hu-berlin.de/"/>
   <testing-search value="yes"/>
   <testing-account value="yes"/>

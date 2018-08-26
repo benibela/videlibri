@@ -1,22 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
-
 <library>
   <deprecatedName value="308"/>
 
   <longName value="Universitätsbibliothek der TU-Berlin"/>
-  <shortName value="UBTU Berlin"/>
   <segregated-accounts value="true"/>
   
   <template value="primo"/>
 
-  <variable name="baseurl" value="http://portal.ub.tu-berlin.de/primo_library/libweb/action/"/>
+  <variable name="baseurl" value="https://tu-berlin.hosted.exlibrisgroup.com/primo-explore/?vid=TUB"/>
+
+<!--  <variable name="baseurl" value="http://portal.ub.tu-berlin.de/primo_library/libweb/action/"/>
   <variable name="institute" value="TUB"/>
 
-  <!-- get links from stupid buttons on anmelden page-->
+   get links from stupid buttons on anmelden page
   <variable name="login-url-1" value="https://tu-berlin.hosted.exlibrisgroup.com/primo_library/libweb/action/login.do?loginFn=signin&amp;vid=TUB&amp;authProfileName=SAML+(Shibboleth)&amp;targetURL=https%3a%2f%2ftu-berlin.hosted.exlibrisgroup.com%2fprimo_library%2flibweb%2faction%2fdlBasketGet.do%3fvid%3dTUB%26redirectTo%3dmyAccount%26fromLogin%3dtrue%26fromSitemap%3d1"/>
   <variable name="login-url-2" value="https://tu-berlin.hosted.exlibrisgroup.com/primo_library/libweb/action/login.do?loginFn=signin&amp;vid=TUB&amp;authProfileName=Alma+native&amp;targetURL=https%3a%2f%2ftu-berlin.hosted.exlibrisgroup.com%2fprimo_library%2flibweb%2faction%2fdlBasketGet.do%3fvid%3dTUB%26redirectTo%3dmyAccount%26fromLogin%3dtrue%26fromSitemap%3d1"/>
-
+-->
 
   <homepage value="http://www.ub.tu-berlin.de/"/>
   <testing-search value="yes"/>
