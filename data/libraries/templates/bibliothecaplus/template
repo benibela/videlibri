@@ -4,7 +4,6 @@
   <description>Template für Bibliotheca Plus/OPEN</description>
   <variable name="urlaccount"><description>Vollständige URL der Seite für den Kontozugriff</description></variable>
   <variable name="urlsearch"><description>Vollständige URL der Seite für die erweiterte Suche</description></variable>
-<!--  <variable name="DB" default=""><description>Datenbank</description></variable>-->
 </meta>
 
 <action id="connect"></action>
@@ -88,9 +87,6 @@ function __doPostBack(eventTarget, eventArgument) {
 </action>
 
 
--->
-
-
 
 <action id="gotopage">
   <loop test="$current-page > $target-page">
@@ -111,12 +107,6 @@ function __doPostBack(eventTarget, eventArgument) {
 
 <action id="search-connect">
   <s>loggedIn := false()</s>
- <!-- <page url="{$baseurl}/index.asp?DB={get('DB', 'OPAC')}">    
-    <template><form name="webopac">{profi := form(., {"link_profis.x": 10, "link_profis.y": 10})}</form></template>
-  </page>
-  <page url="{$profi}">    
-    <template><form name="webopac">{search := form(.)}</form></template>
-  </page>-->
 </action>
 
 <action id="search">
