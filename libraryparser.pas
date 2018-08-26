@@ -983,6 +983,7 @@ var
   libraryFileName: String;
 begin
   if logging then log('LOADING LIBRARY: ' + id);
+  if id = '' then exit(nil); //otherwise it returns a lib without deprecated id
   if not flibraryIds.Find(id, index) then begin
     for i:=0 to count-1 do begin
       result := getLibraryFromIndex(i);
