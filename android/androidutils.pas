@@ -136,7 +136,7 @@ var
 //      internalIdMethod: jmethodID;
     end;
     bookFields: record
-      authorS, titleS, idS, yearS, issueDateI, dueDateI, accountL, historyZ, statusI, holdingsL, additionalPropertiesL: jfieldID;
+      authorS, titleS, idS, yearS, issueDateI, dueDateI, firstExistsDateI, accountL, historyZ, statusI, holdingsL, additionalPropertiesL: jfieldID;
       setPropertyMethod, getPropertyMethod: jmethodID;
     end;
     searcherClass: jclass;
@@ -299,6 +299,7 @@ begin
         yearS := getfield(bookClass, 'year', 'Ljava/lang/String;');
         issueDateI := getfield(bookClass, 'issueDate', 'I');
         dueDateI := getfield(bookClass, 'dueDate', 'I');
+        firstExistsDateI := getfield(bookClass, 'firstExistsDate', 'I');
         accountL := getfield(bookClass, 'account', 'Lde/benibela/videlibri/jni/Bridge$Account;');
         historyZ := getfield(bookClass, 'history', 'Z');
         holdingsL := getfield(bookClass, 'holdings', '[Lde/benibela/videlibri/jni/Bridge$Book;');
@@ -924,6 +925,7 @@ begin
     if includeDates then begin
       SetIntField(jbook, bookFields.issueDateI, issueDate);
       SetIntField(jbook, bookFields.dueDateI, dueDate);
+      SetIntField(jbook, bookFields.firstExistsDateI, firstExistsDate);
     end;
 
     tempi := 0;
@@ -976,6 +978,7 @@ begin
     result.year := getStringField(jbook, yearS);
     result.dueDate := getIntField(jbook, dueDateI);
     result.issueDate := getIntField(jbook, issueDateI);
+    result.firstExistsDate := getIntField(jbook, firstExistsDateI);
     more := getObjectField(jbook, additionalPropertiesL);
     if more <> nil then begin
       size := callIntMethodChecked(more, arrayListMethods.size);

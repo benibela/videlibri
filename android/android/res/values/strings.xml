@@ -36,6 +36,7 @@
     <string name="book_status_provided">abholbereit</string>
     <string name="book_status">Bemerkung</string>
     <string name="book_lenddate">Ausleihdatum</string>
+    <string name="book_lenddate_before_prefixS">≤ %s</string>
     <string name="book_lendat">Ausgeliehen in</string>
     <string name="book_account">Konto</string>
     <string name="book_category">Kategorie</string>

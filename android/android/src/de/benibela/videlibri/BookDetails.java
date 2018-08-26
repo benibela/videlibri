@@ -284,8 +284,8 @@ public class BookDetails extends VideLibriFakeFragment {
         String status = BookFormatter.getStatusText(book);
         if (!"".equals(status)) details.add(new Details(trStatus, status));
 
-        if (book.issueDate != 0)
-          details.add(new Details(tr(R.string.book_lenddate), BookFormatter.formatDate(book.issueDate)));
+        if (book.issueDate != 0 || book.firstExistsDate != 0)
+          details.add(new Details(tr(R.string.book_lenddate), book.issueDate != 0 ? BookFormatter.formatDate(book.issueDate) : tr(R.string.book_lenddate_before_prefixS, BookFormatter.formatDate(book.firstExistsDate)) ) );
         addIfExists(tr(R.string.book_lendat) , "libraryBranch");
         if (book.account != null) details.add(new Details(tr(R.string.book_account), book.account.prettyName));
 

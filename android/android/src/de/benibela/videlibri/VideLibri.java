@@ -3,7 +3,6 @@ import android.Manifest;
 import android.app.ActivityManager;
 import android.app.AlertDialog;
 import android.app.Dialog;
-import android.content.ClipData;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -34,7 +33,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.Date;
 
 import de.benibela.videlibri.jni.Bridge;
 
@@ -234,9 +232,12 @@ public class VideLibri extends BookListActivity {
                         return Util.tr(R.string.book_status_unknown);
                 }
             case "_issueWeek":
-                return getWeekString(b.issueDate);
             case "issueDate":
-                return BookFormatter.formatDate(b.issueDate);
+                int date = b.issueDate != 0 ? b.issueDate : b.firstExistsDate;
+                if (date == 0) return Util.tr(R.string.unknown_date);
+                String v = "issueDate".equals(key) ? BookFormatter.formatDate(date) : getWeekString(date);
+                //return b.issueDate != 0 ? v : Util.tr(R.string.book_lenddate_before_prefixS, v);
+                return v;
             case "":
                 return "";
             default:
@@ -254,7 +255,7 @@ public class VideLibri extends BookListActivity {
             if ((book.getStatus() == Bridge.Book.StatusEnum.Ordered  || book.getStatus() == Bridge.Book.StatusEnum.Provided)) return 1;
             else return -1;
 
-        return Util.compareNullFirst(book.dueDate, book2.dueDate);
+        return Util.compare(book.dueDate != 0, book2.dueDate != 0);
     }
     static public int compareStatus(Bridge.Book.StatusEnum s1, Bridge.Book.StatusEnum s2) {
         if (s1 == s2) return 0;
@@ -301,19 +302,18 @@ public class VideLibri extends BookListActivity {
                 if (temp != 0) return temp;
                 return compareStatus(book.getStatus(), book2.getStatus());
             }
-            case "_issueWeek": {
+            case "_issueWeek": case "issueDate": {
                 int temp = compareForStateMismatch(book, book2);
                 if (temp != 0) return temp;
-                temp = Util.compareNullFirst(book.issueDate, book2.issueDate);
-                if (temp != 0 || book.issueDate == 0) return temp;
-                return Util.compare(dateToWeek(book.issueDate), dateToWeek(book2.issueDate));
-            }
-            case "issueDate": {
-                int temp = compareForStateMismatch(book, book2);
-                if (temp != 0) return temp;
-                temp = Util.compareNullFirst(book.issueDate, book2.issueDate);
-                if (temp != 0 || book.issueDate == 0) return temp;
-                return Util.compare(book.issueDate, book2.issueDate);
+                int d1 = book.issueDate != 0 ? book.issueDate : book.firstExistsDate;
+                int d2 = book2.issueDate != 0 ? book2.issueDate : book2.firstExistsDate;
+                temp = Util.compare(d1 != 0, d2 != 0);
+                if (temp != 0 || d1 == 0) return temp;
+                if ("_issueWeek".equals(key)) {
+                    d1 = dateToWeek(d1);
+                    d2 = dateToWeek(d2);
+                }
+                return Util.compare(d1, d2);
             }
             case "":
                 return 0;

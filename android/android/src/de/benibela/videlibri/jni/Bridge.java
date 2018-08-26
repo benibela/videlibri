@@ -116,7 +116,7 @@ public class Bridge {
 
         public Account account;
         public String id, author, title, year;
-        public int issueDate, dueDate; //Pascal date, 0 if undefined
+        public int issueDate, dueDate, firstExistsDate; //Pascal date, 0 if undefined
         public boolean history;
         public ArrayList<String> additionalProperties;
 
