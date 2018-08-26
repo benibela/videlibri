@@ -4,12 +4,12 @@
 <library>
   <longName value="Bibliothek Witten"/>
 
-  <template value="sisis"/>
-  <variable name="server" value="https://webopac.stadt-witten.de/webOPACClient/"/>
+  <template value="bibliothecaplus"/>
+  <variable name="urlaccount" value="https://webopac.stadt-witten.de/Mein-Konto"/>
+  <variable name="urlsearch" value="https://webopac.stadt-witten.de/Mediensuche/Erweiterte-Suche"/>
 
   <homepage value="http://www.kulturforum-witten.de/bibliothek.html"/>
   <testing-search value="yes"/>
   <testing-account value="unknown"/>
-  
 </library>
 
