@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<library>
+  <longName value="Stadtbibliothek Paderborn"/>
+  
+  <template value="bibliothecaplus"/>
+  <variable name="urlaccount" value="https://www.stadtbibliothek-paderborn.de/Konto"/>
+  <variable name="urlsearch" value="https://www.stadtbibliothek-paderborn.de/Mediensuche/Erweiterte-Suche"/>
+
+  <homepage value="https://www.stadtbibliothek-paderborn.de"/>
+  <testing-search value="yes"/>  
+  <testing-account value="unknown"/>
+</library>
+
