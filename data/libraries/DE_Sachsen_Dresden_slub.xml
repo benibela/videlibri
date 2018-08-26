@@ -1,8 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
-
-
-
 <library>
   <longName value="SLUB Dresden"/>
 
@@ -15,8 +11,7 @@
   <testing-search value="yes"/>
   <testing-account value="unknown"/>
   
-
-  <table-comment value="Sie haben mittlerweile eine neue, eigene App."/>
+  <table-comment value="Die SLUB hat den von der App verwendeten libero-Server abgeschaltet"/>
 </library>
 
 

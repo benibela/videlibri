@@ -719,8 +719,10 @@ begin
   end;
   if prettyNameShort = '' then
     prettyNameShort:=strCopyFrom(id, strRpos('_', id)+1) + ' '+ prettyLocation;
-  if (ftestingSearch = tiBroken) and (ftestingAccount = tiBroken) then tableComment := 'Nach Änderungen auf der Bibliothekswebseite kaputt'
-  else if (ftestingSearch = tiYes) and (ftestingAccount in [tiBroken, tiNo]) then prettyNameLong += ' (nur Suche)'
+  if (ftestingSearch = tiBroken) and (ftestingAccount = tiBroken) then begin
+    if tableComment = '' then tableComment := 'Da die Bibliothek ihren Webkatalog geändert hat, funktioniert es nicht mehr';
+    prettyNameLong += ' (kaputt)';
+  end else if (ftestingSearch = tiYes) and (ftestingAccount in [tiBroken, tiNo]) then prettyNameLong += ' (nur Suche)'
   else if (ftestingSearch = tiYes) and (ftestingAccount = tiUnknown) then prettyNameLong += ' (nur Suche getestet)'
   else if (ftestingSearch in [tiBroken, tiNo]) and (ftestingAccount = tiYes) then prettyNameLong += ' (nur Konto)'
 end;
@@ -982,7 +984,7 @@ var
   i, index: Integer;
   libraryFileName: String;
 begin
-  if logging then log('LOADING LIBRARY: ' + id);
+  //if logging then log('LOADING LIBRARY: ' + id);
   if id = '' then exit(nil); //otherwise it returns a lib without deprecated id
   if not flibraryIds.Find(id, index) then begin
     for i:=0 to count-1 do begin

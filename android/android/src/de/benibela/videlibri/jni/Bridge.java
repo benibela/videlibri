@@ -16,6 +16,7 @@ public class Bridge {
         public String prettyName, prettyNameShort;
         public String id;
         public String templateId;
+        public String tableComment;
         public String variableNames[];
         public String variableValues[];
         public boolean segregatedAccounts;
@@ -25,6 +26,7 @@ public class Bridge {
                               String prettyName, String prettyNameShort,
                               String id,
                               String templateId,
+                              String tableComment,
                               String variableNames[],
                               String variableValues[],
                               boolean segregatedAccounts
@@ -38,6 +40,7 @@ public class Bridge {
             this.variableNames = variableNames;
             this.variableValues = variableValues;
             this.segregatedAccounts = segregatedAccounts;
+            this.tableComment = tableComment;
         }
 
         public static String decodeIdEscapes(String s) {

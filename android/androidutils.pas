@@ -310,7 +310,7 @@ begin
       end;
 
       libraryDetailsClass := newGlobalRefAndDelete(getclass('de/benibela/videlibri/jni/Bridge$LibraryDetails'));
-      libraryDetailsClassInitWithData := getmethod(libraryDetailsClass, '<init>', '(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;[Ljava/lang/String;[Ljava/lang/String;Z)V');
+      libraryDetailsClassInitWithData := getmethod(libraryDetailsClass, '<init>', '(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;[Ljava/lang/String;[Ljava/lang/String;Z)V');
 
 
 
@@ -473,7 +473,7 @@ end;
 
 
 type TLibraryDetails = record
-  homepageBase, homepageCatalogue, prettyName, prettyNameShort, id, templateId, variableNames, variableValues, segregatedAccountsZ: jfieldID;
+  homepageBase, homepageCatalogue, prettyName, prettyNameShort, id, templateId, tableComment, variableNames, variableValues, segregatedAccountsZ: jfieldID;
 end;
 function getLibraryDetailsFields(c: jclass): TLibraryDetails;
 begin
@@ -484,6 +484,7 @@ begin
      prettyNameShort := getfield(c, 'prettyNameShort', 'Ljava/lang/String;');
      id := getfield(c, 'id', 'Ljava/lang/String;');
      templateId := getfield(c, 'templateId', 'Ljava/lang/String;');
+     tableComment := getfield(c, 'tableComment', 'Ljava/lang/String;');
      variableNames := getfield(c, 'variableNames', '[Ljava/lang/String;');
      variableValues := getfield(c, 'variableValues', '[Ljava/lang/String;');
      segregatedAccountsZ := getfield(c, 'segregatedAccounts', 'Z');
@@ -497,7 +498,7 @@ var
   namesArray: jobject;
   valuesArray: jobject;
   libId: String;
-  args: array[0..8] of jvalue;
+  args: array[0..9] of jvalue;
 begin
   if logging then bbdebugtools.log('de.benibela.VideLibri.Bride.VLGetLibraryDetails (started)');
   //bbdebugtools.log(strFromPtr(libraryManager));
@@ -516,7 +517,8 @@ begin
       args[4].l := stringToJString(lib.id);
       if lib.template <> nil then args[5].l := stringToJString(lib.template.name)
       else args[5].l := stringToJString('');
-      args[8].z := booleanToJboolean(lib.segregatedAccounts);
+      args[6].l := stringToJString(lib.tableComment);
+      args[9].z := booleanToJboolean(lib.segregatedAccounts);
 
       namesArray := newStringArray(lib.variables.count);
       valuesArray := newStringArray(lib.variables.count);
@@ -524,10 +526,10 @@ begin
         setStringArrayElement(namesArray, i, lib.variables.Names[i]);
         setStringArrayElement(valuesArray, i, lib.variables.ValueFromIndex[i]);
       end;
-      args[6].l := namesArray;
-      args[7].l := valuesArray;
+      args[7].l := namesArray;
+      args[8].l := valuesArray;
       result := newObject(libraryDetailsClass, libraryDetailsClassInitWithData, @args[0]);
-      for i := 0 to 7 do deleteLocalRef(args[i].l);
+      for i := 0 to 8 do deleteLocalRef(args[i].l);
     end;
   except
     on e: Exception do j.ThrowNew('de/benibela/videlibri/jni/Bridge$InternalError', 'Interner Fehler: '+e.Message);
@@ -542,6 +544,7 @@ var
   values: jobject;
   libid: String;
   libXml: String;
+  temp: string;
 begin
   if logging then bbdebugtools.log('de.benibela.VideLibri.Bride.VLSetLibraryDetails (started)');
   //bbdebugtools.log(strFromPtr(libraryManager));
@@ -561,6 +564,8 @@ begin
         if getStringField(details, homepageCatalogue) <> '' then
           libXml += '   <catalogue value="'+xmlStrEscape(getStringField(details, homepageCatalogue))+'"/>'+LineEnding;
         libXml += '   <template value="'+xmlStrEscape(getStringField(details, templateId))+'"/>'+LineEnding;
+        temp := getStringField(details, tableComment);
+        if temp <> '' then libXml += '   <table-comment value="'+xmlStrEscape(temp)+'"/>'+LineEnding;
         names := getObjectField(details, variableNames);
         values:= getObjectField(details, variableValues);
         for i := 0 to getArrayLength(names) - 1 do

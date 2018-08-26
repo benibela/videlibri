@@ -303,11 +303,21 @@ public class LibraryList extends VideLibriBaseActivity {
                     if (!libraryMap.containsKey("NAME")) {
                         Bridge.LibraryDetails details = Bridge.VLGetLibraryDetails(libraryMap.get("ID"));
                         libraryMap.put("NAME", details.prettyName);
+                        if (!Util.isEmptyString(details.tableComment))
+                            libraryMap.put("TABLECOMMENT", details.tableComment);
                     }
                     ((TextView) row).setText(libraryMap.get("NAME"));
                     row.setTag(new ViewId(state, city, libId));
                     row.setOnClickListener(combinedListener);
                     cityChildViews[state][city].addView(row);
+                    String tableComment = libraryMap.get("TABLECOMMENT");
+                    if (!Util.isEmptyString(tableComment)) {
+                        row = getLayoutInflater().inflate(R.layout.simpletextview, this, false);
+                        ((TextView)row).setText(tableComment);
+                        ((TextView)row).setPadding(30,0,10,10);
+
+                        cityChildViews[state][city].addView(row);
+                    }
                 }
             }
             if (!port_mode) {
