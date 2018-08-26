@@ -18,12 +18,12 @@
 </action>
 
 <action id="login">
-  <page url="{$server}/login.do;{$jsession}">
-    <post name="methodToCall" value="submit"/>
-    <post name="CSId" value="{$CSId}"/>
-    <post name="username" value="{$username}"/>
-    <post name="password" value="{$password}"/>
-    
+  <page url="{$server}/userAccount.do;{$jsession}?methodToCall=start">
+  <template><form t:condition="contains(@action, 'login.do')">
+  {$request := form(., {"username": $username, "password": $password})}
+  </form></template>
+  </page>
+  <page url="{$request}">   
     <template><t:switch prioritized="true">
     <body>
     <a t:optional="true">deutsch<t:if test="/html/@lang != 'de'">
@@ -199,8 +199,8 @@
 </action>
 
 <action id="internal-order-choose-document">
-  <if test="$choose-result ne 0">
-   <s>confirm := "", need-login := (), finish-order-now := false(), $choose-result := 1,
+  <if test="not( $choose-result instance of xs:decimal and $choose-result eq 0 )">
+   <s>confirm := "", need-login := (), finish-order-now := false(),
       $order-now := $book(concat('_order', $choose-result)), 
       let $post := $book(concat('_orderPost', $choose-result))
       where $post
@@ -213,26 +213,28 @@
      <page url="{$order-now}"  templateFile="orderConfirmation"/>
      <if test="exists($need-login)"><s>vl:raise-internal("Login fehlgeschlagen")</s></if>
    </if>
+   <s>$choose-result := ""</s>
    <call test="$finish-order-now" action="internal-order"/>
   </if>
 </action>
 
 <action id="internal-order-confirmed">  
+  <s>$choose-result := ""</s>
   <call test="$confirm-result" action="internal-order"/>  
 </action>
 
 <action id="internal-order">
-  <if test="$choose-result ne 0">
-    <if test="not($choose-result instance of xs:decimal)">
-      <variable name="confirm">
-      {
-        "url": $confirm.url,
-        "method": $confirm.method,
-        "post": replace(replace($confirm.post, "issuepoint=", concat("issuepoint=", $choose-result )) (: old sisis :),
-                   "location=", concat("location=", $choose-result)) (: touchpoint :)
-      }
-      </variable>  
-    </if>
+  <if test="not( $choose-result instance of xs:decimal and $choose-result eq 0 )">
+    <variable name="confirm">
+    {
+      "url": $confirm.url,
+      "method": $confirm.method,
+      "post": replace(replace(replace($confirm.post, 
+                 "issuepoint=", concat("issuepoint=", $choose-result )) (: old sisis :),
+                 "location=", concat("location=", $choose-result)) (: touchpoint :),
+                 "(submit+ed)=false", "$1=true")  (: touchpoint, they actually spelled it "submited" :)
+    }
+    </variable>  
     <page url="{$confirm}">
       <template>
         <t:switch prioritized="true">

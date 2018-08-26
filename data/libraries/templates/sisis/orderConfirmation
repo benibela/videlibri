@@ -26,10 +26,11 @@
     </form>
     
     <form t:condition="contains(@action, 'requestItem.do') "> <!-- touchpoint -->
+        {$titles := $locations := ()}
         <table class="formular">
           <select name="location">{
             locations := option/@value, $titles := option
-          }</select>
+          }</select>?
         </table>
 
       {if (count($titles) > 1) then (
