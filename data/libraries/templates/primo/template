@@ -391,4 +391,8 @@
   </else>
 </action>
 
+<action id="catalogue">
+  <variable name="url" value="{$baseurl}"/>
+</action>
+
 </actions>
