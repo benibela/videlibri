@@ -18,7 +18,9 @@
 </action>
 
 <action id="login">
-  <page url="{$server}/userAccount.do;{$jsession}?methodToCall=start">
+  <s>$user-account-page := if ($user-account-page) then $user-account-page 
+                           else x"{$server}/userAccount.do;{$jsession}?methodToCall={if ($touchpoint) then "start" else "show&amp;typ=1&amp;type=1"}"</s>
+  <page url="{$user-account-page}">
   <template><form t:condition="contains(@action, 'login.do')">
   {$request := form(., {"username": $username, "password": $password})}
   </form></template>
@@ -31,9 +33,10 @@
     </t:if></a>
     <form id="LoginBean" t:optional="true">
       <t:switch>
-      <div class="error"><t:read var="raise-login()" source="."/></div>
-      <span class="error"><t:read var="raise-login()" source="."/></span>
-      <div class="message-warning"><t:read var="raise-login()" source="."/></div>
+      <div class="error">{vl:raise-login()}</div>
+      <span class="error">{vl:raise-login()}</span>
+      <div class="message-warning">{vl:raise-login()}</div>
+      <div class="message-error">{vl:raise-login()}</div>
       </t:switch>
     </form>
     </body>
@@ -48,7 +51,7 @@
   
   <s>requestedUrl := (),
      orderedUrl := (),
-     startUrl := x'{$server}/userAccount.do;jsession;?methodToCall={if ($touchpoint) then "start" else "show&amp;typ=1"}',
+     startUrl := $user-account-page,
      minRenewedId := $minCancelId := "ZZZZZZZZ",
      nextPage := ()
   </s>

@@ -1,6 +1,6 @@
 <html>
 <body>
-  <a template:condition="contains(@href, 'userAccount.do')">{jsession:=extract(@href,"jsessionid=[0-9a-zA-Z_-]*")}</a> <!-- jsession can be empty?-->
+  <a template:condition="contains(@href, 'userAccount.do')">{jsession:=extract(@href,"jsessionid=[0-9a-zA-Z_-]*"), user-account-page:=resolve-html()}</a> <!-- jsession can be empty?-->
   <input type="hidden" name="CSId">{$CSId:=@value}</input>
   { (id("selectedViewBranchlib"), id("selectedBranchView"))[1] ! ( 
       home-branches := option, 
