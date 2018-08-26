@@ -1325,7 +1325,7 @@ end;
 function xqFunctionRaise_Login(const context: TXQEvaluationContext; argc: SizeInt; argv: PIXQValue): IXQValue;
 begin
   requiredArgCount(argc, 0, 1);
-  if argc = 0 then context.staticContext.sender.VariableChangelog.add('raise-login()', xqvalue())
+  if argc = 0 then context.staticContext.sender.VariableChangelog.add('raise-login()', xqvalue(context.contextNode(false).innerText()))
   else context.staticContext.sender.VariableChangelog.add('raise-login()', argv[0]);
   result := xqvalue();
 end;
@@ -1333,7 +1333,7 @@ end;
 function xqFunctionRaise_Internal(const context: TXQEvaluationContext; argc: SizeInt; argv: PIXQValue): IXQValue;
 begin
   requiredArgCount(argc, 0, 1);
-  if argc = 0 then context.staticContext.sender.VariableChangelog.add('raise-internal()', xqvalue())
+  if argc = 0 then context.staticContext.sender.VariableChangelog.add('raise-internal()', xqvalue(context.contextNode(false).innerText()))
   else context.staticContext.sender.VariableChangelog.add('raise-internal()', argv[0]);
   result := xqvalue();
 end;
@@ -1341,7 +1341,7 @@ end;
 function xqFunctionRaise(const context: TXQEvaluationContext; argc: SizeInt; argv: PIXQValue): IXQValue;
 begin
   requiredArgCount(argc, 0, 1);
-  if argc = 0 then context.staticContext.sender.VariableChangelog.add('raise()', xqvalue())
+  if argc = 0 then context.staticContext.sender.VariableChangelog.add('raise()', xqvalue(context.contextNode(false).innerText()))
   else context.staticContext.sender.VariableChangelog.add('raise()', argv[0]);
   result := xqvalue();
 end;
