@@ -14,7 +14,7 @@ touchpoint := get('touchpoint', false())
         <ul id="account-nav">
 <!--          <li>Ausleihen|Loans<t:s>bookCountLend := extract(., "[0-9]+")</t:s></li>-->
           <li>Bestellungen|Requests<t:s>if (extract(., "[0-9]+") > "0") then requestedUrl := a/@href else ()</t:s></li>?
-          <li>Vormerkungen|Reservations<t:s>if (extract(., "[0-9]+") > "0") then bookCountOrdered := a/@href else ()</t:s></li>?
+          <li>Vormerkungen|Reservations<t:s>if (extract(., "[0-9]+") > "0") then orderedUrl := a/@href else ()</t:s></li>?
         </ul>
         <script>{let $temp := extract(., 'typ="([^"]+)', 1) return switch ($temp) 
           case "loaned" return    ( mode := 1, if (empty($nextPage)) then vl:delete-current-books() else () ) 
