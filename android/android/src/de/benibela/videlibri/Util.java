@@ -257,14 +257,29 @@ public class Util {
     }
 
 
-    private static DateFormat dateFormat;
+    private static DateFormat dateFormatShort;
+    private static DateFormat dateFormatFull;
     public static String formatDate(Date date){
         if (date == null) return "";
-        if (dateFormat != null) return dateFormat.format(date);
-        if (VideLibriApp.currentContext() != null)
-            dateFormat = android.text.format.DateFormat.getDateFormat(VideLibriApp.currentContext());
-        if (dateFormat != null) return dateFormat.format(date);
+        if (dateFormatShort == null){
+            if (VideLibriApp.currentContext() != null)
+                dateFormatShort = android.text.format.DateFormat.getDateFormat(VideLibriApp.currentContext());
+            else
+                dateFormatShort = java.text.DateFormat.getDateInstance(DateFormat.SHORT);
+        }
+        if (dateFormatShort != null) return dateFormatShort.format(date);
         return date.getYear()+"-"+date.getMonth()+"-"+date.getDay();
+    }
+
+    public static String formatDateFull(Date date){
+        if (date == null) return "";
+        if (dateFormatFull == null) {
+            dateFormatFull = java.text.DateFormat.getDateInstance(java.text.DateFormat.FULL);
+            if (dateFormatFull == null && VideLibriApp.currentContext() != null)
+                dateFormatFull = android.text.format.DateFormat.getLongDateFormat(VideLibriApp.currentContext());
+        }
+        if (dateFormatFull != null) return dateFormatFull.format(date);
+        return formatDate(date);
     }
 
 

@@ -3,6 +3,7 @@ package de.benibela.videlibri;
 
 import android.graphics.Color;
 
+import java.util.Date;
 import java.util.EnumSet;
 
 import de.benibela.videlibri.jni.Bridge;
@@ -95,7 +96,7 @@ class BookFormatter {
         return status;
     }
 
-    public static String formatDate(int pascalDate){
+    private static String formatDate(int pascalDate, boolean full){
         if (pascalDate == 0) return Util.tr(R.string.unknown_date);
         if (Bridge.currentPascalDate > 0 && VideLibriApp.currentContext() != null) {
             switch (pascalDate - Bridge.currentPascalDate) {
@@ -106,7 +107,15 @@ class BookFormatter {
                 case 2: return Util.tr(R.string.dayaftertomorrow);
             }
         }
-        return Util.formatDate(Bridge.pascalDateToDate(pascalDate));
+        Date date = Bridge.pascalDateToDate(pascalDate);
+        return full ? Util.formatDateFull(date) : Util.formatDate(date);
+    }
+
+    static String formatDate(int pascalDate){
+        return formatDate(pascalDate, false);
+    }
+    static String formatDateFull(int pascalDate){
+        return formatDate(pascalDate, true);
     }
 
 }
