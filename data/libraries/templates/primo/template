@@ -41,6 +41,21 @@
   </if>
 </action>
 
+<action id="internal-get-jwt">
+  <if test="not($authentication-header)">
+    <s>temp := $server || "/primo_library/libweb/webservices/rest/v1/" || (if (contains($url, "loginId=")) then
+                 "loginJwtCache/" ||  extract($url, "loginId=([^&amp;]+)", 1) || "?vid=" || uri-encode($vid)
+               else x"guestJwt/{uri-encode($institute)}?isGuest=true&lang=de_DE&targetUrl={uri-encode($server)}%252Fprimo-explore%252Faccount%253Fvid%253D{uri-encode($vid)}&viewId={uri-encode($vid)}")
+    </s>
+    <page url="{$temp}"/>
+    <s>let $j := json($raw) where $j return
+       authentication-header := if ($j instance of xs:string) then $j
+                                else if ($j("jwtData")) then $j("jwtData")
+                                else ()
+    </s>
+  </if>
+</action>
+
 <action id="update-all">
   <s>i := 1, datasend := false()</s>
   <if test="$primo-explore"><s>
@@ -131,6 +146,7 @@
 </action>
 
 <action id="primo-explore-update-all">
+  <call action="internal-get-jwt"/>
   <s>videlibri:delete-current-books()</s>
   <page url="{$server}/primo_library/libweb/webservices/rest/v1/myaccount/loans?type=active">
     <header>Accept: application/json,*/*</header>
@@ -293,8 +309,7 @@
      ), $amp)
     };()
     </s>
-    <page url="{$server}/primo_library/libweb/webservices/rest/v1/guestJwt/TUB?isGuest=true&lang=de_DE&targetUrl={uri-encode($server)}%252Fprimo-explore%252Fsearch%253Fvid%253D{uri-encode($vid)}&viewId={uri-encode($vid)}"/>
-    <s>let $header := json($raw) where $header instance of xs:string return authentication-header := $header</s>
+    <call action="internal-get-jwt"/>
     <call action="search-next-page"/>
     </if>
   <else>
