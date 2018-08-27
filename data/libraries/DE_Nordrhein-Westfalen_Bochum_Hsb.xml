@@ -5,7 +5,7 @@
   <longName value="Hochschulbibliothek Bochum"/>
 
   <template value="libero5"/>
-  <variable name="baseurl" value="http://opac.hs-bochum.de/libero/"/>
+  <variable name="baseurl" value="https://opac.hs-bochum.de/libero/"/>
 
   <homepage value="http://www.hochschule-bochum.de/bib.html"/>
   <testing-search value="yes"/>
