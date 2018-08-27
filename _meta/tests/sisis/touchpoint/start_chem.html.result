@@ -1,5 +1,6 @@
 book := {}
 jsession := "jsessionid=C3C3691A41AAB484766778B53B49B437"
+user-account-page := "file:///TouchPoint/userAccount.do;jsessionid=C3C3691A41AAB484766778B53B49B437?methodToCall=start"
 CSId := text{"1009N15Sa94087993b6a515d6985663decca27f398ac58fc"}
 home-branches := (text{"Zentralbibl."}, 
 text{"ZwB Einsiedel"}, 
