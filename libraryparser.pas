@@ -1633,6 +1633,7 @@ end;
 
 procedure TTemplateAccountAccess.parserVariableRead(variable: string;  value: String);
 begin
+  //this is deprecated and never used??
   if logging then
     log('** Read variable: "'+variable+'" = "'+value+'"');
   if variable='charge' then begin

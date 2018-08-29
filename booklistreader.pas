@@ -1131,114 +1131,98 @@ var
  sl: TStringList;
 begin
   if logging then
-    log('** Read variable: "'+variable+'" = "'+value.toXQuery+'"');
-  if variable='delete-current-books()' then begin
-    books.clear();
-    bookListHasBeenClearedAndMightNeedSingleUpdate := true;
-  end else if variable='book-start()' then begin
-  //reset
-    //currentBook:=defaultBook;
-    //currentBook.clear;
-   raise EBookListReader.create('Deprecated book-start');
-  end else if variable='book-end()' then begin
-    raise EBookListReader.create('Deprecated book-end');
-    {currentBook.firstExistsDate:=trunc(now);
-    currentBook.lastExistsDate:=trunc(now);
-    books
-      .add(currentBook.Id,currentBook.Title,currentBook.Author,currentBook.Year)
-         .assignNoReplace(currentBook);                                         }
-  end else if variable='book-select(id)' then begin
-   raise EBookListReader.create('Deprecated book-select(id)');
-    {currentBook := nil;
-    for i:=0 to books.Count-1 do
-      if books[i].id = value then
-        currentBook:=books[i];
-    if currentBook=nil then begin
-      if logging then for i:=0 to books.Count-1 do log('Book-Id: "'+books[i].id + '" <> "'+value+'"');
-      raise EBookListReader.create('Template wants to select book '+value+', but it doesn''t exist');
-    end;}
-  end else if variable='book-select()' then begin
-    //reset
-    raise EBookListReader.create('not implemented yet');
-  end
-  else if (variable='raise()') then raise EBookListReaderFromWebpage.create(LineEnding + LineEnding + value.toString)
-  else if (variable = 'raise-login()') then raise ELoginException.create(LineEnding + LineEnding + value.toString)
-  else if (variable='raise-internal()') then raise EBookListReader.create(LineEnding + LineEnding + value.toString)
-  else if (variable='message()') then begin
-     if pendingMessage <> nil then pendingMessage.free;
-     pendingMessage := TPendingMessage.Create;
-     case value.getProperty('kind').toString of
-       'choose': pendingMessage.kind := pmkChoose;
-       'confirm': pendingMessage.kind := pmkConfirm;
-     end;
-     pendingMessage.callback:=value.getProperty('callback').toString;
-     pendingMessage.caption:=value.getProperty('caption').toString;
-     for temp2 in value.getProperty('options') do
-       arrayAdd(pendingMessage.options, temp2.toString);
-     for temp2 in value.getProperty('option-values') do
-       arrayAdd(pendingMessage.optionValues, temp2.toString);
-  end else if variable = 'book' then begin
-    if not (value is TXQValueObject) then raise EBookListReader.Create('Buch ohne Eigenschaften');
-    temp2 := value.clone;
-    book := temp2 as TXQValueObject;
-    if book.hasProperty('_select', @temp) then begin
-      currentBook := nil;
-      case temp.kind of
-        pvkObject: begin
-          sl := TStringList.Create;
-          sl.CaseSensitive := true;
-          (temp as TXQValueObject).enumerateKeys(sl);
-          for i:=0 to books.Count-1 do begin
-            currentBook := books[i];
-            for j := 0 to sl.Count - 1 do begin
-              if (sl[j] = '_select') or (sl[j] = '_existing') then continue;
-              if books[i].getProperty(sl[j]) <> temp.getProperty(sl[j]).toString then begin //todo: optimize
-                currentBook := nil;
-                break;
+    log('** Read variable: '+variable+' := '+value.toXQuery);
+  case variable of
+    'book': begin
+      if not (value is TXQValueObject) then raise EBookListReader.Create('Buch ohne Eigenschaften');
+      temp2 := value.clone;
+      book := temp2 as TXQValueObject;
+      if book.hasProperty('_select', @temp) then begin
+        currentBook := nil;
+        case temp.kind of
+          pvkObject: begin
+            sl := TStringList.Create;
+            sl.CaseSensitive := true;
+            (temp as TXQValueObject).enumerateKeys(sl);
+            for i:=0 to books.Count-1 do begin
+              currentBook := books[i];
+              for j := 0 to sl.Count - 1 do begin
+                if (sl[j] = '_select') or (sl[j] = '_existing') then continue;
+                if books[i].getProperty(sl[j]) <> temp.getProperty(sl[j]).toString then begin //todo: optimize
+                  currentBook := nil;
+                  break;
+                end;
               end;
+              if currentBook <> nil then break;
             end;
-            if currentBook <> nil then break;
+            sl.free;
           end;
-          sl.free;
         end;
+        //s := temp.toString;
+        if currentBook=nil then begin
+          if logging then for i:=0 to books.Count-1 do log('Book: "'+books[i].toLimitString() + '" <> "'+temp.toXQuery()+'"');
+          raise EBookListReader.create('Template wants to select book '+temp.toXQuery()+', but it doesn''t exist');
+        end;
+      end else if book.hasProperty('select(id)', @temp) then begin
+        s := temp.toString;
+        currentBook := nil;
+        for i:=0 to books.Count-1 do
+          if books[i].id = s then
+            currentBook:=books[i];
+        if currentBook=nil then begin
+          if logging then for i:=0 to books.Count-1 do log('Book-Id: "'+books[i].id + '" <> "'+s+'"');
+          raise EBookListReader.create('Template wants to select book '+s+', but it doesn''t exist');
+        end;
+      end else if book.hasProperty('select(new)', @temp) or book.hasProperty('select(current)', @temp) then
+        raise EBookListReader.Create('Das Template hat die Bucheigenschaften select(new) oder select(current) gesetzt, aber in der neuesten Version, werden sie nicht länger benötigt)')
+      else if book.hasProperty('_existing', @temp) then begin
+        if not temp.toBoolean then raise EBookListReader.create('Das Buch hat einen _existing Marker, aber er sagt, das Buch existiere nicht : '+temp.toXQuery());
+        if currentBook = nil then raise EBookListReader.Create('Das Template will ein existierendes Buch verändert, aber mir ist kein Buch bekannt.');
+      end else begin
+        currentBook := defaultBook;
+        currentBook.clear;
       end;
-      //s := temp.toString;
-      if currentBook=nil then begin
-        if logging then for i:=0 to books.Count-1 do log('Book: "'+books[i].toLimitString() + '" <> "'+temp.toXQuery()+'"');
-        raise EBookListReader.create('Template wants to select book '+temp.toXQuery()+', but it doesn''t exist');
+      for i:=0 to book.values.count-1 do begin
+        s := book.values.getName(i);
+        if (s = '_existing') or (s = 'select(id)') or (s = 'select(current)') or (s = 'select(new)') or (s = '_select') then continue;
+        setBookProperty(currentBook,s,book.values.get(i));
       end;
-    end else if book.hasProperty('select(id)', @temp) then begin
-      s := temp.toString;
-      currentBook := nil;
-      for i:=0 to books.Count-1 do
-        if books[i].id = s then
-          currentBook:=books[i];
-      if currentBook=nil then begin
-        if logging then for i:=0 to books.Count-1 do log('Book-Id: "'+books[i].id + '" <> "'+s+'"');
-        raise EBookListReader.create('Template wants to select book '+s+', but it doesn''t exist');
+      currentBook.firstExistsDate:=trunc(now);
+      currentBook.lastExistsDate:=trunc(now);
+      if currentBook = defaultBook then  begin
+        books
+          .add(currentBook.Id,currentBook.Title,currentBook.Author,currentBook.Year)
+             .assign(currentBook);
       end;
-    end else if book.hasProperty('select(new)', @temp) or book.hasProperty('select(current)', @temp) then
-      raise EBookListReader.Create('Das Template hat die Bucheigenschaften select(new) oder select(current) gesetzt, aber in der neuesten Version, werden sie nicht länger benötigt)')
-    else if book.hasProperty('_existing', @temp) then begin
-      if not temp.toBoolean then raise EBookListReader.create('Das Buch hat einen _existing Marker, aber er sagt, das Buch existiere nicht : '+temp.toXQuery());
-      if currentBook = nil then raise EBookListReader.Create('Das Template will ein existierendes Buch verändert, aber mir ist kein Buch bekannt.');
-    end else begin
-      currentBook := defaultBook;
-      currentBook.clear;
+      temp2:=nil;
     end;
-    for i:=0 to book.values.count-1 do begin
-      s := book.values.getName(i);
-      if (s = '_existing') or (s = 'select(id)') or (s = 'select(current)') or (s = 'select(new)') or (s = '_select') then continue;
-      setBookProperty(currentBook,s,book.values.get(i));
+    else if strEndsWith(variable, ')') then case variable of
+      'delete-current-books()': begin
+        books.clear();
+        bookListHasBeenClearedAndMightNeedSingleUpdate := true;
+      end;
+      'message()': begin
+         if pendingMessage <> nil then pendingMessage.free;
+         pendingMessage := TPendingMessage.Create;
+         case value.getProperty('kind').toString of
+           'choose': pendingMessage.kind := pmkChoose;
+           'confirm': pendingMessage.kind := pmkConfirm;
+         end;
+         pendingMessage.callback:=value.getProperty('callback').toString;
+         pendingMessage.caption:=value.getProperty('caption').toString;
+         for temp2 in value.getProperty('options') do
+           arrayAdd(pendingMessage.options, temp2.toString);
+         for temp2 in value.getProperty('option-values') do
+           arrayAdd(pendingMessage.optionValues, temp2.toString);
+      end;
+      'raise()': raise EBookListReaderFromWebpage.create(LineEnding + LineEnding + value.toString);
+      'raise-login()': raise ELoginException.create(LineEnding + LineEnding + value.toString);
+      'raise-internal()': raise EBookListReader.create(LineEnding + LineEnding + value.toString);
+      'book-start()': raise EBookListReader.create('Deprecated book-start');
+      'book-end()': raise EBookListReader.create('Deprecated book-end');
+      'book-select(id)': raise EBookListReader.create('Deprecated book-select(id)');
+      'book-select()': raise EBookListReader.create('Deprecated before being implemented');
     end;
-    currentBook.firstExistsDate:=trunc(now);
-    currentBook.lastExistsDate:=trunc(now);
-    if currentBook = defaultBook then  begin
-      books
-        .add(currentBook.Id,currentBook.Title,currentBook.Author,currentBook.Year)
-           .assign(currentBook);
-    end;
-    temp2:=nil;
   end;
 end;
 
