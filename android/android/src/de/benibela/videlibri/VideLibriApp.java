@@ -206,8 +206,10 @@ public class VideLibriApp extends Application implements Bridge.VideLibriContext
             if (updateWakeLock == null && currentContext() != null) {
                 PowerManager pm = (PowerManager)currentContext().getSystemService(Context.POWER_SERVICE);
                 if (pm != null) {
-                    updateWakeLock = pm.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "updateLock");
-                    updateWakeLock.acquire(10*60*1000);
+                    PowerManager.WakeLock wl = pm.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "updateLock");
+                    wl.acquire(10*60*1000);
+                    wl.setReferenceCounted(false);
+                    updateWakeLock = wl;
                 }
                 Log.i("VideLibri", "Acquired wakelock");
             }
