@@ -167,12 +167,12 @@
       "year": year,
       "author": author,
       "id": callnumber,
-      "issueDate": parse-date(loandate, "yyyymmdd"),
+      "issueDate"?: loandate[.]!parse-date(., "yyyymmdd"),
       "title": title,
       "libraryBranch": mainlocationname,
       "_itemid": itemid,
       "_loanid": loanid,
-      "dueDate": parse-date(duedate, "yyyymmdd"),
+      "dueDate"?: duedate[.]!parse-date(., "yyyymmdd"),
       "status": loanstatus,
       "statusId": if (renew eq "Y") then "curious" else "critical",
       "barcode": itembarcode
@@ -197,7 +197,7 @@
         "statusId": if (available eq "Y") then "provided" else "ordered",
         "_requestid": requestid,
         "_request_type": $types,
-        "issueDate": parse-date(requestdate, "yyyymmdd")
+        "issueDate"?: requestdate[.]!parse-date(., "yyyymmdd")
       }
   </s>
 </action>
