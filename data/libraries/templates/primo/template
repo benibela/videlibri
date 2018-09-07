@@ -82,7 +82,12 @@
   
   <!-- follow links till we reach the login page -->
   <loop test="$i < 10">  
-    <page url="{$request}"/>
+    <try>
+      <page url="{$request}"/>
+      <catch errors="http:401">
+      <s>vl:raise-login("Fehlercode 401 (falsches Passwort?)")</s>
+      </catch>
+    </try>
     <if test="$primo-explore and starts-with($raw, '{')">
       <s>let $j := json($raw) where $j("jwtData") return (
           $i := 10000,
