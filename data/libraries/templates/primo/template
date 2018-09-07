@@ -401,7 +401,8 @@
             default return "unknown"
           ,
           "libraryLocation": subLocation,
-          "libraryBranch": libraryCode
+          "libraryBranch": libraryCode,
+          "orderable": false()
        }
     </s>
   </if>
