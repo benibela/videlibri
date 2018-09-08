@@ -1,0 +1,723 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!-- START jsp/common/metaHeader.jsp -->
+
+
+
+<html xmlns="http://www.w3.org/1999/xhtml" 
+ xml:lang="de" 
+ lang="de"
+> 
+<head>
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <meta http-equiv="pragma" content="no-cache" />
+  <meta http-equiv="expires" content="0" />
+  <meta http-equiv="cache-control" content="no-cache" />
+
+
+
+  <link rel="shortcut icon" href="/webOPACClient/images/OCLC.ico" />
+  <link rel="stylesheet" href="/webOPACClient/js/jquery/jquery.all.css"/>
+  <link rel="stylesheet" href="/webOPACClient/jsp/common/alerts.css"/>
+  
+  <script src="/webOPACClient/js/jquery/jquery-1.4.2-min.js" type="text/javascript"><!-- --></script>
+  <!-- AjaxQ is a jQuery plugin that implements AJAX request queueing mechanism.  -->
+  <script src="/webOPACClient/js/jquery.ajaxq-0.0.1.js" type="text/javascript"><!-- --></script>
+  <script src="/webOPACClient/js/jquery/jquery-ui-1.7.2.js" type="text/javascript"><!--  --></script>
+  <script src="/webOPACClient/js/jquery/extensions/jquery.infoguide.js" type="text/javascript"><!-- --></script>
+  <script src="/webOPACClient/js/ig.utils.js" type="text/javascript"><!-- --></script>
+  <script src="/webOPACClient/js/jquery/extensions/jquery.autocomplete.js" type="text/javascript"><!-- --></script>
+  <script src="/webOPACClient/js/jstorage.js" type="text/javascript"><!-- --></script>
+  <script src="/webOPACClient/js/common.js" type="text/javascript"><!-- --></script>
+
+
+  <script type="text/javascript">/* <![CDATA[ */
+if (!(typeof globalSettings == "object" && globalSettings instanceof Map)) globalSettings = new Map();
+globalSettings.add({
+"imagePath": "/webOPACClient/images"
+});
+if (!(typeof i18n == "object" && i18n instanceof Map)) i18n = new Map();
+i18n.add({
+"common.header.loading.icon.alt": "Laden",
+"search.searchfield.suggestion.hits": "???de.search.searchfield.suggestion.hits???"
+});
+/* ]]> */</script>
+  
+  <!--[if IE 7]>
+    <style type="text/css">
+      #tab-content{margin-top:5px;}
+      select {height:auto;}
+      #searchfield input#f1 {width:10em;}
+    </style>
+  <![endif]-->
+  
+  <title>
+    
+      Online-Katalog der Stadtbibliothek Freiburg
+    
+  </title>
+
+   
+
+
+
+
+
+
+
+
+
+        
+        
+            <link rel="stylesheet" href="/webOPACClient/jsp/common/infoguide.css"  type="text/css" />
+            <!--[if IE]>  <link rel="stylesheet" href="/webOPACClient/jsp/common/infoguide.css"  type="text/css" />  <![endif]-->
+            <!--[if IE 7]>
+            <style type="text/css">
+              #tab-content{margin-top:5px;}
+              select {height:auto;}
+              #searchfield input#f1 {width:10em;}
+            </style>
+            <![endif]-->
+        
+  
+  
+
+
+
+</head>
+<!-- END of jsp/common/metaHeader.jsp -->
+
+<!-- START jsp/result/HitLayout.jsp --> 
+
+
+
+<body>
+	<div id="pageContainer">
+		
+					
+			
+		
+			
+		
+		
+
+
+
+
+<!-- START jsp/common/header.jsp -->
+
+<!-- ANFANG - Anpassung BSB Mobile OPAC - Burgis, OCLC GmbH am 06.09.2018 -->
+	<script language="javascript" type="text/javascript" src="/webOPACClient/js/jquery.js"></script>
+	
+<!-- BEGIN /bsb/mobileOPAC/addMobileFunctionality.jsp -->
+
+
+
+
+
+
+<!-- END /bsb/mobileOPAC/addMobileFunctionality.jsp --> 
+ <!-- ENDE - Anpassung BSB Mobile OPAC - Burgis, OCLC GmbH -->
+
+
+
+<div id="branding">
+  <span id="logo">
+    
+    
+
+      <!-- <img src="/webOPACClient/images/customer.gif" width="84" height="16" alt="webOPAC" title="webOPAC" /> -->
+      <img src="/webOPACClient/images/FREIBURG/Stadtbi_FR_klein.png" width="507" height="90" alt="Onlinekatalog der Stadtbibliothek Freiburg" title="Onlinekatalog der Stadtbibliothek Freiburg" />
+     <!-- <h1>webOPAC</h1> -->
+    
+  </span>
+  <div class="info"> 
+    <div>
+      Diese Seite verwendet Cookies. 
+      <a href="#" onclick="return cookieHelp('/webOPACClient');">
+         Weitere Informationen.</a>
+    </div> 
+    <div id="timer" class="textrot">&nbsp;</div>
+  </div>
+</div>
+
+<!-- einkommentiert, Burgis OCLC GmbH am 06.09.2018 --> 
+<div id="ajaxAutoCompletion">solr</div>
+ 
+<div id="ajaxUrlSolrAutoCompletion">SolrQueryCompletionProxy</div>
+
+
+
+
+
+
+<!-- START jsp/common/timer.jsp -->
+
+
+<script type="text/javascript" language="javascript">
+
+var timeout=(5 * 60 * 1000)  + new Date().getTime();
+timeout-=2000;
+
+var mesg="Diese Sitzung läuft in %VAR% Sek. ab!";
+var toFront=false;
+
+if(mesg.length <= 0 || mesg.indexOf("???") >= 0)
+	mesg="Diese Sitzung läuft in %VAR% Sek. ab!";
+ticker(); 
+
+function ticker()
+{
+  var timeoutID;
+  var s; 
+  var t=timeout - new Date().getTime();
+  t=(t<0)?0:Math.round(t/1000);
+  s=""+ ((t>60)?"":t.toFixed(0));
+ 	if(t <= 60)
+ 	{
+ 		if(toFront == false)
+ 		{
+ 			toFront=true;
+ 			window.focus();
+ 		}
+ 		var msg = mesg.replace("%VAR%", s);
+    document.getElementById("timer").innerHTML = msg;
+ 	}
+  if(t == 0)
+  {
+    window.clearTimeout(timeoutID);
+    window.location.replace("/webOPACClient/jsp/common/timeout.jsp");
+  } 
+  else
+    timeoutID = window.setTimeout("ticker()",(t>60) ? 6000 : 1000);
+}
+</script>
+
+
+<!-- END of jsp/common/timer.jsp --> 
+<!-- END of jsp/common/header.jsp -->
+
+
+		<div id="mainnav">
+			
+
+
+
+
+<!-- START jsp/navigation/mainNavi.jsp --> 
+
+
+<!-- Actual Tiles Context 755 -->
+
+<ul>
+
+
+	<li id="current"><div id="active">Suche</div>
+		<ul>
+			 
+				
+				
+					<li>
+						<a href="/webOPACClient/search.do?methodToCall=switchSearchPage&amp;SearchType=1">Einfache Suche</a>
+					</li>
+				
+			
+			 
+				
+				
+					<li>
+						<a href="/webOPACClient/search.do?methodToCall=switchSearchPage&amp;SearchType=2">Erweiterte Suche</a>
+					</li>
+				
+			
+			
+      
+  		  
+		    
+		      <li>
+		        <a href="/webOPACClient/searchHistory.do?methodToCall=showHistory">Suchhistorie</a>
+		      </li>	
+		    
+		  
+		  
+		
+			
+				
+				
+							
+					
+						
+					
+				
+				
+			
+				
+					<li>
+						<a href="/webOPACClient/hitList.do?methodToCall=backToPrimaryHitList">Suchergebnis</a>
+					</li>
+				
+			
+			
+				<li id="current2">Einzeltreffer</li>
+			
+			
+		</ul>
+	</li>
+
+
+	<li><a href="/webOPACClient/memorizelist.do?methodToCall=show">Notizzettel</a></li>
+
+
+
+
+
+<li><a href="/webOPACClient/userAccount.do?methodToCall=show&amp;type=1">Konto</a></li>
+
+
+
+
+
+
+	<li><a href="/webOPACClient/additional.do?methodToCall=show">weitere Angebote</a></li>
+
+
+
+</ul>
+<!-- END of jsp/navigation/mainNavi.jsp --> 
+
+			
+
+
+
+
+
+
+<!-- START jsp/navigation/loginnavi.jsp --> 
+
+<div id="login">
+  
+    <a href="/webOPACClient/loginpage.do?methodToCall=showLogin">Anmelden</a><div id="onleihe">(auch am eMedien-Portal)</div>
+  
+  
+</div>
+<!-- END of jsp/navigation/loginnavi.jsp --> 
+		</div> 
+ 		<br class="cleaner" />
+ 		
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- START jsp/navigation/bgnavi.jsp --> 
+<script language="javascript" type="text/javascript"
+ src="/webOPACClient/help/help.js">
+</script>
+
+<div id="bgmainnav">
+<div>
+	<div id="nav2">
+		<ul>
+      
+			
+			
+				
+				
+					
+						
+						<li><a href="/webOPACClient/asklibrary.do?methodToCall=show">Auskunft</a></li>
+						
+					
+					
+					
+				
+			
+			
+			
+			<li>
+			  <a href="#" title="Hilfe&nbsp;(neuer Tab)" onclick="return openHelp('/webOPACClient');">
+			   Hilfe</a>
+		  </li>
+  		
+	    	
+		  	
+			   	<li><a href="/webOPACClient/actual.do?methodToCall=show">Neu im Bestand</a></li>
+    		
+    	
+		</ul>
+	</div> 
+  </div> 
+</div>
+<!-- END of jsp/navigation/bgnavi.jsp --> 
+
+		<br class="cleaner" />
+		
+		
+			
+
+
+
+
+
+<!-- START jsp/result/searchinfo.jsp --> 
+
+<script type="text/javascript">/* <![CDATA[ */
+if (!(typeof i18n == "object" && i18n instanceof Map)) i18n = new Map();
+i18n.add({
+"result.output.output.servererror": "Der Server liefert einen Fehler für Ihre Anfrage \u2014 bitte versuchen Sie es später noch einmal oder kontaktieren Sie Ihren Systemadministrator, falls dieses Problem andauert"
+});
+/* ]]> */</script>
+
+
+
+
+
+<div id="info1">
+	
+
+	
+	  <strong class="c1">Ihre Suchanfrage</strong>
+	  Freie Suche = Medikamente im Test - Bluthochdruck
+    
+    
+	  
+    
+    
+	
+</div> 
+
+<br class="cleaner" />
+
+  
+    
+  
+  <div id="outputActions">
+    <a href="/webOPACClient/search.do?methodToCall=start"><i class="ig-ico ig-ico-search" aria-hidden="true">
+      </i>Suchanfrage &auml;ndern</a>
+     
+      <a href="/webOPACClient/hitOutput.do?methodToCall=show&amp;outputMode=print&amp;caller=singlehit" id="print" title="Treffer drucken"><i class="ig-ico ig-ico-print" aria-hidden="true"></i>Drucken</a>
+    
+     
+      <a href="/webOPACClient/hitOutput.do?methodToCall=show&amp;outputMode=save&amp;caller=singlehit" id="save" title="Treffer lokal speichern"><i class="ig-ico ig-ico-save" aria-hidden="true"></i>Speichern</a>
+    
+     
+      <a href="/webOPACClient/hitOutput.do?methodToCall=show&amp;outputMode=send&amp;caller=singlehit" id="mail" title="Treffer versenden"><i class="ig-ico ig-ico-send" aria-hidden="true"></i>Versenden</a>
+    
+
+    
+    <script src="js/exportdialogs.js" type="text/javascript"><!--  --></script>
+  </div>
+
+
+<!-- END of jsp/result/searchinfo.jsp -->
+		
+		
+		<br class="cleaner" />
+		<div id="main"> 
+			<div id="SOWrap"> 
+				<div id="middle"> 
+					<div class="box">
+						
+
+
+
+
+
+<!-- START jsp/result/hit.jsp --> 
+
+
+
+<div class="box-header">
+  
+    <div class="box-right">
+      <div class="pagination">
+        <span class="selectedlink" aria-label="Erste Seite" title="Erste Seite"><i class="ig-ico ig-ico-arrow-step-backward" aria-hidden="true"></i></span>
+<span class="selectedlink" aria-label="Vorherige Seite" title="Vorherige Seite"><i class="ig-ico ig-ico-arrow-left" aria-hidden="true"></i></span>
+<span class="selectedlink selecteditem" aria-label="Aktuelle Seite" title="Aktuelle Seite">1</span>
+<span class="selectedlink" aria-label="Nächste Seite" title="Nächste Seite"><i class="ig-ico ig-ico-arrow-right" aria-hidden="true"></i></span>
+<span class="selectedlink" aria-label="Letzte Seite" title="Letzte Seite"><i class="ig-ico ig-ico-arrow-step-forward" aria-hidden="true"></i></span>
+
+      </div>
+    </div>
+  
+  
+  
+  
+  
+
+  
+    
+  
+  
+  
+  <h2> (1/1)</h2>
+</div>
+<div class="box-container">
+  
+
+
+
+
+
+
+<!-- START jsp/result/teaser.jsp --> 
+<table class="data results-teaser" style="width:100%">
+
+
+
+<tr>
+	<td>
+	
+  
+    <h1>Medikamente im Test - Bluthochdruck</strong></h1>
+    
+      <br />
+    
+  
+  
+  
+  
+
+	
+  
+    <strong class="c2">Name/Autor:</strong>
+    <a href='/webOPACClient/search.do?methodToCall=quickSearch&amp;Kateg=100&amp;Content=Nolte%2C+Anke+%C2%AC%5BVerfasser%5D'>Nolte, Anke ¬[Verfasser]</a>
+    
+    &nbsp;
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+  
+  
+  <script type="text/javascript">
+  <!--
+  var content = "Nolte, Anke ¬[Verfasser]";
+  var ajaxUrl = "/webOPACClient/jsp/result/wcidentities.jsp";
+  if (content.length > 0)
+  {
+    $.get(ajaxUrl, { content: content }, 
+    function(data)
+    {
+      var ref = data;
+      ref = ref.replace(/\r\n/g,'');
+      ref = ref.replace(/^\s+|\s+$/g, '');
+      if (ref.length > 0)
+        $("span#wcIdentity_").replaceWith('<a href="' + ref + '" target="_blank" title="WorldCat Identities&nbsp;(neuer Tab)" class="newWindow"><img aria-hidden="true" alt="" src="/webOPACClient/images/wcidentities.gif"></a>'); 
+    });
+  }
+  //-->
+  </script>
+
+  <span id="wcIdentity_">&nbsp;</span>
+  
+
+
+
+    <br />
+  
+
+	
+	
+	
+	
+	<strong class="c2">Ort, Verlag, Jahr:</strong> Berlin, Stiftung Warentest, [2018]<br />
+	
+
+	
+	
+	
+
+	
+
+	
+
+	
+
+	
+  
+    <strong class="c2">Seiten: Ill.:</strong>
+    159 Seiten<br />
+  
+
+	
+  
+    <strong class="c2">Ort/Medienart:</strong>
+    Vel 2 Nolt<br />
+  
+  
+  
+
+   
+     
+     
+
+
+
+
+
+<!-- START jsp/result/hit.jsp --> 
+
+
+
+<div class="box-header">
+  
+    <div class="box-right">
+      <div class="pagination">
+        <span class="selectedlink" aria-label="Erste Seite" title="Erste Seite"><i class="ig-ico ig-ico-arrow-step-backward" aria-hidden="true"></i></span>
+<span class="selectedlink" aria-label="Vorherige Seite" title="Vorherige Seite"><i class="ig-ico ig-ico-arrow-left" aria-hidden="true"></i></span>
+<span class="selectedlink selecteditem" aria-label="Aktuelle Seite" title="Aktuelle Seite">1</span>
+<span class="selectedlink" aria-label="Nächste Seite" title="Nächste Seite"><i class="ig-ico ig-ico-arrow-right" aria-hidden="true"></i></span>
+<span class="selectedlink" aria-label="Letzte Seite" title="Letzte Seite"><i class="ig-ico ig-ico-arrow-step-forward" aria-hidden="true"></i></span>
+
+      </div>
+    </div>
+  
+  
+  
+  
+  
+
+  
+    
+  
+  
+  
+  <h2> (1/1)</h2>
+</div>
+<div class="box-container">
+  
+
+
+
+
+
+
+<!-- START jsp/result/teaser.jsp --> 
+<table class="data results-teaser" style="width:100%">
+
+
+
+<tr>
+	<td>
+	
+  
+    <h1>Medikamente im Test - Bluthochdruck</strong></h1>
+    
+      <br />
+    
+  
+  
+  
+  
+
+	
+  
+    <strong class="c2">Name/Autor:</strong>
+    <a href='/webOPACClient/search.do?methodToCall=quickSearch&amp;Kateg=100&amp;Content=Nolte%2C+Anke+%C2%AC%5BVerfasser%5D'>Nolte, Anke ¬[Verfasser]</a>
+    
+    &nbsp;
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+  
+  
+  <script type="text/javascript">
+  <!--
+  var content = "Nolte, Anke ¬[Verfasser]";
+  var ajaxUrl = "/webOPACClient/jsp/result/wcidentities.jsp";
+  if (content.length > 0)
+  {
+    $.get(ajaxUrl, { content: content }, 
+    function(data)
+    {
+      var ref = data;
+      ref = ref.replace(/\r\n/g,'');
+      ref = ref.replace(/^\s+|\s+$/g, '');
+      if (ref.length > 0)
+        $("span#wcIdentity_").replaceWith('<a href="' + ref + '" target="_blank" title="WorldCat Identities&nbsp;(neuer Tab)" class="newWindow"><img aria-hidden="true" alt="" src="/webOPACClient/images/wcidentities.gif"></a>'); 
+    });
+  }
+  //-->
+  </script>
+
+  <span id="wcIdentity_">&nbsp;</span>
+  
+
+
+
+    <br />
+  
+
+	
+	
+	
+	
+	<strong class="c2">Ort, Verlag, Jahr:</strong> Berlin, Stiftung Warentest, [2018]<br />
+	
+
+	
+	
+	
+
+	
+
+	
+
+	
+
+	
+  
+    <strong class="c2">Seiten: Ill.:</strong>
+    159 Seiten<br />
+  
+
+	
+  
+    <strong class="c2">Ort/Medienart:</strong>
+    Vel 2 Nolt<br />
+  
+  
+  
+
+   
+     
+     

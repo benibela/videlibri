@@ -100,14 +100,15 @@
   </DIV>
 
   <div id="main">
+    {search-result-count:=1, singleBookResult:= base-uri() }
     <a>Titeldaten|mehr zum Titel<t:s>
-      singleBookResult:= if (starts-with(@href, "#")) then $url else @href, 
-      search-result-count:=1</t:s></a>
-    <div t:condition="@id=('tab-content', 'detailsTabs-titleinfo')">
+      if (starts-with(@href, "#")) then () else singleBookResult := resolve-html() 
+    </t:s></a>?
+    <div t:condition="(@id,@class)=('tab-content', 'detailsTabs-titleinfo', 'box-container')">
       <template:switch>
         <table class="data"/>
         <table class="data2"/>
-        <table t:condition="@class=('fulltitle','titleinfo')"/>
+        <table t:condition="@class=('fulltitle','titleinfo','data','data2')"/>
       </template:switch>
     </div>
   </div>

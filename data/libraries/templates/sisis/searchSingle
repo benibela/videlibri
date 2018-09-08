@@ -9,7 +9,7 @@
   <img alt="Buchcover">{book.image-url := resolve-uri(@src)}</img>?
 </div>?
 
-<div t:condition="@id=('tab-content', 'detailsTabs-titleinfo', 'box-container')">
+<div t:condition="(@id,@class)=('tab-content', 'detailsTabs-titleinfo', 'box-container')">
   <template:switch prioritized="true">
     <table t:condition="@class=('fulltitle','titleinfo', 'data2')">
       {for $row in .//tr 
@@ -40,6 +40,7 @@
       <strong>^Verlag<t:s>$book.publisher:=  (./following-sibling::*[1] | ./following-sibling::text())[normalize-space(.)][1]</t:s></strong>
       <strong>^Jahr<t:s>$book.year:=         (./following-sibling::*[1] | ./following-sibling::text())[normalize-space(.)][1]</t:s></strong>
       <strong>ISBN<t:s>$book.isbn:=         (./following-sibling::*[1] | ./following-sibling::text())[normalize-space(.)][1]</t:s></strong>
+      <h1>{$book.title}</h1>
       <strong>{$book(. || "!") := (./following-sibling::*[1] | ./following-sibling::text())[normalize-space(.)][1]/(if (exists(@href) and contains(@href, '://')) then x'{.} ( {@href} )' else .)}</strong>
     </template:switch></template:loop>
     </td>

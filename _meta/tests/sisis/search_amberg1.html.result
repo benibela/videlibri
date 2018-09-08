@@ -1,4 +1,5 @@
 curPos := 1
 book := {}
-singleBookResult := text{"/InfoGuideClient.fawsis/singleHit.do?methodToCall=activateTab&amp;tab=showTitleActive"}
 search-result-count := 1
+singleBookResult := xs:anyURI("vltest://sisis/search_amberg1.html")
+singleBookResult := "vltest://sisis/InfoGuideClient.fawsis/singleHit.do?methodToCall=activateTab&amp;tab=showTitleActive"
