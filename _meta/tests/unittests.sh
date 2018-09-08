@@ -102,8 +102,7 @@ test sisis searchSingleTPDocument touchpoint/searchSingleTPDocument.chemnitz.htm
 #search
 test sisis searchList{curPos:=1} search_Z3988_haw-aw.do.html search_augsburg.do.html search_augsburg2.do.html search_basel.do.html search_liestal.do.html search_tum.do.html search_pulheim.do.html searchHitlist_pulheim.do.html search_winterthur.do.html search_amberg1.html  search_last_fuerth.do.html search_oberhausen.do.html touchpoint/searchList_winterthur.html touchpoint/searchList_speedHit_winterthur.html search.empty.aschaffenburg.html touchpoint/searchList_chemnitz.html touchpoint/searchList_rwth.html
 
-ADDTEMPLATE sisis/searchSingle 5
-PAGES=(${PAGES[@]} sisis/searchSingle_basel.do.html sisis/searchSingle_aachen.do.html sisis/searchSingle_regensburg.html sisis/touchpoint/searchHit_chem.html sisis/touchpoint/searchHit_rwth.html)
+test sisis searchSingle searchSingle_basel.do.html searchSingle_aachen.do.html searchSingle_freiburg.html  searchSingle_regensburg.html touchpoint/searchHit_chem.html touchpoint/searchHit_rwth.html
 
 test sisis orderConfirmation'{username:=\"foo\",password:=\"bar\"}' orderConfirmation_aachen.html orderConfirmation_pulheim.html  
 

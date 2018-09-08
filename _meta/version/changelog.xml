@@ -1,15 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?xml-stylesheet type="text/xsl" href="../changelog.xsl"?>
 <changelog program="VideLibri">
-      <build version="1990" date="2018-08-27">
+      <build version="1991" date="2018-09-08">
         <download url="http://videlibri.sourceforge.net/updates/videlibri-setup.exe" platform="WINDOWS" execute="&quot;$DOWNLOAD&quot;  /SP- /noicons &quot;/dir=$OLDPATH&quot; " restart="true"/>
         <download url="http://videlibri.sourceforge.net/updates/videlibri-linux32.deb" platform="LINUX32" execute=""/>
         <download url="http://videlibri.sourceforge.net/updates/videlibri-linux64.deb" platform="LINUX64" execute=""/>
+        <fix>primo/UB FU Berlin: Akzeptiere fehlende Daten</fix>
+	<fix>primo explore: Zeige noch keine Vormerkungsbuttons</fix>
+        <fix>android: Kein Crash wegen doppelt freigegebenem Wake-Lock.</fix>
+        <fix>vufind: Vormerkungsauwahl zu mehreren möglichen Zweigstellen.</fix>
+        <fix>sisis/Freiburg: Suchdetails</fix>
+        <add>Vorbereitung für kommende Updates: Caching-Funktionen cache-get/set(), &lt;json&gt;-Aktionkonstrukt</add>
+     </build>
+      <build version="1990" date="2018-08-27">
         <change>android: Zeige Wochentag bei Daten.</change>
         <change>android: Wenn das Ausleihdatum eines Mediums nicht bekannt ist, verwende Datum der ersten Aktualisierung.</change>
         <change>sisis/pica: Verwende holdings-System für Vormerkungen.</change>
         <change>verbesserte Performance: Lade nur Bibliotheken, die auch verwendet werden in den Arbeitsspeicher; gebenchmarkte Pascal->Javadatenkonvertierung; speichere ein Datum nur im Pascalformat; Linux/Windows: Starte keine Aktualisierungsthreads, wenn keine Aktualisierung nötig ist.</change>
-        <fix>FU/TU/HU : Anpassung an neues Primosystem </fix>
+        <fix>FU/TU/HU Berlin: Anpassung an neues Primosystem </fix>
         <fix>Stadtbücherei Witten, Halle: Umstellung auf OPEN.</fix>
         <fix>HSB Bochum: Umstellung auf HTTPS.</fix>
         <fix>Aleph: Verarbeite nicht abbrechbare Vormerkungen.</fix>
