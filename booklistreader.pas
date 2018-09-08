@@ -157,6 +157,7 @@ type
     books: TBookList;
     bookListHasBeenClearedAndMightNeedSingleUpdate: boolean;
     pendingMessage: TPendingMessage;
+    cache: TXQValueObject;
     constructor create(atemplate:TMultiPageTemplate);
     destructor destroy();override;
 
@@ -1218,6 +1219,11 @@ begin
       'raise()': raise EBookListReaderFromWebpage.create(LineEnding + LineEnding + value.toString);
       'raise-login()': raise ELoginException.create(LineEnding + LineEnding + value.toString);
       'raise-internal()': raise EBookListReader.create(LineEnding + LineEnding + value.toString);
+      'cache-set()': begin
+        if not (value is TXQValueObject) then raise EBookListReader.Create('Invalid cache-set()');
+        if cache = nil then cache := TXQValueObject.create();
+        cache.setMutable(value.getProperty('name').toString, value.getProperty('value'));
+      end;
       'book-start()': raise EBookListReader.create('Deprecated book-start');
       'book-end()': raise EBookListReader.create('Deprecated book-end');
       'book-select(id)': raise EBookListReader.create('Deprecated book-select(id)');
@@ -1458,6 +1464,35 @@ begin
   result := xqvalue();
 end;
 
+
+
+function xqFunctionCache_Set(const context: TXQEvaluationContext; argc: SizeInt; argv: PIXQValue): IXQValue;
+var
+  temp: TXQValueObject;
+begin
+  requiredArgCount(argc, 2, 2);
+  temp := TXQValueObject.create();
+  temp.setMutable('name', argv[0].toString);
+  if argv[1].hasNodes then temp.setMutable('value', argv[1].stringifyNodes)
+  else temp.setMutable('value', argv[1]);
+  context.staticContext.sender.VariableChangelog.add('cache-set()', temp);
+  result := xqvalue();
+end;
+
+
+function xqFunctionCache_Get(const context: TXQEvaluationContext; argc: SizeInt; argv: PIXQValue): IXQValue;
+var
+  reader: TBookListReader;
+  temp: TXQValue;
+begin
+  reader := (context.staticContext as TXQVideLibriStaticContext).bookListReader;
+  if assigned(reader.cache) and reader.cache.hasProperty(argv[0].toString, @temp) then result := temp
+  else if argc = 2 then result := argv[1]
+  else result := xqvalue;
+end;
+
+
+
 var vl: TXQNativeModule;
 initialization
   XMlNamespaceVideLibri := TNamespace.create(XMLNamespaceURL_VideLibri, 'videlibri');
@@ -1473,6 +1508,9 @@ initialization
   vl.registerFunction('log-immediately', 1, 1, @xqFunctionLogImmediately, []);
 
   vl.registerFunction('set-book-property', 2, 2, @xqFunctionSetBookProperty, []);
+
+  vl.registerFunction('cache-set', 2, 2, @xqFunctionCache_Set, []);
+  vl.registerFunction('cache-get', 1, 2, @xqFunctionCache_Get, []);
 
   TXQueryEngine.registerNativeModule(vl);
 
