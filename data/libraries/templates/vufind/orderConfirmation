@@ -1,0 +1,13 @@
+<input type="submit" name="placeHold">
+{let $af := ancestor::form[1] 
+ let $input-confirmed := $af//input[@name="confirmed"] 
+ let $switch-locations := $af//select[@name="gatheredDetails[pickUpLocation]"]
+ let $option-locations := $switch-locations//option
+ return
+ ($form := form($af, (., $input-confirmed ! {@name: "true"})),
+  if (count($option-locations) = 1) then
+    vl:confirm("internal-order-confirmed", @value || $line-ending || join(  ($af//div[contains(@class, "form-group")]/normalize-space()) , $line-ending ))
+  else let $option-locations := $option-locations[string(@value)] return
+    vl:choose("internal-order-location", "Zweigstelle", $option-locations/normalize-space(), $option-locations/@value)
+ )}
+</input>

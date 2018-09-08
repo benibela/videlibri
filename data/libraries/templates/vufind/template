@@ -138,14 +138,16 @@
     <page url="{$holding._orderUrl}"> </page>
     <pattern><t:s>$holding._orderUrl := .//a/@href[contains(., "Hold?")]</t:s></pattern>
   </if>
-  <page url="{$holding._orderUrl}"> </page>
-  <pattern>
-    <input type="submit" name="placeHold">
-    {let $af := ancestor::form[1] return
-     (vl:confirm("internal-order-confirmed", @value || $line-ending || join(  ($af//div[contains(@class, "form-group")]/normalize-space()) , $line-ending )), 
-     form := form($af, .))}
-    </input>
-  </pattern>
+  <page url="{$holding._orderUrl}" templateFile="orderConfirmation"> </page>
+</action>
+
+<action id="internal-order-location">
+  <if test="not( $choose-result instance of xs:decimal and $choose-result eq 0 )">
+    <s>$form := request-combine($form, {"gatheredDetails[pickUpLocation]": $choose-result}),
+       $confirm-result := true()
+    </s>
+    <call action="internal-order-confirmed"/>
+  </if>
 </action>
 
 <action id="internal-order-confirmed">
@@ -159,7 +161,7 @@
       </t:switch>  
     </pattern>
   </if>
-</action>-->
+</action>
 
 <action id="catalogue">
   <variable name="url" value="{$baseurl}"/>
