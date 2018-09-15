@@ -137,11 +137,11 @@ PAGES=(${PAGES[@]} lbs/loans.stralsund.html )
 mkdir -p $OUTPATH/aDISWeb
 
 
-ADDTEMPLATE aDISWeb/accountOverview 4
-PAGES=(${PAGES[@]} aDISWeb/accountOverview_munich.html aDISWeb/accountOverview_nurnberg.html aDISWeb/accountOverview_nurnberg.fake.html aDISWeb/accountOverview_testhdm.html)
-
-ADDTEMPLATE aDISWeb/list{splitIndex:=0} 8
-PAGES=(${PAGES[@]} aDISWeb/list_munich.html aDISWeb/list_nurnberg.html aDISWeb/list_testhdm.html aDISWeb/list_testhdm2.html  aDISWeb/list_provided_testhdm.html aDISWeb/list_requested_munich.html aDISWeb/list_requested_testhdm.html aDISWeb/list_orders_munich.html)
+test aDISWeb accountOverview accountOverview_munich.html accountOverview_nurnberg.html accountOverview_nurnberg.fake.html accountOverview_testhdm.html
+test aDISWeb 'list{splitIndex:=0,mode:=\"lend\"}' list_munich.html list_nurnberg.html list_testhdm.html list_testhdm2.html 
+test aDISWeb 'list{splitIndex:=0,mode:=\"provided\"}' list_provided_testhdm.html
+test aDISWeb 'list{splitIndex:=0,mode:=\"requested\"}' list_requested_munich.html list_requested_testhdm.html
+test aDISWeb 'list{splitIndex:=0,mode:=\"orderedMagazine\"}' list_orders_munich.html
 
 
 test aDISWeb search search_stuttgart_abk.do.html search_no-result.aalen.html search_no-result.voebb.html search_single-page.biberach.html search_go-back.freiburg.html search_single-result_hdmtest.html search_single-result_hdmtest2.html search_single-result_nuernberg.html search_nurnberg.html search_munich.html search_dortmund.html  search_due.html search_go-back.voebb.html  search_new.voebb.html search_new5.voebb.html search_duesseldorf.html search_strangenum.ulm.html search_single-page.isbn.voebb.html

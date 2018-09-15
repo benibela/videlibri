@@ -1,4 +1,5 @@
 splitIndex := 0
+mode := orderedMagazine
 book := {}
 form := text{"// <![CDATA[
      if (efa_fontSize) efa_fontSize.efaInit();
@@ -806,7 +807,6 @@ form := text{"// <![CDATA[
           | 
          
           ena Webdesign - Berlin"}
-mode := "orderedMagazine"
 backButtonName := "%24Toolbar_0"
 cancelFormPost := {"post": "service=direct%2F1%2FPOOLSTPM%40%40%40%40%40%40%40%40x%2F%24Form.form&sp=S0&Form0=focus%2CkeyCode%2Cstz%2Csource%2Cselected%2CrequestCount%2CscriptEnabled%2CscrollPo%0A++++s%2CscrDim%2CwinDim%2CimgDim%2C%24FormConditional%2CtextButton%2C%24Toolbar%2C%24FormConditional%0A++++%240%2CtextButton%240%2C%24FormConditional%241%2C%24FormConditional%242%2C%24FormConditional%243%2C%24Fo%0A++++rmConditional%244%2C%24FormConditional%245%2CcellCheck%2C%24FormConditional%246%2CtextButton%241%0A++++%2C%24FormConditional%247%2C%24FormConditional%248%2C%24FormConditional%249%2C%24FormConditional%241%0A++++0%2C%24FormConditional%2411%2C%24Toolbar%240&focus=&keyCode=0&stz=&source=&selected=&requestCount=6&scriptEnabled=F&scrollPos=0&scrDim=&winDim=&imgDim=&%24FormConditional=T&%24FormConditional%240=T&%24FormConditional%241=F&%24FormConditional%242=F&%24FormConditional%243=F&%24FormConditional%244=F&%24FormConditional%245=F&%24FormConditional%246=T&%24FormConditional%247=F&%24FormConditional%248=F&%24FormConditional%249=F&%24FormConditional%2410=F&%24FormConditional%2411=F&textButton%240=Markierte+Titel%0A++++++++++++++l%C3%B6schen", "method": "POST", "url": "file:///aDISWeb/app;jsessionid=6Fxxxxxxx8E941DE6"}
 goBackPage := {"post": "service=direct%2F1%2FPOOLSTPM%40%40%40%40%40%40%40%40x%2F%24Form.form&sp=S0&Form0=focus%2CkeyCode%2Cstz%2Csource%2Cselected%2CrequestCount%2CscriptEnabled%2CscrollPo%0A++++s%2CscrDim%2CwinDim%2CimgDim%2C%24FormConditional%2CtextButton%2C%24Toolbar%2C%24FormConditional%0A++++%240%2CtextButton%240%2C%24FormConditional%241%2C%24FormConditional%242%2C%24FormConditional%243%2C%24Fo%0A++++rmConditional%244%2C%24FormConditional%245%2CcellCheck%2C%24FormConditional%246%2CtextButton%241%0A++++%2C%24FormConditional%247%2C%24FormConditional%248%2C%24FormConditional%249%2C%24FormConditional%241%0A++++0%2C%24FormConditional%2411%2C%24Toolbar%240&focus=&keyCode=0&stz=&source=&selected=&requestCount=6&scriptEnabled=F&scrollPos=0&scrDim=&winDim=&imgDim=&%24FormConditional=T&%24FormConditional%240=T&%24FormConditional%241=F&%24FormConditional%242=F&%24FormConditional%243=F&%24FormConditional%244=F&%24FormConditional%245=F&%24FormConditional%246=T&%24FormConditional%247=F&%24FormConditional%248=F&%24FormConditional%249=F&%24FormConditional%2410=F&%24FormConditional%2411=F&%24Toolbar_0.x=0&%24Toolbar_0.y=0", "method": "POST", "url": "file:///aDISWeb/app;jsessionid=6Fxxxxxxx8E941DE6"}
