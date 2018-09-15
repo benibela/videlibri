@@ -26,18 +26,14 @@
     server := substring-before($baseurl, "/primo-explore"),
     vid := extract($baseurl, "vid=([^"||$amp||"]+)", 1)
     </s>
-    <page url="{$server}/primo_library/libweb/webservices/rest/v1/configuration/{$vid}">
-      <template><t:s>
-        xquery version "3.0-videlibri";
-        let $answer := json($raw) return
-        (
-          institute := ( $answer.beacon.alternative-institution-code, get("institute"), $vid )[.][1],
-          authentication := $answer.authentication,
-          authentication-header := "",
-          search-scopes := $answer.primo-view.scopes()
-        )
-      </t:s></template>
-    </page>
+    <json url="{$server}/primo_library/libweb/webservices/rest/v1/configuration/{$vid}"/>
+    <s>
+    xquery version "3.0-videlibri";
+    institute := ( $json.beacon.alternative-institution-code, get("institute"), $vid )[.][1],
+    authentication := $json.authentication,
+    authentication-header := "",
+    search-scopes := $json.primo-view.scopes()
+    </s>
   </if>
 </action>
 
@@ -47,8 +43,8 @@
                  "loginJwtCache/" ||  extract($url, "loginId=([^&amp;]+)", 1) || "?vid=" || uri-encode($vid)
                else x"guestJwt/{uri-encode($institute)}?isGuest=true&lang=de_DE&targetUrl={uri-encode($server)}%252Fprimo-explore%252Faccount%253Fvid%253D{uri-encode($vid)}&viewId={uri-encode($vid)}")
     </s>
-    <page url="{$temp}"/>
-    <s>let $j := json($raw) where $j return
+    <json url="{$temp}"/>
+    <s>let $j := $json where $j return
        authentication-header := if ($j instance of xs:string) then $j
                                 else if ($j("jwtData")) then $j("jwtData")
                                 else ()
@@ -153,15 +149,12 @@
 <action id="primo-explore-update-all">
   <call action="internal-get-jwt"/>
   <s>videlibri:delete-current-books()</s>
-  <page url="{$server}/primo_library/libweb/webservices/rest/v1/myaccount/loans?type=active">
+  <json url="{$server}/primo_library/libweb/webservices/rest/v1/myaccount/loans?type=active">
     <header>Accept: application/json,*/*</header>
     <header>Authorization: Bearer {$authentication-header}</header>
-  </page>
+  </json>
   <s>
-  xquery version "3.0-videlibri";
-  if (not(matches($raw, "^\s*[\[{]"))) then vl:raise(inner-text())
-  else let $answer := json($raw) return
-  for $loan in $answer.data.loans.loan() return
+  for $loan in $json.data.loans.loan() return
     $book := $loan!{
       "category": itemcategoryname,
       "year": year,
@@ -178,13 +171,12 @@
       "barcode": itembarcode
     }
   </s>
-  <page url="{$server}/primo_library/libweb/webservices/rest/v1/myaccount/requests?vid={$vid}">
+  <json url="{$server}/primo_library/libweb/webservices/rest/v1/myaccount/requests?vid={$vid}">
     <header>Accept: application/json,*/*</header>
     <header>Authorization: Bearer {$authentication-header}</header>
-  </page>
+  </json>
   <s>
-    xquery version "3.0-videlibri";
-    let $answer := json($raw) let $data := $answer.data return
+    let $data := $json.data return
     for $type in ("hold", "request", "ill")
     let $types := $type || "s"
     for $loan in $data($types)($type)() return
@@ -337,17 +329,15 @@
   <!-- /primo_library/libweb/webservices/rest/primo-explore/v1/pnxs 
    or /primo_library/libweb/webservices/rest/primo-explore/v1/pnxs/delivery
   -->
-    <page url="{$server}/primo_library/libweb/webservices/rest/primo-explore/v1/pnxs?{local:encode-request($offset, 10)}">
+    <json url="{$server}/primo_library/libweb/webservices/rest/primo-explore/v1/pnxs?{local:encode-request($offset, 10)}">
       <header>Accept: application/json,*/*</header>
       <header>Authorization: Bearer {$authentication-header}</header>
-    </page>
+    </json>
 <!-- https://knowledge.exlibrisgroup.com/Primo/Product_Documentation/Technical_Guide/010The_PNX_Record/010PNX_Record_Sections -->
     <s>
-      xquery version "3.0-videlibri";
-      let $answer := json($raw) return (
-        search-result-count := $answer.info.total,
-        $all-raw-docs[] := $answer.docs(),
-        for $d at $i in $answer.docs() return (
+        search-result-count := $json.info.total,
+        $all-raw-docs[] := $json.docs(),
+        for $d at $i in $json.docs() return (
           book := $d.pnx.display ! {
             "title": join((title)()),
             "publisher": join((publisher)()),
@@ -371,7 +361,6 @@
         ),
         offset := $offset + 10,
         search-next-page-available := $offset lt $search-result-count
-      )
     </s>
   </if>
   <else>
@@ -387,13 +376,13 @@
       <header>Authorization: Bearer {$authentication-header}</header>
     </page>--> 
     <s>index := xs:integer($book._offset)</s>
-    <page url="{$server}/primo_library/libweb/webservices/rest/primo-explore/v1/pnxs/delivery?{local:encode-request($index - 1, 1)}">
+    <json url="{$server}/primo_library/libweb/webservices/rest/primo-explore/v1/pnxs/delivery?{local:encode-request($index - 1, 1)}">
       <header>Accept: application/json,*/*</header>
       <header>Authorization: Bearer {$authentication-header}</header>
       <header>Content-Type: application/json; charset=utf-8</header>
       <post>{{"records": [ {serialize-json($all-raw-docs[$index]  )} ] }}</post>
-    </page>
-    <s>$book.holdings := json($raw).docs(1).delivery.holding() ! {
+    </json>
+    <s>$book.holdings := $json.docs(1).delivery.holding() ! {
           "id": callNumber,
           "statusId": switch (availabilityStatus)
             case "available" return "available" 
