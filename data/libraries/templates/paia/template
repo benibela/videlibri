@@ -10,51 +10,46 @@
 <action id="connect">
   <s>baseurl := if (get("baseurl", ())) then get("baseurl", ()) else x"https://{get('server')}"</s>
   <try>
-    <page url="{$baseurl}/auth/login?username={$username}&amp;password={$password}&amp;grant_type=password">
+    <json url="{$baseurl}/auth/login?username={$username}&amp;password={$password}&amp;grant_type=password">
   <!--    <header>Content-Type: application/json</header>-->
       <header>Accept: application/json,*/*</header>
-      <template><t:s>
-        xquery version "3.0-videlibri";
-        let $answer := json($raw) return
-        (
-          access_token := encode-for-uri($answer.access_token),
-          patron_identifier := encode-for-uri(if ($answer.patron) then $answer.patron else $username),
-          scope := if ($answer.scope) then $answer.scope else "read_items write_items",
-          allow_renew := contains(x" {$scope} ", " write_items "),
-          if (not(contains(x" {$scope} ", " read_items "))) then ( error(QName("VL:1"), "No access" ) ) else ()        
-        )
-      </t:s></template>
-    </page>
-    <catch errors="http:403"><s>vl:raise-login("HTTP Code 403. Vermutlich ungültige Kontonummer oder Passwort.")</s></catch>
-  </try>
+    </json>
+    <catch errors="http:403"><s>vl:raise-login("HTTP Code 403. Vermutlich ungültige Kontonummer oder Passwort.")</s></catch></try>
+    <s>
+      xquery version "3.0-videlibri";
+      access_token := encode-for-uri($json.access_token),
+      patron_identifier := encode-for-uri(if ($json.patron) then $json.patron else $username),
+      scope := if ($json.scope) then $json.scope else "read_items write_items",
+      allow_renew := contains(x" {$scope} ", " write_items "),
+      if (not(contains(x" {$scope} ", " read_items "))) then ( error(QName("VL:1"), "No access" ) ) else ()
+    </s>
 </action>
 
 <action id="update-all">
-  <page url="{$baseurl}/core/{$patron_identifier}/items?access_token={$access_token}">
+  <json url="{$baseurl}/core/{$patron_identifier}/items?access_token={$access_token}">
     <header>Accept: application/json,*/*</header>
-    <template><t:s>
-       answer := json($raw),
-       if ($answer.error) then videlibri:raise(x"PAIA error on items: {$answer.code}: {$answer.error}: {$answer.error_description}") else (
-         videlibri:delete-current-books(),
-         for $doc in jn:members($answer.doc)[(.).status &lt; 5] return
-           book := {
-             "id": $doc.label,
-             "title": $doc.about,
-             "duedate": if ($doc.duedate) then parse-date($doc.duedate, if (substring($doc.duedate, 3, 1) = "-") then "dd-mm-yyyy" else "yyyy-mm-dd") else (),
-             "status": if ($doc.renewals) then x"bisher {$doc.renewals}-mal verlängert" else (),
-             "statusId": if ($doc.status = (1,2)) then "ordered"
-                         else if ($doc.status = 4) then "provided"
-                         else if ($doc.canrenew) then "curious" 
-                         else "critical",
-             "cancelable": $doc.cancancel,
-             
-             "item": $doc.item, 
-             "edition": $doc.edition,
-             "barcode": $doc.barcode 
-           }
-       )
-    </t:s></template>
-  </page>
+  </json>
+  <s>
+   if ($json.error) then videlibri:raise(x"PAIA error on items: {$json.code}: {$json.error}: {$json.error_description}") else (
+     videlibri:delete-current-books(),
+     for $doc in jn:members($json.doc)[(.).status &lt; 5] return
+       book := {
+         "id": $doc.label,
+         "title": $doc.about,
+         "duedate": if ($doc.duedate) then parse-date($doc.duedate, if (substring($doc.duedate, 3, 1) = "-") then "dd-mm-yyyy" else "yyyy-mm-dd") else (),
+         "status": if ($doc.renewals) then x"bisher {$doc.renewals}-mal verlängert" else (),
+         "statusId": if ($doc.status = (1,2)) then "ordered"
+                     else if ($doc.status = 4) then "provided"
+                     else if ($doc.canrenew) then "curious" 
+                     else "critical",
+         "cancelable": $doc.cancancel,
+         
+         "item": $doc.item, 
+         "edition": $doc.edition,
+         "barcode": $doc.barcode 
+       }
+   )
+    </s>
 </action>
 
 <action id="renew-list">
@@ -63,7 +58,7 @@
           "item": $book.item,
           "edition": $book.edition
         } ]))</variable>-->
-  <page test="$allow_renew" url="{$baseurl}/core/{$patron_identifier}/renew?access_token={$access_token}" >
+  <json test="$allow_renew" url="{$baseurl}/core/{$patron_identifier}/renew?access_token={$access_token}" >
     <header>Content-Type: application/json; charset=utf-8</header>
     <header>Accept: application/json,*/*</header>
     <method>POST</method>
@@ -75,9 +70,7 @@
       }
     }) }
     </post> 
-    <template>
-    </template>
-  </page>
+  </json>
   <call action="update-all"/>
 </action>
 
