@@ -149,21 +149,26 @@ public class VideLibriBaseActivity extends AppCompatActivity implements Bridge.V
         return super.onCreateOptionsMenu(menu);
     }
 
+    protected void setItemVisible(MenuItem item, boolean visible){
+        if (item == null) return;
+        item.setVisible(visible);
+    }
     protected int onPrepareOptionsMenuVisibility(){
         return 0;
     }
     private void setOptionMenuVisibility(Menu menu){
+        if (menu == null) return;
         int visibility = onPrepareOptionsMenuVisibility();
         if (visibility != currentVisibility) {
             currentVisibility = visibility;
             //moreItem.setVisible(visibility != 0);
             //Menu menu = moreItem.getSubMenu();
-            menu.findItem(R.id.refresh).setVisible((visibility & ACTIONBAR_MENU_REFRESH) != 0);
-            menu.findItem(R.id.renew).setVisible((visibility & ACTIONBAR_MENU_RENEW_LIST) != 0);
-            menu.findItem(R.id.renewlist).setVisible((visibility & ACTIONBAR_MENU_RENEW_ALL) != 0);
-            menu.findItem(R.id.share).setVisible((visibility & ACTIONBAR_MENU_SHARE) != 0);
-            menu.findItem(R.id.newlib).setVisible((visibility & ACTIONBAR_MENU_NEWLIB) != 0);
-            menu.findItem(R.id.filter).setVisible((visibility & ACTIONBAR_MENU_FILTER) != 0);
+            setItemVisible(menu.findItem(R.id.refresh), (visibility & ACTIONBAR_MENU_REFRESH) != 0);
+            setItemVisible(menu.findItem(R.id.renew), (visibility & ACTIONBAR_MENU_RENEW_LIST) != 0);
+            setItemVisible(menu.findItem(R.id.renewlist), (visibility & ACTIONBAR_MENU_RENEW_ALL) != 0);
+            setItemVisible(menu.findItem(R.id.share), (visibility & ACTIONBAR_MENU_SHARE) != 0);
+            setItemVisible(menu.findItem(R.id.newlib), (visibility & ACTIONBAR_MENU_NEWLIB) != 0);
+            setItemVisible(menu.findItem(R.id.filter), (visibility & ACTIONBAR_MENU_FILTER) != 0);
         }
     }
 
@@ -171,6 +176,7 @@ public class VideLibriBaseActivity extends AppCompatActivity implements Bridge.V
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
         boolean x = super.onPrepareOptionsMenu(menu);
+        if (menu == null) return false;
         loadingItem = menu.findItem(R.id.loading);
         if (loadingItem != null) loadingItem.setVisible(loadingTasks.size() > 0);
         setOptionMenuVisibility(menu);

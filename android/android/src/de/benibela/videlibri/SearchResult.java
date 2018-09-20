@@ -72,7 +72,8 @@ public class SearchResult extends BookListActivity implements SearchEventHandler
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
         boolean x= super.onPrepareOptionsMenu(menu);
-        menu.findItem(R.id.search).setVisible(false);
+        if (menu == null) return x;
+        setItemVisible(menu.findItem(R.id.search), false);
         return x;
     }
 
