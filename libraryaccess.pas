@@ -564,7 +564,7 @@ begin
       addBook(accounts[i].books.current[j]);
   end;
   reader.parser.variableChangeLog.add('books', TXQValueSequence.create(list));
-  result:=reader.parser.QueryEngine.evaluateXQuery3(q);
+  result:=reader.parser.QueryEngine.evaluate(q, xqpmXQuery3_1);
 end;
 
 procedure findBooksThatMustBeReturned(out booksOverdue, booksSoonNotExtendable, booksSoon: TList; out minDateOverdue, minDateSoonNotExtendable,
