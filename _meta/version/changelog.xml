@@ -1,10 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?xml-stylesheet type="text/xsl" href="../changelog.xsl"?>
 <changelog program="VideLibri">
-      <build version="1991" date="2018-09-08">
+      <build version="1993" date="2018-09-21">
         <download url="http://videlibri.sourceforge.net/updates/videlibri-setup.exe" platform="WINDOWS" execute="&quot;$DOWNLOAD&quot;  /SP- /noicons &quot;/dir=$OLDPATH&quot; " restart="true"/>
         <download url="http://videlibri.sourceforge.net/updates/videlibri-linux32.deb" platform="LINUX32" execute=""/>
         <download url="http://videlibri.sourceforge.net/updates/videlibri-linux64.deb" platform="LINUX64" execute=""/>
+        <fix>aDIS/Stadtbibliothek Nürnberg: Überprüfe nicht den Text auf der Ausleihenseite, um sicherzustellen, dass man auf der richtigen Seite ist, da sich der Text geändert zu haben scheint.</fix>
+        <fix>sisis/Stadtbibliothek Dresden: Versuche keine zweite Anmeldung auf der Webseite, wenn man bereits angemeldet war.</fix>
+        <fix>Unibibliothek Erfurt/Nordhausen: Verwende neues LBS statt PICA-System.</fix>
+        <fix>Lasse keine JSON-Daten durch den HTML-Parser laufen.</fix>
+        <fix>Behebt Absturz wenn die Actionbarleiste geändert wird ohne zu existieren.</fix>
+        <add>Einige XPath/XQuery 3.1 Syntax und Funktionen, so dass man beispielsweise sort(distinct-values($books?author)) eingeben kann, um eine Liste aller Autoren zu erhalten, von denen etwas ausgeliehen worden war.</add>
+     </build>
+      <build version="1991" date="2018-09-08">
         <fix>primo/UB FU Berlin: Akzeptiere fehlende Daten</fix>
 	<fix>primo explore: Zeige noch keine Vormerkungsbuttons</fix>
         <fix>android: Kein Crash wegen doppelt freigegebenem Wake-Lock.</fix>
