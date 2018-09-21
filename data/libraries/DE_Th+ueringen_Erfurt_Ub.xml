@@ -5,8 +5,8 @@
   <longName value="Universitäts- und Forschungsbibliothek Erfurt/Gotha"/>
   <shortName value="Ub Erfurt"/>
   
-  <template value="pica"/>
-  <variable name="server" value="http://opac.uni-erfurt.de/"/>	
+  <template value="lbs"/>
+  <variable name="server" value="https://lherf.gbv.de/"/>	
   <variable name="picadb" value="1"/>	
 
 
