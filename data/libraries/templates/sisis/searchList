@@ -67,8 +67,8 @@
           typeswitch ($book.title) 
             case node() return
               if ($book.author = "" and not($book.subTitle) and exists($book.title/following-sibling::br[1])) then (
-                brs := (for tumbling window $w in $book.title/following-sibling::node() start when true() end $e when $e/self::br 
-                       return normalize-space(join($w!inner-text())))[position() le 3], 
+                brs := (for tumbling window $w in $book.title/following-sibling::node() start when true() end $e when $e/self::br  
+                       return normalize-space(join($w[not(self::div[contains(@id, "ncip")])]!inner-text())))[position() le 3], 
                 if ($brs[1] = "") then $brs := tail($brs) else (),
                 if (matches($brs[1], "[0-9]{2,4}")) then 
                   brs := (replace($brs[1], "([\s-]*)[0-9]{2,}", ""), extract($brs[1], "[0-9]+"), tail($brs))
