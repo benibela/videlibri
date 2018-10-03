@@ -29,7 +29,10 @@
     <TABLE class="rTable_table">
     {hasTill := false()}
     <thead> 
+      <th/>
       <th>Bis<t:s>hasTill := true()</t:s></th>?
+      <th/>
+      <th/>
     </thead>
       
   
