@@ -106,6 +106,7 @@ end;
 {$ifndef android}
 function assetFileAsString(name: rawbytestring): string;
 begin
+  result := '';
   if userAssetFileAsString(name, result) then exit;
   result := strLoadFromFileUTF8(assetPath + name);
 end;
