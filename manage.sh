@@ -97,6 +97,7 @@ android)
     cp android/build/outputs/apk/android-release.apk /tmp/videlibri_$VERSION-release.apk
     cd /tmp
 		fileUpload videlibri_$VERSION-release.apk "/VideLibri/VideLibri\ $VERSION/"
+    (cd ~/opt/fdroidmy/; ./publish.sh)
 ;;
 
 downloadTable) 

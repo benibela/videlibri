@@ -1,10 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?xml-stylesheet type="text/xsl" href="../changelog.xsl"?>
 <changelog program="VideLibri">
-      <build version="1993" date="2018-09-21">
+      <build version="1994" date="2018-10-04">
         <download url="http://videlibri.sourceforge.net/updates/videlibri-setup.exe" platform="WINDOWS" execute="&quot;$DOWNLOAD&quot;  /SP- /noicons &quot;/dir=$OLDPATH&quot; " restart="true"/>
         <download url="http://videlibri.sourceforge.net/updates/videlibri-linux32.deb" platform="LINUX32" execute=""/>
         <download url="http://videlibri.sourceforge.net/updates/videlibri-linux64.deb" platform="LINUX64" execute=""/>
+        <fix>Universitätsbibliothek Kiel, Zentrale Hochschulbibliothek Lübeck, Bibliotheken der FH Kiel, Schleswig-Holsteinische Landesbibliothek: Anpassung an Serverumzug.</fix>
+        <fix>aDIS/VÖBB: Betrachte nur Tabellen mit mindestens 4 Spalten als Tabelle von ausgeliehenen Büchern, für den Fall das mehr als 200 Bücher ausgeliehen sind und es daher weitere Tabellen gibt. </fix>
+        <fix>sisis/Leipzig/inner-text: Zeige nicht den gesamten Webseitentext in den Suchergebnissen an.</fix>
+        <fix>Import/Export: Behebt Absturz unter Android 8.1.</fix>
+     </build>
+      <build version="1993" date="2018-09-21">
         <fix>aDIS/Stadtbibliothek Nürnberg: Überprüfe nicht den Text auf der Ausleihenseite, um sicherzustellen, dass man auf der richtigen Seite ist, da sich der Text geändert zu haben scheint.</fix>
         <fix>sisis/Stadtbibliothek Dresden: Versuche keine zweite Anmeldung auf der Webseite, wenn man bereits angemeldet war.</fix>
         <fix>Unibibliothek Erfurt/Nordhausen: Verwende neues LBS statt PICA-System.</fix>
