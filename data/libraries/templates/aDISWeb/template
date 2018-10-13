@@ -162,6 +162,7 @@
 </action>
 
 <action id="renew-list">
+  <s>mode:="lend"</s>
   <if test="not($splitCount)">
     <page url="{$kontoPage}" templateFile="list"/>
     <variable name="book-list">string-join(for $book in $renew-books return x"{$book.extendid}=on", "&amp;")</variable> 
