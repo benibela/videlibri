@@ -1,12 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
-
 <library>
   <longName value="Universitätsbibliothek der TUM"/>
   
   <template value="sisis"/>  
-  <variable name="server" value="https://opac.ub.tum.de/InfoGuideClient.tumsis/"/>
-  <variable name="startparams" value="?Login=wotum"/>
+  <variable name="server" value="https://opac.ub.tum.de/TouchPoint/"/>
+  <variable name="startparams" value="?View=tum&Language=de"/>
   
   <homepage value="http://www.ub.tum.de/"/>
   <testing-search value="yes"/>
