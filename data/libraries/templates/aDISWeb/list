@@ -111,7 +111,7 @@
          <th>Anzahl</th>
          <th>Darstellung</th>
        </tr>
-       <tr><td/><td>Keine Ausleihen in:|Ausleihen zeigen oder verlängern in:</td></tr>
+       <tr><td/><td>Keine Ausleihen in:|Ausleihen? zeigen oder verlängern in:</td></tr>
        {nextSplitTable := (.//a/@href)[$splitIndex], splitCount := count(.//a)}
        </table>
     </div></div></div>
