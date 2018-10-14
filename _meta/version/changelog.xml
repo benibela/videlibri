@@ -1,10 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?xml-stylesheet type="text/xsl" href="../changelog.xsl"?>
 <changelog program="VideLibri">
-      <build version="1994" date="2018-10-04">
+      <build version="1995" date="2018-10-14">
         <download url="http://videlibri.sourceforge.net/updates/videlibri-setup.exe" platform="WINDOWS" execute="&quot;$DOWNLOAD&quot;  /SP- /noicons &quot;/dir=$OLDPATH&quot; " restart="true"/>
         <download url="http://videlibri.sourceforge.net/updates/videlibri-linux32.deb" platform="LINUX32" execute=""/>
         <download url="http://videlibri.sourceforge.net/updates/videlibri-linux64.deb" platform="LINUX64" execute=""/>
+        <fix>aDIS (VÖBB, ...): Korrigiere Ausleihen-Verlängerung; behandle komische Sonderfälle.</fix>
+        <fix>Anpassung an geänderte HTTPS-Zertifikate: Stadtbibliotheken Bonn, Hannover, Reutlingen-Ulm, und Universitätsbibliothek Aachen.</fix>
+        <fix>Anpassung an geändertes Seitenlayout: Universitätsbibliothek Bonn, TU-München.</fix>
+     </build>
+      <build version="1994" date="2018-10-04">
         <fix>Universitätsbibliothek Kiel, Zentrale Hochschulbibliothek Lübeck, Bibliotheken der FH Kiel, Schleswig-Holsteinische Landesbibliothek: Anpassung an Serverumzug.</fix>
         <fix>aDIS/VÖBB: Betrachte nur Tabellen mit mindestens 4 Spalten als Tabelle von ausgeliehenen Büchern, für den Fall das mehr als 200 Bücher ausgeliehen sind und es daher weitere Tabellen gibt. </fix>
         <fix>sisis/Leipzig/inner-text: Zeige nicht den gesamten Webseitentext in den Suchergebnissen an.</fix>

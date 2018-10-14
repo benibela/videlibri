@@ -242,7 +242,7 @@ src)
 		./manage.sh android
 	  ./manage.sh src
 	  echo Sleeping because SF is slow to show the downloads
-	  sleep 180
+	  sleep 240
 	  ./manage.sh downloadTable
 	  echo do not forget to close the commit window
 		thg commit
