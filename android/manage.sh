@@ -133,7 +133,10 @@ brokenServers)
    export LANG=C.utf8
    export LC_ALL=C.utf8
    #/usr/lib/jvm/java-6-sun/jre/bin/keytool
-   export BOUNCYCASTLE=/usr/share/java/bcprov-1.58.jar
+   for bouncy in /usr/share/java/bcprov*.jar; do
+     export BOUNCYCASTLE=$bouncy
+     break;
+   done;
    FINGERPRINTFILE=keystore.bks.fingerprints
    FINGERPRINTFILEOLD=keystoreold.bks.fingerprints
    TEMPKEYSTORE=__vl__keystore.bks 
