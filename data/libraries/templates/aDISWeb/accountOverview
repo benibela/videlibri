@@ -1,3 +1,4 @@
+<t:switch prioritized="true">
 <html>
   {goBackPage := "", orderedPage:="", orderedMagazinePage:="", if (get("first-login", false())) then (videlibri:delete-current-books(), first-login := false()) else () }
   <t:switch>
@@ -37,3 +38,7 @@
            requestCount := extract(@href, "requestCount=([0-9]+)", 1)
       </t:s>-->
 </html>      
+
+<div class="message"><div id="R01"><h1>{vl:raise("Account-Fehlermeldung:" || .)}</h1></div></div>
+
+</t:switch>
