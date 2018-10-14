@@ -1,7 +1,5 @@
 <BODY>
  <t:switch prioritized="true">
-  <DIV class="container">
-    <DIV class="header">
       <DIV class="main">
         <DIV>
           <DIV class="resulthead">
@@ -37,12 +35,10 @@
                 </DIV>
               </t:loop>
             </UL>
-            <DIV class="pagination">{$next-page := resolve-html(.//a[matches(., "nächste Seite|»")])}</DIV>
+            <DIV id="paginationResultlist">{$next-page := resolve-html(.//a[matches(., "nächste Seite|»")])}</DIV>
           </FORM>
         </DIV>
       </DIV>
-    </DIV>
-  </DIV>
  
   <h3>No Results!<t:s>$search-result-count:=0, $next-page := ()</t:s></h3>
   <h3>Ihre Suche erzielte keine Treffer!<t:s>$search-result-count:=0, $next-page := ()</t:s></h3>
