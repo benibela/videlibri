@@ -17,7 +17,16 @@ public class X509TrustManagerWrapper implements X509TrustManager {
     protected ArrayList<X509Certificate> issuers = new ArrayList<>();
     protected X509Certificate[] issuersArray = new X509Certificate[0];
 
+    public interface CustomTrustManagerFactory{
+        ArrayList<X509TrustManager> getTrustManagers();
+    }
+    public static CustomTrustManagerFactory defaultCustomTrustManagerFactory;
+
     public X509TrustManagerWrapper(){
+        if (defaultCustomTrustManagerFactory != null) {
+            ArrayList<X509TrustManager> tms = defaultCustomTrustManagerFactory.getTrustManagers();
+            if (tms != null) nestedTrustManagers.addAll(tms);
+        }
         loadKeystore(null);
     }
 

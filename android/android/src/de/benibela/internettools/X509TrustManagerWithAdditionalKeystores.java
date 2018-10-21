@@ -23,27 +23,18 @@ public class X509TrustManagerWithAdditionalKeystores extends X509TrustManagerWra
     public interface LazyLoadKeyStoreFactory{
         LazyLoadKeystore factor();
     }
-    public interface AllowedEncodedCertificatesFactory{
-        Set<byte[]> factor();
-    }
 
     private LazyLoadKeystore pendingKeystores;
     public static LazyLoadKeyStoreFactory defaultKeystoreFactory;
-    private Set<byte[]> allowedEncodedCertificates;
-    public static AllowedEncodedCertificatesFactory defaultAllowedEncodedCertificatesFactory;
 
     public X509TrustManagerWithAdditionalKeystores() {
         super();
         if (defaultKeystoreFactory != null)
             pendingKeystores = defaultKeystoreFactory.factor();
-        if (defaultAllowedEncodedCertificatesFactory != null)
-            allowedEncodedCertificates = defaultAllowedEncodedCertificatesFactory.factor();
     }
     public X509TrustManagerWithAdditionalKeystores(LazyLoadKeystore additionalkeyStores) {
         super();
         this.pendingKeystores = additionalkeyStores;
-        if (defaultAllowedEncodedCertificatesFactory != null)
-            allowedEncodedCertificates = defaultAllowedEncodedCertificatesFactory.factor();
     }
 
     private void loadPendingKeystore(){
@@ -72,14 +63,6 @@ public class X509TrustManagerWithAdditionalKeystores extends X509TrustManagerWra
         if (pendingKeystores != null) {
             loadPendingKeystore();
             return isCheckServerTrusted(chain, authType);
-        }
-
-        if (allowedEncodedCertificates != null) {
-            try {
-                if (allowedEncodedCertificates.contains(chain[0].getEncoded()))
-                    return true;
-            } catch (CertificateEncodingException ignored) {
-            }
         }
 
         return false;
