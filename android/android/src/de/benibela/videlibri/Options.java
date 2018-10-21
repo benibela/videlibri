@@ -2,10 +2,12 @@ package de.benibela.videlibri;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.v4.app.Fragment;
 import android.support.v7.preference.Preference;
 import android.support.v7.preference.PreferenceCategory;
 import android.support.v7.view.ContextThemeWrapper;
@@ -15,6 +17,8 @@ import android.widget.Checkable;
 import android.widget.CompoundButton;
 import android.widget.Spinner;
 
+import de.benibela.videlibri.internet.DownloadCertificate;
+import de.benibela.videlibri.internet.UserKeyStore;
 import de.benibela.videlibri.jni.Bridge;
 
 
@@ -81,6 +85,7 @@ public class Options extends VideLibriBaseActivity{
                 cat = (PreferenceCategory)getPreferenceScreen().findPreference(key);
                 cat.removeAll();
             }
+            @SuppressWarnings("UnusedReturnValue")
             Preference makePreference(String title, Preference.OnPreferenceClickListener onClick) {
                 return makePreference(title, null, onClick);
             }
@@ -160,7 +165,27 @@ public class Options extends VideLibriBaseActivity{
                     return true;
                 }
             });
-            cat.addPreference(pref);
+
+            cpm.beginCat("owncertificates");
+            if (UserKeyStore.hasCertificates())
+                for (final byte[] cert: UserKeyStore.getCertificates()) {
+                    cpm.makePreference(UserKeyStore.getFingerprint(cert), getString(R.string.lay_options_btn_newcertificate_delete), new Preference.OnPreferenceClickListener() {
+                    @Override
+                    public boolean onPreferenceClick(Preference preference) {
+                        Bundle b = new Bundle();
+                        b.putByteArray("cert", cert);
+                        Util.showMessageYesNo(DialogId.OPTIONS_DELETE_USER_CERTIFICATE, getString(R.string.certificate_delete), b);
+                        return true;
+                    }});
+                }
+
+            cpm.makePreference(getString(R.string.lay_options_btn_newcertificate), new Preference.OnPreferenceClickListener() {
+                @Override
+                public boolean onPreferenceClick(Preference preference) {
+                    Util.inputDialog(DialogId.OPTIONS_ADD_USER_CERTIFICATE, R.string.certificate_download);
+                    return true;
+                }
+            });
         }
 
         @Override
@@ -179,6 +204,33 @@ public class Options extends VideLibriBaseActivity{
         if (requestCode == NEW_ACCOUNT_CREATION_RESULT && resultCode == AccountInfo.RESULT_OK)
             finish();
         else super.onActivityResult(requestCode, resultCode, data);
+    }
+
+
+
+    @Override
+    boolean onDialogResult(int dialogId, int buttonId, Bundle more) {
+        switch (dialogId) {
+            case DialogId.OPTIONS_ADD_USER_CERTIFICATE:
+                if (buttonId != Util.MessageHandlerCanceled)
+                    (new Thread(new DownloadCertificate(more.getString("text")))).start();
+                return true;
+            case DialogId.OPTIONS_DELETE_USER_CERTIFICATE:
+                if (buttonId == DialogInterface.BUTTON_POSITIVE) {
+                    UserKeyStore.removeUserCertificate(more.getByteArray("cert"));
+                    UserKeyStore.storeUserCertificates(PreferenceManager.getDefaultSharedPreferences(VideLibriApp.currentContext()));
+                    updatePreferences();
+                }
+                return true;
+            default:
+                return super.onDialogResult(dialogId, buttonId, more);
+        }
+    }
+
+    public void updatePreferences() {
+        for (Fragment f: getSupportFragmentManager().getFragments())
+            if (f instanceof SettingsFragment)
+                ((SettingsFragment)f).updatePreferences();
     }
 
     @Override

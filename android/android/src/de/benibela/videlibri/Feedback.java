@@ -134,6 +134,7 @@ public class Feedback extends VideLibriBaseActivity {
                                 Response response = client.newCall(r).execute();
                                 ResponseBody body = response.body();
                                 if (body != null && body.string().contains("PHPOK")) ok += 1;
+                                response.close();
                             } catch (IOException e) {
                                 err = e.getLocalizedMessage();
                                 e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.

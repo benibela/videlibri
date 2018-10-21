@@ -57,6 +57,8 @@
     </PreferenceCategory>
     <PreferenceCategory android:title="@string/lay_options_caption_ownlibs" android:key="ownlibraries">
     </PreferenceCategory>
+    <PreferenceCategory android:title="@string/lay_options_caption_owncertificates" android:key="owncertificates">
+    </PreferenceCategory>
     <PreferenceCategory android:title="@string/lay_options_caption_misc">
         <de.benibela.videlibri.PreferenceSeekBar
             android:defaultValue="3"

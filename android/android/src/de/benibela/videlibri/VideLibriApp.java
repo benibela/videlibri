@@ -4,16 +4,17 @@ import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.os.PowerManager;
+import android.preference.PreferenceManager;
 import android.util.Log;
 
-import org.acra.*;
-import org.acra.annotation.*;
+import org.acra.ACRA;
+import org.acra.ReportingInteractionMode;
+import org.acra.annotation.ReportsCrashes;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -21,9 +22,39 @@ import java.util.List;
 
 import de.benibela.internettools.LazyLoadKeystore;
 import de.benibela.internettools.X509TrustManagerWithAdditionalKeystores;
+import de.benibela.internettools.X509TrustManagerWrapper;
+import de.benibela.videlibri.internet.UserKeyStore;
+import de.benibela.videlibri.internet.VideLibriKeyStore;
 import de.benibela.videlibri.jni.Bridge;
 
-import static org.acra.ReportField.*;
+import static org.acra.ReportField.ANDROID_VERSION;
+import static org.acra.ReportField.APP_VERSION_CODE;
+import static org.acra.ReportField.APP_VERSION_NAME;
+import static org.acra.ReportField.AVAILABLE_MEM_SIZE;
+import static org.acra.ReportField.BRAND;
+import static org.acra.ReportField.BUILD;
+import static org.acra.ReportField.BUILD_CONFIG;
+import static org.acra.ReportField.CRASH_CONFIGURATION;
+import static org.acra.ReportField.CUSTOM_DATA;
+import static org.acra.ReportField.DEVICE_FEATURES;
+import static org.acra.ReportField.DISPLAY;
+import static org.acra.ReportField.DUMPSYS_MEMINFO;
+import static org.acra.ReportField.ENVIRONMENT;
+import static org.acra.ReportField.FILE_PATH;
+import static org.acra.ReportField.INITIAL_CONFIGURATION;
+import static org.acra.ReportField.INSTALLATION_ID;
+import static org.acra.ReportField.IS_SILENT;
+import static org.acra.ReportField.PACKAGE_NAME;
+import static org.acra.ReportField.PHONE_MODEL;
+import static org.acra.ReportField.PRODUCT;
+import static org.acra.ReportField.REPORT_ID;
+import static org.acra.ReportField.SHARED_PREFERENCES;
+import static org.acra.ReportField.STACK_TRACE;
+import static org.acra.ReportField.TOTAL_MEM_SIZE;
+import static org.acra.ReportField.USER_APP_START_DATE;
+import static org.acra.ReportField.USER_COMMENT;
+import static org.acra.ReportField.USER_CRASH_DATE;
+import static org.acra.ReportField.USER_EMAIL;
 
 @ReportsCrashes(formUri = "http://www.benibela.de/autoFeedback.php?app=VideLibri",
                 logcatArguments = { "-t", "2500", "-v", "threadtime"},
@@ -51,12 +82,15 @@ public class VideLibriApp extends Application implements Bridge.VideLibriContext
 
         instance = this;
 
+        X509TrustManagerWrapper.defaultCustomTrustManagerFactory = UserKeyStore.makeFactory();
+        UserKeyStore.loadUserCertificates(PreferenceManager.getDefaultSharedPreferences(this));
         X509TrustManagerWithAdditionalKeystores.defaultKeystoreFactory = new X509TrustManagerWithAdditionalKeystores.LazyLoadKeyStoreFactory() {
             @Override
             public LazyLoadKeystore factor() {
                 return new VideLibriKeyStore();
             }
         };
+
 
         Bridge.initialize(this);
         refreshAccountList();
@@ -140,7 +174,7 @@ public class VideLibriApp extends Application implements Bridge.VideLibriContext
 
 
 
-    static VideLibriApp instance;
+    public static VideLibriApp instance;
     static Activity currentActivity;
     static Context applicationContext;
 

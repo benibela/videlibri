@@ -376,8 +376,19 @@
 
     <string name="lay_options_label_accounts_summary">Kontoeinstellungen/Verlängerungsverhalten ändern...</string>
     <string name="lay_options_label_ownlibraries_summary">Bibliothekseinstellungen ändern...</string>
+    <string name="lay_options_caption_owncertificates">Zusätzliche HTTPS-Serverzertifikate</string>
+
+
     <string name="import_export_need_permission">Import/Export erlauben</string>
     <string name="menu_context_filter_singleline">Einzelzeile</string>
     <string name="menu_context_filter_multiline">Mehrzeilig</string>
+
+    <string name="certificate_added">Zertifikat für %1$s installiert.\nDer Fingerabdruck ist: %2$s</string>
+    <string name="certificate_existing">Zertifikat für %1$s war bereits installiert.\nDer Fingerabdruck ist: %2$s</string>
+    <string name="certificate_failed">Zertifikatinstallation für %1$s fehlgeschlagen:\n%2$s</string>
+    <string name="lay_options_btn_newcertificate">Serverzertifikat herunterladen und als gültig akzeptieren...</string>
+    <string name="certificate_download">Adresse des Webservers (www...) dessen Zertifikat akzeptiert werden soll: </string>
+    <string name="lay_options_btn_newcertificate_delete">Zertifikat löschen</string>
+    <string name="certificate_delete">Soll das Zertifikat gelöscht werden?</string>
 </resources>
 

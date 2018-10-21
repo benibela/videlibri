@@ -1,4 +1,4 @@
-package de.benibela.videlibri;
+package de.benibela.videlibri.internet;
 
 import android.os.Build;
 
@@ -6,6 +6,8 @@ import java.io.InputStream;
 import java.security.KeyStore;
 
 import de.benibela.internettools.LazyLoadKeystore;
+import de.benibela.videlibri.R;
+import de.benibela.videlibri.VideLibriApp;
 
 public class VideLibriKeyStore extends LazyLoadKeystore {
     @Override
@@ -26,4 +28,8 @@ public class VideLibriKeyStore extends LazyLoadKeystore {
         }
         return ks;
     }
+
+
+
+
 }
