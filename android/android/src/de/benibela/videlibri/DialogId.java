@@ -30,4 +30,5 @@ class DialogId {
 
     public static final int SPECIAL_LIBRARY_NOT_IN_LIST = 10000;
     public static final int SPECIAL_LEND_LIST_OPTIONS = 11000; //only used in VideLibri.java
+    public static final int SPECIAL_INPUT_DIALOG = 12000;
 }

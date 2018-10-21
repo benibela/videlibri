@@ -16,15 +16,18 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import java.text.DateFormat;
-import java.util.*;
+import java.util.Date;
+import java.util.IllegalFormatException;
 
 import static android.content.Context.CLIPBOARD_SERVICE;
 
+@SuppressWarnings({"WeakerAccess"})
 public class Util {
     static int MessageHandlerCanceled = -123;
     static public String tr(int id){
@@ -96,6 +99,7 @@ public class Util {
 
     public static class DialogFragmentUtil extends DialogFragment implements DialogInterface.OnClickListener, DialogInterface.OnCancelListener{
 
+        EditText edit;
         @NonNull
         @Override
         public Dialog onCreateDialog(Bundle savedInstanceState) {
@@ -161,6 +165,12 @@ public class Util {
 
                     break;
                 }
+                case DialogId.SPECIAL_INPUT_DIALOG:
+                    if (message != null)
+                        builder.setMessage(message);
+                    edit = new EditText(getActivity());
+                    builder.setView(edit);
+                    break;
                 default:
                     if (message != null)
                         builder.setMessage(message);
@@ -195,7 +205,12 @@ public class Util {
             Bundle args = getArguments();
             int myId = args.getInt("id");
             Log.d("VideLibri", "Dialog result "+code + " for "+ myId);
-            ((VideLibriBaseActivity)getActivity()).onDialogResult(myId, code, args.getBundle("more"));
+            Bundle more = args.getBundle("more");
+            if (edit != null) {
+                if (more == null) more = new Bundle();
+                more.putString("text", edit.getText().toString());
+            }
+            ((VideLibriBaseActivity)getActivity()).onDialogResult(myId, code, more);
         }
     }
 
@@ -234,6 +249,18 @@ public class Util {
         args.putBundle("more", more);
         showDialog(args);
     }
+    static public void inputDialog(int dialogId, int title){ inputDialog(dialogId, tr(title), null); }
+    static public void inputDialog(int dialogId, String title, String message){
+        Bundle args = new Bundle();
+        args.putInt("id", dialogId);
+        args.putString("positiveButton", tr(R.string.ok));
+        args.putString("title", title);
+        args.putString("message", message);
+        args.putInt("special", DialogId.SPECIAL_INPUT_DIALOG);
+        showDialog(args);
+    }
+
+
     static void showDialog(Bundle args){
         if (VideLibriApp.currentActivity instanceof AppCompatActivity) showDialog((AppCompatActivity)VideLibriApp.currentActivity, args);
         else VideLibriApp.pendingDialogs.add(args);
@@ -296,6 +323,7 @@ public class Util {
     public static int   compareNullFirst(Object a, Object b) {
         return compare(a != null, b != null);
     }
+
 
 
 
