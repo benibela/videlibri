@@ -15,8 +15,7 @@ import okhttp3.ConnectionSpec;
 import okhttp3.OkHttpClient;
 
 public class ClientBuilderCustomizer {
-    public static void customize(OkHttpClient.Builder builder) throws UnrecoverableKeyException, NoSuchAlgorithmException, KeyStoreException, KeyManagementException {
-        X509TrustManager tm = new X509TrustManagerWithAdditionalKeystores();
+    public static void customizeWithTrustManager(OkHttpClient.Builder builder, X509TrustManager manager) throws KeyManagementException, NoSuchAlgorithmException {
         builder.connectTimeout(5, TimeUnit.MINUTES);
         builder.readTimeout(5, TimeUnit.MINUTES);
         builder.writeTimeout(5, TimeUnit.MINUTES);
@@ -26,7 +25,11 @@ public class ClientBuilderCustomizer {
         temp.add(ConnectionSpec.MODERN_TLS);
         temp.add(ConnectionSpec.COMPATIBLE_TLS);
         builder.connectionSpecs(temp);
-        builder.sslSocketFactory(new ModernSSLSocketFactory(tm), tm);
+        builder.sslSocketFactory(new ModernSSLSocketFactory(manager), manager);
+    }
+
+    public static void customize(OkHttpClient.Builder builder) throws UnrecoverableKeyException, NoSuchAlgorithmException, KeyStoreException, KeyManagementException {
+        customizeWithTrustManager(builder, new X509TrustManagerWithAdditionalKeystores());
         /*builder.addInterceptor(new Interceptor() {
             @Override
             public Response intercept(Chain chain) throws IOException {
