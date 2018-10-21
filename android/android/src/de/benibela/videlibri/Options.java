@@ -69,26 +69,48 @@ public class Options extends VideLibriBaseActivity{
 
         }
 
+        private class CustomPreferenceMaker{
+            ContextThemeWrapper contextThemeWrapper;
+            PreferenceCategory cat;
+
+            CustomPreferenceMaker(ContextThemeWrapper contextThemeWrapper){
+                this.contextThemeWrapper = contextThemeWrapper;
+            }
+
+            void beginCat(String key){
+                cat = (PreferenceCategory)getPreferenceScreen().findPreference(key);
+                cat.removeAll();
+            }
+            Preference makePreference(String title, Preference.OnPreferenceClickListener onClick) {
+                return makePreference(title, null, onClick);
+            }
+            Preference makePreference(String title, String summary, Preference.OnPreferenceClickListener onClick) {
+                Preference pref = new Preference(contextThemeWrapper);
+                pref.setTitle(title);
+                if (summary != null) pref.setSummary(summary);
+                pref.setOnPreferenceClickListener(onClick);
+                cat.addPreference(pref);
+                return pref;
+            }
+        }
+
         @Override
         public void onResume() {
             super.onResume();
+            updatePreferences();
+        }
 
-            PreferenceCategory cat = (PreferenceCategory)getPreferenceScreen().findPreference("accounts");
-            cat.removeAll();
-
+        private void updatePreferences (){
             TypedValue themeTypedValue = new TypedValue();
             getContext().getTheme().resolveAttribute(R.attr.preferenceTheme, themeTypedValue, true);
             @SuppressWarnings("RestrictedApi")
-            ContextThemeWrapper contextThemeWrapper = new ContextThemeWrapper(getContext(), themeTypedValue.resourceId);
+            CustomPreferenceMaker cpm = new CustomPreferenceMaker(new ContextThemeWrapper(getContext(), themeTypedValue.resourceId));
 
-
+            cpm.beginCat("accounts");
 
             String summary = getString(R.string.lay_options_label_accounts_summary);
             for (final Bridge.Account acc: VideLibriApp.accounts) if (acc != null) {
-                Preference pref = new Preference(contextThemeWrapper);
-                pref.setTitle(acc.prettyName);
-                pref.setSummary(summary);
-                pref.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener(){
+                cpm.makePreference(acc.prettyName, summary, new Preference.OnPreferenceClickListener(){
                     @Override
                     public boolean onPreferenceClick(Preference preference) {
                         Intent intent = new Intent(getActivity(), AccountInfo.class);
@@ -98,13 +120,9 @@ public class Options extends VideLibriBaseActivity{
                         return true;
                     }
                 });
-                cat.addPreference(pref);
             }
 
-
-            Preference pref = new Preference(contextThemeWrapper);
-            pref.setTitle(getString(R.string.lay_options_btn_newaccount));
-            pref.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+            cpm.makePreference(getString(R.string.lay_options_btn_newaccount), new Preference.OnPreferenceClickListener() {
                 @Override
                 public boolean onPreferenceClick(Preference preference) {
                     Intent intent = new Intent(getActivity(), AccountInfo.class);
@@ -113,11 +131,9 @@ public class Options extends VideLibriBaseActivity{
                     return true;
                 }
             });
-            cat.addPreference(pref);
 
 
-            cat = (PreferenceCategory)getPreferenceScreen().findPreference("ownlibraries");
-            cat.removeAll();
+            cpm.beginCat("ownlibraries");
 
             Bridge.Options options = Bridge.VLGetOptions();
 
@@ -125,11 +141,7 @@ public class Options extends VideLibriBaseActivity{
             for (final String userLibId: options.roUserLibIds) if (userLibId != null) {
                 final Bridge.LibraryDetails details = Bridge.VLGetLibraryDetails(userLibId);
                 if (details == null) continue;
-                pref = new Preference(contextThemeWrapper);
-                pref.setTitle(details.prettyName);
-                pref.setSummary(summary);
-                cat.addPreference(pref);
-                pref.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+                cpm.makePreference(details.prettyName, summary, new Preference.OnPreferenceClickListener() {
                     @Override
                     public boolean onPreferenceClick(Preference preference) {
                         Intent intent = new Intent(getActivity(), NewLibrary.class);
@@ -141,9 +153,7 @@ public class Options extends VideLibriBaseActivity{
                 });
             }
 
-            pref = new Preference(contextThemeWrapper);
-            pref.setTitle(getString(R.string.lay_options_btn_newlib));
-            pref.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+            cpm.makePreference(getString(R.string.lay_options_btn_newlib), new Preference.OnPreferenceClickListener() {
                 @Override
                 public boolean onPreferenceClick(Preference preference) {
                     startActivity(new Intent(getActivity(), NewLibrary.class));
@@ -175,15 +185,7 @@ public class Options extends VideLibriBaseActivity{
     protected void onPause() {
         super.onPause();
 
-       /* Bridge.Options options = new Bridge.Options();
-
-         Bridge.VLSetOptions(options);
-                 Bridge.Options options = Bridge.VLGetOptions();
-*/
-
         NotificationService.resheduleDailyIfNecessary(this, false);
-
-
     }
 
 
