@@ -97,7 +97,7 @@ public class X509TrustManagerWrapper implements X509TrustManager {
         if (chain.length > 0)
             name = chain[0].getSubjectDN().toString();
 
-        throw new CertificateException("Ungültiges Serverzertifikat für "+name);
+        throw new CertificateException("Ungültiges Serverzertifikat für "+name+"\nIn den Einstellungen kann für diesen Server eine Ausnahme gesetzt werden.");
     }
 
     public X509Certificate[] getAcceptedIssuers() {
