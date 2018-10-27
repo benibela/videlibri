@@ -263,7 +263,7 @@ begin
     result:=bcsOld
   else if book.status = bsProvided then
     result:=bcsProvided
-  else if book.status = bsOrdered then
+  else if book.status in BOOK_CANCELABLE then
     result:=bcsOrdered
   else if book.dueDate<=redTime then
     result:=bcsTimeNear

@@ -131,6 +131,7 @@ resourcestring
   rsBookStatusNonRenewable = 'nicht verlängerbar';
   rsBookStatusOrdered = 'vorgemerkt';
   rsBookStatusProvided = 'bereitgestellt'; // 'zur Abholung bereit'
+  rsBookStatusReserved = 'vorgemerkt';
   rsNeverLend = 'nie';
   rsLendHistory = 'erledigt';
   rsUnknown = 'unbekannt';

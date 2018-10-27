@@ -11,7 +11,7 @@ type
   TBookList = class;
   TBookStatus=(
     //self lend
-    bsNormal,bsUnknown,bsIsSearchedDONTUSETHIS,bsEarMarkedDONTUSETHIS, bsMaxLimitReachedDONTUSETHIS,bsProblematicInStr,bsCuriousInStr,bsAccountExpiredDONTUSETHIS,bsOrdered,bsProvided,
+    bsNormal,bsUnknown,bsIsSearchedDONTUSETHIS,bsEarMarkedDONTUSETHIS, bsMaxLimitReachedDONTUSETHIS,bsProblematicInStr,bsCuriousInStr,bsAccountExpiredDONTUSETHIS,bsOrdered,bsProvided,bsReserved,
     //availability
     bsAvailable, bsLend, bsVirtual, bsPresentation, bsInterLoan);
   trilean = (tUnknown, tFalse, tTrue);
@@ -177,7 +177,8 @@ type
 
 const BOOK_NOT_EXTENDABLE=[bsProblematicInStr,bsEarMarkedDONTUSETHIS,bsMaxLimitReachedDONTUSETHIS,bsAccountExpiredDONTUSETHIS];
       BOOK_EXTENDABLE=[bsNormal,bsCuriousInStr];
-      BOOK_NOT_LEND=[bsOrdered, bsProvided];
+      BOOK_CANCELABLE=[bsOrdered, bsReserved, bsProvided];
+      BOOK_NOT_LEND=BOOK_CANCELABLE;
 
 function BookStatusToStr(book: TBook;verbose:boolean=false): string; //returns utf8
 
@@ -218,6 +219,7 @@ begin
       bsProblematicInStr: if verbose then exit(rsBookStatusNonRenewable + ': '+book.statusStr) else exit(book.statusStr);
       bsOrdered: if book.statusStr <> '' then exit(book.statusStr) else exit(rsBookStatusOrdered);
       bsProvided: if book.statusStr <> '' then exit(book.statusStr) else exit(rsBookStatusProvided);
+      bsReserved: if book.statusStr <> '' then exit(book.statusStr) else exit(rsBookStatusReserved);
       bsAvailable, bsLend, bsVirtual, bsPresentation, bsInterLoan: exit(rsBookStatusNotLend)
       else exit(format(rsBookStatusInvalid, [inttostr(ord(book.status))]));
     end;
@@ -243,6 +245,7 @@ begin
     bsCuriousInStr: exit('curious');
     bsOrdered: exit('ordered');
     bsProvided: exit('provided');
+    bsReserved: exit('reserved');
     bsAvailable: exit('available');
     bsLend: exit('lend');
     bsVirtual: exit('virtual');
@@ -539,6 +542,7 @@ begin
           'critical': status:=bsProblematicInStr;
           'ordered': status:=bsOrdered;
           'provided': status:=bsProvided;
+          'reserved': status:=bsReserved;
           'normal': status:=bsNormal;
           'unknown': status:=bsUnknown;
           'available': status:=bsAvailable;
