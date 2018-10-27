@@ -1083,8 +1083,10 @@ begin
     if variable='status:problematic' then book.Status:=bsProblematicInStr
     else if variable='status:curious' then book.Status:=bsCuriousInStr
     else if pos(':', variable) > 0 then book.statusStr:=book.statusStr + ' Achtung: Ungültige Statusvariable "' + variable + '" in Template'
-    else if book.statusStr <> '' then book.Status:=bsCuriousInStr
-    else book.status := bsNormal;
+    else if book.status in [bsNormal,bsUnknown] then begin
+      if book.statusStr <> '' then book.Status:=bsCuriousInStr
+      else book.status := bsNormal;
+    end;
   end else if striEqual(variable, 'issuedate') then book.issueDate:=trunc(value.toDateTime)
   else if striEqual(variable, 'duedate') then book.dueDate:=trunc(value.toDateTime)
   else if strlibeginswith(@variable[1],length(variable),'issuedate') then
