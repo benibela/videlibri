@@ -1856,7 +1856,7 @@ begin
   //remove books (todo, do this in the template?)
   curlist := books.currentUpdate;
   for i := curlist.Count - 1 downto 0 do
-    if curlist[i].status in [bsProvided, bsOrdered] then
+    if curlist[i].status in BOOK_CANCELABLE then
       for j := 0 to booklist.Count - 1 do
         if curlist[i].equalToKey(booklist[j]) then begin
           curlist.delete(i);

@@ -648,7 +648,7 @@ begin
           if Searcher.bookListReader.pendingMessage <> nil then begin
             callPendingMessageEvent(access.FOnTakePendingMessage, book, Searcher.bookListReader.pendingMessage);
             Searcher.bookListReader.pendingMessage := nil;
-          end else if book.status = bsOrdered then begin
+          end else if book.status in BOOK_CANCELABLE then begin
             callBookEvent(access.FOnOrderComplete, book);
           end else callNotifyEvent(access.FOnPendingMessageCompleted);
           if logging then log('end order');

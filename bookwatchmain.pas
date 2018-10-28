@@ -551,7 +551,7 @@ begin
   for i:=0 to books.Count-1 do
     with books[i] do begin
       if status in BOOK_EXTENDABLE then extendableBooks += 1
-      else if (status in [bsOrdered,bsProvided]) and (cancelable <> tFalse) then cancelableBooks += 1;
+      else if (status in BOOK_CANCELABLE) and (cancelable <> tFalse) then cancelableBooks += 1;
     end;
   extendTheseBooks.Enabled:=(books.Count>=1) and (extendableBooks = books.Count);
   extendAdjacentBooks.Enabled:=books.Count=1;
@@ -639,7 +639,7 @@ var i:integer;
 begin
   books:=BookList.SelectedBooks;
   for i := books.Count - 1 downto 0 do
-    if not (books[i].status in [bsOrdered,bsProvided]) then
+    if not (books[i].status in BOOK_CANCELABLE) then
       books.delete(i);
   cancelBooks(books);
   books.free;
