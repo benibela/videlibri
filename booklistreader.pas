@@ -552,7 +552,10 @@ begin
           'interloan': status:=bsInterLoan;
 
           'history', '': status := bsUnknown; //these are invalid statuses (not occuring during serialization, however history is used by xquery offline search )
-          else raise EBookListReader.create(Format(rsBookStatusInvalid, [value]));
+          else begin
+            status := bsProblematicInStr;
+            statusStr := Format(rsBookStatusInvalid, [value]);
+          end;
         end;
     'cancelable': if (value <> '') and (value <> '0') and not striEqual(value, 'false') and (value <> '?') then cancelable:=tTrue
                  else if value = '?' then cancelable:=tUnknown

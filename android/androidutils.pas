@@ -940,7 +940,7 @@ begin
       bsProblematicInStr: tempi := 2;
       bsOrdered: tempi := 3;
       bsProvided: tempi := 4;
-      bsReserved: tempi := 4; //todo
+      bsReserved: tempi := 3; //todo
 
       bsAvailable: tempi := 100;
       bsLend: tempi := 101;
