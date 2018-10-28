@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<library>
+  <longName value="Stadtbücherei Frankfurt"/>
+  <shortName value="Stb Frankfurt"/>
+  
+  <template value="bibliothecaplus"/>
+  <variable name="urlaccount" value="https://katalog.stadtbuecherei.frankfurt.de/Meine-Bibliothek"/>	
+  <variable name="urlsearch" value="https://katalog.stadtbuecherei.frankfurt.de/Mediensuche/Erweiterte-Suche"/>	
+
+  <homepage value="http://www.stadtbuecherei.frankfurt.de/"/>
+  <testing-search value="yes"/>  
+  <testing-account value="unknown"/>
+</library>
+

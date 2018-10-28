@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<library>
+  <longName value="Bibliotheken der Goethe-Universität Frankfurt am Main"/>
+  <shortName value="Ub Frankfurt"/>
+  
+  <template value="pica"/>  
+  <variable name="server" value="https://lbsopac.rz.uni-frankfurt.de/"/>
+  <variable name="picadb" value="30"/>
+  <variable name="searchKeysOverride" value="tit;per;num;erj;sww"/>
+
+
+  <homepage value="https://www.ub.uni-frankfurt.de/"/>
+  <testing-search value="yes"/>
+  <testing-account value="unknown"/>
+  
+</library>
+
