@@ -3,15 +3,20 @@ package de.benibela.videlibri;
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.TextView;
+
 import org.acra.ACRA;
 
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
 import java.io.IOException;
 import java.security.KeyManagementException;
 import java.security.KeyStoreException;
@@ -112,6 +117,7 @@ public class Feedback extends VideLibriBaseActivity {
                         }
                         OkHttpClient client = b.build();
 
+                        final String system = getSystemInfo();
                         final int rep = errCache.size() == 0 ? 1 : errCache.size();
                         int ok = 0;
                         String err = "";
@@ -122,6 +128,7 @@ public class Feedback extends VideLibriBaseActivity {
                             try {
                                 fbb.add("app", "VideLibri");
                                 fbb.add("ver", version);
+                                fbb.add("system", system);
                                 fbb.add("data", sendData);
                                 if (i < errCache.size()) {
                                     Bridge.PendingException e = errCache.get(i);
@@ -205,6 +212,29 @@ public class Feedback extends VideLibriBaseActivity {
         } catch (PackageManager.NameNotFoundException e) {
             return "??";
         }
+    }
+
+    String getSystemInfo(){
+        StringBuffer sb = new StringBuffer();
+        try {
+            sb.append("Android: "); sb.append(Build.VERSION.RELEASE);
+            sb.append("\nDevice: "); sb.append(Build.MODEL); sb.append(' '); sb.append(Build.FINGERPRINT);
+            sb.append("\nCPU: "); sb.append(Build.CPU_ABI); sb.append('+'); sb.append(Build.CPU_ABI2);
+
+            File cpuinfo = new File("/proc/cpuinfo");
+            if (cpuinfo.exists()) {
+                BufferedReader br = new BufferedReader(new FileReader(cpuinfo));
+                String s;
+                while ((s = br.readLine()) != null) {
+                    sb.append(' ');
+                    sb.append(s);
+                }
+                br.close();
+            }
+        } catch (Exception ignored) {
+            sb.append("??");
+        }
+        return sb.toString();
     }
 
     @Override

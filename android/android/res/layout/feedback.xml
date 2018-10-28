@@ -171,5 +171,12 @@
             android:layout_height="wrap_content"
             android:layout_width="fill_parent"
             android:text="@string/lay_feedback_acra" />
+
+        <TextView
+            android:autoLink="web"
+            android:layout_height="wrap_content"
+            android:layout_width="fill_parent"
+            android:padding="@dimen/optionheaderpadding"
+            android:text="@string/lay_feedback_label_privacy" />
     </LinearLayout>
 </ScrollView>

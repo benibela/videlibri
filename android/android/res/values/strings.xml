@@ -390,5 +390,6 @@
     <string name="certificate_download">Adresse des Webservers (www...) dessen Zertifikat akzeptiert werden soll: </string>
     <string name="lay_options_btn_newcertificate_delete">Zertifikat löschen</string>
     <string name="certificate_delete">Soll das Zertifikat gelöscht werden?</string>
+    <string name="lay_feedback_label_privacy">Es gilt die Datenschutzerklärung in ihrer aktuellen Fassung: http://www.videlibri.de/datenschutz.html</string>
 </resources>
 
