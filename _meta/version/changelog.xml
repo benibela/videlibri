@@ -1,10 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?xml-stylesheet type="text/xsl" href="../changelog.xsl"?>
 <changelog program="VideLibri">
-      <build version="1995" date="2018-10-14">
+      <build version="1996" date="2018-10-28">
         <download url="http://videlibri.sourceforge.net/updates/videlibri-setup.exe" platform="WINDOWS" execute="&quot;$DOWNLOAD&quot;  /SP- /noicons &quot;/dir=$OLDPATH&quot; " restart="true"/>
         <download url="http://videlibri.sourceforge.net/updates/videlibri-linux32.deb" platform="LINUX32" execute=""/>
         <download url="http://videlibri.sourceforge.net/updates/videlibri-linux64.deb" platform="LINUX64" execute=""/>
+        <fix>android: Stadtbibliothek Lübeck: Anpassung an fehlerhaftes HTTPS-Zertifikat.</fix>
+        <change>Wenn in benutzerdefinierten Bibliothekssystemen ein Statustext für ein Medium gesetzt wird, ändert sich nicht der Statuscode des Mediums.</change>
+        <change>android: Sende Geräte- und Prozessorversion mit in Fehlerberichten.</change>
+        <add>android: Option für benutzerdefinierte HTTPS-Zertifikate, damit kein Update nötig wird, wenn eine Bibliothek ein  neues, fehlerhaftes Zertifikat verwendet.</add>
+        <add>Neue interne Statuscodes für vorbestellte Medien: reserved, requested.</add>
+        <add>Neue Bibliotheken, deren System bereits unterstützt waren, aber die bisher nicht in der Auswahlliste waren: Bibliotheken der Goethe-Universität Frankfurt am Main, und Stadtbücherei Frankfurt</add>
+     </build>
+      <build version="1995" date="2018-10-14">
         <fix>aDIS (VÖBB, ...): Korrigiere Ausleihen-Verlängerung; behandle komische Sonderfälle.</fix>
         <fix>Anpassung an geänderte HTTPS-Zertifikate: Stadtbibliotheken Bonn, Hannover, Reutlingen-Ulm, und Universitätsbibliothek Aachen.</fix>
         <fix>Anpassung an geändertes Seitenlayout: Universitätsbibliothek Bonn, TU-München.</fix>

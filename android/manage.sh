@@ -149,7 +149,7 @@ brokenServers)
    
    rm $KEYSTORE $KEYSTOREOLD $FINGERPRINTFILE $FINGERPRINTFILEOLD
    i=0
-   (cat $SERVERLIST; ls certs/*.cer) |  while read server; do
+   (cat $SERVERLIST; ls certs/*.cer certs/intermediate/*.cer) |  while read server; do
      if [[ -n "$server" ]]; then      
        echo
        echo
