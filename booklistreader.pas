@@ -542,7 +542,7 @@ begin
           'critical': status:=bsProblematicInStr;
           'ordered': status:=bsOrdered;
           'provided': status:=bsProvided;
-          'reserved': status:=bsReserved;
+          'reserved', 'requested': status:=bsReserved;
           'normal': status:=bsNormal;
           'unknown': status:=bsUnknown;
           'available': status:=bsAvailable;
