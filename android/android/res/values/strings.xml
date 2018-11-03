@@ -391,5 +391,19 @@
     <string name="lay_options_btn_newcertificate_delete">Zertifikat löschen</string>
     <string name="certificate_delete">Soll das Zertifikat gelöscht werden?</string>
     <string name="lay_feedback_label_privacy">Es gilt die Datenschutzerklärung in ihrer aktuellen Fassung: http://www.videlibri.de/datenschutz.html</string>
+    <string name="lay_source_edit">Quellcode bearbeiten</string>
+    <string name="lay_source_edit_choose_directory">Quellcode Kategorie auswählen:</string>
+    <string name="lay_source_edit_choose_file">Datei auswählen:</string>
+    <string name="lay_source_edit_template">Bibliothekssystem: %s</string>
+    <string name="lay_source_edit_library_list">Bibliothek spezifische Webseiten</string>
+    <string name="lay_options_btn_editsource">Quellcode bearbeiten...</string>
+    <string name="lay_source_edit_save">speichern</string>
+    <string name="lay_source_edit_reset">löschen</string>
+    <string name="source_edit_userdefined">benutzerdefiniert</string>
+    <string name="source_edit_filewritefailed">Speichern fehlgeschlagen: %s</string>
+    <string name="source_edit_filename">Datei: %s</string>
+    <string name="source_edit_saved">Datei gespeichert.</string>
+    <string name="source_edit_deleted">Datei gelöscht.</string>
+    <string name="source_edit_nodelete">Datei neugeladen.</string>
 </resources>
 

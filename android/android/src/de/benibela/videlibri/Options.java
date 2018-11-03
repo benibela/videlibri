@@ -165,6 +165,13 @@ public class Options extends VideLibriBaseActivity{
                     return true;
                 }
             });
+            cpm.makePreference(getString(R.string.lay_options_btn_editsource), new Preference.OnPreferenceClickListener() {
+                @Override
+                public boolean onPreferenceClick(Preference preference) {
+                    startActivity(new Intent(getActivity(), SourceEdit.class));
+                    return true;
+                }
+            });
 
             cpm.beginCat("owncertificates");
             if (UserKeyStore.hasCertificates())

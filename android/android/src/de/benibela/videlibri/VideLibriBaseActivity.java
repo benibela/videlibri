@@ -448,6 +448,11 @@ public class VideLibriBaseActivity extends AppCompatActivity implements Bridge.V
             }
     }
 
+    public ArrayAdapter<String> makeAdapterStrings(String[] templates) {
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, templates);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        return adapter;
+    }
 
     boolean onDialogResult(int dialogId, int buttonId, Bundle more){
         //callback

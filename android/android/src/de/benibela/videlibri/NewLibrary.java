@@ -38,11 +38,9 @@ public class NewLibrary extends VideLibriBaseActivity{
         });
 
         final String [] templates = Bridge.VLGetTemplates();
-        final Spinner templatesSpinner = (Spinner) findViewById(R.id.template);
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, templates);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        templatesSpinner.setAdapter(adapter);
 
+        final Spinner templatesSpinner = (Spinner) findViewById(R.id.template);
+        templatesSpinner.setAdapter(makeAdapterStrings(templates));
         templatesSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
