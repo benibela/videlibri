@@ -99,12 +99,16 @@ type
 
     function enumerateLibraryMetaData: TLibraryMetaDataEnumerator;
 
+    procedure enumerateUserTemplates(s: TStrings);
+
     function get(id: string): TLibrary;
 
     function getUserLibraries(): TList;
     function setUserLibrary(trueid, data: string): TLibrary;
     function downloadAndInstallUserLibrary(url: string): TLibrary;
     procedure deleteUserLibrary(trueid: string);
+    procedure reloadLibrary(trueid: string);
+    procedure reloadLibrary(lib: TLibrary; data: string);
     procedure reloadTemplate(templateId: string);
     procedure reloadPendingTemplates(); //only call this synchronized thrugh updateThreadConfig.threadManagementSection
 
@@ -979,6 +983,20 @@ begin
   result.i := -1;
 end;
 
+procedure TLibraryManager.enumerateUserTemplates(s: TStrings);
+var searchResult: TSearchRec;
+begin
+  if DirectoryExists(userPath+'libraries/templates') then begin
+    if FindFirst(userPath+'libraries/templates/*', faDirectory, searchResult) = 0 then begin
+      repeat
+        if (searchResult.Name = '') or (searchResult.Name = '.') or (searchResult.Name = '..') then continue;
+        if s.IndexOf(searchResult.Name) < 0 then
+          s.Add(searchResult.Name);
+      until FindNext(searchResult) <> 0;
+    end;
+  end;
+end;
+
 function TLibraryManager.get(id: string): TLibrary;
 var
   i, index: Integer;
@@ -1001,8 +1019,13 @@ begin
       libraryFileName := 'libraries/'+id+'.xml';
       result.loadFromString(assetFileAsString(libraryFileName), libraryFileName);
     except
-      FreeAndNil(result);
-      if FileExistsUTF8(assetPath + libraryFileName) then raise; //user defined libraries must not raise an exception or they write some bullshit and cannot start the app anymore
+      on e: Exception do begin
+        FreeAndNil(result);
+        if FileExistsUTF8(assetPath + libraryFileName) then //file exists is always false for asset files on Android
+          raise
+        else
+          storeException(e, nil, id, ''); //user defined libraries must not raise an exception or they write some bullshit and cannot start the app anymore
+      end;
     end;
     flibraryIds.Objects[index] := result;
   end;
@@ -1027,7 +1050,6 @@ function TLibraryManager.setUserLibrary(trueid, data: string): TLibrary;
 var
   lib: TLibrary;
   userlibs: TStringArray;
-  acc: TCustomAccountAccess;
 begin
   if not DirectoryExists(userPath+'libraries') then
     ForceDirectories(userPath+'libraries');
@@ -1044,12 +1066,7 @@ begin
     lib.id:=trueid;
     flibraryIds.AddObject(trueid, lib);
   end;
-  lib.template:=nil;
-  lib.variables.Clear;
-  lib.loadFromString(data, 'libraries/'+trueid+'.xml');
-  for acc in accounts do
-    if acc.getLibrary().id = trueid then
-      acc.resetConnection;
+  reloadLibrary(lib, data);
 
   result := lib;
 end;
@@ -1111,6 +1128,26 @@ begin
     if Trim(temp[i])=trueid then
       arrayDelete(temp, i);
   userConfig.WriteString('base', 'user-libraries', strJoin(temp, ','));
+end;
+
+procedure TLibraryManager.reloadLibrary(trueid: string);
+var
+  index: Integer;
+begin
+  if not flibraryIds.Find(trueid, index) then exit;
+  reloadLibrary(TLibrary( flibraryIds.Objects[index] ), assetFileAsString('libraries/'+trueid+'.xml'));
+end;
+
+procedure TLibraryManager.reloadLibrary(lib: TLibrary; data: string);
+var
+  acc: TCustomAccountAccess;
+begin
+  lib.template:=nil; //todo: race condition?
+  lib.variables.Clear;
+  lib.loadFromString(data, 'libraries/'+lib.id+'.xml');
+  for acc in accounts do
+    if acc.getLibrary().id = lib.id then
+      acc.resetConnection;
 end;
 
 procedure TLibraryManager.reloadTemplate(templateId: string);

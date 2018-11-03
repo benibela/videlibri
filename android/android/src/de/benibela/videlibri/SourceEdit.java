@@ -18,6 +18,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 import de.benibela.videlibri.jni.Bridge;
+import okhttp3.internal.http.BridgeInterceptor;
 
 public class SourceEdit extends VideLibriBaseActivity{
     String[] libraryIds, templateIds;
@@ -120,6 +121,15 @@ public class SourceEdit extends VideLibriBaseActivity{
                     fw.write(getEditTextText(R.id.edit));
                     fw.close();
                     Toast.makeText(SourceEdit.this, tr(R.string.source_edit_saved), Toast.LENGTH_SHORT).show();
+                    Spinner spinner = (Spinner) findViewById(R.id.spinner);
+                    try {
+                        if (spinner.getSelectedItemPosition() == 0)
+                            Bridge.VLReloadLibrary(selection2[((Spinner) findViewById(R.id.spinnerfile)).getSelectedItemPosition()].replace(".xml", ""));
+                        else
+                            Bridge.VLReloadTemplate(templateIds[spinner.getSelectedItemPosition() - 1]);
+                    } catch (Bridge.InternalError e) {
+                        Util.showMessage(e.getLocalizedMessage());
+                    }
                 } catch (IOException e) {
                     Util.showMessage(tr(R.string.source_edit_filewritefailed, e.getLocalizedMessage()));
                 }

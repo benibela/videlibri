@@ -301,6 +301,8 @@ public class Bridge {
     static public native void VLInstallLibrary(String url);
     static public native String[] VLGetTemplates(); //array of ids
     static public native TemplateDetails VLGetTemplateDetails(String id);
+    static public native void VLReloadLibrary(String id);
+    static public native void VLReloadTemplate(String id);
     static public native Account[] VLGetAccounts();
     static public native void VLAddAccount(Account acc);
     static public native void VLChangeAccount(Account oldacc, Account newacc);

@@ -636,6 +636,36 @@ begin
   if logging then bbdebugtools.log('de.benibela.VideLibri.Bride.VLInstallLibrary (ended)');
 end;
 
+function Java_de_benibela_VideLibri_Bridge_VLReloadLibrary(env:PJNIEnv; this:jobject; id: jobject): jobject; cdecl;
+var
+  surl: string;
+begin
+  if logging then bbdebugtools.log('de.benibela.VideLibri.Bride.VLReloadLibrary (started)');
+  try
+    libraryManager.reloadLibrary(j.jStringToString(id));
+  except
+    on e: Exception do j.ThrowNew('de/benibela/videlibri/jni/Bridge$InternalError', 'Interner Fehler: '+e.Message);
+  end;
+  result := nil;
+  if logging then bbdebugtools.log('de.benibela.VideLibri.Bride.VLReloadLibrary (ended)');
+end;
+
+function Java_de_benibela_VideLibri_Bridge_VLReloadTemplate(env:PJNIEnv; this:jobject; id: jobject): jobject; cdecl;
+var
+  surl: string;
+begin
+  if logging then bbdebugtools.log('de.benibela.VideLibri.Bride.VLReloadTemplate (started)');
+  try
+    libraryManager.reloadTemplate(j.jStringToString(id));
+  except
+    on e: Exception do j.ThrowNew('de/benibela/videlibri/jni/Bridge$InternalError', 'Interner Fehler: '+e.Message);
+  end;
+  result := nil;
+  if logging then bbdebugtools.log('de.benibela.VideLibri.Bride.VLReloadTemplate (ended)');
+end;
+
+
+
 function Java_de_benibela_VideLibri_Bridge_VLGetTemplates(env:PJNIEnv; this:jobject): jobject; cdecl;
 var
   i: Integer;
@@ -667,6 +697,8 @@ begin
     for i := 0 to libraryManager.templates.count - 1 do
       if not strContains(libraryManager.templates[i], '|') and (templates.IndexOf(libraryManager.templates[i])<0)  then
         templates.Add(libraryManager.templates[i]);
+
+    libraryManager.enumerateUserTemplates(templates);
 
     result := j.newObjectArray(templates.Count, j.getclass('java/lang/String'), nil);
     for i := 0 to templates.count - 1 do
@@ -2010,7 +2042,7 @@ end;
 
 
 
-const nativeMethods: array[1..34] of JNINativeMethod=
+const nativeMethods: array[1..36] of JNINativeMethod=
   ((name:'VLInit';          signature:'(Lde/benibela/videlibri/jni/Bridge$VideLibriContext;)V';                   fnPtr:@Java_de_benibela_VideLibri_Bridge_VLInit)
    ,(name:'VLFinalize';      signature:'()V';                   fnPtr:@Java_de_benibela_VideLibri_Bridge_VLFInit)
 
@@ -2018,8 +2050,10 @@ const nativeMethods: array[1..34] of JNINativeMethod=
    ,(name:'VLGetLibraryDetails'; signature:'(Ljava/lang/String;)Lde/benibela/videlibri/jni/Bridge$LibraryDetails;'; fnPtr:@Java_de_benibela_VideLibri_Bridge_VLGetLibraryDetails)
    ,(name:'VLSetLibraryDetails'; signature:'(Ljava/lang/String;Lde/benibela/videlibri/jni/Bridge$LibraryDetails;)V'; fnPtr:@Java_de_benibela_VideLibri_Bridge_VLSetLibraryDetails)
    ,(name:'VLInstallLibrary'; signature:'(Ljava/lang/String;)V'; fnPtr:@Java_de_benibela_VideLibri_Bridge_VLInstallLibrary)
+   ,(name:'VLReloadLibrary'; signature:'(Ljava/lang/String;)V'; fnPtr:@Java_de_benibela_VideLibri_Bridge_VLReloadLibrary)
    ,(name:'VLGetTemplates'; signature:'()[Ljava/lang/String;'; fnPtr:@Java_de_benibela_VideLibri_Bridge_VLGetTemplates)
    ,(name:'VLGetTemplateDetails'; signature:'(Ljava/lang/String;)Lde/benibela/videlibri/jni/Bridge$TemplateDetails;'; fnPtr:@Java_de_benibela_VideLibri_Bridge_VLGetTemplateDetails)
+   ,(name:'VLReloadTemplate'; signature:'(Ljava/lang/String;)V'; fnPtr:@Java_de_benibela_VideLibri_Bridge_VLReloadTemplate)
 
    ,(name:'VLAddAccount'; signature:'(Lde/benibela/videlibri/jni/Bridge$Account;)V'; fnPtr:@Java_de_benibela_VideLibri_Bridge_VLAddAccount)
    ,(name:'VLDeleteAccount'; signature:'(Lde/benibela/videlibri/jni/Bridge$Account;)V'; fnPtr:@Java_de_benibela_VideLibri_Bridge_VLDeleteAccount)

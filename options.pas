@@ -339,7 +339,6 @@ end;
 procedure ToptionForm.FormCreate(Sender: TObject);
 var i:integer;
  count: LongInt;
- searchResult: TSearchRec;
  list: TList;
  temp: String;
 begin
@@ -433,24 +432,7 @@ begin
   for i := 0 to libraryManager.templates.Count - 1 do
     if pos('|',libraryManager.templates[i]) = 0 then
       templateList.Items.add(libraryManager.templates[i]);
-  if DirectoryExists(userPath+'libraries/templates') then begin
-    if FindFirst(userPath+'libraries/templates/*', faDirectory, searchResult) = 0 then begin
-      repeat
-        if (searchResult.Name = '') or (searchResult.Name = '.') or (searchResult.Name = '..') then continue;
-        if templateList.Items.IndexOf(searchResult.Name) < 0 then
-          templateList.Items.Add(searchResult.Name);
-      until FindNext(searchResult) <> 0;
-    end;
-  end;
-  if DirectoryExists(assetPath+'libraries/templates') then begin
-    if FindFirst(assetPath+'libraries/templates/*', faDirectory, searchResult) = 0 then begin
-      repeat
-        if (searchResult.Name = '') or (searchResult.Name = '.') or (searchResult.Name = '..') then continue;
-        if templateList.Items.IndexOf(searchResult.Name) < 0 then
-          templateList.Items.Add(searchResult.Name);
-      until FindNext(searchResult) <> 0;
-    end;
-  end;
+  libraryManager.enumerateUserTemplates(templateList.Items);
   count := 1;
   for i := 0 to templateList.Items.count-1 do begin
     temp := templateList.Items[i];

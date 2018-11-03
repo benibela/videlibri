@@ -161,7 +161,12 @@ spinner.setAdapter(adapter);*/
     }
 
     void selectTemplate(String template){
-        Bridge.TemplateDetails details = Bridge.VLGetTemplateDetails(template);
+        Bridge.TemplateDetails details = null;
+        try {
+            details = Bridge.VLGetTemplateDetails(template);
+        } catch (Bridge.InternalError e) {
+            Util.showMessage(e.getLocalizedMessage());
+        }
         if (details == null) return;
 
         HashMap<String, Pair<String, EditText>> oldVariables = variables;

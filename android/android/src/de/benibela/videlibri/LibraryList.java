@@ -301,10 +301,13 @@ public class LibraryList extends VideLibriBaseActivity {
                     View row = getLayoutInflater().inflate(R.layout.libraryinlistview, this, false);
                     Map<String, String> libraryMap = localLibs.get(state).get(city).get(libId);
                     if (!libraryMap.containsKey("NAME")) {
-                        Bridge.LibraryDetails details = Bridge.VLGetLibraryDetails(libraryMap.get("ID"));
-                        libraryMap.put("NAME", details.prettyName);
-                        if (!Util.isEmptyString(details.tableComment))
-                            libraryMap.put("TABLECOMMENT", details.tableComment);
+                        String id = libraryMap.get("ID");
+                        Bridge.LibraryDetails details = Bridge.VLGetLibraryDetails(id);
+                        if (details != null) {
+                            libraryMap.put("NAME", details.prettyName);
+                            if (!Util.isEmptyString(details.tableComment))
+                                libraryMap.put("TABLECOMMENT", details.tableComment);
+                        } else libraryMap.put("NAME", "Failed to load: " + id);
                     }
                     ((TextView) row).setText(libraryMap.get("NAME"));
                     row.setTag(new ViewId(state, city, libId));
