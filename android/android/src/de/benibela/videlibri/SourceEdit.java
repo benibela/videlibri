@@ -15,18 +15,91 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 
 import de.benibela.videlibri.jni.Bridge;
-import okhttp3.internal.http.BridgeInterceptor;
 
 public class SourceEdit extends VideLibriBaseActivity{
-    String[] libraryIds, templateIds;
+    final String BASEDIR_TEMPLATES = "libraries/templates/";
+    final String BASEDIR_LIBRARIES = "libraries/";
 
-    String baseDir = "";
-    String fileName = "";
-    String[] selection2;
+    private String[] libraryIds, templateIds;
 
+    private String baseDir = "";
+    private String fileName = "";
+    private String[] selection1, selection2;
+
+    void makeLibraryIds(){
+        ArrayList<String> temp =  new ArrayList<>(Arrays.asList(Bridge.VLGetLibraryIds()));
+        temp.add(tr(R.string.source_edit_new_library));
+        libraryIds = temp.toArray(new String[]{});
+        for (int i=0;i<libraryIds.length - 1;i++)
+            libraryIds[i] = libraryIds[i] + ".xml";
+    }
+
+    void makeTemplateIds(){
+        templateIds = Bridge.VLGetTemplates();
+        selection1 = new String[templateIds.length+2];
+        selection1[0] = tr(R.string.lay_source_edit_library_list);
+        for (int i=0;i<templateIds.length;i++)
+            selection1[i+1] = tr(R.string.lay_source_edit_template, templateIds[i]);
+        selection1[selection1.length - 1] = tr(R.string.source_edit_new_directory);
+    }
+
+    void showSelection1(){
+        final Spinner templatesSpinner = (Spinner) findViewById(R.id.spinner);
+        templatesSpinner.setAdapter(makeAdapterStrings(selection1));
+    }
+    void showSelection2(int positionOfSelection1, String defaultSelectionText){
+        int position = positionOfSelection1;
+        if (position == 0) {
+            baseDir = BASEDIR_LIBRARIES;
+            selection2 = libraryIds;
+        } else if (position == selection1.length - 1) {
+            Util.inputDialog(DialogId.SOURCE_EDIT_NEW_SYSTEM, R.string.source_edit_new_dialog_filename);
+            return;
+        } else {
+            selection2 = new String[0];
+            ArrayList<String> files = new ArrayList<>();
+            baseDir = BASEDIR_TEMPLATES + templateIds[position - 1];
+            try {
+                Collections.addAll(files, getAssets().list(baseDir));
+                File f = userFile(baseDir);
+                if (f.exists()) {
+                    for (String p : f.list())
+                        if (!files.contains(p))
+                            files.add(p);
+                }
+            } catch (IOException ignored) {
+            }
+            files.add(tr(R.string.source_edit_new_file));
+            selection2 = files.toArray(selection2);
+            baseDir += "/";
+        }
+
+        final Spinner fileSpinner = (Spinner) findViewById(R.id.spinnerfile);
+        fileSpinner.setAdapter(makeAdapterStrings(selection2));
+        int defaultSelection = 0;
+        if (restoredStateBundle != null && position == restoredStateBundle.getInt("base"))
+            defaultSelection = restoredStateBundle.getInt("file");
+        else if (position > 0 || defaultSelectionText != null) {
+            if (defaultSelectionText == null) defaultSelectionText = "template";
+            for (int i = 0; i < selection2.length; i++)
+                if (defaultSelectionText.equals(selection2[i])) {
+                    defaultSelection = i;
+                    break;
+                }
+        }
+        if (defaultSelection != 0)
+            fileSpinner.setSelection(defaultSelection);
+    }
+    void showSelection2(String defaultSelectionText){
+        showSelection2(((Spinner)findViewById(R.id.spinner)).getSelectedItemPosition(), defaultSelectionText);
+    }
+    void showSelection2(int positionOfSelection1){
+        showSelection2(positionOfSelection1, null);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,52 +108,16 @@ public class SourceEdit extends VideLibriBaseActivity{
         setTitle(R.string.lay_source_edit);
         restoredStateBundle = savedInstanceState;
 
-        libraryIds = Bridge.VLGetLibraryIds();
-        for (int i=0;i<libraryIds.length;i++)
-            libraryIds[i] = libraryIds[i] + ".xml";
-        templateIds = Bridge.VLGetTemplates();
 
-        final String [] selection1 = new String[templateIds.length+1];
-        selection1[0] = tr(R.string.lay_source_edit_library_list);
-        for (int i=1;i<selection1.length;i++)
-            selection1[i] = tr(R.string.lay_source_edit_template, templateIds[i-1]);
+        makeLibraryIds();
+        makeTemplateIds();
+        showSelection1();
 
         final Spinner templatesSpinner = (Spinner) findViewById(R.id.spinner);
-        templatesSpinner.setAdapter(makeAdapterStrings(selection1));
         templatesSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                if (position == 0) {
-                    baseDir = "libraries/";
-                    selection2 = libraryIds;
-                } else {
-                    baseDir = "libraries/templates/" + templateIds[position - 1];
-                    selection2 = new String[0];
-                    ArrayList<String> files = new ArrayList<>();
-                    try {
-                        selection2 = getAssets().list(baseDir);
-                        File f = userFile(baseDir);
-                        if (f.exists()) {
-                            ArrayList<String> a = new ArrayList<>();
-                            Collections.addAll(a, selection2);
-                            for (String p : f.list())
-                                if (!a.contains(p)) a.add(p);
-                            selection2 = a.toArray(selection2);
-                        }
-                    } catch (IOException ignored) {
-                    }
-                    baseDir += "/";
-                }
-
-                final Spinner fileSpinner = (Spinner) findViewById(R.id.spinnerfile);
-                fileSpinner.setAdapter(makeAdapterStrings(selection2));
-                int defaultSelection = 0;
-                if (restoredStateBundle != null && position == restoredStateBundle.getInt("base"))
-                    defaultSelection = restoredStateBundle.getInt("file");
-                else if (position > 0)
-                    for (int i=0;i<selection2.length;i++) if ("template".equals(selection2[i])) { defaultSelection = i; break; }
-                if (defaultSelection != 0)
-                    fileSpinner.setSelection(defaultSelection);
+                showSelection2(position);
             }
 
             @Override
@@ -101,8 +138,12 @@ public class SourceEdit extends VideLibriBaseActivity{
                         return;
                     }
                 }
-                fileName = baseDir + selection2[position];
-                loadFile();
+                if (position == selection2.length - 1) {
+                    int dialogid = ((Spinner)findViewById(R.id.spinner)).getSelectedItemPosition() == 0 ? DialogId.SOURCE_EDIT_NEW_LIB : DialogId.SOURCE_EDIT_NEW_FILE;
+                    Util.inputDialog(dialogid, R.string.source_edit_new_dialog_filename);
+                    return;
+                }
+                loadFile(baseDir + selection2[position]);
             }
 
             @Override
@@ -115,12 +156,7 @@ public class SourceEdit extends VideLibriBaseActivity{
             @Override
             public void onClick(View v) {
                 try {
-                    File f = userFile(fileName);
-                    f.getParentFile().mkdirs();
-                    FileWriter fw = new FileWriter(f);
-                    fw.write(getEditTextText(R.id.edit));
-                    fw.close();
-                    Toast.makeText(SourceEdit.this, tr(R.string.source_edit_saved), Toast.LENGTH_SHORT).show();
+                    writeToFile(fileName, getEditTextText(R.id.edit));
                     Spinner spinner = (Spinner) findViewById(R.id.spinner);
                     try {
                         if (spinner.getSelectedItemPosition() == 0)
@@ -182,6 +218,11 @@ public class SourceEdit extends VideLibriBaseActivity{
         return new File(userPath() + "/" + fn);
     }
 
+    void loadFile(String fileName){
+        this.fileName = fileName;
+        loadFile();
+    }
+
     void loadFile(){
         File f = userFile(fileName);
         try {
@@ -215,5 +256,78 @@ public class SourceEdit extends VideLibriBaseActivity{
 
         }
         return false;
+    }
+
+    void writeToFile(String fileName, String text) throws IOException {
+        File f = userFile(fileName);
+        f.getParentFile().mkdirs();
+        FileWriter fw = new FileWriter(f);
+        fw.write(text);
+        fw.close();
+        Toast.makeText(SourceEdit.this, tr(R.string.source_edit_saved), Toast.LENGTH_SHORT).show();
+    }
+
+    void writeToNewFile(String fileName, String text) throws IOException {
+        if (userFile(fileName).exists())
+            Util.showMessage(tr(R.string.source_edit_new_file_exists));
+        else
+            writeToFile(fileName, text);
+    }
+
+    @Override
+    boolean onDialogResult(int dialogId, int buttonId, Bundle more) {
+        String text = null;
+        if (buttonId != Util.MessageHandlerCanceled && more != null) {
+            text = more.getString("text");
+            if (Util.isEmptyString(text)) text = null;
+        }
+        try {
+            switch (dialogId) {
+                case DialogId.SOURCE_EDIT_NEW_SYSTEM:
+                    final String emptyDefaultSystem = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" +
+                            "<actions>\n" +
+                            "  <action id=\"update-all\">\n  </action>\n\n" +
+                            "  <action id=\"renew-list\">\n  </action>\n\n\n\n" +
+                            "  <action id=\"search\">\n  </action>\n\n" +
+                            "  <action id=\"search-next-page\">\n  </action>\n\n" +
+                            "</actions>\n";
+                    if (text == null) ((Spinner)(findViewById(R.id.spinner))).setSelection(0);
+                    else {
+                        writeToNewFile(BASEDIR_TEMPLATES + text + "/template", emptyDefaultSystem);
+                        makeTemplateIds();
+                        showSelection1();
+                    }
+                    return true;
+                case DialogId.SOURCE_EDIT_NEW_FILE:
+                    if (text == null) ((Spinner)(findViewById(R.id.spinnerfile))).setSelection(0);
+                    else {
+                        fileName = baseDir + "/" + text;
+                        writeToNewFile(fileName, "");
+                        //loadFile(fileName);
+                        showSelection2(text);
+                    }
+                    return true;
+                case DialogId.SOURCE_EDIT_NEW_LIB:
+                    if (text != null && text.split("_").length != 4) {
+                        Util.showMessage(tr(R.string.source_edit_invalid_library_id));
+                        text = null;
+                    }
+                    if (text == null) ((Spinner)(findViewById(R.id.spinnerfile))).setSelection(0);
+                    else {
+                        if (!text.endsWith(".xml")) text += ".xml";
+                        Bridge.LibraryDetails ld = new Bridge.LibraryDetails();
+                        ld.prettyName = tr(R.string.source_edit_new_library_default_name);
+                        ld.templateId = "sru";
+                        Bridge.VLSetLibraryDetails(text.substring(0, text.length() - 4), ld);
+                        //loadFile(BASEDIR_LIBRARIES + text);
+                        showSelection2(text);
+
+                    }
+                    return true;
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return super.onDialogResult(dialogId, buttonId, more);
     }
 }

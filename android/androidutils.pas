@@ -507,30 +507,37 @@ begin
   result := nil;
   try
     libId := j.jStringToString(id);
-    lib := libraryManager.get(libId);
-    if lib = nil then exit(nil);
+    try
+      lib := libraryManager.get(libId);
+      if lib = nil then exit(nil);
 
-    with j do begin
-      args[0].l := stringToJString(lib.homepageBase);
-      args[1].l := stringToJString(lib.homepageCatalogue);
-      args[2].l := stringToJString(lib.prettyNameLong);
-      args[3].l := stringToJString(lib.prettyNameShort);
-      args[4].l := stringToJString(lib.id);
-      if lib.template <> nil then args[5].l := stringToJString(lib.template.name)
-      else args[5].l := stringToJString('');
-      args[6].l := stringToJString(lib.tableComment);
-      args[9].z := booleanToJboolean(lib.segregatedAccounts);
+      with j do begin
+        args[0].l := stringToJString(lib.homepageBase);
+        args[1].l := stringToJString(lib.homepageCatalogue);
+        args[2].l := stringToJString(lib.prettyNameLong);
+        args[3].l := stringToJString(lib.prettyNameShort);
+        args[4].l := stringToJString(lib.id);
+        if lib.template <> nil then args[5].l := stringToJString(lib.template.name)
+        else args[5].l := stringToJString('');
+        args[6].l := stringToJString(lib.tableComment);
+        args[9].z := booleanToJboolean(lib.segregatedAccounts);
 
-      namesArray := newStringArray(lib.variables.count);
-      valuesArray := newStringArray(lib.variables.count);
-      for i := 0 to lib.variables.count-1 do begin
-        setStringArrayElement(namesArray, i, lib.variables.Names[i]);
-        setStringArrayElement(valuesArray, i, lib.variables.ValueFromIndex[i]);
+        namesArray := newStringArray(lib.variables.count);
+        valuesArray := newStringArray(lib.variables.count);
+        for i := 0 to lib.variables.count-1 do begin
+          setStringArrayElement(namesArray, i, lib.variables.Names[i]);
+          setStringArrayElement(valuesArray, i, lib.variables.ValueFromIndex[i]);
+        end;
+        args[7].l := namesArray;
+        args[8].l := valuesArray;
+        result := newObject(libraryDetailsClass, libraryDetailsClassInitWithData, @args[0]);
+        for i := 0 to 8 do deleteLocalRef(args[i].l);
       end;
-      args[7].l := namesArray;
-      args[8].l := valuesArray;
-      result := newObject(libraryDetailsClass, libraryDetailsClassInitWithData, @args[0]);
-      for i := 0 to 8 do deleteLocalRef(args[i].l);
+    except
+      on e: Exception do begin
+        storeException(e, nil, libid, '');
+        result := nil;
+      end;
     end;
   except
     on e: Exception do j.ThrowNew('de/benibela/videlibri/jni/Bridge$InternalError', 'Interner Fehler: '+e.Message);

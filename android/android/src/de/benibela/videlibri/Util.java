@@ -249,6 +249,7 @@ public class Util {
         args.putBundle("more", more);
         showDialog(args);
     }
+    //result in more bundle key "text". Failure button is Util.MessageHandlerCanceled
     static public void inputDialog(int dialogId, int title){ inputDialog(dialogId, tr(title), null); }
     static public void inputDialog(int dialogId, String title, String message){
         Bundle args = new Bundle();
