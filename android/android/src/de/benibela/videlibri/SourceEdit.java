@@ -191,6 +191,9 @@ public class SourceEdit extends VideLibriBaseActivity{
         EditText edit = (EditText) findViewById(R.id.edit);
         edit.setText(bundle.getString("content"));
         edit.setSelection(bundle.getInt("contentSelectionStart"), bundle.getInt("contentSelectionEnd"));
+        fileName = bundle.getString("filename");
+        if (fileName == null) fileName = "";
+        else showFileName(bundle.getBoolean("userdefined"));
     }
 
     Bundle restoredStateBundle;
@@ -200,6 +203,8 @@ public class SourceEdit extends VideLibriBaseActivity{
         super.onSaveInstanceState(outState);
         outState.putInt("base", ((Spinner)findViewById(R.id.spinner)).getSelectedItemPosition());
         outState.putInt("file", ((Spinner)findViewById(R.id.spinnerfile)).getSelectedItemPosition());
+        outState.putString("filename", fileName);
+        outState.putBoolean("userdefined", fileNameShownAsUserdefined);
         EditText edit = (EditText) findViewById(R.id.edit);
         outState.putString("content", edit.getText().toString());
         outState.putInt("contentSelectionStart", edit.getSelectionStart());
@@ -241,8 +246,10 @@ public class SourceEdit extends VideLibriBaseActivity{
         showFileName(userDefined);
     }
 
+    private boolean fileNameShownAsUserdefined;
     void showFileName(boolean userDefined) {
         setTextViewText(R.id.filename, tr(R.string.source_edit_filename, fileName) + (userDefined ? "\n" + tr(R.string.source_edit_userdefined) : ""));
+        fileNameShownAsUserdefined = userDefined;
     }
 
     boolean hasAsset(String fn)  {
