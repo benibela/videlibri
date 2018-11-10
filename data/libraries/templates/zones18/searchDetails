@@ -58,7 +58,7 @@
         else if (starts-with($id, "stock_content")) then 
           for tumbling window $lines in $div/(text()|element()) start when true() end $e when $e/self::br return
           let $t := $lines!normalize-space(inner-text())[.] where exists($t) return
-          $book(concat("Exemplar ", $i := $i + 1, "!")) := join(($header, $lines), $line-ending)
+          $book(concat("Exemplar ", $i := $i + 1, "!")) := join(($header, $lines), "&#10;")
         else ()
       )[0]      
     </t:s></DIV>?
