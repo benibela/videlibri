@@ -184,7 +184,7 @@ test zones18 'listOrders{requestId:=0}' orderList1.html orderList1unterwegs.html
 test zones18 cancelConfirm cancelConfirm.html
 test zones18 'searchList{requestId:=0}' searchList.biel.html searchList.cologne.html searchList.hannover.html searchList.kiel.html searchList.koblenz.html searchList_notfound.html
 test zones18 'searchList{requestId:=1}' searchListIncremental.biel.html searchListIncremental.cologne.html searchListIncremental.hannover.html searchListIncremental.kiel.html searchListIncremental.koblenz.html
-test zones18 searchDetails searchDetails.html searchDetailsCollection.html searchDetailsSubTitle.html searchDetails.biel.html searchDetails.cologne.html searchDetails.hannover.html searchDetails.koblenz.html searchDetails.koblenz2.html 
+test zones18 searchDetails searchDetails.html searchDetailsCollection.html searchDetailsSubTitle.html searchDetails.biel.html searchDetails.cologne.html searchDetails.cologne2.html searchDetails.hannover.html searchDetails.koblenz.html searchDetails.koblenz2.html 
 test zones18 orderConfirmation orderConfirm.html
 
 

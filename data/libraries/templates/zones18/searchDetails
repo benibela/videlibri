@@ -47,8 +47,21 @@
         </TR>
       </TABLE>
  
-    <DIV>Bestand<t:s>i := 0</t:s></DIV>?
-    <DIV t:condition="starts-with(@id, 'stock_content')">{$book(concat("Exemplar ", $i := $i + 1, "!")) := .}</DIV>*
+    <DIV>Bestand<t:s> i := 0, header := (),
+      let $divs := following::div
+      for $div in $divs
+      (:for tumbling window $window in $divs start when true() end next $n when starts-with($n/@id, 'stock_header'):) 
+      let $id := $div/@id
+      return (
+        if (starts-with($id, "stock_header")) then 
+          $header := $div/string()
+        else if (starts-with($id, "stock_content")) then 
+          for tumbling window $lines in $div/(text()|element()) start when true() end $e when $e/self::br return
+          let $t := $lines!normalize-space(inner-text())[.] where exists($t) return
+          $book(concat("Exemplar ", $i := $i + 1, "!")) := join(($header, $lines), $line-ending)
+        else ()
+      )[0]      
+    </t:s></DIV>?
   
 
 </body>
