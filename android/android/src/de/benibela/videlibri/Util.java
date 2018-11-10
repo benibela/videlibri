@@ -169,6 +169,8 @@ public class Util {
                     if (message != null)
                         builder.setMessage(message);
                     edit = new EditText(getActivity());
+                    String def = args.getString("editTextDefault");
+                    if (def != null) edit.setText(def);
                     builder.setView(edit);
                     break;
                 default:
@@ -251,12 +253,14 @@ public class Util {
     }
     //result in more bundle key "text". Failure button is Util.MessageHandlerCanceled
     static public void inputDialog(int dialogId, int title){ inputDialog(dialogId, tr(title), null); }
-    static public void inputDialog(int dialogId, String title, String message){
+    static public void inputDialog(int dialogId, String title, String message){ inputDialog(dialogId, title, message, null); }
+    static public void inputDialog(int dialogId, String title, String message, String editDefault){
         Bundle args = new Bundle();
         args.putInt("id", dialogId);
         args.putString("positiveButton", tr(R.string.ok));
         args.putString("title", title);
         args.putString("message", message);
+        args.putString("editTextDefault", editDefault);
         args.putInt("special", DialogId.SPECIAL_INPUT_DIALOG);
         showDialog(args);
     }

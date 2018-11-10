@@ -17,6 +17,9 @@ import android.widget.Checkable;
 import android.widget.CompoundButton;
 import android.widget.Spinner;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import de.benibela.videlibri.internet.DownloadCertificate;
 import de.benibela.videlibri.internet.UserKeyStore;
 import de.benibela.videlibri.jni.Bridge;
@@ -189,7 +192,19 @@ public class Options extends VideLibriBaseActivity{
             cpm.makePreference(getString(R.string.lay_options_btn_newcertificate), new Preference.OnPreferenceClickListener() {
                 @Override
                 public boolean onPreferenceClick(Preference preference) {
-                    Util.inputDialog(DialogId.OPTIONS_ADD_USER_CERTIFICATE, R.string.certificate_download);
+                    String defaultServer = "";
+                    if (VideLibriApp.errors != null)
+                        for (Bridge.PendingException e: VideLibriApp.errors)
+                            if (e.kind == Bridge.PendingException.KIND_INTERNET)
+                                if (e.error != null && e.error.contains("https://")) {
+                                    Matcher matcher = Pattern.compile("https://([^/]+)").matcher(e.error);
+                                    if (matcher.find()) {
+                                        defaultServer = matcher.group(1);
+                                        break;
+                                    }
+                                }
+
+                    Util.inputDialog(DialogId.OPTIONS_ADD_USER_CERTIFICATE, getString(R.string.certificate_download), null, defaultServer);
                     return true;
                 }
             });
