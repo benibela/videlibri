@@ -71,8 +71,10 @@ test bibdia quickDetails quickDetails.duisburg.htm quickDetails.en.duisburg.html
 
 #============BIBDIA StaBib===============
 mkdir -p $OUTPATH/bibdia_stabib
-TEMPLATES=(${TEMPLATES[@]} bibdia_stabib/update bibdia_stabib/update bibdia_stabib/fastUpdate bibdia_stabib/update bibdia_stabib/update 'pica/searchDetails{\(\)/\(base:=\"\"\)}' 'pica/searchDetails{\(\)/\(base:=\"\"\)}' 'pica/searchDetails{\(\)/\(base:=\"\"\)}') 
-PAGES=(${PAGES[@]} bibdia_stabib/list.html bibdia_stabib/list_abhol.html bibdia_stabib/list_f.html bibdia_stabib/list_empty.html bibdia_stabib/list_new.html bibdia_stabib/stabikat1.html bibdia_stabib/stabikat2.html bibdia_stabib/stabikat3.html)
+test bibdia_stabib update list.html list_abhol.html list_empty.html list_new.html
+TEMPLATES=(${TEMPLATES[@]} 'pica/searchDetails{\(\)/\(base:=\"\"\)}' 'pica/searchDetails{\(\)/\(base:=\"\"\)}' 'pica/searchDetails{\(\)/\(base:=\"\"\)}') 
+PAGES=(${PAGES[@]} bibdia_stabib/stabikat1.html bibdia_stabib/stabikat2.html bibdia_stabib/stabikat3.html)
+
 
 #=============LIBERO==============
 mkdir -p $OUTPATH/libero5
