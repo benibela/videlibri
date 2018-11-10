@@ -40,11 +40,7 @@
     <post name="PASS" value="{xs:string(string-to-base64Binary($password))}"/>
     <post value="{$book-list}"/>
   </page>
-  <page url="https://ausleihe.staatsbibliothek-berlin.de/opac/medk.S" templateFile="fastUpdate">
-    <post name="LANG" value="de"/>
-    <post name="BENUTZER" value="{$username}"/>
-    <post name="PASS" value="{xs:string(string-to-base64Binary($password))}"/>
-  </page>
+  <call action="update-all"/>
 </action>
 
 
