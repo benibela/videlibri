@@ -96,7 +96,7 @@
     <string name="app_libregistered">Bibliothek wurde registriert.</string>
     <string name="app_libregisterfailed">Bibliotheksregistrierung fehlgeschlagen.</string>
     <string name="app_error_searchedfor">gesucht wurde:</string>
-    <string name="app_error_anerror">Eine Fehlermeldung!!1!</string>
+    <string name="app_error_anerror">Eine Fehlermeldung!!</string>
     <string name="app_error_needcontact">Bitte auch Kontaktdaten angeben, sonst kann ich keine Antwort/Lösung
         zurückschicken.
     </string>
