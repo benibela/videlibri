@@ -63,6 +63,8 @@ public class DownloadCertificate implements Runnable {
             message = Util.tr(R.string.certificate_failed, server, e.getLocalizedMessage());
         } catch (GeneralSecurityException e) {
             message = Util.tr(R.string.certificate_failed, server, e.getLocalizedMessage());
+        } catch (IllegalArgumentException e) { //for invalid urls
+            message = Util.tr(R.string.certificate_failed, server, e.getLocalizedMessage());
         }
 
         final String fmessage = message;
