@@ -373,6 +373,8 @@ begin
   cancelable:=tUnknown;
   dueDate:=0;
   issueDate:=0;
+  renewCount:=0;
+  //lastExistsDate, firstExistsDate?
   SetLength(Additional,0);
   FreeAndNil(holdings);
 end;
