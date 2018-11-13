@@ -320,7 +320,7 @@
     <string name="foreignlibrariesnotinthelist_install">3. Die nötigen Katalogmetadaten herunterladen</string>
     <string name="foreignlibrariesnotinthelist_install_req">falls die Bibliothek oder jemand anderes ein fertiges VideLibri-Template bereitstellt.</string>
     <string name="foreignlibrariesnotinthelist_diy">4. Selbst ein VideLibri-Template erstellen</string>
-    <string name="foreignlibrariesnotinthelist_diy_req">benötigt einen Desktop-Computer, und GreaseMonkey oder Programmiererfahrung.</string>
+    <string name="foreignlibrariesnotinthelist_diy_req">in den "Einstellungen/Quellcode bearbeiten" kann es für beliebige Webseiten umprogrammiert werden.</string>
     <string name="foreignlibrariesnotinthelist_mail">5. Eine E-Mail schreiben, damit die Bibliothek in der nächsten VideLibri-Version gelistet wird. </string>
     <string name="foreignlibrariesnotinthelist_mail_req">wozu ich (vor allem bei unbekannten System) eben ein Benutzerkonto zum Testen brauche. </string>
 

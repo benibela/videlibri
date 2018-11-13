@@ -1,0 +1,395 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+    <string name="crash_toast_text">VideLibri has crashed. Please wait, while it creates a crash report.</string>
+    <string name="crash_dialog_text">VideLibri has crashed. You can help  to fix the issue by sending this crash report.</string>
+    <string name="crash_dialog_comment_prompt">Your comment, and mail if you want an answer or solution:</string>
+    <string name="crash_dialog_ok_toast">Thanks!</string>
+    <string name="about_version_date">Version: %1$1.3f from %2$s</string>
+    <string name="version">Version</string>
+    <string name="homepage">Homepage</string>
+    <string name="source">Source repository</string>
+    <string name="account_delete">Do you want to delete this account?</string>
+    <string name="change">change</string>
+    <string name="error_nolibselected">No library selected</string>
+    <string name="warning_alphalib">Note: We do not have a library card at this library, so only the search functionality has been tested.\nPlease tell us if the account access works.
+    </string>
+    <plurals name="warning_autorenewal_onD">
+        <item quantity="one">Automatic renewal is ACTIVATED.\nAll lend books are renewed one day before their due date.\nBe careful to only lend items on which the library does not charge a renewal fee.</item>
+        <item quantity="other">Automatic renewal is ACTIVATED.\nAll lend books are renewed %d days before their due date.\nBe careful to only lend items on which the library does not charge a renewal fee</item>
+    </plurals>
+    <string name="warning_autorenewal_off">Automatic renewal is DISABLED.\nBe careful to renew lend books manually.</string>
+    <string name="account_createinitial">Choose your library to search their OPAC or access your lending account:</string>
+    <string name="about_create">Choose your library to register your library card:</string>
+    <string name="book_titleauthor">Title/Author</string>
+    <string name="book_from">from</string>
+    <string name="book_duedate">Due Date</string>
+    <string name="book_duedate_order">Limit Date</string>
+    <string name="book_status_unknown">status unknown</string>
+    <string name="book_status_normal">normal/renewable</string>
+    <string name="book_status_problematic">not renewable</string>
+    <string name="book_status_ordered">ordered</string>
+    <string name="book_status_provided">provided</string>
+    <string name="book_status">Status</string>
+    <string name="book_lenddate">Lending Date</string>
+    <string name="book_lenddate_before_prefixS">≤ %s</string>
+    <string name="book_lendat">Lend from</string>
+    <string name="book_account">Account</string>
+    <string name="book_category">Category</string>
+    <string name="book_publisher">Publisher</string>
+    <string name="book_order">order</string>
+    <string name="book_renew">renew</string>
+    <string name="book_cancel">cancel</string>
+    <string name="book_title">Title</string>
+    <string name="book_author">Author</string>
+    <string name="book_id">ID</string>
+    <string name="book_barcode">Barcode</string>
+    <string name="book_libraryBranch">Library Branch</string>
+    <string name="book_libraryLocation">Library Location</string>
+    <string name="book_pendingOrders">Pending Orders</string>
+    <string name="book_year">Year</string>
+    <string name="booklist_noselection">no selection</string>
+    <string name="booklist_loading">loading...</string>
+    <string name="booklist_from"></string>
+    <string name="feedback_feedbacktitle">VideLibri Feedback</string>
+    <string name="feedback_acraheader">Application Crash Report:</string>
+    <string name="feedback_send_ok">Feedback has been sent successfully.</string>
+    <string name="feedback_send_failed">Feedback sending failed partially.</string>
+    <string name="feedback_send_failedconnect">Feedback sending failed.</string>
+    <string name="error_nomailapp">No app for sending mails available.</string>
+    <string name="liblist_withaccounts">with accounts</string>
+    <string name="renew_title_start">Choose items to renew</string>
+    <string name="renew_title_select">Choose items to renew</string>
+    <string name="renew_noselection">no selection</string>
+    <string name="renew_title_selectionDD">Renew: %1$d/%2$d</string>
+    <string name="renew_renewD">renew %d</string>
+    <string name="search_title">Catalogue search</string>
+    <string name="search_selectlib">Choose a library to search there:</string>
+    <string name="search_lost">Search interrupted</string>
+    <string name="search_loading">Search loading...</string>
+    <string name="search_resultcountD">%d Items found</string>
+    <string name="search_orderedokS">The item \&quot;%1$s\&quot; has been ordered without a detected error.\n\n%2$s</string>
+    <string name="search_failed">Search failed</string>
+    <string name="search_needaccount">Ordering requires a library account.</string>
+    <string name="search_orderTargetAccount">Choose an account to order\&quot;%s\&quot;</string>
+    <string name="search_chooseitem">Choose an item to order</string>
+    <string name="ok">OK</string>
+    <string name="cancel">Cancel</string>
+    <string name="no">No</string>
+    <string name="yes">Yes</string>
+    <plurals name="main_bookcountPluralD">
+        <item quantity="one">One lend item</item>
+        <item quantity="other">%d lend items</item>
+    </plurals>
+    <string name="main_bookcountDD">%1$d/%2$d lend items</string>
+    <string name="main_bookcounthistoryDD">%1$d/%2$d items</string>
+    <string name="main_bookcounthistoryDDD">%1$d/%2$d/%3$d items</string>
+    <string name="main_accountcountDD">%1$d/%2$d accounts</string>
+    <string name="main_allaccounts">All accounts</string>
+    <string name="main_cancelconfirm">Do you want to cancel this order?</string>
+    <string name="menu_accounts">Accounts</string>
+    <string name="main_accountwithhistory">History</string>
+    <string name="app_libregistered">Library has been registered.</string>
+    <string name="app_libregisterfailed">Library registration failed.</string>
+    <string name="app_error_searchedfor">searched:</string>
+    <string name="app_error_anerror">An error!!</string>
+    <string name="app_error_needcontact">If you want an answer, you need to enter your mail.</string>
+    <string name="app_error_report">Do you want to send an error report?</string>
+    <string name="base_pendingrefreshrenew">Only a single renewal can be performed at once.</string>
+    <string name="base_chooselibhomepage">Choose a library to open their webpage.</string>
+    <string name="base_chooselibcat">Choose a library to open their OPAC.</string>
+    <string name="base_renewallconfirm">Do you want to renewal everything?</string>
+    <string name="menu_renewlist">Renew some items</string>
+    <string name="menu_renewall">Renew all items</string>
+    <string name="menu_refreshall">Refresh account view</string>
+    <string name="menu_share">Share</string>
+    <string name="menu_import">Import</string>
+    <string name="menu_export">Export</string>
+    <string name="menu_homepages">Webpages</string>
+    <string name="menu_cats">Catalogues</string>
+    <string name="menu_feedback">Feedback</string>
+    <string name="menu_about">About</string>
+    <string name="menu_misc">Other things</string>
+    <string name="menu_context_copy">Copy</string>
+    <string name="paste">Paste</string>
+    <string name="clear">Delete</string>
+
+    <string name="menu_context_paste_replace">Paste new</string>
+    <string name="menu_context_save_filter">Save filter </string>
+    <string name="menu_context_load_filter">Load filter</string>
+
+    <string name="menu_context_copyall">Copy all</string>
+    <string name="lay_account_label1">Enter your library card data to show the books lend on your library account: (keep it empty if you only want to search)</string>
+    <string name="lay_account_label_account">Account number:</string>
+    <string name="lay_account_label_password">Password:</string>
+    <string name="lay_account_label_autorenew">Do you want to renew everything automatically?</string>
+    <string name="lay_account_label_autorenew1">always</string>
+    <string name="lay_account_label_autorenew2">days before the due date.</string>
+    <string name="lay_account_label_history">Do you want to store a history of lend items?</string>
+    <string name="lay_account_label_accountdisplayname">Display label:</string>
+    <string name="lay_account_create">Register account</string>
+    <string name="lay_account_delete">Delete!</string>
+    <string name="renew">renew</string>
+    <string name="renew_single_confirm">Do you want to renew this item?</string>
+    <string name="lay_chooselib_choose">Choose a library:</string>
+    <string name="lay_chooselib_whynot">Is your library missing?</string>
+    <string name="lay_feedback_label_formular">Feedback form:</string>
+    <string name="lay_feedback_label_message">Your message:</string>
+    <string name="lay_feedback_label_name">Your name (optional):</string>
+    <string name="lay_feedback_label_mail">Your mail (optional):</string>
+    <string name="lay_feedback_caption_mail">Through mail:</string>
+    <string name="lay_feedback_caption_play">Through Google Play Store:</string>
+    <string name="lay_feedback_caption_acra">Through ACRA (might send debug log):</string>
+    <string name="lay_feedback_send">Send</string>
+    <string name="lay_feedback_acra">Crash to generate crash report</string>
+    <string name="lay_feedback_label_includeerrors">Include error messages</string>
+    <string name="lay_feedback_label_includepagesanonymized">Include structure of the last opened webpages</string>
+    <string name="lay_feedback_label_includepagesfull">Include text on the last opened webpages</string>
+    <string name="lay_newlib_caption_installlib">Download a library description file from an URL:</string>
+    <string name="lay_newlib_label_adress">URL:</string>
+    <string name="install">Install</string>
+    <string name="lay_newlib_caption_ownlib">Own library description:</string>
+    <string name="lay_newlib_label_id">Internal Id: (random number)</string>
+    <string name="lay_newlib_label_name">Name: (to show it in the list)</string>
+    <string name="lay_newlib_edit_newlib">my library</string>
+    <string name="lay_newlib_label_template">Template: (the catalogue system used by the library)</string>
+    <string name="lay_newlib_label_template_description">In this section you can download an entirely new library description from an web address. This can include the address of a library OPAC as well as arbitrarily complex code to access an OPAC. So here you can add any library and any OPAC system, if someone has written a template to interface it with VideLibri.</string>
+    <string name="lay_newlib_label_args_description">In this section you can enter the address and parameters of a library OPAC. So here you can add any library that uses a system which is already support in this version of VideLibri.</string>
+    <string name="create">Create</string>
+    <string name="delete">Delete</string>
+    <string name="lay_options_caption_viewmode">View mode:</string>
+    <string name="lay_options_option_current">current lendings</string>
+    <string name="lay_options_option_currenthistory">all lendings including history</string>
+    <string name="lay_options_caption_accountview">Shown accounts:</string>
+    <string name="lay_options_caption_accountchange">Library accounts:</string>
+    <string name="lay_options_btn_newaccount">Register new account...</string>
+    <string name="lay_options_caption_notifications">Notifications </string>
+    <string name="lay_options_option_warn">Warn before due date.</string>
+    <string name="lay_options_option_warn_summary_on">Run in the background and check for ending due dates.</string>
+    <string name="lay_options_warningtimedelay">days before due date.</string>
+    <string name="lay_options_label_autocheckdelay">minutes after device boot.</string>
+    <string name="lay_options_caption_ownlibs">Self defined libraries:</string>
+    <string name="lay_options_btn_newlib">Register new library... </string>
+    <string name="lay_options_caption_misc">Other options: </string>
+    <string name="lay_options_option_onlytitles">Hide author</string>
+    <string name="lay_options_option_onlytitles_summary_on">Only the row containing title and due date is shown for each lending. </string>
+    <string name="lay_options_option_debuglog">Debug Log </string>
+    <string name="lay_options_option_debuglog_summary_on">Report everything done by this app to the Android logcat: all called functions and all transmitted data (including passwords). </string>
+    <string name="lay_options_option_includelog">Include log files in error reports.</string>
+    <string name="lay_options_option_includelog_summary_on">Include debug logcat in error reports.</string>
+    <string name="lay_search_lib">Library</string>
+    <string name="lay_search_libselect">Choose a library</string>
+    <string name="lay_search_title">Title</string>
+    <string name="lay_search_author">Author</string>
+    <string name="lay_search_keywords">Keywords</string>
+    <string name="lay_search_isbn">ISBN </string>
+    <string name="lay_search_year">Year</string>
+    <string name="lay_search_searchedbranch">Library Branch (to search)</string>
+    <string name="lay_search_orderbranch">Library Branch (for orders)</string>
+    <string name="lay_search_btn_search">Search </string>
+    <string name="lay_options_label_sorting">Sorting</string>
+    <string name="lay_options_label_grouping">Grouping</string>
+
+    <string name="daybeforeyesterday">day before yesterday</string>
+    <string name="yesterday">yesterday</string>
+    <string name="today">today</string>
+    <string name="tomorrow">tomorrow</string>
+    <string name="dayaftertomorrow">day after tomorrow</string>
+
+    <string name="last_week">last week</string>
+    <string name="this_week">this week</string>
+    <string name="next_week">next week</string>
+
+    <string name="week_from_to">week from %1$s to %2$s </string>
+
+    <string name="unknown_date">Unknown date </string>
+    <string name="lay_options_label_filtering">Filter </string>
+    <string name="lay_show_renewcount">Show renewal count</string>
+    <string name="lay_show_renewcount_summary_on">Show how often an item has been renewed (not available for all libraries). </string>
+
+    <string-array name="sortable_properties_tr">
+        <item>None</item>
+        <item>Account</item>
+        <item>Due week</item>
+        <item>Due date</item>
+        <item>Status</item>
+        <item>Lend week</item>
+        <item>Lend date</item>
+        <item>Library branch</item>
+        <item>ID</item>
+        <item>Category</item>
+        <item>Title</item>
+        <item>Author</item>
+        <item>Year</item>
+        <item>Renewal count</item>
+    </string-array>
+
+    <string-array name="sortable_properties">
+        <item/>
+        <item>_account</item>
+        <item>_dueWeek</item>
+        <item>dueDate</item>
+        <item>_status</item>
+        <item>_issueWeek</item>
+        <item>issueDate</item>
+        <item>libraryBranch</item>
+        <item>id</item>
+        <item>category</item>
+        <item>title</item>
+        <item>author</item>
+        <item>year</item>
+        <item>renewCount</item>
+    </string-array>
+
+    <string-array name="filterable_properties_tr">  
+        <item>None</item>
+        <item>Author + Title</item>
+        <item>Library branch</item>
+        <item>ID</item>
+        <item>Category</item>
+        <item>Title</item>
+        <item>Author</item>
+        <item>Year</item>
+    </string-array>
+
+    <string-array name="filterable_properties">  
+        <item>__disabled</item>
+        <item/>
+        <item>libraryBranch</item>
+        <item>id</item>
+        <item>category</item>
+        <item>title</item>
+        <item>author</item>
+        <item>year</item>
+    </string-array>
+
+
+    <string name="import_">Import</string>
+    <string name="import_load">Load file</string>
+    <string name="import_accounts">Import these accounts</string>
+    <string name="import_properties">with these properties </string>
+    <string name="import_file">Import from this file: </string>
+    <string name="import_done">Import completed</string>
+    <string name="import_done_has_empty_pass">Import completed without passwords. If you want to update the lendings, you need to reenter the passwords in the configuration. </string>
+    <string name="import_not_while_update_runs">Import is not possible, while an account refresh or renewal is being performed. </string>
+
+    <string name="export">Export</string>
+    <string name="export_accounts">Export these accounts</string>
+    <string name="export_properties">with these properties</string>
+    <string name="export_file">in this file </string>
+    <string name="export_done">Export completed</string>
+
+    <string name="history">History</string>
+    <string name="configuration">Configuration</string>
+    <string name="passwords">Passwords</string>
+    <string name="lay_booklist_searchfilter_hint">offline search in own lend items and xquery</string>
+    <string name="menu_debuglog">Debug-Log</string>
+    <string name="debuglog_disabled">Debug-Log is disabled. You need to enable it in the configuration before anything is shown here.</string>
+    <string name="notificationNoAccounts">Without registered library cards no due dates can be reported. </string>
+    <string name="notificationNoAccountsTitle">VideLibri: No accounts</string>
+    <string name="lay_account_label_type">Account type: </string>
+    <string name="lay_account_intern">internal (e.g. student) </string>
+    <string name="extern">extern</string>
+
+
+    <string name="foreignlibrariesnotinthelist">Currently there are no English libraries, since we only have library cards from German-speaking libraries.
+    But you can try to add your library using one of these approachs:</string> 
+    <string name="foreignlibrariesnotinthelist_easy">1. Enter the web address (URL) of the library OPAC </string>
+    <string name="foreignlibrariesnotinthelist_easy_req">if the library uses a library system (from a vendor) that is already supported. </string>
+    <string name="foreignlibrariesnotinthelist_meta">2. use a state wide meta catalogue.  </string>
+    <string name="foreignlibrariesnotinthelist_meta_req">if you only want to search something in German. </string>
+    <string name="foreignlibrariesnotinthelist_install">3. Install a template </string>
+    <string name="foreignlibrariesnotinthelist_install_req">if someone has created a VideLibri interface to work with your library and uploaded it somewhere. </string>
+    <string name="foreignlibrariesnotinthelist_diy">4. Create your own template </string>
+    <string name="foreignlibrariesnotinthelist_diy_req">in Options/Edit Source you can write a script to download data from any webpage and display it. Easier to write it on a Desktop computer through and copy it to VideLibri.</string>
+    <string name="foreignlibrariesnotinthelist_mail">5. Send us a mail to have your library added.  </string>
+    <string name="foreignlibrariesnotinthelist_mail_req">if the system is not already support (point 1), we would need a library card to add it.  </string>
+
+    <string name="share_export_footer">send from VideLibri </string>
+    <string name="clipboard_copiedS">Copied to clipboard:\n%s </string>
+
+    <string name="config_example_filters_json">  &quot;
+        [\&quot;(:Multiple author search:) $books[matches(author, &apos;Autor1|Autor2&apos;)]\&quot;,
+         \&quot;(:Find books lend more than once:) for $book in $books group by $temp := $book.author || &apos;:&apos; || $book.title where count($book) &gt; 1 return $book[1]\&quot;,
+         \&quot;(:Prim numbers:) for $i in 2 to 100 where empty((2 to $i - 1)[$i mod . = 0]) return $i\&quot;
+        ]
+    &quot; </string>
+    <string name="app_error_check_passwd_btn">Change password</string>
+    <string name="app_error_report_btn">Send error report </string>
+    <string name="app_error_check_internet_btn">Internet config</string>
+    <string name="menu_search">Search</string>
+    <string name="menu_options">Options</string>
+    <string name="drawer_open">Menu </string>
+    <string name="drawer_close">Close</string>
+
+
+    <string name="loading_tasks_info">Active tasks:\n\n </string>
+    <string name="loading_account_update">Lending refresh</string>
+    <string name="loading_cover">Loading cover picture</string>
+    <string name="loading_search_connecting">Search: connecting</string>
+    <string name="loading_search_searching">Searching</string>
+    <string name="loading_search_details">Search: details</string>
+    <string name="loading_search_order">Search: order</string>
+    <string name="loading_search_order_holding">Search: order holding</string>
+    <string name="loading_search_message">Search: message</string>
+    <string name="loading_search_install_library">Installing library </string>
+    <string name="err_uri_open_failed">Webpage \&quot;%s\&quot; could not be opened</string>
+
+
+    <string name="debug_order_new_first">new-&gt;old</string>
+    <string name="debug_order_old_first">old-&gt;new </string>
+    <string name="debug_log_http">All transmitted data (%s) </string>
+    <string name="debug_log_videlibri">+ VideLibri (%s) </string>
+    <string name="debug_log_all">+ Android (%s) </string>
+    <string name="lay_options_label_view_history">Show history: </string>
+    <string name="lay_options_btn_account_history">+history</string>
+    <string name="lay_options_label_filtering_summary">Use \&quot;%s\&quot; property when searching the list of lend books. </string>
+    <string name="lay_options_filter_search_in_history">Search in history </string>
+    <string name="lay_options_filter_search_in_history_summary_on">Always search in the list of currently and previously lend books. </string>
+    <string name="lay_options_filter_search_in_history_summary_off">Only search in the list of currently lend books. </string>
+
+    <string name="lay_options_refreshInterval">Refresh interval</string>
+    <string name="lay_options_check_summary">Open the library OPAC every %d day(s) to check for newly lend books. </string>
+
+    <string name="lay_options_label_autocheckdelay_summary">Refresh the list of lend books and warn about due dates %d minutes after device boot. </string>
+    <string name="lay_options_warningtimedelay_summary">Warn about books that are due within the next %d day(s). </string>
+
+
+    <string name="lay_options_label_accounts_summary">Change account/renewal options... </string>
+    <string name="lay_options_label_ownlibraries_summary">Change library properties... </string>
+    <string name="lay_options_caption_owncertificates">Additional HTTPS certificates</string>
+
+
+    <string name="import_export_need_permission">Allow import/export</string>
+    <string name="menu_context_filter_singleline">Single line </string>
+    <string name="menu_context_filter_multiline">Multi line </string>
+
+    <string name="certificate_added">Certificate of server %1$s installed.\nIts fingerprint is: %2$s </string>
+    <string name="certificate_existing">Certificate of server %1$s was already installed.\nIts fingerprint is: %2$s </string>
+    <string name="certificate_failed">Certificate of server %1$s failed:\n%2$s </string>
+    <string name="lay_options_btn_newcertificate">Download the certificate of a server and register it as valid. </string>
+    <string name="certificate_download">Address of the web server (www...) whose certificate should be accepted:  </string>
+    <string name="lay_options_btn_newcertificate_delete">Delete certificate...</string>
+    <string name="certificate_delete">Do you want to delete this certificate</string>
+    <string name="lay_feedback_label_privacy">Privacy statement: http://www.videlibri.de/datenschutz.html </string>
+    <string name="lay_source_edit">Edit source code</string>
+    <string name="lay_source_edit_choose_directory">Source code category: </string>
+    <string name="lay_source_edit_choose_file">File: </string>
+    <string name="lay_source_edit_template">Library system: %s </string>
+    <string name="lay_source_edit_library_list">Library webpages </string>
+    <string name="lay_options_btn_editsource">Edit source code... </string>
+    <string name="lay_source_edit_save">Save</string>
+    <string name="lay_source_edit_reset">Delete</string>
+    <string name="source_edit_userdefined">(user defined) </string>
+    <string name="source_edit_filewritefailed">Saving failed: %s </string>
+    <string name="source_edit_filename">File name: %s </string>
+    <string name="source_edit_saved">File saved. </string>
+    <string name="source_edit_deleted">File deleted. </string>
+    <string name="source_edit_nodelete">File reloaded. </string>
+    <string name="source_edit_new_directory">New library system... </string>
+    <string name="source_edit_new_library">New library... </string>
+    <string name="source_edit_new_file">New file... </string>
+    <string name="source_edit_new_dialog_filename">New file name: </string>
+    <string name="source_edit_invalid_library_id">Library files need to be like COUNTRY_STATE_CITY_ID </string>
+    <string name="source_edit_new_library_default_name">New unknown library </string>
+    <string name="source_edit_new_file_exists">File already exists.</string>
+</resources>
