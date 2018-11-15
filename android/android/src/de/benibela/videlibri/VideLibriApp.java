@@ -28,7 +28,8 @@ import java.util.Locale;
 import de.benibela.internettools.LazyLoadKeystore;
 import de.benibela.internettools.X509TrustManagerWithAdditionalKeystores;
 import de.benibela.internettools.X509TrustManagerWrapper;
-import de.benibela.videlibri.android2_2.NotificationService;
+import de.benibela.videlibri.notifications.Notifier;
+import de.benibela.videlibri.notifications.service.NotificationService;
 import de.benibela.videlibri.internet.UserKeyStore;
 import de.benibela.videlibri.internet.VideLibriKeyStore;
 import de.benibela.videlibri.jni.Bridge;
@@ -122,7 +123,7 @@ public class VideLibriApp extends Application implements Bridge.VideLibriContext
                     VideLibriApp.refreshDisplayedLendBooks();
                     //displayed account has an icon cache, so displayAccount needs to be called before updateNotification
                 }
-                NotificationService.updateNotification(currentActivity);
+                Notifier.updateNotification(currentActivity);
                 showPendingExceptions();
                 if (updateWakeLock != null) {
                     if (updateWakeLock.isHeld()) {

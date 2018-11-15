@@ -1,7 +1,7 @@
 /*
  * Notification Service for Android 2.2 to Android < 4 < 8
  */
-package de.benibela.videlibri.android2_2;
+package de.benibela.videlibri.notifications.service;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;

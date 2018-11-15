@@ -1,27 +1,20 @@
 /*
  * Notification Service for Android 2.2 to Android < 4 < 8
  */
-package de.benibela.videlibri.android2_2;
+package de.benibela.videlibri.notifications.service;
 
 import android.app.*;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.net.ConnectivityManager;
-import android.net.Network;
-import android.net.NetworkInfo;
-import android.os.Build;
 import android.preference.PreferenceManager;
-import android.support.v4.app.NotificationCompat;
 import android.os.Binder;
 import android.os.IBinder;
 
-import de.benibela.videlibri.R;
-import de.benibela.videlibri.Util;
-import de.benibela.videlibri.VideLibri;
 import de.benibela.videlibri.VideLibriApp;
 import de.benibela.videlibri.internet.VideLibriNetworkInfo;
 import de.benibela.videlibri.jni.Bridge;
+import de.benibela.videlibri.notifications.Notifier;
 
 public class NotificationService extends Service implements Bridge.VideLibriContext{
     // Unique Identification Number for the Notification.
@@ -62,7 +55,7 @@ public class NotificationService extends Service implements Bridge.VideLibriCont
         } else
             sheduleQuickCheck(this, 1000*60*60); //wait 1 h
 
-        updateNotification(this);
+        Notifier.updateNotification(this);
 
         return START_NOT_STICKY;// START_STICKY;
     }
@@ -83,72 +76,9 @@ public class NotificationService extends Service implements Bridge.VideLibriCont
     // RemoteService for a more complete example.
     private final IBinder mBinder = new LocalBinder();
 
-    static private final int NOTIFICATION_ID = 8239238;
-    static private String lastNotificationTitle = "";
-    static private String lastNotificationText = "";
-    static private long lastNotificationTime = 0;
 
-    static private String [] getNotifications(Context context){
-        if (VideLibriApp.accounts == null) VideLibriApp.refreshAccountList();
 
-        if (VideLibriApp.accounts.length == 0) return new String[] {
-                Util.tr(context, R.string.notificationNoAccountsTitle),
-                Util.tr(context, R.string.notificationNoAccounts)
-        };
 
-        String [] notification = Bridge.VLGetNotifications();
-
-        if (notification == null) return null;
-
-        return notification;
-    }
-
-    static void cancelNotification(Context context) {
-        NotificationManager nm = ((NotificationManager)context.getSystemService(NOTIFICATION_SERVICE));
-        if (nm == null) return;
-        nm.cancel(NOTIFICATION_ID);
-        lastNotificationTime = 0;
-    }
-
-    /**
-     * Show a notification while this service is running.
-     * (partly from http://stackoverflow.com/questions/13902115/how-to-create-a-notification-with-notificationcompat-builder)
-     */
-    static public void updateNotification(Context context) {
-        if (context == null) context = instance;
-        if (context == null) context = VideLibriApp.currentContext();
-        if (context == null) return;
-
-        String[] notification = getNotifications(context);
-
-        if (notification == null || notification.length < 2) {
-            cancelNotification(context);
-            return;
-        }
-
-        if (lastNotificationTitle.equals(notification[0]) && lastNotificationText.equals(notification[1])
-                && System.currentTimeMillis() - lastNotificationTime < 1000*60*60*23) return;
-
-        lastNotificationTitle = notification[0];
-        lastNotificationText = notification[1];
-        lastNotificationTime = System.currentTimeMillis();
-
-        NotificationCompat.Builder mBuilder =
-                new NotificationCompat.Builder(context)
-                        .setSmallIcon(VideLibriApp.getMainIcon())
-                        .setContentTitle(notification[0])
-                        .setContentText(notification[1])
-                        .setContentIntent(PendingIntent.getActivity(context, 0, new Intent(context, VideLibri.class), 0));
-        if  (Build.VERSION.SDK_INT >= 11) mBuilder = mBuilder.setAutoCancel(true);
-
-        // Set the info for the views that show in the notification panel.
-        //notification.setLatestEventInfo(this, getText(R.string.local_service_label),text, contentIntent);
-
-        // Send the notification.
-        NotificationManager nm = ((NotificationManager)context.getSystemService(NOTIFICATION_SERVICE));
-        if (nm == null) return;
-        nm.notify(NOTIFICATION_ID, mBuilder.build());
-    }
 
 
     static private final int NOTIFICATION_CHECK_DAILY = 14355;

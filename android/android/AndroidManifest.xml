@@ -122,10 +122,10 @@
                   android:excludeFromRecents="true"
                   android:finishOnTaskLaunch="true" />
 
-        <service android:name=".android2_2.NotificationService" >
+        <service android:name=".notifications.service.NotificationService" >
         </service>
 
-        <receiver android:name=".android2_2.NotificationOnBootCompleted"
+        <receiver android:name=".notifications.service.NotificationOnBootCompleted"
                 android:permission="android.permission.RECEIVE_BOOT_COMPLETED">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
@@ -134,13 +134,13 @@
                 <action android:name="android.intent.action.MY_PACKAGE_REPLACED" />
             </intent-filter>
         </receiver>
-        <receiver android:name=".android2_2.NotificationOnBootCompleted$LegacyPackageReplace" android:enabled="@bool/useLegacyPackageReplacedUntil11" >
+        <receiver android:name=".notifications.service.NotificationOnBootCompleted$LegacyPackageReplace" android:enabled="@bool/useLegacyPackageReplacedUntil11" >
             <intent-filter>
                 <action android:name="android.intent.action.PACKAGE_REPLACED" />
                 <data android:scheme="package" />
             </intent-filter>
         </receiver>
-        <receiver android:name=".android2_2.NotificationShowNow" >
+        <receiver android:name=".notifications.service.NotificationShowNow" >
         </receiver>
 
     </application>

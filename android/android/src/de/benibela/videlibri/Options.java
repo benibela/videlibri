@@ -20,7 +20,7 @@ import android.widget.Spinner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import de.benibela.videlibri.android2_2.NotificationService;
+import de.benibela.videlibri.notifications.service.NotificationService;
 import de.benibela.videlibri.internet.DownloadCertificate;
 import de.benibela.videlibri.internet.UserKeyStore;
 import de.benibela.videlibri.jni.Bridge;
