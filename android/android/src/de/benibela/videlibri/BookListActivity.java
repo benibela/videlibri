@@ -1,7 +1,6 @@
 package de.benibela.videlibri;
 
 import android.annotation.SuppressLint;
-import android.content.Context;
 import android.os.Build;
 import android.content.Intent;
 import android.os.Bundle;

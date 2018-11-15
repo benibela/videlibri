@@ -334,32 +334,20 @@ public class Util {
 
     static class Clipboard{
         static CharSequence getText(Context context){
-            if(android.os.Build.VERSION.SDK_INT < android.os.Build.VERSION_CODES.HONEYCOMB) {
-                android.text.ClipboardManager cm = ((android.text.ClipboardManager) context.getSystemService(CLIPBOARD_SERVICE));
-                if (cm == null) return null;
-                return cm.getText();
-            } else {
-                android.content.ClipboardManager cm = ((android.content.ClipboardManager)context.getSystemService(CLIPBOARD_SERVICE));
-                if (cm == null) return null;
-                ClipData data = cm.getPrimaryClip();
-                if (data == null) return null;
-                ClipData.Item i = data.getItemAt(0);
-                if (i == null) return null;
-                return i.coerceToText(context);
-            }
+            android.content.ClipboardManager cm = ((android.content.ClipboardManager)context.getSystemService(CLIPBOARD_SERVICE));
+            if (cm == null) return null;
+            ClipData data = cm.getPrimaryClip();
+            if (data == null) return null;
+            ClipData.Item i = data.getItemAt(0);
+            if (i == null) return null;
+            return i.coerceToText(context);
         }
         static void setText(Context context, CharSequence toCopy){
-            if(android.os.Build.VERSION.SDK_INT < android.os.Build.VERSION_CODES.HONEYCOMB) {
-                android.text.ClipboardManager clipboard = (android.text.ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);
-                if (clipboard == null) return;
-                clipboard.setText(toCopy);
-            } else {
-                android.content.ClipboardManager clipboard = (android.content.ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);
-                if (clipboard == null) return;
-                android.content.ClipData clip = android.content.ClipData.newPlainText("Book details", toCopy);
-                if (clip == null) return;
-                clipboard.setPrimaryClip(clip);
-            }
+            android.content.ClipboardManager clipboard = (android.content.ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);
+            if (clipboard == null) return;
+            android.content.ClipData clip = android.content.ClipData.newPlainText("Book details", toCopy);
+            if (clip == null) return;
+            clipboard.setPrimaryClip(clip);
             Toast.makeText(context, tr(R.string.clipboard_copiedS, toCopy), Toast.LENGTH_SHORT).show();
 
         }

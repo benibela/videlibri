@@ -305,7 +305,7 @@
 
 
     <string name="foreignlibrariesnotinthelist">Currently there are no English libraries, since we only have library cards from German-speaking libraries.
-    But you can try to add your library using one of these approachs:</string> 
+    But you can try to add your library using one of these approaches:</string>
     <string name="foreignlibrariesnotinthelist_easy">1. Enter the web address (URL) of the library OPAC </string>
     <string name="foreignlibrariesnotinthelist_easy_req">if the library uses a library system (from a vendor) that is already supported. </string>
     <string name="foreignlibrariesnotinthelist_meta">2. use a state wide meta catalogue.  </string>

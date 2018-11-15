@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
@@ -116,7 +117,8 @@ public class Options extends VideLibriBaseActivity{
 
         private void updatePreferences (){
             TypedValue themeTypedValue = new TypedValue();
-            getContext().getTheme().resolveAttribute(R.attr.preferenceTheme, themeTypedValue, true);
+            Resources.Theme theme = getContext().getTheme();
+            if (theme != null) theme.resolveAttribute(R.attr.preferenceTheme, themeTypedValue, true);
             @SuppressWarnings("RestrictedApi")
             CustomPreferenceMaker cpm = new CustomPreferenceMaker(new ContextThemeWrapper(getContext(), themeTypedValue.resourceId));
 

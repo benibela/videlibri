@@ -52,7 +52,7 @@ public class SourceEdit extends VideLibriBaseActivity{
         templatesSpinner.setAdapter(makeAdapterStrings(selection1));
     }
     void showSelection2(int positionOfSelection1, String defaultSelectionText){
-        int position = positionOfSelection1;
+        final int position = positionOfSelection1;
         if (position == 0) {
             baseDir = BASEDIR_LIBRARIES;
             selection2 = libraryIds;
@@ -267,6 +267,7 @@ public class SourceEdit extends VideLibriBaseActivity{
 
     void writeToFile(String fileName, String text) throws IOException {
         File f = userFile(fileName);
+        //noinspection ResultOfMethodCallIgnored
         f.getParentFile().mkdirs();
         FileWriter fw = new FileWriter(f);
         fw.write(text);

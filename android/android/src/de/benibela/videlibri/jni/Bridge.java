@@ -1,6 +1,5 @@
 package de.benibela.videlibri.jni;
 
-import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Handler;
 import android.util.Log;
@@ -224,9 +223,8 @@ public class Bridge {
         }
 
         public boolean matchesFilter(String filter, String key){
-            if (key != null && !"".equals(key)) return getProperty(key).toLowerCase().indexOf(filter) >= 0;
-            if (author.toLowerCase().indexOf(filter) >= 0 || title.toLowerCase().indexOf(filter) >= 0) return true;
-            return false;
+            if (key != null && !"".equals(key)) return getProperty(key).toLowerCase().contains(filter);
+            return author.toLowerCase().contains(filter) || title.toLowerCase().contains(filter);
         }
 
         public enum ISBNNormalization { ISBN_NO_CONVERSION, ISBN_CONVERT_TO_10, ISBN_CONVERT_TO_13}

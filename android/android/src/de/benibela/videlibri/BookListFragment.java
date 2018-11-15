@@ -2,8 +2,6 @@ package de.benibela.videlibri;
 
 import android.widget.*;
 
-import java.text.DateFormat;
-
 public class BookListFragment extends VideLibriFakeFragment{
     private ListView bookListView;
 

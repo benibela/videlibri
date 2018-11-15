@@ -213,9 +213,9 @@ public class Feedback extends VideLibriBaseActivity {
             return "??";
         }
     }
-
+    
     String getSystemInfo(){
-        StringBuffer sb = new StringBuffer();
+        StringBuilder sb = new StringBuilder();
         try {
             sb.append("Android: "); sb.append(Build.VERSION.RELEASE);
             sb.append("\nDevice: "); sb.append(Build.MODEL); sb.append(' '); sb.append(Build.FINGERPRINT);

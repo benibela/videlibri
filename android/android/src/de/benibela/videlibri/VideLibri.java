@@ -1,5 +1,6 @@
 package de.benibela.videlibri;
 import android.Manifest;
+import android.app.Activity;
 import android.app.ActivityManager;
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -235,9 +236,7 @@ public class VideLibri extends BookListActivity {
             case "issueDate":
                 int date = b.issueDate != 0 ? b.issueDate : b.firstExistsDate;
                 if (date == 0) return Util.tr(R.string.unknown_date);
-                String v = "issueDate".equals(key) ? BookFormatter.formatDate(date) : getWeekString(date);
-                //return b.issueDate != 0 ? v : Util.tr(R.string.book_lenddate_before_prefixS, v);
-                return v;
+                return "issueDate".equals(key) ? BookFormatter.formatDate(date) : getWeekString(date);
             case "":
                 return "";
             default:
@@ -556,10 +555,12 @@ public class VideLibri extends BookListActivity {
         View view;
         @NonNull
         public Dialog onCreateDialog(Bundle savedInstanceState) {
-            AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-            LayoutInflater inflater = getActivity().getLayoutInflater();
+            Activity activity = getActivity();
+            if (activity == null) return null;
+            AlertDialog.Builder builder = new AlertDialog.Builder(activity);
+            LayoutInflater inflater = activity.getLayoutInflater();
             view = inflater.inflate(R.layout.options_lendings, null);
-            Options.showLendingOptionsInView(getActivity(),view);
+            Options.showLendingOptionsInView(activity,view);
 
             LinearLayout linearLayout = (LinearLayout) view.findViewById(R.id.viewaccounts);
             linearLayout.removeAllViews();
@@ -623,8 +624,11 @@ public class VideLibri extends BookListActivity {
         @Override
         public void onCancel(DialogInterface dialog) {
             super.onCancel(dialog);
-            Options.putLendingOptionsFromView(getActivity(), view);
-            ((VideLibri)getActivity()).updateAccountView();
+            Activity activity = getActivity();
+            if (activity == null) return;
+            Options.putLendingOptionsFromView(activity, view);
+            if (activity instanceof VideLibri)
+                ((VideLibri)activity).updateAccountView();
         }
     }
 

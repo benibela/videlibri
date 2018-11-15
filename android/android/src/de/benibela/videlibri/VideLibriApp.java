@@ -368,8 +368,7 @@ public class VideLibriApp extends Application implements Bridge.VideLibriContext
     static Locale getCurrentLocale(Context context){
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N){
             LocaleList ls = context.getResources().getConfiguration().getLocales();
-            if (ls != null) return ls.get(0);
-            return null;
+            return ls.get(0);
         } else{
             //noinspection deprecation
             return context.getResources().getConfiguration().locale;
