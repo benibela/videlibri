@@ -407,4 +407,6 @@
     <string name="source_edit_new_file_exists">File already exists.</string>
     <string name="about_manual">German Manual</string>
     <string name="about_bugtracker">Bug Tracker</string>
+    <string name="notifications_duedate_channel_name">Notifications</string>
+    <string name="notifications_duedate_channel_description">Notifications about books that are due soon.</string>
 </resources>

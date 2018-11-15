@@ -422,5 +422,7 @@
     <string name="source_edit_new_file_exists">Datei existiert bereits</string>
     <string name="about_manual">Handbuch</string>
     <string name="about_bugtracker">Bugtracker</string>
+    <string name="notifications_duedate_channel_name">Benachrichtigungen</string>
+    <string name="notifications_duedate_channel_description">Benachrichtigungen über ablaufende Leihfristen</string>
 </resources>
 

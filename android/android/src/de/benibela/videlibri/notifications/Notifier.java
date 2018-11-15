@@ -1,5 +1,6 @@
 package de.benibela.videlibri.notifications;
 
+import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
@@ -19,6 +20,7 @@ public class Notifier {
     static private String lastNotificationTitle = "";
     static private String lastNotificationText = "";
     static private long lastNotificationTime = 0;
+    static private final String DUEDATE_CHANNEL = "duedate";
 
     static private String [] getNotifications(Context context){
         if (VideLibriApp.accounts == null) VideLibriApp.refreshAccountList();
@@ -42,6 +44,17 @@ public class Notifier {
         nm.cancel(NOTIFICATION_ID);
         lastNotificationTime = 0;
     }
+    static private void initChannels(Context context){
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.O)
+            return;
+        NotificationManager nm = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+        if (nm == null) return;
+        NotificationChannel channel = new NotificationChannel( DUEDATE_CHANNEL, context.getString(R.string.notifications_duedate_channel_name), NotificationManager.IMPORTANCE_DEFAULT);
+        channel.setDescription(context.getString(R.string.notifications_duedate_channel_description));
+        channel.setShowBadge(true);
+        nm.createNotificationChannel(channel);
+    }
+
     /**
      * Show a notification while this service is running.
      * (partly from http://stackoverflow.com/questions/13902115/how-to-create-a-notification-with-notificationcompat-builder)
@@ -60,17 +73,20 @@ public class Notifier {
         if (lastNotificationTitle.equals(notification[0]) && lastNotificationText.equals(notification[1])
                 && System.currentTimeMillis() - lastNotificationTime < 1000*60*60*23) return;
 
+        initChannels(context);
+
         lastNotificationTitle = notification[0];
         lastNotificationText = notification[1];
         lastNotificationTime = System.currentTimeMillis();
 
         NotificationCompat.Builder mBuilder =
-                new NotificationCompat.Builder(context)
+                new NotificationCompat.Builder(context, DUEDATE_CHANNEL)
                         .setSmallIcon(VideLibriApp.getMainIcon())
                         .setContentTitle(notification[0])
                         .setContentText(notification[1])
-                        .setContentIntent(PendingIntent.getActivity(context, 0, new Intent(context, VideLibri.class), 0));
-        if  (Build.VERSION.SDK_INT >= 11) mBuilder = mBuilder.setAutoCancel(true);
+                        .setContentIntent(PendingIntent.getActivity(context, 0, new Intent(context, VideLibri.class), 0))
+                        .setAutoCancel(true)
+                ;
 
         // Set the info for the views that show in the notification panel.
         //notification.setLatestEventInfo(this, getText(R.string.local_service_label),text, contentIntent);
