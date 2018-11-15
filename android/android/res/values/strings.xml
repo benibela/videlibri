@@ -424,5 +424,7 @@
     <string name="source_edit_invalid_library_id">Bibliotheksdateien müssen die Form LAND_BUNDESLAND_STADT_ID haben</string>
     <string name="source_edit_new_library_default_name">neue unbekannte Bibliothek</string>
     <string name="source_edit_new_file_exists">Datei existiert bereits</string>
+    <string name="about_manual">Handbuch</string>
+    <string name="about_bugtracker">Bugtracker</string>
 </resources>
 

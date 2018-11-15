@@ -405,4 +405,6 @@
     <string name="source_edit_invalid_library_id">Library files need to be like COUNTRY_STATE_CITY_ID </string>
     <string name="source_edit_new_library_default_name">New unknown library </string>
     <string name="source_edit_new_file_exists">File already exists.</string>
+    <string name="about_manual">German Manual</string>
+    <string name="about_bugtracker">Bug Tracker</string>
 </resources>
