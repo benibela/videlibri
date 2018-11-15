@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">VideLibri</string>
 
     <string name="crash_toast_text">VideLibri ist leider abgestürzt. Bitte warten, während ein Crash-Report erstellt wird.</string>
     <string name="crash_dialog_text">VideLibri ist leider abgestürzt. Sie können einen Crash-Report senden, um zu helfen, den Fehler in der nächsten Version zu beseitigen.</string>
@@ -183,8 +182,6 @@
     <string name="lay_options_caption_ownlibs">Eigene Bibliotheken:</string>
     <string name="lay_options_btn_newlib">Neue Bibliothek registrieren...</string>
     <string name="lay_options_caption_misc">Sonstige Einstellungen:</string>
-    <string name="lay_options_check1">alle</string>
-    <string name="lay_options_check2">Tage aktualisieren</string>
     <string name="lay_options_option_onlytitles">Autor verbergen</string>
     <string name="lay_options_option_onlytitles_summary_on">Es wird nur die Zeile mit dem Titel/Abgabefrist einer Ausleihe angezeigt.</string>
     <string name="lay_options_option_debuglog">Debug Log</string>
@@ -201,7 +198,6 @@
     <string name="lay_search_searchedbranch">Zweigstelle (für Suchfilter)</string>
     <string name="lay_search_orderbranch">Zweigstelle (für Bestellungsfilter)</string>
     <string name="lay_search_btn_search">Suchen</string>
-    <string name="lay_options_caption_displayoptions">Anzeige der Ausleihen:</string>
     <string name="lay_options_label_sorting">Sortierung:</string>
     <string name="lay_options_label_grouping">Gruppierung:</string>
 

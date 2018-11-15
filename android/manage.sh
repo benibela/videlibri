@@ -145,7 +145,7 @@ brokenServers)
 
    echo '<?xml version="1.0" encoding="utf-8"?>' > $RESSERVERLIST
    echo "<resources>" >> $RESSERVERLIST
-   echo '<string-array name="broken_servers">' >> $RESSERVERLIST
+   echo '<string-array name="broken_servers"  translatable="false">' >> $RESSERVERLIST
    
    rm $KEYSTORE $KEYSTOREOLD $FINGERPRINTFILE $FINGERPRINTFILEOLD
    i=0
