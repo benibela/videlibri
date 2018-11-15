@@ -236,6 +236,8 @@ src)
 
 	release)
 	  ./manage.sh changelog		
+	  rm ~/hg/components/pascal/lib/*/*.o ~/hg/components/pascal/lib/*/*.ppu ~/hg/components/pascal/*.ppu ~/hg/components/pascal/data/*.ppu  lib/*/*.ppu
+	  
 		./manage.sh linux64
 		./manage.sh win32
 		./manage.sh linux32

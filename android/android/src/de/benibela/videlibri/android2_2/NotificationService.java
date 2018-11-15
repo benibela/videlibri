@@ -1,4 +1,7 @@
-package de.benibela.videlibri;
+/*
+ * Notification Service for Android 2.2 to Android < 4 < 8
+ */
+package de.benibela.videlibri.android2_2;
 
 import android.app.*;
 import android.content.Context;
@@ -13,6 +16,11 @@ import android.support.v4.app.NotificationCompat;
 import android.os.Binder;
 import android.os.IBinder;
 
+import de.benibela.videlibri.R;
+import de.benibela.videlibri.Util;
+import de.benibela.videlibri.VideLibri;
+import de.benibela.videlibri.VideLibriApp;
+import de.benibela.videlibri.internet.VideLibriNetworkInfo;
 import de.benibela.videlibri.jni.Bridge;
 
 public class NotificationService extends Service implements Bridge.VideLibriContext{
@@ -40,33 +48,7 @@ public class NotificationService extends Service implements Bridge.VideLibriCont
         instance = this;
     }
 
-    private boolean isNetworkConnected(){
-        try {
-        ConnectivityManager cmanager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-        if (cmanager == null) return false;
-        {
-        NetworkInfo networkInfo = cmanager.getActiveNetworkInfo();
-        if (networkInfo != null && networkInfo.isAvailable() && networkInfo.isConnected())
-            return true;
-        }
-        if (Build.VERSION.SDK_INT < 23) {
-            NetworkInfo networkInfos[] = cmanager.getAllNetworkInfo();
-            for (NetworkInfo networkInfo: networkInfos) {
-                if (networkInfo != null && networkInfo.isAvailable() && networkInfo.isConnectedOrConnecting())
-                    return true;
-            }
-        }
-        if (Build.VERSION.SDK_INT >= 21){
-            Network[] networks = cmanager.getAllNetworks();
-            for (Network network: networks) {
-                NetworkInfo info = cmanager.getNetworkInfo(network);
-                if (info != null && info.isAvailable() && info.isConnectedOrConnecting())
-                    return true;
-            }
-        }
-        }catch (Exception e) { return false; } //there are a few reports about networkinfo crashing on stackoverflow
-        return false;
-    }
+
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
@@ -75,7 +57,7 @@ public class NotificationService extends Service implements Bridge.VideLibriCont
         if (!sp.getBoolean("notifications", true)) return START_NOT_STICKY;
 
 
-        if (isNetworkConnected()){
+        if (VideLibriNetworkInfo.isNetworkConnected(this)){
             VideLibriApp.updateAccount(null, true, false);
         } else
             sheduleQuickCheck(this, 1000*60*60); //wait 1 h
@@ -132,9 +114,9 @@ public class NotificationService extends Service implements Bridge.VideLibriCont
      * Show a notification while this service is running.
      * (partly from http://stackoverflow.com/questions/13902115/how-to-create-a-notification-with-notificationcompat-builder)
      */
-    static void updateNotification(Context context) {
+    static public void updateNotification(Context context) {
         if (context == null) context = instance;
-        if (context == null) context = VideLibriApp.currentActivity;
+        if (context == null) context = VideLibriApp.currentContext();
         if (context == null) return;
 
         String[] notification = getNotifications(context);
@@ -195,7 +177,7 @@ public class NotificationService extends Service implements Bridge.VideLibriCont
     }
 
 
-    static void resheduleDailyIfNecessary(Context context, boolean quickCheck){
+    static public void resheduleDailyIfNecessary(Context context, boolean quickCheck){
         SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(context);
         if (!sp.getBoolean("notifications", true)) return;
         sheduleDailyCheck(context);

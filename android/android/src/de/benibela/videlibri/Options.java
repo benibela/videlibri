@@ -2,11 +2,9 @@ package de.benibela.videlibri;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.app.Application;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
@@ -22,6 +20,7 @@ import android.widget.Spinner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import de.benibela.videlibri.android2_2.NotificationService;
 import de.benibela.videlibri.internet.DownloadCertificate;
 import de.benibela.videlibri.internet.UserKeyStore;
 import de.benibela.videlibri.jni.Bridge;

@@ -28,6 +28,7 @@ import java.util.Locale;
 import de.benibela.internettools.LazyLoadKeystore;
 import de.benibela.internettools.X509TrustManagerWithAdditionalKeystores;
 import de.benibela.internettools.X509TrustManagerWrapper;
+import de.benibela.videlibri.android2_2.NotificationService;
 import de.benibela.videlibri.internet.UserKeyStore;
 import de.benibela.videlibri.internet.VideLibriKeyStore;
 import de.benibela.videlibri.jni.Bridge;
@@ -167,7 +168,7 @@ public class VideLibriApp extends Application implements Bridge.VideLibriContext
     }
 
     static int mainIconCache;
-    static int getMainIcon(){
+    static public int getMainIcon(){
         if (mainIconCache != 0) return mainIconCache;
         if (accounts == null || accounts.length == 0) return R.drawable.icon;
         Bridge.Book book = Bridge.VLGetCriticalBook();
@@ -194,7 +195,7 @@ public class VideLibriApp extends Application implements Bridge.VideLibriContext
     }
 
 
-    static Bridge.Account accounts[] = null;
+    static public Bridge.Account accounts[] = null;
     static int accountUpdateCounter = 0;
 
     static ArrayList<Bridge.PendingException> errors = new ArrayList<>();
@@ -223,7 +224,7 @@ public class VideLibriApp extends Application implements Bridge.VideLibriContext
         updateAccount(newacc, false, false);
     }
 
-    static void refreshAccountList(){
+    public static void refreshAccountList(){
         accountUpdateCounter++;
         accounts = Bridge.VLGetAccounts();
     }
