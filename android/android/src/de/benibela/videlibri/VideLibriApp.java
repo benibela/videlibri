@@ -4,9 +4,13 @@ import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.res.Configuration;
 import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.LocaleList;
 import android.os.Message;
 import android.os.PowerManager;
 import android.preference.PreferenceManager;
@@ -19,6 +23,7 @@ import org.acra.annotation.ReportsCrashes;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Locale;
 
 import de.benibela.internettools.LazyLoadKeystore;
 import de.benibela.internettools.X509TrustManagerWithAdditionalKeystores;
@@ -79,11 +84,11 @@ public class VideLibriApp extends Application implements Bridge.VideLibriContext
         ACRA.init(this);
 
         applicationContext = getApplicationContext();
-
         instance = this;
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
 
         X509TrustManagerWrapper.defaultCustomTrustManagerFactory = UserKeyStore.makeFactory();
-        UserKeyStore.loadUserCertificates(PreferenceManager.getDefaultSharedPreferences(this));
+        UserKeyStore.loadUserCertificates(prefs);
         X509TrustManagerWithAdditionalKeystores.defaultKeystoreFactory = new X509TrustManagerWithAdditionalKeystores.LazyLoadKeyStoreFactory() {
             @Override
             public LazyLoadKeystore factor() {
@@ -94,6 +99,11 @@ public class VideLibriApp extends Application implements Bridge.VideLibriContext
 
         Bridge.initialize(this);
         refreshAccountList();
+
+        String langOverride = prefs.getString("languageOverride", null);
+        if (!Util.isEmptyString(langOverride))
+            setLanguageOverride(this, langOverride);
+
 
         //ACRA.getErrorReporter().putCustomData("app", "VideLibri");
         //ACRA.getErrorReporter().putCustomData("ver", getVersion()+" (android)");
@@ -352,6 +362,25 @@ public class VideLibriApp extends Application implements Bridge.VideLibriContext
         return userPath(this);
     }
 
-
+    static Locale defaultLocale = null;
+    static Locale getCurrentLocale(Context context){
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N){
+            LocaleList ls = context.getResources().getConfiguration().getLocales();
+            if (ls != null) return ls.get(0);
+            return null;
+        } else{
+            //noinspection deprecation
+            return context.getResources().getConfiguration().locale;
+        }
+    }
+    static void setLanguageOverride(Context context, String langOverride){
+        //Log.i("VIDELIBRI LANG", langOverride);
+        if (defaultLocale == null) defaultLocale = getCurrentLocale(context);
+        Locale locale = Util.isEmptyString(langOverride) ? defaultLocale : new Locale(langOverride);
+        Locale.setDefault(locale);
+        Configuration config = new Configuration();
+        config.locale = locale;
+        context.getApplicationContext().getResources().updateConfiguration(config, null);
+    }
 
 }

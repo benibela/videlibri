@@ -262,6 +262,19 @@
         <item>year</item>
     </string-array>
 
+    <string-array name="languages">
+        <item></item>
+        <item>de</item>
+        <item>en</item>
+    </string-array>
+    <string-array name="languages_tr">
+        <item>Default</item>
+        <item>German</item>
+        <item>English</item>
+    </string-array>
+    <string name="lay_options_label_language">Language selection</string>
+    <string name="lay_options_label_language_summary">Current language: %s\nChanging this requires an app restart.</string>
+
 
     <string name="import_">Import</string>
     <string name="import_load">Load file</string>

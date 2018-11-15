@@ -2,9 +2,11 @@ package de.benibela.videlibri;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.Application;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
@@ -63,6 +65,11 @@ public class Options extends VideLibriBaseActivity{
                         case "bridge_refreshInterval":
                             options.refreshInterval = (Integer) newValue;
                             break;
+                        case "languageOverride":
+                            VideLibriApp.setLanguageOverride(getContext(), (String)newValue);
+                            //if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+                            //    getActivity().recreate();
+                            //}
                     }
                     Bridge.VLSetOptions(options);
                     return true;

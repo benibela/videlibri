@@ -278,6 +278,18 @@
         <item>year</item>
     </string-array>
 
+    <string-array name="languages">
+        <item></item>
+        <item>de</item>
+        <item>en</item>
+    </string-array>
+    <string-array name="languages_tr">
+        <item>Standard</item>
+        <item>Deutsch</item>
+        <item>Englisch</item>
+    </string-array>
+    <string name="lay_options_label_language">Sprachauswahl</string>
+    <string name="lay_options_label_language_summary">Aktuelle Sprache: %s\nÄnderungen werden erst nach Appneustart aktiv.</string>
 
     <string name="import_">Importieren</string>
     <string name="import_load">Importdatei laden</string>

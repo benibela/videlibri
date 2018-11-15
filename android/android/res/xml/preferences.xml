@@ -68,6 +68,17 @@
             app:dynamicSummary="@string/lay_options_check_summary"
             ></de.benibela.videlibri.PreferenceSeekBar>
 
+        <ListPreference
+            android:defaultValue=""
+            android:dialogTitle="@string/lay_options_label_language"
+            android:entries="@array/languages_tr"
+            android:entryValues="@array/languages"
+            android:key="languageOverride"
+            android:title="@string/lay_options_label_language"
+            android:summary="@string/lay_options_label_language_summary"
+            />
+
+
         <CheckBoxPreference
             android:defaultValue="false"
             android:key="bridge_logging"
