@@ -1,10 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?xml-stylesheet type="text/xsl" href="../changelog.xsl"?>
 <changelog program="VideLibri">
-      <build version="1996" date="2018-10-28">
+      <build version="1998" date="2018-11-15">
         <download url="http://videlibri.sourceforge.net/updates/videlibri-setup.exe" platform="WINDOWS" execute="&quot;$DOWNLOAD&quot;  /SP- /noicons &quot;/dir=$OLDPATH&quot; " restart="true"/>
         <download url="http://videlibri.sourceforge.net/updates/videlibri-linux32.deb" platform="LINUX32" execute=""/>
         <download url="http://videlibri.sourceforge.net/updates/videlibri-linux64.deb" platform="LINUX64" execute=""/>
+        <change>zones18: Verbesserte Exemplaranzeige</change>
+        <fix>android: Absturz, wenn der Benutzer eine ungültige URL für die Serverzertifikat-Installation eingibt.</fix>
+        <fix>Staatsbibliothek Berlin: Verwende nicht mehr "fastUpdate" nach Verlängerungen, da es veraltet ist, und kein Ausleihkonto zur Anpassung zur Verfügung steht.</fix>
+        <add>android: Der gesamte Bibliothek-Schnittstellen-Quellcode kann nun in der App geändert werden, damit VideLibri auch auf nicht gerooteten Geräten mit allen existierenden OPACs verwendet werden kann. </add>
+        <add>request-decode XQuery-Funktion, um HTTP-Anfragen zu dekodieren.</add>
+        <add>android: ein paar erste Übersetzungen</add>
+     </build>
+      <build version="1996" date="2018-10-28">
         <fix>android: Stadtbibliothek Lübeck: Anpassung an fehlerhaftes HTTPS-Zertifikat.</fix>
         <change>Wenn in benutzerdefinierten Bibliothekssystemen ein Statustext für ein Medium gesetzt wird, ändert sich nicht der Statuscode des Mediums.</change>
         <change>android: Sende Geräte- und Prozessorversion mit in Fehlerberichten.</change>
