@@ -1,4 +1,7 @@
 apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+
+
 
 android
 {
@@ -66,4 +69,5 @@ dependencies {
     compile 'ch.acra:acra:4.9.2'
     /* implementation 'com.squareup.okhttp3:okhttp:3.10.0'*/
     compile 'com.squareup.okhttp3:okhttp:3.10.0'
+    compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
 }
