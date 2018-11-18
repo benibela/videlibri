@@ -28,8 +28,8 @@ import java.util.Locale;
 import de.benibela.internettools.LazyLoadKeystore;
 import de.benibela.internettools.X509TrustManagerWithAdditionalKeystores;
 import de.benibela.internettools.X509TrustManagerWrapper;
+import de.benibela.videlibri.notifications.NotificationScheduling;
 import de.benibela.videlibri.notifications.Notifier;
-import de.benibela.videlibri.notifications.service.NotificationService;
 import de.benibela.videlibri.internet.UserKeyStore;
 import de.benibela.videlibri.internet.VideLibriKeyStore;
 import de.benibela.videlibri.jni.Bridge;
@@ -165,7 +165,7 @@ public class VideLibriApp extends Application implements Bridge.VideLibriContext
 
         if (ACRA.isACRASenderServiceProcess()) return;
 
-        NotificationService.resheduleDailyIfNecessary(this, false);
+        NotificationScheduling.rescheduleDailyIfNecessary(this, false);
     }
 
     static int mainIconCache;

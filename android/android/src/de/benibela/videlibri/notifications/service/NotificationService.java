@@ -14,6 +14,7 @@ import android.os.IBinder;
 import de.benibela.videlibri.VideLibriApp;
 import de.benibela.videlibri.internet.VideLibriNetworkInfo;
 import de.benibela.videlibri.jni.Bridge;
+import de.benibela.videlibri.notifications.NotificationScheduling;
 import de.benibela.videlibri.notifications.Notifier;
 
 public class NotificationService extends Service implements Bridge.VideLibriContext{
@@ -46,8 +47,8 @@ public class NotificationService extends Service implements Bridge.VideLibriCont
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         //Log.i("LocalService", "Received start id " + startId + ": " + intent);
-        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(this);
-        if (!sp.getBoolean("notifications", true)) return START_NOT_STICKY;
+        if (!NotificationScheduling.preferenceNotificationsEnabled(this))
+            return START_NOT_STICKY;
 
 
         if (VideLibriNetworkInfo.isNetworkConnected(this)){
@@ -100,19 +101,18 @@ public class NotificationService extends Service implements Bridge.VideLibriCont
         am.setInexactRepeating(AlarmManager.RTC, System.currentTimeMillis() + AlarmManager.INTERVAL_DAY, AlarmManager.INTERVAL_DAY, getBroadcast(context, NOTIFICATION_CHECK_DAILY));
     }
 
-    static private void sheduleQuickCheck(Context context, int delay) {
+    static private void sheduleQuickCheck(Context context, long delay) {
         AlarmManager am = ((AlarmManager) context.getSystemService(Context.ALARM_SERVICE));
         if (am == null) return;
         am.set(AlarmManager.RTC, System.currentTimeMillis() + delay, getBroadcast(context, NOTIFICATION_CHECK_SOON));
     }
 
 
-    static public void resheduleDailyIfNecessary(Context context, boolean quickCheck){
-        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(context);
-        if (!sp.getBoolean("notifications", true)) return;
+    static public void resheduleDailyIfNecessary(Context context, boolean afterDeviceBoot){
+        if (!NotificationScheduling.preferenceNotificationsEnabled(context)) return;
         sheduleDailyCheck(context);
-        if (quickCheck)
-            sheduleQuickCheck(context, 1000 * 60 * sp.getInt("notificationsServiceDelay", 15));
+        if (afterDeviceBoot)
+            sheduleQuickCheck(context, NotificationScheduling.preferenceNotificationsBootDelayInMilliseconds(context));
     }
 
     @Override
