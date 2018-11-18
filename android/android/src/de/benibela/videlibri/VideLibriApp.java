@@ -115,6 +115,7 @@ public class VideLibriApp extends Application implements Bridge.VideLibriContext
             public void handleMessage(Message msg) {
                 mainIconCache = 0;
                 VideLibriApp.runningUpdates.clear();
+                NotificationScheduling.onUpdateComplete();
 
                 if (currentActivity != null) {
                     if (currentActivity instanceof VideLibri)
@@ -243,7 +244,7 @@ public class VideLibriApp extends Application implements Bridge.VideLibriContext
     }
 
 
-    static List<Bridge.Account> runningUpdates = new ArrayList<>();
+    static public List<Bridge.Account> runningUpdates = new ArrayList<>();
 
     static PowerManager.WakeLock updateWakeLock;
     static public void updateAccount(Bridge.Account acc, final boolean autoUpdate, final boolean forceExtend){
