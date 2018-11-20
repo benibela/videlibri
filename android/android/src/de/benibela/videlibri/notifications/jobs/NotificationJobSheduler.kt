@@ -22,7 +22,7 @@ class NotificationJobService: JobService() {
     private fun jobIndex(params: JobParameters?): Int =  (params?.jobId?:0) - JOB_ID_DAILY
 
     override fun onStartJob(params: JobParameters?): Boolean {
-        Log.d("VIDELIBRI JOB", "onStartJob!!")
+        //Log.d("VIDELIBRI JOB", "onStartJob!!")
         if (!NotificationScheduling.preferenceNotificationsEnabled(this))
             return false
 
@@ -32,7 +32,7 @@ class NotificationJobService: JobService() {
         if (VideLibriApp.runningUpdates.isEmpty())
             return false
 
-        Log.d("VIDELIBRI JOB", "onStartJob!! pending")
+        //Log.d("VIDELIBRI JOB", "onStartJob!! pending")
 
         val id = jobIndex(params)
         if (id in pendingParams.indices) {
@@ -47,7 +47,7 @@ class NotificationJobService: JobService() {
     }
 
     override fun onStopJob(params: JobParameters?): Boolean {
-        Log.d("VIDELIBRI JOB", "onStopJob!!")
+        //Log.d("VIDELIBRI JOB", "onStopJob!!")
         val id = jobIndex(params)
         if (id in pendingParams.indices) pendingParams[id] = null
         return false
@@ -69,9 +69,8 @@ class NotificationJobService: JobService() {
         var instance: NotificationJobService? = null
         val pendingParams = arrayOfNulls<JobParameters?>(2)
 
-        @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
         fun finishAll() {
-            Log.d("VIDELIBRI JOB", "finish all")
+            //Log.d("VIDELIBRI JOB", "finish all")
             instance?.jobFinish(0)
             instance?.jobFinish(1)
             instance = null
