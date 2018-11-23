@@ -53,6 +53,8 @@
     <input type="submit" value="absenden" name="" class="button"/>
     <input type="checkbox" name="SST" class="form"/>
   </form>
+
+  <strong class="error">{vl:raise(.)}</strong>
   
 </template:switch-prioritized>
 </body>
