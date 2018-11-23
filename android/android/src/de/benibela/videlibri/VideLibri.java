@@ -186,7 +186,7 @@ public class VideLibri extends BookListActivity {
     @Override
     protected int onPrepareOptionsMenuVisibility() {
         boolean hasAccounts = VideLibriApp.accounts.length > 0;
-        if (!hasAccounts) return 0;
+        if (!hasAccounts) return ACTIONBAR_MENU_REFRESH;
         return super.onPrepareOptionsMenuVisibility()
                 | (hasAccounts ? ACTIONBAR_MENU_RENEW_ALL | ACTIONBAR_MENU_RENEW_LIST | ACTIONBAR_MENU_FILTER : 0)
                 | (hasAccounts && VideLibriApp.runningUpdates.isEmpty() ? ACTIONBAR_MENU_REFRESH : 0);
