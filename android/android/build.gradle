@@ -50,7 +50,7 @@ android
 
 
 repositories {
-/*  jcenter()*/
+  jcenter()
   maven {
     url "https://maven.google.com"
   }

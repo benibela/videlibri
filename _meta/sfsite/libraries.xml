@@ -22,7 +22,7 @@ for (var i=0;i<links.length;i++) {
     if (links[i].id == curlocation ) links[i].onclick();
   }
 }
-]]> </script>
+]]></script>
 
 </content>
 </file>

@@ -98,7 +98,7 @@ build-java)
   if [[ "$TRAVIS" != true ]]; then
     cd android
     #$ADB uninstall de.benibela.videlibri || { echo "FAILED!"; exit 1;}
-    $ADB install -r build/outputs/apk/android-$BUILDMODE.apk || { echo "FAILED!"; exit 1;}
+    $ADB install -r build/outputs/apk/$BUILDMODE/android-$BUILDMODE.apk || { echo "FAILED!"; exit 1;}
   fi
 ;;
 
@@ -108,7 +108,7 @@ install)
 
   cd android
   #$ADB uninstall de.benibela.videlibri || { echo "FAILED!"; exit 1;}
-  $ADB install -r build/outputs/apk/android-$BUILDMODE.apk || { echo "FAILED!"; exit 1;}
+  $ADB install -r build/outputs/apk/$BUILDMODE/android-$BUILDMODE.apk || { echo "FAILED!"; exit 1;}
   
 ;;
 

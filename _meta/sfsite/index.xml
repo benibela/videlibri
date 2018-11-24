@@ -108,14 +108,14 @@ Mit VideLibri kann man seit 2006 auf die Kataloge/OPACs zahlreicher Bibliotheken
 VideLibri hat folgende Vorteile gegenüber den normalen Web-Katalogen der Büchereien:
 <ul class="f1list">
 <li><h3>Automatische Verlängerung</h3>
-VideLibri verlängert alle ausgeliehenen Bücher automatisch, so dass man dies nie vergessen kann. 
+VideLibri verlängert alle ausgeliehenen Bücher automatisch, so dass die Verlängerung nicht vergessen kann. 
 </li>
 <li><h3>Zuverlässige Benachrichtigung über Ausleihfristen</h3>
-Bei den Benachrichtigungen der Büchereien passiert es ständig, dass die Benachrichtigungsemails nicht ankommen, oder ihr Katalog nicht erreichbar ist. 
-VideLibri ist zuverlässiger, da es auf dem lokalen Rechner läuft und eine Art fail-safe Prinzip realisiert: es wird immer gewarnt, wenn nicht gezeigt werden kann, dass keine Bücher abzugeben sind. 
+VideLibri warnt vor ablaufenden Leihfristen und ist dabei zuverlässiger als die Benachrichtigungen der Bibliotheken. <br/>
+Bei  Benachrichtigungsmails von der Bibliothek gibt es mehrere Fehlerquellen, der Bibliotheksserver muss die E-Mail wirklich versenden, der eigene Mailserver muss die E-Mail empfangen ohne sie in den Spamorder zu schieben, und das Mailprogramm muss die E-Mail anzeigen. VideLibri dagegen lädt die Abgabefristen einmal herunter und zeigt sie dann immer an ohne irgendwelche Server zu involvieren. Selbst wenn der Bibliotheksserver  nicht mehr funktioniert oder wegen Wartungsarbeiten abgeschaltet ist, wird man immer noch vor den alten ablaufenden Leihfristen gewarnt. Da Leihfristen nur verlängert und nicht verkürzt werden, ist somit der schlimmste Fall, dass man mehr Warnungen als nötig angezeigt bekommt.
 </li>
 <li><h3>Kein permanenter Internetzugang nötig</h3>
-Um einen normalen OPAC aufzurufen, muss man immer eine Internetverbindung haben. VideLibri dagegen speichert  alle Ausleihdaten auf der eigenen Festplatte, so dass man den nächsten Abgabefristtermin auch sehen kann, wenn man zeitweilig nicht online ist, weil man beispielsweise im Zug sitzt.
+Um die Webseite eines OPAC aufzurufen, muss man immer eine Internetverbindung haben. VideLibri dagegen speichert  alle ausgeliehenen Bücher auf der eigenen Festplatte, so dass man den nächsten Abgabefristtermin auch sehen kann, wenn man gerade keine Internetverbindung hat oder der OPAC wegen Wartungsarbeiten abgeschaltet ist.
 </li>
 <li><h3>Gesamthistorie aller Ausleihen</h3>
 Es speichert alle jemals ausgeliehenen Bücher, wodurch  man jederzeit nachsehen kann, wann man, welche Bücher ausgeliehen hatte. Dies ermöglicht eine Literaturverwaltung, die ein Literaturverzeichnis über alle Ausleihen führt, ohne dass man diese manuell eintragen muss.<br/>
@@ -142,7 +142,8 @@ Mittels der Datenbankabfragesprache XQuery lassen sich <a href="/help/xquerysear
  
 
 <li><h3>E-Mailbenachrichtigung<sup class="desktop">D</sup></h3> 
-VideLibri kann einen E-Mailbericht über alle Medien erstellen, in dem fällige und nicht fällige Bücher aufgelistet sind. Der Bericht wird nicht direkt von VideLibri versandt, sondern an ein anderes Programm übergeben. Unter Linux kann dazu das Standardprogramm <code>sendmail</code> verwendet werden, wodurch es nicht nötig ist, in VideLibri das Passwort für den Mailserver zu speichern. </li>
+VideLibri kann einen E-Mailbericht über alle Medien erstellen, in dem fällige und nicht fällige Bücher aufgelistet sind. Der Bericht wird nicht direkt von VideLibri versandt, sondern an ein anderes Programm übergeben. Unter Linux kann dazu das Standardprogramm <code>sendmail</code> verwendet werden, wodurch es nicht nötig ist, in VideLibri das Passwort für den Mailserver zu speichern. <br/>
+E-Mailbenachrichtigungen von VideLibri übergehen ,</li>
 
 <li><h3>Open-Source</h3>
 Jeder kann VideLibri genauso ändern, wie er es haben will, und beliebige Features hinzufügen. Dies darf nicht mit dem Hinzufügen neuer Bibliotheken verwechselt werden, denn dies ist orthogonal. Um eine neue Bibliothek hinzuzufügen, muss man VideLibri genauso wenig ändert, wie man Firefox umprogrammieren müsste, um eine Webseite aufzurufen. Bei vielen Systemen reicht es die richtige Webkatalog URL in der GUI einzugeben. Es gibt im kompilierten Quellcode von VideLibri keine Bibliotheksspezifischen Funktionen, sondern die Bibliothekssysteme werden mittels Pattern-Matching halbautomatisch von VideLibri gelernt und mittels XQuery-Skripten für Sonderfälle angepasst.
