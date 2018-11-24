@@ -6,19 +6,21 @@ import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
 import de.benibela.videlibri.jni.Bridge
-import java.util.ArrayList
 
 @SuppressLint("Registered")
 open class VideLibriBaseActivity: VideLibriBaseActivityOld(){
 
 
-    protected var loadingTasks: ArrayList<Int> = ArrayList<Int>();
+    private val loadingTasks = ArrayList<Int>();
     private var loadingItem: MenuItem? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         Bridge.initialize(this)
-        if (savedInstanceState != null) loadingTasks = savedInstanceState.getIntegerArrayList("activeLoadingTasks")
+        if (savedInstanceState != null) {
+            loadingTasks.clear();
+            loadingTasks += savedInstanceState.getIntegerArrayList("activeLoadingTasks")
+        }
     }
 
     override fun onResume() {
@@ -26,7 +28,7 @@ open class VideLibriBaseActivity: VideLibriBaseActivityOld(){
 
         VideLibriApp.currentActivity = this
 
-        loadingItem?.isVisible = loadingTasks.size > 0
+        refreshLoadingIcon()
         checkMainIcon()
 
         for (b in VideLibriApp.pendingDialogs)
@@ -72,56 +74,54 @@ open class VideLibriBaseActivity: VideLibriBaseActivityOld(){
         val x = super.onPrepareOptionsMenu(menu)
         if (menu == null) return false
         loadingItem = menu.findItem(R.id.loading)
-        loadingItem?.isVisible = loadingTasks.size > 0
+        refreshLoadingIcon()
         setOptionMenuVisibility(menu)
 
         return x
     }
 
-
-    fun beginLoading(loadingId: Int) {
-        loadingTasks.add(loadingId)
+    private fun refreshLoadingIcon(){
         loadingItem?.isVisible = loadingTasks.size > 0
+    }
+    fun beginLoading(loadingId: Int) {
+        loadingTasks += loadingId
+        refreshLoadingIcon()
     }
 
     fun endLoading(loadingId: Int) {
-        val pos = loadingTasks.indexOf(loadingId)
-        if (pos >= 0) loadingTasks.removeAt(pos)
-        loadingItem?.isVisible = loadingTasks.size > 0
+        loadingTasks -= loadingId
+        refreshLoadingIcon()
     }
 
     fun endLoadingAll(loadingId: Int) {
-        while (true) {
-            val pos = loadingTasks.indexOf(loadingId)
-            if (pos < 0) break
-            loadingTasks.removeAt(pos)
-        }
-        loadingItem?.isVisible = loadingTasks.size > 0
+        loadingTasks.removeAll{ it == loadingId }
+        refreshLoadingIcon()
     }
 
     fun endLoadingAll(loadingId: IntArray) {
-        for (id in loadingId) endLoadingAll(id)
+        loadingTasks.removeAll{ loadingId.contains(it) }
+        refreshLoadingIcon()
     }
 
     fun isLoading(loadingId: Int): Boolean {
-        return loadingTasks.indexOf(loadingId) >= 0
+        return loadingTasks.contains(loadingId)
     }
 
     internal fun showLoadingInfo() {
         val sb = StringBuilder()
         sb.append(tr(R.string.loading_tasks_info))
         for (id in loadingTasks) {
-            var code = 0
-            when (id) {
-                LOADING_ACCOUNT_UPDATE -> code = R.string.loading_account_update
-                LOADING_COVER_IMAGE -> code = R.string.loading_cover
-                LOADING_SEARCH_CONNECTING -> code = R.string.loading_search_connecting
-                LOADING_SEARCH_SEARCHING -> code = R.string.loading_search_searching
-                LOADING_SEARCH_DETAILS -> code = R.string.loading_search_details
-                LOADING_SEARCH_ORDER -> code = R.string.loading_search_order
-                LOADING_SEARCH_ORDER_HOLDING -> code = R.string.loading_search_order_holding
-                LOADING_SEARCH_MESSAGE -> code = R.string.loading_search_message
-                LOADING_INSTALL_LIBRARY -> code = R.string.loading_search_install_library
+            val code = when (id) {
+                LOADING_ACCOUNT_UPDATE -> R.string.loading_account_update
+                LOADING_COVER_IMAGE -> R.string.loading_cover
+                LOADING_SEARCH_CONNECTING -> R.string.loading_search_connecting
+                LOADING_SEARCH_SEARCHING -> R.string.loading_search_searching
+                LOADING_SEARCH_DETAILS -> R.string.loading_search_details
+                LOADING_SEARCH_ORDER -> R.string.loading_search_order
+                LOADING_SEARCH_ORDER_HOLDING -> R.string.loading_search_order_holding
+                LOADING_SEARCH_MESSAGE -> R.string.loading_search_message
+                LOADING_INSTALL_LIBRARY -> R.string.loading_search_install_library
+                else -> 0
             }
             if (code != 0) sb.append(tr(code))
             sb.append("\n")
