@@ -11,14 +11,14 @@ import de.benibela.videlibri.jni.Bridge
 open class VideLibriBaseActivity: VideLibriBaseActivityOld(){
 
 
-    private val loadingTasks = ArrayList<Int>();
+    private val loadingTasks = ArrayList<Int>()
     private var loadingItem: MenuItem? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         Bridge.initialize(this)
         if (savedInstanceState != null) {
-            loadingTasks.clear();
+            loadingTasks.clear()
             loadingTasks += savedInstanceState.getIntegerArrayList("activeLoadingTasks")
         }
     }
