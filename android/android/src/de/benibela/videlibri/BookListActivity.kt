@@ -7,6 +7,6 @@ open class BookListActivity: BookListActivityOld(){
 
     override fun onCreateOptionsMenuOverflow(menu: Menu, inflater: MenuInflater) {
         super.onCreateOptionsMenuOverflow(menu, inflater)
-        inflater.inflate(R.menu.sharemenu, menu)
+        inflater.inflate(R.menu.booklistmenu, menu)
     }
 }

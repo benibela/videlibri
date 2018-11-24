@@ -3,7 +3,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
         android:id="@+id/newlib"
-        android:visible="false"
         app:showAsAction="never"
         android:title="@string/lay_options_btn_newlib" />
 </menu>

@@ -11,8 +11,8 @@ class LendingList: VideLibriOld(){
     }
 
     override fun onCreateOptionsMenuOverflow(menu: Menu, inflater: MenuInflater) {
-        super.onCreateOptionsMenuOverflow(menu, inflater)
         inflater.inflate(R.menu.lendinglistmenu, menu)
+        super.onCreateOptionsMenuOverflow(menu, inflater)
     }
 
     override fun setOptionMenuVisibility(menu: Menu?) {

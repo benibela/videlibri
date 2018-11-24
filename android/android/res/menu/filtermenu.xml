@@ -5,7 +5,6 @@
         android:id="@+id/filter"
         android:title="Filter"
         android:icon="@android:drawable/ic_menu_view"
-        android:visible="false"
         app:showAsAction="ifRoom" />
 
 </menu>
