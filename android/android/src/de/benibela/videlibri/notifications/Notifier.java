@@ -8,9 +8,9 @@ import android.content.Intent;
 import android.os.Build;
 import android.support.v4.app.NotificationCompat;
 
+import de.benibela.videlibri.LendingList;
 import de.benibela.videlibri.R;
 import de.benibela.videlibri.Util;
-import de.benibela.videlibri.VideLibri;
 import de.benibela.videlibri.VideLibriApp;
 import de.benibela.videlibri.jni.Bridge;
 
@@ -84,7 +84,7 @@ public class Notifier {
                         .setSmallIcon(VideLibriApp.getMainIcon())
                         .setContentTitle(notification[0])
                         .setContentText(notification[1])
-                        .setContentIntent(PendingIntent.getActivity(context, 0, new Intent(context, VideLibri.class), 0))
+                        .setContentIntent(PendingIntent.getActivity(context, 0, new Intent(context, LendingList.class), 0))
                         .setAutoCancel(true)
                 ;
 

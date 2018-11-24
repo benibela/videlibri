@@ -293,7 +293,7 @@ public class Options extends VideLibriBaseActivity{
 
     static void showLendingOptionsInView(Activity activity, View v){
         SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(activity);
-        ((Checkable)v.findViewById(R.id.viewHistory)).setChecked(VideLibri.displayHistory);
+        ((Checkable)v.findViewById(R.id.viewHistory)).setChecked(LendingList.displayHistory);
 
 
         final String[] sortingKeys = activity.getResources().getStringArray(R.array.sortable_properties);
@@ -308,8 +308,8 @@ public class Options extends VideLibriBaseActivity{
         SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(activity);
         SharedPreferences.Editor editor = sp.edit();
 
-        VideLibri.displayHistory = ((CompoundButton) v.findViewById(R.id.viewHistory)).isChecked();
-        editor.putBoolean("displayHistory", VideLibri.displayHistory);
+        LendingList.displayHistory = ((CompoundButton) v.findViewById(R.id.viewHistory)).isChecked();
+        editor.putBoolean("displayHistory", LendingList.displayHistory);
 
         final String[] sortingKeys = activity.getResources().getStringArray(R.array.sortable_properties);
         int sortingPos = ((Spinner)v.findViewById(R.id.sorting)).getSelectedItemPosition();

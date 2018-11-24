@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/refresh"
+        android:icon="@android:drawable/ic_menu_rotate"
+        android:visible="false"
+        app:showAsAction="never"
+        android:title="@string/menu_refreshall" />
+    <item
+        android:id="@+id/renewlist"
+        android:icon="@android:drawable/ic_menu_week"
+        android:visible="false"
+        app:showAsAction="never"
+        android:title="@string/menu_renewlist" />
+    <item
+        android:id="@+id/renew"
+        android:icon="@android:drawable/ic_menu_month"
+        android:visible="false"
+        app:showAsAction="never"
+        android:title="@string/menu_renewall" />
+</menu>

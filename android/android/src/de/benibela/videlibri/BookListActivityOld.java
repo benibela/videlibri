@@ -14,7 +14,7 @@ import java.util.EnumSet;
 import de.benibela.videlibri.jni.Bridge;
 
 @SuppressLint("Registered")
-public class BookListActivity extends VideLibriBaseActivity{
+public class BookListActivityOld extends VideLibriBaseActivity{
     boolean port_mode;
 
     BookListFragment list;
@@ -118,7 +118,7 @@ public class BookListActivity extends VideLibriBaseActivity{
     void displayBookCache(int partialSize){
         //Log.i("VL","Book count: "+partialSize);
         setOption(BookOverviewAdapter.DisplayEnum.Grouped, !"".equals(groupingKey));
-        BookOverviewAdapter sa = new BookOverviewAdapter(this, bookCache, partialSize, options);
+        BookOverviewAdapter sa = new BookOverviewAdapter((BookListActivity)this, bookCache, partialSize, options);
         ListView bookListView = (ListView) findViewById(R.id.booklistview);
         bookListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -169,10 +169,6 @@ public class BookListActivity extends VideLibriBaseActivity{
         details.setBook(bookCache.get(bookpos));
     }
 
-    @Override
-    protected int onPrepareOptionsMenuVisibility() {
-        return ACTIONBAR_MENU_SHARE;
-    }
 
     @Override
     public boolean onOptionsItemIdSelected(int id) {

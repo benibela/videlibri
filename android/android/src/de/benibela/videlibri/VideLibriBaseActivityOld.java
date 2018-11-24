@@ -27,7 +27,7 @@ import de.benibela.videlibri.jni.Bridge;
 
 
 @SuppressLint("Registered")
-public class VideLibriBaseActivity extends AppCompatActivity implements Bridge.VideLibriContext {
+public class VideLibriBaseActivityOld extends AppCompatActivity implements Bridge.VideLibriContext {
     private static final int REQUESTED_LIBRARY_HOMEPAGE  = 29324;
     private static final int REQUESTED_LIBRARY_CATALOGUE = 29325;
     protected static final int RETURNED_FROM_NEW_LIBRARY = 29326;
@@ -42,18 +42,10 @@ public class VideLibriBaseActivity extends AppCompatActivity implements Bridge.V
     static final int LOADING_SEARCH_MESSAGE = 205;
     static final int LOADING_INSTALL_LIBRARY = 600;
 
-    private ArrayList<Integer> loadingTasks;
 
     private DrawerLayout mDrawerLayout;
     private ActionBarDrawerToggle mDrawerToggle;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);    //To change body of overridden methods use File | Settings | File Templates.
-        Bridge.initialize(this);
-        if (savedInstanceState != null) loadingTasks = savedInstanceState.getIntegerArrayList("activeLoadingTasks");
-        if (loadingTasks == null) loadingTasks = new ArrayList<>();
-    }
 
     @Override
     public void setContentView(@LayoutRes int layoutResID) {
@@ -120,68 +112,9 @@ public class VideLibriBaseActivity extends AppCompatActivity implements Bridge.V
         if (mDrawerToggle != null) mDrawerToggle.onConfigurationChanged(newConfig);
     }
 
-    final static int ACTIONBAR_MENU_REFRESH = 0x1;
-    final static int ACTIONBAR_MENU_RENEW_LIST = 0x2;
-    final static int ACTIONBAR_MENU_RENEW_ALL = 0x4;
-    final static int ACTIONBAR_MENU_SHARE = 0x8;
-    final static int ACTIONBAR_MENU_NEWLIB = 0x10;
-    final static int ACTIONBAR_MENU_FILTER = 0x20;
-
-    private MenuItem loadingItem;//, moreItem;
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.videlibrimenu, menu);
-        loadingItem = menu.findItem(R.id.loading);
-        if (loadingItem != null) {
-            MenuItemCompat.setActionView(loadingItem, R.layout.actionbar_loading);
-            View actionView = MenuItemCompat.getActionView(loadingItem);
-            if (actionView != null) actionView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    showLoadingInfo();
-                }
-            });
-            loadingItem.setVisible(loadingTasks.size() > 0);
-        }
-        //moreItem = menu.findItem(R.id.more);
-        return super.onCreateOptionsMenu(menu);
-    }
-
     protected void setItemVisible(MenuItem item, boolean visible){
         if (item == null) return;
         item.setVisible(visible);
-    }
-    protected int onPrepareOptionsMenuVisibility(){
-        return 0;
-    }
-    private void setOptionMenuVisibility(Menu menu){
-        if (menu == null) return;
-        int visibility = onPrepareOptionsMenuVisibility();
-        if (visibility != currentVisibility) {
-            currentVisibility = visibility;
-            //moreItem.setVisible(visibility != 0);
-            //Menu menu = moreItem.getSubMenu();
-            setItemVisible(menu.findItem(R.id.refresh), (visibility & ACTIONBAR_MENU_REFRESH) != 0);
-            setItemVisible(menu.findItem(R.id.renew), (visibility & ACTIONBAR_MENU_RENEW_LIST) != 0);
-            setItemVisible(menu.findItem(R.id.renewlist), (visibility & ACTIONBAR_MENU_RENEW_ALL) != 0);
-            setItemVisible(menu.findItem(R.id.share), (visibility & ACTIONBAR_MENU_SHARE) != 0);
-            setItemVisible(menu.findItem(R.id.newlib), (visibility & ACTIONBAR_MENU_NEWLIB) != 0);
-            setItemVisible(menu.findItem(R.id.filter), (visibility & ACTIONBAR_MENU_FILTER) != 0);
-        }
-    }
-
-    private int currentVisibility;
-    @Override
-    public boolean onPrepareOptionsMenu(Menu menu) {
-        boolean x = super.onPrepareOptionsMenu(menu);
-        if (menu == null) return false;
-        loadingItem = menu.findItem(R.id.loading);
-        if (loadingItem != null) loadingItem.setVisible(loadingTasks.size() > 0);
-        setOptionMenuVisibility(menu);
-
-        return x;
     }
 
 
@@ -202,7 +135,7 @@ public class VideLibriBaseActivity extends AppCompatActivity implements Bridge.V
                 onBackPressed();
                 return true;
             case R.id.accounts:
-                intent = new Intent(context, VideLibri.class);
+                intent = new Intent(context, LendingList.class);
                 context.startActivity(intent);
                 return true;
             /*case R.id.more:
@@ -283,42 +216,7 @@ public class VideLibriBaseActivity extends AppCompatActivity implements Bridge.V
         super.onActivityResult(requestCode, resultCode, data);
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
 
-        VideLibriApp.currentActivity = this;
-
-        /*if(refreshing)
-            refreshView = inflater.inflate(R.layout.actionbar_refresh_progress, null);
-        else
-           refreshView = inflater.inflate(R.layout.actionbar_refresh_button, null);*/
-
-        if (loadingItem != null) loadingItem.setVisible(loadingTasks.size() > 0);
-        checkMainIcon();
-
-        for (Bundle b: VideLibriApp.pendingDialogs)
-                Util.showDialog(this, b);
-        VideLibriApp.pendingDialogs.clear();
-    }
-
-    @Override
-    protected void onPause() {
-        if (VideLibriApp.currentActivity == this) VideLibriApp.currentActivity = null;
-        super.onPause();
-    }
-
-    @Override
-    protected void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-        outState.putIntegerArrayList("activeLoadingTasks", loadingTasks);
-    }
-
-    @Override
-    protected void onDestroy() {
-        if (VideLibriApp.currentActivity == this) VideLibriApp.currentActivity = null;
-        super.onDestroy();
-    }
 
     /*@Override
     public void setTitle(CharSequence title){
@@ -343,52 +241,6 @@ public class VideLibriBaseActivity extends AppCompatActivity implements Bridge.V
         }
     }
 
-
-    void beginLoading(int loadingId){
-        loadingTasks.add(loadingId);
-        if (loadingItem != null) loadingItem.setVisible(loadingTasks.size() > 0);
-    }
-    void endLoading(int loadingId){
-        int pos = loadingTasks.indexOf(loadingId);
-        if (pos >= 0) loadingTasks.remove(pos);
-        if (loadingItem != null) loadingItem.setVisible(loadingTasks.size() > 0);
-    }
-    void endLoadingAll(int loadingId){
-        Integer lid = loadingId;
-        while (true) {
-            int pos = loadingTasks.indexOf(lid);
-            if (pos < 0) break;
-            loadingTasks.remove(pos);
-        }
-        if (loadingItem != null) loadingItem.setVisible(loadingTasks.size() > 0);
-    }
-    void endLoadingAll(int[] loadingId){
-        for (int id: loadingId) endLoadingAll(id);
-    }
-    boolean isLoading(int loadingId){
-        return loadingTasks.indexOf(loadingId) >= 0;
-    }
-    void showLoadingInfo(){
-        StringBuilder sb = new StringBuilder();
-        sb.append(tr(R.string.loading_tasks_info));
-        for (int id: loadingTasks) {
-            int code = 0;
-            switch (id) {
-                case LOADING_ACCOUNT_UPDATE:code=R.string.loading_account_update; break;
-                case LOADING_COVER_IMAGE: code=R.string.loading_cover; break;
-                case LOADING_SEARCH_CONNECTING: code=R.string.loading_search_connecting; break;
-                case LOADING_SEARCH_SEARCHING: code=R.string.loading_search_searching; break;
-                case LOADING_SEARCH_DETAILS: code=R.string.loading_search_details; break;
-                case LOADING_SEARCH_ORDER: code=R.string.loading_search_order; break;
-                case LOADING_SEARCH_ORDER_HOLDING: code=R.string.loading_search_order_holding; break;
-                case LOADING_SEARCH_MESSAGE: code=R.string.loading_search_message; break;
-                case LOADING_INSTALL_LIBRARY: code=R.string.loading_search_install_library; break;
-            }
-            if (code != 0) sb.append(tr(code));
-            sb.append("\n");
-        }
-        Util.showMessage(sb.toString());
-    }
 
 
 

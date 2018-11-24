@@ -97,7 +97,7 @@
     <string name="base_pendingrefreshrenew">Only a single renewal can be performed at once.</string>
     <string name="base_chooselibhomepage">Choose a library to open their webpage.</string>
     <string name="base_chooselibcat">Choose a library to open their OPAC.</string>
-    <string name="base_renewallconfirm">Do you want to renewal everything?</string>
+    <string name="base_renewallconfirm">Do you want to renew everything?</string>
     <string name="menu_renewlist">Renew some items</string>
     <string name="menu_renewall">Renew all items</string>
     <string name="menu_refreshall">Refresh account view</string>

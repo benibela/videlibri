@@ -118,8 +118,8 @@ public class VideLibriApp extends Application implements Bridge.VideLibriContext
                 NotificationScheduling.onUpdateComplete();
 
                 if (currentActivity != null) {
-                    if (currentActivity instanceof VideLibri)
-                        ((VideLibri)currentActivity).endLoadingAll(VideLibriBaseActivity.LOADING_ACCOUNT_UPDATE);
+                    if (currentActivity instanceof LendingList)
+                        ((LendingList)currentActivity).endLoadingAll(VideLibriBaseActivity.LOADING_ACCOUNT_UPDATE);
 
                     VideLibriApp.refreshDisplayedLendBooks();
                     //displayed account has an icon cache, so displayAccount needs to be called before updateNotification
@@ -212,15 +212,15 @@ public class VideLibriApp extends Application implements Bridge.VideLibriContext
     static void deleteAccount(Bridge.Account acc){
         if (acc == null) return;
         Bridge.VLDeleteAccount(acc);
-        if (VideLibri.hiddenAccounts.contains(acc)) VideLibri.hiddenAccounts.remove(acc);
+        if (LendingList.hiddenAccounts.contains(acc)) LendingList.hiddenAccounts.remove(acc);
         refreshAccountList();
         refreshDisplayedLendBooks();
     }
     static void changeAccount(Bridge.Account old, Bridge.Account newacc){
         Bridge.VLChangeAccount(old, newacc);
-        if (VideLibri.hiddenAccounts.contains(old)) {
-            VideLibri.hiddenAccounts.remove(old);
-            VideLibri.hiddenAccounts.add(newacc);
+        if (LendingList.hiddenAccounts.contains(old)) {
+            LendingList.hiddenAccounts.remove(old);
+            LendingList.hiddenAccounts.add(newacc);
         }
         refreshAccountList();
         updateAccount(newacc, false, false);
@@ -232,7 +232,7 @@ public class VideLibriApp extends Application implements Bridge.VideLibriContext
     }
 
     public static void refreshDisplayedLendBooks() {
-        VideLibri.refreshDisplayedLendBooks();
+        LendingList.refreshDisplayedLendBooks();
     }
 
 
@@ -267,8 +267,8 @@ public class VideLibriApp extends Application implements Bridge.VideLibriContext
         if (Util.isEmptyString(acc.name) && Util.isEmptyString(acc.pass))
             return; //search only account
         if (Bridge.VLUpdateAccount(acc, autoUpdate, forceExtend)) {
-            if (currentActivity instanceof VideLibri)
-                ((VideLibri)currentActivity).beginLoading(VideLibriBaseActivity.LOADING_ACCOUNT_UPDATE);
+            if (currentActivity instanceof LendingList)
+                ((LendingList)currentActivity).beginLoading(VideLibriBaseActivity.LOADING_ACCOUNT_UPDATE);
             if (!runningUpdates.contains(acc))
                 runningUpdates.add(acc);
         }
@@ -290,8 +290,8 @@ public class VideLibriApp extends Application implements Bridge.VideLibriContext
         for (Bridge.Book book: books)
             if (book.account != null && !runningUpdates.contains(book.account))
                 runningUpdates.add(book.account);
-        if (!runningUpdates.isEmpty() && currentActivity instanceof VideLibri)
-            ((VideLibri)currentActivity).beginLoading(VideLibriBaseActivity.LOADING_ACCOUNT_UPDATE);
+        if (!runningUpdates.isEmpty() && currentActivity instanceof LendingList)
+            ((LendingList)currentActivity).beginLoading(VideLibriBaseActivity.LOADING_ACCOUNT_UPDATE);
         Bridge.VLBookOperation(books, Bridge.BOOK_OPERATION_RENEW); //renew
     }
 

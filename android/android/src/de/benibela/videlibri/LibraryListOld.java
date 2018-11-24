@@ -22,7 +22,7 @@ import java.util.TreeMap;
 import de.benibela.videlibri.jni.Bridge;
 
 
-public class LibraryList extends VideLibriBaseActivity {
+public class LibraryListOld extends VideLibriBaseActivity {
 
     static String lastSelectedLibId, lastSelectedLibName;        //result of the activity
     static long lastSelectedTime = 0;       //(passing as intent did not work on every device (perhaps the caller is killed?)
@@ -107,7 +107,7 @@ public class LibraryList extends VideLibriBaseActivity {
         lastSelectedTime = System.currentTimeMillis();
 
         setResult(RESULT_OK, result);
-        LibraryList.this.finish();
+        finish();
     }
 
     public void onCreate(Bundle savedInstanceState) {
@@ -132,7 +132,7 @@ public class LibraryList extends VideLibriBaseActivity {
                 args.putString("message", tr(R.string.foreignlibrariesnotinthelist));
                 args.putIntArray("items", new int[]{R.string.foreignlibrariesnotinthelist_easy, R.string.foreignlibrariesnotinthelist_meta, R.string.foreignlibrariesnotinthelist_install, R.string.foreignlibrariesnotinthelist_diy, R.string.foreignlibrariesnotinthelist_mail});
                 args.putIntArray("itemsSubCaption", new int[]{R.string.foreignlibrariesnotinthelist_easy_req, R.string.foreignlibrariesnotinthelist_meta_req, R.string.foreignlibrariesnotinthelist_install_req, R.string.foreignlibrariesnotinthelist_diy_req, R.string.foreignlibrariesnotinthelist_mail_req});
-                Util.showDialog(LibraryList.this, args);
+                Util.showDialog(LibraryListOld.this, args);
             }
         });
 
@@ -429,10 +429,6 @@ public class LibraryList extends VideLibriBaseActivity {
 
     }
 
-    @Override
-    protected int onPrepareOptionsMenuVisibility() {
-        return super.onPrepareOptionsMenuVisibility() | ACTIONBAR_MENU_NEWLIB;
-    }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {

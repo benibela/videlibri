@@ -59,9 +59,9 @@ public class RenewList extends BookListActivity {
         sortingKey = sp.getString("sorting", "dueDate");
         groupingKey = sp.getString("grouping", "_dueWeek");
         ArrayList<Bridge.Book> oldSelection = selectedBooks;
-        bookCache = VideLibri.makePrimaryBookCache(false, true);
+        bookCache = LendingList.makePrimaryBookCache(false, true);
         truecount = bookCache.size();
-        bookCache = VideLibri.filterToSecondaryBookCache(bookCache, groupingKey, sortingKey, "", null);
+        bookCache = LendingList.filterToSecondaryBookCache(bookCache, groupingKey, sortingKey, "", null);
         selectedBooks = new ArrayList<>(selectedBooks.size());
         for (Bridge.Book selbook: oldSelection)
             for (Bridge.Book book: bookCache)

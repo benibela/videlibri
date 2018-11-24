@@ -38,11 +38,7 @@ import java.util.Comparator;
 import de.benibela.videlibri.jni.Bridge;
 
 
-public class VideLibri extends BookListActivity {
-    public VideLibri(){
-        super();
-    }
-
+public class VideLibriOld extends BookListActivity {
     //Called from Android OS
 
     public void onCreate(Bundle savedInstanceState) {
@@ -183,14 +179,7 @@ public class VideLibri extends BookListActivity {
     static public ArrayList<Bridge.Account> hiddenAccounts = new ArrayList<>();
     private ArrayList<Bridge.Account> hiddenAccountsActually = new ArrayList<>();
 
-    @Override
-    protected int onPrepareOptionsMenuVisibility() {
-        boolean hasAccounts = VideLibriApp.accounts.length > 0;
-        if (!hasAccounts) return ACTIONBAR_MENU_REFRESH;
-        return super.onPrepareOptionsMenuVisibility()
-                | (hasAccounts ? ACTIONBAR_MENU_RENEW_ALL | ACTIONBAR_MENU_RENEW_LIST | ACTIONBAR_MENU_FILTER : 0)
-                | (hasAccounts && VideLibriApp.runningUpdates.isEmpty() ? ACTIONBAR_MENU_REFRESH : 0);
-    }
+
 
     static private int dateToWeek(int pascalDate){
         return (pascalDate - 2) / 7;
@@ -510,8 +499,8 @@ public class VideLibri extends BookListActivity {
     int displayForcedCounterActually;
     public static void refreshDisplayedLendBooks() {
         displayForcedCounter += 1;
-        if (VideLibriApp.currentActivity instanceof VideLibri)
-            ((VideLibri)VideLibriApp.currentActivity).displayAccounts();
+        if (VideLibriApp.currentActivity instanceof LendingList)
+            ((LendingList)VideLibriApp.currentActivity).displayAccounts();
     }
 
     @Override
@@ -570,13 +559,13 @@ public class VideLibri extends BookListActivity {
                 public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
                     Bridge.Account acc = (Bridge.Account)compoundButton.getTag();
                     if (acc == null) {
-                        if (b) VideLibri.hiddenAccounts.clear();
-                        else VideLibri.hiddenAccounts = new ArrayList<>(Arrays.asList(VideLibriApp.accounts));
+                        if (b) LendingList.hiddenAccounts.clear();
+                        else LendingList.hiddenAccounts = new ArrayList<>(Arrays.asList(VideLibriApp.accounts));
                         for (CompoundButton cb: switchboxes) cb.setChecked(b);
                     } else {
-                        if (!b == VideLibri.hiddenAccounts.contains(acc)) return;
-                        if (!b) VideLibri.hiddenAccounts.add(acc);
-                        else VideLibri.hiddenAccounts.remove(acc);
+                        if (!b == LendingList.hiddenAccounts.contains(acc)) return;
+                        if (!b) LendingList.hiddenAccounts.add(acc);
+                        else LendingList.hiddenAccounts.remove(acc);
                     }
                 }
             };
@@ -585,11 +574,11 @@ public class VideLibri extends BookListActivity {
                 public void onClick(View v) {
                     Bridge.Account acc = (Bridge.Account)v.getTag();
                     if (acc == null) {
-                        VideLibri.hiddenAccounts.clear();
+                        LendingList.hiddenAccounts.clear();
                     } else {
-                        VideLibri.hiddenAccounts.clear();
+                        LendingList.hiddenAccounts.clear();
                         for (final Bridge.Account acc2 : VideLibriApp.accounts)
-                            if (!acc.equals(acc2)) VideLibri.hiddenAccounts.add(acc2);
+                            if (!acc.equals(acc2)) LendingList.hiddenAccounts.add(acc2);
                     }
                     ((CompoundButton) getDialog().findViewById(R.id.viewHistory)).setChecked(v.getId() == R.id.buttonforhistory);
                     getDialog().cancel();
@@ -600,7 +589,7 @@ public class VideLibri extends BookListActivity {
                 Bridge.Account acc = i == -1 ? null : VideLibriApp.accounts[i];
                 View group = inflater.inflate(R.layout.options_lendings_accountrow, null);
                 CompoundButton sb = ((CompoundButton)group.findViewById(R.id.switchbox));
-                sb.setChecked(acc == null ? VideLibri.hiddenAccounts.size() <= VideLibriApp.accounts.length / 2 : !VideLibri.hiddenAccounts.contains(acc));
+                sb.setChecked(acc == null ? LendingList.hiddenAccounts.size() <= VideLibriApp.accounts.length / 2 : !LendingList.hiddenAccounts.contains(acc));
                 sb.setTag(acc);
                 sb.setOnCheckedChangeListener(checkListener);
                 if (acc != null) switchboxes.add(sb);
@@ -627,8 +616,8 @@ public class VideLibri extends BookListActivity {
             Activity activity = getActivity();
             if (activity == null) return;
             Options.putLendingOptionsFromView(activity, view);
-            if (activity instanceof VideLibri)
-                ((VideLibri)activity).updateAccountView();
+            if (activity instanceof LendingList)
+                ((VideLibriOld)activity).updateAccountView();
         }
     }
 

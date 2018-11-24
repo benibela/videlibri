@@ -176,13 +176,6 @@ public class AccountInfo extends VideLibriBaseActivity {
         }
     }
 
-    /*@Override
-    public boolean onPrepareOptionsMenu(Menu menu) {
-        boolean x = super.onPrepareOptionsMenu(menu);
-        if (mode == MODE_ACCOUNT_CREATION_INITIAL) menu.findItem(R.id.search).setVisible(false);
-        return x;
-    } */
-
     void updateLibrary(){
         findViewById(R.id.libraryTextView).postDelayed(new Runnable() {
             @Override
