@@ -1,6 +1,7 @@
 package de.benibela.videlibri
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuInflater
@@ -129,5 +130,39 @@ open class VideLibriBaseActivity: VideLibriBaseActivityOld(){
         Util.showMessage(sb.toString())
     }
 
+    private val REQUESTED_LIBRARY_HOMEPAGE = 29324
+    private val REQUESTED_LIBRARY_CATALOGUE = 29325
+
+    override fun onOptionsItemIdSelected(id: Int): Boolean {
+        when (id) {
+            android.R.id.home -> onBackPressed()
+            R.id.search -> VideLibriApp.newSearchActivity()
+            R.id.accounts -> startActivity<LendingList>()
+            R.id.options -> startActivity<Options>()
+            R.id.refresh -> VideLibriApp.updateAccount(null, false, false)
+            R.id.renew -> Util.showMessageYesNo(DialogId.RENEW_CONFIRM, tr(R.string.base_renewallconfirm))
+            R.id.renewlist -> startActivity<RenewList>()
+            R.id.import_ -> startActivity<ImportExport>("mode" to ImportExport.MODE_IMPORT)
+            R.id.export -> startActivity<ImportExport>("mode" to ImportExport.MODE_EXPORT)
+            R.id.libinfo -> startActivityForResult<LibraryList>(REQUESTED_LIBRARY_CATALOGUE,"reason" to tr(R.string.base_chooselibhomepage), "search" to true)
+            R.id.libcatalogue -> startActivityForResult<LibraryList>(REQUESTED_LIBRARY_CATALOGUE,"reason" to tr(R.string.base_chooselibcat), "search" to true)
+            R.id.newlib -> startActivityForResult<NewLibrary>(RETURNED_FROM_NEW_LIBRARY)
+            R.id.feedback -> startActivity<Feedback>()
+            R.id.debuglog -> startActivity<DebugLogViewer>()
+            R.id.about -> startActivity<About>()
+            else -> return false
+        }
+        return true
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        if ((requestCode == REQUESTED_LIBRARY_CATALOGUE || requestCode == REQUESTED_LIBRARY_HOMEPAGE) && resultCode == RESULT_OK) {
+            val details = Bridge.VLGetLibraryDetails(LibraryListOld.lastSelectedLibId)
+            showUriInBrowser(if (requestCode == REQUESTED_LIBRARY_HOMEPAGE) details.homepageBase else details.homepageCatalogue)
+            return
+        }
+
+        super.onActivityResult(requestCode, resultCode, data)
+    }
 
 }

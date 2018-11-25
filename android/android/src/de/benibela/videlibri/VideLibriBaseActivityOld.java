@@ -28,8 +28,6 @@ import de.benibela.videlibri.jni.Bridge;
 
 @SuppressLint("Registered")
 public class VideLibriBaseActivityOld extends AppCompatActivity implements Bridge.VideLibriContext {
-    private static final int REQUESTED_LIBRARY_HOMEPAGE  = 29324;
-    private static final int REQUESTED_LIBRARY_CATALOGUE = 29325;
     protected static final int RETURNED_FROM_NEW_LIBRARY = 29326;
 
     static final int LOADING_ACCOUNT_UPDATE = 1;
@@ -118,85 +116,7 @@ public class VideLibriBaseActivityOld extends AppCompatActivity implements Bridg
     }
 
 
-    public boolean onOptionsItemIdSelected(int id) {
-        Intent intent;
-        Activity context = this;
-        switch (id) {
-            case R.id.search:
-                VideLibriApp.newSearchActivity();
-                return true;
-            case  android.R.id.home:
-//                context.openOptionsMenu();
-                //              return true;
-//            case R.id.accounts:
-                /*intent = new Intent(context, VideLibri.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                context.startActivity(intent);*/
-                onBackPressed();
-                return true;
-            case R.id.accounts:
-                intent = new Intent(context, LendingList.class);
-                context.startActivity(intent);
-                return true;
-            /*case R.id.more:
-                setOptionMenuVisibility();
-                return false; //should open the normal sub menu*/
-            case R.id.options:
-                intent = new Intent(context, Options.class);
-                context.startActivity(intent);
-                return true;
-            case R.id.refresh:
-                VideLibriApp.updateAccount(null, false, false);
-                return true;
-            case R.id.renew:
-                Util.showMessageYesNo(DialogId.RENEW_CONFIRM, tr(R.string.base_renewallconfirm));
-                return true;
-            case R.id.renewlist:
-                intent = new Intent(context, RenewList.class);
-                //if (this instanceof VideLibri) intent.putExtra("accountFilterOverride", ( (VideLibri)this).accountFilterOverride);
-                context.startActivity(intent);
-                return true;
-            case R.id.import_:
-                intent = new Intent(context, ImportExport.class);
-                intent.putExtra("mode", ImportExport.MODE_IMPORT);
-                context.startActivity(intent);
-                return true;
-            case R.id.export:
-                intent = new Intent(context, ImportExport.class);
-                intent.putExtra("mode", ImportExport.MODE_EXPORT);
-                context.startActivity(intent);
-                return true;
-            case R.id.libinfo:
-                intent = new Intent(context, LibraryList.class);
-                intent.putExtra("reason", tr(R.string.base_chooselibhomepage));
-                intent.putExtra("search", true);
-                context.startActivityForResult(intent, REQUESTED_LIBRARY_HOMEPAGE);
-                return true;
-            case R.id.libcatalogue:
-                intent = new Intent(context, LibraryList.class);
-                intent.putExtra("reason", tr(R.string.base_chooselibcat));
-                intent.putExtra("search", true);
-                context.startActivityForResult(intent, REQUESTED_LIBRARY_CATALOGUE);
-                return true;
-            case R.id.newlib:
-                intent = new Intent(context, NewLibrary.class);
-                context.startActivityForResult(intent, RETURNED_FROM_NEW_LIBRARY);
-                return true;
-            case R.id.feedback:
-                intent = new Intent(context, Feedback.class);
-                context.startActivity(intent);
-                return true;
-            case R.id.debuglog:
-                intent = new Intent(context, DebugLogViewer.class);
-                context.startActivity(intent);
-                return true;
-            case R.id.about:
-                intent = new Intent(context, About.class);
-                context.startActivity(intent);
-                return true;
-            //case R.id.others:
-            //    displayOthersMenu(context);
-        }
+    public boolean onOptionsItemIdSelected(int id){
         return false;
     }
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -205,16 +125,6 @@ public class VideLibriBaseActivityOld extends AppCompatActivity implements Bridg
         return super.onOptionsItemSelected(item);
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if ((requestCode == REQUESTED_LIBRARY_CATALOGUE || requestCode == REQUESTED_LIBRARY_HOMEPAGE) && resultCode == LibraryList.RESULT_OK) {
-           Bridge.LibraryDetails details = Bridge.VLGetLibraryDetails(LibraryList.lastSelectedLibId);
-           showUriInBrowser(requestCode == REQUESTED_LIBRARY_HOMEPAGE ? details.homepageBase : details.homepageCatalogue);
-           return;
-        }
-
-        super.onActivityResult(requestCode, resultCode, data);
-    }
 
 
 

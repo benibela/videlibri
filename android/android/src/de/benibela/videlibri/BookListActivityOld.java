@@ -170,30 +170,6 @@ public class BookListActivityOld extends VideLibriBaseActivity{
     }
 
 
-    @Override
-    public boolean onOptionsItemIdSelected(int id) {
-        switch (id){
-            case R.id.share: {
-                Intent sendIntent = new Intent();
-                sendIntent.setAction(Intent.ACTION_SEND);
-                sendIntent.putExtra(Intent.EXTRA_TEXT,
-                        (listVisible() ? list.exportShare(false) + "\n\n" : "")
-                        + (detailsVisible() ? details.exportShare(false) + "\n\n" : "")
-                        + tr(R.string.share_export_footer)
-                );
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN)
-                    sendIntent.putExtra(Intent.EXTRA_HTML_TEXT,
-                            (listVisible() ? list.exportShare(true) + "<br>\n<br>\n" : "")
-                            + (detailsVisible() ? details.exportShare(true) + "<br>\n<br>\n" : "")
-                            + tr(R.string.share_export_footer)
-                    );
-                sendIntent.setType("text/plain");
-                startActivity(Intent.createChooser(sendIntent, getResources().getText(R.string.menu_share)));
-                return true;
-            }
-        }
-        return super.onOptionsItemIdSelected(id);
-    }
 
     Object contextMenuSelectedItem;
     @Override
