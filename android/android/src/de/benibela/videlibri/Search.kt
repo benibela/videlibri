@@ -34,6 +34,11 @@ class Search: SearchOld(){
             }
         }
 
+        val defaultQuery = intent.getSerializableExtra("query");
+        if (defaultQuery is Map<*, *>) {
+            findViewById<TextView>(R.id.title).text = defaultQuery.get("title").toString()
+            findViewById<TextView>(R.id.author).text = defaultQuery.get("author").toString()
+        }
 
         findViewById<View>(R.id.library).setOnClickListener( { changeSearchLib() })
 

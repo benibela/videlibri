@@ -1,16 +1,25 @@
 package de.benibela.videlibri
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Build
 import android.view.Menu
 import android.view.MenuInflater
+import de.benibela.videlibri.jni.Bridge
 
+@SuppressLint("Registered")
 open class BookListActivity: BookListActivityOld(){
 
     override fun onCreateOptionsMenuOverflow(menu: Menu, inflater: MenuInflater) {
         super.onCreateOptionsMenuOverflow(menu, inflater)
         inflater.inflate(R.menu.booklistmenu, menu)
     }
+
+    fun currentBook(): Bridge.Book? =
+        if (detailsVisible() && details.book != null) details.book
+        else if (currentBookPos in bookCache.indices) bookCache[currentBookPos]
+        else null
+
 
     override fun onOptionsItemIdSelected(id: Int): Boolean {
         when (id) {
@@ -31,9 +40,6 @@ open class BookListActivity: BookListActivityOld(){
                 sendIntent.type = "text/plain"
                 startActivity(Intent.createChooser(sendIntent, getText(R.string.menu_share)))
                 return true
-            }
-            R.id.research -> {
-
             }
         }
         return super.onOptionsItemIdSelected(id)
