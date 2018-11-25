@@ -16,4 +16,15 @@
         android:icon="@android:drawable/ic_menu_month"
         app:showAsAction="never"
         android:title="@string/menu_renewall" />
+    <item
+        app:showAsAction="never"
+        android:id="@+id/research_menu"
+        android:title="@string/menu_item_research" >
+        <menu>
+            <item android:id="@+id/research_same" android:title="@string/menu_item_research_same"/>
+            <item android:id="@+id/research_title" android:title="@string/menu_item_research_title" />
+            <item android:id="@+id/research_author" android:title="@string/menu_item_research_author" />
+
+        </menu>
+    </item>
 </menu>

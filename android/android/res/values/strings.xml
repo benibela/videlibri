@@ -424,5 +424,9 @@
     <string name="about_bugtracker">Bugtracker</string>
     <string name="notifications_duedate_channel_name">Benachrichtigungen</string>
     <string name="notifications_duedate_channel_description">Benachrichtigungen über ablaufende Leihfristen</string>
+    <string name="menu_item_research">Ausleihe suchen</string>
+    <string name="menu_item_research_same">gleicher Titel und Autor</string>
+    <string name="menu_item_research_title">gleicher Titel</string>
+    <string name="menu_item_research_author">gleicher Autor</string>
 </resources>
 
