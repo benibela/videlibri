@@ -22,7 +22,7 @@ interface SearchEventHandler {
     boolean onSearchEvent(Bridge.SearchEvent event);
 }
 
-public class Search extends VideLibriBaseActivity implements SearchEventHandler{
+public class SearchOld extends VideLibriBaseActivity implements SearchEventHandler{
 
 
     static final int REQUEST_CHOOSE_LIBRARY = 1234;
@@ -55,7 +55,7 @@ public class Search extends VideLibriBaseActivity implements SearchEventHandler{
 
 
 
-    private void obtainSearcher(){
+    protected void obtainSearcher(){
         gcSearchers();
         if (searchers.size() > 0) {
             Bridge.SearcherAccess candidate = searchers.get(searchers.size() - 1);
@@ -77,79 +77,6 @@ public class Search extends VideLibriBaseActivity implements SearchEventHandler{
         }
     }
 
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setVideLibriView(R.layout.searchlayout);
-
-        if (savedInstanceState != null) {
-            libId = savedInstanceState.getString("libId");
-            libName = savedInstanceState.getString("libName");
-        } else {
-            libId = getIntent().getStringExtra("libId");
-            libName = getIntent().getStringExtra("libName");
-        }
-
-        TextView lib = ((TextView) findViewById(R.id.library));
-        lib.setText(libName + " ("+tr(R.string.change)+")");
-        lib.setPaintFlags(lib.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
-        if (libId == null || libId.equals("") || (getIntent().getBooleanExtra("showLibList", false) && savedInstanceState == null )) {
-            if ((System.currentTimeMillis() - LibraryList.lastSelectedTime) < LibraryList.SELECTION_REUSE_TIME){
-                libId = LibraryList.lastSelectedLibId;
-                libName = LibraryList.lastSelectedLibName;
-            } else {
-                libId = "";
-                changeSearchLib();
-            }
-        }
-
-        findViewById(R.id.library).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                changeSearchLib();
-            }
-        });
-
-        findViewById(R.id.button).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                obtainSearcher();
-
-                if ("debug".equals(getTextViewText(R.id.year))) {
-                    activateHiddenDebugMode();
-                    return;
-                }
-
-                Intent intent = new Intent(Search.this, SearchResult.class);
-                Bridge.Book book = new Bridge.Book();
-                book.title = getTextViewText(R.id.title);
-                book.author = getTextViewText(R.id.author);
-                book.setProperty("keywords", getTextViewText(R.id.keywords));
-                book.setProperty("year", getTextViewText(R.id.year));
-                book.setProperty("isbn", getTextViewText(R.id.isbn));
-                intent.putExtra("searchQuery", book);
-
-                for (int i=0; i < BRANCH_NAMES.length; i++) {
-                    if (findViewById(BRANCH_LAYOUT_IDS[i]).getVisibility() != View.GONE) {
-                        Spinner spinner = (Spinner) findViewById(BRANCH_IDS[i]);
-                        intent.putExtra(BRANCH_NAMES[i], spinner.getSelectedItemPosition());
-                        String branch = (String) spinner.getSelectedItem();
-                        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(Search.this);
-                        SharedPreferences.Editor editor = sp.edit();
-                        editor.putString("Search|"+libId+"|"+BRANCH_NAMES[i], branch);
-                        editor.apply();
-                    }
-                }
-                startActivity(intent);
-            }
-        });
-
-        setTitle(tr(R.string.search_title));
-
-        if (libId != null && !libId.equals("")) {
-            obtainSearcher();
-            setBranchViewes(true);
-        }
-    }
 
     @Override
     protected void onResume() {
@@ -191,7 +118,7 @@ public class Search extends VideLibriBaseActivity implements SearchEventHandler{
     }
 
     void setBranchViewes( boolean init ) {
-        SharedPreferences sp = init ? PreferenceManager.getDefaultSharedPreferences(Search.this) : null;
+        SharedPreferences sp = init ? PreferenceManager.getDefaultSharedPreferences(this) : null;
         for (int i=0;i<BRANCH_NAMES.length;i++) {
             String [] branches = BRANCH_IDS[i] == R.id.homeBranch ? searcher.homeBranches : searcher.searchBranches;
             if (branches == null || branches.length == 0)
@@ -201,7 +128,7 @@ public class Search extends VideLibriBaseActivity implements SearchEventHandler{
                 String current = init ? sp.getString("Search|"+libId+"|"+BRANCH_NAMES[i], null) : (String) spinner.getSelectedItem();
 
                 findViewById(BRANCH_LAYOUT_IDS[i]).setVisibility(View.VISIBLE);
-                ArrayAdapter<String> adapter = new ArrayAdapter<>(Search.this, android.R.layout.simple_spinner_item, branches);
+                ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, branches);
                 adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                 spinner.setAdapter(adapter);
                 if (current != null)
