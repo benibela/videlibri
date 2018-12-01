@@ -58,10 +58,12 @@ public class Bridge {
         public boolean extend;
         public int extendDays;
         public boolean history;
+        public int lastCheckDate;
         public Account () {}
         public Account (String libId, String name, String pass, String prettyName,
                  int type, boolean extend,
-                 int extendDays, boolean history) {
+                 int extendDays, boolean history,
+                 int lastCheckDate) {
             this.libId = libId;
             this.name = name;
             this.pass = pass;
@@ -70,6 +72,7 @@ public class Bridge {
             this.extend = extend;
             this.extendDays = extendDays;
             this.history = history;
+            this.lastCheckDate = lastCheckDate;
         }
         public boolean equals(Object o) {
             if (!(o instanceof Account)) return false;

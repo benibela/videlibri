@@ -27,6 +27,14 @@ class LendingList: VideLibriOld(){
 
     override fun onOptionsItemIdSelected(id: Int): Boolean {
         when (id) {
+            R.id.account_information -> {
+                val info = if (VideLibriApp.accounts.isEmpty()) getString(R.string.main_no_accounts)
+                           else VideLibriApp.accounts.joinToString (
+                              separator = "\n\n",
+                              transform = { "${it.prettyName}:\n${tr(R.string.main_last_refreshS, BookFormatter.formatDateFull(it.lastCheckDate))}" }
+                           )
+                showMessage(message = info, title = getString(R.string.menu_account_information))
+            }
             R.id.research_same, R.id.research_author, R.id.research_title -> {
                 currentBook()?.let {
                     if (it.account != null) {

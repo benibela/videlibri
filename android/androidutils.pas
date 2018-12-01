@@ -276,7 +276,7 @@ begin
       bridgeCallbackMethods.VLInstallationDone := getstaticmethod(bridgeClass, 'installationDone', '(I)V');
 
       accountClass := newGlobalRefAndDelete(getclass('de/benibela/videlibri/jni/Bridge$Account'));
-      accountClassInitWithData := getmethod(accountClass, '<init>', '(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;IZIZ)V');
+      accountClassInitWithData := getmethod(accountClass, '<init>', '(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;IZIZI)V');
       with accountFields  do begin
         LibIdS := getfield(accountClass, 'libId', 'Ljava/lang/String;');
         NameS := getfield(accountClass, 'name', 'Ljava/lang/String;');
@@ -854,6 +854,7 @@ begin
     args[5].z := booleanToJboolean(account.extendType <> etNever);
     args[6].i := account.extendDays;
     args[7].z := booleanToJboolean(account.keepHistory);
+    args[8].i := account.lastCheckDate;
     result := j.newObject(accountClass, accountClassInitWithData, @args[0]);
     for i := 0 to 3 do deleteLocalRef(args[i].l);
   end;
