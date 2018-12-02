@@ -19,7 +19,7 @@
     </plurals>
     <string name="warning_autorenewal_off">Automatic renewal is DISABLED.\nBe careful to renew lend books manually.</string>
     <string name="account_createinitial">Choose your library to search their OPAC or access your lending account:</string>
-    <string name="about_create">Choose your library to register your library card:</string>
+    <string name="account_create">Choose your library to register your library card:</string>
     <string name="book_titleauthor">Title/Author</string>
     <string name="book_from">from</string>
     <string name="book_duedate">Due Date</string>
@@ -331,7 +331,7 @@
     <string name="app_error_check_internet_btn">Internet config</string>
     <string name="menu_search">Search</string>
     <string name="menu_item_research">Search similar</string>
-    <string name="menu_item_research_same">same title and author</string>
+    <string name="menu_item_research_same">same item</string>
     <string name="menu_item_research_title">same title</string>
     <string name="menu_item_research_author">same author</string>
     <string name="menu_options">Options</string>

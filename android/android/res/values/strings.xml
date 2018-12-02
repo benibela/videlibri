@@ -23,7 +23,7 @@
     <string name="account_createinitial">Wählen Sie Ihre Bibliothek, um in ihrem Katalog zu suchen oder auf Ihr
         Bibliothekskonto zuzugreifen:
     </string>
-    <string name="about_create">Wählen Sie Ihre Bibliothek, um ein neues Konto zu registrieren:</string>
+    <string name="account_create">Wählen Sie Ihre Bibliothek, um ein neues Konto zu registrieren:</string>
     <string name="book_titleauthor">Titeldaten</string>
     <string name="book_from">von</string>
     <string name="book_duedate">Abgabefrist</string>
@@ -425,7 +425,7 @@
     <string name="notifications_duedate_channel_name">Benachrichtigungen</string>
     <string name="notifications_duedate_channel_description">Benachrichtigungen über ablaufende Leihfristen</string>
     <string name="menu_item_research">Ausleihe suchen</string>
-    <string name="menu_item_research_same">gleicher Titel und Autor</string>
+    <string name="menu_item_research_same">gleiche Ausleihe</string>
     <string name="menu_item_research_title">gleicher Titel</string>
     <string name="menu_item_research_author">gleicher Autor</string>
     <string name="menu_account_information">Kontoinformationen</string>

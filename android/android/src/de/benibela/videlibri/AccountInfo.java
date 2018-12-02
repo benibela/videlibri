@@ -185,7 +185,7 @@ public class AccountInfo extends VideLibriBaseActivity {
                     intent.putExtra("reason", tr(R.string.account_createinitial));
                     //        intent.putExtra("initial", true);
                 } else
-                    intent.putExtra("reason", tr(R.string.about_create));
+                    intent.putExtra("reason", tr(R.string.account_create));
                 startActivityForResult(intent, REQUEST_LIBRARY_FOR_ACCOUNT_CREATION);
             }
         }, 300);
