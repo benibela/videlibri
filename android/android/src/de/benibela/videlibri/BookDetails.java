@@ -239,7 +239,7 @@ public class BookDetails extends VideLibriFakeFragment {
     }
 
 
-    BookDetails (BookListActivityOld activity) {
+    BookDetails (BookListActivity activity) {
         super(activity);
         View lv = findViewById(R.id.bookdetailsview);
         if (lv != null) activity.registerForContextMenu(lv);

@@ -5,7 +5,7 @@ import android.widget.*;
 public class BookListFragment extends VideLibriFakeFragment{
     private ListView bookListView;
 
-    BookListFragment(final BookListActivityOld activity){
+    BookListFragment(final BookListActivity activity){
         super(activity);
 
         bookListView = (ListView) findViewById(R.id.booklistview);

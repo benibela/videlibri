@@ -4,7 +4,6 @@ package de.benibela.videlibri;
 import android.graphics.Color;
 
 import java.util.Date;
-import java.util.EnumSet;
 
 import de.benibela.videlibri.jni.Bridge;
 
@@ -58,14 +57,14 @@ class BookFormatter {
         return more;
     }
 
-    static String getBookDateText(Bridge.Book book, EnumSet<BookOverviewAdapter.DisplayEnum> options){
+    static String getBookDateText(Bridge.Book book, BookListDisplayOptions options){
         if (book.account != null && !book.history ) { //lend book
             switch (book.getStatus()) {
                 case Provided:  return tr_provided;
                 case Ordered:  return tr_ordered;
                 default:
                     String t = formatDate(book.dueDate);
-                    if (options.contains(BookOverviewAdapter.DisplayEnum.ShowRenewCount)) {
+                    if (options.getShowRenewCount()) {
                         String renewCount = book.getProperty("renewCount");
                         if (!"".equals(renewCount) && !"0".equals(renewCount)) t = renewCount + "V " + t;
                     }

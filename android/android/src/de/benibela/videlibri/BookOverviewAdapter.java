@@ -21,7 +21,7 @@ class BookOverviewAdapter extends ArrayAdapter<Bridge.Book> {
     private ArrayList<Bridge.Book> books;
     private Bridge.Book placeHolder;
     private int completeCount;
-    private final EnumSet<DisplayEnum> options;
+    private final BookListDisplayOptions options;
 
 
     enum DisplayEnum {
@@ -36,7 +36,7 @@ class BookOverviewAdapter extends ArrayAdapter<Bridge.Book> {
     }
 
 
-    BookOverviewAdapter(BookListActivity context, ArrayList<Bridge.Book> books, int completeCount, EnumSet<DisplayEnum> options){
+    BookOverviewAdapter(BookListActivity context, ArrayList<Bridge.Book> books, int completeCount, BookListDisplayOptions options){
         super(context, R.layout.bookoverview, books);
         this.context = context;
         this.books = books;
@@ -75,9 +75,9 @@ class BookOverviewAdapter extends ArrayAdapter<Bridge.Book> {
         ViewHolder holder = (ViewHolder) view.getTag();
         Bridge.Book book = getItem(position);
         if (book == null) return view;
-        boolean isGroupingHeader = options.contains(DisplayEnum.Grouped) && BookFormatter.isGroupingHeaderFakeBook(book);
+        boolean isGroupingHeader = options.isGrouped() && BookFormatter.isGroupingHeaderFakeBook(book);
         holder.caption.setText(BookFormatter.shortened(book.title));
-        if (options.contains(DisplayEnum.Grouped)) {
+        if (options.isGrouped()) {
             if (isGroupingHeader) {
                 holder.caption.setTypeface(holder.caption.getTypeface(), Typeface.BOLD);
                 holder.caption.setGravity(Gravity.CENTER_HORIZONTAL);
@@ -89,21 +89,22 @@ class BookOverviewAdapter extends ArrayAdapter<Bridge.Book> {
             }
         }
 
-        if (options.contains(DisplayEnum.NoDetails)) holder.more.setVisibility(View.GONE);
+        if (options.getNoDetailsInOverview()) holder.more.setVisibility(View.GONE);
         else if (book == placeHolder) {
             context.onPlaceHolderShown(position);
             holder.more.setText(book.author); //not an author
         } else {
-            if  (options.contains(DisplayEnum.Grouped))
+            if  (options.isGrouped())
                 holder.more.setVisibility(isGroupingHeader ? View.GONE : View.VISIBLE);
             if (!isGroupingHeader) {
                 holder.more.setText(BookFormatter.getBookMoreText(book));
             }
         }
 
-        if (context.selectedBooks != null) {
+        ArrayList<Bridge.Book> sb = context.getSelectedBooks();
+        if (sb != null) {
             boolean selected = false;
-            for (Bridge.Book b: context.selectedBooks)
+            for (Bridge.Book b: sb)
                 if (b == book) { selected = true; break; }
             if (selected) holder.layout.setBackgroundColor(Color.rgb(0,0,96));
             else holder.layout.setBackgroundColor(defaultBackgroundColor);
@@ -144,14 +145,14 @@ class BookOverviewAdapter extends ArrayAdapter<Bridge.Book> {
         StringBuilder sb = new StringBuilder();
         for (int i=0;i<books.size();i++) {
             Bridge.Book book = books.get(i);
-            boolean isGroupingHeader = options.contains(DisplayEnum.Grouped) && BookFormatter.isGroupingHeaderFakeBook(book);
+            boolean isGroupingHeader = options.isGrouped() && BookFormatter.isGroupingHeaderFakeBook(book);
             if (isGroupingHeader && i != 0) {
                 sb.append(newline);
                 sb.append(newline);
             }
             sb.append(book.title);
             sb.append(" ");
-            if (!isGroupingHeader && !options.contains(DisplayEnum.NoDetails))
+            if (!isGroupingHeader && !options.getNoDetailsInOverview())
                 sb.append(BookFormatter.getBookMoreText(book));
             if (!book.history) {
                 sb.append(": ");

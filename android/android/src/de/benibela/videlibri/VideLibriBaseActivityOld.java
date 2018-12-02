@@ -188,19 +188,6 @@ public class VideLibriBaseActivityOld extends AppCompatActivity implements Bridg
         return tv.getText().toString();
     }
 
-    public void setCheckableChecked(int id, boolean text){
-        Checkable tv = (Checkable) findViewById(id);
-        tv.setChecked(text);
-    }
-
-    public boolean getCheckableChecked(int id){
-        Checkable tv = (Checkable) findViewById(id);
-        return tv.isChecked();
-    }
-
-    public void setSpinnerSelection(int id, String[] items, String selection){
-        setSpinnerSelection((Spinner)findViewById(id), items, selection);
-    }
 
     static public void setSpinnerSelection(Spinner v, String[] items, String selection){
         for (int i = 0; i < items.length; i++)

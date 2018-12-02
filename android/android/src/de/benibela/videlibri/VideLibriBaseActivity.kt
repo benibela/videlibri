@@ -42,9 +42,9 @@ open class VideLibriBaseActivity: VideLibriBaseActivityOld(){
         super.onPause()
     }
 
-    override fun onSaveInstanceState(outState: Bundle) {
+    override fun onSaveInstanceState(outState: Bundle?) {
         super.onSaveInstanceState(outState)
-        outState.putIntegerArrayList("activeLoadingTasks", loadingTasks)
+        outState?.putIntegerArrayList("activeLoadingTasks", loadingTasks)
     }
 
     override fun onDestroy() {
