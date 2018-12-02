@@ -293,13 +293,7 @@ class LendingList: BookListActivity(){
         }
     }
 
-    internal var displayForcedCounter = 1
     internal var displayForcedCounterActually: Int = 0
-    fun refreshDisplayedLendBooks() {
-        displayForcedCounter += 1
-        if (VideLibriApp.currentActivity is LendingList)
-            (VideLibriApp.currentActivity as LendingList).displayAccounts()
-    }
 
     internal override fun onDialogResult(dialogId: Int, buttonId: Int, more: Bundle): Boolean {
         when (dialogId) {
@@ -485,8 +479,15 @@ class LendingList: BookListActivity(){
 
 
     companion object {
-        var hiddenAccounts = ArrayList<Bridge.Account>()
+        @JvmField var hiddenAccounts = ArrayList<Bridge.Account>()
+        internal var displayForcedCounter = 1
         @JvmField var displayHistory = false
+        @JvmStatic fun refreshDisplayedLendBooks() {
+            displayForcedCounter += 1
+            if (VideLibriApp.currentActivity is LendingList)
+                (VideLibriApp.currentActivity as LendingList).displayAccounts()
+        }
+
     }
 
 }
