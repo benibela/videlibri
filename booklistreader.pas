@@ -1102,8 +1102,6 @@ begin
     book.IssueDate:=dateParse(strconv(),strcopyfrom(variable,pos(':',variable)+1))
   else if strlibeginswith(@variable[1],length(variable),'duedate') then
     book.dueDate:=dateParse(strconv(),strcopyfrom(variable,pos(':',variable)+1))
-  else if striEqual(variable, 'limitdate') or strlibeginswith(@variable[1],length(variable),'limitdate') then
-    raise EBookListReader.create('The template is using the limitdate property which is deprecated. It should now be called duedate')
   else if strEqual(variable, 'holdings') then begin
     if book.holdings = nil then book.holdings := TBookList.create(book)
     else book.holdings.clear;
@@ -1126,14 +1124,6 @@ begin
 end;
 
 procedure TBookListReader.parserVariableRead(variable: string; value: IXQValue);
-  function strconv(s:string):string;
-  begin
-    result:=StringReplace(s,#13,'',[rfReplaceAll]);
-    result:=StringReplace(result,#10,'',[rfReplaceAll]);
-    result:=trim(result);
-  end;
-
-
 var
  i,j : Integer;
  book: TXQValueObject;
@@ -1235,10 +1225,6 @@ begin
         if cache = nil then cache := TXQValueObject.create();
         cache.setMutable(value.getProperty('name').toString, value.getProperty('value'));
       end;
-      'book-start()': raise EBookListReader.create('Deprecated book-start');
-      'book-end()': raise EBookListReader.create('Deprecated book-end');
-      'book-select(id)': raise EBookListReader.create('Deprecated book-select(id)');
-      'book-select()': raise EBookListReader.create('Deprecated before being implemented');
     end;
   end;
 end;
