@@ -133,7 +133,7 @@ open class BookListActivity: VideLibriBaseActivity(){
         //Log.i("VL","Book count: "+partialSize);
         val sa = BookOverviewAdapter(this, bookCache, partialSize, displayOptions)
         val bookListView = findViewById<ListView>(R.id.booklistview)
-        bookListView.onItemClickListener = AdapterView.OnItemClickListener { adapterView, view, i, l ->
+        bookListView.onItemClickListener = AdapterView.OnItemClickListener { _, _, i, _ ->
             bookCache.getOrNull(i)?.let {
                 if ("" != displayOptions.groupingKey && BookFormatter.isGroupingHeaderFakeBook(it))
                     return@OnItemClickListener

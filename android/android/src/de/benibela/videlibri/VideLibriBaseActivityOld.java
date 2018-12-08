@@ -7,6 +7,7 @@ import android.content.res.Configuration;
 import android.net.Uri;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -203,7 +204,7 @@ public class VideLibriBaseActivityOld extends AppCompatActivity implements Bridg
         return adapter;
     }
 
-    boolean onDialogResult(int dialogId, int buttonId, Bundle more){
+    boolean onDialogResult(int dialogId, int buttonId, @Nullable Bundle more){
         //callback
         //debug: Util.showMessage(1234, ""+dialogId+"=>"+buttonId,null,null,null);
         switch (dialogId) {

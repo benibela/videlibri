@@ -343,7 +343,7 @@ public class BookDetails extends VideLibriFakeFragment {
             actionButton.setVisibility(View.VISIBLE);
             actionButton.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View view){
-                    if (activity instanceof BookListActivity)
+                    if (activity instanceof BookListActivity && book != null)
                         ((BookListActivity) activity).onBookActionButtonClicked(book);
                 }
             });

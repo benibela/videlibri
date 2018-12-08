@@ -1,15 +1,22 @@
 package de.benibela.videlibri
 
+import android.content.DialogInterface
 import android.content.Intent
 import android.graphics.Paint
 import android.os.Bundle
 import android.preference.PreferenceManager
+import android.util.Log
+import android.view.Menu
 import android.view.View
 import android.widget.Spinner
 import android.widget.TextView
 import de.benibela.videlibri.jni.Bridge
+import java.util.*
 
-class Search: SearchOld(){
+internal interface SearchEventHandler {
+    fun onSearchEvent(event: Bridge.SearchEvent): Boolean
+}
+class Search: VideLibriBaseActivity(), SearchEventHandler{
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setVideLibriView(R.layout.searchlayout)
@@ -18,13 +25,13 @@ class Search: SearchOld(){
         libName = savedInstanceState?.getString("libName") ?: intent?.getStringExtra("libName") ?: ""
 
 
-        if (libName.isNullOrEmpty() && libId != "")
+        if (libName.isEmpty() && libId != "")
             libName = Bridge.VLGetLibraryDetails(libId)?.prettyName ?: ""
 
         val lib = findViewById<TextView>(R.id.library)
         lib.setText(libName + " (" + tr(R.string.change) + ")")
         lib.paintFlags = lib.paintFlags or Paint.UNDERLINE_TEXT_FLAG
-        if (libId == null || libId == "" || getIntent().getBooleanExtra("showLibList", false) && savedInstanceState == null) {
+        if (libId.isEmpty() || (intent?.getBooleanExtra("showLibList", false)?:false) && savedInstanceState == null) {
             if (System.currentTimeMillis() - LibraryListOld.lastSelectedTime < LibraryListOld.SELECTION_REUSE_TIME) {
                 libId = LibraryListOld.lastSelectedLibId ?: ""
                 libName = LibraryListOld.lastSelectedLibName ?: ""
@@ -34,7 +41,7 @@ class Search: SearchOld(){
             }
         }
 
-        val defaultQuery = intent.getSerializableExtra("query");
+        val defaultQuery = intent?.getSerializableExtra("query")
         if (defaultQuery is Map<*, *>) {
             findViewById<TextView>(R.id.title).text = defaultQuery.get("title").toString()
             findViewById<TextView>(R.id.author).text = defaultQuery.get("author").toString()
@@ -75,11 +82,259 @@ class Search: SearchOld(){
 
         setTitle(tr(R.string.search_title))
 
-        if (libId != null && libId != "") {
+        if (libId != "") {
             obtainSearcher()
             setBranchViewes(true)
         }
     }
 
 
+    internal val REQUEST_CHOOSE_LIBRARY = 1234
+
+    internal var libId: String = ""
+    internal var libName: String = ""
+
+    internal var searcher: Bridge.SearcherAccess? = null
+
+    internal val BRANCH_NAMES = arrayOf("homeBranch", "searchBranch")
+    internal val BRANCH_LAYOUT_IDS = intArrayOf(R.id.homeBranchLayout, R.id.searchBranchLayout)
+    internal val BRANCH_IDS = intArrayOf(R.id.homeBranch, R.id.searchBranch)
+
+    fun gcSearchers() {
+        for (i in searchers.indices.reversed()) {
+            //Log.d("VideLibri", " GC Searcher: " + i + "/"+searchers.size()+ ": "+searchers.get(i).nativePtr+" // "+(System.currentTimeMillis() - searchers.get(i).heartBeat));
+            if (System.currentTimeMillis() - searchers[i].heartBeat > SEARCHER_HEARTH_BEAT_TIMEOUT || searchers[i].state == SEARCHER_STATE_FAILED) {
+                searchers[i].free()
+                searchers.removeAt(i)
+            }
+        }
+    }
+
+
+    protected fun obtainSearcher() {
+        gcSearchers()
+        if (searchers.size > 0) {
+            val candidate = searchers[searchers.size - 1]
+            if (candidate.libId == libId)
+                when (candidate.state) {
+                    SEARCHER_STATE_INIT, SEARCHER_STATE_CONNECTED -> {
+                        searcher = candidate
+                        return
+                    }
+                }
+        }
+        searcher = Bridge.SearcherAccess(libId)
+        searcher?.let {
+            it.heartBeat = System.currentTimeMillis()
+            it.state = SEARCHER_STATE_INIT
+            it.connect()
+            if (it.nativePtr != 0L) {
+                beginLoading(VideLibriBaseActivityOld.LOADING_SEARCH_CONNECTING)
+                searchers.add(it)
+            }
+        }
+    }
+
+
+    override fun onResume() {
+        super.onResume()
+        obtainSearcher()
+        searcher?.let {
+            if (it.nativePtr != 0L) {
+                for (event in it.pendingEvents)
+                    onSearchEvent(event)
+            }
+            it.pendingEvents?.clear()
+            if (it.state != SEARCHER_STATE_INIT)
+                endLoadingAll(VideLibriBaseActivityOld.LOADING_SEARCH_CONNECTING)
+        }
+    }
+
+    override fun onPrepareOptionsMenu(menu: Menu?): Boolean {
+        val x = super.onPrepareOptionsMenu(menu)
+        menu?.findItem(R.id.search)?.setVisible(false)
+        return x
+    }
+
+    override fun onDestroy() {
+        gcSearchers()
+        super.onDestroy()
+    }
+
+
+    internal fun changeSearchLib() {
+        startActivityForResult<LibraryList>(REQUEST_CHOOSE_LIBRARY,
+                "defaultLibId" to libId,
+                "reason" to getString(R.string.search_selectlib),
+                "search" to true
+        )
+    }
+
+    internal fun setBranchViewes(init: Boolean) {
+        val sp = if (init) PreferenceManager.getDefaultSharedPreferences(this) else null
+        for (i in BRANCH_NAMES.indices) {
+            val branches: Array<String>? = if (BRANCH_IDS[i] == R.id.homeBranch) searcher?.homeBranches else searcher?.searchBranches
+            if (branches != null && branches.isNotEmpty()) {
+                val spinner = findViewById<Spinner>(BRANCH_IDS[i])
+                val current = if (init) sp?.getString("Search|" + libId + "|" + BRANCH_NAMES[i], null) else spinner.selectedItem as String
+
+                findViewById<View>(BRANCH_LAYOUT_IDS[i]).visibility = View.VISIBLE
+                spinner.setItems(branches)
+                spinner.setSelection(current, branches)
+            } else
+                findViewById<View>(BRANCH_LAYOUT_IDS[i]).visibility = View.GONE
+        }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        if (requestCode == REQUEST_CHOOSE_LIBRARY) {
+            if (resultCode == LibraryListOld.RESULT_OK) {
+                libId = LibraryListOld.lastSelectedLibId
+                libName = LibraryListOld.lastSelectedLibName
+                findViewById<TextView>(R.id.library).setText(libName)
+
+                obtainSearcher()
+                setBranchViewes(true)
+            } else if ("" == libId) finish()
+        } else
+            super.onActivityResult(requestCode, resultCode, data)
+    }
+
+    override fun onSearchEvent(event: Bridge.SearchEvent): Boolean {
+        if (debugTester?.onSearchEvent(event) ?: false) return true
+        if (event.searcherAccess !== searcher) return false
+        event.searcherAccess?.let { s ->
+            when (event.kind) {
+                Bridge.SearchEventKind.CONNECTED -> {
+                    endLoadingAll(VideLibriBaseActivityOld.LOADING_SEARCH_CONNECTING)
+                    s.heartBeat = System.currentTimeMillis()
+                    s.state = SEARCHER_STATE_CONNECTED
+                    s.homeBranches = event.obj1 as Array<String>?
+                    s.searchBranches = event.obj2 as Array<String>?
+                    setBranchViewes(false)
+                    return true
+                }
+                Bridge.SearchEventKind.EXCEPTION -> {
+                    endLoadingAll(VideLibriBaseActivityOld.LOADING_SEARCH_CONNECTING)
+                    s.state = SEARCHER_STATE_FAILED
+                    searcher = null
+                    gcSearchers()
+                    VideLibriApp.showPendingExceptions()
+                    return true
+                }
+                else -> {}
+            }
+        }
+        return false
+    }
+
+
+    internal var debugTester: SearchDebugTester? = null
+    fun activateHiddenDebugMode() {
+        Util.showMessage(DialogId.DEBUG_SEARCH_BEGIN, "You have activated the secret debug mode")
+    }
+
+
+    internal override fun onDialogResult(dialogId: Int, buttonId: Int, more: Bundle?): Boolean {
+        when (dialogId) {
+            DialogId.DEBUG_SEARCH_BEGIN -> {
+                Util.showMessageYesNo(DialogId.DEBUG_SEARCH_ALL, "Do you want to search ALL libraries? ")
+                return true
+            }
+            DialogId.DEBUG_SEARCH_ALL -> {
+                if (buttonId == DialogInterface.BUTTON_POSITIVE) {
+                    val book = Bridge.Book()
+                    book.title = findViewById<TextView>(R.id.title).text.toString()
+                    book.author = findViewById<TextView>(R.id.author).text.toString()
+                    debugTester = SearchDebugTester(book, libId)
+                }
+                return true
+            }
+        }
+        return super.onDialogResult(dialogId, buttonId, more)
+    }
+
+
+    companion object {
+        internal var searchers = ArrayList<Bridge.SearcherAccess>()
+
+        internal const val SEARCHER_HEARTH_BEAT_TIMEOUT = 5 * 60 * 1000
+        internal const val SEARCHER_STATE_INIT = 0 //connecting
+        internal const val SEARCHER_STATE_CONNECTED = 1
+        internal const val SEARCHER_STATE_SEARCHING = 2
+        internal const val SEARCHER_STATE_FAILED = 3
+    }
+}
+
+
+
+
+internal class SearchDebugTester(var query: Bridge.Book, startId: String) {
+    var libs: Array<String>
+    var pos: Int = 0
+    var searcher: Bridge.SearcherAccess? = null
+
+    init {
+        libs = Bridge.VLGetLibraryIds()
+        pos = 0
+        while (pos < libs.size && startId != libs[pos]) pos++
+        start()
+    }
+
+    private fun start() {
+        Log.i("VIDELIBRI", "============================================================")
+        Log.i("VIDELIBRI", "Testing search: " + libs[pos])
+        Log.i("VIDELIBRI", "============================================================")
+        searcher = Bridge.SearcherAccess(libs[pos])
+        searcher?.connect()
+        if (VideLibriApp.currentActivity is Search) {
+            val s = VideLibriApp.currentActivity as Search
+            s.libId = libs[pos]
+            s.libName = libs[pos]
+            (s.findViewById<View>(R.id.library) as TextView).setText(s.libName)
+            s.beginLoading(VideLibriBaseActivityOld.LOADING_SEARCH_SEARCHING)
+        }
+    }
+
+    fun onSearchEvent(event: Bridge.SearchEvent): Boolean {
+        if (event.searcherAccess !== searcher) return false
+        if (searcher == null) return false
+        val currentSearcher = searcher ?: return false
+        when (event.kind) {
+            Bridge.SearchEventKind.CONNECTED -> currentSearcher.start(query, -1, -1)
+            Bridge.SearchEventKind.FIRST_PAGE -> {
+                if (currentSearcher.nextPageAvailable) {
+                    currentSearcher.nextPage()
+                } else {
+                    currentSearcher.free()
+                    pos++
+                    if (pos < libs.size)
+                        start()
+                    else
+                        endComplete()
+                }
+            }
+            Bridge.SearchEventKind.NEXT_PAGE -> {
+                currentSearcher.free()
+                pos++
+                if (pos < libs.size)
+                    start()
+                else
+                    endComplete()
+            }
+            Bridge.SearchEventKind.EXCEPTION -> {
+                currentSearcher.free()
+                endComplete()
+                VideLibriApp.showPendingExceptions()
+            }
+        }
+        return true
+    }
+
+    private fun endComplete() {
+        searcher = null
+        if (VideLibriApp.currentActivity !is Search) return
+        (VideLibriApp.currentActivity as Search).endLoadingAll(VideLibriBaseActivityOld.LOADING_SEARCH_SEARCHING)
+        (VideLibriApp.currentActivity as Search).debugTester = null
+    }
 }

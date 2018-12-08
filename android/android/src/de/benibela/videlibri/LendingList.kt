@@ -295,7 +295,7 @@ class LendingList: BookListActivity(){
 
     internal var displayForcedCounterActually: Int = 0
 
-    internal override fun onDialogResult(dialogId: Int, buttonId: Int, more: Bundle): Boolean {
+    internal override fun onDialogResult(dialogId: Int, buttonId: Int, more: Bundle?): Boolean {
         when (dialogId) {
             DialogId.RENEW_SINGLE_CONFIRM -> lastSelectedBookForDialog?.let {
                 if (buttonId == DialogInterface.BUTTON_POSITIVE) {
