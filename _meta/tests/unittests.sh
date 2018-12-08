@@ -81,7 +81,7 @@ mkdir -p $OUTPATH/libero5
 
 test libero5 start start.html
 test libero5 update update_empty.html update55sp73_empty.html update55sp4_2books.html update55sp73_books.html update.login.faileden.html update55sp4_2books.fakesaarbrucken.html update6orders.saar.html update.session-lost.html update.verl.html update6_1book_verl.html
-test libero5 searchDetails searchDetails_order_verl.html searchDetails_link_bochum.html
+test libero5 searchDetails searchDetails_order_verl.html searchDetails_link_bochum.html searchDetails_fhbd.html
 test libero5 orderConfirm orderConfirm.verl.html
 test libero5 orderComplete orderfail.verl.html ordersuccess.verl.html 
 

@@ -1,0 +1,30 @@
+book := {}
+currentfield := "Materialart"
+currentfield := "Bandangaben"
+currentfield := "Zusatz zum Titel"
+currentfield := "Weitere Titel"
+currentfield := "Auflage"
+currentfield := "Verlagsort"
+currentfield := "Verlag"
+currentfield := "Umfang"
+currentfield := "Sprache"
+currentfield := "Notiz"
+currentfield := "Weiterer Inhalt"
+currentfield := "ISMN"
+currentfield := "Sachtitel korrigiert"
+currentfield := "Sachgruppe/Notation"
+holding := {"status": ". *, Präsenzexemplar   .", "libraryBranch": "Campus Derendorf", "Band!": " ", "libraryLocation": "Kunst, Design, Kulturgeschichte", "id": "12 KGV 101 -1", "barcode": "024119601", "orderable": false}
+result := ()
+holding := {"status": ". Verfügbar .", "libraryBranch": "Campus Derendorf", "Band!": " ", "libraryLocation": "Lehrbücher", "id": "15 KGV 101 -1 +1", "barcode": "024119701", "orderable": false}
+result := ()
+holding := {"status": ". Verfügbar .", "libraryBranch": "Campus Derendorf", "Band!": " ", "libraryLocation": "Lehrbücher", "id": "15 KGV 101 -1 +2", "barcode": "024119801", "orderable": false}
+result := ()
+holding := {"status": ". Verfügbar .", "libraryBranch": "Campus Derendorf", "Band!": " ", "libraryLocation": "Lehrbücher", "id": "15 KGV 101 -1 +3", "barcode": "024119901", "orderable": false}
+result := ()
+holding := {"status": ". Verfügbar .", "libraryBranch": "Campus Derendorf", "Band!": " ", "libraryLocation": "Lehrbücher", "id": "15 KGV 101 -1 +4", "barcode": "024120001", "orderable": false}
+result := ()
+holding := {"status": ". Verfügbar .", "libraryBranch": "Campus Derendorf", "Band!": " ", "libraryLocation": "Lehrbücher", "id": "15 KGV 101 -1 +5", "barcode": "024120101", "orderable": false}
+result := ()
+holding := {"dueDate": "2019-04-05", "status": ". Ausgeliehen .", "libraryBranch": "Campus Derendorf", "Band!": " ", "libraryLocation": "Lehrbücher", "id": "15 KGV 101 -1 +9", "barcode": "024120501", "orderable": false}
+order-form := {"method": "POST", "post": "MGWCHD=0&TOKEN=s8o29hBCAZ147&TOKENX=s8o29hBCAZ147&DATA=DUE&usercode=&VERSION=2", "url": "https://katalog.bibl.hs-duesseldorf.de/libero/WebOpac.cls"}
+book := {"orderTitle": "vormerken", "holdings": [{"orderable": true, "status": ". *, Präsenzexemplar   .", "libraryBranch": "Campus Derendorf", "Band!": " ", "libraryLocation": "Kunst, Design, Kulturgeschichte", "id": "12 KGV 101 -1", "barcode": "024119601"}, {"orderable": true, "status": ". Verfügbar .", "libraryBranch": "Campus Derendorf", "Band!": " ", "libraryLocation": "Lehrbücher", "id": "15 KGV 101 -1 +1", "barcode": "024119701"}, {"orderable": true, "status": ". Verfügbar .", "libraryBranch": "Campus Derendorf", "Band!": " ", "libraryLocation": "Lehrbücher", "id": "15 KGV 101 -1 +2", "barcode": "024119801"}, {"orderable": true, "status": ". Verfügbar .", "libraryBranch": "Campus Derendorf", "Band!": " ", "libraryLocation": "Lehrbücher", "id": "15 KGV 101 -1 +3", "barcode": "024119901"}, {"orderable": true, "status": ". Verfügbar .", "libraryBranch": "Campus Derendorf", "Band!": " ", "libraryLocation": "Lehrbücher", "id": "15 KGV 101 -1 +4", "barcode": "024120001"}, {"orderable": true, "status": ". Verfügbar .", "libraryBranch": "Campus Derendorf", "Band!": " ", "libraryLocation": "Lehrbücher", "id": "15 KGV 101 -1 +5", "barcode": "024120101"}, {"orderable": true, "dueDate": "2019-04-05", "status": ". Ausgeliehen .", "libraryBranch": "Campus Derendorf", "Band!": " ", "libraryLocation": "Lehrbücher", "id": "15 KGV 101 -1 +9", "barcode": "024120501"}], "_order-url": "https://katalog.bibl.hs-duesseldorf.de/libero/WebOpac.cls?VERSION=2&ACTION=RESERVATION&RSN=292902&DATA=DUE&TOKEN=s8o29hBCAZ147&Z=1&BARCODE=", "Link: Inhaltsverzeichnis!": "http://www.lbz-rlp.de/Inhaltsverzeichnis/HT016662453.pdf", "Sachgruppe/Notation!": "KGV", "Sachtitel korrigiert!": "Pop four voices 4 for Maierhofer Lorenz", "ISMN!": "ISMN M-50202-200-6", "isbn": "978-3-85061-644-7", "Weiterer Inhalt!": "Enth.: Live is live / Opus (Lorenz Maierhofer). Ding-A-Dong / Teach-In (Martin Carbow). We are the champignons / Queen (Matthias E. Becker). Perfekte Welle / Juli (Oliver Gies). Nie genug / Christina Stürmer (Hans Unterweger). Ba-Ba-Banküberfall / E. A. V (Carsten Gerlitz). Mah-na-mah-na / The Muppet Show (Markus Detterbeck). Ich wollt', ich wär' ein Huhn / Comedian Harmonists (Lorenz Maierhofer). Rock for fun / What 4 (Lorenz Maierhofer). The Entertainer / Scott Joplin (Lorenz Maierhofer). Un poquito Samba. The Scat Calypso (Calypso Warm-up) / What 4 (Lorenz Maierhofer). Jamaica farewell / Harry Belafonte (Lorenz Maierhofer). Mas que nada / Sérgio Mendes ( Bernhard Hofmann). Beyond the sea / Bobby Darin (Martin Carbow). An Englishman in New York / Sting (Manfred Mauser). We are the world / USA for Africa (Lorenz Maierhofer). Earth song / Michael Jackson (Lorenz Maierhofer). Down by the river / Albert L. Hammond (Lorenz Maierhofer). Let it be / Beatles (Lorenz Maierhofer). Wir machen Musik / Ilse Werner (Carsten Gerlitz). Conquest of Paradise / Vangelis (Lorenz Maierhofer). Can you feel the love tonight / Elton John (Carsten Gerlitz). The rose / Bette Midler (Lorenz Maierhofer). Girls, girls, girls / Sailor (Thoams Held)", "Notiz!": "Mit Bezifferung", "Sprache!": "ger‡eng", "Umfang!": "391 S.", "year": "c 2010", "Verlag!": "Helbling", "Verlagsort!": "Rum/Innsbruck [u.a.]", "Auflage!": "[Partitur], 1. Aufl.", "Weitere Titel!": "Live is life", "Zusatz zum Titel!": "Rock, Pop, Evergreen ; für gemischten Chor SATB", "Bandangaben!": "[Chorbuch]", "Materialart!": "Musikdruck"}

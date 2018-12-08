@@ -8,7 +8,7 @@
             <TR><TH>T I T E L</TH><TD>{$book.title}</TD></TR>
             <TR><TH>Autor</TH><TD>{$book.author}</TD></TR>
             <TR><TH>Erscheinungsjahr</TH><TD>{$book.year}</TD></TR>
-            <TR><TH>ISBN</TH><TD>{$book.isbn}</TD></TR>
+            <TR><TH>ISBN</TH><TD>{$book.isbn := replace(., "ISBN *", "")}</TD></TR>
             <TR><TH>Link</TH><TD><a><t:read var="book.Link: {replace(., '[.]', '')}!" source="x'{@href}'" /></a></TD></TR>
             <TR><TH>{currentfield := replace(normalize-space(.), "[.]", "")}</TH>
                 <TD><t:read source="if (./a/contains(@href, '://')) then x'{.} ( {./a/@href} )' else ." var="book.{$currentfield}!"/></TD></TR>
@@ -47,7 +47,10 @@
           </tr>+
         </tbody>
         </table>
-        <a title="Reserve Title">{book._order-url := @href, if (exists($book.holdings.orderable[.])) then () else $book.holdings[] := {"title": $book.title} }</a>?
+        <a title="Reserve Title">{
+          book._order-url := @href, 
+          if (empty($book.holdings.orderable[.])) then $book.holdings := $book.holdings!map:put(., "orderable", true()) else ()
+        }</a>?
         <div class='SubmitIssuesReserves' t:test="$book.holdings.orderable[.]">
         {$order-form := form(ancestor::form[1], (.//input)), $book.orderTitle := "vormerken"}
         </div>
