@@ -90,12 +90,14 @@ private fun compareForKey(book: Bridge.Book?, book2: Bridge.Book?, key: String):
             else Util.compare(dateToWeek(book.dueDate), dateToWeek(book2.dueDate))
         }
         "_account" -> {
-            var temp = Util.compareNullFirst(book.account, book2.account)
-            if (temp != 0 || book.account == null) 0
+            val a = book.account
+            val a2 = book2.account
+            var temp = Util.compareNullFirst(a, a2)
+            if (temp != 0 || a == null || a2 == null ) 0
             else {
-                temp = Util.compareNullFirst(book.account.prettyName, book2.account.prettyName)
-                if (temp != 0 || book.account.prettyName == null) 0
-                else book.account.prettyName.compareTo(book2.account.prettyName)
+                temp = Util.compareNullFirst(a.prettyName, a2.prettyName)
+                if (temp != 0) 0
+                else a.prettyName.compareTo(a2.prettyName)
             }
         }
         "dueDate" -> {
@@ -137,7 +139,7 @@ fun makePrimaryBookCache(addHistoryStart: Boolean,
     for (facc in accounts) {
         if (hiddenAccounts.contains(facc))
             continue
-        val books: Array<Bridge.Book> = Bridge.VLGetBooks(facc, false)
+        val books: Array<Bridge.Book> = Bridge.VLGetBooks(facc, false) ?: continue
         if (!renewableOnly) {
             bookCache.addAll(books)
         } else
@@ -145,11 +147,16 @@ fun makePrimaryBookCache(addHistoryStart: Boolean,
                 if (b.status == Bridge.Book.StatusEnum.Unknown || b.status == Bridge.Book.StatusEnum.Normal)
                     bookCache.add(b)
         if (addHistory)
-            bookCache.addAll(Bridge.VLGetBooks(facc, true))
+            bookCache.addAll(Bridge.VLGetBooks(facc, true) ?: continue)
     }
 
     return bookCache
 }
+
+fun Bridge.Book.matchesFilter(filter: String, key: String): Boolean =
+    if (key != null && "" != key) getProperty(key).toLowerCase().contains(filter)
+    else author.toLowerCase().contains(filter) || title.toLowerCase().contains(filter)
+
 
 fun filterToSecondaryBookCache(oldBookCache: ArrayList<Bridge.Book>,
                                groupingKey: String, sortingKey: String,

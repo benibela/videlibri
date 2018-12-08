@@ -60,10 +60,10 @@ open class VideLibriBaseActivity: VideLibriBaseActivityOld(){
         inflater.inflate(R.menu.loadingmenu, menu)
         onCreateOptionsMenuOverflow(menu, inflater)
         loadingItem = menu.findItem(R.id.loading)
-        loadingItem?.let {
-            it.setActionView(R.layout.actionbar_loading)
-            it.actionView?.setOnClickListener { showLoadingInfo() }
-            it.isVisible = loadingTasks.size > 0
+        loadingItem?.apply {
+            setActionView(R.layout.actionbar_loading)
+            actionView?.setOnClickListener { showLoadingInfo() }
+            isVisible = loadingTasks.size > 0
         }
         return super.onCreateOptionsMenu(menu)
     }
@@ -157,8 +157,9 @@ open class VideLibriBaseActivity: VideLibriBaseActivityOld(){
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if ((requestCode == REQUESTED_LIBRARY_CATALOGUE || requestCode == REQUESTED_LIBRARY_HOMEPAGE) && resultCode == RESULT_OK) {
-            val details = Bridge.VLGetLibraryDetails(LibraryListOld.lastSelectedLibId)
-            showUriInBrowser(if (requestCode == REQUESTED_LIBRARY_HOMEPAGE) details.homepageBase else details.homepageCatalogue)
+            Bridge.VLGetLibraryDetails(LibraryListOld.lastSelectedLibId)?.apply {
+                showUriInBrowser(if (requestCode == REQUESTED_LIBRARY_HOMEPAGE) homepageBase else homepageCatalogue)
+            }
             return
         }
 

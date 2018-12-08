@@ -4,30 +4,40 @@ import android.graphics.Bitmap;
 import android.os.Handler;
 import android.util.Log;
 
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+
 import java.io.Serializable;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
 import java.util.*;
 
+@Retention(RetentionPolicy.SOURCE)
+@interface NotNullLateInit {}
 
 @SuppressWarnings( {"JniMissingFunction", "unused"} )
 public class Bridge {
     public static class LibraryDetails {
-        public String homepageBase, homepageCatalogue;
-        public String prettyName, prettyNameShort;
-        public String id;
-        public String templateId;
-        public String tableComment;
-        public String variableNames[];
-        public String variableValues[];
+        @NotNull public String homepageBase, homepageCatalogue;
+        @NotNull public String prettyName, prettyNameShort;
+        @NotNull public String id;
+        @NotNull public String templateId;
+        @NotNull public String tableComment;
+        @NotNull public String variableNames[];
+        @NotNull public String variableValues[];
         public boolean segregatedAccounts;
 
-        public LibraryDetails(){}
-        public LibraryDetails(String homepageBase, String homepageCatalogue,
-                              String prettyName, String prettyNameShort,
-                              String id,
-                              String templateId,
-                              String tableComment,
-                              String variableNames[],
-                              String variableValues[],
+        public LibraryDetails(){
+            homepageBase = homepageCatalogue = prettyName = prettyNameShort = id = templateId = tableComment = "";
+            variableNames = variableValues = new String[0];
+        }
+        public LibraryDetails(@NotNull String homepageBase, @NotNull String homepageCatalogue,
+                              @NotNull String prettyName, @NotNull String prettyNameShort,
+                              @NotNull String id,
+                              @NotNull String templateId,
+                              @NotNull String tableComment,
+                              @NotNull String variableNames[],
+                              @NotNull String variableValues[],
                               boolean segregatedAccounts
         ){
             this.homepageBase = homepageBase;
@@ -42,7 +52,7 @@ public class Bridge {
             this.tableComment = tableComment;
         }
 
-        public static String decodeIdEscapes(String s) {
+        public static @NotNull String decodeIdEscapes(@NotNull String s) {
             if (!s.contains("+")) return s;
             return s.replace("+ue", "ü")
                     .replace("+oe", "ö")
@@ -53,14 +63,16 @@ public class Bridge {
     }
 
     public static class Account implements Serializable{
-        public String libId, name, pass, prettyName;
+        @NotNull public String libId, name, pass, prettyName;
         public int type;
         public boolean extend;
         public int extendDays;
         public boolean history;
         public int lastCheckDate;
-        public Account () {}
-        public Account (String libId, String name, String pass, String prettyName,
+        public Account () {
+            libId = name = pass = prettyName = "";
+        }
+        public Account (@NotNull String libId, @NotNull String name, @NotNull String pass, @NotNull String prettyName,
                  int type, boolean extend,
                  int extendDays, boolean history,
                  int lastCheckDate) {
@@ -90,11 +102,11 @@ public class Bridge {
     }
 
     private static class Util{
-        static public boolean equalStrings(String s, String t) {
+        static boolean equalStrings(@Nullable String s, @Nullable String t) {
             return s == null ? t == null : s.equals(t);
         }
 
-        public static boolean isEmptyString(String s) {
+        static boolean isEmptyString(@Nullable String s) {
             return s == null || "".equals(s);
         }
     }
@@ -105,12 +117,14 @@ public class Bridge {
             author = title = id = year = "";
             additionalProperties = new ArrayList<>(12);
         }
-        public Book(String title){
+        public Book(@NotNull String title){
             author = id = year = "";
             this.title = title;
             additionalProperties = new ArrayList<>(0);
         }
-        public Book(int additionalPropertyCount, Account account, String id, String author, String title, String year){
+        public Book(int additionalPropertyCount,
+                    @Nullable Account account,
+                    @NotNull String id, @NotNull String author, @NotNull String title, @NotNull String year){
             this.account = account;
             this.id = id;
             this.author = author;
@@ -119,19 +133,19 @@ public class Bridge {
             this.additionalProperties = new ArrayList<>(additionalPropertyCount);
         }
 
-        public Account account;
-        public String id, author, title, year;
+        @Nullable public Account account;
+        @NotNull public String id, author, title, year;
         public int issueDate, dueDate, firstExistsDate; //Pascal date, 0 if undefined
         public boolean history;
-        public ArrayList<String> additionalProperties;
+        @NotNull public ArrayList<String> additionalProperties;
 
         private int status;
 
-        public Book holdings[];
+        @Nullable public Book [] holdings;
 
-        public Bitmap image; //handled on Javasite only
+        @Nullable public Bitmap image; //handled on Javasite only
 
-        @Override
+        @Override @NotNull
         public String toString() {
             return title; //used for copy to clipboard. where else? todo: probably add author
         }
@@ -139,6 +153,7 @@ public class Bridge {
         public enum StatusEnum { Unknown, Normal, Problematic, Ordered, Provided,
                           Available, Lend, Virtual, Presentation, InterLoan}
 
+        @NotNull
         final public StatusEnum getStatus() {
             switch (status) {
                 case 1: return StatusEnum.Normal;
@@ -189,13 +204,13 @@ public class Bridge {
 
 
         //called from Videlibri midend
-        final public void setProperty(String name, String value){
+        final public void setProperty(@NotNull String name, @NotNull String value){
             //more.add(new Pair(name, value));
             additionalProperties.add(name);
             additionalProperties.add(value);
         }
 
-        final public String getProperty(String name) {
+        final public @NotNull String getProperty(@NotNull String name) {
             assert (additionalProperties.size() & 1) == 0;
             for (int i = additionalProperties.size() - 2; i >= 0; i -= 2)       //backward for simple overriding
                 if (additionalProperties.get(i).equals(name))
@@ -212,12 +227,12 @@ public class Bridge {
             }
             return "";
         }
-        final public String getProperty(String name, String def){
+        final public @NotNull String getProperty(@NotNull String name, @NotNull String def){
             String res = getProperty(name);
             return Util.isEmptyString(res) ? def : res;
         }
 
-        final public boolean hasProperty(String name){
+        final public boolean hasProperty(@NotNull String name){
             assert (additionalProperties.size() & 1) == 0;
             for (int i = additionalProperties.size() - 2; i >= 0; i -= 2)
                 if (additionalProperties.get(i).equals(name))
@@ -225,10 +240,6 @@ public class Bridge {
             return false;
         }
 
-        public boolean matchesFilter(String filter, String key){
-            if (key != null && !"".equals(key)) return getProperty(key).toLowerCase().contains(filter);
-            return author.toLowerCase().contains(filter) || title.toLowerCase().contains(filter);
-        }
 
         public enum ISBNNormalization { ISBN_NO_CONVERSION, ISBN_CONVERT_TO_10, ISBN_CONVERT_TO_13}
         public String getNormalizedISBN(boolean removeSeps, ISBNNormalization normalize) {
@@ -243,13 +254,13 @@ public class Bridge {
             return VLNormalizeISBN(isbn, removeSeps, normalizationCode);
         }
 
-        public boolean equalsBook(Book q) {
+        public boolean equalsBook(@NotNull Book q) {
             if (!Util.equalStrings(id, q.id)) return false;
             if (!Util.equalStrings(title, q.title)) return false;
             if (!Util.equalStrings(author, q.author)) return false;
             if (!Util.equalStrings(year, q.year)) return false;
             if (history != q.history) return false;
-            if (!(account == null ? q.account == null : Util.equalStrings(account.libId, q.account.libId) && Util.equalStrings(account.name, q.account.name) )) return false;
+            if (!(account == null ? q.account == null : q.account != null && Util.equalStrings(account.libId, q.account.libId) && Util.equalStrings(account.name, q.account.name) )) return false;
             for (int i=0;i<additionalProperties.size();i+=2) {
                 if (i + 1 < q.additionalProperties.size()
                         && Util.equalStrings(additionalProperties.get(i), q.additionalProperties.get(i))
@@ -278,61 +289,61 @@ public class Bridge {
         static final public int KIND_LOGIN = 2;
 
         public int kind;
-        public String accountPrettyNames, error, library, searchQuery, details, anonymousDetails;
-        public String firstAccountUser, firstAccountLib;
+        @NotNullLateInit public String accountPrettyNames, error, library, searchQuery, details, anonymousDetails;
+        @NotNullLateInit public String firstAccountUser, firstAccountLib;
     }
 
     public static class Options{
         public boolean logging;
         public int nearTime, refreshInterval;
-        public String roUserLibIds[];
+        @NotNullLateInit public String roUserLibIds[];
     }
     public static Options globalOptions;
 
     public static class TemplateDetails{
-        public String variablesNames[];
-        public String variablesDescription[];
-        public String variablesDefault[];
+        @NotNullLateInit public String variablesNames[];
+        @NotNullLateInit public String variablesDescription[];
+        @NotNullLateInit public String variablesDefault[];
     }
 
-    static private native void VLInit(VideLibriContext videlibri);
-    static public native String[] VLGetLibraryIds();
-    static public native LibraryDetails VLGetLibraryDetails(String id);
-    static public native void VLSetLibraryDetails(String id, LibraryDetails details);
-    static public native void VLInstallLibrary(String url);
-    static public native String[] VLGetTemplates(); //array of ids
-    static public native TemplateDetails VLGetTemplateDetails(String id);
-    static public native void VLReloadLibrary(String id);
-    static public native void VLReloadTemplate(String id);
-    static public native Account[] VLGetAccounts();
-    static public native void VLAddAccount(Account acc);
-    static public native void VLChangeAccount(Account oldacc, Account newacc);
-    static public native void VLDeleteAccount(Account acc);
-    static public native Book[] VLGetBooks(Account acc, boolean history);
-    static public native String VLNormalizeISBN(String isbn, boolean removeSep, int conversion);
-    static public native Book VLGetCriticalBook();
-    static public native boolean VLUpdateAccount(Account acc, boolean autoUpdate, boolean forceExtend);
+    static private native void VLInit(@NotNull VideLibriContext videlibri);
+    static public native @NotNull String[] VLGetLibraryIds();
+    static public native @Nullable LibraryDetails VLGetLibraryDetails(@NotNull String id);
+    static public native void VLSetLibraryDetails(@NotNull String id, @Nullable LibraryDetails details);
+    static public native void VLInstallLibrary(@NotNull String url);
+    static public native @NotNull String[] VLGetTemplates(); //array of ids
+    static public native @Nullable TemplateDetails VLGetTemplateDetails(@NotNull String id);
+    static public native void VLReloadLibrary(@NotNull String id);
+    static public native void VLReloadTemplate(@NotNull String id);
+    static public native @NotNull Account[] VLGetAccounts();
+    static public native void VLAddAccount(@NotNull Account acc);
+    static public native void VLChangeAccount(@NotNull Account oldacc, @NotNull Account newacc);
+    static public native void VLDeleteAccount(@NotNull Account acc);
+    static public native @Nullable Book[] VLGetBooks(@NotNull Account acc, boolean history);
+    static public native @NotNull String VLNormalizeISBN(@NotNull String isbn, boolean removeSep, int conversion);
+    static public native @NotNull Book VLGetCriticalBook();
+    static public native boolean VLUpdateAccount(@NotNull Account acc, boolean autoUpdate, boolean forceExtend);
     public static final int BOOK_OPERATION_RENEW = 1;
     public static final int BOOK_OPERATION_CANCEL = 2;
-    static public native void VLBookOperation(Book[] books, int operation);
-    static public native PendingException[] VLTakePendingExceptions();
+    static public native void VLBookOperation(@NotNull Book[] books, int operation);
+    static public native @Nullable PendingException[] VLTakePendingExceptions();
 
-    static public native String[] VLGetNotifications();
+    static public native @Nullable String[] VLGetNotifications();
 
-    static public native void VLSearchConnect(SearcherAccess searcher, String libId);
-    static public native void VLSearchStart(SearcherAccess searcher, Book query, int homeBranch, int searchBranch);
-    static public native void VLSearchNextPage(SearcherAccess searcher);
-    static public native void VLSearchDetails(SearcherAccess searcher, Book book);
-    static public native void VLSearchOrder(SearcherAccess searcher, Book[] book);
-    static public native void VLSearchOrder(SearcherAccess searcher, Book[] book, int[] holding);
-    static public native void VLSearchOrderConfirmed(SearcherAccess searcher, Book[] book);
-    static public native void VLSearchCompletePendingMessage(SearcherAccess searcher, int result);
-    static public native void VLSearchEnd(SearcherAccess searcher);
+    static public native void VLSearchConnect(@NotNull SearcherAccess searcher, @NotNull String libId);
+    static public native void VLSearchStart(@NotNull SearcherAccess searcher, @NotNull Book query, int homeBranch, int searchBranch);
+    static public native void VLSearchNextPage(@NotNull SearcherAccess searcher);
+    static public native void VLSearchDetails(@NotNull SearcherAccess searcher, @NotNull Book book);
+    static public native void VLSearchOrder(@NotNull SearcherAccess searcher, @NotNull Book[] book);
+    static public native void VLSearchOrder(@NotNull SearcherAccess searcher, @NotNull Book[] book, @NotNull int[] holding);
+    static public native void VLSearchOrderConfirmed(@NotNull SearcherAccess searcher, @NotNull Book[] book);
+    static public native void VLSearchCompletePendingMessage(@NotNull SearcherAccess searcher, int result);
+    static public native void VLSearchEnd(@NotNull SearcherAccess searcher);
 
-    static public native void VLSetOptions(Options options);
-    static public native Options VLGetOptions();
+    static public native void VLSetOptions(@NotNull Options options);
+    static public native @NotNull Options VLGetOptions();
 
-    static public native Book[] VLXQuery(String query);
+    static public native @NotNull Book[] VLXQuery(@NotNull String query);
 
     static public native void VLFinalize();
 
@@ -345,45 +356,45 @@ public class Bridge {
         public long nativePtr;
         public volatile int totalResultCount;
         public volatile boolean nextPageAvailable;
-        public volatile String[] homeBranches, searchBranches; //from java and pascal
+        @NotNullLateInit public volatile String[] homeBranches, searchBranches; //from java and pascal
 
         //set in Java
-        public final String libId;
-        public final ArrayList<SearchEvent> pendingEvents = new ArrayList<>();
+        @NotNull public final String libId;
+        @NotNull public final ArrayList<SearchEvent> pendingEvents = new ArrayList<>();
 
         //set in (Java) activity
         public int state;
         public long heartBeat;
-        public final ArrayList<Bridge.Book> bookCache = new ArrayList<>();
+        @NotNull public final ArrayList<Bridge.Book> bookCache = new ArrayList<>();
         //The detail search runs in the background, for a single book.
         //But the user might request other detail searches, before the search is complete.
         //Then wait for the old search to complete, and then start the newest search, unless the user has closed the view
         public int waitingForDetails;    //nr of book currently searched. Only set when the search is started or has ended (-1 if no search is running)
         public int nextDetailsRequested; //nr of the book that *should* be searched. Set when requesting a new search, or to -1 to cancel the current search
-        public Bridge.Account orderingAccount;
+        @Nullable public Bridge.Account orderingAccount;
 
-        public SearcherAccess(String libId){
+        public SearcherAccess(@NotNull String libId){
             this.libId = libId;
         }
         public void connect(){
             VLSearchConnect(this, libId);
         }
-        public void start(Book query, int homeBranch, int searchBranch){
+        public void start(@NotNull Book query, int homeBranch, int searchBranch){
             VLSearchStart(this, query, homeBranch, searchBranch);
         }
         public void nextPage(){
             VLSearchNextPage(this);
         }
-        public void details(Book book){
+        public void details(@NotNull Book book){
             VLSearchDetails(this, book);
         }
-        public void order(Book book){
+        public void order(@NotNull Book book){
             VLSearchOrder(this, new Book[]{book});
         }
-        public void order(Book book, int holdingId){
+        public void order(@NotNull Book book, int holdingId){
             VLSearchOrder(this, new Book[]{book}, new int[]{holdingId});
         }
-        public void orderConfirmed(Book book){
+        public void orderConfirmed(@NotNull Book book){
             VLSearchOrderConfirmed(this, new Book[]{book});
         }
         public void completePendingMessage(int result){
@@ -393,11 +404,10 @@ public class Bridge {
             VLSearchEnd(this);
         }
 
-        private SearchEvent newEvent(SearchEventKind kind) {  return newEvent(kind, 0, null, null); }
-        private SearchEvent newEvent(SearchEventKind kind, Object obj) {  return newEvent(kind, 0, obj, null); }
-        private SearchEvent newEvent(SearchEventKind kind, int arg1, Object obj1, Object obj2) {
-            SearchEvent event = new SearchEvent();
-            event.kind = kind;
+        private @NotNull SearchEvent newEvent(@NotNull SearchEventKind kind) {  return newEvent(kind, 0, null, null); }
+        private @NotNull SearchEvent newEvent(@NotNull SearchEventKind kind, @Nullable Object obj) {  return newEvent(kind, 0, obj, null); }
+        private @NotNull SearchEvent newEvent(@NotNull SearchEventKind kind, int arg1, @Nullable Object obj1, @Nullable Object obj2) {
+            SearchEvent event = new SearchEvent(kind);
             event.arg1 = arg1;
             event.obj1 = obj1;
             event.obj2 = obj2;
@@ -410,13 +420,13 @@ public class Bridge {
         }
 
 
-        public void onConnected(String[] homeBranches, String[] searchBranches){ send(newEvent(SearchEventKind.CONNECTED, 0, homeBranches, searchBranches)); }
-        public void onSearchFirstPageComplete(Book[] books) { send(newEvent(SearchEventKind.FIRST_PAGE, books)); }
-        public void onSearchNextPageComplete(Book[] books) { send(newEvent(SearchEventKind.NEXT_PAGE, books)); }
-        public void onSearchDetailsComplete(Book book) { send(newEvent(SearchEventKind.DETAILS, book)); }
-        public void onOrderComplete(Book book) { send(newEvent(SearchEventKind.ORDER_COMPLETE, book)); }
-        public void onOrderConfirm(Book book) { send(newEvent(SearchEventKind.ORDER_CONFIRM, book)); }
-        public void onTakePendingMessage(int kind, String caption, String[] options) { send(newEvent(SearchEventKind.TAKE_PENDING_MESSAGE, kind, caption, options)); }
+        public void onConnected(@NotNull String[] homeBranches, @NotNull String[] searchBranches){ send(newEvent(SearchEventKind.CONNECTED, 0, homeBranches, searchBranches)); }
+        public void onSearchFirstPageComplete(@NotNull Book[] books) { send(newEvent(SearchEventKind.FIRST_PAGE, books)); }
+        public void onSearchNextPageComplete(@NotNull Book[] books) { send(newEvent(SearchEventKind.NEXT_PAGE, books)); }
+        public void onSearchDetailsComplete(@NotNull Book book) { send(newEvent(SearchEventKind.DETAILS, book)); }
+        public void onOrderComplete(@NotNull Book book) { send(newEvent(SearchEventKind.ORDER_COMPLETE, book)); }
+        public void onOrderConfirm(@NotNull Book book) { send(newEvent(SearchEventKind.ORDER_CONFIRM, book)); }
+        public void onTakePendingMessage(int kind, @NotNull String caption, @NotNull String[] options) { send(newEvent(SearchEventKind.TAKE_PENDING_MESSAGE, kind, caption, options)); }
         public void onPendingMessageCompleted() { send(newEvent(SearchEventKind.PENDING_MESSAGE_COMPLETE)); }
         public void onException() { send(newEvent(SearchEventKind.EXCEPTION)); }
     }
@@ -433,10 +443,13 @@ public class Bridge {
         EXCEPTION
     }
     public static class SearchEvent{
-        public SearcherAccess searcherAccess;
-        public SearchEventKind kind;
+        @Nullable public SearcherAccess searcherAccess;
+        @NotNull public SearchEventKind kind;
         public int arg1;
-        public Object obj1, obj2;
+        @Nullable public Object obj1, obj2;
+        SearchEvent(@NotNull SearchEventKind kind) {
+            this.kind = kind;
+        }
     }
 
 
@@ -447,13 +460,13 @@ public class Bridge {
         public static final int CONFIG   = 0x04;
         public static final int PASSWORD = 0x08;
         
-        public String accountsToImport[];
+        @Nullable public String accountsToImport[];
         public int flags;
         long nativePtr; //this is a very large object which must be destroyed with a call to  VLImportAccounts
     }
-    public static native void VLExportAccounts(String filename, Account accountsToExport[], int flags);
-    public static native ImportExportData VLImportAccountsPrepare(String filename);
-    public static native void VLImportAccounts(ImportExportData data);
+    public static native void VLExportAccounts(@NotNull String filename, @NotNull Account accountsToExport[], int flags);
+    public static native @NotNull ImportExportData VLImportAccountsPrepare(@NotNull String filename);
+    public static native void VLImportAccounts(@NotNull ImportExportData data);
 
     static public void log(final String message){
         Log.i("VideLibri", message);
@@ -473,16 +486,16 @@ public class Bridge {
     }
 
     //callbacks
-    static public Handler allThreadsDoneHandler, installationDoneHandler, searchEventHandler;
+    @Nullable static public Handler allThreadsDoneHandler, installationDoneHandler, searchEventHandler;
 
     //init
 
 
     public interface VideLibriContext{
-        String userPath();
+        @NotNull String userPath();
     }
 
-    static boolean initialized = false;
+    static private boolean initialized = false;
     static public void initialize(VideLibriContext context){
         if (initialized) return;
         initialized = true;

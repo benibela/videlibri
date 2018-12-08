@@ -139,7 +139,6 @@ class SearchResult : BookListActivity(), SearchEventHandler {
                 VideLibriApp.showPendingExceptions()
                 return true
             }
-            else -> {}
         }
         return true
     }
@@ -271,7 +270,7 @@ class SearchResult : BookListActivity(), SearchEventHandler {
         book.setProperty("choosenOrder", "" + choosenOrder)
         val matchingAccounts = ArrayList<Bridge.Account>()
         for (acc in VideLibriApp.accounts)
-            if (acc.libId == libId && acc.name != null && acc.name != "")
+            if (acc.libId == libId && acc.name != "")
                 matchingAccounts.add(acc)
         if (matchingAccounts.size == 0) {
             Util.showMessage(tr(R.string.search_needaccount))
@@ -306,7 +305,7 @@ class SearchResult : BookListActivity(), SearchEventHandler {
         if (searcher == null) return
         val matchingAccounts = ArrayList<Bridge.Account>()
         for (acc in VideLibriApp.accounts)
-            if (acc.libId == libId && acc.name != null && acc.name != "")
+            if (acc.libId == libId && acc.name != "")
                 matchingAccounts.add(acc)
         if (matchingAccounts.size == 0) {
             Util.showMessage(tr(R.string.search_needaccount))
@@ -365,7 +364,7 @@ class SearchResult : BookListActivity(), SearchEventHandler {
                     if (buttonId == DialogInterface.BUTTON_POSITIVE) {
                         bookActionButton?.isClickable = false
                         beginLoading(VideLibriBaseActivityOld.LOADING_SEARCH_ORDER)
-                        searcher?.orderConfirmed(lastSelectedBookForDialog)
+                        searcher?.orderConfirmed(lastSelectedBookForDialog!!)
                     }
                     lastSelectedBookForDialog = null
                 }
@@ -376,7 +375,7 @@ class SearchResult : BookListActivity(), SearchEventHandler {
                     if (buttonId == DialogInterface.BUTTON_POSITIVE) {
                         bookActionButton?.isClickable = false
                         beginLoading(VideLibriBaseActivityOld.LOADING_SEARCH_ORDER)
-                        searcher?.orderConfirmed(lastSelectedBookForDialog)
+                        searcher?.orderConfirmed(lastSelectedBookForDialog!!)
                     }
                     lastSelectedBookForDialog = null
                 }
@@ -388,7 +387,7 @@ class SearchResult : BookListActivity(), SearchEventHandler {
                         lastSelectedBookForDialog?.setProperty("choosenConfirmation", (buttonId + 1).toString() + "")
                         bookActionButton?.isClickable = false
                         beginLoading(VideLibriBaseActivityOld.LOADING_SEARCH_ORDER)
-                        searcher?.orderConfirmed(lastSelectedBookForDialog)
+                        searcher?.orderConfirmed(lastSelectedBookForDialog!!)
                     }
                     lastSelectedBookForDialog = null
                 }

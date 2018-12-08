@@ -250,12 +250,12 @@ class LendingList: BookListActivity(){
             }
             R.id.research_same, R.id.research_author, R.id.research_title -> {
                 currentBook()?.let {
-                    if (it.account != null) {
+                    it.account?.let { account ->
                         val query = mapOf(
                                 "title" to if (id == R.id.research_same || id == R.id.research_title) it.title else "",
                                 "author" to if (id == R.id.research_same || id == R.id.research_author) it.author else "")
                         startActivity<Search>(
-                                "libId" to it.account.libId,
+                                "libId" to account.libId,
                                 "query" to query)
                     }
                 }
