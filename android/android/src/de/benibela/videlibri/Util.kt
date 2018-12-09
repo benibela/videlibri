@@ -2,6 +2,8 @@ package de.benibela.videlibri
 import android.app.Activity
 import android.content.Context
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import android.widget.ArrayAdapter
 import android.widget.Spinner
 
@@ -40,4 +42,9 @@ fun Spinner.setItems(items: Array<String>) {
 fun<T> Spinner.setSelection(item: T?, items: Array<T>) {
     val i = items.indexOf(item)
     if (i > 0) this.setSelection(i)
+}
+
+inline fun Menu.forItems(f: (MenuItem) -> Unit){
+    for (i in 0 until size())
+        f(getItem(i))
 }

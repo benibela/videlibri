@@ -229,12 +229,14 @@ class LendingList: BookListActivity(){
     override fun setOptionMenuVisibility(menu: Menu?) {
         super.setOptionMenuVisibility(menu)
         val hasAccounts = VideLibriApp.accounts.size > 0
-        menu?.apply {
-            findItem(R.id.refresh)?.isVisible = VideLibriApp.runningUpdates.isEmpty()
-            findItem(R.id.filter)?.isVisible = hasAccounts
-            findItem(R.id.renew)?.isVisible = hasAccounts
-            findItem(R.id.renewlist)?.isVisible = hasAccounts
-            findItem(R.id.research_menu)?.isVisible = hasAccounts
+
+        menu?.forItems {
+            it.isVisible = when (it.itemId) {
+                R.id.refresh -> VideLibriApp.runningUpdates.isEmpty()
+                R.id.filter, R.id.renew, R.id.renewlist -> hasAccounts
+                R.id.research_menu -> hasAccounts && detailsVisible()
+                else -> return@forItems
+            }
         }
     }
 

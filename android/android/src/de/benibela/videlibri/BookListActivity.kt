@@ -159,11 +159,12 @@ open class BookListActivity: VideLibriBaseActivity(){
 
     open fun onPlaceHolderShown(position: Int) {}
 
-
+    //called when the user touches a book
     open fun viewDetails(bookpos: Int) {
         showDetails(bookpos)
     }
 
+    //shows the detail view
     fun showDetails(startbookpos: Int) {
         var bookpos = startbookpos
         if (bookpos !in bookCache.indices) return
@@ -178,6 +179,7 @@ open class BookListActivity: VideLibriBaseActivity(){
             portInDetailMode = true
         }
         details.setBook(bookCache[bookpos])
+        invalidateOptionsMenu()
     }
 
 
@@ -223,6 +225,7 @@ open class BookListActivity: VideLibriBaseActivity(){
     fun showList(): Boolean {
         if (!port_mode) return true
         if (detailsVisible()) {
+            invalidateOptionsMenu()
             listPortHolder?.visibility = View.VISIBLE
             detailsPortHolder?.visibility = View.INVISIBLE
             portInDetailMode = false
