@@ -139,7 +139,8 @@ end;
 procedure TAccountList.add(account: TCustomAccountAccess);
 begin
   AddObject(account.getPlusEncodedID(),account);
-  account.save();
+  account.saveConfig();
+  account.saveBooks();
   save;
   if assigned(OnAccountAdd) then OnAccountAdd(account);
 end;
