@@ -2117,7 +2117,7 @@ begin
     exit(JNI_ERR);
   end;
   setCustomClassLoaderFromLoadedClass(bridgeClass);
-  result := JNI_VERSION_1_4;
+  result := JNI_VERSION_1_6;
 end;
 
 {$endif}
