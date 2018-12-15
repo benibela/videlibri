@@ -575,7 +575,7 @@ begin
        old.year:=temp.year;
        old.isbn:=temp.isbn;
        old.assign(temp);
-       acc.save();
+       acc.saveBooks();
        LeaveCriticalsection(updateThreadConfig.libraryAccessSection);
        mainForm.RefreshListView;
        exit;
@@ -588,7 +588,7 @@ begin
        old.year:=temp.year;
        old.isbn:=temp.isbn;
        old.assign(temp);
-       acc.save();
+       acc.saveBooks();
        LeaveCriticalsection(updateThreadConfig.libraryAccessSection);
        mainForm.RefreshListView;
        researchedBook := nil;
@@ -598,7 +598,7 @@ begin
 
   EnterCriticalsection(updateThreadConfig.libraryAccessSection);
   acc.books.old.add(temp);
-  acc.save();
+  acc.saveBooks();
   LeaveCriticalsection(updateThreadConfig.libraryAccessSection);
   mainForm.RefreshListView;
   researchedBook := nil;
@@ -693,7 +693,7 @@ begin
   acc.books.current.add(temp);
   temp := book.clone; temp.status:=bsOrdered;
   acc.books.currentUpdate.add(temp); //cannot know which one is the correct one? one will be discarded?
-  acc.save();
+  acc.saveBooks();
   LeaveCriticalSection(updateThreadConfig.libraryAccessSection);
   searcherAccess.endBookReading;
 

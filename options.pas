@@ -778,7 +778,7 @@ begin
     accounts.save;
     mainForm.refreshAccountGUIElements();
     mainForm.RefreshListView;
-  end else lib.save();
+  end else lib.saveConfig();
   item.Caption:=edtAccountPrettyName.text;
   item.SubItems[0]:=edtAccountUser.Text;
   item.SubItems[1]:=edtAccountPass.Text;

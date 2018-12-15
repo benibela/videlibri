@@ -584,7 +584,6 @@ resourcestring
       fillchar(updateThreadConfig,sizeof(updateThreadConfig),0);
       InitCriticalSection(updateThreadConfig.libraryAccessSection);
       InitCriticalSection(updateThreadConfig.threadManagementSection);
-      InitCriticalSection(updateThreadConfig.libraryFileAccess);
       InitCriticalSection(exceptionStoring);
 
       callbacks.postInitApplication();
@@ -605,7 +604,6 @@ resourcestring
     if not cancelStarting then begin
       system.DoneCriticalsection(updateThreadConfig.libraryAccessSection);
       system.DoneCriticalsection(updateThreadConfig.threadManagementSection);
-      system.DoneCriticalsection(updateThreadConfig.libraryFileAccess);
       system.DoneCriticalsection(exceptionStoring);
     end;
 

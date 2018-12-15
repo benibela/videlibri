@@ -21,7 +21,6 @@ type
     //oneThreadSuccessful: boolean;//write only true
     libraryAccessSection: TRTLCriticalSection; //this protects reads/writes to VideLibri's book (lists). It does NOT protect read/writes to the variable log of the reader (because standalone queries in the multipage template are unprotected. todo: either remove protection on patterns or add to all queries)
     threadManagementSection: TRTLCriticalSection;
-    libraryFileAccess: TRTLCriticalSection; //access to the book list files (update vs. export). todo: do not block threads of multiple accounts
     updateThreadsRunning:integer; //all threads
     listUpdateThreadsRunning: integer; //count of threads which are updating the list of books (and have not started updating singely)
     successfulListUpdateDate: longint;
@@ -259,19 +258,16 @@ begin
       try
         lib.books.mergePersistentToCurrentUpdate;
         lib.books.completeUpdate();
+        lib.saveBooks();
       finally
         LeaveCriticalSection(pconfig^.libraryAccessSection);
       end;
       if logging then log('TUpdateLibThread.execute ended marker 8');
 
-      EnterCriticalSection(pconfig^.libraryFileAccess);
-      try
-        lib.save();
-      finally
-        LeaveCriticalsection(pconfig^.libraryFileAccess);
-      end;
 
+      lib.saveConfig();
       if logging then log('TUpdateLibThread.execute ended marker 9');
+
       pconfig^.successfulListUpdateDate:=currentDate;
     end;
   except
@@ -443,44 +439,6 @@ begin
   if logging then log('defaultAccountsRefresh ended');
 end;
 
-
-//type TProcessBooks procedure extendAccountBookData(account: TCustomAccountAccess;
-//  books: TBookList);
-
-                 (*
-procedure extendAccountBookData(account: TCustomAccountAccess; books: TBookList);
-var internet:TInternetAccess;
-begin
-  try
-    if not assigned(account) then
-      raise EXCEPTION.Create('Kein Konto zum Verlängern ausgewählt');
-    if account.isThreadRunning then
-      exit; //TODO!!!: mehrere Threads beim verlängern erlauben
-    if GetCurrentThreadId <> MainThreadID then begin
-      if logging then log('extendAccountBookData canceled due to thread mismatch: '+IntToStr(GetThreadID)+' '+IntToStr(MainThreadID));
-      exit; //Nur vom Haupthread aus aufrufen
-    end;
-
-    if (account<>nil) and (books.Count>0) then begin
-      if not account.connected then begin
-        account.connect(defaultInternetAccessClass.create());
-        account.updateAll();
-        if account.needSingleBookCheck() then
-          account.updateAllSingly;
-      end;
-      books.mergeMissingInformation(account.books.currentUpdate);
-      books.mergeMissingInformation(account.books.current);
-
-      account.extendList(books);
-      account.books.merge(true);
-      account.save();
-    end;
-  except
-    on e: exception do
-      createAndAddException(e,account);
-  end;
-end;
-                        *)
 
 procedure applyAccountMethodForBooks(books: TBookList; method: TBookListOperation);
 var current:TBookList;

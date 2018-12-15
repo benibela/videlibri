@@ -59,7 +59,6 @@ begin
   if not confirm(rsConfirmDelete) then exit;
 
   system.EnterCriticalsection(updateThreadConfig.libraryAccessSection);
-  system.EnterCriticalsection(updateThreadConfig.libraryFileAccess);
 
   for i := 0 to listview.Items.Count - 1 do begin
     if listview.getAdditionalBookData(listview.Items[i]).checked = csUnchecked then continue;
@@ -72,10 +71,9 @@ begin
   end;
 
   for i := 0 to accounts.Count - 1 do
-    accounts[i].save();
+    accounts[i].saveConfig();
 
   //it does not seem like a bad idea to block everything if an error occured
-  system.LeaveCriticalsection(updateThreadConfig.libraryFileAccess);
   system.LeaveCriticalsection(updateThreadConfig.libraryAccessSection);
 
   searchDuplicates;

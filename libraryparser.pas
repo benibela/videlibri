@@ -176,6 +176,7 @@ type
                 //first start info
   TCustomAccountAccess=class(TCustomBookOwner)
   private
+    FFileLock: TRTLCriticalSection;
     FEnabled: boolean;
     FTimeout: qword;
     function GetConnected: boolean;
@@ -208,7 +209,8 @@ type
     
     
     procedure init(apath,userID:string);virtual;
-    procedure save();
+    procedure saveConfig();
+    procedure saveBooks();
     procedure remove(); //DELETE the account
 
     //==============Access functions================
@@ -386,7 +388,7 @@ var
     startpos: LongInt;
     endpos: LongInt;
   begin
-    EnterCriticalSection(updateThreadConfig.libraryFileAccess);
+    EnterCriticalSection(updateThreadConfig.libraryAccessSection);
     try
       if FileExists(bookFile) then
         books := strLoadFromFileUTF8(bookFile);
@@ -401,7 +403,7 @@ var
         end;
       end;
     finally
-      LeaveCriticalSection(updateThreadConfig.libraryFileAccess);
+      LeaveCriticalSection(updateThreadConfig.libraryAccessSection);
     end;
   end;
 
@@ -598,7 +600,7 @@ begin
       end;
 
       realAccounts[i].books.updateSharedDates();
-      realAccounts[i].save();
+      realAccounts[i].saveBooks();
     end;
 
     parser.free;
@@ -1483,6 +1485,7 @@ begin
   FEnabled:=true;
   FTimeout:=10*60*1000;
   broken:=0;
+  InitCriticalSection(FFileLock);
 end;
 
 destructor TCustomAccountAccess.destroy;
@@ -1494,6 +1497,7 @@ begin
     config.free;
   if internet<>nil then
     internet.free;
+  DoneCriticalsection(FFileLock);
   inherited;
 end;
 
@@ -1517,11 +1521,22 @@ begin
   initFromConfig;
 end;
 
-procedure TCustomAccountAccess.save();
+procedure TCustomAccountAccess.saveBooks();
 begin
-  if books<>nil then
-    books.save();
-  if config<>nil then begin
+  if books = nil then exit;
+  EnterCriticalSection(FFileLock);
+  try
+    books.save;
+  finally
+    LeaveCriticalSection(FFileLock);
+  end;
+end;
+
+procedure TCustomAccountAccess.saveConfig();
+begin
+  if config = nil then exit;
+  EnterCriticalSection(FFileLock);
+  try
     config.WriteInteger('base','lastCheck',FLastCheckDate);
     config.WriteBool('base','keep-history',keepHistory);
     config.WriteString('base','prettyName',prettyName);
@@ -1533,6 +1548,8 @@ begin
     config.WriteBool('base','enabled',FEnabled);
 
     config.UpdateFile;
+  finally
+    LeaveCriticalSection(FFileLock);
   end;
 end;
 
@@ -1633,19 +1650,24 @@ end;
 procedure TCustomAccountAccess.changeUser(const s:string);
 var oldID,newID:string;
 begin
-  oldID:=getPlusEncodedID();
-  books.Free;
-  config.free;
-  
-  user:=s;
-  newID:=getPlusEncodedID();
-  RenameFile(path+oldID+'.history.xml',path+newID+'.history.xml');
-  RenameFile(path+oldID+'.current.xml',path+newID+'.current.xml');
-  RenameFile(path+oldID+'.config',path+newID+'.config');
-  fbooks:=TBookLists.create(self,path+newID+'.history',path+newID+'.current');
-  config:=TSafeIniFile.Create(path+newID+'.config');
+  EnterCriticalSection(FFileLock);
+  try
+    oldID:=getPlusEncodedID();
+    books.Free;
+    config.free;
 
-  resetConnection;
+    user:=s;
+    newID:=getPlusEncodedID();
+    RenameFile(path+oldID+'.history.xml',path+newID+'.history.xml');
+    RenameFile(path+oldID+'.current.xml',path+newID+'.current.xml');
+    RenameFile(path+oldID+'.config',path+newID+'.config');
+    fbooks:=TBookLists.create(self,path+newID+'.history',path+newID+'.current');
+    config:=TSafeIniFile.Create(path+newID+'.config');
+
+    resetConnection;
+  finally
+    LeaveCriticalSection(FFileLock);
+  end;
   //config.UpdateFile;
 end;
 

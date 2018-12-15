@@ -806,12 +806,17 @@ begin
 
   oldacc.enabled:=enabled;
 
+  oldacc.saveConfig();
   if oldacc.getUser() <> username then begin
-    oldacc.changeUser(username);
-    accounts.Strings[i] := oldacc.getPlusEncodedID();
-    accounts.save;
-  end else
-    oldacc.save;
+    EnterCriticalSection(updateThreadConfig.libraryAccessSection);
+    try
+      oldacc.changeUser(username);
+      accounts.Strings[i] := oldacc.getPlusEncodedID();
+      accounts.save;
+    finally
+      LeaveCriticalSection(updateThreadConfig.libraryAccessSection);
+    end;
+  end;
 end;
 
 function Java_de_benibela_VideLibri_Bridge_VLChangeAccount(env:PJNIEnv; this:jobject; joldacc, jnewacc: jobject): jobject; cdecl;
@@ -1481,7 +1486,7 @@ begin
     acc.books.current.add(temp);
     temp := book.clone; temp.status:=bsOrdered;
     acc.books.currentUpdate.add(temp); //cannot know which one is the correct one? one will be discarded?
-    acc.save();
+    acc.saveBooks();
     LeaveCriticalSection(updateThreadConfig.libraryAccessSection);
     self.endBookReading;
   end;

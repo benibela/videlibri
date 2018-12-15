@@ -597,13 +597,11 @@ begin
   if BookList.feditedRecordItem.Parent <> BookList.Selected then exit;
   item := BookList.feditedRecordItem;
   EnterCriticalSection(updateThreadConfig.libraryAccessSection);
-  EnterCriticalSection(updateThreadConfig.libraryFileAccess);
   try
     booklist.SelectedBook.setProperty(booklist.properties[item.Index], booklist.feditor.Text);
     item.text := booklist.feditor.Text;
-    (booklist.SelectedBook.owningAccount as TCustomAccountAccess).save();
+    (booklist.SelectedBook.owningAccount as TCustomAccountAccess).saveBooks();
   finally
-    LeaveCriticalSection(updateThreadConfig.libraryFileAccess);
     LeaveCriticalSection(updateThreadConfig.libraryAccessSection);
   end;
 end;
@@ -1021,7 +1019,7 @@ begin
         end;
       end;
     for i:=0 to accountsToSave.Count-1 do
-      TCustomAccountAccess(accountsToSave[i]).save();
+      TCustomAccountAccess(accountsToSave[i]).saveBooks();
   RefreshListView;
   finally
     accountsToSave.Free;
