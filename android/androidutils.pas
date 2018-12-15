@@ -855,7 +855,7 @@ begin
     args[6].i := account.extendDays;
     args[7].z := booleanToJboolean(account.keepHistory);
     args[8].i := account.lastCheckDate;
-    result := j.newObject(accountClass, accountClassInitWithData, @args[0]);
+    result := newObject(accountClass, accountClassInitWithData, @args[0]);
     for i := 0 to 3 do deleteLocalRef(args[i].l);
   end;
 end;
@@ -869,11 +869,8 @@ begin
   try
     result := j.newObjectArray(accounts.Count, accountClass, nil);
     with j do
-    for i := 0 to accounts.Count - 1 do begin
-      temp := accountToJAccount(accounts[i]);
-      SetObjectArrayElement(result, i,  temp);
-      deleteLocalRef(temp);
-    end;
+      for i := 0 to accounts.Count - 1 do
+        setObjectArrayElementAndDelete(result, i,  accountToJAccount(accounts[i]));
   except
     on e: Exception do j.ThrowNew('de/benibela/videlibri/jni/Bridge$InternalError', 'Interner Fehler: '+e.Message);
   end;
