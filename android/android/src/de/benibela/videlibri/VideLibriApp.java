@@ -19,6 +19,7 @@ import android.util.Log;
 import org.acra.ACRA;
 import org.acra.ReportingInteractionMode;
 import org.acra.annotation.ReportsCrashes;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -188,6 +189,7 @@ public class VideLibriApp extends Application implements Bridge.VideLibriContext
 
 
     public static VideLibriApp instance;
+    @Nullable
     static Activity currentActivity;
     static Context applicationContext;
 
@@ -196,7 +198,7 @@ public class VideLibriApp extends Application implements Bridge.VideLibriContext
         return applicationContext;
     }
 
-
+    @Nullable
     static public Bridge.Account accounts[] = null;
     static int accountUpdateCounter = 0;
 

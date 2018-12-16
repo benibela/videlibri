@@ -134,20 +134,21 @@ fun makePrimaryBookCache(addHistoryStart: Boolean,
                          renewableOnly: Boolean,
                          hiddenAccounts: List<Bridge.Account> ): ArrayList<Bridge.Book> {
     val addHistory = addHistoryStart && !renewableOnly //history is not renewable
-    val accounts = VideLibriApp.accounts
     val bookCache = ArrayList<Bridge.Book>()
-    for (facc in accounts) {
-        if (hiddenAccounts.contains(facc))
-            continue
-        val books: Array<Bridge.Book> = Bridge.VLGetBooks(facc, false) ?: continue
-        if (!renewableOnly) {
-            bookCache.addAll(books)
-        } else
-            for (b in books)
-                if (b.status == Bridge.Book.StatusEnum.Unknown || b.status == Bridge.Book.StatusEnum.Normal)
-                    bookCache.add(b)
-        if (addHistory)
-            bookCache.addAll(Bridge.VLGetBooks(facc, true) ?: continue)
+    VideLibriApp.accounts?.let { accounts ->
+        for (facc in accounts) {
+            if (hiddenAccounts.contains(facc))
+                continue
+            val books: Array<Bridge.Book> = Bridge.VLGetBooks(facc, false) ?: continue
+            if (!renewableOnly) {
+                bookCache.addAll(books)
+            } else
+                for (b in books)
+                    if (b.status == Bridge.Book.StatusEnum.Unknown || b.status == Bridge.Book.StatusEnum.Normal)
+                        bookCache.add(b)
+            if (addHistory)
+                bookCache.addAll(Bridge.VLGetBooks(facc, true) ?: continue)
+        }
     }
 
     return bookCache

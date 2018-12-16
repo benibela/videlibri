@@ -269,9 +269,10 @@ class SearchResult : BookListActivity(), SearchEventHandler {
         if (searcher == null) return
         book.setProperty("choosenOrder", "" + choosenOrder)
         val matchingAccounts = ArrayList<Bridge.Account>()
-        for (acc in VideLibriApp.accounts)
+        VideLibriApp.accounts?.forEach { acc ->
             if (acc.libId == libId && acc.name != "")
                 matchingAccounts.add(acc)
+        }
         if (matchingAccounts.size == 0) {
             Util.showMessage(tr(R.string.search_needaccount))
             return
@@ -304,9 +305,10 @@ class SearchResult : BookListActivity(), SearchEventHandler {
     fun orderBookHolding(book: Bridge.Book, choosenHolding: Int) {
         if (searcher == null) return
         val matchingAccounts = ArrayList<Bridge.Account>()
-        for (acc in VideLibriApp.accounts)
+        VideLibriApp.accounts?.forEach { acc ->
             if (acc.libId == libId && acc.name != "")
                 matchingAccounts.add(acc)
+        }
         if (matchingAccounts.size == 0) {
             Util.showMessage(tr(R.string.search_needaccount))
             return
