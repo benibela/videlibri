@@ -71,7 +71,7 @@ begin
   end;
 
   for i := 0 to accounts.Count - 1 do
-    accounts[i].saveConfig();
+    accounts[i].saveBooks();
 
   //it does not seem like a bad idea to block everything if an error occured
   system.LeaveCriticalsection(updateThreadConfig.libraryAccessSection);
