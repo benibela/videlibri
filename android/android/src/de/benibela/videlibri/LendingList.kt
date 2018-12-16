@@ -10,6 +10,7 @@ import android.graphics.BitmapFactory
 import android.os.Build
 import android.os.Bundle
 import android.preference.PreferenceManager
+import android.sax.TextElementListener
 import android.support.v4.app.ActivityCompat
 import android.support.v4.content.ContextCompat
 import android.text.Editable
@@ -468,6 +469,11 @@ class LendingList: BookListActivity(){
         }
         return true
 
+    }
+
+    override fun onBackPressed() {
+        if (filterActually != "") findViewById<EditText>(R.id.searchFilter).setText("");
+        else super.onBackPressed()
     }
 
     internal fun setFilterMultiLine(ml: Boolean) {
