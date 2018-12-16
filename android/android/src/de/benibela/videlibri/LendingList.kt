@@ -261,6 +261,11 @@ class LendingList: BookListActivity(){
                     }
                 }
             }
+            R.id.research_filter_author -> currentBook()?.let {
+                val filter = "\$books[author = \"${it.author.replace("\"", "\"\"")}\"]"
+                findViewById<EditText>(R.id.searchFilter).setText(filter)
+                showList()
+            }
             R.id.filter -> {
                 ViewOptionsDialog().show(supportFragmentManager, null)
             }

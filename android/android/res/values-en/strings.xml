@@ -334,6 +334,7 @@
     <string name="menu_item_research_same">same item</string>
     <string name="menu_item_research_title">same title</string>
     <string name="menu_item_research_author">same author</string>
+    <string name="menu_item_research_filter_author" >lendings from same author</string>
     <string name="menu_options">Options</string>
     <string name="drawer_open">Menu </string>
     <string name="drawer_close">Close</string>

@@ -24,7 +24,7 @@
             <item android:id="@+id/research_same" android:title="@string/menu_item_research_same"/>
             <item android:id="@+id/research_title" android:title="@string/menu_item_research_title" />
             <item android:id="@+id/research_author" android:title="@string/menu_item_research_author" />
-
+            <item android:id="@+id/research_filter_author" android:title="@string/menu_item_research_filter_author" />
         </menu>
     </item>
     <item

@@ -225,10 +225,10 @@ open class BookListActivity: VideLibriBaseActivity(){
     fun showList(): Boolean {
         if (!port_mode) return true
         if (detailsVisible()) {
-            invalidateOptionsMenu()
             listPortHolder?.visibility = View.VISIBLE
             detailsPortHolder?.visibility = View.INVISIBLE
             portInDetailMode = false
+            invalidateOptionsMenu()
             return false
         } else
             return true
