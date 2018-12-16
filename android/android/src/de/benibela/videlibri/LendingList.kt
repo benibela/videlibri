@@ -472,7 +472,7 @@ class LendingList: BookListActivity(){
     }
 
     override fun onBackPressed() {
-        if (filterActually != "") findViewById<EditText>(R.id.searchFilter).setText("");
+        if (listVisible() && filterActually != "") findViewById<EditText>(R.id.searchFilter).setText("");
         else super.onBackPressed()
     }
 
