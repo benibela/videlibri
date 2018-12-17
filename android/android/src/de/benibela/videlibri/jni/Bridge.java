@@ -281,6 +281,22 @@ public class Bridge {
     public static class InternalError extends RuntimeException {
         public InternalError() {}
         public InternalError(String msg) { super(msg); }
+        public InternalError(String msg, Throwable cause) { super(msg, cause); }
+    }
+    public static class InternalErrorJNI extends InternalError {
+        public InternalErrorJNI() {}
+        public InternalErrorJNI(String msg) { super(msg); }
+        public InternalErrorJNI(String msg, Throwable cause) { super(msg, cause); }
+    }
+    public static class InternalErrorFile extends InternalError {
+        public InternalErrorFile() {}
+        public InternalErrorFile(String msg) { super(msg); }
+        public InternalErrorFile(String msg, Throwable cause) { super(msg, cause); }
+    }
+    public static class InternalErrorExternal extends InternalError {
+        public InternalErrorExternal() {}
+        public InternalErrorExternal(String msg) { super(msg); }
+        public InternalErrorExternal(String msg, Throwable cause) { super(msg, cause); }
     }
 
     public static class PendingException{

@@ -231,7 +231,19 @@ begin
   customizer.deleteLocalRef();
 end;
 
-
+procedure throwExceptionToJava(e: Exception);
+begin
+  with j do begin
+    if e is EJNIException then
+      Throw('de/benibela/videlibri/jni/Bridge$InternalError', e as EJNIException)
+    else if (e is EFileNotFoundException) or (e is EDirectoryNotFoundException) or (e is EInOutError) then
+      ThrowNew('de/benibela/videlibri/jni/Bridge$InternalErrorFile', e.Message)
+    else if e is EExternal then
+      ThrowNew('de/benibela/videlibri/jni/Bridge$InternalErrorExternal', e.Message)
+    else
+      ThrowNew('de/benibela/videlibri/jni/Bridge$InternalError', e.Message)
+  end
+end;
 
 procedure Java_de_benibela_VideLibri_Bridge_VLInit(env:PJNIEnv; this:jobject; videlibri: jobject); cdecl;
 
@@ -375,7 +387,7 @@ begin
  // bbdebugtools.OnLog := TStringNotifyEvent(procedureToMethod(TProcedure(@onLog)));
 
   except
-    on e: Exception do j.ThrowNew('de/benibela/videlibri/jni/Bridge$InternalError', 'Interner Fehler: '+e.Message);
+    on e: Exception do throwExceptionToJava(e);
   end;
   if logging then bbdebugtools.log('de.benibela.VideLibri.Bride.VLInit (ended)');
 end;
@@ -404,7 +416,7 @@ begin
     for i := 0 to libraryManager.count - 1 do
       setStringArrayElement(result, i, libraryManager.libraryIds[i]);
   except
-    on e: Exception do ThrowNew('de/benibela/videlibri/jni/Bridge$InternalError', 'Interner Fehler: '+e.Message);
+    on e: Exception do throwExceptionToJava(e);
   end;
   if logging then bbdebugtools.log('de.benibela.VideLibri.Bride.VLGetLibraryIds (ended)');
 end;
@@ -467,7 +479,7 @@ begin
       deleteLocalRef(desc);
     end;
   except
-    on e: Exception do j.ThrowNew('de/benibela/videlibri/jni/Bridge$InternalError', 'Interner Fehler: '+e.Message);
+    on e: Exception do throwExceptionToJava(e);
   end;
   if logging then bbdebugtools.log('de.benibela.VideLibri.Bride.VLGetTemplateDetails (ended)');
 end;
@@ -540,7 +552,7 @@ begin
       end;
     end;
   except
-    on e: Exception do j.ThrowNew('de/benibela/videlibri/jni/Bridge$InternalError', 'Interner Fehler: '+e.Message);
+    on e: Exception do throwExceptionToJava(e);
   end;
   if logging then bbdebugtools.log('de.benibela.VideLibri.Bride.VLGetLibraryDetails (ended)');
 end;
@@ -587,7 +599,7 @@ begin
       end;
     end;
   except
-    on e: Exception do j.ThrowNew('de/benibela/videlibri/jni/Bridge$InternalError', 'Interner Fehler: '+e.Message);
+    on e: Exception do throwExceptionToJava(e);
   end;
   if logging then bbdebugtools.log('de.benibela.VideLibri.Bride.VLSetLibraryDetails (ended)');
 end;
@@ -637,7 +649,7 @@ begin
     surl := j.jStringToString(url);
     TInstallLibraryThread.Create(surl).Start;
   except
-    on e: Exception do j.ThrowNew('de/benibela/videlibri/jni/Bridge$InternalError', 'Interner Fehler: '+e.Message);
+    on e: Exception do throwExceptionToJava(e);
   end;
   result := nil;
   if logging then bbdebugtools.log('de.benibela.VideLibri.Bride.VLInstallLibrary (ended)');
@@ -651,7 +663,7 @@ begin
   try
     libraryManager.reloadLibrary(j.jStringToString(id));
   except
-    on e: Exception do j.ThrowNew('de/benibela/videlibri/jni/Bridge$InternalError', 'Interner Fehler: '+e.Message);
+    on e: Exception do throwExceptionToJava(e);
   end;
   result := nil;
   if logging then bbdebugtools.log('de.benibela.VideLibri.Bride.VLReloadLibrary (ended)');
@@ -665,7 +677,7 @@ begin
   try
     libraryManager.reloadTemplate(j.jStringToString(id));
   except
-    on e: Exception do j.ThrowNew('de/benibela/videlibri/jni/Bridge$InternalError', 'Interner Fehler: '+e.Message);
+    on e: Exception do throwExceptionToJava(e);
   end;
   result := nil;
   if logging then bbdebugtools.log('de.benibela.VideLibri.Bride.VLReloadTemplate (ended)');
@@ -713,7 +725,7 @@ begin
 
     templates.free;
   except
-    on e: Exception do j.ThrowNew('de/benibela/videlibri/jni/Bridge$InternalError', 'Interner Fehler: '+e.Message);
+    on e: Exception do throwExceptionToJava(e);
   end;
   if logging then bbdebugtools.log('de.benibela.VideLibri.Bride.VLGetTemplates (ended)');
 end;
@@ -740,7 +752,7 @@ begin
     end;
     accounts.save;
   except
-    on e: Exception do j.ThrowNew('de/benibela/videlibri/jni/Bridge$InternalError', 'Interner Fehler: '+e.Message);
+    on e: Exception do throwExceptionToJava(e);
   end;
   result := nil;
   if logging then bbdebugtools.log('de.benibela.VideLibri.Bride.VLAddAccount (ended)');
@@ -780,7 +792,7 @@ begin
       temp.remove();
     end;
   except
-    on e: Exception do j.ThrowNew('de/benibela/videlibri/jni/Bridge$InternalError', 'Interner Fehler: '+e.Message);
+    on e: Exception do throwExceptionToJava(e);
   end;
   result := nil;
   if logging then bbdebugtools.log('de.benibela.VideLibri.Bride.VLDeleteAccount (ended)');
@@ -840,7 +852,7 @@ begin
                       );
       end;
   except
-    on e: Exception do j.ThrowNew('de/benibela/videlibri/jni/Bridge$InternalError', 'Interner Fehler: '+e.Message);
+    on e: Exception do throwExceptionToJava(e);
   end;
   result := nil;
   if logging then bbdebugtools.log('de.benibela.VideLibri.Bride.VLChangeAccount (ended)');
@@ -877,7 +889,7 @@ begin
       for i := 0 to accounts.Count - 1 do
         setObjectArrayElementAndDelete(result, i,  accountToJAccount(accounts[i]));
   except
-    on e: Exception do j.ThrowNew('de/benibela/videlibri/jni/Bridge$InternalError', 'Interner Fehler: '+e.Message);
+    on e: Exception do throwExceptionToJava(e);
   end;
   if logging then bbdebugtools.log('de.benibela.VideLibri.Bride.VLGetAccounts (ended)');
 end;
@@ -1096,7 +1108,7 @@ begin
     if acc = nil then exit;
   except
     on e: Exception do begin
-      j.ThrowNew('de/benibela/videlibri/jni/Bridge$InternalError', 'Interner Fehler: '+e.Message);
+      throwExceptionToJava(e);
       exit;
     end;
   end;
@@ -1129,7 +1141,7 @@ begin
 
 
   except
-    on e: Exception do j.ThrowNew('de/benibela/videlibri/jni/Bridge$InternalError', 'Interner Fehler: '+e.Message);
+    on e: Exception do throwExceptionToJava(e);
   end;
 
   if logging then bbdebugtools.log('Java_de_benibela_VideLibri_Bridge_VLGetBooks ended');
@@ -1188,7 +1200,7 @@ begin
       if newBook <> nil then newBook.decReference;
     end;
   except
-    on e: Exception do j.ThrowNew('de/benibela/videlibri/jni/Bridge$InternalError', 'Interner Fehler: '+e.Message);
+    on e: Exception do throwExceptionToJava(e);
   end;
 end;
 
@@ -1230,7 +1242,7 @@ begin
     end;
 
   except
-    on e: Exception do needJ.ThrowNew('de/benibela/videlibri/jni/Bridge$InternalError', 'Interner Fehler: '+e.Message);
+    on e: Exception do throwExceptionToJava(e);
   end;
 
   if logging then bbdebugtools.log('Java_de_benibela_VideLibri_Bridge_VLGetCriticalBook ended');
@@ -1264,7 +1276,7 @@ begin
     if updateAccountBookData(acc, autoupdate, autoupdate, forceExtend) then
       result := JNI_TRUE;
   except
-    on e: Exception do j.ThrowNew('de/benibela/videlibri/jni/Bridge$InternalError', 'Interner Fehler: '+e.Message);
+    on e: Exception do throwExceptionToJava(e);
   end;
   if logging then log('VLUpdateAccounts ended');
 
@@ -1292,7 +1304,7 @@ begin
     end;
     books.free;
   except
-    on e: Exception do j.ThrowNew('de/benibela/videlibri/jni/Bridge$InternalError', 'Interner Fehler: '+e.Message);
+    on e: Exception do throwExceptionToJava(e);
   end;
   if logging then log('VLBookOperation ended');
 
@@ -1380,7 +1392,7 @@ begin
       system.LeaveCriticalSection(exceptionStoring);
     end;
   except
-    on e: Exception do j.ThrowNew('de/benibela/videlibri/jni/Bridge$InternalError', 'Interner Fehler: '+e.Message);
+    on e: Exception do throwExceptionToJava(e);
   end;
   if logging then bbdebugtools.log('Bridge_VLGetPendingExceptions ended');
 end;
@@ -1448,7 +1460,7 @@ begin
 
     end;
   except
-    on e: Exception do j.ThrowNew('de/benibela/videlibri/jni/Bridge$InternalError', 'Interner Fehler: '+e.Message);
+    on e: Exception do throwExceptionToJava(e);
   end;
 
   if logging then bbdebugtools.log('Bridge_VLGetNotifications ended');
@@ -1665,7 +1677,7 @@ begin
     end;
 
   except
-    on e: Exception do j.ThrowNew('de/benibela/videlibri/jni/Bridge$InternalError', 'Interner Fehler: '+e.Message);
+    on e: Exception do throwExceptionToJava(e);
   end;
   if logging then log('Bridge_VLSearchConnect ended');
 end;
@@ -1707,7 +1719,7 @@ begin
 
     end;
   except
-    on e: Exception do j.ThrowNew('de/benibela/videlibri/jni/Bridge$InternalError', 'Interner Fehler: '+e.Message);
+    on e: Exception do throwExceptionToJava(e);
   end;
   if logging then log('Bridge_VLSearchStart ended');
 end;
@@ -1721,7 +1733,7 @@ begin
     sa := unwrapSearcher(searcher);
     sa.searchNextAsync;
   except
-    on e: Exception do j.ThrowNew('de/benibela/videlibri/jni/Bridge$InternalError', 'Interner Fehler: '+e.Message);
+    on e: Exception do throwExceptionToJava(e);
   end;
   if logging then log('Bridge_VLSearchNextPage started');
 end;
@@ -1739,7 +1751,7 @@ begin
     sa.tempBooks.add(book);
     sa.detailsAsyncSave(book);
   except
-    on e: Exception do j.ThrowNew('de/benibela/videlibri/jni/Bridge$InternalError', 'Interner Fehler: '+e.Message);
+    on e: Exception do throwExceptionToJava(e);
   end;
   if logging then log('Bridge_VLSearchDetails ended');
 end;
@@ -1764,7 +1776,7 @@ begin
       sa.orderAsync(TCustomAccountAccess(book.owningAccount), book);
     end;
   except
-    on e: Exception do j.ThrowNew('de/benibela/videlibri/jni/Bridge$InternalError', 'Interner Fehler: '+e.Message);
+    on e: Exception do throwExceptionToJava(e);
   end;
   if logging then log('Bridge_VLSearchOrder ended');
 end;
@@ -1792,7 +1804,7 @@ begin
       sa.orderAsync(TCustomAccountAccess(book.owningAccount), book.holdings[holdingIds[0]]);
     end;
   except
-    on e: Exception do j.ThrowNew('de/benibela/videlibri/jni/Bridge$InternalError', 'Interner Fehler: '+e.Message);
+    on e: Exception do throwExceptionToJava(e);
   end;
   if logging then log('Bridge_VLSearchOrder ended');
 end;
@@ -1813,7 +1825,7 @@ begin
       sa.orderConfirmedAsync(book);
     end;
   except
-    on e: Exception do j.ThrowNew('de/benibela/videlibri/jni/Bridge$InternalError', 'Interner Fehler: '+e.Message);
+    on e: Exception do throwExceptionToJava(e);
   end;
   if logging then log('Bridge_VLSearchOrderConfirmed ended');
 end;
@@ -1830,7 +1842,7 @@ begin
       sa.completePendingMessage(sa.pendingMessageBook, sa.pendingMessage, res);
     sa.pendingMessage := nil;
   except
-    on e: Exception do j.ThrowNew('de/benibela/videlibri/jni/Bridge$InternalError', 'Interner Fehler: '+e.Message);
+    on e: Exception do throwExceptionToJava(e);
   end;
   if logging then log('Bridge_VLSearchOrderCompletePendingMessage ended');
 end;
@@ -1846,7 +1858,7 @@ begin
     sa.free;
     j.SetLongField(searcher, searcherFields.nativePtrJ, 0);
   except
-    on e: Exception do j.ThrowNew('de/benibela/videlibri/jni/Bridge$InternalError', 'Interner Fehler: '+e.Message);
+    on e: Exception do throwExceptionToJava(e);
   end;
   if logging then log('Bridge_VLSearchEnd stopped');
 end;
@@ -1876,7 +1888,7 @@ begin
       SetObjectFieldAndDelete(result, roUserLibIdsAS, temp);
     end;
   except
-    on e: Exception do j.ThrowNew('de/benibela/videlibri/jni/Bridge$InternalError', 'Interner Fehler: '+e.Message);
+    on e: Exception do throwExceptionToJava(e);
   end;
   if logging then bbdebugtools.log('de.benibela.VideLibri.Bride.VLGetOptions (ended)');
 end;
@@ -1899,7 +1911,7 @@ begin
       userConfig.WriteBool('base','logging', logging);
     end;
   except
-    on e: Exception do j.ThrowNew('de/benibela/videlibri/jni/Bridge$InternalError', 'Interner Fehler: '+e.Message);
+    on e: Exception do throwExceptionToJava(e);
   end;
   if logging then bbdebugtools.log('de.benibela.VideLibri.Bride.VLSetOptions (ended)');
 end;
@@ -1947,7 +1959,7 @@ begin
       exportAccounts(j.jStringToString(filename), accs, flgs);
     end;
   except
-    on e: Exception do j.ThrowNew('de/benibela/videlibri/jni/Bridge$InternalError', 'Interner Fehler: '+e.Message);
+    on e: Exception do throwExceptionToJava(e);
   end;
   if logging then bbdebugtools.log('de.benibela.VideLibri.Bride.VLExportAccounts (ended)');
 end;
@@ -1980,7 +1992,7 @@ begin
 
     j.SetIntField(result, importExportDataFields.flagsI, combinedFlags);
   except
-    on e: Exception do j.ThrowNew('de/benibela/videlibri/jni/Bridge$InternalError', 'Interner Fehler: '+e.Message);
+    on e: Exception do throwExceptionToJava(e);
   end;
   if logging then bbdebugtools.log('de.benibela.VideLibri.Bride.VLImportAccountsPrepare (ended)');
 end;
@@ -2008,7 +2020,7 @@ begin
       accounts[i] := j.jStringToStringAndDelete(j.getObjectArrayElement(jaccounts, i));
     importAccounts(parser, accounts, flags);
   except
-    on e: Exception do j.ThrowNew('de/benibela/videlibri/jni/Bridge$InternalError', 'Interner Fehler: '+e.Message);
+    on e: Exception do throwExceptionToJava(e);
   end;
   if logging then bbdebugtools.log('de.benibela.VideLibri.Bride.VLImportAccounts (ended)');
 end;
@@ -2100,7 +2112,7 @@ begin
     with needJ do
       result := stringToJString(TBook.getNormalizedISBN(jStringToString(isbn), removeSep <> JNI_FALSE, conversion));
   except
-    on e: Exception do j.ThrowNew('de/benibela/videlibri/jni/Bridge$InternalError', 'Interner Fehler: '+e.Message);
+    on e: Exception do throwExceptionToJava(e);
   end;
   if logging then bbdebugtools.log('de.benibela.VideLibri.Bride.VLNormalizeISBN (ended)');
 end;
