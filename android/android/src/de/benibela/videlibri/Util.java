@@ -200,6 +200,7 @@ public class Util {
         }
 
         private void notifyActivity(int code){
+            DialogInstance.onFinished(this, code);
             if (!(getActivity() instanceof VideLibriBaseActivity)) {
                 Log.d("VideLibri", "No activity for dialog result");
                 return;
