@@ -6,6 +6,13 @@ import android.view.Menu
 import android.view.MenuItem
 import android.widget.ArrayAdapter
 import android.widget.Spinner
+import android.widget.Toast
+import de.benibela.videlibri.Util.tr
+
+fun showToast(message: CharSequence) =
+        Toast.makeText(VideLibriApp.currentContext(), message, Toast.LENGTH_SHORT).show()
+fun showToast(@StringRes message: Int) =
+        Toast.makeText(VideLibriApp.currentContext(), message, Toast.LENGTH_SHORT).show()
 
 fun showMessage(
         message: String? = null,
