@@ -82,10 +82,10 @@ build)
     strip --strip-all android/libs/x86/liblclapp.so
   fi
 
-  ./manage.sh build-java $BUILDMODE
+  ./manage.sh build-gradle $BUILDMODE
 ;;
 
-build-java)
+build-gradle|build-java)
   BUILDMODE="$2"
   if [[ -z "$BUILDMODE" ]]; then BUILDMODE=debug; fi
   case "$BUILDMODE" in
