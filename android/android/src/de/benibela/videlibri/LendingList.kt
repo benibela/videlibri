@@ -16,10 +16,7 @@ import android.support.v4.content.ContextCompat
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.*
-import android.widget.Button
-import android.widget.CompoundButton
-import android.widget.EditText
-import android.widget.LinearLayout
+import android.widget.*
 import de.benibela.videlibri.jni.Bridge
 import org.json.JSONArray
 import org.json.JSONException
@@ -235,6 +232,7 @@ class LendingList: BookListActivity(){
                 R.id.refresh -> VideLibriApp.runningUpdates.isEmpty()
                 R.id.filter, R.id.renew, R.id.renewlist -> hasAccounts
                 R.id.research_menu -> hasAccounts && detailsVisible()
+                R.id.delete -> hasAccounts && detailsVisible() && details.book?.history == true
                 else -> return@forItems
             }
         }
@@ -269,6 +267,18 @@ class LendingList: BookListActivity(){
             }
             R.id.filter -> {
                 ViewOptionsDialog().show(supportFragmentManager, null)
+            }
+            R.id.delete -> {
+                val book = details.book ?: return false
+                showMessage {
+                    message(R.string.delete_book_confirmS, book.title)
+                    yesButton {
+                        Bridge.VLChangeBook(book, null)
+                        showToast(R.string.delete_book_confirmed)
+                        VideLibriApp.refreshDisplayedLendBooks()
+                    }
+                    noButton()
+                }
             }
             else -> return super.onOptionsItemIdSelected(id)
         }

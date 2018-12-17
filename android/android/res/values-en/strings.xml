@@ -417,5 +417,8 @@
     <string name="menu_account_information">Account information</string>
     <string name="main_no_accounts">No accounts</string>
     <string name="main_last_refreshS" >Data is from: %s</string>
+    <string name="menu_book_delete" >Delete book</string>
+    <string name="delete_book_confirmS" >Do you want to delete "%s"?\n(This action is irreversible)</string>
+    <string name="delete_book_confirmed" >Book has been removed</string>
 
 </resources>

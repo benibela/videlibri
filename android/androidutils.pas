@@ -1136,6 +1136,62 @@ begin
 
 end;
 
+procedure Java_de_benibela_VideLibri_Bridge_VLChangeBook(env:PJNIEnv; this:jobject; joldBook, jnewBook: jobject); cdecl;
+var
+  oldBook, newBook, tempBook: TBook;
+  account: TCustomAccountAccess;
+  bookList: TBookList;
+  oldBookIndex: LongInt;
+  function getBookListFromBook(book: tbook): boolean;
+  begin
+    result := book.owningAccount is TCustomAccountAccess;
+    if result then begin
+      account := tempBook.owningAccount as TCustomAccountAccess;
+      bookList := account.books.old;
+    end else begin
+      account := nil;
+      booklist := nil;
+    end;
+  end;
+
+begin
+  tempBook := nil;
+  oldBook := nil;
+  newBook := nil;
+  system.EnterCriticalSection(updateThreadConfig.libraryAccessSection);
+  try
+    try
+      if joldBook <> nil then begin
+        tempBook := jbookToBook(joldBook);
+        if not getBookListFromBook(tempBook) then exit;
+        oldBookIndex := bookList.findBookIndex(tempBook);
+        if oldBookIndex < 0 then exit;
+        oldBook := bookList[oldBookIndex];
+      end;
+      if jnewBook = nil then begin
+        if oldBook = nil then exit
+        else bookList.delete(oldBookIndex);
+      end else begin
+        newBook := jbookToBook(jnewBook);
+        if oldBook = nil then begin
+          if not getBookListFromBook(newBook) then exit;
+          bookList.add(newBook);
+        end else
+          oldBook.assignAll(newBook);
+      end;
+      account.saveBooks();
+
+
+    finally
+      system.LeaveCriticalsection(updateThreadConfig.libraryAccessSection);
+      if tempBook <> nil then tempBook.decReference;
+      if newBook <> nil then newBook.decReference;
+    end;
+  except
+    on e: Exception do j.ThrowNew('de/benibela/videlibri/jni/Bridge$InternalError', 'Interner Fehler: '+e.Message);
+  end;
+end;
+
 function Java_de_benibela_VideLibri_Bridge_VLGetCriticalBook(env:PJNIEnv; this:jobject): jobject; cdecl;
 var redBook, yellowBook, book: TBook;
   i, j: Integer;
@@ -2052,7 +2108,7 @@ end;
 
 
 
-const nativeMethods: array[1..36] of JNINativeMethod=
+const nativeMethods: array[1..37] of JNINativeMethod=
   ((name:'VLInit';          signature:'(Lde/benibela/videlibri/jni/Bridge$VideLibriContext;)V';                   fnPtr:@Java_de_benibela_VideLibri_Bridge_VLInit)
    ,(name:'VLFinalize';      signature:'()V';                   fnPtr:@Java_de_benibela_VideLibri_Bridge_VLFInit)
 
@@ -2060,16 +2116,17 @@ const nativeMethods: array[1..36] of JNINativeMethod=
    ,(name:'VLGetLibraryDetails'; signature:'(Ljava/lang/String;)Lde/benibela/videlibri/jni/Bridge$LibraryDetails;'; fnPtr:@Java_de_benibela_VideLibri_Bridge_VLGetLibraryDetails)
    ,(name:'VLSetLibraryDetails'; signature:'(Ljava/lang/String;Lde/benibela/videlibri/jni/Bridge$LibraryDetails;)V'; fnPtr:@Java_de_benibela_VideLibri_Bridge_VLSetLibraryDetails)
    ,(name:'VLInstallLibrary'; signature:'(Ljava/lang/String;)V'; fnPtr:@Java_de_benibela_VideLibri_Bridge_VLInstallLibrary)
-   ,(name:'VLReloadLibrary'; signature:'(Ljava/lang/String;)V'; fnPtr:@Java_de_benibela_VideLibri_Bridge_VLReloadLibrary)
    ,(name:'VLGetTemplates'; signature:'()[Ljava/lang/String;'; fnPtr:@Java_de_benibela_VideLibri_Bridge_VLGetTemplates)
    ,(name:'VLGetTemplateDetails'; signature:'(Ljava/lang/String;)Lde/benibela/videlibri/jni/Bridge$TemplateDetails;'; fnPtr:@Java_de_benibela_VideLibri_Bridge_VLGetTemplateDetails)
+   ,(name:'VLReloadLibrary'; signature:'(Ljava/lang/String;)V'; fnPtr:@Java_de_benibela_VideLibri_Bridge_VLReloadLibrary)
    ,(name:'VLReloadTemplate'; signature:'(Ljava/lang/String;)V'; fnPtr:@Java_de_benibela_VideLibri_Bridge_VLReloadTemplate)
 
+   ,(name:'VLGetAccounts'; signature:'()[Lde/benibela/videlibri/jni/Bridge$Account;'; fnPtr:@Java_de_benibela_VideLibri_Bridge_VLGetAccounts)
    ,(name:'VLAddAccount'; signature:'(Lde/benibela/videlibri/jni/Bridge$Account;)V'; fnPtr:@Java_de_benibela_VideLibri_Bridge_VLAddAccount)
    ,(name:'VLDeleteAccount'; signature:'(Lde/benibela/videlibri/jni/Bridge$Account;)V'; fnPtr:@Java_de_benibela_VideLibri_Bridge_VLDeleteAccount)
    ,(name:'VLChangeAccount'; signature:'(Lde/benibela/videlibri/jni/Bridge$Account;Lde/benibela/videlibri/jni/Bridge$Account;)V'; fnPtr:@Java_de_benibela_VideLibri_Bridge_VLChangeAccount)
-   ,(name:'VLGetAccounts'; signature:'()[Lde/benibela/videlibri/jni/Bridge$Account;'; fnPtr:@Java_de_benibela_VideLibri_Bridge_VLGetAccounts)
    ,(name:'VLGetBooks'; signature:'(Lde/benibela/videlibri/jni/Bridge$Account;Z)[Lde/benibela/videlibri/jni/Bridge$Book;'; fnPtr:@Java_de_benibela_VideLibri_Bridge_VLGetBooks)
+   ,(name:'VLChangeBook'; signature:'(Lde/benibela/videlibri/jni/Bridge$Book;Lde/benibela/videlibri/jni/Bridge$Book;)V'; fnPtr:@Java_de_benibela_VideLibri_Bridge_VLChangeBook)
    ,(name:'VLGetCriticalBook'; signature:'()Lde/benibela/videlibri/jni/Bridge$Book;'; fnPtr:@Java_de_benibela_VideLibri_Bridge_VLGetCriticalBook)
 
    ,(name:'VLUpdateAccount'; signature:'(Lde/benibela/videlibri/jni/Bridge$Account;ZZ)Z'; fnPtr:@Java_de_benibela_VideLibri_Bridge_VLUpdateAccounts)

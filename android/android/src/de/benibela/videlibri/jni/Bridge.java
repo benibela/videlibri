@@ -320,6 +320,8 @@ public class Bridge {
     static public native void VLChangeAccount(@NotNull Account oldacc, @NotNull Account newacc);
     static public native void VLDeleteAccount(@NotNull Account acc);
     static public native @Nullable Book[] VLGetBooks(@NotNull Account acc, boolean history);
+    //pass null for old/new to create/delete a book
+    static public native void VLChangeBook(@Nullable Book oldBook, @Nullable Book newBook);
     static public native @NotNull String VLNormalizeISBN(@NotNull String isbn, boolean removeSep, int conversion);
     static public native @Nullable Book VLGetCriticalBook();
     static public native boolean VLUpdateAccount(@NotNull Account acc, boolean autoUpdate, boolean forceExtend);
