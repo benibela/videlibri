@@ -88,6 +88,13 @@ class Search: VideLibriBaseActivity(), SearchEventHandler{
         }
     }
 
+    override fun onSaveInstanceState(outState: Bundle?) {
+        super.onSaveInstanceState(outState)
+        outState?.apply{
+            putString("libId", libId);
+            putString("libName", libName);
+        }
+    }
 
     internal val REQUEST_CHOOSE_LIBRARY = 1234
 
