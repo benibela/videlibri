@@ -1,8 +1,11 @@
 package de.benibela.videlibri.jni;
 
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.os.Handler;
 import android.util.Log;
+
+import com.getkeepsafe.relinker.ReLinker;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -518,7 +521,13 @@ public class Bridge {
         if (initialized) return;
         initialized = true;
         Log.i("Videlibri", "Trying to load liblclapp.so");
-        System.loadLibrary("lclapp");
+        try {
+            System.loadLibrary("lclapp");
+        } catch (UnsatisfiedLinkError e) {
+            Log.i("Videlibri", "Android is broken, trying Relinker.");
+            if (context instanceof Context) ReLinker.loadLibrary((Context) context, "lclapp");
+            else throw e;
+        }
         Log.i("Videlibri", "Initializing Windows VM and Pascal layer");
         VLInit(context);
         Bridge.globalOptions = Bridge.VLGetOptions();
