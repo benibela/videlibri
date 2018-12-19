@@ -62,7 +62,7 @@ class Search: VideLibriBaseActivity(), SearchEventHandler{
             book.title = getTextViewText(R.id.title)
             book.author = getTextViewText(R.id.author)
             book.setProperty("keywords", getTextViewText(R.id.keywords))
-            book.setProperty("year", getTextViewText(R.id.year))
+            book.year = getTextViewText(R.id.year)
             book.setProperty("isbn", getTextViewText(R.id.isbn))
             intent.putExtra("searchQuery", book)
 
