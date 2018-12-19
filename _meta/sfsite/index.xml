@@ -108,7 +108,7 @@ Mit VideLibri kann man seit 2006 auf die Kataloge/OPACs zahlreicher Bibliotheken
 VideLibri hat folgende Vorteile gegenüber den normalen Web-Katalogen der Büchereien:
 <ul class="f1list">
 <li><h3>Automatische Verlängerung</h3>
-VideLibri verlängert alle ausgeliehenen Bücher automatisch, so dass die Verlängerung nicht vergessen kann. 
+VideLibri verlängert alle ausgeliehenen Bücher automatisch, so dass man die Verlängerung nicht vergessen kann. 
 </li>
 <li><h3>Zuverlässige Benachrichtigung über Ausleihfristen</h3>
 VideLibri warnt vor ablaufenden Leihfristen und ist dabei zuverlässiger als die Benachrichtigungen der Bibliotheken. <br/>
@@ -143,7 +143,7 @@ Mittels der Datenbankabfragesprache XQuery lassen sich <a href="/help/xquerysear
 
 <li><h3>E-Mailbenachrichtigung<sup class="desktop">D</sup></h3> 
 VideLibri kann einen E-Mailbericht über alle Medien erstellen, in dem fällige und nicht fällige Bücher aufgelistet sind. Der Bericht wird nicht direkt von VideLibri versandt, sondern an ein anderes Programm übergeben. Unter Linux kann dazu das Standardprogramm <code>sendmail</code> verwendet werden, wodurch es nicht nötig ist, in VideLibri das Passwort für den Mailserver zu speichern. <br/>
-E-Mailbenachrichtigungen von VideLibri übergehen ,</li>
+VideLibri umgeht das Problem, dass E-Mailbenachrichtigungen, die von Bibliotheken versandt werden, prinzipiell nicht funktionieren können, indem E-Mailbenachrichtigungen von VideLibri jeden Tag versandt werden, egal ob Ausleihen abzugeben sind oder nicht. Wenn man jeden Tag eine Benachrichtigung kriegt, das <i>keine</i> Bücher abzugeben sind, weiß man, wenn mal keine E-Mail ankommt, dass eventuell welche abzugeben sind. </li>
 
 <li><h3>Open-Source</h3>
 Jeder kann VideLibri genauso ändern, wie er es haben will, und beliebige Features hinzufügen. Dies darf nicht mit dem Hinzufügen neuer Bibliotheken verwechselt werden, denn dies ist orthogonal. Um eine neue Bibliothek hinzuzufügen, muss man VideLibri genauso wenig ändert, wie man Firefox umprogrammieren müsste, um eine Webseite aufzurufen. Bei vielen Systemen reicht es die richtige Webkatalog URL in der GUI einzugeben. Es gibt im kompilierten Quellcode von VideLibri keine Bibliotheksspezifischen Funktionen, sondern die Bibliothekssysteme werden mittels Pattern-Matching halbautomatisch von VideLibri gelernt und mittels XQuery-Skripten für Sonderfälle angepasst.
