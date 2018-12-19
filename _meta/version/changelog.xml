@@ -5,6 +5,18 @@
         <download url="http://videlibri.sourceforge.net/updates/videlibri-setup.exe" platform="WINDOWS" execute="&quot;$DOWNLOAD&quot;  /SP- /noicons &quot;/dir=$OLDPATH&quot; " restart="true"/>
         <download url="http://videlibri.sourceforge.net/updates/videlibri-linux32.deb" platform="LINUX32" execute=""/>
         <download url="http://videlibri.sourceforge.net/updates/videlibri-linux64.deb" platform="LINUX64" execute=""/>
+        <change>android: Modernisierung/Neuprogrammierung der Bücherlistenanzeige.</change>
+        <change>android: Verwende Relinker, um die App vollständig zu installieren, da sie behaupten, dass der App-Store ohne Relinker oft Apps nur unvollständig installiert, woraufhin sie nicht starten, da nicht installierte Apps nicht gestartet werden können.</change>
+        <change>android: Verwende Java JNI 1.6 statt 1.4, und setzte abiFilters. </change>
+        <change>android: Präzisere Fehlermeldungen.</change>
+        <change>libero: Zeige einen Bestellungslink von der OPAC-Seite nicht als zusätzliches Exemplar an; entferne zusätzliches "ISBN"-Prefix von ISBN-Nummern.</change>
+        <change>VÖBB: Zeige für bestimmte Fehlermeldungen auf der OPAC-Webseite bei Vormerkungen diese Meldung an anstatt "unerwartete Webseite". </change>
+        <fix>Verhindere, dass Ausleihenaktualisierung, Kontoeinstellungen und Vormerkungen gleichzeitig in dieselbe Datei schreiben und Einstellungen korrumpieren.</fix>
+        <fix>android: Berücksichtige wieder das Jahr-Feld bei Suchen.</fix>
+        <add>android: Ehemalige Ausleihen können aus der Historienliste gelöscht werden.</add>
+        <add>android: Für eine Ausleihe kann nach ähnlichen Büchern gesucht werden.</add>
+     </build>
+      <build version="1999" date="2018-11-23">
         <change>Android 8-Kompatibilität, Neuprogrammierung der gesamten Benachrichtigungsfunktionen mit Android 8-Methoden, so dass es nicht mehr unter Android &lt; 4 laufen kann</change>
         <change>pica: Zeige bei der Suche Fehlermeldungen an, welche auf der Büchereiwebseite stehen.</change>
      </build>
