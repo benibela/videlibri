@@ -139,10 +139,10 @@ class LendingList: BookListActivity(){
         primaryBookCache = makePrimaryBookCache(displayHistoryActually, false, hiddenAccounts)
         refreshBookCache()
 
-        if (VideLibriApp.getMainIcon() != currentMainIcon) {
+        if (VideLibriApp.mainIcon != currentMainIcon) {
             checkMainIcon()
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                setTaskDescription(ActivityManager.TaskDescription(null, BitmapFactory.decodeResource(resources, VideLibriApp.getMainIcon(), null)))
+                setTaskDescription(ActivityManager.TaskDescription(null, BitmapFactory.decodeResource(resources, VideLibriApp.mainIcon, null)))
             }
         }
     }
@@ -363,7 +363,7 @@ class LendingList: BookListActivity(){
                     if (b)
                         LendingList.hiddenAccounts.clear()
                     else
-                        LendingList.hiddenAccounts = ArrayList<Bridge.Account>(Arrays.asList<Bridge.Account>(*VideLibriApp.accounts))
+                        LendingList.hiddenAccounts = ArrayList(Arrays.asList<Bridge.Account>(*accounts))
                     for (cb in switchboxes) cb.isChecked = b
                 } else {
                     if (!b == LendingList.hiddenAccounts.contains(acc)) return@OnCheckedChangeListener

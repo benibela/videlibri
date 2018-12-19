@@ -17,7 +17,7 @@ open class VideLibriBaseActivity: VideLibriBaseActivityOld(){
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        Bridge.initialize(this)
+        VideLibriApp.initializeBridge()
         if (savedInstanceState != null) {
             loadingTasks.clear()
             loadingTasks += savedInstanceState.getIntegerArrayList("activeLoadingTasks")

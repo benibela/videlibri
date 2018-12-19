@@ -220,7 +220,7 @@ public class SourceEdit extends VideLibriBaseActivity{
     }
 
     File userFile(String fn){
-        return new File(userPath() + "/" + fn);
+        return new File(VideLibriApp.userPath(this) + "/" + fn);
     }
 
     void loadFile(String fileName){

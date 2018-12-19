@@ -27,7 +27,7 @@ class RenewList : BookListActivity() {
             isEnabled = false
             text = tr(R.string.booklist_noselection)
             setOnClickListener {
-                VideLibriApp.renewBooks(selectedBooks?.toTypedArray())
+                VideLibriApp.renewBooks(selectedBooks?.toTypedArray() ?: return@setOnClickListener)
                 finish()
             }
         }

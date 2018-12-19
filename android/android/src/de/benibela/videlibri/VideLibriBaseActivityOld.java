@@ -5,30 +5,33 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.net.Uri;
+import android.os.Bundle;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
-import android.support.v4.view.MenuItemCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.widget.Toolbar;
-import android.view.*;
-import android.app.Activity;
-import android.os.Bundle;
-import android.widget.*;
-
 import android.support.v7.app.AppCompatActivity;
-import android.support.design.widget.NavigationView;
-
-import java.util.ArrayList;
+import android.support.v7.widget.Toolbar;
+import android.view.LayoutInflater;
+import android.view.MenuItem;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.Spinner;
+import android.widget.TextView;
 
 import de.benibela.videlibri.jni.Bridge;
 
 
 @SuppressLint("Registered")
-public class VideLibriBaseActivityOld extends AppCompatActivity implements Bridge.VideLibriContext {
+public class VideLibriBaseActivityOld extends AppCompatActivity{
     protected static final int RETURNED_FROM_NEW_LIBRARY = 29326;
 
     static final int LOADING_ACCOUNT_UPDATE = 1;
@@ -262,11 +265,5 @@ public class VideLibriBaseActivityOld extends AppCompatActivity implements Bridg
         } catch (android.content.ActivityNotFoundException e) {
             Util.showMessage(tr(R.string.err_uri_open_failed, uri));
         }
-    }
-
-
-    @Override
-    public String userPath() {
-        return VideLibriApp.userPath(this);
     }
 }

@@ -38,7 +38,7 @@ public class NotificationService extends Service implements Bridge.VideLibriCont
     public void onCreate() {
         super.onCreate();
 
-        Bridge.initialize(this);
+        VideLibriApp.initializeBridge();
         instance = this;
     }
 
