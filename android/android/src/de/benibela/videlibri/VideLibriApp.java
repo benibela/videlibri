@@ -100,14 +100,15 @@ public class VideLibriApp extends Application implements Bridge.VideLibriContext
         };
 
 
-        Bridge.initialize(this);
-        refreshAccountList();
+        if (ACRA.isACRASenderServiceProcess()) return;
 
         String langOverride = prefs.getString("languageOverride", null);
         if (!Util.isEmptyString(langOverride))
             setLanguageOverride(this, langOverride);
 
 
+        Bridge.initialize(this);
+        refreshAccountList();
         //ACRA.getErrorReporter().putCustomData("app", "VideLibri");
         //ACRA.getErrorReporter().putCustomData("ver", getVersion()+" (android)");
 
@@ -165,7 +166,6 @@ public class VideLibriApp extends Application implements Bridge.VideLibriContext
         };
 
 
-        if (ACRA.isACRASenderServiceProcess()) return;
 
         NotificationScheduling.rescheduleDailyIfNecessary(this, false);
     }
