@@ -3,7 +3,8 @@
     <string name="crash_toast_text">VideLibri has crashed. Please wait, while it creates a crash report.</string>
     <string name="crash_dialog_text">VideLibri has crashed. You can help  to fix the issue by sending this crash report.</string>
     <string name="crash_dialog_comment_prompt">Your comment, and mail if you want an answer or solution:</string>
-    <string name="crash_dialog_ok_toast">Thanks!</string>
+    <string name="crash_dialog_ok_toast">Crash report has been sent</string>
+    <string name="crash_dialog_fail_toast">Failed to send report</string>
     <string name="about_version_date">Version: %1$1.3f from %2$s</string>
     <string name="version">Version</string>
     <string name="homepage">Homepage</string>

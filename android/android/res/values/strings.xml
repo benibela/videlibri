@@ -4,7 +4,8 @@
     <string name="crash_toast_text">VideLibri ist leider abgestürzt. Bitte warten, während ein Crash-Report erstellt wird.</string>
     <string name="crash_dialog_text">VideLibri ist leider abgestürzt. Sie können einen Crash-Report senden, um zu helfen, den Fehler in der nächsten Version zu beseitigen.</string>
     <string name="crash_dialog_comment_prompt">Ihr Kommentar und Kontaktdaten für eine Antwort:</string>
-    <string name="crash_dialog_ok_toast">Danke!</string>
+    <string name="crash_dialog_ok_toast">Fehlerbericht wurde versandt</string>
+    <string name="crash_dialog_fail_toast">Übertragung fehlgeschlagen</string>
     <string name="about_version_date">Version: %1$1.3f vom %2$s</string>
     <string name="version">Version</string>
     <string name="homepage">Homepage</string>

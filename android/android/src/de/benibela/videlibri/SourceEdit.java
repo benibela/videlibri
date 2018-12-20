@@ -242,7 +242,7 @@ public class SourceEdit extends VideLibriBaseActivity{
     }
 
     void loadFile(InputStream stream, boolean userDefined) throws IOException {
-        setEditTextText(R.id.edit, IOUtils.streamToString(stream));
+        setEditTextText(R.id.edit, UtilKt.streamToString(stream));
         showFileName(userDefined);
     }
 

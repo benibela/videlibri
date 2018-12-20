@@ -10,6 +10,7 @@ import android.widget.ArrayAdapter
 import android.widget.Spinner
 import android.widget.Toast
 import de.benibela.videlibri.Util.tr
+import java.io.InputStream
 
 fun showToast(message: CharSequence) =
         Toast.makeText(VideLibriApp.currentContext(), message, Toast.LENGTH_SHORT).show()
@@ -123,4 +124,6 @@ inline fun Menu.forItems(f: (MenuItem) -> Unit){
         f(getItem(i))
 }
 
+
+fun streamToString(stream: InputStream): String = stream.bufferedReader().use { it.readText() }
 

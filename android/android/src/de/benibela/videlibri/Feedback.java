@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
@@ -39,7 +40,7 @@ public class Feedback extends VideLibriBaseActivity {
         super.onCreate(savedInstanceState);    //To change body of overridden methods use File | Settings | File Templates.
         setVideLibriView(R.layout.feedback);
         setTitle(tr(R.string.feedback_feedbacktitle));
-        if (!ACRA.getACRASharedPreferences().getBoolean(ACRA.PREF_ENABLE_SYSTEM_LOGS, true))
+        if (!PreferenceManager.getDefaultSharedPreferences(this).getBoolean(ACRA.PREF_ENABLE_SYSTEM_LOGS, true))
             ((TextView)findViewById(R.id.feedbackACRAHeader)).setText(tr(R.string.feedback_acraheader));
 
         if (getIntent().getStringExtra("message") != null)

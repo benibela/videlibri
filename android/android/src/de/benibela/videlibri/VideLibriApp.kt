@@ -18,21 +18,25 @@ import de.benibela.videlibri.jni.Bridge
 import de.benibela.videlibri.notifications.NotificationScheduling
 import de.benibela.videlibri.notifications.Notifier
 import org.acra.ACRA
-import org.acra.ReportField.*
-import org.acra.ReportingInteractionMode
-import org.acra.annotation.ReportsCrashes
+import org.acra.BuildConfig
+import org.acra.annotation.AcraCore
+import org.acra.annotation.AcraDialog
+import org.acra.annotation.AcraHttpSender
+import org.acra.data.StringFormat
+import org.acra.sender.HttpSender
 import java.util.*
 
-@ReportsCrashes(formUri = "http://www.benibela.de/autoFeedback.php?app=VideLibri",
-        logcatArguments = arrayOf("-t", "2500", "-v", "threadtime"),
-        mode = ReportingInteractionMode.DIALOG,
-        resToastText = R.string.crash_toast_text,
-        resDialogText = R.string.crash_dialog_text,
-        resDialogIcon = android.R.drawable.ic_dialog_info,
-        resDialogCommentPrompt = R.string.crash_dialog_comment_prompt,
-        resDialogOkToast = R.string.crash_dialog_ok_toast,
-        customReportContent = arrayOf(REPORT_ID, APP_VERSION_CODE, APP_VERSION_NAME, PACKAGE_NAME, FILE_PATH, PHONE_MODEL, BRAND, PRODUCT, ANDROID_VERSION, BUILD, TOTAL_MEM_SIZE, AVAILABLE_MEM_SIZE, BUILD_CONFIG, CUSTOM_DATA, IS_SILENT, STACK_TRACE, INITIAL_CONFIGURATION, CRASH_CONFIGURATION, DISPLAY, USER_COMMENT, USER_EMAIL, USER_APP_START_DATE, USER_CRASH_DATE, DUMPSYS_MEMINFO, /*LOGCAT,*/
-        INSTALLATION_ID, DEVICE_FEATURES, ENVIRONMENT, SHARED_PREFERENCES))
+@AcraCore(buildConfigClass = BuildConfig::class,
+        reportFormat = StringFormat.KEY_VALUE_LIST,
+        resReportSendSuccessToast = R.string.crash_dialog_ok_toast,
+        resReportSendFailureToast = R.string.crash_dialog_fail_toast
+        )
+@AcraHttpSender(uri = "http://www.benibela.de/autoFeedback.php?app=VideLibri",
+        httpMethod = HttpSender.Method.POST,
+        socketTimeout = 60*1000)
+@AcraDialog(resText = R.string.crash_dialog_text,
+        resCommentPrompt = R.string.crash_dialog_comment_prompt
+        )
 class VideLibriApp : Application(), Bridge.VideLibriContext {
     override fun onCreate() {
         super.onCreate()
@@ -60,8 +64,6 @@ class VideLibriApp : Application(), Bridge.VideLibriContext {
 
         Bridge.initialize(this)
         refreshAccountList()
-        //ACRA.getErrorReporter().putCustomData("app", "VideLibri");
-        //ACRA.getErrorReporter().putCustomData("ver", getVersion()+" (android)");
 
         Bridge.allThreadsDoneHandler = @SuppressLint("HandlerLeak")
         object : Handler() {
