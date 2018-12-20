@@ -68,9 +68,9 @@ class Search: VideLibriBaseActivity(), SearchEventHandler{
 
             for (i in BRANCH_NAMES.indices) {
                 if (findViewById<View>(BRANCH_LAYOUT_IDS[i]).getVisibility() != View.GONE) {
-                    val spinner = findViewById<View>(BRANCH_IDS[i]) as Spinner
+                    val spinner = findViewById<Spinner>(BRANCH_IDS[i])
                     intent.putExtra(BRANCH_NAMES[i], spinner.selectedItemPosition)
-                    val branch = spinner.selectedItem as String
+                    val branch = spinner.selectedItem as? String ?: continue
                     val sp = PreferenceManager.getDefaultSharedPreferences(this@Search)
                     val editor = sp.edit()
                     editor.putString("Search|" + libId + "|" + BRANCH_NAMES[i], branch)
@@ -183,7 +183,7 @@ class Search: VideLibriBaseActivity(), SearchEventHandler{
             val branches: Array<String>? = if (BRANCH_IDS[i] == R.id.homeBranch) searcher?.homeBranches else searcher?.searchBranches
             if (branches != null && branches.isNotEmpty()) {
                 val spinner = findViewById<Spinner>(BRANCH_IDS[i])
-                val current = if (init) sp?.getString("Search|" + libId + "|" + BRANCH_NAMES[i], null) else spinner.selectedItem as String
+                val current = if (init) sp?.getString("Search|" + libId + "|" + BRANCH_NAMES[i], null) else spinner.selectedItem as? String
 
                 findViewById<View>(BRANCH_LAYOUT_IDS[i]).visibility = View.VISIBLE
                 spinner.setItems(branches)
@@ -216,8 +216,8 @@ class Search: VideLibriBaseActivity(), SearchEventHandler{
                     endLoadingAll(VideLibriBaseActivityOld.LOADING_SEARCH_CONNECTING)
                     s.heartBeat = System.currentTimeMillis()
                     s.state = SEARCHER_STATE_CONNECTED
-                    s.homeBranches = event.obj1 as Array<String>?
-                    s.searchBranches = event.obj2 as Array<String>?
+                    s.homeBranches = event.obj1 as? Array<String>
+                    s.searchBranches = event.obj2 as? Array<String>
                     setBranchViewes(false)
                     return true
                 }
@@ -294,12 +294,11 @@ internal class SearchDebugTester(var query: Bridge.Book, startId: String) {
         Log.i("VIDELIBRI", "============================================================")
         searcher = Bridge.SearcherAccess(libs[pos])
         searcher?.connect()
-        if (VideLibriApp.currentActivity is Search) {
-            val s = VideLibriApp.currentActivity as Search
-            s.libId = libs[pos]
-            s.libName = libs[pos]
-            (s.findViewById<View>(R.id.library) as TextView).setText(s.libName)
-            s.beginLoading(VideLibriBaseActivityOld.LOADING_SEARCH_SEARCHING)
+        (VideLibriApp.currentActivity as? Search)?.apply {
+            libId = libs[pos]
+            libName = libs[pos]
+            findViewById<TextView>(R.id.library).setText(libName)
+            beginLoading(VideLibriBaseActivityOld.LOADING_SEARCH_SEARCHING)
         }
     }
 
@@ -340,8 +339,9 @@ internal class SearchDebugTester(var query: Bridge.Book, startId: String) {
 
     private fun endComplete() {
         searcher = null
-        if (VideLibriApp.currentActivity !is Search) return
-        (VideLibriApp.currentActivity as Search).endLoadingAll(VideLibriBaseActivityOld.LOADING_SEARCH_SEARCHING)
-        (VideLibriApp.currentActivity as Search).debugTester = null
+        (VideLibriApp.currentActivity as? Search)?.apply {
+            endLoadingAll(VideLibriBaseActivityOld.LOADING_SEARCH_SEARCHING)
+            debugTester = null
+        }
     }
 }

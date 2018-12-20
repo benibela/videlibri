@@ -16,7 +16,7 @@ class SearchResult : BookListActivity(), SearchEventHandler {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val book = intent.getSerializableExtra("searchQuery") as Bridge.Book?
+        val book = intent.getSerializableExtra("searchQuery") as? Bridge.Book
         if (book == null) {
             Log.i("VideLibri", "search without book. Abort.")
             finish()
