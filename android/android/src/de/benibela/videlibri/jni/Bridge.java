@@ -516,7 +516,7 @@ public class Bridge {
         @NotNull String userPath();
     }
 
-    static private boolean initialized = false;
+    static public boolean initialized = false;
     static public void initialize(VideLibriContext context){
         if (initialized) return;
         initialized = true;
@@ -531,5 +531,6 @@ public class Bridge {
         Log.i("Videlibri", "Initializing Windows VM and Pascal layer");
         VLInit(context);
         Bridge.globalOptions = Bridge.VLGetOptions();
+        //throw new Error("test");
     }
 }

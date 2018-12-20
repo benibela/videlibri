@@ -47,7 +47,10 @@ class VideLibriApp : Application(), Bridge.VideLibriContext {
         X509TrustManagerWithAdditionalKeystores.defaultKeystoreFactory = X509TrustManagerWithAdditionalKeystores.LazyLoadKeyStoreFactory { VideLibriKeyStore() }
 
 
-        if (ACRA.isACRASenderServiceProcess()) return
+        if (ACRA.isACRASenderServiceProcess()) {
+            Bridge.initialized = true
+            return
+        }
 
         val langOverride = prefs.getString("languageOverride", null)
         if (!Util.isEmptyString(langOverride))
