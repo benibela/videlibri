@@ -52,9 +52,10 @@ class VideLibriApp : Application(), Bridge.VideLibriContext {
             return
         }
 
-        val langOverride = prefs.getString("languageOverride", null)
-        if (!Util.isEmptyString(langOverride))
-            setLanguageOverride(this, langOverride)
+        prefs.getString("languageOverride", null)?.takeIf { it.isNotEmpty() }?.let {
+            setLanguageOverride(this, it)
+        }
+
 
 
         Bridge.initialize(this)
@@ -189,7 +190,7 @@ class VideLibriApp : Application(), Bridge.VideLibriContext {
 
         @JvmStatic fun getAccount(libId: String, userName: String): Bridge.Account? {
             accounts?.forEach { acc ->
-                if (Util.equalStrings(acc.libId, libId) && Util.equalStrings(acc.name, userName))
+                if (acc.libId == libId && acc.name == userName)
                     return acc
             }
             return null
@@ -202,25 +203,22 @@ class VideLibriApp : Application(), Bridge.VideLibriContext {
         @JvmStatic fun updateAccount(acc: Bridge.Account?, autoUpdate: Boolean, forceExtend: Boolean) {
             if (acc == null) {
                 if (accounts == null) refreshAccountList()
-                if (updateWakeLock == null && currentContext() != null) {
-                    val pm = currentContext()!!.getSystemService(Context.POWER_SERVICE) as PowerManager?
-                    if (pm != null) {
-                        val wl = pm.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "videlibri:updateLock")
-                        wl.acquire((10 * 60 * 1000).toLong())
-                        wl.setReferenceCounted(false)
-                        updateWakeLock = wl
+                if (updateWakeLock == null)
+                    (currentContext()?.getSystemService(Context.POWER_SERVICE) as PowerManager?)?.apply {
+                        newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "videlibri:updateLock").apply {
+                            acquire((10 * 60 * 1000).toLong())
+                            setReferenceCounted(false)
+                            updateWakeLock = this
+                        }
+                        Log.i("VideLibri", "Acquired wakelock")
                     }
-                    Log.i("VideLibri", "Acquired wakelock")
-                }
                 accounts?.forEach { updateAccount(it, autoUpdate, forceExtend) }
-                return
-            }
-            if (acc.name.isEmpty() && acc.pass.isEmpty())
-                return  //search only account
-            if (Bridge.VLUpdateAccount(acc, autoUpdate, forceExtend)) {
-                (currentActivity as? LendingList)?.beginLoading(VideLibriBaseActivityOld.LOADING_ACCOUNT_UPDATE)
-                if (!runningUpdates.contains(acc))
-                    runningUpdates.add(acc)
+            } else if (acc.name.isNotEmpty() || acc.pass.isNotEmpty()) { //not search only account
+                if (Bridge.VLUpdateAccount(acc, autoUpdate, forceExtend)) {
+                    (currentActivity as? LendingList)?.beginLoading(VideLibriBaseActivityOld.LOADING_ACCOUNT_UPDATE)
+                    if (!runningUpdates.contains(acc))
+                        runningUpdates.add(acc)
+                }
             }
         }
 
@@ -252,8 +250,7 @@ class VideLibriApp : Application(), Bridge.VideLibriContext {
 
 
         @JvmStatic fun showPendingExceptions() {
-            val exceptions = Bridge.VLTakePendingExceptions()
-            if (exceptions == null) return
+            val exceptions = Bridge.VLTakePendingExceptions() ?: return
             if (VideLibriApp.errors.size > 3) { //errors eat a lot of memory
                 while (VideLibriApp.errors.size > 3)
                     VideLibriApp.errors.removeAt(0)
@@ -287,20 +284,17 @@ class VideLibriApp : Application(), Bridge.VideLibriContext {
         }
 
         internal var defaultLocale: Locale? = null
-        internal fun getCurrentLocale(context: Context): Locale {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                val ls = context.resources.configuration.locales
-                return ls.get(0)
-            } else {
+        internal fun getCurrentLocale(context: Context): Locale =
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N)
+                context.resources.configuration.locales.get(0)
+            else
+                context.resources.configuration.locale
 
-                return context.resources.configuration.locale
-            }
-        }
 
         @JvmStatic fun setLanguageOverride(context: Context, langOverride: String) {
             //Log.i("VIDELIBRI LANG", langOverride);
             if (defaultLocale == null) defaultLocale = getCurrentLocale(context)
-            val locale = if (Util.isEmptyString(langOverride)) defaultLocale else Locale(langOverride)
+            val locale = if (langOverride.isEmpty()) defaultLocale else Locale(langOverride)
             Locale.setDefault(locale)
             val config = Configuration()
             config.locale = locale
