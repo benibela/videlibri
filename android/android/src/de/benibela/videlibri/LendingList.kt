@@ -10,13 +10,15 @@ import android.graphics.BitmapFactory
 import android.os.Build
 import android.os.Bundle
 import android.preference.PreferenceManager
-import android.sax.TextElementListener
 import android.support.v4.app.ActivityCompat
 import android.support.v4.content.ContextCompat
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.*
-import android.widget.*
+import android.widget.Button
+import android.widget.CompoundButton
+import android.widget.EditText
+import android.widget.LinearLayout
 import de.benibela.videlibri.jni.Bridge
 import org.json.JSONArray
 import org.json.JSONException
@@ -507,8 +509,7 @@ class LendingList: BookListActivity(){
         @JvmField var displayHistory = false
         @JvmStatic fun refreshDisplayedLendBooks() {
             displayForcedCounter += 1
-            if (VideLibriApp.currentActivity is LendingList)
-                (VideLibriApp.currentActivity as LendingList).displayAccounts()
+            (VideLibriApp.currentActivity as? LendingList)?.displayAccounts()
         }
 
     }

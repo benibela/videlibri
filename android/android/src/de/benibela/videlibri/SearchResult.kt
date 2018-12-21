@@ -82,8 +82,8 @@ class SearchResult : BookListActivity(), SearchEventHandler {
         when (event.kind) {
             Bridge.SearchEventKind.CONNECTED -> {
                 access.state = Search.SEARCHER_STATE_CONNECTED
-                access.homeBranches = event.obj1 as Array<String>
-                access.searchBranches = event.obj2 as Array<String>
+                access.homeBranches = event.obj1 as? Array<String>
+                access.searchBranches = event.obj2 as? Array<String>
                 access.waitingForDetails = -1
                 access.nextDetailsRequested = -1
                 access.start(intent.getSerializableExtra("searchQuery") as Bridge.Book, intent.getIntExtra("homeBranch", -1), intent.getIntExtra("searchBranch", -1))
