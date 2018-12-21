@@ -8,6 +8,8 @@ import java.net.InetAddress;
 import java.net.Socket;
 import java.security.KeyManagementException;
 import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
+import java.util.regex.Pattern;
 
 import javax.net.ssl.SSLContext;
 import javax.net.ssl.SSLSocket;
@@ -84,7 +86,13 @@ public class ModernSSLSocketFactory extends SSLSocketFactory {
             socket.setEnabledProtocols(socket.getSupportedProtocols());
 
             //Activate all ciphers
-            socket.setEnabledCipherSuites(socket.getSupportedCipherSuites());
+            Pattern exclude = Pattern.compile(".*(EXPORT|NULL|TLS_FALLBACK_SCSV).*");
+            String[] supportedCiphers = socket.getSupportedCipherSuites();
+            ArrayList<String> enabledCiphers = new ArrayList<>(supportedCiphers.length);
+            for (String c: supportedCiphers)
+                if (!exclude.matcher(c).matches())
+                    enabledCiphers.add(c);
+            socket.setEnabledCipherSuites(enabledCiphers.toArray(new String[0]));
         }
         return somesocket;
     }
