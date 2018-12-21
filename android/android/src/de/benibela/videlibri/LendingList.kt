@@ -14,6 +14,7 @@ import android.support.v4.app.ActivityCompat
 import android.support.v4.content.ContextCompat
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.view.*
 import android.widget.Button
 import android.widget.CompoundButton
@@ -359,8 +360,9 @@ class LendingList: BookListActivity(){
             val linearLayout = view.findViewById<LinearLayout>(R.id.viewaccounts)
             linearLayout.removeAllViews()
             val switchboxes = ArrayList<CompoundButton>()
-            val accountCheckListener = CompoundButton.OnCheckedChangeListener { compoundButton, b ->
-                val acc = compoundButton.tag as Bridge.Account?
+            val accountCheckListener = View.OnClickListener { v ->
+                val acc = v.tag as Bridge.Account?
+                val b = (v as? CompoundButton)?.isChecked ?: return@OnClickListener
                 if (acc == null) {
                     if (b)
                         LendingList.hiddenAccounts.clear()
@@ -368,7 +370,7 @@ class LendingList: BookListActivity(){
                         LendingList.hiddenAccounts = ArrayList(Arrays.asList<Bridge.Account>(*accounts))
                     for (cb in switchboxes) cb.isChecked = b
                 } else {
-                    if (!b == LendingList.hiddenAccounts.contains(acc)) return@OnCheckedChangeListener
+                    if (!b == LendingList.hiddenAccounts.contains(acc)) return@OnClickListener
                     if (!b)
                         LendingList.hiddenAccounts.add(acc)
                     else
@@ -396,7 +398,8 @@ class LendingList: BookListActivity(){
                 val sb: CompoundButton = group.findViewById<CompoundButton>(R.id.switchbox).apply {
                     isChecked = if (acc == null) LendingList.hiddenAccounts.size <= accounts.size / 2 else !LendingList.hiddenAccounts.contains(acc)
                     tag = acc
-                    setOnCheckedChangeListener(accountCheckListener)
+                    isSaveEnabled = false
+                    setOnClickListener(accountCheckListener)
                 }
                 if (acc != null) switchboxes.add(sb)
                 group.findViewById<Button>(R.id.button).apply {
