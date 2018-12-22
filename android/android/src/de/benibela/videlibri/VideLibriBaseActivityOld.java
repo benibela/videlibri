@@ -132,11 +132,6 @@ public class VideLibriBaseActivityOld extends AppCompatActivity{
 
 
 
-    /*@Override
-    public void setTitle(CharSequence title){
-        super.setTitle(title.length() > 0 ? "VideLibri: "+title : "VideLibri");
-    } */
-
     int currentMainIcon;
     public void checkMainIcon(){
         if (VideLibriApp.getMainIcon() != currentMainIcon) {
@@ -160,12 +155,6 @@ public class VideLibriBaseActivityOld extends AppCompatActivity{
 
 
     //Util
-    String getStringExtraSafe(String id){
-        String r = getIntent().getStringExtra(id);
-        if (r == null) return "";
-        return  r;
-    }
-
     public Button findButtonById(int id){
         return (Button)findViewById(id);
     }
@@ -192,14 +181,6 @@ public class VideLibriBaseActivityOld extends AppCompatActivity{
         return tv.getText().toString();
     }
 
-
-    static public void setSpinnerSelection(Spinner v, String[] items, String selection){
-        for (int i = 0; i < items.length; i++)
-            if (selection.equals(items[i])) {
-                v.setSelection(i);
-                return;
-            }
-    }
 
     public ArrayAdapter<String> makeAdapterStrings(String[] templates) {
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, templates);

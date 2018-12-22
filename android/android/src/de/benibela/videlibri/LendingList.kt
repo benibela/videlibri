@@ -32,9 +32,9 @@ class LendingList: BookListActivity(){
 
         // Log.i("VideLibri", "onCreate")               ;
 
-        if (savedInstanceState != null) {
-            filterActually = savedInstanceState.getString("filterActually")
-            setFilterMultiLine(savedInstanceState.getBoolean("filterIsMultiLine", false))
+        savedInstanceState?.apply{
+            filterActually = getString("filterActually")
+            setFilterMultiLine(getBoolean("filterIsMultiLine", false))
         }
         updateViewFilters()
 
@@ -76,9 +76,7 @@ class LendingList: BookListActivity(){
         //setTitle("Ausleihen");  //does not work in onCreate (why? makes the title invisible) No. it just works sometimes?
 
         if (VideLibriApp.accounts.isNullOrEmpty()) {
-            var v: View? = findViewById(R.id.layout) //need an arbitrary view. Depends on landscape/portrait, which is there
-            if (v == null) v = findViewById(R.id.booklistview)
-
+            val v: View? = findViewById(R.id.layout)?:findViewById(R.id.booklistview) //need an arbitrary view. Depends on landscape/portrait, which is there
             v?.postDelayed({
                 startActivity<AccountInfo>("mode" to AccountInfo.MODE_ACCOUNT_CREATION_INITIAL)
             }, 400)
@@ -395,9 +393,9 @@ class LendingList: BookListActivity(){
 
             builder.setView(view)
             builder.setOnCancelListener(this)
-            val d = builder.create()
-            d.window?.setGravity(Gravity.END or Gravity.TOP)
-            return d
+            return builder.create().apply {
+                window?.setGravity(Gravity.END or Gravity.TOP)
+            }
         }
 
         override fun onCancel(dialog: DialogInterface?) {

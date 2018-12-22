@@ -294,7 +294,6 @@ internal class SearchDebugTester(var query: Bridge.Book, startId: String) {
 
     fun onSearchEvent(event: Bridge.SearchEvent): Boolean {
         if (event.searcherAccess !== searcher) return false
-        if (searcher == null) return false
         val currentSearcher = searcher ?: return false
         when (event.kind) {
             Bridge.SearchEventKind.CONNECTED -> currentSearcher.start(query, -1, -1)

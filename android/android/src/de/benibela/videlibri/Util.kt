@@ -96,7 +96,7 @@ fun showDialog(
     val instance = DialogInstance(args)
     dialogInstances.put(instanceId, instance)
     init?.invoke(instance)
-    if (args.getString("negativeButton") == null && args.getString("neutralButton") == null && args.getString("positiveButton") == null)
+    if ((args.getString("negativeButton") ?: args.getString("neutralButton") ?: args.getString("positiveButton")) == null)
         args.putString("neutralButton", Util.tr(R.string.ok))
     Util.showPreparedDialog(args)
 }

@@ -172,9 +172,8 @@ class AccountInfo : VideLibriBaseActivity() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if (requestCode == REQUEST_LIBRARY_FOR_ACCOUNT_CREATION) {
             if (resultCode == Activity.RESULT_OK) {
-                setActiveLibrary(LibraryListOld.lastSelectedLibId)
-                if (libdetails != null)
-                    accountPrettyName.setText(libshortname)
+                setActiveLibrary(LibraryListOld.lastSelectedLibId) ?: return
+                accountPrettyName.setText(libshortname)
             } else if (libdetails == null)
                 if (mode == MODE_ACCOUNT_CREATION_INITIAL && VideLibriApp.accounts.isNullOrEmpty()) {
                 }//    updateLibrary();

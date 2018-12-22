@@ -155,7 +155,7 @@ fun makePrimaryBookCache(addHistoryStart: Boolean,
 }
 
 fun Bridge.Book.matchesFilter(filter: String, key: String): Boolean =
-    if (key != null && "" != key) getProperty(key).toLowerCase().contains(filter)
+    if (key.isNotEmpty()) getProperty(key).toLowerCase().contains(filter)
     else author.toLowerCase().contains(filter) || title.toLowerCase().contains(filter)
 
 
@@ -165,7 +165,7 @@ fun filterToSecondaryBookCache(oldBookCache: ArrayList<Bridge.Book>,
     var filter = filterStart
     val bookCache = ArrayList<Bridge.Book>()
 
-    if (filter != null && "" != filter && "__disabled" != filterKey) {
+    if (filter?.isNotEmpty() == true && "__disabled" != filterKey) {
         filter = filter.toLowerCase()
         for (book in oldBookCache)
             if (book.matchesFilter(filter, filterKey))

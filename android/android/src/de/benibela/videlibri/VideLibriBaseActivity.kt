@@ -60,8 +60,7 @@ open class VideLibriBaseActivity: VideLibriBaseActivityOld(){
         onCreateOptionsMenuPrimary(menu, inflater)
         inflater.inflate(R.menu.loadingmenu, menu)
         onCreateOptionsMenuOverflow(menu, inflater)
-        loadingItem = menu.findItem(R.id.loading)
-        loadingItem?.apply {
+        loadingItem = menu.findItem(R.id.loading)?.apply {
             setActionView(R.layout.actionbar_loading)
             actionView?.setOnClickListener { showLoadingInfo() }
             isVisible = loadingTasks.size > 0
@@ -74,7 +73,7 @@ open class VideLibriBaseActivity: VideLibriBaseActivityOld(){
 
     override fun onPrepareOptionsMenu(menu: Menu?): Boolean {
         val x = super.onPrepareOptionsMenu(menu)
-        if (menu == null) return false
+        menu ?: return false
         loadingItem = menu.findItem(R.id.loading)
         refreshLoadingIcon()
         setOptionMenuVisibility(menu)
@@ -109,11 +108,9 @@ open class VideLibriBaseActivity: VideLibriBaseActivityOld(){
         return loadingTasks.contains(loadingId)
     }
 
-    internal fun showLoadingInfo() {
-        val sb = StringBuilder()
-        sb.append(tr(R.string.loading_tasks_info))
-        for (id in loadingTasks) {
-            val code = when (id) {
+    private fun showLoadingInfo() {
+        showMessage(loadingTasks.joinToString(separator = "\n") {
+            getString(when (it) {
                 LOADING_ACCOUNT_UPDATE -> R.string.loading_account_update
                 LOADING_COVER_IMAGE -> R.string.loading_cover
                 LOADING_SEARCH_CONNECTING -> R.string.loading_search_connecting
@@ -123,12 +120,9 @@ open class VideLibriBaseActivity: VideLibriBaseActivityOld(){
                 LOADING_SEARCH_ORDER_HOLDING -> R.string.loading_search_order_holding
                 LOADING_SEARCH_MESSAGE -> R.string.loading_search_message
                 LOADING_INSTALL_LIBRARY -> R.string.loading_search_install_library
-                else -> 0
-            }
-            if (code != 0) sb.append(tr(code))
-            sb.append("\n")
-        }
-        showMessage(sb.toString())
+                else -> return@joinToString ""
+            })
+        })
     }
 
     private val REQUESTED_LIBRARY_HOMEPAGE = 29324
@@ -148,8 +142,8 @@ open class VideLibriBaseActivity: VideLibriBaseActivityOld(){
             R.id.renewlist -> startActivity<RenewList>()
             R.id.import_ -> startActivity<ImportExport>("mode" to ImportExport.MODE_IMPORT)
             R.id.export -> startActivity<ImportExport>("mode" to ImportExport.MODE_EXPORT)
-            R.id.libinfo -> startActivityForResult<LibraryList>(REQUESTED_LIBRARY_CATALOGUE,"reason" to tr(R.string.base_chooselibhomepage), "search" to true)
-            R.id.libcatalogue -> startActivityForResult<LibraryList>(REQUESTED_LIBRARY_CATALOGUE,"reason" to tr(R.string.base_chooselibcat), "search" to true)
+            R.id.libinfo -> startActivityForResult<LibraryList>(REQUESTED_LIBRARY_CATALOGUE,"reason" to getString(R.string.base_chooselibhomepage), "search" to true)
+            R.id.libcatalogue -> startActivityForResult<LibraryList>(REQUESTED_LIBRARY_CATALOGUE,"reason" to getString(R.string.base_chooselibcat), "search" to true)
             R.id.newlib -> startActivityForResult<NewLibrary>(RETURNED_FROM_NEW_LIBRARY)
             R.id.feedback -> startActivity<Feedback>()
             R.id.debuglog -> startActivity<DebugLogViewer>()
