@@ -268,14 +268,10 @@ class LendingList: BookListActivity(){
             }
             R.id.delete -> {
                 val book = details.book ?: return false
-                showDialog {
-                    message(R.string.delete_book_confirmS, book.title)
-                    yesButton {
-                        Bridge.VLChangeBook(book, null)
-                        showToast(R.string.delete_book_confirmed)
-                        VideLibriApp.refreshDisplayedLendBooks()
-                    }
-                    noButton()
+                showMessageYesNo(getString(R.string.delete_book_confirmS, book.title)) {
+                    Bridge.VLChangeBook(book, null)
+                    showToast(R.string.delete_book_confirmed)
+                    VideLibriApp.refreshDisplayedLendBooks()
                 }
             }
             else -> return super.onOptionsItemIdSelected(id)
@@ -302,15 +298,11 @@ class LendingList: BookListActivity(){
                     withActivity<LendingList> { showList() }
                 }
             }
-            Bridge.Book.StatusEnum.Ordered, Bridge.Book.StatusEnum.Provided -> showDialog{
-                message(R.string.main_cancelconfirm)
-                noButton()
-                yesButton {
-                    Bridge.VLBookOperation(arrayOf(book), Bridge.BOOK_OPERATION_CANCEL) //cancel
-                    withActivity<LendingList> {
-                        beginLoading(VideLibriBaseActivityOld.LOADING_ACCOUNT_UPDATE)
-                        showList()
-                    }
+            Bridge.Book.StatusEnum.Ordered, Bridge.Book.StatusEnum.Provided -> showMessageYesNo(R.string.main_cancelconfirm){
+                Bridge.VLBookOperation(arrayOf(book), Bridge.BOOK_OPERATION_CANCEL) //cancel
+                withActivity<LendingList> {
+                    beginLoading(VideLibriBaseActivityOld.LOADING_ACCOUNT_UPDATE)
+                    showList()
                 }
             }
             else -> return

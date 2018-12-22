@@ -141,13 +141,9 @@ open class VideLibriBaseActivity: VideLibriBaseActivityOld(){
             R.id.accounts -> startActivity<LendingList>()
             R.id.options -> startActivity<Options>()
             R.id.refresh -> VideLibriApp.updateAccount(null, false, false)
-            R.id.renew -> showDialog {
-                message(R.string.base_renewallconfirm)
-                noButton()
-                yesButton {
-                    VideLibriApp.updateAccount(null, false, true)
-                    withActivity<RenewList> { onBackPressed() }
-                }
+            R.id.renew -> showMessageYesNo(R.string.base_renewallconfirm) {
+                VideLibriApp.updateAccount(null, false, true)
+                withActivity<RenewList> { onBackPressed() }
             }
             R.id.renewlist -> startActivity<RenewList>()
             R.id.import_ -> startActivity<ImportExport>("mode" to ImportExport.MODE_IMPORT)

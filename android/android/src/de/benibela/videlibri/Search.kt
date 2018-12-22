@@ -239,16 +239,12 @@ class Search: VideLibriBaseActivity(), SearchEventHandler{
     fun activateHiddenDebugMode() {
         showDialog("You have activated the secret debug mode") {
             onDismiss = {
-                showDialog("Do you want to search ALL libraries? ") {
-                    noButton()
-                    yesButton {
-                        withActivity<Search> {
-                            val book = Bridge.Book()
-                            book.title = findViewById<TextView>(R.id.title).text.toString()
-                            book.author = findViewById<TextView>(R.id.author).text.toString()
-                            debugTester = SearchDebugTester(book, libId)
-                        }
-
+                showMessageYesNo("Do you want to search ALL libraries? ") {
+                    withActivity<Search> {
+                        val book = Bridge.Book()
+                        book.title = findViewById<TextView>(R.id.title).text.toString()
+                        book.author = findViewById<TextView>(R.id.author).text.toString()
+                        debugTester = SearchDebugTester(book, libId)
                     }
                 }
             }
