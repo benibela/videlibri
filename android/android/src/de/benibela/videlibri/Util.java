@@ -240,7 +240,7 @@ public class Util {
         args.putString("positiveButton", positive);
         if (more != null)
             args.putBundle("more", more);
-        showDialog(args);
+        showPreparedDialog(args);
     }
 
     static public void chooseDialog(int dialogId, String title, String[] options) { chooseDialog(dialogId, title, options, null); }
@@ -250,7 +250,7 @@ public class Util {
         args.putString("title", title);
         args.putStringArray("items", options);
         args.putBundle("more", more);
-        showDialog(args);
+        showPreparedDialog(args);
     }
     //result in more bundle key "text". Failure button is Util.MessageHandlerCanceled
     static public void inputDialog(int dialogId, int title){ inputDialog(dialogId, tr(title), null); }
@@ -263,15 +263,15 @@ public class Util {
         args.putString("message", message);
         args.putString("editTextDefault", editDefault);
         args.putInt("special", DialogId.SPECIAL_INPUT_DIALOG);
-        showDialog(args);
+        showPreparedDialog(args);
     }
 
 
-    static void showDialog(Bundle args){
-        if (VideLibriApp.currentActivity instanceof AppCompatActivity) showDialog((AppCompatActivity)VideLibriApp.currentActivity, args);
+    static void showPreparedDialog(Bundle args){
+        if (VideLibriApp.currentActivity instanceof AppCompatActivity) showPreparedDialog((AppCompatActivity)VideLibriApp.currentActivity, args);
         else VideLibriApp.pendingDialogs.add(args);
     }
-    static public void showDialog(AppCompatActivity activity, Bundle args){
+    static public void showPreparedDialog(AppCompatActivity activity, Bundle args){
         DialogFragmentUtil frag = new DialogFragmentUtil();
         frag.setArguments(args);
         //String tag = "dialog" + args.getInt("id");

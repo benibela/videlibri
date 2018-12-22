@@ -132,7 +132,7 @@ public class LibraryListOld extends VideLibriBaseActivity {
                 args.putString("message", tr(R.string.foreignlibrariesnotinthelist));
                 args.putIntArray("items", new int[]{R.string.foreignlibrariesnotinthelist_easy, R.string.foreignlibrariesnotinthelist_meta, R.string.foreignlibrariesnotinthelist_install, R.string.foreignlibrariesnotinthelist_diy, R.string.foreignlibrariesnotinthelist_mail});
                 args.putIntArray("itemsSubCaption", new int[]{R.string.foreignlibrariesnotinthelist_easy_req, R.string.foreignlibrariesnotinthelist_meta_req, R.string.foreignlibrariesnotinthelist_install_req, R.string.foreignlibrariesnotinthelist_diy_req, R.string.foreignlibrariesnotinthelist_mail_req});
-                Util.showDialog(LibraryListOld.this, args);
+                Util.showPreparedDialog(LibraryListOld.this, args);
             }
         });
 

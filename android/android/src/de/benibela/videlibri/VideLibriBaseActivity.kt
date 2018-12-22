@@ -33,7 +33,7 @@ open class VideLibriBaseActivity: VideLibriBaseActivityOld(){
         checkMainIcon()
 
         for (b in VideLibriApp.pendingDialogs)
-            Util.showDialog(this, b)
+            Util.showPreparedDialog(this, b)
         VideLibriApp.pendingDialogs.clear()
     }
 
@@ -127,7 +127,7 @@ open class VideLibriBaseActivity: VideLibriBaseActivityOld(){
             if (code != 0) sb.append(tr(code))
             sb.append("\n")
         }
-        Util.showMessage(sb.toString())
+        showMessage(sb.toString())
     }
 
     private val REQUESTED_LIBRARY_HOMEPAGE = 29324
@@ -140,7 +140,14 @@ open class VideLibriBaseActivity: VideLibriBaseActivityOld(){
             R.id.accounts -> startActivity<LendingList>()
             R.id.options -> startActivity<Options>()
             R.id.refresh -> VideLibriApp.updateAccount(null, false, false)
-            R.id.renew -> Util.showMessageYesNo(DialogId.RENEW_CONFIRM, tr(R.string.base_renewallconfirm))
+            R.id.renew -> showDialog {
+                message(R.string.base_renewallconfirm)
+                noButton()
+                yesButton {
+                    VideLibriApp.updateAccount(null, false, true)
+                    withActivity<RenewList> { onBackPressed() }
+                }
+            }
             R.id.renewlist -> startActivity<RenewList>()
             R.id.import_ -> startActivity<ImportExport>("mode" to ImportExport.MODE_IMPORT)
             R.id.export -> startActivity<ImportExport>("mode" to ImportExport.MODE_EXPORT)

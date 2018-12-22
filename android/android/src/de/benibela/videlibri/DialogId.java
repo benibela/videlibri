@@ -3,20 +3,11 @@ package de.benibela.videlibri;
 class DialogId {
     //the numbers are arbitrary. everything goes as long as they are pairwise different
     public static final int OK = 7001;
-    public static final int RENEW_CONFIRM = 7002;
-    public static final int INSTALLATION_DONE = 7004;
-    public static final int ERROR_CONFIRM = 7005;
-    public static final int ERROR_LOGIN = 7006;
-    public static final int ERROR_INTERNET = 7007;
     public static final int ACCOUNT_DELETE_CONFIRM = 7012;
     public static final int ACCOUNT_ADD_RENEWAL_MODE_CONFIRM = 7013;
     public static final int ACCOUNT_ADD_NOW = 7014;
     public static final int FEEDBACK_SEND_ATTEMPTED = 7015;
-    public static final int DEBUG_SEARCH_BEGIN = 7050;
-    public static final int DEBUG_SEARCH_ALL = 7051;
     public static final int IMPORTEXPORT_DONE = 7060;
-    public static final int CANCEL_CONFIRM = 7070;
-    public static final int RENEW_SINGLE_CONFIRM = 7071;
     public static final int SEARCHER_MESSAGE_CONFIRM = 7082;
     public static final int SEARCHER_MESSAGE_CHOOSE = 7083;
     public static final int SEARCHER_ORDER_CONFIRM = 7085;
@@ -35,6 +26,6 @@ class DialogId {
     public static final int SOURCE_EDIT_NEW_FILE = 7302;
 
     public static final int SPECIAL_LIBRARY_NOT_IN_LIST = 10000;
-    public static final int SPECIAL_LEND_LIST_OPTIONS = 11000; //only used in VideLibri.java
+    public static final int SPECIAL_LEND_LIST_OPTIONS = 11000;
     public static final int SPECIAL_INPUT_DIALOG = 12000;
 }

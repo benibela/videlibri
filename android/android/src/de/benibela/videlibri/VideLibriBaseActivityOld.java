@@ -208,48 +208,6 @@ public class VideLibriBaseActivityOld extends AppCompatActivity{
     }
 
     boolean onDialogResult(int dialogId, int buttonId, @Nullable Bundle more){
-        //callback
-        //debug: Util.showMessage(1234, ""+dialogId+"=>"+buttonId,null,null,null);
-        switch (dialogId) {
-            case DialogId.RENEW_CONFIRM:
-                if (buttonId == DialogInterface.BUTTON_POSITIVE) {
-                    VideLibriApp.updateAccount(null, false, true);
-                    if (this instanceof RenewList)
-                        onBackPressed();
-                }
-                return true;
-            case DialogId.ERROR_CONFIRM:
-            case DialogId.ERROR_LOGIN:
-            case DialogId.ERROR_INTERNET:
-                if ( (dialogId == DialogId.ERROR_CONFIRM &&  buttonId == DialogInterface.BUTTON_POSITIVE) ||
-                        (dialogId == DialogId.ERROR_LOGIN &&  buttonId == DialogInterface.BUTTON_NEGATIVE) ||
-                        (dialogId == DialogId.ERROR_INTERNET &&  buttonId == DialogInterface.BUTTON_NEGATIVE)
-                        ) {
-                    Intent intent = new Intent(this, Feedback.class);
-                    String queries = "";
-                    for (Bridge.PendingException ex: VideLibriApp.errors)
-                        if (ex.searchQuery != null && !"".equals(ex.searchQuery))
-                            queries = queries + Util.tr(R.string.app_error_searchedfor) + ex.searchQuery+"\n";
-
-                    final String message = Util.tr(R.string.app_error_anerror) + "\n"+ queries + Util.tr(R.string.app_error_needcontact);
-                    intent.putExtra("message", message);
-                    startActivity(intent);
-                } else if (dialogId == DialogId.ERROR_LOGIN &&  buttonId == DialogInterface.BUTTON_POSITIVE) {
-                    Intent intent = new Intent(this, AccountInfo.class);
-                    intent.putExtra("mode", AccountInfo.MODE_ACCOUNT_MODIFY);
-                    Bridge.Account acc = VideLibriApp.getAccount(more.getString("lib"), more.getString("user"));
-                    if (acc != null) intent.putExtra("account", acc);
-                    startActivity(intent);
-                } else if (dialogId == DialogId.ERROR_INTERNET &&  buttonId == DialogInterface.BUTTON_POSITIVE) {
-                    startActivityForResult(new Intent(android.provider.Settings.ACTION_WIRELESS_SETTINGS), 0);
-                }
-                return true;
-            case DialogId.INSTALLATION_DONE:
-                if (more != null && more.getInt("status") == 1 && this instanceof NewLibrary)
-                    finish();
-                return true;
-
-        }
         return false;
     }
 

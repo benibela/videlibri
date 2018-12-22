@@ -7,11 +7,14 @@ import android.os.Bundle
 import android.os.Parcelable
 import java.io.Serializable
 
+inline fun <reified T: Activity> startActivity(vararg params: Pair<String, Any?>) =
+        VideLibriApp.currentContext()?.let{internalStartActivity(it, T::class.java, params)}
+
 //taken from Anko
 //(cannot use Anko, since Anko has minSdk 15, while VideLibri has minSdk 14 atm)
 
-inline fun <reified T: Activity> Context.startActivity(vararg params: Pair<String, Any?>) =
-        internalStartActivity(this, T::class.java, params)
+//inline fun <reified T: Activity> Context.startActivity(vararg params: Pair<String, Any?>) =
+//        internalStartActivity(this, T::class.java, params)
 
 inline fun <reified T: Activity> Activity.startActivityForResult(requestCode: Int, vararg params: Pair<String, Any?>) =
         internalStartActivityForResult(this, T::class.java, requestCode, params)

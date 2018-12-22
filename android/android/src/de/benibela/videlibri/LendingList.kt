@@ -14,7 +14,6 @@ import android.support.v4.app.ActivityCompat
 import android.support.v4.content.ContextCompat
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
 import android.view.*
 import android.widget.Button
 import android.widget.CompoundButton
@@ -67,7 +66,7 @@ class LendingList: BookListActivity(){
     internal fun setFilter(s: String) {
         val oldFilterActually = filterActually
         filterActually = s
-        if (alwaysFilterOnHistory && Util.isEmptyString(oldFilterActually) != Util.isEmptyString(filterActually)) {
+        if (alwaysFilterOnHistory && oldFilterActually.isEmpty() != filterActually.isEmpty()) {
             displayAccounts()
         } else
             refreshBookCache()
@@ -273,7 +272,7 @@ class LendingList: BookListActivity(){
             }
             R.id.delete -> {
                 val book = details.book ?: return false
-                showMessage {
+                showDialog {
                     message(R.string.delete_book_confirmS, book.title)
                     yesButton {
                         Bridge.VLChangeBook(book, null)
@@ -297,17 +296,26 @@ class LendingList: BookListActivity(){
     private val hiddenAccountsActually = ArrayList<Bridge.Account>()
 
 
-    private var lastSelectedBookForDialog: Bridge.Book? = null
-
     override fun onBookActionButtonClicked(book: Bridge.Book) {
         when (book.status) {
-            Bridge.Book.StatusEnum.Normal -> {
-                lastSelectedBookForDialog = book
-                Util.showMessageNegPos(DialogId.RENEW_SINGLE_CONFIRM, tr(R.string.renew_single_confirm), R.string.cancel, R.string.renew)
+            Bridge.Book.StatusEnum.Normal -> showDialog{
+                message(R.string.renew_single_confirm)
+                negativeButton(R.string.cancel)
+                positiveButton(R.string.renew) {
+                    VideLibriApp.renewBooks(arrayOf(book))
+                    withActivity<LendingList> { showList() }
+                }
             }
-            Bridge.Book.StatusEnum.Ordered, Bridge.Book.StatusEnum.Provided -> {
-                lastSelectedBookForDialog = book
-                Util.showMessageYesNo(DialogId.CANCEL_CONFIRM, tr(R.string.main_cancelconfirm))
+            Bridge.Book.StatusEnum.Ordered, Bridge.Book.StatusEnum.Provided -> showDialog{
+                message(R.string.main_cancelconfirm)
+                noButton()
+                yesButton {
+                    Bridge.VLBookOperation(arrayOf(book), Bridge.BOOK_OPERATION_CANCEL) //cancel
+                    withActivity<LendingList> {
+                        beginLoading(VideLibriBaseActivityOld.LOADING_ACCOUNT_UPDATE)
+                        showList()
+                    }
+                }
             }
             else -> return
         }
@@ -317,22 +325,6 @@ class LendingList: BookListActivity(){
 
     internal override fun onDialogResult(dialogId: Int, buttonId: Int, more: Bundle?): Boolean {
         when (dialogId) {
-            DialogId.RENEW_SINGLE_CONFIRM -> lastSelectedBookForDialog?.let {
-                if (buttonId == DialogInterface.BUTTON_POSITIVE) {
-                    VideLibriApp.renewBooks(arrayOf(it))
-                    showList()
-                }
-                return true
-            }
-            DialogId.CANCEL_CONFIRM -> lastSelectedBookForDialog?.let {
-                if (buttonId == DialogInterface.BUTTON_POSITIVE) {
-                    Bridge.VLBookOperation(arrayOf(it), Bridge.BOOK_OPERATION_CANCEL) //cancel
-                    beginLoading(VideLibriBaseActivityOld.LOADING_ACCOUNT_UPDATE)
-                    showList()
-                }
-                lastSelectedBookForDialog = null
-                return true
-            }
             DialogId.FILTER_LOAD_LIST -> {
                 if (buttonId >= 0)
                     findViewById<EditText>(R.id.searchFilter).setText(getFilterHistory()[buttonId])
@@ -487,7 +479,7 @@ class LendingList: BookListActivity(){
     }
 
     override fun onBackPressed() {
-        if (listVisible() && filterActually != "") findViewById<EditText>(R.id.searchFilter).setText("");
+        if (listVisible() && filterActually != "") findViewById<EditText>(R.id.searchFilter).setText("")
         else super.onBackPressed()
     }
 
@@ -512,7 +504,7 @@ class LendingList: BookListActivity(){
         @JvmField var displayHistory = false
         @JvmStatic fun refreshDisplayedLendBooks() {
             displayForcedCounter += 1
-            (VideLibriApp.currentActivity as? LendingList)?.displayAccounts()
+            withActivity<LendingList> { displayAccounts() }
         }
 
     }

@@ -72,7 +72,7 @@ class VideLibriApp : Application(), Bridge.VideLibriContext {
                 VideLibriApp.runningUpdates.clear()
                 NotificationScheduling.onUpdateComplete()
 
-                (currentActivity as? LendingList)?.endLoadingAll(VideLibriBaseActivityOld.LOADING_ACCOUNT_UPDATE)
+                withActivity<LendingList> {endLoadingAll(VideLibriBaseActivityOld.LOADING_ACCOUNT_UPDATE)}
 
                 VideLibriApp.refreshDisplayedLendBooks()
 
@@ -95,11 +95,15 @@ class VideLibriApp : Application(), Bridge.VideLibriContext {
         Bridge.installationDoneHandler = @SuppressLint("HandlerLeak")
         object : Handler() {
             override fun handleMessage(msg: Message) {
-                (currentActivity as? NewLibrary)?.endLoading(VideLibriBaseActivityOld.LOADING_INSTALL_LIBRARY)
+                withActivity<NewLibrary> { endLoading(VideLibriBaseActivityOld.LOADING_INSTALL_LIBRARY) }
                 val status = msg.what
-                val more = Bundle()
-                more.putInt("status", status)
-                Util.showMessage(DialogId.INSTALLATION_DONE, Util.tr(if (status == 1) R.string.app_libregistered else R.string.app_libregisterfailed), more)
+                if (status == 1) {
+                    showDialog {
+                        message(R.string.app_libregistered)
+                        onDismiss = { withActivity<NewLibrary> { finish() } }
+                    }
+                } else
+                    showMessage(R.string.app_libregisterfailed)
             }
         }
 
@@ -107,7 +111,7 @@ class VideLibriApp : Application(), Bridge.VideLibriContext {
         object : Handler() {
             override fun handleMessage(msg: Message) {
                 val event = msg.obj as Bridge.SearchEvent
-                if ((currentActivity as? SearchEventHandler)?.onSearchEvent(event) == true)
+                if (currentActivity<SearchEventHandler>()?.onSearchEvent(event) == true)
                     return
                 event.searcherAccess!!.pendingEvents.add(event)
             }
@@ -217,7 +221,7 @@ class VideLibriApp : Application(), Bridge.VideLibriContext {
                 accounts?.forEach { updateAccount(it, autoUpdate, forceExtend) }
             } else if (acc.name.isNotEmpty() || acc.pass.isNotEmpty()) { //not search only account
                 if (Bridge.VLUpdateAccount(acc, autoUpdate, forceExtend)) {
-                    (currentActivity as? LendingList)?.beginLoading(VideLibriBaseActivityOld.LOADING_ACCOUNT_UPDATE)
+                    currentActivity<LendingList>()?.beginLoading(VideLibriBaseActivityOld.LOADING_ACCOUNT_UPDATE)
                     if (!runningUpdates.contains(acc))
                         runningUpdates.add(acc)
                 }
@@ -231,7 +235,7 @@ class VideLibriApp : Application(), Bridge.VideLibriContext {
                     runningUpdates.add(it)
             }
             if (!runningUpdates.isEmpty())
-                (currentActivity as? LendingList)?.beginLoading(VideLibriBaseActivityOld.LOADING_ACCOUNT_UPDATE)
+                currentActivity<LendingList>()?.beginLoading(VideLibriBaseActivityOld.LOADING_ACCOUNT_UPDATE)
             Bridge.VLBookOperation(books, Bridge.BOOK_OPERATION_RENEW)
         }
 
@@ -263,18 +267,44 @@ class VideLibriApp : Application(), Bridge.VideLibriContext {
             for (i in exceptions.indices) {
                 val ex = exceptions[i]
                 if (i != 0)
-                    Util.showMessage(ex.accountPrettyNames + ": " + ex.error)
-                else {
-                    when (ex.kind) {
-                        Bridge.PendingException.KIND_LOGIN -> {
-                            val more = Bundle()
-                            more.putString("lib", ex.firstAccountLib)
-                            more.putString("user", ex.firstAccountUser)
-                            Util.showMessage(DialogId.ERROR_LOGIN, ex.accountPrettyNames + ": " + ex.error, R.string.app_error_report_btn, R.string.ok, R.string.app_error_check_passwd_btn, more)
+                    showMessage(ex.accountPrettyNames + ": " + ex.error)
+                else showDialog {
+                    val msg = ex.accountPrettyNames + ": " + ex.error
+                    val sendErrorReport: (DialogInstance.() -> Unit)? = {
+                        val queries = VideLibriApp.errors.map { it.searchQuery }.filterNot { it.isNullOrEmpty() }.joinToString (separator = "\n") {
+                            q -> getString(R.string.app_error_searchedfor) + q
                         }
-                        Bridge.PendingException.KIND_INTERNET -> Util.showMessage(DialogId.ERROR_INTERNET, ex.accountPrettyNames + ": " + ex.error, R.string.app_error_report_btn, R.string.ok, R.string.app_error_check_internet_btn)
-                        Bridge.PendingException.KIND_UNKNOWN -> Util.showMessageYesNo(DialogId.ERROR_CONFIRM, ex.accountPrettyNames + ": " + ex.error + "\n\n" + Util.tr(R.string.app_error_report))
-                        else -> Util.showMessageYesNo(DialogId.ERROR_CONFIRM, ex.accountPrettyNames + ": " + ex.error + "\n\n" + Util.tr(R.string.app_error_report))
+                        startActivity<Feedback>(
+                                "message" to getString(R.string.app_error_anerror) + "\n" + queries + getString(R.string.app_error_needcontact)
+                        )
+                    }
+
+                    when (ex.kind) {
+                        Bridge.PendingException.KIND_LOGIN, Bridge.PendingException.KIND_INTERNET -> {
+                            message(ex.accountPrettyNames + ": " + ex.error)
+                            negativeButton(R.string.app_error_report_btn, sendErrorReport)
+                            neutralButton(R.string.ok)
+                            when (ex.kind) {
+                                Bridge.PendingException.KIND_LOGIN -> {
+                                    positiveButton(R.string.app_error_check_passwd_btn) {
+                                        startActivity<AccountInfo>(
+                                                "mode" to AccountInfo.MODE_ACCOUNT_MODIFY,
+                                                "account" to VideLibriApp.getAccount(ex.firstAccountLib, ex.firstAccountUser)
+                                        )
+                                    }
+                                }
+                                Bridge.PendingException.KIND_INTERNET -> {
+                                    positiveButton(R.string.app_error_check_internet_btn) {
+                                        currentContext()?.startActivity(Intent(android.provider.Settings.ACTION_WIRELESS_SETTINGS))
+                                    }
+                                }
+                            }
+                        }
+                        else -> {
+                            message(msg + "\n\n" + getString(R.string.app_error_report))
+                            yesButton(sendErrorReport)
+                            noButton()
+                        }
                     }
                 }
             }

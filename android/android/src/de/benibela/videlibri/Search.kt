@@ -1,6 +1,5 @@
 package de.benibela.videlibri
 
-import android.content.DialogInterface
 import android.content.Intent
 import android.graphics.Paint
 import android.os.Bundle
@@ -238,27 +237,22 @@ class Search: VideLibriBaseActivity(), SearchEventHandler{
 
     internal var debugTester: SearchDebugTester? = null
     fun activateHiddenDebugMode() {
-        Util.showMessage(DialogId.DEBUG_SEARCH_BEGIN, "You have activated the secret debug mode")
-    }
+        showDialog("You have activated the secret debug mode") {
+            onDismiss = {
+                showDialog("Do you want to search ALL libraries? ") {
+                    noButton()
+                    yesButton {
+                        withActivity<Search> {
+                            val book = Bridge.Book()
+                            book.title = findViewById<TextView>(R.id.title).text.toString()
+                            book.author = findViewById<TextView>(R.id.author).text.toString()
+                            debugTester = SearchDebugTester(book, libId)
+                        }
 
-
-    internal override fun onDialogResult(dialogId: Int, buttonId: Int, more: Bundle?): Boolean {
-        when (dialogId) {
-            DialogId.DEBUG_SEARCH_BEGIN -> {
-                Util.showMessageYesNo(DialogId.DEBUG_SEARCH_ALL, "Do you want to search ALL libraries? ")
-                return true
-            }
-            DialogId.DEBUG_SEARCH_ALL -> {
-                if (buttonId == DialogInterface.BUTTON_POSITIVE) {
-                    val book = Bridge.Book()
-                    book.title = findViewById<TextView>(R.id.title).text.toString()
-                    book.author = findViewById<TextView>(R.id.author).text.toString()
-                    debugTester = SearchDebugTester(book, libId)
+                    }
                 }
-                return true
             }
         }
-        return super.onDialogResult(dialogId, buttonId, more)
     }
 
 
@@ -294,7 +288,7 @@ internal class SearchDebugTester(var query: Bridge.Book, startId: String) {
         Log.i("VIDELIBRI", "============================================================")
         searcher = Bridge.SearcherAccess(libs[pos])
         searcher?.connect()
-        (VideLibriApp.currentActivity as? Search)?.apply {
+        withActivity<Search> {
             libId = libs[pos]
             libName = libs[pos]
             findViewById<TextView>(R.id.library).setText(libName)
@@ -339,7 +333,7 @@ internal class SearchDebugTester(var query: Bridge.Book, startId: String) {
 
     private fun endComplete() {
         searcher = null
-        (VideLibriApp.currentActivity as? Search)?.apply {
+        withActivity<Search> {
             endLoadingAll(VideLibriBaseActivityOld.LOADING_SEARCH_SEARCHING)
             debugTester = null
         }
