@@ -157,11 +157,6 @@ var
       nearTimeI, loggingZ, refreshIntervalI, roUserLibIdsAS: jfieldID;
     end;
 
-    //arrayListClass: jclass;
-    arrayListMethods: record
-      get, size: jmethodID;
-    end;
-
     globalStrings: record
       libraryBranch, isbn, category, status, renewCount, cancelable: jobject;
     end;
@@ -257,13 +252,11 @@ procedure Java_de_benibela_VideLibri_Bridge_VLInit(env:PJNIEnv; this:jobject; vi
       Locale_getDefault := getstaticmethod(LocaleClass, 'getDefault', '()Ljava/util/Locale;');
       Locale_getCountry := getmethod(LocaleClass, 'getCountry', '()Ljava/lang/String;');
       //Locale_getLanguage := getmethod(LocaleClass, 'getLanguage', '()Ljava/lang/String;');
-      locale := callStaticObjectMethod(LocaleClass, Locale_getDefault);
+      locale := callStaticObjectMethodChecked(LocaleClass, Locale_getDefault);
       if locale <> nil then begin;
-        country := callObjectMethod(locale, Locale_getCountry);
-        if country <> nil then begin
-          localeCountry := jStringToString(country);
-          deleteLocalRef(country);
-        end;
+        country := callObjectMethodChecked(locale, Locale_getCountry);
+        if country <> nil then
+          localeCountry := jStringToStringAndDelete(country);
         deleteLocalRef(locale);
       end;
       deleteLocalRef(LocaleClass);
@@ -271,7 +264,6 @@ procedure Java_de_benibela_VideLibri_Bridge_VLInit(env:PJNIEnv; this:jobject; vi
   end;
 
 var tempOkHttpBuild: TOkHttpBuildCallbackObject;
-  arrayListClass: jclass;
 begin
   if logging then bbdebugtools.log('de.benibela.VideLibri.Bride.VLInit (started)');
   needJ;
@@ -360,11 +352,6 @@ begin
       importExportDataFields.nativePtrJ := getfield(importExportDataClass, 'nativePtr', 'J');
       importExportDataFields.flagsI := getfield(importExportDataClass, 'flags', 'I');
       importExportDataFields.accountsToImportAL := getfield(importExportDataClass, 'accountsToImport', '[Ljava/lang/String;');
-
-      arrayListClass := getclass('java/util/ArrayList');
-      arrayListMethods.get := getmethod(arrayListClass, 'get', '(I)Ljava/lang/Object;');
-      arrayListMethods.size := getmethod(arrayListClass, 'size', '()I');
-      deleteLocalRef(arrayListClass);
 
       callbacks := TCallbackHolderAndroid;
 
@@ -701,7 +688,7 @@ begin
     beginAssetRead;
 
     path := j.stringToJString('libraries/templates');
-    list:= j.callObjectMethodChecked(assets, j.getmethod('android/content/res/AssetManager', 'list', '(Ljava/lang/String;)[Ljava/lang/String;'), @path);
+    list:= j.callObjectMethodChecked(assets, j.getmethod(jCommonClasses.android.AssetManager.classRef, 'list', '(Ljava/lang/String;)[Ljava/lang/String;'), @path);
     j.deleteLocalRef(path);
 
     endAssetRead;
@@ -719,7 +706,7 @@ begin
 
     libraryManager.enumerateUserTemplates(templates);
 
-    result := j.newObjectArray(templates.Count, j.getclass('java/lang/String'), nil);
+    result := j.newObjectArray(templates.Count, jCommonClasses.&String.classRef, nil);
     for i := 0 to templates.count - 1 do
       j.setObjectArrayElement(result, i, j.stringToJString(templates[i]));
 
@@ -1042,13 +1029,13 @@ begin
     result.firstExistsDate := getIntField(jbook, firstExistsDateI);
     more := getObjectField(jbook, additionalPropertiesL);
     if more <> nil then begin
-      size := callIntMethodChecked(more, arrayListMethods.size);
+      size := callIntMethodChecked(more, jCommonClasses.ArrayList.size);
       iv.i := 0;
       while iv.i < size do begin
-        key := callObjectMethod(more, arrayListMethods.get, @iv);
+        key := callObjectMethod(more, jCommonClasses.ArrayList.get_I, @iv);
         inc(iv.i);
         if iv.i >= size then break;
-        value := callObjectMethod(more, arrayListMethods.get, @iv);
+        value := callObjectMethod(more, jCommonClasses.ArrayList.get_I, @iv);
         inc(iv.i);
         result.setProperty(jStringToStringAndDelete(key), jStringToStringAndDelete(value));
       end;
@@ -1981,7 +1968,7 @@ begin
 
     j.SetLongField(result, importExportDataFields.nativePtrJ, ptrint(parser));
 
-    jaccounts := j.newObjectArray(length(accounts), j.getclass('java/lang/String'), nil);
+    jaccounts := j.newObjectArray(length(accounts), jCommonClasses.&String.classRef, nil);
     for i := 0 to high(accounts) do
       j.setObjectArrayElement(jaccounts, i, j.NewStringUTF(accounts[i]));
     j.SetObjectField(result, importExportDataFields.accountsToImportAL, jaccounts);
