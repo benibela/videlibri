@@ -89,10 +89,15 @@ public class Bridge {
             this.history = history;
             this.lastCheckDate = lastCheckDate;
         }
+        @Override
         public boolean equals(Object o) {
             if (!(o instanceof Account)) return false;
             Account a = (Account) o;
-            return  Util.equalStrings(a.libId, libId) && Util.equalStrings(a.prettyName, prettyName);
+            return  Util.equalStrings(a.libId, libId) && Util.equalStrings(a.name, name);
+        }
+        @Override
+        public int hashCode() {
+            return libId.hashCode() ^ name.hashCode();
         }
     }
 

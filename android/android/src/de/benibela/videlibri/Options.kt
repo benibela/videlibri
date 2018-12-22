@@ -98,7 +98,7 @@ class Options : VideLibriBaseActivity() {
             cpm.beginCat("accounts")
 
             var summary = getString(R.string.lay_options_label_accounts_summary)
-            VideLibriApp.accounts?.forEach {acc ->
+            accounts.forEach {acc ->
                 cpm.makePreference(acc.prettyName, summary, Preference.OnPreferenceClickListener {
                     startActivity<AccountInfo>(
                             "mode" to AccountInfo.MODE_ACCOUNT_MODIFY,

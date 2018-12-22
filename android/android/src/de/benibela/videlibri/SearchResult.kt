@@ -225,7 +225,7 @@ class SearchResult : BookListActivity(), SearchEventHandler {
 
     fun onOrderComplete(book: Bridge.Book) {
         Util.showMessage(tr(R.string.search_orderedokS, book.title, book.getProperty("status")))
-        VideLibriApp.refreshDisplayedLendBooks()
+        LendingList.refreshDisplayedLendBooks()
         searcher?.let { searcher ->
             searcher.orderingAccount?.let {
                 VideLibriApp.updateAccount(it, false, false) //full update, so the book is only shown if it worked, and canceling work
@@ -269,7 +269,7 @@ class SearchResult : BookListActivity(), SearchEventHandler {
         if (searcher == null) return
         book.setProperty("choosenOrder", "" + choosenOrder)
         val matchingAccounts = ArrayList<Bridge.Account>()
-        VideLibriApp.accounts?.forEach { acc ->
+        accounts.forEach { acc ->
             if (acc.libId == libId && acc.name != "")
                 matchingAccounts.add(acc)
         }
@@ -305,7 +305,7 @@ class SearchResult : BookListActivity(), SearchEventHandler {
     fun orderBookHolding(book: Bridge.Book, choosenHolding: Int) {
         if (searcher == null) return
         val matchingAccounts = ArrayList<Bridge.Account>()
-        VideLibriApp.accounts?.forEach { acc ->
+        accounts.forEach { acc ->
             if (acc.libId == libId && acc.name != "")
                 matchingAccounts.add(acc)
         }

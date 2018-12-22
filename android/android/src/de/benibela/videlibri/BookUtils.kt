@@ -131,13 +131,12 @@ private fun compareForKey(book: Bridge.Book?, book2: Bridge.Book?, key: String):
 
 
 fun makePrimaryBookCache(addHistoryStart: Boolean,
-                         renewableOnly: Boolean,
-                         hiddenAccounts: List<Bridge.Account> ): ArrayList<Bridge.Book> {
+                         renewableOnly: Boolean): ArrayList<Bridge.Book> {
     val addHistory = addHistoryStart && !renewableOnly //history is not renewable
     val bookCache = ArrayList<Bridge.Book>()
-    VideLibriApp.accounts?.let { accounts ->
+    accounts.let { accounts ->
         for (facc in accounts) {
-            if (hiddenAccounts.contains(facc))
+            if (facc.isHidden)
                 continue
             val books: Array<Bridge.Book> = Bridge.VLGetBooks(facc, false) ?: continue
             if (!renewableOnly) {

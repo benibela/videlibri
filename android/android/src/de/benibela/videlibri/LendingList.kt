@@ -49,7 +49,7 @@ class LendingList: BookListActivity(){
         })
 
 
-        if (VideLibriApp.accounts?.isNotEmpty() == true) {
+        if (accounts.isNotEmpty()) {
             displayAccounts()
             VideLibriApp.updateAccount(null, true, false)
         }
@@ -75,14 +75,14 @@ class LendingList: BookListActivity(){
 
         //setTitle("Ausleihen");  //does not work in onCreate (why? makes the title invisible) No. it just works sometimes?
 
-        if (VideLibriApp.accounts.isNullOrEmpty()) {
+        if (accounts.isEmpty()) {
             val v: View? = findViewById(R.id.layout)?:findViewById(R.id.booklistview) //need an arbitrary view. Depends on landscape/portrait, which is there
             v?.postDelayed({
                 startActivity<AccountInfo>("mode" to AccountInfo.MODE_ACCOUNT_CREATION_INITIAL)
             }, 400)
         }
 
-        if (!VideLibriApp.runningUpdates.isEmpty()) beginLoading(VideLibriBaseActivityOld.LOADING_ACCOUNT_UPDATE)
+        if (accounts.filterWithRunningUpdate().isNotEmpty()) beginLoading(VideLibriBaseActivityOld.LOADING_ACCOUNT_UPDATE)
         if (!cacheShown)
             displayBookCache()
 
@@ -111,7 +111,6 @@ class LendingList: BookListActivity(){
     private fun updateAccountView() {
         updateViewFilters()
         if (displayHistoryActually != (displayHistory || alwaysFilterOnHistory && filterActually.isNotEmpty())
-                || hiddenAccounts != hiddenAccountsActually
                 || displayOptions != displayOptionsActually
                 || displayForcedCounterActually != displayForcedCounter
         ) {
@@ -127,11 +126,8 @@ class LendingList: BookListActivity(){
         displayHistoryActually = displayHistory || alwaysFilterOnHistory && filterActually.isNotEmpty()
         displayOptionsActually = displayOptions.copy()
         displayForcedCounterActually = displayForcedCounter
-        hiddenAccountsActually.clear()
-        hiddenAccountsActually.addAll(hiddenAccounts)
 
-
-        primaryBookCache = makePrimaryBookCache(displayHistoryActually, false, hiddenAccounts)
+        primaryBookCache = makePrimaryBookCache(displayHistoryActually, false)
         refreshBookCache()
 
         if (VideLibriApp.mainIcon != currentMainIcon) {
@@ -192,11 +188,12 @@ class LendingList: BookListActivity(){
                 else
                     resources.getQuantityString(R.plurals.main_bookcountPluralD, bookCount, bookCount)
             }
-        if (!hiddenAccounts.isEmpty()) VideLibriApp.accounts?.let { accounts ->
-            val shownAccounts = accounts.size - hiddenAccounts.size
+        val hiddenCount = accounts.filterHidden().size
+        if (hiddenCount > 0) {
+            val shownAccounts = accounts.size - hiddenCount
             if (shownAccounts == 1) {
                 for (account in accounts)
-                    if (!hiddenAccounts.contains(account)) {
+                    if (account.isShown) {
                         title += ", " + account.prettyName
                         break
                     }
@@ -220,11 +217,11 @@ class LendingList: BookListActivity(){
 
     override fun setOptionMenuVisibility(menu: Menu?) {
         super.setOptionMenuVisibility(menu)
-        val hasAccounts = VideLibriApp.accounts?.isNotEmpty() ?: false
+        val hasAccounts = accounts.isNotEmpty()
 
         menu?.forItems {
             it.isVisible = when (it.itemId) {
-                R.id.refresh -> VideLibriApp.runningUpdates.isEmpty()
+                R.id.refresh -> accounts.filterWithRunningUpdate().isEmpty()
                 R.id.filter, R.id.renew, R.id.renewlist -> hasAccounts
                 R.id.research_menu -> hasAccounts && detailsVisible()
                 R.id.delete -> hasAccounts && detailsVisible() && details.book?.history == true
@@ -236,8 +233,8 @@ class LendingList: BookListActivity(){
     override fun onOptionsItemIdSelected(id: Int): Boolean {
         when (id) {
             R.id.account_information -> {
-                val info = if (VideLibriApp.accounts.isNullOrEmpty()) getString(R.string.main_no_accounts)
-                           else VideLibriApp.accounts?.joinToString (
+                val info = if (accounts.isEmpty()) getString(R.string.main_no_accounts)
+                           else accounts.joinToString (
                               separator = "\n\n",
                               transform = { "${it.prettyName}:\n${tr(R.string.main_last_refreshS, BookFormatter.formatDateFull(it.lastCheckDate))}" }
                            )
@@ -268,7 +265,7 @@ class LendingList: BookListActivity(){
                 showMessageYesNo(getString(R.string.delete_book_confirmS, book.title)) {
                     Bridge.VLChangeBook(book, null)
                     showToast(R.string.delete_book_confirmed)
-                    VideLibriApp.refreshDisplayedLendBooks()
+                    LendingList.refreshDisplayedLendBooks()
                 }
             }
             else -> return super.onOptionsItemIdSelected(id)
@@ -282,8 +279,6 @@ class LendingList: BookListActivity(){
     private var displayHistoryActually = false
     private var filterActually: String = ""
     private var filterIsMultiLine: Boolean = false
-    private val hiddenAccountsActually = ArrayList<Bridge.Account>()
-
 
     override fun onBookActionButtonClicked(book: Bridge.Book) {
         when (book.status) {
@@ -328,7 +323,6 @@ class LendingList: BookListActivity(){
         internal lateinit var view: View
         override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
             val activity = activity ?: return Dialog(VideLibriApp.currentContext())
-            val accounts = VideLibriApp.accounts ?: return Dialog(VideLibriApp.currentContext())
             val builder = AlertDialog.Builder(activity)
             val inflater = activity.layoutInflater
             view = inflater.inflate(R.layout.options_lendings, null)
@@ -341,29 +335,16 @@ class LendingList: BookListActivity(){
                 val acc = v.tag as Bridge.Account?
                 val b = (v as? CompoundButton)?.isChecked ?: return@OnClickListener
                 if (acc == null) {
-                    if (b)
-                        LendingList.hiddenAccounts.clear()
-                    else
-                        LendingList.hiddenAccounts = ArrayList(Arrays.asList<Bridge.Account>(*accounts))
+                    if (b) accounts.showAll()
+                    else accounts.hideAll()
                     for (cb in switchboxes) cb.isChecked = b
-                } else {
-                    if (!b == LendingList.hiddenAccounts.contains(acc)) return@OnClickListener
-                    if (!b)
-                        LendingList.hiddenAccounts.add(acc)
-                    else
-                        LendingList.hiddenAccounts.remove(acc)
-                }
+                } else acc.isHidden = !b
             }
             val accountClickListener = object : View.OnClickListener {
                 override fun onClick(v: View) {
                     val acc = v.tag as Bridge.Account?
-                    if (acc == null) {
-                        LendingList.hiddenAccounts.clear()
-                    } else {
-                        LendingList.hiddenAccounts.clear()
-                        for (acc2 in accounts)
-                            if (acc != acc2) LendingList.hiddenAccounts.add(acc2)
-                    }
+                    if (acc == null) accounts.showAll()
+                    else acc.showAlone();
                     dialog.findViewById<CompoundButton>(R.id.viewHistory).isChecked = v.id == R.id.buttonforhistory
                     dialog.cancel()
                 }
@@ -373,7 +354,7 @@ class LendingList: BookListActivity(){
                 val acc = if (i == -1) null else accounts[i]
                 val group = inflater.inflate(R.layout.options_lendings_accountrow, null)
                 val sb: CompoundButton = group.findViewById<CompoundButton>(R.id.switchbox).apply {
-                    isChecked = if (acc == null) LendingList.hiddenAccounts.size <= accounts.size / 2 else !LendingList.hiddenAccounts.contains(acc)
+                    isChecked = if (acc == null) accounts.filterHidden().size <= accounts.size / 2 else !acc.isHidden
                     tag = acc
                     isSaveEnabled = false
                     setOnClickListener(accountCheckListener)
@@ -484,7 +465,6 @@ class LendingList: BookListActivity(){
 
 
     companion object {
-        @JvmField var hiddenAccounts = ArrayList<Bridge.Account>()
         internal var displayForcedCounter = 1
         @JvmField var displayHistory = false
         @JvmStatic fun refreshDisplayedLendBooks() {

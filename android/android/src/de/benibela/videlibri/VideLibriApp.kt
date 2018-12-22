@@ -61,20 +61,18 @@ class VideLibriApp : Application(), Bridge.VideLibriContext {
         }
 
 
-
-        Bridge.initialize(this)
-        refreshAccountList()
+        initializeBridge()
 
         Bridge.allThreadsDoneHandler = @SuppressLint("HandlerLeak")
         object : Handler() {
             override fun handleMessage(msg: Message) {
                 mainIconCache = 0
-                VideLibriApp.runningUpdates.clear()
+                accounts.allUpdatesComplete()
                 NotificationScheduling.onUpdateComplete()
 
                 withActivity<LendingList> {endLoadingAll(VideLibriBaseActivityOld.LOADING_ACCOUNT_UPDATE)}
 
-                VideLibriApp.refreshDisplayedLendBooks()
+                LendingList.refreshDisplayedLendBooks()
 
                 //displayed account has an icon cache, so displayAccount needs to be called before updateNotification
                 Notifier.updateNotification(currentActivity)
@@ -153,62 +151,17 @@ class VideLibriApp : Application(), Bridge.VideLibriContext {
             return currentActivity ?: instance.applicationContext
         }
 
-        @JvmField var accounts: Array<Bridge.Account>? = null
-        internal var accountUpdateCounter = 0
+
 
         @JvmField var errors = ArrayList<Bridge.PendingException>()
 
         @JvmField internal var pendingDialogs = ArrayList<Bundle>()
 
-        @JvmStatic fun addAccount(acc: Bridge.Account) {
-            Bridge.VLAddAccount(acc)
-            refreshAccountList()
-            updateAccount(acc, false, false)
-        }
 
-        @JvmStatic fun deleteAccount(acc: Bridge.Account?) {
-            if (acc == null) return
-            Bridge.VLDeleteAccount(acc)
-            if (LendingList.hiddenAccounts.contains(acc)) LendingList.hiddenAccounts.remove(acc)
-            refreshAccountList()
-            refreshDisplayedLendBooks()
-        }
-
-        @JvmStatic fun changeAccount(old: Bridge.Account, newacc: Bridge.Account) {
-            Bridge.VLChangeAccount(old, newacc)
-            if (LendingList.hiddenAccounts.contains(old)) {
-                LendingList.hiddenAccounts.remove(old)
-                LendingList.hiddenAccounts.add(newacc)
-            }
-            refreshAccountList()
-            updateAccount(newacc, false, false)
-        }
-
-        @JvmStatic fun refreshAccountList() {
-            accountUpdateCounter++
-            accounts = Bridge.VLGetAccounts()
-        }
-
-        @JvmStatic fun refreshDisplayedLendBooks() {
-            LendingList.refreshDisplayedLendBooks()
-        }
-
-
-        @JvmStatic fun getAccount(libId: String, userName: String): Bridge.Account? {
-            accounts?.forEach { acc ->
-                if (acc.libId == libId && acc.name == userName)
-                    return acc
-            }
-            return null
-        }
-
-
-        @JvmField var runningUpdates: MutableList<Bridge.Account> = ArrayList()
 
         internal var updateWakeLock: PowerManager.WakeLock? = null
         @JvmStatic fun updateAccount(acc: Bridge.Account?, autoUpdate: Boolean, forceExtend: Boolean) {
             if (acc == null) {
-                if (accounts == null) refreshAccountList()
                 if (updateWakeLock == null)
                     (currentContext()?.getSystemService(Context.POWER_SERVICE) as PowerManager?)?.apply {
                         newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "videlibri:updateLock").apply {
@@ -218,23 +171,19 @@ class VideLibriApp : Application(), Bridge.VideLibriContext {
                         }
                         Log.i("VideLibri", "Acquired wakelock")
                     }
-                accounts?.forEach { updateAccount(it, autoUpdate, forceExtend) }
-            } else if (acc.name.isNotEmpty() || acc.pass.isNotEmpty()) { //not search only account
+                accounts.forEach { updateAccount(it, autoUpdate, forceExtend) }
+            } else if (acc.isReal) { //not search only account
                 if (Bridge.VLUpdateAccount(acc, autoUpdate, forceExtend)) {
                     currentActivity<LendingList>()?.beginLoading(VideLibriBaseActivityOld.LOADING_ACCOUNT_UPDATE)
-                    if (!runningUpdates.contains(acc))
-                        runningUpdates.add(acc)
+                    acc.isUpdating = true
                 }
             }
         }
 
 
         @JvmStatic fun renewBooks(books: Array<Bridge.Book>) {
-            for (book in books) book.account?.let {
-                if (!runningUpdates.contains(it))
-                    runningUpdates.add(it)
-            }
-            if (!runningUpdates.isEmpty())
+            for (book in books) book.account?.isUpdating = true
+            if (accounts.filterWithRunningUpdate().isNotEmpty())
                 currentActivity<LendingList>()?.beginLoading(VideLibriBaseActivityOld.LOADING_ACCOUNT_UPDATE)
             Bridge.VLBookOperation(books, Bridge.BOOK_OPERATION_RENEW)
         }
@@ -243,14 +192,12 @@ class VideLibriApp : Application(), Bridge.VideLibriContext {
         @JvmStatic fun newSearchActivity() {
             val intent = Intent(instance, Search::class.java)
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-            accounts?.let { accounts ->
-                val libId = accounts[0].libId
-                intent.putExtra("libId", libId)
-                val tempLib = Bridge.VLGetLibraryDetails(accounts[0].libId)
-                intent.putExtra("libName", tempLib?.prettyName)
-                if (accounts.any { it -> libId != it.libId})
-                    intent.putExtra("showLibList", true)
-            }
+            val libId = accounts[0].libId
+            intent.putExtra("libId", libId)
+            val tempLib = Bridge.VLGetLibraryDetails(accounts[0].libId)
+            intent.putExtra("libName", tempLib?.prettyName)
+            if (accounts.any { it -> libId != it.libId})
+                intent.putExtra("showLibList", true)
             instance.startActivity(intent)
         }
 
@@ -289,7 +236,7 @@ class VideLibriApp : Application(), Bridge.VideLibriContext {
                                     positiveButton(R.string.app_error_check_passwd_btn) {
                                         startActivity<AccountInfo>(
                                                 "mode" to AccountInfo.MODE_ACCOUNT_MODIFY,
-                                                "account" to VideLibriApp.getAccount(ex.firstAccountLib, ex.firstAccountUser)
+                                                "account" to accounts.get(ex.firstAccountLib, ex.firstAccountUser)
                                         )
                                     }
                                 }
@@ -334,7 +281,9 @@ class VideLibriApp : Application(), Bridge.VideLibriContext {
         }
 
         @JvmStatic fun initializeBridge() {
+            if (Bridge.initialized) return
             Bridge.initialize(instance)
+            accounts.refreshAll()
         }
     }
 

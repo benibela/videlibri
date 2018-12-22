@@ -148,7 +148,7 @@ public class ImportExport extends VideLibriBaseActivity {
             setTextViewText(R.id.textView, tr(R.string.import_accounts));
             setTextViewText(R.id.textView1, tr(R.string.import_properties));
             setTextViewText(R.id.textView2, tr(R.string.import_file));
-            if (VideLibriApp.runningUpdates.size() > 0) {
+            if (Accounts.INSTANCE.filterWithRunningUpdate().size() > 0) {
                 Util.showMessage(DialogId.IMPORTEXPORT_DONE, tr(R.string.import_not_while_update_runs));
                 return;
             }
@@ -224,10 +224,9 @@ public class ImportExport extends VideLibriBaseActivity {
                                 data.accountsToImport[i] = choosen.get(i);
                             data.flags = flags;
                             Bridge.VLImportAccounts(data);
-                            VideLibriApp.refreshAccountList();
-                            VideLibriApp.refreshDisplayedLendBooks();
+                            Accounts.INSTANCE.refreshAll();
                             boolean hasEmptyPass = false;
-                            for (Bridge.Account acc: VideLibriApp.accounts)
+                            for (Bridge.Account acc: Accounts.INSTANCE.getToArray())
                                 if (!Util.isEmptyString(acc.name) && Util.isEmptyString(acc.pass)) hasEmptyPass = true;
                             Util.showMessage(DialogId.IMPORTEXPORT_DONE, tr( hasEmptyPass ? R.string.import_done_has_empty_pass : R.string.import_done));
                             data = null;

@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.os.Build;
 import android.support.v4.app.NotificationCompat;
 
+import de.benibela.videlibri.Accounts;
 import de.benibela.videlibri.LendingList;
 import de.benibela.videlibri.R;
 import de.benibela.videlibri.Util;
@@ -23,9 +24,7 @@ public class Notifier {
     static private final String DUEDATE_CHANNEL = "duedate";
 
     static private String [] getNotifications(Context context){
-        if (VideLibriApp.accounts == null) VideLibriApp.refreshAccountList();
-
-        if (VideLibriApp.accounts.length == 0) return new String[] {
+        if (Accounts.INSTANCE.size() == 0) return new String[] {
                 Util.tr(context, R.string.notificationNoAccountsTitle),
                 Util.tr(context, R.string.notificationNoAccounts)
         };

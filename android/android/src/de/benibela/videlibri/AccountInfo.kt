@@ -31,7 +31,7 @@ class AccountInfo : VideLibriBaseActivity() {
     private lateinit var accountPrettyName: EditText
 
     private val oldAccount: Bridge.Account
-        get() = intent.getSerializableExtra("account") as? Bridge.Account ?: VideLibriApp.accounts?.getOrNull(0) ?: Bridge.Account()
+        get() = intent.getSerializableExtra("account") as? Bridge.Account ?: accounts.toArray[0] ?: Bridge.Account()
     private val accountAutoExtend: Boolean
         get() = findViewById<CheckBox>(R.id.autoExtendButton).isChecked
     private val accountAutoExtendDays: Int
@@ -175,7 +175,7 @@ class AccountInfo : VideLibriBaseActivity() {
                 setActiveLibrary(LibraryListOld.lastSelectedLibId) ?: return
                 accountPrettyName.setText(libshortname)
             } else if (libdetails == null)
-                if (mode == MODE_ACCOUNT_CREATION_INITIAL && VideLibriApp.accounts.isNullOrEmpty()) {
+                if (mode == MODE_ACCOUNT_CREATION_INITIAL && accounts.isNullOrEmpty()) {
                 }//    updateLibrary();
                 else
                     finish()
@@ -184,18 +184,18 @@ class AccountInfo : VideLibriBaseActivity() {
 
     private fun addAccountNow() {
         inputToAccount()?.let {
-            VideLibriApp.addAccount(it)
+            accounts.add(it)
             finishWithResult()
         }
     }
     private fun changeAccountNow() {
         inputToAccount()?.let {
-            VideLibriApp.changeAccount(oldAccount, it)
+            accounts.change(oldAccount, it)
             finishWithResult()
         }
     }
     private fun deleteAccountNow() {
-        VideLibriApp.deleteAccount(oldAccount)
+        accounts.delete(oldAccount)
         finishWithResult()
     }
 

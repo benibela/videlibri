@@ -48,7 +48,7 @@ public class LibraryListOld extends VideLibriBaseActivity {
         states.clear(); cities.clear(); localLibs.clear();
 
         int autoExpand = 0;
-        if (VideLibriApp.accounts != null && VideLibriApp.accounts.length > 0) {
+        if (Accounts.INSTANCE.size() > 0) {
             autoExpand = 1;
             ArrayList<String> used = new ArrayList<>();
             states.add(tr(R.string.liblist_withaccounts));
@@ -56,7 +56,7 @@ public class LibraryListOld extends VideLibriBaseActivity {
             cities.get(0).add(tr(R.string.liblist_withaccounts));
             localLibs.add(new ArrayList<List<Map<String,String>>>());
             localLibs.get(0).add(new ArrayList<Map<String, String>>());
-            for (Bridge.Account account: VideLibriApp.accounts) {
+            for (Bridge.Account account: Accounts.INSTANCE.getToArray()) {
                 if (used.contains(account.libId)) continue;
                 used.add(account.libId);
 
@@ -122,7 +122,7 @@ public class LibraryListOld extends VideLibriBaseActivity {
 
         View whynot = findViewById(R.id.textViewLibWhyNot);
         if (whynot == null) return;
-        if (VideLibriApp.accounts != null && VideLibriApp.accounts.length > 0) whynot.setVisibility(View.GONE);
+        if (Accounts.INSTANCE.size() > 0) whynot.setVisibility(View.GONE);
         else whynot.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

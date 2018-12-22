@@ -10,6 +10,7 @@ import android.os.Build
 import android.os.Handler
 import android.support.annotation.RequiresApi
 import android.util.Log
+import de.benibela.videlibri.Accounts
 import de.benibela.videlibri.VideLibriApp
 import de.benibela.videlibri.notifications.NotificationScheduling
 import de.benibela.videlibri.notifications.Notifier
@@ -29,7 +30,7 @@ class NotificationJobService: JobService() {
         VideLibriApp.updateAccount(null, true, false)
         Notifier.updateNotification(this)
 
-        if (VideLibriApp.runningUpdates.isEmpty())
+        if (Accounts.filterWithRunningUpdate().isEmpty())
             return false
 
         //Log.d("VIDELIBRI JOB", "onStartJob!! pending")

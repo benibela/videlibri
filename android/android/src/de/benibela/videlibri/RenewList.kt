@@ -49,7 +49,7 @@ class RenewList : BookListActivity() {
         displayOptions.readFromPreferences(sp)
         displayOptions.filterKey = ""
         val oldSelection = selectedBooks
-        bookCache = makePrimaryBookCache(false, true, LendingList.hiddenAccounts)
+        bookCache = makePrimaryBookCache(false, true)
         truecount = bookCache.size
         bookCache = displayOptions.let { filterToSecondaryBookCache(bookCache, it.groupingKey, it.sortingKey, "", "") }
         val newSelection = ArrayList<Bridge.Book>(selectedBooks?.size?:0)
