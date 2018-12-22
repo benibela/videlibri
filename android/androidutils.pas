@@ -2185,7 +2185,7 @@ var
 begin
   stream := TStringAsMemoryStream.Create(data);
   result := TIniFile.Create(stream);
-  stream.free;
+  //stream.free;
 end;
 
 end.
