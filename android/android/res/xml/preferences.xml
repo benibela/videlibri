@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+<android.support.v7.preference.PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <PreferenceCategory android:title="@string/lay_options_caption_displayoptions">
 
@@ -13,18 +13,18 @@
             android:summary="@string/lay_options_label_filtering_summary"
             />
 
-        <CheckBoxPreference
+        <SwitchPreferenceCompat
             android:defaultValue="true"
             android:key="alwaysFilterOnHistory"
             android:summaryOn="@string/lay_options_filter_search_in_history_summary_on"
             android:summaryOff="@string/lay_options_filter_search_in_history_summary_off"
             android:title="@string/lay_options_filter_search_in_history" />
-        <CheckBoxPreference
+        <SwitchPreferenceCompat
             android:defaultValue="false"
             android:key="noLendBookDetails"
             android:summaryOn="@string/lay_options_option_onlytitles_summary_on"
             android:title="@string/lay_options_option_onlytitles" />
-        <CheckBoxPreference
+        <SwitchPreferenceCompat
             android:defaultValue="true"
             android:key="showRenewCount"
             android:summaryOn="@string/lay_show_renewcount_summary_on"
@@ -34,7 +34,7 @@
     <PreferenceCategory android:title="@string/lay_options_caption_accountchange" android:key="accounts">
     </PreferenceCategory>
     <PreferenceCategory android:title="@string/lay_options_caption_notifications">
-        <CheckBoxPreference
+        <SwitchPreferenceCompat
             android:defaultValue="true"
             android:key="notifications"
             android:title="@string/lay_options_option_warn"
@@ -78,17 +78,17 @@
             android:summary="@string/lay_options_label_language_summary"
             />
 
-
-        <CheckBoxPreference
+        <SwitchPreferenceCompat
             android:defaultValue="false"
             android:key="bridge_logging"
             android:summaryOn="@string/lay_options_option_debuglog_summary_on"
             android:title="@string/lay_options_option_debuglog" />
 
-        <CheckBoxPreference android:key="acra.syslog.enable"
+        <SwitchPreferenceCompat
+            android:key="acra.syslog.enable"
             android:summaryOn="@string/lay_options_option_includelog_summary_on"
             android:title="@string/lay_options_option_includelog"
             android:defaultValue="false"/>
     </PreferenceCategory>
 
-</PreferenceScreen>
+</android.support.v7.preference.PreferenceScreen>
