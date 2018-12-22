@@ -13,7 +13,6 @@ import android.preference.PreferenceManager
 import android.support.v4.app.ActivityCompat
 import android.support.v4.content.ContextCompat
 import android.text.Editable
-import android.text.TextWatcher
 import android.view.*
 import android.widget.Button
 import android.widget.CompoundButton
@@ -113,7 +112,7 @@ class LendingList: BookListActivity(){
 
     private fun updateAccountView() {
         updateViewFilters()
-        if (displayHistoryActually != (displayHistory || alwaysFilterOnHistory && !Util.isEmptyString(filterActually))
+        if (displayHistoryActually != (displayHistory || alwaysFilterOnHistory && filterActually.isNotEmpty())
                 || hiddenAccounts != hiddenAccountsActually
                 || displayOptions != displayOptionsActually
                 || displayForcedCounterActually != displayForcedCounter
@@ -127,7 +126,7 @@ class LendingList: BookListActivity(){
 
     var primaryBookCache = ArrayList<Bridge.Book>()
     fun displayAccounts() {
-        displayHistoryActually = displayHistory || alwaysFilterOnHistory && !Util.isEmptyString(filterActually)
+        displayHistoryActually = displayHistory || alwaysFilterOnHistory && filterActually.isNotEmpty()
         displayOptionsActually = displayOptions.copy()
         displayForcedCounterActually = displayForcedCounter
         hiddenAccountsActually.clear()
@@ -397,7 +396,7 @@ class LendingList: BookListActivity(){
             builder.setView(view)
             builder.setOnCancelListener(this)
             val d = builder.create()
-            d.window?.setGravity(Gravity.RIGHT or Gravity.TOP)
+            d.window?.setGravity(Gravity.END or Gravity.TOP)
             return d
         }
 
@@ -442,10 +441,10 @@ class LendingList: BookListActivity(){
                 filters.add(0, filterActually)
                 val filtersJson = JSONArray()
                 for (s in filters) filtersJson.put(s)
-                val sp = PreferenceManager.getDefaultSharedPreferences(this)
-                val editor = sp.edit()
-                editor.putString("filterHistory", filtersJson.toString())
-                editor.commit()
+                PreferenceManager.getDefaultSharedPreferences(this).edit().let {
+                    it.putString("filterHistory", filtersJson.toString())
+                    it.apply()
+                }
             }
             R.id.clear -> {
                 findViewById<EditText>(R.id.searchFilter).setText("")
