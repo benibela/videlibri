@@ -22,7 +22,11 @@ fun showToast(@StringRes message: Int) =
 
 fun getString(@StringRes message: Int): String? = Util.tr(message)
 
-internal typealias DialogEvent = (DialogInstance.() -> Unit)
+internal typealias DialogEvent = (DialogInstance.(Util.DialogFragmentUtil) -> Unit)
+internal typealias DialogInitEvent = (DialogInstance.() -> Unit)
+internal typealias InputDialogEvent = (DialogInstance.(text: String) -> Unit)
+
+//default dialogs, no customization, optional lambda argument is called after dialog completion (thus it MUST NOT LEAK)
 
 fun showMessage(
         message: String? = null,
@@ -45,6 +49,27 @@ fun showMessageYesNo(
         onYes: DialogEvent
 ) = showMessageYesNo(getString(message), null, onYes)
 
+fun showInputDialog(
+        message: String? = null,
+        title: String? = null,
+        default: String? = null,
+        onResult: InputDialogEvent? = null
+) = showDialog(message, title) {
+    args.putString("editTextDefault", default)
+    args.putInt("special", DialogId.SPECIAL_INPUT_DIALOG)
+    okButton { fragment ->
+        onResult?.invoke(this, fragment.edit?.text?.toString() ?: "")
+    }
+}
+fun showInputDialog(
+        @StringRes message: Int,
+        title: String? = null,
+        default: String? = null,
+        onResult: InputDialogEvent? = null
+) = showInputDialog(getString(message), title, default, onResult)
+
+
+//Customizable dialog, lambda runs before dialog creation
 
 fun showDialog(
         message: String? = null,
@@ -54,7 +79,7 @@ fun showDialog(
         neutral: String? = null,
         positive: String? = null,
         more: Bundle? = null,
-        init: DialogEvent? = null
+        init: DialogInitEvent? = null
 ) {
     val args = android.os.Bundle()
     args.putInt("id", dialogId)
@@ -126,11 +151,11 @@ data class DialogInstance (
             if (instanceId < 0) return
             dialogInstances.get(instanceId)?.apply {
                 when (button) {
-                    DialogInterface.BUTTON_NEGATIVE -> onNegativeButton?.invoke(this)
-                    DialogInterface.BUTTON_NEUTRAL -> onNeutralButton?.invoke(this)
-                    DialogInterface.BUTTON_POSITIVE -> onPositiveButton?.invoke(this)
+                    DialogInterface.BUTTON_NEGATIVE -> onNegativeButton?.invoke(this, dialogFragment)
+                    DialogInterface.BUTTON_NEUTRAL -> onNeutralButton?.invoke(this, dialogFragment)
+                    DialogInterface.BUTTON_POSITIVE -> onPositiveButton?.invoke(this, dialogFragment)
                 }
-                onDismiss?.invoke(this)
+                onDismiss?.invoke(this, dialogFragment)
                 dialogInstances.remove(instanceId)
             }
         }

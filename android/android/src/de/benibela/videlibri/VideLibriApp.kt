@@ -270,7 +270,7 @@ class VideLibriApp : Application(), Bridge.VideLibriContext {
                     showMessage(ex.accountPrettyNames + ": " + ex.error)
                 else showDialog {
                     val msg = ex.accountPrettyNames + ": " + ex.error
-                    val sendErrorReport: (DialogInstance.() -> Unit)? = {
+                    val sendErrorReport: DialogEvent = {
                         val queries = VideLibriApp.errors.map { it.searchQuery }.filterNot { it.isNullOrEmpty() }.joinToString (separator = "\n") {
                             q -> getString(R.string.app_error_searchedfor) + q
                         }

@@ -162,7 +162,9 @@ class Options : VideLibriBaseActivity() {
                     } else null
                 }.firstOrNull()
 
-                Util.inputDialog(DialogId.OPTIONS_ADD_USER_CERTIFICATE, getString(R.string.certificate_download), null, defaultServer)
+                showInputDialog(R.string.certificate_download, default = defaultServer) { text ->
+                    Thread(DownloadCertificate(text)).start()
+                }
                 true
             })
         }
@@ -180,18 +182,6 @@ class Options : VideLibriBaseActivity() {
             finish()
         else
             super.onActivityResult(requestCode, resultCode, data)
-    }
-
-
-    internal override fun onDialogResult(dialogId: Int, buttonId: Int, more: Bundle?): Boolean {
-        when (dialogId) {
-            DialogId.OPTIONS_ADD_USER_CERTIFICATE -> {
-                if (buttonId != Util.MessageHandlerCanceled)
-                    Thread(DownloadCertificate(more!!.getString("text"))).start()
-                return true
-            }
-            else -> return super.onDialogResult(dialogId, buttonId, more)
-        }
     }
 
     fun updatePreferences() {
