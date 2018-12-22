@@ -16,7 +16,6 @@ class DialogId {
     public static final int FILTER_LOAD_LIST = 7100;
 
     public static final int OPTIONS_ADD_USER_CERTIFICATE = 7200;
-    public static final int OPTIONS_DELETE_USER_CERTIFICATE = 7201;
 
     public static final int SOURCE_EDIT_NEW_SYSTEM = 7300;
     public static final int SOURCE_EDIT_NEW_LIB = 7301;
