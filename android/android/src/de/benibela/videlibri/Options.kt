@@ -145,7 +145,7 @@ class Options : VideLibriBaseActivity() {
             if (UserKeyStore.hasCertificates())
                 for (cert in UserKeyStore.getCertificates()) {
                     cpm.makePreference(UserKeyStore.getFingerprint(cert), getString(R.string.lay_options_btn_newcertificate_delete), Preference.OnPreferenceClickListener {
-                        showMessageYesNo(R.string.certificate_delete) {
+                        showMessageYesNo(R.string.certificate_delete) {_ ->
                             UserKeyStore.removeUserCertificate(cert)
                             UserKeyStore.storeUserCertificates(PreferenceManager.getDefaultSharedPreferences(VideLibriApp.currentContext()))
                             currentActivity<Options>()?.updatePreferences()
@@ -155,7 +155,7 @@ class Options : VideLibriBaseActivity() {
                 }
 
             cpm.makePreference(getString(R.string.lay_options_btn_newcertificate), Preference.OnPreferenceClickListener {
-                val defaultServer: String? = VideLibriApp.errors.map {e ->
+                val defaultServer: String? = VideLibriApp.errors.asSequence().map { e ->
                     if (e.kind == Bridge.PendingException.KIND_INTERNET && e.error?.contains("https://") == true) {
                         val matcher = Pattern.compile("https://([^/]+)").matcher(e.error)
                         if (matcher.find()) matcher.group(1) else null
@@ -186,8 +186,7 @@ class Options : VideLibriBaseActivity() {
 
     fun updatePreferences() {
         for (f in supportFragmentManager.fragments)
-            if (f is SettingsFragment)
-                f.updatePreferences()
+            (f as? SettingsFragment)?.updatePreferences()
     }
 
     override fun onPause() {
@@ -199,7 +198,7 @@ class Options : VideLibriBaseActivity() {
     companion object {
 
 
-        internal val NEW_ACCOUNT_CREATION_RESULT = 1235
+        internal const val NEW_ACCOUNT_CREATION_RESULT = 1235
 
 
         internal fun syncBridgeToPreferences(activity: Activity) {
