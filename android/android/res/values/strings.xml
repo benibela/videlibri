@@ -26,7 +26,7 @@
     </string>
     <string name="account_create">Wählen Sie Ihre Bibliothek, um ein neues Konto zu registrieren:</string>
     <string name="book_titleauthor">Titeldaten</string>
-    <string name="book_from">von</string>
+    <string name="book_from"></string>
     <string name="book_duedate">Abgabefrist</string>
     <string name="book_duedate_order">Frist</string>
     <string name="book_status_unknown">unbekannter Status</string>
@@ -54,7 +54,7 @@
     <string name="book_year">Jahr</string>
     <string name="booklist_noselection">noch keine Auswahl</string>
     <string name="booklist_loading">Ergebnisse werden geladen...</string>
-    <string name="booklist_from">von</string>
+    <string name="booklist_from"></string>
     <string name="feedback_feedbacktitle">VideLibri Feedback</string>
     <string name="feedback_acraheader">Per ACRA für Fehlerberichte:</string>
     <string name="feedback_send_ok">Feedback wurde erfolgreich abgeschickt.</string>
