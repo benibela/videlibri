@@ -22,6 +22,8 @@ fun showToast(@StringRes message: Int) =
 
 fun getString(@StringRes message: Int): String? = Util.tr(message)
 
+internal typealias DialogEvent = (DialogInstance.() -> Unit)
+
 fun showMessage(
         message: String? = null,
         title: String? = null
@@ -29,6 +31,19 @@ fun showMessage(
 fun showMessage(
         @StringRes message: Int
 ) = showDialog(getString(message))
+
+fun showMessageYesNo(
+        message: String? = null,
+        title: String? = null,
+        onYes: DialogEvent
+) = showDialog(message, title) {
+    noButton()
+    yesButton(onYes)
+}
+fun showMessageYesNo(
+        @StringRes message: Int,
+        onYes: DialogEvent
+) = showMessageYesNo(getString(message), null, onYes)
 
 
 fun showDialog(
@@ -39,7 +54,7 @@ fun showDialog(
         neutral: String? = null,
         positive: String? = null,
         more: Bundle? = null,
-        init: (DialogInstance.() -> Unit)? = null
+        init: DialogEvent? = null
 ) {
     val args = android.os.Bundle()
     args.putInt("id", dialogId)
@@ -68,42 +83,42 @@ private val dialogInstances = mutableMapOf<Int, DialogInstance>()
 data class DialogInstance (
         val args: Bundle
 ) {
-    var onNegativeButton: (DialogInstance.() -> Unit)? = null
-    var onNeutralButton: (DialogInstance.() -> Unit)? = null
-    var onPositiveButton: (DialogInstance.() -> Unit)? = null
-    var onDismiss: (DialogInstance.() -> Unit)? = null
+    var onNegativeButton: DialogEvent? = null
+    var onNeutralButton: DialogEvent? = null
+    var onPositiveButton: DialogEvent? = null
+    var onDismiss: DialogEvent? = null
 
     fun message(caption: String) = args.putString("message", caption)
     fun message(@StringRes caption: Int,  vararg a: Any?) = message(tr(caption, *a))
 
 
-    fun negativeButton(caption: String, onClicked: (DialogInstance.() -> Unit)? = null){
+    fun negativeButton(caption: String, onClicked: DialogEvent? = null){
         args.putString("negativeButton", caption)
         onNegativeButton = onClicked
     }
-    fun negativeButton(@StringRes caption: Int, onClicked: (DialogInstance.() -> Unit)? = null) =
+    fun negativeButton(@StringRes caption: Int, onClicked: DialogEvent? = null) =
         negativeButton(tr(caption), onClicked)
 
 
-    fun neutralButton(caption: String, onClicked: (DialogInstance.() -> Unit)? = null){
+    fun neutralButton(caption: String, onClicked: DialogEvent? = null){
         args.putString("neutralButton", caption)
         onNeutralButton = onClicked
     }
-    fun neutralButton(@StringRes caption: Int, onClicked: (DialogInstance.() -> Unit)? = null) =
+    fun neutralButton(@StringRes caption: Int, onClicked: DialogEvent? = null) =
         neutralButton(tr(caption), onClicked)
 
 
-    fun positiveButton(caption: String, onClicked: (DialogInstance.() -> Unit)? = null){
+    fun positiveButton(caption: String, onClicked: DialogEvent? = null){
         args.putString("positiveButton", caption)
         onPositiveButton = onClicked
     }
-    fun positiveButton(@StringRes caption: Int, onClicked: (DialogInstance.() -> Unit)? = null) =
+    fun positiveButton(@StringRes caption: Int, onClicked: DialogEvent? = null) =
         positiveButton(tr(caption), onClicked)
 
 
-    fun noButton(onClicked: (DialogInstance.() -> Unit)? = null) = negativeButton(R.string.no, onClicked)
-    fun yesButton(onClicked: (DialogInstance.() -> Unit)? = null) = positiveButton(R.string.yes, onClicked)
-    fun okButton(onClicked: (DialogInstance.() -> Unit)? = null) = neutralButton(R.string.ok, onClicked)
+    fun noButton(onClicked: DialogEvent? = null) = negativeButton(R.string.no, onClicked)
+    fun yesButton(onClicked: DialogEvent? = null) = positiveButton(R.string.yes, onClicked)
+    fun okButton(onClicked: DialogEvent? = null) = neutralButton(R.string.ok, onClicked)
 
     companion object {
         @JvmStatic fun onFinished(dialogFragment: Util.DialogFragmentUtil, button: Int){

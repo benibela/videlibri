@@ -43,11 +43,7 @@ class LendingList: BookListActivity(){
         findViewById<View>(R.id.searchFilterPanel).visibility = View.VISIBLE
         val et = findViewById<EditText>(R.id.searchFilter)
         registerForContextMenu(et)
-        et.addTextChangedListener(object : TextWatcher {
-            override fun beforeTextChanged(charSequence: CharSequence, i: Int, i2: Int, i3: Int) {}
-
-            override fun onTextChanged(charSequence: CharSequence, i: Int, i2: Int, i3: Int) {}
-
+        et.addTextChangedListener(object : EmptyTextWatcher() {
             override fun afterTextChanged(editable: Editable) {
                 setFilter(editable.toString())
             }

@@ -8,4 +8,13 @@ class LibraryList: LibraryListOld() {
         super.onCreateOptionsMenuOverflow(menu, inflater)
         inflater.inflate(R.menu.librarylistmenu, menu)
     }
+
+    companion object {
+        fun lastSelectedFallbackLibraryId(): String? =
+                if (System.currentTimeMillis() - lastSelectedTime < SELECTION_REUSE_TIME)
+                    lastSelectedLibId
+                else
+                    null
+    }
+
 }
