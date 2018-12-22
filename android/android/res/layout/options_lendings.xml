@@ -68,9 +68,13 @@
             android:layout_gravity="center_vertical"
             android:padding="@dimen/optionheaderpadding"
             android:text="@string/lay_options_label_view_history" />
-        <include layout="@layout/switchbox"
-            android:id="@+id/viewHistory"
-            />
+        <android.support.v7.widget.SwitchCompat xmlns:android="http://schemas.android.com/apk/res/android"
+            android:textOn=""
+            android:textOff=""
+            android:showText="false"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/viewHistory"/>
     </LinearLayout>
 
 </LinearLayout>
