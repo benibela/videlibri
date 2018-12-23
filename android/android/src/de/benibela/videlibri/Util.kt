@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.DialogInterface
 import android.os.Bundle
 import android.support.annotation.StringRes
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.ArrayAdapter
@@ -25,6 +26,7 @@ fun getString(@StringRes message: Int): String? = Util.tr(message)
 internal typealias DialogEvent = (DialogInstance.(Util.DialogFragmentUtil) -> Unit)
 internal typealias DialogInitEvent = (DialogInstance.() -> Unit)
 internal typealias InputDialogEvent = (DialogInstance.(text: String) -> Unit)
+internal typealias ChooseDialogEvent = (DialogInstance.(item: Int) -> Unit)
 
 //default dialogs, no customization, optional lambda argument is called after dialog completion (thus it MUST NOT LEAK)
 
@@ -69,6 +71,20 @@ fun showInputDialog(
 ) = showInputDialog(getString(message), title, default, onResult)
 
 
+fun showChooseDialog(
+        title: String?,
+        items: List<String>,
+        onResult: ChooseDialogEvent
+) = showDialog(null, title) {
+    this.items(items, onResult)
+}
+
+fun showChooseDialog(
+        @StringRes title: Int,
+        items: List<String> ,
+        onResult: ChooseDialogEvent
+) = showChooseDialog(getString(title), items, onResult)
+
 //Customizable dialog, lambda runs before dialog creation
 
 fun showDialog(
@@ -96,7 +112,11 @@ fun showDialog(
     val instance = DialogInstance(args)
     dialogInstances.put(instanceId, instance)
     init?.invoke(instance)
-    if ((args.getString("negativeButton") ?: args.getString("neutralButton") ?: args.getString("positiveButton")) == null)
+    if ((args.get("negativeButton")
+                    ?: args.get("neutralButton")
+                    ?: args.get("positiveButton")
+                    ?: args.get("items")
+                    ) == null)
         args.putString("neutralButton", Util.tr(R.string.ok))
     Util.showPreparedDialog(args)
 }
@@ -112,10 +132,15 @@ data class DialogInstance (
     var onNeutralButton: DialogEvent? = null
     var onPositiveButton: DialogEvent? = null
     var onDismiss: DialogEvent? = null
+    var onItem: ChooseDialogEvent? = null
 
     fun message(caption: String) = args.putString("message", caption)
     fun message(@StringRes caption: Int,  vararg a: Any?) = message(tr(caption, *a))
 
+    fun items(items: List<String>, onItem: ChooseDialogEvent? = null) {
+        args.putStringArray("items", items.toTypedArray())
+        this.onItem = onItem
+    }
 
     fun negativeButton(caption: String, onClicked: DialogEvent? = null){
         args.putString("negativeButton", caption)
@@ -155,6 +180,7 @@ data class DialogInstance (
                     DialogInterface.BUTTON_NEUTRAL -> onNeutralButton?.invoke(this, dialogFragment)
                     DialogInterface.BUTTON_POSITIVE -> onPositiveButton?.invoke(this, dialogFragment)
                 }
+                if (button >= 0 && onItem != null && args.containsKey("items")) onItem?.invoke(this, button)
                 onDismiss?.invoke(this, dialogFragment)
                 dialogInstances.remove(instanceId)
             }

@@ -305,11 +305,6 @@ class LendingList: BookListActivity(){
 
     internal override fun onDialogResult(dialogId: Int, buttonId: Int, more: Bundle?): Boolean {
         when (dialogId) {
-            DialogId.FILTER_LOAD_LIST -> {
-                if (buttonId >= 0)
-                    findViewById<EditText>(R.id.searchFilter).setText(getFilterHistory()[buttonId])
-                return true
-            }
             DialogId.SPECIAL_LEND_LIST_OPTIONS -> {
                 updateAccountView()
                 return true
@@ -412,7 +407,9 @@ class LendingList: BookListActivity(){
     override fun onContextItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.load_filter -> {
-                Util.chooseDialog(DialogId.FILTER_LOAD_LIST, tr(R.string.menu_context_load_filter), getFilterHistory().toTypedArray())
+                showChooseDialog(R.string.menu_context_load_filter, getFilterHistory()) {
+                    currentActivity<LendingList>()?.findViewById<EditText>(R.id.searchFilter)?.setText(getFilterHistory()[it])
+                }
             }
             R.id.save_filter -> {
                 val filters = getFilterHistory()
