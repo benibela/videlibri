@@ -1,11 +1,9 @@
 package de.benibela.videlibri
 import android.app.Activity
 import android.app.AlertDialog
-import android.content.Context
 import android.content.DialogInterface
 import android.os.Bundle
 import android.support.annotation.StringRes
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -29,11 +27,12 @@ fun showToast(@StringRes message: Int) =
 
 fun getString(@StringRes message: Int): String? = Util.tr(message)
 
-internal typealias DialogEvent = (DialogInstance.(Util.DialogFragmentUtil) -> Unit)
+typealias DialogFragmentUtil = Util.DialogFragmentUtil
 internal typealias DialogInitEvent = (DialogInstance.() -> Unit)
-internal typealias DialogFragmentInitEvent = (Util.DialogFragmentUtil.(AlertDialog.Builder) -> Unit)
-internal typealias InputDialogEvent = (DialogInstance.(text: String) -> Unit)
-internal typealias ChooseDialogEvent = (DialogInstance.(item: Int) -> Unit)
+internal typealias DialogEvent = (DialogFragmentUtil.() -> Unit)
+internal typealias DialogFragmentInitEvent = (DialogFragmentUtil.(AlertDialog.Builder) -> Unit)
+internal typealias InputDialogEvent = (DialogFragmentUtil.(text: String) -> Unit)
+internal typealias ChooseDialogEvent = (DialogFragmentUtil.(item: Int) -> Unit)
 
 //default dialogs, no customization, optional lambda argument is called after dialog completion (thus it MUST NOT LEAK)
 
@@ -66,8 +65,8 @@ fun showInputDialog(
 ) = showDialog(message, title) {
     args.putString("editTextDefault", default)
     args.putInt("special", DialogId.SPECIAL_INPUT_DIALOG)
-    okButton { fragment ->
-        onResult?.invoke(this, fragment.edit?.text?.toString() ?: "")
+    okButton {
+        onResult?.invoke(this, edit?.text?.toString() ?: "")
     }
 }
 fun showInputDialog(
@@ -189,13 +188,13 @@ data class DialogInstance (
         @JvmStatic fun onFinished(dialogFragment: Util.DialogFragmentUtil, button: Int){
             dialogFragment.instance?.apply {
                 when (button) {
-                    DialogInterface.BUTTON_NEGATIVE -> onNegativeButton?.invoke(this, dialogFragment)
-                    DialogInterface.BUTTON_NEUTRAL -> onNeutralButton?.invoke(this, dialogFragment)
-                    DialogInterface.BUTTON_POSITIVE -> onPositiveButton?.invoke(this, dialogFragment)
-                    MessageHandlerCanceled -> onCancel?.invoke(this, dialogFragment)
+                    DialogInterface.BUTTON_NEGATIVE -> onNegativeButton?.invoke(dialogFragment)
+                    DialogInterface.BUTTON_NEUTRAL -> onNeutralButton?.invoke(dialogFragment)
+                    DialogInterface.BUTTON_POSITIVE -> onPositiveButton?.invoke(dialogFragment)
+                    MessageHandlerCanceled -> onCancel?.invoke(dialogFragment)
                 }
-                if (button >= 0 && onItem != null && args.containsKey("items")) onItem?.invoke(this, button)
-                onDismiss?.invoke(this, dialogFragment)
+                if (button >= 0 && onItem != null && args.containsKey("items")) onItem?.invoke(dialogFragment, button)
+                onDismiss?.invoke(dialogFragment)
                 dialogInstances.remove(dialogFragment.arguments?.getInt("instanceId", -1))
             }
         }

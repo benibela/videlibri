@@ -145,7 +145,7 @@ class Options : VideLibriBaseActivity() {
             if (UserKeyStore.hasCertificates())
                 for (cert in UserKeyStore.getCertificates()) {
                     cpm.makePreference(UserKeyStore.getFingerprint(cert), getString(R.string.lay_options_btn_newcertificate_delete), Preference.OnPreferenceClickListener {
-                        showMessageYesNo(R.string.certificate_delete) {_ ->
+                        showMessageYesNo(R.string.certificate_delete) {
                             UserKeyStore.removeUserCertificate(cert)
                             UserKeyStore.storeUserCertificates(PreferenceManager.getDefaultSharedPreferences(VideLibriApp.currentContext()))
                             currentActivity<Options>()?.updatePreferences()

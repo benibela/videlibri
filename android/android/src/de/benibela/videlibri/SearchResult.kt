@@ -285,5 +285,5 @@ class SearchResult : BookListActivity(), SearchEventHandler {
 fun showChooseAccountDialog(
         title: String,
         accounts: List<Bridge.Account>,
-        onResult: (DialogInstance.(account: Bridge.Account) -> Unit)
+        onResult: (DialogFragmentUtil.(account: Bridge.Account) -> Unit)
 ) = showChooseDialog(title, accounts.map { it.prettyName }) { i -> onResult(accounts[i]) }
