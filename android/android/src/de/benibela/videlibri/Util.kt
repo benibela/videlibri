@@ -1,5 +1,6 @@
 package de.benibela.videlibri
 import android.app.Activity
+import android.app.AlertDialog
 import android.content.Context
 import android.content.DialogInterface
 import android.os.Bundle
@@ -7,6 +8,7 @@ import android.support.annotation.StringRes
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import android.widget.ArrayAdapter
 import android.widget.Spinner
 import android.widget.Toast
@@ -29,6 +31,7 @@ fun getString(@StringRes message: Int): String? = Util.tr(message)
 
 internal typealias DialogEvent = (DialogInstance.(Util.DialogFragmentUtil) -> Unit)
 internal typealias DialogInitEvent = (DialogInstance.() -> Unit)
+internal typealias DialogFragmentInitEvent = (Util.DialogFragmentUtil.(AlertDialog.Builder) -> Unit)
 internal typealias InputDialogEvent = (DialogInstance.(text: String) -> Unit)
 internal typealias ChooseDialogEvent = (DialogInstance.(item: Int) -> Unit)
 
@@ -138,6 +141,7 @@ data class DialogInstance (
     var onDismiss: DialogEvent? = null
     var onCancel: DialogEvent? = null
     var onItem: ChooseDialogEvent? = null
+    var onCreate: DialogFragmentInitEvent? = null
 
     fun message(caption: String) = args.putString("message", caption)
     fun message(@StringRes caption: Int,  vararg a: Any?) = message(tr(caption, *a))
@@ -176,10 +180,14 @@ data class DialogInstance (
     fun okButton(onClicked: DialogEvent? = null) = neutralButton(R.string.ok, onClicked)
 
     companion object {
-        @JvmStatic fun onFinished(dialogFragment: Util.DialogFragmentUtil, button: Int){
+        @JvmStatic fun onPreCreate(dialogFragment: Util.DialogFragmentUtil, builder: AlertDialog.Builder){
             val instanceId = dialogFragment.arguments?.getInt("instanceId", -1) ?: -1
             if (instanceId < 0) return
-            dialogInstances.get(instanceId)?.apply {
+            dialogFragment.instance = dialogInstances.get(instanceId)
+            dialogFragment.instance?.onCreate?.invoke(dialogFragment, builder)
+        }
+        @JvmStatic fun onFinished(dialogFragment: Util.DialogFragmentUtil, button: Int){
+            dialogFragment.instance?.apply {
                 when (button) {
                     DialogInterface.BUTTON_NEGATIVE -> onNegativeButton?.invoke(this, dialogFragment)
                     DialogInterface.BUTTON_NEUTRAL -> onNeutralButton?.invoke(this, dialogFragment)
@@ -188,7 +196,7 @@ data class DialogInstance (
                 }
                 if (button >= 0 && onItem != null && args.containsKey("items")) onItem?.invoke(this, button)
                 onDismiss?.invoke(this, dialogFragment)
-                dialogInstances.remove(instanceId)
+                dialogInstances.remove(dialogFragment.arguments?.getInt("instanceId", -1))
             }
         }
     }
@@ -210,6 +218,11 @@ inline fun Menu.forItems(f: (MenuItem) -> Unit){
         f(getItem(i))
 }
 
+var View.isVisibleNotGone: Boolean
+    get() = this.visibility == View.VISIBLE
+    set(visible) {
+        this.visibility = if (visible) View.VISIBLE else View.GONE
+    }
 
 fun streamToString(stream: InputStream): String = stream.bufferedReader().use { it.readText() }
 

@@ -98,7 +98,7 @@ public class Util {
     }
 
     public static class DialogFragmentUtil extends DialogFragment implements DialogInterface.OnClickListener, DialogInterface.OnCancelListener{
-
+        DialogInstance instance;
         EditText edit;
         @NonNull
         @Override
@@ -115,56 +115,6 @@ public class Util {
             AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
             if (title != null) builder.setTitle(title);
             switch (special) {
-                case DialogId.SPECIAL_LIBRARY_NOT_IN_LIST: {
-                    if (message != null) {
-                        String[] itemscopied = new String[items.length + 1];
-                        itemscopied[0] = message;
-                        for (int i = 0; i < items.length; i++) itemscopied[i + 1] = items[i];
-                        items = itemscopied;
-                    }
-                    final boolean skipFirst = message != null;
-                    final String itemsSubCaptions[] = trs(args.get("itemsSubCaption"));
-                    LayoutInflater inflater = getActivity().getLayoutInflater();
-                    View v = inflater.inflate(R.layout.dialogbooklistlike, null);
-                    //((TextView) v.findViewById(R.id.textView)).setText(message);
-                    ListView lv = (ListView) v.findViewById(R.id.listView);
-                    lv.setAdapter(new ArrayAdapter<String>(getActivity(), R.layout.bookoverview, R.id.bookoverviewCaption, items) {
-                                      @NonNull
-                                      @Override
-                                      public View getView(int position, View convertView, @NonNull ViewGroup parent) {
-                                          View res = super.getView(position, convertView, parent);
-                                          if (res != null) {
-                                              res.findViewById(R.id.bookoverviewDate).setVisibility(View.GONE);
-                                              if (skipFirst) {
-                                                  if (position > 0) position--;
-                                                  else {
-                                                      res.findViewById(R.id.bookoverviewCaption).setVisibility(View.GONE);
-                                                      TextView moreview = ((TextView) res.findViewById(R.id.bookoverviewMore));
-                                                      moreview.setVisibility(View.VISIBLE);
-                                                      moreview.setText(message);
-                                                      return res;
-                                                  }
-                                              }
-                                              res.findViewById(R.id.bookoverviewCaption).setVisibility(View.VISIBLE);
-                                              ((TextView) res.findViewById(R.id.bookoverviewMore)).setText(position < itemsSubCaptions.length ? itemsSubCaptions[position] : "");
-                                          }
-                                          return res;
-                                      }
-                                  }
-                    );
-                    lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                        @Override
-                        public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                            if (skipFirst) i--;
-                            if (i < 0) return;
-                            notifyActivity(i);
-                            dismiss();
-                        }
-                    });
-                    builder.setView(v);
-
-                    break;
-                }
                 case DialogId.SPECIAL_INPUT_DIALOG:
                     if (message != null)
                         builder.setMessage(message);
@@ -186,6 +136,7 @@ public class Util {
             if (positive != null)
                 builder.setPositiveButton(positive, this);
             builder.setOnCancelListener(this);
+            DialogInstance.onPreCreate(this, builder);
             return builder.create();
         }
 

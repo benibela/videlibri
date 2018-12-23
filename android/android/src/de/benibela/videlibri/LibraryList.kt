@@ -7,14 +7,9 @@ import android.graphics.drawable.Drawable
 import android.graphics.drawable.StateListDrawable
 import android.os.Bundle
 import android.util.TypedValue
-import android.view.Menu
-import android.view.MenuInflater
-import android.view.SoundEffectConstants
-import android.view.View
+import android.view.*
 import android.view.View.OnClickListener
-import android.widget.LinearLayout
-import android.widget.ScrollView
-import android.widget.TextView
+import android.widget.*
 import de.benibela.videlibri.jni.Bridge
 import java.util.*
 
@@ -105,23 +100,16 @@ class LibraryList: VideLibriBaseActivity() {
         super.onCreate(savedInstanceState)
         setVideLibriView(R.layout.chooselib)
 
-        intent.getStringExtra("reason")?.let { if (it.isNotEmpty()) findViewById<TextView>(R.id.textView) }
+        intent.getStringExtra("reason")?.takeNonEmpty()?.let { findViewById<TextView>(R.id.textView) }
 
         createListView()
 
         findViewById<View>(R.id.textViewLibWhyNot).apply {
-            if (accounts.isNotEmpty())
+            if (//false &&
+                    accounts.isNotEmpty())
                 visibility = View.GONE
             else
-                setOnClickListener {
-                    val args = Bundle()
-                    args.putInt("id", DialogId.SPECIAL_LIBRARY_NOT_IN_LIST)
-                    args.putInt("special", DialogId.SPECIAL_LIBRARY_NOT_IN_LIST)
-                    args.putString("message", tr(R.string.foreignlibrariesnotinthelist))
-                    args.putIntArray("items", intArrayOf(R.string.foreignlibrariesnotinthelist_easy, R.string.foreignlibrariesnotinthelist_meta, R.string.foreignlibrariesnotinthelist_install, R.string.foreignlibrariesnotinthelist_diy, R.string.foreignlibrariesnotinthelist_mail))
-                    args.putIntArray("itemsSubCaption", intArrayOf(R.string.foreignlibrariesnotinthelist_easy_req, R.string.foreignlibrariesnotinthelist_meta_req, R.string.foreignlibrariesnotinthelist_install_req, R.string.foreignlibrariesnotinthelist_diy_req, R.string.foreignlibrariesnotinthelist_mail_req))
-                    Util.showPreparedDialog(this@LibraryList, args)
-                }
+                setOnClickListener { showHowToAddLibraryDialog() }
         }
 
     }
@@ -134,8 +122,9 @@ class LibraryList: VideLibriBaseActivity() {
         outState.putString("lastExpandedCity", libView.lastExpandedCity)
     }
 
-    override fun onRestoreInstanceState(savedInstanceState: Bundle) {
+    override fun onRestoreInstanceState(savedInstanceState: Bundle?) {
         super.onRestoreInstanceState(savedInstanceState)
+        savedInstanceState ?: return
         val libView = libView ?: return
         val lastExpandedState = savedInstanceState.getString("lastExpandedState")
         val lastExpandedCity = savedInstanceState.getString("lastExpandedCity")
@@ -402,27 +391,46 @@ class LibraryList: VideLibriBaseActivity() {
         super.onActivityResult(requestCode, resultCode, data)
     }
 
-    internal override fun onDialogResult(dialogId: Int, buttonId: Int, more: Bundle?): Boolean {
-        when (dialogId) {
-            DialogId.SPECIAL_LIBRARY_NOT_IN_LIST -> {
-                val intent: Intent
-                when (buttonId) {
-                    0, 2 -> {
-                        intent = Intent(this, NewLibrary::class.java)
-                        intent.putExtra("mode", if (buttonId == 2) 0 else NewLibrary.MODE_LIBRARY_ENTER_NEW_DATA)
-                        startActivity(intent)
-                    }
-                    1 -> if (metaCat >= 0) libView?.openState(metaCat, true)
-                    3 -> showUriInBrowser("http://www.videlibri.de/help/neuebibliothek.html")
-                    4 -> {
-                        intent = Intent(this, Feedback::class.java)
-                        startActivity(intent)
+
+    private fun showHowToAddLibraryDialog(){
+        showDialog {
+            onCreate =  onCreate@ {  builder ->
+                val activity = activity ?: return@onCreate
+                val inflater = activity.layoutInflater
+                val v = inflater.inflate(R.layout.dialogbooklistlike, null)
+
+                val items = intArrayOf(R.string.foreignlibrariesnotinthelist_easy, R.string.foreignlibrariesnotinthelist_meta, R.string.foreignlibrariesnotinthelist_install, R.string.foreignlibrariesnotinthelist_diy, R.string.foreignlibrariesnotinthelist_mail).map { getString(it) }
+                val itemsSubCaption = intArrayOf(R.string.foreignlibrariesnotinthelist, R.string.foreignlibrariesnotinthelist_easy_req, R.string.foreignlibrariesnotinthelist_meta_req, R.string.foreignlibrariesnotinthelist_install_req, R.string.foreignlibrariesnotinthelist_diy_req, R.string.foreignlibrariesnotinthelist_mail_req).map { getString(it) }
+
+                val lv = v.findViewById<ListView>(R.id.listView)
+                lv.adapter = object : ArrayAdapter<String>(activity, R.layout.bookoverview, R.id.bookoverviewCaption, itemsSubCaption) {
+                    override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View? {
+                        return super.getView(position, convertView, parent)?.apply {
+                            findViewById<View>(R.id.bookoverviewDate).visibility = View.GONE
+                            findViewById<TextView>(R.id.bookoverviewMore).text = itemsSubCaption.getOrElse(position, {""})
+                            findViewById<TextView>(R.id.bookoverviewCaption).apply {
+                                text = items.getOrElse(position - 1, {""})
+                                isVisibleNotGone = position > 0
+                            }
+                        }
                     }
                 }
-                return true
+                lv.onItemClickListener = AdapterView.OnItemClickListener { _, _, i, _ ->
+                    withActivity<LibraryList> {
+                        when (i) {
+                            1, 3 -> startActivity<NewLibrary>(
+                                    "mode" to if (i == 3) 0 else NewLibrary.MODE_LIBRARY_ENTER_NEW_DATA
+                            )
+                            2 -> if (metaCat >= 0) libView?.openState(metaCat, true)
+                            4 -> showUriInBrowser("http://www.videlibri.de/help/neuebibliothek.html")
+                            5 -> startActivity<Feedback> ()
+                        }
+                    }
+                    dismiss()
+                }
+                builder.setView(v)
             }
         }
-        return super.onDialogResult(dialogId, buttonId, more)
     }
 
     companion object {
