@@ -454,9 +454,14 @@ resourcestring
     if logging then log('Started with internet logging enabled');
 
     //Pfade auslesen und überprüfen
+    {$ifdef android}
+    programPath := '';
+    assetPath := '';
+    {$else}
     programPath:=ExtractFilePath(ParamStr(0));
     if not (programPath[length(programPath)] in ['/','\']) then programPath:=programPath+DirectorySeparator;
-    assetPath:=programPath+'data'+DirectorySeparator; {$ifdef android}assetPath:='';{$endif}
+    assetPath:=programPath+'data'+DirectorySeparator;
+    {$endif}
 
     if logging then log('programPath is '+programPath);
     if logging then log('dataPath is '+assetPath);

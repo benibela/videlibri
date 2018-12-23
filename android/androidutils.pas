@@ -867,7 +867,6 @@ end;
 function Java_de_benibela_VideLibri_Bridge_VLGetAccounts(env:PJNIEnv; this:jobject): jobject; cdecl;
 var
   i: Integer;
-  temp: jobject;
 begin
   if logging then bbdebugtools.log('de.benibela.VideLibri.Bride.VLGetAccounts (started)');
   try
