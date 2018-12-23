@@ -83,7 +83,7 @@ class AccountInfo : VideLibriBaseActivity() {
                     withActivity<AccountInfo> {deleteAccountNow()}
                 }
             }
-            findButtonById(R.id.completeAccountButton).text = tr(R.string.change)
+            findViewById<Button>(R.id.completeAccountButton).text = tr(R.string.change)
             findViewById<View>(R.id.completeAccountButton).setOnClickListener {changeAccountNow()}
         } else {
             lib.paintFlags = lib.paintFlags or Paint.UNDERLINE_TEXT_FLAG

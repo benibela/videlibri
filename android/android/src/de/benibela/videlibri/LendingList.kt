@@ -303,16 +303,6 @@ class LendingList: BookListActivity(){
 
     internal var displayForcedCounterActually: Int = 0
 
-    internal override fun onDialogResult(dialogId: Int, buttonId: Int, more: Bundle?): Boolean {
-        when (dialogId) {
-            DialogId.SPECIAL_LEND_LIST_OPTIONS -> {
-                updateAccountView()
-                return true
-            }
-        }
-        return super.onDialogResult(dialogId, buttonId, more)
-    }
-
 
     class ViewOptionsDialog : android.support.v4.app.DialogFragment(), DialogInterface.OnCancelListener {
         internal lateinit var view: View

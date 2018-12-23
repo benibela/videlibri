@@ -10,6 +10,5 @@ class DialogId {
     public static final int SOURCE_EDIT_NEW_LIB = 7301;
     public static final int SOURCE_EDIT_NEW_FILE = 7302;
 
-    public static final int SPECIAL_LEND_LIST_OPTIONS = 11000;
     public static final int SPECIAL_INPUT_DIALOG = 12000;
 }
