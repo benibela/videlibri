@@ -43,9 +43,10 @@
       
       <t:if test="$needOrders">
       { .//a[contains(@href, 'availability.do') and contains(@href, 'katkey')]!(
-        $book("orderTitle"||$book.orderable) := .,
-        $book("order"||$book.orderable) := resolve-html(),
-        book.orderable := $book.orderable + 1
+        $book("_orderTitle"||$book._orderCount) := .,
+        $book("_order"||$book._orderCount) := resolve-html(),
+        $book._orderCount := $book._orderCount + 1,
+        $book.orderable := true()
       )  }
       </t:if>
       {for $key in ("libraryBranch", "libraryLocation") return
