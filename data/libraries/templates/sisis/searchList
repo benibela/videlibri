@@ -34,10 +34,8 @@
       <TABLE class="data">
         <TR>
         <TD t:condition="@style or @class"> <!-- condition to skip image column -->
-        {book := {"orderable": 0}, hasZ3988 := false()}
-        <!--{book := {"orderable": .//a[contains(., 'vormerk') or contains(., 'bestell')]}, 
-         if ($book.orderable) then (book.order0 := $book.orderable/@href, book.orderTitle :=  $book.orderable) else (), 
-         hasZ3988 := false()}-->
+        {book := {"orderable": false()}, hasZ3988 := false()}
+        <!--{book := {"orderable": .//a[contains(., 'vormerk') or contains(., 'bestell')]},          if ($book.orderable) then (book.order0 := $book.orderable/@href, book.orderTitle :=  $book.orderable) else (),          hasZ3988 := false()}-->
         <span class="Z3988">{hasZ3988 := true(),
         for $entry in tokenize(@title, "&amp") return 
            if (starts-with($entry, "rft.au=")) then book.author :=               uri-decode(substring-after($entry, "="))
