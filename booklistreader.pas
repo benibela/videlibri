@@ -1114,7 +1114,6 @@ begin
   end else begin
     if value.getSequenceCount > 1 then begin
       case variable of
-        'orderconfirmationoptiontitles': temp := strconvlist('\|');
         'image-url': temp := strconvlist(LineEnding);
         else temp := strconv();
       end;

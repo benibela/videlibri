@@ -362,7 +362,6 @@ public class Bridge {
     static public native void VLSearchDetails(@NotNull SearcherAccess searcher, @NotNull Book book);
     static public native void VLSearchOrder(@NotNull SearcherAccess searcher, @NotNull Book[] book);
     static public native void VLSearchOrder(@NotNull SearcherAccess searcher, @NotNull Book[] book, @NotNull int[] holding);
-    static public native void VLSearchOrderConfirmed(@NotNull SearcherAccess searcher, @NotNull Book[] book);
     static public native void VLSearchCompletePendingMessage(@NotNull SearcherAccess searcher, int result);
     static public native void VLSearchEnd(@NotNull SearcherAccess searcher);
 
@@ -420,9 +419,6 @@ public class Bridge {
         public void order(@NotNull Book book, int holdingId){
             VLSearchOrder(this, new Book[]{book}, new int[]{holdingId});
         }
-        public void orderConfirmed(@NotNull Book book){
-            VLSearchOrderConfirmed(this, new Book[]{book});
-        }
         public void completePendingMessage(int result){
             VLSearchCompletePendingMessage(this, result);
         }
@@ -451,7 +447,6 @@ public class Bridge {
         public void onSearchNextPageComplete(@NotNull Book[] books) { send(newEvent(SearchEventKind.NEXT_PAGE, books)); }
         public void onSearchDetailsComplete(@NotNull Book book) { send(newEvent(SearchEventKind.DETAILS, book)); }
         public void onOrderComplete(@NotNull Book book) { send(newEvent(SearchEventKind.ORDER_COMPLETE, book)); }
-        public void onOrderConfirm(@NotNull Book book) { send(newEvent(SearchEventKind.ORDER_CONFIRM, book)); }
         public void onTakePendingMessage(int kind, @NotNull String caption, @NotNull String[] options) { send(newEvent(SearchEventKind.TAKE_PENDING_MESSAGE, kind, caption, options)); }
         public void onPendingMessageCompleted() { send(newEvent(SearchEventKind.PENDING_MESSAGE_COMPLETE)); }
         public void onException() { send(newEvent(SearchEventKind.EXCEPTION)); }
@@ -463,7 +458,6 @@ public class Bridge {
         NEXT_PAGE,  //obj1 = Book[] books
         DETAILS,    //obj1 = Book book
         ORDER_COMPLETE, //obj1 = Book book
-        ORDER_CONFIRM,  //obj1 = Book book
         TAKE_PENDING_MESSAGE, //arg1 = int kind, obj1 = String caption, obj2 = String[] options
         PENDING_MESSAGE_COMPLETE,
         EXCEPTION

@@ -5,13 +5,6 @@ class DialogId {
     public static final int OK = 7001;
     public static final int FEEDBACK_SEND_ATTEMPTED = 7015;
     public static final int IMPORTEXPORT_DONE = 7060;
-    public static final int SEARCHER_MESSAGE_CONFIRM = 7082;
-    public static final int SEARCHER_MESSAGE_CHOOSE = 7083;
-    public static final int SEARCHER_ORDER_CONFIRM = 7085;
-    public static final int SEARCHER_CHOOSE_ORDER = 7086;
-    public static final int SEARCHER_CHOOSE_ORRERTITLE = 7087;
-    public static final int SEARCHER_CHOOSE_TARGET_ACCOUNT = 7088;
-    public static final int SEARCHER_CHOOSE_TARGET_ACCOUNT_FOR_HOLDING = 7089;
 
     public static final int SOURCE_EDIT_NEW_SYSTEM = 7300;
     public static final int SOURCE_EDIT_NEW_LIB = 7301;

@@ -16,7 +16,7 @@ TLibrarySearcherAccess = class;
 
 { TLibrarySearcherAccess }
 
-TSearcherMessageTyp=(smtNone, smtFree, smtConnect, smtSearch, smtSearchNext, smtDetails, smtImage, smtOrder, smtOrderConfirmed, smtCompletePendingMessage, smtDisconnect);
+TSearcherMessageTyp=(smtNone, smtFree, smtConnect, smtSearch, smtSearchNext, smtDetails, smtImage, smtOrder, smtCompletePendingMessage, smtDisconnect);
 
 { TSearcherMessage }
 
@@ -75,7 +75,7 @@ private
   fthread: TSearcherThread;
   ftemplate: TMultiPageTemplate;
   FOnConnected, FOnPendingMessageCompleted: TNotifyEvent;
-  FOnDetailsComplete, FOnOrderComplete, FOnOrderConfirm: TBookNotifyEvent;
+  FOnDetailsComplete, FOnOrderComplete: TBookNotifyEvent;
   FOnImageComplete: TBookNotifyEvent;
   FOnSearchPageComplete: TPageCompleteNotifyEvent;
   FOnTakePendingMessage: TPendingMessageEvent;
@@ -103,7 +103,6 @@ public
   procedure detailsAsyncSave(book: TBook); //save means they make sure the
   procedure imageAsyncSave(book: TBook);   //book is not updated only once
   procedure orderAsync(account: TCustomAccountAccess; book: TBook);
-  procedure orderConfirmedAsync(book: TBook);
   procedure completePendingMessage(book: TBook; pm: TPendingMessage; result: integer);
   procedure disconnectAsync;
 
@@ -124,7 +123,6 @@ public
   //                          -----if status=ordered-----> OnOrderComplete
   //                          -----if status<>ordered----> OnPendingMessageCompleted
   property OnOrderComplete: TBookNotifyEvent read FOnOrderComplete write FOnOrderComplete;
-  property OnOrderConfirm: TBookNotifyEvent read FOnOrderConfirm write FOnOrderConfirm;
   property OnTakePendingMessage: TPendingMessageEvent read FOnTakePendingMessage write FOnTakePendingMessage;
   property OnPendingMessageCompleted: TNotifyEvent read FOnPendingMessageCompleted write FOnPendingMessageCompleted;
   property OnImageComplete: TBookNotifyEvent read FOnImageComplete write FOnImageComplete;
@@ -402,12 +400,6 @@ begin
   fthread.messages.storeMessage(TSearcherMessage.Create(smtOrder,book));
 end;
 
-procedure TLibrarySearcherAccess.orderConfirmedAsync(book: TBook);
-begin
-  if not assigned(fthread) then exit;
-  fthread.messages.storeMessage(TSearcherMessage.Create(smtOrderConfirmed,book));
-end;
-
 procedure TLibrarySearcherAccess.completePendingMessage(book: TBook; pm: TPendingMessage; result: integer);
 begin
   if not assigned(fthread) then exit;
@@ -622,22 +614,16 @@ begin
             if logging then log('end image');
           end;
         end;
-        smtOrder, smtOrderConfirmed: begin
+        smtOrder: begin
           if logging then log('Searcher thread: message smtOrder: '+book.toSimpleString());
           if (book = nil) or (book.owningAccount = nil) then log('Invalid book')
           else begin
-            if (mes.typ = smtOrderConfirmed) or not searcher.orderNeedsConfirmation() then begin
-              Searcher.orderSingle(book);
-              if Searcher.bookListReader.pendingMessage <> nil then begin
-                callPendingMessageEvent(access.FOnTakePendingMessage, book.owningBook, Searcher.bookListReader.pendingMessage);
-                Searcher.bookListReader.pendingMessage := nil;
-               end else
-                callBookEvent(access.FOnOrderComplete, book.owningBook);
-            end else begin
-              //else branch is deprecated
-              Searcher.orderConfirmSingle(book);
-              callBookEvent(access.FOnOrderConfirm, book.owningBook);
-            end;
+            Searcher.orderSingle(book);
+            if Searcher.bookListReader.pendingMessage <> nil then begin
+              callPendingMessageEvent(access.FOnTakePendingMessage, book.owningBook, Searcher.bookListReader.pendingMessage);
+              Searcher.bookListReader.pendingMessage := nil;
+             end else
+              callBookEvent(access.FOnOrderComplete, book.owningBook);
           end;
           if logging then log('end order');
         end;

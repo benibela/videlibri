@@ -90,7 +90,6 @@ type
     procedure searchAuthorEnter(Sender: TObject);
     procedure searchAuthorExit(Sender: TObject);
     procedure searcherAccessOrderComplete(sender: TObject; book: TBook);
-    procedure searcherAccessOrderConfirm(sender: TObject; book: TBook);
     procedure searcherAccessPendingMessageCompleted(Sender: TObject);
     procedure searcherAccessTakePendingMessage({%H-}sender: TObject; book: TBook; pendingMessage: TPendingMessage);
     procedure searchTitleChange(Sender: TObject);
@@ -635,21 +634,6 @@ begin
    if accounts.Strings[i] = orderForDefaultAccountID then acc := accounts[i];
   //if acc.isThreadRunning then begin ShowMessage('Während dem Aktualisieren/Verlängern/Vormerken können keine weiteren Medien vorgemerkt werden.'); exit; end;
 
-  searcherAccess.beginBookReading;
-  try
-    if StrToIntDef(orderBook.getPropertyAdditional('orderable'), 1) > 1 then begin
-      sl := TStringList.Create;
-      for i :=  0 to StrToIntDef(orderBook.getPropertyAdditional('orderable'), 1) - 1 do
-        sl.Add(orderBook.getPropertyAdditional('orderTitle'+inttostr(i)));
-      i := InputList('VideLibri', rsChooseOrder, sl );
-      sl.free;
-      if i < 0 then exit;
-      orderBook.setProperty('choosenOrder', inttostr(i));
-    end else orderBook.setProperty('choosenOrder', '0');
-  finally
-    searcherAccess.endBookReading;
-  end;
-
   if not confirm(Format(rsOrderConfirm, [displayedBook.title])) then exit;
 
   screen.Cursor:=crHourGlass;
@@ -701,44 +685,6 @@ begin
   if mainForm <> nil then mainForm.RefreshListView;
   ShowMessage(format(rsOrderComplete, [book.toSimpleString(), LineEnding + LineEnding + book.statusStr])  );
   screen.Cursor:=crDefault;
-end;
-
-procedure TbookSearchFrm.searcherAccessOrderConfirm(sender: TObject; book: TBook);
-var
-  question: String;
-  orderConfirmationOptionTitles: String;
-  temp: TStringArray;
-  i: Integer;
-  sl: TStringList;
-begin
-  if sender <> searcherAccess then exit;
-
-  searcherAccess.beginBookReading;
-  question := book.getPropertyAdditional('orderConfirmation');
-  orderConfirmationOptionTitles := book.getPropertyAdditional('orderConfirmationOptionTitles');
-  searcherAccess.endBookReading;
-
-  question := StringReplace(question, '\n', LineEnding, [rfReplaceAll]);
-  if orderConfirmationOptionTitles <> '' then begin
-    sl := TStringList.Create;
-    temp := strSplit(orderConfirmationOptionTitles, '\|');
-    for i := 0 to high(temp) do
-      sl.add(temp[i]);
-    screen.Cursor:=crDefault;
-    i := InputList('VideLibri', question, sl );
-    sl.free;
-    if i < 0 then exit;
-
-
-    screen.Cursor:=crHourGlass;
-
-    searcherAccess.beginBookReading;
-    book.setProperty('choosenConfirmation', IntToStr(i + 1));
-    searcherAccess.endBookReading;
-
-    searcherAccess.orderConfirmedAsync(book);
-  end else
-    if (question = '') or confirm(question) then searcherAccess.orderConfirmedAsync(book);
 end;
 
 procedure TbookSearchFrm.searcherAccessPendingMessageCompleted(Sender: TObject);
@@ -954,7 +900,6 @@ begin
   result.OnSearchPageComplete:=@searcherAccessSearchComplete;
   result.OnDetailsComplete:=@searcherAccessDetailsComplete;
   result.OnOrderComplete:=@searcherAccessOrderComplete;
-  result.OnOrderConfirm:=@searcherAccessOrderConfirm;
   result.OnTakePendingMessage:=@searcherAccessTakePendingMessage;
   result.OnPendingMessageCompleted:=@searcherAccessPendingMessageCompleted;
   result.OnImageComplete:=@searcherAccessImageComplete;

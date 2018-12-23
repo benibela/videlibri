@@ -145,7 +145,7 @@ var
       homeBranchesL, searchBranchesL, nativePtrJ, totalResultCountI, nextPageAvailableZ: jfieldID;
     end;
     //searcherResultInterface: jclass;
-    searcherOnConnected, searcherOnSearchFirstPageComplete, searcherOnSearchNextPageComplete, searcherOnSearchDetailsComplete, searcherOnOrderComplete, searcherOnOrderConfirm,  searcherOnTakePendingMessage, searcherOnPendingMessageCompleted, searcherOnException: jmethodID;
+    searcherOnConnected, searcherOnSearchFirstPageComplete, searcherOnSearchNextPageComplete, searcherOnSearchDetailsComplete, searcherOnOrderComplete,  searcherOnTakePendingMessage, searcherOnPendingMessageCompleted, searcherOnException: jmethodID;
     importExportDataClass: jclass;
     importExportDataClassInit: jmethodID;
     importExportDataFields: record
@@ -332,7 +332,6 @@ begin
       searcherOnSearchNextPageComplete := getmethod(searcherClass, 'onSearchNextPageComplete', '([Lde/benibela/videlibri/jni/Bridge$Book;)V');
       searcherOnSearchDetailsComplete := getmethod(searcherClass, 'onSearchDetailsComplete', '(Lde/benibela/videlibri/jni/Bridge$Book;)V');
       searcherOnOrderComplete := getmethod(searcherClass, 'onOrderComplete', '(Lde/benibela/videlibri/jni/Bridge$Book;)V');
-      searcherOnOrderConfirm := getmethod(searcherClass, 'onOrderConfirm', '(Lde/benibela/videlibri/jni/Bridge$Book;)V');
       searcherOnTakePendingMessage := getmethod(searcherClass, 'onTakePendingMessage', '(ILjava/lang/String;[Ljava/lang/String;)V');
       searcherOnPendingMessageCompleted := getmethod(searcherClass, 'onPendingMessageCompleted', '()V');
       searcherOnException := getmethod(searcherClass, 'onException', '()V');
@@ -1466,7 +1465,6 @@ type
   procedure OnSearchPageCompleteImpl(sender: TObject; firstPage, nextPageAvailable: boolean);
   procedure OnDetailsCompleteImpl(sender: TObject; book: TBook);
   procedure OnOrderCompleteImpl(sender: TObject; book: TBook);
-  procedure OnOrderConfirmImpl(sender: TObject; book: TBook);
   procedure OnTakePendingMessageImpl(sender: TObject; book: TBook; apendingMessage: TPendingMessage);
   procedure OnPendingMessageCompletedImpl(Sender: TObject);
   procedure OnExceptionImpl(Sender: TObject);
@@ -1550,15 +1548,6 @@ begin
   j.deleteLocalRef(jbook);
 end;
 
-procedure TLibrarySearcherAccessWrapper.OnOrderConfirmImpl(sender: TObject; book: TBook);
-var
-  jbook: jobject;
-begin
-  jbook := bookToJBook(book, nil, false, true);
-  j.callVoidMethod(jsearcher, searcherOnOrderConfirm, @jbook);
-  j.deleteLocalRef(jbook);
-end;
-
 procedure TLibrarySearcherAccessWrapper.OnTakePendingMessageImpl(sender: TObject; book: TBook; apendingMessage: TPendingMessage);
 var args: array[0..2] of jvalue;
 begin
@@ -1636,7 +1625,6 @@ begin
     searcherAccess.OnConnected:=@searcherAccess.OnConnectedImpl;
     searcherAccess.OnSearchPageComplete:=@searcherAccess.OnSearchPageCompleteImpl;
     searcherAccess.OnDetailsComplete:=@searcherAccess.OnDetailsCompleteImpl;
-    searcherAccess.OnOrderConfirm:=@searcherAccess.OnOrderConfirmImpl;
     searcherAccess.OnOrderComplete:=@searcherAccess.OnOrderCompleteImpl;
     searcherAccess.OnTakePendingMessage:=@searcherAccess.OnTakePendingMessageImpl;
     searcherAccess.OnPendingMessageCompleted:=@searcherAccess.OnPendingMessageCompletedImpl;
@@ -1795,26 +1783,7 @@ begin
   if logging then log('Bridge_VLSearchOrder ended');
 end;
 
-procedure Java_de_benibela_VideLibri_Bridge_VLSearchOrderConfirmed(env:PJNIEnv; this:jobject; searcher: jobject; jbooks: jobject); cdecl;
-var
-  sa: TLibrarySearcherAccessWrapper;
-  book: TBook;
-  i: Integer;
 
-begin
-  if logging then log('Bridge_VLSearchOrderConfirmed started');
-  try
-    sa := unwrapSearcher(searcher);
-    with j do
-    for i := 0 to getArrayLength(jbooks) - 1 do begin
-      book :=  jbookToBookAndDelete(getObjectArrayElement(jbooks, i));
-      sa.orderConfirmedAsync(book);
-    end;
-  except
-    on e: Exception do throwExceptionToJava(e);
-  end;
-  if logging then log('Bridge_VLSearchOrderConfirmed ended');
-end;
 
 
 procedure Java_de_benibela_VideLibri_Bridge_VLSearchCompletePendingMessage(env:PJNIEnv; this:jobject; searcher: jobject; res: jint); cdecl;
@@ -2106,7 +2075,7 @@ end;
 
 
 
-const nativeMethods: array[1..37] of JNINativeMethod=
+const nativeMethods: array[1..36] of JNINativeMethod=
   ((name:'VLInit';          signature:'(Lde/benibela/videlibri/jni/Bridge$VideLibriContext;)V';                   fnPtr:@Java_de_benibela_VideLibri_Bridge_VLInit)
    ,(name:'VLFinalize';      signature:'()V';                   fnPtr:@Java_de_benibela_VideLibri_Bridge_VLFInit)
 
@@ -2139,7 +2108,6 @@ const nativeMethods: array[1..37] of JNINativeMethod=
    ,(name:'VLSearchDetails'; signature: '(Lde/benibela/videlibri/jni/Bridge$SearcherAccess;Lde/benibela/videlibri/jni/Bridge$Book;)V'; fnPtr: @Java_de_benibela_VideLibri_Bridge_VLSearchDetails)
    ,(name:'VLSearchOrder'; signature: '(Lde/benibela/videlibri/jni/Bridge$SearcherAccess;[Lde/benibela/videlibri/jni/Bridge$Book;)V'; fnPtr: @Java_de_benibela_VideLibri_Bridge_VLSearchOrder)
    ,(name:'VLSearchOrder'; signature: '(Lde/benibela/videlibri/jni/Bridge$SearcherAccess;[Lde/benibela/videlibri/jni/Bridge$Book;[I)V'; fnPtr: @Java_de_benibela_VideLibri_Bridge_VLSearchOrderWithHolding)
-   ,(name:'VLSearchOrderConfirmed'; signature: '(Lde/benibela/videlibri/jni/Bridge$SearcherAccess;[Lde/benibela/videlibri/jni/Bridge$Book;)V'; fnPtr: @Java_de_benibela_VideLibri_Bridge_VLSearchOrderConfirmed)
    ,(name:'VLSearchCompletePendingMessage'; signature: '(Lde/benibela/videlibri/jni/Bridge$SearcherAccess;I)V'; fnPtr: @Java_de_benibela_VideLibri_Bridge_VLSearchCompletePendingMessage)
    ,(name:'VLSearchEnd'; signature: '(Lde/benibela/videlibri/jni/Bridge$SearcherAccess;)V'; fnPtr: @Java_de_benibela_VideLibri_Bridge_VLSearchEnd)
 

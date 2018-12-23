@@ -10,6 +10,7 @@ import android.view.MenuItem
 import android.widget.ArrayAdapter
 import android.widget.Spinner
 import android.widget.Toast
+import de.benibela.videlibri.Util.MessageHandlerCanceled
 import de.benibela.videlibri.Util.tr
 import java.io.InputStream
 
@@ -132,6 +133,7 @@ data class DialogInstance (
     var onNeutralButton: DialogEvent? = null
     var onPositiveButton: DialogEvent? = null
     var onDismiss: DialogEvent? = null
+    var onCancel: DialogEvent? = null
     var onItem: ChooseDialogEvent? = null
 
     fun message(caption: String) = args.putString("message", caption)
@@ -179,6 +181,7 @@ data class DialogInstance (
                     DialogInterface.BUTTON_NEGATIVE -> onNegativeButton?.invoke(this, dialogFragment)
                     DialogInterface.BUTTON_NEUTRAL -> onNeutralButton?.invoke(this, dialogFragment)
                     DialogInterface.BUTTON_POSITIVE -> onPositiveButton?.invoke(this, dialogFragment)
+                    MessageHandlerCanceled -> onCancel?.invoke(this, dialogFragment)
                 }
                 if (button >= 0 && onItem != null && args.containsKey("items")) onItem?.invoke(this, button)
                 onDismiss?.invoke(this, dialogFragment)

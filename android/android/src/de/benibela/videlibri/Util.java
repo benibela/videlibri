@@ -220,16 +220,12 @@ public class Util {
 
     static public void showMessage(String message){ showMessage(message, null); }
     static public void showMessage(int dialogId, String message){ showMessage(dialogId, message, null); }
-    static public void showMessageYesNo(int dialogId, String message){ showMessageYesNo(dialogId, message, null); }
 
     static public void showMessage(String message, Bundle more){ showMessage(DialogId.OK, message, null, tr(R.string.ok), null, more); }
     static public void showMessage(int dialogId, String message, Bundle more){ showMessage(dialogId, message, null, tr(R.string.ok), null, more); }
-    static public void showMessageYesNo(int dialogId, String message, Bundle more){ showMessage(dialogId, message, tr(R.string.no), null, tr(R.string.yes), more); }
     static public void showMessage(int dialogId, String message, String negative, String neutral, String positive){ showMessage(dialogId, message, negative, neutral, positive, null); }
     static public void showMessage(int dialogId, String message, int negative, int neutral, int positive){ showMessage(dialogId, message, Util.tr(negative), Util.tr(neutral), Util.tr(positive), null); }
     static public void showMessage(int dialogId, String message, int negative, int neutral, int positive, Bundle more){ showMessage(dialogId, message, Util.tr(negative), Util.tr(neutral), Util.tr(positive), more); }
-    static public void showMessageNegPos(int dialogId, String message, String negative, String positive){ showMessage(dialogId, message, negative, null, positive, null); }
-    static public void showMessageNegPos(int dialogId, String message, int negative, int positive){ showMessage(dialogId, message, Util.tr(negative), null, Util.tr(positive), null); }
 
     static public void showMessage(int dialogId, String message, String negative, String neutral, String positive, Bundle more){
         Bundle args = new Bundle();
@@ -243,15 +239,6 @@ public class Util {
         showPreparedDialog(args);
     }
 
-    static public void chooseDialog(int dialogId, String title, String[] options) { chooseDialog(dialogId, title, options, null); }
-    static public void chooseDialog(int dialogId, String title, String[] options, Bundle more) {
-        Bundle args = new Bundle();
-        args.putInt("id", dialogId);
-        args.putString("title", title);
-        args.putStringArray("items", options);
-        args.putBundle("more", more);
-        showPreparedDialog(args);
-    }
     //result in more bundle key "text". Failure button is Util.MessageHandlerCanceled
     static public void inputDialog(int dialogId, int title){ inputDialog(dialogId, tr(title), null); }
     static public void inputDialog(int dialogId, String title, String message){ inputDialog(dialogId, title, message, null); }

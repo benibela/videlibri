@@ -45,8 +45,6 @@ public
   procedure search;
   procedure searchNext;
   procedure details(book: tbook);
-  function orderNeedsConfirmation(): boolean;
-  procedure orderConfirmSingle(book: tbook);
   procedure orderSingle(book: tbook);
   procedure completePendingMessage(pm: TPendingMessage; idx: integer);
   procedure disconnect;
@@ -242,19 +240,6 @@ begin
         setlength(book.additional, length(book.additional)-1);
         exit;
       end;
-  updateAccessTimeout;
-end;
-
-function TLibrarySearcher.orderNeedsConfirmation(): boolean;
-begin
-  result := bookListReader.findAction('order-confirm-single') <> nil;
-end;
-
-procedure TLibrarySearcher.orderConfirmSingle(book: tbook);
-begin
-  bookListReader.selectBook(book);
-  if assigned(book.owningAccount) and (book.owningAccount.InheritsFrom(TTemplateAccountAccess)) then TTemplateAccountAccess(book.owningAccount).setVariables(bookListReader.parser);
-  bookListReader.callAction('order-confirm-single');
   updateAccessTimeout;
 end;
 
