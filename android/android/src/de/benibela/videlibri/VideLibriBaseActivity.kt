@@ -67,9 +67,9 @@ open class VideLibriBaseActivity: VideLibriBaseActivityOld(){
         }
         return super.onCreateOptionsMenu(menu)
     }
-    open protected fun onCreateOptionsMenuPrimary(menu: Menu, inflater: MenuInflater) = Unit
-    open protected fun onCreateOptionsMenuOverflow(menu: Menu, inflater: MenuInflater) = Unit
-    open protected fun setOptionMenuVisibility(menu: Menu?) = Unit
+    protected open fun onCreateOptionsMenuPrimary(menu: Menu, inflater: MenuInflater) = Unit
+    protected open fun onCreateOptionsMenuOverflow(menu: Menu, inflater: MenuInflater) = Unit
+    protected open fun setOptionMenuVisibility(menu: Menu?) = Unit
 
     override fun onPrepareOptionsMenu(menu: Menu?): Boolean {
         val x = super.onPrepareOptionsMenu(menu)
@@ -155,7 +155,7 @@ open class VideLibriBaseActivity: VideLibriBaseActivityOld(){
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if ((requestCode == REQUESTED_LIBRARY_CATALOGUE || requestCode == REQUESTED_LIBRARY_HOMEPAGE) && resultCode == RESULT_OK) {
-            Bridge.VLGetLibraryDetails(LibraryListOld.lastSelectedLibId)?.apply {
+            Bridge.VLGetLibraryDetails(LibraryList.lastSelectedLibId ?: return)?.apply {
                 showUriInBrowser(if (requestCode == REQUESTED_LIBRARY_HOMEPAGE) homepageBase else homepageCatalogue)
             }
             return

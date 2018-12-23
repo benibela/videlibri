@@ -14,6 +14,9 @@ import de.benibela.videlibri.Util.MessageHandlerCanceled
 import de.benibela.videlibri.Util.tr
 import java.io.InputStream
 
+fun <T: CharSequence> T.takeNonEmpty(): T? = takeIf(CharSequence::isNotEmpty)
+
+
 inline fun <reified T> currentActivity(): T? = (VideLibriApp.currentActivity as? T)
 inline fun <reified T: Activity> withActivity(f: T.() -> Unit) = currentActivity<T>()?.run(f)
 

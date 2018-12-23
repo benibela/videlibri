@@ -1,5 +1,6 @@
 package de.benibela.videlibri
 
+import android.app.Activity
 import android.content.Intent
 import android.graphics.Paint
 import android.os.Bundle
@@ -31,13 +32,9 @@ class Search: VideLibriBaseActivity(), SearchEventHandler{
         lib.setText(libName + " (" + tr(R.string.change) + ")")
         lib.paintFlags = lib.paintFlags or Paint.UNDERLINE_TEXT_FLAG
         if (libId.isEmpty() || (intent?.getBooleanExtra("showLibList", false)?:false) && savedInstanceState == null) {
-            if (System.currentTimeMillis() - LibraryListOld.lastSelectedTime < LibraryListOld.SELECTION_REUSE_TIME) {
-                libId = LibraryListOld.lastSelectedLibId ?: ""
-                libName = LibraryListOld.lastSelectedLibName ?: ""
-            } else {
-                libId = ""
-                changeSearchLib()
-            }
+            libId = LibraryList.lastSelectedFallbackLibraryId() ?: ""
+            if (libId.isEmpty()) changeSearchLib()
+            else libName = LibraryList.lastSelectedLibName ?: ""
         }
 
         val defaultQuery = intent?.getSerializableExtra("query")
@@ -194,9 +191,9 @@ class Search: VideLibriBaseActivity(), SearchEventHandler{
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if (requestCode == REQUEST_CHOOSE_LIBRARY) {
-            if (resultCode == LibraryListOld.RESULT_OK) {
-                libId = LibraryListOld.lastSelectedLibId
-                libName = LibraryListOld.lastSelectedLibName
+            if (resultCode == Activity.RESULT_OK) {
+                libId = LibraryList.lastSelectedLibId ?: ""
+                libName = LibraryList.lastSelectedLibName ?: ""
                 findViewById<TextView>(R.id.library).setText(libName)
 
                 obtainSearcher()
