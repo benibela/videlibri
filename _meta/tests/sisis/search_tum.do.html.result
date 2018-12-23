@@ -10,67 +10,67 @@ brs := ("",
 "2013")
 brs := ("Kleuker, Stephan", 
 "2013")
-book := {"year": "2013", "author": "Kleuker, Stephan", "title": "Qualitätssicherung durch Softwaretests", "_detail-url": "/Katalog/singleHit.do?methodToCall=showHit&curPos=1&identifier=-1_S_IG.42.3087", "orderable": 0}
+book := {"year": "2013", "author": "Kleuker, Stephan", "title": "Qualitätssicherung durch Softwaretests", "_detail-url": "/Katalog/singleHit.do?methodToCall=showHit&curPos=1&identifier=-1_S_IG.42.3087", "orderable": false}
 hasZ3988 := false()
 brs := ("", 
 "Kuhl, Julius", 
 "2013")
 brs := ("Kuhl, Julius", 
 "2013")
-book := {"year": "2013", "author": "Kuhl, Julius", "title": "Auswertungsmanual für den Operanten Multi-Motiv-Test OMT", "_detail-url": "/Katalog/singleHit.do?methodToCall=showHit&curPos=2&identifier=-1_S_IG.42.3087", "orderable": 0}
+book := {"year": "2013", "author": "Kuhl, Julius", "title": "Auswertungsmanual für den Operanten Multi-Motiv-Test OMT", "_detail-url": "/Katalog/singleHit.do?methodToCall=showHit&curPos=2&identifier=-1_S_IG.42.3087", "orderable": false}
 hasZ3988 := false()
 brs := ("", 
 "Markantonatou, Maria", 
 "2013")
 brs := ("Markantonatou, Maria", 
 "2013")
-book := {"year": "2013", "author": "Markantonatou, Maria", "title": "Diagnosis, treatment, and effects of the crisis in Greece", "_detail-url": "/Katalog/singleHit.do?methodToCall=showHit&curPos=3&identifier=-1_S_IG.42.3087", "orderable": 0}
+book := {"year": "2013", "author": "Markantonatou, Maria", "title": "Diagnosis, treatment, and effects of the crisis in Greece", "_detail-url": "/Katalog/singleHit.do?methodToCall=showHit&curPos=3&identifier=-1_S_IG.42.3087", "orderable": false}
 hasZ3988 := false()
 brs := ("", 
 "Müller, Daniel", 
 "2013")
 brs := ("Müller, Daniel", 
 "2013")
-book := {"year": "2013", "author": "Müller, Daniel", "title": "Design characteristics of virtual learning environments", "_detail-url": "/Katalog/singleHit.do?methodToCall=showHit&curPos=4&identifier=-1_S_IG.42.3087", "orderable": 0}
+book := {"year": "2013", "author": "Müller, Daniel", "title": "Design characteristics of virtual learning environments", "_detail-url": "/Katalog/singleHit.do?methodToCall=showHit&curPos=4&identifier=-1_S_IG.42.3087", "orderable": false}
 hasZ3988 := false()
 brs := ("", 
 "Buschmeier, Isabell", 
 "2012")
 brs := ("Buschmeier, Isabell", 
 "2012")
-book := {"year": "2012", "author": "Buschmeier, Isabell", "title": "¬Der Alcohol Use Disorders Identification Test (AUDIT) als präoperatives Screeninginstrument für die postoperative exogene Psychose", "_detail-url": "/Katalog/singleHit.do?methodToCall=showHit&curPos=5&identifier=-1_S_IG.42.3087", "orderable": 0}
+book := {"year": "2012", "author": "Buschmeier, Isabell", "title": "¬Der Alcohol Use Disorders Identification Test (AUDIT) als präoperatives Screeninginstrument für die postoperative exogene Psychose", "_detail-url": "/Katalog/singleHit.do?methodToCall=showHit&curPos=5&identifier=-1_S_IG.42.3087", "orderable": false}
 hasZ3988 := false()
 brs := ("", 
 "Buschmeier, Isabell", 
 "2012")
 brs := ("Buschmeier, Isabell", 
 "2012")
-book := {"year": "2012", "author": "Buschmeier, Isabell", "title": "¬Der Alcohol Use Disorders Identification Test (AUDIT) als präoperatives Screeninginstrument für die postoperative exogene Psychose", "_detail-url": "/Katalog/singleHit.do?methodToCall=showHit&curPos=6&identifier=-1_S_IG.42.3087", "orderable": 0}
+book := {"year": "2012", "author": "Buschmeier, Isabell", "title": "¬Der Alcohol Use Disorders Identification Test (AUDIT) als präoperatives Screeninginstrument für die postoperative exogene Psychose", "_detail-url": "/Katalog/singleHit.do?methodToCall=showHit&curPos=6&identifier=-1_S_IG.42.3087", "orderable": false}
 hasZ3988 := false()
 brs := ("", 
 "Chen, Yixin", 
 "2012")
 brs := ("Chen, Yixin", 
 "2012")
-book := {"year": "2012", "author": "Chen, Yixin", "title": "Enacted support and well-being", "_detail-url": "/Katalog/singleHit.do?methodToCall=showHit&curPos=7&identifier=-1_S_IG.42.3087", "orderable": 0}
+book := {"year": "2012", "author": "Chen, Yixin", "title": "Enacted support and well-being", "_detail-url": "/Katalog/singleHit.do?methodToCall=showHit&curPos=7&identifier=-1_S_IG.42.3087", "orderable": false}
 hasZ3988 := false()
 brs := ("", 
 "Beckmann, Dieter", 
 "2012")
 brs := ("Beckmann, Dieter", 
 "2012")
-book := {"year": "2012", "author": "Beckmann, Dieter", "title": "¬Der Giessen-Test-II", "_detail-url": "/Katalog/singleHit.do?methodToCall=showHit&curPos=8&identifier=-1_S_IG.42.3087", "orderable": 0}
+book := {"year": "2012", "author": "Beckmann, Dieter", "title": "¬Der Giessen-Test-II", "_detail-url": "/Katalog/singleHit.do?methodToCall=showHit&curPos=8&identifier=-1_S_IG.42.3087", "orderable": false}
 hasZ3988 := false()
 brs := ("", 
 "Giliomee, Hermann Buhr", 
 "2012")
 brs := ("Giliomee, Hermann Buhr", 
 "2012")
-book := {"year": "2012", "author": "Giliomee, Hermann Buhr", "title": "¬The last Afrikaner leaders", "_detail-url": "/Katalog/singleHit.do?methodToCall=showHit&curPos=9&identifier=-1_S_IG.42.3087", "orderable": 0}
+book := {"year": "2012", "author": "Giliomee, Hermann Buhr", "title": "¬The last Afrikaner leaders", "_detail-url": "/Katalog/singleHit.do?methodToCall=showHit&curPos=9&identifier=-1_S_IG.42.3087", "orderable": false}
 hasZ3988 := false()
 brs := ("", 
 "Gosselt, Jordy F.", 
 "2012")
 brs := ("Gosselt, Jordy F.", 
 "2012")
-book := {"year": "2012", "author": "Gosselt, Jordy F.", "title": "Effects of media ratings on children and adolescents", "_detail-url": "/Katalog/singleHit.do?methodToCall=showHit&curPos=10&identifier=-1_S_IG.42.3087", "orderable": 0}
+book := {"year": "2012", "author": "Gosselt, Jordy F.", "title": "Effects of media ratings on children and adolescents", "_detail-url": "/Katalog/singleHit.do?methodToCall=showHit&curPos=10&identifier=-1_S_IG.42.3087", "orderable": false}

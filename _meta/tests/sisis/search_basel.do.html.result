@@ -10,7 +10,7 @@ brs := ("",
 "nicht ausleihbar")
 brs := ("Online-Dokument", 
 "nicht ausleihbar")
-book := {"author": "Online-Dokument", "title": "Kindlers Literatur Lexikon: Wellek, René / Warren, Austin - Theory of Literature", "_detail-url": "/InfoGuideClient.sisis/singleHit.do?methodToCall=showHit&curPos=11&identifier=-1_S_IG.1273.27359", "orderable": 0}
+book := {"author": "Online-Dokument", "title": "Kindlers Literatur Lexikon: Wellek, René / Warren, Austin - Theory of Literature", "_detail-url": "/InfoGuideClient.sisis/singleHit.do?methodToCall=showHit&curPos=11&identifier=-1_S_IG.1273.27359", "orderable": false}
 hasZ3988 := false()
 brs := ("", 
 "1994", 
@@ -20,7 +20,7 @@ brs := ("1994",
 brs := ("", 
 "1994", 
 "Kommunikation &amp; Information: 301.14")
-book := {"year": "1994", "author": "", "title": "Medien und Gewalt.", "_detail-url": "/InfoGuideClient.sisis/singleHit.do?methodToCall=showHit&curPos=12&identifier=-1_S_IG.1273.27359", "orderable": 0}
+book := {"year": "1994", "author": "", "title": "Medien und Gewalt.", "_detail-url": "/InfoGuideClient.sisis/singleHit.do?methodToCall=showHit&curPos=12&identifier=-1_S_IG.1273.27359", "orderable": false}
 hasZ3988 := false()
 brs := ("", 
 "2010", 
@@ -30,53 +30,53 @@ brs := ("2010",
 brs := ("", 
 "2010", 
 "Natur &amp; Technik: Fahrschule")
-book := {"year": "2010", "author": "", "title": "3D-Fahrschule 2010 [CD-ROM]", "_detail-url": "/InfoGuideClient.sisis/singleHit.do?methodToCall=showHit&curPos=13&identifier=-1_S_IG.1273.27359", "orderable": 0}
+book := {"year": "2010", "author": "", "title": "3D-Fahrschule 2010 [CD-ROM]", "_detail-url": "/InfoGuideClient.sisis/singleHit.do?methodToCall=showHit&curPos=13&identifier=-1_S_IG.1273.27359", "orderable": false}
 hasZ3988 := false()
 brs := ("", 
 "Adorno, Theodor W.", 
 "1972")
 brs := ("Adorno, Theodor W.", 
 "1972")
-book := {"year": "1972", "author": "Adorno, Theodor W.", "title": "Aesthetische Theorie", "_detail-url": "/InfoGuideClient.sisis/singleHit.do?methodToCall=showHit&curPos=14&identifier=-1_S_IG.1273.27359", "orderable": 0}
+book := {"year": "1972", "author": "Adorno, Theodor W.", "title": "Aesthetische Theorie", "_detail-url": "/InfoGuideClient.sisis/singleHit.do?methodToCall=showHit&curPos=14&identifier=-1_S_IG.1273.27359", "orderable": false}
 hasZ3988 := false()
 brs := ("", 
 "Ahrends, Günter", 
 "1980")
 brs := ("Ahrends, Günter", 
 "1980")
-book := {"year": "1980", "author": "Ahrends, Günter", "title": "¬Die amerikanische Kurzgeschichte", "_detail-url": "/InfoGuideClient.sisis/singleHit.do?methodToCall=showHit&curPos=15&identifier=-1_S_IG.1273.27359", "orderable": 0}
+book := {"year": "1980", "author": "Ahrends, Günter", "title": "¬Die amerikanische Kurzgeschichte", "_detail-url": "/InfoGuideClient.sisis/singleHit.do?methodToCall=showHit&curPos=15&identifier=-1_S_IG.1273.27359", "orderable": false}
 hasZ3988 := false()
 brs := ("", 
 "Ahrendt, Lilli", 
 "2007")
 brs := ("Ahrendt, Lilli", 
 "2007")
-book := {"year": "2007", "author": "Ahrendt, Lilli", "title": "Säuglingsschwimmen und kindliche Entwicklung", "_detail-url": "/InfoGuideClient.sisis/singleHit.do?methodToCall=showHit&curPos=16&identifier=-1_S_IG.1273.27359", "orderable": 0}
+book := {"year": "2007", "author": "Ahrendt, Lilli", "title": "Säuglingsschwimmen und kindliche Entwicklung", "_detail-url": "/InfoGuideClient.sisis/singleHit.do?methodToCall=showHit&curPos=16&identifier=-1_S_IG.1273.27359", "orderable": false}
 hasZ3988 := false()
 brs := ("", 
 "Allgoewer, Elisabeth", 
 "Online-Dokument")
 brs := ("Allgoewer, Elisabeth", 
 "Online-Dokument")
-book := {"author": "Allgoewer, Elisabeth", "title": "Kindlers Literatur Lexikon: Hicks, John Richard - Value and Capital", "_detail-url": "/InfoGuideClient.sisis/singleHit.do?methodToCall=showHit&curPos=17&identifier=-1_S_IG.1273.27359", "orderable": 0}
+book := {"author": "Allgoewer, Elisabeth", "title": "Kindlers Literatur Lexikon: Hicks, John Richard - Value and Capital", "_detail-url": "/InfoGuideClient.sisis/singleHit.do?methodToCall=showHit&curPos=17&identifier=-1_S_IG.1273.27359", "orderable": false}
 hasZ3988 := false()
 brs := ("", 
 "Arens, Thomas", 
 "2004")
 brs := ("Arens, Thomas", 
 "2004")
-book := {"year": "2004", "author": "Arens, Thomas", "title": "Erste Übungen für Drumset-Anfänger [Noten]", "_detail-url": "/InfoGuideClient.sisis/singleHit.do?methodToCall=showHit&curPos=18&identifier=-1_S_IG.1273.27359", "orderable": 0}
+book := {"year": "2004", "author": "Arens, Thomas", "title": "Erste Übungen für Drumset-Anfänger [Noten]", "_detail-url": "/InfoGuideClient.sisis/singleHit.do?methodToCall=showHit&curPos=18&identifier=-1_S_IG.1273.27359", "orderable": false}
 hasZ3988 := false()
 brs := ("", 
 "Bachmann, Heinz", 
 "2007")
 brs := ("Bachmann, Heinz", 
 "2007")
-book := {"year": "2007", "author": "Bachmann, Heinz", "title": "Vektorgeometrie", "_detail-url": "/InfoGuideClient.sisis/singleHit.do?methodToCall=showHit&curPos=19&identifier=-1_S_IG.1273.27359", "orderable": 0}
+book := {"year": "2007", "author": "Bachmann, Heinz", "title": "Vektorgeometrie", "_detail-url": "/InfoGuideClient.sisis/singleHit.do?methodToCall=showHit&curPos=19&identifier=-1_S_IG.1273.27359", "orderable": false}
 hasZ3988 := false()
 brs := ("", 
 "Beck-Neckermann, Johannes", 
 "2002")
 brs := ("Beck-Neckermann, Johannes", 
 "2002")
-book := {"year": "2002", "author": "Beck-Neckermann, Johannes", "title": "Handbuch der musikalischen Früherziehung", "_detail-url": "/InfoGuideClient.sisis/singleHit.do?methodToCall=showHit&curPos=20&identifier=-1_S_IG.1273.27359", "orderable": 0}
+book := {"year": "2002", "author": "Beck-Neckermann, Johannes", "title": "Handbuch der musikalischen Früherziehung", "_detail-url": "/InfoGuideClient.sisis/singleHit.do?methodToCall=showHit&curPos=20&identifier=-1_S_IG.1273.27359", "orderable": false}

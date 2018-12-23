@@ -13,7 +13,7 @@ brs := ("1980",
 brs := ("", 
 "1980", 
 "Rml/The")
-book := {"year": "1980", "author": "", "title": "/1. 1839-1912.", "_detail-url": "/webOPACClient.stasis/singleHit.do?methodToCall=showHit&curPos=1&identifier=-1_S_IG.49.27050", "orderable": 0}
+book := {"year": "1980", "author": "", "title": "/1. 1839-1912.", "_detail-url": "/webOPACClient.stasis/singleHit.do?methodToCall=showHit&curPos=1&identifier=-1_S_IG.49.27050", "orderable": false}
 hasZ3988 := false()
 brs := ("", 
 "1983", 
@@ -23,14 +23,14 @@ brs := ("1983",
 brs := ("", 
 "1983", 
 "Rml/The")
-book := {"year": "1983", "author": "", "title": "/3. 1945-1980.", "_detail-url": "/webOPACClient.stasis/singleHit.do?methodToCall=showHit&curPos=2&identifier=-1_S_IG.49.27050", "orderable": 0}
+book := {"year": "1983", "author": "", "title": "/3. 1945-1980.", "_detail-url": "/webOPACClient.stasis/singleHit.do?methodToCall=showHit&curPos=2&identifier=-1_S_IG.49.27050", "orderable": false}
 hasZ3988 := false()
 brs := ("", 
 "Sbh2", 
 "Ein oder mehrere Exemplare dieses Titels sind in der aktuellen Zweigstelle ausleihbar.")
 brs := ("Sbh2", 
 "Ein oder mehrere Exemplare dieses Titels sind in der aktuellen Zweigstelle ausleihbar.")
-book := {"author": "Sbh2", "title": "Ästhetische Theorie und musikpädagogische Theoriebildung : Sitzungsbericht der Wissenschaftlichen Sozietät Musikpädagogik", "_detail-url": "/webOPACClient.stasis/singleHit.do?methodToCall=showHit&curPos=3&identifier=-1_S_IG.49.27050", "orderable": 0}
+book := {"author": "Sbh2", "title": "Ästhetische Theorie und musikpädagogische Theoriebildung : Sitzungsbericht der Wissenschaftlichen Sozietät Musikpädagogik", "_detail-url": "/webOPACClient.stasis/singleHit.do?methodToCall=showHit&curPos=3&identifier=-1_S_IG.49.27050", "orderable": false}
 hasZ3988 := false()
 brs := ("", 
 "2001", 
@@ -40,7 +40,7 @@ brs := ("2001",
 brs := ("", 
 "2001", 
 "eBook")
-book := {"year": "2001", "author": "", "title": "Räumliche Ordnungsprinzipien", "_detail-url": "/webOPACClient.stasis/singleHit.do?methodToCall=showHit&curPos=4&identifier=-1_S_IG.49.27050", "orderable": 0}
+book := {"year": "2001", "author": "", "title": "Räumliche Ordnungsprinzipien", "_detail-url": "/webOPACClient.stasis/singleHit.do?methodToCall=showHit&curPos=4&identifier=-1_S_IG.49.27050", "orderable": false}
 hasZ3988 := false()
 brs := ("", 
 "2001", 
@@ -50,7 +50,7 @@ brs := ("2001",
 brs := ("", 
 "2001", 
 "eBook")
-book := {"year": "2001", "author": "", "title": "Räumliche Ordnungsprinzipien - Walter Christallers", "_detail-url": "/webOPACClient.stasis/singleHit.do?methodToCall=showHit&curPos=5&identifier=-1_S_IG.49.27050", "orderable": 0}
+book := {"year": "2001", "author": "", "title": "Räumliche Ordnungsprinzipien - Walter Christallers", "_detail-url": "/webOPACClient.stasis/singleHit.do?methodToCall=showHit&curPos=5&identifier=-1_S_IG.49.27050", "orderable": false}
 hasZ3988 := false()
 brs := ("", 
 "2003", 
@@ -60,7 +60,7 @@ brs := ("2003",
 brs := ("", 
 "2003", 
 "CD-ROM-Wkm11/Dre")
-book := {"year": "2003", "author": "", "title": "3D-Fahrschule 2 (CD-ROM)", "_detail-url": "/webOPACClient.stasis/singleHit.do?methodToCall=showHit&curPos=6&identifier=-1_S_IG.49.27050", "orderable": 0}
+book := {"year": "2003", "author": "", "title": "3D-Fahrschule 2 (CD-ROM)", "_detail-url": "/webOPACClient.stasis/singleHit.do?methodToCall=showHit&curPos=6&identifier=-1_S_IG.49.27050", "orderable": false}
 hasZ3988 := false()
 brs := ("", 
 "2009", 
@@ -70,25 +70,25 @@ brs := ("2009",
 brs := ("", 
 "2009", 
 "Technik/CD-ROM")
-book := {"year": "2009", "author": "", "title": "3D-Fahrschule 2010", "_detail-url": "/webOPACClient.stasis/singleHit.do?methodToCall=showHit&curPos=7&identifier=-1_S_IG.49.27050", "orderable": 0}
+book := {"year": "2009", "author": "", "title": "3D-Fahrschule 2010", "_detail-url": "/webOPACClient.stasis/singleHit.do?methodToCall=showHit&curPos=7&identifier=-1_S_IG.49.27050", "orderable": false}
 hasZ3988 := false()
 brs := ("", 
 "Abel-Struth, Sigrid", 
 "1978")
 brs := ("Abel-Struth, Sigrid", 
 "1978")
-book := {"year": "1978", "author": "Abel-Struth, Sigrid", "title": "Ziele des Musik-Lernens/1. Beitrag zur Entwicklung ihrer Theorie", "_detail-url": "/webOPACClient.stasis/singleHit.do?methodToCall=showHit&curPos=8&identifier=-1_S_IG.49.27050", "orderable": 0}
+book := {"year": "1978", "author": "Abel-Struth, Sigrid", "title": "Ziele des Musik-Lernens/1. Beitrag zur Entwicklung ihrer Theorie", "_detail-url": "/webOPACClient.stasis/singleHit.do?methodToCall=showHit&curPos=8&identifier=-1_S_IG.49.27050", "orderable": false}
 hasZ3988 := false()
 brs := ("", 
 "Abendroth, Walter", 
 "1963")
 brs := ("Abendroth, Walter", 
 "1963")
-book := {"year": "1963", "author": "Abendroth, Walter", "title": "Selbstmord der Musik? : Zur Theorie, Ideologie und Phraseologie des modernen Schaffens", "_detail-url": "/webOPACClient.stasis/singleHit.do?methodToCall=showHit&curPos=9&identifier=-1_S_IG.49.27050", "orderable": 0}
+book := {"year": "1963", "author": "Abendroth, Walter", "title": "Selbstmord der Musik? : Zur Theorie, Ideologie und Phraseologie des modernen Schaffens", "_detail-url": "/webOPACClient.stasis/singleHit.do?methodToCall=showHit&curPos=9&identifier=-1_S_IG.49.27050", "orderable": false}
 hasZ3988 := false()
 brs := ("", 
 "Assunto, Rosario", 
 "1982")
 brs := ("Assunto, Rosario", 
 "1982")
-book := {"year": "1982", "author": "Assunto, Rosario", "title": "¬Die Theorie des Schönen im Mittelalter", "_detail-url": "/webOPACClient.stasis/singleHit.do?methodToCall=showHit&curPos=10&identifier=-1_S_IG.49.27050", "orderable": 0}
+book := {"year": "1982", "author": "Assunto, Rosario", "title": "¬Die Theorie des Schönen im Mittelalter", "_detail-url": "/webOPACClient.stasis/singleHit.do?methodToCall=showHit&curPos=10&identifier=-1_S_IG.49.27050", "orderable": false}

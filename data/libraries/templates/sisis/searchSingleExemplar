@@ -42,13 +42,17 @@
       </t:siblings>
       
       <t:if test="$needOrders">
-      { .//a[contains(@href, 'availability.do') and contains(@href, 'katkey')]!(
-        $book("_orderTitle"||$book._orderCount) := .,
-        $book("_order"||$book._orderCount) := resolve-html(),
-        $book._orderCount := $book._orderCount + 1,
-        $book.orderable := true()
-      )  }
-      </t:if>
+      {let $links := .//a[contains(@href, 'availability.do') and contains(@href, 'katkey')]
+       where exists($links)
+       return (
+         for $l at $i in $links return (
+           $book("_orderTitle"||$i) := $l,
+           $book("_order"||$i) := resolve-html($l)
+         ),
+         $book.orderable := true(),
+         $book._orderCount := count($links)
+       )
+      }</t:if>
       {for $key in ("libraryBranch", "libraryLocation") return
         if (matches($holding($key), "Wegweise|Lageplan|Was heißt das")) then 
           $holding($key) := replace($holding($key), "\s*(Wegweiser|Lageplan|-?Was heißt das.*)", "") 

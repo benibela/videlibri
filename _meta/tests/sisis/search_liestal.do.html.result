@@ -10,28 +10,28 @@ brs := ("",
 "2013")
 brs := ("Nolte, Anke", 
 "2013")
-book := {"year": "2013", "author": "Nolte, Anke", "title": "Essstörungen", "_detail-url": "/InfoGuideClient/singleHit.do?methodToCall=showHit&curPos=1&identifier=-1_FT_982427123", "orderable": 0}
+book := {"year": "2013", "author": "Nolte, Anke", "title": "Essstörungen", "_detail-url": "/InfoGuideClient/singleHit.do?methodToCall=showHit&curPos=1&identifier=-1_FT_982427123", "orderable": false}
 hasZ3988 := false()
 brs := ("", 
 "Bannasch, Lutz", 
 "2013")
 brs := ("Bannasch, Lutz", 
 "2013")
-book := {"year": "2013", "author": "Bannasch, Lutz", "title": "Lieber gesund & glücklich", "_detail-url": "/InfoGuideClient/singleHit.do?methodToCall=showHit&curPos=2&identifier=-1_FT_982427123", "orderable": 0}
+book := {"year": "2013", "author": "Bannasch, Lutz", "title": "Lieber gesund & glücklich", "_detail-url": "/InfoGuideClient/singleHit.do?methodToCall=showHit&curPos=2&identifier=-1_FT_982427123", "orderable": false}
 hasZ3988 := false()
 brs := ("", 
 "Ronson, Jon", 
 "2012")
 brs := ("Ronson, Jon", 
 "2012")
-book := {"year": "2012", "author": "Ronson, Jon", "title": "¬Die Psychopathen sind unter uns", "_detail-url": "/InfoGuideClient/singleHit.do?methodToCall=showHit&curPos=3&identifier=-1_FT_982427123", "orderable": 0}
+book := {"year": "2012", "author": "Ronson, Jon", "title": "¬Die Psychopathen sind unter uns", "_detail-url": "/InfoGuideClient/singleHit.do?methodToCall=showHit&curPos=3&identifier=-1_FT_982427123", "orderable": false}
 hasZ3988 := false()
 brs := ("", 
 "Kullmann, Folko", 
 "2012")
 brs := ("Kullmann, Folko", 
 "2012")
-book := {"year": "2012", "author": "Kullmann, Folko", "title": "¬Der Garten-Coach", "_detail-url": "/InfoGuideClient/singleHit.do?methodToCall=showHit&curPos=4&identifier=-1_FT_982427123", "orderable": 0}
+book := {"year": "2012", "author": "Kullmann, Folko", "title": "¬Der Garten-Coach", "_detail-url": "/InfoGuideClient/singleHit.do?methodToCall=showHit&curPos=4&identifier=-1_FT_982427123", "orderable": false}
 hasZ3988 := false()
 brs := ("", 
 "2012", 
@@ -41,7 +41,7 @@ brs := ("2012",
 brs := ("", 
 "2012", 
 "2. Obergeschoss/Kantonsbibliothek")
-book := {"year": "2012", "author": "", "title": "Español Sprachkurs 2 [DVD-ROM, Compact Disc]", "_detail-url": "/InfoGuideClient/singleHit.do?methodToCall=showHit&curPos=5&identifier=-1_FT_982427123", "orderable": 0}
+book := {"year": "2012", "author": "", "title": "Español Sprachkurs 2 [DVD-ROM, Compact Disc]", "_detail-url": "/InfoGuideClient/singleHit.do?methodToCall=showHit&curPos=5&identifier=-1_FT_982427123", "orderable": false}
 hasZ3988 := false()
 brs := ("", 
 "2012", 
@@ -51,32 +51,32 @@ brs := ("2012",
 brs := ("", 
 "2012", 
 "2. Obergeschoss/Kantonsbibliothek")
-book := {"year": "2012", "author": "", "title": "Mathematik 5", "_detail-url": "/InfoGuideClient/singleHit.do?methodToCall=showHit&curPos=6&identifier=-1_FT_982427123", "orderable": 0}
+book := {"year": "2012", "author": "", "title": "Mathematik 5", "_detail-url": "/InfoGuideClient/singleHit.do?methodToCall=showHit&curPos=6&identifier=-1_FT_982427123", "orderable": false}
 hasZ3988 := false()
 brs := ("", 
 "Bopp, Annette", 
 "2012")
 brs := ("Bopp, Annette", 
 "2012")
-book := {"year": "2012", "author": "Bopp, Annette", "title": "Medikamente im Test Krebs", "_detail-url": "/InfoGuideClient/singleHit.do?methodToCall=showHit&curPos=7&identifier=-1_FT_982427123", "orderable": 0}
+book := {"year": "2012", "author": "Bopp, Annette", "title": "Medikamente im Test Krebs", "_detail-url": "/InfoGuideClient/singleHit.do?methodToCall=showHit&curPos=7&identifier=-1_FT_982427123", "orderable": false}
 hasZ3988 := false()
 brs := ("", 
 "Oberzig, Klaus", 
 "2012")
 brs := ("Oberzig, Klaus", 
 "2012")
-book := {"year": "2012", "author": "Oberzig, Klaus", "title": "Solarwärme", "_detail-url": "/InfoGuideClient/singleHit.do?methodToCall=showHit&curPos=8&identifier=-1_FT_982427123", "orderable": 0}
+book := {"year": "2012", "author": "Oberzig, Klaus", "title": "Solarwärme", "_detail-url": "/InfoGuideClient/singleHit.do?methodToCall=showHit&curPos=8&identifier=-1_FT_982427123", "orderable": false}
 hasZ3988 := false()
 brs := ("", 
 "Spitzbart, Michael", 
 "2012")
 brs := ("Spitzbart, Michael", 
 "2012")
-book := {"year": "2012", "author": "Spitzbart, Michael", "title": "Erschöpfung und Depression: Wenn die Hormone verrücktspielen", "_detail-url": "/InfoGuideClient/singleHit.do?methodToCall=showHit&curPos=9&identifier=-1_FT_982427123", "orderable": 0}
+book := {"year": "2012", "author": "Spitzbart, Michael", "title": "Erschöpfung und Depression: Wenn die Hormone verrücktspielen", "_detail-url": "/InfoGuideClient/singleHit.do?methodToCall=showHit&curPos=9&identifier=-1_FT_982427123", "orderable": false}
 hasZ3988 := false()
 brs := ("", 
 "Heckscher, Melissa", 
 "2012")
 brs := ("Heckscher, Melissa", 
 "2012")
-book := {"year": "2012", "author": "Heckscher, Melissa", "title": "Schwanger, na und?", "_detail-url": "/InfoGuideClient/singleHit.do?methodToCall=showHit&curPos=10&identifier=-1_FT_982427123", "orderable": 0}
+book := {"year": "2012", "author": "Heckscher, Melissa", "title": "Schwanger, na und?", "_detail-url": "/InfoGuideClient/singleHit.do?methodToCall=showHit&curPos=10&identifier=-1_FT_982427123", "orderable": false}
