@@ -41,7 +41,7 @@ class AccountInfo : VideLibriBaseActivity() {
         Bridge.VLGetLibraryDetails(id)?.also {
             libshortname = it.prettyNameShort
             lib.text = it.prettyName
-            findViewById<View>(R.id.typeLayout).visibility = if (it.segregatedAccounts) View.VISIBLE else View.GONE
+            findViewById<View>(R.id.typeLayout).isVisibleNotGone = it.segregatedAccounts
             libdetails = it
         }
     }

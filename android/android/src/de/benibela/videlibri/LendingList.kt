@@ -115,7 +115,7 @@ class LendingList: BookListActivity(){
                 || displayForcedCounterActually != displayForcedCounter
         ) {
             val searchPanel = findViewById<View>(R.id.searchFilterPanel)
-            searchPanel?.visibility = if ("__disabled" == displayOptions.filterKey) View.GONE else View.VISIBLE
+            searchPanel?.isVisibleNotGone = !("__disabled" == displayOptions.filterKey)
             displayAccounts()
         }
     }

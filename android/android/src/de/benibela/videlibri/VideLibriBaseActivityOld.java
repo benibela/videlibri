@@ -114,12 +114,6 @@ public class VideLibriBaseActivityOld extends AppCompatActivity{
         if (mDrawerToggle != null) mDrawerToggle.onConfigurationChanged(newConfig);
     }
 
-    protected void setItemVisible(MenuItem item, boolean visible){
-        if (item == null) return;
-        item.setVisible(visible);
-    }
-
-
     public boolean onOptionsItemIdSelected(int id){
         return false;
     }
