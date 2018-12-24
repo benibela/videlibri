@@ -165,17 +165,6 @@ public class VideLibriBaseActivityOld extends AppCompatActivity{
         return tv.getText().toString();
     }
 
-    public void setEditTextText(int id, CharSequence text){
-        EditText tv = (EditText) findViewById(id);
-        tv.setText(text);
-    }
-
-    public String getEditTextText(int id){
-        EditText tv = (EditText) findViewById(id);
-        return tv.getText().toString();
-    }
-
-
     public ArrayAdapter<String> makeAdapterStrings(String[] templates) {
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, templates);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);

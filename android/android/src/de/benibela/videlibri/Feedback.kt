@@ -96,7 +96,7 @@ class Feedback : VideLibriBaseActivity() {
             }
         }
 
-        findButtonById(R.id.button).setOnClickListener {
+        findViewById<Button>(R.id.button).setOnClickListener {
             val name = findViewById<TextView>(R.id.name).text
             val mail = findViewById<TextView>(R.id.mail).text
             val feedback = findViewById<TextView>(R.id.text).text

@@ -61,22 +61,17 @@ class ImportExport : VideLibriBaseActivity() {
         checkAllSet(lv, true)
     }
 
-
     private fun setButtonText() {
-        val btn = findButtonById(R.id.button)
-        if (mode == MODE_IMPORT) {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN)
-                if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-                    btn.text = tr(R.string.import_export_need_permission)
-                    return
-                }
-            btn.text = tr(R.string.import_load)
-        } else {
-            if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED)
-                btn.text = tr(R.string.import_export_need_permission)
-            else
-                btn.text = tr(R.string.export)
-        }
+        findViewById<Button>(R.id.button).setText(when (mode) {
+            MODE_IMPORT -> if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN && ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED)
+                                R.string.import_export_need_permission
+                           else
+                                R.string.import_load
+            else -> if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED)
+                        R.string.import_export_need_permission
+                    else
+                        R.string.export
+        })
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
