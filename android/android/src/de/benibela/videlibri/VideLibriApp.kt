@@ -266,7 +266,7 @@ class VideLibriApp : Application(), Bridge.VideLibriContext {
         internal fun getCurrentLocale(context: Context): Locale =
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N)
                 context.resources.configuration.locales.get(0)
-            else
+            else @Suppress("DEPRECATION")
                 context.resources.configuration.locale
 
 
@@ -275,9 +275,10 @@ class VideLibriApp : Application(), Bridge.VideLibriContext {
             if (defaultLocale == null) defaultLocale = getCurrentLocale(context)
             val locale = if (langOverride.isEmpty()) defaultLocale else Locale(langOverride)
             Locale.setDefault(locale)
-            val config = Configuration()
-            config.locale = locale
-            context.applicationContext.resources.updateConfiguration(config, null)
+            @Suppress("DEPRECATION") Configuration().let {
+                it.locale = locale
+                context.applicationContext.resources.updateConfiguration(it, null)
+            }
         }
 
         @JvmStatic fun initializeBridge() {

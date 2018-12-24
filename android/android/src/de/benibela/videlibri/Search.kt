@@ -147,7 +147,7 @@ class Search: VideLibriBaseActivity(), SearchEventHandler{
                 for (event in it.pendingEvents)
                     onSearchEvent(event)
             }
-            it.pendingEvents?.clear()
+            it.pendingEvents.clear()
             if (it.state != SEARCHER_STATE_INIT)
                 endLoadingAll(VideLibriBaseActivityOld.LOADING_SEARCH_CONNECTING)
         }
