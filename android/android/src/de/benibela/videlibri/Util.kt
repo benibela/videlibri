@@ -2,6 +2,7 @@ package de.benibela.videlibri
 import android.app.Activity
 import android.app.AlertDialog
 import android.content.DialogInterface
+import android.content.res.AssetManager
 import android.os.Bundle
 import android.support.annotation.StringRes
 import android.view.Menu
@@ -12,6 +13,7 @@ import android.widget.Spinner
 import android.widget.Toast
 import de.benibela.videlibri.Util.MessageHandlerCanceled
 import de.benibela.videlibri.Util.tr
+import java.io.IOException
 import java.io.InputStream
 
 fun <T: CharSequence> T.takeNonEmpty(): T? = takeIf(CharSequence::isNotEmpty)
@@ -63,11 +65,7 @@ fun showInputDialog(
         default: String? = null,
         onResult: InputDialogEvent? = null
 ) = showDialog(message, title) {
-    args.putString("editTextDefault", default)
-    args.putInt("special", DialogId.SPECIAL_INPUT_DIALOG)
-    okButton {
-        onResult?.invoke(this, edit?.text?.toString() ?: "")
-    }
+    editWithOkButton(default, onResult)
 }
 fun showInputDialog(
         @StringRes message: Int,
@@ -150,6 +148,15 @@ data class DialogInstance (
         this.onItem = onItem
     }
 
+    fun editWithOkButton(default: String? = null, onResult: InputDialogEvent? = null){
+        args.putString("editTextDefault", default)
+        args.putInt("special", DialogId.SPECIAL_INPUT_DIALOG)
+        okButton {
+            onResult?.invoke(this, edit?.text?.toString() ?: "")
+        }
+    }
+
+
     fun negativeButton(caption: String, onClicked: DialogEvent? = null){
         args.putString("negativeButton", caption)
         onNegativeButton = onClicked
@@ -223,5 +230,18 @@ var View.isVisibleNotGone: Boolean
         this.visibility = if (visible) View.VISIBLE else View.GONE
     }
 
-fun streamToString(stream: InputStream): String = stream.bufferedReader().use { it.readText() }
+fun InputStream.readAllText(): String = bufferedReader().use { it.readText() }
+
+fun AssetManager.exists(fileName: String): Boolean {
+    try {
+        val stream = open(fileName)
+        if (stream != null) {
+            stream.close()
+            return true
+        }
+    } catch (ignored: IOException) {
+
+    }
+    return false
+}
 
