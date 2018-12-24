@@ -165,7 +165,7 @@ spinner.setAdapter(adapter);*/
         try {
             details = Bridge.VLGetTemplateDetails(template);
         } catch (Bridge.InternalError e) {
-            Util.showMessage(e.getLocalizedMessage());
+            UtilKt.showMessage(e.getLocalizedMessage());
         }
         if (details == null) return;
 

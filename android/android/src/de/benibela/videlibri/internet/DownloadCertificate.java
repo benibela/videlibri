@@ -12,6 +12,7 @@ import de.benibela.internettools.okhttp.ClientBuilderCustomizer;
 import de.benibela.videlibri.Options;
 import de.benibela.videlibri.R;
 import de.benibela.videlibri.Util;
+import de.benibela.videlibri.UtilKt;
 import de.benibela.videlibri.VideLibriApp;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -74,7 +75,7 @@ public class DownloadCertificate implements Runnable {
                 @Override
                 public void run() {
                     UserKeyStore.storeUserCertificates(PreferenceManager.getDefaultSharedPreferences(context));
-                    Util.showMessage(fmessage);
+                    UtilKt.showMessage(fmessage);
                     if (context instanceof Options)
                         ((Options) (context)).updatePreferences();
                 }

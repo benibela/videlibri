@@ -133,7 +133,7 @@ class SourceEdit : VideLibriBaseActivity() {
                                     //new library
                                     if (text.split("_".toRegex()).size != 4) {
                                         showMessage(R.string.source_edit_invalid_library_id)
-                                        instance.onCancel?.invoke(this@editWithOkButton)
+                                        instance?.onCancel?.invoke(this@editWithOkButton)
                                     } else {
                                         val libid = text.replace(".xml", "")
                                         Bridge.VLSetLibraryDetails(libid, Bridge.LibraryDetails().apply{

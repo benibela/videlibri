@@ -3,6 +3,7 @@ package de.benibela.videlibri
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuInflater
@@ -34,7 +35,7 @@ open class VideLibriBaseActivity: VideLibriBaseActivityOld(){
         checkMainIcon()
 
         for (b in VideLibriApp.pendingDialogs)
-            Util.showPreparedDialog(this, b)
+            showPreparedDialog(this, b)
         VideLibriApp.pendingDialogs.clear()
     }
 
@@ -162,6 +163,14 @@ open class VideLibriBaseActivity: VideLibriBaseActivityOld(){
         }
 
         super.onActivityResult(requestCode, resultCode, data)
+    }
+
+    fun showUriInBrowser(uri: String) {
+        try {
+            startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(uri)))
+        } catch (e: android.content.ActivityNotFoundException) {
+            showMessage(tr(R.string.err_uri_open_failed, uri))
+        }
     }
 
     protected fun finishWithResult(){

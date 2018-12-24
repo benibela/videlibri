@@ -1,19 +1,18 @@
 package de.benibela.videlibri
 import android.app.Activity
 import android.app.AlertDialog
+import android.app.Dialog
 import android.content.DialogInterface
 import android.content.res.AssetManager
 import android.os.Bundle
 import android.support.annotation.StringRes
+import android.support.v4.app.DialogFragment
+import android.support.v7.app.AppCompatActivity
 import android.util.SparseBooleanArray
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
-import android.view.ViewParent
-import android.widget.ArrayAdapter
-import android.widget.ListView
-import android.widget.Spinner
-import android.widget.Toast
+import android.widget.*
 import de.benibela.videlibri.Util.MessageHandlerCanceled
 import de.benibela.videlibri.Util.tr
 import java.io.IOException
@@ -33,7 +32,6 @@ fun showToast(@StringRes message: Int) =
 
 fun getString(@StringRes message: Int): String? = Util.tr(message)
 
-typealias DialogFragmentUtil = Util.DialogFragmentUtil
 internal typealias DialogInitEvent = (DialogInstance.() -> Unit)
 internal typealias DialogEvent = (DialogFragmentUtil.() -> Unit)
 internal typealias DialogFragmentInitEvent = (DialogFragmentUtil.(AlertDialog.Builder) -> Unit)
@@ -41,7 +39,7 @@ internal typealias InputDialogEvent = (DialogFragmentUtil.(text: String) -> Unit
 internal typealias ChooseDialogEvent = (DialogFragmentUtil.(item: Int) -> Unit)
 
 //default dialogs, no customization, optional lambda argument is called after dialog completion (thus it MUST NOT LEAK)
-
+@JvmOverloads
 fun showMessage(
         message: String? = null,
         title: String? = null
@@ -126,7 +124,7 @@ fun showDialog(
                     ?: args.get("items")
                     ) == null)
         args.putString("neutralButton", Util.tr(R.string.ok))
-    Util.showPreparedDialog(args)
+    showPreparedDialog(args)
 }
 
 private var totalDialogInstances = 0
@@ -134,8 +132,9 @@ private val dialogInstances = mutableMapOf<Int, DialogInstance>()
 
 @Suppress("unused")
 data class DialogInstance (
-        val args: Bundle
+        private val args: Bundle
 ) {
+    internal var flags = 0
     var onNegativeButton: DialogEvent? = null
     var onNeutralButton: DialogEvent? = null
     var onPositiveButton: DialogEvent? = null
@@ -153,8 +152,8 @@ data class DialogInstance (
     }
 
     fun editWithOkButton(default: String? = null, onResult: InputDialogEvent? = null){
+        flags = flags or FLAG_INPUT_DIALOG
         args.putString("editTextDefault", default)
-        args.putInt("special", DialogId.SPECIAL_INPUT_DIALOG)
         okButton {
             onResult?.invoke(this, edit?.text?.toString() ?: "")
         }
@@ -190,28 +189,76 @@ data class DialogInstance (
     fun okButton(onClicked: DialogEvent? = null) = neutralButton(R.string.ok, onClicked)
 
     companion object {
-        @JvmStatic fun onPreCreate(dialogFragment: Util.DialogFragmentUtil, builder: AlertDialog.Builder){
-            val instanceId = dialogFragment.arguments?.getInt("instanceId", -1) ?: -1
-            if (instanceId < 0) return
-            dialogFragment.instance = dialogInstances.get(instanceId)
-            dialogFragment.instance?.onCreate?.invoke(dialogFragment, builder)
-        }
-        @JvmStatic fun onFinished(dialogFragment: Util.DialogFragmentUtil, button: Int){
-            dialogFragment.instance?.apply {
-                when (button) {
-                    DialogInterface.BUTTON_NEGATIVE -> onNegativeButton?.invoke(dialogFragment)
-                    DialogInterface.BUTTON_NEUTRAL -> onNeutralButton?.invoke(dialogFragment)
-                    DialogInterface.BUTTON_POSITIVE -> onPositiveButton?.invoke(dialogFragment)
-                    MessageHandlerCanceled -> onCancel?.invoke(dialogFragment)
-                }
-                if (button >= 0 && onItem != null && args.containsKey("items")) onItem?.invoke(dialogFragment, button)
-                onDismiss?.invoke(dialogFragment)
-                dialogInstances.remove(dialogFragment.arguments?.getInt("instanceId", -1))
-            }
-        }
+        const val FLAG_INPUT_DIALOG = 2
     }
 }
 
+class DialogFragmentUtil : DialogFragment(), DialogInterface.OnClickListener, DialogInterface.OnCancelListener {
+    internal var instance: DialogInstance? = null
+    internal var edit: EditText? = null
+    override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
+        val args = arguments ?: return Dialog(activity)
+        val builder = AlertDialog.Builder(activity)
+        builder.setOnCancelListener(this)
+        args.getInt("instanceId", -1).takeIf { it >= 0 }?.let {
+            instance = dialogInstances.get(it)
+        }
+
+        args.getString("title")?.let { builder.setTitle(it) }
+        args.getString("message")?.let { builder.setMessage(it) }
+        args.getStringArray("items")?.let { builder.setItems(it, this) }
+
+        args.getString("negativeButton")?.let { builder.setNegativeButton(it, this) }
+        args.getString("neutralButton")?.let { builder.setNeutralButton(it, this) }
+        args.getString("positiveButton")?.let { builder.setPositiveButton(it, this) }
+
+        instance?.apply {
+            if (flags and DialogInstance.FLAG_INPUT_DIALOG != 0) {
+                edit = EditText(activity)
+                args.getString("editTextDefault")?.let(edit!!::setText)
+                builder.setView(edit)
+            }
+            onCreate?.invoke(this@DialogFragmentUtil, builder)
+        }
+
+        return builder.create()
+    }
+
+    fun onFinished(button: Int){
+        instance?.apply {
+            when (button) {
+                DialogInterface.BUTTON_NEGATIVE -> onNegativeButton?.invoke(this@DialogFragmentUtil)
+                DialogInterface.BUTTON_NEUTRAL -> onNeutralButton?.invoke(this@DialogFragmentUtil)
+                DialogInterface.BUTTON_POSITIVE -> onPositiveButton?.invoke(this@DialogFragmentUtil)
+                MessageHandlerCanceled -> onCancel?.invoke(this@DialogFragmentUtil)
+            }
+            if (button >= 0 && onItem != null) onItem?.invoke(this@DialogFragmentUtil, button)
+            onDismiss?.invoke(this@DialogFragmentUtil)
+            dialogInstances.remove(this@DialogFragmentUtil.arguments?.getInt("instanceId", -1))
+        }
+    }
+
+    override fun onClick(dialogInterface: DialogInterface, i: Int) {
+        onFinished(i)
+    }
+
+    override fun onCancel(dialog: DialogInterface?) {
+        onFinished(MessageHandlerCanceled)
+    }
+}
+
+
+internal fun showPreparedDialog(args: Bundle) {
+    (VideLibriApp.currentActivity as? AppCompatActivity?)
+            ?.also { showPreparedDialog(it, args) }
+            ?: VideLibriApp.pendingDialogs.add(args)
+}
+
+fun showPreparedDialog(activity: AppCompatActivity, args: Bundle) {
+    val frag = DialogFragmentUtil()
+    frag.arguments = args
+    frag.show(activity.supportFragmentManager, null)
+}
 
 
 fun Bundle.putSparseBooleanArray(key: String, value: SparseBooleanArray) {
@@ -280,4 +327,3 @@ fun AssetManager.exists(fileName: String): Boolean {
     return false
 }
 
-    
