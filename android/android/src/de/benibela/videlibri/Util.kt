@@ -5,10 +5,13 @@ import android.content.DialogInterface
 import android.content.res.AssetManager
 import android.os.Bundle
 import android.support.annotation.StringRes
+import android.util.SparseBooleanArray
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import android.view.ViewParent
 import android.widget.ArrayAdapter
+import android.widget.ListView
 import android.widget.Spinner
 import android.widget.Toast
 import de.benibela.videlibri.Util.MessageHandlerCanceled
@@ -17,6 +20,7 @@ import java.io.IOException
 import java.io.InputStream
 
 fun <T: CharSequence> T.takeNonEmpty(): T? = takeIf(CharSequence::isNotEmpty)
+
 
 
 inline fun <reified T> currentActivity(): T? = (VideLibriApp.currentActivity as? T)
@@ -208,6 +212,32 @@ data class DialogInstance (
     }
 }
 
+
+
+fun Bundle.putSparseBooleanArray(key: String, value: SparseBooleanArray) {
+    putIntArray(key, IntArray(value.size() * 2) { i ->
+        when (i and 1) {
+            0 -> value.keyAt(i / 2)
+            1 -> if (value.valueAt(i / 2)) 1 else 0
+            else -> 0
+        }
+    })
+}
+fun Bundle.getSparseBooleanArray(key: String): SparseBooleanArray? {
+    val a = getIntArray(key) ?: return null
+    if (a.size and 1 == 1) return null
+    val res = SparseBooleanArray()
+    for (i in 0 until a.size step 2)
+        res.put(a[i], a[i + 1] == 1)
+    return res
+}
+
+
+inline fun <reified T: View> Activity.forEachView(vararg ids: Int, f: (T) -> Unit ) {
+    ids.forEach { f.invoke(findViewById(it)) }
+}
+
+
 fun Spinner.setItems(items: Array<String>) {
     val adapter = ArrayAdapter(this.context, android.R.layout.simple_spinner_item, items)
     adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
@@ -217,6 +247,11 @@ fun Spinner.setItems(items: Array<String>) {
 fun<T> Spinner.setSelection(item: T?, items: Array<T>) {
     val i = items.indexOf(item)
     if (i > 0) this.setSelection(i)
+}
+
+fun ListView.setCheckedItemPositions(positions: SparseBooleanArray) {
+    for (i in 0 until count)
+        setItemChecked(i, positions.get(i, false))
 }
 
 inline fun Menu.forItems(f: (MenuItem) -> Unit){
@@ -245,3 +280,4 @@ fun AssetManager.exists(fileName: String): Boolean {
     return false
 }
 
+    

@@ -2,11 +2,8 @@ package de.benibela.videlibri
 
 import android.os.Bundle
 import android.view.View
-import android.widget.AdapterView
+import android.widget.*
 import android.widget.AdapterView.OnItemSelectedListener
-import android.widget.EditText
-import android.widget.Spinner
-import android.widget.TextView
 import de.benibela.videlibri.jni.Bridge
 import java.io.*
 
@@ -161,7 +158,7 @@ class SourceEdit : VideLibriBaseActivity() {
             override fun onNothingSelected(parent: AdapterView<*>) {}
         }
 
-        findButtonById(R.id.save).setOnClickListener {
+        findViewById<Button>(R.id.save).setOnClickListener {
             try {
                 writeToFile(fileName, findViewById<EditText>(R.id.edit).text.toString())
                 val pos = findViewById<Spinner>(R.id.spinner).selectedItemPosition
@@ -180,7 +177,7 @@ class SourceEdit : VideLibriBaseActivity() {
             showFileName(true)
         }
 
-        findButtonById(R.id.reset).setOnClickListener {
+        findViewById<Button>(R.id.reset).setOnClickListener {
             if (assets.exists(fileName)) {
                 val f = userFile(fileName)
                 if (f.exists())
