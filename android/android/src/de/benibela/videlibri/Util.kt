@@ -123,7 +123,7 @@ fun showDialog(
                     ?: args.get("positiveButton")
                     ?: args.get("items")
                     ) == null)
-        args.putString("neutralButton", Util.tr(R.string.ok))
+        args.putString("neutralButton", getString(R.string.ok))
     showPreparedDialog(args)
 }
 
