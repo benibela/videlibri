@@ -30,6 +30,7 @@
         {$request := ()}
       </table></div>    
       <table class="data" id="holdings_">{$request := ()}</table><!--see below???-->
+      <div class="box error">{vl:raise(.)}</div>
     </t:switch>
   </pattern>
   <page url="{$request}">   
