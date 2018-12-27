@@ -29,11 +29,13 @@ open class VideLibriBaseActivity: VideLibriBaseActivityOld(){
     override fun onResume() {
         super.onResume()
 
-        VideLibriApp.currentActivity = this
-
         refreshLoadingIcon()
         checkMainIcon()
+    }
 
+    override fun onPostResume() {
+        super.onPostResume()
+        VideLibriApp.currentActivity = this;
         for (b in VideLibriApp.pendingDialogs)
             showPreparedDialog(this, b)
         VideLibriApp.pendingDialogs.clear()
@@ -47,6 +49,7 @@ open class VideLibriBaseActivity: VideLibriBaseActivityOld(){
     override fun onSaveInstanceState(outState: Bundle?) {
         super.onSaveInstanceState(outState)
         outState?.putIntegerArrayList("activeLoadingTasks", loadingTasks)
+        if (VideLibriApp.currentActivity === this) VideLibriApp.currentActivity = null
     }
 
     override fun onDestroy() {
