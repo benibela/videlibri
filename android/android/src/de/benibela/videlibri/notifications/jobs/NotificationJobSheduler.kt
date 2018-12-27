@@ -23,6 +23,8 @@ class NotificationJobService: JobService() {
     private fun jobIndex(params: JobParameters?): Int =  (params?.jobId?:0) - JOB_ID_DAILY
 
     override fun onStartJob(params: JobParameters?): Boolean {
+        VideLibriApp.initializeAll(this)
+
         //Log.d("VIDELIBRI JOB", "onStartJob!!")
         if (!NotificationScheduling.preferenceNotificationsEnabled(this))
             return false

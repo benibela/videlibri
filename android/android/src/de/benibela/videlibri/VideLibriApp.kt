@@ -37,90 +37,17 @@ import java.util.*
 @AcraDialog(resText = R.string.crash_dialog_text,
         resCommentPrompt = R.string.crash_dialog_comment_prompt
         )
-class VideLibriApp : Application(), Bridge.VideLibriContext {
+class VideLibriApp : Application() {
     override fun onCreate() {
         super.onCreate()
 
+        instance = this
+        staticApplicationContext = applicationContext
+
         ACRA.init(this)
 
-        instance = this
-        val prefs = PreferenceManager.getDefaultSharedPreferences(this)
+        initializeAll(null)
 
-        X509TrustManagerWrapper.defaultCustomTrustManagerFactory = UserKeyStore.makeFactory()
-        UserKeyStore.loadUserCertificates(prefs)
-        X509TrustManagerWithAdditionalKeystores.defaultKeystoreFactory = X509TrustManagerWithAdditionalKeystores.LazyLoadKeyStoreFactory { VideLibriKeyStore() }
-
-
-        if (ACRA.isACRASenderServiceProcess()) {
-            Bridge.initialized = true
-            return
-        }
-
-        prefs.getString("languageOverride", null)?.takeIf { it.isNotEmpty() }?.let {
-            setLanguageOverride(this, it)
-        }
-
-
-        initializeBridge()
-
-        Bridge.allThreadsDoneHandler = @SuppressLint("HandlerLeak")
-        object : Handler() {
-            override fun handleMessage(msg: Message) {
-                mainIconCache = 0
-                accounts.allUpdatesComplete()
-                NotificationScheduling.onUpdateComplete()
-
-                withActivity<LendingList> {endLoadingAll(VideLibriBaseActivityOld.LOADING_ACCOUNT_UPDATE)}
-
-                LendingList.refreshDisplayedLendBooks()
-
-                //displayed account has an icon cache, so displayAccount needs to be called before updateNotification
-                Notifier.updateNotification(currentActivity)
-                showPendingExceptions()
-                updateWakeLock?.apply {
-                    if (isHeld) {
-                        System.gc() //some devices crash when sleep starts during gc run
-                        release()
-                        updateWakeLock = null
-                        Log.i("VideLibri", "Released wakelock")
-                    } else
-                        Log.i("VideLibri", "Released wakelock (timeout)")
-
-                }
-            }
-        }
-
-        Bridge.installationDoneHandler = @SuppressLint("HandlerLeak")
-        object : Handler() {
-            override fun handleMessage(msg: Message) {
-                withActivity<NewLibrary> { endLoading(VideLibriBaseActivityOld.LOADING_INSTALL_LIBRARY) }
-                val status = msg.what
-                if (status == 1) {
-                    showDialog {
-                        message(R.string.app_libregistered)
-                        onDismiss = { withActivity<NewLibrary> { finish() } }
-                    }
-                } else
-                    showMessage(R.string.app_libregisterfailed)
-            }
-        }
-
-        Bridge.searchEventHandler = @SuppressLint("HandlerLeak")
-        object : Handler() {
-            override fun handleMessage(msg: Message) {
-                val event = msg.obj as Bridge.SearchEvent
-                if (currentActivity<SearchEventHandler>()?.onSearchEvent(event) == true)
-                    return
-                event.searcherAccess!!.pendingEvents.add(event)
-            }
-        }
-
-
-        NotificationScheduling.rescheduleDailyIfNecessary(this, false)
-    }
-
-    override fun userPath(): String {
-        return userPath(this)
     }
 
     companion object {
@@ -143,12 +70,14 @@ class VideLibriApp : Application(), Bridge.VideLibriContext {
 
 
         @SuppressLint("StaticFieldLeak")
-        @JvmStatic lateinit var instance: VideLibriApp
+        @JvmStatic var instance: VideLibriApp? = null
+        @SuppressLint("StaticFieldLeak")
+        @JvmStatic var staticApplicationContext: Context? = null
         @SuppressLint("StaticFieldLeak")
         @JvmField var currentActivity: Activity? = null
 
         @JvmStatic fun currentContext(): Context? {
-            return currentActivity ?: instance.applicationContext
+            return currentActivity ?: instance?.applicationContext
         }
 
 
@@ -198,7 +127,7 @@ class VideLibriApp : Application(), Bridge.VideLibriContext {
             intent.putExtra("libName", tempLib?.prettyName)
             if (accounts.any { it -> libId != it.libId})
                 intent.putExtra("showLibList", true)
-            instance.startActivity(intent)
+            staticApplicationContext?.startActivity(intent)
         }
 
 
@@ -258,10 +187,6 @@ class VideLibriApp : Application(), Bridge.VideLibriContext {
         }
 
 
-        @JvmStatic fun userPath(context: Context): String {
-            return context.filesDir.absolutePath
-        }
-
         internal var defaultLocale: Locale? = null
         internal fun getCurrentLocale(context: Context): Locale =
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N)
@@ -281,10 +206,91 @@ class VideLibriApp : Application(), Bridge.VideLibriContext {
             }
         }
 
-        @JvmStatic fun initializeBridge() {
+        @JvmStatic fun initializeAll(alternativeContext: Context?) {
             if (Bridge.initialized) return
-            Bridge.initialize(instance)
+            if (staticApplicationContext == null ) {
+                staticApplicationContext = instance?.applicationContext ?: alternativeContext?.applicationContext
+                //Class.forName("android.app.ActivityThread")
+                //            .getMethod("currentApplication").invoke(null, (Object[]) null); ??
+            }
+
+            val context = staticApplicationContext ?: instance?.applicationContext ?: alternativeContext?.applicationContext  ?: alternativeContext ?: return
+
+            val prefs = PreferenceManager.getDefaultSharedPreferences(context)
+
+            X509TrustManagerWrapper.defaultCustomTrustManagerFactory = UserKeyStore.makeFactory()
+            UserKeyStore.loadUserCertificates(prefs)
+            X509TrustManagerWithAdditionalKeystores.defaultKeystoreFactory = X509TrustManagerWithAdditionalKeystores.LazyLoadKeyStoreFactory { VideLibriKeyStore() }
+
+            prefs.getString("languageOverride", null)?.takeIf { it.isNotEmpty() }?.let {
+                setLanguageOverride(context, it)
+            }
+
+            if (instance != null && ACRA.isACRASenderServiceProcess()) {
+                Bridge.initialized = true
+                return
+            }
+
+            Bridge.userPath = context.filesDir.absolutePath
+
+            Bridge.allThreadsDoneHandler = @SuppressLint("HandlerLeak")
+            object : Handler() {
+                override fun handleMessage(msg: Message) {
+                    mainIconCache = 0
+                    accounts.allUpdatesComplete()
+                    NotificationScheduling.onUpdateComplete()
+
+                    withActivity<LendingList> {endLoadingAll(VideLibriBaseActivityOld.LOADING_ACCOUNT_UPDATE)}
+
+                    LendingList.refreshDisplayedLendBooks()
+
+                    //displayed account has an icon cache, so displayAccount needs to be called before updateNotification
+                    Notifier.updateNotification(currentActivity)
+                    showPendingExceptions()
+                    updateWakeLock?.apply {
+                        if (isHeld) {
+                            System.gc() //some devices crash when sleep starts during gc run
+                            release()
+                            updateWakeLock = null
+                            Log.i("VideLibri", "Released wakelock")
+                        } else
+                            Log.i("VideLibri", "Released wakelock (timeout)")
+
+                    }
+                }
+            }
+
+            Bridge.installationDoneHandler = @SuppressLint("HandlerLeak")
+            object : Handler() {
+                override fun handleMessage(msg: Message) {
+                    withActivity<NewLibrary> { endLoading(VideLibriBaseActivityOld.LOADING_INSTALL_LIBRARY) }
+                    val status = msg.what
+                    if (status == 1) {
+                        showDialog {
+                            message(R.string.app_libregistered)
+                            onDismiss = { withActivity<NewLibrary> { finish() } }
+                        }
+                    } else
+                        showMessage(R.string.app_libregisterfailed)
+                }
+            }
+
+            Bridge.searchEventHandler = @SuppressLint("HandlerLeak")
+            object : Handler() {
+                override fun handleMessage(msg: Message) {
+                    val event = msg.obj as Bridge.SearchEvent
+                    if (currentActivity<SearchEventHandler>()?.onSearchEvent(event) == true)
+                        return
+                    event.searcherAccess!!.pendingEvents.add(event)
+                }
+            }
+
+
+
+            Bridge.initialize(context)
             accounts.refreshAll()
+
+            NotificationScheduling.rescheduleDailyIfNecessary(context, false)
         }
     }
 

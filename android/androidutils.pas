@@ -126,9 +126,8 @@ function loaded: LongInt; begin result := 0; end;
 threadvar assets: jobject;
     assetCount: integer;
 var
-    videlibriContextInterface: jclass;
-    videLibriContextMethodUserPath: jmethodID;
     bridgeClass: jclass;
+    bridgeFields: record userPath: jfieldID; end;
     bridgeCallbackMethods: record VLAllThreadsDone, VLInstallationDone: jmethodID; end;
     accountClass, bookClass, libraryDetailsClass: jobject;
     accountClassInitWithData, bookClassInit, bookClassInitWithTitle, bookClassInitWithData, libraryDetailsClassInitWithData: jmethodID;
@@ -188,7 +187,8 @@ end;
 
 function getUserConfigPath: string;
 begin
-  result := j.jStringToStringAndDelete(j.callObjectMethodChecked(jContextObject, videLibriContextMethodUserPath));
+  with j do
+    result := jStringToString(env^^.GetStaticObjectField(env, bridgeClass, bridgeFields.userPath));
 end;
 
 
@@ -240,7 +240,7 @@ begin
   end
 end;
 
-procedure Java_de_benibela_VideLibri_Bridge_VLInit(env:PJNIEnv; this:jobject; videlibri: jobject); cdecl;
+procedure Java_de_benibela_VideLibri_Bridge_VLInit(env:PJNIEnv; this:jobject; context: jobject); cdecl;
 
   procedure initLocale;
   var LocaleClass: jclass;
@@ -271,13 +271,12 @@ begin
     okhttpinternetaccess.onBuildCallback := @tempOkHttpBuild.onBuild;
 
     with needJ do begin
-      videlibriContextInterface :=  newGlobalRefAndDelete(getclass('de/benibela/videlibri/jni/Bridge$VideLibriContext'));
-      jContextObject := env^^.NewGlobalRef(env, videlibri);
-      videLibriContextMethodUserPath := getmethod(videlibriContextInterface, 'userPath', '()Ljava/lang/String;');
+      jContextObject := env^^.NewGlobalRef(env, context);
 
       bridgeClass := newGlobalRefAndDelete(getclass('de/benibela/videlibri/jni/Bridge'));
       bridgeCallbackMethods.VLAllThreadsDone := getstaticmethod(bridgeClass, 'allThreadsDone', '()V');
       bridgeCallbackMethods.VLInstallationDone := getstaticmethod(bridgeClass, 'installationDone', '(I)V');
+      bridgeFields.userPath:= getstaticfield(bridgeClass, 'userPath', 'Ljava/lang/String;');
 
       accountClass := newGlobalRefAndDelete(getclass('de/benibela/videlibri/jni/Bridge$Account'));
       accountClassInitWithData := getmethod(accountClass, '<init>', '(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;IZIZI)V');
@@ -2076,7 +2075,7 @@ end;
 
 
 const nativeMethods: array[1..36] of JNINativeMethod=
-  ((name:'VLInit';          signature:'(Lde/benibela/videlibri/jni/Bridge$VideLibriContext;)V';                   fnPtr:@Java_de_benibela_VideLibri_Bridge_VLInit)
+  ((name:'VLInit';          signature:'(Landroid/content/Context;)V';                   fnPtr:@Java_de_benibela_VideLibri_Bridge_VLInit)
    ,(name:'VLFinalize';      signature:'()V';                   fnPtr:@Java_de_benibela_VideLibri_Bridge_VLFInit)
 
    ,(name:'VLGetLibraryIds'; signature:'()[Ljava/lang/String;'; fnPtr:@Java_de_benibela_VideLibri_Bridge_VLGetLibraryIds)

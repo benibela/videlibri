@@ -17,7 +17,7 @@ import de.benibela.videlibri.jni.Bridge;
 import de.benibela.videlibri.notifications.NotificationScheduling;
 import de.benibela.videlibri.notifications.Notifier;
 
-public class NotificationService extends Service implements Bridge.VideLibriContext{
+public class NotificationService extends Service{
     // Unique Identification Number for the Notification.
     // We use it on Notification start, and to cancel it.
 
@@ -38,7 +38,7 @@ public class NotificationService extends Service implements Bridge.VideLibriCont
     public void onCreate() {
         super.onCreate();
 
-        VideLibriApp.initializeBridge();
+        VideLibriApp.initializeAll(this);
         instance = this;
     }
 
@@ -113,10 +113,5 @@ public class NotificationService extends Service implements Bridge.VideLibriCont
         sheduleDailyCheck(context);
         if (afterDeviceBoot)
             sheduleQuickCheck(context, NotificationScheduling.preferenceNotificationsBootDelayInMilliseconds(context));
-    }
-
-    @Override
-    public String userPath() {
-        return VideLibriApp.userPath(this);
     }
 }

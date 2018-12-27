@@ -17,7 +17,7 @@ public class VideLibriKeyStore extends LazyLoadKeystore {
         try {
             ks = KeyStore.getInstance("BKS");
             int keystore = Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1 ? R.raw.keystore : R.raw.keystoreold; //https://stackoverflow.com/a/33197845
-            InputStream in = VideLibriApp.instance.getResources().openRawResource( keystore );
+            InputStream in = VideLibriApp.getStaticApplicationContext().getResources().openRawResource( keystore );
             try {
                 ks.load(in, ( password ).toCharArray());
             } finally {

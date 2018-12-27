@@ -220,7 +220,7 @@ class SourceEdit : VideLibriBaseActivity() {
     }
 
     private fun userFile(fn: String?): File {
-        return File(VideLibriApp.userPath(this) + "/" + fn)
+        return File(Bridge.userPath + "/" + fn)
     }
 
     internal fun loadFile(fileName: String) {
