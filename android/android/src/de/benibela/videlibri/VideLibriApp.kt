@@ -50,6 +50,11 @@ class VideLibriApp : Application() {
 
     }
 
+    override fun onConfigurationChanged(newConfig: Configuration?) {
+        super.onConfigurationChanged(newConfig)
+        staticApplicationContext ?.let { checkLanguageOverride(it) }
+    }
+
     companion object {
 
         internal var mainIconCache: Int = 0
@@ -188,6 +193,7 @@ class VideLibriApp : Application() {
 
 
         internal var defaultLocale: Locale? = null
+        internal var languageOverride: String? = null
         internal fun getCurrentLocale(context: Context): Locale =
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N)
                 context.resources.configuration.locales.get(0)
@@ -195,7 +201,8 @@ class VideLibriApp : Application() {
                 context.resources.configuration.locale
 
 
-        @JvmStatic fun setLanguageOverride(context: Context, langOverride: String) {
+        fun setLanguageOverride(context: Context, langOverride: String) {
+            languageOverride = langOverride
             //Log.i("VIDELIBRI LANG", langOverride);
             if (defaultLocale == null) defaultLocale = getCurrentLocale(context)
             val locale = if (langOverride.isEmpty()) defaultLocale else Locale(langOverride)
@@ -205,6 +212,13 @@ class VideLibriApp : Application() {
                 context.applicationContext.resources.updateConfiguration(it, null)
             }
         }
+
+        fun checkLanguageOverride(context: Context) {
+            languageOverride?.takeIf { it.isNotEmpty() }?.run {
+                setLanguageOverride(context, this)
+            }
+        }
+
 
         @JvmStatic fun initializeAll(alternativeContext: Context?) {
             if (Bridge.initialized) return
@@ -222,9 +236,8 @@ class VideLibriApp : Application() {
             UserKeyStore.loadUserCertificates(prefs)
             X509TrustManagerWithAdditionalKeystores.defaultKeystoreFactory = X509TrustManagerWithAdditionalKeystores.LazyLoadKeyStoreFactory { VideLibriKeyStore() }
 
-            prefs.getString("languageOverride", null)?.takeIf { it.isNotEmpty() }?.let {
-                setLanguageOverride(context, it)
-            }
+            languageOverride = prefs.getString("languageOverride", null)?.takeIf { it.isNotEmpty() }
+            checkLanguageOverride(context)
 
             if (instance != null && ACRA.isACRASenderServiceProcess()) {
                 Bridge.initialized = true
