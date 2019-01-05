@@ -339,9 +339,6 @@
         <IncludeAssertionCode Value="True"/>
       </SyntaxOptions>
     </Parsing>
-    <CodeGeneration>
-      <SmallerCode Value="True"/>
-    </CodeGeneration>
     <Linking>
       <Options>
         <Win32>
