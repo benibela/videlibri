@@ -20,7 +20,7 @@ TAccountList = class(TStringList)
 private
   fileName: string;
   libs: TLibraryManager;
-  function get(i: integer): TCustomAccountAccess;
+  function get(i: integer): TCustomAccountAccess; reintroduce;
 public
   OnAccountAdd: TAccountEvent;
 
