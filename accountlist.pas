@@ -60,6 +60,7 @@ end;
 
 constructor TAccountList.create(listFile: string; libraries: TLibraryManager);
 begin
+  inherited create;
   fileName := listFile;
   libs := libraries;
 end;
