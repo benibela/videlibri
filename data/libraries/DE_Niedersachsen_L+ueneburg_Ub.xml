@@ -5,8 +5,8 @@
   <longName value="Universitätsbibliothek Lüneburg"/>
   <shortName value="Ub Lüneburg"/>
   
-  <template value="pica"/>  
-  <variable name="server" value="http://lhlue.gbv.de"/>
+  <template value="lbs"/>  
+  <variable name="server" value="https://katalog.leuphana.gbv.de"/>
 
 
   <homepage value="http://www.leuphana.de/bibliothek.html"/>
