@@ -50,6 +50,7 @@ install:
       cd /usr/share/fpcsrc/3* ;
       sudo make crossinstall OS_TARGET=android CPU_TARGET=arm BINUTILSPREFIX=arm-linux-androideabi- INSTALL_PREFIX=/usr;
       sudo make crossinstall OS_TARGET=android CPU_TARGET=i386 BINUTILSPREFIX=$binutilsi686 INSTALL_PREFIX=/usr;
+      (hash ppcrossarm && hash ppcross386) || sudo cp /usr/local/lib/fpc/3*/ppc* /usr/bin;
       cd $oldpath;
       gccv=$(gcc-arm-linux-androideabi -dumpversion);
       echo '#IFDEF CPUARM' >> ~/.fpc.cfg;
