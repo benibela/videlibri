@@ -20,24 +20,15 @@ export JDK_HOME="$JAVA_HOME"
 export JAVA_ROOT="$JAVA_HOME"
 export JAVA_BINDIR="$JAVA_HOME/bin"
 
-
-if [ -z "$FPC_DIRECTORY" ]; then 
-if [ -d /usr/local/lib/fpc/3.1.1 ]; then
-FPC_DIRECTORY=/usr/local/lib/fpc/3.1.1
-else echo Failed to find fpc 3.1.1. Install FreePascal; exit 2
-fi
-fi
-export FPC_DIRECTORY
-
-FPC_ARM=$FPC_DIRECTORY/ppcrossarm
-if [ ! -f $FPC_ARM ]; then echo Failed to find fpc arm target. Install FreePascal cross compiler; exit 2; fi
-FPC_386=$FPC_DIRECTORY/ppcross386
-if [ ! -f $FPC_386 ]; then echo Failed to find fpc 386 target. Install FreePascal cross compiler; exit 2; fi
-
+FPC_ARM=ppcrossarm
+FPC_386=ppcross386
 LAZBUILD=lazbuild
-which $LAZBUILD 2>/dev/null >/dev/null || (
-  echo Failed to find lazbuild. Install Lazarus.
-)
+
+which $FPC_ARM > /dev/null || { echo >&2 "Failed to find fpc arm target. Install FreePascal cross compiler."; exit 1; }
+which $FPC_386 > /dev/null || { echo >&2 "Failed to find fpc x86 target. Install FreePascal cross compiler."; exit 1; }
+hash $LAZBUILD || { echo >&2 "Failed to find Lazarus build command. Install Lazarus."; exit 1; }
+
+hash $ADB || { echo >&2 "Failed to find adb. Install Android SDK."; exit 1; }
 
 case "$1" in
 build)
@@ -60,13 +51,13 @@ build)
   if $BUILDARM; then
     FORCE=""
     if [[ ! -f android/libs/armeabi/liblclapp.so ]]; then FORCE=-B; fi
-    if $LAZBUILD $FORCE --os=android --ws=nogui --compiler=$FPC_ARM --cpu=arm videlibriandroid.lpi; then echo; else echo "FAILED!"; exit 1; fi
+    if $LAZBUILD $FORCE --os=android --ws=nogui --compiler="$(which $FPC_ARM)" --cpu=arm videlibriandroid.lpi; then echo; else echo "FAILED!"; exit 1; fi
   fi
 
   if $BUILDX86; then
     FORCE=""
     if [[ ! -f android/libs/x86/liblclapp.so ]]; then FORCE=-B; fi
-    if $LAZBUILD $FORCE --compiler=$FPC_386 --os=android --ws=nogui --cpu=i386 videlibriandroid.lpi; then echo; else echo "FAILED!"; exit 1; fi
+    if $LAZBUILD $FORCE --compiler="$(which $FPC_386)" --os=android --ws=nogui --cpu=i386 videlibriandroid.lpi; then echo; else echo "FAILED!"; exit 1; fi
   fi
 
   STRIP=true
