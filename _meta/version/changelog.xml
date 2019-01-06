@@ -6,7 +6,7 @@
         <download url="http://videlibri.sourceforge.net/updates/videlibri-linux32.deb" platform="LINUX32" execute=""/>
         <download url="http://videlibri.sourceforge.net/updates/videlibri-linux64.deb" platform="LINUX64" execute=""/>
         <change>android: weitere Modernisierungen</change>
-        <fix>android: Verbinde zu Servern, die TLS 1.3 unterstützten, mit älteren TLS-Versionen, statt in der Server-Anfrage gleichzeitig zu verlangen, dass eine ältere TLS-Version verwendet werden soll und der Server, nur die neuste ihm bekannte TLS-Version verwenden soll. </fix>
+        <fix>android: Verbinde zu Servern, die TLS 1.3 unterstützen, mit älteren TLS-Versionen, statt in der Server-Anfrage gleichzeitig zu verlangen, dass eine ältere TLS-Version verwendet werden soll und der Server, nur die neuste ihm bekannte TLS-Version verwenden soll. </fix>
         <fix>android: Verwende neue ACRA Version 5.2.1 (Crash Reporter), weil die bisherige ACRA Version 4.9.1 nicht Android 8 kompatibel war. Verwende Java 1.8, weil die neue ACRA-Version das benötigt. Wenn der Start fehlschlägt, weil die native Library nicht geladen werden kann, und beim nächsten Start ein ACRA-Bericht gesandt werden soll, versuche nicht vor dem Senden die native Library erneut zu laden, weil das auch wieder fehlschlagen wird.</fix>
         <fix>android: Absturz in 2,0, wenn zur Katalog-Suche Zweigstellen auszuwählen waren, aber bei früheren Suchen keine Zweigstelle ausgewählt war.</fix>
         <fix>android: Wenn man mehrere Ausleihkonten registriert hat, die Auswahl, welche Konten angezeigt werden sollen, ändert und gleichzeitig das Gerät rotiert, wurden entweder alle Konten oder kein Konto angezeigt, anstatt nur die Konten, die man ausgewählt hatte.</fix>

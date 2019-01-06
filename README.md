@@ -2,13 +2,13 @@ VideLibri :books: [![Build Status](https://travis-ci.org/benibela/videlibri.svg?
 =============
 VideLibri is a library client to access all the features of a (public) library catalog/OPAC and store the catalog data for further offline processing. It can
 
-* view your lend books,
-* renew your lend books to extend the lending period,
+* view your borrowed books,
+* renew your borrowed books to extend the lending period,
 * renew the books automatically when ever the due date is close,
 * warn about the due date before the books need to be returned,
-* keep a history of all ever lend books to track your reading habits,
-* search your lend books with Turing-complete XQuery queries,
-* export the lend books as BibTeX/XML,
+* keep a history of all ever borrowed books to track your reading habits,
+* search your borrowed books with Turing-complete XQuery queries,
+* export the borrowed books as BibTeX/XML,
 * search the catalog,
 * order books from the catalog,
 * do many more things
@@ -18,13 +18,13 @@ VideLibri is platform-independent and currently [provides binaries](http://www.v
 
 <p align="center">
 
-<img src="http://sourceforge.net/dbimage.php?id=280463" alt="List of books lend from various libraries; sorted by due date and color coded by renewability status.">
+<img src="http://sourceforge.net/dbimage.php?id=280463" alt="List of books borrowed from various libraries; sorted by due date and color coded by renewability status.">
 
 <img src="http://www.videlibri.de/img/xquery.png" alt="Verwendung von XQuery, um die Bücher mit den längsten Titeln zu finden."/>
 
 <img src="http://www.videlibri.de/img/android-tablet-search.png" alt="Searching in an OPAC from on an Android tablet.">
 
-<img src="https://a.fsdn.com/con/app/proj/videlibri/screenshots/s1.png" alt="List of lend books on Android; grouped by the due data: this week or next week.">
+<img src="https://a.fsdn.com/con/app/proj/videlibri/screenshots/s1.png" alt="List of borrowed books on Android; grouped by the due data: this week or next week.">
 
 </p>
 
@@ -65,7 +65,7 @@ Towards this goal VideLibri implements several different query languages and DSL
 - A dialect of XPath/XQuery/JSONiq that is Turing-complete and thus can calculate arbitrary, unexpected things, e.g. emulating JavaScript-only pages or rendering a 3D scene by ray tracing. (see its [test scores on the official XQuery Test Suite of the W3C](http://www.benibela.de/documentation/internettools/xqts.html), e.g. test set app-Demos includes the raytracer)
 - CSS 3 Selectors for trivial selection tasks
 
-It cannot be emphasized enough that these are not programming languages for developers, rather they are query languages simple enough that any end user can use them. Thus you can also enter XQuery statements directly in the GUI of VideLibri to run queries over the sequence of lend `$books` to answer important questions like "How many books of author X have I lend?" or "Which book have I lend the most often, of all the books that have a title whose length is divisible by 7?" (see [this (German) tutorial](http://www.videlibri.de/help/xquerysearch.html))
+It cannot be emphasized enough that these are not programming languages for developers, rather they are query languages simple enough that any end user can use them. Thus you can also enter XQuery statements directly in the GUI of VideLibri to run queries over the sequence of borrowed `$books` to answer important questions like "How many books of author X have I borrowed?" or "Which book have I borrowed the most often, of all the books that have a title whose length is divisible by 7?" (see [this (German) tutorial](http://www.videlibri.de/help/xquerysearch.html))
 
 The source of these interpreters has been moved to a separate repository ( [internettools](http://www.benibela.de/sources_de.html#internettools) ) to improve modularization and because some people want to scrape webpages that are not part of an OPAC.
 
@@ -77,7 +77,7 @@ VideLibri can also be used as library itself to access library catalogs in your 
 
 The most straightforward way is probably the standalone [cli XQuery interpreter Xidel](http://www.videlibri.de/xidel.html) (and template interpreter). Since it is based on the same interpreter VideLibri is based on, you can directly call the OPAC templates from the shell:
 
-For example the currently lend books in the public library Biel can be obtained using (in Linux shell):
+For example the currently borrowed books in the public library Biel can be obtained using (in Linux shell):
 
 ```bash
 xidel -e '$username:="XXXXXXXX", 
@@ -88,7 +88,7 @@ xidel -e '$username:="XXXXXXXX",
       --template-file data/libraries/templates/netbiblio/template 
 ```
 
-This prints all variables and the lend/ordered books in the variable `$book`, each in a line with a JSON object:
+This prints all variables and the borrowed/ordered books in the variable `$book`, each in a line with a JSON object:
 
 ```javascript
  book := {"dueDate": "2017-07-13", "title": "foobar", "author": "abc"}
@@ -159,7 +159,7 @@ Xidel is of course just a wrapper around the XQuery interpreter in the [Pascal I
 
 Calling the actions through the Internet Tools library does not use any of the Pascal source of VideLibri in this repository, actually it uses nothing of this repository except the system definitions in data/libraries/templates. However, you might like to use all of VideLibri in your Pascal project, e.g. to avoid confusion between a book object storing a search query,  book objects returned form an OPAC result listing and book objects returned form a detail page. Then you can interlink your project with VideLibri, basically running all of VideLibri invisibly in the background. `TBookListReader` in `booklistreader` is another wrapper around the XQuery interpreter to call a single action from a template, similarly to the Xidel output, but reading all book objects into a Pascal class `TBook`. `libraryaccess.pas` and `librarysearcheraccess.pas` integrate everything, wrapping the actions themselves in Pascal classes and calling them from new threads. 
 
-Last but not least, you can use VideLibri as *Java library*. There are two packages: `de.benibela.videlibri.jni` with a single file `Bridge.java`, and the package `de.benibela.internettools` to configure okhttp. The class `Bridge` interacts with the Pascal code of VideLibri through JNI after loading all of VideLibri from a .so file, which again is a true dynamic library. Rather than calling the multipage template actions directly, you call the corresponding method of the Java class, which then calls the action through JNI, e.g. action search-connect corresponds to a method `VLSearchConnect`. Searches are performed in memory only directly calling the interpreted multipage actions; account access is a three step process, since all account data is stored in the filesystem: First the account is registered with the method `VLAddAccount`, then the method `VLUpdateAccount` can call all account actions, and finally `VLGetBooks` returns the lend books.  The book objects have the same properties as those dumped by Xidel, but they are automatically read into a Java class Bridge.Book.
+Last but not least, you can use VideLibri as *Java library*. There are two packages: `de.benibela.videlibri.jni` with a single file `Bridge.java`, and the package `de.benibela.internettools` to configure okhttp. The class `Bridge` interacts with the Pascal code of VideLibri through JNI after loading all of VideLibri from a .so file, which again is a true dynamic library. Rather than calling the multipage template actions directly, you call the corresponding method of the Java class, which then calls the action through JNI, e.g. action search-connect corresponds to a method `VLSearchConnect`. Searches are performed in memory only directly calling the interpreted multipage actions; account access is a three step process, since all account data is stored in the filesystem: First the account is registered with the method `VLAddAccount`, then the method `VLUpdateAccount` can call all account actions, and finally `VLGetBooks` returns the borrowed books.  The book objects have the same properties as those dumped by Xidel, but they are automatically read into a Java class Bridge.Book.
 
 Contributing
 -------------
