@@ -281,7 +281,7 @@ end;
 
 function TLibrarySearcherAccess.operationActive: boolean;
 begin
-  ReadWriteBarrier;
+  ReadBarrier;
   result:=assigned(fthread) and (fthread.messages.existsMessage or (fthread.performingAction <> smtNone));
 end;
 
@@ -305,7 +305,9 @@ begin
     if assigned(fthread) then fthread.messages.storeMessage(TSearcherMessage.Create(smtFree));
     ftemplate := template;
     fthread:=TSearcherThread.Create(ftemplate,self);
-    while fthread.Searcher = nil do begin sleep(25); ReadWriteBarrier; end; //wait for thread start
+    ReadWriteBarrier;
+    while fthread.Searcher = nil do begin sleep(25); ReadBarrier; end; //wait for thread start
+    ReadBarrier;
   end;
 end;
 
@@ -516,16 +518,17 @@ var mes: TSearcherMessage;
     debugLastSearchQuery: String;
     oldUrl: String;
     images: TStringArray;
+    newsearcher: TLibrarySearcher;
 begin
-  Searcher:=TLibrarySearcher.create(access.ftemplate);
-  Searcher.bookListReader.bookAccessSection:=@fbookAccessSection;
+  newsearcher := TLibrarySearcher.create(access.ftemplate);
+  newsearcher.bookListReader.bookAccessSection:=@fbookAccessSection;
+  ReadWriteBarrier;
+  Searcher := newsearcher;
   while true do begin
     try
       performingAction:=smtNone;
       if logging then log('Searcher thread: wait for message');
-      while not messages.existsMessage do sleep(15);
-      if logging then log('Searcher thread: possible message');
-      mes:=TSearcherMessage(messages.retrieveMessageOrNil);
+      mes:=TSearcherMessage(messages.waitForMessage);
       if logging then log('Searcher thread: got message'+strFromPtr(mes));
       if mes=nil then continue;
       if mes.typ=smtFree then begin

@@ -1507,6 +1507,7 @@ begin
       SetObjectArrayElement(books, i, temp);
       deleteLocalRef(temp);
     end;
+    WriteBarrier;
     if firstPage then callVoidMethod(jsearcher, searcherOnSearchFirstPageComplete, @books)
     else callVoidMethod(jsearcher, searcherOnSearchNextPageComplete, @books);
     deleteLocalRef(books);
@@ -1632,6 +1633,8 @@ begin
     j.SetLongField(searcher, searcherFields.nativePtrJ, wrapSearcherPtr(searcherAccess));
     searcherAccess.jsearcher:=j.env^^.NewGlobalRef(j.env, searcher);
 
+    WriteBarrier;
+
     searcherAccess.newSearch( lib.template );
   //searcherAccess.searcher.clear;
     searcherAccess.searcher.addLibrary(lib);
@@ -1687,6 +1690,7 @@ begin
 
       if homeBranch >= 0 then searcherAccess.searcher.HomeBranch:=homeBranch;
       if searchBranch >= 0 then searcherAccess.searcher.searchBranch:=searchBranch;
+      WriteBarrier;
 
       searcherAccess.searchAsync;
 

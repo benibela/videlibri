@@ -69,14 +69,15 @@ function TMessageSystem.waitForMessage: TObject;
 begin
   Result:=nil;
   while result = nil do begin
-    while list.count=0 do sleep(20);
+    while not existsMessage do sleep(20);
     result:=retrieveMessageOrNil; //list.count=0 is possible
   end;
 end;
 
 function TMessageSystem.existsMessage: boolean;
 begin
-  result:=list.Count>0; //no need to synchronize, reading only
+  result:=list.Count>0;
+  ReadBarrier;
 end;
 
 procedure TMessageSystem.removeAndFreeAll;

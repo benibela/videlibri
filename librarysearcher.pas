@@ -146,6 +146,7 @@ begin
     if vars.hasVariable(name, value) then vars.add(name, xqvalueSeqAppend(value, xqvalue(newvalue)))
     else vars.ValuesString[name] := newvalue;
   end;
+  WriteBarrier;
   Result:=true;
 end;
 
