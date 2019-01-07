@@ -31,7 +31,7 @@ class AccountInfo : VideLibriBaseActivity() {
     private lateinit var accountPrettyName: EditText
 
     private val oldAccount: Bridge.Account
-        get() = intent.getSerializableExtra("account") as? Bridge.Account ?: accounts.toArray[0] ?: Bridge.Account()
+        get() = intent.getSerializableExtra("account") as? Bridge.Account ?: accounts[0] ?: Bridge.Account()
     private val accountAutoExtend: Boolean
         get() = findViewById<CheckBox>(R.id.autoExtendButton).isChecked
     private val accountAutoExtendDays: Int

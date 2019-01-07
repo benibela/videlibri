@@ -126,12 +126,13 @@ class VideLibriApp : Application() {
         @JvmStatic fun newSearchActivity() {
             val intent = Intent(instance, Search::class.java)
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-            val libId = accounts[0].libId
-            intent.putExtra("libId", libId)
-            val tempLib = Bridge.VLGetLibraryDetails(accounts[0].libId)
-            intent.putExtra("libName", tempLib?.prettyName)
-            if (accounts.any { it -> libId != it.libId})
-                intent.putExtra("showLibList", true)
+            accounts[0]?.libId?.let { libId ->
+                intent.putExtra("libId", libId)
+                val tempLib = Bridge.VLGetLibraryDetails(libId)
+                intent.putExtra("libName", tempLib?.prettyName)
+                if (accounts.any { it -> libId != it.libId})
+                    intent.putExtra("showLibList", true)
+            }
             staticApplicationContext?.startActivity(intent)
         }
 

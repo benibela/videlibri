@@ -15,7 +15,7 @@ object Accounts: Collection<Bridge.Account> {
     }
 
 
-    operator fun get(i: Int) = accounts[i]
+    operator fun get(i: Int) = accounts.getOrNull(i)
 
     val toArray get() = accounts
 
