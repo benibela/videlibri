@@ -3,6 +3,7 @@ package de.benibela.videlibri
 import android.os.Bundle
 import android.util.Log
 import android.view.Menu
+import android.view.MenuInflater
 import de.benibela.videlibri.jni.Bridge
 
 class SearchResult : BookListActivity(), SearchEventHandler {
@@ -65,11 +66,45 @@ class SearchResult : BookListActivity(), SearchEventHandler {
         searcher?.pendingEvents?.clear()
     }
 
-    override fun onPrepareOptionsMenu(menu: Menu?): Boolean {
-        val x = super.onPrepareOptionsMenu(menu)
-        menu?.findItem(R.id.search)?.setVisible(false)
-        return x
+    override fun onCreateOptionsMenuOverflow(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.searchresultmenu, menu)
+        super.onCreateOptionsMenuOverflow(menu, inflater)
     }
+    override fun setOptionMenuVisibility(menu: Menu?) {
+        super.setOptionMenuVisibility(menu)
+        menu?.forItems {
+            it.isVisible = when (it.itemId) {
+                R.id.search -> false
+                R.id.copy_to_wishlist -> detailsVisible()
+                else -> return@forItems
+            }
+        }
+    }
+
+    override fun onOptionsItemIdSelected(id: Int): Boolean {
+        when (id) {
+            R.id.copy_to_wishlist ->
+                currentBook()?.let { book ->
+                    var matchingAccounts = accounts.filter { it.libId == libId  }
+                    if (matchingAccounts.isEmpty())
+                        matchingAccounts = accounts.toArray.toList()
+                    if (matchingAccounts.isEmpty())
+                        showMessage(tr(R.string.search_needaccount_for_wishlist))
+                    else
+                        showChooseAccountDialog(getString(R.string.search_getaccount_for_wishlist), matchingAccounts) { account ->
+                            book.account = account
+                            book.history = true
+                            Bridge.VLChangeBook(null, book)
+                            LendingList.refreshDisplayedLendBooks()
+                            book.account = null
+			    showToast(R.string.search_copied_to_wishlist)
+                        }
+		    return true
+                }
+        }
+        return super.onOptionsItemIdSelected(id)
+    }
+
 
     override fun onSearchEvent(event: Bridge.SearchEvent): Boolean {
         val access = event.searcherAccess
@@ -231,7 +266,7 @@ class SearchResult : BookListActivity(), SearchEventHandler {
 
     fun orderBookHolding(book: Bridge.Book, choosenHolding: Int) {
         val matchingAccounts = accounts.filter { it.libId == libId && it.isReal }
-        if (matchingAccounts.size == 0) {
+        if (matchingAccounts.isEmpty()) {
             showMessage(tr(R.string.search_needaccount))
             return
         }

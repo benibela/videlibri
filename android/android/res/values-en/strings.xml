@@ -421,5 +421,9 @@
     <string name="menu_book_delete" >Delete book</string>
     <string name="delete_book_confirmS" >Do you want to delete "%s"?\n(This action is irreversible)</string>
     <string name="delete_book_confirmed" >Book has been removed</string>
+    <string name="menu_copy_to_wishlist">Copy to history</string>
+    <string name="search_needaccount_for_wishlist">You need to register an account or library to use the wishlist.</string>
+    <string name="search_getaccount_for_wishlist">Choose an account to save the book:</string>
+    <string name="search_copied_to_wishlist">The book has been saved.</string>
 
 </resources>

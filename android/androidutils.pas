@@ -1142,7 +1142,7 @@ var
   begin
     result := book.owningAccount is TCustomAccountAccess;
     if result then begin
-      account := tempBook.owningAccount as TCustomAccountAccess;
+      account := book.owningAccount as TCustomAccountAccess;
       bookList := account.books.old;
     end else begin
       account := nil;

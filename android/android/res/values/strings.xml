@@ -436,5 +436,9 @@
     <string name="menu_book_delete" >Eintrag löschen</string>
     <string name="delete_book_confirmS" >Soll "%s" gelöscht werden?\n(Dies kann nicht rückgängig gemacht werden)</string>
     <string name="delete_book_confirmed" >Eintrag gelöscht</string>
+    <string name="menu_copy_to_wishlist">in die Historie kopieren</string>
+    <string name="search_needaccount_for_wishlist">Die Merkliste benötigt ein registriertes Konto oder eine registrierte Bibliothek.</string>
+    <string name="search_getaccount_for_wishlist">Für welches Konto soll das Buch gespeichert werden?</string>
+    <string name="search_copied_to_wishlist">Das Buch wurde in der Merkliste gespeichert.</string>
 </resources>
 
