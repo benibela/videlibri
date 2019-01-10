@@ -26,11 +26,13 @@ import java.util.*
 
 class LendingList: BookListActivity(){
 
+    private var searchPanel: View? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         createDrawerToggle()
 
-        // Log.i("VideLibri", "onCreate")               ;
+        searchPanel = findViewById<View>(R.id.searchFilterPanel)
 
         savedInstanceState?.apply{
             filterActually = getString("filterActually")
@@ -39,15 +41,14 @@ class LendingList: BookListActivity(){
         updateViewFilters()
 
 
-        findViewById<View>(R.id.searchFilterPanel).visibility = View.VISIBLE
-        val et = findViewById<EditText>(R.id.searchFilter)
-        registerForContextMenu(et)
-        et.addTextChangedListener(object : EmptyTextWatcher() {
-            override fun afterTextChanged(editable: Editable) {
-                setFilter(editable.toString())
-            }
-        })
-
+        findViewById<EditText>(R.id.searchFilter).let { et ->
+            registerForContextMenu(et)
+            et.addTextChangedListener(object : EmptyTextWatcher() {
+                override fun afterTextChanged(editable: Editable) {
+                    setFilter(editable.toString())
+                }
+            })
+        }
 
         if (accounts.isNotEmpty()) {
             displayAccounts()
@@ -104,6 +105,7 @@ class LendingList: BookListActivity(){
     private fun updateViewFilters() {
         val sp = PreferenceManager.getDefaultSharedPreferences(this)
         displayOptions.readFromPreferences(sp)
+        searchPanel?.isVisibleNotGone = !("__disabled" == displayOptions.filterKey)
         displayHistory = sp.getBoolean("displayHistory", false)
         alwaysFilterOnHistory = sp.getBoolean("alwaysFilterOnHistory", true)
     }
@@ -114,8 +116,6 @@ class LendingList: BookListActivity(){
                 || displayOptions != displayOptionsActually
                 || displayForcedCounterActually != displayForcedCounter
         ) {
-            val searchPanel = findViewById<View>(R.id.searchFilterPanel)
-            searchPanel?.isVisibleNotGone = !("__disabled" == displayOptions.filterKey)
             displayAccounts()
         }
     }
