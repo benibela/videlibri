@@ -291,16 +291,12 @@ class LibraryList: VideLibriBaseActivity() {
                             details?.tableComment?.takeNonEmpty()?.let { libraryMap["TABLECOMMENT"] = it }
                         }
                         libraryHolder.addView((layoutInflater.inflate(R.layout.libraryinlistview, this, false) as TextView).apply {
-                            text = libraryMap["NAME"]
+                            text = libraryMap["NAME"].let { name ->
+                                libraryMap["TABLECOMMENT"]?.takeNonEmpty()?.let { "$name\n\t$it" } ?: name
+                            }
                             tag = ViewIdLibrary(state, city, index)
                             setOnClickListener(combinedListener)
                         })
-                        libraryMap["TABLECOMMENT"]?.takeNonEmpty()?.let {
-                            libraryHolder.addView((layoutInflater.inflate(R.layout.simpletextview, this, false) as TextView).apply {
-                                text = it
-                                setPadding(30, 0, 10, 10)
-                            })
-                        }
                     }
                 }
                 if (!portMode) libView?.apply{
