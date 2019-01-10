@@ -288,6 +288,9 @@
     <string name="lay_options_label_language">Sprachauswahl</string>
     <string name="lay_options_label_language_summary">Aktuelle Sprache: %s\nÄnderungen werden erst nach Appneustart aktiv.</string>
 
+    <string name="lay_options_caption_displayoptions">Anzeige der Ausleihen:</string>
+
+
     <string name="import_">Importieren</string>
     <string name="import_load">Importdatei laden</string>
     <string name="import_accounts">Importiere diese Konten</string>
@@ -440,5 +443,6 @@
     <string name="search_needaccount_for_wishlist">Die Merkliste benötigt ein registriertes Konto oder eine registrierte Bibliothek.</string>
     <string name="search_getaccount_for_wishlist">Für welches Konto soll das Buch gespeichert werden?</string>
     <string name="search_copied_to_wishlist">Das Buch wurde in der Merkliste gespeichert.</string>
+    <string name="book_holding_nrD">Exemplar %d</string>
 </resources>
 

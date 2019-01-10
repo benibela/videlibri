@@ -177,6 +177,7 @@
     <string name="lay_options_option_debuglog_summary_on">Report everything done by this app to the Android logcat: all called functions and all transmitted data (including passwords). </string>
     <string name="lay_options_option_includelog">Include log files in error reports.</string>
     <string name="lay_options_option_includelog_summary_on">Include debug logcat in error reports.</string>
+    <string name="lay_options_caption_displayoptions">Lending view options:</string>
     <string name="lay_search_lib">Library</string>
     <string name="lay_search_libselect">Choose a library</string>
     <string name="lay_search_title">Title</string>
@@ -425,5 +426,5 @@
     <string name="search_needaccount_for_wishlist">You need to register an account or library to use the wishlist.</string>
     <string name="search_getaccount_for_wishlist">Choose an account to save the book:</string>
     <string name="search_copied_to_wishlist">The book has been saved.</string>
-
+    <string name="book_holding_nrD">Copy %d</string>
 </resources>

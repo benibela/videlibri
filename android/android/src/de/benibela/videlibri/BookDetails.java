@@ -430,7 +430,7 @@ public class BookDetails extends VideLibriFakeFragment {
 
             String orderTitle = builder.holding.getProperty("orderTitle", defaultOrderTitle);
 
-            details.add(new DetailsHolding("Exemplar " + (i + 1), builder.build(), builder.holding, i, orderTitle));
+            details.add(new DetailsHolding(tr(R.string.book_holding_nrD, i + 1), builder.build(), builder.holding, i, orderTitle));
         }
     }
 
