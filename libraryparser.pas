@@ -408,7 +408,7 @@ var
   end;
 
 begin
-  ForceDirectories(ExtractFileDir(fn));
+  if ExtractFileDir(fn) <> '' then ForceDirectories(ExtractFileDir(fn));
   f:=TFileStream.Create(fn,fmOpenWrite or fmCreate);
   tempsl := TStringList.Create;
   tempsl.DelimitedText := '=';
