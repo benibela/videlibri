@@ -1137,6 +1137,7 @@ var
   index: Integer;
 begin
   if not flibraryIds.Find(trueid, index) then exit;
+  if flibraryIds.Objects[index] = nil then exit;
   reloadLibrary(TLibrary( flibraryIds.Objects[index] ), assetFileAsString('libraries/'+trueid+'.xml'));
 end;
 
