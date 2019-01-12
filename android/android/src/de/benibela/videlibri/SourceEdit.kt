@@ -23,6 +23,9 @@ class SourceEdit : VideLibriBaseActivity() {
 
     private var fileNameShownAsUserdefined: Boolean = false
 
+    private lateinit var spinner: Spinner
+    private lateinit var fileSpinner: Spinner
+
     private fun makeTemplateIds(){
         templateIds = Bridge.VLGetTemplates()
         selection1 = (0 until templateIds.size + 2).map { when (it) {
@@ -30,7 +33,11 @@ class SourceEdit : VideLibriBaseActivity() {
             templateIds.size + 1 -> tr(R.string.source_edit_new_directory)
             else -> getString(R.string.lay_source_edit_template, templateIds[it - 1])
         } }
-        findViewById<Spinner>(R.id.spinner).setItems(selection1.toTypedArray())
+        spinner.setItems(selection1.toTypedArray())
+    }
+    private fun makeLibraryIds(){
+        libraryIds = Bridge.VLGetLibraryIds().map { "$it.xml" } + getString(R.string.source_edit_new_library)
+
     }
 
     @JvmOverloads
@@ -43,9 +50,10 @@ class SourceEdit : VideLibriBaseActivity() {
             selection1.size - 1 -> {
                 showDialog {
                     message( R.string.source_edit_new_dialog_filename)
-                    onCancel = { findViewById<Spinner>(R.id.spinner).setSelection(0) }
+                    onCancel = { currentActivity<SourceEdit>()?.spinner?.setSelection(0) }
                     editWithOkButton {text ->
-                        val emptyDefaultSystem = """<?xml version="1.0" encoding="UTF-8"?>
+                        withActivity<SourceEdit> {
+                            val emptyDefaultSystem = """<?xml version="1.0" encoding="UTF-8"?>
 <actions>
   <action id="update-all">
   </action>
@@ -63,8 +71,10 @@ class SourceEdit : VideLibriBaseActivity() {
 
 </actions>
 """
-                        writeToNewFile("$BASEDIR_TEMPLATES$text/template", emptyDefaultSystem)
-                        makeTemplateIds()
+                            writeToNewFile("$BASEDIR_TEMPLATES$text/template", emptyDefaultSystem)
+                            makeTemplateIds()
+                            templateIds.indexOf(text).takeIf { it >= 0 }?.let { spinner.setSelection(it + 1) }
+                        }
                     }
                 }
                 return
@@ -84,7 +94,6 @@ class SourceEdit : VideLibriBaseActivity() {
             }
         }
 
-        val fileSpinner = findViewById<Spinner>(R.id.spinnerfile)
         fileSpinner.setItems(selection2)
         if (positionOfSelection1 == restoredStateBundle?.getInt("base"))
             fileSpinner.setSelection(restoredStateBundle?.getInt("file") ?: 0)
@@ -93,7 +102,7 @@ class SourceEdit : VideLibriBaseActivity() {
     }
 
     internal fun showSelection2(defaultSelectionText: String) {
-        showSelection2(findViewById<Spinner>(R.id.spinner).selectedItemPosition, defaultSelectionText)
+        showSelection2(spinner.selectedItemPosition, defaultSelectionText)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -101,12 +110,14 @@ class SourceEdit : VideLibriBaseActivity() {
         setVideLibriView(R.layout.sourceedit)
         setTitle(R.string.lay_source_edit)
         restoredStateBundle = savedInstanceState
+        spinner = findViewById(R.id.spinner)
+        fileSpinner = findViewById(R.id.spinnerfile)
 
 
-        libraryIds = Bridge.VLGetLibraryIds().map { "$it.xml" } + getString(R.string.source_edit_new_library)
+        makeLibraryIds()
         makeTemplateIds()
 
-        findViewById<Spinner>(R.id.spinner).onItemSelectedListener = object : OnItemSelectedListener {
+        spinner.onItemSelectedListener = object : OnItemSelectedListener {
             override fun onNothingSelected(parent: AdapterView<*>?) {}
 
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) =
@@ -114,10 +125,10 @@ class SourceEdit : VideLibriBaseActivity() {
 
         }
 
-        findViewById<Spinner>(R.id.spinnerfile).onItemSelectedListener = object : OnItemSelectedListener {
+        fileSpinner.onItemSelectedListener = object : OnItemSelectedListener {
             override fun onItemSelected(parent: AdapterView<*>, view: View, position: Int, id: Long) {
                 restoredStateBundle?.let { oldState ->
-                    if (position == oldState.getInt("file") && findViewById<Spinner>(R.id.spinner).selectedItemPosition == oldState.getInt("base")) {
+                    if (position == oldState.getInt("file") && spinner.selectedItemPosition == oldState.getInt("base")) {
                         restoreEditText(oldState)
                         restoredStateBundle = null
                         return
@@ -126,10 +137,10 @@ class SourceEdit : VideLibriBaseActivity() {
                 if (position == selection2.size - 1) {
                     showDialog {
                         message(R.string.source_edit_new_dialog_filename)
-                         onCancel = { currentActivity<SourceEdit>()?.findViewById<Spinner>(R.id.spinnerfile)?.setSelection(0) }
+                         onCancel = { currentActivity<SourceEdit>()?.fileSpinner?.setSelection(0) }
                         editWithOkButton {text ->
                             withActivity<SourceEdit> {
-                                if (findViewById<Spinner>(R.id.spinner).selectedItemPosition == 0) {
+                                if (spinner.selectedItemPosition == 0) {
                                     //new library
                                     if (text.split("_".toRegex()).size != 4) {
                                         showMessage(R.string.source_edit_invalid_library_id)
@@ -140,6 +151,7 @@ class SourceEdit : VideLibriBaseActivity() {
                                             prettyName = tr(R.string.source_edit_new_library_default_name)
                                             templateId = "sru"
                                         })
+                                        makeLibraryIds()
                                         showSelection2("$libid.xml")
                                     }
                                 } else {
@@ -161,10 +173,10 @@ class SourceEdit : VideLibriBaseActivity() {
         findViewById<Button>(R.id.save).setOnClickListener {
             try {
                 writeToFile(fileName, findViewById<EditText>(R.id.edit).text.toString())
-                val pos = findViewById<Spinner>(R.id.spinner).selectedItemPosition
+                val pos = spinner.selectedItemPosition
                 try {
                     if (pos == 0)
-                        Bridge.VLReloadLibrary(selection2[findViewById<Spinner>(R.id.spinnerfile).selectedItemPosition].replace(".xml", ""))
+                        Bridge.VLReloadLibrary(selection2[fileSpinner.selectedItemPosition].replace(".xml", ""))
                     else
                         Bridge.VLReloadTemplate(templateIds[pos - 1])
                 } catch (e: Bridge.InternalError) {
@@ -201,8 +213,8 @@ class SourceEdit : VideLibriBaseActivity() {
     override fun onSaveInstanceState(outState: Bundle?) {
         super.onSaveInstanceState(outState)
         outState ?: return
-        outState.putInt("base", findViewById<Spinner>(R.id.spinner).selectedItemPosition)
-        outState.putInt("file", findViewById<Spinner>(R.id.spinnerfile).selectedItemPosition)
+        outState.putInt("base", spinner.selectedItemPosition)
+        outState.putInt("file", fileSpinner.selectedItemPosition)
         outState.putString("filename", fileName)
         outState.putBoolean("userdefined", fileNameShownAsUserdefined)
         findViewById<EditText>(R.id.edit).apply {
@@ -214,8 +226,8 @@ class SourceEdit : VideLibriBaseActivity() {
 
     override fun onRestoreInstanceState(savedInstanceState: Bundle) {
         super.onRestoreInstanceState(savedInstanceState)
-        findViewById<Spinner>(R.id.spinner).setSelection(savedInstanceState.getInt("base", 0))
-        findViewById<Spinner>(R.id.spinnerfile).setSelection(savedInstanceState.getInt("file", 0))
+        spinner.setSelection(savedInstanceState.getInt("base", 0))
+        fileSpinner.setSelection(savedInstanceState.getInt("file", 0))
         restoreEditText(savedInstanceState)
     }
 
