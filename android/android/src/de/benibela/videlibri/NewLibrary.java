@@ -142,7 +142,7 @@ spinner.setAdapter(adapter);*/
 
         if (mode == MODE_LIBRARY_ENTER_NEW_DATA || mode == MODE_LIBRARY_MODIFY) {
             ScrollView sv = (ScrollView) findViewById(R.id.scrollView);
-            View target = findViewById(R.id.id);
+            View target = findViewById(R.id.name);
             target.requestFocus();
             //sv.requestChildFocus(target, target);
         }

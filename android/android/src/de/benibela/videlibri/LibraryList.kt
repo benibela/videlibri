@@ -418,7 +418,7 @@ class LibraryList: VideLibriBaseActivity() {
                                     "mode" to if (i == 3) 0 else NewLibrary.MODE_LIBRARY_ENTER_NEW_DATA
                             )
                             2 -> if (metaCat >= 0) libView?.openState(metaCat, true)
-                            4 -> showUriInBrowser("http://www.videlibri.de/help/neuebibliothek.html")
+                            4 -> startActivity<SourceEdit>() //showUriInBrowser("http://www.videlibri.de/help/neuebibliothek.html")
                             5 -> startActivity<Feedback> ()
                         }
                     }

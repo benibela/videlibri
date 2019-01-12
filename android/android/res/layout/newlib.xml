@@ -52,6 +52,16 @@
             android:text="@string/lay_newlib_label_args_description"
             android:id="@+id/textView7" android:padding="@dimen/defborder"/>
     <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/lay_newlib_label_name"
+        android:id="@+id/textView5" android:padding="@dimen/defborder"/>
+    <EditText
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/lay_newlib_edit_newlib"
+        android:id="@+id/name" android:singleLine="true" android:selectAllOnFocus="true"/>
+    <TextView
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:text="@string/lay_newlib_label_id"
@@ -60,16 +70,6 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:id="@+id/id" android:text="user" android:singleLine="true" android:selectAllOnFocus="true"/>
-    <TextView
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/lay_newlib_label_name"
-            android:id="@+id/textView5" android:padding="@dimen/defborder"/>
-    <EditText
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/lay_newlib_edit_newlib"
-            android:id="@+id/name" android:singleLine="true" android:selectAllOnFocus="true"/>
     <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

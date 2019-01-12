@@ -162,7 +162,7 @@
     <string name="install">installieren</string>
     <string name="lay_newlib_caption_ownlib">Eigene Bibliothek :</string>
     <string name="lay_newlib_label_id">Interne Id: (eindeutige Zufallszahl, um die Bibliothek zu identifizieren)</string>
-    <string name="lay_newlib_label_name">Name: (beliebige, irrelevante Bezeichnung)</string>
+    <string name="lay_newlib_label_name">Name: (irgendeine Bezeichnung, die dann in der Liste angezeigt wird)</string>
     <string name="lay_newlib_edit_newlib">meine neue Bib</string>
     <string name="lay_newlib_label_template">Zugrunde liegendes Template: (das verwendete Katalogsystem)</string>
     <string name="lay_newlib_label_template_description">In diesem Abschnitt können bereitgestellte Metadaten von einer HTTP-Adresse heruntergeladen und installiert werden. Diese Metadaten können sowohl die Parameter für einen Server/Katalogsystem als auch neue ausführbare Programmteile (Template) enthalten. Hiermit kann also der Zugriff auf beliebige Bibliothekssysteme installiert werden, aber nur wenn bereits jemand alle Daten im VideLibri-(XQuery)-Format vorbereitet hat. Jemand wie entweder die Bibliothek selbst, der VideLibri-Entwickler oder ein beliebiger Leser. </string>
@@ -321,20 +321,17 @@
     <string name="extern">extern</string>
 
 
-    <string name="foreignlibrariesnotinthelist">
-        Es gibt keine vollständige Liste der unterstützten Bibliotheken, da VideLibri für die Ausleihkontoverwaltung konzipiert wurde, so dass nur Bibliotheken gelistet werden konnten, die ein Testkonto bereitgestellt haben.
-        Um auf Konten weiterer Bibliotheken zuzugreifen, wurde deshalb eine möglichst einfache Programmiersprache entwickelt, mit denen jeder seine eigene Bibliothek hinzufügen kann, so dass VideLibri ähnlich wie ein Browser auf alle Webseiten zugreifen kann.
-        Mittlerweile gibt es folgende Möglichkeiten, um es mit einer nicht gelisteten Bibliothek zu verwenden.</string>
+    <string name="foreignlibrariesnotinthelist">Es gibt folgende Möglichkeiten, um VideLibri mit Bibliotheken zu verwenden, die wir nicht kennen oder noch nicht getestet haben:</string>
     <string name="foreignlibrariesnotinthelist_easy">1. Die Adresse (URL) des Bibliothekskatalog eingeben</string>
-    <string name="foreignlibrariesnotinthelist_easy_req">falls die Bibliothek ein bereits unterstützes System verwendet.</string>
+    <string name="foreignlibrariesnotinthelist_easy_req">falls die Bibliothek ein bereits unterstütztes System verwendet.</string>
     <string name="foreignlibrariesnotinthelist_meta">2. über einen regionalen Meta-Katalog suchen</string>
     <string name="foreignlibrariesnotinthelist_meta_req">falls man nur etwas suchen möchte.</string>
     <string name="foreignlibrariesnotinthelist_install">3. Die nötigen Katalogmetadaten herunterladen</string>
     <string name="foreignlibrariesnotinthelist_install_req">falls die Bibliothek oder jemand anderes ein fertiges VideLibri-Template bereitstellt.</string>
     <string name="foreignlibrariesnotinthelist_diy">4. Selbst ein VideLibri-Template erstellen</string>
-    <string name="foreignlibrariesnotinthelist_diy_req">in den "Einstellungen/Quellcode bearbeiten" kann es für beliebige Webseiten umprogrammiert werden.</string>
+    <string name="foreignlibrariesnotinthelist_diy_req">unter "Einstellungen/Quellcode bearbeiten" kann alles für beliebige Webseiten konfiguriert werden.</string>
     <string name="foreignlibrariesnotinthelist_mail">5. Eine E-Mail schreiben, damit die Bibliothek in der nächsten VideLibri-Version gelistet wird. </string>
-    <string name="foreignlibrariesnotinthelist_mail_req">wozu ich (vor allem bei unbekannten System) eben ein Benutzerkonto zum Testen brauche. </string>
+    <string name="foreignlibrariesnotinthelist_mail_req">wozu ich (vor allem bei unbekannten System) in Benutzerkonto zum Testen brauche. </string>
 
     <string name="share_export_footer">von meinem VideLibri gesendet</string>
     <string name="clipboard_copiedS">In Zwischenablage kopiert:\n%s</string>
