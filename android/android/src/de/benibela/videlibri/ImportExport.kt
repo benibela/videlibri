@@ -102,7 +102,7 @@ class ImportExport : VideLibriBaseActivity() {
             title = tr(R.string.export)
             findViewById<TextView>(R.id.textView).setText(R.string.export_accounts)
             findViewById<TextView>(R.id.textView1).setText(R.string.export_properties)
-            findViewById<TextView>(R.id.textView2).setText(R.string.import_file)
+            findViewById<TextView>(R.id.textView2).setText(R.string.export_file)
 
             val accounts = Bridge.VLGetAccounts()
             val accountNames = accounts.map { it.prettyName }
