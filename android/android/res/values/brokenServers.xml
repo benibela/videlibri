@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-<string-array name="broken_servers" translatable="false">
+<string-array name="broken_servers"  translatable="false">
 <item>CN=wwwopac.rz-kiru.de</item>
 <item>CN=buecherei-obertshausen.de</item>
 <item>CN=stadtbibliothek.linz.at</item>
