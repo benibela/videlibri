@@ -15,7 +15,7 @@
 <action id="internal-login">
   <if test="not($loggedIn)">
     <s>follow1 := (), follow2 := ()</s>
-    <page url="{$server}/LBS_WEB/borrower/borrower.htm?USR={1000 + get('picadb', 1)}&BES={get('picadb', 1)}&LAN=DU">
+    <page url="{$server}/LBS_WEB/borrower/borrower.htm?USR={1000 + get('picadb', 0)}&BES={get('picadb', 1)}&LAN=DU">
       <template>
 <DIV id="main_wrapper"><t:s>vl:delete-current-books()</t:s>
   <FORM>{follow1 := form(., {"j_username": $username, "j_password": $password})}</FORM>
