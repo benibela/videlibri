@@ -1,10 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?xml-stylesheet type="text/xsl" href="../changelog.xsl"?>
 <changelog program="VideLibri">
-      <build version="2010" date="2018-12-21">
+      <build version="2025" date="2019-01-13">
         <download url="http://videlibri.sourceforge.net/updates/videlibri-setup.exe" platform="WINDOWS" execute="&quot;$DOWNLOAD&quot;  /SP- /noicons &quot;/dir=$OLDPATH&quot; " restart="true"/>
         <download url="http://videlibri.sourceforge.net/updates/videlibri-linux32.deb" platform="LINUX32" execute=""/>
         <download url="http://videlibri.sourceforge.net/updates/videlibri-linux64.deb" platform="LINUX64" execute=""/>
+        <change>Kompiliert mit FreePascal 3.3.1 r40721 und Lazarus 2.0 RC3 r55664.</change>
+        <change>Windows: Kein Update der Windows-Version, da es wegen zu vieler Bugs in der neuen FreePascal/Lazarus-Version bisher nicht mehr möglich war, eine funktionsfähige Windows-Version zu erstellen.</change>
+        <change>android: weitere Modernisierungen</change>
+        <change>android: Entferne "von" vor Autornamen in der Bücherliste, da man es mit einem Adelstitel verwechseln könnte.</change>
+        <change>android: Verwende Java JNI 1.6</change>
+        <change>Vollständige Entfernung des ursprünglichen Vormerkungssystem, bei dem versucht wurde, die Vormerkungsmöglichkeiten jedes  Bibliothekssystem in ein einheitliches semantisches, maschinenlesbare Format umzuwandeln, durch ein simpleres System, bei dem nur Frage-Antwort-Dialoge mit dem Text von der OPAC-Webseite angezeigt werden, ohne zu versuchen, in der Schnittstelle die Bedeutung des Text zu verstehen.</change>
+        <fix>android: Behebe Crash, wenn Aktionen ausgeführt werden, bevor die App vollständig geladen ist.</fix>
+        <fix>android: Plötzliche Wechsel zur Standard-Geräte-Sprache, obwohl eine andere Sprache ausgewählt war.</fix>
+        <fix>Anpassung an geänderten OPAC der Universitätsbibliothek Lüneburg.</fix>
+        <fix>android: Behebe Absturz aus der 2.0 Version, wenn die Suche geöffnet wird ohne vorher ein (Such)-Konto anzulegen.</fix>
+        <fix>android: Anpassung an neues Serverzertifikat der Bücherei Cottbus.</fix>
+	<add>android: Neue Funktion, um die Ausleihenhistorie als Merkliste zu missbrauchen.</add>
+     </build>
+      <build version="2010" date="2018-12-21">
         <change>android: weitere Modernisierungen</change>
         <fix>android: Verbinde zu Servern, die TLS 1.3 unterstützen, mit älteren TLS-Versionen, statt in der Server-Anfrage gleichzeitig zu verlangen, dass eine ältere TLS-Version verwendet werden soll und der Server, nur die neuste ihm bekannte TLS-Version verwenden soll. </fix>
         <fix>android: Verwende neue ACRA Version 5.2.1 (Crash Reporter), weil die bisherige ACRA Version 4.9.1 nicht Android 8 kompatibel war. Verwende Java 1.8, weil die neue ACRA-Version das benötigt. Wenn der Start fehlschlägt, weil die native Library nicht geladen werden kann, und beim nächsten Start ein ACRA-Bericht gesandt werden soll, versuche nicht vor dem Senden die native Library erneut zu laden, weil das auch wieder fehlschlagen wird.</fix>
