@@ -175,19 +175,23 @@ type
   { TCustomAccountAccess }
                 //first start info
   TCustomAccountAccess=class(TCustomBookOwner)
+  strict private
+    config: TSafeIniFile;
   private
     FFileLock: TRTLCriticalSection;
     FEnabled: boolean;
+    FlastHistoryBackup: integer;
     FTimeout: qword;
     function GetConnected: boolean;
     function GetUpdated: boolean;
     procedure SetAccountType(AValue: integer);
     procedure setPassword(AValue: string);
+    procedure getAllBaseConfig(sl: TStringList);
+    procedure setBaseConfigValue(const name, value: string);
   protected
     fbooks: TBookLists;
     lib: TLibrary;
     internet: TInternetAccess;
-    config: TSafeIniFile;
     path,user,pass:string;
     FExtendType: TExtendType;
     FExtendDays,FLastCheckDate:integer;
@@ -196,6 +200,7 @@ type
     FKeepHistory, FConnected, FUpdated: boolean;
     FConnectingTime, FUpdateTime: qword;
     FCharges:Currency;
+
     procedure updateConnectingTimeout;
     function getCharges:currency;virtual;
     function GetNeedSingleBookUpdate: boolean; virtual;
@@ -248,6 +253,7 @@ type
     property extendDays: integer read FExtendDays write FExtendDays;
     property extendType: TExtendType read FExtendType write FExtendType;
     property keepHistory: boolean read FKeepHistory write FKeepHistory;
+    property lastHistoryBackup: integer read FLastHistoryBackup write FLastHistoryBackup;
     property enabled: boolean read FEnabled write FEnabled;
     property connected: boolean read GetConnected;
     property updated: boolean read GetUpdated;
@@ -420,7 +426,7 @@ begin
       wln('  <account name="'+xmlStrEscape(prettyName, true)+'" '+IfThen(eifConfig in flags[i],'id="'+xmlStrEscape(accounts[i].getPlusEncodedID(), true)+'"','')+'>');
       if eifConfig in flags[i] then begin
         wln('    <config><base>');
-        config.ReadSectionValues('base', tempsl);
+        getAllBaseConfig(tempsl);
         for j := 0 to tempsl.count - 1 do
           if (eifPassword in flags[i]) or (tempsl.Names[j] <> 'pass') then
             wln('       <v n="'+xmlStrEscape(tempsl.Names[j], true)+'">'+xmlStrEscape(tempsl.ValueFromIndex[j])+'</v>');
@@ -578,9 +584,9 @@ begin
           config := xv.toNode;
           name := config.getAttribute('n');
           if (name <> 'pass') or (eifPassword in flags[i]) then
-            realAccounts[i].config.WriteString('base', name, config.deepNodeText());
+            realAccounts[i].setBaseConfigValue(name, config.deepNodeText());
         end;
-        realAccounts[i].config.UpdateFile;
+        realAccounts[i].saveConfig();
         realAccounts[i].initFromConfig;
       end;
 
@@ -1307,12 +1313,12 @@ begin
   if logging then
     log('TBookLists.save started');
   if keepHistory then begin
-    if (currentDate-ownerLib.config.ReadInteger('base','last-history-backup',0)>HistoryBackupInterval) then begin
+    if (currentDate-ownerLib.lastHistoryBackup>HistoryBackupInterval) then begin
       if FileExistsUTF8(bookListOldFileName) then
         CopyFile(bookListOldFileName,bookListOldFileName+'.'+dateTimeFormat('yyyymmdd',currentDate));
       if FileExistsUTF8(bookListOldFileName + '.xml') then
         CopyFile(bookListOldFileName+ '.xml',bookListOldFileName+ '.xml'+'.'+dateTimeFormat('yyyymmdd',currentDate));
-      ownerLib.config.WriteInteger('base','last-history-backup',currentDate);
+      ownerLib.lastHistoryBackup := currentDate;
     end;
     if bookLists[bltInOldData].Count>0 then begin
       if not bookListOldLoaded then
@@ -1454,6 +1460,27 @@ begin
   resetConnection;
 end;
 
+procedure TCustomAccountAccess.getAllBaseConfig(sl: TStringList);
+begin
+  if config = nil then exit;
+  EnterCriticalSection(FFileLock);
+  try
+    config.ReadSectionValues('base', sl);
+  finally
+    LeaveCriticalSection(FFileLock);
+  end;
+end;
+
+procedure TCustomAccountAccess.setBaseConfigValue(const name, value: string);
+begin
+  EnterCriticalSection(FFileLock);
+  try
+    config.WriteString('base', name, value);
+  finally
+    LeaveCriticalSection(FFileLock);
+  end;
+end;
+
 function TCustomAccountAccess.getCharges: currency;
 begin
   result:=fcharges;
@@ -1472,6 +1499,7 @@ begin
   extendType:=TExtendType(config.readInteger('base','extend',0));
   fcharges:=currency(config.readInteger('base','charge',-100))/100.0;;
   FEnabled:=config.ReadBool('base','enabled',true);
+  FlastHistoryBackup := config.ReadInteger('base','last-history-backup',0)
 end;
 
 constructor TCustomAccountAccess.create(alib:TLibrary);
@@ -1519,6 +1547,7 @@ begin
 
   fbooks:=TBookLists.create(self,filePrefix+'.history',filePrefix+'.current');
   config:=TSafeIniFile.Create(filePrefix+'.config');
+  config.CacheUpdates := true;
   initFromConfig;
 end;
 
@@ -1547,6 +1576,7 @@ begin
     config.WriteInteger('base','extend',integer(extendType));
     config.WriteInteger('base','charge',longint(trunc(charges*100)));
     config.WriteBool('base','enabled',FEnabled);
+    config.WriteInteger('base','last-history-backup', FlastHistoryBackup);
 
     config.UpdateFile;
   finally
@@ -1664,6 +1694,7 @@ begin
     RenameFile(path+oldID+'.config',path+newID+'.config');
     fbooks:=TBookLists.create(self,path+newID+'.history',path+newID+'.current');
     config:=TSafeIniFile.Create(path+newID+'.config');
+    config.CacheUpdates := true;
 
     resetConnection;
   finally
