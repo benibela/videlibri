@@ -185,6 +185,7 @@ function BookStatusToStr(book: TBook;verbose:boolean=false): string; //returns u
 
 implementation
 uses math, bbdebugtools, simplehtmlparser, applicationconfig, xquery_json//<- enable JSON
+  , xquery.namespaces, xquery.internals.common
   ;
 
 resourcestring

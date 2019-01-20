@@ -226,7 +226,7 @@ ResourceString
 
 implementation
 
-uses newAccountWizard_u, applicationconfig, applicationdesktopconfig, simplehtmltreeparser, androidutils, multipagetemplate, bbutils, internetaccess, simpleinternet,math, bookproperties;
+uses newAccountWizard_u, applicationconfig, applicationdesktopconfig, simplehtmltreeparser, androidutils, multipagetemplate, bbutils, internetaccess, simpleinternet,math, bookproperties, xquery.internals.common;
 
 ResourceString
   rsAccountDeletion = 'Kontolöschung';

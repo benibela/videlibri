@@ -5,12 +5,12 @@ unit vlmaps;
 interface
 
 uses
-  simplehtmltreeparser,xquery;
+  simplehtmltreeparser,xquery,xquery.internals.common;
 
 type
   generic THashmapStrOwningGenericObject<TValue> = class(specialize TXQHashmapStrOwningGenericObject<TValue>);
-  THashmapStrOwningObject = simplehtmltreeparser.TXQHashmapStrOwningObject;
-  TMapStringOwningObject = TXQMapStringOwningObject;
+  THashmapStrOwningObject = xquery.internals.common.TXQHashmapStrOwningObject;
+  TMapStringOwningObject = xquery.TXQMapStringOwningObject;
   //TMapStringObject = TXQMapStringObject;
 
 implementation

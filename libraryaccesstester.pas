@@ -68,7 +68,7 @@ var
 
 implementation
 
-uses booklistreader, applicationconfig, internetaccess, bbutils, Clipbrd, librarySearcher,math, simplehtmltreeparser,strutils;
+uses booklistreader, applicationconfig, internetaccess, bbutils, Clipbrd, librarySearcher,math, simplehtmltreeparser,strutils, xquery.internals.common;
 { TlibraryTesterForm }
 
 

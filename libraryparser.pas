@@ -311,7 +311,7 @@ resourcestring
 
 
 implementation
-uses applicationconfig,bbdebugtools,FileUtil,LCLIntf,LazFileUtils, xquery,androidutils,simpleinternet,mockinternetaccess,libraryAccess,strutils,math;
+uses applicationconfig,bbdebugtools,FileUtil,LCLIntf,LazFileUtils, xquery, xquery.internals.common,androidutils,simpleinternet,mockinternetaccess,libraryAccess,strutils,math;
 
 resourcestring
   rsNoTemplateLinkFound = 'Der Link verweist auf kein VideLibri-Template (es gibt kein Element < link rel="videlibri.description" auf der Seite)';
