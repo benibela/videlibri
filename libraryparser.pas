@@ -1591,11 +1591,6 @@ begin
   DeleteFile(path+getPlusEncodedID()+'.config');
 end;
 
-{function TCustomAccountAccess.lastCheck():longint;
-begin
-  result:=config.ReadInteger('base','lastCheck',0);
-end;}
-
 procedure TCustomAccountAccess.disconnect();
 begin
   fconnected:=false;
