@@ -18,9 +18,6 @@ import de.benibela.videlibri.jni.Bridge;
 import static android.content.Context.NOTIFICATION_SERVICE;
 
 public class Notifier {
-    static private String lastNotificationTitle = "";
-    static private String lastNotificationText = "";
-    static private long lastNotificationTime = 0;
     static private final String DUEDATE_CHANNEL = "duedate";
 
     static private String [] getNotifications(Context context){
@@ -41,7 +38,7 @@ public class Notifier {
         NotificationManager nm = ((NotificationManager)context.getSystemService(NOTIFICATION_SERVICE));
         if (nm == null) return;
         nm.cancel(NOTIFICATION_ID);
-        lastNotificationTime = 0;
+        NotifierKt.skippableNotification(context, "", "");
     }
     static private void initChannels(Context context){
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.O)
@@ -53,6 +50,7 @@ public class Notifier {
         channel.setShowBadge(true);
         nm.createNotificationChannel(channel);
     }
+
 
     /**
      * Show a notification while this service is running.
@@ -69,14 +67,10 @@ public class Notifier {
             return;
         }
 
-        if (lastNotificationTitle.equals(notification[0]) && lastNotificationText.equals(notification[1])
-                && System.currentTimeMillis() - lastNotificationTime < 1000*60*60*23) return;
+        if (NotifierKt.skippableNotification(context, notification[0], notification[1]))
+            return;
 
         initChannels(context);
-
-        lastNotificationTitle = notification[0];
-        lastNotificationText = notification[1];
-        lastNotificationTime = System.currentTimeMillis();
 
         NotificationCompat.Builder mBuilder =
                 new NotificationCompat.Builder(context, DUEDATE_CHANNEL)
