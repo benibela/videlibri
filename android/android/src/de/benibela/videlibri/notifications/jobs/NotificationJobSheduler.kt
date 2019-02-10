@@ -17,6 +17,7 @@ import de.benibela.videlibri.notifications.Notifier
 
 private const val JOB_ID_DAILY = 2350
 private const val JOB_ID_AFTER_BOOT = 2351
+private const val JOB_ID_DOUBLE_NOTIFY = 2352
 
 @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
 class NotificationJobService: JobService() {
@@ -81,6 +82,20 @@ class NotificationJobService: JobService() {
     }
 }
 
+@RequiresApi(Build.VERSION_CODES.LOLLIPOP)
+class NotificationJobServiceNoUpdate: JobService() {
+    override fun onStartJob(params: JobParameters?): Boolean {
+        VideLibriApp.initializeAll(this)
+        if (!NotificationScheduling.preferenceNotificationsEnabled(this))
+            return false
+        Notifier.updateNotification(this)
+        return false;
+    }
+
+    override fun onStopJob(params: JobParameters?): Boolean {
+        return false;
+    }
+}
 
 @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
 fun rescheduleDailyIfNecessaryAsJob(context: Context, afterDeviceBoot: Boolean){
@@ -92,16 +107,24 @@ fun rescheduleDailyIfNecessaryAsJob(context: Context, afterDeviceBoot: Boolean){
         b.setMinimumLatency(delay)
         b.setOverrideDeadline(delay*2)
         scheduler.schedule(b.build())
+
     }
 
-    for (j in scheduler.allPendingJobs)
-        if (j.id == JOB_ID_DAILY)
-            return
+    val allPendingJobs = scheduler.allPendingJobs
 
-    val b = JobInfo.Builder(JOB_ID_DAILY, ComponentName(context, NotificationJobService::class.java))
-    b.setRequiredNetworkType(JobInfo.NETWORK_TYPE_ANY)
-    b.setPeriodic(NotificationScheduling.DAILY_CHECK_PERIOD)
-    b.setPersisted(true)
-    scheduler.schedule(b.build())
+    if (!allPendingJobs.any { it.id == JOB_ID_DAILY }) {
+        val b = JobInfo.Builder(JOB_ID_DAILY, ComponentName(context, NotificationJobService::class.java))
+        b.setRequiredNetworkType(JobInfo.NETWORK_TYPE_ANY)
+        b.setPeriodic(NotificationScheduling.DAILY_CHECK_PERIOD)
+        b.setPersisted(true)
+        scheduler.schedule(b.build())
+    }
+
+    if (!allPendingJobs.any { it.id == JOB_ID_DOUBLE_NOTIFY }) {
+        val b = JobInfo.Builder(JOB_ID_DOUBLE_NOTIFY, ComponentName(context, NotificationJobServiceNoUpdate::class.java))
+        b.setPeriodic(NotificationScheduling.DAILY_CHECK_PERIOD)
+        b.setPersisted(true)
+        scheduler.schedule(b.build())
+    }
 }
 

@@ -124,6 +124,7 @@
 
         <service android:name=".notifications.service.NotificationService" > </service>
         <service android:name=".notifications.jobs.NotificationJobService" android:permission="android.permission.BIND_JOB_SERVICE"  />
+        <service android:name=".notifications.jobs.NotificationJobServiceNoUpdate" android:permission="android.permission.BIND_JOB_SERVICE"  />
 
         <receiver android:name=".notifications.NotificationOnBootCompleted"
                 android:permission="android.permission.RECEIVE_BOOT_COMPLETED">
