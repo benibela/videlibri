@@ -6,7 +6,7 @@ interface
 
 uses
 Classes, SysUtils, IniFiles, applicationconfig, jni, bbjniutils, libraryParser, LCLProc, booklistreader, librarySearcherAccess,
-{$ifdef android}okhttpinternetaccess, {$ENDIF} multipagetemplate, xquery;
+{$ifdef android}okhttpinternetaccess, {$ENDIF} multipagetemplate, xquery, xquery.internals.common;
 
 //procedure deleteLocalRef(jobj: pointer);
 
