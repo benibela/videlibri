@@ -1076,6 +1076,13 @@ begin
   j.deleteLocalRef(jbook);
 end;
 
+procedure updateJavaPascalDate();
+var timeField: jfieldID;
+begin
+  timeField := j.getstaticfield(bridgeClass, 'currentPascalDate', 'I');
+  j.env^^.SetStaticIntField(j.env, bridgeClass, timeField, trunc(now));
+end;
+
 function Java_de_benibela_VideLibri_Bridge_VLGetBooks(env:PJNIEnv; this:jobject; jacc: jobject; jhistory: jboolean): jobject; cdecl;
 var
   acc: TCustomAccountAccess;
@@ -1083,7 +1090,6 @@ var
   books: TBookList;
   i: Integer;
   book: jobject;
-  timeField: jfieldID;
 begin
   if logging then bbdebugtools.log('Java_de_benibela_VideLibri_Bridge_VLGetBooks started');
   result := nil;
@@ -1120,9 +1126,7 @@ begin
       system.LeaveCriticalsection(updateThreadConfig.libraryAccessSection)
     end;
 
-    timeField := j.getstaticfield(bridgeClass, 'currentPascalDate', 'I');
-    j.env^^.SetStaticIntField(j.env, bridgeClass, timeField, trunc(now));
-
+    updateJavaPascalDate();
 
   except
     on e: Exception do throwExceptionToJava(e);
@@ -1224,6 +1228,8 @@ begin
     finally
       system.LeaveCriticalsection(updateThreadConfig.libraryAccessSection)
     end;
+
+    updateJavaPascalDate();
 
   except
     on e: Exception do throwExceptionToJava(e);
