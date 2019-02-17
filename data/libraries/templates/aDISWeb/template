@@ -73,6 +73,7 @@
         <span class="bnzeig" t:condition="contains(text(), 'Sie sind angemeldet')" /> <!-- sind schon angemeldet. (neuess, ordering!) -->
         
         <div class="message"><div id="R01"><h1>{vl:raise(.)}</h1></div></div>
+        <span class="alert">{vl:raise(.)}</span>
          
       </template:switch-prioritized>
     </template>
@@ -224,13 +225,13 @@
 <action id="gotoindex">
   <loop test="$firstIndex > $targetIndex">
     <page url="{$form.url}" templateFile="searchBasicForm">
-      <post value="{$form.post}&amp;%24Toolbar_4.x=0&amp;%24Toolbar_4.y=0"/>
+      <post value="{$form.post}{$toolbarPostBackward}"/>
     </page>
   </loop>
 
   <loop test="$lastIndex &lt; $targetIndex and $targetIndex &lt; $search-result-count">
     <page url="{$form.url}" templateFile="search">
-      <post value="{$form.post}&amp;%24Toolbar_5.x=0&amp;%24Toolbar_5.y=0"/>
+      <post value="{$form.post}{$toolbarPostForward}"/>
     </page>
   </loop>
   
@@ -244,11 +245,22 @@
   
   <page url="{$searchPage}" templateFile="searchInputForm"/>
 
-  <variable>lastSearchedIndex := 0, search-next-page-available := (), gotDetails_GoBackPage := ()</variable>
+  <variable>
+  lastSearchedIndex := 0, 
+  search-next-page-available := (), 
+  gotDetails_GoBackPage := (),
+  toolbarForward := 5,
+  toolbarBackward := 4  
+  </variable>
 
   <page url="{$startSearch}" templateFile="search"/>
 
   <page test="exists($gotDetails_GoBackPage)" url="{$gotDetails_GoBackPage}" templateFile="search"/>
+  
+  <s>toolbarBackward := $toolbarForward - 1,
+     toolbarPostBackward := x"&amp;%24Toolbar_{$toolbarBackward}.x=0&amp;%24Toolbar_{$toolbarBackward}.y=0",
+     toolbarPostForward := x"&amp;%24Toolbar_{$toolbarForward}.x=0&amp;%24Toolbar_{$toolbarForward}.y=0"
+  </s>
 </action>
 
 <action id="search-next-page">
