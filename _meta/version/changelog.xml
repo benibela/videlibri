@@ -1,13 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?xml-stylesheet type="text/xsl" href="../changelog.xsl"?>
 <changelog program="VideLibri">
-      <build version="2030" date="2019-02-17">
+      <build version="2031" date="2019-02-17">
         <download url="http://videlibri.sourceforge.net/updates/videlibri-setup.exe" platform="WINDOWS" execute="&quot;$DOWNLOAD&quot;  /SP- /noicons &quot;/dir=$OLDPATH&quot; " restart="true"/>
         <download url="http://videlibri.sourceforge.net/updates/videlibri-linux32.deb" platform="LINUX32" execute=""/>
         <download url="http://videlibri.sourceforge.net/updates/videlibri-linux64.deb" platform="LINUX64" execute=""/>
+        <fix>Anpassung an neuen Katalog bei Stadtbibliothek Heilbronn und Stadtbibliothek Magdeburg.</fix>
+        <fix>Anpassung an neue Homepage bei Stadtbibliothek Linz.</fix>
+        <fix>teilweise Anpassung an neues Webseitenlayout bei allen Bibliotheken des Bibliotheksservice-Zentrum Baden-Württemberg.</fix>
+	<fix>Anpassung an neues HTTPS Zertifikat bei Bücherei Obertshausen</fix>
+     </build>
+      <build version="2030" date="2019-02-17">
         <fix>Android: Erinnerungsfunktion: Verwende die korrekte Farbe (meistens rot) für das Symbol bei Benachrichtigungen; Android 8: warte nicht auf eine Internetverbindung vor dem Anzeigen der Benachrichtigung.</fix>
         <fix>Speichere das Datum der letzten Aktualisierung der Ausleihen nur einmal statt zehnmal pro Aktualisierung in der config-Datei.</fix>
-        <fix>VÖBB/Albstadt: Wenn es bei den Ausleihen keinen "zurück zur vorherigen Seite"-Button gibt, verwende stattdessen den "Mein Konto"-Link.</fix>
+        <fix>aDIS/Albstadt: Wenn es bei den Ausleihen keinen "zurück zur vorherigen Seite"-Button gibt, verwende stattdessen den "Mein Konto"-Link.</fix>
         <fix>vufind/smartbib/Gladbeck: Verwechsele Titel, die mit "Bis" beginnen, nicht mit einem Leihfristende wie "Bis Datum".</fix>
      </build>
       <build version="2025" date="2019-01-13">
