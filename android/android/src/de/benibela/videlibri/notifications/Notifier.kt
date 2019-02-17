@@ -9,7 +9,9 @@ fun skippableNotification(context: Context, title: String, text: String): Boolea
     val CHECK_SKIP_PERIOD: Long = min(1000L * 60 * 60 * 23, NotificationScheduling.DAILY_CHECK_PERIOD)
     val now = System.currentTimeMillis()
     val sp = PreferenceManager.getDefaultSharedPreferences(context)
-    val canSkip = now - sp.getLong("lastNotificationTime", 0) < CHECK_SKIP_PERIOD &&
+    val lastTime = sp.getLong("lastNotificationTime", 0)
+    val canSkip = now - lastTime < CHECK_SKIP_PERIOD &&
+                  now >= lastTime &&
                   title == sp.getString("lastNotificationTitle", "") &&
                   text == sp.getString("lastNotificationText", "")
 

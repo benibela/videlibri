@@ -60,16 +60,20 @@ class VideLibriApp : Application() {
         internal var mainIconCache: Int = 0
         @JvmStatic val mainIcon: Int
             get() {
+                //Log.i("VIDELIBRI MAINICON", "Cached: " + mainIconCache);
                 if (mainIconCache != 0) return mainIconCache
                 if (accounts.isNullOrEmpty()) return R.drawable.icon
                 val book = Bridge.VLGetCriticalBook()
                 mainIconCache = R.drawable.icong
                 if (book != null) {
+                    //Log.i("VIDELIBRI MAINICON", "Critical book: " + book.title);
                     when (BookFormatter.getStatusColor(book)) {
                         Color.RED -> mainIconCache = R.drawable.iconr
                         Color.YELLOW -> mainIconCache = R.drawable.icon
                     }
                 }
+                //Log.i("VIDELIBRI MAINICON", "New Icon: " + mainIconCache);
+                //Log.i("VIDELIBRI MAINICON", "RYG: " + R.drawable.iconr + " "+R.drawable.icon+" "+R.drawable.icong)
                 return mainIconCache
             }
 

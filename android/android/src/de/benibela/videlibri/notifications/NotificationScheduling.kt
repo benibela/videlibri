@@ -27,6 +27,6 @@ object NotificationScheduling{
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)
             NotificationJobService.finishAll();
     }
-    //const val DAILY_CHECK_PERIOD: Long = 1000 * 60 * 5;
+    //const val DAILY_CHECK_PERIOD: Long = 1000 * 60 * 16;
     const val DAILY_CHECK_PERIOD: Long = 1000 * 60 * 60 * 24;
 }
