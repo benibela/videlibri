@@ -6,7 +6,7 @@
   <template value="libero5"/>
   <variable name="baseurl" value="https://stadtbibliothek.linz.at/libero/"/>
 
-  <homepage value="http://www.linz.at/bildung/stadtbibliothek.asp"/>
+  <homepage value="https://wissensturm.linz.at/bibliothek/"/>
   <testing-search value="yes"/>
   <testing-account value="yes"/>
   
