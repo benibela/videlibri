@@ -1,16 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
-
 <library>
   <deprecatedName value="DE_Baden-W+uertenberg_Heilbronn_Stb"/>
   <longName value="Stadtbibliothek Heilbronn"/>
-  <shortName value="Stb Heilbronn"/>
   
-  <template value="bibliotheca"/>
-  <variable name="baseurl" value="https://web-opac.kivbf.de/heilbronn"/>	
-  <variable name="DB" value="Heilbronn"/>	
-  
-  <!--<template value="pica"/>-->
+  <template value="koha"/>
+  <variable name="baseurl" value="https://sb-heilbronn.lmscloud.net/"/>	
 
 
   <homepage value="https://stadtbibliothek.heilbronn.de/"/>
