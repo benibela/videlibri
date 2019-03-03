@@ -32,7 +32,21 @@ end;
 
 procedure TSafeIniFile.UpdateFile;
 begin
-  inherited UpdateFile;
+  try
+    inherited UpdateFile;
+  except
+    on e: EFCreateError do begin
+      Sleep(20);
+      try
+        inherited UpdateFile;
+      except
+        on e: EFCreateError do begin
+          Sleep(20);
+          inherited UpdateFile;
+        end;
+      end;
+    end;
+  end;
   CopyFile(activefilename, tmpfilename);
   fileMoveReplace(tmpfilename, truefilename);
 end;
