@@ -1,7 +1,7 @@
 #!/bin/bash
 
 TEMPLATEPARSER="../../../xidel/xidel"
-TEMPLATEPARSERARGS="--dot-notation=on --extract=\"book:=object()\" --print-type-annotations  --extract-kind=xml-pattern --module ../../mockvidelibri.xqm --xmlns:videlibri http://www.videlibri.de "
+TEMPLATEPARSERARGS="--deprecated-trim-nodes --dot-notation=on --extract=\"book:=object()\" --print-type-annotations  --extract-kind=xml-pattern --module ../../mockvidelibri.xqm --xmlns:videlibri http://www.videlibri.de "
 TEMPLATEPATH=../../data/libraries/templates
 INPATH=./
 OUTPATH=/tmp/
