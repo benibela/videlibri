@@ -231,7 +231,12 @@ begin
   with j do begin
     if e is EJNIException then
       Throw('de/benibela/videlibri/jni/Bridge$InternalError', e as EJNIException)
-    else if (e is EFileNotFoundException) or (e is EDirectoryNotFoundException) or (e is EInOutError) then
+    else if (e is EFileNotFoundException)
+         or (e is EDirectoryNotFoundException)
+         or (e is EPathNotFoundException)
+         or (e is EInOutError)
+         or (e is EStreamError)
+    then
       ThrowNew('de/benibela/videlibri/jni/Bridge$InternalErrorFile', e.Message)
     else if e is EExternal then
       ThrowNew('de/benibela/videlibri/jni/Bridge$InternalErrorExternal', e.Message)
