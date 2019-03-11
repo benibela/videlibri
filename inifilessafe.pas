@@ -31,24 +31,32 @@ begin
 end;
 
 procedure TSafeIniFile.UpdateFile;
+const MAX_RETRIES = 3;
+var
+  ok: Boolean;
+  retry: Integer;
 begin
+  ok := false;
+  fileMoveReplace(activefilename, tmpfilename);
   try
-    inherited UpdateFile;
-  except
-    on e: EFCreateError do begin
-      Sleep(20);
+    for retry := 1 to MAX_RETRIES do begin
       try
         inherited UpdateFile;
+        fileMoveReplace(activefilename, truefilename);
+        CopyFile(truefilename, activefilename); //this also retries
+        ok := true;
+        exit;
       except
         on e: EFCreateError do begin
-          Sleep(20);
-          inherited UpdateFile;
+          if retry >= MAX_RETRIES then raise;
+          sleep(20);
         end;
       end;
     end;
+  finally
+    if not ok then
+      fileMoveReplace(tmpfilename, activefilename);
   end;
-  CopyFile(activefilename, tmpfilename);
-  fileMoveReplace(tmpfilename, truefilename);
 end;
 
 destructor TSafeIniFile.Destroy;
