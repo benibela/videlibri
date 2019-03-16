@@ -6,15 +6,24 @@
           
          
           <TR>
-            <td class="rec_checkbox">
-              <input type="checkbox" name="volumeNumbersToRenew">{book:={"renewId": @value, "statusId": if (@disabled) then "critical" else "curious", "status": ""}}</input>
-            </td>
+            <td class="rec_checkbox">{
+              let $renew := .//input[@type="checkbox" and @name="volumeNumbersToRenew"]
+              return 
+              book:= {"renewId": $renew/@value, 
+                      "statusId": if ($renew/@disabled) then "critical" else "curious",
+                      "status": ""
+                     }
+            }</td>
             <TD class="rec_title">
               <DIV>
                 <SPAN class="titleLine">{
-                  book.title := extract(.,  "^[^/]*"),
-                  book.author:= extract(.,  "/([^(]*)", 1),
-                  book.year  := extract(.,  "/.*\((.*)\)", 1)
+                  let $title-authoryear := extract(., "^(.*)/(.*)|(.*)", (1,2,3))
+                  let $author-year := extract($title-authoryear[2], "^\s*(.*)\((.*)\)|(.*)", (1,2,3))
+                  return (
+                    book.title := $title-authoryear[1] || $title-authoryear[3],
+                    book.author:= $author-year[1] || $author-year[3],
+                    book.year  := $author-year[2]
+                  )
                   }</SPAN>
                   <!--Derzeit : 	ausgeliehen      
                       Ausleihtyp : 	Standardausleihe

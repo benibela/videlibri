@@ -5,31 +5,40 @@
  
          
           <TR>
-            <td class="rec_checkbox">
-              <input type="checkbox" name="volumeReservationsToCancel">{book:={"cancelId": @value}}</input>
-            </td>
+            <td class="rec_checkbox">{
+              let $cancel := .//input[@type="checkbox" and @name="volumeReservationsToCancel"]
+              return 
+              book:= {"cancelId": $cancel/@value, 
+                      "cancelable": $cancel and not($cancel/@disabled),
+                      "statusId": "ordered",
+                      "status": ""
+                     }
+            }</td>
             <TD class="rec_title">
               <DIV>
  
                   <TR>
                     <TD class="rec_data">
                       <SPAN class="titleLine">{
-                        book.title := extract(.,  "^[^/]*"),
-                        book.author:= extract(.,  "/([^(]*)", 1),
-                        book.year  := extract(.,  "/.*\((.*)\)", 1)
+                        let $title-authoryear := extract(., "^(.*)/(.*)|(.*)", (1,2,3))
+                        let $author-year := extract($title-authoryear[2], "^\s*(.*)\((.*)\)|(.*)", (1,2,3))
+                        return (
+                          book.title := $title-authoryear[1] || $title-authoryear[3],
+                          book.author:= $author-year[1] || $author-year[3],
+                          book.year  := $author-year[2]
+                        )
                         }</SPAN>
                     </TD>
                   </TR>
-               <!-- </TABLE>
-                <TABLE class="titlelist"> ?? on the page, fails template-->
-                  <tr><!--Vormerkungsdatum-->{book.status := ., book.statusId := "ordered"}</tr>
-                  <TR>
-                    <TD class="rec_data"/>
-                    <TD class="rec_data">
-                      <SPAN>{book.id := .}</SPAN>
-                    </TD>
-                  </TR>
-                  <!--row: theke: theke ; row : Ausleihfrist in Tagen : 	170 -->
+                 <t:loop><t:switch>	
+                   <tr><td>Vormerkungsdatum</td>     <td>{book.issuedate := parse-date(.)}</td></tr>
+                   <tr><td>Theke</td>                <td>{$book.libraryBranch}</td></tr>
+                   <tr><td>Signatur</td>             <td>{$book.id}</td></tr>
+                   <tr><td>Ausleihfrist</td>         <td>{$book.status := x"{$book.status} Ausleihfrist: {normalize-space(.)}"}</td></tr>
+                   <tr><td>Anzahl Vormerkungen</td>  <td>{$book.status := x"{$book.status} Anzahl Vormerkungen: {normalize-space(.)}"}</td></tr>
+                   <tr><td>Verlängerungen</td>       <td>{$book.status := x"{$book.status} Verlängerungen: {normalize-space(.)}"}</td></tr>
+                </t:switch></t:loop>
+                <SPAN class="error">{$book.status := x"{normalize-space(.)} {$book.status}"}</SPAN>?
  
                 
               </DIV>
