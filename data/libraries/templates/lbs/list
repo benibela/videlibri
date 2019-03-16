@@ -1,5 +1,5 @@
 
-<FORM name="loansForm" id="loansForm">{renew-form:=form(., {"renew": "Verlängern"}),vl:delete-current-books()}
+<FORM name="loansForm" id="loansForm">{renew-form:=form(., {"renew": "Verlängern"})}
   <DIV class="bodydiv">
     <TABLE class="resultset">
           <template:meta default-text-matching="regex"/>
@@ -16,16 +16,19 @@
                   book.author:= extract(.,  "/([^(]*)", 1),
                   book.year  := extract(.,  "/.*\((.*)\)", 1)
                   }</SPAN>
-                  <!--Derzeit : 	ausgeliehen      Ausleihtyp : 	Standardausleihe-->
+                  <!--Derzeit : 	ausgeliehen      
+                      Ausleihtyp : 	Standardausleihe
+                      Publikationsform : 	Buch/Zeitschrift
+                      Abteilung : 	Staats- und Universitätsbibliothek Hamburg
+                      -->
                  <t:loop><t:switch>
-                   <tr><td>Ausleihfrist</td><td>{book.duedate := parse-date(., 'd.m.yyyy')}</td></tr>
-                   <tr><td>Theke</td><td>{$book.libraryBranch}</td></tr>
-                   <tr><td>Signatur</td><td>{$book.id}</td></tr>
+                   <tr><td>Ausleihfrist</td>  <td>{book.duedate := parse-date(.)}</td></tr>
+                   <tr><td>Theke</td>         <td>{$book.libraryBranch}</td></tr>
+                   <tr><td>Signatur</td>      <td>{$book.id}</td></tr>
                    <tr><td>Verlängerungen</td><td>{$book.status := x"{$book.status} Verlängerungen: {normalize-space(.)}"}</td></tr>
-                   <tr><td>Mahnungen</td><td>{$book.status := x"Mahnungen: {normalize-space(.)} {$book.status} "}</td></tr>
+                   <tr><td>Mahnungen</td>     <td>{$book.status := x"Mahnungen: {normalize-space(.)} {$book.status} "}</td></tr>
                 </t:switch></t:loop>
                 <SPAN class="error">{$book.status := x"{normalize-space(.)} {$book.status}"}</SPAN>?
-                <t:s>book.statusId := $book.statusId</t:s>
               </DIV>
             </TD>
           </TR>+

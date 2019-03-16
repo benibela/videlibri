@@ -1,7 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
-
-
 <library>
   <deprecatedName value="209"/>
   <maxRenewCount value="5"/>
@@ -9,11 +6,14 @@
   <longName value="Campus-Katalog Hamburg"/>
   <shortName value="SUB Hamburg"/>
   <catalogue value="https://kataloge.uni-hamburg.de/"/>
-  <template value="pica"/>
+  <template value="lbs"/>
   
   <variable name="server" value="https://kataloge.uni-hamburg.de:443/"/>
-  
+  <variable name="borrower" value="USR=1022"/>
+   
 
   <homepage value="http://kataloge.uni-hamburg.de/"/>
-  <testing-search value="yes"/>  <testing-account value="yes"/></library>
+  <testing-search value="yes"/>
+  <testing-account value="yes"/>
+</library>
 

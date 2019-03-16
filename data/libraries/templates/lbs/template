@@ -14,39 +14,37 @@
 
 <action id="internal-login">
   <if test="not($loggedIn)">
-    <s>follow1 := (), follow2 := ()</s>
-    <page url="{$server}/LBS_WEB/borrower/borrower.htm?USR={1000 + get('picadb', 0)}&BES={get('picadb', 1)}&LAN=DU">
+    <s>nextpage := $server||"/LBS_WEB/borrower/borrower.htm?"||uri-combine(x"USR={1000 + get('picadb', 0)}&BES={get('picadb', 1)}&LAN=DU", get("borrower", ""))</s>
+    <page url="{$nextpage}">
       <template>
-<DIV id="main_wrapper"><t:s>vl:delete-current-books()</t:s>
-  <FORM>{follow1 := form(., {"j_username": $username, "j_password": $password})}</FORM>
-</DIV>
-
+        <DIV id="main_wrapper">
+          <FORM>{nextpage := form(., {"j_username": $username, "j_password": $password})}</FORM>
+        </DIV>
       </template>
     </page>
 
-  <page url="{$follow1}">
-    <template>
-<t:switch-prioritized>
-    <FORM class="topbox">
-      <DIV class="tabbar">
-        <DIV class="navlink">
-          <A><t:s>updateUrl := @href,vl:delete-current-books()</t:s>Entleihungen</A> <!-- todo: this is not called on second update -->
-        </DIV>
-        <DIV class="navlink">
-          <A>{reservationsUrl := @href}</A>
-        </DIV>
-      </DIV>
-    </FORM>
-
-
-	<h2><font color="red">{
-    string() ! (if (matches(., "Benutzernummer und/oder.*Passwort ist falsch")) then vl:raise-login(.)
-    else vl:raise(.))
-  }</font></h2>
-</t:switch-prioritized>
-
-    </template>
-  </page>
+    <page url="{$nextpage}">
+      <template>
+        <t:switch prioritized="true">
+          <FORM class="topbox">
+            <DIV class="tabbar">
+              <DIV class="navlink">
+                <A><t:s>updateUrl := @href</t:s>Entleihungen</A> 
+              </DIV>
+              <DIV class="navlink">
+                <A>{reservationsUrl := @href}</A> <!-- vormerkungen -->
+              </DIV>
+            </DIV>
+          </FORM>
+      
+      
+      	<h2><font color="red">{
+          string() ! (if (matches(., "Benutzernummer und/oder.*Passwort ist falsch")) then vl:raise-login(.)
+          else vl:raise(.))
+          }</font></h2>
+        </t:switch>
+      </template>
+    </page>
 
     <s>loggedIn := true()</s>
   </if>
@@ -55,7 +53,8 @@
 <action id="update-all">
   <call action="internal-login"/>
   
-
+  <!-- if the link is missing, it is "#", otherwise /LBS_WEB/borrower/loans.htm and /LBS_WEB/borrower/reservations.htm -->
+  <s>vl:delete-current-books()</s>
   <page url="{if (string-length($updateUrl) > 3) then $updateUrl else ()}" templateFile="list"/>
   <page url="{if (string-length($reservationsUrl) > 3) then $reservationsUrl else ()}" templateFile="listOrders"/>
 </action>
