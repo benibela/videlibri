@@ -76,6 +76,19 @@
 </action>
 
 
+<action id="order-single">
+  <page url="{$holding._orderId}"/>
+  <if test="//input[@name='j_username']">
+    <pattern><form name="borrowerForm"><input name="j_username"/>{nextpage := form(., ({"j_username": $username, "j_password": $password}, .//input[@type="submit"] ) )}</form></pattern>
+    <page url="{$nextpage}"/>
+  </if>
+  <pattern><form>
+    <input name="process"/> <!-- type="submit"-->
+    {orderform := form(., .//input[@name="process"])}
+  </form></pattern>
+  <page url="{$orderform}"/>
+  <!--   <span class="alertmessage"> Für den Benutzer TestKlute ist der Band 9941062409 vorgemerkt.</span> -->
+</action>
 
 
 

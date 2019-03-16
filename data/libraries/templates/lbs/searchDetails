@@ -44,7 +44,7 @@
                $holding.status := string-join(div/text(), '; '),
                let $script := .//script return (
                $holding.orderable := exists($script),
-                 $holding._orderId := extract($script, '(/loan[^'']*)\\''', 1),
+                 $holding._orderId := extract($script, '(/(loan|LBS_WEB)[^'']*)\\''', 1),
                  $holding.orderTitle := extract($script, ">[^a-zA-Z]*([a-zA-Z]*)&lt;/a>", 1)
                )
              ) else ()
