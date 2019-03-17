@@ -4,7 +4,7 @@
   <shortName value="Stb Frankfurt"/>
   
   <template value="bibliothecaplus"/>
-  <variable name="urlaccount" value="https://katalog.stadtbuecherei.frankfurt.de/Meine-Bibliothek"/>	
+  <variable name="urlaccount" value="https://katalog.stadtbuecherei.frankfurt.de/Mein-Konto"/>	
   <variable name="urlsearch" value="https://katalog.stadtbuecherei.frankfurt.de/Mediensuche/Erweiterte-Suche"/>	
 
   <homepage value="http://www.stadtbuecherei.frankfurt.de/"/>
