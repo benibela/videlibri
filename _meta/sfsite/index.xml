@@ -100,7 +100,7 @@ if (count($matches) == 0 || count(reset($matches)) == 0 || (reset(reset($matches
 </a>
 </div>
 
-Mit VideLibri kann man seit 2006 auf die Kataloge/OPACs zahlreicher Bibliotheken zugreifen, um seine Ausleihen zu sehen oder zu verlängern. Auch Katalogsuchen sind möglich.
+VideLibri schützt einen seit 2006 davor bei Ausleihen aus einer öffentlichen Bücherei oder wissenschaftlicher Bibliothek, die Abgabefrist zu verpassen. Auch Katalogsuchen sind möglich.
 </prequel>
 
 <content title="Features">

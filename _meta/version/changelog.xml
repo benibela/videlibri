@@ -1,10 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?xml-stylesheet type="text/xsl" href="../changelog.xsl"?>
 <changelog program="VideLibri">
-      <build version="2031" date="2019-02-17">
+      <build version="2040" date="2019-03-17">
         <download url="http://videlibri.sourceforge.net/updates/videlibri-setup.exe" platform="WINDOWS" execute="&quot;$DOWNLOAD&quot;  /SP- /noicons &quot;/dir=$OLDPATH&quot; " restart="true"/>
         <download url="http://videlibri.sourceforge.net/updates/videlibri-linux32.deb" platform="LINUX32" execute=""/>
         <download url="http://videlibri.sourceforge.net/updates/videlibri-linux64.deb" platform="LINUX64" execute=""/>
+        <change>Kompiliert mit FreePascal 3.3.1 r40721 mit Patch #32961 und Lazarus 2.0 mit Patches #35219 und #35223.</change>
+        <change>Falls die Einstellungen nicht gespeichert werden können, weil die Konfigdatei nicht geändert werden kann (weil Huawei-Android 9-Geräte anscheinend eine fehlerhafte Dateiverwaltung haben), läsche die Datei und versuche mehrmals sie erneut zu erstellen.</change>
+        <add>PICA LBS4: Unterstützung von Vormerkungen.</add>
+        <fix>Anpassung an geänderten Campus-Katalog Hamburg.</fix>
+        <fix>Anpassung an geänderte OPAC-Adresse in Frankfurt.</fix>
+     </build>
+      <build version="2031" date="2019-02-17">
         <fix>Anpassung an neuen Katalog bei Stadtbibliothek Heilbronn und Stadtbibliothek Magdeburg.</fix>
         <fix>Anpassung an neue Homepage bei Stadtbibliothek Linz.</fix>
         <fix>teilweise Anpassung an neues Webseitenlayout bei allen Bibliotheken des Bibliotheksservice-Zentrum Baden-Württemberg.</fix>
@@ -31,9 +38,6 @@
 	<add>android: Neue Funktion, um die Ausleihenhistorie als Merkliste zu missbrauchen.</add>
      </build>
       <build version="2010" date="2018-12-21">
-        <download url="http://videlibri.sourceforge.net/updates/videlibri-setup.exe" platform="WINDOWS" execute="&quot;$DOWNLOAD&quot;  /SP- /noicons &quot;/dir=$OLDPATH&quot; " restart="true"/>
-        <download url="http://videlibri.sourceforge.net/updates/videlibri-linux32.deb" platform="LINUX32" execute=""/>
-        <download url="http://videlibri.sourceforge.net/updates/videlibri-linux64.deb" platform="LINUX64" execute=""/>
         <change>android: weitere Modernisierungen</change>
         <fix>android: Verbinde zu Servern, die TLS 1.3 unterstützen, mit älteren TLS-Versionen, statt in der Server-Anfrage gleichzeitig zu verlangen, dass eine ältere TLS-Version verwendet werden soll und der Server, nur die neuste ihm bekannte TLS-Version verwenden soll. </fix>
         <fix>android: Verwende neue ACRA Version 5.2.1 (Crash Reporter), weil die bisherige ACRA Version 4.9.1 nicht Android 8 kompatibel war. Verwende Java 1.8, weil die neue ACRA-Version das benötigt. Wenn der Start fehlschlägt, weil die native Library nicht geladen werden kann, und beim nächsten Start ein ACRA-Bericht gesandt werden soll, versuche nicht vor dem Senden die native Library erneut zu laden, weil das auch wieder fehlschlagen wird.</fix>
@@ -41,9 +45,6 @@
         <fix>android: Wenn man mehrere Ausleihkonten registriert hat, die Auswahl, welche Konten angezeigt werden sollen, ändert und gleichzeitig das Gerät rotiert, wurden entweder alle Konten oder kein Konto angezeigt, anstatt nur die Konten, die man ausgewählt hatte.</fix>
      </build>
       <build version="2000" date="2018-12-19">
-        <download url="http://videlibri.sourceforge.net/updates/videlibri-setup.exe" platform="WINDOWS" execute="&quot;$DOWNLOAD&quot;  /SP- /noicons &quot;/dir=$OLDPATH&quot; " restart="true"/>
-        <download url="http://videlibri.sourceforge.net/updates/videlibri-linux32.deb" platform="LINUX32" execute=""/>
-        <download url="http://videlibri.sourceforge.net/updates/videlibri-linux64.deb" platform="LINUX64" execute=""/>
         <change>android: Modernisierung/Neuprogrammierung der Bücherlistenanzeige.</change>
         <change>android: Verwende Relinker, um die App vollständig zu installieren, da sie behaupten, dass der App-Store ohne Relinker oft Apps nur unvollständig installiert, woraufhin sie nicht starten, da nicht installierte Apps nicht gestartet werden können.</change>
         <change>android: Verwende Java JNI 1.6 statt 1.4, und setzte abiFilters. </change>
