@@ -27,17 +27,17 @@
       <td></td>
       <td></td>
       <td><!--expiry--><template:match-text regex="Leihfristende|zurückzugeben vor dem"/></td>
+<!--      <td></td>
+      <td></td>
+      <td></td>
+      <td><!- -reservations- ->Vormerkungen</td>
       <td></td>
       <td></td>
       <td></td>
-      <td><!--reservations-->Vormerkungen</td>
+      <td><!- -renewals- -><template:match-text regex="Verlängerungen"/></td>
       <td></td>
       <td></td>
-      <td></td>
-      <td><!--renewals--><template:match-text regex="Verlängerungen"/></td>
-      <td></td>
-      <td></td>
-      <td></td>
+      <td></td>-->
     </tr>
     
     <tr> <td class="h2"></td> </tr>
@@ -79,8 +79,8 @@
       <td></td><td></td><td></td><td class="value-small">
         <template:if test="text()!=''"><template:read source="." var="book.duedate:dd-mm-yyyy"/></template:if>
       </td>
-      <td></td><td></td><td></td><td class="value-small"></td>
-      <td></td><td></td><td></td><td class="value-small"><iframe></iframe></td>
+<!--      <td></td><td></td><td></td><td class="value-small"></td>
+      <td></td><td></td><td></td><td class="value-small"><iframe></iframe></td>-->
     </tr>
   </template:loop>
   
