@@ -31,7 +31,7 @@ begin
 end;
 
 procedure TSafeIniFile.UpdateFile;
-const MAX_RETRIES = 3;
+const MAX_RETRIES = 5;
 var
   ok: Boolean;
   retry: Integer;
@@ -44,12 +44,13 @@ begin
         inherited UpdateFile;
         fileMoveReplace(activefilename, truefilename);
         CopyFile(truefilename, activefilename); //this also retries
+        DeleteFile(tmpfilename);
         ok := true;
         exit;
       except
         on e: EFCreateError do begin
           if retry >= MAX_RETRIES then raise;
-          sleep(20);
+          sleep(30);
         end;
       end;
     end;
