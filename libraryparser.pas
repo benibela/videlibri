@@ -317,7 +317,7 @@ resourcestring
 
 
 implementation
-uses applicationconfig,bbdebugtools,FileUtil,LCLIntf,LazFileUtils, xquery, xquery.internals.common,androidutils,simpleinternet,mockinternetaccess,libraryAccess,strutils,math;
+uses applicationconfig,bbdebugtools,xquery, xquery.internals.common,androidutils,simpleinternet,mockinternetaccess,libraryAccess,strutils,math,xquery.internals.lclexcerpt;
 
 resourcestring
   rsNoTemplateLinkFound = 'Der Link verweist auf kein VideLibri-Template (es gibt kein Element < link rel="videlibri.description" auf der Seite)';
@@ -720,7 +720,7 @@ end;
 
 procedure TLibrary.loadFromString(data, fileName: string);
 begin
-  id:=ChangeFileExt(ExtractFileName(fileName),'');;
+  id:=ChangeFileExt(ExtractFileName(fileName),'');
   maxRenewCount:=-1;
   ftestingAccount := tiUnknown;
   ftestingSearch := tiUnknown;
@@ -962,15 +962,15 @@ begin
   Result:=getAccountObject(libID);
   if libID = Result.lib.deprecatedId then begin
     if FileExists(basePath+libID+'#'+accountID+'.history') then
-      RenameFileUTF8(basePath+libID+'#'+accountID+'.history', basePath+result.lib.id+'#'+accountID+'.history'); //old files, not xml files
+      fileMoveReplace(basePath+libID+'#'+accountID+'.history', basePath+result.lib.id+'#'+accountID+'.history'); //old files, not xml files
     if FileExists(basePath+libID+'#'+accountID+'.current') then
-      RenameFileUTF8(basePath+libID+'#'+accountID+'.current', basePath+result.lib.id+'#'+accountID+'.current');
+      fileMoveReplace(basePath+libID+'#'+accountID+'.current', basePath+result.lib.id+'#'+accountID+'.current');
     if FileExists(basePath+libID+'#'+accountID+'.history.xml') then
-      RenameFileUTF8(basePath+libID+'#'+accountID+'.history.xml', basePath+result.lib.id+'#'+accountID+'.history.xml');
+      fileMoveReplace(basePath+libID+'#'+accountID+'.history.xml', basePath+result.lib.id+'#'+accountID+'.history.xml');
     if FileExists(basePath+libID+'#'+accountID+'.current.xml') then
-      RenameFileUTF8(basePath+libID+'#'+accountID+'.current.xml', basePath+result.lib.id+'#'+accountID+'.current.xml');
+      fileMoveReplace(basePath+libID+'#'+accountID+'.current.xml', basePath+result.lib.id+'#'+accountID+'.current.xml');
     if FileExists(basePath+libID+'#'+accountID+'.config') then
-      RenameFileUTF8(basePath+libID+'#'+accountID+'.config', basePath+result.lib.id+'#'+accountID+'.config');
+      fileMoveReplace(basePath+libID+'#'+accountID+'.config', basePath+result.lib.id+'#'+accountID+'.config');
     log('Import old '+basePath+libID+'#'+accountID+'.* => ' +basePath+result.lib.id+'#'+accountID+'.*');
   end;
   result.init(basePath,accountID);
@@ -1029,7 +1029,7 @@ begin
     except
       on e: Exception do begin
         FreeAndNil(result);
-        if FileExistsUTF8(assetPath + libraryFileName) then //file exists is always false for asset files on Android
+        if FileExists(assetPath + libraryFileName) then //file exists is always false for asset files on Android
           raise
         else
           storeException(e, nil, id, ''); //user defined libraries must not raise an exception or they write some bullshit and cannot start the app anymore
@@ -1275,21 +1275,54 @@ begin
   end;
 end;
 
+type TOldBookListDeleter = object(TFileLister)
+  deletionPrefix: string;
+  constructor init;
+  procedure foundSomething(const {%H-}dir, current: String; const {%H-}search: TRawByteSearchRec); virtual;
+end;
+
+constructor TOldBookListDeleter.init;
+begin
+  recurse := false;
+end;
+
+procedure TOldBookListDeleter.foundSomething(const dir, current: String; const search: TRawByteSearchRec);
+begin
+  if current.StartsWith(deletionPrefix) then DeleteFile(current);
+end;
+
+function ExtractFileNameOnly(const AFilename: string): string;
+//copied from lcl
+var
+  StartPos: Integer;
+  ExtPos: Integer;
+begin
+  StartPos:=length(AFilename)+1;
+  while (StartPos>1)
+  and not (AFilename[StartPos-1] in AllowDirectorySeparators)
+  {$IF defined(Windows) or defined(HASAMIGA)}and (AFilename[StartPos-1]<>':'){$ENDIF}
+  do
+    dec(StartPos);
+  ExtPos:=length(AFilename);
+  while (ExtPos>=StartPos) and (AFilename[ExtPos]<>'.') do
+    dec(ExtPos);
+  if (ExtPos<StartPos) then ExtPos:=length(AFilename)+1;
+  Result:=copy(AFilename,StartPos,ExtPos-StartPos);
+end;
+
+
 procedure TBookLists.remove;
-var sl:TStringList;
-    i:longint;
+var deleter: TOldBookListDeleter;
+    path: String;
 begin
   DeleteFile(bookListCurFileName);
   DeleteFile(bookListOldFileName);
   DeleteFile(bookListCurFileName+'.xml');
   DeleteFile(bookListOldFileName+'.xml');
-  sl:=FindAllFiles(ExtractFilePath(bookListOldFileName),ExtractFileNameOnly(bookListOldFileName)+'.????????',false);
-  for i:=0 to sl.count-1 do
-    DeleteFile(sl[i]);
-  sl:=FindAllFiles(ExtractFilePath(bookListOldFileName),ExtractFileNameOnly(bookListOldFileName)+'.xml' +'.????????',false);
-  for i:=0 to sl.count-1 do
-    DeleteFile(sl[i]);
-  sl.free;
+  deleter.init;
+  path := ExtractFilePath(bookListOldFileName);
+  deleter.deletionPrefix := path + '/' + ExtractFileNameOnly(bookListOldFileName);
+  deleter.startSearch(path, path + '/');
 end;
 
 function TBookLists.getBooksCurrentFile: TBookList;
@@ -1314,9 +1347,9 @@ begin
     log('TBookLists.save started');
   if keepHistory then begin
     if (currentDate-ownerLib.lastHistoryBackup>HistoryBackupInterval) then begin
-      if FileExistsUTF8(bookListOldFileName) then
+      if FileExists(bookListOldFileName) then
         CopyFile(bookListOldFileName,bookListOldFileName+'.'+dateTimeFormat('yyyymmdd',currentDate));
-      if FileExistsUTF8(bookListOldFileName + '.xml') then
+      if FileExists(bookListOldFileName + '.xml') then
         CopyFile(bookListOldFileName+ '.xml',bookListOldFileName+ '.xml'+'.'+dateTimeFormat('yyyymmdd',currentDate));
       ownerLib.lastHistoryBackup := currentDate;
     end;
@@ -1497,7 +1530,7 @@ begin
   prettyName:=config.readString('base','prettyName', user);
   extendDays:=config.readInteger('base','extend-days',7);
   extendType:=TExtendType(config.readInteger('base','extend',0));
-  fcharges:=currency(config.readInteger('base','charge',-100))/100.0;;
+  fcharges:=currency(config.readInteger('base','charge',-100))/100.0;
   FEnabled:=config.ReadBool('base','enabled',true);
   FlastHistoryBackup := config.ReadInteger('base','last-history-backup',0)
 end;

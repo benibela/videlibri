@@ -5,7 +5,7 @@ unit librarySearcherAccess;
 interface
 
 uses
-  Classes, SysUtils , librarySearcher,libraryParser, booklistreader,bbutils,messagesystem,simplexmlparser,multipagetemplate,forms;
+  Classes, SysUtils , librarySearcher,libraryParser, booklistreader,bbutils,messagesystem,simplexmlparser,multipagetemplate;
 
 type
 
@@ -151,7 +151,7 @@ type
 function getSearchableLocations: TSearchableLocations;
 implementation
 
-uses applicationconfig, bbdebugtools, internetaccess, androidutils {$ifdef android}, bbjniutils{$endif};
+uses applicationconfig, bbdebugtools, internetaccess, androidutils {$ifdef android}, bbjniutils{$else},forms{$endif};
 
 resourcestring
   rsSearchAllRegions = 'alle Regionen';

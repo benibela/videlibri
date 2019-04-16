@@ -142,7 +142,7 @@ resourcestring
   rsPatternMatchingFailedDebugLastMatchSS = 'Gefunden wurde zuletzt: "%s" bei "%s".';
   rsPatternMatchingFailedDebugAllMatched = 'Es ist nicht klar, was auf der Seite fehlt.';
 implementation
-uses internetaccess,libraryaccess,math,FileUtil,bbutils,bbdebugtools,androidutils ,
+uses internetaccess,libraryaccess,math,{$ifndef android}FileUtil,{$endif}bbutils,bbdebugtools,androidutils ,
   {$IFDEF WIN32}
   windows,synapseinternetaccess,w32internetaccess
   {$ELSE}

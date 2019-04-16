@@ -19,7 +19,7 @@ end;
 
 implementation
 
-uses bbutils,FileUtil;
+uses bbutils, xquery.internals.lclexcerpt;
 
 constructor TSafeIniFile.Create(const AFileName: string);
 begin

@@ -8,7 +8,6 @@ uses
 {$IFDEF UNIX}{$IFDEF UseCThreads}
 cthreads,
 {$ENDIF}{$ENDIF}
-Interfaces,
 applicationconfig, libraryAccess, jni, bbjniutils, androidutils;
 
 exports

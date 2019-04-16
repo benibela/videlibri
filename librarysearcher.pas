@@ -65,7 +65,7 @@ public
 end;
 
 implementation
-uses internetAccess, LCLIntf;
+uses internetAccess;
 
 resourcestring
   rsDefault = 'Standard';
