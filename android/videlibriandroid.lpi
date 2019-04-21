@@ -67,8 +67,14 @@
     </SearchPaths>
     <Conditionals Value="if TargetCPU = 'arm' then
    CustomOptions += '-oandroid/libs/armeabi/liblclapp.so'
- else
-   CustomOptions += '-oandroid/libs/x86/liblclapp.so'"/>
+else if TargetCPU = 'aarch64' then
+   CustomOptions += '-oandroid/libs/arm64-v8a/liblclapp.so'
+else if TargetCPU = 'i386' then
+   CustomOptions += '-oandroid/libs/x86/liblclapp.so'
+else if TargetCPU = 'x86_64' then
+   CustomOptions += '-oandroid/libs/x86_64/liblclapp.so'
+else
+   CustomOptions += '-oandroid/libs/unknowntarget/liblclapp.so'"/>
     <BuildMacros>
       <Count Value="1"/>
       <Item1>

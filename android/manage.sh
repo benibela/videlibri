@@ -22,56 +22,86 @@ export JAVA_BINDIR="$JAVA_HOME/bin"
 
 FPC_ARM=ppcrossarm
 FPC_386=ppcross386
+FPC_ARM64=ppcrossa64
+FPC_X64=ppcx64
 LAZBUILD=lazbuild
 
 which $FPC_ARM > /dev/null || { echo >&2 "Failed to find fpc arm target. Install FreePascal cross compiler."; exit 1; }
 which $FPC_386 > /dev/null || { echo >&2 "Failed to find fpc x86 target. Install FreePascal cross compiler."; exit 1; }
+which $FPC_ARM64 > /dev/null || { echo >&2 "Failed to find fpc arm64 target. Install FreePascal cross compiler (or remove this check and build 32 version only) ."; exit 1; }
+which $FPC_X64 > /dev/null || { echo >&2 "Failed to find fpc x86_64 target. Install FreePascal compiler. You need to compile it on a 64 bit system (or remove this check and build 32 version only)"; exit 1; }
 hash $LAZBUILD || { echo >&2 "Failed to find Lazarus build command. Install Lazarus."; exit 1; }
 
 hash $ADB || { echo >&2 "Failed to find adb. Install Android SDK."; exit 1; }
 
-case "$1" in
-build)
-  mkdir -p android/libs/armeabi/ android/libs/x86
-  if [[ $2 == "arm" || $3 == "arm" || $2 != "x86" ]]; then BUILDARM=true
-  else BUILDARM=false; fi
+function nativeBuild(){
+  flag=$1
+  abi=$2
+  strip=$3
+  compiler=$4
+  cpu=$5
+  path=android/libs/$abi/
 
-  if [[ $2 == "x86" || $3 == "x86" || $2 != "arm" ]]; then BUILDX86=true
-  else BUILDX86=false; fi
-
-
-  if [[ $2 == "release" ]]; then BUILDMODE=release
-  else BUILDMODE=debug;  fi
-
-  #echo $BUILDARM :: $BUILDX86
-
-  if ! $BUILDARM ; then rm android/libs/armeabi/liblclapp.so; fi;
-  if ! $BUILDX86 ; then rm android/libs/x86/liblclapp.so; fi;
-
-  if $BUILDARM; then
-    FORCE=""
-    if [[ ! -f android/libs/armeabi/liblclapp.so ]]; then FORCE=-B; fi
-    if $LAZBUILD $FORCE --os=android --ws=nogui --compiler="$(which $FPC_ARM)" --cpu=arm videlibriandroid.lpi; then echo; else echo "FAILED!"; exit 1; fi
-  fi
-
-  if $BUILDX86; then
-    FORCE=""
-    if [[ ! -f android/libs/x86/liblclapp.so ]]; then FORCE=-B; fi
-    if $LAZBUILD $FORCE --compiler="$(which $FPC_386)" --os=android --ws=nogui --cpu=i386 videlibriandroid.lpi; then echo; else echo "FAILED!"; exit 1; fi
+  mkdir -p $path
+  if ! $flag ; then rm $path/liblclapp.so; rm -r $path; fi;
+  if $flag ; then
+    if [[ ! -f $path/liblclapp.so ]]; then FORCE=-B; fi
+    if $LAZBUILD $FORCE --os=android --ws=nogui --compiler="$(which $compiler)" --cpu=$cpu videlibriandroid.lpi; then echo; else echo "FAILED!"; exit 1; fi
   fi
 
   STRIP=true
   if [[ $BUILDMODE == "release" ]] || [[ $STRIP == "true" ]]; then
-    if [[ $BUILDMODE == "release" ]]; then
-      cp android/libs/armeabi/liblclapp.so liblclapp.unstripped.arm.so
-      cp android/libs/x86/liblclapp.so liblclapp.unstripped.x86.so
-    else
-      cp android/libs/armeabi/liblclapp.so liblclapp.unstripped.debug.arm.so
-      cp android/libs/x86/liblclapp.so liblclapp.unstripped.debug.x86.so
-    fi
-    arm-linux-strip --strip-all android/libs/armeabi/liblclapp.so
-    strip --strip-all android/libs/x86/liblclapp.so
+    cp $path/liblclapp.so liblclapp.unstripped.$BUILDMODE.$abi.so
+    $strip --strip-all $path/liblclapp.so
   fi
+}
+
+case "$1" in
+build)
+  BUILDARM=false
+  BUILDX86=false
+  BUILDARM64=false
+  BUILDX64=false
+  case "$2" in
+    release) 
+      BUILDMODE=release
+      BUILDARM=true
+      BUILDX86=true
+    ;;
+    64-bit)
+      BUILDMODE=release64bit
+      BUILDARM=true
+      BUILDX86=true
+      BUILDARM64=true
+      BUILDX64=true
+    ;;
+    arm) 
+      BUILDMODE=debug
+      BUILDARM=true
+    ;;
+    x86) 
+      BUILDMODE=debug
+      BUILDX86=true
+    ;;
+    arm64) 
+      BUILDMODE=release64bit
+      BUILDARM64=true
+    ;;
+    x64) 
+      BUILDMODE=release64bit
+      BUILDX64=true
+    ;;
+    *)
+      BUILDMODE=debug
+      BUILDARM=true
+      BUILDX86=true
+    ;;
+  esac
+
+  nativeBuild $BUILDARM     armeabi    arm-linux-strip               $FPC_ARM    arm
+  nativeBuild $BUILDX86     x86        i686-linux-android-strip      $FPC_386    i386
+  nativeBuild $BUILDARM64   arm64-v8a  aarch64-linux-android-strip   $FPC_ARM64  aarch64
+  nativeBuild $BUILDX64     x86_64     strip                         $FPC_X64    x86_64
 
   ./manage.sh build-gradle $BUILDMODE
 ;;
@@ -82,6 +112,7 @@ build-gradle|build-java)
   case "$BUILDMODE" in
   debug) GRADLEMODE=assembleDebug;;
   release) GRADLEMODE=assembleRelease;;
+  release64bit) GRADLEMODE=assembleRelease64bit;;
   esac
   
   ./gradlew $GRADLEMODE || { echo "FAILED!"; exit 1; }
