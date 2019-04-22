@@ -313,6 +313,15 @@ var View.isVisibleNotGone: Boolean
     }
 
 fun InputStream.readAllText(): String = bufferedReader().use { it.readText() }
+inline fun InputStream.useLines(f: (String) -> Unit) {
+    bufferedReader().use {r ->
+        var line = r.readLine()
+        while (line != null) {
+            f(line)
+            line = r.readLine()
+        }
+    }
+}
 
 fun AssetManager.exists(fileName: String): Boolean {
     try {
