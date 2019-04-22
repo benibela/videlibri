@@ -26,10 +26,6 @@ FPC_ARM64=ppcrossa64
 FPC_X64=ppcx64
 LAZBUILD=lazbuild
 
-which $FPC_ARM > /dev/null || { echo >&2 "Failed to find fpc arm target. Install FreePascal cross compiler."; exit 1; }
-which $FPC_386 > /dev/null || { echo >&2 "Failed to find fpc x86 target. Install FreePascal cross compiler."; exit 1; }
-which $FPC_ARM64 > /dev/null || { echo >&2 "Failed to find fpc arm64 target. Install FreePascal cross compiler (or remove this check and build 32 version only) ."; exit 1; }
-which $FPC_X64 > /dev/null || { echo >&2 "Failed to find fpc x86_64 target. Install FreePascal compiler. You need to compile it on a 64 bit system (or remove this check and build 32 version only)"; exit 1; }
 hash $LAZBUILD || { echo >&2 "Failed to find Lazarus build command. Install Lazarus."; exit 1; }
 
 hash $ADB || { echo >&2 "Failed to find adb. Install Android SDK."; exit 1; }
@@ -43,6 +39,7 @@ function nativeBuild(){
   path=android/libs/$abi/
 
   mkdir -p $path
+  which $compiler > /dev/null || { echo >&2 "Failed to find fpc $compiler. Install FreePascal cross compiler."; exit 1; }
   if ! $flag ; then rm $path/liblclapp.so; rm -r $path; fi;
   if $flag ; then
     if [[ ! -f $path/liblclapp.so ]]; then FORCE=-B; fi
