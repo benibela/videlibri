@@ -2,9 +2,13 @@ package de.benibela.videlibri
 import android.app.Activity
 import android.app.AlertDialog
 import android.app.Dialog
+import android.app.NotificationManager
+import android.content.Context
 import android.content.DialogInterface
+import android.content.SharedPreferences
 import android.content.res.AssetManager
 import android.os.Bundle
+import android.preference.PreferenceManager
 import android.support.annotation.StringRes
 import android.support.v4.app.DialogFragment
 import android.support.v7.app.AppCompatActivity
@@ -283,6 +287,12 @@ fun Bundle.getSparseBooleanArray(key: String): SparseBooleanArray? {
 inline fun <reified T: View> Activity.forEachView(vararg ids: Int, f: (T) -> Unit ) {
     ids.forEach { f.invoke(findViewById(it)) }
 }
+
+inline val Context.notificationManager: NotificationManager?
+    get() = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager?
+
+inline val Context.preferences: SharedPreferences
+    get() = PreferenceManager.getDefaultSharedPreferences(this)
 
 
 fun Spinner.setItems(items: Array<String>) {
