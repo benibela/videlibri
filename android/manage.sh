@@ -39,9 +39,9 @@ function nativeBuild(){
   path=android/libs/$abi/
 
   mkdir -p $path
-  which $compiler > /dev/null || { echo >&2 "Failed to find fpc $compiler. Install FreePascal cross compiler."; exit 1; }
   if ! $flag ; then rm $path/liblclapp.so; rm -r $path; fi;
   if $flag ; then
+    which $compiler > /dev/null || { echo >&2 "Failed to find fpc $compiler. Install FreePascal cross compiler."; exit 1; }
     if [[ ! -f $path/liblclapp.so ]]; then FORCE=-B; fi
     if $LAZBUILD $FORCE --os=android --ws=nogui --compiler="$(which $compiler)" --cpu=$cpu videlibriandroid.lpi; then echo; else echo "FAILED!"; exit 1; fi
   fi
@@ -95,7 +95,7 @@ build)
     ;;
   esac
 
-  nativeBuild $BUILDARM     armeabi    arm-linux-strip               $FPC_ARM    arm
+  nativeBuild $BUILDARM     armeabi    arm-linux-androideabi-strip   $FPC_ARM    arm
   nativeBuild $BUILDX86     x86        i686-linux-android-strip      $FPC_386    i386
   nativeBuild $BUILDARM64   arm64-v8a  aarch64-linux-android-strip   $FPC_ARM64  aarch64
   nativeBuild $BUILDX64     x86_64     strip                         $FPC_X64    x86_64
@@ -109,7 +109,7 @@ build-gradle|build-java)
   case "$BUILDMODE" in
   debug) GRADLEMODE=assembleDebug;;
   release) GRADLEMODE=assembleRelease;;
-  release64bit) GRADLEMODE=assembleRelease64bit;;
+  release64bit|64-bit) GRADLEMODE=assembleRelease64bit;;
   esac
   
   ./gradlew $GRADLEMODE || { echo "FAILED!"; exit 1; }
@@ -122,8 +122,11 @@ build-gradle|build-java)
 ;;
 
 install)
-  if [[ $2 == "release" ]]; then BUILDMODE=release
-  else BUILDMODE=debug;  fi
+  case "$2" in
+    release) BUILDMODE=release;;
+    release64bit|64-bit) BUILDMODE=release64bit;;
+    *) BUILDMODE=debug;;
+  esac
 
   cd android
   #$ADB uninstall de.benibela.videlibri || { echo "FAILED!"; exit 1;}
@@ -232,6 +235,24 @@ brokenServers)
 
    
    rm $TMPFILE
+;;
+
+setupbinutils)
+  targetdir=$2
+  if [[ -z "$targetdir" ]]; then targetdir=~/bin; fi
+  function singleplatform(){
+    platform=$1
+    path=$ANDROID_HOME/ndk-bundle/toolchains/$platform*/prebuilt/linux-x86_64/bin/
+    ln -sr $path/*-ld $targetdir
+    ln -sr $path/*-ld.bfd $targetdir
+    ln -sr $path/*-as $targetdir
+    ln -sr $path/*-strip $targetdir
+    ln -sr $path/*-addr2line $targetdir
+  }
+  singleplatform arm
+  singleplatform x86-
+  singleplatform aarch64
+  singleplatform x86_64
 ;;
   
 esac
