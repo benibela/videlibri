@@ -301,6 +301,8 @@
     <string name="debuglog_disabled">Debug-Log is disabled. You need to enable it in the configuration before anything is shown here.</string>
     <string name="notificationNoAccounts">Without registered library cards no due dates can be reported. </string>
     <string name="notificationNoAccountsTitle">VideLibri: No accounts</string>
+    <string name="notificationOutdatedData">The lending list has not been synced in a week. Check if all settings are correct and you have an internet connection.</string>
+    <string name="notificationOutdatedDataTitle">outdated books</string>
     <string name="lay_account_label_type">Account type: </string>
     <string name="lay_account_intern">internal (e.g. student) </string>
     <string name="extern">extern</string>
@@ -427,4 +429,5 @@
     <string name="search_getaccount_for_wishlist">Choose an account to save the book:</string>
     <string name="search_copied_to_wishlist">The book has been saved.</string>
     <string name="book_holding_nrD">Copy %d</string>
+    <string name="warning_need_password">If you enter an account number, you also need to enter a password.</string>
 </resources>

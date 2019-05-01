@@ -275,6 +275,7 @@ begin
       storeException(e,lib,lib.getLibrary().id,'');
     on e: exception do begin
       lib.broken:=currentDate;
+      if lib.passWord = '' then e.Message := e.Message + ' [' + rsErrorNoPassword + ']';
       storeException(e,lib,lib.getLibrary().id,'');
     end
     else if logging then log('Unverständliche Fehlermeldung');

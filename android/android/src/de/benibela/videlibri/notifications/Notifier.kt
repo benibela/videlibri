@@ -15,6 +15,7 @@ import java.lang.Math.min
 object Notifier {
     private const val DUEDATE_CHANNEL = "duedate"
     private const val NOTIFICATION_ID = 8239238
+    private const val OUTDATED_DATA_PERIOD_DAYS: Long = 7
 
     private fun skipableNotification(context: Context, title: String, text: String): Boolean {
         val checkSkipPeriodic: Long = min(1000L * 60 * 60 * 23, NotificationScheduling.DAILY_CHECK_PERIOD)
@@ -40,7 +41,13 @@ object Notifier {
 
     private fun getNotifications(context: Context): Array<String>? =
             if (Accounts.size == 0) with(context) { arrayOf(getString(R.string.notificationNoAccountsTitle), getString(R.string.notificationNoAccounts)) }
-            else Bridge.VLGetNotifications()
+            else {
+                val n = Bridge.VLGetNotifications()
+                if (n.isNullOrEmpty() &&
+                        Accounts.any { it.isReal && it.lastCheckDate <= Bridge.currentPascalDate - OUTDATED_DATA_PERIOD_DAYS })
+                    with(context) { arrayOf(getString(R.string.notificationOutdatedDataTitle), getString(R.string.notificationOutdatedData)) }
+                else n
+            }
 
     private fun cancelNotification(context: Context) {
         context.notificationManager?.cancel(NOTIFICATION_ID)

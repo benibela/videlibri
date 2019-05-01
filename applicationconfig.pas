@@ -141,6 +141,7 @@ resourcestring
   rsPatternMatchingFailedDebugPreviousElementS = 'Direkt hinter "%s".';
   rsPatternMatchingFailedDebugLastMatchSS = 'Gefunden wurde zuletzt: "%s" bei "%s".';
   rsPatternMatchingFailedDebugAllMatched = 'Es ist nicht klar, was auf der Seite fehlt.';
+  rsErrorNoPassword = 'Es wurde kein Passwort für das Konto eingegeben';
 implementation
 uses internetaccess,libraryaccess,math,{$ifndef android}FileUtil,{$endif}bbutils,bbdebugtools,androidutils ,
   {$IFDEF WIN32}

@@ -316,6 +316,8 @@
     </string>
     <string name="notificationNoAccounts">Ohne registrierte Konten können keine Ausleihwarnungen angezeigt werden.</string>
     <string name="notificationNoAccountsTitle">VideLibri: Keine Konten</string>
+    <string name="notificationOutdatedData">Die Ausleihenlisten sind schon (über) eine Woche alt. Überprüfe, ob alle Einstellungen stimmen, Internetverbindung, Batteriesparmaßnahmen, ...</string>
+    <string name="notificationOutdatedDataTitle">veraltete Bücher</string>
     <string name="lay_account_label_type">Kontoart:</string>
     <string name="lay_account_intern">intern (z.B.: Student)</string>
     <string name="extern">extern</string>
@@ -441,5 +443,6 @@
     <string name="search_getaccount_for_wishlist">Für welches Konto soll das Buch gespeichert werden?</string>
     <string name="search_copied_to_wishlist">Das Buch wurde in der Merkliste gespeichert.</string>
     <string name="book_holding_nrD">Exemplar %d</string>
+    <string name="warning_need_password">Wenn eine Kontonummer zum Anzeigen von Ausleihen angegeben wird, muss auch das dazugehörige Passwort angegeben werden.</string>
 </resources>
 

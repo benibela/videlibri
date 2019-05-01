@@ -84,7 +84,13 @@ class AccountInfo : VideLibriBaseActivity() {
                 }
             }
             findViewById<Button>(R.id.completeAccountButton).text = tr(R.string.change)
-            findViewById<View>(R.id.completeAccountButton).setOnClickListener {changeAccountNow()}
+            findViewById<View>(R.id.completeAccountButton).setOnClickListener {
+                if (accountPassword.text.isEmpty()) {
+                    showMessage(getString(R.string.warning_need_password))
+                    return@setOnClickListener
+                }
+                changeAccountNow()
+            }
         } else {
             lib.paintFlags = lib.paintFlags or Paint.UNDERLINE_TEXT_FLAG
             lib.setOnClickListener { updateLibrary() }
@@ -98,6 +104,11 @@ class AccountInfo : VideLibriBaseActivity() {
 
                 if (accountId.text.isEmpty()) {
                     addAccountNow()
+                    return@OnClickListener
+                }
+
+                if (accountPassword.text.isEmpty()) {
+                    showMessage(getString(R.string.warning_need_password))
                     return@OnClickListener
                 }
 
