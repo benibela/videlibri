@@ -6,4 +6,4 @@ goBackPage := {"post": "service=direct%2F1%2FPOOLSTPM%40%40%40%40%40%40%40%40_4B
 hasTill := false()
 hasTill := true()
 result := ()
-book := {"statusId": "ordered", "status": "vorgemerkt am 04.07.2013", "renewCount": "", "title": "Qualitätssicherung durch Softwaretests : Vorgehensweisen und Werkzeuge zum Test von Java-Programmen ; und Online-Service", "category": "", "libraryBranch": "Allach-Untermenzing", "cancelid": "cellCheck", "_mode": "requested"}
+book := {"statusId": "ordered", "status": "vorgemerkt am 04.07.2013", "renewCount": "", "title": "Qualitätssicherung durch Softwaretests : Vorgehensweisen und Werkzeuge zum Test von Java-Programmen ; und Online-Service", "author": "", "category": "", "libraryBranch": "Allach-Untermenzing", "cancelid": "cellCheck", "_mode": "requested"}
