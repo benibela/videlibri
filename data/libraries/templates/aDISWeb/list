@@ -55,8 +55,11 @@
       else ()}
       <!-- vormerkungs verfall --></TD> </t:if>
     <TD>{book.libraryBranch := .}</TD>
-    <TD>{let $split := extract(text(), "^\s*(\[([^\]]*)\])?\s*([^/]+)\s*(/\s*(.*))?", (2,3,5), "s"),
-             $brs := .//br
+    <TD>{let
+            $brs := .//br,
+            $br1 := $brs[1],
+            $text := if ($br1) then string-join(.//text()[. &lt;&lt; $br1]) else ., 
+            $split := extract($text, "^\s*(\[([^\]]*)\])?\s*([^/]+)\s*(/\s*(.*))?", (2,3,5), "s")             
          return (
            book.category := $split[1],
            book.author := $split[3],
@@ -67,7 +70,7 @@
          }
     </TD>
     <t:if test="$mode != 'provided'">
-    <TD>{book.status := deep-text("   "),
+    <TD>{book.status := inner-text(),
          book.renewCount := extract($book.status, "([0-9]+) *Verlängerung", 1)
         }
         <t:if test="matches(., x'((nicht +verl.*ngerbar|Keine Verl.*gerung +m.*glich|Vormerkungen).*Stand +{string-join(reverse(tokenize(current-date(), '-')), '[.]')})|((Max. +)?Anzahl +der +Verl.*erreicht)','i')">
