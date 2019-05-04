@@ -85,10 +85,8 @@ class AccountInfo : VideLibriBaseActivity() {
             }
             findViewById<Button>(R.id.completeAccountButton).text = tr(R.string.change)
             findViewById<View>(R.id.completeAccountButton).setOnClickListener {
-                if (accountPassword.text.isEmpty()) {
-                    showMessage(getString(R.string.warning_need_password))
+                if (!checkInputConstraints())
                     return@setOnClickListener
-                }
                 changeAccountNow()
             }
         } else {
@@ -97,22 +95,12 @@ class AccountInfo : VideLibriBaseActivity() {
 
             findViewById<View>(R.id.deleteButton).visibility = View.GONE
             findViewById<View>(R.id.completeAccountButton).setOnClickListener(View.OnClickListener {_ ->
-                if (libdetails == null) {
-                    showMessage(R.string.error_nolibselected)
+                if (!checkInputConstraints())
                     return@OnClickListener
-                }
-
-                if (accountId.text.isEmpty()) {
+                if (accountId.text.isEmpty())
                     addAccountNow()
-                    return@OnClickListener
-                }
-
-                if (accountPassword.text.isEmpty()) {
-                    showMessage(getString(R.string.warning_need_password))
-                    return@OnClickListener
-                }
-
-                showDialog {
+                else
+                    showDialog {
                     message(if (accountAutoExtend)
                         resources.getQuantityString(R.plurals.warning_autorenewal_onD, accountAutoExtendDays, accountAutoExtendDays)
                     else
@@ -179,6 +167,23 @@ class AccountInfo : VideLibriBaseActivity() {
         return acc
     }
 
+    private fun checkInputConstraints(): Boolean {
+        val errorMessage =
+            if (libdetails == null)
+                R.string.error_nolibselected
+            else if (accountId.text.isEmpty()) {
+                if (!accountPassword.text.isEmpty())
+                    R.string.warning_unnecessary_password
+                else
+                    null
+            } else if (accountPassword.text.isEmpty())
+                R.string.warning_need_password
+            else if (accountPassword.text.matches(Regex("^[ \t\n\r].*|.*[ \t\n\r]$")))
+                R.string.warning_whitespace_password
+            else null
+        errorMessage?.let { showMessage(it) }
+        return errorMessage == null
+    }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if (requestCode == REQUEST_LIBRARY_FOR_ACCOUNT_CREATION) {
