@@ -271,7 +271,7 @@ begin
       pconfig^.successfulListUpdateDate:=currentDate;
     end;
   except
-    on e: EInternetException do {$ifndef activeDebug}if not request.ignoreConnectionErrors then{$endif}
+    on e: EInternetException do {$ifndef activeDebug}if not request.ignoreConnectionErrors or (e.errorCode > 0) then{$endif}
       storeException(e,lib,lib.getLibrary().id,'');
     on e: exception do begin
       lib.broken:=currentDate;

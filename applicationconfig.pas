@@ -184,6 +184,9 @@ resourcestring
   rsTomorrow = 'morgen';
   rsAfterTomorrow = 'übermorgen';
   rsErrorCheckInternet = 'Bitte überprüfen Sie Ihre Internetverbindung.';
+  rsErrorHTTP5xxServerDisturbed = 'Eventuell hat der Webserver der Bibliothek eine Störung.';
+  rsErrorHTTP404NotFound = 'Die Webseite der Bibliothek wurde nicht gefunden.';
+  rsErrorHTTP403AccessDenied = 'Die Webseite der Bibliothek hat den Zugriff nicht erlaubt (eventuell falsches Passwort? oder eine abgeschaltete Webseite)';
   rsErrorBacktrace = 'Detaillierte Informationen über die entsprechende Quellcodestelle:';
   rsErrorBookListReaderFromWebpage = 'Die Bibliothek zeigt diese Nachricht auf der Katalogwebseite an: '+LineEnding;
   rsErrorLoginException = 'Die Kontonummer bzw. das Passwort wurden vom Bibliothekskatalog nicht akzeptiert. Der Bibliothekskatalog erläutert dazu: '+LineEnding;
@@ -227,7 +230,12 @@ resourcestring
     if exception.InheritsFrom(EInternetException) then begin
       kind := ekInternet;
       errorstr:=exception.message+LineEnding;
-      errorStr += moreLineBreak+rsErrorCheckInternet;
+      if EInternetException(exception).errorCode <= 0 then errorStr += moreLineBreak+rsErrorCheckInternet
+      else case EInternetException(exception).errorCode of
+        403: errorStr += moreLineBreak+rsErrorHTTP403AccessDenied;
+        404: errorStr += moreLineBreak+rsErrorHTTP404NotFound;
+        500..599: errorStr += moreLineBreak+rsErrorHTTP5xxServerDisturbed;
+      end;
       errordetails:=EInternetException(exception).details;
     end else if exception.InheritsFrom(ELoginException) then begin
       kind := ekLogin;
