@@ -1,13 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
-
 <library>
   <longName value="Stadtbibliothek Darmstadt"/>
   <shortName value="Stb Darmstadt"/>
   
   <template value="bibliothecaplus"/>
-  <variable name="urlaccount" value="https://open-stadtbibliothek.darmstadt.de/MeinKonto.aspx"/>	
-  <variable name="urlsearch" value="http://open-stadtbibliothek.darmstadt.de/Mediensuche/ErweiterteSuche.aspx"/>
+  <variable name="urlaccount" value="https://open-stadtbibliothek.darmstadt.de/MeinKonto.aspx"/>
+  <variable name="urlsearch" value="https://open-stadtbibliothek.darmstadt.de/Mediensuche/Erweiterte-Suche-Copy"/>
   <!--<template value="pica"/>-->
 
 

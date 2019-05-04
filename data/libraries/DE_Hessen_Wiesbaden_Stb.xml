@@ -1,12 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
-
 <library>
   <longName value="Stadtbibliotheken Wiesbaden"/>
   <shortName value="Stb Wiesbaden"/>
   
   <template value="bibliotheca"/>
-  <variable name="baseurl" value="https://bond.wiesbaden.de/"/>	
+  <variable name="baseurl" value="https://bond.wiesbaden.de/webopac/"/>
   <variable name="DB" value="web_biblio"/>	
   
   <!--<template value="pica"/>-->
