@@ -250,6 +250,7 @@ src)
 		thg commit
 	  ./manage.sh defaults
     hg tag "VIDELIBRI $VERSION"
+	  ./manage.sh mirror
 		;;
  
  

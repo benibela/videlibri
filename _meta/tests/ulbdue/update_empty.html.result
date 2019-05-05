@@ -1,4 +1,2 @@
 book := {}
-noBooks := ""
-noBooks := "true"
-delete-current-books() := ()
+books-deleted := true()
