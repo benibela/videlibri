@@ -2,7 +2,67 @@
 <actions>
 
 <meta>
-  <description>Platzhalter Template</description>
+  <description>Aleph System</description>
+  <variable name="baseurl"><description>URL des Katalogs.</description></variable>
 </meta>
+
+<action id="connect">
+  <s>request := $baseurl, $i := 1</s>
+  <loop test="$i < 10">  
+    <page url="{$request}"/>
+    <pattern><t:switch prioritized="true">
+      <form><!--normal aleph-->
+        <input name="bor_id"/>
+        {request := form(., {"bor_id": $username, "bor_verification": $password})}
+      </form>
+      <form><!--alephino-->
+        <input name="USER"/>
+        {request := form(., {"USER": $username, "PASS": $password})}
+      </form>
+      
+      <a t:condition="contains(@href, 'bor-loan')"> 
+      {$bookPage := extract(@href, "https?://.*bor-loan[^'""]*"), 
+      $holdPage := (//a[contains(@href, 'bor-hold') and normalize-space() ne "0"])[1]/extract(@href, "https?://.*bor-hold[^'""]*"),
+      $i := 100}
+      </a>
+      
+      <a title="Sehen Sie Ihre gespeicherten Daten an">{$request}</a> 
+      <a t:condition="contains(@href, 'bor-info')">{$request}</a>
+      
+      <form><td class="msg">{videlibri:raise-login(.)}</td></form>
+      <div id="div-feedback">{vl:raise-login(.)}</div>
+      <td id="feedbackbar">{vl:raise-login(.)}</td>
+      
+      <meta http-equiv="refresh">{$request}</meta>
+    </t:switch></pattern>
+    <s>$i := $i + 1</s>        
+  </loop>  
+  
+  <if test="$i < 100">
+    <s>vl:raise-internal("Die Seite mit den Ausleihen wurde nicht gefunden. Aktuelle Seite: " || base-uri())</s>
+  </if>
+</action>
+
+<action id="update-all">
+  <page url="{$bookPage}" templateFile="../ulbdue/update"/>
+  <page url="{$holdPage}" templateFile="../ulbdue/update-hold"/>
+</action>
+
+<action id="update-single">
+  <page url="{$book.detailLink}" templateFile="details"/>
+</action>
+
+<action id="renew-single">
+  <page url="{$book.extendLink}"/>
+  <page url="{$book.detailLink}" templateFile="details"/>
+</action>
+
+<action id="cancel-single">
+  <page url="{$book._cancelLink}"/>
+</action>
+
+<action id="catalogue">
+  <variable name="url" value="{$baseurl}"/>
+</action>
 
 </actions>

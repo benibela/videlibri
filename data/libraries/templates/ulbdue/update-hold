@@ -1,5 +1,5 @@
 <t:switch prioritized="true">
-  <table cellspacing="2"> 
+  <table> 
    <tr><t:siblings-header>
     <th>Nr</th> 
     <th>Autor</th> 
@@ -33,4 +33,5 @@
 
 
 <p>Sie haben keine offenen Vormerkungen/Magazinbestellungen. </p>
+<td>Keine Daten vorhanden.</td>
 </t:switch>

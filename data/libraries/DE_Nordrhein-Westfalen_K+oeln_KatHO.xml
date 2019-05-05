@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<library>
+  <longName value="Katholische Hochschule"/>
+  <shortName value="KatHO"/>
+  
+  <template value="aleph_base"/>  
+  <variable name="baseurl" value="https://alephino.katho-nrw.de/alipac/-/bor-info"/>
+    
+   
+  <template value="digibib">
+    <variable name="location" value="1032"/>
+    <variable name="view" value="1032:GesamtExt"/>
+    <variable name="searchid" value="SERVICEGROUP1.SERVICE.SEARCH_KHNRW"/>
+  </template>
+
+
+  <homepage value="https://www.katho-nrw.de/katho-nrw/studium-lehre/hochschulbibliothek/"/>
+  <testing-search value="yes"/> 
+  <testing-account value="unknown"/>
+</library>
+

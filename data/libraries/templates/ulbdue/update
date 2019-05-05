@@ -1,23 +1,17 @@
 <html> 
-<head><title> <template:read source="''" var="noBooks"/> </title> </head>
 <body> 
+{vl:delete-current-books()}
 
-<p template:optional="true"> 
-  Sie haben momentan keine Exemplare ausgeliehen.
-  <template:read source="'true'" var="noBooks"/>
-  <template:read var="delete-current-books()"/>
-</p>
+<t:switch prioritized="true">
 
-<template:if test="$noBooks!='true'">
-  <table border=0 cellspacing=2 width="100%"> 
+
+  <table>
    <tr> 
     <th>Autor</th> 
     <th>Titel</th> 
     <template:read var="delete-current-books()"/>
    </tr> 
    
-
- <template:loop>
    <tr> 
     {book := object()}
     <td><A><template:read var="book.detailLink" source="@href"/></A></td> 
@@ -32,12 +26,16 @@
     <!--<td><br></td> 
     <td><br></td> -->
     <!--<template:read var="book-end()"/>-->
-    </tr> 
-  </template:loop>
+    </tr>+
   </table> 
   
-  </template:if>
-</body> 
+
+<p>Sie haben momentan keine Exemplare ausgeliehen.</p>
+<td>Keine Daten vorhanden.</td>
+
+</t:switch> 
+
+</body>
 </html> 
 
  
