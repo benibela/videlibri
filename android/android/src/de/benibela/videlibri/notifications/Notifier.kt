@@ -44,7 +44,7 @@ object Notifier {
             else {
                 val n = Bridge.VLGetNotifications()
                 if (n.isNullOrEmpty() &&
-                        Accounts.any { it.isReal && it.lastCheckDate <= Bridge.currentPascalDate - OUTDATED_DATA_PERIOD_DAYS })
+                        Accounts.any { it.isReal && it.lastCheckDate > 0 && it.lastCheckDate <= Bridge.currentPascalDate - OUTDATED_DATA_PERIOD_DAYS })
                     with(context) { arrayOf(getString(R.string.notificationOutdatedDataTitle), getString(R.string.notificationOutdatedData)) }
                 else n
             }
