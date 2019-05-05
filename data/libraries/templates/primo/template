@@ -97,7 +97,7 @@
         <div  t:test="$datasend" class="error">{local:raise(.)}</div>
         <span t:test="$datasend" class="login-error">{local:raise(.)}</span>
         <font t:test="$datasend" color="red">{local:raise(.)}<!--htw--></font>
-        <h2 t:test="$datasend" style="color: red;">{local:raise(.)}<!--fu--></h2>
+        <p t:test="$datasend" style="color:red;">{local:raise(.)}<!--fu--></p>
         <p t:test="$datasend" class="error">{local:raise(.)}<!--hu intern--></p>
         
         <form>
