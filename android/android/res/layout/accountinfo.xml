@@ -39,11 +39,13 @@
                         android:layout_height="wrap_content"
                         android:text="@string/lay_account_intern"
                         android:id="@+id/radioButtonIntern" android:layout_gravity="left|center_vertical"
+                        android:minHeight="48dp"
                         android:layout_weight="1" android:checked="true"/>
                 <RadioButton
                         android:layout_width="wrap_content"
                         android:layout_height="fill_parent"
                         android:text="@string/extern"
+                        android:minHeight="48dp"
                         android:id="@+id/radioButtonExtern" android:layout_weight="1"/>
             </RadioGroup>
             <TextView
@@ -55,6 +57,7 @@
             <EditText
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
+                    android:minHeight="48dp"
                     android:id="@+id/accountId" android:singleLine="true" android:inputType="textNoSuggestions"/>
             <TextView
                     android:layout_width="fill_parent"
@@ -65,6 +68,7 @@
             <EditText
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
+                    android:minHeight="48dp"
                     android:id="@+id/accountPassword" android:password="true" android:singleLine="true"/>
             <LinearLayout
                     android:orientation="horizontal"
@@ -80,9 +84,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:id="@+id/autoExtendButton" android:layout_weight="1"
-                        android:checked="true" android:layout_marginLeft="@dimen/defborder"
-                        android:layout_marginTop="@dimen/defborder" android:layout_marginRight="20sp"
-                        android:layout_marginBottom="@dimen/defborder" android:text="   "/>
+                        android:checked="true"
+                        android:minHeight="48dp" android:minWidth="48dp"/>
             </LinearLayout>
             <LinearLayout
                     android:orientation="horizontal"
@@ -97,6 +100,7 @@
                         android:layout_width="60sp"
                         android:layout_height="40sp"
                         android:text="7"
+                        android:minHeight="48dp"
                         android:id="@+id/autoExtendDaysEdit" android:numeric="integer"/>
                 <TextView
                         android:layout_width="wrap_content"
@@ -120,9 +124,10 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:id="@+id/saveHistoryButton" android:layout_gravity="center" android:layout_weight="1"
-                        android:checked="true" android:layout_marginLeft="@dimen/defborder"
-                        android:layout_marginTop="@dimen/defborder" android:layout_marginBottom="@dimen/defborder"
-                        android:layout_marginRight="20sp" android:text="   "/>
+                        android:checked="true"
+                        android:minHeight="48dp"
+                        android:minWidth="48dp"
+                    />
             </LinearLayout>
             <TextView
                     android:layout_width="fill_parent"
@@ -133,6 +138,7 @@
             <EditText
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
+                    android:minHeight="48dp"
                     android:id="@+id/accountPrettyName" android:singleLine="true"/>
         </LinearLayout>
     </ScrollView>
@@ -144,6 +150,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/lay_account_create"
+                android:minHeight="48dp"
                 android:id="@+id/completeAccountButton" android:layout_gravity="center" android:layout_weight="1"/>
         <Button
                 android:layout_width="wrap_content"

@@ -42,6 +42,7 @@
             android:id="@+id/feedbackIncludeErrors"
             android:layout_height="wrap_content"
             android:layout_width="fill_parent"
+            android:minHeight="48dp"
             android:text="@string/lay_feedback_label_includeerrors"
             android:visibility="gone" />
 
@@ -50,6 +51,7 @@
             android:id="@+id/feedbackIncludeErrorAnonymousDetails"
             android:layout_height="wrap_content"
             android:layout_width="fill_parent"
+            android:minHeight="48dp"
             android:text="@string/lay_feedback_label_includepagesanonymized"
             android:visibility="gone" />
 
@@ -58,6 +60,7 @@
             android:id="@+id/feedbackIncludeErrorDetails"
             android:layout_height="wrap_content"
             android:layout_width="fill_parent"
+            android:minHeight="48dp"
             android:text="@string/lay_feedback_label_includepagesfull"
             android:visibility="gone" />
 
@@ -74,6 +77,7 @@
             android:id="@+id/name"
             android:layout_height="wrap_content"
             android:layout_width="fill_parent"
+            android:minHeight="48dp"
             android:singleLine="true" />
 
         <TextView
@@ -89,12 +93,14 @@
             android:id="@+id/mail"
             android:layout_height="wrap_content"
             android:layout_width="fill_parent"
+            android:minHeight="48dp"
             android:singleLine="true" />
 
         <Button
             android:id="@+id/button"
             android:layout_height="wrap_content"
             android:layout_width="fill_parent"
+            android:minHeight="48dp"
             android:text="@string/lay_feedback_send" />
 
 
@@ -150,6 +156,7 @@
             android:id="@+id/feedbackACRAIncludeErrors"
             android:layout_height="wrap_content"
             android:layout_width="fill_parent"
+            android:minHeight="48dp"
             android:text="@string/lay_feedback_label_includeerrors"
             android:visibility="gone" />
 
@@ -158,6 +165,7 @@
             android:id="@+id/feedbackACRAIncludeErrorAnonymousDetails"
             android:layout_height="wrap_content"
             android:layout_width="fill_parent"
+            android:minHeight="48dp"
             android:text="@string/lay_feedback_label_includepagesanonymized"
             android:visibility="gone" />
 
@@ -166,6 +174,7 @@
             android:id="@+id/feedbackACRAIncludeErrorDetails"
             android:layout_height="wrap_content"
             android:layout_width="fill_parent"
+            android:minHeight="48dp"
             android:text="@string/lay_feedback_label_includepagesfull"
             android:visibility="gone" />
 
