@@ -50,6 +50,7 @@
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/lay_account_label_account"
+                    android:labelFor="@id/accountId"
                     android:id="@+id/textView1" android:padding="3sp" android:singleLine="false"/>
             <EditText
                     android:layout_width="fill_parent"
@@ -59,6 +60,7 @@
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/lay_account_label_password"
+                    android:labelFor="@id/accountPassword"
                     android:id="@+id/textView2" android:padding="3sp"/>
             <EditText
                     android:layout_width="fill_parent"
@@ -72,6 +74,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/lay_account_label_autorenew"
+                        android:labelFor="@id/autoExtendButton"
                         android:id="@+id/textView4" android:layout_weight="9" android:layout_margin="3sp"/>
                 <CheckBox
                         android:layout_width="wrap_content"
@@ -98,6 +101,7 @@
                 <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:labelFor="@id/autoExtendDaysEdit"
                         android:text="@string/lay_account_label_autorenew2"
                         android:id="@+id/textView6" android:layout_gravity="center" android:padding="3sp"/>
             </LinearLayout>
@@ -109,6 +113,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/lay_account_label_history"
+                        android:labelFor="@id/saveHistoryButton"
                         android:id="@+id/textView5" android:layout_gravity="left|center_vertical"
                         android:layout_weight="9" android:layout_margin="3sp"/>
                 <CheckBox
@@ -122,6 +127,7 @@
             <TextView
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
+                    android:labelFor="@id/accountPrettyName"
                     android:text="@string/lay_account_label_accountdisplayname"
                     android:id="@+id/textView3" android:padding="3sp"/>
             <EditText

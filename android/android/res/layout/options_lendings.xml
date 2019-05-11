@@ -36,6 +36,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:padding="@dimen/optionheaderpadding"
+            android:labelFor="@id/grouping"
             android:text="@string/lay_options_label_grouping" />
         <Spinner android:layout_width="fill_parent" android:layout_height="wrap_content"
             android:id="@+id/grouping"
@@ -52,6 +53,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:padding="@dimen/optionheaderpadding"
+            android:labelFor="@id/sorting"
             android:text="@string/lay_options_label_sorting" />
         <Spinner
             android:layout_width="fill_parent"
@@ -67,6 +69,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:padding="@dimen/optionheaderpadding"
+            android:labelFor="@id/viewHistory"
             android:text="@string/lay_options_label_view_history" />
         <android.support.v7.widget.SwitchCompat xmlns:android="http://schemas.android.com/apk/res/android"
             android:textOn=""

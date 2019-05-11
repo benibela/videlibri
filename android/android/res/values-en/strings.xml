@@ -433,4 +433,5 @@
     <string name="warning_need_password">If you enter an account number, you also need to enter a password.</string>
     <string name="warning_whitespace_password">The password must not start or end with a space " ".</string>
     <string name="warning_unnecessary_password">You should not enter a password to create a search account (or enter account id and password to register a borrowing account).</string>
+    <string name="lay_options_btn_account_toggle_description">Show or hide</string>
 </resources>

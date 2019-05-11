@@ -29,6 +29,7 @@
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/lay_search_title"
+                    android:labelFor="@id/title"
                     android:id="@+id/textView" android:textStyle="bold" android:padding="3sp"/>
             <EditText
                     android:layout_width="fill_parent"
@@ -38,6 +39,7 @@
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/lay_search_author"
+                    android:labelFor="@id/author"
                     android:id="@+id/textView1" android:textStyle="bold" android:padding="3sp"/>
             <EditText
                     android:layout_width="fill_parent"
@@ -47,6 +49,7 @@
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/lay_search_keywords"
+                    android:labelFor="@id/keywords"
                     android:id="@+id/textView2" android:textStyle="bold" android:padding="3sp"/>
             <EditText
                     android:layout_width="fill_parent"
@@ -56,6 +59,7 @@
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/lay_search_isbn"
+                    android:labelFor="@id/isbn"
                     android:id="@+id/textView3" android:textStyle="bold" android:padding="3sp"/>
             <EditText
                     android:layout_width="fill_parent"
@@ -65,6 +69,7 @@
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/lay_search_year"
+                    android:labelFor="@id/year"
                     android:padding="3sp"/>
             <EditText
                     android:layout_width="fill_parent"
@@ -78,6 +83,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/lay_search_searchedbranch"
+                        android:labelFor="@id/searchBranch"
                         android:id="@+id/textView5"/>
                 <Spinner
                         android:layout_width="fill_parent"
@@ -91,6 +97,7 @@
                 <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:labelFor="@id/homeBranch"
                         android:text="@string/lay_search_orderbranch"
                         android:id="@+id/textView6"/>
                 <Spinner

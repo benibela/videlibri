@@ -27,6 +27,7 @@
             android:layout_height="wrap_content"
             android:layout_width="wrap_content"
             android:padding="@dimen/defborder"
+            android:labelFor="@id/text"
             android:text="@string/lay_feedback_label_message" />
 
         <EditText
@@ -66,6 +67,7 @@
             android:layout_height="wrap_content"
             android:layout_width="wrap_content"
             android:padding="@dimen/defborder"
+            android:labelFor="@id/name"
             android:text="@string/lay_feedback_label_name" />
 
         <EditText
@@ -80,6 +82,7 @@
             android:layout_height="wrap_content"
             android:layout_width="wrap_content"
             android:padding="@dimen/defborder"
+            android:labelFor="@id/mail"
             android:text="@string/lay_feedback_label_mail" />
 
         <EditText

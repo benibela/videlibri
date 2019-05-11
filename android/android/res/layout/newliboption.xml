@@ -9,6 +9,7 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:text="New Text"
+            android:labelFor="@id/edit"
             android:id="@+id/text" android:padding="@dimen/defborder"/>
     <EditText
             android:layout_width="fill_parent"
