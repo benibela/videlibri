@@ -31,9 +31,9 @@ import java.util.*
         resReportSendSuccessToast = R.string.crash_dialog_ok_toast,
         resReportSendFailureToast = R.string.crash_dialog_fail_toast
         )
-@AcraHttpSender(uri = "http://www.benibela.de/autoFeedback.php?app=VideLibri",
+@AcraHttpSender(uri = "http://www.benibela.de/autoFeedback.php?app=VideLibriACRA",
         httpMethod = HttpSender.Method.POST,
-        socketTimeout = 60*1000)
+        socketTimeout = 5*60*1000)
 @AcraDialog(resText = R.string.crash_dialog_text,
         resCommentPrompt = R.string.crash_dialog_comment_prompt
         )
