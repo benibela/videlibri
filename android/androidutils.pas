@@ -319,7 +319,7 @@ begin
       end;
 
       libraryDetailsClass := newGlobalRefAndDelete(getclass('de/benibela/videlibri/jni/Bridge$LibraryDetails'));
-      libraryDetailsClassInitWithData := getmethod(libraryDetailsClass, '<init>', '(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;[Ljava/lang/String;[Ljava/lang/String;Z)V');
+      libraryDetailsClassInitWithData := getmethod(libraryDetailsClass, '<init>', '(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;[Ljava/lang/String;[Ljava/lang/String;I)V');
 
 
 
@@ -522,7 +522,7 @@ begin
         if lib.template <> nil then args[5].l := stringToJString(lib.template.name)
         else args[5].l := stringToJString('');
         args[6].l := stringToJString(lib.tableComment);
-        args[9].z := booleanToJboolean(lib.segregatedAccounts);
+        args[9].i := (ord(lib.segregatedAccounts) and 1) or (ord(lib.testingAccount) shl 1) or (ord(lib.testingSearch) shl 3);
 
         namesArray := newStringArray(lib.variables.count);
         valuesArray := newStringArray(lib.variables.count);

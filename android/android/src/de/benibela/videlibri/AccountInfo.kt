@@ -168,15 +168,20 @@ class AccountInfo : VideLibriBaseActivity() {
     }
 
     private fun checkInputConstraints(): Boolean {
+        val libdetails = this.libdetails
         val errorMessage =
             if (libdetails == null)
                 R.string.error_nolibselected
             else if (accountId.text.isEmpty()) {
                 if (!accountPassword.text.isEmpty())
                     R.string.warning_unnecessary_password
+                else if (!libdetails.searchMightWork)
+                    R.string.warning_search_is_broken
                 else
                     null
-            } else if (accountPassword.text.isEmpty())
+            } else if (!libdetails.accountMightWork)
+                R.string.warning_account_is_broken
+            else if (accountPassword.text.isEmpty())
                 R.string.warning_need_password
             else if (accountPassword.text.matches(Regex("^[ \t\n\r].*|.*[ \t\n\r]$")))
                 R.string.warning_whitespace_password

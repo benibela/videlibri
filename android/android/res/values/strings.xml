@@ -448,5 +448,7 @@
     <string name="warning_whitespace_password">Das Passwort darf nicht mit einem Leerzeichen \" \" beginnen oder enden.</string>
     <string name="warning_unnecessary_password">Wenn ein Suchkonto angelegt wird, ist es unnötig ein Passwort einzugeben. (oder gebe Kontonummer und Passwort ein, um die Ausleihen zu sehen)</string>
     <string name="lay_options_btn_account_toggle_description">Anzeigen oder verbergen</string>
+    <string name="warning_search_is_broken">Bei dieser Bibliothek funktioniert die Suche nicht, deshalb bringt es nichts ein Suchkonto anzulegen.</string>
+    <string name="warning_account_is_broken">Bei dieser Bibliothek funktioniert der Kontozugriff nicht, deshalb bringt es nichts eine Kontonummer einzugeben.</string>
 </resources>
 

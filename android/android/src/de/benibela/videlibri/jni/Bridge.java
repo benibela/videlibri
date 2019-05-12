@@ -29,6 +29,7 @@ public class Bridge {
         @NotNull public String variableNames[];
         @NotNull public String variableValues[];
         public boolean segregatedAccounts;
+        private int testingStateSearch, testingStateAccount;
 
         public LibraryDetails(){
             homepageBase = homepageCatalogue = prettyName = prettyNameShort = id = templateId = tableComment = "";
@@ -41,7 +42,7 @@ public class Bridge {
                               @NotNull String tableComment,
                               @NotNull String variableNames[],
                               @NotNull String variableValues[],
-                              boolean segregatedAccounts
+                              int flags
         ){
             this.homepageBase = homepageBase;
             this.homepageCatalogue = homepageCatalogue;
@@ -53,6 +54,9 @@ public class Bridge {
             this.variableValues = variableValues;
             this.segregatedAccounts = segregatedAccounts;
             this.tableComment = tableComment;
+            this.segregatedAccounts = (flags & 1) != 0;
+            this.testingStateAccount = (flags >> 1) & 3;
+            this.testingStateSearch = (flags >> 3) & 3;
         }
 
         public static @NotNull String decodeIdEscapes(@NotNull String s) {
@@ -62,6 +66,13 @@ public class Bridge {
                     .replace("+ae", "ä")
                     .replace("+sz", "ß")
                     .replace("++", " ");
+        }
+
+        public boolean getSearchMightWork(){
+            return testingStateSearch <= 1;
+        }
+        public boolean getAccountMightWork(){
+            return testingStateAccount <= 1;
         }
     }
 

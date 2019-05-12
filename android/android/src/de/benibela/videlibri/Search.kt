@@ -276,6 +276,12 @@ internal class SearchDebugTester(var query: Bridge.Book, startId: String) {
     }
 
     private fun start() {
+        while (true) {
+            val lib = Bridge.VLGetLibraryDetails(libs[pos])
+            if (lib?.searchMightWork ?: false) break
+            pos++
+            if (pos >= libs.size) return
+        }
         Log.i("VIDELIBRI", "============================================================")
         Log.i("VIDELIBRI", "Testing search: " + libs[pos])
         Log.i("VIDELIBRI", "============================================================")

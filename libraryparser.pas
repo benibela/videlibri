@@ -13,7 +13,7 @@ type
 
   { TLibrary }
 
-  TTestingInfo = (tiUnknown, tiYes, tiNo, tiBroken);
+  TTestingInfo = (tiUnknown = 0, tiYes, tiNo, tiBroken);
   TLibrary=class
   protected
     ftestingSearch, ftestingAccount: TTestingInfo;
@@ -44,6 +44,8 @@ type
     destructor destroy;override;
     
     property variables: TStringList read defaultVariables;
+    property testingSearch: TTestingInfo read ftestingSearch;
+    property testingAccount: TTestingInfo read ftestingAccount;
     function homepageCatalogue: string;
     function location: string;
     function state: string;
