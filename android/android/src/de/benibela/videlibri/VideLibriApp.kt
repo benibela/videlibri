@@ -33,7 +33,9 @@ import java.util.*
         )
 @AcraHttpSender(uri = "http://www.benibela.de/autoFeedback.php?app=VideLibriACRA",
         httpMethod = HttpSender.Method.POST,
-        socketTimeout = 5*60*1000)
+        socketTimeout = 5*60*1000,
+        connectionTimeout = 2*60*1000
+        )
 @AcraDialog(resText = R.string.crash_dialog_text,
         resCommentPrompt = R.string.crash_dialog_comment_prompt
         )
