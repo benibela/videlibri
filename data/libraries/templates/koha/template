@@ -33,11 +33,11 @@
   <s>kohaurl := $baseurl || "/cgi-bin/koha/"</s>
   <page url="{$kohaurl}opac-search.pl">
   </page>
-  <pattern>
-   <select name="limit" id="branchloop" >
-     {search-branches := option, search-branches-value := option/@value}
-   </select>
-  </pattern>
+  <pattern><body>{
+    .//select[@name eq "limit"] ! (switch(@id) 
+      case "branchloop" return ( search-branches := option, search-branches-value := option/@value )
+      default return ())
+  }</body></pattern>
 </action>
 
 <action id="search">
