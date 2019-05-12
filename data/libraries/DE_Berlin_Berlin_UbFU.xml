@@ -16,11 +16,11 @@
   <variable name="login-url-2" value="https://fu-berlin.hosted.exlibrisgroup.com//primo_library/libweb/action/login.do?loginFn=signin&amp;vid=FUB&amp;targetURL=https%3a%2f%2ffu-berlin.hosted.exlibrisgroup.com%2fprimo_library%2flibweb%2faction%2fsearch.do%3fvid%3dFUB%26amp%3bdscnt%3d0%26amp%3binitializeIndex%3dtrue&amp;isMobile=false"/>-->
   <variable name="baseurl" value="https://fu-berlin.hosted.exlibrisgroup.com/primo-explore/?vid=FUB"/>
 
-  
-
   <homepage value="http://www.ub.fu-berlin.de/"/>
   <testing-search value="yes"/>
   <testing-account value="yes"/>
   
+  <account-comment value="Studierende der FU melden sich mit ihrem ZEDAT-Account an; alle anderen mit ihrem Bibliotheksaccount."/>
+
 </library>
 

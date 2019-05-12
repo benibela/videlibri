@@ -18,5 +18,7 @@
   <homepage value="http://www.ub.hu-berlin.de/"/>
   <testing-search value="yes"/>
   <testing-account value="yes"/>
-  
+
+  <account-comment value="HU-Studierende und HU-Mitarbeiter/innen melden sich als 'intern' mit ihrem HU-Account an; alle anderen als 'extern' mit ihrem UB-Account."/>
+
 </library>

@@ -43,6 +43,9 @@ class AccountInfo : VideLibriBaseActivity() {
             lib.text = it.prettyName
             findViewById<View>(R.id.typeLayout).isVisibleNotGone = it.segregatedAccounts
             libdetails = it
+            val accountComment = findViewById<TextView>(R.id.textViewAccountComment)
+            accountComment.isVisibleNotGone = it.accountComment.isNotEmpty()
+            accountComment.text = it.accountComment
         }
     }
 

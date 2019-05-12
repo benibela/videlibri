@@ -8,7 +8,7 @@
   <variable name="server" value="http://kbu.ur.ch/webOPACClient.sisis/"/>
   
   <homepage value="http://www.kbu.ch/"/>
-  <testing-search value="yes"/>
-  <testing-account value="unknown"/>
+  <testing-search value="broken"/>
+  <testing-account value="broken"/>
   
 </library>

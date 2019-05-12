@@ -30,7 +30,7 @@ type
     homepageBase:string;
     prettyNameLong:string;
     prettyNameShort:string;
-    tableComment: string;
+    tableComment, accountComment: string;
     id:string;
     deprecatedId: string;
     maxRenewCount: integer;
@@ -708,6 +708,7 @@ begin
   else if tagName='maxrenewcount' then maxRenewCount:=StrToInt(value)
   else if tagName='deprecatedname' then deprecatedId:=value
   else if tagName='table-comment' then tableComment:=value
+  else if tagName='account-comment' then accountComment:=value
   else if tagName='segregated-accounts' then segregatedAccounts:=StrToBool(value)
   else if tagName='testing-search' then ftestingSearch:=parseTesting
   else if tagName='testing-account' then ftestingAccount:=parseTesting

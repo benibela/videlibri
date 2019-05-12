@@ -20,6 +20,7 @@
   <homepage value="http://www.ub.tu-berlin.de/"/>
   <testing-search value="yes"/>
   <testing-account value="yes"/>
+
+  <account-comment value="TU-Studierende melden sich als 'intern' mit ihrem TUB-Account an; TU-Beschäftigte und alle anderen als 'extern' mit ihrem Bibliotheksausweis."/>
   
 </library>
-

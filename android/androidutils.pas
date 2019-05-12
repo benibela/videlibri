@@ -319,7 +319,7 @@ begin
       end;
 
       libraryDetailsClass := newGlobalRefAndDelete(getclass('de/benibela/videlibri/jni/Bridge$LibraryDetails'));
-      libraryDetailsClassInitWithData := getmethod(libraryDetailsClass, '<init>', '(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;[Ljava/lang/String;[Ljava/lang/String;I)V');
+      libraryDetailsClassInitWithData := getmethod(libraryDetailsClass, '<init>', '(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;[Ljava/lang/String;[Ljava/lang/String;I)V');
 
 
 
@@ -501,7 +501,7 @@ var
   namesArray: jobject;
   valuesArray: jobject;
   libId: String;
-  args: array[0..9] of jvalue;
+  args: array[0..10] of jvalue;
 begin
   if logging then bbdebugtools.log('de.benibela.VideLibri.Bride.VLGetLibraryDetails (started)');
   //bbdebugtools.log(strFromPtr(libraryManager));
@@ -522,7 +522,8 @@ begin
         if lib.template <> nil then args[5].l := stringToJString(lib.template.name)
         else args[5].l := stringToJString('');
         args[6].l := stringToJString(lib.tableComment);
-        args[9].i := (ord(lib.segregatedAccounts) and 1) or (ord(lib.testingAccount) shl 1) or (ord(lib.testingSearch) shl 3);
+        args[7].l := stringToJString(lib.accountComment);
+        args[10].i := (ord(lib.segregatedAccounts) and 1) or (ord(lib.testingAccount) shl 1) or (ord(lib.testingSearch) shl 3);
 
         namesArray := newStringArray(lib.variables.count);
         valuesArray := newStringArray(lib.variables.count);
@@ -530,10 +531,10 @@ begin
           setStringArrayElement(namesArray, i, lib.variables.Names[i]);
           setStringArrayElement(valuesArray, i, lib.variables.ValueFromIndex[i]);
         end;
-        args[7].l := namesArray;
-        args[8].l := valuesArray;
+        args[8].l := namesArray;
+        args[9].l := valuesArray;
         result := newObject(libraryDetailsClass, libraryDetailsClassInitWithData, @args[0]);
-        for i := 0 to 8 do deleteLocalRef(args[i].l);
+        for i := 0 to 9 do deleteLocalRef(args[i].l);
       end;
     except
       on e: Exception do begin

@@ -25,7 +25,7 @@ public class Bridge {
         @NotNull public String prettyName, prettyNameShort;
         @NotNull public String id;
         @NotNull public String templateId;
-        @NotNull public String tableComment;
+        @NotNull public String tableComment, accountComment;
         @NotNull public String variableNames[];
         @NotNull public String variableValues[];
         public boolean segregatedAccounts;
@@ -40,6 +40,7 @@ public class Bridge {
                               @NotNull String id,
                               @NotNull String templateId,
                               @NotNull String tableComment,
+                              @NotNull String accountComment,
                               @NotNull String variableNames[],
                               @NotNull String variableValues[],
                               int flags
@@ -54,6 +55,7 @@ public class Bridge {
             this.variableValues = variableValues;
             this.segregatedAccounts = segregatedAccounts;
             this.tableComment = tableComment;
+            this.accountComment = accountComment;
             this.segregatedAccounts = (flags & 1) != 0;
             this.testingStateAccount = (flags >> 1) & 3;
             this.testingStateSearch = (flags >> 3) & 3;

@@ -9,7 +9,7 @@
   <variable name="server" value="http://opac.baden.ch/webOPACClient.baden/"/>
   
   <homepage value="http://www.baden.ch/xml_1/internet/de/application/d1/d59/f60.cfm"/>
-  <testing-search value="yes"/>
-  <testing-account value="unknown"/>
+  <testing-search value="broken"/>
+  <testing-account value="broken"/>
   
 </library>

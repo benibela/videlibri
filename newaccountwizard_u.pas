@@ -13,6 +13,7 @@ type
   { TnewAccountWizard }
 
   TnewAccountWizard = class(TVideLibriForm)
+    accountComment: TLabel;
     newlibbtn: TButton;
     cancelBtn: TButton;
     accountType: TComboBox;
@@ -400,6 +401,7 @@ begin
 
   LabelAccountType.Visible := selectedLibrary.segregatedAccounts;
   accountType.Visible := selectedLibrary.segregatedAccounts;
+  accountComment.caption := selectedLibrary.accountComment;
 end;
 
 procedure TnewAccountWizard.Button1Click(Sender: TObject);

@@ -49,6 +49,10 @@
                         android:id="@+id/radioButtonExtern" android:layout_weight="1"/>
             </RadioGroup>
             <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/textViewAccountComment" android:padding="3sp"/>
+            <TextView
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/lay_account_label_account"
