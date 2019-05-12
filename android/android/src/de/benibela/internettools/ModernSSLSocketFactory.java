@@ -83,7 +83,13 @@ public class ModernSSLSocketFactory extends SSLSocketFactory {
             //Activate all protocols
             //todo: disable SSL? but need to make sure no library uses that
             SSLSocket socket = (SSLSocket)somesocket;
-            socket.setEnabledProtocols(socket.getSupportedProtocols());
+
+            String[] supportedProtocols = socket.getSupportedProtocols();
+            /*ArrayList<String> enabledProtocols = new ArrayList<>(supportedProtocols.length);
+            for (String p: supportedProtocols)
+                if (p.contains())
+                Log.i("protocol: ", p);*/
+            socket.setEnabledProtocols(supportedProtocols);
 
             //Activate all ciphers
             Pattern exclude = Pattern.compile(".*(EXPORT|NULL|TLS_FALLBACK_SCSV).*");
