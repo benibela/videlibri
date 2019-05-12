@@ -1,15 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:orientation="vertical"
-              android:layout_width="match_parent"
-              android:layout_height="wrap_content">
 
-
-    <ScrollView
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/scrollView" android:layout_weight="1">
+<ScrollView android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:id="@+id/scrollView"
+    xmlns:android="http://schemas.android.com/apk/res/android">
         <LinearLayout
                 android:orientation="vertical"
                 android:layout_width="fill_parent"
@@ -110,12 +105,11 @@
                         android:layout_height="wrap_content"
                         android:id="@+id/homeBranch"/>
             </LinearLayout>
+            <Button
+                android:minHeight="48dp"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/lay_search_btn_search"
+                android:id="@+id/button"/>
         </LinearLayout>
     </ScrollView>
-    <Button
-            android:minHeight="48dp"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/lay_search_btn_search"
-            android:id="@+id/button" android:layout_weight="0"/>
-</LinearLayout>

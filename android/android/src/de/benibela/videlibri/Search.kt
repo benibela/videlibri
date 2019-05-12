@@ -5,6 +5,7 @@ import android.content.Intent
 import android.graphics.Paint
 import android.os.Bundle
 import android.preference.PreferenceManager
+import android.support.v7.app.ActionBar
 import android.util.Log
 import android.view.Menu
 import android.view.View
@@ -12,6 +13,9 @@ import android.widget.Spinner
 import android.widget.TextView
 import de.benibela.videlibri.jni.Bridge
 import java.util.*
+import android.view.Gravity
+
+
 
 internal interface SearchEventHandler {
     fun onSearchEvent(event: Bridge.SearchEvent): Boolean
@@ -45,7 +49,7 @@ class Search: VideLibriBaseActivity(), SearchEventHandler{
 
         findViewById<View>(R.id.library).setOnClickListener( { changeSearchLib() })
 
-        findViewById<View>(R.id.button).setOnClickListener(View.OnClickListener {
+        val searchStartClickListener = View.OnClickListener {
             obtainSearcher()
 
             if ("debug" == getTextViewText(R.id.year)) {
@@ -74,9 +78,18 @@ class Search: VideLibriBaseActivity(), SearchEventHandler{
                 }
             }
             startActivity(intent)
-        })
+        }
+        findViewById<View>(R.id.button).setOnClickListener(searchStartClickListener)
 
-        setTitle(tr(R.string.search_title))
+        setTitle("")
+        supportActionBar?.let {
+            it.setDisplayShowTitleEnabled(false)
+            it.setDisplayShowCustomEnabled(true)
+            it.setCustomView(getLayoutInflater().inflate(R.layout.searchlayout_bar, null),
+                    ActionBar.LayoutParams(ActionBar.LayoutParams.MATCH_PARENT, ActionBar.LayoutParams.MATCH_PARENT, Gravity.CENTER
+            ))
+            it.customView.findViewById<View>(R.id.button).setOnClickListener(searchStartClickListener)
+        }
 
         if (libId != "") {
             obtainSearcher()
