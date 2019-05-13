@@ -296,7 +296,7 @@ public class BookDetails extends VideLibriFakeFragment {
         //addIfExists("Jahr", "year");
         addIfExists(tr(R.string.book_publisher), "publisher");
 
-        final List<String> above = Arrays.asList("status", "category", "libraryBranch", "publisher", "orderable", "cancelable", "renewCount");
+        final List<String> above = Arrays.asList("status", "category", "libraryBranch", "publisher", "orderable", "cancelable", "renewCount", "isbn");
 
         for (int i=0;i<book.additionalProperties.size();i+=2){
             String key = book.additionalProperties.get(i);
