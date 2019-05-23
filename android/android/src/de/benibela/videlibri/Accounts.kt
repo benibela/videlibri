@@ -57,11 +57,15 @@ object Accounts: Collection<Bridge.Account> {
     }
 
     @JvmStatic fun refreshAll() {
+        refreshAccounts()
+        refreshDisplay()
+    }
+
+    @JvmStatic fun refreshAccounts() {
         val oldHidden = hiddenAccounts.keys.toTypedArray()
         this.accounts = Bridge.VLGetAccounts()
         hiddenAccounts.clear()
         oldHidden.forEach { acc -> get(acc.libId, acc.name)?.let { hiddenAccounts.put(acc, true) } }
-        refreshDisplay()
     }
 
     @JvmStatic fun refreshDisplay() {

@@ -43,10 +43,14 @@ object Notifier {
             if (Accounts.size == 0) with(context) { arrayOf(getString(R.string.notificationNoAccountsTitle), getString(R.string.notificationNoAccounts)) }
             else {
                 val n = Bridge.VLGetNotifications()
-                if (n.isNullOrEmpty() &&
-                        Accounts.any { it.isReal && it.lastCheckDate > 0 && it.lastCheckDate <= Bridge.currentPascalDate - OUTDATED_DATA_PERIOD_DAYS })
-                    with(context) { arrayOf(getString(R.string.notificationOutdatedDataTitle), getString(R.string.notificationOutdatedData)) }
-                else n
+                if (n?.isNotEmpty() == true) n
+                else {
+                    Accounts.refreshAccounts()
+                    if (Accounts.any { it.isReal && it.lastCheckDate > 0 && it.lastCheckDate <= Bridge.currentPascalDate - OUTDATED_DATA_PERIOD_DAYS })
+                        with(context) { arrayOf(getString(R.string.notificationOutdatedDataTitle), getString(R.string.notificationOutdatedData)) }
+                    else
+                        null
+                }
             }
 
     private fun cancelNotification(context: Context) {

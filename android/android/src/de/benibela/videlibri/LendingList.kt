@@ -233,6 +233,7 @@ class LendingList: BookListActivity(){
     override fun onOptionsItemIdSelected(id: Int): Boolean {
         when (id) {
             R.id.account_information -> {
+                accounts.refreshAccounts()
                 val info = if (accounts.isEmpty()) getString(R.string.main_no_accounts)
                            else accounts.joinToString (
                               separator = "\n\n",
