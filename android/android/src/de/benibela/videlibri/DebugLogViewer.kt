@@ -113,11 +113,13 @@ class DebugLogViewer : VideLibriBaseActivity(), AdapterView.OnItemSelectedListen
             }
 
         } catch (e: IOException) {
-            log.appendNewEntry("ERROR", "Failed to start logcat")
+            log.appendNewEntry("ERROR", "Failed to start logcat.\nOn a rooted device you can view the logcat with any other logcat viewing app.")
         } catch (e: OutOfMemoryError) {
             System.gc()
             log.appendNewEntry("ERROR", "Out of memory")
         }
+        if (android.os.Build.VERSION.SDK_INT < android.os.Build.VERSION_CODES.JELLY_BEAN)
+            log.appendNewEntry("ERROR", "You need at least Android 4.1 to view the debug log on a non-rooted device.")
 
         if (!Bridge.VLGetOptions().logging)
             log.appendNewEntry("", tr(R.string.debuglog_disabled))
