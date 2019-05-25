@@ -42,7 +42,7 @@ private
   bookNotifyEvent: TBookNotifyEvent;
   pageCompleteEvent: TPageCompleteNotifyEvent;
   pendingMessageEvent: TPendingMessageEvent;
-  connectedEvent: TNotifyEvent;
+  //connectedEvent: TNotifyEvent;
   changedBook: tbook;
   firstPageForSync, nextPageAvailableForSync: boolean;
   pendingMessage: TPendingMessage;

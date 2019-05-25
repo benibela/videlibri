@@ -26,7 +26,6 @@ private
   FConnected: boolean;
   FTimeout, FLastAccessTime: QWORD;
   template: TMultiPageTemplate;
-  flocation:string;
   function GetConnected: boolean;
   procedure updateAccessTimeout;
   procedure setHomeBranch(AValue: Integer);

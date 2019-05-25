@@ -614,7 +614,6 @@ var
   acc: TCustomAccountAccess;
   i: Integer;
   orderBook: TBook;
-  sl: TStringList;
 begin
   if (displayedBook = nil) or (searcherAccess = nil) then exit;
   if accounts.Count = 0 then exit;

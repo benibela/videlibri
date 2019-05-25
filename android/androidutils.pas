@@ -647,8 +647,6 @@ begin
 end;
 
 function Java_de_benibela_VideLibri_Bridge_VLReloadLibrary(env:PJNIEnv; this:jobject; id: jobject): jobject; cdecl;
-var
-  surl: string;
 begin
   if logging then bbdebugtools.log('de.benibela.VideLibri.Bride.VLReloadLibrary (started)');
   try
@@ -661,8 +659,6 @@ begin
 end;
 
 function Java_de_benibela_VideLibri_Bridge_VLReloadTemplate(env:PJNIEnv; this:jobject; id: jobject): jobject; cdecl;
-var
-  surl: string;
 begin
   if logging then bbdebugtools.log('de.benibela.VideLibri.Bride.VLReloadTemplate (started)');
   try

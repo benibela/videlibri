@@ -14,7 +14,7 @@ object bookSearchFrm: TbookSearchFrm
   OnDestroy = FormDestroy
   OnKeyUp = FormKeyUp
   Position = poScreenCenter
-  LCLVersion = '1.8.1.0'
+  LCLVersion = '2.0.0.4'
   Scaled = False
   object optionPanel: TPanel
     Left = 0

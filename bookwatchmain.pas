@@ -1042,7 +1042,6 @@ end;
 procedure TmainForm.repeatedCheckTimerTimer(Sender: TObject);
 //this tries to update the books every 10 min until a connection to the library
 //could actually established
-var internet: TInternetAccess;
 begin
   if accountsRefreshedDate = currentDate then begin
     repeatedCheckTimer.Enabled:=false;
