@@ -216,7 +216,7 @@ procedure sendMailReports();
 implementation
 
 { TmainForm }
-uses math,options,debuglogviewer, newaccountwizard_u,bbdebugtools,bibtexexport,booklistreader{$IFDEF WIN32},windows{$ENDIF},Clipbrd,bbutils,androidutils,libraryaccesstester,duplicateremover,xqueryform,bookproperties,LazUTF8;
+uses math,options,debuglogviewer, newaccountwizard_u,bbdebugtools,bibtexexport,booklistreader{$IFDEF WIN32},windows{$ENDIF},Clipbrd,bbutils,androidutils,libraryaccesstester,duplicateremover,xqueryform,bookproperties,LazUTF8,bbutilsbeta;
 
 resourcestring
   rsSearchBarTitle = 'Ausleihensuche:';
@@ -244,7 +244,7 @@ resourcestring
   rsDelete = 'Löschen';
   rsDeleteConfirm = 'Sind Sie sicher, dass Sie %s Medium/Medien löschen wollen?';
   rsSelectedBookMissing = 'Das markierte Buch war nicht vorhanden.%sDas ist eigentlich unmöglich, am besten starten Sie das Programm neu.';
-  rsLastRefreshLong = 'Die angezeigten Daten der Konten wurden zu folgenden Zeitpunkten%sdas letztemal aktualisiert:';
+  rsLastRefreshLong = 'Die angezeigten Daten der Konten wurden zu folgenden Zeitpunkten das letztemal aktualisiert:';
   rsMailReportDate = 'Daten von: ';
   rsMailReportTitle = 'Videlibri Bücherreport vom %s';
   rsMailReportEmpty = 'Keine Bücher registriert';
@@ -1179,22 +1179,37 @@ begin
 end;
 
 procedure TmainForm.StatusBar1DblClick(Sender: TObject);
+const indent = '        ';
 var pos: TPoint;
-    i,j:integer;
+    i:integer;
     s:string;
+    showExpirationDates: Boolean;
+    account: TCustomAccountAccess;
 begin
   GetCursorPos(pos{%H-});
+  showExpirationDates := false;
   pos:=StatusBar1.ScreenToClient(pos);
   for i:=0 to StatusBar1. Panels.Count-1 do
     if pos.x<=statusbar1.panels.items[i].Width then begin
       case i of
         0: begin
-             s:=Format(rsLastRefreshLong, [#13#10]);
-             for j:=0 to accounts.count-1 do
-               with (accounts[j]) do begin
-                 s:=s+#13#10'        '+prettyName+': '+DateToPrettyStr(lastCheckDate);
+             s:=rsLastRefreshLong;
+             for account in accounts do
+               with account do begin
+                 s:=s+LineEnding+indent+prettyName+': '+DateToPrettyStr(lastCheckDate);
                  if not enabled then s+=' ('+rsDisabled+')';
+                 if expiration <> '' then showExpirationDates := true;
                end;
+             if showExpirationDates then begin
+               s += LineEnding + LineEnding + rsAccountExpiration;
+               for account in accounts do
+                 with account do begin
+                   account.lock.enter;
+                   if account.expiration <> '' then
+                     s += LineEnding + indent + prettyName + ': ' + account.expiration;
+                   account.lock.leave;
+                 end;
+             end;
              ShowMessage(s);
            end;
       end;

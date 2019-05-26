@@ -2,6 +2,7 @@ book := {}
 goBackPage := ""
 orderedPage := ""
 orderedMagazinePage := ""
+account-expiration := "12.03.2014"
 kontoPage := text{"/aDISWeb/app;jsessionid=F02D4F8BF97D318DEEA6E4E6F6FCB914?service=direct/1/POOLSTPM@@@@@@@@_4B004500_2C17CB00/Tabelle_ZLLW01.cellInternalLink.directlink&amp;sp=SRGLINK_5&amp;sp=SZA&amp;requestCount=3"}
 orderedMagazinePage := ""
 providedPage := ""

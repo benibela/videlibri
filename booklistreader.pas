@@ -158,6 +158,7 @@ type
     bookListHasBeenClearedAndMightNeedSingleUpdate: boolean;
     pendingMessage: TPendingMessage;
     cache: TXQValueObject;
+    accountExpiration: string;
     constructor create(atemplate:TMultiPageTemplate);
     destructor destroy();override;
 
@@ -1198,6 +1199,7 @@ begin
       end;
       temp2:=nil;
     end;
+    'account-expiration': accountExpiration := strTrimAndNormalize(value.toString);
     else if strEndsWith(variable, ')') then case variable of
       'delete-current-books()': begin
         books.clear();

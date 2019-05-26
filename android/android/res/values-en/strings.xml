@@ -421,6 +421,7 @@
     <string name="menu_account_information">Account information</string>
     <string name="main_no_accounts">No accounts</string>
     <string name="main_last_refreshS" >Data is from: %s</string>
+    <string name="main_account_expirationS">Expiration date: %s</string>
     <string name="main_account_search_only">Search account</string>
     <string name="menu_book_delete" >Delete book</string>
     <string name="delete_book_confirmS" >Do you want to delete "%s"?\n(This action is irreversible)</string>

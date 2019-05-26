@@ -435,6 +435,7 @@
     <string name="menu_account_information">Kontoinformationen</string>
     <string name="main_no_accounts">Keine Konten</string>
     <string name="main_last_refreshS" >Angezeigte Daten stammen von: %s</string>
+    <string name="main_account_expirationS">Ausweis gültig bis: %s</string>
     <string name="main_account_search_only">Suchkonto</string>
     <string name="menu_book_delete" >Eintrag löschen</string>
     <string name="delete_book_confirmS" >Soll "%s" gelöscht werden?\n(Dies kann nicht rückgängig gemacht werden)</string>

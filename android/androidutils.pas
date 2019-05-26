@@ -284,7 +284,7 @@ begin
       bridgeFields.userPath:= getstaticfield(bridgeClass, 'userPath', 'Ljava/lang/String;');
 
       accountClass := newGlobalRefAndDelete(getclass('de/benibela/videlibri/jni/Bridge$Account'));
-      accountClassInitWithData := getmethod(accountClass, '<init>', '(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;IZIZI)V');
+      accountClassInitWithData := getmethod(accountClass, '<init>', '(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;IZIZILjava/lang/String;)V');
       with accountFields  do begin
         LibIdS := getfield(accountClass, 'libId', 'Ljava/lang/String;');
         NameS := getfield(accountClass, 'name', 'Ljava/lang/String;');
@@ -846,7 +846,7 @@ begin
 end;
 
 function accountToJAccount(account: TCustomAccountAccess): jobject;
-var args: array[0..8] of jvalue;
+var args: array[0..9] of jvalue;
   i: Integer;
 begin
   with j  do begin
@@ -858,9 +858,16 @@ begin
     args[5].z := booleanToJboolean(account.extendType <> etNever);
     args[6].i := account.extendDays;
     args[7].z := booleanToJboolean(account.keepHistory);
-    args[8].i := account.lastCheckDate;
+    try
+      account.lock.enter;
+      args[8].i := account.lastCheckDate;
+      args[9].l := stringToJString(account.expiration);
+    finally
+      account.lock.leave;
+    end;
     result := newObject(accountClass, accountClassInitWithData, @args[0]);
     for i := 0 to 3 do deleteLocalRef(args[i].l);
+    deleteLocalRef(args[9].l);
   end;
 end;
 

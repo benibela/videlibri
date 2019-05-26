@@ -237,7 +237,11 @@ class LendingList: BookListActivity(){
                 val info = if (accounts.isEmpty()) getString(R.string.main_no_accounts)
                            else accounts.joinToString (
                               separator = "\n\n",
-                              transform = { "${it.prettyName}:\n${if (it.isReal) getString(R.string.main_last_refreshS, BookFormatter.formatDateFull(it.lastCheckDate)) else getString(R.string.main_account_search_only)}" }
+                              transform = { "${it.prettyName}:\n${
+                                    if (it.isReal)
+                                        getString(R.string.main_last_refreshS, BookFormatter.formatDateFull(it.lastCheckDate)) +
+                                        if (it.expiration.isNotEmpty()) "\n" + getString(R.string.main_account_expirationS, it.expiration) else ""
+                                    else getString(R.string.main_account_search_only)}" }
                            )
                 showMessage(message = info, title = getString(R.string.menu_account_information))
             }

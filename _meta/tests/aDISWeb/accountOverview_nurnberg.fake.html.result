@@ -2,6 +2,7 @@ book := {}
 goBackPage := ""
 orderedPage := ""
 orderedMagazinePage := ""
+account-expiration := "23.12.2023"
 kontoPage := text{"/fakeurl"}
 providedPage := ""
 requestedPage := text{"/fakeurl2"}

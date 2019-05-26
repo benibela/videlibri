@@ -85,13 +85,16 @@ public class Bridge {
         public int extendDays;
         public boolean history;
         public int lastCheckDate;
+        public @NotNull String expiration;
         public Account () {
             libId = name = pass = prettyName = "";
         }
         public Account (@NotNull String libId, @NotNull String name, @NotNull String pass, @NotNull String prettyName,
                  int type, boolean extend,
                  int extendDays, boolean history,
-                 int lastCheckDate) {
+                 int lastCheckDate,
+                 @NotNull String expiration
+        ) {
             this.libId = libId;
             this.name = name;
             this.pass = pass;
@@ -101,6 +104,7 @@ public class Bridge {
             this.extendDays = extendDays;
             this.history = history;
             this.lastCheckDate = lastCheckDate;
+            this.expiration = expiration;
         }
         @Override
         public boolean equals(Object o) {

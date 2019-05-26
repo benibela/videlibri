@@ -219,7 +219,8 @@ var
 
 ResourceString
   rsDisabled = '!DEAKTIVIERT!';
-  rsBeforeDue = '%s Tage vor Frist';
+  rsBeforeDueS = '%s Tage vor Frist';
+  rsAccountExpiration = 'Die Ablaufdaten der Konten sind: ';
 
 
 
@@ -270,7 +271,7 @@ begin
       SubItems.add(rsDisabled)
      else case account.extendType of
       etAlways: SubItems.add(rsAlways);
-      etAllDepends, etSingleDepends: SubItems.add(Format(rsBeforeDue, [IntToStr(account.extendDays)]));
+      etAllDepends, etSingleDepends: SubItems.add(Format(rsBeforeDueS, [IntToStr(account.extendDays)]));
       etNever: SubItems.add(rsNever);
     end;
     subItems.Add(account.getLibrary().prettyNameShort);
@@ -767,7 +768,7 @@ begin
   if not lib.enabled then item.SubItems[3]:=rsDisabled
   else case currentSelectedExtendType of
     etAlways: item.SubItems[3]:=rsAlways;
-    etAllDepends, etSingleDepends: item.SubItems[3]:=Format(rsBeforeDue, [IntToStr(currentSelectedAccount.extendDays)]);
+    etAllDepends, etSingleDepends: item.SubItems[3]:=Format(rsBeforeDueS, [IntToStr(currentSelectedAccount.extendDays)]);
     etNever: item.SubItems[3]:=rsNever;
   end;
   if accountType.Visible then

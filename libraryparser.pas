@@ -211,6 +211,8 @@ type
 //    nextLimit,nextNotExtendableLimit:longint;
     thread: TThread;
     broken: longint;          //Iff equal currentDate, disable auto checking (only accessed by thread/thread-creator)
+    lock: TRTLCriticalSection;
+    expiration: string;
     constructor create(alib: TLibrary);virtual;
     destructor destroy;override;
     
@@ -319,7 +321,7 @@ resourcestring
 
 
 implementation
-uses applicationconfig,bbdebugtools,xquery, xquery.internals.common,androidutils,simpleinternet,mockinternetaccess,libraryAccess,strutils,math,xquery.internals.lclexcerpt;
+uses applicationconfig,bbdebugtools,xquery, xquery.internals.common,androidutils,simpleinternet,mockinternetaccess,libraryAccess,strutils,math,xquery.internals.lclexcerpt,bbutilsbeta;
 
 resourcestring
   rsNoTemplateLinkFound = 'Der Link verweist auf kein VideLibri-Template (es gibt kein Element < link rel="videlibri.description" auf der Seite)';
@@ -1531,6 +1533,7 @@ begin
   flastCheckDate:=config.ReadInteger('base','lastCheck',0);
   keepHistory:=config.readBool('base','keep-history',true);
   prettyName:=config.readString('base','prettyName', user);
+  expiration:=config.readString('base','expiration', expiration);
   extendDays:=config.readInteger('base','extend-days',7);
   extendType:=TExtendType(config.readInteger('base','extend',0));
   fcharges:=currency(config.readInteger('base','charge',-100))/100.0;
@@ -1550,7 +1553,8 @@ begin
   FEnabled:=true;
   FTimeout:=10*60*1000;
   broken:=0;
-  InitCriticalSection(FFileLock);
+  FFileLock.init;
+  lock.init;
 end;
 
 destructor TCustomAccountAccess.destroy;
@@ -1562,7 +1566,8 @@ begin
     config.free;
   if internet<>nil then
     internet.free;
-  DoneCriticalsection(FFileLock);
+  FFileLock.done;
+  lock.done;
   inherited;
 end;
 
@@ -1601,9 +1606,12 @@ end;
 procedure TCustomAccountAccess.saveConfig();
 begin
   if config = nil then exit;
-  EnterCriticalSection(FFileLock);
+  FFileLock.enter;
   try
+    lock.enter;
     config.WriteInteger('base','lastCheck',FLastCheckDate);
+    config.WriteString ('base','expiration', expiration);
+    lock.leave;
     config.WriteBool('base','keep-history',keepHistory);
     config.WriteString('base','prettyName',prettyName);
     config.WriteString ('base','pass',passWord);
@@ -1616,7 +1624,7 @@ begin
 
     config.UpdateFile;
   finally
-    LeaveCriticalSection(FFileLock);
+    FFileLock.leave;
   end;
 end;
 
@@ -1792,9 +1800,15 @@ end;
 procedure TTemplateAccountAccess.resetlib();
 begin
   //todo: fix memory leak
-  reader:=TBookListReader.create(lib.template);
-  reader.books:=books.bookLists[bltInCurrentDataUpdate];
-  FConnected:=false;
+  lock.enter;
+  try
+    reader:=TBookListReader.create(lib.template);
+    reader.books:=books.bookLists[bltInCurrentDataUpdate];
+    reader.accountExpiration := expiration;
+    FConnected:=false;
+  finally
+    lock.leave;
+  end;
 end;
 
 
@@ -1832,6 +1846,12 @@ begin
   updateConnectingTimeout;
   FUpdated:=true;
   FUpdateTime:=FConnectingTime;
+  try
+    lock.enter;
+    expiration := reader.accountExpiration;
+  finally
+    lock.leave;
+  end;
   if logging then log('Leave TTemplateAccountAccess.updateAll');
 end;
 
@@ -2008,6 +2028,7 @@ procedure TTemplateAccountAccess.init(apath, userID: string);
 begin
   inherited init(apath, userID);
   reader.books:=books.bookLists[bltInCurrentDataUpdate];
+  reader.accountExpiration := expiration;
 end;
 
 destructor TTemplateAccountAccess.destroy;

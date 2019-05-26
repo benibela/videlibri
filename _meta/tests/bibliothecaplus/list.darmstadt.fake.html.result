@@ -10,6 +10,7 @@ hasBranches := false()
 extendableCheck := "/DesktopModules/OCLC.OPEN.PL.DNN.PatronAccountModule/PatronAccountService.asmx/IsCatalogueCopyExtendable"
 portalId := "0"
 localResourceFile := "~/DesktopModules/OCLC.OPEN.PL.DNN.PatronAccountModule/App_LocalResources/PatronAccountModule. resx"
+account-expiration := text{"21.01.2018"}
 hasBranches := true()
 book := {"duedate": "2018-02-23", "libraryBranch": "Hauptstelle", "category": "DVD Kinder", "author": "Lindner, Christoph [Vorlage]", "title": "X-Mas [DVD]", "image-url": null, "_renewid": "dnn$ctr515$MainView$tpnlLoans$ucLo\n\t\t\t\t\t\t ansView$grdViewLoans$ctl02$chkSelect"}
 book := {"duedate": "2018-02-24", "libraryBranch": "Hauptstelle", "category": "Buch Kinderliteratur", "author": "", "title": "Leonie Lion", "ISBN": "3-401-01234-2", "image-url": ["/DesktopModules/OCLC.OPEN.PL.DNN.Ba\n\t\t\t\t\t\t seLibrary/StyleSheets/Images/Fallbacks/emptyURL.gif?6.0.0.0", "http://open-stadtbibliothek.darmstadt.de/Portals/0/cover/3-401-01234-2.jpg"], "_renewid": "dnn$ctr515$MainView$tpnlLoans$ucLo\n\t\t\t\t\t\t ansView$grdViewLoans$ctl03$chkSelect"}

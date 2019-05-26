@@ -1,6 +1,12 @@
 <t:switch prioritized="true">
 <html>
-  {goBackPage := "", orderedPage:="", orderedMagazinePage:="", if (get("first-login", false())) then (videlibri:delete-current-books(), first-login := false()) else () }
+  {goBackPage := "", orderedPage:="", orderedMagazinePage:="", 
+   if (get("first-login", false())) then (
+     videlibri:delete-current-books(), 
+     first-login := false()
+     
+   ) else (), 
+   head(//tr[ends-with(normalize-space(th[1]), "Ausweis gültig bis")])!($account-expiration := join(td)) }
   <t:switch>
   <td>Keine Ausleihen<t:s>kontoPage:=""</t:s></td>
   <a>Ausleihen zeigen<!-- oder verlängern--><t:s>kontoPage := @href</t:s></a>
