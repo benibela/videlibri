@@ -34,7 +34,7 @@ end;
 
 
 implementation
-uses bbutils, accountlist, bbdebugtools, libraryAccess, simplehtmltreeparser, math;
+uses bbutils, accountlist, bbdebugtools, libraryAccess, simplehtmltreeparser, math, bbutilsbeta;
 
 threadvar skippedpaths: TStringArray;
 
