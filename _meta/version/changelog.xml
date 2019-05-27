@@ -1,10 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?xml-stylesheet type="text/xsl" href="../changelog.xsl"?>
 <changelog program="VideLibri">
-      <build version="2044" date="2019-05-13">
+      <build version="2046" date="2019-05-27">
         <download url="http://videlibri.sourceforge.net/updates/videlibri-setup.exe" platform="WINDOWS" execute="&quot;$DOWNLOAD&quot;  /SP- /noicons &quot;/dir=$OLDPATH&quot; " restart="true"/>
         <download url="http://videlibri.sourceforge.net/updates/videlibri-linux32.deb" platform="LINUX32" execute=""/>
         <download url="http://videlibri.sourceforge.net/updates/videlibri-linux64.deb" platform="LINUX64" execute=""/>
+        <fix>android: x86-Version ist mit GNU ld (GNU Binutils) 2.21 und dem Android 4.0 NDK erstellt, da es mit neueren ld Versionen nicht mehr startet. </fix>
+        <change>Schnellere Verarbeitung von HTML-Seiten mit geringerem Speicherverbrauch.</change>
+        <fix>android: Zeige keine veralteten Daten bei den Kontoinformationen und der "veralteten Daten"-Warnung.</fix>
+        <fix>SRH Neckargemünd: Anpassung an Katalogsystemänderungen.</fix>
+        <add>OCLC Open/a|S|tec aDIS: Zeige Ausleihkartenablaufdatum.</add>
+        <add>android: Zeige eine Warnung, dass das Debug-Log erst ab Android 4.1 angezeigt wird.</add>
+     </build>
+<!-- <build version="2045" date="2019-05-13">
+   <change>android: 64-Bit Version</change>
+ </build>-->
+      <build version="2044" date="2019-05-13">
         <change>Triviale Layoutverbesserungen und zusätzliche Hinweise zur Kontokonfiguration.</change>
         <fix>android/Stadtbibliothek Saarbrücken: Anpassung an geändertes HTTPS-Zertifikat.</fix>
         <fix>Koha/Heilbronn: Anpassung an fehlende Zweigstellenauswahl</fix>
