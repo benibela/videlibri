@@ -7,7 +7,7 @@
   
   <template value="lbs"/>
   <variable name="server" value="https://lherf.gbv.de/"/>	
-  <variable name="picadb" value="1"/>	
+<!--  <variable name="picadb" value="1"/>	-->
 
 
   <homepage value="http://www.uni-erfurt.de/bibliothek"/>

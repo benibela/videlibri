@@ -7,7 +7,7 @@
   
   <template value="lbs"/>  
   <variable name="server" value="https://kataloge.thulb.uni-jena.de/"/>
-  <variable name="picadb" value="1"/>
+ <!-- <variable name="picadb" value="1"/>-->
 
 
   <homepage value="http://www.thulb.uni-jena.de/"/>
