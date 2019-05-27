@@ -22,6 +22,7 @@ import org.acra.BuildConfig
 import org.acra.annotation.AcraCore
 import org.acra.annotation.AcraDialog
 import org.acra.annotation.AcraHttpSender
+import org.acra.config.HttpSenderConfigurationBuilder
 import org.acra.data.StringFormat
 import org.acra.sender.HttpSender
 import java.util.*
@@ -46,7 +47,9 @@ class VideLibriApp : Application() {
         instance = this
         staticApplicationContext = applicationContext
 
-        ACRA.init(this)
+        val builder = org.acra.config.CoreConfigurationBuilder(this)
+        builder.getPluginConfigurationBuilder(HttpSenderConfigurationBuilder::class.java).setUri("http://www.benibela.de/autoFeedback.php?app=VideLibriA"+android.os.Build.VERSION.SDK_INT)
+        ACRA.init(this, builder)
 
         initializeAll(null)
 
