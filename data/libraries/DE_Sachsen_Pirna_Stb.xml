@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<library>
+  <longName value="Stadtbibliothek Pirna"/>
+  
+  <template value="sisis"/>  
+  <variable name="server" value="https://bibliothekskatalog.pirna.de/webOPACClient/"/>
+  <variable name="startparams" value="?Login=opac00"/>
+  
+  <homepage value="https://www.pirna.de/pirna-erleben/kultur/bibliothek/"/>
+  <testing-search value="yes"/>
+  <testing-account value="unknown"/>
+  
+</library>
