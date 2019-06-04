@@ -1,9 +1,15 @@
 <FORM><!-- this is also used for canceling!-->
-  <t:switch-prioritized>
-    <input title="Zurück zur vorherigen Seite">{backButtonName := uri-encode(@name)}</input>
-    <input t:condition="contains(@title, 'zur vorherigen Seite')">{backButtonName := uri-encode(@name)}</input>
-  </t:switch-prioritized> 
-  {goBackPage := form(.),
-   goBackPage.post := x"{$goBackPage.post}&{$backButtonName}.x=0&{$backButtonName}.y=0"
+  {let $form := form(.)
+   let $backButtonName := (.//input[@title = "Zurück zur vorherigen Seite"])[1]
+   let $backButtonName := if ($backButtonName) then $backButtonName else (.//input[contains(@title, 'zur vorherigen Seite')])[1] (:is this line needed?:)
+   let $bbn := $backButtonName/@name/string()
+   return (
+     if ($bbn) then 
+       $goBackPage := request-combine($form, {$bbn || ".x": "0", $bbn || ".y": "0"})
+     else let $accountPage := //a[contains(., "konto")] return
+       if ($accountPage) then
+         $goBackPage := resolve-html($accountPage)
+     else vl:raise-internal("Kein Link von der Ausleihentabelle zurück zur vorherigen Seite gefunden")
+   )     
   }
 </form>

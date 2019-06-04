@@ -122,12 +122,15 @@
 
   <html>  
     <form>
-      <span class="txtinsert">Vollanzeige</span>
+      <t:switch>
+        <span class="txtinsert">Vollanzeige</span>
+        <h1>Vollanzeige</h1>
+      </t:switch>
 
-      <t:switch-prioritized>
+      <t:switch prioritized="true">
         <input title="Zurück zur Trefferliste">{backButtonName := uri-encode(@name)}</input>
         <input t:condition="contains(@title, 'zur Trefferliste')">{backButtonName := uri-encode(@name)}</input>
-      </t:switch-prioritized> 
+      </t:switch> 
       
       {gotDetails_GoBackPage := form(.),
        gotDetails_GoBackPage.post := x"{$gotDetails_GoBackPage.post}&{$backButtonName}.x=0&{$backButtonName}.y=0"

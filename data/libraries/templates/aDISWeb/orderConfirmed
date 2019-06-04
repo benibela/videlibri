@@ -21,7 +21,11 @@
     }</div>
   </div>
 
+  <span t:condition="tokenize(@class)=('alert', 'nobest')">{
+    vl:raise(join(//span[tokenize(@class)=('alert', 'nobest')]))
+  }</span>
+
   <form>
-  {form := form(., (.//input[@type = "submit" and contains(., "bestellen")])[1]/{string(@name): @value})}
+  {final-form := form(., (.//input[@type = "submit" and contains(., "bestellen")])[1]/{string(@name): @value})}
   </form>
 </t:switch-prioritized>

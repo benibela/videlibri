@@ -24,7 +24,7 @@
   </form>
 
   <form> 
-    <h2>{tempOrderConfirmation := x"Wohin soll das Buch ""{.}"" vorbestellt werden?"}</h2>
+    {tempOrderConfirmation := x"Wohin soll das Buch ""{css("h2, span.titanzeige")}"" vorbestellt werden?"}
     <select name="select">{tempOptions :=  ./option[. != ""],    
     vl:choose("internal-order-confirmed", $tempOrderConfirmation, $tempOptions, $tempOptions/@value)
     }</select>

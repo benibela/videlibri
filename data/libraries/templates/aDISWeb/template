@@ -75,6 +75,7 @@
         <div class="message"><div id="R01"><h1>{vl:raise(.)}</h1></div></div>
         <span class="alert">{vl:raise(.)}</span>
          
+        <form><select/><select/></form> <!-- munich ordering -->
       </template:switch-prioritized>
     </template>
   </page>  
@@ -93,7 +94,7 @@
     <template>
       <a>
         <template:meta default-text-matching="regex"/>
-        Benutzerkonto|Mein Konto|Anmeldung<t:s>loginForm:=@href</t:s>
+        Benutzerkonto|Konto|Anmeldung<t:s>loginForm:=@href</t:s>
       </a>
     </template>
   </page>
@@ -403,7 +404,7 @@
       <call action="internal-login"/>
       <variable name="internal-loggedin">true()</variable>
       <variable name="form">$loginFormPost</variable>
-      <page url="{$form}" templateFile="orderConfirmation"/>
+      <pattern href="orderConfirmation"/>
     </if>
   
 

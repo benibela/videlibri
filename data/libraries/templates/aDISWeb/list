@@ -16,14 +16,14 @@
      ),
      if ($bbn) then 
        $goBackPage := request-combine($form, {$bbn || ".x": "0", $bbn || ".y": "0"})
-     else let $accountPage := //a[matches(., "Benutzerkonto|Mein Konto")] return
+     else let $accountPage := //a[contains(., "konto")] return
        if ($accountPage) then
          $goBackPage := resolve-html($accountPage)
      else vl:raise-internal("Kein Link von der Ausleihentabelle zurück zur vorherigen Seite gefunden")
    )     
   }
   
-  <DIV class="fsgrp">        
+ 
     <DIV class="rTable_div">
     <TABLE class="rTable_table">
     {hasTill := false()}
@@ -86,7 +86,7 @@
     </TABLE>
 
   </DIV>
-  </DIV>
+ 
 
 
   </form>
@@ -98,10 +98,10 @@
     
     <span class="txtinsert">((Mein Konto */|Benutzerkonto) +Ausleihen)|Benutzerkonto:? Übersicht</span>
 
-    <t:switch-prioritized>
+    <t:switch prioritized="true">
       <input title="Zurück zur vorherigen Seite">{backButtonName := uri-encode(@name)}</input>
       <input t:condition="contains(@title, 'zur vorherigen Seite')">{backButtonName := uri-encode(@name)}</input>
-    </t:switch-prioritized> 
+    </t:switch> 
     {goBackPage := form($form),
     goBackPage.post := x"{$goBackPage.post}&{$backButtonName}.x=0&{$backButtonName}.y=0"}
 
