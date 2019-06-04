@@ -590,8 +590,8 @@ begin
           if (name <> 'pass') or (eifPassword in flags[i]) then
             realAccounts[i].setBaseConfigValue(name, config.deepNodeText());
         end;
-        realAccounts[i].saveConfig();
         realAccounts[i].initFromConfig;
+        realAccounts[i].saveConfig();
       end;
 
       if eifHistory in flags[i] then importBookList(accountNodes[i], realAccounts[i].books.old, false);
