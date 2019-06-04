@@ -199,7 +199,7 @@ resourcestring
 
 
 const XMLNamespaceURL_VideLibri = 'http://www.videlibri.de';
-var XMlNamespaceVideLibri, XMlNamespaceVideLibri_VL: INamespace;
+var XMlNamespaceVideLibri, XMlNamespaceVideLibri_VL: TNamespace;
 
 type TVideLibriHtmlPatternMatcher = class(THtmlTemplateParser)
   protected
@@ -1494,8 +1494,8 @@ end;
 
 var vl: TXQNativeModule;
 initialization
-  XMlNamespaceVideLibri := TNamespace.create(XMLNamespaceURL_VideLibri, 'videlibri');
-  XMlNamespaceVideLibri_VL := TNamespace.create(XMLNamespaceURL_VideLibri, 'vl');
+  XMlNamespaceVideLibri := TNamespace.makeWithRC1(XMLNamespaceURL_VideLibri, 'videlibri');
+  XMlNamespaceVideLibri_VL := TNamespace.makeWithRC1(XMLNamespaceURL_VideLibri, 'vl');
   vl := TXQNativeModule.Create(XMLNamespaceVideLibri);
   vl.registerFunction('delete-current-books', 0, 0, @xqFunctionDelete_Current_Books, []);
   vl.registerFunction('raise', 0, 1, @xqFunctionRaise, []);
@@ -1521,7 +1521,9 @@ initialization
     year := wregexprParse('Creation Date|Jahr', [wrfIgnoreCase]);
   end;
 finalization
-  vl.free
+  vl.free;
+  XMlNamespaceVideLibri._Release;
+  XMlNamespaceVideLibri_VL._Release;
 end.
 
 
