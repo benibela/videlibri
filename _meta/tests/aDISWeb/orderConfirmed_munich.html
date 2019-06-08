@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+	<style type="text/css">
+		@import url(css/aDISStandard.css);
+	</style>
+	<script src="js/aDISMain.min.js" type="text/javascript"></script>
+	<script src="js/fckeditor/fckeditor.js" type="text/javascript"></script>
+	<title> Katalog </title>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,shrink-to-fit=no">
+<title>Stadtbibliothek Muenchen</title>
+<!--
+(c) Software: aDIS/BMS und aDIS/Archiv by |a|S|tec| angewandte Systemtechnik - www.astec.de
+HTML/CSS: Formulare, Tabellen, Inhalte, etc. werden automatisiert durch aDIS/BMS generiert
+Anpassungen Barrierefreiheit im aDIS-Rahmen: Nina Gerling
+Projekt: aDIS-85, BSG01 Muenchen, de
+Letztes Update: 08.02.2019
+//-->
+<script src="/aDISWeb_kopac85/js/scripts-head.js"></script>
+<link rel="stylesheet" href="/aDISWeb_kopac85/css/kopac_style.css">
+<link rel="stylesheet" href="/aDISWeb_stbm/css/kopac_diff.css">
+<!--[if lte IE 8]><link rel="stylesheet" href="/aDISWeb_kopac85/css/kopac_ie-old.css"><![endif]-->
+<!--[if lt IE 9]><script src="/aDISWeb_kopac85/js/html5shiv-printshiv.min.js"></script><script src="/aDISWeb_kopac85/js/css3-mediaqueries.js"></script><![endif]-->
+<link rel="shortcut icon" type="image/x-icon" href="/aDISWeb_stbm/images/favicon.ico">
+</head>
+
+<body class="opac01">
+<script type="text/javascript"><!--
+
+
+
+
+function setupHandlers()  {
+  document.onmousedown = docOnEvent;		
+  document.onkeydown = docOnEvent;	
+  document.onkeypress = docOnEvent;
+  document.onhelp = cancelF1;
+
+  initFormElements();
+  initIframes();
+  initScrollPos();
+}
+function getDimensions()  {
+  document.forms[0].scrDim.value = screen.width + ";" + screen.height;
+  if (window.innerWidth)
+    document.forms[0].winDim.value = window.innerWidth + ";" + window.innerHeight;
+  else
+    document.forms[0].winDim.value = document.body.offsetWidth + ";" + document.body.offsetHeight;
+  node = document.getElementById("img_content");
+  if (node != undefined)
+    document.forms[0].imgDim.value = node.offsetWidth + ";" + node.offsetHeight;
+}
+
+
+
+
+
+
+function sendRequest() {
+  location.href="/aDISWeb/app;jsessionid=C279D1811D72FCE44E901B1794E654A2?service=direct/1/POOLSTPM@@@@@@@@_4B007300_3751D100/$BrowserBack";
+  }
+
+
+
+
+
+aDIS.onLoad = function (e)
+{
+
+  if (!e) var e = window.event;
+  document.forms[0].scriptEnabled.value=true;
+  if (self.specialOnLoad != undefined)
+    specialOnLoad(e);
+  setupHandlers();
+  getDimensions();
+
+
+
+if (history.pushState && history.state == null) {
+  history.pushState({ action : 1 }, "", null);
+  history.pushState({ action : 2 }, "", null);
+  }         
+         
+window.onpopstate = function (e) {
+  if(e.state != null && e.state.action)
+      sendRequest();
+  }
+
+
+}
+
+aDIS.addListener('load', window, aDIS.onLoad);
+
+
+// --></script>
+
+
+<div class="aDISMaske">
+<form method="post" name="Form0" action="/aDISWeb/app;jsessionid=C279D1811D72FCE44E901B1794E654A2" onsubmit="return formOnSubmit();">
+<input type="hidden" name="service" value="direct/1/POOLSTPM@@@@@@@@_4B007300_3751D100/$Form.form"/>
+<input type="hidden" name="sp" value="S0"/>
+<input type="hidden" name="Form0" value="focus,keyCode,stz,source,selected,requestCount,scriptEnabled,scrollPos,scrDim,winDim,imgDim,$FormConditional,textButton"/>
+<input type="hidden" name="focus" value=""/>
+<input type="hidden" name="keyCode" value="0"/>
+<input type="hidden" name="stz" value=""/>
+<input type="hidden" name="source" value=""/>
+<input type="hidden" name="selected" value=""/>
+<input type="hidden" name="requestCount" value="10"/>
+<input type="hidden" name="scriptEnabled" value="F"/>
+<input type="hidden" name="scrollPos" value="0"/>
+<input type="hidden" name="scrDim" value=""/>
+<input type="hidden" name="winDim" value=""/>
+<input type="hidden" name="imgDim" value=""/>
+<input type="hidden" name="$FormConditional" value="T"/>
+
+
+
+
+
+		
+	
+
+
+
+	
+<div id="wrapper">
+  <div id="wrapper_inside">
+    <header id="header">
+      <div class="inside">
+        <div id="mhead" class="block">
+          <div id="mhead-inside">
+          <div id="logo" role="banner"><a href="http://www.muenchner-stadtbibliothek.de/" title="Zur Startseite der Stadtbibliothek"><img src="/aDISWeb_stbm/images/logo.png" alt="M&uuml;nchen-Logo"></a></div>
+          </div>
+        </div>
+      </div>
+    </header>
+    <div id="container">
+      <div id="container-inside">
+         <main id="main" aria-label="Hauptbereich">
+          <div class="inside">
+             <div class="grid-wrapper">
+              <div class="grid-row">
+
+<!-- START: Haupt-Spalte -->
+                <div class="grid-col col-12">
+                   <div class="grid-inside">
+                    <h1>
+                      <span class="invisible">Aktuelle Seite: </span>
+
+<span class="txtinsert">
+Bestellinformation:
+</span>
+ </h1>
+<div class="html_div"><span class="marktx">Aufnahme einer Vormerkung</span></div> <div id="R03"><div style="   width:99%;" class="aDISListe"><div class="html_div" style="width:99%; height:100%;"><p><span class="titanzeige">Titel: Hugo, der Fisch</span></p></div></div>
+</div>
+<div id="R04"><div style="   width:99%;" class="aDISListe"></div>
+</div>
+<div id="R05"><div style="   width:99%;" class="aDISListe"><div class="html_div" style="width:99%; height:100%;"><span class="hinweis">  Die Vormerkung ist erfolgt. <br/>In Ihrem Benutzerkonto können Sie unter "Bereitstellungen zeigen oder löschen" prüfen, ob schon Medien für Sie bereitgestellt sind. Erst dann können Sie die Medien in der Bibliothek abholen.</span></div></div>
+</div>
+<div id="R06"><div id="OPACLI" style="   width:99%;" class="aDISListe"><div class="html_div" style="width:99%; height:100%;"><span class="achtung">Bei Bereitstellung entstehen Ihnen Gebühren in Höhe von 1.25 Euro</span></div></div>
+</div>
+                     <div id="R07"><div style="   width:99%; ">	<div class="rTable_div">
+<table class="rTable_table" colCase="[, ]" colDisable="[true, true]" width="100%">
+	<colgroup>
+<col width="32%"></col><col width="68%"></col>	</colgroup>
+	<thead class="rTable_thead">
+				<tr>
+	</tr>	
+			</thead>
+			<tbody>
+
+<tr class="rTable_tr_even">
+
+<td class="rTable_td_text">
+Ausweisnummer
+</td>
+
+<td class="rTable_td_text">
+400000123456
+</td>
+
+</tr>
+
+<tr class="rTable_tr_odd">
+
+<td class="rTable_td_text">
+Name
+</td>
+
+<td class="rTable_td_text">
+BeniBela
+</td>
+
+</tr>
+
+<tr class="rTable_tr_even">
+
+<td class="rTable_td_text">
+Ausgabeort
+</td>
+
+<td class="rTable_td_text">
+Stadtbibliothek Am Gasteig / Kinder- und Jugendbibliothek
+</td>
+
+</tr>
+
+<tr class="rTable_tr_odd">
+
+<td class="rTable_td_text">
+Benachrichtigung bei Bereitstellung
+</td>
+
+<td class="rTable_td_text">
+Nein
+</td>
+
+</tr>
+	</tbody>
+</table>	</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div></div>
+                    <div id="R08">
+  <p class="widget-submit block">
+
+
+<input type="submit" name="textButton" value="Weiter" class="imp-button weiter" fld="$$GFBO_1"/>
+
+
+
+ </p> 
+</div>
+                   </div>
+                </div>
+
+<!-- ENDE: OPTIONEN-Spalte RECHTS -->
+               </div>
+<!-- /grid-row -->
+            </div>
+<!-- /grid-wrapper -->
+          </div>
+        </main>
+       </div>
+    </div>
+    <footer id="footer">
+      <div class="inside">
+            <div class="grid-wrapper">
+              <div class="grid-row">
+                <div class="grid-col col-12 col-md-6 col-lg-6 col-xl-6">
+                  <nav id="legal" class="mod_navigation block" aria-label="Rechtliche Links">
+                    <ul>
+                      <li><a href="http://www.muenchner-stadtbibliothek.de/footer/impressum/" target="_blank">Impressum</a></li>
+                      <li><a href="http://www.muenchner-stadtbibliothek.de/footer/datenschutz/" target="_blank">Datenschutz</a></li>
+                      <li><a href="http://www.muenchner-stadtbibliothek.de/info-service/benutzungshinweise/gebuehren/" target="_blank">Benutzungs- und Geb&uuml;hrenordnung</a></li>
+                    </ul>
+                  </nav>
+                </div>
+                <div class="grid-col col-12 col-md-6 col-lg-6 col-xl-6">
+                  <p class="block" id="goingup">
+                    <a href="#wrapper">Seitenanfang</a>
+                  </p>
+                </div>
+                <div class="grid-col col-12 col-md-12 col-lg-12 col-xl-12">
+                  <p id="credits">
+                  <a href="http://www.astec.de" target="_blank">Barrierefreie Bibliothekssoftware der |a|S|tec| angewandte Systemtechnik</a>
+                  </p>
+                </div>
+              </div>
+            </div>
+        <div class="clear"></div>
+      </div>
+    </footer>
+  </div>
+<!-- /wrapper_inside -->
+</div>
+<!-- /wrapper -->
+<script src="/aDISWeb_kopac85/js/scripts-main.js"></script>
+
+</form>
+</div>
+</body>
+</html>

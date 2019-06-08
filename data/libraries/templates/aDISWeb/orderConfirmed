@@ -1,31 +1,8 @@
-<t:switch-prioritized>
-  <div class="message">
-    <!-- Inhalt der Message-Box START -->
-      <div id="R01"><!--<div style="   width:99%;" class="aDISListe"><div class="html_div" style="width:99%; height:100%;"><p>Informationen zu Ihrem Bestellvorgang:</p></div> not always there--></div>
-    <div id="OPACLI"><!--<div class="html_div" style="width:99%; height:100%;"><p> 
-    Der Bestellwunsch ist erfolgt für: "stuttgarter-zeitung.de - ein Usability-Test nach der Relaunch-Phase (VV10)"
-    1. Außenmagazinbestellung für "Integrierter    
-    1. Die Vormerkung ist erfolgt für: 
-    ...
-    Abholcode: 41 Za
-    </p></div>-->{
-      final-form:=form(//form),
-      if (matches(., "(erfolgt|Außenmagazinbestellung für).*:")) then form := ()
-      else vl:raise(.)
-    }</div>
-  </div>
-
-  <div class="message">
-    <div id="R01">{
-      vl:raise(join(* except script))
-    }</div>
-  </div>
-
-  <span t:condition="tokenize(@class)=('alert', 'nobest')">{
-    vl:raise(join(//span[tokenize(@class)=('alert', 'nobest')]))
-  }</span>
-
-  <form>
-  {final-form := form(., (.//input[@type = "submit" and contains(., "bestellen")])[1]/{string(@name): @value})}
-  </form>
-</t:switch-prioritized>
+<form>{
+  let $message := string-join(css(".message,.alert,.hinweis")!inner-text()),
+      $submit := let $submits := .//input[@type="submit"] return ($submits[contains(@value, "bestellen")],$submits)[1]
+  return 
+  if (matches($message, "(ist +erfolgt|Außenmagazinbestellung für.*:)")) then ( final-form := form(., $submit), form := () )
+  else if ($message ne "") then vl:raise($message)
+  else form := form(., $submit)
+}</form>

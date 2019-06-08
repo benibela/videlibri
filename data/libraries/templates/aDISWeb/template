@@ -427,23 +427,15 @@
 
     <page url="{$form}" templateFile="orderConfirmed"/>
     <page url="{$form}" templateFile="orderConfirmed"/>
-    <page url="{$final-form}">
-      <template>
-      <t:s>book.statusId := "ordered"</t:s>
-  <!-- geht ohne das???   <a title="Trefferliste">{goback:=@href}</a>--><!--inside main in munich, outside in nürnberg-->
-      </template>
-    </page>
+    <page url="{$final-form}"/>
+    <t:s>book.statusId := "ordered"</t:s>
 
-    <!-- works without this?? -->    
-    <page url="{$goBackPage}">
-      <template>
-        <t:switch prioritized="true">
-          <a title="Trefferliste">{goBackPage:=@href}</a>
-          <input t:condition="contains(@title, 'zur Trefferliste')">{goBackPage:= (let $temp := uri-encode(@name) return form(//form, x"{$temp}.x=0&{temp}.y=0"))}</input>
-          <span class="toolbar_txt">Vollanzeige<!--we are already back. safety. case never observed--></span>
-        </t:switch>
-      </template>
-    </page>
+    <pattern>
+      <t:switch prioritized="true">
+        <a title="Trefferliste">{goBackPage:=@href}</a>
+        <input t:condition="contains(@title, 'zur Trefferliste')">{goBackPage:= (let $temp := uri-encode(@name) return form(//form, x"{$temp}.x=0&{temp}.y=0"))}</input>
+      </t:switch>
+    </pattern>
     <page url="{$goBackPage}" templateFile="searchBasicForm"/>
 
   </if>

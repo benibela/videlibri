@@ -1,3 +1,4 @@
 book := {}
-final-form := {"method": "POST", "post": "service=direct%2F1%2FPOOLM21PBSZTEST%40_4B00CD00_2C2A4000%2F%24Form.form&sp=S0&Form0=focus%2CkeyCode%2Cstz%2Csource%2Cselected%2CrequestCount%2CscriptEnabled%2CscrollPos%2CscrDim%2CwinDim%2CimgDim%2C%24FormConditional%2CtextButton&focus=&keyCode=0&stz=&source=&selected=&requestCount=17&scriptEnabled=T&scrollPos=0&scrDim=&winDim=&imgDim=&%24FormConditional=T", "url": "file:///aDISWeb/app;jsessionid=56A83BE4B69EE2A962711B804B2D247A"}
-raised := text{"Fehler: Sie haben bereits einen Bestellwunsch für diesen Titel aufgegeben (Was kann Web-to-Print wirklich? : Software-Lösungen für Printbuyer und Dienstleister im Test)"}
+raised := "Informationen zu Ihrem Bestellvorgang:
+
+Fehler: Sie haben bereits einen Bestellwunsch für diesen Titel aufgegeben (Was kann Web-to-Print wirklich? : Software-Lösungen für Printbuyer und Dienstleister im Test)"

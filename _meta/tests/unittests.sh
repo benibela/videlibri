@@ -161,8 +161,7 @@ PAGES=(${PAGES[@]} aDISWeb/searchInputForm_mannheim-hsb.html )
 ADDTEMPLATE 'aDISWeb/orderConfirmation{\(\)/\(username:=\$password:=\"\"\)}' 3
 PAGES=(${PAGES[@]} aDISWeb/orderConfirmation_hdmtest.html aDISWeb/orderConfirmation_due.html aDISWeb/orderConfirmation_voebb.html )
 
-ADDTEMPLATE aDISWeb/orderConfirmed 5
-PAGES=(${PAGES[@]} aDISWeb/orderConfirmed1_due.html aDISWeb/orderConfirmed2_due.html aDISWeb/orderConfirmed2_hdmtest.html aDISWeb/orderConfirmed_failed2_hdmtest.html aDISWeb/orderConfirmed_failed_hdmtest.html)
+test aDISWeb orderConfirmed orderConfirmed1_due.html orderConfirmed2_due.html orderConfirmed2_hdmtest.html orderConfirmed_failed2_hdmtest.html orderConfirmed_failed_hdmtest.html orderConfirmed_munich.html orderConfirmed_munich2.html 
 
 test aDISWeb orderMultipleDistrict orderTimeout.html orderInCollection.html 
 
