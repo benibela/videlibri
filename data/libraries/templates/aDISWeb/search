@@ -149,6 +149,7 @@
       </div>
     </div>
   </body>
+  <span class="alert">{vl:raise(.)}</span>
   
 </template:switch-prioritized>
 

@@ -122,6 +122,7 @@
   </form>
   
   <div class="alert message-error">{vl:raise(.)}</div> <!-- for debugging -->
+  <div class="error">{vl:raise(.)}</div>
   
   
   
