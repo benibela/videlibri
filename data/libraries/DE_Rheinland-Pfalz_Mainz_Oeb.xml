@@ -1,15 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
-
-
 <library>
   <longName value="Öffentliche Bücherei Mainz Anna Seghers"/>
   <shortName value="Bücherei Mainz"/>
   
-  <template value="bibliotheca"/>
-  <variable name="baseurl" value="https://webopac.mainz.de/webopac/"/>	
-  <variable name="DB" value="web_biblio"/>
+  <template value="bibliothecaplus"/>
+  <variable name="urlaccount" value="https://open.mainz.de/Mein-Konto"/>	
+  <variable name="urlsearch" value="https://open.mainz.de/Mediensuche/Erweiterte-Suche"/>
   
   <homepage value="http://www.bibliothek.mainz.de/rubrik4/bereich1.php"/>
-  <testing-search value="yes"/>  <testing-account value="unknown"/></library>
+  <testing-search value="yes"/>  <testing-account value="unknown"/>
+</library>
 

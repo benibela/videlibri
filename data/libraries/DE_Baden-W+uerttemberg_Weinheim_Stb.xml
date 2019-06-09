@@ -1,21 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
-
 <library>
-  <deprecatedName value="DE_Baden-W+uertenberg_Weinheim_Stb"/>
   <longName value="Stadtbibliothek Weinheim"/>
-  <shortName value="Stb Weinheim"/>
-  
+    
   <template value="bibliotheca"/>
   <variable name="baseurl" value="https://web-opac.kivbf.de/weinheim"/>	
   <variable name="DB" value="Weinheim"/>	
   
-  <!--<template value="pica"/>-->
-
-
   <homepage value="http://www.weinheim.de/servlet/PB/menu/1075105/index.html"/>
-  <testing-search value="yes"/>
+  <testing-search value="unknown"/>
   <testing-account value="unknown"/>
-  
 </library>
-
