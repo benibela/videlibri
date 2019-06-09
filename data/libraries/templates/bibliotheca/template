@@ -6,10 +6,12 @@
   <variable name="DB" default=""><description>Datenbank</description></variable>
 </meta>
 
-<action id="connect"></action>
+<action id="connect"> 
+  <s>starturl := $baseurl || "/index.asp" || ( get('DB', ())[.] ! x"?DB={.}" )   </s>
+</action>
 <action id="update-all">
   <s>follow1 := ()</s>
-  <page url="{$baseurl}/index.asp?DB={get('DB', 'OPAC')}"/>
+  <page url="{$starturl}"/>
   <page url="{$baseurl}/index.asp?kontofenster=start">
     <template>
       <t:switch prioritized="true">
@@ -43,8 +45,9 @@
 
 
 <action id="search-connect">
+  <call action="connect"/>
   <s>loggedIn := false()</s>
-  <page url="{$baseurl}/index.asp?DB={get('DB', 'OPAC')}">    
+  <page url="{$starturl}">
     <template><form name="webopac">{profi := form(., {"link_profis.x": 10, "link_profis.y": 10})}</form></template>
   </page>
   <page url="{$profi}">    
@@ -155,7 +158,8 @@
 
 
 <action id="catalogue">
-  <variable name="url" value="{$baseurl}/index.asp?DB={get('DB', 'OPAC')}"/>
+  <call action="connect"/>
+  <variable name="url" value="{$starturl}"/>
 </action>
 
 </actions>
