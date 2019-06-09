@@ -350,6 +350,7 @@ begin
   else inc(activeThreads);
 end;
 
+type EDoNotTestThis = class(Exception);
 procedure TTestThread.Execute;
 var t: TTemplateAccountAccessTester;
   i, acctype: Integer;
@@ -365,6 +366,7 @@ begin
   end;
   if account then begin
     try
+      if lib.testingAccount in [tiBroken, tiNo] then raise EDoNotTestThis.Create('');
       resultAccount := '';
       for acctype := 1 to ifthen(lib.segregatedAccounts, 2, 1) do begin
         internet := internetaccess.defaultInternetAccessClass.create();
@@ -391,12 +393,13 @@ begin
         t.free;
       end;
     except
-      on e: exception do
-        resultAccount := '2-UNHANDLED EXCEPTION: '+e.Message;
+      on e: EDoNotTestThis do resultAccount := '0b-known broken';
+      on e: exception do resultAccount := '2-UNHANDLED EXCEPTION: '+e.Message;
     end;
   end;
   if search then begin
     try
+      if lib.testingSearch in [tiBroken, tiNo] then raise EDoNotTestThis.Create('');
       InitCriticalSection(critSection);
       searcher := TLibrarySearcher.create(lib.template);
       Searcher.bookListReader.bookAccessSection:=@critSection;
@@ -420,14 +423,13 @@ begin
         end;
         if searcher.SearchResultCount = 0 then resultSearch := '1-' + resultSearch;
       except
-        on e: EBookListReader do
-          resultSearch := '1-'+e.ClassName +': '+ e.Message;
-        on e: Exception do
-          resultSearch := '2-' + e.ClassName +': '+ e.Message;
+        on e: EBookListReader do resultSearch := '1-'+e.ClassName +': '+ e.Message;
+        on e: Exception do       resultSearch := '2-' + e.ClassName +': '+ e.Message;
       end;
       searcher.free;
       DoneCriticalsection(critSection);
     except
+      on e: EDoNotTestThis do  resultAccount := '0b-known broken';
       on e: exception do
         resultSearch := '2-UNHANDLED EXCEPTION: '+e.Message;
     end;
