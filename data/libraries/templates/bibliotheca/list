@@ -62,7 +62,7 @@
   
   <div class="kontomeldung">
   {
-       string() ! (if (matches(., "Diese Ausweisnummer (wurde|ist) nicht gefunden")) then vl:raise-login(.)
+       string() ! (if (matches(., "Ausweisnummer|Passwort")) then vl:raise-login(.)
        else vl:raise(.))
   }
   </div>

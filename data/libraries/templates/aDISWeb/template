@@ -72,8 +72,9 @@
          
         <span class="bnzeig" t:condition="contains(text(), 'Sie sind angemeldet')" /> <!-- sind schon angemeldet. (neuess, ordering!) -->
         
-        <div class="message"><div id="R01"><h1>{vl:raise(.)}</h1></div></div>
-        <span class="alert">{vl:raise(.)}</span>
+        <div class="message"><div id="R01"><h1>{vl:raise-login(.)}</h1></div></div>
+        <span class="alert">{vl:raise-login(.)}</span>
+        <input type="password" class="errstate">{vl:raise-login("")}</input>
          
         <form><select/><select/></form> <!-- munich ordering -->
       </template:switch-prioritized>

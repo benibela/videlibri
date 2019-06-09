@@ -149,6 +149,8 @@
       </div>
     </div>
   </body>
+  
+  <span class="alert">Ihre Suche erzielte keinen Treffer<t:s>search-result-count :=  0</t:s></span>
   <span class="alert">{vl:raise(.)}</span>
   
 </template:switch-prioritized>
