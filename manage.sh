@@ -140,6 +140,7 @@ downloadTable)
 ;;
 
   libraries.list)
+     export LANG=C.UTF-8
      LIBS=$(ls data/libraries/*.xml | grep -oE "[^_]+_[^_]+.xml" | sort | xargs -I{} find data/libraries/ -name "*{}" -maxdepth 1 | sort | uniq)
      grep -oE "[^/]*$" <<<"$LIBS" | sed -e 's/\.xml$//' > data/libraries/libraries.list
     ;;
