@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<library>
+  <longName value="Gemeindebücherei Rot am See"/>
+    
+  <template value="bibliotheca"/>
+  <variable name="baseurl" value="https://web-opac.kivbf.de/rot-am-see"/>	
+  <variable name="DB" value="Rot-am-See"/>	
+  
+  <homepage value="https://web-opac.kivbf.de/rot-am-see/index.asp?DB=Rot-am-See"/>
+  <testing-search value="unknown"/>
+  <testing-account value="unknown"/>
+</library>

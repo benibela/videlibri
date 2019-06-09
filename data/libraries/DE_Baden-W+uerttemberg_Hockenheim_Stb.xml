@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<library>
+  <longName value="Stadtbibliothek Hockenheim"/>
+  
+  <template value="bibliothecaplus"/>
+  <variable name="urlaccount" value="https://bibliotheken.kivbf.de/hockenheim/Meine-Bibliothek"/>
+  <variable name="urlsearch" value="https://bibliotheken.kivbf.de/hockenheim/Mediensuche/Erweiterte-Suche"/>
+  
+  <homepage value="https://bibliotheken.kivbf.de/hockenheim/"/>
+  <testing-search value="unknown"/> 
+  <testing-account value="unknown"/>
+</library>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<library>
+  <longName value="Stadtbücherei Künzelsau"/>
+    
+  <template value="bibliotheca"/>
+  <variable name="baseurl" value="https://web-opac.kivbf.de/kuenzelsau"/>	
+  <variable name="DB" value="Kuenzelsau"/>	
+  
+  <homepage value="https://web-opac.kivbf.de/kuenzelsau/index.asp?DB=Kuenzelsau"/>
+  <testing-search value="unknown"/>
+  <testing-account value="unknown"/>
+</library>

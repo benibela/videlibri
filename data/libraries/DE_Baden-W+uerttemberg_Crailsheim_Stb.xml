@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<library>
+  <longName value="Stadtbibliothek Crailsheim"/>
+  
+  <template value="bibliothecaplus"/>
+  <variable name="urlaccount" value="https://bibliotheken.kivbf.de/crailsheim/Mein-Konto"/>
+  <variable name="urlsearch" value="https://bibliotheken.kivbf.de/crailsheim/Mediensuche/Erweiterte-Suche"/>
+  
+  <homepage value="https://bibliotheken.kivbf.de/crailsheim/"/>
+  <testing-search value="unknown"/> 
+  <testing-account value="unknown"/>
+</library>

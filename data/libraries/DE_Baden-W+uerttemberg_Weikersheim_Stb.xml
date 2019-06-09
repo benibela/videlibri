@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<library>
+  <longName value="Stadtbücherei Weikersheim"/>
+    
+  <template value="bibliotheca"/>
+  <variable name="baseurl" value="https://web-opac.kivbf.de/weikersheim"/>	
+  <variable name="DB" value="Weikersheim"/>	
+  
+  <homepage value="https://web-opac.kivbf.de/weikersheim/index.asp?DB=Weikersheim"/>
+  <testing-search value="unknown"/>
+  <testing-account value="unknown"/>
+</library>

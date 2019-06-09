@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<library>
+  <longName value="Mediathek Denzlingen"/>
+  
+  <template value="bibliothecaplus"/>
+  <variable name="urlaccount" value="https://bibliotheken.kivbf.de/denzlingen/MeinKonto.aspx"/>
+  <variable name="urlsearch" value="https://bibliotheken.kivbf.de/denzlingen/Mediensuche/ErweiterteSuche.aspx"/>
+  
+  <homepage value="https://bibliotheken.kivbf.de/denzlingen/"/>
+  <testing-search value="unknown"/> 
+  <testing-account value="unknown"/>
+</library>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<library>
+  <longName value="Bibliothek Karlsdorf-Neuthard"/>
+    
+  <template value="bibliotheca"/>
+  <variable name="baseurl" value="https://web-opac.kivbf.de/karlsdorf-neuthard"/>	
+  <variable name="DB" value="Karlsdorf-Neuthard"/>	
+  
+  <homepage value="https://web-opac.kivbf.de/karlsdorf-neuthard/index.asp?DB=Karlsdorf-Neuthard"/>
+  <testing-search value="unknown"/>
+  <testing-account value="unknown"/>
+</library>

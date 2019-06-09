@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<library>
+  <longName value="Öffentliche Bibliothek Breisach"/>
+    
+  <template value="bibliotheca"/>
+  <variable name="baseurl" value="https://web-opac.kivbf.de/breisach"/>	
+  <variable name="DB" value="Breisach"/>	
+  
+  <homepage value="https://web-opac.kivbf.de/breisach/index.asp?DB=Breisach"/>
+  <testing-search value="unknown"/>
+  <testing-account value="unknown"/>
+</library>

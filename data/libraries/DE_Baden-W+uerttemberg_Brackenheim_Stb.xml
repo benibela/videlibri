@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<library>
+  <longName value="Stadtbücherei Brackenheim"/>
+    
+  <template value="bibliotheca"/>
+  <variable name="baseurl" value="https://web-opac.kivbf.de/brackenheim"/>	
+  <variable name="DB" value="Brackenheim"/>	
+  
+  <homepage value="https://web-opac.kivbf.de/brackenheim/index.asp?DB=Brackenheim"/>
+  <testing-search value="unknown"/>
+  <testing-account value="unknown"/>
+</library>

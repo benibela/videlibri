@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<library>
+  <longName value="Gemeindebücherei Talheim"/>
+  
+  <template value="bibliothecaplus"/>
+  <variable name="urlaccount" value="https://bibliotheken.kivbf.de/talheim/MeinKonto.aspx"/>
+  <variable name="urlsearch" value="https://bibliotheken.kivbf.de/talheim/UnsereMedien/ErweiterteSuche.aspx"/>
+  
+  <homepage value="https://bibliotheken.kivbf.de/talheim/"/>
+  <testing-search value="unknown"/> 
+  <testing-account value="unknown"/>
+</library>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<library>
+  <longName value="Stadtbücherei Gundelsheim"/>
+  
+  <template value="bibliothecaplus"/>
+  <variable name="urlaccount" value="https://bibliotheken.kivbf.de/gundelsheim/MeinMedienkonto.aspx"/>
+  <variable name="urlsearch" value="https://bibliotheken.kivbf.de/gundelsheim/Mediensuche/ErweiterteSuche.aspx"/>
+  
+  <homepage value="https://bibliotheken.kivbf.de/gundelsheim/"/>
+  <testing-search value="unknown"/> 
+  <testing-account value="unknown"/>
+</library>

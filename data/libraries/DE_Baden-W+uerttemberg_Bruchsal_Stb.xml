@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<library>
+  <longName value="Stadtbibliothek Bruchsal"/>
+    
+  <template value="bibliotheca"/>
+  <variable name="baseurl" value="https://web-opac.kivbf.de/bruchsal"/>	
+  <variable name="DB" value="Bruchsal"/>	
+  
+  <homepage value="https://web-opac.kivbf.de/bruchsal/index.asp?DB=Bruchsal"/>
+  <testing-search value="unknown"/>
+  <testing-account value="unknown"/>
+</library>

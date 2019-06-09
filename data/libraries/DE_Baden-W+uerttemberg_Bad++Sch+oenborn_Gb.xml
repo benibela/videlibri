@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<library>
+  <longName value="Gemeindebibliothek Bad Schönborn"/>
+    
+  <template value="bibliotheca"/>
+  <variable name="baseurl" value="https://web-opac.kivbf.de/bad-schoenborn"/>	
+  <variable name="DB" value="Bad-Schoenborn"/>	
+  
+  <homepage value="https://web-opac.kivbf.de/bad-schoenborn/index.asp?DB=Bad-Schoenborn"/>
+  <testing-search value="unknown"/>
+  <testing-account value="unknown"/>
+</library>

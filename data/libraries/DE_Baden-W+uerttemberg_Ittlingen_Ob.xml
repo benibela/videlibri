@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<library>
+  <longName value="Ortsbücherei Ittlingen"/>
+    
+  <template value="bibliotheca"/>
+  <variable name="baseurl" value="https://web-opac.kivbf.de/ittlingen"/>	
+  <variable name="DB" value="Ittlingen"/>	
+  
+  <homepage value="https://web-opac.kivbf.de/ittlingen/index.asp?DB=Ittlingen"/>
+  <testing-search value="unknown"/>
+  <testing-account value="unknown"/>
+</library>

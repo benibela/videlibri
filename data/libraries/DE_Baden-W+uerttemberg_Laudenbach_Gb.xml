@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<library>
+  <longName value="GemeindeBücherei Laudenbach"/>
+    
+  <template value="bibliotheca"/>
+  <variable name="baseurl" value="https://web-opac.kivbf.de/laudenbach"/>	
+  <variable name="DB" value="Laudenbach"/>	
+  
+  <homepage value="https://web-opac.kivbf.de/laudenbach/index.asp?DB=Laudenbach"/>
+  <testing-search value="unknown"/>
+  <testing-account value="unknown"/>
+</library>

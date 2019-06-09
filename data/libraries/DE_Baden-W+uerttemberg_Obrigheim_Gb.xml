@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<library>
+  <longName value="Schul- und Gemeindebücherei Obrigheim"/>
+    
+  <template value="bibliotheca"/>
+  <variable name="baseurl" value="https://web-opac.kivbf.de/obrigheim"/>	
+  <variable name="DB" value="Obrigheim"/>	
+  
+  <homepage value="https://web-opac.kivbf.de/obrigheim/index.asp?DB=Obrigheim"/>
+  <testing-search value="unknown"/>
+  <testing-account value="unknown"/>
+</library>

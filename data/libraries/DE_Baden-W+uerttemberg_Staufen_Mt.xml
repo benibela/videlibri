@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<library>
+  <longName value="Öffentliche Bibliothek Staufen"/>
+    
+  <template value="bibliotheca"/>
+  <variable name="baseurl" value="https://web-opac.kivbf.de/staufen"/>	
+  <variable name="DB" value="Staufen"/>	
+  
+  <homepage value="https://web-opac.kivbf.de/staufen/index.asp?DB=Staufen"/>
+  <testing-search value="unknown"/>
+  <testing-account value="unknown"/>
+</library>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<library>
+  <longName value="Stadtbibliothek Blankenloch"/>
+    
+  <template value="bibliotheca"/>
+  <variable name="baseurl" value="https://web-opac.kivbf.de/stutensee"/>	
+  <variable name="DB" value="Stutensee"/>	
+  
+  <homepage value="https://web-opac.kivbf.de/stutensee/index.asp?DB=Stutensee"/>
+  <testing-search value="unknown"/>
+  <testing-account value="unknown"/>
+</library>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<library>
+  <longName value="Stadtbücherei Leimen"/>
+    
+  <template value="bibliotheca"/>
+  <variable name="baseurl" value="https://web-opac.kivbf.de/leimen"/>	
+  <variable name="DB" value="Leimen"/>	
+  
+  <homepage value="https://web-opac.kivbf.de/leimen/index.asp?DB=Leimen"/>
+  <testing-search value="unknown"/>
+  <testing-account value="unknown"/>
+</library>

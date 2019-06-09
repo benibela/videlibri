@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<library>
+  <longName value="Stadtbücherei Bretten"/>
+    
+  <template value="bibliotheca"/>
+  <variable name="baseurl" value="https://web-opac.kivbf.de/bretten"/>	
+  <variable name="DB" value="Bretten"/>	
+  
+  <homepage value="https://web-opac.kivbf.de/bretten/index.asp?DB=Bretten"/>
+  <testing-search value="unknown"/>
+  <testing-account value="unknown"/>
+</library>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<library>
+  <longName value="Stadtbibliothek Engen"/>
+    
+  <template value="bibliotheca"/>
+  <variable name="baseurl" value="https://web-opac.kivbf.de/engen"/>	
+  <variable name="DB" value="Engen"/>	
+  
+  <homepage value="https://web-opac.kivbf.de/engen/index.asp?DB=Engen"/>
+  <testing-search value="unknown"/>
+  <testing-account value="unknown"/>
+</library>

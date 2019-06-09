@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<library>
+  <longName value="Stadtbücherei Bad Wildbad"/>
+    
+  <template value="bibliotheca"/>
+  <variable name="baseurl" value="https://web-opac.kivbf.de/bad-wildbad"/>	
+  <variable name="DB" value="Bad-Wildbad"/>	
+  
+  <homepage value="https://web-opac.kivbf.de/bad-wildbad/index.asp?DB=Bad-Wildbad"/>
+  <testing-search value="unknown"/>
+  <testing-account value="unknown"/>
+</library>

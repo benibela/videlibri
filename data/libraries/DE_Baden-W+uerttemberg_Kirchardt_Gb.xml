@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<library>
+  <longName value="Gemeindebücherei Kirchardt"/>
+  
+  <template value="bibliothecaplus"/>
+  <variable name="urlaccount" value="https://bibliotheken.kivbf.de/open_kirchardt/login.aspx?ReturnUrl=%2fopen_kirchardt%2f"/>
+  <variable name="urlsearch" value="https://bibliotheken.kivbf.de/open_kirchardt/SucheNachschlagen/Profisuche.aspx"/>
+  
+  <homepage value="https://bibliotheken.kivbf.de/open_kirchardt/"/>
+  <testing-search value="unknown"/> 
+  <testing-account value="unknown"/>
+</library>

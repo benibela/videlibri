@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<library>
+  <longName value="Stadtbibliothek Schwäbisch Hall"/>
+    
+  <template value="bibliotheca"/>
+  <variable name="baseurl" value="https://web-opac.kivbf.de/schwaebisch-hall"/>	
+  <variable name="DB" value="Schwaebisch-Hall"/>	
+  
+  <homepage value="https://web-opac.kivbf.de/schwaebisch-hall/index.asp?DB=Schwaebisch-Hall"/>
+  <testing-search value="unknown"/>
+  <testing-account value="unknown"/>
+</library>

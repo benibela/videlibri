@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<library>
+  <longName value="Gemeindebücherei Hirschberg"/>
+    
+  <template value="bibliotheca"/>
+  <variable name="baseurl" value="https://web-opac.kivbf.de/hirschberg"/>	
+  <variable name="DB" value="Hirschberg"/>	
+  
+  <homepage value="https://web-opac.kivbf.de/hirschberg/index.asp?DB=Hirschberg"/>
+  <testing-search value="unknown"/>
+  <testing-account value="unknown"/>
+</library>

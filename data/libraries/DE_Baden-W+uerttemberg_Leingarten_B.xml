@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<library>
+  <longName value="Bücherei Leingarten"/>
+    
+  <template value="bibliotheca"/>
+  <variable name="baseurl" value="https://web-opac.kivbf.de/leingarten"/>	
+  <variable name="DB" value="Leingarten"/>	
+  
+  <homepage value="https://web-opac.kivbf.de/leingarten/index.asp?DB=Leingarten"/>
+  <testing-search value="unknown"/>
+  <testing-account value="unknown"/>
+</library>

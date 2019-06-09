@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<library>
+  <longName value="Gemeindebücherei Königsbach-Stein"/>
+    
+  <template value="bibliotheca"/>
+  <variable name="baseurl" value="https://web-opac.kivbf.de/koenigsbach-stein"/>	
+  <variable name="DB" value="Koenigsbach-Stein"/>	
+  
+  <homepage value="https://web-opac.kivbf.de/koenigsbach-stein/index.asp?DB=Koenigsbach-Stein"/>
+  <testing-search value="unknown"/>
+  <testing-account value="unknown"/>
+</library>

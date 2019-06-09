@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<library>
+  <longName value="Öffentliche Bibliothek Titisee-Neustadt"/>
+    
+  <template value="bibliotheca"/>
+  <variable name="baseurl" value="https://web-opac.kivbf.de/titisee-neustadt"/>	
+  <variable name="DB" value="Titisee-Neustadt"/>	
+  
+  <homepage value="https://web-opac.kivbf.de/titisee-neustadt/index.asp?DB=Titisee-Neustadt"/>
+  <testing-search value="unknown"/>
+  <testing-account value="unknown"/>
+</library>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<library>
+  <longName value="Medienwelt Bücherei Neckarwestheim"/>
+    
+  <template value="bibliotheca"/>
+  <variable name="baseurl" value="https://web-opac.kivbf.de/neckarwestheim"/>	
+  <variable name="DB" value="Neckarwestheim"/>	
+  
+  <homepage value="https://web-opac.kivbf.de/neckarwestheim/index.asp?DB=Neckarwestheim"/>
+  <testing-search value="unknown"/>
+  <testing-account value="unknown"/>
+</library>

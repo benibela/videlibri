@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<library>
+  <longName value="Stadtbibliothek Calw"/>
+  
+  <template value="bibliothecaplus"/>
+  <variable name="urlaccount" value="https://bibliotheken.kivbf.de/calw/Mein-Leserkonto"/>
+  <variable name="urlsearch" value="https://bibliotheken.kivbf.de/calw/Mediensuche/Erweiterte-Suche"/>
+  
+  <homepage value="https://bibliotheken.kivbf.de/calw/"/>
+  <testing-search value="unknown"/> 
+  <testing-account value="unknown"/>
+</library>

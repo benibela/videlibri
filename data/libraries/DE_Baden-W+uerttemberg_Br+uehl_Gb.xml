@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<library>
+  <longName value="Gemeindebücherei Brühl"/>
+    
+  <template value="bibliotheca"/>
+  <variable name="baseurl" value="https://web-opac.kivbf.de/bruehl"/>	
+  <variable name="DB" value="Bruehl"/>	
+  
+  <homepage value="https://web-opac.kivbf.de/bruehl/index.asp?DB=Bruehl"/>
+  <testing-search value="unknown"/>
+  <testing-account value="unknown"/>
+</library>

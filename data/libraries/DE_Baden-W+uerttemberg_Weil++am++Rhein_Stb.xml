@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<library>
+  <longName value="Stadtbibliothek Weil am Rhein"/>
+    
+  <template value="bibliotheca"/>
+  <variable name="baseurl" value="https://web-opac.kivbf.de/weil-am-rhein"/>	
+  <variable name="DB" value="weilamrhein"/>	
+  
+  <homepage value="https://web-opac.kivbf.de/weil-am-rhein/index.asp?DB=weilamrhein"/>
+  <testing-search value="unknown"/>
+  <testing-account value="unknown"/>
+</library>

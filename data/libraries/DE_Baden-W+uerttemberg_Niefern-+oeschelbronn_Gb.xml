@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<library>
+  <longName value="Gemeindebücherei Niefern-Öschelbronn"/>
+    
+  <template value="bibliotheca"/>
+  <variable name="baseurl" value="https://web-opac.kivbf.de/niefern-oeschelbronn"/>	
+  <variable name="DB" value="Niefern-Oeschelbronn"/>	
+  
+  <homepage value="https://web-opac.kivbf.de/niefern-oeschelbronn/index.asp?DB=Niefern-Oeschelbronn"/>
+  <testing-search value="unknown"/>
+  <testing-account value="unknown"/>
+</library>

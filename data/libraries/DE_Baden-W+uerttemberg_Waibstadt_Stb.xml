@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<library>
+  <longName value="Stadtücherei Waibstadt"/>
+    
+  <template value="bibliotheca"/>
+  <variable name="baseurl" value="https://web-opac.kivbf.de/waibstadt"/>	
+  <variable name="DB" value="Waibstadt"/>	
+  
+  <homepage value="https://web-opac.kivbf.de/waibstadt/index.asp?DB=Waibstadt"/>
+  <testing-search value="unknown"/>
+  <testing-account value="unknown"/>
+</library>

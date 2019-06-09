@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<library>
+  <longName value="Gemeindebücherei Pfinztal"/>
+    
+  <template value="bibliotheca"/>
+  <variable name="baseurl" value="https://web-opac.kivbf.de/pfinztal"/>	
+  <variable name="DB" value="Pfinztal"/>	
+  
+  <homepage value="https://web-opac.kivbf.de/pfinztal/index.asp?DB=Pfinztal"/>
+  <testing-search value="unknown"/>
+  <testing-account value="unknown"/>
+</library>

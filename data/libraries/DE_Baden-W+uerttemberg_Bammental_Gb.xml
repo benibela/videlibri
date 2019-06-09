@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<library>
+  <longName value="Gemeindebücherei Bammental"/>
+    
+  <template value="bibliotheca"/>
+  <variable name="baseurl" value="https://web-opac.kivbf.de/bammental"/>	
+  <variable name="DB" value="Bammental"/>	
+  
+  <homepage value="https://web-opac.kivbf.de/bammental/index.asp?DB=Bammental"/>
+  <testing-search value="unknown"/>
+  <testing-account value="unknown"/>
+</library>

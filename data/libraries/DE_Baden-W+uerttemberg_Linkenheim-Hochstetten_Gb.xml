@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<library>
+  <longName value="Gemeindebibliothek Linkenheim-Hochstetten"/>
+    
+  <template value="bibliotheca"/>
+  <variable name="baseurl" value="https://web-opac.kivbf.de/linkenheim-hochstetten"/>	
+  <variable name="DB" value="Linkenheim-Hochstetten"/>	
+  
+  <homepage value="https://web-opac.kivbf.de/linkenheim-hochstetten/index.asp?DB=Linkenheim-Hochstetten"/>
+  <testing-search value="unknown"/>
+  <testing-account value="unknown"/>
+</library>

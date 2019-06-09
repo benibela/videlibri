@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<library>
+  <longName value="Stadtbücherei Kandern"/>
+  
+  <template value="bibliothecaplus"/>
+  <variable name="urlaccount" value="https://bibliotheken.kivbf.de/kandern/Konto.aspx"/>
+  <variable name="urlsearch" value="https://bibliotheken.kivbf.de/kandern/Mediensuche/ErweiterteSuche.aspx"/>
+  
+  <homepage value="https://bibliotheken.kivbf.de/kandern/"/>
+  <testing-search value="unknown"/> 
+  <testing-account value="unknown"/>
+</library>

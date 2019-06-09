@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<library>
+  <longName value="Stadtbibliothek Eberbach"/>
+    
+  <template value="bibliotheca"/>
+  <variable name="baseurl" value="https://web-opac.kivbf.de/eberbach"/>	
+  <variable name="DB" value="Eberbach"/>	
+  
+  <homepage value="https://web-opac.kivbf.de/eberbach/index.asp?DB=Eberbach"/>
+  <testing-search value="unknown"/>
+  <testing-account value="unknown"/>
+</library>

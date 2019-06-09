@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<library>
+  <longName value="Stadtbücherei Öhringen"/>
+    
+  <template value="bibliotheca"/>
+  <variable name="baseurl" value="https://web-opac.kivbf.de/oehringen"/>	
+  <variable name="DB" value="Oehringen"/>	
+  
+  <homepage value="https://web-opac.kivbf.de/oehringen/index.asp?DB=Oehringen"/>
+  <testing-search value="unknown"/>
+  <testing-account value="unknown"/>
+</library>

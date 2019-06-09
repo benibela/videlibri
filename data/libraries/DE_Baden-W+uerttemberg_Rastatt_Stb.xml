@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<library>
+  <longName value="Stadtbibliothek Rastatt"/>
+    
+  <template value="bibliotheca"/>
+  <variable name="baseurl" value="https://web-opac.kivbf.de/rastatt"/>	
+  <variable name="DB" value="Rastatt"/>	
+  
+  <homepage value="https://web-opac.kivbf.de/rastatt/index.asp?DB=Rastatt"/>
+  <testing-search value="unknown"/>
+  <testing-account value="unknown"/>
+</library>

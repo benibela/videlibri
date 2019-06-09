@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<library>
+  <longName value="Gemeindebücherei Neulußheim"/>
+    
+  <template value="bibliotheca"/>
+  <variable name="baseurl" value="https://web-opac.kivbf.de/neulussheim"/>	
+  <variable name="DB" value="neulussheim"/>	
+  
+  <homepage value="https://web-opac.kivbf.de/neulussheim/index.asp?DB=neulussheim"/>
+  <testing-search value="unknown"/>
+  <testing-account value="unknown"/>
+</library>

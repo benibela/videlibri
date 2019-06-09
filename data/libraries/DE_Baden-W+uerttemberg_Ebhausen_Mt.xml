@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<library>
+  <longName value="Mediathek Ebhausen"/>
+    
+  <template value="bibliotheca"/>
+  <variable name="baseurl" value="https://web-opac.kivbf.de/ebhausen"/>	
+  <variable name="DB" value="Ebhausen"/>	
+  
+  <homepage value="https://web-opac.kivbf.de/ebhausen/index.asp?DB=Ebhausen"/>
+  <testing-search value="unknown"/>
+  <testing-account value="unknown"/>
+</library>

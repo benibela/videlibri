@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<library>
+  <longName value="Stadtbücherei Buchen"/>
+  
+  <template value="bibliothecaplus"/>
+  <variable name="urlaccount" value="https://bibliotheken.kivbf.de/buchen/IhrKonto.aspx"/>
+  <variable name="urlsearch" value="https://bibliotheken.kivbf.de/buchen/Mediensuche.aspx"/>
+  
+  <homepage value="https://bibliotheken.kivbf.de/buchen/"/>
+  <testing-search value="unknown"/> 
+  <testing-account value="unknown"/>
+</library>

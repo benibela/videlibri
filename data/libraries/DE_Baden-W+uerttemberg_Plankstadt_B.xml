@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<library>
+  <longName value="Bücherei Plankstadt"/>
+  
+  <template value="bibliothecaplus"/>
+  <variable name="urlaccount" value="https://bibliotheken.kivbf.de/plankstadt/Mein-Konto"/>
+  <variable name="urlsearch" value="https://bibliotheken.kivbf.de/plankstadt/Mediensuche/Erweiterte-Suche"/>
+  
+  <homepage value="https://bibliotheken.kivbf.de/plankstadt"/>
+  <testing-search value="unknown"/> 
+  <testing-account value="unknown"/>
+</library>
