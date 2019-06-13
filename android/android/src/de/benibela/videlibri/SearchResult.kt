@@ -296,7 +296,7 @@ class SearchResult : BookListActivity(), SearchEventHandler {
                 yesButton { currentActivity<SearchResult>()?.searcher?.completePendingMessage(1) }
                 noButton { currentActivity<SearchResult>()?.searcher?.completePendingMessage(0) }
             }
-            2 -> showDialog {
+            2 -> showDialog(null, caption) {
                 items(options.toList()) { currentActivity<SearchResult>()?.searcher?.completePendingMessage(it) }
                 onCancel = { currentActivity<SearchResult>()?.searcher?.completePendingMessage(-1) }
             }
