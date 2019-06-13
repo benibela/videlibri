@@ -621,43 +621,63 @@ end;
 
 function TLibraryIdStringList.DoCompareText(const s1, s2: string): PtrInt;
 var
-  l1, l2, l: SizeInt;
-  c1, c2: Boolean;
-  i, i1, i2: SizeInt;
+  l1, l2: SizeInt;
+  cond1, cond2: Boolean;
+  p1, p2, e1, e2: PChar;
+  c1, c2: char;
 begin
+  //try
+  cond1 := s1 = '';
+  cond2 := s2 = '';
+  if cond1 <> cond2 then begin
+    if cond1 then exit(-1);
+    if cond2 then exit(1);
+  end else if cond1 then exit(0);
+  p1 := pchar(pointer(s1));
+  p2 := pchar(pointer(s2));
   l1 := length(s1);
   l2 := length(s2);
-  l := min(l1, l2);
-  for i := 1 to l do
-    if s1[i] <> s2[i] then begin
-      if i <= 3 then begin
-        c1 := (s1[1] = '-') or (s1[1] = '_');
-        c2 := (s2[1] = '-') or (s2[1] = '_');
-        if c1 <> c2 then begin
-          if c1 then exit(-1);
-          if c2 then exit(1);
-        end;
-        //sort current country before other countries
-        c1 := strBeginsWith(s1, localeCountry);
-        c2 := strBeginsWith(s2, localeCountry);
-        if c1 <> c2 then begin
-          if c1 then exit(-1);
-          if c2 then exit(1);
-        end;
+  e1 := p1 + l1;
+  e2 := p2 + l2;
+  cond1 := (p1^ = '-') or (p1^ = '_');
+  cond2 := (p2^ = '-') or (p2^ = '_');
+  if cond1 <> cond2 then begin
+    if cond1 then exit(-1);
+    if cond2 then exit(1);
+  end;
+  //sort current country before other countries
+  cond1 := strBeginsWith(s1, localeCountry);
+  cond2 := strBeginsWith(s2, localeCountry);
+  if cond1 <> cond2 then begin
+    if cond1 then exit(-1);
+    if cond2 then exit(1);
+  end;
+  while (p1 < e1) and (p2 < e2) do begin
+    c1 := p1^;
+    c2 := p2^;
+    if c1 <> c2 then begin
+      if (c1 = '+') and (p1+1 < e1) then begin
+        c1 := (p1+1)^;
+        inc(p1, 2);
       end;
-      i1 := i;
-      i2 := i;
-      if (s1[i1] = '+') and (i1 < l) then inc(i1);
-      if (s2[i2] = '+') and (i2 < l) then inc(i2);
-      result := ord(upCase(s1[i1])) - ord(upCase(s2[i2]));
+      if (c2 = '+') and (p2+1 < e2)  then begin
+        c2 := (p2+1)^;
+        inc(p2, 2);
+      end;
+      result := ord(upCase(c1)) - ord(upCase(c2));
       if result <> 0 then exit;
-      result := l1 - l2;
-      if result <> 0 then exit;
-      result := i1 - i2;
-      if result <> 0 then exit;
-      break;
     end;
+    inc(p1);
+    inc(p2);
+  end;
   result := l1 - l2;
+{  finally
+    write(stderr, 'Compared ', s1);
+    if result < 0 then write(' < ')
+    else if result > 0 then write(' > ')
+    else write(' = ');
+    writeln(s2, ': ', result);
+  end;}
 end;
 
 function TLibraryMetaDataEnumerator.MoveNext: boolean;
@@ -917,6 +937,10 @@ begin
     if flibraryIds[i] = '' then
       flibraryIds.Delete(i);
   flibraryIds.Sort;
+  if logging then
+    for i := 1 to flibraryIds.Count - 1 do
+      if flibraryIds.DoCompareText(flibraryIds[i-1], flibraryIds[i]) > 0 then
+        log('Unsorted libraries: '+flibraryIds[i-1] + ' > ' + flibraryIds[i]);
   flibraryIds.Sorted := true;
   userlibs := strSplit(userConfig.ReadString('base', 'user-libraries', ''), ',');
   for i := 0 to high(userlibs) do begin
