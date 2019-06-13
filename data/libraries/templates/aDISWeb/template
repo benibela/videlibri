@@ -406,6 +406,10 @@
       <variable name="internal-loggedin">true()</variable>
       <variable name="form">$loginFormPost</variable>
       <pattern href="orderConfirmation"/>
+      <if test="exists($error)">
+        <s>error:=()</s>
+        <page url="{$form}" templateFile="orderConfirmation"/>
+      </if>
     </if>
   
 

@@ -1,8 +1,9 @@
 <form>{
   let $message := string-join(css(".message,.alert,.hinweis")!inner-text()),
-      $submit := let $submits := .//input[@type="submit"] return ($submits[contains(@value, "bestellen")],$submits)[1]
+      $submits := .//input[@type="submit"],
+      $submit := ($submits[contains(@value, "bestellen")],$submits)[1]
   return 
   if (matches($message, "(ist +erfolgt|Außenmagazinbestellung für.*:)")) then ( final-form := form(., $submit), form := () )
-  else if ($message ne "") then vl:raise($message)
+  else if (count($submits) eq 1 and $message ne "") then vl:raise($message)
   else form := form(., $submit)
 }</form>
