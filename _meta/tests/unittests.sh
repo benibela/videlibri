@@ -14,55 +14,60 @@ else FILTER=$1
 fi
 
 
-function ADDTEMPLATE {
-  TEMP=$1
-  COUNT=$2
-  for ((i=0;$i<$COUNT;i++)); do   
-    TEMPLATES=(${TEMPLATES[@]} $TEMP) 
-  done
-}
-
-function test {
+function testCrossDir {
   system=$1; shift
   TEMP="$system/$1"; shift
+  pagesDir=$1; shift
+  if [[ $# -eq 0 ]]; then error="missing test cases $TEMP"; echo $error;  exit; fi
   for page in "$@"; do 
     TEMPLATES=(${TEMPLATES[@]} "$TEMP") 
-    PAGES=(${PAGES[@]} "$system/$page")
+    PAGES=(${PAGES[@]} "$pagesDir/$page")
   done
  
 }
+function test {
+  system=$1; shift
+  pattern="$1"; shift
+  testCrossDir "$system" "$pattern" "$system" "$@"
+}
 
+TEMPLATES=()
+PAGES=()
 
 #=============WAS==============
 mkdir -p $OUTPATH/wasnrw
-TEMPLATES=(wasnrw/start wasnrw/KontoServlet wasnrw/KontoServlet wasnrw/KontoServlet)
-PAGES=(wasnrw/start.html wasnrw/BenutzerkontoServlet_books.html wasnrw/BenutzerkontoServlet_books2.html wasnrw/BenutzerkontoServlet_books3.html)
-
+test wasnrw start start.html
+test wasnrw KontoServlet BenutzerkontoServlet_books.html BenutzerkontoServlet_books2.html BenutzerkontoServlet_books3.html
 
 
 #=============ALEPH ULBD==============
 mkdir -p $OUTPATH/ulbdue $OUTPATH/aleph_base
-TEMPLATES=(${TEMPLATES[@]} ulbdue/start ulbdue/login aleph_base/loggedIn2005 aleph_base/details ulbdue/update ulbdue/update)
-PAGES=(${PAGES[@]} ulbdue/start.html ulbdue/login.html ulbdue/loggedIn.html ulbdue/details_1.html ulbdue/update_singlebook.html ulbdue/update_empty.html)
+testCrossDir aleph_base loggedIn2005 ulbdue loggedIn.html
+testCrossDir aleph_base details ulbdue details_1.html
 test aleph_base details details.htm details.hold.htm
-
+test ulbdue start start.html
+test ulbdue login login.html
+test ulbdue update update_singlebook.html update_empty.html
 test ulbdue update-hold bor-hold.html bor-hold.0.html
 
 #=============ALEPH TU/UdK Berlin========
 mkdir -p $OUTPATH/aleph_ubTUb
-TEMPLATES=(${TEMPLATES[@]} aleph_base/loggedIn2007 aleph_ubTUb/update aleph_base/details)
-PAGES=(${PAGES[@]} aleph_ubTUb/loggedIn.html aleph_ubTUb/update.html aleph_ubTUb/details.html)
+testCrossDir aleph_base loggedIn2007 aleph_ubTUb loggedIn.html
+testCrossDir aleph_base details aleph_ubTUb details.html
+test aleph_ubTUb update update.html
 
 #=============ALEPH HU Berlin============
 mkdir -p $OUTPATH/aleph_ubHUb
-TEMPLATES=(${TEMPLATES[@]} aleph_base/loggedIn2005 aleph_base/details aleph_base/details aleph_base/details aleph_ubHUb/update)
-PAGES=(${PAGES[@]} aleph_ubHUb/loggedIn.html aleph_ubHUb/details1ex.html aleph_ubHUb/details2ex.html aleph_ubHUb/details3ex.html aleph_ubHUb/update-1.html)
-
+testCrossDir aleph_base loggedIn2005 aleph_ubHUb loggedIn.html
+testCrossDir aleph_base details aleph_ubHUb details1ex.html details2ex.html details3ex.html
+test aleph_ubHUb update update-1.html
+ 
 
 #=============ALEPH FU Berlin============
 mkdir -p $OUTPATH/aleph_ubFUb
-TEMPLATES=(${TEMPLATES[@]} aleph_base/details aleph_ubFUb/update aleph_ubFUb/update aleph_ubFUb/update aleph_base/loggedIn2007)
-PAGES=(${PAGES[@]} aleph_ubFUb/details.html aleph_ubFUb/update-2books.html aleph_ubFUb/update-0books.html aleph_ubFUb/update-6books.html aleph_ubFUb/loggedIn.html)
+testCrossDir aleph_base details  aleph_ubFUb details.html 
+test aleph_ubFUb update update-2books.html update-0books.html update-6books.html 
+testCrossDir aleph_base loggedIn2007 aleph_ubFUb loggedIn.html
 
 #============BIBDIA===============
 mkdir -p $OUTPATH/bibdia
@@ -72,8 +77,7 @@ test bibdia quickDetails quickDetails.duisburg.htm quickDetails.en.duisburg.html
 #============BIBDIA StaBib===============
 mkdir -p $OUTPATH/bibdia_stabib
 test bibdia_stabib update list.html list_abhol.html list_empty.html list_new.html
-TEMPLATES=(${TEMPLATES[@]} 'pica/searchDetails{\(\)/\(base:=\"\"\)}' 'pica/searchDetails{\(\)/\(base:=\"\"\)}' 'pica/searchDetails{\(\)/\(base:=\"\"\)}') 
-PAGES=(${PAGES[@]} bibdia_stabib/stabikat1.html bibdia_stabib/stabikat2.html bibdia_stabib/stabikat3.html)
+testCrossDir pica 'searchDetails{\(\)/\(base:=\"\"\)}' bibdia_stabib stabikat1.html stabikat2.html stabikat3.html
 
 
 #=============LIBERO==============
@@ -89,40 +93,31 @@ test libero5 orderComplete orderfail.verl.html ordersuccess.verl.html
 mkdir -p $OUTPATH/sisis
 mkdir -p $OUTPATH/sisis/touchpoint
 
-ADDTEMPLATE sisis/start 3
-PAGES=(${PAGES[@]} sisis/start.do.html sisis/start_schweinfurt.do.html sisis/touchpoint/start_chem.html )
+test sisis start start.do.html start_schweinfurt.do.html touchpoint/start_chem.html 
 
-ADDTEMPLATE sisis/loggedIn 4
-PAGES=(${PAGES[@]} sisis/userAccount.do_empty.html sisis/userAccount.do_singlebook.html sisis/userAccount.do_singlebook2.html sisis/userAccount.do_2books.html )
-
-test sisis "loggedIn{touchpoint:=true\(\)}" touchpoint/userAccount_0provided_chem.html touchpoint/userAccount_0requests_chem.html touchpoint/userAccount_1-10lend_chem.html touchpoint/userAccount_11-20lend_chem.html touchpoint/userAccount_empty_chem.html 
-
-test sisis searchSingleTPShowHolding touchpoint/searchSingleTPShowHolding.chemnitz.html  touchpoint/searchSingleTPShowHolding.bamberg.html touchpoint/searchSingleTPShowHolding.munich.html
-
-test sisis searchSingleTPDocument touchpoint/searchSingleTPDocument.chemnitz.htm
+test sisis loggedIn userAccount.do_empty.html userAccount.do_singlebook.html userAccount.do_singlebook2.html userAccount.do_2books.html 
+testCrossDir sisis "loggedIn{touchpoint:=true\(\)}" sisis/touchpoint userAccount_0provided_chem.html userAccount_0requests_chem.html userAccount_1-10lend_chem.html userAccount_11-20lend_chem.html userAccount_empty_chem.html 
+testCrossDir sisis searchSingleTPShowHolding sisis/touchpoint/ searchSingleTPShowHolding.chemnitz.html  searchSingleTPShowHolding.bamberg.html searchSingleTPShowHolding.munich.html
+testCrossDir sisis searchSingleTPDocument sisis/touchpoint/ searchSingleTPDocument.chemnitz.htm
 
 #search
-test sisis searchList{curPos:=1} search_Z3988_haw-aw.do.html search_augsburg.do.html search_augsburg2.do.html search_basel.do.html search_liestal.do.html search_tum.do.html search_pulheim.do.html searchHitlist_pulheim.do.html search_winterthur.do.html search_amberg1.html  search_last_fuerth.do.html search_oberhausen.do.html search_leipzig.html  touchpoint/searchList_winterthur.html touchpoint/searchList_speedHit_winterthur.html search.empty.aschaffenburg.html touchpoint/searchList_chemnitz.html touchpoint/searchList_rwth.html
-
+test sisis searchList{curPos:=1} search_Z3988_haw-aw.do.html search_augsburg.do.html search_augsburg2.do.html search_basel.do.html search_liestal.do.html search_tum.do.html search_pulheim.do.html searchHitlist_pulheim.do.html search_winterthur.do.html search_amberg1.html  search_last_fuerth.do.html search.empty.aschaffenburg.html search_oberhausen.do.html search_leipzig.html  
+testCrossDir sisis searchList{curPos:=1}  sisis/touchpoint/ searchList_winterthur.html searchList_speedHit_winterthur.html searchList_chemnitz.html searchList_rwth.html
 test sisis searchSingle searchSingle_basel.do.html searchSingle_aachen.do.html searchSingle_freiburg.html  searchSingle_regensburg.html touchpoint/searchHit_chem.html touchpoint/searchHit_rwth.html
 
 test sisis orderConfirmation'{username:=\"foo\",password:=\"bar\"}' orderConfirmation_aachen.html orderConfirmation_pulheim.html  
 
-ADDTEMPLATE 'sisis/singleExtended{b:={\"id\":123}}' 1
-PAGES=(${PAGES[@]} sisis/singleExtended_h.html  )
+test sisis 'singleExtended{b:={\"id\":123}}' singleExtended_h.html  
 
 test sisis searchSingleExemplar searchSingleExemplar_aachen.html  searchSingleExemplar_altdorf.html  searchSingleExemplar_altdorf2.html  searchSingleExemplar_altdorf3.html   searchSingleExemplar_amberg.html   searchSingleExemplar_amberg2.html  searchSingleExemplar_amberg3.html   searchSingleExemplar_augsburg.html  searchSingleExemplar_basel.html  searchSingleExemplar_chemnitz.html   searchSingleExemplar_dortmund.html  searchSingleExemplar_dortmund2.html  searchSingleExemplar_dortmund3.html  searchSingleExemplar_pulheim.html  searchSingleExemplar_pulheim2.html searchSingleExemplar_freiburg.html searchSingleExemplar_leipzig.html
 
-ADDTEMPLATE sisis/searchSingleAvailability 15
-
-PAGES=(${PAGES[@]} sisis/searchSingleAvailability_aachen.html sisis/searchSingleAvailability_altdorf.html sisis/searchSingleAvailability_altdorf2.html sisis/searchSingleAvailability_altdorf3.html sisis/searchSingleAvailability_amberg.html sisis/searchSingleAvailability_amberg2.html sisis/searchSingleAvailability_amberg3.html sisis/searchSingleAvailability_augsburg.html sisis/searchSingleAvailability_basel.html sisis/searchSingleAvailability_chemnitz.html sisis/searchSingleAvailability_dortmund.html sisis/searchSingleAvailability_dortmund2.html sisis/searchSingleAvailability_dortmund3.html sisis/searchSingleAvailability_pulheim.html sisis/searchSingleAvailability_pulheim2.html )
+test sisis searchSingleAvailability  searchSingleAvailability_aachen.html searchSingleAvailability_altdorf.html searchSingleAvailability_altdorf2.html searchSingleAvailability_altdorf3.html searchSingleAvailability_amberg.html searchSingleAvailability_amberg2.html searchSingleAvailability_amberg3.html searchSingleAvailability_augsburg.html searchSingleAvailability_basel.html searchSingleAvailability_chemnitz.html searchSingleAvailability_dortmund.html searchSingleAvailability_dortmund2.html searchSingleAvailability_dortmund3.html searchSingleAvailability_pulheim.html searchSingleAvailability_pulheim2.html 
 
 
 #==============PICA================
 mkdir -p $OUTPATH/pica
 
-ADDTEMPLATE pica/update 4
-PAGES=(${PAGES[@]} pica/update3.html pica/update_abholen.html pica/update_luebeck.html pica/update_vormerk.khsb.html)
+test pica update update3.html update_abholen.html update_luebeck.html update_vormerk.khsb.html
 
 #use join, because test blows up with a space
 test pica 'extend{id-list:=join\(\(\"12/435:X\",\"XYZ\"\)\)}' extend2.html extend2.colon.html extend.colon.html
@@ -132,8 +127,7 @@ test pica searchList searchList.merseburg.html
 
 #================LBS=============
 mkdir -p $OUTPATH/lbs
-ADDTEMPLATE lbs/list 1
-PAGES=(${PAGES[@]} lbs/loans.stralsund.html )
+test lbs list loans.stralsund.html 
 
 #=============ADISWEB==============
 mkdir -p $OUTPATH/aDISWeb
@@ -152,16 +146,13 @@ test aDISWeb searchBasicForm search_go-back.voebb..html search_due..html  search
 
 test aDISWeb searchDetails searchDetails_albstadt.html searchDetails_due.html searchDetails_heilbronn.html searchDetails_heilbronn2.html searchDetails_single-result_hdmtest.html searchDetails_newdue.html searchDetails_new.voebb.html searchDetails_new2.voebb.html searchDetails_munich.html
 
-ADDTEMPLATE aDISWeb/connected 3
-PAGES=(${PAGES[@]} aDISWeb/connected_furtwangen.html aDISWeb/connected_voebb1.html aDISWeb/connected_voebb2.html)
+test aDISWeb connected connected_furtwangen.html connected_voebb1.html connected_voebb2.html
 
-ADDTEMPLATE aDISWeb/searchInputForm 1
-PAGES=(${PAGES[@]} aDISWeb/searchInputForm_mannheim-hsb.html )
+test aDISWeb searchInputForm searchInputForm_mannheim-hsb.html 
 
-ADDTEMPLATE 'aDISWeb/orderConfirmation{\(\)/\(username:=\$password:=\"\"\)}' 3
-PAGES=(${PAGES[@]} aDISWeb/orderConfirmation_hdmtest.html aDISWeb/orderConfirmation_due.html aDISWeb/orderConfirmation_voebb.html )
+test aDISWeb 'orderConfirmation{\(\)/\(username:=\$password:=\"\"\)}' orderConfirmation_hdmtest.html orderConfirmation_due.html orderConfirmation_voebb.html 
 
-test aDISWeb orderConfirmed orderConfirmed1_due.html orderConfirmed2_due.html orderConfirmed2_hdmtest.html orderConfirmed_failed2_hdmtest.html orderConfirmed_failed_hdmtest.html orderConfirmed_munich.html orderConfirmed_munich2.html 
+test aDISWeb orderConfirmed orderConfirmed1_due.html orderConfirmed2_due.html orderConfirmed2_hdmtest.html orderConfirmed_failed2_hdmtest.html orderConfirmed_failed_hdmtest.html orderConfirmed_munich.html orderConfirmed_munich2.html orderConfirmed_voebb.html
 
 test aDISWeb orderMultipleDistrict orderTimeout.html orderInCollection.html 
 
@@ -169,17 +160,12 @@ test aDISWeb orderMultipleDistrict orderTimeout.html orderInCollection.html
 
 #==============Zones========
 mkdir -p $OUTPATH/zones18
-ADDTEMPLATE zones18/loggedIn 1
-PAGES=(${PAGES[@]} zones18/loggedIn.html)
+test zones18 loggedIn loggedIn.html
 
-ADDTEMPLATE 'zones18/list{requestId:=0}' 2
-PAGES=(${PAGES[@]} zones18/list.html zones18/list10.html)
+test zones18 'list{requestId:=0}' list.html list10.html
+test zones18 'list{requestId:=1}' listIncremental.html
 
-ADDTEMPLATE 'zones18/list{requestId:=1}' 1
-PAGES=(${PAGES[@]} zones18/listIncremental.html)
-
-ADDTEMPLATE zones18/bulkRenew 2 
-PAGES=(${PAGES[@]} zones18/bulkRenew.html zones18/bulkRenew2.html)
+test zones18 bulkRenew bulkRenew.html bulkRenew2.html
 
 test zones18 'listOrders{requestId:=0}' orderList1.html orderList1unterwegs.html orderList2.html orderList2canceled.html orderList3+canceled.html orderList3+canceled_real.html 
 test zones18 cancelConfirm cancelConfirm.html
@@ -191,10 +177,8 @@ test zones18 orderConfirmation orderConfirm.html
 
 #==============Primo========
 mkdir -p $OUTPATH/primo
-ADDTEMPLATE 'primo/searchStart{\(\)/\(search-keys:=\"\"\)}' 3
-PAGES=(${PAGES[@]} primo/searchStart.fub.html primo/searchStart.hub.html  primo/searchStart.tub.html)
-ADDTEMPLATE primo/searchList  5
-PAGES=(${PAGES[@]} primo/searchList.hub.html primo/searchList0.hub.html primo/searchList.fub.html primo/searchList.tub.html primo/searchList3.tub.html)
+test primo 'searchStart{\(\)/\(search-keys:=\"\"\)}' searchStart.fub.html searchStart.hub.html  searchStart.tub.html
+test primo searchList searchList.hub.html searchList0.hub.html searchList.fub.html searchList.tub.html searchList3.tub.html
 
 test primo list list.tub.html list.orders.tub.html list.orders2.tub.html list.fub.html list.orders.fub.html list.new.tub.htm list.orders.new.tub.htm 
 test primo searchDetails searchDetails.tub.html 
@@ -202,14 +186,9 @@ test primo searchDetailsLocations location.hu.berlin.html location.tu.berlin.htm
 
 #=============Bibliothea==============
 mkdir -p $OUTPATH/bibliotheca
-ADDTEMPLATE bibliotheca/list 4
-PAGES=(${PAGES[@]} bibliotheca/list.stralsund.html bibliotheca/list.neustadt.html bibliotheca/listmixed.neustadt.html bibliotheca/list.stralsundasfakeheidelberg.html)
-
-ADDTEMPLATE bibliotheca/searchList 3
-PAGES=(${PAGES[@]} bibliotheca/searchList.stralsund.html bibliotheca/searchList.neustadt.html bibliotheca/searchList.mainz.html)
-
-ADDTEMPLATE bibliotheca/searchDetails 1
-PAGES=(${PAGES[@]} bibliotheca/searchDetails.neustadt.html)
+test bibliotheca list list.stralsund.html list.neustadt.html listmixed.neustadt.html list.stralsundasfakeheidelberg.html
+test bibliotheca searchList searchList.stralsund.html searchList.neustadt.html searchList.mainz.html
+test bibliotheca searchDetails searchDetails.neustadt.html
 
 
 
@@ -223,14 +202,11 @@ test bibliothecaplus searchDetails'{\$search-reverse-keys:=\(\)}' searchDetails.
 
 #=============SUMMON==============
 mkdir -p $OUTPATH/summon
-ADDTEMPLATE summon/loans 5
-PAGES=(${PAGES[@]} summon/loans-none.html summon/loans-orders.html summon/loans-orders-none.html summon/loans-renewable.html summon/loans-renewconfirmed.html )
+test summon loans loans-none.html loans-orders.html loans-orders-none.html loans-renewable.html loans-renewconfirmed.html 
 
-ADDTEMPLATE summon/searchList 2
-PAGES=(${PAGES[@]} summon/searchList0.html summon/searchList.html)
+test summon searchList searchList0.html searchList.html
 
-ADDTEMPLATE summon/searchDetails 3
-PAGES=(${PAGES[@]} summon/searchDetails.html summon/searchDetails_multiex.html summon/searchDetails_orderable.html)
+test summon searchDetails searchDetails.html searchDetails_multiex.html searchDetails_orderable.html
 
 #=============netbiblio==============
 mkdir -p $OUTPATH/netbiblio
@@ -247,12 +223,8 @@ test vufind searchDetails searchDetails.hhu.html searchDetails.marl.html searchD
 
 #=============DIGIBIB==============
 mkdir -p $OUTPATH/digibib
-
-DISE=../search/templates/digibib/search
-DIDE=../search/templates/digibib/details
-TEMPLATES=(${TEMPLATES[@]} $DISE $DISE $DIDE $DIDE $DIDE $DIDE $DIDE $DIDE $DIDE $DIDE $DIDE $DIDE)
-PAGES=(${PAGES[@]} digibib/search.html digibib/search2.html digibib/details.html digibib/details2.html digibib/details3.html digibib/details4.html digibib/details5.html digibib/details6new.html digibib/details7new.fhmuenster.html digibib/details7holdings.fhmuenster.html digibib/details7noholdings.fhmuenster.html  digibib/detailsNRW.html)  
-
+testCrossDir ../search/templates/digibib search  digibib search.html search2.html
+testCrossDir ../search/templates/digibib details digibib details.html details2.html details3.html details4.html details5.html details6new.html details7new.fhmuenster.html details7holdings.fhmuenster.html details7noholdings.fhmuenster.html  detailsNRW.html
 test digibib list list.html list.empty.html 
 
 #=============SRU=================
