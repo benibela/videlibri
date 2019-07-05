@@ -6,7 +6,6 @@ user-form := {"method": "POST", "headers": "Content-Type: multipart/form-data; b
 renew-button := {"__EVENTTARGET": "dnn$ctr376$View$UcNormalView$tpnlLoans$ucLoansView$BtnExtendMediums"}
 cancel-ordered-button := {"__EVENTTARGET": "dnn$ctr376$View$UcNormalView$tpnlReservations$ucReservationsView$BtnCancelReservations"}
 cancel-provided-button := ()
-hasBranches := false()
 extendableCheck := "/DesktopModules/OCLC.OPEN.PL.DNN.PatronAccountModule/PatronAccountService.asmx/IsCatalogueCopyExtendable"
 portalId := "0"
 localResourceFile := "~/DesktopModules/OCLC.OPEN.PL.DNN.PatronAccountModule/App_LocalResources/PatronAccountModule.resx"

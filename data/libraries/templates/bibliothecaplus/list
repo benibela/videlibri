@@ -14,7 +14,6 @@
       $renew-button := (//input[ends-with(@name, "BtnExtendMediums")])[1]/{"__EVENTTARGET":  @name},
       $cancel-ordered-button := (//input[ends-with(@name, "BtnCancelReservations")])[1]/{"__EVENTTARGET":  @name},
       $cancel-provided-button := (//input[ends-with(@name, "BtnCancelReadyForPickup")])[1]/{"__EVENTTARGET":  @name},
-      $hasBranches := false(),
       let $split := extract($raw, 'LoadExtensionsAsync *\( *["'']([^"'']*?/IsCatalogueCopyExtendable)["''] *, *["'']([^"'']*?)["''] *, *["''][^"'']*?["''] *, *["'']([^"'']*?)["'']', (1,2,3))
       return (
         $extendableCheck := if ($split[1][.]) then $split[1] 
@@ -28,22 +27,38 @@
     
     <TABLE t:condition="contains(@id, 'grdViewLoans')">
       <t:switch prioritized="true">
-        <tr><th/><a t:condition="contains(@href, 'Sort$Branch')">{$hasBranches := true}</a>?</tr>
+        <tr>
+          <th/>
+          <t:siblings-header>
+          <th t:condition='@abbr="Cover"'/>
+          <th t:condition='@abbr="Titel"'/>
+          <th t:condition='@abbr="Verfasser" or contains(a/@href, "Sort$Author")'/>
+          <th t:condition='@abbr="Mediengruppe" or contains(a/@href, "Sort$MediaGroup")'/>?
+          <th t:condition='@abbr="Zweigstelle" or contains(a/@href, "Sort$Branch")'/>?
+          <th t:condition='@abbr="Frist" or contains(a/@href, "Sort$DueDate")'/>
+          <th/>*
+          </t:siblings-header>
+          <!--<th abbr="Verlängerbar">Verlängerbar</th>-->          
+        </tr>
         <tr class="GridViewInnerBorderNoData"/>
         <tr class="oclc-module-table-nodata"/>
       </t:switch>
       <t:loop>
         <TR>
-          <TD><INPUT>{book := {"_renewid": @name}}</INPUT></TD>
+          <TD>{book := {"_renewid": head(.//input/@name)}}</TD>
+          <t:siblings>
           <TD>{$book.image-url := .//(img,input[type="image"])!(@src, tokenize(@sources, "[|]")[contains(.,"://")]),
                $book.image-url!extract(., "(amazon.*/(ASIN|P)/|isbn=|cover/)([-0-9]{8,})([./&amp;]|[.]jpg)", 3)[.][1]!($book.ISBN := .)
            }</TD>
           <TD>{book.title := local:parse-column(.)}</TD>
           <TD>{book.author := local:parse-column(.)}</TD>
           <TD>{book.category := local:parse-column(.)}</TD>
-          <TD t:test="$hasBranches">{book.libraryBranch := local:parse-column(.)}</TD>
-          <TD>{book.duedate := parse-date(extract(., "[0-9./-]+"))}</TD>
+          <TD>{book.libraryBranch := local:parse-column(.)}</TD>
+          <TD>{book.duedate := parse-date(extract(., "[0-9./-]{6,}"))}</TD>
+          <td>
           <div class="extendableRegion"><input t:condition="contains(@name, 'CopyId')">{book._copyId := @value, book.id := @value}</input></div>?
+          </td>
+          </t:siblings>          
         </TR>
       </t:loop>
     </TABLE>             
