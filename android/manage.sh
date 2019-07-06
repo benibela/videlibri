@@ -199,12 +199,12 @@ brokenServers)
        if diff -q $KEYSTORE $TEMPKEYSTORE; then
          echo FAIL >> $FINGERPRINTFILE
        else
-         keytool -list -keystore $KEYSTORE -provider org.bouncycastle.jce.provider.BouncyCastleProvider -providerpath $BOUNCYCASTLE -storetype BKS -storepass $PASSWORD  | grep -E "trusted|fingerprint" | while read line1; do read line2; echo "$line1: $line2"; done | sort -n | tail -1  | sed -Ee 's/,[^:]+,//' >> $FINGERPRINTFILE
+         LANG=C keytool -list -v -alias $i -keystore $KEYSTORE -provider org.bouncycastle.jce.provider.BouncyCastleProvider -providerpath $BOUNCYCASTLE -storetype BKS -storepass $PASSWORD  | grep SHA256: >> $FINGERPRINTFILE
          
          
          echo -en "$server\t" >> $FINGERPRINTFILEOLD
          yes | $KEYTOOL       -import       -v       -trustcacerts       -alias $i       -file <(openssl x509 -in $TMPFILE)       -keystore $KEYSTOREOLD       -storetype BKS-V1       -provider org.bouncycastle.jce.provider.BouncyCastleProvider       -providerpath $BOUNCYCASTLE       -storepass $PASSWORD
-         keytool -list -keystore $KEYSTOREOLD -provider org.bouncycastle.jce.provider.BouncyCastleProvider -providerpath $BOUNCYCASTLE -storetype BKS-V1 -storepass $PASSWORD  | grep -E "trusted|fingerprint" | while read line1; do read line2; echo "$line1: $line2"; done | sort -n | tail -1  | sed -Ee 's/,[^:]+,//' >> $FINGERPRINTFILEOLD
+         LANG=C keytool -list -v -alias $i -keystore $KEYSTOREOLD -provider org.bouncycastle.jce.provider.BouncyCastleProvider -providerpath $BOUNCYCASTLE -storetype BKS-V1 -storepass $PASSWORD | grep SHA256: >> $FINGERPRINTFILEOLD
        fi
        
        ((i=i+1))
