@@ -1,0 +1,3 @@
+book := {}
+raised := text{"Ihr Bibliotheksausweis ist nicht mehr gültig. Bitte verlängern
+          lassen!"}

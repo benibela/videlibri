@@ -1,1 +1,5 @@
-<html>verlängert</html>
+<t:switch prioritized="true">
+  <html>verlängert</html>
+  <td style="color:red">{vl:raise(.)}</td>
+  <FONT COLOR="red">{vl:raise(.)}</FONT>
+</t:switch>
