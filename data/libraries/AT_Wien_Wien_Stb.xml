@@ -1,19 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <library>
   <longName value="Büchereien Wien"/>
-  <shortName value="Stb Wien"/>
     
-  <template value="bibliotheca"/>
-  <variable name="baseurl" value="https://katalog.buechereien.wien.at"/>	
-  <variable name="DB" value="BIB_SYS"/>	
+  <template value="bibliothecaplus"/>
+  <variable name="urlaccount" value="https://katalog.buechereien.wien.at/Konto"/>	
+  <variable name="urlsearch" value="https://katalog.buechereien.wien.at/Mediensuche/Erweiterte-Suche"/>
   
-  <!--<template value="pica"/>-->
-
-
   <homepage value="http://www.buechereien.wien.at/"/>
   <testing-search value="yes"/>
-  <testing-account value="yes"/>
-  
+  <testing-account value="unknown"/>
 
   <table-comment value="(VideLibri ist kein Produkt der Büchereien Wien!)"/>
 </library>
