@@ -45,7 +45,7 @@ test bibdia quickDetails quickDetails.duisburg.htm quickDetails.en.duisburg.html
 mkdir -p $OUTPATH/bibdia_stabib
 test bibdia_stabib update list.html list_abhol.html list_empty.html list_new.html
 testCrossDir pica 'searchDetails{\(\)/\(base:=\"\"\)}' bibdia_stabib stabikat1.html stabikat2.html stabikat3.html
-
+test bibdia_stabib simpleCheck simpleCheck.html
 
 #=============LIBERO==============
 mkdir -p $OUTPATH/libero5

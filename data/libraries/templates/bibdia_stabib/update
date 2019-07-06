@@ -14,6 +14,8 @@
 <TD>Sie haben keine Medien ausgeliehen<template:read var="delete-current-books()"/><template:read var="bookCount" source="'0'"/></TD><!--??-->
 </template:switch>
 
+<td t:condition="contains(., 'Ausweis gültig bis')">{$account-expiration := extract(., "[0-9./-]+")}</td>?
+
 <template:if test="$bookCount!='0'">
 <template:read var="templateError" source="'true'"/>
 <TABLE>
@@ -57,7 +59,8 @@
 
 <html>
 <title>Bibliothekskonto</title>
-<font color="black"><b>Sie haben keine Medien ausgeliehen.</b></font>
+<td t:condition="text()[contains(., 'Ausweis gültig bis')]">{$account-expiration := extract(., "[0-9./-]+")}</td>?
+<font color="black"><b>Sie haben keine Medien ausgeliehen.</b>{vl:delete-current-books()}</font>
 </html>
 
 <FONT COLOR="red"><b>Ausweisnummer oder Passwort sind falsch.<t:s>vl:raise-login(.)</t:s></b></font>

@@ -3,6 +3,7 @@ templateError := false()
 base := xs:anyURI("vltest://bibdia_stabib/list.html")
 delete-current-books() := ()
 bookCount := "5"
+account-expiration := "05.05.2013"
 templateError := "true"
 V := text{" "}
 status := "Potsdamer Straße, Lesesaal Abholbereich"
