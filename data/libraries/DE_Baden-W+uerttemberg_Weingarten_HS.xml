@@ -7,7 +7,7 @@
 
   <template value="aDISWeb"/>
   <variable name="server" value="bsz.ibs-bw.de"/>
-  <variable name="startparams" value="?service=direct/0/Home/$DirectLink&amp;sp=S127.0.0.1:23162"/>
+  <variable name="startparams" value="?service=direct/0/Home/$DirectLink&amp;sp=SOPAC16"/>
 
   <homepage value="http://bibliothek.ph-weingarten.de/"/>
   <testing-search value="yes"/>

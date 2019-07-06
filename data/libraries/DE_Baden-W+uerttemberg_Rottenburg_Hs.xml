@@ -7,9 +7,9 @@
 
   <template value="aDISWeb"/>
   <variable name="server" value="bsz.ibs-bw.de"/>
-  <variable name="startparams" value="?service=direct/0/Home/$DirectLink&amp;sp=S127.0.0.1:23362"/>
+  <variable name="startparams" value="?service=direct/0/Home/$DirectLink&amp;sp=SOPAC36"/>
 
-  <homepage value="http://www.hs-rottenburg.net/209.html"/>
+  <homepage value="https://www.hs-rottenburg.net/die-hochschule/einrichtungen-der-hfr/bibliothek/"/>
   <testing-search value="yes"/>
   <testing-account value="unknown"/>
   

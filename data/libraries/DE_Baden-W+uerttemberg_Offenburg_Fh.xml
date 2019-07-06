@@ -7,7 +7,7 @@
 
   <template value="aDISWeb"/>
   <variable name="server" value="bsz.ibs-bw.de"/>
-  <variable name="startparams" value="?service=direct/0/Home/$DirectLink&amp;sp=S127.0.0.1:23022"/>
+  <variable name="startparams" value="?service=direct/0/Home/$DirectLink&amp;sp=SOPAC02"/>
 
   <homepage value="http://informationszentrum.hs-offenburg.de/hochschulbibliothek/"/>
   <testing-search value="yes"/>

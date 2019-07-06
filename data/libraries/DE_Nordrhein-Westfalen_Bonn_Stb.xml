@@ -8,7 +8,7 @@
   <template value="sisis"/>  
   <variable name="server" value="https://www.lib.bonn.de/webOPACClient/"/>
   
-  <homepage value="http://www.bonn.de/familie_gesellschaft_bildung_soziales/stadtbibliothek"/>
+  <homepage value="https://www.bonn.de/stadtbibliothek/"/>
   <testing-search value="yes"/>
   <testing-account value="unknown"/>
   

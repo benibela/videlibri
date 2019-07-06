@@ -7,7 +7,7 @@
 
   <template value="aDISWeb"/>
   <variable name="server" value="bsz.ibs-bw.de"/>
-  <variable name="startparams" value="?service=direct/0/Home/$DirectLink&amp;sp=S127.0.0.1:23292"/>
+  <variable name="startparams" value="?service=direct/0/Home/$DirectLink&amp;sp=SOPAC29"/>
 
   <homepage value="http://www.hs-furtwangen.de/willkommen/die-hochschule/zentrale-services/informations-und-medienzentrum/die-bibliotheken.html"/>
   <testing-search value="yes"/>

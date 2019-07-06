@@ -7,7 +7,7 @@
 
   <template value="aDISWeb"/>
   <variable name="server" value="bsz.ibs-bw.de"/>
-  <variable name="startparams" value="?service=direct/0/Home/$DirectLink&amp;sp=S127.0.0.1:23312"/>
+  <variable name="startparams" value="?service=direct/0/Home/$DirectLink&amp;sp=SOPAC31"/>
 
   <homepage value="https://www.reutlingen-university.de/ueber-uns/organisation/hochschulbibliothek/"/>
   <testing-search value="yes"/>

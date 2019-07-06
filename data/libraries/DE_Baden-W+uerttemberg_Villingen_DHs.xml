@@ -7,9 +7,9 @@
 
   <template value="aDISWeb"/>
   <variable name="server" value="bsz.ibs-bw.de"/>
-  <variable name="startparams" value="?service=direct/0/Home/$DirectLink&amp;sp=S127.0.0.1:23222"/>
+  <variable name="startparams" value="?service=direct/0/Home/$DirectLink&amp;sp=SOPAC22"/>
 
-  <homepage value="http://www.dhbw-vs.de/ueber-uns/zentrale-einrichtungen/bibliothek.html"/>
+  <homepage value="https://www.dhbw-vs.de/studierende/serviceeinrichtungen/bibliothek.html"/>
   <testing-search value="yes"/>
   <testing-account value="unknown"/>
   
