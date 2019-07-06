@@ -1,0 +1,60 @@
+<html> 
+<body> 
+{vl:delete-current-books()}
+
+<t:switch prioritized="true">
+
+
+  <table id="rounded-list">
+   <tr>
+    <th/>
+    <t:siblings-header>
+    <th>Autor</th>?
+    <th>[Barcode] Titel</th>?
+    <th>Titel</th>?
+    <th>Signatur</th>
+    <th>Exemplarstatus</th>
+    <th>Fällig</th>
+<!--<th>Ausleihstatus</th>
+    <th>Medienart</th>
+    <th>Beschreibung</th>
+    <th>Vorm.</th>-->
+    <th/>*
+    </t:siblings-header>
+    {vl:delete-current-books()}
+   </tr> 
+   
+   <tr> 
+    {book := {}}
+    <td><A>{$book.detailLink:=@href}</A></td> 
+    <t:siblings>
+    <td>{$book.author}</td> 
+    <td>{let $split := extract(., "(\[([^\]]+)\])?([^/]+)(/(.*?) +- )?(.*?ISBN *([0-9X-]+))", (2,3,5,7))
+         return (
+           $book.barcode := $split[1],
+           $book.title := $split[2],
+           $book.author := $split[3],
+           $book.isbn := $split[4]
+         )}</td> 
+    <td>{$book.title}</td> 
+    <td>{$book.id}</td>
+    <td>{$book.category}</td>
+    <td>{$book.duedate := parse-date(.)}</td> 
+    <!--<td><br></td> 
+    <td><br></td> -->
+    <!--<template:read var="book-end()"/>-->
+    <td/>
+    </t:siblings>
+    </tr>+
+  </table> 
+  
+
+<p>Sie haben momentan keine Exemplare ausgeliehen.</p>
+<td>Keine Daten vorhanden.</td>
+
+</t:switch> 
+
+</body>
+</html> 
+
+ 

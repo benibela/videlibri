@@ -44,7 +44,7 @@
 </action>
 
 <action id="update-all">
-  <page url="{$bookPage}" templateFile="../ulbdue/update"/>
+  <page url="{$bookPage}" templateFile="update"/>
   <page url="{$holdPage}" templateFile="../ulbdue/update-hold"/>
 </action>
 

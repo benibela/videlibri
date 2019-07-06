@@ -53,6 +53,12 @@ setting status would override statusId <tr>
 </tr>?
 </table>
 
+<table>
+<tr><td>Entliehen am</td><td>{$book.issuedate:=parse-date(.)}</td></tr>
+<tr><td>Fällig am</td><td>{$book.duedate:=parse-date(.)}</td></tr>
+{$book.statusId:="critical"}
+<a t:condition="contains(@href, 'loan-renew')">{$book.extendLink:=@href, $book.statusId:="curious"}</a>?
+</table>
 
 </t:switch>
 <!--
