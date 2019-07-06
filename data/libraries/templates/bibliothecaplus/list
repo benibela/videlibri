@@ -30,8 +30,8 @@
         <tr>
           <th/>
           <t:siblings-header>
-          <th t:condition='@abbr="Cover"'/>
-          <th t:condition='@abbr="Titel"'/>
+          <th t:condition='@abbr="Cover" or contains(., "Cover")'/>
+          <th t:condition='@abbr="Titel" or matches(., "Titel|Title")'/>
           <th t:condition='@abbr="Verfasser" or contains(a/@href, "Sort$Author")'/>
           <th t:condition='@abbr="Mediengruppe" or contains(a/@href, "Sort$MediaGroup")'/>?
           <th t:condition='@abbr="Zweigstelle" or contains(a/@href, "Sort$Branch")'/>?
