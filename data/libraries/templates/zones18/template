@@ -104,6 +104,7 @@
           <a t:condition="contains(@href, 'ShowExpandedAccount')">{form := $accountUrl}</a> <!-- are already logged in, but nothing lend-->
           KEINE
         </table>
+        <h2><font>{vl:raise(.)}</font></h2>
       </t:switch-prioritized>
     </template>
   </page>
