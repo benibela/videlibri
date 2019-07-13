@@ -1,0 +1,8 @@
+book := {}
+base := xs:anyURI("vltest://bibdia_stabib/update.html")
+account-expiration := "01.08.2019"
+mode := "verl"
+book := {"status": "Potsdamer Straße, Ausleihe außer Haus", "author": "  Fischer, S.", "title": " Geldverkehr", "shortId": "1A123456\n", "id": "1A123456\n", "renewCount": "2", "duedate": "2019-07-25", "statusId": "critical", "_internalId": null}
+book := {"status": "Potsdamer Straße, Ausleihe außer Haus", "author": "  Corey, James", "title": " Aquafina", "shortId": "1A123456\n", "id": "1A123456\n", "renewCount": "2", "duedate": "2019-07-25", "statusId": "critical", "_internalId": null}
+book := {"status": "Potsdamer Straße, Ausleihe außer Haus", "author": "  LukŠyanenko, Sergei", "title": " Reise zum Mittelpunkt der Erde", "shortId": "10A1234\n", "id": "10A1234\n", "renewCount": " ", "duedate": "2019-07-30", "statusId": "critical", "_internalId": null}
+book := {"status": "Potsdamer Straße, Ausleihe außer Haus", "author": "  Awa, na", "title": " IT-Handbuch für FachinformatikerIdeal für die Bereiche Anwendungsentwicklung \nund Systemintegration. Mit vielen Prüfungsfragen und Übungen", "shortId": "10A12345\n", "id": "10A12345\n", "renewCount": "3", "duedate": "2019-08-04", "statusId": "critical", "_internalId": null}

@@ -10,7 +10,10 @@
 </action>
 
 <action id="update-all">
+  <s>vl:delete-current-books()</s>
   <page url="https://ausleihe.staatsbibliothek-berlin.de/opac/user.S?LANG=de&FUNC=medk&DUM1=&BENUTZER={uri-encode($username)}&PASS={uri-encode(xs:string(string-to-base64Binary($password)))}" templateFile="update"/>
+  <page url="https://ausleihe.staatsbibliothek-berlin.de/opac/user.S?LANG=de&FUNC=vorm&DUM1=&BENUTZER={uri-encode($username)}&PASS={uri-encode(xs:string(string-to-base64Binary($password)))}" templateFile="update"/>
+  <page url="https://ausleihe.staatsbibliothek-berlin.de/opac/user.S?LANG=de&FUNC=best&DUM1=&BENUTZER={uri-encode($username)}&PASS={uri-encode(xs:string(string-to-base64Binary($password)))}" templateFile="update"/>
 <!--  <error templateFile="loginError"/>-->
 </action>
 
@@ -31,7 +34,7 @@
 
 
 <action id="renew-list">
-  <variable name="book-list">string-join(for $book in $renew-books return x"{uri-encode($book.extendId)}=YES", "&amp;")</variable> 
+  <variable name="book-list">string-join(for $book in $renew-books return x"{uri-encode($book._internalId)}=YES", "&amp;")</variable> 
 
   <page url="https://ausleihe.staatsbibliothek-berlin.de/opac/verl.S" templateFile="simpleCheck">
     <post name="LANG" value="de"/>
@@ -43,6 +46,20 @@
   <call action="update-all"/>
 </action>
 
+<action id="cancel-list">
+  <loop var="func" list="$cancel-books?_func">
+    <variable name="book-list">string-join(for $book in $cancel-books[$func eq ?_func] return x"{uri-encode($book._internalId)}=YES", "&amp;")</variable> 
+  
+    <page url="https://ausleihe.staatsbibliothek-berlin.de/opac/{$func}.S">
+      <post name="LANG" value="de"/>
+      <post name="FUNC" value="{$func}"/>
+      <post name="BENUTZER" value="{$username}"/>
+      <post name="PASS" value="{xs:string(string-to-base64Binary($password))}"/>
+      <post value="{$book-list}"/>
+    </page>
+  </loop>
+  <call action="update-all"/>
+</action>
 
 
 <!-- compare pica template. 

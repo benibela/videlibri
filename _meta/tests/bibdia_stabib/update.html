@@ -1,0 +1,174 @@
+<!DOCTYPE html PUBLIC "-//SQ//DTD HTML 2.0 + all extensions//EN" "hmpro3.dtd">
+<!-- opac/de/user -->
+<html><head>
+	<base href="vltest://bibdia_stabib/update.html"/>
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<link rel="stylesheet" href="update-Dateien/OPAC.css" type="text/css">
+<title> Bibliothekskonto</title>
+<!-- ! /behaviors/cacheas?as=text/css ! -->
+<script language="JavaScript" type="text/javascript">
+  parent.frames[0].document.getElementById("LeftFrame1").style.display = "none";
+  parent.frames[0].document.getElementById("LeftFrame2").style.display = "block";
+var checkflag = "false";
+</script>
+<script language="JavaScript" src="update-Dateien/scripts_spk.S"></script>
+
+</head><body onload="onLoad('Bibliothekskonto anzeigen')" ;="" onclick="resetLogoutTimer('K')" onmouseover="resetLogoutTimer('M')" style="margin: 0 0 0 0; border-top: 1px solid #FFFFFF">
+<div id="LeftKonto" style="display:none;"><p class="navi">Bibliothekskonto</p>
+<p class="navi" style="margin: 0 0 0 7px"><a href="javascript:konto_func('medk')" title="Medienkonto">Entleihungen (4)</a></p>
+<p class="navi" style="margin: 0 0 0 7px"><a href="javascript:konto_func('vorm')" title="Vormerkungen">Vormerkungen (0)</a></p>
+<p class="navi" style="margin: 0 0 0 7px"><a href="javascript:konto_func('best')" title="Bestellungen">Bestellungen (0)</a></p>
+<p class="navi" style="margin: 0 0 0 7px"><a href="javascript:konto_func('gebk')" title="Gebührenkonto">Gebühren</a></p>
+<p class="navi" style="margin: 0 0 0 7px"><a href="javascript:konto_func('kurz')" title="Kurzinformation">Kurzinformation</a></p>
+<p class="navi" style="margin: 0 0 0 7px"><a href="javascript:frm_left('isrv')">Benachrichtigungen</a></p>
+<p class="navi" style="margin: 0 0 0 7px"><a href="javascript:start();">Abmelden</a></p>
+</div>
+<div style="height: 90px; background-color: #EEEEEE">
+<br><br>
+<!-- <H2 class="mainheader" style="color: #000000">Bibliothekskonto</H2> -->
+<h2 class="mainheader" style="color: #000000">Bibliothekskonto - Entleihungen/Bereitstellungen<span onmouseover="event.cancelBubble=true;" id="msg" style="color:red; margin left:2cm;"></span></h2>
+
+<a href="javascript:kontohilfe('callhinweise')" id="callhinweise" class="collapsed" style="float: left; display: block; line-height: 26px; margin: 0 0 0 40px;">Hinweise</a>
+<div style="clear: both"></div>
+<div id="hinweis_entleihungen/bereitstellungen" style="display: none; position: absolute; z-index: 1; background: #F5F5DC; border: 1px solid #577FBB; font-weight: normal; padding: 11px;">
+<div style="text-align: right"><a href="javascript:kontohilfe('callhinweise')" title="schließen"><img src="update-Dateien/close_small.gif" border="0"></a></div>
+Die Leihfrist für entliehene Medien kann fünfmal verlängert werden, <br> wenn keine Vormerkung eines 
+anderen Benutzers vorliegt. Eine Verlängerung ist frühestens <br> 10 Tage vor Ablauf der Leihfrist möglich. <br><br>
+Unter "Benachrichtigungen" können Sie einstellen, wenn Sie vor Ablauf der Leihfrist per E-Mail <br> oder SMS benachrichtigt werden möchten. 
+<br><br>
+Die Frist für die Abholung abholbereiter Medien beträgt 7 Tage für die Ausleihe außer Haus und <br> 7 Tage für die erste Einsichtnahme bei Lesesaalbenutzung. 
+<br><br>
+"Medien in Transit" bedeutet, dass das Medium zu Ihrem gewünschten Ausgabeort (in der Spalte <br> "Status" angegeben) unterwegs ist.
+</div>
+
+
+<div id="hinweis_bestellungen" style="display: none; position: absolute; z-index: 1; background: #F5F5DC; border: 1px solid #577FBB; font-weight: normal; padding: 11px;">
+<div style="text-align: right"><a href="javascript:kontohilfe('callhinweise')" title="schließen"><img src="update-Dateien/close_small.gif" border="0"></a></div>
+Hier finden Sie alle bestellten, aber noch nicht bereit liegenden Medien. Abholbereite Medien<br> finden
+Sie unter "Entleihungen". Bestellungen, die noch nicht bearbeitet werden, können Sie löschen.
+</div>
+
+<div id="hinweis_vormerkungen" style="display: none; position: absolute; z-index: 1; background: #F5F5DC; border: 1px solid #577FBB; font-weight: normal; padding: 11px;">
+<div style="text-align: right"><a href="javascript:kontohilfe('callhinweise')" title="schließen"><img src="update-Dateien/close_small.gif" border="0"></a></div>
+In dieser Tabelle sind alle Vormerkungen aufgelistet, die noch nicht für Sie bereitgestellt <br> worden sind.
+Für die Bereitstellung eines vorgemerkten Mediums fallen keine Gebühren an. <br> Wenn Sie die Vormerkung nicht wünschen, können Sie diese löschen. Der Rang bezeichnet die <br> Warteposition Ihrer 
+Vormerkung. Rechnen Sie ab dem zweiten Rang mit einer längeren Frist bis zur <br> Bereitstellung.
+</div>
+
+
+<div id="hinweis_gebühren" style="display: none; position: absolute; z-index: 1; background: #F5F5DC; border: 1px solid #577FBB; font-weight: normal; padding: 11px;">
+<div style="text-align: right"><a href="javascript:kontohilfe('callhinweise')" title="schließen"><img src="update-Dateien/close_small.gif" border="0"></a></div>
+Sie haben die Möglichkeit, offene Gebühren an den Anmeldestellen, an den <br> Kassenautomaten zu
+bezahlen oder diese zu überweisen:<br><br> 
+Zahlungsempfänger: Bundeskasse Trier - Dienstsitz Kiel<br><br>
+IBAN: DE18200000000020001066<br>
+BIC: MARKDEF1200<br>
+zugunsten SPK-0683111012<br><br>
+Bitte geben Sie bei der Überweisung Ihre Bibliotheksausweisnummer und die interne Zuweisung <br>
+(zugunsten SPK-0683111012) an und rechnen Sie mit einer Bearbeitungszeit von ungefähr 10 Tagen.<br><br>
+Umsatzsteueridentifikationsnummer: DE 811176976<br>
+Die Staatsbibliothek ist gem. §4 Ne. 20a UStG von der Umsatzsteuer befreit.
+</div>
+
+<div id="hinweis_kurzinformation" style="display: none; position: absolute; z-index: 1; background: #F5F5DC; border: 1px solid #577FBB; font-weight: normal; padding: 11px;">
+<div style="text-align: right"><a href="javascript:kontohilfe('callhinweise')" title="schließen"><img src="update-Dateien/close_small.gif" border="0"></a></div>
+Hier können Sie die von der Bibliothek erfassten Kontaktdaten <br> und Ausleihberechtigungen zu Ihrem Konto einsehen. Änderungen veranlassen Sie bitte bei den Leihstellen. </div>
+
+
+
+</div>
+<div class="blueborder"></div>
+<br>
+<div class="content">
+<table width="99%"><tbody><tr><td>001234566</td><td>&nbsp;&nbsp;Mike<br>
+</td><td>Entliehen/Bereitgestellt: 4</td></tr></tbody></table><br>
+<table><tbody><tr><td colspan="9">Ausweis gültig bis: 01.08.2019</td><td></td></tr><tr></tr><tr></tr></tbody></table><br>
+
+
+
+<font color="black"><br></font>
+ 
+<br><b>Entliehene Medien</b><br>
+Verlängerungen bitte markieren und&nbsp; &nbsp;<a href="javascript:sm_frm2('de')"><img src="update-Dateien/go1.gif" tabindex="3" alt="Verlängern " border="0"></a>
+<br><font color="blue"> Bitte beachten Sie: Eine Verlängerung von 
+Medien, die in die Lesesäle (Potsdamer Straße, Lesesaal bzw. Unter den 
+Linden, Bücherausgabe) entliehen sind, ist i.d.R. nur vor Ort möglich.</font>
+<form name="verl" method="post" action="/opac/verl.S">
+<input name="LANG" type="hidden" value="de">
+<input name="FUNC" type="hidden" value="verl">
+<input name="BENUTZER" type="hidden" value="1234567">
+<input type="hidden" name="PASS" value="foobar=
+">
+<table width="99%" border="1">
+<tbody><tr>
+<th width="2%"><a href="javascript:sl_all2('de')">Alle</a></th>
+<th width="3%">Fällig</th>
+<th width="2%"><a href="#" title="Verlängerungen" style="text-decoration:none; color:black">  V </a></th>
+<th width="2%"><a href="#" title="Mahnungen" style="text-decoration:none; color:black">  M </a></th>
+<th width="*" align="center">Signatur  / Titel </th><th>&nbsp;</th>
+<th colspan="2" width="*">Status</th>
+</tr>
+<tr><td width="1%">&nbsp;</td>
+<td width="11%" align="center">25.07.2019</td><td width="1%" align="center">2</td><td width="1%">&nbsp;</td><td>1A123456
+ /  Fischer, S.: Geldverkehr
+</td>
+<td>&nbsp;</td><td align="center"><font color="black">Potsdamer Straße, Ausleihe außer Haus   </font></td></tr>
+<tr><td width="1%">&nbsp;</td>
+<td width="11%" align="center">25.07.2019</td><td width="1%" align="center">2</td><td width="1%">&nbsp;</td><td>1A123456
+ /  Corey, James: Aquafina
+</td>
+<td>&nbsp;</td><td align="center"><font color="black">Potsdamer Straße, Ausleihe außer Haus   </font></td></tr>
+<tr><td width="1%">&nbsp;</td>
+<td width="11%" align="center">30.07.2019</td><td width="1%" align="center">&nbsp;</td><td width="1%">&nbsp;</td><td>10A1234
+ /  LukŠyanenko, Sergei: Reise zum Mittelpunkt der Erde
+</td>
+<td>&nbsp;</td><td align="center"><font color="black">Potsdamer Straße, Ausleihe außer Haus   </font></td></tr>
+<tr><td width="1%">&nbsp;</td>
+<td width="11%" align="center">04.08.2019</td><td width="1%" align="center">3</td><td width="1%">&nbsp;</td><td>10A12345
+ /  Awa, na: IT-Handbuch für FachinformatikerIdeal für die Bereiche Anwendungsentwicklung 
+und Systemintegration. Mit vielen Prüfungsfragen und Übungen
+</td>
+<td>&nbsp;</td><td align="center"><font color="black">Potsdamer Straße, Ausleihe außer Haus   </font></td></tr>
+</tbody></table>
+</form>
+
+ 
+
+<br><br>
+26.06.2019: <a target="_blank" style="text-decoration:none" href="https://staatsbibliothek-berlin.de/de/aktuelles/benutzung-aktuell/detail/article/2019-06-26-4382/">Buchbestellungen für die Nutzung im Lesesaal</a>
+<br><br>
+24.06.2019: <a target="_blank" style="text-decoration:none" href="https://blog.sbb.berlin/neuregelung-der-buchabholung-und-ruecklage-im-haus-potsdamer-strasse-ab-juli-2019/">Neuregelung der Buchabholung und –rücklage im Haus Potsdamer Straße ab Juli 2019</a>
+<br><br>
+Neuregelung der Buchabholung! Am 03.07. 2019 kommt es zu Verzögerungen 
+in der Bereitstellung sowie umzugsbedingten Einschränkungen. 
+<!-- <br><br>
+Sonnabends erfolgt keine Lieferung aus den Hauptmagazinen. Die Abholung bereits bereitgestellter Medien ist zu den <a target="_blank" style="text-decoration:none" href="http://staatsbibliothek-berlin.de/vor-ort/buecherausgabeleihstelle/">&Ouml;ffnungszeiten der buchausgebenden Stellen </a> m&ouml;glich.  -->
+<br><br>
+Medien, die Sie bestellen oder vormerken, bleiben ab der Bereitstellung 7 Kalendertage zur (Erst-)Abholung für Sie liegen.
+<br><br>
+<img src="update-Dateien/linie_990000-neu.gif" <font="" size="2" width="100%" height="5"><font face="Arial">Fragen und Anmerkungen können Sie <a target="_blank" style="text-decoration:none" href="http://staatsbibliothek-berlin.de/service/hinweise-zu-ausleihe-und-benutzung/anfragen/">schriftlich</a> oder telefonisch unter +49 30 266 433999 (Potsdamer Straße) bzw. +49 30 266 433777 (Unter den Linden) an uns richten.<br><br>
+<i>Optimal ab Internet Explorer 8.0, Firefox 6.0, Safari 5.1.2, Opera 11.6. </i>
+</font><br><br>
+<address>
+</address>
+
+
+
+
+
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+</body></html>
+<!-- Your output data goes in here -->

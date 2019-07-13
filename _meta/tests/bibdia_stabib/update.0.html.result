@@ -1,0 +1,3 @@
+book := {}
+base := xs:anyURI("vltest://bibdia_stabib/update.0.html")
+account-expiration := "05.07.2020"

@@ -1,0 +1,7 @@
+book := {}
+base := xs:anyURI("vltest://bibdia_stabib/best.html")
+account-expiration := "05.07.2020"
+mode := "bestl"
+book := {"status": "", "libraryBranch": "Potsdamer Straße, Abholbereich", "author": " Stoker, Bram", "title": " Gesammelte Werke", "shortId": "1A141234", "id": "1A141234-14", "barcode": "34281201", "_func": "bestl", "cancelable": true, "statusId": "ordered", "_internalId": "34281201"}
+book := {"status": "", "libraryBranch": "Potsdamer Straße, Abholbereich", "author": " Stoker, Bram", "title": " Beginning", "shortId": "631234", "id": "631234", "barcode": "34281310", "_func": "bestl", "cancelable": true, "statusId": "ordered", "_internalId": "34281210"}
+book := {"status": "", "libraryBranch": "Potsdamer Straße, Abholbereich", "author": " Babelʹ, Ivan Ė.", "title": " Nemo", "shortId": "21A12345", "id": "21A12345", "barcode": "34281220", "_func": "bestl", "cancelable": true, "statusId": "ordered", "_internalId": "34281220"}

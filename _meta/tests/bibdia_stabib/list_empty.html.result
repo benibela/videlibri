@@ -1,5 +1,2 @@
 book := {}
-templateError := false()
 base := xs:anyURI("vltest://bibdia_stabib/list_empty.html")
-delete-current-books() := ()
-bookCount := "0"
