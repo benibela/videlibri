@@ -88,7 +88,7 @@ resourcestring
 
 implementation
 
-uses applicationdesktopconfig, applicationconfig,  Graphics, bookproperties;
+uses applicationdesktopconfig, applicationconfig,  Graphics, bookproperties, StrUtils;
 //  ,windows {for the search only};
 
 
@@ -400,6 +400,7 @@ begin
           '?account': if book.owningAccount <> nil then RecordItems.Add(book.owningAccount.prettyName)
                       else RecordItems.Add(rsunknown);
           'status': RecordItems.Add(BookStatusToStr(book));
+          'renewcount': RecordItems.Add(IfThen(book.renewCount < 0, '', book.renewCount.ToString));
           else RecordItems.Add(book.getProperty(properties[i]));
         end;
 

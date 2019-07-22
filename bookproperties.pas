@@ -5,7 +5,7 @@ unit bookproperties;
 interface
 
 const
-  defaultBookListViewLendColumns: array[0..10] of string = (
+  defaultBookListViewLendColumns: array[0..11] of string = (
     'id',
     'category',
     'author',
@@ -16,7 +16,8 @@ const
     '?account',
     'status',
     'isbn',
-    'libraryBranch'
+    'libraryBranch',
+    'renewCount'
   );
 
   defaultBookListViewSearchColumns: array[0..3] of string = (
@@ -79,7 +80,7 @@ resourcestring
   rsBookPropertyLocationSearch = 'Ort';
   rsBookPropertyStatus = 'Ausleihstatus';
   rsBookPropertyPublisher = 'Verlag';
-  rsBookPropertyRenewCount = 'Anzahl Verlängerungen';
+  rsBookPropertyRenewCount = 'Verlängerungen';
   rsBookPropertyLibraryLocation = 'Standort';
   rsBookPropertyBarcode = 'Mediennummer';
   rsBookPropertyPendingOrders = 'Vorbestellungen';
@@ -109,6 +110,7 @@ var
   (key: 'issueDate'; text: rsBookPropertyIssueDate; defaultWidth: 70),
   (key: 'dueDate'; text: rsBookPropertyLimitDate; defaultWidth: 70),
   (key: 'libraryBranch'; text: rsBookPropertyLibraryBranch; defaultWidth: 40),
+  (key: 'renewCount'; text: rsBookPropertyRenewCount; defaultWidth: 25),
   (key: '?account'; text: rsBookPropertyAccount; defaultWidth: 80),
   (key: 'status'; text: rsBookPropertyStatusComment; defaultWidth: 250),
   (key: 'isbn'; text: rsBookPropertyISBN; defaultWidth: 80),
@@ -117,7 +119,6 @@ var
 
   (key: 'publisher'; text: rsBookPropertyPublisher; defaultWidth: 50),
   (key: 'location'; text: rsBookPropertyLocationSearch; defaultWidth: 50),
-  (key: 'renewCount'; text: rsBookPropertyRenewCount; defaultWidth: 30),
 
   (key: 'barcode'; text: rsBookPropertyBarcode; defaultWidth: 30),
   (key: 'libraryLocation'; text: rsBookPropertyLibraryLocation; defaultWidth: 40),
