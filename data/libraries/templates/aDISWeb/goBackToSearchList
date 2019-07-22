@@ -1,0 +1,4 @@
+<t:switch prioritized="true">
+  <a title="Trefferliste">{goBackPage:=@href}</a>
+  <input t:condition="contains(@title, 'zur Trefferliste')">{goBackPage:= (let $temp := uri-encode(@name) return form(//form, x"{$temp}.x=0&{temp}.y=0"))}</input>
+</t:switch>

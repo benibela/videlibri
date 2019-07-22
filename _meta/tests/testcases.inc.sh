@@ -117,11 +117,9 @@ test aDISWeb connected connected_furtwangen.html connected_voebb1.html connected
 
 test aDISWeb searchInputForm searchInputForm_mannheim-hsb.html 
 
-test aDISWeb 'orderConfirmation{\(\)/\(username:=\$password:=\"\"\)}' orderConfirmation_hdmtest.html orderConfirmation_due.html orderConfirmation_voebb.html 
+test aDISWeb 'orderConfirmation{\(\)/\(username:=\$password:=\"\"\)}' orderConfirmation_hdmtest.html orderConfirmation_due.html orderConfirmation_voebb.html orderTimeout.html
 
 test aDISWeb orderConfirmed orderConfirmed1_due.html orderConfirmed2_due.html orderConfirmed2_hdmtest.html orderConfirmed_failed2_hdmtest.html orderConfirmed_failed_hdmtest.html orderConfirmed_munich.html orderConfirmed_munich2.html orderConfirmed_voebb.html
-
-test aDISWeb orderMultipleDistrict orderTimeout.html orderInCollection.html 
 
 
 

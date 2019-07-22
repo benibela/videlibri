@@ -1,7 +1,11 @@
 book := {}
-raised := (text{""}, 
-text{"Wir haben seit einiger Zeit keine Meldung mehr von Ihnen erhalten."}, 
-text{""}, 
-text{"Aus Sicherheitsgründen wurde Ihre Verbindung beendet."}, 
-text{""}, 
-text{""})
+error := text{"Wir haben seit einiger Zeit keine Meldung mehr von Ihnen erhalten."}
+goBackPage := text{"Wir haben seit einiger Zeit keine Meldung mehr von Ihnen erhalten.
+
+   Zu Ihrer Sicherheit wurde Ihre Verbindung beendet. 
+   Klicken Sie auf 'Neue Sitzung', um eine neue Verbindung herzustellen.
+   
+
+
+
+Neue Sitzung"}

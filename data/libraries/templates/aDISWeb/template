@@ -4,8 +4,7 @@
 <meta>
   <description>Template des aDISWeb-Systems, üblicherweise in Bayern verwendet</description>
   <variable name="server"><description>reiner Servername, (z.B.: ssl.muenchen.de) </description></variable>
-  <variable name="startparams" default=""><description>Parameter in der URL nach aDISWeb/app für Server, auf denen mehrere Bibliothekssysteme laufen</description></variable>    
-  <variable name="multiple-district-ordering" default=""><description>Spezielle Option für VOEBB (oder ähnliche Verbünde). Für Einzelbibliotheken leerlassen</description></variable>    
+  <variable name="startparams" default=""><description>Parameter in der URL nach aDISWeb/app für Server, auf denen mehrere Bibliothekssysteme laufen</description></variable>
 </meta>
 
 
@@ -16,32 +15,31 @@
     <s>i := 1</s>
     <!-- follow links till we reach the login page -->
     <loop test="$i < 10">
-        <page url="{$loginFormPost}">
-          <template><t:switch-prioritized>  
-            <p class="form-error">Benutzernummer oder Passwort falsch<t:s>vl:raise-login(.)</t:s></p><!-- blb karlsruhe -->
+        <page url="{$loginFormPost}"/>
+        <pattern><t:switch prioritized="true">
+          <p class="form-error">Benutzernummer oder Passwort falsch<t:s>vl:raise-login(.)</t:s></p><!-- blb karlsruhe -->
 
-            <!-- seems we already are on the correct page, send request again (not tested with any library) -->
-            <td>Keine Ausleihen<t:s>i:=1000</t:s></td>
-            <a>Ausleihen zeigen oder verlängern<t:s>i:=1000</t:s></a> 
-            <a>Ausleihe zeigen oder verlängern<t:s>i:=1000</t:s></a>
-          
-            <!-- we were logged out ? -->
-            <a>Mein Konto<t:s>loginFormPost := .</t:s></a>
-    
-            <!-- redirection -->
-            <form t:condition=" .//@name = ('_eventId_proceed', 'SAMLResponse', 'RelayState') ">
-              { let $buttons := ((.//input, .//button)[@type=("submit", "image")], .//button, .//input[@type="button"])
-                let $proceed := $buttons[@name = "_eventId_proceed"]
-                return
-                  $loginFormPost := form(., ($proceed, $buttons)[1] )
-              }
-            </form>
-            <meta http-equiv="refresh">{$loginFormPost}</meta>    
-            <a t:condition="contains(@href, '?')">{$loginFormPost}</a>
-            <form>{$loginFormPost := form(., ((.//input, .//button)[@type=("submit", "image")], .//button, .//input[@type="button"])[1] )}</form>
-            <a>{$loginFormPost}</a>
-          </t:switch-prioritized></template>
-        </page>
+          <!-- seems we already are on the correct page, send request again (not tested with any library) -->
+          <td>Keine Ausleihen<t:s>i:=1000</t:s></td>
+          <a>Ausleihen zeigen oder verlängern<t:s>i:=1000</t:s></a> 
+          <a>Ausleihe zeigen oder verlängern<t:s>i:=1000</t:s></a>
+        
+          <!-- we were logged out ? -->
+          <a>Mein Konto<t:s>loginFormPost := .</t:s></a>
+  
+          <!-- redirection -->
+          <form t:condition=" .//@name = ('_eventId_proceed', 'SAMLResponse', 'RelayState') ">
+            { let $buttons := ((.//input, .//button)[@type=("submit", "image")], .//button, .//input[@type="button"])
+              let $proceed := $buttons[@name = "_eventId_proceed"]
+              return
+                $loginFormPost := form(., ($proceed, $buttons)[1] )
+            }
+          </form>
+          <meta http-equiv="refresh">{$loginFormPost}</meta>    
+          <a t:condition="contains(@href, '?')">{$loginFormPost}</a>
+          <form>{$loginFormPost := form(., ((.//input, .//button)[@type=("submit", "image")], .//button, .//input[@type="button"])[1] )}</form>
+          <a>{$loginFormPost}</a>
+        </t:switch></pattern>
         <s>$i := $i + 1</s>
     </loop>
     
@@ -51,35 +49,35 @@
 
   <page test="not(get('idpSystem'))" url="{$loginFormPost}">
     <post name="textButton" value="Anmeldung abschicken"/>
-    
-    <template>
-      <template:switch-prioritized>
-        <form>{loginFormPost:=form(.)}
-        <h1>Sie sind angemeldet.</h1>
-        </form>
+  </page>
+      
+  <pattern>
+    <template:switch prioritized="true">
+      <form>{loginFormPost:=form(.)}
+      <h1>Sie sind angemeldet.</h1>
+      </form>
 
-        <td>Keine Ausleihen</td>
-        <a>Ausleihen zeigen oder verlängern</a> <!-- seems we already are on the correct page, send request again (not tested with any library) -->
-        <a>Ausleihe zeigen oder verlängern</a>
-        
-        <h1>Bitte auch das Passwort angeben<t:s>vl:raise-login(.)</t:s></h1>
-        <h1>Sie sind nicht mit Ihren Angaben registriert<t:s>vl:raise-login(.)</t:s></h1>
-        <li>Benutzernummer oder Passwort falsch?<t:s>vl:raise-login(.)</t:s></li>
-        <h1>Das System kann Sie derzeit nicht anmelden! Angaben sind fehlerhaft!<t:s>vl:raise-login(.)</t:s></h1>
-        <h1>Anmeldung fehlgeschlagen. Bitte überprüfen Sie Ihre Eingabe.<t:s>vl:raise-login(.)</t:s></h1>
-        <h1>Die angegebene Lesernummer oder das Passwort ist falsch.<t:s>vl:raise-login(.)</t:s></h1>
-        
-         
-        <span class="bnzeig" t:condition="contains(text(), 'Sie sind angemeldet')" /> <!-- sind schon angemeldet. (neuess, ordering!) -->
-        
-        <div class="message"><div id="R01"><h1>{vl:raise-login(.)}</h1></div></div>
-        <span class="alert">{vl:raise-login(.)}</span>
-        <input type="password" class="errstate">{vl:raise-login("")}</input>
-         
-        <form><select/><select/></form> <!-- munich ordering -->
-      </template:switch-prioritized>
-    </template>
-  </page>  
+      <td>Keine Ausleihen</td>
+      <a>Ausleihen zeigen oder verlängern</a> <!-- seems we already are on the correct page, send request again (not tested with any library) -->
+      <a>Ausleihe zeigen oder verlängern</a>
+      
+      <h1>Bitte auch das Passwort angeben<t:s>vl:raise-login(.)</t:s></h1>
+      <h1>Sie sind nicht mit Ihren Angaben registriert<t:s>vl:raise-login(.)</t:s></h1>
+      <li>Benutzernummer oder Passwort falsch?<t:s>vl:raise-login(.)</t:s></li>
+      <h1>Das System kann Sie derzeit nicht anmelden! Angaben sind fehlerhaft!<t:s>vl:raise-login(.)</t:s></h1>
+      <h1>Anmeldung fehlgeschlagen. Bitte überprüfen Sie Ihre Eingabe.<t:s>vl:raise-login(.)</t:s></h1>
+      <h1>Die angegebene Lesernummer oder das Passwort ist falsch.<t:s>vl:raise-login(.)</t:s></h1>
+      
+       
+      <span class="bnzeig" t:condition="contains(text(), 'Sie sind angemeldet')" /> <!-- sind schon angemeldet. (neuess, ordering!) -->
+      
+      <div class="message"><div id="R01"><h1>{vl:raise-login(.)}</h1></div></div>
+      <span class="alert">{vl:raise-login(.)}</span>
+      <input type="password" class="errstate">{vl:raise-login("")}</input>
+       
+      <form><select/><select/></form> <!-- munich ordering -->
+    </template:switch>
+  </pattern>
 </action>
 
 <action id="update-all">
@@ -91,14 +89,13 @@
   
   <if test="$connected"><variable name="connectPage">$searchPage</variable></if>
 
-  <page url="{$connectPage}">
-    <template>
-      <a>
-        <template:meta default-text-matching="regex"/>
-        Benutzerkonto|Konto|Anmeldung<t:s>loginForm:=@href</t:s>
-      </a>
-    </template>
-  </page>
+  <page url="{$connectPage}"/>
+  <pattern>
+    <a>
+      <template:meta default-text-matching="regex"/>
+      Benutzerkonto|Konto|Anmeldung<t:s>loginForm:=@href</t:s>
+    </a>
+  </pattern>
   
   <loop test="exists($loginForm)">
     <s>lf := $loginForm, loginForm := ()</s>
@@ -196,12 +193,11 @@
       case 'provided' return $providedPage
       default return concat("unknown page ", $mode, "NEU AKTUALISIEREN")
     </s>
-    <page url="{$page}">
-      <template><form>{
-        cancelFormPost := form(., jn:object((.//input[@type = "submit" and contains(@value, "arkierte") and contains(@value, "schen")])[1]/{string(@name): @value})),
-        cancelFormPost.post := replace($cancelFormPost.post, "[a-zA-Z0-9]+=on&", "")
-      }</form></template>
-    </page> 
+    <page url="{$page}"/>  
+    <pattern><form>{
+      cancelFormPost := form(., (.//input[@type = "submit" and contains(@value, "arkierte") and contains(@value, "schen")])[1]),
+      cancelFormPost.post := replace($cancelFormPost.post, "[a-zA-Z0-9]+=on&", "")
+    }</form></pattern>
 
   
     <variable name="book-list">string-join(for $book in $cancel-books[(.)._mode = $mode] return  x"{$book.cancelid}=on", "&amp;")</variable> 
@@ -300,83 +296,51 @@
 </action>
 
 <action id="internal-order-single">
-  <page url="{$form}">
-    <template><form>{form:=form(., (.//input[@type = "submit" and contains(@value, "Bestell")])[1]/{string(@name): @value})}</form></template>
-  </page>
+  <page url="{$form}"/>
+  <pattern><form>{form:=form(., (.//input[@type = "submit" and contains(@value, "Bestell")])[1])}</form></pattern>
   
-  <s>inCollection:=false(), subBookOnly := false(), error := ()</s>
-  
-  <page test="get('multiple-district-ordering', false())" url="{$form}" templateFile="orderMultipleDistrict"/>
-  
-  <if test="$inCollection">
-    <page url="{$inCollection}">
-      <template>
+  <s>subBookOnly := false(), error := (), internal-loggedin := true()</s>
+  <page url="{$form}" templateFile="orderConfirmation"/>    
+  <if test="$subBookOnly"> 
+    <page url="{$subBookOnly}"/>
+    <pattern>
+      <form>
+        <t:switch-prioritized>
+          <input title="Zurück zur vorherigen Seite">{backButtonName := uri-encode(@name)}</input>
+          <input t:condition="contains(@title, 'zur vorherigen Seite')">{backButtonName := uri-encode(@name)}</input>
+        </t:switch-prioritized> 
+        {goBackPage := form(., x"{$backButtonName}.x=0&{$backButtonName}.y=0")}
         <div id="R06"><div class="aDISListe"><table>
-          <tr><th>In</th><td><a>{collection:=.}</a></td></tr> 
+          <tr><th>Band</th><td>{vl:choose("internal-order-volume", "Welcher Band soll bestellt werden?", a/substring(normalize-space(.), 1, 75), a/@href)}</td></tr> 
         </table></div></div>
-      </template>
-    </page>
-    
-    <page url="{$collection}">
-      <template><form>{form:=form(., (.//input[@type = "submit" and contains(@value, "Bestell")])[1]/{string(@name): @value})}</form></template>
-    </page>
-    <page test="get('multiple-district-ordering', false())" url="{$form}" templateFile="orderMultipleDistrict"/>
+      </form>
+    </pattern>
   </if>
-  <call action="internal-order-check-volume"/>
-  <call action="internal-go-back-with-error"/>
   
-  <if test="not(get('multiple-district-ordering', false())) and not($subBookOnly)">
-    <s>$choose-result := "ok"</s>
-    <call action="internal-order-continue"/>
+  <if test="not(get('internal-loggedin', false())) and not($subBookOnly)">
+    <call action="internal-login"/>
+    <variable name="internal-loggedin">true()</variable>
+    <variable name="form">$loginFormPost</variable>
+    <pattern href="orderConfirmation"/>
+    <if test="exists($error)">
+      <s>error:=()</s>
+      <page url="{$form}" templateFile="orderConfirmation"/>
+    </if>
   </if>
-</action>
+  
 
-<action id="internal-get-go-back-step">
-    <page url="{$goBackPage}">
-      <template>
-        <t:switch prioritized="true">
-          <a title="Trefferliste">{goBackPage:=@href}</a>
-          <input t:condition="contains(@title, 'zur Trefferliste')">{goBackPage:= (let $temp := uri-encode(@name) return form(//form, x"{$temp}.x=0&{temp}.y=0"))}</input>
-        </t:switch>
-      </template>
-    </page>
-</action>
-
-<action id="internal-go-back-with-error">
   <if test="$error">
     <call action="internal-get-go-back-step"/>
     <s>vl:raise($error)</s>
     <page url="{$goBackPage}" templateFile="searchBasicForm"/>
   </if>
+
 </action>
 
-<action id="internal-go-back2">
-  <if test="$choose-result instance of xs:decimal">
-    <call action="internal-get-go-back-step"/>
-    <page url="{$goBackPage}" templateFile="searchBasicForm"/>
-  </if>
+<action id="internal-get-go-back-step">
+  <page url="{$goBackPage}"/>
+  <pattern href="goBackToSearchList"/>
 </action>
-
-<!-- when $subBookOnly is set, go to that page and ask which volume -->
-<action id="internal-order-check-volume">
-  <if test="$subBookOnly"> 
-    <page url="{$subBookOnly}">
-      <template>
-        <form>
-          <t:switch-prioritized>
-            <input title="Zurück zur vorherigen Seite">{backButtonName := uri-encode(@name)}</input>
-            <input t:condition="contains(@title, 'zur vorherigen Seite')">{backButtonName := uri-encode(@name)}</input>
-          </t:switch-prioritized> 
-          {goBackPage := form(., x"{$backButtonName}.x=0&{$backButtonName}.y=0")}
-          <div id="R06"><div class="aDISListe"><table>
-            <tr><th>Band</th><td>{vl:choose("internal-order-volume", "Welcher Band soll bestellt werden?", a/substring(normalize-space(.), 1, 75), a/@href)}</td></tr> 
-          </table></div></div>
-        </form>
-      </template>            
-    </page>
-  </if>
-</action>
-
 
  
 <action id="internal-order-volume">
@@ -389,37 +353,12 @@
   </if>
 </action>
 
-<action id="internal-order-continue">
-  <call action="internal-go-back2"/>
-  <if test="$choose-result instance of xs:string">
-    <if test="get('multiple-district-ordering', false())"> 
-      <page url="{$choose-result}">
-        <template><form>{form:=form(., (.//input[@type = "submit" and contains(@value, "Bestellung")])[1])}</form></template>
-      </page>
-    </if>
-    
-    <s>internal-loggedin := true(), subBookOnly := false()</s>
-    <page url="{$form}" templateFile="orderConfirmation"/>    
-    <call action="internal-order-check-volume"/>
-    <if test="not(get('internal-loggedin', false())) and not($subBookOnly)">
-      <call action="internal-login"/>
-      <variable name="internal-loggedin">true()</variable>
-      <variable name="form">$loginFormPost</variable>
-      <pattern href="orderConfirmation"/>
-      <if test="exists($error)">
-        <s>error:=()</s>
-        <page url="{$form}" templateFile="orderConfirmation"/>
-      </if>
-    </if>
-  
-
-    <call action="internal-go-back-with-error"/>
-  </if>
-</action>
-
 
 <action id="internal-order-confirmed">
-  <call action="internal-go-back2"/>
+  <if test="$choose-result instance of xs:decimal">
+    <call action="internal-get-go-back-step"/>
+    <page url="{$goBackPage}" templateFile="searchBasicForm"/>
+  </if>
 
   <if test="$choose-result instance of xs:string">
     <variable name="form">
@@ -433,14 +372,9 @@
     <page url="{$form}" templateFile="orderConfirmed"/>
     <page url="{$form}" templateFile="orderConfirmed"/>
     <page url="{$final-form}"/>
-    <t:s>book.statusId := "ordered"</t:s>
+    <s>book.statusId := "ordered"</s>
 
-    <pattern>
-      <t:switch prioritized="true">
-        <a title="Trefferliste">{goBackPage:=@href}</a>
-        <input t:condition="contains(@title, 'zur Trefferliste')">{goBackPage:= (let $temp := uri-encode(@name) return form(//form, x"{$temp}.x=0&{temp}.y=0"))}</input>
-      </t:switch>
-    </pattern>
+    <pattern href="goBackToSearchList"/>
     <page url="{$goBackPage}" templateFile="searchBasicForm"/>
 
   </if>
