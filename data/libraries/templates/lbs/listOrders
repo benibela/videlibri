@@ -36,7 +36,7 @@
                    <tr><td>Signatur</td>             <td>{$book.id}</td></tr>
                    <tr><td>Ausleihfrist</td>         <td>{$book.status := x"{$book.status} Ausleihfrist: {normalize-space(.)}"}</td></tr>
                    <tr><td>Anzahl Vormerkungen</td>  <td>{$book.status := x"{$book.status} Anzahl Vormerkungen: {normalize-space(.)}"}</td></tr>
-                   <tr><td>Verlängerungen</td>       <td>{$book.status := x"{$book.status} Verlängerungen: {normalize-space(.)}"}</td></tr>
+                   <tr><td>Verlängerungen</td>       <td>{$book.renewCount := normalize-space()}</td></tr>
                 </t:switch></t:loop>
                 <SPAN class="error">{$book.status := x"{normalize-space(.)} {$book.status}"}</SPAN>?
  

@@ -28,11 +28,8 @@
         <td>{$book.author := join(br/preceding-sibling::text())}<a>{$book.title}</a></td>
         <td>{$book.year}</td>
         <td>{$book.dueDate := parse-date(.)}</td>
-        <td>{$book.status := switch (normalize-space()) 
-                               case "0"return "" 
-                               case "1" return "Eine Verlängerung"
-                               default return . || " Verlängerungen"}</td>
-        <td>{$book.status := $book.status || " " || .}</td>
+        <td>{$book.renewCount}</td>
+        <td>{normalize-space()[.] ! ( $book.status := "Letzte Verlängerung: " || .)}</td>
         <td>{$book.issueDate := parse-date(.), $book.statusId := "ordered"}</td>
         <td></td>
       </t:siblings></tr>+

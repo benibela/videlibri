@@ -42,7 +42,7 @@
  <TD>{$book.duedate := parse-date(.)}</TD> 
  <td/>
  <td>{$book.libraryBranch := join((normalize-space(), .//@title), ", ")}</td>
- <TD>{$book.status := $book.status || (normalize-space()[.]!x"{.} Verlängerungen") }</TD>
+ <TD>{$book.renewCount := normalize-space()}</TD>
  <TD>{$book.status := $book.status || (extract(., "[0-9]+")[.]!x"{.} Mahnungen") }</TD>
  <TD>{book.id := extract(., "^[^/]+"), 
       book.title := substring-after(., ":"),

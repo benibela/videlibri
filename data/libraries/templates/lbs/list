@@ -34,10 +34,10 @@
                    <tr><td>Ausleihfrist</td>  <td>{book.duedate := parse-date(.)}</td></tr>
                    <tr><td>Theke</td>         <td>{$book.libraryBranch}</td></tr>
                    <tr><td>Signatur</td>      <td>{$book.id}</td></tr>
-                   <tr><td>Verlängerungen</td><td>{$book.status := x"{$book.status} Verlängerungen: {normalize-space(.)}"}</td></tr>
+                   <tr><td>Verlängerungen</td><td>{$book.renewCount}</td></tr>
                    <tr><td>Mahnungen</td>     <td>{$book.status := x"Mahnungen: {normalize-space(.)} {$book.status} "}</td></tr>
                 </t:switch></t:loop>
-                <SPAN class="error">{$book.status := x"{normalize-space(.)} {$book.status}"}</SPAN>?
+                <SPAN class="error">{$book.status := x"{normalize-space(.),$line-ending,$book.status}"}</SPAN>?
               </DIV>
             </TD>
           </TR>+
