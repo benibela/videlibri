@@ -521,7 +521,7 @@ public class BookDetails extends VideLibriFakeFragment {
                         } else {
                             String isbn = book.getNormalizedISBN(true,Bridge.Book.ISBNNormalization.ISBN_CONVERT_TO_13);
                             if ("".equals(isbn)) continue;
-                            url = "http://vlb.de/GetBlob.aspx?strIsbn=" + isbn + "&size=M";
+                            url = "https://www.buchhandel.de/cover/"+isbn+"/"+isbn+"-cover-m.jpg";
                         }
                     }
 

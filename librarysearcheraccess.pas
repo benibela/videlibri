@@ -592,7 +592,9 @@ begin
             if book.isbn <> '' then begin
               arrayAdd(images, 'http://covers.openlibrary.org/b/isbn/'+book.getNormalizedISBN(false, 10)+'-M.jpg?default=false');
               arrayAdd(images, 'http://images-eu.amazon.com/images/P/'+book.getNormalizedISBN(true, 10)+'.03.L.jpg');
-              arrayAdd(images, 'http://vlb.de/GetBlob.aspx?strIsbn='+book.getNormalizedISBN(true, 13)+'&size=M');
+	      temp := book.getNormalizedISBN(true, 13);
+              //arrayAdd(images, 'http://vlb.de/GetBlob.aspx?strIsbn='+book.getNormalizedISBN(true, 13)+'&size=M');
+              arrayAdd(images, 'https://www.buchhandel.de/cover/'+temp+'/'+temp+'-cover-m.jpg');
             end;
             if logging then log('image candidate urls: '+strJoin(images, LineEnding));
             for temp in images do begin
