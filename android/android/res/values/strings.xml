@@ -451,5 +451,6 @@
     <string name="lay_options_btn_account_toggle_description">Anzeigen oder verbergen</string>
     <string name="warning_search_is_broken">Bei dieser Bibliothek funktioniert die Suche nicht, deshalb bringt es nichts ein Suchkonto anzulegen.</string>
     <string name="warning_account_is_broken">Bei dieser Bibliothek funktioniert der Kontozugriff nicht, deshalb bringt es nichts eine Kontonummer einzugeben.</string>
+    <string name="book_renewCount">Anzahl Verlängerungen</string>
 </resources>
 

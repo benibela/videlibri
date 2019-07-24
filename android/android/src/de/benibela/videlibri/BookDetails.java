@@ -295,6 +295,9 @@ public class BookDetails extends VideLibriFakeFragment {
         addIfExists(tr(R.string.book_category), "category");
         //addIfExists("Jahr", "year");
         addIfExists(tr(R.string.book_publisher), "publisher");
+        String renewCount = book.getProperty("renewCount");
+        if (!"".equals(renewCount) && !"0".equals(renewCount))
+            details.add(new Details(tr(R.string.book_renewCount), renewCount));
 
         final List<String> above = Arrays.asList("status", "category", "libraryBranch", "publisher", "orderable", "cancelable", "renewCount", "isbn");
 

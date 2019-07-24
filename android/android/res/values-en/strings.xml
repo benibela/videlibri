@@ -437,4 +437,5 @@
     <string name="lay_options_btn_account_toggle_description">Show or hide</string>
     <string name="warning_search_is_broken">There is no search functionality with this library, so it is pointless to create a search account.</string>
     <string name="warning_account_is_broken">There is no account functionality with this library, so it is pointless to enter an account number.</string>
+    <string name="book_renewCount">Renewal count</string>
 </resources>
