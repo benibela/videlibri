@@ -52,9 +52,7 @@ class BookOverviewAdapter extends ArrayAdapter<Bridge.Book> {
         placeHolder.author = context.getString(R.string.booklist_loading);
 
 
-        BookFormatter.tr_booklist_from = context.getString(R.string.booklist_from);
-        BookFormatter.tr_provided = context.getString(R.string.book_status_provided);
-        BookFormatter.tr_ordered = context.getString(R.string.book_status_ordered);
+        BookFormatter.tr.init(context);
     }
 
 
