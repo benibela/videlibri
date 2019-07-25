@@ -7,6 +7,5 @@ bookTableBroken := true()
 noExtendingPossible := true()
 noExtendingPossible := false()
 bookTableBroken := false()
-temporaryStatusDetails := text{"¬Die¬ Freundschaft: Roman"}
-book := {"extendid": "REN1198850", "status:curious": "bisher 0 mal verlängert", "duedate:d mmm yyyy": "24 Mär 2014", "author": "Palmen, Connie", "title": "¬Die¬ Freundschaft: Roman", "id": "1198850"}
+book := {"statusId": "curious", "extendid": "REN1198850", "renewCount": "0", "duedate": "2014-03-24", "author": "Palmen, Connie", "status": "", "title": "¬Die¬ Freundschaft: Roman", "id": "1198850"}
 mid := text{"16079"}

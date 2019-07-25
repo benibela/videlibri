@@ -8,13 +8,13 @@ noExtendingPossible := true()
 hasShelfMark := true()
 noExtendingPossible := false()
 bookTableBroken := false()
-temporaryStatusDetails := text{"6696096046 - 1. Verlängerung   für Benutzer #00008332213; Verlängerung des Mediums nicht erlaubt bis:  2 Mär 2016."}
-book := {"status:problematic": "6696096046 - 1. Verlängerung   für Benutzer #00008332213; Verlängerung des Mediums nicht erlaubt bis:  2 Mär 2016.", "status:curious": "bisher 0 mal verlängert", "duedate:d mmm yyyy": "9 Mär 2016", "author": "Pfendtner, Ingrid", "title": "Mysteriös: geheimnisvollen Phänomenen auf der Spur", "id": "6696096046", "extendid": ""}
+book := {"renewCount": "0", "duedate": "2016-03-09", "category": "Uax 1 Pfend", "author": "Pfendtner, Ingrid", "status": " 6696096046 - 1. Verlängerung   für Benutzer #00008332213; Verlängerung des Mediums nicht erlaubt bis:  2 Mär 2016.", "title": "Mysteriös: geheimnisvollen Phänomenen auf der Spur  ", "id": "6696096046", "statusId": "critical"}
+result := ()
 mid := text{"67873"}
 cancelForm := {"method": "POST", "post": "MGWCHD=0&TOKEN=DBDWmhc8sk4064&TOKENX=DBDWmhc8sk4064&DATA=SAR&usercode=&VERSION=2&bno=00008332213&mid=67873&ACTION=MEMSLFRES", "url": "http://opac.saarbruecken.de/libero/WebOpac.cls"}
 hasShelfMark := false()
 hasDelete := false()
 hasShelfMark := true()
 hasDelete := true()
-book := {"cancelable": true, "cancelId": "RES456015RES=456015", "issueDate": "2016-02-10", "author": "Beaton, Marion Chesney", "title": "Agatha Raisin und die Tote im Feld", "id": "", "statusId": "ordered"}
+book := {"cancelable": true, "cancelId": "RES456015RES=456015", "issueDate": "2016-02-10", "category": "1 Beato", "author": "Beaton, Marion Chesney", "title": "Agatha Raisin und die Tote im Feld", "id": "", "statusId": "ordered"}
 mid := text{"67873"}

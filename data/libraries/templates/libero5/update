@@ -11,11 +11,11 @@
  </div></fieldset>
 
  <form name="MEMISSIT" template:optional="true">
-   <template:read source="true()" var="bookTableBroken"/>
+   {bookTableBroken:=true()}
    <fieldset id="issued_items">
      
      <table>
-       <template:read source="true()" var="noExtendingPossible"/>
+       {$noExtendingPossible:=true()}
        <thead><tr><th  class="barcode"  ></th>
                   <th   ></th> <!-- class: titleVolRef -->
                   <th  class="author"   ></th>
@@ -23,41 +23,33 @@
                   <th  class="dueDate"   ></th>
                   <th  class="numRenewals"  ></th>
                   <th  class="renew"   template:optional="true">
-                    <template:read source="false()" var="noExtendingPossible"/>
+                    {noExtendingPossible:=false()}
                   </th></tr></thead>
                   
        <template:loop> 
        <tr>
-          {book := object()}
-          <template:read source="false()" var="bookTableBroken"/>
-          <template:read var="book.extendid" source="''"/>
-          <th class="barcode" headers="th1_1"><template:read source="." var="book.id"/></th>
+          {book := {"statusId": "critical"}, bookTableBroken := false()}
+          <th class="barcode" headers="th1_1">{$book.id}</th>
           <td headers="th1_2">
-            <template:read source="text()" var="book.title"/>
-            <span class='ItemNotesLeader' t:optional=true/>
-            <br template:optional="true"/>
-            <template:read source="text()" var="temporaryStatusDetails"/>
+            {let $separators := (.//span[contains(@class, "ItemNotesLeader")], .//br)[1]
+            return (
+             book.title := if ($separators) then join($separators/preceding-sibling::node()) else .,
+             book.status := if ($separators) then join($separators/following-sibling::node()) 
+                            else if ($noExtendingPossible) then 'Prinzipiell keine Verlängerung möglich'
+                            else ""
+            )}
           </td>
-          <td headers="th1_3"><template:read source="." var="book.author"/></td>
-          <td t:test="$hasShelfMark"/>
-          <td><template:read source="." var="book.duedate:d mmm yyyy"/></td>
-          <td><template:read source="concat('bisher ',., ' mal verlängert')" var="book.status:curious"/></td>
-          <td template:optional="true" t:condition="input">
-            <input><template:read var="book.extendid" source="@name"/></input>
-          </td>
-          <template:if test="$book.extendid=''">
-            <template:read var="book.status:problematic" source="$temporaryStatusDetails"/>
-          </template:if>
-          <template:if test="$noExtendingPossible">
-            <template:read var="book.status:problematic" source="'Prinzipiell keine Verlängerung möglich'"/>
-          </template:if>
+          <td headers="th1_3">{$book.author}</td>
+          <td t:test="$hasShelfMark">{$book.category}</td>
+          <td>{$book.duedate := parse-date(.)}</td>
+          <td>{$book.renewCount}</td>
+          <td template:optional="true">{let $name := input/@name where $name return ($book.extendid:=$name, 
+                                                                                     $book.statusId := "curious")}</td>
        </tr>
        </template:loop>
      </table>
 
-     <input type="hidden" name="mid">
-       <template:read var="mid" source="@value"/>
-     </input>
+     <input type="hidden" name="mid">{$mid := @value}</input>
   </fieldset>
  </form>
  
@@ -81,8 +73,8 @@
           <td headers='th7_2'>{$book.id}</td>
           <td>{$book.title}</td>
           <td>{$book.author}</td>
-          <td t:test="$hasShelfMark"/>
-          <td>{$book.issueDate := parse-date(., "d mmm yyyy")}</td>
+          <td t:test="$hasShelfMark">{$book.category}</td>
+          <td>{$book.issueDate := parse-date(.)}</td>
           <td t:test="$hasDelete"><input type="checkbox">{
             book.cancelId := uri-combine(., ()),
             book.cancelable := true()
