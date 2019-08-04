@@ -10,7 +10,10 @@ VIDELIBRIBASE=$HGROOT/programs/internet/VideLibri
 
 function pushhg(){
   PUBLICHG=$HGROOT/../videlibrixidelpublichg
-  syncHg $VIDELIBRIBASE/_hg.filemap $HGROOT $PUBLICHG
+  if [[ -e $PUBLICHG ]]; then
+    syncHg $VIDELIBRIBASE/_hg.filemap $HGROOT $PUBLICHG
+    $PUBLICHG/makebadge.sh
+  fi
 }
 
 
