@@ -64,11 +64,6 @@ build)
       BUILDMODE=release
       BUILDARM=true
       BUILDX86=true
-    ;;
-    64-bit)
-      BUILDMODE=release64bit
-      BUILDARM=true
-      BUILDX86=true
       BUILDARM64=true
       BUILDX64=true
     ;;
@@ -81,17 +76,19 @@ build)
       BUILDX86=true
     ;;
     arm64) 
-      BUILDMODE=release64bit
+      BUILDMODE=debug
       BUILDARM64=true
     ;;
     x64) 
-      BUILDMODE=release64bit
+      BUILDMODE=debug
       BUILDX64=true
     ;;
     *)
       BUILDMODE=debug
       BUILDARM=true
       BUILDX86=true
+      BUILDARM64=true
+      BUILDX64=true
     ;;
   esac
 
@@ -109,7 +106,6 @@ build-gradle|build-java)
   case "$BUILDMODE" in
   debug) GRADLEMODE=assembleDebug;;
   release) GRADLEMODE=assembleRelease;;
-  release64bit|64-bit) GRADLEMODE=assembleRelease64bit;;
   esac
   
   ./gradlew $GRADLEMODE || { echo "FAILED!"; exit 1; }
@@ -124,7 +120,6 @@ build-gradle|build-java)
 install)
   case "$2" in
     release) BUILDMODE=release;;
-    release64bit|64-bit) BUILDMODE=release64bit;;
     *) BUILDMODE=debug;;
   esac
 

@@ -13,7 +13,7 @@ android
     minSdkVersion 14
     targetSdkVersion 27
     ndk {
-      abiFilters 'armeabi-v7a', 'x86', 'armeabi'
+      abiFilters 'armeabi-v7a', 'x86', 'armeabi', 'arm64-v8a', 'x86_64'
     }
   }
 
@@ -51,10 +51,6 @@ android
     debug {
       applicationIdSuffix '.debug'
       manifestPlaceholders = [ applicationLabel: "DebugVideLibri" ]
-    }
-    release64bit {
-      initWith release
-      ndk { abiFilters 'armeabi-v7a', 'x86', 'armeabi', 'arm64-v8a', 'x86_64' }
     }
   }
 
