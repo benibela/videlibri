@@ -289,7 +289,7 @@ public class BookDetails extends VideLibriFakeFragment {
             details.add(new Details(tr(R.string.book_lenddate), book.issueDate != 0 ? s : tr(R.string.book_lenddate_before_prefixS, s)));
         }
         addIfExists(tr(R.string.book_lendat) , "libraryBranch");
-        if (book.account != null) details.add(new Details(tr(R.string.book_account), book.account.prettyName));
+        addIfExists(tr(R.string.book_libraryLocation) , "libraryLocation");
 
         //addIfExists("ID", "id");
         addIfExists(tr(R.string.book_category), "category");
@@ -298,6 +298,7 @@ public class BookDetails extends VideLibriFakeFragment {
         String renewCount = book.getProperty("renewCount");
         if (!"".equals(renewCount) && !"0".equals(renewCount))
             details.add(new Details(tr(R.string.book_renewCount), renewCount));
+        if (book.account != null) details.add(new Details(tr(R.string.book_account), book.account.prettyName));
 
         final List<String> above = Arrays.asList("status", "category", "libraryBranch", "publisher", "orderable", "cancelable", "renewCount", "isbn");
 

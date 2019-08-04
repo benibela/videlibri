@@ -43,7 +43,7 @@ type
   //protected
     //persistent
     id,author,title,year:string; //schlüssel
-    libraryBranch: string; //branch of the library ("Filiale")
+    libraryBranch, libraryLocation: string; //branch of the library ("Filiale")
     isbn: string;
     category,statusStr{,otherInfo}: string;
     issueDate,dueDate:longint;
@@ -336,11 +336,12 @@ procedure TBook.serialize(str: TSerializeStringProperty; date: TSerializeDatePro
 begin
   if Assigned(str) then begin
     str('id', id);
-    str('libraryBranch', libraryBranch);
     str('author', author);
     str('title', title);
     str('isbn', isbn);
     str('year', year);
+    str('libraryBranch', libraryBranch);
+    str('libraryLocation', libraryLocation);
     str('category', category);
     str('status', statusStr);
     //str('otherInfo', otherInfo);
@@ -370,6 +371,7 @@ begin
   year:='';
   StatusStr:='';
   libraryBranch := '';
+  libraryLocation := '';
   isbn := '';
   Status:=bsUnknown;
   cancelable:=tUnknown;
@@ -402,6 +404,7 @@ begin
   if (book=nil) or (book = self) then exit;
   category:=book.category;
   libraryBranch:=book.libraryBranch;
+  libraryLocation:=book.libraryLocation;
   isbn:=book.isbn;
   statusStr:=book.statusStr;
   issueDate:=book.issueDate;
@@ -534,11 +537,12 @@ procedure TBook.setProperty(const name, value: string);
 begin
   case lowercase(name) of
     'category': Category:=value;
-    'librarybranch': libraryBranch := value;
     'id': Id:=value;
     'author': Author:=value;
     'title': Title:=value;
     'year': Year:=value;
+    'librarybranch': libraryBranch := value;
+    'librarylocation': libraryLocation := value;
     'isbn': isbn:=value;
     'statusid':
         case value of
@@ -578,11 +582,12 @@ function TBook.getProperty(const name: string; const def: string): string;
 begin
   case lowercase(name) of
     'category': result:=Category;
-    'librarybranch': result:=libraryBranch;
     'id': result:=Id;
     'author': result:=Author;
     'title': result:=Title;
     'year': result:=Year;
+    'librarybranch': result:=libraryBranch;
+    'librarylocation': result:=libraryLocation;
     'isbn': result:=isbn;
     'statusid': result := BookStatusToSerializationStr(status);
     'cancelable': case cancelable of

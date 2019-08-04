@@ -157,7 +157,7 @@ var
     end;
 
     globalStrings: record
-      libraryBranch, isbn, category, status, renewCount, cancelable: jobject;
+      libraryBranch, libraryLocation, isbn, category, status, renewCount, cancelable: jobject;
     end;
 
 function assetFileAsString(name: rawbytestring): string;
@@ -360,6 +360,7 @@ begin
 
       with globalStrings do begin
         libraryBranch := newGlobalRefAndDelete(NewStringUTF('libraryBranch'));
+        libraryLocation := newGlobalRefAndDelete(NewStringUTF('libraryLocation'));
         isbn := newGlobalRefAndDelete(NewStringUTF('isbn'));
         category := newGlobalRefAndDelete(NewStringUTF('category'));
         status := newGlobalRefAndDelete(NewStringUTF('status'));
@@ -962,6 +963,7 @@ begin
     deleteLocalRef(args[INIT_STR+3].l);
 
     putProperty(globalStrings.libraryBranch, libraryBranch);
+    putProperty(globalStrings.libraryLocation, libraryLocation);
     putProperty(globalStrings.isbn, isbn);
     putProperty(globalStrings.category, category);
     putProperty(globalStrings.status, statusStr);
