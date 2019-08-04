@@ -63,7 +63,7 @@ internal object BookFormatter {
     @JvmStatic fun getBookMoreText(book: Bridge.Book): String =
         listOf(shortened(book.author.trim { it <= ' ' }),
                 book.year,
-                book.id).filter { it.isNotBlank() }.joinToString { " ; " }
+                book.id).filter { it.isNotBlank() }.joinToString(" ; ") 
 
     @JvmStatic fun getBookDateText(book: Bridge.Book, options: BookListDisplayOptions): String =
         if (book.account != null && !book.history) { //lend book
